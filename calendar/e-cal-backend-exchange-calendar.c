@@ -1207,8 +1207,8 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 		
 	comp = e_cal_component_new ();
 	e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (ecomp->icomp));
-	if(object)
-		*object = e_cal_component_get_as_string (comp);
+	if (old_object)
+		*old_object = e_cal_component_get_as_string (comp);
 	
 	switch (mod) {
 		
@@ -1223,6 +1223,7 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 						return GNOME_Evolution_Calendar_Success;
 				}
 			}
+			*object = NULL;
 			break;
 		case CALOBJ_MOD_THIS:
 			/*remove_instance and modify */
@@ -1275,6 +1276,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 	for (l = comps; l; l= l->next) {
 		const char *uid, *rid;
 		char *calobj;
+		char *object = NULL;
 		
 		subcomp = l->data;
 		
@@ -1322,11 +1324,15 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 		case ICAL_METHOD_CANCEL:
 			calobj = (char *) icalcomponent_as_ical_string (subcomp);
 			if (rid)
-				status = remove_object (backend, cal, uid, rid, CALOBJ_MOD_THIS, &calobj, NULL);
+				status = remove_object (backend, cal, uid, rid, CALOBJ_MOD_THIS, &calobj, &object);
 			else
-				status = remove_object (backend, cal, uid, NULL, CALOBJ_MOD_ALL, &calobj, NULL);
+				status = remove_object (backend, cal, uid, NULL, CALOBJ_MOD_ALL, &calobj, &object);
 			if (status == GNOME_Evolution_Calendar_Success) 
 				e_cal_backend_notify_object_removed (E_CAL_BACKEND (backend), uid, calobj, NULL);
+			if (object) {
+				g_free (object);
+				object = NULL;
+			}
 			break;
 		default:
 			status = GNOME_Evolution_Calendar_UnsupportedMethod;
@@ -1457,6 +1463,8 @@ book_resource (ECalBackendExchange *cbex,
 	ecomp = get_exchange_comp (E_CAL_BACKEND_EXCHANGE (cbex), uid);
 												 
 	if (method == ICAL_METHOD_CANCEL) {
+		char *object = NULL;
+		
 		/* g_object_unref (comp); */
 		/* If there is nothing to cancel, we're good */
 		if (!ecomp) {
@@ -1478,9 +1486,10 @@ book_resource (ECalBackendExchange *cbex,
 		e_cal_component_set_transparency (E_CAL_COMPONENT (comp), E_CAL_COMPONENT_TRANSP_TRANSPARENT);
 		calobj = (char *) e_cal_component_get_as_string (comp);
 		rid = (char *) e_cal_component_get_recurid_as_string (comp);
-		status = remove_object (E_CAL_BACKEND_SYNC (cbex), cal, uid, rid, CALOBJ_MOD_THIS, &calobj, NULL);
+		status = remove_object (E_CAL_BACKEND_SYNC (cbex), cal, uid, rid, CALOBJ_MOD_THIS, &calobj, &object);
 		e_cal_backend_notify_object_removed (E_CAL_BACKEND (cbex), uid, calobj, NULL);
 		g_free (calobj); 
+		g_free (object);
 	} else {
 		/* Check that the new appointment doesn't conflict with any
 		 * existing appointment.

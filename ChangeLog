@@ -1,3 +1,12 @@
+2005-04-01  Chenthill Palanisamy  <pchenthill@novell.com>
+
+	Fixes #74227
+	* calendar/e-cal-backend-exchange-calendar.c
+       	(remove_object): Removed the check for the presence of object 
+	and assign proper values to old_object and object.
+	(receive_objects), (book_resource): Do not send NULL for the 
+	last argument in remove_object.
+	
 2005-04-01  Adi Attar  <aattar@cvs.gnome.org>
 
 	* configure.in: Added "xh" to ALL_LINGUAS.
@@ -36,9 +45,10 @@
 	the addressbook as not writable. In online mode, Setting writable and 
 	notifying writable state based on users access permissions.
 
+>>>>>>> 1.316
 2005-03-31  Chenthill Palanisamy  <pchenthill@novell.com>
 
-	Fixes #73929
+	Fixes #73969
 	* calendar/e-cal-backend-exchange-calendar.c: (receive_objects): If the 
 	rid is not present and the method is CANCEL remove the recurrence event
        	completely.
