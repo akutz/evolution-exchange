@@ -359,8 +359,6 @@ modify_contact (EBookBackend *backend,
 				    NULL);
 }
 
-
-
 typedef struct {
 	LDAPOp op;
 } LDAPGetContactOp;
@@ -474,7 +472,6 @@ get_contact (EBookBackend *backend,
 	}
 }
 
-
 typedef struct {
 	LDAPOp op;
 	GList *contacts;
@@ -502,6 +499,7 @@ contact_list_handler (LDAPOp *op, LDAPMessage *res)
 			contact_list_op->contacts = g_list_append (contact_list_op->contacts,
 								   vcard);
 
+			g_free (vcard);
 			g_object_unref (contact);
 			e = ldap_next_entry(ldap, e);
 		}
@@ -1206,6 +1204,8 @@ start_book_view (EBookBackend  *backend,
 			      &ldap_query);
 	if (status != GNOME_Evolution_Addressbook_Success || !ldap_query) {
 		e_data_book_view_notify_complete (view, status);
+		if (ldap_query)
+			g_free (ldap_query);
 		return;
 	}
 
@@ -1356,7 +1356,7 @@ load_source (EBookBackend *backend,
 {
 	EBookBackendGAL *bl = E_BOOK_BACKEND_GAL (backend);
 	const char *host;
-	const char *uri;
+	char *uri;
 
 	g_return_val_if_fail (bl->priv->connected == FALSE, GNOME_Evolution_Addressbook_OtherError);
 
@@ -1366,7 +1366,7 @@ load_source (EBookBackend *backend,
 	if (strncmp (uri, "gal://", host - uri))
 		return FALSE;
 
-	bl->priv->gal_uri = g_strdup (uri);
+	bl->priv->gal_uri = uri;
 	return gal_connect (bl);
 }
 

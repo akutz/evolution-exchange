@@ -164,13 +164,16 @@ make_dir (const char *path, mode_t mode)
         	if (p)
                 	*p = '\0';
         	if (access(copy, F_OK) == -1) {
-                	if (mkdir(copy, mode) == -1)
+                	if (mkdir(copy, mode) == -1) {
+				g_free (copy);
                         	return FALSE;
+			}
 		}
 		if (p)
 			*p = '/';
 	} while (p);
 
+	g_free (copy);
 	return TRUE;
 }
 
@@ -322,6 +325,7 @@ form_dir_path (char *file_name, char *delim)
 		token = strtok (NULL, delim);
 	}
 	dir_path = g_strndup(path->str, strlen(path->str) - 12);
+	g_string_free (path, TRUE);
 	return dir_path; 
 }
 
@@ -330,16 +334,13 @@ get_contacts_dir_from_filename(const char *migr_file)
 {
 	char *file_to_be_migrated = g_strdup (migr_file);
 	char *dot, *delim = "_", *file_name;
-	gchar *dir_path;
+	gchar *dir_path = NULL;
 
 	dot = strchr (file_to_be_migrated, '.');
 	if (dot) { 
 		file_name = g_strndup (file_to_be_migrated, dot - file_to_be_migrated);
 		dir_path = form_dir_path (file_name, delim);
-	}
-	else {
-		g_free (file_to_be_migrated);
-		return NULL;
+		g_free (file_name);
 	}
 	g_free (file_to_be_migrated);	
 	return dir_path;

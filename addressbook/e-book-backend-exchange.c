@@ -849,7 +849,7 @@ proppatch_address (PropMapping *prop_mapping,
 		   EContact *new_contact, EContact *cur_contact,
 		   E2kProperties *props)
 {
-	const EContactAddress *new_address, *cur_address = NULL;
+	EContactAddress *new_address, *cur_address = NULL;
 	char *new_addrprops[ADDRPROP_LAST], *cur_addrprops[ADDRPROP_LAST];
 	char **propnames, *value;
 	int i;
@@ -877,6 +877,7 @@ proppatch_address (PropMapping *prop_mapping,
 		if (cur_address) {
 			for (i = 0; i < ADDRPROP_LAST; i ++)
 				e2k_properties_remove (props, propnames[i]);
+			e_contact_address_free (cur_address);
 		}
 		return;
 	}
@@ -915,7 +916,12 @@ proppatch_address (PropMapping *prop_mapping,
 		} else
 			value = g_strdup (new_addrprops[i]);
 		e2k_properties_set_string (props, propnames[i], value);
+		g_free (value);
 	}
+
+	e_contact_address_free (new_address);
+	if (cur_address)
+		e_contact_address_free (cur_address);
 }
 
 static void
@@ -1314,6 +1320,9 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 			e_contact_photo_free (new_photo);
 	}
 
+	if (old_contact)
+		g_object_unref (old_contact);
+
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 		e_book_backend_summary_remove_contact (be->priv->summary, uri);
 		e_book_backend_summary_add_contact (be->priv->summary,
@@ -1539,8 +1548,6 @@ e_book_backend_exchange_build_restriction (const char *query,
 	return rn;
 }
 
-
-
 static void
 notify_remove (gpointer id, gpointer value, gpointer backend)
 {
@@ -1633,6 +1640,7 @@ e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 		if (!vcard)
 			continue;
 		*contacts = g_list_prepend (*contacts, vcard);
+		g_free (vcard);
 	}
 	status = e2k_result_iter_free (iter);
 
@@ -1941,6 +1949,7 @@ e_book_backend_exchange_remove (EBookBackendSync *backend, EDataBook *book, guin
 	if (path)
 		path = strchr (path + 3, '/');
 	status = exchange_account_remove_folder (be->priv->account, path);
+	g_free (path);
 	 */
 	status = e_folder_exchange_delete (be->priv->folder, NULL);
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status))

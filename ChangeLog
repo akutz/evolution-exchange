@@ -1,3 +1,15 @@
+2004-12-14  Sushma Rai <rsushma@novell.com>
+
+	* addressbook/e-book-backend-exchange.c (proppatch_address)
+	(e_book_backend_exchange_modify_contact)(notify_remove):
+	Fixed some memory leaks.
+
+	* addressbook/e-book-backend-gal.c (contact_list_handler)
+	(start_book_view)(load_source): ditto
+
+	* storage/exchange-migrate.c (make_dir)(form_dir_path)
+	(get_contacts_dir_from_filename): ditto
+
 2004-12-11  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* configure.in : Fix up camel version to now be 1.2
