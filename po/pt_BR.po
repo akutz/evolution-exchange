@@ -1,5 +1,4 @@
-# translation of evolution-exchange.HEAD.pt_BR.po to Português/Brasil
-# Brazilian Portuguese translation of Evolution Exchange Connector.
+# Brazilian Portuguese translation of evolution-exchange
 # Copyright (C) 2004, 2005 Free Software Foundation, Inc.
 # Gustavo Maciel Dias Vieira <gustavo@sagui.org>, 2004.
 # Bruno Guimarães de Faria e Silva <melkor.faria@gmail.com>, 2004.
@@ -9,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-27 14:37+0100\n"
-"PO-Revision-Date: 2005-03-03 14:22-0300\n"
+"POT-Creation-Date: 2005-03-04 13:11+0100\n"
+"PO-Revision-Date: 2005-03-04 13:28-0300\n"
 "Last-Translator: Afonso Celso Medina <medina@maua.br>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -53,51 +52,51 @@ msgstr ""
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "O recurso '%s' está ocupado durante o período de tempo selecionado."
 
-#: camel/camel-exchange-folder.c:220
+#: camel/camel-exchange-folder.c:219
 msgid "Can only expunge in Deleted Items folder"
 msgstr "Só é possível excluir permanentemente na pasta Ítens excluídos"
 
-#: camel/camel-exchange-folder.c:244
+#: camel/camel-exchange-folder.c:243
 msgid "No Subject"
 msgstr "Sem assunto"
 
-#: camel/camel-exchange-folder.c:371
+#: camel/camel-exchange-folder.c:370
 msgid "This message is not available in offline mode."
 msgstr "Esta mensagem não está disponível em modo desconectado"
 
-#: camel/camel-exchange-folder.c:606
+#: camel/camel-exchange-folder.c:605
 msgid "Moving messages"
 msgstr "Movendo mensagens"
 
-#: camel/camel-exchange-folder.c:607
+#: camel/camel-exchange-folder.c:606
 msgid "Copying messages"
 msgstr "Copiando mensagens"
 
-#: camel/camel-exchange-folder.c:939
+#: camel/camel-exchange-folder.c:938
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Não foi possível criar o diretório %s: %s"
 
-#: camel/camel-exchange-folder.c:949
+#: camel/camel-exchange-folder.c:948
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Não foi possível carregar resumo para %s"
 
-#: camel/camel-exchange-folder.c:957
+#: camel/camel-exchange-folder.c:956
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Não foi possível criar cache para %s"
 
-#: camel/camel-exchange-folder.c:967
+#: camel/camel-exchange-folder.c:966
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Não foi possível criar journal para %s"
 
-#: camel/camel-exchange-folder.c:1007
+#: camel/camel-exchange-folder.c:1006
 msgid "Scanning for changed messages"
 msgstr "Varrendo a procura de mensagens alteradas"
 
-#: camel/camel-exchange-folder.c:1033
+#: camel/camel-exchange-folder.c:1032
 msgid "Fetching summary information for new messages"
 msgstr "Pegando informação de resumo para novas mensagens"
 
@@ -324,8 +323,7 @@ msgstr ""
 "Não foi possível localizar dados OWA na URL indicada.\n"
 "Verifique se a URL está correta e tente novamente."
 
-#: lib/e2k-autoconfig.c:1475
-#, c-format
+#: lib/e2k-autoconfig.c:1474
 msgid ""
 "Ximian Connector requires access to certain functionality on the Exchange "
 "Server that appears to be disabled or blocked.  (This is usually "
@@ -334,14 +332,15 @@ msgid ""
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:\n"
-"%s"
+"http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
+"html "
 msgstr ""
 "O Ximian Connector exige acesso a certas funcionalidades no servidor Exchange que aparentam estar desativadas ou bloqueadas. (Isto é normalmente não intencional.) O seu administrador Exchange deverá ativar estas funcionalidades para que você seja capaz de usar o Ximian Connector.\n"
 "\n"
 "Para obter a informação a ser fornecida ao seu administrador Exchange, por favor siga o link abaixo:\n"
-"%s"
+"http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328.html"
 
-#: lib/e2k-autoconfig.c:1491 storage/exchange-autoconfig-wizard.c:288
+#: lib/e2k-autoconfig.c:1490 storage/exchange-autoconfig-wizard.c:288
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
@@ -349,7 +348,7 @@ msgstr ""
 "A URL de servidor Exchange fornecida é para um servidor Exchange 5.5. O "
 "Ximian Connector suporta apenas Microsoft Exchange 2000 e 2003."
 
-#: lib/e2k-autoconfig.c:1500 storage/exchange-autoconfig-wizard.c:301
+#: lib/e2k-autoconfig.c:1499 storage/exchange-autoconfig-wizard.c:301
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -357,12 +356,12 @@ msgstr ""
 "Não foi possível configurar a conta Exchange devido a um erro desconhecido. "
 "Verifique a URL, o nome de usuário e a senha e tente novamente."
 
-#: lib/e2k-autoconfig.c:1525
+#: lib/e2k-autoconfig.c:1524
 #, c-format
 msgid "Enter password for %s"
 msgstr "Entre senha para %s"
 
-#: lib/e2k-autoconfig.c:1526 storage/exchange-account.c:858
+#: lib/e2k-autoconfig.c:1525 storage/exchange-account.c:858
 msgid "Enter password"
 msgstr "Entre a senha"
 
@@ -1118,7 +1117,7 @@ msgstr "Tarefas"
 msgid "Calendar"
 msgstr "Agenda"
 
-#: storage/exchange-config-listener.c:727
+#: storage/exchange-config-listener.c:781
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
@@ -1126,7 +1125,7 @@ msgstr ""
 "Alterações na configuração da conta Exchange terão\n"
 "efeito após você sair e reiniciar o Evolution."
 
-#: storage/exchange-config-listener.c:773
+#: storage/exchange-config-listener.c:827
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr "A conta Exchange será removida quando você sair do Evolution"
 
@@ -1362,11 +1361,11 @@ msgstr ""
 msgid "Migrating `%s':"
 msgstr "Migrando `%s':"
 
-#: storage/exchange-oof.c:200 storage/exchange-oof.c:407
+#: storage/exchange-oof.c:199 storage/exchange-oof.c:406
 msgid "Could not update out-of-office state"
 msgstr "Não foi possível atualizar estado fora-do-escritório"
 
-#: storage/exchange-oof.c:425
+#: storage/exchange-oof.c:424
 msgid "Could not read out-of-office state"
 msgstr "Não foi possível ler estado fora-do-escritório"
 
