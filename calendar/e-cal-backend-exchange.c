@@ -127,7 +127,7 @@ get_static_capabilities (ECalBackendSync *backend, EDataCal *cal, char **capabil
 static void
 load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri)
 {
-	icalcomponent *vcalcomp, *comp;
+	icalcomponent *vcalcomp, *comp, *tmp_comp;
 	struct icaltimetype comp_last_mod, folder_last_mod;
 	icalcomponent_kind kind;
 	icalproperty *prop;
@@ -175,7 +175,11 @@ load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri)
 	for (comp = icalcomponent_get_first_component (vcalcomp, ICAL_VTIMEZONE_COMPONENT);
 	     comp;
 	     comp = icalcomponent_get_next_component (vcalcomp, ICAL_VTIMEZONE_COMPONENT)) {
-		e_cal_backend_exchange_add_timezone (cbex, icalcomponent_new_clone (comp));
+		tmp_comp = icalcomponent_new_clone (comp);
+		if (tmp_comp) {
+			e_cal_backend_exchange_add_timezone (cbex, icalcomponent_new_clone (comp));
+			icalcomponent_free (tmp_comp);
+		}
 	}
 
 	icalcomponent_free (vcalcomp);
@@ -845,13 +849,14 @@ add_timezone (ECalBackendSync *backend, EDataCal *cal,
 	status = e_cal_backend_exchange_add_timezone (cbex, vtzcomp);
 	switch (status) {
 	case GNOME_Evolution_Calendar_ObjectIdAlreadyExists:
-		icalcomponent_free (vtzcomp);
 		/* fall through */
 
 	case GNOME_Evolution_Calendar_Success:
+		icalcomponent_free (vtzcomp);
 		return GNOME_Evolution_Calendar_Success;
 
 	default:
+		icalcomponent_free (vtzcomp);
 		return status;
 	}
 }

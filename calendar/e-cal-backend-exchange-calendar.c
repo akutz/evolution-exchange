@@ -157,7 +157,7 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 {
 	const char *start, *end;
 	char *ical_body;
-	icalcomponent *comp, *subcomp;
+	icalcomponent *comp, *subcomp, *new_comp;
 	icalcomponent_kind kind;
 	gboolean status;
 
@@ -181,15 +181,21 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 		status = add_vevent (cbex, href, lastmod, comp);
 		icalcomponent_free (comp);
 		return status;
-	} else if (kind != ICAL_VCALENDAR_COMPONENT)
+	} else if (kind != ICAL_VCALENDAR_COMPONENT) {
+		icalcomponent_free (comp);
 		return FALSE;
+	}
 
 	add_timezones_from_comp (cbex, comp);
 
 	subcomp = icalcomponent_get_first_component (
 		comp, ICAL_VEVENT_COMPONENT);
 	while (subcomp) {
-		add_vevent (cbex, href, lastmod, icalcomponent_new_clone (subcomp));
+		new_comp = icalcomponent_new_clone (subcomp);
+		if (new_comp) {
+			add_vevent (cbex, href, lastmod, new_comp);
+			icalcomponent_free (new_comp);
+		}
 		subcomp = icalcomponent_get_next_component (
 			comp, ICAL_VEVENT_COMPONENT);
 	}
