@@ -140,23 +140,9 @@ glade_DATA =					\
 uidir   = $(CONNECTOR_DATADIR)/ui
 ui_DATA = ximian-connector.xml
 
-schemadir   = $(GCONF_SCHEMA_FILE_DIR)
-schema_DATA = apps_evolution_exchange.schemas
-
-install-data-local: $(noinst_DATA)
-	if test -z "$(DESTDIR)" ; then					    \
-		export GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE);   \
-		for p in $(schema_DATA) ; do				    \
-			$(GCONFTOOL) --makefile-install-rule $(srcdir)/$$p; \
-		done							    \
-	fi
-
-
-
 EXTRA_DIST =				\
 	$(server_in_files)		\
 	$(server_DATA)			\
 	$(images_DATA)			\
 	$(glade_DATA)			\
-	$(ui_DATA)			\
-	$(schema_DATA)
+	$(ui_DATA)

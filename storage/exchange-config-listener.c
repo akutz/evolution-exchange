@@ -35,7 +35,6 @@
 #include "mail-stub-listener.h"
 
 #include <e-util/e-dialog-utils.h>
-//#include <shell/e-folder-list.h>
 
 #include <libedataserver/e-source.h>
 #include <libedataserver/e-source-list.h>
@@ -160,111 +159,6 @@ E2K_MAKE_TYPE (exchange_config_listener, ExchangeConfigListener, class_init, ini
 #define EVOLUTION_URI_PREFIX     "evolution:/"
 #define EVOLUTION_URI_PREFIX_LEN (sizeof (EVOLUTION_URI_PREFIX) - 1)
 
-static void
-remove_one_default_folder (GConfClient *gconf,
-			   const char *evo_uri_path,
-			   const char *exchange_uri_path,
-			   const char *account_uri_prefix,
-			   int account_uri_prefix_len)
-{
-	char *evo_uri;
-
-	evo_uri = gconf_client_get_string (gconf, evo_uri_path, NULL);
-	if (!evo_uri)
-		return;
-	if (!strncmp (evo_uri, account_uri_prefix, account_uri_prefix_len)) {
-		gconf_client_unset (gconf, evo_uri_path, NULL);
-		gconf_client_unset (gconf, exchange_uri_path, NULL);
-	}
-	g_free (evo_uri);
-}
-
-#if E_FOLDER_LIST
-static void
-remove_autocompletion_folders (GConfClient *gconf,
-			       const char *account_uri_prefix,
-			       int account_uri_prefix_len)
-{
-	EFolderListItem *list;
-	GArray *to_be_deleted;
-	char *xml;
-	int i, len;
-
-	xml = gconf_client_get_string (gconf, "/apps/evolution/addressbook/completion/uris", NULL);
-	if (xml) {
-		list = e_folder_list_parse_xml (xml);
-		g_free (xml);
-	} else
-		list = NULL;
-
-	if (!list) {
-		g_warning ("Could not get list of autocompletion folders");
-		return;
-	}
-
-	for (len = 0; list[len].uri; len++)
-		;
-	to_be_deleted = g_array_new (TRUE, TRUE, sizeof (EFolderListItem));
-
-	for (i = 0; list[i].uri; i++) {
-		if (!strncmp (list[i].uri, account_uri_prefix, account_uri_prefix_len)) {
-			g_array_append_val (to_be_deleted, list[i]);
-			memmove (&list[i], &list[i + 1],
-				 (len - i) * sizeof (EFolderListItem));
-			i--;
-			len--;
-		}
-	}
-
-	e_folder_list_free_items ((EFolderListItem *)to_be_deleted->data);
-	g_array_free (to_be_deleted, FALSE);
-
-	xml = e_folder_list_create_xml (list);
-	gconf_client_set_string (gconf, "/apps/evolution/addressbook/completion/uris", xml, NULL);
-	g_free (xml);
-	e_folder_list_free_items (list);
-}
-#endif
-
-static void
-remove_defaults_for_account (ExchangeConfigListener *config_listener,
-			     const char *account_name)
-{
-	char *account_uri_prefix;
-	int account_uri_prefix_len;
-
-	account_uri_prefix = g_strdup_printf ("evolution:/%s/", account_name);
-	account_uri_prefix_len = strlen (account_uri_prefix);
-
-	remove_one_default_folder (config_listener->priv->gconf,
-				   "/apps/evolution/shell/default_folders/mail_path",
-				   "/apps/evolution/shell/default_folders/mail_uri",
-				   account_uri_prefix, account_uri_prefix_len);
-	remove_one_default_folder (config_listener->priv->gconf,
-				   "/apps/evolution/shell/default_folders/contacts_path",
-				   "/apps/evolution/shell/default_folders/contacts_uri",
-				   account_uri_prefix, account_uri_prefix_len);
-	remove_one_default_folder (config_listener->priv->gconf,
-				   "/apps/evolution/shell/default_folders/calendar_path",
-				   "/apps/evolution/shell/default_folders/calendar_uri",
-				   account_uri_prefix, account_uri_prefix_len);
-	remove_one_default_folder (config_listener->priv->gconf,
-				   "/apps/evolution/shell/default_folders/tasks_path",
-				   "/apps/evolution/shell/default_folders/tasks_uri",
-				   account_uri_prefix, account_uri_prefix_len);
-#if E_FOLDER_LIST	
-	remove_autocompletion_folders (config_listener->priv->gconf,
-				       account_uri_prefix,
-				       account_uri_prefix_len);
-#endif
-
-	gconf_client_unset (config_listener->priv->gconf,
-			    "/apps/evolution/exchange/configured_account",
-			    NULL);
-
-	g_free (account_uri_prefix);
-}
-
 static EFolder *
 standard_folder (ExchangeAccount *account, const char *folder_type)
 {
@@ -275,86 +169,6 @@ standard_folder (ExchangeAccount *account, const char *folder_type)
 		return NULL;
 	return exchange_account_get_folder (account, uri);
 }
-
-static gboolean
-add_one_default_folder (GConfClient *gconf, ExchangeAccount *account,
-			char *folder_type, char *default_name)
-{
-	char *dbkey, *evolution_uri;
-	EFolder *folder;
-
-	folder = standard_folder (account, folder_type);
-	if (!folder)
-		return FALSE;
-
-	evolution_uri = g_strdup_printf (EVOLUTION_URI_PREFIX "%s%s",
-					 account->account_name,
-					 e_folder_exchange_get_path (folder));
-	dbkey = g_strdup_printf ("/apps/evolution/shell/default_folders/%s_path", default_name);
-	gconf_client_set_string (gconf, dbkey, evolution_uri, NULL);
-	g_free (dbkey);
-	g_free (evolution_uri);
-
-	dbkey = g_strdup_printf ("/apps/evolution/shell/default_folders/%s_uri", default_name);
-	gconf_client_set_string (gconf, dbkey, e_folder_get_physical_uri (folder), NULL);
-	g_free (dbkey);
-
-	return TRUE;
-}
-
-#if E_FOLDER_LIST
-static void
-set_folder_list_item (EFolderListItem *item, ExchangeAccount *account,
-		      EFolder *folder)
-{
-	item->uri = g_strdup_printf ("evolution:/%s%s",
-				     account->account_name,
-				     e_folder_exchange_get_path (folder));
-	item->physical_uri = g_strdup (e_folder_get_physical_uri (folder));
-	item->display_name = g_strdup (e_folder_get_name (folder));
-}
-
-static void
-add_autocompletion_folders (GConfClient *gconf, ExchangeAccount *account)
-{
-	EFolderListItem *list = NULL;
-	EFolder *folder;
-	char *xml;
-	int len;
-
-	xml = gconf_client_get_string (gconf, "/apps/evolution/addressbook/completion/uris", NULL);
-	if (xml) {
-		list = e_folder_list_parse_xml (xml);
-		g_free (xml);
-	}
-	if (list) {
-		for (len = 0; list[len].uri; len++)
-			;
-		list = g_renew (EFolderListItem, list, len + 3);
-	} else {
-		len = 0;
-		list = g_new (EFolderListItem, 3);
-	}
-
-	folder = standard_folder (account, "contacts");
-	if (folder)
-		set_folder_list_item (&list[len++], account, folder);
-
-	folder = exchange_account_get_folder (account, "/gal");
-	if (folder) {
-		set_folder_list_item (&list[len++], account, folder);
-		gconf_client_set_string (gconf, "/apps/evolution/addressbook/select_names/last_used_uri",
-					 e_folder_get_physical_uri (folder), NULL);
-	}
-
-	list[len].uri = list[len].physical_uri = list[len].display_name = NULL;
-
-	xml = e_folder_list_create_xml (list);
-	gconf_client_set_string (gconf, "/apps/evolution/addressbook/completion/uris", xml, NULL);
-	g_free (xml);
-	e_folder_list_free_items (list);
-}
-#endif
 
 static void
 set_special_mail_folder (ExchangeAccount *account, const char *folder_type,
@@ -376,38 +190,6 @@ add_defaults_for_account (ExchangeConfigListener *config_listener,
 			  ExchangeAccount *account)
 {
 	EAccount *eaccount;
-	char *configured_account;
-	int defaulted;
-
-	/* Look up whether we've defaulted folders for this account before */
-	configured_account = gconf_client_get_string (
-		config_listener->priv->gconf,
-		"/apps/evolution/exchange/configured_account", NULL);
-	if (configured_account &&
-	    !strcmp (configured_account, account->account_name)) {
-		g_free (configured_account);
-		return;
-	}
-	g_free (configured_account);
-
-	defaulted = 0;
-	if (add_one_default_folder (config_listener->priv->gconf,
-				    account, "calendar", "calendar"))
-		defaulted++;
-	if (add_one_default_folder (config_listener->priv->gconf,
-				    account, "contacts", "contacts"))
-		defaulted++;
-	if (add_one_default_folder (config_listener->priv->gconf,
-				    account, "tasks", "tasks"))
-		defaulted++;
-	if (add_one_default_folder (config_listener->priv->gconf,
-				    account, "inbox", "mail"))
-		defaulted++;
-
-	/* Mark them as defaulted for this account so we don't try it again */
-	gconf_client_set_string (config_listener->priv->gconf,
-				 "/apps/evolution/exchange/configured_account",
-				 account->account_name, NULL);
 
 #if LDEAD
 	add_autocompletion_folders (config_listener->priv->gconf, account);
@@ -420,13 +202,6 @@ add_defaults_for_account (ExchangeConfigListener *config_listener,
 				 &eaccount->sent_folder_uri);
 	e_account_list_change (E_ACCOUNT_LIST (config_listener), eaccount);
 	e_account_list_save (E_ACCOUNT_LIST (config_listener));
-
-	if (defaulted != 4) {
-		e_notice (NULL, GTK_MESSAGE_ERROR,
-			  _("Could not set up default folders to point to your Exchange account.\n"
-			    "You may want to update them by hand in the \"Folder Settings\"\n"
-			    "section of the Settings dialog."));
-	}
 }
 
 
@@ -844,8 +619,6 @@ account_removed (EAccountList *account_list, EAccount *account)
 
 	if (account != priv->configured_account)
 		return;
-
-	remove_defaults_for_account (config_listener, account->name);
 
 	/* Remove ESources */
 	remove_sources(priv->exchange_account);
