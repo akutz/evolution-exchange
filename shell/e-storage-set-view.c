@@ -742,7 +742,6 @@ etree_value_at (ETreeModel *etree,
 	EStorageSet *storage_set;
 	EFolder *folder;
 	char *path;
-	const char *folder_name;
 
 	storage_set_view = E_STORAGE_SET_VIEW (model_data);
 	priv = storage_set_view->priv;
