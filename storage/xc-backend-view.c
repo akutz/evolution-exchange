@@ -258,7 +258,7 @@ xc_backend_view_new (ExchangeConfigListener *config_listener,
 	GtkTreeViewColumn *column;
 	GtkTreeSelection *selection;
 	GSList *accounts, *acc;
-	GtkWidget *widget;
+	GtkWidget *widget, *scrolled;
 
 	view = g_object_new (XC_TYPE_BACKEND_VIEW, NULL);
 	priv = view->priv;
@@ -285,7 +285,14 @@ xc_backend_view_new (ExchangeConfigListener *config_listener,
 	widget = gtk_tree_view_new_with_model (GTK_TREE_MODEL (priv->sidebar_model));
 	gtk_widget_show (widget);
 	priv->sidebar = GTK_TREE_VIEW (widget);
-	priv->sidebar_control = bonobo_control_new (widget);
+
+	scrolled = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled),
+					GTK_POLICY_AUTOMATIC,
+					GTK_POLICY_AUTOMATIC);
+	gtk_container_add (GTK_CONTAINER (scrolled), widget);
+	gtk_widget_show (scrolled);
+	priv->sidebar_control = bonobo_control_new (scrolled);
 
 	gtk_tree_view_set_headers_visible (priv->sidebar, FALSE);
 	column = gtk_tree_view_column_new_with_attributes (
