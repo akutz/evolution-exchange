@@ -1,3 +1,11 @@
+2004-07-09  Dan Winship  <danw@novell.com>
+
+	* calendar/e-cal-backend-exchange-calendar.c (set_freebusy_info):
+	Set the start/end of the spans correctly so the freebusy component
+	doesn't end up effectively empty
+	(get_free_busy): Fix the email address in the ORGANIZER props.
+	#61045
+
 2004-07-07  Alfred Peng <alfred.peng@sun.com>
 
 	Fix for bugzilla BUG #59196.

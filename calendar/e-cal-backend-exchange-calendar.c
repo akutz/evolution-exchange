@@ -1101,9 +1101,11 @@ set_freebusy_info (icalcomponent *vfb, const char *data, time_t start)
 	const char *span_start, *span_end;
 	E2kBusyStatus busy;
 	icalproperty *prop;
-	time_t end = 0;
+	time_t end;
 
-	for (span_start = span_end = data; *span_start; span_start = span_end, start = end) {
+	for (span_start = span_end = data, end = start;
+	     *span_start;
+	     span_start = span_end, start = end) {
 		busy = E2K_FBCHAR_TO_BUSYSTATUS (*span_start);
 		while (*span_end == *span_start) {
 			span_end++;
@@ -1189,7 +1191,7 @@ get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 		node = e2k_xml_find_in (item, item, "email");
 		if (!node || !node->children || !node->children->content)
 			continue;
-		org_uri = g_strdup_printf ("MAILTO:%s", node->content);
+		org_uri = g_strdup_printf ("MAILTO:%s", node->children->content);
 		organizer = icalproperty_new_organizer (org_uri);
 		g_free (org_uri);
 
