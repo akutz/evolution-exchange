@@ -1,5 +1,12 @@
 2005-02-28  Sushma Rai  <rsushma@novell.com>
 
+	* storage/exchange-config-listener.c (account_changed): Checks if
+	user needs to authenticate again, based on the url changes.
+	(requires_relogin): Compares the current url with the modified 
+	url, to see if user needs to relogin.
+
+2005-02-28  Sushma Rai  <rsushma@novell.com>
+
 	* storage/exchange-oof.c (sync_oof_info): Checking for NULL OOF 
 	message. Fixes the crash when oof_info file gets created here.
 

@@ -653,6 +653,48 @@ configured_account_destroyed (gpointer user_data, GObject *where_account_was)
 	g_free (aud);
 }
 
+static gboolean
+requires_relogin (char *current_url, char *new_url)
+{
+	E2kUri *current_uri, *new_uri;
+	const char *current_param_val, *new_param_val;
+	const char *params [] = { "owa_url", "ad_server" };
+	const int n_params = G_N_ELEMENTS (params);
+	int i;
+	gboolean relogin = FALSE;
+
+	current_uri = e2k_uri_new (current_url);
+	new_uri = e2k_uri_new (new_url);
+
+	if (strcmp (current_uri->user, new_uri->user) ||
+	    strcmp (current_uri->host, new_uri->host)) {
+		relogin = TRUE;
+		goto end;
+	}
+
+	for (i=0; i<n_params; i++) { 
+		current_param_val = e2k_uri_get_param (current_uri, params[i]);
+		new_param_val = e2k_uri_get_param (new_uri, params[i]); 
+	
+		if (current_param_val && new_param_val) {
+			/* both the urls have params to be compared */
+			if (strcmp (current_param_val, new_param_val)) {
+				relogin = TRUE;
+				break;
+			}
+		}
+		else if (current_param_val || new_param_val){
+			/* check for added or deleted parameter */
+			relogin = TRUE;
+			break;
+		}
+	}
+end:
+	e2k_uri_free (new_uri);
+	e2k_uri_free (current_uri);
+	return relogin;
+}
+
 static void
 account_changed (EAccountList *account_list, EAccount *account)
 {
@@ -716,8 +758,20 @@ account_changed (EAccountList *account_list, EAccount *account)
 	if (strcmp (config_listener->priv->configured_uri, account->source->url)) { 
 		remove_sources (priv->exchange_account);
 
-		/* Ask user to authenticate at next login */
-		exchange_account_forget_password (priv->exchange_account);
+		/* Ask user to authenticate at next login if username, hostname,
+		 * OWA URL or GC server values are changed. 
+		 */
+		if (requires_relogin (config_listener->priv->configured_uri, 
+				      account->source->url)) {
+			exchange_account_forget_password (priv->exchange_account);
+		}
+		else {
+			/* FIXME: modify esources and don't ask for re-login */
+			/* modify_esource (priv->exchange_account, 
+			 * account->source->url); 
+			 * return;
+			 */
+		}
 	}
 	else if (strcmp (config_listener->priv->configured_name, account->name))
 		remove_sources (priv->exchange_account);
