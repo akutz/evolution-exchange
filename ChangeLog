@@ -1,3 +1,12 @@
+2005-01-18  Sushma Rai  <rsushma@novell.com>
+
+	* lib/e2k-autoconfig.c (validate): Handling error coders, and
+	displaying warning messages when user is not authenticated
+	to the server. Fixes #71389
+	(e2k_validate_user): In case of wrong credentials forgetting the
+	password so that, password dialog pops up when user presses
+	OK button without changing any input values. 
+
 2005-01-18  Sarfraaz Ahmed <asarfraaz@novell.com>
 	
 	* calendar/e-cal-backend-exchange-calendar.c : Ordered the code to now

@@ -56,6 +56,7 @@
 #include <e-util/e-account.h>
 #include <e-util/e-account-list.h>
 #include <e-util/e-passwords.h>
+#include <e-util/e-dialog-utils.h>
 #include <gconf/gconf-client.h>
 #include <libxml/tree.h>
 #include <libxml/HTMLparser.h>
@@ -1394,6 +1395,7 @@ validate (char *owa_url, char *user, char *password, char **host)
 	E2kOperation op;        /* FIXME */
 	E2kAutoconfigResult result;
 	gboolean valid = FALSE;
+	const char *old, *new;
 
 	ac = e2k_autoconfig_new (owa_url, user, password, 
 				 E2K_AUTOCONFIG_USE_EITHER);
@@ -1410,13 +1412,99 @@ validate (char *owa_url, char *user, char *password, char **host)
 		valid = TRUE;
 	}
 	else {
-#if 0
-		e2k_operation_free (&op);
-		window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-		valid = e2k_autoconfig_handle_error (result, window);
-#endif
-		valid = FALSE; /* FIXME return valid */
+		switch (result) {
+
+		case E2K_AUTOCONFIG_CANT_CONNECT:
+			if (!strncmp (ac->owa_uri, "http:", 5)) {
+				old = "http";
+				new = "https";
+			} else {
+				old = "https";
+				new = "http";
+			}
+
+			e_notice (NULL, GTK_MESSAGE_ERROR,
+				  _("Could not connect to the Exchange "
+			    	    "server.\nMake sure the URL is correct "
+			    	    "(try \"%s\" instead of \"%s\"?) "
+			    	    "and try again."), new, old);
+			valid = FALSE;
+			break;
+
+		case E2K_AUTOCONFIG_CANT_RESOLVE:
+			e_notice (NULL, GTK_MESSAGE_ERROR,
+			  	_("Could not locate Exchange server.\n"
+			    	  "Make sure the server name is spelled correctly "
+			    	  "and try again."));
+			valid = FALSE;
+			break;
+
+		case E2K_AUTOCONFIG_AUTH_ERROR:
+		case E2K_AUTOCONFIG_AUTH_ERROR_TRY_NTLM:
+		case E2K_AUTOCONFIG_AUTH_ERROR_TRY_BASIC:
+			e_notice (NULL, GTK_MESSAGE_ERROR,
+			  	_("Could not authenticate to the Exchange "
+			    	  "server.\nMake sure the username and "
+			    	  "password are correct and try again."));
+			valid = FALSE;
+			break;
+
+		case E2K_AUTOCONFIG_AUTH_ERROR_TRY_DOMAIN:
+			e_notice (NULL, GTK_MESSAGE_ERROR,
+			  	_("Could not authenticate to the Exchange "
+			    	  "server.\nMake sure the username and "
+			    	  "password are correct and try again.\n\n"
+			    	  "You may need to specify the Windows "
+			    	  "domain name as part of your username "
+			    	  "(eg, \"MY-DOMAIN\\%s\")."),
+			  	  ac->username);
+			valid = FALSE;
+			break;
+
+		case E2K_AUTOCONFIG_NO_OWA:
+		case E2K_AUTOCONFIG_NOT_EXCHANGE:
+			e_notice (NULL, GTK_MESSAGE_ERROR,
+			  	_("Could not find OWA data at the indicated URL.\n"
+			    	  "Make sure the URL is correct and try again."));
+			valid = FALSE;
+			break;
+
+		case E2K_AUTOCONFIG_CANT_BPROPFIND:
+			e_notice (
+				NULL, GTK_MESSAGE_ERROR,
+				_("Ximian Connector requires access to certain "
+			  	"functionality on the Exchange Server that appears "
+			  	"to be disabled or blocked.  (This is usually "
+			  	"unintentional.)  Your Exchange Administrator will "
+			  	"need to enable this functionality in order for "
+			  	"you to be able to use Ximian Connector.\n\n"
+			  	"For information to provide to your Exchange "
+			  	"administrator, please follow the link below:\n"
+				"http://www.ximian.com/products/connector/iis-lockdown.html, http://www.ximian.com/products/connector/iis-lockdown.html"));
+
+			valid = FALSE;
+			break;
+
+		case E2K_AUTOCONFIG_EXCHANGE_5_5:
+			e_notice (
+				NULL, GTK_MESSAGE_ERROR,
+				_("The Exchange server URL you provided is for an "
+			  	"Exchange 5.5 Server. Ximian Connector supports "
+			  	"Microsoft Exchange 2000 and 2003 only."));
+
+			valid = FALSE;
+			break;
+
+		default:
+			e_notice (NULL, GTK_MESSAGE_ERROR,
+			  	_("Could not configure Exchange account because "
+			    	  "an unknown error occurred. Check the URL, "
+			    	  "username, and password, and try again."));
+			valid = FALSE; /* FIXME return valid */
+			break;
+		}
 	}
+
 	*host = g_strdup (ac->pf_server);
 	return valid;
 }
@@ -1441,6 +1529,8 @@ e2k_validate_user (char *owa_url, char *user, char **host)
 		}
 		g_free (prompt);
 	}
+	if (password && !valid)
+		e_passwords_forget_password ("Exchange", key);
 	g_free (key);
 
 	return valid;
