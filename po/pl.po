@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-15 00:24+0200\n"
+"POT-Creation-Date: 2004-08-21 15:53+0200\n"
 "PO-Revision-Date: 2004-08-14 14:18+0100\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -19,24 +19,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: addressbook/e-book-backend-exchange.c:1655
-#: addressbook/e-book-backend-gal.c:1184 storage/exchange-storage.c:135
-#, fuzzy
+#: addressbook/e-book-backend-gal.c:1209 storage/exchange-storage.c:135
 msgid "Searching..."
-msgstr "Wyszukiwanie"
+msgstr "Wyszukiwanie..."
 
 #: addressbook/e-book-backend-gal.c:240
-#, fuzzy
 msgid "Reconnecting to LDAP server..."
-msgstr "Nawiązywanie połączenia z serwerem..."
+msgstr "Ponowne nawiązywanie połączenia z serwerem LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1099
+#: addressbook/e-book-backend-gal.c:1114
 msgid "Receiving LDAP search results..."
-msgstr ""
+msgstr "Odbieranie wyników wyszukiwania LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1205
-#, fuzzy
+#: addressbook/e-book-backend-gal.c:1230
 msgid "Error performing search"
-msgstr "Błąd przy wykonywaniu operacji."
+msgstr "Błąd wyszukiwania"
 
 #: calendar/e-cal-backend-exchange-calendar.c:1358
 #, c-format
@@ -44,20 +41,21 @@ msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
+"Nie można zaplanować zasobu \"%s\" dla spotkań okresowych.\n"
+"Należy zarejestrowac każde spotkanie osobno."
 
 #: calendar/e-cal-backend-exchange-calendar.c:1377
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
-msgstr ""
+msgstr "W ustawionym okresie czasu zasób \"%s\" jest zajęty."
 
 #: camel/camel-exchange-folder.c:219
 msgid "Can only expunge in Deleted Items folder"
-msgstr ""
+msgstr "Można wyczyścić tylko w folderze elementów usuniętych"
 
 #: camel/camel-exchange-folder.c:243
-#, fuzzy
 msgid "No Subject"
-msgstr "Temat"
+msgstr "Bez tematu"
 
 #: camel/camel-exchange-folder.c:632
 msgid "Moving messages"
@@ -67,26 +65,26 @@ msgstr "Przenoszenie listów"
 msgid "Copying messages"
 msgstr "Kopiowanie listów"
 
-#: camel/camel-exchange-folder.c:876
+#: camel/camel-exchange-folder.c:878
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Nie można utworzyć katalogu %s: %s"
 
-#: camel/camel-exchange-folder.c:886
+#: camel/camel-exchange-folder.c:888
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Nie można wczytać zestawienia dla %s"
 
-#: camel/camel-exchange-folder.c:894
-#, fuzzy, c-format
+#: camel/camel-exchange-folder.c:896
+#, c-format
 msgid "Could not create cache for %s"
-msgstr "Nie można utworzyć pliku blokady dla %s: %s"
+msgstr "Nie można utworzyć buforu dla %s"
 
-#: camel/camel-exchange-folder.c:934
+#: camel/camel-exchange-folder.c:936
 msgid "Scanning for changed messages"
 msgstr "Wyszukiwanie zmodyfikowanych listów"
 
-#: camel/camel-exchange-folder.c:958
+#: camel/camel-exchange-folder.c:960
 msgid "Fetching summary information for new messages"
 msgstr "Pobieranie informacji podsumowujących nowe listy"
 
@@ -94,53 +92,50 @@ msgstr "Pobieranie informacji podsumowujących nowe listy"
 #. does in the evolution:mail-config.glade "_Host"
 #. translation (or not at all)
 #: camel/camel-exchange-provider.c:43
-#, fuzzy
 msgid "Exc_hange Server:"
-msgstr "_Serwer:"
+msgstr "Ser_wer Exchange:"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
 #: camel/camel-exchange-provider.c:48
-#, fuzzy
 msgid "Windows User_name:"
-msgstr "Nazwa _użytkownika:"
+msgstr "Nazwa _użytkownika Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
 #: camel/camel-exchange-provider.c:53
 msgid "Global Address List / Active Directory"
-msgstr ""
+msgstr "Ogólna lista adresowa / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
 #: camel/camel-exchange-provider.c:57
 msgid "Global Catalog server name:"
-msgstr ""
+msgstr "Nazwa serwera katalogu ogólnego:"
 
 #: camel/camel-exchange-provider.c:59
 #, c-format
 msgid "Limit number of GAL responses: %s"
-msgstr ""
+msgstr "Ograniczenie liczby odpowiedzi ogólnej listy adresowej: %s"
 
 #: camel/camel-exchange-provider.c:62
 msgid "Exchange Server"
-msgstr ""
+msgstr "Serwer Exchange"
 
 #. i18n: "Mailbox" is an Outlookism. FIXME
 #: camel/camel-exchange-provider.c:65
-#, fuzzy
 msgid "Mailbox name"
-msgstr "Położenie skrzynki"
+msgstr "Foldery osobiste"
 
 #. i18n: "OWA" == "Outlook Web Access". Might not be translated?
 #: camel/camel-exchange-provider.c:68
 msgid "OWA path"
-msgstr ""
+msgstr "Ścieżka OWA"
 
 #. i18n: "Public Folder" is an Outlookism
 #: camel/camel-exchange-provider.c:71
 msgid "Public Folder server"
-msgstr ""
+msgstr "Serwer folderu publicznego"
 
 #. i18n: copy from evolution:camel-imap-provider.c
 #: camel/camel-exchange-provider.c:75
@@ -153,66 +148,60 @@ msgid "Check new messages for Junk contents"
 msgstr "Sprawdzanie nowych listów pod kątem śmieci"
 
 #: camel/camel-exchange-provider.c:79
-#, fuzzy
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "Sprawdzanie śmieci tylko w folderze INBOX"
 
 #: camel/camel-exchange-provider.c:85
 msgid "Microsoft Exchange"
-msgstr ""
+msgstr "Microsoft Exchange"
 
 #: camel/camel-exchange-provider.c:87
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
-msgstr ""
+msgstr "Do obsługi poczty (i innych danych) na serwerach Microsoft Exchange"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
 #: camel/camel-exchange-provider.c:105
-#, fuzzy
 msgid "Secure Password"
-msgstr "Wprowadź hasło"
+msgstr "Bezpieczne uwierzytelnianie hasła"
 
 #. i18n: "NTLM" probably doesn't translate
 #: camel/camel-exchange-provider.c:108
-#, fuzzy
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
 msgstr ""
-"Opcja ta spowoduje łączenie z serwerem przy wykorzystaniu uwierzytelniania "
-"Kerberos 4."
+"Opcja ta spowoduje połączenie z serwerem Exchange przy użyciu bezpiecznego "
+"uwierzytelniania hasła (NTML)."
 
 #: camel/camel-exchange-provider.c:116
-#, fuzzy
 msgid "Plaintext Password"
-msgstr "Wprowadź hasło"
+msgstr "Hasło tekstowe"
 
 #: camel/camel-exchange-provider.c:118
-#, fuzzy
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
 msgstr ""
-"Przy tej opcji połączenie z serwerem IMAP nastąpi przy użyciu hasła w "
-"postaci czystego tekstu."
+"Opcja ta spowoduje połączenie z serwerem Exchange przy użyciu standardowego "
+"uwierzytelniania hasła tekstowego."
 
 #: camel/camel-exchange-store.c:178
-#, fuzzy, c-format
+#, c-format
 msgid "Exchange server %s"
-msgstr "Serwer IMAP %s"
+msgstr "Serwer Exchange %s"
 
 #: camel/camel-exchange-store.c:181
 #, c-format
 msgid "Exchange account for %s on %s"
-msgstr ""
+msgstr "Konto Exchange dla %s na %s"
 
 #: camel/camel-exchange-store.c:208
-#, fuzzy
 msgid "Evolution Exchange backend process"
-msgstr "Kalendarz i zadania Evolution"
+msgstr "Proces wspierający Evolution Exchange"
 
 #: camel/camel-exchange-transport.c:109
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr ""
+msgstr "Trnasport Exchange może być użyty tylko ze źródłem poczty Exchange"
 
 #: camel/camel-exchange-transport.c:120
 msgid "Cannot send message: one or more invalid recipients"
@@ -220,103 +209,92 @@ msgstr ""
 "Nie można wysłać listu: przynajmniej jeden z odbiorców jest niepoprawny"
 
 #: camel/camel-exchange-transport.c:130
-#, fuzzy
 msgid "Could not find 'From' address in message"
-msgstr "Nie można utworzyć wiadomości."
+msgstr "Nie można odnaleźć adresu nadwacy w wiadomości"
 
 #: camel/camel-stub.c:133
-#, fuzzy, c-format
+#, c-format
 msgid "Could not create socket: %s"
-msgstr "Utworzenie potoku nie powiodło się: %s"
+msgstr "Nie można utworzyć gniazda: %s"
 
 #: camel/camel-stub.c:148
-#, fuzzy, c-format
+#, c-format
 msgid "Could not connect to %s: %s"
-msgstr "Nie można nawiązać połączenia z %s (port %d): %s"
+msgstr "Nie można nawiązać połączenia z %s: %s"
 
 #: camel/camel-stub.c:167
 #, c-format
 msgid "Path too long: %s"
-msgstr ""
+msgstr "Ścieżka zbyt długa: %s"
 
 #: camel/camel-stub.c:193
-#, fuzzy, c-format
+#, c-format
 msgid "Could not start status thread: %s"
-msgstr "Nie można zapisać danych: %s"
+msgstr "Nie można uruchomić wątka stanu: %s"
 
 #: camel/camel-stub.c:445
-#, fuzzy, c-format
+#, c-format
 msgid "Lost connection to %s"
-msgstr "Ponowne nawiązywanie połączenia z %s"
+msgstr "Przerwane połączenie z %s"
 
 #: camel/camel-stub.c:449
-#, fuzzy, c-format
+#, c-format
 msgid "Error communicating with %s: %s"
-msgstr "Błąd przy wykonywaniu filtru: %s: %s"
+msgstr "Błąd połączenia z %s: %s"
 
 #. i18n: These are Outlook's words for the default roles in
 #. the folder permissions dialog.
 #: lib/e2k-security-descriptor.c:847
-#, fuzzy
 msgid "Owner"
-msgstr "Jeden"
+msgstr "Właściciel"
 
 #: lib/e2k-security-descriptor.c:857
 msgid "Publishing Editor"
-msgstr ""
+msgstr "Redaktor wydania"
 
 #: lib/e2k-security-descriptor.c:865
-#, fuzzy
 msgid "Editor"
-msgstr "Edycja"
+msgstr "Redaktor"
 
 #: lib/e2k-security-descriptor.c:872
 msgid "Publishing Author"
-msgstr ""
+msgstr "Autor wydania"
 
 #: lib/e2k-security-descriptor.c:878
-#, fuzzy
 msgid "Author"
-msgstr "Ośrodki certyfikacji"
+msgstr "Autor"
 
-# FIXME - albo nieodrzucanlne
 #: lib/e2k-security-descriptor.c:883
-#, fuzzy
 msgid "Non-editing Author"
-msgstr "Nie odrzucone"
+msgstr "Autor bez modyfikacji"
 
 #: lib/e2k-security-descriptor.c:887
-#, fuzzy
 msgid "Reviewer"
-msgstr "Recenzja"
+msgstr "Recenzent"
 
 #: lib/e2k-security-descriptor.c:889
-#, fuzzy
 msgid "Contributor"
-msgstr "Edytor kontaktów"
+msgstr "Współpracownik"
 
 #: lib/e2k-security-descriptor.c:891 storage/exchange-delegates.glade.h:7
 msgid "None"
 msgstr "Brak"
 
 #: lib/e2k-security-descriptor.c:906 storage/exchange-delegates-user.c:144
-#, fuzzy
 msgid "Custom"
-msgstr "Dowolny widok"
+msgstr "Własny"
 
 #: lib/e2k-user-dialog.c:148
-#, fuzzy
 msgid "Select User"
-msgstr "Wybór folderu"
+msgstr "Wybór użytkownika"
 
 #: lib/e2k-user-dialog.c:198
 msgid "Addressbook..."
 msgstr "Książka adresowa..."
 
 #: mail/mail-stub-exchange.c:231
-#, fuzzy
 msgid "No such folder"
-msgstr "Folder \"%s\" nie istnieje"
+msgstr "Nie ma takiego folderu"
 
 #: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
 #: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
@@ -325,73 +303,60 @@ msgid "Permission denied"
 msgstr "Brak uprawnień"
 
 #: mail/mail-stub-exchange.c:546
-#, fuzzy
 msgid "No such folder."
-msgstr "Folder \"%s\" nie istnieje"
+msgstr "Nie ma takiego folderu."
 
 #: mail/mail-stub-exchange.c:555
-#, fuzzy
 msgid "Could not create folder."
-msgstr "Nie można zmienić nazwy folderu: %s"
+msgstr "Nie można utowrzyć folderu."
 
 #: mail/mail-stub-exchange.c:601 mail/mail-stub-exchange.c:619
-#, fuzzy
 msgid "Could not open folder: Permission denied"
-msgstr "Nie można otworzyć folderu %s: %s"
+msgstr "Nie można otworzyć folderu: Brak uprawnień"
 
 #: mail/mail-stub-exchange.c:605 mail/mail-stub-exchange.c:718
-#, fuzzy
 msgid "Could not open folder"
-msgstr "Nie można otworzyć pliku"
+msgstr "Nie można otworzyć folderu"
 
 #: mail/mail-stub-exchange.c:772
-#, fuzzy
 msgid "Could not open Deleted Items folder"
-msgstr "Nie można usunąć folderu: %s"
+msgstr "Nie można otworzyć folderu elementów usuniętych"
 
 #: mail/mail-stub-exchange.c:1085 mail/mail-stub-exchange.c:1126
-#, fuzzy
 msgid "Could not get new messages"
-msgstr "Nie można utworzyć wiadomości."
+msgstr "Nie można pobrać nowych listów"
 
 #: mail/mail-stub-exchange.c:1291
-#, fuzzy
 msgid "Could not empty Deleted Items folder"
-msgstr "Nie można usunąć folderu: %s"
+msgstr "Nie można wyczyścić folderu elementów usuniętych"
 
 #: mail/mail-stub-exchange.c:1363
-#, fuzzy
 msgid "Could not append message; mailbox is over quota"
-msgstr "Nie można dołączyć listu do folderu w formacie maildir: %s: %s"
+msgstr "Nie można dołączyć listu; przekroczono pojemność folderu"
 
 #: mail/mail-stub-exchange.c:1364
-#, fuzzy
 msgid "Could not append message"
-msgstr "Nie można wysłać listu: %s"
+msgstr "Nie można dodać listu"
 
 #: mail/mail-stub-exchange.c:1847
 msgid "No such message"
 msgstr "Nie ma takiego listu"
 
 #: mail/mail-stub-exchange.c:1900
-#, fuzzy
 msgid "Message has been deleted"
-msgstr "Zadanie zostało usunięte."
+msgstr "List został usunięty"
 
 #: mail/mail-stub-exchange.c:1902
-#, fuzzy
 msgid "Error retrieving message"
-msgstr "Pobieranie %d listu"
+msgstr "Błąd podczas pobierania listu"
 
 #: mail/mail-stub-exchange.c:1944
-#, fuzzy
 msgid "Mailbox does not support full-text searching"
-msgstr "Użycie klucza nie obejmuje podpisywania certyfikatów"
+msgstr "Skrzynka nie obsługuje wyszukiwania pełnotekstowego"
 
 #: mail/mail-stub-exchange.c:2042
-#, fuzzy
 msgid "Unable to move/copy messages"
-msgstr "Nie można pobrać listu: %s"
+msgstr "Nie można przenieść/skopiować listu"
 
 #: mail/mail-stub-exchange.c:2213
 msgid "No mail submission URI for this mailbox"
@@ -399,7 +364,7 @@ msgstr ""
 
 #: mail/mail-stub-exchange.c:2250
 msgid "Server won't accept mail via Exchange transport"
-msgstr ""
+msgstr "Serwer nie będzie przyjmował poczty poprzez transport Exchange"
 
 #: mail/mail-stub-exchange.c:2252
 #, c-format
@@ -407,17 +372,20 @@ msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
 msgstr ""
+"Twoje konto nie posiada uprawnień do używania <%s>\n"
+"jako adresu nadawcy."
 
 #: mail/mail-stub-exchange.c:2264
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
+"Nie można wysłać listu.\n"
+"Może to oznaczać, że konto przekroczyło dopuszczalną pojemność."
 
 #: mail/mail-stub-exchange.c:2268
-#, fuzzy
 msgid "Could not send message"
-msgstr "Nie można wysłać listu: %s"
+msgstr "Nie można wysłać listu"
 
 #: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
 #: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
@@ -431,21 +399,22 @@ msgstr "Folder już istnieje"
 
 #: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
 #: mail/mail-stub-exchange.c:2393
-#, fuzzy
 msgid "Folder doesn't exist"
-msgstr "Folder \"%s\" nie istnieje."
+msgstr "Folder nie istnieje"
 
 #: shell/e-folder-creation-dialog.c:138
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Cannot create the specified folder:\n"
 "%s"
-msgstr "Nie można utworzyć folderu: %s: %s"
+msgstr ""
+"Nie można utworzyć podanego folderu:\n"
+"%s"
 
 #: shell/e-folder-creation-dialog.c:179
-#, fuzzy, c-format
+#, c-format
 msgid "The specified folder name is not valid: %s"
-msgstr "Nowa nazwa folderu jest niedozwolona."
+msgstr "Podana nazwa folderu jest niepoprawna: %s"
 
 #: shell/e-folder-creation-dialog.c:310
 msgid "Create New Folder"
@@ -470,35 +439,41 @@ msgid "Specify where to create the folder:"
 msgstr "Określ miejsce utworzenia folderu:"
 
 #: shell/e-folder-dnd-bridge.c:52
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Cannot transfer folder:\n"
 "%s"
-msgstr "Nie można utworzyć folderu: %s: %s"
+msgstr ""
+"Nie można przesłać folderu:\n"
+"%s"
 
 #: shell/e-folder-misc-dialogs.c:62
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Cannot delete folder:\n"
 "%s"
-msgstr "Nie można usunąć folderu: %s"
+msgstr ""
+"Nie można usunąć folderu:\n"
+"%s"
 
 #: shell/e-folder-misc-dialogs.c:115
-#, fuzzy, c-format
+#, c-format
 msgid "Really delete folder \"%s\"?"
-msgstr "Na pewno usunąć stare dane?"
+msgstr "Czy na pewno usunąć folder \"%s\"?"
 
 #: shell/e-folder-misc-dialogs.c:129
-#, fuzzy, c-format
+#, c-format
 msgid "Delete \"%s\""
-msgstr "Usunąć \"{0}\"?"
+msgstr "Usunięcie \"%s\""
 
 #: shell/e-folder-misc-dialogs.c:154
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Cannot rename folder:\n"
 "%s"
-msgstr "Nie można zmienić nazwy folderu: %s"
+msgstr ""
+"Nie można zmienić nazwy folderu:\n"
+"%s"
 
 #: shell/e-folder-misc-dialogs.c:188
 #, c-format
@@ -507,71 +482,69 @@ msgstr "Zmiana nazwy folderu \"%s\" na:"
 
 #: shell/e-folder-misc-dialogs.c:191
 msgid "Rename Folder"
-msgstr "Zmień nazwę folderu"
+msgstr "Zmiana nazwy folderu"
 
 #: shell/e-folder-misc-dialogs.c:205
-#, fuzzy, c-format
+#, c-format
 msgid "A folder named \"%s\" already exists. Please use a different name."
-msgstr "Folder o nazwie \"{1}\" już istnieje. Użyj innej nazwy."
+msgstr "Folder o nazwie \"%s\" już istnieje. Użyj innej nazwy."
 
 #. It would be nice to insensitivize the OK button appropriately
 #. instead of doing this, but unfortunately we can't do this for the
 #. Bonobo control.
 #: shell/e-folder-misc-dialogs.c:460
-#, fuzzy
 msgid "Please select a user."
-msgstr "Wybierz serwer."
+msgstr "Wybierz użytkownika."
 
 #: shell/e-folder-misc-dialogs.c:560
-#, fuzzy
 msgid "Opening Folder"
-msgstr "Otwieranie folderu %s"
+msgstr "Otwieranie folderu"
 
 #: shell/e-folder-misc-dialogs.c:566
-#, fuzzy, c-format
+#, c-format
 msgid "Opening Folder \"%s\""
-msgstr "Otwieranie folderu %s"
+msgstr "Otwieranie folderu \"%s\""
 
 #: shell/e-folder-misc-dialogs.c:571
-#, fuzzy, c-format
+#, c-format
 msgid "in \"%s\" ..."
-msgstr "Otwórz za pomocą programu %s..."
+msgstr "w \"%s\" ..."
 
 #: shell/e-folder-misc-dialogs.c:638
-#, fuzzy, c-format
+#, c-format
 msgid "Could not open other user's folder: %s."
-msgstr "Nie można otworzyć folderu o URI \"%s\""
+msgstr "Nie można otworzyć folderu innego użytkownika: %s."
 
 #: shell/e-folder-misc-dialogs.c:688
-#, fuzzy
 msgid "Cannot find the specified other user's folder."
-msgstr "Nie można skopiować wiadomości do folderu śmietnika"
+msgstr "Nie można odnaleźć podanego folderu innego użytkownika."
 
 #: shell/e-folder-misc-dialogs.c:720
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Cannot unsubscribe from folder:\n"
 "%s"
-msgstr "Nie można odsubskrybować folderu \"%s\": Błędne polecenie"
+msgstr ""
+"Nie można odsubskrybować folderu:\n"
+"%s"
 
 #: shell/e-folder-misc-dialogs.c:773
-#, fuzzy, c-format
+#, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "Nie można odsubskrybować folderu \"%s\": Błędne polecenie"
+msgstr "Czy na pewno odsubskrybować folder \"%s\"?"
 
 #: shell/e-folder-misc-dialogs.c:787
-#, fuzzy, c-format
+#, c-format
 msgid "Unsubscribe from \"%s\""
-msgstr "Wypisz"
+msgstr "Wypisanie z \"%s\""
 
 #: shell/e-foreign-folder-dialog.glade.h:1
 msgid "Open Other User's Folder"
 msgstr "Otwarcie innego folderu użytkownika"
 
 #: shell/e-foreign-folder-dialog.glade.h:2
-#, fuzzy
 msgid "_Account:"
-msgstr "_Nazwa konta:"
+msgstr "_Konto:"
 
 #: shell/e-foreign-folder-dialog.glade.h:3
 msgid "_Folder Name:"
@@ -590,122 +563,105 @@ msgid "Folder"
 msgstr "Folder"
 
 #: shell/e-storage.c:555
-#, fuzzy
 msgid "No error"
-msgstr "Nieznany błąd"
+msgstr "Brak błędu"
 
 #: shell/e-storage.c:559
-#, fuzzy
 msgid "A folder with the same name already exists"
-msgstr ""
-"Plik o tej nazwie już istnieje.\n"
-"Nadpisać go?"
+msgstr "Folder o tej nazwie już istnieje"
 
 #: shell/e-storage.c:561
-#, fuzzy
 msgid "The specified folder type is not valid"
-msgstr "tylko określone foldery"
+msgstr "Podany rodzaj folderu nie jest poprawny"
 
 #: shell/e-storage.c:563
-#, fuzzy
 msgid "I/O error"
-msgstr "Inny błąd"
+msgstr "Włąd wejścia/wyjścia"
 
 #: shell/e-storage.c:565
-#, fuzzy
 msgid "Not enough space to create the folder"
-msgstr "Określ miejsce utworzenia folderu:"
+msgstr "Zbyt mało miejsca na utworzenie folderu"
 
 #: shell/e-storage.c:567
-#, fuzzy
 msgid "The folder is not empty"
-msgstr "Opróżnianie folderów śmietnika przy zakończeniu"
+msgstr "Folder nie jest pusty"
 
 #: shell/e-storage.c:569
-#, fuzzy
 msgid "The specified folder was not found"
-msgstr "tylko określone foldery"
+msgstr "Nie odnaleziono podanego folderu"
 
 #: shell/e-storage.c:571
 msgid "Function not implemented in this storage"
-msgstr ""
+msgstr "Funkcja nie zaimplementowane dla tego składu"
 
 #: shell/e-storage.c:575
-#, fuzzy
 msgid "Operation not supported"
-msgstr "Protokół nie jest obsługiwany"
+msgstr "Operacja nie obsługiwana"
 
 #: shell/e-storage.c:577
-#, fuzzy
 msgid "The specified type is not supported in this storage"
-msgstr "Ten rodzaj kodowania nie obsługuje weryfikacji"
+msgstr "Podany rodzaj nie jest obsługiwany w tym składzie"
 
 #: shell/e-storage.c:579
 msgid "The specified folder cannot be modified or removed"
-msgstr ""
+msgstr "Podany folder nie może być zmodyfikowany lub usnięty"
 
 #: shell/e-storage.c:581
 msgid "Cannot make a folder a child of one of its descendants"
 msgstr ""
+"Nie można uczynić folderu podrzędnym wględem jednego ze swoich potomków"
 
 #: shell/e-storage.c:583
-#, fuzzy
 msgid "Cannot create a folder with that name"
-msgstr "Nie można utworzyć folderu o tej nazwie."
+msgstr "Nie można utworzyć folderu o tej nazwie"
 
 #: shell/e-storage.c:585
 msgid "This operation cannot be performed in off-line mode"
-msgstr ""
+msgstr "Operacja nie może zostać przeprowadzona w trybie bez podłączenia"
 
 #: shell/e-storage.c:587 storage/exchange-account.c:1071
 msgid "Unknown error"
 msgstr "Nieznany błąd"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-#, fuzzy
 msgid "*Control*F5"
-msgstr "*Control*F1"
+msgstr "*Control*F5"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
-#, fuzzy
 msgid "Evolution Addressbook Exchange backend"
-msgstr "Komponent książki adresowej Evolution"
+msgstr "Obsługa Exchange dla książki adresowej Evolution"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-#, fuzzy
 msgid "Evolution Calendar Exchange backend"
-msgstr "Kalendarz i zadania Evolution"
+msgstr "Obsługa Exchange dla Kalendarza Evolution"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
-#, fuzzy
 msgid "Evolution Exchange Component"
-msgstr "Komponent poczty programu Evolution"
+msgstr "Komponent Exchange Evolution"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
-#, fuzzy
 msgid "Exchange"
-msgstr "Zmienione"
+msgstr "Exchange"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
 msgid "Ximian Connector for Exchange"
-msgstr ""
+msgstr "Ximian Connector dla Exchange"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
-#, fuzzy
 msgid "_Exchange"
-msgstr "_Wyczyść"
+msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
 #: storage/exchange-account.c:516
-#, fuzzy, c-format
+#, c-format
 msgid "%s's Folders"
-msgstr "Foldery"
+msgstr "Foldery użytkownika %s"
 
 #: storage/exchange-account.c:797
-#, fuzzy, c-format
+#, c-format
 msgid "%sEnter password for %s"
-msgstr "Wprowadź hasło dla %s"
+msgstr "%sWprowadź hasło dla %s"
 
 #: storage/exchange-account.c:801
 msgid "Enter password"
@@ -713,25 +669,27 @@ msgstr "Wprowadź hasło"
 
 #: storage/exchange-account.c:876
 msgid "Cannot change password due to configuration problems"
-msgstr ""
+msgstr "Nie można zmienić hasła z powodu problemów konfiguracji"
 
 #: storage/exchange-account.c:891
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
 msgstr ""
+"Serwer odrzucił hasło, ponieważ było ono zbyt proste.\n"
+"Spróbuj jeszcze raz z innym hasłem."
 
 #: storage/exchange-account.c:896
-#, fuzzy
 msgid "Could not change password"
-msgstr "Nie można anulować"
+msgstr "Nie można zmienić hasła"
 
 #: storage/exchange-account.c:982
-#, fuzzy
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
-msgstr "Nie można uwierzytelnić na serwerze: %s"
+msgstr ""
+"Nie można uwierzytelnić na serwerze. (Niepoprawne hasło?)\n"
+"\n"
 
 #: storage/exchange-account.c:987
 msgid ""
@@ -744,6 +702,14 @@ msgid ""
 "Or you might have just typed your password wrong.\n"
 "\n"
 msgstr ""
+"Nie można uwierzytelnić na serwerze.\n"
+"\n"
+"Prawdopodobnie oznacza to, że serwer wymaga podania\n"
+"domeny Windows jako części nazwy użytkownika\n"
+"(np.: \"DOMENA\\użytkownik\").\n"
+"\n"
+"Innym powodem może być wpisanie błędnego hasła.\n"
+"\n"
 
 #: storage/exchange-account.c:998
 msgid ""
@@ -754,11 +720,17 @@ msgid ""
 "Or you might have just typed your password wrong.\n"
 "\n"
 msgstr ""
+"Nie można uwierzytelnić na serwerze.\n"
+"\n"
+"Być może należy użyć metody uwierzytelniania hasłem tekstowym.\n"
+"\n"
+"Innym powodem może być wpisanie błędnego hasła.\n"
+"\n"
 
 #: storage/exchange-account.c:1029
 #, c-format
 msgid "Mailbox for %s is not on this server."
-msgstr ""
+msgstr "Skrzynka dla %s nie znajduje się na tym serwerze."
 
 #: storage/exchange-account.c:1034
 #, c-format
@@ -766,6 +738,8 @@ msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
 "therefore not compatible with Ximian Connector"
 msgstr ""
+"Serwer \"%s\" ma uruchomioną usługę Exchange 5.5\n"
+"i nie jest zgodny z Ximian Connector"
 
 #: storage/exchange-account.c:1041
 #, c-format
@@ -774,49 +748,46 @@ msgid ""
 "If OWA is running on a different path, you must specify that in the\n"
 "account configuration dialog."
 msgstr ""
+"Nie można odnaleźć systemu przechowywania web Exchange w %s.\n"
+"Jezeli OWA jest uruchomione na innej ścieżce, należy ją podać\n"
+"w oknie konfiguracyjnym konta."
 
 #: storage/exchange-account.c:1049
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
-msgstr ""
+msgstr "Brak skrzynki dla użytkownika %s na %s.\n"
 
 #: storage/exchange-account.c:1055 storage/exchange-account.c:1061
 #: storage/exchange-account.c:1069
-#, fuzzy, c-format
+#, c-format
 msgid "Could not connect to server %s: %s"
-msgstr "Nie można nawiązać połączenia z serwerem POP %s"
+msgstr "Nie można nawiązać połączenia z serwerem %s: %s"
 
 #: storage/exchange-account.c:1057
-#, fuzzy
 msgid "Could not resolve hostname"
-msgstr "Nie można utworzyć wiadomości."
+msgstr "Nie można odnaleźć nazwy serwera"
 
 #: storage/exchange-account.c:1063
-#, fuzzy
 msgid "Network error"
-msgstr "Inny błąd"
+msgstr "Błąd sieci"
 
 #: storage/exchange-account.c:1115
-#, fuzzy
 msgid "Personal Folders"
-msgstr "Lokalne foldery"
+msgstr "Foldery osobiste"
 
 #: storage/exchange-account.c:1130
-#, fuzzy
 msgid "Favorite Public Folders"
-msgstr "W_irtualne foldery"
+msgstr "Ulubione foldery publiczne"
 
 #. i18n: Outlookism
 #: storage/exchange-account.c:1147
-#, fuzzy
 msgid "All Public Folders"
-msgstr "ze wszystkimi lokalnymi folderami"
+msgstr "Wszystkie foldery publiczne"
 
 #. i18n: Outlookism
 #: storage/exchange-account.c:1161
-#, fuzzy
 msgid "Global Address List"
-msgstr "Pełny adres"
+msgstr "Ogólna lista adresowa"
 
 #: storage/exchange-autoconfig-wizard.c:224
 #, c-format
@@ -824,6 +795,9 @@ msgid ""
 "Could not connect to the Exchange server.\n"
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
+"Nie można nawiązać połączenia z serwerem Exchange.\n"
+"Upewnij się, że adres URL jest poprawny (użyj \"%s\" zamiast \"%s\") i "
+"spróbuj jeszcze raz."
 
 #: storage/exchange-autoconfig-wizard.c:232
 msgid ""
