@@ -53,9 +53,9 @@ AC_DEFUN(EVO_LDAP_CHECK, [
 		case $with_static_ldap in
 		no|"")
 			if test -f $with_openldap/lib/libldap.la; then
-				with_static_ldap=yes
-			else
 				with_static_ldap=no
+			else
+				with_static_ldap=yes
 			fi
 			;;
 		*)
@@ -84,13 +84,6 @@ AC_DEFUN(EVO_LDAP_CHECK, [
 		AC_CHECK_LIB(lber, ber_get_tag, [
 			if test "$with_static_ldap" = "yes"; then
 				LDAP_LIBS="$with_openldap/lib/liblber.a $LDAP_LIBS"
-
-				# libldap might depend on OpenSSL... We need to pull
-				# in the dependency libs explicitly here since we're
-				# not using libtool for the configure test.
-				if test -f $with_openldap/lib/libldap.la; then
-					LDAP_LIBS="`. $with_openldap/lib/libldap.la; echo $dependency_libs` $LDAP_LIBS"
-				fi
 			else
 				LDAP_LIBS="-llber $LDAP_LIBS"
 			fi
