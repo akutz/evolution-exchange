@@ -238,7 +238,7 @@ exchange_hierarchy_favorites_add_folder (ExchangeHierarchy *hier,
 	ExchangeHierarchyFavorites *hfav;
 	E2kProperties *props;
 	E2kHTTPStatus status;
-	const char *folder_uri;
+	const char *folder_uri, *permanent_uri;
 	char *shortcut_uri;
 
 	g_return_val_if_fail (EXCHANGE_IS_HIERARCHY (hier), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
@@ -246,12 +246,14 @@ exchange_hierarchy_favorites_add_folder (ExchangeHierarchy *hier,
 	g_return_val_if_fail (e_folder_exchange_get_hierarchy (folder)->type == EXCHANGE_HIERARCHY_PUBLIC, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 
 	hfav = EXCHANGE_HIERARCHY_FAVORITES (hier);
+	permanent_uri = e_folder_exchange_get_permanent_uri (folder);
 
 	props = e2k_properties_new ();
 	e2k_properties_set_string (props, PR_FAV_DISPLAY_NAME,
 				   g_strdup (e_folder_get_name (folder)));
-	e2k_properties_set_binary (props, PR_FAV_PUBLIC_SOURCE_KEY,
-				   e2k_permanenturl_to_entryid (e_folder_exchange_get_permanent_uri (folder)));
+	if (permanent_uri)	
+		e2k_properties_set_binary (props, PR_FAV_PUBLIC_SOURCE_KEY,
+				   e2k_permanenturl_to_entryid (permanent_uri));
 	e2k_properties_set_int (props, PR_FAV_LEVEL_MASK, 1);
 
 	status = e2k_context_proppatch_new (

@@ -922,8 +922,17 @@ build_query (EBookBackendGAL *bl, const char *query, char **ldap_query)
 	r = e_sexp_eval (sexp);
 
 	if (r->type == ESEXP_RES_STRING) {
-		*ldap_query = g_strdup_printf ("(&(mail=*)(!(msExchHideFromAddressLists=TRUE))%s)", r->value.string);
-		retval = GNOME_Evolution_Addressbook_Success;
+		if (!strcmp (r->value.string, "(mail=*)")) {
+			/* If the query is empty, 
+			 * don't search for all the contats 
+			 */ 
+			*ldap_query = NULL;
+			retval = GNOME_Evolution_Addressbook_QueryRefused;
+		}
+		else {
+			*ldap_query = g_strdup_printf ("(&(mail=*)(!(msExchHideFromAddressLists=TRUE))%s)", r->value.string);
+			retval = GNOME_Evolution_Addressbook_Success;
+		}
 	} else if (r->type == ESEXP_RES_BOOL) {
 		/* If it's FALSE, that means "no matches". If it's TRUE
 		 * that means "everything matches", but we don't support

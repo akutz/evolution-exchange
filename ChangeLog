@@ -1,3 +1,27 @@
+2004-09-17  Dan Winship  <danw@novell.com>
+
+	Pull up changes from HEAD for 2.0.1 (all from Sushma)
+
+	* storage/exchange-hierarchy-favorites.c 
+	(exchange_hierarchy_favorites_add_folder): Checking for 
+	permanent_uri being NULL. Fixes #65850
+
+	* storage/exchange-config-listener.c (account_changed):
+	Removing the just the e-sources if the user changes the 
+	account name, and not forgetting the password and 
+	displaying account removal warning message.
+	Fixes #64188
+
+	* addressbook/e-book-backend-gal.c (build_query):
+	Added check to not to return all contacts, when user 
+	tries to get the mail ID from GAL,  while composing mail,
+	by perfoming empty query in "Select Contacts form Addressbook"
+	dialog. Fixes #41647 
+	
+	* addressbook/e-book-backend-exchange.c
+	(e_book_backend_exchange_remove): Moved unused variables
+	to kill warnings. 
+
 2004-09-13  Dan Winship  <danw@novell.com>
 
 	* configure.in: 2.0.0!

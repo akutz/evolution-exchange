@@ -546,6 +546,7 @@ account_changed (EAccountList *account_list, EAccount *account)
 {
 	ExchangeConfigListener *config_listener =
 		EXCHANGE_CONFIG_LISTENER (account_list);
+	ExchangeConfigListenerPrivate *priv = config_listener->priv;
 
 	if (account != config_listener->priv->configured_account) {
 		if (!is_active_exchange_account (account))
@@ -598,8 +599,7 @@ account_changed (EAccountList *account_list, EAccount *account)
 
 	if (strcmp (config_listener->priv->configured_name, account->name) != 0) {
 		/* account name has been changed, remove old e-sources */
-		account_removed (account_list, account);
-		return;
+		remove_sources (priv->exchange_account);
 	}
 
 	/* Nope. Let the user know we're ignoring him. */
