@@ -50,6 +50,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define d(x) x
+
 struct _ExchangeAccountPrivate {
 	E2kContext *ctx;
 	E2kGlobalCatalog *gc;
@@ -959,6 +961,12 @@ exchange_account_connect (ExchangeAccount *account)
 	struct dirent *dent;
 	DIR *d;
 	char *old_password, *new_password;
+	E2kGlobalCatalogStatus gcstatus;
+	E2kGlobalCatalogEntry *entry;
+	E2kOperation gcop;
+	const char *quota_msg = NULL;
+	GtkWidget *quota_dialog;
+	int quota_resp;
 
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
 
@@ -1137,6 +1145,27 @@ exchange_account_connect (ExchangeAccount *account)
 		timezone = e2k_properties_get_prop (results[0].props, E2K_PR_EXCHANGE_TIMEZONE);
 		if (timezone)
 			account->default_timezone = g_strdup (timezone);
+	}
+	/* Check for quota warnings */
+	e2k_operation_init (&gcop);
+	gcstatus = e2k_global_catalog_lookup (account->priv->gc, &gcop,
+                                            E2K_GLOBAL_CATALOG_LOOKUP_BY_EMAIL,
+                                            account->priv->identity_email,
+					    E2K_GLOBAL_CATALOG_LOOKUP_QUOTA,
+                                            &entry);	
+	e2k_operation_free (&gcop);
+	
+	if (gcstatus == E2K_GLOBAL_CATALOG_OK) {
+
+		if (entry->quota_norecv) {
+			quota_msg = g_strdup_printf ("You have exceeded your quota for storing mails on this server. Your current usage is : %d . You will not be able to either send or recieve mails now\n", entry->quota_norecv);
+		} else if (entry->quota_nosend) {
+			quota_msg = g_strdup_printf ("You are nearing your quota available for storing mails on this server. Your current usage is : %d . You will not be able to send mails till you clear up some space by deleting some mails.\n", entry->quota_nosend);
+		} else if (entry->quota_warn) {
+			quota_msg = g_strdup_printf ("You are nearing your quota available for storing mails on this server. Your current usage is : %d . Try to clear up some space by deleting some mails.\n", entry->quota_warn);
+		}
+		
+		e_notice (NULL, GTK_MESSAGE_INFO, quota_msg);
 	}
 
 	/* Set up Personal Folders hierarchy */

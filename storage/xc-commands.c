@@ -87,12 +87,14 @@ do_change_password (BonoboUIComponent *component, gpointer user_data,
 }
 
 static void
-do_quota (BonoboUIComponent *component, gpointer user_data,
+do_folder_size (BonoboUIComponent *component, gpointer user_data,
 	  const char *cname)
 {
 	XCBackendView *view = user_data;
 
-	e_notice (widget_for_view (view), GTK_MESSAGE_ERROR, "FIXME (do_quota)");
+	//exchange_folder_size (xc_backend_view_get_selected_account (view),
+			    //widget_for_view (view));
+	e_notice (widget_for_view (view), GTK_MESSAGE_ERROR, "FIXME (do_folder_size)");
 }
 
 static void
@@ -121,7 +123,7 @@ static BonoboUIVerb verbs [] = {
 	BONOBO_UI_VERB ("ExchangeOOF", do_oof),
 	BONOBO_UI_VERB ("ExchangeDelegation", do_delegates),
 	BONOBO_UI_VERB ("ExchangePassword", do_change_password),
-	BONOBO_UI_VERB ("ExchangeQuota", do_quota),
+	BONOBO_UI_VERB ("ExchangeFolderSize", do_folder_size),
 	BONOBO_UI_VERB ("ExchangeSubscribeUser", do_subscribe_user),
 	BONOBO_UI_VERB ("ExchangeUnsubscribeUser", do_unsubscribe_user),
 
@@ -316,13 +318,19 @@ static void
 do_add_favorite (GtkWidget *item, XCFolderCommandData *fcd)
 {
 	ExchangeAccountFolderResult result;
+	ExchangeAccount *exacct;
 
-	result = exchange_account_add_favorite (xc_folder_get_account (fcd),
-						fcd->folder);
+	exacct = xc_folder_get_account (fcd);
+	if (!exacct)
+		goto err_end;
+
+	result = exchange_account_add_favorite (exacct, fcd->folder);
 	if (result != EXCHANGE_ACCOUNT_FOLDER_OK) {
 		favorites_error (GTK_WIDGET (fcd->storage_set_view),
 				 _("Could not add favorite: %s"), result);
 	}
+
+err_end :
 	xc_folder_command_data_free (fcd);
 }
 

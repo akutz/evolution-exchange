@@ -44,6 +44,7 @@ struct _EFolderExchangePrivate {
 	char *internal_uri, *permanent_uri;
 	char *outlook_class, *storage_dir;
 	const char *path;
+	long long int folder_size;
 	gboolean has_subfolders;
 };
 
@@ -287,6 +288,43 @@ e_folder_exchange_set_permanent_uri (EFolder *folder, const char *permanent_uri)
 }
 
 /**
+ * e_folder_exchange_get_folder_size:
+ * @folder: an #EFolderExchange
+ *
+ * Returns the folder's size. See docs/entryids for more
+ * details.
+ *
+ * Return value: @folder's size
+ **/
+long long int
+e_folder_exchange_get_folder_size (EFolder *folder)
+{
+	g_return_val_if_fail (E_IS_FOLDER_EXCHANGE (folder), NULL);
+
+	return E_FOLDER_EXCHANGE (folder)->priv->folder_size;
+}
+
+/**
+ * e_folder_exchange_set_folder_size:
+ * @folder: an #EFolderExchange
+ * @folder_size: folder size
+ *
+ * Sets @folder's folder_size
+ **/
+void
+e_folder_exchange_set_folder_size (EFolder *folder, long long int folder_size)
+{
+	EFolderExchange *efe;
+
+	g_return_if_fail (E_IS_FOLDER_EXCHANGE (folder));
+
+	efe = E_FOLDER_EXCHANGE (folder);
+
+	efe->priv->folder_size = folder_size;
+}
+
+
+/**
  * e_folder_exchange_get_has_subfolders:
  * @folder: an #EFolderExchange
  *
@@ -392,6 +430,7 @@ e_folder_exchange_save_to_file (EFolder *folder, const char *filename)
 	xmlNode *root;
 	const char *name, *type, *outlook_class;
 	const char *physical_uri, *internal_uri, *permanent_uri;
+	const char *folder_size;
 	int status;
 
 	name = e_folder_get_name (folder);
@@ -400,6 +439,7 @@ e_folder_exchange_save_to_file (EFolder *folder, const char *filename)
 	physical_uri = e_folder_get_physical_uri (folder);
 	internal_uri = e_folder_exchange_get_internal_uri (folder);
 	permanent_uri = e_folder_exchange_get_permanent_uri (folder);
+	folder_size = g_strdup_printf ("%d", e_folder_exchange_get_folder_size (folder));
 
 	g_return_val_if_fail (name && type && physical_uri && internal_uri,
 			      FALSE);
@@ -414,6 +454,7 @@ e_folder_exchange_save_to_file (EFolder *folder, const char *filename)
 	xmlNewChild (root, NULL, "outlook_class", outlook_class);
 	xmlNewChild (root, NULL, "physical_uri", physical_uri);
 	xmlNewChild (root, NULL, "internal_uri", internal_uri);
+	xmlNewChild (root, NULL, "folder_size", folder_size);
 	if (permanent_uri)
 		xmlNewChild (root, NULL, "permanent_uri", permanent_uri);
 
@@ -444,6 +485,7 @@ e_folder_exchange_new_from_file (ExchangeHierarchy *hier, const char *filename)
 	char *type = NULL, *outlook_class = NULL;
 	char *physical_uri = NULL, *internal_uri = NULL;
 	char *permanent_uri = NULL;
+	char *folder_size = NULL;
 
 	doc = xmlParseFile (filename);
 	if (!doc)
@@ -497,6 +539,12 @@ e_folder_exchange_new_from_file (ExchangeHierarchy *hier, const char *filename)
 	if (node) {
 		permanent_uri = xmlNodeGetContent (node);
 		e_folder_exchange_set_permanent_uri (folder, permanent_uri);
+	}
+
+	node = e_xml_get_child_by_name (root, "folder_size");
+	if (node) {
+		folder_size = xmlNodeGetContent (node);
+		e_folder_exchange_set_folder_size (folder, atoi (folder_size));
 	}
 
  done:
@@ -819,6 +867,8 @@ e_folder_exchange_delete (EFolder *folder, E2kOperation *op)
 	char *conf_key_contacts="/apps/evolution/addressbook/sources";
 	ESourceList *cal_source_list, *task_source_list, *cont_source_list;
 	const char *folder_type, *physical_uri;
+
+	g_return_val_if_fail (E_IS_FOLDER_EXCHANGE (folder), NULL);
 
 	/* remove ESources */
 	hier = e_folder_exchange_get_hierarchy (folder); 

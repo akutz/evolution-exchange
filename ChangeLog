@@ -1,3 +1,20 @@
+2004-10-13  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* lib/e2k-propnames.h.in : Added a new mapi proptag for folder size.
+	* storage/e-folder-exchange.c (e_folder_exchange_get_folder_size)
+	(e_folder_exchange_set_folder_size): Implemented
+	(e_folder_exchange_save_to_file) (e_folder_exchange_new_from_file):
+	Now take care of the folder size as well
+	* storage/e-folder-exchange.h: Similar
+	* storage/exchange-account.c (exchange_account_connect): Check
+	for quota information.
+	* storage/exchange-hierarchy-webdav.c (hierarchy_new_folder) (add_href)
+	: Add check for some warnings.
+	(exchange_hierarchy_webdav_parse_folder): Set the folder size for the
+	folder
+	* storage/xc-commands.c (do_folder_size): Implementated
+	* storage/ximian-connector.xml: Added the verb for folder size
+
 2004-10-12  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* storage/main.c: (main):

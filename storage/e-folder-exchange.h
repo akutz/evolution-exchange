@@ -55,6 +55,9 @@ const char *e_folder_exchange_get_permanent_uri    (EFolder    *folder);
 void        e_folder_exchange_set_permanent_uri    (EFolder    *folder,
 						    const char *permanent_uri);
 
+long long int 	e_folder_exchange_get_folder_size (EFolder *folder);
+void 		e_folder_exchange_set_folder_size (EFolder *folder, long long int folder_size);
+
 gboolean    e_folder_exchange_get_has_subfolders   (EFolder    *folder);
 void        e_folder_exchange_set_has_subfolders   (EFolder    *folder,
 						    gboolean   has_subfolders);

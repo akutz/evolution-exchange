@@ -162,8 +162,11 @@ static void
 hierarchy_new_folder (ExchangeHierarchy *hier, EFolder *folder,
 		      gpointer user_data)
 {
-	const char *internal_uri = e_folder_exchange_get_internal_uri (folder);
+	const char *internal_uri ;
 	char *mf_path;
+	
+	g_return_if_fail (E_IS_FOLDER (folder));
+	internal_uri = e_folder_exchange_get_internal_uri (folder);
 
 	g_hash_table_insert (EXCHANGE_HIERARCHY_WEBDAV (hier)->priv->folders_by_internal_path,
 			     (char *)e2k_uri_path (internal_uri), folder);
@@ -438,7 +441,14 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 static void
 add_href (gpointer path, gpointer folder, gpointer hrefs)
 {
-	if (!strcmp (e_folder_get_type_string (folder), "noselect"))
+	char *folder_type;
+	
+	folder_type = e_folder_get_type_string (folder);
+
+	if (!folder_type)
+		return;
+	
+	if (!strcmp (folder_type, "noselect"))
 		return;
 
 	g_ptr_array_add (hrefs, path);
@@ -516,10 +526,14 @@ exchange_hierarchy_webdav_parse_folder (ExchangeHierarchyWebDAV *hwd,
 {
 	EFolder *folder;
 	ExchangeFolderType *folder_type;
-	const char *name, *prop, *outlook_class, *permanenturl;
+	const char *name, *prop, *outlook_class, *permanenturl, *folder_size_str;
 	int unread;
 	gboolean hassubs;
+	long long int folder_size;
 
+	g_return_val_if_fail (EXCHANGE_IS_HIERARCHY_WEBDAV (hwd), NULL);
+	g_return_val_if_fail (E_IS_FOLDER (parent), NULL);
+	
 	/* It's possible to have a localized inbox folder named, eg,
 	 * "Innboks", with children whose URIs go through "Inbox"
 	 * instead. (See bugzilla 27065.) This is probably related to
@@ -556,6 +570,11 @@ exchange_hierarchy_webdav_parse_folder (ExchangeHierarchyWebDAV *hwd,
 	permanenturl = e2k_properties_get_prop (result->props,
 						E2K_PR_EXCHANGE_PERMANENTURL);
 
+	folder_size_str = e2k_properties_get_prop (result->props,
+						E2K_PR_EXCHANGE_FOLDER_SIZE);
+	folder_size = folder_size_str ? strtol (folder_size_str, (char **)NULL, 10) : 0;
+	// Check for errors
+
 	folder = e_folder_webdav_new (EXCHANGE_HIERARCHY (hwd),
 				      result->href, parent,
 				      name, folder_type->component,
@@ -567,6 +586,8 @@ exchange_hierarchy_webdav_parse_folder (ExchangeHierarchyWebDAV *hwd,
 		e_folder_exchange_set_has_subfolders (folder, TRUE);
 	if (permanenturl)
 		e_folder_exchange_set_permanent_uri (folder, permanenturl);
+	
+	e_folder_exchange_set_folder_size (folder, folder_size);
 
 	return folder;
 }
@@ -576,6 +597,7 @@ static const char *folder_props[] = {
 	E2K_PR_HTTPMAIL_UNREAD_COUNT,
 	E2K_PR_DAV_DISPLAY_NAME,
 	E2K_PR_EXCHANGE_PERMANENTURL,
+	E2K_PR_EXCHANGE_FOLDER_SIZE,
 	E2K_PR_DAV_HAS_SUBS
 };
 static const int n_folder_props = sizeof (folder_props) / sizeof (folder_props[0]);
@@ -641,6 +663,7 @@ scan_offline_cb (const char *physical_path, const char *path, gpointer data)
 	struct scan_offline_data *sod = data;
 	EFolder *folder;
 	char *mf_name;
+	
 
 	mf_name = g_build_filename (physical_path, "connector-metadata.xml", NULL);
 	folder = e_folder_exchange_new_from_file (sod->hier, mf_name);
@@ -690,7 +713,7 @@ exchange_hierarchy_webdav_offline_scan_subtree (ExchangeHierarchy *hier,
 	dir = e_path_to_physical (hier->account->storage_dir, prefix);
 	g_free (prefix);
 	e_path_find_folders (dir, scan_offline_cb, &sod);
-
+	
 	if (sod.badpaths) {
 		for (i = 0; i < sod.badpaths->len; i++) {
 			e_path_rmdir (dir, sod.badpaths->pdata[i]);
