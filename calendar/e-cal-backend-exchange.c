@@ -55,7 +55,7 @@ struct ECalBackendExchangePrivate {
 #define PARENT_TYPE E_TYPE_CAL_BACKEND_SYNC
 static GObjectClass *parent_class = NULL;
 
-#define d(x) (x)
+#define d(x)
 
 static ECalBackendSyncStatus
 is_read_only (ECalBackendSync *backend, EDataCal *cal, gboolean *read_only)
@@ -130,15 +130,9 @@ load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri)
 	icalcomponent_kind kind;
 	icalproperty *prop;
 	char *lastmod;
-	if (cbex->priv->mode == CAL_MODE_REMOTE) {
-		cbex->priv->object_cache_file =
-			e_folder_exchange_get_storage_file (cbex->folder, "cache.ics");
-	/* FIXME :
-	} else {
-		cbex->priv->object_cache_file = 
-			exchange_offline_build_object_cache_file (e2kuri, "cache.ics", TRUE); */
-	}
-	
+
+	cbex->priv->object_cache_file =
+		e_folder_exchange_get_storage_file (cbex->folder, "cache.ics");
 
 	vcalcomp = e_cal_util_parse_ics_file (cbex->priv->object_cache_file);
 	if (!vcalcomp)
@@ -272,7 +266,7 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 
 	uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
 	if (cbex->priv->mode == CAL_MODE_LOCAL) {
-		printf ("ECBE : cal is offline .. load cache\n");
+		d(printf ("ECBE : cal is offline .. load cache\n"));
 		euri = e2k_uri_new (uristr);
 		load_cache (cbex, euri);
 		e2k_uri_free (euri);
@@ -431,7 +425,7 @@ e_cal_backend_exchange_add_object (ECalBackendExchange *cbex,
 	const char *uid;
 	struct icaltimetype rid;
 
-	printf("ecbe_add_object(%p, %s, %s)\n", cbex, href, lastmod);
+	d(printf("ecbe_add_object(%p, %s, %s)\n", cbex, href, lastmod));
 
 	uid = icalcomponent_get_uid (comp);
 	ecomp = g_hash_table_lookup (cbex->priv->objects, uid);
@@ -1000,6 +994,7 @@ set_mode (ECalBackend *backend, CalMode mode)
 {
 	ECalBackendExchange *cbex;
 	ECalBackendExchangePrivate *priv;
+	char *uristr;
 	
 	cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	priv = cbex->priv;
@@ -1035,7 +1030,10 @@ set_mode (ECalBackend *backend, CalMode mode)
 
 	case CAL_MODE_LOCAL:
 			/* FIXME : Update the cache before closing the connection */
-			printf ("set mode to offline\n");
+			d(printf ("set mode to offline\n"));
+			uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
+			cbex->account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
+			cbex->folder = exchange_account_get_folder (cbex->account, uristr);
 			priv->mode = CAL_MODE_LOCAL;
 			/* FIXME : Set connection to NULL and become offline */
 			exchange_account_set_offline (cbex->account);
@@ -1314,8 +1312,6 @@ internal_get_default_timezone (ECalBackend *backend)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 
-	/* d(printf("ecbe_internal_get_default_timezone(%p)\n", backend)); */
-
 	if (!cbex->priv->default_timezone &&
 	    cbex->account->default_timezone) {
 		cbex->priv->default_timezone =
@@ -1330,8 +1326,6 @@ static icaltimezone *
 internal_get_timezone (ECalBackend *backend, const char *tzid)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
-
-	/* d(printf("ecbe_internal_get_timezone(%p, %s)\n", backend, tzid)); */
 
 	return g_hash_table_lookup (cbex->priv->timezones, tzid);
 }

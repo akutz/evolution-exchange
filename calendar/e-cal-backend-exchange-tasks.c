@@ -34,6 +34,8 @@
 #include "e2k-restriction.h"
 #include "e2k-utils.h"
 
+#define d(x)
+
 /* Placeholder for each component and its recurrences */
 typedef struct {
         ECalComponent *full_object;
@@ -809,7 +811,7 @@ open_task (ECalBackendSync *backend, EDataCal *cal,
 		return status;
 
 	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
-		printf ("ECBEC : calendar is offline\n");
+		d(printf ("ECBEC : calendar is offline\n"));
 		return GNOME_Evolution_Calendar_Success;
 	}
 
@@ -854,7 +856,7 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 	g_return_val_if_fail (calobj != NULL, GNOME_Evolution_Calendar_ObjectNotFound);
 
 	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
-		printf ("tasks are offline\n");
+		d(printf ("tasks are offline\n"));
 		return GNOME_Evolution_Calendar_InvalidObject;
 	}
 
@@ -970,6 +972,11 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	g_return_val_if_fail (calobj != NULL, 
 				GNOME_Evolution_Calendar_ObjectNotFound);
 
+	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
+		d(printf ("tasks are offline\n"));
+		return GNOME_Evolution_Calendar_InvalidObject;
+	}
+
 	/* Parse the icalendar text */
         icalcomp = icalparser_parse_string ((char *) calobj);
         if (!icalcomp)
@@ -1052,6 +1059,11 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
         g_return_val_if_fail (calobj != NULL,
                                 GNOME_Evolution_Calendar_ObjectNotFound);
                                                                                 
+	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
+		d(printf ("tasks are offline\n"));
+		return GNOME_Evolution_Calendar_InvalidObject;
+	}
+
 	status = e_cal_backend_exchange_extract_components (calobj, &method, &comps);
         if (status != GNOME_Evolution_Calendar_Success)
                 return GNOME_Evolution_Calendar_InvalidObject;
@@ -1113,6 +1125,11 @@ remove_task_object (ECalBackendSync *backend, EDataCal *cal,
 	
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (ecalbex), 
 					GNOME_Evolution_Calendar_OtherError);
+
+	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
+		d(printf ("tasks are offline\n"));
+		return GNOME_Evolution_Calendar_InvalidObject;
+	}
 
 	ecalbexcomp = get_exchange_comp (ecalbex, uid);
 	if (!ecalbexcomp && !ecalbexcomp->href)
