@@ -46,24 +46,27 @@ main (int argc, char **argv)
 	CORBA_short major=1;
 	CORBA_short minor=4;
 	CORBA_short revision=0;
-	gchar *user = "u1";
-	gchar *server = "164.99.155.182";
-	gchar *source = "/root/evolution";
+	gchar *source = "~/evolution";
 	gchar *dest= "/tmp/.evolution-test";
-	gchar *base_dir, *uid = NULL;
+	gchar *user = NULL, *server = NULL, *base_dir, *uid = NULL;
 	int opt;
-	char optstr[] = "M:m:r:u:h:s:d";
+	char optstr[] = "M:m:r:u:h:s:d:";
 
 	gnome_program_init("migr-test", VERSION, LIBGNOMEUI_MODULE, argc, argv, NULL);
 	gdk_init(&argc, &argv);
 
 	if (argc == 1) {
-		printf("Usage: %s -M <major> -m <minor> -r <revision> -u <user> -h <server> -s <source> -d <destination> \n", argv[0]);	
-		return 0;
+		printf("Usage: %s [-M major][ -m minor][ -r revision] <-u user> <-h server> [-s source][ -d destination] \n", argv[0]);
+		return 1;
 	}
 
-	if (argc < 7) {
-		printf("All the arguments not provided, Proceeding with the default values \n");
+	if (argc < 5) {
+		printf("Error.. User name and Server name not provided \n");
+		return 1;
+	}
+
+	if (argc < 15) {
+		printf("Warning.. All the arguments not provided, Proceeding with the default values \n");
 	}
 	
 	while ((opt = getopt (argc, argv, optstr)) != EOF) {
@@ -97,7 +100,7 @@ main (int argc, char **argv)
 	uid = g_strdup_printf ("%s@%s", user, server);
 
 	/* destination path */
-	base_dir = g_build_filename ("/tmp/.evo-tst/", uid, NULL);
+	base_dir = g_build_filename (dest, uid, NULL);
 	printf("base dir is %s; uid = %s; dest = %s ; source=%s \n", base_dir, uid, dest, source);
 		
 	ret = exchange_migrate (major, minor, revision, base_dir, (char *) uid);
