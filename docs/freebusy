@@ -1,0 +1,203 @@
+The OWA XML Free/Busy interface
+-------------------------------
+In Connector versions up to 1.4, we get free/busy data by using the
+XML interface to OWA. The request URL looks like:
+
+	/public/?Cmd=freebusy
+		&start=2002-10-23T04:00:00Z
+		&end=2002-11-27T05:00:00Z
+		&interval=30
+		&u=SMTP:danw@xcs.ximian.com
+		&u=SMTP:eleanor@xcs.ximian.com
+
+(Line breaks inserted for clarity. The actual URL would all be on one
+line of course.) This must be sent with a proper User-Agent header to
+make it believe you are IE (or you'll get the HTML form instead.) You
+can add as many users as you like.
+
+The response (with a status of 200 OK) looks like:
+
+	<a:response xmlns:a="WM">
+	  <a:recipients>
+	    <a:item>
+	      <a:displayname>All Attendees</a:displayname>
+	      <a:type>1</a:type>
+	      <a:fbdata>00000022220000000000000001221000222222...</a:fbdata>
+	    </a:item>
+	    <a:item>
+	      <a:displayname>Dan Winship</a:displayname>
+	      <a:email type="SMTP">danw@xcs.ximian.com</a:email>
+	      <a:type>1</a:type>
+	      <a:fbdata>00000000000000000000000000220000222222...</a:fbdata>
+	    </a:item>
+	    <a:item>
+	      <a:displayname>Eleanor Garcia</a:displayname>
+	      <a:email type="SMTP">eleanor@xcs.ximian.com</a:email>
+	      <a:type>1</a:type>
+	      <a:fbdata>00000022220000000000000001111000000000...</a:fbdata>
+	    </a:item>
+	  </a:recipients>  
+	</a:response>
+
+Each character in the fbdata section represents a length of "interval"
+minutes (the interval specified in the request URL).
+	0 - Free
+	1 - Tentative
+	2 - Busy
+	3 - Out of Office
+
+
+Personal Free/Busy file
+-----------------------
+Each user has a personal "freebusy" message, at:
+	/exchange/$USER/NON_IPM_SUBTREE/Freebusy%20Data/LocalFreebusy.EML
+
+This is known to be used for at least two things:
+
+	1. The user's free/busy information is stored on it, as
+	   described below.
+
+	2. The user's list of delegates and their "see private items"
+	   permissions are stored on it, as described in the
+	   "delegates" document.
+
+When you create an event via WebDAV, the server will eventually update
+the freebusy file with that data, but this is subject to various
+delays and exceptions that we don't understand. Among other things,
+Outlook uses the freebusy file to decide what dates to make bold in
+the minicalendar, which is why Connector-created appointments don't
+always show up there right away even when Outlook does display the
+event itself.
+
+The freebusy data is stored in mp:x686c0102 as follows:
+
+struct {
+	guint32 magic;		/* 0xdeadbeef */
+	guint32 header_len;	/* 0x00000040 */
+	guint32 unknown_1;	/* 0x00010000 */
+	guint32 unknown_2;	/* 0x00000000 */
+
+	guint32 num_groups;	/* number of free/busy groups */
+	guint32 num_events;	/* total number of free/busy objects */
+	guint32 unknown_3;	/* 0x00000008 */
+	guint32 unknown_4;	/* 0x00000004 */
+
+	guint64 first_event;	/* Windows filetime of start of first event */
+	guint64 last_event;	/* Windows filetime of end of last event */
+	guint64 start_valid;	/* Windows filetime of start of range */
+	guint64 end_valid;	/* Windows filetime of end of range */
+
+	struct {
+		guint32 index;	/* Index of first event belonging to this group */
+		guint32 count;	/* Number of events in this group */
+	} groups[num_groups];
+
+	struct {
+		guint32 offset;	/* Offset in minutes of event from start of group */
+		guint len:13;	/* Length of event in minutes */
+		guint status:3;	/* Status (1 = tentative, 2 = busy, 3 = oof) */
+	} events[num_events];
+};
+
+The first group starts at the time indicated by start_valid, so an
+event in group 0 with an offset of 0 starts at start_valid. Group N
+starts at time (start_valid + 0x10000). If there are no events in the
+timeframe of a group, its index and count will both be 0.
+
+There is no particular correlation between free/busy events and events
+on the calendar: two adjacent calendar events can be stored as a
+single freebusy event, and a given calendar event may be split across
+two or more freebusy groups.
+
+The number of months covered by the freebusy data is in mp:x68690003.
+
+Other Outlook preferences:
+	mp:x686d000b	Automatically process meeting requests/cancellations
+			(must be set for direct booking to work)
+	mp:x686e000b	Automatically decline recurring meeting requests
+	mp:x686f000b	Automatically decline conflicting meeting requests
+(These are also stored on the public free/busy file.)
+
+A posting on the MAPI-L list claims that setting
+PR_DISABLE_FULL_FIDELITY to False on the freebusy message will force
+Outlook to regenerate it, but I haven't tested this.
+
+
+Public Free/Busy file
+---------------------
+Each user also has a public free/busy message which is consulted when
+looking up free/busy for that user when scheduling a meeting. Under
+/public/NON_IPM_SUBTREE/SCHEDULE%2B%20FREE%20BUSY/, there is a
+directory for each Exchange organization. Eg:
+
+	EX:_xF8FF_o=Ximian%20XCS_xF8FF_ou=XCS
+
+In that directory is a file for each user, eg:
+
+	USER-_xF8FF_CN=RECIPIENTS_xF8FF_CN=DANW.EML
+
+So, given that my legacyExchangeDN is
+
+	/o=Ximian XCS/ou=XCS/cn=Recipients/cn=danw
+
+you can find my public freebusy file. ("_xF8FF_" is the URI-encoded
+form of '/' when it's not a path separator. e2k_uri_encode() handles
+this.). The legacyExchangeDN is also stored as mp:x6849001f on the
+message, so we can also just search for that.
+
+For unknown reasons, the data is stored in a completely different
+format on the public free/busy message.
+
+mp:x68470003 and mp:x68480003 give the start and end times of the
+published range, in systime (minutes since 16010101T00000000Z) format.
+These always fall on month boundaries. (The start time is always the
+beginning of the current month, and the end time is determined by the
+"number of months to publish" property (mp:68690003) on the private
+freebusy file.)
+
+Four pairs of multivalued properties give the actual information.
+
+	mp:x684f1003 / mp:x68501102 - all events
+	mp:x68511003 / mp:x68521102 - tentative events
+	mp:x68531003 / mp:x68541102 - busy events
+	mp:x68551003 / mp:x68561102 - out-of-office events
+
+The PT_MV_LONG properties are an array of
+
+	struct {
+		guint month:4;	/* 1 = January */
+		guint year :28;
+	};
+
+Each element of the PT_MV_LONG array has a corresponding element in
+the PT_MV_BINARY array containing the events in that month and year as
+an array of:
+
+	struct {
+		guint16 start;	/* minutes since start of month */
+		guint16 end;	/* minutes since start of month */
+	};
+
+If there are no events of a given type in the given interval, then
+Outlook leaves the two properties for that type unset. (If there are
+no events at all, then all 8 properties will be unset.) But when
+Exchange regenerates them itself, it just creates them empty.
+
+mp:x68680040 gives the last modtime.
+
+mp:x68410003 is set to 0 on most accounts, but not on others.
+
+mp:x6846000b seems to mean only "Outlook was here", although there
+seems to be some way for it to become unset.
+
+There is also one more property,
+http://schemas.microsoft.com/mapi/string/{8CDA1CAE-AFDB-11D2-9379-00C04FA357AA}/microsoft.cdo.calendar.fbhistory,
+of type PT_MV_BINARY, which seems to always contain 3 24-byte items.
+The first two bytes of each are a month-year like the PT_MV_LONG
+properties (and for an up-to-date freebusy file, the 3 items will be
+this month, next month, and the month after). There are then 6 0
+bytes, followed by 8 bytes of data that are almost always the same in
+each of the 3 items, followed by 8 0 bytes. The purpose of this data
+is currently unknown. The middle chunk of data seems to get changed
+every time the free/busy data is updated. It may be a timestamp of
+some unknown sort?

@@ -1,0 +1,190 @@
+# Process this file with autoconf to produce a configure script.
+AC_PREREQ(2.52)
+
+AC_INIT(ximian-connector, 1.4.7, http://bugzilla.ximian.com/enter_bug.cgi?product=Evolution)
+AC_CONFIG_SRCDIR(storage)
+AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
+
+
+
+AM_CONFIG_HEADER(config.h)
+
+AC_ARG_WITH(e2k-debug,     [  --with-e2k-debug              Allow debugging])
+case $withval in
+no)
+	;;
+*)
+	AC_DEFINE(E2K_DEBUG, 1, [Define if you want E2K_DEBUG to be available])
+	;;
+esac
+
+AC_MSG_CHECKING(Evolution version)
+EVOLUTION_VERSION=`pkg-config --modversion evolution-shell 2>/dev/null`
+if test -z "$EVOLUTION_VERSION"; then
+	AC_MSG_ERROR(Evolution development libraries not installed)
+fi
+AC_SUBST(EVOLUTION_VERSION)
+AC_MSG_RESULT($EVOLUTION_VERSION)
+
+EVOLUTION_BASE_VERSION=`echo $EVOLUTION_VERSION | awk -F. '{print $1 "." $2;}'`
+AC_DEFINE_UNQUOTED(EVOLUTION_BASE_VERSION,"$EVOLUTION_BASE_VERSION",Evolution version)
+
+dnl Initialize maintainer mode
+AM_MAINTAINER_MODE
+
+AC_ISC_POSIX
+AC_PROG_CC
+AC_STDC_HEADERS
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_MAKE_SET
+
+EVO_PURIFY_SUPPORT
+
+dnl Initialize libtool
+AM_PROG_LIBTOOL
+
+dnl ****
+dnl i18n
+dnl ****
+ALL_LINGUAS=" de "
+
+AC_PROG_INTLTOOL
+AM_GLIB_GNU_GETTEXT
+
+GETTEXT_PACKAGE=ximian-connector-1.4
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Package name for gettext])
+
+localedir='$(prefix)/$(DATADIRNAME)/locale'
+AC_SUBST(localedir)
+
+dnl *************************
+dnl CFLAGS and LIBS and stuff
+dnl *************************
+
+GNOME_COMPILE_WARNINGS(maximum)
+CFLAGS="$CFLAGS $WARN_CFLAGS"
+
+AC_EGREP_HEADER(socklen_t, sys/socket.h, :, AC_DEFINE(socklen_t, int, [Define to "int" if socklen_t is not defined]))
+AC_CHECK_FUNCS(inet_ntop)
+
+AM_PATH_GLIB_2_0
+AM_PATH_ORBIT2
+AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
+AM_GCONF_SOURCE_2
+
+BASE_VERSION=`echo $VERSION | awk -F. '{print $1 "." $2;}'`
+AC_SUBST(BASE_VERSION)
+
+CONNECTOR_DATADIR='$(datadir)/ximian-connector/$(BASE_VERSION)'
+AC_SUBST(CONNECTOR_DATADIR)
+
+EVOLUTION_idldir="`pkg-config --variable=idldir evolution-shell`"
+AC_SUBST(EVOLUTION_idldir)
+
+EVOLUTION_IDL_INCLUDES="`pkg-config --variable=IDL_INCLUDES evolution-shell`"
+AC_SUBST(EVOLUTION_IDL_INCLUDES)
+
+EVOLUTION_privlibdir="`pkg-config --variable=privlibdir evolution-shell`"
+AC_SUBST(EVOLUTION_privlibdir)
+
+EVOLUTION_privlibexecdir="`pkg-config --variable=privlibexecdir evolution-shell`"
+AC_SUBST(EVOLUTION_privlibexecdir)
+
+EVOLUTION_camel_providerdir="`pkg-config --variable=camel_providerdir camel`"
+AC_SUBST(EVOLUTION_camel_providerdir)
+
+EVOLUTION_imagesdir="`pkg-config --variable=imagesdir evolution-shell`"
+AC_SUBST(EVOLUTION_imagesdir)
+
+
+PKG_CHECK_MODULES(ADDRESSBOOK, evolution-addressbook)
+AC_SUBST(ADDRESSBOOK_CFLAGS)
+
+PKG_CHECK_MODULES(CALENDAR, evolution-calendar)
+AC_SUBST(CALENDAR_CFLAGS)
+AC_SUBST(CALENDAR_LIBS)
+
+PKG_CHECK_MODULES(SHELL, evolution-shell)
+AC_SUBST(SHELL_CFLAGS)
+
+PKG_CHECK_MODULES(CAMEL, camel)
+AC_SUBST(CAMEL_CFLAGS)
+
+PKG_CHECK_MODULES(EXCHANGE_STORAGE, evolution-shell evolution-addressbook evolution-calendar soup-2.0 libglade-2.0 libgnomeui-2.0)
+AC_SUBST(EXCHANGE_STORAGE_CFLAGS)
+AC_SUBST(EXCHANGE_STORAGE_LIBS)
+
+PKG_CHECK_MODULES(LIBEXCHANGE, soup-2.0 libbonobo-2.0)
+AC_SUBST(LIBEXCHANGE_CFLAGS)
+AC_SUBST(LIBEXCHANGE_LIBS)
+
+dnl *********************
+dnl Pilot license support
+dnl *********************
+# This does not take leap years into account, but that's not
+# important: having the build time be slightly too early is good
+# to support slight clock skew anyway.
+# 946684800 is 2000-01-01T00:00:00Z.
+# Don't change this without testing under /bin/sh on Solaris.
+abt=`eval expr \`date '+\( \( %y \* 365 \) + %j - 1 \) \* 24 \* 60 \* 60 + 946684800'\``
+case $abt in
+"")
+	echo "Warning: build time check failed. (Are you on OS X?)."
+	echo "Pilot licenses won't work."
+	abt="0"
+	;;
+esac
+AC_DEFINE_UNQUOTED(E2K_APPROX_BUILD_TIME, $abt, [Used to prevent clock-setting attacks against pilot licenses])
+
+
+dnl *********************
+dnl OpenLDAP NTLM support
+dnl *********************
+EVO_LDAP_CHECK(yes)
+case $with_openldap in
+no)
+	AC_ERROR(LDAP support is required for Connector)
+	;;
+esac
+
+SAVE_CFLAGS="$CFLAGS"
+SAVE_LIBS="$LIBS"
+CFLAGS="$CFLAGS $LDAP_CFLAGS"
+LIBS="$LIBS $LDAP_LIBS"
+AC_CHECK_FUNCS(ldap_ntlm_bind)
+CFLAGS="$SAVE_CFLAGS"
+LIBS="$SAVE_LIBS"
+
+dnl ******************************
+dnl Makefiles
+dnl ******************************
+
+AC_OUTPUT([
+Makefile
+xntlm/Makefile
+lib/Makefile
+camel/Makefile
+mail/Makefile
+calendar/Makefile
+addressbook/Makefile
+storage/Makefile
+docs/Makefile
+docs/ietf/Makefile
+po/Makefile.in
+])
+
+case $ac_cv_func_ldap_ntlm_bind in
+no)
+	echo ""
+	AC_MSG_WARN([
+No NTLM support in OpenLDAP; Plaintext password authentication will be
+used when connecting to the Global Catalog server. Consider installing
+the evo-openldap package, or building OpenLDAP with the patch in
+docs/openldap-ntlm.diff
+])
+	;;
+esac
+		
+

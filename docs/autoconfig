@@ -1,0 +1,97 @@
+Autoconfiguration
+-----------------
+This document explains how system administrators at sites with large
+numbers of Connector users can customize the details of Connector
+account autoconfiguration. (The basic details about how and when
+autoconfiguration happens are in the Evolution user documentation.)
+
+
+The general idea is that you can provide certain autoconfiguration
+hints by adding fields to the end of the Connector license file. The
+hints must be added *after* the encrypted block. Eg:
+
+    Owner: Geoff Hunt <geoff@rupertcorp.com>
+    Licensed for: 1000 users
+    Issued: 2002-05-07T19:37:20.26979Z
+    
+    4J6H2M83FwVcGDOrIPU84Nc+kcR8QjJu1aDq2Z34SzoHzxFz13LSwNZ6VJGxvEfGdfdIPABB
+    VX3Van3ATBPPH1XuoXkriGILVgF98UGhJSgKJWoBBL9Q0MVK9oKDMOLp/sglZLni87GYo/Aw
+    0uZzizHiGzpQhvLkjDxj91apimjCUxzC29oi1xrEHbPAcrpqhqhPEDtpoZC+FMiTXl9m60Be
+    2acmoyJxx5vCtAbm1v6Rx9pEXcAVxI1YOKnqZc89t5yYFeCeYPgxzWyHPtTDfw==
+
+    OWA-URL: https://exchange.rupertcorp.com/exchange/
+    Global-Catalog: ad1.rupertcorp.com
+
+This license file can then either be distributed to the user via
+email, or pre-installed on their machine as /etc/ximian/connector-key.txt
+or /usr/share/ximian-connector/connector-key.txt
+
+[Note that although license files are no longer required, you can
+still use them for purposes of autoconfiguration. The license part of
+the file is simply ignored. In Connector 2.0, this will be done
+differently.]
+
+
+Basic Autoconfiguration
+-----------------------
+When autoconfiguring, Connector asks the user for the OWA URL, plus
+the user's username and password. If the Exchange server supports NTLM
+("secure password") authentication, Connector will be able to find the
+NT and Windows 2000 domain names, eg "RUPERTCORP" and "rupertcorp.com"
+respectively. If DNS is set up correctly, Connector can then find the
+name of a Global Catalog server for that domain:
+
+    $ host -t srv _gc._tcp.rupertcorp.com
+    _gc._tcp.rupertcorp.com SRV 0 100 3268 ad1.rupertcorp.com.
+
+And given the global catalog, and certain information stored in the
+Exchange mailbox, Connector can then find the user's full name, email
+address, etc, to complete autoconfiguration.
+
+
+Explicitly specifying the OWA URL
+---------------------------------
+You can specify a default OWA URL to use with the "OWA-URL" hint. Eg:
+
+    OWA-URL: https://exchange.rupertcorp.com/exchange/
+
+
+Explicitly specifying the Global Catalog server
+-----------------------------------------------
+If the Exchange server has been configured to not allow NTLM
+authentication, or if there is an intercepting HTTP proxy on your
+network that unintentionally interferes with NTLM authentication, then
+Connector will have to use Plaintext Password authentication. In this
+case, Connector will not be able to autodetect the global catalog
+name. Similarly, if the user is trying to configure Connector from
+outside the firewall, it is possible that the DNS pointer to the GC
+server will not be visible.
+
+In either case, you can add a "Global-Catalog" hint to the license
+file:
+
+    Global-Catalog: ad1.rupertcorp.com
+
+If autoconfiguration cannot determine the global catalog name (either
+automatically or by looking in the license file) then the user will
+need to enter it manually.
+
+
+Explicitly specifying domain information
+----------------------------------------
+You can also add:
+
+    NT-Domain: RUPERTCORP
+
+This is useful if Plaintext Password authentication will be required
+and the Exchange server does not automatically assume that domain.
+
+
+Other license file hints
+------------------------
+GAL-Limit: 500
+    Default search size limit for GAL searches.
+
+Disable-Plaintext: True
+    Makes autoconfiguration refuse to fall back to Plaintext Password
+    if NTLM doesn't work.

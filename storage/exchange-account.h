@@ -1,0 +1,134 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
+/* Copyright (C) 2001-2004 Novell, Inc. */
+
+#ifndef __EXCHANGE_ACCOUNT_H__
+#define __EXCHANGE_ACCOUNT_H__
+
+#include "exchange-types.h"
+#include "e2k-connection.h"
+#include "e2k-global-catalog.h"
+#include "e2k-security-descriptor.h"
+#include <shell/e-folder.h>
+#include <e-util/e-account-list.h>
+
+#ifdef __cplusplus
+extern "C" {
+#pragma }
+#endif /* __cplusplus */
+
+#define EXCHANGE_TYPE_ACCOUNT            (exchange_account_get_type ())
+#define EXCHANGE_ACCOUNT(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EXCHANGE_TYPE_ACCOUNT, ExchangeAccount))
+#define EXCHANGE_ACCOUNT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), EXCHANGE_TYPE_ACCOUNT, ExchangeAccountClass))
+#define EXCHANGE_IS_ACCOUNT(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), EXCHANGE_TYPE_ACCOUNT))
+#define EXCHANGE_IS_ACCOUNT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((obj), EXCHANGE_TYPE_ACCOUNT))
+
+struct _ExchangeAccount {
+	GObject parent;
+
+	ExchangeAccountPrivate *priv;
+
+	/* account_name is the user-specified UTF8 display name.
+	 * account_filename is "username@hostname" run through
+	 * e_filename_make_safe.
+	 */
+	char *account_name, *account_filename, *storage_dir;
+	char *exchange_server, *home_uri, *public_uri;
+	char *legacy_exchange_dn;
+
+	gboolean filter_inbox;
+};
+
+struct _ExchangeAccountClass {
+	GObjectClass parent_class;
+
+	/* signals */
+	void (*connected) (ExchangeAccount *);
+
+	void (*new_folder) (ExchangeAccount *, EFolder *);
+	void (*removed_folder) (ExchangeAccount *, EFolder *);
+	void (*updated_folder) (ExchangeAccount *, EFolder *);
+};
+
+GType                  exchange_account_get_type             (void);
+ExchangeAccount       *exchange_account_new                  (EAccountList                   *account_list,
+							      EAccount                       *adata);
+E2kConnection         *exchange_account_get_connection       (ExchangeAccount                *acct);
+E2kGlobalCatalog      *exchange_account_get_global_catalog   (ExchangeAccount                *acct);
+
+const char            *exchange_account_get_standard_uri     (ExchangeAccount                *acct,
+							      const char                     *item);
+
+char                  *exchange_account_get_standard_uri_for (ExchangeAccount                *acct,
+							      const char                     *home_uri,
+							      const char                     *std_uri_prop);
+char                  *exchange_account_get_foreign_uri      (ExchangeAccount                *acct,
+							      E2kGlobalCatalogEntry          *entry,
+							      const char                     *std_uri_prop);
+
+typedef void         (*ExchangeAccountConnectCallback)       (ExchangeAccount                *acct,
+							      gpointer                        user_data);
+void                   exchange_account_async_connect        (ExchangeAccount                *acct,
+							      ExchangeAccountConnectCallback  callback,
+							      gpointer                        user_data);
+
+EFolder               *exchange_account_get_folder             (ExchangeAccount                *acct,
+								const char                     *path_or_uri);
+GPtrArray             *exchange_account_get_folders            (ExchangeAccount                *acct);
+void                   exchange_account_update_folder          (ExchangeAccount                *acct,
+								EFolder                        *folder);
+
+void                   exchange_account_rescan_tree            (ExchangeAccount                *acct);
+
+typedef enum {
+	EXCHANGE_ACCOUNT_FOLDER_OK,
+	EXCHANGE_ACCOUNT_FOLDER_ALREADY_EXISTS,
+	EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST,
+	EXCHANGE_ACCOUNT_FOLDER_UNKNOWN_TYPE,
+	EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED,
+	EXCHANGE_ACCOUNT_FOLDER_OFFLINE,
+	EXCHANGE_ACCOUNT_FOLDER_UNSUPPORTED_OPERATION,
+	EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR
+} ExchangeAccountFolderResult;
+typedef void (*ExchangeAccountFolderCallback) (ExchangeAccount *account,
+					       ExchangeAccountFolderResult,
+					       EFolder *folder,
+					       gpointer user_data);
+
+void exchange_account_async_create_folder (ExchangeAccount *account,
+					   const char      *path,
+					   const char      *type,
+					   ExchangeAccountFolderCallback,
+					   gpointer         user_data);
+void exchange_account_async_remove_folder (ExchangeAccount *account,
+					   const char      *path,
+					   ExchangeAccountFolderCallback,
+					   gpointer         user_data);
+void exchange_account_async_xfer_folder   (ExchangeAccount *account,
+					   const char      *source_path,
+					   const char      *dest_path,
+					   gboolean         remove_source,
+					   ExchangeAccountFolderCallback,
+					   gpointer         user_data);
+void exchange_account_async_open_folder   (ExchangeAccount *account,
+					   const char      *path,
+					   ExchangeAccountFolderCallback,
+					   gpointer         user_data);
+
+void exchange_account_async_discover_shared_folder  (ExchangeAccount *account,
+						     const char      *user,
+						     const char      *folder,
+						     ExchangeAccountFolderCallback,
+						     gpointer         user_data);
+void exchange_account_cancel_discover_shared_folder (ExchangeAccount *account,
+						     const char      *user,
+						     const char      *folder);
+void exchange_account_async_remove_shared_folder    (ExchangeAccount *account,
+						     const char      *path,
+						     ExchangeAccountFolderCallback,
+						     gpointer         user_data);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
+#endif /* __EXCHANGE_ACCOUNT_H__ */

@@ -1,0 +1,45 @@
+X properties used in Outlook/Exchange-generated iCalendar
+
+
+X-MICROSOFT-CDO-ALLDAYEVENT:
+	TRUE for an all-day event, FALSE otherwise. CDO does not
+	recognize all-day events in the same way Evolution does.
+	It requires this property to be set, and expects the DTSTART
+	and DTEND to be the boundaries of the day in the local
+	time zone, converted to UTC.
+
+X-MICROSOFT-CDO-BUSYSTATUS:
+	FREE, TENTATIVE, BUSY, OUTOFOFFICE
+
+X-MICROSOFT-CDO-IMPORTANCE:
+	0 (high), 1 (normal), 2 (low)
+	corresponding to PRIORITY < 5, == 5, and > 5 respectively
+
+X-MICROSOFT-CDO-INSTTYPE:
+	0 - non-recurring
+	1 - master entry for a recurring appointment
+	2 - single instance of a recurring appointment
+	3 - exception to a recurring appointment
+
+X-MICROSOFT-CDO-INTENDEDSTATUS:
+	FREE, TENTATIVE, BUSY, OUTOFOFFICE
+	used in meeting requests
+
+X-MICROSOFT-CDO-MODPROPS:
+	This gets set in iMIP messages with changes to recurring
+	meetings, to a list of properties that are different in the
+	master instance and the changed instance.
+
+X-MICROSOFT-CDO-OWNERAPPTID:
+	Corresponds to http://schemas.microsoft.com/mapi/ownerapptid.
+	Uncertain use. Doesn't appear to be mandatory.
+
+X-MICROSOFT-CDO-REPLYTIME:
+	The time at which the user took some action with respect to
+	this appointment. When accepting a meeting request, should
+	be set in both the saved meeting and the reply to the
+	organizer. Must also be set in a direct booked meeting.
+
+X-MICROSOFT-CDO-TZID:
+	In a VTIMEZONE, gives the CDO id (eg, 10 for EST). Should
+	be unset for VTIMEZONEs that aren't from CDO.

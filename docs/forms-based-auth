@@ -1,0 +1,84 @@
+Exchange 2003 introduced "forms-based authentication" for OWA, which
+lets the administrator configure OWA to present an html form to the
+user to type his username and password into instead of using HTTP
+authentication. This has various benefits, particularly that you can
+guarantee that the auth information won't be cached on the workstation
+after you log out, and that the administrator can make the
+authentication time out after the interval of his choosing.
+
+It's annoying for us though. If forms-based auth is turned on, then
+HTTP auth just won't work. You have to play the forms game.
+
+
+If forms-based auth is turned on, then SSL must also be required, and
+non-https requests will get "403 Forbidden".
+
+GET requests under /exchange will be redirected to
+/exchweb/bin/auth/owalogon.asp?url=(ORIGINAL URL HERE)&reason=0
+All other HTTP/WebDAV requests will get a "440 Login Timeout".
+
+Trying to GET owalogon.asp with "Translate: F" will return "403
+Forbidden".
+
+
+The page returned by owalogon.asp is slightly different for IE and
+non-IE. Either way it contains a form with at least the following
+fields:
+
+	destination (hidden): the original URL that redirected us here
+	flags (hidden): options bitfield, as described below
+	username: the username entry
+	password: the password entry
+	trusted: whether this is a public or private computer
+
+The "private" value for "trusted" is 4, and we pass that, so that we
+get the longer credentials timeout time. (24 hours by default). You
+also have to pass 4 for "flags" to indicate this. (The "1" bit in
+flags indicate that you want to use the non-IE version of OWA even if
+you are on IE. We don't pass that option.)
+
+We then POST the form with the user's username and password:
+
+	POST /exchweb/bin/auth/owaauth.dll HTTP/1.1
+	Host: ex2k3.xcs.ximian.com
+	Content-Type: application/x-www-form-urlencoded
+	Content-Length: 127
+
+	destination=https%3A%2F%2Fex2k3.xcs.ximian.com%2Fexchange%2F&
+	flags=0&username=danw&password=foobar&SubmitCreds=Log+On&trusted=0
+
+To which the server responds:
+
+	HTTP/1.1 302 Moved Temporarily
+	Server: Microsoft-IIS/5.0
+	Date: Thu, 24 Jul 2003 17:23:33 GMT
+	X-Powered-By: ASP.NET
+	Location: https://ex2k3.xcs.ximian.com/exchange/
+	Set-Cookie: sessionid=fbb50caf-381a-4f85-9582-a7a902b4561f,0x409; path=/
+	Set-Cookie: cadata="2,8JOrhiSTShG6UyFwWDoV7jrigo+a5XQgEbws7tq3//37QERxw6DGvROIJyk+Awlm"; HttpOnly; secure; path=/
+	Content-Length: 0
+
+("HttpOnly" is a Microsoft extension to the Cookie protocol, which
+means that the cookie should not be visible to Javascript/VBScript,
+etc. "Secure" means that you should only send it over HTTPS, and
+"path=/" means it's good for any path on this server.)
+
+Now you have to make another request to find out if the cookie is any
+good. This request (and all further requests) should include the two
+cookies:
+
+	Cookie: sessionid=fbb50caf-381a-4f85-9582-a7a902b4561f,0x409; cadata="2,8JOrhiSTShG6UyFwWDoV7jrigo+a5XQgEbws7tq3//37QERxw6DGvROIJyk+Awlm"
+
+If you do an OWA GET (a GET without "Translate: F"), failure will be
+indicated by a "200 OK" response containing the login form again. If
+you do any other request, failure is indicated by a "440 Login
+Timeout" cancelling the cookie:
+
+	440 Login Timeout
+	Set-Cookie: sessionid=; path=/; expires=Thu, 01-Jan-1970 00:00:00 GMT
+	Set-Cookie: cadata=; path=/; expires=Thu, 01-Jan-1970 00:00:00 GMT
+	Connection: close
+
+
+Eventually, when the cookie does expire, you will get a "440 Login
+Timeout" as above, and have to reauthenticate to get a new cookie.

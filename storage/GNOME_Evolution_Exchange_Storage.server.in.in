@@ -1,0 +1,131 @@
+<oaf_info>
+
+<oaf_server iid="OAFIID:GNOME_Evolution_ExchangeStorage_ShellComponent"
+            type="exe"
+            location="@CONNECTOR_PATH@/evolution-exchange-storage">
+
+	<oaf_attribute name="repo_ids" type="stringv">
+		<item value="IDL:GNOME/Evolution/ShellComponent:1.0"/>
+	</oaf_attribute>
+
+	<oaf_attribute name="name" type="string"
+	               _value="Ximian Connector for Exchange"/>
+
+        <oaf_attribute name="evolution:shell_component_icon" type="string"
+                       value="connector.png"/>
+	<oaf_attribute name="evolution:shell_component_launch_order" type="number"
+		       value="0"/>
+
+</oaf_server>
+
+<oaf_server iid="OAFIID:GNOME_Evolution_ExchangeStorage_AddressbookFactory"
+            type="exe"
+            location="@CONNECTOR_PATH@/evolution-exchange-storage">
+
+	<oaf_attribute name="repo_ids" type="stringv">
+		<item value="IDL:GNOME/Evolution/BookFactory:1.0"/>
+		<item value="IDL:Bonobo/Unknown:1.0"/>
+	</oaf_attribute>
+
+	<oaf_attribute name="name" type="string"
+                       _value="Evolution Addressbook Exchange backend"/>
+
+        <oaf_attribute name="addressbook:supported_protocols" type="stringv">
+		<item value="exchange"/>
+		<item value="activedirectory"/>
+        </oaf_attribute>
+</oaf_server>
+
+<oaf_server iid="OAFIID:GNOME_Evolution_ExchangeStorage_CalendarFactory"
+            type="exe"
+            location="@CONNECTOR_PATH@/evolution-exchange-storage">
+
+	<oaf_attribute name="repo_ids" type="stringv">
+		<item value="IDL:GNOME/Evolution/Calendar/CalFactory:1.0"/>
+		<item value="IDL:Bonobo/Unknown:1.0"/>
+	</oaf_attribute>
+
+	<oaf_attribute name="name" type="string"
+                       _value="Evolution Calendar Exchange backend"/>
+
+</oaf_server>
+
+<oaf_server iid="OAFIID:GNOME_Evolution_ExchangeStorage_ConfigFactory"
+            type="exe"
+            location="@CONNECTOR_PATH@/evolution-exchange-storage">
+
+	<oaf_attribute name="repo_ids" type="stringv">
+		<item value="IDL:GNOME/ObjectFactory:1.0"/>
+	</oaf_attribute>
+
+</oaf_server>
+
+<oaf_server iid="OAFIID:GNOME_Evolution_ExchangeStorage_DelegatesConfigControl"
+	    type="factory"
+	    location="OAFIID:GNOME_Evolution_ExchangeStorage_ConfigFactory">
+
+	<oaf_attribute name="repo_ids" type="stringv">
+		<item value="IDL:GNOME/Evolution/ConfigControl:1.0"/>
+	</oaf_attribute>
+
+	<oaf_attribute name="evolution:config_item:title" type="string"
+		       _value="Exchange Delegation"/>
+
+	<oaf_attribute name="evolution:config_item:description" type="string"
+		       _value="This page can be used to configure delegation for Exchange"/>
+
+	<oaf_attribute name="evolution:config_item:icon_name" type="string"
+		       value="exchange-delegates-48.png"/>
+
+	<oaf_attribute name="evolution:config_item:type" type="stringv">
+		<item value="exchange"/>
+	</oaf_attribute>
+
+	<oaf_attribute name="evolution:config_item:priority" type="string" value="-7"/>
+    
+	<oaf_attribute name="name" type="string"
+		       _value="Ximian Connector delegation configuration control"/>
+
+</oaf_server>
+
+<oaf_server iid="OAFIID:GNOME_Evolution_ExchangeStorage_OOFConfigControl"
+	    type="factory"
+	    location="OAFIID:GNOME_Evolution_ExchangeStorage_ConfigFactory">
+
+	<oaf_attribute name="repo_ids" type="stringv">
+		<item value="IDL:GNOME/Evolution/ConfigControl:1.0"/>
+	</oaf_attribute>
+
+	<oaf_attribute name="evolution:config_item:title" type="string"
+		       _value="Out of Office"/>
+
+	<oaf_attribute name="evolution:config_item:description" type="string"
+		       _value="This page can be used to configure Exchange &quot;Out of Office&quot; settings"/>
+
+	<oaf_attribute name="evolution:config_item:icon_name" type="string"
+		       value="exchange-oof-48.png"/>
+
+	<oaf_attribute name="evolution:config_item:type" type="stringv">
+		<item value="exchange"/>
+	</oaf_attribute>
+
+	<oaf_attribute name="evolution:config_item:priority" type="string" value="0"/>
+    
+	<oaf_attribute name="name" type="string"
+		       _value="Ximian Connector out-of-office configuration control"/>
+
+</oaf_server>
+
+<oaf_server iid="OAFIID:GNOME_Evolution_ExchangeStorage_Startup_Wizard"
+	    type="factory"
+	    location="OAFIID:GNOME_Evolution_ExchangeStorage_ConfigFactory">
+
+	<oaf_attribute name="repo_ids" type="stringv">
+		<item value="IDL:GNOME/Evolution/StartupWizard:1.0"/>
+	</oaf_attribute>
+
+	<oaf_attribute name="evolution:startup_wizard:priority" type="number"
+		value="0"/>
+</oaf_server>
+
+</oaf_info>
