@@ -707,10 +707,11 @@ proppatch_date (PropMapping *prop_mapping,
 
 	changed = !e_contact_date_equal (cur_dt, new_dt);
 	e_contact_date_free (cur_dt);
-	e_contact_date_free (new_dt);
 
-	if (!changed)
+	if (!changed) {
+		e_contact_date_free (new_dt);
 		return;
+	}
 
 	memset (&then, 0, sizeof(then));
 	then.tm_year = new_dt->year - 1900;
@@ -721,6 +722,7 @@ proppatch_date (PropMapping *prop_mapping,
 
 	e2k_properties_set_date (props, prop_mapping->prop_name,
 				 e2k_make_timestamp (tt));
+	e_contact_date_free (new_dt);
 }
 
 static void
