@@ -1,5 +1,12 @@
 2004-07-03  Nicel KM  <mnicel@novell.com>
 
+	* storage/exchange-account.c (get_password): In case of remembering
+	password, no need to save the complete account_list. Fixes an 
+	evolution crash that happens on adding the exchange account with 
+	remember password option checked. 
+
+2004-07-03  Nicel KM  <mnicel@novell.com>
+
 	* calendar/e-cal-backend-exchange-calendar.c (modify_object):
 	Killed some type mismatch warnings.
 

@@ -818,7 +818,7 @@ get_password (ExchangeAccount *account, E2kAutoconfig *ac, const char *errmsg)
 			NULL);
 		if (remember != oldremember) {
 			account->priv->account->source->save_passwd = remember;
-			e_account_list_save (account->priv->account_list);			}
+		}
 		g_free (prompt);
 	}
 	g_free (key);
