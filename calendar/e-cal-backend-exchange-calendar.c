@@ -415,6 +415,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	const char *summary;
 	E2kHTTPStatus http_status;
 	struct _cb_data *cbdata;
+	GSList *categories;
 	
 	cbexc =	E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 	
@@ -498,7 +499,6 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	
 	lastmod = e2k_timestamp_from_icaltime (current);
 
-
 	comp = e_cal_component_new ();
 	e_cal_component_set_icalcomponent (comp, icalcomp);	
 
@@ -507,10 +507,6 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	cbdata->vcal_comp = e_cal_util_new_top_level ();
 	cbdata->cal = cal;
 
-	/*icalprop = icalproperty_new (ICAL_METHOD_PROPERTY);
-	icalproperty_set_method (icalprop, method);
-	icalcomponent_add_property (cbdata->vcal_comp, icalprop);*/
-	
 	/* Remove X parameters from properties */
 	/* This is specifically for X-EVOLUTION-END-DATE, 
 	   but removing anything else is probably ok too */
@@ -543,8 +539,6 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	summary = icalcomponent_get_summary (real_icalcomp);
 	if (!summary)
 		summary = "";
-
-
 	
 	date = e_cal_backend_exchange_make_timestamp_rfc822 (time (NULL));
 	from = e_cal_backend_exchange_get_from_string (backend, comp);
@@ -572,17 +566,12 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	if (http_status != E2K_HTTP_CREATED)
 		return GNOME_Evolution_Calendar_OtherError;
 
-	#if 0
-	ctx = exchange_account_get_context (E_CAL_BACKEND_EXCHANGE (cbexc)->account);	
-	
-	/* PUT the iCal object in the Exchange server */
-	http_status = e2k_context_put (ctx, NULL, location,
-						"message/rfc822", msg, strlen (msg), uid);
-
-	#endif
-	
 	/*add object*/
 	e_cal_backend_exchange_add_object (E_CAL_BACKEND_EXCHANGE (cbexc), location, lastmod, icalcomp);
+	
+	e_cal_component_get_categories_list (comp, &categories);
+	e_cal_backend_ref_categories (E_CAL_BACKEND (cbexc), categories);
+	e_cal_component_free_categories_list (categories);
 	
 	g_free (lastmod);
 	/*cleanup ?*/	
@@ -708,6 +697,7 @@ modify_object (ECalBackendSync *backend, EDataCal *cal,
 	char *from, *date;
 	const char *summary;
 	E2kContext *ctx;
+	GSList *categories;
 
 	cbexc =	E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 
@@ -880,16 +870,26 @@ modify_object (ECalBackendSync *backend, EDataCal *cal,
 	g_free (from);
 	g_free (body_crlf);
 
+	/*unref the old set of categories*/
+	e_cal_component_get_categories_list (old_comp, &categories);
+	e_cal_backend_unref_categories (E_CAL_BACKEND (cbexc), categories);
+	e_cal_component_free_categories_list (categories);
+	
+	/*ref the new set of categories*/
+	e_cal_component_get_categories_list (tmp_comp, &categories);
+	e_cal_backend_ref_categories (E_CAL_BACKEND (cbexc), categories);
+	e_cal_component_free_categories_list (categories);
+
 	ctx = exchange_account_get_context (E_CAL_BACKEND_EXCHANGE (cbexc)->account);	
 	
 	/* PUT the iCal object in the Exchange server */
 	http_status = e2k_context_put (ctx, NULL, ecomp->href, "message/rfc822",
 				       		msg, strlen (msg), NULL);
-					   
+
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (http_status))
 		e_cal_backend_exchange_modify_object (E_CAL_BACKEND_EXCHANGE (cbexc), 
 							real_icalcomp, mod);
-
+	
 	g_free (msg);
 	g_object_unref (tmp_comp);
 	icalcomponent_free (cbdata->vcal_comp);
@@ -908,6 +908,7 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 	E2kHTTPStatus status;
 	E2kContext *ctx;
 	ECalComponent *comp;
+	GSList *categories;
 	
 	cbexc = E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 
@@ -927,8 +928,13 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 	status = e2k_context_delete (ctx, NULL, ecomp->href);
 	
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		
+		e_cal_component_get_categories_list (comp, &categories);
+		e_cal_backend_unref_categories (E_CAL_BACKEND (cbexc), categories);
+		e_cal_component_free_categories_list (categories);
+		
 		if (e_cal_backend_exchange_remove_object (E_CAL_BACKEND_EXCHANGE (cbexc), uid))
-			return GNOME_Evolution_Calendar_Success;
+				return GNOME_Evolution_Calendar_Success;
 	}
 	
 	return GNOME_Evolution_Calendar_OtherError;

@@ -1,3 +1,13 @@
+2004-06-23  Nicel KM  <mnicel@novell.com>
+
+	* calendar/e-cal-backend-exchange-calendar.c (create_object):
+	Update the categories list with the ref for the new component.
+	Removed some commented code.
+	(modify_object): remove the old and add new category in the category 
+	list
+	(remove_object): remove ref for component from the category list
+
+
 2004-06-22  Dan Winship  <danw@novell.com>
 
 	* lib/e2k-uri.c (e2k_uri_append_encoded, e2k_uri_encode): add a
