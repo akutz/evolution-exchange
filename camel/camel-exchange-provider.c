@@ -62,7 +62,6 @@ CamelProviderConfEntry exchange_conf_entries[] = {
 	  N_("Password Expiry Warning period: %s"), "y:1:7:90" },
 	{ CAMEL_PROVIDER_CONF_CHECKBOX, "offline_sync", NULL,
 	  N_("Automatically synchronize account locally"), "0" },
-	{ CAMEL_PROVIDER_CONF_SECTION_END },
 	{ CAMEL_PROVIDER_CONF_CHECKBOX, "filter", NULL,
 	  /* i18n: copy from evolution:camel-imap-provider.c */
 	  N_("Apply filters to new messages in Inbox on this server"), "0" },
@@ -70,6 +69,7 @@ CamelProviderConfEntry exchange_conf_entries[] = {
 	  N_("Check new messages for Junk contents"), "0" },
 	{ CAMEL_PROVIDER_CONF_CHECKBOX, "filter_junk_inbox", "filter_junk",
 	  N_("Only check for Junk messages in the Inbox folder"), "0" },
+	{ CAMEL_PROVIDER_CONF_SECTION_END },
 	{ CAMEL_PROVIDER_CONF_END }
 };
 
