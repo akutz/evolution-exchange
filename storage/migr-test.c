@@ -43,9 +43,9 @@ int
 main (int argc, char **argv)
 {
 	gboolean ret=FALSE;
-	const CORBA_short major=1;
-	const CORBA_short minor=4;
-	const CORBA_short revision=0;
+	CORBA_short major=1;
+	CORBA_short minor=4;
+	CORBA_short revision=0;
 	gchar *user = "u1";
 	gchar *server = "164.99.155.182";
 	gchar *source = "/root/evolution";
@@ -72,10 +72,10 @@ main (int argc, char **argv)
 				major = atoi(optarg);
 				break;
 			case 'm':
-				minor = (CORBA_short) optarg;
+				minor = atoi(optarg);
 				break;
 			case 'r':
-				revision = (CORBA_short) optarg;
+				revision = atoi(optarg);
 				break;
 			case 'u':
 				user = optarg;
