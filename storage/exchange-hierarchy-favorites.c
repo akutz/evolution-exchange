@@ -18,8 +18,6 @@
 #include "e2k-uri.h"
 #include "e2k-utils.h"
 
-#include <libedataserver/e-xml-hash-utils.h>
-
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
