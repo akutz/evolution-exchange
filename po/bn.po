@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-13 15:04-0400\n"
+"POT-Creation-Date: 2004-08-27 14:38-0400\n"
 "PO-Revision-Date: 2004-08-06 13:14+0530\n"
 "Last-Translator: Runa Bhattacharjee <runa@bengalinux.com>\n"
 "Language-Team: bangla <gnome-translation@bengalinux.org>\n"
@@ -17,23 +17,23 @@ msgstr ""
 "X-Generator: KBabel 1.3.1\n"
 
 #: addressbook/e-book-backend-exchange.c:1655
-#: addressbook/e-book-backend-gal.c:1184 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-gal.c:1204 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "অনুসন্ধান করা হচ্ছে..."
 
-#: addressbook/e-book-backend-gal.c:240
+#: addressbook/e-book-backend-gal.c:238
 msgid "Reconnecting to LDAP server..."
 msgstr "LDAP সার্ভার-এর সাথে পুনরায় সংযোগ করা হচ্ছে..."
 
-#: addressbook/e-book-backend-gal.c:1099
+#: addressbook/e-book-backend-gal.c:1110
 msgid "Receiving LDAP search results..."
 msgstr "LDAP-র অনুসন্ধানের ফলাফল আহরণ করা হচ্ছে..."
 
-#: addressbook/e-book-backend-gal.c:1205
+#: addressbook/e-book-backend-gal.c:1225
 msgid "Error performing search"
 msgstr "অনুসন্ধানের সময় সমস্যা হয়েছে"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1358
+#: calendar/e-cal-backend-exchange-calendar.c:1354
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -61,26 +61,26 @@ msgstr "বার্তা সরিয়ে ফেলা হচ্ছে"
 msgid "Copying messages"
 msgstr "বার্তা কপি করা হচ্ছে"
 
-#: camel/camel-exchange-folder.c:876
+#: camel/camel-exchange-folder.c:878
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "%s ডিরেক্টরিটি তৈরি করা সম্ভব হয়নি: %s"
 
-#: camel/camel-exchange-folder.c:886
+#: camel/camel-exchange-folder.c:888
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "%s -র জন্য সংক্ষিপ্ত বিবরণ লোড করা সম্ভব হয় নি"
 
-#: camel/camel-exchange-folder.c:894
+#: camel/camel-exchange-folder.c:896
 #, c-format
 msgid "Could not create cache for %s"
 msgstr " %s -এ জন্য ক্যাশে তৈরি করা সম্ভব হয়নি"
 
-#: camel/camel-exchange-folder.c:934
+#: camel/camel-exchange-folder.c:936
 msgid "Scanning for changed messages"
 msgstr "পরিবর্তিত বার্তা অনুসন্ধান করা হচ্ছে"
 
-#: camel/camel-exchange-folder.c:958
+#: camel/camel-exchange-folder.c:960
 msgid "Fetching summary information for new messages"
 msgstr "নতুন বার্তার জন্য সংক্ষিপ্ত বিবরণ আহরণ করা হচ্ছে"
 
@@ -614,7 +614,7 @@ msgstr "ঐ নামের কোনো ফোল্ডার তৈরি ক�
 msgid "This operation cannot be performed in off-line mode"
 msgstr "বর্তমান কর্মটি অফ-লাইন মোড-এ করা সম্ভব নয়"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1071
+#: shell/e-storage.c:587 storage/exchange-account.c:1103
 msgid "Unknown error"
 msgstr "অজানা ত্রুটি"
 
@@ -648,25 +648,25 @@ msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:516
+#: storage/exchange-account.c:548
 #, c-format
 msgid "%s's Folders"
 msgstr "%s'র ফোল্ডারসমূহ"
 
-#: storage/exchange-account.c:797
+#: storage/exchange-account.c:829
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%s %s-র জন্য পাসওয়ার্ড লিখুন"
 
-#: storage/exchange-account.c:801
+#: storage/exchange-account.c:833
 msgid "Enter password"
 msgstr "পাসওয়ার্ড লিখুন"
 
-#: storage/exchange-account.c:876
+#: storage/exchange-account.c:908
 msgid "Cannot change password due to configuration problems"
 msgstr "কনফিগারেশন সংক্রান্ত সমস্যার দরুন পাসওয়ার্ড পরিবর্তন করা সম্ভব হয় নি"
 
-#: storage/exchange-account.c:891
+#: storage/exchange-account.c:923
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -674,11 +674,11 @@ msgstr ""
 "পাসওয়ার্ড অত্যন্ত সহজ হওয়ার দরুন সার্ভার তা প্রত্যাখান করেছে। \n"
 "অন্য একটি পাসওয়ার্ড লিখে পুনরায় চেষ্টা করুন।"
 
-#: storage/exchange-account.c:896
+#: storage/exchange-account.c:928
 msgid "Could not change password"
 msgstr "পাসওয়ার্ড পরিবর্তন করা সম্ভব হয় নি"
 
-#: storage/exchange-account.c:982
+#: storage/exchange-account.c:1014
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -686,7 +686,7 @@ msgstr ""
 "সার্ভারে অনুমোদন করা সম্ভব হয় নি। (পাসওয়ার্ড সঠিক নয়?)\n"
 "\n"
 
-#: storage/exchange-account.c:987
+#: storage/exchange-account.c:1019
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -706,7 +706,7 @@ msgstr ""
 "অথবা, আপনি সম্ভবত আপনার পাসওয়ার্ড সঠিকভাবে টাইপ করেন নি।\n"
 "\n"
 
-#: storage/exchange-account.c:998
+#: storage/exchange-account.c:1030
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -721,12 +721,12 @@ msgstr ""
 "অথবা, আপনি সম্ভবত আপনার পাসওয়ার্ড সঠিকভাবে টাইপ করেন নি।\n"
 "\n"
 
-#: storage/exchange-account.c:1029
+#: storage/exchange-account.c:1061
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "%s -র জন্য মেইলবক্স এই সার্ভারে উপস্থিত নেই।"
 
-#: storage/exchange-account.c:1034
+#: storage/exchange-account.c:1066
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -735,7 +735,7 @@ msgstr ""
 "'%s' সার্ভারটিতে Exchange 5.5 চলছে এবং\n"
 "তা Ximian Connector-র সঙ্গে একসাথে কাজ করতে সক্ষম নয়"
 
-#: storage/exchange-account.c:1041
+#: storage/exchange-account.c:1073
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -746,40 +746,40 @@ msgstr ""
 "যদি OWA অন্য কোনো পাথ-এ চলে থাকে, তাহলে আপনাকে তা অ্যাকাউন্ট\n"
 "কনফিগারেশনের ডায়লগ-এ উল্লেখ করতে হবে।"
 
-#: storage/exchange-account.c:1049
+#: storage/exchange-account.c:1081
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "%s ব্যবহারকারীর জন্য %s -এ কোনো মেইলবক্স উপস্থিত নেই।\n"
 
-#: storage/exchange-account.c:1055 storage/exchange-account.c:1061
-#: storage/exchange-account.c:1069
+#: storage/exchange-account.c:1087 storage/exchange-account.c:1093
+#: storage/exchange-account.c:1101
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "%s সার্ভারের সাথে সংযোগ করা সম্ভব হয় নি: %s"
 
-#: storage/exchange-account.c:1057
+#: storage/exchange-account.c:1089
 msgid "Could not resolve hostname"
 msgstr "হোস্টের নাম মীমাংসা করা সম্ভব হয় নি"
 
-#: storage/exchange-account.c:1063
+#: storage/exchange-account.c:1095
 msgid "Network error"
 msgstr "নেটওয়ার্ক-এ ত্রুটি"
 
-#: storage/exchange-account.c:1115
+#: storage/exchange-account.c:1147
 msgid "Personal Folders"
 msgstr "ব্যক্তিগত ফোল্ডার"
 
-#: storage/exchange-account.c:1130
+#: storage/exchange-account.c:1162
 msgid "Favorite Public Folders"
 msgstr "পছন্দের পাবলিক ফোল্ডার"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1147
+#: storage/exchange-account.c:1179
 msgid "All Public Folders"
 msgstr "সমস্ত পাবলিক ফোল্ডার"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1161
+#: storage/exchange-account.c:1193
 msgid "Global Address List"
 msgstr "গ্লোবাল ঠিকানার তালিকা"
 

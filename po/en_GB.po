@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-13 15:04-0400\n"
+"POT-Creation-Date: 2004-08-27 14:38-0400\n"
 "PO-Revision-Date: 2004-07-29 01:06-0400\n"
 "Last-Translator: Gareth Owen <gowen72@yahoo.com>\n"
 "Language-Team: \n"
@@ -16,23 +16,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: addressbook/e-book-backend-exchange.c:1655
-#: addressbook/e-book-backend-gal.c:1184 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-gal.c:1204 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Searching..."
 
-#: addressbook/e-book-backend-gal.c:240
+#: addressbook/e-book-backend-gal.c:238
 msgid "Reconnecting to LDAP server..."
 msgstr "Reconnecting to LDAP server..."
 
-#: addressbook/e-book-backend-gal.c:1099
+#: addressbook/e-book-backend-gal.c:1110
 msgid "Receiving LDAP search results..."
 msgstr "Receiving LDAP search results..."
 
-#: addressbook/e-book-backend-gal.c:1205
+#: addressbook/e-book-backend-gal.c:1225
 msgid "Error performing search"
 msgstr "Error performing search"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1358
+#: calendar/e-cal-backend-exchange-calendar.c:1354
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -60,26 +60,26 @@ msgstr "Moving messages"
 msgid "Copying messages"
 msgstr "Copying messages"
 
-#: camel/camel-exchange-folder.c:876
+#: camel/camel-exchange-folder.c:878
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Could not create directory %s: %s"
 
-#: camel/camel-exchange-folder.c:886
+#: camel/camel-exchange-folder.c:888
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Could not load summary for %s"
 
-#: camel/camel-exchange-folder.c:894
+#: camel/camel-exchange-folder.c:896
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Could not create cache for %s"
 
-#: camel/camel-exchange-folder.c:934
+#: camel/camel-exchange-folder.c:936
 msgid "Scanning for changed messages"
 msgstr "Scanning for changed messages"
 
-#: camel/camel-exchange-folder.c:958
+#: camel/camel-exchange-folder.c:960
 msgid "Fetching summary information for new messages"
 msgstr "Fetching summary information for new messages"
 
@@ -611,7 +611,7 @@ msgstr "Cannot create a folder with that name"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "This operation cannot be performed in off-line mode"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1071
+#: shell/e-storage.c:587 storage/exchange-account.c:1103
 msgid "Unknown error"
 msgstr "Unknown error"
 
@@ -645,25 +645,25 @@ msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:516
+#: storage/exchange-account.c:548
 #, c-format
 msgid "%s's Folders"
 msgstr "%s's Folders"
 
-#: storage/exchange-account.c:797
+#: storage/exchange-account.c:829
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sEnter password for %s"
 
-#: storage/exchange-account.c:801
+#: storage/exchange-account.c:833
 msgid "Enter password"
 msgstr "Enter password"
 
-#: storage/exchange-account.c:876
+#: storage/exchange-account.c:908
 msgid "Cannot change password due to configuration problems"
 msgstr "Cannot change password due to configuration problems"
 
-#: storage/exchange-account.c:891
+#: storage/exchange-account.c:923
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -671,11 +671,11 @@ msgstr ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
 
-#: storage/exchange-account.c:896
+#: storage/exchange-account.c:928
 msgid "Could not change password"
 msgstr "Could not change password"
 
-#: storage/exchange-account.c:982
+#: storage/exchange-account.c:1014
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -683,7 +683,7 @@ msgstr ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
 
-#: storage/exchange-account.c:987
+#: storage/exchange-account.c:1019
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -703,7 +703,7 @@ msgstr ""
 "Or you might have just typed your password wrong.\n"
 "\n"
 
-#: storage/exchange-account.c:998
+#: storage/exchange-account.c:1030
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -719,12 +719,12 @@ msgstr ""
 "Or you might have just typed your password wrong.\n"
 "\n"
 
-#: storage/exchange-account.c:1029
+#: storage/exchange-account.c:1061
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Mailbox for %s is not on this server."
 
-#: storage/exchange-account.c:1034
+#: storage/exchange-account.c:1066
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -733,7 +733,7 @@ msgstr ""
 "The server '%s' is running Exchange 5.5 and is\n"
 "therefore not compatible with Ximian Connector"
 
-#: storage/exchange-account.c:1041
+#: storage/exchange-account.c:1073
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -744,40 +744,40 @@ msgstr ""
 "If OWA is running on a different path, you must specify that in the\n"
 "account configuration dialogue."
 
-#: storage/exchange-account.c:1049
+#: storage/exchange-account.c:1081
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "No mailbox for user %s on %s.\n"
 
-#: storage/exchange-account.c:1055 storage/exchange-account.c:1061
-#: storage/exchange-account.c:1069
+#: storage/exchange-account.c:1087 storage/exchange-account.c:1093
+#: storage/exchange-account.c:1101
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Could not connect to server %s: %s"
 
-#: storage/exchange-account.c:1057
+#: storage/exchange-account.c:1089
 msgid "Could not resolve hostname"
 msgstr "Could not resolve hostname"
 
-#: storage/exchange-account.c:1063
+#: storage/exchange-account.c:1095
 msgid "Network error"
 msgstr "Network error"
 
-#: storage/exchange-account.c:1115
+#: storage/exchange-account.c:1147
 msgid "Personal Folders"
 msgstr "Personal Folders"
 
-#: storage/exchange-account.c:1130
+#: storage/exchange-account.c:1162
 msgid "Favorite Public Folders"
 msgstr "Favourite Public Folders"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1147
+#: storage/exchange-account.c:1179
 msgid "All Public Folders"
 msgstr "All Public Folders"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1161
+#: storage/exchange-account.c:1193
 msgid "Global Address List"
 msgstr "Global Address List"
 

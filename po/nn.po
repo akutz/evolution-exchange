@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-13 15:04-0400\n"
+"POT-Creation-Date: 2004-08-27 14:38-0400\n"
 "PO-Revision-Date: 2004-07-19 23:55+0200\n"
 "Last-Translator: Åsmund Skjæveland <aasmunds@fys.uio.no>\n"
 "Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
@@ -18,23 +18,23 @@ msgstr ""
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: addressbook/e-book-backend-exchange.c:1655
-#: addressbook/e-book-backend-gal.c:1184 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-gal.c:1204 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Søkjer ..."
 
-#: addressbook/e-book-backend-gal.c:240
+#: addressbook/e-book-backend-gal.c:238
 msgid "Reconnecting to LDAP server..."
 msgstr "Koplar til LDAP-tenaren på nytt ..."
 
-#: addressbook/e-book-backend-gal.c:1099
+#: addressbook/e-book-backend-gal.c:1110
 msgid "Receiving LDAP search results..."
 msgstr "Hentar LDAP-søkjesvar ..."
 
-#: addressbook/e-book-backend-gal.c:1205
+#: addressbook/e-book-backend-gal.c:1225
 msgid "Error performing search"
 msgstr "Feil under utføring av søk"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1358
+#: calendar/e-cal-backend-exchange-calendar.c:1354
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -62,26 +62,26 @@ msgstr "Flyttar meldingar"
 msgid "Copying messages"
 msgstr "Kopierer meldingar"
 
-#: camel/camel-exchange-folder.c:876
+#: camel/camel-exchange-folder.c:878
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Klarte ikkje å laga katalogen «%s»: %s"
 
-#: camel/camel-exchange-folder.c:886
+#: camel/camel-exchange-folder.c:888
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Klarte ikkje å lasta oppsummeringa til %s"
 
-#: camel/camel-exchange-folder.c:894
+#: camel/camel-exchange-folder.c:896
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Klarte ikkje å laga mellomlageret til %s"
 
-#: camel/camel-exchange-folder.c:934
+#: camel/camel-exchange-folder.c:936
 msgid "Scanning for changed messages"
 msgstr "Ser etter endra meldingar"
 
-#: camel/camel-exchange-folder.c:958
+#: camel/camel-exchange-folder.c:960
 msgid "Fetching summary information for new messages"
 msgstr "Hentar oppsummeringar av nye meldingar"
 
@@ -607,7 +607,7 @@ msgstr ""
 msgid "This operation cannot be performed in off-line mode"
 msgstr ""
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1071
+#: shell/e-storage.c:587 storage/exchange-account.c:1103
 msgid "Unknown error"
 msgstr "Ukjend feil"
 
@@ -641,42 +641,42 @@ msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:516
+#: storage/exchange-account.c:548
 #, c-format
 msgid "%s's Folders"
 msgstr "%s sine mapper"
 
-#: storage/exchange-account.c:797
+#: storage/exchange-account.c:829
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sSkriv passordet til %s"
 
-#: storage/exchange-account.c:801
+#: storage/exchange-account.c:833
 msgid "Enter password"
 msgstr "Oppgje passord"
 
-#: storage/exchange-account.c:876
+#: storage/exchange-account.c:908
 msgid "Cannot change password due to configuration problems"
 msgstr ""
 
-#: storage/exchange-account.c:891
+#: storage/exchange-account.c:923
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
 msgstr ""
 
-#: storage/exchange-account.c:896
+#: storage/exchange-account.c:928
 #, fuzzy
 msgid "Could not change password"
 msgstr "Endra passord"
 
-#: storage/exchange-account.c:982
+#: storage/exchange-account.c:1014
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
 msgstr ""
 
-#: storage/exchange-account.c:987
+#: storage/exchange-account.c:1019
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -688,7 +688,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: storage/exchange-account.c:998
+#: storage/exchange-account.c:1030
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -698,12 +698,12 @@ msgid ""
 "\n"
 msgstr ""
 
-#: storage/exchange-account.c:1029
+#: storage/exchange-account.c:1061
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr ""
 
-#: storage/exchange-account.c:1034
+#: storage/exchange-account.c:1066
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -712,7 +712,7 @@ msgstr ""
 "Tenaren «%s» køyrer Exchange 5.5, som \n"
 "ikkje kan snakka med Ximian Connector"
 
-#: storage/exchange-account.c:1041
+#: storage/exchange-account.c:1073
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -720,40 +720,40 @@ msgid ""
 "account configuration dialog."
 msgstr ""
 
-#: storage/exchange-account.c:1049
+#: storage/exchange-account.c:1081
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr ""
 
-#: storage/exchange-account.c:1055 storage/exchange-account.c:1061
-#: storage/exchange-account.c:1069
+#: storage/exchange-account.c:1087 storage/exchange-account.c:1093
+#: storage/exchange-account.c:1101
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr ""
 
-#: storage/exchange-account.c:1057
+#: storage/exchange-account.c:1089
 msgid "Could not resolve hostname"
 msgstr "Kan ikkje slå opp vertsnamnet"
 
-#: storage/exchange-account.c:1063
+#: storage/exchange-account.c:1095
 msgid "Network error"
 msgstr "Nettverksfeil"
 
-#: storage/exchange-account.c:1115
+#: storage/exchange-account.c:1147
 msgid "Personal Folders"
 msgstr "Personlege mapper"
 
-#: storage/exchange-account.c:1130
+#: storage/exchange-account.c:1162
 msgid "Favorite Public Folders"
 msgstr ""
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1147
+#: storage/exchange-account.c:1179
 msgid "All Public Folders"
 msgstr ""
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1161
+#: storage/exchange-account.c:1193
 msgid "Global Address List"
 msgstr ""
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-18 11:26+0300\n"
+"POT-Creation-Date: 2004-08-27 14:38-0400\n"
 "PO-Revision-Date: 2004-08-24 09:55+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -17,30 +17,30 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: addressbook/e-book-backend-exchange.c:1655
-#: addressbook/e-book-backend-gal.c:1184 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-gal.c:1204 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Haetaan..."
 
-#: addressbook/e-book-backend-gal.c:240
+#: addressbook/e-book-backend-gal.c:238
 msgid "Reconnecting to LDAP server..."
 msgstr "Yhdistetään uudestaan LDAP-palvelimelle..."
 
-#: addressbook/e-book-backend-gal.c:1099
+#: addressbook/e-book-backend-gal.c:1110
 msgid "Receiving LDAP search results..."
 msgstr "Vastaanotetaan LDAP hakutuloksia"
 
-#: addressbook/e-book-backend-gal.c:1205
+#: addressbook/e-book-backend-gal.c:1225
 msgid "Error performing search"
 msgstr "Virhe suoritettaessa hakua"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1351
+#: calendar/e-cal-backend-exchange-calendar.c:1354
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
 
-#: calendar/e-cal-backend-exchange-calendar.c:1370
+#: calendar/e-cal-backend-exchange-calendar.c:1377
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Resurssi '%s' on varattu valitun aikajakson aikana."
@@ -61,26 +61,26 @@ msgstr "Siirretään viestejä"
 msgid "Copying messages"
 msgstr "Kopioidaan viestejä"
 
-#: camel/camel-exchange-folder.c:876
+#: camel/camel-exchange-folder.c:878
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Hakemistoa %s ei voitu luoda: %s"
 
-#: camel/camel-exchange-folder.c:886
+#: camel/camel-exchange-folder.c:888
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Yhteenvetoa kohteesta %s ei voitu ladata"
 
-#: camel/camel-exchange-folder.c:894
+#: camel/camel-exchange-folder.c:896
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Välimuistia ei voitu luoda %s:lle"
 
-#: camel/camel-exchange-folder.c:934
+#: camel/camel-exchange-folder.c:936
 msgid "Scanning for changed messages"
 msgstr "Etsitään muuttuneita viestejä"
 
-#: camel/camel-exchange-folder.c:958
+#: camel/camel-exchange-folder.c:960
 msgid "Fetching summary information for new messages"
 msgstr "Haetaan yhteenvetoa muuttuneista viesteistä"
 
@@ -293,8 +293,8 @@ msgstr "Osoitekirja..."
 msgid "No such folder"
 msgstr "Kansiota ei ole olemassa"
 
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2290
-#: mail/mail-stub-exchange.c:2328 mail/mail-stub-exchange.c:2388
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
+#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
 #: shell/e-storage.c:573 storage/xc-commands.c:302
 msgid "Permission denied"
 msgstr "Lupa evätty"
@@ -355,15 +355,15 @@ msgstr "Postilaatikko ei tue koko tekstin hakuja"
 msgid "Unable to move/copy messages"
 msgstr "Viestejä ei voida siirtää tai kopioida"
 
-#: mail/mail-stub-exchange.c:2204
+#: mail/mail-stub-exchange.c:2213
 msgid "No mail submission URI for this mailbox"
 msgstr "Sähköpostin lähetyksen URIa ei ole määritelty tälle postilaatikolle"
 
-#: mail/mail-stub-exchange.c:2241
+#: mail/mail-stub-exchange.c:2250
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Palvelin ei hyväksy sähköpostia Exchange sähköpostinvälityksen kautta"
 
-#: mail/mail-stub-exchange.c:2243
+#: mail/mail-stub-exchange.c:2252
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -372,7 +372,7 @@ msgstr ""
 "Tilisi ei saa käyttää osoitetta <%s>\n"
 "lähettäjän osoitteena."
 
-#: mail/mail-stub-exchange.c:2255
+#: mail/mail-stub-exchange.c:2264
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -380,22 +380,22 @@ msgstr ""
 "Viestiä ei voitu lähettä.\n"
 "Tämä voi tarkoittaa, että sähköpostitilisi levytila on loppu."
 
-#: mail/mail-stub-exchange.c:2259
+#: mail/mail-stub-exchange.c:2268
 msgid "Could not send message"
 msgstr "Viestiä ei voitu lähettää"
 
-#: mail/mail-stub-exchange.c:2282 mail/mail-stub-exchange.c:2333
-#: mail/mail-stub-exchange.c:2392 shell/e-storage.c:557
+#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
+#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
 #: storage/xc-commands.c:306
 msgid "Generic error"
 msgstr "Yleinen virhe"
 
-#: mail/mail-stub-exchange.c:2286 storage/xc-commands.c:296
+#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
 msgid "Folder already exists"
 msgstr "Kansio on jo olemassa"
 
-#: mail/mail-stub-exchange.c:2313 mail/mail-stub-exchange.c:2355
-#: mail/mail-stub-exchange.c:2384
+#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
+#: mail/mail-stub-exchange.c:2393
 msgid "Folder doesn't exist"
 msgstr "Kansiota ei ole olemassa"
 
@@ -615,7 +615,7 @@ msgstr "Tämännimistä kansiota ei voida luoda"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Tätä toimenpidettä ei voida tehdä yhteydettömässä tilassa"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1071
+#: shell/e-storage.c:587 storage/exchange-account.c:1103
 msgid "Unknown error"
 msgstr "Tuntematon virhe"
 
@@ -649,25 +649,25 @@ msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:516
+#: storage/exchange-account.c:548
 #, c-format
 msgid "%s's Folders"
 msgstr "%s:n kansiot"
 
-#: storage/exchange-account.c:797
+#: storage/exchange-account.c:829
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sSyötä salasana käyttäjälle %s"
 
-#: storage/exchange-account.c:801
+#: storage/exchange-account.c:833
 msgid "Enter password"
 msgstr "Syötä salasana"
 
-#: storage/exchange-account.c:876
+#: storage/exchange-account.c:908
 msgid "Cannot change password due to configuration problems"
 msgstr "Salasanaa ei voida vaihtaa asetusongelmia takia"
 
-#: storage/exchange-account.c:891
+#: storage/exchange-account.c:923
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -675,11 +675,11 @@ msgstr ""
 "Palvelin hylkäsi salasanan, koska se on liian heikko.\n"
 "Kokeile uudestaan toisenlaisella salasanalla."
 
-#: storage/exchange-account.c:896
+#: storage/exchange-account.c:928
 msgid "Could not change password"
 msgstr "Salasanaa ei voitu vaihtaa"
 
-#: storage/exchange-account.c:982
+#: storage/exchange-account.c:1014
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -687,7 +687,7 @@ msgstr ""
 "Palvelimelle ei voitu kirjatua (Virheellinen salasana?)\n"
 "\n"
 
-#: storage/exchange-account.c:987
+#: storage/exchange-account.c:1019
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -707,7 +707,7 @@ msgstr ""
 "Voi olla myös että syötit salasanasi väärin.\n"
 "\n"
 
-#: storage/exchange-account.c:998
+#: storage/exchange-account.c:1030
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -723,12 +723,12 @@ msgstr ""
 "Voi myös olla että syötit salasanasi väärin.\n"
 "\n"
 
-#: storage/exchange-account.c:1029
+#: storage/exchange-account.c:1061
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Sähköpostilaatikkoa %s:lle ei ole tällä palvelimella."
 
-#: storage/exchange-account.c:1034
+#: storage/exchange-account.c:1066
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -737,7 +737,7 @@ msgstr ""
 "Palvelin '%s' käyttää Exchangen versiota 5.5 eikä\n"
 "tämän takia ole yhteensopiva Ximian Connectorin kanssa"
 
-#: storage/exchange-account.c:1041
+#: storage/exchange-account.c:1073
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -745,40 +745,40 @@ msgid ""
 "account configuration dialog."
 msgstr ""
 
-#: storage/exchange-account.c:1049
+#: storage/exchange-account.c:1081
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Käyttäjälle %s ei ole sähköpostilaatikkoa palvelimella %s\n"
 
-#: storage/exchange-account.c:1055 storage/exchange-account.c:1061
-#: storage/exchange-account.c:1069
+#: storage/exchange-account.c:1087 storage/exchange-account.c:1093
+#: storage/exchange-account.c:1101
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Palvelimeen %s ei saatu yhteyttä: %s"
 
-#: storage/exchange-account.c:1057
+#: storage/exchange-account.c:1089
 msgid "Could not resolve hostname"
 msgstr "Palvelimen isäntänimen selvitys epäonnistui"
 
-#: storage/exchange-account.c:1063
+#: storage/exchange-account.c:1095
 msgid "Network error"
 msgstr "Verkkovirhe"
 
-#: storage/exchange-account.c:1115
+#: storage/exchange-account.c:1147
 msgid "Personal Folders"
 msgstr "Omat kansiot"
 
-#: storage/exchange-account.c:1130
+#: storage/exchange-account.c:1162
 msgid "Favorite Public Folders"
 msgstr "Kirjanmerkit julkisissa kansioissa"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1147
+#: storage/exchange-account.c:1179
 msgid "All Public Folders"
 msgstr "Kaikki julkiset kansiot"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1161
+#: storage/exchange-account.c:1193
 msgid "Global Address List"
 msgstr ""
 
@@ -850,7 +850,7 @@ msgid ""
 "Connector supports Microsoft Exchange 2000 and 2003 only."
 msgstr ""
 "Antamasi Exchange-palvelimen URL on Exchange 5.5 palvelimelle. Ximian "
-"Connector tukee ainoastaan versioita Microsoft Exchange 2000 ja 2003." 
+"Connector tukee ainoastaan versioita Microsoft Exchange 2000 ja 2003."
 
 #: storage/exchange-autoconfig-wizard.c:301
 msgid ""
@@ -881,13 +881,18 @@ msgstr ""
 msgid "Unknown"
 msgstr "Tuntematon"
 
-#: storage/exchange-autoconfig-wizard.c:466
+#: storage/exchange-autoconfig-wizard.c:477
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
 msgstr ""
 "Konfiguraatiojärjestelmän virhe.\n"
 "Uutta tiliä ei voitu luoda."
+
+#: storage/exchange-autoconfig-wizard.c:491
+#: storage/exchange-config-listener.c:492
+msgid "You may only configure a single Exchange account"
+msgstr "Voit määritellä vain yhden Exchange-tilin"
 
 #: storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
@@ -981,8 +986,7 @@ msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
 msgstr ""
-"Ximian Connectorille törmäsi ongelmiin määriteltäessä Exchange-tiliäsi."
-"\n"
+"Ximian Connectorille törmäsi ongelmiin määriteltäessä Exchange-tiliäsi.\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -1010,8 +1014,8 @@ msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
 msgstr ""
-"Annettu salasana ei ole sama kuin tilisi olemassaoleva salasana. Anna "
-"oikea salasana."
+"Annettu salasana ei ole sama kuin tilisi olemassaoleva salasana. Anna oikea "
+"salasana."
 
 #: storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
@@ -1053,11 +1057,7 @@ msgstr "Tehtävät"
 msgid "Calendar"
 msgstr "Kalenteri"
 
-#: storage/exchange-config-listener.c:492
-msgid "You may only configure a single Exchange account"
-msgstr "Voit määritellä vain yhden Exchange-tilin"
-
-#: storage/exchange-config-listener.c:601
+#: storage/exchange-config-listener.c:607
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
@@ -1065,7 +1065,7 @@ msgstr ""
 "Muutokset Exchange-tilin määrittelyihin tulevat voimaan, kun olet\n"
 "sulkenut ja käynnistänyt Evolutionin uudestaan."
 
-#: storage/exchange-config-listener.c:647
+#: storage/exchange-config-listener.c:653
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr "Exchange-tili poistetaan kun suljet Evolutionin"
 
@@ -1097,6 +1097,11 @@ msgstr ""
 
 #: storage/exchange-delegates.c:419
 msgid "Delegate To:"
+msgstr "Delegoi:"
+
+#: storage/exchange-delegates.c:419
+#, fuzzy
+msgid "Delegate To"
 msgstr "Delegoi:"
 
 #: storage/exchange-delegates.c:435
@@ -1154,11 +1159,11 @@ msgstr ""
 "Delegaattien päivitys epäonnistui:\n"
 "%s"
 
-#: storage/exchange-delegates.c:937 storage/exchange-permissions-dialog.c:706
+#: storage/exchange-delegates.c:938 storage/exchange-permissions-dialog.c:706
 msgid "Name"
 msgstr "Nimi"
 
-#: storage/exchange-delegates.c:966
+#: storage/exchange-delegates.c:967
 msgid "Error reading delegates list."
 msgstr "Virhe luettaessa listaa delegaateista"
 

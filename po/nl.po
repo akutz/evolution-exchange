@@ -3,15 +3,14 @@
 # This file is distributed under the same license as the
 # evolution-exchange package.
 # Tino Meinen <a.t.meinen@chello.nl>, 2004.
-# -----------------------------------------------------\
-# Outlookisms vertalen of niet?
+# -----------------------------------------------------# Outlookisms vertalen of niet?
 # Mailbox - Brievenbus
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-18 11:14+0200\n"
+"POT-Creation-Date: 2004-08-27 14:38-0400\n"
 "PO-Revision-Date: 2004-08-25 08:22+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Ducth <vertaling@nl.linux.org>\n"
@@ -29,27 +28,27 @@ msgstr ""
 # Het tonen van de status is al een aanduiding dat het programma 'bezig is'
 # Vandaar dat het hier in deze meldingen wordt weggelaten.
 #: addressbook/e-book-backend-exchange.c:1655
-#: addressbook/e-book-backend-gal.c:1184 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-gal.c:1204 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Zoeken..."
 
 # Opnieuw verbinden met LDPA server...
-#: addressbook/e-book-backend-gal.c:240
+#: addressbook/e-book-backend-gal.c:238
 msgid "Reconnecting to LDAP server..."
 msgstr "Verbinding met LDAP server wordt opnieuw opgezet..."
 
 # Ontvangen van LDAP zoekresultaten...<
-#: addressbook/e-book-backend-gal.c:1099
+#: addressbook/e-book-backend-gal.c:1110
 msgid "Receiving LDAP search results..."
 msgstr "LDAP zoekresultaten worden ingelezen..."
 
-#: addressbook/e-book-backend-gal.c:1205
+#: addressbook/e-book-backend-gal.c:1225
 msgid "Error performing search"
 msgstr "Fout bij uitvoeren zoekopdracht"
 
 # doelbron?
 # mogelijk weglaten: niet in staat om 's' te plannen voor...
-#: calendar/e-cal-backend-exchange-calendar.c:1358
+#: calendar/e-cal-backend-exchange-calendar.c:1354
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -81,27 +80,27 @@ msgstr "Berichten verplaatsen"
 msgid "Copying messages"
 msgstr "Berichten kopiëren"
 
-#: camel/camel-exchange-folder.c:876
+#: camel/camel-exchange-folder.c:878
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Kon map %s niet aanmaken: %s"
 
-#: camel/camel-exchange-folder.c:886
+#: camel/camel-exchange-folder.c:888
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Kon samenvatting voor %s niet laden"
 
-#: camel/camel-exchange-folder.c:894
+#: camel/camel-exchange-folder.c:896
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Kon cache-buffer voor %s niet aanmaken"
 
 # aangepaste berichten
-#: camel/camel-exchange-folder.c:934
+#: camel/camel-exchange-folder.c:936
 msgid "Scanning for changed messages"
 msgstr "Scannen voor veranderde berichten"
 
-#: camel/camel-exchange-folder.c:958
+#: camel/camel-exchange-folder.c:960
 msgid "Fetching summary information for new messages"
 msgstr "Samenvatting voor nieuwe berichten ophalen"
 
@@ -676,7 +675,7 @@ msgstr "Kan geen map aanmaken met die naam"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Deze bewerking kan niet uitgevoerd worden in de off-line stand"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1071
+#: shell/e-storage.c:587 storage/exchange-account.c:1103
 msgid "Unknown error"
 msgstr "Onbekende fout"
 
@@ -710,26 +709,26 @@ msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:516
+#: storage/exchange-account.c:548
 #, c-format
 msgid "%s's Folders"
 msgstr "%s's mappen"
 
-#: storage/exchange-account.c:797
+#: storage/exchange-account.c:829
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sGeef wachtwoord voor %s"
 
 # geef wachtwoord
-#: storage/exchange-account.c:801
+#: storage/exchange-account.c:833
 msgid "Enter password"
 msgstr "Wachtwoord invoeren"
 
-#: storage/exchange-account.c:876
+#: storage/exchange-account.c:908
 msgid "Cannot change password due to configuration problems"
 msgstr "Kan wachtwoord niet veranderen vanwege configuratieproblemen"
 
-#: storage/exchange-account.c:891
+#: storage/exchange-account.c:923
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -737,17 +736,19 @@ msgstr ""
 "Server heeft het wachtwoord geweigerd omdat het te zwak is.\n"
 "Probeer het opnieuw met een ander wachtwoord."
 
-#: storage/exchange-account.c:896
+#: storage/exchange-account.c:928
 msgid "Could not change password"
 msgstr "Kon wachtwoord niet veranderen"
 
-#: storage/exchange-account.c:982
+#: storage/exchange-account.c:1014
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
-msgstr "Aanmeldingscontrole bij server mislukt. (Wachtwoord onjuist?)\n\n"
+msgstr ""
+"Aanmeldingscontrole bij server mislukt. (Wachtwoord onjuist?)\n"
+"\n"
 
-#: storage/exchange-account.c:987
+#: storage/exchange-account.c:1019
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -767,7 +768,7 @@ msgstr ""
 "Of u heeft gewoon uw wachtwoord verkeerd getypt.\n"
 "\n"
 
-#: storage/exchange-account.c:998
+#: storage/exchange-account.c:1030
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -784,12 +785,12 @@ msgstr ""
 "Of u heeft gewoon uw wachtwoord verkeerd getypt.\n"
 "\n"
 
-#: storage/exchange-account.c:1029
+#: storage/exchange-account.c:1061
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Mailbox voor %s staat niet op deze server."
 
-#: storage/exchange-account.c:1034
+#: storage/exchange-account.c:1066
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -798,7 +799,7 @@ msgstr ""
 "De server '%s' draait op Exchange 5.5 en is\n"
 "daarom niet compatibel met Ximian connector"
 
-#: storage/exchange-account.c:1041
+#: storage/exchange-account.c:1073
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -809,44 +810,44 @@ msgstr ""
 "Indien OWA op een ander pad loopt, moet u dit in de accountconfiguratie-\n"
 "dialoog specificeren"
 
-#: storage/exchange-account.c:1049
+#: storage/exchange-account.c:1081
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Geen mailbox voor gebruiker %s op %s.\n"
 
-#: storage/exchange-account.c:1055 storage/exchange-account.c:1061
-#: storage/exchange-account.c:1069
+#: storage/exchange-account.c:1087 storage/exchange-account.c:1093
+#: storage/exchange-account.c:1101
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Kon geen verbinding maken met server %s: %s"
 
 # vinden
 # oplossen
-#: storage/exchange-account.c:1057
+#: storage/exchange-account.c:1089
 msgid "Could not resolve hostname"
 msgstr "Kon de hostnaam niet traceren"
 
-#: storage/exchange-account.c:1063
+#: storage/exchange-account.c:1095
 msgid "Network error"
 msgstr "Netwerkfout"
 
-#: storage/exchange-account.c:1115
+#: storage/exchange-account.c:1147
 msgid "Personal Folders"
 msgstr "Persoonlijke mappen"
 
-#: storage/exchange-account.c:1130
+#: storage/exchange-account.c:1162
 msgid "Favorite Public Folders"
 msgstr "Favoriete publieke mappen"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1147
+#: storage/exchange-account.c:1179
 msgid "All Public Folders"
 msgstr "Alle publieke mappen"
 
 # Volledige adreslijst
 # Algemene adreslijst
 #. i18n: Outlookism
-#: storage/exchange-account.c:1161
+#: storage/exchange-account.c:1193
 msgid "Global Address List"
 msgstr "Volledige adreslijst"
 
@@ -857,7 +858,8 @@ msgid ""
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
 "Kon geen verbinding maken met de Exchange-server.\n"
-"Controleer of de URL juist is (probeer \"%s\" in plaats van \"%s\"?) en probeer dan opnieuw."
+"Controleer of de URL juist is (probeer \"%s\" in plaats van \"%s\"?) en "
+"probeer dan opnieuw."
 
 # lokaliseren/vinden
 #: storage/exchange-autoconfig-wizard.c:232
@@ -874,7 +876,8 @@ msgid ""
 "Make sure the username and password are correct and try again."
 msgstr ""
 "Aanmeldingscontrole bij de Exchange-server mislukt.\n"
-"Controleer dat uw gebruikersnaam en wachtwoord juist zijn en probeer dan opnieuw."
+"Controleer dat uw gebruikersnaam en wachtwoord juist zijn en probeer dan "
+"opnieuw."
 
 #: storage/exchange-autoconfig-wizard.c:248
 #, c-format
@@ -886,9 +889,11 @@ msgid ""
 "(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
 "Aanmeldingscontrole bij de Exchange-server mislukt.\n"
-"Controleer of gebruikersnaam en wachtwoord juist zijn en probeer dan opnieuw.\n"
+"Controleer of gebruikersnaam en wachtwoord juist zijn en probeer dan "
+"opnieuw.\n"
 "\n"
-"Mogelijk moet u bij uw gebruikersnaam de Windows domeinnaam opgeven (bijv. \"MIJN-DOMEIN\\%s\")."
+"Mogelijk moet u bij uw gebruikersnaam de Windows domeinnaam opgeven (bijv. "
+"\"MIJN-DOMEIN\\%s\")."
 
 #: storage/exchange-autoconfig-wizard.c:260
 msgid ""
@@ -908,21 +913,29 @@ msgid ""
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"Ximian Connector vereist toegang bepaalde functionaliteit op de Exchange-server die schijnbaar is uitgezet of geblokkeerd.  (Dit is gewoonlijk onopzettelijk.)  Uw Exchange systeembeheerder moet deze functionaliteit toegankelijk maken voordat u de Ximian Connector kunt gebruiken.\n"
+"Ximian Connector vereist toegang bepaalde functionaliteit op de Exchange-"
+"server die schijnbaar is uitgezet of geblokkeerd.  (Dit is gewoonlijk "
+"onopzettelijk.)  Uw Exchange systeembeheerder moet deze functionaliteit "
+"toegankelijk maken voordat u de Ximian Connector kunt gebruiken.\n"
 "\n"
-"Voor de informatie die u aan uw Exchange systeembeheerder moet geven, bekijkt u de link hieronder:"
+"Voor de informatie die u aan uw Exchange systeembeheerder moet geven, "
+"bekijkt u de link hieronder:"
 
 #: storage/exchange-autoconfig-wizard.c:288
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr "De door u gegeven Exchange server URL is voor een Exchange 5.5 server. Ximian connector ondersteund echter alleen Microsoft Exchange 2000 en 2003."
+msgstr ""
+"De door u gegeven Exchange server URL is voor een Exchange 5.5 server. "
+"Ximian connector ondersteund echter alleen Microsoft Exchange 2000 en 2003."
 
 #: storage/exchange-autoconfig-wizard.c:301
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
-msgstr "Kon Exchange account niet configureren vanwege een onbekende fout. Controleer de URL, gebruikersnaam en wachtwoord en probeer dan opnieuw."
+msgstr ""
+"Kon Exchange account niet configureren vanwege een onbekende fout. "
+"Controleer de URL, gebruikersnaam en wachtwoord en probeer dan opnieuw."
 
 #: storage/exchange-autoconfig-wizard.c:345
 #, c-format
@@ -930,7 +943,10 @@ msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
 "and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
 "\\%s\")."
-msgstr "Aanmeldingscontrole bij de Gloabal Catalog server mislukt. Mogelijk moet een stap terug doen en bij uw gebruikersnaam de Windows domeinnaam opgeven (bijv. \"MIJN-DOMEIN\\%s\")."
+msgstr ""
+"Aanmeldingscontrole bij de Gloabal Catalog server mislukt. Mogelijk moet een "
+"stap terug doen en bij uw gebruikersnaam de Windows domeinnaam opgeven "
+"(bijv. \"MIJN-DOMEIN\\%s\")."
 
 #: storage/exchange-autoconfig-wizard.c:352
 msgid ""
@@ -1038,22 +1054,29 @@ msgid ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
-"Ximian Connector kan informatie uit uw bestaande Outlook Web Access (OWA) halen.\n"
+"Ximian Connector kan informatie uit uw bestaande Outlook Web Access (OWA) "
+"halen.\n"
 "\n"
-"Geef uw OWA adres (URL), gebruikersnaam en wachtwoord en klik daarna op \"Volgende\".\n"
+"Geef uw OWA adres (URL), gebruikersnaam en wachtwoord en klik daarna op "
+"\"Volgende\".\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:24
 msgid ""
 "Ximian Connector could not find the Global Catalog replica for your site. "
 "Please enter the name of your Global Catalog server. You may need to ask "
 "your system administrator for the correct value.\n"
-msgstr "Ximian Connector kon de Global Catalog replica voor uw site vinden. Geef de naam van uw Global Catalog server. U moet mogelijk de juiste waarde hiervoor, vragen aan uw systeembeheerder.\n"
+msgstr ""
+"Ximian Connector kon de Global Catalog replica voor uw site vinden. Geef de "
+"naam van uw Global Catalog server. U moet mogelijk de juiste waarde "
+"hiervoor, vragen aan uw systeembeheerder.\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:26
 msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
-msgstr "Ximian connector is een probleem tegengekomen bij het configureren van uw Exchange account.\n"
+msgstr ""
+"Ximian connector is een probleem tegengekomen bij het configureren van uw "
+"Exchange account.\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -1068,7 +1091,9 @@ msgstr ""
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
-msgstr "Uw account-informatie is als volgt. Corrigeer de fouten en klik dan op \"Volgende\".\n"
+msgstr ""
+"Uw account-informatie is als volgt. Corrigeer de fouten en klik dan op "
+"\"Volgende\".\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
@@ -1077,7 +1102,9 @@ msgstr "Uw account-informatie is als volgt. Corrigeer de fouten en klik dan op \
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
-msgstr "Het huidige wachtwoord komt niet overeen met het bestaande wachtwoord voor uw account. Geen het juiste wachtwoord."
+msgstr ""
+"Het huidige wachtwoord komt niet overeen met het bestaande wachtwoord voor "
+"uw account. Geen het juiste wachtwoord."
 
 #: storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
@@ -1347,7 +1374,8 @@ msgid ""
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
-"De lokatie en hiërarchie van de Evolution Exchange-account mappen zijn veranderd sinds Evolution %d.%d.%d.\n"
+"De lokatie en hiërarchie van de Evolution Exchange-account mappen zijn "
+"veranderd sinds Evolution %d.%d.%d.\n"
 "\n"
 "Een ogenblik geduld terwijl Evolution uw mappen omzet..."
 
@@ -1359,8 +1387,10 @@ msgid ""
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"Waarschuwing: Evolution kon niet alle Exchange-account gegevens van de versie %d.%d.%d. omzetten. \n"
-"De gegevens zijn niet verwijderd, maar zullen door deze versie van Evolution niet worden gezien."
+"Waarschuwing: Evolution kon niet alle Exchange-account gegevens van de "
+"versie %d.%d.%d. omzetten. \n"
+"De gegevens zijn niet verwijderd, maar zullen door deze versie van Evolution "
+"niet worden gezien."
 
 #: storage/exchange-migrate.c:129
 #, c-format
@@ -1401,7 +1431,9 @@ msgid ""
 "<small>The message specified below will be automatically sent to each person "
 "who sends\n"
 "mail to you while you are out of the office.</small>"
-msgstr "<small>Het onderstaande bericht zal tijdens uw afwezigheid automatisch naar elke persoon worden verzonden die naar u een bericht stuurt</small>"
+msgstr ""
+"<small>Het onderstaande bericht zal tijdens uw afwezigheid automatisch naar "
+"elke persoon worden verzonden die naar u een bericht stuurt</small>"
 
 #: storage/exchange-oof.glade.h:8
 msgid "I am currently in the office"
@@ -1634,12 +1666,15 @@ msgstr "Abonneren op _andermans map..."
 
 #: storage/ximian-connector.xml.h:3
 msgid "Subscribe to a folder belonging to some other user on the server"
-msgstr "Abonneren op een map die toebehoort aan een andere gebruiker op de server"
+msgstr ""
+"Abonneren op een map die toebehoort aan een andere gebruiker op de server"
 
 #: storage/ximian-connector.xml.h:4
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
-msgstr "Abonnement opzeggen van een map die toegevoegd is via \"Abonneren op andermans map\""
+msgstr ""
+"Abonnement opzeggen van een map die toegevoegd is via \"Abonneren op "
+"andermans map\""
 
 # tonen of wijzigen/tonen of aanpassen/tonen of veranderen
 #: storage/ximian-connector.xml.h:5
@@ -1648,7 +1683,8 @@ msgstr "Uw Exchange-kalender gedelegeerde instellingen tonen of aanpassen"
 
 #: storage/ximian-connector.xml.h:6
 msgid "View or change your Out-of-Office status and autoreply message"
-msgstr "Uw afwezigheidsstatus en automatisch antwoord bericht tonen of aanpassen"
+msgstr ""
+"Uw afwezigheidsstatus en automatisch antwoord bericht tonen of aanpassen"
 
 #: storage/ximian-connector.xml.h:7
 msgid "_Change Exchange Password..."

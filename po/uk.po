@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-19 18:23+0300\n"
+"POT-Creation-Date: 2004-08-27 14:38-0400\n"
 "PO-Revision-Date: 2004-08-27 18:23+0300\n"
 "Last-Translator: Maxim Dziumanenko <mvd@mylinux.com.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -16,23 +16,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: addressbook/e-book-backend-exchange.c:1655
-#: addressbook/e-book-backend-gal.c:1184 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-gal.c:1204 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Пошук..."
 
-#: addressbook/e-book-backend-gal.c:240
+#: addressbook/e-book-backend-gal.c:238
 msgid "Reconnecting to LDAP server..."
 msgstr "Повторне з'єднання з LDAP сервером..."
 
-#: addressbook/e-book-backend-gal.c:1099
+#: addressbook/e-book-backend-gal.c:1110
 msgid "Receiving LDAP search results..."
 msgstr "Отримання результатів пошуку LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1205
+#: addressbook/e-book-backend-gal.c:1225
 msgid "Error performing search"
 msgstr "Помилка при виконанні пошуку"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1358
+#: calendar/e-cal-backend-exchange-calendar.c:1354
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -137,7 +137,8 @@ msgstr "Сервер публічної теки"
 #. i18n: copy from evolution:camel-imap-provider.c
 #: camel/camel-exchange-provider.c:75
 msgid "Apply filters to new messages in Inbox on this server"
-msgstr "Застосовувати фільтри до нових повідомлень у теці Вхідні на цьому сервері"
+msgstr ""
+"Застосовувати фільтри до нових повідомлень у теці Вхідні на цьому сервері"
 
 #: camel/camel-exchange-provider.c:77
 msgid "Check new messages for Junk contents"
@@ -166,7 +167,8 @@ msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
 msgstr ""
-"Цей параметр призводить до з'єднання з сервером Exchange використовуючи автентифікацію з безпечним паролем (NTLM)"
+"Цей параметр призводить до з'єднання з сервером Exchange використовуючи "
+"автентифікацію з безпечним паролем (NTLM)"
 
 #: camel/camel-exchange-provider.c:116
 msgid "Plaintext Password"
@@ -177,7 +179,8 @@ msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
 msgstr ""
-"Цей параметр призводить до з'єднання з сервером Exchange використовуючи автентифікацію зі стандартним паролем"
+"Цей параметр призводить до з'єднання з сервером Exchange використовуючи "
+"автентифікацію зі стандартним паролем"
 
 #: camel/camel-exchange-store.c:178
 #, c-format
@@ -195,11 +198,13 @@ msgstr "Процес компоненту Evolution Exchange"
 
 #: camel/camel-exchange-transport.c:109
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr "Транспорт Exchange може використовуватись лише з джерелом пошти Exchange"
+msgstr ""
+"Транспорт Exchange може використовуватись лише з джерелом пошти Exchange"
 
 #: camel/camel-exchange-transport.c:120
 msgid "Cannot send message: one or more invalid recipients"
-msgstr "Не вдається надіслати повідомлення: один або більше неправильних отримувачів"
+msgstr ""
+"Не вдається надіслати повідомлення: один або більше неправильних отримувачів"
 
 #: camel/camel-exchange-transport.c:130
 msgid "Could not find 'From' address in message"
@@ -611,7 +616,7 @@ msgstr "Не вдається створити теку з цією назвою
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Ця операція не може бути виконана у автономному режимі"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1071
+#: shell/e-storage.c:587 storage/exchange-account.c:1103
 msgid "Unknown error"
 msgstr "Невідома помилка"
 
@@ -645,25 +650,25 @@ msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:516
+#: storage/exchange-account.c:548
 #, c-format
 msgid "%s's Folders"
 msgstr "Теки %s"
 
-#: storage/exchange-account.c:797
+#: storage/exchange-account.c:829
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sВведіть пароль для %s"
 
-#: storage/exchange-account.c:801
+#: storage/exchange-account.c:833
 msgid "Enter password"
 msgstr "Введіть пароль"
 
-#: storage/exchange-account.c:876
+#: storage/exchange-account.c:908
 msgid "Cannot change password due to configuration problems"
 msgstr "Не вдається змінити пароль через проблеми з конфігурацією"
 
-#: storage/exchange-account.c:891
+#: storage/exchange-account.c:923
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -671,11 +676,11 @@ msgstr ""
 "Сервер відмовився прийняти пароль, тому що він надто слабкий.\n"
 "Спробуйте ще раз з іншим паролем."
 
-#: storage/exchange-account.c:896
+#: storage/exchange-account.c:928
 msgid "Could not change password"
 msgstr "Не вдається змінити пароль"
 
-#: storage/exchange-account.c:982
+#: storage/exchange-account.c:1014
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -683,7 +688,7 @@ msgstr ""
 "Не вдається пройти автентифікацію на сервері. (Неправильний пароль?)\n"
 "\n"
 
-#: storage/exchange-account.c:987
+#: storage/exchange-account.c:1019
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -703,7 +708,7 @@ msgstr ""
 "Або, можливо, ви щойно неправильно набрали ваш пароль.\n"
 "\n"
 
-#: storage/exchange-account.c:998
+#: storage/exchange-account.c:1030
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -719,12 +724,12 @@ msgstr ""
 "Або, можливо, ви щойно неправильно набрали ваш пароль.\n"
 "\n"
 
-#: storage/exchange-account.c:1029
+#: storage/exchange-account.c:1061
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Поштова скринька для %s не на цьому сервері."
 
-#: storage/exchange-account.c:1034
+#: storage/exchange-account.c:1066
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -733,7 +738,7 @@ msgstr ""
 "На сервері '%s' працює Exchange 5.5,\n"
 "який несумісний з Ximian Connector"
 
-#: storage/exchange-account.c:1041
+#: storage/exchange-account.c:1073
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -744,40 +749,40 @@ msgstr ""
 "Якщо OWA запущена за іншим шляхом, можна вказати його у\n"
 "діалоговому вікні налаштовування облікового запису."
 
-#: storage/exchange-account.c:1049
+#: storage/exchange-account.c:1081
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Немає поштової скриньки для користувача %s на %s.\n"
 
-#: storage/exchange-account.c:1055 storage/exchange-account.c:1061
-#: storage/exchange-account.c:1069
+#: storage/exchange-account.c:1087 storage/exchange-account.c:1093
+#: storage/exchange-account.c:1101
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Не вдається з'єднатись з сервером %s: %s"
 
-#: storage/exchange-account.c:1057
+#: storage/exchange-account.c:1089
 msgid "Could not resolve hostname"
 msgstr "Не вдається розв'язати назву вузла"
 
-#: storage/exchange-account.c:1063
+#: storage/exchange-account.c:1095
 msgid "Network error"
 msgstr "Помилка мережі"
 
-#: storage/exchange-account.c:1115
+#: storage/exchange-account.c:1147
 msgid "Personal Folders"
 msgstr "Персональні теки"
 
-#: storage/exchange-account.c:1130
+#: storage/exchange-account.c:1162
 msgid "Favorite Public Folders"
 msgstr "Улюблені публічні теки"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1147
+#: storage/exchange-account.c:1179
 msgid "All Public Folders"
 msgstr "Усі публічні теки"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1161
+#: storage/exchange-account.c:1193
 msgid "Global Address List"
 msgstr "Глобальний список адрес"
 
@@ -788,7 +793,8 @@ msgid ""
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
 "Не вдається з'єднатись з Exchange сервером.\n"
-"Перевірте, що URL є коректним (спробуйте \"%s\" замість \"%s\"?) та спробуйте знову."
+"Перевірте, що URL є коректним (спробуйте \"%s\" замість \"%s\"?) та "
+"спробуйте знову."
 
 #: storage/exchange-autoconfig-wizard.c:232
 msgid ""
@@ -816,7 +822,8 @@ msgid ""
 "(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
 "Не вдається пройти автентифікацію на Exchange сервері.\n"
-"Перевірте, що назва облікового рахунку та пароль набрані правильно, та спробуйте ще раз.\n"
+"Перевірте, що назва облікового рахунку та пароль набрані правильно, та "
+"спробуйте ще раз.\n"
 "\n"
 "Необхідно вказати домен Windows як частину назви вашого облікового рахунку "
 "(наприклад, \"MY-DOMAIN\\%s\")."
@@ -840,9 +847,9 @@ msgid ""
 "link below:"
 msgstr ""
 "Ximian Connector вимагає доступу до деякої функціональності Exchange "
-"сервера, яка, схоже, вимкнена або заблокована.  (Зазвичай ненавмисно.) "
-"Ваш адміністратор Exchange повинен увімкнути цю функціональність, "
-"щоб ви мали змогу використовувати Ximian Connector.\n"
+"сервера, яка, схоже, вимкнена або заблокована.  (Зазвичай ненавмисно.) Ваш "
+"адміністратор Exchange повинен увімкнути цю функціональність, щоб ви мали "
+"змогу використовувати Ximian Connector.\n"
 "\n"
 "Інформація для вашого адміністратора Exchange:"
 
@@ -851,8 +858,8 @@ msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
 msgstr ""
-"Наданий вами URL сервера Exchange призначений для Exchange 5.5 Server. Ximian "
-"Connector підтримує лише Microsoft Exchange 2000 та 2003."
+"Наданий вами URL сервера Exchange призначений для Exchange 5.5 Server. "
+"Ximian Connector підтримує лише Microsoft Exchange 2000 та 2003."
 
 #: storage/exchange-autoconfig-wizard.c:301
 msgid ""
@@ -870,8 +877,8 @@ msgid ""
 "\\%s\")."
 msgstr ""
 "Не вдається пройти автентифікацію на сервері глобального каталогу. Необхідно "
-"повернутись назад та вказати домен Windows як частину назви вашого облікового рахунку (наприклад, \"MY-DOMAIN"
-"\\%s\")."
+"повернутись назад та вказати домен Windows як частину назви вашого "
+"облікового рахунку (наприклад, \"MY-DOMAIN\\%s\")."
 
 #: storage/exchange-autoconfig-wizard.c:352
 msgid ""
@@ -973,10 +980,11 @@ msgid ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
-"Ximian Connector може використовувати інформацію облікового рахунку існуючого рахунку Outlook Web "
-"Access (OWA).\n"
+"Ximian Connector може використовувати інформацію облікового рахунку "
+"існуючого рахунку Outlook Web Access (OWA).\n"
 "\n"
-"Введіть адресу вашого OWA сайту (URL), назву рахунку, та пароль, потім натисніть \"Далі\".\n"
+"Введіть адресу вашого OWA сайту (URL), назву рахунку, та пароль, потім "
+"натисніть \"Далі\".\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:24
 msgid ""
@@ -985,15 +993,16 @@ msgid ""
 "your system administrator for the correct value.\n"
 msgstr ""
 "Ximian Connector не може знайти репліку глобального каталогу вашого сайту. "
-"Введіть назву вашого сервера глобального каталогу. Можливо, коректне значення потрібно спитати "
-"у вашого системного адміністратора.\n"
+"Введіть назву вашого сервера глобального каталогу. Можливо, коректне "
+"значення потрібно спитати у вашого системного адміністратора.\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:26
 msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
 msgstr ""
-"Ximian Connector виявив проблему з конфігурацією вашого облікового рахунку Exchange.\n"
+"Ximian Connector виявив проблему з конфігурацією вашого облікового рахунку "
+"Exchange.\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -1001,7 +1010,8 @@ msgid ""
 "save your\n"
 "settings."
 msgstr ""
-"Ваш рахунок вже використовується. Натисніть кнопку \"Застосувати\" щоб зберегти\n"
+"Ваш рахунок вже використовується. Натисніть кнопку \"Застосувати\" щоб "
+"зберегти\n"
 "параметри."
 
 #: storage/exchange-autoconfig-wizard.glade.h:30
@@ -1270,8 +1280,8 @@ msgid ""
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
-"Розташування та ієрархія тек облікових рахунків Evolution змінились з "
-"часів Evolution %d.%d.%d.\n"
+"Розташування та ієрархія тек облікових рахунків Evolution змінились з часів "
+"Evolution %d.%d.%d.\n"
 "\n"
 "Зачекайте, доки Evolution перетворює ваші теки..."
 
@@ -1283,8 +1293,8 @@ msgid ""
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"Попередження: Evolution не може перетворити усі дані облікового рахунку Exchange з версії "
-" %d.%d.%d. \n"
+"Попередження: Evolution не може перетворити усі дані облікового рахунку "
+"Exchange з версії  %d.%d.%d. \n"
 "Дані не будуть видалені, але й не будуть видимі у цій версії Evolution"
 
 #: storage/exchange-migrate.c:129
@@ -1324,7 +1334,8 @@ msgid ""
 "who sends\n"
 "mail to you while you are out of the office.</small>"
 msgstr ""
-"<small>Вказане нижче повідомлення буде автоматично надіслане кожній особі, яка\n"
+"<small>Вказане нижче повідомлення буде автоматично надіслане кожній особі, "
+"яка\n"
 "надішле вам пошту доки ви перебуваєте поза офісом.</small>"
 
 #: storage/exchange-oof.glade.h:8
@@ -1550,7 +1561,8 @@ msgstr "Підписатись на теку, що належить іншому
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
-"Відписатись від теки, доданої використовуючи \"Підписатись на теку іншого користувача\""
+"Відписатись від теки, доданої використовуючи \"Підписатись на теку іншого "
+"користувача\""
 
 #: storage/ximian-connector.xml.h:5
 msgid "View or change your Exchange calendar delegation settings"
@@ -1558,7 +1570,8 @@ msgstr "Переглянути або змінити параметри упов
 
 #: storage/ximian-connector.xml.h:6
 msgid "View or change your Out-of-Office status and autoreply message"
-msgstr "Переглянути або змінити статус Поза-офісом та повідомлення автовідповідача"
+msgstr ""
+"Переглянути або змінити статус Поза-офісом та повідомлення автовідповідача"
 
 #: storage/ximian-connector.xml.h:7
 msgid "_Change Exchange Password..."
