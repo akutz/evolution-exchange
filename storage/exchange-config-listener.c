@@ -683,10 +683,19 @@ account_changed (EAccountList *account_list, EAccount *account)
 		return;
 	}
 
-	if (strcmp (config_listener->priv->configured_name, account->name) != 0) {
-		/* account name has been changed, remove old e-sources */
+	/* If account name has changed, or the url value has changed, which 
+	 * could be due to change in hostname or some parameter value, 
+	 * remove old e-sources 
+	 */
+	if (strcmp (config_listener->priv->configured_uri, account->source->url)) { 
 		remove_sources (priv->exchange_account);
+
+		/* Ask user to authenticate at next login */
+		exchange_account_forget_password (priv->exchange_account);
 	}
+	else if (strcmp (config_listener->priv->configured_name, account->name))
+		remove_sources (priv->exchange_account);
+	
 
 	/* Nope. Let the user know we're ignoring him. */
 	e_notice (NULL, GTK_MESSAGE_WARNING,
