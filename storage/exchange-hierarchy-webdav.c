@@ -679,7 +679,6 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *parent, gboolean offline)
 		for (i = 0; i <folders->len; i++) {
 			tmp = (EFolder *)folders->pdata[i];
 			exchange_hierarchy_new_folder (hier, (EFolder *)folders->pdata[i]);
-			g_object_unref (folders->pdata[i]); // is this needed ?
 		}
 		return EXCHANGE_ACCOUNT_FOLDER_OK;
 	}
@@ -708,7 +707,6 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *parent, gboolean offline)
 			subtrees = g_slist_prepend (subtrees, folder);
 		}
 		exchange_hierarchy_new_folder (hier, folder);
-		g_object_unref (folder);
 	}
 	status = e2k_result_iter_free (iter);
 

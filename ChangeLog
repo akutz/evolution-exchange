@@ -1,3 +1,10 @@
+2005-02-28  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* storage/exchange-hierarchy-webdav.c (scan_subtree): Removed an object
+	getting unrefed twice. Fixed #73079
+	* camel/camel-exchange-folder.c (class_init): There was a duplicate
+	declaration for refresh_info
+
 2005-02-28  Sushma Rai  <rsushma@novell.com>
 	
 	* lib/e2k-autoconfig.c (validate): Reverted fix for #72514, as it

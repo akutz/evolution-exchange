@@ -91,7 +91,6 @@ class_init (CamelFolderClass *camel_folder_class)
 
 	/* virtual method definition */
 	camel_folder_class->sync = folder_sync;
-	camel_folder_class->refresh_info = refresh_info;
 	camel_folder_class->expunge = exchange_expunge;
 	camel_folder_class->append_message = append_message;
 	camel_folder_class->get_message = get_message;
