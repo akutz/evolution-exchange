@@ -414,6 +414,7 @@ static ECalBackendSyncStatus
 create_object (ECalBackendSync *backend, EDataCal *cal,
 	       char **calobj, char **uid)
 {
+	/* FIXME : Return some value in uid */
 	ECalBackendExchangeCalendar *cbexc;
 	icalcomponent *icalcomp, *real_icalcomp;
 	icalcomponent_kind kind;
@@ -721,6 +722,7 @@ modify_object (ECalBackendSync *backend, EDataCal *cal,
 {
 	return modify_object_with_href (backend, cal, calobj, mod, old_object, NULL);
 }
+
 static ECalBackendSyncStatus
 modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	       const char *calobj, CalObjModType mod,
@@ -728,10 +730,10 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 {
 	ECalBackendExchangeCalendar *cbexc;
 	ECalBackendExchangeComponent *ecomp;
-	icalcomponent *icalcomp, *real_icalcomp;
-	ECalComponent *comp, *tmp_comp, *old_comp;
+	icalcomponent *icalcomp, *real_icalcomp, *updated_icalcomp;
+	ECalComponent *real_ecomp, *cached_ecomp, *updated_ecomp;
 	const char *comp_uid;
-	char *comp_str;
+	char *updated_ecomp_str, *real_comp_str;
 	char *body, *body_crlf, *msg;
 	struct icaltimetype last_modified;
 	icalcomponent_kind kind;
@@ -756,7 +758,6 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	kind = icalcomponent_isa (icalcomp);
 	
 	if (kind != e_cal_backend_get_kind (E_CAL_BACKEND (backend))) {
-		
 		icalcomponent_free (icalcomp);
 		return GNOME_Evolution_Calendar_InvalidObject;
 	}
@@ -769,30 +770,41 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		return GNOME_Evolution_Calendar_ObjectNotFound;
 	}
 	
-	old_comp = e_cal_component_new ();
-	e_cal_component_set_icalcomponent (old_comp, ecomp->comp);
-	*old_object = e_cal_component_get_as_string (old_comp);
+	cached_ecomp = e_cal_component_new ();
+	e_cal_component_set_icalcomponent (cached_ecomp, ecomp->icomp);
+	*old_object = e_cal_component_get_as_string (cached_ecomp);
 	
-	comp = e_cal_component_new ();
-	e_cal_component_set_icalcomponent (comp, icalcomp);
+	updated_ecomp = e_cal_component_new ();
+	e_cal_component_set_icalcomponent (updated_ecomp, icalcomp);
 
-	update_x_properties (E_CAL_BACKEND_EXCHANGE (cbexc), comp);
+	update_x_properties (E_CAL_BACKEND_EXCHANGE (cbexc), updated_ecomp);
 	
 	last_modified = icaltime_from_timet (time (NULL), 0);
-	e_cal_component_set_last_modified (comp, &last_modified);
+	e_cal_component_set_last_modified (updated_ecomp, &last_modified);
 	
-	comp_str = e_cal_component_get_as_string (comp);
-	icalcomp = icalparser_parse_string (comp_str);
-	g_free (comp_str);
-	if (!icalcomp) {
-		g_object_unref (comp);	
+	updated_ecomp_str = e_cal_component_get_as_string (updated_ecomp);
+	updated_icalcomp = icalparser_parse_string (updated_ecomp_str);
+	g_free (updated_ecomp_str);
+	if (!updated_icalcomp) {
+		g_object_unref (updated_ecomp);
 		return GNOME_Evolution_Calendar_OtherError;
 	}
 
-	tmp_comp = e_cal_component_new ();
-	if (!e_cal_component_set_icalcomponent (tmp_comp, icalcomp)) {
-		g_object_unref (comp);	
-		icalcomponent_free (icalcomp);
+	/* Remove X parameters from properties */
+	/* This is specifically for X-EVOLUTION-END-DATE, 
+	   but removing anything else is probably ok too */
+	for (icalprop = icalcomponent_get_first_property (updated_icalcomp, ICAL_ANY_PROPERTY);
+	     icalprop != NULL;
+	     icalprop = icalcomponent_get_next_property (updated_icalcomp, ICAL_ANY_PROPERTY))
+	{
+		icalproperty_remove_parameter (icalprop, ICAL_X_PARAMETER);
+	}
+
+	real_ecomp = e_cal_component_new ();
+	if (!e_cal_component_set_icalcomponent (real_ecomp, updated_icalcomp)) {
+		g_object_unref (real_ecomp);
+		g_object_unref (updated_ecomp);
+		icalcomponent_free (updated_icalcomp);
 		return GNOME_Evolution_Calendar_OtherError;
 	}
 
@@ -801,7 +813,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	cbdata->vcal_comp = e_cal_util_new_top_level ();
 	cbdata->cal = cal;	
 
-	e_cal_component_get_dtstart (tmp_comp, &dt);
+	e_cal_component_get_dtstart (real_ecomp, &dt);
 	if (dt.value->is_date) {
 		icaltimezone *zone;
 
@@ -814,30 +826,30 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		dt.value->hour = dt.value->minute = dt.value->second = 0;
 		dt.value->zone = zone;
 		dt.tzid = icaltimezone_get_tzid (zone);
-		e_cal_component_set_dtstart (tmp_comp, &dt);
+		e_cal_component_set_dtstart (real_ecomp, &dt);
 
-		e_cal_component_get_dtend (tmp_comp, &dt);
+		e_cal_component_get_dtend (real_ecomp, &dt);
 		dt.value->is_date = FALSE;
 		dt.value->is_utc = FALSE;
 		dt.value->hour = dt.value->minute = dt.value->second = 0;
 		dt.value->zone = zone;
 		dt.tzid = icaltimezone_get_tzid (zone);
-		e_cal_component_set_dtend (tmp_comp, &dt);
+		e_cal_component_set_dtend (real_ecomp, &dt);
 	}
 
 	/* Fix UNTIL date in a simple recurrence */
-	if (e_cal_component_has_recurrences (tmp_comp)
-	    && e_cal_component_has_simple_recurrence (tmp_comp)) {
+	if (e_cal_component_has_recurrences (real_ecomp)
+	    && e_cal_component_has_simple_recurrence (real_ecomp)) {
 		GSList *rrule_list;
 		struct icalrecurrencetype *r;
 		
-		e_cal_component_get_rrule_list (tmp_comp, &rrule_list);
+		e_cal_component_get_rrule_list (real_ecomp, &rrule_list);
 		r = rrule_list->data;
 
 		if (!icaltime_is_null_time (r->until) && r->until.is_date) {
 			icaltimezone *from_zone, *to_zone;
 			
-			e_cal_component_get_dtstart (tmp_comp, &dt);
+			e_cal_component_get_dtstart (real_ecomp, &dt);
 
 			if (dt.tzid == NULL)
 				from_zone = icaltimezone_get_utc_timezone ();
@@ -857,37 +869,27 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 			icaltimezone_convert_time (&r->until, from_zone, to_zone);
 			r->until.is_utc = TRUE;
 			
-			e_cal_component_set_rrule_list (tmp_comp, rrule_list);			
+			e_cal_component_set_rrule_list (real_ecomp, rrule_list);			
 		}
 
 		e_cal_component_free_recur_list (rrule_list);
 	}
 
 
-	/* Remove X parameters from properties */
-	/* This is specifically for X-EVOLUTION-END-DATE, 
-	   but removing anything else is probably ok too */
-	for (icalprop = icalcomponent_get_first_property (icalcomp, ICAL_ANY_PROPERTY);
-	     icalprop != NULL;
-	     icalprop = icalcomponent_get_next_property (icalcomp, ICAL_ANY_PROPERTY))
-	{
-		icalproperty_remove_parameter (icalprop, ICAL_X_PARAMETER);
-	}
 	
 	/* add the timezones information and the component itself
 	   to the VCALENDAR object */
-	e_cal_component_commit_sequence (tmp_comp);
-	comp_str = e_cal_component_get_as_string (tmp_comp);
-	if (!comp_str) {
-		g_object_unref (tmp_comp);
+	e_cal_component_commit_sequence (real_ecomp);
+	real_comp_str = e_cal_component_get_as_string (real_ecomp);
+	if (!real_comp_str) {
+		g_object_unref (real_ecomp);
+		g_object_unref (updated_ecomp);	
 		icalcomponent_free (cbdata->vcal_comp);
 		g_free (cbdata);
-		g_object_unref (comp);	
-		icalcomponent_free (icalcomp);
 		return GNOME_Evolution_Calendar_OtherError;
 	}
-	real_icalcomp = icalparser_parse_string (comp_str);
-	g_free (comp_str);
+	real_icalcomp = icalparser_parse_string (real_comp_str);
+	g_free (real_comp_str);
 
 	icalcomponent_foreach_tzid (real_icalcomp, add_timezone_cb, cbdata);
 	icalcomponent_add_component (cbdata->vcal_comp, real_icalcomp);
@@ -896,7 +898,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	body_crlf = e_cal_backend_exchange_lf_to_crlf (body);
 	
 	date = e_cal_backend_exchange_make_timestamp_rfc822 (time (NULL));
-	from = e_cal_backend_exchange_get_from_string (backend, comp);	
+	from = e_cal_backend_exchange_get_from_string (backend, updated_ecomp);	
 	
 	summary = icalcomponent_get_summary (real_icalcomp);
 	if (!summary)
@@ -922,12 +924,12 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	g_free (body_crlf);
 
 	/*unref the old set of categories*/
-	e_cal_component_get_categories_list (old_comp, &categories);
+	e_cal_component_get_categories_list (cached_ecomp, &categories);
 	e_cal_backend_unref_categories (E_CAL_BACKEND (cbexc), categories);
 	e_cal_component_free_categories_list (categories);
 	
 	/*ref the new set of categories*/
-	e_cal_component_get_categories_list (tmp_comp, &categories);
+	e_cal_component_get_categories_list (real_ecomp, &categories);
 	e_cal_backend_ref_categories (E_CAL_BACKEND (cbexc), categories);
 	e_cal_component_free_categories_list (categories);
 
@@ -947,7 +949,9 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 							real_icalcomp, mod);
 	
 	g_free (msg);
-	g_object_unref (tmp_comp);
+	g_object_unref (real_ecomp);
+	g_object_unref (updated_ecomp);
+	g_object_unref (cached_ecomp);
 	icalcomponent_free (cbdata->vcal_comp);
 	g_free (cbdata);
 
@@ -979,7 +983,7 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 		return GNOME_Evolution_Calendar_ObjectNotFound;
 		
 	comp = e_cal_component_new ();
-	e_cal_component_set_icalcomponent (comp, ecomp->comp);
+	e_cal_component_set_icalcomponent (comp, ecomp->icomp);
 	*object = e_cal_component_get_as_string (comp);
 	
 	switch (mod) {
@@ -1003,9 +1007,9 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 			/*remove_instance and modify */
 			if (rid && *rid) {
 				time_rid = icaltime_from_string (rid);
-				e_cal_util_remove_instances (ecomp->comp, time_rid, mod);
+				e_cal_util_remove_instances (ecomp->icomp, time_rid, mod);
 			}
-			calobj  = (char *) icalcomponent_as_ical_string (ecomp->comp);
+			calobj  = (char *) icalcomponent_as_ical_string (ecomp->icomp);
 			ebs_status = modify_object (backend, cal, calobj, mod, &obj);
 			if (ebs_status != GNOME_Evolution_Calendar_Success)
 				goto error;
@@ -1548,7 +1552,7 @@ discard_alarm (ECalBackendSync *backend, EDataCal *cal,
 		return GNOME_Evolution_Calendar_ObjectNotFound;
 
 	ecomp = e_cal_component_new ();
-	e_cal_component_set_icalcomponent (ecomp, ecbexcomp->comp);
+	e_cal_component_set_icalcomponent (ecomp, ecbexcomp->icomp);
 	if (!e_cal_component_has_recurrences (ecomp))
 	{
 		e_cal_component_remove_alarm (ecomp, auid);

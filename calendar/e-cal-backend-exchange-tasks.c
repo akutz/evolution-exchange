@@ -995,7 +995,7 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	}
         
         cache_comp = e_cal_component_new ();
-        e_cal_component_set_icalcomponent (cache_comp, ecalbexcomp->comp);
+        e_cal_component_set_icalcomponent (cache_comp, ecalbexcomp->icomp);
 	*old_object = e_cal_component_get_as_string (cache_comp);
 	g_free (cache_comp);
 	
@@ -1119,7 +1119,7 @@ remove_task_object (ECalBackendSync *backend, EDataCal *cal,
 		return GNOME_Evolution_Calendar_ObjectNotFound;		
 
         comp = e_cal_component_new ();
-        e_cal_component_set_icalcomponent (comp, ecalbexcomp->comp);
+        e_cal_component_set_icalcomponent (comp, ecalbexcomp->icomp);
 	*old_object = e_cal_component_get_as_string (comp);
 
 	ctx = exchange_account_get_context (ecalbex->account);

@@ -44,7 +44,7 @@ struct ECalBackendExchangeClass {
 
 struct ECalBackendExchangeComponent {
 	char *uid, *href, *lastmod;
-	icalcomponent *comp;
+	icalcomponent *icomp;
 	GList *instances;
 };
 

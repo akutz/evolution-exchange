@@ -140,7 +140,7 @@ load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri)
 #ifdef OFFLINE_SUPPORTED
 	} else {
 		cbex->priv->object_cache_file = 
-			exchange_offline_build_object_cache_file (e2kuri, "cache.ics");
+			exchange_offline_build_object_cache_file (e2kuri, "cache.ics", TRUE);
 	}
 #endif
 
@@ -177,7 +177,7 @@ load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri)
 	     comp = icalcomponent_get_next_component (vcalcomp, ICAL_VTIMEZONE_COMPONENT)) {
 		tmp_comp = icalcomponent_new_clone (comp);
 		if (tmp_comp) {
-			e_cal_backend_exchange_add_timezone (cbex, icalcomponent_new_clone (comp));
+			e_cal_backend_exchange_add_timezone (cbex, tmp_comp);
 			icalcomponent_free (tmp_comp);
 		}
 	}
@@ -201,7 +201,7 @@ save_object (gpointer key, gpointer value, gpointer vcalcomp)
 	icalcomponent *icalcomp;
 	GList *l;
 
-	icalcomp = icalcomponent_new_clone (ecomp->comp);
+	icalcomp = icalcomponent_new_clone (ecomp->icomp);
 	icalcomponent_add_component (vcalcomp, icalcomp);
 
 	for (l = ecomp->instances; l; l = l->next) {
@@ -230,21 +230,19 @@ timeout_save_cache (gpointer user_data)
 
 	tmpfile = g_strdup_printf ("%s~", cbex->priv->object_cache_file);
 	f = fopen (tmpfile, "w");
-	if (!f) {
-		g_free (tmpfile);
-		return FALSE;
-	}
+	if (!f)
+		goto error;
 
 	len = strlen (data);
 	nwrote = fwrite (data, 1, len, f);
-	if (fclose (f) != 0 || nwrote != len) {
-		g_free (tmpfile);
-		return FALSE;
-	}
+	if (fclose (f) != 0 || nwrote != len)
+		goto error;
 
 	if (rename (tmpfile, cbex->priv->object_cache_file) != 0)
 		unlink (tmpfile);
+error:
 	g_free (tmpfile);
+	g_free (data);
 	return FALSE;
 }
 
@@ -445,7 +443,7 @@ e_cal_backend_exchange_add_object (ECalBackendExchange *cbex,
 
 	is_instance = (icalcomponent_get_first_property (comp, ICAL_RECURRENCEID_PROPERTY) != NULL);
 
-	if (ecomp && ecomp->comp && !is_instance)
+	if (ecomp && ecomp->icomp && !is_instance)
 		return FALSE;
 
 	if (!ecomp) {
@@ -467,7 +465,7 @@ e_cal_backend_exchange_add_object (ECalBackendExchange *cbex,
 		ecomp->instances = g_list_prepend (ecomp->instances,
 						   icalcomponent_new_clone (comp));
 	} else
-		ecomp->comp = icalcomponent_new_clone (comp);
+		ecomp->icomp = icalcomponent_new_clone (comp);
 
 	save_cache (cbex);
 	return TRUE;
@@ -523,8 +521,8 @@ e_cal_backend_exchange_modify_object (ECalBackendExchange *cbex,
 		return FALSE;
 
 	if (mod == CALOBJ_MOD_ALL || icaltime_is_null_time (rid)) {
-		icalcomponent_free (ecomp->comp);
-		ecomp->comp = icalcomponent_new_clone (comp);
+		icalcomponent_free (ecomp->icomp);
+		ecomp->icomp = icalcomponent_new_clone (comp);
 	} else {
 		discard_detached_instance (ecomp, rid);
 		ecomp->instances = g_list_prepend (ecomp->instances,
@@ -614,10 +612,11 @@ get_object (ECalBackendSync *backend, EDataCal *cal,
 	/*anything on recur id here????*/
 	
 	comp = e_cal_component_new ();
-	e_cal_component_set_icalcomponent (comp, ecomp->comp);
+	e_cal_component_set_icalcomponent (comp, ecomp->icomp);
 
 	*object = e_cal_component_get_as_string (comp);
 	
+	g_object_unref (comp);
 	return GNOME_Evolution_Calendar_Success;
 }
 
@@ -701,11 +700,15 @@ static ECalBackendSyncStatus
 get_default_object (ECalBackendSync *backend, EDataCal *cal, char **object)
 {
 	icalcomponent *comp;
+	char *ical_obj;
 
 	d(printf("ecbe_get_default_object(%p, %p)\n", backend, cal));
 
 	comp = e_cal_util_new_component (e_cal_backend_get_kind (E_CAL_BACKEND (backend)));
-	*object = g_strdup (icalcomponent_as_ical_string (comp));
+	ical_obj = icalcomponent_as_ical_string (comp);
+	*object = g_strdup (ical_obj);
+
+	g_free (ical_obj);
 	icalcomponent_free (comp);
 
 	return GNOME_Evolution_Calendar_Success;
@@ -728,7 +731,7 @@ match_object_sexp (gpointer key, gpointer value, gpointer data)
 	ECalComponent *comp;
 	
 	comp = e_cal_component_new ();
-	e_cal_component_set_icalcomponent (comp, ecomp->comp);
+	e_cal_component_set_icalcomponent (comp, ecomp->icomp);
 
 	if ((!match_data->search_needed) ||
 	    (e_cal_backend_sexp_match_comp (match_data->obj_sexp, comp, match_data->backend))) {
@@ -742,6 +745,7 @@ match_object_sexp (gpointer key, gpointer value, gpointer data)
 				      match_data);
 		#endif
 	}
+	g_object_unref (comp);
 }
 
 static ECalBackendSyncStatus
@@ -781,6 +785,7 @@ get_timezone (ECalBackendSync *backend, EDataCal *cal,
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	icaltimezone *zone;
 	icalcomponent *vtzcomp;
+	char *ical_obj;
 
 	d(printf("ecbe_get_timezone(%p, %p, %s)\n", backend, cal, tzid));
 
@@ -792,7 +797,11 @@ get_timezone (ECalBackendSync *backend, EDataCal *cal,
 	if (!vtzcomp)
 		return GNOME_Evolution_Calendar_OtherError;
 
-	*object = g_strdup (icalcomponent_as_ical_string (vtzcomp));
+	ical_obj = icalcomponent_as_ical_string (vtzcomp);
+	*object = g_strdup (ical_obj);
+
+	g_free (ical_obj);
+	icalcomponent_free (vtzcomp);
 	return  GNOME_Evolution_Calendar_Success;
 }
 
@@ -894,7 +903,7 @@ match_object (gpointer key, gpointer value, gpointer data)
 
 	/* FIXME: we shouldn't have to convert to ECalComponent here */
 	cal_comp = e_cal_component_new ();
-	e_cal_component_set_icalcomponent (cal_comp, icalcomponent_new_clone (ecomp->comp));
+	e_cal_component_set_icalcomponent (cal_comp, icalcomponent_new_clone (ecomp->icomp));
 	if (e_cal_backend_sexp_match_comp (sd->sexp, cal_comp, sd->backend)) {
 		sd->matches = g_list_prepend (sd->matches,
 					      e_cal_component_get_as_string (cal_comp));
@@ -1203,7 +1212,7 @@ check_change_type (gpointer key, gpointer value, gpointer data)
 	if (ecomp != NULL) {
 
 		comp = e_cal_component_new ();
-		e_cal_component_set_icalcomponent (comp, ecomp->comp);
+		e_cal_component_set_icalcomponent (comp, ecomp->icomp);
 
 		calobj = e_cal_component_get_as_string (comp);
 		switch (e_xmlhash_compare (change_data->ehash, uid, calobj)){
@@ -1219,6 +1228,7 @@ check_change_type (gpointer key, gpointer value, gpointer data)
 		}
 		
 		g_free (calobj);
+		g_object_unref (comp);
 	}
 		
 }
@@ -1248,7 +1258,7 @@ e_cal_backend_exchange_compute_changes_foreach_key (const char *key, gpointer da
 		cbedata->deletes = g_list_prepend (cbedata->deletes, e_cal_component_get_as_string (comp));
 		
 		e_xmlhash_remove (cbedata->ehash, key);
-		
+		g_object_unref (comp);	
 	}
 }
 
@@ -1338,7 +1348,7 @@ free_exchange_comp (gpointer value)
 	g_free (ecomp->href);
 	g_free (ecomp->lastmod);
 
-	icalcomponent_free (ecomp->comp);
+	icalcomponent_free (ecomp->icomp);
 
 	for (inst = ecomp->instances; inst; inst = inst->next)
 		icalcomponent_free (inst->data);
