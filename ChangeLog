@@ -1,3 +1,13 @@
+2004-08-02  Sushma Rai <rsushma@novell.com>
+
+	* storage/exchange-hierarchy-somedav.[ch] 
+	(exchange_hierarchy_somedav_add_folder): Removed the third
+	parameter folder_out, which was always set to NULL and 
+	hence this function was throwing the error "generic error".
+	* storage/exchange-hierarchy-favorites.c 
+	(exchange_hierarchy_favorites_add_folder): Likewise
+	Fixes #62257
+
 2004-07-30  Sarfraaz Ahmed <asarfraaz@novell.com>
 	
 	* storage/exchange-hierarchy-foreign.c 

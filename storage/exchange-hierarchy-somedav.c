@@ -204,8 +204,7 @@ exchange_hierarchy_somedav_href_unreadable (ExchangeHierarchySomeDAV *hsd,
 
 ExchangeAccountFolderResult
 exchange_hierarchy_somedav_add_folder (ExchangeHierarchySomeDAV *hsd,
-				       const char *uri,
-				       EFolder **folder_out)
+				       const char *uri)
 {
 	ExchangeHierarchyWebDAV *hwd;
 	ExchangeHierarchy *hier;
@@ -219,10 +218,6 @@ exchange_hierarchy_somedav_add_folder (ExchangeHierarchySomeDAV *hsd,
 				EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 	g_return_val_if_fail (uri != NULL,
 				EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
-	g_return_val_if_fail (folder_out != NULL,
-				EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
-	g_return_val_if_fail (E_IS_FOLDER (*folder_out),
-				EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR); 
 	 
 	hwd = EXCHANGE_HIERARCHY_WEBDAV (hsd);
 	hier = EXCHANGE_HIERARCHY (hsd);
@@ -247,9 +242,6 @@ exchange_hierarchy_somedav_add_folder (ExchangeHierarchySomeDAV *hsd,
 		return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
 
 	exchange_hierarchy_new_folder (hier, folder);
-	if (folder_out)
-		*folder_out = folder;
-	else
-		g_object_unref (folder);
+	g_object_unref (folder);
 	return EXCHANGE_ACCOUNT_FOLDER_OK;
 }

@@ -267,8 +267,7 @@ exchange_hierarchy_favorites_add_folder (ExchangeHierarchy *hier,
 		g_hash_table_insert (hfav->priv->shortcuts,
 				     g_strdup (folder_uri), shortcut_uri);
 		return exchange_hierarchy_somedav_add_folder (EXCHANGE_HIERARCHY_SOMEDAV (hier),
-							      folder_uri,
-							      NULL);
+							      folder_uri);
 	} else
 		return exchange_hierarchy_webdav_status_to_folder_result (status);
 }

@@ -39,8 +39,7 @@ GType exchange_hierarchy_somedav_get_type (void);
 
 GPtrArray *exchange_hierarchy_somedav_get_hrefs (ExchangeHierarchySomeDAV *hsd);
 ExchangeAccountFolderResult exchange_hierarchy_somedav_add_folder (ExchangeHierarchySomeDAV *hsd,
-								   const char *uri,
-								   EFolder **folder_out);
+								   const char *uri);
 
 /* signal emitter */
 void exchange_hierarchy_somedav_href_unreadable (ExchangeHierarchySomeDAV *hsd,
