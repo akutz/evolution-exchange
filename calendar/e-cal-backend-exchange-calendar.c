@@ -46,6 +46,13 @@ struct ECalBackendExchangeCalendarPrivate {
 	int dummy;
 };
 
+enum {
+	EX_NO_RECEIPTS = 0,
+	EX_DELIVERED_RECEIPTS,
+	EX_READ_AND_DELIVERED,
+	EX_ALL
+};
+
 #define PARENT_TYPE E_TYPE_CAL_BACKEND_EXCHANGE
 static ECalBackendExchange *parent_class = NULL;
 
@@ -54,6 +61,8 @@ static ECalBackendExchange *parent_class = NULL;
 static ECalBackendSyncStatus modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, const char *calobj, CalObjModType mod, char **old_object, const char *href);
 
 static GSList * get_attachment (ECalBackendExchange *cbex, const char *uid, const char *body, int len);
+
+gboolean check_for_send_options (icalcomponent *icalcomp, E2kProperties *props);
 
 static void
 add_timezones_from_comp (ECalBackendExchange *cbex, icalcomponent *icalcomp)
@@ -167,12 +176,13 @@ add_vevent (ECalBackendExchange *cbex,
 
 static gboolean
 add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod, 
-	  const char *uid, const char *body, int len)
+	  const char *uid, const char *body, int len, int receipts)
 {
 	const char *start, *end;
 	char *ical_body;
 	icalcomponent *icalcomp, *subcomp, *new_comp;
 	icalcomponent_kind kind;
+	icalproperty *icalprop;
 	ECalComponent *ecomp;
 	GSList *attachment_list = NULL;
 	gboolean status;
@@ -199,6 +209,11 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 
 	kind = icalcomponent_isa (icalcomp);
 	if (kind == ICAL_VEVENT_COMPONENT) {
+		if (receipts) {
+			icalprop = icalproperty_new_x (g_strdup (GINT_TO_POINTER (receipts)));
+			icalproperty_set_x_name (icalprop, "X-EVOLUTION-OPTIONS-TRACKINFO");
+			icalcomponent_add_property (icalcomp, icalprop);
+		}
 		if (attachment_list) {
 			ecomp = e_cal_component_new ();
 			e_cal_component_set_icalcomponent (ecomp, icalcomponent_new_clone (icalcomp));
@@ -314,12 +329,16 @@ static const char *event_properties[] = {
 	E2K_PR_CALENDAR_UID,
 	E2K_PR_DAV_LAST_MODIFIED,
 	E2K_PR_HTTPMAIL_HAS_ATTACHMENT,
+	PR_READ_RECEIPT_REQUESTED,
+	PR_ORIGINATOR_DELIVERY_REPORT_REQUESTED	
 };
 static const int n_event_properties = G_N_ELEMENTS (event_properties);
 
 static const char *new_event_properties[] = {
 	PR_INTERNET_CONTENT,
 	E2K_PR_HTTPMAIL_HAS_ATTACHMENT,
+	PR_READ_RECEIPT_REQUESTED,
+	PR_ORIGINATOR_DELIVERY_REPORT_REQUESTED	
 };
 static const int n_new_event_properties = G_N_ELEMENTS (new_event_properties);
 
@@ -332,11 +351,11 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 	E2kRestriction *rn;
 	E2kResultIter *iter;
 	E2kResult *result;
-	const char *prop, *uid, *modtime, *attach_prop;
+	const char *prop, *uid, *modtime, *attach_prop, *receipts;
 	char *body;
 	guint status;
 	E2kContext *ctx;
-	int i;
+	int i, status_tracking = EX_NO_RECEIPTS;
 
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex), SOUP_STATUS_CANCELLED);
 
@@ -388,6 +407,21 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 		attach_prop = e2k_properties_get_prop (result->props, 
 						E2K_PR_HTTPMAIL_HAS_ATTACHMENT);
 
+		receipts = e2k_properties_get_prop (result->props,
+						PR_ORIGINATOR_DELIVERY_REPORT_REQUESTED);
+		if (receipts && atoi (receipts))
+			status_tracking = EX_DELIVERED_RECEIPTS;
+	
+		receipts = NULL;
+		receipts = e2k_properties_get_prop (result->props,
+						PR_READ_RECEIPT_REQUESTED);
+		if (receipts && atoi (receipts)) {
+			if (status_tracking == EX_DELIVERED_RECEIPTS)
+				status_tracking = EX_ALL;
+			else
+				status_tracking = EX_READ_AND_DELIVERED;
+		}
+
 		if (!e_cal_backend_exchange_in_cache (cbex, uid, modtime, result->href)) {
 			g_ptr_array_add (hrefs, g_strdup (result->href));
 			g_hash_table_insert (modtimes, g_strdup (result->href),
@@ -430,6 +464,7 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 
 	while ((result = e2k_result_iter_next (iter))) {
 		GByteArray *ical_data;
+		status_tracking = EX_NO_RECEIPTS;
 
 		ical_data = e2k_properties_get_prop (result->props, PR_INTERNET_CONTENT);
 		if (!ical_data) {
@@ -437,12 +472,27 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 			g_ptr_array_add (hrefs, g_strdup (result->href));
 			continue;
 		}
+		receipts = e2k_properties_get_prop (result->props,
+					PR_ORIGINATOR_DELIVERY_REPORT_REQUESTED);
+		if (receipts && atoi (receipts))
+			status_tracking = EX_DELIVERED_RECEIPTS;
+	
+		receipts = NULL;
+		receipts = e2k_properties_get_prop (result->props,
+					PR_READ_RECEIPT_REQUESTED);
+		if (receipts && atoi (receipts)) {
+			if (status_tracking == EX_DELIVERED_RECEIPTS)
+				status_tracking = EX_ALL;
+			else
+				status_tracking = EX_READ_AND_DELIVERED;
+		}
+
 		modtime = g_hash_table_lookup (modtimes, result->href);
 		uid = g_hash_table_lookup (attachments, result->href);
 		/* The icaldata already has the attachment. So no need to
 			re-fetch it from the server. */
 		add_ical (cbex, result->href, modtime, uid,
-			  ical_data->data, ical_data->len);
+			  ical_data->data, ical_data->len, status_tracking);
 	}
 	status = e2k_result_iter_free (iter);
 
@@ -474,7 +524,7 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 
 		uid = g_hash_table_lookup (attachments, hrefs->pdata[i]);
 
-		add_ical (cbex, hrefs->pdata[i], modtime, uid, body, length);
+		add_ical (cbex, hrefs->pdata[i], modtime, uid, body, length, 0);
 		g_free (body);
 	}
 
@@ -656,6 +706,40 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const char *subject,
 	return buffer;
 }
 
+gboolean
+check_for_send_options (icalcomponent *icalcomp, E2kProperties *props)
+{
+	icalproperty *icalprop;
+	gboolean exists = FALSE;
+	const char *x_name, *x_val;
+
+	icalprop = icalcomponent_get_first_property (icalcomp, ICAL_X_PROPERTY);	
+	while (icalprop && !exists) {
+		x_name = icalproperty_get_x_name (icalprop);
+		if (!strcmp(x_name, "X-EVOLUTION-OPTIONS-TRACKINFO")) {
+			exists = TRUE;
+			x_val = icalproperty_get_x (icalprop);
+			switch (atoi (x_val)) {
+				case EX_ALL: /* Track if delivered and opened */
+				case EX_READ_AND_DELIVERED: /* Track if delivered and opened */
+					e2k_properties_set_int (props, 
+					PR_READ_RECEIPT_REQUESTED, 1);
+					/* Fall Through */
+				case EX_DELIVERED_RECEIPTS : /* Track if delivered */
+					e2k_properties_set_int (props, 
+					PR_ORIGINATOR_DELIVERY_REPORT_REQUESTED, 1);
+					break;
+				default : /* None */
+					exists = FALSE;
+					break; 
+			}
+		}
+		icalprop = icalcomponent_get_next_property (icalcomp, ICAL_X_PROPERTY);
+	}
+
+	return exists;
+}
+
 static ECalBackendSyncStatus
 create_object (ECalBackendSync *backend, EDataCal *cal,
 	       char **calobj, char **uid)
@@ -678,7 +762,10 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	char *attach_body_crlf = NULL;
 	const char *boundary;
 	E2kHTTPStatus http_status;
+	E2kProperties *props = e2k_properties_new ();
+	E2kContext *e2kctx;
 	struct _cb_data *cbdata;
+	gboolean send_options;
 	
 	cbexc =	E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 	
@@ -716,26 +803,8 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	#endif
 	
 	/* Send options */
-	icalprop = icalcomponent_get_first_property (icalcomp, ICAL_X_PROPERTY);	
-	while (icalprop) {
-		x_name = icalproperty_get_x_name (icalprop);
-		if (!strcmp(x_name, "X-EVOLUTION-OPTIONS-TRACKINFO")) {
-			x_val = icalproperty_get_x (icalprop);
-			switch (atoi (x_val)) {
-				case 1: /* Track if delivered */
-					break;
-				case 2: /* Track if opened */
-					break;
-				case 3: /* Track if delivered and opened */
-					break;
-				default : /* None */
-					break; 
-			}
-		}
-		icalprop = icalcomponent_get_next_property (icalcomp, ICAL_X_PROPERTY);
-	}
-
-
+	send_options = check_for_send_options (icalcomp, props);
+	
 	/*set X-MICROSOFT-CDO properties*/
 	busystatus = "BUSY";
 	icalprop = icalcomponent_get_first_property (icalcomp, 
@@ -798,7 +867,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	
 	/* Check for attachments */
 	if (e_cal_component_has_attachments (comp)) {
-		printf ("This comp has attachments !!\n");
+		d(printf ("This comp has attachments !!\n"));
 		attach_body = build_msg (E_CAL_BACKEND_EXCHANGE (cbexc), comp, summary, &boundary);
 		attach_body_crlf = e_cal_backend_exchange_lf_to_crlf (attach_body);	
 	}
@@ -880,6 +949,11 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 						NULL, NULL, "message/rfc822", 
 						msg, strlen(msg), &location, &ru_header);	
 
+	if ((http_status == E2K_HTTP_CREATED) && send_options) {
+		e2kctx = exchange_account_get_context (E_CAL_BACKEND_EXCHANGE (cbexc)->account);
+		http_status = e2k_context_proppatch (e2kctx, NULL, location, props, FALSE, NULL);
+	}
+
 	g_free (date);
 	g_free (from);
 	g_free (body_crlf);
@@ -887,7 +961,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	icalcomponent_free (cbdata->vcal_comp); // not sure
 	g_free (cbdata);
 
-	if (http_status != E2K_HTTP_CREATED) {
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (http_status)) {
 		g_object_unref (comp);
 		g_free (location);
 		g_free (lastmod);
@@ -900,6 +974,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	g_object_unref (comp);
 	g_free (lastmod);
 	g_free (location);
+	e2k_properties_free (props);
 	
 	return GNOME_Evolution_Calendar_Success;
 }
@@ -1035,7 +1110,9 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	E2kHTTPStatus http_status;
 	char *from, *date;
 	const char *summary, *new_href;
+	gboolean send_options;
 	E2kContext *ctx;
+	E2kProperties *props = e2k_properties_new ();
 
 	cbexc =	E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 
@@ -1081,6 +1158,9 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		g_object_unref (updated_ecomp);
 		return GNOME_Evolution_Calendar_OtherError;
 	}
+
+	/* send options */
+	send_options = check_for_send_options (updated_icalcomp, props);
 
 	/* Remove X parameters from properties */
 	/* This is specifically for X-EVOLUTION-END-DATE, 
@@ -1232,6 +1312,9 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	http_status = e2k_context_put (ctx, NULL, new_href, "message/rfc822",
 				       		msg, strlen (msg), NULL);
 
+	if ((E2K_HTTP_STATUS_IS_SUCCESSFUL (http_status)) && send_options)
+		http_status = e2k_context_proppatch (ctx, NULL, new_href, props, FALSE, NULL);
+
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (http_status))
 		e_cal_backend_exchange_modify_object (E_CAL_BACKEND_EXCHANGE (cbexc), 
 							real_icalcomp, mod);
@@ -1242,6 +1325,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	g_object_unref (cached_ecomp);
 	icalcomponent_free (cbdata->vcal_comp);
 	g_free (cbdata);
+	e2k_properties_free (props);
 
 	return GNOME_Evolution_Calendar_Success;
 }
