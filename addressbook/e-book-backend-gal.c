@@ -91,17 +91,17 @@ typedef void (*LDAPOpHandler)(LDAPOp *op, LDAPMessage *res);
 typedef void (*LDAPOpDtor)(LDAPOp *op);
 
 struct LDAPOp {
-	LDAPOpHandler handler;
-	LDAPOpDtor    dtor;
-	EBookBackend    *backend;
-	EDataBook       *book;
-	EDataBookView   *view;
-	int            id;
-	guint32 	opid;
+	LDAPOpHandler  handler;
+	LDAPOpDtor     dtor;
+	EBookBackend  *backend;
+	EDataBook     *book;
+	EDataBookView *view;
+	guint32        opid; /* the libebook operation id */
+	int            id;   /* the ldap msg id */
 };
 
 static void     ldap_op_add (LDAPOp *op, EBookBackend *backend, EDataBook *book,
-			     EDataBookView *view, int id, LDAPOpHandler handler, LDAPOpDtor dtor, guint32 opid);
+			     EDataBookView *view, int opid, int msgid, LDAPOpHandler handler, LDAPOpDtor dtor);
 static void     ldap_op_finished (LDAPOp *op);
 
 static gboolean poll_ldap (EBookBackendGAL *bl);
@@ -253,18 +253,19 @@ gal_reconnect (EBookBackendGAL *bl, EDataBookView *book_view, int ldap_status)
 static void
 ldap_op_add (LDAPOp *op, EBookBackend *backend,
 	     EDataBook *book, EDataBookView *view,
-	     int id,
-	     LDAPOpHandler handler, LDAPOpDtor dtor, guint32 opid)
+	     int opid,
+	     int msgid,
+	     LDAPOpHandler handler, LDAPOpDtor dtor)
 {
 	EBookBackendGAL *bl = E_BOOK_BACKEND_GAL (backend);
 
 	op->backend = backend;
 	op->book = book;
 	op->view = view;
-	op->id = id;
+	op->opid = opid;
+	op->id = msgid;
 	op->handler = handler;
 	op->dtor = dtor;
-	op->opid = opid;
 
 	g_static_rec_mutex_lock (&bl->priv->op_hash_mutex);
 	if (g_hash_table_lookup (bl->priv->id_to_op, &op->id)) {
@@ -329,9 +330,9 @@ ldap_error_to_response (int ldap_error)
 
 static void
 create_contact (EBookBackend *backend,
-				    EDataBook    *book,
-				    guint32       opid,
-				    const char   *vcard)
+		EDataBook    *book,
+		guint32       opid,
+		const char   *vcard)
 {
 	e_data_book_respond_create (book, opid,
 				    GNOME_Evolution_Addressbook_PermissionDenied,
@@ -340,9 +341,9 @@ create_contact (EBookBackend *backend,
 
 static void
 remove_contacts (EBookBackend *backend,
-				     EDataBook    *book,
-				     guint32       opid,
-				     GList        *ids)
+		 EDataBook    *book,
+		 guint32       opid,
+		 GList        *ids)
 {
 	e_data_book_respond_remove_contacts (book, opid,
 					     GNOME_Evolution_Addressbook_PermissionDenied,
@@ -351,9 +352,9 @@ remove_contacts (EBookBackend *backend,
 
 static void
 modify_contact (EBookBackend *backend,
-				    EDataBook    *book,
-                                     guint32      opid,
-				    const char   *vcard)
+		EDataBook    *book,
+		guint32       opid,
+		const char   *vcard)
 {
 	e_data_book_respond_modify (book, opid,
 				    GNOME_Evolution_Addressbook_PermissionDenied,
@@ -383,18 +384,20 @@ get_contact_handler (LDAPOp *op, LDAPMessage *res)
 
 		if (!e) {
 			g_warning ("uh, this shouldn't happen");
-			e_data_book_respond_get_contact (op->book, op->opid,
-						      GNOME_Evolution_Addressbook_OtherError,
-						      "");
+			e_data_book_respond_get_contact (op->book,
+							 op->opid,
+							 GNOME_Evolution_Addressbook_OtherError,
+							 "");
 			ldap_op_finished (op);
 			return;
 		}
 
 		contact = build_contact_from_entry (bl, e, NULL);
 		vcard = e_vcard_to_string (E_VCARD (contact), EVC_FORMAT_VCARD_30);
-		e_data_book_respond_get_contact (op->book, op->opid,
-					      GNOME_Evolution_Addressbook_Success,
-					      vcard);
+		e_data_book_respond_get_contact (op->book,
+						 op->opid,
+						 GNOME_Evolution_Addressbook_Success,
+						 vcard);
 		g_free (vcard);
 		g_object_unref (contact);
 		ldap_op_finished (op);
@@ -411,13 +414,18 @@ get_contact_handler (LDAPOp *op, LDAPMessage *res)
 		}
 		ldap_memfree (ldap_error_msg);
 
-		e_data_book_respond_get_contact (op->book, op->opid, ldap_error_to_response (ldap_error), "");
+		e_data_book_respond_get_contact (op->book,
+						 op->opid,
+						 ldap_error_to_response (ldap_error),
+						 "");
 		ldap_op_finished (op);
 	}
 	else {
 		g_warning ("unhandled result type %d returned", msg_type);
-		e_data_book_respond_get_contact (op->book, op->opid, GNOME_Evolution_Addressbook_OtherError,
-					    "");
+		e_data_book_respond_get_contact (op->book,
+						 op->opid,
+						 GNOME_Evolution_Addressbook_OtherError,
+						 "");
 		ldap_op_finished (op);
 	}
 
@@ -457,13 +465,14 @@ get_contact (EBookBackend *backend,
 
 	if (ldap_error == LDAP_SUCCESS) {
 		ldap_op_add ((LDAPOp*)get_contact_op, backend, book,
-			     book_view, get_contact_msgid,
-			     get_contact_handler, get_contact_dtor, opid);
+			     book_view, opid, get_contact_msgid,
+			     get_contact_handler, get_contact_dtor);
 	}
 	else {
-		e_data_book_respond_get_contact (book, opid,
-					    ldap_error_to_response (ldap_error),
-					    "");
+		e_data_book_respond_get_contact (book,
+						 opid,
+						 ldap_error_to_response (ldap_error),
+						 "");
 		get_contact_dtor ((LDAPOp*)get_contact_op);
 	}
 }
@@ -516,19 +525,23 @@ contact_list_handler (LDAPOp *op, LDAPMessage *res)
 		g_warning ("search returned %d\n", ldap_error);
 
 		if (ldap_error == LDAP_TIMELIMIT_EXCEEDED)
-			e_data_book_respond_get_contact_list (op->book, op->opid,
+			e_data_book_respond_get_contact_list (op->book,
+							      op->opid,
 							      GNOME_Evolution_Addressbook_SearchTimeLimitExceeded,
 							      contact_list_op->contacts);
 		else if (ldap_error == LDAP_SIZELIMIT_EXCEEDED)
-			e_data_book_respond_get_contact_list (op->book, op->opid,
+			e_data_book_respond_get_contact_list (op->book,
+							      op->opid,
 							      GNOME_Evolution_Addressbook_SearchSizeLimitExceeded,
 							      contact_list_op->contacts);
 		else if (ldap_error == LDAP_SUCCESS)
-			e_data_book_respond_get_contact_list (op->book, op->opid,
+			e_data_book_respond_get_contact_list (op->book,
+							      op->opid,
 							      GNOME_Evolution_Addressbook_Success,
 							      contact_list_op->contacts);
 		else
-			e_data_book_respond_get_contact_list (op->book, op->opid,
+			e_data_book_respond_get_contact_list (op->book,
+							      op->opid,
 							      GNOME_Evolution_Addressbook_OtherError,
 							      contact_list_op->contacts);
 
@@ -536,7 +549,8 @@ contact_list_handler (LDAPOp *op, LDAPMessage *res)
 	}
 	else {
 		g_warning ("unhandled search result type %d returned", msg_type);
-		e_data_book_respond_get_contact_list (op->book, op->opid,
+		e_data_book_respond_get_contact_list (op->book,
+						      op->opid,
 						      GNOME_Evolution_Addressbook_OtherError,
 						      NULL);
 		ldap_op_finished (op);
@@ -591,11 +605,12 @@ get_contact_list (EBookBackend *backend,
 
 	if (ldap_error == LDAP_SUCCESS) {
 		ldap_op_add ((LDAPOp*)contact_list_op, backend, book,
-			     book_view, contact_list_msgid,
-			     contact_list_handler, contact_list_dtor, opid);
+			     book_view, opid, contact_list_msgid,
+			     contact_list_handler, contact_list_dtor);
 	}
 	else {
-		e_data_book_respond_get_contact_list (book, opid,
+		e_data_book_respond_get_contact_list (book,
+						      opid,
 						      ldap_error_to_response (ldap_error),
 						      NULL);
 		contact_list_dtor ((LDAPOp*)contact_list_op);
@@ -1170,6 +1185,16 @@ start_book_view (EBookBackend  *backend,
 	char *ldap_query;
 	int ldap_err;
 	int search_msgid;
+	int view_limit;
+
+	/* we start at 1 so the user sees stuff as it appears and we
+	   aren't left waiting for more cards to show up, if the
+	   connection is slow. */
+	e_data_book_view_set_thresholds (view, 1, 3000);
+
+	view_limit = e_data_book_view_get_max_results (view);
+	if (view_limit == -1 || view_limit > bl->priv->gc->response_limit)
+		view_limit = bl->priv->gc->response_limit;
 
 	d(printf ("start_book_view (%p)\n", view));
 
@@ -1190,7 +1215,7 @@ start_book_view (EBookBackend  *backend,
 					    NULL, /* XXX */
 					    NULL, /* XXX */
 					    NULL, /* XXX timeout */
-					    e_data_book_view_get_max_results (view),
+					    view_limit,
 					    &search_msgid);
 	} while (gal_reconnect (bl, view, ldap_err));
 
@@ -1215,8 +1240,8 @@ start_book_view (EBookBackend  *backend,
 		bonobo_object_ref (view);
 
 		ldap_op_add ((LDAPOp*)op, E_BOOK_BACKEND (bl), NULL, view,
-			     search_msgid,
-			     ldap_search_handler, ldap_search_dtor, 0);
+			     0, search_msgid,
+			     ldap_search_handler, ldap_search_dtor);
 
 		g_object_set_data (G_OBJECT (view), "EBookBackendGAL.BookView::search_op", op);
 	}
@@ -1224,7 +1249,7 @@ start_book_view (EBookBackend  *backend,
 
 static void
 stop_book_view (EBookBackend  *backend,
-				    EDataBookView *view)
+		EDataBookView *view)
 {
 	LDAPSearchOp *op;
 
@@ -1253,7 +1278,8 @@ authenticate_user (EBookBackend *backend,
 		   const char   *auth_method)
 {
 	/* We should not be here */
-	e_data_book_respond_authenticate_user (book, opid,
+	e_data_book_respond_authenticate_user (book,
+					       opid,
 					       GNOME_Evolution_Addressbook_UnsupportedAuthenticationMethod);
 }
 
@@ -1263,7 +1289,8 @@ get_supported_fields (EBookBackend *backend,
 		      guint32 	    opid)
 
 {
-	e_data_book_respond_get_supported_fields (book, opid,
+	e_data_book_respond_get_supported_fields (book,
+						  opid,
 						  GNOME_Evolution_Addressbook_Success,
 						  supported_fields);
 }
@@ -1274,9 +1301,32 @@ get_supported_auth_methods (EBookBackend *backend,
 			    guint32       opid)
 
 {
-	e_data_book_respond_get_supported_auth_methods (book, opid,
+	e_data_book_respond_get_supported_auth_methods (book,
+							opid,
 							GNOME_Evolution_Addressbook_Success,
 							NULL);
+}
+
+static void
+ldap_cancel_op(void *key, void *value, void *data)
+{
+	EBookBackendGAL *bl = data;
+	LDAPOp *op = value;
+
+	/* ignore errors, its only best effort? */
+	ldap_abandon_ext (bl->priv->ldap, op->id, NULL, NULL);
+}
+
+static GNOME_Evolution_Addressbook_CallStatus
+cancel_operation (EBookBackend *backend, EDataBook *book)
+{
+	EBookBackendGAL *bl = E_BOOK_BACKEND_GAL (backend);
+
+	g_static_rec_mutex_lock (&bl->priv->op_hash_mutex);
+	g_hash_table_foreach (bl->priv->id_to_op, ldap_cancel_op, bl);
+	g_static_rec_mutex_unlock (&bl->priv->op_hash_mutex);
+
+	return GNOME_Evolution_Addressbook_Success;
 }
 
 static GNOME_Evolution_Addressbook_CallStatus
@@ -1395,6 +1445,7 @@ class_init (EBookBackendGALClass *klass)
 	backend_class->authenticate_user          = authenticate_user;
 	backend_class->get_supported_fields       = get_supported_fields;
 	backend_class->get_supported_auth_methods = get_supported_auth_methods;
+	backend_class->cancel_operation           = cancel_operation;
 
 	object_class->dispose = dispose;
 
