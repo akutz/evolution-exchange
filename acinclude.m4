@@ -1,10 +1,11 @@
 # evolution/acinclude.m4
 # shared configure.in hacks between Evolution and Connector
 
+
 # EVO_PURIFY_SUPPORT
 # Add --enable-purify. If the user turns it on, subst PURIFY and set
 # the automake conditional ENABLE_PURIFY
-AC_DEFUN(EVO_PURIFY_SUPPORT, [
+AC_DEFUN([EVO_PURIFY_SUPPORT], [
 	AC_ARG_ENABLE(purify, 
 	[  --enable-purify=[no/yes]      Enable support for building executables with Purify.],,enable_purify=no)
 	AC_PATH_PROG(PURIFY, purify, impure)
@@ -27,36 +28,23 @@ AC_DEFUN(EVO_PURIFY_SUPPORT, [
 # configured, HAVE_LDAP will be defined and the automake conditional
 # ENABLE_LDAP will be set. LDAP_CFLAGS and LDAP_LIBS will be set
 # appropriately.
-AC_DEFUN(EVO_LDAP_CHECK, [
+AC_DEFUN([EVO_LDAP_CHECK], [
 	default="$1"
 
-	AC_ARG_WITH(openldap,     [  --with-openldap=[no/yes/PREFIX]      Enable LDAP support in evolution])
+	AC_ARG_WITH(openldap,     [  --with-openldap=[no/yes/PREFIX]      Enable LDAP support in evolution], with_openldap="$withval", with_openldap="/usr")
+	AC_ARG_WITH(openldap-libs,[  --with-openldap-libs=DIR             Location of openldap libraries to link with], with_openldap_libs="$withval", with_openldap_libs="$with_openldap/lib")
+	AC_ARG_WITH(openldap-includes,[  --with-openldap-includes=DIR         Location of openldap libraries to link with], with_openldap_includes="$withval", with_openldap_includes="$with_openldap/include")
 	AC_ARG_WITH(static-ldap,  [  --with-static-ldap=[no/yes]          Link LDAP support statically into evolution ])
-	AC_CACHE_CHECK([for OpenLDAP], ac_cv_with_openldap, ac_cv_with_openldap="${with_openldap:=$default}")
-	case $ac_cv_with_openldap in
-	no|"")
-		with_openldap=no
-		;;
-	yes)
-		with_openldap=/usr
-		;;
-	*)
-		with_openldap=$ac_cv_with_openldap
-		LDAP_CFLAGS="-I$ac_cv_with_openldap/include"
-		LDAP_LDFLAGS="-L$ac_cv_with_openldap/lib"
-		;;
-	esac
+
+	LDAP_CFLAGS="-I$with_openldap_includes"
+	LDAP_LDFLAGS="-L$with_openldap_libs"
 
 	if test "$with_openldap" != no; then
-		AC_DEFINE(HAVE_LDAP, 1, [Define if you have OpenLDAP])
+		AC_DEFINE(HAVE_LDAP,1,[Define if you have LDAP support])
 
 		case $with_static_ldap in
 		no|"")
-			if test -f $with_openldap/lib/libldap.la; then
-				with_static_ldap=no
-			else
-				with_static_ldap=yes
-			fi
+			with_static_ldap=no
 			;;
 		*)
 			with_static_ldap=yes
@@ -83,13 +71,20 @@ AC_DEFUN(EVO_LDAP_CHECK, [
 		AC_CHECK_LIB(nsl, gethostbyaddr, LDAP_LIBS="$LDAP_LIBS -lnsl")
 		AC_CHECK_LIB(lber, ber_get_tag, [
 			if test "$with_static_ldap" = "yes"; then
-				LDAP_LIBS="$with_openldap/lib/liblber.a $LDAP_LIBS"
+				LDAP_LIBS="$with_openldap_libs/liblber.a $LDAP_LIBS"
+
+				# libldap might depend on OpenSSL... We need to pull
+				# in the dependency libs explicitly here since we're
+				# not using libtool for the configure test.
+				if test -f $with_openldap_libs/libldap.la; then
+					LDAP_LIBS="`. $with_openldap_libs/libldap.la; echo $dependency_libs` $LDAP_LIBS"
+				fi
 			else
 				LDAP_LIBS="-llber $LDAP_LIBS"
 			fi
 			AC_CHECK_LIB(ldap, ldap_open, [
 					if test $with_static_ldap = "yes"; then
-						LDAP_LIBS="$with_openldap/lib/libldap.a $LDAP_LIBS"
+						LDAP_LIBS="$with_openldap_libs/libldap.a $LDAP_LIBS"
 					else
 						LDAP_LIBS="-lldap $LDAP_LIBS"
 					fi],
@@ -103,7 +98,76 @@ AC_DEFUN(EVO_LDAP_CHECK, [
 
 		AC_SUBST(LDAP_CFLAGS)
 		AC_SUBST(LDAP_LIBS)
-		AC_SUBST(LDAP_LDFLAGS)
 	fi
 	AM_CONDITIONAL(ENABLE_LDAP, test $with_openldap != no)
+])
+
+
+# EVO_PTHREAD_CHECK
+AC_DEFUN([EVO_PTHREAD_CHECK],[
+	PTHREAD_LIB=""
+	AC_CHECK_LIB(pthread, pthread_create, PTHREAD_LIB="-lpthread",
+		[AC_CHECK_LIB(pthreads, pthread_create, PTHREAD_LIB="-lpthreads",
+		    [AC_CHECK_LIB(c_r, pthread_create, PTHREAD_LIB="-lc_r",
+			[AC_CHECK_LIB(pthread, __pthread_attr_init_system, PTHREAD_LIB="-lpthread",
+				[AC_CHECK_FUNC(pthread_create)]
+			)]
+		    )]
+		)]
+	)
+	AC_SUBST(PTHREAD_LIB)
+	AC_PROVIDE([EVO_PTHREAD_CHECK])
+])
+dnl -*- mode: autoconf -*-
+
+# serial 1
+
+dnl Usage:
+dnl   GTK_DOC_CHECK([minimum-gtk-doc-version])
+AC_DEFUN([GTK_DOC_CHECK],
+[
+  AC_BEFORE([AC_PROG_LIBTOOL],[$0])dnl setup libtool first
+  AC_BEFORE([AM_PROG_LIBTOOL],[$0])dnl setup libtool first
+  dnl for overriding the documentation installation directory
+  AC_ARG_WITH(html-dir,
+    AC_HELP_STRING([--with-html-dir=PATH], [path to installed docs]),,
+    [with_html_dir='${datadir}/gtk-doc/html'])
+  HTML_DIR="$with_html_dir"
+  AC_SUBST(HTML_DIR)
+
+  dnl enable/disable documentation building
+  AC_ARG_ENABLE(gtk-doc,
+    AC_HELP_STRING([--enable-gtk-doc],
+                   [use gtk-doc to build documentation [default=no]]),,
+    enable_gtk_doc=no)
+
+  have_gtk_doc=no
+  if test -z "$PKG_CONFIG"; then
+    AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
+  fi
+  if test "$PKG_CONFIG" != "no" && $PKG_CONFIG --exists gtk-doc; then
+    have_gtk_doc=yes
+  fi
+
+  dnl do we want to do a version check?
+ifelse([$1],[],,
+  [gtk_doc_min_version=$1
+  if test "$have_gtk_doc" = yes; then
+    AC_MSG_CHECKING([gtk-doc version >= $gtk_doc_min_version])
+    if $PKG_CONFIG --atleast-version $gtk_doc_min_version gtk-doc; then
+      AC_MSG_RESULT(yes)
+    else
+      AC_MSG_RESULT(no)
+      have_gtk_doc=no
+    fi
+  fi
+])
+  if test x$enable_gtk_doc = xyes; then
+    if test "$have_gtk_doc" != yes; then
+      enable_gtk_doc=no
+    fi
+  fi
+
+  AM_CONDITIONAL(ENABLE_GTK_DOC, test x$enable_gtk_doc = xyes)
+  AM_CONDITIONAL(GTK_DOC_USE_LIBTOOL, test -n "$LIBTOOL")
 ])
