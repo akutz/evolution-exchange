@@ -617,30 +617,43 @@ static void
 get_quota_values (E2kGlobalCatalog *gc, E2kOperation *op,
 		  LDAPMessage *msg, E2kGlobalCatalogEntry *entry)
 {
-	char **values;
+	char **quota_setting_values, **quota_limit_values;
 
-	values = ldap_get_values (gc->priv->ldap, msg, "mDBStorageQuota");
-	if (values) {
-		entry->quota_warn = atoi(values[0]);
-		E2K_GC_DEBUG_MSG(("GC: mDBStorageQuota %s\n", values[0]));
-		entry->mask |= E2K_GLOBAL_CATALOG_LOOKUP_QUOTA;
-		ldap_value_free (values);	
+	/* Check if mailbox store default values are used */
+	quota_setting_values = ldap_get_values (gc->priv->ldap, msg, "mDBUseDefaults");
+	if (!quota_setting_values) {
+		entry->quota_warn = entry->quota_nosend = entry->quota_norecv = 0;
+		return;
 	}
 
-	values = ldap_get_values (gc->priv->ldap, msg, "mDBOverQuotaLimit");
-	if (values) {
-		entry->quota_nosend = atoi(values[0]);
-		E2K_GC_DEBUG_MSG(("GC: mDBOverQuotaLimit %s\n", values[0]));
-		entry->mask |= E2K_GLOBAL_CATALOG_LOOKUP_QUOTA;
-		ldap_value_free (values);	
+	entry->mask |= E2K_GLOBAL_CATALOG_LOOKUP_QUOTA;
+	E2K_GC_DEBUG_MSG(("GC: mDBUseDefaults %s\n", quota_setting_values[0]));
+
+	if (!strcmp (quota_setting_values[0], "TRUE")) {
+		/* use global mailbox store settings */
+		E2K_GC_DEBUG_MSG(("GC: Using global mailbox store limits\n"));
+	}
+	ldap_value_free (quota_setting_values);
+	
+	quota_limit_values = ldap_get_values (gc->priv->ldap, msg, "mDBStorageQuota");
+	if (quota_limit_values) {
+		entry->quota_warn = atoi(quota_limit_values[0]);
+		E2K_GC_DEBUG_MSG(("GC: mDBStorageQuota %s\n", quota_limit_values[0]));
+		ldap_value_free (quota_limit_values);	
 	}
 
-	values = ldap_get_values (gc->priv->ldap, msg, "mDBOverHardQuotaLimit");
-	if (values) {
-		entry->quota_norecv = atoi(values[0]);
-		E2K_GC_DEBUG_MSG(("GC: mDBHardQuotaLimit %s\n", values[0]));
-		entry->mask |= E2K_GLOBAL_CATALOG_LOOKUP_QUOTA;
-		ldap_value_free (values);	
+	quota_limit_values = ldap_get_values (gc->priv->ldap, msg, "mDBOverQuotaLimit");
+	if (quota_limit_values) {
+		entry->quota_nosend = atoi(quota_limit_values[0]);
+		E2K_GC_DEBUG_MSG(("GC: mDBOverQuotaLimit %s\n", quota_limit_values[0]));
+		ldap_value_free (quota_limit_values);	
+	}
+
+	quota_limit_values = ldap_get_values (gc->priv->ldap, msg, "mDBOverHardQuotaLimit");
+	if (quota_limit_values) {
+		entry->quota_norecv = atoi(quota_limit_values[0]);
+		E2K_GC_DEBUG_MSG(("GC: mDBHardQuotaLimit %s\n", quota_limit_values[0]));
+		ldap_value_free (quota_limit_values);	
 	}
 }
 
@@ -732,6 +745,7 @@ e2k_global_catalog_lookup (E2kGlobalCatalog *gc,
 	if (lookup_flags & E2K_GLOBAL_CATALOG_LOOKUP_DELEGATORS)
 		g_ptr_array_add (attrs, "publicDelegatesBL");
 	if (lookup_flags & E2K_GLOBAL_CATALOG_LOOKUP_QUOTA) {
+		g_ptr_array_add (attrs, "mDBUseDefaults");
 		g_ptr_array_add (attrs, "mDBStorageQuota");
 		g_ptr_array_add (attrs, "mDBOverQuotaLimit");
 		g_ptr_array_add (attrs, "mDBOverHardQuotaLimit");

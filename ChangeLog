@@ -1,3 +1,23 @@
+2005-03-09  Sushma Rai  <rsushma@novell.com>
+
+	* lib/e2k-global-catalog.c (get_quota_values): Reading "mDBUseDefaults"
+	attribute to check if the user level quota settings are enabled or not.
+	(e2k_global_catalog_lookup): Added "mDBUseDefaults" attribute to quota
+	attribute list.
+
+	* storage/exchange-account.c (setup_account_hierarchies): Reading total
+	size for all the personal folders. Not returning "FALSE" in case 
+	favorite folders does not exist. Not an error condition.
+	(exchange_account_connect): Printing the quota warning, only if user's
+	mail box size exceeds the quota limit set. Fixes #72389
+
+	* storage/exchange-hierarchy-webdav.[ch](init): Initializing the total
+	folder size.
+	(exchange_hierarchy_webdav_get_total_folder_size): Returns total size 
+	of all the folders.
+	(rescan)(exchange_hierarchy_webdav_get_folder_size): Calculates the 
+	total size for all the folders.
+	
 2005-03-08  Sushma Rai  <rsushma@novell.com>
 
 	* shell/e-folder-misc-dialogs.c (do_foreign_folder_dialog): Removed the

@@ -1237,11 +1237,15 @@ setup_account_hierarchies (ExchangeAccount *account)
 		return FALSE;
 	}
 
+	account->mbox_size = exchange_hierarchy_webdav_get_total_folder_size (
+					EXCHANGE_HIERARCHY_WEBDAV (personal_hier));
+
 	fresult = exchange_hierarchy_scan_subtree (
 		account->priv->favorites_hierarchy,
 		account->priv->favorites_hierarchy->toplevel,
 		(offline == OFFLINE_MODE));
-	if (fresult != EXCHANGE_ACCOUNT_FOLDER_OK) {
+	if (fresult != EXCHANGE_ACCOUNT_FOLDER_OK && 
+	    fresult != EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST) {
 		account->priv->connecting = FALSE;
 		return FALSE;
 	}
@@ -1472,7 +1476,7 @@ exchange_account_connect (ExchangeAccount *account)
 
 	if (!setup_account_hierarchies (account)) 
 		return NULL;
-	
+
 	/* Find the password expiery peripod and display warning */
 	find_passwd_exp_period(account, entry);
 	
@@ -1484,14 +1488,18 @@ exchange_account_connect (ExchangeAccount *account)
 					    E2K_GLOBAL_CATALOG_LOOKUP_QUOTA,
                                             &entry);	
 	e2k_operation_free (&gcop);
-	
+
+	/* FIXME: quota warnings are not yet marked for translation!! */
+	/* FIXME: warning message should have quota limit value and optionally current
+	 * usage 
+	 */
 	if (gcstatus == E2K_GLOBAL_CATALOG_OK) {
 
-		if (entry->quota_norecv) {
+		if (entry->quota_norecv && account->mbox_size >= entry->quota_norecv) {
 			quota_msg = g_strdup_printf ("You have exceeded your quota for storing mails on this server. Your current usage is : %d . You will not be able to either send or recieve mails now\n", entry->quota_norecv);
-		} else if (entry->quota_nosend) {
+		} else if (entry->quota_nosend && account->mbox_size >= entry->quota_nosend) {
 			quota_msg = g_strdup_printf ("You are nearing your quota available for storing mails on this server. Your current usage is : %d . You will not be able to send mails till you clear up some space by deleting some mails.\n", entry->quota_nosend);
-		} else if (entry->quota_warn) {
+		} else if (entry->quota_warn && account->mbox_size >= entry->quota_warn) {
 			quota_msg = g_strdup_printf ("You are nearing your quota available for storing mails on this server. Your current usage is : %d . Try to clear up some space by deleting some mails.\n", entry->quota_warn);
 		}
 		
