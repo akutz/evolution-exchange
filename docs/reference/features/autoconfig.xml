@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
                "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<refentry id="autoconfig">
+<refentry id="ximian-connector-autoconfig">
 <refmeta>
 <refentrytitle>Account Autoconfiguration</refentrytitle>
 <manvolnum>3</manvolnum>
@@ -99,7 +99,7 @@ various results possible:
 		<term><uri>/owalogon.asp</uri></term>
 		<listitem><para>The server is using
 		<application>Exchange 2003</application> <link
-		linkend="fba">forms-based authentication</link>.
+		linkend="ximian-connector-fba">forms-based authentication</link>.
 		We attempt to authenticate via that, and try again.
 		</para></listitem>
 	    </varlistentry>
@@ -224,7 +224,7 @@ from an <application>Exchange</application> time zone to one of
 <para>
 The use of <command>BPROPFIND</command> here is also for autodetection
 purposes: if it fails, we return an error to the user explaining about
-the <link linkend="bug-bpropfind"><application>IIS</application>
+the <link linkend="ximian-connector-bug-bpropfind"><application>IIS</application>
 Lockdown <command>BPROPFIND</command> problem</link>.
 </para>
 
@@ -233,7 +233,7 @@ Another possibility is that we will get an authentication error here
 even though we had successfully authenticated before. This can happen
 if we are using NTLM authentication, and the user's HTTP traffic is
 being intercepted by a transparent web proxy that doesn't understand
-NTLM (for reasons explained in the <link linkend="ntlm-http">NTLM
+NTLM (for reasons explained in the <link linkend="ximian-connector-ntlm-http">NTLM
 notes</link>). So if this happens, we start over using Basic
 authentication instead.
 </para>

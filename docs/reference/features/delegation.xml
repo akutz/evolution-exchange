@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
                "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<refentry id="delegation">
+<refentry id="ximian-connector-delegation"> 
 <refmeta>
 <refentrytitle>Delegation</refentrytitle>
 <manvolnum>3</manvolnum>
@@ -60,16 +60,17 @@ Different pieces of this information are stored in different places:
 <orderedlist>
     <listitem><para>
 	Permissions information is stored in the <link
-	linkend="permissions">security descriptors</link>
-	of the relevant folders. <application>Outlook</application>
-	always adds the user to each of the delegatable folders
-	(Inbox, Calendar, Contacts, Journal, Notes, and Tasks) even if
-	they only have "None" permission there. The user is also added
-	to the security descriptor of the "Freebusy Data" folder in
-	the <link linkend="non-ipm">non-IPM subtree</link>, with None
-	or Reviewer permission if they have None or Reviewer on
-	Calendar, and Editor permission if they have Author or Editor
-	on Calendar.
+	linkend="ximian-connector-permissions">security
+	descriptors</link> of the relevant folders.
+	<application>Outlook</application> always adds the user to
+	each of the delegatable folders (Inbox, Calendar, Contacts,
+	Journal, Notes, and Tasks) even if they only have "None"
+	permission there. The user is also added to the security
+	descriptor of the "Freebusy Data" folder in the <link
+	linkend="ximian-connector-non-ipm">non-IPM subtree</link>,
+	with None or Reviewer permission if they have None or Reviewer
+	on Calendar, and Editor permission if they have Author or
+	Editor on Calendar.
     </para></listitem>
     <listitem><para>
 	Who-can-send-mail-as-who data is kept in <application>Active
@@ -105,9 +106,9 @@ Different pieces of this information are stored in different places:
     </listitem>
     <listitem><para>
 	Meeting request forwarding is controlled by a <link
-	linkend="rules">server-side rule</link> in Inbox with a
-	<literal>PR_RULE_MSG_PROVIDER</literal> of "<literal>Schedule+
-	EMS Interface</literal>"
+	linkend="ximian-connector-rules">server-side rule</link> in
+	Inbox with a <literal>PR_RULE_MSG_PROVIDER</literal> of
+	"<literal>Schedule+ EMS Interface</literal>"
     </para></listitem>
 </orderedlist>
 

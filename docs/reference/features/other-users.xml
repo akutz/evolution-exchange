@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
                "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<refentry id="other-users">
+<refentry id="ximian-connector-other-users">
 <refmeta>
 <refentrytitle>Other Users' Folders</refentrytitle>
 <manvolnum>3</manvolnum>
@@ -72,8 +72,8 @@ folders as "private". (<application>Evolution</application> allows
 this in Calendar and Task folders, but not Contact or Mail folders.)
 Private items are not supposed to show up when other users view the
 folder, unless they have been given explicit permission to view
-private items in the <link linkend="delegation">Delegates</link>
-dialog.
+private items in the <link
+linkend="ximian-connector-delegation">Delegates</link> dialog.
 </para>
 
 <para>
@@ -95,8 +95,8 @@ url="http://bugzilla.ximian.com/show_bug.cgi?id=56066">Bug
 
 <para>
 The information about who can view private items is stored with the
-<link linkend="delegation">delegates</link> data on the other user's
-mailbox. 
+<link linkend="ximian-connector-delegation">delegates</link> data on
+the other user's mailbox. 
 <link linkend="ExchangeHierarchyForeign"><classname>ExchangeHierarchyForeign</classname></link>
 checks that data, and sets its
 <structfield>hide_private_items</structfield> flag accordingly. (If it

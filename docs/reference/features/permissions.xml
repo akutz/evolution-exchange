@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
                "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<refentry id="permissions">
+<refentry id="ximian-connector-permissions">
 <refmeta>
 <refentrytitle>Folder Permissions</refentrytitle>
 <manvolnum>3</manvolnum>
@@ -25,8 +25,9 @@ don't bother thinking about them.)
 The <application>Exchange 2000 Web Storage System</application> has a
 nifty sytem for translating <application>Windows</application> security
 descriptors into XML and back, which unfortunately we cannot use,
-because it's <link linkend="bug-permissions">buggy</link>. So we have
-to generate binary format security descriptors, as described below.
+because it's <link
+linkend="ximian-connector-bug-permissions">buggy</link>. So we have to
+generate binary format security descriptors, as described below. 
 </para>
 
 <para>
@@ -229,10 +230,10 @@ typedef struct {
 <application>Outlook</application> seems to always use
 <literal>ACL_REVISION</literal> for
 <structfield>AclRevision</structfield>, but the <link
-linkend="bug-permissions">buggy case of setting an XML security
-descriptor</link> uses <literal>ACL_REVISION_DS</literal>.
-<filename>WinNT.h</filename> says "The current
-<structfield>AclRevision</structfield> is defined to be
+linkend="ximian-connector-bug-permissions">buggy case of setting an
+XML security descriptor</link> uses
+<literal>ACL_REVISION_DS</literal>. <filename>WinNT.h</filename> says
+"The current <structfield>AclRevision</structfield> is defined to be
 <literal>ACL_REVISION</literal>." MSDN says "Use
 <literal>ACL_REVISION_DS</literal> if the ACL contains object-specific
 ACEs." We require <structfield>AclRevision</structfield> to be
