@@ -727,10 +727,10 @@ setup_message (SoupMessageFilter *filter, SoupMessage *msg)
 /**
  * e2k_soup_message_new:
  * @ctx: the context
- * @uri: URI, as with soup_context_get()
- * @method: method, as with soup_message_new()
+ * @uri: the URI
+ * @method: the HTTP method
  *
- * Use this instead of soup_message_new().
+ * Creates a new %SoupMessage for @ctx.
  *
  * Return value: a new %SoupMessage, set up for connector use
  **/
@@ -752,14 +752,14 @@ e2k_soup_message_new (E2kContext *ctx, const char *uri, const char *method)
 /**
  * e2k_soup_message_new_full:
  * @ctx: the context
- * @uri: URI, as with soup_context_get()
- * @method: method, as with soup_message_new_full()
+ * @uri: the URI
+ * @method: the HTTP method
  * @content_type: MIME Content-Type of @body
  * @owner: ownership of @body
  * @body: request body
  * @length: length of @body
  *
- * Use this instead of soup_message_new_full().
+ * Creates a new %SoupMessage with the given body.
  *
  * Return value: a new %SoupMessage with a request body, set up for
  * connector use
@@ -786,8 +786,7 @@ e2k_soup_message_new_full (E2kContext *ctx, const char *uri,
  * @callback: callback to invoke when @msg is done
  * @user_data: data for @callback
  *
- * Asynchronously queues @msg. Use this instead of
- * soup_session_queue_message().
+ * Asynchronously queues @msg in @ctx's session.
  **/
 void
 e2k_context_queue_message (E2kContext *ctx, SoupMessage *msg,
@@ -816,8 +815,7 @@ context_canceller (E2kOperation *op, gpointer owner, gpointer data)
  * @op: an #E2kOperation to use for cancellation
  * @msg: the message to send
  *
- * Synchronously sends @msg. Use this instead of
- * soup_session_send_message().
+ * Synchronously sends @msg in @ctx's session.
  *
  * Return value: the HTTP status of the message
  **/
@@ -898,10 +896,11 @@ get_msg (E2kContext *ctx, const char *uri, gboolean owa, gboolean claim_ie)
  * @body: if not %NULL, will contain the response body on return
  * @len: if not %NULL, will contain the response body length on return
  *
- * Performs a GET on @ctx for @uri. If successful, the Content-Type,
- * body and length will be returned. The body is not terminated by a
- * '\0'. If the GET is not successful, @content_type, @body and @len
- * will be untouched, even if the server's response included a body.
+ * Performs a GET on @ctx for @uri. If successful (2xx status code),
+ * the Content-Type, body and length will be returned. The body is not
+ * terminated by a '\0'. If the GET is not successful, @content_type,
+ * @body and @len will be untouched (even if the error response
+ * included a body).
  *
  * Return value: the HTTP status
  **/
@@ -1075,9 +1074,9 @@ e2k_context_put (E2kContext *ctx, E2kOperation *op, const char *uri,
  * @content_type: MIME Content-Type of the data
  * @body: data to PUT
  * @length: length of @body
- * @location: if not %NULL, will contain the Location of the POSTed
+ * @location: if not %NULL, will contain the Location of the PUT
  * object on return
- * @repl_uid: if not %NULL, will contain the Repl-UID of the POSTed
+ * @repl_uid: if not %NULL, will contain the Repl-UID of the PUT
  * object on return
  *
  * PUTs data into @folder_uri on @ctx with a new name based on
@@ -1513,7 +1512,7 @@ bproppatch_free (E2kResultIter *iter, gpointer msg)
  * @props: the properties to set/remove
  * @create: whether or not to create @uri if it does not exist
  *
- * Begins BPROPPATCHing @hrefs based at @uri.
+ * Begins a BPROPPATCH (bulk PROPPATCH) of @hrefs based at @uri.
  *
  * Return value: an iterator for getting the results of the BPROPPATCH
  **/
