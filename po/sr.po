@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-30 17:36-0400\n"
-"PO-Revision-Date: 2004-08-23 13:19+0200\n"
+"POT-Creation-Date: 2004-09-03 16:41+0200\n"
+"PO-Revision-Date: 2004-09-03 17:47+0200\n"
 "Last-Translator: Данило Шеган <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -42,15 +42,17 @@ msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
+"Не могу да закажем ресурс „%s“ за поновљене састанке.\n"
+"Морате заказати сваки састанак појединачно."
 
 #: calendar/e-cal-backend-exchange-calendar.c:1377
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
-msgstr ""
+msgstr "Ресурс „%s“ је заузет у току изабраног временског периода."
 
 #: camel/camel-exchange-folder.c:219
 msgid "Can only expunge in Deleted Items folder"
-msgstr ""
+msgstr "Може избацити само у фасцикли са обрисаним ставкама"
 
 #: camel/camel-exchange-folder.c:243
 msgid "No Subject"
@@ -75,9 +77,9 @@ msgid "Could not load summary for %s"
 msgstr "Нисам могао да учитам сажетак за %s"
 
 #: camel/camel-exchange-folder.c:896
-#, fuzzy, c-format
+#, c-format
 msgid "Could not create cache for %s"
-msgstr "Нисам могао да направим оставу за нови календар"
+msgstr "Нисам могао да направим оставу за %s"
 
 #: camel/camel-exchange-folder.c:936
 msgid "Scanning for changed messages"
@@ -199,109 +201,99 @@ msgstr "Услужни процес за Ексченџ у Еволуцији"
 
 #: camel/camel-exchange-transport.c:109
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr ""
+msgstr "Ексченџ пренос се може користити једино са Ексченџ извором поште"
 
 #: camel/camel-exchange-transport.c:120
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "Не могу да пошаљем поруку: један или више неисправних прималаца"
 
 #: camel/camel-exchange-transport.c:130
-#, fuzzy
 msgid "Could not find 'From' address in message"
-msgstr "Не могу да направим поруку."
+msgstr "Не могу да нађем полазну адресу у поруци."
 
 #: camel/camel-stub.c:133
-#, fuzzy, c-format
+#, c-format
 msgid "Could not create socket: %s"
-msgstr "Нисам могао да направим везу: %s"
+msgstr "Нисам могао да направим сокет: %s"
 
 #: camel/camel-stub.c:148
-#, fuzzy, c-format
+#, c-format
 msgid "Could not connect to %s: %s"
-msgstr "Нисам могао да се повежем на %s (порт %d): %s"
+msgstr "Нисам могао да се повежем на %s: %s"
 
 #: camel/camel-stub.c:167
 #, c-format
 msgid "Path too long: %s"
-msgstr ""
+msgstr "Путања је предугачка: %s"
 
 #: camel/camel-stub.c:193
-#, fuzzy, c-format
+#, c-format
 msgid "Could not start status thread: %s"
-msgstr "Нисам могао да упишем: %s"
+msgstr "Нисам могао да покренем нит за стање: %s"
 
 #: camel/camel-stub.c:445
-#, fuzzy, c-format
+#, c-format
 msgid "Lost connection to %s"
-msgstr "Поново се повезујем на %s"
+msgstr "Прекинута веза са %s"
 
 #: camel/camel-stub.c:449
-#, fuzzy, c-format
+#, c-format
 msgid "Error communicating with %s: %s"
-msgstr "Грешка код примене филтера: %s: %s"
+msgstr "Грешка при споразумевању са %s: %s"
 
 #. i18n: These are Outlook's words for the default roles in
 #. the folder permissions dialog.
 #: lib/e2k-security-descriptor.c:847
-#, fuzzy
 msgid "Owner"
-msgstr "Један"
+msgstr "Власник"
 
 #: lib/e2k-security-descriptor.c:857
 msgid "Publishing Editor"
-msgstr ""
+msgstr "Уредник издања"
 
 #: lib/e2k-security-descriptor.c:865
-#, fuzzy
 msgid "Editor"
-msgstr "Уреди"
+msgstr "Уредник"
 
 #: lib/e2k-security-descriptor.c:872
 msgid "Publishing Author"
-msgstr ""
+msgstr "Аутор издања"
 
 #: lib/e2k-security-descriptor.c:878
-#, fuzzy
 msgid "Author"
-msgstr "Издаваоци"
+msgstr "Аутор"
 
 #: lib/e2k-security-descriptor.c:883
-#, fuzzy
 msgid "Non-editing Author"
-msgstr "Без одрицања"
+msgstr "Аутор који не уређује"
 
 #: lib/e2k-security-descriptor.c:887
-#, fuzzy
 msgid "Reviewer"
-msgstr "Прочитај"
+msgstr "Прегледа"
 
 #: lib/e2k-security-descriptor.c:889
-#, fuzzy
 msgid "Contributor"
-msgstr "Уредник контаката"
+msgstr "Допринео"
 
 #: lib/e2k-security-descriptor.c:891 storage/exchange-delegates.glade.h:7
 msgid "None"
 msgstr "Ништа"
 
 #: lib/e2k-security-descriptor.c:906 storage/exchange-delegates-user.c:144
-#, fuzzy
 msgid "Custom"
-msgstr "Лично подешен изглед"
+msgstr "Произвољно"
 
 #: lib/e2k-user-dialog.c:148
-#, fuzzy
 msgid "Select User"
-msgstr "Одаберите директоријум"
+msgstr "Одаберите корисника"
 
 #: lib/e2k-user-dialog.c:198
 msgid "Addressbook..."
 msgstr "Адресар..."
 
 #: mail/mail-stub-exchange.c:231
-#, fuzzy
 msgid "No such folder"
-msgstr "Нема таквог директоријума %s"
+msgstr "Нема таквог директоријума"
 
 #: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
 #: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
@@ -309,106 +301,97 @@ msgstr "Нема таквог директоријума %s"
 msgid "Permission denied"
 msgstr "Забрањен приступ"
 
+# Овако је у Виндузу
 #: mail/mail-stub-exchange.c:546
-#, fuzzy
 msgid "No such folder."
-msgstr "Нема таквог директоријума %s"
+msgstr "Нема такве фасцикле."
 
 #: mail/mail-stub-exchange.c:555
-#, fuzzy
 msgid "Could not create folder."
-msgstr "Нисам могао да преименујем директоријум: %s"
+msgstr "Нисам могао да направим фасциклу."
 
 #: mail/mail-stub-exchange.c:601 mail/mail-stub-exchange.c:619
-#, fuzzy
 msgid "Could not open folder: Permission denied"
-msgstr "Нисам могао да отворим директоријум: %s: %s"
+msgstr "Нисам могао да отворим фасциклу: забрањен приступ"
 
 #: mail/mail-stub-exchange.c:605 mail/mail-stub-exchange.c:718
-#, fuzzy
 msgid "Could not open folder"
-msgstr "Не могу да отворим датотеку"
+msgstr "Не могу да отворим фасциклу"
 
 #: mail/mail-stub-exchange.c:772
-#, fuzzy
 msgid "Could not open Deleted Items folder"
-msgstr "Не могу да обришем директоријум: %s"
+msgstr "Не могу да отворим фасциклу са обрисаним"
 
 #: mail/mail-stub-exchange.c:1085 mail/mail-stub-exchange.c:1126
-#, fuzzy
 msgid "Could not get new messages"
-msgstr "Не могу да направим поруку."
+msgstr "Не могу да примим нове поруке"
 
 #: mail/mail-stub-exchange.c:1291
-#, fuzzy
 msgid "Could not empty Deleted Items folder"
-msgstr "Не могу да обришем директоријум: %s"
+msgstr "Не могу да испразним фасциклу са обрисаним"
 
 #: mail/mail-stub-exchange.c:1363
-#, fuzzy
 msgid "Could not append message; mailbox is over quota"
-msgstr "Не могу да додам поруку у maildir директоријум: %s: %s"
+msgstr "Не могу да прилепим поруку; сандуче је превелико"
 
 #: mail/mail-stub-exchange.c:1364
-#, fuzzy
 msgid "Could not append message"
-msgstr "Нисам могао да пошаљем поруку: %s"
+msgstr "Нисам могао да прилепим поруку"
 
 #: mail/mail-stub-exchange.c:1847
 msgid "No such message"
 msgstr "Нема такве поруке"
 
 #: mail/mail-stub-exchange.c:1900
-#, fuzzy
 msgid "Message has been deleted"
-msgstr "Ово задужење је обрисано."
+msgstr "Порука је обрисана"
 
 #: mail/mail-stub-exchange.c:1902
-#, fuzzy
 msgid "Error retrieving message"
-msgstr "Учитавам %d поруку"
+msgstr "Грешка при учитавању поруке"
 
 #: mail/mail-stub-exchange.c:1944
-#, fuzzy
 msgid "Mailbox does not support full-text searching"
-msgstr "Употреба кључа не подржава потпис сертификатом"
+msgstr "Сандуче не подржава претрагу по свом тексту"
 
 #: mail/mail-stub-exchange.c:2042
-#, fuzzy
 msgid "Unable to move/copy messages"
-msgstr "Не могу да покупим поруку: %s"
+msgstr "Не могу да преместим/умножим поруке"
 
 #: mail/mail-stub-exchange.c:2213
 msgid "No mail submission URI for this mailbox"
-msgstr ""
+msgstr "Нема адресе за слање поште из овог сандучета"
 
 #: mail/mail-stub-exchange.c:2250
 msgid "Server won't accept mail via Exchange transport"
-msgstr ""
+msgstr "Сервер не прихвата пошту путем Ексченџ преноса"
 
 #: mail/mail-stub-exchange.c:2252
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
-msgstr "Немате дозволе да измените овај објекат"
+msgstr ""
+"Ваш налог није овлашћен да користи <%s>\n"
+"као полазну адресу."
 
 #: mail/mail-stub-exchange.c:2264
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
+"Не могу да пошаљем поруку.\n"
+"Ово може значити да је ваш налог заузео превише места."
 
 #: mail/mail-stub-exchange.c:2268
-#, fuzzy
 msgid "Could not send message"
-msgstr "Нисам могао да пошаљем поруку: %s"
+msgstr "Не могу да пошаљем поруку"
 
 #: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
 #: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
 #: storage/xc-commands.c:306
 msgid "Generic error"
-msgstr "Општа грешка"
+msgstr "Основна грешка"
 
 #: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
 msgid "Folder already exists"
@@ -416,27 +399,26 @@ msgstr "Директоријум већ постоји"
 
 #: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
 #: mail/mail-stub-exchange.c:2393
-#, fuzzy
 msgid "Folder doesn't exist"
-msgstr "Директоријум `%s' не постоји."
+msgstr "Фасцикла не постоји"
 
 #: shell/e-folder-creation-dialog.c:138
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Cannot create the specified folder:\n"
 "%s"
 msgstr ""
-"Не могу да пренесем директоријум:\n"
+"Не могу да направим тражену фасциклу:\n"
 "%s"
 
 #: shell/e-folder-creation-dialog.c:179
 #, c-format
 msgid "The specified folder name is not valid: %s"
-msgstr "Наведено име директоријума није исправно: %s"
+msgstr "Наведено име фасцикле није исправно: %s"
 
 #: shell/e-folder-creation-dialog.c:310
 msgid "Create New Folder"
-msgstr "Направи нови директоријум"
+msgstr "Направи нову фасциклу"
 
 #: shell/e-folder-creation-dialog.glade.h:1
 #: storage/exchange-autoconfig-wizard.glade.h:1
@@ -446,15 +428,15 @@ msgstr "*"
 
 #: shell/e-folder-creation-dialog.glade.h:2
 msgid "Folder _name:"
-msgstr "_Име директоријума:"
+msgstr "_Име фасцикле:"
 
 #: shell/e-folder-creation-dialog.glade.h:3
 msgid "Folder _type:"
-msgstr "_Врста директоријума:"
+msgstr "_Врста фасцикле:"
 
 #: shell/e-folder-creation-dialog.glade.h:4
 msgid "Specify where to create the folder:"
-msgstr "Наведите где да направим директоријум:"
+msgstr "Наведите где да направим фасциклу:"
 
 #: shell/e-folder-dnd-bridge.c:52
 #, c-format
@@ -462,27 +444,27 @@ msgid ""
 "Cannot transfer folder:\n"
 "%s"
 msgstr ""
-"Не могу да пренесем директоријум:\n"
+"Не могу да пренесем фасциклу:\n"
 "%s"
 
 #: shell/e-folder-misc-dialogs.c:62
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Cannot delete folder:\n"
 "%s"
 msgstr ""
-"Не могу да применујем директоријум:\n"
+"Не могу да уклоним фасциклу:\n"
 "%s"
 
 #: shell/e-folder-misc-dialogs.c:115
-#, fuzzy, c-format
+#, c-format
 msgid "Really delete folder \"%s\"?"
-msgstr "Заиста обрисати старе податке?"
+msgstr "Заиста обрисати фасциклу „%s“?"
 
 #: shell/e-folder-misc-dialogs.c:129
-#, fuzzy, c-format
+#, c-format
 msgid "Delete \"%s\""
-msgstr "Уклонити „{0}“?"
+msgstr "Уклони „%s“"
 
 #: shell/e-folder-misc-dialogs.c:154
 #, c-format
@@ -490,80 +472,79 @@ msgid ""
 "Cannot rename folder:\n"
 "%s"
 msgstr ""
-"Не могу да применујем директоријум:\n"
+"Не могу да применујем фасциклу:\n"
 "%s"
 
 #: shell/e-folder-misc-dialogs.c:188
 #, c-format
 msgid "Rename the \"%s\" folder to:"
-msgstr "Преименуј директоријум „%s“ у:"
+msgstr "Преименуј фасциклу „%s“ у:"
 
 #: shell/e-folder-misc-dialogs.c:191
 msgid "Rename Folder"
-msgstr "Преименуј директоријум"
+msgstr "Преименуј фасциклу"
 
 #: shell/e-folder-misc-dialogs.c:205
-#, fuzzy, c-format
+#, c-format
 msgid "A folder named \"%s\" already exists. Please use a different name."
-msgstr ""
-"Директоријум са именом „%s“ већ постоји. Молим користите неко друго име."
+msgstr "Фасцикла са именом „%s“ већ постоји. Користите неко друго име."
 
 #. It would be nice to insensitivize the OK button appropriately
 #. instead of doing this, but unfortunately we can't do this for the
 #. Bonobo control.
 #: shell/e-folder-misc-dialogs.c:460
 msgid "Please select a user."
-msgstr "Молим изаберите корисника."
+msgstr "Изаберите корисника."
 
 #: shell/e-folder-misc-dialogs.c:560
 msgid "Opening Folder"
-msgstr "Отварам директоријум"
+msgstr "Отварам фасциклу"
 
 #: shell/e-folder-misc-dialogs.c:566
 #, c-format
 msgid "Opening Folder \"%s\""
-msgstr "Отварам директоријум „%s“"
+msgstr "Отварам фасциклу „%s“"
 
 #: shell/e-folder-misc-dialogs.c:571
 #, c-format
 msgid "in \"%s\" ..."
-msgstr "у „%s“..."
+msgstr "у „%s“ ..."
 
 #: shell/e-folder-misc-dialogs.c:638
-#, fuzzy, c-format
+#, c-format
 msgid "Could not open other user's folder: %s."
-msgstr "Не могу да отворим дељени директоријум: %s"
+msgstr "Не могу да отворим фасциклу другог корисника: %s"
 
 #: shell/e-folder-misc-dialogs.c:688
-#, fuzzy
 msgid "Cannot find the specified other user's folder."
-msgstr "Не могу да нађем наведени дељени директоријум."
+msgstr "Не могу да нађем наведену фасциклу другог корисника."
 
 #: shell/e-folder-misc-dialogs.c:720
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Cannot unsubscribe from folder:\n"
 "%s"
-msgstr "Не могу да се одјавим са директоријума „%s“: лоша наредба"
+msgstr ""
+"Не могу да се одјавим са фасцикле:\n"
+"%s"
 
 #: shell/e-folder-misc-dialogs.c:773
-#, fuzzy, c-format
+#, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "Одјављујем претплату са директоријума \"%s\""
+msgstr "Заиста одјавити претплату са фасцикле „%s“?"
 
 #: shell/e-folder-misc-dialogs.c:787
-#, fuzzy, c-format
+#, c-format
 msgid "Unsubscribe from \"%s\""
-msgstr "Одјављујем претплату са директоријума \"%s\""
+msgstr "Одјава претплате са „%s“"
 
 #: shell/e-foreign-folder-dialog.glade.h:1
 msgid "Open Other User's Folder"
-msgstr "Отвори директоријум другог корисника"
+msgstr "Отвори фасциклу другог корисника"
 
 #: shell/e-foreign-folder-dialog.glade.h:2
-#, fuzzy
 msgid "_Account:"
-msgstr "Име н_алога:"
+msgstr "Н_алог:"
 
 #: shell/e-foreign-folder-dialog.glade.h:3
 msgid "_Folder Name:"
@@ -643,50 +624,46 @@ msgid "Unknown error"
 msgstr "Непозната грешка"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-#, fuzzy
 msgid "*Control*F5"
-msgstr "*Control*F1"
+msgstr "*Control*F5"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
-#, fuzzy
 msgid "Evolution Addressbook Exchange backend"
-msgstr "Основни процес локалног /LDAP Еволуција адресара"
+msgstr "Основни процес Еволуција Ексченџ-адресара"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-#, fuzzy
 msgid "Evolution Calendar Exchange backend"
-msgstr "Еволуција календар и задужења"
+msgstr "Основни процес Еволуција Ексченџ-календара"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
-#, fuzzy
 msgid "Evolution Exchange Component"
-msgstr "Компонента Еволуција поште"
+msgstr "Део Еволуције за Ексченџ"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
-#, fuzzy
 msgid "Exchange"
-msgstr "Промењен"
+msgstr "Ексченџ"
 
+# bug: Ximian -> OUT!
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
 msgid "Ximian Connector for Exchange"
-msgstr ""
+msgstr "Гзимијан везник за Ексченџ"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
-#, fuzzy
 msgid "_Exchange"
-msgstr "Из_баци"
+msgstr "_Ексченџ"
 
+# bug: this sucks!
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
 #: storage/exchange-account.c:548
-#, fuzzy, c-format
+#, c-format
 msgid "%s's Folders"
-msgstr "Директоријуми"
+msgstr "%s: фасцикле"
 
 #: storage/exchange-account.c:829
-#, fuzzy, c-format
+#, c-format
 msgid "%sEnter password for %s"
-msgstr "Унесите лозинку за %s"
+msgstr "%sУнесите лозинку за %s"
 
 #: storage/exchange-account.c:833
 msgid "Enter password"
@@ -694,25 +671,25 @@ msgstr "Унесите лозинку"
 
 #: storage/exchange-account.c:908
 msgid "Cannot change password due to configuration problems"
-msgstr ""
+msgstr "Не могу да изменим лозинку услед неприлика са подешавањима"
 
 #: storage/exchange-account.c:923
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
 msgstr ""
+"Сервер је одбио лозинку зато што је преслаба.\n"
+"Покушајте поново са другачијом лозинком."
 
 #: storage/exchange-account.c:928
-#, fuzzy
 msgid "Could not change password"
-msgstr "Не могу да откажем"
+msgstr "Не могу да променим лозинку"
 
 #: storage/exchange-account.c:1014
-#, fuzzy
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
-msgstr "Нисам могао да се пријавим сервер: %s"
+msgstr "Не могу да се пријавим на сервер. (Лозинка неисправна?)\n\n"
 
 #: storage/exchange-account.c:1019
 msgid ""
@@ -725,6 +702,14 @@ msgid ""
 "Or you might have just typed your password wrong.\n"
 "\n"
 msgstr ""
+"Не могу да се пријавим на сервер.\n"
+"\n"
+"Ово вероватно значи да ваш сервер захтева да наведете\n"
+"име Виндуз домена као део вашег корисничког имена\n"
+"(нпр. „ДОМЕН\\корисник“).\n"
+"\n"
+"Или сте једноставно укуцали погрешну лозинку.\n"
+"\n"
 
 #: storage/exchange-account.c:1030
 msgid ""
@@ -735,11 +720,17 @@ msgid ""
 "Or you might have just typed your password wrong.\n"
 "\n"
 msgstr ""
+"Не могу да се пријавим на сервер.\n"
+"\n"
+"Можда треба да користите идентификацију помоћу лозинке у текстуалном облику.\n"
+"\n"
+"Или сте једноставно укуцали погрешну лозинку.\n"
+"\n"
 
 #: storage/exchange-account.c:1061
 #, c-format
 msgid "Mailbox for %s is not on this server."
-msgstr ""
+msgstr "Сандуче за %s није на овом серверу."
 
 #: storage/exchange-account.c:1066
 #, c-format
@@ -747,6 +738,8 @@ msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
 "therefore not compatible with Ximian Connector"
 msgstr ""
+"Сервер „%s“ користи Ексченџ 5.5 и зато није \n"
+"сагласан са Гзимијан везником"
 
 #: storage/exchange-account.c:1073
 #, c-format
@@ -755,49 +748,46 @@ msgid ""
 "If OWA is running on a different path, you must specify that in the\n"
 "account configuration dialog."
 msgstr ""
+"Не могу да нађем Ексченџ систем за веб смештај на %s.\n"
+"Ако је OWA покренут на другој путањи, морате је навести у \n"
+"прозорчету за подешавање налога."
 
 #: storage/exchange-account.c:1081
-#, fuzzy, c-format
+#, c-format
 msgid "No mailbox for user %s on %s.\n"
-msgstr "Претражујем директоријуме под %s на \"%s\""
+msgstr "Нема сандучета за корисника %s на %s.\n"
 
 #: storage/exchange-account.c:1087 storage/exchange-account.c:1093
 #: storage/exchange-account.c:1101
-#, fuzzy, c-format
+#, c-format
 msgid "Could not connect to server %s: %s"
-msgstr "Нисам могао да се повежем на POP сервер %s"
+msgstr "Нисам могао да се повежем на сервер %s: %s"
 
 #: storage/exchange-account.c:1089
-#, fuzzy
 msgid "Could not resolve hostname"
-msgstr "Не могу да направим поруку."
+msgstr "Не могу да разрешим име рачунара"
 
 #: storage/exchange-account.c:1095
-#, fuzzy
 msgid "Network error"
-msgstr "Нема грешке"
+msgstr "Мрежна грешка"
 
 #: storage/exchange-account.c:1147
-#, fuzzy
 msgid "Personal Folders"
-msgstr "Локални директоријуми"
+msgstr "Личне фасцикле"
 
 #: storage/exchange-account.c:1162
-#, fuzzy
 msgid "Favorite Public Folders"
-msgstr "Виртуелни _директоријуми"
+msgstr "Омиљене јавне фасцикле"
 
 #. i18n: Outlookism
 #: storage/exchange-account.c:1179
-#, fuzzy
 msgid "All Public Folders"
-msgstr "Главни директоријуми"
+msgstr "Све јавне фасцикле"
 
 #. i18n: Outlookism
 #: storage/exchange-account.c:1193
-#, fuzzy
 msgid "Global Address List"
-msgstr "Адреса"
+msgstr "Општи списак адреса"
 
 #: storage/exchange-autoconfig-wizard.c:224
 #, c-format
@@ -805,18 +795,24 @@ msgid ""
 "Could not connect to the Exchange server.\n"
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
+"Не могу да се повежем на Ексченџ сервер.\n"
+"Проверите да ли је адреса исправна (пробајте „%s“ уместо „%s“?) и покушајте поново."
 
 #: storage/exchange-autoconfig-wizard.c:232
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
 msgstr ""
+"Не могу да нађем Ексченџ сервер.\n"
+"Проверите да ли је име сервера исправно уписано и покушајте поново."
 
 #: storage/exchange-autoconfig-wizard.c:241
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
 msgstr ""
+"Не могу да се пријавим на Ексченџ сервер.\n"
+"Проверите да ли су корисничко име и лозинка исправни и покушајте поново."
 
 #: storage/exchange-autoconfig-wizard.c:248
 #, c-format
@@ -827,12 +823,18 @@ msgid ""
 "You may need to specify the Windows domain name as part of your username "
 "(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
+"Не могу да се пријавим на Ексченџ сервер.\n"
+"Проверите да ли су корисничко име и лозинка исправни и покушајте поново.\n"
+"\n"
+"Мораћете да наведете име Виндуз домена као део вашег корисничког имена (нпр. „МОЈ-ДОМЕН\\%s“)."
 
 #: storage/exchange-autoconfig-wizard.c:260
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 msgstr ""
+"Не могу да нађем OWA податке на назначеној адреси.\n"
+"Проверите да ли је адреса исправна и покушајте поново."
 
 #: storage/exchange-autoconfig-wizard.c:267
 msgid ""
@@ -844,18 +846,21 @@ msgid ""
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
+"Гзимијан везник захтева приступ одређеним могућностима Ексченџ сервера које су изгледа искључене или забрањене. (Ово је углавном ненамерно.)  Ваш администратор Ексченџа ће морати да укључи ове могућности да бисте могли да користите Гзимијан везник.\n"
+"\n"
+"За детаље шта да проследите вашем администратору, пратите везу испод:"
 
 #: storage/exchange-autoconfig-wizard.c:288
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
+msgstr "Адреса Ексченџ сервера коју сте унели је за сервер Ексченџ 5.5. Гзимијан везник подржава само Микрософт Ексченџ 2000 и 2003."
 
 #: storage/exchange-autoconfig-wizard.c:301
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
-msgstr ""
+msgstr "Не могу да подесим Ексченџ налог зато што се догодила непозната грешка. Проверите адресу, корисничко име и лозинку, па покушајте поново."
 
 #: storage/exchange-autoconfig-wizard.c:345
 #, c-format
@@ -863,13 +868,15 @@ msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
 "and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
 "\\%s\")."
-msgstr ""
+msgstr "Не могу да се пријавим на сервер општег каталога. Можда ћете морати да се вратите и наведете име Виндуз домена као део вашег корисничког имена (нпр. „МОЈ-ДОМЕН\\%s“)."
 
 #: storage/exchange-autoconfig-wizard.c:352
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
 msgstr ""
+"Не могу да се повежем на наведени сервер.\n"
+"Проверите име сервера и покушајте поново."
 
 #: storage/exchange-autoconfig-wizard.c:389
 #: storage/exchange-autoconfig-wizard.c:393
@@ -881,71 +888,63 @@ msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
 msgstr ""
+"Грешка у систему подешавања.\n"
+"Не могу да направим нови налог."
 
 #: storage/exchange-autoconfig-wizard.c:491
 #: storage/exchange-config-listener.c:492
 msgid "You may only configure a single Exchange account"
-msgstr ""
+msgstr "Можете подесити само један Ексченџ налог"
 
 #: storage/exchange-autoconfig-wizard.glade.h:2
-#, fuzzy
 msgid "Configuration Failed"
-msgstr "Подешавања"
+msgstr "Неуспешно подешавање"
 
 #: storage/exchange-autoconfig-wizard.glade.h:3
 msgid "Done"
 msgstr "Готово"
 
 #: storage/exchange-autoconfig-wizard.glade.h:4
-#, fuzzy
 msgid "Email Address:"
-msgstr "Електронска _адреса:"
+msgstr "Адреса е-поште:"
 
 #: storage/exchange-autoconfig-wizard.glade.h:5
-#, fuzzy
 msgid "Exchange Configuration"
-msgstr "Подешавање поште"
+msgstr "Подешавање Ексченџа"
 
 #: storage/exchange-autoconfig-wizard.glade.h:6
-#, fuzzy
 msgid "Full Name:"
-msgstr "_Пуно име:"
+msgstr "Пуно име:"
 
 #: storage/exchange-autoconfig-wizard.glade.h:7
-#, fuzzy
 msgid "GC Server:"
-msgstr "С_ервер:"
+msgstr "ГЦ сервер:"
 
 #: storage/exchange-autoconfig-wizard.glade.h:8
-#, fuzzy
 msgid "Make this my default account"
-msgstr "_Нека ово буде мој главни налог"
+msgstr "Нека ово буде мој главни налог"
 
 #: storage/exchange-autoconfig-wizard.glade.h:9
-#, fuzzy
 msgid "OWA URL:"
-msgstr "Адреса (URL):"
+msgstr "OWA адреса:"
 
 #: storage/exchange-autoconfig-wizard.glade.h:10
-#, fuzzy
 msgid "Password:"
-msgstr "_Лозинка:"
+msgstr "Лозинка:"
 
 #: storage/exchange-autoconfig-wizard.glade.h:11
 msgid "Remember this password"
 msgstr "Запамти ову лозинку"
 
 #: storage/exchange-autoconfig-wizard.glade.h:12
-#, fuzzy
 msgid "Username:"
-msgstr "Корисничко_име"
+msgstr "Корисничко име:"
 
 #: storage/exchange-autoconfig-wizard.glade.h:13
 msgid "Welcome"
 msgstr "Добродошли"
 
 #: storage/exchange-autoconfig-wizard.glade.h:14
-#, fuzzy
 msgid ""
 "Welcome to Ximian Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
@@ -953,16 +952,15 @@ msgid ""
 "\n"
 "Please click the \"Forward\" button to continue."
 msgstr ""
-"Добродошли у Еволуцију. Неколико наредних екрана\n"
-"ће вам омогућити да се Еволуција повеже на ваше елетронске\n"
-"налоге, и да увезе датотеке из других програма.\n"
+"Добродошли у Гзимијан везник за Микрософт Ексченџ. \n"
+"Неколико наредних екрана ће вам помоћи да подесите Еволуцију \n"
+"да се повеже на ваше Ексченџ налоге.\n"
 "\n"
-"Молим притисните дугме \"Напред\" да наставите. "
+"Притисните дугме „Напред“ да наставите. "
 
 #: storage/exchange-autoconfig-wizard.glade.h:19
-#, fuzzy
 msgid "Ximian Connector Configuration"
-msgstr "Подешавање сервера"
+msgstr "Подешавање Гзимијан везника"
 
 #: storage/exchange-autoconfig-wizard.glade.h:20
 msgid ""
@@ -972,37 +970,37 @@ msgid ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
+"Гзимијан везник може користити податке о налогу из вашег постојећег Аутлук Веб приступ (OWA) налога.\n"
+"\n"
+"Унесите адресу ваше OWA странице, корисничко име и лозинку, затим кликните „Напред“.\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:24
 msgid ""
 "Ximian Connector could not find the Global Catalog replica for your site. "
 "Please enter the name of your Global Catalog server. You may need to ask "
 "your system administrator for the correct value.\n"
-msgstr ""
+msgstr "Гзимијан везник не може да нађе реплику општег каталога за ваше место. Унесите име вашег сервера општег каталога. Можда ћете морати да питате администратора система за тачну вредност.\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:26
 msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
-msgstr ""
+msgstr "Гзимијан везник је наишао на неприлику при подешавању вашег Ексченџ налога.\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:28
-#, fuzzy
 msgid ""
 "Your Connector account is now ready to use. Click the \"Apply\" button to "
 "save your\n"
 "settings."
 msgstr ""
-"Успешно сте унели све податке неопходне за\n"
-"подешавање Еволуције.\n"
-"\n"
-"Притисните дугме \"Примени\" да сачувате ваша подешавања. "
+"Ваш налог сада можете користити. Притисните дугме „Примени“ да сачувате ваша \n"
+"подешавања."
 
 #: storage/exchange-autoconfig-wizard.glade.h:30
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
-msgstr ""
+msgstr "Подаци вашег налога су следећи. Исправите све грешке, затим кликните „Напред“.\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
@@ -1011,35 +1009,31 @@ msgstr ""
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
-msgstr ""
+msgstr "Текућа лозинка се не поклапа са постојећом лозинком за ваш налог. Унесите исправну лозинку"
 
 #: storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
-msgstr ""
+msgstr "Две лозинке се не поклапају. Унесите их поново."
 
 #: storage/exchange-change-password.glade.h:2
-#, fuzzy
 msgid "Change Password"
-msgstr "Унесите лозинку"
+msgstr "Измени лозинку"
 
 #: storage/exchange-change-password.glade.h:3
-#, fuzzy
 msgid "Confirm Password:"
-msgstr "Унесите лозинку"
+msgstr "Потврдите лозинку:"
 
 #: storage/exchange-change-password.glade.h:4
-#, fuzzy
 msgid "Current Password:"
-msgstr "Унесите лозинку"
+msgstr "Текућа лозинка:"
 
 #: storage/exchange-change-password.glade.h:5
-#, fuzzy
 msgid "New Password:"
-msgstr "_Лозинка:"
+msgstr "Нова лозинка:"
 
 #: storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
-msgstr ""
+msgstr "Ваша текућа лозинка је истекла. Измените је сада."
 
 # 48x48/emblems/emblem-mail.icon.in.h:1
 #: storage/exchange-component.c:308
@@ -1063,176 +1057,173 @@ msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
 msgstr ""
+"Измене Ексченџ налога ће узети маха када\n"
+"затворите и поново покренете Еволуцију."
 
 #: storage/exchange-config-listener.c:653
 msgid "The Exchange account will be removed when you quit Evolution"
-msgstr ""
+msgstr "Овај Ексченџ налог ће бити уклоњен када затворите Еволуцију"
 
 #: storage/exchange-delegates-user.c:191
 #: storage/exchange-permissions-dialog.c:179
-#, fuzzy, c-format
+#, c-format
 msgid "Permissions for %s"
-msgstr "Особине за „%s‟"
+msgstr "Овлашћења за %s"
 
 #: storage/exchange-delegates.c:221
 msgid ""
 "No Global Catalog server configured for this account.\n"
 "Unable to edit delegates."
 msgstr ""
+"Није подешен сервер са општим каталогом за овај налог.\n"
+"Не могу да уређујем делегате."
 
 #: storage/exchange-delegates.c:260
 msgid ""
 "Could not read folder permissions.\n"
 "Unable to edit delegates."
 msgstr ""
+"Не могу да прочитам овлашћења фасцикле.\n"
+"Не могу да уређујем делегате."
 
 #: storage/exchange-delegates.c:267
 msgid ""
 "Could not determine folder permissions for delegates.\n"
 "Unable to edit delegates."
 msgstr ""
+"Не могу да одредим овлашћења фасцикле за делегате.\n"
+"Не могу да уређујем делегате."
 
 #: storage/exchange-delegates.c:419
 msgid "Delegate To:"
 msgstr "Делегирај за:"
 
 #: storage/exchange-delegates.c:419
-#, fuzzy
 msgid "Delegate To"
-msgstr "Делегирај за:"
+msgstr "Делегирај за"
 
 #: storage/exchange-delegates.c:435
-#, fuzzy, c-format
+#, c-format
 msgid "Could not make %s a delegate"
-msgstr "Не могу да направим поруку."
+msgstr "Не могу да учиним %s делегатом"
 
 #: storage/exchange-delegates.c:445
 msgid "You cannot make yourself your own delegate"
-msgstr ""
+msgstr "Не можете учинити себе својим делегатом"
 
 #: storage/exchange-delegates.c:454
 #, c-format
 msgid "%s is already a delegate"
-msgstr ""
+msgstr "%s је већ делегат"
 
 #: storage/exchange-delegates.c:563
 #, c-format
 msgid "Remove the delegate %s?"
-msgstr ""
+msgstr "Уклонити делегата %s?"
 
 #: storage/exchange-delegates.c:680
-#, fuzzy
 msgid "Could not access Active Directory"
-msgstr ""
-"Нисам могао да направим директоријум %s:\n"
-"%s"
+msgstr "Не могу да приступим активном директоријуму"
 
 #: storage/exchange-delegates.c:695
-#, fuzzy
 msgid "Could not find self in Active Directory"
-msgstr "Нисам могао да отворим cache директоријум: %s"
+msgstr "Не могу да нађем себе у активном директоријуму"
 
 #: storage/exchange-delegates.c:708
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find delegate %s in Active Directory"
-msgstr "Нисам могао да отворим cache директоријум: %s"
+msgstr "Не могу да нађем делегата %s у активном директоријуму"
 
 #: storage/exchange-delegates.c:720
-#, fuzzy, c-format
+#, c-format
 msgid "Could not remove delegate %s"
-msgstr "Нисам могао да упишем: %s"
+msgstr "Не могу да уклоним делегата %s"
 
 #: storage/exchange-delegates.c:780
-#, fuzzy
 msgid "Could not update list of delegates."
-msgstr "Нисам могао да освежим променама нетачан објекат"
+msgstr "Нисам могао да освежим списак делегата."
 
 #: storage/exchange-delegates.c:798
-#, fuzzy, c-format
+#, c-format
 msgid "Could not add delegate %s"
-msgstr "Не могу да обришем директоријум: %s"
+msgstr "Не могу да додам делегата %s"
 
 #: storage/exchange-delegates.c:814
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Failed to update delegates:\n"
 "%s"
-msgstr "Нисам могао да привремено сачувам поруку %s: %s"
+msgstr ""
+"Неуспешно освеживање делегата:\n"
+"%s"
 
 #: storage/exchange-delegates.c:938 storage/exchange-permissions-dialog.c:706
 msgid "Name"
 msgstr "Име"
 
 #: storage/exchange-delegates.c:967
-#, fuzzy
 msgid "Error reading delegates list."
-msgstr "Грешка код додавања листе"
+msgstr "Грешка код читања списка делегата."
 
 #: storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
-msgstr ""
+msgstr "Аутор (чита, прави)"
 
 #: storage/exchange-delegates.glade.h:2
 msgid "C_alendar:"
 msgstr "К_алендар"
 
 #: storage/exchange-delegates.glade.h:3
-#, fuzzy
 msgid "Co_ntacts:"
-msgstr "Конаткти: "
+msgstr "Ко_нтакти: "
 
 #: storage/exchange-delegates.glade.h:4
-#, fuzzy
 msgid "Delegate Permissions"
-msgstr "Делегирано од"
+msgstr "Овлашћења делегата"
 
 #: storage/exchange-delegates.glade.h:5
-#, fuzzy
 msgid "Delegates"
-msgstr "Делегирано"
+msgstr "Делегати"
 
 #: storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
-msgstr ""
+msgstr "Уредник (чита, прави, уређује)"
 
 #: storage/exchange-delegates.glade.h:8
-#, fuzzy
 msgid "Permissions for"
-msgstr "Забрањен приступ"
+msgstr "Овлашћења за"
 
 #: storage/exchange-delegates.glade.h:9
-#, fuzzy
 msgid "Reviewer (read-only)"
-msgstr "Сервис спреман"
+msgstr "Прегледач (само чита)"
 
 #: storage/exchange-delegates.glade.h:10
 msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
 msgstr ""
+"Ови корисници ће моћи да шаљу пошту у ваше име и да\n"
+"приступају фасциклама са овлашћењима која им дате."
 
 #: storage/exchange-delegates.glade.h:12
-#, fuzzy
 msgid "_Delegate can see private items"
-msgstr "Направи нову пробну ставку"
+msgstr "_Делегати могу да виде приватне ставке"
 
 #: storage/exchange-delegates.glade.h:13
 msgid "_Edit"
-msgstr "_Измени"
+msgstr "_Уреди"
 
 #: storage/exchange-delegates.glade.h:14
-#, fuzzy
 msgid "_Inbox:"
-msgstr "Сандуче"
+msgstr "_Пристигло:"
 
 #: storage/exchange-delegates.glade.h:15
 msgid "_Tasks:"
 msgstr "За_дужења:"
 
 #: storage/exchange-hierarchy-foreign.c:251
-#, fuzzy
 msgid "Deleted Items"
-msgstr "Обрисано"
+msgstr "Обрисане ставке"
 
 #: storage/exchange-hierarchy-foreign.c:252
 msgid "Drafts"
@@ -1247,47 +1238,43 @@ msgid "Journal"
 msgstr "Дневник"
 
 #: storage/exchange-hierarchy-foreign.c:255
-#, fuzzy
 msgid "Notes"
-msgstr "Белешке:"
+msgstr "Белешке"
 
 #: storage/exchange-hierarchy-foreign.c:256
 msgid "Outbox"
 msgstr "За слање"
 
 #: storage/exchange-hierarchy-foreign.c:257
-#, fuzzy
 msgid "Sent Items"
-msgstr "Штампај унос"
+msgstr "Послате ставке"
 
 #: storage/exchange-migrate.c:57
 msgid "Migrating Exchange Folders..."
-msgstr ""
+msgstr "Пресели Ексченџ фасцикле..."
 
 #: storage/exchange-migrate.c:65
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
 "changed since Evolution %d.%d.%d.\n"
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
-"Путања и хијерархија директоријума контаката у Еволуцији је измењена од "
-"издања 1.*.\n"
+"Путања и хијерархија фасцикли за налоге Еволуције и Ексченџа су измењени од Еволуције %d.%d.%d.\n"
 "\n"
-"Будите стрпљиви док Еволуција пренесе ваше директоријуме..."
+"Будите стрпљиви док Еволуција пренесе ваше фасцикле..."
 
 #: storage/exchange-migrate.c:98
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Warning: Evolution Could not migrate all the Exchange account data from the "
 "version %d.%d.%d. \n"
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"Упозорење: Еволуција не може да догради све ваше податке из издања %d.%d.%"
-"d.\n"
-"Ваши подаци нису обрисани, али неће бити приказани у овом издању Еволуције.\n"
+"Упозорење: Еволуција не може да пренесе све ваше податке Ексченџ налога из издања %d.%d.%d.\n"
+"Ваши подаци нису обрисани, али неће бити приказани у овом издању Еволуције"
 
 #: storage/exchange-migrate.c:129
 #, c-format
@@ -1295,14 +1282,12 @@ msgid "Migrating `%s':"
 msgstr "Преносим „%s“:"
 
 #: storage/exchange-oof.c:91 storage/exchange-oof.c:290
-#, fuzzy
 msgid "Could not update out-of-office state"
-msgstr "Нисам могао да освежим променама објекат"
+msgstr "Нисам могао да освежим стање ван-канцеларије"
 
 #: storage/exchange-oof.c:308
-#, fuzzy
 msgid "Could not read out-of-office state"
-msgstr "Не могу да направим поруку."
+msgstr "Нисам могао да прочитам стање ван-канцеларије"
 
 #: storage/exchange-oof.glade.h:1
 msgid ""
@@ -1353,60 +1338,57 @@ msgid "Yes, Change Status"
 msgstr "Да, промени статус"
 
 #: storage/exchange-permissions-dialog.c:222
-#, fuzzy
 msgid "Could not read folder permissions"
-msgstr "Нисам могао да преименујем директоријум: %s"
+msgstr "Не могу да прочитам овлашћења за фасциклу"
 
 #: storage/exchange-permissions-dialog.c:264
-#, fuzzy
 msgid "Could not update folder permissions."
-msgstr "Не могу да обришем директоријум: %s"
+msgstr "Не могу да допуним овлашћења за фасциклу."
 
 #: storage/exchange-permissions-dialog.c:293
-#, fuzzy, c-format
+#, c-format
 msgid "Could not update folder permissions. %s"
-msgstr "Нисам могао да отворим директоријум у `%s"
+msgstr "Не могу да допуним овлашћења за фасциклу. %s"
 
 #: storage/exchange-permissions-dialog.c:295
-#, fuzzy
 msgid "(Permission denied.)"
-msgstr "Забрањен приступ"
+msgstr "(Забрањен приступ.)"
 
 #: storage/exchange-permissions-dialog.c:396
 msgid ""
 "Unable to add user to access control list:\n"
 "No Global Catalog server is configured for this account."
 msgstr ""
+"Не могу да додам корисника у списак за управљање приступима:\n"
+"Није подешен сервер општег каталога за овај налог."
 
 #: storage/exchange-permissions-dialog.c:402
-#, fuzzy
 msgid "Add User:"
-msgstr "_Корисник:"
+msgstr "Додај корисника:"
 
 #: storage/exchange-permissions-dialog.c:402
-#, fuzzy
 msgid "Add User"
-msgstr "Додај _адресу"
+msgstr "Додај корисника"
 
 #: storage/exchange-permissions-dialog.c:421
-#, fuzzy, c-format
+#, c-format
 msgid "No such user %s"
-msgstr "Нема таквог директоријума %s"
+msgstr "Нема таквог корисника %s"
 
 #: storage/exchange-permissions-dialog.c:425
 #, c-format
 msgid "%s cannot be added to an access control list"
-msgstr ""
+msgstr "%s се не може додати у списак за управљање приступом"
 
 #: storage/exchange-permissions-dialog.c:430
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown error looking up %s"
-msgstr "Непозната грешка: %s"
+msgstr "Непозната грешка при тражењу %s"
 
 #: storage/exchange-permissions-dialog.c:447
-#, fuzzy, c-format
+#, c-format
 msgid "%s is already in the list"
-msgstr "Та особа већ присуствује састанку!"
+msgstr "%s је већ у списку"
 
 #: storage/exchange-permissions-dialog.c:710
 msgid "Role"
@@ -1417,74 +1399,60 @@ msgid "    "
 msgstr "    "
 
 #: storage/exchange-permissions-dialog.glade.h:2
-#, fuzzy
 msgid "<b>Permissions</b>"
-msgstr "<b>Опције</b>"
+msgstr "<b>Овлашћења</b>"
 
 #: storage/exchange-permissions-dialog.glade.h:3
-#, fuzzy
 msgid "Cannot Delete"
-msgstr "Унеси делегата"
+msgstr "Не могу да обришем"
 
 #: storage/exchange-permissions-dialog.glade.h:4
-#, fuzzy
 msgid "Cannot Edit"
-msgstr "Уредник контаката"
+msgstr "Не могу да уредим"
 
 #: storage/exchange-permissions-dialog.glade.h:5
-#, fuzzy
 msgid "Create items"
-msgstr "Направи"
+msgstr "Направи ставке"
 
 #: storage/exchange-permissions-dialog.glade.h:6
-#, fuzzy
 msgid "Create subfolders"
-msgstr "Направи директоријум"
+msgstr "Направи подфасцикле"
 
 #: storage/exchange-permissions-dialog.glade.h:7
-#, fuzzy
 msgid "Delete Any Items"
-msgstr "Обриши ову ставку"
+msgstr "Обриши све ставке"
 
 #: storage/exchange-permissions-dialog.glade.h:8
-#, fuzzy
 msgid "Delete Own Items"
-msgstr "Обриши ову ставку"
+msgstr "Обриши своје ставке"
 
 #: storage/exchange-permissions-dialog.glade.h:9
-#, fuzzy
 msgid "Edit Any Items"
-msgstr "Уређивање филтера"
+msgstr "Уреди све ставке"
 
 #: storage/exchange-permissions-dialog.glade.h:10
-#, fuzzy
 msgid "Edit Own Items"
-msgstr "Уређивање филтера"
+msgstr "Уреди своје ставке"
 
 #: storage/exchange-permissions-dialog.glade.h:11
-#, fuzzy
 msgid "Folder contact"
-msgstr "%d контакт"
+msgstr "Контакт за фасциклу"
 
 #: storage/exchange-permissions-dialog.glade.h:12
-#, fuzzy
 msgid "Folder owner"
-msgstr "VFolder на П_ошиљаоца"
+msgstr "Власник фасцикле"
 
 #: storage/exchange-permissions-dialog.glade.h:13
-#, fuzzy
 msgid "Folder visible"
-msgstr "%d видљивих"
+msgstr "Фасцикла приказана"
 
 #: storage/exchange-permissions-dialog.glade.h:14
-#, fuzzy
 msgid "Read items"
-msgstr "Повратнице"
+msgstr "Прочитај ставке"
 
 #: storage/exchange-permissions-dialog.glade.h:15
-#, fuzzy
 msgid "Role: "
-msgstr "Улога"
+msgstr "Улога: "
 
 #: storage/exchange-storage.c:336
 msgid "Connecting..."
@@ -1492,122 +1460,107 @@ msgstr "Повезујем се..."
 
 #: storage/main.c:156
 msgid "Ximian Connector for Microsoft Exchange"
-msgstr ""
+msgstr "Гзимијан везник за Микрософт Ексченџ"
 
 #: storage/xc-backend-view.c:299
 msgid "Account Name"
 msgstr "Име налога"
 
 #: storage/xc-commands.c:299
-#, fuzzy
 msgid "Folder does not exist"
-msgstr "Директоријум `%s' не постоји."
+msgstr "Фасцикла не постоји"
 
 #: storage/xc-commands.c:322
-#, fuzzy, c-format
+#, c-format
 msgid "Could not add favorite: %s"
-msgstr "Нисам могао да поделим: %s"
+msgstr "Не могу да додам омиљену: %s"
 
 #: storage/xc-commands.c:336
-#, fuzzy, c-format
+#, c-format
 msgid "Could not remove favorite: %s"
-msgstr "Нисам могао да преименујем директоријум: %s"
+msgstr "Не могу да уклоним омиљену: %s"
 
 #: storage/xc-commands.c:353
-#, fuzzy
 msgid "_Move Folder..."
-msgstr "_Премести у директоријум..."
+msgstr "_Премести фасциклу..."
 
 #: storage/xc-commands.c:356
-#, fuzzy
 msgid "_Copy Folder..."
-msgstr "_Копирај у директоријум..."
+msgstr "_Умножи фасциклу..."
 
 #: storage/xc-commands.c:359
-#, fuzzy
 msgid "_Rename Folder..."
-msgstr "Преименуј директоријум"
+msgstr "Пре_именуј фасциклу..."
 
 #: storage/xc-commands.c:365
 msgid "_New Folder..."
-msgstr "_Нови директоријум..."
+msgstr "_Нова фасцикла..."
 
 #: storage/xc-commands.c:368
-#, fuzzy
 msgid "_Delete Folder"
-msgstr "Одаберите директоријум"
+msgstr "У_клони фасциклу..."
 
 #: storage/xc-commands.c:373
-#, fuzzy
 msgid "_Add Other User's Folder..."
-msgstr "Отвори директоријум другог _корисника..."
+msgstr "_Додај фасциклу другог корисника..."
 
 #: storage/xc-commands.c:376
 msgid "_Remove Other User's Folder"
-msgstr "_Уклони директоријум другог корисника"
+msgstr "Уклони _фасциклу другог корисника"
 
 #: storage/xc-commands.c:382
-#, fuzzy
 msgid "Add to _Favorites"
-msgstr "Додај у контакте"
+msgstr "Додај међу _омиљене"
 
 #: storage/xc-commands.c:386
 msgid "Remove from Fa_vorites"
-msgstr ""
+msgstr "Уклони из о_миљених"
 
 #: storage/xc-commands.c:393
-#, fuzzy
 msgid "_Permissions..."
-msgstr "Штам_пај..."
+msgstr "О_влашћења..."
 
 #: storage/ximian-connector-setup.c:43
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
-msgstr ""
+msgstr "Алат за поставку Гзимијан везника за Микрософт Ексченџ"
 
 #: storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
-msgstr ""
+msgstr "Измените лозинку за ваш Ексченџ сервер"
 
 #: storage/ximian-connector.xml.h:2
-#, fuzzy
 msgid "Subscribe to _Other User's Folder..."
-msgstr "Отвори директоријум другог _корисника..."
+msgstr "Претплати се на фасциклу _другог корисника..."
 
 #: storage/ximian-connector.xml.h:3
-#, fuzzy
 msgid "Subscribe to a folder belonging to some other user on the server"
-msgstr "Отвори директоријум који припада неком другом кориснику на серверу"
+msgstr "Претплати се на фасциклу која припада неком другом кориснику овог сервер"
 
 #: storage/ximian-connector.xml.h:4
-#, fuzzy
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
-msgstr ""
-"Уклони директоријум додат помоћу \"Отвори директоријум другог корисника\""
+msgstr "Укини претплату установљену помоћу „Преплати се на фасциклу другог корисника“"
 
 #: storage/ximian-connector.xml.h:5
 msgid "View or change your Exchange calendar delegation settings"
-msgstr ""
+msgstr "Прегледајте или измените подешавања делегата вашег Ексченџ календара"
 
 #: storage/ximian-connector.xml.h:6
 msgid "View or change your Out-of-Office status and autoreply message"
-msgstr ""
+msgstr "Прегледајте или измените ваше стање ван-канцеларије и поруку за аутоматски одговор"
 
 #: storage/ximian-connector.xml.h:7
 msgid "_Change Exchange Password..."
-msgstr ""
+msgstr "_Измени Ексченџ лозинку..."
 
 #: storage/ximian-connector.xml.h:8
-#, fuzzy
 msgid "_Delegation Assistant"
-msgstr "Помоћник за прављење календара"
+msgstr "Помоћник за _делегирање"
 
 #: storage/ximian-connector.xml.h:9
-#, fuzzy
 msgid "_Out of Office Assistant"
-msgstr "Асистент ван кацеларије"
+msgstr "Помоћник за _ван-кацеларије"
 
 #: storage/ximian-connector.xml.h:10
-#, fuzzy
 msgid "_Unsubscribe from Other User's Folder"
-msgstr "_Уклони директоријум другог корисника"
+msgstr "_Укини претплату на фасциклу другог корисника"
