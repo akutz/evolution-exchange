@@ -14,7 +14,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 #include <camel/camel-store.h>
-#include <camel/camel-disco-store.h>
+#include <camel/camel-offline-store.h>
 #include "camel-stub.h"
 
 #define CAMEL_EXCHANGE_STORE_TYPE     (camel_exchange_store_get_type ())
@@ -23,7 +23,7 @@ extern "C" {
 #define CAMEL_IS_EXCHANGE_STORE(o)    (CAMEL_CHECK_TYPE((o), CAMEL_EXCHANGE_STORE_TYPE))
 
 typedef struct {
-	CamelDiscoStore parent_object;
+	CamelOfflineStore parent_object;
 
 	CamelStub *stub;
 	char *storage_path, *base_url;
@@ -34,7 +34,7 @@ typedef struct {
 } CamelExchangeStore;
 
 typedef struct {
-	CamelDiscoStoreClass parent_class;
+	CamelOfflineStoreClass parent_class;
 
 } CamelExchangeStoreClass;
 

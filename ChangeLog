@@ -1,3 +1,19 @@
+2005-01-10  Jeffrey Stedfast  <fejj@novell.com>
+
+	* camel/camel-exchange-folder.c (exchange_sync): Implemented.
+	(exchange_sync_online): Removed.
+	(exchange_expunge_uids_online): Removed.
+	(exchange_cache_message): Removed.
+
+	* camel/camel-exchange-store.c (exchange_connect_online): Removed.
+	(exchange_connect_offline): Removed.
+	(exchange_disconnect_online): Removed.
+	(exchange_disconnect_offline): Removed.
+	(exchange_get_folder_online): Removed.
+	(exchange_get_folder_info_online): Removed.
+	(exchange_get_folder): Handle offline folder getting.
+	(exchange_get_folder_online): Removed.
+
 2005-01-10  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* configure.in : Bumped the version to 2.1.3
