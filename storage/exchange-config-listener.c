@@ -226,7 +226,7 @@ add_esource (ExchangeAccount *account,
 	     const char *physical_uri,
 	     ESourceList **source_list)
 {
-	ESource *source;
+	ESource *source = NULL;
 	ESourceGroup *source_group;
 	char *relative_uri = NULL;
 	GSList *ids, *temp_ids;
@@ -270,7 +270,6 @@ add_esource (ExchangeAccount *account,
 
 		e_source_group_add_source (source_group, source, -1);
 
-		g_object_unref (source);
 		g_object_unref (source_group);
 	}
 	else {
@@ -296,10 +295,9 @@ add_esource (ExchangeAccount *account,
 					e_source_set_property (source, "offline_sync", "1");
 			}
 		}
-		g_object_unref (source);
 	}
 
-	if (!is_contacts_folder) {
+	if (source && !is_contacts_folder) {
 
 		if (folder_type == EXCHANGE_CALENDAR_FOLDER) {
 			ids = gconf_client_get_list (client,
@@ -335,6 +333,8 @@ add_esource (ExchangeAccount *account,
 
 	if (relative_uri)
 		g_free (relative_uri);
+	if (source)
+		g_object_unref (source);
 	g_object_unref (client);
 }
 
