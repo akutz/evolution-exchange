@@ -107,11 +107,14 @@ add_vevent (ECalBackendExchange *cbex,
 			icalcomponent_set_dtend (comp, itt);
 		}
 
-		if (!strcmp (x_name, "X-MICROSOFT-CDO-BUSYSTATUS") && !transp) {
+		if (!strcmp (x_name, "X-MICROSOFT-CDO-BUSYSTATUS")) {
 			/* It seems OWA sometimes doesn't set the
 			 * TRANSP property, so set it from the busy
 			 * status.
 			 */
+			if (transp)
+				icalcomponent_remove_property (comp,transp);
+
 			if (!strcmp (x_val, "BUSY"))
 				transp = icalproperty_new_transp (ICAL_TRANSP_OPAQUE);
 			else if (!strcmp (x_val, "FREE"))
@@ -1001,7 +1004,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 		 const char *calobj)
 {
 	ECalBackendExchangeCalendar *cbexc;
-	ECalComponent *comp;
+	ECalComponent *comp = NULL;
 	GList *comps, *l;
 	struct icaltimetype current;
 	icalproperty_method method;
@@ -1077,6 +1080,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 	}
 
 	g_list_free (comps);
+	return status;
 		
  error:	
 	if (comp)

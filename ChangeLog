@@ -1,3 +1,9 @@
+2005-02-09  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* calendar/e-cal-backend-exchange-calendar.c (add_vevent) : Always
+	set the TRANSP property from the busy status. Fixes #70283
+	(receive_objects) : Fixed a memory leak.
+
 2005-02-08  Sushma Rai  <rsushma@novell.com>
 
 	* camel/camel-exchange-folder.c (camel_exchange_folder_construct):
