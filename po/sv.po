@@ -4,12 +4,22 @@
 #
 # $Id$
 #
+# Skenbar Outlook-terminologi:
+#
+# Deleted Items folder			= mappen Borttaget
+# mailbox				= postlåda
+# public folder				= gemensam mapp
+# Secure Password Authentication	= säker lösenordsverifiering
+# Journal				= journal
+# Inbox					= inkorgen
+# Outbox				= utkorgen
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-13 14:33-0400\n"
-"PO-Revision-Date: 2004-05-28 15:53+0200\n"
+"POT-Creation-Date: 2004-09-14 00:24+0200\n"
+"PO-Revision-Date: 2004-09-14 00:22+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -43,11 +53,12 @@ msgstr ""
 #: calendar/e-cal-backend-exchange-calendar.c:1377
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
-msgstr ""
+msgstr "Resursen \"%s\" är upptagen under den valda tidsperioden."
 
+# Verkar heta "Borttaget" i Outlook.
 #: camel/camel-exchange-folder.c:219
 msgid "Can only expunge in Deleted Items folder"
-msgstr ""
+msgstr "Kan endast tömma i mappen Borttaget"
 
 #: camel/camel-exchange-folder.c:243
 msgid "No Subject"
@@ -118,21 +129,25 @@ msgstr "Begränsa antalet GAL-svar: %s"
 msgid "Exchange Server"
 msgstr "Exchange-server"
 
+# "mailbox" verkar heta "postlåda" i Outlook (det heter
+# "brevlåda" i resten av GNOME).
+#
 #. i18n: "Mailbox" is an Outlookism. FIXME
 #: camel/camel-exchange-provider.c:65
-#, fuzzy
 msgid "Mailbox name"
-msgstr "Brevlådeformat"
+msgstr "Postlådenamn"
 
 #. i18n: "OWA" == "Outlook Web Access". Might not be translated?
 #: camel/camel-exchange-provider.c:68
 msgid "OWA path"
 msgstr "OWA-sökväg"
 
+# "Public Folders" verkar heta "gemensamma mappar" i Outlook.
+#
 #. i18n: "Public Folder" is an Outlookism
 #: camel/camel-exchange-provider.c:71
 msgid "Public Folder server"
-msgstr ""
+msgstr "Server för gemensamma mappar"
 
 #. i18n: copy from evolution:camel-imap-provider.c
 #: camel/camel-exchange-provider.c:75
@@ -141,11 +156,11 @@ msgstr "Tillämpa filtren på nya meddelanden i Inbox på denna server"
 
 #: camel/camel-exchange-provider.c:77
 msgid "Check new messages for Junk contents"
-msgstr ""
+msgstr "Kontrollera om nya meddelanden innehåller skräp"
 
 #: camel/camel-exchange-provider.c:79
 msgid "Only check for Junk messages in the Inbox folder"
-msgstr ""
+msgstr "Kontrollera endast om meddelanden innehåller skräp i inkorgsmappen"
 
 #: camel/camel-exchange-provider.c:85
 msgid "Microsoft Exchange"
@@ -157,31 +172,29 @@ msgstr "För hantering av e-post (och andra data) på Microsoft Exchange-servrar
 
 #. i18n: "Secure Password Authentication" is an Outlookism
 #: camel/camel-exchange-provider.c:105
-#, fuzzy
 msgid "Secure Password"
-msgstr "Ange lösenord"
+msgstr "Säkert lösenord"
 
 #. i18n: "NTLM" probably doesn't translate
 #: camel/camel-exchange-provider.c:108
-#, fuzzy
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
 msgstr ""
-"Detta alternativ kommer att ansluta till servern med Kerberos 4-"
-"autentisering."
+"Detta alternativ kommer att ansluta till Exchange-servern med hjälp av säker "
+"lösenordsverifiering (NTLM)."
 
 #: camel/camel-exchange-provider.c:116
 msgid "Plaintext Password"
 msgstr "Klartextlösenord"
 
 #: camel/camel-exchange-provider.c:118
-#, fuzzy
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
 msgstr ""
-"Detta alternativ ansluter till IMAP-servern med ett lösenord i klartext."
+"Detta alternativ kommer att ansluta till Exchange-servern med hjälp av "
+"standardautentisering med lösenord i klartext."
 
 #: camel/camel-exchange-store.c:178
 #, c-format
@@ -194,13 +207,14 @@ msgid "Exchange account for %s on %s"
 msgstr "Exchange-konto för %s på %s"
 
 #: camel/camel-exchange-store.c:208
-#, fuzzy
 msgid "Evolution Exchange backend process"
-msgstr "Evolutionförlopp"
+msgstr "Bakändesprocess för Evolution Exchange"
 
 #: camel/camel-exchange-transport.c:109
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr ""
+"Exchange-transporten kan endast användas tillsammans med en Exchange-"
+"epostkälla"
 
 #: camel/camel-exchange-transport.c:120
 msgid "Cannot send message: one or more invalid recipients"
@@ -226,9 +240,9 @@ msgid "Path too long: %s"
 msgstr "Sökvägen för lång: %s"
 
 #: camel/camel-stub.c:193
-#, fuzzy, c-format
+#, c-format
 msgid "Could not start status thread: %s"
-msgstr "Kunde inte starta : %s"
+msgstr "Kunde inte starta statustråd: %s"
 
 #: camel/camel-stub.c:445
 #, c-format
@@ -243,48 +257,43 @@ msgstr "Fel vid kommunikation med %s: %s"
 #. i18n: These are Outlook's words for the default roles in
 #. the folder permissions dialog.
 #: lib/e2k-security-descriptor.c:847
-#, fuzzy
 msgid "Owner"
-msgstr "En"
+msgstr "Ägare"
 
+# Osäker / unsure
 #: lib/e2k-security-descriptor.c:857
-#, fuzzy
 msgid "Publishing Editor"
-msgstr ""
-"Publicera\n"
-"tillställning"
+msgstr "Publicerande redaktör"
 
+# Osäker / unsure
 #: lib/e2k-security-descriptor.c:865
-#, fuzzy
 msgid "Editor"
-msgstr "_Redigera"
+msgstr "Redaktör"
 
+# Osäker / unsure
 #: lib/e2k-security-descriptor.c:872
-#, fuzzy
 msgid "Publishing Author"
-msgstr ""
-"Publicera\n"
-"tillställning"
+msgstr "Publicerande författare"
 
+# Osäker / unsure
 #: lib/e2k-security-descriptor.c:878
-#, fuzzy
 msgid "Author"
-msgstr "Poitiers"
+msgstr "Författare"
 
+# Osäker / unsure
 #: lib/e2k-security-descriptor.c:883
-#, fuzzy
 msgid "Non-editing Author"
-msgstr "Ingen information"
+msgstr "Icke-redigerande författare"
 
+# Osäker / unsure
 #: lib/e2k-security-descriptor.c:887
-#, fuzzy
 msgid "Reviewer"
-msgstr "Granska"
+msgstr "Granskare"
 
+# Osäker / unsure
 #: lib/e2k-security-descriptor.c:889
-#, fuzzy
 msgid "Contributor"
-msgstr "Kontaktredigerare"
+msgstr "Bidragsgivare"
 
 #: lib/e2k-security-descriptor.c:891 storage/exchange-delegates.glade.h:7
 msgid "None"
@@ -329,23 +338,20 @@ msgid "Could not open folder"
 msgstr "Kunde inte öppna mapp"
 
 #: mail/mail-stub-exchange.c:772
-#, fuzzy
 msgid "Could not open Deleted Items folder"
-msgstr "Kunde inte ta bort mappen \"%s\": %s"
+msgstr "Kunde inte öppna mappen Borttaget"
 
 #: mail/mail-stub-exchange.c:1085 mail/mail-stub-exchange.c:1126
 msgid "Could not get new messages"
 msgstr "Kunde inte hämta nya meddelanden"
 
 #: mail/mail-stub-exchange.c:1291
-#, fuzzy
 msgid "Could not empty Deleted Items folder"
-msgstr "Kunde inte ta bort mappen \"%s\": %s"
+msgstr "Kunde inte tömma mappen Borttaget"
 
 #: mail/mail-stub-exchange.c:1363
-#, fuzzy
 msgid "Could not append message; mailbox is over quota"
-msgstr "Kan inte lägga till meddelande i mapp för brevlådekatalog: %s: %s"
+msgstr "Kunde inte lägga till meddelande; postlådan är över kvoten"
 
 #: mail/mail-stub-exchange.c:1364
 msgid "Could not append message"
@@ -364,9 +370,8 @@ msgid "Error retrieving message"
 msgstr "Fel vid hämtning av meddelande"
 
 #: mail/mail-stub-exchange.c:1944
-#, fuzzy
 msgid "Mailbox does not support full-text searching"
-msgstr "Nyckelanvändning stöder inte certifikatsignering"
+msgstr "Postlådan stöder inte fulltextsökning"
 
 #: mail/mail-stub-exchange.c:2042
 msgid "Unable to move/copy messages"
@@ -374,24 +379,28 @@ msgstr "Kan inte flytta/kopiera meddelanden"
 
 #: mail/mail-stub-exchange.c:2213
 msgid "No mail submission URI for this mailbox"
-msgstr ""
+msgstr "Ingen URI för e-postskickande för denna postlåda"
 
 #: mail/mail-stub-exchange.c:2250
 msgid "Server won't accept mail via Exchange transport"
-msgstr ""
+msgstr "Servern kommer inte att acceptera e-post via Exchange-transporten"
 
 #: mail/mail-stub-exchange.c:2252
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
-msgstr "Du har inte rättigheter att uppdatera detta objekt"
+msgstr ""
+"Ditt konto har inte rättigheter att använda <%s>\n"
+"som Från-adress."
 
 #: mail/mail-stub-exchange.c:2264
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
+"Kunde inte skicka meddelandet.\n"
+"Detta kan innebära att ditt konto är över kvoten."
 
 #: mail/mail-stub-exchange.c:2268
 msgid "Could not send message"
@@ -521,26 +530,27 @@ msgid "in \"%s\" ..."
 msgstr "i \"%s\"..."
 
 #: shell/e-folder-misc-dialogs.c:638
-#, fuzzy, c-format
+#, c-format
 msgid "Could not open other user's folder: %s."
-msgstr "Kunde inte öppna den delade mappen: %s."
+msgstr "Kunde inte öppna annan användares mapp: %s."
 
 #: shell/e-folder-misc-dialogs.c:688
-#, fuzzy
 msgid "Cannot find the specified other user's folder."
-msgstr "Kan inte skapa den angivna utdelade mappen."
+msgstr "Kan inte hitta den angivna andra användarens mapp."
 
 #: shell/e-folder-misc-dialogs.c:720
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Cannot unsubscribe from folder:\n"
 "%s"
-msgstr "Säg upp prenumeration på mappen \"%s\""
+msgstr ""
+"Kan inte säga upp prenumerationen på mappen:\n"
+"%s"
 
 #: shell/e-folder-misc-dialogs.c:773
-#, fuzzy, c-format
+#, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "Säg upp prenumeration på mappen \"%s\""
+msgstr "Verkligen säga upp prenumerationen på mappen \"%s\"?"
 
 #: shell/e-folder-misc-dialogs.c:787
 #, c-format
@@ -549,7 +559,7 @@ msgstr "Säg upp prenumeration på \"%s\""
 
 #: shell/e-foreign-folder-dialog.glade.h:1
 msgid "Open Other User's Folder"
-msgstr "Öppna en annan användares mapp"
+msgstr "Öppna annan användares mapp"
 
 #: shell/e-foreign-folder-dialog.glade.h:2
 msgid "_Account:"
@@ -633,42 +643,41 @@ msgstr "Okänt fel"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
 msgid "*Control*F5"
-msgstr ""
+msgstr "*Control*F5"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
-#, fuzzy
 msgid "Evolution Addressbook Exchange backend"
-msgstr "Evolutions adressboksbakände för lokal/LDAP"
+msgstr "Evolutions adressboksbakände för Exchange"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-#, fuzzy
 msgid "Evolution Calendar Exchange backend"
-msgstr "Evolutions kalenderbakände för lokal fil"
+msgstr "Evolutions kalenderbakände för Exchange"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
 msgid "Evolution Exchange Component"
 msgstr "Exchange-komponent för Evolution"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
-#, fuzzy
 msgid "Exchange"
-msgstr "Exchange-server"
+msgstr "Exchange"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
 msgid "Ximian Connector for Exchange"
-msgstr ""
+msgstr "Ximian Connector för Exchange"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
-#, fuzzy
 msgid "_Exchange"
-msgstr "Exchange-server"
+msgstr "_Exchange"
 
+# Osäker / unsure
+# "%s's" plural construction has loads of translation problems.
+#
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
 #: storage/exchange-account.c:548
-#, fuzzy, c-format
+#, c-format
 msgid "%s's Folders"
-msgstr "Mappar"
+msgstr "Mappar för %s"
 
 #: storage/exchange-account.c:829
 #, c-format
@@ -681,27 +690,26 @@ msgstr "Ange lösenord"
 
 #: storage/exchange-account.c:908
 msgid "Cannot change password due to configuration problems"
-msgstr ""
+msgstr "Kan inte byta lösenord på grund av konfigurationsproblem"
 
 #: storage/exchange-account.c:923
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
 msgstr ""
+"Servern avvisade lösenordet eftersom det är för enkelt.\n"
+"Försök igen med ett annat lösenord."
 
 #: storage/exchange-account.c:928
-#, fuzzy
 msgid "Could not change password"
-msgstr "Byt lösenord"
+msgstr "Kunde inte byta lösenord"
 
 #: storage/exchange-account.c:1014
-#, fuzzy
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
 msgstr ""
-"Kunde inte autentisera till SMTP-servern.\n"
-"%s\n"
+"Kunde inte autentisera till servern. (Är lösenordet felaktigt?)\n"
 "\n"
 
 #: storage/exchange-account.c:1019
@@ -729,7 +737,7 @@ msgstr ""
 #: storage/exchange-account.c:1061
 #, c-format
 msgid "Mailbox for %s is not on this server."
-msgstr ""
+msgstr "Postlådan för %s finns inte på denna server."
 
 #: storage/exchange-account.c:1066
 #, c-format
@@ -769,22 +777,21 @@ msgstr "Nätverksfel"
 msgid "Personal Folders"
 msgstr "Personliga mappar"
 
+# Osäker / unsure
 #: storage/exchange-account.c:1162
-#, fuzzy
 msgid "Favorite Public Folders"
-msgstr "Virtuella mappar"
+msgstr "Gemensamma favoritmappar"
 
 #. i18n: Outlookism
 #: storage/exchange-account.c:1179
-#, fuzzy
 msgid "All Public Folders"
-msgstr "Alla mappar"
+msgstr "Alla gemensamma mappar"
 
+# Osäker / unsure
 #. i18n: Outlookism
 #: storage/exchange-account.c:1193
-#, fuzzy
 msgid "Global Address List"
-msgstr "Adress"
+msgstr "Global adresslista"
 
 #: storage/exchange-autoconfig-wizard.c:224
 #, c-format
@@ -873,7 +880,7 @@ msgstr "Konfigurationsverktyg för Evolutions e-postkonton."
 #: storage/exchange-autoconfig-wizard.c:491
 #: storage/exchange-config-listener.c:492
 msgid "You may only configure a single Exchange account"
-msgstr ""
+msgstr "Du kan endast konfigurera ett ensamt Exchange-konto"
 
 #: storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
@@ -1195,18 +1202,16 @@ msgid "_Edit"
 msgstr "_Redigera"
 
 #: storage/exchange-delegates.glade.h:14
-#, fuzzy
 msgid "_Inbox:"
-msgstr "Inkorg"
+msgstr "_Inkorgen:"
 
 #: storage/exchange-delegates.glade.h:15
 msgid "_Tasks:"
 msgstr "_Uppgifter:"
 
 #: storage/exchange-hierarchy-foreign.c:251
-#, fuzzy
 msgid "Deleted Items"
-msgstr "_Öppna markerade objekt"
+msgstr "Borttaget"
 
 #: storage/exchange-hierarchy-foreign.c:252
 msgid "Drafts"
@@ -1214,29 +1219,27 @@ msgstr "Utkast"
 
 #: storage/exchange-hierarchy-foreign.c:253
 msgid "Inbox"
-msgstr "Inkorg"
+msgstr "Inkorgen"
 
 #: storage/exchange-hierarchy-foreign.c:254
 msgid "Journal"
-msgstr "Dagbok"
+msgstr "Journal"
 
 #: storage/exchange-hierarchy-foreign.c:255
-#, fuzzy
 msgid "Notes"
-msgstr "Notering"
+msgstr "Anteckningar"
 
 #: storage/exchange-hierarchy-foreign.c:256
 msgid "Outbox"
-msgstr "Utkorg"
+msgstr "Utkorgen"
 
 #: storage/exchange-hierarchy-foreign.c:257
 msgid "Sent Items"
 msgstr "Skickade objekt"
 
 #: storage/exchange-migrate.c:57
-#, fuzzy
 msgid "Migrating Exchange Folders..."
-msgstr "Skapa _ny mapp..."
+msgstr "Migrerar Exchange-mappar..."
 
 #: storage/exchange-migrate.c:65
 #, c-format
@@ -1335,9 +1338,8 @@ msgid "Could not update folder permissions. %s"
 msgstr "Kunde inte öppna mappen i \"%s\""
 
 #: storage/exchange-permissions-dialog.c:295
-#, fuzzy
 msgid "(Permission denied.)"
-msgstr "Åtkomst nekas"
+msgstr "(Åtkomst nekas.)"
 
 #: storage/exchange-permissions-dialog.c:396
 msgid ""
@@ -1364,14 +1366,14 @@ msgid "%s cannot be added to an access control list"
 msgstr ""
 
 #: storage/exchange-permissions-dialog.c:430
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown error looking up %s"
-msgstr "Okänt fel: %s"
+msgstr "Okänt fel vid uppslagning av %s"
 
 #: storage/exchange-permissions-dialog.c:447
-#, fuzzy, c-format
+#, c-format
 msgid "%s is already in the list"
-msgstr "Personen är redan närvarande på sammanträdet!"
+msgstr "%s finns redan i listan"
 
 #: storage/exchange-permissions-dialog.c:710
 msgid "Role"
@@ -1382,9 +1384,8 @@ msgid "    "
 msgstr "    "
 
 #: storage/exchange-permissions-dialog.glade.h:2
-#, fuzzy
 msgid "<b>Permissions</b>"
-msgstr "Beskrivning:"
+msgstr "<b>Rättigheter</b>"
 
 #: storage/exchange-permissions-dialog.glade.h:3
 msgid "Cannot Delete"
@@ -1451,19 +1452,18 @@ msgid "Account Name"
 msgstr "Kontonamn"
 
 #: storage/xc-commands.c:301
-#, fuzzy
 msgid "Folder does not exist"
 msgstr "Mappen finns inte"
 
 #: storage/xc-commands.c:324
-#, fuzzy, c-format
+#, c-format
 msgid "Could not add favorite: %s"
-msgstr "Kunde inte ta bort mappen \"%s\": %s"
+msgstr "Kunde inte lägga till favorit: %s"
 
 #: storage/xc-commands.c:338
-#, fuzzy, c-format
+#, c-format
 msgid "Could not remove favorite: %s"
-msgstr "Kunde inte skriva data: %s"
+msgstr "Kunde inte ta bort favorit: %s"
 
 #.
 #. FIXME: See 62440
@@ -1487,22 +1487,20 @@ msgid "_Delete Folder"
 msgstr "_Ta bort mapp"
 
 #: storage/xc-commands.c:378
-#, fuzzy
 msgid "_Add Other User's Folder..."
-msgstr "Öppna en annan _användares mapp..."
+msgstr "_Lägg till annan användares mapp..."
 
 #: storage/xc-commands.c:381
 msgid "_Remove Other User's Folder"
-msgstr "_Ta bort en annan användares mapp"
+msgstr "_Ta bort annan användares mapp"
 
 #: storage/xc-commands.c:387
-#, fuzzy
 msgid "Add to _Favorites"
-msgstr "Lägg till i kontakter"
+msgstr "Lägg till i _Favoriter"
 
 #: storage/xc-commands.c:391
 msgid "Remove from Fa_vorites"
-msgstr ""
+msgstr "Ta bort från Fa_voriter"
 
 #: storage/xc-commands.c:398
 msgid "_Permissions..."
@@ -1514,50 +1512,64 @@ msgstr "Konfigurationsverktyg för Ximian Connector för Microsoft Exchange"
 
 #: storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
-msgstr ""
+msgstr "Byt ditt Exchange-serverlösenord"
 
 #: storage/ximian-connector.xml.h:2
-#, fuzzy
 msgid "Subscribe to _Other User's Folder..."
-msgstr "Öppna en annan _användares mapp..."
+msgstr "Prenumerera på annan _användares mapp..."
 
 #: storage/ximian-connector.xml.h:3
-#, fuzzy
 msgid "Subscribe to a folder belonging to some other user on the server"
-msgstr "Öppna en mapp som tillhör en annan användare på servern"
+msgstr "Prenumerera på en mapp som tillhör någon annan användare på servern"
 
 #: storage/ximian-connector.xml.h:4
-#, fuzzy
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
-msgstr "Ta bort en mapp som lagts till med \"Öppna en annan användares mapp\""
+msgstr ""
+"Säg upp prenumerationen på en mapp som lagts till med \"Prenumerera på annan "
+"användares mapp\""
 
+# Osäker / unsure
 #: storage/ximian-connector.xml.h:5
 msgid "View or change your Exchange calendar delegation settings"
 msgstr ""
+"Visa eller ändra dina inställningar för delegation av Exchange-kalendern"
 
 #: storage/ximian-connector.xml.h:6
 msgid "View or change your Out-of-Office status and autoreply message"
-msgstr ""
+msgstr "Visa eller ändra din inte inne-status och ditt autosvarsmeddelande"
 
 #: storage/ximian-connector.xml.h:7
 msgid "_Change Exchange Password..."
-msgstr ""
+msgstr "_Byt Exchange-lösenord..."
 
+# Osäker / unsure
 #: storage/ximian-connector.xml.h:8
-#, fuzzy
 msgid "_Delegation Assistant"
-msgstr "Adressboksinställningar"
+msgstr "_Delegationsassistent"
 
 #: storage/ximian-connector.xml.h:9
-#, fuzzy
 msgid "_Out of Office Assistant"
-msgstr "Inte inne-assistent"
+msgstr "_Inte inne-assistent"
 
 #: storage/ximian-connector.xml.h:10
-#, fuzzy
 msgid "_Unsubscribe from Other User's Folder"
-msgstr "_Ta bort en annan användares mapp"
+msgstr "_Säg upp prenumeration på annan användares mapp"
+
+#~ msgid "Your account does not have permission to use <%s> as a From address."
+#~ msgstr "Ditt konto har inte rättigheter att använda <%s> som Från-adress."
+
+#~ msgid "Novell Connector for Exchange"
+#~ msgstr "Novell Connector för Exchange"
+
+#~ msgid "Permission denied."
+#~ msgstr "Åtkomst nekas."
+
+#~ msgid "Permission Denied"
+#~ msgstr "Åtkomst nekas"
+
+#~ msgid "Permissions"
+#~ msgstr "Rättigheter"
 
 #~ msgid "_Move Folder..."
 #~ msgstr "_Flytta mapp..."
