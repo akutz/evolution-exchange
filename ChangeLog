@@ -1,3 +1,10 @@
+2004-05-24  Sarfraaz Ahmed  <asarfraaz@novell.com>
+
+	Fixes #58754
+
+	* calendar/e-cal-backend-exchange-tasks.c (create_task_object): Set 
+	summary to empty string when it is NULL.
+
 2004-05-21  Dan Winship  <danw@novell.com>
 
 	* storage/exchange-hierarchy-webdav.c (xfer_folder): Return a

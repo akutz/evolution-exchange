@@ -914,6 +914,8 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 
 	real_icalcomp = icalparser_parse_string (*calobj);
 	summary = e2k_properties_get_prop (props, E2K_PR_HTTPMAIL_THREAD_TOPIC);
+	if (!summary)
+		summary = g_strdup ("");
 
 	e2kctx = exchange_account_get_context (ecalbex->account);
 	status = e_folder_exchange_proppatch_new (ecalbex->folder, NULL,
@@ -1027,7 +1029,7 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	E2kProperties *props;
 	icalcomponent *icalcomp;
 	const char* comp_uid, *from_name, *from_addr, *summary;
-	char *comp_str, *location;
+	char *comp_str;
 	struct icaltimetype current;
 	ECalBackendSyncStatus status;
 	E2kContext *e2kctx;
