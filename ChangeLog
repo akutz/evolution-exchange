@@ -1,3 +1,9 @@
+2005-02-10  Jeffrey Stedfast  <fejj@novell.com>
+
+	* camel/camel-exchange-search.c (exchange_body_contains): Check
+	network availability. If unavail, fall back to parent search class
+	body_contains() method.
+
 2005-02-12  Arafat Medini <kinryu@silverpen.de>
 
 	* configure.in  Readded Arabic locale ar to ALL_LINGUAS
