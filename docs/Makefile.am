@@ -10,7 +10,6 @@ EXTRA_DIST =			\
 	entryids		\
 	forms			\
 	http			\
-	icalendar		\
 	mail			\
 	mapi-properties		\
 	non-ipm-subtree		\

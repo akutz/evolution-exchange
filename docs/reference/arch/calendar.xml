@@ -1,0 +1,212 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="ximian-connector-calendar">
+<refmeta>
+<refentrytitle>Calendar Architecture</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>XIMIAN-CONNECTOR Library</refmiscinfo>
+</refmeta>
+
+<refnamediv></refnamediv>
+
+<para>
+    For the most part, Connector uses iCalendar for
+    <application>Exchange</application> calendaring. Many iCalendar
+    properties are also automatically promoted to WebDAV properties in
+    the <literal>urn:schemas:calendar:</literal> namespace. In
+    particular:
+</para>
+
+<variablelist>
+    <varlistentry>
+	<term><literal>DTEND</literal></term>
+	<listitem><para><literal>urn:schemas:calendar:dtend</literal>,
+	aka <literal>E2K_PR_CALENDAR_DTEND</literal></para></listitem>
+    </varlistentry>
+    <varlistentry>
+	<term><literal>DTSTART</literal></term>
+	<listitem><para><literal>urn:schemas:calendar:dtstart</literal>,
+	aka <literal>E2K_PR_CALENDAR_DTSTART</literal></para></listitem>
+    </varlistentry>
+    <varlistentry>
+	<term><literal>LAST-MODIFIED</literal></term>
+	<listitem><para><literal>urn:schemas:calendar:lastmodifiedtime</literal>,
+	aka <literal>E2K_PR_CALENDAR_LAST_MODIFIED</literal></para></listitem>
+    </varlistentry>
+    <varlistentry>
+	<term><literal>UID</literal></term>
+	<listitem><para><literal>urn:schemas:calendar:uid</literal>,
+	aka <literal>E2K_PR_CALENDAR_UID</literal></para></listitem>
+    </varlistentry>
+</variablelist>
+
+<para>
+    These (and others) can be used in searches to find specific events
+    or ranges of events.
+</para>
+
+<para>
+    The iCalendar data can be found in either of two ways:
+</para>
+
+<orderedlist>
+    <listitem>
+	<para>
+	    By doing a <command>GET</command> and parsing the
+	    iCalendar data out of the returned message body
+	</para>
+    </listitem>
+    <listitem>
+	<para>
+	    By retrieving the object's
+	    <literal>PR_INTERNET_CONTENT</literal> property via a
+	    <command>PROPFIND</command> or
+	    <command>BPROPFIND</command>.
+	</para>
+    </listitem>
+</orderedlist>
+
+<para>
+    The second method only works on objects that were created as
+    iCalendar objects (ie, created in
+    <application>Evolution</application>). Objects created by
+    <application>Outlook</application> will not have the
+    <literal>PR_INTERNET_CONTENT</literal> property set, so we have to
+    fall back to using <command>GET</command>. Also note that for some
+    reason, <literal>PR_INTERNET_CONTENT</literal> will not be
+    returned by the <command>SEARCH</command> command. Only by
+    <command>PROPFIND</command> and <command>BPROPFIND</command>.
+</para>
+
+<para>
+    Exchange uses some non-standard iCalendar properties, and uses
+    some properties in non-standard ways. Here are some of the things
+    we know:
+</para>
+
+<refsect3>
+<title>All-day events</title>
+
+<para>
+    <application>Exchange</application> does not use iCalendar
+    <literal>DATE</literal>s, only <literal>DATE-TIME</literal>s. To
+    represent an all-day event, it sets the <literal>DTSTART</literal>
+    and <literal>DTEND</literal> to UTC values corresponding to the
+    boundaries of the day in the local time zone, and then sets the
+    <literal>X-MICROSOFT-CDO-ALLDAYEVENT</literal> property to
+    <literal>TRUE</literal>.
+</para>
+
+</refsect3>
+
+<refsect3>
+<title>Free/Busy Transparency</title>
+
+<para>
+    <application>Exchange</application> allows an event to have any of
+    four different free/busy status: <literal>FREE</literal>,
+    <literal>TENTATIVE</literal>, <literal>BUSY</literal>, or
+    <literal>OUTOFOFFICE</literal>. This information is kept in the
+    <literal>X-MICROSOFT-CDO-BUSYSTATUS</literal> property.
+</para>
+
+<para>
+    Sometimes events created by <application>Outlook</application> or
+    <application>OWA</application> will not have an iCalendar
+    <literal>TRANSP</literal> property, so we must fake it based on
+    the value of <literal>X-MICROSOFT-CDO-BUSYSTATUS</literal>.
+</para>
+
+<para>
+    Meeting requests sent from <application>Outlook</application> also
+    have an <literal>X-MICROSOFT-CDO-INTENDEDSTATUS</literal>
+    property. This seems to be used to indicate what
+    <literal>BUSYSTATUS</literal> value the organizer intended the
+    recipient to use.
+</para>
+
+</refsect3>
+
+<refsect3>
+<title>Priority</title>
+
+<para>
+    <literal>X-MICROSOFT-CDO-IMPORTANCE</literal> essentially
+    duplicates <literal>PRIORITY</literal>. It can be
+    <literal>MAPI_IMPORTANCE_HIGH</literal> (<constant>0</constant>),
+    <literal>MAPI_IMPORTANCE_NORMAL</literal> (<constant>1</constant>), or
+    <literal>MAPI_IMPORTANCE_LOW</literal> (<constant>2</constant>).
+</para>
+
+</refsect3>
+
+<refsect3>
+<title>Recurrences</title>
+
+<para>
+    An object in an <application>Exchange</application> calendar
+    folder can be one of four different kinds of "instance":
+</para>
+
+<itemizedlist>
+    <listitem>
+	<para>
+	    A non-recurring event.
+	</para>
+    </listitem>
+    <listitem>
+	<para>
+	    The master entry for a recurring appointment.
+	</para>
+    </listitem>
+    <listitem>
+	<para>
+	    A single instance of a recurring appointment. These
+	    objects are generated when you view your calendar in
+	    <application>OWA</application>, but are redundant with the
+	    information in the appointment's master entry.
+	</para>
+    </listitem>
+    <listitem>
+	<para>
+	    An exception to a recurring appointment. (It is not clear
+	    that these actually appear in WebDAV.)
+	</para>
+    </listitem>
+</itemizedlist>
+
+<para>
+    The instance type of an object is stored in its
+    <literal>X-MICROSOFT-CDO-INSTTYPE</literal> iCalendar property,
+    which is also visible as the
+    <literal>urn:schemas:calendar:instancetype</literal> (aka
+    <literal>E2K_PR_CALENDAR_INSTANCE_TYPE</literal>) WebDAV property,
+    with one of the values <literal>cdoSingle</literal>
+    (<constant>0</constant>), <literal>cdoMaster</literal>
+    (<constant>1</constant>), <literal>cdoInstance</literal>
+    (<constant>2</constant>), or <literal>cdoException</literal>
+    (<constant>3</constant>), corresponding to the four types
+    described above.
+</para>
+
+</refsect3>
+
+<refsect3>
+<title>Last Action Time</title>
+
+<para>
+    <application>Outlook</application>/<application>Exchange</application>
+    keep track of the last time an action was taken with respect to a
+    meeting request in the
+    <literal>X-MICROSOFT-CDO-REPLYTIME</literal> property. When
+    accepting a meeting request, it should be set in both the saved
+    meeting and the reply to the organizer. It must also be set in a
+    <link linkend="ximian-connector-booking">direct booked</link>
+    meeting. <application>Outlook</application> displays this
+    timestamp to the user when viewing the meeting.
+</para>
+
+</refsect3>
+
+</refentry>
