@@ -1,3 +1,10 @@
+2005-01-25  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* storage/exchange-account.c (exchange_account_connect): Properly
+	set use_ntlm when reconnecting to server. This now tries either
+	Basic or Plaintext authentication if one of them fails. Patch submitted
+	by Soren Hansen and fixes #70730
+
 2005-01-10  Not Zed  <NotZed@Ximian.com>
 
 	* mail/mail-stub.c (mail_stub_read_args): long/int ->uint32.
