@@ -268,7 +268,20 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 
 	uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
 	if (cbex->priv->mode == CAL_MODE_LOCAL) {
+		ESource *source;
+		const char *display_contents = NULL;
+
 		d(printf ("ECBE : cal is offline .. load cache\n"));
+
+		cbex->priv->read_only = TRUE;
+		source = e_cal_backend_get_source (E_CAL_BACKEND (cbex));
+		display_contents = e_source_get_property (source, "offline_sync");
+		
+		if (!display_contents || !g_str_equal (display_contents, "1")) {
+			e_cal_backend_notify_error (E_CAL_BACKEND (cbex), _("Repository is Offline"));
+			return GNOME_Evolution_Calendar_RepositoryOffline;
+		}
+
 		euri = e2k_uri_new (uristr);
 		load_cache (cbex, euri);
 		e2k_uri_free (euri);

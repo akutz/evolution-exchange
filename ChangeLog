@@ -1,3 +1,17 @@
+2005-01-15  Sushma Rai  <rsushma@novell.com>
+
+	* camel/camel-exchange-provider.c: Enabled offline sync
+	check box for Exchange provider in exchange_conf_entries[].
+
+	* calendar/e-cal-backend-exchange.c (open_calendar):
+	Handling offline_sync esource property.
+
+	* storage/exchange-account.c: (exchange_account_new): Reading 
+	and storing offline sync. and password expiry warning period value set.
+	(finalize): Freeing offline sync variable.
+	(find_passwd_exp_period): Using the password expiry warning period
+	value set instead of default value.
+
 2005-01-12  Sushma Rai  <rsushma@novell.com>
 
 	* camel/camel-exchange-provider.c: Added private function

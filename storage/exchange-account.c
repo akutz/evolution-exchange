@@ -79,9 +79,9 @@ struct _ExchangeAccountPrivate {
 	gboolean uris_use_email;
 
 	char *identity_name, *identity_email, *source_uri, *password_key;
-	char *username, *password, *windows_domain, *ad_server;
+	char *username, *password, *windows_domain, *ad_server, *offline_sync;
 	E2kAutoconfigAuthPref auth_pref;
-	int ad_limit;
+	int ad_limit, passwd_exp_warn_period;
 
 	EAccountList *account_list;
 	EAccount *account;
@@ -284,6 +284,9 @@ finalize (GObject *object)
 
 	if (account->priv->ad_server)
 		g_free (account->priv->ad_server);
+
+	if (account->priv->offline_sync)
+		g_free (account->priv->offline_sync);
 
 	if (account->priv->connect_lock)
 		g_mutex_free (account->priv->connect_lock);
@@ -976,7 +979,7 @@ find_passwd_exp_period (ExchangeAccount *account, E2kGlobalCatalogEntry *entry)
 		max_pwd_age_days = 
 		( max_pwd_age * ONE_HUNDRED_NANOSECOND ) / SECONDS_IN_DAY;
 
-		if (max_pwd_age_days <= PASSWD_EXPIRY_NOTIFICATION_PERIOD) {
+		if (max_pwd_age_days <= account->priv->passwd_exp_warn_period) {
 			/* This we need for changing password */
 			current_passwd = exchange_account_get_password (account);
 			display_passwd_expiry_message (max_pwd_age_days, 
@@ -1664,7 +1667,7 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 {
 	ExchangeAccount *account;
 	char *enc_user, *mailbox;
-	const char *param, *proto, *owa_path, *pf_server;
+	const char *param, *proto, *owa_path, *pf_server, *passwd_exp_warn_period, *offline_sync;
 	E2kUri *uri;
 
 	uri = e2k_uri_new (adata->source->url);
@@ -1722,6 +1725,18 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 		if (param)
 			account->priv->ad_limit = atoi (param);
 	}
+	
+	passwd_exp_warn_period = e2k_uri_get_param (uri, "passwd_exp_warn_period");
+	if (!passwd_exp_warn_period || !*passwd_exp_warn_period)
+		account->priv->passwd_exp_warn_period = PASSWD_EXPIRY_NOTIFICATION_PERIOD;
+	else
+		account->priv->passwd_exp_warn_period = atoi (passwd_exp_warn_period);
+
+	offline_sync = e2k_uri_get_param (uri, "offline_sync");
+	if (!offline_sync || !*offline_sync)
+		account->priv->offline_sync = g_strdup ("0");
+	else
+		account->priv->offline_sync = g_strdup (offline_sync);
 
 	owa_path = e2k_uri_get_param (uri, "owa_path");
 	if (!owa_path || !*owa_path)
