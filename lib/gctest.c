@@ -43,7 +43,8 @@ do_lookup (E2kGlobalCatalog *gc, const char *user)
 	E2kGlobalCatalogEntry *entry;
 	E2kGlobalCatalogLookupType type;
 	guint32 flags;
-	int i;
+	int i; 
+	double maxAge;
 
 	if (*user == '/')
 		type = E2K_GLOBAL_CATALOG_LOOKUP_BY_LEGACY_EXCHANGE_DN;
@@ -58,11 +59,12 @@ do_lookup (E2kGlobalCatalog *gc, const char *user)
 		E2K_GLOBAL_CATALOG_LOOKUP_LEGACY_EXCHANGE_DN |
 		E2K_GLOBAL_CATALOG_LOOKUP_DELEGATES |
 		E2K_GLOBAL_CATALOG_LOOKUP_DELEGATORS |
-		E2K_GLOBAL_CATALOG_LOOKUP_QUOTA ;
+		E2K_GLOBAL_CATALOG_LOOKUP_QUOTA |
+		E2K_GLOBAL_CATALOG_LOOKUP_ACCOUNT_CONTROL;
 
 	e2k_operation_init (&op);
 	status = e2k_global_catalog_lookup (gc, &op, type, user, flags, &entry);
-	e2k_operation_free (&op);
+	// e2k_operation_free (&op);
 
 	switch (status) {
 	case E2K_GLOBAL_CATALOG_OK:
@@ -113,6 +115,14 @@ do_lookup (E2kGlobalCatalog *gc, const char *user)
 		printf ("    Stop sending mails at  : %d\n", entry->quota_nosend);
 	if (entry->quota_norecv)
 		printf ("    Stop sending and recieving mails at : %d\n", entry->quota_norecv);
+	if (entry->user_account_control)
+		printf ("    user_account_control : %d\n", entry->user_account_control);
+	
+
+	maxAge = lookup_passwd_max_age (gc, &op);
+	printf("Password max age is %f \n", maxAge);
+
+	e2k_operation_free (&op);
 
 	e2k_global_catalog_entry_free (gc, entry);
 	test_quit ();

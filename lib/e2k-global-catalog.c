@@ -644,6 +644,22 @@ get_quota_values (E2kGlobalCatalog *gc, E2kOperation *op,
 	}
 }
 
+static void
+get_account_control_values (E2kGlobalCatalog *gc, E2kOperation *op, 
+			    LDAPMessage *msg, E2kGlobalCatalogEntry *entry)
+{
+	char **values;
+
+	values = ldap_get_values (gc->priv->ldap, msg, "userAccountControl");
+	if (values) {
+		entry->user_account_control = atoi(values[0]);
+		E2K_GC_DEBUG_MSG(("GC: userAccountControl %s\n", values[0]));
+		entry->mask |= E2K_GLOBAL_CATALOG_LOOKUP_ACCOUNT_CONTROL;
+		ldap_value_free (values);
+	}
+	
+}
+
 /**
  * e2k_global_catalog_lookup:
  * @gc: the global catalog
@@ -685,6 +701,7 @@ e2k_global_catalog_lookup (E2kGlobalCatalog *gc,
 		entry = g_new0 (E2kGlobalCatalogEntry, 1);
 
 	attrs = g_ptr_array_new ();
+
 	if (!entry->display_name)
 		g_ptr_array_add (attrs, "displayName");
 	if (!entry->email) {
@@ -719,6 +736,8 @@ e2k_global_catalog_lookup (E2kGlobalCatalog *gc,
 		g_ptr_array_add (attrs, "mDBOverQuotaLimit");
 		g_ptr_array_add (attrs, "mDBOverHardQuotaLimit");
 	}
+	if (lookup_flags & E2K_GLOBAL_CATALOG_LOOKUP_ACCOUNT_CONTROL)
+		g_ptr_array_add (attrs, "userAccountControl");
 
 	if (attrs->len == 0) {
 		E2K_GC_DEBUG_MSG(("\nGC: returning cached info for %s\n", key));
@@ -775,6 +794,7 @@ e2k_global_catalog_lookup (E2kGlobalCatalog *gc,
 	if (!entry->dn) {
 		dn = ldap_get_dn (gc->priv->ldap, resp);
 		entry->dn = g_strdup (dn);
+		E2K_GC_DEBUG_MSG(("GC: dn = %s\n\n", dn));
 		ldap_memfree (dn);
 		g_ptr_array_add (gc->priv->entries, entry);
 		g_hash_table_insert (gc->priv->entry_cache,
@@ -785,6 +805,7 @@ e2k_global_catalog_lookup (E2kGlobalCatalog *gc,
 	get_mail_values (gc, op, resp, entry);
 	get_delegation_values (gc, op, resp, entry);
 	get_quota_values (gc, op, resp, entry);
+	get_account_control_values (gc, op, resp, entry);
 	ldap_msgfree (msg);
 
  lookedup:
@@ -960,6 +981,91 @@ lookup_controlling_ad_server (E2kGlobalCatalog *gc, E2kOperation *op,
 
 	E2K_GC_DEBUG_MSG(("GC:   %s\n", hostname));
 	return hostname;
+}
+
+static gchar *
+find_domain_dn (char *domain)
+{
+	GString *dn_value = g_string_new (NULL);
+	gchar *dn;
+	char  *sub_domain=NULL;
+
+	sub_domain = strtok (domain, ".");
+	while (sub_domain != NULL) {
+		g_string_append (dn_value, "DC=");
+		g_string_append (dn_value, sub_domain);
+		g_string_append (dn_value, ",");
+		sub_domain = strtok (NULL, ".");
+	}
+	dn = g_strndup (dn_value->str, strlen(dn_value->str) - 1);
+	g_string_free (dn_value, TRUE);
+	return dn;
+}
+
+double 
+lookup_passwd_max_age (E2kGlobalCatalog *gc, E2kOperation *op)
+{
+	char **values = NULL, *filter = NULL, *val=NULL;
+	const char *attrs[2];
+	LDAP *ldap;
+	LDAPMessage *msg=NULL;
+	int ldap_error, msgid;
+	double maxAge=0;
+	gchar *dn=NULL;
+	
+	attrs[0] = "maxPwdAge";
+	attrs[1] = NULL;
+
+	filter = g_strdup("objectClass=domainDNS");
+
+	dn = find_domain_dn (gc->domain);
+
+	ldap_error = get_ldap_connection (gc, op, gc->priv->server, LDAP_PORT, &ldap);
+	if (ldap_error != LDAP_SUCCESS) {
+		E2K_GC_DEBUG_MSG(("GC: Establishing ldap connection failed : 0x%02x\n\n", 
+									ldap_error));
+		return -1; 
+	}
+
+	ldap_error = ldap_search_ext (ldap, dn, LDAP_SCOPE_BASE, filter, (char **)attrs, 
+				      FALSE, NULL, NULL, NULL, 0, &msgid);
+	if (!ldap_error) {
+		ldap_error = gc_ldap_result (ldap, op, msgid, &msg);
+		if (ldap_error) {
+			E2K_GC_DEBUG_MSG(("GC: ldap_result failed: 0x%02x\n\n", ldap_error));
+			return -1;
+		}
+	}
+	else {
+		E2K_GC_DEBUG_MSG(("GC: ldap_search failed:0x%02x \n\n", ldap_error));
+		return -1;
+	}
+
+	values = ldap_get_values (ldap, msg, "maxPwdAge");
+	if (!values) {
+		E2K_GC_DEBUG_MSG(("GC: couldn't retrieve maxPwdAge\n")); 
+		return -1;
+	}
+
+	if (values[0]) {
+		val = values[0];
+		if (*val == '-')
+			++val; 
+		maxAge = strtod (val, NULL);
+	}
+
+	//g_hash_table_insert (gc->priv->server_cache, g_strdup (dn), hostname); FIXME?
+
+	E2K_GC_DEBUG_MSG(("GC:   maxPwdAge = %f\n", maxAge));
+
+	if (msg)
+		ldap_msgfree (msg);
+	if (values)
+		ldap_value_free (values);
+	ldap_unbind (ldap);
+	g_free (filter);
+	g_free (dn);
+	return maxAge;
 }
 
 static E2kGlobalCatalogStatus

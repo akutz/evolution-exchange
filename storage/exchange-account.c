@@ -51,6 +51,10 @@
 #include <string.h>
 
 #define d(x) x
+#define ADS_UF_DONT_EXPIRE_PASSWORD 0x10000
+#define ONE_HUNDRED_NANOSECOND 0.000000100
+#define SECONDS_IN_DAY 86400
+#define PASSWD_EXPIRY_NOTIFICATION_PERIOD 7
 
 struct _ExchangeAccountPrivate {
 	E2kContext *ctx;
@@ -881,6 +885,56 @@ is_password_expired (ExchangeAccount *account, E2kAutoconfig *ac)
 	return (result == E2K_KERBEROS_PASSWORD_EXPIRED);
 }
 
+static void
+find_passwd_exp_period (ExchangeAccount *account, E2kGlobalCatalogEntry *entry)
+{
+	double max_pwd_age = 0;
+	int max_pwd_age_days;
+	E2kOperation gcop;
+	E2kGlobalCatalogStatus gcstatus;
+	const char *passwd_expiry_msg=NULL;
+
+	/* Check for password expiry period */ 
+	/* This needs to be invoked after is_password_expired(), i.e., 
+	   only if password is not expired */
+
+	/* Check for account control value for a user */
+
+	e2k_operation_init (&gcop);
+	gcstatus = e2k_global_catalog_lookup (account->priv->gc, 
+					      &gcop, 
+					      E2K_GLOBAL_CATALOG_LOOKUP_BY_EMAIL, 
+					      account->priv->identity_email, 
+					      E2K_GLOBAL_CATALOG_LOOKUP_ACCOUNT_CONTROL, 
+					      &entry); 
+	e2k_operation_free (&gcop);
+	if (gcstatus != E2K_GLOBAL_CATALOG_OK) 
+		return;
+       
+	if (entry->user_account_control & ADS_UF_DONT_EXPIRE_PASSWORD) 
+		return;         /* Password is not set to expire */
+
+	/* Here we don't check not setting the password and expired password */ 
+	/* Check for the maximum password age set */
+
+	e2k_operation_init (&gcop); 
+	max_pwd_age = lookup_passwd_max_age (account->priv->gc, &gcop); 
+	e2k_operation_free (&gcop);
+
+	if (max_pwd_age > 0) {
+		/* Calculate password expiry period */
+		max_pwd_age_days = 
+			( max_pwd_age * ONE_HUNDRED_NANOSECOND ) / SECONDS_IN_DAY;
+
+		if (max_pwd_age_days <= PASSWD_EXPIRY_NOTIFICATION_PERIOD) {
+			passwd_expiry_msg = 
+			g_strdup_printf ("Your password will expire in next %d days \n", 
+					  max_pwd_age_days);
+			e_notice (NULL, GTK_MESSAGE_WARNING, passwd_expiry_msg); 
+		} 
+	} 
+}
+
 char *
 exchange_account_get_password (ExchangeAccount *account)
 {
@@ -968,9 +1022,7 @@ exchange_account_connect (ExchangeAccount *account)
 	E2kGlobalCatalogEntry *entry;
 	E2kOperation gcop;
 	const char *quota_msg = NULL;
-	GtkWidget *quota_dialog;
-	int quota_resp;
-	const char *user_name = NULL;
+	char *user_name = NULL;
 
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
 
@@ -1157,6 +1209,10 @@ exchange_account_connect (ExchangeAccount *account)
 		if (timezone)
 			account->default_timezone = g_strdup (timezone);
 	}
+
+	/* Find the password expiery peripod and display warning */
+	find_passwd_exp_period(account, entry);
+	
 	/* Check for quota warnings */
 	e2k_operation_init (&gcop);
 	gcstatus = e2k_global_catalog_lookup (account->priv->gc, &gcop,

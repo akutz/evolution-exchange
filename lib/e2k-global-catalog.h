@@ -70,6 +70,7 @@ typedef enum {
 	E2K_GLOBAL_CATALOG_LOOKUP_DELEGATES          = (1 << 4),
 	E2K_GLOBAL_CATALOG_LOOKUP_DELEGATORS         = (1 << 5),
 	E2K_GLOBAL_CATALOG_LOOKUP_QUOTA		     = (1 << 6),
+	E2K_GLOBAL_CATALOG_LOOKUP_ACCOUNT_CONTROL    = (1 << 7)
 } E2kGlobalCatalogLookupFlags;
 
 typedef struct {
@@ -77,7 +78,8 @@ typedef struct {
 	E2kSid *sid;
 	char *email, *exchange_server, *mailbox, *legacy_exchange_dn;
 	GPtrArray *delegates, *delegators;
-	int quota_warn, quota_nosend, quota_norecv;
+	int quota_warn, quota_nosend, quota_norecv; 
+	int user_account_control;
 
 	E2kGlobalCatalogLookupFlags mask;
 } E2kGlobalCatalogEntry;
@@ -101,6 +103,10 @@ void             e2k_global_catalog_async_lookup (E2kGlobalCatalog *gc,
 						  E2kGlobalCatalogLookupFlags flags,
 						  E2kGlobalCatalogCallback callback,
 						  gpointer user_data);
+
+double		lookup_passwd_max_age (E2kGlobalCatalog *gc, 
+				      E2kOperation *op);
+
 
 #define e2k_global_catalog_entry_free(gc, entry)
 

@@ -1,3 +1,20 @@
+2004-11-04  Sushma Rai  <rsushma@novell.com>
+
+	* storage/exchange-account.c (exchange_account_connect): Finding
+	password expiry period. Removed unused variables.
+	(find_passwd_exp_period): Finds the days left for password to expire
+	and displys the warning. 
+
+	* lib/e2k-global-catalog.[ch] (e2k_global_catalog_lookup)
+	(get_account_control_values): Finding the value of the attribute 
+	userAccountControl.
+	(find_domain_dn): Forming the base DN for the LDAP search for maxPwdAge
+	from domain name.
+	(lookup_passwd_max_age): Finds the value of the attribute maxPwdAge.
+
+	*lib/gctest.c (do_lookup): Looking up for userAccountControl and maxPwdAge
+	attributes.
+
 2004-11-03  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* storage/exchange-account.c (exchange_account_connect)(exchange_account_new)
