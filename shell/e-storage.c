@@ -29,7 +29,7 @@
 #include "e-folder-tree.h"
 #include "e-shell-marshal.h"
 
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n-lib.h>
 #include <gal/util/e-util.h>
 
 #include <string.h>

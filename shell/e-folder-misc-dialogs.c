@@ -30,6 +30,7 @@
 #include <bonobo-activation/bonobo-activation-activate.h>
 #include <bonobo/bonobo-exception.h>
 #include <bonobo/bonobo-widget.h>
+#include <glib/gi18n-lib.h>
 #include <glade/glade-xml.h>
 #include <gtk/gtkbox.h>
 #include <gtk/gtkentry.h>
@@ -39,7 +40,6 @@
 #include <gtk/gtkstock.h>
 #include <e-util/e-dialog-utils.h>
 #include <e-util/e-request.h>
-#include <libgnome/gnome-i18n.h>
 
 #undef GTK_DISABLE_DEPRECATED
 #include <gtk/gtkcombo.h>

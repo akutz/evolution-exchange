@@ -29,9 +29,9 @@
 
 #include "e-storage-set-view.h"
 
+#include <glib/gi18n-lib.h>
 #include <e-util/e-dialog-utils.h>
 
-#include <libgnome/gnome-i18n.h>
 #include <libgnome/gnome-util.h>
 
 #include <string.h>

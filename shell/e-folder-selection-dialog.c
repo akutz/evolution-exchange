@@ -32,7 +32,7 @@
 
 #include "e-folder-creation-dialog.h"
 
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n-lib.h>
 
 #include <gal/util/e-util.h>
 #include <gal/widgets/e-gui-utils.h>
