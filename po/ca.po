@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-23 13:10+0100\n"
-"PO-Revision-Date: 2004-09-03 19:23+0200\n"
+"POT-Creation-Date: 2005-02-07 13:59+0100\n"
+"PO-Revision-Date: 2005-01-23 19:23+0200\n"
 "Last-Translator: Xavier Conde Rueda <xaviconde@eresmas.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,162 +16,172 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: addressbook/e-book-backend-exchange.c:1686
-#: addressbook/e-book-backend-gal.c:1214 storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:1807
+#: ../addressbook/e-book-backend-gal.c:1344 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "S'està cercant..."
 
-#: addressbook/e-book-backend-gal.c:239
+#: ../addressbook/e-book-backend-gal.c:243
 msgid "Reconnecting to LDAP server..."
 msgstr "S'està tornant a connectar amb el servidor LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1118
+#: ../addressbook/e-book-backend-gal.c:1218
 msgid "Receiving LDAP search results..."
 msgstr "S'estan rebent els resultats de la cerca LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1235
+#: ../addressbook/e-book-backend-gal.c:1365
 msgid "Error performing search"
 msgstr "S'ha produït un error en cercar"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1423
+#: ../calendar/e-cal-backend-exchange.c:277
+msgid "Folder not marked for offline support"
+msgstr ""
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:1712
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
 
-#: calendar/e-cal-backend-exchange-calendar.c:1442
+#: ../calendar/e-cal-backend-exchange-calendar.c:1731
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
-msgstr ""
+msgstr "Els recurs '%s' està ocupat durant el període de temps seleccionat."
 
-#: camel/camel-exchange-folder.c:215
+#: ../camel/camel-exchange-folder.c:220
 msgid "Can only expunge in Deleted Items folder"
 msgstr "Només es pot buidar la carpeta d'elements suprimits"
 
-#: camel/camel-exchange-folder.c:239
+#: ../camel/camel-exchange-folder.c:244
 msgid "No Subject"
 msgstr "Sense assumpte"
 
 # fitxer: camel.ca.po.4
-#: camel/camel-exchange-folder.c:586
+#: ../camel/camel-exchange-folder.c:598
 msgid "Moving messages"
 msgstr "S'està movent els missatges"
 
 # fitxer: camel.ca.po.4
-#: camel/camel-exchange-folder.c:587
+#: ../camel/camel-exchange-folder.c:599
 msgid "Copying messages"
 msgstr "S'està copiant els missatges"
 
 # fitxer: camel.ca.po.3
-#: camel/camel-exchange-folder.c:890
+#: ../camel/camel-exchange-folder.c:930
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "No s'ha pogut crear el directori %s: %s"
 
 # fitxer: camel.ca.po.3
-#: camel/camel-exchange-folder.c:900
+#: ../camel/camel-exchange-folder.c:940
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "No s'ha pogut carregar el resum per a %s"
 
-#: camel/camel-exchange-folder.c:908
+#: ../camel/camel-exchange-folder.c:948
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "No s'ha pogut crear la memòria cau per a %s"
 
+#: ../camel/camel-exchange-folder.c:958
+#, fuzzy, c-format
+msgid "Could not create journal for %s"
+msgstr "No s'ha pogut crear la memòria cau per a %s"
+
 # fitxer: camel.ca.po.3
-#: camel/camel-exchange-folder.c:948
+#: ../camel/camel-exchange-folder.c:998
 msgid "Scanning for changed messages"
 msgstr "S'està cercant els missatges canviats"
 
 # Gnome_2.6_Extras [evolution.HEAD.ca.po]
-#: camel/camel-exchange-folder.c:972
+#: ../camel/camel-exchange-folder.c:1022
 msgid "Fetching summary information for new messages"
 msgstr "S'està recollint la informació de resum per als nous missatges"
 
-#. i18n: the '_' should appear before the same letter it
-#. does in the evolution:mail-config.glade "_Host"
-#. translation (or not at all)
-#: camel/camel-exchange-provider.c:44
-msgid "Exc_hange Server:"
-msgstr "Mà_quina servidor d'Exchange:"
+#: ../camel/camel-exchange-journal.c:279
+msgid "No folder name found\n"
+msgstr ""
+
+#: ../camel/camel-exchange-journal.c:342
+msgid "Cannot append message in offline mode: cache unavailable"
+msgstr ""
+
+#: ../camel/camel-exchange-journal.c:358
+#, fuzzy, c-format
+msgid "Cannot append message in offline mode: %s"
+msgstr ""
+"No s'ha pogut afegir el missatge. La bústia de correu ha superat la quota"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: camel/camel-exchange-provider.c:49
+#: ../camel/camel-exchange-provider.c:46
 msgid "Windows User_name:"
 msgstr "_Nom d'usuari de Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: camel/camel-exchange-provider.c:54
+#: ../camel/camel-exchange-provider.c:51
 msgid "Global Address List / Active Directory"
 msgstr "Llista d'adreces global / directori actiu"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:55
 msgid "Global Catalog server name:"
 msgstr "Nom del servidor de catàleg global:"
 
-#: camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:57
 #, c-format
 msgid "Limit number of GAL responses: %s"
 msgstr "Nombre límit de respostes de GAL: %s"
 
-#: camel/camel-exchange-provider.c:63
-msgid "Exchange Server"
-msgstr "Servidor Exchange"
+#: ../camel/camel-exchange-provider.c:60
+msgid "Options"
+msgstr ""
 
-#. i18n: "Mailbox" is an Outlookism. FIXME
-#: camel/camel-exchange-provider.c:66
-msgid "Mailbox name"
-msgstr "Nom de bústia de correu"
+#: ../camel/camel-exchange-provider.c:62
+#, c-format
+msgid "Password Expiry Warning period: %s"
+msgstr ""
 
-#. i18n: "OWA" == "Outlook Web Access". Might not be translated?
-#: camel/camel-exchange-provider.c:69
-msgid "OWA path"
-msgstr "Camí a OWA"
-
-#. i18n: "Public Folder" is an Outlookism
-#: camel/camel-exchange-provider.c:72
-msgid "Public Folder server"
-msgstr "Servidor de carpeta pública"
+#: ../camel/camel-exchange-provider.c:64
+msgid "Automatically synchronize account locally"
+msgstr ""
 
 # Gnome_2.6_Extras [evolution.HEAD.ca.po]
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:76
+#: ../camel/camel-exchange-provider.c:68
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr ""
 "Aplica els filtres als nous missatges a la bústia d'entrada en aquest "
 "servidor"
 
 # fitxer: camel.ca.po.3
-#: camel/camel-exchange-provider.c:78
+#: ../camel/camel-exchange-provider.c:70
 msgid "Check new messages for Junk contents"
 msgstr "Comprova si hi ha brossa al contingut dels nous missatges"
 
-#: camel/camel-exchange-provider.c:80
+#: ../camel/camel-exchange-provider.c:72
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "Només comprova els missatges brossa a la carpeta de Bústia d'entrada"
 
-#: camel/camel-exchange-provider.c:86
+#: ../camel/camel-exchange-provider.c:88
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: camel/camel-exchange-provider.c:88
+#: ../camel/camel-exchange-provider.c:90
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr ""
 "Per gestionar el correu (i altres dades) en servidors Microsoft Exchange"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:106
+#: ../camel/camel-exchange-provider.c:106
 msgid "Secure Password"
 msgstr "Contrasenya segura"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:109
+#: ../camel/camel-exchange-provider.c:109
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -179,11 +189,11 @@ msgstr ""
 "Amb aquesta opció es connectarà al servidor Exchange fent servir "
 "autenticació amb contrasenya segura (NTLM)."
 
-#: camel/camel-exchange-provider.c:117
+#: ../camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "Contrasenya sense xifrar"
 
-#: camel/camel-exchange-provider.c:119
+#: ../camel/camel-exchange-provider.c:119
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -191,203 +201,328 @@ msgstr ""
 "Amb aquesta opció es connectarà al servidor Exchange fent servir "
 "autenticació amb contrasenya sense xifrar."
 
-#: camel/camel-exchange-store.c:259
+#: ../camel/camel-exchange-store.c:260
 #, c-format
 msgid "Exchange server %s"
 msgstr "Servidor Exchange %s"
 
-#: camel/camel-exchange-store.c:262
+#: ../camel/camel-exchange-store.c:263
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Compte Exchange per a %s a %s"
 
-#: camel/camel-exchange-store.c:289
+#: ../camel/camel-exchange-store.c:290
 msgid "Evolution Exchange backend process"
 msgstr "Procés de suport per a Exchange d'Evolution"
 
-#: camel/camel-exchange-transport.c:110
+#: ../camel/camel-exchange-store.c:352
+#, fuzzy, c-format
+msgid "No such folder %s"
+msgstr "No existeix aquesta carpeta"
+
+#: ../camel/camel-exchange-store.c:480
+#, fuzzy
+msgid "Cannot get folder info in offline mode."
+msgstr "Aquesta operació no es pot realitzar estant desconnectat"
+
+#: ../camel/camel-exchange-store.c:542
+#, fuzzy
+msgid "Cannot create folder in offline mode."
+msgstr "No es pot crear una carpeta amb aquest nom"
+
+#: ../camel/camel-exchange-store.c:569
+#, fuzzy
+msgid "Cannot delete folder in offline mode."
+msgstr ""
+"No es pot suprimir la carpeta:\n"
+"%s"
+
+#: ../camel/camel-exchange-store.c:585
+#, fuzzy
+msgid "Cannot rename folder in offline mode."
+msgstr ""
+"No es pot reanomenar la carpeta:\n"
+"%s"
+
+#: ../camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr ""
 "El transport Exchange només es pot fer servir amb una font de correu "
 "d'Exchange"
 
 # Gnome_2.6_Extras [evolution.HEAD.ca.po]
-#: camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "No s'ha pogut enviar el missatge: un o més destinataris són invàlids"
 
-#: camel/camel-exchange-transport.c:131
+#: ../camel/camel-exchange-transport.c:131
 msgid "Could not find 'From' address in message"
 msgstr "No s'ha pogut trobar l'adreça 'De' al missatge"
 
-#: camel/camel-stub.c:134
+#: ../camel/camel-stub.c:134
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "No s'ha pogut crear el sòcol: %s"
 
-#: camel/camel-stub.c:149
+#: ../camel/camel-stub.c:149
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "No s'ha pogut connectar a %s: %s"
 
-#: camel/camel-stub.c:179
+#: ../camel/camel-stub.c:179
 #, c-format
 msgid "Path too long: %s"
 msgstr "El camí és massa llarg: %s"
 
-#: camel/camel-stub.c:205
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "No s'ha pogut iniciar el fil d'estat: %s"
 
-#: camel/camel-stub.c:457
+#: ../camel/camel-stub.c:457
 #, c-format
 msgid "Lost connection to %s"
 msgstr "S'ha perdut la connexió a %s"
 
-#: camel/camel-stub.c:461
+#: ../camel/camel-stub.c:461
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "S'ha produït un error en comunicar amb %s: %s"
 
+#: ../lib/e2k-autoconfig.c:1427 ../storage/exchange-autoconfig-wizard.c:224
+#, c-format
+msgid ""
+"Could not connect to the Exchange server.\n"
+"Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
+msgstr ""
+"No es pot connectar al servidor Exchange.\n"
+"Assegureu-vos que la URL és correcta. Podeu provar '%s' en comptes de '%s'."
+
+#: ../lib/e2k-autoconfig.c:1436 ../storage/exchange-autoconfig-wizard.c:232
+msgid ""
+"Could not locate Exchange server.\n"
+"Make sure the server name is spelled correctly and try again."
+msgstr ""
+"No es pot trobar el servidor Exchange.\n"
+"Assegureu-vos que el nom del servidor està ben escrit, i proveu de nou."
+
+#: ../lib/e2k-autoconfig.c:1446 ../storage/exchange-autoconfig-wizard.c:241
+msgid ""
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again."
+msgstr ""
+"No es pot autenticar al servidor Exchange.\n"
+"Assegureu-vos que el nom d'usuari i la contrasenya són correctes."
+
+#: ../lib/e2k-autoconfig.c:1454 ../storage/exchange-autoconfig-wizard.c:248
+#, c-format
+msgid ""
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again.\n"
+"\n"
+"You may need to specify the Windows domain name as part of your username "
+"(eg, \"MY-DOMAIN\\%s\")."
+msgstr ""
+"No es pot autenticar al servidor Exchange.\n"
+"Assegureu-vos que el nom d'usuari i la contrasenya són correctes.\n"
+"Potser heu d'especificar el nom de domini de Windows com a part del vostre "
+"nom d'usuari, per exemple 'EL-MEU-DOMINI\\%s'."
+
+#: ../lib/e2k-autoconfig.c:1467 ../storage/exchange-autoconfig-wizard.c:260
+msgid ""
+"Could not find OWA data at the indicated URL.\n"
+"Make sure the URL is correct and try again."
+msgstr ""
+"No s'han trobat dades OWA en la URL indicada.\n"
+"Assegureu-vos que la URL és correcta i proveu de nou."
+
+#: ../lib/e2k-autoconfig.c:1475
+#, fuzzy
+msgid ""
+"Ximian Connector requires access to certain functionality on the Exchange "
+"Server that appears to be disabled or blocked.  (This is usually "
+"unintentional.)  Your Exchange Administrator will need to enable this "
+"functionality in order for you to be able to use Ximian Connector.\n"
+"\n"
+"For information to provide to your Exchange administrator, please follow the "
+"link below:\n"
+"http://www.ximian.com/products/connector/iis-lockdown.html, http://www."
+"ximian.com/products/connector/iis-lockdown.html"
+msgstr ""
+"El Ximian Connector neessita accedir a certa funcionalitat en el servidor "
+"d'Exchange que sembla inhabilitada o blocada (normalment no és intencional). "
+"El vostre administrador d'Exchange haurà d'habilitar-ho perquè pugueu fer "
+"servir el Ximian Connector.\n"
+"\n"
+"En el següent enllaç trobareu la informació que heu de proporcionar al "
+"vostre administrador d'Exchange:"
+
+#: ../lib/e2k-autoconfig.c:1491 ../storage/exchange-autoconfig-wizard.c:288
+msgid ""
+"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
+"Connector supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"La URL del servidor Exchange és per a un servidor Exchange 5.5. El Ximian "
+"Connector suporta només Microsoft Exchange 2000 i 2003."
+
+#: ../lib/e2k-autoconfig.c:1500 ../storage/exchange-autoconfig-wizard.c:301
+msgid ""
+"Could not configure Exchange account because an unknown error occurred. "
+"Check the URL, username, and password, and try again."
+msgstr ""
+"No s'ha pogut configurar el compte d'Exchange degut a un error desconegut. "
+"Comproveu la URL, el nom d'usuari i la contrasenya."
+
+#: ../lib/e2k-autoconfig.c:1522
+#, fuzzy, c-format
+msgid "Enter password for %s"
+msgstr "%sIntroduïu la contrasenya per a %s"
+
+# Winrar 2.9->Dialog Caption:rarlng.dll
+#: ../lib/e2k-autoconfig.c:1523 ../storage/exchange-account.c:859
+msgid "Enter password"
+msgstr "Introduïu la contrasenya"
+
 # Gnome_2.6_Extras [printman.HEAD.ca.po]
 #. i18n: These are Outlook's words for the default roles in
 #. the folder permissions dialog.
-#: lib/e2k-security-descriptor.c:847
+#: ../lib/e2k-security-descriptor.c:847
 msgid "Owner"
 msgstr "Propietari"
 
-#: lib/e2k-security-descriptor.c:857
+#: ../lib/e2k-security-descriptor.c:857
 msgid "Publishing Editor"
 msgstr "Editor de publicació"
 
 # source\ui\utlui\initui.src string STR_AUTH_FIELD_EDITOR
 # Projecte_Open_Office_1.1 [sw.po]
-#: lib/e2k-security-descriptor.c:865
+#: ../lib/e2k-security-descriptor.c:865
 msgid "Editor"
 msgstr "Editor"
 
-#: lib/e2k-security-descriptor.c:872
+#: ../lib/e2k-security-descriptor.c:872
 msgid "Publishing Author"
 msgstr "Autor de publicació"
 
 # Mozilla 1.3->author.label
-#: lib/e2k-security-descriptor.c:878
+#: ../lib/e2k-security-descriptor.c:878
 msgid "Author"
 msgstr "Autor"
 
-#: lib/e2k-security-descriptor.c:883
+#: ../lib/e2k-security-descriptor.c:883
 msgid "Non-editing Author"
 msgstr "Autor no editor"
 
-#: lib/e2k-security-descriptor.c:887
+#: ../lib/e2k-security-descriptor.c:887
 msgid "Reviewer"
 msgstr "Revisat per"
 
 # Projecte_Mandrake [abiword-ca.po]
-#: lib/e2k-security-descriptor.c:889
+#: ../lib/e2k-security-descriptor.c:889
 msgid "Contributor"
 msgstr "Contribuïdor"
 
 # Mozilla 1.3->groupByNone.label
-#: lib/e2k-security-descriptor.c:891 storage/exchange-delegates.glade.h:7
+#: ../lib/e2k-security-descriptor.c:891
+#: ../storage/exchange-delegates.glade.h:7
 msgid "None"
 msgstr "Cap"
 
 # Netscape_4.7->Dialog Box Control:_ISRES.DLL
-#: lib/e2k-security-descriptor.c:906 storage/exchange-delegates-user.c:144
+#: ../lib/e2k-security-descriptor.c:906
+#: ../storage/exchange-delegates-user.c:144
 msgid "Custom"
 msgstr "Personal"
 
 # Mozilla 1.3->SelectUserTitleLine
-#: lib/e2k-user-dialog.c:149
+#: ../lib/e2k-user-dialog.c:144
 msgid "Select User"
 msgstr "Seleccioneu l'usuari"
 
 # fitxer: calendar.ca.po.4
-#: lib/e2k-user-dialog.c:199
+#: ../lib/e2k-user-dialog.c:182
 msgid "Addressbook..."
 msgstr "Llibreta d'adreces..."
 
-#: mail/mail-stub-exchange.c:231
+#: ../mail/mail-stub-exchange.c:231
 msgid "No such folder"
 msgstr "No existeix aquesta carpeta"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
-#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
-#: shell/e-storage.c:573 storage/xc-commands.c:315
+#: ../mail/mail-stub-exchange.c:248 ../mail/mail-stub-exchange.c:2309
+#: ../mail/mail-stub-exchange.c:2347 ../mail/mail-stub-exchange.c:2407
+#: ../shell/e-storage.c:573 ../storage/xc-commands.c:315
 msgid "Permission denied"
 msgstr "Permís denegat"
 
-#: mail/mail-stub-exchange.c:546
+#: ../mail/mail-stub-exchange.c:546
 msgid "No such folder."
 msgstr "No existeix aquesta carpeta."
 
-#: mail/mail-stub-exchange.c:555
+#: ../mail/mail-stub-exchange.c:555
 msgid "Could not create folder."
 msgstr "No s'ha pogut crear la carpeta."
 
-#: mail/mail-stub-exchange.c:601 mail/mail-stub-exchange.c:619
+#: ../mail/mail-stub-exchange.c:602 ../mail/mail-stub-exchange.c:620
 msgid "Could not open folder: Permission denied"
 msgstr "No s'ha pogut obrir la carpeta: permís denegat"
 
-#: mail/mail-stub-exchange.c:605 mail/mail-stub-exchange.c:718
+#: ../mail/mail-stub-exchange.c:606 ../mail/mail-stub-exchange.c:719
 msgid "Could not open folder"
 msgstr "No s'ha pogut obrir la carpeta"
 
-#: mail/mail-stub-exchange.c:773
+#: ../mail/mail-stub-exchange.c:774
 msgid "Could not open Deleted Items folder"
 msgstr "No s'ha pogut obrir la carpeta Elements suprimits"
 
-#: mail/mail-stub-exchange.c:1086 mail/mail-stub-exchange.c:1127
+#: ../mail/mail-stub-exchange.c:1094 ../mail/mail-stub-exchange.c:1135
 msgid "Could not get new messages"
 msgstr "No s'ha pogut obtenir els nous missatges"
 
-#: mail/mail-stub-exchange.c:1292
+#: ../mail/mail-stub-exchange.c:1300
 msgid "Could not empty Deleted Items folder"
 msgstr "No s'ha pogut buidar la carpeta Elements suprimits"
 
-#: mail/mail-stub-exchange.c:1364
+#: ../mail/mail-stub-exchange.c:1372
 msgid "Could not append message; mailbox is over quota"
 msgstr ""
 "No s'ha pogut afegir el missatge. La bústia de correu ha superat la quota"
 
 # Gnome_2.6_Fifth_Toe [balsa.balsa-2-0.ca.po]
-#: mail/mail-stub-exchange.c:1365
+#: ../mail/mail-stub-exchange.c:1373
 msgid "Could not append message"
 msgstr "No s'ha pogut afegir el missatge"
 
 # fitxer: camel.ca.po.3
-#: mail/mail-stub-exchange.c:1848
+#: ../mail/mail-stub-exchange.c:1856
 msgid "No such message"
 msgstr "No existeix el missatge"
 
-#: mail/mail-stub-exchange.c:1901
+#: ../mail/mail-stub-exchange.c:1909
 msgid "Message has been deleted"
 msgstr "S'ha suprimit el missatge"
 
-#: mail/mail-stub-exchange.c:1903
+#: ../mail/mail-stub-exchange.c:1911
 msgid "Error retrieving message"
 msgstr "Error en obtenir el missatge"
 
-#: mail/mail-stub-exchange.c:1945
+#: ../mail/mail-stub-exchange.c:1953
 msgid "Mailbox does not support full-text searching"
 msgstr "La bústia de correu no suporta la cerca de text complet"
 
-#: mail/mail-stub-exchange.c:2043
+#: ../mail/mail-stub-exchange.c:2051
 msgid "Unable to move/copy messages"
 msgstr "No es pot moure ni copiar missatges"
 
-#: mail/mail-stub-exchange.c:2214
+#: ../mail/mail-stub-exchange.c:2224
 msgid "No mail submission URI for this mailbox"
 msgstr "No hi ha cap URI per enviar correu per a aquesta bústia"
 
-#: mail/mail-stub-exchange.c:2250
+#: ../mail/mail-stub-exchange.c:2260
 msgid "Server won't accept mail via Exchange transport"
 msgstr "El servidor no acceptarà correu mitjançant transport Exchange"
 
-#: mail/mail-stub-exchange.c:2252
+#: ../mail/mail-stub-exchange.c:2262
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -396,7 +531,7 @@ msgstr ""
 "El vostre compte no té permís per usar <%s>\n"
 "com a adreça del remitent."
 
-#: mail/mail-stub-exchange.c:2264
+#: ../mail/mail-stub-exchange.c:2274
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -404,28 +539,28 @@ msgstr ""
 "No s'ha pogut enviar el missatge.\n"
 "Pot significar que el vostre compte ha superat la quota."
 
-#: mail/mail-stub-exchange.c:2268
+#: ../mail/mail-stub-exchange.c:2278
 msgid "Could not send message"
 msgstr "No s'ha pogut enviar el missatge"
 
 # Gnome_2.6_Desktop [gnomemeeting.HEAD.ca.po]
-#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
-#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
-#: storage/xc-commands.c:319
+#: ../mail/mail-stub-exchange.c:2301 ../mail/mail-stub-exchange.c:2352
+#: ../mail/mail-stub-exchange.c:2411 ../shell/e-storage.c:557
+#: ../storage/xc-commands.c:319
 msgid "Generic error"
 msgstr "Error genèric"
 
 # Gnome_2.6_Extras [evolution.HEAD.ca.po]
-#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:309
+#: ../mail/mail-stub-exchange.c:2305 ../storage/xc-commands.c:309
 msgid "Folder already exists"
 msgstr "La carpeta ja existeix"
 
-#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
-#: mail/mail-stub-exchange.c:2393
+#: ../mail/mail-stub-exchange.c:2332 ../mail/mail-stub-exchange.c:2374
+#: ../mail/mail-stub-exchange.c:2403
 msgid "Folder doesn't exist"
 msgstr "La carpeta no existeix"
 
-#: shell/e-folder-creation-dialog.c:138
+#: ../shell/e-folder-creation-dialog.c:138
 #, c-format
 msgid ""
 "Cannot create the specified folder:\n"
@@ -434,38 +569,38 @@ msgstr ""
 "No es pot crear la carpeta especificada:\n"
 "%s"
 
-#: shell/e-folder-creation-dialog.c:179
+#: ../shell/e-folder-creation-dialog.c:179
 #, c-format
 msgid "The specified folder name is not valid: %s"
 msgstr "El nom de carpeta especificat no és vàlid: %s"
 
 # Mozilla 1.3->newfolder_dialog_title
-#: shell/e-folder-creation-dialog.c:310
+#: ../shell/e-folder-creation-dialog.c:310
 msgid "Create New Folder"
 msgstr "Crea una carpeta nova"
 
 # Mozilla 1.3->allFilter
-#: shell/e-folder-creation-dialog.glade.h:1
-#: storage/exchange-autoconfig-wizard.glade.h:1
-#: storage/exchange-change-password.glade.h:1
+#: ../shell/e-folder-creation-dialog.glade.h:1
+#: ../storage/exchange-autoconfig-wizard.glade.h:1
+#: ../storage/exchange-change-password.glade.h:1
 msgid "*"
 msgstr "*"
 
 # fitxer: mail.ca.po.3
-#: shell/e-folder-creation-dialog.glade.h:2
+#: ../shell/e-folder-creation-dialog.glade.h:2
 msgid "Folder _name:"
 msgstr "_Nom de la carpeta:"
 
-#: shell/e-folder-creation-dialog.glade.h:3
+#: ../shell/e-folder-creation-dialog.glade.h:3
 msgid "Folder _type:"
 msgstr "_Tipus de carpeta:"
 
 # fitxer: mail.ca.po.3
-#: shell/e-folder-creation-dialog.glade.h:4
+#: ../shell/e-folder-creation-dialog.glade.h:4
 msgid "Specify where to create the folder:"
 msgstr "Especifiqueu on s'ha de crear la carpeta:"
 
-#: shell/e-folder-dnd-bridge.c:52
+#: ../shell/e-folder-dnd-bridge.c:52
 #, c-format
 msgid ""
 "Cannot transfer folder:\n"
@@ -474,7 +609,7 @@ msgstr ""
 "No es pot transferir la carpeta:\n"
 "%s"
 
-#: shell/e-folder-misc-dialogs.c:62
+#: ../shell/e-folder-misc-dialogs.c:62
 #, c-format
 msgid ""
 "Cannot delete folder:\n"
@@ -483,17 +618,17 @@ msgstr ""
 "No es pot suprimir la carpeta:\n"
 "%s"
 
-#: shell/e-folder-misc-dialogs.c:115
+#: ../shell/e-folder-misc-dialogs.c:115
 #, c-format
 msgid "Really delete folder \"%s\"?"
 msgstr "Voleu suprimir realment la carpeta '%s'?"
 
-#: shell/e-folder-misc-dialogs.c:129
+#: ../shell/e-folder-misc-dialogs.c:129
 #, c-format
 msgid "Delete \"%s\""
 msgstr "Suprimeix '%s'"
 
-#: shell/e-folder-misc-dialogs.c:154
+#: ../shell/e-folder-misc-dialogs.c:154
 #, c-format
 msgid ""
 "Cannot rename folder:\n"
@@ -503,17 +638,17 @@ msgstr ""
 "%s"
 
 # fitxer: mail.ca.po.3
-#: shell/e-folder-misc-dialogs.c:188
+#: ../shell/e-folder-misc-dialogs.c:188
 #, c-format
 msgid "Rename the \"%s\" folder to:"
 msgstr "Canvia el nom de la carpeta '%s' a:"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: shell/e-folder-misc-dialogs.c:191
+#: ../shell/e-folder-misc-dialogs.c:191
 msgid "Rename Folder"
 msgstr "Canvia el nom de la carpeta"
 
-#: shell/e-folder-misc-dialogs.c:205
+#: ../shell/e-folder-misc-dialogs.c:205
 #, c-format
 msgid "A folder named \"%s\" already exists. Please use a different name."
 msgstr "Existeix una carpeta anomenada '%s'. Useu un nom diferent."
@@ -521,34 +656,34 @@ msgstr "Existeix una carpeta anomenada '%s'. Useu un nom diferent."
 #. It would be nice to insensitivize the OK button appropriately
 #. instead of doing this, but unfortunately we can't do this for the
 #. Bonobo control.
-#: shell/e-folder-misc-dialogs.c:460
+#: ../shell/e-folder-misc-dialogs.c:439
 msgid "Please select a user."
 msgstr "Seleccioneu un usuari."
 
-#: shell/e-folder-misc-dialogs.c:560
+#: ../shell/e-folder-misc-dialogs.c:539
 msgid "Opening Folder"
 msgstr "Obrir carpeta"
 
-#: shell/e-folder-misc-dialogs.c:566
+#: ../shell/e-folder-misc-dialogs.c:545
 #, c-format
 msgid "Opening Folder \"%s\""
 msgstr "S'està obrint la carpeta '%s'"
 
-#: shell/e-folder-misc-dialogs.c:571
+#: ../shell/e-folder-misc-dialogs.c:550
 #, c-format
 msgid "in \"%s\" ..."
 msgstr "a '%s' ..."
 
-#: shell/e-folder-misc-dialogs.c:638
+#: ../shell/e-folder-misc-dialogs.c:617
 #, c-format
 msgid "Could not open other user's folder: %s."
 msgstr "No es pot obrir la carpeta d'un altre usuari: %s."
 
-#: shell/e-folder-misc-dialogs.c:688
+#: ../shell/e-folder-misc-dialogs.c:667
 msgid "Cannot find the specified other user's folder."
 msgstr "No es pot trobar la carpeta especificada d'un altre usuari."
 
-#: shell/e-folder-misc-dialogs.c:720
+#: ../shell/e-folder-misc-dialogs.c:699
 #, c-format
 msgid ""
 "Cannot unsubscribe from folder:\n"
@@ -557,154 +692,149 @@ msgstr ""
 "No es pot esborrar la subscripció de la carpeta:\n"
 "%s"
 
-#: shell/e-folder-misc-dialogs.c:773
+#: ../shell/e-folder-misc-dialogs.c:752
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "Voleu esborrar la subscripció de la carpeta '%s'?"
 
-#: shell/e-folder-misc-dialogs.c:787
+#: ../shell/e-folder-misc-dialogs.c:766
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "Esborra la subscripció de '%s'"
 
-#: shell/e-foreign-folder-dialog.glade.h:1
+#: ../shell/e-foreign-folder-dialog.glade.h:1
 msgid "Open Other User's Folder"
 msgstr "Obre la carpeta d'un altre usuari"
 
-#: shell/e-foreign-folder-dialog.glade.h:2
+#: ../shell/e-foreign-folder-dialog.glade.h:2
 msgid "_Account:"
 msgstr "_Compte:"
 
-#: shell/e-foreign-folder-dialog.glade.h:3
+#: ../shell/e-foreign-folder-dialog.glade.h:3
 msgid "_Folder Name:"
 msgstr "Nom de _carpeta:"
 
-#: shell/e-foreign-folder-dialog.glade.h:4
+#: ../shell/e-foreign-folder-dialog.glade.h:4
 msgid "_User:"
 msgstr "_Usuari:"
 
 # Gnome_2.6_Extras [gnome-glossary.HEAD.ca.po]
-#: shell/e-storage-set-view.etspec.h:1
+#: ../shell/e-storage-set-view.etspec.h:1
 msgid "Checkbox"
 msgstr "Quadre de verificació"
 
 # Netscape_4.7->Menu:RESDLL.DLL
-#: shell/e-storage-set-view.etspec.h:2
+#: ../shell/e-storage-set-view.etspec.h:2
 msgid "Folder"
 msgstr "Carpeta"
 
 # Gnome_2.6_Desktop [evolution-data-server.HEAD.ca.po]
-#: shell/e-storage.c:555
+#: ../shell/e-storage.c:555
 msgid "No error"
 msgstr "Cap error"
 
-#: shell/e-storage.c:559
+#: ../shell/e-storage.c:559
 msgid "A folder with the same name already exists"
 msgstr "Existeix una carpeta amb el mateix nom"
 
-#: shell/e-storage.c:561
+#: ../shell/e-storage.c:561
 msgid "The specified folder type is not valid"
 msgstr "El tipus de carpeta especificat no és vàlid"
 
-#: shell/e-storage.c:563
+#: ../shell/e-storage.c:563
 msgid "I/O error"
 msgstr "Error d'E/S"
 
-#: shell/e-storage.c:565
+#: ../shell/e-storage.c:565
 msgid "Not enough space to create the folder"
 msgstr "No hi ha prou espai per crear la carpeta"
 
-#: shell/e-storage.c:567
+#: ../shell/e-storage.c:567
 msgid "The folder is not empty"
 msgstr "La carpeta no està buida"
 
-#: shell/e-storage.c:569
+#: ../shell/e-storage.c:569
 msgid "The specified folder was not found"
 msgstr "No s'ha trobat la carpeta especificada"
 
-#: shell/e-storage.c:571
+#: ../shell/e-storage.c:571
 msgid "Function not implemented in this storage"
 msgstr "La funció no s'ha implementat en aquest magatzem"
 
-#: shell/e-storage.c:575
+#: ../shell/e-storage.c:575
 msgid "Operation not supported"
 msgstr "Operació no suportada"
 
-#: shell/e-storage.c:577
+#: ../shell/e-storage.c:577
 msgid "The specified type is not supported in this storage"
 msgstr "El tipus especificat no se suporta en el magatzem"
 
-#: shell/e-storage.c:579
+#: ../shell/e-storage.c:579
 msgid "The specified folder cannot be modified or removed"
 msgstr "La carpeta especificada no es pot modificar ni suprimir"
 
-#: shell/e-storage.c:581
+#: ../shell/e-storage.c:581
 msgid "Cannot make a folder a child of one of its descendants"
 msgstr "No es pot fer una carpeta d'un fill d'un dels seus descendents"
 
-#: shell/e-storage.c:583
+#: ../shell/e-storage.c:583
 msgid "Cannot create a folder with that name"
 msgstr "No es pot crear una carpeta amb aquest nom"
 
-#: shell/e-storage.c:585
+#: ../shell/e-storage.c:585
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Aquesta operació no es pot realitzar estant desconnectat"
 
 # Gnome_2.6_Desktop [evolution-data-server.HEAD.ca.po]
-#: shell/e-storage.c:587 storage/exchange-account.c:1280
+#: ../shell/e-storage.c:587 ../storage/exchange-account.c:1411
 msgid "Unknown error"
 msgstr "Error desconegut"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
 msgid "*Control*F5"
 msgstr "Control*F5"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Addressbook Exchange backend"
 msgstr "Suport d'Evolution per a la llibreta d'adreces d'Exchange"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
 msgid "Evolution Calendar Exchange backend"
 msgstr "Suport d'Evolution per al calendari d'Exchange"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
 msgid "Evolution Exchange Component"
 msgstr "Component Exchange de l'Evolution"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
 msgid "Exchange"
 msgstr "Exchange"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
 msgid "Ximian Connector for Exchange"
 msgstr "Ximian Connector per a Exchange"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
 msgid "_Exchange"
 msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:565
+#: ../storage/exchange-account.c:572
 #, c-format
 msgid "%s's Folders"
 msgstr "Carpeta de %s"
 
-#: storage/exchange-account.c:846
+#: ../storage/exchange-account.c:855
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sIntroduïu la contrasenya per a %s"
 
-# Winrar 2.9->Dialog Caption:rarlng.dll
-#: storage/exchange-account.c:850
-msgid "Enter password"
-msgstr "Introduïu la contrasenya"
-
-#: storage/exchange-account.c:1017
+#: ../storage/exchange-account.c:1033
 msgid "Cannot change password due to configuration problems"
 msgstr "No es pot canviar la contrasenya degut a un problema de configuració"
 
-#: storage/exchange-account.c:1032
+#: ../storage/exchange-account.c:1048
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -712,11 +842,33 @@ msgstr ""
 "El servidor ha rebutjat la contrasenya perquè és massa feble.\n"
 "Proveu amb una contrasenya diferent."
 
-#: storage/exchange-account.c:1037
+#: ../storage/exchange-account.c:1053
 msgid "Could not change password"
 msgstr "No es pot canviar la contrasenya"
 
-#: storage/exchange-account.c:1191
+#: ../storage/exchange-account.c:1137
+msgid "Personal Folders"
+msgstr "Carpetes personals"
+
+#: ../storage/exchange-account.c:1152
+msgid "Favorite Public Folders"
+msgstr "Carpetes públiques favorites"
+
+#. i18n: Outlookism
+#: ../storage/exchange-account.c:1169
+msgid "All Public Folders"
+msgstr "Totes les carpetes públiques"
+
+#. i18n: Outlookism
+#: ../storage/exchange-account.c:1183
+msgid "Global Address List"
+msgstr "Llista d'adreces global"
+
+#: ../storage/exchange-account.c:1269
+msgid "Exchange Account is offline. Cannot display folders\n"
+msgstr ""
+
+#: ../storage/exchange-account.c:1322
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -724,7 +876,7 @@ msgstr ""
 "No es pot autenticar al servidor. Potser la contrasenya és incorrecta.\n"
 "\n"
 
-#: storage/exchange-account.c:1196
+#: ../storage/exchange-account.c:1327
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -744,27 +896,12 @@ msgstr ""
 "O potser heu escrit incorrectament la contrasenya.\n"
 "\n"
 
-#: storage/exchange-account.c:1207
-msgid ""
-"Could not authenticate to server.\n"
-"\n"
-"You may need to use Plaintext Password authentication.\n"
-"\n"
-"Or you might have just typed your password wrong.\n"
-"\n"
-msgstr ""
-"No s'ha pogut autenticar al servidor.\n"
-"\n"
-"Potser heu de fer servir autenticació de contrasenya de text simple.\n"
-"\n"
-"O potser heu escrit incorrectament la contrasenya.\n"
-
-#: storage/exchange-account.c:1238
+#: ../storage/exchange-account.c:1369
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "La bústia de correu per a %s no està al servidor."
 
-#: storage/exchange-account.c:1243
+#: ../storage/exchange-account.c:1374
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -773,7 +910,7 @@ msgstr ""
 "El servidor '%s' executa l'Exchange 5.5, per tant\n"
 "no és compatible amb el Ximian Connector"
 
-#: storage/exchange-account.c:1250
+#: ../storage/exchange-account.c:1381
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -784,91 +921,26 @@ msgstr ""
 "Si OWA s'està executant en un camí diferent, heu d'especificar-ho en el\n"
 "diàleg de configuració del compte."
 
-#: storage/exchange-account.c:1258
+#: ../storage/exchange-account.c:1389
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "L'usuari %s no té cap bústia de correu a %s.\n"
 
-#: storage/exchange-account.c:1264 storage/exchange-account.c:1270
-#: storage/exchange-account.c:1278
+#: ../storage/exchange-account.c:1395 ../storage/exchange-account.c:1401
+#: ../storage/exchange-account.c:1409
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "No es pot connectar al servidor %s: %s"
 
-#: storage/exchange-account.c:1266
+#: ../storage/exchange-account.c:1397
 msgid "Could not resolve hostname"
 msgstr "No s'ha pogut resoldre el nom de màquina"
 
-#: storage/exchange-account.c:1272
+#: ../storage/exchange-account.c:1403
 msgid "Network error"
 msgstr "Error de xarxa"
 
-#: storage/exchange-account.c:1350
-msgid "Personal Folders"
-msgstr "Carpetes personals"
-
-#: storage/exchange-account.c:1365
-msgid "Favorite Public Folders"
-msgstr "Carpetes públiques favorites"
-
-#. i18n: Outlookism
-#: storage/exchange-account.c:1382
-msgid "All Public Folders"
-msgstr "Totes les carpetes públiques"
-
-#. i18n: Outlookism
-#: storage/exchange-account.c:1396
-msgid "Global Address List"
-msgstr "Llista d'adreces global"
-
-#: storage/exchange-autoconfig-wizard.c:224
-#, c-format
-msgid ""
-"Could not connect to the Exchange server.\n"
-"Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
-msgstr ""
-"No es pot connectar al servidor Exchange.\n"
-"Assegureu-vos que la URL és correcta. Podeu provar '%s' en comptes de '%s'."
-
-#: storage/exchange-autoconfig-wizard.c:232
-msgid ""
-"Could not locate Exchange server.\n"
-"Make sure the server name is spelled correctly and try again."
-msgstr ""
-"No es pot trobar el servidor Exchange.\n"
-"Assegureu-vos que el nom del servidor està ben escrit, i proveu de nou."
-
-#: storage/exchange-autoconfig-wizard.c:241
-msgid ""
-"Could not authenticate to the Exchange server.\n"
-"Make sure the username and password are correct and try again."
-msgstr ""
-"No es pot autenticar al servidor Exchange.\n"
-"Assegureu-vos que el nom d'usuari i la contrasenya són correctes."
-
-#: storage/exchange-autoconfig-wizard.c:248
-#, c-format
-msgid ""
-"Could not authenticate to the Exchange server.\n"
-"Make sure the username and password are correct and try again.\n"
-"\n"
-"You may need to specify the Windows domain name as part of your username "
-"(eg, \"MY-DOMAIN\\%s\")."
-msgstr ""
-"No es pot autenticar al servidor Exchange.\n"
-"Assegureu-vos que el nom d'usuari i la contrasenya són correctes.\n"
-"Potser heu d'especificar el nom de domini de Windows com a part del vostre "
-"nom d'usuari, per exemple 'EL-MEU-DOMINI\\%s'."
-
-#: storage/exchange-autoconfig-wizard.c:260
-msgid ""
-"Could not find OWA data at the indicated URL.\n"
-"Make sure the URL is correct and try again."
-msgstr ""
-"No s'han trobat dades OWA en la URL indicada.\n"
-"Assegureu-vos que la URL és correcta i proveu de nou."
-
-#: storage/exchange-autoconfig-wizard.c:267
+#: ../storage/exchange-autoconfig-wizard.c:267
 msgid ""
 "Ximian Connector requires access to certain functionality on the Exchange "
 "Server that appears to be disabled or blocked.  (This is usually "
@@ -886,23 +958,7 @@ msgstr ""
 "En el següent enllaç trobareu la informació que heu de proporcionar al "
 "vostre administrador d'Exchange:"
 
-#: storage/exchange-autoconfig-wizard.c:288
-msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"La URL del servidor Exchange és per a un servidor Exchange 5.5. El Ximian "
-"Connector suporta només Microsoft Exchange 2000 i 2003."
-
-#: storage/exchange-autoconfig-wizard.c:301
-msgid ""
-"Could not configure Exchange account because an unknown error occurred. "
-"Check the URL, username, and password, and try again."
-msgstr ""
-"No s'ha pogut configurar el compte d'Exchange degut a un error desconegut. "
-"Comproveu la URL, el nom d'usuari i la contrasenya."
-
-#: storage/exchange-autoconfig-wizard.c:345
+#: ../storage/exchange-autoconfig-wizard.c:345
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -913,7 +969,7 @@ msgstr ""
 "endarrere i especificar el nom de domini de Windows com a part del vostre "
 "nom d'usuari (p.e \"EL-MEU-DOMINI\\%s\")."
 
-#: storage/exchange-autoconfig-wizard.c:352
+#: ../storage/exchange-autoconfig-wizard.c:352
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -922,12 +978,12 @@ msgstr ""
 "Comproveu el nom del servidor."
 
 # Winrar 2.9->String:rarlng.dll
-#: storage/exchange-autoconfig-wizard.c:389
-#: storage/exchange-autoconfig-wizard.c:393
+#: ../storage/exchange-autoconfig-wizard.c:389
+#: ../storage/exchange-autoconfig-wizard.c:393
 msgid "Unknown"
 msgstr "Desconegut"
 
-#: storage/exchange-autoconfig-wizard.c:477
+#: ../storage/exchange-autoconfig-wizard.c:477
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -935,67 +991,67 @@ msgstr ""
 "Error del sistema de configuració.\n"
 "No es pot crear el nou compte."
 
-#: storage/exchange-autoconfig-wizard.c:491
-#: storage/exchange-config-listener.c:492
+#: ../storage/exchange-autoconfig-wizard.c:491
+#: ../storage/exchange-config-listener.c:578
 msgid "You may only configure a single Exchange account"
 msgstr "Només podeu configurar un compte d'Exchange"
 
-#: storage/exchange-autoconfig-wizard.glade.h:2
+#: ../storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
 msgstr "Ha fallat la configuració"
 
 # Winrar 2.9->String:rarlng.dll
-#: storage/exchange-autoconfig-wizard.glade.h:3
+#: ../storage/exchange-autoconfig-wizard.glade.h:3
 msgid "Done"
 msgstr "Fet"
 
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: storage/exchange-autoconfig-wizard.glade.h:4
+#: ../storage/exchange-autoconfig-wizard.glade.h:4
 msgid "Email Address:"
 msgstr "Adreça de correu electrònic:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:5
+#: ../storage/exchange-autoconfig-wizard.glade.h:5
 msgid "Exchange Configuration"
 msgstr "Configuració d'Exchange"
 
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: storage/exchange-autoconfig-wizard.glade.h:6
+#: ../storage/exchange-autoconfig-wizard.glade.h:6
 msgid "Full Name:"
 msgstr "Nom complet:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:7
+#: ../storage/exchange-autoconfig-wizard.glade.h:7
 msgid "GC Server:"
 msgstr "Servidor GC:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:8
+#: ../storage/exchange-autoconfig-wizard.glade.h:8
 msgid "Make this my default account"
 msgstr "Estableix com a compte predeterminat"
 
-#: storage/exchange-autoconfig-wizard.glade.h:9
+#: ../storage/exchange-autoconfig-wizard.glade.h:9
 msgid "OWA URL:"
 msgstr "OWA URL:"
 
 # Mozilla 1.3->editfield1.label
-#: storage/exchange-autoconfig-wizard.glade.h:10
+#: ../storage/exchange-autoconfig-wizard.glade.h:10
 msgid "Password:"
 msgstr "Contrasenya:"
 
 # fitxer: e-util.ca.po
-#: storage/exchange-autoconfig-wizard.glade.h:11
+#: ../storage/exchange-autoconfig-wizard.glade.h:11
 msgid "Remember this password"
 msgstr "Recorda aquesta contrasenya"
 
 # Projecte_Mandrake [xmms-ca.po]
-#: storage/exchange-autoconfig-wizard.glade.h:12
+#: ../storage/exchange-autoconfig-wizard.glade.h:12
 msgid "Username:"
 msgstr "Nom d'usuari:"
 
 # Netscape_4.7->Dialog Caption:_ISRES.DLL
-#: storage/exchange-autoconfig-wizard.glade.h:13
+#: ../storage/exchange-autoconfig-wizard.glade.h:13
 msgid "Welcome"
 msgstr "Benvinguts"
 
-#: storage/exchange-autoconfig-wizard.glade.h:14
+#: ../storage/exchange-autoconfig-wizard.glade.h:14
 msgid ""
 "Welcome to Ximian Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
@@ -1009,11 +1065,11 @@ msgstr ""
 "\n"
 "Cliqueu \"Endavant\" per continuar."
 
-#: storage/exchange-autoconfig-wizard.glade.h:19
+#: ../storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Ximian Connector Configuration"
 msgstr "Configuració del Ximian Connector"
 
-#: storage/exchange-autoconfig-wizard.glade.h:20
+#: ../storage/exchange-autoconfig-wizard.glade.h:20
 msgid ""
 "Ximian Connector can use account information from your existing Outlook Web "
 "Access (OWA) account.\n"
@@ -1027,7 +1083,7 @@ msgstr ""
 "Introduïu l'adreça (URL) del vostre lloc OWA, nom d'usuari, contrasenya i "
 "cliqueu \"Endavant\".\n"
 
-#: storage/exchange-autoconfig-wizard.glade.h:24
+#: ../storage/exchange-autoconfig-wizard.glade.h:24
 msgid ""
 "Ximian Connector could not find the Global Catalog replica for your site. "
 "Please enter the name of your Global Catalog server. You may need to ask "
@@ -1037,7 +1093,7 @@ msgstr ""
 "vostre lloc. Introduïu el nom del vostre servidor de catàleg global. Potser "
 "haureu de demanar-ho al vostre administrador del sistema.\n"
 
-#: storage/exchange-autoconfig-wizard.glade.h:26
+#: ../storage/exchange-autoconfig-wizard.glade.h:26
 msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
@@ -1045,7 +1101,7 @@ msgstr ""
 "El Ximian Connector ha trobat un problema en configurar el vostre compte "
 "d'Exchange.\n"
 
-#: storage/exchange-autoconfig-wizard.glade.h:28
+#: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
 "Your Connector account is now ready to use. Click the \"Apply\" button to "
 "save your\n"
@@ -1054,7 +1110,7 @@ msgstr ""
 "El vostre compte Connector ja està llest. Cliqueu el botó  \"Aplica\" per "
 "desar els vostres canvis."
 
-#: storage/exchange-autoconfig-wizard.glade.h:30
+#: ../storage/exchange-autoconfig-wizard.glade.h:30
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
@@ -1065,7 +1121,7 @@ msgstr ""
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
-#: storage/exchange-change-password.c:114
+#: ../storage/exchange-change-password.c:114
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
@@ -1073,56 +1129,59 @@ msgstr ""
 "La contrasenya actual és diferent de la contrasenya existent per al vostre "
 "compte. Introduïu la contrasenya correcta"
 
-#: storage/exchange-change-password.c:121
+#: ../storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr ""
 "Les dues contrasenyes són diferents. Torneu a introduir les contrasenyes."
 
 # Netscape_4.7->String:RESDLL.DLL
-#: storage/exchange-change-password.glade.h:2
+#: ../storage/exchange-change-password.glade.h:2
 msgid "Change Password"
 msgstr "Canvia la contrasenya"
 
 # Mozilla 1.3->editfield2.label
-#: storage/exchange-change-password.glade.h:3
+#: ../storage/exchange-change-password.glade.h:3
 msgid "Confirm Password:"
 msgstr "Confirmeu la contrasenya:"
 
-#: storage/exchange-change-password.glade.h:4
+#: ../storage/exchange-change-password.glade.h:4
 msgid "Current Password:"
 msgstr "Nova contrasenya:"
 
-#: storage/exchange-change-password.glade.h:5
+#: ../storage/exchange-change-password.glade.h:5
 msgid "New Password:"
 msgstr "Nova contrasenya:"
 
-#: storage/exchange-change-password.glade.h:6
+#: ../storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
 msgstr ""
 "La vostra contrasenya actual ha caducat. Canvieu ara mateix la vostra "
 "contrasenya."
 
 # Netscape_4.7->String:RESDLL.DLL
-#: storage/exchange-component.c:317
+#: ../storage/exchange-component.c:320
 msgid "Mail"
 msgstr "Correu"
 
 # fitxer: addressbook.gui.component.ca.po
-#: storage/exchange-component.c:320 storage/exchange-hierarchy-foreign.c:250
+#: ../storage/exchange-component.c:323
+#: ../storage/exchange-hierarchy-foreign.c:251
 msgid "Contacts"
 msgstr "Contactes"
 
 # Gnome_2.6_Desktop [gnome-panel.HEAD.ca.po]
-#: storage/exchange-component.c:324 storage/exchange-hierarchy-foreign.c:258
+#: ../storage/exchange-component.c:327
+#: ../storage/exchange-hierarchy-foreign.c:259
 msgid "Tasks"
 msgstr "Tasques"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: storage/exchange-component.c:327 storage/exchange-hierarchy-foreign.c:249
+#: ../storage/exchange-component.c:330
+#: ../storage/exchange-hierarchy-foreign.c:250
 msgid "Calendar"
 msgstr "Calendari"
 
-#: storage/exchange-config-listener.c:607
+#: ../storage/exchange-config-listener.c:693
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
@@ -1130,17 +1189,17 @@ msgstr ""
 "Els canvis a la configuració del compte d'Exchange\n"
 "s'aplicaran quan sortiu i reinicieu l'Evolution."
 
-#: storage/exchange-config-listener.c:653
+#: ../storage/exchange-config-listener.c:739
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr "El compte d'Exchange se suprimirà quan sortiu de l'Evolution"
 
-#: storage/exchange-delegates-user.c:191
-#: storage/exchange-permissions-dialog.c:179
+#: ../storage/exchange-delegates-user.c:191
+#: ../storage/exchange-permissions-dialog.c:179
 #, c-format
 msgid "Permissions for %s"
 msgstr "Permisos per a %s"
 
-#: storage/exchange-delegates.c:221
+#: ../storage/exchange-delegates.c:221
 msgid ""
 "No Global Catalog server configured for this account.\n"
 "Unable to edit delegates."
@@ -1148,7 +1207,7 @@ msgstr ""
 "No s'han configurat catàlegs globals per a aquest compte.\n"
 "No es poden editar delegats."
 
-#: storage/exchange-delegates.c:260
+#: ../storage/exchange-delegates.c:260
 msgid ""
 "Could not read folder permissions.\n"
 "Unable to edit delegates."
@@ -1156,7 +1215,7 @@ msgstr ""
 "No es poden llegir els permisos de la carpeta.\n"
 "No es poden editar els delegats."
 
-#: storage/exchange-delegates.c:267
+#: ../storage/exchange-delegates.c:267
 msgid ""
 "Could not determine folder permissions for delegates.\n"
 "Unable to edit delegates."
@@ -1165,61 +1224,61 @@ msgstr ""
 "No es poden editar els delegats."
 
 # fitxer: calendar.ca.po.4
-#: storage/exchange-delegates.c:419
+#: ../storage/exchange-delegates.c:419
 msgid "Delegate To:"
 msgstr "Delega a:"
 
-#: storage/exchange-delegates.c:419
+#: ../storage/exchange-delegates.c:419
 msgid "Delegate To"
 msgstr "Delega a"
 
-#: storage/exchange-delegates.c:435
+#: ../storage/exchange-delegates.c:435
 #, c-format
 msgid "Could not make %s a delegate"
 msgstr "No es pot convertir %s en delegat"
 
-#: storage/exchange-delegates.c:445
+#: ../storage/exchange-delegates.c:445
 msgid "You cannot make yourself your own delegate"
 msgstr "No podeu fer-vos el vostre propi delegat"
 
-#: storage/exchange-delegates.c:454
+#: ../storage/exchange-delegates.c:454
 #, c-format
 msgid "%s is already a delegate"
 msgstr "%s ja és un delegat"
 
-#: storage/exchange-delegates.c:563
+#: ../storage/exchange-delegates.c:563
 #, c-format
 msgid "Remove the delegate %s?"
 msgstr "Voleu suprimir el delegat %s?"
 
-#: storage/exchange-delegates.c:680
+#: ../storage/exchange-delegates.c:680
 msgid "Could not access Active Directory"
 msgstr "No es pot accedir al Directori Actiu"
 
-#: storage/exchange-delegates.c:695
+#: ../storage/exchange-delegates.c:695
 msgid "Could not find self in Active Directory"
 msgstr "No se l'ha trobat al Directori Actiu"
 
-#: storage/exchange-delegates.c:708
+#: ../storage/exchange-delegates.c:708
 #, c-format
 msgid "Could not find delegate %s in Active Directory"
 msgstr "No s'ha trobat al delegat %s al Directori Actiu"
 
-#: storage/exchange-delegates.c:720
+#: ../storage/exchange-delegates.c:720
 #, c-format
 msgid "Could not remove delegate %s"
 msgstr "No es pot suprimir el delegat %s"
 
-#: storage/exchange-delegates.c:780
+#: ../storage/exchange-delegates.c:780
 msgid "Could not update list of delegates."
 msgstr "No es pot actualitzar la llista de delegats."
 
-#: storage/exchange-delegates.c:798
+#: ../storage/exchange-delegates.c:798
 #, c-format
 msgid "Could not add delegate %s"
 msgstr "No es pot afegir el delegat %s"
 
-#: storage/exchange-delegates.c:814
+#: ../storage/exchange-delegates.c:814
 #, c-format
 msgid ""
 "Failed to update delegates:\n"
@@ -1229,48 +1288,49 @@ msgstr ""
 "%s"
 
 # Winrar 2.9->String:rarlng.dll
-#: storage/exchange-delegates.c:938 storage/exchange-permissions-dialog.c:706
+#: ../storage/exchange-delegates.c:938
+#: ../storage/exchange-permissions-dialog.c:706
 msgid "Name"
 msgstr "Nom"
 
-#: storage/exchange-delegates.c:967
+#: ../storage/exchange-delegates.c:967
 msgid "Error reading delegates list."
 msgstr "S'ha produït un error en llegir la llista de delegats."
 
-#: storage/exchange-delegates.glade.h:1
+#: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
 msgstr "Autor (lectura, creació)"
 
 # Gnome_2.6_Desktop [zenity.HEAD.ca.po]
-#: storage/exchange-delegates.glade.h:2
+#: ../storage/exchange-delegates.glade.h:2
 msgid "C_alendar:"
 msgstr "C_alendari:"
 
-#: storage/exchange-delegates.glade.h:3
+#: ../storage/exchange-delegates.glade.h:3
 msgid "Co_ntacts:"
 msgstr "Co_ntactes:"
 
-#: storage/exchange-delegates.glade.h:4
+#: ../storage/exchange-delegates.glade.h:4
 msgid "Delegate Permissions"
 msgstr "Permisos del delegat"
 
-#: storage/exchange-delegates.glade.h:5
+#: ../storage/exchange-delegates.glade.h:5
 msgid "Delegates"
 msgstr "Delegats"
 
-#: storage/exchange-delegates.glade.h:6
+#: ../storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
 msgstr "Editor (llegir, crear, editar)"
 
-#: storage/exchange-delegates.glade.h:8
+#: ../storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
 msgstr "Permisos per a"
 
-#: storage/exchange-delegates.glade.h:9
+#: ../storage/exchange-delegates.glade.h:9
 msgid "Reviewer (read-only)"
 msgstr "Revisor (només lectura)"
 
-#: storage/exchange-delegates.glade.h:10
+#: ../storage/exchange-delegates.glade.h:10
 msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
@@ -1278,76 +1338,76 @@ msgstr ""
 "Els usuaris poden enviar correu electrònic en nom vostre\n"
 "i accedir a les vostres carpetes amb els permisos que els doneu."
 
-#: storage/exchange-delegates.glade.h:12
+#: ../storage/exchange-delegates.glade.h:12
 msgid "_Delegate can see private items"
 msgstr "El _delegat pot veure elements privats"
 
 # Projecte_Fedora [redhat-logviewer.ca.po]
-#: storage/exchange-delegates.glade.h:13
+#: ../storage/exchange-delegates.glade.h:13
 msgid "_Edit"
 msgstr "_Edita"
 
-#: storage/exchange-delegates.glade.h:14
+#: ../storage/exchange-delegates.glade.h:14
 msgid "_Inbox:"
 msgstr "Búst_ia d'entrada:"
 
-#: storage/exchange-delegates.glade.h:15
+#: ../storage/exchange-delegates.glade.h:15
 msgid "_Tasks:"
 msgstr "_Tasques:"
 
-#: storage/exchange-folder-size.c:204
+#: ../storage/exchange-folder-size.c:204
 msgid "Folder Name"
 msgstr "Nom de la carpeta"
 
-#: storage/exchange-folder-size.c:208
+#: ../storage/exchange-folder-size.c:208
 msgid "Folder Size"
 msgstr "Mida de la carpeta"
 
-#: storage/exchange-folder-tree.glade.h:1
+#: ../storage/exchange-folder-tree.glade.h:1
 msgid "Exchange Folder Tree"
 msgstr "Arbre de carpetes d'Exchange"
 
-#: storage/exchange-hierarchy-foreign.c:251
+#: ../storage/exchange-hierarchy-foreign.c:252
 msgid "Deleted Items"
 msgstr "Elements suprimits"
 
 # Mozilla 1.3->draftsFolderName
-#: storage/exchange-hierarchy-foreign.c:252
+#: ../storage/exchange-hierarchy-foreign.c:253
 msgid "Drafts"
 msgstr "Drafts"
 
 # Mozilla 1.3->inboxFolderName
-#: storage/exchange-hierarchy-foreign.c:253
+#: ../storage/exchange-hierarchy-foreign.c:254
 msgid "Inbox"
 msgstr "Inbox"
 
 # source\ui\utlui\initui.src string STR_AUTH_TYPE_INPROCEEDINGS
 # source\ui\utlui\initui.src string STR_AUTH_TYPE_JOURNAL
 # Projecte_Open_Office_1.1 [sw.po]
-#: storage/exchange-hierarchy-foreign.c:254
+#: ../storage/exchange-hierarchy-foreign.c:255
 msgid "Journal"
 msgstr "Revista"
 
 # Mozilla 1.3->2135
-#: storage/exchange-hierarchy-foreign.c:255
+#: ../storage/exchange-hierarchy-foreign.c:256
 msgid "Notes"
 msgstr "Notes"
 
 # source\misc\mediatyp.src string STR_SVT_MIMETYPE_CNT_OUTBOX
 # Projecte_Open_Office_1.1 [svtools.po]
-#: storage/exchange-hierarchy-foreign.c:256
+#: ../storage/exchange-hierarchy-foreign.c:257
 msgid "Outbox"
 msgstr "Carpeta de sortida"
 
-#: storage/exchange-hierarchy-foreign.c:257
+#: ../storage/exchange-hierarchy-foreign.c:258
 msgid "Sent Items"
 msgstr "Elements enviats"
 
-#: storage/exchange-migrate.c:57
+#: ../storage/exchange-migrate.c:57
 msgid "Migrating Exchange Folders..."
 msgstr "S'està fent la migració de les carpetes d'Exchange..."
 
-#: storage/exchange-migrate.c:65
+#: ../storage/exchange-migrate.c:65
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -1360,7 +1420,7 @@ msgstr ""
 "\n"
 "Espereu mentre l'Evolution fa la migració de les carpetes..."
 
-#: storage/exchange-migrate.c:98
+#: ../storage/exchange-migrate.c:98
 #, c-format
 msgid ""
 "Warning: Evolution Could not migrate all the Exchange account data from the "
@@ -1373,21 +1433,21 @@ msgstr ""
 "Les dades no s'han suprimit, però no es veuran amb aquesta versió d'Evolution"
 
 # Gnome_2.6_Extras [evolution.HEAD.ca.po]
-#: storage/exchange-migrate.c:129
+#: ../storage/exchange-migrate.c:129
 #, c-format
 msgid "Migrating `%s':"
 msgstr "S'està migrant \"%s\":"
 
-#: storage/exchange-oof.c:91 storage/exchange-oof.c:290
+#: ../storage/exchange-oof.c:91 ../storage/exchange-oof.c:290
 msgid "Could not update out-of-office state"
 msgstr "No es pot actualitzar l'estat de fora de l'oficina"
 
-#: storage/exchange-oof.c:308
+#: ../storage/exchange-oof.c:308
 msgid "Could not read out-of-office state"
 msgstr "No es pot llegir l'estat de fora de l'oficina"
 
 # Gnome_2.6_Extras [evolution.HEAD.ca.po]
-#: storage/exchange-oof.glade.h:1
+#: ../storage/exchange-oof.glade.h:1
 msgid ""
 "<b>Currently, your status is \"Out of the Office\". </b>\n"
 "\n"
@@ -1398,17 +1458,17 @@ msgstr ""
 "Voleu canviar el vostre estat a \"A l'oficina\"? "
 
 # Gnome_2.6_Extras [evolution.HEAD.ca.po]
-#: storage/exchange-oof.glade.h:4
+#: ../storage/exchange-oof.glade.h:4
 msgid "<b>Out of Office Message:</b>"
 msgstr "<b>Missatge d'absència de l'oficina:</b>"
 
 # Gnome_2.6_Extras [evolution.HEAD.ca.po]
-#: storage/exchange-oof.glade.h:5
+#: ../storage/exchange-oof.glade.h:5
 msgid "<b>Status:</b>"
 msgstr "<b>Estat:</b>"
 
 # Gnome_2.6_Extras [evolution.HEAD.ca.po]
-#: storage/exchange-oof.glade.h:6
+#: ../storage/exchange-oof.glade.h:6
 msgid ""
 "<small>The message specified below will be automatically sent to each person "
 "who sends\n"
@@ -1419,48 +1479,66 @@ msgstr ""
 "que us enviïn un correu quan no esteu a l'oficina.</small>"
 
 # Gnome_2.6_Extras [evolution.HEAD.ca.po]
-#: storage/exchange-oof.glade.h:8
+#: ../storage/exchange-oof.glade.h:8
 msgid "I am currently in the office"
 msgstr "En aquest moment estic a l'oficina"
 
 # Gnome_2.6_Extras [evolution.HEAD.ca.po]
-#: storage/exchange-oof.glade.h:9
+#: ../storage/exchange-oof.glade.h:9
 msgid "I am currently out of the office"
 msgstr "En aquest moment no estic a l'oficina"
 
 # Gnome_2.6_Extras [evolution.HEAD.ca.po]
-#: storage/exchange-oof.glade.h:10
+#: ../storage/exchange-oof.glade.h:10
 msgid "No, Don't Change Status"
 msgstr "No, no canviïs l'estat"
 
 # Gnome_2.6_Extras [evolution.HEAD.ca.po]
-#: storage/exchange-oof.glade.h:11
+#: ../storage/exchange-oof.glade.h:11
 msgid "Out of Office Assistant"
 msgstr "Assistent en absència de l'oficina"
 
 # Gnome_2.6_Extras [evolution.HEAD.ca.po]
-#: storage/exchange-oof.glade.h:12
+#: ../storage/exchange-oof.glade.h:12
 msgid "Yes, Change Status"
 msgstr "Sí, canvia l'estat"
 
-#: storage/exchange-permissions-dialog.c:222
+#: ../storage/exchange-passwd-expiry.glade.h:1
+msgid "Password Expiry Warning..."
+msgstr ""
+
+#: ../storage/exchange-passwd-expiry.glade.h:2
+msgid "Your password will expire in 7 days..."
+msgstr ""
+
+# Netscape_4.7->String:RESDLL.DLL
+#: ../storage/exchange-passwd-expiry.glade.h:3
+#, fuzzy
+msgid "_Change Password"
+msgstr "Canvia la contrasenya"
+
+#: ../storage/exchange-passwd-expiry.glade.h:4
+msgid "ok_button"
+msgstr ""
+
+#: ../storage/exchange-permissions-dialog.c:222
 msgid "Could not read folder permissions"
 msgstr "No s'han pogut llegir els permisos de la carpeta"
 
-#: storage/exchange-permissions-dialog.c:264
+#: ../storage/exchange-permissions-dialog.c:264
 msgid "Could not update folder permissions."
 msgstr "No s'han pogut actualitzar els permisos de la carpeta."
 
-#: storage/exchange-permissions-dialog.c:293
+#: ../storage/exchange-permissions-dialog.c:293
 #, c-format
 msgid "Could not update folder permissions. %s"
 msgstr "No s'han pogut actualitzar els permisos de la carpeta. %s"
 
-#: storage/exchange-permissions-dialog.c:295
+#: ../storage/exchange-permissions-dialog.c:295
 msgid "(Permission denied.)"
 msgstr "(Permís denegat.)"
 
-#: storage/exchange-permissions-dialog.c:396
+#: ../storage/exchange-permissions-dialog.c:396
 msgid ""
 "Unable to add user to access control list:\n"
 "No Global Catalog server is configured for this account."
@@ -1468,124 +1546,124 @@ msgstr ""
 "No es pot afegir l'usuari a la llista de control d'accés:\n"
 "No s'ha configurat cap servidor de catàleg global per a aquest compte."
 
-#: storage/exchange-permissions-dialog.c:402
+#: ../storage/exchange-permissions-dialog.c:402
 msgid "Add User:"
 msgstr "Afegeix un usuar:"
 
-#: storage/exchange-permissions-dialog.c:402
+#: ../storage/exchange-permissions-dialog.c:402
 msgid "Add User"
 msgstr "Afegeix un usuari"
 
-#: storage/exchange-permissions-dialog.c:421
+#: ../storage/exchange-permissions-dialog.c:421
 #, c-format
 msgid "No such user %s"
 msgstr "No existeix l'usuari %s"
 
-#: storage/exchange-permissions-dialog.c:425
+#: ../storage/exchange-permissions-dialog.c:425
 #, c-format
 msgid "%s cannot be added to an access control list"
 msgstr "No es pot afegir %s a una llista de control d'accés"
 
-#: storage/exchange-permissions-dialog.c:430
+#: ../storage/exchange-permissions-dialog.c:430
 #, c-format
 msgid "Unknown error looking up %s"
 msgstr "Error desconegut en cercar %s"
 
-#: storage/exchange-permissions-dialog.c:447
+#: ../storage/exchange-permissions-dialog.c:447
 #, c-format
 msgid "%s is already in the list"
 msgstr "%s ja hi és a la llista"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: storage/exchange-permissions-dialog.c:710
+#: ../storage/exchange-permissions-dialog.c:710
 msgid "Role"
 msgstr "Rol"
 
 # Projecte_Fedora [redhat-config-users.ca.po]
-#: storage/exchange-permissions-dialog.glade.h:1
+#: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
 msgstr "    "
 
-#: storage/exchange-permissions-dialog.glade.h:2
+#: ../storage/exchange-permissions-dialog.glade.h:2
 msgid "<b>Permissions</b>"
 msgstr "<b>Permisos</b>"
 
-#: storage/exchange-permissions-dialog.glade.h:3
+#: ../storage/exchange-permissions-dialog.glade.h:3
 msgid "Cannot Delete"
 msgstr "No es pot suprimir"
 
-#: storage/exchange-permissions-dialog.glade.h:4
+#: ../storage/exchange-permissions-dialog.glade.h:4
 msgid "Cannot Edit"
 msgstr "No es pot editar"
 
-#: storage/exchange-permissions-dialog.glade.h:5
+#: ../storage/exchange-permissions-dialog.glade.h:5
 msgid "Create items"
 msgstr "Crea elements"
 
-#: storage/exchange-permissions-dialog.glade.h:6
+#: ../storage/exchange-permissions-dialog.glade.h:6
 msgid "Create subfolders"
 msgstr "Crea subcarpetes"
 
-#: storage/exchange-permissions-dialog.glade.h:7
+#: ../storage/exchange-permissions-dialog.glade.h:7
 msgid "Delete Any Items"
 msgstr "Suprimeix qualsevol element"
 
-#: storage/exchange-permissions-dialog.glade.h:8
+#: ../storage/exchange-permissions-dialog.glade.h:8
 msgid "Delete Own Items"
 msgstr "Suprimeix els elements propis"
 
-#: storage/exchange-permissions-dialog.glade.h:9
+#: ../storage/exchange-permissions-dialog.glade.h:9
 msgid "Edit Any Items"
 msgstr "Edita qualsevol element"
 
-#: storage/exchange-permissions-dialog.glade.h:10
+#: ../storage/exchange-permissions-dialog.glade.h:10
 msgid "Edit Own Items"
 msgstr "Edita els elements propis"
 
-#: storage/exchange-permissions-dialog.glade.h:11
+#: ../storage/exchange-permissions-dialog.glade.h:11
 msgid "Folder contact"
 msgstr "Contacte de la carpeta"
 
-#: storage/exchange-permissions-dialog.glade.h:12
+#: ../storage/exchange-permissions-dialog.glade.h:12
 msgid "Folder owner"
 msgstr "Propietari de la carpeta"
 
-#: storage/exchange-permissions-dialog.glade.h:13
+#: ../storage/exchange-permissions-dialog.glade.h:13
 msgid "Folder visible"
 msgstr "Carpeta visible"
 
-#: storage/exchange-permissions-dialog.glade.h:14
+#: ../storage/exchange-permissions-dialog.glade.h:14
 msgid "Read items"
 msgstr "Llegeix elements"
 
-#: storage/exchange-permissions-dialog.glade.h:15
+#: ../storage/exchange-permissions-dialog.glade.h:15
 msgid "Role: "
 msgstr "Rol: "
 
 # Gnome_2.6_Desktop [gnome-control-center.HEAD.ca.po]
-#: storage/exchange-storage.c:336
+#: ../storage/exchange-storage.c:337
 msgid "Connecting..."
 msgstr "S'està connectant..."
 
-#: storage/main.c:168
+#: ../storage/main.c:166
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector per a Microsoft Exchange"
 
 # Mozilla 1.3->accnameTitle.label
-#: storage/xc-backend-view.c:299
+#: ../storage/xc-backend-view.c:299
 msgid "Account Name"
 msgstr "Nom del compte"
 
-#: storage/xc-commands.c:312
+#: ../storage/xc-commands.c:312
 msgid "Folder does not exist"
 msgstr "La carpeta no existeix"
 
-#: storage/xc-commands.c:339
+#: ../storage/xc-commands.c:339
 #, c-format
 msgid "Could not add favorite: %s"
 msgstr "No es pot afegir el favorit: %s"
 
-#: storage/xc-commands.c:355
+#: ../storage/xc-commands.c:355
 #, c-format
 msgid "Could not remove favorite: %s"
 msgstr "No es pot suprimir el favorit: %s"
@@ -1599,101 +1677,130 @@ msgstr "No es pot suprimir el favorit: %s"
 #. G_CALLBACK (do_copy_folder),
 #. XC_FOLDER_COMMAND_MASK_MOVECOPY),
 #.
-#: storage/xc-commands.c:381
+#: ../storage/xc-commands.c:381
 msgid "_Rename Folder..."
 msgstr "_Reanomena la carpeta..."
 
 # Gnome_2.6_Fifth_Toe [gthumb.HEAD.ca.po]
-#: storage/xc-commands.c:387
+#: ../storage/xc-commands.c:387
 msgid "_New Folder..."
 msgstr "_Nova carpeta..."
 
-#: storage/xc-commands.c:390
+#: ../storage/xc-commands.c:390
 msgid "_Delete Folder"
 msgstr "Suprimeix la _carpeta"
 
-#: storage/xc-commands.c:395
+#: ../storage/xc-commands.c:395
 msgid "_Add Other User's Folder..."
 msgstr "_Afegeix la carpeta d'altre usuari..."
 
-#: storage/xc-commands.c:398
+#: ../storage/xc-commands.c:398
 msgid "_Remove Other User's Folder"
 msgstr "Suprimeix _la carpeta d'altre usuari..."
 
-#: storage/xc-commands.c:404
+#: ../storage/xc-commands.c:404
 msgid "Add to _Favorites"
 msgstr "Afegeix als _favorits"
 
-#: storage/xc-commands.c:408
+#: ../storage/xc-commands.c:408
 msgid "Remove from Fa_vorites"
 msgstr "Suprimeix dels fa_vorits"
 
-#: storage/xc-commands.c:415
+#: ../storage/xc-commands.c:415
 msgid "_Permissions..."
 msgstr "_Permisos..."
 
-#: storage/xc-commands.c:419
+#: ../storage/xc-commands.c:419
 msgid "_Show Folder Sizes"
-msgstr ""
+msgstr "Mo_stra les mides de les carpetes"
 
-#: storage/ximian-connector-setup.c:44
+#: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
 msgstr "Eina de configuració del Ximian Connector per a Microsoft Exchange"
 
-#: storage/ximian-connector.xml.h:1
+#: ../storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
 msgstr "Canvieu la vostra contrasenya del servidor Exchange"
 
-#: storage/ximian-connector.xml.h:2
+#: ../storage/ximian-connector.xml.h:2
 msgid "Folder _Size"
 msgstr "_Mida de la carpeta"
 
-#: storage/ximian-connector.xml.h:3
+#: ../storage/ximian-connector.xml.h:3
 msgid "Get the size of personal folders"
-msgstr ""
+msgstr "Obté la mida de les carpetes personals"
 
-#: storage/ximian-connector.xml.h:4
+#: ../storage/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
 msgstr "Su_bscriu a la carpeta d'altres usuaris..."
 
-#: storage/ximian-connector.xml.h:5
+#: ../storage/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr ""
 "Subscriviu-vos a una carpeta que pertany a un altre usuari del servidor"
 
-#: storage/ximian-connector.xml.h:6
+#: ../storage/ximian-connector.xml.h:6
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
 "Esborra la subscripció a una carpeta afegida amb 'Subscriviu a la carpeta "
 "d'un altre usuari'"
 
-#: storage/ximian-connector.xml.h:7
+#: ../storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
 msgstr ""
 "Visualitzeu o canvieu la configuració de delegació del calendari d'Exchange"
 
-#: storage/ximian-connector.xml.h:8
+#: ../storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr ""
 "Visualitzeu o canvieu el vostre estat de fora de l'oficina i els missatge de "
 "resposta automàtica"
 
-#: storage/ximian-connector.xml.h:9
+#: ../storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
 msgstr "_Canvia la contrasenya d'Exchange..."
 
-#: storage/ximian-connector.xml.h:10
+#: ../storage/ximian-connector.xml.h:10
 msgid "_Delegation Assistant"
 msgstr "Assistent _de delegats"
 
-#: storage/ximian-connector.xml.h:11
+#: ../storage/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
 msgstr "Assistent per a \"f_ora de l'oficina\""
 
-#: storage/ximian-connector.xml.h:12
+#: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Esborra la s_ubscripció de carpeta d'altres usuaris"
+
+#~ msgid "Exc_hange Server:"
+#~ msgstr "Mà_quina servidor d'Exchange:"
+
+#~ msgid "Exchange Server"
+#~ msgstr "Servidor Exchange"
+
+#~ msgid "Mailbox name"
+#~ msgstr "Nom de bústia de correu"
+
+#~ msgid "OWA path"
+#~ msgstr "Camí a OWA"
+
+#~ msgid "Public Folder server"
+#~ msgstr "Servidor de carpeta pública"
+
+#~ msgid ""
+#~ "Could not authenticate to server.\n"
+#~ "\n"
+#~ "You may need to use Plaintext Password authentication.\n"
+#~ "\n"
+#~ "Or you might have just typed your password wrong.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "No s'ha pogut autenticar al servidor.\n"
+#~ "\n"
+#~ "Potser heu de fer servir autenticació de contrasenya de text simple.\n"
+#~ "\n"
+#~ "O potser heu escrit incorrectament la contrasenya.\n"
 
 #~ msgid "_Move Folder..."
 #~ msgstr "_Mou la carpeta..."
