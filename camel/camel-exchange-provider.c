@@ -164,7 +164,9 @@ exchange_validate_user_cb (CamelURL *camel_url, const char *owa_url,
 	camel_url_set_param(camel_url, "ad_server", valid?exchange_params->ad_server:NULL);
 	camel_url_set_param(camel_url, "mailbox", valid?exchange_params->mailbox:NULL);
 	camel_url_set_param(camel_url, "owa_path", valid?exchange_params->owa_path:NULL);
+
 	g_free (exchange_params->owa_path);
+	g_free (exchange_params->mailbox);
 	g_free (exchange_params);
 	return valid;
 }

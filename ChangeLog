@@ -1,5 +1,16 @@
 2005-03-29  Sushma Rai  <rsushma@novell.com>
 
+	* lib/e2k-autoconfig.c (validate): If the OWA url entered has wrong
+	protocol during account creation, displaying error message instead
+	of correcting the url and proceeding with the account creation.
+	Fixes #74050.
+	Also, prefixing the owa path with the slash. See #73627.
+
+	* camel/camel-exchange-provider.c (exchange_validate_user_cb): Freeing
+	mailbox parameter, after setting the value to camel url.
+
+2005-03-29  Sushma Rai  <rsushma@novell.com>
+
 	* storage/exchange-config-listener.c (add_esource): Fixed the problem
 	where e-source was being accessed after the unref. Also Selecting
 	calendar and tasks folders only if e-source is created.
