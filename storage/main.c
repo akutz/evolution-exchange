@@ -45,6 +45,7 @@
 #include "addressbook/e-book-backend-exchange.h"
 #include "addressbook/e-book-backend-exchange-factory.h"
 #include "addressbook/e-book-backend-gal.h"
+#include "addressbook/e-book-backend-gal-factory.h"
 #include "calendar/e-cal-backend-exchange-calendar.h"
 #include "calendar/e-cal-backend-exchange-tasks.h"
 #include "calendar/e-cal-backend-exchange-factory.h"
@@ -132,6 +133,10 @@ setup_addressbook_factory (void)
 	e_data_book_factory_register_backend (book_factory, 
 					      (g_object_new (e_book_backend_exchange_factory_get_type(), 
 							     NULL)));
+	e_data_book_factory_register_backend (book_factory, 
+					      (g_object_new (e_book_backend_gal_factory_get_type(), 
+							     NULL)));
+
         g_signal_connect (book_factory, "last_book_gone",
 			  G_CALLBACK (last_book_gone_cb), NULL);
 

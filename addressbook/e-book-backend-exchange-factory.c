@@ -55,21 +55,22 @@ GType
 e_book_backend_exchange_factory_get_type (void)
 {
 	static GType  type = 0;
-       if (!type) {
-	GTypeInfo info = {
-		sizeof (EBookBackendExchangeFactoryClass),
-		NULL, /* base_class_init */
-		NULL, /* base_class_finalize */
-		(GClassInitFunc)  e_book_backend_exchange_factory_class_init,
-		NULL, /* class_finalize */
-		NULL, /* class_data */
-		sizeof (EBookBackend),
-		0,    /* n_preallocs */
-		(GInstanceInitFunc) e_book_backend_exchange_factory_instance_init
-	};
 
-	type = g_type_register_static (E_TYPE_BOOK_BACKEND_FACTORY, 
-				       "EBookBackendExchangeFactory", &info, 0);
-}
+	if (!type) {
+		GTypeInfo info = {
+			sizeof (EBookBackendExchangeFactoryClass),
+			NULL, /* base_class_init */
+			NULL, /* base_class_finalize */
+			(GClassInitFunc)  e_book_backend_exchange_factory_class_init,
+			NULL, /* class_finalize */
+			NULL, /* class_data */
+			sizeof (EBookBackend),
+			0,    /* n_preallocs */
+			(GInstanceInitFunc) e_book_backend_exchange_factory_instance_init
+		};
+
+		type = g_type_register_static (E_TYPE_BOOK_BACKEND_FACTORY, 
+					       "EBookBackendExchangeFactory", &info, 0);
+	}
 	return type;
 }

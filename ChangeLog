@@ -1,5 +1,25 @@
 2004-10-05  Sushma Rai  <rsushma@novell.com>
 
+	* storage/main.c (setup_addressbook_factory): Registering
+	GAL backend.
+
+	* addressbook/e-book-backend-gal-factory.h: Added missed out semicolon.
+
+	* addressbook/Makefile.am: Added missed out slash, compiles gal
+	factory files.
+ 
+	* addressbook/e-book-backend-exchange-factory.c
+	(e_book_backend_exchange_factory_get_type): Indented properly.
+ 
+	* addressbook/e-book-backend-gal-factory.c : Added Copyright info
+	(e_book_backend_gal_factory_get_type): Making the type static.
+	
+	* calendar/e-cal-backend-exchange-factory.c
+	(events_backend_exchange_factory_get_type)
+	(todos_backend_exchange_factory_get_type): Likewise
+
+2004-10-05  Sushma Rai  <rsushma@novell.com>
+
 	* storage/main.c (setup_calendar_factory)(setup_addressbook_factory):
 	Changed registering the factory.
 

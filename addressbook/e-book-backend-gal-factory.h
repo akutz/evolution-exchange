@@ -1,4 +1,5 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
+
 /* e-book-backend-gal-factory.h
  *
  * Copyright (C) 2004  Novell, Inc.
@@ -17,7 +18,6 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  *
- * Author: Chris Toshok <toshok@ximian.com>
  */
 
 #ifndef _E_BOOK_BACKEND_GAL_FACTORY_H_
@@ -43,7 +43,7 @@ typedef struct {
 	EBookBackendFactoryClass parent_class;
 } EBookBackendGalFactoryClass;
 
-GType	e_book_backend_gal_factory_get_type (void)
+GType	e_book_backend_gal_factory_get_type (void);
 
 G_END_DECLS
 

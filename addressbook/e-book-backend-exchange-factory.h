@@ -1,4 +1,5 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
+
 /* e-book-backend-exchange-factory.h
  *
  * Copyright (C) 2004  Novell, Inc.

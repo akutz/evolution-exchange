@@ -1,10 +1,20 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/*
+
+/* Copyright (C) 2002-2004 Novell, Inc.
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of version 2 of the GNU General Public
+ * License as published by the Free Software Foundation.
  *
- * Author:
- *   Chris Toshok (toshok@ximian.com)
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
  *
- * Copyright 2000, Ximian, Inc.
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -44,21 +54,23 @@ e_book_backend_gal_factory_class_init (EBookBackendGalFactoryClass *klass)
 GType
 e_book_backend_gal_factory_get_type (void)
 {
-	GType type;
+	static GType type = 0;
 
-	GTypeInfo info = {
-		sizeof (EBookBackendGalFactoryClass),
-		NULL, /* base_class_init */
-		NULL, /* base_class_finalize */
-		(GClassInitFunc)  e_book_backend_gal_factory_class_init,
-		NULL, /* class_finalize */
-		NULL, /* class_data */
-		sizeof (EBookBackend),
-		0,    /* n_preallocs */
-		(GInstanceInitFunc) e_book_backend_gal_factory_instance_init
-	};
+	if (!type) {
+		GTypeInfo info = {
+			sizeof (EBookBackendGalFactoryClass),
+			NULL, /* base_class_init */
+			NULL, /* base_class_finalize */
+			(GClassInitFunc)  e_book_backend_gal_factory_class_init,
+			NULL, /* class_finalize */
+			NULL, /* class_data */
+			sizeof (EBookBackend),
+			0,    /* n_preallocs */
+			(GInstanceInitFunc) e_book_backend_gal_factory_instance_init
+		};
 
-	type = g_type_register_static (E_TYPE_BOOK_BACKEND_FACTORY, 
-				       "EBookBackendGalFactory", &info, 0);
+		type = g_type_register_static (E_TYPE_BOOK_BACKEND_FACTORY, 
+					       "EBookBackendGalFactory", &info, 0);
+	}
 	return type;
 }

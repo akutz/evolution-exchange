@@ -85,46 +85,49 @@ events_backend_exchange_factory_class_init (ECalBackendExchangeFactoryClass *kla
 GType
 events_backend_exchange_factory_get_type (void)
 {
-	GType type;
+	static GType type = 0;
 
-	GTypeInfo info = {
-		sizeof (ECalBackendExchangeFactoryClass),
-		NULL, /* base_class_init */
-		NULL, /* base_class_finalize */
-		(GClassInitFunc)  events_backend_exchange_factory_class_init,
-		NULL, /* class_finalize */
-		NULL, /* class_data */
-		sizeof (ECalBackend),
-		0,    /* n_preallocs */
-		(GInstanceInitFunc) e_cal_backend_exchange_factory_instance_init
-	};
+	if (!type) {
+		GTypeInfo info = {
+			sizeof (ECalBackendExchangeFactoryClass),
+			NULL, /* base_class_init */
+			NULL, /* base_class_finalize */
+			(GClassInitFunc)  events_backend_exchange_factory_class_init,
+			NULL, /* class_finalize */
+			NULL, /* class_data */
+			sizeof (ECalBackend),
+			0,    /* n_preallocs */
+			(GInstanceInitFunc) e_cal_backend_exchange_factory_instance_init
+		};
 
-	type = g_type_register_static (E_TYPE_CAL_BACKEND_FACTORY,
-				       "ECalBackendExchangeEventsFactory",
-				       &info, 0);
+		type = g_type_register_static (E_TYPE_CAL_BACKEND_FACTORY,
+					       "ECalBackendExchangeEventsFactory",
+					       &info, 0);
+	}
 	return type;
 }
 
 GType
 todos_backend_exchange_factory_get_type (void)
 {
-	GType type;
+	static GType type = 0;
 
-	GTypeInfo info = {
-		sizeof (ECalBackendExchangeFactoryClass),
-		NULL, /* base_class_init */
-		NULL, /* base_class_finalize */
-		(GClassInitFunc)  todos_backend_exchange_factory_class_init,
-		NULL, /* class_finalize */
-		NULL, /* class_data */
-		sizeof (ECalBackend),
-		0,    /* n_preallocs */
-		(GInstanceInitFunc) e_cal_backend_exchange_factory_instance_init
-	};
+	if (!type) {
+		GTypeInfo info = {
+			sizeof (ECalBackendExchangeFactoryClass),
+			NULL, /* base_class_init */
+			NULL, /* base_class_finalize */
+			(GClassInitFunc)  todos_backend_exchange_factory_class_init,
+			NULL, /* class_finalize */
+			NULL, /* class_data */
+			sizeof (ECalBackend),
+			0,    /* n_preallocs */
+			(GInstanceInitFunc) e_cal_backend_exchange_factory_instance_init
+		};
 
-	type = g_type_register_static (E_TYPE_CAL_BACKEND_FACTORY,
-				       "ECalBackendExchangeTodosFactory",
-				       &info, 0);
-
+		type = g_type_register_static (E_TYPE_CAL_BACKEND_FACTORY,
+					       "ECalBackendExchangeTodosFactory",
+					       &info, 0);
+	}
 	return type;
 }
