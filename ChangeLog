@@ -1,5 +1,23 @@
 2004-12-09  Sarfraaz Ahmed <asarfraaz@novell.com>
 
+	* calendar/e-cal-backend-exchange-calendar.c (open_calendar)
+	(create_object)(send_objects) : Return appropriate error messages
+	when in offline
+	* calendar/e-cal-backend-exchange-tasks.c (open_task)
+	(create_task_object) : Similar
+	* calendar/e-cal-backend-exchange.c (get_cal_address) (get_mode)
+	(set_mode) (e_cal_backend_exchange_get_cal_address) : Handle special
+	cases when in offline.
+	(open_calendar)(load_cache) : Modify to actually load only the cache
+	when in offline
+	(e_cal_backend_exchange_is_online) : Return the online/offline status
+	of the calendar.
+	* calendar/e-cal-backend-exchange.h : Added the prototype of
+	e_cal_backend_exchange_is_online
+	
+
+2004-12-09  Sarfraaz Ahmed <asarfraaz@novell.com>
+
 	* storage/exchange-account.c (exchange_account_set_offline): Prepares 
 	the account for offline caching in all the data necessary and sets it 
 	to offline.

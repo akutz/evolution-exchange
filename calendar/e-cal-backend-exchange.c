@@ -27,6 +27,7 @@
 
 #include "e-cal-backend-exchange.h"
 #include "e2k-cal-utils.h"
+#include "e2k-uri.h"
 
 #include "e2k-propnames.h"
 #include "e2k-restriction.h"
@@ -48,7 +49,7 @@ struct ECalBackendExchangePrivate {
 	/* Timezones */
 	GHashTable *timezones;
 	icaltimezone *default_timezone;
-#ifdef OFFLINE_SUPPORT
+#ifdef OFFLINE_SUPPORTED
 	CalMode mode;
 #endif
 };
@@ -56,7 +57,7 @@ struct ECalBackendExchangePrivate {
 #define PARENT_TYPE E_TYPE_CAL_BACKEND_SYNC
 static GObjectClass *parent_class = NULL;
 
-#define d(x)
+#define d(x) (x)
 
 static ECalBackendSyncStatus
 is_read_only (ECalBackendSync *backend, EDataCal *cal, gboolean *read_only)
@@ -74,10 +75,15 @@ get_cal_address (ECalBackendSync *backend, EDataCal *cal, char **address)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	ExchangeHierarchy *hier;
-
-	hier = e_folder_exchange_get_hierarchy (cbex->folder);
-	d(printf("ecbe_get_cal_address(%p, %p) -> %s\n", backend, cal, hier->owner_email));
-	*address = g_strdup (hier->owner_email);
+#ifdef OFFLINE_SUPPORTED
+	if (cbex->priv->mode == CAL_MODE_REMOTE) {
+#endif
+		hier = e_folder_exchange_get_hierarchy (cbex->folder);
+		d(printf("ecbe_get_cal_address(%p, %p) -> %s\n", backend, cal, hier->owner_email));
+#ifdef OFFLINE_SUPPORTED
+	}
+#endif
+	*address = g_strdup (hier->owner_email); /* FIXME : For offline, fetch this from gconf */
 	return GNOME_Evolution_Calendar_Success;
 }
 
@@ -119,16 +125,24 @@ get_static_capabilities (ECalBackendSync *backend, EDataCal *cal, char **capabil
 }
 
 static void
-load_cache (ECalBackendExchange *cbex)
+load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri)
 {
 	icalcomponent *vcalcomp, *comp;
 	struct icaltimetype comp_last_mod, folder_last_mod;
 	icalcomponent_kind kind;
 	icalproperty *prop;
 	char *lastmod;
-
-	cbex->priv->object_cache_file =
-		e_folder_exchange_get_storage_file (cbex->folder, "cache.ics");
+#ifdef OFFLINE_SUPPORTED
+	if (cbex->priv->mode == CAL_MODE_REMOTE) {
+#endif
+		cbex->priv->object_cache_file =
+			e_folder_exchange_get_storage_file (cbex->folder, "cache.ics");
+#ifdef OFFLINE_SUPPORTED
+	} else {
+		cbex->priv->object_cache_file = 
+			exchange_offline_build_object_cache_file (e2kuri, "cache.ics");
+	}
+#endif
 
 	vcalcomp = e_cal_util_parse_ics_file (cbex->priv->object_cache_file);
 	if (!vcalcomp)
@@ -253,13 +267,23 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 	const char *prop = PR_ACCESS;
 	E2kHTTPStatus status;
 	E2kResult *results;
+	E2kUri *euri;
 	int nresults;
 	guint access = 0;
 
 	d(printf("ecbe_open_calendar(%p, %p, %sonly if exists, user=%s, pass=%s)\n", backend, cal, only_if_exists?"":"not ", username?username:"(null)", password?password:"(null)"));
 
-	/* Make sure we have an open connection */
 	uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
+	euri = e2k_uri_new (uristr);
+#ifdef OFFLINE_SUPPORTED
+	if (cbex->priv->mode == CAL_MODE_LOCAL) {
+		printf ("ECBE : cal is offline .. load cache\n");
+		load_cache (cbex, euri);
+		return GNOME_Evolution_Calendar_Success;
+	}
+#endif		
+		
+	/* Make sure we have an open connection */
 	cbex->account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
 	if (!cbex->account)
 		return GNOME_Evolution_Calendar_RepositoryOffline;
@@ -297,7 +321,7 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 
 	cbex->priv->read_only = ((access & MAPI_ACCESS_CREATE_CONTENTS) == 0);
 
-	load_cache (cbex);
+	load_cache (cbex, euri);
 
 	return GNOME_Evolution_Calendar_Success;
 }
@@ -912,10 +936,21 @@ start_query (ECalBackend *backend, EDataCalView *view)
 	e_data_cal_view_notify_done (view, GNOME_Evolution_Calendar_Success);
 }
 
+#ifdef OFFLINE_SUPPORTED
+gboolean 
+e_cal_backend_exchange_is_online (ECalBackendExchange *cbex)
+{
+	if (cbex->priv->mode == CAL_MODE_LOCAL)
+		return FALSE;
+	else
+		return TRUE;
+}
+#endif
+
 static CalMode
 get_mode (ECalBackend *backend)
 {
-#ifdef OFFLINE_SUPPORT
+#ifdef OFFLINE_SUPPORTED
 	ECalBackendExchange *cbex;
 	ECalBackendExchangePrivate *priv;
 	
@@ -933,14 +968,14 @@ get_mode (ECalBackend *backend)
 static void
 set_mode (ECalBackend *backend, CalMode mode)
 {
-#ifdef OFFLINE_SUPPORT
+#ifdef OFFLINE_SUPPORTED
 	ECalBackendExchange *cbex;
 	ECalBackendExchangePrivate *priv;
 	
 	cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	priv = cbex->priv;
 
-	d(printf("ecbe_set_mode(%p)\n", backend));
+	d(printf("ecbe_set_mode(%p) : mode : %d\n", backend, mode));
 
 	if (priv->mode == mode) {
 		e_cal_backend_notify_mode (
@@ -952,7 +987,14 @@ set_mode (ECalBackend *backend, CalMode mode)
 	
 	case CAL_MODE_REMOTE:
 			/* Change status to be online now */
-			priv->mode = CAL_MODE_REMOTE;
+#if 0
+			if (exchange_account_set_online (cbex->account)) { printf ("mode set to online\n"); 
+				priv->mode = CAL_MODE_REMOTE;
+			}
+			else { printf ("failed to set mode to online\n");
+				break;
+			}
+#endif
 			/* Should we check for access rights before setting this ? */
 			priv->read_only = FALSE;
 			e_cal_backend_notify_mode (backend, 
@@ -964,8 +1006,10 @@ set_mode (ECalBackend *backend, CalMode mode)
 
 	case CAL_MODE_LOCAL:
 			/* FIXME : Update the cache before closing the connection */
+			printf ("set mode to offline\n");
 			priv->mode = CAL_MODE_LOCAL;
 			/* FIXME : Set connection to NULL and become offline */
+			exchange_account_set_offline (cbex->account);
 			e_cal_backend_notify_mode (backend, 
 				GNOME_Evolution_Calendar_CalListener_MODE_SET,
 				GNOME_Evolution_Calendar_MODE_LOCAL);
@@ -1089,9 +1133,18 @@ e_cal_backend_exchange_get_cal_address (ECalBackendSync *backend)
 	ExchangeHierarchy *hier;
 
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex), NULL);
-
+#ifdef OFFLINE_SUPPORTED
+	if (cbex->priv->mode == CAL_MODE_REMOTE) {
+		hier = e_folder_exchange_get_hierarchy (cbex->folder);
+		//cbex->priv->email_address = g_strdup (hier->owner_email);
+		return hier->owner_email;
+	}
+	else
+		return hier->owner_email; /* FIXME : Read this from gconf */
+#else	
 	hier = e_folder_exchange_get_hierarchy (cbex->folder);
-	return hier->owner_email;
+	return hier->owner_email; /* FIXME : Read this from gconf */
+#endif
 }
 
 const char *

@@ -359,7 +359,11 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal,
 		backend, cal, only_if_exists, username, password);
 	if (status != GNOME_Evolution_Calendar_Success)
 		return status;
-
+#ifdef OFFLINE_SUPPORTED
+	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
+		return GNOME_Evolution_Calendar_Success;
+	}
+#endif
 	/* Now load the rest of the calendar items */
 	status = get_changed_events (E_CAL_BACKEND_EXCHANGE (backend), NULL);
 	if (status == E2K_HTTP_OK)
@@ -423,7 +427,12 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), GNOME_Evolution_Calendar_InvalidObject);
 	g_return_val_if_fail (calobj != NULL, GNOME_Evolution_Calendar_InvalidObject);
-	
+#ifdef OFFLINE_SUPPORTED	
+	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
+		/* FIXME */
+		return GNOME_Evolution_Calendar_InvalidObject;
+	}
+#endif
 	/* check for permission denied:: priv->writable??
 	   ....
 	 */
@@ -1314,6 +1323,12 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 												 
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex), 
 				GNOME_Evolution_Calendar_InvalidObject);
+
+#ifdef OFFLINE_SUPPORTED
+	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (cbex))) { 
+		return GNOME_Evolution_Calendar_InvalidObject;
+	}
+#endif
 												 
 	*users = NULL;
 	*modified_calobj = NULL;

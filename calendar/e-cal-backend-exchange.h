@@ -92,6 +92,7 @@ ECalBackendSyncStatus  e_cal_backend_exchange_extract_components (const char *ca
                                                                                 
 const char *e_cal_backend_exchange_get_cal_address (ECalBackendSync *backend);
 const char *e_cal_backend_exchange_get_cal_owner (ECalBackendSync *backend);
+gboolean e_cal_backend_exchange_is_online (ECalBackendExchange *cbex);
 
 G_END_DECLS
 
