@@ -1,3 +1,17 @@
+2004-07-27  Dan Winship  <danw@novell.com>
+
+	* mail/mail-stub-exchange.c (account_new_folder): if the new
+	folder is the "ignore_new_folder" folder, ignore it.
+	(account_removed_folder): if the removed folder is the
+	"ignore_removed_folder" folder, ignore it.
+	(create_folder): Don't return a FOLDER_CREATED response; the
+	signal handler attached to the ExchangeAccount will do that.
+	(delete_folder): Likewise for FOLDER_DELETED.
+	(rename_folder): Don't return FOLDER_RENAMED (since
+	camel_store_rename_folder does it automatically), and set
+	ignore_new_folder and ignore_removed_folder so we don't emit
+	deleted/created signals too. #58802
+
 2004-07-26  Dan Winship  <danw@novell.com>
 
 	* calendar/e-cal-backend-exchange.c (d): Turn off debug macro

@@ -2048,11 +2048,17 @@ transfer_messages (MailStub *stub, const char *source_name,
 }
 
 static void
-account_new_folder (ExchangeAccount *account, EFolder *folder, MailStub *stub)
+account_new_folder (ExchangeAccount *account, EFolder *folder, gpointer user_data)
 {
+	MailStub *stub = user_data;
+	MailStubExchange *mse = user_data;
 	ExchangeHierarchy *hier;
 
 	if (strcmp (e_folder_get_type_string (folder), "mail") != 0)
+		return;
+
+	if (mse->ignore_new_folder &&
+	    !strcmp (e_folder_exchange_get_path (folder), mse->ignore_new_folder))
 		return;
 
 	hier = e_folder_exchange_get_hierarchy (folder);
@@ -2068,11 +2074,17 @@ account_new_folder (ExchangeAccount *account, EFolder *folder, MailStub *stub)
 }
 
 static void
-account_removed_folder (ExchangeAccount *account, EFolder *folder, MailStub *stub)
+account_removed_folder (ExchangeAccount *account, EFolder *folder, gpointer user_data)
 {
+	MailStub *stub = user_data;
+	MailStubExchange *mse = user_data;
 	ExchangeHierarchy *hier;
 
 	if (strcmp (e_folder_get_type_string (folder), "mail") != 0)
+		return;
+
+	if (mse->ignore_removed_folder &&
+	    !strcmp (e_folder_exchange_get_path (folder), mse->ignore_removed_folder))
 		return;
 
 	hier = e_folder_exchange_get_hierarchy (folder);
@@ -2279,10 +2291,6 @@ create_folder (MailStub *stub, const char *parent_name, const char *folder_name)
 		return;
 	}
 
-	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_FOLDER_CREATED,
-			       CAMEL_STUB_ARG_STRING, e_folder_get_name (folder),
-			       CAMEL_STUB_ARG_STRING, e_folder_get_physical_uri (folder),
-			       CAMEL_STUB_ARG_END);
 	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
 			       CAMEL_STUB_ARG_STRING, e_folder_get_physical_uri (folder),
 			       CAMEL_STUB_ARG_UINT32, e_folder_get_unread_count (folder),
@@ -2328,10 +2336,6 @@ delete_folder (MailStub *stub, const char *folder_name)
 
 	}
 
-	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_FOLDER_DELETED,
-			       CAMEL_STUB_ARG_STRING, e_folder_get_name (folder),
-			       CAMEL_STUB_ARG_STRING, e_folder_get_physical_uri (folder),
-			       CAMEL_STUB_ARG_END);
 	g_object_unref (folder);
 	mail_stub_return_ok (stub);
 }
@@ -2340,6 +2344,7 @@ static void
 rename_folder (MailStub *stub, const char *old_name, const char *new_name)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
+	MailStubExchangeFolder *mfld;
 	ExchangeAccountFolderResult result;
 	EFolder *folder;
 	char *old_path, *new_path;
@@ -2353,13 +2358,26 @@ rename_folder (MailStub *stub, const char *old_name, const char *new_name)
 	}
 	new_path = g_build_filename ("/", new_name, NULL);
 
+	mse->ignore_removed_folder = old_path;
+	mse->ignore_new_folder = new_path;
 	result = exchange_account_xfer_folder (mse->account, old_path, new_path, TRUE);
 	folder = exchange_account_get_folder (mse->account, new_path);
+	mse->ignore_new_folder = mse->ignore_removed_folder = NULL;
 	g_free (old_path);
 	g_free (new_path);
 
 	switch (result) {
 	case EXCHANGE_ACCOUNT_FOLDER_OK:
+		mfld = g_hash_table_lookup (mse->folders_by_name, old_name);
+		if (!mfld)
+			break;
+
+		g_object_unref (mfld->folder);
+		mfld->folder = g_object_ref (folder);
+		mfld->name = e_folder_exchange_get_path (folder) + 1;
+
+		g_hash_table_remove (mse->folders_by_name, old_name);
+		g_hash_table_insert (mse->folders_by_name, (char *)mfld->name, mfld);
 		break;
 
 	case EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST:
@@ -2376,11 +2394,6 @@ rename_folder (MailStub *stub, const char *old_name, const char *new_name)
 
 	}
 
-	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_FOLDER_RENAMED,
-			       CAMEL_STUB_ARG_FOLDER, old_name,
-			       CAMEL_STUB_ARG_FOLDER, new_name,
-			       CAMEL_STUB_ARG_STRING, e_folder_get_physical_uri (folder),
-			       CAMEL_STUB_ARG_END);
 	mail_stub_return_ok (stub);
 }
 

@@ -29,7 +29,9 @@ struct _MailStubExchange {
 	GHashTable *folders_by_name;
 	const char *mail_submission_uri;
 	EFolder *inbox, *deleted_items;
+
 	guint new_folder_id, removed_folder_id;
+	const char *ignore_new_folder, *ignore_removed_folder;
 };
 
 struct _MailStubExchangeClass {
