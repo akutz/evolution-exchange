@@ -14,6 +14,7 @@ typedef struct {
         char *ad_server;
         char *mailbox;
         char *owa_path;
+	gboolean is_ntlm;
 }ExchangeParams;
 
 gboolean e2k_validate_user (const char *owa_url, char *user, ExchangeParams *exchange_params, gboolean *remember_password);

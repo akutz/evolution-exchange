@@ -296,6 +296,7 @@ get_ctx_auth_handler (SoupMessage *msg, gpointer user_data)
 	const char *challenge_hdr;
 	GByteArray *challenge;
 
+	ac->saw_ntlm = ac->saw_basic = FALSE;
 	headers = soup_message_get_header_list (msg->response_headers,
 						"WWW-Authenticate");
 	while (headers) {
@@ -316,6 +317,7 @@ get_ctx_auth_handler (SoupMessage *msg, gpointer user_data)
 					       ac->nt_domain ? NULL : &ac->nt_domain,
 					       ac->w2k_domain ? NULL : &ac->w2k_domain);
 			g_byte_array_free (challenge, TRUE);
+			ac->saw_ntlm = TRUE;
 			return;
 		}
 
@@ -1426,6 +1428,7 @@ validate (const char *owa_url, char *user, char *password, ExchangeParams *excha
 		exchange_params->host = ac->pf_server;
 		if (ac->gc_server) 
 			exchange_params->ad_server = ac->gc_server;
+		exchange_params->is_ntlm = ac->saw_ntlm;
 
 		valid = TRUE;
 	}
