@@ -1,4 +1,14 @@
 2005-02-20  Sushma Rai <rsushma@novell.com>
+
+	* addressbook/e-book-backend-gal.c (func_is_or_begins_with): Allowing
+	the query "beginswith fileAs" without any value, which is formed for
+	building GAL cache. Fixes #72170
+	(generate_cache_handler): Checking for the LDAP message type while 
+	building the cache.
+	(set_mode): Setting GAL addressbook not editable, when turning online
+	from offline mode.
+
+2005-02-20  Sushma Rai <rsushma@novell.com>
 	
 	* storage/exchange-account.[ch] (exchange_account_is_offline_sync_set):
 	Added new, to read the offline_sync value set for the account.
@@ -8,8 +18,6 @@
 	* storage/exchange-config-listener.c (add_esource): Checking for the 
 	account level and folder level offline sync values and updating the 
 	e-sources.
-
-2005-02-20  Sushma Rai <rsushma@novell.com>
 
 2005-02-19  Sarfraaz Ahmed <asarfraaz@novell.com>
 

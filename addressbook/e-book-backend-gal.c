@@ -902,11 +902,18 @@ func_is_or_begins_with(ESExp *f, int argc, ESExpResult **argv, gboolean exact)
 	str = rfc2254_escape(argv[1]->value.string);
 	star = exact ? "" : "*";
 
-	if (!exact && strlen (str) == 0) {
+	if (!exact && strlen (str) == 0 && strcmp(propname, "file_as")) {
 		/* Can't do (beginswith FIELD "") */
 		return e_sexp_result_new(f, ESEXP_RES_UNDEFINED);
 	}
 
+	/* We use the query "(beginswith fileas "")" while building cache for
+	 * GAL offline, where we try to retrive all the contacts and store it 
+	 * locally. Retrieving *all* the contacts may not be possible in case 
+	 * of large number of contacts and huge data, (for the same reason
+	 * we don't support empty queries in GAL when online.) In such cases 
+	 * cache may not be complete.
+	 */
 	if (!strcmp(propname, "file_as")) {
 		filter = g_strdup_printf("(displayName=%s%s)", str, star);
 		goto done;
@@ -1425,15 +1432,15 @@ generate_cache_handler (LDAPOp *op, LDAPMessage *res)
 
 		while (e != NULL) {
 			EContact *contact = build_contact_from_entry (bl, e, NULL);
-			contact_list_op->contacts = g_list_prepend (contact_list_op->contacts, contact);
 
+			contact_list_op->contacts = g_list_prepend (contact_list_op->contacts, contact);
 			e = ldap_next_entry(ldap, e);
 		}
-	} else {
+	} else if (msg_type == LDAP_RES_SEARCH_RESULT) {
 		GList *l;
 
 		e_file_cache_clean (E_FILE_CACHE (bl->priv->cache));
-
+		
 		for (l = contact_list_op->contacts; l; l = g_list_next (l)) {
 			EContact *contact = l->data;
 			e_book_backend_cache_add_contact (bl->priv->cache, contact);
@@ -1561,8 +1568,8 @@ set_mode (EBookBackend *backend, int mode)
 			}
 		} else if (mode == GNOME_Evolution_Addressbook_MODE_REMOTE) {
 			if (exchange_account_connect (bepriv->account)) {
-				e_book_backend_set_is_writable (backend, TRUE);
-				e_book_backend_notify_writable (backend, TRUE);
+				e_book_backend_set_is_writable (backend, FALSE);
+				e_book_backend_notify_writable (backend, FALSE);
 				e_book_backend_notify_connection_status (backend, TRUE);
 
 				if (e_book_backend_is_loaded (backend)) {
