@@ -1,4 +1,11 @@
-2004-10-26  Sushma Rai  <rsushma@novell.com>
+2004-11-05  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	 * storage/exchange-account.c (exchange_account_connect)(exchange_account_new)
+        : Check if the user has provided a domain as part of the username field and
+        store it for connecting to the server using form-based-authentication
+        (finalize) : Cleanup the private member.
+
+2004-11-05  Sushma Rai  <rsushma@novell.com>
 
 	* lib/e2k-user-dialog.c (addressbook_clicked_cb): Setting
 	the window non-modal, so that the user selection dialog
