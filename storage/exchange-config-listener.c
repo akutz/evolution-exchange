@@ -596,6 +596,12 @@ account_changed (EAccountList *account_list, EAccount *account)
 		return;
 	}
 
+	if (strcmp (config_listener->priv->configured_name, account->name) != 0) {
+		/* account name has been changed, remove old e-sources */
+		account_removed (account_list, account);
+		return;
+	}
+
 	/* Nope. Let the user know we're ignoring him. */
 	e_notice (NULL, GTK_MESSAGE_WARNING,
 		  _("Changes to Exchange account configuration will "
