@@ -909,6 +909,9 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 	E2kContext *ctx;
 	ECalComponent *comp;
 	GSList *categories;
+	char *calobj, *obj;
+	struct icaltimetype time_rid;
+	ECalBackendSyncStatus ebs_status;
 	
 	cbexc = E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 
@@ -923,20 +926,39 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 	e_cal_component_set_icalcomponent (comp, ecomp->comp);
 	*object = e_cal_component_get_as_string (comp);
 	
-	ctx = exchange_account_get_context (E_CAL_BACKEND_EXCHANGE (cbexc)->account);	
-	
-	status = e2k_context_delete (ctx, NULL, ecomp->href);
-	
-	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+	switch (mod) {
 		
-		e_cal_component_get_categories_list (comp, &categories);
-		e_cal_backend_unref_categories (E_CAL_BACKEND (cbexc), categories);
-		e_cal_component_free_categories_list (categories);
+		case CALOBJ_MOD_ALL:
+			ctx = exchange_account_get_context (E_CAL_BACKEND_EXCHANGE (cbexc)->account);	
+			
+			status = e2k_context_delete (ctx, NULL, ecomp->href);			
+			if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {		
+				e_cal_component_get_categories_list (comp, &categories);
+				e_cal_backend_unref_categories (E_CAL_BACKEND (cbexc), categories);
+				e_cal_component_free_categories_list (categories);
+				
+				if (e_cal_backend_exchange_remove_object (E_CAL_BACKEND_EXCHANGE (cbexc), uid))
+						return GNOME_Evolution_Calendar_Success;
+			}
+			break;
+		case CALOBJ_MOD_THIS:
+			/*remove_instance and modify */
+			time_rid = icaltime_from_string (rid);
+			e_cal_util_remove_instances (ecomp->comp, time_rid, mod);
+			
+			calobj  = (char *) icalcomponent_as_ical_string (ecomp->comp);
+			ebs_status = modify_object (backend, cal, calobj, mod, &obj);
+			if (ebs_status != GNOME_Evolution_Calendar_Success)
+				goto error;
+			
+			g_free (obj);
+			return ebs_status;
 		
-		if (e_cal_backend_exchange_remove_object (E_CAL_BACKEND_EXCHANGE (cbexc), uid))
-				return GNOME_Evolution_Calendar_Success;
+		default:
+			break;
 	}
-	
+
+error:
 	return GNOME_Evolution_Calendar_OtherError;
 }
 

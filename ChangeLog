@@ -1,3 +1,10 @@
+2004-06-28  Nicel KM  <mnicel@novell.com>
+
+	* calendar/e-cal-backend-exchange-calendar.c (remove_object):
+	Handle deletions of individual occurences of a recurring event.
+	In case of deleting single occurance, remove the instance from 
+	the component and modify_object.
+
 2004-06-23  Nicel KM  <mnicel@novell.com>
 
 	* calendar/e-cal-backend-exchange-calendar.c (create_object):
