@@ -9,7 +9,14 @@ extern "C" {
 #pragma }
 #endif /* __cplusplus */
 
-gboolean e2k_validate_user (const char *owa_url, char *user, char **host, char **ad_server, gboolean *remember_password);
+typedef struct {
+        char *host;
+        char *ad_server;
+        char *mailbox;
+        char *owa_path;
+}ExchangeParams;
+
+gboolean e2k_validate_user (const char *owa_url, char *user, ExchangeParams *exchange_params, gboolean *remember_password);
 
 #ifdef __cplusplus
 }
