@@ -274,7 +274,7 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 		display_contents = e_source_get_property (source, "offline_sync");
 		
 		if (!display_contents || !g_str_equal (display_contents, "1")) {
-			e_cal_backend_notify_error (E_CAL_BACKEND (cbex), _("Repository is Offline"));
+			e_cal_backend_notify_error (E_CAL_BACKEND (cbex), _("Folder not marked for offline support"));
 			return GNOME_Evolution_Calendar_RepositoryOffline;
 		}
 
@@ -1031,7 +1031,13 @@ set_mode (ECalBackend *backend, CalMode mode)
 			}
 #endif
 			/* Should we check for access rights before setting this ? */
-			priv->read_only = FALSE;
+			d(printf ("set mode to online\n"));
+			uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
+			cbex->account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
+			cbex->folder = exchange_account_get_folder (cbex->account, uristr);
+			/* FIXME : Test if available for read already */
+			priv->read_only = TRUE;
+			exchange_account_set_online (cbex->account);
 			e_cal_backend_notify_mode (backend, 
 				GNOME_Evolution_Calendar_CalListener_MODE_SET,
 				GNOME_Evolution_Calendar_MODE_REMOTE);

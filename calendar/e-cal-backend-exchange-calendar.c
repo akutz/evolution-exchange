@@ -457,6 +457,10 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 
 	/* Get the remaining ones the hard way */
 	ctx = exchange_account_get_context (cbex->account);
+	if (!ctx) {
+		/* This either means we lost connection or we are in offline mode */
+		return SOUP_STATUS_CANT_CONNECT;
+	}
 	for (i = 0; i < hrefs->len; i++) {
 		int length;
 

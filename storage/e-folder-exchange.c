@@ -691,8 +691,13 @@ e_folder_exchange_unsubscribe (EFolder *folder)
 {
 	g_return_if_fail (E_IS_FOLDER_EXCHANGE (folder));
 
-	e2k_context_unsubscribe (E_FOLDER_EXCHANGE_CONTEXT (folder),
-				 E_FOLDER_EXCHANGE_URI (folder));
+	/* FIXME : This is a hack as of now. The free_folder in mail-stub
+	gets called when we are in offline and the context is NULL then. */
+	E2kContext *ctx = E_FOLDER_EXCHANGE_CONTEXT (folder);
+	if (ctx) {
+		e2k_context_unsubscribe (E_FOLDER_EXCHANGE_CONTEXT (folder),
+					 E_FOLDER_EXCHANGE_URI (folder));
+	}
 }
 
 /**

@@ -110,6 +110,9 @@ exchange_offline_listener_new (EDataBookFactory *book_factory, EDataCalFactory *
 	ExchangeOfflineListener *ex_offline_listener = g_object_new (EXCHANGE_OFFLINE_TYPE_LISTENER, NULL);
 	ExchangeOfflineListenerPrivate *priv = ex_offline_listener->priv;
 	
+	g_return_val_if_fail (book_factory != NULL, NULL);
+	g_return_val_if_fail (cal_factory != NULL, NULL);
+
 	priv->book_factory = book_factory;
 	priv->cal_factory = cal_factory;
 	setup_offline_listener (ex_offline_listener);
