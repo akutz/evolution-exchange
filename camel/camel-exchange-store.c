@@ -325,8 +325,7 @@ make_folder_info (CamelExchangeStore *exch, char *name, char *uri,
 	info = g_new0 (CamelFolderInfo, 1);
 	info->name = name;
 	info->uri = uri;
-	info->path = g_strdup (path);
-	info->full_name = g_strdup (info->path + 1);
+	info->full_name = g_strdup (path + 1);
 	info->unread = unread_count;
 
 	if (flags & CAMEL_STUB_FOLDER_NOSELECT)
