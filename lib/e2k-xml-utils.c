@@ -107,20 +107,17 @@ e2k_parse_xml (const char *buf, int len)
 xmlDoc *
 e2k_parse_html (const char *buf, int len)
 {
+	xmlDoc *doc;
+#if LIBXML_VERSION > 20600
 	static xmlSAXHandler *sax;
 	htmlParserCtxtPtr ctxt;
-	xmlDoc *doc;
 
 	g_return_val_if_fail (buf != NULL, NULL);
 
 	if (!sax) {
 		xmlInitParser();
 		sax = xmlMalloc (sizeof (htmlSAXHandler));
-#if LIBXML_VERSION > 20600
 		memcpy (sax, &htmlDefaultSAXHandler, sizeof (xmlSAXHandlerV1));
-#else
-		memcpy (sax, &htmlDefaultSAXHandler, sizeof (xmlSAXHandler));
-#endif
 		sax->warning = my_xml_parser_error_handler;
 		sax->error = my_xml_parser_error_handler;
 	}
@@ -141,6 +138,13 @@ e2k_parse_html (const char *buf, int len)
 
 	ctxt->sax = NULL;
 	htmlFreeParserCtxt (ctxt);
+
+#else /* LIBXML_VERSION <= 20600 */
+	char *buf_copy = g_strndup (buf, len);
+
+	doc = htmlParseDoc (buf_copy, NULL);
+	g_free (buf_copy);
+#endif
 
 	return doc;
 }
