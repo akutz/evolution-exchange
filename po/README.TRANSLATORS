@@ -1,0 +1,51 @@
+In order to make it at as easy as possible to for people to move from
+Windows/Outlook to Linux/Evo/Connector, we want Connector to use
+terminology that is familiar to Outlook users. When you see comments
+like "This is an Outlookism" in the po file, that means that the word
+or phrase we're using in English is copied exactly from Outlook's UI,
+and so you should get the corresponding word from the localized
+version of Outlook to use for its translation.
+
+If you don't have access to a localized version of Outlook, then just
+give your best guesses, but leave a note in your ChangeLog entry or
+somewhere, so that we'll know those strings need to be checked, and
+someone else who does have a copy of Outlook can do so.
+
+Where in Outlook to find the various strings:
+
+"Global Address List" is the directory containing everyone in the
+company. If you click on the addressbook icon at the right of the main
+toolbar to get an address book search dialog, the label on the right
+shows what address book you are searching, and "Global Address List"
+is the default value. (This probably only appears if you are connected
+to an Exchange server, not if you are using IMAP/POP.)
+
+"Active Directory", "Global Catalog" - These are fairly technical
+terms. I'm not totally sure where you'd find standard translations.
+
+"Mailbox" and "Public Folders" come from the folder tree. ("Mailbox"
+means the whole account; it appears in the label for the top node of
+the tree. Eg, "Outlook Today - [Mailbox - Rupert J. Ximian]". The
+names of the Outlook default folders also come from here. (They are
+mostly the same as in Evolution, but also include "Deleted Items",
+"Sent Items", "Journal", and "Notes".)
+
+"OWA" is short for "Outlook Web Access", the Exchange web client
+
+"Secure Password Authentication" shows up as an option if you try to
+configure a POP or IMAP account. "NTLM" means the same thing, but
+probably doesn't have any translation.
+
+"Owner", "Publishing Editor", etc are groups of permissions that can
+be assigned from the folder permissions dialog. (Right-click on a
+folder, choose "Properties", and click on the "Permissions" tab. These
+strings appear in the "Permission Level" option menu.) "Create items",
+"Create subfolders", ... are the individidual permissions, which are
+visible in the same dialog.
+
+Strings related to "delegates" come from the "Delegates" pane of the
+Options dialog. (You have to actually add a delegate in order to see
+some of the strings.)
+
+Strings related to "out of office" come from the "Out of Office
+Assistant" dialog in the Tools menu.
