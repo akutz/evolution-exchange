@@ -73,13 +73,13 @@ CamelProviderConfEntry exchange_conf_entries[] = {
 	{ CAMEL_PROVIDER_CONF_END }
 };
 
-typedef gboolean (CamelProviderValidateUserFunc) (CamelURL *camel_url, char *url, gboolean *remember_password, CamelException *ex);
+typedef gboolean (CamelProviderValidateUserFunc) (CamelURL *camel_url, const char *url, gboolean *remember_password, CamelException *ex);
 
 typedef struct {
         CamelProviderValidateUserFunc *validate_user;
 }CamelProviderValidate;
 
-static gboolean exchange_validate_user_cb (CamelURL *camel_url, char *owa_url, gboolean *remember_password, CamelException *ex);
+static gboolean exchange_validate_user_cb (CamelURL *camel_url, const char *owa_url, gboolean *remember_password, CamelException *ex);
 
 CamelProviderValidate validate_struct = { exchange_validate_user_cb };
 
@@ -138,7 +138,7 @@ exchange_auto_detect_cb (CamelURL *url, GHashTable **auto_detected,
 }
 
 static gboolean
-exchange_validate_user_cb (CamelURL *camel_url, char *owa_url, 
+exchange_validate_user_cb (CamelURL *camel_url, const char *owa_url, 
 			   gboolean *remember_password, CamelException *ex)
 {
 	gboolean valid;
