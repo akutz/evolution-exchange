@@ -434,8 +434,7 @@ exchange_hierarchy_foreign_add_folder (ExchangeHierarchy *hier,
 	ExchangeAccountFolderResult result;
 	const char *folder_type = NULL;
 	const char *physical_uri = NULL;
-	char *toplevel_folder_name = NULL;
-	char *tmp, *new_folder_name;
+	char *new_folder_name;
 	char *conf_key_cal="/apps/evolution/calendar/sources";
 	char *conf_key_tasks="/apps/evolution/tasks/sources";
 	char *conf_key_contacts="/apps/evolution/addressbook/sources";
@@ -447,7 +446,6 @@ exchange_hierarchy_foreign_add_folder (ExchangeHierarchy *hier,
 		// Add the esources
 		folder_type = e_folder_get_type_string (*folder);
 		physical_uri = e_folder_get_physical_uri (*folder);
-		toplevel_folder_name = e_folder_get_name (hier->toplevel);
 		new_folder_name = g_strdup_printf("%s's %s", 
 					hier->owner_name, folder_name);
 
