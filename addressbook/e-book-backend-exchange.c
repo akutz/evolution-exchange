@@ -29,6 +29,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <time.h>
 
 #include <libedataserver/e-sexp.h>
 #include <e-util/e-uid.h>
@@ -39,6 +40,7 @@
 #include <libedata-book/e-data-book-view.h>
 #include <libedata-book/e-book-backend-sexp.h>
 #include <libedata-book/e-book-backend-summary.h>
+#include <libedata-book/e-book-backend-cache.h>
 #include <libedataserver/e-xml-hash-utils.h>
 
 #include <camel/camel-mime-message.h>
@@ -67,6 +69,7 @@ static EBookBackendClass *parent_class;
 
 struct EBookBackendExchangePrivate {
 	char     *exchange_uri;
+	char 	 *original_uri;
 	EFolder  *folder;
 
 	E2kRestriction *base_rn;
@@ -76,8 +79,12 @@ struct EBookBackendExchangePrivate {
 	gboolean connected;
 	GHashTable *ops;
 	int mode;
+	gboolean is_writable;
+	gboolean is_cache_ready;
+	gboolean marked_for_offline;
 
 	EBookBackendSummary *summary;
+	EBookBackendCache *cache;
 };
 
 typedef struct PropMapping PropMapping;
@@ -449,10 +456,75 @@ static const char *folder_props[] = {
 };
 static const int n_folder_props = sizeof (folder_props) / sizeof (folder_props[0]);
 
+static gpointer
+build_cache (EBookBackendExchange *be)
+{
+	EBookBackendExchangePrivate *bepriv = be->priv;
+	E2kResultIter *iter;
+	E2kResult *result;
+	EContact *contact;
+
+	iter = e_folder_exchange_search_start (bepriv->folder, NULL,
+				       field_names, n_field_names,
+				       bepriv->base_rn, NULL, TRUE);
+
+	while ((result = e2k_result_iter_next (iter))) {
+		contact = e_contact_from_props (be, result);
+		if (!contact)
+			continue;
+		e_book_backend_cache_add_contact (bepriv->cache, contact);
+		g_object_unref(contact);
+	}
+	e_book_backend_cache_set_populated (bepriv->cache);
+	bepriv->is_cache_ready=TRUE;
+	return NULL;
+}
+
+static gboolean
+update_cache (EBookBackendExchange *be)
+{
+	EBookBackendExchangePrivate *bepriv = be->priv;
+	E2kResultIter *iter;
+	E2kResult *result;
+	EContact *contact;
+	const char *cache_file_name;
+	time_t mod_time;
+	char time_string[25];
+	const struct tm *tm;
+	struct stat buf;
+
+	cache_file_name = 
+		e_file_cache_get_filename (E_FILE_CACHE(bepriv->cache)); 
+
+	stat (cache_file_name, &buf);
+	mod_time = buf.st_mtime;
+	tm = gmtime (&mod_time);
+	strftime (time_string, 100, "%Y-%m-%dT%H:%M:%SZ", tm);
+
+	/* build hash table from storage file */
+
+	/* FIXME: extract the difference and build update cache with changes */ 
+
+	iter = e_folder_exchange_search_start (bepriv->folder, NULL,
+				       field_names, n_field_names,
+				       bepriv->base_rn, NULL, TRUE);
+
+	while ((result = e2k_result_iter_next (iter))) {
+		contact = e_contact_from_props (be, result);
+		if (!contact)
+			continue;
+		e_book_backend_cache_add_contact (bepriv->cache, contact);
+		g_object_unref(contact);
+	}
+	e_book_backend_cache_set_populated (bepriv->cache);
+	bepriv->is_cache_ready=TRUE;
+	return TRUE;
+}
+
 static GNOME_Evolution_Addressbook_CallStatus
 e_book_backend_exchange_connect (EBookBackendExchange *be)
 {
-	EBookBackendExchangePrivate *bepriv;
+	EBookBackendExchangePrivate *bepriv = be->priv;
 	ExchangeHierarchy *hier;
 	char *summary_path;
 	char *date_prop, *access_prop;
@@ -462,9 +534,6 @@ e_book_backend_exchange_connect (EBookBackendExchange *be)
 	E2kHTTPStatus status;
 	time_t folder_mtime;
 
-	g_return_val_if_fail (E_IS_BOOK_BACKEND_EXCHANGE (be), GNOME_Evolution_Addressbook_OtherError);
-
-	bepriv = be->priv;
 	bepriv->account = exchange_component_get_account_for_uri (global_exchange_component, bepriv->exchange_uri);
 	if (!bepriv->account)
 		return GNOME_Evolution_Addressbook_RepositoryOffline;
@@ -1197,53 +1266,58 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 
 	d(printf("ebbe_create_contact(%p, %p, %s)\n", backend, book, vcard));
 
-	if (bepriv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL)
-		return GNOME_Evolution_Addressbook_RepositoryOffline ;
-	else if (bepriv->mode != GNOME_Evolution_Addressbook_MODE_REMOTE)
-		return GNOME_Evolution_Addressbook_OtherError;
+	switch (bepriv->mode) {
 
-	/* We now assume that the repository is online */
-	*contact = e_contact_new_from_vcard (vcard);
-	props = props_from_contact (be, *contact, NULL);
-
-	/* figure out the right uri to be using */
-	name = contact_name (*contact);
-	if (!name)
-		name = "No Subject";
-
-	note = e_contact_get (*contact, E_CONTACT_NOTE);
-	photo = e_contact_get (*contact, E_CONTACT_PHOTO);
-
-	status = e_folder_exchange_proppatch_new (bepriv->folder, NULL, name,
-						  test_name, bepriv->summary,
-						  props, &location, NULL);
-
-	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-		e_contact_set (*contact, E_CONTACT_UID, location);
-
-		if (note || photo) {
-			/* Do the PUT request. */
-			status = do_put (be, book, location,
-					 contact_name (*contact),
-					 note, photo);
-		}
-		g_free (location);
-	}
-
-	if (note)
-		g_free (note);
-	if (photo)
-		e_contact_photo_free (photo);
-
-	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-		e_book_backend_summary_add_contact (bepriv->summary,
-						    *contact);
+	case GNOME_Evolution_Addressbook_MODE_LOCAL:
+		e_data_book_respond_create(book, opid, GNOME_Evolution_Addressbook_RepositoryOffline, NULL);
 		return GNOME_Evolution_Addressbook_Success;
-	} else {
-		g_object_unref (*contact);
-		*contact = NULL;
-		return http_status_to_pas (status);
+	
+	case GNOME_Evolution_Addressbook_MODE_REMOTE:	
+		*contact = e_contact_new_from_vcard (vcard);
+		props = props_from_contact (be, *contact, NULL);
+
+		/* figure out the right uri to be using */
+		name = contact_name (*contact);
+		if (!name)
+			name = "No Subject";
+
+		note = e_contact_get (*contact, E_CONTACT_NOTE);
+		photo = e_contact_get (*contact, E_CONTACT_PHOTO);
+
+		status = e_folder_exchange_proppatch_new (bepriv->folder, NULL, name,
+							  test_name, bepriv->summary,
+							  props, &location, NULL);
+
+		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+			e_contact_set (*contact, E_CONTACT_UID, location);
+
+			if (note || photo) {
+				/* Do the PUT request. */
+				status = do_put (be, book, location,
+						 contact_name (*contact),
+						 note, photo);
+			}
+			g_free (location);
+		}
+
+		if (note)
+			g_free (note);
+		if (photo)
+			e_contact_photo_free (photo);
+
+		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+			e_book_backend_summary_add_contact (bepriv->summary,
+							    *contact);
+			return GNOME_Evolution_Addressbook_Success;
+		} else {
+			g_object_unref (*contact);
+			*contact = NULL;
+			return http_status_to_pas (status);
+		}
+	default:
+		break;
 	}
+	return GNOME_Evolution_Addressbook_Success;
 }
 
 static EBookBackendSyncStatus
@@ -1254,6 +1328,7 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 					EContact         **contact)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
+	EBookBackendExchangePrivate *bepriv = be->priv;
 	EContact *old_contact;
 	const char *uri;
 	E2kHTTPStatus status;
@@ -1263,86 +1338,93 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 
 	d(printf("ebbe_modify_contact(%p, %p, %s)\n", backend, book, vcard));
 
-	if (be->priv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL)
-		return GNOME_Evolution_Addressbook_RepositoryOffline ;
-	else if (be->priv->mode != GNOME_Evolution_Addressbook_MODE_REMOTE)
-		return GNOME_Evolution_Addressbook_OtherError;
+	switch (bepriv->mode) {
+	
+	case GNOME_Evolution_Addressbook_MODE_LOCAL:
 
-	/* We now assume that the repository is online */
-	*contact = e_contact_new_from_vcard (vcard);
-	uri = e_contact_get_const (*contact, E_CONTACT_UID);
+	case GNOME_Evolution_Addressbook_MODE_REMOTE:
 
-	status = e2k_context_propfind (be->priv->ctx, NULL, uri,
-				       field_names, n_field_names,
-				       &results, &nresults);
-	if (status == E2K_HTTP_CANCELLED) {
-		g_object_unref (book);
-		g_object_unref (*contact);
-		*contact = NULL;
-		return GNOME_Evolution_Addressbook_OtherError;
-	}
+		*contact = e_contact_new_from_vcard (vcard);
+		uri = e_contact_get_const (*contact, E_CONTACT_UID);
 
-	if (status == E2K_HTTP_MULTI_STATUS && nresults > 0)
-		old_contact = e_contact_from_props (be, &results[0]);
-	else
-		old_contact = NULL;
-
-	props = props_from_contact (be, *contact, old_contact);
-	status = e2k_context_proppatch (be->priv->ctx, NULL, uri,
-					props, FALSE, NULL);
-
-	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-		/* Do the PUT request if we need to. */
-		char *old_note, *new_note;
-		EContactPhoto *old_photo, *new_photo;
-		gboolean changed;
-
-		old_note = e_contact_get (old_contact, E_CONTACT_NOTE);
-		old_photo = e_contact_get (old_contact, E_CONTACT_PHOTO);
-		new_note = e_contact_get (*contact, E_CONTACT_NOTE);
-		new_photo = e_contact_get (*contact, E_CONTACT_PHOTO);
-
-		if ((old_note && !new_note) ||
-		    (new_note && !old_note) ||
-		    (old_note && new_note &&
-		     strcmp (old_note, new_note) != 0))
-			changed = TRUE;
-		else if ((old_photo && !new_photo) ||
-			 (new_photo && !old_photo) ||
-			 (old_photo && new_photo &&
-			  ((old_photo->length != new_photo->length) ||
-			   (memcmp (old_photo->data, new_photo->data, old_photo->length) != 0))))
-			changed = TRUE;
-		else
-			changed = FALSE;
-
-		if (changed) {
-			status = do_put (be, book, uri,
-					 contact_name (*contact),
-					 new_note, new_photo);
+		status = e2k_context_propfind (bepriv->ctx, NULL, uri,
+					       field_names, n_field_names,
+					       &results, &nresults);
+		if (status == E2K_HTTP_CANCELLED) {
+			g_object_unref (book);
+			g_object_unref (*contact);
+			*contact = NULL;
+			return GNOME_Evolution_Addressbook_OtherError;
 		}
 
-		g_free (old_note);
-		g_free (new_note);
-		if (old_photo)
-			e_contact_photo_free (old_photo);
-		if (new_photo)
-			e_contact_photo_free (new_photo);
-	}
+		if (status == E2K_HTTP_MULTI_STATUS && nresults > 0)
+			old_contact = e_contact_from_props (be, &results[0]);
+		else
+			old_contact = NULL;
 
-	if (old_contact)
-		g_object_unref (old_contact);
+		props = props_from_contact (be, *contact, old_contact);
+		status = e2k_context_proppatch (bepriv->ctx, NULL, uri,
+						props, FALSE, NULL);
 
-	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-		e_book_backend_summary_remove_contact (be->priv->summary, uri);
-		e_book_backend_summary_add_contact (be->priv->summary,
-						    *contact);
-		return GNOME_Evolution_Addressbook_Success;
-	} else {
-		g_object_unref (*contact);
-		*contact = NULL;
-		return http_status_to_pas (status);
+		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+			/* Do the PUT request if we need to. */
+			char *old_note, *new_note;
+			EContactPhoto *old_photo, *new_photo;
+			gboolean changed;
+
+			old_note = e_contact_get (old_contact, E_CONTACT_NOTE);
+			old_photo = e_contact_get (old_contact, E_CONTACT_PHOTO);
+			new_note = e_contact_get (*contact, E_CONTACT_NOTE);
+			new_photo = e_contact_get (*contact, E_CONTACT_PHOTO);
+
+			if ((old_note && !new_note) ||
+		    	    (new_note && !old_note) ||
+		    	    (old_note && new_note &&
+		     	strcmp (old_note, new_note) != 0))
+				changed = TRUE;
+			else if ((old_photo && !new_photo) ||
+				 (new_photo && !old_photo) ||
+			 	(old_photo && new_photo &&
+			  	((old_photo->length != new_photo->length) ||
+			   	(memcmp (old_photo->data, new_photo->data, 
+					 old_photo->length) != 0))))
+					changed = TRUE;
+			else
+				changed = FALSE;
+
+			if (changed) {
+				status = do_put (be, book, uri,
+						 contact_name (*contact),
+						 new_note, new_photo);
+			}
+
+			g_free (old_note);
+			g_free (new_note);
+			if (old_photo)
+				e_contact_photo_free (old_photo);
+			if (new_photo)
+				e_contact_photo_free (new_photo);
+		}
+
+		if (old_contact)
+			g_object_unref (old_contact);
+
+		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+			e_book_backend_summary_remove_contact (bepriv->summary,
+							       uri);
+			e_book_backend_summary_add_contact (bepriv->summary,
+							    *contact);
+			return GNOME_Evolution_Addressbook_Success;
+		} else {
+			g_object_unref (*contact);
+			*contact = NULL;
+			return http_status_to_pas (status);
+		}
+
+	default:
+		break;
 	}
+	return GNOME_Evolution_Addressbook_Success;
 }
 
 static EBookBackendSyncStatus
@@ -1362,27 +1444,36 @@ e_book_backend_exchange_remove_contacts (EBookBackendSync  *backend,
 	 /* Remove one or more contacts */
 	d(printf("ebbe_remove_contact(%p, %p, %s)\n", backend, book, (char*)id_list->data));
 
-	if (bepriv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL)
-		return GNOME_Evolution_Addressbook_RepositoryOffline ;
-	else if (bepriv->mode != GNOME_Evolution_Addressbook_MODE_REMOTE)
-		return GNOME_Evolution_Addressbook_OtherError;
+	switch (bepriv->mode) {
 
-	/* We now assume that the repository is online */
-	/* FIXME: Should we assume that we are authenticated ? */
-	for (l = id_list; l; l = l->next) {
-		uri = l->data;
-		status = e2k_context_delete (bepriv->ctx, NULL, uri);
-		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-			e_book_backend_summary_remove_contact (bepriv->summary, uri);
-			*removed_ids = g_list_append (*removed_ids, g_strdup (uri));
-		} else 
-			ret_status = http_status_to_pas (status);
+	case GNOME_Evolution_Addressbook_MODE_LOCAL:
+		e_data_book_respond_remove_contacts (book, 
+						     opid, 
+						     GNOME_Evolution_Addressbook_RepositoryOffline, 
+						     NULL);
+		return GNOME_Evolution_Addressbook_Success; 
+		// GNOME_Evolution_Addressbook_RepositoryOffline FIXME
+	
+	case GNOME_Evolution_Addressbook_MODE_REMOTE:
+
+		for (l = id_list; l; l = l->next) {
+			uri = l->data;
+			status = e2k_context_delete (bepriv->ctx, NULL, uri);
+			if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+				e_book_backend_summary_remove_contact (
+							bepriv->summary, uri);
+				*removed_ids = g_list_append (
+						*removed_ids, g_strdup (uri));
+			} else 
+				ret_status = http_status_to_pas (status);
+		}
+		return ret_status;
+	
+	default:
+		break;
 	}
-	return ret_status;
+	return GNOME_Evolution_Addressbook_Success;
 }
-
-
-
 
 static ESExpResult *
 func_not (ESExp *f, int argc, ESExpResult **argv, void *data)
@@ -1640,26 +1731,60 @@ e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 	E2kResult *result;
 	E2kHTTPStatus status;
 	char *vcard;
+	GList *vcard_list, *temp, *offline_contacts;
+	
 
 	d(printf("ebbe_get_contact_list(%p, %p, %s)\n", backend, book, query));
 
-	rn = e_book_backend_exchange_build_restriction (query, bepriv->base_rn);
-	iter = e_folder_exchange_search_start (bepriv->folder, NULL,
+	switch (bepriv->mode) {
+	
+	case GNOME_Evolution_Addressbook_MODE_LOCAL:
+		/* FIXME */
+		offline_contacts = e_book_backend_cache_get_contacts (bepriv->cache,
+							      query);
+		temp = offline_contacts;
+		for (; offline_contacts != NULL; 
+		       offline_contacts = g_list_next(offline_contacts)) {
+			vcard_list = g_list_append ( 
+					vcard_list, 
+					e_vcard_to_string (
+						E_VCARD (offline_contacts->data), 
+						EVC_FORMAT_VCARD_30));
+			g_object_unref (offline_contacts->data);
+		}
+		e_data_book_respond_get_contact_list (book, 
+						opid, 
+						GNOME_Evolution_Addressbook_Success,
+						vcard_list);
+		if (temp)
+			g_list_free (temp);
+		return GNOME_Evolution_Addressbook_Success;
+		
+	case GNOME_Evolution_Addressbook_MODE_REMOTE:
+
+		rn = e_book_backend_exchange_build_restriction (query, 
+								bepriv->base_rn);
+		iter = e_folder_exchange_search_start (bepriv->folder, NULL,
 					       field_names, n_field_names,
 					       rn, NULL, TRUE);
-	e2k_restriction_unref (rn);
+		e2k_restriction_unref (rn);
 
-	*contacts = NULL;
-	while ((result = e2k_result_iter_next (iter))) {
-		vcard = vcard_from_props (be, result);
-		if (!vcard)
-			continue;
-		*contacts = g_list_prepend (*contacts, vcard);
-		g_free (vcard);
+		*contacts = NULL;
+		while ((result = e2k_result_iter_next (iter))) {
+			vcard = vcard_from_props (be, result);
+			if (!vcard)
+				continue;
+			*contacts = g_list_prepend (*contacts, vcard);
+			g_free (vcard);
+		}
+		status = e2k_result_iter_free (iter);
+
+		return http_status_to_pas (status);
+
+	default:
+		break;
 	}
-	status = e2k_result_iter_free (iter);
-
-	return http_status_to_pas (status);
+	return GNOME_Evolution_Addressbook_Success;
 }
 
 static void
@@ -1674,32 +1799,77 @@ e_book_backend_exchange_start_book_view (EBookBackend  *backend,
 	E2kResult *result;
 	E2kHTTPStatus status;
 	EContact *contact;
+	GList *temp_list, *contacts;
 
 	d(printf("ebbe_start_book_view(%p, %p)\n", backend, book_view));
 
 	g_object_ref (book_view);
 	e_data_book_view_notify_status_message (book_view, _("Searching..."));
 
-	/* execute the query */
-	rn = e_book_backend_exchange_build_restriction (query, bepriv->base_rn);
+	switch (bepriv->mode) {
 
-	iter = e_folder_exchange_search_start (bepriv->folder, NULL,
+	case GNOME_Evolution_Addressbook_MODE_LOCAL:
+		if (!bepriv->cache) {
+			e_data_book_view_notify_complete (book_view, 
+					GNOME_Evolution_Addressbook_Success);
+			return;
+		}
+		contacts = e_book_backend_cache_get_contacts (bepriv->cache, 
+							      query);
+		temp_list = contacts;
+		for (; contacts != NULL; contacts = g_list_next(contacts)) {
+			/* FIXME: Need muex here?
+			g_mutex_lock (closure->mutex);
+			stopped = closure->stopped;
+			g_mutex_unlock (closure->mutex);
+			if (stopped) 
+
+			for (;contacts != NULL; 
+			      contacts = g_list_next (contacts))
+				g_object_unref (contacts->data);
+			break;
+			} 
+			*/
+			e_data_book_view_notify_update (book_view, 
+							E_CONTACT(contacts->data));
+			g_object_unref (contacts->data);
+		}
+		//if (!stopped)
+		e_data_book_view_notify_complete (book_view, 
+					GNOME_Evolution_Addressbook_Success);
+		if (temp_list)
+			 g_list_free (temp_list);
+		bonobo_object_unref (book_view);
+		return;
+		
+	case GNOME_Evolution_Addressbook_MODE_REMOTE:
+
+		/* execute the query */
+		rn = e_book_backend_exchange_build_restriction (query, 
+							bepriv->base_rn);
+
+		iter = e_folder_exchange_search_start (bepriv->folder, NULL,
 					       field_names, n_field_names,
 					       rn, NULL, TRUE);
-	e2k_restriction_unref (rn);
+		e2k_restriction_unref (rn);
 
-	while ((result = e2k_result_iter_next (iter))) {
-		contact = e_contact_from_props (be, result);
-		if (contact) {
-			e_data_book_view_notify_update (book_view, contact);
-			g_object_unref (contact);
+		while ((result = e2k_result_iter_next (iter))) {
+			contact = e_contact_from_props (be, result);
+			if (contact) {
+				e_data_book_view_notify_update (book_view, 
+								contact);
+				g_object_unref (contact);
+			}
 		}
-	}
-	status = e2k_result_iter_free (iter);
+		status = e2k_result_iter_free (iter);
 
-	e_data_book_view_notify_complete (book_view,
-					  http_status_to_pas (status));
-	g_object_unref (book_view);
+		e_data_book_view_notify_complete (book_view,
+						  http_status_to_pas (status));
+		g_object_unref (book_view);
+
+	default:
+		break;
+	}
 }
 
 static void
@@ -1761,65 +1931,82 @@ e_book_backend_exchange_get_changes (EBookBackendSync  *backend,
 
 	d(printf("ebbe_get_changes(%p, %p, %s)\n", backend, book, change_id));
 
-	ctx = g_new0 (EBookBackendExchangeChangeContext, 1);
-	ctx->seen_ids = g_hash_table_new_full (g_str_hash, g_str_equal,
+	switch (bepriv->mode) {
+	
+	case GNOME_Evolution_Addressbook_MODE_LOCAL:
+		/* FIXME */
+		return GNOME_Evolution_Addressbook_Success;
+
+	case GNOME_Evolution_Addressbook_MODE_REMOTE:
+
+		ctx = g_new0 (EBookBackendExchangeChangeContext, 1);
+		ctx->seen_ids = g_hash_table_new_full (g_str_hash, g_str_equal,
 					       g_free, NULL);
 
-	/* open the changes file */
-	filename = g_strdup_printf ("%s.changes", change_id);
-	path = e_folder_exchange_get_storage_file (bepriv->folder, filename);
-	ctx->ehash = e_xmlhash_new (path);
-	g_free (path);
-	g_free (filename);
+		/* open the changes file */
+		filename = g_strdup_printf ("%s.changes", change_id);
+		path = e_folder_exchange_get_storage_file (bepriv->folder, 
+							   filename);
+		ctx->ehash = e_xmlhash_new (path);
+		g_free (path);
+		g_free (filename);
 
-	iter = e_folder_exchange_search_start (bepriv->folder, NULL,
+		iter = e_folder_exchange_search_start (bepriv->folder, NULL,
 					       field_names, n_field_names,
 					       bepriv->base_rn, NULL, TRUE);
-	while ((result = e2k_result_iter_next (iter))) {
-		vcard = vcard_from_props (be, result);
-		if (!vcard)
-			continue;
 
-		g_hash_table_insert (ctx->seen_ids, g_strdup (result->href),
-				     GINT_TO_POINTER (1));
+		while ((result = e2k_result_iter_next (iter))) {
+			vcard = vcard_from_props (be, result);
+			if (!vcard)
+				continue;
 
-		/* Check what type of change has occurred, if any. */
-		switch (e_xmlhash_compare (ctx->ehash, result->href, vcard)) {
-		case E_XMLHASH_STATUS_SAME:
-			break;
+			g_hash_table_insert (ctx->seen_ids, 
+					     g_strdup (result->href),
+				     	     GINT_TO_POINTER (1));
 
-		case E_XMLHASH_STATUS_NOT_FOUND:
-			e_xmlhash_add (ctx->ehash, result->href, vcard);
-			ctx->changes = g_list_prepend (
-				ctx->changes,
-				e_book_backend_change_add_new (vcard));
-			break;
+			/* Check what type of change has occurred, if any. */
+			switch (e_xmlhash_compare (ctx->ehash, result->href, 
+						   vcard)) {
+			case E_XMLHASH_STATUS_SAME:
+				break;
 
-		case E_XMLHASH_STATUS_DIFFERENT:
-			e_xmlhash_add (ctx->ehash, result->href, vcard);
-			ctx->changes = g_list_prepend (
-				ctx->changes,
-				e_book_backend_change_modify_new (vcard));
-			break;
+			case E_XMLHASH_STATUS_NOT_FOUND:
+				e_xmlhash_add (ctx->ehash, result->href, vcard);
+				ctx->changes = g_list_prepend (
+					ctx->changes,
+					e_book_backend_change_add_new (vcard));
+				break;
+
+			case E_XMLHASH_STATUS_DIFFERENT:
+				e_xmlhash_add (ctx->ehash, result->href, vcard);
+				ctx->changes = g_list_prepend (
+					ctx->changes,
+					e_book_backend_change_modify_new (vcard));
+				break;
+			}
+
+			g_free (vcard);
 		}
+		status = e2k_result_iter_free (iter);
 
-		g_free (vcard);
+		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+			g_warning ("e_book_backend_exchange_changes: error building list (err = %d)\n", status);
+			g_list_foreach (ctx->changes, free_change, NULL);
+			ctx->changes = NULL;
+		} else {
+			e_xmlhash_foreach_key (ctx->ehash, find_deleted_ids, ctx);
+			e_xmlhash_write (ctx->ehash);
+		}
+  		e_xmlhash_destroy (ctx->ehash);
+		g_hash_table_destroy (ctx->seen_ids);
+		g_free (ctx);
+
+		return http_status_to_pas (status);
+
+	default:
+		break;
 	}
-	status = e2k_result_iter_free (iter);
-
-	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-		g_warning ("e_book_backend_exchange_changes: error building list (err = %d)\n", status);
-		g_list_foreach (ctx->changes, free_change, NULL);
-		ctx->changes = NULL;
-	} else {
-		e_xmlhash_foreach_key (ctx->ehash, find_deleted_ids, ctx);
-		e_xmlhash_write (ctx->ehash);
-	}
-  	e_xmlhash_destroy (ctx->ehash);
-	g_hash_table_destroy (ctx->seen_ids);
-	g_free (ctx);
-
-	return http_status_to_pas (status);
+	return GNOME_Evolution_Addressbook_Success;
 }
 
 static EBookBackendSyncStatus
@@ -1830,12 +2017,42 @@ e_book_backend_exchange_get_contact (EBookBackendSync  *backend,
 				     char             **vcard)
 {
 	EBookBackendExchange *be;
+	EBookBackendExchangePrivate *bepriv = be->priv;
+	EContact *contact;
 
 	d(printf("ebbe_get_contact(%p, %p, %s)\n", backend, book, id));
 
 	be = E_BOOK_BACKEND_EXCHANGE (e_data_book_get_backend (book));
 
-	/* XXX finish this */
+	switch (bepriv->mode) {
+	
+	case GNOME_Evolution_Addressbook_MODE_LOCAL:
+		contact = e_book_backend_cache_get_contact (bepriv->cache,
+							    id);
+		vcard =  e_vcard_to_string (E_VCARD (contact), 
+					    EVC_FORMAT_VCARD_30);
+		if (contact) {
+			e_data_book_respond_get_contact(book, 
+							opid, 
+							GNOME_Evolution_Addressbook_Success, 
+							*vcard);
+			g_free (vcard);
+			g_object_unref (contact);
+		}
+		else {
+			e_data_book_respond_get_contact(book, 
+							opid, 
+							GNOME_Evolution_Addressbook_ContactNotFound, 
+							"");
+		}
+		return GNOME_Evolution_Addressbook_Success; //FIXME
+		
+	case GNOME_Evolution_Addressbook_MODE_REMOTE:
+		/* XXX finish this */
+
+	default:
+		break;
+	}
 
 	return GNOME_Evolution_Addressbook_OtherError;
 }
@@ -1849,39 +2066,38 @@ e_book_backend_exchange_authenticate_user (EBookBackendSync *backend,
 					   const char       *password,
 					   const char       *auth_method)
 {
+	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
+	EBookBackendExchangePrivate *bepriv = be->priv;
+
 	d(printf("ebbe_authenticate_user(%p, %p, %s, %s, %s)\n", backend, book, user, password, auth_method));
 
+	switch (bepriv->mode) {
+
+	case GNOME_Evolution_Addressbook_MODE_LOCAL:
+		e_book_backend_notify_writable (backend, FALSE);
+		e_book_backend_notify_connection_status (backend, FALSE);
+		e_data_book_respond_authenticate_user (book, opid, GNOME_Evolution_Addressbook_Success);
+		return GNOME_Evolution_Addressbook_Success;
+			
+	case GNOME_Evolution_Addressbook_MODE_REMOTE:
+
+		if (e_book_backend_cache_is_populated (bepriv->cache)) {
+			if (bepriv->is_writable)
+				g_thread_create ((GThreadFunc) update_cache, 
+						  be, FALSE, NULL);
+		}
+		else if (bepriv->is_writable || bepriv->marked_for_offline){ 
+			/* for personal books we always cache*/
+			g_thread_create ((GThreadFunc) build_cache, be, FALSE, NULL);
+		}
+		return GNOME_Evolution_Addressbook_Success;
+
+	default:
+		break;
+	}
 	return GNOME_Evolution_Addressbook_Success;
 }
 
-static void
-e_book_backend_exchange_set_mode (EBookBackend *backend, int mode)
-{
-	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
-	EBookBackendExchangePrivate *bepriv;
-
-	g_return_if_fail (E_IS_BOOK_BACKEND_EXCHANGE (be));
-
-	bepriv = be->priv;
-	bepriv->mode = mode;
-	if (e_book_backend_is_loaded (backend)) {
-		if (mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
-			if (bepriv->account) {
-			if (exchange_account_set_offline (bepriv->account)) {
-				e_book_backend_notify_writable (backend, FALSE);
-				e_book_backend_notify_connection_status (backend, FALSE);
-			}
-			}
-		} else if (mode == GNOME_Evolution_Addressbook_MODE_REMOTE) {
-			if (exchange_account_connect (bepriv->account)) {
-				e_book_backend_notify_writable (backend, TRUE);
-				e_book_backend_notify_connection_status (backend, TRUE);
-				/* FIXME :
-				e_book_backend_notify_auth_required (backend); */
-			}
-		}
-	}
-}
 
 static EBookBackendSyncStatus
 e_book_backend_exchange_get_supported_fields (EBookBackendSync  *backend,
@@ -1943,12 +2159,50 @@ e_book_backend_exchange_load_source (EBookBackend *backend,
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
+	const char *offline;
 
-	g_return_val_if_fail (be->priv->connected == FALSE, GNOME_Evolution_Addressbook_OtherError);
+	g_return_val_if_fail (bepriv->connected == FALSE, GNOME_Evolution_Addressbook_OtherError);
 
 	d(printf("ebbe_load_source(%p, %p[%s])\n", backend, source, e_source_peek_name (source)));
 
+	offline = e_source_get_property (source, "offline_sync");
+	if (offline  && g_str_equal (offline, "1"))
+		bepriv->marked_for_offline = TRUE;
+
+	if (bepriv->mode ==  GNOME_Evolution_Addressbook_MODE_LOCAL &&  
+	    !bepriv->marked_for_offline ) {
+		return GNOME_Evolution_Addressbook_OfflineUnavailable;
+	}
+
 	bepriv->exchange_uri = e_source_get_uri (source);
+	if (bepriv->exchange_uri == NULL)
+		return  GNOME_Evolution_Addressbook_OtherError;
+	bepriv->original_uri = g_strdup (bepriv->exchange_uri);
+
+	if (bepriv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
+		e_book_backend_notify_writable (backend, FALSE);
+		e_book_backend_notify_connection_status (backend, FALSE);
+	}
+	if (bepriv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
+		if (!e_book_backend_cache_exists (bepriv->original_uri))
+			return GNOME_Evolution_Addressbook_OfflineUnavailable;
+	}
+	bepriv->cache = e_book_backend_cache_new (bepriv->original_uri);
+
+	/* Once aunthentication in address book works this can be removed */
+	if (bepriv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
+		return GNOME_Evolution_Addressbook_Success;
+	}
+	if (e_book_backend_cache_is_populated (bepriv->cache)) {
+		if (bepriv->is_writable)
+			g_thread_create ((GThreadFunc) update_cache, 
+					  be, FALSE, NULL);
+	}
+	else if (bepriv->is_writable || bepriv->marked_for_offline){ 
+		/* for personal books we always cache*/
+		g_thread_create ((GThreadFunc) build_cache, be, FALSE, NULL);
+	}
+	
 	return e_book_backend_exchange_connect (be);
 }
 
@@ -1999,6 +2253,27 @@ e_book_backend_exchange_construct (EBookBackendExchange *backend)
 	return TRUE;
 }
 
+static void
+e_book_backend_exchange_set_mode (EBookBackend *backend, int mode)
+{
+	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
+	EBookBackendExchangePrivate *bepriv = be->priv;
+
+	bepriv->mode = mode;
+	if (e_book_backend_is_loaded (backend)) {
+		if (mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
+			e_book_backend_notify_writable (backend, FALSE);
+			e_book_backend_notify_connection_status (backend, FALSE);
+			/* FIXME : free context ? */
+		} else if (mode == GNOME_Evolution_Addressbook_MODE_REMOTE) {
+			e_book_backend_notify_writable (backend, TRUE);
+			e_book_backend_notify_connection_status (backend, TRUE);
+			/* FIXME :
+			e_book_backend_notify_auth_required (backend); */
+		}
+	}
+}
+
 /**
  * e_book_backend_exchange_new:
  *
@@ -2038,11 +2313,17 @@ e_book_backend_exchange_dispose (GObject *object)
 		if (be->priv->exchange_uri)
 			g_free (be->priv->exchange_uri);
 
+		if (be->priv->original_uri)
+			g_free (be->priv->original_uri);
+
 		if (be->priv->account)
 			g_object_unref (be->priv->account);
 
 		if (be->priv->ops)
 			g_hash_table_destroy (be->priv->ops);
+
+		if (be->priv->cache)
+			g_object_unref (be->priv->cache);
 
 		g_free (be->priv);
 		be->priv = NULL;
@@ -2082,7 +2363,6 @@ e_book_backend_exchange_class_init (EBookBackendExchangeClass *klass)
 	backend_class->stop_book_view          = e_book_backend_exchange_stop_book_view;
 	backend_class->cancel_operation        = e_book_backend_exchange_cancel_operation;
 	backend_class->set_mode			= e_book_backend_exchange_set_mode;
-
 	sync_class->remove_sync                = e_book_backend_exchange_remove;
 	sync_class->create_contact_sync        = e_book_backend_exchange_create_contact;
 	sync_class->remove_contacts_sync       = e_book_backend_exchange_remove_contacts;
@@ -2102,10 +2382,15 @@ e_book_backend_exchange_init (EBookBackendExchange *backend)
 {
 	EBookBackendExchangePrivate *priv;
 
-	priv            = g_new0 (EBookBackendExchangePrivate, 1);
-	priv->ops       = g_hash_table_new (NULL, NULL);
+	priv            	= g_new0 (EBookBackendExchangePrivate, 1);
+	priv->ops       	= g_hash_table_new (NULL, NULL);
+	priv->is_cache_ready 	= FALSE;
+	priv->marked_for_offline= FALSE;
+	priv->cache		= NULL;
+	priv->original_uri 	= NULL;
+	priv->is_writable 	= TRUE;
 
-	backend->priv = priv;
+	backend->priv 		= priv;
 }
 
 E2K_MAKE_TYPE (e_book_backend_exchange, EBookBackendExchange, e_book_backend_exchange_class_init, e_book_backend_exchange_init, PARENT_TYPE)
