@@ -1292,11 +1292,14 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 	icalcomponent *top_level, *icalcomp, *tzcomp;
 	icalproperty *prop;
 	icalproperty_method method;
-	int count;
+	GSList *attendee_list, *tmp;
 												 
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex), 
 				GNOME_Evolution_Calendar_InvalidObject);
 												 
+	*users = NULL;
+	*modified_calobj = NULL;
+
 	top_level = icalparser_parse_string (calobj);
 	icalcomp = icalcomponent_get_inner (top_level);
 												 
@@ -1304,13 +1307,6 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 	e_cal_component_set_icalcomponent (E_CAL_COMPONENT (comp),
 					 icalcomponent_new_clone (icalcomp));
 												 
-	count = icalcomponent_count_properties (icalcomp, ICAL_ATTENDEE_PROPERTY);
-#if 0
-	*user_list = GNOME_Evolution_Calendar_UserList__alloc ();
-	(*user_list)->_maximum = count;
-	(*user_list)->_length = 0;
-	(*user_list)->_buffer = CORBA_sequence_GNOME_Evolution_Calendar_User_allocbuf (count);
-#endif												 
 	method = icalcomponent_get_method (top_level);
 	if (icalcomponent_isa (icalcomp) != ICAL_VEVENT_COMPONENT
 	    || (method != ICAL_METHOD_REQUEST && method != ICAL_METHOD_CANCEL)) {
@@ -1366,10 +1362,14 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 		result = book_resource (cbex, cal, attendee + 7, comp, method);
 		switch (result) {
 		case E_CAL_BACKEND_EXCHANGE_BOOKING_OK:
-			param = icalproperty_get_first_parameter (prop, ICAL_PARTSTAT_PARAMETER);			icalparameter_set_partstat (param, ICAL_PARTSTAT_ACCEPTED);
-												 
-			/* (*user_list)->_buffer[(*user_list)->_length] = CORBA_string_dup (attendee); */
-			/* (*user_list)->_length++; */
+			param = icalproperty_get_first_parameter (prop, ICAL_PARTSTAT_PARAMETER);
+			icalparameter_set_partstat (param, ICAL_PARTSTAT_ACCEPTED);
+			attendee_list = NULL;
+			e_cal_component_get_attendee_list (comp, &attendee_list);
+			/* Convert to a GList */
+			for (tmp = attendee_list; tmp; tmp = g_slist_next (tmp)) {
+				*users = g_list_append (*users, tmp);
+			}
 			break;
 		case E_CAL_BACKEND_EXCHANGE_BOOKING_BUSY:
 #if 0
@@ -1399,14 +1399,6 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 	g_object_unref (comp);
 												 
 	return retval;
-
-
-#if 0
-	*users = NULL;
-	*modified_calobj = g_strdup (calobj);
-
-	return GNOME_Evolution_Calendar_Success;
-#endif
 }
 
 #define THIRTY_MINUTES (30 * 60)
