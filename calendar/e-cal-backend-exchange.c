@@ -302,11 +302,8 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 static ECalBackendSyncStatus
 remove_calendar (ECalBackendSync *backend, EDataCal *cal)
 {
-	ECalBackendExchange *be = E_CAL_BACKEND_EXCHANGE (backend);
-	E2kHTTPStatus status;
-	
 	d(printf("ecbe_remove_calendar(%p, %p)\n", backend, cal));
-	GNOME_Evolution_Calendar_PermissionDenied;
+	return GNOME_Evolution_Calendar_PermissionDenied;
 
 	/* FIXME: Deleting calendar/tasks from respective views */
 #if 0
@@ -532,39 +529,8 @@ static ECalBackendSyncStatus
 discard_alarm (ECalBackendSync *backend, EDataCal *cal,
 	       const char *uid, const char *auid)
 {
-	ECalBackendSyncStatus result = GNOME_Evolution_Calendar_Success;
-	ECalBackendExchange *cbex = NULL;
-	ECalBackendExchangeComponent *ecbexcomp;
-	ECalComponent *comp;
-	icalcomponent *icalcomp;
-	
-	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (backend), 
-					GNOME_Evolution_Calendar_OtherError);
-	g_return_val_if_fail (E_IS_DATA_CAL (cal),
-					GNOME_Evolution_Calendar_OtherError);
-	g_return_val_if_fail (uid != NULL, GNOME_Evolution_Calendar_OtherError);
-	g_return_val_if_fail (auid != NULL, GNOME_Evolution_Calendar_OtherError);
-	
-	d(printf("ecbe_discard_alarm(%p, %p, uid=%s, auid=%s)\n", backend, cal, uid, auid));
-	
-	cbex = E_CAL_BACKEND_EXCHANGE (backend);
-
-	ecbexcomp = get_exchange_comp (cbex, uid);
-	
-	if (!ecbexcomp)
-		return GNOME_Evolution_Calendar_ObjectNotFound;
-
-	comp = E_CAL_COMPONENT (ecbexcomp->comp);
-	if (!e_cal_component_has_recurrences (comp))
-	{
-		e_cal_component_remove_alarm (comp, auid);
-		icalcomp = e_cal_component_get_icalcomponent (comp);
-		if (!e_cal_backend_exchange_modify_object (cbex, icalcomp,
-							 CALOBJ_MOD_THIS))
-			result = GNOME_Evolution_Calendar_OtherError;
-	}
-
-	return result;
+	/* To be called from the Calendar derived class */
+	return GNOME_Evolution_Calendar_OtherError;
 }
 
 /*To be overriden by Calendar and Task classes*/

@@ -1462,6 +1462,49 @@ set_freebusy_info (icalcomponent *vfb, const char *data, time_t start)
 }
 
 static ECalBackendSyncStatus
+discard_alarm (ECalBackendSync *backend, EDataCal *cal,
+		const char *uid, const char *auid)
+{
+	ECalBackendSyncStatus result = GNOME_Evolution_Calendar_Success;
+	ECalBackendExchange *cbex = NULL;
+	ECalBackendExchangeComponent *ecbexcomp;
+	ECalComponent *ecomp;
+	char *ecomp_str;
+	icalcomponent *icalcomp;
+
+	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (backend),
+					GNOME_Evolution_Calendar_InvalidObject);
+	g_return_val_if_fail (E_IS_DATA_CAL (cal),
+					GNOME_Evolution_Calendar_InvalidObject);
+	g_return_val_if_fail (uid != NULL, GNOME_Evolution_Calendar_OtherError);
+	g_return_val_if_fail (auid != NULL, GNOME_Evolution_Calendar_OtherError);
+
+	d(printf("ecbe_discard_alarm(%p, %p, uid=%s, auid=%s)\n", backend, cal, uid, auid));
+
+	cbex = E_CAL_BACKEND_EXCHANGE (backend);
+
+	ecbexcomp = get_exchange_comp (cbex, uid);
+
+	if (!ecbexcomp) 
+		return GNOME_Evolution_Calendar_ObjectNotFound;
+
+	ecomp = e_cal_component_new ();
+	e_cal_component_set_icalcomponent (ecomp, ecbexcomp->comp);
+	if (!e_cal_component_has_recurrences (ecomp))
+	{
+		e_cal_component_remove_alarm (ecomp, auid);
+		ecomp_str = e_cal_component_get_as_string (ecomp);
+		icalcomp = icalparser_parse_string (ecomp_str);
+		if (!e_cal_backend_exchange_modify_object ( cbex,
+					icalcomp, CALOBJ_MOD_ALL)) {
+			result = GNOME_Evolution_Calendar_OtherError;
+		}
+	}
+
+	return result;
+}
+
+static ECalBackendSyncStatus
 get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 	       GList *users, time_t start, time_t end,
 	       GList **freebusy)
@@ -1600,6 +1643,7 @@ class_init (ECalBackendExchangeCalendarClass *klass)
 	sync_class->receive_objects_sync = receive_objects;
 	sync_class->send_objects_sync = send_objects;
  	sync_class->get_freebusy_sync = get_free_busy;
+	sync_class->discard_alarm_sync = discard_alarm;
 
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;

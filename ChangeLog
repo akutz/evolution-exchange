@@ -1,3 +1,12 @@
+2004-08-12  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* calendar/e-cal-backend-exchange-calendar.c (discard_alarm):
+	Moved this from e-cal-backend-exchange.c, since this should be in the
+	calendar derived class and not in the abstract class. This fixes #45103
+	* calendar/e-cal-backend-exchange.c (discard_alarm): Now just returns
+	an error
+	(remove_calendar): Removed some warnings.
+ 
 2004-08-12  Sushma Rai  <rsushma@novell.com>
 
 	* lib/e2k-context.c (write_prop): Checking for value of property
