@@ -1,43 +1,45 @@
-# translation of evolution-exchange.gnome-2-8.po to 
-# translation of evolution-exchange.gnome-2-8.po to Greek
+# Grek translation of evolution-exchange.
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) 2005 THE PACKAGE'S COPYRIGHT HOLDER.
 # Kostas Papadimas <pkst@gnome.org>, 2004.
+# Simos Xenitellis <simos@gnome.org>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: evolution-exchange.gnome-2-8\n"
+"Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-19 18:15+0200\n"
-"PO-Revision-Date: 2005-02-19 18:17+0200\n"
-"Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
-"Language-Team:  <nls@tux.hellug.gr>\n"
+"POT-Creation-Date: 2005-02-26 18:56+0000\n"
+"PO-Revision-Date: 2005-02-26 19:24+0000\n"
+"Last-Translator: Simos Xenitellis <simos@gnome.org>\n"
+"Language-Team: Greek <team@gnome.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.3.1\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: addressbook/e-book-backend-exchange.c:1807
-#: addressbook/e-book-backend-gal.c:1344 storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:1804
+#: ../addressbook/e-book-backend-gal.c:1351 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Αναζήτηση..."
 
-#: addressbook/e-book-backend-gal.c:243
+#: ../addressbook/e-book-backend-gal.c:243
 msgid "Reconnecting to LDAP server..."
 msgstr "Επανασύνδεση με τον διακομιστή LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1218
+#: ../addressbook/e-book-backend-gal.c:1225
 msgid "Receiving LDAP search results..."
 msgstr "Λήψη αποτελεσμάτων αναζήτησης από LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1365
+#: ../addressbook/e-book-backend-gal.c:1372
 msgid "Error performing search"
 msgstr "Σφάλμα εκτέλεσης αναζήτησης"
 
-#: calendar/e-cal-backend-exchange.c:277
+#: ../calendar/e-cal-backend-exchange.c:277
 msgid "Folder not marked for offline support"
 msgstr "Ο φάκελος δεν έχει σημειωθεί για υποστήριξη χωρίς σύνδεση"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1716
+#: ../calendar/e-cal-backend-exchange-calendar.c:1800
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -46,65 +48,68 @@ msgstr ""
 "Αδυναμία προγραμματισμού πηγής '%s' για επαναλαμβανόμενες συναντήσεις.\n"
 " Θα πρέπει να προγραμματίσετε κάθε συνάντηση ξεχωριστά."
 
-#: calendar/e-cal-backend-exchange-calendar.c:1735
+#: ../calendar/e-cal-backend-exchange-calendar.c:1819
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Η πηγή '%s' είναι απασχολημένη κατά την επιλεγμένη χρονική περίοδο."
 
-#: camel/camel-exchange-folder.c:220
+#: ../camel/camel-exchange-folder.c:220
 msgid "Can only expunge in Deleted Items folder"
 msgstr "Μπορεί μόνο να γίνει εξάλειψη στον φάκελο Διαγραμμένων μηνυμάτων"
 
-#: camel/camel-exchange-folder.c:244
+#: ../camel/camel-exchange-folder.c:244
 msgid "No Subject"
 msgstr "Χωρίς θέμα"
 
-#: camel/camel-exchange-folder.c:598
+#: ../camel/camel-exchange-folder.c:371
+msgid "This message is not available in offline mode."
+msgstr "Αυτό το μήνυμα δεν είναι διαθέσιμο σε κατάσταση χωρίς σύνδεση."
+
+#: ../camel/camel-exchange-folder.c:606
 msgid "Moving messages"
 msgstr "Μετακίνηση μηνυμάτων"
 
-#: camel/camel-exchange-folder.c:599
+#: ../camel/camel-exchange-folder.c:607
 msgid "Copying messages"
 msgstr "Αντιγραφή μηνυμάτων"
 
-#: camel/camel-exchange-folder.c:930
+#: ../camel/camel-exchange-folder.c:939
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Δεν ήταν δυνατή η δημιουργία του καταλόγου %s: %s"
 
-#: camel/camel-exchange-folder.c:940
+#: ../camel/camel-exchange-folder.c:949
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Δεν ήταν δυνατή η φόρτωση της περίληψης για  %s"
 
-#: camel/camel-exchange-folder.c:948
+#: ../camel/camel-exchange-folder.c:957
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Αδυναμία δημιουργίας cache για %s"
 
-#: camel/camel-exchange-folder.c:958
+#: ../camel/camel-exchange-folder.c:967
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Αδυναμία δημιουργίας journal για %s"
 
-#: camel/camel-exchange-folder.c:998
+#: ../camel/camel-exchange-folder.c:1007
 msgid "Scanning for changed messages"
 msgstr "Γίνεται σάρωση για αλλαγμένα μηνύματα"
 
-#: camel/camel-exchange-folder.c:1022
+#: ../camel/camel-exchange-folder.c:1033
 msgid "Fetching summary information for new messages"
 msgstr "Λήψη πληροφορίες περίληψης για νέα μηνύματα"
 
-#: camel/camel-exchange-journal.c:279
+#: ../camel/camel-exchange-journal.c:279
 msgid "No folder name found\n"
 msgstr "Δεν βρέθηκε όνομα φακέλου\n"
 
-#: camel/camel-exchange-journal.c:342
+#: ../camel/camel-exchange-journal.c:342
 msgid "Cannot append message in offline mode: cache unavailable"
-msgstr ""
-"Αδυναμία προσθήκης μηνύματος σε λειτουργία χωρίς σύνδεση: cache unavailable"
+msgstr "Αδυναμία προσθήκης μηνύματος σε λειτουργία χωρίς σύνδεση: cache unavailable"
 
-#: camel/camel-exchange-journal.c:358
+#: ../camel/camel-exchange-journal.c:358
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Αδυναμία πρόσθεσης μηνύματος·σε·λειτουργία·χωρίς·σύνδεση:·%s"
@@ -112,69 +117,69 @@ msgstr "Αδυναμία πρόσθεσης μηνύματος·σε·λειτο
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: camel/camel-exchange-provider.c:46
+#: ../camel/camel-exchange-provider.c:46
 msgid "Windows User_name:"
 msgstr "Ό_νομα χρήστη Windows"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: camel/camel-exchange-provider.c:51
+#: ../camel/camel-exchange-provider.c:51
 msgid "Global Address List / Active Directory"
 msgstr "Global Address List / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:55
 msgid "Global Catalog server name:"
 msgstr "Όνομα καθολικού διακομιστή καταλόγου:"
 
-#: camel/camel-exchange-provider.c:57
+#: ../camel/camel-exchange-provider.c:57
 #, c-format
 msgid "Limit number of GAL responses: %s"
 msgstr "Οριοθέτηση αριθμού αποκρίσεων GAL: %s"
 
-#: camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:60
 msgid "Options"
 msgstr "Επιλογές"
 
-#: camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:62
 #, c-format
 msgid "Password Expiry Warning period: %s"
 msgstr "Προεοδοποίηση περιόδου λήξης κωδικού:·%s"
 
-#: camel/camel-exchange-provider.c:64
+#: ../camel/camel-exchange-provider.c:64
 msgid "Automatically synchronize account locally"
 msgstr "Αυτόματος συγχρονισμός λογαριασμού τοπικά"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:68
+#: ../camel/camel-exchange-provider.c:68
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr "Εφαρμογή φίλτρων στα νέα μηνύματα στα Εισερχόμενα αυτού του διακομιστή"
 
-#: camel/camel-exchange-provider.c:70
+#: ../camel/camel-exchange-provider.c:70
 msgid "Check new messages for Junk contents"
 msgstr "'Ελεγχος νέων μηνυμάτων για ανεπιθύμητη αλληλογραφία"
 
-#: camel/camel-exchange-provider.c:72
+#: ../camel/camel-exchange-provider.c:72
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "Να γίνεται έλεγχος μόνο στα Εισεχόμενα για ανεπιθύμητη αλληλογραφία"
 
-#: camel/camel-exchange-provider.c:88
+#: ../camel/camel-exchange-provider.c:88
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: camel/camel-exchange-provider.c:90
+#: ../camel/camel-exchange-provider.c:90
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr ""
 "Για τον χειρισμό αλληλογραφίας (και άλλων δεδομένων) σε διακομιστή Microsoft "
 "Exchange"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:106
+#: ../camel/camel-exchange-provider.c:106
 msgid "Secure Password"
 msgstr "Ασφαλής κωδικός"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:109
+#: ../camel/camel-exchange-provider.c:109
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -182,11 +187,11 @@ msgstr ""
 "Με αυτή την επιλογή θα συνδεθείτε με τον διακομιστή Exchange με την χρήση "
 "ασφαλούς πιστοποποίησης κωδικού (NTLM)."
 
-#: camel/camel-exchange-provider.c:117
+#: ../camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "Κωδικός απλού κειμένου"
 
-#: camel/camel-exchange-provider.c:119
+#: ../camel/camel-exchange-provider.c:119
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -194,87 +199,86 @@ msgstr ""
 "Με αυτή την επιλογή θα συνδεθείτε με τον διακομιστή Exchange με την χρήση "
 "απλής πιστοποποίησης κωδικού απλού κειμένου."
 
-#: camel/camel-exchange-store.c:260
+#: ../camel/camel-exchange-store.c:260
 #, c-format
 msgid "Exchange server %s"
 msgstr "Εξυπηρετητής Exchange %s"
 
-#: camel/camel-exchange-store.c:263
+#: ../camel/camel-exchange-store.c:263
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Λογαριασμός Exchange για %s σε %s"
 
-#: camel/camel-exchange-store.c:290
+#: ../camel/camel-exchange-store.c:290
 msgid "Evolution Exchange backend process"
 msgstr "Διεργασία backend για Evolution Exchange"
 
-#: camel/camel-exchange-store.c:352
+#: ../camel/camel-exchange-store.c:349
 #, c-format
 msgid "No such folder %s"
 msgstr "Δεν υπάρχει τέτοιος φάκελος ·%s"
 
-#: camel/camel-exchange-store.c:480
+#: ../camel/camel-exchange-store.c:477
 msgid "Cannot get folder info in offline mode."
 msgstr "Αδυναμία λήψης πληροφοριών φακέλου σε λειτουργία χωρίς σύνδεση"
 
-#: camel/camel-exchange-store.c:542
+#: ../camel/camel-exchange-store.c:539
 msgid "Cannot create folder in offline mode."
 msgstr "Δεν ήταν δυνατή η δημιουργία φακέλου σε·λειτουργία·χωρίς·σύνδεση"
 
-#: camel/camel-exchange-store.c:569
+#: ../camel/camel-exchange-store.c:566
 msgid "Cannot delete folder in offline mode."
 msgstr "Δεν ήταν δυνατή η διαγραφήφακέλου·σε·λειτουργία·χωρίς·σύνδεση."
 
-#: camel/camel-exchange-store.c:585
+#: ../camel/camel-exchange-store.c:582
 msgid "Cannot rename folder in offline mode."
 msgstr "Δεν ήταν δυνατή η μετονομασία φακέλου·σε·λειτουργία·χωρίς·σύνδεση."
 
-#: camel/camel-exchange-transport.c:110
+#: ../camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr ""
-"Το Exchange transport μπορεί μονο να χρησιμοποιηθεί με  Exchange mail source"
+msgstr "Το Exchange transport μπορεί μονο να χρησιμοποιηθεί με  Exchange mail source"
 
-#: camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
 msgstr ""
 "Δεν είναι δυνατή η αποστολή του μηνύματος: ένας ή περισσότεροι μη έγκυροι "
 "παραλήπτες"
 
-#: camel/camel-exchange-transport.c:131
+#: ../camel/camel-exchange-transport.c:131
 msgid "Could not find 'From' address in message"
 msgstr "Αδυναμία εύρεσης διεύθυνσης \"Από\" στο μήνυμα"
 
-#: camel/camel-stub.c:134
+#: ../camel/camel-stub.c:134
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Αδυναμία δημιουργίας socket: %s"
 
-#: camel/camel-stub.c:149
+#: ../camel/camel-stub.c:149
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Αδυναμία σύνδεσης σε %s: %s"
 
-#: camel/camel-stub.c:179
+#: ../camel/camel-stub.c:179
 #, c-format
 msgid "Path too long: %s"
 msgstr "Η διαδρομή είναι πολύ μεγάλη: %s"
 
-#: camel/camel-stub.c:205
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Αδυναμία έναρξης αλληλουχίας κατάστασης: %s"
 
-#: camel/camel-stub.c:457
+#: ../camel/camel-stub.c:457
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Χάθηκε η σύνδεση σε  %s"
 
-#: camel/camel-stub.c:461
+#: ../camel/camel-stub.c:461
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Σφάλμα επικοινωνίας με  %s: %s"
 
-#: lib/e2k-autoconfig.c:1426 storage/exchange-autoconfig-wizard.c:224
+#: ../lib/e2k-autoconfig.c:1426 ../storage/exchange-autoconfig-wizard.c:224
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -284,7 +288,7 @@ msgstr ""
 "Βεβαιωθείτε ότι το URL είναι σωστό (δώστε \"%s\" αντί για \"%s\";) "
 "προσπαθείστε ξανά."
 
-#: lib/e2k-autoconfig.c:1435 storage/exchange-autoconfig-wizard.c:232
+#: ../lib/e2k-autoconfig.c:1435 ../storage/exchange-autoconfig-wizard.c:232
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -292,7 +296,7 @@ msgstr ""
 "Αδυναμία εντοπισμού διακομιστή Exchange.\n"
 "Βεβαιωθείτε ότι το όνομα διακομιστή είναι σωστό και προσπαθείστε ξανά."
 
-#: lib/e2k-autoconfig.c:1445 storage/exchange-autoconfig-wizard.c:241
+#: ../lib/e2k-autoconfig.c:1445 ../storage/exchange-autoconfig-wizard.c:241
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -301,7 +305,7 @@ msgstr ""
 "Βεβαιωθείτε ότι το όνομα χρήστη και ο κωδικός είναι σωστά και προσπαθείστε "
 "ξανά."
 
-#: lib/e2k-autoconfig.c:1453 storage/exchange-autoconfig-wizard.c:248
+#: ../lib/e2k-autoconfig.c:1453 ../storage/exchange-autoconfig-wizard.c:248
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -317,7 +321,7 @@ msgstr ""
 "Ίσως θα χρειαστεί να βάλετε το Windows domain name ως μέρος του ονόματος "
 "χρήστη (πχ, \"MY-DOMAIN\\%s\")."
 
-#: lib/e2k-autoconfig.c:1466 storage/exchange-autoconfig-wizard.c:260
+#: ../lib/e2k-autoconfig.c:1466 ../storage/exchange-autoconfig-wizard.c:260
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -325,7 +329,8 @@ msgstr ""
 "Αδυναμία εύρεσης δεδομένων OWA στο καθορισμένο URL.\n"
 "Βεβαιωθείτε ότι το URL είναι σωστό και προσπαθείστε ξανά."
 
-#: lib/e2k-autoconfig.c:1474
+#: ../lib/e2k-autoconfig.c:1475
+#, c-format
 msgid ""
 "Ximian Connector requires access to certain functionality on the Exchange "
 "Server that appears to be disabled or blocked.  (This is usually "
@@ -334,20 +339,17 @@ msgid ""
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:\n"
-"http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
-"html "
+"%s"
 msgstr ""
 "Ο Ximian Connector απαιτεί πρόσβαση σε κάποια λειτουργία στον Exchange "
-"Server  που φαίνεται να είναι ανενεργή ή φραγμένη. (Αυτό γίνεται συνήθως "
-"κατά λάθος). Ο διαχειριστής του Exchange θα πρέπει να ενεργοποιήσει αυτή την "
-"λειτουργία για να μπορέσετε να χρησιμοποιήσετε τον Ximian Connector.\n"
+"Server που φαίνεται να είναι ανενεργή ή φραγμένη. (Αυτό συμβαίνει συνήθως "
+"κατά λάθος). Ο Διαχειριστής του Exchange θα πρέπει να ενεργοποιήσει αυτή την "
+"λειτουργία για να μπορέσετε να χρησιμοποιήσετε το Ximian Connector.\n"
 "\n"
-"Για πληροφορίες που μπορείτε να δώσετε στον διαχειριστής του Exchange δείτε "
-"τον παρακάτω δεσμό::\n"
-"http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
-"html·"
+"Για πληροφορίες που μπορείτε να δώσετε στον διαχειριστή του Exchange, παρακαλώ δείτε τον παρακάτω σύνδεσμο:\n"
+"%s"
 
-#: lib/e2k-autoconfig.c:1490 storage/exchange-autoconfig-wizard.c:288
+#: ../lib/e2k-autoconfig.c:1491 ../storage/exchange-autoconfig-wizard.c:288
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
@@ -355,150 +357,150 @@ msgstr ""
 "Το Exchange server URL που εισάγατε είναι για  Exchange 5.5. Ο Ximian "
 "Connector υποστηρίζει μόνο  Microsoft Exchange 2000 και 2003."
 
-#: lib/e2k-autoconfig.c:1499 storage/exchange-autoconfig-wizard.c:301
+#: ../lib/e2k-autoconfig.c:1500 ../storage/exchange-autoconfig-wizard.c:301
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
-msgstr ""
-"Αδυναμία ρύθμισης λογαριασμού Exchange λόγω ενός άγνωστου σφάλματος. Ελέγξτε "
-"το  URL, όνομα χρήστη και κωδικό και προσπαθείστε ξανά."
+msgstr "Αδυναμία ρύθμισης λογαριασμού Exchange λόγω ενός άγνωστου σφάλματος. Ελέγξτε το URL, όνομα χρήστη και κωδικό και προσπαθείστε ξανά."
 
-#: lib/e2k-autoconfig.c:1524
+#: ../lib/e2k-autoconfig.c:1525
 #, c-format
 msgid "Enter password for %s"
 msgstr "Εισάγετε κωδικό για %s"
 
-#: lib/e2k-autoconfig.c:1525 storage/exchange-account.c:859
+#: ../lib/e2k-autoconfig.c:1526 ../storage/exchange-account.c:858
 msgid "Enter password"
 msgstr "Εισάγετε κωδικό"
 
 #. i18n: These are Outlook's words for the default roles in
 #. the folder permissions dialog.
-#: lib/e2k-security-descriptor.c:847
+#: ../lib/e2k-security-descriptor.c:847
 msgid "Owner"
 msgstr "Ιδιοκτήτης"
 
-#: lib/e2k-security-descriptor.c:857
+#: ../lib/e2k-security-descriptor.c:857
 msgid "Publishing Editor"
 msgstr "Επιμελητής δημοσίευσης"
 
-#: lib/e2k-security-descriptor.c:865
+#: ../lib/e2k-security-descriptor.c:865
 msgid "Editor"
 msgstr "Επιμελητής"
 
-#: lib/e2k-security-descriptor.c:872
+#: ../lib/e2k-security-descriptor.c:872
 msgid "Publishing Author"
-msgstr "Δημιουργός δημοσίευσης"
+msgstr "Δημιουργός Δημοσίευσης"
 
-#: lib/e2k-security-descriptor.c:878
+#: ../lib/e2k-security-descriptor.c:878
 msgid "Author"
 msgstr "Δημιουργός"
 
-#: lib/e2k-security-descriptor.c:883
+#: ../lib/e2k-security-descriptor.c:883
 msgid "Non-editing Author"
 msgstr "Δημιουργός χωρίς επεξεργασία"
 
-#: lib/e2k-security-descriptor.c:887
+#: ../lib/e2k-security-descriptor.c:887
 msgid "Reviewer"
 msgstr "Κριτικός"
 
-#: lib/e2k-security-descriptor.c:889
+#: ../lib/e2k-security-descriptor.c:889
 msgid "Contributor"
 msgstr "Συντελεστής"
 
-#: lib/e2k-security-descriptor.c:891 storage/exchange-delegates.glade.h:7
+#: ../lib/e2k-security-descriptor.c:891
+#: ../storage/exchange-delegates.glade.h:7
 msgid "None"
 msgstr "Κανένα"
 
-#: lib/e2k-security-descriptor.c:906 storage/exchange-delegates-user.c:144
+#: ../lib/e2k-security-descriptor.c:906
+#: ../storage/exchange-delegates-user.c:144
 msgid "Custom"
 msgstr "Προσαρμοσμένο"
 
-#: lib/e2k-user-dialog.c:144
+#: ../lib/e2k-user-dialog.c:144
 msgid "Select User"
 msgstr "Επιλογή χρήστη"
 
-#: lib/e2k-user-dialog.c:182
+#: ../lib/e2k-user-dialog.c:182
 msgid "Addressbook..."
 msgstr "Βιβλίο Διευθύνσεων..."
 
-#: mail/mail-stub-exchange.c:231
+#: ../mail/mail-stub-exchange.c:231
 msgid "No such folder"
 msgstr "Δεν υπάρχει τέτοιος φάκελος"
 
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2309
-#: mail/mail-stub-exchange.c:2347 mail/mail-stub-exchange.c:2407
-#: shell/e-storage.c:573 storage/xc-commands.c:320
+#: ../mail/mail-stub-exchange.c:248 ../mail/mail-stub-exchange.c:2320
+#: ../mail/mail-stub-exchange.c:2358 ../mail/mail-stub-exchange.c:2418
+#: ../shell/e-storage.c:573 ../storage/xc-commands.c:320
 msgid "Permission denied"
 msgstr "Δεν επιτρέπεται η πρόσβαση"
 
-#: mail/mail-stub-exchange.c:546
+#: ../mail/mail-stub-exchange.c:546
 msgid "No such folder."
 msgstr "Δεν υπάρχει τέτοιος φάκελος."
 
-#: mail/mail-stub-exchange.c:555
+#: ../mail/mail-stub-exchange.c:555
 msgid "Could not create folder."
 msgstr "Αδυναμία δημιουργίας φακέλου."
 
-#: mail/mail-stub-exchange.c:602 mail/mail-stub-exchange.c:620
+#: ../mail/mail-stub-exchange.c:603 ../mail/mail-stub-exchange.c:621
 msgid "Could not open folder: Permission denied"
 msgstr "Αδυναμία ανοίγματος φακέλου. Άρνηση πρόσβασης"
 
-#: mail/mail-stub-exchange.c:606 mail/mail-stub-exchange.c:719
+#: ../mail/mail-stub-exchange.c:607 ../mail/mail-stub-exchange.c:720
 msgid "Could not open folder"
 msgstr "Αδυναμία ανοίγματος φακέλου"
 
-#: mail/mail-stub-exchange.c:774
+#: ../mail/mail-stub-exchange.c:775
 msgid "Could not open Deleted Items folder"
 msgstr "Αδυναμία ανοίγματος φακέλου διαγραμμένων αντικειμένων"
 
-#: mail/mail-stub-exchange.c:1094 mail/mail-stub-exchange.c:1135
+#: ../mail/mail-stub-exchange.c:1105 ../mail/mail-stub-exchange.c:1146
 msgid "Could not get new messages"
 msgstr "Αδυναμία λήψης νέων μηνυμάτων"
 
-#: mail/mail-stub-exchange.c:1300
+#: ../mail/mail-stub-exchange.c:1311
 msgid "Could not empty Deleted Items folder"
 msgstr "Αδυναμία αδειάσματος φακέλου διαγραμμένων αντικειμένων"
 
-#: mail/mail-stub-exchange.c:1372
+#: ../mail/mail-stub-exchange.c:1383
 msgid "Could not append message; mailbox is over quota"
 msgstr ""
 "Αδυναμία πρόσθεσης μηνύματος, το γραμματοκιβώτιο έχει εξαντλήσει το όριο "
 "χώρου"
 
-#: mail/mail-stub-exchange.c:1373
+#: ../mail/mail-stub-exchange.c:1384
 msgid "Could not append message"
 msgstr "Αδυναμία πρόσθεσης μηνύματος"
 
-#: mail/mail-stub-exchange.c:1856
+#: ../mail/mail-stub-exchange.c:1867
 msgid "No such message"
 msgstr "Δεν υπάρχει τέτοιο μήνυμα"
 
-#: mail/mail-stub-exchange.c:1909
+#: ../mail/mail-stub-exchange.c:1920
 msgid "Message has been deleted"
 msgstr "Το μήνυμα έχει διαγραφεί"
 
-#: mail/mail-stub-exchange.c:1911
+#: ../mail/mail-stub-exchange.c:1922
 msgid "Error retrieving message"
 msgstr "Σφάλμα ανάκτησης μηνύματος"
 
-#: mail/mail-stub-exchange.c:1953
+#: ../mail/mail-stub-exchange.c:1964
 msgid "Mailbox does not support full-text searching"
 msgstr "Το γραμματοκιβώτιο δεν υποστηρίζει αναζήτηση πλήρους κειμένου"
 
-#: mail/mail-stub-exchange.c:2051
+#: ../mail/mail-stub-exchange.c:2062
 msgid "Unable to move/copy messages"
 msgstr "Αδυναμία μετακίνησης/αντιγραφής μηνυμάτων"
 
-#: mail/mail-stub-exchange.c:2224
+#: ../mail/mail-stub-exchange.c:2235
 msgid "No mail submission URI for this mailbox"
 msgstr "Δεν υπάρχει URI υποβολής αλληλογραφίας για αυτό το γραμματοκιβώτιο"
 
-#: mail/mail-stub-exchange.c:2260
+#: ../mail/mail-stub-exchange.c:2271
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Ο διακομιστής δεν θα δεχθεί αλληλογραφία μέσω  Exchange transport"
 
-#: mail/mail-stub-exchange.c:2262
+#: ../mail/mail-stub-exchange.c:2273
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -507,7 +509,7 @@ msgstr ""
 "Ο λογαριασμός σας δεν έχει το δικαιώμα να χρησιμοποιήσει το <%s>\n"
 "ως διεύθυνση Από."
 
-#: mail/mail-stub-exchange.c:2274
+#: ../mail/mail-stub-exchange.c:2285
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -515,26 +517,26 @@ msgstr ""
 "Αδυναμία αποστολής μηνύματος.\n"
 "Αυτό μπορεί να σημαίνει ότι ο λογαριασμός σας έχει υπερβεί το όριο."
 
-#: mail/mail-stub-exchange.c:2278
+#: ../mail/mail-stub-exchange.c:2289
 msgid "Could not send message"
 msgstr "Αδυναμία αποστολής μηνύματος"
 
-#: mail/mail-stub-exchange.c:2301 mail/mail-stub-exchange.c:2352
-#: mail/mail-stub-exchange.c:2411 shell/e-storage.c:557
-#: storage/xc-commands.c:324
+#: ../mail/mail-stub-exchange.c:2312 ../mail/mail-stub-exchange.c:2363
+#: ../mail/mail-stub-exchange.c:2422 ../shell/e-storage.c:557
+#: ../storage/xc-commands.c:324
 msgid "Generic error"
 msgstr "Γενικό σφάλμα"
 
-#: mail/mail-stub-exchange.c:2305 storage/xc-commands.c:314
+#: ../mail/mail-stub-exchange.c:2316 ../storage/xc-commands.c:314
 msgid "Folder already exists"
 msgstr "Ο Φάκελος υπάρχει ήδη"
 
-#: mail/mail-stub-exchange.c:2332 mail/mail-stub-exchange.c:2374
-#: mail/mail-stub-exchange.c:2403
+#: ../mail/mail-stub-exchange.c:2343 ../mail/mail-stub-exchange.c:2385
+#: ../mail/mail-stub-exchange.c:2414
 msgid "Folder doesn't exist"
 msgstr "Ο Φάκελος δεν υπάρχει"
 
-#: shell/e-folder-creation-dialog.c:138
+#: ../shell/e-folder-creation-dialog.c:138
 #, c-format
 msgid ""
 "Cannot create the specified folder:\n"
@@ -543,34 +545,34 @@ msgstr ""
 "Δεν ήταν δυνατή η δημιουργία του συγκεκριμένου φακέλου:\n"
 "%s"
 
-#: shell/e-folder-creation-dialog.c:179
+#: ../shell/e-folder-creation-dialog.c:179
 #, c-format
 msgid "The specified folder name is not valid: %s"
 msgstr "Το συγκεκριμένο όνομα φακέλου δεν είναι έγκυρο: %s"
 
-#: shell/e-folder-creation-dialog.c:310
+#: ../shell/e-folder-creation-dialog.c:310
 msgid "Create New Folder"
 msgstr "Δημιουργία Νέου Φακέλου.."
 
-#: shell/e-folder-creation-dialog.glade.h:1
-#: storage/exchange-autoconfig-wizard.glade.h:1
-#: storage/exchange-change-password.glade.h:1
+#: ../shell/e-folder-creation-dialog.glade.h:1
+#: ../storage/exchange-autoconfig-wizard.glade.h:1
+#: ../storage/exchange-change-password.glade.h:1
 msgid "*"
 msgstr "*"
 
-#: shell/e-folder-creation-dialog.glade.h:2
+#: ../shell/e-folder-creation-dialog.glade.h:2
 msgid "Folder _name:"
 msgstr "_Όνομα φακέλου:"
 
-#: shell/e-folder-creation-dialog.glade.h:3
+#: ../shell/e-folder-creation-dialog.glade.h:3
 msgid "Folder _type:"
 msgstr "_Τύπος φακέλου:"
 
-#: shell/e-folder-creation-dialog.glade.h:4
+#: ../shell/e-folder-creation-dialog.glade.h:4
 msgid "Specify where to create the folder:"
 msgstr "Ορίστε που θα δημιουργηθεί ο φάκελος:"
 
-#: shell/e-folder-dnd-bridge.c:52
+#: ../shell/e-folder-dnd-bridge.c:52
 #, c-format
 msgid ""
 "Cannot transfer folder:\n"
@@ -579,7 +581,7 @@ msgstr ""
 "Αδύνατη η μεταφορά του φακέλου:\n"
 "%s"
 
-#: shell/e-folder-misc-dialogs.c:62
+#: ../shell/e-folder-misc-dialogs.c:62
 #, c-format
 msgid ""
 "Cannot delete folder:\n"
@@ -588,17 +590,17 @@ msgstr ""
 "Δεν ήταν δυνατή η διαγραφή του φακέλου:\n"
 "%s"
 
-#: shell/e-folder-misc-dialogs.c:115
+#: ../shell/e-folder-misc-dialogs.c:115
 #, c-format
 msgid "Really delete folder \"%s\"?"
 msgstr "Αλήθεια να γίνει διαγραφή του φακέλου \"%s\";"
 
-#: shell/e-folder-misc-dialogs.c:129
+#: ../shell/e-folder-misc-dialogs.c:129
 #, c-format
 msgid "Delete \"%s\""
 msgstr "Διαγραφή \"%s\""
 
-#: shell/e-folder-misc-dialogs.c:154
+#: ../shell/e-folder-misc-dialogs.c:154
 #, c-format
 msgid ""
 "Cannot rename folder:\n"
@@ -607,16 +609,16 @@ msgstr ""
 "Δεν ήταν δυνατή η μετονομασία του φακέλου :\n"
 "%s"
 
-#: shell/e-folder-misc-dialogs.c:188
+#: ../shell/e-folder-misc-dialogs.c:188
 #, c-format
 msgid "Rename the \"%s\" folder to:"
 msgstr "Μετονομασία φακέλου \"%s\" σε:"
 
-#: shell/e-folder-misc-dialogs.c:191
+#: ../shell/e-folder-misc-dialogs.c:191
 msgid "Rename Folder"
 msgstr "Μετονομασία Φακέλου"
 
-#: shell/e-folder-misc-dialogs.c:205
+#: ../shell/e-folder-misc-dialogs.c:205
 #, c-format
 msgid "A folder named \"%s\" already exists. Please use a different name."
 msgstr ""
@@ -626,34 +628,34 @@ msgstr ""
 #. It would be nice to insensitivize the OK button appropriately
 #. instead of doing this, but unfortunately we can't do this for the
 #. Bonobo control.
-#: shell/e-folder-misc-dialogs.c:439
+#: ../shell/e-folder-misc-dialogs.c:439
 msgid "Please select a user."
 msgstr "Παρακαλώ επιλέξτε ένα χρήστη"
 
-#: shell/e-folder-misc-dialogs.c:539
+#: ../shell/e-folder-misc-dialogs.c:539
 msgid "Opening Folder"
 msgstr "Άνοιγμα φακέλου"
 
-#: shell/e-folder-misc-dialogs.c:545
+#: ../shell/e-folder-misc-dialogs.c:545
 #, c-format
 msgid "Opening Folder \"%s\""
 msgstr "Άνοιγμα φακέλου \"%s\""
 
-#: shell/e-folder-misc-dialogs.c:550
+#: ../shell/e-folder-misc-dialogs.c:550
 #, c-format
 msgid "in \"%s\" ..."
 msgstr "σε \"%s\" ..."
 
-#: shell/e-folder-misc-dialogs.c:617
+#: ../shell/e-folder-misc-dialogs.c:617
 #, c-format
 msgid "Could not open other user's folder: %s."
 msgstr "Αδυναμία ανοίγματος φακέλου άλλου χρήστη: %s."
 
-#: shell/e-folder-misc-dialogs.c:667
+#: ../shell/e-folder-misc-dialogs.c:667
 msgid "Cannot find the specified other user's folder."
 msgstr "Αδυναμία εύρεσης του καθορισμένου φακέλου άλλου χρήστη."
 
-#: shell/e-folder-misc-dialogs.c:699
+#: ../shell/e-folder-misc-dialogs.c:699
 #, c-format
 msgid ""
 "Cannot unsubscribe from folder:\n"
@@ -662,147 +664,145 @@ msgstr ""
 "Αδυναμία ακύρωσης συνδρομής από φάκελο:\n"
 "%s"
 
-#: shell/e-folder-misc-dialogs.c:752
+#: ../shell/e-folder-misc-dialogs.c:752
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "Να γίνει ακύρωση συνδρομής από φάκελο  \"%s\";"
 
-#: shell/e-folder-misc-dialogs.c:766
+#: ../shell/e-folder-misc-dialogs.c:766
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "Κατάργηση Συνδρομής από \"%s\""
 
-#: shell/e-foreign-folder-dialog.glade.h:1
+#: ../shell/e-foreign-folder-dialog.glade.h:1
 msgid "Open Other User's Folder"
 msgstr "Άνοιγμα φακέλου άλλου χρήστη"
 
-#: shell/e-foreign-folder-dialog.glade.h:2
+#: ../shell/e-foreign-folder-dialog.glade.h:2
 msgid "_Account:"
 msgstr "_Λογαριασμός"
 
-#: shell/e-foreign-folder-dialog.glade.h:3
+#: ../shell/e-foreign-folder-dialog.glade.h:3
 msgid "_Folder Name:"
 msgstr "Όνομα _Φακέλου:"
 
-#: shell/e-foreign-folder-dialog.glade.h:4
+#: ../shell/e-foreign-folder-dialog.glade.h:4
 msgid "_User:"
 msgstr "_Χρήστης:"
 
-#: shell/e-storage-set-view.etspec.h:1
+#: ../shell/e-storage-set-view.etspec.h:1
 msgid "Checkbox"
 msgstr "Checkbox"
 
-#: shell/e-storage-set-view.etspec.h:2
+#: ../shell/e-storage-set-view.etspec.h:2
 msgid "Folder"
 msgstr "Φάκελος"
 
-#: shell/e-storage.c:555
+#: ../shell/e-storage.c:555
 msgid "No error"
 msgstr "Κανένα σφάλμα"
 
-#: shell/e-storage.c:559
+#: ../shell/e-storage.c:559
 msgid "A folder with the same name already exists"
 msgstr "Υπάρχει ήδη φάκελος με αυτό το όνομα"
 
-#: shell/e-storage.c:561
+#: ../shell/e-storage.c:561
 msgid "The specified folder type is not valid"
 msgstr "Ο καθορισμένος τύπος φακέλου δεν είναι έγκυρος"
 
-#: shell/e-storage.c:563
+#: ../shell/e-storage.c:563
 msgid "I/O error"
 msgstr "Σφάλμα εισόδου/εξόδου"
 
-#: shell/e-storage.c:565
+#: ../shell/e-storage.c:565
 msgid "Not enough space to create the folder"
 msgstr "Δεν υπάρχει αρκετός χώρος για την δημιουργία του φακέλου"
 
-#: shell/e-storage.c:567
+#: ../shell/e-storage.c:567
 msgid "The folder is not empty"
 msgstr "Ο φάκελος δεν είναι άδειος"
 
-#: shell/e-storage.c:569
+#: ../shell/e-storage.c:569
 msgid "The specified folder was not found"
 msgstr "Ο καθορισμένος φάκελος δεν βρέθηκε"
 
-#: shell/e-storage.c:571
+#: ../shell/e-storage.c:571
 msgid "Function not implemented in this storage"
 msgstr " Η λειτουργία αύτη δεν έχει ενσωματωθεί σε αυτή την αποθήκη"
 
-#: shell/e-storage.c:575
+#: ../shell/e-storage.c:575
 msgid "Operation not supported"
 msgstr "Η λειτουργία δεν υποστηρίζεται"
 
-#: shell/e-storage.c:577
+#: ../shell/e-storage.c:577
 msgid "The specified type is not supported in this storage"
 msgstr "Δεν υπάρχει υποστηρίξη για τον συγκεκριμένο τύπο σε αυτή τη αποθήκευση"
 
-#: shell/e-storage.c:579
+#: ../shell/e-storage.c:579
 msgid "The specified folder cannot be modified or removed"
-msgstr ""
-"Δεν είναι δυνατό να μετονομαστεί η να μετακινηθεί ο συγκεκριμένος φάκελος "
+msgstr "Δεν είναι δυνατό να μετονομαστεί η να μετακινηθεί ο συγκεκριμένος φάκελος "
 
-#: shell/e-storage.c:581
+#: ../shell/e-storage.c:581
 msgid "Cannot make a folder a child of one of its descendants"
-msgstr ""
-"Αδυναμία μετατροπής ενός φακέλου σε θυγατρικό ενός από τους απογόνους του"
+msgstr "Αδυναμία μετατροπής ενός φακέλου σε θυγατρικό ενός από τους απογόνους του"
 
-#: shell/e-storage.c:583
+#: ../shell/e-storage.c:583
 msgid "Cannot create a folder with that name"
 msgstr "Δεν ήταν δυνατή η δημιουργία φακέλου με αυτό το όνομα"
 
-#: shell/e-storage.c:585
+#: ../shell/e-storage.c:585
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Αυτή η λειτουργία δεν μπορεί να εκτελεσθεί χωρίς σύνδεση"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1418
+#: ../shell/e-storage.c:587 ../storage/exchange-account.c:1434
 msgid "Unknown error"
 msgstr "Άγνωστο σφάλμα"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
 msgid "*Control*F5"
 msgstr "*Control*F5"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Addressbook Exchange backend"
 msgstr "Evolution Addressbook Exchange backend"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
 msgid "Evolution Calendar Exchange backend"
 msgstr "Evolution Calendar Exchange backend"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
 msgid "Evolution Exchange Component"
 msgstr "Evolution Exchange Component"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
 msgid "Exchange"
 msgstr "Exchange"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
 msgid "Ximian Connector for Exchange"
 msgstr "Ximian Connector for Exchange"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
 msgid "_Exchange"
 msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:572
+#: ../storage/exchange-account.c:568
 #, c-format
 msgid "%s's Folders"
 msgstr "Φάκελοι %s's"
 
-#: storage/exchange-account.c:855
+#: ../storage/exchange-account.c:853
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sΕισάγετε κωδικό για %s"
 
-#: storage/exchange-account.c:1040
+#: ../storage/exchange-account.c:1043
 msgid "Cannot change password due to configuration problems"
 msgstr "Αδυναμία αλλαγής κωδικού λόγω προβλημάτων ρύθμισης"
 
-#: storage/exchange-account.c:1055
+#: ../storage/exchange-account.c:1058
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -810,33 +810,33 @@ msgstr ""
 "Ο διακομιστής απέρριψε τον κωδικό επειδή είναι εύκολο.\n"
 "Προσπαθήστε ξανά με διαφορετικό κωδικό."
 
-#: storage/exchange-account.c:1060
+#: ../storage/exchange-account.c:1063
 msgid "Could not change password"
 msgstr "Αδυναμία αλλαγής κωδικού"
 
-#: storage/exchange-account.c:1144
+#: ../storage/exchange-account.c:1159
 msgid "Personal Folders"
 msgstr "Προσωπικοί Φάκελοι"
 
-#: storage/exchange-account.c:1159
+#: ../storage/exchange-account.c:1174
 msgid "Favorite Public Folders"
 msgstr "Αγαπημένοι δημόσιοι φάκελοι"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1176
+#: ../storage/exchange-account.c:1191
 msgid "All Public Folders"
 msgstr "Όλοι οι δημόσιοι φάκελοι"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1190
+#: ../storage/exchange-account.c:1205
 msgid "Global Address List"
 msgstr "Καθολική λίστσ διευθύσεων"
 
-#: storage/exchange-account.c:1276
+#: ../storage/exchange-account.c:1292
 msgid "Exchange Account is offline. Cannot display folders\n"
 msgstr "Ο λογαριασμός Exchange είναι χωρίς σύνδεση. Αδυναμία εμφάνισης φακέλων\n"
 
-#: storage/exchange-account.c:1329
+#: ../storage/exchange-account.c:1345
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -844,7 +844,7 @@ msgstr ""
 "Αδυναμία πιστοποποίησης στον διακομιστή. (λανθασμένος κωδικός;)\n"
 "\n"
 
-#: storage/exchange-account.c:1334
+#: ../storage/exchange-account.c:1350
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -863,12 +863,12 @@ msgstr ""
 "Ή απλά να πληκτρολογήσατε τον κωδικό σας λάθος.\n"
 "\n"
 
-#: storage/exchange-account.c:1376
+#: ../storage/exchange-account.c:1392
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Γραμματοκιβώτιο για  %s  δεν βρίσκεται στον διακομιστή"
 
-#: storage/exchange-account.c:1381
+#: ../storage/exchange-account.c:1397
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -877,7 +877,7 @@ msgstr ""
 "Ο διακομιστής '%s' τρέχει Exchange 5.5 και\n"
 "δεν είναι συμβατός με τον  Ximian Connector"
 
-#: storage/exchange-account.c:1388
+#: ../storage/exchange-account.c:1404
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -888,26 +888,26 @@ msgstr ""
 "Αν το OWA εκτελείται σε διαφορετική διαδρομή, θα πρέπει να το\n"
 " καθορίσετε στον διάλογο ρύθμιση λογαριασμού."
 
-#: storage/exchange-account.c:1396
+#: ../storage/exchange-account.c:1412
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Δεν υπάρχει γραμματοκιβώτιο  για χρήστη  %s σε %s.\n"
 
-#: storage/exchange-account.c:1402 storage/exchange-account.c:1408
-#: storage/exchange-account.c:1416
+#: ../storage/exchange-account.c:1418 ../storage/exchange-account.c:1424
+#: ../storage/exchange-account.c:1432
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Δεν είναι δυνατή η σύνδεση στον διακομιστή %s: %s"
 
-#: storage/exchange-account.c:1404
+#: ../storage/exchange-account.c:1420
 msgid "Could not resolve hostname"
 msgstr "Αδυναμία επίλυσης ονόματος συστήματος"
 
-#: storage/exchange-account.c:1410
+#: ../storage/exchange-account.c:1426
 msgid "Network error"
 msgstr "Σφάλμα δικτύου"
 
-#: storage/exchange-autoconfig-wizard.c:267
+#: ../storage/exchange-autoconfig-wizard.c:267
 msgid ""
 "Ximian Connector requires access to certain functionality on the Exchange "
 "Server that appears to be disabled or blocked.  (This is usually "
@@ -925,7 +925,7 @@ msgstr ""
 "Για πληροφορίες που μπορείτε να δώσετε στον διαχειριστής του Exchange δείτε "
 "τον παρακάτω δεσμό:"
 
-#: storage/exchange-autoconfig-wizard.c:345
+#: ../storage/exchange-autoconfig-wizard.c:345
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -936,7 +936,7 @@ msgstr ""
 "χρειαστεί να πάτε πίσω και να καθορίσετε το Windows domain name ως μέρος του "
 "ονόματος χρήστη ) (eg, \"MY-DOMAIN\\%s\")."
 
-#: storage/exchange-autoconfig-wizard.c:352
+#: ../storage/exchange-autoconfig-wizard.c:352
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -944,12 +944,12 @@ msgstr ""
 "Αδυναμία σύνδεσης στον καθορσιμένο διακομιστή.\n"
 "Ελέγξτε το όνομα διακομιστή και προσπαθείστε ξανά."
 
-#: storage/exchange-autoconfig-wizard.c:389
-#: storage/exchange-autoconfig-wizard.c:393
+#: ../storage/exchange-autoconfig-wizard.c:389
+#: ../storage/exchange-autoconfig-wizard.c:393
 msgid "Unknown"
 msgstr "Άγνωστο"
 
-#: storage/exchange-autoconfig-wizard.c:477
+#: ../storage/exchange-autoconfig-wizard.c:477
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -957,60 +957,60 @@ msgstr ""
 "Σφάλμα ρύθμισης συστήματος.\n"
 "Αδυναμία δημιουργίας νέου λογαριασμού."
 
-#: storage/exchange-autoconfig-wizard.c:491
-#: storage/exchange-config-listener.c:578
+#: ../storage/exchange-autoconfig-wizard.c:491
+#: ../storage/exchange-config-listener.c:604
 msgid "You may only configure a single Exchange account"
 msgstr "Μπορείτε να ρυθμίσετε μόνο ένα λογαριασμό Exchange"
 
-#: storage/exchange-autoconfig-wizard.glade.h:2
+#: ../storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
 msgstr "Αποτυχία ρύθμισης"
 
-#: storage/exchange-autoconfig-wizard.glade.h:3
+#: ../storage/exchange-autoconfig-wizard.glade.h:3
 msgid "Done"
 msgstr "Έγινε"
 
-#: storage/exchange-autoconfig-wizard.glade.h:4
+#: ../storage/exchange-autoconfig-wizard.glade.h:4
 msgid "Email Address:"
 msgstr "Διεύθυνση Email:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:5
+#: ../storage/exchange-autoconfig-wizard.glade.h:5
 msgid "Exchange Configuration"
 msgstr "Ρύθμιση Exchange"
 
-#: storage/exchange-autoconfig-wizard.glade.h:6
+#: ../storage/exchange-autoconfig-wizard.glade.h:6
 msgid "Full Name:"
 msgstr "Πλήρες Όνομα:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:7
+#: ../storage/exchange-autoconfig-wizard.glade.h:7
 msgid "GC Server:"
 msgstr "GC Server:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:8
+#: ../storage/exchange-autoconfig-wizard.glade.h:8
 msgid "Make this my default account"
 msgstr "Καθορισμος αυτού του λογαριασμού ως τον προεπιλεγμένο"
 
-#: storage/exchange-autoconfig-wizard.glade.h:9
+#: ../storage/exchange-autoconfig-wizard.glade.h:9
 msgid "OWA URL:"
 msgstr "OWA URL:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:10
+#: ../storage/exchange-autoconfig-wizard.glade.h:10
 msgid "Password:"
 msgstr "Κωδικός:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:11
+#: ../storage/exchange-autoconfig-wizard.glade.h:11
 msgid "Remember this password"
 msgstr "Απομνημόνευση αυτού του κωδικού"
 
-#: storage/exchange-autoconfig-wizard.glade.h:12
+#: ../storage/exchange-autoconfig-wizard.glade.h:12
 msgid "Username:"
 msgstr "Όνομα χρήστη:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:13
+#: ../storage/exchange-autoconfig-wizard.glade.h:13
 msgid "Welcome"
 msgstr "Καλώς ήλθατε"
 
-#: storage/exchange-autoconfig-wizard.glade.h:14
+#: ../storage/exchange-autoconfig-wizard.glade.h:14
 msgid ""
 "Welcome to Ximian Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
@@ -1024,11 +1024,11 @@ msgstr ""
 "\n"
 "Παρακαλώ πατήστε το κουμπί \"Μπροστά\" για συνέχεια."
 
-#: storage/exchange-autoconfig-wizard.glade.h:19
+#: ../storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Ximian Connector Configuration"
 msgstr "Ρύθμιση Ximian Connector "
 
-#: storage/exchange-autoconfig-wizard.glade.h:20
+#: ../storage/exchange-autoconfig-wizard.glade.h:20
 msgid ""
 "Ximian Connector can use account information from your existing Outlook Web "
 "Access (OWA) account.\n"
@@ -1042,7 +1042,7 @@ msgstr ""
 "Εισάγετε την διεύθυνση OWA (URL), όνομα χρήστη και κωδικό και πατήστε "
 "\"Μπροστά\".\n"
 
-#: storage/exchange-autoconfig-wizard.glade.h:24
+#: ../storage/exchange-autoconfig-wizard.glade.h:24
 msgid ""
 "Ximian Connector could not find the Global Catalog replica for your site. "
 "Please enter the name of your Global Catalog server. You may need to ask "
@@ -1053,7 +1053,7 @@ msgstr ""
 "καταλόγου. Ίσως θα χρειατεί να ρωτήσετε τον διαχειριστή του συστήματος σας "
 "για τισ σωστές τιμές.\n"
 
-#: storage/exchange-autoconfig-wizard.glade.h:26
+#: ../storage/exchange-autoconfig-wizard.glade.h:26
 msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
@@ -1061,7 +1061,7 @@ msgstr ""
 "Ο Ximian Connector αντιμετώπισε ένα πρόβλημα στην ρύθμιση του λογαριασμού "
 "Exchange.\n"
 
-#: storage/exchange-autoconfig-wizard.glade.h:28
+#: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
 "Your Connector account is now ready to use. Click the \"Apply\" button to "
 "save your\n"
@@ -1071,7 +1071,7 @@ msgstr ""
 "\" για να αποθηκεύσετε \n"
 " τις ρυθμίσεις σας"
 
-#: storage/exchange-autoconfig-wizard.glade.h:30
+#: ../storage/exchange-autoconfig-wizard.glade.h:30
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
@@ -1082,7 +1082,7 @@ msgstr ""
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
-#: storage/exchange-change-password.c:114
+#: ../storage/exchange-change-password.c:114
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
@@ -1090,47 +1090,50 @@ msgstr ""
 "Ο τρέχων κωδικός δεν ταιριάζει με τον υπάρχοντα κωδικό για τον λογαριασμό "
 "σας. Παρακαλώ εισάγετε το σωστό κωδικό"
 
-#: storage/exchange-change-password.c:121
+#: ../storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr "Οι δύο κωδικοί δεν ταιριάζουν. Παρακαλώ εισάγετε ξανά τους κωδικούς."
 
-#: storage/exchange-change-password.glade.h:2
+#: ../storage/exchange-change-password.glade.h:2
 msgid "Change Password"
 msgstr "Αλλαγή Κωδικού"
 
-#: storage/exchange-change-password.glade.h:3
+#: ../storage/exchange-change-password.glade.h:3
 msgid "Confirm Password:"
 msgstr "Επιβεβαίωση Κωδικού:"
 
-#: storage/exchange-change-password.glade.h:4
+#: ../storage/exchange-change-password.glade.h:4
 msgid "Current Password:"
 msgstr "Τρέχων Κωδικός:"
 
-#: storage/exchange-change-password.glade.h:5
+#: ../storage/exchange-change-password.glade.h:5
 msgid "New Password:"
 msgstr "Νέος Κωδικός:"
 
-#: storage/exchange-change-password.glade.h:6
+#: ../storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
 msgstr "Ο κωδικός σας έχει λήξει. Παρακαλώ αλλάξτε τον κωδικό σας τώρα."
 
-#: storage/exchange-component.c:320
+#: ../storage/exchange-component.c:322
 msgid "Mail"
 msgstr "Αλληλογραφία"
 
-#: storage/exchange-component.c:323 storage/exchange-hierarchy-foreign.c:251
+#: ../storage/exchange-component.c:325
+#: ../storage/exchange-hierarchy-foreign.c:251
 msgid "Contacts"
 msgstr "Επαφές"
 
-#: storage/exchange-component.c:327 storage/exchange-hierarchy-foreign.c:259
+#: ../storage/exchange-component.c:329
+#: ../storage/exchange-hierarchy-foreign.c:259
 msgid "Tasks"
 msgstr "Εργασίες"
 
-#: storage/exchange-component.c:330 storage/exchange-hierarchy-foreign.c:250
+#: ../storage/exchange-component.c:332
+#: ../storage/exchange-hierarchy-foreign.c:250
 msgid "Calendar"
 msgstr "Ημερολόγιο"
 
-#: storage/exchange-config-listener.c:702
+#: ../storage/exchange-config-listener.c:727
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
@@ -1138,17 +1141,17 @@ msgstr ""
 "Οι αλλαγές στην ρύθμιση του λογαριασμού Exchange θα \n"
 " πραγματοποιηθεί μετά την επανεκκίνηση του Evolution."
 
-#: storage/exchange-config-listener.c:748
+#: ../storage/exchange-config-listener.c:773
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr "Ο λογαριασμός Exchange  θα απομακρυνθεί με την έξοδο από το Evolution"
 
-#: storage/exchange-delegates-user.c:191
-#: storage/exchange-permissions-dialog.c:179
+#: ../storage/exchange-delegates-user.c:191
+#: ../storage/exchange-permissions-dialog.c:179
 #, c-format
 msgid "Permissions for %s"
 msgstr "Δικαιώματα για %s"
 
-#: storage/exchange-delegates.c:221
+#: ../storage/exchange-delegates.c:221
 msgid ""
 "No Global Catalog server configured for this account.\n"
 "Unable to edit delegates."
@@ -1156,7 +1159,7 @@ msgstr ""
 "Δεν έχει ρυθμιστεί καθολικός κατάλογος για αυτό τον λογαριασμό.\n"
 "Αδυναμία επεξεργασίας εκπροσώπων."
 
-#: storage/exchange-delegates.c:260
+#: ../storage/exchange-delegates.c:260
 msgid ""
 "Could not read folder permissions.\n"
 "Unable to edit delegates."
@@ -1164,7 +1167,7 @@ msgstr ""
 "Αδυναμία ανάγνωσης δικαιωμάτων φακέλου.\n"
 "Αδύνατη η επεξεργασία εκπροσώπων."
 
-#: storage/exchange-delegates.c:267
+#: ../storage/exchange-delegates.c:267
 msgid ""
 "Could not determine folder permissions for delegates.\n"
 "Unable to edit delegates."
@@ -1172,61 +1175,61 @@ msgstr ""
 "Αδυναμία ανάγνωσης δικαιωμάτων φακέλου για εκπροσώπους.\n"
 "Αδύνατη η επεξεργασία εκπροσώπων."
 
-#: storage/exchange-delegates.c:419
+#: ../storage/exchange-delegates.c:419
 msgid "Delegate To:"
 msgstr "Εκπρόσωπος Σε:"
 
-#: storage/exchange-delegates.c:419
+#: ../storage/exchange-delegates.c:419
 msgid "Delegate To"
 msgstr "Εκπρόσωπος Σε"
 
-#: storage/exchange-delegates.c:435
+#: ../storage/exchange-delegates.c:435
 #, c-format
 msgid "Could not make %s a delegate"
 msgstr "Δεν είναι δυνατός ο ορισμός %s ως εκπροσώπου"
 
-#: storage/exchange-delegates.c:445
+#: ../storage/exchange-delegates.c:445
 msgid "You cannot make yourself your own delegate"
 msgstr "Δεν μπορείτε να κάνετε τον εαυτός σας εκπρόσωπο"
 
-#: storage/exchange-delegates.c:454
+#: ../storage/exchange-delegates.c:454
 #, c-format
 msgid "%s is already a delegate"
 msgstr "Ο %s είναι ήδη εκπρόσωπος"
 
-#: storage/exchange-delegates.c:563
+#: ../storage/exchange-delegates.c:563
 #, c-format
 msgid "Remove the delegate %s?"
 msgstr "Απομάκρυνση του εκπροσώπου  %s;"
 
-#: storage/exchange-delegates.c:680
+#: ../storage/exchange-delegates.c:680
 msgid "Could not access Active Directory"
 msgstr "Αδυναμία πρόσβασης στο Active Directory"
 
-#: storage/exchange-delegates.c:695
+#: ../storage/exchange-delegates.c:695
 msgid "Could not find self in Active Directory"
 msgstr "Αδυναμία εύρεσης του εαυτού σας στο Active Directory"
 
-#: storage/exchange-delegates.c:708
+#: ../storage/exchange-delegates.c:708
 #, c-format
 msgid "Could not find delegate %s in Active Directory"
 msgstr "Αδυναμία εύρεσης του εκπροσώπου  %s στο Active Directory"
 
-#: storage/exchange-delegates.c:720
+#: ../storage/exchange-delegates.c:720
 #, c-format
 msgid "Could not remove delegate %s"
 msgstr "Αδυναμία απομάκρυνσης του εκπροσώπου  %s "
 
-#: storage/exchange-delegates.c:780
+#: ../storage/exchange-delegates.c:780
 msgid "Could not update list of delegates."
 msgstr "Αδυναμία ενημέρωσης λίστας εκπροσώπων"
 
-#: storage/exchange-delegates.c:798
+#: ../storage/exchange-delegates.c:798
 #, c-format
 msgid "Could not add delegate %s"
 msgstr "Αδυναμία προσθήκης εκπροσώπου  %s "
 
-#: storage/exchange-delegates.c:814
+#: ../storage/exchange-delegates.c:814
 #, c-format
 msgid ""
 "Failed to update delegates:\n"
@@ -1235,47 +1238,48 @@ msgstr ""
 "Αποτυχία ενημέρωσης εκπροσώπων:\n"
 "%s"
 
-#: storage/exchange-delegates.c:938 storage/exchange-permissions-dialog.c:706
+#: ../storage/exchange-delegates.c:938
+#: ../storage/exchange-permissions-dialog.c:706
 msgid "Name"
 msgstr "Όνομα"
 
-#: storage/exchange-delegates.c:967
+#: ../storage/exchange-delegates.c:967
 msgid "Error reading delegates list."
 msgstr "Σφάλμα ανάγνωσης λίστας εκπροσώπων."
 
-#: storage/exchange-delegates.glade.h:1
+#: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
 msgstr "Δημιουργός (ανάγνωση,δημιουργία)"
 
-#: storage/exchange-delegates.glade.h:2
+#: ../storage/exchange-delegates.glade.h:2
 msgid "C_alendar:"
 msgstr "Η_μερολόγιο:"
 
-#: storage/exchange-delegates.glade.h:3
+#: ../storage/exchange-delegates.glade.h:3
 msgid "Co_ntacts:"
 msgstr "Επα_φές:"
 
-#: storage/exchange-delegates.glade.h:4
+#: ../storage/exchange-delegates.glade.h:4
 msgid "Delegate Permissions"
 msgstr "Δικαιώματα εκπροσώπου"
 
-#: storage/exchange-delegates.glade.h:5
+#: ../storage/exchange-delegates.glade.h:5
 msgid "Delegates"
 msgstr "Εκπρόσωποι"
 
-#: storage/exchange-delegates.glade.h:6
+#: ../storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
 msgstr "Επιμελητής (ανάγνωση, δημιουργία, επεξεργασία)"
 
-#: storage/exchange-delegates.glade.h:8
+#: ../storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
 msgstr "Δικαιώματα για"
 
-#: storage/exchange-delegates.glade.h:9
+#: ../storage/exchange-delegates.glade.h:9
 msgid "Reviewer (read-only)"
 msgstr "Επιμελητής (ανάγνωση - μόνο)"
 
-#: storage/exchange-delegates.glade.h:10
+#: ../storage/exchange-delegates.glade.h:10
 msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
@@ -1284,67 +1288,67 @@ msgstr ""
 "σας και να έχουν πρόσβαση στους φακέλους σας με τα δικαιώματα που θα τους "
 "δώσετε."
 
-#: storage/exchange-delegates.glade.h:12
+#: ../storage/exchange-delegates.glade.h:12
 msgid "_Delegate can see private items"
 msgstr "Εκ_πρόσωπος που μπορεί να δεί τα ιδιωτικά σας αντικείμενα"
 
-#: storage/exchange-delegates.glade.h:13
+#: ../storage/exchange-delegates.glade.h:13
 msgid "_Edit"
 msgstr "_Επεξεργασία"
 
-#: storage/exchange-delegates.glade.h:14
+#: ../storage/exchange-delegates.glade.h:14
 msgid "_Inbox:"
 msgstr "Ε_ισερχόμενα:"
 
-#: storage/exchange-delegates.glade.h:15
+#: ../storage/exchange-delegates.glade.h:15
 msgid "_Tasks:"
 msgstr "Ερ_γασίες:"
 
-#: storage/exchange-folder-size.c:204
+#: ../storage/exchange-folder-size.c:259
 msgid "Folder Name"
 msgstr "Όνομα φακέλου:"
 
-#: storage/exchange-folder-size.c:208
+#: ../storage/exchange-folder-size.c:263
 msgid "Folder Size"
 msgstr "Μέγεθος φακέλου"
 
-#: storage/exchange-folder-tree.glade.h:1
+#: ../storage/exchange-folder-tree.glade.h:1
 msgid "Exchange Folder Tree"
 msgstr "Exchange Folder Tree"
 
-#: storage/exchange-hierarchy-foreign.c:252
+#: ../storage/exchange-hierarchy-foreign.c:252
 msgid "Deleted Items"
 msgstr "Διαγραμμένα Αντικείμενα"
 
-#: storage/exchange-hierarchy-foreign.c:253
+#: ../storage/exchange-hierarchy-foreign.c:253
 msgid "Drafts"
 msgstr "Πρόχειρα"
 
-#: storage/exchange-hierarchy-foreign.c:254
+#: ../storage/exchange-hierarchy-foreign.c:254
 msgid "Inbox"
 msgstr "Εισερχόμενα"
 
-#: storage/exchange-hierarchy-foreign.c:255
+#: ../storage/exchange-hierarchy-foreign.c:255
 msgid "Journal"
 msgstr "Ημερολόγιο"
 
-#: storage/exchange-hierarchy-foreign.c:256
+#: ../storage/exchange-hierarchy-foreign.c:256
 msgid "Notes"
 msgstr "Σημειώσεις"
 
-#: storage/exchange-hierarchy-foreign.c:257
+#: ../storage/exchange-hierarchy-foreign.c:257
 msgid "Outbox"
 msgstr "Εξερχόμενα"
 
-#: storage/exchange-hierarchy-foreign.c:258
+#: ../storage/exchange-hierarchy-foreign.c:258
 msgid "Sent Items"
 msgstr "Απεσταλμένα Αντικείμενα"
 
-#: storage/exchange-migrate.c:57
+#: ../storage/exchange-migrate.c:57
 msgid "Migrating Exchange Folders..."
 msgstr "Εισαγωγή φακέλων Exchange..."
 
-#: storage/exchange-migrate.c:65
+#: ../storage/exchange-migrate.c:65
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -1357,7 +1361,7 @@ msgstr ""
 "\n"
 "Παρακαλώ περιμένετε μέχρι το Evolution εισάγει τους φακέλους σας..."
 
-#: storage/exchange-migrate.c:98
+#: ../storage/exchange-migrate.c:98
 #, c-format
 msgid ""
 "Warning: Evolution Could not migrate all the Exchange account data from the "
@@ -1370,20 +1374,20 @@ msgstr ""
 "Τα δεδομένα δεν διαγράφηκαν, αλλά δεν θα είναι ορατά από αυτή την έκδοση του "
 "Evolution"
 
-#: storage/exchange-migrate.c:129
+#: ../storage/exchange-migrate.c:129
 #, c-format
 msgid "Migrating `%s':"
 msgstr "Εισαγωγή `%s':"
 
-#: storage/exchange-oof.c:91 storage/exchange-oof.c:290
+#: ../storage/exchange-oof.c:91 ../storage/exchange-oof.c:290
 msgid "Could not update out-of-office state"
 msgstr "Δεν είναι δυνατή η ενημέρωση της κατάστασης εκτός γραφείου"
 
-#: storage/exchange-oof.c:308
+#: ../storage/exchange-oof.c:308
 msgid "Could not read out-of-office state"
 msgstr "Δεν είναι δυνατή η ανάγνωση της κατάστασης εκτός γραφείου"
 
-#: storage/exchange-oof.glade.h:1
+#: ../storage/exchange-oof.glade.h:1
 msgid ""
 "<b>Currently, your status is \"Out of the Office\". </b>\n"
 "\n"
@@ -1393,15 +1397,15 @@ msgstr ""
 "\n"
 "Θέλετε να αλλάξει σε \"Στο γραφείο\"; "
 
-#: storage/exchange-oof.glade.h:4
+#: ../storage/exchange-oof.glade.h:4
 msgid "<b>Out of Office Message:</b>"
 msgstr "<b>Μήνυμα Εκτός Γραφείου:</b>"
 
-#: storage/exchange-oof.glade.h:5
+#: ../storage/exchange-oof.glade.h:5
 msgid "<b>Status:</b>"
 msgstr "<b>Κατάσταση:</b>"
 
-#: storage/exchange-oof.glade.h:6
+#: ../storage/exchange-oof.glade.h:6
 msgid ""
 "<small>The message specified below will be automatically sent to each person "
 "who sends\n"
@@ -1410,60 +1414,60 @@ msgstr ""
 "<small>Το παρακάτω μήνυμα θα στέλνετε αυτόματα στο καθένα που σας στέλνει\n"
 "μήνυμα όταν βρίσκεστε εκτός γραφείου.</small>"
 
-#: storage/exchange-oof.glade.h:8
+#: ../storage/exchange-oof.glade.h:8
 msgid "I am currently in the office"
 msgstr "Είμαι αυτή την στιγμή στο γραφείο"
 
-#: storage/exchange-oof.glade.h:9
+#: ../storage/exchange-oof.glade.h:9
 msgid "I am currently out of the office"
 msgstr "Αυτή την στιγμή απουσιάζω από το γραφείο"
 
-#: storage/exchange-oof.glade.h:10
+#: ../storage/exchange-oof.glade.h:10
 msgid "No, Don't Change Status"
 msgstr "Όχι. Να μην γίνει αλλαγή κατάστασης"
 
-#: storage/exchange-oof.glade.h:11
+#: ../storage/exchange-oof.glade.h:11
 msgid "Out of Office Assistant"
 msgstr "Βοηθός 'Εκτός Γραφείου'"
 
-#: storage/exchange-oof.glade.h:12
+#: ../storage/exchange-oof.glade.h:12
 msgid "Yes, Change Status"
 msgstr "Ναι, αλλαγή κατάστασης"
 
-#: storage/exchange-passwd-expiry.glade.h:1
+#: ../storage/exchange-passwd-expiry.glade.h:1
 msgid "Password Expiry Warning..."
 msgstr "Προειδοποίηση λήξης κωδικού..."
 
-#: storage/exchange-passwd-expiry.glade.h:2
+#: ../storage/exchange-passwd-expiry.glade.h:2
 msgid "Your password will expire in 7 days..."
 msgstr "Ο κωδικός σας θα λήξει σε 7 ημέρες..."
 
-#: storage/exchange-passwd-expiry.glade.h:3
+#: ../storage/exchange-passwd-expiry.glade.h:3
 msgid "_Change Password"
 msgstr "Αλ_λαγή Κωδικού"
 
-#: storage/exchange-passwd-expiry.glade.h:4
+#: ../storage/exchange-passwd-expiry.glade.h:4
 msgid "ok_button"
 msgstr "ok_button"
 
-#: storage/exchange-permissions-dialog.c:222
+#: ../storage/exchange-permissions-dialog.c:222
 msgid "Could not read folder permissions"
 msgstr "Δεν είναι δυνατή η ανάγνωση δικαιωμάτων φακέλων."
 
-#: storage/exchange-permissions-dialog.c:264
+#: ../storage/exchange-permissions-dialog.c:264
 msgid "Could not update folder permissions."
 msgstr "Δεν είναι δυνατή η ενημέρωση δικαιωμάτων φακέλων."
 
-#: storage/exchange-permissions-dialog.c:293
+#: ../storage/exchange-permissions-dialog.c:293
 #, c-format
 msgid "Could not update folder permissions. %s"
 msgstr "Δεν είναι δυνατή η ενημέρωση δικαιωμάτων φακέλων. %s"
 
-#: storage/exchange-permissions-dialog.c:295
+#: ../storage/exchange-permissions-dialog.c:295
 msgid "(Permission denied.)"
 msgstr "(Άρνηση πρόσβασης)"
 
-#: storage/exchange-permissions-dialog.c:396
+#: ../storage/exchange-permissions-dialog.c:396
 msgid ""
 "Unable to add user to access control list:\n"
 "No Global Catalog server is configured for this account."
@@ -1471,120 +1475,120 @@ msgstr ""
 "Αδυναμία προσθήκης χρήστη σε λίστα ελέγχου πρόσβασης:\n"
 "Δεν έχει ρυθμιστεί καθολικός διακομιστής για αυτό τον λογαριασμό."
 
-#: storage/exchange-permissions-dialog.c:402
+#: ../storage/exchange-permissions-dialog.c:402
 msgid "Add User:"
 msgstr "Προσθήκη χρήστη:"
 
-#: storage/exchange-permissions-dialog.c:402
+#: ../storage/exchange-permissions-dialog.c:402
 msgid "Add User"
 msgstr "Προσθήκη χρήστη"
 
-#: storage/exchange-permissions-dialog.c:421
+#: ../storage/exchange-permissions-dialog.c:421
 #, c-format
 msgid "No such user %s"
 msgstr "Δεν υπάρχει τέτοιος χρήστης %s"
 
-#: storage/exchange-permissions-dialog.c:425
+#: ../storage/exchange-permissions-dialog.c:425
 #, c-format
 msgid "%s cannot be added to an access control list"
 msgstr "Το %s δεν μπορεί να προστεθεί σε λίστα ελέγχου πρόσβασης"
 
-#: storage/exchange-permissions-dialog.c:430
+#: ../storage/exchange-permissions-dialog.c:430
 #, c-format
 msgid "Unknown error looking up %s"
 msgstr "Άγνωστο σφάλμα αναζήτησης %s"
 
-#: storage/exchange-permissions-dialog.c:447
+#: ../storage/exchange-permissions-dialog.c:447
 #, c-format
 msgid "%s is already in the list"
 msgstr "%s είναι ήδη στην λίστα"
 
-#: storage/exchange-permissions-dialog.c:710
+#: ../storage/exchange-permissions-dialog.c:710
 msgid "Role"
 msgstr "Ρόλος"
 
-#: storage/exchange-permissions-dialog.glade.h:1
+#: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
 msgstr "    "
 
-#: storage/exchange-permissions-dialog.glade.h:2
+#: ../storage/exchange-permissions-dialog.glade.h:2
 msgid "<b>Permissions</b>"
 msgstr "<b> Δικαιώματα</b>"
 
-#: storage/exchange-permissions-dialog.glade.h:3
+#: ../storage/exchange-permissions-dialog.glade.h:3
 msgid "Cannot Delete"
 msgstr "Αδυναμία διαγραφής"
 
-#: storage/exchange-permissions-dialog.glade.h:4
+#: ../storage/exchange-permissions-dialog.glade.h:4
 msgid "Cannot Edit"
 msgstr "Αδυναμία επεξεργασίας"
 
-#: storage/exchange-permissions-dialog.glade.h:5
+#: ../storage/exchange-permissions-dialog.glade.h:5
 msgid "Create items"
 msgstr "Δημιουργία αντικειμένων"
 
-#: storage/exchange-permissions-dialog.glade.h:6
+#: ../storage/exchange-permissions-dialog.glade.h:6
 msgid "Create subfolders"
 msgstr "Δημιουργία υποφακέλων"
 
-#: storage/exchange-permissions-dialog.glade.h:7
+#: ../storage/exchange-permissions-dialog.glade.h:7
 msgid "Delete Any Items"
 msgstr "Διαγραφή οποιουδήποτε αντικείμενου"
 
-#: storage/exchange-permissions-dialog.glade.h:8
+#: ../storage/exchange-permissions-dialog.glade.h:8
 msgid "Delete Own Items"
 msgstr "Διαγραφή των αντικειμένων σας"
 
-#: storage/exchange-permissions-dialog.glade.h:9
+#: ../storage/exchange-permissions-dialog.glade.h:9
 msgid "Edit Any Items"
 msgstr "Επεξεργασία οποιουδήποτε αντικείμενου"
 
-#: storage/exchange-permissions-dialog.glade.h:10
+#: ../storage/exchange-permissions-dialog.glade.h:10
 msgid "Edit Own Items"
 msgstr "Επεξεργασία των αντικειμένων σας"
 
-#: storage/exchange-permissions-dialog.glade.h:11
+#: ../storage/exchange-permissions-dialog.glade.h:11
 msgid "Folder contact"
 msgstr "Επαφή φακέλου"
 
-#: storage/exchange-permissions-dialog.glade.h:12
+#: ../storage/exchange-permissions-dialog.glade.h:12
 msgid "Folder owner"
 msgstr "Ιδιοκτήτης φακέλου"
 
-#: storage/exchange-permissions-dialog.glade.h:13
+#: ../storage/exchange-permissions-dialog.glade.h:13
 msgid "Folder visible"
 msgstr "Ορατός Φάκελος"
 
-#: storage/exchange-permissions-dialog.glade.h:14
+#: ../storage/exchange-permissions-dialog.glade.h:14
 msgid "Read items"
 msgstr "Αναγνωσμένα αντικείμενα"
 
-#: storage/exchange-permissions-dialog.glade.h:15
+#: ../storage/exchange-permissions-dialog.glade.h:15
 msgid "Role: "
 msgstr "Ρόλος:"
 
-#: storage/exchange-storage.c:337
+#: ../storage/exchange-storage.c:337
 msgid "Connecting..."
 msgstr "Γίνεται σύνδεση..."
 
-#: storage/main.c:166
+#: ../storage/main.c:166
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector για Microsoft Exchange"
 
-#: storage/xc-backend-view.c:299
+#: ../storage/xc-backend-view.c:299
 msgid "Account Name"
 msgstr "Όνομα Λογαριασμού"
 
-#: storage/xc-commands.c:317
+#: ../storage/xc-commands.c:317
 msgid "Folder does not exist"
 msgstr "Ο φάκελος δεν υπάρχει"
 
-#: storage/xc-commands.c:344
+#: ../storage/xc-commands.c:344
 #, c-format
 msgid "Could not add favorite: %s"
 msgstr "Αδυναμία προσθήκης αγαπημένου: %s"
 
-#: storage/xc-commands.c:360
+#: ../storage/xc-commands.c:360
 #, c-format
 msgid "Could not remove favorite: %s"
 msgstr "Αδυναμία απομάκρυνσης αγαπημένου: %s"
@@ -1598,98 +1602,118 @@ msgstr "Αδυναμία απομάκρυνσης αγαπημένου: %s"
 #. G_CALLBACK (do_copy_folder),
 #. XC_FOLDER_COMMAND_MASK_MOVECOPY),
 #.
-#: storage/xc-commands.c:386
+#: ../storage/xc-commands.c:386
 msgid "_Rename Folder..."
 msgstr "_Μετονομασία φακέλου..."
 
-#: storage/xc-commands.c:392
+#: ../storage/xc-commands.c:392
 msgid "_New Folder..."
 msgstr "_Νέος Φάκελος..."
 
-#: storage/xc-commands.c:395
+#: ../storage/xc-commands.c:395
 msgid "_Delete Folder"
 msgstr "_Διαγραφή φακέλου"
 
-#: storage/xc-commands.c:400
+#: ../storage/xc-commands.c:400
 msgid "_Add Other User's Folder..."
 msgstr "Προ_σθήκη φακέλου άλλων χρηστών"
 
-#: storage/xc-commands.c:403
+#: ../storage/xc-commands.c:403
 msgid "_Remove Other User's Folder"
 msgstr "Απομάκρ_υνση φακέλου άλλων χρηστών"
 
-#: storage/xc-commands.c:409
+#: ../storage/xc-commands.c:409
 msgid "Add to _Favorites"
 msgstr "Προσθήκη στα Α_γαπημένα"
 
-#: storage/xc-commands.c:413
+#: ../storage/xc-commands.c:413
 msgid "Remove from Fa_vorites"
 msgstr "Απομάκρυνση από Α_γαπημένα"
 
-#: storage/xc-commands.c:420
+#: ../storage/xc-commands.c:420
 msgid "_Permissions..."
 msgstr "_Δικαιώματα..."
 
-#: storage/xc-commands.c:424
+#: ../storage/xc-commands.c:424
 msgid "_Show Folder Sizes"
 msgstr "Προ_βολή μέγεθους φακέλων"
 
-#: storage/ximian-connector-setup.c:44
+#: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
 msgstr "Εργαλείο ρύθμισης Ximian Connector για Microsoft Exchange "
 
-#: storage/ximian-connector.xml.h:1
+#: ../storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
 msgstr "Αλλαγή του κωδικού για τον διακομιστή Exchange"
 
-#: storage/ximian-connector.xml.h:2
+#: ../storage/ximian-connector.xml.h:2
 msgid "Folder _Size"
 msgstr "Μέ_γεθος φακέλου"
 
-#: storage/ximian-connector.xml.h:3
+#: ../storage/ximian-connector.xml.h:3
 msgid "Get the size of personal folders"
 msgstr "Λήψη του μεγέθους των προσωπικών φακέλων"
 
-#: storage/ximian-connector.xml.h:4
+#: ../storage/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
 msgstr "Συνδρομή σε φάκελλο ά_λλου χρήστη..."
 
-#: storage/ximian-connector.xml.h:5
+#: ../storage/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Συνδρομή σε φάκελο που ανήκει σε κάποιον άλλο χρήστη στον διακομιστή"
 
-#: storage/ximian-connector.xml.h:6
-msgid ""
-"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+#: ../storage/ximian-connector.xml.h:6
+msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
 "Κατάργηση Συνδρομής από φάκελο που έχει προστεθεί μέσω \"Συνδρομή σε φάκελλο "
 "άλλου χρήστη\""
 
-#: storage/ximian-connector.xml.h:7
+#: ../storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
 msgstr "Προβολή η αλλαγή των ρυθμίσεων εκπροσώπων ημερολογίου Exchange "
 
-#: storage/ximian-connector.xml.h:8
+#: ../storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr ""
 "Δείτε ή αλλάξτε την κατάσταση του Εκτός Γραφείου και το μήνυμα αυτόματης "
 "απάντησης"
 
-#: storage/ximian-connector.xml.h:9
+#: ../storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
 msgstr "Α_λλαγή κωδικού Exchange..."
 
-#: storage/ximian-connector.xml.h:10
+#: ../storage/ximian-connector.xml.h:10
 msgid "_Delegation Assistant"
 msgstr "Βοηθός εκ_προσώπου"
 
-#: storage/ximian-connector.xml.h:11
+#: ../storage/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
 msgstr "Βοηθός Εκ_τός Γραφείου"
 
-#: storage/ximian-connector.xml.h:12
+#: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Κατάργηση συ_νδρομής από φάκελο άλλου χρήστη"
+
+#~ msgid ""
+#~ "Ximian Connector requires access to certain functionality on the Exchange "
+#~ "Server that appears to be disabled or blocked.  (This is usually "
+#~ "unintentional.)  Your Exchange Administrator will need to enable this "
+#~ "functionality in order for you to be able to use Ximian Connector.\n"
+#~ "\n"
+#~ "For information to provide to your Exchange administrator, please follow "
+#~ "the link below:\n"
+#~ "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
+#~ "html "
+#~ msgstr ""
+#~ "Ο Ximian Connector απαιτεί πρόσβαση σε κάποια λειτουργία στον Exchange "
+#~ "Server  που φαίνεται να είναι ανενεργή ή φραγμένη. (Αυτό γίνεται συνήθως "
+#~ "κατά λάθος). Ο διαχειριστής του Exchange θα πρέπει να ενεργοποιήσει αυτή "
+#~ "την λειτουργία για να μπορέσετε να χρησιμοποιήσετε τον Ximian Connector.\n"
+#~ "\n"
+#~ "Για πληροφορίες που μπορείτε να δώσετε στον διαχειριστής του Exchange "
+#~ "δείτε τον παρακάτω δεσμό::\n"
+#~ "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
+#~ "html·"
 
 #~ msgid ""
 #~ "Ximian Connector requires access to certain functionality on the Exchange "
@@ -1744,3 +1768,4 @@ msgstr "Κατάργηση συ_νδρομής από φάκελο άλλου χ
 
 #~ msgid "_Copy Folder..."
 #~ msgstr "Αντιγραφή φακέλου..."
+
