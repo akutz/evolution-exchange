@@ -564,7 +564,7 @@ get_contact_list (EBookBackend *backend,
 	book_view = find_book_view (bl);
 
 	status = build_query (bl, query, &ldap_query);
-	if (status != GNOME_Evolution_Addressbook_Success) {
+	if (status != GNOME_Evolution_Addressbook_Success || !ldap_query) {
 		e_data_book_respond_get_contact_list (book, status, NULL);
 		return;
 	}
@@ -723,6 +723,9 @@ static gchar *
 query_prop_to_ldap(gchar *query_prop)
 {
 	int i;
+
+	if (!strcmp (query_prop, "email"))
+		query_prop = "email_1";
 
 	for (i = 0; i < num_prop_infos; i ++)
 		if (!strcmp (query_prop, e_contact_field_name (prop_info[i].field_id)))

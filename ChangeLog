@@ -1,3 +1,12 @@
+2004-06-16  Dan Winship  <danw@novell.com>
+
+	* addressbook/e-book-backend-gal.c (query_prop_to_ldap): If the
+	prop is "email", translate it to "email_1" so it matches
+	correctly.
+	(get_contact_list): If build_query returns a NULL query, just
+	return success immediately (with no matches) rather than searching
+	the entire GC.
+
 2004-06-16  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* storage/exchange-autoconfig-wizard.glade: Made the activate_defaults
