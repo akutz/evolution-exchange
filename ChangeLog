@@ -1,3 +1,20 @@
+2005-02-27  Sushma Rai  <rsushma@novell.com>
+
+	* storage/exchange-oof.c (sync_oof_info): If oof_info file exists and
+	has more recent data set using account editor updates the server with
+	this information. If server has more recent oof data, entered either
+	through out of office assistant dialog from exchange component or
+	through any other client, then updates oof_info file, so that account
+	editor displayes the proper state and message, reading this file.
+	(exchange_oof_init)(update_state): Calls exchange_oof_set() with
+	"updated" flag set to TRUE, based on which the oof_info files gets
+	updated.
+	(exchange_oof_get): Invokes sync_oof_info().
+	(exchange_oof_set): Calls sync_oof_info() to write the data to the file,
+	when file contents need to be updated.
+	(exchange_oof): Checks for oof message and sets the buffer.
+	Fixes #72709.
+
 2005-02-26  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* calendar/e-cal-backend-exchange.c : The mode on the backend was not
