@@ -34,9 +34,11 @@
 #include "e2k-restriction.h"
 #include "e2k-uri.h"
 #include "e2k-utils.h"
+#include "exchange-config-listener.h"
 
 #include <e-util/e-passwords.h>
 #include <e-util/e-path.h>
+#include <libedataserver/e-source-list.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -340,6 +342,11 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 	E2kHTTPStatus status;
 	EFolder *dest;
 	char *permanent_url = NULL;
+	char *conf_key_cal="/apps/evolution/calendar/sources";
+	char *conf_key_tasks="/apps/evolution/tasks/sources";
+	char *conf_key_contacts="/apps/evolution/addressbook/sources";
+	ESourceList *cal_source_list, *task_source_list, *cont_source_list;
+	const char *folder_type, *physical_uri;
 
 #ifdef OFFLINE_SUPPORT
 	if (exchange_account_is_offline (hier->account))
@@ -349,6 +356,40 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 	if (source == hier->toplevel)
 		return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
 
+	/* Remove the ESource of the source folder */
+
+	if (hier->type == EXCHANGE_HIERARCHY_PERSONAL) {
+		folder_type = e_folder_get_type_string (source);
+		physical_uri = e_folder_get_physical_uri (source);
+		
+		if (strcmp (folder_type, "calendar") == 0) {
+			cal_source_list = e_source_list_new_for_gconf (
+						gconf_client_get_default (),
+						conf_key_cal);
+			remove_esource (hier->account, conf_key_cal,
+					physical_uri, &cal_source_list, FALSE);
+			e_source_list_sync (cal_source_list, NULL);
+			g_object_unref (cal_source_list);
+		}
+		if (strcmp (folder_type, "tasks") == 0) {
+			task_source_list = e_source_list_new_for_gconf (
+						gconf_client_get_default (),
+						conf_key_tasks);
+			remove_esource (hier->account, conf_key_tasks,
+					physical_uri, &task_source_list, FALSE);
+			e_source_list_sync (task_source_list, NULL);
+			g_object_unref (task_source_list);
+		}
+		if(strcmp (folder_type, "contacts") == 0) {
+			cont_source_list = e_source_list_new_for_gconf (
+						gconf_client_get_default (),
+						conf_key_contacts);
+			remove_esource (hier->account, conf_key_contacts,
+					physical_uri, &cont_source_list, FALSE);
+			e_source_list_sync (cont_source_list, NULL);
+			g_object_unref (cont_source_list);
+		}
+	}
 
 	dest = e_folder_webdav_new (hier, NULL, dest_parent, dest_name,
 				    e_folder_get_type_string (source),
