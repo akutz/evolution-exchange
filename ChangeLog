@@ -1,3 +1,13 @@
+2005-01-10  Sarfraaz Ahmed <asarfraaz@novell.com>
+	
+	* calendar/e-cal-backend-exchange.c : Fixed a warning
+	* calendar/e-cal-backend-exchange-calendar.c (add_ical): Sets the
+	icalattach property
+	(get_attachment) : Fetched the attachment from the server.
+	(get_changed_events): Calls get_attachment is object has attachment
+	(build_attachment): Builds the attachment mime part
+	(create_object): This now adds the attachment
+
 2005-01-10  Hans Petter Jansson  <hpj@novell.com>
 
 	* addressbook/e-book-backend-gal.c (gal_connect): Store the account for

@@ -994,7 +994,7 @@ set_mode (ECalBackend *backend, CalMode mode)
 {
 	ECalBackendExchange *cbex;
 	ECalBackendExchangePrivate *priv;
-	char *uristr;
+	const char *uristr;
 	
 	cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	priv = cbex->priv;

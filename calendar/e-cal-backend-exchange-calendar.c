@@ -21,6 +21,10 @@
 #include <config.h>
 #endif
 
+#include <camel/camel-mime-message.h>
+#include <camel/camel-multipart.h>
+#include <camel/camel-stream-mem.h>
+
 #include "e-cal-backend-exchange-calendar.h"
 
 #include "e2k-cal-utils.h"
@@ -153,12 +157,15 @@ add_vevent (ECalBackendExchange *cbex,
 
 static gboolean
 add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
-	  const char *body, int len)
+	  const char *body, int len, unsigned char *attach_data, int attach_len)
 {
 	const char *start, *end;
 	char *ical_body;
 	icalcomponent *comp, *subcomp, *new_comp;
 	icalcomponent_kind kind;
+	icalattach *iattach;
+	ECalComponent *ecal;
+	GSList *attachment_list = NULL;
 	gboolean status;
 
 	start = g_strstr_len (body, len, "\nBEGIN:VCALENDAR");
@@ -178,6 +185,14 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 
 	kind = icalcomponent_isa (comp);
 	if (kind == ICAL_VEVENT_COMPONENT) {
+		if (attach_len) {
+			ecal = e_cal_component_new ();
+			/* FIXME : Use a proper free function */
+			iattach = icalattach_new_from_data (attach_data, NULL, NULL);
+			attachment_list = g_slist_append (attachment_list, iattach);
+			e_cal_component_set_icalcomponent (ecal, comp);
+			e_cal_component_set_attachment_list (ecal, attachment_list);
+		}
 		status = add_vevent (cbex, href, lastmod, comp);
 		icalcomponent_free (comp);
 		return status;
@@ -193,6 +208,12 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 	while (subcomp) {
 		new_comp = icalcomponent_new_clone (subcomp);
 		if (new_comp) {
+			/*
+			if (attach_len) {
+				iattach = icalattach_new_from_data (attach_data, g_free, NULL);
+				attachment_list = g_slist_append (attachment_list, iattach);
+				e_cal_component_set_attachment_list (new_comp, attachment_list);
+			} */
 			add_vevent (cbex, href, lastmod, new_comp);
 			icalcomponent_free (new_comp);
 		}
@@ -204,12 +225,84 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 	return TRUE;
 }
 
+static guint 
+get_attachment (E2kContext *ctx, char *href, unsigned char **attach_data, int *attach_len)
+{
+	E2kHTTPStatus e2k_status;
+	CamelStream *stream;
+	CamelMimeMessage *msg;
+	CamelDataWrapper *content;
+	CamelMultipart *multipart;
+	CamelMimePart *part;
+	char *body;
+	const char *filename;
+	FILE *f;
+	int i, len, nwrote;
+
+	e2k_status =  e2k_context_get (ctx, NULL, href,
+						NULL, &body, &len);
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (e2k_status)) {
+		d(printf ("could not fetch the body\n"));
+		return e2k_status;
+	}
+
+	stream = camel_stream_mem_new_with_buffer (body, len);
+	msg = camel_mime_message_new ();
+	camel_data_wrapper_construct_from_stream (CAMEL_DATA_WRAPPER (msg), stream);
+	camel_object_unref (stream);
+
+	content = camel_medium_get_content_object (CAMEL_MEDIUM (msg));
+	if (CAMEL_IS_MULTIPART (content)) {
+		multipart = (CamelMultipart *)content;
+		content = NULL;
+	
+		for (i = 0; i < (int)camel_multipart_get_number (multipart); i++) {
+			part = camel_multipart_get_part (multipart, i);
+			filename = camel_mime_part_get_filename (part);
+			if (filename) {
+				content = camel_medium_get_content_object (CAMEL_MEDIUM (part));
+				break;
+			}
+		}
+	}
+
+	if (content) {
+		CamelStreamMem *stream_mem;
+		
+		stream = camel_stream_mem_new ();
+		stream_mem = (CamelStreamMem *)stream;
+		camel_data_wrapper_decode_to_stream (content, stream);
+
+		//cal_attach_data = stream_mem->buffer->data;
+		*attach_len = stream_mem->buffer->len;
+		*attach_data = g_malloc (stream_mem->buffer->len);
+		memcpy (*attach_data, stream_mem->buffer->data, stream_mem->buffer->len);
+		// Attach
+		f = fopen ("/tmp/test-attach.txt", "w");
+		if (f) {
+			nwrote = fwrite (*attach_data, 1, *attach_len, f);
+			fclose (f);
+		}
+		
+		camel_object_unref (stream);
+	}
+	
+	camel_object_unref (msg);
+	return e2k_status;
+}
 
 static const char *event_properties[] = {
 	E2K_PR_CALENDAR_UID,
 	E2K_PR_DAV_LAST_MODIFIED,
+	E2K_PR_HTTPMAIL_HAS_ATTACHMENT,
 };
 static const int n_event_properties = G_N_ELEMENTS (event_properties);
+
+static const char *new_event_properties[] = {
+	PR_INTERNET_CONTENT,
+	E2K_PR_HTTPMAIL_HAS_ATTACHMENT,
+};
+static const int n_new_event_properties = G_N_ELEMENTS (new_event_properties);
 
 static guint
 get_changed_events (ECalBackendExchange *cbex, const char *since)
@@ -219,10 +312,13 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 	E2kRestriction *rn;
 	E2kResultIter *iter;
 	E2kResult *result;
-	const char *prop, *uid, *modtime;
+	const char *prop, *uid, *modtime, *attach_data;
+	char *body;
+	unsigned char *cal_attach_data;
 	guint status;
 	E2kContext *ctx;
-	int i;
+	E2kHTTPStatus e2k_status;
+	int i, cal_attach_len;
 
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex), SOUP_STATUS_CANCELLED);
 
@@ -274,6 +370,24 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 			g_hash_table_insert (modtimes, g_strdup (result->href),
 					     g_strdup (modtime));
 		}
+
+		attach_data = e2k_properties_get_prop (result->props, 
+						E2K_PR_HTTPMAIL_HAS_ATTACHMENT);
+		if (attach_data && atoi (attach_data)) {
+			ctx = exchange_account_get_context (cbex->account);
+			// fetch the body of attachment
+			e2k_status = get_attachment (ctx, result->href, &cal_attach_data, &cal_attach_len);
+			if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (e2k_status)) {
+				d(printf ("could not fetch the body\n"));
+				continue;
+			} else {
+				d(printf ("Great !!! extracted the attachment well\n"));
+				// Update the cal with this property.
+				continue;
+			}
+		} else {
+			d(printf ("no attachments for : %s\n", uid));
+		}
 	}
 	status = e2k_result_iter_free (iter);
 
@@ -297,7 +411,7 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 	iter = e_folder_exchange_bpropfind_start (cbex->folder, NULL,
 						  (const char **)hrefs->pdata,
 						  hrefs->len,
-						  &prop, 1);
+						  new_event_properties, n_new_event_properties);
 	for (i = 0; i < hrefs->len; i++)
 		g_free (hrefs->pdata[i]);
 	g_ptr_array_set_size (hrefs, 0);
@@ -312,9 +426,25 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 			continue;
 		}
 		modtime = g_hash_table_lookup (modtimes, result->href);
+		
+		attach_data = e2k_properties_get_prop (result->props, 
+						E2K_PR_HTTPMAIL_HAS_ATTACHMENT);
+		if (attach_data && atoi (attach_data)) {
+			ctx = exchange_account_get_context (cbex->account);
+			// fetch the body of attachment
+			e2k_status = get_attachment (ctx, result->href, &cal_attach_data, &cal_attach_len);
+			if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (e2k_status)) {
+				d(printf ("could not fetch the body\n"));
+				continue;
+			} else {
+				// Update the cal with this property.
+				continue;
+			}
+		}
 
 		add_ical (cbex, result->href, modtime,
-			  ical_data->data, ical_data->len);
+			  ical_data->data, ical_data->len,
+			  cal_attach_data, cal_attach_len);
 	}
 	// g_byte_array_free (ical_data);
 	status = e2k_result_iter_free (iter);
@@ -333,7 +463,6 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 	/* Get the remaining ones the hard way */
 	ctx = exchange_account_get_context (cbex->account);
 	for (i = 0; i < hrefs->len; i++) {
-		char *body;
 		int length;
 
 		status = e2k_context_get (ctx, NULL, hrefs->pdata[i],
@@ -342,7 +471,7 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 			continue;
 		modtime = g_hash_table_lookup (modtimes, hrefs->pdata[i]);
 
-		add_ical (cbex, hrefs->pdata[i], modtime, body, length);
+		add_ical (cbex, hrefs->pdata[i], modtime, body, length, NULL, 0);
 		g_free (body);
 	}
 
@@ -408,6 +537,42 @@ add_timezone_cb (icalparameter *param, void *data)
 	vtzcomp = icalcomponent_new_from_string (izone);
 	if (vtzcomp)
 		icalcomponent_add_component (cbdata->vcal_comp, vtzcomp);
+}
+
+static void
+build_attachment ( const char *subject, char *comp_str, 
+		unsigned char *cal_attach, char **buffer, char **boundary)
+{
+	CamelMimeMessage *msg;
+	CamelStreamMem *content;
+	CamelMimePart *part, *mime_part;
+	CamelDataWrapper *dw;
+	CamelMultipart *multipart;
+
+	msg = camel_mime_message_new ();
+
+	multipart = camel_multipart_new ();
+
+	/* Content */
+	part = camel_mime_part_new ();
+	camel_mime_part_set_encoding(part, CAMEL_TRANSFER_ENCODING_8BIT);
+	camel_multipart_set_boundary (multipart, NULL);
+	camel_mime_part_set_content(part, comp_str, strlen (comp_str), "text/plain");
+	camel_multipart_add_part (multipart, part);
+	*boundary = g_strdup (camel_multipart_get_boundary (multipart));
+	camel_object_unref (part);
+
+	camel_medium_set_content_object(CAMEL_MEDIUM (msg), CAMEL_DATA_WRAPPER(multipart));
+	camel_object_unref (multipart);
+
+	mime_part = CAMEL_MIME_PART (msg);
+
+	content = (CamelStreamMem *)camel_stream_mem_new();
+	dw = camel_medium_get_content_object (CAMEL_MEDIUM (mime_part));
+	camel_data_wrapper_decode_to_stream(dw, (CamelStream *)content);
+	*buffer = g_malloc0 (content->buffer->len+1);
+        *buffer = memcpy (*buffer, content->buffer->data, content->buffer->len);
+        d(printf ("|| Buffer: \n%s\n", *buffer));
 }
 
 static ECalBackendSyncStatus
@@ -560,7 +725,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	
 	date = e_cal_backend_exchange_make_timestamp_rfc822 (time (NULL));
 	from = e_cal_backend_exchange_get_from_string (backend, comp);
-	
+
 	msg = g_strdup_printf ("Subject: %s\r\n"
 			       "Date: %s\r\n"
 			       "MIME-Version: 1.0\r\n"
@@ -574,12 +739,34 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 			       "From: %s\r\n"
 			       "\r\n%s", summary, date,
 			       from ? from : "Evolution",
-			       body_crlf);
-
+			      body_crlf);
+#if 0
+	char *attach_body, *attach_boundary;
+	build_attachment (summary, g_strdup ("This is some text\n"), NULL, &attach_body, &attach_boundary);	
+	msg = g_strdup_printf ("Subject: %s\r\n"
+			       "Date: %s\r\n"
+			       "MIME-Version: 1.0\r\n"
+			       "X-MS-Has-Attach: yes\r\n"	
+			       "Content-Type: multipart/mixed;\r\n"
+			       "\tboundary=\"%s\"\r\n"
+			       "%s\r\n"
+			       "Content-Type: text/calendar;\r\n"
+			       "\tmethod=REQUEST;\r\n"
+			       "\tcharset=\"utf-8\"\r\n"
+			       "Content-Transfer-Encoding: 8bit\r\n"
+			       "content-class: urn:content-classes:appointment\r\n"
+			       "Importance: normal\r\n"
+			       "Priority: normal\r\n"
+			       "From: %s\r\n"
+			       "\r\n%s", summary, date,
+				attach_boundary, attach_body,
+			       from ? from : "Evolution",
+			      body_crlf);
+#endif
 	
 	http_status = e_folder_exchange_put_new (E_CAL_BACKEND_EXCHANGE (cbexc)->folder, NULL, summary, 
 						NULL, NULL, "message/rfc822", 
-						msg, strlen (msg), &location, &ru_header);	
+						msg, strlen(msg), &location, &ru_header);	
 
 	g_free (date);
 	g_free (from);
