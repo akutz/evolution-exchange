@@ -5,7 +5,7 @@
 #define __EXCHANGE_PERMISSIONS_DIALOG_H__
 
 #include <gtk/gtkdialog.h>
-#include <shell/e-folder.h>
+#include "e-folder.h"
 #include "exchange-types.h"
 
 #ifdef __cplusplus
@@ -34,7 +34,7 @@ GType      exchange_permissions_dialog_get_type (void);
 
 void       exchange_permissions_dialog_new      (ExchangeAccount *account,
 						 EFolder         *folder,
-						 GdkNativeWindow  parent);
+						 GtkWidget       *parent);
 
 #ifdef __cplusplus
 }

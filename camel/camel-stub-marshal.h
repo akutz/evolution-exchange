@@ -1,5 +1,7 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
-/* Copyright (C) 2000-2004 Novell, Inc. */
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/* Copyright (C) 2001-2004 Novell, Inc. */
+
+/* camel-stub-marshal.h: stub marshal/demarshal functions */
 
 #ifndef CAMEL_STUB_MARSHAL_H
 #define CAMEL_STUB_MARSHAL_H 1

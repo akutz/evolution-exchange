@@ -49,6 +49,7 @@ typedef struct {
 
 	GladeXML *xml;
 	E2kAutoconfig *ac;
+	E2kOperation op;
 	GPtrArray *pages;
 
 	GtkWindow *window;
@@ -131,7 +132,8 @@ autoconfig_gui_new (void)
 		return NULL;
 	}
 
-	gui->ac = e2k_autoconfig_new (NULL, NULL, NULL, FALSE);
+	gui->ac = e2k_autoconfig_new (NULL, NULL, NULL,
+				      E2K_AUTOCONFIG_USE_EITHER);
 
 	SETUP_ENTRY (owa_uri_entry, owa_page_changed);
 	SETUP_ENTRY (username_entry, owa_page_changed);
@@ -188,10 +190,12 @@ owa_page_next (ExchangeAutoconfigGUI *gui)
 	e2k_autoconfig_set_password (gui->ac, gtk_entry_get_text (gui->password_entry));
 
 	gtk_widget_set_sensitive (GTK_WIDGET (gui->window), FALSE);
-	result = e2k_autoconfig_check_exchange (gui->ac);
+	e2k_operation_init (&gui->op);
+	result = e2k_autoconfig_check_exchange (gui->ac, &gui->op);
 
 	if (result == E2K_AUTOCONFIG_OK) {
-		result = e2k_autoconfig_check_global_catalog (gui->ac);
+		result = e2k_autoconfig_check_global_catalog (gui->ac, &gui->op);
+		e2k_operation_free (&gui->op);
 		gtk_widget_set_sensitive (GTK_WIDGET (gui->window), TRUE);
 
 		if (result == E2K_AUTOCONFIG_OK)
@@ -203,10 +207,11 @@ owa_page_next (ExchangeAutoconfigGUI *gui)
 
 	/* Update the entries with anything we autodetected */
 	owa_page_prepare (gui);
+	e2k_operation_free (&gui->op);
 	gtk_widget_set_sensitive (GTK_WIDGET (gui->window), TRUE);
 
 	switch (result) {
-	case E2K_AUTOCONFIG_NETWORK_ERROR:
+	case E2K_AUTOCONFIG_CANT_CONNECT:
 		if (!strncmp (gui->ac->owa_uri, "http:", 5)) {
 			old = "http";
 			new = "https";
@@ -220,6 +225,13 @@ owa_page_next (ExchangeAutoconfigGUI *gui)
 			    "server.\nMake sure the URL is correct "
 			    "(try \"%s\" instead of \"%s\"?) "
 			    "and try again."), new, old);
+		return TRUE;
+
+	case E2K_AUTOCONFIG_CANT_RESOLVE:
+		e_notice (gui->window, GTK_MESSAGE_ERROR,
+			  _("Could not locate Exchange server.\n"
+			    "Make sure the server name is spelled correctly "
+			    "and try again."));
 		return TRUE;
 
 	case E2K_AUTOCONFIG_AUTH_ERROR:
@@ -318,10 +330,12 @@ gc_page_next (ExchangeAutoconfigGUI *gui)
 {	
 	E2kAutoconfigResult result;
 
-	e2k_autoconfig_set_gc_server (gui->ac, gtk_entry_get_text (gui->gc_server_entry));
+	e2k_autoconfig_set_gc_server (gui->ac, gtk_entry_get_text (gui->gc_server_entry), -1);
 
 	gtk_widget_set_sensitive (GTK_WIDGET (gui->window), FALSE);
-	result = e2k_autoconfig_check_global_catalog (gui->ac);
+	e2k_operation_init (&gui->op);
+	result = e2k_autoconfig_check_global_catalog (gui->ac, &gui->op);
+	e2k_operation_free (&gui->op);
 	gtk_widget_set_sensitive (GTK_WIDGET (gui->window), TRUE);
 
 	if (result == E2K_AUTOCONFIG_OK)

@@ -172,9 +172,7 @@ static unsigned long Spbox[8][64] = {
 }
 /* Encrypt or decrypt a block of data in ECB mode */
 void
-xntlm_des(ks,block)
-unsigned long ks[16][2];	/* Key schedule */
-unsigned char block[8];		/* Data block */
+xntlm_des(XNTLM_DES_KS ks, unsigned char block[8])
 {
 	unsigned long left,right,work;
 	
@@ -309,10 +307,7 @@ static int bytebit[] = {
  * depending on the value of "decrypt"
  */
 void
-xntlm_deskey(k,key,decrypt)
-XNTLM_DES_KS k;			/* Key schedule array */
-const unsigned char *key;	/* 64 bits (will use only 56) */
-int decrypt;			/* 0 = encrypt, 1 = decrypt */
+xntlm_deskey(XNTLM_DES_KS k, const unsigned char *key, int decrypt)
 {
 	unsigned char pc1m[56];		/* place to modify pc1 into */
 	unsigned char pcr[56];		/* place to rotate pc1 into */

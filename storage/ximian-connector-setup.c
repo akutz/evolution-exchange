@@ -21,20 +21,12 @@
 #include <config.h>
 #endif
 
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/wait.h>
-
-#include <gtk/gtkmain.h>
-#include <bonobo/bonobo-main.h>
+#include <glib/gtypes.h>
 #include <libgnomeui/gnome-ui-init.h>
-#include <libgnomevfs/gnome-vfs-init.h>
-#include <gconf/gconf-client.h>
 
 #include <e-util/e-dialog-utils.h>
 #include <e-util/e-passwords.h>
 
-#include "e2k-license.h"
 #include "e2k-utils.h"
 
 #include "exchange-autoconfig-wizard.h"
@@ -42,8 +34,6 @@
 int
 main (int argc, char **argv)
 {
-	int status;
-
 	bindtextdomain (PACKAGE, CONNECTOR_LOCALEDIR);
 	textdomain (PACKAGE);
 
@@ -52,19 +42,6 @@ main (int argc, char **argv)
 			    GNOME_PROGRAM_STANDARD_PROPERTIES,
 			    GNOME_PARAM_HUMAN_READABLE_NAME, _("Ximian Connector for Microsoft Exchange Setup Tool"),
 			    NULL);
-
-	status = system ("evolution-" EVOLUTION_BASE_VERSION " --setup-only > /dev/null 2>&1");
-	if (status == -1 || !WIFEXITED (status) || WEXITSTATUS (status) == 127) {
-		e_notice (NULL, GTK_MESSAGE_ERROR,
-			  _("Could not start evolution"));
-		exit (1);
-	}
-	if (WEXITSTATUS (status) != 0) {
-		/* evolution should have popped up an error already */
-		exit (1);
-	}
-
-	e2k_license_validate ();
 
 	exchange_autoconfig_druid_run ();
 	e_passwords_shutdown ();

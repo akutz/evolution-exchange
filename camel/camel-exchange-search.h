@@ -1,5 +1,7 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
-/* Copyright (C) 2000-2004 Novell, Inc. */
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/* Copyright (C) 2001-2004 Novell, Inc. */
+
+/* camel-exchange-search.h: exchange folder search */
 
 #ifndef _CAMEL_EXCHANGE_SEARCH_H
 #define _CAMEL_EXCHANGE_SEARCH_H

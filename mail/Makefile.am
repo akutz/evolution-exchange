@@ -1,17 +1,20 @@
 ## Process this file with automake to produce Makefile.in
+noinst_LIBRARIES =						\
+	libexchangemail.a
 
 INCLUDES =							\
+	-I$(top_srcdir)						\
+	-I$(top_builddir)/lib					\
 	-DG_LOG_DOMAIN=\"exchange-mail\"			\
 	$(EXTRA_GNOME_CFLAGS)					\
 	$(BONOBO_GNOME_CFLAGS)					\
+	$(MAIL_CFLAGS)						\
         $(LIBEXCHANGE_CFLAGS)					\
+	$(LDAP_CFLAGS)						\
 	-I$(top_srcdir)/lib					\
 	-I$(top_srcdir)/storage					\
-	-I$(top_srcdir)/camel					\
-	$(SHELL_CFLAGS)
-
-noinst_LIBRARIES =						\
-	libexchangemail.a
+	-I$(top_srcdir)/shell					\
+	-I$(top_srcdir)/camel
 
 libexchangemail_a_SOURCES =					\
 	mail-stub.c						\
@@ -22,7 +25,3 @@ libexchangemail_a_SOURCES =					\
 	mail-stub-exchange.h					\
 	mail-utils.c						\
 	mail-utils.h
-
-libexchangemail_a_LIBADD =					\
-	$(top_builddir)/camel/camel-stub-marshal.o
-

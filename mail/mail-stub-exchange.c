@@ -37,7 +37,6 @@
 #include "e2k-restriction.h"
 #include "e2k-uri.h"
 #include "e2k-utils.h"
-#include "e2k-xml-utils.h"
 #include "exchange-hierarchy.h"
 #include "mapi.h"
 
@@ -103,10 +102,16 @@ static void search (MailStub *stub, const char *folder_name, const char *text);
 static void transfer_messages (MailStub *stub, const char *source_name,
 			       const char *dest_name, GPtrArray *uids,
 			       gboolean delete_originals);
-static void get_folder_info (MailStub *stub);
+static void get_folder_info (MailStub *stub, const char *top,
+			     gboolean recursive);
 static void send_message (MailStub *stub, const char *from,
 			  GPtrArray *recipients,
 			  const char *data, int length);
+static void create_folder (MailStub *, const char *parent_name,
+			   const char *folder_name);
+static void delete_folder (MailStub *, const char *folder_name);
+static void rename_folder (MailStub *, const char *old_name,
+			   const char *new_name);
 
 static gboolean process_flags (gpointer user_data);
 
@@ -136,6 +141,9 @@ class_init (GObjectClass *object_class)
 	stub_class->transfer_messages = transfer_messages;
 	stub_class->get_folder_info = get_folder_info;
 	stub_class->send_message = send_message;
+	stub_class->create_folder = create_folder;
+	stub_class->delete_folder = delete_folder;
+	stub_class->rename_folder = rename_folder;
 }
 
 static void
@@ -156,7 +164,7 @@ free_message (MailStubExchangeMessage *mmsg)
 }
 
 static void
-free_folder (gpointer key, gpointer value, gpointer conn)
+free_folder (gpointer key, gpointer value, gpointer ctx)
 {
 	MailStubExchangeFolder *mfld = value;
 	int i;
@@ -188,14 +196,14 @@ dispose (GObject *object)
 
 	if (mse->folders_by_name) {
 		g_hash_table_foreach (mse->folders_by_name, free_folder,
-				      mse->conn);
+				      mse->ctx);
 		g_hash_table_destroy (mse->folders_by_name);
 		mse->folders_by_name = NULL;
 	}
 
-	if (mse->conn) {
-		g_object_unref (mse->conn);
-		mse->conn = NULL;
+	if (mse->ctx) {
+		g_object_unref (mse->ctx);
+		mse->ctx = NULL;
 	}
 
 	if (mse->new_folder_id != 0) {
@@ -471,13 +479,13 @@ timeout_sync_deletions (gpointer user_data)
 }
 
 static void
-notify_cb (E2kConnection *conn, const char *uri,
-	   E2kConnectionChangeType type, gpointer user_data)
+notify_cb (E2kContext *ctx, const char *uri,
+	   E2kContextChangeType type, gpointer user_data)
 {
 	MailStubExchangeFolder *mfld = user_data;
 	time_t now;
 
-	if (type == E2K_CONNECTION_OBJECT_ADDED)
+	if (type == E2K_CONTEXT_OBJECT_ADDED)
 		refresh_folder_internal (MAIL_STUB (mfld->mse), mfld, TRUE);
 	else {
 		now = time (NULL);
@@ -548,143 +556,6 @@ got_folder_error (MailStubExchangeFolder *mfld, const char *error)
 	free_folder (NULL, mfld, NULL);
 }
 
-static void
-got_folder (E2kConnection *conn, SoupMessage *msg, gpointer user_data)
-{
-	MailStubExchangeFolder *mfld = user_data;
-	MailStubExchange *mse = mfld->mse;
-	MailStubExchangeMessage *mmsg;
-	ExchangeHierarchy *hier;
-	int flags, i;
-
-	if (SOUP_MESSAGE_IS_ERROR (msg)) {
-		g_warning ("got_folder: %d %s", msg->errorcode, msg->errorphrase);
-		got_folder_error (mfld, _("Could not open folder"));
-		return;
-	}
-
-	/* Discard remaining messages that no longer exist. */
-	for (i = 0; i < mfld->messages->len; i++) {
-		mmsg = mfld->messages->pdata[i];
-		if (!mmsg->href)
-			message_remove_at_index (MAIL_STUB (mse), mfld, i--);
-	}
-
-	e_folder_exchange_subscribe (mfld->folder,
-				     E2K_CONNECTION_OBJECT_ADDED, 30,
-				     notify_cb, mfld);
-	e_folder_exchange_subscribe (mfld->folder,
-				     E2K_CONNECTION_OBJECT_REMOVED, 30,
-				     notify_cb, mfld);
-	e_folder_exchange_subscribe (mfld->folder,
-				     E2K_CONNECTION_OBJECT_MOVED, 30,
-				     notify_cb, mfld);
-	g_signal_connect (mfld->folder, "changed",
-			  G_CALLBACK (storage_folder_changed), mfld);
-
-	g_hash_table_insert (mse->folders_by_name, (char *)mfld->name, mfld);
-	folder_changed (mfld);
-
-	flags = 0;
-	if ((mfld->access & MAPI_ACCESS_MODIFY) == 0)
-		flags |= CAMEL_STUB_FOLDER_READONLY;
-	if (mse->account->filter_inbox && (mfld->folder == mse->inbox))
-		flags |= CAMEL_STUB_FOLDER_FILTER;
-	if (mfld->type == MAIL_STUB_EXCHANGE_FOLDER_POST)
-		flags |= CAMEL_STUB_FOLDER_POST;
-
-	hier = e_folder_exchange_get_hierarchy (mfld->folder);
-
-	mail_stub_return_data (MAIL_STUB (mse), CAMEL_STUB_RETVAL_RESPONSE,
-			       CAMEL_STUB_ARG_UINT32, flags,
-			       CAMEL_STUB_ARG_STRING, hier->source_uri,
-			       CAMEL_STUB_ARG_END);
-	mail_stub_return_ok (MAIL_STUB (mse));
-}
-
-static int
-getting_folder (E2kConnection *conn, SoupMessage *msg,
-		E2kResult *results, int nresults,
-		int first, int total, gpointer user_data)
-{
-	MailStubExchangeFolder *mfld = user_data;
-	MailStubExchange *mse = mfld->mse;
-	MailStubExchangeMessage *mmsg;
-	const char *prop, *uid;
-	guint32 article_num, flags;
-	gboolean readonly = (mfld->access & MAPI_ACCESS_MODIFY) == 0;
-	int m, i;
-
-	for (m = first, i = 0; m < mfld->messages->len && i < nresults; i++) {
-		prop = e2k_properties_get_prop (results[i].props, PR_INTERNET_ARTICLE_NUMBER);
-		if (!prop)
-			continue;
-		article_num = strtoul (prop, NULL, 10);
-
-		prop = e2k_properties_get_prop (results[i].props, E2K_PR_REPL_UID);
-		if (!prop)
-			continue;
-		uid = uidstrip (prop);
-
-		flags = mail_util_props_to_camel_flags (results[i].props,
-							!readonly);
-
-		mmsg = mfld->messages->pdata[m];
-		while (strcmp (uid, mmsg->uid)) {
-			message_remove_at_index (MAIL_STUB (mse), mfld, m);
-			if (m == mfld->messages->len) {
-				mmsg = NULL;
-				break;
-			}
-			mmsg = mfld->messages->pdata[m];
-		}
-		if (!mmsg)
-			break;
-
-		mmsg->href = g_strdup (results[i].href);
-		g_hash_table_insert (mfld->messages_by_href, mmsg->href, mmsg);
-		if (article_num > mfld->high_article_num)
-			mfld->high_article_num = article_num;
-		if (mmsg->flags != flags)
-			change_flags (mfld, mmsg, flags);
-
-		prop = e2k_properties_get_prop (results[i].props, E2K_PR_HTTPMAIL_MESSAGE_FLAG);
-		if (prop)
-			return_tag (mfld, mmsg->uid, "follow-up", prop);
-		prop = e2k_properties_get_prop (results[i].props, E2K_PR_MAILHEADER_REPLY_BY);
-		if (prop)
-			return_tag (mfld, mmsg->uid, "due-by", prop);
-		prop = e2k_properties_get_prop (results[i].props, E2K_PR_MAILHEADER_COMPLETED);
-		if (prop)
-			return_tag (mfld, mmsg->uid, "completed-on", prop);
-
-		m++;
-	}
-
-	if (i < nresults) {
-		/* There are messages that Camel doesn't know about
-		 * and which we are therefore ignoring for a while. If
-		 * any of them have an article number lower than the
-		 * highest article number we've seen, bump
-		 * high_article_num down so that that message gets
-		 * caught by refresh_info later too.
-		 */
-
-		for (; i < nresults; i++) {
-			prop = e2k_properties_get_prop (results[i].props, PR_INTERNET_ARTICLE_NUMBER);
-			if (prop) {
-				article_num = strtoul (prop, NULL, 10);
-				if (article_num < mfld->high_article_num)
-					mfld->high_article_num = article_num - 1;
-			}
-		}
-	}
-
-	mail_stub_return_progress (MAIL_STUB (mse), (m * 100) / total);
-
-	return nresults;
-}
-
 static const char *open_folder_sync_props[] = {
 	E2K_PR_REPL_UID,
 	PR_INTERNET_ARTICLE_NUMBER,
@@ -696,59 +567,6 @@ static const char *open_folder_sync_props[] = {
 	E2K_PR_MAILHEADER_COMPLETED
 };
 static const int n_open_folder_sync_props = sizeof (open_folder_sync_props) / sizeof (open_folder_sync_props[0]);
-
-static void
-got_folder_props (E2kConnection *conn, SoupMessage *msg,
-		  E2kResult *results, int nresults,
-		  gpointer user_data)
-{
-	MailStubExchangeFolder *mfld = user_data;
-	const char *prop;
-	E2kRestriction *rn;
-
-	if (SOUP_MESSAGE_IS_ERROR (msg) &&
-	    msg->errorcode != SOUP_ERROR_CANT_AUTHENTICATE) {
-		g_warning ("got_folder_props: %d %s", msg->errorcode, msg->errorphrase);
-		got_folder_error (mfld, _("Could not open folder"));
-		return;
-	}
-
-	if (nresults) {
-		prop = e2k_properties_get_prop (results[0].props, PR_ACCESS);
-		if (prop)
-			mfld->access = atoi (prop);
-		else
-			mfld->access = ~0;
-	} else if (msg->errorcode == SOUP_ERROR_CANT_AUTHENTICATE)
-		mfld->access = 0;
-	else
-		mfld->access = ~0;
-
-	if (!(mfld->access & MAPI_ACCESS_READ)) {
-		got_folder_error (mfld, _("Could not open folder: Permission denied"));
-		return;
-	}
-
-	prop = e2k_properties_get_prop (results[0].props, PR_DELETED_COUNT_TOTAL);
-	if (prop)
-		mfld->deleted_count = atoi (prop);
-
-	rn = e2k_restriction_andv (
-		e2k_restriction_prop_bool (E2K_PR_DAV_IS_COLLECTION,
-					   E2K_RELOP_EQ, FALSE),
-		e2k_restriction_prop_bool (E2K_PR_DAV_IS_HIDDEN,
-					   E2K_RELOP_EQ, FALSE),
-		NULL);
-
-	E2K_DEBUG_HINT ('M');
-	e_folder_exchange_search_with_progress (mfld->folder,
-						open_folder_sync_props,
-						n_open_folder_sync_props,
-						rn, E2K_PR_DAV_CREATION_DATE,
-						50, TRUE, getting_folder,
-						got_folder, mfld);
-	e2k_restriction_unref (rn);
-}
 
 static const char *open_folder_props[] = {
 	PR_ACCESS,
@@ -766,7 +584,17 @@ get_folder (MailStub *stub, const char *name,
 	EFolder *folder;
 	char *path;
 	const char *outlook_class;
-	int i;
+	E2kHTTPStatus status;
+	E2kResult *results;
+	int nresults;
+	gboolean readonly;
+	E2kRestriction *rn;
+	E2kResultIter *iter;
+	E2kResult *result;
+	const char *prop, *uid;
+	guint32 article_num, camel_flags;
+	int i, m, total = -1;
+	ExchangeHierarchy *hier;
 
 	path = g_strdup_printf ("/%s", name);
 	folder = exchange_account_get_folder (mse->account, path);
@@ -810,10 +638,169 @@ get_folder (MailStub *stub, const char *name,
 	}
 	mfld->changed_messages = g_ptr_array_new ();
 
-	E2K_DEBUG_HINT ('M');
-	e_folder_exchange_propfind (mfld->folder, "0",
-				    open_folder_props, n_open_folder_props,
-				    got_folder_props, mfld);
+	status = e_folder_exchange_propfind (mfld->folder, NULL,
+					     open_folder_props,
+					     n_open_folder_props,
+					     &results, &nresults);
+	if (status == E2K_HTTP_UNAUTHORIZED) {
+		got_folder_error (mfld, _("Could not open folder: Permission denied"));
+		return;
+	} else if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		g_warning ("got_folder_props: %d", status);
+		got_folder_error (mfld, _("Could not open folder"));
+		return;
+	}
+
+	if (nresults) {
+		prop = e2k_properties_get_prop (results[0].props, PR_ACCESS);
+		if (prop)
+			mfld->access = atoi (prop);
+		else
+			mfld->access = ~0;
+	} else
+		mfld->access = ~0;
+
+	if (!(mfld->access & MAPI_ACCESS_READ)) {
+		got_folder_error (mfld, _("Could not open folder: Permission denied"));
+		return;
+	}
+	readonly = (mfld->access & MAPI_ACCESS_MODIFY) == 0;
+
+	prop = e2k_properties_get_prop (results[0].props, PR_DELETED_COUNT_TOTAL);
+	if (prop)
+		mfld->deleted_count = atoi (prop);
+
+	rn = e2k_restriction_andv (
+		e2k_restriction_prop_bool (E2K_PR_DAV_IS_COLLECTION,
+					   E2K_RELOP_EQ, FALSE),
+		e2k_restriction_prop_bool (E2K_PR_DAV_IS_HIDDEN,
+					   E2K_RELOP_EQ, FALSE),
+		NULL);
+
+	iter = e_folder_exchange_search_start (mfld->folder, NULL,
+					       open_folder_sync_props,
+					       n_open_folder_sync_props,
+					       rn, E2K_PR_DAV_CREATION_DATE,
+					       TRUE);
+	e2k_restriction_unref (rn);
+
+	m = 0;
+	total = e2k_result_iter_get_total (iter);
+	while ((result = e2k_result_iter_next (iter)) && m < mfld->messages->len) {
+		prop = e2k_properties_get_prop (result->props,
+						PR_INTERNET_ARTICLE_NUMBER);
+		if (!prop)
+			continue;
+		article_num = strtoul (prop, NULL, 10);
+
+		prop = e2k_properties_get_prop (result->props,
+						E2K_PR_REPL_UID);
+		if (!prop)
+			continue;
+		uid = uidstrip (prop);
+
+		camel_flags = mail_util_props_to_camel_flags (result->props,
+							      !readonly);
+
+		mmsg = mfld->messages->pdata[m];
+		while (strcmp (uid, mmsg->uid)) {
+			message_remove_at_index (stub, mfld, m);
+			if (m == mfld->messages->len) {
+				mmsg = NULL;
+				if (article_num < mfld->high_article_num)
+					mfld->high_article_num = article_num - 1;
+				break;
+			}
+			mmsg = mfld->messages->pdata[m];
+		}
+		if (!mmsg)
+			break;
+
+		mmsg->href = g_strdup (result->href);
+		g_hash_table_insert (mfld->messages_by_href, mmsg->href, mmsg);
+		if (article_num > mfld->high_article_num)
+			mfld->high_article_num = article_num;
+		if (mmsg->flags != camel_flags)
+			change_flags (mfld, mmsg, camel_flags);
+
+		prop = e2k_properties_get_prop (result->props, E2K_PR_HTTPMAIL_MESSAGE_FLAG);
+		if (prop)
+			return_tag (mfld, mmsg->uid, "follow-up", prop);
+		prop = e2k_properties_get_prop (result->props, E2K_PR_MAILHEADER_REPLY_BY);
+		if (prop)
+			return_tag (mfld, mmsg->uid, "due-by", prop);
+		prop = e2k_properties_get_prop (result->props, E2K_PR_MAILHEADER_COMPLETED);
+		if (prop)
+			return_tag (mfld, mmsg->uid, "completed-on", prop);
+
+		m++;
+		mail_stub_return_progress (stub, (m * 100) / total);
+	}
+
+	/* If there are further messages beyond mfld->messages->len,
+	 * then that means camel doesn't know about them yet, and so
+	 * we need to ignore them for a while. But if any of them have
+	 * an article number lower than the highest article number
+	 * we've seen, bump high_article_num down so that that message
+	 * gets caught by refresh_info later too.
+	 */
+	while ((result = e2k_result_iter_next (iter))) {
+		prop = e2k_properties_get_prop (result->props,
+						PR_INTERNET_ARTICLE_NUMBER);
+		if (prop) {
+			article_num = strtoul (prop, NULL, 10);
+			if (article_num < mfld->high_article_num)
+				mfld->high_article_num = article_num - 1;
+		}
+
+		m++;
+		mail_stub_return_progress (stub, (m * 100) / total);
+	}
+
+	status = e2k_result_iter_free (iter);
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		g_warning ("got_folder: %d", status);
+		got_folder_error (mfld, _("Could not open folder"));
+		return;
+	}
+
+	/* Discard remaining messages that no longer exist. */
+	for (i = 0; i < mfld->messages->len; i++) {
+		mmsg = mfld->messages->pdata[i];
+		if (!mmsg->href)
+			message_remove_at_index (stub, mfld, i--);
+	}
+
+	e_folder_exchange_subscribe (mfld->folder,
+				     E2K_CONTEXT_OBJECT_ADDED, 30,
+				     notify_cb, mfld);
+	e_folder_exchange_subscribe (mfld->folder,
+				     E2K_CONTEXT_OBJECT_REMOVED, 30,
+				     notify_cb, mfld);
+	e_folder_exchange_subscribe (mfld->folder,
+				     E2K_CONTEXT_OBJECT_MOVED, 30,
+				     notify_cb, mfld);
+	g_signal_connect (mfld->folder, "changed",
+			  G_CALLBACK (storage_folder_changed), mfld);
+
+	g_hash_table_insert (mse->folders_by_name, (char *)mfld->name, mfld);
+	folder_changed (mfld);
+
+	camel_flags = 0;
+	if ((mfld->access & MAPI_ACCESS_MODIFY) == 0)
+		camel_flags |= CAMEL_STUB_FOLDER_READONLY;
+	if (mse->account->filter_inbox && (mfld->folder == mse->inbox))
+		camel_flags |= CAMEL_STUB_FOLDER_FILTER;
+	if (mfld->type == MAIL_STUB_EXCHANGE_FOLDER_POST)
+		camel_flags |= CAMEL_STUB_FOLDER_POST;
+
+	hier = e_folder_exchange_get_hierarchy (mfld->folder);
+
+	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
+			       CAMEL_STUB_ARG_UINT32, camel_flags,
+			       CAMEL_STUB_ARG_STRING, hier->source_uri,
+			       CAMEL_STUB_ARG_END);
+	mail_stub_return_ok (stub);
 }
 
 static void
@@ -849,133 +836,35 @@ sync_folder (MailStub *stub, const char *folder_name)
 	mail_stub_return_ok (stub);
 }
 
-struct sync_deleted_data {
-	MailStubExchangeFolder *mfld;
-	int new_deleted_count, highest_unverified_index, highest_verified_seq;
-	gboolean changes;
+static const char *sync_deleted_props[] = {
+	PR_DELETED_COUNT_TOTAL,
+	E2K_PR_DAV_VISIBLE_COUNT
 };
+static const int n_sync_deleted_props = sizeof (sync_deleted_props) / sizeof (sync_deleted_props[0]);
 
 static void
-synced_deleted (E2kConnection *conn, SoupMessage *msg, gpointer user_data)
+sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld)
 {
-	struct sync_deleted_data *sdd = user_data;
-	MailStubExchangeFolder *mfld = sdd->mfld;
-	MailStubExchangeMessage *mmsg;
-
-	if (SOUP_MESSAGE_IS_ERROR (msg)) {
-		g_warning ("synced_deleted: %d %s", msg->errorcode, msg->errorphrase);
-	}
-
-	/* Clear out the remaining messages in mfld */
-	while (sdd->highest_unverified_index > -1) {
-		mfld->deleted_count++;
-		mmsg = mfld->messages->pdata[sdd->highest_unverified_index--];
-		message_removed (MAIL_STUB (mfld->mse), mfld, mmsg->href);
-		sdd->changes = TRUE;
-	}
-
-	if (sdd->changes)
-		mail_stub_push_changes (MAIL_STUB (mfld->mse));
-
-	g_free (sdd);
-}
-
-static int
-syncing_deleted (E2kConnection *conn, SoupMessage *msg,
-		 E2kResult *results, int nresults,
-		 int first, int total, gpointer user_data)
-{
-	struct sync_deleted_data *sdd = user_data;
-	MailStubExchangeFolder *mfld = sdd->mfld;
-	MailStubExchange *mse = mfld->mse;
-	MailStubExchangeMessage *mmsg, *my_mmsg;
+	MailStub *stub = MAIL_STUB (mse);
+	E2kHTTPStatus status;
+	E2kResult *results;
+	int nresults;
 	const char *prop;
-	int i, my_i;
-	int read;
-
-	if (sdd->highest_verified_seq == -1) {
-		/* Round 1. (Fight!) */
-		my_i = mfld->messages->len - 1;
-	} else {
-		/* Find the first message we haven't verified yet.
-		 * Normally this would be the message immediately
-		 * before the last message we verified in the last
-		 * round, but if messages have been deleted since
-		 * the last round, it may be lower.
-		 */
-		my_i = sdd->highest_unverified_index;
-		if (my_i >= mfld->messages->len)
-			my_i = mfld->messages->len - 1;
-
-		do {
-			mmsg = mfld->messages->pdata[my_i];
-			if (mmsg->seq < sdd->highest_verified_seq)
-				break;
-		} while (--my_i >= 0);
-	}
-
-	/* Walk through messages backwards. */
-	for (i = nresults - 1; i >= 0 && my_i >= 0; i--, my_i--) {
-		mmsg = find_message_by_href (mfld, results[i].href);
-		if (!mmsg || mmsg->seq >= sdd->highest_verified_seq) {
-			/* This is a new message or a message we already
-			 * verified. Skip it. Keep my_i from changing.
-			 */
-			my_i++;
-			continue;
-		}
-
-		/* See if its read flag changed while we weren't watching */
-		prop = e2k_properties_get_prop (results[i].props, E2K_PR_HTTPMAIL_READ);
-		read = (prop && atoi (prop)) ? MAIL_STUB_MESSAGE_SEEN : 0;
-		if ((mmsg->flags & MAIL_STUB_MESSAGE_SEEN) != read) {
-			change_flags (mfld, mmsg,
-				      mmsg->flags ^ MAIL_STUB_MESSAGE_SEEN);
-		}
-
-		my_mmsg = mfld->messages->pdata[my_i];
-
-		/* If the messages don't match, remove messages from the
-		 * folder until they do. (We know there has to eventually
-		 * be a matching message or the find_message_by_href
-		 * above would have failed.)
-		 */
-		while (my_mmsg->seq != mmsg->seq) {
-			mfld->deleted_count++;
-			message_removed (MAIL_STUB (mse), mfld, my_mmsg->href);
-			sdd->changes = TRUE;
-			my_i--;
-			my_mmsg = mfld->messages->pdata[my_i];
-		}
-		sdd->highest_verified_seq = mmsg->seq;
-	}
-
-	if (my_i == -1 || my_i == first - 1) {
-		/* Nothing left to check, or we've gotten in sync */
-		if (mfld->deleted_count != sdd->new_deleted_count)
-			mfld->deleted_count = sdd->new_deleted_count;
-		sdd->highest_unverified_index = -1;
-		return 0;
-	}
-
-	/* Set up the next round */
-	sdd->highest_unverified_index = my_i;
-	return nresults > 100 ? nresults : nresults * 2;
-}
-
-static void
-got_sync_deleted_props (E2kConnection *conn, SoupMessage *msg,
-			E2kResult *results, int nresults,
-			gpointer user_data)
-{
-	MailStubExchangeFolder *mfld = user_data;
-	struct sync_deleted_data *sdd;
-	const char *prop;
-	int deleted_count = -1, visible_count = -1;
+	int deleted_count = -1, new_deleted_count, visible_count = -1;
 	E2kRestriction *rn;
+	E2kResultIter *iter;
+	E2kResult *result;
+	int my_i, read, highest_unverified_index, highest_verified_seq;
+	MailStubExchangeMessage *mmsg, *my_mmsg;
+	gboolean changes = FALSE;
 
-	if (!SOUP_ERROR_IS_SUCCESSFUL (msg->errorcode) || !nresults) {
-		g_warning ("got_sync_deleted_props: %d %s", msg->errorcode, msg->errorphrase);
+	status = e_folder_exchange_propfind (mfld->folder, NULL,
+					     sync_deleted_props,
+					     n_sync_deleted_props,
+					     &results, &nresults);
+
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status) || !nresults) {
+		g_warning ("got_sync_deleted_props: %d", status);
 		return;
 	}
 
@@ -999,11 +888,9 @@ got_sync_deleted_props (E2kConnection *conn, SoupMessage *msg,
 		}
 	}
 
-	sdd = g_new0 (struct sync_deleted_data, 1);
-	sdd->mfld = mfld;
-	sdd->highest_verified_seq = -1;
-	sdd->highest_unverified_index = mfld->messages->len - 1;
-	sdd->new_deleted_count = deleted_count;
+	highest_verified_seq = -1;
+	highest_unverified_index = mfld->messages->len - 1;
+	new_deleted_count = deleted_count;
 
 	prop = E2K_PR_HTTPMAIL_READ;
 	rn = e2k_restriction_andv (
@@ -1013,37 +900,73 @@ got_sync_deleted_props (E2kConnection *conn, SoupMessage *msg,
 					   E2K_RELOP_EQ, FALSE),
 		NULL);
 
-	E2K_DEBUG_HINT ('M');
-	e_folder_exchange_search_with_progress (mfld->folder,
-						&prop, 1, rn,
-						E2K_PR_DAV_CREATION_DATE,
-						20, FALSE, syncing_deleted,
-						synced_deleted, sdd);
+	iter = e_folder_exchange_search_start (mfld->folder, NULL,
+					       &prop, 1, rn,
+					       E2K_PR_DAV_CREATION_DATE,
+					       FALSE);
 	e2k_restriction_unref (rn);
+
+	my_i = mfld->messages->len - 1;
+	while ((result = e2k_result_iter_next (iter))) {
+		mmsg = find_message_by_href (mfld, result->href);
+		if (!mmsg || mmsg->seq >= highest_verified_seq) {
+			/* This is a new message or a message we already
+			 * verified. Skip it.
+			 */
+			continue;
+		}
+
+		/* See if its read flag changed while we weren't watching */
+		prop = e2k_properties_get_prop (result->props,
+						E2K_PR_HTTPMAIL_READ);
+		read = (prop && atoi (prop)) ? MAIL_STUB_MESSAGE_SEEN : 0;
+		if ((mmsg->flags & MAIL_STUB_MESSAGE_SEEN) != read) {
+			change_flags (mfld, mmsg,
+				      mmsg->flags ^ MAIL_STUB_MESSAGE_SEEN);
+		}
+
+		my_mmsg = mfld->messages->pdata[my_i];
+
+		/* If the messages don't match, remove messages from the
+		 * folder until they do. (We know there has to eventually
+		 * be a matching message or the find_message_by_href
+		 * above would have failed.)
+		 */
+		while (my_mmsg->seq != mmsg->seq) {
+			mfld->deleted_count++;
+			message_removed (stub, mfld, my_mmsg->href);
+			changes = TRUE;
+			my_i--;
+			my_mmsg = mfld->messages->pdata[my_i];
+		}
+		highest_verified_seq = mmsg->seq;
+
+		if (my_i == 0 || my_i == e2k_result_iter_get_index (iter)) {
+			/* Nothing left to check, or we've gotten in sync */
+			if (mfld->deleted_count != new_deleted_count)
+				mfld->deleted_count = new_deleted_count;
+			highest_unverified_index = -1;
+			break;
+		}
+
+		my_i--;
+	}
+	status = e2k_result_iter_free (iter);
+
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+		g_warning ("synced_deleted: %d", status);
+
+	/* Clear out the remaining messages in mfld */
+	while (highest_unverified_index > -1) {
+		mfld->deleted_count++;
+		mmsg = mfld->messages->pdata[highest_unverified_index--];
+		message_removed (stub, mfld, mmsg->href);
+		changes = TRUE;
+	}
+
+	if (changes)
+		mail_stub_push_changes (stub);
 }
-
-static const char *sync_deleted_props[] = {
-	PR_DELETED_COUNT_TOTAL,
-	E2K_PR_DAV_VISIBLE_COUNT
-};
-static const int n_sync_deleted_props = sizeof (sync_deleted_props) / sizeof (sync_deleted_props[0]);
-
-static void
-sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld)
-{
-	E2K_DEBUG_HINT ('M');
-	e_folder_exchange_propfind (mfld->folder, "0",
-				    sync_deleted_props, n_sync_deleted_props,
-				    got_sync_deleted_props, mfld);
-}
-
-struct refresh_data {
-	MailStub *stub;
-	gboolean background;
-	MailStubExchangeFolder *mfld;
-	GArray *messages;
-	GHashTable *mapi_messages;
-};
 
 struct refresh_message {
 	char *uid, *href, *headers, *fff, *reply_by, *completed;
@@ -1056,144 +979,6 @@ refresh_message_compar (const void *a, const void *b)
 	const struct refresh_message *rma = a, *rmb = b;
 
 	return strcmp (rma->uid, rmb->uid);
-}
-
-static void
-free_rd (struct refresh_data *rd)
-{
-	if (rd->background)
-		g_object_unref (rd->stub);
-	if (rd->messages) {
-		struct refresh_message *rm;
-		int i;
-
-		rm = (struct refresh_message *)rd->messages->data;
-		for (i = 0; i < rd->messages->len; i++) {
-			g_free (rm[i].uid);
-			g_free (rm[i].href);
-			g_free (rm[i].headers);
-			g_free (rm[i].fff);
-			g_free (rm[i].reply_by);
-			g_free (rm[i].completed);
-		}
-		g_array_free (rd->messages, TRUE);
-	}
-	g_hash_table_destroy (rd->mapi_messages);
-	g_free (rd);
-}
-
-static void
-finish_refresh (struct refresh_data *rd)
-{
-	struct refresh_message rm;
-	MailStubExchangeFolder *mfld = rd->mfld;
-	MailStubExchangeMessage *mmsg;
-	int i;
-
-	mail_stub_return_data (rd->stub, CAMEL_STUB_RETVAL_FREEZE_FOLDER,
-			       CAMEL_STUB_ARG_FOLDER, mfld->name,
-			       CAMEL_STUB_ARG_END);
-
-	qsort (rd->messages->data, rd->messages->len,
-	       sizeof (rm), refresh_message_compar);
-	for (i = 0; i < rd->messages->len; i++) {
-		rm = g_array_index (rd->messages, struct refresh_message, i);
-
-		/* If we already have a message with this UID, then
-		 * that means it's not a new message, it's just that
-		 * the article number changed.
-		 */
-		mmsg = find_message (mfld, rm.uid);
-		if (mmsg) {
-			if (rm.flags != mmsg->flags)
-				change_flags (mfld, mmsg, rm.flags);
-		} else {
-			mmsg = new_message (rm.uid, rm.href, mfld->seq++, rm.flags);
-			g_ptr_array_add (mfld->messages, mmsg);
-			g_hash_table_insert (mfld->messages_by_uid,
-					     mmsg->uid, mmsg);
-			g_hash_table_insert (mfld->messages_by_href,
-					     mmsg->href, mmsg);
-
-			if (!(mmsg->flags & MAIL_STUB_MESSAGE_SEEN))
-				mfld->unread_count++;
-
-			mail_stub_return_data (rd->stub, CAMEL_STUB_RETVAL_NEW_MESSAGE,
-					       CAMEL_STUB_ARG_FOLDER, mfld->name,
-					       CAMEL_STUB_ARG_STRING, rm.uid,
-					       CAMEL_STUB_ARG_UINT32, rm.flags,
-					       CAMEL_STUB_ARG_UINT32, rm.size,
-					       CAMEL_STUB_ARG_STRING, rm.headers,
-					       CAMEL_STUB_ARG_END);
-		}
-
-		if (rm.article_num > mfld->high_article_num)
-			mfld->high_article_num = rm.article_num;
-
-		if (rm.fff)
-			return_tag (mfld, rm.uid, "follow-up", rm.fff);
-		if (rm.reply_by)
-			return_tag (mfld, rm.uid, "due-by", rm.reply_by);
-		if (rm.completed)
-			return_tag (mfld, rm.uid, "completed-on", rm.completed);
-	}
-	mail_stub_return_data (rd->stub, CAMEL_STUB_RETVAL_THAW_FOLDER,
-			       CAMEL_STUB_ARG_FOLDER, mfld->name,
-			       CAMEL_STUB_ARG_END);
-
-	mfld->scanned = TRUE;
-	folder_changed (mfld);
-
-	if (rd->background)
-		mail_stub_push_changes (rd->stub);
-	else
-		mail_stub_return_ok (rd->stub);
-	free_rd (rd);
-}
-
-static void
-got_new_mapi_messages (E2kConnection *conn, SoupMessage *msg, 
-		       E2kResult *results, int nresults,
-		       gpointer user_data)
-{
-	struct refresh_data *rd = user_data;
-	struct refresh_message *rm;
-	const char *href;
-	gpointer key, value;
-	int i, n;
-
-	if (msg->errorcode != SOUP_ERROR_DAV_MULTISTATUS) {
-		g_warning ("got_new_mapi_messages: %d %s", msg->errorcode, msg->errorphrase);
-		if (!rd->background)
-			mail_stub_return_error (rd->stub, _("Could not get new messages"));
-		free_rd (rd);
-		return;
-	}
-
-	for (i = 0; i < nresults; i++) {
-		if (!SOUP_ERROR_IS_SUCCESSFUL (results[i].status))
-			continue;
-
-		href = strrchr (results[i].href, '/');
-		if (!href++)
-			href = results[i].href;
-
-		if (!g_hash_table_lookup_extended (rd->mapi_messages, href,
-						   &key, &value))
-			continue;
-		n = GPOINTER_TO_INT (value);
-
-		rm = &((struct refresh_message *)rd->messages->data)[n];
-		rm->headers = mail_util_mapi_to_smtp_headers (results[i].props);
-	}
-
-	finish_refresh (rd);
-}
-
-static void
-add_message (gpointer href, gpointer message, gpointer hrefs)
-{
-	g_ptr_array_add (hrefs, href);
 }
 
 static const char *mapi_message_props[] = {
@@ -1210,96 +995,6 @@ static const char *mapi_message_props[] = {
 	E2K_PR_DAV_CONTENT_TYPE
 };
 static const int n_mapi_message_props = sizeof (mapi_message_props) / sizeof (mapi_message_props[0]);
-
-static void
-got_new_smtp_messages (E2kConnection *conn, SoupMessage *msg, 
-		       E2kResult *results, int nresults,
-		       gpointer user_data)
-{
-	struct refresh_data *rd = user_data;
-	struct refresh_message rm;
-	char *prop, *uid, *href;
-	gboolean has_read_flag = (rd->mfld->access & MAPI_ACCESS_READ);
-	int i;
-
-	if (msg->errorcode != SOUP_ERROR_DAV_MULTISTATUS) {
-		g_warning ("got_new_smtp_messages: %d %s", msg->errorcode, msg->errorphrase);
-		if (!rd->background)
-			mail_stub_return_error (rd->stub, _("Could not get new messages"));
-		free_rd (rd);
-		return;
-	}
-
-	for (i = 0; i < nresults; i++) {
-		if (!SOUP_ERROR_IS_SUCCESSFUL (results[i].status))
-			continue;
-
-		uid = e2k_properties_get_prop (results[i].props,
-					       E2K_PR_REPL_UID);
-		if (!uid)
-			continue;
-		prop = e2k_properties_get_prop (results[i].props,
-						PR_INTERNET_ARTICLE_NUMBER);
-		if (!prop)
-			continue;
-
-		rm.uid = g_strdup (uidstrip (uid));
-		rm.href = g_strdup (results[i].href);
-		rm.article_num = strtoul (prop, NULL, 10);
-
-		rm.flags = mail_util_props_to_camel_flags (results[i].props,
-							   has_read_flag);
-
-		prop = e2k_properties_get_prop (results[i].props, E2K_PR_HTTPMAIL_MESSAGE_FLAG);
-		if (prop)
-			rm.fff = g_strdup (prop);
-		else
-			rm.fff = NULL;
-		prop = e2k_properties_get_prop (results[i].props, E2K_PR_MAILHEADER_REPLY_BY);
-		if (prop)
-			rm.reply_by = g_strdup (prop);
-		else
-			rm.reply_by = NULL;
-		prop = e2k_properties_get_prop (results[i].props, E2K_PR_MAILHEADER_COMPLETED);
-		if (prop)
-			rm.completed = g_strdup (prop);
-		else
-			rm.completed = NULL;
-
-		prop = e2k_properties_get_prop (results[i].props, E2K_PR_DAV_CONTENT_LENGTH);
-		rm.size = prop ? strtoul (prop, NULL, 10) : 0;
-
-		rm.headers = mail_util_extract_transport_headers (results[i].props);
-
-		g_array_append_val (rd->messages, rm);
-
-		if (!rm.headers) {
-			href = strrchr (rm.href, '/');
-			if (!href++)
-				href = rm.href;
-
-			g_hash_table_insert (rd->mapi_messages, href,
-					     GINT_TO_POINTER (rd->messages->len - 1));
-		}
-	}
-
-	if (g_hash_table_size (rd->mapi_messages) > 0) {
-		GPtrArray *hrefs = g_ptr_array_new ();
-
-		g_hash_table_foreach (rd->mapi_messages, add_message, hrefs);
-		E2K_DEBUG_HINT ('M');
-		e_folder_exchange_bpropfind (rd->mfld->folder,
-					     (const char **)hrefs->pdata,
-					     hrefs->len, "0",
-					     mapi_message_props,
-					     n_mapi_message_props,
-					     got_new_mapi_messages, rd);
-		g_ptr_array_free (hrefs, TRUE);
-		return;
-	}
-
-	finish_refresh (rd);
-}
 
 static const char *new_message_props[] = {
 	E2K_PR_REPL_UID,
@@ -1320,17 +1015,31 @@ static void
 refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 			 gboolean background)
 {
-	struct refresh_data *rd;
 	E2kRestriction *rn;
+	GArray *messages;
+	GHashTable *mapi_message_hash;
+	GPtrArray *mapi_hrefs;
+	gboolean has_read_flag = (mfld->access & MAPI_ACCESS_READ);
+	E2kResultIter *iter;
+	E2kResult *result;
+	char *prop, *uid, *href;
+	struct refresh_message rm, *rmp;
+	E2kHTTPStatus status;
+	int got, total, i, n;
+	gpointer key, value;
+	MailStubExchangeMessage *mmsg;
 
-	rd = g_new0 (struct refresh_data, 1);
-	rd->stub = stub;
-	rd->mfld = mfld;
-	rd->background = background;
-	if (rd->background)
-		g_object_ref (rd->stub);
-	rd->messages = g_array_new (FALSE, FALSE, sizeof (struct refresh_message));
-	rd->mapi_messages = g_hash_table_new (g_str_hash, g_str_equal);
+	g_object_ref (stub);
+
+	messages = g_array_new (FALSE, FALSE, sizeof (struct refresh_message));
+	mapi_message_hash = g_hash_table_new (g_str_hash, g_str_equal);
+	mapi_hrefs = g_ptr_array_new ();
+
+
+	/*
+	 * STEP 1: Fetch information about new messages, including SMTP
+	 * headers when available.
+	 */
 
 	rn = e2k_restriction_andv (
 		e2k_restriction_prop_bool (E2K_PR_DAV_IS_COLLECTION,
@@ -1341,12 +1050,208 @@ refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 					  E2K_RELOP_GT,
 					  mfld->high_article_num),
 		NULL);
-	E2K_DEBUG_HINT ('M');
-	e_folder_exchange_search (rd->mfld->folder,
-				  new_message_props, num_new_message_props,
-				  FALSE, rn, NULL,
-				  got_new_smtp_messages, rd);
+	iter = e_folder_exchange_search_start (mfld->folder, NULL,
+					       new_message_props,
+					       num_new_message_props,
+					       rn, NULL, TRUE);
 	e2k_restriction_unref (rn);
+
+	got = 0;
+	total = e2k_result_iter_get_total (iter);
+	while ((result = e2k_result_iter_next (iter))) {
+		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (result->status))
+			continue;
+
+		uid = e2k_properties_get_prop (result->props, E2K_PR_REPL_UID);
+		if (!uid)
+			continue;
+		prop = e2k_properties_get_prop (result->props,
+						PR_INTERNET_ARTICLE_NUMBER);
+		if (!prop)
+			continue;
+
+		rm.uid = g_strdup (uidstrip (uid));
+		rm.href = g_strdup (result->href);
+		rm.article_num = strtoul (prop, NULL, 10);
+
+		rm.flags = mail_util_props_to_camel_flags (result->props,
+							   has_read_flag);
+
+		prop = e2k_properties_get_prop (result->props,
+						E2K_PR_HTTPMAIL_MESSAGE_FLAG);
+		if (prop)
+			rm.fff = g_strdup (prop);
+		else
+			rm.fff = NULL;
+		prop = e2k_properties_get_prop (result->props,
+						E2K_PR_MAILHEADER_REPLY_BY);
+		if (prop)
+			rm.reply_by = g_strdup (prop);
+		else
+			rm.reply_by = NULL;
+		prop = e2k_properties_get_prop (result->props,
+						E2K_PR_MAILHEADER_COMPLETED);
+		if (prop)
+			rm.completed = g_strdup (prop);
+		else
+			rm.completed = NULL;
+
+		prop = e2k_properties_get_prop (result->props,
+						E2K_PR_DAV_CONTENT_LENGTH);
+		rm.size = prop ? strtoul (prop, NULL, 10) : 0;
+
+		rm.headers = mail_util_extract_transport_headers (result->props);
+
+		g_array_append_val (messages, rm);
+
+		if (rm.headers) {
+			got++;
+			mail_stub_return_progress (stub, (got * 100) / total);
+		} else {
+			href = strrchr (rm.href, '/');
+			if (!href++)
+				href = rm.href;
+
+			g_hash_table_insert (mapi_message_hash, href,
+					     GINT_TO_POINTER (messages->len - 1));
+			g_ptr_array_add (mapi_hrefs, href);
+		}
+	}
+	status = e2k_result_iter_free (iter);
+
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		g_warning ("got_new_smtp_messages: %d", status);
+		if (!background)
+			mail_stub_return_error (stub, _("Could not get new messages"));
+		goto done;
+	}
+
+	if (mapi_hrefs->len == 0)
+		goto return_data;
+
+
+	/*
+	 * STEP 2: Fetch MAPI property data for non-SMTP messages.
+	 */
+
+	iter = e_folder_exchange_bpropfind_start (mfld->folder, NULL,
+						  (const char **)mapi_hrefs->pdata,
+						  mapi_hrefs->len,
+						  mapi_message_props,
+						  n_mapi_message_props);
+	while ((result = e2k_result_iter_next (iter))) {
+		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (result->status))
+			continue;
+
+		href = strrchr (result->href, '/');
+		if (!href++)
+			href = result->href;
+
+		if (!g_hash_table_lookup_extended (mapi_message_hash, href,
+						   &key, &value))
+			continue;
+		n = GPOINTER_TO_INT (value);
+
+		rmp = &((struct refresh_message *)messages->data)[n];
+		rmp->headers = mail_util_mapi_to_smtp_headers (result->props);
+
+		got++;
+		mail_stub_return_progress (stub, (got * 100) / total);
+	}
+	status = e2k_result_iter_free (iter);
+
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		g_warning ("got_new_mapi_messages: %d", status);
+		if (!background)
+			mail_stub_return_error (stub, _("Could not get new messages"));
+		goto done;
+	}
+
+
+	/*
+	 * STEP 3: Organize the data, update our records and Camel's
+	 */
+
+ return_data:
+	mail_stub_return_progress (stub, 100);
+	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_FREEZE_FOLDER,
+			       CAMEL_STUB_ARG_FOLDER, mfld->name,
+			       CAMEL_STUB_ARG_END);
+
+	qsort (messages->data, messages->len,
+	       sizeof (rm), refresh_message_compar);
+	for (i = 0; i < messages->len; i++) {
+		rm = g_array_index (messages, struct refresh_message, i);
+
+		/* If we already have a message with this UID, then
+		 * that means it's not a new message, it's just that
+		 * the article number changed.
+		 */
+		mmsg = find_message (mfld, rm.uid);
+		if (mmsg) {
+			if (rm.flags != mmsg->flags)
+				change_flags (mfld, mmsg, rm.flags);
+		} else {
+			mmsg = new_message (rm.uid, rm.href, mfld->seq++, rm.flags);
+			g_ptr_array_add (mfld->messages, mmsg);
+			g_hash_table_insert (mfld->messages_by_uid,
+					     mmsg->uid, mmsg);
+			g_hash_table_insert (mfld->messages_by_href,
+					     mmsg->href, mmsg);
+
+			if (!(mmsg->flags & MAIL_STUB_MESSAGE_SEEN))
+				mfld->unread_count++;
+
+			mail_stub_return_data (stub, CAMEL_STUB_RETVAL_NEW_MESSAGE,
+					       CAMEL_STUB_ARG_FOLDER, mfld->name,
+					       CAMEL_STUB_ARG_STRING, rm.uid,
+					       CAMEL_STUB_ARG_UINT32, rm.flags,
+					       CAMEL_STUB_ARG_UINT32, rm.size,
+					       CAMEL_STUB_ARG_STRING, rm.headers,
+					       CAMEL_STUB_ARG_END);
+		}
+
+		if (rm.article_num > mfld->high_article_num)
+			mfld->high_article_num = rm.article_num;
+
+		if (rm.fff)
+			return_tag (mfld, rm.uid, "follow-up", rm.fff);
+		if (rm.reply_by)
+			return_tag (mfld, rm.uid, "due-by", rm.reply_by);
+		if (rm.completed)
+			return_tag (mfld, rm.uid, "completed-on", rm.completed);
+	}
+	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_THAW_FOLDER,
+			       CAMEL_STUB_ARG_FOLDER, mfld->name,
+			       CAMEL_STUB_ARG_END);
+
+	mfld->scanned = TRUE;
+	folder_changed (mfld);
+
+	if (background)
+		mail_stub_push_changes (stub);
+	else
+		mail_stub_return_ok (stub);
+
+ done:
+	/*
+	 * CLEANUP
+	 */
+	rmp = (struct refresh_message *)messages->data;
+	for (i = 0; i < messages->len; i++) {
+		g_free (rmp[i].uid);
+		g_free (rmp[i].href);
+		g_free (rmp[i].headers);
+		g_free (rmp[i].fff);
+		g_free (rmp[i].reply_by);
+		g_free (rmp[i].completed);
+	}
+	g_array_free (messages, TRUE);
+
+	g_hash_table_destroy (mapi_message_hash);
+	g_ptr_array_free (mapi_hrefs, TRUE);
+
+	g_object_unref (stub);
 }
 
 static void
@@ -1364,50 +1269,16 @@ refresh_folder (MailStub *stub, const char *folder_name)
 }
 
 static void
-expunged (E2kConnection *conn, SoupMessage *msg, gpointer user_data)
-{
-	MailStubExchangeFolder *mfld = user_data;
-	MailStub *stub = MAIL_STUB (mfld->mse);
-
-	if (!SOUP_ERROR_IS_SUCCESSFUL (msg->errorcode)) {
-		g_warning ("expunged: %d %s", msg->errorcode, msg->errorphrase);
-		mail_stub_return_error (stub, _("Could not empty Deleted Items folder"));
-	} else
-		mail_stub_return_ok (stub);
-}
-
-static int
-expunging (E2kConnection *conn, SoupMessage *msg,
-	   E2kResult *results, int nresults,
-	   int first, int total, gpointer user_data)
-{
-	MailStubExchangeFolder *mfld = user_data;
-	MailStub *stub = MAIL_STUB (mfld->mse);
-	int i;
-
-	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_FREEZE_FOLDER,
-			       CAMEL_STUB_ARG_FOLDER, mfld->name,
-			       CAMEL_STUB_ARG_END);
-	for (i = 0; i < nresults; i++)
-		message_removed (stub, mfld, results[i].href);
-	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_THAW_FOLDER,
-			       CAMEL_STUB_ARG_FOLDER, mfld->name,
-			       CAMEL_STUB_ARG_END);
-
-	mfld->deleted_count += nresults;
-
-	mail_stub_return_progress (stub, (first + nresults) * 100 / total);
-	return TRUE;
-}
-
-static void
 expunge_uids (MailStub *stub, const char *folder_name, GPtrArray *uids)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	MailStubExchangeFolder *mfld;
 	MailStubExchangeMessage *mmsg;
 	GPtrArray *hrefs;
-	int i;
+	E2kResultIter *iter;
+	E2kResult *result;
+	E2kHTTPStatus status;
+	int i, ndeleted;
 
 	if (!uids->len) {
 		mail_stub_return_ok (stub);
@@ -1434,99 +1305,78 @@ expunge_uids (MailStub *stub, const char *folder_name, GPtrArray *uids)
 		return;
 	}
 
-	E2K_DEBUG_HINT ('M');
-	e_folder_exchange_bdelete (mfld->folder,
-				   (const char **)hrefs->pdata, hrefs->len,
-				   expunging, expunged, mfld);
+	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_FREEZE_FOLDER,
+			       CAMEL_STUB_ARG_FOLDER, mfld->name,
+			       CAMEL_STUB_ARG_END);
+
+	iter = e_folder_exchange_bdelete_start (mfld->folder, NULL,
+						(const char **)hrefs->pdata,
+						hrefs->len);
+	ndeleted = 0;
+	while ((result = e2k_result_iter_next (iter))) {
+		message_removed (stub, mfld, result->href);
+		mfld->deleted_count++;
+		ndeleted++;
+
+		mail_stub_return_progress (stub, ndeleted * 100 / hrefs->len);
+	}
+	status = e2k_result_iter_free (iter);
+
+	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_THAW_FOLDER,
+			       CAMEL_STUB_ARG_FOLDER, mfld->name,
+			       CAMEL_STUB_ARG_END);
+
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		g_warning ("expunged: %d", status);
+		mail_stub_return_error (stub, _("Could not empty Deleted Items folder"));
+	} else
+		mail_stub_return_ok (stub);
+
 	g_ptr_array_free (hrefs, TRUE);
 }
 
 static void
-bflag_set (E2kConnection *conn, SoupMessage *msg,
-	   E2kResult *results, int nresults,
-	   gpointer user_data)
-{
-	if (!SOUP_ERROR_IS_SUCCESSFUL (msg->errorcode))
-		g_warning ("bflag_set: %d %s", msg->errorcode, msg->errorphrase);
-}
-
-static void
-flag_set (E2kConnection *conn, SoupMessage *msg, gpointer user_data)
-{
-	if (!SOUP_ERROR_IS_SUCCESSFUL (msg->errorcode))
-		g_warning ("flag_set: %d %s", msg->errorcode, msg->errorphrase);
-}
-
-static void
-mark_one_read (E2kConnection *conn, const char *uri, gboolean read)
+mark_one_read (E2kContext *ctx, const char *uri, gboolean read)
 {
 	E2kProperties *props;
+	E2kHTTPStatus status;
 
 	props = e2k_properties_new ();
 	e2k_properties_set_bool (props, E2K_PR_HTTPMAIL_READ, read);
 
-	E2K_DEBUG_HINT ('M');
-	e2k_connection_proppatch (conn, uri, props, FALSE, flag_set, NULL);
+	status = e2k_context_proppatch (ctx, NULL, uri, props, FALSE, NULL);
 	e2k_properties_free (props);
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+		g_warning ("mark_one_read: %d", status);
 }
 
 static void
 mark_read (EFolder *folder, GPtrArray *hrefs, gboolean read)
 {
 	E2kProperties *props;
+	E2kResultIter *iter;
+	E2kHTTPStatus status;
 
 	props = e2k_properties_new ();
 	e2k_properties_set_bool (props, E2K_PR_HTTPMAIL_READ, read);
 
-	E2K_DEBUG_HINT ('M');
-	e_folder_exchange_bproppatch (folder,
-				      (const char **)hrefs->pdata,
-				      hrefs->len, props,
-				      FALSE, bflag_set, NULL);
+	iter = e_folder_exchange_bproppatch_start (folder, NULL,
+						   (const char **)hrefs->pdata,
+						   hrefs->len, props, FALSE);
 	e2k_properties_free (props);
+
+	while (e2k_result_iter_next (iter))
+		;
+	status = e2k_result_iter_free (iter);
+
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+		g_warning ("mark_read: %d", status);
 }
 
-struct append_message_data {
-	MailStub *stub;
-	MailStubExchangeFolder *mfld;
-	guint32 flags;
-};
-
-static void
-appended_message (E2kConnection *conn, SoupMessage *msg, gpointer user_data)
+static gboolean
+test_uri (E2kContext *ctx, const char *test_name, gpointer messages_by_href)
 {
-	struct append_message_data *amd = user_data;
-	const char *header;
-	char *ruid;
-
-	if (msg->errorcode != SOUP_ERROR_CREATED) {
-		g_warning ("appended_message: %d %s", msg->errorcode, msg->errorphrase);
-		mail_stub_return_error (amd->stub,
-					msg->errorcode == SOUP_ERROR_DAV_OUT_OF_SPACE ?
-					_("Could not append message; mailbox is over quota") :
-					_("Could not append message"));
-		g_free (amd);
-		return;
-	}
-
-	if (amd->flags & MAIL_STUB_MESSAGE_SEEN) {
-		header = soup_message_get_header (msg->response_headers, "Location");
-		if (header)
-			mark_one_read (conn, header, TRUE);
-	}
-
-	header = soup_message_get_header (msg->response_headers, "Repl-UID");
-	if (header && *header == '<' && strlen (header) > 3)
-		ruid = g_strndup (header + 1, strlen (header) - 2);
-	else
-		ruid = NULL;
-	mail_stub_return_data (amd->stub, CAMEL_STUB_RETVAL_RESPONSE,
-			       CAMEL_STUB_ARG_STRING, ruid ? uidstrip (ruid) : "",
-			       CAMEL_STUB_ARG_END);
-	g_free (ruid);
-
-	mail_stub_return_ok (amd->stub);
-	g_free (amd);
+	return g_hash_table_lookup (messages_by_href, test_name) == NULL;
 }
 
 static void
@@ -1535,20 +1385,42 @@ append_message (MailStub *stub, const char *folder_name, guint32 flags,
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	MailStubExchangeFolder *mfld;
-	struct append_message_data *amd;
+	E2kHTTPStatus status;
+	char *ru_header, *repl_uid, *location;
 
 	mfld = folder_from_name (mse, folder_name, MAPI_ACCESS_CREATE_CONTENTS, FALSE);
 	if (!mfld)
 		return;
 
-	amd = g_new (struct append_message_data, 1);
-	amd->stub = stub;
-	amd->mfld = mfld;
-	amd->flags = flags;
-	E2K_DEBUG_HINT ('M');
-	e_folder_exchange_append (mfld->folder, subject,
-				  "message/rfc822", data, length,
-				  appended_message, amd);
+	status = e_folder_exchange_put_new (mfld->folder, NULL, subject,
+					    test_uri, mfld->messages_by_href,
+					    "message/rfc822", data, length,
+					    &location, &ru_header);
+	if (status != E2K_HTTP_CREATED) {
+		g_warning ("appended_message: %d", status);
+		mail_stub_return_error (stub,
+					status == E2K_HTTP_INSUFFICIENT_SPACE_ON_RESOURCE ?
+					_("Could not append message; mailbox is over quota") :
+					_("Could not append message"));
+		return;
+	}
+
+	if (flags & MAIL_STUB_MESSAGE_SEEN && location)
+		mark_one_read (mse->ctx, location, TRUE);
+
+	if (ru_header && *ru_header == '<' && strlen (ru_header) > 3)
+		repl_uid = g_strndup (ru_header + 1, strlen (ru_header) - 2);
+	else
+		repl_uid = NULL;
+	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
+			       CAMEL_STUB_ARG_STRING, repl_uid ? uidstrip (repl_uid) : "",
+			       CAMEL_STUB_ARG_END);
+
+	g_free (repl_uid);
+	g_free (ru_header);
+	g_free (location);
+
+	mail_stub_return_ok (stub);
 }
 
 static inline void
@@ -1566,50 +1438,10 @@ change_complete (MailStubExchangeFolder *mfld)
 }
 
 static void
-deleted_messages (E2kConnection *conn, SoupMessage *msg,
-		  E2kResult *results, int nresults,
-		  gpointer user_data)
-{
-	MailStubExchangeFolder *mfld = user_data;
-	MailStub *stub = MAIL_STUB (mfld->mse);
-	int i;
-
-	if (msg->errorcode != SOUP_ERROR_DAV_MULTISTATUS) {
-		g_warning ("deleted: %d %s", msg->errorcode, msg->errorphrase);
-		goto done;
-	}
-
-	if (nresults > 1) {
-		mail_stub_return_data (stub, CAMEL_STUB_RETVAL_FREEZE_FOLDER,
-				       CAMEL_STUB_ARG_FOLDER, mfld->name,
-				       CAMEL_STUB_ARG_END);
-	}
-
-	for (i = 0; i < nresults; i++) {
-		if (!e2k_properties_get_prop (results[i].props, E2K_PR_DAV_LOCATION))
-			continue;
-
-		message_removed (stub, mfld, results[i].href);
-	}
-
-	if (nresults > 1) {
-		mail_stub_return_data (stub, CAMEL_STUB_RETVAL_THAW_FOLDER,
-				       CAMEL_STUB_ARG_FOLDER, mfld->name,
-				       CAMEL_STUB_ARG_END);
-	}
-
-	mfld->deleted_count += nresults;
-
- done:
-	mail_stub_push_changes (stub);
-	mfld->pending_delete_ops--;
-	change_complete (mfld);
-}
-
-static void
 set_replied_flags (MailStubExchange *mse, MailStubExchangeMessage *mmsg)
 {
 	E2kProperties *props;
+	E2kHTTPStatus status;
 
 	props = e2k_properties_new ();
 
@@ -1626,10 +1458,11 @@ set_replied_flags (MailStubExchange *mse, MailStubExchangeMessage *mmsg)
 		e2k_properties_remove (props, PR_ACTION_DATE);
 	}
 
-	E2K_DEBUG_HINT ('M');
-	e2k_connection_proppatch (mse->conn, mmsg->href, props, FALSE,
-				  flag_set, NULL);
+	status = e2k_context_proppatch (mse->ctx, NULL, mmsg->href, props,
+					FALSE, NULL);
 	e2k_properties_free (props);
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+		g_warning ("set_replied_flags: %d", status);
 }
 
 static void
@@ -1638,6 +1471,7 @@ update_tags (MailStubExchange *mse, MailStubExchangeMessage *mmsg)
 	E2kProperties *props;
 	const char *value;
 	int flag_status;
+	E2kHTTPStatus status;
 
 	flag_status = MAPI_FOLLOWUP_UNFLAGGED;
 	props = e2k_properties_new ();
@@ -1683,10 +1517,11 @@ update_tags (MailStubExchange *mse, MailStubExchangeMessage *mmsg)
 
 	e2k_properties_set_int (props, PR_FLAG_STATUS, flag_status);
 
-	E2K_DEBUG_HINT ('M');
-	e2k_connection_proppatch (mse->conn, mmsg->href, props, FALSE,
-				  flag_set, NULL);
+	status = e2k_context_proppatch (mse->ctx, NULL, mmsg->href, props,
+					FALSE, NULL);
 	e2k_properties_free (props);
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+		g_warning ("update_tags: %d", status);
 }
 
 static gboolean
@@ -1695,8 +1530,7 @@ process_flags (gpointer user_data)
 	MailStubExchangeFolder *mfld = user_data;
 	MailStubExchange *mse = mfld->mse;
 	MailStubExchangeMessage *mmsg;
-	GPtrArray *seen = NULL, *unseen = NULL;
-	GString *deleted = NULL;
+	GPtrArray *seen = NULL, *unseen = NULL, *deleted = NULL;
 	int i;
 
 	for (i = 0; i < mfld->changed_messages->len; i++) {
@@ -1751,20 +1585,46 @@ process_flags (gpointer user_data)
 		mmsg = mfld->changed_messages->pdata[i];
 		if (mmsg->change_mask & mmsg->change_flags & MAIL_STUB_MESSAGE_DELETED) {
 			if (!deleted)
-				deleted = g_string_new (NULL);
-			g_string_append_printf (deleted, "<href>%s</href>",
-						strrchr (mmsg->href, '/') + 1);
+				deleted = g_ptr_array_new ();
+			g_ptr_array_add (deleted, strrchr (mmsg->href, '/') + 1);
 		}
 	}
 
 	if (deleted) {
-		E2K_DEBUG_HINT ('M');
+		MailStub *stub = MAIL_STUB (mse);
+		E2kResultIter *iter;
+		E2kResult *result;
+		E2kHTTPStatus status;
+
 		change_pending (mfld);
 		mfld->pending_delete_ops++;
-		e_folder_exchange_transfer (mfld->folder, mse->deleted_items,
-					    deleted->str, TRUE,
-					    deleted_messages, mfld);
-		g_string_free (deleted, TRUE);
+		mail_stub_return_data (stub, CAMEL_STUB_RETVAL_FREEZE_FOLDER,
+				       CAMEL_STUB_ARG_FOLDER, mfld->name,
+				       CAMEL_STUB_ARG_END);
+
+		iter = e_folder_exchange_transfer_start (mfld->folder, NULL,
+							 mse->deleted_items,
+							 deleted, TRUE);
+		g_ptr_array_free (deleted, TRUE);
+		while ((result = e2k_result_iter_next (iter))) {
+			if (!e2k_properties_get_prop (result->props, E2K_PR_DAV_LOCATION))
+				continue;
+
+			message_removed (stub, mfld, result->href);
+			mfld->deleted_count++;
+		}
+		status = e2k_result_iter_free (iter);
+
+		mail_stub_return_data (stub, CAMEL_STUB_RETVAL_THAW_FOLDER,
+				       CAMEL_STUB_ARG_FOLDER, mfld->name,
+				       CAMEL_STUB_ARG_END);
+
+		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+			g_warning ("deleted: %d", status);
+
+		mail_stub_push_changes (stub);
+		mfld->pending_delete_ops--;
+		change_complete (mfld);
 	}
 
 	if (mfld->changed_messages->len) {
@@ -1868,208 +1728,6 @@ set_message_tag (MailStub *stub, const char *folder_name, const char *uid,
 	change_message (mse, mfld, mmsg);
 }
 
-struct get_message_data {
-	MailStub *stub;
-	MailStubExchangeFolder *mfld;
-	char *href;
-	int flags;
-	GByteArray *data;
-};
-
-static void
-get_message_error (struct get_message_data *gmd, SoupMessage *msg)
-{
-	g_warning ("got_message: %d %s", msg->errorcode, msg->errorphrase);
-	if (msg->errorcode == SOUP_ERROR_NOT_FOUND) {
-		/* We don't change mfld->deleted_count, because the
-		 * message may actually have gone away before the last
-		 * time we recorded that.
-		 */
-		message_removed (gmd->stub, gmd->mfld, gmd->href);
-		mail_stub_return_error (gmd->stub, _("Message has been deleted"));
-	} else
-		mail_stub_return_error (gmd->stub, _("Error retrieving message"));
-	g_free (gmd->href);
-	g_free (gmd);
-}
-
-static void
-got_message_body (struct get_message_data *gmd, const char *body, int length)
-{
-	mail_stub_return_data (gmd->stub, CAMEL_STUB_RETVAL_RESPONSE,
-			       CAMEL_STUB_ARG_BYTEARRAY, body, length,
-			       CAMEL_STUB_ARG_END);
-	mail_stub_return_ok (gmd->stub);
-
-	g_free (gmd->href);
-	g_free (gmd);
-}
-
-static void
-got_stickynote (E2kConnection *conn, SoupMessage *msg, 
-		E2kResult *results, int nresults,
-		gpointer user_data)
-{
-	struct get_message_data *gmd = user_data;
-	GString *message;
-
-	if (SOUP_MESSAGE_IS_ERROR (msg) || nresults == 0) {
-		get_message_error (gmd, msg);
-		return;
-	}
-
-	message = mail_util_stickynote_to_rfc822 (results[0].props);
-	got_message_body (gmd, message->str, message->len);
-	g_string_free (message, TRUE);
-}
-
-static void
-got_fake_headers (E2kConnection *conn, SoupMessage *msg, 
-		  E2kResult *results, int nresults,
-		  gpointer user_data)
-{
-	struct get_message_data *gmd = user_data;
-	GByteArray *message;
-	char *headers;
-
-	message = gmd->data;
-
-	if (msg->errorcode != SOUP_ERROR_DAV_MULTISTATUS) {
-		get_message_error (gmd, msg);
-		g_byte_array_free (message, TRUE);
-		return;
-	}
-
-	if (nresults) {
-		headers = mail_util_mapi_to_smtp_headers (results[0].props);
-		g_byte_array_prepend (message, headers, strlen (headers));
-	}
-
-	got_message_body (gmd, message->data, message->len);
-	g_byte_array_free (message, TRUE);
-}
-
-static void
-got_delegated_by_props (E2kConnection *conn, SoupMessage *msg, 
-			E2kResult *results, int nresults,
-			gpointer user_data)
-{
-	struct get_message_data *gmd = user_data;
-	GByteArray *message;
-	char *delegator_dn, *delegator_uri;
-	ExchangeAccount *account;
-	E2kGlobalCatalog *gc;
-	E2kGlobalCatalogEntry *entry;
-	E2kGlobalCatalogStatus status;
-	EFolder *folder;
-
-	message = gmd->data;
-
-	if (msg->errorcode != SOUP_ERROR_DAV_MULTISTATUS) {
-		get_message_error (gmd, msg);
-		g_byte_array_free (message, TRUE);
-		return;
-	}
-
-	if (nresults) {
-		delegator_dn = e2k_properties_get_prop (results[0].props, PR_RCVD_REPRESENTING_EMAIL_ADDRESS);
-
-		account = MAIL_STUB_EXCHANGE (gmd->stub)->account;
-		gc = exchange_account_get_global_catalog (account);
-		if (!gc)
-			goto done;
-
-		status = e2k_global_catalog_lookup (
-			gc, E2K_GLOBAL_CATALOG_LOOKUP_BY_LEGACY_EXCHANGE_DN,
-			delegator_dn, E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX,
-			&entry);
-		if (status != E2K_GLOBAL_CATALOG_OK)
-			goto done;
-
-		delegator_uri = exchange_account_get_foreign_uri (
-			account, entry, E2K_PR_STD_FOLDER_CALENDAR);
-		if (delegator_uri) {
-			folder = exchange_account_get_folder (account, delegator_uri);
-			if (folder) {
-				mail_util_demangle_delegated_meeting (
-					message, entry->display_name,
-					entry->email,
-					e_folder_get_physical_uri (folder));
-			}
-			g_free (delegator_uri);
-		}
-		e2k_global_catalog_entry_free (gc, entry);
-	}
-
- done:
-	got_message_body (gmd, message->data, message->len);
-	g_byte_array_free (message, TRUE);
-}
-
-static void
-got_message (E2kConnection *conn, SoupMessage *msg, gpointer user_data)
-{
-	struct get_message_data *gmd = user_data;
-	const char *content_type;
-	const char *body = msg->response.body;
-	int length = msg->response.length;
-
-	if (SOUP_MESSAGE_IS_ERROR (msg)) {
-		get_message_error (gmd, msg);
-		return;
-	}
-
-	content_type = soup_message_get_header (msg->response_headers,
-						"Content-Type");
-
-	/* Public folders especially can contain non-email objects.
-	 * In that case, we fake the headers (which in this case
-	 * should include Content-Type, Content-Disposition, etc,
-	 * courtesy of mp:x67200102.
-	 */
-	if (!content_type || g_ascii_strncasecmp (content_type, "message/", 8)) {
-		gmd->data = g_byte_array_new ();
-		g_byte_array_append (gmd->data, body, length);
-
-		E2K_DEBUG_HINT ('M');
-		e2k_connection_propfind (conn, gmd->href, "0",
-					 mapi_message_props, n_mapi_message_props,
-					 got_fake_headers, gmd);
-		return;
-	}
-
-	/* If this is a delegated meeting request, we need to know who
-	 * delegated it to us.
-	 */
-	if (gmd->flags & MAIL_STUB_MESSAGE_DELEGATED) {
-		const char *prop = PR_RCVD_REPRESENTING_EMAIL_ADDRESS;
-
-		gmd->data = g_byte_array_new ();
-		g_byte_array_append (gmd->data, body, length);
-
-		E2K_DEBUG_HINT ('M');
-		e2k_connection_propfind (conn, gmd->href, "0", &prop, 1,
-					 got_delegated_by_props, gmd);
-		return;
-	}
-
-	/* If you PUT a message/rfc821 message to the sendmsg URI
-	 * without "Saveinsent: f", then the copy saved to Sent Items
-	 * will still have Content-Type: message/rfc821 and will
-	 * include the SMTP gunk.
-	 */
-	if (!g_ascii_strcasecmp (content_type, "message/rfc821")) {
-		const char *p = strstr (body, "\r\n\r\n");
-
-		if (p && strstr (p, "\r\n\r\n")) {
-			length -= p + 4 - body;
-			body = p + 4;
-		}
-	}
-
-	got_message_body (gmd, body, length);
-}
-
 static const char *stickynote_props[] = {
 	E2K_PR_MAILHEADER_SUBJECT,
 	E2K_PR_DAV_LAST_MODIFIED,
@@ -2080,13 +1738,141 @@ static const char *stickynote_props[] = {
 };
 static const int n_stickynote_props = sizeof (stickynote_props) / sizeof (stickynote_props[0]);
 
+static E2kHTTPStatus
+get_stickynote (E2kContext *ctx, E2kOperation *op, const char *uri,
+		char **body, int *len)
+{
+	E2kHTTPStatus status;
+	E2kResult *results;
+	int nresults;
+	GString *message;
+
+	status = e2k_context_propfind (ctx, op, uri,
+				       stickynote_props, n_stickynote_props,
+				       &results, &nresults);
+
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		message = mail_util_stickynote_to_rfc822 (results[0].props);
+		*body = message->str;
+		*len = message->len;
+		g_string_free (message, FALSE);
+		e2k_results_free (results, nresults);
+	}
+
+	return status;
+}
+
+static E2kHTTPStatus
+build_message_from_document (E2kContext *ctx, E2kOperation *op,
+			     const char *uri,
+			     char **body, int *len)
+{
+	E2kHTTPStatus status;
+	E2kResult *results;
+	int nresults;
+	GByteArray *message;
+	char *headers;
+
+	status = e2k_context_propfind (ctx, op, uri,
+				       mapi_message_props,
+				       n_mapi_message_props,
+				       &results, &nresults);
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+		return status;
+	if (!nresults)
+		return E2K_HTTP_MALFORMED;
+
+	headers = mail_util_mapi_to_smtp_headers (results[0].props);
+
+	message = g_byte_array_new ();
+	g_byte_array_append (message, headers, strlen (headers));
+	g_free (headers);
+	g_byte_array_append (message, *body, *len);
+	g_free (*body);
+
+	*body = (char *)message->data;
+	*len = message->len;
+	g_byte_array_free (message, FALSE);
+	return status;
+}
+
+static E2kHTTPStatus
+unmangle_delegated_meeting_request (MailStubExchange *mse, E2kOperation *op,
+				    const char *uri,
+				    char **body, int *len)
+{
+	const char *prop = PR_RCVD_REPRESENTING_EMAIL_ADDRESS;
+	GByteArray *message;
+	char *delegator_dn, *delegator_uri;
+	ExchangeAccount *account;
+	E2kGlobalCatalog *gc;
+	E2kGlobalCatalogEntry *entry;
+	E2kGlobalCatalogStatus gcstatus;
+	EFolder *folder;
+	E2kHTTPStatus status;
+	E2kResult *results;
+	int nresults;
+
+	status = e2k_context_propfind (mse->ctx, op, uri, &prop, 1,
+				       &results, &nresults);
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+		return status;
+	if (!nresults)
+		return E2K_HTTP_MALFORMED;
+
+	delegator_dn = e2k_properties_get_prop (results[0].props, PR_RCVD_REPRESENTING_EMAIL_ADDRESS);
+	if (!delegator_dn)
+		return E2K_HTTP_OK;
+
+	account = mse->account;
+	gc = exchange_account_get_global_catalog (account);
+	if (!gc) {
+		g_warning ("No GC: could not unmangle meeting request");
+		return E2K_HTTP_OK;
+	}
+
+	gcstatus = e2k_global_catalog_lookup (
+		gc, NULL, /* FIXME; cancellable */
+		E2K_GLOBAL_CATALOG_LOOKUP_BY_LEGACY_EXCHANGE_DN,
+		delegator_dn, E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX,
+		&entry);
+	if (gcstatus != E2K_GLOBAL_CATALOG_OK) {
+		g_warning ("GC lookup failed: could not unmangle meeting request");
+		return E2K_HTTP_OK;
+	}
+
+	delegator_uri = exchange_account_get_foreign_uri (
+		account, entry, E2K_PR_STD_FOLDER_CALENDAR);
+	if (delegator_uri) {
+		folder = exchange_account_get_folder (account, delegator_uri);
+		if (folder) {
+			message = g_byte_array_new ();
+			g_byte_array_append (message, *body, *len);
+			mail_util_demangle_delegated_meeting (
+				message, entry->display_name,
+				entry->email,
+				e_folder_get_physical_uri (folder));
+			g_free (*body);
+			*body = (char *)message->data;
+			*len = message->len;
+			g_byte_array_free (message, FALSE);
+		}
+		g_free (delegator_uri);
+	}
+	e2k_global_catalog_entry_free (gc, entry);
+
+	return E2K_HTTP_OK;
+}
+
 static void
 get_message (MailStub *stub, const char *folder_name, const char *uid)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	MailStubExchangeFolder *mfld;
 	MailStubExchangeMessage *mmsg;
-	struct get_message_data *gmd;
+	E2kHTTPStatus status;
+	char *body = NULL, *content_type = NULL;
+	int len;
 
 	mfld = folder_from_name (mse, folder_name, MAPI_ACCESS_READ, FALSE);
 	if (!mfld)
@@ -2102,49 +1888,64 @@ get_message (MailStub *stub, const char *folder_name, const char *uid)
 		return;
 	}
 
-	gmd = g_new (struct get_message_data, 1);
-	gmd->stub = stub;
-	gmd->mfld = mfld;
-	gmd->href = g_strdup (mmsg->href);
-	gmd->flags = mmsg->flags;
-	gmd->data = NULL;
-
 	if (mfld->type == MAIL_STUB_EXCHANGE_FOLDER_NOTES) {
-		E2K_DEBUG_HINT ('M');
-		e2k_connection_propfind (mse->conn, mmsg->href, "0",
-					 stickynote_props, n_stickynote_props,
-					 got_stickynote, gmd);
+		status = get_stickynote (mse->ctx, NULL, mmsg->href,
+					 &body, &len);
+		content_type = g_strdup ("message/rfc822");
 	} else {
-		E2K_DEBUG_HINT ('M');
-		e2k_connection_get (mse->conn, mmsg->href, got_message, gmd);
+		status = e2k_context_get (mse->ctx, NULL, mmsg->href,
+					  &content_type, &body, &len);
 	}
-}
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+		goto error;
 
-static void
-searched (E2kConnection *conn, SoupMessage *msg,
-	  E2kResult *results, int nresults,
-	  gpointer user_data)
-{
-	MailStub *stub = user_data;
-	GPtrArray *uids;
-	int i;
-
-	if (msg->errorcode == SOUP_ERROR_DAV_UNPROCESSABLE) {
-		mail_stub_return_error (stub, _("Mailbox does not support full-text searching"));
-		return;
+	/* Public folders especially can contain non-email objects.
+	 * In that case, we fake the headers (which in this case
+	 * should include Content-Type, Content-Disposition, etc,
+	 * courtesy of mp:x67200102.
+	 */
+	if (!content_type || g_ascii_strncasecmp (content_type, "message/", 8)) {
+		status = build_message_from_document (mse->ctx, NULL,
+						      mmsg->href,
+						      &body, &len);
+		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+			goto error;
 	}
 
-	uids = g_ptr_array_new ();
-	for (i = 0; i < nresults; i++)
-		g_ptr_array_add (uids, (char *)uidstrip (e2k_properties_get_prop (results[i].props, E2K_PR_REPL_UID)));
+	/* If this is a delegated meeting request, we need to know who
+	 * delegated it to us.
+	 */
+	if (mmsg->flags & MAIL_STUB_MESSAGE_DELEGATED) {
+		status = unmangle_delegated_meeting_request (mse, NULL,
+							     mmsg->href,
+							     &body, &len);
+		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+			goto error;
+	}
 
 	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
-			       CAMEL_STUB_ARG_STRINGARRAY, uids,
+			       CAMEL_STUB_ARG_BYTEARRAY, body, len,
 			       CAMEL_STUB_ARG_END);
 	mail_stub_return_ok (stub);
+	goto cleanup;
 
-	g_ptr_array_free (uids, TRUE);
+ error:
+	g_warning ("get_message: %d", status);
+	if (status == E2K_HTTP_NOT_FOUND) {
+		/* We don't change mfld->deleted_count, because the
+		 * message may actually have gone away before the last
+		 * time we recorded that.
+		 */
+		message_removed (stub, mfld, mmsg->href);
+		mail_stub_return_error (stub, _("Message has been deleted"));
+	} else
+		mail_stub_return_error (stub, _("Error retrieving message"));
+
+cleanup:
+	g_free (body);
+	g_free (content_type);
 }
+
 
 static void
 search (MailStub *stub, const char *folder_name, const char *text)
@@ -2152,108 +1953,43 @@ search (MailStub *stub, const char *folder_name, const char *text)
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	MailStubExchangeFolder *mfld;
 	E2kRestriction *rn;
-	const char *prop;
+	const char *prop, *repl_uid;
+	E2kResultIter *iter;
+	E2kResult *result;
+	E2kHTTPStatus status;
+	GPtrArray *matches;
 
 	mfld = folder_from_name (mse, folder_name, 0, FALSE);
 	if (!mfld)
 		return;
 
+	matches = g_ptr_array_new ();
+
 	prop = E2K_PR_REPL_UID;
 	rn = e2k_restriction_content (PR_BODY, E2K_FL_SUBSTRING, text);
-	E2K_DEBUG_HINT ('M');
-	e_folder_exchange_search (mfld->folder,
-				  &prop, 1, FALSE, rn, NULL,
-				  searched, stub);
+
+	iter = e_folder_exchange_search_start (mfld->folder, NULL,
+					       &prop, 1, rn, NULL, TRUE);
 	e2k_restriction_unref (rn);
-}
 
-struct transfer_messages_data {
-	MailStub *stub;
-	MailStubExchangeFolder *source;
-	gboolean delete_originals;
-	GHashTable *order;
-	int nmessages;
-};
-
-static void
-free_tmd (struct transfer_messages_data *tmd)
-{
-	g_hash_table_destroy (tmd->order);
-	g_free (tmd);
-}
-
-static void
-transferred_messages (E2kConnection *conn, SoupMessage *msg,
-		      E2kResult *results, int nresults,
-		      gpointer user_data)
-{
-	struct transfer_messages_data *tmd = user_data;
-	MailStubExchangeMessage *mmsg;
-	gpointer key, value;
-	GPtrArray *new_uids;
-	char *uid;
-	int i, num;
-
-	if (msg->errorcode != SOUP_ERROR_DAV_MULTISTATUS) {
-		g_warning ("transferred_messages: %d %s", msg->errorcode, msg->errorphrase);
-		mail_stub_return_error (tmd->stub, _("Unable to move/copy messages"));
-		free_tmd (tmd);
-		return;
+	while ((result = e2k_result_iter_next (iter))) {
+		repl_uid = e2k_properties_get_prop (result->props,
+						    E2K_PR_REPL_UID);
+		if (repl_uid)
+			g_ptr_array_add (matches, (char *)uidstrip (repl_uid));
 	}
+	status = e2k_result_iter_free (iter);
 
-	if (tmd->delete_originals && nresults > 1) {
-		mail_stub_return_data (tmd->stub, CAMEL_STUB_RETVAL_FREEZE_FOLDER,
-				       CAMEL_STUB_ARG_FOLDER, tmd->source->name,
+	if (status == E2K_HTTP_UNPROCESSABLE_ENTITY) {
+		mail_stub_return_error (stub, _("Mailbox does not support full-text searching"));
+	} else {
+		mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
+				       CAMEL_STUB_ARG_STRINGARRAY, matches,
 				       CAMEL_STUB_ARG_END);
+		mail_stub_return_ok (stub);
 	}
 
-	new_uids = g_ptr_array_new ();
-	g_ptr_array_set_size (new_uids, tmd->nmessages);
-	for (i = 0; i < new_uids->len; i++)
-		new_uids->pdata[i] = "";
-
-	for (i = 0; i < nresults; i++) {
-		if (!e2k_properties_get_prop (results[i].props,
-					      E2K_PR_DAV_LOCATION))
-			continue;
-		uid = e2k_properties_get_prop (results[i].props,
-					       E2K_PR_REPL_UID);
-		if (!uid)
-			continue;
-
-		if (tmd->delete_originals)
-			tmd->source->deleted_count++;
-
-		mmsg = find_message_by_href (tmd->source, results[i].href);
-		if (!mmsg)
-			continue;
-
-		if (!g_hash_table_lookup_extended (tmd->order, mmsg,
-						   &key, &value))
-			continue;
-		num = GPOINTER_TO_UINT (value);
-		if (num > new_uids->len)
-			continue;
-
-		new_uids->pdata[num] = (char *)uidstrip (uid);
-
-		if (tmd->delete_originals)
-			message_removed (tmd->stub, tmd->source, results[i].href);
-	}
-
-	if (tmd->delete_originals && nresults > 1) {
-		mail_stub_return_data (tmd->stub, CAMEL_STUB_RETVAL_THAW_FOLDER,
-				       CAMEL_STUB_ARG_FOLDER, tmd->source->name,
-				       CAMEL_STUB_ARG_END);
-	}
-
-	mail_stub_return_data (tmd->stub, CAMEL_STUB_RETVAL_RESPONSE,
-			       CAMEL_STUB_ARG_STRINGARRAY, new_uids,
-			       CAMEL_STUB_ARG_END);
-	mail_stub_return_ok (tmd->stub);
-
-	g_ptr_array_free (new_uids, TRUE);
-	free_tmd (tmd);
+	g_ptr_array_free (matches, TRUE);
 }
 
 static void
@@ -2264,9 +2000,14 @@ transfer_messages (MailStub *stub, const char *source_name,
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	MailStubExchangeFolder *source, *dest;
 	MailStubExchangeMessage *mmsg;
-	struct transfer_messages_data *tmd;
-	GString *hrefs;
-	int i;
+	GPtrArray *hrefs, *new_uids;
+	GHashTable *order;
+	gpointer key, value;
+	E2kResultIter *iter;
+	E2kResult *result;
+	E2kHTTPStatus status;
+	const char *uid;
+	int i, num;
 
 	source = folder_from_name (mse, source_name, delete_originals ? MAPI_ACCESS_DELETE : 0, FALSE);
 	if (!source)
@@ -2275,29 +2016,75 @@ transfer_messages (MailStub *stub, const char *source_name,
 	if (!dest)
 		return;
 
-	tmd = g_new0 (struct transfer_messages_data, 1);
-	tmd->stub = stub;
-	tmd->source = source;
-	tmd->nmessages = uids->len;
-	tmd->delete_originals = delete_originals;
-	tmd->order = g_hash_table_new (NULL, NULL);
-
-	hrefs = g_string_new (NULL);
+	order = g_hash_table_new (NULL, NULL);
+	hrefs = g_ptr_array_new ();
+	new_uids = g_ptr_array_new ();
 	for (i = 0; i < uids->len; i++) {
 		mmsg = find_message (source, uids->pdata[i]);
 		if (!mmsg)
 			continue;
 
-		g_hash_table_insert (tmd->order, mmsg, GINT_TO_POINTER (i));
-		g_string_append_printf (hrefs, "<href>%s</href>",
-					strrchr (mmsg->href, '/') + 1);
+		g_hash_table_insert (order, mmsg, GINT_TO_POINTER (i));
+		g_ptr_array_add (hrefs, strrchr (mmsg->href, '/') + 1);
+		g_ptr_array_add (new_uids, "");
 	}
 
-	E2K_DEBUG_HINT ('M');
-	e_folder_exchange_transfer (source->folder, dest->folder,
-				    hrefs->str, delete_originals,
-				    transferred_messages, tmd);
-	g_string_free (hrefs, TRUE);
+	if (delete_originals && hrefs->len > 1) {
+		mail_stub_return_data (stub, CAMEL_STUB_RETVAL_FREEZE_FOLDER,
+				       CAMEL_STUB_ARG_FOLDER, source->name,
+				       CAMEL_STUB_ARG_END);
+	}
+
+	iter = e_folder_exchange_transfer_start (source->folder, NULL,
+						 dest->folder, hrefs,
+						 delete_originals);
+
+	while ((result = e2k_result_iter_next (iter))) {
+		if (!e2k_properties_get_prop (result->props, E2K_PR_DAV_LOCATION))
+			continue;
+		uid = e2k_properties_get_prop (result->props, E2K_PR_REPL_UID);
+		if (!uid)
+			continue;
+
+		if (delete_originals)
+			source->deleted_count++;
+
+		mmsg = find_message_by_href (source, result->href);
+		if (!mmsg)
+			continue;
+
+		if (!g_hash_table_lookup_extended (order, mmsg, &key, &value))
+			continue;
+		num = GPOINTER_TO_UINT (value);
+		if (num > new_uids->len)
+			continue;
+
+		new_uids->pdata[num] = (char *)uidstrip (uid);
+
+		if (delete_originals)
+			message_removed (stub, source, result->href);
+	}
+	status = e2k_result_iter_free (iter);
+
+	if (delete_originals && hrefs->len > 1) {
+		mail_stub_return_data (stub, CAMEL_STUB_RETVAL_THAW_FOLDER,
+				       CAMEL_STUB_ARG_FOLDER, source->name,
+				       CAMEL_STUB_ARG_END);
+	}
+
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
+				       CAMEL_STUB_ARG_STRINGARRAY, new_uids,
+				       CAMEL_STUB_ARG_END);
+		mail_stub_return_ok (stub);
+	} else {
+		g_warning ("transferred_messages: %d", status);
+		mail_stub_return_error (stub, _("Unable to move/copy messages"));
+	}
+
+	g_ptr_array_free (hrefs, TRUE);
+	g_ptr_array_free (new_uids, TRUE);
+	g_hash_table_destroy (order);
 }
 
 static void
@@ -2341,37 +2128,82 @@ account_removed_folder (ExchangeAccount *account, EFolder *folder, MailStub *stu
 }
 
 static void
-get_folder_info (MailStub *stub)
+get_folder_info (MailStub *stub, const char *top, gboolean recursive)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
-	GPtrArray *folders, *names, *uris;
+	GPtrArray *folders = NULL, *names, *uris;
+	GArray *unread;	
+	GByteArray *flags;
 	ExchangeHierarchy *hier;
 	EFolder *folder;
-	int i;
+	const char *type, *name, *uri, *path;
+	int unread_count, i, toplen = top ? strlen (top) : 0;
+	char folder_flags;
 
 	exchange_account_rescan_tree (mse->account);
 
-	folders = exchange_account_get_folders (mse->account);
+	if (!recursive) {
+		char *full_path;
+
+		full_path = g_strdup_printf ("/%s", top);
+		folder = exchange_account_get_folder (mse->account, full_path);
+		g_free (full_path);
+		if (folder) {
+			folders = g_ptr_array_new ();
+			g_ptr_array_add (folders, folder);
+		}
+	} else
+		folders = exchange_account_get_folders (mse->account);
+
 	names = g_ptr_array_new ();
 	uris = g_ptr_array_new ();
+	unread = g_array_new (FALSE, FALSE, sizeof (int));
+	flags = g_byte_array_new ();
+
 	if (folders) {
 		for (i = 0; i < folders->len; i++) {
 			folder = folders->pdata[i];
-			if (strcmp (e_folder_get_type_string (folder), "mail"))
-				continue;
 			hier = e_folder_exchange_get_hierarchy (folder);
 			if (hier->type != EXCHANGE_HIERARCHY_PERSONAL)
 				continue;
 
-			g_ptr_array_add (names, (char *)e_folder_get_name (folder));
-			g_ptr_array_add (uris, (char *)e_folder_get_physical_uri (folder));
+			if (recursive && top) {
+				path = e_folder_exchange_get_path (folder);
+				if (strncmp (path + 1, top, toplen) != 0)
+					continue;
+			}
+
+			type = e_folder_get_type_string (folder);
+			name = e_folder_get_name (folder);
+			uri = e_folder_get_physical_uri (folder);
+			if (!strcmp (type, "mail")) {
+				unread_count = e_folder_get_unread_count (folder);
+				folder_flags = 0;
+			} else {
+				unread_count = 0;
+				folder_flags = CAMEL_STUB_FOLDER_NOSELECT;
+			}
+
+			g_ptr_array_add (names, (char *)name);
+			g_ptr_array_add (uris, (char *)uri);
+			g_array_append_val (unread, unread_count);
+			g_byte_array_append (flags, &folder_flags, 1);
 		}
-		mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
-				       CAMEL_STUB_ARG_STRINGARRAY, names,
-				       CAMEL_STUB_ARG_STRINGARRAY, uris,
-				       CAMEL_STUB_ARG_END);
+
 		g_ptr_array_free (folders, TRUE);
 	}
+
+	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
+			       CAMEL_STUB_ARG_STRINGARRAY, names,
+			       CAMEL_STUB_ARG_STRINGARRAY, uris,
+			       CAMEL_STUB_ARG_UINT32ARRAY, unread,
+			       CAMEL_STUB_ARG_BYTEARRAY, flags->data, flags->len,
+			       CAMEL_STUB_ARG_END);
+
+	g_ptr_array_free (names, TRUE);
+	g_ptr_array_free (uris, TRUE);
+	g_array_free (unread, TRUE);
+	g_byte_array_free (flags, TRUE);
 
 	if (mse->new_folder_id == 0) {
 		mse->new_folder_id = g_signal_connect (
@@ -2385,54 +2217,14 @@ get_folder_info (MailStub *stub)
 	mail_stub_return_ok (stub);
 }
 
-struct send_message_data {
-	MailStub *stub;
-	char *from_addr;
-};
-
-static void
-sent_message (SoupMessage *msg, gpointer user_data)
-{
-	struct send_message_data *smd = user_data;
-	MailStub *stub = smd->stub;
-	char *errmsg;
-
-	if (SOUP_ERROR_IS_SUCCESSFUL (msg->errorcode))
-		mail_stub_return_ok (stub);
-	else if (msg->errorcode == SOUP_ERROR_NOT_FOUND)
-		mail_stub_return_error (stub, _("Server won't accept mail via Exchange transport"));
-	else if (msg->errorcode == SOUP_ERROR_FORBIDDEN) {
-		errmsg = g_strdup_printf (_("Your account does not have permission "
-					    "to use <%s>\nas a From address."),
-					  smd->from_addr);
-		mail_stub_return_error (stub, errmsg);
-		g_free (errmsg);
-	} else if (msg->errorcode == SOUP_ERROR_DAV_OUT_OF_SPACE ||
-		   msg->errorcode == SOUP_ERROR_INTERNAL) {
-		/* (500 is what it actually returns, 507 is what it should
-		 * return, so we handle that too in case the behavior
-		 * changes in the future.)
-		 */
-		E2K_KEEP_PRECEDING_COMMENT_OUT_OF_PO_FILES;
-		mail_stub_return_error (stub, _("Could not send message.\n"
-						"This might mean that your account is over quota."));
-	} else {
-		g_warning ("sent_message: %d %s", msg->errorcode, msg->errorphrase);
-		mail_stub_return_error (stub, _("Could not send message"));
-	}
-
-	g_free (smd->from_addr);
-	g_free (smd);
-}
-
 static void
 send_message (MailStub *stub, const char *from, GPtrArray *recipients,
 	      const char *body, int length)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
-	struct send_message_data *smd;
 	SoupMessage *msg;
-	char *timestamp, hostname[256];
+	E2kHTTPStatus status;
+	char *timestamp, hostname[256], *errmsg;
 	GString *data;
 	int i;
 
@@ -2462,7 +2254,7 @@ send_message (MailStub *stub, const char *from, GPtrArray *recipients,
 	
 	g_string_append_len (data, body, length);
 
-	msg = e2k_soup_message_new_full (mse->conn, mse->mail_submission_uri,
+	msg = e2k_soup_message_new_full (mse->ctx, mse->mail_submission_uri,
 					 SOUP_METHOD_PUT, "message/rfc821",
 					 SOUP_BUFFER_SYSTEM_OWNED,
 					 data->str, data->len);
@@ -2470,10 +2262,165 @@ send_message (MailStub *stub, const char *from, GPtrArray *recipients,
 	soup_message_add_header (msg->request_headers, "Saveinsent", "f");
 	soup_message_set_http_version (msg, SOUP_HTTP_1_0);
 
-	smd = g_new (struct send_message_data, 1);
-	smd->stub = stub;
-	smd->from_addr = g_strdup (from);
-	e2k_soup_message_queue (msg, sent_message, smd);
+	status = e2k_context_send_message (mse->ctx, NULL, msg);
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+		mail_stub_return_ok (stub);
+	else if (status == E2K_HTTP_NOT_FOUND)
+		mail_stub_return_error (stub, _("Server won't accept mail via Exchange transport"));
+	else if (status == E2K_HTTP_FORBIDDEN) {
+		errmsg = g_strdup_printf (_("Your account does not have permission "
+					    "to use <%s>\nas a From address."),
+					  from);
+		mail_stub_return_error (stub, errmsg);
+		g_free (errmsg);
+	} else if (status == E2K_HTTP_INSUFFICIENT_SPACE_ON_RESOURCE ||
+		   status == E2K_HTTP_INTERNAL_SERVER_ERROR) {
+		/* (500 is what it actually returns, 507 is what it should
+		 * return, so we handle that too in case the behavior
+		 * changes in the future.)
+		 */
+		E2K_KEEP_PRECEDING_COMMENT_OUT_OF_PO_FILES;
+		mail_stub_return_error (stub, _("Could not send message.\n"
+						"This might mean that your account is over quota."));
+	} else {
+		g_warning ("sent_message: %d", status);
+		mail_stub_return_error (stub, _("Could not send message"));
+	}
+}
+
+static void
+create_folder (MailStub *stub, const char *parent_name, const char *folder_name)
+{
+	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
+	ExchangeAccountFolderResult result;
+	EFolder *folder;
+	char *path;
+
+	path = g_build_filename ("/", parent_name, folder_name, NULL);
+	result = exchange_account_create_folder (mse->account, path, "mail");
+	folder = exchange_account_get_folder (mse->account, path);
+	g_free (path);
+
+	switch (result) {
+	case EXCHANGE_ACCOUNT_FOLDER_OK:
+		if (folder)
+			break;
+		/* fall through */
+	default:
+		mail_stub_return_error (stub, _("Generic error"));
+		return;
+
+	case EXCHANGE_ACCOUNT_FOLDER_ALREADY_EXISTS:
+		mail_stub_return_error (stub, _("Folder already exists"));
+		return;
+
+	case EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED:
+		mail_stub_return_error (stub, _("Permission denied"));
+		return;
+	}
+
+	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_FOLDER_CREATED,
+			       CAMEL_STUB_ARG_STRING, e_folder_get_name (folder),
+			       CAMEL_STUB_ARG_STRING, e_folder_get_physical_uri (folder),
+			       CAMEL_STUB_ARG_END);
+	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
+			       CAMEL_STUB_ARG_STRING, e_folder_get_physical_uri (folder),
+			       CAMEL_STUB_ARG_UINT32, e_folder_get_unread_count (folder),
+			       CAMEL_STUB_ARG_UINT32, 0,
+			       CAMEL_STUB_ARG_END);
+	mail_stub_return_ok (stub);
+}
+
+static void
+delete_folder (MailStub *stub, const char *folder_name)
+{
+	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
+	ExchangeAccountFolderResult result;
+	EFolder *folder;
+	char *path;
+
+	path = g_build_filename ("/", folder_name, NULL);
+	folder = exchange_account_get_folder (mse->account, path);
+	if (!folder) {
+		mail_stub_return_error (stub, _("Folder doesn't exist"));
+		g_free (path);
+		return;
+	}
+	g_object_ref (folder);
+
+	result = exchange_account_remove_folder (mse->account, path);
+	g_free (path);
+
+	switch (result) {
+	case EXCHANGE_ACCOUNT_FOLDER_OK:
+	case EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST:
+		break;
+
+	case EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED:
+		mail_stub_return_error (stub, _("Permission denied"));
+		g_object_unref (folder);
+		return;
+
+	default:
+		mail_stub_return_error (stub, _("Generic error"));
+		g_object_unref (folder);
+		return;
+
+	}
+
+	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_FOLDER_DELETED,
+			       CAMEL_STUB_ARG_STRING, e_folder_get_name (folder),
+			       CAMEL_STUB_ARG_STRING, e_folder_get_physical_uri (folder),
+			       CAMEL_STUB_ARG_END);
+	g_object_unref (folder);
+	mail_stub_return_ok (stub);
+}
+
+static void
+rename_folder (MailStub *stub, const char *old_name, const char *new_name)
+{
+	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
+	ExchangeAccountFolderResult result;
+	EFolder *folder;
+	char *old_path, *new_path;
+
+	old_path = g_build_filename ("/", old_name, NULL);
+	folder = exchange_account_get_folder (mse->account, old_path);
+	if (!folder) {
+		mail_stub_return_error (stub, _("Folder doesn't exist"));
+		g_free (old_path);
+		return;
+	}
+	new_path = g_build_filename ("/", new_name, NULL);
+
+	result = exchange_account_xfer_folder (mse->account, old_path, new_path, TRUE);
+	g_free (old_path);
+	g_free (new_path);
+
+	switch (result) {
+	case EXCHANGE_ACCOUNT_FOLDER_OK:
+		break;
+
+	case EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST:
+		mail_stub_return_error (stub, _("Folder doesn't exist"));
+		return;
+
+	case EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED:
+		mail_stub_return_error (stub, _("Permission denied"));
+		return;
+
+	default:
+		mail_stub_return_error (stub, _("Generic error"));
+		return;
+
+	}
+
+	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_FOLDER_RENAMED,
+			       CAMEL_STUB_ARG_FOLDER, old_name,
+			       CAMEL_STUB_ARG_FOLDER, new_name,
+			       CAMEL_STUB_ARG_STRING, e_folder_get_physical_uri (folder),
+			       CAMEL_STUB_ARG_END);
+	mail_stub_return_ok (stub);
 }
 
 static void
@@ -2494,8 +2441,8 @@ mail_stub_exchange_new (ExchangeAccount *account, int cmd_fd, int status_fd)
 
 	mse = (MailStubExchange *)stub;
 	mse->account = account;
-	mse->conn = exchange_account_get_connection (account);
-	g_object_ref (mse->conn);
+	mse->ctx = exchange_account_get_context (account);
+	g_object_ref (mse->ctx);
 
 	mse->mail_submission_uri = exchange_account_get_standard_uri (account, "sendmsg");
 	uri = exchange_account_get_standard_uri (account, "inbox");

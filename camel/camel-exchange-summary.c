@@ -31,7 +31,7 @@
 #include <camel/camel-exchange-summary.h>
 #include <camel/camel-file-utils.h>
 
-#define CAMEL_EXCHANGE_SUMMARY_VERSION 7
+#define CAMEL_EXCHANGE_SUMMARY_VERSION (1)
 
 static int header_load (CamelFolderSummary *summary, FILE *in);
 static int header_save (CamelFolderSummary *summary, FILE *out);
@@ -42,7 +42,7 @@ static int               message_info_save (CamelFolderSummary *summary,
 					    FILE *out,
 					    CamelMessageInfo *info);
 static CamelMessageInfo *message_info_new  (CamelFolderSummary *summary,
-					    struct _header_raw *h);
+					    struct _camel_header_raw *h);
 
 static CamelFolderSummaryClass *parent_class = NULL;
 
@@ -68,8 +68,6 @@ exchange_summary_init (CamelObject *obj, CamelObjectClass *klass)
 
 	summary->message_info_size = sizeof (CamelExchangeMessageInfo);
 	summary->content_info_size = sizeof (CamelMessageContentInfo);
-
-	summary->version += (CAMEL_EXCHANGE_SUMMARY_VERSION << 16);
 }
 
 CamelType
@@ -112,11 +110,16 @@ static int
 header_load (CamelFolderSummary *summary, FILE *in)
 {
 	CamelExchangeSummary *exchange = (CamelExchangeSummary *) summary;
-	guint32 readonly;
+	guint32 version, readonly;
 	
 	if (CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->summary_header_load (summary, in) == -1)
 		return -1;
 	
+	if (camel_file_util_decode_uint32 (in, &version) == -1)
+		return -1;
+	if (version > CAMEL_EXCHANGE_SUMMARY_VERSION)
+		return -1;
+
 	if (camel_file_util_decode_uint32 (in, &readonly) == -1)
 		return -1;
 	exchange->readonly = readonly;
@@ -132,6 +135,9 @@ header_save (CamelFolderSummary *summary, FILE *out)
 	if (CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->summary_header_save (summary, out) == -1)
 		return -1;
 	
+	if (camel_file_util_encode_uint32 (out, CAMEL_EXCHANGE_SUMMARY_VERSION) == -1)
+		return -1;
+
 	if (camel_file_util_encode_uint32 (out, exchange->readonly) == -1)
 		return -1;
 	
@@ -176,7 +182,7 @@ message_info_save (CamelFolderSummary *summary, FILE *out, CamelMessageInfo *inf
 }
 
 static CamelMessageInfo *
-message_info_new (CamelFolderSummary *summary, struct _header_raw *h)
+message_info_new (CamelFolderSummary *summary, struct _camel_header_raw *h)
 {
 	CamelMessageInfo *info;
 	CamelExchangeMessageInfo *einfo;
@@ -187,7 +193,7 @@ message_info_new (CamelFolderSummary *summary, struct _header_raw *h)
 		return info;
 
 	einfo = (CamelExchangeMessageInfo *)info;
-	thread_index = header_raw_find (&h, "Thread-Index", NULL);
+	thread_index = camel_header_raw_find (&h, "Thread-Index", NULL);
 	if (thread_index)
 		einfo->thread_index = g_strdup (thread_index + 1);
 

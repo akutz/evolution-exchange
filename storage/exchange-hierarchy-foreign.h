@@ -40,10 +40,9 @@ ExchangeHierarchy *exchange_hierarchy_foreign_new          (ExchangeAccount *acc
 ExchangeHierarchy *exchange_hierarchy_foreign_new_from_dir (ExchangeAccount *account,
 							    const char *folder_path);
 
-void       exchange_hierarchy_foreign_async_add_folder     (ExchangeHierarchy *hier,
-							    const char *folder_name,
-							    ExchangeAccountFolderCallback,
-							    gpointer user_data);
+ExchangeAccountFolderResult  exchange_hierarchy_foreign_add_folder (ExchangeHierarchy *hier,
+								    const char *folder_name,
+								    EFolder **folder);
 
 #ifdef __cplusplus
 }

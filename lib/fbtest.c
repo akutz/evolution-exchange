@@ -27,25 +27,22 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "e2k-freebusy.h"
-#include "e2k-connection.h"
 #include "e2k-global-catalog.h"
-#include "e2k-uri.h"
+#include "test-utils.h"
 
-#include <e-util/e-passwords.h>
-#include <e-util/e-time-utils.h>
-#include <libgnome/gnome-util.h>
+const char *test_program_name = "fbtest";
 
-char **global_argv, *server, *password;
-const char *user;
-GMainLoop *loop;
-
-static void
-got_dn (E2kGlobalCatalog *gc, E2kGlobalCatalogStatus status,
-	E2kGlobalCatalogEntry *entry, gpointer user_data)
+void
+test_main (int argc, char **argv)
 {
-	E2kConnection *conn;
+	E2kGlobalCatalog *gc;
+	E2kGlobalCatalogStatus status;
+	E2kGlobalCatalogEntry *entry;
+	const char *server, *email;
+	E2kContext *ctx;
 	E2kFreebusy *fb;
 	E2kFreebusyEvent event;
 	int ti, bi, oi;
@@ -53,29 +50,42 @@ got_dn (E2kGlobalCatalog *gc, E2kGlobalCatalogStatus status,
 	struct tm tm;
 	time_t t;
 
+	if (argc != 3) {
+		fprintf (stderr, "Usage: %s server email-addr\n", argv[0]);
+		exit (1);
+	}
+
+	server = argv[1];
+	email = argv[2];
+
+	gc = test_get_gc (server);
+
+	status = e2k_global_catalog_lookup (
+		gc, NULL, E2K_GLOBAL_CATALOG_LOOKUP_BY_EMAIL,
+		email, E2K_GLOBAL_CATALOG_LOOKUP_LEGACY_EXCHANGE_DN,
+		&entry);
+
 	if (status != E2K_GLOBAL_CATALOG_OK) {
 		fprintf (stderr, "Lookup failed: %d\n", status);
-		g_main_loop_quit (loop);
+		test_quit ();
 		return;
 	}
 
 	public_uri = g_strdup_printf ("http://%s/public", server);
-	conn = e2k_connection_new (public_uri);
-	e2k_connection_set_auth (conn, user, NULL, NULL, password);
-
-	fb = e2k_freebusy_new (conn, public_uri, entry->legacy_exchange_dn);
+	ctx = test_get_context (public_uri);
+	fb = e2k_freebusy_new (ctx, public_uri, entry->legacy_exchange_dn);
 	g_free (public_uri);
-	g_object_unref (conn);
+	g_object_unref (ctx);
 
 	if (!fb) {
 		fprintf (stderr, "Could not get fb props\n");
-		g_main_loop_quit (loop);
+		test_quit ();
 		return;
 	}
 
 	if (!fb->events[E2K_BUSYSTATUS_ALL]->len) {
 		printf ("No data\n");
-		g_main_loop_quit (loop);
+		test_quit ();
 		return;
 	}
 
@@ -132,58 +142,5 @@ got_dn (E2kGlobalCatalog *gc, E2kGlobalCatalogStatus status,
 	}
 	printf ("\n");
 
-	g_main_loop_quit (loop);
-}
-		
-static gboolean
-lookup_user (gpointer email)
-{
-	E2kGlobalCatalog *gc;
-	char *key;
-
-	server = global_argv[1];
-	user = g_get_user_name ();
-
-	key = g_strdup_printf ("exchange://%s@%s", user, server);
-	password = e_passwords_get_password ("Exchange", key);
-	g_free (key);
-	if (!password) {
-		fprintf (stderr, "No password available for %s@%s\n",
-			 user, server);
-		g_main_loop_quit (loop);
-		return FALSE;
-	}
-
-	gc = e2k_global_catalog_new (server, -1, user, NULL, password);
-	if (!gc) {
-		fprintf (stderr, "Could not create GC\n");
-		g_main_loop_quit (loop);
-		return FALSE;
-	}
-
-	e2k_global_catalog_async_lookup (gc, E2K_GLOBAL_CATALOG_LOOKUP_BY_EMAIL,
-					 global_argv[2], E2K_GLOBAL_CATALOG_LOOKUP_LEGACY_EXCHANGE_DN,
-					 got_dn, NULL);
-
-	return FALSE;
-}
-
-int
-main (int argc, char **argv)
-{
-	if (argc != 3) {
-		fprintf (stderr, "Usage: %s server email-addr\n", argv[0]);
-		exit (1);
-	}
-
-	gnome_program_init ("fbtest", VERSION, LIBGNOME_MODULE,
-			    argc, argv, NULL);
-
-	global_argv = argv;
-	g_idle_add (lookup_user, NULL);
-
-	loop = g_main_loop_new (NULL, TRUE);
-	g_main_loop_run (loop);
-
-	return 0;
+	test_quit ();
 }

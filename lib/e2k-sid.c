@@ -117,6 +117,17 @@ sid_new_internal (E2kSidType type, const char *display_name,
 	return sid;
 }
 
+/**
+ * e2k_sid_new_from_string_sid:
+ * @type: the type of SID that @string_sid is
+ * @string_sid: the string form of a Windows Security Identifier
+ * @display_name: UTF-8 display name of the user/group/etc identified
+ * by @string_sid
+ *
+ * Creates an %E2kSid from the given information
+ *
+ * Return value: the new SID
+ **/
 E2kSid *
 e2k_sid_new_from_string_sid (E2kSidType type, const char *string_sid,
 			     const char *display_name)
@@ -129,6 +140,17 @@ e2k_sid_new_from_string_sid (E2kSidType type, const char *string_sid,
 	return sid_new_internal (type, display_name, string_sid, NULL);
 }
 
+/**
+ * e2k_sid_new_from_binary_sid:
+ * @type: the type of SID that @binary_sid is
+ * @binary_sid: the binary form of a Windows Security Identifier
+ * @display_name: UTF-8 display name of the user/group/etc identified
+ * by @string_sid
+ *
+ * Creates an %E2kSid from the given information
+ *
+ * Return value: the new SID
+ **/
 E2kSid *
 e2k_sid_new_from_binary_sid (E2kSidType    type,
 			     const guint8 *binary_sid,
@@ -139,6 +161,14 @@ e2k_sid_new_from_binary_sid (E2kSidType    type,
 	return sid_new_internal (type, display_name, NULL, binary_sid);
 }
 
+/**
+ * e2k_sid_get_sid_type:
+ * @sid: a SID
+ *
+ * Returns the type of @sid (user, group, etc)
+ *
+ * Return value: the %E2kSidType
+ **/
 E2kSidType
 e2k_sid_get_sid_type (E2kSid *sid)
 {
@@ -147,6 +177,14 @@ e2k_sid_get_sid_type (E2kSid *sid)
 	return sid->priv->type;
 }
 
+/**
+ * e2k_sid_get_string_sid:
+ * @sid: a SID
+ *
+ * Returns the string form of @sid
+ *
+ * Return value: the string SID
+ **/
 const char *
 e2k_sid_get_string_sid (E2kSid *sid)
 {
@@ -176,6 +214,16 @@ e2k_sid_get_string_sid (E2kSid *sid)
 	return sid->priv->string_sid;
 }
 
+/**
+ * e2k_sid_get_binary_sid:
+ * @sid: a SID
+ *
+ * Returns the binary form of @sid. Since the SID data is self-delimiting,
+ * no length value is needed. Use E2K_SID_BINARY_SID_LEN() if you need to
+ * know the size of the binary data.
+ *
+ * Return value: the binary SID
+ **/
 const guint8 *
 e2k_sid_get_binary_sid (E2kSid *sid)
 {
@@ -209,6 +257,14 @@ e2k_sid_get_binary_sid (E2kSid *sid)
 	return (guint8 *)sid->priv->binary_sid;
 }
 
+/**
+ * e2k_sid_get_display_name:
+ * @sid: a SID
+ *
+ * Returns the display name of the entity identified by @sid
+ *
+ * Return value: the UTF-8 display name
+ **/
 const char *
 e2k_sid_get_display_name (E2kSid *sid)
 {
@@ -218,6 +274,16 @@ e2k_sid_get_display_name (E2kSid *sid)
 }
 
 
+/**
+ * e2k_sid_binary_sid_equal:
+ * @a: pointer to a binary SID
+ * @b: pointer to another binary SID
+ *
+ * Determines if @a and @b contain the same SID data. For use
+ * with #GHashTable.
+ *
+ * Return value: %TRUE or %FALSE
+ **/
 gint
 e2k_sid_binary_sid_equal (gconstpointer a, gconstpointer b)
 {
@@ -230,6 +296,14 @@ e2k_sid_binary_sid_equal (gconstpointer a, gconstpointer b)
 	return memcmp (bsida, bsidb, E2K_SID_BINARY_SID_LEN (bsida)) == 0;
 }
 
+/**
+ * e2k_sid_binary_sid_hash:
+ * @key: pointer to a binary SID
+ *
+ * Hashes @key, a binary SID. For use with #GHashTable.
+ *
+ * Return value: the hash value
+ **/
 guint
 e2k_sid_binary_sid_hash (gconstpointer key)
 {

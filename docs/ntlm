@@ -200,6 +200,13 @@ It is possible for /exchange and /public to have different settings.
 (It's theoretically possible for one to allow only Basic and the other
 to allow only NTLM, which Connector would not like very much.)
 
+There are a handful of methods for which IIS does not return a 401
+when it should:
+
+	POLL - 207 Multi-Status with a 409 Conflict inside
+	BPROPPATCH - 207 Multi-Status with a 401 Unauthorized inside
+	PUT to sendmsg URI - 404 Not Found
+
 
 
 5. LDAP

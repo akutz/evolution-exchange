@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
-EVOLUTION_camel_provider_LTLIBRARIES = libcamelexchange.la
-EVOLUTION_camel_provider_DATA = libcamelexchange.urls
+CAMEL_provider_LTLIBRARIES = libcamelexchange.la
+CAMEL_provider_DATA = libcamelexchange.urls
 
 INCLUDES =					\
 	$(WARN_CFLAGS)				\

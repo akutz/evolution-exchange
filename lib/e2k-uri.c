@@ -34,7 +34,7 @@
  *
  * Parses @uri_string.
  *
- * Return value: a parsed E2kUri
+ * Return value: a parsed %E2kUri
  **/
 E2kUri *
 e2k_uri_new (const char *uri_string)
@@ -176,7 +176,7 @@ e2k_uri_new (const char *uri_string)
 
 /**
  * e2k_uri_free:
- * @uri: an E2kUri
+ * @uri: an %E2kUri
  *
  * Frees @uri
  **/
@@ -199,6 +199,15 @@ e2k_uri_free (E2kUri *uri)
 	}
 }
 
+/**
+ * e2k_uri_get_param:
+ * @uri: an %E2kUri
+ * @name: name of the parameter
+ *
+ * Fetches a parameter from @uri
+ *
+ * Return value: the value of @name, or %NULL if it is not set
+ **/
 const char *
 e2k_uri_get_param (E2kUri *uri, const char *name)
 {
@@ -208,6 +217,12 @@ e2k_uri_get_param (E2kUri *uri, const char *name)
 
 #define HEXVAL(c) (isdigit (c) ? (c) - '0' : g_ascii_tolower (c) - 'a' + 10)
 
+/**
+ * e2k_uri_decode:
+ * @part: a piece of a URI
+ *
+ * Undoes URI-escaping in @part in-place.
+ **/
 void
 e2k_uri_decode (char *part)
 {
@@ -246,6 +261,19 @@ static const int uri_encoded_char[] = {
 	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 };
 
+/**
+ * e2k_uri_append_encoded:
+ * @str: a %GString containing part of a URI
+ * @in: data to append to @str
+ * @extra_enc_chars: additional characters beyond the normal URI-reserved
+ * characters to encode when appending to @str
+ *
+ * Appends @in to @str, encoding URI-unsafe characters as needed
+ * (including some Exchange-specific encodings).
+ *
+ * When appending a path, you must append each segment separately;
+ * e2k_uri_append_encoded() will encode any "/"s passed in.
+ **/
 void
 e2k_uri_append_encoded (GString *str, const char *in, const char *extra_enc_chars)
 {
@@ -282,6 +310,16 @@ e2k_uri_append_encoded (GString *str, const char *in, const char *extra_enc_char
 	}
 }
 
+/**
+ * e2k_uri_encode:
+ * @in: data to encode
+ * @extra_enc_chars: additional characters beyond the normal URI-reserved
+ * characters to encode when appending to @str
+ *
+ * Encodes URI-unsafe characters as in e2k_uri_append_encoded()
+ *
+ * Return value: the encoded string
+ **/
 char *
 e2k_uri_encode (const char *in, const char *extra_enc_chars)
 {
@@ -300,10 +338,12 @@ e2k_uri_encode (const char *in, const char *extra_enc_chars)
  * e2k_uri_path:
  * @uri_string: a well-formed absolute URI
  *
- * Return value: the path component of @uri_string, including the
- * initial "/". (The return value is actually a pointer into the
- * passed-in string, meaning this will only really work if the
- * URI has no query/fragment/etc.)
+ * Returns the path component of @uri_string, including the initial
+ * "/". (The return value is actually a pointer into the passed-in
+ * string, meaning this will only really work if the URI has no
+ * query/fragment/etc.)
+ *
+ * Return value: the path component of @uri_string.
  **/
 const char *
 e2k_uri_path (const char *uri_string)
@@ -327,8 +367,11 @@ e2k_uri_path (const char *uri_string)
  * @uri_prefix: an absolute URI
  * @tail: a relative path
  *
- * Return value: a new URI consisting of the concatenation of
- * @uri_prefix and @tail.
+ * Constructs a new URI consisting of the concatenation of
+ * @uri_prefix and @tail. If @uri_prefix does not end with a "/",
+ * one will be inserted between @uri_prefix and @tail.
+ *
+ * Return value: the new URI
  **/
 char *
 e2k_uri_concat (const char *uri_prefix, const char *tail)
@@ -347,8 +390,11 @@ e2k_uri_concat (const char *uri_prefix, const char *tail)
  * @uri_prefix: an absolute URI
  * @uri: another URI, presumably a child of @uri_prefix
  *
- * Return value: a relative URI; either the subpath of @uri underneath
+ * Returns a URI describing @uri's relation to @uri_prefix; either a
+ * relative URI consisting of the subpath of @uri underneath
  * @uri_prefix, or all of @uri if it is not a sub-uri of @uri_prefix.
+ *
+ * Return value: the relative URI
  **/
 const char *
 e2k_uri_relative (const char *uri_prefix, const char *uri)

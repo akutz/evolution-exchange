@@ -1,5 +1,6 @@
 SUBDIRS =			\
-	ietf
+	ietf			\
+	reference
 
 EXTRA_DIST =			\
 	README			\
@@ -7,6 +8,8 @@ EXTRA_DIST =			\
 	autoconfig		\
 	debug			\
 	delegates		\
+	entryids		\
+	favorites		\
 	forms			\
 	forms-based-auth	\
 	freebusy		\
@@ -15,8 +18,9 @@ EXTRA_DIST =			\
 	mail			\
 	mapi-properties		\
 	non-ipm-subtree		\
-	openldap-ntlm.diff	\
 	ntlm			\
+	openldap-ntlm.diff	\
+	rules			\
 	security		\
 	sending-mail		\
 	subscriptions		\

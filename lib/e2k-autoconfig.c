@@ -23,16 +23,22 @@
 #include <config.h>
 #endif
 
+#include <ctype.h>
+#include <errno.h>
+#include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>
-#include <resolv.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+#include <netinet/in.h>
 #include <arpa/nameser.h>
+#include <resolv.h>
 
 #include "e2k-autoconfig.h"
 #include "e2k-encoding-utils.h"
-#include "e2k-connection.h"
+#include "e2k-context.h"
 #include "e2k-global-catalog.h"
-#include "e2k-license.h"
 #include "e2k-propnames.h"
 #include "e2k-uri.h"
 #include "e2k-utils.h"
@@ -51,31 +57,33 @@ static void set_account_uri_string (E2kAutoconfig *ac);
 /**
  * e2k_autoconfig_new:
  * @owa_uri: the OWA URI, or %NULL to (try to) use a default
- * @username: the username (or DOMAIN\\username), or %NULL to use a default
+ * @username: the username (or DOMAIN\username), or %NULL to use a default
  * @password: the password, or %NULL if not yet known
- * @require_ntlm: whether or not to require ntlm
+ * @auth_pref: information about what auth type to use
  *
  * Creates an autoconfig context, based on information stored in the
- * license file or provided as arguments.
+ * config file or provided as arguments.
  *
  * Return value: an autoconfig context
  **/
 E2kAutoconfig *
 e2k_autoconfig_new (const char *owa_uri, const char *username,
-		    const char *password, gboolean require_ntlm)
+		    const char *password, E2kAutoconfigAuthPref auth_pref)
 {
 	E2kAutoconfig *ac;
 
 	ac = g_new0 (E2kAutoconfig, 1);
 
+	if (e2k_autoconfig_lookup_option ("Disable-Plaintext")) {
+		ac->auth_pref = E2K_AUTOCONFIG_USE_NTLM;
+		ac->require_ntlm = TRUE;
+	} else
+		ac->auth_pref = auth_pref;
+
 	e2k_autoconfig_set_owa_uri (ac, owa_uri);
-	e2k_autoconfig_set_gc_server (ac, NULL);
+	e2k_autoconfig_set_gc_server (ac, NULL, -1);
 	e2k_autoconfig_set_username (ac, username);
 	e2k_autoconfig_set_password (ac, password);
-
-	ac->ad_limit = g_strdup (e2k_license_lookup_option ("GAL-Limit"));
-	ac->require_ntlm = require_ntlm ||
-		e2k_license_lookup_option ("Disable-Plaintext");
 
 	return ac;
 }
@@ -100,7 +108,6 @@ e2k_autoconfig_free (E2kAutoconfig *ac)
 	g_free (ac->timezone);
 	g_free (ac->nt_domain);
 	g_free (ac->w2k_domain);
-	g_free (ac->ad_limit);
 	g_free (ac->home_uri);
 	g_free (ac->exchange_dn);
 	g_free (ac->pf_server);
@@ -147,13 +154,13 @@ reset_owa_derived (E2kAutoconfig *ac)
 	}
 
 	/* Reset domain info we may have implicitly got */
-	ac->use_ntlm = TRUE;
+	ac->use_ntlm = (ac->auth_pref != E2K_AUTOCONFIG_USE_BASIC);
 	if (ac->nt_domain)
 		g_free (ac->nt_domain);
-	ac->nt_domain = g_strdup (e2k_license_lookup_option ("NT-Domain"));
+	ac->nt_domain = g_strdup (e2k_autoconfig_lookup_option ("NT-Domain"));
 	if (ac->w2k_domain)
 		g_free (ac->w2k_domain);
-	ac->w2k_domain = g_strdup (e2k_license_lookup_option ("Domain"));
+	ac->w2k_domain = g_strdup (e2k_autoconfig_lookup_option ("Domain"));
 
 	/* Reset GC-derived information since it depends on the
 	 * OWA-derived information too.
@@ -175,7 +182,7 @@ e2k_autoconfig_set_owa_uri (E2kAutoconfig *ac, const char *owa_uri)
 {
 	reset_owa_derived (ac);
 	if (ac->gc_server_autodetected)
-		e2k_autoconfig_set_gc_server (ac, NULL);
+		e2k_autoconfig_set_gc_server (ac, NULL, -1);
 	g_free (ac->owa_uri);
 
 	if (owa_uri) {
@@ -184,29 +191,41 @@ e2k_autoconfig_set_owa_uri (E2kAutoconfig *ac, const char *owa_uri)
 		else
 			ac->owa_uri = g_strdup_printf ("http://%s", owa_uri);
 	} else
-		ac->owa_uri = g_strdup (e2k_license_lookup_option ("OWA-URL"));
+		ac->owa_uri = g_strdup (e2k_autoconfig_lookup_option ("OWA-URL"));
 }
 
 /**
  * e2k_autoconfig_set_gc_server:
  * @ac: an autoconfig context
- * @owa_uri: the new GC server, or %NULL
+ * @gc_server: the new GC server, or %NULL
+ * @gal_limit: GAL search size limit, or -1 for no limit
  *
  * Sets @ac's #gc_server field to @gc_server (or the default if
- * @gc_server is %NULL), and resets any fields whose values had been
- * set based on the old value of #gc_server.
+ * @gc_server is %NULL) and the #gal_limit field to @gal_limit, and
+ * resets any fields whose values had been set based on the old value
+ * of #gc_server.
  **/
 void
-e2k_autoconfig_set_gc_server (E2kAutoconfig *ac, const char *gc_server)
+e2k_autoconfig_set_gc_server (E2kAutoconfig *ac, const char *gc_server,
+			      int gal_limit)
 {
+	const char *default_gal_limit;
+
 	reset_gc_derived (ac);
 	g_free (ac->gc_server);
 
 	if (gc_server)
 		ac->gc_server = g_strdup (gc_server);
 	else
-		ac->gc_server = g_strdup (e2k_license_lookup_option ("Global-Catalog"));
+		ac->gc_server = g_strdup (e2k_autoconfig_lookup_option ("Global-Catalog"));
 	ac->gc_server_autodetected = FALSE;
+
+	if (gal_limit == -1) {
+		default_gal_limit = e2k_autoconfig_lookup_option ("GAL-Limit");
+		if (default_gal_limit)
+			gal_limit = atoi (default_gal_limit);
+	}
+	ac->gal_limit = gal_limit;
 }
 
 /**
@@ -255,7 +274,7 @@ e2k_autoconfig_set_password (E2kAutoconfig *ac, const char *password)
 
 
 static void
-get_conn_auth_handler (SoupMessage *msg, gpointer user_data)
+get_ctx_auth_handler (SoupMessage *msg, gpointer user_data)
 {
 	E2kAutoconfig *ac = user_data;
 	const GSList *headers;
@@ -284,13 +303,14 @@ get_conn_auth_handler (SoupMessage *msg, gpointer user_data)
 	}
 }
 
-/**
- * e2k_autoconfig_get_connection:
+/*
+ * e2k_autoconfig_get_context:
  * @ac: an autoconfig context
+ * @op: an #E2kOperation, for cancellation
  * @result: on output, a result code
  *
  * Checks if @ac's URI and authentication parameters work, and if so
- * returns an #E2kConnection using them. On return, *@result (which
+ * returns an #E2kContext using them. On return, *@result (which
  * may not be %NULL) will contain a result code as follows:
  *
  *   %E2K_AUTOCONFIG_OK: success
@@ -315,52 +335,56 @@ get_conn_auth_handler (SoupMessage *msg, gpointer user_data)
  *   %E2K_AUTOCONFIG_NO_OWA: Server may be Exchange 2000, but OWA
  *     is not present at the given URL.
  *   %E2K_AUTOCONFIG_NO_MAILBOX: OWA claims the user has no mailbox.
- *   %E2K_AUTOCONFIG_NETWORK_ERROR: A network error occurred.
- *     (usually could not connect or could not resolve hostname).
+ *   %E2K_AUTOCONFIG_CANT_RESOLVE: Could not resolve hostname.
+ *   %E2K_AUTOCONFIG_CANT_CONNECT: Could not connect to server.
+ *   %E2K_AUTOCONFIG_CANCELLED: User cancelled
  *   %E2K_AUTOCONFIG_FAILED: Other error.
  *
- * Return value: the new connection, or %NULL
+ * Return value: the new context, or %NULL
  **/
-E2kConnection *
-e2k_autoconfig_get_connection (E2kAutoconfig *ac, E2kAutoconfigResult *result)
+E2kContext *
+e2k_autoconfig_get_context (E2kAutoconfig *ac, E2kOperation *op,
+			    E2kAutoconfigResult *result)
 {
-	E2kConnection *conn;
-	gboolean use_ntlm;
+	E2kContext *ctx;
 	SoupMessage *msg;
-	int status;
+	E2kHTTPStatus status;
 	const char *ms_webstorage;
 	xmlDoc *doc;
 	xmlNode *node;
 	xmlChar *equiv, *content, *href;
 
-	use_ntlm = ac->require_ntlm || ac->use_ntlm;
-	conn = e2k_connection_new (ac->owa_uri);
-	if (!conn) {
+	ctx = e2k_context_new (ac->owa_uri);
+	if (!ctx) {
 		*result = E2K_AUTOCONFIG_FAILED;
 		return NULL;
 	}
-	e2k_connection_set_auth (conn, ac->username, ac->nt_domain,
-				 use_ntlm ? "NTLM" : "Basic", ac->password);
+	e2k_context_set_auth (ctx, ac->username, ac->nt_domain,
+			      ac->use_ntlm ? "NTLM" : "Basic", ac->password);
 
-	msg = e2k_soup_message_new (conn, ac->owa_uri, SOUP_METHOD_GET);
+	msg = e2k_soup_message_new (ctx, ac->owa_uri, SOUP_METHOD_GET);
 	soup_message_add_header (msg->request_headers, "Accept-Language",
-				 e2k_get_accept_language ());
+				 e2k_http_accept_language ());
 	soup_message_set_flags (msg, SOUP_MESSAGE_NO_REDIRECT);
 
-	soup_message_add_error_code_handler (msg, SOUP_ERROR_UNAUTHORIZED,
-					     SOUP_HANDLER_PRE_BODY,
-					     get_conn_auth_handler, ac);
+	soup_message_add_status_code_handler (msg, E2K_HTTP_UNAUTHORIZED,
+					      SOUP_HANDLER_PRE_BODY,
+					      get_ctx_auth_handler, ac);
 
  try_again:
-	e2k_soup_message_send (msg);
-	/* (The soup response doesn't end in '\0', but we know that
-	 * truncating the document won't lose any actual data, and
-	 * this lets us use strstr below.)
-	 */
-	if (msg->response.length > 0)
-		msg->response.body[msg->response.length - 1] = '\0';
+	e2k_context_send_message (ctx, op, msg);
+	status = msg->status_code;
 
-	status = msg->errorcode;
+	/* Check for cancellation or other transport error. */
+	if (E2K_HTTP_STATUS_IS_TRANSPORT_ERROR (status)) {
+		if (status == E2K_HTTP_CANCELLED)
+			*result = E2K_AUTOCONFIG_CANCELLED;
+		else if (status == E2K_HTTP_CANT_RESOLVE)
+			*result = E2K_AUTOCONFIG_CANT_RESOLVE;
+		else
+			*result = E2K_AUTOCONFIG_CANT_CONNECT;
+		goto done;
+	}
 
 	/* Check for an authentication failure. This could be because
 	 * the password is incorrect, or because we used Basic auth
@@ -368,23 +392,15 @@ e2k_autoconfig_get_connection (E2kAutoconfig *ac, E2kAutoconfigResult *result)
 	 * default domain, or because we tried to use an auth type the
 	 * server doesn't allow.
 	 */
-	if (status == SOUP_ERROR_CANT_AUTHENTICATE) {
-		if (!use_ntlm && !ac->nt_domain)
+	if (status == E2K_HTTP_UNAUTHORIZED) {
+		if (!ac->use_ntlm && !ac->nt_domain)
 			*result = E2K_AUTOCONFIG_AUTH_ERROR_TRY_DOMAIN;
-		else if (use_ntlm && !ac->saw_ntlm)
+		else if (ac->use_ntlm && !ac->saw_ntlm)
 			*result = E2K_AUTOCONFIG_AUTH_ERROR_TRY_BASIC;
-		else if (!use_ntlm && !ac->saw_basic)
+		else if (!ac->use_ntlm && !ac->saw_basic)
 			*result = E2K_AUTOCONFIG_AUTH_ERROR_TRY_NTLM;
 		else
 			*result = E2K_AUTOCONFIG_AUTH_ERROR;
-		goto done;
-	}
-
-	/* Check for transport error. (We do this after auth errors
-	 * because soup calls "can't authenticate" a transport error.)
-	 */
-	if (SOUP_ERROR_IS_TRANSPORT (status)) {
-		*result = E2K_AUTOCONFIG_NETWORK_ERROR;
 		goto done;
 	}
 
@@ -394,7 +410,7 @@ e2k_autoconfig_get_connection (E2kAutoconfig *ac, E2kAutoconfigResult *result)
 	 * likely indicate that the user's mailbox has been moved to a
 	 * new server.
 	 */
-	if (SOUP_ERROR_IS_REDIRECTION (status)) {
+	if (E2K_HTTP_STATUS_IS_REDIRECTION (status)) {
 		const char *location;
 		char *new_uri;
 
@@ -409,7 +425,7 @@ e2k_autoconfig_get_connection (E2kAutoconfig *ac, E2kAutoconfigResult *result)
 			*result = E2K_AUTOCONFIG_EXCHANGE_5_5;
 			goto done;
 		} else if (strstr (location, "/owalogon.asp")) {
-			if (e2k_connection_fba (conn, msg))
+			if (e2k_context_fba (ctx, msg))
 				goto try_again;
 			*result = E2K_AUTOCONFIG_AUTH_ERROR;
 			goto done;
@@ -425,14 +441,18 @@ e2k_autoconfig_get_connection (E2kAutoconfig *ac, E2kAutoconfigResult *result)
 	/* If the server requires SSL, it will send back 403 Forbidden
 	 * with a body explaining that.
 	 */
-	if (status == SOUP_ERROR_FORBIDDEN &&
+	if (status == E2K_HTTP_FORBIDDEN &&
 	    !strncmp (ac->owa_uri, "http:", 5) &&
-	    msg->response.length && strstr (msg->response.body, "SSL")) {
-		char *new_uri = g_strconcat ("https:", ac->owa_uri + 5, NULL);
-		e2k_autoconfig_set_owa_uri (ac, new_uri);
-		g_free (new_uri);
-		*result = E2K_AUTOCONFIG_TRY_SSL;
-		goto done;
+	    msg->response.length > 0) {
+		msg->response.body[msg->response.length - 1] = '\0';
+		if (strstr (msg->response.body, "SSL")) {
+			char *new_uri =
+				g_strconcat ("https:", ac->owa_uri + 5, NULL);
+			e2k_autoconfig_set_owa_uri (ac, new_uri);
+			g_free (new_uri);
+			*result = E2K_AUTOCONFIG_TRY_SSL;
+			goto done;
+		}
 	}
 
 	/* Figure out some stuff about the server */
@@ -464,7 +484,7 @@ e2k_autoconfig_get_connection (E2kAutoconfig *ac, E2kAutoconfigResult *result)
 	 * have a mailbox. Otherwise, it means you're not talking to
 	 * Exchange (even 5.5).
 	 */
-	if (status == SOUP_ERROR_NOT_FOUND) {
+	if (status == E2K_HTTP_NOT_FOUND) {
 		if (ms_webstorage)
 			*result = E2K_AUTOCONFIG_NO_MAILBOX;
 		else
@@ -473,13 +493,13 @@ e2k_autoconfig_get_connection (E2kAutoconfig *ac, E2kAutoconfigResult *result)
 	}
 
 	/* Any other error else gets generic failure */
-	if (!SOUP_ERROR_IS_SUCCESSFUL (status)) {
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 		*result = E2K_AUTOCONFIG_FAILED;
 		goto done;
 	}
 
 	/* Parse the returned HTML. */
-	doc = e2k_parse_html (msg->response.body);
+	doc = e2k_parse_html (msg->response.body, msg->response.length);
 	if (!doc) {
 		/* Not HTML? */
 		*result = ac->version == E2K_EXCHANGE_UNKNOWN ?
@@ -533,13 +553,13 @@ e2k_autoconfig_get_connection (E2kAutoconfig *ac, E2kAutoconfigResult *result)
 	xmlFreeDoc (doc);
 
  done:
-	soup_message_free (msg);
+	g_object_unref (msg);
 
 	if (*result != E2K_AUTOCONFIG_OK) {
-		g_object_unref (conn);
-		conn = NULL;
+		g_object_unref (ctx);
+		ctx = NULL;
 	}
-	return conn;
+	return ctx;
 }
 
 static const char *home_properties[] = {
@@ -548,9 +568,10 @@ static const char *home_properties[] = {
 };
 static const int n_home_properties = sizeof (home_properties) / sizeof (home_properties[0]);
 
-/**
+/*
  * e2k_autoconfig_check_exchange:
  * @ac: an autoconfiguration context
+ * @op: an #E2kOperation, for cancellation
  *
  * Tries to connect to the the Exchange server using the OWA URL,
  * username, and password in @ac. Attempts to determine the domain
@@ -558,7 +579,7 @@ static const int n_home_properties = sizeof (home_properties) / sizeof (home_pro
  * user's mailbox entryid (used to find his Exchange 5.5 DN) and
  * default timezone.
  *
- * The returned codes are the same as for e2k_autoconfig_get_connection()
+ * The returned codes are the same as for e2k_autoconfig_get_context()
  * with the following changes/additions/removals:
  *
  *   %E2K_AUTOCONFIG_REDIRECT: URL returned in first redirect returned
@@ -571,15 +592,16 @@ static const int n_home_properties = sizeof (home_properties) / sizeof (home_pro
  * Return value: an #E2kAutoconfigResult
  **/
 E2kAutoconfigResult
-e2k_autoconfig_check_exchange (E2kAutoconfig *ac)
+e2k_autoconfig_check_exchange (E2kAutoconfig *ac, E2kOperation *op)
 {
 	xmlDoc *doc;
 	xmlNode *node;
-	int status, nresults;
-	char *new_uri, *pf_uri;
-	E2kConnection *conn;
+	E2kHTTPStatus status;
 	E2kAutoconfigResult result;
+	char *new_uri, *pf_uri;
+	E2kContext *ctx;
 	gboolean redirected = FALSE;
+	E2kResultIter *iter;
 	E2kResult *results;
 	GByteArray *entryid;
 	const char *exchange_dn, *timezone, *prop, *hrefs[] = { "" };
@@ -592,7 +614,7 @@ e2k_autoconfig_check_exchange (E2kAutoconfig *ac)
 	g_return_val_if_fail (ac->password != NULL, E2K_AUTOCONFIG_FAILED);
 
  try_again:
-	conn = e2k_autoconfig_get_connection (ac, &result);
+	ctx = e2k_autoconfig_get_context (ac, op, &result);
 
 	switch (result) {
 	case E2K_AUTOCONFIG_OK:
@@ -644,11 +666,10 @@ e2k_autoconfig_check_exchange (E2kAutoconfig *ac)
 	else
 		pf_uri = g_strdup_printf ("%s/?Cmd=navbar", ac->owa_uri);
 
-	status = e2k_connection_get_owa_sync (conn, pf_uri, FALSE, &body, &len);
+	status = e2k_context_get_owa (ctx, NULL, pf_uri, FALSE, &body, &len);
 	g_free (pf_uri);
-	if (SOUP_ERROR_IS_SUCCESSFUL (status) && len > 0) {
-		body[len - 1] = '\0';
-		doc = e2k_parse_html (body);
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		doc = e2k_parse_html (body, len);
 		g_free (body);
 	} else
 		doc = NULL;
@@ -675,45 +696,50 @@ e2k_autoconfig_check_exchange (E2kAutoconfig *ac)
 	 * gratuitously use BPROPFIND in order to test if they
 	 * have the IIS Lockdown problem.
 	 */
-	status = e2k_connection_bpropfind_sync (conn, ac->home_uri,
-						hrefs, 1, "0",
-						home_properties,
-						n_home_properties,
-						&results, &nresults);
-	if (!SOUP_ERROR_IS_SUCCESSFUL (status)) {
-		g_object_unref (conn);
+	iter = e2k_context_bpropfind_start (ctx, op,
+					    ac->home_uri, hrefs, 1,
+					    home_properties,
+					    n_home_properties);
+	results = e2k_result_iter_next (iter);
+	if (results) {
+		timezone = e2k_properties_get_prop (results->props,
+						    E2K_PR_EXCHANGE_TIMEZONE);
+		if (timezone)
+			ac->timezone = find_olson_timezone (timezone);
 
-		if (status == SOUP_ERROR_UNAUTHORIZED ||
-		    status == SOUP_ERROR_CANT_AUTHENTICATE) {
-			if (ac->use_ntlm && !ac->require_ntlm) {
-				ac->use_ntlm = FALSE;
-				goto try_again;
-			} else
-				return E2K_AUTOCONFIG_AUTH_ERROR;
-		} else if (status == SOUP_ERROR_NOT_FOUND)
-			return E2K_AUTOCONFIG_CANT_BPROPFIND;
-		else
-			return E2K_AUTOCONFIG_FAILED;
+		entryid = e2k_properties_get_prop (results->props,
+						   PR_STORE_ENTRYID);
+		if (entryid) {
+			exchange_dn = e2k_entryid_to_dn (entryid);
+			if (exchange_dn)
+				ac->exchange_dn = g_strdup (exchange_dn);
+		}
 	}
+	status = e2k_result_iter_free (iter);
+	g_object_unref (ctx);
 
-	timezone = e2k_properties_get_prop (results[0].props,
-					    E2K_PR_EXCHANGE_TIMEZONE);
-	if (timezone)
-		ac->timezone = find_olson_timezone (timezone);
+	if (status == E2K_HTTP_UNAUTHORIZED) {
+		if (ac->use_ntlm && !ac->require_ntlm) {
+			ac->use_ntlm = FALSE;
+			goto try_again;
+		} else
+			return E2K_AUTOCONFIG_AUTH_ERROR;
+	} else if (status == E2K_HTTP_NOT_FOUND)
+		return E2K_AUTOCONFIG_CANT_BPROPFIND;
+	else if (status == E2K_HTTP_CANCELLED)
+		return E2K_AUTOCONFIG_CANCELLED;
+	else if (status == E2K_HTTP_CANT_RESOLVE)
+		return E2K_AUTOCONFIG_CANT_RESOLVE;
+	else if (E2K_HTTP_STATUS_IS_TRANSPORT_ERROR (status))
+		return E2K_AUTOCONFIG_CANT_CONNECT;
+	else if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+		return E2K_AUTOCONFIG_FAILED;
 
-	entryid = e2k_properties_get_prop (results[0].props, PR_STORE_ENTRYID);
-	if (entryid) {
-		exchange_dn = e2k_entryid_to_dn (entryid);
-		if (exchange_dn)
-			ac->exchange_dn = g_strdup (exchange_dn);
-	}
-	e2k_results_free (results, nresults);
-
-	g_object_unref (conn);
 	return ac->exchange_dn ? E2K_AUTOCONFIG_OK : E2K_AUTOCONFIG_FAILED;
 }
 
 
+/* FIXME: make this cancellable */
 static void
 find_global_catalog (E2kAutoconfig *ac)
 {
@@ -771,9 +797,36 @@ find_global_catalog (E2kAutoconfig *ac)
 	return;
 }
 
-/**
+/*
+ * e2k_autoconfig_get_global_catalog
+ * @ac: an autoconfig context
+ * @op: an #E2kOperation, for cancellation
+ *
+ * Tries to connect to the global catalog associated with @ac
+ * (trying to figure it out from the domain name if the server
+ * name is not yet known).
+ *
+ * Return value: the global catalog, or %NULL if the GC server name
+ * wasn't provided and couldn't be autodetected.
+ */
+E2kGlobalCatalog *
+e2k_autoconfig_get_global_catalog (E2kAutoconfig *ac, E2kOperation *op)
+{
+	if (!ac->gc_server) {
+		find_global_catalog (ac);
+		if (!ac->gc_server)
+			return NULL;
+	}
+
+	return e2k_global_catalog_new (ac->gc_server, ac->gal_limit,
+				       ac->username, ac->nt_domain,
+				       ac->password);
+}
+
+/*
  * e2k_autoconfig_check_global_catalog
  * @ac: an autoconfig context
+ * @op: an #E2kOperation, for cancellation
  *
  * Tries to connect to the global catalog associated with @ac
  * (trying to figure it out from the domain name if the server
@@ -783,15 +836,16 @@ find_global_catalog (E2kAutoconfig *ac)
  * Possible return values are:
  *
  *   %E2K_AUTOCONFIG_OK: Success
- *   %E2K_AUTOCONFIG_NETWORK_ERROR: Could not determine GC server
+ *   %E2K_AUTOCONFIG_CANT_RESOLVE: Could not determine GC server
  *   %E2K_AUTOCONFIG_NO_MAILBOX: Could not find information for
  *     the user
+ *   %E2K_AUTOCONFIG_CANCELLED: Operation was cancelled
  *   %E2K_AUTOCONFIG_FAILED: Other error.
  *
  * Return value: an #E2kAutoconfigResult.
  */
 E2kAutoconfigResult
-e2k_autoconfig_check_global_catalog (E2kAutoconfig *ac)
+e2k_autoconfig_check_global_catalog (E2kAutoconfig *ac, E2kOperation *op)
 {
 	E2kGlobalCatalog *gc;
 	E2kGlobalCatalogEntry *entry;
@@ -800,18 +854,14 @@ e2k_autoconfig_check_global_catalog (E2kAutoconfig *ac)
 
 	g_return_val_if_fail (ac->exchange_dn != NULL, E2K_AUTOCONFIG_FAILED);
 
-	find_global_catalog (ac);
-	if (!ac->gc_server)
-		return E2K_AUTOCONFIG_NETWORK_ERROR;
+	gc = e2k_autoconfig_get_global_catalog (ac, op);
+	if (!gc)
+		return E2K_AUTOCONFIG_CANT_RESOLVE;
 
 	set_account_uri_string (ac);
 
-	gc = e2k_global_catalog_new (ac->gc_server, -1,
-				     ac->username, ac->nt_domain,
-				     ac->password);
-
 	status = e2k_global_catalog_lookup (
-		gc, E2K_GLOBAL_CATALOG_LOOKUP_BY_LEGACY_EXCHANGE_DN,
+		gc, op, E2K_GLOBAL_CATALOG_LOOKUP_BY_LEGACY_EXCHANGE_DN,
 		ac->exchange_dn, E2K_GLOBAL_CATALOG_LOOKUP_EMAIL |
 		E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX, &entry);
 
@@ -819,7 +869,9 @@ e2k_autoconfig_check_global_catalog (E2kAutoconfig *ac)
 		ac->display_name = g_strdup (entry->display_name);
 		ac->email = g_strdup (entry->email);
 		result = E2K_AUTOCONFIG_OK;
-	} else if (status == E2K_GLOBAL_CATALOG_ERROR)
+	} else if (status == E2K_GLOBAL_CATALOG_CANCELLED)
+		result = E2K_AUTOCONFIG_CANCELLED;
+	else if (status == E2K_GLOBAL_CATALOG_ERROR)
 		result = E2K_AUTOCONFIG_FAILED;
 	else
 		result = E2K_AUTOCONFIG_NO_MAILBOX;
@@ -858,10 +910,8 @@ set_account_uri_string (E2kAutoconfig *ac)
 		g_string_append (uri, ";use_ssl=always");
 	g_string_append (uri, ";ad_server=");
 	e2k_uri_append_encoded (uri, ac->gc_server, ";?");
-	if (ac->ad_limit) {
-		g_string_append_printf (uri, ";ad_limit=%d",
-					atoi (ac->ad_limit));
-	}
+	if (ac->gal_limit != -1)
+		g_string_append_printf (uri, ";ad_limit=%d", ac->gal_limit);
 
 	path = g_strdup (home_uri->path + 1);
 	mailbox = strrchr (path, '/');
@@ -1222,4 +1272,88 @@ find_olson_timezone (const char *windows_timezone)
 	 * last of the entries with the right Windows timezone name.
 	 */
 	return g_strdup (zonemap[i - 1].olson_name);
+}
+
+
+/* Config file handling */
+
+static GHashTable *config_options;
+
+static void
+read_config (void)
+{
+	struct stat st;
+	char *p, *name, *value;
+	char *config_data;
+	int fd;
+
+	config_options = g_hash_table_new (e2k_ascii_strcase_hash,
+					    e2k_ascii_strcase_equal);
+
+	fd = open ("/etc/ximian/connector.conf", O_RDONLY);
+	if (fd == -1)
+		fd = open (CONNECTOR_PREFIX "/etc/connector.conf", O_RDONLY);
+	if (fd == -1)
+		return;
+	if (fstat (fd, &st) == -1) {
+		g_warning ("Could not stat connector.conf: %s",
+			   g_strerror (errno));
+		close (fd);
+		return;
+	}
+
+	config_data = g_malloc (st.st_size + 1);
+	if (read (fd, config_data, st.st_size) != st.st_size) {
+		g_warning ("Could not read connector.conf: %s",
+			   g_strerror (errno));
+		close (fd);
+		g_free (config_data);
+		return;
+	}
+	close (fd);
+	config_data[st.st_size] = '\0';
+
+	/* Read config data */
+	p = config_data;
+
+	while (1) {
+		for (name = p; isspace ((unsigned char)*name); name++)
+			;
+
+		p = strchr (name, ':');
+		if (!p || !p[1])
+			break;
+		*p = '\0';
+		value = p + 2;
+		p = strchr (value, '\n');
+		if (!p)
+			break;
+		if (*(p - 1) == '\r')
+			*(p - 1) = '\0';
+		*p = '\0';
+		p++;
+
+		if (g_ascii_strcasecmp (value, "false") &&
+		    g_ascii_strcasecmp (value, "no"))
+			g_hash_table_insert (config_options, name, value);
+	};
+
+	g_free (config_data);
+}
+
+/**
+ * e2k_autoconfig_lookup_option:
+ * @option: option name to look up
+ *
+ * Looks up an option in the config file. These values are NOT SIGNED.
+ * The system administrator can put whatever values he wants here.
+ *
+ * Return value: the string value of the option, or %NULL if it is unset.
+ **/
+const char *
+e2k_autoconfig_lookup_option (const char *option)
+{
+	if (!config_options)
+		read_config ();
+	return g_hash_table_lookup (config_options, option);
 }

@@ -5,7 +5,7 @@
 #define __E2K_SECURITY_DESCRIPTOR_H__
 
 #include "e2k-types.h"
-#include "e2k-sid.h"
+#include <glib-object.h>
 #include <libxml/tree.h>
 
 #define E2K_TYPE_SECURITY_DESCRIPTOR            (e2k_security_descriptor_get_type ())
@@ -28,7 +28,6 @@ GType                  e2k_security_descriptor_get_type      (void);
 
 E2kSecurityDescriptor *e2k_security_descriptor_new           (xmlNodePtr             xml_form,
 							      GByteArray            *binary_form);
-gboolean               e2k_security_descriptor_is_readonly   (E2kSecurityDescriptor *sd);
 GByteArray            *e2k_security_descriptor_to_binary     (E2kSecurityDescriptor *sd);
 
 GList                 *e2k_security_descriptor_get_sids      (E2kSecurityDescriptor *sd);
@@ -71,7 +70,7 @@ typedef enum {
 	E2K_PERMISSIONS_ROLE_NONE,
 
 	E2K_PERMISSIONS_ROLE_NUM_ROLES,
-	E2K_PERMISSIONS_ROLE_CUSTOM = -1,
+	E2K_PERMISSIONS_ROLE_CUSTOM = -1
 } E2kPermissionsRole;
 
 const char        *e2k_permissions_role_get_name  (E2kPermissionsRole role);

@@ -4,7 +4,7 @@
 #ifndef __E2K_FREEBUSY_H__
 #define __E2K_FREEBUSY_H__
 
-#include "e2k-connection.h"
+#include "e2k-context.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -28,7 +28,7 @@ typedef struct {
 } E2kFreebusyEvent;
 
 typedef struct {
-	E2kConnection *conn;
+	E2kContext *ctx;
 	char *dn, *uri;
 
 	time_t start, end;
@@ -36,29 +36,29 @@ typedef struct {
 	GArray *events[E2K_BUSYSTATUS_MAX];
 } E2kFreebusy;
 
-E2kFreebusy *e2k_freebusy_new                   (E2kConnection   *conn,
-						 const char      *public_uri,
-						 const char      *dn);
+E2kFreebusy   *e2k_freebusy_new                   (E2kContext      *ctx,
+						   const char      *public_uri,
+						   const char      *dn);
 
-void         e2k_freebusy_reset                 (E2kFreebusy     *fb,
-						 int              nmonths);
+void           e2k_freebusy_reset                 (E2kFreebusy     *fb,
+						   int              nmonths);
 
-void         e2k_freebusy_add_interval          (E2kFreebusy     *fb,
-						 E2kBusyStatus    busystatus,
-						 time_t           start,
-						 time_t           end);
-void         e2k_freebusy_clear_interval        (E2kFreebusy     *fb,
-						 time_t           start,
-						 time_t           end);
+void           e2k_freebusy_add_interval          (E2kFreebusy     *fb,
+						   E2kBusyStatus    busystatus,
+						   time_t           start,
+						   time_t           end);
+void           e2k_freebusy_clear_interval        (E2kFreebusy     *fb,
+						   time_t           start,
+						   time_t           end);
 
-int          e2k_freebusy_add_from_calendar_uri (E2kFreebusy     *fb,
-						 const char      *uri,
-						 time_t           start,
-						 time_t           end);
+E2kHTTPStatus  e2k_freebusy_add_from_calendar_uri (E2kFreebusy     *fb,
+						   const char      *uri,
+						   time_t           start_tt,
+						   time_t           end_tt);
 
-int          e2k_freebusy_save                  (E2kFreebusy     *fb);
+E2kHTTPStatus  e2k_freebusy_save                  (E2kFreebusy     *fb);
 
-void         e2k_freebusy_destroy               (E2kFreebusy     *fb);
+void           e2k_freebusy_destroy               (E2kFreebusy     *fb);
 
 #ifdef __cplusplus
 }

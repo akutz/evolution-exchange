@@ -22,8 +22,9 @@
 #endif
 
 #include "e2k-utils.h"
-#include "e2k-connection.h"
-#include "e2k-license.h"
+#include "e2k-autoconfig.h"
+#include "e2k-propnames.h"
+#include "e2k-rule.h"
 
 #include <e-util/e-time-utils.h>
 
@@ -32,7 +33,7 @@
 #include <string.h>
 
 /* Do not internationalize */
-static const char *e2k_rfc822_months [] = {
+const char *e2k_rfc822_months [] = {
 	"Jan", "Feb", "Mar", "Apr", "May", "Jun",
 	"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 };
@@ -83,8 +84,10 @@ e2k_parse_timestamp (const char *timestamp)
  * e2k_make_timestamp:
  * @when: the %time_t to convert to an ISO8601 timestamp
  *
- * Return value: an ISO8601 timestamp (in an format acceptable to
- * Exchange) corresponding to @when.
+ * Creates an ISO8601 timestamp (in an format acceptable to Exchange)
+ * corresponding to @when.
+ *
+ * Return value: the timestamp, which the caller must free.
  **/
 char *
 e2k_make_timestamp (time_t when)
@@ -101,8 +104,10 @@ e2k_make_timestamp (time_t when)
  * e2k_make_timestamp_rfc822:
  * @when: the %time_t to convert to an RFC822 timestamp
  *
- * Return value: an RFC822 Date header value corresponding to @when,
- * in the locale timezone.
+ * Creates an RFC822 Date header value corresponding to @when, in the
+ * locale timezone.
+ *
+ * Return value: the timestamp, which the caller must free.
  **/
 char *
 e2k_make_timestamp_rfc822 (time_t when)
@@ -120,20 +125,23 @@ e2k_make_timestamp_rfc822 (time_t when)
 				offset);
 }
 
-/* SYSTIME_OFFSET is the number of minutes between the systime epoch
+/* SYSTIME_OFFSET is the number of minutes between the Windows epoch
  * (1601-01-01T00:00:00Z) and the time_t epoch (1970-01-01T00:00:00Z):
  * 369 years, 89 of which are leap years.
  */
-#define SYSTIME_OFFSET 194074560
+#define SYSTIME_OFFSET 194074560UL
 
 /**
  * e2k_systime_to_time_t:
- * @systime: a Windows systime value (minutes since 1601-01-01T00:00:00Z)
+ * @systime: a MAPI PT_SYSTIME value (minutes since Windows epoch)
+ *
+ * Converts the MAPI PT_SYSTIME value @systime to a corresponding
+ * %time_t value (assuming it is within the valid range of a %time_t).
  *
  * Return value: a %time_t corresponding to @systime.
  **/
 time_t
-e2k_systime_to_time_t (long systime)
+e2k_systime_to_time_t (guint32 systime)
 {
 	return (systime - SYSTIME_OFFSET) * 60;
 }
@@ -142,63 +150,57 @@ e2k_systime_to_time_t (long systime)
  * e2k_systime_from_time_t:
  * @tt: a %time_t value
  *
+ * Converts the %time_t value @tt to a corresponding MAPI PT_SYSTIME
+ * value, losing some precision if @tt does not fall on a minute
+ * boundary.
+ *
  * Return value: the Windows systime value corresponding to @tt
  **/
-long
+guint32
 e2k_systime_from_time_t (time_t tt)
 {
 	return (tt / 60) + SYSTIME_OFFSET;
 }
 
 /**
- * e2k_parse_http_date:
- * @date: an HTTP Date header, returned from Exchange
+ * e2k_filetime_to_time_t:
+ * @filetime: a Windows FILETIME value (100ns intervals since
+ * Windows epoch)
  *
- * Converts an HTTP Date header into a time_t value. This function
- * ought to be in soup, but note that the implementation here doesn't
- * do much sanity checking on the format since we know IIS always
- * returns the date in RFC 1123 format, not either of the other two
- * allowable formats.
+ * Converts the Windows FILETIME value @filetime to a corresponding
+ * %time_t value (assuming it is within the valid range of a %time_t),
+ * truncating to a second boundary.
  *
- * Return value: a %time_t corresponding to @date.
+ * Return value: a %time_t corresponding to @filetime.
  **/
 time_t
-e2k_parse_http_date (const char *date)
+e2k_filetime_to_time_t (guint64 filetime)
 {
-	struct tm tm;
-	char *p;
+	return (time_t)(filetime / 10000000 - SYSTIME_OFFSET * 60);
+}
 
-	if (strlen (date) < 29 || date[3] != ',' || date[4] != ' ')
-		return -1;
-
-	memset (&tm, 0, sizeof (tm));
-	p = (char *)date + 5;
-
-	tm.tm_mday = strtol (p, &p, 10);
-	p++;
-	for (tm.tm_mon = 0; tm.tm_mon < 12; tm.tm_mon++) {
-		if (!strncmp (p, e2k_rfc822_months[tm.tm_mon], 3))
-			break;
-	}
-	p += 3;
-
-	tm.tm_year = strtol (p, &p, 10) - 1900;
-
-	tm.tm_hour = strtol (p, &p, 10);
-	p++;
-	tm.tm_min  = strtol (p, &p, 10);
-	p++;
-	tm.tm_sec  = strtol (p, &p, 10);
-
-	return e_mktime_utc (&tm);
+/**
+ * e2k_filetime_from_time_t:
+ * @tt: a %time_t value
+ *
+ * Converts the %time_t value @tt to a corresponding Windows FILETIME
+ * value.
+ *
+ * Return value: the Windows FILETIME value corresponding to @tt
+ **/
+guint64
+e2k_filetime_from_time_t (time_t tt)
+{
+	return (((guint64)tt) + ((guint64)SYSTIME_OFFSET) * 60) * 10000000;
 }
 
 /**
  * e2k_lf_to_crlf:
  * @in: input text in UNIX ("\n") format
  *
- * Return value: text with all LFs converted to CRLF. The caller must
- * free the text.
+ * Creates a copy of @in with all LFs converted to CRLFs.
+ *
+ * Return value: the converted text, which the caller must free.
  **/
 char *
 e2k_lf_to_crlf (const char *in)
@@ -228,9 +230,10 @@ e2k_lf_to_crlf (const char *in)
  * e2k_crlf_to_lf:
  * @in: input text in network ("\r\n") format
  *
- * Return value: text with all CRLFs converted to LF. (Actually, it
- * just strips CRs, so any raw CRs will be removed.) The caller must
- * free the text.
+ * Creates a copy of @in with all CRLFs converted to LFs. (Actually,
+ * it just strips CRs, so any raw CRs will be removed.)
+ *
+ * Return value: the converted text, which the caller must free.
  **/
 char *
 e2k_crlf_to_lf (const char *in)
@@ -258,11 +261,12 @@ e2k_crlf_to_lf (const char *in)
 
 /**
  * e2k_strdup_with_trailing_slash:
- * @path: an http or file path
+ * @path: a URI or path
  *
- * Return value: a copy of @path, with a "/" appended to it if and
- * only if it did not already end in "/". The caller must free the
- * result.
+ * Copies @path, appending a "/" to it if and only if it did not
+ * already end in "/".
+ *
+ * Return value: the path, which the caller must free
  **/
 char *
 e2k_strdup_with_trailing_slash (const char *path)
@@ -281,7 +285,7 @@ e2k_strdup_with_trailing_slash (const char *path)
  * @entryid: an Exchange entryid
  *
  * Finds an Exchange 5.5 DN inside a binary entryid property (such as
- * PR_STORE_ENTRYID or an element of PR_DELEGATES_ENTRYIDS).
+ * #PR_STORE_ENTRYID or an element of #PR_DELEGATES_ENTRYIDS).
  *
  * Return value: the entryid, which is a pointer into @entryid's data.
  **/
@@ -305,6 +309,8 @@ e2k_entryid_to_dn (GByteArray *entryid)
  * @v: a string
  * @v2: another string
  *
+ * ASCII-case-insensitive comparison function for use with #GHashTable.
+ *
  * Return value: %TRUE if @v and @v2 are ASCII-case-insensitively
  * equal, %FALSE if not.
  **/
@@ -317,6 +323,8 @@ e2k_ascii_strcase_equal (gconstpointer v, gconstpointer v2)
 /**
  * e2k_ascii_strcase_hash
  * @v: a string
+ *
+ * ASCII-case-insensitive hash function for use with #GHashTable.
  *
  * Return value: An ASCII-case-insensitive hashing of @v.
  **/
@@ -337,63 +345,195 @@ e2k_ascii_strcase_hash (gconstpointer v)
 }
 
 /**
- * e2k_get_accept_language:
+ * e2k_restriction_folders_only:
+ * @rn: a restriction
  *
- * Generates an Accept-Language value to send to the Exchange server.
- * The user's default folders (Inbox, Calendar, etc) are not created
- * until the user connects to Exchange for the first time, and in that
- * case, it needs to know what language to name the folders in.
- * libexchange users are responsible for setting the Accept-Language
- * header on any request that could be the first-ever request to a
- * mailbox. (Exchange will return 401 Unauthorized if it receives a
- * request with no Accept-Language header for an uninitialized
- * mailbox.)
+ * Examines @rn, and determines if it can only return folders
  *
- * Return value: an Accept-Language string.
+ * Return value: %TRUE if @rn will cause only folders to be returned
  **/
-const char *
-e2k_get_accept_language (void)
+gboolean
+e2k_restriction_folders_only (E2kRestriction *rn)
 {
-	static char *accept = NULL;
+	int i;
 
-	if (!accept) {
-		GString *buf;
-		const char *lang, *sub;
-		int baselen;
+	if (!rn)
+		return FALSE;
 
-		buf = g_string_new (NULL);
+	switch (rn->type) {
+	case E2K_RESTRICTION_PROPERTY:
+		if (strcmp (rn->res.property.pv.prop.name,
+			    E2K_PR_DAV_IS_COLLECTION) != 0)
+			return FALSE;
 
-		lang = getenv ("LANG");
-		if (!lang || !strcmp (lang, "C") || !strcmp (lang, "POSIX"))
-			lang = "en";
+		/* return TRUE if it's "= TRUE" or "!= FALSE" */
+		return (rn->res.property.relop == E2K_RELOP_EQ) ==
+			(rn->res.property.pv.value != NULL);
 
-		/* lang is "language[_territory][.codeset][@modifier]",
-		 * eg "fr" or "de_AT.utf8@euro". The Accept-Language
-		 * header should be a comma-separated list of
-		 * "language[-territory]". For the above cases we'd
-		 * generate "fr, en" and "de-AT, de, en". (We always
-		 * include "en" in case the server doesn't support the
-		 * user's preferred locale.)
-		 */
-
-		baselen = strcspn (lang, "_.@");
-		g_string_append_len (buf, lang, baselen);
-		if (lang[baselen] == '_') {
-			sub = lang + baselen + 1;
-			g_string_append_c   (buf, '-');
-			g_string_append_len (buf, sub, strcspn (sub, ".@"));
-
-			g_string_append     (buf, ", ");
-			g_string_append_len (buf, lang, baselen);
+	case E2K_RESTRICTION_AND:
+		for (i = 0; i < rn->res.and.nrns; i++) {
+			if (e2k_restriction_folders_only (rn->res.and.rns[i]))
+				return TRUE;
 		}
+		return FALSE;
 
-		if (baselen != 2 || strncmp (lang, "en", 2) != 0)
-			g_string_append (buf, ", en");
+	case E2K_RESTRICTION_OR:
+		for (i = 0; i < rn->res.or.nrns; i++) {
+			if (!e2k_restriction_folders_only (rn->res.or.rns[i]))
+				return FALSE;
+		}
+		return TRUE;
 
-		accept = buf->str;
-		g_string_free (buf, FALSE);
+	case E2K_RESTRICTION_NOT:
+		return !e2k_restriction_folders_only (rn->res.not.rn);
+
+	case E2K_RESTRICTION_COMMENT:
+		return e2k_restriction_folders_only (rn->res.comment.rn);
+
+	default:
+		return FALSE;
 	}
-
-	return accept;
 }
 
+/* From MAPIDEFS.H */
+static const char MAPI_ONE_OFF_UID[] = {
+	0x81, 0x2b, 0x1f, 0xa4, 0xbe, 0xa3, 0x10, 0x19,
+	0x9d, 0x6e, 0x00, 0xdd, 0x01, 0x0f, 0x54, 0x02
+};
+#define MAPI_ONE_OFF_UNICODE	  0x8000
+#define MAPI_ONE_OFF_NO_RICH_INFO 0x0001
+#define MAPI_ONE_OFF_MYSTERY_FLAG 0x1000
+
+/**
+ * e2k_entryid_generate_oneoff:
+ * @display_name: the display name of the user
+ * @email: the email address
+ * @unicode: %TRUE to generate a Unicode ENTRYID (in which case
+ * @display_name should be UTF-8), %FALSE for an ASCII ENTRYID.
+ *
+ * Constructs a "one-off" ENTRYID value that can be used as a MAPI
+ * recipient (eg, for a message forwarding server-side rule),
+ * corresponding to @display_name and @email.
+ *
+ * Return value: the recipient ENTRYID
+ **/
+GByteArray *
+e2k_entryid_generate_oneoff (const char *display_name, const char *email, gboolean unicode)
+{
+	GByteArray *entryid;
+
+	entryid = g_byte_array_new ();
+
+	e2k_rule_append_uint32 (entryid, 0);
+	g_byte_array_append (entryid, MAPI_ONE_OFF_UID, sizeof (MAPI_ONE_OFF_UID));
+	e2k_rule_append_uint16 (entryid, 0);
+	e2k_rule_append_uint16 (entryid,
+				MAPI_ONE_OFF_NO_RICH_INFO |
+				MAPI_ONE_OFF_MYSTERY_FLAG |
+				(unicode ? MAPI_ONE_OFF_UNICODE : 0));
+
+	if (unicode) {
+		e2k_rule_append_unicode (entryid, display_name);
+		e2k_rule_append_unicode (entryid, "SMTP");
+		e2k_rule_append_unicode (entryid, email);
+	} else {
+		e2k_rule_append_string (entryid, display_name);
+		e2k_rule_append_string (entryid, "SMTP");
+		e2k_rule_append_string (entryid, email);
+	}
+
+	return entryid;
+}
+
+static const char MAPI_LOCAL_UID[] = {
+	0xdc, 0xa7, 0x40, 0xc8, 0xc0, 0x42, 0x10, 0x1a,
+	0xb4, 0xb9, 0x08, 0x00, 0x2b, 0x2f, 0xe1, 0x82
+};
+
+/**
+ * e2k_entryid_generate_local:
+ * @exchange_dn: the Exchange 5.5-style DN of the local user
+ *
+ * Constructs an ENTRYID value that can be used as a MAPI
+ * recipient (eg, for a message forwarding server-side rule),
+ * corresponding to the local user identified by @exchange_dn.
+ *
+ * Return value: the recipient ENTRYID
+ **/
+GByteArray *
+e2k_entryid_generate_local (const char *exchange_dn)
+{
+	GByteArray *entryid;
+
+	entryid = g_byte_array_new ();
+
+	e2k_rule_append_uint32 (entryid, 0);
+	g_byte_array_append (entryid, MAPI_LOCAL_UID, sizeof (MAPI_LOCAL_UID));
+	e2k_rule_append_uint16 (entryid, 1);
+	e2k_rule_append_uint16 (entryid, 0);
+	e2k_rule_append_string (entryid, exchange_dn);
+
+	return entryid;
+}
+
+static const char MAPI_CONTACT_UID[] = {
+	0xfe, 0x42, 0xaa, 0x0a, 0x18, 0xc7, 0x1a, 0x10,
+	0xe8, 0x85, 0x0b, 0x65, 0x1c, 0x24, 0x00, 0x00
+};
+
+/**
+ * e2k_entryid_generate_contact:
+ * @contact_entryid: the #PR_ENTRYID of an item in the user's Contacts
+ * folder.
+ * @nth_address: which of the contact's email addresses to use.
+ *
+ * Constructs an ENTRYID value that can be used as a MAPI recipient
+ * (eg, for a message forwarding server-side rule), corresponding to
+ * the Contacts folder entry identified by @contact_entryid.
+ *
+ * Return value: the recipient ENTRYID
+ **/
+GByteArray *
+e2k_entryid_generate_contact (GByteArray *contact_entryid, int nth_address)
+{
+	GByteArray *entryid;
+
+	entryid = g_byte_array_new ();
+
+	e2k_rule_append_uint32 (entryid, 0);
+	g_byte_array_append (entryid, MAPI_CONTACT_UID, sizeof (MAPI_CONTACT_UID));
+	e2k_rule_append_uint32 (entryid, 3);
+	e2k_rule_append_uint32 (entryid, 4);
+	e2k_rule_append_uint32 (entryid, nth_address);
+	e2k_rule_append_uint32 (entryid, contact_entryid->len);
+	g_byte_array_append (entryid, contact_entryid->data, contact_entryid->len);
+
+	return entryid;
+}
+
+/**
+ * e2k_search_key_generate:
+ * @addrtype: the type of @address (usually "SMTP" or "EX")
+ * @address: the address data
+ *
+ * Constructs a PR_SEARCH_KEY value for @address
+ *
+ * Return value: the search key
+ **/
+GByteArray *
+e2k_search_key_generate (const char *addrtype, const char *address)
+{
+	GByteArray *search_key;
+	guint8 *p;
+
+	search_key = g_byte_array_new ();
+	g_byte_array_append (search_key, addrtype, strlen (addrtype));
+	g_byte_array_append (search_key, ":", 1);
+	g_byte_array_append (search_key, address, strlen (address));
+	g_byte_array_append (search_key, "", 1);
+
+	for (p = search_key->data; *p; p++)
+		*p = g_ascii_toupper (*p);
+
+	return search_key;
+}

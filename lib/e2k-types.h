@@ -7,13 +7,19 @@
 #include <glib/gtypes.h>
 #include <bonobo/bonobo-i18n.h>
 
-typedef struct _E2kConnection                 E2kConnection;
-typedef struct _E2kConnectionPrivate          E2kConnectionPrivate;
-typedef struct _E2kConnectionClass            E2kConnectionClass;
+typedef struct _E2kAction                     E2kAction;
+typedef struct _E2kAddrEntry                  E2kAddrEntry;
+typedef struct _E2kAddrList                   E2kAddrList;
+
+typedef struct _E2kContext                    E2kContext;
+typedef struct _E2kContextPrivate             E2kContextPrivate;
+typedef struct _E2kContextClass               E2kContextClass;
 
 typedef struct _E2kGlobalCatalog              E2kGlobalCatalog;
 typedef struct _E2kGlobalCatalogPrivate       E2kGlobalCatalogPrivate;
 typedef struct _E2kGlobalCatalogClass         E2kGlobalCatalogClass;
+
+typedef struct _E2kOperation                  E2kOperation;
 
 typedef struct _E2kRestriction                E2kRestriction;
 
@@ -25,26 +31,56 @@ typedef struct _E2kSid                        E2kSid;
 typedef struct _E2kSidPrivate                 E2kSidPrivate;
 typedef struct _E2kSidClass                   E2kSidClass;
 
-#define E2K_MAKE_TYPE(l,t,ci,i,parent) \
-GType l##_get_type(void)\
-{\
+#define E2K_MAKE_TYPE(type_name,TypeName,class_init,init,parent) \
+GType type_name##_get_type(void)			\
+{							\
 	static GType type = 0;				\
 	if (!type){					\
 		static GTypeInfo const object_info = {	\
-			sizeof (t##Class),		\
+			sizeof (TypeName##Class),	\
 							\
 			(GBaseInitFunc) NULL,		\
 			(GBaseFinalizeFunc) NULL,	\
 							\
-			(GClassInitFunc) ci,		\
+			(GClassInitFunc) class_init,	\
 			(GClassFinalizeFunc) NULL,	\
 			NULL,	/* class_data */	\
 							\
-			sizeof (t),			\
+			sizeof (TypeName),		\
 			0,	/* n_preallocs */	\
-			(GInstanceInitFunc) i,		\
+			(GInstanceInitFunc) init,	\
 		};					\
-		type = g_type_register_static (parent, #t, &object_info, 0); \
+		type = g_type_register_static (parent, #TypeName, &object_info, 0); \
+	}						\
+	return type;					\
+}
+
+#define E2K_MAKE_TYPE_WITH_IFACE(type_name,TypeName,class_init,init,parent,iface_init,iparent) \
+GType type_name##_get_type(void)			\
+{							\
+	static GType type = 0;				\
+	if (!type){					\
+		static GTypeInfo const object_info = {	\
+			sizeof (TypeName##Class),	\
+							\
+			(GBaseInitFunc) NULL,		\
+			(GBaseFinalizeFunc) NULL,	\
+							\
+			(GClassInitFunc) class_init,	\
+			(GClassFinalizeFunc) NULL,	\
+			NULL,	/* class_data */	\
+							\
+			sizeof (TypeName),		\
+			0,	/* n_preallocs */	\
+			(GInstanceInitFunc) init,	\
+		};					\
+		static GInterfaceInfo const iface_info = {	\
+			(GInterfaceInitFunc) iface_init,	\
+			NULL,					\
+			NULL					\
+		};						\
+		type = g_type_register_static (parent, #TypeName, &object_info, 0);	\
+		g_type_add_interface_static (type, iparent, &iface_info);		\
 	}						\
 	return type;					\
 }

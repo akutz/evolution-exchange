@@ -1,26 +1,6 @@
 # evolution/acinclude.m4
 # shared configure.in hacks between Evolution and Connector
 
-# EVO_PURIFY_SUPPORT
-# Add --enable-purify. If the user turns it on, subst PURIFY and set
-# the automake conditional ENABLE_PURIFY
-AC_DEFUN(EVO_PURIFY_SUPPORT, [
-	AC_ARG_ENABLE(purify, 
-	[  --enable-purify=[no/yes]      Enable support for building executables with Purify.],,enable_purify=no)
-	AC_PATH_PROG(PURIFY, purify, impure)
-	AC_ARG_WITH(purify-options, [  --with-purify-options=OPTIONS      Options passed to the purify command line (defaults to PURIFYOPTIONS variable).])
-	if test "x$with_purify_options" = "xno"; then
-		with_purify_options="-always-use-cache-dir=yes -cache-dir=/gnome/lib/purify"
-	fi
-	if test "x$PURIFYOPTIONS" = "x"; then
-		PURIFYOPTIONS=$with_purify_options
-	fi
-	AC_SUBST(PURIFY)
-	AM_CONDITIONAL(ENABLE_PURIFY, test "x$enable_purify" = "xyes" -a "x$PURIFY" != "ximpure")
-	PURIFY="$PURIFY $PURIFYOPTIONS"
-])
-
-
 # EVO_LDAP_CHECK(default)
 # Add --with-openldap and --with-static-ldap options. --with-openldap
 # defaults to the given value if not specified. If LDAP support is

@@ -1,13 +1,15 @@
 CamelStub/MailStub
 ------------------
-The bulk of the mail code is in evolution-exchange-storage for various
-reasons. All CamelExchangeProvider does (mostly) is marshal data back
-and forth between evolution-mail and evolution-exchange-storage. The
-API between them and the division of labor is designed around the
-Camel and Exchange APIs, plus the constraint that
-evolution-exchange-storage used to not link against Camel (and so
-couldn't parse rfc822 messages, etc). (Connector does link against
-Camel now, but none of the APIs were ever updated to reflect that.)
+The bulk of the mail code is in evolution-exchange-storage, for
+reasons that don't make as much sense in 2.0 as they did in earlier
+versions. This should probably be cleaned up eventually. But for now,
+all CamelExchangeProvider does (mostly) is marshal data back and forth
+between camel and evolution-exchange-storage. The API between them
+and the division of labor is designed around the Camel and Exchange
+APIs, plus the constraint that evolution-exchange-storage used to not
+link against Camel (and so couldn't parse rfc822 messages, etc).
+(Connector does link against Camel now, but none of the APIs were ever
+updated to reflect that.)
 
 
 Stub protocol
@@ -47,11 +49,12 @@ backend.
 
 The backend receives messages in mail-stub.c:connection_handler() and
 invokes class methods defined in mail-stub-exchange.c to handle them.
-MailStubExchange then asynchronously processes the request. If there
-is a return value, it calls mail_stub_return_data(stub,
-CAMEL_STUB_RETVAL_RESPONSE, ...), followed by mail_stub_return_ok().
-If something goes wrong, it calls mail_stub_return_error(). MailStub
-or MailStubExchange MUST call mail_stub_return_ok() or
+If there is a return value, MailStubExchange calls
+mail_stub_return_data(stub, CAMEL_STUB_RETVAL_RESPONSE, ...), followed
+by mail_stub_return_ok(). If something goes wrong, it calls
+mail_stub_return_error(). (The reason it does this rather than just
+returning a value is that the protocol used to be asynchronous.)
+MailStub or MailStubExchange MUST call mail_stub_return_ok() or
 mail_stub_return_error() in response to every request, or the
 connection will hang or get out of sync. (The whole protocol is
 unfortunately fragile like that.) For non-oneway requests,

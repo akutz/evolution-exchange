@@ -33,7 +33,7 @@
 #include "mail-stub.h"
 #include "camel-stub-constants.h"
 
-#define d(x)
+#define d(x) x
 
 #define PARENT_TYPE G_TYPE_OBJECT
 static MailStubClass *parent_class = NULL;
@@ -306,9 +306,18 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 
 	case CAMEL_STUB_CMD_GET_FOLDER_INFO:
 	{
-		d(printf("GET_FOLDER_INFO\n"));
+		char *top;
+		guint32 recursive;
+
+		if (!mail_stub_read_args (stub,
+					  CAMEL_STUB_ARG_STRING, &top,
+					  CAMEL_STUB_ARG_UINT32, &recursive,
+					  CAMEL_STUB_ARG_END))
+			goto comm_fail;
+		d(printf("GET_FOLDER_INFO %s%s\n", top, recursive ? " (recursive)" : ""));
 		g_object_ref (stub);
-		MS_CLASS (stub)->get_folder_info (stub);
+		MS_CLASS (stub)->get_folder_info (stub, top, recursive);
+		g_free (top);
 		break;
 	}
 
@@ -332,6 +341,56 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 		g_free (from);
 		free_string_array (recips);
 		g_byte_array_free (body, TRUE);
+		break;
+	}
+
+	case CAMEL_STUB_CMD_CREATE_FOLDER:
+	{
+		char *parent_name, *folder_name;
+
+		if (!mail_stub_read_args (stub,
+					  CAMEL_STUB_ARG_FOLDER, &parent_name,
+					  CAMEL_STUB_ARG_STRING, &folder_name,
+					  CAMEL_STUB_ARG_END))
+			goto comm_fail;
+		d(printf("CREATE_FOLDER %s %s\n", parent_name, folder_name));
+		g_object_ref (stub);
+		MS_CLASS (stub)->create_folder (stub, parent_name,
+						folder_name);
+		g_free (parent_name);
+		g_free (folder_name);
+		break;
+	}
+
+	case CAMEL_STUB_CMD_DELETE_FOLDER:
+	{
+		char *folder_name;
+
+		if (!mail_stub_read_args (stub,
+					  CAMEL_STUB_ARG_FOLDER, &folder_name,
+					  CAMEL_STUB_ARG_END))
+			goto comm_fail;
+		d(printf("DELETE_FOLDER %s\n", folder_name));
+		g_object_ref (stub);
+		MS_CLASS (stub)->delete_folder (stub, folder_name);
+		g_free (folder_name);
+		break;
+	}
+
+	case CAMEL_STUB_CMD_RENAME_FOLDER:
+	{
+		char *old_name, *new_name;
+
+		if (!mail_stub_read_args (stub,
+					  CAMEL_STUB_ARG_FOLDER, &old_name,
+					  CAMEL_STUB_ARG_FOLDER, &new_name,
+					  CAMEL_STUB_ARG_END))
+			goto comm_fail;
+		d(printf("RENAME_FOLDER %s %s\n", old_name, new_name));
+		g_object_ref (stub);
+		MS_CLASS (stub)->rename_folder (stub, old_name, new_name);
+		g_free (old_name);
+		g_free (new_name);
 		break;
 	}
 
@@ -420,6 +479,26 @@ mail_stub_read_args (MailStub *stub, ...)
 			break;
 		}
 
+		case CAMEL_STUB_ARG_UINT32ARRAY:
+		{
+			GArray **arr = va_arg (ap, GArray **);
+			int i, len, unread_count;
+			status = camel_stub_marshal_decode_uint32 (stub->cmd, &len);
+			if (status == -1)
+				break;
+			*arr = g_array_new (FALSE, FALSE, sizeof (int));
+			for (i = 0; i< len && status != -1; i++) {
+				status = camel_stub_marshal_decode_uint32 (stub->cmd, &unread_count);
+				if (status != -1)
+					g_array_append_val (*arr, unread_count);
+			}
+			if (status == -1)
+				g_array_free (*arr, TRUE);
+			
+			break;
+		}
+		
+		
 		default:
 			g_assert_not_reached ();
 			status = -1;
@@ -513,6 +592,18 @@ mail_stub_return_data (MailStub *stub, CamelStubRetval retval, ...)
 			break;
 		}
 
+		case CAMEL_STUB_ARG_UINT32ARRAY:
+		{
+			GArray *arr = va_arg (ap, GArray *);
+			int i;
+
+			camel_stub_marshal_encode_uint32 (marshal, arr->len);
+			for (i = 0; i < arr->len; i++)
+				camel_stub_marshal_encode_uint32 (marshal, g_array_index (arr, int, i));
+			break;
+		}
+		
+		
 		default:
 			g_assert_not_reached ();
 			break;
@@ -530,6 +621,7 @@ mail_stub_return_data (MailStub *stub, CamelStubRetval retval, ...)
 void
 mail_stub_return_progress (MailStub *stub, int percent)
 {
+	d(printf("  %d%%", percent));
 	camel_stub_marshal_encode_uint32 (stub->cmd, CAMEL_STUB_RETVAL_PROGRESS);
 	camel_stub_marshal_encode_uint32 (stub->cmd, percent);
 	camel_stub_marshal_flush (stub->cmd);

@@ -25,7 +25,7 @@ struct _MailStubExchange {
 	MailStub parent;
 
 	ExchangeAccount *account;
-	E2kConnection *conn;
+	E2kContext *ctx;
 	GHashTable *folders_by_name;
 	const char *mail_submission_uri;
 	EFolder *inbox, *deleted_items;

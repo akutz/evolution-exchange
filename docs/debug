@@ -5,8 +5,9 @@ from 1 to 4:
 
 	1 - Print each request and response
 	2 - #1 plus all request and response headers
-	3 - #2 plus bodies
+	3 - #2 plus bodies (except text/html)
 	4 - #3 plus global catalog debug too
+	5 - #4 plus text/html bodies too
 
 The request headers and body are printed when the request is queued
 and the response headers and body are printed when the complete body
@@ -16,23 +17,7 @@ question (so it's easier to match up requests and responses when
 multiple requests are queued at once). (This info is shown in the
 "E2k-Debug" header, which is not actually sent to the server, despite
 what it might look like in the output.) E2K_DEBUG output doesn't show
-headers added by soup. (In particular, Authorization and
-Content-Length.)
-
-
-If you append one or more capital letters to the number, it will
-filter out requests that aren't from the given components:
-
-	A - addressbook
-	C - calendar (including some bits of tasks)
-	F - free/busy
-	M - mail
-	S - storage (folder tree, etc)
-	T - tasks
-
-So, eg, "E2K_DEBUG=1CT" would show a little bit of calendar and task
-debugging, but no mail/address/storage debugging.
-
+some headers added by soup. (In particular, Content-Length.)
 
 You can also append 'm' to E2K_DEBUG to see mail stub debugging: it
 will print out everything read to or written from the stub socket.
@@ -50,8 +35,9 @@ ebrowse will look up "exchange://$USER@HOSTNAME" (your local username
 and the hostname specified in the URL) in Evolution's password
 database, so if you have it remember your password, you don't need to
 provide it to ebrowse. If you don't, or if you need to connect as
-someone else, you have to specify both username and password in the
-URL. (Eg, "http://geoff:whatever@shrewdness/...")
+someone else, you can specify both username and password in the URL.
+(Eg, "http://geoff:whatever@shrewdness/..."). Failing that, it will
+just ask you for a password.
 
 Usage:
 	ebrowse -t URL
@@ -104,24 +90,23 @@ You can use E2K_DEBUG with ebrowse.
 gctest
 ------
 gctest is the corresponding client for global catalog debugging. It's
-much simpler. There's also no way to pass a password to it, so if Evo
-doesn't know your password (or your Exchange account name doesn't
-match your local username), you lose.
+much simpler. As with ebrowse, it will try to find a password in
+Evolution's database, and ask for one if it can't find it.
 
-	gctest SERVER KEY
+	gctest [USER@]SERVER KEY
 		looks up info about KEY on SERVER. KEY can be an email
 		address (danw@xcs.ximian.com), an Exchange 5.5 DN
 		(/o=Ximian XCS/ou=XCS/cn=Recipients/cn=danw), or an
 		Active Directory DN (CN=Dan Winship,OU=Ximian,DC=xcs,
 		DC=ximian,DC=com).
 
-	gctest SERVER KEY +DN
+	gctest [USER@]SERVER KEY +DN
 		Adds DN (an Active Directory DN) as a delegate for the
 		user identified by KEY. Note that there are other
 		steps needed to make them a full delegate, as
 		described in the "delegates" document.
 
-	gctest SERVER KEY -DN
+	gctest [USER@]SERVER KEY -DN
 		Removes DN as a delegate for KEY
 
 gctest returns "all properties evolution-exchange-storage currently
@@ -137,17 +122,13 @@ fetch. (If you don't specify any properties, it fetches all
 properties.)
 
 
-telnet
+davcat
 ------
-You can telnet to shrewdness:80 (or do "openssl s_client -connect
-shrewdness:4430") and paste in HTTP for cases where ebrowse doesn't do
-what you need. Eg:
+davcat can be used to perform WebDAV requests that ebrowse doesn't
+support. Eg:
 
+	[danw@twelve-monkeys lib]$ ./davcat http://shrewdness
 	PROPPATCH /exchange/danw/Inbox/foo.EML HTTP/1.1
-	Host: shrewdness
-	Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=
-	Content-Type: text/xml
-	Content-Length: 193
 	
 	<?xml version="1.0" encoding="utf-8" ?>
 	<propertyupdate xmlns="DAV:" xmlns:h="urn:schemas:httpmail:">
@@ -157,31 +138,35 @@ what you need. Eg:
 	    </prop>
 	  </set>
 	</propertyupdate>
+	^D
 
-To generate the base64 in the Authorization line, type your username
-and password separated by a colon into emacs, then select it and do
-M-x base64-encode-region
+davcat handles a number of annoying bits for you, such as SSL (if
+requested), Authorization (using the same mechanisms as ebrowse), and
+the Host and Content-Length headers (as well as Content-Type, which
+defaults to "text/xml" if not specified). You can also specify
+HTTP/1.1 or HTTP/1.0 (or in fact, leave off the HTTP specification if
+you want 1.1), and if the server's response is in XML, davcat will
+automatically indent it.
 
-Note that the Content-Length includes the CRs that telnet will insert
-before the LFs. One way to get this number is to select the region in
-emacs, do M-=, and add the number of lines to the number of
-characters. You can also fudge and make the value too big and then
-just keep hitting return until you get a response back.
-
-The output from E2K_DEBUG should generally be directly pastable,
-except for needing Authorization and Content-Length.
+(In cases where davcat's preprocessing messes something up, you *can*
+just telnet to hostname:80 (or do "openssl s_client -connect
+hostname:443") and paste in a full HTTP request. The output from
+E2K_DEBUG should generally be directly pastable, except for needing
+Authorization and Content-Length.)
 
 
 Other test programs
 -------------------
-actest tests the autoconfig code. You must pass a username and
-password on the command line. If you don't have an OWA URL specified
-in your license, you must also pass that on the command line. If it
-can't figure out your GC server, it will tell you to pass that as
-well.
+actest tests the autoconfig code. You pass at least a username,
+usually an OWA URI as well, and sometimes a GC server (if it can't be
+autodetected from the OWA URI).
 
 fbtest fetches the current public freebusy data for a user and
 displays it as an ASCII chart. Note that this directly accesses their
 freebusy data file, rather than using the OWA interface like Connector
 does. (In other words, this program tests code that Connector does not
 use yet.)
+
+ruletest takes the URI of a folder (generally someone's inbox) and
+outputs a filters.xml-style description of the server-side rules in
+that folder.

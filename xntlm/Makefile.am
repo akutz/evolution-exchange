@@ -9,4 +9,5 @@ libxntlm_a_SOURCES =	\
 	xntlm-md4.h
 
 INCLUDES =		\
+	-I$(top_srcdir)	\
 	$(GLIB_CFLAGS)

@@ -45,7 +45,7 @@ e2k_freebusy_destroy (E2kFreebusy *fb)
 {
 	int i;
 
-	g_object_unref (fb->conn);
+	g_object_unref (fb->ctx);
 	for (i = 0; i < E2K_BUSYSTATUS_MAX; i++)
 		g_array_free (fb->events[i], TRUE);
 	g_free (fb->uri);
@@ -155,7 +155,7 @@ static const int n_public_freebusy_props = sizeof (public_freebusy_props) / size
 
 /**
  * e2k_freebusy_new:
- * @conn: an #E2kConnection
+ * @ctx: an #E2kContext
  * @public_uri: the URI of the MAPI public folder tree
  * @dn: the legacy Exchange DN of a user
  *
@@ -164,25 +164,29 @@ static const int n_public_freebusy_props = sizeof (public_freebusy_props) / size
  * public free/busy folder; the caller does not need permission to
  * access the @dn's Calendar.
  *
+ * Note that currently, this will fail and return %NULL if the user
+ * does not already have free/busy information stored on the server.
+ *
  * Return value: the freebusy information
  **/
 E2kFreebusy *
-e2k_freebusy_new (E2kConnection *conn, const char *public_uri, const char *dn)
+e2k_freebusy_new (E2kContext *ctx, const char *public_uri, const char *dn)
 {
 	E2kFreebusy *fb;
 	char *uri, *time;
 	GPtrArray *monthyears, *fbdatas;
-	int status, nresults, i;
+	E2kHTTPStatus status;
 	E2kResult *results;
+	int nresults, i;
 
 	uri = fb_uri_for_dn (public_uri, dn);
 	g_return_val_if_fail (uri, NULL);
 
-	status = e2k_connection_propfind_sync (conn, uri, "0",
-					       public_freebusy_props,
-					       n_public_freebusy_props,
-					       &results, &nresults);
-	if (!SOUP_ERROR_IS_SUCCESSFUL (status) || nresults == 0) {
+	status = e2k_context_propfind (ctx, NULL, uri,
+				       public_freebusy_props,
+				       n_public_freebusy_props,
+				       &results, &nresults);
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status) || nresults == 0) {
 		/* FIXME: create it */
 		g_free (uri);
 		return NULL;
@@ -191,8 +195,8 @@ e2k_freebusy_new (E2kConnection *conn, const char *public_uri, const char *dn)
 	fb = g_new0 (E2kFreebusy, 1);
 	fb->uri = uri;
 	fb->dn = g_strdup (dn);
-	fb->conn = conn;
-	g_object_ref (conn);
+	fb->ctx = ctx;
+	g_object_ref (ctx);
 
 	for (i = 0; i < E2K_BUSYSTATUS_MAX; i++)
 		fb->events[i] = g_array_new (FALSE, FALSE, sizeof (E2kFreebusyEvent));
@@ -377,17 +381,17 @@ static const int n_freebusy_props = sizeof (freebusy_props) / sizeof (freebusy_p
  * read) and adds them @fb. Any previously-existing events during that
  * range are removed.
  *
- * Return value: a soup status code.
+ * Return value: an HTTP status code.
  **/
-int
+E2kHTTPStatus
 e2k_freebusy_add_from_calendar_uri (E2kFreebusy *fb, const char *uri,
 				    time_t start_tt, time_t end_tt)
 {
 	char *start, *end, *busystatus;
 	E2kBusyStatus busy;
-	int status, nresults, i;
-	E2kResult *results;
 	E2kRestriction *rn;
+	E2kResultIter *iter;
+	E2kResult *result;
 
 	e2k_freebusy_clear_interval (fb, start_tt, end_tt);
 
@@ -406,23 +410,19 @@ e2k_freebusy_add_from_calendar_uri (E2kFreebusy *fb, const char *uri,
 					     E2K_RELOP_NE, "FREE"),
 		NULL);
 
-	status = e2k_connection_search_sync (fb->conn, uri,
-					     freebusy_props, n_freebusy_props,
-					     FALSE, rn, NULL,
-					     &results, &nresults);
+	iter = e2k_context_search_start (fb->ctx, NULL, uri,
+					 freebusy_props, n_freebusy_props,
+					 rn, NULL, TRUE);
 	e2k_restriction_unref (rn);
 	g_free (start);
 	g_free (end);
 
-	if (!SOUP_ERROR_IS_SUCCESSFUL (status))
-		return status;
-
-	for (i = 0; i < nresults; i++) {
-		start = e2k_properties_get_prop (results[i].props,
+	while ((result = e2k_result_iter_next (iter))) {
+		start = e2k_properties_get_prop (result->props,
 						 E2K_PR_CALENDAR_DTSTART);
-		end = e2k_properties_get_prop (results[i].props,
+		end = e2k_properties_get_prop (result->props,
 					       E2K_PR_CALENDAR_DTEND);
-		busystatus = e2k_properties_get_prop (results[i].props,
+		busystatus = e2k_properties_get_prop (result->props,
 						      E2K_PR_CALENDAR_BUSY_STATUS);
 		if (!start || !end || !busystatus)
 			continue;
@@ -440,8 +440,7 @@ e2k_freebusy_add_from_calendar_uri (E2kFreebusy *fb, const char *uri,
 			      
 	}
 
-	e2k_results_free (results, nresults);
-	return status;
+	return e2k_result_iter_free (iter);
 }
 
 static void
@@ -513,12 +512,20 @@ add_events (GArray *events_array, E2kProperties *props,
 	e2k_properties_set_binary_array (props, data_list_prop, datas);
 }
 
-int
+/**
+ * e2k_freebusy_save:
+ * @fb: an #E2kFreebusy
+ *
+ * Saves the data in @fb back to the server.
+ *
+ * Return value: a libsoup or HTTP status code
+ **/
+E2kHTTPStatus
 e2k_freebusy_save (E2kFreebusy *fb)
 {
 	E2kProperties *props;
 	char *timestamp;
-	int status;
+	E2kHTTPStatus status;
 
 	props = e2k_properties_new ();
 	e2k_properties_set_string (props, E2K_PR_EXCHANGE_MESSAGE_CLASS,
@@ -537,11 +544,11 @@ e2k_freebusy_save (E2kFreebusy *fb)
 	add_events (fb->events[E2K_BUSYSTATUS_OOF], props,
 		    PR_FREEBUSY_OOF_MONTHS, PR_FREEBUSY_OOF_EVENTS);
 
-	timestamp = e2k_make_timestamp (e2k_connection_get_last_timestamp (fb->conn));
+	timestamp = e2k_make_timestamp (e2k_context_get_last_timestamp (fb->ctx));
 	e2k_properties_set_date (props, PR_FREEBUSY_LAST_MODIFIED, timestamp);
 
-	status = e2k_connection_proppatch_sync (fb->conn, fb->uri,
-						props, TRUE);
+	status = e2k_context_proppatch (fb->ctx, NULL, fb->uri, props,
+					TRUE, NULL);
 	e2k_properties_free (props);
 
 	return status;

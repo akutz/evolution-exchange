@@ -23,107 +23,32 @@
 #include <config.h>
 #endif
 
+#include <ctype.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <pthread.h>
+#include <signal.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 #include <sys/stat.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <ctype.h>
+#include <unistd.h>
 
-#include <e-util/e-passwords.h>
-#include <libgnome/gnome-util.h>
-#include <libxml/tree.h>
-#include <libxml/parser.h>
-#include <libxml/xmlmemory.h>
+#include <libsoup/soup-misc.h>
 
-#include "e2k-connection.h"
+#include "e2k-context.h"
 #include "e2k-restriction.h"
 #include "e2k-security-descriptor.h"
+#include "e2k-sid.h"
 #include "e2k-xml-utils.h"
 
 #include "e2k-propnames.h"
 #include "e2k-propnames.c"
 
-extern char e2k_des_key[8];
-gboolean hotmail = FALSE;
-GMainLoop *loop;
+#include "test-utils.h"
 
-static gboolean
-http_error (SoupMessage *msg)
-{
-	if (SOUP_MESSAGE_IS_ERROR (msg)) {
-		printf ("%d %s\n", msg->errorcode, msg->errorphrase);
-		g_main_loop_quit (loop);
-		return TRUE;
-	}
-
-	return FALSE;
-}
-
-static E2kConnection *
-get_conn (const char *uri)
-{
-	E2kConnection *conn;
-	SoupUri *suri;
-	char *key;
-
-	conn = e2k_connection_new (uri);
-	if (!conn) {
-		printf ("Could not create connection\n");
-		exit (1);
-	}
-
-	suri = soup_uri_new (uri);
-	if (suri->user && suri->passwd) {
-		soup_uri_free (suri);
-		return conn;
-	}
-
-	if (!suri->user)
-		suri->user = g_strdup (g_get_user_name ());
-	key = g_strdup_printf ("exchange://%s@%s", suri->user, suri->host);
-	suri->passwd = e_passwords_get_password ("Exchange", key);
-	if (!suri->passwd) {
-		printf ("No password info available for %s\n", key);
-		exit (1);
-	}
-	g_free (key);
-
-	e2k_connection_set_auth (conn, suri->user, NULL, NULL, suri->passwd);
-	soup_uri_free (suri);
-	return conn;
-}
-
-
-static void
-done (E2kConnection *conn, SoupMessage *msg, gpointer data)
-{
-	http_error (msg);
-	g_main_loop_quit (loop);
-}
-
-static void
-got_folder_tree (E2kConnection *conn, SoupMessage *msg, E2kResult *results,
-		 int nresults, gpointer user_data)
-{
-	char *name, *class;
-	int i;
-
-	if (http_error (msg))
-		return;
-
-	for (i = 0; i < nresults; i++) {
-		name = e2k_properties_get_prop (results[i].props,
-						E2K_PR_DAV_DISPLAY_NAME);
-		class = e2k_properties_get_prop (results[i].props,
-						 E2K_PR_EXCHANGE_FOLDER_CLASS);
-
-		printf ("%s:\n    %s, %s\n", results[i].href,
-			name, class ? class : "(No Outlook folder class)");
-	}
-	g_main_loop_quit (loop);
-}
+static E2kContext *ctx;
+static E2kOperation op;
 
 static const char *folder_tree_props[] = {
 	E2K_PR_DAV_DISPLAY_NAME,
@@ -132,50 +57,67 @@ static const char *folder_tree_props[] = {
 static const int n_folder_tree_props = sizeof (folder_tree_props) / sizeof (folder_tree_props[0]);
 
 static void
-display_folder_tree (char *top)
+display_folder_tree (E2kContext *ctx, char *top)
 {
-	E2kConnection *conn;
+	E2kRestriction *rn;
+	E2kResultIter *iter;
+	E2kResult *result;
+	int status;
+	const char *name, *class;
 
-	conn = get_conn (top);
-	e2k_connection_search (conn, top,
-			       folder_tree_props, n_folder_tree_props,
-			       TRUE, NULL, NULL,
-			       got_folder_tree, NULL);
-}
+	e2k_operation_init (&op);
+	rn = e2k_restriction_prop_bool (E2K_PR_DAV_IS_COLLECTION,
+					E2K_RELOP_EQ, TRUE);
+	iter = e2k_context_search_start (ctx, &op, top,
+					 folder_tree_props,
+					 n_folder_tree_props,
+					 rn, NULL, TRUE);
+	e2k_restriction_unref (rn);
 
-static int
-listing_contents (E2kConnection *conn, SoupMessage *msg,
-		  E2kResult *results, int nresults,
-		  int first, int total, gpointer user_data)
-{
-	int i;
+	while ((result = e2k_result_iter_next (iter))) {
+		name = e2k_properties_get_prop (result->props,
+						E2K_PR_DAV_DISPLAY_NAME);
+		class = e2k_properties_get_prop (result->props,
+						 E2K_PR_EXCHANGE_FOLDER_CLASS);
 
-	for (i = 0; i < nresults; i++) {
-		printf ("%3d %s (%s)\n", first + i, results[i].href,
-			(char *)e2k_properties_get_prop (results[i].props,
-							 E2K_PR_DAV_DISPLAY_NAME));
+		printf ("%s:\n    %s, %s\n", result->href,
+			name, class ? class : "(No Outlook folder class)");
 	}
+	status = e2k_result_iter_free (iter);
+	e2k_operation_free (&op);
 
-	return nresults;
+	test_abort_if_http_error (status);
+	test_quit ();
 }
 
 static void
-list_contents (char *top)
+list_contents (E2kContext *ctx, char *top, gboolean reverse)
 {
-	E2kConnection *conn;
 	E2kRestriction *rn;
+	E2kResultIter *iter;
+	E2kResult *result;
 	const char *prop;
+	int status;
 
-	conn = get_conn (top);
-
+	e2k_operation_init (&op);
 	prop = E2K_PR_DAV_DISPLAY_NAME;
 	rn = e2k_restriction_prop_bool (E2K_PR_DAV_IS_COLLECTION,
 					E2K_RELOP_EQ, FALSE);
-	e2k_connection_search_with_progress (conn, top,
-					     &prop, 1, rn, NULL,
-					     10, TRUE,
-					     listing_contents, done, NULL);
+	iter = e2k_context_search_start (ctx, &op, top, &prop, 1,
+					 rn, NULL, !reverse);
 	e2k_restriction_unref (rn);
+
+	while ((result = e2k_result_iter_next (iter))) {
+		printf ("%3d %s (%s)\n", e2k_result_iter_get_index (iter),
+			result->href,
+			(char *)e2k_properties_get_prop (result->props,
+							 E2K_PR_DAV_DISPLAY_NAME));
+	}
+	status = e2k_result_iter_free (iter);
+	e2k_operation_free (&op);
+
+	test_abort_if_http_error (status);
+	test_quit ();
 }
 
 static int
@@ -223,21 +165,35 @@ print_binary (GByteArray *data)
 	}
 }
 
-static void
-print_prop (const char *propname, E2kPropType type, gpointer data,
-	    gpointer user_data)
-{
-	print_propname (propname);
+typedef struct {
+	const char *propname;
+	E2kPropType type;
+	gpointer value;
+} EBrowseProp;
 
-	switch (type) {
+static int
+prop_compar (const void *a, const void *b)
+{
+	EBrowseProp **pa = (void *)a;
+	EBrowseProp **pb = (void *)b;
+
+	return strcmp ((*pa)->propname, (*pb)->propname);
+}
+
+static void
+print_prop (EBrowseProp *prop)
+{
+	print_propname (prop->propname);
+
+	switch (prop->type) {
 	case E2K_PROP_TYPE_BINARY:
-		print_binary (data);
+		print_binary (prop->value);
 		break;
 
 	case E2K_PROP_TYPE_STRING_ARRAY:
 	case E2K_PROP_TYPE_INT_ARRAY:
 	{
-		GPtrArray *array = data;
+		GPtrArray *array = prop->value;
 		int i;
 
 		for (i = 0; i < array->len; i++)
@@ -247,7 +203,7 @@ print_prop (const char *propname, E2kPropType type, gpointer data,
 
 	case E2K_PROP_TYPE_BINARY_ARRAY:
 	{
-		GPtrArray *array = data;
+		GPtrArray *array = prop->value;
 		int i;
 
 		for (i = 0; i < array->len; i++) {
@@ -263,38 +219,57 @@ print_prop (const char *propname, E2kPropType type, gpointer data,
 
 	case E2K_PROP_TYPE_STRING:
 	default:
-		printf ("    %s\n", (char *)data);
+		printf ("    %s\n", (char *)prop->value);
 		break;
 	}
 }
 
 static void
-got_properties (E2kConnection *conn, SoupMessage *msg, E2kResult *results, 
-		int nresults, gpointer user_data)
+add_prop (const char *propname, E2kPropType type, gpointer value, gpointer props)
 {
-	int i;
+	EBrowseProp *prop;
 
-	if (http_error (msg))
-		return;
-
-	for (i = 0; i < nresults; i++) {
-		printf ("%s\n", results[i].href);
-		e2k_properties_foreach (results[i].props, print_prop, NULL);
-	}
-	g_main_loop_quit (loop);
+	prop = g_new0 (EBrowseProp, 1);
+	prop->propname = propname;
+	prop->type = type;
+	prop->value = value;
+	g_ptr_array_add (props, prop);
 }
 
 static void
-got_all_properties (SoupMessage *msg, gpointer conn)
+print_properties (E2kResult *results, int nresults)
+{
+	GPtrArray *props;
+	int i;
+
+	if (nresults != 1) {
+		printf ("Got %d results?\n", nresults);
+		test_quit ();
+		return;
+	}
+
+	printf ("%s\n", results[0].href);
+	props = g_ptr_array_new ();
+	e2k_properties_foreach (results[0].props, add_prop, props);
+	qsort (props->pdata, props->len, sizeof (gpointer), prop_compar); 
+
+	for (i = 0; i < props->len; i++)
+		print_prop (props->pdata[i]);
+
+	test_quit ();
+}
+
+static void
+got_all_properties (SoupMessage *msg, gpointer ctx)
 {
 	E2kResult *results;
 	int nresults;
 
-	if (http_error (msg))
-		return;
+	test_abort_if_http_error (msg->status_code);
 
 	e2k_results_from_multistatus (msg, &results, &nresults);
-	got_properties (conn, msg, results, nresults, NULL);
+	test_abort_if_http_error (msg->status_code);
+	print_properties (results, nresults);
 	e2k_results_free (results, nresults);
 }
 
@@ -308,26 +283,25 @@ got_all_properties (SoupMessage *msg, gpointer conn)
 "</propfind>"
 
 static void
-get_all_properties (char *uri)
+get_all_properties (E2kContext *ctx, char *uri)
 {
-	E2kConnection *conn;
 	SoupMessage *msg;
 
-	conn = get_conn (uri);
-	msg = e2k_soup_message_new_full (conn, uri, "PROPFIND",
+	msg = e2k_soup_message_new_full (ctx, uri, "PROPFIND",
 					 "text/xml", SOUP_BUFFER_USER_OWNED,
 					 ALL_PROPS, strlen (ALL_PROPS));
 	soup_message_add_header (msg->request_headers, "Brief", "t");
 	soup_message_add_header (msg->request_headers, "Depth", "0");
 
-	e2k_soup_message_queue (msg, got_all_properties, conn);
+	e2k_context_queue_message (ctx, msg, got_all_properties, ctx);
 }
 
 static void
-get_property (char *uri, char *prop)
+get_property (E2kContext *ctx, char *uri, char *prop)
 {
-	E2kConnection *conn;
-	int i;
+	E2kHTTPStatus status;
+	E2kResult *results;
+	int nresults, i;
 
 	if (!strncmp (prop, "PR_", 3)) {
 		for (i = 0; i < nmapi_proptags; i++)
@@ -339,16 +313,80 @@ get_property (char *uri, char *prop)
 			}
 	}
 
-	conn = get_conn (uri);
-	e2k_connection_propfind (conn, uri, "0",
-				 (const char **)&prop, 1,
-				 got_properties, NULL);
+	e2k_operation_init (&op);
+	status = e2k_context_propfind (ctx, &op, uri,
+				       (const char **)&prop, 1,
+				       &results, &nresults);
+	e2k_operation_free (&op);
+	test_abort_if_http_error (status);
+	print_properties (results, nresults);
+	e2k_results_free (results, nresults);
 }
 
 static void
-got_sd (E2kConnection *conn, SoupMessage *msg, E2kResult *results, 
-	int nresults, gpointer user_data)
+get_fav_properties(E2kContext *ctx, char *uri)
 {
+	E2kRestriction *rn;
+	E2kResultIter *iter;
+	E2kResult *result;
+	const char *prop;
+	int status;
+	char *eml_str, *top = uri, fav_uri[1024];
+
+	
+	/* list the contents and search for the favorite properties */
+	e2k_operation_init (&op);
+	prop = E2K_PR_DAV_DISPLAY_NAME;
+	rn = e2k_restriction_prop_bool (E2K_PR_DAV_IS_COLLECTION,
+					E2K_RELOP_EQ, FALSE);
+	iter = e2k_context_search_start (ctx, &op, top, &prop, 1,
+                                         rn, NULL, FALSE);
+	e2k_restriction_unref (rn);
+
+	while ((result = e2k_result_iter_next (iter))) {
+		strcpy(fav_uri, uri);
+		eml_str = strstr(result->href, "Shortcuts");
+		eml_str = eml_str + strlen("Shortcuts");
+
+		strcat(fav_uri, eml_str);
+
+		printf("\nNAME:\n");
+		get_property (ctx, fav_uri, PR_FAV_DISPLAY_NAME);
+		printf("\nALIAS:\n");
+		get_property (ctx, fav_uri, PR_FAV_DISPLAY_ALIAS);
+		printf("\nPUBLIC SOURCE KEY:\n");
+		get_property (ctx, fav_uri, PR_FAV_PUBLIC_SOURCE_KEY);
+		printf("\nPARENT SOURCE KEY:\n");
+		get_property (ctx, fav_uri, PR_FAV_PARENT_SOURCE_KEY);
+		printf("\nAUTO SUBFOLDERS:\n");
+		get_property (ctx, fav_uri, PR_FAV_AUTOSUBFOLDERS);
+		printf("\nLEVEL MASK:\n");
+		get_property (ctx, fav_uri, PR_FAV_LEVEL_MASK);
+		printf("\nINHERIT AUTO:\n");
+		get_property (ctx, fav_uri, PR_FAV_INHERIT_AUTO);
+		printf("\nDEL SUBS:\n");
+		get_property (ctx, fav_uri, PR_FAV_DEL_SUBS);
+		printf("\n\t\t=================================================\n");
+
+		memset(fav_uri, 0, 1024);
+	}
+	status = e2k_result_iter_free (iter);
+	e2k_operation_free (&op);
+
+	test_abort_if_http_error (status);
+	test_quit ();
+}
+
+static void
+get_sd (E2kContext *ctx, char *uri)
+{
+	const char *props[] = {
+		E2K_PR_EXCHANGE_SD_BINARY,
+		E2K_PR_EXCHANGE_SD_XML,
+	};
+	E2kHTTPStatus status;
+	E2kResult *results;
+	int nresults;
 	xmlNodePtr xml_form;
 	GByteArray *binary_form;
 	E2kSecurityDescriptor *sd;
@@ -356,10 +394,12 @@ got_sd (E2kConnection *conn, SoupMessage *msg, E2kResult *results,
 	guint32 perms;
 	GList *sids, *s;
 	E2kSid *sid;
-	char *start, *end;
 
-	if (http_error (msg))
-		return;
+	e2k_operation_init (&op);
+	status = e2k_context_propfind (ctx, &op, uri, props, 2,
+				       &results, &nresults);
+	e2k_operation_free (&op);
+	test_abort_if_http_error (status);
 
 	if (nresults == 0)
 		goto done;
@@ -371,13 +411,8 @@ got_sd (E2kConnection *conn, SoupMessage *msg, E2kResult *results,
 	if (!xml_form || !binary_form)
 		goto done;
 
-	start = strstr (msg->response.body, "security_descriptor");
-	end = strstr (start + 1, "security_descriptor>");
-	while (*start != '<')
-		start--;
-	while (*end != '>')
-		end++;
-	printf ("%.*s\n\n", end - start + 1, start);
+	xmlElemDump (stdout, NULL, xml_form);
+	printf ("\n");
 
 	print_binary (binary_form);
 	printf ("\n");
@@ -405,179 +440,152 @@ got_sd (E2kConnection *conn, SoupMessage *msg, E2kResult *results,
 	g_object_unref (sd);
 
  done:
-	g_main_loop_quit (loop);
+	test_quit ();
 }
 
 static void
-get_sd (char *uri)
+get_body (E2kContext *ctx, char *uri)
 {
-	E2kConnection *conn;
-	const char *props[] = {
-		E2K_PR_EXCHANGE_SD_BINARY,
-		E2K_PR_EXCHANGE_SD_XML,
-	};
+	E2kHTTPStatus status;
+	char *body;
+	int len;
 
-	conn = get_conn (uri);
-	e2k_connection_propfind (conn, uri, "0", props, 2, got_sd, NULL);
+	e2k_operation_init (&op);
+	status = e2k_context_get (ctx, &op, uri, NULL, &body, &len);
+	e2k_operation_free (&op);
+	test_abort_if_http_error (status);
+
+	fwrite (body, 1, len, stdout);
+	test_quit ();
 }
 
 static void
-got_body (E2kConnection *conn, SoupMessage *msg, gpointer data)
+delete (E2kContext *ctx, char *uri)
 {
-	if (msg->errorclass == SOUP_ERROR_CLASS_TRANSPORT) {
-		printf ("Soup error: %d\n", msg->errorcode);
-		g_main_loop_quit (loop);
-		return;
-	}
+	E2kHTTPStatus status;
 
-	if (SOUP_MESSAGE_IS_ERROR (msg))
-		printf ("%d %s\n", msg->errorcode, msg->errorphrase);
-	else
-		fwrite (msg->response.body, 1, msg->response.length, stdout);
-
-	g_main_loop_quit (loop);
+	e2k_operation_init (&op);
+	status = e2k_context_delete (ctx, &op, uri);
+	e2k_operation_free (&op);
+	test_abort_if_http_error (status);
+	test_quit ();
 }
 
 static void
-get_body (char *uri)
-{
-	E2kConnection *conn;
-
-	conn = get_conn (uri);
-	e2k_connection_get (conn, uri, got_body, NULL);
-}
-
-static void
-delete (char *uri)
-{
-	E2kConnection *conn;
-
-	conn = get_conn (uri);
-	e2k_connection_delete (conn, uri, done, NULL);
-}
-
-static void
-notify (E2kConnection *conn, const char *uri,
-	E2kConnectionChangeType type, gpointer user_data)
+notify (E2kContext *ctx, const char *uri,
+	E2kContextChangeType type, gpointer user_data)
 {
 	switch (type) {
-	case E2K_CONNECTION_OBJECT_CHANGED:
+	case E2K_CONTEXT_OBJECT_CHANGED:
 		printf ("Changed\n");
 		break;
-	case E2K_CONNECTION_OBJECT_ADDED:
+	case E2K_CONTEXT_OBJECT_ADDED:
 		printf ("Added\n");
 		break;
-	case E2K_CONNECTION_OBJECT_REMOVED:
+	case E2K_CONTEXT_OBJECT_REMOVED:
 		printf ("Removed\n");
 		break;
-	case E2K_CONNECTION_OBJECT_MOVED:
+	case E2K_CONTEXT_OBJECT_MOVED:
 		printf ("Moved\n");
 		break;
 	}
 }
 
 static void
-subscribe (char *uri)
+subscribe (E2kContext *ctx, char *uri)
 {
-	E2kConnection *conn;
-
-	conn = get_conn (uri);
-
-	e2k_connection_subscribe (conn, uri,
-				  E2K_CONNECTION_OBJECT_CHANGED, 0,
-				  notify, NULL);
-	e2k_connection_subscribe (conn, uri,
-				  E2K_CONNECTION_OBJECT_ADDED, 0,
-				  notify, NULL);
-	e2k_connection_subscribe (conn, uri,
-				  E2K_CONNECTION_OBJECT_REMOVED, 0,
-				  notify, NULL);
-	e2k_connection_subscribe (conn, uri,
-				  E2K_CONNECTION_OBJECT_MOVED, 0,
-				  notify, NULL);
+	e2k_context_subscribe (ctx, uri,
+			       E2K_CONTEXT_OBJECT_CHANGED, 0,
+			       notify, NULL);
+	e2k_context_subscribe (ctx, uri,
+			       E2K_CONTEXT_OBJECT_ADDED, 0,
+			       notify, NULL);
+	e2k_context_subscribe (ctx, uri,
+			       E2K_CONTEXT_OBJECT_REMOVED, 0,
+			       notify, NULL);
+	e2k_context_subscribe (ctx, uri,
+			       E2K_CONTEXT_OBJECT_MOVED, 0,
+			       notify, NULL);
 }
 
 static void
-moved (E2kConnection *conn, SoupMessage *msg,
-       E2kResult *results, int nresults, gpointer data)
+move (E2kContext *ctx, char *from, char *to, gboolean delete)
 {
-	if (http_error (msg))
-		return;
-	if (!nresults)
-		printf ("?\n");
-	else if (!SOUP_ERROR_IS_SUCCESSFUL (results[0].status))
-		printf ("Failed: %d\n", results[0].status);
-	else {
-		printf ("moved to %s\n",
-			(char *)e2k_properties_get_prop (results[0].props,
-							 E2K_PR_DAV_LOCATION));
+	GPtrArray *source_hrefs;
+	E2kResultIter *iter;
+	E2kResult *result;
+	E2kHTTPStatus status;
+
+	source_hrefs = g_ptr_array_new ();
+	g_ptr_array_add (source_hrefs, "");
+
+	e2k_operation_init (&op);
+	iter = e2k_context_transfer_start (ctx, &op, from, to,
+					   source_hrefs, delete);
+	g_ptr_array_free (source_hrefs, TRUE);
+
+	result = e2k_result_iter_next (iter);
+	if (result) {
+		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (result->status))
+			printf ("Failed: %d\n", result->status);
+		else {
+			printf ("moved to %s\n",
+				(char *)e2k_properties_get_prop (result->props,
+								 E2K_PR_DAV_LOCATION));
+		}
 	}
-	g_main_loop_quit (loop);
+	status = e2k_result_iter_free (iter);
+	e2k_operation_free (&op);
+
+	test_abort_if_http_error (status);
+	test_quit ();
 }
 
 static void
-move (char *from, char *to, gboolean delete)
+name (E2kContext *ctx, char *alias, char *uri_prefix)
 {
-	E2kConnection *conn;
-
-	conn = get_conn (from);
-
-	e2k_connection_transfer (conn, from, to, "<href></href>",
-				 delete, moved, NULL);
-}
-
-static void
-named (E2kConnection *conn, SoupMessage *msg, gpointer user_data)
-{
+	E2kHTTPStatus status;
+	char *uri, *body;
+	int len;
 	xmlDoc *doc;
-	xmlNode *node;
+	xmlNode *item, *node;
 	char *data;
 
-	if (http_error (msg))
-		return;
-
-	doc = e2k_parse_xml (msg->response.body, msg->response.length);
-	if (!doc || !doc->xmlRootNode || !doc->xmlRootNode->xmlChildrenNode ||
-	    !doc->xmlRootNode->xmlChildrenNode->xmlChildrenNode) {
-		printf ("Unknown\n");
-		g_main_loop_quit (loop);
-		return;
-	}
-	node = doc->xmlRootNode->xmlChildrenNode->xmlChildrenNode;
-	if (!strcmp (node->name, "error")) {
-		printf ("Error: %s\n", xmlNodeGetContent (node));
-		g_main_loop_quit (loop);
-		return;
-	}
-
-	for (node = node->xmlChildrenNode; node; node = node->next) {
-		data = xmlNodeGetContent (node);
-		if (data && *data)
-			printf ("%s: %s\n", node->name, data);
-		xmlFree (data);
-	}
-	xmlFreeDoc (doc);
-	g_main_loop_quit (loop);
-}
-
-static void
-name (char *alias, char *uri_prefix)
-{
-	E2kConnection *conn;
-	char *uri;
-
 	uri = g_strdup_printf ("%s?Cmd=galfind&AN=%s", uri_prefix, alias);
-	conn = get_conn (uri);
-	e2k_connection_get_owa (conn, uri, TRUE, named, NULL);
+	e2k_operation_init (&op);
+	status = e2k_context_get_owa (ctx, &op, uri, TRUE, &body, &len);
+	e2k_operation_free (&op);
+	test_abort_if_http_error (status);
+
+	doc = e2k_parse_xml (body, len);
+
+	if ((node = e2k_xml_find (doc->children, "error")))
+		printf ("Error: %s\n", xmlNodeGetContent (node));
+	else {
+		item = doc->children;
+		while ((item = e2k_xml_find (item, "item"))) {
+			for (node = item->children; node; node = node->next) {
+				if (node->type == XML_ELEMENT_NODE) {
+					data = xmlNodeGetContent (node);
+					if (data && *data)
+						printf ("%s: %s\n", node->name, data);
+					xmlFree (data);
+				}
+			}
+		}
+	}
+
+	xmlFreeDoc (doc);
+	test_quit ();
 }
 
 static void
-put (const char *file, const char *uri)
+put (E2kContext *ctx, const char *file, const char *uri)
 {
-	E2kConnection *conn;
 	struct stat st;
 	char *buf;
 	int fd;
+	E2kHTTPStatus status;
 
 	fd = open (file, O_RDONLY);
 	if (fd == -1 || fstat (fd, &st) == -1) {
@@ -586,17 +594,43 @@ put (const char *file, const char *uri)
 	}
 	buf = g_malloc (st.st_size);
 	read (fd, buf, st.st_size);
+	close (fd);
 
-	conn = get_conn (uri);
-	e2k_connection_put (conn, uri, "message/rfc822", buf, st.st_size,
-			    done, NULL);
+	e2k_operation_init (&op);
+	status = e2k_context_put (ctx, &op, uri,
+				  "message/rfc822", buf, st.st_size,
+				  NULL);
+	e2k_operation_free (&op);
+	test_abort_if_http_error (status);
+	test_quit ();
+}
+
+static void *
+cancel (void *op)
+{
+	e2k_operation_cancel (op);
+	return NULL;
+}
+
+static void
+quit (int sig)
+{
+	static pthread_t cancel_thread;
+
+	/* Can't cancel from here because we might be
+	 * inside a malloc.
+	 */
+	if (!cancel_thread) {
+		pthread_create (&cancel_thread, NULL, cancel, &op);
+	} else
+		exit (0);
 }
 
 static void
 usage (void)
 {
 	printf ("usage: ebrowse -t URI                       (shallow folder tree)\n");
-	printf ("       ebrowse -l URI                       (contents listing)\n");
+	printf ("       ebrowse [-l | -L ] URI               (contents listing [back/forward])\n");
 	printf ("       ebrowse [ -p | -P prop ] URI         (look up all/one prop)\n");
 	printf ("       ebrowse -S URI                       (look up security descriptor)\n");
 	printf ("       ebrowse -b URI                       (fetch body)\n");
@@ -605,92 +639,77 @@ usage (void)
 	printf ("       ebrowse -s URI                       (subscribe and listen)\n");
 	printf ("       ebrowse [ -m | -c ] SRC DEST         (move/copy)\n");
 	printf ("       ebrowse -n ALIAS URI                 (lookup name)\n");
+	printf ("       ebrowse -f URI                 	     (lookup favorite folder props)\n");
 	exit (1);
 }
 
-char **global_argv;
-int global_argc;
+const char *test_program_name = "ebrowse";
 
-static gboolean
-idle_parse_argv (gpointer data)
+void
+test_main (int argc, char **argv)
 {
 	char *uri;
 
-	uri = global_argv[global_argc - 1];
+	signal (SIGINT, quit);
 
-	if (global_argv[1][1] == 'h') {
-		global_argv++;
-		hotmail = TRUE;
-	}
+	uri = argv[argc - 1];
+	ctx = test_get_context (uri);
 
-	switch (global_argv[1][1]) {
+	switch (argv[1][1]) {
 	case 't':
-		display_folder_tree (uri);
+		display_folder_tree (ctx, uri);
 		break;
 
 	case 'l':
-		list_contents (uri);
+		list_contents (ctx, uri, FALSE);
+		break;
+
+	case 'L':
+		list_contents (ctx, uri, TRUE);
 		break;
 
 	case 'b':
-		get_body (uri);
+		get_body (ctx, uri);
 		break;
 
 	case 'd':
-		delete (uri);
+		delete (ctx, uri);
 		break;
 
 	case 'p':
-		get_all_properties (uri);
+		get_all_properties (ctx, uri);
 		break;
 
 	case 'P':
-		get_property (uri, global_argv[2]);
+		get_property (ctx, uri, argv[2]);
 		break;
 
 	case 'S':
-		get_sd (uri);
+		get_sd (ctx, uri);
 		break;
 
 	case 's':
-		subscribe (uri);
+		subscribe (ctx, uri);
 		break;
 
 	case 'm':
 	case 'c':
-		move (global_argv[2], uri, global_argv[1][1] == 'm');
+		move (ctx, argv[2], uri, argv[1][1] == 'm');
 		break;
 
 	case 'n':
-		name (global_argv[2], uri);
+		name (ctx, argv[2], uri);
 		break;
 
 	case 'q':
-		put (global_argv[2], uri);
+		put (ctx, argv[2], uri);
+		break;
+
+	case 'f':
+		get_fav_properties(ctx, uri);
 		break;
 
 	default:
 		usage ();
 	}
-
-	return FALSE;
-}
-
-int
-main (int argc, char **argv)
-{
-	gnome_program_init ("ebrowse", VERSION, LIBGNOME_MODULE,
-			    argc, argv, NULL);
-
-	if (argc == 1 || argv[1][0] != '-')
-		usage ();
-
-	global_argc = argc;
-	global_argv = argv;
-	g_idle_add (idle_parse_argv, NULL);
-
-	loop = g_main_loop_new (NULL, TRUE);
-	g_main_loop_run (loop);
-
-	return 0;
 }

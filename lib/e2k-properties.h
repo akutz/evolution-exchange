@@ -39,9 +39,6 @@ gboolean       e2k_properties_empty             (E2kProperties *props);
 void           e2k_properties_set_string        (E2kProperties *props,
 						 const char    *propname,
 						 char          *value);
-void           e2k_properties_set_static_string (E2kProperties *props,
-						 const char    *propname,
-						 const char    *value);
 void           e2k_properties_set_string_array  (E2kProperties *props,
 						 const char    *propname,
 						 GPtrArray     *value);
@@ -71,11 +68,11 @@ void           e2k_properties_set_date          (E2kProperties *props,
 						 char          *value);
 
 void           e2k_properties_set_type_as_string       (E2kProperties *props,
-							const char    *pname,
+							const char    *propname,
 							E2kPropType    type,
 							char          *value);
 void           e2k_properties_set_type_as_string_array (E2kProperties *props,
-							const char    *pname,
+							const char    *propname,
 							E2kPropType    type,
 							GPtrArray     *value);
 
@@ -88,10 +85,10 @@ typedef void (*E2kPropertiesForeachFunc)        (const char    *propname,
 						 gpointer       value,
 						 gpointer       user_data);
 void           e2k_properties_foreach           (E2kProperties *props,
-						 E2kPropertiesForeachFunc cb,
+						 E2kPropertiesForeachFunc callback,
 						 gpointer       user_data);
 void           e2k_properties_foreach_removed   (E2kProperties *props,
-						 E2kPropertiesForeachFunc cb,
+						 E2kPropertiesForeachFunc callback,
 						 gpointer       user_data);
 
 
@@ -106,9 +103,21 @@ const char *e2k_prop_namespace_name   (const char *prop);
 char        e2k_prop_namespace_abbrev (const char *prop);
 const char *e2k_prop_property_name    (const char *prop);
 
-void        e2k_prop_write_value      (GString     *out,
-				       const char  *propname,
-				       E2kPropType  type,
-				       gpointer     value);
+guint32     e2k_prop_proptag          (const char *prop);
+const char *e2k_proptag_prop          (guint32     proptag);
+
+#define E2K_PROPTAG_TYPE(proptag) (proptag & 0xFFFF)
+#define E2K_PROPTAG_ID(proptag) (proptag & 0xFFFF0000)
+
+#define E2K_PT_SHORT    0x0002
+#define E2K_PT_LONG     0x0003
+#define E2K_PT_ERROR    0x000a
+#define E2K_PT_BOOLEAN  0x000b
+#define E2K_PT_OBJECT   0x000d
+#define E2K_PT_LONGLONG 0x0014
+#define E2K_PT_STRING8  0x001e
+#define E2K_PT_UNICODE  0x001f
+#define E2K_PT_SYSTIME  0x0040
+#define E2K_PT_BINARY   0x0102
 
 #endif /* __E2K_PROPERTIES_H__ */

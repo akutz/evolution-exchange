@@ -57,13 +57,8 @@ Different pieces of this information are stored in different places:
 		x686b1003  boolean "can see private items" values
 
 	4. Meeting request forwarding is controlled by a server-side
-           rule in Inbox. While we don't completely understand the
-           format of server-side rule data, we can at least tell if
-           someone is receiving meeting requests, because there will
-           be a hidden message in Inbox with a PR_RULE_MSG_PROVIDER
-	   of "Schedule+ EMS Interface" and a PR_RULE_MSG_ACTIONS
-           that contains (among other stuff) the entryid of that
-           delegate.
+           rule in Inbox with a PR_RULE_MSG_PROVIDER of "Schedule+ EMS
+           Interface"
 
 
 Private items can be recognized by PR_SENSITIVITY being 2. (0

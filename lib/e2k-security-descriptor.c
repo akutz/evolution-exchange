@@ -22,6 +22,7 @@
 #endif
 
 #include "e2k-security-descriptor.h"
+#include "e2k-sid.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -415,6 +416,21 @@ parse_acl (E2kSecurityDescriptor *sd, GByteArray *binsd, guint16 *off)
 	return TRUE;
 }
 
+/**
+ * e2k_security_descriptor_new:
+ * @xml_form: the XML form of the folder's security descriptor
+ * (The "http://schemas.microsoft.com/exchange/security/descriptor"
+ * property, aka %E2K_PR_EXCHANGE_SD_XML)
+ * @binary_form: the binary form of the folder's security descriptor
+ * (The "http://schemas.microsoft.com/exchange/ntsecuritydescriptor"
+ * property, aka %E2K_PR_EXCHANGE_SD_BINARY)
+ *
+ * Constructs an #E2kSecurityDescriptor from the data in @xml_form and
+ * @binary_form.
+ *
+ * Return value: the security descriptor, or %NULL if the data could
+ * not be parsed.
+ **/
 E2kSecurityDescriptor *
 e2k_security_descriptor_new (xmlNodePtr xml_form, GByteArray *binary_form)
 {
@@ -475,6 +491,15 @@ e2k_security_descriptor_new (xmlNodePtr xml_form, GByteArray *binary_form)
 	return NULL;
 }
 
+/**
+ * e2k_security_descriptor_to_binary:
+ * @sd: an #E2kSecurityDescriptor
+ *
+ * Converts @sd back to binary (#E2K_PR_EXCHANGE_SD_BINARY) form
+ * so it can be PROPPATCHed back to the server.
+ *
+ * Return value: the binary form of @sd.
+ **/
 GByteArray *
 e2k_security_descriptor_to_binary (E2kSecurityDescriptor *sd)
 {
@@ -556,12 +581,36 @@ e2k_security_descriptor_to_binary (E2kSecurityDescriptor *sd)
 	return binsd;
 }
 
+/**
+ * e2k_security_descriptor_get_default:
+ * @sd: a security descriptor
+ *
+ * Returns an #E2kSid corresponding to the default permissions
+ * associated with @sd. You can pass this to
+ * e2k_security_descriptor_get_permissions() and
+ * e2k_security_descriptor_set_permissions().
+ *
+ * Return value: the "Default" SID
+ **/
 E2kSid *
 e2k_security_descriptor_get_default (E2kSecurityDescriptor *sd)
 {
 	return sd->priv->default_sid;
 }
 
+/**
+ * e2k_security_descriptor_get_sids:
+ * @sd: a security descriptor
+ *
+ * Returns a #GList containing the SIDs of each user or group
+ * represented in @sd. You can pass these SIDs to
+ * e2k_security_descriptor_get_permissions(),
+ * e2k_security_descriptor_set_permissions(), and
+ * e2k_security_descriptor_remove_sid.
+ *
+ * Return value: a list of SIDs. The caller must free the list
+ * with g_list_free(), but should not free the contents.
+ **/
 GList *
 e2k_security_descriptor_get_sids (E2kSecurityDescriptor *sd)
 {
@@ -586,6 +635,15 @@ e2k_security_descriptor_get_sids (E2kSecurityDescriptor *sd)
 	return sids;
 }
 
+/**
+ * e2k_security_descriptor_remove_sid:
+ * @sd: a security descriptor
+ * @sid: a SID
+ *
+ * Removes @sid from @sd. If @sid is a user, this means s/he will now
+ * have only the default permissions on @sd (unless s/he is a member
+ * of a group that is also present in @sd.)
+ **/
 void
 e2k_security_descriptor_remove_sid (E2kSecurityDescriptor *sd,
 				    E2kSid *sid)
@@ -617,6 +675,17 @@ e2k_security_descriptor_remove_sid (E2kSecurityDescriptor *sd,
 	}
 }
 
+/**
+ * e2k_security_descriptor_get_permissions:
+ * @sd: a security descriptor
+ * @sid: a SID
+ *
+ * Computes the MAPI permissions associated with @sid. (Only the
+ * permissions *directly* associated with @sid, not any acquired via
+ * group memberships or the Default SID.)
+ *
+ * Return value: the MAPI permissions
+ **/
 guint32
 e2k_security_descriptor_get_permissions (E2kSecurityDescriptor *sd,
 					 E2kSid *sid)
@@ -690,9 +759,17 @@ set_ace (E2kSecurityDescriptor *sd, E2k_ACE *ace)
 		g_array_insert_vals (sd->priv->aces, cmp < 0 ? mid : mid + 1, ace, 1);
 }
 
+/**
+ * e2k_security_descriptor_set_permissions:
+ * @sd: a security descriptor
+ * @sid: a SID
+ * @perms: the MAPI permissions
+ *
+ * Updates or sets @sid's permissions on @sd.
+ **/
 void
 e2k_security_descriptor_set_permissions (E2kSecurityDescriptor *sd,
-					 E2kSid *sid, guint32 mapi_perms)
+					 E2kSid *sid, guint32 perms)
 {
 	E2k_ACE ace;
 	guint32 object_allowed, object_denied;
@@ -723,7 +800,7 @@ e2k_security_descriptor_set_permissions (E2kSecurityDescriptor *sd,
 	container_denied  = container_permissions_all;
 
 	for (map = 0; map < permissions_map_size; map++) {
-		if (!(permissions_map[map].mapi_permission & mapi_perms))
+		if (!(permissions_map[map].mapi_permission & perms))
 			continue;
 
 		object_allowed    |=  permissions_map[map].object_allowed;
@@ -814,6 +891,14 @@ struct {
 	{ N_("None"),              (E2K_PERMISSION_FOLDER_VISIBLE) }
 };
 
+/**
+ * e2k_permissions_role_get_name:
+ * @role: a permissions role
+ *
+ * Returns the localized name corresponding to @role
+ *
+ * Return value: the name
+ **/
 const char *
 e2k_permissions_role_get_name (E2kPermissionsRole role)
 {
@@ -825,6 +910,15 @@ e2k_permissions_role_get_name (E2kPermissionsRole role)
 	return _(roles[role].name);
 }
 
+/**
+ * e2k_permissions_role_get_perms
+ * @role: a permissions role
+ *
+ * Returns the MAPI permissions associated with @role. @role may not
+ * be %E2K_PERMISSIONS_ROLE_CUSTOM.
+ *
+ * Return value: the MAPI permissions
+ **/
 guint32
 e2k_permissions_role_get_perms (E2kPermissionsRole role)
 {
@@ -833,6 +927,16 @@ e2k_permissions_role_get_perms (E2kPermissionsRole role)
 	return roles[role].perms;
 }
 
+/**
+ * e2k_permissions_role_find:
+ * @perms: MAPI permissions
+ *
+ * Finds the #E2kPermissionsRole value associated with @perms. If
+ * @perms don't describe any standard role, the return value will be
+ * %E2K_PERMISSIONS_ROLE_CUSTOM
+ *
+ * Return value: the role
+ **/
 E2kPermissionsRole
 e2k_permissions_role_find (guint perms)
 {

@@ -39,7 +39,8 @@
 
 struct _EFolderExchangePrivate {
 	ExchangeHierarchy *hier;
-	char *internal_uri, *outlook_class, *storage_dir;
+	char *internal_uri, *permanent_uri;
+	char *outlook_class, *storage_dir;
 	const char *path;
 	gboolean has_subfolders;
 };
@@ -89,6 +90,7 @@ finalize (GObject *object)
 	EFolderExchange *folder = E_FOLDER_EXCHANGE (object);
 
 	g_free (folder->priv->internal_uri);
+	g_free (folder->priv->permanent_uri);
 	g_free (folder->priv->outlook_class);
 	g_free (folder->priv->storage_dir);
 	g_free (folder->priv);
@@ -99,6 +101,17 @@ finalize (GObject *object)
 E2K_MAKE_TYPE (e_folder_exchange, EFolderExchange, class_init, init, PARENT_TYPE)
 
 
+/**
+ * e_folder_exchange_new:
+ * @hier: the #ExchangeHierarchy containing the new folder
+ * @name: the display name of the folder
+ * @type: the Evolution type of the folder (eg, "mail")
+ * @outlook_class: the Outlook IPM class of the folder (eg, "IPM.Note")
+ * @physical_uri: the "exchange:" URI of the folder
+ * @internal_uri: the "http:" URI of the folder
+ *
+ * Return value: a new #EFolderExchange
+ **/
 EFolder *
 e_folder_exchange_new (ExchangeHierarchy *hier, const char *name,
 		       const char *type, const char *outlook_class,
@@ -128,6 +141,16 @@ e_folder_exchange_new (ExchangeHierarchy *hier, const char *name,
 	return ef;
 }
 
+/**
+ * e_folder_exchange_get_internal_uri:
+ * @folder: an #EFolderExchange
+ *
+ * Returns the folder's internal (http/https) URI. The caller
+ * should not cache this value, since it may change if the server
+ * sends a redirect when we try to use it.
+ *
+ * Return value: @folder's internal (http/https) URI
+ **/
 const char *
 e_folder_exchange_get_internal_uri (EFolder *folder)
 {
@@ -136,6 +159,14 @@ e_folder_exchange_get_internal_uri (EFolder *folder)
 	return E_FOLDER_EXCHANGE (folder)->priv->internal_uri;
 }
 
+/**
+ * e_folder_exchange_set_internal_uri:
+ * @folder: an #EFolderExchange
+ * @internal_uri: new internal_uri value
+ *
+ * Updates @folder's internal URI to reflect a redirection response
+ * from the server.
+ **/
 void
 e_folder_exchange_set_internal_uri (EFolder *folder, const char *internal_uri)
 {
@@ -149,6 +180,12 @@ e_folder_exchange_set_internal_uri (EFolder *folder, const char *internal_uri)
 	efe->priv->internal_uri = g_strdup (internal_uri);
 }
 
+/**
+ * e_folder_exchange_get_path:
+ * @folder: an #EFolderExchange
+ *
+ * Return value: @folder's path within its Evolution storage
+ **/
 const char *
 e_folder_exchange_get_path (EFolder *folder)
 {
@@ -157,6 +194,50 @@ e_folder_exchange_get_path (EFolder *folder)
 	return E_FOLDER_EXCHANGE (folder)->priv->path;
 }
 
+/**
+ * e_folder_exchange_get_permanent_uri:
+ * @folder: an #EFolderExchange
+ *
+ * Returns the folder's permanent URI. See docs/entryids for more
+ * details.
+ *
+ * Return value: @folder's permanent URI
+ **/
+const char *
+e_folder_exchange_get_permanent_uri (EFolder *folder)
+{
+	g_return_val_if_fail (E_IS_FOLDER_EXCHANGE (folder), NULL);
+
+	return E_FOLDER_EXCHANGE (folder)->priv->permanent_uri;
+}
+
+/**
+ * e_folder_exchange_set_permanent_uri:
+ * @folder: an #EFolderExchange
+ * @permanent_uri: permanent_uri value
+ *
+ * Sets @folder's permanent URI (which must, for obvious reasons, have
+ * previously been unset).
+ **/
+void
+e_folder_exchange_set_permanent_uri (EFolder *folder, const char *permanent_uri)
+{
+	EFolderExchange *efe;
+
+	g_return_if_fail (E_IS_FOLDER_EXCHANGE (folder));
+
+	efe = E_FOLDER_EXCHANGE (folder);
+	g_return_if_fail (efe->priv->permanent_uri == NULL && permanent_uri != NULL);
+
+	efe->priv->permanent_uri = g_strdup (permanent_uri);
+}
+
+/**
+ * e_folder_exchange_get_has_subfolders:
+ * @folder: an #EFolderExchange
+ *
+ * Return value: whether or not @folder has subfolders
+ **/
 gboolean
 e_folder_exchange_get_has_subfolders (EFolder *folder)
 {
@@ -165,6 +246,13 @@ e_folder_exchange_get_has_subfolders (EFolder *folder)
 	return E_FOLDER_EXCHANGE (folder)->priv->has_subfolders;
 }
 
+/**
+ * e_folder_exchange_set_has_subfolders
+ * @folder: an #EFolderExchange
+ * @has_subfolders: whether or not @folder has subfolders
+ *
+ * Sets @folder's has_subfolders flag.
+ **/
 void
 e_folder_exchange_set_has_subfolders (EFolder *folder,
 				      gboolean has_subfolders)
@@ -174,6 +262,12 @@ e_folder_exchange_set_has_subfolders (EFolder *folder,
 	E_FOLDER_EXCHANGE (folder)->priv->has_subfolders = has_subfolders;
 }
 
+/**
+ * e_folder_exchange_get_outlook_class:
+ * @folder: an #EFolderExchange
+ *
+ * Return value: @folder's Outlook IPM class
+ **/
 const char *
 e_folder_exchange_get_outlook_class (EFolder *folder)
 {
@@ -182,6 +276,12 @@ e_folder_exchange_get_outlook_class (EFolder *folder)
 	return E_FOLDER_EXCHANGE (folder)->priv->outlook_class;
 }
 
+/**
+ * e_folder_exchange_get_hierarchy
+ * @folder: an #EFolderExchange
+ *
+ * Return value: @folder's hierarchy
+ **/
 ExchangeHierarchy *
 e_folder_exchange_get_hierarchy (EFolder *folder)
 {
@@ -190,6 +290,16 @@ e_folder_exchange_get_hierarchy (EFolder *folder)
 	return E_FOLDER_EXCHANGE (folder)->priv->hier;
 }	
 
+/**
+ * e_folder_exchange_get_storage_file:
+ * @folder: an #EFolderExchange
+ * @filename: name of a file
+ *
+ * This returns a unique filename ending in @filename in the local
+ * storage space reserved for @folder.
+ *
+ * Return value: the full filename, which must be freed.
+ **/
 char *
 e_folder_exchange_get_storage_file (EFolder *folder, const char *filename)
 {
@@ -212,13 +322,22 @@ e_folder_exchange_get_storage_file (EFolder *folder, const char *filename)
 }
 
 
+/**
+ * e_folder_exchange_save_to_file:
+ * @folder: the folder
+ * @filename: a filename
+ *
+ * Saves all relevant information about @folder to @filename.
+ *
+ * Return value: success or failure
+ **/
 gboolean
 e_folder_exchange_save_to_file (EFolder *folder, const char *filename)
 {
 	xmlDoc *doc;
 	xmlNode *root;
 	const char *name, *type, *outlook_class;
-	const char *physical_uri, *internal_uri;
+	const char *physical_uri, *internal_uri, *permanent_uri;
 	int status;
 
 	name = e_folder_get_name (folder);
@@ -226,6 +345,7 @@ e_folder_exchange_save_to_file (EFolder *folder, const char *filename)
 	outlook_class = e_folder_exchange_get_outlook_class (folder);
 	physical_uri = e_folder_get_physical_uri (folder);
 	internal_uri = e_folder_exchange_get_internal_uri (folder);
+	permanent_uri = e_folder_exchange_get_permanent_uri (folder);
 
 	g_return_val_if_fail (name && type && physical_uri && internal_uri,
 			      FALSE);
@@ -240,6 +360,8 @@ e_folder_exchange_save_to_file (EFolder *folder, const char *filename)
 	xmlNewChild (root, NULL, "outlook_class", outlook_class);
 	xmlNewChild (root, NULL, "physical_uri", physical_uri);
 	xmlNewChild (root, NULL, "internal_uri", internal_uri);
+	if (permanent_uri)
+		xmlNewChild (root, NULL, "permanent_uri", permanent_uri);
 
 	status = xmlSaveFile (filename, doc);
 	xmlFreeDoc (doc);
@@ -249,6 +371,15 @@ e_folder_exchange_save_to_file (EFolder *folder, const char *filename)
 	return status == 0;
 }
 
+/**
+ * e_folder_exchange_new_from_file:
+ * @hier: the hierarchy to create the folder under
+ * @filename: a filename
+ *
+ * Loads information about a folder from a saved file.
+ *
+ * Return value: the folder, or %NULL on a failed load.
+ **/
 EFolder *
 e_folder_exchange_new_from_file (ExchangeHierarchy *hier, const char *filename)
 {
@@ -258,6 +389,7 @@ e_folder_exchange_new_from_file (ExchangeHierarchy *hier, const char *filename)
 	char *version, *display_name = NULL;
 	char *type = NULL, *outlook_class = NULL;
 	char *physical_uri = NULL, *internal_uri = NULL;
+	char *permanent_uri = NULL;
 
 	doc = xmlParseFile (filename);
 	if (!doc)
@@ -307,212 +439,352 @@ e_folder_exchange_new_from_file (ExchangeHierarchy *hier, const char *filename)
 					type, outlook_class,
 					physical_uri, internal_uri);
 
+	node = e_xml_get_child_by_name (root, "permanent_uri");
+	if (node) {
+		permanent_uri = xmlNodeGetContent (node);
+		e_folder_exchange_set_permanent_uri (folder, permanent_uri);
+	}
+
  done:
 	xmlFree (display_name);
 	xmlFree (type);
 	xmlFree (outlook_class);
 	xmlFree (physical_uri);
 	xmlFree (internal_uri);
+	xmlFree (permanent_uri);
 
 	return folder;
 }
 
 
 
-/* E2kConnection wrappers */
-#define E_FOLDER_EXCHANGE_CONNECTION(efe) (exchange_account_get_connection (((EFolderExchange *)efe)->priv->hier->account))
+/* E2kContext wrappers */
+#define E_FOLDER_EXCHANGE_CONTEXT(efe) (exchange_account_get_context (((EFolderExchange *)efe)->priv->hier->account))
 #define E_FOLDER_EXCHANGE_URI(efe) (((EFolderExchange *)efe)->priv->internal_uri)
 
-void
-e_folder_exchange_propfind (EFolder *folder, const char *depth,
+/**
+ * e_folder_exchange_propfind:
+ * @folder: the folder
+ * @op: pointer to an #E2kOperation to use for cancellation
+ * @props: array of properties to find
+ * @nprops: length of @props
+ * @results: on return, the results
+ * @nresults: length of @results
+ *
+ * Performs a PROPFIND operation on @folder. This is a convenience
+ * wrapper around e2k_context_propfind(), qv.
+ *
+ * Return value: the HTTP status
+ **/
+E2kHTTPStatus
+e_folder_exchange_propfind (EFolder *folder, E2kOperation *op,
 			    const char **props, int nprops,
-			    E2kResultsCallback callback, gpointer user_data)
+			    E2kResult **results, int *nresults)
 {
-	e2k_connection_propfind (E_FOLDER_EXCHANGE_CONNECTION (folder),
-				 E_FOLDER_EXCHANGE_URI (folder),
-				 depth, props, nprops, callback, user_data);
-}
-
-int
-e_folder_exchange_propfind_sync (EFolder *folder, const char *depth,
-				 const char **props, int nprops,
-				 E2kResult **results, int *nresults)
-{
-	return e2k_connection_propfind_sync (
-		E_FOLDER_EXCHANGE_CONNECTION (folder),
+	return e2k_context_propfind (
+		E_FOLDER_EXCHANGE_CONTEXT (folder), op,
 		E_FOLDER_EXCHANGE_URI (folder),
-		depth, props, nprops,
-		results, nresults);
+		props, nprops, results, nresults);
 }
 
-void
-e_folder_exchange_bpropfind (EFolder *folder,
-			     const char **hrefs, int nhrefs,
-			     const char *depth,
-			     const char **props, int nprops,
-			     E2kResultsCallback callback, gpointer user_data)
+/**
+ * e_folder_exchange_bpropfind_start:
+ * @folder: the folder
+ * @op: pointer to an #E2kOperation to use for cancellation
+ * @hrefs: array of URIs, relative to @folder
+ * @nhrefs: length of @hrefs
+ * @props: array of properties to find
+ * @nprops: length of @props
+ *
+ * Begins a BPROPFIND (bulk PROPFIND) operation on @folder for @hrefs.
+ * This is a convenience wrapper around e2k_context_bpropfind_start(),
+ * qv.
+ *
+ * Return value: an iterator for getting the results
+ **/
+E2kResultIter *
+e_folder_exchange_bpropfind_start (EFolder *folder, E2kOperation *op,
+				   const char **hrefs, int nhrefs,
+				   const char **props, int nprops)
 {
-	e2k_connection_bpropfind (E_FOLDER_EXCHANGE_CONNECTION (folder),
-				  E_FOLDER_EXCHANGE_URI (folder),
-				  hrefs, nhrefs, depth, props, nprops,
-				  callback, user_data);
-}
-
-int
-e_folder_exchange_bpropfind_sync (EFolder *folder,
-				  const char **hrefs, int nhrefs,
-				  const char *depth,
-				  const char **props, int nprops,
-				  E2kResult **results, int *nresults)
-{
-	return e2k_connection_bpropfind_sync (
-		E_FOLDER_EXCHANGE_CONNECTION (folder),
+	return e2k_context_bpropfind_start (
+		E_FOLDER_EXCHANGE_CONTEXT (folder), op,
 		E_FOLDER_EXCHANGE_URI (folder),
-		hrefs, nhrefs, depth, props, nprops,
-		results, nresults);
+		hrefs, nhrefs, props, nprops);
 }
 
-void
-e_folder_exchange_search (EFolder *folder,
-			  const char **props, int nprops,
-			  gboolean folders_only,
-			  E2kRestriction *rn, const char *orderby,
-			  E2kResultsCallback callback, gpointer user_data)
+/**
+ * e_folder_exchange_search_start:
+ * @folder: the folder
+ * @op: pointer to an #E2kOperation to use for cancellation
+ * @props: the properties to search for
+ * @nprops: size of @props array
+ * @rn: the search restriction
+ * @orderby: if non-%NULL, the field to sort the search results by
+ * @ascending: %TRUE for an ascending search, %FALSE for descending.
+ *
+ * Begins a SEARCH on the contents of @folder. This is a convenience
+ * wrapper around e2k_context_search_start(), qv.
+ *
+ * Return value: an iterator for returning the search results
+ **/
+E2kResultIter *
+e_folder_exchange_search_start (EFolder *folder, E2kOperation *op,
+				const char **props, int nprops,
+				E2kRestriction *rn, const char *orderby,
+				gboolean ascending)
 {
-	e2k_connection_search (E_FOLDER_EXCHANGE_CONNECTION (folder),
-			       E_FOLDER_EXCHANGE_URI (folder),
-			       props, nprops, folders_only, rn, orderby,
-			       callback, user_data);
-}
-
-int
-e_folder_exchange_search_sync (EFolder *folder,
-			       const char **props, int nprops,
-			       gboolean folders_only,
-			       E2kRestriction *rn, const char *orderby,
-			       E2kResult **results, int *nresults)
-{
-	return e2k_connection_search_sync (
-		E_FOLDER_EXCHANGE_CONNECTION (folder),
+	return e2k_context_search_start (
+		E_FOLDER_EXCHANGE_CONTEXT (folder), op,
 		E_FOLDER_EXCHANGE_URI (folder),
-		props, nprops, folders_only, rn, orderby,
-		results, nresults);
+		props, nprops, rn, orderby, ascending);
 }
 
-void
-e_folder_exchange_search_with_progress (EFolder *folder,
-					const char **props, int nprops,
-					E2kRestriction *rn,
-					const char *orderby,
-					int increment_size,
-					gboolean ascending,
-					E2kProgressCallback progress_callback,
-					E2kSimpleCallback done_callback,
-					gpointer user_data)
-{
-	e2k_connection_search_with_progress (
-		E_FOLDER_EXCHANGE_CONNECTION (folder),
-		E_FOLDER_EXCHANGE_URI (folder),
-		props, nprops, rn, orderby,
-		increment_size, ascending,
-		progress_callback, done_callback, user_data);
-}
-
-
+/**
+ * e_folder_exchange_subscribe:
+ * @folder: the folder to subscribe to notifications on
+ * @type: the type of notification to subscribe to
+ * @min_interval: the minimum interval (in seconds) between
+ * notifications.
+ * @callback: the callback to call when a notification has been
+ * received
+ * @user_data: data to pass to @callback.
+ *
+ * This subscribes to change notifications of the given @type on
+ * @folder. This is a convenience wrapper around
+ * e2k_context_subscribe(), qv.
+ **/
 void
 e_folder_exchange_subscribe (EFolder *folder,
-			     E2kConnectionChangeType type, int min_interval,
-			     E2kConnectionChangeCallback callback,
+			     E2kContextChangeType type, int min_interval,
+			     E2kContextChangeCallback callback,
 			     gpointer user_data)
 {
-	e2k_connection_subscribe (E_FOLDER_EXCHANGE_CONNECTION (folder),
-				  E_FOLDER_EXCHANGE_URI (folder),
-				  type, min_interval, callback, user_data);
+	e2k_context_subscribe (E_FOLDER_EXCHANGE_CONTEXT (folder),
+			       E_FOLDER_EXCHANGE_URI (folder),
+			       type, min_interval, callback, user_data);
 }
 
+/**
+ * e_folder_exchange_unsubscribe:
+ * @folder: the folder to unsubscribe from
+ *
+ * Unsubscribes to all notifications on @folder. This is a convenience
+ * wrapper around e2k_context_unsubscribe(), qv.
+ **/
 void
 e_folder_exchange_unsubscribe (EFolder *folder)
 {
-	e2k_connection_unsubscribe (E_FOLDER_EXCHANGE_CONNECTION (folder),
-				    E_FOLDER_EXCHANGE_URI (folder));
+	e2k_context_unsubscribe (E_FOLDER_EXCHANGE_CONTEXT (folder),
+				 E_FOLDER_EXCHANGE_URI (folder));
 }
 
-void
-e_folder_exchange_transfer (EFolder *source, EFolder *dest,
-			    const char *source_hrefs, gboolean delete_original,
-			    E2kResultsCallback callback, gpointer user_data)
+/**
+ * e_folder_exchange_transfer_start:
+ * @source: the source folder
+ * @op: pointer to an #E2kOperation to use for cancellation
+ * @dest: the destination folder
+ * @source_hrefs: an array of hrefs to move, relative to @source_folder
+ * @delete_originals: whether or not to delete the original objects
+ *
+ * Starts a BMOVE or BCOPY (depending on @delete_originals) operation
+ * on @source. This is a convenience wrapper around
+ * e2k_context_transfer_start(), qv.
+ *
+ * Return value: the iterator for the results
+ **/
+E2kResultIter *
+e_folder_exchange_transfer_start (EFolder *source, E2kOperation *op,
+				  EFolder *dest, GPtrArray *source_hrefs,
+				  gboolean delete_originals)
 {
-	e2k_connection_transfer (E_FOLDER_EXCHANGE_CONNECTION (source),
-				 E_FOLDER_EXCHANGE_URI (source),
-				 E_FOLDER_EXCHANGE_URI (dest),
-				 source_hrefs, delete_original,
-				 callback, user_data);
+	return e2k_context_transfer_start (E_FOLDER_EXCHANGE_CONTEXT (source), op,
+					   E_FOLDER_EXCHANGE_URI (source),
+					   E_FOLDER_EXCHANGE_URI (dest),
+					   source_hrefs, delete_originals);
 }
 
-void
-e_folder_exchange_append (EFolder *folder,
-			  const char *object_name, const char *content_type,
-			  const char *body, int length,
-			  E2kSimpleCallback callback, gpointer user_data)
+/**
+ * e_folder_exchange_put_new:
+ * @folder: the folder to PUT the new item into
+ * @op: pointer to an #E2kOperation to use for cancellation
+ * @object_name: base name of the new object (not URI-encoded)
+ * @test_callback: callback to use to test possible object URIs
+ * @user_data: data for @test_callback
+ * @content_type: MIME Content-Type of the data
+ * @body: data to PUT
+ * @length: length of @body
+ * @location: if not %NULL, will contain the Location of the POSTed
+ * object on return
+ * @repl_uid: if not %NULL, will contain the Repl-UID of the POSTed
+ * object on return
+ *
+ * PUTs data into @folder with a new name based on @object_name. This
+ * is a convenience wrapper around e2k_context_put_new(), qv.
+ *
+ * Return value: the HTTP status
+ **/
+E2kHTTPStatus
+e_folder_exchange_put_new (EFolder *folder,
+			   E2kOperation *op,
+			   const char *object_name, 
+			   E2kContextTestCallback test_callback,
+			   gpointer user_data,
+			   const char *content_type,
+			   const char *body, int length,
+			   char **location, char **repl_uid)
 {
-	e2k_connection_append (E_FOLDER_EXCHANGE_CONNECTION (folder),
-			       E_FOLDER_EXCHANGE_URI (folder),
-			       object_name, content_type, body, length,
-			       callback, user_data);
+	return e2k_context_put_new (E_FOLDER_EXCHANGE_CONTEXT (folder), op,
+				    E_FOLDER_EXCHANGE_URI (folder),
+				    object_name, test_callback, user_data,
+				    content_type, body, length,
+				    location, repl_uid);
 }
 
-void
-e_folder_exchange_bproppatch (EFolder *folder,
-			      const char **hrefs, int nhrefs,
-			      E2kProperties *props, gboolean create,
-			      E2kResultsCallback callback, gpointer user_data)
+/**
+ * e_folder_exchange_proppatch_new:
+ * @folder: the folder to PROPPATCH a new object in
+ * @op: pointer to an #E2kOperation to use for cancellation
+ * @object_name: base name of the new object (not URI-encoded)
+ * @test_callback: callback to use to test possible object URIs
+ * @user_data: data for @test_callback
+ * @props: the properties to set/remove
+ * @location: if not %NULL, will contain the Location of the
+ * PROPPATCHed object on return
+ * @repl_uid: if not %NULL, will contain the Repl-UID of the
+ * PROPPATCHed object on return
+ *
+ * PROPPATCHes data into @folder with a new name based on
+ * @object_name. This is a convenience wrapper around
+ * e2k_context_proppatch_new(), qv.
+
+ * Return value: the HTTP status
+ **/
+E2kHTTPStatus
+e_folder_exchange_proppatch_new (EFolder *folder, E2kOperation *op,
+				 const char *object_name,
+				 E2kContextTestCallback test_callback,
+				 gpointer user_data,
+				 E2kProperties *props,
+				 char **location, char **repl_uid)
 {
-	e2k_connection_bproppatch (E_FOLDER_EXCHANGE_CONNECTION (folder),
-				   E_FOLDER_EXCHANGE_URI (folder),
-				   hrefs, nhrefs, props, create,
-				   callback, user_data);
+	return e2k_context_proppatch_new (E_FOLDER_EXCHANGE_CONTEXT (folder), op,
+					  E_FOLDER_EXCHANGE_URI (folder),
+					  object_name,
+					  test_callback, user_data,
+					  props,
+					  location, repl_uid);
 }
 
-
-void
-e_folder_exchange_bdelete (EFolder *folder,
-			   const char **hrefs, int nhrefs,
-			   E2kProgressCallback progress_callback,
-			   E2kSimpleCallback done_callback,
-			   gpointer user_data)
+/**
+ * e_folder_exchange_bproppatch_start:
+ * @folder: the folder
+ * @op: pointer to an #E2kOperation to use for cancellation
+ * @hrefs: array of URIs, relative to @folder
+ * @nhrefs: length of @hrefs
+ * @props: the properties to set/remove
+ * @create: whether or not to create the objects if they do not exist
+ *
+ * Begins BPROPPATCHing @hrefs under @folder. This is a convenience
+ * wrapper around e2k_context_bproppatch_start(), qv.
+ *
+ * Return value: an iterator for getting the results of the BPROPPATCH
+ **/
+E2kResultIter *
+e_folder_exchange_bproppatch_start (EFolder *folder, E2kOperation *op,
+				    const char **hrefs, int nhrefs,
+				    E2kProperties *props, gboolean create)
 {
-	e2k_connection_bdelete (E_FOLDER_EXCHANGE_CONNECTION (folder),
-				E_FOLDER_EXCHANGE_URI (folder),
-				hrefs, nhrefs, progress_callback,
-				done_callback, user_data);
+	return e2k_context_bproppatch_start (E_FOLDER_EXCHANGE_CONTEXT (folder), op,
+					     E_FOLDER_EXCHANGE_URI (folder),
+					     hrefs, nhrefs, props, create);
 }
 
-void
-e_folder_exchange_mkcol (EFolder *folder, E2kProperties *props,
-			 E2kSimpleCallback callback, gpointer user_data)
+/**
+ * e_folder_exchange_bdelete_start:
+ * @folder: the folder
+ * @op: pointer to an #E2kOperation to use for cancellation
+ * @hrefs: array of URIs, relative to @folder, to delete
+ * @nhrefs: length of @hrefs
+ *
+ * Begins a BDELETE (bulk DELETE) operation in @folder for @hrefs.
+ * This is a convenience wrapper around e2k_context_bdelete_start(),
+ * qv.
+ *
+ * Return value: an iterator for returning the results
+ **/
+E2kResultIter *
+e_folder_exchange_bdelete_start (EFolder *folder, E2kOperation *op,
+				 const char **hrefs, int nhrefs)
 {
-	e2k_connection_mkcol (E_FOLDER_EXCHANGE_CONNECTION (folder),
-			      E_FOLDER_EXCHANGE_URI (folder),
-			      props, callback, user_data);
+	return e2k_context_bdelete_start (E_FOLDER_EXCHANGE_CONTEXT (folder), op,
+					  E_FOLDER_EXCHANGE_URI (folder),
+					  hrefs, nhrefs);
 }
 
-void
-e_folder_exchange_delete (EFolder *folder,
-			  E2kSimpleCallback callback, gpointer user_data)
+/**
+ * e_folder_exchange_mkcol:
+ * @folder: the folder to create
+ * @op: pointer to an #E2kOperation to use for cancellation
+ * @props: properties to set on the new folder, or %NULL
+ * @permanent_url: if not %NULL, will contain the permanent URL of the
+ * new folder on return
+ *
+ * Performs a MKCOL operation to create @folder, with optional
+ * additional properties. This is a convenience wrapper around
+ * e2k_context_mkcol(), qv.
+ *
+ * Return value: the HTTP status
+ **/
+E2kHTTPStatus
+e_folder_exchange_mkcol (EFolder *folder, E2kOperation *op,
+			 E2kProperties *props,
+			 char **permanent_url)
 {
-	e2k_connection_delete (E_FOLDER_EXCHANGE_CONNECTION (folder),
-			       E_FOLDER_EXCHANGE_URI (folder),
-			       callback, user_data);
+	return e2k_context_mkcol (E_FOLDER_EXCHANGE_CONTEXT (folder), op,
+				  E_FOLDER_EXCHANGE_URI (folder),
+				  props, permanent_url);
 }
 
-void
-e_folder_exchange_transfer_dir (EFolder *source, EFolder *dest,
-				gboolean delete_original,
-				E2kSimpleCallback callback, gpointer user_data)
+/**
+ * e_folder_exchange_delete:
+ * @folder: the folder to delete
+ * @op: pointer to an #E2kOperation to use for cancellation
+ *
+ * Attempts to DELETE @folder. This is a convenience wrapper around
+ * e2k_context_delete(), qv.
+ *
+ * Return value: the HTTP status
+ **/
+E2kHTTPStatus
+e_folder_exchange_delete (EFolder *folder, E2kOperation *op)
 {
-	e2k_connection_transfer_dir (E_FOLDER_EXCHANGE_CONNECTION (source),
-				     E_FOLDER_EXCHANGE_URI (source),
-				     E_FOLDER_EXCHANGE_URI (dest),
-				     delete_original, callback, user_data);
+	return e2k_context_delete (E_FOLDER_EXCHANGE_CONTEXT (folder), op,
+				   E_FOLDER_EXCHANGE_URI (folder));
+}
 
+/**
+ * e_folder_exchange_transfer_dir:
+ * @source: source folder
+ * @op: pointer to an #E2kOperation to use for cancellation
+ * @dest: destination folder
+ * @delete_original: whether or not to delete the original folder
+ * @permanent_url: if not %NULL, will contain the permanent URL of the
+ * new folder on return
+ *
+ * Performs a MOVE or COPY (depending on @delete_original) operation
+ * on @source. This is a convenience wrapper around
+ * e2k_context_transfer_dir(), qv.
+ *
+ * Return value: the HTTP status
+ **/
+E2kHTTPStatus
+e_folder_exchange_transfer_dir (EFolder *source, E2kOperation *op,
+				EFolder *dest, gboolean delete_original,
+				char **permanent_url)
+{
+	return e2k_context_transfer_dir (E_FOLDER_EXCHANGE_CONTEXT (source), op,
+					 E_FOLDER_EXCHANGE_URI (source),
+					 E_FOLDER_EXCHANGE_URI (dest),
+					 delete_original, permanent_url);
 }

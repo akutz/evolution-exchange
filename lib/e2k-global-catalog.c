@@ -25,6 +25,7 @@
 #include "e2k-sid.h"
 #include "e2k-utils.h"
 
+#include <pthread.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/time.h>
@@ -43,6 +44,7 @@ static gboolean e2k_gc_debug = FALSE;
 #endif
 
 struct _E2kGlobalCatalogPrivate {
+	GMutex *ldap_lock;
 	LDAP *ldap;
 
 	GPtrArray *entries;
@@ -54,7 +56,9 @@ struct _E2kGlobalCatalogPrivate {
 #define PARENT_TYPE G_TYPE_OBJECT
 static GObjectClass *parent_class = NULL;
 
-static void dispose (GObject *);
+static void finalize (GObject *);
+static int get_gc_connection (E2kGlobalCatalog *gc, E2kOperation *op);
+
 
 static void
 class_init (GObjectClass *object_class)
@@ -75,7 +79,7 @@ class_init (GObjectClass *object_class)
 	parent_class = g_type_class_ref (PARENT_TYPE);
 
 	/* virtual method override */
-	object_class->dispose = dispose;
+	object_class->finalize = finalize;
 }
 
 static void
@@ -84,6 +88,7 @@ init (GObject *object)
 	E2kGlobalCatalog *gc = E2K_GLOBAL_CATALOG (object);
 
 	gc->priv = g_new0 (E2kGlobalCatalogPrivate, 1);
+	gc->priv->ldap_lock = g_mutex_new ();
 	gc->priv->entries = g_ptr_array_new ();
 	gc->priv->entry_cache = g_hash_table_new (e2k_ascii_strcase_hash,
 						  e2k_ascii_strcase_equal);
@@ -126,7 +131,7 @@ free_server (gpointer key, gpointer value, gpointer data)
 }
 
 static void
-dispose (GObject *object)
+finalize (GObject *object)
 {
 	E2kGlobalCatalog *gc = E2K_GLOBAL_CATALOG (object);
 	int i;
@@ -153,20 +158,79 @@ dispose (GObject *object)
 			g_free (gc->priv->password);
 		}
 
+		g_mutex_free (gc->priv->ldap_lock);
+
 		g_free (gc->priv);
 		gc->priv = NULL;
 	}
 
-	G_OBJECT_CLASS (parent_class)->dispose (object);
+	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
 
 E2K_MAKE_TYPE (e2k_global_catalog, E2kGlobalCatalog, class_init, init, PARENT_TYPE)
 
+static int
+gc_ldap_result (LDAP *ldap, E2kOperation *op,
+		int msgid, LDAPMessage **msg)
+{
+	struct timeval tv;
+	int status, ldap_error;
+
+	tv.tv_sec = 1;
+	tv.tv_usec = 0;
+	*msg = NULL;
+	do {
+		status = ldap_result (ldap, msgid, TRUE, &tv, msg);
+		if (status == -1) {
+			ldap_get_option (ldap, LDAP_OPT_ERROR_NUMBER,
+					 &ldap_error);
+			return ldap_error;
+		}
+	} while (status == 0 && !e2k_operation_is_cancelled (op));
+
+	if (e2k_operation_is_cancelled (op)) {
+		ldap_abandon (ldap, msgid);
+		return LDAP_USER_CANCELLED;
+	} else
+		return LDAP_SUCCESS;
+}
+
+static int
+gc_search (E2kGlobalCatalog *gc, E2kOperation *op,
+	   const char *base, int scope, const char *filter,
+	   const char **attrs, LDAPMessage **msg)
+{
+	int ldap_error, msgid, try;
+
+	for (try = 0; try < 2; try++) {
+		ldap_error = get_gc_connection (gc, op);
+		if (ldap_error != LDAP_SUCCESS)
+			return ldap_error;
+		ldap_error = ldap_search_ext (gc->priv->ldap, base, scope,
+					      filter, (char **)attrs,
+					      FALSE, NULL, NULL, NULL, 0,
+					      &msgid);
+		if (ldap_error == LDAP_SERVER_DOWN)
+			continue;
+		else if (ldap_error != LDAP_SUCCESS)
+			return ldap_error;
+
+		ldap_error = gc_ldap_result (gc->priv->ldap, op, msgid, msg);
+		if (ldap_error == LDAP_SERVER_DOWN)
+			continue;
+		else if (ldap_error != LDAP_SUCCESS)
+			return ldap_error;
+
+		return LDAP_SUCCESS;
+	}
+
+	return LDAP_SERVER_DOWN;
+}
 
 #ifdef HAVE_LDAP_NTLM_BIND
 static int
-ntlm_bind (LDAP *ldap, const char *user, const char *domain, const char *password)
+ntlm_bind (E2kGlobalCatalog *gc, E2kOperation *op, LDAP *ldap)
 {
 	LDAPMessage *msg;
 	int ldap_error, msgid, err;
@@ -187,9 +251,10 @@ ntlm_bind (LDAP *ldap, const char *user, const char *domain, const char *passwor
 	}
 
 	/* Extract challenge */
-	if (ldap_result (ldap, msgid, 1, NULL, &msg) == -1) {
+	ldap_error = gc_ldap_result (ldap, op, msgid, &msg);
+	if (ldap_error != LDAP_SUCCESS) {
 		E2K_GC_DEBUG_MSG(("GC: Could not parse first NTLM bind response\n"));
-		return -1;
+		return ldap_error;
 	}
 	ldap_error = ldap_parse_ntlm_bind_result (ldap, msg, &ldap_buf);
 	ldap_msgfree (msg);
@@ -203,13 +268,13 @@ ntlm_bind (LDAP *ldap, const char *user, const char *domain, const char *passwor
 		E2K_GC_DEBUG_MSG(("GC: Could not find nonce in NTLM bind response\n"));
 		ber_memfree (ldap_buf.bv_val);
 
-		return -1;
+		return LDAP_DECODING_ERROR;
 	}
 	ber_memfree (ldap_buf.bv_val);
 
 	/* Create and send response */
-	ba = xntlm_authenticate (nonce, domain ? domain : default_domain,
-				 user, password, NULL);
+	ba = xntlm_authenticate (nonce, gc->priv->domain ? gc->priv->domain : default_domain,
+				 gc->priv->user, gc->priv->password, NULL);
 	ldap_buf.bv_len = ba->len;
 	ldap_buf.bv_val = ba->data;
 	ldap_error = ldap_ntlm_bind (ldap, "NTLM", LDAP_AUTH_NTLM_RESPONSE,
@@ -223,9 +288,10 @@ ntlm_bind (LDAP *ldap, const char *user, const char *domain, const char *passwor
 	}
 
 	/* And get the final result */
-	if (ldap_result (ldap, msgid, 1, NULL, &msg) == -1) {
+	ldap_error = gc_ldap_result (ldap, op, msgid, &msg);
+	if (ldap_error != LDAP_SUCCESS) {
 		E2K_GC_DEBUG_MSG(("GC: Could not parse second NTLM bind response\n"));
-		return -1;
+		return ldap_error;
 	}
 	ldap_error = ldap_parse_result (ldap, msg, &err, NULL, NULL,
 					NULL, NULL, TRUE);
@@ -234,40 +300,21 @@ ntlm_bind (LDAP *ldap, const char *user, const char *domain, const char *passwor
 		return ldap_error;
 	}
 
-	return LDAP_SUCCESS;
+	return err;
 }
 #endif
 
-static LDAP *
-get_ldap_connection (E2kGlobalCatalog *gc, const char *server, int port)
+static int
+ldap_connect (E2kGlobalCatalog *gc, E2kOperation *op, LDAP *ldap)
 {
-	int ldap_opt, ldap_error;
-	LDAP *ldap;
+	int ldap_error;
 #ifndef HAVE_LDAP_NTLM_BIND
 	char *nt_name;
 #endif
 
-	E2K_GC_DEBUG_MSG(("\nGC: Connecting to ldap://%s:%d/\n", server, port));
-	ldap = ldap_init (server, port);
-	if (!ldap) {
-		E2K_GC_DEBUG_MSG(("GC: failed\n\n"));
-		g_warning ("Could not connect to ldap://%s:%d/",
-			   server, port);
-		return FALSE;
-	}
-
-	/* Set options */
-	ldap_opt = LDAP_DEREF_ALWAYS;
-	ldap_set_option (ldap, LDAP_OPT_DEREF, &ldap_opt);
-	ldap_opt = gc->response_limit;
-	ldap_set_option (ldap, LDAP_OPT_SIZELIMIT, &ldap_opt);
-	ldap_opt = LDAP_VERSION3;
-	ldap_set_option (ldap, LDAP_OPT_PROTOCOL_VERSION, &ldap_opt);
-
 	/* authenticate */
 #ifdef HAVE_LDAP_NTLM_BIND
-	ldap_error = ntlm_bind (ldap, gc->priv->user, gc->priv->domain,
-				gc->priv->password);
+	ldap_error = ntlm_bind (gc, op, ldap);
 #else
 	nt_name = gc->priv->domain ?
 		g_strdup_printf ("%s\\%s", gc->priv->domain, gc->priv->user) :
@@ -275,46 +322,112 @@ get_ldap_connection (E2kGlobalCatalog *gc, const char *server, int port)
 	ldap_error = ldap_simple_bind_s (ldap, nt_name, gc->priv->password);
 	g_free (nt_name);
 #endif
-	if (ldap_error != LDAP_SUCCESS) {
-		ldap_unbind (ldap);
-		ldap = NULL;
+	if (ldap_error != LDAP_SUCCESS)
 		g_warning ("LDAP authentication failed (0x%02x)", ldap_error);
-	} else {
+	else
 		E2K_GC_DEBUG_MSG(("GC: connected\n\n"));
+
+	return ldap_error;
+}
+
+static int
+get_ldap_connection (E2kGlobalCatalog *gc, E2kOperation *op,
+		     const char *server, int port,
+		     LDAP **ldap)
+{
+	int ldap_opt, ldap_error;
+
+	E2K_GC_DEBUG_MSG(("\nGC: Connecting to ldap://%s:%d/\n", server, port));
+
+	*ldap = ldap_init (server, port);
+	if (!*ldap) {
+		E2K_GC_DEBUG_MSG(("GC: failed\n\n"));
+		g_warning ("Could not connect to ldap://%s:%d/",
+			   server, port);
+		return LDAP_SERVER_DOWN;
 	}
 
-	return ldap;
+	/* Set options */
+	ldap_opt = LDAP_DEREF_ALWAYS;
+	ldap_set_option (*ldap, LDAP_OPT_DEREF, &ldap_opt);
+	ldap_opt = gc->response_limit;
+	ldap_set_option (*ldap, LDAP_OPT_SIZELIMIT, &ldap_opt);
+	ldap_opt = LDAP_VERSION3;
+	ldap_set_option (*ldap, LDAP_OPT_PROTOCOL_VERSION, &ldap_opt);
+
+	ldap_error = ldap_connect (gc, op, *ldap);
+	if (ldap_error != LDAP_SUCCESS) {
+		ldap_unbind (*ldap);
+		*ldap = NULL;
+	}
+	return ldap_error;
+}
+
+static int
+get_gc_connection (E2kGlobalCatalog *gc, E2kOperation *op)
+{
+	int err;
+
+	if (gc->priv->ldap) {
+		ldap_get_option (gc->priv->ldap, LDAP_OPT_ERROR_NUMBER, &err);
+		if (err != LDAP_SERVER_DOWN)
+			return LDAP_SUCCESS;
+
+		return ldap_connect (gc, op, gc->priv->ldap);
+	} else {
+		return get_ldap_connection (gc, op,
+					    gc->priv->server, 3268,
+					    &gc->priv->ldap);
+	}
 }
 
 /**
  * e2k_global_catalog_get_ldap:
  * @gc: the global catalog
+ * @op: pointer to an initialized #E2kOperation to use for cancellation
  *
- * Connects or reconnects @gc if needed, and returns a copy of its
- * LDAP handle. The caller must not unbind the LDAP handle, and should
- * keep a reference on @gc if it wants to ensure that the handle sticks
- * around.
+ * Returns a new LDAP handle. The caller must ldap_unbind() it when it
+ * is done.
  *
  * Return value: an LDAP handle, or %NULL if it can't connect
  **/
-gpointer
-e2k_global_catalog_get_ldap (E2kGlobalCatalog *gc)
+LDAP *
+e2k_global_catalog_get_ldap (E2kGlobalCatalog *gc, E2kOperation *op)
 {
-	int err;
+	LDAP *ldap;
 
 	g_return_val_if_fail (E2K_IS_GLOBAL_CATALOG (gc), NULL);
 
-	if (gc->priv->ldap) {
-		ldap_get_option (gc->priv->ldap, LDAP_OPT_ERROR_NUMBER, &err);
-		if (err == LDAP_SERVER_DOWN) {
-			ldap_unbind (gc->priv->ldap);
-			gc->priv->ldap = NULL;
-		}
-	}
+	get_ldap_connection (gc, op, gc->priv->server, 3268, &ldap);
+	return ldap;
+}
 
-	if (!gc->priv->ldap)
-		gc->priv->ldap = get_ldap_connection (gc, gc->priv->server, 3268);
-	return gc->priv->ldap;
+/**
+ * e2k_global_catalog_reconnect
+ * @gc: the global catalog
+ * @op: pointer to an initialized #E2kOperation to use for cancellation
+ * @ldap: the LDAP connection to reconnect
+ *
+ * Reconnects @ldap if the server disconnected it.
+ *
+ * Return value: an LDAP status code
+ **/
+int
+e2k_global_catalog_reconnect (E2kGlobalCatalog *gc, E2kOperation *op,
+			      LDAP *ldap)
+{
+	int err;
+
+	g_return_val_if_fail (E2K_IS_GLOBAL_CATALOG (gc), FALSE);
+	g_return_val_if_fail (ldap != NULL, FALSE);
+	
+	ldap_get_option (ldap, LDAP_OPT_ERROR_NUMBER, &err);
+	if (err != LDAP_SERVER_DOWN)
+		return err;
+
+	return get_ldap_connection (gc, op, gc->priv->server, 3268,
+				    &gc->priv->ldap);
+
 }
 
 /**
@@ -349,9 +462,10 @@ e2k_global_catalog_new (const char *server, int response_limit,
 }
 
 static const char *
-lookup_mta (E2kGlobalCatalog *gc, const char *mta_dn)
+lookup_mta (E2kGlobalCatalog *gc, E2kOperation *op, const char *mta_dn)
 {
-	char *hostname, *attrs[2], **values;
+	char *hostname, **values;
+	const char *attrs[2];
 	LDAPMessage *resp;
 	int ldap_error, i;
 
@@ -370,15 +484,8 @@ lookup_mta (E2kGlobalCatalog *gc, const char *mta_dn)
 	attrs[0] = "networkAddress";
 	attrs[1] = NULL;
 
-	ldap_error = LDAP_SERVER_DOWN;
-	while (ldap_error == LDAP_SERVER_DOWN &&
-	       e2k_global_catalog_get_ldap (gc)) {
-		ldap_error = ldap_search_ext_s (gc->priv->ldap, mta_dn,
-						LDAP_SCOPE_BASE,
-						NULL, attrs, 0, NULL,
-						NULL, NULL, 0, &resp);
-	}
-
+	ldap_error = gc_search (gc, op, mta_dn, LDAP_SCOPE_BASE,
+				NULL, attrs, &resp);
 	if (ldap_error != LDAP_SUCCESS) {
 		E2K_GC_DEBUG_MSG(("GC:   lookup failed (0x%02x)\n", ldap_error));
 		return NULL;
@@ -412,37 +519,23 @@ lookup_mta (E2kGlobalCatalog *gc, const char *mta_dn)
 	return hostname;
 }
 
-struct lookup_data {
-	E2kGlobalCatalog *gc;
-	int msgid, timeout_id;
-
-	char *base, *filter;
-	int scope;
-	GPtrArray *attrs;
-
-	guint32 want_flags, found_flags;
-	E2kGlobalCatalogStatus status;
-	E2kGlobalCatalogEntry *entry;
-
-	E2kGlobalCatalogCallback callback;
-	gpointer user_data;
-};
 
 static void
-get_sid_values (struct lookup_data *ld, LDAPMessage *msg)
+get_sid_values (E2kGlobalCatalog *gc, E2kOperation *op,
+		LDAPMessage *msg, E2kGlobalCatalogEntry *entry)
 {
 	char **values;
 	struct berval **bsid_values;
 	E2kSidType type;
 
-	values = ldap_get_values (ld->gc->priv->ldap, msg, "displayName");
+	values = ldap_get_values (gc->priv->ldap, msg, "displayName");
 	if (values) {
 		E2K_GC_DEBUG_MSG(("GC: displayName %s\n", values[0]));
-		ld->entry->display_name = g_strdup (values[0]);
+		entry->display_name = g_strdup (values[0]);
 		ldap_value_free (values);
 	}
 
-	bsid_values = ldap_get_values_len (ld->gc->priv->ldap, msg, "objectSid");
+	bsid_values = ldap_get_values_len (gc->priv->ldap, msg, "objectSid");
 	if (!bsid_values)
 		return;
 	if (bsid_values[0]->bv_len < 2 ||
@@ -451,7 +544,7 @@ get_sid_values (struct lookup_data *ld, LDAPMessage *msg)
 		return;
 	}
 
-	values = ldap_get_values (ld->gc->priv->ldap, msg, "objectCategory");
+	values = ldap_get_values (gc->priv->ldap, msg, "objectCategory");
 	if (values && values[0] && !g_ascii_strncasecmp (values[0], "CN=Group", 8))
 		type = E2K_SID_TYPE_GROUP;
 	else if (values && values[0] && !g_ascii_strncasecmp (values[0], "CN=Foreign", 10))
@@ -461,281 +554,324 @@ get_sid_values (struct lookup_data *ld, LDAPMessage *msg)
 	if (values)
 		ldap_value_free (values);
 
-	ld->entry->sid = e2k_sid_new_from_binary_sid (
-		type, bsid_values[0]->bv_val, ld->entry->display_name);
-	ld->found_flags |= E2K_GLOBAL_CATALOG_LOOKUP_SID;
+	entry->sid = e2k_sid_new_from_binary_sid (
+		type, bsid_values[0]->bv_val, entry->display_name);
+	entry->mask |= E2K_GLOBAL_CATALOG_LOOKUP_SID;
 
 	ldap_value_free_len (bsid_values);
 }
 
 static void
-get_mail_values (struct lookup_data *ld, LDAPMessage *msg)
+get_mail_values (E2kGlobalCatalog *gc, E2kOperation *op,
+		 LDAPMessage *msg, E2kGlobalCatalogEntry *entry)
 {
 	char **values, **mtavalues;
 
-	values = ldap_get_values (ld->gc->priv->ldap, msg, "mail");
+	values = ldap_get_values (gc->priv->ldap, msg, "mail");
 	if (values) {
 		E2K_GC_DEBUG_MSG(("GC: mail %s\n", values[0]));
-		ld->entry->email = g_strdup (values[0]);
-		g_hash_table_insert (ld->gc->priv->entry_cache,
-				     ld->entry->email, ld->entry);
-		ld->found_flags |= E2K_GLOBAL_CATALOG_LOOKUP_EMAIL;
+		entry->email = g_strdup (values[0]);
+		g_hash_table_insert (gc->priv->entry_cache,
+				     entry->email, entry);
+		entry->mask |= E2K_GLOBAL_CATALOG_LOOKUP_EMAIL;
 		ldap_value_free (values);
 	}
 
-	values = ldap_get_values (ld->gc->priv->ldap, msg, "mailNickname");
-	mtavalues = ldap_get_values (ld->gc->priv->ldap, msg, "homeMTA");
+	values = ldap_get_values (gc->priv->ldap, msg, "mailNickname");
+	mtavalues = ldap_get_values (gc->priv->ldap, msg, "homeMTA");
 	if (values && mtavalues) {
 		E2K_GC_DEBUG_MSG(("GC: mailNickname %s\n", values[0]));
 		E2K_GC_DEBUG_MSG(("GC: homeMTA %s\n", mtavalues[0]));
-		ld->entry->exchange_server = (char *)lookup_mta (ld->gc, mtavalues[0]);
+		entry->exchange_server = (char *)lookup_mta (gc, op, mtavalues[0]);
 		ldap_value_free (mtavalues);
-		if (ld->entry->exchange_server)
-			ld->entry->mailbox = g_strdup (values[0]);
+		if (entry->exchange_server)
+			entry->mailbox = g_strdup (values[0]);
 		ldap_value_free (values);
-		ld->found_flags |= E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX;
+		entry->mask |= E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX;
 	}
 
-	values = ldap_get_values (ld->gc->priv->ldap, msg, "legacyExchangeDN");
+	values = ldap_get_values (gc->priv->ldap, msg, "legacyExchangeDN");
 	if (values) {
 		E2K_GC_DEBUG_MSG(("GC: legacyExchangeDN %s\n", values[0]));
-		ld->entry->legacy_exchange_dn = g_strdup (values[0]);
-		g_hash_table_insert (ld->gc->priv->entry_cache,
-				     ld->entry->legacy_exchange_dn,
-				     ld->entry);
-		ld->found_flags |= E2K_GLOBAL_CATALOG_LOOKUP_LEGACY_EXCHANGE_DN;
+		entry->legacy_exchange_dn = g_strdup (values[0]);
+		g_hash_table_insert (gc->priv->entry_cache,
+				     entry->legacy_exchange_dn,
+				     entry);
+		entry->mask |= E2K_GLOBAL_CATALOG_LOOKUP_LEGACY_EXCHANGE_DN;
 		ldap_value_free (values);
 	}
 }
 
 static void
-get_delegation_values (struct lookup_data *ld, LDAPMessage *msg)
+get_delegation_values (E2kGlobalCatalog *gc, E2kOperation *op,
+		       LDAPMessage *msg, E2kGlobalCatalogEntry *entry)
 {
 	char **values;
 	int i;
 
-	values = ldap_get_values (ld->gc->priv->ldap, msg, "publicDelegates");
+	values = ldap_get_values (gc->priv->ldap, msg, "publicDelegates");
 	if (values) {
 		E2K_GC_DEBUG_MSG(("GC: publicDelegates\n"));
-		ld->entry->delegates = g_ptr_array_new ();
+		entry->delegates = g_ptr_array_new ();
 		for (i = 0; values[i]; i++) {
 			E2K_GC_DEBUG_MSG(("GC:   %s\n", values[i]));
-			g_ptr_array_add (ld->entry->delegates,
+			g_ptr_array_add (entry->delegates,
 					 g_strdup (values[i]));
 		}
-		ld->found_flags |= E2K_GLOBAL_CATALOG_LOOKUP_DELEGATES;
+		entry->mask |= E2K_GLOBAL_CATALOG_LOOKUP_DELEGATES;
 		ldap_value_free (values);
 	}
-	values = ldap_get_values (ld->gc->priv->ldap, msg, "publicDelegatesBL");
+	values = ldap_get_values (gc->priv->ldap, msg, "publicDelegatesBL");
 	if (values) {
 		E2K_GC_DEBUG_MSG(("GC: publicDelegatesBL\n"));
-		ld->entry->delegators = g_ptr_array_new ();
+		entry->delegators = g_ptr_array_new ();
 		for (i = 0; values[i]; i++) {
 			E2K_GC_DEBUG_MSG(("GC:   %s\n", values[i]));
-			g_ptr_array_add (ld->entry->delegators,
+			g_ptr_array_add (entry->delegators,
 					 g_strdup (values[i]));
 		}
-		ld->found_flags |= E2K_GLOBAL_CATALOG_LOOKUP_DELEGATORS;
+		entry->mask |= E2K_GLOBAL_CATALOG_LOOKUP_DELEGATORS;
 		ldap_value_free (values);
 	}
 }
 
 static void
-finish_lookup (struct lookup_data *ld, E2kGlobalCatalogStatus status)
+get_quota_values (E2kGlobalCatalog *gc, E2kOperation *op,
+		  LDAPMessage *msg, E2kGlobalCatalogEntry *entry)
 {
-	g_free (ld->base);
-	g_free (ld->filter);
-	g_ptr_array_free (ld->attrs, TRUE);
+	char **values;
 
-	if (status != E2K_GLOBAL_CATALOG_OK) {
-		if (!ld->entry->dn)
-			g_free (ld->entry);
-		ld->entry = NULL;
+	values = ldap_get_values (gc->priv->ldap, msg, "mDBStorageQuota");
+	if (values) {
+		entry->quota_warn = atoi(values[0]);
+		E2K_GC_DEBUG_MSG(("GC: mDBStorageQuota %s\n", values[0]));
+		entry->mask |= E2K_GLOBAL_CATALOG_LOOKUP_QUOTA;
+		ldap_value_free (values);	
 	}
 
-	ld->status = status;
+	values = ldap_get_values (gc->priv->ldap, msg, "mDBOverQuotaLimit");
+	if (values) {
+		entry->quota_nosend = atoi(values[0]);
+		E2K_GC_DEBUG_MSG(("GC: mDBOverQuotaLimit %s\n", values[0]));
+		entry->mask |= E2K_GLOBAL_CATALOG_LOOKUP_QUOTA;
+		ldap_value_free (values);	
+	}
 
-	if (ld->callback) {
-		ld->callback (ld->gc, ld->status, ld->entry, ld->user_data);
-		g_object_unref (ld->gc);
-		g_free (ld);
+	values = ldap_get_values (gc->priv->ldap, msg, "mDBOverHardQuotaLimit");
+	if (values) {
+		entry->quota_norecv = atoi(values[0]);
+		E2K_GC_DEBUG_MSG(("GC: mDBHardQuotaLimit %s\n", values[0]));
+		entry->mask |= E2K_GLOBAL_CATALOG_LOOKUP_QUOTA;
+		ldap_value_free (values);	
 	}
 }
 
-static struct timeval zero_tv;
-static void queue_lookup (struct lookup_data *ld);
-
-static gboolean
-lookup_poll (gpointer user_data)
+/**
+ * e2k_global_catalog_lookup:
+ * @gc: the global catalog
+ * @op: pointer to an #E2kOperation to use for cancellation
+ * @type: the type of information in @key
+ * @key: email address or DN to look up
+ * @flags: the information to look up
+ * @entry_p: pointer to a variable to return the entry in.
+ *
+ * Look up the indicated user in the global catalog and
+ * return their information in *@entry_p.
+ *
+ * Return value: the status of the lookup
+ **/
+E2kGlobalCatalogStatus
+e2k_global_catalog_lookup (E2kGlobalCatalog *gc,
+			   E2kOperation *op,
+			   E2kGlobalCatalogLookupType type,
+			   const char *key,
+			   E2kGlobalCatalogLookupFlags flags,
+			   E2kGlobalCatalogEntry **entry_p)
 {
-	struct lookup_data *ld = user_data;
-	LDAPMessage *msg, *entry;
-	int ldap_error;
-	char *dn;
+	E2kGlobalCatalogEntry *entry;
+	GPtrArray *attrs;
+	E2kGlobalCatalogLookupFlags lookup_flags, need_flags = 0;
+	const char *base;
+	char *filter = NULL, *dn;
+	int scope, ldap_error;
+	E2kGlobalCatalogStatus status;
+	LDAPMessage *msg, *resp;
 
-	ldap_error = ldap_result (ld->gc->priv->ldap, ld->msgid, TRUE,
-				  &zero_tv, &msg);
-	if (ldap_error == 0)
-		return TRUE;
+	g_return_val_if_fail (E2K_IS_GLOBAL_CATALOG (gc), E2K_GLOBAL_CATALOG_ERROR);
+	g_return_val_if_fail (key != NULL, E2K_GLOBAL_CATALOG_ERROR);
 
-	if (ldap_error == -1) {
-		if (ldap_get_option (ld->gc->priv->ldap, LDAP_OPT_ERROR_NUMBER, &ldap_error) == LDAP_OPT_SUCCESS &&
-		    ldap_error == LDAP_SERVER_DOWN) {
-			E2K_GC_DEBUG_MSG(("GC: server disconnected while polling. Trying again\n\n"));
-			queue_lookup (ld);
-			return FALSE;
-		}
+	g_mutex_lock (gc->priv->ldap_lock);
 
-		E2K_GC_DEBUG_MSG(("GC: ldap error while polling\n\n"));
-		finish_lookup (ld, E2K_GLOBAL_CATALOG_ERROR);
-		return FALSE;
+	entry = g_hash_table_lookup (gc->priv->entry_cache, key);
+	if (!entry)
+		entry = g_new0 (E2kGlobalCatalogEntry, 1);
+
+	attrs = g_ptr_array_new ();
+	if (!entry->display_name)
+		g_ptr_array_add (attrs, "displayName");
+	if (!entry->email) {
+		g_ptr_array_add (attrs, "mail");
+		if (flags & E2K_GLOBAL_CATALOG_LOOKUP_EMAIL)
+			need_flags |= E2K_GLOBAL_CATALOG_LOOKUP_EMAIL;
+	}
+	if (!entry->legacy_exchange_dn) {
+		g_ptr_array_add (attrs, "legacyExchangeDN");
+		if (flags & E2K_GLOBAL_CATALOG_LOOKUP_LEGACY_EXCHANGE_DN)
+			need_flags |= E2K_GLOBAL_CATALOG_LOOKUP_LEGACY_EXCHANGE_DN;
 	}
 
-	entry = ldap_first_entry (ld->gc->priv->ldap, msg);
-	if (!entry) {
-		E2K_GC_DEBUG_MSG(("GC: no such user\n\n"));
-		finish_lookup (ld, E2K_GLOBAL_CATALOG_NO_SUCH_USER);
-		ldap_msgfree (msg);
-		return FALSE;
+	lookup_flags = flags & ~entry->mask;
+
+	if (lookup_flags & E2K_GLOBAL_CATALOG_LOOKUP_SID) {
+		g_ptr_array_add (attrs, "objectSid");
+		g_ptr_array_add (attrs, "objectCategory");
+		need_flags |= E2K_GLOBAL_CATALOG_LOOKUP_SID;
+	}
+	if (lookup_flags & E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX) {
+		g_ptr_array_add (attrs, "mailNickname");
+		g_ptr_array_add (attrs, "homeMTA");
+		need_flags |= E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX;
+	}
+	if (lookup_flags & E2K_GLOBAL_CATALOG_LOOKUP_DELEGATES)
+		g_ptr_array_add (attrs, "publicDelegates");
+	if (lookup_flags & E2K_GLOBAL_CATALOG_LOOKUP_DELEGATORS)
+		g_ptr_array_add (attrs, "publicDelegatesBL");
+	if (lookup_flags & E2K_GLOBAL_CATALOG_LOOKUP_QUOTA) {
+		g_ptr_array_add (attrs, "mDBStorageQuota");
+		g_ptr_array_add (attrs, "mDBOverQuotaLimit");
+		g_ptr_array_add (attrs, "mDBOverHardQuotaLimit");
 	}
 
-	if (!ld->entry->dn) {
-		dn = ldap_get_dn (ld->gc->priv->ldap, entry);
-		ld->entry->dn = g_strdup (dn);
-		ldap_memfree (dn);
-		g_ptr_array_add (ld->gc->priv->entries, ld->entry);
-		g_hash_table_insert (ld->gc->priv->entry_cache,
-				     ld->entry->dn, ld->entry);
+	if (attrs->len == 0) {
+		E2K_GC_DEBUG_MSG(("\nGC: returning cached info for %s\n", key));
+		goto lookedup;
 	}
-
-	get_sid_values (ld, entry);
-	get_mail_values (ld, entry);
-	get_delegation_values (ld, entry);
-	ldap_msgfree (msg);
-
-	if (ld->want_flags && !ld->found_flags) {
-		E2K_GC_DEBUG_MSG(("GC: no data\n\n"));
-		finish_lookup (ld, E2K_GLOBAL_CATALOG_NO_DATA);
-		return FALSE;
-	}
-
-	E2K_GC_DEBUG_MSG(("\n"));
-	finish_lookup (ld, E2K_GLOBAL_CATALOG_OK);
-	return FALSE;
-}
-
-static void
-queue_lookup (struct lookup_data *ld)
-{
-	int ldap_error, msgid;
-
-	if (!ld->attrs) {
-		finish_lookup (ld, E2K_GLOBAL_CATALOG_OK);
-		return;
-	}
-
-	ldap_error = LDAP_SERVER_DOWN;
-	while (ldap_error == LDAP_SERVER_DOWN &&
-	       e2k_global_catalog_get_ldap (ld->gc)) {
-		ldap_error = ldap_search_ext (ld->gc->priv->ldap, ld->base,
-					      ld->scope, ld->filter,
-					      (char **)ld->attrs->pdata,
-					      FALSE, NULL, NULL, NULL, 0,
-					      &msgid);
-	}
-
-	if (ldap_error != LDAP_SUCCESS) {
-		E2K_GC_DEBUG_MSG(("GC: ldap_search failed: 0x%02x\n\n", ldap_error));
-		finish_lookup (ld, E2K_GLOBAL_CATALOG_ERROR);
-		return;
-	}
-
-	ld->msgid = msgid;
-	ld->timeout_id = g_timeout_add (250, lookup_poll, ld);
-}
-
-static struct lookup_data *
-setup_lookup_data (E2kGlobalCatalog *gc, E2kGlobalCatalogLookupType type,
-		   const char *key, guint32 lookup_flags,
-		   E2kGlobalCatalogCallback callback, gpointer user_data)
-{
-	struct lookup_data *ld;
 
 	E2K_GC_DEBUG_MSG(("\nGC: looking up info for %s\n", key));
-
-	ld = g_new0 (struct lookup_data, 1);
-	ld->gc = gc;
-	if (callback) {
-		g_object_ref (ld->gc);
-		ld->callback = callback;
-		ld->user_data = user_data;
-	}
-
-	ld->entry = g_hash_table_lookup (gc->priv->entry_cache, key);
-	if (!ld->entry)
-		ld->entry = g_new0 (E2kGlobalCatalogEntry, 1);
+	g_ptr_array_add (attrs, NULL);
 
 	switch (type) {
 	case E2K_GLOBAL_CATALOG_LOOKUP_BY_EMAIL:
-		ld->filter = g_strdup_printf ("(mail=%s)", key);
-		ld->base = g_strdup (LDAP_ROOT_DSE);
-		ld->scope = LDAP_SCOPE_SUBTREE;
+		filter = g_strdup_printf ("(mail=%s)", key);
+		base = LDAP_ROOT_DSE;
+		scope = LDAP_SCOPE_SUBTREE;
 		break;
 
 	case E2K_GLOBAL_CATALOG_LOOKUP_BY_DN:
-		ld->filter = NULL;
-		ld->base = g_strdup (key);
-		ld->scope = LDAP_SCOPE_BASE;
+		filter = NULL;
+		base = key;
+		scope = LDAP_SCOPE_BASE;
 		break;
 
 	case E2K_GLOBAL_CATALOG_LOOKUP_BY_LEGACY_EXCHANGE_DN:
-		ld->filter = g_strdup_printf ("(legacyExchangeDN=%s)", key);
-		ld->base = g_strdup (LDAP_ROOT_DSE);
-		ld->scope = LDAP_SCOPE_SUBTREE;
+		filter = g_strdup_printf ("(legacyExchangeDN=%s)", key);
+		base = LDAP_ROOT_DSE;
+		scope = LDAP_SCOPE_SUBTREE;
 		break;
 	}
 
-	ld->attrs = g_ptr_array_new ();
-	if (!ld->entry->display_name)
-		g_ptr_array_add (ld->attrs, "displayName");
-	if (!ld->entry->email) {
-		g_ptr_array_add (ld->attrs, "mail");
-		if (lookup_flags & E2K_GLOBAL_CATALOG_LOOKUP_EMAIL)
-			ld->want_flags |= E2K_GLOBAL_CATALOG_LOOKUP_EMAIL;
-	}
-	if (!ld->entry->legacy_exchange_dn) {
-		g_ptr_array_add (ld->attrs, "legacyExchangeDN");
-		if (lookup_flags & E2K_GLOBAL_CATALOG_LOOKUP_LEGACY_EXCHANGE_DN)
-			ld->want_flags |= E2K_GLOBAL_CATALOG_LOOKUP_LEGACY_EXCHANGE_DN;
+	ldap_error = gc_search (gc, op, base, scope, filter,
+				(const char **)attrs->pdata, &msg);
+	if (ldap_error == LDAP_USER_CANCELLED) {
+		E2K_GC_DEBUG_MSG(("GC: ldap_search cancelled"));
+		status = E2K_GLOBAL_CATALOG_CANCELLED;
+		goto done;
+	} else if (ldap_error != LDAP_SUCCESS) {
+		E2K_GC_DEBUG_MSG(("GC: ldap_search failed: 0x%02x\n\n", ldap_error));
+		status = E2K_GLOBAL_CATALOG_ERROR;
+		goto done;
 	}
 
-	if ((lookup_flags & E2K_GLOBAL_CATALOG_LOOKUP_SID) && !ld->entry->sid) {
-		g_ptr_array_add (ld->attrs, "objectSid");
-		g_ptr_array_add (ld->attrs, "objectCategory");
-		ld->want_flags |= E2K_GLOBAL_CATALOG_LOOKUP_SID;
+	resp = ldap_first_entry (gc->priv->ldap, msg);
+	if (!resp) {
+		E2K_GC_DEBUG_MSG(("GC: no such user\n\n"));
+		status = E2K_GLOBAL_CATALOG_NO_SUCH_USER;
+		ldap_msgfree (msg);
+		goto done;
 	}
-	if ((lookup_flags & E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX) && !ld->entry->mailbox) {
-		g_ptr_array_add (ld->attrs, "mailNickname");
-		g_ptr_array_add (ld->attrs, "homeMTA");
-		ld->want_flags |= E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX;
-	}
-	if ((lookup_flags & E2K_GLOBAL_CATALOG_LOOKUP_DELEGATES) &&
-	    !ld->entry->delegates)
-		g_ptr_array_add (ld->attrs, "publicDelegates");
-	if ((lookup_flags & E2K_GLOBAL_CATALOG_LOOKUP_DELEGATORS) &&
-	    !ld->entry->delegators)
-		g_ptr_array_add (ld->attrs, "publicDelegatesBL");
-	g_ptr_array_add (ld->attrs, NULL);
 
-	return ld;
+	if (!entry->dn) {
+		dn = ldap_get_dn (gc->priv->ldap, resp);
+		entry->dn = g_strdup (dn);
+		ldap_memfree (dn);
+		g_ptr_array_add (gc->priv->entries, entry);
+		g_hash_table_insert (gc->priv->entry_cache,
+				     entry->dn, entry);
+	}
+
+	get_sid_values (gc, op, resp, entry);
+	get_mail_values (gc, op, resp, entry);
+	get_delegation_values (gc, op, resp, entry);
+	get_quota_values (gc, op, resp, entry);
+	ldap_msgfree (msg);
+
+ lookedup:
+	if (need_flags & ~entry->mask) {
+		E2K_GC_DEBUG_MSG(("GC: no data\n\n"));
+		status = E2K_GLOBAL_CATALOG_NO_DATA;
+	} else {
+		E2K_GC_DEBUG_MSG(("\n"));
+		status = E2K_GLOBAL_CATALOG_OK;
+		entry->mask |= lookup_flags;
+		*entry_p = entry;
+	}
+
+ done:
+	g_free (filter);
+	g_ptr_array_free (attrs, TRUE);
+
+	if (status != E2K_GLOBAL_CATALOG_OK && !entry->dn)
+		g_free (entry);
+
+	g_mutex_unlock (gc->priv->ldap_lock);
+	return status;
+}
+
+
+struct async_lookup_data {
+	E2kGlobalCatalog *gc;
+	E2kOperation *op;
+	E2kGlobalCatalogLookupType type;
+	char *key;
+	E2kGlobalCatalogLookupFlags flags;
+	E2kGlobalCatalogCallback callback;
+	gpointer user_data;
+
+	E2kGlobalCatalogEntry *entry;
+	E2kGlobalCatalogStatus status;
+};
+
+static gboolean
+idle_lookup_result (gpointer user_data)
+{
+	struct async_lookup_data *ald = user_data;
+
+	ald->callback (ald->gc, ald->status, ald->entry, ald->user_data);
+	g_object_unref (ald->gc);
+	g_free (ald->key);
+	g_free (ald);
+	return FALSE;
+}
+
+static void *
+do_lookup_thread (void *user_data)
+{
+	struct async_lookup_data *ald = user_data;
+
+	ald->status = e2k_global_catalog_lookup (ald->gc, ald->op, ald->type,
+						 ald->key, ald->flags,
+						 &ald->entry);
+	g_idle_add (idle_lookup_result, ald);
+	return NULL;
 }
 
 /**
  * e2k_global_catalog_async_lookup:
  * @gc: the global catalog
+ * @op: pointer to an #E2kOperation to use for cancellation
  * @type: the type of information in @key
  * @key: email address or DN to look up
- * @lookup_flags: the information to look up
+ * @flags: the information to look up
  * @callback: the callback to invoke after finding the user
  * @user_data: data to pass to callback
  *
@@ -745,94 +881,40 @@ setup_lookup_data (E2kGlobalCatalog *gc, E2kGlobalCatalogLookupType type,
  * Return value: a cookie that can be passed to
  * e2k_global_catalog_cancel_lookup()
  **/
-E2kGlobalCatalogLookupId
+void
 e2k_global_catalog_async_lookup (E2kGlobalCatalog *gc,
+				 E2kOperation *op,
 				 E2kGlobalCatalogLookupType type,
-				 const char *key, guint32 lookup_flags,
+				 const char *key,
+				 E2kGlobalCatalogLookupFlags flags,
 				 E2kGlobalCatalogCallback callback,
 				 gpointer user_data)
 {
-	struct lookup_data *ld;
+	struct async_lookup_data *ald;
+	pthread_t pth;
 
-	if (!E2K_IS_GLOBAL_CATALOG (gc) || !key) {
-		callback (gc, E2K_GLOBAL_CATALOG_ERROR, NULL, user_data);
-		g_return_val_if_fail (E2K_IS_GLOBAL_CATALOG (gc), NULL);
-		g_return_val_if_fail (key != NULL, NULL);
+	ald = g_new0 (struct async_lookup_data, 1);
+	ald->gc = g_object_ref (gc);
+	ald->op = op;
+	ald->type = type;
+	ald->key = g_strdup (key);
+	ald->flags = flags;
+	ald->callback = callback;
+	ald->user_data = user_data;
+
+	if (pthread_create (&pth, NULL, do_lookup_thread, ald) == -1) {
+		g_warning ("Could not create lookup thread\n");
+		ald->status = E2K_GLOBAL_CATALOG_ERROR;
+		g_idle_add (idle_lookup_result, ald);
 	}
-
-	ld = setup_lookup_data (gc, type, key, lookup_flags,
-				callback, user_data);
-	queue_lookup (ld);
-	return ld;
 }
-
-/**
- * e2k_global_catalog_cancel_lookup:
- * @gc: the global catalog
- * @lookup_id: the return value from the e2k_global_catalog_async_lookup()
- * call to cancel
- *
- * This cancels the lookup identified by @lookup_id, which must be an
- * active lookup. The callback will not be called.
- **/
-void
-e2k_global_catalog_cancel_lookup (E2kGlobalCatalog *gc,
-				  E2kGlobalCatalogLookupId lookup_id)
-{
-	struct lookup_data *ld = lookup_id;
-
-	g_source_remove (ld->timeout_id);
-	ldap_abandon (gc->priv->ldap, ld->msgid);
-
-	ld->callback = NULL;
-	finish_lookup (ld, -1);
-	g_object_unref (ld->gc);
-	g_free (ld);
-}
-
-/**
- * e2k_global_catalog_lookup:
- * @gc: the global catalog
- * @type: the type of information in @key
- * @key: email address or DN to look up
- * @lookup_flags: the information to look up
- * @entry_p: pointer to a variable to return the entry in.
- *
- * Synchronously look up the indicated user in the global catalog and
- * return their information in *@entry_p.
- *
- * Return value: the status of the lookup
- **/
-E2kGlobalCatalogStatus
-e2k_global_catalog_lookup (E2kGlobalCatalog *gc,
-			   E2kGlobalCatalogLookupType type,
-			   const char *key, guint32 lookup_flags,
-			   E2kGlobalCatalogEntry **entry_p)
-{
-	struct lookup_data *ld;
-	E2kGlobalCatalogStatus status;
-
-	g_return_val_if_fail (E2K_IS_GLOBAL_CATALOG (gc), E2K_GLOBAL_CATALOG_ERROR);
-	g_return_val_if_fail (key != NULL, E2K_GLOBAL_CATALOG_ERROR);
-
-	ld = setup_lookup_data (gc, type, key, lookup_flags, NULL, NULL);
-	ld->status = -1;
-	queue_lookup (ld);
-	while (ld->status == -1)
-		g_main_context_iteration (NULL, TRUE);
-
-	*entry_p = ld->entry;
-	status = ld->status;
-
-	g_free (ld);
-	return status;
-}
-
 
 static const char *
-lookup_controlling_ad_server (E2kGlobalCatalog *gc, const char *dn)
+lookup_controlling_ad_server (E2kGlobalCatalog *gc, E2kOperation *op,
+			      const char *dn)
 {
-	char *hostname, *attrs[2], **values, *ad_dn;
+	char *hostname, **values, *ad_dn;
+	const char *attrs[2];
 	LDAPMessage *resp;
 	int ldap_error;
 
@@ -852,15 +934,7 @@ lookup_controlling_ad_server (E2kGlobalCatalog *gc, const char *dn)
 	attrs[0] = "masteredBy";
 	attrs[1] = NULL;
 
-	ldap_error = LDAP_SERVER_DOWN;
-	while (ldap_error == LDAP_SERVER_DOWN &&
-	       e2k_global_catalog_get_ldap (gc)) {
-		ldap_error = ldap_search_ext_s (gc->priv->ldap, dn,
-						LDAP_SCOPE_BASE,
-						NULL, attrs, 0, NULL,
-						NULL, NULL, 0, &resp);
-	}
-
+	ldap_error = gc_search (gc, op, dn, LDAP_SCOPE_BASE, NULL, attrs, &resp);
 	if (ldap_error != LDAP_SUCCESS) {
 		E2K_GC_DEBUG_MSG(("GC:   ldap_search failed: 0x%02x\n", ldap_error));
 		return NULL;
@@ -885,14 +959,7 @@ lookup_controlling_ad_server (E2kGlobalCatalog *gc, const char *dn)
 	attrs[0] = "dNSHostName";
 	attrs[1] = NULL;
 
-	ldap_error = LDAP_SERVER_DOWN;
-	while (ldap_error == LDAP_SERVER_DOWN &&
-	       e2k_global_catalog_get_ldap (gc)) {
-		ldap_error = ldap_search_ext_s (gc->priv->ldap, ad_dn,
-						LDAP_SCOPE_BASE,
-						NULL, attrs, 0, NULL,
-						NULL, NULL, 0, &resp);
-	}
+	ldap_error = gc_search (gc, op, ad_dn, LDAP_SCOPE_BASE, NULL, attrs, &resp);
 	ldap_value_free (values);
 
 	if (ldap_error != LDAP_SUCCESS) {
@@ -917,28 +984,34 @@ lookup_controlling_ad_server (E2kGlobalCatalog *gc, const char *dn)
 }
 
 static E2kGlobalCatalogStatus
-do_delegate_op (E2kGlobalCatalog *gc, int op,
+do_delegate_op (E2kGlobalCatalog *gc, E2kOperation *op, int deleg_op,
 		const char *self_dn, const char *delegate_dn)
 {
 	LDAP *ldap;
 	LDAPMod *mods[2], mod;
 	const char *ad_server;
 	char *values[2];
-	int ldap_error;
+	int ldap_error, msgid;
 
 	g_return_val_if_fail (E2K_IS_GLOBAL_CATALOG (gc), E2K_GLOBAL_CATALOG_ERROR);
 	g_return_val_if_fail (self_dn != NULL, E2K_GLOBAL_CATALOG_ERROR);
 	g_return_val_if_fail (delegate_dn != NULL, E2K_GLOBAL_CATALOG_ERROR);
 
-	ad_server = lookup_controlling_ad_server (gc, self_dn);
-	if (!ad_server)
+	ad_server = lookup_controlling_ad_server (gc, op, self_dn);
+	if (!ad_server) {
+		if (e2k_operation_is_cancelled (op))
+			return E2K_GLOBAL_CATALOG_CANCELLED;
+		else
+			return E2K_GLOBAL_CATALOG_ERROR;
+	}
+
+	ldap_error = get_ldap_connection (gc, op, ad_server, LDAP_PORT, &ldap);
+	if (ldap_error == LDAP_USER_CANCELLED)
+		return E2K_GLOBAL_CATALOG_CANCELLED;
+	else if (ldap_error != LDAP_SUCCESS)
 		return E2K_GLOBAL_CATALOG_ERROR;
 
-	ldap = get_ldap_connection (gc, ad_server, LDAP_PORT);
-	if (!ldap)
-		return E2K_GLOBAL_CATALOG_ERROR;
-
-	mod.mod_op = op;
+	mod.mod_op = deleg_op;
 	mod.mod_type = "publicDelegates";
 	mod.mod_values = values;
 	values[0] = (char *)delegate_dn;
@@ -946,7 +1019,17 @@ do_delegate_op (E2kGlobalCatalog *gc, int op,
 
 	mods[0] = &mod;
 	mods[1] = NULL;
-	ldap_error = ldap_modify_ext_s (ldap, self_dn, mods, NULL, NULL);
+
+	ldap_error = ldap_modify_ext (ldap, self_dn, mods, NULL, NULL, &msgid);
+	if (ldap_error == LDAP_SUCCESS) {
+		LDAPMessage *msg;
+
+		ldap_error = gc_ldap_result (ldap, op, msgid, &msg);
+		if (ldap_error == LDAP_SUCCESS) {
+			ldap_parse_result (ldap, msg, &ldap_error, NULL, NULL,
+					   NULL, NULL, TRUE);
+		}
+	}
 	ldap_unbind (ldap);
 
 	switch (ldap_error) {
@@ -970,6 +1053,10 @@ do_delegate_op (E2kGlobalCatalog *gc, int op,
 		E2K_GC_DEBUG_MSG(("GC: delegate already exists\n\n"));
 		return E2K_GLOBAL_CATALOG_EXISTS;
 
+	case LDAP_USER_CANCELLED:
+		E2K_GC_DEBUG_MSG(("GC: cancelled\n\n"));
+		return E2K_GLOBAL_CATALOG_CANCELLED;
+
 	default:
 		E2K_GC_DEBUG_MSG(("GC: ldap_modify failed: 0x%02x\n\n", ldap_error));
 		return E2K_GLOBAL_CATALOG_ERROR;
@@ -979,6 +1066,7 @@ do_delegate_op (E2kGlobalCatalog *gc, int op,
 /**
  * e2k_global_catalog_add_delegate:
  * @gc: the global catalog
+ * @op: pointer to an #E2kOperation to use for cancellation
  * @self_dn: Active Directory DN of the user to add a delegate to
  * @delegate_dn: Active Directory DN of the new delegate
  *
@@ -992,17 +1080,19 @@ do_delegate_op (E2kGlobalCatalog *gc, int op,
  **/
 E2kGlobalCatalogStatus
 e2k_global_catalog_add_delegate (E2kGlobalCatalog *gc,
+				 E2kOperation *op,
 				 const char *self_dn,
 				 const char *delegate_dn)
 {
 	E2K_GC_DEBUG_MSG(("\nGC: adding %s as delegate for %s\n", delegate_dn, self_dn));
 
-	return do_delegate_op (gc, LDAP_MOD_ADD, self_dn, delegate_dn);
+	return do_delegate_op (gc, op, LDAP_MOD_ADD, self_dn, delegate_dn);
 }
 
 /**
  * e2k_global_catalog_remove_delegate:
  * @gc: the global catalog
+ * @op: pointer to an #E2kOperation to use for cancellation
  * @self_dn: Active Directory DN of the user to remove a delegate from
  * @delegate_dn: Active Directory DN of the delegate to remove
  *
@@ -1015,10 +1105,11 @@ e2k_global_catalog_add_delegate (E2kGlobalCatalog *gc,
  **/
 E2kGlobalCatalogStatus
 e2k_global_catalog_remove_delegate (E2kGlobalCatalog *gc,
+				    E2kOperation *op,
 				    const char *self_dn,
 				    const char *delegate_dn)
 {
 	E2K_GC_DEBUG_MSG(("\nGC: removing %s as delegate for %s\n", delegate_dn, self_dn));
 
-	return do_delegate_op (gc, LDAP_MOD_DELETE, self_dn, delegate_dn);
+	return do_delegate_op (gc, op, LDAP_MOD_DELETE, self_dn, delegate_dn);
 }

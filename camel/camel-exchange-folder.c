@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 
-/* Copyright (C) 2000-2004 Novell, Inc.
+/* Copyright (C) 2001-2004 Novell, Inc.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of version 2 of the GNU General Public
@@ -16,6 +16,8 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
+
+/* camel-exchange-folder.c: class for an Exchange folder */
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -36,6 +38,7 @@
 #include <camel/camel-mime-filter-crlf.h>
 #include <camel/camel-mime-message.h>
 #include <camel/camel-multipart.h>
+#include <camel/camel-session.h>
 #include <camel/camel-stream-filter.h>
 #include <camel/camel-stream-mem.h>
 
@@ -52,8 +55,8 @@ static void expunge             (CamelFolder *folder,
 static void append_message (CamelFolder *folder, CamelMimeMessage *message,
 			    const CamelMessageInfo *info, char **appended_uid,
 			    CamelException *ex);
-static void set_message_flags (CamelFolder *folder, const char *uid,
-			       guint32 flags, guint32 set);
+static gboolean set_message_flags (CamelFolder *folder, const char *uid,
+				   guint32 flags, guint32 set);
 static void set_message_user_tag (CamelFolder *folder, const char *uid,
 				  const char *name, const char *value);
 static CamelMimeMessage *get_message         (CamelFolder *folder,
@@ -280,26 +283,19 @@ append_message (CamelFolder *folder, CamelMimeMessage *message,
 	camel_object_unref (CAMEL_OBJECT (stream_mem));
 }
 
-static void
+static gboolean
 set_message_flags (CamelFolder *folder, const char *uid,
 		   guint32 flags, guint32 set)
 {
 	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
-	CamelMessageInfo *info;
-	guint32 oldflags, newflags;;
+	gboolean changed;
 
 	if (folder->permanent_flags == 0)
-		return;
+		return FALSE;
 
-	info = camel_folder_summary_uid (folder->summary, uid);
-	g_return_if_fail (info != NULL);
-
-	oldflags = info->flags;
-	CAMEL_FOLDER_CLASS (parent_class)->set_message_flags (folder, uid, flags, set);
-	newflags = info->flags;
-	camel_folder_summary_info_free (folder->summary, info);
-	if (oldflags == newflags)
-		return;
+	changed = CAMEL_FOLDER_CLASS (parent_class)->set_message_flags (folder, uid, flags, set);
+	if (!changed)
+		return FALSE;
 
 	camel_stub_send_oneway (exch->stub, CAMEL_STUB_CMD_SET_MESSAGE_FLAGS,
 				CAMEL_STUB_ARG_FOLDER, folder->full_name,
@@ -307,6 +303,7 @@ set_message_flags (CamelFolder *folder, const char *uid,
 				CAMEL_STUB_ARG_UINT32, set,
 				CAMEL_STUB_ARG_UINT32, flags,
 				CAMEL_STUB_ARG_END);
+	return TRUE;
 }
 
 static void
@@ -336,20 +333,21 @@ fix_broken_multipart_related (CamelMimePart *part)
 	CamelMultipart *multipart, *new;
 	CamelMimePart *subpart;
 	int i, count, broken_parts;
-
-	content_type = camel_mime_part_get_content_type (part);
+	
 	content = camel_medium_get_content_object (CAMEL_MEDIUM (part));
-	if (header_content_type_is (content_type, "message", "rfc822")) {
+	
+	content_type = content->mime_type;
+	if (camel_content_type_is (content_type, "message", "rfc822")) {
 		fix_broken_multipart_related (CAMEL_MIME_PART (content));
 		return;
 	}
 
-	if (!header_content_type_is (content_type, "multipart", "*"))
+	if (!camel_content_type_is (content_type, "multipart", "*"))
 		return;
 	multipart = CAMEL_MULTIPART (content);
 	count = camel_multipart_get_number (multipart);
 
-	if (header_content_type_is (content_type, "multipart", "related") &&
+	if (camel_content_type_is (content_type, "multipart", "related") &&
 	    camel_medium_get_header (CAMEL_MEDIUM (part), "X-MimeOLE"))
 		broken_parts = count - 1;
 	else
@@ -680,14 +678,14 @@ find_parent (CamelExchangeFolder *exch, const char *thread_index)
 	int dlen;
 
 	decoded = g_strdup (thread_index);
-	dlen = base64_decode_simple (decoded, strlen (decoded));
+	dlen = camel_base64_decode_simple (decoded, strlen (decoded));
 	if (dlen < 5) {
 		/* Shouldn't happen */
 		g_free (decoded);
 		return NULL;
 	}
 
-	parent = base64_encode_simple (decoded, dlen - 5);
+	parent = camel_base64_encode_simple (decoded, dlen - 5);
 	g_free (decoded);
 
 	msgid = g_hash_table_lookup (exch->thread_index_to_message_id,
@@ -806,6 +804,7 @@ camel_exchange_folder_update_message_flags (CamelExchangeFolder *exch,
 {
 	CamelFolder *folder = CAMEL_FOLDER (exch);
 	CamelMessageInfo *info;
+	CamelFolderChangeInfo *changes;
 
 	info = camel_folder_summary_uid (folder->summary, uid);
 	if (!info)
@@ -816,9 +815,12 @@ camel_exchange_folder_update_message_flags (CamelExchangeFolder *exch,
 	if (info->flags != flags) {
 		info->flags = flags;
 		camel_folder_summary_touch (folder->summary);
+
+		changes = camel_folder_change_info_new ();
+		camel_folder_change_info_change_uid (changes, uid);
 		camel_object_trigger_event (CAMEL_OBJECT (exch),
-					    "message_changed",
-					    (char *)uid);
+					    "folder_changed", changes);
+		camel_folder_change_info_free (changes);
 	}
 }
 
@@ -830,6 +832,7 @@ camel_exchange_folder_update_message_tag (CamelExchangeFolder *exch,
 {
 	CamelFolder *folder = CAMEL_FOLDER (exch);
 	CamelMessageInfo *info;
+	CamelFolderChangeInfo *changes;
 
 	info = camel_folder_summary_uid (folder->summary, uid);
 	if (!info)
@@ -838,8 +841,11 @@ camel_exchange_folder_update_message_tag (CamelExchangeFolder *exch,
 	camel_tag_set (&info->user_tags, name, value);
 
 	camel_folder_summary_touch (folder->summary);
+	changes = camel_folder_change_info_new ();
+	camel_folder_change_info_change_uid (changes, uid);
 	camel_object_trigger_event (CAMEL_OBJECT (exch),
-				    "message_changed", (char *)uid);
+				    "folder_changed", changes);
+	camel_folder_change_info_free (changes);
 }
 
 gboolean
@@ -862,7 +868,7 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 		short_name = name;
 	camel_folder_construct (folder, parent, name, short_name);
 
-	if (camel_mkdir_hier (folder_dir, S_IRWXU) != 0) {
+	if (camel_mkdir (folder_dir, S_IRWXU) != 0) {
 		camel_exception_setv (ex, CAMEL_EXCEPTION_SYSTEM,
 				      _("Could not create directory %s: %s"),
 				      folder_dir, g_strerror (errno));

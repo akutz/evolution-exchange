@@ -1,5 +1,8 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
-/* Copyright (C) 2000-2004 Novell, Inc. */
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/* Copyright (C) 2001-2004 Novell, Inc. */
+
+/* camel-stub-constants.h: shared between client and server */
 
 #ifndef CAMEL_STUB_CONSTANTS_H
 #define CAMEL_STUB_CONSTANTS_H 1
@@ -23,7 +26,10 @@ typedef enum {
 	CAMEL_STUB_CMD_SEARCH_FOLDER,
 	CAMEL_STUB_CMD_TRANSFER_MESSAGES,
 	CAMEL_STUB_CMD_GET_FOLDER_INFO,
-	CAMEL_STUB_CMD_SEND_MESSAGE
+	CAMEL_STUB_CMD_SEND_MESSAGE,
+	CAMEL_STUB_CMD_CREATE_FOLDER,
+	CAMEL_STUB_CMD_DELETE_FOLDER,
+	CAMEL_STUB_CMD_RENAME_FOLDER
 } CamelStubCommand;
 
 typedef enum {
@@ -34,7 +40,8 @@ typedef enum {
 	CAMEL_STUB_ARG_STRING,
 	CAMEL_STUB_ARG_BYTEARRAY,
 	CAMEL_STUB_ARG_STRINGARRAY,
-	CAMEL_STUB_ARG_FOLDER
+	CAMEL_STUB_ARG_FOLDER,
+	CAMEL_STUB_ARG_UINT32ARRAY
 } CamelStubArgType;
 
 typedef enum {
@@ -57,11 +64,10 @@ typedef enum {
 #define CAMEL_STUB_FOLDER_READONLY (1<<0)
 #define CAMEL_STUB_FOLDER_FILTER   (1<<1)
 #define CAMEL_STUB_FOLDER_POST     (1<<2)
+#define CAMEL_STUB_FOLDER_NOSELECT (1<<4)
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
 #endif /* CAMEL_STUB_CONSTANTS_H */
-
-

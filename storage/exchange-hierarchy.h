@@ -6,7 +6,7 @@
 
 #include "exchange-types.h"
 #include "exchange-account.h"
-#include <shell/e-folder.h>
+#include "e-folder.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -43,42 +43,32 @@ struct _ExchangeHierarchyClass {
 	GObjectClass parent_class;
 
 	/* methods */
-	gboolean (*is_empty)        (ExchangeHierarchy *hier);
+	gboolean (*is_empty) (ExchangeHierarchy *hier);
 
-	void (*add_to_storage)      (ExchangeHierarchy *hier);
-	void (*rescan)              (ExchangeHierarchy *hier);
-	void (*async_scan_subtree)  (ExchangeHierarchy *hier,
-				     EFolder *folder,
-				     ExchangeAccountFolderCallback callback,
-				     gpointer user_data);
+	void (*add_to_storage) (ExchangeHierarchy *hier);
+	void (*rescan) (ExchangeHierarchy *hier);
+	ExchangeAccountFolderResult (*scan_subtree)  (ExchangeHierarchy *hier,
+						      EFolder *folder);
 
-	void (*async_create_folder) (ExchangeHierarchy *hier,
-				     EFolder *parent,
-				     const char *name,
-				     const char *type,
-				     ExchangeAccountFolderCallback callback,
-				     gpointer user_data);
-	void (*async_remove_folder) (ExchangeHierarchy *hier,
-				     EFolder *folder,
-				     ExchangeAccountFolderCallback callback,
-				     gpointer user_data);
-	void (*async_xfer_folder)   (ExchangeHierarchy *hier,
-				     EFolder *source,
-				     EFolder *dest_parent,
-				     const char *dest_name,
-				     gboolean remove_source,
-				     ExchangeAccountFolderCallback callback,
-				     gpointer user_data);
+	ExchangeAccountFolderResult (*create_folder) (ExchangeHierarchy *hier,
+						      EFolder *parent,
+						      const char *name,
+						      const char *type);
+	ExchangeAccountFolderResult (*remove_folder) (ExchangeHierarchy *hier,
+						      EFolder *folder);
+	ExchangeAccountFolderResult (*xfer_folder)   (ExchangeHierarchy *hier,
+						      EFolder *source,
+						      EFolder *dest_parent,
+						      const char *dest_name,
+						      gboolean remove_source);
 
 	/* signals */
-	void (*new_folder)          (ExchangeHierarchy *hier,
-				     EFolder *folder);
-	void (*updated_folder)      (ExchangeHierarchy *hier,
-				     EFolder *folder);
-	void (*removed_folder)      (ExchangeHierarchy *hier,
-				     EFolder *folder);
-	void (*scanned_folder)      (ExchangeHierarchy *hier,
-				     EFolder *folder);
+	void (*new_folder)     (ExchangeHierarchy *hier,
+				EFolder *folder);
+	void (*updated_folder) (ExchangeHierarchy *hier,
+				EFolder *folder);
+	void (*removed_folder) (ExchangeHierarchy *hier,
+				EFolder *folder);
 };
 
 GType    exchange_hierarchy_get_type            (void);
@@ -97,35 +87,25 @@ void     exchange_hierarchy_updated_folder      (ExchangeHierarchy *hier,
 						 EFolder           *folder);
 void     exchange_hierarchy_removed_folder      (ExchangeHierarchy *hier,
 						 EFolder           *folder);
-void     exchange_hierarchy_scanned_folder      (ExchangeHierarchy *hier,
-						 EFolder           *folder);
 
 gboolean exchange_hierarchy_is_empty            (ExchangeHierarchy *hier);
 
-void     exchange_hierarchy_add_to_storage      (ExchangeHierarchy *hier);
-void     exchange_hierarchy_rescan              (ExchangeHierarchy *hier);
-void     exchange_hierarchy_async_scan_subtree  (ExchangeHierarchy *hier,
-						 EFolder           *folder,
-						 ExchangeAccountFolderCallback,
-						 gpointer           user_data);
+void                        exchange_hierarchy_add_to_storage (ExchangeHierarchy *hier);
+void                        exchange_hierarchy_rescan         (ExchangeHierarchy *hier);
+ExchangeAccountFolderResult exchange_hierarchy_scan_subtree   (ExchangeHierarchy *hier,
+							       EFolder           *folder);
 
-void     exchange_hierarchy_async_create_folder (ExchangeHierarchy *hier,
-						 EFolder           *parent,
-						 const char        *name,
-						 const char        *type,
-						 ExchangeAccountFolderCallback,
-						 gpointer           user_data);
-void     exchange_hierarchy_async_remove_folder (ExchangeHierarchy *hier,
-						 EFolder           *folder,
-						 ExchangeAccountFolderCallback,
-						 gpointer           user_data);
-void     exchange_hierarchy_async_xfer_folder   (ExchangeHierarchy *hier,
-						 EFolder           *source,
-						 EFolder           *dest_parent,
-						 const char        *dest_name,
-						 gboolean           remove_source,
-						 ExchangeAccountFolderCallback,
-						 gpointer           user_data);
+ExchangeAccountFolderResult exchange_hierarchy_create_folder (ExchangeHierarchy *hier,
+							      EFolder           *parent,
+							      const char        *name,
+							      const char        *type);
+ExchangeAccountFolderResult exchange_hierarchy_remove_folder (ExchangeHierarchy *hier,
+							      EFolder           *folder);
+ExchangeAccountFolderResult exchange_hierarchy_xfer_folder   (ExchangeHierarchy *hier,
+							      EFolder           *source,
+							      EFolder           *dest_parent,
+							      const char        *dest_name,
+							      gboolean           remove_source);
 
 #ifdef __cplusplus
 }

@@ -13,9 +13,6 @@ typedef struct _ExchangeAccountClass             ExchangeAccountClass;
 typedef struct _ExchangeConfigListener           ExchangeConfigListener;
 typedef struct _ExchangeConfigListenerPrivate    ExchangeConfigListenerPrivate;
 typedef struct _ExchangeConfigListenerClass      ExchangeConfigListenerClass;
-typedef struct _ExchangeDelegatesControl         ExchangeDelegatesControl;
-typedef struct _ExchangeDelegatesControlPrivate  ExchangeDelegatesControlPrivate;
-typedef struct _ExchangeDelegatesControlClass    ExchangeDelegatesControlClass;
 typedef struct _ExchangeHierarchy                ExchangeHierarchy;
 typedef struct _ExchangeHierarchyPrivate         ExchangeHierarchyPrivate;
 typedef struct _ExchangeHierarchyClass           ExchangeHierarchyClass;
@@ -30,9 +27,6 @@ typedef struct _ExchangeHierarchyWebDAVPrivate   ExchangeHierarchyWebDAVPrivate;
 typedef struct _ExchangeHierarchyWebDAVClass     ExchangeHierarchyWebDAVClass;
 typedef struct _ExchangeOfflineHandler           ExchangeOfflineHandler;
 typedef struct _ExchangeOfflineHandlerClass      ExchangeOfflineHandlerClass;
-typedef struct _ExchangeOOFControl               ExchangeOOFControl;
-typedef struct _ExchangeOOFControlPrivate        ExchangeOOFControlPrivate;
-typedef struct _ExchangeOOFControlClass          ExchangeOOFControlClass;
 typedef struct _ExchangePermissionsDialog        ExchangePermissionsDialog;
 typedef struct _ExchangePermissionsDialogPrivate ExchangePermissionsDialogPrivate;
 typedef struct _ExchangePermissionsDialogClass   ExchangePermissionsDialogClass;
@@ -44,7 +38,17 @@ typedef struct _EFolderExchange                  EFolderExchange;
 typedef struct _EFolderExchangePrivate           EFolderExchangePrivate;
 typedef struct _EFolderExchangeClass             EFolderExchangeClass;
 
-struct _EvolutionShellClient;
+typedef struct  XCBackend                        XCBackend;
+typedef struct  XCBackendPrivate                 XCBackendPrivate;
+typedef struct  XCBackendClass                   XCBackendClass;
+
+typedef struct  XCBackendComponent               XCBackendComponent;
+typedef struct  XCBackendComponentPrivate        XCBackendComponentPrivate;
+typedef struct  XCBackendComponentClass          XCBackendComponentClass;
+
+typedef struct  XCBackendView               	 XCBackendView;
+typedef struct  XCBackendViewPrivate        	 XCBackendViewPrivate;
+typedef struct  XCBackendViewClass          	 XCBackendViewClass;
 
 #ifdef __cplusplus
 }

@@ -5,7 +5,9 @@
 #define __E2K_GLOBAL_CATALOG_H__
 
 #include <glib-object.h>
+#include <ldap.h>
 #include "e2k-types.h"
+#include "e2k-operation.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -38,8 +40,12 @@ E2kGlobalCatalog *e2k_global_catalog_new             (const char *server,
 						      const char *domain,
 						      const char *password);
 
-/* This returns an LDAP *, but we don't want to #include <ldap.h> here. */
-gpointer          e2k_global_catalog_get_ldap        (E2kGlobalCatalog *gc);
+LDAP             *e2k_global_catalog_get_ldap        (E2kGlobalCatalog *gc,
+						      E2kOperation     *op);
+int               e2k_global_catalog_reconnect       (E2kGlobalCatalog *gc,
+						      E2kOperation     *op,
+						      LDAP             *ldap);
+
 
 typedef enum {
 	E2K_GLOBAL_CATALOG_OK,
@@ -47,6 +53,7 @@ typedef enum {
 	E2K_GLOBAL_CATALOG_NO_DATA,
 	E2K_GLOBAL_CATALOG_BAD_DATA,
 	E2K_GLOBAL_CATALOG_EXISTS,
+	E2K_GLOBAL_CATALOG_CANCELLED,
 	E2K_GLOBAL_CATALOG_ERROR
 } E2kGlobalCatalogStatus;
 
@@ -56,49 +63,54 @@ typedef enum {
 	E2K_GLOBAL_CATALOG_LOOKUP_BY_LEGACY_EXCHANGE_DN
 } E2kGlobalCatalogLookupType;
 
-#define E2K_GLOBAL_CATALOG_LOOKUP_SID                (1 << 0)
-#define E2K_GLOBAL_CATALOG_LOOKUP_EMAIL              (1 << 1)
-#define E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX            (1 << 2)
-#define E2K_GLOBAL_CATALOG_LOOKUP_LEGACY_EXCHANGE_DN (1 << 3)
-#define E2K_GLOBAL_CATALOG_LOOKUP_DELEGATES          (1 << 4)
-#define E2K_GLOBAL_CATALOG_LOOKUP_DELEGATORS         (1 << 5)
+typedef enum {
+	E2K_GLOBAL_CATALOG_LOOKUP_SID                = (1 << 0),
+	E2K_GLOBAL_CATALOG_LOOKUP_EMAIL              = (1 << 1),
+	E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX            = (1 << 2),
+	E2K_GLOBAL_CATALOG_LOOKUP_LEGACY_EXCHANGE_DN = (1 << 3),
+	E2K_GLOBAL_CATALOG_LOOKUP_DELEGATES          = (1 << 4),
+	E2K_GLOBAL_CATALOG_LOOKUP_DELEGATORS         = (1 << 5),
+	E2K_GLOBAL_CATALOG_LOOKUP_QUOTA		     = (1 << 6),
+} E2kGlobalCatalogLookupFlags;
 
 typedef struct {
 	char *dn, *display_name;
 	E2kSid *sid;
 	char *email, *exchange_server, *mailbox, *legacy_exchange_dn;
 	GPtrArray *delegates, *delegators;
+	int quota_warn, quota_nosend, quota_norecv;
+
+	E2kGlobalCatalogLookupFlags mask;
 } E2kGlobalCatalogEntry;
 
-typedef gpointer E2kGlobalCatalogLookupId;
+E2kGlobalCatalogStatus e2k_global_catalog_lookup (E2kGlobalCatalog *gc,
+						  E2kOperation     *op,
+						  E2kGlobalCatalogLookupType type,
+						  const char *key,
+						  E2kGlobalCatalogLookupFlags flags,
+						  E2kGlobalCatalogEntry **entry_p);
 
-E2kGlobalCatalogStatus e2k_global_catalog_lookup       (E2kGlobalCatalog *gc,
-							E2kGlobalCatalogLookupType type,
-							const char *key,
-							guint32 lookup_flags,
-							E2kGlobalCatalogEntry **entry);
+typedef void         (*E2kGlobalCatalogCallback) (E2kGlobalCatalog *gc,
+						  E2kGlobalCatalogStatus status,
+						  E2kGlobalCatalogEntry *entry,
+						  gpointer user_data);
+
+void             e2k_global_catalog_async_lookup (E2kGlobalCatalog *gc,
+						  E2kOperation     *op,
+						  E2kGlobalCatalogLookupType type,
+						  const char *key,
+						  E2kGlobalCatalogLookupFlags flags,
+						  E2kGlobalCatalogCallback callback,
+						  gpointer user_data);
 
 #define e2k_global_catalog_entry_free(gc, entry)
 
-typedef void         (*E2kGlobalCatalogCallback)       (E2kGlobalCatalog *,
-							E2kGlobalCatalogStatus,
-							E2kGlobalCatalogEntry *,
-							gpointer user_data);
-
-E2kGlobalCatalogLookupId e2k_global_catalog_async_lookup  (E2kGlobalCatalog *gc,
-							   E2kGlobalCatalogLookupType type,
-							   const char *key,
-							   guint32 lookup_flags,
-							   E2kGlobalCatalogCallback,
-							   gpointer user_data);
-
-void                     e2k_global_catalog_cancel_lookup (E2kGlobalCatalog *gc,
-							   gpointer lookup_id);
-
 E2kGlobalCatalogStatus e2k_global_catalog_add_delegate    (E2kGlobalCatalog *gc,
+							   E2kOperation     *op,
 							   const char *self_dn,
 							   const char *delegate_dn);
 E2kGlobalCatalogStatus e2k_global_catalog_remove_delegate (E2kGlobalCatalog *gc,
+							   E2kOperation     *op,
 							   const char *self_dn,
 							   const char *delegate_dn);
 

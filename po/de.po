@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ximian Connector for Microsoft Exchange 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-10 17:16-0400\n"
+"POT-Creation-Date: 2004-05-11 08:21-0400\n"
 "PO-Revision-Date: 2003-06-16 21:26-0400\n"
 "Last-Translator: Ximian\n"
 "Language-Team:  <en@li.org>\n"
@@ -13,42 +13,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0.1\n"
 
-#: addressbook/pas-backend-exchange.c:1287
+#: addressbook/e-book-backend-exchange.c:979
 #, c-format
 msgid "Modifying %s"
 msgstr "%s wird geändert"
 
-#: addressbook/pas-backend-exchange.c:1289
+#: addressbook/e-book-backend-exchange.c:981
 #, c-format
 msgid "Creating %s"
 msgstr "%s wird erstellt"
 
-#: addressbook/pas-backend-exchange.c:2091 addressbook/pas-backend-ad.c:1081
-#: storage/exchange-storage.c:146
+#: addressbook/e-book-backend-exchange.c:1462
+#: addressbook/e-book-backend-gal.c:1181 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Suchen..."
 
-#: addressbook/pas-backend-ad.c:368
-msgid "Connecting to LDAP server..."
+#: addressbook/e-book-backend-gal.c:239
+#, fuzzy
+msgid "Reconnecting to LDAP server..."
 msgstr "Verbindung zum LDAP Server wird hergestellt..."
 
-#: addressbook/pas-backend-ad.c:378
-msgid "Unable to connect to LDAP server."
-msgstr "Verbindung zum LDAP Server konnte nicht hergestellt werden."
-
-#: addressbook/pas-backend-ad.c:394
-msgid "Waiting for connection to LDAP server..."
-msgstr "Wartet auf Verbindung zum LDAP Server..."
-
-#: addressbook/pas-backend-ad.c:973
+#: addressbook/e-book-backend-gal.c:1091
 msgid "Receiving LDAP search results..."
 msgstr "LDAP Suchergebnisse werden empfangen..."
 
-#: addressbook/pas-backend-ad.c:983
-msgid "Restarting search."
-msgstr "Suche wird neu gestartet."
+#: addressbook/e-book-backend-gal.c:1202
+msgid "Error performing search"
+msgstr ""
 
-#: calendar/cal-backend-exchange.c:2324
+#: calendar/cal-backend-exchange.c:2306
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -58,121 +51,121 @@ msgstr ""
 "werden.\n"
 "Sie müssen jede Besprechung separat anmelden."
 
-#: calendar/cal-backend-exchange.c:2343
+#: calendar/cal-backend-exchange.c:2325
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Die Ressource '%s' ist während der gewählten Zeitperiode belegt."
 
-#: camel/camel-exchange-folder.c:214
+#: camel/camel-exchange-folder.c:217
 msgid "Can only expunge in Deleted Items folder"
 msgstr "Kann nur im Ordner Gelöschte Objekte säubern"
 
-#: camel/camel-exchange-folder.c:238
+#: camel/camel-exchange-folder.c:241
 msgid "No Subject"
 msgstr "Kein Betreff"
 
-#: camel/camel-exchange-folder.c:632
+#: camel/camel-exchange-folder.c:630
 msgid "Moving messages"
 msgstr "Nachrichten werden verschoben"
 
-#: camel/camel-exchange-folder.c:633
+#: camel/camel-exchange-folder.c:631
 msgid "Copying messages"
 msgstr "Nachrichten werden kopiert"
 
-#: camel/camel-exchange-folder.c:867
+#: camel/camel-exchange-folder.c:873
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Verzeichnis %s konnte nicht erstellt werden: %s"
 
-#: camel/camel-exchange-folder.c:877
+#: camel/camel-exchange-folder.c:883
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Zusammenfassung für %s konnt nicht geladen werden"
 
-#: camel/camel-exchange-folder.c:885
+#: camel/camel-exchange-folder.c:891
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Cache für %s konnte nicht erstellt werden"
 
-#: camel/camel-exchange-folder.c:925
+#: camel/camel-exchange-folder.c:931
 msgid "Scanning for changed messages"
 msgstr "Suchen nach geänderten Nachrichten"
 
-#: camel/camel-exchange-folder.c:945
+#: camel/camel-exchange-folder.c:951
 msgid "Fetching summary information for new messages"
 msgstr "Zusammenfassende Informationen für neue Nachrichten werden abgerufen"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "_Host"
 #. translation (or not at all)
-#: camel/camel-exchange-provider.c:41
+#: camel/camel-exchange-provider.c:43
 msgid "Exc_hange Server:"
 msgstr "Exc_hange Server:"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: camel/camel-exchange-provider.c:46
+#: camel/camel-exchange-provider.c:48
 msgid "Windows User_name:"
 msgstr "Windows Benutzer_name:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: camel/camel-exchange-provider.c:51
+#: camel/camel-exchange-provider.c:53
 msgid "Global Address List / Active Directory"
 msgstr "Globale Adressenliste/Aktives Verzeichnis"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: camel/camel-exchange-provider.c:55
+#: camel/camel-exchange-provider.c:57
 msgid "Global Catalog server name:"
 msgstr "Global Catolog-Servername:"
 
-#: camel/camel-exchange-provider.c:57
+#: camel/camel-exchange-provider.c:59
 #, c-format
 msgid "Limit number of GAL responses: %s"
 msgstr "Begrenzte Anzahl von GAL Antworten: %s"
 
-#: camel/camel-exchange-provider.c:60
+#: camel/camel-exchange-provider.c:62
 msgid "Exchange Server"
 msgstr "Exchange Server"
 
 #. i18n: "Mailbox" is an Outlookism. FIXME
-#: camel/camel-exchange-provider.c:63
+#: camel/camel-exchange-provider.c:65
 msgid "Mailbox name"
 msgstr "Mailbox-Name"
 
 #. i18n: "OWA" == "Outlook Web Access". Might not be translated?
-#: camel/camel-exchange-provider.c:66
+#: camel/camel-exchange-provider.c:68
 msgid "OWA path"
 msgstr "OWA Pfad"
 
 #. i18n: "Public Folder" is an Outlookism
-#: camel/camel-exchange-provider.c:69
+#: camel/camel-exchange-provider.c:71
 msgid "Public Folder server"
 msgstr "Server für Öffentlichen Ordner"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:73
+#: camel/camel-exchange-provider.c:75
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr "Filter auf neue Nachrichten im Posteingang auf diesem Server anwenden"
 
-#: camel/camel-exchange-provider.c:79
+#: camel/camel-exchange-provider.c:81
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: camel/camel-exchange-provider.c:81
+#: camel/camel-exchange-provider.c:83
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr ""
 "Für die Bearbeitung von E-Mail (und anderen Daten) auf Microsoft Exchange "
 "Servern"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:99
+#: camel/camel-exchange-provider.c:101
 msgid "Secure Password"
 msgstr "Sicheres Passwort"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:102
+#: camel/camel-exchange-provider.c:104
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -180,11 +173,11 @@ msgstr ""
 "Diese Option wird zum Exchange Server verbinden und eine sichere Passwort "
 "(NTML) Legitimation verwenden."
 
-#: camel/camel-exchange-provider.c:110
+#: camel/camel-exchange-provider.c:112
 msgid "Plaintext Password"
 msgstr "Klartext-Passwort"
 
-#: camel/camel-exchange-provider.c:112
+#: camel/camel-exchange-provider.c:114
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -192,105 +185,253 @@ msgstr ""
 "Diese Option wird zum Exchange Server verbinden und eine Standard Klartext-"
 "Passwort Legitimation nutzen."
 
-#: camel/camel-exchange-store.c:172
+#: camel/camel-exchange-store.c:175
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange Server %s"
 
-#: camel/camel-exchange-store.c:175
+#: camel/camel-exchange-store.c:178
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Exchange Konto für %s auf %s"
 
-#: camel/camel-exchange-store.c:217
+#: camel/camel-exchange-store.c:205
 msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange Hintergrundprozess"
 
-#: camel/camel-exchange-transport.c:108
+#: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr ""
 "Exchange Transport kann nur mit Exchange E-Mail-Source verwendet werden"
 
-#: camel/camel-exchange-transport.c:119
+#: camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
 msgstr ""
 "Nachricht konnte nicht verschickt werden: Ein oder mehrere ungültige "
 "Empfänger"
 
-#: camel/camel-exchange-transport.c:129
+#: camel/camel-exchange-transport.c:131
 msgid "Could not find 'From' address in message"
 msgstr "'Von'-Adresse konnte in der Nachricht nicht gefunden werden"
 
-#: camel/camel-stub.c:131
+#: camel/camel-stub.c:133
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Socket konnte nicht erstellt werden: %s"
 
-#: camel/camel-stub.c:146
+#: camel/camel-stub.c:148
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Verbindung zu %s konnte nicht hergestellt werden: %s"
 
-#: camel/camel-stub.c:165
+#: camel/camel-stub.c:167
 #, c-format
 msgid "Path too long: %s"
 msgstr "Pfad zu lang: %s"
 
-#: camel/camel-stub.c:191
+#: camel/camel-stub.c:193
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Status-Thread konnte nicht gestartet werden: %s"
 
-#: camel/camel-stub.c:413
+#: camel/camel-stub.c:445
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Verbindung zu %s verloren"
 
-#: camel/camel-stub.c:417
+#: camel/camel-stub.c:449
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Fehler beim Kommunizieren mit %s: %s"
 
+#: component/GNOME_Evolution_Exchange_Component.server.in.in.h:1
+#, fuzzy
+msgid "Evolution Exchange Component"
+msgstr "Evolution Exchange Hintergrundprozess"
+
+#: component/e-folder-creation-dialog.c:137
+#, c-format
+msgid ""
+"Cannot create the specified folder:\n"
+"%s"
+msgstr ""
+
+#: component/e-folder-creation-dialog.c:178
+#, c-format
+msgid "The specified folder name is not valid: %s"
+msgstr ""
+
+#: component/e-folder-creation-dialog.c:309
+#, fuzzy
+msgid "Create New Folder"
+msgstr "Unterordner erstellen"
+
+#: component/e-folder-creation-dialog.glade.h:1
+#: storage/exchange-autoconfig-wizard.glade.h:1
+#: storage/exchange-change-password.glade.h:1
+msgid "*"
+msgstr "*"
+
+#: component/e-folder-creation-dialog.glade.h:2
+#, fuzzy
+msgid "Folder _name:"
+msgstr "Ordnerinhaber"
+
+#: component/e-folder-creation-dialog.glade.h:3
+#, fuzzy
+msgid "Folder _type:"
+msgstr "Ordnerinhaber"
+
+#: component/e-folder-creation-dialog.glade.h:4
+msgid "Specify where to create the folder:"
+msgstr ""
+
+#: component/e-folder-dnd-bridge.c:52
+#, fuzzy, c-format
+msgid ""
+"Cannot transfer folder:\n"
+"%s"
+msgstr ""
+"Schlüsseldatei konnte nicht gelesen werden:\n"
+"%s"
+
+#: component/e-storage-set-view.etspec.h:1
+msgid "Checkbox"
+msgstr ""
+
+#: component/e-storage-set-view.etspec.h:2
+#, fuzzy
+msgid "Folder"
+msgstr "Ordnerinhaber"
+
+#: component/e-storage.c:555
+msgid "No error"
+msgstr ""
+
+#: component/e-storage.c:557 mail/mail-stub-exchange.c:2310
+#: mail/mail-stub-exchange.c:2365 mail/mail-stub-exchange.c:2413
+msgid "Generic error"
+msgstr ""
+
+#: component/e-storage.c:559
+msgid "A folder with the same name already exists"
+msgstr ""
+
+#: component/e-storage.c:561
+msgid "The specified folder type is not valid"
+msgstr ""
+
+#: component/e-storage.c:563
+msgid "I/O error"
+msgstr ""
+
+#: component/e-storage.c:565
+msgid "Not enough space to create the folder"
+msgstr ""
+
+#: component/e-storage.c:567
+msgid "The folder is not empty"
+msgstr ""
+
+#: component/e-storage.c:569
+msgid "The specified folder was not found"
+msgstr ""
+
+#: component/e-storage.c:571
+msgid "Function not implemented in this storage"
+msgstr ""
+
+#: component/e-storage.c:573 mail/mail-stub-exchange.c:248
+#: mail/mail-stub-exchange.c:2318 mail/mail-stub-exchange.c:2360
+#: mail/mail-stub-exchange.c:2409
+msgid "Permission denied"
+msgstr "Berechtigung verweigert"
+
+#: component/e-storage.c:575
+msgid "Operation not supported"
+msgstr ""
+
+#: component/e-storage.c:577
+msgid "The specified type is not supported in this storage"
+msgstr ""
+
+#: component/e-storage.c:579
+msgid "The specified folder cannot be modified or removed"
+msgstr ""
+
+#: component/e-storage.c:581
+msgid "Cannot make a folder a child of one of its descendants"
+msgstr ""
+
+#: component/e-storage.c:583
+msgid "Cannot create a folder with that name"
+msgstr ""
+
+#: component/e-storage.c:585
+msgid "This operation cannot be performed in off-line mode"
+msgstr ""
+
+#: component/e-storage.c:587 storage/exchange-account.c:1016
+#, fuzzy
+msgid "Unknown error"
+msgstr "Unbekannt"
+
+#: component/exchange-component.c:220
+#, c-format
+msgid ""
+"Cannot activate Ximian Connector backend:\n"
+"The error from the activation system is:\n"
+"%s"
+msgstr ""
+
+#: component/exchange-component.c:232
+#, fuzzy, c-format
+msgid ""
+"Could not get backend component interface:\n"
+"%s"
+msgstr ""
+"Schlüsseldatei konnte nicht gelesen werden:\n"
+"%s"
+
 #. i18n: These are Outlook's words for the default roles in
 #. the folder permissions dialog.
-#: lib/e2k-security-descriptor.c:770
+#: lib/e2k-security-descriptor.c:847
 msgid "Owner"
 msgstr "Inhaber"
 
-#: lib/e2k-security-descriptor.c:780
+#: lib/e2k-security-descriptor.c:857
 msgid "Publishing Editor"
 msgstr "Veröffentlichender Editor"
 
-#: lib/e2k-security-descriptor.c:788
+#: lib/e2k-security-descriptor.c:865
 msgid "Editor"
 msgstr "Editor"
 
-#: lib/e2k-security-descriptor.c:795
+#: lib/e2k-security-descriptor.c:872
 msgid "Publishing Author"
 msgstr "Veröffentlichender Autor"
 
-#: lib/e2k-security-descriptor.c:801
+#: lib/e2k-security-descriptor.c:878
 msgid "Author"
 msgstr "Autor"
 
-#: lib/e2k-security-descriptor.c:806
+#: lib/e2k-security-descriptor.c:883
 msgid "Non-editing Author"
 msgstr "Nicht-bearbeitender Autor"
 
-#: lib/e2k-security-descriptor.c:810
+#: lib/e2k-security-descriptor.c:887
 msgid "Reviewer"
 msgstr "Prüfer"
 
-#: lib/e2k-security-descriptor.c:812
+#: lib/e2k-security-descriptor.c:889
 msgid "Contributor"
 msgstr "Mitarbeiter"
 
-#: lib/e2k-security-descriptor.c:814 storage/exchange-delegates.glade.h:8
-#: storage/exchange-permissions-dialog.glade.h:9
+#: lib/e2k-security-descriptor.c:891 storage/exchange-delegates.glade.h:7
 msgid "None"
 msgstr "Keine"
 
-#: lib/e2k-security-descriptor.c:821 storage/exchange-delegates-user.c:141
+#: lib/e2k-security-descriptor.c:906 storage/exchange-delegates-user.c:144
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
@@ -302,71 +443,71 @@ msgstr "Benutzer auswählen"
 msgid "Addressbook..."
 msgstr "Adressbuch..."
 
-#: mail/mail-stub-exchange.c:223
+#: mail/mail-stub-exchange.c:231
 msgid "No such folder"
 msgstr "Ordner gibt es nicht"
 
-#: mail/mail-stub-exchange.c:240
-msgid "Permission denied"
-msgstr "Berechtigung verweigert"
-
-#: mail/mail-stub-exchange.c:562 mail/mail-stub-exchange.c:712
-msgid "Could not open folder"
-msgstr "Ordner konnte nicht geöffnet werden"
-
-#: mail/mail-stub-exchange.c:728
-msgid "Could not open folder: Permission denied"
-msgstr "Ordner konnte nicht geöffnet werden: Berechtigung verweigert"
-
-#: mail/mail-stub-exchange.c:775
+#: mail/mail-stub-exchange.c:603
 msgid "No such folder."
 msgstr "Ordner gibt es nicht."
 
-#: mail/mail-stub-exchange.c:825
+#: mail/mail-stub-exchange.c:646 mail/mail-stub-exchange.c:664
+msgid "Could not open folder: Permission denied"
+msgstr "Ordner konnte nicht geöffnet werden: Berechtigung verweigert"
+
+#: mail/mail-stub-exchange.c:650 mail/mail-stub-exchange.c:763
+msgid "Could not open folder"
+msgstr "Ordner konnte nicht geöffnet werden"
+
+#: mail/mail-stub-exchange.c:812
 msgid "Could not open Deleted Items folder"
 msgstr "Ordner Gelöschte Objekte konnte nicht geöffnet werden"
 
-#: mail/mail-stub-exchange.c:1168 mail/mail-stub-exchange.c:1228
+#: mail/mail-stub-exchange.c:1125 mail/mail-stub-exchange.c:1166
 msgid "Could not get new messages"
 msgstr "Neue Nachrichten konnten nicht abgerufen werden"
 
-#: mail/mail-stub-exchange.c:1374
+#: mail/mail-stub-exchange.c:1331
 msgid "Could not empty Deleted Items folder"
 msgstr "Ordner Gelöschte Objekte konnte nicht geleert werden"
 
-#: mail/mail-stub-exchange.c:1506
+#: mail/mail-stub-exchange.c:1403
 msgid "Could not append message; mailbox is over quota"
 msgstr "Nachricht konnte nicht angehängt werden; Mailbox ist über Limit"
 
-#: mail/mail-stub-exchange.c:1507
+#: mail/mail-stub-exchange.c:1404
 msgid "Could not append message"
 msgstr "Nachricht konnte nicht angehängt werden"
 
-#: mail/mail-stub-exchange.c:1889
-msgid "Message has been deleted"
-msgstr "Nachricht wurde gelöscht"
-
-#: mail/mail-stub-exchange.c:1891
-msgid "Error retrieving message"
-msgstr "Fehler beim Abrufen der Nachricht"
-
-#: mail/mail-stub-exchange.c:2101
+#: mail/mail-stub-exchange.c:1887
 msgid "No such message"
 msgstr "Nachricht gibt es nicht"
 
-#: mail/mail-stub-exchange.c:2133
+#: mail/mail-stub-exchange.c:1940
+msgid "Message has been deleted"
+msgstr "Nachricht wurde gelöscht"
+
+#: mail/mail-stub-exchange.c:1942
+msgid "Error retrieving message"
+msgstr "Fehler beim Abrufen der Nachricht"
+
+#: mail/mail-stub-exchange.c:1984
 msgid "Mailbox does not support full-text searching"
 msgstr "Mailbox unterstützt keine Volltextsuche"
 
-#: mail/mail-stub-exchange.c:2199
+#: mail/mail-stub-exchange.c:2082
 msgid "Unable to move/copy messages"
 msgstr "Nachrichten konnten nicht verschoben/kopiert werden"
 
-#: mail/mail-stub-exchange.c:2403
+#: mail/mail-stub-exchange.c:2232
+msgid "No mail submission URI for this mailbox"
+msgstr "Keine E-Mail Submission URI für diese Mailbox"
+
+#: mail/mail-stub-exchange.c:2269
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Server wird E-Mail über Exchange Transport nicht akzeptieren"
 
-#: mail/mail-stub-exchange.c:2405
+#: mail/mail-stub-exchange.c:2271
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -375,7 +516,7 @@ msgstr ""
 "Ihr Konto hat keine Berechtigung, <%s> als eine\n"
 "Von-Adresse zu verwenden."
 
-#: mail/mail-stub-exchange.c:2417
+#: mail/mail-stub-exchange.c:2283
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -383,64 +524,45 @@ msgstr ""
 "Nachricht konnte nicht verschickt werden.\n"
 "Dies kann bedeuten, dass Ihr Konto über dem Limit ist."
 
-#: mail/mail-stub-exchange.c:2421
+#: mail/mail-stub-exchange.c:2287
 msgid "Could not send message"
 msgstr "Nachricht konnte nicht verschickt werden"
 
-#: mail/mail-stub-exchange.c:2440
-msgid "No mail submission URI for this mailbox"
-msgstr "Keine E-Mail Submission URI für diese Mailbox"
+#: mail/mail-stub-exchange.c:2314
+msgid "Folder already exists"
+msgstr ""
+
+#: mail/mail-stub-exchange.c:2345 mail/mail-stub-exchange.c:2390
+#: mail/mail-stub-exchange.c:2405
+#, fuzzy
+msgid "Folder doesn't exist"
+msgstr "Ordnerkontakt"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:561
+#: storage/exchange-account.c:551
 #, c-format
 msgid "%s's Folders"
 msgstr "%s's Ordner"
 
-#: storage/exchange-account.c:796
-msgid "Could not access personal folders"
-msgstr "Auf persönliche Ordner konnte nicht zugegriffen werden"
-
-#: storage/exchange-account.c:841
-msgid "Could not retrieve list of standard folders"
-msgstr "Liste der Standardordner konnte nicht abgerufen werden"
-
-#: storage/exchange-account.c:869
-msgid "Personal Folders"
-msgstr "Persönliche Ordner"
-
-#. i18n: Outlookism
-#: storage/exchange-account.c:886
-msgid "Public Folders"
-msgstr "Öffentliche Ordner"
-
-#. i18n: Outlookism
-#: storage/exchange-account.c:900
-msgid "Global Address List"
-msgstr "Globale Adressenliste"
-
-#: storage/exchange-account.c:986
+#: storage/exchange-account.c:811
 #, c-format
-msgid ""
-"The server '%s' is running Exchange 5.5 and is\n"
-"therefore not compatible with Ximian Connector"
-msgstr ""
-"Der Server '%s' arbeitet mit Exchange 5.5 und ist\n"
-"daher nicht mit dem Ximian Connector kompatibel"
+msgid "%sEnter password for %s"
+msgstr "%sPasswort für %s eingeben"
 
-#: storage/exchange-account.c:995
-#, c-format
-msgid ""
-"Could not find Exchange Web Storage System at %s.\n"
-"If OWA is running on a different path, you must specify that in the\n"
-"account configuration dialog."
-msgstr ""
-"Konnte Exchange Web-Speichersystem auf %s nicht finden.\n"
-"Wenn OWA in einem anderen Pfad läuft, müssen Sie dies im\n"
-"Konfigurationsdialog des Kontos angeben."
+#: storage/exchange-account.c:815
+msgid "Enter password"
+msgstr "Passwort eingeben"
 
-#: storage/exchange-account.c:1012
+#: storage/exchange-account.c:927
+msgid ""
+"Could not authenticate to server. (Password incorrect?)\n"
+"\n"
+msgstr ""
+"Legitimation am Server fehlgeschlagen (Passwort falsch?)\n"
+"\n"
+
+#: storage/exchange-account.c:932
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -460,7 +582,7 @@ msgstr ""
 "Oder Sie haben Ihr Passwort falsch eingegeben.\n"
 "\n"
 
-#: storage/exchange-account.c:1022
+#: storage/exchange-account.c:943
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -476,53 +598,66 @@ msgstr ""
 "Oder Sie haben Ihr Passwort falsch eingegeben.\n"
 "\n"
 
-#: storage/exchange-account.c:1029
-msgid ""
-"Could not authenticate to server. (Password incorrect?)\n"
-"\n"
-msgstr ""
-"Legitimation am Server fehlgeschlagen (Passwort falsch?)\n"
-"\n"
-
-#: storage/exchange-account.c:1040
-#, c-format
-msgid "No mailbox for user %s on %s.\n"
-msgstr "Keine Mailbox für Benutzer %s auf %s.\n"
-
-#: storage/exchange-account.c:1073
+#: storage/exchange-account.c:974
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Mailbox für %s ist nicht auf diesem Server."
 
-#: storage/exchange-account.c:1079
+#: storage/exchange-account.c:979
 #, c-format
 msgid ""
-"Could not connect to server %s.\n"
-"Try using SSL?"
+"The server '%s' is running Exchange 5.5 and is\n"
+"therefore not compatible with Ximian Connector"
 msgstr ""
-"Verbindung zum Server %s konnte nicht hergestellt werden.\n"
-"SSL verwenden?"
+"Der Server '%s' arbeitet mit Exchange 5.5 und ist\n"
+"daher nicht mit dem Ximian Connector kompatibel"
 
-#: storage/exchange-account.c:1083
+#: storage/exchange-account.c:986
+#, c-format
+msgid ""
+"Could not find Exchange Web Storage System at %s.\n"
+"If OWA is running on a different path, you must specify that in the\n"
+"account configuration dialog."
+msgstr ""
+"Konnte Exchange Web-Speichersystem auf %s nicht finden.\n"
+"Wenn OWA in einem anderen Pfad läuft, müssen Sie dies im\n"
+"Konfigurationsdialog des Kontos angeben."
+
+#: storage/exchange-account.c:994
+#, c-format
+msgid "No mailbox for user %s on %s.\n"
+msgstr "Keine Mailbox für Benutzer %s auf %s.\n"
+
+#: storage/exchange-account.c:1000 storage/exchange-account.c:1006
+#: storage/exchange-account.c:1014
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Verbindung zum Server %s konnte nicht hergestellt werden: %s"
 
-#: storage/exchange-account.c:1181
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%sPasswort für %s eingeben"
+#: storage/exchange-account.c:1002
+#, fuzzy
+msgid "Could not resolve hostname"
+msgstr "Delegat %s konnte nicht entfernt werden"
 
-#: storage/exchange-account.c:1185
-msgid "Enter password"
-msgstr "Passwort eingeben"
+#: storage/exchange-account.c:1008
+msgid "Network error"
+msgstr ""
 
-#: storage/exchange-account.c:1257
-#, c-format
-msgid "Could not create connection for %s"
-msgstr "Verbindung für %s konnte nicht erstellt werden"
+#: storage/exchange-account.c:1060
+msgid "Personal Folders"
+msgstr "Persönliche Ordner"
 
-#: storage/exchange-autoconfig-wizard.c:219
+#. i18n: Outlookism
+#: storage/exchange-account.c:1077
+msgid "Public Folders"
+msgstr "Öffentliche Ordner"
+
+#. i18n: Outlookism
+#: storage/exchange-account.c:1091
+msgid "Global Address List"
+msgstr "Globale Adressenliste"
+
+#: storage/exchange-autoconfig-wizard.c:224
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -532,7 +667,17 @@ msgstr ""
 "Überprüfen Sie, ob die URL korrekt ist (Versuchen Sie \"%s\" anstelle von \"%"
 "s\"?) und versuchen Sie es noch einmal."
 
-#: storage/exchange-autoconfig-wizard.c:229
+#: storage/exchange-autoconfig-wizard.c:232
+#, fuzzy
+msgid ""
+"Could not locate Exchange server.\n"
+"Make sure the server name is spelled correctly and try again."
+msgstr ""
+"Legitimation am Exchange Server fehlgeschlagen.\n"
+"Überprüfen Sie, ob Benutzername und Passwort korrekt sind und versuchen Sie "
+"es noch einmal."
+
+#: storage/exchange-autoconfig-wizard.c:241
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -541,7 +686,7 @@ msgstr ""
 "Überprüfen Sie, ob Benutzername und Passwort korrekt sind und versuchen Sie "
 "es noch einmal."
 
-#: storage/exchange-autoconfig-wizard.c:236
+#: storage/exchange-autoconfig-wizard.c:248
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -557,7 +702,7 @@ msgstr ""
 "Sie werden den Windows Domainnamen als Teil Ihres Bentzernamens angeben "
 "müssen (z.B. \"MEINE-DOMAINE\\%s\")."
 
-#: storage/exchange-autoconfig-wizard.c:248
+#: storage/exchange-autoconfig-wizard.c:260
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -565,7 +710,7 @@ msgstr ""
 "OWA Daten konnten in der angezeigten URL nicht gefunden werden.\n"
 "Überprüfen Sie, ob die URL korrekt ist und versuchen es noch einmal."
 
-#: storage/exchange-autoconfig-wizard.c:255
+#: storage/exchange-autoconfig-wizard.c:267
 msgid ""
 "Ximian Connector requires access to certain functionality on the Exchange "
 "Server that appears to be disabled or blocked.  (This is usually "
@@ -576,13 +721,13 @@ msgid ""
 "link below:"
 msgstr ""
 
-#: storage/exchange-autoconfig-wizard.c:276
+#: storage/exchange-autoconfig-wizard.c:288
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
 msgstr ""
 
-#: storage/exchange-autoconfig-wizard.c:289
+#: storage/exchange-autoconfig-wizard.c:301
 #, fuzzy
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
@@ -592,7 +737,7 @@ msgstr ""
 "aufgetreten ist (%d). Prüfen Sie die URL, den Benutzernamen und das Passwort "
 "und versuchen es noch einmal."
 
-#: storage/exchange-autoconfig-wizard.c:331
+#: storage/exchange-autoconfig-wizard.c:345
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -600,22 +745,18 @@ msgstr ""
 "Verbindung zum angegebenen Server konnte nicht hergestellt werden.\n"
 "Bitte prüfen Sie den Servernamen und versuchen es noch einmal."
 
-#: storage/exchange-autoconfig-wizard.c:368
-#: storage/exchange-autoconfig-wizard.c:372
+#: storage/exchange-autoconfig-wizard.c:382
+#: storage/exchange-autoconfig-wizard.c:386
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: storage/exchange-autoconfig-wizard.c:445
+#: storage/exchange-autoconfig-wizard.c:459
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
 msgstr ""
 "Konfigurations-Systemfehler.\n"
 "Neues Konto konnte nicht angelegt werden."
-
-#: storage/exchange-autoconfig-wizard.glade.h:1
-msgid "*"
-msgstr "*"
 
 #: storage/exchange-autoconfig-wizard.glade.h:2
 #, fuzzy
@@ -733,7 +874,7 @@ msgstr ""
 "Ihre Kontoinformationen lauten wie folgt. Bitte korrigieren Sie alle Fehler "
 "und klicken dann auf \"Weiter\".\n"
 
-#: storage/exchange-config-listener.c:413
+#: storage/exchange-config-listener.c:424
 msgid ""
 "Could not set up default folders to point to your Exchange account.\n"
 "You may want to update them by hand in the \"Folder Settings\"\n"
@@ -744,11 +885,11 @@ msgstr ""
 "Sie können Sie per Hand im Abschnitt \"Ordner Einstellungen\" im\n"
 "Einstellungsdialog aktualisieren."
 
-#: storage/exchange-config-listener.c:450
+#: storage/exchange-config-listener.c:616
 msgid "You may only configure a single Exchange account"
 msgstr "Sie können nur ein einzelnes Exchange Konto konfigurieren"
 
-#: storage/exchange-config-listener.c:557
+#: storage/exchange-config-listener.c:725
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
@@ -756,47 +897,44 @@ msgstr ""
 "Änderungen in der Konfiguration des Exchange Kontos werden wirksam,\n"
 "nachdem Sie Evolution beendet und neu gestartet haben."
 
-#: storage/exchange-config-listener.c:600
+#: storage/exchange-config-listener.c:771
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr "Das Exchange Konto wird entfernt, wenn Sie Evolution beenden"
 
 #: storage/exchange-delegates.glade.h:1
-msgid "Acting as a Delegate"
-msgstr "Als ein Delegat agieren"
-
-#: storage/exchange-delegates.glade.h:2
 msgid "Author (read, create)"
 msgstr "Autor (lesen, erstellen)"
 
-#: storage/exchange-delegates.glade.h:3
+#: storage/exchange-delegates.glade.h:2
 msgid "C_alendar:"
 msgstr "K_alender:"
 
-#: storage/exchange-delegates.glade.h:4
+#: storage/exchange-delegates.glade.h:3
 msgid "Co_ntacts:"
 msgstr "Ko_ntakte:"
 
-#: storage/exchange-delegates.glade.h:5
+#: storage/exchange-delegates.glade.h:4
 msgid "Delegate Permissions"
 msgstr "Berechtigungen des Delegaten"
 
-#: storage/exchange-delegates.glade.h:6
-msgid "Delegating to Others"
-msgstr "An Andere delegieren"
+#: storage/exchange-delegates.glade.h:5
+#, fuzzy
+msgid "Delegates"
+msgstr "Delegieren an"
 
-#: storage/exchange-delegates.glade.h:7
+#: storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
 msgstr "Editor (lesen, erstellen, bearbeiten)"
 
-#: storage/exchange-delegates.glade.h:9
+#: storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
 msgstr "Berechtigungen für"
 
-#: storage/exchange-delegates.glade.h:10
+#: storage/exchange-delegates.glade.h:9
 msgid "Reviewer (read-only)"
 msgstr "Prüfer (nur-lesen)"
 
-#: storage/exchange-delegates.glade.h:11
+#: storage/exchange-delegates.glade.h:10
 msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
@@ -804,224 +942,76 @@ msgstr ""
 "Diese Benutzer werden in der Lage sein, Post in Ihrem Namen zu senden\n"
 "und haben Zugang zu Ihren Ordnern mit den von Ihnen erteilten Berechtigungen."
 
-#: storage/exchange-delegates.glade.h:13
-msgid ""
-"You are a delegate for the following users and can choose \n"
-"to have a mail identity for sending mail from them."
-msgstr ""
-"Sie sind ein Delegat für die folgenden Benutzer und können eine E-Mail-"
-"Identität wählen,\n"
-"um Post von Ihnen zu senden."
-
-#: storage/exchange-delegates.glade.h:15
+#: storage/exchange-delegates.glade.h:12
 msgid "_Delegate can see private items"
 msgstr "_Delegat kann private Objekte sehen"
 
-#: storage/exchange-delegates.glade.h:16
+#: storage/exchange-delegates.glade.h:13
 msgid "_Edit"
 msgstr "_Bearbeiten"
 
-#: storage/exchange-delegates.glade.h:17
+#: storage/exchange-delegates.glade.h:14
 msgid "_Inbox:"
 msgstr "_Posteingang:"
 
-#: storage/exchange-delegates.glade.h:18
+#: storage/exchange-delegates.glade.h:15
 msgid "_Tasks:"
 msgstr "_Aufgaben:"
 
-#: storage/exchange-delegates-control.c:122 storage/exchange-oof.c:168
-msgid "No Exchange accounts configured."
-msgstr "Keine Exchange Konten konfiguriert."
-
-#: storage/exchange-delegates-control.c:134
-msgid "Unable to load delegate configuration UI."
-msgstr "Das Konfigurations-UI des Delegaten konnte nicht geladen werden."
-
-#: storage/exchange-delegates-delegates.c:188
-msgid ""
-"No Global Catalog server configured for this account.\n"
-"Unable to edit delegates."
-msgstr ""
-"Kein Global Catalog-Server für dieses Konto konfiguriert.\n"
-"Delegaten können nicht bearbeitet werden."
-
-#: storage/exchange-delegates-delegates.c:215
-msgid ""
-"Could not read folder permissions.\n"
-"Unable to edit delegates."
-msgstr ""
-"Ordnerberechtigungen konnten nicht gelesen werden.\n"
-"Delegaten können nicht bearbeitet werden."
-
-#: storage/exchange-delegates-delegates.c:236
-msgid ""
-"Could not determine folder permissions for delegates.\n"
-"Unable to edit delegates."
-msgstr ""
-"Ordnerberechtigungen für Delegaten konnten nicht bestimmt werden.\n"
-"Delegaten können nicht bearbeitet werden."
-
-#: storage/exchange-delegates-delegates.c:398
-msgid "Delegate To:"
-msgstr "Delegieren an:"
-
-#: storage/exchange-delegates-delegates.c:398
-msgid "Delegate To"
-msgstr "Delegieren an"
-
-#: storage/exchange-delegates-delegates.c:414
-#, c-format
-msgid "Could not make %s a delegate"
-msgstr "%s konnte nicht als Delegat benannt werden"
-
-#: storage/exchange-delegates-delegates.c:424
-msgid "You cannot make yourself your own delegate"
-msgstr "Sie können sich nicht selbst als Ihren eigenen Delegaten angeben."
-
-#: storage/exchange-delegates-delegates.c:433
-#, c-format
-msgid "%s is already a delegate"
-msgstr "%s ist bereits ein Delegat"
-
-#: storage/exchange-delegates-delegates.c:541
-#, c-format
-msgid "Delete the delegate %s?"
-msgstr "Den Delegaten %s löschen?"
-
-#: storage/exchange-delegates-delegates.c:593
-#: storage/exchange-permissions-dialog.c:711
-msgid "Name"
-msgstr "Name"
-
-#: storage/exchange-delegates-delegates.c:622
-msgid "Error reading delegates list."
-msgstr "Fehler beim Lesen der Delegatenliste."
-
-#: storage/exchange-delegates-delegates.c:717
-msgid "Could not access Active Directory"
-msgstr "Auf Aktives Verzeichnis konnte nicht zugegriffen werden"
-
-#: storage/exchange-delegates-delegates.c:724
-msgid "Could not find self in Active Directory"
-msgstr "Selbst konnte im Aktiven Verzeichnis nicht gefunden werden"
-
-#: storage/exchange-delegates-delegates.c:734
-#, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "Delegat %s konnte im Aktiven Verzeichnis nicht gefunden werden"
-
-#: storage/exchange-delegates-delegates.c:744
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "Delegat %s konnte nicht entfernt werden"
-
-#: storage/exchange-delegates-delegates.c:797
-msgid "Could not update list of delegates."
-msgstr "Liste der Delegaten konnte nicht aktualisiert werden."
-
-#: storage/exchange-delegates-delegates.c:813
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "Delegat %s konnte nicht hinzugefügt werden"
-
-#: storage/exchange-delegates-delegates.c:829
-#, c-format
-msgid ""
-"Failed to update delegates:\n"
-"%s"
-msgstr ""
-"Aktualisieren der Delegaten fehlgeschlagen:\n"
-"%s"
-
-#: storage/exchange-delegates-delegators.c:78
-#, c-format
-msgid "%s's Delegate"
-msgstr "%s's Delegat"
-
-#: storage/exchange-delegates-delegators.c:321
-msgid ""
-"You are no longer a delegate for the following users,\n"
-"so the corresponding accounts will be removed.\n"
-"\n"
-msgstr ""
-"Sie sind für die folgenden Benutzer kein Delegat mehr,\n"
-"daher werden die entsprechenden Konten entfernt.\n"
-"\n"
-
-#: storage/exchange-delegates-delegators.c:332
-#, c-format
-msgid ""
-"You are no longer a delegate for %s,\n"
-"so that account will be removed."
-msgstr ""
-"Sie sind kein Delegat mehr für %s,\n"
-"daher wird dieses Konto entfernt."
-
-#: storage/exchange-delegates-delegators.c:425
-msgid "Has Mail Identity"
-msgstr "Hat E-Mail-Identität"
-
-#: storage/exchange-delegates-delegators.c:439
-msgid "Delegator Name"
-msgstr "Name des Delegierenden"
-
-#: storage/exchange-delegates-user.c:188
-#: storage/exchange-permissions-dialog.c:177
+#: storage/exchange-delegates-user.c:191
+#: storage/exchange-permissions-dialog.c:179
 #, c-format
 msgid "Permissions for %s"
 msgstr "Berechtigungen für %s"
 
-#: storage/exchange-hierarchy-foreign.c:314
+#: storage/exchange-hierarchy-foreign.c:251
 msgid "Calendar"
 msgstr "Kalender"
 
-#: storage/exchange-hierarchy-foreign.c:315
+#: storage/exchange-hierarchy-foreign.c:252
 msgid "Contacts"
 msgstr "Kontakte"
 
-#: storage/exchange-hierarchy-foreign.c:316
+#: storage/exchange-hierarchy-foreign.c:253
 msgid "Deleted Items"
 msgstr "Gelöschte Objekte"
 
-#: storage/exchange-hierarchy-foreign.c:317
+#: storage/exchange-hierarchy-foreign.c:254
 msgid "Drafts"
 msgstr "Entwürfe"
 
-#: storage/exchange-hierarchy-foreign.c:318
+#: storage/exchange-hierarchy-foreign.c:255
 msgid "Inbox"
 msgstr "Posteingang"
 
-#: storage/exchange-hierarchy-foreign.c:319
+#: storage/exchange-hierarchy-foreign.c:256
 msgid "Journal"
 msgstr "Journal"
 
-#: storage/exchange-hierarchy-foreign.c:320
+#: storage/exchange-hierarchy-foreign.c:257
 msgid "Notes"
 msgstr "Notizen"
 
-#: storage/exchange-hierarchy-foreign.c:321
+#: storage/exchange-hierarchy-foreign.c:258
 msgid "Outbox"
 msgstr "Postausgang"
 
-#: storage/exchange-hierarchy-foreign.c:322
+#: storage/exchange-hierarchy-foreign.c:259
 msgid "Sent Items"
 msgstr "Verschickte Objekte"
 
-#: storage/exchange-hierarchy-foreign.c:323
+#: storage/exchange-hierarchy-foreign.c:260
 msgid "Tasks"
 msgstr "Aufgaben"
 
-#: storage/exchange-oof.c:176
-msgid "Could not read out-of-office state."
-msgstr "Nicht-im-Büro Status konnte nicht gelesen werden."
-
-#: storage/exchange-oof.c:184
-msgid "Unable to load out-of-office UI."
-msgstr "Nicht-im-Büro UI konnte nicht geladen werden."
-
-#: storage/exchange-oof.c:263
+#: storage/exchange-oof.c:92 storage/exchange-oof.c:291
 msgid "Could not update out-of-office state"
 msgstr "Nicht-im-Büro Status konnte nicht aktualisiert werden"
+
+#: storage/exchange-oof.c:309
+#, fuzzy
+msgid "Could not read out-of-office state"
+msgstr "Nicht-im-Büro Status konnte nicht gelesen werden."
 
 #: storage/exchange-oof.glade.h:1
 msgid ""
@@ -1071,24 +1061,48 @@ msgstr "Nicht-im-Büro Assistent"
 msgid "Yes, Change Status"
 msgstr "Ja, Status ändern"
 
-#: storage/exchange-permissions-dialog.c:233
+#: storage/exchange-change-password.glade.h:2
+#, fuzzy
+msgid "Change Password"
+msgstr "Klartext-Passwort"
+
+#: storage/exchange-change-password.glade.h:3
+#, fuzzy
+msgid "Confirm Password  "
+msgstr "Passwort eingeben"
+
+#: storage/exchange-change-password.glade.h:4
+#, fuzzy
+msgid "Current Password  "
+msgstr "Sicheres Passwort"
+
+#: storage/exchange-change-password.glade.h:5
+#, fuzzy
+msgid "New Password  "
+msgstr "Passwort:"
+
+#: storage/exchange-change-password.glade.h:6
+msgid "Your current password has expired. Please change your password now.\n"
+msgstr ""
+
+#: storage/exchange-permissions-dialog.c:222
 msgid "Could not read folder permissions"
 msgstr "Ordner-Berechtigungen konnten nicht gelesen werden"
 
-#: storage/exchange-permissions-dialog.c:274
+#: storage/exchange-permissions-dialog.c:264
 msgid "Could not update folder permissions."
 msgstr "Ordner-Berechtigungen konnten nicht aktualisiert werden."
 
-#: storage/exchange-permissions-dialog.c:297
+#: storage/exchange-permissions-dialog.c:293
 #, c-format
 msgid "Could not update folder permissions. %s"
 msgstr "Ordner-Berechtigungen konnten nicht aktualisiert werden. %s"
 
-#: storage/exchange-permissions-dialog.c:299
+#: storage/exchange-permissions-dialog.c:295
 msgid "(Permission denied.)"
 msgstr "(Berechtigung verweigert.)"
 
-#: storage/exchange-permissions-dialog.c:400
+#: storage/exchange-permissions-dialog.c:396
 msgid ""
 "Unable to add user to access control list:\n"
 "No Global Catalog server is configured for this account."
@@ -1096,114 +1110,214 @@ msgstr ""
 "Benutzer konnte nicht zur Zugriffsberechtigungsliste hinzugefügt werden:\n"
 "Für dieses Konto ist kein Global Catalog-Server konfiguriert."
 
-#: storage/exchange-permissions-dialog.c:406
+#: storage/exchange-permissions-dialog.c:402
 msgid "Add User:"
 msgstr "Benutzer hinzufügen:"
 
-#: storage/exchange-permissions-dialog.c:406
+#: storage/exchange-permissions-dialog.c:402
 msgid "Add User"
 msgstr "Benutzer hinzufügen"
 
-#: storage/exchange-permissions-dialog.c:424
+#: storage/exchange-permissions-dialog.c:421
 #, c-format
 msgid "No such user %s"
 msgstr "Benutzer %s gibt es nicht"
 
-#: storage/exchange-permissions-dialog.c:428
+#: storage/exchange-permissions-dialog.c:425
 #, c-format
 msgid "%s cannot be added to an access control list"
 msgstr "%s kann nicht zu einer Zugriffsberechtigungsliste hinzugefügt werden"
 
-#: storage/exchange-permissions-dialog.c:433
+#: storage/exchange-permissions-dialog.c:430
 #, c-format
 msgid "Unknown error looking up %s"
 msgstr "Unbekannter Fehler aufgetreten %s"
 
-#: storage/exchange-permissions-dialog.c:450
+#: storage/exchange-permissions-dialog.c:447
 #, c-format
 msgid "%s is already in the list"
 msgstr "%s ist bereits in der Liste"
 
-#: storage/exchange-permissions-dialog.c:715
+#: storage/exchange-permissions-dialog.c:706
+msgid "Name"
+msgstr "Name"
+
+#: storage/exchange-permissions-dialog.c:710
 msgid "Role"
 msgstr "Rolle"
 
 #: storage/exchange-permissions-dialog.glade.h:1
-msgid "All"
-msgstr "Alle"
+msgid "    "
+msgstr ""
 
 #: storage/exchange-permissions-dialog.glade.h:2
+#, fuzzy
+msgid "<b>Permissions</b>"
+msgstr "Berechtigungen"
+
+#: storage/exchange-permissions-dialog.glade.h:3
+#, fuzzy
+msgid "Cannot Delete"
+msgstr "_Lschen"
+
+#: storage/exchange-permissions-dialog.glade.h:4
+msgid "Cannot Edit"
+msgstr ""
+
+#: storage/exchange-permissions-dialog.glade.h:5
 msgid "Create items"
 msgstr "Objekte erstellen"
 
-#: storage/exchange-permissions-dialog.glade.h:3
+#: storage/exchange-permissions-dialog.glade.h:6
 msgid "Create subfolders"
 msgstr "Unterordner erstellen"
 
-#: storage/exchange-permissions-dialog.glade.h:4
-msgid "Delete Items"
+#: storage/exchange-permissions-dialog.glade.h:7
+#, fuzzy
+msgid "Delete Any Items"
 msgstr "Objekte löschen"
 
-#: storage/exchange-permissions-dialog.glade.h:5
-msgid "Edit Items"
+#: storage/exchange-permissions-dialog.glade.h:8
+#, fuzzy
+msgid "Delete Own Items"
+msgstr "Objekte löschen"
+
+#: storage/exchange-permissions-dialog.glade.h:9
+#, fuzzy
+msgid "Edit Any Items"
 msgstr "Objekte bearbeiten"
 
-#: storage/exchange-permissions-dialog.glade.h:6
+#: storage/exchange-permissions-dialog.glade.h:10
+#, fuzzy
+msgid "Edit Own Items"
+msgstr "Objekte bearbeiten"
+
+#: storage/exchange-permissions-dialog.glade.h:11
 msgid "Folder contact"
 msgstr "Ordnerkontakt"
 
-#: storage/exchange-permissions-dialog.glade.h:7
+#: storage/exchange-permissions-dialog.glade.h:12
 msgid "Folder owner"
 msgstr "Ordnerinhaber"
 
-#: storage/exchange-permissions-dialog.glade.h:8
+#: storage/exchange-permissions-dialog.glade.h:13
 msgid "Folder visible"
 msgstr "Ordner sichtbar"
 
-#: storage/exchange-permissions-dialog.glade.h:10
-msgid "Own"
-msgstr "Eigen"
-
-#: storage/exchange-permissions-dialog.glade.h:11
-msgid "Permissions"
-msgstr "Berechtigungen"
-
-#: storage/exchange-permissions-dialog.glade.h:12
+#: storage/exchange-permissions-dialog.glade.h:14
 msgid "Read items"
 msgstr "Objekte lesen"
 
-#: storage/exchange-permissions-dialog.glade.h:13
+#: storage/exchange-permissions-dialog.glade.h:15
 msgid "Role: "
 msgstr "Rolle: "
 
-#: storage/exchange-storage.c:362
-#, c-format
-msgid "Can't edit permissions of \"%s\""
-msgstr "Berechtigungen von \"%s\" können nicht bearbeitet werden"
-
-#: storage/exchange-storage.c:394
+#: storage/exchange-storage.c:336
 msgid "Connecting..."
 msgstr "Verbindung wird hergestellt..."
 
-#: storage/exchange-storage.c:433
-msgid "Permissions..."
-msgstr "Berechtigungen..."
-
-#: storage/exchange-storage.c:434
-msgid "Change permissions for this folder"
-msgstr "Berechtigungen für diesen Ordner ändern"
-
-#: storage/main.c:370
+#: storage/main.c:137
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector für Microsoft Exchange"
 
-#: storage/ximian-connector-setup.c:53
+#: storage/xc-commands.c:314
+msgid "_View"
+msgstr ""
+
+#: storage/xc-commands.c:319
+msgid "_Move Folder..."
+msgstr ""
+
+#: storage/xc-commands.c:322
+msgid "_Copy Folder..."
+msgstr ""
+
+#: storage/xc-commands.c:328
+msgid "_New Folder..."
+msgstr ""
+
+#: storage/xc-commands.c:331
+#, fuzzy
+msgid "_Delete Folder"
+msgstr "_Lschen"
+
+#: storage/xc-commands.c:335
+#, fuzzy
+msgid "_Rename Folder..."
+msgstr "Persönliche Ordner"
+
+#: storage/xc-commands.c:342
+msgid "_Add Other User's Folder..."
+msgstr ""
+
+#: storage/xc-commands.c:345
+msgid "_Remove Other User's Folder"
+msgstr ""
+
+#: storage/xc-commands.c:351
+#, fuzzy
+msgid "_Permissions..."
+msgstr "Berechtigungen..."
+
+#: storage/xc-commands.c:354
+msgid "Add to _Favorites"
+msgstr ""
+
+#: storage/ximian-connector.xml.h:1
+#, fuzzy
+msgid "Change your Exchange server password"
+msgstr "Exchange Server %s"
+
+#: storage/ximian-connector.xml.h:2
+#, fuzzy
+msgid "Exchange _Quota"
+msgstr "Exchange"
+
+#: storage/ximian-connector.xml.h:3
+msgid "Subscribe to _Other User's Folder..."
+msgstr ""
+
+#: storage/ximian-connector.xml.h:4
+msgid "Subscribe to a folder belonging to some other user on the server"
+msgstr ""
+
+#: storage/ximian-connector.xml.h:5
+msgid ""
+"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgstr ""
+
+#: storage/ximian-connector.xml.h:6
+msgid "View or change your Exchange calendar delegation settings"
+msgstr ""
+
+#: storage/ximian-connector.xml.h:7
+msgid "View or change your Out-of-Office status and autoreply message"
+msgstr ""
+
+#: storage/ximian-connector.xml.h:8
+msgid "View your Exchange server disk usage and limits"
+msgstr ""
+
+#: storage/ximian-connector.xml.h:9
+msgid "_Change Exchange Password..."
+msgstr ""
+
+#: storage/ximian-connector.xml.h:10
+msgid "_Delegation Assistant"
+msgstr ""
+
+#: storage/ximian-connector.xml.h:11
+#, fuzzy
+msgid "_Out of Office Assistant"
+msgstr "Nicht-im-Büro Assistent"
+
+#: storage/ximian-connector.xml.h:12
+msgid "_Unsubscribe from Other User's Folder"
+msgstr ""
+
+#: storage/ximian-connector-setup.c:43
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
 msgstr "Ximian Connector für Microsoft Exchange Einstellungs-Tool"
-
-#: storage/ximian-connector-setup.c:59
-msgid "Could not start evolution"
-msgstr "Evolution konnte nicht gestartet werden"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
 msgid "Evolution Addressbook Exchange backend"
@@ -1214,38 +1328,154 @@ msgid "Evolution Calendar Exchange backend"
 msgstr "Exchange Hintergrundkomponente für Evolution Kalender"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Exchange Delegation"
-msgstr "Exchange Delegation"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
-msgid "Out of Office"
-msgstr "Nicht im Büro"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
-msgid "This page can be used to configure Exchange \"Out of Office\" settings"
-msgstr ""
-"Diese Seite kann genutzt werden, um Exchange \"Nicht im Büro\" Einstellungen "
-"zu konfigurieren"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
-msgid "This page can be used to configure delegation for Exchange"
-msgstr ""
-"Diese Seite kann genutzt werden, um Delegation für Exchange zu konfigurieren."
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
-msgid "Ximian Connector delegation configuration control"
-msgstr "Bedienelement zur Konfiguration von Ximian Connector Delegation"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:8
 msgid "Ximian Connector for Exchange"
 msgstr "Ximian Connector für Exchange"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:9
-msgid "Ximian Connector out-of-office configuration control"
-msgstr "Bedienelement zur Konfiguration von Ximian Connector Nicht-im-Büro"
+#~ msgid "Unable to connect to LDAP server."
+#~ msgstr "Verbindung zum LDAP Server konnte nicht hergestellt werden."
 
-#~ msgid "Exchange"
-#~ msgstr "Exchange"
+#~ msgid "Waiting for connection to LDAP server..."
+#~ msgstr "Wartet auf Verbindung zum LDAP Server..."
+
+#~ msgid "Restarting search."
+#~ msgstr "Suche wird neu gestartet."
+
+#~ msgid "Could not access personal folders"
+#~ msgstr "Auf persönliche Ordner konnte nicht zugegriffen werden"
+
+#~ msgid "Could not retrieve list of standard folders"
+#~ msgstr "Liste der Standardordner konnte nicht abgerufen werden"
+
+#~ msgid ""
+#~ "Could not connect to server %s.\n"
+#~ "Try using SSL?"
+#~ msgstr ""
+#~ "Verbindung zum Server %s konnte nicht hergestellt werden.\n"
+#~ "SSL verwenden?"
+
+#~ msgid "Could not create connection for %s"
+#~ msgstr "Verbindung für %s konnte nicht erstellt werden"
+
+#~ msgid "Acting as a Delegate"
+#~ msgstr "Als ein Delegat agieren"
+
+#~ msgid "Delegating to Others"
+#~ msgstr "An Andere delegieren"
+
+#~ msgid ""
+#~ "You are a delegate for the following users and can choose \n"
+#~ "to have a mail identity for sending mail from them."
+#~ msgstr ""
+#~ "Sie sind ein Delegat für die folgenden Benutzer und können eine E-Mail-"
+#~ "Identität wählen,\n"
+#~ "um Post von Ihnen zu senden."
+
+#~ msgid "No Exchange accounts configured."
+#~ msgstr "Keine Exchange Konten konfiguriert."
+
+#~ msgid "Unable to load delegate configuration UI."
+#~ msgstr "Das Konfigurations-UI des Delegaten konnte nicht geladen werden."
+
+#~ msgid ""
+#~ "No Global Catalog server configured for this account.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Kein Global Catalog-Server für dieses Konto konfiguriert.\n"
+#~ "Delegaten können nicht bearbeitet werden."
+
+#~ msgid ""
+#~ "Could not read folder permissions.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Ordnerberechtigungen konnten nicht gelesen werden.\n"
+#~ "Delegaten können nicht bearbeitet werden."
+
+#~ msgid ""
+#~ "Could not determine folder permissions for delegates.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Ordnerberechtigungen für Delegaten konnten nicht bestimmt werden.\n"
+#~ "Delegaten können nicht bearbeitet werden."
+
+#~ msgid "Delegate To:"
+#~ msgstr "Delegieren an:"
+
+#~ msgid "Could not make %s a delegate"
+#~ msgstr "%s konnte nicht als Delegat benannt werden"
+
+#~ msgid "You cannot make yourself your own delegate"
+#~ msgstr "Sie können sich nicht selbst als Ihren eigenen Delegaten angeben."
+
+#~ msgid "%s is already a delegate"
+#~ msgstr "%s ist bereits ein Delegat"
+
+#~ msgid "Delete the delegate %s?"
+#~ msgstr "Den Delegaten %s löschen?"
+
+#~ msgid "Error reading delegates list."
+#~ msgstr "Fehler beim Lesen der Delegatenliste."
+
+#~ msgid "Could not access Active Directory"
+#~ msgstr "Auf Aktives Verzeichnis konnte nicht zugegriffen werden"
+
+#~ msgid "Could not find self in Active Directory"
+#~ msgstr "Selbst konnte im Aktiven Verzeichnis nicht gefunden werden"
+
+#~ msgid "Could not find delegate %s in Active Directory"
+#~ msgstr "Delegat %s konnte im Aktiven Verzeichnis nicht gefunden werden"
+
+#~ msgid "Could not update list of delegates."
+#~ msgstr "Liste der Delegaten konnte nicht aktualisiert werden."
+
+#~ msgid "Could not add delegate %s"
+#~ msgstr "Delegat %s konnte nicht hinzugefügt werden"
+
+#~ msgid ""
+#~ "Failed to update delegates:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Aktualisieren der Delegaten fehlgeschlagen:\n"
+#~ "%s"
+
+#~ msgid "%s's Delegate"
+#~ msgstr "%s's Delegat"
+
+#~ msgid ""
+#~ "You are no longer a delegate for the following users,\n"
+#~ "so the corresponding accounts will be removed.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Sie sind für die folgenden Benutzer kein Delegat mehr,\n"
+#~ "daher werden die entsprechenden Konten entfernt.\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "You are no longer a delegate for %s,\n"
+#~ "so that account will be removed."
+#~ msgstr ""
+#~ "Sie sind kein Delegat mehr für %s,\n"
+#~ "daher wird dieses Konto entfernt."
+
+#~ msgid "Has Mail Identity"
+#~ msgstr "Hat E-Mail-Identität"
+
+#~ msgid "Delegator Name"
+#~ msgstr "Name des Delegierenden"
+
+#~ msgid "Unable to load out-of-office UI."
+#~ msgstr "Nicht-im-Büro UI konnte nicht geladen werden."
+
+#~ msgid "All"
+#~ msgstr "Alle"
+
+#~ msgid "Own"
+#~ msgstr "Eigen"
+
+#~ msgid "Can't edit permissions of \"%s\""
+#~ msgstr "Berechtigungen von \"%s\" können nicht bearbeitet werden"
+
+#~ msgid "Change permissions for this folder"
+#~ msgstr "Berechtigungen für diesen Ordner ändern"
 
 #~ msgid "This copy of Ximian Connector has not been activated."
 #~ msgstr "Diese Kopie des Ximian Connectors wurde nicht aktiviert."
@@ -1278,13 +1508,6 @@ msgstr "Bedienelement zur Konfiguration von Ximian Connector Nicht-im-Büro"
 #~ "%s"
 
 #~ msgid ""
-#~ "Could not read key file:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Schlüsseldatei konnte nicht gelesen werden:\n"
-#~ "%s"
-
-#~ msgid ""
 #~ "Could not copy key file:\n"
 #~ "%s"
 #~ msgstr ""
@@ -1297,14 +1520,34 @@ msgstr "Bedienelement zur Konfiguration von Ximian Connector Nicht-im-Büro"
 #~ msgid "Key file successfully installed."
 #~ msgstr "Schlüsseldatei erfolgreich installiert."
 
+#~ msgid "Could not start evolution"
+#~ msgstr "Evolution konnte nicht gestartet werden"
+
+#~ msgid "Exchange Delegation"
+#~ msgstr "Exchange Delegation"
+
+#~ msgid "Out of Office"
+#~ msgstr "Nicht im Büro"
+
+#~ msgid ""
+#~ "This page can be used to configure Exchange \"Out of Office\" settings"
+#~ msgstr ""
+#~ "Diese Seite kann genutzt werden, um Exchange \"Nicht im Büro\" "
+#~ "Einstellungen zu konfigurieren"
+
+#~ msgid "This page can be used to configure delegation for Exchange"
+#~ msgstr ""
+#~ "Diese Seite kann genutzt werden, um Delegation für Exchange zu "
+#~ "konfigurieren."
+
+#~ msgid "Ximian Connector delegation configuration control"
+#~ msgstr "Bedienelement zur Konfiguration von Ximian Connector Delegation"
+
 #~ msgid "Ximian Connector key file"
 #~ msgstr "Ximian Connector Schlüsseldatei"
 
 #~ msgid "_Add"
 #~ msgstr "_Hinzufgen"
-
-#~ msgid "_Delete"
-#~ msgstr "_Lschen"
 
 #~ msgid "Add..."
 #~ msgstr "Hinzufgen..."

@@ -17,9 +17,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* ExchangeStorage: EvolutionStorage subclass that talks to an
- * ExchangeAccount
- */
+/* ExchangeStorage: EStorage subclass that talks to an ExchangeAccount */
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -28,7 +26,6 @@
 #include "exchange-storage.h"
 #include "exchange-account.h"
 #include "exchange-hierarchy.h"
-#include "exchange-permissions-dialog.h"
 #include "e-folder-exchange.h"
 
 #include <e-util/e-dialog-utils.h>
@@ -41,84 +38,84 @@ struct _ExchangeStoragePrivate {
 	guint idle_id;
 };
 
-#define PARENT_TYPE EVOLUTION_TYPE_STORAGE
-static EvolutionStorageClass *parent_class = NULL;
+#define PARENT_TYPE E_TYPE_STORAGE
+static EStorageClass *parent_class = NULL;
 
 static void finalize (GObject *);
 
-static void create_folder (EvolutionStorage *storage,
-			   const Bonobo_Listener listener,
+static void create_folder (EStorage *storage,
 			   const char *path,
 			   const char *type,
-			   const char *description,
-			   const char *parent_physical_uri);
-static void remove_folder (EvolutionStorage *storage,
-			   const Bonobo_Listener listener,
+			   EStorageResultCallback callback,
+			   gpointer user_data);
+static void remove_folder (EStorage *storage,
 			   const char *path,
-			   const char *physical_uri);
-static void xfer_folder   (EvolutionStorage *storage,
-			   const Bonobo_Listener listener,
+			   EStorageResultCallback callback,
+			   gpointer user_data);
+static void xfer_folder   (EStorage *storage,
 			   const char *source_path,
 			   const char *destination_path,
-			   gboolean remove_source);
-static void open_folder   (EvolutionStorage *storage,
-			   const Bonobo_Listener listener,
-			   const char *path);
+			   const gboolean remove_source,
+			   EStorageResultCallback callback,
+			   gpointer user_data);
+static void open_folder   (EStorage *storage,
+			   const char *path,
+			   EStorageDiscoveryCallback callback,
+			   gpointer user_data);
+static gboolean will_accept_folder (EStorage *storage,
+				    EFolder *new_parent,
+				    EFolder *source);
 
-static void discover_shared_folder        (EvolutionStorage *storage,
-					   Bonobo_Listener listener,
-					   const char *user,
+static void discover_shared_folder        (EStorage *storage,
+					   const char *owner,
+					   const char *folder_name,
+					   EStorageDiscoveryCallback callback,
+					   gpointer user_data);
+static void cancel_discover_shared_folder (EStorage *storage,
+					   const char *owner,
 					   const char *folder_name);
-static void cancel_discover_shared_folder (EvolutionStorage *storage,
-					   const char *user,
-					   const char *folder_name);
-static void remove_shared_folder          (EvolutionStorage *storage,
-					   Bonobo_Listener listener,
-					   const char *path);
-
-static void show_folder_properties (EvolutionStorage *storage,
-				    const char *path,
-				    guint item,
-				    gulong parent_window_id);
+static void remove_shared_folder          (EStorage *storage,
+					   const char *path,
+					   EStorageResultCallback callback,
+					   gpointer user_data);
 
 static void
 class_init (GObjectClass *object_class)
 {
-	EvolutionStorageClass *storage_class =
-		EVOLUTION_STORAGE_CLASS (object_class);
+	EStorageClass *e_storage_class = E_STORAGE_CLASS (object_class);
 
 	parent_class = g_type_class_ref (PARENT_TYPE);
 
 	/* virtual method override */
 	object_class->finalize = finalize;
 
-	storage_class->create_folder = create_folder;
-	storage_class->remove_folder = remove_folder;
-	storage_class->xfer_folder = xfer_folder;
-	storage_class->open_folder = open_folder;
-	storage_class->discover_shared_folder = discover_shared_folder;
-	storage_class->cancel_discover_shared_folder = cancel_discover_shared_folder;
-	storage_class->remove_shared_folder = remove_shared_folder;
-	storage_class->show_folder_properties = show_folder_properties;
+	e_storage_class->async_create_folder = create_folder;
+	e_storage_class->async_remove_folder = remove_folder;
+	e_storage_class->async_xfer_folder = xfer_folder;
+	e_storage_class->async_open_folder = open_folder;
+	e_storage_class->will_accept_folder = will_accept_folder;
+	e_storage_class->async_discover_shared_folder = discover_shared_folder;
+	e_storage_class->cancel_discover_shared_folder = cancel_discover_shared_folder;
+	e_storage_class->async_remove_shared_folder = remove_shared_folder;
 }
 
 static void
 init (GObject *object)
 {
-	ExchangeStorage *estorage = EXCHANGE_STORAGE (object);
+	ExchangeStorage *exstorage = EXCHANGE_STORAGE (object);
 
-	estorage->priv = g_new0 (ExchangeStoragePrivate, 1);
+	exstorage->priv = g_new0 (ExchangeStoragePrivate, 1);
 }
 
 static void
 finalize (GObject *object)
 {
-	ExchangeStorage *estorage = EXCHANGE_STORAGE (object);
+	ExchangeStorage *exstorage = EXCHANGE_STORAGE (object);
 
-	if (estorage->priv->idle_id)
-		g_source_remove (estorage->priv->idle_id);
+	if (exstorage->priv->idle_id)
+		g_source_remove (exstorage->priv->idle_id);
 
-	g_free (estorage->priv);
+	g_free (exstorage->priv);
 
 	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
@@ -128,269 +125,214 @@ E2K_MAKE_TYPE (exchange_storage, ExchangeStorage, class_init, init, PARENT_TYPE)
 
 static void
 account_new_folder (ExchangeAccount *account, EFolder *folder,
-		    EvolutionStorage *storage)
+		    EStorage *storage)
 {
 	const char *path = e_folder_exchange_get_path (folder);
 
-	evolution_storage_new_folder (storage, path,
-				      e_folder_get_name (folder),
-				      e_folder_get_type_string (folder),
-				      e_folder_get_physical_uri (folder),
-				      e_folder_get_description (folder),
-				      e_folder_get_custom_icon_name (folder),
-				      e_folder_get_unread_count (folder),
-				      e_folder_get_can_sync_offline (folder),
-				      e_folder_get_sorting_priority (folder));
+	e_storage_new_folder (storage, path, folder);
 	if (e_folder_exchange_get_has_subfolders (folder)) {
-		evolution_storage_has_subfolders (storage, path,
+		e_storage_declare_has_subfolders (storage, path,
 						  _("Searching..."));
 	}
 }
 
 static void
 account_removed_folder (ExchangeAccount *account, EFolder *folder,
-			EvolutionStorage *storage)
+			EStorage *storage)
 {
 	const char *path = e_folder_exchange_get_path (folder);
 
-	evolution_storage_removed_folder (storage, path);
+	e_storage_removed_folder (storage, path);
 }
 
-static void
-account_updated_folder (ExchangeAccount *account, EFolder *folder,
-			EvolutionStorage *storage)
-{
-	const char *path = e_folder_exchange_get_path (folder);
-	int unread = e_folder_get_unread_count (folder);
-
-	evolution_storage_update_folder (storage, path, unread);
-}
-
-static GNOME_Evolution_Storage_Result
-account_result_to_storage_result (ExchangeAccountFolderResult result)
+static EStorageResult
+account_to_storage_result (ExchangeAccountFolderResult result)
 {
 	switch (result) {
 	case EXCHANGE_ACCOUNT_FOLDER_OK:
-		return GNOME_Evolution_Storage_OK;
+		return E_STORAGE_OK;
 	case EXCHANGE_ACCOUNT_FOLDER_ALREADY_EXISTS:
-		return GNOME_Evolution_Storage_ALREADY_EXISTS;
+		return E_STORAGE_EXISTS;
 	case EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST:
-		return GNOME_Evolution_Storage_DOES_NOT_EXIST;
+		return E_STORAGE_NOTFOUND;
 	case EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED:
-		return GNOME_Evolution_Storage_PERMISSION_DENIED;
+		return E_STORAGE_PERMISSIONDENIED;
 	case EXCHANGE_ACCOUNT_FOLDER_OFFLINE:
 	case EXCHANGE_ACCOUNT_FOLDER_UNSUPPORTED_OPERATION:
-		return GNOME_Evolution_Storage_UNSUPPORTED_OPERATION;
+		return E_STORAGE_UNSUPPORTEDOPERATION;
 	default:
-		return GNOME_Evolution_Storage_GENERIC_ERROR;
+		return E_STORAGE_GENERICERROR;
 	}
 }
 
 static void
-listener_notify (ExchangeAccount *account, ExchangeAccountFolderResult result,
-		 EFolder *folder, gpointer user_data)
-{
-	Bonobo_Listener listener = user_data;
-	GNOME_Evolution_Storage_Result storage_result;
-	CORBA_Environment ev;
-	CORBA_any any;
-
-	storage_result = account_result_to_storage_result (result);
-
-	any._type = TC_GNOME_Evolution_Storage_Result;
-	any._value = &storage_result;
-
-	CORBA_exception_init (&ev);
-	Bonobo_Listener_event (listener, "result", &any, &ev);
-	CORBA_exception_free (&ev);
-
-	bonobo_object_release_unref (listener, NULL);
-}
-
-static void
-create_folder (EvolutionStorage *storage, Bonobo_Listener listener,
+create_folder (EStorage *storage,
 	       const char *path, const char *type,
-	       const char *description,
-	       const char *parent_physical_uri) 
+	       EStorageResultCallback callback,
+	       gpointer user_data)
 {
-	ExchangeStorage *estorage = EXCHANGE_STORAGE (storage);
+	ExchangeStorage *exstorage = EXCHANGE_STORAGE (storage);
+	ExchangeAccount *account = exstorage->priv->account;
+	ExchangeAccountFolderResult result;
 
-	listener = bonobo_object_dup_ref (listener, NULL);
-	exchange_account_async_create_folder (estorage->priv->account,
-					      path, type,
-					      listener_notify, listener);
+	result = exchange_account_create_folder (account, path, type);
+	callback (storage, account_to_storage_result (result), user_data);
 }
 
 static void
-remove_folder (EvolutionStorage *storage, Bonobo_Listener listener,
-	       const char *path, const char *physical_uri)
+remove_folder (EStorage *storage, const char *path, 
+	       EStorageResultCallback callback,
+	       gpointer user_data)
 {
-	ExchangeStorage *estorage = EXCHANGE_STORAGE (storage);
+	ExchangeStorage *exstorage = EXCHANGE_STORAGE (storage);
+	ExchangeAccount *account = exstorage->priv->account;
+	ExchangeAccountFolderResult result;
 
-	listener = bonobo_object_dup_ref (listener, NULL);
-	exchange_account_async_remove_folder (estorage->priv->account, path,
-					      listener_notify, listener);
+	result = exchange_account_remove_folder (account, path);
+	callback (storage, account_to_storage_result (result), user_data);
 }
 
 static void
-xfer_folder (EvolutionStorage *storage, Bonobo_Listener listener,
+xfer_folder (EStorage *storage, 
 	     const char *source_path, const char *dest_path,
-	     gboolean remove_source)
+	     const gboolean remove_source,
+	     EStorageResultCallback callback,
+	     gpointer user_data)
 {
-	ExchangeStorage *estorage = EXCHANGE_STORAGE (storage);
+	ExchangeStorage *exstorage = EXCHANGE_STORAGE (storage);
+	ExchangeAccount *account = exstorage->priv->account;
+	ExchangeAccountFolderResult result;
 
-	listener = bonobo_object_dup_ref (listener, NULL);
-	exchange_account_async_xfer_folder (estorage->priv->account,
-					    source_path, dest_path,
-					    remove_source,
-					    listener_notify, listener);
+	result = exchange_account_xfer_folder (account,
+					       source_path, dest_path,
+					       remove_source);
+	callback (storage, account_to_storage_result (result), user_data);
+}
+
+struct open_folder_data {
+	EStorage *storage;
+	char *path;
+	EStorageDiscoveryCallback callback;
+	gpointer user_data;
+};
+
+static gboolean
+idle_open_folder (gpointer user_data)
+{
+	struct open_folder_data *ofd = user_data;
+	ExchangeStorage *exstorage = EXCHANGE_STORAGE (ofd->storage);
+	ExchangeAccount *account = exstorage->priv->account;
+	ExchangeAccountFolderResult result;
+	E2kContext *ctx;
+
+	if (!strcmp (ofd->path, "/")) {
+		ctx = exchange_account_connect (account);
+		result = ctx ?
+			E_STORAGE_OK :
+			E_STORAGE_GENERICERROR;
+	} else
+		result = exchange_account_open_folder (account, ofd->path);
+	ofd->callback (ofd->storage, account_to_storage_result (result),
+		       ofd->path, ofd->user_data);
+
+	g_object_unref (ofd->storage);
+	g_free (ofd->path);
+	g_free (ofd);
+
+	return FALSE;
 }
 
 static void
-connected_cb (ExchangeAccount *account, gpointer listener)
+open_folder (EStorage *storage, const char *path,
+	     EStorageDiscoveryCallback callback, gpointer user_data)
 {
-	listener_notify (account,
-			 (exchange_account_get_connection (account) ?
-			  EXCHANGE_ACCOUNT_FOLDER_OK :
-			  EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR),
-			 NULL, listener);
+	struct open_folder_data *ofd;
+
+	/* This needs to actually be done asynchronously, or ETree
+	 * will mess up and duplicate nodes in the tree.
+	 */
+
+	ofd = g_new0 (struct open_folder_data, 1);
+	ofd->storage = g_object_ref (storage);
+	ofd->path = g_strdup (path);
+	ofd->callback = callback;
+	ofd->user_data = user_data;
+	
+	g_idle_add (idle_open_folder, ofd);
+}
+
+static gboolean
+will_accept_folder (EStorage *storage,
+		    EFolder *new_parent, EFolder *source)
+{
+	if (!E_IS_FOLDER_EXCHANGE (new_parent) ||
+	    !E_IS_FOLDER_EXCHANGE (source))
+		return FALSE;
+
+	if (e_folder_exchange_get_hierarchy (new_parent) !=
+	    e_folder_exchange_get_hierarchy (source))
+		return FALSE;
+
+	return E_STORAGE_CLASS (parent_class)->will_accept_folder (storage, new_parent, source);
 }
 
 static void
-open_folder (EvolutionStorage *storage, Bonobo_Listener listener,
-	     const char *path)
+discover_shared_folder (EStorage *storage,
+			const char *owner, const char *folder_name,
+			EStorageDiscoveryCallback callback,
+			gpointer user_data)
 {
-	ExchangeStorage *estorage = EXCHANGE_STORAGE (storage);
+	ExchangeStorage *exstorage = EXCHANGE_STORAGE (storage);
+	ExchangeAccount *account = exstorage->priv->account;
+	ExchangeAccountFolderResult result;
+	EFolder *folder = NULL;
 
-	listener = bonobo_object_dup_ref (listener, NULL);
-
-	if (!strcmp (path, "/")) {
-		exchange_account_async_connect (estorage->priv->account,
-						connected_cb, listener);
-	} else {
-		exchange_account_async_open_folder (estorage->priv->account, path,
-						    listener_notify, listener);
-	}
+	result = exchange_account_discover_shared_folder (account,
+							  owner, folder_name,
+							  &folder);
+	callback (storage, account_to_storage_result (result),
+		  folder ? e_folder_exchange_get_path (folder) : NULL,
+		  user_data);
+	if (folder)
+		g_object_unref (folder);
 }
 
 static void
-shared_folder_listener_notify (ExchangeAccount *account,
-			       ExchangeAccountFolderResult result,
-			       EFolder *folder, gpointer user_data)
-{
-	Bonobo_Listener listener = user_data;
-	GNOME_Evolution_Storage_FolderResult folder_result;
-	CORBA_Environment ev;
-	CORBA_any any;
-
-	folder_result.result = account_result_to_storage_result (result);
-	if (result == EXCHANGE_ACCOUNT_FOLDER_OK && folder)
-		folder_result.path = CORBA_string_dup (e_folder_exchange_get_path (folder));
-	else
-		folder_result.path = CORBA_string_dup ("");
-
-	any._type = TC_GNOME_Evolution_Storage_FolderResult;
-	any._value = &folder_result;
-
-	CORBA_exception_init (&ev);
-	Bonobo_Listener_event (listener, "result", &any, &ev);
-	CORBA_exception_free (&ev);
-
-	bonobo_object_release_unref (listener, NULL);
-}
-
-static void
-discover_shared_folder (EvolutionStorage *storage, Bonobo_Listener listener,
-			const char *user, const char *folder_name)
-{
-	ExchangeStorage *estorage = EXCHANGE_STORAGE (storage);
-
-	listener = bonobo_object_dup_ref (listener, NULL);
-	exchange_account_async_discover_shared_folder (estorage->priv->account,
-						       user, folder_name,
-						       shared_folder_listener_notify,
-						       listener);
-}
-
-static void
-cancel_discover_shared_folder (EvolutionStorage *storage, const char *user,
+cancel_discover_shared_folder (EStorage *storage, const char *owner,
 			       const char *folder_name)
 {
-	ExchangeStorage *estorage = EXCHANGE_STORAGE (storage);
+	ExchangeStorage *exstorage = EXCHANGE_STORAGE (storage);
+	ExchangeAccount *account = exstorage->priv->account;
 
-	exchange_account_cancel_discover_shared_folder (estorage->priv->account,
-							user, folder_name);
+	exchange_account_cancel_discover_shared_folder (account,
+							owner, folder_name);
 }
 
 static void
-remove_shared_folder (EvolutionStorage *storage, Bonobo_Listener listener,
-		      const char *path)
+remove_shared_folder (EStorage *storage, const char *path,
+		      EStorageResultCallback callback, gpointer user_data)
 {
-	ExchangeStorage *estorage = EXCHANGE_STORAGE (storage);
+	ExchangeStorage *exstorage = EXCHANGE_STORAGE (storage);
+	ExchangeAccount *account = exstorage->priv->account;
+	ExchangeAccountFolderResult result;
 
-	listener = bonobo_object_dup_ref (listener, NULL);
-	exchange_account_async_remove_shared_folder (estorage->priv->account, path,
-						     shared_folder_listener_notify,
-						     listener);
-}
-
-static void
-ok_clicked (GtkDialog *dialog, int response, gpointer user_data)
-{
-	gtk_widget_destroy (GTK_WIDGET (dialog));
-}
-
-static void
-show_folder_properties (EvolutionStorage *storage, const char *path,
-			guint item, gulong parent_window_id) 
-{
-	ExchangeStorage *estorage = EXCHANGE_STORAGE (storage);
-	EFolder *folder;
-	ExchangeHierarchy *hier;
-
-	folder = exchange_account_get_folder (estorage->priv->account, path);
-	g_return_if_fail (folder != NULL);
-
-	hier = e_folder_exchange_get_hierarchy (folder);
-	g_return_if_fail (hier != NULL);
-
-	if (folder == hier->toplevel) {
-		GtkWidget *dialog;
-
-		dialog = gtk_message_dialog_new (NULL, 0, GTK_MESSAGE_ERROR,
-						 GTK_BUTTONS_OK,
-						 _("Can't edit permissions of \"%s\""),
-						 e_folder_get_name (folder));
-		e_dialog_set_transient_for_xid (GTK_WINDOW (dialog),
-						parent_window_id);
-
-		/* We don't gtk_dialog_run it, because the shell is
-		 * blocking on us. We just let it get destroyed by the
-		 * main loop.
-		 */
-		gtk_widget_show (dialog);
-		g_signal_connect (dialog, "response",
-				  G_CALLBACK (ok_clicked), NULL);
-		return;
-	}
-
-	exchange_permissions_dialog_new (estorage->priv->account, folder,
-					 parent_window_id);
+	result = exchange_account_remove_shared_folder (account, path);
+	callback (storage, account_to_storage_result (result), user_data);
 }
 
 static gboolean
 idle_fill_storage (gpointer user_data)
 {
-	ExchangeStorage *estorage = user_data;
-	EvolutionStorage *storage = user_data;
-	ExchangeAccount *account = estorage->priv->account;
+	ExchangeStorage *exstorage = user_data;
+	EStorage *storage = user_data;
+	ExchangeAccount *account = exstorage->priv->account;
 	GPtrArray *folders;
 	int i;
 
-	estorage->priv->idle_id = 0;
+	exstorage->priv->idle_id = 0;
 
-	if (!exchange_account_get_connection (account)) {
-		evolution_storage_has_subfolders (storage, "/",
+	if (!exchange_account_get_context (account)) {
+		e_storage_declare_has_subfolders (storage, "/",
 						  _("Connecting..."));
 	} else {
 		folders = exchange_account_get_folders (account);
@@ -404,11 +346,9 @@ idle_fill_storage (gpointer user_data)
 	}
 
 	g_signal_connect (account, "new_folder",
-			  G_CALLBACK (account_new_folder), estorage);
+			  G_CALLBACK (account_new_folder), exstorage);
 	g_signal_connect (account, "removed_folder",
-			  G_CALLBACK (account_removed_folder), estorage);
-	g_signal_connect (account, "updated_folder",
-			  G_CALLBACK (account_updated_folder), estorage);
+			  G_CALLBACK (account_removed_folder), exstorage);
 
 	g_object_unref (storage);
 
@@ -421,23 +361,23 @@ idle_fill_storage (gpointer user_data)
  *
  * This creates a storage for @account.
  **/
-EvolutionStorage *
+EStorage *
 exchange_storage_new (ExchangeAccount *account)
 {
-	ExchangeStorage *estorage;
-	EvolutionStorage *storage;
+	ExchangeStorage *exstorage;
+	EStorage *storage;
+	EFolder *root_folder;
 
-	estorage = g_object_new (EXCHANGE_TYPE_STORAGE, NULL);
-	storage = EVOLUTION_STORAGE (estorage);
-	evolution_storage_construct (storage, account->account_name, TRUE);
-	evolution_storage_add_property_item (storage, _("Permissions..."),
-					     _("Change permissions for this folder"),
-					     NULL);
+	exstorage = g_object_new (EXCHANGE_TYPE_STORAGE, NULL);
+	storage = E_STORAGE (exstorage);
 
-	estorage->priv->account = account;
+	root_folder = e_folder_new (account->account_name, "noselect", "");
+	e_storage_construct (storage, account->account_name, root_folder);
 
-	g_object_ref (estorage);
-	estorage->priv->idle_id = g_idle_add (idle_fill_storage, estorage);
+	exstorage->priv->account = account;
+
+	g_object_ref (exstorage);
+	exstorage->priv->idle_id = g_idle_add (idle_fill_storage, exstorage);
 
 	return storage;
 }

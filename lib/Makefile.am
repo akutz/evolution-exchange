@@ -4,8 +4,8 @@ INCLUDES =                                                      \
 	-DCONNECTOR_DATADIR=\""$(CONNECTOR_DATADIR)"\"		\
 	-DEVOLUTION_VERSION=\"$(EVOLUTION_VERSION)\"		\
 	$(LDAP_CFLAGS)						\
+	$(KRB5_CFLAGS)						\
         $(LIBEXCHANGE_CFLAGS)					\
-	$(SHELL_CFLAGS)						\
 	-I$(top_srcdir)						\
         -I$(top_srcdir)/xntlm
 
@@ -13,28 +13,13 @@ noinst_LIBRARIES =						\
         libexchange.a
 
 
-IDLS = $(EVOLUTION_idldir)/Evolution-Addressbook-SelectNames.idl
 
-IDL_GENERATED =                 			\
-	Evolution-Addressbook-SelectNames.h		\
-	Evolution-Addressbook-SelectNames-common.c	\
-	Evolution-Addressbook-SelectNames-skels.c	\
-	Evolution-Addressbook-SelectNames-stubs.c
-
-$(IDL_GENERATED): $(IDLS)
-	$(ORBIT_IDL) $(EVOLUTION_IDL_INCLUDES) \
-                $(EVOLUTION_idldir)/Evolution-Addressbook-SelectNames.idl
-
-BUILT_SOURCES = $(IDL_GENERATED)
-NODIST_FILES = $(IDL_GENERATED)
-CLEANFILES = $(IDL_GENERATED)
-
-
-PROP_GENERATED = e2k-propnames.h e2k-propnames.c
+PROP_GENERATED = e2k-propnames.h e2k-propnames.c e2k-proptags.h
 
 mapi_properties    = $(top_srcdir)/docs/mapi-properties
 e2k_propnames_h_in = $(srcdir)/e2k-propnames.h.in 
 e2k_propnames_c_in = $(srcdir)/e2k-propnames.c.in 
+e2k_proptags_h_in  = $(srcdir)/e2k-proptags.h.in 
 
 e2k-propnames.h: $(e2k_propnames_h_in) $(mapi_properties)
 	@echo Building $@
@@ -50,20 +35,44 @@ e2k-propnames.c: $(e2k_propnames_c_in) $(mapi_properties)
 	  awk '{if (tail) { print; }} /^@AUTOGENERATE@/ {tail=1;}' $(e2k_propnames_c_in) )			\
 	> $@
 
-BUILT_SOURCES += $(PROP_GENERATED)
-NODIST_FILES += $(PROP_GENERATED)
-CLEANFILES += $(PROP_GENERATED)
+e2k-proptags.h: $(e2k_proptags_h_in) $(mapi_properties)
+	@echo Building $@
+	@( awk '/^@AUTOGENERATE@/ {exit;} {print;}' $(e2k_proptags_h_in);					\
+	  awk '/^x/ { printf "#define E2K_PROPTAG_%-39s 0%s\n", $$2, $$1; }' $(mapi_properties);	\
+	  awk '{if (tail) { print; }} /^@AUTOGENERATE@/ {tail=1;}' $(e2k_proptags_h_in) )			\
+	> $@
+
+BUILT_SOURCES = $(PROP_GENERATED)
+NODIST_FILES = $(PROP_GENERATED)
+CLEANFILES = $(PROP_GENERATED)
+
+IDLS = $(EVOLUTION_idldir)/Evolution-Addressbook-SelectNames.idl
+
+IDL_GENERATED =                 			\
+	Evolution-Addressbook-SelectNames.h		\
+	Evolution-Addressbook-SelectNames-common.c	\
+	Evolution-Addressbook-SelectNames-skels.c	\
+	Evolution-Addressbook-SelectNames-stubs.c
+
+$(IDL_GENERATED): $(IDLS)
+	$(ORBIT_IDL) $(EVOLUTION_IDL_INCLUDES) \
+                $(EVOLUTION_idldir)/Evolution-Addressbook-SelectNames.idl
+
+BUILT_SOURCES += $(IDL_GENERATED)
+NODIST_FILES += $(IDL_GENERATED)
+CLEANFILES += $(IDL_GENERATED)
+
 
 
 MARSHAL_GENERATED = e2k-marshal.c e2k-marshal.h
 
 e2k-marshal.h: e2k-marshal.list
-	( @GLIB_GENMARSHAL@ --prefix=e2k_marshal e2k-marshal.list --header > e2k-marshal.tmp \
+	( @GLIB_GENMARSHAL@ --prefix=e2k_marshal $(srcdir)/e2k-marshal.list --header > e2k-marshal.tmp \
 	&& mv e2k-marshal.tmp e2k-marshal.h ) \
 	|| ( rm -f e2k-marshal.tmp && exit 1 )
 
 e2k-marshal.c: e2k-marshal.h
-	( (echo '#include "e2k-marshal.h"'; @GLIB_GENMARSHAL@ --prefix=e2k_marshal e2k-marshal.list --body) > e2k-marshal.tmp \
+	( (echo '#include "e2k-marshal.h"'; @GLIB_GENMARSHAL@ --prefix=e2k_marshal $(srcdir)/e2k-marshal.list --body) > e2k-marshal.tmp \
 	&& mv e2k-marshal.tmp e2k-marshal.c ) \
 	|| ( rm -f e2k-marshal.tmp && exit 1 )
 
@@ -76,24 +85,35 @@ libexchange_a_SOURCES =						\
 	$(IDL_GENERATED)					\
 	$(MARSHAL_GENERATED)					\
 	e2k-propnames.h						\
+	e2k-proptags.h						\
+	e2k-action.c						\
+	e2k-action.h						\
 	e2k-autoconfig.c					\
 	e2k-autoconfig.h					\
-	e2k-connection.c					\
-	e2k-connection.h					\
+	e2k-context.c						\
+	e2k-context.h						\
 	e2k-encoding-utils.c					\
 	e2k-encoding-utils.h					\
 	e2k-freebusy.c						\
 	e2k-freebusy.h						\
 	e2k-global-catalog.c					\
 	e2k-global-catalog.h					\
-	e2k-license.c						\
-	e2k-license.h						\
+	e2k-http-utils.c					\
+	e2k-http-utils.h					\
+	e2k-kerberos.c						\
+	e2k-kerberos.h						\
+	e2k-operation.c						\
+	e2k-operation.h						\
 	e2k-properties.c					\
 	e2k-properties.h					\
 	e2k-restriction.c					\
 	e2k-restriction.h					\
 	e2k-result.c						\
 	e2k-result.h						\
+	e2k-rule.c						\
+	e2k-rule.h						\
+	e2k-rule-xml.c						\
+	e2k-rule-xml.h						\
 	e2k-security-descriptor.c				\
 	e2k-security-descriptor.h				\
 	e2k-sid.c						\
@@ -111,50 +131,84 @@ libexchange_a_SOURCES =						\
 
 noinst_PROGRAMS =						\
 	ebrowse							\
+	davcat							\
 	actest							\
 	fbtest							\
-	gctest
+	gctest							\
+	ruletest						\
+	cptest
 
 progs_libadd =							\
 	libexchange.a						\
 	$(top_builddir)/xntlm/libxntlm.a			\
 	-L$(EVOLUTION_privlibdir) -leutil			\
-	$(LIBEXCHANGE_LIBS)
+	$(LIBEXCHANGE_LIBS)					\
+	$(LDAP_LIBS)						\
+	$(KRB5_LIBS)
 
 ebrowse_SOURCES =						\
-	ebrowse.c
+	ebrowse.c						\
+	test-utils.c
 
 ebrowse.c: e2k-propnames.c
 
 ebrowse_LDADD =							\
 	$(progs_libadd)
 
+davcat_SOURCES =						\
+	davcat.c						\
+	test-utils.c						\
+	test-utils.h
+
+davcat_LDADD =							\
+	$(progs_libadd)
+
 gctest_SOURCES =						\
-	gctest.c
+	gctest.c						\
+	test-utils.c						\
+	test-utils.h
 
 gctest_LDADD =							\
-	$(progs_libadd)						\
-	$(LDAP_LIBS)
+	$(progs_libadd)
 
 actest_SOURCES =						\
-	actest.c
+	actest.c						\
+	test-utils.c						\
+	test-utils.h
 
 actest_LDADD =							\
-	$(progs_libadd)						\
-	$(LDAP_LIBS)
+	$(progs_libadd)
 
 fbtest_SOURCES =						\
-        fbtest.c
+        fbtest.c						\
+	test-utils.c						\
+	test-utils.h
 
 fbtest_LDADD =							\
 	$(progs_libadd)						\
-	$(CALENDAR_LIBS)					\
-	$(LDAP_LIBS)
+	$(CALENDAR_LIBS)
+
+ruletest_SOURCES =						\
+	ruletest.c						\
+	test-utils.c						\
+	test-utils.h
+
+ruletest_LDADD =						\
+	$(progs_libadd)
+
+cptest_SOURCES = 						\
+	cptest.c						\
+	test-utils.c						\
+	test-utils.h
+
+cptest_LDADD = 							\
+	$(progs_libadd)
 
 EXTRA_DIST =							\
-	e2k-propnames.c.in					\
-	e2k-propnames.h.in					\
-	e2k-marshal.list
+	e2k-marshal.list					\
+	$(e2k_propnames_h_in)					\
+	$(e2k_propnames_c_in)					\
+	$(e2k_proptags_h_in)
 
 dist-hook:
 	cd $(distdir); rm -f $(NODIST_FILES)

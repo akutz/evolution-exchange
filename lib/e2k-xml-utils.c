@@ -23,9 +23,9 @@
 
 #include "e2k-xml-utils.h"
 #include <stdlib.h>
-#include <libxml/xmlmemory.h>
 #include <libxml/HTMLparser.h>
-#include <libsoup/soup-headers.h>
+#include <libxml/parserInternals.h>
+#include <libxml/xmlmemory.h>
 
 static void
 my_xml_parser_error_handler (void *ctx, const char *msg, ...)
@@ -45,48 +45,114 @@ my_xml_parser_error_handler (void *ctx, const char *msg, ...)
 xmlDoc *
 e2k_parse_xml (const char *buf, int len)
 {
-	static gboolean inited = FALSE;
+	static xmlSAXHandler *sax;
+	xmlParserCtxtPtr ctxt;
+	xmlDoc *doc;
 
-	if (!inited) {
-		xmlDefaultSAXHandlerInit();
-		xmlDefaultSAXHandler.warning = my_xml_parser_error_handler;
-		xmlDefaultSAXHandler.error = my_xml_parser_error_handler;
-		inited = TRUE;
+	g_return_val_if_fail (buf != NULL, NULL);
+
+	if (!sax) {
+		xmlInitParser();
+		sax = xmlMalloc (sizeof (xmlSAXHandler));
+#if LIBXML_VERSION > 20600
+		xmlSAXVersion (sax, 2);
+#else
+		memcpy (sax, &xmlDefaultSAXHandler, sizeof (xmlSAXHandler));
+#endif
+		sax->warning = my_xml_parser_error_handler;
+		sax->error = my_xml_parser_error_handler;
 	}
 
 	if (len == -1)
 		len = strlen (buf);
+	ctxt = xmlCreateMemoryParserCtxt (buf, len);
+	if (!ctxt)
+		return NULL;
 
-	/* We use xmlRecoverMemory because Exchange will let you
+	xmlFree (ctxt->sax);
+        ctxt->sax = sax;
+#if LIBXML_VERSION > 20600
+	ctxt->sax2 = 1;
+	ctxt->str_xml = xmlDictLookup (ctxt->dict, BAD_CAST "xml", 3);
+	ctxt->str_xmlns = xmlDictLookup (ctxt->dict, BAD_CAST "xmlns", 5);
+	ctxt->str_xml_ns = xmlDictLookup (ctxt->dict, XML_XML_NAMESPACE, 36);
+#endif
+
+	/* We set recover to TRUE because Exchange will let you
 	 * put control-characters into data, which will make the
 	 * XML be not well-formed.
 	 */
-	return xmlRecoverMemory (buf, len);
+	ctxt->recovery = TRUE;
+	ctxt->vctxt.error = my_xml_parser_error_handler;
+	ctxt->vctxt.warning = my_xml_parser_error_handler;
+
+	xmlParseDocument (ctxt);
+
+	doc = ctxt->myDoc;
+	ctxt->sax = NULL;
+	xmlFreeParserCtxt (ctxt);
+
+	return doc;
 }
 
 /**
  * e2k_parse_html:
- * @buf: the NUL-terminated data to parse
+ * @buf: the data to parse
+ * @len: the length of the buffer, or -1 if it is '\0'-terminated
  *
  * Parses the HTML document in @buf.
  *
  * Return value: a pointer to an #xmlDoc
  **/
 xmlDoc *
-e2k_parse_html (const char *buf)
+e2k_parse_html (const char *buf, int len)
 {
-	static gboolean inited = FALSE;
+	static xmlSAXHandler *sax;
+	htmlParserCtxtPtr ctxt;
+	xmlDoc *doc;
 
-	if (!inited) {
-		htmlDefaultSAXHandlerInit();
-		htmlDefaultSAXHandler.warning = my_xml_parser_error_handler;
-		htmlDefaultSAXHandler.error = my_xml_parser_error_handler;
-		inited = TRUE;
+	g_return_val_if_fail (buf != NULL, NULL);
+
+	if (!sax) {
+		xmlInitParser();
+		sax = xmlMalloc (sizeof (htmlSAXHandler));
+#if LIBXML_VERSION > 20600
+		memcpy (sax, &htmlDefaultSAXHandler, sizeof (xmlSAXHandlerV1));
+#else
+		memcpy (sax, &htmlDefaultSAXHandler, sizeof (xmlSAXHandler));
+#endif
+		sax->warning = my_xml_parser_error_handler;
+		sax->error = my_xml_parser_error_handler;
 	}
 
-	return htmlParseDoc ((char *)buf, NULL);
+	if (len == -1)
+		len = strlen (buf);
+	ctxt = htmlCreateMemoryParserCtxt (buf, len);
+	if (!ctxt)
+		return NULL;
+
+        xmlFree (ctxt->sax);
+        ctxt->sax = sax;
+	ctxt->vctxt.error = my_xml_parser_error_handler;
+	ctxt->vctxt.warning = my_xml_parser_error_handler;
+
+	htmlParseDocument (ctxt);
+	doc = ctxt->myDoc;
+
+	ctxt->sax = NULL;
+	htmlFreeParserCtxt (ctxt);
+
+	return doc;
 }
 
+/**
+ * e2k_g_string_append_xml_escaped:
+ * @string: a %GString containing XML data
+ * @value: data to append to @string
+ *
+ * Appends @value to @string, escaping any characters that can't appear
+ * unencoded in XML text (eg, "<").
+ **/
 void
 e2k_g_string_append_xml_escaped (GString *string, const char *value)
 {
@@ -113,53 +179,6 @@ e2k_g_string_append_xml_escaped (GString *string, const char *value)
 	}
 }
 
-char *
-e2k_xml_escape (const char *value)
-{
-	char *retval;
-	GString *escaped;
-
-	escaped = g_string_new (NULL);
-	e2k_g_string_append_xml_escaped (escaped, value);
-	retval = escaped->str;
-	g_string_free (escaped, FALSE);
-	return retval;
-}
-
-char *
-e2k_xml_unescape (const char *value)
-{
-	int i;
-	char *retval;
-	GString *unescaped = g_string_new ("");
-
-	for (i = 0; value[i]; i++) {
-		if (!strncmp (&value[i], "&lt;", 4)) {
-			unescaped = g_string_append_c (unescaped, '<');
-			i += 3;
-		}
-		else if (!strncmp (&value[i], "&gt;", 4)) {
-			unescaped = g_string_append_c (unescaped, '>');
-			i += 3;
-		}
-		else if (!strncmp (&value[i], "&amp;", 5)) {
-			unescaped = g_string_append_c (unescaped, '&');
-			i += 4;
-		}
-		else if (!strncmp (&value[i], "&quot;", 6)) {
-			unescaped = g_string_append_c (unescaped, '"');
-			i += 5;
-		}
-		else
-			unescaped = g_string_append_c (unescaped, value[i]);
-	}
-
-	retval = unescaped->str;
-	g_string_free (unescaped, FALSE);
-
-	return retval;
-}
-
 /**
  * e2k_xml_find:
  * @node: a node of an xml document
@@ -179,6 +198,31 @@ e2k_xml_unescape (const char *value)
 xmlNode *
 e2k_xml_find (xmlNode *node, const char *name)
 {
+	return e2k_xml_find_in (node, NULL, name);
+}
+
+/**
+ * e2k_xml_find_in:
+ * @node: a node of an xml document
+ * @top: top of the search space
+ * @name: the name of the element to find
+ *
+ * Starts or continues a pre-order depth-first search of a subset of
+ * an xml document for an element named @name. @node is used as the
+ * starting point of the search, but is not examined itself. @top is
+ * the upper-most node that will be examined.
+ *
+ * To search the complete tree under a given node, pass that node as
+ * both @node and @top on the first call, and then on each successive
+ * call, pass the previous match as @node (with the original node
+ * still as @top).
+ *
+ * Return value: the first matching element after @node, or %NULL when
+ * there are no more matches.
+ **/
+xmlNode *
+e2k_xml_find_in (xmlNode *node, xmlNode *top, const char *name)
+{
 	g_return_val_if_fail (name != NULL, NULL);
 
 	while (node) {
@@ -192,9 +236,9 @@ e2k_xml_find (xmlNode *node, const char *name)
 		if (node->children)
 			node = node->children;
 		else {
-			while (node && !node->next)
+			while (node && !node->next && node != top)
 				node = node->parent;
-			if (!node)
+			if (!node || node == top)
 				return NULL;
 			node = node->next;
 		}

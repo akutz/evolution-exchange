@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 
-/* Copyright (C) 2000-2004 Novell, Inc.
+/* Copyright (C) 2001-2004 Novell, Inc.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of version 2 of the GNU General Public
@@ -16,6 +16,8 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
+
+/* camel-exchange-provider.c: exchange provider registration code */
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -131,7 +133,7 @@ exchange_auto_detect_cb (CamelURL *url, GHashTable **auto_detected,
 }
 
 void
-camel_provider_module_init (CamelSession *session)
+camel_provider_module_init (void)
 {
 	exchange_provider.object_types[CAMEL_PROVIDER_STORE] = camel_exchange_store_get_type ();
 	exchange_provider.object_types[CAMEL_PROVIDER_TRANSPORT] = camel_exchange_transport_get_type ();
@@ -143,7 +145,7 @@ camel_provider_module_init (CamelSession *session)
 	bindtextdomain (GETTEXT_PACKAGE, CONNECTOR_LOCALEDIR);
 	exchange_provider.translation_domain = GETTEXT_PACKAGE;
 
-	camel_session_register_provider (session, &exchange_provider);
+	camel_provider_register (&exchange_provider);
 }
 
 static const char *

@@ -26,36 +26,36 @@
 #endif
 
 #include "exchange-account.h"
-#include "exchange-config-listener.h"
+#include "exchange-change-password.h"
 #include "exchange-hierarchy-webdav.h"
 #include "exchange-hierarchy-foreign.h"
 #include "exchange-hierarchy-gal.h"
-#include "exchange-permissions-dialog.h"
 #include "e-folder-exchange.h"
+#include "xc-backend.h"
 #include "e2k-autoconfig.h"
+#include "e2k-encoding-utils.h"
 #include "e2k-marshal.h"
 #include "e2k-propnames.h"
 #include "e2k-uri.h"
 #include "e2k-utils.h"
-
+#include "xntlm.h"
 #include <e-util/e-dialog-utils.h>
 #include <e-util/e-passwords.h>
+#include <krb5.h>
 
 #include <gal/util/e-util.h>
-#include <libsoup/soup-ntlm.h>
 #include <libgnome/gnome-util.h>
 
 #include <dirent.h>
 #include <stdlib.h>
 #include <string.h>
 
-extern gboolean exchange_component_interactive, exchange_component_online;
-extern char *evolution_dir;
-
 struct _ExchangeAccountPrivate {
-	E2kConnection *conn;
+	E2kContext *ctx;
 	E2kGlobalCatalog *gc;
 	GHashTable *standard_uris;
+
+	GMutex *connect_lock;
 	gboolean connected;
 
 	GPtrArray *hierarchies;
@@ -66,14 +66,14 @@ struct _ExchangeAccountPrivate {
 
 	char *identity_name, *identity_email, *source_uri;
 	char *username, *windows_domain, *password, *ad_server;
-	gboolean use_basic_auth, saw_ntlm;
+	E2kAutoconfigAuthPref auth_pref;
 	int ad_limit;
 
 	EAccountList *account_list;
 	EAccount *account;
 
+	GMutex *discover_data_lock;
 	GList *discover_datas;
-	GList *connect_datas;
 };
 
 enum {
@@ -109,8 +109,9 @@ class_init (GObjectClass *object_class)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (ExchangeAccountClass, connected),
 			      NULL, NULL,
-			      e2k_marshal_NONE__NONE,
-			      G_TYPE_NONE, 0);
+			      e2k_marshal_NONE__OBJECT,
+			      G_TYPE_NONE, 1,
+			      E2K_TYPE_CONTEXT);
 	signals[NEW_FOLDER] =
 		g_signal_new ("new_folder",
 			      G_OBJECT_CLASS_TYPE (object_class),
@@ -146,10 +147,12 @@ init (GObject *object)
 	ExchangeAccount *account = EXCHANGE_ACCOUNT (object);
 
 	account->priv = g_new0 (ExchangeAccountPrivate, 1);
+	account->priv->connect_lock = g_mutex_new ();
 	account->priv->hierarchies = g_ptr_array_new ();
 	account->priv->hierarchies_by_folder = g_hash_table_new (NULL, NULL);
 	account->priv->foreign_hierarchies = g_hash_table_new (g_str_hash, g_str_equal);
 	account->priv->folders = g_hash_table_new (g_str_hash, g_str_equal);
+	account->priv->discover_data_lock = g_mutex_new ();
 }
 
 static void
@@ -180,9 +183,9 @@ dispose (GObject *object)
 		account->priv->account_list = NULL;
 	}
 
-	if (account->priv->conn) {
-		g_object_unref (account->priv->conn);
-		account->priv->conn = NULL;
+	if (account->priv->ctx) {
+		g_object_unref (account->priv->ctx);
+		account->priv->ctx = NULL;
 	}
 
 	if (account->priv->gc) {
@@ -239,6 +242,10 @@ finalize (GObject *object)
 		g_free (account->home_uri);
 	if (account->public_uri)
 		g_free (account->public_uri);
+	if (account->legacy_exchange_dn)
+		g_free (account->legacy_exchange_dn);
+	if (account->default_timezone)
+		g_free (account->default_timezone);
 
 	if (account->priv->standard_uris) {
 		g_hash_table_foreach (account->priv->standard_uris,
@@ -270,6 +277,12 @@ finalize (GObject *object)
 	if (account->priv->ad_server)
 		g_free (account->priv->ad_server);
 
+	if (account->priv->connect_lock)
+		g_mutex_free (account->priv->connect_lock);
+
+	if (account->priv->discover_data_lock)
+		g_mutex_free (account->priv->discover_data_lock);
+
 	g_free (account->priv);
 
 	G_OBJECT_CLASS (parent_class)->finalize (object);
@@ -284,6 +297,8 @@ exchange_account_rescan_tree (ExchangeAccount *account)
 {
 	int i;
 
+	g_return_if_fail (EXCHANGE_IS_ACCOUNT (account));
+
 	for (i = 0; i < account->priv->hierarchies->len; i++)
 		exchange_hierarchy_rescan (account->priv->hierarchies->pdata[i]);
 }
@@ -296,22 +311,33 @@ static void
 hierarchy_new_folder (ExchangeHierarchy *hier, EFolder *folder,
 		      ExchangeAccount *account)
 {
+	const char *permanent_uri =
+		e_folder_exchange_get_permanent_uri (folder);
+
 	/* This makes the cleanup easier. We just unref it each time
 	 * we find it in account->priv->folders.
 	 */
 	g_object_ref (folder);
-	g_object_ref (folder);
-	g_object_ref (folder);
-
 	g_hash_table_insert (account->priv->folders,
 			     (char *)e_folder_exchange_get_path (folder),
 			     folder);
+
+	g_object_ref (folder);
 	g_hash_table_insert (account->priv->folders,
 			     (char *)e_folder_get_physical_uri (folder),
 			     folder);
+
+	g_object_ref (folder);
 	g_hash_table_insert (account->priv->folders,
 			     (char *)e_folder_exchange_get_internal_uri (folder),
 			     folder);
+
+	if (permanent_uri) {
+		g_object_ref (folder);
+		g_hash_table_insert (account->priv->folders,
+				     (char *)permanent_uri,
+				     folder);
+	}
 
 	g_hash_table_insert (account->priv->hierarchies_by_folder, folder, hier);
 
@@ -322,6 +348,9 @@ static void
 hierarchy_removed_folder (ExchangeHierarchy *hier, EFolder *folder,
 			  ExchangeAccount *account)
 {
+	if (!g_hash_table_lookup (account->priv->folders, e_folder_exchange_get_path (folder)))
+		return;
+
 	g_hash_table_remove (account->priv->folders, e_folder_exchange_get_path (folder));
 	g_hash_table_remove (account->priv->folders, e_folder_get_physical_uri (folder));
 	g_hash_table_remove (account->priv->folders, e_folder_exchange_get_internal_uri (folder));
@@ -385,73 +414,62 @@ get_parent_and_name (ExchangeAccount *account, const char **path,
 	return TRUE;
 }
 
-void
-exchange_account_async_create_folder (ExchangeAccount *account,
-				      const char *path, const char *type,
-				      ExchangeAccountFolderCallback callback,
-				      gpointer user_data)
+ExchangeAccountFolderResult
+exchange_account_create_folder (ExchangeAccount *account,
+				const char *path, const char *type)
 {
 	ExchangeHierarchy *hier;
 	EFolder *parent;
 
-	if (!get_parent_and_name (account, &path, &parent, &hier)) {
-		callback (account, EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST,
-			  NULL, user_data);
-		return;
-	}
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), 
+				EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 
-	exchange_hierarchy_async_create_folder (hier, parent, path, type,
-						callback, user_data);
+	if (!get_parent_and_name (account, &path, &parent, &hier))
+		return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
+
+	return exchange_hierarchy_create_folder (hier, parent, path, type);
 }
 
-void
-exchange_account_async_remove_folder (ExchangeAccount *account,
-				      const char *path,
-				      ExchangeAccountFolderCallback callback,
-				      gpointer user_data)
+ExchangeAccountFolderResult
+exchange_account_remove_folder (ExchangeAccount *account, const char *path)
 {
 	ExchangeHierarchy *hier;
 	EFolder *folder;
 
-	if (!get_folder (account, path, &folder, &hier)) {
-		callback (account, EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST,
-			  NULL, user_data);
-		return;
-	}
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), 
+				EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 
-	exchange_hierarchy_async_remove_folder (hier, folder,
-						callback, user_data);
+	if (!get_folder (account, path, &folder, &hier))
+		return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
+
+	return exchange_hierarchy_remove_folder (hier, folder);
 }
 
-void
-exchange_account_async_xfer_folder (ExchangeAccount *account,
-				    const char *source_path,
-				    const char *dest_path,
-				    gboolean remove_source,
-				    ExchangeAccountFolderCallback callback,
-				    gpointer user_data)
+ExchangeAccountFolderResult
+exchange_account_xfer_folder (ExchangeAccount *account,
+			      const char *source_path,
+			      const char *dest_path,
+			      gboolean remove_source)
 {
 	EFolder *source, *dest_parent;
 	ExchangeHierarchy *source_hier, *dest_hier;
 
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), 
+				EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+
 	if (!get_folder (account, source_path, &source, &source_hier) ||
 	    !get_parent_and_name (account, &dest_path, &dest_parent, &dest_hier)) {
 		/* Source or dest seems to not exist */
-		callback (account, EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST,
-			  NULL, user_data);
-		return;
+		return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
 	}
 	if (source_hier != dest_hier) {
 		/* Can't move something between hierarchies */
-		callback (account, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR,
-			  NULL, user_data);
-		return;
+		return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
 	}
 
-	exchange_hierarchy_async_xfer_folder (source_hier, source,
-					      dest_parent, dest_path,
-					      remove_source,
-					      callback, user_data);
+	return exchange_hierarchy_xfer_folder (source_hier, source,
+					       dest_parent, dest_path,
+					       remove_source);
 }
 
 /**
@@ -464,6 +482,8 @@ exchange_account_async_xfer_folder (ExchangeAccount *account,
 void
 exchange_account_update_folder (ExchangeAccount *account, EFolder *folder)
 {
+	g_return_if_fail (EXCHANGE_IS_ACCOUNT (account));
+
 	g_signal_emit (account, signals[UPDATED_FOLDER], 0, folder);
 }
 
@@ -510,39 +530,9 @@ setup_hierarchy_foreign (ExchangeAccount *account, ExchangeHierarchy *hier)
 }
 
 struct discover_data {
-	ExchangeAccount *account;
-	ExchangeHierarchy *hier;
-	char *user, *folder_name;
-	ExchangeAccountFolderCallback callback;
-	gpointer user_data;
-	E2kGlobalCatalogLookupId lookup_id;
-	gboolean cancelled;
+	const char *user, *folder_name;
+	E2kOperation op;
 };
-
-static void
-free_dd (struct discover_data *dd)
-{
-	dd->account->priv->discover_datas =
-		g_list_remove (dd->account->priv->discover_datas, dd);
-
-	g_object_unref (dd->account);
-	g_free (dd->folder_name);
-	g_free (dd->user);
-
-	g_free (dd);
-}
-
-static void
-discover_shared_folder_callback (ExchangeAccount *account,
-				 ExchangeAccountFolderResult result,
-				 EFolder *folder, gpointer user_data)
-{
-	struct discover_data *dd = user_data;
-
-	if (dd->callback && !dd->cancelled)
-		dd->callback (account, result, folder, dd->user_data);
-	free_dd (dd);
-}
 
 static ExchangeHierarchy *
 get_hierarchy_for (ExchangeAccount *account, E2kGlobalCatalogEntry *entry)
@@ -582,78 +572,66 @@ get_hierarchy_for (ExchangeAccount *account, E2kGlobalCatalogEntry *entry)
 	return hier;
 }
 
-static void
-got_mailbox (E2kGlobalCatalog *gc, E2kGlobalCatalogStatus status,
-	     E2kGlobalCatalogEntry *entry, gpointer data)
+ExchangeAccountFolderResult
+exchange_account_discover_shared_folder (ExchangeAccount *account,
+					 const char *user,
+					 const char *folder_name,
+					 EFolder **folder)
 {
-	struct discover_data *dd = data;
-	ExchangeAccount *account = dd->account;
-
-	dd->lookup_id = NULL;
-	if (!entry) {
-		discover_shared_folder_callback (
-			NULL, ((status == E2K_GLOBAL_CATALOG_ERROR) ?
-			       EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR :
-			       EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST),
-			NULL, dd);
-		return;
-	}
-
-	dd->hier = get_hierarchy_for (account, entry);
-	exchange_hierarchy_foreign_async_add_folder (
-		dd->hier, dd->folder_name,
-		discover_shared_folder_callback, dd);
-}
-
-void
-exchange_account_async_discover_shared_folder (ExchangeAccount *account,
-					       const char *user,
-					       const char *folder_name,
-					       ExchangeAccountFolderCallback callback,
-					       gpointer user_data)
-{
-	struct discover_data *dd;
+	struct discover_data dd;
+	ExchangeHierarchy *hier;
 	char *email;
+	E2kGlobalCatalogStatus status;
+	E2kGlobalCatalogEntry *entry;
 
-	if (!account->priv->gc) {
-		callback (account,
-			  EXCHANGE_ACCOUNT_FOLDER_UNSUPPORTED_OPERATION,
-			  NULL, user_data);
-		return;
-	}
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), 
+				EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 
-	dd = g_new0 (struct discover_data, 1);
-	dd->account = account;
-	g_object_ref (account);
-	dd->callback = callback;
-	dd->user_data = user_data;
-	dd->user = g_strdup (user);
-	dd->folder_name = g_strdup (folder_name);
-
-	account->priv->discover_datas =
-		g_list_prepend (account->priv->discover_datas, dd);
+	if (!account->priv->gc)
+		return EXCHANGE_ACCOUNT_FOLDER_UNSUPPORTED_OPERATION;
 
 	email = strchr (user, '<');
 	if (email)
 		email = g_strndup (email + 1, strcspn (email + 1, ">"));
 	else
 		email = g_strdup (user);
-	dd->hier = g_hash_table_lookup (account->priv->foreign_hierarchies,
-					email);
-	if (dd->hier) {
+	hier = g_hash_table_lookup (account->priv->foreign_hierarchies, email);
+	if (hier) {
 		g_free (email);
-		exchange_hierarchy_foreign_async_add_folder (
-			dd->hier, folder_name,
-			discover_shared_folder_callback, dd);
-		return;
+		return exchange_hierarchy_foreign_add_folder (hier, folder_name, folder);
 	}
 
-	dd->lookup_id = e2k_global_catalog_async_lookup (
-		account->priv->gc, E2K_GLOBAL_CATALOG_LOOKUP_BY_EMAIL, email,
-		E2K_GLOBAL_CATALOG_LOOKUP_EMAIL |
-		E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX,
-		got_mailbox, dd);
+	dd.user = user;
+	dd.folder_name = folder_name;
+	e2k_operation_init (&dd.op);
+
+	g_mutex_lock (account->priv->discover_data_lock);
+	account->priv->discover_datas =
+		g_list_prepend (account->priv->discover_datas, &dd);
+	g_mutex_unlock (account->priv->discover_data_lock);
+
+	status = e2k_global_catalog_lookup (account->priv->gc, &dd.op,
+					    E2K_GLOBAL_CATALOG_LOOKUP_BY_EMAIL,
+					    email,
+					    E2K_GLOBAL_CATALOG_LOOKUP_EMAIL |
+					    E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX,
+					    &entry);
 	g_free (email);
+	e2k_operation_free (&dd.op);
+
+	g_mutex_lock (account->priv->discover_data_lock);
+	account->priv->discover_datas =
+		g_list_remove (account->priv->discover_datas, &dd);
+	g_mutex_unlock (account->priv->discover_data_lock);
+
+	if (status != E2K_GLOBAL_CATALOG_OK) {
+		return (status == E2K_GLOBAL_CATALOG_ERROR) ?
+			EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR :
+			EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
+	}
+
+	hier = get_hierarchy_for (account, entry);
+	return exchange_hierarchy_foreign_add_folder (hier, folder_name, folder);
 }
 
 void
@@ -664,79 +642,80 @@ exchange_account_cancel_discover_shared_folder (ExchangeAccount *account,
 	struct discover_data *dd;
 	GList *dds;
 
+	g_return_if_fail (EXCHANGE_IS_ACCOUNT (account));
+
+	g_mutex_lock (account->priv->discover_data_lock);
 	for (dds = account->priv->discover_datas; dds; dds = dds->next) {
 		dd = dds->data;
 		if (!strcmp (dd->user, user) &&
 		    !strcmp (dd->folder_name, folder_name))
 			break;
 	}
-	if (!dds)
-		return;
-
-	if (dd->lookup_id) {
-		e2k_global_catalog_cancel_lookup (account->priv->gc,
-						  dd->lookup_id);
-		free_dd (dd);
+	if (!dds) {
+		g_mutex_unlock (account->priv->discover_data_lock);
 		return;
 	}
 
+	e2k_operation_cancel (&dd->op);
+	g_mutex_unlock (account->priv->discover_data_lock);
+
+#ifdef FIXME
 	/* We can't actually cancel the hierarchy's attempt to get
 	 * the folder, but we can remove the hierarchy if appropriate.
 	 */
 	if (dd->hier && exchange_hierarchy_is_empty (dd->hier))
 		hierarchy_removed_folder (dd->hier, dd->hier->toplevel, account);
-	dd->cancelled = TRUE;
+#endif
 }
 
-void
-exchange_account_async_remove_shared_folder (ExchangeAccount *account,
-					     const char *path,
-					     ExchangeAccountFolderCallback callback,
-					     gpointer user_data)
+ExchangeAccountFolderResult
+exchange_account_remove_shared_folder (ExchangeAccount *account,
+				       const char *path)
 {
 	ExchangeHierarchy *hier;
 	EFolder *folder;
 
-	if (!get_folder (account, path, &folder, &hier)) {
-		callback (account, EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST,
-			  NULL, user_data);
-		return;
-	}
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), 
+				EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 
-	if (!EXCHANGE_IS_HIERARCHY_FOREIGN (hier)) {
-		callback (account,
-			  EXCHANGE_ACCOUNT_FOLDER_UNSUPPORTED_OPERATION,
-			  NULL, user_data);
-		return;
-	}
+	if (!get_folder (account, path, &folder, &hier))
+		return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
 
-	exchange_hierarchy_async_remove_folder (hier, folder,
-						callback, user_data);
+	if (!EXCHANGE_IS_HIERARCHY_FOREIGN (hier))
+		return EXCHANGE_ACCOUNT_FOLDER_UNSUPPORTED_OPERATION;
+
+	return exchange_hierarchy_remove_folder (hier, folder);
 }
 
-void
-exchange_account_async_open_folder (ExchangeAccount *account,
-				    const char *path,
-				    ExchangeAccountFolderCallback callback,
-				    gpointer user_data)
+ExchangeAccountFolderResult
+exchange_account_open_folder (ExchangeAccount *account, const char *path)
 {
 	ExchangeHierarchy *hier;
 	EFolder *folder;
 
-	if (!get_folder (account, path, &folder, &hier)) {
-		callback (account, EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST,
-			  NULL, user_data);
-		return;
-	}
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), 
+				EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 
-	exchange_hierarchy_async_scan_subtree (hier, folder,
-					       callback, user_data);
+	if (!get_folder (account, path, &folder, &hier))
+		return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
+
+	if (!account->priv->connected &&
+	    hier == (ExchangeHierarchy *)account->priv->hierarchies->pdata[0] &&
+	    folder == hier->toplevel) {
+		/* The shell is asking us to open the personal folders
+		 * hierarchy, but we're already planning to do that
+		 * anyway. So just ignore the request for now.
+		 */
+		return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
+	}		
+
+	return exchange_hierarchy_scan_subtree (hier, folder);
 }
 
 static void
-connection_redirect (E2kConnection *conn, int soup_status,
-		     const char *old_uri, const char *new_uri,
-		     ExchangeAccount *account)
+context_redirect (E2kContext *ctx, E2kHTTPStatus status,
+		  const char *old_uri, const char *new_uri,
+		  ExchangeAccount *account)
 {
 	EFolder *folder;
 
@@ -749,64 +728,6 @@ connection_redirect (E2kConnection *conn, int soup_status,
 	g_hash_table_insert (account->priv->folders,
 			     (char *)e_folder_exchange_get_internal_uri (folder),
 			     folder);
-}
-
-struct connection_data {
-	ExchangeAccountConnectCallback callback;
-	gpointer user_data;
-};
-
-static void
-finish_connection_attempts (ExchangeAccount *account)
-{
-	struct connection_data *cd;
-
-	if (account->priv->conn && !account->priv->connected) {
-		g_object_unref (account->priv->conn);
-		account->priv->conn = NULL;
-	}
-
-	while (account->priv->connect_datas) {
-		cd = account->priv->connect_datas->data;
-		account->priv->connect_datas =
-			g_list_remove (account->priv->connect_datas, cd);
-
-		cd->callback (account, cd->user_data);
-		g_free (cd);
-	}
-
-	g_object_unref (account);
-}
-
-static gboolean
-idle_connected (gpointer account)
-{
-	g_signal_emit (account, signals[CONNECTED], 0);
-	g_object_unref (account);
-	return FALSE;
-}
-
-static void
-opened_personal_hierarchy (ExchangeAccount *account,
-			   ExchangeAccountFolderResult result,
-			   EFolder *folder, gpointer user_data)
-{
-	if (result != EXCHANGE_ACCOUNT_FOLDER_OK) {
-		e_notice (NULL, GTK_MESSAGE_ERROR,
-			  _("Could not access personal folders"));
-		finish_connection_attempts (account);
-		return;
-	}
-
-	account->priv->connected = TRUE;
-	g_object_ref (account);
-	g_idle_add (idle_connected, account);
-
-	g_signal_connect (account->priv->conn, "redirect",
-			  G_CALLBACK (connection_redirect), account);
-
-	/* And we're done */
-	finish_connection_attempts (account);
 }
 
 static void
@@ -824,23 +745,295 @@ set_sf_prop (const char *propname, E2kPropType type,
 			     e2k_strdup_with_trailing_slash (href));
 }
 
-static void
-got_standard_folders (E2kConnection *conn, SoupMessage *msg,
-		      E2kResult *results, int nresults,
-		      gpointer user_data)
+static const char *mailbox_info_props[] = {
+	E2K_PR_STD_FOLDER_CALENDAR,
+	E2K_PR_STD_FOLDER_CONTACTS,
+	E2K_PR_STD_FOLDER_DELETED_ITEMS,
+	E2K_PR_STD_FOLDER_DRAFTS,
+	E2K_PR_STD_FOLDER_INBOX,
+	E2K_PR_STD_FOLDER_JOURNAL,
+	E2K_PR_STD_FOLDER_NOTES,
+	E2K_PR_STD_FOLDER_OUTBOX,
+	E2K_PR_STD_FOLDER_SENT_ITEMS,
+	E2K_PR_STD_FOLDER_TASKS,
+	E2K_PR_STD_FOLDER_ROOT,
+	E2K_PR_STD_FOLDER_SENDMSG,
+
+	PR_STORE_ENTRYID,
+	E2K_PR_EXCHANGE_TIMEZONE
+};
+static const int n_mailbox_info_props = G_N_ELEMENTS (mailbox_info_props);
+
+static gboolean
+account_moved (ExchangeAccount *account, E2kAutoconfig *ac)
 {
-	ExchangeAccount *account = user_data;
+	E2kAutoconfigResult result;
+	EAccount *eaccount;
+
+	result = e2k_autoconfig_check_exchange (ac, NULL);
+	if (result != E2K_AUTOCONFIG_OK)
+		return FALSE;
+	result = e2k_autoconfig_check_global_catalog (ac, NULL);
+	if (result != E2K_AUTOCONFIG_OK)
+		return FALSE;
+
+	eaccount = account->priv->account;
+
+	if (eaccount->source->url && eaccount->transport->url &&
+	    !strcmp (eaccount->source->url, eaccount->transport->url)) {
+		g_free (eaccount->transport->url);
+		eaccount->transport->url = g_strdup (ac->account_uri);
+	}
+	g_free (eaccount->source->url);
+	eaccount->source->url = g_strdup (ac->account_uri);
+
+	e_account_list_change (account->priv->account_list, eaccount);
+	e_account_list_save (account->priv->account_list);
+	return TRUE;
+}
+
+static gboolean
+get_password (ExchangeAccount *account, E2kAutoconfig *ac, const char *errmsg)
+{
+	char *password, *key;
+	gboolean remember, oldremember;
+
+	key = g_strdup_printf ("exchange://%s@%s",
+			       account->priv->username,
+			       account->exchange_server);
+	if (*errmsg)
+		e_passwords_forget_password ("Exchange", key);
+
+	password = e_passwords_get_password ("Exchange", key);
+	if (!password && xc_backend_is_interactive (global_backend)) {
+		char *prompt;
+
+		prompt = g_strdup_printf (_("%sEnter password for %s"),
+					  errmsg, account->account_name);
+		oldremember = remember = account->priv->account->source->save_passwd;
+		password = e_passwords_ask_password (
+			_("Enter password"), "Exchange", key, prompt,
+			TRUE, E_PASSWORDS_REMEMBER_FOREVER, &remember,
+			NULL);
+		if (remember != oldremember) {
+			account->priv->account->source->save_passwd = remember;
+			e_account_list_save (account->priv->account_list);			}
+		g_free (prompt);
+	}
+	g_free (key);
+
+	if (password) {
+		e2k_autoconfig_set_password (ac, password);
+		memset (password, 0, strlen (password));
+		return TRUE;
+	} else
+		return FALSE;
+}
+
+/* This uses the kerberos calls to check if the authentication failure
+ * was due to the password getting expired. If the password has expired
+ * this returns TRUE, else it returns FALSE.
+ */
+static gboolean
+is_password_expired (ExchangeAccount *account, E2kAutoconfig *ac)
+{
+	char *password, *key;
+	int krb_err;
+
+	key = g_strdup_printf ("exchange://%s@%s",
+			       account->priv->username,
+			       account->exchange_server);
+
+	password = e_passwords_get_password ("Exchange", key);
+	g_free (key);
+	if (password) {
+		krb_err = e2k_check_expire (account->priv->username, password);
+		if (krb_err == KRB5KDC_ERR_KEY_EXP) {
+			return TRUE; /* Password has expired */
+		}
+	}
+	return FALSE;
+}
+
+/**
+ * exchange_account_connect:
+ * @account: an #ExchangeAccount
+ *
+ * This attempts to connect to @account. If the shell has enabled user
+ * interaction, then it will prompt for a password if needed, and put
+ * up an error message if the connection attempt failed.
+ *
+ * Return value: an #E2kContext, or %NULL if the connection attempt
+ * failed.
+ **/
+E2kContext *
+exchange_account_connect (ExchangeAccount *account)
+{
+	E2kAutoconfig *ac;
+	E2kAutoconfigResult result;
+	ExchangeAccountFolderResult fresult;
+	E2kHTTPStatus status;
+	char *errmsg = "";
+	gboolean redirected = FALSE;
+	E2kResult *results;
+	int nresults;
 	GByteArray *entryid;
+	const char *timezone;
 	char *phys_uri_prefix, *dir;
 	ExchangeHierarchy *hier, *personal_hier;
 	struct dirent *dent;
 	DIR *d;
+	char *password;
+	char *key;
 
-	if (!SOUP_ERROR_IS_SUCCESSFUL (msg->errorcode)) {
-		e_notice (NULL, GTK_MESSAGE_ERROR,
-			  _("Could not retrieve list of standard folders"));
-		finish_connection_attempts (account);
-		return;
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
+
+	g_mutex_lock (account->priv->connect_lock);
+
+	if (account->priv->ctx) {
+		g_mutex_unlock (account->priv->connect_lock);
+		return account->priv->ctx;
+	}
+
+	ac = e2k_autoconfig_new (account->home_uri,
+				 account->priv->username,
+				 NULL,
+				 account->priv->auth_pref);
+	e2k_autoconfig_set_gc_server (ac, account->priv->ad_server,
+				      account->priv->ad_limit);
+
+ try_password_again:
+	if (!get_password (account, ac, errmsg)) {
+		g_mutex_unlock (account->priv->connect_lock);
+		return NULL;
+	}
+
+ try_connect_again:
+	account->priv->ctx = e2k_autoconfig_get_context (ac, NULL, &result);
+
+	if (result != E2K_AUTOCONFIG_OK) {
+		if ( is_password_expired (account, ac)) {
+			key = g_strdup_printf ("exchange://%s@%s",
+                               account->priv->username,
+                               account->exchange_server);
+
+			password = e_passwords_get_password ("Exchange", key);
+			exchange_change_password (password, ac, 0);
+			goto try_connect_again;
+		}
+		switch (result) {
+		case E2K_AUTOCONFIG_AUTH_ERROR:
+		case E2K_AUTOCONFIG_AUTH_ERROR_TRY_NTLM:
+			errmsg = _("Could not authenticate to server. "
+				   "(Password incorrect?)\n\n");
+			goto try_password_again;
+
+		case E2K_AUTOCONFIG_AUTH_ERROR_TRY_DOMAIN:
+			errmsg = _("Could not authenticate to server."
+				   "\n\nThis probably means that your "
+				   "server requires you\nto specify "
+				   "the Windows domain name as part "
+				   "of your\nusername (eg, "
+				   "\"DOMAIN\\user\").\n\nOr you "
+				   "might have just typed your "
+				   "password wrong.\n\n");
+			goto try_password_again;
+
+		case E2K_AUTOCONFIG_AUTH_ERROR_TRY_BASIC:
+			errmsg = _("Could not authenticate to server."
+				   "\n\nYou may need to use Plaintext "
+				   "Password authentication.\n\nOr "
+				   "you might have just typed your "
+				   "password wrong.\n\n");
+			goto try_password_again;
+
+		case E2K_AUTOCONFIG_REDIRECT:
+			if (!redirected && account_moved (account, ac))
+				goto try_connect_again;
+			break;
+
+		case E2K_AUTOCONFIG_TRY_SSL:
+			if (account_moved (account, ac))
+				goto try_connect_again;
+			break;
+
+		default:
+			break;
+		}
+
+		e2k_autoconfig_free (ac);
+		g_mutex_unlock (account->priv->connect_lock);
+
+		if (!xc_backend_is_interactive (global_backend))
+			return NULL;
+
+		switch (result) {
+		case E2K_AUTOCONFIG_REDIRECT:
+		case E2K_AUTOCONFIG_TRY_SSL:
+			errmsg = g_strdup_printf (
+				_("Mailbox for %s is not on this server."),
+				account->priv->username);
+			break;
+		case E2K_AUTOCONFIG_EXCHANGE_5_5:
+			errmsg = g_strdup (
+				_("The server '%s' is running Exchange 5.5 "
+				  "and is\ntherefore not compatible with "
+				  "Ximian Connector"));
+			break;
+		case E2K_AUTOCONFIG_NOT_EXCHANGE:
+		case E2K_AUTOCONFIG_NO_OWA:
+			errmsg = g_strdup_printf (
+				_("Could not find Exchange Web Storage System "
+				  "at %s.\nIf OWA is running on a different "
+				  "path, you must specify that in the\n"
+				  "account configuration dialog."),
+				account->home_uri);
+			break;
+		case E2K_AUTOCONFIG_NO_MAILBOX:
+			errmsg = g_strdup_printf (
+				_("No mailbox for user %s on %s.\n"),
+				account->priv->username,
+				account->exchange_server);
+			break;
+		case E2K_AUTOCONFIG_CANT_RESOLVE:
+			errmsg = g_strdup_printf (
+				_("Could not connect to server %s: %s"),
+				account->exchange_server,
+				_("Could not resolve hostname"));
+			break;
+		case E2K_AUTOCONFIG_CANT_CONNECT:
+			errmsg = g_strdup_printf (
+				_("Could not connect to server %s: %s"),
+				account->exchange_server,
+				_("Network error"));
+			break;
+		case E2K_AUTOCONFIG_CANCELLED:
+			return NULL;
+		default:
+			errmsg = g_strdup_printf (
+				_("Could not connect to server %s: %s"),
+				account->exchange_server,
+				_("Unknown error"));
+			break;
+		}
+
+		e_notice (NULL, GTK_MESSAGE_ERROR, errmsg);
+		g_free (errmsg);
+		return NULL;
+	}
+
+	account->priv->gc = e2k_autoconfig_get_global_catalog (ac, NULL);
+	e2k_autoconfig_free (ac);
+
+	status = e2k_context_propfind (account->priv->ctx, NULL,
+				       account->home_uri,
+				       mailbox_info_props,
+				       n_mailbox_info_props,
+				       &results, &nresults);
+
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		g_mutex_unlock (account->priv->connect_lock);
+		return NULL;
 	}
 
 	if (nresults) {
@@ -849,16 +1042,14 @@ got_standard_folders (E2kConnection *conn, SoupMessage *msg,
 					  e2k_ascii_strcase_equal);
 		e2k_properties_foreach (results[0].props, set_sf_prop, account);
 
+		/* FIXME: we should get these from the autoconfig */
 		entryid = e2k_properties_get_prop (results[0].props, PR_STORE_ENTRYID);
 		if (entryid)
 			account->legacy_exchange_dn = g_strdup (e2k_entryid_to_dn (entryid));
-	}
 
-	if (account->priv->ad_server) {
-		account->priv->gc = e2k_global_catalog_new (
-			account->priv->ad_server, account->priv->ad_limit,
-			account->priv->username, account->priv->windows_domain,
-			account->priv->password);
+		timezone = e2k_properties_get_prop (results[0].props, E2K_PR_EXCHANGE_TIMEZONE);
+		if (timezone)
+			account->default_timezone = g_strdup (timezone);
 	}
 
 	/* Set up Personal Folders hierarchy */
@@ -894,7 +1085,7 @@ got_standard_folders (E2kConnection *conn, SoupMessage *msg,
 	g_free (phys_uri_prefix);
 
 	/* Global Address List */
-	phys_uri_prefix = g_strdup_printf ("activedirectory://%s/gal",
+	phys_uri_prefix = g_strdup_printf ("gal://%s/gal",
 					   account->priv->uri_authority);
 						     /* i18n: Outlookism */
 	hier = exchange_hierarchy_gal_new (account, _("Global Address List"),
@@ -904,377 +1095,57 @@ got_standard_folders (E2kConnection *conn, SoupMessage *msg,
 
 	/* Other users' folders */
 	d = opendir (account->storage_dir);
-	if (!d)
-		return;
-	while ((dent = readdir (d))) {
-		if (!strchr (dent->d_name, '@'))
-			continue;
-		dir = g_strdup_printf ("%s/%s", account->storage_dir,
-				       dent->d_name);
-		hier = exchange_hierarchy_foreign_new_from_dir (account, dir);
-		g_free (dir);
-		if (!hier)
-			continue;
+	if (d) {
+		while ((dent = readdir (d))) {
+			if (!strchr (dent->d_name, '@'))
+				continue;
+			dir = g_strdup_printf ("%s/%s", account->storage_dir,
+					       dent->d_name);
+			hier = exchange_hierarchy_foreign_new_from_dir (account, dir);
+			g_free (dir);
+			if (!hier)
+				continue;
 
-		setup_hierarchy_foreign (account, hier);
+			setup_hierarchy_foreign (account, hier);
+		}
+		closedir (d);
 	}
-	closedir (d);
 
 	/* Scan the personal folders so we can resolve references
 	 * to the Calendar, Contacts, etc even if the tree isn't
 	 * opened.
 	 */
-	exchange_hierarchy_async_scan_subtree (personal_hier,
-					       personal_hier->toplevel,
-					       opened_personal_hierarchy,
-					       NULL);
-}
-
-static void try_connect (ExchangeAccount *account, const char *errmsg);
-
-static gboolean
-account_moved (ExchangeAccount *account, const char *redirect_uri)
-{
-	E2kAutoconfig *ac;
-	E2kAutoconfigResult result;
-	EAccount *eaccount;
-
-	ac = e2k_autoconfig_new (redirect_uri, account->priv->username,
-				 account->priv->password,
-				 !account->priv->use_basic_auth);
-	e2k_autoconfig_set_gc_server (ac, account->priv->ad_server);
-
-	result = e2k_autoconfig_check_exchange (ac);
-	if (result != E2K_AUTOCONFIG_OK) {
-		e2k_autoconfig_free (ac);
-		return FALSE;
-	}
-	result = e2k_autoconfig_check_global_catalog (ac);
-	if (result != E2K_AUTOCONFIG_OK) {
-		e2k_autoconfig_free (ac);
-		return FALSE;
+	fresult = exchange_hierarchy_scan_subtree (personal_hier,
+						   personal_hier->toplevel);
+	if (fresult != EXCHANGE_ACCOUNT_FOLDER_OK) {
+		g_mutex_unlock (account->priv->connect_lock);
+		return NULL;
 	}
 
-	eaccount = account->priv->account;
+	account->priv->connected = TRUE;
 
-	if (eaccount->source->url && eaccount->transport->url &&
-	    !strcmp (eaccount->source->url, eaccount->transport->url)) {
-		g_free (eaccount->transport->url);
-		eaccount->transport->url = g_strdup (ac->account_uri);
-	}
-	g_free (eaccount->source->url);
-	eaccount->source->url = g_strdup (ac->account_uri);
+	g_signal_connect (account->priv->ctx, "redirect",
+			  G_CALLBACK (context_redirect), account);
 
-	e2k_autoconfig_free (ac);
+	g_mutex_unlock (account->priv->connect_lock);
 
-	e_account_list_change (account->priv->account_list, eaccount);
-	e_account_list_save (account->priv->account_list);
-	return TRUE;
-}
-
-#define OWA_55_TOP "<HTML>\r\n<!--Microsoft Outlook Web Access-->"
-
-static void
-ex55_check (SoupMessage *msg, gpointer user_data)
-{
-	ExchangeAccount *account = user_data;
-
-	if (SOUP_ERROR_IS_SUCCESSFUL (msg->errorcode) &&
-	    msg->response.length > sizeof (OWA_55_TOP) &&
-	    !strncmp (msg->response.body, OWA_55_TOP, sizeof (OWA_55_TOP) - 1)) {
-		e_notice (NULL, GTK_MESSAGE_ERROR,
-			  _("The server '%s' is running Exchange 5.5 and is\n"
-			    "therefore not compatible with Ximian Connector"),
-			  account->exchange_server);
-	} else {
-		char *owa_uri;
-
-		owa_uri = g_strdup_printf (account->priv->http_uri_schema,
-					   account->exchange_server, "");
-		e_notice (NULL, GTK_MESSAGE_ERROR,
-			  _("Could not find Exchange Web Storage System at %s.\n"
-			    "If OWA is running on a different path, you "
-			    "must specify that in the\naccount configuration "
-			    "dialog."), owa_uri);
-		g_free (owa_uri);
-	}
-	finish_connection_attempts (account);
-}
-
-static void
-connect_failed (SoupMessage *msg, ExchangeAccount *account)
-{
-	if (msg->errorcode == SOUP_ERROR_CANT_AUTHENTICATE) {
-		g_free (account->priv->password);
-		account->priv->password = NULL;
-		if (account->priv->use_basic_auth && !account->priv->windows_domain) {
-			try_connect (account,
-				     _("Could not authenticate to server."
-				       "\n\nThis probably means that your "
-				       "server requires you\nto specify "
-				       "the Windows domain name as part "
-				       "of your\nusername (eg, "
-				       "\"DOMAIN\\user\").\n\nOr you "
-				       "might have just typed your "
-				       "password wrong.\n\n"));
-		} else if (!account->priv->use_basic_auth && !account->priv->saw_ntlm) {
-			try_connect (account,
-				     _("Could not authenticate to server."
-				       "\n\nYou may need to use Plaintext "
-				       "Password authentication.\n\nOr "
-				       "you might have just typed your "
-				       "password wrong.\n\n"));
-		} else {
-			try_connect (account,
-				     _("Could not authenticate to server. "
-				       "(Password incorrect?)\n\n"));
-		}
-		return;
-	} else if (msg->errorcode == SOUP_ERROR_NOT_FOUND) {
-		const char *ms_webstorage =
-			soup_message_get_header (msg->response_headers,
-						 "MS-WebStorage");
-
-		if (ms_webstorage) {
-			e_notice (NULL, GTK_MESSAGE_ERROR,
-				  _("No mailbox for user %s on %s.\n"),
-				  account->priv->username,
-				  account->exchange_server);
-		} else {
-			char *owa_uri;
-
-			owa_uri = g_strdup_printf (account->priv->http_uri_schema,
-						   account->exchange_server, "");
-
-			msg = e2k_soup_message_new (account->priv->conn,
-						    owa_uri, SOUP_METHOD_GET);
-			soup_message_set_flags (msg, SOUP_MESSAGE_NO_REDIRECT);
-			e2k_soup_message_queue (msg, ex55_check, account);
-			return;
-		}
-	} else if (SOUP_ERROR_IS_REDIRECTION (msg->errorcode)) {
-		const char *location =
-			soup_message_get_header (msg->response_headers,
-						 "Location");
-		E2kUri *e2k_uri = NULL;
-		gboolean moved = FALSE;
-
-		if (location)
-			e2k_uri = e2k_uri_new (location);
-		if (e2k_uri) {
-			if (e2k_uri->host &&
-			    strcmp (e2k_uri->host, account->exchange_server))
-				moved = account_moved (account, location);
-			e2k_uri_free (e2k_uri);
-		}
-
-		if (!moved) {
-			e_notice (NULL, GTK_MESSAGE_ERROR,
-				  _("Mailbox for %s is not on this server."),
-				  account->priv->username);
-		}
-	} else if (msg->errorcode == SOUP_ERROR_FORBIDDEN &&
-		   strncmp (account->priv->http_uri_schema, "https", 5)) {
-		e_notice (NULL, GTK_MESSAGE_ERROR,
-			  _("Could not connect to server %s.\nTry using SSL?"),
-			  account->exchange_server);
-	} else {
-		e_notice (NULL, GTK_MESSAGE_ERROR,
-			  _("Could not connect to server %s: %s"),
-			  account->exchange_server,
-			  msg->errorphrase);
-	}
-
-	finish_connection_attempts (account);
-}
-
-static const char *mailbox_info_props[] = {
-	E2K_PR_STD_FOLDER_CALENDAR,
-	E2K_PR_STD_FOLDER_CONTACTS,
-	E2K_PR_STD_FOLDER_DELETED_ITEMS,
-	E2K_PR_STD_FOLDER_DRAFTS,
-	E2K_PR_STD_FOLDER_INBOX,
-	E2K_PR_STD_FOLDER_JOURNAL,
-	E2K_PR_STD_FOLDER_NOTES,
-	E2K_PR_STD_FOLDER_OUTBOX,
-	E2K_PR_STD_FOLDER_SENT_ITEMS,
-	E2K_PR_STD_FOLDER_TASKS,
-	E2K_PR_STD_FOLDER_ROOT,
-	E2K_PR_STD_FOLDER_SENDMSG,
-	PR_STORE_ENTRYID
-};
-static const int n_mailbox_info_props = sizeof (mailbox_info_props) / sizeof (mailbox_info_props[0]);
-
-static void
-tried_connect (SoupMessage *msg, gpointer user_data)
-{
-	ExchangeAccount *account = user_data;
-
-	if (SOUP_ERROR_IS_REDIRECTION (msg->errorcode)) {
-		const char *location;
-
-		location = soup_message_get_header (msg->response_headers,
-						   "Location");
-		if (location && strstr (location, "/owalogon.asp")) {
-			if (e2k_connection_fba (account->priv->conn, msg))
-				soup_message_set_error (msg, SOUP_ERROR_OK);
-		}
-	}
-
-	if (!SOUP_ERROR_IS_SUCCESSFUL (msg->errorcode)) {
-		if (exchange_component_interactive)
-			connect_failed (msg, account);
-		else
-			finish_connection_attempts (account);
-		return;
-	}
-
-	E2K_DEBUG_HINT ('S');
-	e2k_connection_propfind (account->priv->conn, account->home_uri, "0",
-				 mailbox_info_props, n_mailbox_info_props,
-				 got_standard_folders, account);
-}
-
-static void
-auth_handler (SoupMessage *msg, gpointer user_data)
-{
-	ExchangeAccount *account = user_data;
-	const GSList *headers;
-	const char *challenge;
-
-	headers = soup_message_get_header_list (msg->response_headers,
-						"WWW-Authenticate");
-	while (headers) {
-		challenge = headers->data;
-
-		if (!strcmp (challenge, "NTLM"))
-			account->priv->saw_ntlm = TRUE;
-
-		if (!strncmp (challenge, "NTLM ", 5) &&
-		    !account->priv->windows_domain) {
-			soup_ntlm_parse_challenge (challenge, NULL, &account->priv->windows_domain);
-		}
-
-		headers = headers->next;
-	}
-}
-
-static void
-try_connect (ExchangeAccount *account, const char *errmsg)
-{
-	E2kConnection *conn = account->priv->conn;
-	char *key;
-	SoupMessage *msg;
-	gboolean remember, oldremember;
-
-	if (!account->priv->password) {
-		key = g_strdup_printf ("exchange://%s@%s",
-				       account->priv->username,
-				       account->exchange_server);
-		if (*errmsg)
-			e_passwords_forget_password ("Exchange", key);
-
-		account->priv->password = e_passwords_get_password ("Exchange", key);
-		if (!account->priv->password && exchange_component_interactive) {
-			char *prompt;
-
-			prompt = g_strdup_printf (_("%sEnter password for %s"),
-						  errmsg, account->account_name);
-			oldremember = remember = account->priv->account->source->save_passwd;
-			account->priv->password = e_passwords_ask_password (
-				_("Enter password"), "Exchange", key, prompt,
-				TRUE, E_PASSWORDS_REMEMBER_FOREVER, &remember,
-				NULL);
-			if (remember != oldremember) {
-				account->priv->account->source->save_passwd = remember;
-				e_account_list_save (account->priv->account_list);			}
-			g_free (prompt);
-		}
-		g_free (key);
-		if (account->priv->password) {
-			e2k_connection_set_auth (conn, account->priv->username,
-						 account->priv->windows_domain,
-						 account->priv->use_basic_auth ? "Basic" : "NTLM",
-						 account->priv->password);
-		} else {
-			finish_connection_attempts (account);
-			return;
-		}
-	}
-
-	msg = e2k_soup_message_new (conn, account->home_uri, SOUP_METHOD_GET);
-	soup_message_add_header (msg->request_headers, "Translate", "F");
-	soup_message_set_flags (msg, SOUP_MESSAGE_NO_REDIRECT);
-	soup_message_add_header (msg->request_headers, "Accept-Language",
-				 e2k_get_accept_language ());
-	if (!account->priv->windows_domain) {
-		soup_message_add_error_code_handler (msg, SOUP_ERROR_UNAUTHORIZED,
-						     SOUP_HANDLER_PRE_BODY,
-						     auth_handler, account);
-	}
-	e2k_soup_message_queue (msg, tried_connect, account);
+	g_signal_emit (account, signals[CONNECTED], 0, account->priv->ctx);
+	return account->priv->ctx;
 }
 
 /**
- * exchange_account_async_connect:
- * @account: an #ExchangeAccount
- * @callback: callback to call after success/failure
- * @user_data: data to pass to @callback.
- *
- * This attempts to connect to @account. If the shell has enabled user
- * interaction, then it will prompt for a password if needed. After
- * succeeding or failing, it will call @callback, which can call
- * exchange_account_get_connection() to see if it succeeded.
- **/
-void
-exchange_account_async_connect (ExchangeAccount *account,
-				ExchangeAccountConnectCallback callback,
-				gpointer user_data)
-{
-	struct connection_data *cd;
-
-	if (account->priv->connected) {
-		callback (account, user_data);
-		return;
-	}
-
-	cd = g_new0 (struct connection_data, 1);
-	cd->callback = callback;
-	cd->user_data = user_data;
-
-	account->priv->connect_datas =
-		g_list_prepend (account->priv->connect_datas, cd);
-
-	if (account->priv->connect_datas->next) {
-		/* We're already trying to connect */
-		return;
-	}
-	g_object_ref (account);
-
-	account->priv->conn = e2k_connection_new (account->home_uri);
-	if (!account->priv->conn) {
-		e_notice (NULL, GTK_MESSAGE_ERROR,
-			  _("Could not create connection for %s"),
-			  account->home_uri);
-		finish_connection_attempts (account);
-		return;
-	}
-
-	try_connect (account, "");
-}
-
-
-/**
- * exchange_account_get_connection:
+ * exchange_account_get_context:
  * @account: an #ExchangeAccount
  *
- * Return value: @account's #E2kConnection, if it is connected and
+ * Return value: @account's #E2kContext, if it is connected and
  * online, or %NULL if not.
  **/
-E2kConnection *
-exchange_account_get_connection (ExchangeAccount *account)
+E2kContext *
+exchange_account_get_context (ExchangeAccount *account)
 {
-	return account->priv->conn;
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
+		
+	return account->priv->ctx;
 }
 
 /**
@@ -1287,6 +1158,8 @@ exchange_account_get_connection (ExchangeAccount *account)
 E2kGlobalCatalog *
 exchange_account_get_global_catalog (ExchangeAccount *account)
 {
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
+		
 	return account->priv->gc;
 }
 
@@ -1308,6 +1181,8 @@ exchange_account_get_global_catalog (ExchangeAccount *account)
 const char *
 exchange_account_get_standard_uri (ExchangeAccount *account, const char *item)
 {
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
+
 	if (!account->priv->standard_uris)
 		return NULL;
 	return g_hash_table_lookup (account->priv->standard_uris, item);
@@ -1330,17 +1205,19 @@ exchange_account_get_standard_uri_for (ExchangeAccount *account,
 				       const char *std_uri_prop)
 {
 	char *foreign_uri, *prop;
-	int status, nresults;
+	E2kHTTPStatus status;
 	E2kResult *results;
+	int nresults;
+
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
 
 	foreign_uri = e2k_uri_concat (home_uri, "NON_IPM_SUBTREE");
-	status = e2k_connection_propfind_sync (account->priv->conn,
-					       foreign_uri, "0",
-					       &std_uri_prop, 1,
-					       &results, &nresults);
+	status = e2k_context_propfind (account->priv->ctx, NULL, foreign_uri,
+				       &std_uri_prop, 1,
+				       &results, &nresults);
 	g_free (foreign_uri);
 
-	if (!SOUP_ERROR_IS_SUCCESSFUL (status) || nresults == 0)
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status) || nresults == 0)
 		return NULL;
 
 	prop = e2k_properties_get_prop (results[0].props, std_uri_prop);
@@ -1372,6 +1249,8 @@ exchange_account_get_foreign_uri (ExchangeAccount *account,
 				  const char *std_uri_prop)
 {
 	char *home_uri, *foreign_uri;
+
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
 
 	if (account->priv->uris_use_email) {
 		char *mailbox;
@@ -1408,6 +1287,8 @@ EFolder *
 exchange_account_get_folder (ExchangeAccount *account,
 			     const char *path_or_uri)
 {
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
+	
 	return g_hash_table_lookup (account->priv->folders, path_or_uri);
 }
 
@@ -1451,6 +1332,8 @@ exchange_account_get_folders (ExchangeAccount *account)
 {
 	GPtrArray *folders;
 
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
+
 	folders = g_ptr_array_new ();
 	g_hash_table_foreach (account->priv->folders, add_folder, folders);
 
@@ -1464,7 +1347,7 @@ exchange_account_get_folders (ExchangeAccount *account)
  * exchange_account_new:
  * @adata: an #EAccount
  *
- * An #ExchangeAccount is essentially an #E2kConnection with
+ * An #ExchangeAccount is essentially an #E2kContext with
  * associated configuration.
  *
  * Return value: a new #ExchangeAccount corresponding to @adata
@@ -1492,8 +1375,8 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 
 	account->account_name = g_strdup (adata->name);
 
-	account->storage_dir = g_strdup_printf ("%s/exchange/%s@%s",
-						evolution_dir,
+	account->storage_dir = g_strdup_printf ("%s/.evolution/exchange/%s@%s",
+						g_get_home_dir (),
 						uri->user, uri->host);
 	account->account_filename = strrchr (account->storage_dir, '/') + 1;
 	e_filename_make_safe (account->account_filename);
@@ -1514,7 +1397,9 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 	account->priv->windows_domain = g_strdup (uri->domain);
 	account->exchange_server = g_strdup (uri->host);
 	if (uri->authmech && !strcmp (uri->authmech, "Basic"))
-		account->priv->use_basic_auth = TRUE;
+		account->priv->auth_pref = E2K_AUTOCONFIG_USE_BASIC;
+	else
+		account->priv->auth_pref = E2K_AUTOCONFIG_USE_NTLM;
 	param = e2k_uri_get_param (uri, "ad_server");
 	if (param && *param) {
 		account->priv->ad_server = g_strdup (param);

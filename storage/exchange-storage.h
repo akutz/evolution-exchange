@@ -5,7 +5,7 @@
 #define __EXCHANGE_STORAGE_H__
 
 #include "exchange-types.h"
-#include <shell/evolution-storage.h>
+#include "e-storage.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -19,19 +19,19 @@ extern "C" {
 #define EXCHANGE_IS_STORAGE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((obj), EXCHANGE_TYPE_STORAGE))
 
 struct _ExchangeStorage {
-	EvolutionStorage parent;
+	EStorage parent;
 
 	ExchangeStoragePrivate *priv;
 };
 
 struct _ExchangeStorageClass {
-	EvolutionStorageClass parent_class;
+	EStorageClass parent_class;
 
 };
 
 GType             exchange_storage_get_type (void);
 
-EvolutionStorage *exchange_storage_new      (ExchangeAccount *account);
+EStorage         *exchange_storage_new      (ExchangeAccount *account);
 
 #ifdef __cplusplus
 }

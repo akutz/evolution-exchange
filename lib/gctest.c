@@ -23,17 +23,18 @@
 #include <config.h>
 #endif
 
-#include "e2k-global-catalog.h"
-#include "e2k-sid.h"
+#include <pthread.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <e-util/e-passwords.h>
-#include <libgnome/gnome-util.h>
 
-int global_argc;
-char **global_argv;
-GMainLoop *loop;
+#include "e2k-global-catalog.h"
+#include "e2k-sid.h"
+#include "test-utils.h"
+
+E2kGlobalCatalog *gc;
+E2kOperation op;
 
 static void
 do_lookup (E2kGlobalCatalog *gc, const char *user)
@@ -56,23 +57,27 @@ do_lookup (E2kGlobalCatalog *gc, const char *user)
 		E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX |
 		E2K_GLOBAL_CATALOG_LOOKUP_LEGACY_EXCHANGE_DN |
 		E2K_GLOBAL_CATALOG_LOOKUP_DELEGATES |
-		E2K_GLOBAL_CATALOG_LOOKUP_DELEGATORS;
+		E2K_GLOBAL_CATALOG_LOOKUP_DELEGATORS |
+		E2K_GLOBAL_CATALOG_LOOKUP_QUOTA ;
 
-	status = e2k_global_catalog_lookup (gc, type, user, flags, &entry);
+	e2k_operation_init (&op);
+	status = e2k_global_catalog_lookup (gc, &op, type, user, flags, &entry);
+	e2k_operation_free (&op);
+
 	switch (status) {
 	case E2K_GLOBAL_CATALOG_OK:
 		break;
 	case E2K_GLOBAL_CATALOG_NO_SUCH_USER:
 		printf ("No entry for %s\n", user);
-		g_main_loop_quit (loop);
+		test_quit ();
 		return;
 	case E2K_GLOBAL_CATALOG_NO_DATA:
 		printf ("Entry for %s contains no data\n", user);
-		g_main_loop_quit (loop);
+		test_quit ();
 		return;
 	default:
 		printf ("Error looking up user\n");
-		g_main_loop_quit (loop);
+		test_quit ();
 		return;
 	}
 
@@ -96,8 +101,17 @@ do_lookup (E2kGlobalCatalog *gc, const char *user)
 			printf ("    %s\n", (char *)entry->delegators->pdata[i]);
 	}
 
+	if (entry->quota_warn || entry->quota_nosend || entry->quota_norecv )
+		printf ("  Mail Quota Info:\n");
+	if (entry->quota_warn)	
+		printf ("    Issue Quota warning at : %d\n", entry->quota_warn);
+	if (entry->quota_nosend)
+		printf ("    Stop sending mails at  : %d\n", entry->quota_nosend);
+	if (entry->quota_norecv)
+		printf ("    Stop sending and recieving mails at : %d\n", entry->quota_norecv);
+
 	e2k_global_catalog_entry_free (gc, entry);
-	g_main_loop_quit (loop);
+	test_quit ();
 }
 
 static char *
@@ -115,7 +129,10 @@ lookup_dn (E2kGlobalCatalog *gc, const char *id)
 	else
 		return g_strdup (id);
 
-	status = e2k_global_catalog_lookup (gc, type, id, 0, &entry);
+	e2k_operation_init (&op);
+	status = e2k_global_catalog_lookup (gc, &op, type, id, 0, &entry);
+	e2k_operation_free (&op);
+
 	switch (status) {
 	case E2K_GLOBAL_CATALOG_OK:
 		break;
@@ -136,7 +153,8 @@ lookup_dn (E2kGlobalCatalog *gc, const char *id)
 }
 
 static void
-do_modify (E2kGlobalCatalog *gc, const char *user, int op, const char *delegate)
+do_modify (E2kGlobalCatalog *gc, const char *user,
+	   int deleg_op, const char *delegate)
 {
 	char *self_dn, *deleg_dn;
 	E2kGlobalCatalogStatus status;
@@ -144,10 +162,12 @@ do_modify (E2kGlobalCatalog *gc, const char *user, int op, const char *delegate)
 	self_dn = lookup_dn (gc, user);
 	deleg_dn = lookup_dn (gc, delegate);
 
-	if (op == '+')
-		status = e2k_global_catalog_add_delegate (gc, self_dn, deleg_dn);
+	e2k_operation_init (&op);
+	if (deleg_op == '+')
+		status = e2k_global_catalog_add_delegate (gc, &op, self_dn, deleg_dn);
 	else
-		status = e2k_global_catalog_remove_delegate (gc, self_dn, deleg_dn);
+		status = e2k_global_catalog_remove_delegate (gc, &op, self_dn, deleg_dn);
+	e2k_operation_free (&op);
 
 	switch (status) {
 	case E2K_GLOBAL_CATALOG_OK:
@@ -167,50 +187,33 @@ do_modify (E2kGlobalCatalog *gc, const char *user, int op, const char *delegate)
 		break;
 	}
 
-	g_main_loop_quit (loop);
+	test_quit ();
 }
 
-static gboolean
-idle_parse_argv (gpointer data)
+static void *
+cancel (void *data)
 {
-	E2kGlobalCatalog *gc;
-	const char *server, *user;
-	char *password, *key;
-
-	server = global_argv[1];
-	user = g_get_user_name ();
-
-	key = g_strdup_printf ("exchange://%s@%s", user, server);
-	password = e_passwords_get_password ("Exchange", key);
-	g_free (key);
-	if (!password) {
-		fprintf (stderr, "No password available for %s@%s\n",
-			 user, server);
-		g_main_loop_quit (loop);
-		return FALSE;
-	}
-
-	gc = e2k_global_catalog_new (server, -1, user, NULL, password);
-	if (!gc) {
-		fprintf (stderr, "Could not create GC\n");
-		g_main_loop_quit (loop);
-		return FALSE;
-	}
-
-	if (global_argc == 3)
-		do_lookup (gc, global_argv[2]);
-	else
-		do_modify (gc, global_argv[2], global_argv[3][0], global_argv[3] + 1);
-
-	g_object_unref (gc);
-	return FALSE;
+	e2k_operation_cancel (&op);
+	return NULL;
 }
 
-int
-main (int argc, char **argv)
+static void
+quit (int sig)
 {
-	gnome_program_init ("gctest", VERSION, LIBGNOME_MODULE,
-			    argc, argv, NULL);
+	static pthread_t cancel_thread;
+
+	if (!cancel_thread) {
+		pthread_create (&cancel_thread, NULL, cancel, NULL);
+	} else
+		exit (0);
+}
+
+const char *test_program_name = "gctest";
+
+void
+test_main (int argc, char **argv)
+{
+	const char *server;
 
 	if (argc < 3 || argc > 4 ||
 	    (argc == 4 && argv[3][0] != '+' && argv[3][0] != '-')) {
@@ -218,12 +221,15 @@ main (int argc, char **argv)
 		exit (1);
 	}
 
-	global_argc = argc;
-	global_argv = argv;
-	g_idle_add (idle_parse_argv, NULL);
+	signal (SIGINT, quit);
 
-	loop = g_main_loop_new (NULL, TRUE);
-	g_main_loop_run (loop);
+	server = argv[1];
+	gc = test_get_gc (server);
 
-	return 0;
+	if (argc == 3)
+		do_lookup (gc, argv[2]);
+	else
+		do_modify (gc, argv[2], argv[3][0], argv[3] + 1);
+
+	g_object_unref (gc);
 }

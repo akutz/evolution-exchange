@@ -1,5 +1,7 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
-/* Copyright (C) 2000-2004 Novell, Inc. */
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/* Copyright (C) 2001-2004 Novell, Inc. */
+
+/* camel-exchange-store.h: class for a exchange store */
 
 
 #ifndef CAMEL_EXCHANGE_STORE_H
@@ -11,7 +13,7 @@ extern "C" {
 #pragma }
 #endif /* __cplusplus */
 
-#include <camel/camel-disco-store.h>
+#include <camel/camel-store.h>
 #include "camel-stub.h"
 
 #define CAMEL_EXCHANGE_STORE_TYPE     (camel_exchange_store_get_type ())
@@ -20,18 +22,18 @@ extern "C" {
 #define CAMEL_IS_EXCHANGE_STORE(o)    (CAMEL_CHECK_TYPE((o), CAMEL_EXCHANGE_STORE_TYPE))
 
 typedef struct {
-	CamelDiscoStore parent_object;
+	CamelStore parent_object;
 
 	CamelStub *stub;
 	char *storage_path, *base_url;
 	char *trash_name;
 	GHashTable *folders;
+	GMutex *folders_lock;
 
-	guint note_idle;
 } CamelExchangeStore;
 
 typedef struct {
-	CamelDiscoStoreClass parent_class;
+	CamelStoreClass parent_class;
 
 } CamelExchangeStoreClass;
 

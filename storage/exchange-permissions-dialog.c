@@ -24,9 +24,10 @@
 #include "exchange-permissions-dialog.h"
 #include "exchange-hierarchy.h"
 
-#include "e2k-connection.h"
+#include "e2k-context.h"
 #include "e2k-global-catalog.h"
 #include "e2k-propnames.h"
+#include "e2k-sid.h"
 #include "e2k-security-descriptor.h"
 #include "e2k-user-dialog.h"
 #include "e2k-uri.h"
@@ -35,7 +36,6 @@
 #include "exchange-account.h"
 
 #include <e-util/e-dialog-utils.h>
-#include <gal/widgets/e-option-menu.h>
 #include <glade/glade-xml.h>
 #include <gtk/gtkbox.h>
 #include <gtk/gtkcellrenderertext.h>
@@ -46,7 +46,9 @@
 #include <gtk/gtktogglebutton.h>
 #include <gtk/gtktreeselection.h>
 #include <gtk/gtktreeview.h>
-#include <gtk/gtkversion.h>
+
+#undef GTK_DISABLE_DEPRECATED
+#include <gal/widgets/e-option-menu.h>
 
 struct _ExchangePermissionsDialogPrivate {
 	ExchangeAccount *account;
@@ -73,8 +75,6 @@ struct _ExchangePermissionsDialogPrivate {
 	GtkToggleButton *edit_none_radio, *edit_own_radio, *edit_all_radio;
 	GtkToggleButton *delete_none_radio, *delete_own_radio, *delete_all_radio;
 	guint32 selected_perms;
-
-	GdkNativeWindow parent;
 };
 
 enum {
@@ -129,9 +129,6 @@ E2K_MAKE_TYPE (exchange_permissions_dialog, ExchangePermissionsDialog, class_ini
 
 static void get_widgets         (ExchangePermissionsDialog *dialog,
 				 GladeXML *xml);
-static void got_sd              (E2kConnection *conn, SoupMessage *msg,
-			         E2kResult *results, int nresults,
-			         gpointer user_data);
 static void setup_user_list     (ExchangePermissionsDialog *dialog);
 static void display_permissions (ExchangePermissionsDialog *dialog);
 static void dialog_response     (ExchangePermissionsDialog *dialog,
@@ -147,25 +144,30 @@ static const int n_sd_props = sizeof (sd_props) / sizeof (sd_props[0]);
  * exchange_permissions_dialog_new:
  * @account: an account
  * @folder: the folder whose permissions are to be editted
- * @parent: X Window ID of the dialog's parent
+ * @parent: a widget in the dialog's parent window
  *
  * Creates and displays a modeless permissions editor dialog for @folder.
  **/
 void
 exchange_permissions_dialog_new (ExchangeAccount *account,
 				 EFolder *folder,
-				 GdkNativeWindow parent)
+				 GtkWidget *parent)
 {
 	ExchangePermissionsDialog *dialog;
-	const char *base_uri, *folder_path;
-	E2kConnection *conn;
+	const char *base_uri, *folder_uri, *folder_path;
+	E2kContext *ctx;
 	ExchangeHierarchy *hier;
 	GladeXML *xml;
 	GtkWidget *box;
 	char *title;
+	E2kHTTPStatus status;
+	E2kResult *results;
+	int nresults;
+	xmlNode *xml_form;
+	GByteArray *binary_form;
 
-	conn = exchange_account_get_connection (account);
-	g_return_if_fail (conn);
+	ctx = exchange_account_get_context (account);
+	g_return_if_fail (ctx);
 	xml = glade_xml_new (
 		CONNECTOR_GLADEDIR "/exchange-permissions-dialog.glade",
 		"permissions_vbox", PACKAGE);
@@ -183,8 +185,6 @@ exchange_permissions_dialog_new (ExchangeAccount *account,
 				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 				GTK_STOCK_OK, GTK_RESPONSE_OK,
 				NULL);
-
-	dialog->priv->parent = parent;
 
 	g_signal_connect (dialog, "response",
 			  G_CALLBACK (dialog_response), NULL);
@@ -208,29 +208,18 @@ exchange_permissions_dialog_new (ExchangeAccount *account,
 	hier = e_folder_exchange_get_hierarchy (folder);
 	base_uri = e_folder_exchange_get_internal_uri (hier->toplevel);
 	dialog->priv->base_uri = g_strdup (base_uri);
-	folder_path = e2k_uri_relative (
-		dialog->priv->base_uri,
-		e_folder_exchange_get_internal_uri (folder));
+	folder_uri = e_folder_exchange_get_internal_uri (folder);
+	folder_path = e2k_uri_relative (dialog->priv->base_uri, folder_uri);
 	dialog->priv->folder_path = g_strdup (folder_path);
 		
 	/* And fetch the security descriptor */
-	e2k_connection_bpropfind (conn, base_uri, &folder_path, 1, "0",
-				  sd_props, n_sd_props, got_sd, dialog);
-}
-
-static void
-got_sd (E2kConnection *conn, SoupMessage *msg,
-	E2kResult *results, int nresults,
-	gpointer user_data)
-{
-	ExchangePermissionsDialog *dialog = user_data;
-	xmlNode *xml_form;
-	GByteArray *binary_form;
-
-	if (!SOUP_ERROR_IS_SUCCESSFUL (msg->errorcode) || nresults < 1) {
+	status = e2k_context_propfind (ctx, NULL, folder_uri,
+				       sd_props, n_sd_props,
+				       &results, &nresults);
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status) || nresults < 1) {
 	lose:
-		e_notice_with_xid (dialog->priv->parent, GTK_MESSAGE_ERROR,
-				   _("Could not read folder permissions"));
+		e_notice (parent, GTK_MESSAGE_ERROR,
+			  _("Could not read folder permissions"));
 		gtk_widget_destroy (GTK_WIDGET (dialog));
 		return;
 	}
@@ -254,19 +243,20 @@ static void
 dialog_response (ExchangePermissionsDialog *dialog, int response,
 		 gpointer user_data)
 {
-	E2kConnection *conn;
+	E2kContext *ctx;
 	GByteArray *binsd;
 	E2kProperties *props;
-	E2kResult *results;
-	int status, nresults;
+	E2kResultIter *iter;
+	E2kResult *result;
+	E2kHTTPStatus status;
 
 	if (response != GTK_RESPONSE_OK || !dialog->priv->changed) {
 		gtk_widget_destroy (GTK_WIDGET (dialog));
 		return;
 	}
 
-	conn = exchange_account_get_connection (dialog->priv->account);
-	g_return_if_fail (conn != NULL);
+	ctx = exchange_account_get_context (dialog->priv->account);
+	g_return_if_fail (ctx != NULL);
 
 	binsd = e2k_security_descriptor_to_binary (dialog->priv->sd);
 	if (!binsd) {
@@ -279,23 +269,29 @@ dialog_response (ExchangePermissionsDialog *dialog, int response,
 
 	props = e2k_properties_new ();
 	e2k_properties_set_binary (props, E2K_PR_EXCHANGE_SD_BINARY, binsd);
-	E2K_DEBUG_HINT ('S');
-	status = e2k_connection_bproppatch_sync (conn, dialog->priv->base_uri,
-						 (const char **)&dialog->priv->folder_path, 1,
-						 props, FALSE, &results,
-						 &nresults);
+
+	/* We use BPROPPATCH here instead of PROPPATCH, because
+	 * PROPPATCH seems to mysteriously fail in someone else's
+	 * folder hierarchy. #29726
+	 */
+	iter = e2k_context_bproppatch_start (ctx, NULL, dialog->priv->base_uri,
+					     (const char **)&dialog->priv->folder_path, 1,
+					     props, FALSE);
 	e2k_properties_free (props);
-	if (status == SOUP_ERROR_DAV_MULTISTATUS) {
-		status = results[0].status;
-		e2k_results_free (results, nresults);
-	}
+
+	result = e2k_result_iter_next (iter);
+	if (result) {
+		status = result->status;
+		e2k_result_iter_free (iter);
+	} else
+		status = e2k_result_iter_free (iter);
 
 	gtk_widget_set_sensitive (GTK_WIDGET (dialog), TRUE);
 
-	if (!SOUP_ERROR_IS_SUCCESSFUL (status)) {
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 		e_notice (dialog, GTK_MESSAGE_ERROR,
 			  _("Could not update folder permissions. %s"),
-			  status == SOUP_ERROR_UNAUTHORIZED ?
+			  status == E2K_HTTP_UNAUTHORIZED ?
 			  _("(Permission denied.)") : "");
 		return;
 	}
@@ -414,7 +410,8 @@ add_clicked (GtkButton *button, gpointer user_data)
 		return;
 
 	status = e2k_global_catalog_lookup (
-		gc, E2K_GLOBAL_CATALOG_LOOKUP_BY_EMAIL, email,
+		gc, NULL, /* FIXME: cancellable */
+		E2K_GLOBAL_CATALOG_LOOKUP_BY_EMAIL, email,
 		E2K_GLOBAL_CATALOG_LOOKUP_SID, &entry);
 	switch (status) {
 	case E2K_GLOBAL_CATALOG_OK:
@@ -491,13 +488,11 @@ remove_clicked (GtkButton *button, gpointer user_data)
 		gtk_list_store_remove (dialog->priv->list_store, &iter);
 		e2k_security_descriptor_remove_sid (dialog->priv->sd, sid);
 
-#if GTK_CHECK_VERSION (2, 2, 0)
 		if (!gtk_list_store_iter_is_valid (dialog->priv->list_store, &iter)) {
 			/* Select the new last row. Love that API... */
 			gtk_tree_model_iter_nth_child (model, &iter, NULL,
 						       gtk_tree_model_iter_n_children (model, NULL) - 1);
 		}
-#endif
 		gtk_tree_selection_select_iter (dialog->priv->list_selection, &iter);
 
 		dialog->priv->changed = TRUE;

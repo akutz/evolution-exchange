@@ -29,263 +29,59 @@
 #include <string.h>
 #include <unistd.h>
 
-#include <glade/glade.h>
-#include <gtk/gtkmain.h>
 #include <bonobo/bonobo-main.h>
 #include <bonobo/bonobo-generic-factory.h>
-#include <bonobo/bonobo-moniker-util.h>
 #include <bonobo/bonobo-exception.h>
 #include <libgnomeui/gnome-ui-init.h>
-#include <libgnomevfs/gnome-vfs-init.h>
-#include <gconf/gconf-client.h>
-#include <libsoup/soup-misc.h>
 
-#include <e-util/e-dialog-utils.h>
 #include <e-util/e-passwords.h>
-#include <pas/pas-book-factory.h>
-#include <pcs/cal-factory.h>
-#include <shell/evolution-shell-component.h>
+#include <libedata-book/e-data-book-factory.h>
+#include <libedata-cal/e-data-cal-factory.h>
 
-#include "e2k-connection.h"
-#include "e2k-license.h"
 #include "e2k-utils.h"
-#include "mail-stub-listener.h"
-#include "mail-stub-exchange.h"
-#include "cal-backend-exchange.h"
-#include "addressbook/pas-backend-exchange.h"
-#include "addressbook/pas-backend-ad.h"
+#include "addressbook/e-book-backend-exchange.h"
+#include "addressbook/e-book-backend-gal.h"
+#include "calendar/e-cal-backend-exchange-calendar.h"
+#include "calendar/e-cal-backend-exchange-tasks.h"
 
-#include "exchange-account.h"
 #include "exchange-autoconfig-wizard.h"
 #include "exchange-component.h"
-#include "exchange-config-listener.h"
-#include "exchange-delegates-control.h"
-#include "exchange-offline-handler.h"
 #include "exchange-oof.h"
-#include "exchange-storage.h"
-#include "e-folder-exchange.h"
+#include "xc-backend.h"
 
-#define EXCHANGE_STORAGE_COMPONENT_ID	"OAFIID:GNOME_Evolution_ExchangeStorage_ShellComponent"
-#define EXCHANGE_CALENDAR_FACTORY_ID	"OAFIID:GNOME_Evolution_ExchangeStorage_CalendarFactory"
-#define EXCHANGE_ADDRESSBOOK_FACTORY_ID	"OAFIID:GNOME_Evolution_ExchangeStorage_AddressbookFactory"
-#define EXCHANGE_CONFIG_FACTORY_ID	"OAFIID:GNOME_Evolution_ExchangeStorage_ConfigFactory"
-
-#define EXCHANGE_DELEGATES_CONTROL_ID	"OAFIID:GNOME_Evolution_ExchangeStorage_DelegatesConfigControl"
-#define EXCHANGE_OOF_CONTROL_ID		"OAFIID:GNOME_Evolution_ExchangeStorage_OOFConfigControl"
-#define EXCHANGE_AUTOCONFIG_WIZARD_ID	"OAFIID:GNOME_Evolution_ExchangeStorage_Startup_Wizard"
-
-static CalFactory *cal_factory = NULL;
-static PASBookFactory *pas_book_factory = NULL;
+static EDataCalFactory *cal_factory = NULL;
+static EDataBookFactory *book_factory = NULL;
+#ifdef CONFIG_CONTROLS
 static BonoboGenericFactory *config_factory = NULL;
+#endif
 
-GConfClient *exchange_configdb;
-ExchangeConfigListener *config_listener;
-ExchangeAccount *global_account;
-gboolean exchange_component_interactive = FALSE;
-char *evolution_dir;
-
-ExchangeAccount *
-exchange_component_get_account_for_uri (const char *uri)
-{
-	/* FIXME */
-	if (global_account)
-		g_object_ref (global_account);
-	return global_account;
-}
-
-
-struct mse_connect_data {
-	int cmd_fd, status_fd;
-	ExchangeAccount *account;
-};
+XCBackend *global_backend;
 
 static void
-mse_connect_cb (ExchangeAccount *account, gpointer user_data)
-{
-	struct mse_connect_data *mcd = user_data;
-	MailStub *mse;
-
-	if (exchange_account_get_connection (account)) {
-		mse = mail_stub_exchange_new (mcd->account, mcd->cmd_fd,
-					      mcd->status_fd);
-	} else {
-		close (mcd->cmd_fd);
-		close (mcd->status_fd);
-	}
-	g_object_unref (mcd->account);
-	g_free (mcd);
-}
-
-static void
-new_connection (MailStubListener *listener, int cmd_fd, int status_fd,
-		ExchangeAccount *account)
-{
-	struct mse_connect_data *mcd;
-
-	mcd = g_new (struct mse_connect_data, 1);
-	mcd->account = account;
-	g_object_ref (mcd->account);
-	mcd->cmd_fd = cmd_fd;
-	mcd->status_fd = status_fd;
-
-	exchange_account_async_connect (account, mse_connect_cb, mcd);
-}
-
-static void
-destroy_listener (gpointer listener, GObject *where_account_was)
-{
-	g_object_unref (listener);
-}
-
-static void
-destroy_storage (gpointer storage, GObject *where_account_was)
-{
-	GNOME_Evolution_Shell shell = g_object_get_data (storage, "shell");
-
-	evolution_storage_deregister_on_shell (storage, shell);
-}
-
-static void
-config_listener_account_created (ExchangeConfigListener *config_listener,
-				 ExchangeAccount *account,
-				 gpointer shell_client)
-{
-	MailStubListener *listener;
-	EvolutionStorage *storage;
-	GNOME_Evolution_Shell shell;
-	char *path;
-
-	global_account = account;
-
-	path = g_strdup_printf ("/tmp/.exchange-%s/%s",
-				g_get_user_name (),
-				account->account_filename);
-	listener = mail_stub_listener_new (path);
-	g_signal_connect (listener, "new_connection",
-			  G_CALLBACK (new_connection), account);
-	g_free (path);
-	g_object_weak_ref (G_OBJECT (account), destroy_listener, listener);
-
-	storage = exchange_storage_new (account);
-	shell = evolution_shell_client_corba_objref (shell_client);
-	evolution_storage_register_on_shell (storage, shell);
-	g_object_set_data (G_OBJECT (storage), "shell", shell);
-	g_object_weak_ref (G_OBJECT (account), destroy_storage, storage);
-
-	if (exchange_component_interactive)
-		exchange_oof_init (account, 0);
-}
-
-static void
-config_listener_account_removed (ExchangeConfigListener *config_listener,
-				 ExchangeAccount *account,
-				 gpointer shell_client)
-{
-	global_account = NULL;
-}
-
-static void
-owner_set_cb (EvolutionShellComponent *shell_component,
-	      EvolutionShellClient *shell_client,
-	      const char *evo_dir, gpointer user_data)
-{
-	char *path;
-
-	evolution_dir = g_strdup (evo_dir);
-	exchange_configdb = gconf_client_get_default ();
-
-	path = g_strdup_printf ("/tmp/.exchange-%s", g_get_user_name ());
-	if (mkdir (path, 0700) == -1) {
-		if (errno == EEXIST) {
-			struct stat st;
-
-			if (stat (path, &st) == -1) {
-				g_warning ("Could not stat %s", path);
-				return;
-			}
-			if (st.st_uid != getuid () ||
-			    (st.st_mode & 07777) != 0700) {
-				g_warning ("Bad socket dir %s", path);
-				return;
-			}
-		} else {
-			g_warning ("Can't create %s", path);
-			return;
-		}
-	}
-	g_free (path);
-
-	config_listener = exchange_config_listener_new (exchange_configdb);
-	g_signal_connect (config_listener, "exchange_account_created",
-			  G_CALLBACK (config_listener_account_created),
-			  shell_client);
-	g_signal_connect (config_listener, "exchange_account_removed",
-			  G_CALLBACK (config_listener_account_removed),
-			  shell_client);
-}
-
-/* This returns %TRUE all the time, so if set as an idle callback it
-   effectively causes each and every nested glib mainloop to be quit.  */
-static gboolean
-quit_cb (gpointer closure)
-{
-	bonobo_main_quit ();
-	return TRUE;
-}
-
-static void
-owner_unset_cb (EvolutionShellComponent *shell_component,
-		gpointer user_data)
-{
-	g_object_unref (exchange_configdb);
-	exchange_configdb = NULL;
-
-	soup_shutdown ();
-	g_timeout_add (500, quit_cb, NULL);
-}
-
-static gboolean
-idle_do_interactive (gpointer user_data)
-{
-	GdkNativeWindow new_view_xid = (GdkNativeWindow)user_data;
-
-	if (global_account)
-		exchange_oof_init (global_account, new_view_xid);
-
-	return FALSE;
-}
-
-static void
-interactive_cb (EvolutionShellComponent *shell_component,
-		gboolean on, gulong new_view_xid,
-		gpointer user_data)
-{
-	exchange_component_interactive = on;
-
-	if (exchange_component_interactive)
-		g_idle_add (idle_do_interactive, (gpointer)new_view_xid);
-}
-
-static void
-last_calendar_gone_cb (CalFactory *factory, gpointer data)
+last_calendar_gone_cb (EDataCalFactory *factory, gpointer data)
 {
 	/* FIXME: what to do? */
 }
 
 /* Creates the calendar factory object and registers it */
 static gboolean
-setup_pcs (int argc, char **argv)
+setup_calendar_factory (int argc, char **argv)
 {
-	cal_factory = cal_factory_new ();
+	cal_factory = e_data_cal_factory_new ();
 	if (!cal_factory) {
-		g_message ("setup_pcs(): Could not create the calendar factory");
+		g_message ("setup_calendar_factory(): Could not create the calendar factory");
 		return FALSE;
 	}
 
-	cal_factory_register_method (cal_factory, "exchange", CAL_BACKEND_EXCHANGE_TYPE);
+	e_data_cal_factory_register_method (
+		cal_factory, "exchange", ICAL_VEVENT_COMPONENT,
+		E_TYPE_CAL_BACKEND_EXCHANGE_CALENDAR);
+	e_data_cal_factory_register_method (
+		cal_factory, "exchange", ICAL_VTODO_COMPONENT,
+		E_TYPE_CAL_BACKEND_EXCHANGE_TASKS);
 
-	/* register the factory in OAF */
-	if (!cal_factory_oaf_register (cal_factory, EXCHANGE_CALENDAR_FACTORY_ID)) {
+	/* register the factory with bonobo */
+	if (!e_data_cal_factory_register_storage (cal_factory, EXCHANGE_CALENDAR_FACTORY_ID)) {
 		bonobo_object_unref (BONOBO_OBJECT (cal_factory));
 		cal_factory = NULL;
 		return FALSE;
@@ -293,74 +89,45 @@ setup_pcs (int argc, char **argv)
 
 	g_signal_connect (cal_factory, "last_calendar_gone",
 			  G_CALLBACK (last_calendar_gone_cb), NULL);
-
 	return TRUE;
 }
 
 static void
-last_book_gone_cb (PASBookFactory *factory, gpointer data)
+last_book_gone_cb (EDataBookFactory *factory, gpointer data)
 {
         /* FIXME: what to do? */
 }
 
 static gboolean
-setup_pas (int argc, char **argv)
+setup_addressbook_factory (int argc, char **argv)
 {
-        pas_book_factory = pas_book_factory_new ();
+        book_factory = e_data_book_factory_new ();
 
-        if (!pas_book_factory)
+        if (!book_factory)
                 return FALSE;
 
-        pas_book_factory_register_backend (
-                pas_book_factory, "exchange", pas_backend_exchange_new);
-        pas_book_factory_register_backend (
-                pas_book_factory, "activedirectory", pas_backend_ad_new);
+        e_data_book_factory_register_backend (
+                book_factory, "exchange", e_book_backend_exchange_new);
+	e_data_book_factory_register_backend (
+                book_factory, "gal", e_book_backend_gal_new);
 
-        g_signal_connect (pas_book_factory, "last_book_gone",
+        g_signal_connect (book_factory, "last_book_gone",
 			  G_CALLBACK (last_book_gone_cb), NULL);
 
-        if (!pas_book_factory_activate (pas_book_factory, EXCHANGE_ADDRESSBOOK_FACTORY_ID)) {
-                bonobo_object_unref (BONOBO_OBJECT (pas_book_factory));
-                pas_book_factory = NULL;
+        if (!e_data_book_factory_activate (book_factory, EXCHANGE_ADDRESSBOOK_FACTORY_ID)) {
+                bonobo_object_unref (BONOBO_OBJECT (book_factory));
+                book_factory = NULL;
                 return FALSE;
         }
 
         return TRUE;
 }
 
-static BonoboObject *
-config_factory_func (BonoboGenericFactory *factory,
-		     const char *component_id,
-		     gpointer data)
-{
-	if (!strcmp (component_id, EXCHANGE_DELEGATES_CONTROL_ID))
-		return exchange_delegates_control_new ();
-	else if (!strcmp (component_id, EXCHANGE_OOF_CONTROL_ID))
-		return exchange_oof_control_new ();
-	else
-		return NULL;
-}
-
-
-static gboolean
-setup_config (int argc, char **argv)
-{
-	config_factory = bonobo_generic_factory_new (
-		EXCHANGE_CONFIG_FACTORY_ID, config_factory_func, NULL);
-	return config_factory != CORBA_OBJECT_NIL;
-}
-
 int
 main (int argc, char **argv)
 {
-	ExchangeOfflineHandler *offline_handler;
+	char *path;
 	int ret;
-
-	EvolutionShellComponent *shell_component;
-	EvolutionShellComponentFolderType types[] = {
-		{ "exchange-server", "none", "exchange-server", "Exchange server", FALSE, NULL, NULL },
-		{ NULL, NULL, NULL, NULL, FALSE, NULL, NULL }
-	};
 
 	bindtextdomain (PACKAGE, CONNECTOR_LOCALEDIR);
 	textdomain (PACKAGE);
@@ -370,38 +137,40 @@ main (int argc, char **argv)
 			    GNOME_PARAM_HUMAN_READABLE_NAME, _("Ximian Connector for Microsoft Exchange"),
 			    NULL);
 
-	e2k_license_validate ();
-	gnome_vfs_init ();
-	glade_init ();
-	
-	shell_component = evolution_shell_component_new (
-		types, NULL, NULL, NULL, NULL, NULL,
-		NULL, NULL, NULL, NULL, NULL);
-	offline_handler = exchange_offline_handler_new ();
-	bonobo_object_add_interface (BONOBO_OBJECT (shell_component),
-				     BONOBO_OBJECT (offline_handler));
+	path = g_strdup_printf ("/tmp/.exchange-%s", g_get_user_name ());
+	if (mkdir (path, 0700) == -1) {
+		if (errno == EEXIST) {
+			struct stat st;
 
-	g_signal_connect (shell_component, "owner_set",
-			  G_CALLBACK (owner_set_cb), NULL);
-	g_signal_connect (shell_component, "owner_unset",
-			  G_CALLBACK (owner_unset_cb), NULL);
-	g_signal_connect (shell_component, "interactive",
-			  G_CALLBACK (interactive_cb), NULL);
+			if (stat (path, &st) == -1) {
+				g_warning ("Could not stat %s", path);
+				return 1;
+			}
+			if (st.st_uid != getuid () ||
+			    (st.st_mode & 07777) != 0700) {
+				g_warning ("Bad socket dir %s", path);
+				return 1;
+			}
+		} else {
+			g_warning ("Can't create %s", path);
+			return 1;
+		}
+	}
+	g_free (path);
+
+	global_backend = xc_backend_new ();
 
 	/* register factories */
-	ret = bonobo_activation_active_server_register (
-		EXCHANGE_STORAGE_COMPONENT_ID,
-		bonobo_object_corba_objref (BONOBO_OBJECT (shell_component))); 
+	ret = bonobo_activation_register_active_server (
+		XC_BACKEND_IID,
+		bonobo_object_corba_objref (BONOBO_OBJECT (global_backend)),
+		NULL);
 	if (ret != Bonobo_ACTIVATION_REG_SUCCESS)
 		goto failed;
 
-	if (!setup_pcs (argc, argv))
+	if (!setup_calendar_factory (argc, argv))
 		goto failed;
-
-        if (!setup_pas (argc, argv))
-		goto failed;
-
-        if (!setup_config (argc, argv))
+        if (!setup_addressbook_factory (argc, argv))
 		goto failed;
 
 	fprintf (stderr, "Evolution Exchange Storage up and running\n");

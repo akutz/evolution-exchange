@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 
-/* Copyright (C) 2000-2004 Novell, Inc.
+/* Copyright (C) 2001-2004 Novell, Inc.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of version 2 of the GNU General Public
@@ -16,6 +16,8 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
+
+/* camel-stub.c: class for a stub to talk to the backend */
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -263,6 +265,17 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 			break;
 		}
 
+		case CAMEL_STUB_ARG_UINT32ARRAY:
+		{
+			GArray *arr = va_arg (ap, GArray *);
+			int i;
+
+			camel_stub_marshal_encode_uint32 (stub->cmd, arr->len);
+			for (i = 0; i < arr->len; i++)
+				camel_stub_marshal_encode_uint32 (stub->cmd, g_array_index (arr, int, i));
+			break;
+		}		
+		
 		default:
 			g_assert_not_reached ();
 			break;
@@ -379,6 +392,25 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 						g_ptr_array_free (*arr, TRUE);
 					}
 
+					break;
+				}
+				
+				case CAMEL_STUB_ARG_UINT32ARRAY:
+				{
+					GArray **arr = va_arg (ap, GArray **);
+					int i, len, unread_count;
+					status = camel_stub_marshal_decode_uint32 (stub->cmd, &len);
+					if (status == -1)
+						break;
+					*arr = g_array_new (FALSE, FALSE, sizeof (int));
+					for (i = 0; i< len && status != -1; i++) {
+						status = camel_stub_marshal_decode_uint32 (stub->cmd, &unread_count);
+						if (status != -1)
+							g_array_append_val (*arr, unread_count);
+					}
+					if (status == -1)
+						g_array_free (*arr, TRUE);
+					
 					break;
 				}
 

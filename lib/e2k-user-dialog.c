@@ -43,7 +43,7 @@ struct _E2kUserDialogPrivate {
 	GtkWidget *entry, *parent_window;
 };
 
-#define SELECT_NAMES_OAFIID "OAFIID:GNOME_Evolution_Addressbook_SelectNames"
+#define SELECT_NAMES_OAFIID "OAFIID:GNOME_Evolution_Addressbook_SelectNames:" EVOLUTION_BASE_VERSION
 
 #define PARENT_TYPE GTK_TYPE_DIALOG
 static GtkDialogClass *parent_class;
@@ -232,7 +232,7 @@ e2k_user_dialog_new (GtkWidget *parent_window,
 	dialog = g_object_new (E2K_TYPE_USER_DIALOG, NULL);
 	if (!e2k_user_dialog_construct (dialog, parent_window,
 					label_text, section_name)) {
-		g_object_unref (dialog);
+		gtk_widget_destroy (GTK_WIDGET (dialog));
 		return NULL;
 	}
 

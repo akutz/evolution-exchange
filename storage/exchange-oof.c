@@ -24,8 +24,9 @@
 #endif
 
 #include "exchange-oof.h"
-#include "exchange-component.h"
 #include "exchange-account.h"
+#include "xc-backend.h"
+#include "e2k-propnames.h"
 #include "e2k-utils.h"
 #include "e2k-uri.h"
 
@@ -38,178 +39,6 @@
 #include <gtk/gtktogglebutton.h>
 #include <gtk/gtktextbuffer.h>
 #include <gtk/gtktextview.h>
-
-#define PARENT_TYPE EVOLUTION_TYPE_CONFIG_CONTROL
-static EvolutionConfigControlClass *parent_class = NULL;
-
-struct _ExchangeOOFControlPrivate {
-	ExchangeAccount *account;
-	GladeXML *xml;
-
-	gboolean state;
-	char *message;
-};
-
-static void dispose (GObject *);
-
-static void
-class_init (GObjectClass *object_class)
-{
-	parent_class = g_type_class_ref (PARENT_TYPE);
-
-	/* virtual method override */
-	object_class->dispose = dispose;
-}
-
-static void
-init (GObject *object)
-{
-	ExchangeOOFControl *control =
-		EXCHANGE_OOF_CONTROL (object);
-
-	control->priv = g_new0 (ExchangeOOFControlPrivate, 1);
-}
-
-static void
-dispose (GObject *object)
-{
-	ExchangeOOFControl *control =
-		EXCHANGE_OOF_CONTROL (object);
-
-	if (control->priv->xml) {
-		g_object_unref (control->priv->xml);
-		control->priv->xml = NULL;
-	}
-
-	if (control->priv->account) {
-		g_object_unref (control->priv->account);
-		control->priv->account = NULL;
-	}
-
-	if (control->priv->message) {
-		g_free (control->priv->message);
-		control->priv->message = NULL;
-	}
-
-	G_OBJECT_CLASS (parent_class)->dispose (object);
-}
-
-
-E2K_MAKE_TYPE (exchange_oof_control, ExchangeOOFControl, class_init, init, PARENT_TYPE)
-
-static void
-control_apply_cb (EvolutionConfigControl *config_control, gpointer user_data)
-{
-	ExchangeOOFControl *control =
-		EXCHANGE_OOF_CONTROL (config_control);
-	GtkWidget *textview;
-	GtkTextBuffer *buffer;
-	char *message;
-
-	textview = glade_xml_get_widget (control->priv->xml, "oof_message");
-	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (textview));
-	if (gtk_text_buffer_get_modified (buffer)) {
-		GtkTextIter start, end;
-
-		g_free (control->priv->message);
-		gtk_text_buffer_get_bounds (buffer, &start, &end);
-		control->priv->message = message =
-			gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
-		gtk_text_buffer_set_modified (buffer, FALSE);
-	} else
-		message = NULL;
-
-	exchange_oof_set (control->priv->account, control->priv->state, message);
-}
-
-static void
-text_changed (GtkTextBuffer *buffer, gpointer control)
-{
-	evolution_config_control_changed (control);
-}
-
-static void
-state_toggled (GtkToggleButton *button, gpointer user_data)
-{
-	ExchangeOOFControl *control = user_data;
-	gboolean state = gtk_toggle_button_get_active (button);
-	GtkWidget *textview;
-
-	g_return_if_fail (state != control->priv->state);
-
-	control->priv->state = state;
-	evolution_config_control_changed (EVOLUTION_CONFIG_CONTROL (control));
-
-	textview = glade_xml_get_widget (control->priv->xml, "oof_message");
-	gtk_widget_set_sensitive (textview, state);
-}
-
-static BonoboObject *
-dummy_control (const char *message)
-{
-	GtkWidget *label;
-
-	label = gtk_label_new (message);
-	gtk_widget_show (label);
-
-	return BONOBO_OBJECT (evolution_config_control_new (label));
-}
-
-BonoboObject *
-exchange_oof_control_new (void)
-{
-	ExchangeOOFControl *control;
-	ExchangeAccount *account;
-	GtkWidget *notebook, *radio, *textview;
-	GtkTextBuffer *buffer;
-
-	account = exchange_component_get_account_for_uri (NULL);
-	if (!account)
-		return dummy_control (_("No Exchange accounts configured."));
-
-	control = g_object_new (EXCHANGE_TYPE_OOF_CONTROL, NULL);
-	control->priv->account = account;
-	g_object_ref (account);
-
-	if (!exchange_oof_get (account, &control->priv->state, &control->priv->message)) {
-		bonobo_object_unref (control);
-		return dummy_control (_("Could not read out-of-office state."));
-	}
-
-	/* The gui */
-	control->priv->xml = glade_xml_new (CONNECTOR_GLADEDIR "/exchange-oof.glade",
-					    "oof_vbox", NULL);
-	if (!control->priv->xml) {
-		bonobo_object_unref (control);
-		return dummy_control (_("Unable to load out-of-office UI."));
-	}
-
-	/* Put the (already parentless) glade widgets into the control */
-	notebook = glade_xml_get_widget (control->priv->xml, "oof_vbox");
-	evolution_config_control_construct (EVOLUTION_CONFIG_CONTROL (control),
-					    notebook);
-
-	/* Set up data */
-	radio = glade_xml_get_widget (control->priv->xml,
-				      control->priv->state ? "oof_yes_radio" : "oof_no_radio");
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-
-	radio = glade_xml_get_widget (control->priv->xml, "oof_yes_radio");
-	g_signal_connect (radio, "toggled", G_CALLBACK (state_toggled), control);
-
-	textview = glade_xml_get_widget (control->priv->xml, "oof_message");
-	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (textview));
-	gtk_text_buffer_set_text (buffer, control->priv->message,
-				  strlen (control->priv->message));
-	gtk_text_buffer_set_modified (buffer, FALSE);
-	g_signal_connect (buffer, "changed", G_CALLBACK (text_changed), control);
-
-	/* Set up config control signals */
-	g_signal_connect (control, "apply", G_CALLBACK (control_apply_cb), NULL);
-
-	return BONOBO_OBJECT (control);
-}
-
 
 static void
 account_connected (ExchangeAccount *account, gpointer shell_view_xid)
@@ -263,6 +92,7 @@ exchange_oof_init (ExchangeAccount *account,
 					   _("Could not update out-of-office state"));
 		}
 	}
+
 }
 
 /**
@@ -281,18 +111,40 @@ exchange_oof_init (ExchangeAccount *account,
 gboolean
 exchange_oof_get (ExchangeAccount *account, gboolean *oof, char **message)
 {
-	E2kConnection *conn;
+	E2kContext *ctx;
+	E2kHTTPStatus status;
 	char *url, *body, *p, *checked, *ta_start, *ta_end;
-	int len, status;
+	int len;
 
-	conn = exchange_account_get_connection (account);
-	if (!conn)
+	ctx = exchange_account_get_context (account);
+	if (!ctx)
 		return FALSE;
 
+	if (!message) {
+		/* Do this the easy way */
+
+		const char *prop = E2K_PR_EXCHANGE_OOF_STATE;
+		E2kResult *results;
+		int nresults;
+
+		url = e2k_uri_concat (account->home_uri, "NON_IPM_SUBTREE/");
+		status = e2k_context_propfind (ctx, NULL, url, &prop, 1,
+					       &results, &nresults);
+		g_free (url);
+		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status) || nresults == 0)
+			return FALSE;
+
+		prop = e2k_properties_get_prop (results[0].props, E2K_PR_EXCHANGE_OOF_STATE);
+		*oof = prop && atoi (prop);
+
+		e2k_results_free (results, nresults);
+		return TRUE;
+	}
+
 	url = e2k_uri_concat (account->home_uri, "?Cmd=options");
-	status = e2k_connection_get_owa_sync (conn, url, FALSE, &body, &len);
+	status = e2k_context_get_owa (ctx, NULL, url, FALSE, &body, &len);
 	g_free (url);
-	if (!SOUP_ERROR_IS_SUCCESSFUL (status))
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
 		return FALSE;
 
 	p = e_strstrcase (body, "<!--End OOF Assist-->");
@@ -354,29 +206,145 @@ exchange_oof_get (ExchangeAccount *account, gboolean *oof, char **message)
 gboolean
 exchange_oof_set (ExchangeAccount *account, gboolean oof, const char *message)
 {
-	E2kConnection *conn;
-	char *body;
-	int status;
+	E2kContext *ctx;
+	E2kHTTPStatus status;
 
-	conn = exchange_account_get_connection (account);
-	if (!conn)
+	ctx = exchange_account_get_context (account);
+	if (!ctx)
 		return FALSE;
 
 	if (message) {
-		char *message_enc = e2k_uri_encode (message, NULL);
+		char *body, *message_enc;
+
+		message_enc = e2k_uri_encode (message, NULL);
 		body = g_strdup_printf ("Cmd=options&OofState=%d&"
 					"OofReply=%s",
 					oof ? 1 : 0, message_enc);
+		status = e2k_context_post (ctx, NULL, account->home_uri,
+					   "application/x-www-form-urlencoded",
+					   body, strlen (body), NULL, NULL);
 		g_free (message_enc);
+		g_free (body);
 	} else {
-		body = g_strdup_printf ("Cmd=options&OofState=%d",
-					oof ? 1 : 0);
+		E2kProperties *props;
+		char *url;
+
+		props = e2k_properties_new ();
+		e2k_properties_set_bool (props, E2K_PR_EXCHANGE_OOF_STATE, oof);
+		url = e2k_uri_concat (account->home_uri, "NON_IPM_SUBTREE/");
+		/* Need to pass TRUE for "create" here or it won't work */
+		status = e2k_context_proppatch (ctx, NULL, url, props,
+						TRUE, NULL);
+		g_free (url);
+		e2k_properties_free (props);
 	}
 
-	status = e2k_connection_post_sync (conn, account->home_uri,
-					   "application/x-www-form-urlencoded",
-					   body, strlen (body));
-	g_free (body);
-	return SOUP_ERROR_IS_SUCCESSFUL (status) ||
-		SOUP_ERROR_IS_REDIRECTION (status);
+	return E2K_HTTP_STATUS_IS_SUCCESSFUL (status) ||
+		E2K_HTTP_STATUS_IS_REDIRECTION (status);
+}
+
+struct _exchangeOOF_Data {
+	ExchangeAccount *account;
+	GladeXML *xml;
+	gboolean state;
+	char *message;
+};
+
+
+static void
+toggled_state (GtkToggleButton *button, gpointer user_data)
+{
+	struct _exchangeOOF_Data *data = (struct _exchangeOOF_Data *)user_data;
+	gboolean state = gtk_toggle_button_get_active (button);
+	GtkWidget *textview;
+
+	g_return_if_fail (state != data->state);
+
+	data->state = state;
+	textview = glade_xml_get_widget (data->xml, "oof_message");
+	gtk_widget_set_sensitive (textview, state);
+}
+
+static void
+update_state (gpointer user_data)
+{
+	struct _exchangeOOF_Data *data = (struct _exchangeOOF_Data *) user_data;
+	GtkWidget *textview;
+	GtkTextBuffer *buffer;
+	char *message;
+
+	textview = glade_xml_get_widget (data->xml, "oof_message");
+	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (textview));
+	if (gtk_text_buffer_get_modified (buffer)) {
+		GtkTextIter start, end;
+
+		g_free (data->message);
+		gtk_text_buffer_get_bounds (buffer, &start, &end);
+		data->message = message =
+			gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
+		gtk_text_buffer_set_modified (buffer, FALSE);
+	} else
+		message = NULL;
+
+	if (!exchange_oof_set (data->account, data->state, message)) {
+		e_notice (textview, GTK_MESSAGE_ERROR,
+			  _("Could not update out-of-office state"));
+	}
+}
+
+void
+exchange_oof (ExchangeAccount *account, GtkWidget *parent)
+{
+	GladeXML *xml;
+	GtkWidget *dialog;
+	GtkResponseType response;
+	gboolean oof;
+	GtkWidget *radio, *textview;
+	char *message;
+	GtkTextBuffer *buffer;
+	struct _exchangeOOF_Data *oof_data;
+
+	if (!exchange_oof_get (account, &oof, &message)) {
+		e_notice (parent, GTK_MESSAGE_ERROR,
+			  _("Could not read out-of-office state"));
+		return;
+	}
+
+	xml = glade_xml_new (CONNECTOR_GLADEDIR "/exchange-oof.glade",
+			     "Out of Office Assistant", NULL);
+	g_return_if_fail (xml != NULL);
+
+	dialog = glade_xml_get_widget (xml, "Out of Office Assistant");
+	g_return_if_fail (dialog != NULL);
+	e_dialog_set_transient_for (GTK_WINDOW (dialog), parent);
+
+	/* Set up data */
+	radio = glade_xml_get_widget (xml,
+				      oof ? "oof_yes_radio" : "oof_no_radio");
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+	
+	oof_data = g_new0 (struct _exchangeOOF_Data, 1);
+	oof_data->account = account;
+	oof_data->xml = xml;
+	oof_data->state = oof;
+	oof_data->message = message;
+
+	radio = glade_xml_get_widget (xml, "oof_yes_radio");
+	g_signal_connect (radio, "toggled", G_CALLBACK (toggled_state), oof_data);
+	
+	textview = glade_xml_get_widget (xml, "oof_message");
+
+	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (textview));
+	gtk_text_buffer_set_text (buffer, message, strlen (message));
+	gtk_text_buffer_set_modified (buffer, FALSE);
+	if (!oof_data->state)
+		gtk_widget_set_sensitive (textview, FALSE);	
+	
+	response = gtk_dialog_run (GTK_DIALOG (dialog));
+
+	if (response == GTK_RESPONSE_OK)
+		update_state (oof_data);
+	
+	gtk_widget_destroy (dialog);
+	g_object_unref (xml);
 }

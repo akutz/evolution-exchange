@@ -6,7 +6,7 @@
 
 #include <glib.h>
 
-char       *e2k_base64_encode (const guint8 *data, int size); 
+char       *e2k_base64_encode (const guint8 *data, int len); 
 GByteArray *e2k_base64_decode (const char *string);
 
 #endif /* E2K_ENCODING_UTILS_H */

@@ -27,6 +27,7 @@
 
 #include "e2k-global-catalog.h"
 #include "e2k-marshal.h"
+#include "e2k-sid.h"
 #include "e2k-utils.h"
 
 #include <e-util/e-dialog-utils.h>
@@ -35,12 +36,14 @@
 #include <glade/glade.h>
 #include <gtk/gtkbox.h>
 #include <gtk/gtkdialog.h>
-#include <gtk/gtkoptionmenu.h>
 #include <gtk/gtklabel.h>
 #include <gtk/gtkmenuitem.h>
 #include <gtk/gtkmenushell.h>
 #include <gtk/gtkstock.h>
 #include <gtk/gtktogglebutton.h>
+
+#undef GTK_DISABLE_DEPRECATED
+#include <gtk/gtkoptionmenu.h>
 
 #include <string.h>
 
@@ -182,15 +185,13 @@ exchange_delegates_user_edit (ExchangeDelegatesUser *user,
 	/* Grab the Glade widgets */
 	xml = glade_xml_new (
 		CONNECTOR_GLADEDIR "/exchange-delegates.glade",
-		"delegate_editor", PACKAGE);
+		"delegate_permissions", PACKAGE);
 	g_return_val_if_fail (xml, FALSE);
 
 	title = g_strdup_printf (_("Permissions for %s"), user->display_name);
 
-	dialog = gtk_dialog_new_with_buttons (title, NULL, 0,
-					      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-					      GTK_STOCK_OK, GTK_RESPONSE_OK,
-					      NULL);
+	dialog = glade_xml_get_widget (xml, "delegate_permissions");
+	gtk_window_set_title (GTK_WINDOW (dialog), title);
 	e_dialog_set_transient_for (GTK_WINDOW (dialog), parent_window);
 
 	table = glade_xml_get_widget (xml, "toplevel_table");
@@ -304,7 +305,8 @@ exchange_delegates_user_new_from_gc (E2kGlobalCatalog *gc,
 	guint8 *p;
 
 	status = e2k_global_catalog_lookup (
-		gc, E2K_GLOBAL_CATALOG_LOOKUP_BY_EMAIL, email,
+		gc, NULL, /* FIXME: cancellable */
+		E2K_GLOBAL_CATALOG_LOOKUP_BY_EMAIL, email,
 		(E2K_GLOBAL_CATALOG_LOOKUP_SID |
 		 E2K_GLOBAL_CATALOG_LOOKUP_LEGACY_EXCHANGE_DN),
 		&entry);

@@ -23,13 +23,13 @@
 
 #include "e2k-result.h"
 #include "e2k-encoding-utils.h"
+#include "e2k-http-utils.h"
 #include "e2k-propnames.h"
 #include "e2k-xml-utils.h"
 
 #include <stdlib.h>
 #include <string.h>
 
-#include <libsoup/soup-headers.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 #include <libxml/xmlmemory.h>
@@ -149,9 +149,8 @@ propstat_parse (xmlNode *node, E2kResult *result)
 	node = node->xmlChildrenNode;
 	if (!E2K_IS_NODE (node, "DAV:", "status"))
 		return;
-	if (!soup_headers_parse_status_line (node->xmlChildrenNode->content,
-					     NULL, &result->status, NULL) ||
-	    result->status != SOUP_ERROR_OK)
+	result->status = e2k_http_parse_status (node->xmlChildrenNode->content);
+	if (result->status != E2K_HTTP_OK)
 		return;
 
 	node = node->next;
@@ -175,12 +174,27 @@ e2k_result_clear (E2kResult *result)
 	}
 }
 
+/**
+ * e2k_results_array_new:
+ *
+ * Creates a new results array
+ *
+ * Return value: the array
+ **/
 GArray *
 e2k_results_array_new (void)
 {
 	return g_array_new (FALSE, FALSE, sizeof (E2kResult));
 }
 
+/**
+ * e2k_results_array_add_from_multistatus:
+ * @results_array: a results array, created by e2k_results_array_new()
+ * @msg: a 207 Multi-Status response
+ *
+ * Constructs an #E2kResult for each response in @msg and appends them
+ * to @results_array.
+ **/
 void
 e2k_results_array_add_from_multistatus (GArray *results_array,
 					SoupMessage *msg)
@@ -189,7 +203,7 @@ e2k_results_array_add_from_multistatus (GArray *results_array,
 	xmlNode *node, *rnode;
 	E2kResult result;
 
-	g_return_if_fail (msg->errorcode == SOUP_ERROR_DAV_MULTISTATUS);
+	g_return_if_fail (msg->status_code == E2K_HTTP_MULTI_STATUS);
 
 	doc = e2k_parse_xml (msg->response.body, msg->response.length);
 	if (!doc)
@@ -206,7 +220,7 @@ e2k_results_array_add_from_multistatus (GArray *results_array,
 			continue;
 
 		memset (&result, 0, sizeof (result));
-		result.status = SOUP_ERROR_OK; /* sometimes omitted if Brief */
+		result.status = E2K_HTTP_OK; /* sometimes omitted if Brief */
 
 		for (rnode = node->xmlChildrenNode; rnode; rnode = rnode->next) {
 			if (rnode->type != XML_ELEMENT_NODE)
@@ -215,9 +229,8 @@ e2k_results_array_add_from_multistatus (GArray *results_array,
 			if (E2K_IS_NODE (rnode, "DAV:", "href"))
 				result.href = xmlNodeGetContent (rnode);
 			else if (E2K_IS_NODE (rnode, "DAV:", "status")) {
-				soup_headers_parse_status_line (
-					rnode->xmlChildrenNode->content, NULL,
-					&result.status, NULL);
+				result.status = e2k_http_parse_status (
+					rnode->xmlChildrenNode->content);
 			} else if (E2K_IS_NODE (rnode, "DAV:", "propstat"))
 				propstat_parse (rnode, &result);
 			else
@@ -225,7 +238,7 @@ e2k_results_array_add_from_multistatus (GArray *results_array,
 		}
 
 		if (result.href) {
-			if (SOUP_ERROR_IS_SUCCESSFUL (result.status) &&
+			if (E2K_HTTP_STATUS_IS_SUCCESSFUL (result.status) &&
 			    !result.props)
 				result.props = e2k_properties_new ();
 			g_array_append_val (results_array, result);
@@ -236,6 +249,13 @@ e2k_results_array_add_from_multistatus (GArray *results_array,
 	xmlFreeDoc (doc);
 }
 
+/**
+ * e2k_results_array_free:
+ * @results_array: the array
+ * @free_results: whether or not to also free the contents of the array
+ *
+ * Frees @results_array, and optionally its contents
+ **/
 void
 e2k_results_array_free (GArray *results_array, gboolean free_results)
 {
@@ -247,6 +267,15 @@ e2k_results_array_free (GArray *results_array, gboolean free_results)
 }
 
 
+/**
+ * e2k_results_from_multistatus:
+ * @msg: a 207 Multi-Status response
+ * @results: pointer to a variable to store an array of E2kResult in
+ * @nresults: pointer to a variable to store the length of *@results in
+ *
+ * Parses @msg and puts the results in *@results and *@nresults.
+ * The caller should free the data with e2k_results_free()
+ **/
 void
 e2k_results_from_multistatus (SoupMessage *msg,
 			      E2kResult **results, int *nresults)
@@ -261,6 +290,15 @@ e2k_results_from_multistatus (SoupMessage *msg,
 	e2k_results_array_free (results_array, FALSE);
 }
 
+/**
+ * e2k_results_copy:
+ * @results: a results array returned from e2k_results_from_multistatus()
+ * @nresults: the length of @results
+ *
+ * Performs a deep copy of @results
+ *
+ * Return value: a copy of @results.
+ **/
 E2kResult *
 e2k_results_copy (E2kResult *results, int nresults)
 {
@@ -282,6 +320,13 @@ e2k_results_copy (E2kResult *results, int nresults)
 	return new_results;
 }
 
+/**
+ * e2k_results_free:
+ * @results: a results array returned from e2k_results_from_multistatus()
+ * @nresults: the length of @results
+ *
+ * Frees the data in @results.
+ **/
 void
 e2k_results_free (E2kResult *results, int nresults)
 {
@@ -290,4 +335,192 @@ e2k_results_free (E2kResult *results, int nresults)
 	for (i = 0; i < nresults; i++)
 		e2k_result_clear (&results[i]);
 	g_free (results);
+}
+
+
+/* Iterators */
+struct E2kResultIter {
+	E2kContext *ctx;
+	E2kOperation *op;
+	E2kHTTPStatus status;
+
+	E2kResult *results;
+	int nresults, next;
+	int first, total;
+	gboolean ascending;
+
+	E2kResultIterFetchFunc fetch_func;
+	E2kResultIterFreeFunc free_func;
+	gpointer user_data;
+};
+
+static void
+iter_fetch (E2kResultIter *iter)
+{
+	if (iter->nresults) {
+		if (iter->ascending)
+			iter->first += iter->nresults;
+		else
+			iter->first -= iter->nresults;
+		e2k_results_free (iter->results, iter->nresults);
+		iter->nresults = 0;
+	}
+
+	iter->status = iter->fetch_func (iter, iter->ctx, iter->op,
+					 &iter->results,
+					 &iter->nresults,
+					 &iter->first,
+					 &iter->total,
+					 iter->user_data);
+	iter->next = 0;
+}
+
+/**
+ * e2k_result_iter_new:
+ * @ctx: an #E2kContext
+ * @op: an #E2kOperation, to use for cancellation
+ * @ascending: %TRUE if results should be returned in ascending
+ * order, %FALSE if they should be returned in descending order
+ * @total: the total number of results that will be returned, or -1
+ * if not yet known
+ * @fetch_func: function to call to fetch more results
+ * @free_func: function to call when the iterator is freed
+ * @user_data: data to pass to @fetch_func and @free_func
+ *
+ * Creates a object that can be used to return the results of
+ * a Multi-Status query on @ctx.
+ *
+ * @fetch_func will be called to fetch results, and it may update the
+ * #first and #total fields if necessary. If @ascending is %TRUE, then
+ * e2k_result_iter_next() will first return the first result, then the
+ * second result, etc. If @ascending is %FALSE, it will return the
+ * last result, then the second-to-last result, etc.
+ *
+ * When all of the results returned by the first @fetch_func call have
+ * been returned to the caller, @fetch_func will be called again to
+ * get more results. This will continue until @fetch_func returns 0
+ * results, or returns an error code.
+ *
+ * Return value: the new iterator
+ **/
+E2kResultIter *
+e2k_result_iter_new (E2kContext *ctx, E2kOperation *op,
+		     gboolean ascending, int total,
+		     E2kResultIterFetchFunc fetch_func,
+		     E2kResultIterFreeFunc free_func,
+		     gpointer user_data)
+{
+	E2kResultIter *iter;
+
+	iter = g_new0 (E2kResultIter, 1);
+	iter->ctx = g_object_ref (ctx);
+	iter->op = op;
+	iter->ascending = ascending;
+	iter->total = total;
+	iter->fetch_func = fetch_func;
+	iter->free_func = free_func;
+	iter->user_data = user_data;
+
+	iter_fetch (iter);
+
+	return iter;
+}
+
+/**
+ * e2k_result_iter_next:
+ * @iter: an #E2kResultIter
+ *
+ * Returns the next result in the operation being iterated by @iter.
+ * If there are no more results, or if an error occurs, it will return
+ * %NULL. (The return value of e2k_result_iter_free() distinguishes
+ * these two cases.)
+ *
+ * Return value: the result, or %NULL
+ **/
+E2kResult *
+e2k_result_iter_next (E2kResultIter *iter)
+{
+	g_return_val_if_fail (iter != NULL, NULL);
+
+	if (iter->nresults == 0)
+		return NULL;
+
+	if (iter->next >= iter->nresults) {
+		iter_fetch (iter);
+		if (iter->nresults == 0)
+			return NULL;
+		if (iter->total <= 0)
+			iter->status = E2K_HTTP_MALFORMED;
+		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (iter->status))
+			return NULL;
+	}
+
+	return iter->ascending ?
+		&iter->results[iter->next++] :
+		&iter->results[iter->nresults - ++iter->next];
+}
+
+/**
+ * e2k_result_iter_get_index:
+ * @iter: an #E2kResultIter
+ *
+ * Returns the index of the current result in the complete list of
+ * results. Note that for a descending search, %index will start at
+ * %total - 1 and count backwards to 0.
+ *
+ * Return value: the index of the current result
+ **/
+int
+e2k_result_iter_get_index (E2kResultIter *iter)
+{
+	g_return_val_if_fail (iter != NULL, -1);
+
+	return iter->ascending ?
+		iter->first + iter->next - 1 :
+		iter->first + (iter->nresults - iter->next);
+}
+
+/**
+ * e2k_result_iter_get_total:
+ * @iter: an #E2kResultIter
+ *
+ * Returns the total number of results expected for @iter. Note that
+ * in some cases, this may change while the results are being iterated
+ * (if objects that match the query are added to or removed from the
+ * folder).
+ *
+ * Return value: the total number of results expected
+ **/
+int
+e2k_result_iter_get_total (E2kResultIter *iter)
+{
+	g_return_val_if_fail (iter != NULL, -1);
+
+	return iter->total;
+}
+
+/**
+ * e2k_result_iter_free:
+ * @iter: an #E2kResultIter
+ *
+ * Frees @iter and all associated memory, and returns a status code
+ * indicating whether it ended successfully or not. (Note that the
+ * status may be %E2K_HTTP_OK rather than %E2K_HTTP_MULTI_STATUS.)
+ *
+ * Return value: the final status
+ **/
+E2kHTTPStatus
+e2k_result_iter_free (E2kResultIter *iter)
+{
+	E2kHTTPStatus status = iter->status;
+
+	g_return_val_if_fail (iter != NULL, E2K_HTTP_MALFORMED);
+
+	if (iter->nresults)
+		e2k_results_free (iter->results, iter->nresults);
+	iter->free_func (iter, iter->user_data);
+	g_object_unref (iter->ctx);
+	g_free (iter);
+
+	return status;
 }

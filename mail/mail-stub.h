@@ -58,10 +58,16 @@ struct _MailStubClass {
 	void (*transfer_messages)  (MailStub *, const char *source_name,
 				    const char *dest_name, GPtrArray *uids,
 				    gboolean delete_originals);
-	void (*get_folder_info)    (MailStub *);
+	void (*get_folder_info)    (MailStub *, const char *top,
+				    gboolean recursive);
 	void (*send_message)       (MailStub *, const char *from,
 				    GPtrArray *recipients,
 				    const char *data, int length);
+	void (*create_folder)      (MailStub *, const char *parent_name,
+				    const char *folder_name);
+	void (*delete_folder)      (MailStub *, const char *folder_name);
+	void (*rename_folder)      (MailStub *, const char *old_name,
+				    const char *new_name);
 };
 
 GType             mail_stub_get_type        (void);

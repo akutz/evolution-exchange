@@ -60,12 +60,12 @@ The response status will generally be one of:
 	200 OK - success
 
 	403 Forbidden - You tried to send mail using a From address
-	that you don't have permission to use.
+	that you don't have permission to use. (This happens even if
+	there is a Resent-From header, meaning it is apparently not
+	possible to redirect a message via Exchange.)
 
-	404 Not Found - This comes up on certain peoples' servers. We
-	don't know exactly why, although it may have to do with proxy
-	servers or front-end/back-end servers. We don't currently have
-	a workaround for them other than "use SMTP".
+	404 Not Found - This happens (instead of 401 Unauthorized) if
+	you try to send a message on an unauthenticated connection.
 
 
 Non-WebDAV mail sending
@@ -79,8 +79,7 @@ enabled by default in Exchange 2000.
 There is also one other potential way of sending email, which is to
 use OWA. I don't remember the exact details of how it works, but it
 involves adding the message to the Drafts folder and then executing a
-particular OWA command against it. This could possibly be used as a
-workaround for people who get the "404" error.
+particular OWA command against it.
 
 
 Handling non-SMTP email addresses

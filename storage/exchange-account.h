@@ -5,10 +5,12 @@
 #define __EXCHANGE_ACCOUNT_H__
 
 #include "exchange-types.h"
-#include "e2k-connection.h"
+#include "e2k-autoconfig.h"
+#include "e2k-context.h"
 #include "e2k-global-catalog.h"
 #include "e2k-security-descriptor.h"
-#include <shell/e-folder.h>
+#include "e-folder.h"
+#include "e2k-kerberos.h"
 #include <e-util/e-account-list.h>
 
 #ifdef __cplusplus
@@ -33,7 +35,7 @@ struct _ExchangeAccount {
 	 */
 	char *account_name, *account_filename, *storage_dir;
 	char *exchange_server, *home_uri, *public_uri;
-	char *legacy_exchange_dn;
+	char *legacy_exchange_dn, *default_timezone;
 
 	gboolean filter_inbox;
 };
@@ -42,7 +44,7 @@ struct _ExchangeAccountClass {
 	GObjectClass parent_class;
 
 	/* signals */
-	void (*connected) (ExchangeAccount *);
+	void (*connected) (ExchangeAccount *, E2kContext *);
 
 	void (*new_folder) (ExchangeAccount *, EFolder *);
 	void (*removed_folder) (ExchangeAccount *, EFolder *);
@@ -52,7 +54,7 @@ struct _ExchangeAccountClass {
 GType                  exchange_account_get_type             (void);
 ExchangeAccount       *exchange_account_new                  (EAccountList                   *account_list,
 							      EAccount                       *adata);
-E2kConnection         *exchange_account_get_connection       (ExchangeAccount                *acct);
+E2kContext            *exchange_account_get_context          (ExchangeAccount                *acct);
 E2kGlobalCatalog      *exchange_account_get_global_catalog   (ExchangeAccount                *acct);
 
 const char            *exchange_account_get_standard_uri     (ExchangeAccount                *acct,
@@ -65,19 +67,16 @@ char                  *exchange_account_get_foreign_uri      (ExchangeAccount   
 							      E2kGlobalCatalogEntry          *entry,
 							      const char                     *std_uri_prop);
 
-typedef void         (*ExchangeAccountConnectCallback)       (ExchangeAccount                *acct,
-							      gpointer                        user_data);
-void                   exchange_account_async_connect        (ExchangeAccount                *acct,
-							      ExchangeAccountConnectCallback  callback,
-							      gpointer                        user_data);
+E2kContext            *exchange_account_connect              (ExchangeAccount                *acct);
 
-EFolder               *exchange_account_get_folder             (ExchangeAccount                *acct,
-								const char                     *path_or_uri);
-GPtrArray             *exchange_account_get_folders            (ExchangeAccount                *acct);
-void                   exchange_account_update_folder          (ExchangeAccount                *acct,
-								EFolder                        *folder);
+EFolder               *exchange_account_get_folder           (ExchangeAccount                *acct,
+							      const char                     *path_or_uri);
+GPtrArray             *exchange_account_get_folders          (ExchangeAccount                *acct);
+void                   exchange_account_update_folder        (ExchangeAccount                *acct,
+							      EFolder                        *folder);
 
-void                   exchange_account_rescan_tree            (ExchangeAccount                *acct);
+void                   exchange_account_rescan_tree          (ExchangeAccount                *acct);
+
 
 typedef enum {
 	EXCHANGE_ACCOUNT_FOLDER_OK,
@@ -89,43 +88,28 @@ typedef enum {
 	EXCHANGE_ACCOUNT_FOLDER_UNSUPPORTED_OPERATION,
 	EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR
 } ExchangeAccountFolderResult;
-typedef void (*ExchangeAccountFolderCallback) (ExchangeAccount *account,
-					       ExchangeAccountFolderResult,
-					       EFolder *folder,
-					       gpointer user_data);
 
-void exchange_account_async_create_folder (ExchangeAccount *account,
-					   const char      *path,
-					   const char      *type,
-					   ExchangeAccountFolderCallback,
-					   gpointer         user_data);
-void exchange_account_async_remove_folder (ExchangeAccount *account,
-					   const char      *path,
-					   ExchangeAccountFolderCallback,
-					   gpointer         user_data);
-void exchange_account_async_xfer_folder   (ExchangeAccount *account,
-					   const char      *source_path,
-					   const char      *dest_path,
-					   gboolean         remove_source,
-					   ExchangeAccountFolderCallback,
-					   gpointer         user_data);
-void exchange_account_async_open_folder   (ExchangeAccount *account,
-					   const char      *path,
-					   ExchangeAccountFolderCallback,
-					   gpointer         user_data);
+ExchangeAccountFolderResult exchange_account_create_folder (ExchangeAccount *account,
+							    const char      *path,
+							    const char      *type);
+ExchangeAccountFolderResult exchange_account_remove_folder (ExchangeAccount *account,
+							    const char      *path);
+ExchangeAccountFolderResult exchange_account_xfer_folder   (ExchangeAccount *account,
+							    const char      *source_path,
+							    const char      *dest_path,
+							    gboolean         remove_source);
+ExchangeAccountFolderResult exchange_account_open_folder   (ExchangeAccount *account,
+							    const char      *path);
 
-void exchange_account_async_discover_shared_folder  (ExchangeAccount *account,
-						     const char      *user,
-						     const char      *folder,
-						     ExchangeAccountFolderCallback,
-						     gpointer         user_data);
-void exchange_account_cancel_discover_shared_folder (ExchangeAccount *account,
-						     const char      *user,
-						     const char      *folder);
-void exchange_account_async_remove_shared_folder    (ExchangeAccount *account,
-						     const char      *path,
-						     ExchangeAccountFolderCallback,
-						     gpointer         user_data);
+ExchangeAccountFolderResult exchange_account_discover_shared_folder  (ExchangeAccount *account,
+								      const char      *user,
+								      const char      *folder_name,
+								      EFolder        **folder);
+void                  exchange_account_cancel_discover_shared_folder (ExchangeAccount *account,
+								      const char      *user,
+								      const char      *folder);
+ExchangeAccountFolderResult exchange_account_remove_shared_folder    (ExchangeAccount *account,
+								      const char      *path);
 
 #ifdef __cplusplus
 }

@@ -4,9 +4,10 @@
 #ifndef __E2K_RESULT_H__
 #define __E2K_RESULT_H__
 
-#include <glib.h>
 #include <libsoup/soup-message.h>
 #include "e2k-properties.h"
+#include "e2k-types.h"
+#include "e2k-http-utils.h"
 
 typedef struct {
 	char *href;
@@ -32,5 +33,32 @@ void       e2k_results_array_add_from_multistatus (GArray       *results_array,
 
 void       e2k_results_array_free                 (GArray       *results_array,
 						   gboolean      free_results);
+
+
+typedef struct E2kResultIter E2kResultIter;
+
+typedef E2kHTTPStatus (*E2kResultIterFetchFunc) (E2kResultIter *iter,
+						 E2kContext *ctx,
+						 E2kOperation *op,
+						 E2kResult **results,
+						 int *nresults,
+						 int *first,
+						 int *total,
+						 gpointer user_data);
+typedef void          (*E2kResultIterFreeFunc)  (E2kResultIter *iter,
+						 gpointer user_data);
+
+E2kResultIter *e2k_result_iter_new         (E2kContext            *ctx,
+					    E2kOperation          *op,
+					    gboolean               ascending,
+					    int                    total,
+					    E2kResultIterFetchFunc fetch_func,
+					    E2kResultIterFreeFunc  free_func,
+					    gpointer               user_data);
+
+E2kResult     *e2k_result_iter_next        (E2kResultIter         *iter);
+int            e2k_result_iter_get_index   (E2kResultIter         *iter);
+int            e2k_result_iter_get_total   (E2kResultIter         *iter);
+E2kHTTPStatus  e2k_result_iter_free        (E2kResultIter         *iter);
 
 #endif /* __E2K_RESULT_H__ */

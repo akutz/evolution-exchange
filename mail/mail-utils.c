@@ -33,7 +33,7 @@
 
 #include <e-util/e-html-utils.h>
 #include <gal/util/e-util.h>
-#include <ical.h>
+#include <libical/ical.h>
 
 char *
 mail_util_mapi_to_smtp_headers (E2kProperties *props)

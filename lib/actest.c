@@ -23,31 +23,59 @@
 #include <config.h>
 #endif
 
-#include "e2k-autoconfig.h"
-#include "e2k-license.h"
-#include <glib-object.h>
-#include <libsoup/soup-error.h>
-#include <libxml/globals.h>
+#include <pthread.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-int global_argc;
-char **global_argv;
-GMainLoop *loop;
+#include "e2k-autoconfig.h"
+#include "test-utils.h"
 
-static gboolean
-idle_parse_argv (gpointer data)
+const char *test_program_name = "actest";
+
+static E2kOperation op;
+
+static void *
+cancel (void *data)
+{
+	e2k_operation_cancel (&op);
+	return NULL;
+}
+
+static void
+quit (int sig)
+{
+	static pthread_t cancel_thread;
+
+	if (!cancel_thread) {
+		pthread_create (&cancel_thread, NULL, cancel, NULL);
+	} else
+		exit (0);
+}
+
+void
+test_main (int argc, char **argv)
 {
 	E2kAutoconfig *ac;
 	E2kAutoconfigResult result;
 	const char *username, *password, *owa_uri, *gc_server;
 
-	username = global_argv[1];
-	password = global_argv[2];
-	owa_uri = global_argc > 2 ? global_argv[3] : NULL;
-	gc_server = global_argc > 3 ? global_argv[4] : NULL;
+	signal (SIGINT, quit);
 
-	ac = e2k_autoconfig_new (owa_uri, username, password, FALSE);
+	if (argc < 2 || argc > 4) {
+		fprintf (stderr, "Usage: %s username [OWA URL] [Global Catalog server]\n", argv[0]);
+		exit (1);
+	}
+
+	username = argv[1];
+	password = test_get_password (username, NULL);
+
+	owa_uri = argc > 2 ? argv[2] : NULL;
+	gc_server = argc > 3 ? argv[3] : NULL;
+
+	e2k_operation_init (&op);
+	ac = e2k_autoconfig_new (owa_uri, username, password,
+				 E2K_AUTOCONFIG_USE_EITHER);
 
 	if (ac->owa_uri) {
 		if (!owa_uri)
@@ -66,14 +94,17 @@ idle_parse_argv (gpointer data)
 	printf ("\n");
 
 	if (gc_server)
-		e2k_autoconfig_set_gc_server (ac, gc_server);
+		e2k_autoconfig_set_gc_server (ac, gc_server, -1);
 
-	result = e2k_autoconfig_check_exchange (ac);
+	result = e2k_autoconfig_check_exchange (ac, &op);
 	if (result != E2K_AUTOCONFIG_OK) {
 		const char *msg;
 		switch (result) {
-		case E2K_AUTOCONFIG_NETWORK_ERROR:
-			msg = "Network error or hostname unknown";
+		case E2K_AUTOCONFIG_CANT_RESOLVE:
+			msg = "Could not resolve hostname";
+			break;
+		case E2K_AUTOCONFIG_CANT_CONNECT:
+			msg = "Could not connect to server";
 			break;
 		case E2K_AUTOCONFIG_REDIRECT:
 			msg = "Multiple redirection";
@@ -108,6 +139,9 @@ idle_parse_argv (gpointer data)
 		case E2K_AUTOCONFIG_CANT_BPROPFIND:
 			msg = "Server does not allow BPROPFIND";
 			break;
+		case E2K_AUTOCONFIG_CANCELLED:
+			msg = "Cancelled";
+			break;
 		case E2K_AUTOCONFIG_FAILED:
 		default:
 			msg = "Unknown error";
@@ -119,15 +153,18 @@ idle_parse_argv (gpointer data)
 		goto done;
 	}
 
-	result = e2k_autoconfig_check_global_catalog (ac);
+	result = e2k_autoconfig_check_global_catalog (ac, &op);
 	if (result != E2K_AUTOCONFIG_OK) {
 		const char *msg;
 		switch (result) {
-		case E2K_AUTOCONFIG_NETWORK_ERROR:
+		case E2K_AUTOCONFIG_CANT_RESOLVE:
 			msg = "Could not resolve GC server";
 			break;
 		case E2K_AUTOCONFIG_NO_MAILBOX:
 			msg = "No data for user";
+			break;
+		case E2K_AUTOCONFIG_CANCELLED:
+			msg = "Cancelled";
 			break;
 		case E2K_AUTOCONFIG_FAILED:
 		default:
@@ -154,31 +191,8 @@ idle_parse_argv (gpointer data)
 
 	if (!ac->pf_server)
 		printf ("Warning: public folder server was defaulted\n\n");
-
  done:
+	e2k_operation_free (&op);
 	e2k_autoconfig_free (ac);
-	g_main_loop_quit (loop);
-	return FALSE;
-}
-
-int
-main (int argc, char **argv)
-{
-	g_type_init ();
-
-	if (argc < 3 || argc > 5) {
-		fprintf (stderr, "Usage: %s username password [OWA URL] [Global Catalog server]\n", argv[0]);
-		exit (1);
-	}
-
-	e2k_license_validate ();
-
-	global_argc = argc;
-	global_argv = argv;
-	g_idle_add (idle_parse_argv, NULL);
-
-	loop = g_main_loop_new (NULL, TRUE);
-	g_main_loop_run (loop);
-
-	return 0;
+	test_quit ();
 }

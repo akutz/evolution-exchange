@@ -35,7 +35,6 @@ enum {
 	NEW_FOLDER,
 	UPDATED_FOLDER,
 	REMOVED_FOLDER,
-	SCANNED_FOLDER,
 	LAST_SIGNAL
 };
 
@@ -50,27 +49,20 @@ static void dispose (GObject *object);
 static void finalize (GObject *object);
 static gboolean is_empty        (ExchangeHierarchy *hier);
 static void add_to_storage      (ExchangeHierarchy *hier);
-static void async_scan_subtree  (ExchangeHierarchy *hier,
-				 EFolder *folder,
-				 ExchangeAccountFolderCallback callback,
-				 gpointer user_data);
-static void rescan              (ExchangeHierarchy *hier);
-static void async_create_folder (ExchangeHierarchy *hier,
-				 EFolder *parent, const char *name,
-				 const char *type,
-				 ExchangeAccountFolderCallback callback,
-				 gpointer user_data);
-static void async_remove_folder (ExchangeHierarchy *hier,
-				 EFolder *folder,
-				 ExchangeAccountFolderCallback callback,
-				 gpointer user_data);
-static void async_xfer_folder   (ExchangeHierarchy *hier,
-				 EFolder *source,
-				 EFolder *dest_parent,
-				 const char *dest_name,
-				 gboolean remove_source,
-				 ExchangeAccountFolderCallback callback,
-				 gpointer user_data);
+static ExchangeAccountFolderResult scan_subtree  (ExchangeHierarchy *hier,
+						  EFolder *folder);
+static void                        rescan        (ExchangeHierarchy *hier);
+static ExchangeAccountFolderResult create_folder (ExchangeHierarchy *hier,
+						  EFolder *parent,
+						  const char *name,
+						  const char *type);
+static ExchangeAccountFolderResult remove_folder (ExchangeHierarchy *hier,
+						  EFolder *folder);
+static ExchangeAccountFolderResult xfer_folder   (ExchangeHierarchy *hier,
+						  EFolder *source,
+						  EFolder *dest_parent,
+						  const char *dest_name,
+						  gboolean remove_source);
 
 static void
 class_init (GObjectClass *object_class)
@@ -87,10 +79,10 @@ class_init (GObjectClass *object_class)
 	exchange_hierarchy_class->is_empty = is_empty;
 	exchange_hierarchy_class->add_to_storage = add_to_storage;
 	exchange_hierarchy_class->rescan = rescan;
-	exchange_hierarchy_class->async_scan_subtree = async_scan_subtree;
-	exchange_hierarchy_class->async_create_folder = async_create_folder;
-	exchange_hierarchy_class->async_remove_folder = async_remove_folder;
-	exchange_hierarchy_class->async_xfer_folder = async_xfer_folder;
+	exchange_hierarchy_class->scan_subtree = scan_subtree;
+	exchange_hierarchy_class->create_folder = create_folder;
+	exchange_hierarchy_class->remove_folder = remove_folder;
+	exchange_hierarchy_class->xfer_folder = xfer_folder;
 
 	/* signals */
 	signals[NEW_FOLDER] =
@@ -116,15 +108,6 @@ class_init (GObjectClass *object_class)
 			      G_OBJECT_CLASS_TYPE (object_class),
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (ExchangeHierarchyClass, removed_folder),
-			      NULL, NULL,
-			      e2k_marshal_NONE__POINTER,
-			      G_TYPE_NONE, 1,
-			      G_TYPE_POINTER);
-	signals[SCANNED_FOLDER] =
-		g_signal_new ("scanned_folder",
-			      G_OBJECT_CLASS_TYPE (object_class),
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (ExchangeHierarchyClass, scanned_folder),
 			      NULL, NULL,
 			      e2k_marshal_NONE__POINTER,
 			      G_TYPE_NONE, 1,
@@ -201,21 +184,6 @@ exchange_hierarchy_removed_folder (ExchangeHierarchy *hier,
 	g_signal_emit (hier, signals[REMOVED_FOLDER], 0, folder);
 }
 
-/**
- * exchange_hierarchy_scanned_folder:
- * @hier: the hierarchy
- * @folder: the just-scanned folder
- *
- * Emits a %scanned_folder signal.
- **/
-void
-exchange_hierarchy_scanned_folder (ExchangeHierarchy *hier,
-				  EFolder *folder)
-{
-	g_signal_emit (hier, signals[SCANNED_FOLDER], 0, folder);
-}
-
-
 static gboolean
 is_empty (ExchangeHierarchy *hier)
 {
@@ -231,118 +199,93 @@ exchange_hierarchy_is_empty (ExchangeHierarchy *hier)
 }
 
 
-static void
-async_create_folder (ExchangeHierarchy *hier, EFolder *parent,
-		     const char *name, const char *type,
-		     ExchangeAccountFolderCallback callback,
-		     gpointer user_data)
+static ExchangeAccountFolderResult
+create_folder (ExchangeHierarchy *hier, EFolder *parent,
+	       const char *name, const char *type)
 {
-	callback (hier->account, EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED,
-		  NULL, user_data);
+	return EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED;
 }
 
-static void
-async_remove_folder (ExchangeHierarchy *hier, EFolder *folder,
-		     ExchangeAccountFolderCallback callback,
-		     gpointer user_data)
+static ExchangeAccountFolderResult
+remove_folder (ExchangeHierarchy *hier, EFolder *folder)
 {
-	callback (hier->account, EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED,
-		  NULL, user_data);
+	return EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED;
 }
 
-static void
-async_xfer_folder (ExchangeHierarchy *hier, EFolder *source,
-		   EFolder *dest_parent, const char *dest_name,
-		   gboolean remove_source,
-		   ExchangeAccountFolderCallback callback,
-		   gpointer user_data)
+static ExchangeAccountFolderResult
+xfer_folder (ExchangeHierarchy *hier, EFolder *source,
+	     EFolder *dest_parent, const char *dest_name,
+	     gboolean remove_source)
 {
-	callback (hier->account, EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED,
-		  NULL, user_data);
+	return EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED;
 }
 
 /**
- * exchange_hierarchy_async_create_folder:
+ * exchange_hierarchy_create_folder:
  * @hier: the hierarchy
  * @parent: the parent folder of the new folder
  * @name: name of the new folder (UTF8)
  * @type: Evolution folder type of the new folder
- * @callback: function to call after the folder creation attempt
- * @user_data: data to pass to @callback.
  *
- * This asynchronously attempts to create a new folder and calls
- * @callback with the result.
+ * Attempts to create a new folder.
+ *
+ * Return value: the result code
  **/
-void
-exchange_hierarchy_async_create_folder (ExchangeHierarchy *hier,
-					EFolder *parent,
-					const char *name, const char *type,
-					ExchangeAccountFolderCallback callback,
-					gpointer user_data)
+ExchangeAccountFolderResult
+exchange_hierarchy_create_folder (ExchangeHierarchy *hier, EFolder *parent,
+				  const char *name, const char *type)
 {
-	g_return_if_fail (EXCHANGE_IS_HIERARCHY (hier));
-	g_return_if_fail (parent != NULL);
-	g_return_if_fail (name != NULL);
-	g_return_if_fail (type != NULL);
+	g_return_val_if_fail (EXCHANGE_IS_HIERARCHY (hier), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+	g_return_val_if_fail (parent != NULL, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+	g_return_val_if_fail (name != NULL, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+	g_return_val_if_fail (type != NULL, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 
-	HIER_CLASS (hier)->async_create_folder (hier, parent, name, type,
-						callback, user_data);
+	return HIER_CLASS (hier)->create_folder (hier, parent, name, type);
 }
 
 /**
- * exchange_hierarchy_async_remove_folder:
+ * exchange_hierarchy_remove_folder:
  * @hier: the hierarchy
  * @folder: the folder to remove
- * @callback: function to call after the folder creation attempt
- * @user_data: data to pass to @callback.
  *
- * This asynchronously attempts to remove a folder and calls @callback
- * with the result.
+ * Attempts to remove a folder.
+ *
+ * Return value: the result code
  **/
-void
-exchange_hierarchy_async_remove_folder (ExchangeHierarchy *hier,
-					EFolder *folder,
-					ExchangeAccountFolderCallback callback,
-					gpointer user_data)
+ExchangeAccountFolderResult
+exchange_hierarchy_remove_folder (ExchangeHierarchy *hier, EFolder *folder)
 {
-	g_return_if_fail (EXCHANGE_IS_HIERARCHY (hier));
-	g_return_if_fail (folder != NULL);
+	g_return_val_if_fail (EXCHANGE_IS_HIERARCHY (hier), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+	g_return_val_if_fail (folder != NULL, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 
-	HIER_CLASS (hier)->async_remove_folder (hier, folder,
-						callback, user_data);
+	return HIER_CLASS (hier)->remove_folder (hier, folder);
 }
 
 /**
- * exchange_hierarchy_async_xfer_folder:
+ * exchange_hierarchy_xfer_folder:
  * @hier: the hierarchy
  * @source: the source folder
  * @dest_parent: the parent of the destination folder
  * @dest_name: name of the destination (UTF8)
  * @remove_source: %TRUE if this is a move, %FALSE if it is a copy
- * @callback: function to call after the folder creation attempt
- * @user_data: data to pass to @callback.
  *
- * This asynchronously attempts to move or copy a folder and calls
- * @callback with the result.
+ * Attempts to move or copy a folder.
+ *
+ * Return value: the result code
  **/
-void
-exchange_hierarchy_async_xfer_folder (ExchangeHierarchy *hier,
-				      EFolder *source,
-				      EFolder *dest_parent,
-				      const char *dest_name,
-				      gboolean remove_source,
-				      ExchangeAccountFolderCallback callback,
-				      gpointer user_data)
+ExchangeAccountFolderResult
+exchange_hierarchy_xfer_folder (ExchangeHierarchy *hier, EFolder *source,
+				EFolder *dest_parent, const char *dest_name,
+				gboolean remove_source)
 {
-	g_return_if_fail (EXCHANGE_IS_HIERARCHY (hier));
-	g_return_if_fail (source != NULL);
-	g_return_if_fail (dest_parent != NULL);
-	g_return_if_fail (dest_name != NULL);
+	g_return_val_if_fail (EXCHANGE_IS_HIERARCHY (hier), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+	g_return_val_if_fail (source != NULL, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+	g_return_val_if_fail (dest_parent != NULL, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+	g_return_val_if_fail (dest_name != NULL, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 
-	HIER_CLASS (hier)->async_xfer_folder (hier, source,
-					      dest_parent, dest_name,
-					      remove_source,
-					      callback, user_data);
+	return HIER_CLASS (hier)->xfer_folder (hier, source,
+					       dest_parent, dest_name,
+					       remove_source);
 }
 
 
@@ -368,36 +311,30 @@ exchange_hierarchy_rescan (ExchangeHierarchy *hier)
 }
 
 
-static void
-async_scan_subtree (ExchangeHierarchy *hier, EFolder *folder,
-		    ExchangeAccountFolderCallback callback,
-		    gpointer user_data)
+static ExchangeAccountFolderResult
+scan_subtree (ExchangeHierarchy *hier, EFolder *folder)
 {
-	callback (hier->account, EXCHANGE_ACCOUNT_FOLDER_OK, folder, user_data);
+	return EXCHANGE_ACCOUNT_FOLDER_OK;
 }
 
 /**
- * exchange_hierarchy_async_scan_subtree:
+ * exchange_hierarchy_scan_subtree:
  * @hier: the hierarchy
  * @folder: the folder to scan under
- * @callback: callback to call after scanning
- * @user_data: data to pass to @callback
  *
  * Scans for folders in @hier underneath @folder, emitting %new_folder
  * signals for each one found. Depending on the kind of hierarchy,
- * this may initiate a recursive scan. If @callback is not %NULL,
- * it will be called after the scan is complete.
+ * this may initiate a recursive scan.
+ *
+ * Return value: the result code
  **/
-void
-exchange_hierarchy_async_scan_subtree (ExchangeHierarchy *hier,
-				       EFolder *folder,
-				       ExchangeAccountFolderCallback callback,
-				       gpointer user_data)
+ExchangeAccountFolderResult
+exchange_hierarchy_scan_subtree (ExchangeHierarchy *hier, EFolder *folder)
 {
-	g_return_if_fail (EXCHANGE_IS_HIERARCHY (hier));
-	g_return_if_fail (folder != NULL);
+	g_return_val_if_fail (EXCHANGE_IS_HIERARCHY (hier), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+	g_return_val_if_fail (folder != NULL, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 
-	HIER_CLASS (hier)->async_scan_subtree (hier, folder, callback, user_data);
+	return HIER_CLASS (hier)->scan_subtree (hier, folder);
 }
 
 

@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 
-/* Copyright (C) 2000-2004 Novell, Inc.
+/* Copyright (C) 2001-2004 Novell, Inc.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of version 2 of the GNU General Public
@@ -16,6 +16,8 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
+
+/* camel-exchange-transport.c: Exchange transport class. */
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -94,12 +96,12 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 	CamelStream *stream;
 	CamelStreamFilter *filtered_stream;
 	CamelMimeFilter *crlffilter;
-	struct _header_raw *header;
+	struct _camel_header_raw *header;
 	GSList *h, *bcc = NULL;
 	int len, i;
 
 	url_string = camel_session_get_password (service->session, "ignored",
-						 FALSE, FALSE, service,
+						 0, service,
 						 "popb4smtp_uri", ex);
 	if (!url_string)
 		return FALSE;

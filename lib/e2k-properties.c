@@ -41,6 +41,7 @@ typedef struct {
 	const char *short_name;
 
 	E2kPropType type;
+	guint32 proptag;
 } E2kPropInfo;
 
 static GHashTable *known_properties;
@@ -48,7 +49,9 @@ static GHashTable *known_properties;
 /**
  * e2k_properties_new:
  *
- * Return value: a new (empty) #E2kProperties
+ * Creates a new (empty) #E2kProperties structure
+ *
+ * Return value: the structure
  **/
 E2kProperties *
 e2k_properties_new (void)
@@ -128,7 +131,9 @@ copy_prop (gpointer key, gpointer value, gpointer data)
  * e2k_properties_copy:
  * @props: an #E2kProperties
  *
- * Return value: a deep copy of @props
+ * Performs a deep copy of @props
+ *
+ * Return value: a new copy of @props
  **/
 E2kProperties *
 e2k_properties_copy (E2kProperties *props)
@@ -220,6 +225,8 @@ e2k_properties_free (E2kProperties *props)
  * @props: an #E2kProperties
  * @propname: a property name
  *
+ * Retrieves the value of @propname in @props.
+ *
  * Return value: the value of @propname in @props, or %NULL if it is
  * not set. The caller should not free the value; it is owned by
  * @props.
@@ -236,8 +243,10 @@ e2k_properties_get_prop (E2kProperties *props, const char *propname)
  * e2k_properties_empty:
  * @props: an #E2kProperties
  *
+ * Tests if @props is empty.
+ *
  * Return value: %TRUE if @props has no properties set, %FALSE if it
- * does.
+ * has at least one value set.
  **/
 gboolean
 e2k_properties_empty (E2kProperties *props)
@@ -270,6 +279,12 @@ get_propinfo (const char *propname, E2kPropType type)
 	pi->namespace = e2k_prop_namespace_name (pi->name);
 	pi->short_name = e2k_prop_property_name (pi->name);
 	pi->type = type;
+
+	if (pi->short_name[0] == 'x')
+		pi->proptag = strtoul (pi->short_name + 1, NULL, 16);
+	else
+		pi->proptag = 0;
+
 	g_hash_table_insert (known_properties, pi->name, pi);
 
 	return pi;
@@ -658,6 +673,8 @@ setup_namespaces (void)
  * e2k_prop_namespace_name:
  * @prop: the name of a property
  *
+ * Splits out the namespace portion of @prop
+ *
  * Return value: the URI of @prop's namespace
  **/
 const char *
@@ -683,6 +700,9 @@ e2k_prop_namespace_name (const char *prop)
  * e2k_prop_namespace_abbrev:
  * @prop: the name of a property
  *
+ * Splits out the namespace portion of @prop and assigns a unique
+ * abbreviation for it.
+ *
  * Return value: the abbreviation used for prop's namespace
  **/
 char
@@ -707,10 +727,53 @@ e2k_prop_namespace_abbrev (const char *prop)
  * e2k_prop_property_name:
  * @prop: the name of a property
  *
+ * Splits out the non-namespace portion of @prop
+ *
  * Return value: the non-namespaced name of @prop
  **/
 const char *
 e2k_prop_property_name (const char *prop)
 {
 	return get_div (prop) + 1;
+}
+
+/**
+ * e2k_prop_proptag:
+ * @prop: the name of a MAPI property
+ *
+ * Computes the MAPI proptag value of @prop, which must be the name
+ * of a MAPI property.
+ * 
+ * Return value: the MAPI proptag value
+ **/
+guint32
+e2k_prop_proptag (const char *prop)
+{
+	E2kPropInfo *pi;
+
+	pi = get_propinfo (prop, E2K_PROP_TYPE_UNKNOWN);
+	return pi->proptag;
+}
+
+/**
+ * e2k_proptag_prop:
+ * @proptag: a MAPI property
+ *
+ * Computes the WebDAV property name of the property with the
+ * given proptag.
+ *
+ * Return value: the WebDAV property name associated with @proptag
+ **/
+const char *
+e2k_proptag_prop (guint32 proptag)
+{
+	E2kPropInfo *pi;
+	char *tmpname;
+
+	tmpname = g_strdup_printf (E2K_NS_MAPI_PROPTAG "x%08x",
+				   (unsigned)proptag);
+
+	pi = get_propinfo (tmpname, E2K_PROP_TYPE_UNKNOWN);
+	g_free (tmpname);
+	return pi->name;
 }

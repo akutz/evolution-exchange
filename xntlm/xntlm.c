@@ -41,7 +41,9 @@ static unsigned char NTLM_NEGOTIATE_MESSAGE[] = {
 /**
  * xntlm_negotiate:
  *
- * Return value: an NTLM Type 1 (Negotiate) message
+ * Creates an NTLM Type 1 (Negotiate) message
+ *
+ * Return value: the message
  **/
 GByteArray *
 xntlm_negotiate (void)
@@ -268,7 +270,7 @@ ntlm_lanmanager_hash (const char *password, char hash[21])
 {
 	guchar lm_password [15];
 	XNTLM_DES_KS ks;
-	int i;
+	unsigned int i;
 
 	for (i = 0; i < 14 && password [i]; i++)
 		lm_password [i] = toupper ((unsigned char) password [i]);

@@ -5,7 +5,6 @@
 #define __EXCHANGE_HIERARCHY_WEBDAV_H__
 
 #include "exchange-hierarchy.h"
-#include "e2k-connection.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -44,33 +43,30 @@ ExchangeHierarchy *exchange_hierarchy_webdav_new (ExchangeAccount *account,
 						  int sorting_priority);
 
 /* for subclasses */
-ExchangeAccountFolderResult exchange_hierarchy_webdav_parse_folders (
-						  ExchangeHierarchyWebDAV *hwd,
-						  SoupMessage *msg,
-						  EFolder *parent,
-						  E2kResult *results,
-						  int nresults,
-						  GPtrArray **folders_p);
+ExchangeAccountFolderResult exchange_hierarchy_webdav_status_to_folder_result (E2kHTTPStatus status);
+EFolder *exchange_hierarchy_webdav_parse_folder (ExchangeHierarchyWebDAV *hwd,
+						 EFolder *parent,
+						 E2kResult *result);
 
 void exchange_hierarchy_webdav_construct   (ExchangeHierarchyWebDAV *hwd,
-					    ExchangeAccount         *account,
-					    ExchangeHierarchyType    type,
-					    const char              *hierarchy_name,
-					    const char              *physical_uri_prefix,
-					    const char              *internal_uri_prefix,
-					    const char              *owner_name,
-					    const char              *owner_email,
-					    const char              *source_uri,
-					    gboolean                 deep_searchable,
-					    const char              *toplevel_icon,
-					    int                      sorting_priority);
+					    ExchangeAccount *account,
+					    ExchangeHierarchyType type,
+					    const char *hierarchy_name,
+					    const char *physical_uri_prefix,
+					    const char *internal_uri_prefix,
+					    const char *owner_name,
+					    const char *owner_email,
+					    const char *source_uri,
+					    gboolean deep_searchable,
+					    const char *toplevel_icon,
+					    int sorting_priority);
 
-typedef void (*ExchangeHierarchyWebDAVScanCallback)    (ExchangeHierarchy                   *hier,
-							EFolder                             *folder,
-							gpointer                             user_data);
-void    exchange_hierarchy_webdav_offline_scan_subtree (ExchangeHierarchy                   *hier,
-							ExchangeHierarchyWebDAVScanCallback  cb,
-							gpointer                             user_data);
+typedef void (*ExchangeHierarchyWebDAVScanCallback)    (ExchangeHierarchy *hier,
+							EFolder *folder,
+							gpointer user_data);
+void    exchange_hierarchy_webdav_offline_scan_subtree (ExchangeHierarchy *hier,
+							ExchangeHierarchyWebDAVScanCallback cb,
+							gpointer user_data);
 
 
 

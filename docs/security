@@ -227,6 +227,10 @@ fallthrough.
 
 So, the ordering is:
 
+[DISCLAIMER: While this is what we implement in
+e2k-security-descriptor.c, it is known to be wrong. Some folders' ACLs
+(especially public folders) don't obey this order.]
+
     1. Object-level ACEs for real users, in allow/deny pairs
     2. Container-level ACEs for real users, in allow/deny pairs
     3. Object-level ACEs for Anonymous, in allow/deny pairs

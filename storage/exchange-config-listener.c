@@ -31,10 +31,14 @@
 #include "exchange-account.h"
 #include "e-folder-exchange.h"
 #include "e2k-marshal.h"
+#include "e2k-uri.h"
 #include "mail-stub-listener.h"
 
 #include <e-util/e-dialog-utils.h>
-#include <shell/e-folder-list.h>
+//#include <shell/e-folder-list.h>
+
+#include <libedataserver/e-source.h>
+#include <libedataserver/e-source-list.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -46,8 +50,7 @@ struct _ExchangeConfigListenerPrivate {
 	char *configured_uri, *configured_name;
 	EAccount *configured_account;
 
-	ExchangeAccount *exchange_account;
-};
+	ExchangeAccount *exchange_account;};
 
 
 enum {
@@ -174,6 +177,7 @@ remove_one_default_folder (GConfClient *gconf,
 	g_free (evo_uri);
 }
 
+#if E_FOLDER_LIST
 static void
 remove_autocompletion_folders (GConfClient *gconf,
 			       const char *account_uri_prefix,
@@ -218,6 +222,7 @@ remove_autocompletion_folders (GConfClient *gconf,
 	g_free (xml);
 	e_folder_list_free_items (list);
 }
+#endif
 
 static void
 remove_defaults_for_account (ExchangeConfigListener *config_listener,
@@ -245,10 +250,11 @@ remove_defaults_for_account (ExchangeConfigListener *config_listener,
 				   "/apps/evolution/shell/default_folders/tasks_path",
 				   "/apps/evolution/shell/default_folders/tasks_uri",
 				   account_uri_prefix, account_uri_prefix_len);
-
+#if E_FOLDER_LIST	
 	remove_autocompletion_folders (config_listener->priv->gconf,
 				       account_uri_prefix,
 				       account_uri_prefix_len);
+#endif
 
 	gconf_client_unset (config_listener->priv->gconf,
 			    "/apps/evolution/exchange/configured_account",
@@ -294,6 +300,7 @@ add_one_default_folder (GConfClient *gconf, ExchangeAccount *account,
 	return TRUE;
 }
 
+#if E_FOLDER_LIST
 static void
 set_folder_list_item (EFolderListItem *item, ExchangeAccount *account,
 		      EFolder *folder)
@@ -345,6 +352,7 @@ add_autocompletion_folders (GConfClient *gconf, ExchangeAccount *account)
 	g_free (xml);
 	e_folder_list_free_items (list);
 }
+#endif
 
 static void
 set_special_mail_folder (ExchangeAccount *account, const char *folder_type,
@@ -362,6 +370,7 @@ set_special_mail_folder (ExchangeAccount *account, const char *folder_type,
 
 static void
 add_defaults_for_account (ExchangeConfigListener *config_listener,
+			  E2kContext *ctx,
 			  ExchangeAccount *account)
 {
 	EAccount *eaccount;
@@ -398,7 +407,9 @@ add_defaults_for_account (ExchangeConfigListener *config_listener,
 				 "/apps/evolution/exchange/configured_account",
 				 account->account_name, NULL);
 
+#if LDEAD
 	add_autocompletion_folders (config_listener->priv->gconf, account);
+#endif
 
 	eaccount = config_listener->priv->configured_account;
 	set_special_mail_folder (account, "drafts",
@@ -417,12 +428,6 @@ add_defaults_for_account (ExchangeConfigListener *config_listener,
 }
 
 
-static void
-account_connected (ExchangeAccount *account, gpointer user_data)
-{
-	;
-}
-
 static gboolean
 is_active_exchange_account (EAccount *account)
 {
@@ -433,6 +438,167 @@ is_active_exchange_account (EAccount *account)
 	return (strncmp (account->source->url, "exchange://", 11) == 0);
 }
 
+static void
+add_esource(ExchangeAccount *account, char *conf_key, const char *folder_name)
+{
+        ESource *source;
+        ESourceList *source_list;
+        ESourceGroup *source_group;
+        char *relative_uri;
+
+        relative_uri = g_strdup_printf ("%s/personal/%s", 
+					account->account_filename, folder_name);
+
+        source_list = e_source_list_new_for_gconf (gconf_client_get_default (),
+						 conf_key);
+
+        if ((source_group = e_source_list_peek_group_by_name (source_list, 
+					account->account_name)) == NULL){
+        	source_group = e_source_group_new (account->account_name, 
+						   "exchange://");
+        	if (!e_source_list_add_group (source_list, source_group, -1)) {
+			g_object_unref (source_group);
+        		g_free(relative_uri);
+                	return;
+		}
+		g_object_unref (source_group);
+
+        	source = e_source_new (folder_name, relative_uri);
+		e_source_group_add_source (source_group, source, -1);
+		g_object_unref (source);
+	}
+	else {
+                /*group already exists*/
+		/* FIXME - is this check needed ?*/
+		if((source = e_source_group_peek_source_by_name(source_group, 
+							folder_name)) == NULL){
+        		source = e_source_new (folder_name, relative_uri);
+			e_source_group_add_source (source_group, source, -1);
+			g_object_unref (source);
+		}
+	}
+
+        e_source_list_sync (source_list, NULL);
+        g_object_unref (source_list);
+        g_free(relative_uri);
+}
+
+static void
+add_sources (ExchangeAccount *account)
+{
+	char *conf_key_cal="/apps/evolution/calendar/sources";
+	char *conf_key_tasks="/apps/evolution/tasks/sources";
+	char *conf_key_contacts="/apps/evolution/addressbook/sources";
+	const char *folder_name;
+	GPtrArray *exchange_folders;
+	EFolder *folder; 
+	int i;
+
+	exchange_folders = exchange_account_get_folders (account);                                                                                 
+        if (exchange_folders) {
+                for (i = 0; i < exchange_folders->len; i++) {
+			folder = exchange_folders->pdata[i];
+			if (!(strcmp (e_folder_get_type_string(folder), "calendar"))){
+				folder_name = e_folder_get_name(folder);
+        			add_esource(account, conf_key_cal, folder_name);
+				continue;
+			}
+			if (!(strcmp (e_folder_get_type_string(folder), "tasks"))){
+				folder_name = e_folder_get_name(folder);
+        			add_esource(account, conf_key_tasks, folder_name);
+				continue;
+			}
+			if (!(strcmp (e_folder_get_type_string(folder), "contacts"))){
+				folder_name = e_folder_get_name(folder);
+        			add_esource(account, conf_key_contacts, folder_name);
+				continue;
+			}
+			continue;
+		}
+                g_ptr_array_free (exchange_folders, TRUE);
+        }
+}
+
+static void 
+remove_esource(ExchangeAccount *account, char *conf_key, const char *folder_name)
+{
+        ESourceList *list;  ESourceGroup *group;
+        ESource *source;
+        GSList *groups;
+        GSList *sources;
+        gboolean found_group;
+        char *relative_uri;
+
+        relative_uri = g_strdup_printf ("%s/personal/%s", 
+					account->account_filename,folder_name);
+
+        list = e_source_list_new_for_gconf (gconf_client_get_default (), 
+						conf_key);
+        groups = e_source_list_peek_groups (list);
+        found_group = FALSE;
+
+        for ( ; groups != NULL && !found_group; groups = g_slist_next (groups)) {
+                group = E_SOURCE_GROUP (groups->data);
+
+                if (strcmp (e_source_group_peek_name (group), account->account_name) == 0
+                    &&
+                   strcmp (e_source_group_peek_base_uri (group), "exchange://" ) == 0) {
+
+                        sources = e_source_group_peek_sources (group);
+
+                        for( ; sources != NULL; sources = g_slist_next (sources)) {
+
+                                source = E_SOURCE (sources->data);
+
+                                if (strcmp (e_source_peek_relative_uri (source), 
+					    relative_uri) == 0) {
+                                        e_source_list_remove_group (list, group);
+                                        e_source_list_sync (list, NULL);
+                                        found_group = TRUE;
+                                        break;
+                                }
+                        }
+                }
+        }
+        g_object_unref (list);
+        g_free(relative_uri);
+}
+
+static void
+remove_sources(ExchangeAccount *account)
+{
+	char *conf_key_cal="/apps/evolution/calendar/sources";
+	char *conf_key_tasks="/apps/evolution/tasks/sources";
+	char *conf_key_contacts="/apps/evolution/addressbook/sources";
+	const char *folder_name;
+	EFolder *folder; 
+	GPtrArray *exchange_folders;
+	int i;
+
+	exchange_folders = exchange_account_get_folders (account);
+	if (exchange_folders) {
+		for (i = 0; i < exchange_folders->len; i++) {
+			folder = exchange_folders->pdata[i];
+			if (!(strcmp (e_folder_get_type_string(folder), "calendar"))){
+				folder_name = e_folder_get_name(folder);
+        			remove_esource(account, conf_key_cal, folder_name);
+				continue;
+			}
+			if (!(strcmp (e_folder_get_type_string(folder), "tasks"))){
+				folder_name = e_folder_get_name(folder);
+        			remove_esource(account, conf_key_tasks, folder_name);
+				continue;
+			}
+			if (!(strcmp (e_folder_get_type_string(folder), "contacts"))){
+				folder_name = e_folder_get_name(folder);
+        			remove_esource(account, conf_key_contacts, folder_name);
+				continue;
+			}
+			continue;
+		}
+        	g_ptr_array_free (exchange_folders, TRUE);
+        }
+}
 
 static void
 account_added (EAccountList *account_list, EAccount *account)
@@ -476,7 +642,9 @@ account_added (EAccountList *account_list, EAccount *account)
 
 	g_signal_emit (config_listener, signals[EXCHANGE_ACCOUNT_CREATED], 0,
 		       exchange_account);
-	exchange_account_async_connect (exchange_account, account_connected, NULL);
+	exchange_account_connect (exchange_account);
+
+	add_sources (exchange_account);
 }
 
 struct account_update_data {
@@ -531,7 +699,7 @@ account_changed (EAccountList *account_list, EAccount *account)
 	/* OK, so he modified the active account in a way we care
 	 * about. If the user hasn't connected yet, we're still ok.
 	 */
-	if (!exchange_account_get_connection (config_listener->priv->exchange_account)) {
+	if (!exchange_account_get_context (config_listener->priv->exchange_account)) {
 		/* Good. Remove the current account, and wait for it
 		 * to actually go away (which may not happen immediately
 		 * since there may be a function higher up on the stack
@@ -578,7 +746,10 @@ account_removed (EAccountList *account_list, EAccount *account)
 
 	remove_defaults_for_account (config_listener, account->name);
 
-	if (!exchange_account_get_connection (priv->exchange_account)) {
+	/* Remove ESources */
+	remove_sources(priv->exchange_account);
+
+	if (!exchange_account_get_context (priv->exchange_account)) {
 		/* The account isn't connected yet, so we can destroy
 		 * it without problems.
 		 */
@@ -614,7 +785,6 @@ idle_construct (gpointer data)
 
 /**
  * exchange_config_listener_new:
- * @gconf: a GConf client
  *
  * This creates and returns a new #ExchangeConfigListener, which
  * monitors GConf and creates and (theoretically) destroys accounts
@@ -630,13 +800,12 @@ idle_construct (gpointer data)
  * Return value: the new config listener.
  **/
 ExchangeConfigListener *
-exchange_config_listener_new (GConfClient *gconf)
+exchange_config_listener_new (void)
 {
 	ExchangeConfigListener *config_listener;
 
 	config_listener = g_object_new (EXCHANGE_TYPE_CONFIG_LISTENER, NULL);
-	config_listener->priv->gconf = gconf;
-	g_object_ref (gconf);
+	config_listener->priv->gconf = gconf_client_get_default ();
 
 	config_listener->priv->idle_id =
 		g_idle_add (idle_construct, config_listener);

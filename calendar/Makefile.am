@@ -1,22 +1,28 @@
 INCLUDES =                                                      \
 	$(CALENDAR_CFLAGS)					\
 	$(LIBEXCHANGE_CFLAGS)					\
+	$(LDAP_CFLAGS)						\
+	-I$(top_srcdir)						\
         -I$(top_srcdir)/lib					\
 	-I$(top_builddir)/lib					\
         -I$(top_srcdir)/storage					\
-	-I$(top_builddir)/storage				\
-	-DG_LOG_DOMAIN=\"cal-backend-exchange\"
+        -I$(top_srcdir)/shell					\
+	-I$(top_builddir)/shell					\
+        -I$(top_srcdir)/component				\
+	-I$(top_builddir)/component				\
+	-DG_LOG_DOMAIN=\"e-cal-backend-exchange\"
 
 noinst_LIBRARIES =						\
         libexchangecalendar.a
 
 libexchangecalendar_a_SOURCES = 				\
-	cal-backend-exchange.c					\
-	cal-backend-exchange.h					\
-	cal-backend-exchange-utils.c				\
-	e2k-cache.c						\
-	e2k-cache.h						\
-	e2k-cal-component.c					\
-	e2k-cal-component.h					\
-	e2k-cal-component-todo.c
- 
+	e-cal-backend-exchange.c				\
+	e-cal-backend-exchange.h				\
+	e-cal-backend-exchange-calendar.c			\
+	e-cal-backend-exchange-calendar.h			\
+	e-cal-backend-exchange-tasks.c				\
+	e-cal-backend-exchange-tasks.h				\
+	e2k-cal-query.c						\
+	e2k-cal-query.h						\
+	e2k-cal-utils.c						\
+	e2k-cal-utils.h

@@ -9,7 +9,7 @@ extern "C" {
 #pragma }
 #endif /* __cplusplus */
 
-#include "e2k-connection.h"
+#include "e2k-properties.h"
 
 char    *mail_util_mapi_to_smtp_headers (E2kProperties *props);
 

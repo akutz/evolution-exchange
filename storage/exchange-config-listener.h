@@ -35,7 +35,7 @@ struct _ExchangeConfigListenerClass {
 };
 
 GType                   exchange_config_listener_get_type (void);
-ExchangeConfigListener *exchange_config_listener_new      (GConfClient *gconf);
+ExchangeConfigListener *exchange_config_listener_new      (void);
 
 #ifdef __cplusplus
 }

@@ -33,7 +33,10 @@ static const char *b64_alphabet =
  * @data: binary data
  * @len: the length of @data
  *
- * Return value: a base64-encoded representation of @data.
+ * Base64-encodes @len bytes of data at @data.
+ *
+ * Return value: the base64-encoded representation of @data, which
+ * the caller must free.
  **/
 char *
 e2k_base64_encode (const guint8 *data, int len)
@@ -92,6 +95,8 @@ static guint8 base64_unphabet[] = {
 /**
  * e2k_base64_decode:
  * @string: base64-encoded data
+ *
+ * Decodes the base64-encoded data in @string.
  *
  * Return value: the binary data encoded in @string
  **/

@@ -7,29 +7,11 @@ autoconfiguration happens are in the Evolution user documentation.)
 
 
 The general idea is that you can provide certain autoconfiguration
-hints by adding fields to the end of the Connector license file. The
-hints must be added *after* the encrypted block. Eg:
-
-    Owner: Geoff Hunt <geoff@rupertcorp.com>
-    Licensed for: 1000 users
-    Issued: 2002-05-07T19:37:20.26979Z
-    
-    4J6H2M83FwVcGDOrIPU84Nc+kcR8QjJu1aDq2Z34SzoHzxFz13LSwNZ6VJGxvEfGdfdIPABB
-    VX3Van3ATBPPH1XuoXkriGILVgF98UGhJSgKJWoBBL9Q0MVK9oKDMOLp/sglZLni87GYo/Aw
-    0uZzizHiGzpQhvLkjDxj91apimjCUxzC29oi1xrEHbPAcrpqhqhPEDtpoZC+FMiTXl9m60Be
-    2acmoyJxx5vCtAbm1v6Rx9pEXcAVxI1YOKnqZc89t5yYFeCeYPgxzWyHPtTDfw==
+hints by creating a file /etc/ximian/connector.conf or
+${PREFIX}/etc/connector.conf with information like:
 
     OWA-URL: https://exchange.rupertcorp.com/exchange/
     Global-Catalog: ad1.rupertcorp.com
-
-This license file can then either be distributed to the user via
-email, or pre-installed on their machine as /etc/ximian/connector-key.txt
-or /usr/share/ximian-connector/connector-key.txt
-
-[Note that although license files are no longer required, you can
-still use them for purposes of autoconfiguration. The license part of
-the file is simply ignored. In Connector 2.0, this will be done
-differently.]
 
 
 Basic Autoconfiguration
@@ -67,13 +49,13 @@ name. Similarly, if the user is trying to configure Connector from
 outside the firewall, it is possible that the DNS pointer to the GC
 server will not be visible.
 
-In either case, you can add a "Global-Catalog" hint to the license
+In either case, you can add a "Global-Catalog" hint to the config
 file:
 
     Global-Catalog: ad1.rupertcorp.com
 
 If autoconfiguration cannot determine the global catalog name (either
-automatically or by looking in the license file) then the user will
+automatically or by looking in the config file) then the user will
 need to enter it manually.
 
 
@@ -87,8 +69,8 @@ This is useful if Plaintext Password authentication will be required
 and the Exchange server does not automatically assume that domain.
 
 
-Other license file hints
-------------------------
+Other config hints
+------------------
 GAL-Limit: 500
     Default search size limit for GAL searches.
 

@@ -29,7 +29,7 @@
 #include "exchange-hierarchy-webdav.h"
 #include "exchange-account.h"
 #include "e-folder-exchange.h"
-#include "e2k-connection.h"
+#include "e2k-context.h"
 #include "e2k-propnames.h"
 #include "e2k-restriction.h"
 #include "e2k-uri.h"
@@ -56,21 +56,19 @@ static void folder_type_map_init (void);
 static void finalize (GObject *object);
 static gboolean is_empty (ExchangeHierarchy *hier);
 static void rescan (ExchangeHierarchy *hier);
-static void async_scan_subtree (ExchangeHierarchy *hier, EFolder *folder,
-				ExchangeAccountFolderCallback callback,
-				gpointer user_data);
-static void async_create_folder (ExchangeHierarchy *hier, EFolder *parent,
-				 const char *name, const char *type,
-				 ExchangeAccountFolderCallback callback,
-				 gpointer user_data);
-static void async_remove_folder (ExchangeHierarchy *hier, EFolder *folder,
-				 ExchangeAccountFolderCallback callback,
-				 gpointer user_data);
-static void async_xfer_folder (ExchangeHierarchy *hier, EFolder *source,
-			       EFolder *dest_parent, const char *dest_name,
-			       gboolean remove_source,
-			       ExchangeAccountFolderCallback callback,
-			       gpointer user_data);
+static ExchangeAccountFolderResult scan_subtree  (ExchangeHierarchy *hier,
+						  EFolder *folder);
+static ExchangeAccountFolderResult create_folder (ExchangeHierarchy *hier,
+						  EFolder *parent,
+						  const char *name,
+						  const char *type);
+static ExchangeAccountFolderResult remove_folder (ExchangeHierarchy *hier,
+						  EFolder *folder);
+static ExchangeAccountFolderResult xfer_folder   (ExchangeHierarchy *hier,
+						  EFolder *source,
+						  EFolder *dest_parent,
+						  const char *dest_name,
+						  gboolean remove_source);
 
 static void hierarchy_new_folder (ExchangeHierarchy *hier, EFolder *folder,
 				  gpointer user_data);
@@ -92,10 +90,10 @@ class_init (GObjectClass *object_class)
 
 	exchange_hierarchy_class->is_empty = is_empty;
 	exchange_hierarchy_class->rescan = rescan;
-	exchange_hierarchy_class->async_scan_subtree = async_scan_subtree;
-	exchange_hierarchy_class->async_create_folder = async_create_folder;
-	exchange_hierarchy_class->async_remove_folder = async_remove_folder;
-	exchange_hierarchy_class->async_xfer_folder = async_xfer_folder;
+	exchange_hierarchy_class->scan_subtree = scan_subtree;
+	exchange_hierarchy_class->create_folder = create_folder;
+	exchange_hierarchy_class->remove_folder = remove_folder;
+	exchange_hierarchy_class->xfer_folder = xfer_folder;
 }
 
 static void
@@ -260,214 +258,120 @@ e_folder_webdav_new (ExchangeHierarchy *hier, const char *internal_uri,
 	return folder;
 }
 
-struct folder_data {
-	ExchangeHierarchyWebDAV *hwd;
-	EFolder *source, *dest;
-
-	ExchangeAccountFolderCallback callback;
-	gpointer user_data;
-};
-
-static void
-finish_folder_op (struct folder_data *fd, ExchangeAccountFolderResult result)
+static ExchangeAccountFolderResult
+create_folder (ExchangeHierarchy *hier, EFolder *parent,
+	       const char *name, const char *type)
 {
-	ExchangeHierarchy *hier = EXCHANGE_HIERARCHY (fd->hwd);
-
-	if (result == EXCHANGE_ACCOUNT_FOLDER_OK) {
-		if (fd->dest)
-			exchange_hierarchy_new_folder (hier, fd->dest);
-		fd->callback (hier->account, result, fd->dest, fd->user_data);
-		if (fd->source)
-			exchange_hierarchy_removed_folder (hier, fd->source);
-	} else
-		fd->callback (hier->account, result, NULL, fd->user_data);
-
-	if (fd->dest)
-		g_object_unref (fd->dest);
-	g_object_unref (fd->hwd);
-	g_free (fd);
-}
-
-static void
-created_folder (E2kConnection *conn, SoupMessage *msg, gpointer user_data)
-{
-	struct folder_data *fd = user_data;
-
-	if (SOUP_ERROR_IS_SUCCESSFUL (msg->errorcode))
-		finish_folder_op (fd, EXCHANGE_ACCOUNT_FOLDER_OK);
-	else if (msg->errorcode == SOUP_ERROR_METHOD_NOT_ALLOWED)
-		finish_folder_op (fd, EXCHANGE_ACCOUNT_FOLDER_ALREADY_EXISTS);
-	else if (msg->errorcode == SOUP_ERROR_CONFLICT)
-		finish_folder_op (fd, EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST);
-	else if (msg->errorcode == SOUP_ERROR_FORBIDDEN)
-		finish_folder_op (fd, EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED);
-	else
-		finish_folder_op (fd, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
-}
-
-static void
-async_create_folder (ExchangeHierarchy *hier, EFolder *parent,
-		     const char *name, const char *type,
-		     ExchangeAccountFolderCallback callback,
-		     gpointer user_data)
-{
-	ExchangeHierarchyWebDAV *hwd = EXCHANGE_HIERARCHY_WEBDAV (hier);
-	struct folder_data *fd;
+	EFolder *dest;
 	E2kProperties *props;
+	E2kHTTPStatus status;
+	char *permanent_url = NULL;
 	int i;
 
 #ifdef OFFLINE_SUPPORT
-	if (exchange_account_is_offline (hier->account)) {
-		callback (hier->account, EXCHANGE_ACCOUNT_FOLDER_OFFLINE, NULL, user_data);
-		return;
-	}
+	if (exchange_account_is_offline (hier->account))
+		return EXCHANGE_ACCOUNT_FOLDER_OFFLINE;
 #endif
-
-	fd = g_new0 (struct folder_data, 1);
-	fd->hwd = hwd;
-	g_object_ref (hwd);
-	fd->callback = callback;
-	fd->user_data = user_data;
 
 	for (i = 0; folder_types[i].component; i++) {
 		if (!strcmp (folder_types[i].component, type))
 			break;
 	}
-	if (!folder_types[i].component) {
-		finish_folder_op (fd, EXCHANGE_ACCOUNT_FOLDER_UNKNOWN_TYPE);
-		return;
-	}
+	if (!folder_types[i].component)
+		return EXCHANGE_ACCOUNT_FOLDER_UNKNOWN_TYPE;
 
-	fd->dest = e_folder_webdav_new (hier, NULL, parent, name, type,
-					folder_types[i].contentclass, 0,
-					folder_types[i].offline_supported);
+	dest = e_folder_webdav_new (hier, NULL, parent, name, type,
+				    folder_types[i].contentclass, 0,
+				    folder_types[i].offline_supported);
 
 	props = e2k_properties_new ();
 	e2k_properties_set_string (props, E2K_PR_EXCHANGE_FOLDER_CLASS,
 				   g_strdup (folder_types[i].contentclass));
 
-	E2K_DEBUG_HINT ('S');
-	e_folder_exchange_mkcol (fd->dest, props, created_folder, fd);
+	status = e_folder_exchange_mkcol (dest, NULL, props,
+					  &permanent_url);
 	e2k_properties_free (props);
+
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		e_folder_exchange_set_permanent_uri (dest, permanent_url);
+		g_free (permanent_url);
+		exchange_hierarchy_new_folder (hier, dest);
+		g_object_unref (dest);
+		return EXCHANGE_ACCOUNT_FOLDER_OK;
+	}
+
+	g_object_unref (dest);
+	if (status == E2K_HTTP_METHOD_NOT_ALLOWED)
+		return EXCHANGE_ACCOUNT_FOLDER_ALREADY_EXISTS;
+	else if (status == E2K_HTTP_CONFLICT)
+		return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
+	else if (status == E2K_HTTP_FORBIDDEN)
+		return EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED;
+	else
+		return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
 }
 
-/* This is the callback for both remove and xfer */
-static void
-xferred_folder (E2kConnection *conn, SoupMessage *msg, gpointer user_data)
+static ExchangeAccountFolderResult
+remove_folder (ExchangeHierarchy *hier, EFolder *folder)
 {
-	struct folder_data *fd = user_data;
+	E2kHTTPStatus status;
 
-	if (SOUP_ERROR_IS_SUCCESSFUL (msg->errorcode)) {
-		if (fd->dest) {
-			async_scan_subtree (EXCHANGE_HIERARCHY (fd->hwd),
-					    fd->dest, NULL, NULL);
-		}
-		finish_folder_op (fd, EXCHANGE_ACCOUNT_FOLDER_OK);
+#ifdef OFFLINE_SUPPORT
+	if (exchange_account_is_offline (hier->account))
+		return EXCHANGE_ACCOUNT_FOLDER_OFFLINE;
+#endif
+
+	if (folder == hier->toplevel)
+		return EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED;
+
+	status = e_folder_exchange_delete (folder, NULL);
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		exchange_hierarchy_removed_folder (hier, folder);
+		return EXCHANGE_ACCOUNT_FOLDER_OK;
 	} else
-		finish_folder_op (fd, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+		return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
 }
 
-static void
-async_remove_folder (ExchangeHierarchy *hier, EFolder *folder,
-		     ExchangeAccountFolderCallback callback,
-		     gpointer user_data)
+static ExchangeAccountFolderResult
+xfer_folder (ExchangeHierarchy *hier, EFolder *source,
+	     EFolder *dest_parent, const char *dest_name,
+	     gboolean remove_source)
 {
-	ExchangeHierarchyWebDAV *hwd = EXCHANGE_HIERARCHY_WEBDAV (hier);
-	struct folder_data *fd;
+	E2kHTTPStatus status;
+	EFolder *dest;
+	char *permanent_url = NULL;
 
 #ifdef OFFLINE_SUPPORT
-	if (exchange_account_is_offline (hier->account)) {
-		callback (hier->account, EXCHANGE_ACCOUNT_FOLDER_OFFLINE, NULL, user_data);
-		return;
-	}
+	if (exchange_account_is_offline (hier->account))
+		return EXCHANGE_ACCOUNT_FOLDER_OFFLINE;
 #endif
 
-	if (folder == hier->toplevel) {
-		callback (hier->account, EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED, NULL, user_data);
-		return;
-	}
+	if (source == hier->toplevel)
+		return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
 
-	fd = g_new0 (struct folder_data, 1);
-	fd->hwd = hwd;
-	g_object_ref (hwd);
-	fd->source = folder;
-	fd->callback = callback;
-	fd->user_data = user_data;
 
-	E2K_DEBUG_HINT ('S');
-	e_folder_exchange_delete (folder, xferred_folder, fd);
-}
+	dest = e_folder_webdav_new (hier, NULL, dest_parent, dest_name,
+				    e_folder_get_type_string (source),
+				    e_folder_exchange_get_outlook_class (source),
+				    e_folder_get_unread_count (source),
+				    e_folder_get_can_sync_offline (source));
 
-static void
-async_xfer_folder (ExchangeHierarchy *hier, EFolder *source,
-		   EFolder *dest_parent, const char *dest_name,
-		   gboolean remove_source,
-		   ExchangeAccountFolderCallback callback,
-		   gpointer user_data)
-{
-	ExchangeHierarchyWebDAV *hwd = EXCHANGE_HIERARCHY_WEBDAV (hier);
-	struct folder_data *fd;
+	status = e_folder_exchange_transfer_dir (source, NULL, dest,
+						 remove_source,
+						 &permanent_url);
 
-#ifdef OFFLINE_SUPPORT
-	if (exchange_account_is_offline (hier->account)) {
-		callback (hier->account, EXCHANGE_ACCOUNT_FOLDER_OFFLINE, NULL, user_data);
-		return;
-	}
-#endif
-
-	if (source == hier->toplevel) {
-		callback (hier->account, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR, NULL, user_data);
-		return;
-	}
-
-	fd = g_new0 (struct folder_data, 1);
-	fd->hwd = hwd;
-	g_object_ref (hwd);
-	fd->callback = callback;
-	fd->user_data = user_data;
-
-	if (remove_source)
-		fd->source = source;
-	fd->dest = e_folder_webdav_new (hier, NULL, dest_parent, dest_name,
-					e_folder_get_type_string (source),
-					e_folder_exchange_get_outlook_class (source),
-					e_folder_get_unread_count (source),
-					e_folder_get_can_sync_offline (source));
-
-	E2K_DEBUG_HINT ('S');
-	e_folder_exchange_transfer_dir (source, fd->dest, remove_source,
-					xferred_folder, fd);
-}
-
-static void
-rescanned (E2kConnection *conn, SoupMessage *msg,
-	   E2kResult *results, int nresults, gpointer user_data)
-{
-	ExchangeHierarchy *hier = user_data;
-	ExchangeHierarchyWebDAV *hwd = user_data;
-	EFolder *folder;
-	const char *prop;
-	int i, unread;
-
-	if (!SOUP_ERROR_IS_SUCCESSFUL (msg->errorcode))
-		return;
-
-	for (i = 0; i < nresults; i++) {
-		folder = g_hash_table_lookup (hwd->priv->folders_by_internal_path,
-					      e2k_uri_path (results[i].href));
-		if (!folder)
-			continue;
-
-		prop = e2k_properties_get_prop (results[i].props,
-						E2K_PR_HTTPMAIL_UNREAD_COUNT);
-		if (!prop)
-			continue;
-		unread = atoi (prop);
-
-		if (unread != e_folder_get_unread_count (folder)) {
-			e_folder_set_unread_count (folder, unread);
-			exchange_hierarchy_updated_folder (hier, folder);
-		}
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		if (permanent_url)
+			e_folder_exchange_set_permanent_uri (dest, permanent_url);
+		if (remove_source)
+			exchange_hierarchy_removed_folder (hier, source);
+		exchange_hierarchy_new_folder (hier, dest);
+		scan_subtree (hier, dest);
+		g_object_unref (dest);
+		return EXCHANGE_ACCOUNT_FOLDER_OK;
+	} else {
+		g_object_unref (dest);
+		return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
 	}
 }
 
@@ -484,8 +388,12 @@ static void
 rescan (ExchangeHierarchy *hier)
 {
 	ExchangeHierarchyWebDAV *hwd = EXCHANGE_HIERARCHY_WEBDAV (hier);
-	GPtrArray *hrefs;
 	const char *prop = E2K_PR_HTTPMAIL_UNREAD_COUNT;
+	GPtrArray *hrefs;
+	E2kResultIter *iter;
+	E2kResult *result;
+	EFolder *folder;
+	int unread;
 
 	if (
 #ifdef OFFLINE_SUPPORT
@@ -495,42 +403,64 @@ rescan (ExchangeHierarchy *hier)
 		return;
 
 	hrefs = g_ptr_array_new ();
-	g_hash_table_foreach (hwd->priv->folders_by_internal_path, add_href, hrefs);
+	g_hash_table_foreach (hwd->priv->folders_by_internal_path,
+			      add_href, hrefs);
 	if (!hrefs->len) {
 		g_ptr_array_free (hrefs, TRUE);
 		return;
 	}
 
-	e_folder_exchange_bpropfind (hier->toplevel,
-				     (const char **)hrefs->pdata, hrefs->len, "0",
-				     &prop, 1, rescanned, hier);
+	g_object_ref (hier);
+	iter = e_folder_exchange_bpropfind_start (hier->toplevel, NULL,
+						  (const char **)hrefs->pdata,
+						  hrefs->len,
+						  &prop, 1);
 	g_ptr_array_free (hrefs, TRUE);
+
+	while ((result = e2k_result_iter_next (iter))) {
+		folder = g_hash_table_lookup (hwd->priv->folders_by_internal_path,
+					      e2k_uri_path (result->href));
+		if (!folder)
+			continue;
+
+		prop = e2k_properties_get_prop (result->props,
+						E2K_PR_HTTPMAIL_UNREAD_COUNT);
+		if (!prop)
+			continue;
+		unread = atoi (prop);
+
+		if (unread != e_folder_get_unread_count (folder)) {
+			e_folder_set_unread_count (folder, unread);
+			exchange_hierarchy_updated_folder (hier, folder);
+		}
+	}
+	e2k_result_iter_free (iter);
+	g_object_unref (hier);
 }
 
 ExchangeAccountFolderResult
-exchange_hierarchy_webdav_parse_folders (ExchangeHierarchyWebDAV *hwd,
-					 SoupMessage *msg,
-					 EFolder *parent,
-					 E2kResult *results,
-					 int nresults,
-					 GPtrArray **folders_p)
+exchange_hierarchy_webdav_status_to_folder_result (E2kHTTPStatus status)
 {
-	GPtrArray *folders;
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+		return EXCHANGE_ACCOUNT_FOLDER_OK;
+	else if (status == E2K_HTTP_NOT_FOUND)
+		return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
+	else if (status == E2K_HTTP_UNAUTHORIZED)
+		return EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED;
+	else
+		return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
+}
+
+EFolder *
+exchange_hierarchy_webdav_parse_folder (ExchangeHierarchyWebDAV *hwd,
+					EFolder *parent,
+					E2kResult *result)
+{
 	EFolder *folder;
 	ExchangeFolderType *folder_type;
-	const char *prop, *outlook_class;
-	char *name;
-	int i, unread;
+	const char *name, *prop, *outlook_class, *permanenturl;
+	int unread;
 	gboolean hassubs;
-
-	if (msg->errorcode != SOUP_ERROR_DAV_MULTISTATUS) {
-		if (msg->errorcode == SOUP_ERROR_NOT_FOUND)
-			return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
-		else if (msg->errorcode == SOUP_ERROR_CANT_AUTHENTICATE)
-			return EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED;
-		else
-			return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
-	}
 
 	/* It's possible to have a localized inbox folder named, eg,
 	 * "Innboks", with children whose URIs go through "Inbox"
@@ -543,198 +473,101 @@ exchange_hierarchy_webdav_parse_folders (ExchangeHierarchyWebDAV *hwd,
 	 * with this by fetching DAV:parentname.
 	 */
 
-	folders = g_ptr_array_new ();
+	name = e2k_properties_get_prop (result->props,
+					E2K_PR_DAV_DISPLAY_NAME);
+	if (!name)
+		return NULL;
 
-	for (i = 0; i < nresults; i++) {
-		name = e2k_properties_get_prop (results[i].props,
-						E2K_PR_DAV_DISPLAY_NAME);
-		if (!name)
-			continue;
+	prop = e2k_properties_get_prop (result->props,
+					E2K_PR_HTTPMAIL_UNREAD_COUNT);
+	unread = prop ? atoi (prop) : 0;
+	prop = e2k_properties_get_prop (result->props,
+					E2K_PR_DAV_HAS_SUBS);
+	hassubs = prop && atoi (prop);
 
-		prop = e2k_properties_get_prop (results[i].props,
-						E2K_PR_HTTPMAIL_UNREAD_COUNT);
-		unread = prop ? atoi (prop) : 0;
-		prop = e2k_properties_get_prop (results[i].props,
-						E2K_PR_DAV_HAS_SUBS);
-		hassubs = prop && atoi (prop);
+	outlook_class = e2k_properties_get_prop (result->props,
+						 E2K_PR_EXCHANGE_FOLDER_CLASS);
+	folder_type = NULL;
+	if (outlook_class)
+		folder_type = g_hash_table_lookup (folder_type_map, outlook_class);
+	if (!folder_type)
+		folder_type = &folder_types[0]; /* mail */
+	if (!outlook_class)
+		outlook_class = folder_type->contentclass;
 
-		outlook_class = e2k_properties_get_prop (results[i].props,
-							 E2K_PR_EXCHANGE_FOLDER_CLASS);
-		folder_type = NULL;
-		if (outlook_class)
-			folder_type = g_hash_table_lookup (folder_type_map, outlook_class);
-		if (!folder_type)
-			folder_type = &folder_types[0]; /* mail */
-		if (!outlook_class)
-			outlook_class = folder_type->contentclass;
+	permanenturl = e2k_properties_get_prop (result->props,
+						E2K_PR_EXCHANGE_PERMANENTURL);
 
-		folder = e_folder_webdav_new (EXCHANGE_HIERARCHY (hwd),
-					      results[i].href, parent,
-					      name, folder_type->component,
-					      outlook_class, unread,
-					      folder_type->offline_supported);
-		if (hwd->priv->trash_path && !strcmp (e2k_uri_path (results[i].href), hwd->priv->trash_path))
-			e_folder_set_custom_icon (folder, "evolution-trash");
-		if (hassubs)
-			e_folder_exchange_set_has_subfolders (folder, TRUE);
+	folder = e_folder_webdav_new (EXCHANGE_HIERARCHY (hwd),
+				      result->href, parent,
+				      name, folder_type->component,
+				      outlook_class, unread,
+				      folder_type->offline_supported);
+	if (hwd->priv->trash_path && !strcmp (e2k_uri_path (result->href), hwd->priv->trash_path))
+		e_folder_set_custom_icon (folder, "evolution-trash");
+	if (hassubs)
+		e_folder_exchange_set_has_subfolders (folder, TRUE);
+	if (permanenturl)
+		e_folder_exchange_set_permanent_uri (folder, permanenturl);
 
-		g_ptr_array_add (folders, folder);
-	}
-
-	*folders_p = folders;
-	return EXCHANGE_ACCOUNT_FOLDER_OK;
-}
-
-struct scan_master_data {
-	ExchangeHierarchyWebDAV *hwd;
-	EFolder *top;
-	ExchangeAccountFolderCallback callback;
-	gpointer user_data;
-	int pending;
-};
-
-struct scan_folder_data {
-	struct scan_master_data *smd;
-	EFolder *parent;
-};
-
-static void async_scan_one_subtree (struct scan_master_data *smd, EFolder *folder);
-
-static void
-got_subtree (E2kConnection *conn, SoupMessage *msg,
-	     E2kResult *results, int nresults,
-	     gpointer user_data)
-{
-	struct scan_folder_data *sfd = user_data;
-	struct scan_master_data *smd = sfd->smd;
-	ExchangeHierarchy *hier = EXCHANGE_HIERARCHY (smd->hwd);
-	ExchangeAccountFolderResult result;
-	GPtrArray *folders;
-	EFolder *folder;
-	int i;
-
-	result = exchange_hierarchy_webdav_parse_folders (
-		sfd->smd->hwd, msg, sfd->parent, results, nresults, &folders);
-	g_object_unref (sfd->parent);
-	g_free (sfd);
-	smd->pending--;
-
-	if (result == EXCHANGE_ACCOUNT_FOLDER_OK) {
-		for (i = 0; i < folders->len; i++) {
-			folder = folders->pdata[i];
-
-			if (smd->hwd->priv->deep_searchable &&
-			    e_folder_exchange_get_has_subfolders (folder)) {
-				e_folder_exchange_set_has_subfolders (folder, FALSE);
-				async_scan_one_subtree (smd, folder);
-			}
-			exchange_hierarchy_new_folder (hier, folder);
-			g_object_unref (folder);
-		}
-		g_ptr_array_free (folders, TRUE);
-	}
-
-	if (smd->pending)
-		return;
-
-	exchange_hierarchy_scanned_folder (hier, smd->top);
-	if (smd->callback) {
-		smd->callback (hier->account, result,
-			       smd->top, smd->user_data);
-	}
-	g_object_unref (smd->hwd);
-	g_object_unref (smd->top);
-	g_free (smd);
+	return folder;
 }
 
 static const char *folder_props[] = {
 	E2K_PR_EXCHANGE_FOLDER_CLASS,
 	E2K_PR_HTTPMAIL_UNREAD_COUNT,
 	E2K_PR_DAV_DISPLAY_NAME,
+	E2K_PR_EXCHANGE_PERMANENTURL,
 	E2K_PR_DAV_HAS_SUBS
 };
 static const int n_folder_props = sizeof (folder_props) / sizeof (folder_props[0]);
 
-static void
-async_scan_one_subtree (struct scan_master_data *smd, EFolder *folder)
+static ExchangeAccountFolderResult
+scan_subtree (ExchangeHierarchy *hier, EFolder *parent)
 {
-	struct scan_folder_data *sfd;
 	static E2kRestriction *folders_rn;
+	ExchangeHierarchyWebDAV *hwd = EXCHANGE_HIERARCHY_WEBDAV (hier);
+	GSList *subtrees = NULL;
+	E2kResultIter *iter;
+	E2kResult *result;
+	E2kHTTPStatus status;
+	EFolder *folder;
 
 	if (!folders_rn) {
 		folders_rn =
-			e2k_restriction_prop_bool (E2K_PR_DAV_IS_HIDDEN,
-						   E2K_RELOP_EQ, FALSE);
+			e2k_restriction_andv (
+				e2k_restriction_prop_bool (E2K_PR_DAV_IS_COLLECTION,
+							   E2K_RELOP_EQ, TRUE),
+				e2k_restriction_prop_bool (E2K_PR_DAV_IS_HIDDEN,
+							   E2K_RELOP_EQ, FALSE),
+				NULL);
 	}
 
-	sfd = g_new (struct scan_folder_data, 1);
-	sfd->smd = smd;
-	sfd->parent = folder;
-	g_object_ref (sfd->parent);
-	smd->pending++;
+	iter = e_folder_exchange_search_start (parent, NULL,
+					       folder_props, n_folder_props,
+					       folders_rn, NULL, TRUE);
+	while ((result = e2k_result_iter_next (iter))) {
+		folder = exchange_hierarchy_webdav_parse_folder (hwd, parent, result);
+		if (!folder)
+			continue;
 
-	E2K_DEBUG_HINT ('S');
-	e_folder_exchange_search (folder, folder_props, n_folder_props,
-				  TRUE, folders_rn, NULL, got_subtree, sfd);
-}
-
-static void
-async_scan_subtree_online (ExchangeHierarchy *hier, EFolder *folder,
-			   ExchangeAccountFolderCallback callback,
-			   gpointer user_data)
-{
-	ExchangeHierarchyWebDAV *hwd = EXCHANGE_HIERARCHY_WEBDAV (hier);
-	struct scan_master_data *smd;
-
-	smd = g_new (struct scan_master_data, 1);
-	smd->hwd = hwd;
-	g_object_ref (smd->hwd);
-	smd->top = folder;
-	g_object_ref (smd->top);
-	smd->callback = callback;
-	smd->user_data = user_data;
-	smd->pending = 0;
-
-	async_scan_one_subtree (smd, folder);
-}
-
-#ifdef OFFLINE_SUPPORT
-static void
-scan_cb (ExchangeHierarchy *hier, EFolder *folder, gpointer data)
-{
-	ExchangeFolderType *folder_type;
-
-	folder_type = g_hash_table_lookup (folder_type_map, e_folder_get_type_string (folder));
-	if (folder_type && folder_type->offline_supported)
-		e_folder_set_can_sync_offline (folder, TRUE);
-
-	exchange_hierarchy_new_folder (hier, folder);
-}
-
-static void
-async_scan_subtree_offline (ExchangeHierarchy *hier, EFolder *folder,
-			    ExchangeAccountFolderCallback callback,
-			    gpointer user_data)
-{
-	if (folder == hier->toplevel) {
-		exchange_hierarchy_webdav_offline_scan_subtree (hier, scan_cb, NULL);
-		exchange_hierarchy_scanned_folder (hier, folder);
+		if (hwd->priv->deep_searchable &&
+		    e_folder_exchange_get_has_subfolders (folder)) {
+			e_folder_exchange_set_has_subfolders (folder, FALSE);
+			subtrees = g_slist_prepend (subtrees, folder);
+		}
+		exchange_hierarchy_new_folder (hier, folder);
+		g_object_unref (folder);
 	}
-	callback (hier->account, EXCHANGE_ACCOUNT_FOLDER_OK, NULL, user_data);
-}
-#endif
+	status = e2k_result_iter_free (iter);
 
-static void
-async_scan_subtree (ExchangeHierarchy *hier, EFolder *folder,
-		    ExchangeAccountFolderCallback callback,
-		    gpointer user_data)
-{
-#ifdef OFFLINE_SUPPORT
-	if (exchange_account_is_offline (hier->account))
-		async_scan_subtree_offline (hier, folder, callback, user_data);
-	else
-#endif
-		async_scan_subtree_online (hier, folder, callback, user_data);
+	while (subtrees) {
+		folder = subtrees->data;
+		subtrees = g_slist_remove (subtrees, folder);
+		scan_subtree (hier, folder);
+	}
+
+	return exchange_hierarchy_webdav_status_to_folder_result (status);
 }
 
 struct scan_offline_data {
