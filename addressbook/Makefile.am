@@ -15,6 +15,9 @@ noinst_LIBRARIES = libexchangeaddressbook.a
 libexchangeaddressbook_a_SOURCES =	\
 	e-book-backend-exchange.c	\
 	e-book-backend-exchange.h	\
+	e-book-backend-exchange-factory.c	\
+	e-book-backend-exchange-factory.h	\
 	e-book-backend-gal.c		\
 	e-book-backend-gal.h
-
+	e-book-backend-gal-factory.c	\
+	e-book-backend-gal-factory.h

@@ -39,12 +39,15 @@
 #include <e-util/e-passwords.h>
 #include <libedata-book/e-data-book-factory.h>
 #include <libedata-cal/e-data-cal-factory.h>
+#include <libedataserver/e-data-server-module.h>
 
 #include "e2k-utils.h"
 #include "addressbook/e-book-backend-exchange.h"
+#include "addressbook/e-book-backend-exchange-factory.h"
 #include "addressbook/e-book-backend-gal.h"
 #include "calendar/e-cal-backend-exchange-calendar.h"
 #include "calendar/e-cal-backend-exchange-tasks.h"
+#include "calendar/e-cal-backend-exchange-factory.h"
 
 #include "exchange-autoconfig-wizard.h"
 #include "exchange-component.h"
@@ -93,7 +96,13 @@ setup_calendar_factory (void)
 		return FALSE;
 	}
 
-	e_data_cal_factory_register_backends (cal_factory);
+	e_data_cal_factory_register_backend (cal_factory,
+					     (g_object_new (events_backend_exchange_factory_get_type(),
+						            NULL))); 
+
+	e_data_cal_factory_register_backend (cal_factory,
+					     (g_object_new (todos_backend_exchange_factory_get_type(),
+						            NULL))); 
 
 	/* register the factory with bonobo */
 	if (!e_data_cal_factory_register_storage (cal_factory, EXCHANGE_CALENDAR_FACTORY_ID)) {
@@ -117,12 +126,12 @@ static gboolean
 setup_addressbook_factory (void)
 {
         book_factory = e_data_book_factory_new ();
-
         if (!book_factory)
                 return FALSE;
 
-	e_data_book_factory_register_backends (book_factory);
-
+	e_data_book_factory_register_backend (book_factory, 
+					      (g_object_new (e_book_backend_exchange_factory_get_type(), 
+							     NULL)));
         g_signal_connect (book_factory, "last_book_gone",
 			  G_CALLBACK (last_book_gone_cb), NULL);
 

@@ -20,6 +20,8 @@ libexchangecalendar_a_SOURCES = 				\
 	e-cal-backend-exchange-calendar.h			\
 	e-cal-backend-exchange-tasks.c				\
 	e-cal-backend-exchange-tasks.h				\
+	e-cal-backend-exchange-factory.c			\
+	e-cal-backend-exchange-factory.h			\
 	e2k-cal-query.c						\
 	e2k-cal-query.h						\
 	e2k-cal-utils.c						\
