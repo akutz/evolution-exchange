@@ -4,7 +4,9 @@
 #ifndef _XNTLM_DES_H
 #define _XNTLM_DES_H
 
-typedef unsigned long XNTLM_DES_KS[16][2];
+#include <glib/gtypes.h>
+
+typedef guint32 XNTLM_DES_KS[16][2];
 
 enum {
 	XNTLM_DES_ENCRYPT = 0,

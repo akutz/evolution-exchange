@@ -1,3 +1,10 @@
+2005-01-08  Not Zed  <NotZed@Ximian.com>
+
+	** See Ximian Bug #70323.
+
+	* xntlm-md4.c, xntlm-des.c: convert all unsigned long/long to
+	guint32, it expects them to be 32 bits.
+
 2004-04-23  Dan Winship  <danw@ximian.com>
 
 	* xntlm.c (xntlm_negotiate): Redo the doc comment to make gtk-doc
