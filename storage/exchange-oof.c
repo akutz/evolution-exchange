@@ -103,7 +103,7 @@ sync_oof_info (ExchangeAccount *account, char **message, gboolean oof, gboolean 
 							       "oof-info");
 					xmlSaveFile (oof_info_file, doc);
 					xmlFreeDoc (doc);
-					if (*message) {
+					if (message && *message) {
 						if (oof_message) {
 							g_free(*message);
 							*message = g_strdup (oof_message);
@@ -113,8 +113,7 @@ sync_oof_info (ExchangeAccount *account, char **message, gboolean oof, gboolean 
 			}
 			g_hash_table_destroy (oof_props);
 		}
-	}
-	else {
+	} else {
 		char *status;
 		GHashTable *oof_props;
 		xmlDoc *doc;
@@ -136,7 +135,7 @@ sync_oof_info (ExchangeAccount *account, char **message, gboolean oof, gboolean 
 		oof_props = g_hash_table_new (g_str_hash, g_str_equal);
 		g_hash_table_insert (oof_props, "sync-state", g_strdup("1"));
 		g_hash_table_insert (oof_props, "oof-state", status);
-		if (*message) {
+		if (message && *message) {
 			g_hash_table_insert (oof_props,
 					     "oof-message", 
 					     *message);
