@@ -33,6 +33,7 @@
 #include "camel-exchange-search.h"
 #include "camel-exchange-store.h"
 #include "camel-exchange-summary.h"
+#include "camel-exchange-journal.h"
 
 #include <camel/camel-data-wrapper.h>
 #include <camel/camel-exception.h>
@@ -272,7 +273,12 @@ append_message (CamelFolder *folder, CamelMimeMessage *message,
 		CamelException *ex)
 {
 	CamelStream *stream_mem;
+	CamelOfflineStore *offline = (CamelOfflineStore *) folder->parent_store;
 
+	if (offline->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
+		camel_exchange_journal_append ((CamelExchangeJournal *) ((CamelExchangeFolder *)folder)->journal, message, info, appended_uid, ex);
+		return;
+	}
 	stream_mem = camel_stream_mem_new ();
 	camel_data_wrapper_write_to_stream (CAMEL_DATA_WRAPPER (message),
 					    stream_mem);
@@ -584,11 +590,40 @@ transfer_messages_to (CamelFolder *source, GPtrArray *uids,
 {
 	CamelExchangeFolder *exch_source = CAMEL_EXCHANGE_FOLDER (source);
 	CamelExchangeFolder *exch_dest = CAMEL_EXCHANGE_FOLDER (dest);
+	CamelOfflineStore *offline = (CamelOfflineStore *) source->parent_store;
+	CamelMessageInfo *info;
 	GPtrArray *ret_uids = NULL;
-	int hier_len;
+	int hier_len, i;
 
 	camel_operation_start (NULL, delete_originals ? _("Moving messages") :
 			       _("Copying messages"));
+
+	/* Check for offline operation */
+	if (offline->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
+		CamelExchangeJournal *journal = (CamelExchangeJournal *) exch_dest->journal;
+		CamelMimeMessage *message;
+		
+		for (i = 0; i < uids->len; i++) {
+			info = camel_folder_summary_uid (source->summary, uids->pdata[i]);
+			if (!info)
+				continue;
+			
+			if (!(message = get_message (source, camel_message_info_uid (info), ex)))
+				break;
+
+			camel_exchange_journal_append (journal, message, info, NULL, ex);
+			camel_object_unref (message);
+
+			if (camel_exception_is_set (ex))
+				break;
+			
+			if (delete_originals)
+				camel_folder_set_message_flags (source, camel_message_info_uid (info),
+					CAMEL_MESSAGE_DELETED, CAMEL_MESSAGE_DELETED);
+		}
+		goto end;
+ 	}
+
 
 	hier_len = strcspn (source->full_name, "/");
 	if (strncmp (source->full_name, dest->full_name, hier_len) != 0) {
@@ -621,7 +656,7 @@ transfer_messages_to (CamelFolder *source, GPtrArray *uids,
 		}
 	} else if (transferred_uids)
 		*transferred_uids = NULL;
-
+end:
 	camel_operation_end (NULL);
 }
 
@@ -876,7 +911,7 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 {
 	CamelExchangeFolder *exch = (CamelExchangeFolder *)folder;
 	const char *short_name;
-	char *summary_file;
+	char *summary_file, *journal_file;
 	GPtrArray *summary, *uids;
 	GByteArray *flags;
 	guint32 folder_flags;
@@ -911,6 +946,16 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 		camel_exception_setv (ex, CAMEL_EXCEPTION_SYSTEM,
 				      _("Could not create cache for %s"),
 				      name);
+		return FALSE;
+	}
+
+	journal_file = g_strdup_printf ("%s/journal", folder_dir);
+	exch->journal = camel_exchange_journal_new (exch, journal_file);
+	g_free (journal_file);
+	if (!exch->journal) {
+		camel_exception_setv (ex, CAMEL_EXCEPTION_SYSTEM,
+					_("Could not create journal for %s"),
+					name);
 		return FALSE;
 	}
 

@@ -15,6 +15,8 @@ extern "C" {
 #include <camel/camel-offline-folder.h>
 #include <camel/camel-folder.h>
 #include <camel/camel-data-cache.h>
+#include <camel/camel-offline-folder.h>
+#include <camel/camel-offline-journal.h>
 #include "camel-stub.h"
 
 #define CAMEL_EXCHANGE_FOLDER_TYPE     (camel_exchange_folder_get_type ())
@@ -27,6 +29,7 @@ typedef struct {
 
 	CamelStub *stub;
 	CamelDataCache *cache;
+	CamelOfflineJournal *journal;
 	char *source;
 
 	GHashTable *thread_index_to_message_id;

@@ -341,10 +341,13 @@ exchange_get_folder (CamelStore *store, const char *folder_name,
 	RETURN_VAL_IF_NOT_CONNECTED (store, ex, NULL);
 	
 	folder_dir = exchange_path_to_physical (exch->storage_path, folder_name);
+	
+	printf ("folder_name : %s\n", folder_name );
 
 	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
 		if (!folder_dir || access (folder_dir, F_OK) != 0) {
 			g_free (folder_dir);
+			printf ("no folder_dir or no write access\n");
 			camel_exception_setv (ex, CAMEL_EXCEPTION_STORE_NO_FOLDER,
 					      _("No such folder %s"), folder_name);
 			return NULL;

@@ -1,3 +1,15 @@
+2005-01-10  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* camel/camel-exchange-journal.c : Added a new file for handling
+	offline journaling. Implemented the class members.
+	* camel/camel-exchange-journal.h : Similar
+	* camel/camel-exchange-folder.c (append_message): Handle offline
+	message appending
+	(transfer_messages_to): Handle offline copying/moving of messages
+	(camel_exchange_folder_construct): Create the journal entry file.
+	* camel/camel-exchange-folder.h : Include journal object.
+	* camel/Makefile.am : Included camel-exchange-journal.[ch]
+
 2005-01-10  Jeffrey Stedfast  <fejj@novell.com>
 
 	* camel/camel-exchange-folder.c (exchange_sync): Implemented.

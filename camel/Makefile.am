@@ -16,6 +16,7 @@ INCLUDES =					\
 libcamelexchange_la_SOURCES = 			\
 	camel-exchange-folder.c			\
 	camel-exchange-provider.c		\
+	camel-exchange-journal.c		\
 	camel-exchange-search.c			\
 	camel-exchange-store.c			\
 	camel-exchange-summary.c		\
@@ -25,6 +26,7 @@ libcamelexchange_la_SOURCES = 			\
 
 noinst_HEADERS =				\
 	camel-exchange-folder.h			\
+	camel-exchange-journal.h		\
 	camel-exchange-search.h			\
 	camel-exchange-store.h			\
 	camel-exchange-summary.h		\
