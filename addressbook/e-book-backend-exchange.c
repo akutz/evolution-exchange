@@ -1022,6 +1022,7 @@ test_name (E2kContext *ctx, const char *name, gpointer summary)
 static EBookBackendSyncStatus
 e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 					EDataBook         *book,
+					guint32            opid,
 					const char        *vcard,
 					EContact         **contact)
 {
@@ -1077,6 +1078,7 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 static EBookBackendSyncStatus
 e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 					EDataBook         *book,
+					guint32 	  opid,
 					const char        *vcard,
 					EContact         **contact)
 {
@@ -1139,6 +1141,7 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 static EBookBackendSyncStatus
 e_book_backend_exchange_remove_contacts (EBookBackendSync  *backend,
 					 EDataBook         *book,
+					 guint32 	   opid,
 					 GList             *id_list,
 					 GList            **removed_ids)
 {
@@ -1414,6 +1417,7 @@ subscription_notify (E2kContext *ctx, const char *uri,
 static EBookBackendSyncStatus
 e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 					  EDataBook         *book,
+					  guint32 	     opid,
 					  const char        *query,
 					  GList            **contacts)
 {
@@ -1530,6 +1534,7 @@ find_deleted_ids (const char *id, const char *vcard, gpointer user_data)
 static EBookBackendSyncStatus
 e_book_backend_exchange_get_changes (EBookBackendSync  *backend,
 				     EDataBook         *book,
+				     guint32 		opid,
 				     const char        *change_id,
 				     GList            **changes)
 {
@@ -1607,6 +1612,7 @@ e_book_backend_exchange_get_changes (EBookBackendSync  *backend,
 static EBookBackendSyncStatus
 e_book_backend_exchange_get_contact (EBookBackendSync  *backend,
 				     EDataBook         *book,
+				     guint32            opid,
 				     const char        *id,
 				     char             **vcard)
 {
@@ -1625,6 +1631,7 @@ e_book_backend_exchange_get_contact (EBookBackendSync  *backend,
 static EBookBackendSyncStatus
 e_book_backend_exchange_authenticate_user (EBookBackendSync *backend,
 					   EDataBook        *book,
+					   guint32 	     opid,
 					   const char       *user,
 					   const char       *password,
 					   const char       *auth_method)
@@ -1637,6 +1644,7 @@ e_book_backend_exchange_authenticate_user (EBookBackendSync *backend,
 static EBookBackendSyncStatus
 e_book_backend_exchange_get_supported_fields (EBookBackendSync  *backend,
 					      EDataBook         *book,
+					      guint32 		 opid,
 					      GList            **methods)
 {
 	int i;
@@ -1688,7 +1696,7 @@ e_book_backend_exchange_load_source (EBookBackend *backend,
 }
 
 static EBookBackendSyncStatus
-e_book_backend_exchange_remove (EBookBackendSync *backend, EDataBook *book)
+e_book_backend_exchange_remove (EBookBackendSync *backend, EDataBook *book, guint32 opid)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	E2kHTTPStatus status;
