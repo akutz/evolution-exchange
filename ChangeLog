@@ -1,3 +1,10 @@
+2005-02-07  Sushma Rai  <rsushma@novell.com>
+
+	* addressbook/e-book-backend-gal.c (func_contains): Handling the
+	query with the attribute fileAs. Fixes Gal lookup from user selection
+	dialog, which was was not working as the query now is having
+	fileAs=username.
+
 2005-01-31  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* mail/mail-stub-exchange.c (get_folder): Dont mark Trash folder

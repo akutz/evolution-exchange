@@ -162,6 +162,7 @@ struct prop_info {
 	STRING_PROP   (E_CONTACT_HOMEPAGE_URL,       "wWWHomePage"),
 	STRING_PROP   (E_CONTACT_FREEBUSY_URL,       "msExchFBURL"),
 	STRING_PROP   (E_CONTACT_NOTE,               "info"), 
+	STRING_PROP   (E_CONTACT_FILE_AS,            "fileAs"),
 
 #undef STRING_PROP
 #undef COMPLEX_PROP
@@ -776,6 +777,10 @@ func_contains(ESExp *f, int argc, ESExpResult **argv, void *data)
 		if (strlen(str) == 0) {
 			r = e_sexp_result_new(f, ESEXP_RES_BOOL);
 			r->value.bool = FALSE;
+		} else if (!strcmp(propname, "file_as")) {
+			r = e_sexp_result_new(f, ESEXP_RES_STRING);
+			r->value.string = g_strdup_printf ("(|(displayName=%s*)(sn=%s*)(%s=%s*))", 
+							   str, str, ldap_attr, str);
 		} else
 			r = e_sexp_result_new(f, ESEXP_RES_UNDEFINED);
 		return r;
