@@ -101,7 +101,7 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 	int len, i;
 
 	url_string = camel_session_get_password (service->session, service, NULL,
-						"ignored", 0, "popb4smtp_uri", ex);
+						"ignored", "popb4smtp_uri", 0, ex);
 	if (!url_string)
 		return FALSE;
 	if (strncmp (url_string, "exchange:", 9) != 0) {

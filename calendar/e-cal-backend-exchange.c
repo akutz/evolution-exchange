@@ -740,19 +740,6 @@ typedef struct {
 } MatchObjectData;
 
 static void
-match_recurrence_sexp (gpointer key, gpointer value, gpointer data)
-{
-	ECalComponent *comp = value;
-	MatchObjectData *match_data = data;
-
-	if ((!match_data->search_needed) ||
-	    (e_cal_backend_sexp_match_comp (match_data->obj_sexp, comp, match_data->backend))) {
-		match_data->obj_list = g_list_append (match_data->obj_list,
-						      e_cal_component_get_as_string (comp));
-	}
-}
-
-static void
 match_object_sexp (gpointer key, gpointer value, gpointer data)
 {
 	ECalBackendExchangeComponent *ecomp = value;

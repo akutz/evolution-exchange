@@ -253,13 +253,6 @@ get_pixbuf_for_folder (EStorageSetView *storage_set_view,
 /* GObject methods.  */
 
 static void
-pixbuf_free_func (gpointer key, gpointer value, gpointer user_data)
-{
-	g_free (key);
-	g_object_unref ((GdkPixbuf*)value);
-}
-
-static void
 impl_dispose (GObject *object)
 {
 	EStorageSetView *storage_set_view;

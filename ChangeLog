@@ -1,5 +1,18 @@
 2004-06-10  Dan Winship  <danw@novell.com>
 
+	* camel/camel-exchange-transport.c (exchange_send_to): Fix
+	camel_session_get_password() args
+
+	* calendar/e-cal-backend-exchange.c (match_recurrence_sexp):
+	Unused, remove.
+
+	* calendar/e-cal-backend-exchange-tasks.c: Remove a bunch of
+	unused functions
+
+	* shell/e-storage-set-view.c (pixbuf_free_func): Unused, remove
+
+2004-06-10  Dan Winship  <danw@novell.com>
+
 	* storage/exchange-config-listener.c (add_defaults_for_account,
 	remove_defaults_for_account): Remove a lot of dead code
 
