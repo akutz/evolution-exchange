@@ -1,3 +1,12 @@
+2005-04-05  Vivek Jain  <jvivek@novell.com>
+
+       **Fixes #42376
+       * storage/exchange-account.c :
+       (exchange_account_remove_folder):
+       (exchange_account_xfer_folder): check whether the folder being
+       renamed/moved/removed is a standard one. throw error as an
+       unsupported operation.
+
 2005-04-05  Pawan Chitrakar  <pawan@nplinux.org>
 
 	* configure.in: Added ne in ALL_LINGUAS
@@ -49,7 +58,6 @@
 	the addressbook as not writable. In online mode, Setting writable and 
 	notifying writable state based on users access permissions.
 
->>>>>>> 1.316
 2005-03-31  Chenthill Palanisamy  <pchenthill@novell.com>
 
 	Fixes #73969

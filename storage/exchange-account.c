@@ -474,12 +474,17 @@ exchange_account_remove_folder (ExchangeAccount *account, const char *path)
 {
 	ExchangeHierarchy *hier;
 	EFolder *folder;
+	const char *name;
 
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), 
 				EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 
 	if (!get_folder (account, path, &folder, &hier))
 		return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
+	
+	name = e_folder_get_name (folder);
+	if (exchange_account_get_standard_uri (account, name))
+		return EXCHANGE_ACCOUNT_FOLDER_UNSUPPORTED_OPERATION;
 
 	return exchange_hierarchy_remove_folder (hier, folder);
 }
@@ -492,6 +497,7 @@ exchange_account_xfer_folder (ExchangeAccount *account,
 {
 	EFolder *source, *dest_parent;
 	ExchangeHierarchy *source_hier, *dest_hier;
+	const char *name;
 
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), 
 				EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
@@ -504,6 +510,12 @@ exchange_account_xfer_folder (ExchangeAccount *account,
 	if (source_hier != dest_hier) {
 		/* Can't move something between hierarchies */
 		return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
+	}
+	if (remove_source) {
+		name = e_folder_get_name (source);
+		if (exchange_account_get_standard_uri (account, name))
+			return EXCHANGE_ACCOUNT_FOLDER_UNSUPPORTED_OPERATION;
+
 	}
 
 	return exchange_hierarchy_xfer_folder (source_hier, source,
