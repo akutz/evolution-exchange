@@ -1,5 +1,12 @@
 2004-06-03  Dan Winship  <danw@novell.com>
 
+	* configure.in: Bump version to 1.5.9
+
+	* acinclude.m4 (EVO_LDAP_CHECK): Fix this so it works with
+	non-Ximian OpenLDAP packages. (Problem noted by Frederic Crozat)
+
+2004-06-03  Dan Winship  <danw@novell.com>
+
 	* component/*: Gone. Now that we're not using the other
 	components' controls to display things, there is no need for the
 	shlib proxy. (We still can't move everything into the shlib,
