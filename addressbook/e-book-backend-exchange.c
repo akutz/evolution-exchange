@@ -31,7 +31,7 @@
 #include <unistd.h>
 
 #include <e-util/e-sexp.h>
-#include <libedataserver/e-xml-hash-utils.h>
+#include <e-util/e-uid.h>
 #include <gal/util/e-util.h>
 #include <libebook/e-address-western.h>
 #include <libebook/e-contact.h>
@@ -39,6 +39,11 @@
 #include <libedata-book/e-data-book-view.h>
 #include <libedata-book/e-book-backend-sexp.h>
 #include <libedata-book/e-book-backend-summary.h>
+#include <libedataserver/e-xml-hash-utils.h>
+
+#include <camel/camel-mime-message.h>
+#include <camel/camel-multipart.h>
+#include <camel/camel-stream-mem.h>
 
 #include "e2k-context.h"
 #include "e2k-propnames.h"
@@ -298,8 +303,15 @@ static EContact *
 e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 {
 	EContact *contact;
-	char *data;
-	int i;
+	char *data, *body;
+	const char *filename;
+	E2kHTTPStatus status;
+	CamelStream *stream;
+	CamelMimeMessage *msg;
+	CamelDataWrapper *content;
+	CamelMultipart *multipart;
+	CamelMimePart *part;
+	int i, len;
 
 	contact = e_contact_new ();
 
@@ -330,6 +342,54 @@ e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 		}
 	}
 
+	data = e2k_properties_get_prop (result->props, E2K_PR_HTTPMAIL_HAS_ATTACHMENT);
+	if (!data || !atoi(data))
+		return contact;
+
+	/* Fetch the body and parse out the photo */
+	status = e2k_context_get (be->priv->ctx, NULL, result->href,
+				  NULL, &body, &len);
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		g_warning ("e_contact_from_props: %d", status);
+		return contact;
+	}
+
+	stream = camel_stream_mem_new_with_buffer (body, len);
+	msg = camel_mime_message_new ();
+	camel_data_wrapper_construct_from_stream (CAMEL_DATA_WRAPPER (msg), stream);
+	camel_object_unref (stream);
+
+	content = camel_medium_get_content_object (CAMEL_MEDIUM (msg));
+	if (CAMEL_IS_MULTIPART (content)) {
+		multipart = (CamelMultipart *)content;
+		content = NULL;
+
+		for (i = 0; i < camel_multipart_get_number (multipart); i++) {
+			part = camel_multipart_get_part (multipart, i);
+			filename = camel_mime_part_get_filename (part);
+			if (filename && !strncmp (filename, "ContactPicture.", 15)) {
+				content = camel_medium_get_content_object (CAMEL_MEDIUM (part));
+				break;
+			}
+		}
+
+		if (content) {
+			EContactPhoto photo;
+			CamelStreamMem *stream_mem;
+
+			stream = camel_stream_mem_new ();
+			stream_mem = (CamelStreamMem *)stream;
+			camel_data_wrapper_decode_to_stream (content, stream);
+
+			photo.data = stream_mem->buffer->data;
+			photo.length = stream_mem->buffer->len;
+			e_contact_set (contact, E_CONTACT_PHOTO, &photo);
+
+			camel_object_unref (stream);
+		}
+	}
+
+	camel_object_unref (msg);
 	return contact;
 }
 
@@ -973,42 +1033,133 @@ props_from_contact (EBookBackendExchange *be,
 	return props;
 }
 
-#if 0
-	for (iter = e_list_get_iterator (bepriv->book_views); e_iterator_is_valid (iter); e_iterator_next (iter)) {
-		const EBookBackendExchangeBookView *v = e_iterator_get (iter);
-		char *message;
-		if (cur_contact)
-			message = g_strdup_printf (_("Modifying %s"), uri);
-		else
-			message = g_strdup_printf (_("Creating %s"), uri);
+static GByteArray *
+build_message (const char *from_name, const char *from_email,
+	       const char *subject, const char *note, EContactPhoto *photo)
+{
+	CamelDataWrapper *wrapper;
+	CamelContentType *type;
+	CamelMimeMessage *msg;
+	CamelInternetAddress *from;
+	CamelStream *stream;
+	CamelMimePart *text_part, *photo_part;
+	GByteArray *buffer;
 
-		e_data_book_view_notify_status_message (v->book_view,
-						     message);
-		g_free (message);
+	msg = camel_mime_message_new ();
+	camel_medium_add_header (CAMEL_MEDIUM (msg), "content-class",
+				 "urn:content-classes:person");
+	camel_mime_message_set_subject (msg, subject);
+	camel_medium_add_header (CAMEL_MEDIUM (msg), "X-MS-Has-Attach", "yes");
+
+	from = camel_internet_address_new ();
+	camel_internet_address_add (from, from_name, from_email);
+	camel_mime_message_set_from (msg, from);
+	camel_object_unref (from);
+
+	/* Create the body */
+	stream = camel_stream_mem_new_with_buffer (note, strlen (note));
+	wrapper = camel_data_wrapper_new ();
+	camel_data_wrapper_construct_from_stream (wrapper, stream);
+	camel_object_unref (stream);
+
+	type = camel_content_type_new ("text", "plain");
+	camel_content_type_set_param (type, "charset", "UTF-8");
+	camel_data_wrapper_set_mime_type_field (wrapper, type);
+	camel_content_type_unref (type);
+
+	if (photo)
+		text_part = camel_mime_part_new ();
+	else
+		text_part = CAMEL_MIME_PART (msg);
+
+	camel_medium_set_content_object (CAMEL_MEDIUM (text_part), wrapper);
+	camel_mime_part_set_encoding (text_part, CAMEL_TRANSFER_ENCODING_8BIT);
+
+	if (photo) {
+		CamelMultipart *multipart;
+		GByteArray *photo_ba;
+		GdkPixbufLoader *loader;
+		GdkPixbufFormat *format;
+		const char *content_type, *extension;
+		char **list, *filename;
+
+		/* Determine the MIME type of the photo */
+		loader = gdk_pixbuf_loader_new ();
+		gdk_pixbuf_loader_write (loader, photo->data, photo->length, NULL);
+		gdk_pixbuf_loader_close (loader, NULL);
+
+		format = gdk_pixbuf_loader_get_format (loader);
+		g_object_unref (loader);
+
+		if (format) {
+			list = gdk_pixbuf_format_get_mime_types (format);
+			content_type = list[0];
+			list = gdk_pixbuf_format_get_extensions (format);
+			extension = list[0];
+		} else {
+			content_type = "application/octet-stream";
+			extension = "dat";
+		}
+		filename = g_strdup_printf ("ContactPicture.%s", extension);
+
+		/* Build the MIME part */
+		photo_ba = g_byte_array_new ();
+		g_byte_array_append (photo_ba, photo->data, photo->length);
+		stream = camel_stream_mem_new_with_byte_array (photo_ba);
+
+		wrapper = camel_data_wrapper_new ();
+		camel_data_wrapper_construct_from_stream (wrapper, stream);
+		camel_object_unref (stream);
+		camel_data_wrapper_set_mime_type (wrapper, content_type);
+
+		photo_part = camel_mime_part_new ();
+		camel_medium_set_content_object (CAMEL_MEDIUM (photo_part),
+						 wrapper);
+		camel_mime_part_set_encoding (photo_part, CAMEL_TRANSFER_ENCODING_BASE64);
+		camel_mime_part_set_description (photo_part, filename);
+		camel_mime_part_set_filename (photo_part, filename);
+
+		g_free (filename);
+
+		/* Build the multipart */
+		multipart = camel_multipart_new ();
+		camel_multipart_set_boundary (multipart, NULL);
+
+		camel_multipart_add_part (multipart, text_part);
+		camel_object_unref (text_part);
+		camel_multipart_add_part (multipart, photo_part);
+		camel_object_unref (photo_part);
+
+		camel_medium_set_content_object (CAMEL_MEDIUM (msg),
+						 CAMEL_DATA_WRAPPER (multipart));
+		camel_object_unref (multipart);
 	}
-	g_object_unref (iter);
-#endif
+
+	buffer = g_byte_array_new();
+	stream = camel_stream_mem_new ();
+	camel_stream_mem_set_byte_array (CAMEL_STREAM_MEM (stream), buffer);
+	camel_data_wrapper_write_to_stream (CAMEL_DATA_WRAPPER (msg), stream);
+	camel_object_unref (stream);
+	camel_object_unref (msg);
+
+	return buffer;
+}
 
 static E2kHTTPStatus
 do_put (EBookBackendExchange *be, EDataBook *book,
-	const char *uri, const char *subject, const char *put_body)
+	const char *uri, const char *subject,
+	const char *note, EContactPhoto *photo)
 {
-	char *put_request;
+	ExchangeHierarchy *hier;
 	E2kHTTPStatus status;
+	GByteArray *body;
 
-	put_request = g_strdup_printf ("content-class: urn:content-classes:person\r\n"
-				       "MIME-Version: 1.0\r\n"
-				       "Content-Type: text/plain;\r\n"
-				       "\tcharset=\"utf-8\"\r\n"
-				       "Content-Transfer-Encoding: 8bit\r\n"
-				       "Subject: %s\r\n"
-				       "\r\n%s",
-				       subject ? subject : "",
-				       put_body);
-
+	hier = e_folder_exchange_get_hierarchy (be->priv->folder);
+	body = build_message (hier->owner_name, hier->owner_email,
+			      subject, note, photo);
 	status = e2k_context_put (be->priv->ctx, NULL, uri, "message/rfc822",
-				  put_request, strlen (put_request), NULL);
-	g_free (put_request);
+				  body->data, body->len, NULL);
+	g_byte_array_free (body, TRUE);
 
 	return status;
 }
@@ -1029,9 +1180,10 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
 	E2kProperties *props;
-	const char *name, *note;
+	const char *name;
 	E2kHTTPStatus status;
-	char *location = NULL;
+	char *location = NULL, *note;
+	EContactPhoto *photo;
 
 	d(printf("ebbe_create_contact(%p, %p, %s)\n", backend, book, vcard));
 
@@ -1043,7 +1195,8 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 	if (!name)
 		name = "No Subject";
 
-	note = e_contact_get_const (*contact, E_CONTACT_NOTE);
+	note = e_contact_get (*contact, E_CONTACT_NOTE);
+	photo = e_contact_get (*contact, E_CONTACT_PHOTO);
 
 	status = e_folder_exchange_proppatch_new (bepriv->folder, NULL, name,
 						  test_name, bepriv->summary,
@@ -1052,14 +1205,19 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 		e_contact_set (*contact, E_CONTACT_UID, location);
 
-		if (note) {
+		if (note || photo) {
 			/* Do the PUT request. */
 			status = do_put (be, book, location,
 					 contact_name (*contact),
-					 note);
+					 note, photo);
 		}
 		g_free (location);
 	}
+
+	if (note)
+		g_free (note);
+	if (photo)
+		e_contact_photo_free (photo);
 
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 		e_book_backend_summary_add_contact (bepriv->summary,
@@ -1114,15 +1272,44 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 	status = e2k_context_proppatch (be->priv->ctx, NULL, uri,
 					props, FALSE, NULL);
 
-	/* Do the PUT request if we need to. FIXME! */
-#if 0
-	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status) && mcd->put_body) {
-		status = do_put (be, book, mcd->uri,
-				 contact_name (mcd->contact),
-				 mcd->put_body);
-		g_free (mcd->put_body);
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		/* Do the PUT request if we need to. */
+		char *old_note, *new_note;
+		EContactPhoto *old_photo, *new_photo;
+		gboolean changed;
+
+		old_note = e_contact_get (old_contact, E_CONTACT_NOTE);
+		old_photo = e_contact_get (old_contact, E_CONTACT_PHOTO);
+		new_note = e_contact_get (*contact, E_CONTACT_NOTE);
+		new_photo = e_contact_get (*contact, E_CONTACT_PHOTO);
+
+		if ((old_note && !new_note) ||
+		    (new_note && !old_note) ||
+		    (old_note && new_note &&
+		     strcmp (old_note, new_note) != 0))
+			changed = TRUE;
+		else if ((old_photo && !new_photo) ||
+			 (new_photo && !old_photo) ||
+			 (old_photo && new_photo &&
+			  ((old_photo->length != new_photo->length) ||
+			   (memcmp (old_photo->data, new_photo->data, old_photo->length) != 0))))
+			changed = TRUE;
+		else
+			changed = FALSE;
+
+		if (changed) {
+			status = do_put (be, book, uri,
+					 contact_name (*contact),
+					 new_note, new_photo);
+		}
+
+		g_free (old_note);
+		g_free (new_note);
+		if (old_photo)
+			e_contact_photo_free (old_photo);
+		if (new_photo)
+			e_contact_photo_free (new_photo);
 	}
-#endif
 
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 		e_book_backend_summary_remove_contact (be->priv->summary, uri);
@@ -1796,6 +1983,7 @@ e_book_backend_exchange_class_init (EBookBackendExchangeClass *klass)
 	g_ptr_array_add (field_names_array, E2K_PR_MAPI_EMAIL_1_ADDRTYPE);
 	g_ptr_array_add (field_names_array, E2K_PR_MAPI_EMAIL_2_ADDRTYPE);
 	g_ptr_array_add (field_names_array, E2K_PR_MAPI_EMAIL_3_ADDRTYPE);
+	g_ptr_array_add (field_names_array, E2K_PR_HTTPMAIL_HAS_ATTACHMENT);
 	for (i = 0; i < num_prop_mappings; i ++)
 		g_ptr_array_add (field_names_array, prop_mappings[i].prop_name);
 	field_names = (const char **)field_names_array->pdata;

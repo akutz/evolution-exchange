@@ -1,3 +1,23 @@
+2004-06-21  Dan Winship  <danw@novell.com>
+
+	* addressbook/e-book-backend-exchange.c (e_contact_from_props): if
+	the contact has an attachment, load the message body and see if
+	the attachment is a contact picture, and set the E_CONTACT_PHOTO
+	property if so. #57801.
+	(do_put): if the contact has a photo, put that too. Except that
+	this code doesn't work right yet. (Outlook doesn't recognize the
+	photo like it should.) So for now, I'm leaving E_CONTACT_PHOTO out
+	of supported_fields, so the editor won't let you edit it.
+	(e_book_backend_exchange_create_contact): call do_put if there's
+	either a note or a photo.
+	(e_book_backend_exchange_modify_contact): Make this actually call
+	do_put rather than just having a FIXME. 
+
+	* configure.in (ADDRESSBOOK_CFLAGS, EXCHANGE_STORAGE_LIBS): add
+	camel
+
+	* storage/main.c (main): Call camel_init()
+
 2004-06-19  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	Fix for #57868

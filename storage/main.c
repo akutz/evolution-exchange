@@ -34,6 +34,7 @@
 #include <bonobo/bonobo-exception.h>
 #include <libgnomeui/gnome-ui-init.h>
 
+#include <camel/camel.h>
 #include <e-util/e-icon-factory.h>
 #include <e-util/e-passwords.h>
 #include <libedata-book/e-data-book-factory.h>
@@ -155,6 +156,7 @@ main (int argc, char **argv)
 			    GNOME_PARAM_HUMAN_READABLE_NAME, _("Ximian Connector for Microsoft Exchange"),
 			    NULL);
 	e_icon_factory_init ();
+	camel_init (NULL, FALSE);
 
 	path = g_strdup_printf ("/tmp/.exchange-%s", g_get_user_name ());
 	if (mkdir (path, 0700) == -1) {
