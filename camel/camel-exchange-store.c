@@ -272,7 +272,8 @@ exchange_get_folder (CamelStore *store, const char *folder_name,
 
 	folder_dir = e_path_to_physical (exch->storage_path, folder_name);
 	if (!camel_exchange_folder_construct (folder, store, folder_name,
-					      folder_dir, exch->stub, ex)) {
+					      camel_flags, folder_dir,
+					      exch->stub, ex)) {
 		g_free (folder_dir);
 		camel_object_unref (CAMEL_OBJECT (folder));
 		return NULL;

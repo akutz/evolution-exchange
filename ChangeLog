@@ -6,6 +6,12 @@
 	* mail/mail-stub-exchange.c (rename_folder): Send the URI from the
 	newly-renamed folder, not the no-longer-existent old folder
 
+	* camel/camel-exchange-folder.c (camel_exchange_folder_construct):
+	* camel/camel-exchange-store.c (exchange_get_folder): 
+	* mail/mail-stub.c (connection_handler):
+	* mail/mail-stub-exchange.c (get_folder): Handle the "create
+	folder" option to camel_store_get_folder, to fix #57688
+
 2004-05-21  Dan Winship  <danw@novell.com>
 
 	* shell/Makefile.am (libfoldertree_a_SOURCES): Remove

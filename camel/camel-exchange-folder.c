@@ -850,7 +850,8 @@ camel_exchange_folder_update_message_tag (CamelExchangeFolder *exch,
 
 gboolean
 camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
-				 const char *name, const char *folder_dir,
+				 const char *name, guint32 camel_flags,
+				 const char *folder_dir,
 				 CamelStub *stub, CamelException *ex)
 {
 	CamelExchangeFolder *exch = (CamelExchangeFolder *)folder;
@@ -911,7 +912,7 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 	}
 
 	if (stub) {
-		gboolean ok;
+		gboolean ok, create = camel_flags & CAMEL_STORE_FOLDER_CREATE;
 
 		exch->stub = stub;
 
@@ -931,6 +932,7 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 		camel_operation_start (NULL, _("Scanning for changed messages"));
 		ok = camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_GET_FOLDER,
 				      CAMEL_STUB_ARG_FOLDER, name,
+				      CAMEL_STUB_ARG_UINT32, create,
 				      CAMEL_STUB_ARG_STRINGARRAY, uids,
 				      CAMEL_STUB_ARG_BYTEARRAY, flags,
 				      CAMEL_STUB_ARG_RETURN,

@@ -82,7 +82,7 @@ typedef struct {
 static void dispose (GObject *);
 
 static void stub_connect (MailStub *stub);
-static void get_folder (MailStub *stub, const char *name,
+static void get_folder (MailStub *stub, const char *name, gboolean create,
 			GPtrArray *uids, GByteArray *flags);
 static void get_trash_name (MailStub *stub);
 static void sync_folder (MailStub *stub, const char *folder_name);
@@ -575,7 +575,7 @@ static const char *open_folder_props[] = {
 static const int n_open_folder_props = sizeof (open_folder_props) / sizeof (open_folder_props[0]);
 
 static void
-get_folder (MailStub *stub, const char *name,
+get_folder (MailStub *stub, const char *name, gboolean create,
 	    GPtrArray *uids, GByteArray *flags)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
@@ -598,11 +598,22 @@ get_folder (MailStub *stub, const char *name,
 
 	path = g_strdup_printf ("/%s", name);
 	folder = exchange_account_get_folder (mse->account, path);
-	g_free (path);
-	if (!folder) {
+	if (!folder && !create) {
 		mail_stub_return_error (stub, _("No such folder."));
+		g_free (path);
 		return;
+	} else if (!folder) {
+		ExchangeAccountFolderResult result;
+
+		result = exchange_account_create_folder (mse->account, path, "mail");
+		folder = exchange_account_get_folder (mse->account, path);
+		if (result != EXCHANGE_ACCOUNT_FOLDER_OK || !folder) {
+			mail_stub_return_error (stub, _("Could not create folder."));
+			g_free (path);
+			return;
+		}
 	}
+	g_free (path);
 
 	mfld = g_new0 (MailStubExchangeFolder, 1);
 	mfld->mse = MAIL_STUB_EXCHANGE (stub);
