@@ -174,17 +174,19 @@ LIBS="$SAVE_LIBS"
 dnl ********
 dnl Kerberos
 dnl ********
-AC_ARG_WITH(krb5, [  --with-krb5=PREFIX      Location of Kerberos 5 libs/includes], with_krb5="$withval", with_krb5="/usr")
+AC_ARG_WITH(krb5, [  --with-krb5=PREFIX      Location of Kerberos 5 install dir], with_krb5="$withval", with_krb5="/usr")
+AC_ARG_WITH(krb5_libs, [  --with-krb5-libs=LIBDIR Location of Kerberos 5 libs], with_krb5_libs="$withval", with_krb5_libs="$with_krb5/lib")
+
 
 mitlibs="-lkrb5 -lk5crypto -lcom_err -lgssapi_krb5"
 heimlibs="-lkrb5 -lcrypto -lasn1 -lcom_err -lroken -lgssapi"
 AC_CACHE_CHECK([for Kerberos 5], ac_cv_lib_kerberos5,
 [
 	LDFLAGS_save="$LDFLAGS"
-	LDFLAGS="$LDFLAGS -L$with_krb5/lib $mitlibs"
+	LDFLAGS="$LDFLAGS -L$with_krb5_libs $mitlibs"
 	AC_TRY_LINK_FUNC(krb5_init_context, ac_cv_lib_kerberos5="$mitlibs",
 	[
-		LDFLAGS="$LDFLAGS_save -L$with_krb5/lib $heimlibs"
+		LDFLAGS="$LDFLAGS_save -L$with_krb5_libs $heimlibs"
 		AC_TRY_LINK_FUNC(krb5_init_context, ac_cv_lib_kerberos5="$heimlibs", ac_cv_lib_kerberos5="no")
 	])
 	LDFLAGS="$LDFLAGS_save"
@@ -200,7 +202,7 @@ else
 	AC_DEFINE(HAVE_HEIMDAL_KRB5,1,[Define if you have Heimdal])
 	KRB5_CFLAGS="-I$with_krb5/include/heimdal"
 fi
-KRB5_LIBS="-L$with_krb5/lib $ac_cv_lib_kerberos5"
+KRB5_LIBS="-L$with_krb5_libs $ac_cv_lib_kerberos5"
 AC_SUBST(KRB5_CFLAGS)
 AC_SUBST(KRB5_LIBS)
 
