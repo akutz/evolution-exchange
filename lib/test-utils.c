@@ -25,7 +25,7 @@
 #include <termios.h>
 #include <unistd.h>
 
-#include <e-util/e-passwords.h>
+#include <libedataserverui/e-passwords.h>
 #include <libgnome/gnome-util.h>
 
 #include "e2k-context.h"

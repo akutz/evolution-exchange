@@ -32,7 +32,7 @@
 #include <e-util/e-account.h>
 #include <e-util/e-account-list.h>
 #include <e-util/e-dialog-utils.h>
-#include <e-util/e-passwords.h>
+#include <libedataserverui/e-passwords.h>
 #include <shell/evolution-wizard.h>
 
 #include <gconf/gconf-client.h>

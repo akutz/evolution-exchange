@@ -42,7 +42,7 @@
 #include "e2k-uri.h"
 #include "e2k-utils.h"
 #include <e-util/e-dialog-utils.h>
-#include <e-util/e-passwords.h>
+#include <libedataserverui/e-passwords.h>
 
 #include <gal/util/e-util.h>
 #include <libgnome/gnome-util.h>

@@ -25,7 +25,7 @@
 #include <libgnomeui/gnome-ui-init.h>
 
 #include <e-util/e-dialog-utils.h>
-#include <e-util/e-passwords.h>
+#include <libedataserverui/e-passwords.h>
 
 #include "e2k-utils.h"
 

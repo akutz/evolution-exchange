@@ -55,7 +55,7 @@
 
 #include <e-util/e-account.h>
 #include <e-util/e-account-list.h>
-#include <e-util/e-passwords.h>
+#include <libedataserverui/e-passwords.h>
 #include <e-util/e-dialog-utils.h>
 #include <gconf/gconf-client.h>
 #include <libxml/tree.h>

@@ -37,7 +37,7 @@
 #include "exchange-config-listener.h"
 #include "exchange-folder-size.h"
 
-#include <e-util/e-passwords.h>
+#include <libedataserverui/e-passwords.h>
 #include "e2k-path.h"
 #include <libedataserver/e-source-list.h>
 
