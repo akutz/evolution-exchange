@@ -155,9 +155,11 @@ reset_owa_derived (E2kAutoconfig *ac)
 
 	/* Reset domain info we may have implicitly got */
 	ac->use_ntlm = (ac->auth_pref != E2K_AUTOCONFIG_USE_BASIC);
-	if (ac->nt_domain)
+	if (ac->nt_domain_defaulted) {
 		g_free (ac->nt_domain);
-	ac->nt_domain = g_strdup (e2k_autoconfig_lookup_option ("NT-Domain"));
+		ac->nt_domain = g_strdup (e2k_autoconfig_lookup_option ("NT-Domain"));
+		ac->nt_domain_defaulted = FALSE;
+	}
 	if (ac->w2k_domain)
 		g_free (ac->w2k_domain);
 	ac->w2k_domain = g_strdup (e2k_autoconfig_lookup_option ("Domain"));
@@ -252,6 +254,7 @@ e2k_autoconfig_set_username (E2kAutoconfig *ac, const char *username)
 			g_free (ac->nt_domain);
 			ac->nt_domain = g_strndup (username, dlen);
 			ac->username = g_strdup (username + dlen + 1);
+			ac->nt_domain_defaulted = FALSE;
 		} else
 			ac->username = g_strdup (username);
 	} else
@@ -291,10 +294,15 @@ get_ctx_auth_handler (SoupMessage *msg, gpointer user_data)
 		else if (!strncmp (challenge_hdr, "Basic ", 6))
 			ac->saw_basic = TRUE;
 
-		if (!strncmp (challenge_hdr, "NTLM ", 5) && !ac->w2k_domain) {
+		if (!strncmp (challenge_hdr, "NTLM ", 5) &&
+		    (!ac->w2k_domain || !ac->nt_domain)) {
 			challenge = e2k_base64_decode (challenge_hdr + 5);
+			if (!ac->nt_domain)
+				ac->nt_domain_defaulted = TRUE;
 			xntlm_parse_challenge (challenge->data, challenge->len,
-					       NULL, NULL, &ac->w2k_domain);
+					       NULL,
+					       ac->nt_domain ? NULL : &ac->nt_domain,
+					       ac->w2k_domain ? NULL : &ac->w2k_domain);
 			g_byte_array_free (challenge, TRUE);
 			return;
 		}
@@ -839,6 +847,8 @@ e2k_autoconfig_get_global_catalog (E2kAutoconfig *ac, E2kOperation *op)
  *   %E2K_AUTOCONFIG_CANT_RESOLVE: Could not determine GC server
  *   %E2K_AUTOCONFIG_NO_MAILBOX: Could not find information for
  *     the user
+ *   %E2K_AUTOCONFIG_AUTH_ERROR_TRY_DOMAIN: Plaintext password auth
+ *     failed: need to specify NT domain
  *   %E2K_AUTOCONFIG_CANCELLED: Operation was cancelled
  *   %E2K_AUTOCONFIG_FAILED: Other error.
  *
@@ -871,6 +881,11 @@ e2k_autoconfig_check_global_catalog (E2kAutoconfig *ac, E2kOperation *op)
 		result = E2K_AUTOCONFIG_OK;
 	} else if (status == E2K_GLOBAL_CATALOG_CANCELLED)
 		result = E2K_AUTOCONFIG_CANCELLED;
+#ifndef HAVE_LDAP_NTLM_BIND
+	else if (status == E2K_GLOBAL_CATALOG_AUTH_FAILED &&
+		 !ac->nt_domain)
+		result = E2K_AUTOCONFIG_AUTH_ERROR_TRY_DOMAIN;
+#endif
 	else if (status == E2K_GLOBAL_CATALOG_ERROR)
 		result = E2K_AUTOCONFIG_FAILED;
 	else
@@ -892,16 +907,16 @@ set_account_uri_string (E2kAutoconfig *ac)
 
 	uri = g_string_new ("exchange://");
 	if (ac->nt_domain && (!ac->use_ntlm || !ac->nt_domain_defaulted)) {
-		e2k_uri_append_encoded (uri, ac->nt_domain, "\\;:@/");
+		e2k_uri_append_encoded (uri, ac->nt_domain, FALSE, "\\;:@/");
 		g_string_append_c (uri, '\\');
 	}
-	e2k_uri_append_encoded (uri, ac->username, ";:@/");
+	e2k_uri_append_encoded (uri, ac->username, FALSE, ";:@/");
 
 	if (!ac->use_ntlm)
 		g_string_append (uri, ";auth=Basic");
 
 	g_string_append_c (uri, '@');
-	e2k_uri_append_encoded (uri, owa_uri->host, ":/");
+	e2k_uri_append_encoded (uri, owa_uri->host, FALSE, ":/");
 	if (owa_uri->port)
 		g_string_append_printf (uri, ":%d", owa_uri->port);
 	g_string_append_c (uri, '/');
@@ -909,7 +924,7 @@ set_account_uri_string (E2kAutoconfig *ac)
 	if (!strcmp (owa_uri->protocol, "https"))
 		g_string_append (uri, ";use_ssl=always");
 	g_string_append (uri, ";ad_server=");
-	e2k_uri_append_encoded (uri, ac->gc_server, ";?");
+	e2k_uri_append_encoded (uri, ac->gc_server, FALSE, ";?");
 	if (ac->gal_limit != -1)
 		g_string_append_printf (uri, ";ad_limit=%d", ac->gal_limit);
 
@@ -922,14 +937,14 @@ set_account_uri_string (E2kAutoconfig *ac)
 	if (mailbox) {
 		*mailbox++ = '\0';
 		g_string_append (uri, ";mailbox=");
-		e2k_uri_append_encoded (uri, mailbox, ";?");
+		e2k_uri_append_encoded (uri, mailbox, FALSE, ";?");
 	}
 	g_string_append (uri, ";owa_path=/");
-	e2k_uri_append_encoded (uri, path, ";?");
+	e2k_uri_append_encoded (uri, path, FALSE, ";?");
 	g_free (path);
 
 	g_string_append (uri, ";pf_server=");
-	e2k_uri_append_encoded (uri, ac->pf_server ? ac->pf_server : home_uri->host, ";?");
+	e2k_uri_append_encoded (uri, ac->pf_server ? ac->pf_server : home_uri->host, FALSE, ";?");
 
 	ac->account_uri = uri->str;
 	ac->exchange_server = g_strdup (home_uri->host);

@@ -163,6 +163,9 @@ test_main (int argc, char **argv)
 		case E2K_AUTOCONFIG_NO_MAILBOX:
 			msg = "No data for user";
 			break;
+		case E2K_AUTOCONFIG_AUTH_ERROR_TRY_DOMAIN:
+			msg = "Authentication error. Try DOMAIN\\username?";
+			break;
 		case E2K_AUTOCONFIG_CANCELLED:
 			msg = "Cancelled";
 			break;

@@ -568,31 +568,30 @@ e2k_context_fba (E2kContext *ctx, SoupMessage *failed_msg)
 			continue;
 		value = xmlGetProp (node, "value");
 
-		if (form_body->len > 0)
-			g_string_append_c (form_body, '&');
-
 		if (!g_ascii_strcasecmp (name, "destination") && value) {
 			g_string_append (form_body, name);
 			g_string_append_c (form_body, '=');
-			e2k_uri_append_encoded (form_body, value, NULL);
+			e2k_uri_append_encoded (form_body, value, FALSE, NULL);
+			g_string_append_c (form_body, '&');
 		} else if (!g_ascii_strcasecmp (name, "flags")) {
 			g_string_append_printf (form_body, "flags=%d",
 						E2K_FBA_FLAG_TRUSTED);
+			g_string_append_c (form_body, '&');
 		} else if (!g_ascii_strcasecmp (name, "username")) {
 			g_string_append (form_body, "username=");
-			e2k_uri_append_encoded (form_body, ctx->priv->username, NULL);
+			e2k_uri_append_encoded (form_body, ctx->priv->username, FALSE, NULL);
+			g_string_append_c (form_body, '&');
 		} else if (!g_ascii_strcasecmp (name, "password")) {
 			g_string_append (form_body, "password=");
-			e2k_uri_append_encoded (form_body, ctx->priv->password, NULL);
-		} else if (!g_ascii_strcasecmp (name, "trusted")) {
-			g_string_append_printf (form_body, "trusted=%d",
-						E2K_FBA_FLAG_TRUSTED);
+			e2k_uri_append_encoded (form_body, ctx->priv->password, FALSE, NULL);
+			g_string_append_c (form_body, '&');
 		}
 
 		if (value)
 			xmlFree (value);
 		xmlFree (name);
 	}
+	g_string_append_printf (form_body, "trusted=%d", E2K_FBA_FLAG_TRUSTED);
 	xmlFreeDoc (doc);
 	doc = NULL;
 
@@ -1108,7 +1107,7 @@ e2k_context_put_new (E2kContext *ctx, E2kOperation *op,
 	g_return_val_if_fail (body != NULL, E2K_HTTP_MALFORMED);
 
 	slash_uri = e2k_strdup_with_trailing_slash (folder_uri);
-	encoded_name = e2k_uri_encode (object_name, NULL);
+	encoded_name = e2k_uri_encode (object_name, TRUE, NULL);
 
 	/* folder_uri is a dummy here */
 	msg = put_msg (ctx, folder_uri, content_type,
@@ -1452,7 +1451,7 @@ e2k_context_proppatch_new (E2kContext *ctx, E2kOperation *op,
 	g_return_val_if_fail (props != NULL, E2K_HTTP_MALFORMED);
 
 	slash_uri = e2k_strdup_with_trailing_slash (folder_uri);
-	encoded_name = e2k_uri_encode (object_name, NULL);
+	encoded_name = e2k_uri_encode (object_name, TRUE, NULL);
 
 	/* folder_uri is a dummy here */
 	msg = patch_msg (ctx, folder_uri, "PROPPATCH", NULL, 0, props, TRUE);

@@ -1,3 +1,48 @@
+2004-06-22  Dan Winship  <danw@novell.com>
+
+	* lib/e2k-uri.c (e2k_uri_append_encoded, e2k_uri_encode): add a
+	"wss_encode" flag, saying whether or not to use the Web Storage
+	System URI-encoding rules ("/" becomes "_xF8FF_", etc), since some
+	places don't want them.
+
+	* lib/e2k-context.c (e2k_context_fba): Don't put multiple &s
+	between flags, and use "normal" URI encoding rules without the
+	extra goofy WSS rules. Fixes FBA to E2k3 SP1.
+	(e2k_context_put_new, e2k_context_proppatch_new): Set wss_encode
+	flag to e2k_uri_encode
+
+	* lib/e2k-global-catalog.c (e2k_global_catalog_lookup): Translate
+	LDAP_INVALID_CREDENTIALS to E2K_GLOBAL_CATALOG_AUTH_FAILED.
+
+	* lib/e2k-autoconfig.c (reset_owa_derived): Only reset the NT
+	domain if it was autodetected
+	(e2k_autoconfig_set_username): If setting the NT domain, note that
+	it wasn't autodetected.
+	(get_ctx_auth_handler): If the NT domain isn't set, set it, and
+	note that it *was* autodetected. #60548
+	(e2k_autoconfig_check_global_catalog): If using plaintext LDAP
+	auth, handle an E2K_GLOBAL_CATALOG_AUTH_FAILED by returning
+	E2K_AUTOCONFIG_AUTH_ERROR_TRY_DOMAIN.
+	(set_account_uri_string): Update for e2k_uri_append_encoded
+	changes
+
+	* lib/actest.c (test_main): handle
+	E2K_AUTOCONFIG_AUTH_ERROR_TRY_DOMAIN from
+	e2k_autoconfig_check_global_catalog().
+
+	* lib/e2k-freebusy.c (fb_uri_for_dn): Set wss_encode flag to
+	e2k_uri_append_encoded
+
+	* lib/gctest.c (do_lookup): add a message for
+	E2K_GLOBAL_CATALOG_AUTH_FAILED.
+
+	* storage/exchange-autoconfig-wizard.c (gc_page_next): Likewise
+
+	* storage/exchange-account.c (exchange_account_new): Update for
+	e2k_uri_encode change
+
+	* storage/exchange-oof.c (exchange_oof_set): Likewise
+
 2004-06-22  Sushma Rai  <rsushma@novell.com>
 
 	* storage/exchange-hierarchy-webdav.c (xfer_folder): Removing 

@@ -27,9 +27,11 @@ const char *e2k_uri_get_param (E2kUri *uri, const char *name);
 
 void        e2k_uri_decode         (char *part);
 char *      e2k_uri_encode         (const char *in,
+				    gboolean    wss_encoding,
 				    const char *extra_enc_chars);
 void        e2k_uri_append_encoded (GString    *str,
 				    const char *in,
+				    gboolean    wss_encoding,
 				    const char *extra_enc_chars);
 
 const char *e2k_uri_path      (const char *uri_string);

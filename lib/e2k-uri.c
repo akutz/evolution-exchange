@@ -265,17 +265,20 @@ static const int uri_encoded_char[] = {
  * e2k_uri_append_encoded:
  * @str: a %GString containing part of a URI
  * @in: data to append to @str
+ * @wss_encode: whether or not to use the special Web Storage System
+ * encoding rules
  * @extra_enc_chars: additional characters beyond the normal URI-reserved
  * characters to encode when appending to @str
  *
  * Appends @in to @str, encoding URI-unsafe characters as needed
- * (including some Exchange-specific encodings).
+ * (optionally including some Exchange-specific encodings).
  *
  * When appending a path, you must append each segment separately;
  * e2k_uri_append_encoded() will encode any "/"s passed in.
  **/
 void
-e2k_uri_append_encoded (GString *str, const char *in, const char *extra_enc_chars)
+e2k_uri_append_encoded (GString *str, const char *in,
+			gboolean wss_encode, const char *extra_enc_chars)
 {
 	const unsigned char *s = (const unsigned char *)in;
 
@@ -284,6 +287,8 @@ e2k_uri_append_encoded (GString *str, const char *in, const char *extra_enc_char
 			goto escape;
 		switch (uri_encoded_char[*s]) {
 		case 2:
+			if (!wss_encode)
+				goto escape;
 			switch (*s++) {
 			case '/':
 				g_string_append (str, "_xF8FF_");
@@ -313,6 +318,8 @@ e2k_uri_append_encoded (GString *str, const char *in, const char *extra_enc_char
 /**
  * e2k_uri_encode:
  * @in: data to encode
+ * @wss_encode: whether or not to use the special Web Storage System
+ * encoding rules
  * @extra_enc_chars: additional characters beyond the normal URI-reserved
  * characters to encode when appending to @str
  *
@@ -321,13 +328,14 @@ e2k_uri_append_encoded (GString *str, const char *in, const char *extra_enc_char
  * Return value: the encoded string
  **/
 char *
-e2k_uri_encode (const char *in, const char *extra_enc_chars)
+e2k_uri_encode (const char *in, gboolean wss_encode,
+		const char *extra_enc_chars)
 {
 	GString *string;
 	char *out;
 
 	string = g_string_new (NULL);
-	e2k_uri_append_encoded (string, in, extra_enc_chars);
+	e2k_uri_append_encoded (string, in, wss_encode, extra_enc_chars);
 	out = string->str;
 	g_string_free (string, FALSE);
 

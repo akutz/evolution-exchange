@@ -340,7 +340,14 @@ gc_page_next (ExchangeAutoconfigGUI *gui)
 
 	if (result == E2K_AUTOCONFIG_OK)
 		autoconfig_gui_set_page (gui, EXCHANGE_AUTOCONFIG_PAGE_VERIFY);
-	else {
+	else if (result == E2K_AUTOCONFIG_AUTH_ERROR_TRY_DOMAIN) {
+		e_notice (gui->window, GTK_MESSAGE_ERROR,
+			  _("Could not authenticate to the Global Catalog "
+			    "server. You may need to go back and specify "
+			    "the Windows domain name as part of your "
+			    "username (eg, \"MY-DOMAIN\\%s\")."),
+			  gui->ac->username);
+	} else {
 		e_notice (gui->window, GTK_MESSAGE_ERROR,
 			  _("Could not connect to specified server.\n"
 			    "Please check the server name and try again."));

@@ -75,6 +75,10 @@ do_lookup (E2kGlobalCatalog *gc, const char *user)
 		printf ("Entry for %s contains no data\n", user);
 		test_quit ();
 		return;
+	case E2K_GLOBAL_CATALOG_AUTH_FAILED:
+		printf ("Authentication failed (try DOMAIN\\username)\n");
+		test_quit ();
+		return;
 	default:
 		printf ("Error looking up user\n");
 		test_quit ();

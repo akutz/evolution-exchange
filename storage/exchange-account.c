@@ -1456,7 +1456,7 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 	account->priv->identity_email = g_strdup (adata->id->address);
 
 	/* URI, etc, info */
-	enc_user = e2k_uri_encode (uri->user, "@/;:");
+	enc_user = e2k_uri_encode (uri->user, FALSE, "@/;:");
 	account->priv->uri_authority = g_strdup_printf ("%s@%s", enc_user,
 							uri->host);
 	g_free (enc_user);
@@ -1508,7 +1508,7 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 		param = uri->user;
 	else if (!g_ascii_strncasecmp (param, account->priv->identity_email, strlen (param)))
 		account->priv->uris_use_email = TRUE;
-	mailbox = e2k_uri_encode (param, "/");
+	mailbox = e2k_uri_encode (param, TRUE, "/");
 	account->home_uri = g_strdup_printf (account->priv->http_uri_schema,
 					     uri->host, mailbox);
 	g_free (mailbox);

@@ -776,6 +776,10 @@ e2k_global_catalog_lookup (E2kGlobalCatalog *gc,
 		E2K_GC_DEBUG_MSG(("GC: ldap_search cancelled"));
 		status = E2K_GLOBAL_CATALOG_CANCELLED;
 		goto done;
+	} else if (ldap_error == LDAP_INVALID_CREDENTIALS) {
+		E2K_GC_DEBUG_MSG(("GC: ldap_search auth failed"));
+		status = E2K_GLOBAL_CATALOG_AUTH_FAILED;
+		goto done;
 	} else if (ldap_error != LDAP_SUCCESS) {
 		E2K_GC_DEBUG_MSG(("GC: ldap_search failed: 0x%02x\n\n", ldap_error));
 		status = E2K_GLOBAL_CATALOG_ERROR;
