@@ -1,5 +1,13 @@
 2004-10-01  Sushma Rai <rsushma@novell.com>
 
+	* storage/main.c (setup_calendar_factory)(setup_addressbook_factory):
+	Removed factory_register_methods for registering exchange
+	and gal backends, and added e_data_cal_factory_register_backends()
+	and e_data_book_factory_register_backends() so that 
+	the compilation goes through. 
+
+2004-10-01  Sushma Rai <rsushma@novell.com>
+
 	* configure.in : Changed the libedata-book version to 1.2
  
 2004-10-01  Sarfraaz Ahmed <asarfraaz@novell.com>

@@ -93,12 +93,7 @@ setup_calendar_factory (void)
 		return FALSE;
 	}
 
-	e_data_cal_factory_register_method (
-		cal_factory, "exchange", ICAL_VEVENT_COMPONENT,
-		E_TYPE_CAL_BACKEND_EXCHANGE_CALENDAR);
-	e_data_cal_factory_register_method (
-		cal_factory, "exchange", ICAL_VTODO_COMPONENT,
-		E_TYPE_CAL_BACKEND_EXCHANGE_TASKS);
+	e_data_cal_factory_register_backends (cal_factory);
 
 	/* register the factory with bonobo */
 	if (!e_data_cal_factory_register_storage (cal_factory, EXCHANGE_CALENDAR_FACTORY_ID)) {
@@ -126,10 +121,7 @@ setup_addressbook_factory (void)
         if (!book_factory)
                 return FALSE;
 
-        e_data_book_factory_register_backend (
-                book_factory, "exchange", e_book_backend_exchange_new);
-	e_data_book_factory_register_backend (
-                book_factory, "gal", e_book_backend_gal_new);
+	e_data_book_factory_register_backends (book_factory);
 
         g_signal_connect (book_factory, "last_book_gone",
 			  G_CALLBACK (last_book_gone_cb), NULL);
