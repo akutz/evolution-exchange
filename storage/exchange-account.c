@@ -796,8 +796,10 @@ account_moved (ExchangeAccount *account, E2kAutoconfig *ac)
 static gboolean
 get_password (ExchangeAccount *account, E2kAutoconfig *ac, const char *errmsg)
 {
-	char *password, *key;
+	char *password, *key, *domain_name;
 	gboolean remember, oldremember;
+	int krb_err;
+	GString *domain;
 
 	key = g_strdup_printf ("exchange://%s@%s",
 			       account->priv->username,
@@ -805,6 +807,15 @@ get_password (ExchangeAccount *account, E2kAutoconfig *ac, const char *errmsg)
 	if (*errmsg)
 		e_passwords_forget_password ("Exchange", key);
 
+	krb_err = e2k_set_config ();
+
+	if (krb_err == E2K_KRB5_NO_USER_CONF) {
+		domain_name = strchr (account->priv->identity_email, '@');
+		domain = g_string_new (domain_name + 1);
+		domain = g_string_ascii_up (domain);
+	        krb_err = e2k_create_krb_config_file (domain->str, account->exchange_server);
+		printf ("krb error after creating config_file : %d\n", krb_err);
+	}
 	password = e_passwords_get_password ("Exchange", key);
 	if (!password && xc_backend_is_interactive (global_backend)) {
 		char *prompt;
@@ -856,6 +867,41 @@ is_password_expired (ExchangeAccount *account, E2kAutoconfig *ac)
 	return FALSE;
 }
 
+char *
+exchange_account_get_password (ExchangeAccount *account)
+{
+	char *uri;
+	char *password;
+	
+	uri = g_strdup_printf ("exchange://%s@%s",
+			       account->priv->username,
+			       account->exchange_server);
+	password = e_passwords_get_password ("Exchange", uri);
+	return password;
+}
+
+void
+exchange_account_set_password (ExchangeAccount *account, char *old_pass, char *new_pass)
+{
+	char *uri;
+	int err;
+
+	g_return_if_fail (old_pass != NULL);
+	g_return_if_fail (new_pass != NULL);
+
+        uri = g_strdup_printf ("exchange://%s@%s",
+                               account->priv->username,
+                               account->exchange_server);
+
+	err = e2k_change_passwd (account->priv->username, old_pass, new_pass);	
+	if (!err){
+		e_passwords_forget_password ("Exchange", uri);
+		e_passwords_add_password (uri, new_pass);
+		e_passwords_remember_password ("Exchange", uri);
+	}
+
+
+}
 /**
  * exchange_account_connect:
  * @account: an #ExchangeAccount
@@ -884,8 +930,7 @@ exchange_account_connect (ExchangeAccount *account)
 	ExchangeHierarchy *hier, *personal_hier;
 	struct dirent *dent;
 	DIR *d;
-	char *password;
-	char *key;
+	char *old_password, *new_password;
 
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
 
@@ -914,12 +959,9 @@ exchange_account_connect (ExchangeAccount *account)
 
 	if (result != E2K_AUTOCONFIG_OK) {
 		if ( is_password_expired (account, ac)) {
-			key = g_strdup_printf ("exchange://%s@%s",
-                               account->priv->username,
-                               account->exchange_server);
-
-			password = e_passwords_get_password ("Exchange", key);
-			exchange_change_password (password, ac, 0);
+			old_password = exchange_account_get_password (account);
+			new_password = exchange_get_new_password (old_password, 0);
+			exchange_account_set_password (account, old_password, new_password);
 			goto try_connect_again;
 		}
 		switch (result) {

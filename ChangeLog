@@ -1,3 +1,26 @@
+2004-05-14  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	Fixes the change password bug#58419
+
+	* storage/exchange-account.c (get_password): Added the code to
+        create the kerberos config file, if its not yet created.
+        (exchange_account_get_password): Retrives the password stored
+        locally.
+        (exchange_account_set_password): Updates the server with the new
+        password and also updates it locally.
+        (exchange_account_connect): Updated the code to use the new
+        exchange_get_new_password call.
+        * storage/exchange-account.h: Function declarations for
+        exchange_account_get_password and exchange_account_set_password
+        * storage/exchange-change-password.c (check_pass_cb): Removed the
+        e2k_autoconfig calls.
+        (exchange_get_new_password): This now returns the new password.
+        * storage/exchange-change-password.h: password_data struct now
+        contains the new_password.
+        * storage/xc-commands.c (do_change_password): This now makes use
+        of the new exchange_account_get/set_password and calls
+        exchange_get_new_password.
+
 2004-05-14  Sushma Rai  <rsushma@novell.com>
 	
 	Prevents a crash when the account doesn't have any favorite folders 

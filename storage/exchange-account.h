@@ -77,6 +77,12 @@ void                   exchange_account_update_folder        (ExchangeAccount   
 
 void                   exchange_account_rescan_tree          (ExchangeAccount                *acct);
 
+char 		       *exchange_account_get_password (ExchangeAccount *acct);
+
+void		       exchange_account_set_password (ExchangeAccount *acct,
+							char *old_password,
+							char *new_password);
+
 
 typedef enum {
 	EXCHANGE_ACCOUNT_FOLDER_OK,

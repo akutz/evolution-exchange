@@ -50,7 +50,6 @@ check_pass_cb (GtkWidget *w, gpointer data)
 	struct password_data *pdata;
 	char *existing_password;
 	GtkDialog *dialog;
-	E2kAutoconfig *ac;
 	GtkLabel *top_label;
 
 	pdata = (struct password_data *) data;
@@ -58,9 +57,8 @@ check_pass_cb (GtkWidget *w, gpointer data)
 	existing_password = (char *) pdata->existing_password;
 	main_app = (GladeXML *) pdata->xml;
 	dialog = (GtkDialog *) pdata->dialog;
-	ac = (E2kAutoconfig *) pdata->ac;
 
-        cur_entry = GTK_ENTRY (glade_xml_get_widget (main_app, "confirm_pass_entry"));
+        cur_entry = GTK_ENTRY (glade_xml_get_widget (main_app, "current_pass_entry"));
         new_entry = GTK_ENTRY (glade_xml_get_widget (main_app, "new_pass_entry"));
         confirm_entry = GTK_ENTRY (glade_xml_get_widget (main_app, "confirm_pass_entry"));
 	top_label = GTK_LABEL (glade_xml_get_widget (main_app, "pass_label"));
@@ -85,8 +83,9 @@ check_pass_cb (GtkWidget *w, gpointer data)
 
 		if (strcmp (new_pass, confirm_pass) == 0) {
 			g_message ("Password confirmed\n");
-			/* e2k_autoconfig_set_password crashes if existing_password is NULL */
-			e2k_autoconfig_set_password (ac, new_pass);
+
+			pdata->new_password = g_strdup (new_pass);
+			
 			gtk_dialog_response (dialog, GTK_RESPONSE_DELETE_EVENT);
 			return;
 		}
@@ -104,8 +103,8 @@ check_pass_cb (GtkWidget *w, gpointer data)
  * 		the menu option
  *		0 , connector has found that the password has expired
  */
-void 
-exchange_change_password (char *password, E2kAutoconfig *ac, int voluntary)
+char *
+exchange_get_new_password (char *password, int voluntary)
 {
 	GtkWidget *top_widget;
 	GtkEntry *password_entry;
@@ -115,7 +114,7 @@ exchange_change_password (char *password, E2kAutoconfig *ac, int voluntary)
 	GladeXML *xml;
 	struct password_data pdata;
 	GtkLabel *top_label;
-	
+
 	xml = glade_xml_new (FILENAME, ROOTNODE, NULL);
 	top_widget = glade_xml_get_widget (xml, ROOTNODE);
 
@@ -139,6 +138,7 @@ exchange_change_password (char *password, E2kAutoconfig *ac, int voluntary)
 	pdata.xml = xml;
 	pdata.existing_password = (char *) password;
 	pdata.dialog = GTK_DIALOG(top_widget);
+	pdata.new_password = NULL;
 
 	g_signal_connect (ok_button, "clicked", G_CALLBACK (check_pass_cb), &pdata );
 	g_signal_connect (cancel_button, "clicked", G_CALLBACK (check_response), GTK_WIDGET(top_widget));
@@ -157,4 +157,5 @@ run_dialog_again:
 		gtk_widget_destroy (top_widget);
 	g_object_unref (xml);
 
+	return pdata.new_password;
 }

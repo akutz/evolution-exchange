@@ -23,13 +23,13 @@ extern "C" {
 #pragma }
 #endif /* __cplusplus */
 
-void exchange_change_password (char *password, E2kAutoconfig *ac, int voluntary);
+char *exchange_get_new_password (char *existing_password, int voluntary);
                                                                                                    
 struct password_data {
         GladeXML *xml;
         char *existing_password;
         GtkDialog *dialog;
-        E2kAutoconfig *ac;
+        char *new_password;
 };
 
 #ifdef __cplusplus

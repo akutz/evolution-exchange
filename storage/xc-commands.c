@@ -27,6 +27,7 @@
 #include "e-folder-exchange.h"
 #include "exchange-hierarchy-gal.h"
 #include "e2k-utils.h"
+#include "exchange-account.h"
 #include "exchange-change-password.h"
 #include "exchange-delegates.h"
 #include "exchange-oof.h"
@@ -86,10 +87,16 @@ do_change_password (BonoboUIComponent *component, gpointer user_data,
 		    const char *cname)
 {
 	BonoboControl *sidebar = user_data;
-	GtkWidget *sidebar_widget = bonobo_control_get_widget (sidebar);
+	ExchangeAccount *account;
+	char *old_password, *new_password;
 
-	/*e_notice (sidebar_widget, GTK_MESSAGE_ERROR, "FIXME (do_change_password)");*/
-	exchange_change_password ("", NULL, 1);
+	account = get_account_for_view (sidebar);
+
+	old_password = exchange_account_get_password (account);
+
+	new_password = exchange_get_new_password (old_password, 1);
+
+	exchange_account_set_password (account, old_password, new_password);
 }
 
 static void
