@@ -767,6 +767,7 @@ func_contains(ESExp *f, int argc, ESExpResult **argv, void *data)
 
 	propname = argv[0]->value.string;
 	str = argv[1]->value.string;
+	ldap_attr = query_prop_to_ldap(argv[0]->value.string);
 
 	if (!strcmp(propname, "x-evolution-any-field")) {
 		/* This gui does (contains "x-evolution-any-field" ""),
@@ -786,7 +787,6 @@ func_contains(ESExp *f, int argc, ESExpResult **argv, void *data)
 		return r;
 	}
 
-	ldap_attr = query_prop_to_ldap(argv[0]->value.string);
 	if (!ldap_attr) {
 		/* Attribute doesn't exist, so it can't possibly match */
 		r = e_sexp_result_new(f, ESEXP_RES_BOOL);

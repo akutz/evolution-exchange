@@ -406,7 +406,7 @@ void
 xc_commands_context_menu (EStorageSetView *storage_set_view,
 			  EFolder *folder, GdkEvent *event)
 {
-	guint32 disable_mask, hide_mask;
+	guint32 disable_mask = 0, hide_mask = 0;
 	ExchangeHierarchy *hier;
 	XCFolderCommandData *fcd;
 
