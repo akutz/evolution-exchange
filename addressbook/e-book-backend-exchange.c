@@ -75,9 +75,7 @@ struct EBookBackendExchangePrivate {
 	E2kContext *ctx;
 	gboolean connected;
 	GHashTable *ops;
-#ifdef OFFLINE_SUPPORTED
 	int mode;
-#endif
 
 	EBookBackendSummary *summary;
 };
@@ -1199,13 +1197,12 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 
 	d(printf("ebbe_create_contact(%p, %p, %s)\n", backend, book, vcard));
 
-#ifdef OFFLINE_SUPPORTED
 	if (bepriv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL)
 		return GNOME_Evolution_Addressbook_RepositoryOffline ;
 	else if (bepriv->mode != GNOME_Evolution_Addressbook_MODE_REMOTE)
 		return GNOME_Evolution_Addressbook_OtherError;
+
 	/* We now assume that the repository is online */
-#endif
 	*contact = e_contact_new_from_vcard (vcard);
 	props = props_from_contact (be, *contact, NULL);
 
@@ -1266,13 +1263,12 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 
 	d(printf("ebbe_modify_contact(%p, %p, %s)\n", backend, book, vcard));
 
-#ifdef OFFLINE_SUPPORTED
 	if (be->priv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL)
 		return GNOME_Evolution_Addressbook_RepositoryOffline ;
 	else if (be->priv->mode != GNOME_Evolution_Addressbook_MODE_REMOTE)
 		return GNOME_Evolution_Addressbook_OtherError;
+
 	/* We now assume that the repository is online */
-#endif
 	*contact = e_contact_new_from_vcard (vcard);
 	uri = e_contact_get_const (*contact, E_CONTACT_UID);
 
@@ -1366,14 +1362,13 @@ e_book_backend_exchange_remove_contacts (EBookBackendSync  *backend,
 	 /* Remove one or more contacts */
 	d(printf("ebbe_remove_contact(%p, %p, %s)\n", backend, book, (char*)id_list->data));
 
-#ifdef OFFLINE_SUPPORTED
 	if (bepriv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL)
 		return GNOME_Evolution_Addressbook_RepositoryOffline ;
 	else if (bepriv->mode != GNOME_Evolution_Addressbook_MODE_REMOTE)
 		return GNOME_Evolution_Addressbook_OtherError;
+
 	/* We now assume that the repository is online */
 	/* FIXME: Should we assume that we are authenticated ? */
-#endif
 	for (l = id_list; l; l = l->next) {
 		uri = l->data;
 		status = e2k_context_delete (bepriv->ctx, NULL, uri);
@@ -1859,7 +1854,6 @@ e_book_backend_exchange_authenticate_user (EBookBackendSync *backend,
 	return GNOME_Evolution_Addressbook_Success;
 }
 
-#ifdef OFFLINE_SUPPORTED
 static void
 e_book_backend_exchange_set_mode (EBookBackend *backend, int mode)
 {
@@ -1888,7 +1882,6 @@ e_book_backend_exchange_set_mode (EBookBackend *backend, int mode)
 		}
 	}
 }
-#endif
 
 static EBookBackendSyncStatus
 e_book_backend_exchange_get_supported_fields (EBookBackendSync  *backend,
@@ -2088,10 +2081,7 @@ e_book_backend_exchange_class_init (EBookBackendExchangeClass *klass)
 	backend_class->start_book_view         = e_book_backend_exchange_start_book_view;
 	backend_class->stop_book_view          = e_book_backend_exchange_stop_book_view;
 	backend_class->cancel_operation        = e_book_backend_exchange_cancel_operation;
-#ifdef OFFLINE_SUPPORTED
 	backend_class->set_mode			= e_book_backend_exchange_set_mode;
-#endif
-
 
 	sync_class->remove_sync                = e_book_backend_exchange_remove;
 	sync_class->create_contact_sync        = e_book_backend_exchange_create_contact;

@@ -155,9 +155,7 @@ main (int argc, char **argv)
 {
 	char *path;
 	char *config_directory;
-#ifdef OFFLINE_SUPPORTED
 	ExchangeOfflineListener *offline_listener;
-#endif
 
 	bindtextdomain (PACKAGE, CONNECTOR_LOCALEDIR);
 	bind_textdomain_codeset (PACKAGE, "UTF-8");
@@ -202,13 +200,13 @@ main (int argc, char **argv)
         if (!setup_addressbook_factory ())
 		goto failed;
 
-#ifdef OFFLINE_SUPPORTED
 	offline_listener = exchange_offline_listener_new (book_factory, cal_factory);
-	if (!offline_listener)
+	if (!offline_listener) { printf ("offline listener failed\n");
 		goto failed;
+	}
 	exchange_component_set_offline_listener (global_exchange_component, 
 						offline_listener);
-#endif
+	/* FIXME : unref offline_listener here as well ? */
 
 	fprintf (stderr, "Evolution Exchange Storage up and running\n");
 #ifdef E2K_DEBUG

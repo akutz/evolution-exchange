@@ -49,9 +49,7 @@ struct ECalBackendExchangePrivate {
 	/* Timezones */
 	GHashTable *timezones;
 	icaltimezone *default_timezone;
-#ifdef OFFLINE_SUPPORTED
 	CalMode mode;
-#endif
 };
 
 #define PARENT_TYPE E_TYPE_CAL_BACKEND_SYNC
@@ -75,15 +73,15 @@ get_cal_address (ECalBackendSync *backend, EDataCal *cal, char **address)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	ExchangeHierarchy *hier;
-#ifdef OFFLINE_SUPPORTED
+
 	if (cbex->priv->mode == CAL_MODE_REMOTE) {
-#endif
 		hier = e_folder_exchange_get_hierarchy (cbex->folder);
 		d(printf("ecbe_get_cal_address(%p, %p) -> %s\n", backend, cal, hier->owner_email));
-#ifdef OFFLINE_SUPPORTED
+		*address = g_strdup (hier->owner_email);
+	} else {
+		*address = NULL;  /* FIXME : For offline, fetch this from gconf */
 	}
-#endif
-	*address = g_strdup (hier->owner_email); /* FIXME : For offline, fetch this from gconf */
+
 	return GNOME_Evolution_Calendar_Success;
 }
 
@@ -132,17 +130,15 @@ load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri)
 	icalcomponent_kind kind;
 	icalproperty *prop;
 	char *lastmod;
-#ifdef OFFLINE_SUPPORTED
 	if (cbex->priv->mode == CAL_MODE_REMOTE) {
-#endif
 		cbex->priv->object_cache_file =
 			e_folder_exchange_get_storage_file (cbex->folder, "cache.ics");
-#ifdef OFFLINE_SUPPORTED
+	/* FIXME :
 	} else {
 		cbex->priv->object_cache_file = 
-			exchange_offline_build_object_cache_file (e2kuri, "cache.ics", TRUE);
+			exchange_offline_build_object_cache_file (e2kuri, "cache.ics", TRUE); */
 	}
-#endif
+	
 
 	vcalcomp = e_cal_util_parse_ics_file (cbex->priv->object_cache_file);
 	if (!vcalcomp)
@@ -268,22 +264,20 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 	const char *prop = PR_ACCESS;
 	E2kHTTPStatus status;
 	E2kResult *results;
-	E2kUri *euri;
+	E2kUri *euri = NULL;
 	int nresults;
 	guint access = 0;
 
 	d(printf("ecbe_open_calendar(%p, %p, %sonly if exists, user=%s, pass=%s)\n", backend, cal, only_if_exists?"":"not ", username?username:"(null)", password?password:"(null)"));
 
 	uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
-	euri = e2k_uri_new (uristr);
-#ifdef OFFLINE_SUPPORTED
 	if (cbex->priv->mode == CAL_MODE_LOCAL) {
 		printf ("ECBE : cal is offline .. load cache\n");
+		euri = e2k_uri_new (uristr);
 		load_cache (cbex, euri);
 		e2k_uri_free (euri);
 		return GNOME_Evolution_Calendar_Success;
 	}
-#endif		
 		
 	/* Make sure we have an open connection */
 	cbex->account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
@@ -464,7 +458,6 @@ e_cal_backend_exchange_add_object (ECalBackendExchange *cbex,
 
 	if (is_instance) {
 		GList *l;
-		icalproperty *prop;
 		struct icaltimetype inst_rid;
 		gboolean inst_found = FALSE;
 
@@ -624,14 +617,19 @@ get_object (ECalBackendSync *backend, EDataCal *cal,
 	
 	ecomp = g_hash_table_lookup (cbex->priv->objects, uid);
 	if (!ecomp)
+	if ((!ecomp) || (!ecomp->icomp))
 		return GNOME_Evolution_Calendar_ObjectNotFound;
 	
 	/*anything on recur id here????*/
 	
 	comp = e_cal_component_new ();
-	e_cal_component_set_icalcomponent (comp, ecomp->icomp);
-
-	*object = e_cal_component_get_as_string (comp);
+	if (e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (ecomp->icomp))) {
+		*object = e_cal_component_get_as_string (comp);
+	} else {
+		*object = NULL;
+		g_object_unref (comp);
+		return GNOME_Evolution_Calendar_ObjectNotFound;
+	}
 	
 	g_object_unref (comp);
 	return GNOME_Evolution_Calendar_Success;
@@ -747,7 +745,7 @@ match_object_sexp (gpointer key, gpointer value, gpointer data)
 	ECalComponent *comp;
 	
 	comp = e_cal_component_new ();
-	e_cal_component_set_icalcomponent (comp, ecomp->icomp);
+	e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (ecomp->icomp));
 
 	if ((!match_data->search_needed) ||
 	    (e_cal_backend_sexp_match_comp (match_data->obj_sexp, comp, match_data->backend))) {
@@ -816,7 +814,6 @@ get_timezone (ECalBackendSync *backend, EDataCal *cal,
 	ical_obj = icalcomponent_as_ical_string (vtzcomp);
 	*object = g_strdup (ical_obj);
 
-	icalcomponent_free (vtzcomp);
 	return  GNOME_Evolution_Calendar_Success;
 }
 
@@ -915,21 +912,30 @@ match_object (gpointer key, gpointer value, gpointer data)
 	ECalBackendExchangeComponent *ecomp = value;
 	struct search_data *sd = data;
 	ECalComponent *cal_comp;
+	icalcomponent *tmp;
+	char * ecal_str;
 	GList *inst;
 
 	/* FIXME: we shouldn't have to convert to ECalComponent here */
 	cal_comp = e_cal_component_new ();
-	e_cal_component_set_icalcomponent (cal_comp, icalcomponent_new_clone (ecomp->icomp));
-	if (e_cal_backend_sexp_match_comp (sd->sexp, cal_comp, sd->backend)) {
-		sd->matches = g_list_prepend (sd->matches,
-					      e_cal_component_get_as_string (cal_comp));
+
+	/* Find a way to test if the icalcomp added to cal_comp is not null */
+	tmp = icalcomponent_new_clone (ecomp->icomp);
+	if (tmp) {
+		e_cal_component_set_icalcomponent (cal_comp, tmp);
+		if (e_cal_backend_sexp_match_comp (sd->sexp, cal_comp, sd->backend)) {
+			ecal_str = e_cal_component_get_as_string (cal_comp);
+			if (ecal_str)
+				sd->matches = g_list_prepend (sd->matches, ecal_str);
+		}
 	}
 
 	for (inst = ecomp->instances; inst; inst = inst->next) {
 		e_cal_component_set_icalcomponent (cal_comp, icalcomponent_new_clone (inst->data));
 		if (e_cal_backend_sexp_match_comp (sd->sexp, cal_comp, sd->backend)) {
-			sd->matches = g_list_prepend (sd->matches,
-						      e_cal_component_get_as_string (cal_comp));
+			ecal_str = e_cal_component_get_as_string (cal_comp);
+			if (ecal_str)
+				sd->matches = g_list_prepend (sd->matches, ecal_str);
 		}
 	}
 
@@ -966,7 +972,6 @@ start_query (ECalBackend *backend, EDataCalView *view)
 	e_data_cal_view_notify_done (view, GNOME_Evolution_Calendar_Success);
 }
 
-#ifdef OFFLINE_SUPPORTED
 gboolean 
 e_cal_backend_exchange_is_online (ECalBackendExchange *cbex)
 {
@@ -975,12 +980,10 @@ e_cal_backend_exchange_is_online (ECalBackendExchange *cbex)
 	else
 		return TRUE;
 }
-#endif
 
 static CalMode
 get_mode (ECalBackend *backend)
 {
-#ifdef OFFLINE_SUPPORTED
 	ECalBackendExchange *cbex;
 	ECalBackendExchangePrivate *priv;
 	
@@ -990,15 +993,11 @@ get_mode (ECalBackend *backend)
 	d(printf("ecbe_get_mode(%p)\n", backend));
 
 	return priv->mode;
-#else
-	return CAL_MODE_REMOTE;
-#endif
 }
 
 static void
 set_mode (ECalBackend *backend, CalMode mode)
 {
-#ifdef OFFLINE_SUPPORTED
 	ECalBackendExchange *cbex;
 	ECalBackendExchangePrivate *priv;
 	
@@ -1050,17 +1049,6 @@ set_mode (ECalBackend *backend, CalMode mode)
 			backend, GNOME_Evolution_Calendar_CalListener_MODE_NOT_SUPPORTED,
 			cal_mode_to_corba (mode));
 	}
-#else
-	if (mode == CAL_MODE_REMOTE) {
-		e_cal_backend_notify_mode (
-                        backend, GNOME_Evolution_Calendar_CalListener_MODE_SET,
-			GNOME_Evolution_Calendar_MODE_REMOTE);
-	} else {
-		 e_cal_backend_notify_mode (
-			backend, GNOME_Evolution_Calendar_CalListener_MODE_NOT_SUPPORTED,
-			GNOME_Evolution_Calendar_MODE_REMOTE);
-	}
-#endif
 }
 
 static ECalBackendSyncStatus
@@ -1163,18 +1151,13 @@ e_cal_backend_exchange_get_cal_address (ECalBackendSync *backend)
 	ExchangeHierarchy *hier;
 
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex), NULL);
-#ifdef OFFLINE_SUPPORTED
 	if (cbex->priv->mode == CAL_MODE_REMOTE) {
 		hier = e_folder_exchange_get_hierarchy (cbex->folder);
 		//cbex->priv->email_address = g_strdup (hier->owner_email);
 		return hier->owner_email;
+	} else {
+		return NULL; /* FIXME : Read this from gconf */
 	}
-	else
-		return hier->owner_email; /* FIXME : Read this from gconf */
-#else	
-	hier = e_folder_exchange_get_hierarchy (cbex->folder);
-	return hier->owner_email; /* FIXME : Read this from gconf */
-#endif
 }
 
 const char *
@@ -1228,7 +1211,7 @@ check_change_type (gpointer key, gpointer value, gpointer data)
 	if (ecomp != NULL) {
 
 		comp = e_cal_component_new ();
-		e_cal_component_set_icalcomponent (comp, ecomp->icomp);
+		e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (ecomp->icomp));
 
 		calobj = e_cal_component_get_as_string (comp);
 		switch (e_xmlhash_compare (change_data->ehash, uid, calobj)){

@@ -1039,7 +1039,6 @@ exchange_account_set_password (ExchangeAccount *account, char *old_pass, char *n
 	}
 }
 
-#ifdef OFFLINE_SUPPORTED
 /**
  * exchange_account_set_offline:
  * @account: an #ExchangeAccount
@@ -1091,7 +1090,6 @@ exchange_account_set_online (ExchangeAccount *account)
 		return FALSE;
 }
 
-#endif
 /**
  * exchange_account_connect:
  * @account: an #ExchangeAccount
@@ -1130,11 +1128,7 @@ exchange_account_connect (ExchangeAccount *account)
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
 
 	g_mutex_lock (account->priv->connect_lock);
-#ifdef OFFLINE_SUPPORTED
 	if ((account->priv->connecting) || (!account->priv->account_online)){
-#else
-	if (account->priv->connecting) {
-#endif
 		g_mutex_unlock (account->priv->connect_lock);
 		return NULL;
 	} else if (account->priv->ctx) {

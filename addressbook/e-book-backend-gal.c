@@ -1288,12 +1288,12 @@ authenticate_user (EBookBackend *backend,
 					       GNOME_Evolution_Addressbook_UnsupportedAuthenticationMethod);
 }
 
-#ifdef OFFLINE_SUPPORTED
 static void
 set_mode (EBookBackend *backend, int mode)
 {
 	EBookBackendGAL *be = E_BOOK_BACKEND_GAL (backend);
 	EBookBackendGALPrivate *bepriv;
+	/* This is to be done once ldap supports offline */
 #if 0
 	bepriv = be->priv;
 	bepriv->mode = mode;
@@ -1316,7 +1316,6 @@ set_mode (EBookBackend *backend, int mode)
 	}
 #endif
 }
-#endif
 
 static void
 get_supported_fields (EBookBackend *backend,
@@ -1499,9 +1498,7 @@ class_init (EBookBackendGALClass *klass)
 	backend_class->get_changes                = get_changes;
 	backend_class->authenticate_user          = authenticate_user;
 	backend_class->get_supported_fields       = get_supported_fields;
-#ifdef OFFLINE_SUPPORTED
 	backend_class->set_mode      		  = set_mode;
-#endif
 	backend_class->get_required_fields        = get_required_fields;
 	backend_class->get_supported_auth_methods = get_supported_auth_methods;
 	backend_class->cancel_operation           = cancel_operation;

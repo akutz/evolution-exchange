@@ -807,12 +807,12 @@ open_task (ECalBackendSync *backend, EDataCal *cal,
 				     cal, only_if_exits, username, password);
 	if (status != GNOME_Evolution_Calendar_Success)
 		return status;
-#ifdef OFFLINE_SUPPORTED
+
 	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
 		printf ("ECBEC : calendar is offline\n");
 		return GNOME_Evolution_Calendar_Success;
 	}
-#endif
+
 	status = get_changed_tasks (E_CAL_BACKEND_EXCHANGE (backend), NULL);
 	if (status != E2K_HTTP_OK)
 		return GNOME_Evolution_Calendar_OtherError;
@@ -852,12 +852,12 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 	ecalbex = E_CAL_BACKEND_EXCHANGE (backend);
 
 	g_return_val_if_fail (calobj != NULL, GNOME_Evolution_Calendar_ObjectNotFound);
-#ifdef OFFLINE_SUPPORTED
+
 	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
 		printf ("tasks are offline\n");
 		return GNOME_Evolution_Calendar_InvalidObject;
 	}
-#endif
+
 	/* Parse the icalendar text */
 	icalcomp = icalparser_parse_string (*calobj);
 	if (!icalcomp)

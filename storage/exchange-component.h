@@ -44,10 +44,9 @@ ExchangeComponent *exchange_component_new      (void);
 ExchangeAccount   *exchange_component_get_account_for_uri (ExchangeComponent *component,
 							   const char        *uri);
 gboolean           exchange_component_is_interactive      (ExchangeComponent *component);
-#ifdef OFFLINE_SUPPORTED
+
 void exchange_component_set_offline_listener (ExchangeComponent *component, 
 						ExchangeOfflineListener *listener);
-#endif
 
 #define EXCHANGE_COMPONENT_FACTORY_IID  "OAFIID:GNOME_Evolution_Exchange_Component_Factory:" BASE_VERSION
 #define EXCHANGE_COMPONENT_IID		"OAFIID:GNOME_Evolution_Exchange_Component:" BASE_VERSION

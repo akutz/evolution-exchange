@@ -30,6 +30,11 @@
 #include <libedata-cal/e-data-cal-factory.h>
 #include <gconf/gconf-client.h>
 
+enum {
+        OFFLINE_MODE=1,
+        ONLINE_MODE
+};
+
 static GObjectClass *parent_class = NULL;
 
 struct _ExchangeOfflineListenerPrivate 
@@ -41,44 +46,46 @@ struct _ExchangeOfflineListenerPrivate
 };
 
 static void 
-set_online_status (ExchangeOfflineListener *offline_listener, gboolean is_offline)
+set_online_status (ExchangeOfflineListener *ex_offline_listener, gboolean is_offline)
 {
 	ExchangeOfflineListenerPrivate *priv;
 	
-	priv = offline_listener->priv;
+	priv = ex_offline_listener->priv;
 	priv->offline = is_offline;
-#if OFFLINE_SUPPORTED	
+
 	if (is_offline) {
-		e_data_cal_factory_set_backend_mode (priv->cal_factory, CAL_MODE_LOCAL);
-		e_data_book_factory_set_backend_mode (priv->book_factory, CAL_MODE_LOCAL);
+		e_data_cal_factory_set_backend_mode (priv->cal_factory, OFFLINE_MODE);
+		e_data_book_factory_set_backend_mode (priv->book_factory, OFFLINE_MODE);
 
 	} else {
-		e_data_cal_factory_set_backend_mode (priv->cal_factory, CAL_MODE_REMOTE);
-		e_data_book_factory_set_backend_mode (priv->book_factory, CAL_MODE_REMOTE);
+		e_data_cal_factory_set_backend_mode (priv->cal_factory, ONLINE_MODE);
+		e_data_book_factory_set_backend_mode (priv->book_factory, ONLINE_MODE);
 	}
-#endif
 }
 
 static void 
 online_status_changed (GConfClient *client, int cnxn_id, GConfEntry *entry, gpointer data)
 {
 	GConfValue *value;
-	gboolean offline;
-        ExchangeOfflineListener *offline_listener;
+	gboolean offline = FALSE;
+        ExchangeOfflineListener *ex_offline_listener;
+	ExchangeOfflineListenerPrivate *priv;
 	
-	offline_listener = EXCHANGE_OFFLINE_LISTENER(data);
-	offline = FALSE;
+	ex_offline_listener = EXCHANGE_OFFLINE_LISTENER(data);
+	priv = ex_offline_listener->priv;
 	value = gconf_entry_get_value (entry);
 	if (value)
 		offline = gconf_value_get_bool (value);
-	set_online_status (offline_listener ,offline);
+	if (priv->offline != offline)
+		set_online_status (ex_offline_listener ,offline);
 }
 
 static void 
-setup_offline_listener (ExchangeOfflineListener *offline_listener)
+setup_offline_listener (ExchangeOfflineListener *ex_offline_listener)
 {
-	ExchangeOfflineListenerPrivate *priv = offline_listener->priv;
+	ExchangeOfflineListenerPrivate *priv = ex_offline_listener->priv;
 	GConfValue *value;
+	gboolean offline = FALSE;
 	
 	priv->default_client = gconf_client_get_default ();
 	gconf_client_add_dir (priv->default_client, "/apps/evolution/shell", 
@@ -87,60 +94,63 @@ setup_offline_listener (ExchangeOfflineListener *offline_listener)
 	gconf_client_notify_add (priv->default_client, 
 				"/apps/evolution/shell/start_offline", 
 				(GConfClientNotifyFunc)online_status_changed, 
-				offline_listener, NULL, NULL);
+				ex_offline_listener, NULL, NULL);
 
 	value = gconf_client_get (priv->default_client, 
 				"/apps/evolution/shell/start_offline", NULL);
+	if (value)
+		offline = gconf_value_get_bool (value);
 
-	set_online_status (offline_listener, gconf_value_get_bool (value)); 
+	set_online_status (ex_offline_listener, offline); 
 }
 
 ExchangeOfflineListener*
 exchange_offline_listener_new (EDataBookFactory *book_factory, EDataCalFactory *cal_factory)
 {
-	ExchangeOfflineListener *offline_listener = g_object_new (EXCHANGE_OFFLINE_TYPE_LISTENER, NULL);
-	ExchangeOfflineListenerPrivate *priv = offline_listener->priv;
+	ExchangeOfflineListener *ex_offline_listener = g_object_new (EXCHANGE_OFFLINE_TYPE_LISTENER, NULL);
+	ExchangeOfflineListenerPrivate *priv = ex_offline_listener->priv;
 	
 	priv->book_factory = book_factory;
 	priv->cal_factory = cal_factory;
-	setup_offline_listener (offline_listener);
+	setup_offline_listener (ex_offline_listener);
+	return ex_offline_listener;
 }
 
 /* This returns TRUE if exchange is set offline */
 gboolean
-exchange_is_offline (ExchangeOfflineListener *offline_listener)
+exchange_is_offline (ExchangeOfflineListener *ex_offline_listener)
 {
 	ExchangeOfflineListenerPrivate * priv;
 
-	g_return_val_if_fail (EXCHANGE_IS_OFFLINE_LISTENER (offline_listener), FALSE);
+	g_return_val_if_fail (EXCHANGE_IS_OFFLINE_LISTENER (ex_offline_listener), FALSE);
 
-	priv = offline_listener->priv;
+	priv = ex_offline_listener->priv;
 	
 	return priv->offline;
 }
 
 static void
-offline_listener_dispose (GObject *object)
+exchange_offline_listener_dispose (GObject *object)
 {
-	ExchangeOfflineListener *offline_listener = EXCHANGE_OFFLINE_LISTENER (object);
-	if (offline_listener->priv->default_client) {
-		g_object_unref (offline_listener->priv->default_client);
-		offline_listener->priv->default_client = NULL;
+	ExchangeOfflineListener *ex_offline_listener = EXCHANGE_OFFLINE_LISTENER (object);
+	if (ex_offline_listener->priv->default_client) {
+		g_object_unref (ex_offline_listener->priv->default_client);
+		ex_offline_listener->priv->default_client = NULL;
 	}
 	(* G_OBJECT_CLASS (parent_class)->dispose) (object);
 }
 
 static void
-offline_listener_finalize (GObject *object)
+exchange_offline_listener_finalize (GObject *object)
 {
-	ExchangeOfflineListener *offline_listener;
+	ExchangeOfflineListener *ex_offline_listener;
 	ExchangeOfflineListenerPrivate *priv;
 
-	offline_listener = EXCHANGE_OFFLINE_LISTENER (object);
-	priv = offline_listener->priv;
+	ex_offline_listener = EXCHANGE_OFFLINE_LISTENER (object);
+	priv = ex_offline_listener->priv;
 	
 	g_free (priv);
-	offline_listener->priv = NULL;
+	ex_offline_listener->priv = NULL;
 	
 	parent_class->finalize (object);
 }
@@ -162,8 +172,8 @@ exchange_offline_listener_class_init (ExchangeOfflineListener *klass)
 	parent_class = g_type_class_peek_parent (klass);
 
 	object_class = G_OBJECT_CLASS (klass);
-	object_class->dispose = offline_listener_dispose;
-	object_class->finalize = offline_listener_finalize;
+	object_class->dispose = exchange_offline_listener_dispose;
+	object_class->finalize = exchange_offline_listener_finalize;
 }
 
 GType

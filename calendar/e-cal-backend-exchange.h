@@ -9,6 +9,7 @@
 
 #include "exchange-types.h"
 #include "e-folder.h"
+#include "exchange-offline-utils.h"
 
 G_BEGIN_DECLS
 
