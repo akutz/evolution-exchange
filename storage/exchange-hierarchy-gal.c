@@ -48,6 +48,10 @@ exchange_hierarchy_gal_new (ExchangeAccount *account,
 	char *conf_key_contacts="/apps/evolution/addressbook/sources";
 	ESourceList *cont_source_list;
 
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
+	g_return_val_if_fail (hierarchy_name != NULL, NULL);
+	g_return_val_if_fail (physical_uri_prefix != NULL, NULL);
+
 	hier = g_object_new (EXCHANGE_TYPE_HIERARCHY_GAL, NULL);
 
 	toplevel = e_folder_exchange_new (hier, hierarchy_name,

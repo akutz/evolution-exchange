@@ -401,7 +401,9 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *folder)
 static void
 add_href (ExchangeHierarchy *hier, EFolder *folder, gpointer hrefs)
 {
-	g_ptr_array_add (hrefs, (char *)e_folder_exchange_get_internal_uri (folder));
+	char *uri = g_strdup (e_folder_exchange_get_internal_uri (folder));
+
+	g_ptr_array_add (hrefs, (gpointer) uri);
 }
 
 static GPtrArray *
@@ -446,15 +448,8 @@ exchange_hierarchy_foreign_add_folder (ExchangeHierarchy *hier,
 		folder_type = e_folder_get_type_string (*folder);
 		physical_uri = e_folder_get_physical_uri (*folder);
 		toplevel_folder_name = e_folder_get_name (hier->toplevel);
-		tmp = toplevel_folder_name;
-		while (strncmp (tmp, "'s Folders", 10) != 0) {
-			printf ("tmp : %s\n", tmp);
-			tmp++;
-		}
-		*tmp = '\0';
 		new_folder_name = g_strdup_printf("%s's %s", 
-					toplevel_folder_name, folder_name);
-		*tmp = '\'';
+					hier->owner_name, folder_name);
 
 		if (!(strcmp (folder_type, "calendar")) ||
 		!(strcmp (folder_type, "calendar/public"))) {
@@ -519,12 +514,6 @@ hierarchy_foreign_new (ExchangeAccount *account,
 	ExchangeHierarchyForeign *hfor;
 
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
-	g_return_val_if_fail (hierarchy_name != NULL, NULL);
-	g_return_val_if_fail (physical_uri_prefix != NULL, NULL);
-	g_return_val_if_fail (internal_uri_prefix != NULL, NULL);
-	g_return_val_if_fail (owner_name != NULL, NULL);
-	g_return_val_if_fail (owner_email != NULL, NULL);
-	g_return_val_if_fail (source_uri != NULL, NULL);
 
 	hfor = g_object_new (EXCHANGE_TYPE_HIERARCHY_FOREIGN, NULL);
 
@@ -570,6 +559,8 @@ exchange_hierarchy_foreign_new (ExchangeAccount *account,
 	GHashTable *props;
 	xmlDoc *doc;
 
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
+	
 	hier = hierarchy_foreign_new (account, hierarchy_name,
 				      physical_uri_prefix,
 				      internal_uri_prefix,
@@ -613,6 +604,9 @@ exchange_hierarchy_foreign_new_from_dir (ExchangeAccount *account,
 	char *mf_path;
 	GHashTable *props;
 	xmlDoc *doc;
+
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
+	g_return_val_if_fail (folder_path != NULL, NULL);
 
 	mf_path = g_build_filename (folder_path, "hierarchy.xml", NULL);
 	doc = xmlParseFile (mf_path);

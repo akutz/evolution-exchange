@@ -678,6 +678,8 @@ exchange_hierarchy_webdav_offline_scan_subtree (ExchangeHierarchy *hier,
 	char *dir, *prefix;
 	int i;
 
+	g_return_if_fail (EXCHANGE_IS_HIERARCHY (hier));
+
 	sod.hier = hier;
 	sod.callback = callback;
 	sod.user_data = user_data;
@@ -714,6 +716,9 @@ exchange_hierarchy_webdav_construct (ExchangeHierarchyWebDAV *hwd,
 {
 	EFolder *toplevel;
 
+	g_return_if_fail (EXCHANGE_IS_HIERARCHY_WEBDAV (hwd));
+	g_return_if_fail (EXCHANGE_IS_ACCOUNT (account));
+
 	hwd->priv->deep_searchable = deep_searchable;
 
 	toplevel = e_folder_exchange_new (EXCHANGE_HIERARCHY (hwd),
@@ -749,6 +754,8 @@ exchange_hierarchy_webdav_new (ExchangeAccount *account,
 			       gboolean deep_searchable)
 {
 	ExchangeHierarchy *hier;
+
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
 
 	hier = g_object_new (EXCHANGE_TYPE_HIERARCHY_WEBDAV, NULL);
 

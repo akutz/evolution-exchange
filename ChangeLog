@@ -1,3 +1,26 @@
+2004-07-30  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* storage/exchange-hierarchy-foreign.c (add_href): Allocate memory
+	for uri before storing it in the hrefs array. Fixes #61950
+	(exchange_hierarchy_foreign_add_folder): Now uses a cleaner way to
+	get the foreign user's name.
+	(hierarchy_foreign_new): Removed unwanted checks for input args.
+	(exchange_hierarchy_foreign_new): Add checks for input args.
+	(exchange_hierarchy_foreign_new_from_dir): Similar
+	* storage/exchange-hierarchy-gal.c (exchange_hierarchy_gal_new):
+	Add checks for input args.
+	* storage/exchange-hierarchy-somedav.c (scan_subtree): Cleaned up
+	code to use a local variable in the while loop.
+	(exchange_hierarchy_somedav_add_folder): Input args checks
+	* storage/exchange-hierarchy-webdav.c 
+	(exchange_hierarchy_webdav_offline_scan_subtree)
+	(exchange_hierarchy_webdav_construct)(exchange_hierarchy_webdav_new):
+	Input args checks.
+	* storage/exchange-hierarchy.c (exchange_hierarchy_new_folder): Similar
+	(exchange_hierarchy_removed_folder)(exchange_hierarchy_create_folder)
+	(exchange_hierarchy_remove_folder)(exchange_hierarchy_xfer_folder)
+	(exchange_hierarchy_construct): Similar
+
 2004-07-27  Dan Winship  <danw@novell.com>
 
 	* mail/mail-stub-exchange.c (account_new_folder): if the new

@@ -130,6 +130,7 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *folder)
 	int folders_returned=0, folders_added=0, i;
 	E2kHTTPStatus status;
 	ExchangeAccountFolderResult folder_result;
+	EFolder *iter_folder = NULL;
 
 	if (hsd->priv->scanned || folder != hier->toplevel)
 		return EXCHANGE_ACCOUNT_FOLDER_OK;
@@ -160,11 +161,11 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *folder)
 		}
 
 		folders_added++;
-		folder = exchange_hierarchy_webdav_parse_folder (
+		iter_folder = exchange_hierarchy_webdav_parse_folder (
 			EXCHANGE_HIERARCHY_WEBDAV (hier),
 			hier->toplevel, result);
-		exchange_hierarchy_new_folder (hier, folder);
-		g_object_unref (folder);
+		exchange_hierarchy_new_folder (hier, iter_folder);
+		g_object_unref (iter_folder);
 	}
 	status = e2k_result_iter_free (iter);
 
@@ -206,13 +207,26 @@ exchange_hierarchy_somedav_add_folder (ExchangeHierarchySomeDAV *hsd,
 				       const char *uri,
 				       EFolder **folder_out)
 {
-	ExchangeHierarchyWebDAV *hwd = EXCHANGE_HIERARCHY_WEBDAV (hsd);
-	ExchangeHierarchy *hier = EXCHANGE_HIERARCHY (hsd);
-	E2kContext *ctx = exchange_account_get_context (hier->account);
+	ExchangeHierarchyWebDAV *hwd;
+	ExchangeHierarchy *hier;
+	E2kContext *ctx;
 	E2kHTTPStatus status;
 	E2kResult *results;
 	int nresults;
 	EFolder *folder;
+
+	g_return_val_if_fail (EXCHANGE_IS_HIERARCHY_SOMEDAV (hsd),
+				EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+	g_return_val_if_fail (uri != NULL,
+				EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+	g_return_val_if_fail (folder_out != NULL,
+				EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+	g_return_val_if_fail (E_IS_FOLDER (*folder_out),
+				EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR); 
+	 
+	hwd = EXCHANGE_HIERARCHY_WEBDAV (hsd);
+	hier = EXCHANGE_HIERARCHY (hsd);
+	ctx = exchange_account_get_context (hier->account);
 
 	status = e2k_context_propfind (ctx, NULL, uri,
 				       folder_props, n_folder_props,

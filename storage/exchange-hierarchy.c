@@ -143,6 +143,9 @@ void
 exchange_hierarchy_new_folder (ExchangeHierarchy *hier,
 			       EFolder *folder)
 {
+	g_return_if_fail (EXCHANGE_IS_HIERARCHY (hier));
+	g_return_if_fail (E_IS_FOLDER (folder));
+	
 	g_signal_emit (hier, signals[NEW_FOLDER], 0, folder);
 }
 
@@ -157,6 +160,9 @@ void
 exchange_hierarchy_removed_folder (ExchangeHierarchy *hier,
 				   EFolder *folder)
 {
+	g_return_if_fail (EXCHANGE_IS_HIERARCHY (hier));
+        g_return_if_fail (E_IS_FOLDER (folder));
+
 	g_signal_emit (hier, signals[REMOVED_FOLDER], 0, folder);
 }
 
@@ -212,7 +218,7 @@ exchange_hierarchy_create_folder (ExchangeHierarchy *hier, EFolder *parent,
 				  const char *name, const char *type)
 {
 	g_return_val_if_fail (EXCHANGE_IS_HIERARCHY (hier), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
-	g_return_val_if_fail (parent != NULL, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+	g_return_val_if_fail (E_IS_FOLDER (parent), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 	g_return_val_if_fail (name != NULL, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 	g_return_val_if_fail (type != NULL, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 
@@ -232,7 +238,7 @@ ExchangeAccountFolderResult
 exchange_hierarchy_remove_folder (ExchangeHierarchy *hier, EFolder *folder)
 {
 	g_return_val_if_fail (EXCHANGE_IS_HIERARCHY (hier), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
-	g_return_val_if_fail (folder != NULL, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+	g_return_val_if_fail (E_IS_FOLDER (folder), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 
 	return HIER_CLASS (hier)->remove_folder (hier, folder);
 }
@@ -255,8 +261,8 @@ exchange_hierarchy_xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 				gboolean remove_source)
 {
 	g_return_val_if_fail (EXCHANGE_IS_HIERARCHY (hier), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
-	g_return_val_if_fail (source != NULL, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
-	g_return_val_if_fail (dest_parent != NULL, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+	g_return_val_if_fail (E_IS_FOLDER (source), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+	g_return_val_if_fail (E_IS_FOLDER (dest_parent), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 	g_return_val_if_fail (dest_name != NULL, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 
 	return HIER_CLASS (hier)->xfer_folder (hier, source,
@@ -307,7 +313,7 @@ ExchangeAccountFolderResult
 exchange_hierarchy_scan_subtree (ExchangeHierarchy *hier, EFolder *folder)
 {
 	g_return_val_if_fail (EXCHANGE_IS_HIERARCHY (hier), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
-	g_return_val_if_fail (folder != NULL, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+	g_return_val_if_fail (E_IS_FOLDER (folder), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 
 	return HIER_CLASS (hier)->scan_subtree (hier, folder);
 }
@@ -358,6 +364,10 @@ exchange_hierarchy_construct (ExchangeHierarchy *hier,
 			      const char *owner_email,
 			      const char *source_uri)
 {
+	g_return_if_fail (EXCHANGE_IS_HIERARCHY (hier));
+	g_return_if_fail (EXCHANGE_IS_ACCOUNT (account));
+	g_return_if_fail (E_IS_FOLDER (toplevel));
+
 	/* We don't ref the account since we'll be destroyed when
 	 * the account is
 	 */
