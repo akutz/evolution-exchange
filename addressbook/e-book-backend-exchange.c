@@ -1144,22 +1144,22 @@ e_book_backend_exchange_remove_contacts (EBookBackendSync  *backend,
 	EBookBackendExchangePrivate *bepriv = be->priv;
 	const char *uri;
 	E2kHTTPStatus status;
+	GList *l;
+	EBookBackendSyncStatus ret_status = GNOME_Evolution_Addressbook_Success;
 
-	/* since we don't report "bulk-removes" in our static
-	 * capabilities, the id list will always contain 1 element.
-	 * (FIXME)
-	 */
-
+	 /* Remove one or more contacts */
 	d(printf("ebbe_remove_contact(%p, %p, %s)\n", backend, book, (char*)id_list->data));
 
-	uri = id_list->data;
-	status = e2k_context_delete (bepriv->ctx, NULL, uri);
-	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-		e_book_backend_summary_remove_contact (bepriv->summary, uri);
-		*removed_ids = g_list_append (NULL, g_strdup (uri));
-		return GNOME_Evolution_Addressbook_Success;
-	} else
-		return http_status_to_pas (status);
+	for (l = id_list; l; l = l->next) {
+		uri = l->data;
+		status = e2k_context_delete (bepriv->ctx, NULL, uri);
+		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+			e_book_backend_summary_remove_contact (bepriv->summary, uri);
+			*removed_ids = g_list_append (*removed_ids, g_strdup (uri));
+		} else 
+			ret_status = http_status_to_pas (status);
+	}
+	return ret_status;
 }
 
 
@@ -1705,7 +1705,7 @@ e_book_backend_exchange_remove (EBookBackendSync *backend, EDataBook *book)
 static char *
 e_book_backend_exchange_get_static_capabilites (EBookBackend *backend)
 {
-	return g_strdup("net,do-initial-query,cache-completions");
+	return g_strdup("net,bulk-removes,do-initial-query,cache-completions");
 }
 
 static gboolean

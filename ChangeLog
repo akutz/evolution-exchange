@@ -1,3 +1,14 @@
+2004-06-14  Sushma Rai  <rsushma@novell.com>
+
+	* addressbook/e-book-backend-exchange.c 
+	(e_book_backend_exchange_remove_contacts): Handling bulk removal of
+	contacts.
+
+	* addressbook/e-book-backend-exchange.c :
+	(e_book_backend_exchange_get_static_capabilites): Added "bulk-removes"
+	to the static capabilities.
+	Fixes #59927
+
 2004-06-12  Sushma Rai  <rsushma@novell.com>
 
 	* storage/exchange-component.c (impl_upgradeFromVersion): Made as
