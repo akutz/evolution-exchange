@@ -937,7 +937,7 @@ exchange_account_connect (ExchangeAccount *account)
 	GByteArray *entryid;
 	const char *timezone;
 	char *phys_uri_prefix, *dir;
-	ExchangeHierarchy *hier, *personal_hier;
+	ExchangeHierarchy *hier, *personal_hier, *fav_hier;
 	struct dirent *dent;
 	DIR *d;
 	char *old_password, *new_password;
@@ -1134,6 +1134,7 @@ exchange_account_connect (ExchangeAccount *account)
 						 account->priv->source_uri);
 	setup_hierarchy (account, hier);
 	g_free (phys_uri_prefix);
+	fav_hier = hier;
 
 	/* Public Folders */
 	phys_uri_prefix = g_strdup_printf ("exchange://%s/public",
@@ -1178,7 +1179,7 @@ exchange_account_connect (ExchangeAccount *account)
 		closedir (d);
 	}
 
-	/* Scan the personal folders so we can resolve references
+	/* Scan the personal and favorite folders so we can resolve references
 	 * to the Calendar, Contacts, etc even if the tree isn't
 	 * opened.
 	 */
@@ -1188,6 +1189,14 @@ exchange_account_connect (ExchangeAccount *account)
 		g_mutex_unlock (account->priv->connect_lock);
 		return NULL;
 	}
+
+	fresult = exchange_hierarchy_scan_subtree (fav_hier,
+						   fav_hier->toplevel);
+	if (fresult != EXCHANGE_ACCOUNT_FOLDER_OK) {
+		g_mutex_unlock (account->priv->connect_lock);
+		return NULL;
+	}
+	
 
 	account->priv->connected = TRUE;
 

@@ -358,7 +358,8 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 
 	/* Remove the ESource of the source folder, in case of rename/move */
 
-	if (hier->type != EXCHANGE_HIERARCHY_GAL && remove_esource) {
+	if ((hier->type == EXCHANGE_HIERARCHY_PERSONAL || 
+	     hier->type == EXCHANGE_HIERARCHY_FAVORITES) && remove_esource) {
 		folder_type = e_folder_get_type_string (source);
 		physical_uri = e_folder_get_physical_uri (source);
 		

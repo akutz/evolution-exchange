@@ -1,3 +1,16 @@
+2004-06-01  Sushma Rai	<rsushma@novell.com>
+
+	Fixes #59385, #59387 
+	* storage/e-folder-exchange.c (e_folder_exchange_new)
+	(e_folder_exchange_delete): Adding ESources only for personal and 
+	favorite folders. 
+
+	* storage/exchange-hierarchy-webdav.c (xfer_folder): Removing ESources
+	during folder rename/move for personal and favorite folders.
+
+	* storage/exchange-account.c (exchange_account_connect): Scan for
+	favorites folders to resolve references before expanding the tree.
+
 2004-05-28  Christian Rose  <menthos@menthos.com>
 
 	* configure.in: Added "sv" to ALL_LINGUAS.

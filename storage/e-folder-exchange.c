@@ -145,7 +145,8 @@ e_folder_exchange_new (ExchangeHierarchy *hier, const char *name,
 	efe->priv->outlook_class = g_strdup (outlook_class);
 
 	/* Add ESources */
-	if (hier->type != EXCHANGE_HIERARCHY_GAL) {
+	if (hier->type == EXCHANGE_HIERARCHY_PERSONAL || 
+	    hier->type == EXCHANGE_HIERARCHY_FAVORITES) {
 	
 		if ((strcmp (type, "calendar") == 0) ||
 		    (strcmp (type, "calendar/public") == 0)) {
@@ -822,7 +823,8 @@ e_folder_exchange_delete (EFolder *folder, E2kOperation *op)
 	/* remove ESources */
 	hier = e_folder_exchange_get_hierarchy (folder); 
 
-	if (hier->type != EXCHANGE_HIERARCHY_GAL) {
+	if (hier->type == EXCHANGE_HIERARCHY_PERSONAL ||
+	    hier->type == EXCHANGE_HIERARCHY_FAVORITES) {
 		folder_type = e_folder_get_type_string (folder);
 		physical_uri = e_folder_get_physical_uri (folder);
 
