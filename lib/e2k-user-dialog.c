@@ -124,6 +124,7 @@ addressbook_clicked_cb (GtkWidget *widget, gpointer data)
 	E2kUserDialogPrivate *priv;
 	CORBA_Environment ev;
 
+	gtk_window_set_modal (GTK_WINDOW (dialog), FALSE);
 	priv = dialog->priv;
 
 	CORBA_exception_init (&ev);
