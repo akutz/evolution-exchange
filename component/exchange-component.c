@@ -75,7 +75,7 @@ finalize (GObject *object)
 
 /* Evolution::Component CORBA methods. */
 
-static CORBA_boolean
+static void
 impl_upgradeFromVersion (PortableServer_Servant servant,
 			 const CORBA_short major,
 			 const CORBA_short minor,
@@ -88,7 +88,7 @@ impl_upgradeFromVersion (PortableServer_Servant servant,
 
 	d(printf("upgradeFromVersion %d %d %d\n", major, minor, revision));
 
-	return GNOME_Evolution_Component_upgradeFromVersion (priv->backend_component,
+	GNOME_Evolution_Component_upgradeFromVersion (priv->backend_component,
 							     major, minor,
 							     revision, ev);
 }
