@@ -109,7 +109,7 @@ init (GObject *object)
 
 	hwd->priv = g_new0 (ExchangeHierarchyWebDAVPrivate, 1);
 	hwd->priv->folders_by_internal_path = g_hash_table_new (g_str_hash, g_str_equal);
-	hwd->priv->foldersize = g_new0 (ExchangeFolderSize, 1);
+	hwd->priv->foldersize = exchange_folder_size_new ();
 
 	g_signal_connect (object, "new_folder",
 			  G_CALLBACK (hierarchy_new_folder), NULL);
