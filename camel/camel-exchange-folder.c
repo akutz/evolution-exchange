@@ -349,6 +349,7 @@ static GByteArray *
 get_message_data (CamelFolder *folder, const char *uid, CamelException *ex)
 {
 	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
+	CamelOfflineStore *offline = (CamelOfflineStore *) folder->parent_store;
 	CamelStream *stream, *stream_mem;
 	GByteArray *ba;
 
@@ -364,6 +365,12 @@ get_message_data (CamelFolder *folder, const char *uid, CamelException *ex)
 
 		return ba;
 	}
+
+	if (offline->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
+		camel_exception_set (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
+                                     _("This message is not available in offline mode."));
+		return NULL;
+	}	
 
 	if (!camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_GET_MESSAGE,
 			      CAMEL_STUB_ARG_FOLDER, folder->full_name,
@@ -399,6 +406,7 @@ get_message (CamelFolder *folder, const char *uid, CamelException *ex)
 	ba = get_message_data (folder, uid, ex);
 	if (!ba)
 		return NULL;
+
 	stream = camel_stream_mem_new_with_byte_array (ba);
 
 	crlffilter = camel_mime_filter_crlf_new (CAMEL_MIME_FILTER_CRLF_DECODE, CAMEL_MIME_FILTER_CRLF_MODE_CRLF_ONLY);
@@ -896,6 +904,7 @@ camel_exchange_folder_update_message_tag (CamelExchangeFolder *exch,
  * @name: the full name of the folder
  * @camel_flags: the folder flags passed to camel_store_get_folder().
  * @folder_dir: local directory this folder can cache data into
+ * @offline_state : offline status
  * @stub: the #CamelStub.
  * @ex: a #CamelException
  *
@@ -907,7 +916,7 @@ camel_exchange_folder_update_message_tag (CamelExchangeFolder *exch,
 gboolean
 camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 				 const char *name, guint32 camel_flags,
-				 const char *folder_dir,
+				 const char *folder_dir, int offline_state,
 				 CamelStub *stub, CamelException *ex)
 {
 	CamelExchangeFolder *exch = (CamelExchangeFolder *)folder;
@@ -1019,6 +1028,8 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 
 		camel_exchange_summary_set_readonly (folder->summary, folder_flags & CAMEL_STUB_FOLDER_READONLY);
 
+		if (offline_state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL )
+			return TRUE;
 		camel_operation_start (NULL, _("Fetching summary information for new messages"));
 		ok = camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_REFRESH_FOLDER,
 				      CAMEL_STUB_ARG_FOLDER, folder->full_name,

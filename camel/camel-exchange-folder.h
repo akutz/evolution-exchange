@@ -50,6 +50,7 @@ gboolean camel_exchange_folder_construct            (CamelFolder *folder,
 						     const char *name,
 						     guint32 camel_flags,
 						     const char *folder_dir,
+						     int offline_state,
 						     CamelStub *stub,
 						     CamelException *ex);
 

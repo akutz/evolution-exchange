@@ -297,10 +297,11 @@ create_folder (ExchangeHierarchy *hier, EFolder *parent,
 	E2kProperties *props;
 	E2kHTTPStatus status;
 	char *permanent_url = NULL;
-	int i;
+	int i, mode;
 
-	if (exchange_account_is_offline (hier->account))
-		return EXCHANGE_ACCOUNT_FOLDER_OFFLINE;
+	exchange_account_is_offline (hier->account, &mode);
+        if (mode != ONLINE_MODE)
+                return EXCHANGE_ACCOUNT_FOLDER_OFFLINE;
 
 	for (i = 0; folder_types[i].component; i++) {
 		if (!strcmp (folder_types[i].component, type))
@@ -344,9 +345,12 @@ static ExchangeAccountFolderResult
 remove_folder (ExchangeHierarchy *hier, EFolder *folder)
 {
 	E2kHTTPStatus status;
+	int mode;
 
-	if (exchange_account_is_offline (hier->account))
-		return EXCHANGE_ACCOUNT_FOLDER_OFFLINE;
+        exchange_account_is_offline (hier->account, &mode);
+
+        if (mode != ONLINE_MODE)
+                return EXCHANGE_ACCOUNT_FOLDER_OFFLINE; 
 
 	if (folder == hier->toplevel)
 		return EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED;
@@ -370,11 +374,11 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 	ESourceList *cal_source_list, *task_source_list, *cont_source_list;
 	const char *folder_type = NULL;
 	ExchangeAccountFolderResult ret_code;
-	gboolean offline;
-
-	offline = exchange_account_is_offline (hier->account);
-	if (offline)
-		return EXCHANGE_ACCOUNT_FOLDER_OFFLINE;
+	int offline;
+	
+	exchange_account_is_offline (hier->account, &offline);
+        if (offline != ONLINE_MODE)
+                return EXCHANGE_ACCOUNT_FOLDER_OFFLINE;
 
 	if (source == hier->toplevel)
 		return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
@@ -396,7 +400,7 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 		if (remove_source)
 			exchange_hierarchy_removed_folder (hier, source);
 		exchange_hierarchy_new_folder (hier, dest);
-		scan_subtree (hier, dest, offline);
+		scan_subtree (hier, dest, (offline == OFFLINE_MODE));
 		physical_uri = (char *) e_folder_get_physical_uri (source);
 		g_object_unref (dest);
 		ret_code = EXCHANGE_ACCOUNT_FOLDER_OK;
@@ -489,12 +493,13 @@ rescan (ExchangeHierarchy *hier)
 	E2kResultIter *iter;
 	E2kResult *result;
 	EFolder *folder;
-	int unread;
+	int unread, offline;
 	gboolean personal = ( hier->type == EXCHANGE_HIERARCHY_PERSONAL );
 	gdouble fsize_d;
 
-	if ( exchange_account_is_offline (hier->account) ||
-	    hier->type == EXCHANGE_HIERARCHY_PUBLIC)
+	exchange_account_is_offline (hier->account, &offline);
+	if ( (offline != ONLINE_MODE) ||
+		hier->type == EXCHANGE_HIERARCHY_PUBLIC)
 		return;
 
 	hrefs = g_ptr_array_new ();

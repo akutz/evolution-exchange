@@ -289,7 +289,7 @@ exchange_connect (CamelService *service, CamelException *ex)
 	
 	store->stub = camel_stub_new (socket_path, _("Evolution Exchange backend process"), ex);
 	g_free (socket_path);
-	if (!store->stub) 
+	if (!store->stub)
 		return FALSE;
 
 	/* Initialize the stub connection */
@@ -306,7 +306,7 @@ exchange_connect (CamelService *service, CamelException *ex)
 
 	camel_object_hook_event (CAMEL_OBJECT (store->stub), "notification",
 				 stub_notification, store);
-	
+
 	return TRUE;
 }
 
@@ -342,12 +342,9 @@ exchange_get_folder (CamelStore *store, const char *folder_name,
 	
 	folder_dir = exchange_path_to_physical (exch->storage_path, folder_name);
 	
-	printf ("folder_name : %s\n", folder_name );
-
 	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
 		if (!folder_dir || access (folder_dir, F_OK) != 0) {
 			g_free (folder_dir);
-			printf ("no folder_dir or no write access\n");
 			camel_exception_setv (ex, CAMEL_EXCEPTION_STORE_NO_FOLDER,
 					      _("No such folder %s"), folder_name);
 			return NULL;
@@ -371,7 +368,7 @@ exchange_get_folder (CamelStore *store, const char *folder_name,
 	g_mutex_unlock (exch->folders_lock);
 	
 	if (!camel_exchange_folder_construct (folder, store, folder_name,
-					      flags, folder_dir,
+					      flags, folder_dir, ((CamelOfflineStore *) store)->state,
 					      exch->stub, ex)) {
 		g_free (folder_dir);
 		camel_object_unref (CAMEL_OBJECT (folder));

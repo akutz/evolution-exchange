@@ -40,6 +40,11 @@ G_BEGIN_DECLS
 #define EXCHANGE_IS_OFFLINE_LISTENER(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), EXCHANGE_OFFLINE_TYPE_LISTENER))
 #define EXCHANGE_IS_OFFLINE_LISTENER_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((obj), EXCHANGE_OFFLINE_TYPE_LISTENER)
 
+enum {
+	UNSUPPORTED_MODE = 0,
+        OFFLINE_MODE,
+        ONLINE_MODE
+};
 
 typedef struct _ExchangeOfflineListener        ExchangeOfflineListener;
 typedef struct _ExchangeOfflineListenerPrivate  ExchangeOfflineListenerPrivate;
@@ -59,7 +64,7 @@ GType exchange_offline_listener_get_type  (void);
 
 ExchangeOfflineListener  *exchange_offline_listener_new (EDataBookFactory *book_factory, EDataCalFactory *cal_factory);
 
-gboolean exchange_is_offline (ExchangeOfflineListener *offline_listener);
+void exchange_is_offline (ExchangeOfflineListener *offline_listener, int *state);
 
 G_END_DECLS
 

@@ -1,5 +1,33 @@
 2005-02-26  Sarfraaz Ahmed <asarfraaz@novell.com>
 
+	* calendar/e-cal-backend-exchange.c : The mode on the backend was not
+	being set back to REMOTE when turned online. Fixed this now.
+	* camel/camel-exchange-folder.c (get_message_data): Dont contact mailer
+	in offline mode.
+	(camel_exchange_folder_update_message_tag): Similar
+	* camel/camel-exchange-folder.h : Similar
+	* camel/camel-exchange-store.c (exchange_get_folder): Send the offline
+	state while creating the new folder
+	* mail/mail-stub-exchange.c: Modified to use the new offline checking
+	method.
+	(refresh_folder_internal): Return the data in the stub if offline.
+	* storage/exchange-account.c : Use the new offline checking method
+	(exchange_account_is_offline_sync_set): Make it return the proper error
+	values using the enums for offline.
+	* storage/exchange-account.h : Use the new offline checking method
+	* storage/exchange-component.c : Similar
+	* storage/exchange-component.h : Similar
+	* storage/exchange-config-listener.c: Similar
+	* storage/exchange-hierarchy-favorites.c : Similar
+	* storage/exchange-hierarchy-somedav.c : Similar
+	* storage/exchange-hierarchy-webdav.c : Similar
+	* storage/exchange-offline-listener.c : Should now send a proper value
+	for an error condition. 
+	* storage/exchange-offline-listener.h : Added new enum for this.
+	Fixes #71519
+
+2005-02-26  Sarfraaz Ahmed <asarfraaz@novell.com>
+
 	* calendar/e-cal-backend-exchange-calendar.c (add_ical) : Now updates
 	the cache with the status tracking info
 	(get_changed_events): Added the enums for tracking info to be sent to

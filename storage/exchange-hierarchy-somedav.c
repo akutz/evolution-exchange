@@ -128,7 +128,7 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *folder, gboolean offline)
 	GPtrArray *hrefs;
 	E2kResultIter *iter;
 	E2kResult *result;
-	int folders_returned=0, folders_added=0, i;
+	int folders_returned=0, folders_added=0, i, mode;
 	E2kHTTPStatus status;
 	ExchangeAccountFolderResult folder_result;
 	EFolder *iter_folder = NULL;
@@ -137,6 +137,11 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *folder, gboolean offline)
 		return EXCHANGE_ACCOUNT_FOLDER_OK;
 	hsd->priv->scanned = TRUE;
 
+	/*FIXME : Not sure if this is the right place for this */
+	exchange_account_is_offline (hier->account, &mode);
+	if (mode != ONLINE_MODE)
+		return EXCHANGE_ACCOUNT_FOLDER_OK;
+
 	hrefs = exchange_hierarchy_somedav_get_hrefs (hsd);
 	if (!hrefs)
 		return EXCHANGE_ACCOUNT_FOLDER_OK;
@@ -144,9 +149,6 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *folder, gboolean offline)
 		g_ptr_array_free (hrefs, TRUE);
 		return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
 	}
-	/*FIXME : Not sure if this is the right place for this */
-	if (exchange_account_is_offline (hier->account))
-		return EXCHANGE_ACCOUNT_FOLDER_OK;
 
 	iter = e_folder_exchange_bpropfind_start (hier->toplevel, NULL,
 						  (const char **)hrefs->pdata,

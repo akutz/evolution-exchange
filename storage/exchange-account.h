@@ -10,6 +10,7 @@
 #include "e2k-global-catalog.h"
 #include "e2k-security-descriptor.h"
 #include "e-folder.h"
+#include "exchange-offline-listener.h"
 #include <e-util/e-account-list.h>
 
 #ifdef __cplusplus
@@ -84,9 +85,9 @@ gboolean		 exchange_account_set_offline (ExchangeAccount *account);
 
 gboolean		 exchange_account_set_online (ExchangeAccount *account);
 
-gboolean		 exchange_account_is_offline (ExchangeAccount *account);
+void		 exchange_account_is_offline (ExchangeAccount *account, int *mode);
 
-gboolean		exchange_account_is_offline_sync_set (ExchangeAccount *account);
+void		exchange_account_is_offline_sync_set (ExchangeAccount *account, int *mode);
 
 
 typedef enum {

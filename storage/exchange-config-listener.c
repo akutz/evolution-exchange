@@ -233,8 +233,11 @@ add_esource (ExchangeAccount *account,
 	GConfClient *client;
 	gboolean is_contacts_folder = TRUE;
 	const char *offline = NULL;
+	int mode;
 
 	client = gconf_client_get_default ();
+
+	exchange_account_is_offline_sync_set (account, &mode);
 
 	if (folder_type != EXCHANGE_CONTACTS_FOLDER) {
 		relative_uri = g_strdup (physical_uri + strlen ("exchange://"));
@@ -258,7 +261,7 @@ add_esource (ExchangeAccount *account,
 		else
 			source = e_source_new (folder_name, relative_uri);
 
-		if (exchange_account_is_offline_sync_set (account)) {
+		if (mode == OFFLINE_MODE) {
 			/* If account is marked for offline sync during account
 			 * creation, mark all the folders for offline sync 
 			 */
@@ -281,7 +284,7 @@ add_esource (ExchangeAccount *account,
 			else
         			source = e_source_new (folder_name, relative_uri);
 
-			if (exchange_account_is_offline_sync_set (account))
+			if (mode == OFFLINE_MODE)
 				e_source_set_property (source, "offline_sync", "1");
 
 			e_source_group_add_source (source_group, source, -1);
@@ -289,7 +292,7 @@ add_esource (ExchangeAccount *account,
 			offline = e_source_get_property (source, "offline_sync");
 			if (!offline) {
 				/* Folder doesn't have any offline property set */
-				if (exchange_account_is_offline_sync_set (account)) 
+				if (mode == OFFLINE_MODE) 
 					e_source_set_property (source, "offline_sync", "1");
 			}
 		}

@@ -121,11 +121,12 @@ get_hrefs (ExchangeHierarchySomeDAV *hsd)
 	GByteArray *source_key;
 	const char *prop = E2K_PR_DAV_HREF, *shortcut_uri;
 	char *perm_url, *folder_uri;
-	int i, nresults;
+	int i, nresults, mode;
 
 	hrefs = g_ptr_array_new ();
 
-	if (exchange_account_is_offline (hier->account)) {
+	exchange_account_is_offline (hier->account, &mode);
+	if (mode != ONLINE_MODE) {
 		exchange_hierarchy_webdav_offline_scan_subtree (EXCHANGE_HIERARCHY (hfav), add_hrefs, hrefs);
 		return hrefs;
 	}

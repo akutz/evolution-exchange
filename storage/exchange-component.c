@@ -248,10 +248,12 @@ new_connection (MailStubListener *listener, int cmd_fd, int status_fd,
 {
 	MailStub *mse;
 	ExchangeAccount *account = baccount->account;
+	int mode;
 
 	g_object_ref (account);
 
-	if (exchange_account_is_offline (account)) {
+	exchange_account_is_offline (account, &mode);
+	if (mode != ONLINE_MODE) {
 		mse = mail_stub_exchange_new (account, cmd_fd, status_fd);
 		goto end;
 	}
@@ -421,24 +423,22 @@ exchange_component_get_account_for_uri (ExchangeComponent *component,
 		baccount = acc->data;
 
 		/* Kludge for while we don't support multiple accounts */
-		//if (!exchange_is_offline (priv->offline_listener)) {
-			if (!uri)
-				return baccount->account;
+		if (!uri)
+			return baccount->account;
 
-			if (exchange_account_get_folder (baccount->account, uri))
-				return baccount->account;
-		//} else {
-			///* FIXME : Handle multiple accounts */
-			//return baccount->account;
-		//}
+		if (exchange_account_get_folder (baccount->account, uri))
+			return baccount->account;
+		/* FIXME : Handle multiple accounts */
 	}
 	return NULL;
 }
 
-gboolean
-exchange_component_is_offline (ExchangeComponent *component)
+void
+exchange_component_is_offline (ExchangeComponent *component, int *state)
 {
-	return exchange_is_offline (component->priv->offline_listener);
+	g_return_if_fail (EXCHANGE_IS_COMPONENT (component));
+
+	exchange_is_offline (component->priv->offline_listener, state);
 }
 
 gboolean

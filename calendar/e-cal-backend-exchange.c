@@ -1022,14 +1022,6 @@ set_mode (ECalBackend *backend, CalMode mode)
 	
 	case CAL_MODE_REMOTE:
 			/* Change status to be online now */
-#if 0
-			if (exchange_account_set_online (cbex->account)) { printf ("mode set to online\n"); 
-				priv->mode = CAL_MODE_REMOTE;
-			}
-			else { printf ("failed to set mode to online\n");
-				break;
-			}
-#endif
 			/* Should we check for access rights before setting this ? */
 			d(printf ("set mode to online\n"));
 			uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
@@ -1040,6 +1032,7 @@ set_mode (ECalBackend *backend, CalMode mode)
 			/* FIXME : Test if available for read already */
 			priv->read_only = TRUE;
 			exchange_account_set_online (account);
+			priv->mode = CAL_MODE_REMOTE;
 			e_cal_backend_notify_mode (backend, 
 				GNOME_Evolution_Calendar_CalListener_MODE_SET,
 				GNOME_Evolution_Calendar_MODE_REMOTE);
@@ -1048,7 +1041,6 @@ set_mode (ECalBackend *backend, CalMode mode)
 			break;
 
 	case CAL_MODE_LOCAL:
-			/* FIXME : Update the cache before closing the connection */
 			d(printf ("set mode to offline\n"));
 			uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
 			account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
@@ -1056,7 +1048,6 @@ set_mode (ECalBackend *backend, CalMode mode)
 				return;
 			cbex->folder = exchange_account_get_folder (account, uristr);
 			priv->mode = CAL_MODE_LOCAL;
-			/* FIXME : Set connection to NULL and become offline */
 			exchange_account_set_offline (account);
 			e_cal_backend_notify_mode (backend, 
 				GNOME_Evolution_Calendar_CalListener_MODE_SET,
@@ -1306,6 +1297,11 @@ static icaltimezone *
 internal_get_default_timezone (ECalBackend *backend)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
+
+	/* FIXME : This should never happen. Sometimes gets triggered while moving 
+	between online and offline. */
+	if (!cbex->account)
+		return NULL;
 
 	if (!cbex->priv->default_timezone &&
 	    cbex->account->default_timezone) {

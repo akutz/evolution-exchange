@@ -537,7 +537,7 @@ get_folder (MailStub *stub, const char *name, gboolean create,
 	E2kResult *result;
 	const char *prop, *uid;
 	guint32 article_num, camel_flags;
-	int i, m, total = -1;
+	int i, m, total = -1, mode;
 	ExchangeHierarchy *hier;
 
 	path = g_strdup_printf ("/%s", name);
@@ -591,7 +591,8 @@ get_folder (MailStub *stub, const char *name, gboolean create,
 		if (!(mmsg->flags & MAIL_STUB_MESSAGE_SEEN))
 			mfld->unread_count++;
 	}
-	if (!exchange_account_is_offline (mse->account)) {
+	exchange_account_is_offline (mse->account, &mode);
+	if (mode == ONLINE_MODE) {
 		mfld->changed_messages = g_ptr_array_new ();
 
 		status = e_folder_exchange_propfind (mfld->folder, NULL,
@@ -812,7 +813,7 @@ sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld)
 	E2kResult *results;
 	int nresults;
 	const char *prop;
-	int deleted_count = -1, new_deleted_count, visible_count = -1;
+	int deleted_count = -1, new_deleted_count, visible_count = -1, mode;
 	E2kRestriction *rn;
 	E2kResultIter *iter;
 	E2kResult *result;
@@ -820,7 +821,8 @@ sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld)
 	MailStubExchangeMessage *mmsg, *my_mmsg;
 	gboolean changes = FALSE;
 
-	if (exchange_account_is_offline (mse->account))
+	exchange_account_is_offline (mse->account, &mode);
+	if (mode != ONLINE_MODE)
 		return;
 
 	status = e_folder_exchange_propfind (mfld->folder, NULL,
@@ -990,15 +992,24 @@ refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 	char *prop, *uid, *href;
 	struct refresh_message rm, *rmp;
 	E2kHTTPStatus status;
-	int got, total, i, n;
+	int got, total, i, n, mode;
 	gpointer key, value;
 	MailStubExchangeMessage *mmsg;
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 
-	if (exchange_account_is_offline (mse->account))
-		return;
 
 	g_object_ref (stub);
+
+	exchange_account_is_offline (mse->account, &mode);
+	if (mode == OFFLINE_MODE) {
+		if (background)
+			mail_stub_push_changes (stub);
+		else
+			mail_stub_return_ok (stub);
+
+		g_object_unref (stub); /* Is this needed ? */
+		return;
+	}
 
 	messages = g_array_new (FALSE, FALSE, sizeof (struct refresh_message));
 	mapi_message_hash = g_hash_table_new (g_str_hash, g_str_equal);
@@ -1841,7 +1852,7 @@ get_message (MailStub *stub, const char *folder_name, const char *uid)
 	MailStubExchangeMessage *mmsg;
 	E2kHTTPStatus status;
 	char *body = NULL, *content_type = NULL;
-	int len;
+	int len = 0;
 
 	mfld = folder_from_name (mse, folder_name, MAPI_ACCESS_READ, FALSE);
 	if (!mfld)
@@ -1856,7 +1867,7 @@ get_message (MailStub *stub, const char *folder_name, const char *uid)
 		mail_stub_return_error (stub, _("No such message"));
 		return;
 	}
-
+	
 	if (mfld->type == MAIL_STUB_EXCHANGE_FOLDER_NOTES) {
 		status = get_stickynote (mse->ctx, NULL, mmsg->href,
 					 &body, &len);
@@ -2439,13 +2450,15 @@ mail_stub_exchange_new (ExchangeAccount *account, int cmd_fd, int status_fd)
 	MailStubExchange *mse;
 	MailStub *stub;
 	const char *uri;
+	int mode;
 
 	stub = g_object_new (MAIL_TYPE_STUB_EXCHANGE, NULL);
 	mail_stub_construct (stub, cmd_fd, status_fd);
+	exchange_account_is_offline (account, &mode);
 
 	mse = (MailStubExchange *)stub;
 	mse->account = account;
-	if (!exchange_account_is_offline (account)) {
+	if (mode == ONLINE_MODE) {
 		mse->ctx = exchange_account_get_context (account);
 		g_object_ref (mse->ctx);
 

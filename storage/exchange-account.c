@@ -32,7 +32,6 @@
 #include "exchange-hierarchy-favorites.h"
 #include "exchange-hierarchy-foreign.h"
 #include "exchange-hierarchy-gal.h"
-#include "exchange-offline-listener.h"
 #include "e-folder-exchange.h"
 #include "e2k-autoconfig.h"
 #include "e2k-encoding-utils.h"
@@ -710,7 +709,7 @@ exchange_account_open_folder (ExchangeAccount *account, const char *path)
 {
 	ExchangeHierarchy *hier;
 	EFolder *folder;
-	gboolean offline = exchange_account_is_offline (account);
+	int offline;
 
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), 
 				EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
@@ -718,7 +717,8 @@ exchange_account_open_folder (ExchangeAccount *account, const char *path)
 	if (!get_folder (account, path, &folder, &hier))
 		return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
 
-	if (!offline && !account->priv->connected &&
+	exchange_account_is_offline (account, &offline);
+	if (offline == ONLINE_MODE && !account->priv->connected &&
 	    hier == (ExchangeHierarchy *)account->priv->hierarchies->pdata[0] &&
 	    folder == hier->toplevel) {
 		/* The shell is asking us to open the personal folders
@@ -727,8 +727,8 @@ exchange_account_open_folder (ExchangeAccount *account, const char *path)
 		 */
 		return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
 	}		
-
-	return exchange_hierarchy_scan_subtree (hier, folder, offline);
+	
+	return exchange_hierarchy_scan_subtree (hier, folder, (offline == OFFLINE_MODE));
 }
 
 ExchangeAccountFolderResult
@@ -1105,15 +1105,18 @@ exchange_account_set_offline (ExchangeAccount *account)
 gboolean
 exchange_account_set_online (ExchangeAccount *account)
 {
-		
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), FALSE);
 
-	account->priv->account_online = TRUE;
+	if (!account->priv->account_online) {
+		account->priv->account_online = TRUE;
 
-	if (exchange_account_connect (account))
+		if (exchange_account_connect (account))
+			return TRUE;
+		else
+			return FALSE;
+	} else {
 		return TRUE;
-	else
-		return FALSE;
+	}
 }
 
 /**
@@ -1122,10 +1125,14 @@ exchange_account_set_online (ExchangeAccount *account)
  *
  * Return value: Returns TRUE if account is offline
  **/
-gboolean
-exchange_account_is_offline (ExchangeAccount *account)
+void
+exchange_account_is_offline (ExchangeAccount *account, int *state)
 {
-	return exchange_component_is_offline (global_exchange_component);
+	*state = UNSUPPORTED_MODE;
+
+	g_return_if_fail (EXCHANGE_IS_ACCOUNT (account));
+
+	exchange_component_is_offline (global_exchange_component, state);
 }
 
 
@@ -1137,7 +1144,12 @@ setup_account_hierarchies (ExchangeAccount *account)
 	char *phys_uri_prefix, *dir;
 	DIR *d;
 	struct dirent *dent;
-	gboolean offline = exchange_account_is_offline (account);
+	int offline;
+
+	exchange_account_is_offline (account, &offline);
+
+	if (offline == UNSUPPORTED_MODE)
+		return FALSE;
 
 	/* Set up Personal Folders hierarchy */
 	phys_uri_prefix = g_strdup_printf ("exchange://%s/personal",
@@ -1219,7 +1231,7 @@ setup_account_hierarchies (ExchangeAccount *account)
 	 */
 	fresult = exchange_hierarchy_scan_subtree (personal_hier,
 						   personal_hier->toplevel,
-						   offline);
+						   (offline == OFFLINE_MODE));
 	if (fresult != EXCHANGE_ACCOUNT_FOLDER_OK) {
 		account->priv->connecting = FALSE;
 		return FALSE;
@@ -1228,7 +1240,7 @@ setup_account_hierarchies (ExchangeAccount *account)
 	fresult = exchange_hierarchy_scan_subtree (
 		account->priv->favorites_hierarchy,
 		account->priv->favorites_hierarchy->toplevel,
-		offline);
+		(offline == OFFLINE_MODE));
 	if (fresult != EXCHANGE_ACCOUNT_FOLDER_OK) {
 		account->priv->connecting = FALSE;
 		return FALSE;
@@ -1266,15 +1278,16 @@ exchange_account_connect (ExchangeAccount *account)
 	E2kOperation gcop;
 	const char *quota_msg = NULL;
 	char *user_name = NULL;
-	int offline = exchange_component_is_offline (global_exchange_component);
+	int offline;
 
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
 
+	exchange_account_is_offline (account, &offline);
 	g_mutex_lock (account->priv->connect_lock);
-	//if ((account->priv->connecting) || (!account->priv->account_online)){
-	if ((account->priv->connecting) || offline){
+
+	if ((account->priv->connecting) || (offline == OFFLINE_MODE)){
 		g_mutex_unlock (account->priv->connect_lock);
-		if (offline) {
+		if (offline == OFFLINE_MODE) {
 			setup_account_hierarchies (account);
 			e_notice (NULL, GTK_MESSAGE_ERROR, _("Exchange Account is offline. Cannot display folders\n"));
 		}
@@ -1457,6 +1470,9 @@ exchange_account_connect (ExchangeAccount *account)
 			account->default_timezone = g_strdup (timezone);
 	}
 
+	if (!setup_account_hierarchies (account)) 
+		return NULL;
+	
 	/* Find the password expiery peripod and display warning */
 	find_passwd_exp_period(account, entry);
 	
@@ -1483,9 +1499,6 @@ exchange_account_connect (ExchangeAccount *account)
 			e_notice (NULL, GTK_MESSAGE_INFO, quota_msg);
 	}
 	
-	if (!setup_account_hierarchies (account)) 
-		return NULL;
-	
 	account->priv->connected = TRUE;
 	account->priv->account_online = TRUE;
 	account->priv->connecting = FALSE;
@@ -1503,12 +1516,17 @@ exchange_account_connect (ExchangeAccount *account)
  *
  * Return value: TRUE if offline_sync is set for @account and FALSE if not.
  */
-gboolean
-exchange_account_is_offline_sync_set (ExchangeAccount *account)
+void
+exchange_account_is_offline_sync_set (ExchangeAccount *account, int *mode)
 {
-	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
+	*mode = UNSUPPORTED_MODE;
 
-	return account->priv->offline_sync;
+	g_return_if_fail (EXCHANGE_IS_ACCOUNT (account));
+
+	if (account->priv->offline_sync)
+		*mode = OFFLINE_MODE;
+	else
+		*mode = ONLINE_MODE;
 }
 
 /**

@@ -30,11 +30,6 @@
 #include <libedata-cal/e-data-cal-factory.h>
 #include <gconf/gconf-client.h>
 
-enum {
-        OFFLINE_MODE=1,
-        ONLINE_MODE
-};
-
 static GObjectClass *parent_class = NULL;
 
 struct _ExchangeOfflineListenerPrivate 
@@ -120,16 +115,19 @@ exchange_offline_listener_new (EDataBookFactory *book_factory, EDataCalFactory *
 }
 
 /* This returns TRUE if exchange is set offline */
-gboolean
-exchange_is_offline (ExchangeOfflineListener *ex_offline_listener)
+void
+exchange_is_offline (ExchangeOfflineListener *ex_offline_listener, int *state)
 {
 	ExchangeOfflineListenerPrivate * priv;
 
-	g_return_val_if_fail (EXCHANGE_IS_OFFLINE_LISTENER (ex_offline_listener), FALSE);
+	g_return_if_fail (EXCHANGE_IS_OFFLINE_LISTENER (ex_offline_listener));
 
 	priv = ex_offline_listener->priv;
 	
-	return priv->offline;
+	if (priv->offline)
+		*state = OFFLINE_MODE;
+	else
+		*state = ONLINE_MODE;
 }
 
 static void
