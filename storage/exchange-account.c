@@ -302,51 +302,81 @@ static void
 hierarchy_new_folder (ExchangeHierarchy *hier, EFolder *folder,
 		      ExchangeAccount *account)
 {
+	int table_updated = 0;
 	const char *permanent_uri =
 		e_folder_exchange_get_permanent_uri (folder);
 
 	/* This makes the cleanup easier. We just unref it each time
 	 * we find it in account->priv->folders.
 	 */
-	g_object_ref (folder);
-	g_hash_table_insert (account->priv->folders,
-			     (char *)e_folder_exchange_get_path (folder),
-			     folder);
-
-	g_object_ref (folder);
-	g_hash_table_insert (account->priv->folders,
-			     (char *)e_folder_get_physical_uri (folder),
-			     folder);
-
-	g_object_ref (folder);
-	g_hash_table_insert (account->priv->folders,
-			     (char *)e_folder_exchange_get_internal_uri (folder),
-			     folder);
-
-	if (permanent_uri) {
+	if (!g_hash_table_lookup (account->priv->folders, 
+				e_folder_exchange_get_path (folder))) {
+		/* Avoid dupilcations since the user could add a folder as
+		  favorite even though it is already marked as favorite */
+		g_object_ref (folder);
+		g_hash_table_insert (account->priv->folders,
+				     (char *)e_folder_exchange_get_path (folder),
+				     folder);
+		table_updated = 1;
+	}
+	if (!g_hash_table_lookup (account->priv->folders, 
+				e_folder_get_physicpal_uri (folder))) {
+		/* Avoid dupilcations since the user could add a folder as
+		  favorite even though it is already marked as favorite */
+		g_object_ref (folder);
+		g_hash_table_insert (account->priv->folders,
+				     (char *)e_folder_get_physical_uri (folder),
+				     folder);
+		table_updated = 1;
+	}
+	if (!g_hash_table_lookup (account->priv->folders, 
+				e_folder_exchange_get_internal_uri (folder))) {
+		/* The internal_uri for public folders and favorites folder 
+		   is same !!! Without this check the folder value could 
+		   overwrite the previously added folder. */
+		g_object_ref (folder);
+		g_hash_table_insert (account->priv->folders,
+				     (char *)e_folder_exchange_get_internal_uri (folder),
+				     folder);
+		table_updated = 1;
+	}
+	if (permanent_uri && (!g_hash_table_lookup (account->priv->folders, 
+					permanent_uri))) {
 		g_object_ref (folder);
 		g_hash_table_insert (account->priv->folders,
 				     (char *)permanent_uri,
 				     folder);
+		table_updated = 1;
 	}
 
-	g_hash_table_insert (account->priv->hierarchies_by_folder, folder, hier);
+	if (table_updated)
+	{
+		g_hash_table_insert (account->priv->hierarchies_by_folder, 
+					folder, hier);
 
-	g_signal_emit (account, signals[NEW_FOLDER], 0, folder);
+		g_signal_emit (account, signals[NEW_FOLDER], 0, folder);
+	}
 }
 
 static void
 hierarchy_removed_folder (ExchangeHierarchy *hier, EFolder *folder,
 			  ExchangeAccount *account)
 {
-	if (!g_hash_table_lookup (account->priv->folders, e_folder_exchange_get_path (folder)))
+	if (!g_hash_table_lookup (account->priv->folders, 
+					e_folder_exchange_get_path (folder)))
 		return;
 
-	g_hash_table_remove (account->priv->folders, e_folder_exchange_get_path (folder));
-	g_hash_table_remove (account->priv->folders, e_folder_get_physical_uri (folder));
-	g_hash_table_remove (account->priv->folders, e_folder_exchange_get_internal_uri (folder));
+	g_hash_table_remove (account->priv->folders, 
+					e_folder_exchange_get_path (folder));
+	g_hash_table_remove (account->priv->folders, 
+					e_folder_get_physical_uri (folder));
+	/* Dont remove this for favorites, as the internal_uri is shared 
+		by the public folder as well */
+	if (hier->type != EXCHANGE_HIERARCHY_FAVORITES) {
+		g_hash_table_remove (account->priv->folders, 
+					e_folder_exchange_get_internal_uri (folder));
+	}
 	g_hash_table_remove (account->priv->hierarchies_by_folder, folder);
-
 	g_signal_emit (account, signals[REMOVED_FOLDER], 0, folder);
 
 	if (folder == hier->toplevel)
@@ -354,7 +384,8 @@ hierarchy_removed_folder (ExchangeHierarchy *hier, EFolder *folder,
 
 	g_object_unref (folder);
 	g_object_unref (folder);
-	g_object_unref (folder);
+	if (hier->type != EXCHANGE_HIERARCHY_FAVORITES) {
+		g_object_unref (folder);
 }
 
 static gboolean
@@ -1284,7 +1315,7 @@ exchange_account_get_standard_uri_for (ExchangeAccount *account,
 	char *foreign_uri, *prop;
 	E2kHTTPStatus status;
 	E2kResult *results;
-	int nresults;
+	int nresults = 0;
 
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
 

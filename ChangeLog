@@ -1,3 +1,12 @@
+2004-08-27  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+        * storage/exchange-account.c (hierarchy_new_folder): Avoid duplications
+        in the folders hashtable. The internal uri for favorites and public
+        folders are same and should not be overwritten. Also emit the signal
+        only if the hashtable was updated. This fixes #64235.
+        (hierarchy_removed_folder): Do not remove the internal_uri entry for
+        favourite folders, since this is shared by the public folder as well.
+
 2004-08-27  Dan Winship  <danw@novell.com>
 
 	* addressbook/e-book-backend-gal.c: More un-debug-spewing
