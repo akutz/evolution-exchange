@@ -78,7 +78,7 @@ struct _ExchangeAccountPrivate {
 	gboolean uris_use_email, offline_sync;
 
 	char *identity_name, *identity_email, *source_uri, *password_key;
-	char *username, *password, *windows_domain, *ad_server;
+	char *username, *password, *windows_domain, *nt_domain, *ad_server;
 	char *owa_url;
 	E2kAutoconfigAuthPref auth_pref;
 	int ad_limit, passwd_exp_warn_period;
@@ -158,6 +158,7 @@ init (GObject *object)
 	account->priv->folders = g_hash_table_new (g_str_hash, g_str_equal);
 	account->priv->discover_data_lock = g_mutex_new ();
 	account->priv->account_online = TRUE;
+	account->priv->nt_domain = NULL;
 }
 
 static void
@@ -281,6 +282,9 @@ finalize (GObject *object)
 	}
 	if (account->priv->windows_domain)
 		g_free (account->priv->windows_domain);
+
+	if (account->priv->nt_domain)
+		g_free (account->priv->nt_domain);
 
 	if (account->priv->ad_server)
 		g_free (account->priv->ad_server);
@@ -908,6 +912,15 @@ is_password_expired (ExchangeAccount *account, E2kAutoconfig *ac)
 
 	result = e2k_kerberos_check_password (ac->username, domain,
 					      ac->password);
+	if (result != E2K_KERBEROS_OK || 
+	    result != E2K_KERBEROS_PASSWORD_EXPIRED) {
+		/* try again with nt domain */
+		domain = ac->nt_domain;
+		if (domain)
+			result = e2k_kerberos_check_password (ac->username, 
+							      domain,
+							      ac->password);
+	} 
 
 	return (result == E2K_KERBEROS_PASSWORD_EXPIRED);
 }
@@ -1040,12 +1053,21 @@ exchange_account_set_password (ExchangeAccount *account, char *old_pass, char *n
 			domain++;
 	}
 	if (!domain) {
+		/* email id is not proper, we return instead of trying nt_domain */
 		e_notice (NULL, GTK_MESSAGE_ERROR, _("Cannot change password due to configuration problems"));
 		return;
 	}
 
 	result = e2k_kerberos_change_password (account->priv->username, domain,
 					       old_pass, new_pass);
+	if (result != E2K_KERBEROS_OK || result != E2K_KERBEROS_PASSWORD_TOO_WEAK) {
+		/* try with nt_domain */
+		domain = account->priv->nt_domain;
+		if (domain)
+			result = e2k_kerberos_change_password (account->priv->username, 
+							       domain, old_pass,
+							       new_pass);
+	}
 	switch (result) {
 	case E2K_KERBEROS_OK:
 		e_passwords_forget_password ("Exchange", account->priv->password_key);
@@ -1326,6 +1348,11 @@ exchange_account_connect (ExchangeAccount *account)
 
  try_connect_again:
 	account->priv->ctx = e2k_autoconfig_get_context (ac, NULL, &result);
+
+	if (!account->priv->nt_domain && ac->nt_domain)
+		account->priv->nt_domain = g_strdup (ac->nt_domain);
+	else
+		account->priv->nt_domain = NULL;
 
 	if (result != E2K_AUTOCONFIG_OK) {
 		if ( is_password_expired (account, ac)) {

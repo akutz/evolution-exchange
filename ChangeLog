@@ -1,3 +1,14 @@
+2005-03-11  Sushma Rai  <rsushma@novell.com>
+	
+	* storage/exchange-account.c (is_password_expired)
+	(exchange_account_set_password): If kerberos calls with windows domain
+	and domain extracted from e-mail id fail, trying again with NT domain.
+	(exchange_account_connect): Storing the NT domain value in exchange
+	account.
+	(init): Initializing NT domain paramenter.
+	(finalize): Clearing NT domain value stored.
+	Fixes #72801
+
 2005-03-11 Sivaiah Nallagatla <snallagatla@novell.com>
                                                                                            
         * calendar/e-cal-backend-exchange-calendar.c
