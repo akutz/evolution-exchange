@@ -124,7 +124,7 @@ add_vevent (ECalBackendExchange *cbex,
 			 * status.
 			 */
 			if (transp)
-				icalcomponent_remove_property (comp,transp);
+				icalcomponent_remove_property (icalcomp,transp);
 
 			if (!strcmp (x_val, "BUSY"))
 				transp = icalproperty_new_transp (ICAL_TRANSP_OPAQUE);
