@@ -1500,6 +1500,8 @@ exchange_account_connect (ExchangeAccount *account)
 gboolean
 exchange_account_is_offline_sync_set (ExchangeAccount *account)
 {
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
+
 	return account->priv->offline_sync;
 }
 
