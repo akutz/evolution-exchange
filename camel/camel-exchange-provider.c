@@ -150,9 +150,8 @@ exchange_validate_user_cb (CamelURL *camel_url, const char *owa_url,
 	valid = e2k_validate_user (owa_url, camel_url->user, 
 				   &host, &ad_server, remember_password);
 
-	camel_url_set_host(camel_url, valid?host:NULL);
+	camel_url_set_host(camel_url, valid?host:"");
 	camel_url_set_param(camel_url, "ad_server", valid?ad_server:NULL);
-	g_free(host);
 
 	return valid;
 }

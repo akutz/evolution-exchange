@@ -1504,9 +1504,9 @@ validate (const char *owa_url, char *user, char *password, char **host, char **a
 		}
 	}
 
-	*host = g_strdup (ac->pf_server);
+	*host = ac->pf_server;
 	if (ac->gc_server) 
-		*ad_server = g_strdup (ac->gc_server);
+		*ad_server = ac->gc_server;
 
 	return valid;
 }
