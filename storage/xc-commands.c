@@ -206,6 +206,7 @@ xc_folder_get_account (XCFolderCommandData *fcd)
 	return exchange_component_get_account_for_uri (global_exchange_component, e_folder_exchange_get_internal_uri (fcd->folder));
 }
 
+#if 0
 static void
 do_move_folder (GtkWidget *item, XCFolderCommandData *fcd)
 {
@@ -219,6 +220,7 @@ do_copy_folder (GtkWidget *item, XCFolderCommandData *fcd)
 	e_notice (item, GTK_MESSAGE_ERROR, "FIXME (do_copy_folder)");
 	xc_folder_command_data_free (fcd);
 }
+#endif
 
 
 static void
@@ -350,12 +352,15 @@ do_remove_favorite (GtkWidget *item, XCFolderCommandData *fcd)
 #define E_POPUP_SEPARATOR_WITH_MASK(mask) { "", NULL, (NULL), NULL, mask }
 
 static EPopupMenu popup_menu [] = {
+	/*
+	FIXME: See 62440
 	E_POPUP_ITEM (N_("_Move Folder..."),
 		      G_CALLBACK (do_move_folder),
 		      XC_FOLDER_COMMAND_MASK_MOVECOPY),
 	E_POPUP_ITEM (N_("_Copy Folder..."),
 		      G_CALLBACK (do_copy_folder),
 		      XC_FOLDER_COMMAND_MASK_MOVECOPY),
+	*/
 	E_POPUP_ITEM (N_("_Rename Folder..."),
 		      G_CALLBACK (do_rename_folder),
 		      XC_FOLDER_COMMAND_MASK_CHANGE),
