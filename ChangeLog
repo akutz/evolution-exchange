@@ -1,6 +1,8 @@
-2004-10-03  Alexander Shopov  <ash@contact.bg>
+2004-10-04  Dan Winship  <danw@novell.com>
 
-	* configure.in (ALL_LINGUAS): Added "bg" (Bulgarian)
+	* mail/mail-stub-exchange.c (send_message): Remove code that was
+	setting the message to use HTTP 1.0, which isn't needed with
+	libsoup 2.2, and which was causing 65685.
 
 2004-09-24  Christophe Merlet  <redfox@redfoxcenter.org>
 
