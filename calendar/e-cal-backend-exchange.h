@@ -69,7 +69,7 @@ gboolean  e_cal_backend_exchange_modify_object    (ECalBackendExchange *cbex,
 gboolean  e_cal_backend_exchange_remove_object    (ECalBackendExchange *cbex,
 						   const char          *uid);
 
-gboolean  e_cal_backend_exchange_add_timezone     (ECalBackendExchange *cbex,
+ECalBackendSyncStatus  e_cal_backend_exchange_add_timezone     (ECalBackendExchange *cbex,
 						   icalcomponent       *vtzcomp);
 						   
 icaltimezone * e_cal_backend_exchange_get_default_time_zone (ECalBackendSync *backend);

@@ -774,7 +774,7 @@ e_cal_backend_exchange_get_default_time_zone (ECalBackendSync *backend)
 	return priv->default_timezone;
 }
 
-gboolean
+ECalBackendSyncStatus
 e_cal_backend_exchange_add_timezone (ECalBackendExchange *cbex,
 				     icalcomponent *vtzcomp)
 {
@@ -785,20 +785,20 @@ e_cal_backend_exchange_add_timezone (ECalBackendExchange *cbex,
 	d(printf("ecbe_add_timezone(%p)\n", cbex));
 
 	prop = icalcomponent_get_first_property (vtzcomp, ICAL_TZID_PROPERTY);
-	if (!prop)
-		return FALSE;
+	if (!prop) 
+		return GNOME_Evolution_Calendar_InvalidObject;
 	tzid = icalproperty_get_tzid (prop);
 	if (g_hash_table_lookup (cbex->priv->timezones, tzid))
-		return TRUE;
+		return GNOME_Evolution_Calendar_ObjectIdAlreadyExists;
 
 	zone = icaltimezone_new ();
 	if (!icaltimezone_set_component (zone, icalcomponent_new_clone (vtzcomp))) {
 		icaltimezone_free (zone, TRUE);
-		return FALSE;
+		return GNOME_Evolution_Calendar_InvalidObject;
 	}
 
 	g_hash_table_insert (cbex->priv->timezones, g_strdup (tzid), zone);
-	return TRUE;
+	return GNOME_Evolution_Calendar_Success;
 }
 
 static ECalBackendSyncStatus
