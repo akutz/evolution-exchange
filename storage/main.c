@@ -33,6 +33,7 @@
 #include <bonobo/bonobo-generic-factory.h>
 #include <bonobo/bonobo-exception.h>
 #include <libgnomeui/gnome-ui-init.h>
+#include <gconf/gconf-client.h>
 
 #include <camel/camel.h>
 #include <e-util/e-icon-factory.h>
@@ -149,6 +150,53 @@ setup_addressbook_factory (void)
         return TRUE;
 }
 
+static void
+set_online_status (gboolean is_offline)
+{
+#ifdef OFFLINE_SUPPORT
+        if (is_offline) {
+                e_data_cal_factory_set_backend_mode (cal_factory, CAL_MODE_LOCAL);
+                e_data_book_factory_set_backend_mode (book_factory, CAL_MODE_LOCAL);
+
+        } else {
+                e_data_cal_factory_set_backend_mode (cal_factory, CAL_MODE_REMOTE);
+                e_data_book_factory_set_backend_mode (book_factory, CAL_MODE_REMOTE);
+        }
+#endif
+}
+
+static void
+online_status_changed (GConfClient *client, int cnxn_id, GConfEntry *entry, gpointer user_data)
+{
+        GConfValue *value;
+        gboolean offline;
+
+        offline = FALSE;
+        value = gconf_entry_get_value (entry);
+        if (value)
+                offline = gconf_value_get_bool (value);
+        set_online_status (offline);
+
+}
+
+static gboolean
+setup_offline_listener ()
+{
+	GConfClient* default_client;
+        GConfValue *value;
+
+        default_client = gconf_client_get_default ();
+        gconf_client_add_dir (default_client, "/apps/evolution/shell", 
+					GCONF_CLIENT_PRELOAD_RECURSIVE,NULL);
+        gconf_client_notify_add (default_client, 
+					"/apps/evolution/shell/start_offline",
+					online_status_changed, NULL, NULL, NULL);
+        value = gconf_client_get (default_client, 
+				"/apps/evolution/shell/start_offline", NULL);
+        set_online_status (gconf_value_get_bool (value));
+        return TRUE;
+}
+
 int
 main (int argc, char **argv)
 {
@@ -193,6 +241,11 @@ main (int argc, char **argv)
 		goto failed;
         if (!setup_addressbook_factory ())
 		goto failed;
+
+#ifdef OFFLINE_SUPPORT
+	if (!setup_offline_listener ())
+		goto failed;
+#endif
 
 	fprintf (stderr, "Evolution Exchange Storage up and running\n");
 #ifdef E2K_DEBUG

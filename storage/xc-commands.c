@@ -295,8 +295,6 @@ do_permissions (GtkWidget *item, XCFolderCommandData *fcd)
 static void
 do_folder_size (GtkWidget *item, XCFolderCommandData *fcd)
 {
-	ExchangeHierarchy *hier;
-
 	exchange_folder_size_display (fcd->folder, GTK_WIDGET (fcd->storage_set_view));
 
 	xc_folder_command_data_free (fcd);

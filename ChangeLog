@@ -1,3 +1,12 @@
+2004-11-24  Sarfraaz Ahmed <asarfraaz@novell.com>
+	
+	* storage/main.c (set_online_status)(online_status_changed)
+	(setup_offline_listener) : Implemented
+	(main) : Added code to invoke the offline listener. As of now this
+	does not get compiled unless OFFLINE_SUPPORT is defined manually
+	in the Makefile. Planning to remove this once the code is fully done.
+	* storage/xc-commmands.c : Removed some unused variables.
+
 2004-11-23  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* storage/exchange-folder-size.c (exchange_folder_size_update):
