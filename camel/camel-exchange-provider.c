@@ -73,6 +73,10 @@ CamelProviderConfEntry exchange_conf_entries[] = {
 	{ CAMEL_PROVIDER_CONF_CHECKBOX, "filter", NULL,
 	  /* i18n: copy from evolution:camel-imap-provider.c */
 	  N_("Apply filters to new messages in Inbox on this server"), "0" },
+	{ CAMEL_PROVIDER_CONF_CHECKBOX, "filter_junk", NULL,
+	  N_("Check new messages for Junk contents"), "0" },
+	{ CAMEL_PROVIDER_CONF_CHECKBOX, "filter_junk_inbox", "filter_junk",
+	  N_("Only check for Junk messages in the Inbox folder"), "0" },
 	{ CAMEL_PROVIDER_CONF_END }
 };
 

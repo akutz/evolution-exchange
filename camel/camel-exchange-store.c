@@ -156,6 +156,9 @@ construct (CamelService *service, CamelSession *session,
 	}
 
 	exch->storage_path = camel_session_get_storage_path (session, service, ex);
+
+	if (camel_url_get_param (url, "filter_junk"))
+		CAMEL_STORE (service)->flags |= CAMEL_STORE_VJUNK;
 }
 
 extern CamelServiceAuthType camel_exchange_password_authtype;

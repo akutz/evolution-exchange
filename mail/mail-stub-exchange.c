@@ -746,6 +746,11 @@ get_folder (MailStub *stub, const char *name, gboolean create,
 		camel_flags |= CAMEL_STUB_FOLDER_READONLY;
 	if (mse->account->filter_inbox && (mfld->folder == mse->inbox))
 		camel_flags |= CAMEL_STUB_FOLDER_FILTER;
+	if (mse->account->filter_junk) {
+		if ((mfld->folder == mse->inbox) ||
+		    !mse->account->filter_junk_inbox_only)
+			camel_flags |= CAMEL_STUB_FOLDER_FILTER_JUNK;
+	}
 	if (mfld->type == MAIL_STUB_EXCHANGE_FOLDER_POST)
 		camel_flags |= CAMEL_STUB_FOLDER_POST;
 

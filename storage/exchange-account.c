@@ -1516,6 +1516,12 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 	param = e2k_uri_get_param (uri, "filter");
 	if (param)
 		account->filter_inbox = TRUE;
+	param = e2k_uri_get_param (uri, "filter_junk");
+	if (param)
+		account->filter_junk = TRUE;
+	param = e2k_uri_get_param (uri, "filter_junk_inbox");
+	if (param)
+		account->filter_junk_inbox_only = TRUE;
 
 	e2k_uri_free (uri);
 

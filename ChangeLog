@@ -1,5 +1,22 @@
 2004-06-16  Dan Winship  <danw@novell.com>
 
+	* camel/camel-exchange-provider.c (exchange_conf_entries): Add
+	junk flags
+
+	* storage/exchange-account.c (exchange_account_new): Record the
+	"filter_junk" and "filter_junk_inbox" flag values.
+
+	* mail/mail-stub-exchange.c (get_folder): Set the "filter junk"
+	flag on the folder if appropriate
+
+	* camel/camel-exchange-store.c (construct): If "filter_junk" is
+	enabled, set the VJUNK flag on the store.
+
+	* camel/camel-exchange-folder.c (camel_exchange_folder_construct):
+	If the backend set the "filter junk" flag, set that on the folder.
+
+2004-06-16  Dan Winship  <danw@novell.com>
+
 	* addressbook/e-book-backend-gal.c (query_prop_to_ldap): If the
 	prop is "email", translate it to "email_1" so it matches
 	correctly.

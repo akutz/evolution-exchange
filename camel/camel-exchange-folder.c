@@ -948,6 +948,9 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 
 		if (folder_flags & CAMEL_STUB_FOLDER_FILTER)
 			folder->folder_flags |= CAMEL_FOLDER_FILTER_RECENT;
+		if (folder_flags & CAMEL_STUB_FOLDER_FILTER_JUNK)
+			folder->folder_flags |= CAMEL_FOLDER_FILTER_JUNK;
+
 		camel_exchange_summary_set_readonly (folder->summary, folder_flags & CAMEL_STUB_FOLDER_READONLY);
 
 		camel_operation_start (NULL, _("Fetching summary information for new messages"));

@@ -37,7 +37,7 @@ struct _ExchangeAccount {
 	char *exchange_server, *home_uri, *public_uri;
 	char *legacy_exchange_dn, *default_timezone;
 
-	gboolean filter_inbox;
+	gboolean filter_inbox, filter_junk, filter_junk_inbox_only;
 };
 
 struct _ExchangeAccountClass {
