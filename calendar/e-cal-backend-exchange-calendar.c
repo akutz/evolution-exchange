@@ -1321,8 +1321,12 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 
 		case ICAL_METHOD_CANCEL:
 			calobj = (char *) icalcomponent_as_ical_string (subcomp);
-			status = remove_object (backend, cal, uid, rid, CALOBJ_MOD_THIS, &calobj, NULL);
-			e_cal_backend_notify_object_removed (E_CAL_BACKEND (backend), uid, calobj, NULL);
+			if (rid)
+				status = remove_object (backend, cal, uid, rid, CALOBJ_MOD_THIS, &calobj, NULL);
+			else
+				status = remove_object (backend, cal, uid, NULL, CALOBJ_MOD_ALL, &calobj, NULL);
+			if (status == GNOME_Evolution_Calendar_Success) 
+				e_cal_backend_notify_object_removed (E_CAL_BACKEND (backend), uid, calobj, NULL);
 			break;
 		default:
 			status = GNOME_Evolution_Calendar_UnsupportedMethod;

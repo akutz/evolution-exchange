@@ -1,3 +1,10 @@
+2005-03-29  Chenthill Palanisamy  <pchenthill@novell.com>
+
+	Fixes #73929
+	* calendar/e-cal-backend-exchange-calendar.c: (receive_objects): If the 
+	rid is not present and the method is CANCEL remove the recurrence event
+       	completely.
+
 2005-03-29  Sushma Rai  <rsushma@novell.com>
 
 	* storage/exchange-folder-size.[ch] (free_fsize_table): Freeing the key
