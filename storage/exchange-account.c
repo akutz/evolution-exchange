@@ -320,7 +320,7 @@ hierarchy_new_folder (ExchangeHierarchy *hier, EFolder *folder,
 		table_updated = 1;
 	}
 	if (!g_hash_table_lookup (account->priv->folders, 
-				e_folder_get_physicpal_uri (folder))) {
+				e_folder_get_physical_uri (folder))) {
 		/* Avoid dupilcations since the user could add a folder as
 		  favorite even though it is already marked as favorite */
 		g_object_ref (folder);
@@ -386,6 +386,7 @@ hierarchy_removed_folder (ExchangeHierarchy *hier, EFolder *folder,
 	g_object_unref (folder);
 	if (hier->type != EXCHANGE_HIERARCHY_FAVORITES) {
 		g_object_unref (folder);
+	}
 }
 
 static gboolean
