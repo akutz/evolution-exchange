@@ -3,12 +3,13 @@
 # This file is distributed under the same licence as the evolution-exchange package.
 # Adam Weinberger <adamw@gnome.org>, 2004.
 #
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-30 17:36-0400\n"
-"PO-Revision-Date: 2004-08-10 15:51-0400\n"
+"POT-Creation-Date: 2004-09-24 14:49-0400\n"
+"PO-Revision-Date: 2004-09-24 15:51-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: addressbook/e-book-backend-exchange.c:1655
-#: addressbook/e-book-backend-gal.c:1204 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-gal.c:1213 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Searching..."
 
@@ -24,11 +25,11 @@ msgstr "Searching..."
 msgid "Reconnecting to LDAP server..."
 msgstr "Reconnecting to LDAP server..."
 
-#: addressbook/e-book-backend-gal.c:1110
+#: addressbook/e-book-backend-gal.c:1119
 msgid "Receiving LDAP search results..."
 msgstr "Receiving LDAP search results..."
 
-#: addressbook/e-book-backend-gal.c:1225
+#: addressbook/e-book-backend-gal.c:1234
 msgid "Error performing search"
 msgstr "Error performing search"
 
@@ -62,26 +63,26 @@ msgstr "Moving messages"
 msgid "Copying messages"
 msgstr "Copying messages"
 
-#: camel/camel-exchange-folder.c:878
+#: camel/camel-exchange-folder.c:938
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Could not create directory %s: %s"
 
-#: camel/camel-exchange-folder.c:888
+#: camel/camel-exchange-folder.c:948
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Could not load summary for %s"
 
-#: camel/camel-exchange-folder.c:896
+#: camel/camel-exchange-folder.c:956
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Could not create cache for %s"
 
-#: camel/camel-exchange-folder.c:936
+#: camel/camel-exchange-folder.c:996
 msgid "Scanning for changed messages"
 msgstr "Scanning for changed messages"
 
-#: camel/camel-exchange-folder.c:960
+#: camel/camel-exchange-folder.c:1020
 msgid "Fetching summary information for new messages"
 msgstr "Fetching summary information for new messages"
 
@@ -160,7 +161,6 @@ msgstr "For handling mail (and other data) on Microsoft Exchange servers"
 msgid "Secure Password"
 msgstr "Secure Password"
 
-#. i18n: "NTLM" probably doesn't translate
 #: camel/camel-exchange-provider.c:108
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
@@ -217,22 +217,22 @@ msgstr "Could not create socket: %s"
 msgid "Could not connect to %s: %s"
 msgstr "Could not connect to %s: %s"
 
-#: camel/camel-stub.c:167
+#: camel/camel-stub.c:178
 #, c-format
 msgid "Path too long: %s"
 msgstr "Path too long: %s"
 
-#: camel/camel-stub.c:193
+#: camel/camel-stub.c:204
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Could not start status thread: %s"
 
-#: camel/camel-stub.c:445
+#: camel/camel-stub.c:456
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Lost connection to %s"
 
-#: camel/camel-stub.c:449
+#: camel/camel-stub.c:460
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Error communicating with %s: %s"
@@ -279,11 +279,11 @@ msgstr "None"
 msgid "Custom"
 msgstr "Custom"
 
-#: lib/e2k-user-dialog.c:148
+#: lib/e2k-user-dialog.c:149
 msgid "Select User"
 msgstr "Select User"
 
-#: lib/e2k-user-dialog.c:198
+#: lib/e2k-user-dialog.c:199
 msgid "Addressbook..."
 msgstr "Addressbook..."
 
@@ -293,7 +293,7 @@ msgstr "No such folder"
 
 #: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
 #: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
-#: shell/e-storage.c:573 storage/xc-commands.c:302
+#: shell/e-storage.c:573 storage/xc-commands.c:304
 msgid "Permission denied"
 msgstr "Permission denied"
 
@@ -384,11 +384,11 @@ msgstr "Could not send message"
 
 #: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
 #: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
-#: storage/xc-commands.c:306
+#: storage/xc-commands.c:308
 msgid "Generic error"
 msgstr "Generic error"
 
-#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
+#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:298
 msgid "Folder already exists"
 msgstr "Folder already exists"
 
@@ -744,7 +744,7 @@ msgid ""
 msgstr ""
 "Could not find Exchange Web Storage System at %s.\n"
 "If OWA is running on a different path, you must specify that in the\n"
-"account configuration dialog."
+"account configuration dialogue."
 
 #: storage/exchange-account.c:1081
 #, c-format
@@ -1486,57 +1486,58 @@ msgstr "Ximian Connector for Microsoft Exchange"
 msgid "Account Name"
 msgstr "Account Name"
 
-#: storage/xc-commands.c:299
+#: storage/xc-commands.c:301
 msgid "Folder does not exist"
 msgstr "Folder does not exist"
 
-#: storage/xc-commands.c:322
+#: storage/xc-commands.c:324
 #, c-format
 msgid "Could not add favorite: %s"
 msgstr "Could not add favourite: %s"
 
-#: storage/xc-commands.c:336
+#: storage/xc-commands.c:338
 #, c-format
 msgid "Could not remove favorite: %s"
 msgstr "Could not remove favourite: %s"
 
-#: storage/xc-commands.c:353
-msgid "_Move Folder..."
-msgstr "_Move Folder..."
-
-#: storage/xc-commands.c:356
-msgid "_Copy Folder..."
-msgstr "_Copy Folder..."
-
-#: storage/xc-commands.c:359
+#.
+#. FIXME: See 62440
+#. E_POPUP_ITEM (N_("_Move Folder..."),
+#. G_CALLBACK (do_move_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#. E_POPUP_ITEM (N_("_Copy Folder..."),
+#. G_CALLBACK (do_copy_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#.
+#: storage/xc-commands.c:364
 msgid "_Rename Folder..."
 msgstr "_Rename Folder..."
 
-#: storage/xc-commands.c:365
+#: storage/xc-commands.c:370
 msgid "_New Folder..."
 msgstr "_New Folder..."
 
-#: storage/xc-commands.c:368
+#: storage/xc-commands.c:373
 msgid "_Delete Folder"
 msgstr "_Delete Folder"
 
-#: storage/xc-commands.c:373
+#: storage/xc-commands.c:378
 msgid "_Add Other User's Folder..."
 msgstr "_Add Other User's Folder..."
 
-#: storage/xc-commands.c:376
+#: storage/xc-commands.c:381
 msgid "_Remove Other User's Folder"
 msgstr "_Remove Other User's Folder"
 
-#: storage/xc-commands.c:382
+#: storage/xc-commands.c:387
 msgid "Add to _Favorites"
 msgstr "Add to _Favourites"
 
-#: storage/xc-commands.c:386
+#: storage/xc-commands.c:391
 msgid "Remove from Fa_vorites"
 msgstr "Remove from Fa_vorites"
 
-#: storage/xc-commands.c:393
+#: storage/xc-commands.c:398
 msgid "_Permissions..."
 msgstr "_Permissions..."
 
