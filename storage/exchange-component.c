@@ -58,6 +58,9 @@ struct ExchangeComponentPrivate {
 	EFolderTypeRegistry *folder_type_registry;
 
 	ExchangeConfigListener *config_listener;
+#ifdef OFFLINE_SUPPORTED
+	ExchangeOfflineListener *offline_listener;
+#endif
 	GSList *accounts;
 
 	GSList *views;
@@ -105,6 +108,12 @@ dispose (GObject *object)
 		g_slist_free (priv->views);
 		priv->views = NULL;
 	}
+#ifdef OFFLINE_SUPPORTED
+	if (priv->offline_listener) {
+		g_object_unref (priv->offline_listener);
+		priv->offline_listener = NULL;
+	}
+#endif
 
 	G_OBJECT_CLASS (parent_class)->dispose (object);
 }
@@ -378,6 +387,20 @@ exchange_component_init (ExchangeComponent *component)
 
 BONOBO_TYPE_FUNC_FULL (ExchangeComponent, GNOME_Evolution_Component, PARENT_TYPE, exchange_component)
 
+#ifdef OFFLINE_SUPPORTED
+void
+exchange_component_set_offline_listener (ExchangeComponent *component, 
+					 ExchangeOfflineListener *listener)
+{
+	ExchangeComponentPrivate *priv;
+
+	g_return_if_fail (EXCHANGE_IS_COMPONENT (component));
+
+	priv = component->priv;
+	priv->offline_listener = listener;
+}
+#endif
+
 ExchangeComponent *
 exchange_component_new (void)
 {
@@ -397,11 +420,20 @@ exchange_component_get_account_for_uri (ExchangeComponent *component,
 		baccount = acc->data;
 
 		/* Kludge for while we don't support multiple accounts */
-		if (!uri)
-			return baccount->account;
+#ifdef OFFLINE_SUPPORTED
+		if (!exchange_is_offline (priv->offline_listener)) {
+#endif
+			if (!uri)
+				return baccount->account;
 
-		if (exchange_account_get_folder (baccount->account, uri))
+			if (exchange_account_get_folder (baccount->account, uri))
+				return baccount->account;
+#ifdef OFFLINE_SUPPORTED
+		} else {
+			/* FIXME : Handle multiple accounts */
 			return baccount->account;
+		}
+#endif
 	}
 	return NULL;
 }

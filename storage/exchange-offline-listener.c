@@ -65,7 +65,7 @@ online_status_changed (GConfClient *client, int cnxn_id, GConfEntry *entry, gpoi
 	gboolean offline;
         ExchangeOfflineListener *offline_listener;
 	
-	offline_listener = OFFLINE_LISTENER(data);
+	offline_listener = EXCHANGE_OFFLINE_LISTENER(data);
 	offline = FALSE;
 	value = gconf_entry_get_value (entry);
 	if (value)
@@ -95,9 +95,9 @@ setup_offline_listener (ExchangeOfflineListener *offline_listener)
 }
 
 ExchangeOfflineListener*
-offline_listener_new (EDataBookFactory *book_factory, EDataCalFactory *cal_factory)
+exchange_offline_listener_new (EDataBookFactory *book_factory, EDataCalFactory *cal_factory)
 {
-	ExchangeOfflineListener *offline_listener = g_object_new (OFFLINE_TYPE_LISTENER, NULL);
+	ExchangeOfflineListener *offline_listener = g_object_new (EXCHANGE_OFFLINE_TYPE_LISTENER, NULL);
 	ExchangeOfflineListenerPrivate *priv = offline_listener->priv;
 	
 	priv->book_factory = book_factory;
@@ -105,6 +105,7 @@ offline_listener_new (EDataBookFactory *book_factory, EDataCalFactory *cal_facto
 	setup_offline_listener (offline_listener);
 }
 
+/* This returns TRUE if exchange is set offline */
 gboolean
 exchange_is_offline (ExchangeOfflineListener *offline_listener)
 {
@@ -120,7 +121,7 @@ exchange_is_offline (ExchangeOfflineListener *offline_listener)
 static void
 offline_listener_dispose (GObject *object)
 {
-	ExchangeOfflineListener *offline_listener = OFFLINE_LISTENER (object);
+	ExchangeOfflineListener *offline_listener = EXCHANGE_OFFLINE_LISTENER (object);
 	if (offline_listener->priv->default_client) {
 		g_object_unref (offline_listener->priv->default_client);
 		offline_listener->priv->default_client = NULL;
@@ -134,7 +135,7 @@ offline_listener_finalize (GObject *object)
 	ExchangeOfflineListener *offline_listener;
 	ExchangeOfflineListenerPrivate *priv;
 
-	offline_listener = OFFLINE_LISTENER (object);
+	offline_listener = EXCHANGE_OFFLINE_LISTENER (object);
 	priv = offline_listener->priv;
 	
 	g_free (priv);
@@ -144,7 +145,7 @@ offline_listener_finalize (GObject *object)
 }
 
 static void
-offline_listener_init (ExchangeOfflineListener *listener)
+exchange_offline_listener_init (ExchangeOfflineListener *listener)
 {
 	ExchangeOfflineListenerPrivate *priv;
 	
@@ -153,7 +154,7 @@ offline_listener_init (ExchangeOfflineListener *listener)
 }
 
 static void
-offline_listener_class_init (ExchangeOfflineListener *klass)
+exchange_offline_listener_class_init (ExchangeOfflineListener *klass)
 {
 	GObjectClass *object_class;
 
@@ -165,7 +166,7 @@ offline_listener_class_init (ExchangeOfflineListener *klass)
 }
 
 GType
-offline_listener_get_type (void)
+exchange_offline_listener_get_type (void)
 {
 	static GType type = 0;
 
@@ -174,11 +175,11 @@ offline_listener_get_type (void)
                         sizeof (ExchangeOfflineListenerClass),
                         (GBaseInitFunc) NULL,
                         (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) offline_listener_class_init,
+                        (GClassInitFunc) exchange_offline_listener_class_init,
                         NULL, NULL,
                         sizeof (ExchangeOfflineListener),
                         0,
-                        (GInstanceInitFunc) offline_listener_init,
+                        (GInstanceInitFunc) exchange_offline_listener_init,
                 };
 		type = g_type_register_static (G_TYPE_OBJECT, "ExchangeOfflineListener", &info, 0);
 	}

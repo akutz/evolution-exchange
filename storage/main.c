@@ -150,58 +150,14 @@ setup_addressbook_factory (void)
         return TRUE;
 }
 
-static void
-set_online_status (gboolean is_offline)
-{
-#ifdef OFFLINE_SUPPORT
-        if (is_offline) {
-                e_data_cal_factory_set_backend_mode (cal_factory, CAL_MODE_LOCAL);
-                e_data_book_factory_set_backend_mode (book_factory, CAL_MODE_LOCAL);
-
-        } else {
-                e_data_cal_factory_set_backend_mode (cal_factory, CAL_MODE_REMOTE);
-                e_data_book_factory_set_backend_mode (book_factory, CAL_MODE_REMOTE);
-        }
-#endif
-}
-
-static void
-online_status_changed (GConfClient *client, gint cnxn_id, GConfEntry *entry, gpointer user_data)
-{
-        GConfValue *value;
-        gboolean offline;
-
-        offline = FALSE;
-        value = gconf_entry_get_value (entry);
-        if (value)
-                offline = gconf_value_get_bool (value);
-        set_online_status (offline);
-
-}
-
-static gboolean
-setup_offline_listener ()
-{
-	GConfClient* default_client;
-        GConfValue *value;
-
-        default_client = gconf_client_get_default ();
-        gconf_client_add_dir (default_client, "/apps/evolution/shell", 
-					GCONF_CLIENT_PRELOAD_RECURSIVE,NULL);
-        gconf_client_notify_add (default_client, 
-					"/apps/evolution/shell/start_offline",
-					online_status_changed, NULL, NULL, NULL);
-        value = gconf_client_get (default_client, 
-				"/apps/evolution/shell/start_offline", NULL);
-        set_online_status (gconf_value_get_bool (value));
-        return TRUE;
-}
-
 int
 main (int argc, char **argv)
 {
 	char *path;
 	char *config_directory;
+#ifdef OFFLINE_SUPPORTED
+	ExchangeOfflineListener *offline_listener;
+#endif
 
 	bindtextdomain (PACKAGE, CONNECTOR_LOCALEDIR);
 	bind_textdomain_codeset (PACKAGE, "UTF-8");
@@ -246,9 +202,12 @@ main (int argc, char **argv)
         if (!setup_addressbook_factory ())
 		goto failed;
 
-#ifdef OFFLINE_SUPPORT
-	if (!setup_offline_listener ())
+#ifdef OFFLINE_SUPPORTED
+	offline_listener = exchange_offline_listener_new (book_factory, cal_factory);
+	if (!offline_listener)
 		goto failed;
+	exchange_component_set_offline_listener (global_exchange_component, 
+						offline_listener);
 #endif
 
 	fprintf (stderr, "Evolution Exchange Storage up and running\n");

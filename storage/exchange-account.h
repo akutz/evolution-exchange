@@ -80,6 +80,12 @@ void		       exchange_account_set_password (ExchangeAccount *acct,
 							char *new_password);
 void 		      exchange_account_forget_password (ExchangeAccount *acct);
 
+gboolean		 exchange_account_set_offline (ExchangeAccount *account);
+
+gboolean		 exchange_account_set_online (ExchangeAccount *account);
+
+gboolean		 exchange_account_is_online (ExchangeAccount *account);
+
 
 
 typedef enum {

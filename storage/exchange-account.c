@@ -32,6 +32,7 @@
 #include "exchange-hierarchy-favorites.h"
 #include "exchange-hierarchy-foreign.h"
 #include "exchange-hierarchy-gal.h"
+#include "exchange-offline-listener.h"
 #include "e-folder-exchange.h"
 #include "e2k-autoconfig.h"
 #include "e2k-encoding-utils.h"
@@ -68,7 +69,7 @@ struct _ExchangeAccountPrivate {
 	GHashTable *standard_uris;
 
 	GMutex *connect_lock;
-	gboolean connecting, connected;
+	gboolean connecting, connected, account_online;
 
 	GPtrArray *hierarchies;
 	GHashTable *hierarchies_by_folder, *foreign_hierarchies;
@@ -156,6 +157,7 @@ init (GObject *object)
 	account->priv->foreign_hierarchies = g_hash_table_new (g_str_hash, g_str_equal);
 	account->priv->folders = g_hash_table_new (g_str_hash, g_str_equal);
 	account->priv->discover_data_lock = g_mutex_new ();
+	account->priv->account_online = TRUE;
 }
 
 static void
@@ -1037,6 +1039,59 @@ exchange_account_set_password (ExchangeAccount *account, char *old_pass, char *n
 	}
 }
 
+#ifdef OFFLINE_SUPPORTED
+/**
+ * exchange_account_set_offline:
+ * @account: an #ExchangeAccount
+ *
+ * This nullifies the connection and sets the account as offline.
+ * The caller should take care that the required data is fetched
+ * before calling this method.
+ *
+ * Return value: Returns TRUE is successfully sets the account to
+ * offline or FALSE if failed
+ **/
+gboolean
+exchange_account_set_offline (ExchangeAccount *account)
+{
+		
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), FALSE);
+
+	if (account->priv->ctx) {
+		g_object_unref (account->priv->ctx);
+		account->priv->ctx = NULL;
+	}
+
+	account->priv->account_online = FALSE;
+	return TRUE;
+}
+
+/**
+ * exchange_account_set_online:
+ * @account: an #ExchangeAccount
+ *
+ * This nullifies the connection and sets the account as offline.
+ * The caller should take care that the required data is fetched
+ * before calling this method.
+ *
+ * Return value: Returns TRUE is successfully sets the account to
+ * offline or FALSE if failed
+ **/
+gboolean
+exchange_account_set_online (ExchangeAccount *account)
+{
+		
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), FALSE);
+
+	account->priv->account_online = TRUE;
+
+	if (exchange_account_connect (account))
+		return TRUE;
+	else
+		return FALSE;
+}
+
+#endif
 /**
  * exchange_account_connect:
  * @account: an #ExchangeAccount
@@ -1075,8 +1130,11 @@ exchange_account_connect (ExchangeAccount *account)
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
 
 	g_mutex_lock (account->priv->connect_lock);
-
+#ifdef OFFLINE_SUPPORTED
+	if ((account->priv->connecting) || (!account->priv->account_online)){
+#else
 	if (account->priv->connecting) {
+#endif
 		g_mutex_unlock (account->priv->connect_lock);
 		return NULL;
 	} else if (account->priv->ctx) {
@@ -1378,6 +1436,7 @@ exchange_account_connect (ExchangeAccount *account)
 	}
 	
 	account->priv->connected = TRUE;
+	account->priv->account_online = TRUE;
 	account->priv->connecting = FALSE;
 
 	g_signal_connect (account->priv->ctx, "redirect",

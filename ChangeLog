@@ -1,5 +1,26 @@
 2004-12-09  Sarfraaz Ahmed <asarfraaz@novell.com>
 
+	* storage/exchange-account.c (exchange_account_set_offline): Prepares 
+	the account for offline caching in all the data necessary and sets it 
+	to offline.
+	(exchange_account_set_online): Sets the account to online mode and 
+	tries to setup a connection with the server.
+	(exchange_account_connect): This should now connect only if online.
+	* storage/exchange-account.h : Added the function declarations.
+	* storage/exchange-component.c (exchange_component_set_offline_listener):
+	Sets a reference of the OfflineListener in the global ExchangeComponent 
+	object.
+	(exchange_component_get_account_for_uri) : This returns the defaul 
+	account when in offline. This needs to be further fixed to handle 
+	multiple accounts based on the uri passed.
+	* storage/exchange-component.h : Similar
+	* storage/exchange-offline-listener.c : Fixed some namespace issues.
+	* storage/exchange-offline-listener.h : Similar
+	* storage/main.c (main): This now instantiates an OfflineListener object
+	instead of the previous procedural methods.
+
+2004-12-09  Sarfraaz Ahmed <asarfraaz@novell.com>
+
 	* storage/exchange-offline-listener.c : Added this new file which now
 	contains the offline-listener class implementation
 	* storage/exchange-offline-listener.h : Similar

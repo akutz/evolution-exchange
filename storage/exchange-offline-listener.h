@@ -21,8 +21,8 @@
  * Author: Sarfraaz Ahmed <asarfraaz@novell.com>
  */
 
-#ifndef _OFFLINE_LISTNER_H_
-#define _OFFLINE_LISTNER_H_
+#ifndef _EXCHANGE_OFFLINE_LISTNER_H_
+#define _EXCHANGE_OFFLINE_LISTNER_H_
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -34,11 +34,11 @@
 
 G_BEGIN_DECLS
 
-#define OFFLINE_TYPE_LISTENER		        (offline_listener_get_type ())
-#define OFFLINE_LISTENER(obj)		        ((G_TYPE_CHECK_INSTANCE_CAST((obj), OFFLINE_TYPE_LISTENER, ExchangeOfflineListener)))
-#define OFFLINE_LISTENER_CLASS(klass)	        (G_TYPE_CHECK_CLASS_CAST((klass), OFFLINE_TYPE_LISTENER, ExchangeOfflineListenerClass))
-#define OFFLINE_IS_LISTENER(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), OFFLINE_TYPE_LISTENER))
-#define OFFLINE_IS_LISTENER_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((obj), OFFLINE_TYPE_LISTENER))
+#define EXCHANGE_OFFLINE_TYPE_LISTENER		        (exchange_offline_listener_get_type ())
+#define EXCHANGE_OFFLINE_LISTENER(obj)		        ((G_TYPE_CHECK_INSTANCE_CAST((obj), EXCHANGE_OFFLINE_TYPE_LISTENER, ExchangeOfflineListener)))
+#define EXCHANGE_OFFLINE_LISTENER_CLASS(klass)	        (G_TYPE_CHECK_CLASS_CAST((klass), EXCHANGE_OFFLINE_TYPE_LISTENER, ExchangeOfflineListenerClass))
+#define EXCHANGE_IS_OFFLINE_LISTENER(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), EXCHANGE_OFFLINE_TYPE_LISTENER))
+#define EXCHANGE_IS_OFFLINE_LISTENER_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((obj), EXCHANGE_OFFLINE_TYPE_LISTENER)
 
 
 typedef struct _ExchangeOfflineListener        ExchangeOfflineListener;
@@ -55,11 +55,12 @@ struct _ExchangeOfflineListenerClass {
 };
 
 
-GType offline_listener_get_type  (void);
-ExchangeOfflineListener  *offline_listener_new (EDataBookFactory *book_factory, EDataCalFactory *cal_factory);
+GType exchange_offline_listener_get_type  (void);
+
+ExchangeOfflineListener  *exchange_offline_listener_new (EDataBookFactory *book_factory, EDataCalFactory *cal_factory);
 
 gboolean exchange_is_offline (ExchangeOfflineListener *offline_listener);
 
 G_END_DECLS
 
-#endif /* _OFFLINE_LISTNER_H_ */
+#endif /* _EXCHANGE_OFFLINE_LISTNER_H_ */
