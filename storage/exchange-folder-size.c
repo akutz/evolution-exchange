@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
 
 /* Copyright (C) 2002-2004 Novell, Inc.
  *
@@ -17,9 +17,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* ExchangeFolderSize: Displaying the Exchange folder sizes
- *
- */
+/* ExchangeFolderSize: Display the folder tree with the folder sizes */
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -39,105 +37,160 @@
 #include <gtk/gtktreeselection.h>
 #include <gtk/gtktreeview.h>
 
-enum {
-        COLUMN_NAME,
-        COLUMN_SIZE,
-        NUM_COLUMNS
-};
+#define PARENT_TYPE G_TYPE_OBJECT
+static GObjectClass *parent_class = NULL;
 
 typedef struct {
         char *folder_name;
         char *folder_size;
 } folder_info;
 
-typedef struct {
-	char *self_dn;
-	GtkWidget *parent;
-	GtkListStore *model;
-	GtkWidget *table;
-} ExchangeFolderSize;
 
-#if 0
-static GHashTable *folder_size_table = NULL;
+struct _ExchangeFolderSizePrivate {
+	
+	GHashTable *table;
+};
 
-void 
-update_folder_size_table (char *permanent_uri, char * folder_name, char *folder_size)
+enum {
+        COLUMN_NAME,
+        COLUMN_SIZE,
+        NUM_COLUMNS
+};
+
+static void
+finalize (GObject *object)
 {
-	folder_info *f_info;
-	if (!folder_size_table)
-		folder_size_table = g_hash_table_new (g_str_hash, g_str_equal);
-	f_info = (folder_info *)malloc(sizeof(folder_info));
-	f_info->folder_name = g_strdup (folder_name);
-	f_info->folder_size = g_strdup (folder_size);
-	g_hash_table_insert (folder_size_table, g_strdup (permanent_uri), f_info);	
+	ExchangeFolderSize *fsize = EXCHANGE_FOLDER_SIZE (object);
+
+	g_hash_table_destroy (fsize->priv->table);
+
+	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
-#endif
+static void
+dispose (GObject *object)
+{
+	G_OBJECT_CLASS (parent_class)->dispose (object);
+}
+
+static void
+class_init (GObjectClass *object_class)
+{
+	parent_class = g_type_class_ref (PARENT_TYPE);
+
+	/* override virtual methods */
+	object_class->dispose = dispose;
+	object_class->finalize = finalize;
+
+}
+
+static void
+init (GObject *object)
+{
+	ExchangeFolderSize *fsize = EXCHANGE_FOLDER_SIZE (object);
+
+	fsize->priv = g_new0 (ExchangeFolderSizePrivate, 1);
+	fsize->priv->table = g_hash_table_new (g_str_hash, g_str_equal);
+}
+
+E2K_MAKE_TYPE (exchange_folder_size, ExchangeFolderSize, class_init, init, PARENT_TYPE)
+
+/**
+ * exchange_folder_size_new:
+ * @display_name: the delegate's (UTF8) display name
+ *
+ * Return value: a foldersize object with the table initialized
+ **/
+ExchangeFolderSize *
+exchange_folder_size_new (void)
+{
+	ExchangeFolderSize *fsize;
+
+	fsize = g_object_new (EXCHANGE_TYPE_FOLDER_SIZE, NULL);
+
+	return fsize;
+}
+
+void
+exchange_folder_size_update (ExchangeFolderSize *fsize, 
+				const char *permanent_uri,
+				const char *folder_name,
+				const char *folder_size)
+{
+	folder_info *f_info;
+	ExchangeFolderSizePrivate *priv;
+	GHashTable *folder_size_table = priv->table;
+
+	/*FIXME : Check if value is already present */
+
+        f_info = (folder_info *)malloc(sizeof(folder_info));
+        f_info->folder_name = g_strdup (folder_name);
+        f_info->folder_size = g_strdup (folder_size);
+        g_hash_table_insert (folder_size_table, g_strdup (permanent_uri), f_info); 
+}
 
 static void
 add_entry (gpointer key, gpointer value, gpointer data)
 {
-	//folder_info *f_info = value;
-	char *folder_name = key;
-	char *folder_size = value;
-	GtkListStore *store = data;
-	GtkTreeIter iter;
+        folder_info *f_info = value;
+        GtkListStore *store = data;
+        GtkTreeIter iter;
 
-	gtk_list_store_append (store, &iter);
-	gtk_list_store_set (store, &iter,
-	//			COLUMN_NAME, f_info->folder_name,
-				COLUMN_NAME, folder_name,
-	//			COULMN_SIZE, f_info->folder_size,
-				COLUMN_SIZE, folder_size,
-				-1);
+        gtk_list_store_append (store, &iter);
+        gtk_list_store_set (store, &iter,
+                              COLUMN_NAME, f_info->folder_name,
+                              COLUMN_SIZE, f_info->folder_size,
+                              -1);
 }
 
 void
-exchange_folder_size (EFolder *folder, GtkWidget *parent)
+exchange_folder_size_display (EFolder *folder, GtkWidget *parent)
 {
+        ExchangeFolderSizePrivate *priv;
 	ExchangeFolderSize *fsize;
-	ExchangeHierarchy *hier;
-	GtkWidget *button;
-	GtkTreeViewColumn *column;
-	GtkTreeIter iter;
-	GHashTable *folder_size_table;
-	GladeXML *xml;
-	GtkWidget *dialog, *table;
-	GtkListStore *model;
-	int i, response;
-	
-	g_return_if_fail (GTK_IS_WIDGET (parent));
-	g_return_if_fail (E_IS_FOLDER (folder));
+        ExchangeHierarchy *hier;
+        GtkWidget *button;
+        GtkTreeViewColumn *column;
+        GtkTreeIter iter;
+        GHashTable *folder_size_table;
+        GladeXML *xml;
+        GtkWidget *dialog, *table;
+        GtkListStore *model;
+        int i, response;
 
-	hier = e_folder_exchange_get_hierarchy (folder);
-	folder_size_table = exchange_hierarchy_get_folder_size_table (hier);
+        g_return_if_fail (GTK_IS_WIDGET (parent));
+        g_return_if_fail (E_IS_FOLDER (folder));
 
-	xml = glade_xml_new (CONNECTOR_GLADEDIR "/exchange-folder-tree.glade", NULL, NULL);
-	g_return_if_fail (xml != NULL);
-	dialog = glade_xml_get_widget (xml, "folder_tree");
- 	table = glade_xml_get_widget (xml, "folder_treeview");
+        hier = e_folder_exchange_get_hierarchy (folder);
+        fsize = exchange_hierarchy_get_folder_size (hier);
+	priv = fsize->priv;
+	folder_size_table = priv->table;
 
-	e_dialog_set_transient_for (GTK_WINDOW (dialog), parent);
-//	fsize->parent = parent;
-	//g_object_weak_ref (G_OBJECT (parent), parent_destroyed, fsize);
+        xml = glade_xml_new (CONNECTOR_GLADEDIR "/exchange-folder-tree.glade", NULL, NULL);
+        g_return_if_fail (xml != NULL);
+        dialog = glade_xml_get_widget (xml, "folder_tree");
+        table = glade_xml_get_widget (xml, "folder_treeview");
 
-	/* Set up the table */
-	model = gtk_list_store_new (NUM_COLUMNS, G_TYPE_STRING, G_TYPE_STRING);
-	if (folder_size_table)
-		g_hash_table_foreach (folder_size_table, add_entry, model);
+        e_dialog_set_transient_for (GTK_WINDOW (dialog), parent);
+//      fsize->parent = parent;
+        //g_object_weak_ref (G_OBJECT (parent), parent_destroyed, fsize);
 
-	column = gtk_tree_view_column_new_with_attributes (
-		_("Folder Name"), gtk_cell_renderer_text_new (), "text", COLUMN_NAME, NULL);
-	gtk_tree_view_append_column (GTK_TREE_VIEW (table),
-				     column);
-	column = gtk_tree_view_column_new_with_attributes (
-		_("Folder Size"), gtk_cell_renderer_text_new (), "text", COLUMN_SIZE, NULL);
-	gtk_tree_view_append_column (GTK_TREE_VIEW (table),
-				     column);
-	gtk_tree_view_set_model (GTK_TREE_VIEW (table),
-				 GTK_TREE_MODEL (model));
+        /* Set up the table */
+        model = gtk_list_store_new (NUM_COLUMNS, G_TYPE_STRING, G_TYPE_STRING);
+        if (folder_size_table)
+                g_hash_table_foreach (folder_size_table, add_entry, model);
 
+        column = gtk_tree_view_column_new_with_attributes (
+                _("Folder Name"), gtk_cell_renderer_text_new (), "text", COLUMN_NAME, NULL);
+        gtk_tree_view_append_column (GTK_TREE_VIEW (table),
+                                     column);
+        column = gtk_tree_view_column_new_with_attributes (
+                _("Folder Size"), gtk_cell_renderer_text_new (), "text", COLUMN_SIZE, NULL);
+        gtk_tree_view_append_column (GTK_TREE_VIEW (table),
+                                     column);
+        gtk_tree_view_set_model (GTK_TREE_VIEW (table),
+                                 GTK_TREE_MODEL (model));
 	response = gtk_dialog_run (GTK_DIALOG (dialog));
-	gtk_widget_destroy (dialog);
-	g_object_unref (xml);
+        gtk_widget_destroy (dialog);
+        g_object_unref (xml);
 }

@@ -5,6 +5,7 @@
 #define __EXCHANGE_FOLDER_SIZE_H__
 
 #include "exchange-types.h"
+#include "e2k-security-descriptor.h"
 #include <gtk/gtkwidget.h>
 
 #ifdef __cplusplus
@@ -12,7 +13,38 @@ extern "C" {
 #pragma }
 #endif /* __cplusplus */
 
-void exchange_folder_size (EFolder *folder, GtkWidget *parent);
+#define EXCHANGE_TYPE_FOLDER_SIZE			(exchange_folder_size_get_type ())
+#define EXCHANGE_FOLDER_SIZE(obj)			(G_TYPE_CHECK_INSTANCE_CAST ((obj), EXCHANGE_TYPE_FOLDER_SIZE, ExchangeFolderSize))
+#define EXCHANGE_FOLDER_SIZE_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST ((klass), EXCHANGE_TYPE_FOLDER_SIZE, ExchangeFolderSizeClass))
+#define EXCHANGE_IS_FOLDER_SIZE(obj)			(G_TYPE_CHECK_INSTANCE_TYPE ((obj), EXCHANGE_TYPE_FOLDER_SIZE))
+#define EXCHANGE_IS_FOLDER_SIZE_CLASS(klass)		(G_TYPE_CHECK_CLASS_TYPE ((obj), EXCHANGE_TYPE_FOLDER_SIZE))
+
+
+typedef struct _ExchangeFolderSize        ExchangeFolderSize;
+typedef struct _ExchangeFolderSizePrivate ExchangeFolderSizePrivate;
+typedef struct _ExchangeFolderSizeClass   ExchangeFolderSizeClass;
+
+struct _ExchangeFolderSize {
+	GObject parent;
+
+	ExchangeFolderSizePrivate *priv;
+};
+
+struct _ExchangeFolderSizeClass {
+	GObjectClass parent_class;
+
+};
+
+GType    exchange_folder_size_get_type (void);
+
+ExchangeFolderSize *exchange_folder_size_new (void);
+
+void exchange_folder_size_update (ExchangeFolderSize *fsize,
+						const char *permanent_uri,
+						const char *folder_name,
+						const char *folder_size);
+
+void exchange_folder_size_display (EFolder *folder, GtkWidget *parent);
 
 #ifdef __cplusplus
 }
