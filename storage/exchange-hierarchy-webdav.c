@@ -346,7 +346,7 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 	char *conf_key_tasks="/apps/evolution/tasks/sources";
 	char *conf_key_contacts="/apps/evolution/addressbook/sources";
 	ESourceList *cal_source_list, *task_source_list, *cont_source_list;
-	const char *folder_type;
+	const char *folder_type = NULL;
 	ExchangeAccountFolderResult ret_code;
 
 #ifdef OFFLINE_SUPPORT
@@ -368,6 +368,7 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 						 &permanent_url);
 
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		folder_type = e_folder_get_type_string (source);
 		if (permanent_url)
 			e_folder_exchange_set_permanent_uri (dest, permanent_url);
 		if (remove_source)
@@ -392,8 +393,8 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 	/* Remove the ESource of the source folder, in case of rename/move */
 
 	if ((hier->type == EXCHANGE_HIERARCHY_PERSONAL || 
-	     hier->type == EXCHANGE_HIERARCHY_FAVORITES) && remove_esource) {
-		folder_type = e_folder_get_type_string (source);
+	     hier->type == EXCHANGE_HIERARCHY_FAVORITES) && remove_source && 
+	     ret_code == EXCHANGE_ACCOUNT_FOLDER_OK) {
 		
 		if ((strcmp (folder_type, "calendar") == 0) ||
 		    (strcmp (folder_type, "calendar/public") == 0)) {
