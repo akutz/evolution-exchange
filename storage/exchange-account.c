@@ -1196,7 +1196,6 @@ exchange_account_connect (ExchangeAccount *account)
 
 		switch (result) {
 		case E2K_AUTOCONFIG_AUTH_ERROR:
-		case E2K_AUTOCONFIG_AUTH_ERROR_TRY_NTLM:
 			errmsg = _("Could not authenticate to server. "
 				   "(Password incorrect?)\n\n");
 			goto try_password_again;
@@ -1212,13 +1211,13 @@ exchange_account_connect (ExchangeAccount *account)
 				   "password wrong.\n\n");
 			goto try_password_again;
 
+		case E2K_AUTOCONFIG_AUTH_ERROR_TRY_NTLM:
+			ac->use_ntlm = 1;
+			goto try_connect_again;
+
 		case E2K_AUTOCONFIG_AUTH_ERROR_TRY_BASIC:
-			errmsg = _("Could not authenticate to server."
-				   "\n\nYou may need to use Plaintext "
-				   "Password authentication.\n\nOr "
-				   "you might have just typed your "
-				   "password wrong.\n\n");
-			goto try_password_again;
+			ac->use_ntlm = 0;
+			goto try_connect_again;
 
 		case E2K_AUTOCONFIG_REDIRECT:
 			if (!redirected && account_moved (account, ac))

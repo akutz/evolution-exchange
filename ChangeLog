@@ -1,5 +1,12 @@
 2005-01-25  Sarfraaz Ahmed <asarfraaz@novell.com>
 
+	* storage/exchange-account.c (exchange_account_connect): Properly
+        set use_ntlm when reconnecting to server. This now tries either
+        Basic or Plaintext authentication if one of them fails. Patch submitted
+        by Soren Hansen and fixes #70730
+
+2005-01-25  Sarfraaz Ahmed <asarfraaz@novell.com>
+
 	* configure.in : Bumped the version to 2.1.4
 	* NEWS : Updated
 	* addressbook/e-book-backend-exchange.c : fixed some warnings
