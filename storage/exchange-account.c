@@ -960,6 +960,10 @@ find_passwd_exp_period (ExchangeAccount *account, E2kGlobalCatalogEntry *entry)
 	E2kGlobalCatalogStatus gcstatus;
 	char *current_passwd;
 
+	/* If user has not selected password expiry warning option, return */
+	if (account->priv->passwd_exp_warn_period == -1)
+		return;
+
 	/* Check for password expiry period */ 
 	/* This needs to be invoked after is_password_expired(), i.e., 
 	   only if password is not expired */
@@ -1773,7 +1777,7 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 	
 	passwd_exp_warn_period = e2k_uri_get_param (uri, "passwd_exp_warn_period");
 	if (!passwd_exp_warn_period || !*passwd_exp_warn_period)
-		account->priv->passwd_exp_warn_period = PASSWD_EXPIRY_NOTIFICATION_PERIOD;
+		account->priv->passwd_exp_warn_period = -1;
 	else
 		account->priv->passwd_exp_warn_period = atoi (passwd_exp_warn_period);
 

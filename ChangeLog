@@ -1,3 +1,12 @@
+2005-02-09  Sushma Rai  <rsushma@novell.com>
+
+	* storage/exchange-account.c (exchange_account_new): Not setting
+	default warning period, if user has not selected password expiry
+	warning option. 
+	(find_passwd_exp_period): Finding the password expiry period and showing
+	warning, only if user has selected that option. 
+	Fixes #72093
+
 2005-02-08  David Malcolm  <dmalcolm@redhat.com>
 
 	* addressbook/Makefile.am, calendar/Makefile.am,
