@@ -34,16 +34,14 @@
 #include <gtk/gtklabel.h>
 #include <gtk/gtkstock.h>
 #include <gtk/gtkvbox.h>
-#include "Evolution-Addressbook-SelectNames.h"
+#include <libedataserverui/e-name-selector.h>
 #include "e2k-xml-utils.h"
 
 struct _E2kUserDialogPrivate {
 	char *section_name;
-        GNOME_Evolution_Addressbook_SelectNames corba_select_names;
+	ENameSelector *name_selector;
 	GtkWidget *entry, *parent_window;
 };
-
-#define SELECT_NAMES_OAFIID "OAFIID:GNOME_Evolution_Addressbook_SelectNames:" EVOLUTION_BASE_VERSION
 
 #define PARENT_TYPE GTK_TYPE_DIALOG
 static GtkDialogClass *parent_class;
@@ -66,14 +64,9 @@ dispose (GObject *object)
 {
 	E2kUserDialog *dialog = E2K_USER_DIALOG (object);
 
-	if (dialog->priv->corba_select_names != CORBA_OBJECT_NIL) {
-		CORBA_Environment ev;
-
-		CORBA_exception_init (&ev);
-		bonobo_object_release_unref (dialog->priv->corba_select_names, &ev);
-		CORBA_exception_free (&ev);
-
-		dialog->priv->corba_select_names = CORBA_OBJECT_NIL;
+	if (dialog->priv->name_selector != NULL) {
+		g_object_unref (dialog->priv->name_selector);
+		dialog->priv->name_selector = NULL;
 	}
 
 	if (dialog->priv->parent_window) {
@@ -118,21 +111,23 @@ parent_window_destroyed (gpointer user_data, GObject *where_parent_window_was)
 }
 
 static void
+addressbook_dialog_response (ENameSelectorDialog *name_selector_dialog, gint response, gpointer data)
+{
+	gtk_widget_hide (GTK_WIDGET (name_selector_dialog));
+}
+
+static void
 addressbook_clicked_cb (GtkWidget *widget, gpointer data)
 {
 	E2kUserDialog *dialog = data;
 	E2kUserDialogPrivate *priv;
-	CORBA_Environment ev;
+	ENameSelectorDialog *name_selector_dialog;
 
-	gtk_window_set_modal (GTK_WINDOW (dialog), FALSE);
 	priv = dialog->priv;
 
-	CORBA_exception_init (&ev);
-
-	GNOME_Evolution_Addressbook_SelectNames_activateDialog (
-		priv->corba_select_names, priv->section_name, &ev);
-
-	CORBA_exception_free (&ev);
+	name_selector_dialog = e_name_selector_peek_dialog (priv->name_selector);
+	gtk_window_set_modal (GTK_WINDOW (dialog), FALSE);
+	gtk_widget_show (GTK_WIDGET (name_selector_dialog));
 }
 
 static gboolean
@@ -142,9 +137,9 @@ e2k_user_dialog_construct (E2kUserDialog *dialog,
 			   const char *section_name)
 {
 	E2kUserDialogPrivate *priv;
-	Bonobo_Control corba_control;
-	CORBA_Environment ev;
 	GtkWidget *hbox, *vbox, *label, *button;
+	ENameSelectorModel *name_selector_model;
+	ENameSelectorDialog *name_selector_dialog;
 
 	gtk_window_set_title (GTK_WINDOW (dialog), _("Select User"));
 	gtk_dialog_add_buttons (GTK_DIALOG (dialog),
@@ -162,28 +157,16 @@ e2k_user_dialog_construct (E2kUserDialog *dialog,
 			   parent_window_destroyed, dialog);
 
 	/* Set up the actual select names bits */
-	CORBA_exception_init (&ev);
+	priv->name_selector = e_name_selector_new ();
 
-	priv->corba_select_names =
-		bonobo_activation_activate_from_id (SELECT_NAMES_OAFIID, 0, NULL, &ev);
-	GNOME_Evolution_Addressbook_SelectNames_addSectionWithLimit (
-		priv->corba_select_names, section_name,
-		section_name, 1, &ev);
+	/* Listen for responses whenever the dialog is shown */
+	name_selector_dialog = e_name_selector_peek_dialog (priv->name_selector);
+	g_signal_connect (name_selector_dialog, "response",
+			  G_CALLBACK (addressbook_dialog_response), dialog);
 
-	if (BONOBO_EX (&ev)) {
-		g_message ("e2k_user_dialog_construct(): Unable to add section!");
-		return FALSE;
-	}
-
-	corba_control = GNOME_Evolution_Addressbook_SelectNames_getEntryBySection (
-		priv->corba_select_names, section_name, &ev);
-
-	if (BONOBO_EX (&ev)) {
-		g_message ("e2k_user_dialog_construct(): Unable to get addressbook entry!");
-		return FALSE;
-	}
-
-	CORBA_exception_free (&ev);
+	name_selector_model = e_name_selector_peek_model (priv->name_selector);
+	/* FIXME Limit to one user */
+	e_name_selector_model_add_section (name_selector_model, section_name, section_name, NULL);
 
 	hbox = gtk_hbox_new (FALSE, 6);
 
@@ -192,7 +175,7 @@ e2k_user_dialog_construct (E2kUserDialog *dialog,
 
 	/* The vbox is a workaround for bug 43315 */
 	vbox = gtk_vbox_new (FALSE, 0);
-	priv->entry = bonobo_widget_new_control_from_objref (corba_control, CORBA_OBJECT_NIL);
+	priv->entry = GTK_WIDGET (e_name_selector_peek_section_entry (priv->name_selector, section_name));
 	gtk_box_pack_start (GTK_BOX (vbox), priv->entry, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 6);
 
@@ -252,45 +235,23 @@ char *
 e2k_user_dialog_get_user (E2kUserDialog *dialog)
 {
 	E2kUserDialogPrivate *priv;
-	char *dests, *addr;
-	xmlDoc *doc;
-	xmlNode *node;
+	EDestinationStore *destination_store;
+	GList *destinations;
+	EDestination *destination;
+	gchar *result = NULL;
 
 	g_return_val_if_fail (E2K_IS_USER_DIALOG (dialog), NULL);
 
 	priv = dialog->priv;
 
-	dests = NULL;
-	bonobo_widget_get_property (BONOBO_WIDGET (priv->entry),
-				    "destinations", TC_CORBA_string, &dests,
-				    NULL);
-	if (!dests)
+	destination_store = e_name_selector_entry_peek_destination_store (E_NAME_SELECTOR_ENTRY (priv->entry));
+	destinations = e_destination_store_list_destinations (destination_store);
+	if (!destinations)
 		return NULL;
-	doc = e2k_parse_xml (dests, -1);
-	g_free (dests);
-	if (!doc)
-		return NULL;
-	if (!doc->xmlRootNode) {
-		xmlFreeDoc (doc);
-		return NULL;
-	}
 
-	node = doc->xmlRootNode;
-	while (node->xmlChildrenNode && strcmp (node->name, "destination") != 0)
-		node = node->xmlChildrenNode;
-	if (!node->xmlChildrenNode) {
-		xmlFreeDoc (doc);
-		return NULL;
-	}
-	node = node->xmlChildrenNode;
-	while (node && strcmp (node->name, "email") != 0)
-		node = node->next;
-	if (!node || !node->xmlChildrenNode || !node->xmlChildrenNode->content) {
-		xmlFreeDoc (doc);
-		return NULL;
-	}
+	destination = destinations->data;
+	result = g_strdup (e_destination_get_email (destination));
+	g_list_free (destinations);
 
-	addr = g_strdup (node->xmlChildrenNode->content);
-	xmlFreeDoc (doc);
-	return addr;
+	return result;
 }

@@ -133,11 +133,11 @@ dnl AC_SUBST(GAL_CFLAGS)
 PKG_CHECK_MODULES(MAIL, libecal-1.2)
 AC_SUBST(MAIL_CFLAGS)
 
-PKG_CHECK_MODULES(EXCHANGE_STORAGE, evolution-shell-2.2 libedata-book-1.2 libedata-cal-1.2 libsoup-2.2 libglade-2.0 libgnomeui-2.0 camel-provider-1.2)
+PKG_CHECK_MODULES(EXCHANGE_STORAGE, evolution-shell-2.2 libedataserverui-1.2 libedata-book-1.2 libedata-cal-1.2 libsoup-2.2 libglade-2.0 libgnomeui-2.0 camel-provider-1.2)
 AC_SUBST(EXCHANGE_STORAGE_CFLAGS)
 AC_SUBST(EXCHANGE_STORAGE_LIBS)
 
-PKG_CHECK_MODULES(LIBEXCHANGE, libsoup-2.2 evolution-shell-2.2 libbonobo-2.0 libxml-2.0 gconf-2.0)
+PKG_CHECK_MODULES(LIBEXCHANGE, libsoup-2.2 evolution-shell-2.2 libedataserverui-1.2 libbonobo-2.0 libxml-2.0 gconf-2.0)
 AC_SUBST(LIBEXCHANGE_CFLAGS)
 AC_SUBST(LIBEXCHANGE_LIBS)
 

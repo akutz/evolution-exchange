@@ -1,3 +1,13 @@
+2005-01-07  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	Patch submitted by JP Rosevear for SelectNames fix.
+	* configure.in : Now check for libedataserverui as well.
+	* lib/Makefile.am : Removed the IDL files.
+	* shell/Makefile.am : Similar
+	* lib/e2k-user-dialog.c : Replaced the CORBA methods with the 
+	e-name-selector methods.
+	* shell/e-folder-misc-dialogs.c : Similar
+
 2005-01-05  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* addressbook/e-book-backend-exchange.c : Enabled offline support

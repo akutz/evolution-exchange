@@ -23,7 +23,7 @@
 #endif
 
 #include "e-folder-misc-dialogs.h"
-#include "Evolution-Addressbook-SelectNames.h"
+#include <libedataserverui/e-name-selector.h>
 
 #include <string.h>
 
@@ -263,70 +263,53 @@ setup_folder_name_combo (GladeXML *glade_xml)
 }
 
 static void
-user_clicked (GtkWidget *button, GNOME_Evolution_Addressbook_SelectNames corba_iface)
+user_response (ENameSelectorDialog *name_selector_dialog, gint response, gpointer data)
 {
-	CORBA_Environment ev;
-	
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Addressbook_SelectNames_activateDialog (corba_iface, "User", &ev);
+	gtk_widget_hide (GTK_WIDGET (name_selector_dialog));
+}
 
-	if (BONOBO_EX (&ev))
-		g_warning ("Cannot activate SelectNames dialog -- %s", BONOBO_EX_REPOID (&ev));
+static void
+user_clicked (GtkWidget *button, ENameSelector *name_selector)
+{
+	ENameSelectorDialog *name_selector_dialog;
 
-	CORBA_exception_free (&ev);
+	name_selector_dialog = e_name_selector_peek_dialog (name_selector);
+	gtk_widget_show (GTK_WIDGET (name_selector_dialog));
 }
 
 static GtkWidget *
-setup_name_selector (GladeXML *glade_xml,
-		     GNOME_Evolution_Addressbook_SelectNames *iface_ret)
+setup_name_selector (GladeXML *glade_xml, ENameSelector **name_selector_ret)
 {
-	GNOME_Evolution_Addressbook_SelectNames corba_iface;
-	Bonobo_Control control;
-	CORBA_Environment ev;
+	ENameSelector *name_selector;
+	ENameSelectorModel *name_selector_model;
+	ENameSelectorDialog *name_selector_dialog;
 	GtkWidget *placeholder;
-	GtkWidget *control_widget;
+	GtkWidget *widget;
 	GtkWidget *button;
 
 	placeholder = glade_xml_get_widget (glade_xml, "user-picker-placeholder");
 	g_assert (GTK_IS_CONTAINER (placeholder));
+	
+	name_selector = e_name_selector_new ();
 
-	CORBA_exception_init (&ev);
+	name_selector_model = e_name_selector_peek_model (name_selector);
+	/* FIXME Limit to one user */
+	e_name_selector_model_add_section (name_selector_model, "User", "User", NULL);
 
-	corba_iface = bonobo_activation_activate_from_id ("OAFIID:GNOME_Evolution_Addressbook_SelectNames:" BASE_VERSION,
-							  0, NULL, &ev);
-	if (corba_iface == CORBA_OBJECT_NIL || BONOBO_EX (&ev)) {
-		g_warning ("Cannot activate SelectNames -- %s", BONOBO_EX_REPOID (&ev));
-		CORBA_exception_free (&ev);
-		return CORBA_OBJECT_NIL;
-	}
+	/* Listen for responses whenever the dialog is shown */
+	name_selector_dialog = e_name_selector_peek_dialog (name_selector);
+	g_signal_connect (name_selector_dialog, "response",
+			  G_CALLBACK (user_response), name_selector);
 
-	GNOME_Evolution_Addressbook_SelectNames_addSectionWithLimit (corba_iface, "User", "User", 1, &ev);
-	if (BONOBO_EX (&ev)) {
-		g_warning ("Cannot add SelectNames section -- %s", BONOBO_EX_REPOID (&ev));
-		goto err;
-	}
-
-	control = GNOME_Evolution_Addressbook_SelectNames_getEntryBySection (corba_iface, "User", &ev);
-	if (BONOBO_EX (&ev)) {
-		g_warning ("Cannot get SelectNames section -- %s", BONOBO_EX_REPOID (&ev));
-		goto err;
-	}
-
-	control_widget = bonobo_widget_new_control_from_objref (control, CORBA_OBJECT_NIL);
-	gtk_container_add (GTK_CONTAINER (placeholder), control_widget);
-	gtk_widget_show (control_widget);
+	widget = GTK_WIDGET (e_name_selector_peek_section_entry (name_selector, "User"));
+	gtk_widget_show (widget);
 
 	button = glade_xml_get_widget (glade_xml, "button-user");
-	g_signal_connect (button, "clicked", G_CALLBACK (user_clicked), corba_iface);
+	g_signal_connect (button, "clicked", G_CALLBACK (user_clicked), name_selector);
 
-	CORBA_exception_free (&ev);
-	*iface_ret = corba_iface;
-	return control_widget;
+	*name_selector_ret = name_selector;
 
- err:
-	bonobo_object_release_unref (corba_iface, NULL);
-	CORBA_exception_free (&ev);
-	return NULL;
+	return widget;
 }
 
 static void
@@ -403,7 +386,7 @@ do_foreign_folder_dialog (EStorageSetView *storage_set_view,
 			  char **storage_name_return,
 			  char **folder_name_return)
 {
-	GNOME_Evolution_Addressbook_SelectNames corba_iface;
+	ENameSelector *name_selector;
 	GladeXML *glade_xml;
 	GtkWidget *dialog;
 	GtkWidget *name_selector_widget;
@@ -418,11 +401,7 @@ do_foreign_folder_dialog (EStorageSetView *storage_set_view,
 	dialog = glade_xml_get_widget (glade_xml, "dialog");
 	g_return_val_if_fail (dialog != NULL, FALSE);
 
-	name_selector_widget = setup_name_selector (glade_xml, &corba_iface);
-	if (name_selector_widget == NULL) {
-		g_object_unref (glade_xml);
-		return FALSE;
-	}
+	name_selector_widget = setup_name_selector (glade_xml, &name_selector);
 
 	setup_server_option_menu (storage_set_view, glade_xml, storage_name_return);
 	setup_folder_name_combo (glade_xml);
@@ -441,7 +420,7 @@ do_foreign_folder_dialog (EStorageSetView *storage_set_view,
 			g_free (*storage_name_return);
 			*storage_name_return = NULL;
 			gtk_widget_destroy (dialog);
-			bonobo_object_release_unref (corba_iface, NULL);
+			g_object_unref (name_selector);
 			return FALSE;
 		}
 
@@ -464,7 +443,7 @@ do_foreign_folder_dialog (EStorageSetView *storage_set_view,
 	*folder_name_return = g_strdup (gtk_entry_get_text (GTK_ENTRY (folder_name_entry)));
 
 	gtk_widget_destroy (dialog);
-	bonobo_object_release_unref (corba_iface, NULL);
+	g_object_unref (name_selector);
 	return TRUE;
 }
 

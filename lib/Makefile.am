@@ -46,24 +46,6 @@ BUILT_SOURCES = $(PROP_GENERATED)
 NODIST_FILES = $(PROP_GENERATED)
 CLEANFILES = $(PROP_GENERATED)
 
-IDLS = $(EVOLUTION_idldir)/Evolution-Addressbook-SelectNames.idl
-
-IDL_GENERATED =                 			\
-	Evolution-Addressbook-SelectNames.h		\
-	Evolution-Addressbook-SelectNames-common.c	\
-	Evolution-Addressbook-SelectNames-skels.c	\
-	Evolution-Addressbook-SelectNames-stubs.c
-
-$(IDL_GENERATED): $(IDLS)
-	$(ORBIT_IDL) $(EVOLUTION_IDL_INCLUDES) \
-                $(EVOLUTION_idldir)/Evolution-Addressbook-SelectNames.idl
-
-BUILT_SOURCES += $(IDL_GENERATED)
-NODIST_FILES += $(IDL_GENERATED)
-CLEANFILES += $(IDL_GENERATED)
-
-
-
 MARSHAL_GENERATED = e2k-marshal.c e2k-marshal.h
 
 e2k-marshal.h: e2k-marshal.list
@@ -82,7 +64,6 @@ CLEANFILES += $(MARSHAL_GENERATED)
 
 
 libexchange_a_SOURCES =						\
-	$(IDL_GENERATED)					\
 	$(MARSHAL_GENERATED)					\
 	e2k-propnames.h						\
 	e2k-proptags.h						\
