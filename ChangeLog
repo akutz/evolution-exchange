@@ -1,3 +1,10 @@
+2004-07-07  Harry Lu  <harry.lu@sun.com>
+
+	Fix for a crash.
+
+	* storage/exchange-delegates-delegators.c: (load_delegators): only
+	call remove_account() if the delegator has an account.
+
 2004-05-17  Dan Winship  <danw@novell.com>
 
 	* configure.in: 1.4.7.2

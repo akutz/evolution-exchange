@@ -308,6 +308,17 @@ load_delegators (ExchangeDelegatesControl *control)
 				delegator->has_account = TRUE;
 			}
 		}
+
+		if (!ex_delegators)
+			continue;
+		for (d = 0; d < ex_delegators->len; d++) {
+			delegator = ex_delegators->pdata[d];
+			if (!strcmp (delegator->email, account->id->address)) {
+				delegator->account_name =
+					g_strdup (account->name);
+				delegator->has_account = TRUE;
+			}
+		}
 	}
 	g_object_unref (iterator);
 
@@ -338,7 +349,8 @@ load_delegators (ExchangeDelegatesControl *control)
 
 		for (i = 0; i < ex_delegators->len; i++) {
 			delegator = ex_delegators->pdata[i];
-			remove_account (control, delegator);
+			if (delegator->has_account)
+				remove_account (control, delegator);
 		}
 
 		for (i = 0; i < ex_delegators->len; i++)
