@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-10 19:10+0200\n"
+"POT-Creation-Date: 2004-08-13 15:04-0400\n"
 "PO-Revision-Date: 2004-08-10 23:55+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -33,7 +33,7 @@ msgstr "Přijímám výsledky hledání LDAP..."
 msgid "Error performing search"
 msgstr "Chyba při hledání"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1351
+#: calendar/e-cal-backend-exchange-calendar.c:1358
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -42,7 +42,7 @@ msgstr ""
 "Nemohu naplánovat zdroj '%s' pro opakované schůzky.\n"
 "Musíte každou schůzku založit zvlášť."
 
-#: calendar/e-cal-backend-exchange-calendar.c:1370
+#: calendar/e-cal-backend-exchange-calendar.c:1377
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Zdroj '%s' se ve zvoleném časovém období používá."
@@ -892,13 +892,18 @@ msgstr ""
 msgid "Unknown"
 msgstr "Neznámé"
 
-#: storage/exchange-autoconfig-wizard.c:466
+#: storage/exchange-autoconfig-wizard.c:477
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
 msgstr ""
 "Chyba systému nastavení.\n"
 "Nemohu vytvořit nový účet."
+
+#: storage/exchange-autoconfig-wizard.c:491
+#: storage/exchange-config-listener.c:492
+msgid "You may only configure a single Exchange account"
+msgstr "Můžete nastavit jen jeden účet Exchange"
 
 #: storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
@@ -1067,11 +1072,7 @@ msgstr "Úkoly"
 msgid "Calendar"
 msgstr "Kalendář"
 
-#: storage/exchange-config-listener.c:492
-msgid "You may only configure a single Exchange account"
-msgstr "Můžete nastavit jen jeden účet Exchange"
-
-#: storage/exchange-config-listener.c:601
+#: storage/exchange-config-listener.c:607
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
@@ -1079,7 +1080,7 @@ msgstr ""
 "Změny v nastavení účtu Exchange se projeví,\n"
 "až ukončíte a znovu spustíte Evolution."
 
-#: storage/exchange-config-listener.c:647
+#: storage/exchange-config-listener.c:653
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr "Účet Exchange bude odstraněn, až ukončíte Evolution"
 
@@ -1176,11 +1177,11 @@ msgstr ""
 "Nemohu aktualizovat delgáty:\n"
 "%s"
 
-#: storage/exchange-delegates.c:937 storage/exchange-permissions-dialog.c:706
+#: storage/exchange-delegates.c:938 storage/exchange-permissions-dialog.c:706
 msgid "Name"
 msgstr "Jméno"
 
-#: storage/exchange-delegates.c:966
+#: storage/exchange-delegates.c:967
 msgid "Error reading delegates list."
 msgstr "Chyba při čtení seznamu delegátů."
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-26 03:27+0200\n"
+"POT-Creation-Date: 2004-08-13 15:04-0400\n"
 "PO-Revision-Date: 2004-08-06 13:14+0530\n"
 "Last-Translator: Runa Bhattacharjee <runa@bengalinux.com>\n"
 "Language-Team: bangla <gnome-translation@bengalinux.org>\n"
@@ -32,6 +32,18 @@ msgstr "LDAP-র অনুসন্ধানের ফলাফল আহরণ 
 #: addressbook/e-book-backend-gal.c:1205
 msgid "Error performing search"
 msgstr "অনুসন্ধানের সময় সমস্যা হয়েছে"
+
+#: calendar/e-cal-backend-exchange-calendar.c:1358
+#, c-format
+msgid ""
+"Unable to schedule resource '%s' for recurring meetings.\n"
+"You must book each meeting separately."
+msgstr ""
+
+#: calendar/e-cal-backend-exchange-calendar.c:1377
+#, c-format
+msgid "The resource '%s' is busy during the selected time period."
+msgstr ""
 
 #: camel/camel-exchange-folder.c:219
 msgid "Can only expunge in Deleted Items folder"
@@ -152,7 +164,9 @@ msgstr "সুরক্ষিত পাসওয়ার্ড"
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
-msgstr "এই অপশনের সাহায্যে Exchange সার্ভারের সাথে সুরক্ষিত পাসওয়ার্ড ব্যবহারকারী অনুমোদন প্রক্রিয়ার দ্বারা সংযোগ করা হবে  (NTLM)।"
+msgstr ""
+"এই অপশনের সাহায্যে Exchange সার্ভারের সাথে সুরক্ষিত পাসওয়ার্ড ব্যবহারকারী অনুমোদন "
+"প্রক্রিয়ার দ্বারা সংযোগ করা হবে  (NTLM)।"
 
 #: camel/camel-exchange-provider.c:116
 msgid "Plaintext Password"
@@ -162,7 +176,9 @@ msgstr "প্লেইনটেক্সট পাসওয়ার্ড"
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
-msgstr "এই অপশনের সাহায্যে Exchange সার্ভারের সাথে প্লেইনটেক্সট পাসওয়ার্ড ব্যবহারকারী অনুমোদন প্রক্রিয়ার দ্বারা সংযোগ করা হবে (NTLM)।"
+msgstr ""
+"এই অপশনের সাহায্যে Exchange সার্ভারের সাথে প্লেইনটেক্সট পাসওয়ার্ড ব্যবহারকারী "
+"অনুমোদন প্রক্রিয়ার দ্বারা সংযোগ করা হবে (NTLM)।"
 
 #: camel/camel-exchange-store.c:178
 #, c-format
@@ -274,8 +290,8 @@ msgstr "ঠিকানা-তালিকা..."
 msgid "No such folder"
 msgstr "এ ধরনের কোনো ফোল্ডার উপস্থিত নেই"
 
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2278
-#: mail/mail-stub-exchange.c:2320 mail/mail-stub-exchange.c:2370
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
+#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
 #: shell/e-storage.c:573 storage/xc-commands.c:302
 msgid "Permission denied"
 msgstr "অনুমতি প্রদান করা হয় নি"
@@ -336,15 +352,15 @@ msgstr "মেইলবক্স সম্পূর্ণ-টেকস্ট ভ
 msgid "Unable to move/copy messages"
 msgstr "বার্তা সরিয়ে/মুছে ফেলতে সমস্যা হয়েছে"
 
-#: mail/mail-stub-exchange.c:2192
+#: mail/mail-stub-exchange.c:2213
 msgid "No mail submission URI for this mailbox"
 msgstr "এই মেইলবক্সের জন্য কোনো মেইল প্রেরণের URI উপস্থিত নেই"
 
-#: mail/mail-stub-exchange.c:2229
+#: mail/mail-stub-exchange.c:2250
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Exchange পরিবহনব্যবস্থার মাধ্যমে সার্ভার কোনো মেইল গ্রহন করবে না"
 
-#: mail/mail-stub-exchange.c:2231
+#: mail/mail-stub-exchange.c:2252
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -353,7 +369,7 @@ msgstr ""
 "আপনার অ্যাকাউন্ট থেকে  <%s> কে প্রেরকের ঠিকানা হিসাবে\n"
 "ব্যবহার করবার অনুমতি নেই।"
 
-#: mail/mail-stub-exchange.c:2243
+#: mail/mail-stub-exchange.c:2264
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -361,22 +377,22 @@ msgstr ""
 "বার্তা প্রেরণ করা সম্ভব হয় নি।\n"
 "সম্ভবত আপনার অ্যাকাউন্টের ধারণক্ষমতা পার হয়ে গেছে।"
 
-#: mail/mail-stub-exchange.c:2247
+#: mail/mail-stub-exchange.c:2268
 msgid "Could not send message"
 msgstr "বার্তা প্রেরণ করা সম্ভব হয় নি"
 
-#: mail/mail-stub-exchange.c:2270 mail/mail-stub-exchange.c:2325
-#: mail/mail-stub-exchange.c:2374 shell/e-storage.c:557
+#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
+#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
 #: storage/xc-commands.c:306
 msgid "Generic error"
 msgstr "সাধারণ ত্রুটি"
 
-#: mail/mail-stub-exchange.c:2274 storage/xc-commands.c:296
+#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
 msgid "Folder already exists"
 msgstr "ফোল্ডার বর্তমানে উপস্থিত আছে"
 
-#: mail/mail-stub-exchange.c:2305 mail/mail-stub-exchange.c:2350
-#: mail/mail-stub-exchange.c:2366
+#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
+#: mail/mail-stub-exchange.c:2393
 msgid "Folder doesn't exist"
 msgstr "ফোল্ডার উপস্থিত নেই"
 
@@ -465,7 +481,9 @@ msgstr "ফোল্ডার-এর নাম পরবর্তন করো"
 #: shell/e-folder-misc-dialogs.c:205
 #, c-format
 msgid "A folder named \"%s\" already exists. Please use a different name."
-msgstr "\"%s\" নামের একটি ফোল্ডার বর্তমানে উপস্থিত আছে। অনুগ্রহ করে অন্য একটি নাম নির্বাচন করুন।"
+msgstr ""
+"\"%s\" নামের একটি ফোল্ডার বর্তমানে উপস্থিত আছে। অনুগ্রহ করে অন্য একটি নাম নির্বাচন "
+"করুন।"
 
 #. It would be nice to insensitivize the OK button appropriately
 #. instead of doing this, but unfortunately we can't do this for the
@@ -772,7 +790,8 @@ msgid ""
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
 "Exchange সার্ভারের সাথে সংযোগ করা সম্ভব হয় নি।\n"
-"অনুগ্রহ করে URL-র বৈধতা পরীক্ষা করে (\"%s\" প্রয়োগ করুন \"%s\" -র পরিবর্তে? চেষ্টা করুন) পুনরায় চেষ্টা করুন।"
+"অনুগ্রহ করে URL-র বৈধতা পরীক্ষা করে (\"%s\" প্রয়োগ করুন \"%s\" -র পরিবর্তে? চেষ্টা "
+"করুন) পুনরায় চেষ্টা করুন।"
 
 #: storage/exchange-autoconfig-wizard.c:232
 msgid ""
@@ -788,7 +807,8 @@ msgid ""
 "Make sure the username and password are correct and try again."
 msgstr ""
 "Exchange সার্ভারে অনুমোদন করা সম্ভব হয় নি।\n"
-"আপনার ব্যবহারকারীর নাম এবং পাসওয়ার্ড সঠিক আছে কি না তা পরীক্ষা করে পুনরায় চেষ্টা করুন।"
+"আপনার ব্যবহারকারীর নাম এবং পাসওয়ার্ড সঠিক আছে কি না তা পরীক্ষা করে পুনরায় চেষ্টা "
+"করুন।"
 
 #: storage/exchange-autoconfig-wizard.c:248
 #, c-format
@@ -800,10 +820,11 @@ msgid ""
 "(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
 "Exchange সার্ভারে অনুমোদন করা সম্ভব হয় নি।\n"
-"অনুগ্রহ করে ব্যবহারকারীর নাম এবং পাসওয়ার্ড সঠিক আছে কি না পরীক্ষা করে পুনরায় চেষ্টা করুন। \n"
+"অনুগ্রহ করে ব্যবহারকারীর নাম এবং পাসওয়ার্ড সঠিক আছে কি না পরীক্ষা করে পুনরায় চেষ্টা "
+"করুন। \n"
 "\n"
-"আপনাকে সম্ভবত আপনার ব্যবহারকারীর নামের মাঝে Windows এর ডোমেইনের নাম উল্লেখ করতে হবে "
-"(উদাহরণ, \"MY-DOMAIN\\%s\")।"
+"আপনাকে সম্ভবত আপনার ব্যবহারকারীর নামের মাঝে Windows এর ডোমেইনের নাম উল্লেখ করতে "
+"হবে (উদাহরণ, \"MY-DOMAIN\\%s\")।"
 
 #: storage/exchange-autoconfig-wizard.c:260
 msgid ""
@@ -823,13 +844,13 @@ msgid ""
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"Exchange Server -এর কিছু নিষ্ক্রিয় অথবা প্রতিরোধ করা ব্যবহারযোগ্য পরিসেবা Ximian Connector -র "
-"প্রয়োজন আছে।  (এটি সাধারণত ইচ্ছাকৃতভাবে রোধ করা হয় না।)  Ximian Connector ব্যবহার "
-"করবার জন্য আপনার Exchange অ্যাডমিনিস্ট্রেটরকে "
-"ঐ পরিসেবাগুলো কার্যকরী করতে হবে।\n"
+"Exchange Server -এর কিছু নিষ্ক্রিয় অথবা প্রতিরোধ করা ব্যবহারযোগ্য পরিসেবা Ximian "
+"Connector -র প্রয়োজন আছে।  (এটি সাধারণত ইচ্ছাকৃতভাবে রোধ করা হয় না।)  Ximian "
+"Connector ব্যবহার করবার জন্য আপনার Exchange অ্যাডমিনিস্ট্রেটরকে ঐ পরিসেবাগুলো "
+"কার্যকরী করতে হবে।\n"
 "\n"
-"আপনার Exchange অ্যাডমিনিস্ট্রেটরকে তথ্য প্রদান করতে হলে, "
-"অনুগ্রহ করে নিম্নোক্ত লিঙ্কটি ব্যবহার করুন:"
+"আপনার Exchange অ্যাডমিনিস্ট্রেটরকে তথ্য প্রদান করতে হলে, অনুগ্রহ করে নিম্নোক্ত লিঙ্কটি "
+"ব্যবহার করুন:"
 
 #: storage/exchange-autoconfig-wizard.c:288
 msgid ""
@@ -844,8 +865,8 @@ msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
 msgstr ""
-"একটি অজানা সমস্যার দরুন Exchange-র অ্যাকাউন্ট কনফিগার করা সম্ভব হয় নি। "
-"URL, ব্যবহারকারীর নাম এবং পাসওয়ার্ড পরীক্ষা করে পুনরায় চেষ্টা করুন।"
+"একটি অজানা সমস্যার দরুন Exchange-র অ্যাকাউন্ট কনফিগার করা সম্ভব হয় নি। URL, "
+"ব্যবহারকারীর নাম এবং পাসওয়ার্ড পরীক্ষা করে পুনরায় চেষ্টা করুন।"
 
 #: storage/exchange-autoconfig-wizard.c:345
 #, c-format
@@ -854,9 +875,9 @@ msgid ""
 "and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
 "\\%s\")."
 msgstr ""
-"Global Catalog সার্ভার-এ অনুমোদন করা সম্ভব হয় নি। আপনাকে সম্ভবত পূর্ববর্তী ধাপে ফেরত্ গিয়ে "
-"আপনার ব্যবহারকারীর নামের মাঝে Windows -এর ডোমেইনের নাম উল্লেখ করতে হবে (উদাহরণ, \"MY-DOMAIN"
-"\\%s\")।"
+"Global Catalog সার্ভার-এ অনুমোদন করা সম্ভব হয় নি। আপনাকে সম্ভবত পূর্ববর্তী ধাপে "
+"ফেরত্ গিয়ে আপনার ব্যবহারকারীর নামের মাঝে Windows -এর ডোমেইনের নাম উল্লেখ করতে "
+"হবে (উদাহরণ, \"MY-DOMAIN\\%s\")।"
 
 #: storage/exchange-autoconfig-wizard.c:352
 msgid ""
@@ -871,13 +892,18 @@ msgstr ""
 msgid "Unknown"
 msgstr "অজানা"
 
-#: storage/exchange-autoconfig-wizard.c:466
+#: storage/exchange-autoconfig-wizard.c:477
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
 msgstr ""
 "কনফিগারেশন সংক্রান্ত সিস্টেমের ত্রুটি।\n"
 "নতুন অ্যাকাউন্ট তৈরি করা সম্ভব হয় নি।"
+
+#: storage/exchange-autoconfig-wizard.c:491
+#: storage/exchange-config-listener.c:492
+msgid "You may only configure a single Exchange account"
+msgstr "আপনি শুধুমাত্র একটি Exchange অ্যাকাউন্ট কনফিগার করতে পারবেন"
 
 #: storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
@@ -953,11 +979,11 @@ msgid ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
-"Ximian Connector আপনার বর্তমান Outlook Web "
-"Access (OWA) অ্যাকাউন্ট থেকে অ্যাকাউন্ট সংক্রান্ত তথ্য ব্যবহার করতে পারবে।\n"
+"Ximian Connector আপনার বর্তমান Outlook Web Access (OWA) অ্যাকাউন্ট থেকে "
+"অ্যাকাউন্ট সংক্রান্ত তথ্য ব্যবহার করতে পারবে।\n"
 "\n"
-"আপনার OWA সাইটের ঠিকানা (URL), ব্যবহারকারীর নাম, এবং পাসওয়ার্ড লিখে "
-"\"অগ্রসর\" -এ টিপুন।\n"
+"আপনার OWA সাইটের ঠিকানা (URL), ব্যবহারকারীর নাম, এবং পাসওয়ার্ড লিখে \"অগ্রসর\" -"
+"এ টিপুন।\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:24
 msgid ""
@@ -965,15 +991,17 @@ msgid ""
 "Please enter the name of your Global Catalog server. You may need to ask "
 "your system administrator for the correct value.\n"
 msgstr ""
-"Ximian Connector আপনার সাইটের জন্য কোনো Global Catalog অনুলিপি খুঁজে পায় নি।"
-"অনুগ্রহ করে আপনার Global Catalog সার্ভারের নাম লিখুন। সঠিক "
-"মানের জন্য সম্ভবত আপনাকে আপনার অ্যাডমিনিস্ট্রেটর-এর সাথে যোগাযোগ করতে হবে।\n"
+"Ximian Connector আপনার সাইটের জন্য কোনো Global Catalog অনুলিপি খুঁজে পায় "
+"নি।অনুগ্রহ করে আপনার Global Catalog সার্ভারের নাম লিখুন। সঠিক মানের জন্য সম্ভবত "
+"আপনাকে আপনার অ্যাডমিনিস্ট্রেটর-এর সাথে যোগাযোগ করতে হবে।\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:26
 msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
-msgstr "Ximian Connector আপনার Exchange অ্যাকাউন্টটি কনফিগার করবার সময় একটি সমস্যার সম্মুখীন হয়েছে।\n"
+msgstr ""
+"Ximian Connector আপনার Exchange অ্যাকাউন্টটি কনফিগার করবার সময় একটি সমস্যার "
+"সম্মুখীন হয়েছে।\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -981,15 +1009,17 @@ msgid ""
 "save your\n"
 "settings."
 msgstr ""
-"আপনার Connector অ্যাকাউন্টটি এখন ব্যবহারের জন্য প্রস্তুত। \"প্রয়োগ করো\" বাটন-এ ক্লিক করে আপনার  "
-"নির্ধারিত বৈশিষ্ট্য সংরক্ষণ\n"
+"আপনার Connector অ্যাকাউন্টটি এখন ব্যবহারের জন্য প্রস্তুত। \"প্রয়োগ করো\" বাটন-এ ক্লিক "
+"করে আপনার  নির্ধারিত বৈশিষ্ট্য সংরক্ষণ\n"
 "করুন।"
 
 #: storage/exchange-autoconfig-wizard.glade.h:30
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
-msgstr "আপনার অ্যাকাউন্ট সংক্রান্ত তথ্য নিচে বর্ণিত হল। অনুগ্রহ করে কোনো ত্রুটি হয়ে থাকলে তা সংশোধন করে, \"অগ্রসর\" ক্লিক করুন।\n"
+msgstr ""
+"আপনার অ্যাকাউন্ট সংক্রান্ত তথ্য নিচে বর্ণিত হল। অনুগ্রহ করে কোনো ত্রুটি হয়ে থাকলে তা "
+"সংশোধন করে, \"অগ্রসর\" ক্লিক করুন।\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
@@ -999,8 +1029,8 @@ msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
 msgstr ""
-"বর্তমান পাসওয়ার্ড আপনার অ্যাকাউন্টের উপস্থিত পাসওয়ার্ডের সাথে মেলেনি। "
-"অনুগ্রহ করে সঠিক পাসওয়ার্ড লিখুন"
+"বর্তমান পাসওয়ার্ড আপনার অ্যাকাউন্টের উপস্থিত পাসওয়ার্ডের সাথে মেলেনি। অনুগ্রহ করে "
+"সঠিক পাসওয়ার্ড লিখুন"
 
 #: storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
@@ -1024,29 +1054,27 @@ msgstr "নতুন পাসওয়ার্ড:"
 
 #: storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
-msgstr "আপনার বর্তমান পাসওয়ার্ডের সময়সীমা পার হয়ে গেছে। অনুগ্রহ করে আপনার পাসওয়ার্ড এখন পরিবর্তন করুন।"
+msgstr ""
+"আপনার বর্তমান পাসওয়ার্ডের সময়সীমা পার হয়ে গেছে। অনুগ্রহ করে আপনার পাসওয়ার্ড এখন "
+"পরিবর্তন করুন।"
 
 #: storage/exchange-component.c:308
 msgid "Mail"
 msgstr "মেইল"
 
-#: storage/exchange-component.c:311 storage/exchange-hierarchy-foreign.c:248
+#: storage/exchange-component.c:311 storage/exchange-hierarchy-foreign.c:250
 msgid "Contacts"
 msgstr "পরিচিতি"
 
-#: storage/exchange-component.c:315 storage/exchange-hierarchy-foreign.c:256
+#: storage/exchange-component.c:315 storage/exchange-hierarchy-foreign.c:258
 msgid "Tasks"
 msgstr "কর্ম"
 
-#: storage/exchange-component.c:318 storage/exchange-hierarchy-foreign.c:247
+#: storage/exchange-component.c:318 storage/exchange-hierarchy-foreign.c:249
 msgid "Calendar"
 msgstr "ক্যালেন্ডার"
 
-#: storage/exchange-config-listener.c:492
-msgid "You may only configure a single Exchange account"
-msgstr "আপনি শুধুমাত্র একটি Exchange অ্যাকাউন্ট কনফিগার করতে পারবেন"
-
-#: storage/exchange-config-listener.c:601
+#: storage/exchange-config-listener.c:607
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
@@ -1054,7 +1082,7 @@ msgstr ""
 "আপনার Exchange অ্যাকাউন্টের পরিবর্তিত কনফিগারেশন,\n"
 "Evolution থেকে প্রস্থান করে তা পুনরায় চালু করলে প্রয়োগ করা হবে।"
 
-#: storage/exchange-config-listener.c:647
+#: storage/exchange-config-listener.c:653
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr "Evolution থেকে প্রস্থান করলে আপনার Exchange অ্যাকাউন্ট সরিয়ে ফেলা হবে।"
 
@@ -1151,11 +1179,11 @@ msgstr ""
 "প্রতিনিধি আপডেট করা সম্ভব হয় নি:\n"
 "%s"
 
-#: storage/exchange-delegates.c:937 storage/exchange-permissions-dialog.c:706
+#: storage/exchange-delegates.c:938 storage/exchange-permissions-dialog.c:706
 msgid "Name"
 msgstr "নাম"
 
-#: storage/exchange-delegates.c:966
+#: storage/exchange-delegates.c:967
 msgid "Error reading delegates list."
 msgstr "প্রতিনিধিদের তালিকা পড়তে সমস্যা হয়েছে।"
 
@@ -1215,31 +1243,31 @@ msgstr "ইনবক্স(_ই):"
 msgid "_Tasks:"
 msgstr "কর্ম(_ক):"
 
-#: storage/exchange-hierarchy-foreign.c:249
+#: storage/exchange-hierarchy-foreign.c:251
 msgid "Deleted Items"
 msgstr "মুছে ফেলা বস্তু"
 
-#: storage/exchange-hierarchy-foreign.c:250
+#: storage/exchange-hierarchy-foreign.c:252
 msgid "Drafts"
 msgstr "খসড়া"
 
-#: storage/exchange-hierarchy-foreign.c:251
+#: storage/exchange-hierarchy-foreign.c:253
 msgid "Inbox"
 msgstr "ইনবক্স"
 
-#: storage/exchange-hierarchy-foreign.c:252
+#: storage/exchange-hierarchy-foreign.c:254
 msgid "Journal"
 msgstr "দিন-পঞ্জী"
 
-#: storage/exchange-hierarchy-foreign.c:253
+#: storage/exchange-hierarchy-foreign.c:255
 msgid "Notes"
 msgstr "নোট"
 
-#: storage/exchange-hierarchy-foreign.c:254
+#: storage/exchange-hierarchy-foreign.c:256
 msgid "Outbox"
 msgstr "আউটবক্স"
 
-#: storage/exchange-hierarchy-foreign.c:255
+#: storage/exchange-hierarchy-foreign.c:257
 msgid "Sent Items"
 msgstr "প্রেরিত বস্তু"
 
@@ -1255,8 +1283,8 @@ msgid ""
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
-"Evolution %d.%d.%d -র পরে Evolution এক্সচেঞ্জ অ্যাকাউন্ট ফোল্ডারের "
-"অবস্থান এবং ক্রম পরিবর্তিত হয়েছে।\n"
+"Evolution %d.%d.%d -র পরে Evolution এক্সচেঞ্জ অ্যাকাউন্ট ফোল্ডারের অবস্থান এবং ক্রম "
+"পরিবর্তিত হয়েছে।\n"
 "\n"
 "Evolution আপনার ফোল্ডার স্থানান্তর করবে, অনুগ্রহ করে ঐ সময়কাল প্রতীক্ষা করুন..."
 
@@ -1268,10 +1296,9 @@ msgid ""
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"সতর্কবার্তা: Evolution ভারসান %d.%d.%d -র Exchange অ্যাকাউন্টের সকল "
-"ডাটা স্থানান্তিরত করতে সক্ষম হয় নি। \n"
-"ডাটা মুছে ফেলা হয় নি, কিন্তু Evolution-এর এই ভারসানে তা দেথা "
-"যাবে না"
+"সতর্কবার্তা: Evolution ভারসান %d.%d.%d -র Exchange অ্যাকাউন্টের সকল ডাটা "
+"স্থানান্তিরত করতে সক্ষম হয় নি। \n"
+"ডাটা মুছে ফেলা হয় নি, কিন্তু Evolution-এর এই ভারসানে তা দেথা যাবে না"
 
 #: storage/exchange-migrate.c:129
 #, c-format
@@ -1534,12 +1561,16 @@ msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "সার্ভারে উপস্থিত অন্য কোনো ব্যবহারকারীর ফোল্ডারে সাবস্ক্রাইব করুন"
 
 #: storage/ximian-connector.xml.h:4
-msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
-msgstr "\"অন্য ব্যবহারকারীর ফোল্ডারে সাবস্ক্রাইব করুন\" ব্যবহার করে যোগ করা ফোল্ডার থেকে আনসাবস্ক্রাইব করুন"
+msgid ""
+"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgstr ""
+"\"অন্য ব্যবহারকারীর ফোল্ডারে সাবস্ক্রাইব করুন\" ব্যবহার করে যোগ করা ফোল্ডার থেকে "
+"আনসাবস্ক্রাইব করুন"
 
 #: storage/ximian-connector.xml.h:5
 msgid "View or change your Exchange calendar delegation settings"
-msgstr "আপনার Exchange ক্যালেন্ডার প্রতিনিধি সংক্রান্ত বৈশিষ্ট্য প্রত্যক্ষ অথবা পরিবর্তন করুন"
+msgstr ""
+"আপনার Exchange ক্যালেন্ডার প্রতিনিধি সংক্রান্ত বৈশিষ্ট্য প্রত্যক্ষ অথবা পরিবর্তন করুন"
 
 #: storage/ximian-connector.xml.h:6
 msgid "View or change your Out-of-Office status and autoreply message"
@@ -1560,4 +1591,3 @@ msgstr "অফিসে-অনুপস্থিত থাকাকালীন 
 #: storage/ximian-connector.xml.h:10
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "অন্য ব্যবহারকারীর ফোল্ডার থেকে আনসাবস্ক্রাইব করুন(_ব)"
-

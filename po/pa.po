@@ -11,14 +11,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-26 03:27+0200\n"
+"POT-Creation-Date: 2004-08-13 15:04-0400\n"
 "PO-Revision-Date: 2004-08-10 17:51+0530\n"
 "Last-Translator: Amanpreet Singh Alam <aalam@redhat.com>\n"
 "Language-Team: Punjabi <pa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+"Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"\n"
 "X-Generator: KBabel 1.3.1\n"
 
 #: addressbook/e-book-backend-exchange.c:1655
@@ -37,6 +38,18 @@ msgstr "LDAP ਖੋਜ ਨਤੀਜਿਆਂ ਨੂੰ ਪ੍ਰਾਪਤ ਕੀ
 #: addressbook/e-book-backend-gal.c:1205
 msgid "Error performing search"
 msgstr "ਖੋਜ ਕਰਨ ਗਲਤੀ"
+
+#: calendar/e-cal-backend-exchange-calendar.c:1358
+#, c-format
+msgid ""
+"Unable to schedule resource '%s' for recurring meetings.\n"
+"You must book each meeting separately."
+msgstr ""
+
+#: calendar/e-cal-backend-exchange-calendar.c:1377
+#, c-format
+msgid "The resource '%s' is busy during the selected time period."
+msgstr ""
 
 #: camel/camel-exchange-folder.c:219
 msgid "Can only expunge in Deleted Items folder"
@@ -157,9 +170,7 @@ msgstr "ਸੁਰੱਖਿਅਤ ਗੁਪਤ-ਕੋਡ"
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
-msgstr ""
-"ਇਹ ਚੋਣ ਐਕਸਚੇਜ਼ ਸਰਵਰ ਨਾਲ ਤੁਹਾਨੂੰ ਸੁਰੱਖਿਅਤ ਗੁਪਤ-ਕੋਡ (NTLM) ਪ੍ਰਮਾਣਕਿਤਾ ਰਾਹੀ "
-"ਹੀ ਜੋੜੇਗਾ|"
+msgstr "ਇਹ ਚੋਣ ਐਕਸਚੇਜ਼ ਸਰਵਰ ਨਾਲ ਤੁਹਾਨੂੰ ਸੁਰੱਖਿਅਤ ਗੁਪਤ-ਕੋਡ (NTLM) ਪ੍ਰਮਾਣਕਿਤਾ ਰਾਹੀ ਹੀ ਜੋੜੇਗਾ|"
 
 #: camel/camel-exchange-provider.c:116
 msgid "Plaintext Password"
@@ -169,9 +180,7 @@ msgstr "ਇਕਸਾਰ-ਪਾਠ ਗੁਪਤ-ਕੋਡ"
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
-msgstr ""
-"ਇਹ ਚੋਣ ਐਕਸਚੇਜ਼ ਸਰਵਰ ਨਾਲ ਤੁਹਾਨੂੰ ਮਿਆਰੀ ਸਮਤਲ ਗੁਪਤ-ਕੋਡ ਪ੍ਰਮਾਣਕਿਤਾ ਰਾਹੀ "
-"ਹੀ ਜੋੜੇਗਾ|"
+msgstr "ਇਹ ਚੋਣ ਐਕਸਚੇਜ਼ ਸਰਵਰ ਨਾਲ ਤੁਹਾਨੂੰ ਮਿਆਰੀ ਸਮਤਲ ਗੁਪਤ-ਕੋਡ ਪ੍ਰਮਾਣਕਿਤਾ ਰਾਹੀ ਹੀ ਜੋੜੇਗਾ|"
 
 #: camel/camel-exchange-store.c:178
 #, c-format
@@ -283,8 +292,8 @@ msgstr "ਸਿਰਨਾਵਾਂ ਕਿਤਾਬ..."
 msgid "No such folder"
 msgstr "ਇਸਤਰਾਂ ਦਾ ਕੋਈ ਫੋਲਡਰ ਨਹੀ ਹੈ"
 
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2278
-#: mail/mail-stub-exchange.c:2320 mail/mail-stub-exchange.c:2370
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
+#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
 #: shell/e-storage.c:573 storage/xc-commands.c:302
 msgid "Permission denied"
 msgstr "ਅਧਿਕਾਰ ਪਾਬੰਦੀ"
@@ -345,15 +354,15 @@ msgstr "ਮੇਲ-ਬਕਸਾ ਪੂਰੇ ਪਾਠ ਤੇ ਅਧਾਰਿਤ 
 msgid "Unable to move/copy messages"
 msgstr "ਸੁਨੇਹਿਆਂ ਦੀ ਨਕਲ/ਭੇਜਣ ਲਈ ਸਹਾਈ ਨਹੀਂ ਹੈ"
 
-#: mail/mail-stub-exchange.c:2192
+#: mail/mail-stub-exchange.c:2213
 msgid "No mail submission URI for this mailbox"
 msgstr "ਇਸ ਪੱਤਰ ਬਕਸੇ ਲਈ ਕੋਈ ਪੱਤਰ ਭੇਜਣ URI ਨਹੀਂ ਹੈ"
 
-#: mail/mail-stub-exchange.c:2229
+#: mail/mail-stub-exchange.c:2250
 msgid "Server won't accept mail via Exchange transport"
 msgstr "ਸਰਵਰ ਪੱਤਰ ਐਕਸਚੇਜ਼ ਟਰਾਂਸਪੋਰਟ ਰਾਹੀ ਸਵੀਕਾਰ ਨਹੀਂ ਕਰੇਗਾ"
 
-#: mail/mail-stub-exchange.c:2231
+#: mail/mail-stub-exchange.c:2252
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -362,7 +371,7 @@ msgstr ""
 "ਤੁਹਾਡੇ ਖਾਤੇ ਲਈ <%s> ਦੀ ਵਰਤੋਂ ਵੱਲੋਂ ਸਿਰਨਾਵਾਂ ਵਰਤਣ ਦਾ\n"
 "ਅਧਿਕਾਰ ਨਹੀਂ ਹੈ|"
 
-#: mail/mail-stub-exchange.c:2243
+#: mail/mail-stub-exchange.c:2264
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -370,22 +379,22 @@ msgstr ""
 "ਸੁਨੇਹਾ ਭੇਜਿਆ ਨਹੀਂ ਜਾ ਸਕੇਗਾ\n"
 "ਇਸ ਦਾ ਅਰਥ ਹੈ ਤਿ ਤੁਹਾਡਾ ਖਾਤਾ ਸੀਮਾ ਤੋਂ ਵਧੇਰੇ ਹੈ"
 
-#: mail/mail-stub-exchange.c:2247
+#: mail/mail-stub-exchange.c:2268
 msgid "Could not send message"
 msgstr "ਸੁਨੇਹਾ ਭੇਜਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ ਹੈ"
 
-#: mail/mail-stub-exchange.c:2270 mail/mail-stub-exchange.c:2325
-#: mail/mail-stub-exchange.c:2374 shell/e-storage.c:557
+#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
+#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
 #: storage/xc-commands.c:306
 msgid "Generic error"
 msgstr "ਆਮ ਗਲਤੀ"
 
-#: mail/mail-stub-exchange.c:2274 storage/xc-commands.c:296
+#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
 msgid "Folder already exists"
 msgstr "ਫੋਲਡਰ ਮੌਜੂਦ ਹੈ"
 
-#: mail/mail-stub-exchange.c:2305 mail/mail-stub-exchange.c:2350
-#: mail/mail-stub-exchange.c:2366
+#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
+#: mail/mail-stub-exchange.c:2393
 msgid "Folder doesn't exist"
 msgstr "ਫੋਲਡਰ ਮੌਜੂਦ ਨਹੀ ਹੈ"
 
@@ -812,8 +821,8 @@ msgstr ""
 "ਐਕਸਚੇਜ਼ ਸਰਵਰ ਲਈ ਪ੍ਰਮਾਣਿਤ ਨਹੀਂ \n"
 "ਇਹ ਯਕੀਨੀ ਕਰੋ ਕਿ ਉਪਭੋਗਤਾ ਨਾਂ ਅਤੇ ਗੁਪਤ-ਕੋਡ ਠੀਕ ਹੈ ਅਤੇ ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ\n"
 "\n"
-"ਹੋ ਸਕਦਾ ਹੈ ਕਿ ਤੁਹਾਨੂੰ ਉਪਭੋਗਤੀ ਨਾਂ ਦੇ ਤੌਰ ਤੇ ਵਿੰਡੋ ਨਾਂ ਵੀ ਨਿਰਧਾਰਿਤ ਕਰਨਾ ਪਵੇ| "
-"(ਜਿਵੇਂ ਕਿ\"MY-DOMAIN\\%s\")|"
+"ਹੋ ਸਕਦਾ ਹੈ ਕਿ ਤੁਹਾਨੂੰ ਉਪਭੋਗਤੀ ਨਾਂ ਦੇ ਤੌਰ ਤੇ ਵਿੰਡੋ ਨਾਂ ਵੀ ਨਿਰਧਾਰਿਤ ਕਰਨਾ ਪਵੇ| (ਜਿਵੇਂ ਕਿ\"MY-"
+"DOMAIN\\%s\")|"
 
 #: storage/exchange-autoconfig-wizard.c:260
 msgid ""
@@ -833,28 +842,25 @@ msgid ""
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"ਜੀਮੀਨ ਕੁਨੈਕਟਰ ਨੂੰ ਉਹ ਕਾਰਵਾਈ ਲੋੜੀਦੀ ਹੈ, ਜੋ ਕਿ ਐਕਸ਼ਚੇਜ਼ ਸਰਵਰ "
-"ਤੇ ਬੰਦ ਹੈ ਜਾਂ ਪਾਬੰਦੀਸ਼ੁਦਾ ਹੈ (ਇਹ ਆਮ ਕਰਕੇ ਨਹੀਂ ਹੁੰਦਾ ਹੈ)| ਐਕਸਚੇਜ਼ "
-"ਪ੍ਰਬੰਧਕ ਜੀਮੀਨ ਕੁਨੈਕਟਰ ਨਾਲ ਜੁੜਨ ਲਈ ਇਸ ਨੂੰ ਯੋਗ ਕਰ ਸਕਦਾ "
-"ਹੈ\n"
-"ਆਪਣੇ ਐਕਸਚੇਜ਼ ਪ੍ਰਬੰਧਕ ਨੂੰ ਜਾਣਕਾਰੀ ਦੇਣ ਲਈ, ਹੇਠਲੇ ਸੰਬੰਧ ਤੇ "
-"ਸੰਪਰਕ ਕਰੋ:"
+"ਜੀਮੀਨ ਕੁਨੈਕਟਰ ਨੂੰ ਉਹ ਕਾਰਵਾਈ ਲੋੜੀਦੀ ਹੈ, ਜੋ ਕਿ ਐਕਸ਼ਚੇਜ਼ ਸਰਵਰ ਤੇ ਬੰਦ ਹੈ ਜਾਂ ਪਾਬੰਦੀਸ਼ੁਦਾ ਹੈ (ਇਹ ਆਮ "
+"ਕਰਕੇ ਨਹੀਂ ਹੁੰਦਾ ਹੈ)| ਐਕਸਚੇਜ਼ ਪ੍ਰਬੰਧਕ ਜੀਮੀਨ ਕੁਨੈਕਟਰ ਨਾਲ ਜੁੜਨ ਲਈ ਇਸ ਨੂੰ ਯੋਗ ਕਰ ਸਕਦਾ ਹੈ\n"
+"ਆਪਣੇ ਐਕਸਚੇਜ਼ ਪ੍ਰਬੰਧਕ ਨੂੰ ਜਾਣਕਾਰੀ ਦੇਣ ਲਈ, ਹੇਠਲੇ ਸੰਬੰਧ ਤੇ ਸੰਪਰਕ ਕਰੋ:"
 
 #: storage/exchange-autoconfig-wizard.c:288
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
 msgstr ""
-"ਐਕਚੇਜ਼ ਸਰਵਰ URL, ਜੋ ਕਿ ਤੁਸੀਂ ਦਿੱਤਾ ਹੈ, ਉਹ ਐਕਸ਼ਚੇਜ਼ 5.5 ਸਰਵਰ ਲਈ ਹੈ, ਜੀਮੀਨ"
-"Microsoft Exchange 2000 ਅਤੇ 2003 ਲਈ ਸਹਾਇਕ ਹੈ|"
+"ਐਕਚੇਜ਼ ਸਰਵਰ URL, ਜੋ ਕਿ ਤੁਸੀਂ ਦਿੱਤਾ ਹੈ, ਉਹ ਐਕਸ਼ਚੇਜ਼ 5.5 ਸਰਵਰ ਲਈ ਹੈ, ਜੀਮੀਨMicrosoft "
+"Exchange 2000 ਅਤੇ 2003 ਲਈ ਸਹਾਇਕ ਹੈ|"
 
 #: storage/exchange-autoconfig-wizard.c:301
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
 msgstr ""
-"ਐਕਸਚੇਜ਼ ਖਾਤਾ ਸੰਰਚਿਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ, ਕਿਉਕਿ ਅਣਜਾਣੀ URL ਗਲਤੀ ਹੈ| "
-"ਕਿਰਪਾ ਕਰਕੇ URL, ਉਪਭੋਗਤਾ ਨਾਂ ਅਤੇ ਗੁਪਤ-ਕੋਡ ਵੇਖੋ ਤੇ ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ"
+"ਐਕਸਚੇਜ਼ ਖਾਤਾ ਸੰਰਚਿਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ, ਕਿਉਕਿ ਅਣਜਾਣੀ URL ਗਲਤੀ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ URL, "
+"ਉਪਭੋਗਤਾ ਨਾਂ ਅਤੇ ਗੁਪਤ-ਕੋਡ ਵੇਖੋ ਤੇ ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ"
 
 #: storage/exchange-autoconfig-wizard.c:345
 #, c-format
@@ -863,9 +869,8 @@ msgid ""
 "and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
 "\\%s\")."
 msgstr ""
-"ਵਿਆਪਕ ਕਾਟਾਲੋਗ ਸਰਵਰ ਨਾਲ ਪ੍ਰਮਾਣਿਤ ਨਹੀਂ ਹੈ| ਤੁਹਾਨੂੰ ਵਾਪਿਸ ਜਾਣਾ ਪਵੇਗਾ ਅਤੇ ਆਪਣੇ ਨਾਂ "
-" ਨਾਲ ਵਿੰਡੋ ਡੋਮੇਨ ਨਾਂ ਵੀ ਨਿਰਧਾਰਿਤ ਕਰਨਾ ਪਵੇਗਾ, (ਜਿਵੇਂ ਕਿ \"MY-DOMAIN"
-"\\%s\")|"
+"ਵਿਆਪਕ ਕਾਟਾਲੋਗ ਸਰਵਰ ਨਾਲ ਪ੍ਰਮਾਣਿਤ ਨਹੀਂ ਹੈ| ਤੁਹਾਨੂੰ ਵਾਪਿਸ ਜਾਣਾ ਪਵੇਗਾ ਅਤੇ ਆਪਣੇ ਨਾਂ  ਨਾਲ ਵਿੰਡੋ "
+"ਡੋਮੇਨ ਨਾਂ ਵੀ ਨਿਰਧਾਰਿਤ ਕਰਨਾ ਪਵੇਗਾ, (ਜਿਵੇਂ ਕਿ \"MY-DOMAIN\\%s\")|"
 
 #: storage/exchange-autoconfig-wizard.c:352
 msgid ""
@@ -880,13 +885,18 @@ msgstr ""
 msgid "Unknown"
 msgstr "ਅਣਪਛਾਤਾ"
 
-#: storage/exchange-autoconfig-wizard.c:466
+#: storage/exchange-autoconfig-wizard.c:477
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
 msgstr ""
 "ਸਿਸਟਮ ਸੰਰਚਨਾ ਗਲਤੀ\n"
 "ਨਵਾਂ ਖਾਤਾ ਬਣਾਉਣ ਵਿੱਚ ਅਸਫਲ"
+
+#: storage/exchange-autoconfig-wizard.c:491
+#: storage/exchange-config-listener.c:492
+msgid "You may only configure a single Exchange account"
+msgstr "ਤੁਸੀਂ ਸਿਰਫ ਇੱਕ ਐਕਸ਼ਚੇਜ਼ ਖਾਤੇ ਨੂੰ ਸੰਰਚਿਤ ਕਰ ਸਕਦੇ ਹੋ"
 
 #: storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
@@ -962,11 +972,9 @@ msgid ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
-"ਜੀਮੀਨ ਕੁਨੈਕਟਰ ਤੁਹਾਡੇ ਮੌਜੂਦਾ ਆਉਟਲੁੱਕ ਵੈਬ ਖਾਤੇ ਨੂੰ ਜਾਣਕਾਰੀ ਲਈ "
-"ਵਰਤ ਸਕਦਾ ਹੈ\n"
+"ਜੀਮੀਨ ਕੁਨੈਕਟਰ ਤੁਹਾਡੇ ਮੌਜੂਦਾ ਆਉਟਲੁੱਕ ਵੈਬ ਖਾਤੇ ਨੂੰ ਜਾਣਕਾਰੀ ਲਈ ਵਰਤ ਸਕਦਾ ਹੈ\n"
 "\n"
-"ਆਪਣੀ OWA ਦਾ ਸਿਰਨਾਵਾਂ ਦਿਓ(URL), ਉਪਭੋਗਤਾ ਨਾਂ ਅਤੇ ਗੁਪਤ ਕੋਡ ਦੇਕੇ "
-"\"Forward\" ਦਬਾਓ\n"
+"ਆਪਣੀ OWA ਦਾ ਸਿਰਨਾਵਾਂ ਦਿਓ(URL), ਉਪਭੋਗਤਾ ਨਾਂ ਅਤੇ ਗੁਪਤ ਕੋਡ ਦੇਕੇ \"Forward\" ਦਬਾਓ\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:24
 msgid ""
@@ -974,17 +982,14 @@ msgid ""
 "Please enter the name of your Global Catalog server. You may need to ask "
 "your system administrator for the correct value.\n"
 msgstr ""
-"ਜੀਮੀਨ ਕੁਨੈਕਟਰ ਤੁਹਾਡੇ ਲਈ ਵਿਆਪਕ ਕਾਟਾਲੋਗ ਰੀਪਲੀਕਾ ਨਹੀਂ ਲੱਭ ਸਕਿਆ ਹੈ| "
-"ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਵਿਆਪਕ ਕਾਟਾਲੋਗ ਸਰਵਰ ਦਾ ਨਾਂ ਭਰੋ| ਸਹੀ ਮੁੱਲ ਲਈ ਤੁਹਾਨੂੰ "
-"ਆਪਣ ਸਿਸਟਮ ਪ੍ਰਬੰਧਕ ਨਾਲ ਸੰਪਰਕ ਕਰਨਾ ਪੈ ਸਕਦਾ ਹੈ\n"
+"ਜੀਮੀਨ ਕੁਨੈਕਟਰ ਤੁਹਾਡੇ ਲਈ ਵਿਆਪਕ ਕਾਟਾਲੋਗ ਰੀਪਲੀਕਾ ਨਹੀਂ ਲੱਭ ਸਕਿਆ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਵਿਆਪਕ "
+"ਕਾਟਾਲੋਗ ਸਰਵਰ ਦਾ ਨਾਂ ਭਰੋ| ਸਹੀ ਮੁੱਲ ਲਈ ਤੁਹਾਨੂੰ ਆਪਣ ਸਿਸਟਮ ਪ੍ਰਬੰਧਕ ਨਾਲ ਸੰਪਰਕ ਕਰਨਾ ਪੈ ਸਕਦਾ ਹੈ\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:26
 msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
-msgstr ""
-"ਜੀਮੀਨ ਕੁਨੈਕਟਰ ਨੂੰ ਐਕਸਚੇਜ਼ ਨਾਲ ਸੰਰਚਿਤ ਕਰਨ ਵਿੱਚ ਸਮੱਸਿਆ ਆਈ "
-"ਹੈ\n"
+msgstr "ਜੀਮੀਨ ਕੁਨੈਕਟਰ ਨੂੰ ਐਕਸਚੇਜ਼ ਨਾਲ ਸੰਰਚਿਤ ਕਰਨ ਵਿੱਚ ਸਮੱਸਿਆ ਆਈ ਹੈ\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -992,8 +997,7 @@ msgid ""
 "save your\n"
 "settings."
 msgstr ""
-"ਤੁਹਾਡਾ ਕੁਨੈਕਟਰ ਖਾਤਾ ਤਿਆਰ ਹੈ| ਆਪਣੀ ਵਿਵਸਥਾ ਨੂੰ ਸੰਭਾਲਣ ਲ਼ਈ \"Apply\" "
-"ਬਟਨ\n"
+"ਤੁਹਾਡਾ ਕੁਨੈਕਟਰ ਖਾਤਾ ਤਿਆਰ ਹੈ| ਆਪਣੀ ਵਿਵਸਥਾ ਨੂੰ ਸੰਭਾਲਣ ਲ਼ਈ \"Apply\" ਬਟਨ\n"
 "ਨੂੰ ਦਬਾਓ"
 
 #: storage/exchange-autoconfig-wizard.glade.h:30
@@ -1001,8 +1005,8 @@ msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
 msgstr ""
-"ਤੁਹਾਡਾ ਖਾਤਾ ਜਾਣਕਾਰੀ ਇਸਤਰਾਂ ਹਾ| ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀਆਂ ਗਲਤੀਆਂ ਠੀਕ ਕਰੋ, ਤਦ "
-"\"Forward\" ਦਬਾਓ\n"
+"ਤੁਹਾਡਾ ਖਾਤਾ ਜਾਣਕਾਰੀ ਇਸਤਰਾਂ ਹਾ| ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀਆਂ ਗਲਤੀਆਂ ਠੀਕ ਕਰੋ, ਤਦ \"Forward\" "
+"ਦਬਾਓ\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
@@ -1011,9 +1015,7 @@ msgstr ""
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
-msgstr ""
-"ਤੁਹਾਡੇ ਖਾਤੇ ਲ਼ਈ ਮੌਜੂਦਾ ਗੁਪਤ-ਕੋਡ ਮੇਲ ਨਹੀਂ ਖਾ ਰਿਹਾ ਹੈ| "
-"ਕਿਰਪਾ ਕਰਕੇ ਮੌਜੂਦਾ ਸਹੀ ਗੁਪਤ-ਕੋਡ ਭਰੋ"
+msgstr "ਤੁਹਾਡੇ ਖਾਤੇ ਲ਼ਈ ਮੌਜੂਦਾ ਗੁਪਤ-ਕੋਡ ਮੇਲ ਨਹੀਂ ਖਾ ਰਿਹਾ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਮੌਜੂਦਾ ਸਹੀ ਗੁਪਤ-ਕੋਡ ਭਰੋ"
 
 #: storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
@@ -1043,23 +1045,19 @@ msgstr "ਤੁਹਾਡਾ ਮੌਜੂਦਾ ਗੁਪਤ-ਕੋਡ ਦੀ ਮ�
 msgid "Mail"
 msgstr "ਪੱਤਰ"
 
-#: storage/exchange-component.c:311 storage/exchange-hierarchy-foreign.c:248
+#: storage/exchange-component.c:311 storage/exchange-hierarchy-foreign.c:250
 msgid "Contacts"
 msgstr "ਸੰਪਰਕ"
 
-#: storage/exchange-component.c:315 storage/exchange-hierarchy-foreign.c:256
+#: storage/exchange-component.c:315 storage/exchange-hierarchy-foreign.c:258
 msgid "Tasks"
 msgstr "ਕੰਮ"
 
-#: storage/exchange-component.c:318 storage/exchange-hierarchy-foreign.c:247
+#: storage/exchange-component.c:318 storage/exchange-hierarchy-foreign.c:249
 msgid "Calendar"
 msgstr "ਕੈਲੰਡਰ"
 
-#: storage/exchange-config-listener.c:492
-msgid "You may only configure a single Exchange account"
-msgstr "ਤੁਸੀਂ ਸਿਰਫ ਇੱਕ ਐਕਸ਼ਚੇਜ਼ ਖਾਤੇ ਨੂੰ ਸੰਰਚਿਤ ਕਰ ਸਕਦੇ ਹੋ"
-
-#: storage/exchange-config-listener.c:601
+#: storage/exchange-config-listener.c:607
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
@@ -1067,7 +1065,7 @@ msgstr ""
 "ਐਕਸਚੇਜ਼ ਖਾਤੇ ਵਿੱਚ ਤਬਦੀਲੀ ਸਿਰਫ ਈਵੇਲੂਸ਼ਨ ਦੇ ਮੁੜ ਚਾਲੂ ਹੋਣ\n"
 "ਬਾਅਦ ਹੀ ਲਾਗੂ ਹੋ ਸਕੇਗੀ|"
 
-#: storage/exchange-config-listener.c:647
+#: storage/exchange-config-listener.c:653
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr "ਈਵੇਲੂਸ਼ਨ ਦੇ ਬੰਦ ਹੋਣ ਤੇ ਐਕਸਚੇਜ਼ ਖਾਤਾ ਹਟਾ ਦਿੱਤਾ ਜਾਵੇਗਾ"
 
@@ -1164,11 +1162,11 @@ msgstr ""
 "ਪ੍ਰਤੀਨਿਧ ਦਾ ਨਵੀਨੀਕਰਨ ਅਸਫਲ:\n"
 "%s"
 
-#: storage/exchange-delegates.c:937 storage/exchange-permissions-dialog.c:706
+#: storage/exchange-delegates.c:938 storage/exchange-permissions-dialog.c:706
 msgid "Name"
 msgstr "ਨਾਂ"
 
-#: storage/exchange-delegates.c:966
+#: storage/exchange-delegates.c:967
 msgid "Error reading delegates list."
 msgstr "ਪ੍ਰਤੀਨਿਧ ਸੂਚੀ ਪੜਨ ਵਿੱਚ ਗਲਤੀ"
 
@@ -1228,31 +1226,31 @@ msgstr "ਇੰਨਬਾਕਸ(_I):"
 msgid "_Tasks:"
 msgstr "ਕੰਮ:"
 
-#: storage/exchange-hierarchy-foreign.c:249
+#: storage/exchange-hierarchy-foreign.c:251
 msgid "Deleted Items"
 msgstr "ਹਟਾਈਆਂ ਇਕਾਈਆਂ"
 
-#: storage/exchange-hierarchy-foreign.c:250
+#: storage/exchange-hierarchy-foreign.c:252
 msgid "Drafts"
 msgstr "ਡਰਾਫਟ"
 
-#: storage/exchange-hierarchy-foreign.c:251
+#: storage/exchange-hierarchy-foreign.c:253
 msgid "Inbox"
 msgstr "ਇਨਬਾਕਸ"
 
-#: storage/exchange-hierarchy-foreign.c:252
+#: storage/exchange-hierarchy-foreign.c:254
 msgid "Journal"
 msgstr "ਰਸਾਲਾ"
 
-#: storage/exchange-hierarchy-foreign.c:253
+#: storage/exchange-hierarchy-foreign.c:255
 msgid "Notes"
 msgstr "ਟਿਪੱਣੀ"
 
-#: storage/exchange-hierarchy-foreign.c:254
+#: storage/exchange-hierarchy-foreign.c:256
 msgid "Outbox"
 msgstr "ਬਾਹਰੀ ਬਕਸਾ"
 
-#: storage/exchange-hierarchy-foreign.c:255
+#: storage/exchange-hierarchy-foreign.c:257
 msgid "Sent Items"
 msgstr "ਭੇਜੀਆਂ ਇਕਾਈਆਂ"
 
@@ -1268,8 +1266,8 @@ msgid ""
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
-"ਈਵੇਲੂਸ਼ਨ ਐਕਸਚੇਜ਼ ਖਾਤਾ ਫੋਲਡਰਾਂ ਲਈ ਸਥਿਤੀ ਤੇ ਲੜੀ ਤਬਦੀਲ ਹੋ ਚੁੱਕੀ ਹੈ, ਈਵੇਲੂਸ਼ਨ "
-" %d.%d.%d ਤੋਂ ਹੁਣ ਤੱਕ|\n"
+"ਈਵੇਲੂਸ਼ਨ ਐਕਸਚੇਜ਼ ਖਾਤਾ ਫੋਲਡਰਾਂ ਲਈ ਸਥਿਤੀ ਤੇ ਲੜੀ ਤਬਦੀਲ ਹੋ ਚੁੱਕੀ ਹੈ, ਈਵੇਲੂਸ਼ਨ  %d.%d.%d ਤੋਂ ਹੁਣ "
+"ਤੱਕ|\n"
 "\n"
 "ਕਿਰਪਾ ਕਰਕੇ ਉਡੀਕ ਕਰੋ, ਜਦੋਂ ਤੱਕ ਕਿ ਈਵੇਲੂਸ਼ਨ ਤੁਹਾਡੇ ਫੋਲਡਰਾਂ ਨੂੰ ਏਧਰ-ਓਧਰ ਕਰ ਰਹੀ ਹੈ..."
 
@@ -1281,10 +1279,8 @@ msgid ""
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"ਚੇਤਾਵਨੀ: ਵਰਜਨ %d.%d.%d ਤੋਂ ਸਭ ਐਕਸ਼ਚੇਜ਼ ਖਾਤੇ ਈਵੇਲੂਸ਼ਨ ਪ੍ਰਾਪਤ ਨਹੀਂ ਕਰ ਸਕਦੀ "
-"ਹੈ \n"
-"ਡਾਟਾ ਹਟਾਇਆ ਤਾਂ ਨਹੀਂ ਗਿਆ ਹੈ, ਪਰ ਈਵੇਲੂਸ਼ਨ ਦੇ ਇਸ ਵਰਜਨ ਰਾਹੀ ਦੇਖਿਆ ਨਹੀਂ ਜਾ "
-"ਸਕਦਾ ਹੈ"
+"ਚੇਤਾਵਨੀ: ਵਰਜਨ %d.%d.%d ਤੋਂ ਸਭ ਐਕਸ਼ਚੇਜ਼ ਖਾਤੇ ਈਵੇਲੂਸ਼ਨ ਪ੍ਰਾਪਤ ਨਹੀਂ ਕਰ ਸਕਦੀ ਹੈ \n"
+"ਡਾਟਾ ਹਟਾਇਆ ਤਾਂ ਨਹੀਂ ਗਿਆ ਹੈ, ਪਰ ਈਵੇਲੂਸ਼ਨ ਦੇ ਇਸ ਵਰਜਨ ਰਾਹੀ ਦੇਖਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ"
 
 #: storage/exchange-migrate.c:129
 #, c-format
@@ -1323,8 +1319,7 @@ msgid ""
 "who sends\n"
 "mail to you while you are out of the office.</small>"
 msgstr ""
-"<small>ਇਹ ਹੇਠਾਂ ਦਿੱਤਾ ਸੁਨੇਹਾ, ਉਹਨਾਂ ਸਾਰੇ ਵਿਅਕਤੀਆਂ ਨੂੰ ਭੇਜਿਆ ਜਾਵੇਗਾ, "
-"ਜੋ ਕਿ ਤੁਹਾਨੂੰ ਉਦੋਂ\n"
+"<small>ਇਹ ਹੇਠਾਂ ਦਿੱਤਾ ਸੁਨੇਹਾ, ਉਹਨਾਂ ਸਾਰੇ ਵਿਅਕਤੀਆਂ ਨੂੰ ਭੇਜਿਆ ਜਾਵੇਗਾ, ਜੋ ਕਿ ਤੁਹਾਨੂੰ ਉਦੋਂ\n"
 "ਭੇਜਣ, ਜਦੋਂ ਤੁਸੀਂ ਦਫਤਰੋਂ ਬਾਹਰ ਹੋਵੇ</small>"
 
 #: storage/exchange-oof.glade.h:8
@@ -1547,7 +1542,8 @@ msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "ਸਰਵਰ ਤੇ ਕੁਝ ਹੋਰਾਂ ਨਾਲ ਸੰਬੰਧਿਤ ਫੋਲਡਰਾਂ ਨੂੰ ਸਵੀਕਾਰ ਕਰੋ"
 
 #: storage/ximian-connector.xml.h:4
-msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgid ""
+"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr "ਫੋਲਡਰ, ਜੋ ਕਿ\"ਹੋਰ ਉਪਭੋਗਤਾ ਫੋਲਡਰ ਨੂੰ ਸਵੀਕਾਰ ਕਰੋ\" ਨੂੰ ਅਸਵੀਕਾਰ ਕਰਨ ਤੋਂ ਅਸਫਲ"
 
 #: storage/ximian-connector.xml.h:5
@@ -1573,4 +1569,3 @@ msgstr "ਦਫ਼ਤਰ ਬਾਹਰੀ ਸਹਾਇਕ"
 #: storage/ximian-connector.xml.h:10
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "ਹੋਰ ਉਪਭੋਗਤਾ ਦੇ ਫੋਲਡਰਾਂ ਨੂੰ ਅਸਵੀਕਾਰ ਕਰੋ"
-

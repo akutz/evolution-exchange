@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-21 03:20+0200\n"
+"POT-Creation-Date: 2004-08-13 15:04-0400\n"
 "PO-Revision-Date: 2004-08-10 02:16+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Ducth <vertaling@nl.linux.org>\n"
@@ -44,43 +44,55 @@ msgstr "LDAP zoekresultaten worden ingelezen..."
 msgid "Error performing search"
 msgstr "Fout bij uitvoeren zoekopdracht"
 
-#: camel/camel-exchange-folder.c:217
+#: calendar/e-cal-backend-exchange-calendar.c:1358
+#, c-format
+msgid ""
+"Unable to schedule resource '%s' for recurring meetings.\n"
+"You must book each meeting separately."
+msgstr ""
+
+#: calendar/e-cal-backend-exchange-calendar.c:1377
+#, c-format
+msgid "The resource '%s' is busy during the selected time period."
+msgstr ""
+
+#: camel/camel-exchange-folder.c:219
 msgid "Can only expunge in Deleted Items folder"
 msgstr ""
 
-#: camel/camel-exchange-folder.c:241
+#: camel/camel-exchange-folder.c:243
 msgid "No Subject"
 msgstr "Geen onderwerp"
 
-#: camel/camel-exchange-folder.c:630
+#: camel/camel-exchange-folder.c:632
 msgid "Moving messages"
 msgstr "Berichten verplaatsen"
 
-#: camel/camel-exchange-folder.c:631
+#: camel/camel-exchange-folder.c:633
 msgid "Copying messages"
 msgstr "Berichten kopiëren"
 
-#: camel/camel-exchange-folder.c:874
+#: camel/camel-exchange-folder.c:876
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Kon map %s niet aanmaken: %s"
 
-#: camel/camel-exchange-folder.c:884
+#: camel/camel-exchange-folder.c:886
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Kon samenvatting voor %s niet laden"
 
-#: camel/camel-exchange-folder.c:892
+#: camel/camel-exchange-folder.c:894
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Kon cache-buffer voor %s niet aanmaken"
 
 # aangepaste berichten
-#: camel/camel-exchange-folder.c:932
+#: camel/camel-exchange-folder.c:934
 msgid "Scanning for changed messages"
 msgstr "Scannen voor veranderde berichten"
 
-#: camel/camel-exchange-folder.c:956
+#: camel/camel-exchange-folder.c:958
 msgid "Fetching summary information for new messages"
 msgstr "Samenvatting voor nieuwe berichten ophalen"
 
@@ -161,7 +173,8 @@ msgstr "Microsoft Exchange"
 
 #: camel/camel-exchange-provider.c:87
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
-msgstr "Voor het werken met mail (en andere data) op Microsoft Exchange servers"
+msgstr ""
+"Voor het werken met mail (en andere data) op Microsoft Exchange servers"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
 #: camel/camel-exchange-provider.c:105
@@ -173,7 +186,9 @@ msgstr "Secure Password"
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
-msgstr "Met deze optie zal verbinding met de Exchange server worden gemaakt door aan te melden met een beveiligd wachtwoord (NTLM)."
+msgstr ""
+"Met deze optie zal verbinding met de Exchange server worden gemaakt door aan "
+"te melden met een beveiligd wachtwoord (NTLM)."
 
 # bloot wachtwoord
 # platte tekst
@@ -185,7 +200,9 @@ msgstr "Wachtwoord in gewone tekst"
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
-msgstr "Met deze optie zal verbinding met de Exchange server worden gemaakt door aan te melden met een wachtwoord in gewone tekst."
+msgstr ""
+"Met deze optie zal verbinding met de Exchange server worden gemaakt door aan "
+"te melden met een wachtwoord in gewone tekst."
 
 #: camel/camel-exchange-store.c:178
 #, c-format
@@ -301,8 +318,8 @@ msgstr "Adresboek..."
 msgid "No such folder"
 msgstr "Map bestaat niet"
 
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2278
-#: mail/mail-stub-exchange.c:2320 mail/mail-stub-exchange.c:2370
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
+#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
 #: shell/e-storage.c:573 storage/xc-commands.c:302
 msgid "Permission denied"
 msgstr "Toegang geweigerd"
@@ -362,21 +379,23 @@ msgstr "Fout bij ophalen bericht"
 
 #: mail/mail-stub-exchange.c:1944
 msgid "Mailbox does not support full-text searching"
-msgstr "Voor deze mailbox is geen ondersteuning voor het doorzoeken van de volledige tekst"
+msgstr ""
+"Voor deze mailbox is geen ondersteuning voor het doorzoeken van de volledige "
+"tekst"
 
 #: mail/mail-stub-exchange.c:2042
 msgid "Unable to move/copy messages"
 msgstr "Kon berichten niet verplaatsen/kopiëren"
 
-#: mail/mail-stub-exchange.c:2192
+#: mail/mail-stub-exchange.c:2213
 msgid "No mail submission URI for this mailbox"
 msgstr ""
 
-#: mail/mail-stub-exchange.c:2229
+#: mail/mail-stub-exchange.c:2250
 msgid "Server won't accept mail via Exchange transport"
 msgstr ""
 
-#: mail/mail-stub-exchange.c:2231
+#: mail/mail-stub-exchange.c:2252
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -385,28 +404,28 @@ msgstr ""
 "Uw account heeft geen rechten om <%s> te gebruiken\n"
 "als een 'Van' adres."
 
-#: mail/mail-stub-exchange.c:2243
+#: mail/mail-stub-exchange.c:2264
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
 
-#: mail/mail-stub-exchange.c:2247
+#: mail/mail-stub-exchange.c:2268
 msgid "Could not send message"
 msgstr "Kon bericht niet versturen"
 
-#: mail/mail-stub-exchange.c:2270 mail/mail-stub-exchange.c:2325
-#: mail/mail-stub-exchange.c:2374 shell/e-storage.c:557
+#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
+#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
 #: storage/xc-commands.c:306
 msgid "Generic error"
 msgstr "Algemene fout"
 
-#: mail/mail-stub-exchange.c:2274 storage/xc-commands.c:296
+#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
 msgid "Folder already exists"
 msgstr "Map bestaat al"
 
-#: mail/mail-stub-exchange.c:2305 mail/mail-stub-exchange.c:2350
-#: mail/mail-stub-exchange.c:2366
+#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
+#: mail/mail-stub-exchange.c:2393
 msgid "Folder doesn't exist"
 msgstr "Map bestaat niet"
 
@@ -862,10 +881,15 @@ msgstr ""
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: storage/exchange-autoconfig-wizard.c:466
+#: storage/exchange-autoconfig-wizard.c:477
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
+msgstr ""
+
+#: storage/exchange-autoconfig-wizard.c:491
+#: storage/exchange-config-listener.c:492
+msgid "You may only configure a single Exchange account"
 msgstr ""
 
 #: storage/exchange-autoconfig-wizard.glade.h:2
@@ -984,7 +1008,8 @@ msgstr ""
 
 #: storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
-msgstr "De twee wachtwoorden komen niet overeen. Voer de wachtwoorden opnieuw in."
+msgstr ""
+"De twee wachtwoorden komen niet overeen. Voer de wachtwoorden opnieuw in."
 
 #: storage/exchange-change-password.glade.h:2
 msgid "Change Password"
@@ -1013,29 +1038,25 @@ msgstr "Uw huidige wachtwoord is verlopen. Verander uw wachtwoord nu."
 msgid "Mail"
 msgstr "Mail"
 
-#: storage/exchange-component.c:311 storage/exchange-hierarchy-foreign.c:248
+#: storage/exchange-component.c:311 storage/exchange-hierarchy-foreign.c:250
 msgid "Contacts"
 msgstr "Contacten"
 
-#: storage/exchange-component.c:315 storage/exchange-hierarchy-foreign.c:256
+#: storage/exchange-component.c:315 storage/exchange-hierarchy-foreign.c:258
 msgid "Tasks"
 msgstr "Taken"
 
-#: storage/exchange-component.c:318 storage/exchange-hierarchy-foreign.c:247
+#: storage/exchange-component.c:318 storage/exchange-hierarchy-foreign.c:249
 msgid "Calendar"
 msgstr "Kalender"
 
-#: storage/exchange-config-listener.c:492
-msgid "You may only configure a single Exchange account"
-msgstr ""
-
-#: storage/exchange-config-listener.c:601
+#: storage/exchange-config-listener.c:607
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
 msgstr ""
 
-#: storage/exchange-config-listener.c:647
+#: storage/exchange-config-listener.c:653
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr ""
 
@@ -1124,11 +1145,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: storage/exchange-delegates.c:937 storage/exchange-permissions-dialog.c:706
+#: storage/exchange-delegates.c:938 storage/exchange-permissions-dialog.c:706
 msgid "Name"
 msgstr ""
 
-#: storage/exchange-delegates.c:966
+#: storage/exchange-delegates.c:967
 msgid "Error reading delegates list."
 msgstr ""
 
@@ -1186,32 +1207,32 @@ msgstr "_Inbox:"
 msgid "_Tasks:"
 msgstr "_Taken:"
 
-#: storage/exchange-hierarchy-foreign.c:249
+#: storage/exchange-hierarchy-foreign.c:251
 msgid "Deleted Items"
 msgstr "Verwijderde items"
 
-#: storage/exchange-hierarchy-foreign.c:250
+#: storage/exchange-hierarchy-foreign.c:252
 msgid "Drafts"
 msgstr ""
 
-#: storage/exchange-hierarchy-foreign.c:251
+#: storage/exchange-hierarchy-foreign.c:253
 msgid "Inbox"
 msgstr "Inbox"
 
-#: storage/exchange-hierarchy-foreign.c:252
+#: storage/exchange-hierarchy-foreign.c:254
 msgid "Journal"
 msgstr "Journaal"
 
-#: storage/exchange-hierarchy-foreign.c:253
+#: storage/exchange-hierarchy-foreign.c:255
 msgid "Notes"
 msgstr "Aantekeningen"
 
-#: storage/exchange-hierarchy-foreign.c:254
+#: storage/exchange-hierarchy-foreign.c:256
 msgid "Outbox"
 msgstr "Outbox"
 
 # items hier weggelaten om het kort te houden
-#: storage/exchange-hierarchy-foreign.c:255
+#: storage/exchange-hierarchy-foreign.c:257
 msgid "Sent Items"
 msgstr "Verzonden"
 
@@ -1484,46 +1505,38 @@ msgid "Change your Exchange server password"
 msgstr ""
 
 #: storage/ximian-connector.xml.h:2
-msgid "Exchange _Quota"
-msgstr ""
-
-#: storage/ximian-connector.xml.h:3
 msgid "Subscribe to _Other User's Folder..."
 msgstr ""
 
-#: storage/ximian-connector.xml.h:4
+#: storage/ximian-connector.xml.h:3
 msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr ""
 
-#: storage/ximian-connector.xml.h:5
+#: storage/ximian-connector.xml.h:4
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
 
-#: storage/ximian-connector.xml.h:6
+#: storage/ximian-connector.xml.h:5
 msgid "View or change your Exchange calendar delegation settings"
 msgstr ""
 
-#: storage/ximian-connector.xml.h:7
+#: storage/ximian-connector.xml.h:6
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr ""
 
-#: storage/ximian-connector.xml.h:8
-msgid "View your Exchange server disk usage and limits"
-msgstr ""
-
-#: storage/ximian-connector.xml.h:9
+#: storage/ximian-connector.xml.h:7
 msgid "_Change Exchange Password..."
 msgstr ""
 
-#: storage/ximian-connector.xml.h:10
+#: storage/ximian-connector.xml.h:8
 msgid "_Delegation Assistant"
 msgstr ""
 
-#: storage/ximian-connector.xml.h:11
+#: storage/ximian-connector.xml.h:9
 msgid "_Out of Office Assistant"
 msgstr ""
 
-#: storage/ximian-connector.xml.h:12
+#: storage/ximian-connector.xml.h:10
 msgid "_Unsubscribe from Other User's Folder"
 msgstr ""

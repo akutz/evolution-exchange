@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-09 12:54-0400\n"
+"POT-Creation-Date: 2004-08-13 15:04-0400\n"
 "PO-Revision-Date: 2004-07-29 13:48+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian/bokmal <i18n-nb@lister.ping.uio.no>\n"
@@ -32,14 +32,14 @@ msgstr "Mottar søkeresultater fra LDAP-tjener..."
 msgid "Error performing search"
 msgstr "Feil under utføring av søk"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1351
+#: calendar/e-cal-backend-exchange-calendar.c:1358
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
 
-#: calendar/e-cal-backend-exchange-calendar.c:1370
+#: calendar/e-cal-backend-exchange-calendar.c:1377
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr ""
@@ -817,10 +817,15 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: storage/exchange-autoconfig-wizard.c:466
+#: storage/exchange-autoconfig-wizard.c:477
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
+msgstr ""
+
+#: storage/exchange-autoconfig-wizard.c:491
+#: storage/exchange-config-listener.c:492
+msgid "You may only configure a single Exchange account"
 msgstr ""
 
 #: storage/exchange-autoconfig-wizard.glade.h:2
@@ -968,17 +973,13 @@ msgstr "Oppgaver"
 msgid "Calendar"
 msgstr "Kalender"
 
-#: storage/exchange-config-listener.c:492
-msgid "You may only configure a single Exchange account"
-msgstr ""
-
-#: storage/exchange-config-listener.c:601
+#: storage/exchange-config-listener.c:607
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
 msgstr ""
 
-#: storage/exchange-config-listener.c:647
+#: storage/exchange-config-listener.c:653
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr ""
 
@@ -1067,11 +1068,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: storage/exchange-delegates.c:937 storage/exchange-permissions-dialog.c:706
+#: storage/exchange-delegates.c:938 storage/exchange-permissions-dialog.c:706
 msgid "Name"
 msgstr ""
 
-#: storage/exchange-delegates.c:966
+#: storage/exchange-delegates.c:967
 msgid "Error reading delegates list."
 msgstr ""
 
