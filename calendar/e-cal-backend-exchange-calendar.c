@@ -960,10 +960,6 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		return GNOME_Evolution_Calendar_ObjectNotFound;
 	}
 	
-	cached_ecomp = e_cal_component_new ();
-	e_cal_component_set_icalcomponent (cached_ecomp, ecomp->icomp);
-	*old_object = e_cal_component_get_as_string (cached_ecomp);
-	
 	updated_ecomp = e_cal_component_new ();
 	e_cal_component_set_icalcomponent (updated_ecomp, icalcomp);
 
@@ -994,7 +990,6 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	if (!e_cal_component_set_icalcomponent (real_ecomp, updated_icalcomp)) {
 		g_object_unref (real_ecomp);
 		g_object_unref (updated_ecomp);
-		icalcomponent_free (updated_icalcomp);
 		return GNOME_Evolution_Calendar_OtherError;
 	}
 
@@ -1116,6 +1111,10 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	g_free (from);
 	g_free (body_crlf);
 
+	cached_ecomp = e_cal_component_new ();
+	e_cal_component_set_icalcomponent (cached_ecomp, icalcomponent_new_clone (ecomp->icomp));
+	*old_object = e_cal_component_get_as_string (cached_ecomp);
+	
 	/*unref the old set of categories*/
 	e_cal_component_get_categories_list (cached_ecomp, &categories);
 	e_cal_backend_unref_categories (E_CAL_BACKEND (cbexc), categories);
