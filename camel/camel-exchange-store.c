@@ -228,7 +228,7 @@ construct (CamelService *service, CamelSession *session,
 	   CamelProvider *provider, CamelURL *url, CamelException *ex)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
-	char *real_user, *socket_path, *p;
+	char *p;
 	
 	CAMEL_SERVICE_CLASS (parent_class)->construct (service, session, provider, url, ex);
 
@@ -247,35 +247,7 @@ construct (CamelService *service, CamelSession *session,
 	if (camel_url_get_param (url, "filter_junk"))
 		CAMEL_STORE (service)->flags |= CAMEL_STORE_VJUNK;
 	
-	real_user = strpbrk (service->url->user, "\\/");
-	if (real_user)
-		real_user++;
-	else
-		real_user = service->url->user;
-	socket_path = g_strdup_printf ("/tmp/.exchange-%s/%s@%s",
-				       g_get_user_name (),
-				       real_user, service->url->host);
-	e_filename_make_safe (strchr (socket_path + 5, '/') + 1);
-	
-	exch->stub = camel_stub_new (socket_path, _("Evolution Exchange backend process"), ex);
-	g_free (socket_path);
-	if (!exch->stub)
-		return;
-	
-	/* Initialize the stub connection */
-	if (!camel_stub_send (exch->stub, NULL, CAMEL_STUB_CMD_CONNECT,
-			      CAMEL_STUB_ARG_RETURN,
-			      CAMEL_STUB_ARG_END)) {
-		/* The user cancelled the connection attempt. */
-		camel_exception_set (ex, CAMEL_EXCEPTION_USER_CANCEL,
-				     "Cancelled");
-		camel_object_unref (exch->stub);
-		exch->stub = NULL;
-		return;
-	}
-	
-	camel_object_hook_event (CAMEL_OBJECT (exch->stub), "notification",
-				 stub_notification, exch);
+	exch->stub = NULL;
 }
 
 extern CamelServiceAuthType camel_exchange_password_authtype;
@@ -306,6 +278,41 @@ get_name (CamelService *service, gboolean brief)
 static gboolean
 exchange_connect (CamelService *service, CamelException *ex)
 {
+	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
+	char *real_user, *socket_path;
+
+	if (exch->stub)
+		return TRUE;
+
+	real_user = strpbrk (service->url->user, "\\/");
+	if (real_user)
+		real_user++;
+	else
+		real_user = service->url->user;
+	socket_path = g_strdup_printf ("/tmp/.exchange-%s/%s@%s",
+				       g_get_user_name (),
+				       real_user, service->url->host);
+	e_filename_make_safe (strchr (socket_path + 5, '/') + 1);
+	
+	exch->stub = camel_stub_new (socket_path, _("Evolution Exchange backend process"), ex);
+	g_free (socket_path);
+	if (!exch->stub)
+		return FALSE;
+	
+	/* Initialize the stub connection */
+	if (!camel_stub_send (exch->stub, NULL, CAMEL_STUB_CMD_CONNECT,
+			      CAMEL_STUB_ARG_RETURN,
+			      CAMEL_STUB_ARG_END)) {
+		/* The user cancelled the connection attempt. */
+		camel_exception_set (ex, CAMEL_EXCEPTION_USER_CANCEL,
+				     "Cancelled");
+		camel_object_unref (exch->stub);
+		exch->stub = NULL;
+		return FALSE;
+	}
+	
+	camel_object_hook_event (CAMEL_OBJECT (exch->stub), "notification",
+				 stub_notification, exch);
 	return TRUE;
 }
 
@@ -315,6 +322,10 @@ exchange_disconnect (CamelService *service, gboolean clean, CamelException *ex)
 	return TRUE;
 }
 
+#define RETURN_VAL_IF_NOT_CONNECTED(service, ex, val)\
+	if (!exchange_connect((CamelService *)service, ex))\
+		return val; 
+
 static CamelFolder *
 exchange_get_folder (CamelStore *store, const char *folder_name,
 		     guint32 flags, CamelException *ex)
@@ -323,6 +334,8 @@ exchange_get_folder (CamelStore *store, const char *folder_name,
 	CamelFolder *folder;
 	char *folder_dir;
 	
+	RETURN_VAL_IF_NOT_CONNECTED(store, ex, NULL);
+
 	folder_dir = exchange_path_to_physical (exch->storage_path, folder_name);
 	
 	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
@@ -373,6 +386,8 @@ get_trash (CamelStore *store, CamelException *ex)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	
+	RETURN_VAL_IF_NOT_CONNECTED(store, ex, NULL);
+
 	if (!exch->trash_name) {
 		if (!camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_GET_TRASH_NAME,
 				      CAMEL_STUB_ARG_RETURN,
@@ -463,6 +478,9 @@ exchange_get_folder_info (CamelStore *store, const char *top, guint32 flags, Cam
 	/* If the backend crashed, don't keep returning an error
 	 * each time auto-send/recv runs.
 	 */
+
+	RETURN_VAL_IF_NOT_CONNECTED(store, ex, NULL);
+
 	if (camel_stub_marshal_eof (exch->stub->cmd))
 		return NULL;
 
