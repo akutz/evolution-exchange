@@ -1,4 +1,11 @@
 2005-03-11  Sushma Rai  <rsushma@novell.com>
+
+	* addressbook/e-book-backend-exchange.c (func_match): Handling the
+	query which beginswith full name or email id without any value.
+	Fixes the problem of listing items of Exchange personal contacts
+	from user selection dialog.
+
+2005-03-11  Sushma Rai  <rsushma@novell.com>
 	
 	* storage/exchange-account.c (is_password_expired)
 	(exchange_account_set_password): If kerberos calls with windows domain

@@ -1571,20 +1571,39 @@ func_match (struct _ESExp *f, int argc, struct _ESExpResult **argv, void *data)
 		rn = e2k_restriction_or (rns->len, (E2kRestriction **)rns->pdata, TRUE);
 		g_ptr_array_free (rns, TRUE);
 	} else if (!strcmp (propname, "full_name") && flags == E2K_FL_PREFIX) {
-		rn = e2k_restriction_orv (
-			e2k_restriction_content (
-				e_book_backend_exchange_prop_to_exchange ("full_name"),
-				flags, str),
-			e2k_restriction_content (
-				e_book_backend_exchange_prop_to_exchange ("family_name"),
-				flags, str),
-			NULL);
+		if (!*str) {
+			rn = e2k_restriction_orv (
+				e2k_restriction_exist (
+					e_book_backend_exchange_prop_to_exchange ("full_name")),
+				e2k_restriction_exist (
+					e_book_backend_exchange_prop_to_exchange ("family_name")),
+				NULL);
+		}
+		else {
+			rn = e2k_restriction_orv (
+				e2k_restriction_content (
+					e_book_backend_exchange_prop_to_exchange ("full_name"),
+					flags, str),
+				e2k_restriction_content (
+					e_book_backend_exchange_prop_to_exchange ("family_name"),
+					flags, str),
+				NULL);
+		}
 	} else if (!strcmp (propname, "email")) {
-		rn = e2k_restriction_orv (
-			e2k_restriction_content (E2K_PR_MAPI_EMAIL_1_ADDRESS, flags, str),
-			e2k_restriction_content (E2K_PR_MAPI_EMAIL_2_ADDRESS, flags, str),
-			e2k_restriction_content (E2K_PR_MAPI_EMAIL_3_ADDRESS, flags, str),
-			NULL);
+		if (!*str) {
+			rn = e2k_restriction_orv (
+				e2k_restriction_exist (E2K_PR_MAPI_EMAIL_1_ADDRESS),
+				e2k_restriction_exist (E2K_PR_MAPI_EMAIL_2_ADDRESS),
+				e2k_restriction_exist (E2K_PR_MAPI_EMAIL_3_ADDRESS),
+				NULL);
+		}
+		else {	
+			rn = e2k_restriction_orv (
+				e2k_restriction_content (E2K_PR_MAPI_EMAIL_1_ADDRESS, flags, str),
+				e2k_restriction_content (E2K_PR_MAPI_EMAIL_2_ADDRESS, flags, str),
+				e2k_restriction_content (E2K_PR_MAPI_EMAIL_3_ADDRESS, flags, str),
+				NULL);
+		}
 	} else {
 		exchange_prop =
 			e_book_backend_exchange_prop_to_exchange (propname);
