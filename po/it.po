@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Evolution-Exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-11 16:32+0530\n"
+"POT-Creation-Date: 2005-01-25 11:28+0530\n"
 "PO-Revision-Date: 2004-11-20 00:44+0100\n"
 "Last-Translator: Marco Ciampa <ciampix@libero.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Novell Translation
-#: addressbook/e-book-backend-exchange.c:1681
+#: addressbook/e-book-backend-exchange.c:1807
 #: addressbook/e-book-backend-gal.c:1341 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Ricerca in corso..."
@@ -38,7 +38,7 @@ msgid "Error performing search"
 msgstr "Errore durante l'esecuzione della ricerca"
 
 # Novell Translation
-#: calendar/e-cal-backend-exchange-calendar.c:1624
+#: calendar/e-cal-backend-exchange-calendar.c:1733
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -48,7 +48,7 @@ msgstr ""
 "È necessario prenotare ciascuna riunione separatamente."
 
 # Novell Translation
-#: calendar/e-cal-backend-exchange-calendar.c:1643
+#: calendar/e-cal-backend-exchange-calendar.c:1752
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "La risorsa '%s' è occupata durante il periodo di tempo selezionato."
@@ -76,36 +76,36 @@ msgid "Copying messages"
 msgstr "Copia dei messaggi"
 
 # Novell Translation
-#: camel/camel-exchange-folder.c:929
+#: camel/camel-exchange-folder.c:930
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Impossibile creare la directory %s: %s"
 
 # Novell Translation
-#: camel/camel-exchange-folder.c:939
+#: camel/camel-exchange-folder.c:940
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Impossibile caricare il riepilogo per %s"
 
 # Novell Translation
-#: camel/camel-exchange-folder.c:947
+#: camel/camel-exchange-folder.c:948
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Impossibile creare la cache per %s"
 
 # Novell Translation
-#: camel/camel-exchange-folder.c:957
+#: camel/camel-exchange-folder.c:958
 #, fuzzy, c-format
 msgid "Could not create journal for %s"
 msgstr "Impossibile creare la cache per %s"
 
 # Novell Translation
-#: camel/camel-exchange-folder.c:997
+#: camel/camel-exchange-folder.c:998
 msgid "Scanning for changed messages"
 msgstr "Ricerca dei messaggi modificati"
 
 # Novell Translation
-#: camel/camel-exchange-folder.c:1021
+#: camel/camel-exchange-folder.c:1022
 msgid "Fetching summary information for new messages"
 msgstr "Recupero delle informazioni di riepilogo per i nuovi messaggi"
 
@@ -137,7 +137,7 @@ msgid "Limit number of GAL responses: %s"
 msgstr "Limita il numero di risposte dell'EIG (Elenco Indirizzi Globale): %s"
 
 #: camel/camel-exchange-provider.c:60
-msgid "Password Expiry Warning"
+msgid "Options"
 msgstr ""
 
 #: camel/camel-exchange-provider.c:62
@@ -145,42 +145,46 @@ msgstr ""
 msgid "Password Expiry Warning period: %s"
 msgstr ""
 
+#: camel/camel-exchange-provider.c:64
+msgid "Automatically synchronize account locally"
+msgstr ""
+
 # Novell Translation
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:66
+#: camel/camel-exchange-provider.c:68
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr "Applicare filtri ai nuovi messaggi nella Inbox su questo server"
 
 # Novell Translation
-#: camel/camel-exchange-provider.c:68
+#: camel/camel-exchange-provider.c:70
 msgid "Check new messages for Junk contents"
 msgstr "Controlla se c'è spazzatura nella nuova posta"
 
 # Novell Translation
-#: camel/camel-exchange-provider.c:70
+#: camel/camel-exchange-provider.c:72
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "Controlla se c'è spazzatura nella cartella Inbox"
 
 # Novell Translation
-#: camel/camel-exchange-provider.c:76
+#: camel/camel-exchange-provider.c:88
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
 # Novell Translation
-#: camel/camel-exchange-provider.c:78
+#: camel/camel-exchange-provider.c:90
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr ""
 "Per la gestione della posta (e altri dati) nei server Microsoft Exchange"
 
 # Novell Translation
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:94
+#: camel/camel-exchange-provider.c:106
 msgid "Secure Password"
 msgstr "Password di protezione"
 
 # Novell Translation
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:97
+#: camel/camel-exchange-provider.c:109
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -189,12 +193,12 @@ msgstr ""
 "l'autenticazione NTLM(con parola d’ordine sicura)."
 
 # Novell Translation
-#: camel/camel-exchange-provider.c:105
+#: camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "Parola d’ordine non cifrata"
 
 # Novell Translation
-#: camel/camel-exchange-provider.c:107
+#: camel/camel-exchange-provider.c:119
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -763,7 +767,7 @@ msgid "This operation cannot be performed in off-line mode"
 msgstr "Impossibile eseguire questa operazione in modalità non in linea"
 
 # Novell Translation
-#: shell/e-storage.c:587 storage/exchange-account.c:1274
+#: shell/e-storage.c:587 storage/exchange-account.c:1289
 msgid "Unknown error"
 msgstr "Errore sconosciuto"
 
@@ -805,30 +809,30 @@ msgstr "_Exchange"
 # Novell Translation
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:565
+#: storage/exchange-account.c:572
 #, c-format
 msgid "%s's Folders"
 msgstr "Cartelle di %s"
 
 # Novell Translation
-#: storage/exchange-account.c:846
+#: storage/exchange-account.c:854
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sInserire la parola d’ordine per %s"
 
 # Novell Translation
-#: storage/exchange-account.c:850
+#: storage/exchange-account.c:858
 msgid "Enter password"
 msgstr "Inserire la parola d’ordine"
 
 # Novell Translation
-#: storage/exchange-account.c:1017
+#: storage/exchange-account.c:1032
 msgid "Cannot change password due to configuration problems"
 msgstr ""
 "Impossibile cambiare la parola d’ordine a causa di problemi di configurazione"
 
 # Novell Translation
-#: storage/exchange-account.c:1032
+#: storage/exchange-account.c:1047
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -837,12 +841,12 @@ msgstr ""
 "Riprovare con una parola d’ordine diversa."
 
 # Novell Translation
-#: storage/exchange-account.c:1037
+#: storage/exchange-account.c:1052
 msgid "Could not change password"
 msgstr "Impossibile cambiare la parola d’ordine"
 
 # Novell Translation
-#: storage/exchange-account.c:1185
+#: storage/exchange-account.c:1200
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -851,7 +855,7 @@ msgstr ""
 "\n"
 
 # Novell Translation
-#: storage/exchange-account.c:1190
+#: storage/exchange-account.c:1205
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -872,7 +876,7 @@ msgstr ""
 "\n"
 
 # Novell Translation
-#: storage/exchange-account.c:1201
+#: storage/exchange-account.c:1216
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -889,13 +893,13 @@ msgstr ""
 "\n"
 
 # Novell Translation
-#: storage/exchange-account.c:1232
+#: storage/exchange-account.c:1247
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "La casella postale per %s non si trova su questo server."
 
 # Novell Translation
-#: storage/exchange-account.c:1237
+#: storage/exchange-account.c:1252
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -905,7 +909,7 @@ msgstr ""
 "non è compatibile con Ximian Connector"
 
 # Novell Translation
-#: storage/exchange-account.c:1244
+#: storage/exchange-account.c:1259
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -918,47 +922,47 @@ msgstr ""
 "finestra di configurazione del conto."
 
 # Novell Translation
-#: storage/exchange-account.c:1252
+#: storage/exchange-account.c:1267
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Nessuna casella postale per l'utente %s in %s.\n"
 
 # Novell Translation
-#: storage/exchange-account.c:1258 storage/exchange-account.c:1264
-#: storage/exchange-account.c:1272
+#: storage/exchange-account.c:1273 storage/exchange-account.c:1279
+#: storage/exchange-account.c:1287
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Impossibile connettersi al server %s: %s"
 
 # Novell Translation
-#: storage/exchange-account.c:1260
+#: storage/exchange-account.c:1275
 msgid "Could not resolve hostname"
 msgstr "Impossibile risolvere il nome host"
 
 # Novell Translation
-#: storage/exchange-account.c:1266
+#: storage/exchange-account.c:1281
 msgid "Network error"
 msgstr "Errore di rete"
 
 # Novell Translation
-#: storage/exchange-account.c:1344
+#: storage/exchange-account.c:1359
 msgid "Personal Folders"
 msgstr "Cartelle personali"
 
 # Novell Translation
-#: storage/exchange-account.c:1359
+#: storage/exchange-account.c:1374
 msgid "Favorite Public Folders"
 msgstr "Cartelle pubbliche preferite"
 
 # Novell Translation
 #. i18n: Outlookism
-#: storage/exchange-account.c:1376
+#: storage/exchange-account.c:1391
 msgid "All Public Folders"
 msgstr "Tutte le cartelle pubbliche"
 
 # Novell Translation
 #. i18n: Outlookism
-#: storage/exchange-account.c:1390
+#: storage/exchange-account.c:1405
 msgid "Global Address List"
 msgstr "Elenco indirizzi globale"
 

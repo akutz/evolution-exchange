@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ximian-connector-2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-11 16:32+0530\n"
+"POT-Creation-Date: 2005-01-25 11:28+0530\n"
 "PO-Revision-Date: 2004-09-11 07:02+0300\n"
 "Last-Translator: Baris Cicek <baris@teamforce.name.tr>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Generator: KBabel 1.3.1\n"
 "Plural-Forms:  nplurals=1; plural=0;\n"
 
-#: addressbook/e-book-backend-exchange.c:1681
+#: addressbook/e-book-backend-exchange.c:1807
 #: addressbook/e-book-backend-gal.c:1341 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Aranıyor..."
@@ -34,7 +34,7 @@ msgstr "LDAP arama sonuçları alınıyor..."
 msgid "Error performing search"
 msgstr "Arama gerçekleştirilirken hata"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1624
+#: calendar/e-cal-backend-exchange-calendar.c:1733
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -43,7 +43,7 @@ msgstr ""
 "Tekrarlanan toplantılar için '%s' kaynağı zamanlanamadı.\n"
 "Her toplantıyı ayrı olarak zamanlamalısınız."
 
-#: calendar/e-cal-backend-exchange-calendar.c:1643
+#: calendar/e-cal-backend-exchange-calendar.c:1752
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Seçilen zaman aralığında '%s' kaynağı meşgul."
@@ -64,31 +64,31 @@ msgstr "İletiler taşınıyor"
 msgid "Copying messages"
 msgstr "İletiler kopyalanıyor"
 
-#: camel/camel-exchange-folder.c:929
+#: camel/camel-exchange-folder.c:930
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "%sdizini oluşturulamadı: %s"
 
-#: camel/camel-exchange-folder.c:939
+#: camel/camel-exchange-folder.c:940
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "%s için özet yüklenemedi"
 
-#: camel/camel-exchange-folder.c:947
+#: camel/camel-exchange-folder.c:948
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "%s için önbellek oluşturulamadı"
 
-#: camel/camel-exchange-folder.c:957
+#: camel/camel-exchange-folder.c:958
 #, fuzzy, c-format
 msgid "Could not create journal for %s"
 msgstr "%s için önbellek oluşturulamadı"
 
-#: camel/camel-exchange-folder.c:997
+#: camel/camel-exchange-folder.c:998
 msgid "Scanning for changed messages"
 msgstr "Değişen iletiler taranıyor"
 
-#: camel/camel-exchange-folder.c:1021
+#: camel/camel-exchange-folder.c:1022
 msgid "Fetching summary information for new messages"
 msgstr "Yeni iletiler için özet bilgisi alınıyor"
 
@@ -116,7 +116,7 @@ msgid "Limit number of GAL responses: %s"
 msgstr "GAL yenıtlarının sayısının sınırı: %s"
 
 #: camel/camel-exchange-provider.c:60
-msgid "Password Expiry Warning"
+msgid "Options"
 msgstr ""
 
 #: camel/camel-exchange-provider.c:62
@@ -124,36 +124,40 @@ msgstr ""
 msgid "Password Expiry Warning period: %s"
 msgstr ""
 
+#: camel/camel-exchange-provider.c:64
+msgid "Automatically synchronize account locally"
+msgstr ""
+
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:66
+#: camel/camel-exchange-provider.c:68
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr "Bu sunucudaki Gelen Kutusu içindeki iletilere filtreleri uygula"
 
-#: camel/camel-exchange-provider.c:68
+#: camel/camel-exchange-provider.c:70
 msgid "Check new messages for Junk contents"
 msgstr "Gereksiz içeriği için yeni iletileri kontrol et"
 
-#: camel/camel-exchange-provider.c:70
+#: camel/camel-exchange-provider.c:72
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "Sadece Gelen Kutusu klasörü içindeki Gereksiz iletileri kontrol et"
 
-#: camel/camel-exchange-provider.c:76
+#: camel/camel-exchange-provider.c:88
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: camel/camel-exchange-provider.c:78
+#: camel/camel-exchange-provider.c:90
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr ""
 "Microsoft Exchange sunucuları üzerindeki mektup (ya da başka veri) işlemek "
 "için"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:94
+#: camel/camel-exchange-provider.c:106
 msgid "Secure Password"
 msgstr "Güvenli Parola"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:97
+#: camel/camel-exchange-provider.c:109
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -161,11 +165,11 @@ msgstr ""
 "Bu seçenek Exchange sunucusuna güvenli parola (NTLM) kimlik doğrulamasını "
 "kullanarak bağlanacak."
 
-#: camel/camel-exchange-provider.c:105
+#: camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "Düz Metin Parola"
 
-#: camel/camel-exchange-provider.c:107
+#: camel/camel-exchange-provider.c:119
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -634,7 +638,7 @@ msgstr "Bu adla bir klasör oluşturulamaz"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Bu işlem çevirim dışı kipte gerçekleştirilemez"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1274
+#: shell/e-storage.c:587 storage/exchange-account.c:1289
 msgid "Unknown error"
 msgstr "Bilinmeyen hata"
 
@@ -668,25 +672,25 @@ msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:565
+#: storage/exchange-account.c:572
 #, c-format
 msgid "%s's Folders"
 msgstr "%s Kullanıcısının Klasörleri"
 
-#: storage/exchange-account.c:846
+#: storage/exchange-account.c:854
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%s%s için parola girin"
 
-#: storage/exchange-account.c:850
+#: storage/exchange-account.c:858
 msgid "Enter password"
 msgstr "Parola girin"
 
-#: storage/exchange-account.c:1017
+#: storage/exchange-account.c:1032
 msgid "Cannot change password due to configuration problems"
 msgstr "Yapılandırma sorunları yüzünden parola değiştirilemiyor"
 
-#: storage/exchange-account.c:1032
+#: storage/exchange-account.c:1047
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -694,11 +698,11 @@ msgstr ""
 "Sunucu parolayı geri çevirdi çünkü parola çok zayıf.\n"
 "Farklı bir parola ile yeniden deneyin."
 
-#: storage/exchange-account.c:1037
+#: storage/exchange-account.c:1052
 msgid "Could not change password"
 msgstr "Parola değiştirilemedi"
 
-#: storage/exchange-account.c:1185
+#: storage/exchange-account.c:1200
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -706,7 +710,7 @@ msgstr ""
 "Sunucuyla kimlik doğrulaması yapılamadı. (Parola geçersiz?)\n"
 "\n"
 
-#: storage/exchange-account.c:1190
+#: storage/exchange-account.c:1205
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -726,7 +730,7 @@ msgstr ""
 "Ya da sadece parolanızı yanlış yazdınız.\n"
 "\n"
 
-#: storage/exchange-account.c:1201
+#: storage/exchange-account.c:1216
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -742,12 +746,12 @@ msgstr ""
 "Ya da sadece parolanızı yanlış yazdınız.\n"
 "\n"
 
-#: storage/exchange-account.c:1232
+#: storage/exchange-account.c:1247
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "%s için posta kutusu bu sunucuda değil."
 
-#: storage/exchange-account.c:1237
+#: storage/exchange-account.c:1252
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -756,7 +760,7 @@ msgstr ""
 "'%s' sunucusu Exchange 5.5 çalıştırıyor\n"
 "dolayısıyla Ximian Connector ile uyumlu değil"
 
-#: storage/exchange-account.c:1244
+#: storage/exchange-account.c:1259
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -767,40 +771,40 @@ msgstr ""
 "Eğer OWA farklı bir yolda çalışısıyorsa, bunu hesap yapıılandırma\n"
 "penceresinde belirtmelisiniz."
 
-#: storage/exchange-account.c:1252
+#: storage/exchange-account.c:1267
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "%s kullanıcısı için %s üzerinde posta kutusu yok.\n"
 
-#: storage/exchange-account.c:1258 storage/exchange-account.c:1264
-#: storage/exchange-account.c:1272
+#: storage/exchange-account.c:1273 storage/exchange-account.c:1279
+#: storage/exchange-account.c:1287
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "%s sunucusuna bağlanılamadı: %s"
 
-#: storage/exchange-account.c:1260
+#: storage/exchange-account.c:1275
 msgid "Could not resolve hostname"
 msgstr "Makine ismi çözümlenemedi"
 
-#: storage/exchange-account.c:1266
+#: storage/exchange-account.c:1281
 msgid "Network error"
 msgstr "Ağ hatası"
 
-#: storage/exchange-account.c:1344
+#: storage/exchange-account.c:1359
 msgid "Personal Folders"
 msgstr "Kişisel Klasörler"
 
-#: storage/exchange-account.c:1359
+#: storage/exchange-account.c:1374
 msgid "Favorite Public Folders"
 msgstr "Favori Genel Klasörler"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1376
+#: storage/exchange-account.c:1391
 msgid "All Public Folders"
 msgstr "Tüm Genel Klasörler"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1390
+#: storage/exchange-account.c:1405
 msgid "Global Address List"
 msgstr "Global Adres Listesi"
 

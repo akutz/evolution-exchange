@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-11 16:32+0530\n"
+"POT-Creation-Date: 2005-01-25 11:28+0530\n"
 "PO-Revision-Date: 2004-08-23 16:31+0530\n"
 "Last-Translator: Jayaradha N <jaya@pune.redhat.com>\n"
 "Language-Team: Tamil <zhakanini@yahoogroups.com>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 
-#: addressbook/e-book-backend-exchange.c:1681
+#: addressbook/e-book-backend-exchange.c:1807
 #: addressbook/e-book-backend-gal.c:1341 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "தேடுகிறது"
@@ -35,7 +35,7 @@ msgstr "LDAP தேடல் முடிவுகளை பெறுகிற�
 msgid "Error performing search"
 msgstr "தேடுவதில் பிழை"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1624
+#: calendar/e-cal-backend-exchange-calendar.c:1733
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -44,7 +44,7 @@ msgstr ""
 "'%s' திரும்ப நிகழும் கூட்டங்களுக்காக வளங்களை ஒதுக்க முடியவில்லை \n"
 "ஒவ்வொரு கூட்டத்தையும் தனியாக பதிவு செய்யவேண்டும."
 
-#: calendar/e-cal-backend-exchange-calendar.c:1643
+#: calendar/e-cal-backend-exchange-calendar.c:1752
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "தேர்வு செய்யப்பட்ட கால அளவில் '%s' வேலையாக உள்ளது."
@@ -65,31 +65,31 @@ msgstr "செய்திகளை நகர்த்துகிறது"
 msgid "Copying messages"
 msgstr "செய்திகளை படியெடுக்கிறது"
 
-#: camel/camel-exchange-folder.c:929
+#: camel/camel-exchange-folder.c:930
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "அடைவை உருவாக்க முடியவில்லை %s: %s"
 
-#: camel/camel-exchange-folder.c:939
+#: camel/camel-exchange-folder.c:940
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "சுருக்க குறிப்பை ஏற்ற முடியவில்லை %s"
 
-#: camel/camel-exchange-folder.c:947
+#: camel/camel-exchange-folder.c:948
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "%s க்கான தற்காலிக நினைவிடத்தை உருவாக்க முடியவில்லை"
 
-#: camel/camel-exchange-folder.c:957
+#: camel/camel-exchange-folder.c:958
 #, fuzzy, c-format
 msgid "Could not create journal for %s"
 msgstr "%s க்கான தற்காலிக நினைவிடத்தை உருவாக்க முடியவில்லை"
 
-#: camel/camel-exchange-folder.c:997
+#: camel/camel-exchange-folder.c:998
 msgid "Scanning for changed messages"
 msgstr "மாற்றப்பட்ட செய்திகளை தேடுகிறது"
 
-#: camel/camel-exchange-folder.c:1021
+#: camel/camel-exchange-folder.c:1022
 msgid "Fetching summary information for new messages"
 msgstr "புதிய செய்திக்கான சுருக்கத்தகவலை உள்ளிடுகிறது"
 
@@ -117,7 +117,7 @@ msgid "Limit number of GAL responses: %s"
 msgstr "GAL பதிளின் எண்ணிக்கையை குறை : %s"
 
 #: camel/camel-exchange-provider.c:60
-msgid "Password Expiry Warning"
+msgid "Options"
 msgstr ""
 
 #: camel/camel-exchange-provider.c:62
@@ -125,34 +125,38 @@ msgstr ""
 msgid "Password Expiry Warning period: %s"
 msgstr ""
 
+#: camel/camel-exchange-provider.c:64
+msgid "Automatically synchronize account locally"
+msgstr ""
+
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:66
+#: camel/camel-exchange-provider.c:68
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr "இந்த சேவகனில் உள்ள புதிய செய்திகளுக்கான வடிகட்டியை செயல்படுத்து"
 
-#: camel/camel-exchange-provider.c:68
+#: camel/camel-exchange-provider.c:70
 msgid "Check new messages for Junk contents"
 msgstr "புதிய தேவையற்ற செய்திகளுக்காக சோதி"
 
-#: camel/camel-exchange-provider.c:70
+#: camel/camel-exchange-provider.c:72
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "தேவையற்ற செய்திகள் உங்கள் உள்பெட்டி அடைவில் உள்ளதா என்பதை மட்டும் சோதி"
 
-#: camel/camel-exchange-provider.c:76
+#: camel/camel-exchange-provider.c:88
 msgid "Microsoft Exchange"
 msgstr "மைக்ரோசாஃப்ட் மாற்று சேவகன்"
 
-#: camel/camel-exchange-provider.c:78
+#: camel/camel-exchange-provider.c:90
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "மைக்ரோசாஃப்ட் மாற்று சேவகனில் மின்னஞ்சல்களை கையாள(மேலும் மற்ற தகவல்கள்)"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:94
+#: camel/camel-exchange-provider.c:106
 msgid "Secure Password"
 msgstr "பாதுகாப்பான கடவுச்சொல்"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:97
+#: camel/camel-exchange-provider.c:109
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -160,11 +164,11 @@ msgstr ""
 "இந்த தேர்வு மாற்று சேவகனினுடன் பாதுகாப்பான கடவுச்சொல்லை பயன்படுத்தி இணைக்க பயன்படும்"
 "(NTLM)"
 
-#: camel/camel-exchange-provider.c:105
+#: camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "வெற்று உரை கடவுச்சொல்"
 
-#: camel/camel-exchange-provider.c:107
+#: camel/camel-exchange-provider.c:119
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -631,7 +635,7 @@ msgstr "இந்த பெயரில் அடைவை உருவாக்
 msgid "This operation cannot be performed in off-line mode"
 msgstr "இணைய இணைப்பு இல்லாத போது இந்த செயலை செய்ய முடியாது"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1274
+#: shell/e-storage.c:587 storage/exchange-account.c:1289
 msgid "Unknown error"
 msgstr "தெரியாத பிழை"
 
@@ -665,25 +669,25 @@ msgstr "(_E)மாற்று"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:565
+#: storage/exchange-account.c:572
 #, c-format
 msgid "%s's Folders"
 msgstr "%s'இன் அடைவுகள்"
 
-#: storage/exchange-account.c:846
+#: storage/exchange-account.c:854
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sக்கான கடவுச்சொல்லை உள்ளிடு %s"
 
-#: storage/exchange-account.c:850
+#: storage/exchange-account.c:858
 msgid "Enter password"
 msgstr "கடவுச்சொல்லை உள்ளிடு"
 
-#: storage/exchange-account.c:1017
+#: storage/exchange-account.c:1032
 msgid "Cannot change password due to configuration problems"
 msgstr "அமைப்பு சிக்கலால் கடவுச்சொல்லை மாற்ற முடியாது"
 
-#: storage/exchange-account.c:1032
+#: storage/exchange-account.c:1047
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -691,11 +695,11 @@ msgstr ""
 "சேவகன் கடவுச்சொல்லை ரத்து செய்தது காரம் சேவகனில் போதிய சக்தி இல்லை\n"
 "வேறு கடவுச்சொல்லை பயன்படுத்தி முயற்சிக்கவும்"
 
-#: storage/exchange-account.c:1037
+#: storage/exchange-account.c:1052
 msgid "Could not change password"
 msgstr "கடவுச்சொல்லை மாற்ற முடியவில்லை"
 
-#: storage/exchange-account.c:1185
+#: storage/exchange-account.c:1200
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -703,7 +707,7 @@ msgstr ""
 "சேவகனில் அனுமதிக்க முடியவில்லை(கடவுச்சொல் பிழை?)\n"
 "\n"
 
-#: storage/exchange-account.c:1190
+#: storage/exchange-account.c:1205
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -723,7 +727,7 @@ msgstr ""
 "அல்லது உங்கள் கடவுச்சொல்லில் பிழை இருக்கலாம்\n"
 "\n"
 
-#: storage/exchange-account.c:1201
+#: storage/exchange-account.c:1216
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -739,12 +743,12 @@ msgstr ""
 "அல்லது தவறான கடவுச்சொல்லை பயன்படுத்தியுள்ளீர்கள் \n"
 "\n"
 
-#: storage/exchange-account.c:1232
+#: storage/exchange-account.c:1247
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "%s க்கான மின்னஞ்சல் பெட்டி இந்த சேவகனில் இல்லை"
 
-#: storage/exchange-account.c:1237
+#: storage/exchange-account.c:1252
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -753,7 +757,7 @@ msgstr ""
 "சேவகன் '%s' Exchange 5.5 இயங்கிக்கொண்டிருக்கிறது\n"
 "இதனால் சேமியான் இணைப்பியை பயன்படுத்த முடியாது."
 
-#: storage/exchange-account.c:1244
+#: storage/exchange-account.c:1259
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -764,40 +768,40 @@ msgstr ""
 "OWA வேறு பாதையில் இயங்கினால்,நீங்கள்\n"
 "கணக்கு அமைக்கும் உரையாடல் பெட்டியில் இதை குறிப்பிடவும்."
 
-#: storage/exchange-account.c:1252
+#: storage/exchange-account.c:1267
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "பயனீட்டாளருக்கான மின்னஞ்சல் பெட்டி %s இல் %s.\n"
 
-#: storage/exchange-account.c:1258 storage/exchange-account.c:1264
-#: storage/exchange-account.c:1272
+#: storage/exchange-account.c:1273 storage/exchange-account.c:1279
+#: storage/exchange-account.c:1287
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "சேவகனில் இணைக்க முடியவில்லை %s: %s"
 
-#: storage/exchange-account.c:1260
+#: storage/exchange-account.c:1275
 msgid "Could not resolve hostname"
 msgstr "புரவலன் பெயரை கண்டு பிடிக்க முடியவில்லை"
 
-#: storage/exchange-account.c:1266
+#: storage/exchange-account.c:1281
 msgid "Network error"
 msgstr "வலைப்பின்னல் பிழை"
 
-#: storage/exchange-account.c:1344
+#: storage/exchange-account.c:1359
 msgid "Personal Folders"
 msgstr "தனி அடைவு"
 
-#: storage/exchange-account.c:1359
+#: storage/exchange-account.c:1374
 msgid "Favorite Public Folders"
 msgstr "விருப்பங்கள் பொது அடைவு"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1376
+#: storage/exchange-account.c:1391
 msgid "All Public Folders"
 msgstr "எல்லா பொது அடைவுகளும்"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1390
+#: storage/exchange-account.c:1405
 msgid "Global Address List"
 msgstr "பொது முகவரி பட்டியல்"
 

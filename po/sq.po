@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-11 16:32+0530\n"
+"POT-Creation-Date: 2005-01-25 11:28+0530\n"
 "PO-Revision-Date: 2005-01-14 12:35+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: addressbook/e-book-backend-exchange.c:1681
+#: addressbook/e-book-backend-exchange.c:1807
 #: addressbook/e-book-backend-gal.c:1341 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Duke kërkuar..."
@@ -32,7 +32,7 @@ msgstr "Duke marrë rezultatet e kërkimit LDAP..."
 msgid "Error performing search"
 msgstr "Gabim gjatë kryerjes së kërkimit"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1624
+#: calendar/e-cal-backend-exchange-calendar.c:1733
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -41,7 +41,7 @@ msgstr ""
 "I pamundur planifikimi i rezervës '%s' për mbledhjet e ardhshme.\n"
 "Çdo mbledhje do të duhet të prenotohet në veçanti."
 
-#: calendar/e-cal-backend-exchange-calendar.c:1643
+#: calendar/e-cal-backend-exchange-calendar.c:1752
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Rezerve '%s' është e zënë gjatë periudhës së zgjedhur të kohës."
@@ -62,31 +62,31 @@ msgstr "Duke lëvizur mesazhet"
 msgid "Copying messages"
 msgstr "Duke kopjuar mesazhet"
 
-#: camel/camel-exchange-folder.c:929
+#: camel/camel-exchange-folder.c:930
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "I pamundur krijimi i directory %s: %s"
 
-#: camel/camel-exchange-folder.c:939
+#: camel/camel-exchange-folder.c:940
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "I pamundur leximi i përmbledhjes për %s"
 
-#: camel/camel-exchange-folder.c:947
+#: camel/camel-exchange-folder.c:948
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "I pamundur krijimi i cache për %s"
 
-#: camel/camel-exchange-folder.c:957
+#: camel/camel-exchange-folder.c:958
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "I pamundur krijimi i ditarit për %s"
 
-#: camel/camel-exchange-folder.c:997
+#: camel/camel-exchange-folder.c:998
 msgid "Scanning for changed messages"
 msgstr "Duke kërkuar për mesazhet e ndryshuara"
 
-#: camel/camel-exchange-folder.c:1021
+#: camel/camel-exchange-folder.c:1022
 msgid "Fetching summary information for new messages"
 msgstr "Duke marrë përmbledhjen e informacionit për mesazhet e rinj"
 
@@ -114,44 +114,48 @@ msgid "Limit number of GAL responses: %s"
 msgstr "Numri limit i përgjigjeve GAL: %s"
 
 #: camel/camel-exchange-provider.c:60
-msgid "Password Expiry Warning"
-msgstr "Paralajmërim në lidhje me skadimin e fjalëkalimit"
+msgid "Options"
+msgstr ""
 
 #: camel/camel-exchange-provider.c:62
 #, c-format
 msgid "Password Expiry Warning period: %s"
 msgstr "Periudha për paralajmërim në lidhje me skadimin e fjalëkalimit: %s"
 
+#: camel/camel-exchange-provider.c:64
+msgid "Automatically synchronize account locally"
+msgstr ""
+
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:66
+#: camel/camel-exchange-provider.c:68
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr "Aplikoi filtrat mesazheve të rinj në \"Inbox\" tek ky server"
 
-#: camel/camel-exchange-provider.c:68
+#: camel/camel-exchange-provider.c:70
 msgid "Check new messages for Junk contents"
 msgstr "Kontrollo nëse mesazhet e rinj përmbajnë material që duhet refuzuar"
 
-#: camel/camel-exchange-provider.c:70
+#: camel/camel-exchange-provider.c:72
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "Kontrollo për mesazhe që duhen refuzuar vetëm tek kartela Inbox"
 
-#: camel/camel-exchange-provider.c:76
+#: camel/camel-exchange-provider.c:88
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: camel/camel-exchange-provider.c:78
+#: camel/camel-exchange-provider.c:90
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr ""
 "Për trajtimin e mail (dhe të dhënave të tjera) në server-ët Microsoft "
 "Exchange"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:94
+#: camel/camel-exchange-provider.c:106
 msgid "Secure Password"
 msgstr "Fjalëkalim i sigurt"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:97
+#: camel/camel-exchange-provider.c:109
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -159,11 +163,11 @@ msgstr ""
 "Me këtë opcion do të lidheni me serverin Exchange duke përdorur "
 "autentifikimin me fjalëkalim të sigurt (NTLM)."
 
-#: camel/camel-exchange-provider.c:105
+#: camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "Fjalëkalim si tekst i thjeshtë"
 
-#: camel/camel-exchange-provider.c:107
+#: camel/camel-exchange-provider.c:119
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -192,7 +196,9 @@ msgstr "Kartela nuk u gjet: %s"
 
 #: camel/camel-exchange-store.c:474
 msgid "Cannot get folder info in offline mode."
-msgstr "E pamundur marrja e informacioneve në lidhje me kartelën në modalitet jashtë linje."
+msgstr ""
+"E pamundur marrja e informacioneve në lidhje me kartelën në modalitet jashtë "
+"linje."
 
 #: camel/camel-exchange-store.c:536
 msgid "Cannot create folder in offline mode."
@@ -208,7 +214,8 @@ msgstr "I pamundur riemërtimi i kartelës në modalitet jashtë linje."
 
 #: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr "Transporti Exchange mund të përdoret vetëm me mail të buruar nga Exchange"
+msgstr ""
+"Transporti Exchange mund të përdoret vetëm me mail të buruar nga Exchange"
 
 #: camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
@@ -624,7 +631,7 @@ msgstr "I pamundur krijimi i një kartele me atë emër"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Ky operacion nuk mund të kryhet në modalitet jashtë linje"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1274
+#: shell/e-storage.c:587 storage/exchange-account.c:1289
 msgid "Unknown error"
 msgstr "Gabim i panjohur"
 
@@ -658,25 +665,26 @@ msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:565
+#: storage/exchange-account.c:572
 #, c-format
 msgid "%s's Folders"
 msgstr "Kartelat e %s"
 
-#: storage/exchange-account.c:846
+#: storage/exchange-account.c:854
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sShkruaj fjalëkalimin për %s"
 
-#: storage/exchange-account.c:850
+#: storage/exchange-account.c:858
 msgid "Enter password"
 msgstr "Shkruaj fjalëkalimin"
 
-#: storage/exchange-account.c:1017
-msgid "Cannot change password due to configuration problems"
-msgstr "I pamundur ndryshimi i fjalëkalimit për arsye të problemeve në konfigurim"
-
 #: storage/exchange-account.c:1032
+msgid "Cannot change password due to configuration problems"
+msgstr ""
+"I pamundur ndryshimi i fjalëkalimit për arsye të problemeve në konfigurim"
+
+#: storage/exchange-account.c:1047
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -684,11 +692,11 @@ msgstr ""
 "Serveri nuk e pranoi fjalëkalimin pasi është tepër i thjeshtë.\n"
 "Provo përsëri me një fjalëkalim tjetër."
 
-#: storage/exchange-account.c:1037
+#: storage/exchange-account.c:1052
 msgid "Could not change password"
 msgstr "I pamundur ndryshimi i fjalëkalimit"
 
-#: storage/exchange-account.c:1185
+#: storage/exchange-account.c:1200
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -696,7 +704,7 @@ msgstr ""
 "I pamundur autentifikimi në server. (Fjalëkalim i pasaktë?)\n"
 "\n"
 
-#: storage/exchange-account.c:1190
+#: storage/exchange-account.c:1205
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -716,7 +724,7 @@ msgstr ""
 "Ose thjesht ke shkruar keq fjalëkalimin tënd.\n"
 "\n"
 
-#: storage/exchange-account.c:1201
+#: storage/exchange-account.c:1216
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -733,12 +741,12 @@ msgstr ""
 "Ose thjesht ke shkruar keq fjalëkalimin tënd.\n"
 "\n"
 
-#: storage/exchange-account.c:1232
+#: storage/exchange-account.c:1247
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Mailbox për %s nuk është në këtë server."
 
-#: storage/exchange-account.c:1237
+#: storage/exchange-account.c:1252
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -747,7 +755,7 @@ msgstr ""
 "Serveri '%s' përdor Exchange 5.5 dhe nuk\n"
 "është kompatibël me Ximian Connector"
 
-#: storage/exchange-account.c:1244
+#: storage/exchange-account.c:1259
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -758,40 +766,40 @@ msgstr ""
 "Nëse OWA është duke u zbatuar në një pozicion tjetër, duhet t'a specifikoni\n"
 "atë tek dialogu i konfigurimit të llogarisë."
 
-#: storage/exchange-account.c:1252
+#: storage/exchange-account.c:1267
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Nuk ka mailbox për përdoruesin %s në %s.\n"
 
-#: storage/exchange-account.c:1258 storage/exchange-account.c:1264
-#: storage/exchange-account.c:1272
+#: storage/exchange-account.c:1273 storage/exchange-account.c:1279
+#: storage/exchange-account.c:1287
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "E pamundur lidhja me server-in %s: %s"
 
-#: storage/exchange-account.c:1260
+#: storage/exchange-account.c:1275
 msgid "Could not resolve hostname"
 msgstr "E pamundur zgjidhja e emrit të host"
 
-#: storage/exchange-account.c:1266
+#: storage/exchange-account.c:1281
 msgid "Network error"
 msgstr "Gabim i rrjetit"
 
-#: storage/exchange-account.c:1344
+#: storage/exchange-account.c:1359
 msgid "Personal Folders"
 msgstr "Kartelat personale"
 
-#: storage/exchange-account.c:1359
+#: storage/exchange-account.c:1374
 msgid "Favorite Public Folders"
 msgstr "Kartelat e preferuara publike"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1376
+#: storage/exchange-account.c:1391
 msgid "All Public Folders"
 msgstr "Të gjitha kartelat publike"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1390
+#: storage/exchange-account.c:1405
 msgid "Global Address List"
 msgstr "Lista e adresave globale"
 
@@ -1613,7 +1621,8 @@ msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Abonohu tek një kartelë që i përket një përdoruesi tjetër në server"
 
 #: storage/ximian-connector.xml.h:6
-msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgid ""
+"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
 "Ç'regjistrohu nga një kartelë e shtuar me \"Regjistrohu tek Kartela "
 "Përdoruesit Tjetër\""
@@ -1644,3 +1653,5 @@ msgstr "Asistenti i _Jashtë Zyre"
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Ç'_regjistrohu nga Kartela e përdoruesit Tjetër"
 
+#~ msgid "Password Expiry Warning"
+#~ msgstr "Paralajmërim në lidhje me skadimin e fjalëkalimit"

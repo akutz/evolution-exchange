@@ -1731,7 +1731,7 @@ e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 	E2kResult *result;
 	E2kHTTPStatus status;
 	char *vcard;
-	GList *vcard_list, *temp, *offline_contacts;
+	GList *vcard_list = NULL, *temp, *offline_contacts;
 	
 
 	d(printf("ebbe_get_contact_list(%p, %p, %s)\n", backend, book, query));
@@ -2016,7 +2016,7 @@ e_book_backend_exchange_get_contact (EBookBackendSync  *backend,
 				     const char        *id,
 				     char             **vcard)
 {
-	EBookBackendExchange *be;
+	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
 	EContact *contact;
 
@@ -2029,14 +2029,13 @@ e_book_backend_exchange_get_contact (EBookBackendSync  *backend,
 	case GNOME_Evolution_Addressbook_MODE_LOCAL:
 		contact = e_book_backend_cache_get_contact (bepriv->cache,
 							    id);
-		vcard =  e_vcard_to_string (E_VCARD (contact), 
+		*vcard =  e_vcard_to_string (E_VCARD (contact), 
 					    EVC_FORMAT_VCARD_30);
 		if (contact) {
 			e_data_book_respond_get_contact(book, 
 							opid, 
 							GNOME_Evolution_Addressbook_Success, 
 							*vcard);
-			g_free (vcard);
 			g_object_unref (contact);
 		}
 		else {
@@ -2074,8 +2073,8 @@ e_book_backend_exchange_authenticate_user (EBookBackendSync *backend,
 	switch (bepriv->mode) {
 
 	case GNOME_Evolution_Addressbook_MODE_LOCAL:
-		e_book_backend_notify_writable (backend, FALSE);
-		e_book_backend_notify_connection_status (backend, FALSE);
+		e_book_backend_notify_writable (E_BOOK_BACKEND (backend), FALSE);
+		e_book_backend_notify_connection_status (E_BOOK_BACKEND (backend), FALSE);
 		e_data_book_respond_authenticate_user (book, opid, GNOME_Evolution_Addressbook_Success);
 		return GNOME_Evolution_Addressbook_Success;
 			

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD.pa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-11 16:32+0530\n"
+"POT-Creation-Date: 2005-01-25 11:28+0530\n"
 "PO-Revision-Date: 2004-08-21 15:19+0530\n"
 "Last-Translator: Amanpreet Singh Alam <aalam@redhat.com>\n"
 "Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
@@ -24,7 +24,7 @@ msgstr ""
 "\n"
 "X-Generator: KBabel 1.3.1\n"
 
-#: addressbook/e-book-backend-exchange.c:1681
+#: addressbook/e-book-backend-exchange.c:1807
 #: addressbook/e-book-backend-gal.c:1341 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "ਖੋਜ ਜਾਰੀ ਹੈ..."
@@ -41,7 +41,7 @@ msgstr "LDAP ਖੋਜ ਨਤੀਜਿਆਂ ਨੂੰ ਪ੍ਰਾਪਤ ਕੀ
 msgid "Error performing search"
 msgstr "ਖੋਜ ਕਰਨ ਗਲਤੀ"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1624
+#: calendar/e-cal-backend-exchange-calendar.c:1733
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -50,7 +50,7 @@ msgstr ""
 "ਲੜੀਵਾਰ ਮੀਟਿੰਗ ਲਈ ਸਰੋਤ '%s' ਨੀਅਤ ਕਰਨ ਤੋਂ ਅਸਫਲ\n"
 "ਤੁਹਾਨੂੰ ਹਰ ਮੀਟਿੰਗ ਨੂੰ ਵੱਖ ਵੱਖ ਨਿਰਧਾਰਿਤ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1643
+#: calendar/e-cal-backend-exchange-calendar.c:1752
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "ਸਰੋਤ '%s' ਚੁਣੇ ਸਮੇਂ ਅੰਤਰਾਲ ਲਈ ਰੁਝਿਆ ਹੈ"
@@ -71,31 +71,31 @@ msgstr "ਸੁਨੇਹੇ ਭੇਜੇ ਜਾ ਰਹੇ ਹਨ"
 msgid "Copying messages"
 msgstr "ਸੁਨੇਹਿਆਂ ਦੀ ਨਕਲ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ"
 
-#: camel/camel-exchange-folder.c:929
+#: camel/camel-exchange-folder.c:930
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "ਡਾਇਰੈਕਟਰੀ %s ਨਹੀਂ ਬਣਾਈ ਜਾ ਸਕੀ ਹੈ: %s"
 
-#: camel/camel-exchange-folder.c:939
+#: camel/camel-exchange-folder.c:940
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "%s ਲਈ ਸੰਖੇਪ ਜਾਣਕਾਰੀ ਲੋਡ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕੀ ਹੈ"
 
-#: camel/camel-exchange-folder.c:947
+#: camel/camel-exchange-folder.c:948
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "%s ਲਈ ਕੈਚੇ ਨਹੀਂ ਬਣਾਈ ਜਾ ਸਕੀ ਹੈ"
 
-#: camel/camel-exchange-folder.c:957
+#: camel/camel-exchange-folder.c:958
 #, fuzzy, c-format
 msgid "Could not create journal for %s"
 msgstr "%s ਲਈ ਕੈਚੇ ਨਹੀਂ ਬਣਾਈ ਜਾ ਸਕੀ ਹੈ"
 
-#: camel/camel-exchange-folder.c:997
+#: camel/camel-exchange-folder.c:998
 msgid "Scanning for changed messages"
 msgstr "ਤਬਦੀਲ ਸੁਨੇਹਿਆਂ ਦੀ ਜਾਂਚ ਜਾਰੀ ਹੈ"
 
-#: camel/camel-exchange-folder.c:1021
+#: camel/camel-exchange-folder.c:1022
 msgid "Fetching summary information for new messages"
 msgstr "ਨਵੇ ਸੁਨਹਿਆਂ ਤੋਂ ਸੰਖੇਪ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ"
 
@@ -123,7 +123,7 @@ msgid "Limit number of GAL responses: %s"
 msgstr "GAL ਜਵਾਬ ਲਈ ਸੀਮਾ: %s"
 
 #: camel/camel-exchange-provider.c:60
-msgid "Password Expiry Warning"
+msgid "Options"
 msgstr ""
 
 #: camel/camel-exchange-provider.c:62
@@ -131,44 +131,48 @@ msgstr ""
 msgid "Password Expiry Warning period: %s"
 msgstr ""
 
+#: camel/camel-exchange-provider.c:64
+msgid "Automatically synchronize account locally"
+msgstr ""
+
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:66
+#: camel/camel-exchange-provider.c:68
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr "ਇਸ ਸਰਵਰ ਦੇ ਆਉਣ ਵਾਲੇ ਬਕਸੇ ਤੇ ਨਵੇਂ ਸੁਨੇਹਿਆ ਲਈ ਫਿਲਟਰ ਲਾਗੂ ਕਰੋ"
 
-#: camel/camel-exchange-provider.c:68
+#: camel/camel-exchange-provider.c:70
 msgid "Check new messages for Junk contents"
 msgstr "ਨਵੇਂ ਸੁਨੇਹਿਆਂ ਲਈ ਰੱਦੀ ਭਾਗ ਦੀ ਜਾਂਚ ਕਰੋ"
 
-#: camel/camel-exchange-provider.c:70
+#: camel/camel-exchange-provider.c:72
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "ਆਉਣ ਵਾਲੇ ਬਕਸੇ ਵਿੱਚ ਰੱਦੀ ਸੁਨੇਹਾ ਲਈ ਸਿਰਫ ਜਾਂਚ ਕਰੋ"
 
-#: camel/camel-exchange-provider.c:76
+#: camel/camel-exchange-provider.c:88
 msgid "Microsoft Exchange"
 msgstr "ਮਾਈਕਰੋਸਾਫਟ ਐਕਸਚੇਜ਼"
 
-#: camel/camel-exchange-provider.c:78
+#: camel/camel-exchange-provider.c:90
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "ਮਾਈਕਰੋਸਾਫਟ ਐਕਸ਼ਚੇਜ਼ ਸਰਵਰ ਤੇ ਪੱਤਰ ਕੰਟਰੋਲ(ਅਤੇ ਹੋਰ ਡਾਟਾ) ਲਈ"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:94
+#: camel/camel-exchange-provider.c:106
 msgid "Secure Password"
 msgstr "ਸੁਰੱਖਿਅਤ ਗੁਪਤ-ਕੋਡ"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:97
+#: camel/camel-exchange-provider.c:109
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
 msgstr "ਇਹ ਚੋਣ ਐਕਸਚੇਜ਼ ਸਰਵਰ ਨਾਲ ਤੁਹਾਨੂੰ ਸੁਰੱਖਿਅਤ ਗੁਪਤ-ਕੋਡ (NTLM) ਪ੍ਰਮਾਣਕਿਤਾ ਰਾਹੀ ਹੀ ਜੋੜੇਗਾ|"
 
-#: camel/camel-exchange-provider.c:105
+#: camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "ਇਕਸਾਰ-ਪਾਠ ਗੁਪਤ-ਕੋਡ"
 
-#: camel/camel-exchange-provider.c:107
+#: camel/camel-exchange-provider.c:119
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -635,7 +639,7 @@ msgstr "ਉਸ ਨਾਂ ਨਾਲ ਫੋਲਡਰ ਬਣਾਇਆ ਜਾ ਸਕ
 msgid "This operation cannot be performed in off-line mode"
 msgstr "ਇਹ ਕਾਰਵਾਈ ਆਫ ਲਾਇਨ ਮੋਡ ਵਿੱਚ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1274
+#: shell/e-storage.c:587 storage/exchange-account.c:1289
 msgid "Unknown error"
 msgstr "ਅਣਪਛਾਤੀ ਗਲਤੀ"
 
@@ -669,25 +673,25 @@ msgstr "ਐਕਸਚੇਜ਼(_E)"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:565
+#: storage/exchange-account.c:572
 #, c-format
 msgid "%s's Folders"
 msgstr "%s ਦਾ ਫੋਲਡਰ"
 
-#: storage/exchange-account.c:846
+#: storage/exchange-account.c:854
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%s, %s ਲਈ ਗੁਪਤ-ਕੋਡ ਭਰੋ"
 
-#: storage/exchange-account.c:850
+#: storage/exchange-account.c:858
 msgid "Enter password"
 msgstr "ਗੁਪਤ-ਕੋਡ ਭਰੋ"
 
-#: storage/exchange-account.c:1017
+#: storage/exchange-account.c:1032
 msgid "Cannot change password due to configuration problems"
 msgstr "ਸੰਰਚਨਾ ਸਮੱਸਿਆ ਕਰਕੇ ਗੁਪਤ-ਕੋਡ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ"
 
-#: storage/exchange-account.c:1032
+#: storage/exchange-account.c:1047
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -695,11 +699,11 @@ msgstr ""
 "ਸਰਵਰ ਨੇ ਗੁਪਤ-ਕੋਡ ਨਿਕਾਰ ਦਿੱਤਾ ਹੈ, ਕਿਉਕਿ ਇਹ ਆਸਾਨ ਹੈ\n"
 "ਵੱਖਰੇ ਗੁਪਤ-ਕੋਡ ਨਾਲ ਕੋਸ਼ਿਸ ਕਰੋ"
 
-#: storage/exchange-account.c:1037
+#: storage/exchange-account.c:1052
 msgid "Could not change password"
 msgstr "ਗੁਪਤ-ਕੋਡ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ"
 
-#: storage/exchange-account.c:1185
+#: storage/exchange-account.c:1200
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -707,7 +711,7 @@ msgstr ""
 "ਸਰਵਰ ਤੇ ਪ੍ਰਮਾਣਕਿਤਾ ਅਸਫਲ| (ਗੁਪਤ-ਕੋਡ ਗਲਤ ਹੈ?)\n"
 "\n"
 
-#: storage/exchange-account.c:1190
+#: storage/exchange-account.c:1205
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -727,7 +731,7 @@ msgstr ""
 "ਜਾਂ ਸਿਰਫ ਤੁਸੀਂ ਗਲਤ ਗੁਪਤ-ਕੋਡ ਭਰਿਆ ਹੈ|\n"
 "\n"
 
-#: storage/exchange-account.c:1201
+#: storage/exchange-account.c:1216
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -743,12 +747,12 @@ msgstr ""
 "ਜਾਂ ਤੁਹਾਡਾ ਗੁਪਤ-ਕੋਡ ਗਲਤ ਹੈ|\n"
 "\n"
 
-#: storage/exchange-account.c:1232
+#: storage/exchange-account.c:1247
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "ਇਸ ਸਰਵਰ ਤੇ %s ਲਈ ਪੱਤਰ-ਬਕਸਾ ਨਹੀਂ ਹੈ"
 
-#: storage/exchange-account.c:1237
+#: storage/exchange-account.c:1252
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -757,7 +761,7 @@ msgstr ""
 "ਸਰਵਰ '%s' Exchange 5.5 ਨਾਲ ਚੱਲ ਰਿਹਾ ਹੈ ਅਤੇ ਇਸ ਕਰਕੇ\n"
 "ਇਹ ਜੀਮੀਨ ਕੁਨੈਕਟਰ ਨਾਲ ਅਨੁਕੂਲ ਨਹੀਂ ਹੈ"
 
-#: storage/exchange-account.c:1244
+#: storage/exchange-account.c:1259
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -768,40 +772,40 @@ msgstr ""
 "ਜੇਕਰ OWA ਵੱਖਰੇ ਰਸਤੇ ਤੇ ਚੱਲ ਰਿਹਾ ਹੈ, ਤਾਂ ਤੁਹਾਨੂੰ ਖਾਤਾ ਸੰਰਚਨਾ ਤਖਤੀ \n"
 "ਵਿੱਚ ਨਿਰਧਾਰਿਤ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ|"
 
-#: storage/exchange-account.c:1252
+#: storage/exchange-account.c:1267
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "ਉਪਭੋਗਤਾ %s ਲਈ %s ਤੇ ਕੋਈ ਪੱਤਰ-ਬਕਸਾ ਨਹੀਂ ਹੈ\n"
 
-#: storage/exchange-account.c:1258 storage/exchange-account.c:1264
-#: storage/exchange-account.c:1272
+#: storage/exchange-account.c:1273 storage/exchange-account.c:1279
+#: storage/exchange-account.c:1287
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "ਸਰਵਰ %s ਨਾਲ ਜੁੜਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ ਹੈ: %s"
 
-#: storage/exchange-account.c:1260
+#: storage/exchange-account.c:1275
 msgid "Could not resolve hostname"
 msgstr "ਮੇਜ਼ਬਾਨ-ਨਾਂ ਹੱਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ"
 
-#: storage/exchange-account.c:1266
+#: storage/exchange-account.c:1281
 msgid "Network error"
 msgstr "ਨੈੱਟਵਰਕ ਗਲਤੀ"
 
-#: storage/exchange-account.c:1344
+#: storage/exchange-account.c:1359
 msgid "Personal Folders"
 msgstr "ਨਿ"
 
-#: storage/exchange-account.c:1359
+#: storage/exchange-account.c:1374
 msgid "Favorite Public Folders"
 msgstr "ਪਸੰਦੀਦਾ ਸਰਵਜਨਕ ਫੋਲਡਰ"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1376
+#: storage/exchange-account.c:1391
 msgid "All Public Folders"
 msgstr "ਸਭ ਸਰਵਜਨਕ ਫੋਲਡਰ"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1390
+#: storage/exchange-account.c:1405
 msgid "Global Address List"
 msgstr "ਵਿਆਪਕ ਸਿਰਨਾਵਾਂ ਸੂਚੀ"
 

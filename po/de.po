@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-19 01:47+0100\n"
+"POT-Creation-Date: 2005-01-25 11:28+0530\n"
 "PO-Revision-Date: 2005-01-19 01:46+0100\n"
 "Last-Translator: Frank Arnold <frank@scirocco-5v-turbo.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: addressbook/e-book-backend-exchange.c:1681
+#: addressbook/e-book-backend-exchange.c:1807
 #: addressbook/e-book-backend-gal.c:1341 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Suchvorgang..."
@@ -34,7 +34,7 @@ msgstr "LDAP-Suchergebnisse werden empfangen..."
 msgid "Error performing search"
 msgstr "Fehler beim Ausführen der Suche"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1729
+#: calendar/e-cal-backend-exchange-calendar.c:1733
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -44,7 +44,7 @@ msgstr ""
 "werden.\n"
 "Sie müssen jede Besprechung separat ansetzen."
 
-#: calendar/e-cal-backend-exchange-calendar.c:1748
+#: calendar/e-cal-backend-exchange-calendar.c:1752
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Die Ressource »%s« ist während der gewählten Zeitperiode beschäftigt."
@@ -65,31 +65,31 @@ msgstr "Nachrichten werden verschoben"
 msgid "Copying messages"
 msgstr "Nachrichten werden kopiert"
 
-#: camel/camel-exchange-folder.c:929
+#: camel/camel-exchange-folder.c:930
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Verzeichnis %s konnte nicht angelegt werden: %s"
 
-#: camel/camel-exchange-folder.c:939
+#: camel/camel-exchange-folder.c:940
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Zusammenfassung für %s konnte nicht geladen werden"
 
-#: camel/camel-exchange-folder.c:947
+#: camel/camel-exchange-folder.c:948
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Cache für %s konnte nicht angelegt werden"
 
-#: camel/camel-exchange-folder.c:957
+#: camel/camel-exchange-folder.c:958
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Journal für %s konnte nicht angelegt werden"
 
-#: camel/camel-exchange-folder.c:997
+#: camel/camel-exchange-folder.c:998
 msgid "Scanning for changed messages"
 msgstr "Suche nach geänderten Nachrichten läuft"
 
-#: camel/camel-exchange-folder.c:1021
+#: camel/camel-exchange-folder.c:1022
 msgid "Fetching summary information for new messages"
 msgstr "Zusammenfassende Informationen für neue Nachrichten werden abgerufen"
 
@@ -637,7 +637,7 @@ msgstr "Es konnte kein Ordner mit diesem Namen angelegt werden"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Diese Aktion kann nicht im Offline-Modus ausgeführt werden"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1277
+#: shell/e-storage.c:587 storage/exchange-account.c:1289
 msgid "Unknown error"
 msgstr "Unbekannter Fehler"
 
@@ -671,26 +671,26 @@ msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:568
+#: storage/exchange-account.c:572
 #, c-format
 msgid "%s's Folders"
 msgstr "Ordner von %s"
 
-#: storage/exchange-account.c:849
+#: storage/exchange-account.c:854
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sPasswort für %s eingeben"
 
-#: storage/exchange-account.c:853
+#: storage/exchange-account.c:858
 msgid "Enter password"
 msgstr "Passwort eingeben"
 
-#: storage/exchange-account.c:1020
+#: storage/exchange-account.c:1032
 msgid "Cannot change password due to configuration problems"
 msgstr ""
 "Passwort konnte auf Grund von Konfigurationsproblemen nicht geändert werden"
 
-#: storage/exchange-account.c:1035
+#: storage/exchange-account.c:1047
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -698,11 +698,11 @@ msgstr ""
 "Der Server hat das Passwort verweigert, da es zu schwach ist.\n"
 "Versuchen Sie es noch einmal mit einem anderen."
 
-#: storage/exchange-account.c:1040
+#: storage/exchange-account.c:1052
 msgid "Could not change password"
 msgstr "Passwort konnte nicht geändert werden"
 
-#: storage/exchange-account.c:1188
+#: storage/exchange-account.c:1200
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -710,7 +710,7 @@ msgstr ""
 "Legitimation am Server fehlgeschlagen (Passwort falsch?).\n"
 "\n"
 
-#: storage/exchange-account.c:1193
+#: storage/exchange-account.c:1205
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -730,7 +730,7 @@ msgstr ""
 "Oder Sie haben Ihr Passwort falsch eingegeben.\n"
 "\n"
 
-#: storage/exchange-account.c:1204
+#: storage/exchange-account.c:1216
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -746,12 +746,12 @@ msgstr ""
 "Oder Sie haben Ihr Passwort falsch eingegeben.\n"
 "\n"
 
-#: storage/exchange-account.c:1235
+#: storage/exchange-account.c:1247
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Mailbox für %s ist nicht auf diesem Server."
 
-#: storage/exchange-account.c:1240
+#: storage/exchange-account.c:1252
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -760,7 +760,7 @@ msgstr ""
 "Der Server »%s« arbeitet mit Exchange 5.5 und ist\n"
 "daher nicht mit dem Ximian-Connector kompatibel"
 
-#: storage/exchange-account.c:1247
+#: storage/exchange-account.c:1259
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -771,41 +771,41 @@ msgstr ""
 "Falls OWA in einem anderen Pfad läuft, müssen Sie dies im\n"
 "Konfigurationsdialog des Kontos angeben."
 
-#: storage/exchange-account.c:1255
+#: storage/exchange-account.c:1267
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Keine Mailbox für Benutzer %s auf %s.\n"
 
-#: storage/exchange-account.c:1261 storage/exchange-account.c:1267
-#: storage/exchange-account.c:1275
+#: storage/exchange-account.c:1273 storage/exchange-account.c:1279
+#: storage/exchange-account.c:1287
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Verbindung mit Server %s konnte nicht hergestellt werden: %s"
 
-#: storage/exchange-account.c:1263
+#: storage/exchange-account.c:1275
 msgid "Could not resolve hostname"
 msgstr "Rechnername konnte nicht aufgelöst werden"
 
-#: storage/exchange-account.c:1269
+#: storage/exchange-account.c:1281
 msgid "Network error"
 msgstr "Netzwerkfehler"
 
-#: storage/exchange-account.c:1347
+#: storage/exchange-account.c:1359
 msgid "Personal Folders"
 msgstr "Persönliche Ordner"
 
 # CHECK
-#: storage/exchange-account.c:1362
+#: storage/exchange-account.c:1374
 msgid "Favorite Public Folders"
 msgstr "Öffentliche Favoritenordner"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1379
+#: storage/exchange-account.c:1391
 msgid "All Public Folders"
 msgstr "Alle öffentlichen Ordner"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1393
+#: storage/exchange-account.c:1405
 msgid "Global Address List"
 msgstr "Globale Adressliste"
 

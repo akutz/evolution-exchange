@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-11 16:32+0530\n"
+"POT-Creation-Date: 2005-01-25 11:28+0530\n"
 "PO-Revision-Date: 2005-01-12 23:18+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Ducth <vertaling@vrijschrift.org>\n"
@@ -28,7 +28,7 @@ msgstr ""
 # niets mee hoeft te doen. Het is een indicatie dat het programma bezig is.
 # Het tonen van de status is al een aanduiding dat het programma 'bezig is'
 # Vandaar dat het hier in deze meldingen wordt weggelaten.
-#: addressbook/e-book-backend-exchange.c:1681
+#: addressbook/e-book-backend-exchange.c:1807
 #: addressbook/e-book-backend-gal.c:1341 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Zoeken..."
@@ -49,7 +49,7 @@ msgstr "Fout bij uitvoeren zoekopdracht"
 
 # doelbron?
 # mogelijk weglaten: niet in staat om 's' te plannen voor...
-#: calendar/e-cal-backend-exchange-calendar.c:1624
+#: calendar/e-cal-backend-exchange-calendar.c:1733
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -60,7 +60,7 @@ msgstr ""
 
 # ... is bezet in de geselecteerde periode
 # ... is bezet tijdens 
-#: calendar/e-cal-backend-exchange-calendar.c:1643
+#: calendar/e-cal-backend-exchange-calendar.c:1752
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "De bron '%s' is bezet gedurende de geselecteerde periode."
@@ -81,32 +81,32 @@ msgstr "Berichten verplaatsen"
 msgid "Copying messages"
 msgstr "Berichten kopiëren"
 
-#: camel/camel-exchange-folder.c:929
+#: camel/camel-exchange-folder.c:930
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Kon map %s niet aanmaken: %s"
 
-#: camel/camel-exchange-folder.c:939
+#: camel/camel-exchange-folder.c:940
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Kon samenvatting voor %s niet laden"
 
-#: camel/camel-exchange-folder.c:947
+#: camel/camel-exchange-folder.c:948
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Kon cache-buffer voor %s niet aanmaken"
 
-#: camel/camel-exchange-folder.c:957
+#: camel/camel-exchange-folder.c:958
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Kon journaal voor %s niet aanmaken"
 
 # aangepaste berichten
-#: camel/camel-exchange-folder.c:997
+#: camel/camel-exchange-folder.c:998
 msgid "Scanning for changed messages"
 msgstr "Scannen voor veranderde berichten"
 
-#: camel/camel-exchange-folder.c:1021
+#: camel/camel-exchange-folder.c:1022
 msgid "Fetching summary information for new messages"
 msgstr "Samenvatting voor nieuwe berichten ophalen"
 
@@ -136,48 +136,51 @@ msgstr "Global Catalog server name:"
 msgid "Limit number of GAL responses: %s"
 msgstr "Aantal GAL antwoorden beperken: %s"
 
-# waarschuwing wanneer wachtwoord gaat/zal verlopen
 #: camel/camel-exchange-provider.c:60
-msgid "Password Expiry Warning"
-msgstr "'Wachtwoord verloopt' waarschuwing"
+msgid "Options"
+msgstr ""
 
 #: camel/camel-exchange-provider.c:62
 #, c-format
 msgid "Password Expiry Warning period: %s"
 msgstr "'Wachtwoord verloopt' waarschuwingsperiode: %s"
 
+#: camel/camel-exchange-provider.c:64
+msgid "Automatically synchronize account locally"
+msgstr ""
+
 # postvak in of 'inbox'
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:66
+#: camel/camel-exchange-provider.c:68
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr "Filters toepassen op nieuwe berichten in Inbox op deze server"
 
 # ik noem het beestje gewoon bij de naam: Spam ipv troep
-#: camel/camel-exchange-provider.c:68
+#: camel/camel-exchange-provider.c:70
 msgid "Check new messages for Junk contents"
 msgstr "Nieuwe berichten controleren op spam"
 
-#: camel/camel-exchange-provider.c:70
+#: camel/camel-exchange-provider.c:72
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "Aleen Inbox controleren op nieuwe berichten"
 
 # hoofdletters omdat het een programmanaam is van MS
-#: camel/camel-exchange-provider.c:76
+#: camel/camel-exchange-provider.c:88
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: camel/camel-exchange-provider.c:78
+#: camel/camel-exchange-provider.c:90
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr ""
 "Voor het werken met mail (en andere data) op Microsoft Exchange servers"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:94
+#: camel/camel-exchange-provider.c:106
 msgid "Secure Password"
 msgstr "Secure Password"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:97
+#: camel/camel-exchange-provider.c:109
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -187,11 +190,11 @@ msgstr ""
 
 # bloot wachtwoord
 # platte tekst
-#: camel/camel-exchange-provider.c:105
+#: camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "Wachtwoord in gewone tekst"
 
-#: camel/camel-exchange-provider.c:107
+#: camel/camel-exchange-provider.c:119
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -684,7 +687,7 @@ msgstr "Kan geen map aanmaken met die naam"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Deze bewerking kan niet uitgevoerd worden in de off-line stand"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1274
+#: shell/e-storage.c:587 storage/exchange-account.c:1289
 msgid "Unknown error"
 msgstr "Onbekende fout"
 
@@ -718,26 +721,26 @@ msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:565
+#: storage/exchange-account.c:572
 #, c-format
 msgid "%s's Folders"
 msgstr "%s's mappen"
 
-#: storage/exchange-account.c:846
+#: storage/exchange-account.c:854
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sGeef wachtwoord voor %s"
 
 # geef wachtwoord
-#: storage/exchange-account.c:850
+#: storage/exchange-account.c:858
 msgid "Enter password"
 msgstr "Wachtwoord invoeren"
 
-#: storage/exchange-account.c:1017
+#: storage/exchange-account.c:1032
 msgid "Cannot change password due to configuration problems"
 msgstr "Kan wachtwoord niet veranderen vanwege configuratieproblemen"
 
-#: storage/exchange-account.c:1032
+#: storage/exchange-account.c:1047
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -745,11 +748,11 @@ msgstr ""
 "Server heeft het wachtwoord geweigerd omdat het te zwak is.\n"
 "Probeer het opnieuw met een ander wachtwoord."
 
-#: storage/exchange-account.c:1037
+#: storage/exchange-account.c:1052
 msgid "Could not change password"
 msgstr "Kon wachtwoord niet veranderen"
 
-#: storage/exchange-account.c:1185
+#: storage/exchange-account.c:1200
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -757,7 +760,7 @@ msgstr ""
 "Aanmeldingscontrole bij server mislukt. (Wachtwoord onjuist?)\n"
 "\n"
 
-#: storage/exchange-account.c:1190
+#: storage/exchange-account.c:1205
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -777,7 +780,7 @@ msgstr ""
 "Of u heeft gewoon uw wachtwoord verkeerd getypt.\n"
 "\n"
 
-#: storage/exchange-account.c:1201
+#: storage/exchange-account.c:1216
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -794,12 +797,12 @@ msgstr ""
 "Of u heeft gewoon uw wachtwoord verkeerd getypt.\n"
 "\n"
 
-#: storage/exchange-account.c:1232
+#: storage/exchange-account.c:1247
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Mailbox voor %s staat niet op deze server."
 
-#: storage/exchange-account.c:1237
+#: storage/exchange-account.c:1252
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -808,7 +811,7 @@ msgstr ""
 "De server '%s' draait op Exchange 5.5 en is\n"
 "daarom niet compatibel met Ximian connector"
 
-#: storage/exchange-account.c:1244
+#: storage/exchange-account.c:1259
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -819,44 +822,44 @@ msgstr ""
 "Indien OWA op een ander pad loopt, moet u dit in de accountconfiguratie-\n"
 "dialoog specificeren"
 
-#: storage/exchange-account.c:1252
+#: storage/exchange-account.c:1267
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Geen mailbox voor gebruiker %s op %s.\n"
 
-#: storage/exchange-account.c:1258 storage/exchange-account.c:1264
-#: storage/exchange-account.c:1272
+#: storage/exchange-account.c:1273 storage/exchange-account.c:1279
+#: storage/exchange-account.c:1287
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Kon geen verbinding maken met server %s: %s"
 
 # vinden
 # oplossen
-#: storage/exchange-account.c:1260
+#: storage/exchange-account.c:1275
 msgid "Could not resolve hostname"
 msgstr "Kon de hostnaam niet traceren"
 
-#: storage/exchange-account.c:1266
+#: storage/exchange-account.c:1281
 msgid "Network error"
 msgstr "Netwerkfout"
 
-#: storage/exchange-account.c:1344
+#: storage/exchange-account.c:1359
 msgid "Personal Folders"
 msgstr "Persoonlijke mappen"
 
-#: storage/exchange-account.c:1359
+#: storage/exchange-account.c:1374
 msgid "Favorite Public Folders"
 msgstr "Favoriete publieke mappen"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1376
+#: storage/exchange-account.c:1391
 msgid "All Public Folders"
 msgstr "Alle publieke mappen"
 
 # Volledige adreslijst
 # Algemene adreslijst
 #. i18n: Outlookism
-#: storage/exchange-account.c:1390
+#: storage/exchange-account.c:1405
 msgid "Global Address List"
 msgstr "Volledige adreslijst"
 
@@ -1732,7 +1735,8 @@ msgstr "Uw Exchange-agenda gedelegeerde-instellingen tonen of wijzigen"
 
 #: storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
-msgstr "Uw afwezigheidsstatus en automatisch antwoord bericht tonen of wijzigen"
+msgstr ""
+"Uw afwezigheidsstatus en automatisch antwoord bericht tonen of wijzigen"
 
 #: storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
@@ -1749,6 +1753,10 @@ msgstr "_Afwezigheidsassistent"
 #: storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Abonnement op andermans map opzeggen"
+
+# waarschuwing wanneer wachtwoord gaat/zal verlopen
+#~ msgid "Password Expiry Warning"
+#~ msgstr "'Wachtwoord verloopt' waarschuwing"
 
 # controleren!
 # Exc_hange-server:
