@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-14 00:24+0200\n"
-"PO-Revision-Date: 2004-09-14 00:22+0200\n"
+"POT-Creation-Date: 2004-09-20 01:29+0200\n"
+"PO-Revision-Date: 2004-09-20 01:27+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: addressbook/e-book-backend-exchange.c:1655
-#: addressbook/e-book-backend-gal.c:1204 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-gal.c:1213 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Söker..."
 
@@ -35,11 +35,11 @@ msgstr "Söker..."
 msgid "Reconnecting to LDAP server..."
 msgstr "Återansluter till LDAP-servern..."
 
-#: addressbook/e-book-backend-gal.c:1110
+#: addressbook/e-book-backend-gal.c:1119
 msgid "Receiving LDAP search results..."
 msgstr "Mottar LDAP-sökresultat..."
 
-#: addressbook/e-book-backend-gal.c:1225
+#: addressbook/e-book-backend-gal.c:1234
 msgid "Error performing search"
 msgstr "Fel vid sökning"
 
@@ -755,9 +755,9 @@ msgid ""
 msgstr ""
 
 #: storage/exchange-account.c:1081
-#, fuzzy, c-format
+#, c-format
 msgid "No mailbox for user %s on %s.\n"
-msgstr "Genomsöker mappar under %s på \"%s\""
+msgstr "Ingen brevlåda för användaren %s på %s.\n"
 
 #: storage/exchange-account.c:1087 storage/exchange-account.c:1093
 #: storage/exchange-account.c:1101
@@ -799,18 +799,26 @@ msgid ""
 "Could not connect to the Exchange server.\n"
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
+"Kunde inte ansluta till Exchange-servern.\n"
+"Försäkra dig om att URL:en är korrekt (försök med \"%s\" istället för \"%s"
+"\"?) och försök igen."
 
 #: storage/exchange-autoconfig-wizard.c:232
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
 msgstr ""
+"Kunde inte lokalisera Exchange-servern.\n"
+"Försäkra dig om att servernamnet är korrekt stavat och försök igen."
 
 #: storage/exchange-autoconfig-wizard.c:241
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
 msgstr ""
+"Kunde inte autentisera till Exchange-servern.\n"
+"Försäkra dig om att användarnamnet och lösenordet är korrekta och försök "
+"igen."
 
 #: storage/exchange-autoconfig-wizard.c:248
 #, c-format
@@ -821,12 +829,19 @@ msgid ""
 "You may need to specify the Windows domain name as part of your username "
 "(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
+"Kunde inte autentisera till Exchange-servern.\n"
+"Försäkra dig om att användarnamnet och lösenordet är korrekta och försök "
+"igen.\n"
+"Du kan kanske behöva ange Windows-domännamnet som en del av ditt "
+"användarnamn (t.ex. \"MIN-DOMÄN\\%s\")."
 
 #: storage/exchange-autoconfig-wizard.c:260
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 msgstr ""
+"Kunde inte hitta OWA-data på den angivna URL:en.\n"
+"Försäkra dig om att URL:en är korrekt och försök igen."
 
 #: storage/exchange-autoconfig-wizard.c:267
 msgid ""
@@ -838,18 +853,29 @@ msgid ""
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
+"Ximian Connector kräver åtkomst till en del funktionalitet på Exchange-"
+"servern som verkar vara inaktiverad eller blockerad (detta är vanligtvis "
+"oavsiktligt). Din Exchange-administratör måste aktivera denna funktionalitet "
+"för att du ska kunna använda Ximian Connector.\n"
+"\n"
+"Följ länken nedan för information som du kan delge din Exchange-"
+"administratör:"
 
 #: storage/exchange-autoconfig-wizard.c:288
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
 msgstr ""
+"URL:en till Exchange-servern som du angav är för en Exchange 5.5-server. "
+"Ximian Connector stöder endast Microsoft Exchange 2000 och 2003."
 
 #: storage/exchange-autoconfig-wizard.c:301
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
 msgstr ""
+"Kunde inte konfigurera Exchange-kontot eftersom ett okänt fel inträffade."
+"Kontrollera URL:en, användarnamnet och lösenordet och försök igen."
 
 #: storage/exchange-autoconfig-wizard.c:345
 #, c-format
@@ -864,6 +890,8 @@ msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
 msgstr ""
+"Kunde inte ansluta till den angivna servern.\n"
+"Kontrollera servernamnet och försök igen."
 
 #: storage/exchange-autoconfig-wizard.c:389
 #: storage/exchange-autoconfig-wizard.c:393
@@ -871,11 +899,12 @@ msgid "Unknown"
 msgstr "Okänd"
 
 #: storage/exchange-autoconfig-wizard.c:477
-#, fuzzy
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
-msgstr "Konfigurationsverktyg för Evolutions e-postkonton."
+msgstr ""
+"Konfigurationssystemfel.\n"
+"Kan inte skapa nytt konto."
 
 #: storage/exchange-autoconfig-wizard.c:491
 #: storage/exchange-config-listener.c:492
@@ -931,7 +960,6 @@ msgid "Welcome"
 msgstr "Välkommen"
 
 #: storage/exchange-autoconfig-wizard.glade.h:14
-#, fuzzy
 msgid ""
 "Welcome to Ximian Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
@@ -939,9 +967,9 @@ msgid ""
 "\n"
 "Please click the \"Forward\" button to continue."
 msgstr ""
-"Välkommen till Evolution. De följande skärmarna kommer att\n"
-"låta Evolution ansluta till dina e-postkonton, och\n"
-"importera filer från andra program. \n"
+"Välkommen till Ximian Connector för Microsoft Exchange.\n"
+"De följande skärmarna kommer att hjälpa dig konfigurera\n"
+"Evolution för att ansluta till ditt Exchange-konto.\n"
 "\n"
 "Klicka på knappen \"Framåt\" för att fortsätta. "
 
@@ -989,6 +1017,8 @@ msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
 msgstr ""
+"Din kontoinformation är som följer. Korrigera eventuella fel och klicka "
+"sedan på \"Framåt\".\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
@@ -1001,30 +1031,27 @@ msgstr ""
 
 #: storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
-msgstr ""
+msgstr "De två lösenorden stämmer inte överens. Ange lösenorden igen."
 
 #: storage/exchange-change-password.glade.h:2
 msgid "Change Password"
 msgstr "Byt lösenord"
 
 #: storage/exchange-change-password.glade.h:3
-#, fuzzy
 msgid "Confirm Password:"
-msgstr "Bekräfta lösenord"
+msgstr "Bekräfta lösenord:"
 
 #: storage/exchange-change-password.glade.h:4
-#, fuzzy
 msgid "Current Password:"
-msgstr "Nuvarande lösenord"
+msgstr "Nuvarande lösenord:"
 
 #: storage/exchange-change-password.glade.h:5
-#, fuzzy
 msgid "New Password:"
-msgstr "Nytt lösenord"
+msgstr "Nytt lösenord:"
 
 #: storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
-msgstr ""
+msgstr "Ditt nuvarande lösenord har gått ut. Byt ditt lösenord nu."
 
 #: storage/exchange-component.c:308
 msgid "Mail"
@@ -1047,10 +1074,12 @@ msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
 msgstr ""
+"Ändringar i Exchange-kontokonfigurationen kommer att\n"
+"börja gälla efter det att du avslutat och startat om Evolution."
 
 #: storage/exchange-config-listener.c:653
 msgid "The Exchange account will be removed when you quit Evolution"
-msgstr ""
+msgstr "Exchange-kontot kommer att tas bort när du avslutar Evolution"
 
 #: storage/exchange-delegates-user.c:191
 #: storage/exchange-permissions-dialog.c:179
@@ -1069,12 +1098,16 @@ msgid ""
 "Could not read folder permissions.\n"
 "Unable to edit delegates."
 msgstr ""
+"Kunde inte läsa mapprättigheter.\n"
+"Kan inte redigera delegater."
 
 #: storage/exchange-delegates.c:267
 msgid ""
 "Could not determine folder permissions for delegates.\n"
 "Unable to edit delegates."
 msgstr ""
+"Kunde inte avgöra mapprättigheter för delegater.\n"
+"Kan inte redigera delegater."
 
 #: storage/exchange-delegates.c:419
 msgid "Delegate To:"
@@ -1085,13 +1118,13 @@ msgid "Delegate To"
 msgstr "Delegera till"
 
 #: storage/exchange-delegates.c:435
-#, fuzzy, c-format
+#, c-format
 msgid "Could not make %s a delegate"
-msgstr "Kunde inte läsa in %s: %s"
+msgstr "Kunde inte göra %s till en delegat"
 
 #: storage/exchange-delegates.c:445
 msgid "You cannot make yourself your own delegate"
-msgstr ""
+msgstr "Du kan inte göra dig själv till din egen delegat"
 
 #: storage/exchange-delegates.c:454
 #, c-format
@@ -1121,41 +1154,39 @@ msgid "Could not find delegate %s in Active Directory"
 msgstr "Kunde inte skapa temporär katalog: %s"
 
 #: storage/exchange-delegates.c:720
-#, fuzzy, c-format
+#, c-format
 msgid "Could not remove delegate %s"
-msgstr "Kunde inte skriva data: %s"
+msgstr "Kunde inte ta bort delegaten %s"
 
 #: storage/exchange-delegates.c:780
-#, fuzzy
 msgid "Could not update list of delegates."
-msgstr "Kunde inte uppdatera ogiltigt objekt"
+msgstr "Kunde inte uppdatera listan med delegater."
 
 #: storage/exchange-delegates.c:798
-#, fuzzy, c-format
+#, c-format
 msgid "Could not add delegate %s"
-msgstr "Kunde inte ta bort mappen \"%s\": %s"
+msgstr "Kunde inte lägga till delegaten %s"
 
 #: storage/exchange-delegates.c:814
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Failed to update delegates:\n"
 "%s"
-msgstr "Misslyckades med att cacha meddelande %s: %s"
+msgstr ""
+"Misslyckades med att uppdatera delegater:\n"
+"%s"
 
 #: storage/exchange-delegates.c:938 storage/exchange-permissions-dialog.c:706
 msgid "Name"
 msgstr "Namn"
 
 #: storage/exchange-delegates.c:967
-#, fuzzy
 msgid "Error reading delegates list."
-msgstr ""
-"Fel vid läsning av data:\n"
-"%s"
+msgstr "Fel vid läsning av delegatlistan."
 
 #: storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
-msgstr ""
+msgstr "Författare (läs, skapa)"
 
 #: storage/exchange-delegates.glade.h:2
 msgid "C_alendar:"
@@ -1175,16 +1206,15 @@ msgstr "Delegater"
 
 #: storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
-msgstr ""
+msgstr "Redaktör (läs, skapa, redigera)"
 
 #: storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
 msgstr "Rättigheter för"
 
 #: storage/exchange-delegates.glade.h:9
-#, fuzzy
 msgid "Reviewer (read-only)"
-msgstr "Tjänsten klar"
+msgstr "Granskare (endast läsning)"
 
 #: storage/exchange-delegates.glade.h:10
 msgid ""
@@ -1555,6 +1585,25 @@ msgstr "_Inte inne-assistent"
 #: storage/ximian-connector.xml.h:10
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Säg upp prenumeration på annan användares mapp"
+
+#~ msgid "No mailbox for user %s on %s."
+#~ msgstr "Ingen brevlåda för användaren %s på %s."
+
+#~ msgid ""
+#~ "Your account information is as follows. Please correct any errors, then "
+#~ "click \"Forward\"."
+#~ msgstr ""
+#~ "Din kontoinformation är som följer. Korrigera eventuella fel och klicka "
+#~ "sedan på \"Framåt\"."
+
+#~ msgid "Confirm Password"
+#~ msgstr "Bekräfta lösenord"
+
+#~ msgid "Current Password"
+#~ msgstr "Nuvarande lösenord"
+
+#~ msgid "New Password"
+#~ msgstr "Nytt lösenord"
 
 #~ msgid "Your account does not have permission to use <%s> as a From address."
 #~ msgstr "Ditt konto har inte rättigheter att använda <%s> som Från-adress."
