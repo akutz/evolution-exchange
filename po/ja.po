@@ -1,1584 +1,354 @@
-# The Japanese message catalogue for evolution-exchange
-# Copyright (C) 2004 THE evolution-exchange'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the evolution-exchange package.
+# Japanese messsage catalogue for vino
+# Copyright (C) 2004 THE vino'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the vino package.
 # SATOH, Satoru <ss@gnome.gr.jp>, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: evolution-exchange VERSION\n"
+"Project-Id-Version: vino 0.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-23 12:47+0900\n"
-"PO-Revision-Date: 2004-08-23 12:47+0900\n"
-"Last-Translator: Satoru SATOH <ss@gnome.gr.jp>\n"
+"POT-Creation-Date: 2004-08-24 20:21+0200\n"
+"PO-Revision-Date: 2004-08-25 09:28+0900\n"
+"Last-Translator: Satrou SATOH <ss@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: addressbook/e-book-backend-exchange.c:1655
-#: addressbook/e-book-backend-gal.c:1209 storage/exchange-storage.c:135
-msgid "Searching..."
-msgstr "検索中..."
-
-#: addressbook/e-book-backend-gal.c:240
-msgid "Reconnecting to LDAP server..."
-msgstr "LDAP サーバーに再接続中..."
-
-#: addressbook/e-book-backend-gal.c:1114
-msgid "Receiving LDAP search results..."
-msgstr "LDAP 検索結果を受信中..."
-
-#: addressbook/e-book-backend-gal.c:1230
-msgid "Error performing search"
-msgstr "検索実行に失敗"
-
-#: calendar/e-cal-backend-exchange-calendar.c:1358
-#, c-format
-msgid ""
-"Unable to schedule resource '%s' for recurring meetings.\n"
-"You must book each meeting separately."
-msgstr ""
-"定期的なミーティングのためのリソース '%s' のスケジュールに失敗\n"
-"各々のミーティングを個別に予約しなければなりません"
-
-#: calendar/e-cal-backend-exchange-calendar.c:1377
-#, c-format
-msgid "The resource '%s' is busy during the selected time period."
-msgstr "リソース '%s' は選択された時間周期の間ビュジーです"
-
-#: camel/camel-exchange-folder.c:219
-msgid "Can only expunge in Deleted Items folder"
-msgstr "削除アイテムフォルダ内でのみ完全に消し去ることができます"
-
-#: camel/camel-exchange-folder.c:243
-msgid "No Subject"
-msgstr "無題"
-
-#: camel/camel-exchange-folder.c:632
-msgid "Moving messages"
-msgstr "メッセージを移動中"
-
-#: camel/camel-exchange-folder.c:633
-msgid "Copying messages"
-msgstr "メッセージをコピー中"
-
-#: camel/camel-exchange-folder.c:878
-#, c-format
-msgid "Could not create directory %s: %s"
-msgstr "ディレクトリ %s を作成できませんでした: %s"
-
-#: camel/camel-exchange-folder.c:888
-#, c-format
-msgid "Could not load summary for %s"
-msgstr "%s のサマリを読み込めませんでした"
-
-#: camel/camel-exchange-folder.c:896
-#, c-format
-msgid "Could not create cache for %s"
-msgstr "%s のキャッシュを作成できませんでした"
-
-#: camel/camel-exchange-folder.c:936
-msgid "Scanning for changed messages"
-msgstr "変更されたメッセージを走査中"
-
-#: camel/camel-exchange-folder.c:960
-msgid "Fetching summary information for new messages"
-msgstr "新しいメッセージのサマリ情報を取得中"
-
-#. i18n: the '_' should appear before the same letter it
-#. does in the evolution:mail-config.glade "_Host"
-#. translation (or not at all)
-#: camel/camel-exchange-provider.c:43
-msgid "Exc_hange Server:"
-msgstr "Exchange サーバー(_H):"
-
-#. i18n: the '_' should appear before the same letter it
-#. does in the evolution:mail-config.glade "User_name"
-#. translation (or not at all)
-#: camel/camel-exchange-provider.c:48
-msgid "Windows User_name:"
-msgstr "Windows ユーザー名(_N):"
-
-#. i18n: GAL is an Outlookism, AD is a Windowsism
-#: camel/camel-exchange-provider.c:53
-msgid "Global Address List / Active Directory"
-msgstr "グローバルアドレスリスト / Active Directory"
-
-#. i18n: "Global Catalog" is a Windowsism, but it's a
-#. technical term and may not have translations?
-#: camel/camel-exchange-provider.c:57
-msgid "Global Catalog server name:"
-msgstr "グローバルカタログサーバー名:"
-
-#: camel/camel-exchange-provider.c:59
-#, c-format
-msgid "Limit number of GAL responses: %s"
-msgstr "GAL 応答数の上限: %s"
-
-#: camel/camel-exchange-provider.c:62
-msgid "Exchange Server"
-msgstr "Exchange サーバー"
-
-#. i18n: "Mailbox" is an Outlookism. FIXME
-#: camel/camel-exchange-provider.c:65
-msgid "Mailbox name"
-msgstr "メールボックス名"
-
-#. i18n: "OWA" == "Outlook Web Access". Might not be translated?
-#: camel/camel-exchange-provider.c:68
-msgid "OWA path"
-msgstr "OWA パス"
-
-#. i18n: "Public Folder" is an Outlookism
-#: camel/camel-exchange-provider.c:71
-msgid "Public Folder server"
-msgstr "パブリックフォルダサーバー"
-
-#. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:75
-msgid "Apply filters to new messages in Inbox on this server"
-msgstr "このサーバーの Inbox 内の新しいメッセージにフィルタを適用"
-
-#: camel/camel-exchange-provider.c:77
-msgid "Check new messages for Junk contents"
-msgstr "新しいメッセージの Junk コンテンツをチェック"
-
-#: camel/camel-exchange-provider.c:79
-msgid "Only check for Junk messages in the Inbox folder"
-msgstr "Inbox フォルダ内の Junk メッセージだけをチェック"
-
-#: camel/camel-exchange-provider.c:85
-msgid "Microsoft Exchange"
-msgstr "Microsoft Exchange"
-
-#: camel/camel-exchange-provider.c:87
-msgid "For handling mail (and other data) on Microsoft Exchange servers"
-msgstr "Microsoft Exchange サーバー上のメール(と他のデータ)の処理"
-
-#. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:105
-msgid "Secure Password"
-msgstr "セキュアパスワード"
-
-#. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:108
-msgid ""
-"This option will connect to the Exchange server using secure password (NTLM) "
-"authentication."
-msgstr ""
-"このオプションで Exchange サーバーへの接続時にセキュアパスワード(NTLM) 認証が"
-"使われるようになります"
-
-#: camel/camel-exchange-provider.c:116
-msgid "Plaintext Password"
-msgstr "平文テキストパスワード"
-
-#: camel/camel-exchange-provider.c:118
-msgid ""
-"This option will connect to the Exchange server using standard plaintext "
-"password authentication."
-msgstr ""
-"このオプションで Exchange サーバーへの接続時に標準の平文テキストパスワード"
-"(NTLM) 認証が使われるようになります"
-
-#: camel/camel-exchange-store.c:178
-#, c-format
-msgid "Exchange server %s"
-msgstr "Exchange サーバー %s"
-
-#: camel/camel-exchange-store.c:181
-#, c-format
-msgid "Exchange account for %s on %s"
-msgstr "%s の Exchange アカウント(%s 上)"
-
-#: camel/camel-exchange-store.c:208
-msgid "Evolution Exchange backend process"
-msgstr "Evolution Exchange バックエンドプロセス"
-
-#: camel/camel-exchange-transport.c:109
-msgid "Exchange transport can only be used with Exchange mail source"
-msgstr ""
-"Exchange トランスポートと一緒に使えるのは Exchange メールソースだけです"
-
-#: camel/camel-exchange-transport.c:120
-msgid "Cannot send message: one or more invalid recipients"
-msgstr "メッセージを送れません: 一人以上の不適切な受信者"
-
-#: camel/camel-exchange-transport.c:130
-msgid "Could not find 'From' address in message"
-msgstr "メッセージ内に 'From' アドレスがみつかりませんでした"
-
-#: camel/camel-stub.c:133
-#, c-format
-msgid "Could not create socket: %s"
-msgstr "ソケットを作成できませんでした: %s"
-
-#: camel/camel-stub.c:148
-#, c-format
-msgid "Could not connect to %s: %s"
-msgstr "%s に接続できませんでした: %s"
-
-#: camel/camel-stub.c:167
-#, c-format
-msgid "Path too long: %s"
-msgstr "パスが長すぎます: %s"
-
-#: camel/camel-stub.c:193
-#, c-format
-msgid "Could not start status thread: %s"
-msgstr "状態スレッドを開始できませんでした: %s"
-
-#: camel/camel-stub.c:445
-#, c-format
-msgid "Lost connection to %s"
-msgstr "%s への接続が切れました"
-
-#: camel/camel-stub.c:449
-#, c-format
-msgid "Error communicating with %s: %s"
-msgstr "%s と通信中にエラー: %s"
-
-#. i18n: These are Outlook's words for the default roles in
-#. the folder permissions dialog.
-#: lib/e2k-security-descriptor.c:847
-msgid "Owner"
-msgstr "所有者"
-
-#: lib/e2k-security-descriptor.c:857
-msgid "Publishing Editor"
-msgstr "発行編集者"
-
-#: lib/e2k-security-descriptor.c:865
-msgid "Editor"
-msgstr "編集者"
-
-#: lib/e2k-security-descriptor.c:872
-msgid "Publishing Author"
-msgstr "発行著者"
-
-#: lib/e2k-security-descriptor.c:878
-msgid "Author"
-msgstr "著者"
-
-#: lib/e2k-security-descriptor.c:883
-msgid "Non-editing Author"
-msgstr "未編集の著者"
-
-#: lib/e2k-security-descriptor.c:887
-msgid "Reviewer"
-msgstr "レビューア"
-
-#: lib/e2k-security-descriptor.c:889
-msgid "Contributor"
-msgstr "貢献者"
-
-#: lib/e2k-security-descriptor.c:891 storage/exchange-delegates.glade.h:7
-msgid "None"
-msgstr "なし"
-
-#: lib/e2k-security-descriptor.c:906 storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "カスタム"
-
-#: lib/e2k-user-dialog.c:148
-msgid "Select User"
-msgstr "ユーザの選択"
-
-#: lib/e2k-user-dialog.c:198
-msgid "Addressbook..."
-msgstr "アドレス帳..."
-
-#: mail/mail-stub-exchange.c:231
-msgid "No such folder"
-msgstr "そのようなフォルダはありません"
-
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
-#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
-#: shell/e-storage.c:573 storage/xc-commands.c:302
-msgid "Permission denied"
-msgstr "権限がありません"
-
-#: mail/mail-stub-exchange.c:546
-msgid "No such folder."
-msgstr "そのようなフォルダはありません"
-
-#: mail/mail-stub-exchange.c:555
-msgid "Could not create folder."
-msgstr "フォルダを作成できませんでした"
-
-#: mail/mail-stub-exchange.c:601 mail/mail-stub-exchange.c:619
-msgid "Could not open folder: Permission denied"
-msgstr "フォルダを開けませんでした: 権限がありません"
-
-#: mail/mail-stub-exchange.c:605 mail/mail-stub-exchange.c:718
-msgid "Could not open folder"
-msgstr "フォルダを開けませんでした"
-
-#: mail/mail-stub-exchange.c:772
-msgid "Could not open Deleted Items folder"
-msgstr "削除アイテムフォルダを開けませんでした"
-
-#: mail/mail-stub-exchange.c:1085 mail/mail-stub-exchange.c:1126
-msgid "Could not get new messages"
-msgstr "新しいメッセージを取得できませんでした"
-
-#: mail/mail-stub-exchange.c:1291
-msgid "Could not empty Deleted Items folder"
-msgstr "削除アイテムフォルダを空にできませんでした"
-
-#: mail/mail-stub-exchange.c:1363
-msgid "Could not append message; mailbox is over quota"
-msgstr ""
-"メッセージを追加できませんでした: メールボックスが容量制限を越えています"
-
-#: mail/mail-stub-exchange.c:1364
-msgid "Could not append message"
-msgstr "メッセージを追加できませんでした"
-
-#: mail/mail-stub-exchange.c:1847
-msgid "No such message"
-msgstr "そのようなメッセージはありません"
-
-#: mail/mail-stub-exchange.c:1900
-msgid "Message has been deleted"
-msgstr "メッセージは削除されました"
-
-#: mail/mail-stub-exchange.c:1902
-msgid "Error retrieving message"
-msgstr "メッセージ取得中にエラー"
-
-#: mail/mail-stub-exchange.c:1944
-msgid "Mailbox does not support full-text searching"
-msgstr "メールボックスは全文検索をサポートしていません"
-
-#: mail/mail-stub-exchange.c:2042
-msgid "Unable to move/copy messages"
-msgstr "メッセージを移動/コピーできません"
-
-#: mail/mail-stub-exchange.c:2213
-msgid "No mail submission URI for this mailbox"
-msgstr "このメールボックスについてメール投稿 URI がありません"
-
-#: mail/mail-stub-exchange.c:2250
-msgid "Server won't accept mail via Exchange transport"
-msgstr "サーバーは Exchange トランスポートを介したメールを拒否するでしょう"
-
-#: mail/mail-stub-exchange.c:2252
-#, c-format
-msgid ""
-"Your account does not have permission to use <%s>\n"
-"as a From address."
-msgstr ""
-"あなたのアカウントには送信者アドレスとして <%s> を\n"
-"使う権限がありません"
-
-#: mail/mail-stub-exchange.c:2264
-msgid ""
-"Could not send message.\n"
-"This might mean that your account is over quota."
-msgstr ""
-"メッセージを送信できませんでした\n"
-"あなたのアカウントは容量制限を越えてしまっているかもしれません"
-
-#: mail/mail-stub-exchange.c:2268
-msgid "Could not send message"
-msgstr "メッセージを送信できませんでした"
-
-#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
-#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
-#: storage/xc-commands.c:306
-msgid "Generic error"
-msgstr "一般エラー"
-
-#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
-msgid "Folder already exists"
-msgstr "フォルダは既にあります"
-
-#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
-#: mail/mail-stub-exchange.c:2393
-msgid "Folder doesn't exist"
-msgstr "フォルダはありません"
-
-#: shell/e-folder-creation-dialog.c:138
-#, c-format
-msgid ""
-"Cannot create the specified folder:\n"
-"%s"
-msgstr ""
-"指定されたフォルダを作成できません:\n"
-"%s"
-
-#: shell/e-folder-creation-dialog.c:179
-#, c-format
-msgid "The specified folder name is not valid: %s"
-msgstr "指定されたフォルダ名は不適切です: %s"
-
-#: shell/e-folder-creation-dialog.c:310
-msgid "Create New Folder"
-msgstr "新しいフォルダを作成"
-
-#: shell/e-folder-creation-dialog.glade.h:1
-#: storage/exchange-autoconfig-wizard.glade.h:1
-#: storage/exchange-change-password.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: shell/e-folder-creation-dialog.glade.h:2
-msgid "Folder _name:"
-msgstr "フォルダ名(_N):"
-
-#: shell/e-folder-creation-dialog.glade.h:3
-msgid "Folder _type:"
-msgstr "フォルダタイプ(_T):"
-
-#: shell/e-folder-creation-dialog.glade.h:4
-msgid "Specify where to create the folder:"
-msgstr "フォルダをどこに作成するか指定:"
-
-#: shell/e-folder-dnd-bridge.c:52
-#, c-format
-msgid ""
-"Cannot transfer folder:\n"
-"%s"
-msgstr ""
-"フォルダを転送できません:\n"
-"%s"
-
-#: shell/e-folder-misc-dialogs.c:62
-#, c-format
-msgid ""
-"Cannot delete folder:\n"
-"%s"
-msgstr ""
-"フォルダを削除できません:\n"
-"%s"
-
-#: shell/e-folder-misc-dialogs.c:115
-#, c-format
-msgid "Really delete folder \"%s\"?"
-msgstr "本当にフォルダ \"%s\" を削除しますか?"
-
-#: shell/e-folder-misc-dialogs.c:129
-#, c-format
-msgid "Delete \"%s\""
-msgstr "\"%s\" を削除"
-
-#: shell/e-folder-misc-dialogs.c:154
-#, c-format
-msgid ""
-"Cannot rename folder:\n"
-"%s"
-msgstr ""
-"フォルダの名前を変更できません:\n"
-"%s"
-
-#: shell/e-folder-misc-dialogs.c:188
-#, c-format
-msgid "Rename the \"%s\" folder to:"
-msgstr "フォルダ \"%s\" の新しい名前:"
-
-#: shell/e-folder-misc-dialogs.c:191
-msgid "Rename Folder"
-msgstr "フォルダの名前変更"
-
-#: shell/e-folder-misc-dialogs.c:205
-#, c-format
-msgid "A folder named \"%s\" already exists. Please use a different name."
-msgstr "\"%s\" というフォルダは既にあります。別の名前を使って下さい"
-
-#. It would be nice to insensitivize the OK button appropriately
-#. instead of doing this, but unfortunately we can't do this for the
-#. Bonobo control.
-#: shell/e-folder-misc-dialogs.c:460
-msgid "Please select a user."
-msgstr "ユーザーを選択して下さい"
-
-#: shell/e-folder-misc-dialogs.c:560
-msgid "Opening Folder"
-msgstr "フォルダを開いています"
-
-#: shell/e-folder-misc-dialogs.c:566
-#, c-format
-msgid "Opening Folder \"%s\""
-msgstr "フォルダ \"%s\" を開いています"
-
-#: shell/e-folder-misc-dialogs.c:571
-#, c-format
-msgid "in \"%s\" ..."
-msgstr "\"%s\" 内..."
-
-#: shell/e-folder-misc-dialogs.c:638
-#, c-format
-msgid "Could not open other user's folder: %s."
-msgstr "他のユーザーのフォルダを開けませんでした: %s"
-
-#: shell/e-folder-misc-dialogs.c:688
-msgid "Cannot find the specified other user's folder."
-msgstr "指定された他のユーザーのフォルダをみつけられません"
-
-#: shell/e-folder-misc-dialogs.c:720
-#, c-format
-msgid ""
-"Cannot unsubscribe from folder:\n"
-"%s"
-msgstr ""
-"フォルダの購読をやめられません:\n"
-"%s"
-
-#: shell/e-folder-misc-dialogs.c:773
-#, c-format
-msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "本当にフォルダ \"%s\" の購読をやめますか?"
-
-#: shell/e-folder-misc-dialogs.c:787
-#, c-format
-msgid "Unsubscribe from \"%s\""
-msgstr "\"%s\" の購読をやめる"
-
-#: shell/e-foreign-folder-dialog.glade.h:1
-msgid "Open Other User's Folder"
-msgstr "他のユーザーのフォルダを開く"
-
-#: shell/e-foreign-folder-dialog.glade.h:2
-msgid "_Account:"
-msgstr "アカウント(_A):"
-
-#: shell/e-foreign-folder-dialog.glade.h:3
-msgid "_Folder Name:"
-msgstr "フォルダ名(_F):"
-
-#: shell/e-foreign-folder-dialog.glade.h:4
-msgid "_User:"
-msgstr "ユーザー(_U):"
-
-#: shell/e-storage-set-view.etspec.h:1
-msgid "Checkbox"
-msgstr "チェックボックス"
-
-#: shell/e-storage-set-view.etspec.h:2
-msgid "Folder"
-msgstr "フォルダ"
-
-#: shell/e-storage.c:555
-msgid "No error"
-msgstr "エラーなし"
-
-#: shell/e-storage.c:559
-msgid "A folder with the same name already exists"
-msgstr "同じ名前のフォルダが既にあります"
-
-#: shell/e-storage.c:561
-msgid "The specified folder type is not valid"
-msgstr "指定されたフォルダタイプは不適切なものです"
-
-#: shell/e-storage.c:563
-msgid "I/O error"
-msgstr "I/O エラー"
-
-#: shell/e-storage.c:565
-msgid "Not enough space to create the folder"
-msgstr "フォルダを作成するのに十分なスペースがありません"
-
-#: shell/e-storage.c:567
-msgid "The folder is not empty"
-msgstr "フォルダは空ではありません"
-
-#: shell/e-storage.c:569
-msgid "The specified folder was not found"
-msgstr "指定されたフォルダがみつかりませんでした"
-
-#: shell/e-storage.c:571
-msgid "Function not implemented in this storage"
-msgstr "このストレージでは機能が実装されていません"
-
-#: shell/e-storage.c:575
-msgid "Operation not supported"
-msgstr "操作はサポートされていません"
-
-#: shell/e-storage.c:577
-msgid "The specified type is not supported in this storage"
-msgstr "指定されたタイプはこのストレージではサポートされていません"
-
-#: shell/e-storage.c:579
-msgid "The specified folder cannot be modified or removed"
-msgstr "指定されたフォルダは変更/削除できません"
-
-#: shell/e-storage.c:581
-msgid "Cannot make a folder a child of one of its descendants"
-msgstr "フォルダを自身の孫の子とすることはできません"
-
-#: shell/e-storage.c:583
-msgid "Cannot create a folder with that name"
-msgstr "その名前のフォルダは作成できません"
-
-#: shell/e-storage.c:585
-msgid "This operation cannot be performed in off-line mode"
-msgstr "この操作はオフラインモードでは実行できません"
-
-#: shell/e-storage.c:587 storage/exchange-account.c:1071
-msgid "Unknown error"
-msgstr "不明なエラー"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-msgid "*Control*F5"
-msgstr "*Control*F5"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
-msgid "Evolution Addressbook Exchange backend"
-msgstr "Evolution アドレス帳 Exchange バックエンド"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Evolution Calendar Exchange backend"
-msgstr "Evolution カレンダー Exchange バックエンド"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
-msgid "Evolution Exchange Component"
-msgstr "Evolution Exchange コンポーネント"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
-msgid "Exchange"
-msgstr "Exchange"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
-msgid "Ximian Connector for Exchange"
-msgstr "Ximian Connector for Exchange"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
-msgid "_Exchange"
-msgstr "Exchange(_E)"
-
-#. i18n: This is the title of an "other user's folders"
-#. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:516
-#, c-format
-msgid "%s's Folders"
-msgstr "%s のフォルダ"
-
-#: storage/exchange-account.c:797
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%sパスワード(ユーザー %s)を入力"
-
-#: storage/exchange-account.c:801
-msgid "Enter password"
-msgstr "パスワードを入力"
-
-#: storage/exchange-account.c:876
-msgid "Cannot change password due to configuration problems"
-msgstr "設定の問題のためパスワードを変更できません"
-
-#: storage/exchange-account.c:891
-msgid ""
-"Server rejected password because it is too weak.\n"
-"Try again with a different password."
-msgstr ""
-"サーバーはパスワードが弱すぎるため拒否しました\n"
-"別のパスワードを再度試してみて下さい"
-
-#: storage/exchange-account.c:896
-msgid "Could not change password"
-msgstr "パスワードを変更できませんでした"
-
-#: storage/exchange-account.c:982
-msgid ""
-"Could not authenticate to server. (Password incorrect?)\n"
-"\n"
-msgstr ""
-"サーバー認証できませんでした (パスワードが違う?)\n"
-"\n"
-
-#: storage/exchange-account.c:987
-msgid ""
-"Could not authenticate to server.\n"
-"\n"
-"This probably means that your server requires you\n"
-"to specify the Windows domain name as part of your\n"
-"username (eg, \"DOMAIN\\user\").\n"
-"\n"
-"Or you might have just typed your password wrong.\n"
-"\n"
-msgstr ""
-"サーバー認証できませんでした\n"
-"\n"
-"この問題はおそらくユーザー名の一部として Windows\n"
-"ドメイン名を指定(例: \"DOMAIN\\User\")しなければ\n"
-"ならないということを意味しています\n"
-"\n"
-"あるいは単に入力したパスワードが間違っているのかも\n"
-"しれません\n"
-"\n"
-
-#: storage/exchange-account.c:998
-msgid ""
-"Could not authenticate to server.\n"
-"\n"
-"You may need to use Plaintext Password authentication.\n"
-"\n"
-"Or you might have just typed your password wrong.\n"
-"\n"
-msgstr ""
-"サーバー認証できませんでした\n"
-"\n"
-"平文テキストパスワード認証を行わなければならないかも\n"
-"しれません\n"
-"\n"
-"あるいは単に入力したパスワードが間違っているのかも\n"
-"しれません\n"
-"\n"
-
-#: storage/exchange-account.c:1029
-#, c-format
-msgid "Mailbox for %s is not on this server."
-msgstr "%s のメールボックスはこのサーバー上にはありません"
-
-#: storage/exchange-account.c:1034
-#, c-format
-msgid ""
-"The server '%s' is running Exchange 5.5 and is\n"
-"therefore not compatible with Ximian Connector"
-msgstr ""
-"サーバー '%s' では Exchange 5.5 が動いていて\n"
-"Ximian Connector とは互換性がありません"
-
-#: storage/exchange-account.c:1041
-#, c-format
-msgid ""
-"Could not find Exchange Web Storage System at %s.\n"
-"If OWA is running on a different path, you must specify that in the\n"
-"account configuration dialog."
-msgstr ""
-"%s では Exchange Web ストレージシステムがみつかりませんでした\n"
-"OWA が別のパスで動いているなら、アカウント設定ダイアログで\n"
-"それを指定しなければなりません"
-
-#: storage/exchange-account.c:1049
-#, c-format
-msgid "No mailbox for user %s on %s.\n"
-msgstr "ユーザー %s のメールボックスは  %s 上にはありません\n"
-
-#: storage/exchange-account.c:1055 storage/exchange-account.c:1061
-#: storage/exchange-account.c:1069
-#, c-format
-msgid "Could not connect to server %s: %s"
-msgstr "サーバー %s に接続できませんでした: %s"
-
-#: storage/exchange-account.c:1057
-msgid "Could not resolve hostname"
-msgstr "ホスト名を解決できませんでした"
-
-#: storage/exchange-account.c:1063
-msgid "Network error"
-msgstr "ネットワークエラー"
-
-#: storage/exchange-account.c:1115
-msgid "Personal Folders"
-msgstr "個人フォルダ"
-
-#: storage/exchange-account.c:1130
-msgid "Favorite Public Folders"
-msgstr "お気に入りパブリックフォルダ"
-
-#. i18n: Outlookism
-#: storage/exchange-account.c:1147
-msgid "All Public Folders"
-msgstr "すべてのパブリックフォルダ"
-
-#. i18n: Outlookism
-#: storage/exchange-account.c:1161
-msgid "Global Address List"
-msgstr "グローバルアドレスリスト"
-
-#: storage/exchange-autoconfig-wizard.c:224
-#, c-format
-msgid ""
-"Could not connect to the Exchange server.\n"
-"Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
-msgstr ""
-"Exchange サーバーに接続できませんでした\n"
-"URL が正確かどうか確認して(\"%s\" を \"%s\" の代りに使って)再度試して下さい"
-
-#: storage/exchange-autoconfig-wizard.c:232
-msgid ""
-"Could not locate Exchange server.\n"
-"Make sure the server name is spelled correctly and try again."
-msgstr ""
-"Exchange サーバーをみつけられませんでした\n"
-"サーバー名の綴りが間違っていないかどうか確認して再度試して下さい"
-
-#: storage/exchange-autoconfig-wizard.c:241
-msgid ""
-"Could not authenticate to the Exchange server.\n"
-"Make sure the username and password are correct and try again."
-msgstr ""
-"Exchange サーバーと認証できませんでした\n"
-"ユーザー名とパスワードが正しいかどうか確認して再度試して下さい"
-
-#: storage/exchange-autoconfig-wizard.c:248
-#, c-format
-msgid ""
-"Could not authenticate to the Exchange server.\n"
-"Make sure the username and password are correct and try again.\n"
-"\n"
-"You may need to specify the Windows domain name as part of your username "
-"(eg, \"MY-DOMAIN\\%s\")."
-msgstr ""
-"Exchange サーバーと認証できませんでした\n"
-"ユーザー名とパスワードが正しいかどうか確認して再度試して下さい\n"
-"ユーザー名の一部に Windows ドメイン名を指定(例: \"MY-DOMAIN\\%s\")する必要が"
-"あるかもしれません"
-
-#: storage/exchange-autoconfig-wizard.c:260
-msgid ""
-"Could not find OWA data at the indicated URL.\n"
-"Make sure the URL is correct and try again."
-msgstr ""
-"指示 URL の OWA データをみつけられませんでした\n"
-"URL が正しいかどうか確認して再度試して下さい"
-
-#: storage/exchange-autoconfig-wizard.c:267
-msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
-"\n"
-"For information to provide to your Exchange administrator, please follow the "
-"link below:"
-msgstr ""
-"Ximian Connector は(通常意図せずに)無効またはブロックされているらしき "
-"Exchange サーバーの特定の機能を必要としています。Ximian Connector を使うには "
-"Exchange 管理者にこの機能を有効にしてもらわなければなりません\n"
-"\n"
-"Exchange 管理者に提供する情報を得るために下のリンクをたどって下さい:"
-
-#: storage/exchange-autoconfig-wizard.c:288
-msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"あなたの指定した Exchange サーバー URL は Exchange 5.5 サーバーのものです。"
-"Ximian Connector がサポートするのは Microsoft Exchange 2000 および 2003 だけ"
-"です"
-
-#: storage/exchange-autoconfig-wizard.c:301
-msgid ""
-"Could not configure Exchange account because an unknown error occurred. "
-"Check the URL, username, and password, and try again."
-msgstr ""
-"不明なエラーが起ったために Exchange アカウントを設定できませんでした。URL、"
-"ユーザー名、パスワードを確かめて再度試して下さい"
-
-#: storage/exchange-autoconfig-wizard.c:345
-#, c-format
-msgid ""
-"Could not authenticate to the Global Catalog server. You may need to go back "
-"and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
-"\\%s\")."
-msgstr ""
-"グローバルカタログサーバーと認証できませんでした。戻って Windows ドメイン名を"
-"名前の一部として指定(例: \"MY-DOMAIN\\%s\")する必要があるでしょう"
-
-#: storage/exchange-autoconfig-wizard.c:352
-msgid ""
-"Could not connect to specified server.\n"
-"Please check the server name and try again."
-msgstr ""
-"指定したサーバーに接続できませんでした\n"
-"サーバー名を確認して再度試して下さい"
-
-#: storage/exchange-autoconfig-wizard.c:389
-#: storage/exchange-autoconfig-wizard.c:393
-msgid "Unknown"
-msgstr "不明"
-
-#: storage/exchange-autoconfig-wizard.c:477
-msgid ""
-"Configuration system error.\n"
-"Unable to create new account."
-msgstr ""
-"システム設定エラー\n"
-"新しいアカウントを作成できません"
-
-#: storage/exchange-autoconfig-wizard.c:491
-#: storage/exchange-config-listener.c:492
-msgid "You may only configure a single Exchange account"
-msgstr "設定できるのは一つの Exchange アカウントだけです"
-
-#: storage/exchange-autoconfig-wizard.glade.h:2
-msgid "Configuration Failed"
-msgstr "設定失敗"
-
-#: storage/exchange-autoconfig-wizard.glade.h:3
-msgid "Done"
-msgstr "完了"
-
-#: storage/exchange-autoconfig-wizard.glade.h:4
-msgid "Email Address:"
-msgstr "メールアドレス:"
-
-#: storage/exchange-autoconfig-wizard.glade.h:5
-msgid "Exchange Configuration"
-msgstr "Exchange 設定"
-
-#: storage/exchange-autoconfig-wizard.glade.h:6
-msgid "Full Name:"
-msgstr "名前:"
-
-#: storage/exchange-autoconfig-wizard.glade.h:7
-msgid "GC Server:"
-msgstr "GC サーバー:"
-
-#: storage/exchange-autoconfig-wizard.glade.h:8
-msgid "Make this my default account"
-msgstr "デフォルトアカウントにする"
-
-#: storage/exchange-autoconfig-wizard.glade.h:9
-msgid "OWA URL:"
-msgstr "OWA URL:"
-
-#: storage/exchange-autoconfig-wizard.glade.h:10
-msgid "Password:"
-msgstr "パスワード:"
-
-#: storage/exchange-autoconfig-wizard.glade.h:11
-msgid "Remember this password"
-msgstr "パスワードを記憶"
-
-#: storage/exchange-autoconfig-wizard.glade.h:12
-msgid "Username:"
-msgstr "ユーザー名:"
-
-#: storage/exchange-autoconfig-wizard.glade.h:13
-msgid "Welcome"
-msgstr "ようこそ"
-
-#: storage/exchange-autoconfig-wizard.glade.h:14
-msgid ""
-"Welcome to Ximian Connector for Microsoft Exchange.\n"
-"The next few screens will help you configure Evolution\n"
-"to connect to your Exchange account.\n"
-"\n"
-"Please click the \"Forward\" button to continue."
-msgstr ""
-"Ximian Connector for Microsoft Exchange へようこそ\n"
-"次の二三の画面があなたが Evolution で Exchange アカウントに\n"
-"接続できるように手助けします。\n"
-"\n"
-"続けるには \"次へ\"ボタンをクリックして下さい"
-
-#: storage/exchange-autoconfig-wizard.glade.h:19
-msgid "Ximian Connector Configuration"
-msgstr "Ximian Configuration 設定"
-
-#: storage/exchange-autoconfig-wizard.glade.h:20
-msgid ""
-"Ximian Connector can use account information from your existing Outlook Web "
-"Access (OWA) account.\n"
-"\n"
-"Enter your OWA site address (URL), username, and password, then click "
-"\"Forward\".\n"
-msgstr ""
-"Ximian Connector は既存の Outlook Web Access (OWA) アカウントのアカウント情報"
-"を使うことができます\n"
-"\n"
-"OWA サイトアドレス(URL)、ユーザー名、パスワードを入力して\"次へ\"をクリックし"
-"て下さい\n"
-
-#: storage/exchange-autoconfig-wizard.glade.h:24
-msgid ""
-"Ximian Connector could not find the Global Catalog replica for your site. "
-"Please enter the name of your Global Catalog server. You may need to ask "
-"your system administrator for the correct value.\n"
-msgstr ""
-"Ximian Connector はあなたのサイトのグローバルカタログレプリカをみつけられませ"
-"んでした。グローバルカタログサーバー名を入力して下さい。適切な値を入力するに"
-"はシステム管理者に尋ねる必要があるかもしれません\n"
-
-#: storage/exchange-autoconfig-wizard.glade.h:26
-msgid ""
-"Ximian Connector has encountered a problem configuring your Exchange "
-"account.\n"
-msgstr "Ximian Connector は Exchange アカウント設定中に問題に遭遇しました\n"
-
-#: storage/exchange-autoconfig-wizard.glade.h:28
-msgid ""
-"Your Connector account is now ready to use. Click the \"Apply\" button to "
-"save your\n"
-"settings."
-msgstr ""
-"Connector アカウント準備完了です。\"適用\"ボタンをクリックして\n"
-"設定を保存しましょう"
-
-#: storage/exchange-autoconfig-wizard.glade.h:30
-msgid ""
-"Your account information is as follows. Please correct any errors, then "
-"click \"Forward\".\n"
-msgstr ""
-"アカウント情報は次のとおりです。間違いがあれば修正し、\"次へ\"をクリックして"
-"下さい\n"
-
-#. User entered a wrong existing
-#. * password. Prompt him again.
-#.
-#: storage/exchange-change-password.c:114
-msgid ""
-"The current password does not match the existing password for your account. "
-"Please enter the correct password"
-msgstr ""
-"現在のパスワードはアカウントの既存のパスワードと一致していません。適切なパス"
-"ワードを入力して下さい"
-
-#: storage/exchange-change-password.c:121
-msgid "The two passwords do not match. Please re-enter the passwords."
-msgstr "二つのパスワードが一致しません。再度パスワードを入力し直して下さい"
-
-#: storage/exchange-change-password.glade.h:2
-msgid "Change Password"
-msgstr "パスワードの変更"
-
-#: storage/exchange-change-password.glade.h:3
-msgid "Confirm Password:"
-msgstr "パスワードの確認"
-
-#: storage/exchange-change-password.glade.h:4
-msgid "Current Password:"
-msgstr "現在のパスワード"
-
-#: storage/exchange-change-password.glade.h:5
-msgid "New Password:"
-msgstr "新しいパスワード:"
-
-#: storage/exchange-change-password.glade.h:6
-msgid "Your current password has expired. Please change your password now."
-msgstr "現在のパスワードは期限切れです。すぐにパスワードを変更して下さい"
-
-#: storage/exchange-component.c:308
-msgid "Mail"
-msgstr "メール"
-
-#: storage/exchange-component.c:311 storage/exchange-hierarchy-foreign.c:250
-msgid "Contacts"
-msgstr "コンタクト"
-
-#: storage/exchange-component.c:315 storage/exchange-hierarchy-foreign.c:258
-msgid "Tasks"
-msgstr "タスク"
-
-#: storage/exchange-component.c:318 storage/exchange-hierarchy-foreign.c:249
-msgid "Calendar"
-msgstr "カレンダー"
-
-#: storage/exchange-config-listener.c:607
-msgid ""
-"Changes to Exchange account configuration will take\n"
-"place after you quit and restart Evolution."
-msgstr ""
-"Exchange アカウント設定の変更は Evolution \n"
-"再起動後に反映されます"
-
-#: storage/exchange-config-listener.c:653
-msgid "The Exchange account will be removed when you quit Evolution"
-msgstr "Exchange アカウントは Evolution 終了時に削除されます"
-
-#: storage/exchange-delegates-user.c:191
-#: storage/exchange-permissions-dialog.c:179
-#, c-format
-msgid "Permissions for %s"
-msgstr "%s の許可属性"
-
-#: storage/exchange-delegates.c:221
-msgid ""
-"No Global Catalog server configured for this account.\n"
-"Unable to edit delegates."
-msgstr ""
-"このアカウントについてグローバルカタログサーバーが設定\n"
-"されていません。委譲を編集できません"
-
-#: storage/exchange-delegates.c:260
-msgid ""
-"Could not read folder permissions.\n"
-"Unable to edit delegates."
-msgstr ""
-"フォルダの許可属性を読み取れませんでした\n"
-"委譲を編集できません"
-
-#: storage/exchange-delegates.c:267
-msgid ""
-"Could not determine folder permissions for delegates.\n"
-"Unable to edit delegates."
-msgstr ""
-"委譲のためのフォルダの許可属性を決定できませんでした\n"
-"委譲を編集できません"
-
-#: storage/exchange-delegates.c:419
-msgid "Delegate To:"
-msgstr "次へ委譲:"
-
-#: storage/exchange-delegates.c:419
-msgid "Delegate To"
-msgstr "次へ委譲:"
-
-#: storage/exchange-delegates.c:435
-#, c-format
-msgid "Could not make %s a delegate"
-msgstr "%s を委譲先にできませんでした"
-
-#: storage/exchange-delegates.c:445
-msgid "You cannot make yourself your own delegate"
-msgstr "自身を委譲先にすることはできません"
-
-#: storage/exchange-delegates.c:454
-#, c-format
-msgid "%s is already a delegate"
-msgstr "%s は既に委譲先となっています"
-
-#: storage/exchange-delegates.c:563
-#, c-format
-msgid "Remove the delegate %s?"
-msgstr "委譲先 %s を削除しますか?"
-
-#: storage/exchange-delegates.c:680
-msgid "Could not access Active Directory"
-msgstr "Active Directory にアクセスできませんでした"
-
-#: storage/exchange-delegates.c:695
-msgid "Could not find self in Active Directory"
-msgstr "Active Directory 内で自分をみつけられませんでした"
-
-#: storage/exchange-delegates.c:708
-#, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "委譲先 %s を Active Directory 内でみつけられませんでした"
-
-#: storage/exchange-delegates.c:720
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "委譲先 %s を削除できませんでした"
-
-#: storage/exchange-delegates.c:780
-msgid "Could not update list of delegates."
-msgstr "委譲リストを更新できませんでした"
-
-#: storage/exchange-delegates.c:798
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "委譲先 %s を追加できませんでした"
-
-#: storage/exchange-delegates.c:814
-#, c-format
-msgid ""
-"Failed to update delegates:\n"
-"%s"
-msgstr ""
-"委譲先の更新に失敗:\n"
-"%s"
-
-#: storage/exchange-delegates.c:938 storage/exchange-permissions-dialog.c:706
-msgid "Name"
-msgstr "名前"
-
-#: storage/exchange-delegates.c:967
-msgid "Error reading delegates list."
-msgstr "委譲リスト読み込み中にエラー"
-
-#: storage/exchange-delegates.glade.h:1
-msgid "Author (read, create)"
-msgstr "作者 (読み、作成)"
-
-#: storage/exchange-delegates.glade.h:2
-msgid "C_alendar:"
-msgstr "カレンダー:"
-
-#: storage/exchange-delegates.glade.h:3
-msgid "Co_ntacts:"
-msgstr "コンタクト(_N):"
-
-#: storage/exchange-delegates.glade.h:4
-msgid "Delegate Permissions"
-msgstr "委譲先の権限"
-
-#: storage/exchange-delegates.glade.h:5
-msgid "Delegates"
-msgstr "委譲"
-
-#: storage/exchange-delegates.glade.h:6
-msgid "Editor (read, create, edit)"
-msgstr "編集者 (読み、作成、編集)"
-
-#: storage/exchange-delegates.glade.h:8
-msgid "Permissions for"
-msgstr "権限"
-
-#: storage/exchange-delegates.glade.h:9
-msgid "Reviewer (read-only)"
-msgstr "レビューア (読み込みのみ)"
-
-#: storage/exchange-delegates.glade.h:10
-msgid ""
-"These users will be able to send mail on your behalf\n"
-"and access your folders with the permissions you give them."
-msgstr ""
-"これらのユーザーはあなたに代ってメールを送信したり、\n"
-"あなたのフォルダにあなたの指定した権限内でアクセスできます"
-
-#: storage/exchange-delegates.glade.h:12
-msgid "_Delegate can see private items"
-msgstr "委譲先はプライベートアイテムを見ることができます(_D)"
-
-#: storage/exchange-delegates.glade.h:13
-msgid "_Edit"
-msgstr "編集(_E)"
-
-#: storage/exchange-delegates.glade.h:14
-msgid "_Inbox:"
-msgstr "Inbox(_I):"
-
-#: storage/exchange-delegates.glade.h:15
-msgid "_Tasks:"
-msgstr "タスク(_T):"
-
-#: storage/exchange-hierarchy-foreign.c:251
-msgid "Deleted Items"
-msgstr "削除アイテム"
-
-#: storage/exchange-hierarchy-foreign.c:252
-msgid "Drafts"
-msgstr "原稿"
-
-#: storage/exchange-hierarchy-foreign.c:253
-msgid "Inbox"
-msgstr "Inbox"
-
-#: storage/exchange-hierarchy-foreign.c:254
-msgid "Journal"
-msgstr "雑誌"
-
-#: storage/exchange-hierarchy-foreign.c:255
-msgid "Notes"
-msgstr "ノート"
-
-#: storage/exchange-hierarchy-foreign.c:256
-msgid "Outbox"
-msgstr "Outbox"
-
-#: storage/exchange-hierarchy-foreign.c:257
-msgid "Sent Items"
-msgstr "アイテムを送信"
-
-#: storage/exchange-migrate.c:57
-msgid "Migrating Exchange Folders..."
-msgstr "Exchange フォルダを統合中..."
-
-#: storage/exchange-migrate.c:65
-#, c-format
-msgid ""
-"The location and hierarchy of the Evolution exchange account folders are "
-"changed since Evolution %d.%d.%d.\n"
-"\n"
-"Please be patient while Evolution migrates your folders..."
-msgstr ""
-"Evolution Exchange アカウントフォルダの位置と階層構造が Evolution %d.%d.%d か"
-"ら変更されました\n"
-"\n"
-"Evolution がフォルダを統合する間しばらく御待ち下さい..."
-
-#: storage/exchange-migrate.c:98
-#, c-format
-msgid ""
-"Warning: Evolution Could not migrate all the Exchange account data from the "
-"version %d.%d.%d. \n"
-"The data hasn't been deleted, but will not be seen by this version of "
-"Evolution"
-msgstr ""
-"警告: Evolution は version %d.%d.%d からすべての Exchange アカウントデータを"
-"統合することができませんでした\n"
-"データは削除されませんが、このバージョンの Evolution からは見ることができませ"
-"ん"
-
-#: storage/exchange-migrate.c:129
-#, c-format
-msgid "Migrating `%s':"
-msgstr "'%s' を統合中:"
-
-#: storage/exchange-oof.c:91 storage/exchange-oof.c:290
-msgid "Could not update out-of-office state"
-msgstr "ステータス '職場を離れています' を更新できませんでした"
-
-#: storage/exchange-oof.c:308
-msgid "Could not read out-of-office state"
-msgstr "ステータス '職場を離れています' を読み込めませんでした"
-
-#: storage/exchange-oof.glade.h:1
-msgid ""
-"<b>Currently, your status is \"Out of the Office\". </b>\n"
-"\n"
-"Would you like to change your status to \"In the Office\"? "
-msgstr ""
-"<b>現在あなたの状態は\"職場を離れています\"となっています</b>\n"
-"\n"
-"\"在席\"に変更しますか?"
-
-#: storage/exchange-oof.glade.h:4
-msgid "<b>Out of Office Message:</b>"
-msgstr "<b>離席メッセージ:</b>"
-
-#: storage/exchange-oof.glade.h:5
-msgid "<b>Status:</b>"
-msgstr "<b>状態:</b>"
-
-#: storage/exchange-oof.glade.h:6
-msgid ""
-"<small>The message specified below will be automatically sent to each person "
-"who sends\n"
-"mail to you while you are out of the office.</small>"
-msgstr ""
-"<small>下で指定されるメッセージがあなたが職場にいない間あなたにメールを\n"
-"送信した人各々に自動的に送信されます</small>"
-
-#: storage/exchange-oof.glade.h:8
-msgid "I am currently in the office"
-msgstr "在席中です"
-
-#: storage/exchange-oof.glade.h:9
-msgid "I am currently out of the office"
-msgstr "職場を離れています"
-
-#: storage/exchange-oof.glade.h:10
-msgid "No, Don't Change Status"
-msgstr "いいえ。状態を変更しません"
-
-#: storage/exchange-oof.glade.h:11
-msgid "Out of Office Assistant"
-msgstr "離席アシスタント"
-
-#: storage/exchange-oof.glade.h:12
-msgid "Yes, Change Status"
-msgstr "はい、状態を変更します"
-
-#: storage/exchange-permissions-dialog.c:222
-msgid "Could not read folder permissions"
-msgstr "フォルダの許可属性を読み取れませんでした"
-
-#: storage/exchange-permissions-dialog.c:264
-msgid "Could not update folder permissions."
-msgstr "フォルダの許可属性を更新できませんでした"
-
-#: storage/exchange-permissions-dialog.c:293
-#, c-format
-msgid "Could not update folder permissions. %s"
-msgstr "フォルダの許可属性を更新できませんでした %s"
-
-#: storage/exchange-permissions-dialog.c:295
-msgid "(Permission denied.)"
-msgstr "(権限がありません)"
-
-#: storage/exchange-permissions-dialog.c:396
-msgid ""
-"Unable to add user to access control list:\n"
-"No Global Catalog server is configured for this account."
-msgstr ""
-"ユーザーをアクセス制御リストに追加できません:\n"
-"このアカウントについてグローバルカタログサーバーが設定されていません"
-
-#: storage/exchange-permissions-dialog.c:402
-msgid "Add User:"
-msgstr "ユーザーを追加:"
-
-#: storage/exchange-permissions-dialog.c:402
-msgid "Add User"
-msgstr "ユーザーを追加"
-
-#: storage/exchange-permissions-dialog.c:421
-#, c-format
-msgid "No such user %s"
-msgstr "%s というユーザーはいません"
-
-#: storage/exchange-permissions-dialog.c:425
-#, c-format
-msgid "%s cannot be added to an access control list"
-msgstr "%s をアクセス制御リストに追加できませんでした"
-
-#: storage/exchange-permissions-dialog.c:430
-#, c-format
-msgid "Unknown error looking up %s"
-msgstr "%s 検索中に不明なエラー"
-
-#: storage/exchange-permissions-dialog.c:447
-#, c-format
-msgid "%s is already in the list"
-msgstr "%s は既にリストに含まれています"
-
-#: storage/exchange-permissions-dialog.c:710
-msgid "Role"
-msgstr "役割"
-
-#: storage/exchange-permissions-dialog.glade.h:1
+#: capplet/vino-preferences.c:809
+msgid "Send this command by email"
+msgstr "このコマンドを電子メールで送信"
+
+#: capplet/vino-preferences.desktop.in.h:1
+msgid "Remote Desktop"
+msgstr "リモートデスクトップ"
+
+#: capplet/vino-preferences.desktop.in.h:2
+msgid "Set your remote desktop access preferences"
+msgstr "リモートデスクトップアクセスを設定します"
+
+#: capplet/vino-preferences.glade.h:1
 msgid "    "
 msgstr "    "
 
-#: storage/exchange-permissions-dialog.glade.h:2
-msgid "<b>Permissions</b>"
-msgstr "<b>許可属性</b>"
+#: capplet/vino-preferences.glade.h:2
+msgid "        "
+msgstr "        "
 
-#: storage/exchange-permissions-dialog.glade.h:3
-msgid "Cannot Delete"
-msgstr "削除不可"
+#: capplet/vino-preferences.glade.h:3
+msgid "*"
+msgstr "*"
 
-#: storage/exchange-permissions-dialog.glade.h:4
-msgid "Cannot Edit"
-msgstr "編集不可"
+#: capplet/vino-preferences.glade.h:4
+msgid "<b>Security</b>"
+msgstr "<b>セキュリティ</b>"
 
-#: storage/exchange-permissions-dialog.glade.h:5
-msgid "Create items"
-msgstr "アイテム作成"
+#: capplet/vino-preferences.glade.h:5
+msgid "<b>Sharing</b>"
+msgstr "<b>共有</b>"
 
-#: storage/exchange-permissions-dialog.glade.h:6
-msgid "Create subfolders"
-msgstr "サブフォルダ作成"
+#: capplet/vino-preferences.glade.h:6
+msgid "A_sk you for confirmation"
+msgstr "承認が必要(_S)"
 
-#: storage/exchange-permissions-dialog.glade.h:7
-msgid "Delete Any Items"
-msgstr "任意のアイテムを削除"
+#: capplet/vino-preferences.glade.h:7
+msgid "Allow other users to _view your desktop"
+msgstr "他のユーザーがデスクトップを見れるようにする"
 
-#: storage/exchange-permissions-dialog.glade.h:8
-msgid "Delete Own Items"
-msgstr "自分のアイテムを削除"
+#: capplet/vino-preferences.glade.h:8
+msgid "Remote Desktop Preferences"
+msgstr "リモートデスクトップ設定"
 
-#: storage/exchange-permissions-dialog.glade.h:9
-msgid "Edit Any Items"
-msgstr "任意のアイテムを編集"
+#: capplet/vino-preferences.glade.h:9
+msgid "Some of these preferences are locked down"
+msgstr "設定のいくつかは変更不可となっています"
 
-#: storage/exchange-permissions-dialog.glade.h:10
-msgid "Edit Own Items"
-msgstr "自分のアイテムを編集"
+#: capplet/vino-preferences.glade.h:10
+msgid "Users can view your desktop using this command:"
+msgstr "このコマンドでユーザーはあなたのデスクトップを見ることができます:"
 
-#: storage/exchange-permissions-dialog.glade.h:11
-msgid "Folder contact"
-msgstr "フォルダコンタクト"
+#: capplet/vino-preferences.glade.h:11
+msgid "When a user tries to view or control your desktop:"
+msgstr "ユーザーがデスクトップを見る/コントロールしようとするとき:"
 
-#: storage/exchange-permissions-dialog.glade.h:12
-msgid "Folder owner"
-msgstr "フォルダ所有"
+#: capplet/vino-preferences.glade.h:12
+msgid "_Allow other users to control your desktop"
+msgstr "他のユーザーがデスクトップをコントロールできるように(_A)"
 
-#: storage/exchange-permissions-dialog.glade.h:13
-msgid "Folder visible"
-msgstr "フォルダ可視"
+#: capplet/vino-preferences.glade.h:13
+msgid "_Password:"
+msgstr "パスワード(_P):"
 
-#: storage/exchange-permissions-dialog.glade.h:14
-msgid "Read items"
-msgstr "アイテム読み込み"
+#: capplet/vino-preferences.glade.h:14
+msgid "_Require the user to enter this password:"
+msgstr "必ずパスワードを入力:"
 
-#: storage/exchange-permissions-dialog.glade.h:15
-msgid "Role: "
-msgstr "役割: "
+#: capplet/vino-url.c:158
+msgid "Address"
+msgstr "アドレス"
 
-#: storage/exchange-storage.c:336
-msgid "Connecting..."
-msgstr "接続中..."
+#: capplet/vino-url.c:159
+msgid "The address pointed to by the widget"
+msgstr "ウィジェットが示すアドレス"
 
-#: storage/main.c:156
-msgid "Ximian Connector for Microsoft Exchange"
-msgstr "Ximian Connector for Microsoft Exchange"
+#: capplet/vino-url.c:166
+msgid "Tooltip"
+msgstr "ツールチップ"
 
-#: storage/xc-backend-view.c:299
-msgid "Account Name"
-msgstr "アカウント名"
+#: capplet/vino-url.c:167
+msgid "A tooltip for this URL"
+msgstr "この URL のツールチップ"
 
-#: storage/xc-commands.c:299
-msgid "Folder does not exist"
-msgstr "フォルダはありません"
+#: capplet/vino-url.c:173
+msgid "URL color"
+msgstr "URL 色"
 
-#: storage/xc-commands.c:322
-#, c-format
-msgid "Could not add favorite: %s"
-msgstr "お気に入りに追加できませんでした: %s"
+#: capplet/vino-url.c:174
+msgid "The color of the URL's label"
+msgstr "URL ラベルの色"
 
-#: storage/xc-commands.c:336
-#, c-format
-msgid "Could not remove favorite: %s"
-msgstr "お気に入りを削除できませんでした: %s"
+#: server/vino-fb.c:888 server/vino-prompt.c:144 server/vino-server.c:840
+msgid "Screen"
+msgstr "スクリーン"
 
-#: storage/xc-commands.c:353
-msgid "_Move Folder..."
-msgstr "フォルダを移動(_M)..."
+#: server/vino-fb.c:889
+msgid "The screen to be monitored"
+msgstr "モニターされるスクリーン"
 
-#: storage/xc-commands.c:356
-msgid "_Copy Folder..."
-msgstr "フォルダをコピー(_C)..."
-
-#: storage/xc-commands.c:359
-msgid "_Rename Folder..."
-msgstr "フォルダを削除(_R)..."
-
-#: storage/xc-commands.c:365
-msgid "_New Folder..."
-msgstr "新しいフォルダ(_N)..."
-
-#: storage/xc-commands.c:368
-msgid "_Delete Folder"
-msgstr "フォルダを削除(_D)..."
-
-#: storage/xc-commands.c:373
-msgid "_Add Other User's Folder..."
-msgstr "他のユーザーのフォルダを追加(_A)..."
-
-#: storage/xc-commands.c:376
-msgid "_Remove Other User's Folder"
-msgstr "他のユーザーのフォルダを削除(_A)..."
-
-#: storage/xc-commands.c:382
-msgid "Add to _Favorites"
-msgstr "お気に入りに追加(_F)"
-
-#: storage/xc-commands.c:386
-msgid "Remove from Fa_vorites"
-msgstr "お気に入りから削除(_V)"
-
-#: storage/xc-commands.c:393
-msgid "_Permissions..."
-msgstr "許可属性(_P)..."
-
-#: storage/ximian-connector-setup.c:43
-msgid "Ximian Connector for Microsoft Exchange Setup Tool"
-msgstr "Ximian Connector for Microsoft Exchange 設定ツール"
-
-#: storage/ximian-connector.xml.h:1
-msgid "Change your Exchange server password"
-msgstr "Exchange サーバーパスワードを変更"
-
-#: storage/ximian-connector.xml.h:2
-msgid "Subscribe to _Other User's Folder..."
-msgstr "他のユーザーのフォルダを購読(_O)..."
-
-#: storage/ximian-connector.xml.h:3
-msgid "Subscribe to a folder belonging to some other user on the server"
-msgstr "サーバー上の他のユーザーに属するフォルダを購読"
-
-#: storage/ximian-connector.xml.h:4
+#: server/vino-main.c:78
 msgid ""
-"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
-msgstr "\"他のユーザーのフォルダを購読\"で追加したフォルダの購読をやめる"
+"Your XServer does not support the XTest extension - remote desktop access "
+"will be view-only\n"
+msgstr ""
+"あなたの XServer は XTest 拡張をサポートしていません - リモートデスクトップア"
+"クセスは見るだけになります\n"
 
-#: storage/ximian-connector.xml.h:5
-msgid "View or change your Exchange calendar delegation settings"
-msgstr "Exchange カレンダ委譲設定を見る/閲覧"
+#: server/vino-prompt.c:145
+msgid "The screen on which to display the prompt"
+msgstr "プロンプトを表示するスクリーン"
 
-#: storage/ximian-connector.xml.h:6
-msgid "View or change your Out-of-Office status and autoreply message"
-msgstr "ステータス '職場を離れています' と自動返信メッセージを見る/変更"
+#: server/vino-prompt.c:385
+#, c-format
+msgid ""
+"A user on the computer '%s' is trying to remotely view or control your "
+"desktop."
+msgstr ""
+"コンピュータ '%s' のユーザーがあなたのデスクトップをリモートから見る/コント"
+"ロールしようとしています"
 
-#: storage/ximian-connector.xml.h:7
-msgid "_Change Exchange Password..."
-msgstr "Exchange パスワードを変更(_C)..."
+#: server/vino-prompt.glade.h:1
+msgid "<big><b>Another user is trying to view your desktop.</b></big>"
+msgstr "<big><b>他のユーザーがあなたのデスクトップを見ようとしています</b></big>"
 
-#: storage/ximian-connector.xml.h:8
-msgid "_Delegation Assistant"
-msgstr "委譲アシスタント(_D)"
+#: server/vino-prompt.glade.h:2
+msgid ""
+"A user on another computer is trying to remotely view or control your "
+"desktop."
+msgstr ""
+"他のコンピュータのユーザーがあなたのデスクトップをリモートから見る/コント"
+"ロールしようとしています"
 
-#: storage/ximian-connector.xml.h:9
-msgid "_Out of Office Assistant"
-msgstr "'職場を離れています' アシスタント(_O)"
+#: server/vino-prompt.glade.h:3
+msgid "Do you want to allow them to do so?"
+msgstr "許可しますか?"
 
-#: storage/ximian-connector.xml.h:10
-msgid "_Unsubscribe from Other User's Folder"
-msgstr "他のユーザーのフォルダの購読をやめる(_U)"
+#: server/vino-prompt.glade.h:4
+msgid "Question"
+msgstr "質問"
+
+#: server/vino-prompt.glade.h:5 server/vino-util.c:64
+msgid "_Allow"
+msgstr "許可(_A)"
+
+#: server/vino-prompt.glade.h:6 server/vino-util.c:65
+msgid "_Refuse"
+msgstr "拒否(_R)"
+
+#: server/vino-server.c:841
+msgid "The screen for which to create a VNC server"
+msgstr "VNC サーバーを起動するスクリーン"
+
+#: server/vino-server.c:848
+msgid "On Hold"
+msgstr "ホールド"
+
+#: server/vino-server.c:849
+msgid "Place all clients on hold"
+msgstr "すべてのクライアントをホールド"
+
+#: server/vino-server.c:856
+msgid "Prompt enabled"
+msgstr "プロンプト有効"
+
+#: server/vino-server.c:857
+msgid "Prompt the user about connection attempts"
+msgstr "接続しようとするとプロンプトを表示"
+
+#: server/vino-server.c:864
+msgid "View Only"
+msgstr "見るだけ"
+
+#: server/vino-server.c:865
+msgid "Disallow keyboard/pointer input from clients"
+msgstr "クライアントのキーボード/マウス入力を無効にする"
+
+#: server/vino-server.c:872
+msgid "Require Encryption"
+msgstr "暗号"
+
+#: server/vino-server.c:873
+msgid "Require clients to use encryption"
+msgstr "クライアントの暗号使用を必須にする"
+
+#: server/vino-server.c:880
+msgid "Authentication methods"
+msgstr "認証方法"
+
+#: server/vino-server.c:881
+msgid "The authentication methods this server should allow"
+msgstr "サーバーが許可する認証方法"
+
+#: server/vino-server.c:889
+msgid "VNC Password"
+msgstr "VNC パスワード"
+
+#: server/vino-server.c:890
+msgid ""
+"The password (base64 encoded) used to authenticate types using the VncAuth "
+"method"
+msgstr "VncAuth を使って認証する際のパスワード (base64 エンコード)"
+
+#: server/vino-server.schemas.in.h:1
+msgid "Allowed authentication methods"
+msgstr "許可される認証方法"
+
+#: server/vino-server.schemas.in.h:2
+msgid "E-mail address to which the remote desktop URL should be sent"
+msgstr "リモートデスクトップ URL の送信先メールアドレス"
+
+#: server/vino-server.schemas.in.h:3
+msgid "Enable remote desktop access"
+msgstr "リモートデスクトップアクセスを有効にする"
+
+#: server/vino-server.schemas.in.h:4
+msgid ""
+"If true, allows remote access to the desktop via the RFB protocol. Users on "
+"remote machines may then connect to the desktop using a vncviewer."
+msgstr ""
+"真なら RFB プロトコルを介したリモートデスクトップアクセスを許可。リモートマシ"
+"ンのユーザーはそれから vncviewer でデスクトップに接続できます"
+
+#: server/vino-server.schemas.in.h:5
+msgid ""
+"If true, remote users accessing the desktop are not allowed access until the "
+"user on the host machine approves the connection. Recommended especially "
+"when access is not password protected."
+msgstr ""
+"真ならリモートユーザーはそのホストのユーザーが承認するまでデスクトップに接続"
+"できません。特にアクセスがパスワードで保護されていない場合に推奨します"
+
+#: server/vino-server.schemas.in.h:6
+msgid ""
+"If true, remote users accessing the desktop are only allowed to view the "
+"desktop. Remote user's will not be able to use the mouse or keyboard."
+msgstr ""
+"真ならリモートユーザーはデスクトップにアクセスして見ることしかできません。リ"
+"モートユーザーはマウス/キーボードでデスクトップをコントロールすることはできま"
+"せん"
+
+#: server/vino-server.schemas.in.h:7
+msgid ""
+"If true, remote users accessing the desktop are required to be able support "
+"encyrption. It is highly recommended that you use a client which supports "
+"encryption unless the intervening network is trusted."
+msgstr ""
+"真ならリモートユーザーがデスクトップにアクセスするには暗号をサポートしていな"
+"ければなりません。得に介在するネットワークが信頼できるものでないなら暗号をサ"
+"ポートするクライアントを使うことを強く推奨します"
+
+#: server/vino-server.schemas.in.h:8
+msgid ""
+"Lists the authentication methods with which remote users may access the "
+"desktop. There are two possible authentication methods; \"vnc\" causes the "
+"remote user to be prompted for a password (the password is specified by the "
+"vnc_password key) before connecting and \"none\" which allows any remote "
+"user to connect."
+msgstr ""
+"リモートユーザーがデスクトップにアクセスする際の認証方法のリストvnc がリモー"
+"トユーザーにパスワード (vnc_password キーで指定)の入力を求めるか、none (認証"
+"なし; 任意のリモートユーザーが接続可能)の二つあります"
+
+#: server/vino-server.schemas.in.h:9
+msgid "Only allow remote users to view the desktop"
+msgstr "リモートユーザーはデスクトップを見られるだけ"
+
+#: server/vino-server.schemas.in.h:10
+msgid "Password required for \"vnc\" authentication"
+msgstr "\"vnc\" 認証時にパスワードが必須"
+
+#: server/vino-server.schemas.in.h:11
+msgid "Prompt the user before completing a connection"
+msgstr "接続完了前にユーザーにパスワード入力を求める"
+
+#: server/vino-server.schemas.in.h:12
+msgid "Require encryption"
+msgstr "暗号必須"
+
+#: server/vino-server.schemas.in.h:13
+msgid ""
+"The password which the remote user will be prompted for if the \"vnc\" "
+"authentication method is used. The password specified by the key is base64 "
+"encoded."
+msgstr ""
+"\"vnc\" 認証利用時にリモートユーザーに入力を求めるパスワードパスワードはキー"
+"で指定され base64 エンコードされる"
+
+#: server/vino-server.schemas.in.h:14
+msgid ""
+"This key specifies the e-mail address to which the remote desktop URL should "
+"be sent if the user clicks on the URL in the Remote Desktop preferences "
+"dialog."
+msgstr ""
+"このキーは、リモートデスクトップ設定ダイアログでユーザーがクリックすると送信"
+"されるリモートデスクトップ URL の送信先メールアドレスを指定します"
+
+#: server/vino-shell.c:76
+msgid "Remote Desktop server already running; exiting ...\n"
+msgstr "リモートデスクトップサーバーは既に起動しています: 終了します...\n"
+
+#: server/vino-shell.c:79
+msgid ""
+"Problem registering the remote desktop server with bonobo-activation; "
+"exiting ...\n"
+msgstr ""
+"bonobo-activation でリモートデスクトップサーバーを登録中に障害: "
+"終了します...\n"
+
+#: session/vino-session.c:133
+msgid "Remote desktop server died, restarting\n"
+msgstr "リモートデスクトップ終了しました. 再起動中\n"
+
+#: session/vino-session.c:154
+#, c-format
+msgid "Activation of %s failed: %s\n"
+msgstr "%s をアクティブにするのに失敗: %s\n"
+
+#: session/vino-session.c:160
+#, c-format
+msgid "Activation of %s failed: Unknown Error\n"
+msgstr "%s をアクティブにするのに失敗: 不明なエラー\n"
+
+#: session/vino-session.c:231
+msgid "Failed to activate remote desktop server: tried too many times\n"
+msgstr "リモートデスクトップサーバーをアクティブにするのに失敗: 何回もトライし過ぎです\n"
+
+#: session/vino-session.c:295
+msgid "Starting remote desktop server"
+msgstr "リモートデスクトップサーバー起動中"
+
+#: session/vino-session.c:300
+msgid "Not starting remote desktop server"
+msgstr "リモートデスクトップサーバーが起動していません"
+
+#~ msgid "_Ensure the user is using encryption"
+#~ msgstr "必ず暗号を使用(_E)"
