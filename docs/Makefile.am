@@ -7,7 +7,6 @@ EXTRA_DIST =			\
 	active-directory	\
 	autoconfig		\
 	debug			\
-	delegates		\
 	entryids		\
 	forms			\
 	http			\
@@ -18,7 +17,6 @@ EXTRA_DIST =			\
 	ntlm			\
 	openldap-ntlm.diff	\
 	rules			\
-	security		\
 	sending-mail		\
 	subscriptions		\
 	voting

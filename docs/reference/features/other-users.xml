@@ -72,7 +72,7 @@ folders as "private". (<application>Evolution</application> allows
 this in Calendar and Task folders, but not Contact or Mail folders.)
 Private items are not supposed to show up when other users view the
 folder, unless they have been given explicit permission to view
-private items in the <link linkend="delegates">Delegates</link>
+private items in the <link linkend="delegation">Delegates</link>
 dialog.
 </para>
 
@@ -95,7 +95,7 @@ url="http://bugzilla.ximian.com/show_bug.cgi?id=56066">Bug
 
 <para>
 The information about who can view private items is stored with the
-<link linkend="delegates">Delegates</link> data on the other user's
+<link linkend="delegation">delegates</link> data on the other user's
 mailbox. 
 <link linkend="ExchangeHierarchyForeign"><classname>ExchangeHierarchyForeign</classname></link>
 checks that data, and sets its
@@ -112,7 +112,21 @@ check the <structfield>hide_private_items</structfield> flag on the
 <link linkend="ExchangeHierarchy"><classname>ExchangeHierarchy</classname></link>
 of the folder they are working with, and set their
 <structfield>private_item_restriction</structfield> fields
-accordingly. That field is incorporated as part of the restriction in
+accordingly:
+</para>
+
+<informalexample><programlisting>
+	hier = e_folder_exchange_get_hierarchy (cbex->folder);
+	if (hier->hide_private_items) {
+		cbex->private_item_restriction =
+			e2k_restriction_prop_int (
+				E2K_PR_MAPI_SENSITIVITY, E2K_RELOP_NE, 2);
+	} else
+		cbex->private_item_restriction = NULL;
+</programlisting></informalexample>
+
+<para>
+That field is incorporated as part of the restriction in
 every <command>SEARCH</command> that they do, so that if
 <structfield>hide_private_items</structfield> was set, the private
 items will be excluded from the <command>SEARCH</command> results.
