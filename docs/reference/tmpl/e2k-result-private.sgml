@@ -1,0 +1,105 @@
+<!-- ##### SECTION Title ##### -->
+E2kResult (private)
+
+<!-- ##### SECTION Short_Description ##### -->
+private #E2kResult methods
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+These are the #E2kOperation methods used internally by #E2kContext.
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+#E2kResult, #E2kContext
+</para>
+
+<!-- ##### FUNCTION e2k_results_array_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_results_array_add_from_multistatus ##### -->
+<para>
+
+</para>
+
+@results_array: 
+@msg: 
+
+
+<!-- ##### FUNCTION e2k_results_array_free ##### -->
+<para>
+
+</para>
+
+@results_array: 
+@free_results: 
+
+
+<!-- ##### FUNCTION e2k_results_from_multistatus ##### -->
+<para>
+
+</para>
+
+@msg: 
+@results: 
+@nresults: 
+
+
+<!-- ##### FUNCTION e2k_results_copy ##### -->
+<para>
+
+</para>
+
+@results: 
+@nresults: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION E2kResultIterFetchFunc ##### -->
+<para>
+This is used by #E2kResultIter to fetch more results
+</para>
+
+@iter: the #E2kResultIter
+@ctx: @iter's #E2kContext
+@op: @iter's #E2kOperation
+@results: on return, should contain the new results
+@nresults: on return, should contain the number of results on @results
+@first: on return, indicates the index of the first returned result.
+(That is, where @results[0] would fall in the complete list of results.)
+@total: on return, indicates the total number of results that will
+eventually be returned
+@user_data: @iter's user_data
+@Returns: the HTTP status (if successful, implies that @results, etc,
+were set)
+
+
+<!-- ##### USER_FUNCTION E2kResultIterFreeFunc ##### -->
+<para>
+Called to free an #E2kResultIter when the caller is done with it
+</para>
+
+@iter: the iter
+@user_data: @iter's user_data
+
+
+<!-- ##### FUNCTION e2k_result_iter_new ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@op: 
+@ascending: 
+@total: 
+@fetch_func: 
+@free_func: 
+@user_data: 
+@Returns: 
+
+

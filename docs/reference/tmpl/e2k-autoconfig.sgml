@@ -1,5 +1,5 @@
 <!-- ##### SECTION Title ##### -->
-e2k-autoconfig
+E2kAutoconfig
 
 <!-- ##### SECTION Short_Description ##### -->
 Account autoconfiguration
@@ -13,21 +13,8 @@ details about the organization of the company&rsquo;s Exchange servers.
 
 <!-- ##### SECTION See_Also ##### -->
 <para>
-
+#E2kContext, #E2kGlobalCatalog
 </para>
-
-<!-- ##### ENUM E2kExchangeVersion ##### -->
-<para>
-#E2kExchangeVersion represents the version of Exchange detected on the
-server.
-</para>
-
-@E2K_EXCHANGE_UNKNOWN: The server seems to be running Exchange 2000
-or later, but we couldn&rsquo;t figure out what version.
-@E2K_EXCHANGE_2000: The server is running Exchange 2000
-@E2K_EXCHANGE_2003: The server is running Exchange 2003
-@E2K_EXCHANGE_FUTURE: The server seems to be running some version of
-Exchange newer than Exchange 2003.
 
 <!-- ##### STRUCT E2kAutoconfig ##### -->
 <para>
@@ -69,6 +56,29 @@ describing the account configuration.
 @saw_ntlm: 
 @nt_domain_defaulted: 
 @gc_server_autodetected: 
+
+<!-- ##### ENUM E2kExchangeVersion ##### -->
+<para>
+#E2kExchangeVersion represents the version of Exchange detected on the
+server.
+</para>
+
+@E2K_EXCHANGE_UNKNOWN: The server seems to be running Exchange 2000
+or later, but we couldn&rsquo;t figure out what version.
+@E2K_EXCHANGE_2000: The server is running Exchange 2000
+@E2K_EXCHANGE_2003: The server is running Exchange 2003
+@E2K_EXCHANGE_FUTURE: The server seems to be running some version of
+Exchange newer than Exchange 2003.
+
+<!-- ##### ENUM E2kAutoconfigAuthPref ##### -->
+<para>
+#E2kAutoconfigAuthPref indicates what sort of authentication the user
+wants to use.
+</para>
+
+@E2K_AUTOCONFIG_USE_BASIC: Only try "Basic" authentication
+@E2K_AUTOCONFIG_USE_NTLM: Only try "NTLM" authentication
+@E2K_AUTOCONFIG_USE_EITHER: Try both kinds.
 
 <!-- ##### ENUM E2kAutoconfigResult ##### -->
 <para>
@@ -227,9 +237,18 @@ mailbox.</simpara></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><literal>E2K_AUTOCONFIG_NETWORK_ERROR</literal></term>
-<listitem><simpara>A network error occurred. (usually could not
-connect or could not resolve hostname).</simpara></listitem>
+<term><literal>E2K_AUTOCONFIG_CANT_RESOLVE</literal></term>
+<listitem><simpara>Could not resolve hostname.</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_CANT_CONNECT</literal></term>
+<listitem><simpara>Could not connect to server.</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_CANCELLED</literal></term>
+<listitem><simpara>User cancelled.</simpara></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -285,6 +304,16 @@ e2k_autoconfig_check_exchange()</simpara></listitem>
 @Returns: an #E2kAutoconfigResult
 
 
+<!-- ##### FUNCTION e2k_autoconfig_get_global_catalog ##### -->
+<para>
+
+</para>
+
+@ac: 
+@op: 
+@Returns: 
+
+
 <!-- ##### FUNCTION e2k_autoconfig_check_global_catalog ##### -->
 <para>
 Tries to connect to the global catalog associated with @ac
@@ -303,7 +332,7 @@ The possible values for @result are:
 <listitem><simpara>Success</simpara></listitem></varlistentry>
 
 <varlistentry>
-<term><literal>E2K_AUTOCONFIG_NETWORK_ERROR</literal></term>
+<term><literal>E2K_AUTOCONFIG_CANT_RESOLVE</literal></term>
 <listitem><simpara>Could not determine GC
 server</simpara></listitem></varlistentry>
 
@@ -311,6 +340,15 @@ server</simpara></listitem></varlistentry>
 <term><literal>E2K_AUTOCONFIG_NO_MAILBOX</literal></term>
 <listitem><simpara>Could not find information for the
 user</simpara></listitem></varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_AUTH_ERROR_TRY_DOMAIN</literal></term>
+<listitem><simpara>Plaintext password authentication failed: need
+to specify NT domain</simpara></listitem></varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_CANCELLED</literal></term>
+<listitem><simpara>Operation was cancelled</simpara></listitem></varlistentry>
 
 <varlistentry>
 <term><literal>E2K_AUTOCONFIG_FAILED</literal></term>
@@ -321,5 +359,14 @@ user</simpara></listitem></varlistentry>
 @ac: an autoconfig context
 @op: 
 @Returns: an #E2kAutoconfigResult.
+
+
+<!-- ##### FUNCTION e2k_autoconfig_lookup_option ##### -->
+<para>
+
+</para>
+
+@option: 
+@Returns: 
 
 

@@ -1,5 +1,5 @@
 <!-- ##### SECTION Title ##### -->
-e2k-restriction
+E2kRestriction
 
 <!-- ##### SECTION Short_Description ##### -->
 Search criteria
@@ -18,75 +18,6 @@ Search criteria
 <para>
 This represents a MAPI <structname>SRestriction</structname> structure.
 </para>
-
-@type: 
-@ref_count: 
-
-<!-- ##### ENUM E2kRestrictionType ##### -->
-<para>
-This indicates the type of restriction. See the descriptions of the
-various constructors below for more information.
-</para>
-
-@E2K_RESTRICTION_AND: 
-@E2K_RESTRICTION_OR: 
-@E2K_RESTRICTION_NOT: 
-@E2K_RESTRICTION_CONTENT: 
-@E2K_RESTRICTION_PROPERTY: 
-@E2K_RESTRICTION_COMPAREPROPS: 
-@E2K_RESTRICTION_BITMASK: 
-@E2K_RESTRICTION_SIZE: 
-@E2K_RESTRICTION_EXIST: 
-@E2K_RESTRICTION_SUBRESTRICTION: 
-@E2K_RESTRICTION_COMMENT: 
-
-<!-- ##### ENUM E2kRestrictionRelop ##### -->
-<para>
-This is used in property restrictions to determine how to compare the
-data:
-</para>
-
-@E2K_RELOP_LT: property value is less than given value
-@E2K_RELOP_LE: property value is less than or equal to given value
-@E2K_RELOP_GT: property value is greater than given value
-@E2K_RELOP_GE: property value is greater than or equal to given value
-@E2K_RELOP_EQ: property value is equal to given value
-@E2K_RELOP_NE: property value is not equal to given value
-@E2K_RELOP_RE: property value matches the given regular expression
-@E2K_RELOP_DL_MEMBER: property value names a member of the given
-distribution list
-
-<!-- ##### ENUM E2kRestrictionBitop ##### -->
-<para>
-This is used in bitmask restrictions to determine how to compare the
-data to the mask:
-</para>
-
-@E2K_BMR_EQZ: property value logically ANDed with mask equals 0
-@E2K_BMR_NEZ: property value logically ANDed with mask does not equal 0
-
-<!-- ##### ENUM E2kRestrictionFuzzyLevel ##### -->
-<para>
-This is used in content restrictions to determine how to compare the
-data. See e2k_restriction_content() for more information.
-</para>
-
-@E2K_FL_FULLSTRING: 
-@E2K_FL_SUBSTRING: 
-@E2K_FL_PREFIX: 
-@E2K_FL_SUFFIX: 
-@E2K_FL_IGNORECASE: 
-@E2K_FL_IGNORENONSPACE: 
-@E2K_FL_LOOSE: 
-
-<!-- ##### MACRO E2K_FL_MATCH_TYPE ##### -->
-<para>
-This extracts just the &ldquo;match type&rdquo; part of the fuzzy
-level. (%E2K_FL_FULLSTRING, %E2K_FL_SUBSTRING, or %E2K_FL_PREFIX)
-</para>
-
-@fl: an #E2kRestrictionFuzzyLevel
-@Returns: the &ldquo;match type&rdquo; part of @fl
 
 
 <!-- ##### FUNCTION e2k_restriction_and ##### -->
@@ -141,6 +72,30 @@ level. (%E2K_FL_FULLSTRING, %E2K_FL_SUBSTRING, or %E2K_FL_PREFIX)
 @Returns: 
 
 
+<!-- ##### ENUM E2kRestrictionFuzzyLevel ##### -->
+<para>
+This is used in content restrictions to determine how to compare the
+data. See e2k_restriction_content() for more information.
+</para>
+
+@E2K_FL_FULLSTRING: 
+@E2K_FL_SUBSTRING: 
+@E2K_FL_PREFIX: 
+@E2K_FL_SUFFIX: 
+@E2K_FL_IGNORECASE: 
+@E2K_FL_IGNORENONSPACE: 
+@E2K_FL_LOOSE: 
+
+<!-- ##### MACRO E2K_FL_MATCH_TYPE ##### -->
+<para>
+This extracts just the &ldquo;match type&rdquo; part of the fuzzy
+level. (%E2K_FL_FULLSTRING, %E2K_FL_SUBSTRING, or %E2K_FL_PREFIX)
+</para>
+
+@fl: an #E2kRestrictionFuzzyLevel
+@Returns: the &ldquo;match type&rdquo; part of @fl
+
+
 <!-- ##### FUNCTION e2k_restriction_content ##### -->
 <para>
 
@@ -151,6 +106,22 @@ level. (%E2K_FL_FULLSTRING, %E2K_FL_SUBSTRING, or %E2K_FL_PREFIX)
 @value: 
 @Returns: 
 
+
+<!-- ##### ENUM E2kRestrictionRelop ##### -->
+<para>
+This is used in property restrictions to determine how to compare the
+data:
+</para>
+
+@E2K_RELOP_LT: property value is less than given value
+@E2K_RELOP_LE: property value is less than or equal to given value
+@E2K_RELOP_GT: property value is greater than given value
+@E2K_RELOP_GE: property value is greater than or equal to given value
+@E2K_RELOP_EQ: property value is equal to given value
+@E2K_RELOP_NE: property value is not equal to given value
+@E2K_RELOP_RE: property value matches the given regular expression
+@E2K_RELOP_DL_MEMBER: property value names a member of the given
+distribution list
 
 <!-- ##### FUNCTION e2k_restriction_prop_bool ##### -->
 <para>
@@ -219,6 +190,15 @@ level. (%E2K_FL_FULLSTRING, %E2K_FL_SUBSTRING, or %E2K_FL_PREFIX)
 @Returns: 
 
 
+<!-- ##### ENUM E2kRestrictionBitop ##### -->
+<para>
+This is used in bitmask restrictions to determine how to compare the
+data to the mask:
+</para>
+
+@E2K_BMR_EQZ: property value logically ANDed with mask equals 0
+@E2K_BMR_NEZ: property value logically ANDed with mask does not equal 0
+
 <!-- ##### FUNCTION e2k_restriction_bitmask ##### -->
 <para>
 
@@ -284,25 +264,5 @@ level. (%E2K_FL_FULLSTRING, %E2K_FL_SUBSTRING, or %E2K_FL_PREFIX)
 
 @rn: 
 @Returns: 
-
-
-<!-- ##### FUNCTION e2k_restriction_extract ##### -->
-<para>
-
-</para>
-
-@data: 
-@len: 
-@rn: 
-@Returns: 
-
-
-<!-- ##### FUNCTION e2k_restriction_append ##### -->
-<para>
-
-</para>
-
-@ba: 
-@rn: 
 
 

@@ -7,14 +7,21 @@ DES encryption/decryption
 <!-- ##### SECTION Long_Description ##### -->
 <para>
 These routines implement DES encryption and decryption. They are here
-primarly for xntlm-internal use, but can also be used by other code
-(such as e2k_des_encode_string() and e2k_des_decode_string()).
+primarly for xntlm-internal use, but can also be used by other code.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
 <para>
-e2k_des_encode_string(), e2k_des_decode_string()
+
 </para>
+
+<!-- ##### TYPEDEF XNTLM_DES_KS ##### -->
+<para>
+This represents a DES key schedule. After initializing it with
+xntlm_deskey(), you can then pass it to xntlm_des() as many time as
+you need.
+</para>
+
 
 <!-- ##### FUNCTION xntlm_deskey ##### -->
 <para>

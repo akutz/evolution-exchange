@@ -1,0 +1,169 @@
+<!-- ##### SECTION Title ##### -->
+MAPI
+
+<!-- ##### SECTION Short_Description ##### -->
+MAPI and CDO constants
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### ENUM MapiAccess ##### -->
+<para>
+These are the bits in a folder's %PR_ACCESS property.
+</para>
+
+@MAPI_ACCESS_MODIFY: ability to modify objects
+@MAPI_ACCESS_READ: ability to the folder contents
+@MAPI_ACCESS_DELETE: ability to delete objects
+@MAPI_ACCESS_CREATE_HIERARCHY: ability to create subfolders
+@MAPI_ACCESS_CREATE_CONTENTS: ability to create new objects
+@MAPI_ACCESS_CREATE_ASSOCIATED: ability to create hidden objects
+
+<!-- ##### ENUM CdoInstanceTypes ##### -->
+<para>
+These are the possible values of the %E2K_PR_CALENDAR_INSTANCE_TYPE
+property.
+</para>
+
+@cdoSingle: The object represents a non-recurring event.
+@cdoMaster: The object is the master appointment for a recurring event.
+@cdoInstance: The object is a single instance of a recurring event
+(which also has a @cdoMaster object).
+@cdoException: The object is an exception to a recurring event.
+
+<!-- ##### ENUM MapiObjectType ##### -->
+<para>
+This is an enumeration of the various types of MAPI objects. They show
+up in various properties. (Several of these types are never exposed
+via WebDAV.)
+</para>
+
+@MAPI_STORE: a message store (eg, the user's mailbox)
+@MAPI_ADDRBOOK: an address book
+@MAPI_FOLDER: a folder
+@MAPI_ABCONT: an address book container
+@MAPI_MESSAGE: a "message" (which includes contacts, appointments, and tasks)
+@MAPI_MAILUSER: an individual recipient of a mail message
+@MAPI_ATTACH: an attachment
+@MAPI_DISTLIST: a distribution list recipient of a mail message
+@MAPI_PROFSECT: a profile section
+@MAPI_STATUS: a status object
+@MAPI_SESSION: a MAPI session
+@MAPI_FORMINFO: form information
+
+<!-- ##### ENUM MapiPrDisplayType ##### -->
+<para>
+This is an enumeration of various types of objects that may be
+represented by icons in various parts of Outlook. We only use it for
+the recipient types in a server-side rule.
+</para>
+
+@DT_MAILUSER: in a server-side rule, used to indicate a single recipient
+@DT_DISTLIST: in a server-side rule, used to indicate a distribution list
+@DT_FORUM: 
+@DT_AGENT: 
+@DT_ORGANIZATION: 
+@DT_PRIVATE_DISTLIST: 
+@DT_REMOTE_MAILUSER: 
+@DT_MODIFIABLE: 
+@DT_GLOBAL: 
+@DT_LOCAL: 
+@DT_WAN: 
+@DT_NOT_SPECIFIC: 
+@DT_FOLDER: 
+@DT_FOLDER_LINK: 
+@DT_FOLDER_SPECIAL: 
+
+<!-- ##### ENUM MapiPrRecipientType ##### -->
+<para>
+These are the categories of recipient for a message, used in
+server-side rules.
+</para>
+
+@MAPI_ORIG: "From" address? (not used in Connector)
+@MAPI_TO: a "To" recipient
+@MAPI_CC: a "Cc" recipient
+@MAPI_BCC: a "Bcc" recipient
+
+<!-- ##### ENUM MapiPrMessageFlags ##### -->
+<para>
+These are the message flags in the %PR_MESSAGE_FLAGS field.
+@MAPI_MSGFLAG_READ is the only one that can be modified via WebDAV.
+</para>
+
+@MAPI_MSGFLAG_READ: Message has been marked read
+@MAPI_MSGFLAG_UNMODIFIED: Message has not been modified since creation
+@MAPI_MSGFLAG_SUBMIT: Message is marked for submission
+@MAPI_MSGFLAG_UNSENT: Message has not yet been sent (ie, it's a draft)
+@MAPI_MSGFLAG_HASATTACH: Has attachments
+@MAPI_MSGFLAG_FROMME: Message was sent by this user
+@MAPI_MSGFLAG_ASSOCIATED: "Associated" (hidden) message
+@MAPI_MSGFLAG_RESEND: Includes a request for resend
+@MAPI_MSGFLAG_RN_PENDING: Read report needs to be sent
+@MAPI_MSGFLAG_NRN_PENDING: Non-read report needs to be sent
+@MAPI_MSGFLAG_ORIGIN_X400: Message arrived over an X.400 link
+@MAPI_MSGFLAG_ORIGIN_INTERNET: Message arrived over the internet
+@MAPI_MSGFLAG_ORIGIN_MISC_EXT: Message arrived over non-X.400, non-internet link
+
+<!-- ##### ENUM MapiPrAction ##### -->
+<para>
+Indicates that an action has been taken on a message. (There are other
+values besides these.)
+</para>
+
+@MAPI_ACTION_REPLIED: Message was replied to.
+@MAPI_ACTION_FORWARDED: Message was forwarded.
+
+<!-- ##### ENUM MapiPrActionFlag ##### -->
+<para>
+Indicates additional information beyond %PR_ACTION.
+</para>
+
+@MAPI_ACTION_FLAG_REPLIED_TO_SENDER: Reply was sent only to sender
+@MAPI_ACTION_FLAG_REPLIED_TO_ALL: Reply was sent to all recipients
+@MAPI_ACTION_FLAG_FORWARDED: Message was forwarded
+
+<!-- ##### ENUM MapiPrFlagStatus ##### -->
+<para>
+Flag-for-followup status
+</para>
+
+@MAPI_FOLLOWUP_UNFLAGGED: Message is not flagged
+@MAPI_FOLLOWUP_COMPLETED: Message was flagged, and is now completed
+@MAPI_FOLLOWUP_FLAGGED: Message is flagged, but not completed
+
+<!-- ##### ENUM MapiPrPriority ##### -->
+<para>
+Indicates the priority of a message.
+</para>
+
+@MAPI_PRIO_URGENT: "Urgent" priority
+@MAPI_PRIO_NORMAL: "Normal" priority
+@MAPI_PRIO_NONURGENT: "Non-urgent" priority
+
+<!-- ##### ENUM MapiPrSensitivity ##### -->
+<para>
+Indicates the sensitivity of a message.
+</para>
+
+@MAPI_SENSITIVITY_NONE: Not sensitive.
+@MAPI_SENSITIVITY_PERSONAL: Message is personal.
+@MAPI_SENSITIVITY_PRIVATE: Message is private.
+@MAPI_SENSITIVITY_COMPANY_CONFIDENTIAL: Message is compant-confidential.
+
+<!-- ##### ENUM MapiPrImportance ##### -->
+<para>
+Indicates the importance of a message.
+</para>
+
+@MAPI_IMPORTANCE_LOW: Low importance.
+@MAPI_IMPORTANCE_NORMAL: Normal importance.
+@MAPI_IMPORTANCE_HIGH: High importance.
+

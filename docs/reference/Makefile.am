@@ -20,12 +20,11 @@ IGNORE_HFILES=					\
 	e2k-propnames.h				\
 	e2k-proptags.h				\
 	e2k-types.h				\
-	mapi.h					\
 	addressbook				\
 	calendar				\
 	camel					\
 	mail					\
-	rules					\
+	shell					\
 	storage
 
 # The directory containing the source code. Relative to $(srcdir)

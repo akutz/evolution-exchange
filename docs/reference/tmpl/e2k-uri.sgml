@@ -1,5 +1,5 @@
 <!-- ##### SECTION Title ##### -->
-e2k-uri
+E2kUri
 
 <!-- ##### SECTION Short_Description ##### -->
 URI utility routines
@@ -16,20 +16,20 @@ URI utility routines
 
 <!-- ##### STRUCT E2kUri ##### -->
 <para>
-
+A URI.
 </para>
 
-@protocol: 
-@user: 
-@domain: 
-@authmech: 
-@passwd: 
-@host: 
-@port: 
-@path: 
-@params: 
-@query: 
-@fragment: 
+@protocol: the URI protocol
+@user: the username to authenticate with
+@domain: the Windows NT domain of @user
+@authmech: the HTTP authentication mechanism to use
+@passwd: @user's password
+@host: the host to connect to
+@port: the port to connect to
+@path: the path on @host
+@params: additional parameters
+@query: query string
+@fragment: URI fragment
 
 <!-- ##### FUNCTION e2k_uri_new ##### -->
 <para>
@@ -72,9 +72,11 @@ URI utility routines
 </para>
 
 @in: 
-@wss_encoding: 
+@wss_encode: 
 @extra_enc_chars: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@wss_encoding: 
 
 
 <!-- ##### FUNCTION e2k_uri_append_encoded ##### -->
@@ -84,8 +86,10 @@ URI utility routines
 
 @str: 
 @in: 
-@wss_encoding: 
+@wss_encode: 
 @extra_enc_chars: 
+<!-- # Unused Parameters # -->
+@wss_encoding: 
 
 
 <!-- ##### FUNCTION e2k_uri_path ##### -->

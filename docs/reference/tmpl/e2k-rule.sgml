@@ -1,175 +1,88 @@
 <!-- ##### SECTION Title ##### -->
-e2k-rule
+E2kRule
 
 <!-- ##### SECTION Short_Description ##### -->
-
+Exchange server-side rules
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+e2k-rule contains functions for handling Exchange server-side rules.
 </para>
+
+<note><para>
+This code is not heavily tested. It is possible that some of the
+information in this file about how server-side rules work is wrong.
+</para></note>
 
 <!-- ##### SECTION See_Also ##### -->
 <para>
-
+#E2kRestriction, #E2kAction
 </para>
-
-<!-- ##### STRUCT E2kRuleProp ##### -->
-<para>
-
-</para>
-
-@name: 
-@proptag: 
-
-<!-- ##### FUNCTION e2k_rule_prop_set ##### -->
-<para>
-
-</para>
-
-@prop: 
-@propname: 
-
-
-<!-- ##### STRUCT E2kPropValue ##### -->
-<para>
-
-</para>
-
-@prop: 
-@type: 
-@value: 
-
-<!-- ##### ENUM E2kActionType ##### -->
-<para>
-
-</para>
-
-@E2K_ACTION_MOVE: 
-@E2K_ACTION_COPY: 
-@E2K_ACTION_REPLY: 
-@E2K_ACTION_OOF_REPLY: 
-@E2K_ACTION_DEFER: 
-@E2K_ACTION_BOUNCE: 
-@E2K_ACTION_FORWARD: 
-@E2K_ACTION_DELEGATE: 
-@E2K_ACTION_TAG: 
-@E2K_ACTION_DELETE: 
-@E2K_ACTION_MARK_AS_READ: 
-
-<!-- ##### STRUCT E2kAddrEntry ##### -->
-<para>
-
-</para>
-
-@nvalues: 
-@propval: 
-
-<!-- ##### STRUCT E2kAddrList ##### -->
-<para>
-
-</para>
-
-@nentries: 
-@entry: 
-
-<!-- ##### STRUCT E2kAction ##### -->
-<para>
-
-</para>
-
-@type: 
-@flavor: 
-@flags: 
-@defer_data: 
-@bounce_code: 
-@addr_list: 
-@proptag: 
-
-<!-- ##### MACRO E2K_RULE_STATE_DISABLED ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO E2K_RULE_STATE_ENABLED ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO E2K_RULE_STATE_ERROR ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO E2K_RULE_STATE_ONLY_WHEN_OOF ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO E2K_RULE_STATE_KEEP_OOF_HISTORY ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO E2K_RULE_STATE_EXIT_LEVEL ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO E2K_RULE_STATE_CLEAR_OOF_HISTORY ##### -->
-<para>
-
-</para>
-
-
 
 <!-- ##### STRUCT E2kRule ##### -->
 <para>
-
+A single server-side rule.
 </para>
 
-@name: 
-@sequence: 
-@state: 
-@user_flags: 
-@level: 
-@condition_lcid: 
-@condition: 
-@actions: 
-@provider: 
-@provider_data: 
+@name: Name of the rule (UTF-8)
+@sequence: The rule's sequence number. Lower sequence numbers are
+evaluated first. There may be gaps in rule numbering in a folder.
+@state: A combination of #E2kRuleState values
+@user_flags: Always 0?
+@level: Always 0?
+@condition_lcid: Locale ID for @condition. (Not clear what effect this
+has.)
+@condition: the condition that causes @actions to be triggered
+@actions: an array of #E2kAction to take if @condition is met
+@provider: the rule provider that created this rule
+@provider_data: provider-specific data.
 
 <!-- ##### STRUCT E2kRules ##### -->
 <para>
-
+The complete list of rules for a folder.
 </para>
 
-@version: 
-@codepage: 
-@rules: 
+@version: Always 2?
+@codepage: A Windows codepage. Always 1252 in my rules, though the
+strings seem to actually be Unicode-encoded rather than cp-1252...
+@rules: an array of #E2kRule.
+
+<!-- ##### ENUM E2kRuleState ##### -->
+<para>
+Flags for a rule.
+</para>
+
+@E2K_RULE_STATE_DISABLED: Rule is disabled (cannot be used with any
+other flags).
+@E2K_RULE_STATE_ENABLED: Rule is enabled
+@E2K_RULE_STATE_ERROR: ?
+@E2K_RULE_STATE_ONLY_WHEN_OOF: Rule only runs when user is Out of Office
+@E2K_RULE_STATE_KEEP_OOF_HISTORY: ? (presumably means "only trigger
+this rule once per user")
+@E2K_RULE_STATE_EXIT_LEVEL: Skip further rule processing
+@E2K_RULE_STATE_CLEAR_OOF_HISTORY: ?
 
 <!-- ##### FUNCTION e2k_rules_from_binary ##### -->
 <para>
 
 </para>
 
-@ba: 
+@rules_data: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@ba: 
 
 
 <!-- ##### FUNCTION e2k_rules_to_binary ##### -->
+<para>
+
+</para>
+
+@rules: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_rules_to_xml ##### -->
 <para>
 
 </para>
@@ -192,6 +105,82 @@ e2k-rule
 </para>
 
 @rule: 
+
+
+<!-- ##### STRUCT E2kRuleProp ##### -->
+<para>
+A combination of a WebDAV property name and its corresponding MAPI
+proptag, so that different parts of the code can use which
+representation is more convenient.
+</para>
+
+@name: the property name
+@proptag: the MAPI proptag (or 0 if @name is not in the MAPI proptag namespace)
+
+<!-- ##### FUNCTION e2k_rule_prop_set ##### -->
+<para>
+
+</para>
+
+@prop: 
+@propname: 
+
+
+<!-- ##### STRUCT E2kPropValue ##### -->
+<para>
+A property/value pair.
+</para>
+
+@prop: the property
+@type: the type of @value
+@value: the value
+
+<!-- ##### FUNCTION e2k_rule_append_proptag ##### -->
+<para>
+
+</para>
+
+@ba: 
+@prop: 
+
+
+<!-- ##### FUNCTION e2k_rule_extract_proptag ##### -->
+<para>
+
+</para>
+
+@ptr: 
+@len: 
+@prop: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_rule_append_propvalue ##### -->
+<para>
+
+</para>
+
+@ba: 
+@pv: 
+
+
+<!-- ##### FUNCTION e2k_rule_extract_propvalue ##### -->
+<para>
+
+</para>
+
+@ptr: 
+@len: 
+@pv: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_rule_free_propvalue ##### -->
+<para>
+
+</para>
+
+@pv: 
 
 
 <!-- ##### FUNCTION e2k_rule_write_uint32 ##### -->
@@ -348,53 +337,5 @@ e2k-rule
 @len: 
 @data: 
 @Returns: 
-
-
-<!-- ##### FUNCTION e2k_rule_append_proptag ##### -->
-<para>
-
-</para>
-
-@ba: 
-@prop: 
-
-
-<!-- ##### FUNCTION e2k_rule_extract_proptag ##### -->
-<para>
-
-</para>
-
-@ptr: 
-@len: 
-@prop: 
-@Returns: 
-
-
-<!-- ##### FUNCTION e2k_rule_append_propvalue ##### -->
-<para>
-
-</para>
-
-@ba: 
-@pv: 
-
-
-<!-- ##### FUNCTION e2k_rule_extract_propvalue ##### -->
-<para>
-
-</para>
-
-@ptr: 
-@len: 
-@pv: 
-@Returns: 
-
-
-<!-- ##### FUNCTION e2k_rule_free_propvalue ##### -->
-<para>
-
-</para>
-
-@pv: 
 
 

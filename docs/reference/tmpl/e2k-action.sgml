@@ -1,38 +1,47 @@
 <!-- ##### SECTION Title ##### -->
-e2k-action
+E2kAction
 
 <!-- ##### SECTION Short_Description ##### -->
-
+Server-side rule actions
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+#E2kAction represents a single action taken by a server-side rule.
 </para>
+
+<note><para>
+This code is not heavily tested. It is possible that some of the
+information in this file about how server-side rules work is wrong.
+</para></note>
 
 <!-- ##### SECTION See_Also ##### -->
 <para>
-
+#E2kRule, #E2kRestriction
 </para>
 
-<!-- ##### FUNCTION e2k_actions_extract ##### -->
+<!-- ##### STRUCT E2kAction ##### -->
 <para>
-
+A single server-side rule action.
 </para>
 
-@data: 
-@len: 
-@actions: 
-@Returns: 
 
-
-<!-- ##### FUNCTION e2k_actions_append ##### -->
+<!-- ##### ENUM E2kActionType ##### -->
 <para>
-
+The kinds of server-side rule action.
 </para>
 
-@ba: 
-@actions: 
-
+@E2K_ACTION_MOVE: Move the message to another folder in the same store.
+@E2K_ACTION_COPY: Copy the message to another folder in the same store.
+@E2K_ACTION_REPLY: Reply to the sender with a given template
+@E2K_ACTION_OOF_REPLY: Send an out-of-office reply to the server with
+a given template
+@E2K_ACTION_DEFER: Hold the message for deferred processing (by the client).
+@E2K_ACTION_BOUNCE: Bounce the message back to the sender.
+@E2K_ACTION_FORWARD: Forward the message to given recipients.
+@E2K_ACTION_DELEGATE: Delegate the meeting request to given recipients.
+@E2K_ACTION_TAG: Set or remove arbitrary MAPI properties on the message.
+@E2K_ACTION_DELETE: Delete the message (permanently, not via Deleted Items).
+@E2K_ACTION_MARK_AS_READ: Mark the message as read.
 
 <!-- ##### FUNCTION e2k_action_move ##### -->
 <para>
@@ -53,6 +62,15 @@ e2k-action
 @folder_source_key: 
 @Returns: 
 
+
+<!-- ##### ENUM E2kActionReplyFlavor ##### -->
+<para>
+Additional information for an #E2K_ACTION_REPLY rule.
+</para>
+
+@E2K_ACTION_REPLY_FLAVOR_NOT_ORIGINATOR: Do not send reply to
+originator. (?)
+@E2K_ACTION_REPLY_FLAVOR_STOCK_TEMPLATE: ?
 
 <!-- ##### FUNCTION e2k_action_reply ##### -->
 <para>
@@ -83,6 +101,17 @@ e2k-action
 @Returns: 
 
 
+<!-- ##### ENUM E2kActionBounceCode ##### -->
+<para>
+An error code to associate with an #E2K_ACTION_BOUNCE rule.
+</para>
+
+@E2K_ACTION_BOUNCE_CODE_TOO_LARGE: Message is too large.
+@E2K_ACTION_BOUNCE_CODE_FORM_MISMATCH: Message is of wrong type (for
+public folder moderation rules).
+@E2K_ACTION_BOUNCE_CODE_ACCESS_DENIED: Access denied (primarily for
+public folder moderation rules).
+
 <!-- ##### FUNCTION e2k_action_bounce ##### -->
 <para>
 
@@ -91,6 +120,24 @@ e2k-action
 @bounce_code: 
 @Returns: 
 
+
+<!-- ##### STRUCT E2kAddrList ##### -->
+<para>
+An opaque list of recipients to forward or delegate a message to.
+</para>
+
+
+<!-- ##### ENUM E2kActionForwardFlavor ##### -->
+<para>
+Additional information for an #E2K_ACTION_FORWARD rule.
+</para>
+
+@E2K_ACTION_FORWARD_FLAVOR_PRESERVE_SENDER: Preserves sender
+information and indicates that the message was forwarded by a rule.
+@E2K_ACTION_FORWARD_FLAVOR_DO_NOT_MUNGE: Forwards message with no
+modifications
+@E2K_ACTION_FORWARD_FLAVOR_REDIRECT: Forwards message as a redirect
+@E2K_ACTION_FORWARD_FLAVOR_AS_ATTACHMENT: Forwards the message as an attachment
 
 <!-- ##### FUNCTION e2k_action_forward ##### -->
 <para>
@@ -127,6 +174,26 @@ e2k-action
 </para>
 
 @Returns: 
+
+
+<!-- ##### FUNCTION e2k_actions_extract ##### -->
+<para>
+
+</para>
+
+@data: 
+@len: 
+@actions: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_actions_append ##### -->
+<para>
+
+</para>
+
+@ba: 
+@actions: 
 
 
 <!-- ##### FUNCTION e2k_actions_free ##### -->

@@ -1,5 +1,5 @@
 <!-- ##### SECTION Title ##### -->
-e2k-properties
+E2kProperties
 
 <!-- ##### SECTION Short_Description ##### -->
 WebDAV properties
@@ -13,6 +13,15 @@ WebDAV properties
 <para>
 
 </para>
+
+<!-- ##### STRUCT E2kProperties ##### -->
+<para>
+An #E2kProperties structure represents a set of WebDAV properties;
+either properties that are currently on an object, or a set of
+properties the caller wishes to add to / modify on / delete from an
+object.
+</para>
+
 
 <!-- ##### FUNCTION e2k_properties_new ##### -->
 <para>
@@ -91,8 +100,8 @@ The supported types of properties.
 Tests if a property type is an array type
 </para>
 
-@t: the type
-@Returns: %TRUE if @t is an array type
+@type: the type
+@Returns: %TRUE if @type is an array type
 
 
 <!-- ##### FUNCTION e2k_properties_set_string ##### -->

@@ -1,5 +1,5 @@
 <!-- ##### SECTION Title ##### -->
-e2k-result
+E2kResult
 
 <!-- ##### SECTION Short_Description ##### -->
 WebDAV Multi-Status results
@@ -21,34 +21,9 @@ This contains the information from a single
 Multi-Status response.
 </para>
 
-<para>
-It should not be necessary to call any of these functions from
-anywhere except <filename>e2k-context.c</filename>.
-</para>
-
-@href: 
-@status: 
-@props: 
-
-<!-- ##### FUNCTION e2k_results_from_multistatus ##### -->
-<para>
-
-</para>
-
-@msg: 
-@results: 
-@nresults: 
-
-
-<!-- ##### FUNCTION e2k_results_copy ##### -->
-<para>
-
-</para>
-
-@results: 
-@nresults: 
-@Returns: 
-
+@href: the URI that this is the result for
+@status: the HTTP status
+@props: the properties returned for @href
 
 <!-- ##### FUNCTION e2k_results_free ##### -->
 <para>
@@ -59,29 +34,46 @@ anywhere except <filename>e2k-context.c</filename>.
 @nresults: 
 
 
-<!-- ##### FUNCTION e2k_results_array_new ##### -->
+<!-- ##### STRUCT E2kResultIter ##### -->
+<para>
+An opaque structure used to iterate through the results of a
+Multi-Status WebDAV method.
+</para>
+
+
+<!-- ##### FUNCTION e2k_result_iter_next ##### -->
 <para>
 
 </para>
 
+@iter: 
 @Returns: 
 
 
-<!-- ##### FUNCTION e2k_results_array_add_from_multistatus ##### -->
+<!-- ##### FUNCTION e2k_result_iter_get_total ##### -->
 <para>
 
 </para>
 
-@results_array: 
-@msg: 
+@iter: 
+@Returns: 
 
 
-<!-- ##### FUNCTION e2k_results_array_free ##### -->
+<!-- ##### FUNCTION e2k_result_iter_get_index ##### -->
 <para>
 
 </para>
 
-@results_array: 
-@free_results: 
+@iter: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_result_iter_free ##### -->
+<para>
+
+</para>
+
+@iter: 
+@Returns: 
 
 
