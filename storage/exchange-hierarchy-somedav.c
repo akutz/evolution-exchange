@@ -127,7 +127,7 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *folder)
 	GPtrArray *hrefs;
 	E2kResultIter *iter;
 	E2kResult *result;
-	int folders_returned, folders_added, i;
+	int folders_returned=0, folders_added=0, i;
 	E2kHTTPStatus status;
 	ExchangeAccountFolderResult folder_result;
 

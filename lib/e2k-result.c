@@ -512,10 +512,11 @@ e2k_result_iter_get_total (E2kResultIter *iter)
 E2kHTTPStatus
 e2k_result_iter_free (E2kResultIter *iter)
 {
-	E2kHTTPStatus status = iter->status;
+	E2kHTTPStatus status;
 
 	g_return_val_if_fail (iter != NULL, E2K_HTTP_MALFORMED);
 
+	status = iter->status;
 	if (iter->nresults)
 		e2k_results_free (iter->results, iter->nresults);
 	iter->free_func (iter, iter->user_data);

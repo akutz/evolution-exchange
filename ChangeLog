@@ -1,3 +1,14 @@
+2004-05-14  Sushma Rai  <rsushma@novell.com>
+	
+	Prevents a crash when the account doesn't have any favorite folders 
+	and tried to access favorite folders.
+
+	* storage/exchange-hierarchy-somedav.c (scan_subtree): Initialized
+	folders_returned and folders_added to zero.
+	
+	* lib/e2k-result.c (e2k_result_iter_free): Initializing status
+	after checking if iter is NULL.
+ 
 2004-05-13  Dan Winship  <danw@novell.com>
 
 	* storage/exchange-hierarchy.h (ExchangeHierarchyType): Add values
