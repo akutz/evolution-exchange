@@ -1,3 +1,11 @@
+2004-07-16  Dan Winship  <danw@novell.com>
+
+	* lib/e2k-kerberos.c (krb5_result_to_e2k_kerberos_result):
+	"KRB5KDC_ERR_KEY_EXPIRED" is apparently a heimdal-only-ism. Use
+	"KRB5KDC_ERR_KEY_EXP" instead.
+	(e2k_kerberos_change_password): Likewise, use
+	krb5_free_data_contents instead of krb5_data_free.
+
 2004-07-15  Dan Winship  <danw@novell.com>
 
 	* lib/e2k-kerberos.c: Lots of changes: properly namespace the

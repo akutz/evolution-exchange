@@ -60,7 +60,7 @@ krb5_result_to_e2k_kerberos_result (int result)
 	case KRB5KDC_ERR_PREAUTH_FAILED:
 		return E2K_KERBEROS_PASSWORD_INCORRECT;
 
-	case KRB5KDC_ERR_KEY_EXPIRED:
+	case KRB5KDC_ERR_KEY_EXP:
 		return E2K_KERBEROS_PASSWORD_EXPIRED;
 
 	case KRB5_KDC_UNREACH:
@@ -136,8 +136,8 @@ e2k_kerberos_change_password (const char *user, const char *domain,
 	result = krb5_change_password (ctx, &creds, (char *)new_password,
 				       &res_code, &res_code_string, &res_string);
 	krb5_free_cred_contents (ctx, &creds);
-	krb5_data_free (&res_code_string);
-	krb5_data_free (&res_string);
+	krb5_free_data_contents (ctx, &res_code_string);
+	krb5_free_data_contents (ctx, &res_string);
 	krb5_free_context (ctx);
 
 	if (result != 0)
