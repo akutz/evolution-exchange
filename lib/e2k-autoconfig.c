@@ -43,6 +43,7 @@
 #include <resolv.h>
 
 #include "e2k-autoconfig.h"
+#include "e2k-validate.h"
 #include "e2k-encoding-utils.h"
 #include "e2k-context.h"
 #include "e2k-global-catalog.h"
@@ -54,9 +55,12 @@
 
 #include <e-util/e-account.h>
 #include <e-util/e-account-list.h>
+#include <e-util/e-passwords.h>
 #include <gconf/gconf-client.h>
 #include <libxml/tree.h>
 #include <libxml/HTMLparser.h>
+
+#include <gtk/gtk.h>
 
 static char *find_olson_timezone (const char *windows_timezone);
 static void set_account_uri_string (E2kAutoconfig *ac);
@@ -1381,4 +1385,63 @@ e2k_autoconfig_lookup_option (const char *option)
 	if (!config_options)
 		read_config ();
 	return g_hash_table_lookup (config_options, option);
+}
+
+static gboolean 
+validate (char *owa_url, char *user, char *password, char **host)
+{
+	E2kAutoconfig *ac;
+	E2kOperation op;        /* FIXME */
+	E2kAutoconfigResult result;
+	gboolean valid = FALSE;
+
+	ac = e2k_autoconfig_new (owa_url, user, password, 
+				 E2K_AUTOCONFIG_USE_EITHER);
+
+	e2k_operation_init (&op);
+	//e2k_autoconfig_set_gc_server (ac, ad_server, gal_limit) FIXME
+	e2k_autoconfig_set_gc_server (ac, NULL, -1);
+	result = e2k_autoconfig_check_exchange (ac, &op);
+
+	if (result == E2K_AUTOCONFIG_OK) {
+		result = e2k_autoconfig_check_global_catalog (ac, &op);
+		e2k_operation_free (&op);
+		/* Need to fill GC server and return */
+		valid = TRUE;
+	}
+	else {
+#if 0
+		e2k_operation_free (&op);
+		window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+		valid = e2k_autoconfig_handle_error (result, window);
+#endif
+		valid = FALSE; /* FIXME return valid */
+	}
+	*host = g_strdup (ac->pf_server);
+	return valid;
+}
+
+gboolean
+e2k_validate_user (char *owa_url, char *user, char **host)
+{
+	gboolean valid = FALSE, remember=FALSE;
+	char *key, *password, *prompt;
+
+	key = g_strdup_printf ("%s//%s@%s", "exchange:", user, owa_url); /* FIXME */
+	password = e_passwords_get_password ("Exchange", key);
+	if (!password) {
+		prompt = g_strdup_printf (_("Enter password for %s"), user);
+		password = e_passwords_ask_password (_("Enter password"),
+					"Exchange", key, prompt,
+					E_PASSWORDS_REMEMBER_FOREVER|E_PASSWORDS_SECRET,
+					&remember, NULL);
+		if (password) {
+			valid = validate (owa_url, user, password, host);
+			//auto_detect_gc();
+		}
+		g_free (prompt);
+	}
+	g_free (key);
+
+	return valid;
 }

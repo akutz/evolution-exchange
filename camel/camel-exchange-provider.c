@@ -32,16 +32,13 @@
 #include "camel-exchange-store.h"
 #include "camel-exchange-transport.h"
 
+#include "lib/e2k-validate.h"
+
 static guint exchange_url_hash (gconstpointer key);
 static gint exchange_url_equal (gconstpointer a, gconstpointer b);
 
 CamelProviderConfEntry exchange_conf_entries[] = {
 	/* override the labels/defaults of the standard settings */
-	{ CAMEL_PROVIDER_CONF_LABEL, "hostname", NULL,
-	  /* i18n: the '_' should appear before the same letter it
-	     does in the evolution:mail-config.glade "_Host"
-	     translation (or not at all) */
-	  N_("Exc_hange Server:") },
 	{ CAMEL_PROVIDER_CONF_LABEL, "username", NULL,
 	  /* i18n: the '_' should appear before the same letter it
 	     does in the evolution:mail-config.glade "User_name"
@@ -59,17 +56,10 @@ CamelProviderConfEntry exchange_conf_entries[] = {
 	{ CAMEL_PROVIDER_CONF_CHECKSPIN, "ad_limit", NULL,
 	  N_("Limit number of GAL responses: %s"), "y:1:500:10000" },
 	{ CAMEL_PROVIDER_CONF_SECTION_END },
-	{ CAMEL_PROVIDER_CONF_SECTION_START, "exchange", NULL,
-	  N_("Exchange Server") },
-	{ CAMEL_PROVIDER_CONF_ENTRY, "mailbox", NULL,
-	  /* i18n: "Mailbox" is an Outlookism. FIXME */
-	  N_("Mailbox name") },
-	{ CAMEL_PROVIDER_CONF_ENTRY, "owa_path", NULL,
-	  /* i18n: "OWA" == "Outlook Web Access". Might not be translated? */
-	  N_("OWA path"), "/exchange" },
-	{ CAMEL_PROVIDER_CONF_ENTRY, "pf_server", NULL,
-	  /* i18n: "Public Folder" is an Outlookism */
-	  N_("Public Folder server") },
+	{ CAMEL_PROVIDER_CONF_SECTION_START, "passwdexpiry", NULL,
+	  N_("Password Expiry Warning") },
+	{ CAMEL_PROVIDER_CONF_CHECKSPIN, "passwd_exp_warn_period", NULL,
+	  N_("Password Expiry Warning period: %s"), "y:1:7:90" },
 	{ CAMEL_PROVIDER_CONF_SECTION_END },
 	{ CAMEL_PROVIDER_CONF_CHECKBOX, "filter", NULL,
 	  /* i18n: copy from evolution:camel-imap-provider.c */
@@ -90,11 +80,9 @@ static CamelProvider exchange_provider = {
 	"mail",
 
 	CAMEL_PROVIDER_IS_REMOTE | CAMEL_PROVIDER_IS_SOURCE |
-	CAMEL_PROVIDER_IS_STORAGE | CAMEL_PROVIDER_IS_EXTERNAL |
-	CAMEL_PROVIDER_SUPPORTS_SSL,
+	CAMEL_PROVIDER_IS_STORAGE | CAMEL_PROVIDER_IS_EXTERNAL,
 
-	CAMEL_URL_NEED_USER | CAMEL_URL_NEED_HOST |
-	CAMEL_URL_ALLOW_AUTH,
+	CAMEL_URL_NEED_USER, 
 
 	exchange_conf_entries,
 
@@ -137,6 +125,16 @@ exchange_auto_detect_cb (CamelURL *url, GHashTable **auto_detected,
 	return 0;
 }
 
+static gboolean
+exchange_validate_user_cb (CamelURL *camel_url, char *owa_url, 
+			   CamelException *ex)
+{
+	gboolean valid;
+
+	valid = e2k_validate_user (owa_url, camel_url->user, &camel_url->host);
+	return valid;
+}
+
 void
 camel_provider_module_init (void)
 {
@@ -146,6 +144,7 @@ camel_provider_module_init (void)
 	exchange_provider.url_hash = exchange_url_hash;
 	exchange_provider.url_equal = exchange_url_equal;
 	exchange_provider.auto_detect = exchange_auto_detect_cb;
+	exchange_provider.validate_user = exchange_validate_user_cb;
 
 	bindtextdomain (GETTEXT_PACKAGE, CONNECTOR_LOCALEDIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
