@@ -251,12 +251,18 @@ new_connection (MailStubListener *listener, int cmd_fd, int status_fd,
 
 	g_object_ref (account);
 
+	if (exchange_account_is_offline (account)) {
+		mse = mail_stub_exchange_new (account, cmd_fd, status_fd);
+		goto end;
+	}
+
 	if (exchange_account_connect (account))
 		mse = mail_stub_exchange_new (account, cmd_fd, status_fd);
 	else {
 		close (cmd_fd);
 		close (status_fd);
 	}
+end:
 	g_object_unref (account);
 }
 
@@ -415,18 +421,24 @@ exchange_component_get_account_for_uri (ExchangeComponent *component,
 		baccount = acc->data;
 
 		/* Kludge for while we don't support multiple accounts */
-		if (!exchange_is_offline (priv->offline_listener)) {
+		//if (!exchange_is_offline (priv->offline_listener)) {
 			if (!uri)
 				return baccount->account;
 
 			if (exchange_account_get_folder (baccount->account, uri))
 				return baccount->account;
-		} else {
-			/* FIXME : Handle multiple accounts */
-			return baccount->account;
-		}
+		//} else {
+			///* FIXME : Handle multiple accounts */
+			//return baccount->account;
+		//}
 	}
 	return NULL;
+}
+
+gboolean
+exchange_component_is_offline (ExchangeComponent *component)
+{
+	return exchange_is_offline (component->priv->offline_listener);
 }
 
 gboolean

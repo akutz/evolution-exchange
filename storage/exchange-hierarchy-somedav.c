@@ -54,7 +54,8 @@ static guint signals [LAST_SIGNAL] = { 0 };
 static ExchangeHierarchyWebDAVClass *parent_class = NULL;
 
 static ExchangeAccountFolderResult scan_subtree (ExchangeHierarchy *hier,
-						 EFolder *folder);
+						 EFolder *folder,
+						 gboolean offline);
 static void finalize (GObject *object);
 
 static void
@@ -121,7 +122,7 @@ static const char *folder_props[] = {
 static const int n_folder_props = sizeof (folder_props) / sizeof (folder_props[0]);
 
 static ExchangeAccountFolderResult
-scan_subtree (ExchangeHierarchy *hier, EFolder *folder)
+scan_subtree (ExchangeHierarchy *hier, EFolder *folder, gboolean offline)
 {
 	ExchangeHierarchySomeDAV *hsd = EXCHANGE_HIERARCHY_SOMEDAV (hier);
 	GPtrArray *hrefs;
@@ -143,6 +144,9 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *folder)
 		g_ptr_array_free (hrefs, TRUE);
 		return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
 	}
+	/*FIXME : Not sure if this is the right place for this */
+	if (exchange_account_is_offline (hier->account))
+		return EXCHANGE_ACCOUNT_FOLDER_OK;
 
 	iter = e_folder_exchange_bpropfind_start (hier->toplevel, NULL,
 						  (const char **)hrefs->pdata,

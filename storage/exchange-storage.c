@@ -158,6 +158,7 @@ account_to_storage_result (ExchangeAccountFolderResult result)
 	case EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED:
 		return E_STORAGE_PERMISSIONDENIED;
 	case EXCHANGE_ACCOUNT_FOLDER_OFFLINE:
+		return E_STORAGE_NOTONLINE;
 	case EXCHANGE_ACCOUNT_FOLDER_UNSUPPORTED_OPERATION:
 		return E_STORAGE_UNSUPPORTEDOPERATION;
 	default:
@@ -229,7 +230,7 @@ idle_open_folder (gpointer user_data)
 		ctx = exchange_account_connect (account);
 		result = ctx ?
 			E_STORAGE_OK :
-			E_STORAGE_GENERICERROR;
+			E_STORAGE_NOTONLINE;
 	} else
 		result = exchange_account_open_folder (account, ofd->path);
 	ofd->callback (ofd->storage, account_to_storage_result (result),

@@ -1004,6 +1004,7 @@ set_mode (ECalBackend *backend, CalMode mode)
 {
 	ECalBackendExchange *cbex;
 	ECalBackendExchangePrivate *priv;
+	ExchangeAccount *account;
 	const char *uristr;
 	
 	cbex = E_CAL_BACKEND_EXCHANGE (backend);
@@ -1032,11 +1033,13 @@ set_mode (ECalBackend *backend, CalMode mode)
 			/* Should we check for access rights before setting this ? */
 			d(printf ("set mode to online\n"));
 			uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
-			cbex->account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
-			cbex->folder = exchange_account_get_folder (cbex->account, uristr);
+			account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
+			if (!account)
+				return;
+			cbex->folder = exchange_account_get_folder (account, uristr);
 			/* FIXME : Test if available for read already */
 			priv->read_only = TRUE;
-			exchange_account_set_online (cbex->account);
+			exchange_account_set_online (account);
 			e_cal_backend_notify_mode (backend, 
 				GNOME_Evolution_Calendar_CalListener_MODE_SET,
 				GNOME_Evolution_Calendar_MODE_REMOTE);
@@ -1048,11 +1051,13 @@ set_mode (ECalBackend *backend, CalMode mode)
 			/* FIXME : Update the cache before closing the connection */
 			d(printf ("set mode to offline\n"));
 			uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
-			cbex->account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
-			cbex->folder = exchange_account_get_folder (cbex->account, uristr);
+			account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
+			if (!account)
+				return;
+			cbex->folder = exchange_account_get_folder (account, uristr);
 			priv->mode = CAL_MODE_LOCAL;
 			/* FIXME : Set connection to NULL and become offline */
-			exchange_account_set_offline (cbex->account);
+			exchange_account_set_offline (account);
 			e_cal_backend_notify_mode (backend, 
 				GNOME_Evolution_Calendar_CalListener_MODE_SET,
 				GNOME_Evolution_Calendar_MODE_LOCAL);

@@ -58,7 +58,8 @@ static ExchangeAccountFolderResult create_folder (ExchangeHierarchy *hier,
 static ExchangeAccountFolderResult remove_folder (ExchangeHierarchy *hier,
 						  EFolder *folder);
 static ExchangeAccountFolderResult scan_subtree (ExchangeHierarchy *hier,
-						 EFolder *folder);
+						 EFolder *folder,
+						 gboolean offline);
 static void finalize (GObject *object);
 
 static void
@@ -381,13 +382,13 @@ remove_folder (ExchangeHierarchy *hier, EFolder *folder)
 }
 
 static ExchangeAccountFolderResult
-scan_subtree (ExchangeHierarchy *hier, EFolder *folder)
+scan_subtree (ExchangeHierarchy *hier, EFolder *folder, gboolean offline)
 {
 	ExchangeAccountFolderResult folder_result;
 
 	check_hide_private (hier);
 
-	folder_result = EXCHANGE_HIERARCHY_CLASS (parent_class)->scan_subtree (hier, folder);
+	folder_result = EXCHANGE_HIERARCHY_CLASS (parent_class)->scan_subtree (hier, folder, offline);
 
 	if (exchange_hierarchy_is_empty (hier))
 		hierarchy_foreign_cleanup (hier);

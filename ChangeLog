@@ -1,5 +1,42 @@
 2005-02-04  Sarfraaz Ahmed <asarfraaz@novell.com>
 
+	* calendar/e-cal-backend-exchange.c (set_mode): Fix the race by 
+	having a local variable.
+	* camel/camel-exchange-store.c (exchange_get_folder_info): The check
+	for offline check should actually be done in mail.
+	* mail/mail-stub-exchange.c (get_folder)(sync_deletions)
+	(refresh_folder_internal)(mail_stub_exchange_new) : Dont contact server 
+	when in	offline mode.
+	* storage/exchange-account.c (exchange_account_open_folder): Check for 
+	offline mode. 
+	(exchange_account_is_offline) : A wrapper around the component check
+	for offline mode.
+	(setup_account_hierarchies) : Extracted this code to be used in offline
+	and online modes.
+	(exchange_account_connect) : Move code and fix warnings.
+	* storage/exchange-account.h : Similar
+	* storage/exchange-component.c (new_connection) : check for offline
+	(exchange_component_get_account_for_uri) : Dont check for offline here.
+	(exchange_component_is_offline) : Returns the component's current state. 
+	* storage/exchange-component.h : Similar
+	* storage/exchange-hierarchy-favorites.c (get_hrefs) : Scan the offline
+	tree when in offline.
+	(add_hrefs) : A callback helper method for offline scanning of folders.
+	* storage/exchange-hierarchy-foreign.c (scan_subtree) : Pass the online
+	and offline status of the component.
+	* storage/exchange-hierarchy-somedav.c (scan_subtree) : Similar
+	* storage/exchange-hierarchy-webdav.c (create_folder)(remove_folder)
+	(xfer_folder)(rescan) : Dont contact server if offline.
+	(scan_subtree) : Scan the offline tree stored on disk when offline
+	(add_folders) : A helper callback method for offline scanning
+	* storage/exchange-hierarchy.c (scan_subtree)
+	(exchange_hierarchy_scan_subtree) : Pass on the offline state
+	* storage/exchange-hierarchy.h : Similar
+	* storage/exchange-storage.c (account_to_storage_result)
+	(idle_open_folder) : Set the errors for describing offline mode.
+
+2005-02-04  Sarfraaz Ahmed <asarfraaz@novell.com>
+
         * addressbook/e-book-backend-gal.c :
         * lib/e2k-types.h :
         * shell/e-folder-creation-dialog.c :

@@ -713,6 +713,7 @@ exchange_account_open_folder (ExchangeAccount *account, const char *path)
 {
 	ExchangeHierarchy *hier;
 	EFolder *folder;
+	gboolean offline = exchange_account_is_offline (account);
 
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), 
 				EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
@@ -720,7 +721,7 @@ exchange_account_open_folder (ExchangeAccount *account, const char *path)
 	if (!get_folder (account, path, &folder, &hier))
 		return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
 
-	if (!account->priv->connected &&
+	if (!offline && !account->priv->connected &&
 	    hier == (ExchangeHierarchy *)account->priv->hierarchies->pdata[0] &&
 	    folder == hier->toplevel) {
 		/* The shell is asking us to open the personal folders
@@ -730,7 +731,7 @@ exchange_account_open_folder (ExchangeAccount *account, const char *path)
 		return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
 	}		
 
-	return exchange_hierarchy_scan_subtree (hier, folder);
+	return exchange_hierarchy_scan_subtree (hier, folder, offline);
 }
 
 ExchangeAccountFolderResult
@@ -1106,6 +1107,127 @@ exchange_account_set_online (ExchangeAccount *account)
 }
 
 /**
+ * exchange_account_is_offline:
+ * @account: an #ExchangeAccount
+ *
+ * Return value: Returns TRUE if account is offline
+ **/
+gboolean
+exchange_account_is_offline (ExchangeAccount *account)
+{
+	return exchange_component_is_offline (global_exchange_component);
+}
+
+
+static gboolean
+setup_account_hierarchies (ExchangeAccount *account)
+{
+	ExchangeHierarchy *hier, *personal_hier;
+	ExchangeAccountFolderResult fresult;
+	char *phys_uri_prefix, *dir;
+	DIR *d;
+	struct dirent *dent;
+	gboolean offline = exchange_account_is_offline (account);
+
+	/* Set up Personal Folders hierarchy */
+	phys_uri_prefix = g_strdup_printf ("exchange://%s/personal",
+					   account->priv->uri_authority);
+	hier = exchange_hierarchy_webdav_new (account,
+					      EXCHANGE_HIERARCHY_PERSONAL,
+					      _("Personal Folders"),
+					      phys_uri_prefix,
+					      account->home_uri,
+					      account->priv->identity_name,
+					      account->priv->identity_email,
+					      account->priv->source_uri,
+					      TRUE);
+	setup_hierarchy (account, hier);
+	g_free (phys_uri_prefix);
+	personal_hier = hier;
+
+	/* Favorite Public Folders */
+	phys_uri_prefix = g_strdup_printf ("exchange://%s/favorites",
+					   account->priv->uri_authority);
+	hier = exchange_hierarchy_favorites_new (account,
+						 _("Favorite Public Folders"),
+						 phys_uri_prefix,
+						 account->home_uri,
+						 account->public_uri,
+						 account->priv->identity_name,
+						 account->priv->identity_email,
+						 account->priv->source_uri);
+	setup_hierarchy (account, hier);
+	g_free (phys_uri_prefix);
+	account->priv->favorites_hierarchy = hier;
+
+	/* Public Folders */
+	phys_uri_prefix = g_strdup_printf ("exchange://%s/public",
+					   account->priv->uri_authority);
+	hier = exchange_hierarchy_webdav_new (account,
+					      EXCHANGE_HIERARCHY_PUBLIC,
+					      /* i18n: Outlookism */
+					      _("All Public Folders"),
+					      phys_uri_prefix,
+					      account->public_uri,
+					      account->priv->identity_name,
+					      account->priv->identity_email,
+					      account->priv->source_uri,
+					      FALSE);
+	setup_hierarchy (account, hier);
+	g_free (phys_uri_prefix);
+
+	/* Global Address List */
+	phys_uri_prefix = g_strdup_printf ("gal://%s/gal",
+					   account->priv->uri_authority);
+						     /* i18n: Outlookism */
+	hier = exchange_hierarchy_gal_new (account, _("Global Address List"),
+					   phys_uri_prefix);
+	setup_hierarchy (account, hier);
+	g_free (phys_uri_prefix);
+
+	/* Other users' folders */
+	d = opendir (account->storage_dir);
+	if (d) {
+		while ((dent = readdir (d))) {
+			if (!strchr (dent->d_name, '@'))
+				continue;
+			dir = g_strdup_printf ("%s/%s", account->storage_dir,
+					       dent->d_name);
+			hier = exchange_hierarchy_foreign_new_from_dir (account, dir);
+			g_free (dir);
+			if (!hier)
+				continue;
+
+			setup_hierarchy_foreign (account, hier);
+		}
+		closedir (d);
+	}
+
+	/* Scan the personal and favorite folders so we can resolve references
+	 * to the Calendar, Contacts, etc even if the tree isn't
+	 * opened.
+	 */
+	fresult = exchange_hierarchy_scan_subtree (personal_hier,
+						   personal_hier->toplevel,
+						   offline);
+	if (fresult != EXCHANGE_ACCOUNT_FOLDER_OK) {
+		account->priv->connecting = FALSE;
+		return FALSE;
+	}
+
+	fresult = exchange_hierarchy_scan_subtree (
+		account->priv->favorites_hierarchy,
+		account->priv->favorites_hierarchy->toplevel,
+		offline);
+	if (fresult != EXCHANGE_ACCOUNT_FOLDER_OK) {
+		account->priv->connecting = FALSE;
+		return FALSE;
+	}
+	
+	return TRUE;
+}
+
+/**
  * exchange_account_connect:
  * @account: an #ExchangeAccount
  *
@@ -1121,7 +1243,6 @@ exchange_account_connect (ExchangeAccount *account)
 {
 	E2kAutoconfig *ac;
 	E2kAutoconfigResult result;
-	ExchangeAccountFolderResult fresult;
 	E2kHTTPStatus status;
 	char *errmsg = "";
 	gboolean redirected = FALSE;
@@ -1129,22 +1250,24 @@ exchange_account_connect (ExchangeAccount *account)
 	int nresults;
 	GByteArray *entryid;
 	const char *timezone;
-	char *phys_uri_prefix, *dir;
-	ExchangeHierarchy *hier, *personal_hier;
-	struct dirent *dent;
-	DIR *d;
 	char *old_password, *new_password;
 	E2kGlobalCatalogStatus gcstatus;
 	E2kGlobalCatalogEntry *entry;
 	E2kOperation gcop;
 	const char *quota_msg = NULL;
 	char *user_name = NULL;
+	int offline = exchange_component_is_offline (global_exchange_component);
 
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
 
 	g_mutex_lock (account->priv->connect_lock);
-	if ((account->priv->connecting) || (!account->priv->account_online)){
+	//if ((account->priv->connecting) || (!account->priv->account_online)){
+	if ((account->priv->connecting) || offline){
 		g_mutex_unlock (account->priv->connect_lock);
+		if (offline) {
+			setup_account_hierarchies (account);
+			e_notice (NULL, GTK_MESSAGE_ERROR, _("Exchange Account is offline. Cannot display folders\n"));
+		}
 		return NULL;
 	} else if (account->priv->ctx) {
 		g_mutex_unlock (account->priv->connect_lock);
@@ -1349,99 +1472,9 @@ exchange_account_connect (ExchangeAccount *account)
 		if (quota_msg)
 			e_notice (NULL, GTK_MESSAGE_INFO, quota_msg);
 	}
-
-	/* Set up Personal Folders hierarchy */
-	phys_uri_prefix = g_strdup_printf ("exchange://%s/personal",
-					   account->priv->uri_authority);
-	hier = exchange_hierarchy_webdav_new (account,
-					      EXCHANGE_HIERARCHY_PERSONAL,
-					      _("Personal Folders"),
-					      phys_uri_prefix,
-					      account->home_uri,
-					      account->priv->identity_name,
-					      account->priv->identity_email,
-					      account->priv->source_uri,
-					      TRUE);
-	setup_hierarchy (account, hier);
-	g_free (phys_uri_prefix);
-	personal_hier = hier;
-
-	/* Favorite Public Folders */
-	phys_uri_prefix = g_strdup_printf ("exchange://%s/favorites",
-					   account->priv->uri_authority);
-	hier = exchange_hierarchy_favorites_new (account,
-						 _("Favorite Public Folders"),
-						 phys_uri_prefix,
-						 account->home_uri,
-						 account->public_uri,
-						 account->priv->identity_name,
-						 account->priv->identity_email,
-						 account->priv->source_uri);
-	setup_hierarchy (account, hier);
-	g_free (phys_uri_prefix);
-	account->priv->favorites_hierarchy = hier;
-
-	/* Public Folders */
-	phys_uri_prefix = g_strdup_printf ("exchange://%s/public",
-					   account->priv->uri_authority);
-	hier = exchange_hierarchy_webdav_new (account,
-					      EXCHANGE_HIERARCHY_PUBLIC,
-					      /* i18n: Outlookism */
-					      _("All Public Folders"),
-					      phys_uri_prefix,
-					      account->public_uri,
-					      account->priv->identity_name,
-					      account->priv->identity_email,
-					      account->priv->source_uri,
-					      FALSE);
-	setup_hierarchy (account, hier);
-	g_free (phys_uri_prefix);
-
-	/* Global Address List */
-	phys_uri_prefix = g_strdup_printf ("gal://%s/gal",
-					   account->priv->uri_authority);
-						     /* i18n: Outlookism */
-	hier = exchange_hierarchy_gal_new (account, _("Global Address List"),
-					   phys_uri_prefix);
-	setup_hierarchy (account, hier);
-	g_free (phys_uri_prefix);
-
-	/* Other users' folders */
-	d = opendir (account->storage_dir);
-	if (d) {
-		while ((dent = readdir (d))) {
-			if (!strchr (dent->d_name, '@'))
-				continue;
-			dir = g_strdup_printf ("%s/%s", account->storage_dir,
-					       dent->d_name);
-			hier = exchange_hierarchy_foreign_new_from_dir (account, dir);
-			g_free (dir);
-			if (!hier)
-				continue;
-
-			setup_hierarchy_foreign (account, hier);
-		}
-		closedir (d);
-	}
-
-	/* Scan the personal and favorite folders so we can resolve references
-	 * to the Calendar, Contacts, etc even if the tree isn't
-	 * opened.
-	 */
-	fresult = exchange_hierarchy_scan_subtree (personal_hier,
-						   personal_hier->toplevel);
-	if (fresult != EXCHANGE_ACCOUNT_FOLDER_OK) {
-		account->priv->connecting = FALSE;
+	
+	if (!setup_account_hierarchies (account)) 
 		return NULL;
-	}
-
-	fresult = exchange_hierarchy_scan_subtree (
-		account->priv->favorites_hierarchy,
-		account->priv->favorites_hierarchy->toplevel);
-	if (fresult != EXCHANGE_ACCOUNT_FOLDER_OK) {
-		account->priv->connecting = FALSE;
-		return NULL;
-	}
 	
 	account->priv->connected = TRUE;
 	account->priv->account_online = TRUE;

@@ -591,141 +591,141 @@ get_folder (MailStub *stub, const char *name, gboolean create,
 		if (!(mmsg->flags & MAIL_STUB_MESSAGE_SEEN))
 			mfld->unread_count++;
 	}
-	mfld->changed_messages = g_ptr_array_new ();
+	if (!exchange_account_is_offline (mse->account)) {
+		mfld->changed_messages = g_ptr_array_new ();
 
-	status = e_folder_exchange_propfind (mfld->folder, NULL,
-					     open_folder_props,
-					     n_open_folder_props,
-					     &results, &nresults);
-	if (status == E2K_HTTP_UNAUTHORIZED) {
-		got_folder_error (mfld, _("Could not open folder: Permission denied"));
-		return;
-	} else if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-		g_warning ("got_folder_props: %d", status);
-		got_folder_error (mfld, _("Could not open folder"));
-		return;
-	}
+		status = e_folder_exchange_propfind (mfld->folder, NULL,
+						     open_folder_props,
+						     n_open_folder_props,
+						     &results, &nresults);
+		if (status == E2K_HTTP_UNAUTHORIZED) {
+			got_folder_error (mfld, _("Could not open folder: Permission denied"));
+			return;
+		} else if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+			g_warning ("got_folder_props: %d", status);
+			got_folder_error (mfld, _("Could not open folder"));
+			return;
+		}
 
-	if (nresults) {
-		prop = e2k_properties_get_prop (results[0].props, PR_ACCESS);
-		if (prop)
-			mfld->access = atoi (prop);
-		else
+		if (nresults) {
+			prop = e2k_properties_get_prop (results[0].props, PR_ACCESS);
+			if (prop)
+				mfld->access = atoi (prop);
+			else
+				mfld->access = ~0;
+		} else
 			mfld->access = ~0;
-	} else
-		mfld->access = ~0;
 
-	if (!(mfld->access & MAPI_ACCESS_READ)) {
-		got_folder_error (mfld, _("Could not open folder: Permission denied"));
-		return;
-	}
-	readonly = (mfld->access & MAPI_ACCESS_MODIFY) == 0;
+		if (!(mfld->access & MAPI_ACCESS_READ)) {
+			got_folder_error (mfld, _("Could not open folder: Permission denied"));
+			return;
+		}
+		readonly = (mfld->access & MAPI_ACCESS_MODIFY) == 0;
 
-	prop = e2k_properties_get_prop (results[0].props, PR_DELETED_COUNT_TOTAL);
-	if (prop)
-		mfld->deleted_count = atoi (prop);
+		prop = e2k_properties_get_prop (results[0].props, PR_DELETED_COUNT_TOTAL);
+		if (prop)
+			mfld->deleted_count = atoi (prop);
 
-	rn = e2k_restriction_andv (
-		e2k_restriction_prop_bool (E2K_PR_DAV_IS_COLLECTION,
-					   E2K_RELOP_EQ, FALSE),
-		e2k_restriction_prop_bool (E2K_PR_DAV_IS_HIDDEN,
-					   E2K_RELOP_EQ, FALSE),
-		NULL);
+		rn = e2k_restriction_andv (
+			e2k_restriction_prop_bool (E2K_PR_DAV_IS_COLLECTION,
+						   E2K_RELOP_EQ, FALSE),
+			e2k_restriction_prop_bool (E2K_PR_DAV_IS_HIDDEN,
+						   E2K_RELOP_EQ, FALSE),
+			NULL);
 
-	iter = e_folder_exchange_search_start (mfld->folder, NULL,
-					       open_folder_sync_props,
-					       n_open_folder_sync_props,
-					       rn, E2K_PR_DAV_CREATION_DATE,
-					       TRUE);
-	e2k_restriction_unref (rn);
+		iter = e_folder_exchange_search_start (mfld->folder, NULL,
+						       open_folder_sync_props,
+						       n_open_folder_sync_props,
+						       rn, E2K_PR_DAV_CREATION_DATE,
+						       TRUE);
+		e2k_restriction_unref (rn);
 
-	m = 0;
-	total = e2k_result_iter_get_total (iter);
-	while ((result = e2k_result_iter_next (iter)) && m < mfld->messages->len) {
-		prop = e2k_properties_get_prop (result->props,
-						PR_INTERNET_ARTICLE_NUMBER);
-		if (!prop)
-			continue;
-		article_num = strtoul (prop, NULL, 10);
+		m = 0;
+		total = e2k_result_iter_get_total (iter);
+		while ((result = e2k_result_iter_next (iter)) && m < mfld->messages->len) {
+			prop = e2k_properties_get_prop (result->props,
+							PR_INTERNET_ARTICLE_NUMBER);
+			if (!prop)
+				continue;
+			article_num = strtoul (prop, NULL, 10);
 
-		prop = e2k_properties_get_prop (result->props,
-						E2K_PR_REPL_UID);
-		if (!prop)
-			continue;
-		uid = uidstrip (prop);
+			prop = e2k_properties_get_prop (result->props,
+							E2K_PR_REPL_UID);
+			if (!prop)
+				continue;
+			uid = uidstrip (prop);
 
-		camel_flags = mail_util_props_to_camel_flags (result->props,
-							      !readonly);
+			camel_flags = mail_util_props_to_camel_flags (result->props,
+								      !readonly);
 
-		mmsg = mfld->messages->pdata[m];
-		while (strcmp (uid, mmsg->uid)) {
-			message_remove_at_index (stub, mfld, m);
-			if (m == mfld->messages->len) {
-				mmsg = NULL;
+			mmsg = mfld->messages->pdata[m];
+			while (strcmp (uid, mmsg->uid)) {
+				message_remove_at_index (stub, mfld, m);
+				if (m == mfld->messages->len) {
+					mmsg = NULL;
+					if (article_num < mfld->high_article_num)
+						mfld->high_article_num = article_num - 1;
+					break;
+				}
+				mmsg = mfld->messages->pdata[m];
+			}
+			if (!mmsg)
+				break;
+
+			mmsg->href = g_strdup (result->href);
+			g_hash_table_insert (mfld->messages_by_href, mmsg->href, mmsg);
+			if (article_num > mfld->high_article_num)
+				mfld->high_article_num = article_num;
+			if (mmsg->flags != camel_flags)
+				change_flags (mfld, mmsg, camel_flags);
+
+			prop = e2k_properties_get_prop (result->props, E2K_PR_HTTPMAIL_MESSAGE_FLAG);
+			if (prop)
+				return_tag (mfld, mmsg->uid, "follow-up", prop);
+			prop = e2k_properties_get_prop (result->props, E2K_PR_MAILHEADER_REPLY_BY);
+			if (prop)
+				return_tag (mfld, mmsg->uid, "due-by", prop);
+			prop = e2k_properties_get_prop (result->props, E2K_PR_MAILHEADER_COMPLETED);
+			if (prop)
+				return_tag (mfld, mmsg->uid, "completed-on", prop);
+
+			m++;
+			mail_stub_return_progress (stub, (m * 100) / total);
+		}
+
+		/* If there are further messages beyond mfld->messages->len,
+		 * then that means camel doesn't know about them yet, and so
+		 * we need to ignore them for a while. But if any of them have
+		 * an article number lower than the highest article number
+		 * we've seen, bump high_article_num down so that that message
+		 * gets caught by refresh_info later too.
+		 */
+		while ((result = e2k_result_iter_next (iter))) {
+			prop = e2k_properties_get_prop (result->props,
+							PR_INTERNET_ARTICLE_NUMBER);
+			if (prop) {
+				article_num = strtoul (prop, NULL, 10);
 				if (article_num < mfld->high_article_num)
 					mfld->high_article_num = article_num - 1;
-				break;
 			}
-			mmsg = mfld->messages->pdata[m];
-		}
-		if (!mmsg)
-			break;
 
-		mmsg->href = g_strdup (result->href);
-		g_hash_table_insert (mfld->messages_by_href, mmsg->href, mmsg);
-		if (article_num > mfld->high_article_num)
-			mfld->high_article_num = article_num;
-		if (mmsg->flags != camel_flags)
-			change_flags (mfld, mmsg, camel_flags);
-
-		prop = e2k_properties_get_prop (result->props, E2K_PR_HTTPMAIL_MESSAGE_FLAG);
-		if (prop)
-			return_tag (mfld, mmsg->uid, "follow-up", prop);
-		prop = e2k_properties_get_prop (result->props, E2K_PR_MAILHEADER_REPLY_BY);
-		if (prop)
-			return_tag (mfld, mmsg->uid, "due-by", prop);
-		prop = e2k_properties_get_prop (result->props, E2K_PR_MAILHEADER_COMPLETED);
-		if (prop)
-			return_tag (mfld, mmsg->uid, "completed-on", prop);
-
-		m++;
-		mail_stub_return_progress (stub, (m * 100) / total);
-	}
-
-	/* If there are further messages beyond mfld->messages->len,
-	 * then that means camel doesn't know about them yet, and so
-	 * we need to ignore them for a while. But if any of them have
-	 * an article number lower than the highest article number
-	 * we've seen, bump high_article_num down so that that message
-	 * gets caught by refresh_info later too.
-	 */
-	while ((result = e2k_result_iter_next (iter))) {
-		prop = e2k_properties_get_prop (result->props,
-						PR_INTERNET_ARTICLE_NUMBER);
-		if (prop) {
-			article_num = strtoul (prop, NULL, 10);
-			if (article_num < mfld->high_article_num)
-				mfld->high_article_num = article_num - 1;
+			m++;
+			mail_stub_return_progress (stub, (m * 100) / total);
 		}
 
-		m++;
-		mail_stub_return_progress (stub, (m * 100) / total);
-	}
+		status = e2k_result_iter_free (iter);
+		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+			g_warning ("got_folder: %d", status);
+			got_folder_error (mfld, _("Could not open folder"));
+			return;
+		}
 
-	status = e2k_result_iter_free (iter);
-	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-		g_warning ("got_folder: %d", status);
-		got_folder_error (mfld, _("Could not open folder"));
-		return;
-	}
-
-	/* Discard remaining messages that no longer exist. */
-	for (i = 0; i < mfld->messages->len; i++) {
-		mmsg = mfld->messages->pdata[i];
-		if (!mmsg->href)
-			message_remove_at_index (stub, mfld, i--);
-	}
-
+		/* Discard remaining messages that no longer exist. */
+		for (i = 0; i < mfld->messages->len; i++) {
+			mmsg = mfld->messages->pdata[i];
+			if (!mmsg->href)
+				message_remove_at_index (stub, mfld, i--);
+		}
 	e_folder_exchange_subscribe (mfld->folder,
 				     E2K_CONTEXT_OBJECT_ADDED, 30,
 				     notify_cb, mfld);
@@ -735,6 +735,7 @@ get_folder (MailStub *stub, const char *name, gboolean create,
 	e_folder_exchange_subscribe (mfld->folder,
 				     E2K_CONTEXT_OBJECT_MOVED, 30,
 				     notify_cb, mfld);
+	} // end online work
 	g_signal_connect (mfld->folder, "changed",
 			  G_CALLBACK (storage_folder_changed), mfld);
 
@@ -818,6 +819,9 @@ sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld)
 	int my_i, read, highest_unverified_index, highest_verified_seq;
 	MailStubExchangeMessage *mmsg, *my_mmsg;
 	gboolean changes = FALSE;
+
+	if (exchange_account_is_offline (mse->account))
+		return;
 
 	status = e_folder_exchange_propfind (mfld->folder, NULL,
 					     sync_deleted_props,
@@ -989,6 +993,10 @@ refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 	int got, total, i, n;
 	gpointer key, value;
 	MailStubExchangeMessage *mmsg;
+	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
+
+	if (exchange_account_is_offline (mse->account))
+		return;
 
 	g_object_ref (stub);
 
@@ -2437,14 +2445,15 @@ mail_stub_exchange_new (ExchangeAccount *account, int cmd_fd, int status_fd)
 
 	mse = (MailStubExchange *)stub;
 	mse->account = account;
-	mse->ctx = exchange_account_get_context (account);
-	g_object_ref (mse->ctx);
+	if (!exchange_account_is_offline (account)) {
+		mse->ctx = exchange_account_get_context (account);
+		g_object_ref (mse->ctx);
 
-	mse->mail_submission_uri = exchange_account_get_standard_uri (account, "sendmsg");
-	uri = exchange_account_get_standard_uri (account, "inbox");
-	mse->inbox = exchange_account_get_folder (account, uri);
-	uri = exchange_account_get_standard_uri (account, "deleteditems");
-	mse->deleted_items = exchange_account_get_folder (account, uri);
-
+		mse->mail_submission_uri = exchange_account_get_standard_uri (account, "sendmsg");
+		uri = exchange_account_get_standard_uri (account, "inbox");
+		mse->inbox = exchange_account_get_folder (account, uri);
+		uri = exchange_account_get_standard_uri (account, "deleteditems");
+		mse->deleted_items = exchange_account_get_folder (account, uri);
+	}
 	return stub;
 }

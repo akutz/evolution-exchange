@@ -50,7 +50,8 @@ struct _ExchangeHierarchyClass {
 	void (*add_to_storage) (ExchangeHierarchy *hier);
 	void (*rescan) (ExchangeHierarchy *hier);
 	ExchangeAccountFolderResult (*scan_subtree)  (ExchangeHierarchy *hier,
-						      EFolder *folder);
+						      EFolder *folder,
+						      gboolean offline);
 
 	ExchangeAccountFolderResult (*create_folder) (ExchangeHierarchy *hier,
 						      EFolder *parent,
@@ -91,7 +92,8 @@ gboolean exchange_hierarchy_is_empty            (ExchangeHierarchy *hier);
 void                        exchange_hierarchy_add_to_storage (ExchangeHierarchy *hier);
 void                        exchange_hierarchy_rescan         (ExchangeHierarchy *hier);
 ExchangeAccountFolderResult exchange_hierarchy_scan_subtree   (ExchangeHierarchy *hier,
-							       EFolder           *folder);
+							       EFolder           *folder,
+							       gboolean		  offline);
 
 ExchangeAccountFolderResult exchange_hierarchy_create_folder (ExchangeHierarchy *hier,
 							      EFolder           *parent,

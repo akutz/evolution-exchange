@@ -93,6 +93,12 @@ finalize (GObject *object)
 
 E2K_MAKE_TYPE (exchange_hierarchy_favorites, ExchangeHierarchyFavorites, class_init, init, PARENT_TYPE)
 
+static void
+add_hrefs (ExchangeHierarchy *hier, EFolder *folder, gpointer hrefs)
+{
+	g_ptr_array_add (hrefs, (char *)e2k_uri_path (e_folder_exchange_get_internal_uri (folder)));
+}
+
 static const char *shortcuts_props[] = {
 	PR_FAV_DISPLAY_NAME,		/* PR_DISPLAY_NAME of referent */
 	PR_FAV_DISPLAY_ALIAS,		/* if set, user-chosen display name */
@@ -119,6 +125,10 @@ get_hrefs (ExchangeHierarchySomeDAV *hsd)
 
 	hrefs = g_ptr_array_new ();
 
+	if (exchange_account_is_offline (hier->account)) {
+		exchange_hierarchy_webdav_offline_scan_subtree (EXCHANGE_HIERARCHY (hfav), add_hrefs, hrefs);
+		return hrefs;
+	}
 	/* Scan the shortcut links and use PROPFIND to resolve the
 	 * permanent_urls. Unfortunately it doesn't seem to be possible
 	 * to BPROPFIND a group of permanent_urls.

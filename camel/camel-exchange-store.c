@@ -475,12 +475,12 @@ exchange_get_folder_info (CamelStore *store, const char *top, guint32 flags, Cam
 	GByteArray *folder_flags;
 	CamelFolderInfo *info;
 	int i;
-	
+#if 0	
 	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot get folder info in offline mode."));
 		return NULL;
 	}
-	
+#endif	
 	RETURN_VAL_IF_NOT_CONNECTED (store, ex, NULL);
 
 	/* If the backend crashed, don't keep returning an error

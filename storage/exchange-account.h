@@ -84,7 +84,7 @@ gboolean		 exchange_account_set_offline (ExchangeAccount *account);
 
 gboolean		 exchange_account_set_online (ExchangeAccount *account);
 
-gboolean		 exchange_account_is_online (ExchangeAccount *account);
+gboolean		 exchange_account_is_offline (ExchangeAccount *account);
 
 
 

@@ -62,7 +62,8 @@ static void finalize (GObject *object);
 static gboolean is_empty (ExchangeHierarchy *hier);
 static void rescan (ExchangeHierarchy *hier);
 static ExchangeAccountFolderResult scan_subtree  (ExchangeHierarchy *hier,
-						  EFolder *folder);
+						  EFolder *folder,
+						  gboolean offline);
 static ExchangeAccountFolderResult create_folder (ExchangeHierarchy *hier,
 						  EFolder *parent,
 						  const char *name,
@@ -298,10 +299,8 @@ create_folder (ExchangeHierarchy *hier, EFolder *parent,
 	char *permanent_url = NULL;
 	int i;
 
-#ifdef OFFLINE_SUPPORT
 	if (exchange_account_is_offline (hier->account))
 		return EXCHANGE_ACCOUNT_FOLDER_OFFLINE;
-#endif
 
 	for (i = 0; folder_types[i].component; i++) {
 		if (!strcmp (folder_types[i].component, type))
@@ -346,10 +345,8 @@ remove_folder (ExchangeHierarchy *hier, EFolder *folder)
 {
 	E2kHTTPStatus status;
 
-#ifdef OFFLINE_SUPPORT
 	if (exchange_account_is_offline (hier->account))
 		return EXCHANGE_ACCOUNT_FOLDER_OFFLINE;
-#endif
 
 	if (folder == hier->toplevel)
 		return EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED;
@@ -373,11 +370,11 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 	ESourceList *cal_source_list, *task_source_list, *cont_source_list;
 	const char *folder_type = NULL;
 	ExchangeAccountFolderResult ret_code;
+	gboolean offline;
 
-#ifdef OFFLINE_SUPPORT
-	if (exchange_account_is_offline (hier->account))
+	offline = exchange_account_is_offline (hier->account);
+	if (offline)
 		return EXCHANGE_ACCOUNT_FOLDER_OFFLINE;
-#endif
 
 	if (source == hier->toplevel)
 		return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
@@ -399,7 +396,7 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 		if (remove_source)
 			exchange_hierarchy_removed_folder (hier, source);
 		exchange_hierarchy_new_folder (hier, dest);
-		scan_subtree (hier, dest);
+		scan_subtree (hier, dest, offline);
 		physical_uri = (char *) e_folder_get_physical_uri (source);
 		g_object_unref (dest);
 		ret_code = EXCHANGE_ACCOUNT_FOLDER_OK;
@@ -487,10 +484,7 @@ rescan (ExchangeHierarchy *hier)
 	EFolder *folder;
 	int unread;
 
-	if (
-#ifdef OFFLINE_SUPPORT
-	    exchange_account_is_offline (hier->account) ||
-#endif
+	if ( exchange_account_is_offline (hier->account) ||
 	    hier->type == EXCHANGE_HIERARCHY_PUBLIC)
 		return;
 
@@ -618,6 +612,13 @@ exchange_hierarchy_webdav_parse_folder (ExchangeHierarchyWebDAV *hwd,
 	return folder;
 }
 
+static void
+add_folders (ExchangeHierarchy *hier, EFolder *folder, gpointer folders)
+{
+	g_object_ref (folder);
+	g_ptr_array_add (folders, folder);
+}
+
 static const char *folder_props[] = {
 	E2K_PR_EXCHANGE_FOLDER_CLASS,
 	E2K_PR_HTTPMAIL_UNREAD_COUNT,
@@ -629,7 +630,7 @@ static const char *folder_props[] = {
 static const int n_folder_props = sizeof (folder_props) / sizeof (folder_props[0]);
 
 static ExchangeAccountFolderResult
-scan_subtree (ExchangeHierarchy *hier, EFolder *parent)
+scan_subtree (ExchangeHierarchy *hier, EFolder *parent, gboolean offline)
 {
 	static E2kRestriction *folders_rn;
 	ExchangeHierarchyWebDAV *hwd = EXCHANGE_HIERARCHY_WEBDAV (hier);
@@ -637,7 +638,20 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *parent)
 	E2kResultIter *iter;
 	E2kResult *result;
 	E2kHTTPStatus status;
-	EFolder *folder;
+	EFolder *folder, *tmp;
+	GPtrArray *folders;
+	int i;
+	
+	if (offline) {
+		folders = g_ptr_array_new ();
+		exchange_hierarchy_webdav_offline_scan_subtree (EXCHANGE_HIERARCHY (hier), add_folders, folders);
+		for (i = 0; i <folders->len; i++) {
+			tmp = (EFolder *)folders->pdata[i];
+			exchange_hierarchy_new_folder (hier, (EFolder *)folders->pdata[i]);
+			g_object_unref (folders->pdata[i]); // is this needed ?
+		}
+		return EXCHANGE_ACCOUNT_FOLDER_OK;
+	}
 
 	if (!folders_rn) {
 		folders_rn =
@@ -670,7 +684,7 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *parent)
 	while (subtrees) {
 		folder = subtrees->data;
 		subtrees = g_slist_remove (subtrees, folder);
-		scan_subtree (hier, folder);
+		scan_subtree (hier, folder, offline);
 	}
 
 	return exchange_hierarchy_webdav_status_to_folder_result (status);

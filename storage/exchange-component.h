@@ -44,6 +44,7 @@ ExchangeComponent *exchange_component_new      (void);
 ExchangeAccount   *exchange_component_get_account_for_uri (ExchangeComponent *component,
 							   const char        *uri);
 gboolean           exchange_component_is_interactive      (ExchangeComponent *component);
+gboolean           exchange_component_is_offline      (ExchangeComponent *component);
 
 void exchange_component_set_offline_listener (ExchangeComponent *component, 
 						ExchangeOfflineListener *listener);
