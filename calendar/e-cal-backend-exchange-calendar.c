@@ -718,7 +718,7 @@ update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp)
 static ECalBackendSyncStatus
 modify_object (ECalBackendSync *backend, EDataCal *cal,
 	       const char *calobj, CalObjModType mod,
-	       char **old_object)
+	       char **old_object, char **new_object)
 {
 	return modify_object_with_href (backend, cal, calobj, mod, old_object, NULL);
 }
@@ -961,7 +961,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 static ECalBackendSyncStatus
 remove_object (ECalBackendSync *backend, EDataCal *cal,
 	       const char *uid, const char *rid, CalObjModType mod,
-	       char **object)
+	       char **old_object, char **object)
 {
 	ECalBackendExchangeCalendar *cbexc;
 	ECalBackendExchangeComponent *ecomp;
@@ -1010,7 +1010,7 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 				e_cal_util_remove_instances (ecomp->icomp, time_rid, mod);
 			}
 			calobj  = (char *) icalcomponent_as_ical_string (ecomp->icomp);
-			ebs_status = modify_object (backend, cal, calobj, mod, &obj);
+			ebs_status = modify_object (backend, cal, calobj, mod, &obj, NULL);
 			if (ebs_status != GNOME_Evolution_Calendar_Success)
 				goto error;
 			
@@ -1069,9 +1069,9 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 		case ICAL_METHOD_REPLY:
 			if (get_exchange_comp (E_CAL_BACKEND_EXCHANGE (cbexc), uid)) {
 				char *old_object;
-
+				
 				calobj = (char *) icalcomponent_as_ical_string (subcomp);
-				status = modify_object (backend, cal, calobj, CALOBJ_MOD_THIS, &old_object);
+				status = modify_object (backend, cal, calobj, CALOBJ_MOD_THIS, &old_object, NULL);
 				if (status != GNOME_Evolution_Calendar_Success)
 					goto error;
 
@@ -1095,7 +1095,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 
 		case ICAL_METHOD_CANCEL:
 			calobj = (char *) icalcomponent_as_ical_string (subcomp);
-			status = remove_object (backend, cal, uid, rid, CALOBJ_MOD_THIS, &calobj);
+			status = remove_object (backend, cal, uid, rid, CALOBJ_MOD_THIS, &calobj, NULL);
 			e_cal_backend_notify_object_removed (E_CAL_BACKEND (backend), uid, calobj, NULL);
 			break;
 		default:
@@ -1247,7 +1247,7 @@ book_resource (ECalBackendExchange *cbex,
 		e_cal_component_set_transparency (E_CAL_COMPONENT (comp), E_CAL_COMPONENT_TRANSP_TRANSPARENT);
 		calobj = (char *) e_cal_component_get_as_string (comp);
 		rid = (char *) e_cal_component_get_recurid_as_string (comp);
-		status = remove_object (E_CAL_BACKEND_SYNC (cbex), cal, uid, rid, CALOBJ_MOD_THIS, &calobj);
+		status = remove_object (E_CAL_BACKEND_SYNC (cbex), cal, uid, rid, CALOBJ_MOD_THIS, &calobj, NULL);
 		e_cal_backend_notify_object_removed (E_CAL_BACKEND (cbex), uid, calobj, NULL);
 		g_free (calobj); 
 	} else {

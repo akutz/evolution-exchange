@@ -575,7 +575,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 /*To be overriden by Calendar and Task classes*/
 static ECalBackendSyncStatus
 modify_object (ECalBackendSync *backend, EDataCal *cal, 
-			const char * calobj, CalObjModType mod, char **old_object)
+			const char * calobj, CalObjModType mod, char **old_object, char **new_object)
 {
 	return GNOME_Evolution_Calendar_OtherError;
 }

@@ -948,7 +948,7 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 static ECalBackendSyncStatus
 modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	       const char *calobj, CalObjModType mod,
-	       char **old_object)
+	       char **old_object, char **new_object)
 {
 	ECalBackendExchangeTasks *ecalbextask;
 	ECalBackendExchangeComponent *ecalbexcomp;
@@ -1078,7 +1078,7 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
                                                                                 
                 if (get_exchange_comp (E_CAL_BACKEND_EXCHANGE (ecalbextask), uid)) {
                         char *old_object;
-                        status = modify_task_object (backend, cal, calobj, CALOBJ_MOD_THIS, &old_object);
+                        status = modify_task_object (backend, cal, calobj, CALOBJ_MOD_THIS, &old_object, NULL);
                         if (status != GNOME_Evolution_Calendar_Success)
                                 goto error;
                                                                                 
@@ -1103,7 +1103,7 @@ error:
 static ECalBackendSyncStatus
 remove_task_object (ECalBackendSync *backend, EDataCal *cal,
 	       const char *uid, const char *rid, CalObjModType mod,
-	       char **old_object)
+	       char **old_object, char **object)
 {
 	ECalBackendExchange *ecalbex = E_CAL_BACKEND_EXCHANGE (backend);
 	ECalBackendExchangeComponent *ecalbexcomp;
