@@ -50,7 +50,6 @@ static CamelOfflineFolderClass *parent_class = NULL;
 /* Returns the class for a CamelFolder */
 #define CF_CLASS(so) CAMEL_FOLDER_CLASS (CAMEL_OBJECT_GET_CLASS(so))
 
-static void refresh_info (CamelFolder *folder, CamelException *ex);
 static void folder_sync (CamelFolder *folder, gboolean expunge,
 			 CamelException *ex);
 static void exchange_expunge (CamelFolder *folder, CamelException *ex);
@@ -81,7 +80,7 @@ static void   transfer_messages_the_hard_way (CamelFolder *source,
 					      GPtrArray **transferred_uids,
 					      gboolean delete_originals,
 					      CamelException *ex);
-static void exchange_refresh_info (CamelFolder *folder, CamelException *ex);
+static void refresh_info (CamelFolder *folder, CamelException *ex);
 static void exchange_sync (CamelFolder *folder, gboolean expunge, CamelException *ex);
 
 static void
@@ -98,7 +97,7 @@ class_init (CamelFolderClass *camel_folder_class)
 	camel_folder_class->search_by_uids = search_by_uids;
 	camel_folder_class->search_free = search_free;
 	camel_folder_class->transfer_messages_to = transfer_messages_to;
-	camel_folder_class->refresh_info = exchange_refresh_info;
+	camel_folder_class->refresh_info = refresh_info;
 	camel_folder_class->sync = exchange_sync;
 }
 
@@ -198,7 +197,9 @@ static void
 refresh_info (CamelFolder *folder, CamelException *ex)
 {
 	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
-
+	
+	camel_offline_journal_replay (exch->journal, NULL);
+	
 	camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_REFRESH_FOLDER,
 			 CAMEL_STUB_ARG_FOLDER, folder->full_name,
 			 CAMEL_STUB_ARG_END);
@@ -617,9 +618,8 @@ transfer_messages_to (CamelFolder *source, GPtrArray *uids,
 			
 			if (!(message = get_message (source, camel_message_info_uid (info), ex)))
 				break;
-
-			camel_exchange_journal_transfer (journal, (CamelExchangeFolder *)source, 
-							message, info, uids->pdata[i], NULL, ex);
+			
+			camel_exchange_journal_append (journal, message, info, NULL, ex);
 			camel_object_unref (message);
 
 			if (camel_exception_is_set (ex))
@@ -627,7 +627,7 @@ transfer_messages_to (CamelFolder *source, GPtrArray *uids,
 			
 			if (delete_originals)
 				camel_folder_set_message_flags (source, camel_message_info_uid (info),
-					CAMEL_MESSAGE_DELETED, CAMEL_MESSAGE_DELETED);
+								CAMEL_MESSAGE_DELETED, CAMEL_MESSAGE_DELETED);
 		}
 		goto end;
  	}
@@ -920,7 +920,7 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 {
 	CamelExchangeFolder *exch = (CamelExchangeFolder *)folder;
 	const char *short_name;
-	char *summary_file, *journal_file;
+	char *summary_file, *journal_file, *path;
 	GPtrArray *summary, *uids;
 	GByteArray *flags;
 	guint32 folder_flags;
@@ -967,6 +967,11 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 					name);
 		return FALSE;
 	}
+
+	path = g_build_filename (folder_dir, "cmeta", NULL);
+	camel_object_set (folder, NULL, CAMEL_OBJECT_STATE_FILE, path, NULL);
+	g_free (path);
+	camel_object_state_read (folder);
 
 	exch->thread_index_to_message_id =
 		g_hash_table_new (g_str_hash, g_str_equal);
@@ -1041,14 +1046,8 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 
 	if (camel_exchange_summary_get_readonly (folder->summary))
 		folder->permanent_flags = 0;
-
+	
 	return TRUE;
-}
-
-static void 
-exchange_refresh_info (CamelFolder *folder, CamelException *ex)
-{
-	refresh_info (folder, ex);
 }
 
 static void 

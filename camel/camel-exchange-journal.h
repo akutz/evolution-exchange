@@ -50,7 +50,6 @@ typedef struct _CamelExchangeJournalEntry CamelExchangeJournalEntry;
 
 enum {
 	CAMEL_EXCHANGE_JOURNAL_ENTRY_APPEND,
-	CAMEL_EXCHANGE_JOURNAL_ENTRY_TRANSFER
 };
 
 struct _CamelExchangeJournalEntry {
@@ -59,8 +58,6 @@ struct _CamelExchangeJournalEntry {
 	int type;
 
 	char *uid;
-	char *original_uid;
-	char *folder_name;
 };
 
 struct _CamelExchangeJournal {
@@ -80,11 +77,7 @@ CamelOfflineJournal *camel_exchange_journal_new (CamelExchangeFolder *folder, co
 
 /* interfaces for adding a journal entry */
 void camel_exchange_journal_append (CamelExchangeJournal *journal, CamelMimeMessage *message, 
-				const CamelMessageInfo *mi, char **appended_uid, CamelException *ex);
-
-void camel_exchange_journal_transfer (CamelExchangeJournal *journal, CamelExchangeFolder *source_folder, 
-				CamelMimeMessage *message, const CamelMessageInfo *mi, const char *original_uid,
-				char **transferred_uid, CamelException *ex);
+				    const CamelMessageInfo *mi, char **appended_uid, CamelException *ex);
 
 #ifdef __cplusplus
 }

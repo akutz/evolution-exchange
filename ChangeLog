@@ -1,3 +1,16 @@
+2005-03-16  Jeffrey Stedfast  <fejj@novell.com>
+
+	* camel/camel-exchange-folder.c (camel_exchange_folder_construct):
+	Set the state file path and load it. Fixes bug #73498.
+	(transfer_messages_to): Updated to use journal_append()
+	(refresh_info): Replay the journal here. Fixes bug #72968.
+	
+	* camel/camel-exchange-journal.c (exchange_entry_play_transfer):
+	Removed (not used).
+	(camel_exchange_journal_transfer): Removed.
+	(exchange_entry_play_append): restore back the message info from the
+	journal cache to the real cache.
+
 2005-03-16  Sarfraaz Ahmed <asarfraaz@novell.com>
 
         * camel/camel-exchange-store.c (construct): Move back the stub creation
