@@ -1,3 +1,10 @@
+2005-03-29  Sushma Rai  <rsushma@novell.com>
+
+	* storage/exchange-config-listener.c (add_esource): Fixed the problem
+	where e-source was being accessed after the unref. Also Selecting
+	calendar and tasks folders only if e-source is created.
+	Should fix #74029
+
 2005-03-17  Sushma Rai  <rsushma@novell.com>
 
 	* camel/camel-exchange-provider.c (exchange_validate_user_cb): Setting
