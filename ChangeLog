@@ -1,3 +1,24 @@
+2005-01-10  Hans Petter Jansson  <hpj@novell.com>
+
+	* addressbook/e-book-backend-gal.c (gal_connect): Store the account for
+	future reference.
+	(ldap_op_finished): Add robustness check.
+	(get_contact_handler): Ditto.
+	(get_contact): Implement offline case.
+	(contact_list_handler): Add robustness check.
+	(get_contact_list): Implement offline case.
+	(poll_ldap): Set poll_timeout to -1 if we disconnect the poll.
+	(ldap_search_handler): Add robustness check.
+	(start_book_view): Implement offline case.
+	(generate_cache_handler): Implement.
+	(generate_cache_dtor): Implement.
+	(generate_cache): Implement.
+	(ldap_cancel_op): Add robustness check.
+	(set_mode): Implement online/offline switching.
+	(get_required_fields): Silence a warning.
+	(load_source): Implement offline case. Initialize cache.
+	(dispose): Free cache.
+
 2005-01-08  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* calendar/e-cal-backend-exchange-tasks.c : Return error messages
