@@ -1,3 +1,11 @@
+2004-09-11  Sushma Rai  <rsushma@novell.com>
+
+	* addressbook/e-book-backend-gal.c (build_query):
+	Added check to not to return all contacts, when user 
+	tries to get the mail ID from GAL,  while composing mail,
+	by perfoming empty query in "Select Contacts form Addressbook"
+	dialog. Fixes #41647 
+	
 2004-09-11  Baris Cicek <baris@teamforce.name.tr>
 
 	* configure.in: Added 'tr' to ALL_LINGUAS
