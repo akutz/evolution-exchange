@@ -409,6 +409,18 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 	return FALSE;
 }
 
+/**
+ * mail_stub_read_args:
+ * @stub: a #MailStub
+ * @...: description of arguments to read
+ *
+ * Reads arguments as described from @stub's command channel.
+ * The varargs list consists of pairs of #CamelStubArgType values
+ * followed by pointers to variables of the appropriate type. The
+ * list is terminated by %CAMEL_STUB_ARG_END.
+ *
+ * Return value: success or failure.
+ **/
 gboolean
 mail_stub_read_args (MailStub *stub, ...)
 {
@@ -515,16 +527,17 @@ mail_stub_read_args (MailStub *stub, ...)
  * mail_stub_return_data:
  * @stub: the MailStub
  * @retval: the kind of return data
+ * @...: the data
  *
- * Returns substantive data to the CamelStub. If @retval is
+ * Sends substantive data to the CamelStub. If @retval is
  * %CAMEL_STUB_RETVAL_RESPONSE, it is the response data to the
  * last command. Otherwise it is an unsolicited informational
  * message.
  *
- * The data is not actually sent until the next mail_stub_return_ok()
- * or mail_stub_return_error() call, since sometimes this will be
- * called when the CamelStub isn't listening, and we don't want to
- * fill the pipe and block.
+ * The data is not actually sent by this call. Response data will be
+ * flushed when you call mail_stub_return_ok() or
+ * mail_stub_return_error(). For asynchronous notifications, you
+ * should be sure to call mail_stub_push_changes().
  **/
 void
 mail_stub_return_data (MailStub *stub, CamelStubRetval retval, ...)
@@ -618,7 +631,7 @@ mail_stub_return_data (MailStub *stub, CamelStubRetval retval, ...)
  * @stub: the MailStub
  * @percent: the percent value to return
  *
- * Returns progress data on the current operation.
+ * Sends progress data on the current operation.
  **/
 void
 mail_stub_return_progress (MailStub *stub, int percent)
@@ -633,7 +646,7 @@ mail_stub_return_progress (MailStub *stub, int percent)
  * mail_stub_return_ok:
  * @stub: the MailStub
  *
- * Returns a success response to the CamelStub. One of two possible
+ * Sends a success response to the CamelStub. One of two possible
  * completions to any non-oneway command. This also calls
  * mail_stub_push_changes().
  *
@@ -655,7 +668,7 @@ mail_stub_return_ok (MailStub *stub)
  * @stub: the MailStub
  * @message: the error message
  *
- * Returns a failure response to the CamelStub. The other of two
+ * Sends a failure response to the CamelStub. The other of two
  * possible completions to any non-oneway command. This also calls
  * mail_stub_push_changes ();
  *
@@ -687,6 +700,14 @@ mail_stub_push_changes (MailStub *stub)
 }
 
 
+/**
+ * mail_stub_construct:
+ * @stub: the #MailStub
+ * @cmd_fd: command socket file descriptor
+ * @status_fd: status socket file descriptor
+ *
+ * Initializes @stub with @cmd_fd and @status_fd.
+ **/
 void
 mail_stub_construct (MailStub *stub, int cmd_fd, int status_fd)
 {

@@ -35,6 +35,16 @@
 #include <gal/util/e-util.h>
 #include <libical/ical.h>
 
+/**
+ * mail_util_mapi_to_smtp_headers:
+ * @props: an #E2kProperties containing MAPI header properties.
+ *
+ * Constructs a fake set of RFC822 headers based on the MAPI header
+ * properties in @props.
+ *
+ * Return value: the headers, which must be free when you are done
+ * with them.
+ **/
 char *
 mail_util_mapi_to_smtp_headers (E2kProperties *props)
 {
@@ -88,6 +98,19 @@ mail_util_mapi_to_smtp_headers (E2kProperties *props)
 	return buf;
 }
 
+/**
+ * mail_util_props_to_camel_flags:
+ * @props: an #E2kProperties containing MAPI message properties.
+ * @obey_read_flag: if %FALSE, the %E2K_PR_HTTPMAIL_READ flag in
+ * @props will be ignored.
+ *
+ * Converts the values of the %E2K_PR_HTTPMAIL_READ,
+ * %E2K_PR_HTTPMAIL_HAS_ATTACHMENT, %PR_ACTION_FLAG, and
+ * %PR_DELEGATED_BY_RULE properties to an equivalent set of
+ * Camel message flags.
+ *
+ * Return value: the message flags
+ **/
 guint32
 mail_util_props_to_camel_flags (E2kProperties *props, gboolean obey_read_flag)
 {
@@ -123,6 +146,18 @@ mail_util_props_to_camel_flags (E2kProperties *props, gboolean obey_read_flag)
 	return flags;
 }
 
+/**
+ * mail_util_extract_transport_headers:
+ * @props: an #E2kProperties containing mail headers.
+ *
+ * Takes the %PR_TRANSPORT_MESSAGE_HEADERS property from @props and
+ * cleans it up, returning just the RFC822 headers (slightly edited,
+ * as described below).
+ *
+ * Return value: the headers, or %NULL if the property could not be
+ * found or was malformed. You must free the return value when you
+ * are done with it.
+ **/
 char *
 mail_util_extract_transport_headers (E2kProperties *props)
 {
@@ -181,6 +216,16 @@ static const char *note_colors[] = {
 static const int ncolors = sizeof (note_colors) / sizeof (note_colors[0]);
 #define DEFAULT_NOTE_COLOR 3
 
+/**
+ * mail_util_stickynote_to_rfc822:
+ * @props: a set of stickynote properties
+ *
+ * Creates a fake RFC822 message based on the stickynote described by
+ * @props.
+ *
+ * Return value: the fake message, which must be freed with
+ * g_string_free() when you are done with it.
+ **/
 GString *
 mail_util_stickynote_to_rfc822 (E2kProperties *props)
 {
@@ -242,6 +287,20 @@ mail_util_stickynote_to_rfc822 (E2kProperties *props)
 	return message;
 }
 
+/**
+ * mail_util_demangle_delegated_meeting:
+ * @body: the body of the message
+ * @delegator_cn: the iCalendar "CN" (common name) of the delegator
+ * @delegator_email: the email address of the delegator
+ * @delegator_cal_uri: the exchange: URI of the delegator's Calendar
+ *
+ * When a meeting request is delegated to another user via a
+ * server-side rule, Exchange mangles the iCalendar, such that we need
+ * to demangle it in order to get the iTIP control to do the right
+ * thing with it. That happens here.
+ *
+ * Return value: %TRUE if we successfully demangled @body (in place).
+ **/
 gboolean
 mail_util_demangle_delegated_meeting (GByteArray *body,
 				      const char *delegator_cn,

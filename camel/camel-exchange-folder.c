@@ -698,6 +698,17 @@ find_parent (CamelExchangeFolder *exch, const char *thread_index)
 	return msgid;
 }
 
+/**
+ * camel_exchange_folder_add_message:
+ * @exch: the folder
+ * @uid: UID of the new message
+ * @flags: message flags
+ * @size: size of the new message
+ * @headers: RFC822 headers of the new message
+ *
+ * Append the new message described by @uid, @flags, @size, and
+ * @headers to @exch's summary.
+ **/
 void
 camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 				   const char *uid, guint32 flags,
@@ -758,6 +769,13 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 	return;
 }
 
+/**
+ * camel_exchange_folder_remove_message:
+ * @exch: the folder
+ * @uid: message to remove
+ *
+ * Remove the message indicated by @uid from @exch's summary and cache.
+ **/
 void
 camel_exchange_folder_remove_message (CamelExchangeFolder *exch,
 				      const char *uid)
@@ -795,6 +813,14 @@ camel_exchange_folder_remove_message (CamelExchangeFolder *exch,
 	camel_folder_change_info_free (changes);
 }
 
+/**
+ * camel_exchange_folder_uncache_message:
+ * @exch: the folder
+ * @uid: message to uncache
+ *
+ * Remove the message indicated by @uid from @exch's cache, but NOT
+ * from the summary.
+ **/
 void
 camel_exchange_folder_uncache_message (CamelExchangeFolder *exch,
 				       const char *uid)
@@ -802,6 +828,15 @@ camel_exchange_folder_uncache_message (CamelExchangeFolder *exch,
 	camel_data_cache_remove (exch->cache, "cache", uid, NULL);
 }
 
+/**
+ * camel_exchange_folder_update_message_flags:
+ * @exch: the folder
+ * @uid: the message
+ * @flags: new message flags
+ *
+ * Update the message flags of @uid in @exch's summary to be @flags.
+ * Only the bits in the mask %CAMEL_EXCHANGE_SERVER_FLAGS are valid.
+ **/
 void
 camel_exchange_folder_update_message_flags (CamelExchangeFolder *exch,
 					    const char *uid, guint32 flags)
@@ -828,6 +863,16 @@ camel_exchange_folder_update_message_flags (CamelExchangeFolder *exch,
 	}
 }
 
+/**
+ * camel_exchange_folder_update_message_tag:
+ * @exch: the folder
+ * @uid: the message
+ * @name: the tag name
+ * @value: the new value for @name
+ *
+ * Update the value of tag @name of @uid in @exch's summary to be
+ * @value (or remove the tag altogether if @value is %NULL).
+ **/
 void
 camel_exchange_folder_update_message_tag (CamelExchangeFolder *exch,
 					  const char *uid,
@@ -852,6 +897,21 @@ camel_exchange_folder_update_message_tag (CamelExchangeFolder *exch,
 	camel_folder_change_info_free (changes);
 }
 
+/**
+ * camel_exchange_folder_construct:
+ * @folder: the folder
+ * @parent: @folder's parent store
+ * @name: the full name of the folder
+ * @camel_flags: the folder flags passed to camel_store_get_folder().
+ * @folder_dir: local directory this folder can cache data into
+ * @stub: the #CamelStub.
+ * @ex: a #CamelException
+ *
+ * Constructs @folder by requesting the necessary data from the server
+ * via @stub.
+ *
+ * Return value: success or failure.
+ **/
 gboolean
 camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 				 const char *name, guint32 camel_flags,

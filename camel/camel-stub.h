@@ -26,11 +26,7 @@ extern "C" {
 typedef struct {
 	CamelObject parent_object;
 
-	char *socket_path, *backend_name;
-	CamelType folder_type;
-
-	char *storage_path, *base_url;
-	GPtrArray *folders;
+	char *backend_name;
 
 	GMutex *read_lock, *write_lock;
 	CamelStubMarshal *cmd, *status;
@@ -54,24 +50,6 @@ gboolean   camel_stub_send        (CamelStub *stub, CamelException *ex,
 				   CamelStubCommand command, ...);
 gboolean   camel_stub_send_oneway (CamelStub *stub,
 				   CamelStubCommand command, ...);
-
-
-typedef struct {
-	guint32 folder_id, flags, size;
-	gboolean has_attachment;
-	char *uid, *headers;
-} CamelStubNewMessage;
-
-typedef struct {
-	guint32 folder_id;
-	char *uid;
-} CamelStubRemovedMessage;
-	
-typedef struct {
-	guint32 folder_id, flags;
-	char *uid;
-} CamelStubChangedMessage;
-
 
 
 #ifdef __cplusplus

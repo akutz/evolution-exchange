@@ -2412,6 +2412,17 @@ stub_connect (MailStub *stub)
 	mail_stub_return_ok (stub);
 }
 
+/**
+ * mail_stub_exchange_new:
+ * @account: the #ExchangeAccount this stub is for
+ * @cmd_fd: command socket file descriptor
+ * @status_fd: status socket file descriptor
+ *
+ * Creates a new #MailStubExchange for @account, communicating over
+ * @cmd_fd and @status_fd.
+ *
+ * Return value: the new stub
+ **/
 MailStub *
 mail_stub_exchange_new (ExchangeAccount *account, int cmd_fd, int status_fd)
 {

@@ -154,6 +154,17 @@ connect_to_storage (CamelStub *stub, struct sockaddr_un *sa_un,
 	return fd;
 }
 
+/**
+ * camel_stub_new:
+ * @socket_path: path to the server's UNIX domain socket
+ * @backend_name: human-readably name of the service we are connecting to
+ * @ex: a #CamelException
+ *
+ * Tries to connect to the backend server listening at @socket_path.
+ *
+ * Return value: on success, a new #CamelStub. On failure, %NULL, in
+ * which case @ex will be set.
+ **/
 CamelStub *
 camel_stub_new (const char *socket_path, const char *backend_name,
 		CamelException *ex)
@@ -458,6 +469,18 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 }
 
 
+/**
+ * camel_stub_send:
+ * @stub: a #CamelStub
+ * @ex: a #CamelException
+ * @command: the command to send
+ * @...: arguments to @command
+ *
+ * Sends @command to the backend and waits for a response.
+ *
+ * Return value: %TRUE if command executed successfully, %FALSE
+ * if it failed, in which case @ex will be set.
+ **/
 gboolean
 camel_stub_send (CamelStub *stub, CamelException *ex,
 		 CamelStubCommand command, ...)
@@ -472,6 +495,19 @@ camel_stub_send (CamelStub *stub, CamelException *ex,
 	return retval;
 }
 
+/**
+ * camel_stub_send_oneway:
+ * @stub: a #CamelStub
+ * @command: the command to send
+ * @...: arguments to @command
+ *
+ * Sends @command to the backend without waiting for a response. (This
+ * only works for commands such as %CAMEL_STUB_CMD_SET_MESSAGE_FLAGS
+ * which the server does not send a response for.)
+ *
+ * Return value: %TRUE if command was sent successfull, %FALSE if
+ * the command could not be sent.
+ **/
 gboolean
 camel_stub_send_oneway (CamelStub *stub, CamelStubCommand command, ...)
 {

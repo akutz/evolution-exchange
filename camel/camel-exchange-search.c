@@ -151,7 +151,9 @@ exchange_body_contains (struct _ESExp *f, int argc, struct _ESExpResult **argv,
 /**
  * camel_exchange_search_new:
  *
- * Return value: A new CamelExchangeSearch widget.
+ * Creates a #CamelExchangeSearch object
+ *
+ * Return value: A new #CamelExchangeSearch
  **/
 CamelFolderSearch *
 camel_exchange_search_new (void)

@@ -49,23 +49,23 @@ gboolean camel_exchange_folder_construct            (CamelFolder *folder,
 						     CamelStub *stub,
 						     CamelException *ex);
 
-void     camel_exchange_folder_add_message          (CamelExchangeFolder *,
+void     camel_exchange_folder_add_message          (CamelExchangeFolder *exch,
 						     const char *uid,
 						     guint32 flags,
 						     guint32 size,
 						     const char *headers);
 
-void     camel_exchange_folder_remove_message       (CamelExchangeFolder *,
+void     camel_exchange_folder_remove_message       (CamelExchangeFolder *exch,
 						     const char *uid);
 
-void     camel_exchange_folder_uncache_message      (CamelExchangeFolder *,
+void     camel_exchange_folder_uncache_message      (CamelExchangeFolder *exch,
 						     const char *uid);
 
-void     camel_exchange_folder_update_message_flags (CamelExchangeFolder *,
+void     camel_exchange_folder_update_message_flags (CamelExchangeFolder *exch,
 						     const char *uid,
 						     guint32 flags);
 
-void     camel_exchange_folder_update_message_tag   (CamelExchangeFolder *,
+void     camel_exchange_folder_update_message_tag   (CamelExchangeFolder *exch,
 						     const char *uid,
 						     const char *name,
 						     const char *value);

@@ -1930,6 +1930,10 @@ e_book_backend_exchange_construct (EBookBackendExchange *backend)
 
 /**
  * e_book_backend_exchange_new:
+ *
+ * Creates a new #EBookBackendExchange.
+ *
+ * Return value: the new #EBookBackendExchange.
  */
 EBookBackend *
 e_book_backend_exchange_new (void)

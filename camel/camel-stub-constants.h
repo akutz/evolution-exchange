@@ -61,11 +61,13 @@ typedef enum {
 	CAMEL_STUB_RETVAL_FOLDER_RENAMED
 } CamelStubRetval;
 
-#define CAMEL_STUB_FOLDER_READONLY    (1<<0)
-#define CAMEL_STUB_FOLDER_FILTER      (1<<1)
-#define CAMEL_STUB_FOLDER_POST        (1<<2)
-#define CAMEL_STUB_FOLDER_NOSELECT    (1<<4)
-#define CAMEL_STUB_FOLDER_FILTER_JUNK (1<<5)
+typedef enum {
+	CAMEL_STUB_FOLDER_READONLY    = (1<<0),
+	CAMEL_STUB_FOLDER_FILTER      = (1<<1),
+	CAMEL_STUB_FOLDER_POST        = (1<<2),
+	CAMEL_STUB_FOLDER_NOSELECT    = (1<<4),
+	CAMEL_STUB_FOLDER_FILTER_JUNK = (1<<5)
+} CamelStubFolderFlags;
 
 #ifdef __cplusplus
 }

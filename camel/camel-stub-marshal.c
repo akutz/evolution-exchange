@@ -37,6 +37,15 @@ static gboolean debug = 0;
 #define DEBUGGING 0
 #endif
 
+/**
+ * camel_stub_marshal_new:
+ * @fd: a socket file descriptor
+ *
+ * Creates a new #CamelStubMarshal, which handles sending and
+ * receiving data between #CamelExchangeStore and #MailStubExchange.
+ *
+ * Return value: the new #CamelStubMarshal.
+ **/
 CamelStubMarshal *
 camel_stub_marshal_new (int fd)
 {
@@ -57,6 +66,12 @@ camel_stub_marshal_new (int fd)
 	return marshal;
 }
 
+/**
+ * camel_stub_marshal_free:
+ * @marshal: the #CamelStubMarshal
+ *
+ * Frees @marshal
+ **/
 void
 camel_stub_marshal_free (CamelStubMarshal *marshal)
 {
@@ -216,6 +231,13 @@ decode_string (CamelStubMarshal *marshal, char **str)
 }
 
 
+/**
+ * camel_stub_marshal_encode_uint32:
+ * @marshal: the #CamelStubMarshal
+ * @value: value to send
+ *
+ * Sends @value across @marshall.
+ **/
 void
 camel_stub_marshal_encode_uint32 (CamelStubMarshal *marshal, guint32 value)
 {
@@ -225,6 +247,15 @@ camel_stub_marshal_encode_uint32 (CamelStubMarshal *marshal, guint32 value)
 	encode_uint32 (marshal, value);
 }
 
+/**
+ * camel_stub_marshal_decode_uint32:
+ * @marshal: the #CamelStubMarshal
+ * @dest: on successful return, will contain the received value.
+ *
+ * Receives a uint32 value across @marshal.
+ *
+ * Return value: 0 on success, -1 on failure.
+ **/
 int
 camel_stub_marshal_decode_uint32 (CamelStubMarshal *marshal, guint32 *dest)
 {
@@ -236,6 +267,13 @@ camel_stub_marshal_decode_uint32 (CamelStubMarshal *marshal, guint32 *dest)
 	return 0;
 }
 
+/**
+ * camel_stub_marshal_encode_string:
+ * @marshal: the #CamelStubMarshal
+ * @str: string to send
+ *
+ * Sends @str across @marshall.
+ **/
 void
 camel_stub_marshal_encode_string (CamelStubMarshal *marshal, const char *str)
 {
@@ -245,6 +283,15 @@ camel_stub_marshal_encode_string (CamelStubMarshal *marshal, const char *str)
 	encode_string (marshal, str);
 }
 
+/**
+ * camel_stub_marshal_decode_string:
+ * @marshal: the #CamelStubMarshal
+ * @str: on successful return, will contain the received string.
+ *
+ * Receives a string across @marshal.
+ *
+ * Return value: 0 on success, -1 on failure.
+ **/
 int
 camel_stub_marshal_decode_string (CamelStubMarshal *marshal, char **str)
 {
@@ -258,6 +305,17 @@ camel_stub_marshal_decode_string (CamelStubMarshal *marshal, char **str)
 	return 0;
 }
 
+/**
+ * camel_stub_marshal_encode_folder:
+ * @marshal: the #CamelStubMarshal
+ * @name: folder name to send
+ *
+ * Sends @name across @marshall. This is an optimization over
+ * camel_stub_marshal_encode_string(), because if the same folder name
+ * is used in successive calls to camel_stub_marshal_encode_folder()
+ * (as will normally be the case when doing many things in the same folder),
+ * the folder name only needs to be sent once.
+ **/
 void
 camel_stub_marshal_encode_folder (CamelStubMarshal *marshal, const char *name)
 {
@@ -278,6 +336,15 @@ camel_stub_marshal_encode_folder (CamelStubMarshal *marshal, const char *name)
 	marshal->last_folder = g_strdup (name);
 }
 
+/**
+ * camel_stub_marshal_decode_folder:
+ * @marshal: the #CamelStubMarshal
+ * @name: on successful return, will contain the received folder name.
+ *
+ * Receives a folder name across @marshal.
+ *
+ * Return value: 0 on success, -1 on failure.
+ **/
 int
 camel_stub_marshal_decode_folder (CamelStubMarshal *marshal, char **name)
 {
@@ -297,6 +364,13 @@ camel_stub_marshal_decode_folder (CamelStubMarshal *marshal, char **name)
 	return 0;
 }
 
+/**
+ * camel_stub_marshal_encode_bytes:
+ * @marshal: the #CamelStubMarshal
+ * @ba: data to send
+ *
+ * Sends @ba across @marshall.
+ **/
 void
 camel_stub_marshal_encode_bytes (CamelStubMarshal *marshal, GByteArray *ba)
 {
@@ -306,6 +380,15 @@ camel_stub_marshal_encode_bytes (CamelStubMarshal *marshal, GByteArray *ba)
 	g_byte_array_append (marshal->out, ba->data, ba->len);
 }
 
+/**
+ * camel_stub_marshal_decode_bytes:
+ * @marshal: the #CamelStubMarshal
+ * @ba: on successful return, will contain the received data
+ *
+ * Receives a byte array across @marshal.
+ *
+ * Return value: 0 on success, -1 on failure.
+ **/
 int
 camel_stub_marshal_decode_bytes (CamelStubMarshal *marshal, GByteArray **ba)
 {
@@ -330,6 +413,15 @@ camel_stub_marshal_decode_bytes (CamelStubMarshal *marshal, GByteArray **ba)
 }
 
 
+/**
+ * camel_stub_marshal_flush:
+ * @marshal: a #CamelStubMarshal
+ *
+ * Flushes pending data on @marshal. (No data is actually sent by the
+ * "encode" routines until camel_stub_marshal_flush() is called.)
+ *
+ * Return value: 0 on success, -1 on failure.
+ **/
 int
 camel_stub_marshal_flush (CamelStubMarshal *marshal)
 {
@@ -378,6 +470,14 @@ camel_stub_marshal_flush (CamelStubMarshal *marshal)
 	return 0;
 }
 
+/**
+ * camel_stub_marshal_eof:
+ * @marshal: a #CamelStubMarshal
+ *
+ * Tests if the other end of @marshal's connection has been closed.
+ *
+ * Return value: %TRUE or %FALSE.
+ **/
 gboolean
 camel_stub_marshal_eof (CamelStubMarshal *marshal)
 {

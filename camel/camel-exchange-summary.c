@@ -90,6 +90,14 @@ camel_exchange_summary_get_type (void)
 	return type;
 }
 
+/**
+ * camel_exchange_summary_new:
+ * @filename: filename to use for the summary
+ *
+ * Creates a new #CamelExchangeSummary based on @filename.
+ *
+ * Return value: the summary object.
+ **/
 CamelFolderSummary *
 camel_exchange_summary_new (const char *filename)
 {
@@ -200,6 +208,14 @@ message_info_new (CamelFolderSummary *summary, struct _camel_header_raw *h)
 	return info;
 }
 
+/**
+ * camel_exchange_summary_get_readonly:
+ * @summary: the summary
+ *
+ * Tests if the folder represented by @summary is read-only.
+ *
+ * Return value: %TRUE or %FALSE
+ **/
 gboolean
 camel_exchange_summary_get_readonly (CamelFolderSummary *summary)
 {
@@ -208,6 +224,15 @@ camel_exchange_summary_get_readonly (CamelFolderSummary *summary)
 	return CAMEL_EXCHANGE_SUMMARY (summary)->readonly;
 }
 
+/**
+ * camel_exchange_summary_set_readonly:
+ * @summary: the summary
+ * @readonly: the read-only state of @summary
+ *
+ * Sets @summary's read-only state to @readonly. (This means that
+ * @summary is the summary for a read-only folder, not necessarily
+ * that the file itself is read-only.)
+ **/
 void
 camel_exchange_summary_set_readonly (CamelFolderSummary *summary,
 				     gboolean readonly)

@@ -137,6 +137,15 @@ mail_stub_listener_construct (MailStubListener *listener, const char *socket_pat
 	return TRUE;
 }
 
+/**
+ * mail_stub_listener_new:
+ * @socket_path: path to create a listening socket on
+ *
+ * Creates a new #MailStubListener listening for connections at
+ * @socket_path.
+ *
+ * Return value: the new #MailStubListener.
+ **/
 MailStubListener *
 mail_stub_listener_new (const char *socket_path)
 {

@@ -1368,6 +1368,10 @@ get_static_capabilities (EBookBackend *backend)
 
 /**
  * e_book_backend_gal_new:
+ *
+ * Creates a new #EBookBackendGAL.
+ *
+ * Return value: the new #EBookBackendGAL.
  */
 EBookBackend *
 e_book_backend_gal_new (void)

@@ -72,32 +72,37 @@ struct _MailStubClass {
 };
 
 GType             mail_stub_get_type        (void);
-void              mail_stub_construct       (MailStub *stub,
-					     int cmd_fd, int status_fd);
+void              mail_stub_construct       (MailStub        *stub,
+					     int              cmd_fd,
+					     int              status_fd);
 
-gboolean          mail_stub_read_args       (MailStub *, ...);
+gboolean          mail_stub_read_args       (MailStub        *stub,
+					     ...);
 
-void              mail_stub_return_data     (MailStub *, CamelStubRetval, ...);
-void              mail_stub_return_progress (MailStub *stub, int percent);
-void              mail_stub_return_ok       (MailStub *);
-void              mail_stub_return_error    (MailStub *, const char *);
+void              mail_stub_return_data     (MailStub        *stub,
+					     CamelStubRetval  retval,
+					     ...);
+void              mail_stub_return_progress (MailStub        *stub,
+					     int              percent);
+void              mail_stub_return_ok       (MailStub        *stub);
+void              mail_stub_return_error    (MailStub        *stub,
+					     const char      *message);
 
-void              mail_stub_push_changes    (MailStub *);
-
-void              mail_stub_folder_changed  (MailStub *, const char *path,
-					     int unread_count);
+void              mail_stub_push_changes    (MailStub        *stub);
 
 /* Message flags. This must be kept in sync with camel-folder-summary.h */
-#define MAIL_STUB_MESSAGE_ANSWERED	(1 << 0)
-#define MAIL_STUB_MESSAGE_DELETED	(1 << 1)
-#define MAIL_STUB_MESSAGE_DRAFT		(1 << 2)
-#define MAIL_STUB_MESSAGE_FLAGGED	(1 << 3)
-#define MAIL_STUB_MESSAGE_SEEN		(1 << 4)
-#define MAIL_STUB_MESSAGE_ATTACHMENTS	(1 << 5)
-#define MAIL_STUB_MESSAGE_ANSWERED_ALL	(1 << 6)
+typedef enum {
+	MAIL_STUB_MESSAGE_ANSWERED     = (1 << 0),
+	MAIL_STUB_MESSAGE_DELETED      = (1 << 1),
+	MAIL_STUB_MESSAGE_DRAFT        = (1 << 2),
+	MAIL_STUB_MESSAGE_FLAGGED      = (1 << 3),
+	MAIL_STUB_MESSAGE_SEEN         = (1 << 4),
+	MAIL_STUB_MESSAGE_ATTACHMENTS  = (1 << 5),
+	MAIL_STUB_MESSAGE_ANSWERED_ALL = (1 << 6),
 
-/* These are our own private ones */
-#define MAIL_STUB_MESSAGE_DELEGATED     (1 << 16)
+	/* These are our own private ones */
+	MAIL_STUB_MESSAGE_DELEGATED    = (1 << 16)
+} MailStubMessageFlags;
 
 #ifdef __cplusplus
 }

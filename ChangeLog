@@ -1,3 +1,14 @@
+2004-09-14  Dan Winship  <danw@novell.com>
+
+	* camel/*.c, mail/*.c, addressbook/*.c: documentate
+
+	* camel/camel-stub-constants.h (CamelStubFolderFlags): make this
+	an enum rather than #defines, for gtk-doc goodness
+
+	* camel/camel-stub.h (CamelStub): Remove a bunch of unused fields
+	(CamelStubNewMessage, CamelStubRemovedMessage,
+	CamelStubChangedMessage): Remove unused struct types
+
 2004-09-14  Sushma Rai  <rsushma@novell.com>
 
 	* storage/exchange-hierarchy-favorites.c 
