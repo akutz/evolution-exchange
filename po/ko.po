@@ -1,0 +1,1586 @@
+# Changwoo Ryu <cwryu@debian.org>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: evolution-exchange\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-08-25 00:42+0900\n"
+"PO-Revision-Date: 2004-08-25 00:43+0900\n"
+"Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
+"Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: addressbook/e-book-backend-exchange.c:1655
+#: addressbook/e-book-backend-gal.c:1209 storage/exchange-storage.c:135
+msgid "Searching..."
+msgstr "찾는 중입니다..."
+
+#: addressbook/e-book-backend-gal.c:240
+msgid "Reconnecting to LDAP server..."
+msgstr "LDAP 서버에 다시 연결하는 중입니다..."
+
+#: addressbook/e-book-backend-gal.c:1114
+msgid "Receiving LDAP search results..."
+msgstr "LDAP 찾기 결과를 받는 중입니다..."
+
+#: addressbook/e-book-backend-gal.c:1230
+msgid "Error performing search"
+msgstr "찾기를 수행하는 데 오류"
+
+#: calendar/e-cal-backend-exchange-calendar.c:1358
+#, c-format
+msgid ""
+"Unable to schedule resource '%s' for recurring meetings.\n"
+"You must book each meeting separately."
+msgstr ""
+"되풀이되는 회의에 대해 '%s' 자원을 스케줄할 수 없습니다.\n"
+"각 회의를 따로따로 예약해야 합니다."
+
+#: calendar/e-cal-backend-exchange-calendar.c:1377
+#, c-format
+msgid "The resource '%s' is busy during the selected time period."
+msgstr "'%s' 자원이 일정 시간동안 계속 사용 중입니다."
+
+#: camel/camel-exchange-folder.c:219
+msgid "Can only expunge in Deleted Items folder"
+msgstr "지운 항목 폴더에서는 비울 수만 있습니다"
+
+#: camel/camel-exchange-folder.c:243
+msgid "No Subject"
+msgstr "제목 없음"
+
+#: camel/camel-exchange-folder.c:632
+msgid "Moving messages"
+msgstr "메세지를 옮기는 중입니다"
+
+#: camel/camel-exchange-folder.c:633
+msgid "Copying messages"
+msgstr "메세지를 복사하는 중입니다"
+
+#: camel/camel-exchange-folder.c:878
+#, c-format
+msgid "Could not create directory %s: %s"
+msgstr "%s 디렉토리를 만들 수 없습니다: %s"
+
+#: camel/camel-exchange-folder.c:888
+#, c-format
+msgid "Could not load summary for %s"
+msgstr "%s에 요약을 읽어들일 수 없습니다"
+
+#: camel/camel-exchange-folder.c:896
+#, c-format
+msgid "Could not create cache for %s"
+msgstr "%s에 대한 캐시를 만들 수 없습니다"
+
+#: camel/camel-exchange-folder.c:936
+msgid "Scanning for changed messages"
+msgstr "바뀐 메세지가 있는 지 검사하는 중입니다"
+
+#: camel/camel-exchange-folder.c:960
+msgid "Fetching summary information for new messages"
+msgstr "새 메세지의 요약 정보를 가져오는 중입니다"
+
+#. i18n: the '_' should appear before the same letter it
+#. does in the evolution:mail-config.glade "_Host"
+#. translation (or not at all)
+#: camel/camel-exchange-provider.c:43
+msgid "Exc_hange Server:"
+msgstr "Exchange 서버(_H):"
+
+#. i18n: the '_' should appear before the same letter it
+#. does in the evolution:mail-config.glade "User_name"
+#. translation (or not at all)
+#: camel/camel-exchange-provider.c:48
+msgid "Windows User_name:"
+msgstr "Windows 사용자 이름(_N):"
+
+# MS에서 "전체 주소 목록"을 쓰고, Active Directory는 영문 그대로 쓰고 있다
+#. i18n: GAL is an Outlookism, AD is a Windowsism
+#: camel/camel-exchange-provider.c:53
+msgid "Global Address List / Active Directory"
+msgstr "전체 주소 목록 / Active Directory"
+
+# MS에서 "글로벌 카탈로그"라고 사용한다. 엉터리 번역이지만 따라간다.
+#. i18n: "Global Catalog" is a Windowsism, but it's a
+#. technical term and may not have translations?
+#: camel/camel-exchange-provider.c:57
+msgid "Global Catalog server name:"
+msgstr "글로벌 카탈로그 서버 이름:"
+
+#: camel/camel-exchange-provider.c:59
+#, c-format
+msgid "Limit number of GAL responses: %s"
+msgstr "전체 주소 목록 응답의 개수 제한: %s"
+
+#: camel/camel-exchange-provider.c:62
+msgid "Exchange Server"
+msgstr "Exchange 서버"
+
+#. i18n: "Mailbox" is an Outlookism. FIXME
+#: camel/camel-exchange-provider.c:65
+msgid "Mailbox name"
+msgstr "메일함 이름"
+
+#. i18n: "OWA" == "Outlook Web Access". Might not be translated?
+#: camel/camel-exchange-provider.c:68
+msgid "OWA path"
+msgstr "Outlook 웹 서비스 경로"
+
+#. i18n: "Public Folder" is an Outlookism
+#: camel/camel-exchange-provider.c:71
+msgid "Public Folder server"
+msgstr "공용 폴더 서버"
+
+#. i18n: copy from evolution:camel-imap-provider.c
+#: camel/camel-exchange-provider.c:75
+msgid "Apply filters to new messages in Inbox on this server"
+msgstr "이 서버의 받은 편지함에 있는 새 메세지에 거르게 적용"
+
+#: camel/camel-exchange-provider.c:77
+msgid "Check new messages for Junk contents"
+msgstr "새 메세지가 정크 메일인지 확인"
+
+#: camel/camel-exchange-provider.c:79
+msgid "Only check for Junk messages in the Inbox folder"
+msgstr "받은 편지함에 있는 정크 메세지만 확인"
+
+#: camel/camel-exchange-provider.c:85
+msgid "Microsoft Exchange"
+msgstr "Microsoft Exchange"
+
+#: camel/camel-exchange-provider.c:87
+msgid "For handling mail (and other data) on Microsoft Exchange servers"
+msgstr "Microsoft Exchange 서버에 있는 메일 (및 기타 데이터) 처리"
+
+#. i18n: "Secure Password Authentication" is an Outlookism
+#: camel/camel-exchange-provider.c:105
+msgid "Secure Password"
+msgstr "보안 열쇠글"
+
+#. i18n: "NTLM" probably doesn't translate
+#: camel/camel-exchange-provider.c:108
+msgid ""
+"This option will connect to the Exchange server using secure password (NTLM) "
+"authentication."
+msgstr "이 옵션을 켜면 보안 열쇠글 (NTLM) 인증을 통해 Exchange 서버에 연결합니다."
+
+#: camel/camel-exchange-provider.c:116
+msgid "Plaintext Password"
+msgstr "일반 텍스트 열쇠글"
+
+#: camel/camel-exchange-provider.c:118
+msgid ""
+"This option will connect to the Exchange server using standard plaintext "
+"password authentication."
+msgstr "이 옵션을 켜면 보통 일반 텍스트 열쇠글 인증을 통해 Exchange 서버에 연결합니다."
+
+#: camel/camel-exchange-store.c:178
+#, c-format
+msgid "Exchange server %s"
+msgstr "Exchange 서버 %s"
+
+#: camel/camel-exchange-store.c:181
+#, c-format
+msgid "Exchange account for %s on %s"
+msgstr "Exchange 계정 (이름 %s, 서버 %s)"
+
+#: camel/camel-exchange-store.c:208
+msgid "Evolution Exchange backend process"
+msgstr "Evolution Exchange 백엔드 프로세스"
+
+#: camel/camel-exchange-transport.c:109
+msgid "Exchange transport can only be used with Exchange mail source"
+msgstr "Exchange 전송은 Exchange 메일 소스를 쓸 때만 사용할 수 있습니다"
+
+#: camel/camel-exchange-transport.c:120
+msgid "Cannot send message: one or more invalid recipients"
+msgstr "메세지를 보낼 수 없습니다: 받는 사람이 잘못되었습니다"
+
+#: camel/camel-exchange-transport.c:130
+msgid "Could not find 'From' address in message"
+msgstr "메세지에서 'From' 주소를 찾을 수 없습니다"
+
+#: camel/camel-stub.c:133
+#, c-format
+msgid "Could not create socket: %s"
+msgstr "소켓을 만들 수 없습니다: %s"
+
+#: camel/camel-stub.c:148
+#, c-format
+msgid "Could not connect to %s: %s"
+msgstr "%s에 연결할 수 없습니다: %s"
+
+#: camel/camel-stub.c:167
+#, c-format
+msgid "Path too long: %s"
+msgstr "경로가 너무 깁니다: %s"
+
+#: camel/camel-stub.c:193
+#, c-format
+msgid "Could not start status thread: %s"
+msgstr "상태 쓰레드를 시작할 수 없습니다: %s"
+
+#: camel/camel-stub.c:445
+#, c-format
+msgid "Lost connection to %s"
+msgstr "%s에 대한 연결을 잃었습니다"
+
+#: camel/camel-stub.c:449
+#, c-format
+msgid "Error communicating with %s: %s"
+msgstr "%s와(과) 통신하는 데 오류가 발생했습니다: %s"
+
+# MS가 사용한 용어
+#. i18n: These are Outlook's words for the default roles in
+#. the folder permissions dialog.
+#: lib/e2k-security-descriptor.c:847
+msgid "Owner"
+msgstr "소유자"
+
+# MS가 사용한 용어
+#: lib/e2k-security-descriptor.c:857
+msgid "Publishing Editor"
+msgstr "주편집자"
+
+# MS가 사용한 용어
+#: lib/e2k-security-descriptor.c:865
+msgid "Editor"
+msgstr "편집"
+
+# MS가 사용한 용어
+#: lib/e2k-security-descriptor.c:872
+msgid "Publishing Author"
+msgstr "주작성자"
+
+# MS가 사용한 용어
+#: lib/e2k-security-descriptor.c:878
+msgid "Author"
+msgstr "작성자"
+
+# MS가 사용한 용어
+#: lib/e2k-security-descriptor.c:883
+msgid "Non-editing Author"
+msgstr "편집 불가능한 작성자"
+
+# MS가 사용한 용어
+#: lib/e2k-security-descriptor.c:887
+msgid "Reviewer"
+msgstr "검토자"
+
+# MS가 사용한 용어
+#: lib/e2k-security-descriptor.c:889
+msgid "Contributor"
+msgstr "기고자"
+
+#: lib/e2k-security-descriptor.c:891 storage/exchange-delegates.glade.h:7
+msgid "None"
+msgstr "없음"
+
+#: lib/e2k-security-descriptor.c:906 storage/exchange-delegates-user.c:144
+msgid "Custom"
+msgstr "사용자 설정"
+
+#: lib/e2k-user-dialog.c:148
+msgid "Select User"
+msgstr "사용자 선택"
+
+#: lib/e2k-user-dialog.c:198
+msgid "Addressbook..."
+msgstr "주소록..."
+
+#: mail/mail-stub-exchange.c:231
+msgid "No such folder"
+msgstr "그런 폴더가 없습니다"
+
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
+#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
+#: shell/e-storage.c:573 storage/xc-commands.c:302
+msgid "Permission denied"
+msgstr "권한이 거부되었습니다"
+
+#: mail/mail-stub-exchange.c:546
+msgid "No such folder."
+msgstr "그런 폴더가 없습니다."
+
+#: mail/mail-stub-exchange.c:555
+msgid "Could not create folder."
+msgstr "폴더를 만들 수 없습니다."
+
+#: mail/mail-stub-exchange.c:601 mail/mail-stub-exchange.c:619
+msgid "Could not open folder: Permission denied"
+msgstr "폴더를 열 수 없습니다; 권한이 거부되었습니다"
+
+#: mail/mail-stub-exchange.c:605 mail/mail-stub-exchange.c:718
+msgid "Could not open folder"
+msgstr "폴더를 열 수 없습니다"
+
+#: mail/mail-stub-exchange.c:772
+msgid "Could not open Deleted Items folder"
+msgstr "지운 항목 폴더를 열 수 없습니다"
+
+#: mail/mail-stub-exchange.c:1085 mail/mail-stub-exchange.c:1126
+msgid "Could not get new messages"
+msgstr "새 메세지를 가져올 수 없습니다"
+
+#: mail/mail-stub-exchange.c:1291
+msgid "Could not empty Deleted Items folder"
+msgstr "지운 항목 폴더를 비울 수 없습니다"
+
+#: mail/mail-stub-exchange.c:1363
+msgid "Could not append message; mailbox is over quota"
+msgstr "메세지를 덧붙일 수 없습니다: 메일함 크기가 한계값을 넘어갔습니다"
+
+#: mail/mail-stub-exchange.c:1364
+msgid "Could not append message"
+msgstr "메세지를 덧붙일 수 없습니다"
+
+#: mail/mail-stub-exchange.c:1847
+msgid "No such message"
+msgstr "그런 메세지가 없습니다"
+
+#: mail/mail-stub-exchange.c:1900
+msgid "Message has been deleted"
+msgstr "메세지를 지웠습니다"
+
+#: mail/mail-stub-exchange.c:1902
+msgid "Error retrieving message"
+msgstr "메세지를 가져오는 데 오류가 발생했습니다"
+
+#: mail/mail-stub-exchange.c:1944
+msgid "Mailbox does not support full-text searching"
+msgstr "메일함이 전체 텍스트 찾기를 지원하지 않습니다"
+
+#: mail/mail-stub-exchange.c:2042
+msgid "Unable to move/copy messages"
+msgstr "메세지를 옮길/복사할 수 없습니다"
+
+#: mail/mail-stub-exchange.c:2213
+msgid "No mail submission URI for this mailbox"
+msgstr "이 메일함에 대한 메일 제출 URI가 없습니다"
+
+#: mail/mail-stub-exchange.c:2250
+msgid "Server won't accept mail via Exchange transport"
+msgstr "서버가 Exchange 전송을 통해서 메일을 받지 않습니다"
+
+#: mail/mail-stub-exchange.c:2252
+#, c-format
+msgid ""
+"Your account does not have permission to use <%s>\n"
+"as a From address."
+msgstr ""
+"계정에 <%s> 주소를 보낸 사람 주소로 사용할\n"
+"권한이 없습니다"
+
+#: mail/mail-stub-exchange.c:2264
+msgid ""
+"Could not send message.\n"
+"This might mean that your account is over quota."
+msgstr ""
+"메세지를 보낼 수 없습니다.\n"
+"계정의 한계 용량을 넘어갔을 수도 있습니다."
+
+#: mail/mail-stub-exchange.c:2268
+msgid "Could not send message"
+msgstr "메세지를 보낼 수 없습니다"
+
+#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
+#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
+#: storage/xc-commands.c:306
+msgid "Generic error"
+msgstr "일반 오류"
+
+#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
+msgid "Folder already exists"
+msgstr "폴더가 이미 있습니다"
+
+#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
+#: mail/mail-stub-exchange.c:2393
+msgid "Folder doesn't exist"
+msgstr "폴더가 없습니다"
+
+#: shell/e-folder-creation-dialog.c:138
+#, c-format
+msgid ""
+"Cannot create the specified folder:\n"
+"%s"
+msgstr ""
+"지정한 폴더를 만들 수 없습니다:\n"
+"%s"
+
+#: shell/e-folder-creation-dialog.c:179
+#, c-format
+msgid "The specified folder name is not valid: %s"
+msgstr "지정한 폴더 이름이 잘못되었습니다: %s"
+
+#: shell/e-folder-creation-dialog.c:310
+msgid "Create New Folder"
+msgstr "새 폴더 만들기"
+
+#: shell/e-folder-creation-dialog.glade.h:1
+#: storage/exchange-autoconfig-wizard.glade.h:1
+#: storage/exchange-change-password.glade.h:1
+msgid "*"
+msgstr "*"
+
+#: shell/e-folder-creation-dialog.glade.h:2
+msgid "Folder _name:"
+msgstr "폴더 이름(_N):"
+
+#: shell/e-folder-creation-dialog.glade.h:3
+msgid "Folder _type:"
+msgstr "폴더 종류(_T):"
+
+#: shell/e-folder-creation-dialog.glade.h:4
+msgid "Specify where to create the folder:"
+msgstr "폴더를 어디에 만들 지 지정하십시오:"
+
+#: shell/e-folder-dnd-bridge.c:52
+#, c-format
+msgid ""
+"Cannot transfer folder:\n"
+"%s"
+msgstr ""
+"폴더를 옮겨 놓을 수 없습니다:\n"
+"%s"
+
+#: shell/e-folder-misc-dialogs.c:62
+#, c-format
+msgid ""
+"Cannot delete folder:\n"
+"%s"
+msgstr ""
+"폴더를 지울 수 없습니다:\n"
+"%s"
+
+#: shell/e-folder-misc-dialogs.c:115
+#, c-format
+msgid "Really delete folder \"%s\"?"
+msgstr "정말로 \"%s\" 폴더를 지우시겠습니까?"
+
+#: shell/e-folder-misc-dialogs.c:129
+#, c-format
+msgid "Delete \"%s\""
+msgstr "\"%s\" 지우기"
+
+#: shell/e-folder-misc-dialogs.c:154
+#, c-format
+msgid ""
+"Cannot rename folder:\n"
+"%s"
+msgstr ""
+"폴더의 이름을 바꿀 수 없습니다:\n"
+"%s"
+
+#: shell/e-folder-misc-dialogs.c:188
+#, c-format
+msgid "Rename the \"%s\" folder to:"
+msgstr "\"%s\" 폴더 이름을 바꾸기:"
+
+#: shell/e-folder-misc-dialogs.c:191
+msgid "Rename Folder"
+msgstr "폴더 이름 바꾸기"
+
+#: shell/e-folder-misc-dialogs.c:205
+#, c-format
+msgid "A folder named \"%s\" already exists. Please use a different name."
+msgstr "이름이 \"%s\"인 폴더가 이미 있습니다. 다른 이름을 사용하십시오."
+
+#. It would be nice to insensitivize the OK button appropriately
+#. instead of doing this, but unfortunately we can't do this for the
+#. Bonobo control.
+#: shell/e-folder-misc-dialogs.c:460
+msgid "Please select a user."
+msgstr "사용자를 선택하십시오."
+
+#: shell/e-folder-misc-dialogs.c:560
+msgid "Opening Folder"
+msgstr "폴더를 여는 중입니다"
+
+#: shell/e-folder-misc-dialogs.c:566
+#, c-format
+msgid "Opening Folder \"%s\""
+msgstr "\"%s\" 폴더를 여는 중입니다"
+
+#: shell/e-folder-misc-dialogs.c:571
+#, c-format
+msgid "in \"%s\" ..."
+msgstr "\"%s\"에서 ..."
+
+#: shell/e-folder-misc-dialogs.c:638
+#, c-format
+msgid "Could not open other user's folder: %s."
+msgstr "다른 사용자의 폴더를 열 수 없습니다: %s."
+
+#: shell/e-folder-misc-dialogs.c:688
+msgid "Cannot find the specified other user's folder."
+msgstr "지정한 다른 사용자의 폴더를 찾을 수 없습니다."
+
+#: shell/e-folder-misc-dialogs.c:720
+#, c-format
+msgid ""
+"Cannot unsubscribe from folder:\n"
+"%s"
+msgstr ""
+"폴더에서 등록 취소할 수 없습니다:\n"
+"%s"
+
+#: shell/e-folder-misc-dialogs.c:773
+#, c-format
+msgid "Really unsubscribe from folder \"%s\"?"
+msgstr "정말로 \"%s\" 폴더에서 등록 취소하시겠습니까?"
+
+#: shell/e-folder-misc-dialogs.c:787
+#, c-format
+msgid "Unsubscribe from \"%s\""
+msgstr "\"%s\"에서 등록 취소"
+
+#: shell/e-foreign-folder-dialog.glade.h:1
+msgid "Open Other User's Folder"
+msgstr "다른 사용자의 폴더 열기"
+
+#: shell/e-foreign-folder-dialog.glade.h:2
+msgid "_Account:"
+msgstr "계정(_A):"
+
+#: shell/e-foreign-folder-dialog.glade.h:3
+msgid "_Folder Name:"
+msgstr "폴더 이름(_F):"
+
+#: shell/e-foreign-folder-dialog.glade.h:4
+msgid "_User:"
+msgstr "사용자(_U):"
+
+#: shell/e-storage-set-view.etspec.h:1
+msgid "Checkbox"
+msgstr "확인란"
+
+#: shell/e-storage-set-view.etspec.h:2
+msgid "Folder"
+msgstr "폴더"
+
+#: shell/e-storage.c:555
+msgid "No error"
+msgstr "오류 없음"
+
+#: shell/e-storage.c:559
+msgid "A folder with the same name already exists"
+msgstr "같은 이름의 폴더가 이미 있습니다"
+
+#: shell/e-storage.c:561
+msgid "The specified folder type is not valid"
+msgstr "지정한 폴더 종류가 올바른 종류가 아닙니다"
+
+#: shell/e-storage.c:563
+msgid "I/O error"
+msgstr "입출력 오류"
+
+#: shell/e-storage.c:565
+msgid "Not enough space to create the folder"
+msgstr "폴더를 만들 공간이 부족합니다"
+
+#: shell/e-storage.c:567
+msgid "The folder is not empty"
+msgstr "폴더가 비어 있지 않습니다"
+
+#: shell/e-storage.c:569
+msgid "The specified folder was not found"
+msgstr "지정한 폴더가 없습니다"
+
+#: shell/e-storage.c:571
+msgid "Function not implemented in this storage"
+msgstr "이 저장고에는 이 기능이 구현되지 않았습니다"
+
+#: shell/e-storage.c:575
+msgid "Operation not supported"
+msgstr "동작을 지원하지 않습니다"
+
+#: shell/e-storage.c:577
+msgid "The specified type is not supported in this storage"
+msgstr "지정한 종류는 이 저장고에서 지원하지 않ㅅ브니다"
+
+#: shell/e-storage.c:579
+msgid "The specified folder cannot be modified or removed"
+msgstr "지정한 폴더를 고치거나 지울 수 없습니다"
+
+#: shell/e-storage.c:581
+msgid "Cannot make a folder a child of one of its descendants"
+msgstr "폴더를 그 하위 폴더의 하위 폴더로 만들 수는 없습니다"
+
+#: shell/e-storage.c:583
+msgid "Cannot create a folder with that name"
+msgstr "그 이름으로 폴더를 만들 수 없습니다"
+
+#: shell/e-storage.c:585
+msgid "This operation cannot be performed in off-line mode"
+msgstr "이 동작은 오프라인 모드에서는 수행할 수 없습니다"
+
+#: shell/e-storage.c:587 storage/exchange-account.c:1071
+msgid "Unknown error"
+msgstr "알 수 없는 오류"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
+msgid "*Control*F5"
+msgstr "*Control*F5"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
+msgid "Evolution Addressbook Exchange backend"
+msgstr "Evolution 주소록 Exchange 백엔드"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+msgid "Evolution Calendar Exchange backend"
+msgstr "Evolution 달력 Exchange 백엔드"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
+msgid "Evolution Exchange Component"
+msgstr "Evolution Exchange 컴포넌트"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
+msgid "Exchange"
+msgstr "Exchange"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
+msgid "Ximian Connector for Exchange"
+msgstr "Ximian Connector, Exchange용"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
+msgid "_Exchange"
+msgstr "_Exchange"
+
+#. i18n: This is the title of an "other user's folders"
+#. hierarchy. Eg, "John Doe's Folders".
+#: storage/exchange-account.c:516
+#, c-format
+msgid "%s's Folders"
+msgstr "%s의 폴더"
+
+#: storage/exchange-account.c:797
+#, c-format
+msgid "%sEnter password for %s"
+msgstr "%s%s의 열쇠글을 입력하십시오"
+
+#: storage/exchange-account.c:801
+msgid "Enter password"
+msgstr "열쇠글 입력"
+
+#: storage/exchange-account.c:876
+msgid "Cannot change password due to configuration problems"
+msgstr "설정 문제때문에 열쇠글을 바꿀 수 없습니다"
+
+#: storage/exchange-account.c:891
+msgid ""
+"Server rejected password because it is too weak.\n"
+"Try again with a different password."
+msgstr ""
+"서버에서 열쇠글이 너무 간단하기 때문에 거부했습니다.\n"
+"다른 열쇠글로 다시 시도해 보십시오."
+
+#: storage/exchange-account.c:896
+msgid "Could not change password"
+msgstr "열쇠글을 바꿀 수 없습니다"
+
+#: storage/exchange-account.c:982
+msgid ""
+"Could not authenticate to server. (Password incorrect?)\n"
+"\n"
+msgstr ""
+"서버에 인증할 수 없습니다. (열쇠글이 틀리지 않았습니까?)\n"
+"\n"
+
+#: storage/exchange-account.c:987
+msgid ""
+"Could not authenticate to server.\n"
+"\n"
+"This probably means that your server requires you\n"
+"to specify the Windows domain name as part of your\n"
+"username (eg, \"DOMAIN\\user\").\n"
+"\n"
+"Or you might have just typed your password wrong.\n"
+"\n"
+msgstr ""
+"서버에 인증할 수 없습니다.\n"
+"\n"
+"이 서버의 경우 사용자 이름에 Windows 도메인 이름을 \n"
+"써야 할 수도 있습니다. (예를 들어, \"도메인\\사용자\")\n"
+"\n"
+"아니면 열쇠글을 잘못 입력했을 수도 있습니다.\n"
+"\n"
+
+#: storage/exchange-account.c:998
+msgid ""
+"Could not authenticate to server.\n"
+"\n"
+"You may need to use Plaintext Password authentication.\n"
+"\n"
+"Or you might have just typed your password wrong.\n"
+"\n"
+msgstr ""
+"서버에 인증할 수 없습니다.\n"
+"\n"
+"일반 텍스트 열쇠글 인증을 사용해야 할 수도 있습니다.\n"
+"\n"
+"아니면 열쇠글을 잘못 입력했을 수도 있습니다.\n"
+"\n"
+
+#: storage/exchange-account.c:1029
+#, c-format
+msgid "Mailbox for %s is not on this server."
+msgstr "%s의 메일함은 이 서버에 없습니다."
+
+#: storage/exchange-account.c:1034
+#, c-format
+msgid ""
+"The server '%s' is running Exchange 5.5 and is\n"
+"therefore not compatible with Ximian Connector"
+msgstr ""
+"'%s' 서버는 Exchange 5.5를 돌리고 있고,\n"
+"이 버전은 Ximian Connector와 호환되지 않습니다."
+
+#: storage/exchange-account.c:1041
+#, c-format
+msgid ""
+"Could not find Exchange Web Storage System at %s.\n"
+"If OWA is running on a different path, you must specify that in the\n"
+"account configuration dialog."
+msgstr ""
+"%s에 있는 Exchange 웹 저장소 시스템을 찾을 수 없습니다.\n"
+"Outlook 웹 서비스가 다른 경로에서 실행중이라면, 계정 설정 대화 상자에서\n"
+"그 경로를 지정해야 합니다."
+
+#: storage/exchange-account.c:1049
+#, c-format
+msgid "No mailbox for user %s on %s.\n"
+msgstr "%s 사용자의 메일함은 %s에 없습니다.\n"
+
+#: storage/exchange-account.c:1055 storage/exchange-account.c:1061
+#: storage/exchange-account.c:1069
+#, c-format
+msgid "Could not connect to server %s: %s"
+msgstr "%s 서버에 연결할 수 없습니다: %s"
+
+#: storage/exchange-account.c:1057
+msgid "Could not resolve hostname"
+msgstr "호스트 이름을 찾을 수 없습니다"
+
+#: storage/exchange-account.c:1063
+msgid "Network error"
+msgstr "네트워크 오류"
+
+# MS가 사용한 용어
+#: storage/exchange-account.c:1115
+msgid "Personal Folders"
+msgstr "개인 폴더"
+
+#: storage/exchange-account.c:1130
+msgid "Favorite Public Folders"
+msgstr "즐겨 찾는 공용 폴더"
+
+# MS가 사용한 용어
+#. i18n: Outlookism
+#: storage/exchange-account.c:1147
+msgid "All Public Folders"
+msgstr "모든 공용 폴더"
+
+# MS가 사용한 용어
+#. i18n: Outlookism
+#: storage/exchange-account.c:1161
+msgid "Global Address List"
+msgstr "전체 주소 목록"
+
+#: storage/exchange-autoconfig-wizard.c:224
+#, c-format
+msgid ""
+"Could not connect to the Exchange server.\n"
+"Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
+msgstr ""
+"Exchange 서버에 연결할 수 없습니다.\n"
+"URL이 올바른지 확인하시고 (\"%2$s\" 대신에 \"%1$s\"?) 다시 시도해 보십시오."
+
+#: storage/exchange-autoconfig-wizard.c:232
+msgid ""
+"Could not locate Exchange server.\n"
+"Make sure the server name is spelled correctly and try again."
+msgstr ""
+"Exchange 서버의 위치를 찾을 수 없습니다.\n"
+"서버 이름을 올바르게 입력했는 지 확인하시고 다시 시도해 보십시오."
+
+#: storage/exchange-autoconfig-wizard.c:241
+msgid ""
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again."
+msgstr ""
+"Exchange 서버에 인증할 수 없습니다.\n"
+"사용자 이름과 열쇠글이 맞는 지 확인하시고 다시 시도해 보십시오."
+
+#: storage/exchange-autoconfig-wizard.c:248
+#, c-format
+msgid ""
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again.\n"
+"\n"
+"You may need to specify the Windows domain name as part of your username "
+"(eg, \"MY-DOMAIN\\%s\")."
+msgstr ""
+"Exchange 서버에 인증할 수 없습니다.\n"
+"사용자 이름과 열쇠글이 맞는 지 확인하시고 다시 시도해 보십시오.\n"
+"\n"
+"사용자 이름에 Windows 도메인 이름을 써야 할 수도 있습니다. (예를 들어, \"도메"
+"인\\%s\")"
+
+#: storage/exchange-autoconfig-wizard.c:260
+msgid ""
+"Could not find OWA data at the indicated URL.\n"
+"Make sure the URL is correct and try again."
+msgstr ""
+"해당 URL에서 Outlook 웹 서비스 데이터를 찾을 수 없습니다.\n"
+"URL이 올바른지 확인하시고 다시 시도해 보십시오."
+
+#: storage/exchange-autoconfig-wizard.c:267
+msgid ""
+"Ximian Connector requires access to certain functionality on the Exchange "
+"Server that appears to be disabled or blocked.  (This is usually "
+"unintentional.)  Your Exchange Administrator will need to enable this "
+"functionality in order for you to be able to use Ximian Connector.\n"
+"\n"
+"For information to provide to your Exchange administrator, please follow the "
+"link below:"
+msgstr ""
+"Ximian Connector는 Exchange 서버에서 꺼 놓았거나 막은 것처럼 보이는 어떤 기능"
+"에 접근해야 합니다.  (보통 의도적으로 꺼 놓거나 막은 건 아닙니다.)  Exchange "
+"관리자에게 알려서 이 기능을 켜야 Ximian Connector를 사용할 수 있습니다.\n"
+"\n"
+"Exchange 관리자에게 알려줄 정보에 대해서는 다음 바로가기를 참고하십시오:"
+
+#: storage/exchange-autoconfig-wizard.c:288
+msgid ""
+"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
+"Connector supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"해당 Exchange 서버 URL에서 Exchange 5.5 서버를 돌리고 있습니다.  Ximian "
+"Connector는 Microsoft Exchange 2000과 2003만 지원합니다."
+
+#: storage/exchange-autoconfig-wizard.c:301
+msgid ""
+"Could not configure Exchange account because an unknown error occurred. "
+"Check the URL, username, and password, and try again."
+msgstr ""
+"알 수 없는 오류가 발생해서 Exchange 계정을 설정할 수 없습니다. URL, 사용자 이"
+"름, 열쇠글을 확인하시고 다시 시도해 보십시오."
+
+#: storage/exchange-autoconfig-wizard.c:345
+#, c-format
+msgid ""
+"Could not authenticate to the Global Catalog server. You may need to go back "
+"and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
+"\\%s\")."
+msgstr ""
+"글로벌 카탈로그 서버에 인증할 수 없습니다. 뒤로 돌아가서 사용자 이름에 "
+"Windows 도메인을 지정해야 할 수도 있습니다. (예를 들어, \"내도메인\\%s\")"
+
+#: storage/exchange-autoconfig-wizard.c:352
+msgid ""
+"Could not connect to specified server.\n"
+"Please check the server name and try again."
+msgstr ""
+"지정한 서버에 연결할 수 없습니다.\n"
+"서버 이름을 확인하시고 다시 시도하십시오."
+
+#: storage/exchange-autoconfig-wizard.c:389
+#: storage/exchange-autoconfig-wizard.c:393
+msgid "Unknown"
+msgstr "알 수 없음"
+
+#: storage/exchange-autoconfig-wizard.c:477
+msgid ""
+"Configuration system error.\n"
+"Unable to create new account."
+msgstr ""
+"설정 시스템 오류.\n"
+"새 계정을 만들 수 없습니다."
+
+#: storage/exchange-autoconfig-wizard.c:491
+#: storage/exchange-config-listener.c:492
+msgid "You may only configure a single Exchange account"
+msgstr "한 개의 Exchange 계정만 설정할 수 있습니다"
+
+#: storage/exchange-autoconfig-wizard.glade.h:2
+msgid "Configuration Failed"
+msgstr "설정 실패"
+
+#: storage/exchange-autoconfig-wizard.glade.h:3
+msgid "Done"
+msgstr "완료"
+
+#: storage/exchange-autoconfig-wizard.glade.h:4
+msgid "Email Address:"
+msgstr "전자메일 주소:"
+
+#: storage/exchange-autoconfig-wizard.glade.h:5
+msgid "Exchange Configuration"
+msgstr "Exchange 설정"
+
+#: storage/exchange-autoconfig-wizard.glade.h:6
+msgid "Full Name:"
+msgstr "전체 이름:"
+
+#: storage/exchange-autoconfig-wizard.glade.h:7
+msgid "GC Server:"
+msgstr "GC 서버:"
+
+#: storage/exchange-autoconfig-wizard.glade.h:8
+msgid "Make this my default account"
+msgstr "내 기본 계정으로 하기"
+
+#: storage/exchange-autoconfig-wizard.glade.h:9
+msgid "OWA URL:"
+msgstr "Outlook 웹 서비스 URL:"
+
+#: storage/exchange-autoconfig-wizard.glade.h:10
+msgid "Password:"
+msgstr "열쇠글:"
+
+#: storage/exchange-autoconfig-wizard.glade.h:11
+msgid "Remember this password"
+msgstr "이 열쇠글 기억"
+
+#: storage/exchange-autoconfig-wizard.glade.h:12
+msgid "Username:"
+msgstr "사용자 이름:"
+
+#: storage/exchange-autoconfig-wizard.glade.h:13
+msgid "Welcome"
+msgstr "환영합니다"
+
+#: storage/exchange-autoconfig-wizard.glade.h:14
+msgid ""
+"Welcome to Ximian Connector for Microsoft Exchange.\n"
+"The next few screens will help you configure Evolution\n"
+"to connect to your Exchange account.\n"
+"\n"
+"Please click the \"Forward\" button to continue."
+msgstr ""
+"Ximian Connector Microsoft Exchange용입니다.\n"
+"다음 몇 단계 화면을 통해서 Exchange 계정에\n"
+"연결하도록 Evolution을 설정합니다.\n"
+"\n"
+"계속 하시려면 \"다음\" 단추를 클릭하십시오."
+
+#: storage/exchange-autoconfig-wizard.glade.h:19
+msgid "Ximian Connector Configuration"
+msgstr "Ximian 커넥터 설정"
+
+# MS에서 Outlook Web Access를 "Outlook 웹 서비스"라고 쓰고 있다
+#: storage/exchange-autoconfig-wizard.glade.h:20
+msgid ""
+"Ximian Connector can use account information from your existing Outlook Web "
+"Access (OWA) account.\n"
+"\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
+msgstr ""
+"현재 Outlook 웹 서비스 계정에서 계정 정보를 이용할 수 있습니다.\n"
+"\n"
+"Outlook 웹 서비스 사이트 주소 (URL), 사용자 이름, 열쇠글을 입력하시고, \"다음"
+"\"을 클릭하십시오.\n"
+
+#: storage/exchange-autoconfig-wizard.glade.h:24
+msgid ""
+"Ximian Connector could not find the Global Catalog replica for your site. "
+"Please enter the name of your Global Catalog server. You may need to ask "
+"your system administrator for the correct value.\n"
+msgstr ""
+"현재 위치에서 Ximian Connector가 글로벌 카탈로그 복사본을 찾을 수 없습니다. "
+"글로벌 카탈로그 서버의 이름을 입력하십시오. 제대로 입력하려면 해당 시스템 관"
+"리자에게 문의하셔야 할 수도 있습니다.\n"
+
+#: storage/exchange-autoconfig-wizard.glade.h:26
+msgid ""
+"Ximian Connector has encountered a problem configuring your Exchange "
+"account.\n"
+msgstr ""
+"Ximian Connector에서 Exchange 계정을 설정하는 데 문제를 발견했습니다.\n"
+
+#: storage/exchange-autoconfig-wizard.glade.h:28
+msgid ""
+"Your Connector account is now ready to use. Click the \"Apply\" button to "
+"save your\n"
+"settings."
+msgstr ""
+"이제 Connector 계정을 사용할 준비가 되었습니다. 설정을 저장하려면 \"적용\" 단"
+"추를\n"
+"클릭하십시오."
+
+#: storage/exchange-autoconfig-wizard.glade.h:30
+msgid ""
+"Your account information is as follows. Please correct any errors, then "
+"click \"Forward\".\n"
+msgstr ""
+"계정 정보가 다음과 같습니다. 틀린 점이 있으면 바로 잡으시고, \"다음\"을 클릭"
+"하십시오.\n"
+
+#. User entered a wrong existing
+#. * password. Prompt him again.
+#.
+#: storage/exchange-change-password.c:114
+msgid ""
+"The current password does not match the existing password for your account. "
+"Please enter the correct password"
+msgstr ""
+"현재 열쇠글이 계정의 기존 열쇠글과 같지 않습니다. 올바른 열쇠글을 입력하십시"
+"오"
+
+#: storage/exchange-change-password.c:121
+msgid "The two passwords do not match. Please re-enter the passwords."
+msgstr "두 열쇠글이 같지 않습니다. 열쇠글을 다시 입력하십시오."
+
+#: storage/exchange-change-password.glade.h:2
+msgid "Change Password"
+msgstr "열쇠글 바꾸기"
+
+#: storage/exchange-change-password.glade.h:3
+msgid "Confirm Password:"
+msgstr "열쇠글 확인:"
+
+#: storage/exchange-change-password.glade.h:4
+msgid "Current Password:"
+msgstr "현재 열쇠글:"
+
+#: storage/exchange-change-password.glade.h:5
+msgid "New Password:"
+msgstr "새 열쇠글:"
+
+#: storage/exchange-change-password.glade.h:6
+msgid "Your current password has expired. Please change your password now."
+msgstr "현재 열쇠글이 만료되었습니다. 지금 열쇠글을 바꾸십시오."
+
+#: storage/exchange-component.c:308
+msgid "Mail"
+msgstr "메일"
+
+#: storage/exchange-component.c:311 storage/exchange-hierarchy-foreign.c:250
+msgid "Contacts"
+msgstr "연락처"
+
+#: storage/exchange-component.c:315 storage/exchange-hierarchy-foreign.c:258
+msgid "Tasks"
+msgstr "작업"
+
+#: storage/exchange-component.c:318 storage/exchange-hierarchy-foreign.c:249
+msgid "Calendar"
+msgstr "달력"
+
+#: storage/exchange-config-listener.c:607
+msgid ""
+"Changes to Exchange account configuration will take\n"
+"place after you quit and restart Evolution."
+msgstr ""
+"Exchange 계정 설정에서 바뀐 점들은 Evolution을 끝내고 다시 시작했을 때 적용됩"
+"니다."
+
+#: storage/exchange-config-listener.c:653
+msgid "The Exchange account will be removed when you quit Evolution"
+msgstr "Evolution을 끝냈을 때 Exchange 게정을 지웁니다"
+
+#: storage/exchange-delegates-user.c:191
+#: storage/exchange-permissions-dialog.c:179
+#, c-format
+msgid "Permissions for %s"
+msgstr "%s에 대한 권한"
+
+#: storage/exchange-delegates.c:221
+msgid ""
+"No Global Catalog server configured for this account.\n"
+"Unable to edit delegates."
+msgstr ""
+"이 계정에 대한 글로벌 카탈로그 서버를 설정하지 않았습니다.\n"
+"대리인을 편집할 수 없습니다."
+
+#: storage/exchange-delegates.c:260
+msgid ""
+"Could not read folder permissions.\n"
+"Unable to edit delegates."
+msgstr ""
+"폴더 권한을 읽을 수 없습니다.\n"
+"대리인을 편집할 수 없습니다."
+
+#: storage/exchange-delegates.c:267
+msgid ""
+"Could not determine folder permissions for delegates.\n"
+"Unable to edit delegates."
+msgstr ""
+"대리인의 폴더 권한을 결정할 수 없습니다.\n"
+"대리인을 편집할 수 없습니다."
+
+#: storage/exchange-delegates.c:419
+msgid "Delegate To:"
+msgstr "대리인:"
+
+#: storage/exchange-delegates.c:419
+msgid "Delegate To"
+msgstr "대리인"
+
+#: storage/exchange-delegates.c:435
+#, c-format
+msgid "Could not make %s a delegate"
+msgstr "%s 사용자를 대리인으로 만들 수 없습니다"
+
+#: storage/exchange-delegates.c:445
+msgid "You cannot make yourself your own delegate"
+msgstr "자기 자신을 자신의 대리인으로 만들 수는 없습니다"
+
+#: storage/exchange-delegates.c:454
+#, c-format
+msgid "%s is already a delegate"
+msgstr "%s 주소는 이미 대리인입니다"
+
+#: storage/exchange-delegates.c:563
+#, c-format
+msgid "Remove the delegate %s?"
+msgstr "%s 대리인을 지우시겠습니까?"
+
+#: storage/exchange-delegates.c:680
+msgid "Could not access Active Directory"
+msgstr "Active Directory에 접근할 수 없습니다"
+
+#: storage/exchange-delegates.c:695
+msgid "Could not find self in Active Directory"
+msgstr "Active Directory에서 자신을 찾을 수 없습니다"
+
+#: storage/exchange-delegates.c:708
+#, c-format
+msgid "Could not find delegate %s in Active Directory"
+msgstr "Active Directory에서 %s 대리인을 찾을 수 없습니다"
+
+#: storage/exchange-delegates.c:720
+#, c-format
+msgid "Could not remove delegate %s"
+msgstr "%s 대리인을 지울 수 없습니다"
+
+#: storage/exchange-delegates.c:780
+msgid "Could not update list of delegates."
+msgstr "대리인 목록을 업데이트할 수 없습니다."
+
+#: storage/exchange-delegates.c:798
+#, c-format
+msgid "Could not add delegate %s"
+msgstr "대리인 %s을(를) 더할 수 없습니다"
+
+#: storage/exchange-delegates.c:814
+#, c-format
+msgid ""
+"Failed to update delegates:\n"
+"%s"
+msgstr ""
+"대리인을 업데이트하는 데 실패했습니다:\n"
+"%s"
+
+#: storage/exchange-delegates.c:938 storage/exchange-permissions-dialog.c:706
+msgid "Name"
+msgstr "이름"
+
+#: storage/exchange-delegates.c:967
+msgid "Error reading delegates list."
+msgstr "대리인 목록을 읽는 데 오류가 발생했습니다."
+
+#: storage/exchange-delegates.glade.h:1
+msgid "Author (read, create)"
+msgstr "작성자 (읽기, 만들기)"
+
+#: storage/exchange-delegates.glade.h:2
+msgid "C_alendar:"
+msgstr "일정(_A):"
+
+#: storage/exchange-delegates.glade.h:3
+msgid "Co_ntacts:"
+msgstr "연락처(_N):"
+
+#: storage/exchange-delegates.glade.h:4
+msgid "Delegate Permissions"
+msgstr "대리인 권한"
+
+#: storage/exchange-delegates.glade.h:5
+msgid "Delegates"
+msgstr "대리인"
+
+#: storage/exchange-delegates.glade.h:6
+msgid "Editor (read, create, edit)"
+msgstr "편집자 (읽기, 만들기, 편집)"
+
+#: storage/exchange-delegates.glade.h:8
+msgid "Permissions for"
+msgstr "다음에 대한 권한"
+
+#: storage/exchange-delegates.glade.h:9
+msgid "Reviewer (read-only)"
+msgstr "검토자 (읽기 전용)"
+
+#: storage/exchange-delegates.glade.h:10
+msgid ""
+"These users will be able to send mail on your behalf\n"
+"and access your folders with the permissions you give them."
+msgstr ""
+"다음 사용자는 내 대신 메일을 보낼 수 있고\n"
+"부여한 권한에 따라 내 폴더에 접근할 수 있습니다."
+
+#: storage/exchange-delegates.glade.h:12
+msgid "_Delegate can see private items"
+msgstr "대리인이 개인 항목을 볼 수 있음(_D)"
+
+#: storage/exchange-delegates.glade.h:13
+msgid "_Edit"
+msgstr "편집(_E)"
+
+#: storage/exchange-delegates.glade.h:14
+msgid "_Inbox:"
+msgstr "받은 편지함(_I):"
+
+#: storage/exchange-delegates.glade.h:15
+msgid "_Tasks:"
+msgstr "작업(_T):"
+
+#: storage/exchange-hierarchy-foreign.c:251
+msgid "Deleted Items"
+msgstr "지운 항목"
+
+#: storage/exchange-hierarchy-foreign.c:252
+msgid "Drafts"
+msgstr "임시 보관함"
+
+#: storage/exchange-hierarchy-foreign.c:253
+msgid "Inbox"
+msgstr "받은 편지함"
+
+#: storage/exchange-hierarchy-foreign.c:254
+msgid "Journal"
+msgstr "일지"
+
+#: storage/exchange-hierarchy-foreign.c:255
+msgid "Notes"
+msgstr "메모"
+
+#: storage/exchange-hierarchy-foreign.c:256
+msgid "Outbox"
+msgstr "보낼 편지함"
+
+#: storage/exchange-hierarchy-foreign.c:257
+msgid "Sent Items"
+msgstr "보낸 편지함"
+
+#: storage/exchange-migrate.c:57
+msgid "Migrating Exchange Folders..."
+msgstr "Exchange 폴더를 옮기는 중입니다..."
+
+#: storage/exchange-migrate.c:65
+#, c-format
+msgid ""
+"The location and hierarchy of the Evolution exchange account folders are "
+"changed since Evolution %d.%d.%d.\n"
+"\n"
+"Please be patient while Evolution migrates your folders..."
+msgstr ""
+"Evolution %d.%d.%d 이후에 Evolution exchange 계정 폴더의 위치화 구조가 바뀌었"
+"습니다.\n"
+"\n"
+"Evolution에서 폴더를 옮겨오는 동안 기다려 주십시오..."
+
+#: storage/exchange-migrate.c:98
+#, c-format
+msgid ""
+"Warning: Evolution Could not migrate all the Exchange account data from the "
+"version %d.%d.%d. \n"
+"The data hasn't been deleted, but will not be seen by this version of "
+"Evolution"
+msgstr ""
+"경고: Evolution에서 Exchange 계정의 데이터를 %d.%d.%d 버전에서 모두 옮겨오지 "
+"못했습니다.\n"
+"데이터는 지워지지 않았지만, 이 버전의 Evolution에서는 그 데이터를 볼 수 없습"
+"니다"
+
+#: storage/exchange-migrate.c:129
+#, c-format
+msgid "Migrating `%s':"
+msgstr "`%s' 폴더를 옮기는 중입니다:"
+
+#: storage/exchange-oof.c:91 storage/exchange-oof.c:290
+msgid "Could not update out-of-office state"
+msgstr "부재 중 상태를 업데이트할 수 없습니다"
+
+#: storage/exchange-oof.c:308
+msgid "Could not read out-of-office state"
+msgstr "부재 중 상태를 읽을 수 없습니다"
+
+#: storage/exchange-oof.glade.h:1
+msgid ""
+"<b>Currently, your status is \"Out of the Office\". </b>\n"
+"\n"
+"Would you like to change your status to \"In the Office\"? "
+msgstr ""
+"<b>현재 상태는 \"부재 중\"입니다. </b>\n"
+"\n"
+"상태를 \"내부에 있음\"으로 바꾸시겠습니까?"
+
+#: storage/exchange-oof.glade.h:4
+msgid "<b>Out of Office Message:</b>"
+msgstr "<b>부재 중 메세지:</b>"
+
+#: storage/exchange-oof.glade.h:5
+msgid "<b>Status:</b>"
+msgstr "<b>상태:</b>"
+
+#: storage/exchange-oof.glade.h:6
+msgid ""
+"<small>The message specified below will be automatically sent to each person "
+"who sends\n"
+"mail to you while you are out of the office.</small>"
+msgstr ""
+"<small>부재 중에 메일을 보내는 사람이 있으면 답장으로 아래에 지정하는\n"
+"메세지를 보냅니다.</small>"
+
+#: storage/exchange-oof.glade.h:8
+msgid "I am currently in the office"
+msgstr "현재 내부에 있음"
+
+#: storage/exchange-oof.glade.h:9
+msgid "I am currently out of the office"
+msgstr "현재 외부에 있음"
+
+#: storage/exchange-oof.glade.h:10
+msgid "No, Don't Change Status"
+msgstr "아니오, 상태를 바꾸지 않습니다"
+
+#: storage/exchange-oof.glade.h:11
+msgid "Out of Office Assistant"
+msgstr "부재 중 알림"
+
+#: storage/exchange-oof.glade.h:12
+msgid "Yes, Change Status"
+msgstr "예, 상태를 바꿉니다"
+
+#: storage/exchange-permissions-dialog.c:222
+msgid "Could not read folder permissions"
+msgstr "폴더의 권한을 읽을 수 없습니다"
+
+#: storage/exchange-permissions-dialog.c:264
+msgid "Could not update folder permissions."
+msgstr "폴더의 권한을 업데이트할 수 없습니다."
+
+#: storage/exchange-permissions-dialog.c:293
+#, c-format
+msgid "Could not update folder permissions. %s"
+msgstr "폴더의 권한을 업데이트할 수 없습니다. %s"
+
+#: storage/exchange-permissions-dialog.c:295
+msgid "(Permission denied.)"
+msgstr "(권한이 거부되었습니다.)"
+
+#: storage/exchange-permissions-dialog.c:396
+msgid ""
+"Unable to add user to access control list:\n"
+"No Global Catalog server is configured for this account."
+msgstr ""
+"사용자를 액세스 제어 목록에 더할 수 없습니다:\n"
+"이 계정에 대한 글로벌 카탈로그 서버가 설정되지 않았습니다."
+
+#: storage/exchange-permissions-dialog.c:402
+msgid "Add User:"
+msgstr "사용자 더하기:"
+
+#: storage/exchange-permissions-dialog.c:402
+msgid "Add User"
+msgstr "사용자 더하기"
+
+#: storage/exchange-permissions-dialog.c:421
+#, c-format
+msgid "No such user %s"
+msgstr "그런 사용자가 없습니다: %s"
+
+#: storage/exchange-permissions-dialog.c:425
+#, c-format
+msgid "%s cannot be added to an access control list"
+msgstr "%s 주소를 액세스 제어 목록에 더할 수 없습니다"
+
+#: storage/exchange-permissions-dialog.c:430
+#, c-format
+msgid "Unknown error looking up %s"
+msgstr "%s 주소를 찾아보는 데 알 수 없는 오류가 발생했습니다"
+
+#: storage/exchange-permissions-dialog.c:447
+#, c-format
+msgid "%s is already in the list"
+msgstr "%s 사용자가 이미 목록에 들어 있습니다"
+
+#: storage/exchange-permissions-dialog.c:710
+msgid "Role"
+msgstr "역할"
+
+#: storage/exchange-permissions-dialog.glade.h:1
+msgid "    "
+msgstr "    "
+
+#: storage/exchange-permissions-dialog.glade.h:2
+msgid "<b>Permissions</b>"
+msgstr "<b>권한</b>"
+
+#: storage/exchange-permissions-dialog.glade.h:3
+msgid "Cannot Delete"
+msgstr "지우지 못 함"
+
+#: storage/exchange-permissions-dialog.glade.h:4
+msgid "Cannot Edit"
+msgstr "편집 못 함"
+
+#: storage/exchange-permissions-dialog.glade.h:5
+msgid "Create items"
+msgstr "항목 만들기"
+
+#: storage/exchange-permissions-dialog.glade.h:6
+msgid "Create subfolders"
+msgstr "하위 폴더 만들기"
+
+#: storage/exchange-permissions-dialog.glade.h:7
+msgid "Delete Any Items"
+msgstr "모든 항목 지우기"
+
+#: storage/exchange-permissions-dialog.glade.h:8
+msgid "Delete Own Items"
+msgstr "자기 항목 지우기"
+
+#: storage/exchange-permissions-dialog.glade.h:9
+msgid "Edit Any Items"
+msgstr "모든 항목 편집"
+
+#: storage/exchange-permissions-dialog.glade.h:10
+msgid "Edit Own Items"
+msgstr "자기 항목 편집"
+
+#: storage/exchange-permissions-dialog.glade.h:11
+msgid "Folder contact"
+msgstr "폴더 연락처"
+
+#: storage/exchange-permissions-dialog.glade.h:12
+msgid "Folder owner"
+msgstr "폴더 소유자"
+
+#: storage/exchange-permissions-dialog.glade.h:13
+msgid "Folder visible"
+msgstr "폴더 표시"
+
+#: storage/exchange-permissions-dialog.glade.h:14
+msgid "Read items"
+msgstr "항목 읽기"
+
+#: storage/exchange-permissions-dialog.glade.h:15
+msgid "Role: "
+msgstr "역할: "
+
+#: storage/exchange-storage.c:336
+msgid "Connecting..."
+msgstr "연결하는 중입니다..."
+
+#: storage/main.c:156
+msgid "Ximian Connector for Microsoft Exchange"
+msgstr "Ximian Connector, Microsoft Exchange용"
+
+#: storage/xc-backend-view.c:299
+msgid "Account Name"
+msgstr "계정 이름"
+
+#: storage/xc-commands.c:299
+msgid "Folder does not exist"
+msgstr "폴더가 없습니다"
+
+#: storage/xc-commands.c:322
+#, c-format
+msgid "Could not add favorite: %s"
+msgstr "즐겨찾기를 더할 수 없습니다: %s"
+
+#: storage/xc-commands.c:336
+#, c-format
+msgid "Could not remove favorite: %s"
+msgstr "즐겨찾기를 지울 수 없습니다: %s"
+
+#: storage/xc-commands.c:353
+msgid "_Move Folder..."
+msgstr "폴더 옮기기(_M)..."
+
+#: storage/xc-commands.c:356
+msgid "_Copy Folder..."
+msgstr "폴더 복사(_C)..."
+
+#: storage/xc-commands.c:359
+msgid "_Rename Folder..."
+msgstr "폴더 이름 바꾸기(_R)..."
+
+#: storage/xc-commands.c:365
+msgid "_New Folder..."
+msgstr "새 폴더(_N)..."
+
+#: storage/xc-commands.c:368
+msgid "_Delete Folder"
+msgstr "폴더 지우기(_D)"
+
+#: storage/xc-commands.c:373
+msgid "_Add Other User's Folder..."
+msgstr "다른 사용자의 폴더 더하기(_A)..."
+
+#: storage/xc-commands.c:376
+msgid "_Remove Other User's Folder"
+msgstr "다른 사용자의 폴더 지우기(_R)..."
+
+#: storage/xc-commands.c:382
+msgid "Add to _Favorites"
+msgstr "즐겨찾기에 더하기(_F)"
+
+#: storage/xc-commands.c:386
+msgid "Remove from Fa_vorites"
+msgstr "즐겨찾기에서 지우기(_V)"
+
+#: storage/xc-commands.c:393
+msgid "_Permissions..."
+msgstr "권한(_P)..."
+
+#: storage/ximian-connector-setup.c:43
+msgid "Ximian Connector for Microsoft Exchange Setup Tool"
+msgstr "Ximian Connector, Microsoft Exchange Setup Tool용"
+
+#: storage/ximian-connector.xml.h:1
+msgid "Change your Exchange server password"
+msgstr "Exchange 서버 열쇠글을 바꿉니다"
+
+#: storage/ximian-connector.xml.h:2
+msgid "Subscribe to _Other User's Folder..."
+msgstr "다른 사용자의 폴더 등록(_O)..."
+
+#: storage/ximian-connector.xml.h:3
+msgid "Subscribe to a folder belonging to some other user on the server"
+msgstr "서버의 다른 사용자가 가지고 있는 폴더에 등록합니다"
+
+#: storage/ximian-connector.xml.h:4
+msgid ""
+"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgstr "\"다른 사용자의 폴더 등록\"으로 더한 폴더에서 등록 취소합니다"
+
+#: storage/ximian-connector.xml.h:5
+msgid "View or change your Exchange calendar delegation settings"
+msgstr "Exchange 달력의 대리인 설정을 보거나 바꿉니다"
+
+#: storage/ximian-connector.xml.h:6
+msgid "View or change your Out-of-Office status and autoreply message"
+msgstr "부재 중 상태를 및 자동 응답 메세지를 보거나 바꿉니다"
+
+#: storage/ximian-connector.xml.h:7
+msgid "_Change Exchange Password..."
+msgstr "Exchange 열쇠글 바꾸기(_C)..."
+
+#: storage/ximian-connector.xml.h:8
+msgid "_Delegation Assistant"
+msgstr "대리인 길잡이(_D)"
+
+#: storage/ximian-connector.xml.h:9
+msgid "_Out of Office Assistant"
+msgstr "부재 중 알림(_O)"
+
+#: storage/ximian-connector.xml.h:10
+msgid "_Unsubscribe from Other User's Folder"
+msgstr "다른 사용자의 폴더 등록 취소(_U)"
