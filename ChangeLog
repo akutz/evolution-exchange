@@ -1,3 +1,24 @@
+2004-05-17  Dan Winship  <danw@novell.com>
+
+	Remove a bunch of 1.4 files that should have been deleted by the
+	1.5 import, except that CVS is lame.
+	
+	* addressbook/pas-backend-ad.[ch]
+	* addressbook/pas-backend-exchange.[ch]: Gone
+
+	* calendar/cal-backend-exchange.[ch]
+	* calendar/cal-backend-exchange-utils.c
+	* calendar/e2k-cache.[ch]
+	* calendar/e2k-cal-component.[ch]
+	* calendar/e2k-cal-component-todo.c: Gone
+	
+	* storage/exchange-delegates-control.c: 
+	* storage/exchange-delegates-delegates.c: 
+	* storage/exchange-delegates-delegators.c:
+	* storage/mail.xpm: Gone
+
+	* storage/Makefile.am (evolution_exchange_storage_SOURCES): Sort
+
 2004-05-14  Dan Winship  <danw@novell.com>
 
 	* component/exchange-component.c: Remove backend/backend_component

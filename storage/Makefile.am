@@ -37,15 +37,15 @@ evolution_exchange_storage_SOURCES =				\
 	exchange-account.h					\
 	exchange-autoconfig-wizard.c				\
 	exchange-autoconfig-wizard.h				\
-	exchange-component.h					\
 	exchange-change-password.c				\
 	exchange-change-password.h				\
-	exchange-delegates.c					\
-	exchange-delegates.h					\
+	exchange-component.h					\
+	exchange-config-listener.c				\
+	exchange-config-listener.h				\
 	exchange-delegates-user.c				\
 	exchange-delegates-user.h				\
-	exchange-hierarchy.c					\
-	exchange-hierarchy.h					\
+	exchange-delegates.c					\
+	exchange-delegates.h					\
 	exchange-hierarchy-favorites.c				\
 	exchange-hierarchy-favorites.h				\
 	exchange-hierarchy-foreign.c				\
@@ -56,26 +56,26 @@ evolution_exchange_storage_SOURCES =				\
 	exchange-hierarchy-somedav.h				\
 	exchange-hierarchy-webdav.c				\
 	exchange-hierarchy-webdav.h				\
+	exchange-hierarchy.c					\
+	exchange-hierarchy.h					\
+	exchange-migrate.c					\
+	exchange-migrate.h					\
 	exchange-offline-handler.c				\
 	exchange-offline-handler.h				\
 	exchange-oof.c						\
 	exchange-oof.h						\
 	exchange-permissions-dialog.c				\
 	exchange-permissions-dialog.h				\
-	exchange-config-listener.c				\
-	exchange-config-listener.h				\
 	exchange-storage.c					\
 	exchange-storage.h					\
 	exchange-types.h					\
-	exchange-migrate.c					\
-	exchange-migrate.h					\
+	main.c							\
 	xc-backend-view.c					\
 	xc-backend-view.h					\
 	xc-backend.c						\
 	xc-backend.h						\
 	xc-commands.c						\
-	xc-commands.h						\
-	main.c
+	xc-commands.h
 
 evolution_exchange_storage_LDADD =				\
 	$(top_builddir)/shell/libfoldertree.a			\
