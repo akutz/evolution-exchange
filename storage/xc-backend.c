@@ -29,6 +29,7 @@
 #include <bonobo/bonobo-exception.h>
 #include <bonobo/bonobo-main.h>
 #include <gal/widgets/e-popup-menu.h>
+#include <gtk/gtkdrawingarea.h>
 #include <gtk/gtkscrolledwindow.h>
 
 #include "e-storage-set.h"
@@ -44,7 +45,6 @@
 #include "mail-stub-listener.h"
 #include "mail-stub-exchange.h"
 
-#include "xc-backend-component.h"
 #include "xc-backend-view.h"
 
 #include "exchange-migrate.h" 
@@ -125,37 +125,54 @@ finalize (GObject *object)
 	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
-static Bonobo_Control
-impl_createSideBar (PortableServer_Servant servant,
-		    CORBA_Environment *ev)
+static void
+impl_createControls (PortableServer_Servant servant,
+		     Bonobo_Control *sidebar_control,
+		     Bonobo_Control *view_control,
+		     Bonobo_Control *statusbar_control,
+		     CORBA_Environment *ev)
 {
-	XCBackend *backend =
-		XC_BACKEND (bonobo_object_from_servant (servant));
+	XCBackend *backend = XC_BACKEND (bonobo_object_from_servant (servant));
 	XCBackendPrivate *priv = backend->priv;
-	BonoboControl *sidebar;
+	GtkWidget *blank;
+	BonoboControl *control;
 
-	d(printf("createSideBar\n"));
+	d(printf("createControls...\n"));
 
-	sidebar = xc_backend_view_new (priv->storage_set);
-	if (sidebar)
-		priv->views = g_slist_append (priv->views, sidebar);
+	control = xc_backend_view_new (priv->storage_set);
+	if (control)
+		priv->views = g_slist_append (priv->views, control);
 
-	return CORBA_Object_duplicate (BONOBO_OBJREF (sidebar), ev);
+	*sidebar_control =
+		CORBA_Object_duplicate (BONOBO_OBJREF (control), ev);
+
+	blank = gtk_drawing_area_new ();
+	gtk_widget_show (blank);
+	control = bonobo_control_new (blank);
+	*statusbar_control =
+		CORBA_Object_duplicate (BONOBO_OBJREF (control), ev);
+
+	blank = gtk_drawing_area_new ();
+	gtk_widget_show (blank);
+	control = bonobo_control_new (blank);
+	*view_control =
+		CORBA_Object_duplicate (BONOBO_OBJREF (control), ev);
 }
 
-
-static gboolean
-upgrade_from_version_cb (XCBackendComponent *component,
-			 int major, int minor, int revision,
-			 gpointer user_data)
+static CORBA_boolean
+impl_upgradeFromVersion (PortableServer_Servant servant,
+			 const CORBA_short major,
+			 const CORBA_short minor,
+			 const CORBA_short revision,
+			 CORBA_Environment *ev)
 {
+	XCBackend *backend = XC_BACKEND (bonobo_object_from_servant (servant));
 	ExchangeAccount *account;
 	const gchar *base_directory=NULL;
 
-        /* XCBackend *backend = user_data;*/
-	/* account = xc_backend_get_account_for_uri (backend, NULL);*/
+	d(printf("upgradeFromVersion %d %d %d\n", major, minor, revision));
 
-	account = xc_backend_get_account_for_uri (global_backend, NULL);
+	account = xc_backend_get_account_for_uri (backend, NULL);
 	if (account) {
 		base_directory = g_build_filename (g_get_home_dir (),
 						   ".evolution",
@@ -172,13 +189,15 @@ upgrade_from_version_cb (XCBackendComponent *component,
 	return TRUE;
 }
 
-static gboolean
-request_quit_cb (XCBackendComponent *component, gpointer user_data)
+static CORBA_boolean
+impl_requestQuit (PortableServer_Servant servant,
+		  CORBA_Environment *ev)
 {
+	d(printf("requestQuit\n"));
+
 	/* FIXME */
 	return TRUE;
 }
-
 
 /* This returns %TRUE all the time, so if set as an idle callback it
    effectively causes each and every nested glib mainloop to be quit.  */
@@ -189,13 +208,15 @@ idle_quit (gpointer user_data)
 	return TRUE;
 }
 
-static gboolean
-quit_cb (XCBackendComponent *component, gpointer user_data)
+static CORBA_boolean
+impl_quit (PortableServer_Servant servant,
+	   CORBA_Environment *ev)
 {
+	d(printf("quit\n"));
+
 	g_timeout_add (500, idle_quit, NULL);
 	return TRUE;
 }
-
 
 static gboolean
 idle_do_interactive (gpointer user_data)
@@ -213,12 +234,15 @@ idle_do_interactive (gpointer user_data)
 }
 
 static void
-interactive_cb (XCBackendComponent *component,
-		gboolean now_interactive, gulong new_view_xid,
-		gpointer user_data)
+impl_interactive (PortableServer_Servant servant,
+		  const CORBA_boolean now_interactive,
+		  const CORBA_unsigned_long new_view_xid,
+		  CORBA_Environment *ev)
 {
-	XCBackend *backend = user_data;
+	XCBackend *backend = XC_BACKEND (bonobo_object_from_servant (servant));
 	XCBackendPrivate *priv = backend->priv;
+
+	d(printf("interactive? %s, xid %lu\n", now_interactive ? "yes" : "no", new_view_xid));
 
 	if (now_interactive) {
 		priv->xid = new_view_xid;
@@ -365,7 +389,7 @@ setup_folder_type_registry (XCBackend *backend)
 static void
 xc_backend_class_init (XCBackendClass *klass)
 {
-	POA_Ximian_Connector_Backend__epv *epv = &klass->epv;
+	POA_GNOME_Evolution_Component__epv *epv = &klass->epv;
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
 	parent_class = g_type_class_peek_parent (klass);
@@ -373,28 +397,20 @@ xc_backend_class_init (XCBackendClass *klass)
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
 
-	epv->createSideBar = impl_createSideBar;
+	epv->createControls     = impl_createControls;
+	epv->upgradeFromVersion = impl_upgradeFromVersion;
+	epv->requestQuit        = impl_requestQuit;
+	epv->quit               = impl_quit;
+	epv->interactive        = impl_interactive;
+
 }
 
 static void
 xc_backend_init (XCBackend *backend)
 {
 	XCBackendPrivate *priv;
-	XCBackendComponent *component;
 
 	priv = backend->priv = g_new0 (XCBackendPrivate, 1);
-
-	component = xc_backend_component_new ();
-	bonobo_object_add_interface (BONOBO_OBJECT (backend),
-				     BONOBO_OBJECT (component));
-	g_signal_connect (component, "interactive",
-			  G_CALLBACK (interactive_cb), backend);
-	g_signal_connect (component, "quit",
-			  G_CALLBACK (quit_cb), backend);
-	g_signal_connect (component, "request_quit",
-			  G_CALLBACK (request_quit_cb), backend);
-	g_signal_connect (component, "upgrade_from_version",
-			  G_CALLBACK (upgrade_from_version_cb), backend);
 
 	setup_folder_type_registry (backend);
 	priv->storage_set = e_storage_set_new (priv->folder_type_registry);
@@ -409,7 +425,7 @@ xc_backend_init (XCBackend *backend)
 
 }
 
-BONOBO_TYPE_FUNC_FULL (XCBackend, Ximian_Connector_Backend, PARENT_TYPE, xc_backend)
+BONOBO_TYPE_FUNC_FULL (XCBackend, GNOME_Evolution_Component, PARENT_TYPE, xc_backend)
 
 XCBackend *
 xc_backend_new (void)

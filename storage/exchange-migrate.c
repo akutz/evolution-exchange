@@ -36,7 +36,6 @@
 #include <e-util/e-folder-map.h>
 
 #include "exchange-types.h"
-#include "xc-backend-component.h"
 #include "exchange-migrate.h"
 
 static GtkWidget *window;

@@ -24,15 +24,12 @@
 #include <string.h>
 
 #include "exchange-component.h"
-#include "Ximian-Connector.h"
 
 #include <bonobo/bonobo-control.h>
 #include <bonobo/bonobo-exception.h>
 
 #include <libgnome/gnome-i18n.h>
 #include <libgnome/gnome-util.h>
-
-#include <gtk/gtkdrawingarea.h>
 
 #include <shell/evolution-shell-component-utils.h>
 
@@ -44,8 +41,7 @@
 static BonoboObjectClass *parent_class = NULL;
 
 struct ExchangeComponentPrivate {
-	Ximian_Connector_Backend backend;
-	GNOME_Evolution_Component backend_component;
+	GNOME_Evolution_Component backend;
 };
 
 /* GObject methods */
@@ -88,9 +84,9 @@ impl_upgradeFromVersion (PortableServer_Servant servant,
 
 	d(printf("upgradeFromVersion %d %d %d\n", major, minor, revision));
 
-	GNOME_Evolution_Component_upgradeFromVersion (priv->backend_component,
-							     major, minor,
-							     revision, ev);
+	GNOME_Evolution_Component_upgradeFromVersion (priv->backend,
+						      major, minor,
+						      revision, ev);
 }
 
 static CORBA_boolean
@@ -103,7 +99,7 @@ impl_requestQuit (PortableServer_Servant servant,
 
 	d(printf("requestQuit\n"));
 
-	return GNOME_Evolution_Component_requestQuit (priv->backend_component, ev);
+	return GNOME_Evolution_Component_requestQuit (priv->backend, ev);
 }
 
 static CORBA_boolean
@@ -116,7 +112,7 @@ impl_quit (PortableServer_Servant servant,
 
 	d(printf("quit\n"));
 
-	return GNOME_Evolution_Component_quit (priv->backend_component, ev);
+	return GNOME_Evolution_Component_quit (priv->backend, ev);
 }
 
 static void
@@ -131,7 +127,7 @@ impl_interactive (PortableServer_Servant servant,
 
 	d(printf("interactive? %s, xid %lu\n", now_interactive ? "yes" : "no", new_view_xid));
 
-	GNOME_Evolution_Component_interactive (priv->backend_component,
+	GNOME_Evolution_Component_interactive (priv->backend,
 					       now_interactive,
 					       new_view_xid,
 					       ev);
@@ -147,30 +143,14 @@ impl_createControls (PortableServer_Servant servant,
 	ExchangeComponent *component =
 		EXCHANGE_COMPONENT (bonobo_object_from_servant (servant));
 	ExchangeComponentPrivate *priv = component->priv;
-	GtkWidget *blank;
-	BonoboControl *control;
 
 	d(printf("createControls...\n"));
 
-	/* Get the sidebar from the backend */
-	*sidebar_control =
-		Ximian_Connector_Backend_createSideBar (priv->backend, ev);
-	if (BONOBO_EX (ev)) {
-		d(printf("  createSideBar failed: %s\n", bonobo_exception_get_text (ev)));
-		return;
-	}
-
-	d(printf("  created side bar\n"));
-
-	blank = gtk_drawing_area_new ();
-	gtk_widget_show (blank);
-	control = bonobo_control_new (blank);
-	*statusbar_control = CORBA_Object_duplicate (BONOBO_OBJREF (control), ev);
-
-	blank = gtk_drawing_area_new ();
-	gtk_widget_show (blank);
-	control = bonobo_control_new (blank);
-	*view_control = CORBA_Object_duplicate (BONOBO_OBJREF (control), ev);
+	GNOME_Evolution_Component_createControls (priv->backend,
+						  sidebar_control,
+						  view_control,
+						  statusbar_control,
+						  ev);
 }
 
 ExchangeComponent *
@@ -222,18 +202,6 @@ exchange_component_init (ExchangeComponent *component)
 			     "%s"), error_message);
 		g_free (error_message);
 		CORBA_exception_free (&ev);
-		exit (1);
-	}
-	priv->backend_component = Bonobo_Unknown_queryInterface (priv->backend,
-								 "IDL:GNOME/Evolution/Component:1.0",
-								 &ev);
-	if (BONOBO_EX (&ev) || priv->backend_component == CORBA_OBJECT_NIL) {
-		char *error_message = bonobo_exception_get_text (&ev);
-		g_warning (_("Could not get backend component interface:\n"
-			     "%s"), error_message);
-		g_free (error_message);
-		CORBA_exception_free (&ev);
-		bonobo_object_release_unref (priv->backend, NULL);
 		exit (1);
 	}
 }

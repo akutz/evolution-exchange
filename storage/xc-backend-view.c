@@ -31,7 +31,6 @@
 #include "e-storage-set-view.h"
 
 #include "xc-commands.h"
-#include "Ximian-Connector.h"
 
 #define d(x)
 

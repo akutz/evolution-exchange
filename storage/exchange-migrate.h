@@ -4,7 +4,7 @@
 #ifndef __EXCHANGE_MIGRATE_H__
 #define __EXCHANGE_MIGRATE_H__
 
-#include "exchange-component.h"
+#include "xc-backend.h"
 
 gboolean exchange_migrate (const CORBA_short major, const CORBA_short minor, const CORBA_short revision, const gchar *base_diri, char *account_filename);
 

@@ -5,8 +5,8 @@
 #define __XC_BACKEND_H__
 
 #include <bonobo/bonobo-object.h>
+#include <shell/Evolution.h>
 
-#include "Ximian-Connector.h"
 #include "exchange-account.h"
 
 #ifdef __cplusplus
@@ -29,7 +29,7 @@ struct XCBackend {
 struct XCBackendClass {
 	BonoboObjectClass parent_class;
 
-	POA_Ximian_Connector_Backend__epv epv;
+	POA_GNOME_Evolution_Component__epv epv;
 };
 
 extern XCBackend *global_backend;

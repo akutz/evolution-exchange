@@ -1,3 +1,28 @@
+2004-05-14  Dan Winship  <danw@novell.com>
+
+	* component/exchange-component.c: Remove backend/backend_component
+	split.
+	(impl_createControls): Now just calls the backend createControls
+
+	* component/Ximian-Connector.idl: Gone. We can just use
+	GNOME::Evolution::Component now.
+
+	* component/Makefile.am: remove IDL stuff
+
+	* storage/xc-backend.c: Merge xc-backend-component.c into this.
+	This now implements GNOME::Evolution::Component directly rather
+	than Ximian::Connector::Backend
+	(impl_createControls): Merge the old createSidebar with the old
+	exchange-component.c:impl_createControls.
+
+	* storage/exchange-migrate.c:
+	* storage/xc-backend-view.c: Remove some unnecessary #includes of
+	things that are no longer there
+
+	* storage/xc-backend-component.[ch]: Gone (merged into xc-backend)
+
+	* storage/Makefile.am: remove IDL stuff, xc-backend-component.[ch]
+
 2004-05-14  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	Fixes the change password bug#58419

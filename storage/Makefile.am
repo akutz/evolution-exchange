@@ -31,7 +31,6 @@ noinst_PROGRAMS =						\
 	migr-test
 
 evolution_exchange_storage_SOURCES =				\
-	$(IDL_GENERATED)					\
 	e-folder-exchange.c					\
 	e-folder-exchange.h					\
 	exchange-account.c					\
@@ -70,8 +69,6 @@ evolution_exchange_storage_SOURCES =				\
 	exchange-types.h					\
 	exchange-migrate.c					\
 	exchange-migrate.h					\
-	xc-backend-component.c					\
-	xc-backend-component.h					\
 	xc-backend-view.c					\
 	xc-backend-view.h					\
 	xc-backend.c						\
@@ -91,24 +88,6 @@ evolution_exchange_storage_LDADD =				\
 	$(EXCHANGE_STORAGE_LIBS)				\
 	$(LDAP_LIBS)						\
 	$(KRB5_LIBS)
-
-IDLS =							\
-	$(top_srcdir)/component/Ximian-Connector.idl
-
-IDL_GENERATED_H =					\
-	Ximian-Connector.h
-
-IDL_GENERATED_C =					\
-	Ximian-Connector-common.c			\
-	Ximian-Connector-skels.c			\
-	Ximian-Connector-stubs.c			
-
-IDL_GENERATED = $(IDL_GENERATED_C) $(IDL_GENERATED_H)
-
-$(IDL_GENERATED_H): $(IDLS)
-	$(ORBIT_IDL) $(EVOLUTION_IDL_INCLUDES) $(IDLS)
-
-$(IDL_GENERATED_C): $(IDL_GENERATED_H)
 
 
 ximian_connector_setup_SOURCES =				\
