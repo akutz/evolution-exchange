@@ -1,4 +1,4 @@
-noinst_LIBRARIES = libfoldertree.a
+noinst_LTLIBRARIES = libfoldertree.la
 
 INCLUDES = 						\
 	-I$(top_srcdir)					\
@@ -8,7 +8,7 @@ INCLUDES = 						\
 	-DCONNECTOR_GLADEDIR=\""$(gladedir)"\"		\
 	-DEVOLUTION_IMAGESDIR=\""$(EVOLUTION_imagesdir)"\"
 
-libfoldertree_a_SOURCES =				\
+libfoldertree_la_SOURCES =				\
 	$(MARSHAL_GENERATED)				\
 	e-folder.c					\
 	e-folder.h					\

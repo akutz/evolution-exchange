@@ -10,9 +10,9 @@ INCLUDES =						\
 	$(LDAP_CFLAGS)					\
 	$(LIBEXCHANGE_CFLAGS)
 
-noinst_LIBRARIES = libexchangeaddressbook.a
+noinst_LTLIBRARIES = libexchangeaddressbook.la
 
-libexchangeaddressbook_a_SOURCES =	\
+libexchangeaddressbook_la_SOURCES =	\
 	e-book-backend-exchange.c	\
 	e-book-backend-exchange.h	\
 	e-book-backend-exchange-factory.c	\

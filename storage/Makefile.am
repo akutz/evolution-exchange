@@ -79,12 +79,12 @@ evolution_exchange_storage_SOURCES =				\
 	xc-commands.h
 
 evolution_exchange_storage_LDADD =				\
-	$(top_builddir)/shell/libfoldertree.a			\
-	$(top_builddir)/mail/libexchangemail.a			\
-	$(top_builddir)/addressbook/libexchangeaddressbook.a	\
-	$(top_builddir)/calendar/libexchangecalendar.a		\
-	$(top_builddir)/lib/libexchange.a			\
-	$(top_builddir)/xntlm/libxntlm.a			\
+	$(top_builddir)/shell/libfoldertree.la			\
+	$(top_builddir)/mail/libexchangemail.la			\
+	$(top_builddir)/addressbook/libexchangeaddressbook.la	\
+	$(top_builddir)/calendar/libexchangecalendar.la		\
+	$(top_builddir)/lib/libexchange.la			\
+	$(top_builddir)/xntlm/libxntlm.la			\
 	$(top_builddir)/camel/camel-stub-marshal.lo		\
 	$(LDAP_LIBS)						\
 	$(EXCHANGE_STORAGE_LIBS)				\
@@ -96,8 +96,8 @@ ximian_connector_setup_SOURCES =				\
 	exchange-autoconfig-wizard.c
 
 ximian_connector_setup_LDADD =					\
-	$(top_builddir)/lib/libexchange.a			\
-	$(top_builddir)/xntlm/libxntlm.a			\
+	$(top_builddir)/lib/libexchange.la			\
+	$(top_builddir)/xntlm/libxntlm.la			\
 	$(LDAP_LIBS)						\
 	$(EXCHANGE_STORAGE_LIBS)				
 
@@ -111,8 +111,10 @@ migr_test_SOURCES =						\
 	exchange-migrate.h
 
 migr_test_LDADD = 						\
-	$(top_builddir)/lib/libexchange.a			\
-	$(evolution_exchange_storage_LDADD)
+	$(top_builddir)/lib/libexchange.la			\
+	$(top_builddir)/xntlm/libxntlm.la			\
+	$(LDAP_LIBS)						\
+	$(EXCHANGE_STORAGE_LIBS)
 
 serverdir = $(libdir)/bonobo/servers
 server_in_files = GNOME_Evolution_Exchange_Storage.server.in.in

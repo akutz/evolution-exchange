@@ -9,8 +9,8 @@ INCLUDES =                                                      \
 	-I$(top_srcdir)						\
         -I$(top_srcdir)/xntlm
 
-noinst_LIBRARIES =						\
-        libexchange.a
+noinst_LTLIBRARIES =						\
+        libexchange.la
 
 
 
@@ -63,7 +63,7 @@ NODIST_FILES += $(MARSHAL_GENERATED)
 CLEANFILES += $(MARSHAL_GENERATED)
 
 
-libexchange_a_SOURCES =						\
+libexchange_la_SOURCES =					\
 	$(MARSHAL_GENERATED)					\
 	e2k-propnames.h						\
 	e2k-proptags.h						\
@@ -124,8 +124,8 @@ noinst_PROGRAMS =						\
 	urltest
 
 progs_libadd =							\
-	libexchange.a						\
-	$(top_builddir)/xntlm/libxntlm.a			\
+	libexchange.la						\
+	$(top_builddir)/xntlm/libxntlm.la			\
 	-L$(EVOLUTION_privlibdir) -leutil			\
 	$(LDAP_LIBS)						\
 	$(LIBEXCHANGE_LIBS)					\

@@ -1,6 +1,6 @@
-noinst_LIBRARIES = libxntlm.a
+noinst_LTLIBRARIES = libxntlm.la
 
-libxntlm_a_SOURCES =	\
+libxntlm_la_SOURCES =	\
 	xntlm.c		\
 	xntlm.h		\
 	xntlm-des.c	\

@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
-noinst_LIBRARIES =						\
-	libexchangemail.a
+noinst_LTLIBRARIES =						\
+	libexchangemail.la
 
 INCLUDES =							\
 	-I$(top_srcdir)						\
@@ -16,7 +16,7 @@ INCLUDES =							\
 	-I$(top_srcdir)/shell					\
 	-I$(top_srcdir)/camel
 
-libexchangemail_a_SOURCES =					\
+libexchangemail_la_SOURCES =					\
 	mail-stub.c						\
 	mail-stub.h						\
 	mail-stub-listener.c					\

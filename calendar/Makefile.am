@@ -10,10 +10,10 @@ INCLUDES =                                                      \
 	-I$(top_builddir)/shell					\
 	-DG_LOG_DOMAIN=\"e-cal-backend-exchange\"
 
-noinst_LIBRARIES =						\
-        libexchangecalendar.a
+noinst_LTLIBRARIES =						\
+        libexchangecalendar.la
 
-libexchangecalendar_a_SOURCES = 				\
+libexchangecalendar_la_SOURCES = 				\
 	e-cal-backend-exchange.c				\
 	e-cal-backend-exchange.h				\
 	e-cal-backend-exchange-calendar.c			\

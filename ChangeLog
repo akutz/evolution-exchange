@@ -1,3 +1,13 @@
+2005-02-08  David Malcolm  <dmalcolm@redhat.com>
+
+	* addressbook/Makefile.am, calendar/Makefile.am,
+	camel/Makefile.am,  mail/Makefile.am, shell/Makefile.am,
+	storage/Makefile.am, lib/Makefile.am:
+
+	Use appropriate libtool macro for convenience libraries
+	(_LTLIBRARIES, rather than _LTLIBRARIES), since some architectures
+	do not allow using static libraries this way.
+
 2005-02-08  Sushma Rai  <rsushma@novell.com>
 
 	* camel/camel-exchange-folder.c (camel_exchange_folder_construct): 
