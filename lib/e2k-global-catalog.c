@@ -50,7 +50,7 @@ struct _E2kGlobalCatalogPrivate {
 	GPtrArray *entries;
 	GHashTable *entry_cache, *server_cache;
 
-	char *server, *user, *domain, *password;
+	char *server, *user, *nt_domain, *password;
 };
 
 #define PARENT_TYPE G_TYPE_OBJECT
@@ -151,8 +151,8 @@ finalize (GObject *object)
 			g_free (gc->priv->server);
 		if (gc->priv->user)
 			g_free (gc->priv->user);
-		if (gc->priv->domain)
-			g_free (gc->priv->domain);
+		if (gc->priv->nt_domain)
+			g_free (gc->priv->nt_domain);
 		if (gc->priv->password) {
 			memset (gc->priv->password, 0, strlen (gc->priv->password));
 			g_free (gc->priv->password);
@@ -162,6 +162,11 @@ finalize (GObject *object)
 
 		g_free (gc->priv);
 		gc->priv = NULL;
+	}
+
+	if (gc->domain) {
+		g_free (gc->domain);
+		gc->domain = NULL;
 	}
 
 	G_OBJECT_CLASS (parent_class)->finalize (object);
@@ -264,7 +269,8 @@ ntlm_bind (E2kGlobalCatalog *gc, E2kOperation *op, LDAP *ldap)
 	}
 
 	if (!xntlm_parse_challenge (ldap_buf.bv_val, ldap_buf.bv_len,
-				    &nonce, &default_domain, NULL)) {
+				    &nonce, &default_domain,
+				    &gc->domain)) {
 		E2K_GC_DEBUG_MSG(("GC: Could not find nonce in NTLM bind response\n"));
 		ber_memfree (ldap_buf.bv_val);
 
@@ -273,7 +279,7 @@ ntlm_bind (E2kGlobalCatalog *gc, E2kOperation *op, LDAP *ldap)
 	ber_memfree (ldap_buf.bv_val);
 
 	/* Create and send response */
-	ba = xntlm_authenticate (nonce, gc->priv->domain ? gc->priv->domain : default_domain,
+	ba = xntlm_authenticate (nonce, gc->priv->nt_domain ? gc->priv->nt_domain : default_domain,
 				 gc->priv->user, gc->priv->password, NULL);
 	ldap_buf.bv_len = ba->len;
 	ldap_buf.bv_val = ba->data;
@@ -316,8 +322,8 @@ ldap_connect (E2kGlobalCatalog *gc, E2kOperation *op, LDAP *ldap)
 #ifdef HAVE_LDAP_NTLM_BIND
 	ldap_error = ntlm_bind (gc, op, ldap);
 #else
-	nt_name = gc->priv->domain ?
-		g_strdup_printf ("%s\\%s", gc->priv->domain, gc->priv->user) :
+	nt_name = gc->priv->nt_domain ?
+		g_strdup_printf ("%s\\%s", gc->priv->nt_domain, gc->priv->user) :
 		g_strdup (gc->priv->user);
 	ldap_error = ldap_simple_bind_s (ldap, nt_name, gc->priv->password);
 	g_free (nt_name);
@@ -454,7 +460,7 @@ e2k_global_catalog_new (const char *server, int response_limit,
 	gc = g_object_new (E2K_TYPE_GLOBAL_CATALOG, NULL);
 	gc->priv->server = g_strdup (server);
 	gc->priv->user = g_strdup (user);
-	gc->priv->domain = g_strdup (domain);
+	gc->priv->nt_domain = g_strdup (domain);
 	gc->priv->password = g_strdup (password);
 	gc->response_limit = response_limit;
 

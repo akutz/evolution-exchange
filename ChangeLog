@@ -1,3 +1,39 @@
+2004-07-15  Dan Winship  <danw@novell.com>
+
+	* lib/e2k-kerberos.c: Lots of changes: properly namespace the
+	functions (now "e2k_kerberos_check_password" and
+	"e2k_kerberos_change_password"), remove the code that dealt with
+	the local krb5.conf file (libkrb5 can autodetect the servers given
+	the realm name), return status code enums rather than arbitrary
+	krb5 error codes, and plug a few memory leaks.
+
+	* lib/e2k-global-catalog.c (ntlm_bind): Fill in gc->domain with
+	the name of the Windows 2000 domain.
+
+	* lib/test-utils.c (test_ask_password): Split this (the
+	password-asking routine) out of test_get_password so it can be
+	used by cptest
+
+	* lib/cptest.c: Update for e2k-kerberos changes, don't hard-code
+	domain, and ask for the new password rather than taking it on the
+	command line.
+
+	* storage/exchange-account.c: Keep a copy of the e-passwords key
+	around, rather than recomputing it in 5 different places.
+	(is_password_expired): Update for e2k-kerberos changes
+	(exchange_account_set_password): Update for e2k-kerberos changes.
+	Pop up an error dialog if changing the password fails.
+	(exchange_account_connect): When handling a forced password
+	change, let the user "Cancel" if he wants.
+
+	* storage/exchange-change-password.glade: HIGify a bit
+
+	* storage/exchange-change-password.c (exchange_get_new_password):
+	Clarify this by doing all the handling here rather than in signal
+	handlers on the buttons.
+
+	* storage/xc-commands.c (do_change_password): Plug leaks
+
 2004-07-14  Dan Winship  <danw@novell.com>
 
 	* lib/e2k-xml-utils.c (e2k_parse_html): Fix the #ifdef for old

@@ -35,14 +35,13 @@
 #include "e-folder-exchange.h"
 #include "e2k-autoconfig.h"
 #include "e2k-encoding-utils.h"
+#include "e2k-kerberos.h"
 #include "e2k-marshal.h"
 #include "e2k-propnames.h"
 #include "e2k-uri.h"
 #include "e2k-utils.h"
-#include "xntlm.h"
 #include <e-util/e-dialog-utils.h>
 #include <e-util/e-passwords.h>
-#include <krb5.h>
 
 #include <gal/util/e-util.h>
 #include <libgnome/gnome-util.h>
@@ -66,8 +65,8 @@ struct _ExchangeAccountPrivate {
 	char *uri_authority, *http_uri_schema;
 	gboolean uris_use_email;
 
-	char *identity_name, *identity_email, *source_uri;
-	char *username, *windows_domain, *password, *ad_server;
+	char *identity_name, *identity_email, *source_uri, *password_key;
+	char *username, *password, *ad_server;
 	E2kAutoconfigAuthPref auth_pref;
 	int ad_limit;
 
@@ -256,11 +255,11 @@ finalize (GObject *object)
 		g_free (account->priv->identity_email);
 	if (account->priv->source_uri)
 		g_free (account->priv->source_uri);
+	if (account->priv->password_key)
+		g_free (account->priv->password_key);
 
 	if (account->priv->username)
 		g_free (account->priv->username);
-	if (account->priv->windows_domain)
-		g_free (account->priv->windows_domain);
 	if (account->priv->password) {
 		memset (account->priv->password, 0,
 			strlen (account->priv->password));
@@ -785,27 +784,13 @@ account_moved (ExchangeAccount *account, E2kAutoconfig *ac)
 static gboolean
 get_password (ExchangeAccount *account, E2kAutoconfig *ac, const char *errmsg)
 {
-	char *password, *key, *domain_name;
+	char *password;
 	gboolean remember, oldremember;
-	int krb_err;
-	GString *domain;
 
-	key = g_strdup_printf ("exchange://%s@%s",
-			       account->priv->username,
-			       account->exchange_server);
 	if (*errmsg)
-		e_passwords_forget_password ("Exchange", key);
+		e_passwords_forget_password ("Exchange", account->priv->password_key);
 
-	krb_err = e2k_set_config ();
-
-	if (krb_err == E2K_KRB5_NO_USER_CONF) {
-		domain_name = strchr (account->priv->identity_email, '@');
-		domain = g_string_new (domain_name + 1);
-		domain = g_string_ascii_up (domain);
-	        krb_err = e2k_create_krb_config_file (domain->str, account->exchange_server);
-		printf ("krb error after creating config_file : %d\n", krb_err);
-	}
-	password = e_passwords_get_password ("Exchange", key);
+	password = e_passwords_get_password ("Exchange", account->priv->password_key);
 	if (!password && exchange_component_is_interactive (global_exchange_component)) {
 		char *prompt;
 
@@ -813,15 +798,15 @@ get_password (ExchangeAccount *account, E2kAutoconfig *ac, const char *errmsg)
 					  errmsg, account->account_name);
 		oldremember = remember = account->priv->account->source->save_passwd;
 		password = e_passwords_ask_password (
-			_("Enter password"), "Exchange", key, prompt,
-			TRUE, E_PASSWORDS_REMEMBER_FOREVER, &remember,
-			NULL);
+			_("Enter password"),
+			"Exchange", account->priv->password_key,
+			prompt, TRUE, E_PASSWORDS_REMEMBER_FOREVER,
+			&remember, NULL);
 		if (remember != oldremember) {
 			account->priv->account->source->save_passwd = remember;
 		}
 		g_free (prompt);
 	}
-	g_free (key);
 
 	if (password) {
 		e2k_autoconfig_set_password (ac, password);
@@ -838,69 +823,81 @@ get_password (ExchangeAccount *account, E2kAutoconfig *ac, const char *errmsg)
 static gboolean
 is_password_expired (ExchangeAccount *account, E2kAutoconfig *ac)
 {
-	char *password, *key;
-	int krb_err;
+	char *domain;
+	E2kKerberosResult result;
 
-	key = g_strdup_printf ("exchange://%s@%s",
-			       account->priv->username,
-			       account->exchange_server);
+	if (!ac->password)
+		return FALSE;
 
-	password = e_passwords_get_password ("Exchange", key);
-	g_free (key);
-	if (password) {
-		krb_err = e2k_check_expire (account->priv->username, password);
-		if (krb_err == KRB5KDC_ERR_KEY_EXP) {
-			return TRUE; /* Password has expired */
-		}
+	domain = ac->w2k_domain;
+	if (!domain) {
+		domain = strchr (account->priv->identity_email, '@');
+		if (domain)
+			domain++;
 	}
-	return FALSE;
+	if (!domain)
+		return FALSE;
+
+	result = e2k_kerberos_check_password (ac->username, domain,
+					      ac->password);
+
+	return (result == E2K_KERBEROS_PASSWORD_EXPIRED);
 }
 
 char *
 exchange_account_get_password (ExchangeAccount *account)
 {
-	char *uri;
-	char *password;
-	
-	uri = g_strdup_printf ("exchange://%s@%s",
-			       account->priv->username,
-			       account->exchange_server);
-	password = e_passwords_get_password ("Exchange", uri);
-	return password;
+	return e_passwords_get_password ("Exchange", account->priv->password_key);
 }
 
 void
 exchange_account_forget_password (ExchangeAccount *account)
 {
-	char *key;
-	
-	key = g_strdup_printf ("exchange://%s@%s",
-			       account->priv->username,
-			       account->exchange_server);
-	e_passwords_forget_password ("Exchange", key);
+	e_passwords_forget_password ("Exchange", account->priv->password_key);
 }
 
 void
 exchange_account_set_password (ExchangeAccount *account, char *old_pass, char *new_pass)
 {
-	char *uri;
-	int err;
+	E2kKerberosResult result;
+	char *domain;
 
+	g_return_if_fail (EXCHANGE_IS_ACCOUNT (account));
 	g_return_if_fail (old_pass != NULL);
 	g_return_if_fail (new_pass != NULL);
 
-        uri = g_strdup_printf ("exchange://%s@%s",
-                               account->priv->username,
-                               account->exchange_server);
+	domain = account->priv->gc ? account->priv->gc->domain : NULL;
+	if (!domain) {
+		domain = strchr (account->priv->identity_email, '@');
+		if (domain)
+			domain++;
+	}
+	if (!domain) {
+		e_notice (NULL, GTK_MESSAGE_ERROR, _("Cannot change password due to configuration problems"));
+		return;
+	}
 
-	err = e2k_change_passwd (account->priv->username, old_pass, new_pass);	
-	if (!err){
-		e_passwords_forget_password ("Exchange", uri);
-		e_passwords_add_password (uri, new_pass);
+	result = e2k_kerberos_change_password (account->priv->username, domain,
+					       old_pass, new_pass);
+	switch (result) {
+	case E2K_KERBEROS_OK:
+		e_passwords_forget_password ("Exchange", account->priv->password_key);
+		e_passwords_add_password (account->priv->password_key, new_pass);
 		if (account->priv->account->source->save_passwd)
-			e_passwords_remember_password ("Exchange", uri);
+			e_passwords_remember_password ("Exchange", account->priv->password_key);
+		break;
+
+	case E2K_KERBEROS_PASSWORD_TOO_WEAK:
+		e_notice (NULL, GTK_MESSAGE_ERROR, _("Server rejected password because it is too weak.\nTry again with a different password."));
+		break;
+
+	case E2K_KERBEROS_FAILED:
+	default:
+		e_notice (NULL, GTK_MESSAGE_ERROR, _("Could not change password"));
+		break;
 	}
 }
+
 /**
  * exchange_account_connect:
  * @account: an #ExchangeAccount
@@ -966,9 +963,19 @@ exchange_account_connect (ExchangeAccount *account)
 		if ( is_password_expired (account, ac)) {
 			old_password = exchange_account_get_password (account);
 			new_password = exchange_get_new_password (old_password, 0);
-			exchange_account_set_password (account, old_password, new_password);
-			goto try_connect_again;
+
+			if (new_password) {
+				exchange_account_set_password (account, old_password, new_password);
+				e2k_autoconfig_set_password (ac, new_password);
+				g_free (old_password);
+				g_free (new_password);
+				goto try_connect_again;
+			}
+
+			g_free (old_password);
+			result = E2K_AUTOCONFIG_CANCELLED;
 		}
+
 		switch (result) {
 		case E2K_AUTOCONFIG_AUTH_ERROR:
 		case E2K_AUTOCONFIG_AUTH_ERROR_TRY_NTLM:
@@ -1463,8 +1470,12 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 
 	account->priv->source_uri = g_strdup_printf ("exchange://%s/", account->priv->uri_authority);
 
+	/* Backword compatibility; FIXME, we should just migrate the
+	 * password from this to source_uri.
+	 */
+	account->priv->password_key = g_strdup_printf ("exchange://%s", account->priv->uri_authority);
+
 	account->priv->username = g_strdup (uri->user);
-	account->priv->windows_domain = g_strdup (uri->domain);
 	account->exchange_server = g_strdup (uri->host);
 	if (uri->authmech && !strcmp (uri->authmech, "Basic"))
 		account->priv->auth_pref = E2K_AUTOCONFIG_USE_BASIC;

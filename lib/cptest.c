@@ -33,57 +33,88 @@
 
 const char *test_program_name = "cptest";
 
+static void
+krb_error (E2kKerberosResult result, const char *failed)
+{
+	switch (result) {
+	case E2K_KERBEROS_USER_UNKNOWN:
+		fprintf (stderr, "Unknown user\n");
+		exit (1);
+
+	case E2K_KERBEROS_PASSWORD_INCORRECT:
+		fprintf (stderr, "Password incorrect\n");
+		exit (1);
+
+	case E2K_KERBEROS_PASSWORD_EXPIRED:
+		printf ("Note: password has expired\n");
+		break;
+
+	case E2K_KERBEROS_KDC_UNREACHABLE:
+		fprintf (stderr, "KDC unreachable (network problem or no such domain)\n");
+		exit (1);
+
+	case E2K_KERBEROS_TIME_SKEW:
+		fprintf (stderr, "Client/server time skew is too large.\n");
+		exit (1);
+
+	case E2K_KERBEROS_PASSWORD_TOO_WEAK:
+		fprintf (stderr, "Server rejected new password\n");
+		exit (1);
+
+	case E2K_KERBEROS_FAILED:
+		if (failed) {
+			fprintf (stderr, "%s\n", failed);
+			exit (1);
+		}
+		/* else fall through */			
+
+	default:
+		fprintf (stderr, "Unknown error.\n");
+		exit (1);
+	}
+}
+
 void
 test_main (int argc, char **argv)
 {
-
+	char *domain, *at, *prompt, *password;
+	char *newpass1, *newpass2;
+	const char *user;
 	int res;
-	
-	char user[20] ;	
-	char old_pwd[256] ;
-	char new_pwd[256] ;
-	char domain[256] = "nicel.com";
-	char kdc[256] = "164.99.155.182";
 
-	#if 0
-	if (argc != 3) {
-		fprintf (stderr, "Usage: %s old_passwd new_passwd\n", argv[0]);
+	if (argc != 2) {
+		fprintf (stderr, "Usage: %s [user@]domain\n", argv[0]);
 		exit (1);
 	}
-	#endif
 
-	strcpy (user, argv[1]);
-	strcpy (old_pwd, argv[2]);
-	strcpy (new_pwd, argv[3]);
-	
-	#if 0
-	res = e2k_check_expire (user, old_pwd);
+	domain = argv[1];
+	at = strchr (domain, '@');
+	if (at) {
+		user = g_strndup (domain, at - domain);
+		domain = at + 1;
+	} else
+		user = g_get_user_name ();
 
-	if (res)
-		fprintf (stderr, "Error in expire check passwd...\n");
+	prompt = g_strdup_printf ("Password for %s@%s", user, domain);
+	password = test_ask_password (prompt);
+	g_free (prompt);
 
-	fprintf (stderr, "Expire check Succeeded\n");
-	
-	#endif
+	res = e2k_kerberos_check_password (user, domain, password);
+	if (res != E2K_KERBEROS_OK)
+		krb_error (res, NULL);
 
-	res = e2k_create_krb_config_file (domain, kdc);
-	if (res)
-		fprintf (stderr, "Error in create krb\n");
-	else
-		fprintf (stderr, "Succeeded creating krb\n");
+	newpass1 = test_ask_password ("New password");
+	newpass2 = test_ask_password ("Confirm");
 
-	
-	res = e2k_change_passwd(user, old_pwd, new_pwd);
+	if (!newpass1 || !newpass2 || strcmp (newpass1, newpass2) != 0) {
+		fprintf (stderr, "Passwords do not match.\n");
+		exit (1);
+	}
 
-	if (res)
-		fprintf (stderr, "Error in change passwd\n");
-	else
-		fprintf (stderr, "Succeeded\n");
-	
-	
+	res = e2k_kerberos_change_password (user, domain, password, newpass1);
+	if (res != E2K_KERBEROS_OK)
+		krb_error (res, "Could not change password");
+
+	printf ("Password changed\n");
 	test_quit ();
-
-	printf ("\n");
-
-	
 }

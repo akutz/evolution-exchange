@@ -81,6 +81,9 @@ do_change_password (BonoboUIComponent *component, gpointer user_data,
 	new_password = exchange_get_new_password (old_password, 1);
 
 	exchange_account_set_password (account, old_password, new_password);
+
+	g_free (old_password);
+	g_free (new_password);
 }
 
 static void

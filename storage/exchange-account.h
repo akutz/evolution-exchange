@@ -10,7 +10,6 @@
 #include "e2k-global-catalog.h"
 #include "e2k-security-descriptor.h"
 #include "e-folder.h"
-#include "e2k-kerberos.h"
 #include <e-util/e-account-list.h>
 
 #ifdef __cplusplus

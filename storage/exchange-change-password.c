@@ -27,135 +27,108 @@
 #include "exchange-account.h"
 #include "e2k-utils.h"
 
+#include <glade/glade-xml.h>
+#include <gtk/gtkdialog.h>
+#include <gtk/gtkentry.h>
+#include <gtk/gtklabel.h>
+
 #define FILENAME CONNECTOR_GLADEDIR "/exchange-change-password.glade"
 #define ROOTNODE "pass_dialog"
 #define STARTNODE "pass_vbox"
-#define IS_EMPTY(x) (!(x) || !strcmp ((x), ""))
 
 static void
-check_response (GtkWidget *w, gpointer data)
+entry_changed (GtkEntry *entry, gpointer user_data)
 {
-	gtk_dialog_response (GTK_DIALOG(data), GTK_RESPONSE_DELETE_EVENT);
-	return;
-}
+	GladeXML *xml = user_data;
+	GtkEntry *new_entry, *confirm_entry;
+	GtkWidget *ok_button;
+	const char *text;
 
-static void
-check_pass_cb (GtkWidget *w, gpointer data)
-{
-        GladeXML *main_app;
-        GtkEntry *cur_entry;
-        GtkEntry *new_entry;
-        GtkEntry *confirm_entry;
-        const char *cur_pass, *new_pass, *confirm_pass;
-	struct password_data *pdata;
-	char *existing_password;
-	GtkDialog *dialog;
-	GtkLabel *top_label;
+        new_entry = GTK_ENTRY (glade_xml_get_widget (xml, "new_pass_entry"));
+        confirm_entry = GTK_ENTRY (glade_xml_get_widget (xml, "confirm_pass_entry"));
+	ok_button = glade_xml_get_widget (xml, "okbutton1");
 
-	pdata = (struct password_data *) data;
-
-	existing_password = (char *) pdata->existing_password;
-	main_app = (GladeXML *) pdata->xml;
-	dialog = (GtkDialog *) pdata->dialog;
-
-        cur_entry = GTK_ENTRY (glade_xml_get_widget (main_app, "current_pass_entry"));
-        new_entry = GTK_ENTRY (glade_xml_get_widget (main_app, "new_pass_entry"));
-        confirm_entry = GTK_ENTRY (glade_xml_get_widget (main_app, "confirm_pass_entry"));
-	top_label = GTK_LABEL (glade_xml_get_widget (main_app, "pass_label"));
-
-	cur_pass = gtk_entry_get_text (cur_entry);
-        new_pass = gtk_entry_get_text (new_entry);
-        confirm_pass = gtk_entry_get_text (confirm_entry);
-
-	if (IS_EMPTY (cur_pass) || IS_EMPTY (new_pass) 
-		|| IS_EMPTY (confirm_pass)) {
-		gtk_dialog_response (dialog, GTK_RESPONSE_REJECT);
+	text = gtk_entry_get_text (new_entry);
+	if (!text || !*text) {
+		gtk_widget_set_sensitive (ok_button, FALSE);
 		return;
 	}
 
-	if (existing_password) {
-		if (strcmp (cur_pass, existing_password) != 0) {
-			/* User entered a wrong existing password. Prompt him again. */
-			gtk_label_set_text (top_label, "The current password does not match the existing password for your account. Please enter the correct password");
-			gtk_dialog_response (dialog, GTK_RESPONSE_REJECT);
-			return;
-		}
-
-		if (strcmp (new_pass, confirm_pass) == 0) {
-			g_message ("Password confirmed\n");
-
-			pdata->new_password = g_strdup (new_pass);
-			
-			gtk_dialog_response (dialog, GTK_RESPONSE_DELETE_EVENT);
-			return;
-		}
-		else {
-			/* The password does not confirm to the new password */
-			gtk_label_set_text (top_label, "The two passwords do not match. Please re-enter the passwords.");
-			gtk_dialog_response (dialog, GTK_RESPONSE_CANCEL);
-			return;
-		}
+	text = gtk_entry_get_text (confirm_entry);
+	if (!text || !*text) {
+		gtk_widget_set_sensitive (ok_button, FALSE);
+		return;
 	}
 
+	gtk_widget_set_sensitive (ok_button, TRUE);
 }
 
-/* @voluntary : 1 , the user wants to change his password by clicking
- * 		the menu option
- *		0 , connector has found that the password has expired
+/**
+ * exchange_get_new_password:
+ * @existing_password: The user's current password
+ * @voluntary: %TRUE if the user has chosen "Change Password",
+ * %FALSE if their old password has expired.
+ *
+ * Prompt the user for a new password.
  */
 char *
-exchange_get_new_password (char *password, int voluntary)
+exchange_get_new_password (const char *existing_password, gboolean voluntary)
 {
-	GtkWidget *top_widget;
-	GtkEntry *password_entry;
-	GtkButton *ok_button;
-	GtkButton *cancel_button;
-	GtkResponseType response;
 	GladeXML *xml;
-	struct password_data pdata;
+	GtkWidget *top_widget;
+	GtkEntry *cur_entry, *new_entry, *confirm_entry;
+	GtkResponseType response;
 	GtkLabel *top_label;
+	char *new_pass;
 
 	xml = glade_xml_new (FILENAME, ROOTNODE, NULL);
 	top_widget = glade_xml_get_widget (xml, ROOTNODE);
 
-	password_entry = GTK_ENTRY (glade_xml_get_widget (xml, "current_pass_entry"));
-	gtk_entry_set_visibility (password_entry, FALSE);
-
-	password_entry = GTK_ENTRY (glade_xml_get_widget (xml, "new_pass_entry"));
-	gtk_entry_set_visibility (password_entry, FALSE);
-
-	password_entry = GTK_ENTRY (glade_xml_get_widget (xml, "confirm_pass_entry"));
-	gtk_entry_set_visibility (password_entry, FALSE);
-
-	ok_button = GTK_BUTTON (glade_xml_get_widget (xml, "okbutton1")); 
-	cancel_button = GTK_BUTTON (glade_xml_get_widget (xml, "cancelbutton1")); 
+        cur_entry = GTK_ENTRY (glade_xml_get_widget (xml, "current_pass_entry"));
+        new_entry = GTK_ENTRY (glade_xml_get_widget (xml, "new_pass_entry"));
+	g_signal_connect (new_entry, "changed",
+			  G_CALLBACK (entry_changed), xml);
+        confirm_entry = GTK_ENTRY (glade_xml_get_widget (xml, "confirm_pass_entry"));
+	g_signal_connect (confirm_entry, "changed",
+			  G_CALLBACK (entry_changed), xml);
+	entry_changed (NULL, xml);
 
 	top_label = GTK_LABEL (glade_xml_get_widget (xml, "pass_label"));
-
 	if (voluntary)
-		gtk_label_set_text (top_label, "");
-
-	pdata.xml = xml;
-	pdata.existing_password = (char *) password;
-	pdata.dialog = GTK_DIALOG(top_widget);
-	pdata.new_password = NULL;
-
-	g_signal_connect (ok_button, "clicked", G_CALLBACK (check_pass_cb), &pdata );
-	g_signal_connect (cancel_button, "clicked", G_CALLBACK (check_response), GTK_WIDGET(top_widget));
+		gtk_widget_hide (GTK_WIDGET (top_label));
 
 run_dialog_again:	
-	response = gtk_dialog_run (GTK_DIALOG(top_widget));
-	if (response == GTK_RESPONSE_REJECT) {	
-		/* Popup wrong existing password warning */
-		goto run_dialog_again;
-	}
-	if (response == GTK_RESPONSE_CANCEL) {
-		/* Popup that both passwords do not match */
-		goto run_dialog_again;
-	}
-	if (response == GTK_RESPONSE_DELETE_EVENT)
-		gtk_widget_destroy (top_widget);
+	response = gtk_dialog_run (GTK_DIALOG (top_widget));
+	if (response == GTK_RESPONSE_OK) {
+		const char *cur_pass, *new_pass1, *new_pass2;
+
+		cur_pass = gtk_entry_get_text (cur_entry);
+		new_pass1 = gtk_entry_get_text (new_entry);
+		new_pass2 = gtk_entry_get_text (confirm_entry);
+
+		if (existing_password) {
+			if (strcmp (cur_pass, existing_password) != 0) {
+				/* User entered a wrong existing
+				 * password. Prompt him again.
+				 */
+				gtk_label_set_text (top_label, _("The current password does not match the existing password for your account. Please enter the correct password"));
+				gtk_widget_show (GTK_WIDGET (top_label));
+				goto run_dialog_again;
+			}
+		}
+
+		if (strcmp (new_pass1, new_pass2) != 0) {
+			gtk_label_set_text (top_label, _("The two passwords do not match. Please re-enter the passwords."));
+			gtk_widget_show (GTK_WIDGET (top_label));
+			goto run_dialog_again;
+		}
+
+		new_pass = g_strdup (new_pass1);
+	} else
+		new_pass = NULL;
+
+	gtk_widget_destroy (top_widget);
 	g_object_unref (xml);
 
-	return pdata.new_password;
+	return new_pass;
 }

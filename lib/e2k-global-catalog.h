@@ -23,6 +23,7 @@ extern "C" {
 struct _E2kGlobalCatalog {
 	GObject parent;
 
+	char *domain;
 	int response_limit;
 
 	E2kGlobalCatalogPrivate *priv;

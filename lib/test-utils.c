@@ -37,6 +37,48 @@
 extern const char *test_program_name;
 
 /**
+ * test_ask_password:
+ * @prompt: prompt string
+ *
+ * Prints @prompt followed by ": " and waits for the user to type
+ * a password (with echoing disabled).
+ *
+ * Return value: the password (or %NULL if stdin is not a tty).
+ **/
+char *
+test_ask_password (const char *prompt)
+{
+	char *password;
+	struct termios t;
+	int old_lflag;
+	char buf[80];
+
+	if (tcgetattr (STDIN_FILENO, &t) != 0)
+		return NULL;
+
+	old_lflag = t.c_lflag;
+	t.c_lflag = (t.c_lflag | ICANON | ECHONL) & ~ECHO;
+	tcsetattr (STDIN_FILENO, TCSANOW, &t);
+
+	fprintf (stderr, "%s: ", prompt);
+	fflush (stdout);
+
+	/* For some reason, fgets can return EINTR on
+	 * Linux if ECHO is false...
+	 */
+	do
+		password = fgets (buf, sizeof (buf), stdin);
+	while (password == NULL && errno == EINTR);
+
+	t.c_lflag = old_lflag;
+	tcsetattr (STDIN_FILENO, TCSANOW, &t);
+
+	if (!password)
+		exit (1);
+	return g_strndup (password, strcspn (password, "\n"));
+}
+
+/**
  * test_get_password:
  * @user: username to get the password for
  * @host: Exchange (or global catalog) server name
@@ -50,6 +92,7 @@ const char *
 test_get_password (const char *user, const char *host)
 {
 	static char *password = NULL;
+	char *prompt;
 
 	if (password)
 		return password;
@@ -63,37 +106,14 @@ test_get_password (const char *user, const char *host)
 	}
 
 	if (!password) {
-		struct termios t;
-		int old_lflag;
-		char buf[80];
+		if (host) {
+			prompt = g_strdup_printf ("Password for %s@%s",
+						  user, host);
+		} else
+			prompt = g_strdup_printf ("Password for %s", user);
 
-		if (tcgetattr (STDIN_FILENO, &t) == 0) {
-			old_lflag = t.c_lflag;
-			t.c_lflag = (t.c_lflag | ICANON | ECHONL) & ~ECHO;
-			tcsetattr (STDIN_FILENO, TCSANOW, &t);
-
-			if (host) {
-				fprintf (stderr, "Password for %s@%s: ",
-					 user, host);
-			} else
-				fprintf (stderr, "Password for %s: ", user);
-			fflush (stdout);
-
-			/* For some reason, fgets can return EINTR on
-			 * Linux if ECHO is false...
-			 */
-			do {
-				password = fgets (buf, sizeof (buf), stdin);
-			} while (password == NULL && errno == EINTR);
-
-			t.c_lflag = old_lflag;
-			tcsetattr (STDIN_FILENO, TCSANOW, &t);
-
-			if (!password)
-				exit (1);
-			password = g_strndup (password,
-					      strcspn (password, "\n"));
-		}
+		password = test_ask_password (prompt);
+		g_free (prompt);
 	}
 
 	return password;

@@ -9,19 +9,27 @@ extern "C" {
 #pragma }
 #endif /* __cplusplus */
 
-#define E2K_PARSE_NAME_FAILURE 	-1001
-#define E2K_KRB_INIT_FAILURE 	-1002
-#define E2K_INIT_CRED_FAILURE 	-1003
-#define E2K_CHANGE_PWD_FAILURE 	-1004
-#define E2K_PASSWD_EXPIRED 		-1005
-#define E2K_BAD_PASSWD			-1006
-#define E2K_KRB5_NO_USER_CONF	-1007
-#define E2K_SET_CONFIG_FAILURE	-1008
+typedef enum {
+	E2K_KERBEROS_OK,
+	E2K_KERBEROS_USER_UNKNOWN,
+	E2K_KERBEROS_PASSWORD_INCORRECT,
+	E2K_KERBEROS_PASSWORD_EXPIRED,
+	E2K_KERBEROS_PASSWORD_TOO_WEAK,
 
-int    e2k_change_passwd (char *user, char *old_pwd, char *new_pwd);
-int    e2k_check_expire (char *usr_name, char *passwd);
-int    e2k_create_krb_config_file (char *domain, char *kdc);
-int    e2k_set_config (void);
+	E2K_KERBEROS_KDC_UNREACHABLE,
+	E2K_KERBEROS_TIME_SKEW,
+
+	E2K_KERBEROS_FAILED,
+} E2kKerberosResult;
+
+E2kKerberosResult e2k_kerberos_check_password  (const char *user,
+						const char *domain,
+						const char *password);
+
+E2kKerberosResult e2k_kerberos_change_password (const char *user,
+						const char *domain,
+						const char *old_password,
+						const char *new_password);
 
 #ifdef __cplusplus
 }
