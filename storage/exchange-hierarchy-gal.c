@@ -45,7 +45,6 @@ exchange_hierarchy_gal_new (ExchangeAccount *account,
 {
 	ExchangeHierarchy *hier;
 	EFolder *toplevel;
-	char *conf_key_contacts="/apps/evolution/addressbook/sources";
 	ESourceList *cont_source_list;
 
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
@@ -64,9 +63,9 @@ exchange_hierarchy_gal_new (ExchangeAccount *account,
 	/* Add ESource */
 	cont_source_list = e_source_list_new_for_gconf (
 						gconf_client_get_default (),
-						conf_key_contacts);
-	add_esource (hier->account, conf_key_contacts, hierarchy_name, 
-		    physical_uri_prefix, &cont_source_list, TRUE);
+						CONF_KEY_CONTACTS);
+	add_esource (hier->account, EXCHANGE_CONTACTS_FOLDER, hierarchy_name, 
+		    physical_uri_prefix, &cont_source_list);
 	e_source_list_sync (cont_source_list, NULL);
 	g_object_unref (cont_source_list);	
 	
