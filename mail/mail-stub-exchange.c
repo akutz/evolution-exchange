@@ -2054,7 +2054,8 @@ account_new_folder (ExchangeAccount *account, EFolder *folder, gpointer user_dat
 	MailStubExchange *mse = user_data;
 	ExchangeHierarchy *hier;
 
-	if (strcmp (e_folder_get_type_string (folder), "mail") != 0)
+	if (strcmp (e_folder_get_type_string (folder), "mail") != 0 &&
+	    strcmp (e_folder_get_type_string (folder), "mail/public") != 0)
 		return;
 
 	if (mse->ignore_new_folder &&
@@ -2062,7 +2063,9 @@ account_new_folder (ExchangeAccount *account, EFolder *folder, gpointer user_dat
 		return;
 
 	hier = e_folder_exchange_get_hierarchy (folder);
-	if (hier->type != EXCHANGE_HIERARCHY_PERSONAL)
+	if (hier->type != EXCHANGE_HIERARCHY_PERSONAL &&
+	    hier->type != EXCHANGE_HIERARCHY_FAVORITES &&
+	    hier->type != EXCHANGE_HIERARCHY_FOREIGN)
 		return;
 
 	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_FOLDER_CREATED,
@@ -2080,7 +2083,8 @@ account_removed_folder (ExchangeAccount *account, EFolder *folder, gpointer user
 	MailStubExchange *mse = user_data;
 	ExchangeHierarchy *hier;
 
-	if (strcmp (e_folder_get_type_string (folder), "mail") != 0)
+	if (strcmp (e_folder_get_type_string (folder), "mail") != 0 && 
+	    strcmp (e_folder_get_type_string (folder), "mail/public") != 0)
 		return;
 
 	if (mse->ignore_removed_folder &&
@@ -2088,7 +2092,9 @@ account_removed_folder (ExchangeAccount *account, EFolder *folder, gpointer user
 		return;
 
 	hier = e_folder_exchange_get_hierarchy (folder);
-	if (hier->type != EXCHANGE_HIERARCHY_PERSONAL)
+	if (hier->type != EXCHANGE_HIERARCHY_PERSONAL &&
+	    hier->type != EXCHANGE_HIERARCHY_FAVORITES &&
+	    hier->type != EXCHANGE_HIERARCHY_FOREIGN)
 		return;
 
 	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_FOLDER_DELETED,
@@ -2136,7 +2142,10 @@ get_folder_info (MailStub *stub, const char *top, gboolean recursive)
 		for (i = 0; i < folders->len; i++) {
 			folder = folders->pdata[i];
 			hier = e_folder_exchange_get_hierarchy (folder);
-			if (hier->type != EXCHANGE_HIERARCHY_PERSONAL)
+
+			if (hier->type != EXCHANGE_HIERARCHY_PERSONAL &&
+			    hier->type != EXCHANGE_HIERARCHY_FAVORITES &&
+			    hier->type != EXCHANGE_HIERARCHY_FOREIGN)
 				continue;
 
 			if (recursive && top) {
