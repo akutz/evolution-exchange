@@ -579,6 +579,11 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	return GNOME_Evolution_Calendar_Success;
 }
 
+#define BUSYSTATUS 	0x01
+#define INSTTYPE	0x02
+#define ALLDAY		0x04
+#define IMPORTANCE	0x08
+
 static void
 update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp)
 {
@@ -588,7 +593,8 @@ update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp)
 	ECalComponentTransparency transp;
 	ECalComponentDateTime dtstart;
 	int *priority;
-	char *busystatus, *insttype, *allday, *importance;
+	const char *busystatus, *insttype, *allday, *importance;
+	int prop_set = 0;
 
 	e_cal_component_get_transparency (comp, &transp);
 	if (transp == E_CAL_COMPONENT_TRANSP_TRANSPARENT)
@@ -632,16 +638,16 @@ update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp)
 				icalproperty_set_x (icalprop, "FREE");
 			else if (strcmp (x_val, "FREE") == 0)
 				icalproperty_set_x (icalprop, "BUSY");
-			busystatus = NULL;
+			propset |= BUSYSTATUS;
 		} else if (!strcmp (x_name, "X-MICROSOFT-CDO-INSTTYPE")) {
 			icalproperty_set_x (icalprop, insttype);
-			insttype = NULL;
+			propset |= INSTTYPE;
 		} else if (!strcmp (x_name, "X-MICROSOFT-CDO-ALLDAYEVENT")) {
 			icalproperty_set_x (icalprop, allday);
-			allday = NULL;
+			propset |= ALLDAY;
 		} else if (!strcmp (x_name, "X-MICROSOFT-CDO-IMPORTANCE")) {
 			icalproperty_set_x (icalprop, importance);
-			importance = NULL;
+			propset |= IMPORTANCE;
 		} else if (!strcmp (x_name, "X-MICROSOFT-CDO-MODPROPS"))
 			icalcomponent_remove_property (icalcomp, icalprop);
 
@@ -649,25 +655,25 @@ update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp)
 	}
 
 	/* Now set the ones that weren't set. */
-	if (busystatus) {
+	if (!(prop_set & BUSYSTATUS)) {
 		icalprop = icalproperty_new_x (busystatus);
 		icalproperty_set_x_name (icalprop, "X-MICROSOFT-CDO-BUSYSTATUS");
 		icalcomponent_add_property (icalcomp, icalprop);
 	}
 
-	if (insttype) {
+	if (!(prop_set & INSTTYPE)) {
 		icalprop = icalproperty_new_x (insttype);
 		icalproperty_set_x_name (icalprop, "X-MICROSOFT-CDO-INSTTYPE");
 		icalcomponent_add_property (icalcomp, icalprop);
 	}
 
-	if (allday) {
+	if (!(prop_set & ALLDAY)) {
 		icalprop = icalproperty_new_x (allday);
 		icalproperty_set_x_name (icalprop, "X-MICROSOFT-CDO-ALLDAYEVENT");
 		icalcomponent_add_property (icalcomp, icalprop);
 	}
 
-	if (importance) {
+	if (!(prop_set & IMPORTANCE)) {
 		icalprop = icalproperty_new_x (importance);
 		icalproperty_set_x_name (icalprop, "X-MICROSOFT-CDO-IMPORTANCE");
 		icalcomponent_add_property (icalcomp, icalprop);
@@ -729,7 +735,7 @@ modify_object (ECalBackendSync *backend, EDataCal *cal,
 	*old_object = e_cal_component_get_as_string (old_comp);
 	
 	comp = e_cal_component_new ();
-	e_cal_component_set_icalcomponent (comp, icalcomp);	
+	e_cal_component_set_icalcomponent (comp, icalcomp);
 
 	update_x_properties (E_CAL_BACKEND_EXCHANGE (cbexc), comp);
 	
