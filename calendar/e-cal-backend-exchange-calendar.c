@@ -764,7 +764,7 @@ modify_object (ECalBackendSync *backend, EDataCal *cal,
 		dt.value->is_date = FALSE;
 		dt.value->is_utc = FALSE;
 		dt.value->hour = dt.value->minute = dt.value->second = 0;
-		dt.value->zone = icaltimezone_get_tzid (zone);
+		dt.value->zone = zone;
 		dt.tzid = icaltimezone_get_tzid (zone);
 		e_cal_component_set_dtstart (tmp_comp, &dt);
 
@@ -772,7 +772,7 @@ modify_object (ECalBackendSync *backend, EDataCal *cal,
 		dt.value->is_date = FALSE;
 		dt.value->is_utc = FALSE;
 		dt.value->hour = dt.value->minute = dt.value->second = 0;
-		dt.value->zone = icaltimezone_get_tzid (zone);
+		dt.value->zone = zone;
 		dt.tzid = icaltimezone_get_tzid (zone);
 		e_cal_component_set_dtend (tmp_comp, &dt);
 	}
@@ -796,7 +796,8 @@ modify_object (ECalBackendSync *backend, EDataCal *cal,
 			else {
 				char *izone;
 				get_timezone (backend, cal, dt.tzid, &izone);
-				from_zone = icalcomponent_new_from_string (izone);
+				from_zone = icalcomponent_get_timezone (icalcomponent_new_from_string (izone),
+											dt.tzid);
 			}
 			to_zone = icaltimezone_get_utc_timezone ();
 
