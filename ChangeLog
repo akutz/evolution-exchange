@@ -1,3 +1,19 @@
+2005-01-19  Sushma Rai  <rsushma@novell.com>
+
+	* camel/camel-exchange-provider.c: Added one more parameter to
+	user validation function, for reading remember password flag value.
+
+	* lib/e2k-validate.h: Similar.
+
+	* lib/e2k-autoconfig.c (e2k_validate_user): Forming the password hash
+	key once we read the hostname. And remembering the password if the 
+	user is a valid user, so that account setup will not prompt for
+	password second time at the end.
+
+	* storage/exchange-account.c (get_password): If the password is 
+	remembered, and user has not sleceted remember password option,
+	forgetting the password remembered.
+	 
 2005-01-18  Sushma Rai  <rsushma@novell.com>
 
 	* lib/e2k-autoconfig.c (validate): Handling error coders, and

@@ -1510,7 +1510,8 @@ validate (char *owa_url, char *user, char *password, char **host)
 }
 
 gboolean
-e2k_validate_user (char *owa_url, char *user, char **host)
+e2k_validate_user (char *owa_url, char *user, 
+		   char **host, gboolean *remember_password)
 {
 	gboolean valid = FALSE, remember=FALSE;
 	char *key, *password, *prompt;
@@ -1525,12 +1526,29 @@ e2k_validate_user (char *owa_url, char *user, char **host)
 					&remember, NULL);
 		if (password) {
 			valid = validate (owa_url, user, password, host);
-			//auto_detect_gc();
+			if (valid) {
+				//auto_detect_gc();
+
+				/* generate the proper key once the host name 
+				 * is read and remember password temporarily, 
+				 * so that at the end of * account creation, 
+				 * user will not be prompted, for password will
+				 * not be asked again. 
+				 */
+
+				*remember_password = remember;
+				g_free (key);
+				key = g_strdup_printf ("%s//%s@%s", 
+						       "exchange:", user, *host);
+				e_passwords_add_password (key, password);
+				e_passwords_remember_password ("Exchange", key);
+			}
 		}
 		g_free (prompt);
 	}
-	if (password && !valid)
+	if (password && !valid) {
 		e_passwords_forget_password ("Exchange", key);
+	}
 	g_free (key);
 
 	return valid;

@@ -9,7 +9,7 @@ extern "C" {
 #pragma }
 #endif /* __cplusplus */
 
-gboolean e2k_validate_user (char *owa_url, char *user, char **host);
+gboolean e2k_validate_user (char *owa_url, char *user, char **host, gboolean *remember_password);
 
 #ifdef __cplusplus
 }

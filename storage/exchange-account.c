@@ -843,6 +843,7 @@ get_password (ExchangeAccount *account, E2kAutoconfig *ac, const char *errmsg)
 		e_passwords_forget_password ("Exchange", account->priv->password_key);
 
 	password = e_passwords_get_password ("Exchange", account->priv->password_key);
+
 	if (!password && exchange_component_is_interactive (global_exchange_component)) {
 		char *prompt;
 
@@ -858,6 +859,13 @@ get_password (ExchangeAccount *account, E2kAutoconfig *ac, const char *errmsg)
 			account->priv->account->source->save_passwd = remember;
 		}
 		g_free (prompt);
+	} 
+	else if (password && !account->priv->account->source->save_passwd) {
+		/* get_password returns the password cached but user has not 
+		 * selected remember password option, forget this password 
+		 * whis is stored temporarily by e2k_validate_user() 
+		 */
+		e_passwords_forget_password ("Exchange", account->priv->password_key);
 	}
 
 	if (password) {
