@@ -1,11 +1,21 @@
+2005-02-26  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* storage/exchange-folder-size.c : Modified most of the code for
+	displaying the folder sizes in a sorted order. Also added code to
+	update the store with new folder sizes, called after a refresh.
+	* storage/exchange-folder-size.h : Similar
+	* storage/exchange-hierarchy-webdav.c (rescan) : Fetch the folder
+	sizes during a rescan as well.
+	(exchange_hierarchy_webdav_parse_folder) : Now send a double value
+	instead of a string for the folder size.
+	Fixes #72104
+
 2005-02-24  Sivaiah Nallagatla <snallagatla@novell.com>
                                                                                 
         * addressbook/e-book-backend-exchange.c
         (e_book_backend_exchange_get_contact_list) :
-        don't use e_data_book_respond_ calls, you are
-        a sync backend. This is already done else where
-        for you.
-        Fixes #72946
+        We should not be using e_data_book_respond_ calls, as we are
+        a sync backend. Fixes #72946
         (e_book_backend_exchange_create_contact) :
         Don't use e_data_book_respond and don't
         return success here. We are in offline
@@ -52,7 +62,7 @@
 2005-02-16  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* storage/xc-commands.c (do_folder_size_menu): Enable popping of
-	folder size dialog from the menu.
+	folder size dialog from the menu. Fixes #72099
 
 2005-02-16  Sarfraaz Ahmed <asarfraaz@novell.com>
 

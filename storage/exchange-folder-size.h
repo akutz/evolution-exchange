@@ -40,9 +40,8 @@ GType    exchange_folder_size_get_type (void);
 ExchangeFolderSize *exchange_folder_size_new (void);
 
 void exchange_folder_size_update (ExchangeFolderSize *fsize,
-						const char *permanent_uri,
 						const char *folder_name,
-						const char *folder_size);
+						gdouble folder_size);
 
 void exchange_folder_size_display (EFolder *folder, GtkWidget *parent);
 

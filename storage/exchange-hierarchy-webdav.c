@@ -473,16 +473,25 @@ add_href (gpointer path, gpointer folder, gpointer hrefs)
 	g_ptr_array_add (hrefs, path);
 }
 
+static const char *rescan_props[] = {
+	E2K_PR_EXCHANGE_FOLDER_SIZE,
+	E2K_PR_HTTPMAIL_UNREAD_COUNT
+};
+static const int n_rescan_props = sizeof (rescan_props) / sizeof (rescan_props[0]);
+
 static void
 rescan (ExchangeHierarchy *hier)
 {
 	ExchangeHierarchyWebDAV *hwd = EXCHANGE_HIERARCHY_WEBDAV (hier);
 	const char *prop = E2K_PR_HTTPMAIL_UNREAD_COUNT;
+	const char *folder_size, *folder_name;
 	GPtrArray *hrefs;
 	E2kResultIter *iter;
 	E2kResult *result;
 	EFolder *folder;
 	int unread;
+	gboolean personal = ( hier->type == EXCHANGE_HIERARCHY_PERSONAL );
+	gdouble fsize_d;
 
 	if ( exchange_account_is_offline (hier->account) ||
 	    hier->type == EXCHANGE_HIERARCHY_PUBLIC)
@@ -500,7 +509,7 @@ rescan (ExchangeHierarchy *hier)
 	iter = e_folder_exchange_bpropfind_start (hier->toplevel, NULL,
 						  (const char **)hrefs->pdata,
 						  hrefs->len,
-						  &prop, 1);
+						  rescan_props, n_rescan_props);
 	g_ptr_array_free (hrefs, TRUE);
 
 	while ((result = e2k_result_iter_next (iter))) {
@@ -517,6 +526,17 @@ rescan (ExchangeHierarchy *hier)
 
 		if (unread != e_folder_get_unread_count (folder))
 			e_folder_set_unread_count (folder, unread);
+
+		folder_size = e2k_properties_get_prop (result->props,
+						E2K_PR_EXCHANGE_FOLDER_SIZE);
+		if (folder_size && personal) {
+			if (e_folder_exchange_get_permanent_uri (folder)) {
+				folder_name = e_folder_get_name (folder);
+				fsize_d = g_ascii_strtod (folder_size, NULL)/1024;
+				exchange_folder_size_update (hwd->priv->foldersize, 
+							folder_name, fsize_d);
+			}
+		}
 	}
 	e2k_result_iter_free (iter);
 	g_object_unref (hier);
@@ -538,6 +558,8 @@ exchange_hierarchy_webdav_status_to_folder_result (E2kHTTPStatus status)
 ExchangeFolderSize *
 exchange_hierarchy_webdav_get_folder_size (ExchangeHierarchyWebDAV *hwd)
 {
+	g_return_val_if_fail (EXCHANGE_IS_HIERARCHY_WEBDAV (hwd), NULL);
+
 	return hwd->priv->foldersize;
 }
 
@@ -551,6 +573,7 @@ exchange_hierarchy_webdav_parse_folder (ExchangeHierarchyWebDAV *hwd,
 	const char *name, *prop, *outlook_class, *permanenturl, *folder_size;
 	int unread;
 	gboolean hassubs;
+	gdouble fsize_d;
 
 	g_return_val_if_fail (EXCHANGE_IS_HIERARCHY_WEBDAV (hwd), NULL);
 	g_return_val_if_fail (E_IS_FOLDER (parent), NULL);
@@ -606,7 +629,10 @@ exchange_hierarchy_webdav_parse_folder (ExchangeHierarchyWebDAV *hwd,
 		e_folder_exchange_set_has_subfolders (folder, TRUE);
 	if (permanenturl) {
 		e_folder_exchange_set_permanent_uri (folder, permanenturl);
-		exchange_folder_size_update (hwd->priv->foldersize, permanenturl, name, folder_size);
+		/* FIXME : Find a better way of doing this */
+		fsize_d = g_ascii_strtod (folder_size, NULL)/1024 ;
+		exchange_folder_size_update (hwd->priv->foldersize, 
+						name, fsize_d);
 	}
 
 	return folder;
