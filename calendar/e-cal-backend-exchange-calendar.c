@@ -677,7 +677,6 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	const char *boundary;
 	E2kHTTPStatus http_status;
 	struct _cb_data *cbdata;
-	GSList *categories;
 	
 	cbexc =	E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 	
@@ -895,11 +894,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 
 	/*add object*/
 	e_cal_backend_exchange_add_object (E_CAL_BACKEND_EXCHANGE (cbexc), location, lastmod, icalcomp);
-	
-	e_cal_component_get_categories_list (comp, &categories);
-	e_cal_backend_ref_categories (E_CAL_BACKEND (cbexc), categories);
-	e_cal_component_free_categories_list (categories);
-	
+		
 	g_object_unref (comp);
 	g_free (lastmod);
 	g_free (location);
@@ -1039,7 +1034,6 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	char *from, *date;
 	const char *summary, *new_href;
 	E2kContext *ctx;
-	GSList *categories;
 
 	cbexc =	E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 
@@ -1225,16 +1219,6 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	e_cal_component_set_icalcomponent (cached_ecomp, icalcomponent_new_clone (ecomp->icomp));
 	*old_object = e_cal_component_get_as_string (cached_ecomp);
 	
-	/*unref the old set of categories*/
-	e_cal_component_get_categories_list (cached_ecomp, &categories);
-	e_cal_backend_unref_categories (E_CAL_BACKEND (cbexc), categories);
-	e_cal_component_free_categories_list (categories);
-	
-	/*ref the new set of categories*/
-	e_cal_component_get_categories_list (real_ecomp, &categories);
-	e_cal_backend_ref_categories (E_CAL_BACKEND (cbexc), categories);
-	e_cal_component_free_categories_list (categories);
-
 	ctx = exchange_account_get_context (E_CAL_BACKEND_EXCHANGE (cbexc)->account);	
 	
 	/* PUT the iCal object in the Exchange server */
@@ -1270,7 +1254,6 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 	E2kHTTPStatus status;
 	E2kContext *ctx;
 	ECalComponent *comp;
-	GSList *categories;
 	char *calobj, *obj;
 	struct icaltimetype time_rid;
 	ECalBackendSyncStatus ebs_status;
@@ -1300,9 +1283,6 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 			
 			status = e2k_context_delete (ctx, NULL, ecomp->href);			
 			if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {		
-				e_cal_component_get_categories_list (comp, &categories);
-				e_cal_backend_unref_categories (E_CAL_BACKEND (cbexc), categories);
-				e_cal_component_free_categories_list (categories);
 				
 				if (e_cal_backend_exchange_remove_object (E_CAL_BACKEND_EXCHANGE (cbexc), uid)) {
 						g_object_unref (comp);
