@@ -1,5 +1,11 @@
 2005-01-16  Sarfraaz Ahmed <asarfraaz@novell.com>
 
+	* calendar/e-cal-backend-exchange-calendar.c : Fixed the add_ical and
+	get_changed_events functions to now geenrically fetch the attachments
+	created either from Outlook or OWA.
+
+2005-01-16  Sarfraaz Ahmed <asarfraaz@novell.com>
+
 	* calendar/e-cal-backend-exchange-calendar.c (modify_object_with_href):
 	Fixed a memory leak causing a crash on modifying an appointment.
 

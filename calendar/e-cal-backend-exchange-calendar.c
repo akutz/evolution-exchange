@@ -21,9 +21,14 @@
 #include <config.h>
 #endif
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/fcntl.h>
+
 #include <camel/camel-mime-message.h>
 #include <camel/camel-multipart.h>
 #include <camel/camel-stream-mem.h>
+#include <camel/camel-file-utils.h>
 
 #include "e-cal-backend-exchange-calendar.h"
 
@@ -44,27 +49,29 @@ struct ECalBackendExchangeCalendarPrivate {
 #define PARENT_TYPE E_TYPE_CAL_BACKEND_EXCHANGE
 static ECalBackendExchange *parent_class = NULL;
 
-#define d(x)
+#define d(x) (x)
 
 static ECalBackendSyncStatus modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, const char *calobj, CalObjModType mod, char **old_object, const char *href);
 
+static GSList * get_attachment (ECalBackendExchange *cbex, const char *uid, const char *body, int len);
+
 static void
-add_timezones_from_comp (ECalBackendExchange *cbex, icalcomponent *comp)
+add_timezones_from_comp (ECalBackendExchange *cbex, icalcomponent *icalcomp)
 {
 	icalcomponent *subcomp;
 
-	switch (icalcomponent_isa (comp)) {
+	switch (icalcomponent_isa (icalcomp)) {
 	case ICAL_VTIMEZONE_COMPONENT:
-		e_cal_backend_exchange_add_timezone (cbex, comp);
+		e_cal_backend_exchange_add_timezone (cbex, icalcomp);
 		break;
 
 	case ICAL_VCALENDAR_COMPONENT:
 		subcomp = icalcomponent_get_first_component (
-			comp, ICAL_VTIMEZONE_COMPONENT);
+			icalcomp, ICAL_VTIMEZONE_COMPONENT);
 		while (subcomp) {
 			e_cal_backend_exchange_add_timezone (cbex, subcomp);
 			subcomp = icalcomponent_get_next_component (
-				comp, ICAL_VTIMEZONE_COMPONENT);
+				icalcomp, ICAL_VTIMEZONE_COMPONENT);
 		}
 		break;
 
@@ -76,7 +83,7 @@ add_timezones_from_comp (ECalBackendExchange *cbex, icalcomponent *comp)
 static gboolean
 add_vevent (ECalBackendExchange *cbex,
 	    const char *href, const char *lastmod,
-	    icalcomponent *comp)
+	    icalcomponent *icalcomp)
 {
 	icalproperty *prop, *transp;
 	ECalBackendSyncStatus status;
@@ -84,10 +91,10 @@ add_vevent (ECalBackendExchange *cbex,
 	/* We have to do this here, since if we do it inside the loop
 	 * it will mess up the ICAL_X_PROPERTY iterator.
 	 */
-	transp = icalcomponent_get_first_property (comp, ICAL_TRANSP_PROPERTY);
+	transp = icalcomponent_get_first_property (icalcomp, ICAL_TRANSP_PROPERTY);
 
 	/* Check all X-MICROSOFT-CDO properties to fix any needed stuff */
-	prop = icalcomponent_get_first_property (comp, ICAL_X_PROPERTY);
+	prop = icalcomponent_get_first_property (icalcomp, ICAL_X_PROPERTY);
 	while (prop) {
 		const char *x_name, *x_val;
 		struct icaltimetype itt;
@@ -100,15 +107,15 @@ add_vevent (ECalBackendExchange *cbex,
 			/* All-day event. Fix DTSTART/DTEND to be DATE
 			 * values rather than DATE-TIME.
 			 */
-			itt = icalcomponent_get_dtstart (comp);
+			itt = icalcomponent_get_dtstart (icalcomp);
 			itt.is_date = TRUE;
 			itt.hour = itt.minute = itt.second = 0;
-			icalcomponent_set_dtstart (comp, itt);
+			icalcomponent_set_dtstart (icalcomp, itt);
 
-			itt = icalcomponent_get_dtend (comp);
+			itt = icalcomponent_get_dtend (icalcomp);
 			itt.is_date = TRUE;
 			itt.hour = itt.minute = itt.second = 0;
-			icalcomponent_set_dtend (comp, itt);
+			icalcomponent_set_dtend (icalcomp, itt);
 		}
 
 		if (!strcmp (x_name, "X-MICROSOFT-CDO-BUSYSTATUS") && !transp) {
@@ -122,20 +129,20 @@ add_vevent (ECalBackendExchange *cbex,
 				transp = icalproperty_new_transp (ICAL_TRANSP_TRANSPARENT);
 
 			if (transp)
-				icalcomponent_add_property (comp, transp);
+				icalcomponent_add_property (icalcomp, transp);
 		}
 
-		prop = icalcomponent_get_next_property (comp, ICAL_X_PROPERTY);
+		prop = icalcomponent_get_next_property (icalcomp, ICAL_X_PROPERTY);
 	}
 
 	/* OWA seems to be broken, and sets the component class to
 	 * "CLASS:", by which it means PUBLIC. Evolution treats this
 	 * as PRIVATE, so we have to work around.
 	 */
-	prop = icalcomponent_get_first_property (comp, ICAL_CLASS_PROPERTY);
+	prop = icalcomponent_get_first_property (icalcomp, ICAL_CLASS_PROPERTY);
 	if (!prop) {
 		prop = icalproperty_new_class (ICAL_CLASS_PUBLIC);
-		icalcomponent_add_property (comp, prop);
+		icalcomponent_add_property (icalcomp, prop);
 	}
 
 	/* Exchange sets an ORGANIZER on all events. RFC2445 says:
@@ -146,27 +153,30 @@ add_vevent (ECalBackendExchange *cbex,
 	 *   scheduled entities, but are entities only on a single
 	 *   user's calendar.
 	 */
-	prop = icalcomponent_get_first_property (comp, ICAL_ORGANIZER_PROPERTY);
-	if (prop && !icalcomponent_get_first_property (comp, ICAL_ATTENDEE_PROPERTY))
-		icalcomponent_remove_property (comp, prop);
+	prop = icalcomponent_get_first_property (icalcomp, ICAL_ORGANIZER_PROPERTY);
+	if (prop && !icalcomponent_get_first_property (icalcomp, ICAL_ATTENDEE_PROPERTY))
+		icalcomponent_remove_property (icalcomp, prop);
 
 	/* Now add to the cache */
-	status = e_cal_backend_exchange_add_object (cbex, href, lastmod, comp);
+	status = e_cal_backend_exchange_add_object (cbex, href, lastmod, icalcomp);
 	return (status == GNOME_Evolution_Calendar_Success);
 }
 
 static gboolean
-add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
-	  const char *body, int len, unsigned char *attach_data, int attach_len)
+add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod, 
+	  const char *uid, const char *body, int len)
 {
 	const char *start, *end;
 	char *ical_body;
-	icalcomponent *comp, *subcomp, *new_comp;
+	icalcomponent *icalcomp, *subcomp, *new_comp;
 	icalcomponent_kind kind;
-	icalattach *iattach;
-	ECalComponent *ecal;
+	ECalComponent *ecomp;
 	GSList *attachment_list = NULL;
 	gboolean status;
+
+	/* Check for attachments */
+	if (uid) 
+		attachment_list = get_attachment (cbex, uid, body, len);
 
 	start = g_strstr_len (body, len, "\nBEGIN:VCALENDAR");
 	if (!start)
@@ -178,33 +188,33 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 	end += sizeof ("\nEND:VCALENDAR");
 
 	ical_body = g_strndup (start, end - start);
-	comp = icalparser_parse_string (ical_body);
+	icalcomp = icalparser_parse_string (ical_body);
 	g_free (ical_body);
-	if (!comp)
+	if (!icalcomp)
 		return FALSE;
 
-	kind = icalcomponent_isa (comp);
+	kind = icalcomponent_isa (icalcomp);
 	if (kind == ICAL_VEVENT_COMPONENT) {
-		if (attach_len) {
-			ecal = e_cal_component_new ();
-			/* FIXME : Use a proper free function */
-			iattach = icalattach_new_from_data (attach_data, NULL, NULL);
-			attachment_list = g_slist_append (attachment_list, iattach);
-			e_cal_component_set_icalcomponent (ecal, comp);
-			e_cal_component_set_attachment_list (ecal, attachment_list);
+		if (attachment_list) {
+			ecomp = e_cal_component_new ();
+			e_cal_component_set_icalcomponent (ecomp, icalcomponent_new_clone (icalcomp));
+			e_cal_component_set_attachment_list (ecomp, attachment_list);
+			icalcomponent_free (icalcomp);
+			icalcomp = icalcomponent_new_clone (e_cal_component_get_icalcomponent (ecomp));
+			g_object_unref (ecomp);
 		}
-		status = add_vevent (cbex, href, lastmod, comp);
-		icalcomponent_free (comp);
+		status = add_vevent (cbex, href, lastmod, icalcomp);
+		icalcomponent_free (icalcomp);
 		return status;
 	} else if (kind != ICAL_VCALENDAR_COMPONENT) {
-		icalcomponent_free (comp);
+		icalcomponent_free (icalcomp);
 		return FALSE;
 	}
 
-	add_timezones_from_comp (cbex, comp);
+	add_timezones_from_comp (cbex, icalcomp);
 
 	subcomp = icalcomponent_get_first_component (
-		comp, ICAL_VEVENT_COMPONENT);
+		icalcomp, ICAL_VEVENT_COMPONENT);
 	while (subcomp) {
 		new_comp = icalcomponent_new_clone (subcomp);
 		if (new_comp) {
@@ -218,33 +228,28 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 			icalcomponent_free (new_comp);
 		}
 		subcomp = icalcomponent_get_next_component (
-			comp, ICAL_VEVENT_COMPONENT);
+			icalcomp, ICAL_VEVENT_COMPONENT);
 	}
-	icalcomponent_free (comp);
+	icalcomponent_free (icalcomp);
 
 	return TRUE;
 }
 
-static guint 
-get_attachment (E2kContext *ctx, char *href, unsigned char **attach_data, int *attach_len)
+static GSList * 
+get_attachment (ECalBackendExchange *cbex, const char *uid, 
+			const char *body, int len)
 {
-	E2kHTTPStatus e2k_status;
 	CamelStream *stream;
 	CamelMimeMessage *msg;
 	CamelDataWrapper *content;
 	CamelMultipart *multipart;
 	CamelMimePart *part;
-	char *body;
 	const char *filename;
-	FILE *f;
-	int i, len, nwrote;
-
-	e2k_status =  e2k_context_get (ctx, NULL, href,
-						NULL, &body, &len);
-	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (e2k_status)) {
-		d(printf ("could not fetch the body\n"));
-		return e2k_status;
-	}
+	char *attach_filename, *attach_file, *attach_file_url;
+	int fd;
+	int i;
+	GSList *list = NULL;
+	unsigned char *attach_data;
 
 	stream = camel_stream_mem_new_with_buffer (body, len);
 	msg = camel_mime_message_new ();
@@ -271,24 +276,34 @@ get_attachment (E2kContext *ctx, char *href, unsigned char **attach_data, int *a
 		
 		stream = camel_stream_mem_new ();
 		stream_mem = (CamelStreamMem *)stream;
+	
 		camel_data_wrapper_decode_to_stream (content, stream);
+		attach_data = g_memdup (stream_mem->buffer->data, stream_mem->buffer->len);
 
-		//cal_attach_data = stream_mem->buffer->data;
-		*attach_len = stream_mem->buffer->len;
-		*attach_data = g_malloc (stream_mem->buffer->len);
-		memcpy (*attach_data, stream_mem->buffer->data, stream_mem->buffer->len);
 		// Attach
-		f = fopen ("/tmp/test-attach.txt", "w");
-		if (f) {
-			nwrote = fwrite (*attach_data, 1, *attach_len, f);
-			fclose (f);
+		attach_filename = g_strdup_printf ("%s-%s", uid, filename);
+		attach_file = e_folder_exchange_get_storage_file (cbex->folder, attach_filename);
+		g_free (attach_filename);
+
+		fd = open (attach_file, O_RDWR|O_CREAT|O_TRUNC, 0600);
+		if (fd < 0) {
+			d(printf ("could not open file for creating attachment file locally\n"));
+		} else {
+			if (camel_write (fd, attach_data, stream_mem->buffer->len) < 0)
+				d(printf ("camel write to attach file failed\n"));
 		}
+		attach_file_url = g_strdup_printf ("file://%s", attach_file);
+		list = g_slist_append (list, g_strdup (attach_file_url));
+
+		close (fd);
+		g_free (attach_file_url);
+		g_free (attach_file);
 		
 		camel_object_unref (stream);
 	}
 	
 	camel_object_unref (msg);
-	return e2k_status;
+	return list;
 }
 
 static const char *event_properties[] = {
@@ -309,10 +324,11 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 {
 	GPtrArray *hrefs;
 	GHashTable *modtimes;
+	GHashTable *attachments;
 	E2kRestriction *rn;
 	E2kResultIter *iter;
 	E2kResult *result;
-	const char *prop, *uid, *modtime, *attach_data;
+	const char *prop, *uid, *modtime, *attach_prop;
 	char *body;
 	unsigned char *cal_attach_data;
 	guint status;
@@ -357,6 +373,8 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 	hrefs = g_ptr_array_new ();
 	modtimes = g_hash_table_new_full (g_str_hash, g_str_equal,
 					  g_free, g_free);
+	attachments = g_hash_table_new_full (g_str_hash, g_str_equal,
+					  g_free, g_free);
 	while ((result = e2k_result_iter_next (iter))) {
 		uid = e2k_properties_get_prop (result->props,
 						E2K_PR_CALENDAR_UID);
@@ -365,12 +383,19 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 		modtime = e2k_properties_get_prop (result->props,
 						   E2K_PR_DAV_LAST_MODIFIED);
 
+		attach_prop = e2k_properties_get_prop (result->props, 
+						E2K_PR_HTTPMAIL_HAS_ATTACHMENT);
+
 		if (!e_cal_backend_exchange_in_cache (cbex, uid, modtime, result->href)) {
 			g_ptr_array_add (hrefs, g_strdup (result->href));
 			g_hash_table_insert (modtimes, g_strdup (result->href),
 					     g_strdup (modtime));
+			if (attach_prop && atoi (attach_prop))
+				g_hash_table_insert (attachments, g_strdup (result->href),
+						g_strdup (uid));
 		}
 
+/*
 		attach_data = e2k_properties_get_prop (result->props, 
 						E2K_PR_HTTPMAIL_HAS_ATTACHMENT);
 		if (attach_data && atoi (attach_data)) {
@@ -388,12 +413,14 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 		} else {
 			d(printf ("no attachments for : %s\n", uid));
 		}
+*/
 	}
 	status = e2k_result_iter_free (iter);
 
 	if (!SOUP_STATUS_IS_SUCCESSFUL (status)) {
 		g_ptr_array_free (hrefs, TRUE);
 		g_hash_table_destroy (modtimes);
+		g_hash_table_destroy (attachments);
 		return status;
 	}
 
@@ -403,10 +430,13 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 	if (!hrefs->len) {
 		g_ptr_array_free (hrefs, TRUE);
 		g_hash_table_destroy (modtimes);
+		g_hash_table_destroy (attachments);
 		return SOUP_STATUS_OK;
 	}
 
 	/* Now get the full text of any that weren't already cached. */
+	/* OWA usually sends the attachment and whole event body as part of
+		PR_INTERNET_CONTENT property. Fetch events created from OWA */
 	prop = PR_INTERNET_CONTENT;
 	iter = e_folder_exchange_bpropfind_start (cbex->folder, NULL,
 						  (const char **)hrefs->pdata,
@@ -418,6 +448,7 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 
 	while ((result = e2k_result_iter_next (iter))) {
 		GByteArray *ical_data;
+		GSList *list = NULL;
 
 		ical_data = e2k_properties_get_prop (result->props, PR_INTERNET_CONTENT);
 		if (!ical_data) {
@@ -426,6 +457,8 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 			continue;
 		}
 		modtime = g_hash_table_lookup (modtimes, result->href);
+		uid = g_hash_table_lookup (attachments, result->href);
+/*
 		
 		attach_data = e2k_properties_get_prop (result->props, 
 						E2K_PR_HTTPMAIL_HAS_ATTACHMENT);
@@ -441,10 +474,13 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 				continue;
 			}
 		}
-
-		add_ical (cbex, result->href, modtime,
-			  ical_data->data, ical_data->len,
-			  cal_attach_data, cal_attach_len);
+*/
+		/* The icaldata already has the attachment. So no need to
+			re-fetch it from the server. */
+		add_ical (cbex, result->href, modtime, uid,
+			  ical_data->data, ical_data->len);
+			  //cal_attach_data, cal_attach_len);
+			  //NULL, 0);
 	}
 	// g_byte_array_free (ical_data);
 	status = e2k_result_iter_free (iter);
@@ -471,7 +507,9 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 			continue;
 		modtime = g_hash_table_lookup (modtimes, hrefs->pdata[i]);
 
-		add_ical (cbex, hrefs->pdata[i], modtime, body, length, NULL, 0);
+		uid = g_hash_table_lookup (attachments, hrefs->pdata[i]);
+
+		add_ical (cbex, hrefs->pdata[i], modtime, uid, body, length);
 		g_free (body);
 	}
 
@@ -479,9 +517,9 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 		g_free (hrefs->pdata[i]);
 	g_ptr_array_free (hrefs, TRUE);
 	g_hash_table_destroy (modtimes);
+	g_hash_table_destroy (attachments);
 	return status;
 }
-
 
 static ECalBackendSyncStatus
 open_calendar (ECalBackendSync *backend, EDataCal *cal,
@@ -540,14 +578,136 @@ add_timezone_cb (icalparameter *param, void *data)
 }
 
 static void
-build_attachment ( const char *subject, char *comp_str, 
-		unsigned char *cal_attach, char **buffer, char **boundary)
+build_msg ( ECalBackendExchangeCalendar *cbex, const char *subject, char *ecal_str)
 {
+	CamelMimeMessage *msg;
+	CamelStreamMem *content;
+	CamelMimePart *part, *mime_part;
+	CamelDataWrapper *dw, *wrapper;
+	CamelMultipart *multipart;
+	CamelInternetAddress *from;
+	CamelStream *stream;
+	CamelContentType *type;
+	char *buffer;
+	const char *from_name, *from_address, *tmp;
+	GByteArray *barray;
+
+	// FIXME : tmp = e_cal_backend_exchange_get_from_string (E_CAL_BACKEND (cbex), &from_name, &from_address);
+	from_name = g_strdup ("surf");
+	from_address = g_strdup ("surf@nicel.com");
+
+	msg = camel_mime_message_new ();
+
+	multipart = camel_multipart_new ();
+
+	/* Headers */
+	camel_mime_message_set_subject (msg, subject);
+#if 0
+	camel_mime_message_set_date (msg, time (NULL), 0);
+
+	camel_medium_add_header (CAMEL_MEDIUM (msg), "content-class",
+					 "urn:content-classes:appointment");
+	camel_medium_add_header (CAMEL_MEDIUM (msg), "method", "REQUEST"); // Not sure
+	camel_medium_add_header (CAMEL_MEDIUM (msg), "Importance", "normal"); 
+	camel_medium_add_header (CAMEL_MEDIUM (msg), "Priority", "normal");
+#endif	
+	from = camel_internet_address_new ();
+	camel_internet_address_add (from, from_name, from_address);
+	camel_mime_message_set_from (msg, from);
+	camel_object_unref (from);
+	
+	/* Content */
+	stream = camel_stream_mem_new_with_buffer (ecal_str, strlen (ecal_str));
+	wrapper = camel_data_wrapper_new ();
+	camel_data_wrapper_construct_from_stream (wrapper, stream);
+	camel_object_unref (stream);
+
+	type = camel_content_type_new ("text", "calendar");
+	camel_content_type_set_param (type, "charset", "UTF-8");
+	camel_data_wrapper_set_mime_type_field (wrapper, type);
+	camel_content_type_unref (type);
+
+	//mime_part = CAMEL_MIME_PART (msg);
+	mime_part = camel_mime_part_new ();
+
+	camel_medium_set_content_object (CAMEL_MEDIUM (mime_part), wrapper);
+	camel_mime_part_set_encoding (mime_part, CAMEL_TRANSFER_ENCODING_8BIT);
+	camel_multipart_set_boundary (multipart, NULL);
+	camel_multipart_add_part (multipart, mime_part);
+	camel_object_unref (mime_part);
+	camel_medium_set_content_object (CAMEL_MEDIUM (msg), CAMEL_DATA_WRAPPER (multipart));
+	camel_object_unref (multipart);
+
+	content = (CamelStreamMem *)camel_stream_mem_new();
+	dw = camel_medium_get_content_object (CAMEL_MEDIUM (msg));
+	camel_data_wrapper_decode_to_stream(dw, (CamelStream *)content);
+        buffer = g_memdup (content->buffer->data, content->buffer->len);
+        d(printf ("|| Buffer: \n%s\n", buffer));
+}
+
+#if 0
+static void
+build_attachment ( ECalBackendExchangeCalendar *cbex, ECalComponent *ecomp, 
+			const char *subject, const char *uid,
+			char **buffer, char **boundary)
+{
+	GSList *attach_list = NULL, *new_attach_list = NULL, *l;
 	CamelMimeMessage *msg;
 	CamelStreamMem *content;
 	CamelMimePart *part, *mime_part;
 	CamelDataWrapper *dw;
 	CamelMultipart *multipart;
+	char *fname, *filename, *file_contents;
+	char *dest_file;
+	char buf[1024];
+	int fd, len, nread = 0;
+	struct stat sb;
+
+	e_cal_component_get_attachment_list (comp, &attach_list);
+	for (l = attach_list; l ; l = l->next){
+		fname = (char *)l->data;
+	
+		filename = g_strrstr (fname, "/") + 1;
+
+		fd = open (fname, O_RDONLY);
+		if (fd < 0) {
+			d(printf ("Could not open the attachment file\n"));
+			continue;
+		}
+		if (fstat (fd, &sb) < 0) {
+			d(printf ("fstat of attachment file failed\n"));
+		}
+		len = sb.st_size;
+
+		file_contents = g_malloc (len + 1);
+
+		while (nread < len) {
+			int n = read (fd, buf, sizeof(buf));
+			
+			if (n < 0)
+				break;
+
+			memcpy (&file_contents[nread], buf, n);
+			nread += n;
+		}
+		file_contents [nread] = 0;
+		close (fd);
+
+		/* Write it to our local exchange store in .evolution */
+		dest_file = e_folder_exchange_get_storage_file (cbex->folder, filename);
+		fd = open (dest_file, O_RDWR | O_CREAT | O_TRUNC, 0600);
+		if (fd < 0) {
+			d(printf ("open of destination file for attachments failed\n"));
+		}
+		
+		if ((write (fd, file_contents, nread)) < 0) {
+			d(printf ("writing to destination file failed for attachments\n"));
+		}
+		dest_url = g_strconcat ("file:///", dest_file, NULL);
+		new_attach_list = g_slist_append (new_attach_list, dest_url);
+		g_free (dest_file);
+	}
+	e_cal_component_set_attachment_list (comp, new_attach_list);
 
 	msg = camel_mime_message_new ();
 
@@ -574,6 +734,7 @@ build_attachment ( const char *subject, char *comp_str,
         *buffer = memcpy (*buffer, content->buffer->data, content->buffer->len);
         d(printf ("|| Buffer: \n%s\n", *buffer));
 }
+#endif
 
 static ECalBackendSyncStatus
 create_object (ECalBackendSync *backend, EDataCal *cal,
@@ -590,8 +751,9 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	char *location, *ru_header;
 	ECalComponent *comp;
 	char *body, *body_crlf, *msg;
-	char *from, *date;
+	char *from, *date, *x_name, *x_val;
 	const char *summary;
+	char *attach_body, *attach_boundary;
 	E2kHTTPStatus http_status;
 	struct _cb_data *cbdata;
 	GSList *categories;
@@ -630,6 +792,27 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 		return ;
 	}
 	#endif
+	
+	/* Send options */
+	icalprop = icalcomponent_get_first_property (icalcomp, ICAL_X_PROPERTY);	
+	while (icalprop) {
+		x_name = icalproperty_get_x_name (icalprop);
+		if (!strcmp(x_name, "X-EVOLUTION-OPTIONS-TRACKINFO")) {
+			x_val = icalproperty_get_x (icalprop);
+			switch (atoi (x_val)) {
+				case 1: /* Track if delivered */
+					break;
+				case 2: /* Track if opened */
+					break;
+				case 3: /* Track if delivered and opened */
+					break;
+				default : /* None */
+					break; 
+			}
+		}
+		icalprop = icalcomponent_get_next_property (icalcomp, ICAL_X_PROPERTY);
+	}
+
 
 	/*set X-MICROSOFT-CDO properties*/
 	busystatus = "BUSY";
@@ -681,10 +864,22 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	icalcomponent_add_property (icalcomp, icalproperty_new_created (current));
 	icalcomponent_add_property (icalcomp, icalproperty_new_lastmodified (current));
 	
+	/* Fetch summary */
+	summary = icalcomponent_get_summary (icalcomp);
+	if (!summary)
+		summary = "";
+	
 	lastmod = e2k_timestamp_from_icaltime (current);
-
+	
 	comp = e_cal_component_new ();
 	e_cal_component_set_icalcomponent (comp, icalcomp);	
+	
+#if 0
+	/* Check for attachments */
+	if (e_cal_component_has_attachments (comp))
+		build_attachment (cbex, comp, summary, uid, &attach_body, &attach_boundary);	
+		//extract_attachments (cbexc, comp, comp_uid);
+#endif
 
 	cbdata = g_new0 (struct _cb_data, 1);
 	cbdata->be = backend;
@@ -719,13 +914,10 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	body = icalcomponent_as_ical_string (cbdata->vcal_comp);
 	body_crlf = e_cal_backend_exchange_lf_to_crlf (body);	
 		
-	summary = icalcomponent_get_summary (real_icalcomp);
-	if (!summary)
-		summary = "";
-	
 	date = e_cal_backend_exchange_make_timestamp_rfc822 (time (NULL));
 	from = e_cal_backend_exchange_get_from_string (backend, comp);
 
+	build_msg (cbexc, summary, body_crlf);
 	msg = g_strdup_printf ("Subject: %s\r\n"
 			       "Date: %s\r\n"
 			       "MIME-Version: 1.0\r\n"
@@ -741,8 +933,6 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 			       from ? from : "Evolution",
 			      body_crlf);
 
-	char *attach_body, *attach_boundary;
-	build_attachment (summary, g_strdup ("This is some text\n"), NULL, &attach_body, &attach_boundary);	
 #if 0
 	msg = g_strdup_printf ("Subject: %s\r\n"
 			       "Date: %s\r\n"
@@ -1180,7 +1370,7 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 		return GNOME_Evolution_Calendar_ObjectNotFound;
 		
 	comp = e_cal_component_new ();
-	e_cal_component_set_icalcomponent (comp, ecomp->icomp);
+	e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (ecomp->icomp));
 	*object = e_cal_component_get_as_string (comp);
 	
 	switch (mod) {
