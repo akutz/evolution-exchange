@@ -49,8 +49,6 @@ static void finalize (GObject *object);
 static void
 class_init (GObjectClass *object_class)
 {
-	ExchangeHierarchyClass *hierarchy_class =
-		EXCHANGE_HIERARCHY_CLASS (object_class);
 	ExchangeHierarchySomeDAVClass *somedav_class =
 		EXCHANGE_HIERARCHY_SOMEDAV_CLASS (object_class);
 

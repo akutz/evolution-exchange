@@ -825,32 +825,6 @@ struct _cb_data {
         icalcomponent *vcal_comp;
         EDataCal *cal;
 };
-                                                                                                            
-static void
-add_timezone_cb (icalparameter *param, void *data)
-{
-        struct _cb_data *cbdata = (struct _cb_data *) data;
-        icalcomponent *vtzcomp;
-        const char *tzid;
-        char *izone;
-                                                                                                            
-        g_return_if_fail (cbdata != NULL);
-                                                                                                            
-        tzid = icalparameter_get_tzid (param);
-        if (tzid == NULL)
-                return;
-        if (icalcomponent_get_timezone (cbdata->vcal_comp, tzid))
-                return;
-                                                                                                            
-        get_timezone (cbdata->be, cbdata->cal, tzid, &izone);
-        if (izone == NULL)
-                return;
-                                                                                                            
-        vtzcomp = icalcomponent_new_from_string (izone);
-        if (vtzcomp)
-                icalcomponent_add_component (cbdata->vcal_comp, vtzcomp);
-}
-
 
 static ECalBackendSyncStatus
 create_task_object (ECalBackendSync *backend, EDataCal *cal,

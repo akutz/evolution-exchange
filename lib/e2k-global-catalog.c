@@ -691,9 +691,9 @@ e2k_global_catalog_lookup (E2kGlobalCatalog *gc,
 	E2kGlobalCatalogEntry *entry;
 	GPtrArray *attrs;
 	E2kGlobalCatalogLookupFlags lookup_flags, need_flags = 0;
-	const char *base;
+	const char *base = NULL;
 	char *filter = NULL, *dn;
-	int scope, ldap_error;
+	int scope = LDAP_SCOPE_BASE, ldap_error;
 	E2kGlobalCatalogStatus status;
 	LDAPMessage *msg, *resp;
 

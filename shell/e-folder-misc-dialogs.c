@@ -174,7 +174,7 @@ e_folder_rename_dialog (EStorageSetView *storage_set_view,
 	EStorageSet *storage_set;
 	const char *old_name;
 	char *prompt, *new_name;
-	char *old_path, *old_base_path, *new_path;
+	char *old_path, *old_base_path, *new_path = NULL;
 
 	g_return_if_fail (E_IS_STORAGE_SET_VIEW (storage_set_view));
 	g_return_if_fail (E_IS_FOLDER (folder));
