@@ -1,0 +1,22 @@
+/* -*- Mode: IDL; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/* Copyright (C) 2003 Novell, Inc. */
+
+#include <Bonobo.idl>
+
+module Ximian {
+module Connector {
+
+	interface Backend : Bonobo::Unknown {
+		/**
+		 * createSideBar:
+		 *
+		 * Creates the sidebar for the Exchange component (the
+		 * set of folder trees) and returns it as a control.
+		 *
+		 * Return value: the control
+		 **/
+		Bonobo::Control createSideBar ();
+	};
+
+};
+};

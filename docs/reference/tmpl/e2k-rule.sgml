@@ -1,0 +1,400 @@
+<!-- ##### SECTION Title ##### -->
+e2k-rule
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT E2kRuleProp ##### -->
+<para>
+
+</para>
+
+@name: 
+@proptag: 
+
+<!-- ##### FUNCTION e2k_rule_prop_set ##### -->
+<para>
+
+</para>
+
+@prop: 
+@propname: 
+
+
+<!-- ##### STRUCT E2kPropValue ##### -->
+<para>
+
+</para>
+
+@prop: 
+@type: 
+@value: 
+
+<!-- ##### ENUM E2kActionType ##### -->
+<para>
+
+</para>
+
+@E2K_ACTION_MOVE: 
+@E2K_ACTION_COPY: 
+@E2K_ACTION_REPLY: 
+@E2K_ACTION_OOF_REPLY: 
+@E2K_ACTION_DEFER: 
+@E2K_ACTION_BOUNCE: 
+@E2K_ACTION_FORWARD: 
+@E2K_ACTION_DELEGATE: 
+@E2K_ACTION_TAG: 
+@E2K_ACTION_DELETE: 
+@E2K_ACTION_MARK_AS_READ: 
+
+<!-- ##### STRUCT E2kAddrEntry ##### -->
+<para>
+
+</para>
+
+@nvalues: 
+@propval: 
+
+<!-- ##### STRUCT E2kAddrList ##### -->
+<para>
+
+</para>
+
+@nentries: 
+@entry: 
+
+<!-- ##### STRUCT E2kAction ##### -->
+<para>
+
+</para>
+
+@type: 
+@flavor: 
+@flags: 
+@defer_data: 
+@bounce_code: 
+@addr_list: 
+@proptag: 
+
+<!-- ##### MACRO E2K_RULE_STATE_DISABLED ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO E2K_RULE_STATE_ENABLED ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO E2K_RULE_STATE_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO E2K_RULE_STATE_ONLY_WHEN_OOF ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO E2K_RULE_STATE_KEEP_OOF_HISTORY ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO E2K_RULE_STATE_EXIT_LEVEL ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO E2K_RULE_STATE_CLEAR_OOF_HISTORY ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT E2kRule ##### -->
+<para>
+
+</para>
+
+@name: 
+@sequence: 
+@state: 
+@user_flags: 
+@level: 
+@condition_lcid: 
+@condition: 
+@actions: 
+@provider: 
+@provider_data: 
+
+<!-- ##### STRUCT E2kRules ##### -->
+<para>
+
+</para>
+
+@version: 
+@codepage: 
+@rules: 
+
+<!-- ##### FUNCTION e2k_rules_from_binary ##### -->
+<para>
+
+</para>
+
+@ba: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_rules_to_binary ##### -->
+<para>
+
+</para>
+
+@rules: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_rules_free ##### -->
+<para>
+
+</para>
+
+@rules: 
+
+
+<!-- ##### FUNCTION e2k_rule_free ##### -->
+<para>
+
+</para>
+
+@rule: 
+
+
+<!-- ##### FUNCTION e2k_rule_write_uint32 ##### -->
+<para>
+
+</para>
+
+@ptr: 
+@val: 
+
+
+<!-- ##### FUNCTION e2k_rule_append_uint32 ##### -->
+<para>
+
+</para>
+
+@ba: 
+@val: 
+
+
+<!-- ##### FUNCTION e2k_rule_read_uint32 ##### -->
+<para>
+
+</para>
+
+@ptr: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_rule_extract_uint32 ##### -->
+<para>
+
+</para>
+
+@ptr: 
+@len: 
+@val: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_rule_write_uint16 ##### -->
+<para>
+
+</para>
+
+@ptr: 
+@val: 
+
+
+<!-- ##### FUNCTION e2k_rule_append_uint16 ##### -->
+<para>
+
+</para>
+
+@ba: 
+@val: 
+
+
+<!-- ##### FUNCTION e2k_rule_read_uint16 ##### -->
+<para>
+
+</para>
+
+@ptr: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_rule_extract_uint16 ##### -->
+<para>
+
+</para>
+
+@ptr: 
+@len: 
+@val: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_rule_append_byte ##### -->
+<para>
+
+</para>
+
+@ba: 
+@val: 
+
+
+<!-- ##### FUNCTION e2k_rule_extract_byte ##### -->
+<para>
+
+</para>
+
+@ptr: 
+@len: 
+@val: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_rule_append_string ##### -->
+<para>
+
+</para>
+
+@ba: 
+@str: 
+
+
+<!-- ##### FUNCTION e2k_rule_extract_string ##### -->
+<para>
+
+</para>
+
+@ptr: 
+@len: 
+@str: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_rule_append_unicode ##### -->
+<para>
+
+</para>
+
+@ba: 
+@str: 
+
+
+<!-- ##### FUNCTION e2k_rule_extract_unicode ##### -->
+<para>
+
+</para>
+
+@ptr: 
+@len: 
+@str: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_rule_append_binary ##### -->
+<para>
+
+</para>
+
+@ba: 
+@data: 
+
+
+<!-- ##### FUNCTION e2k_rule_extract_binary ##### -->
+<para>
+
+</para>
+
+@ptr: 
+@len: 
+@data: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_rule_append_proptag ##### -->
+<para>
+
+</para>
+
+@ba: 
+@prop: 
+
+
+<!-- ##### FUNCTION e2k_rule_extract_proptag ##### -->
+<para>
+
+</para>
+
+@ptr: 
+@len: 
+@prop: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_rule_append_propvalue ##### -->
+<para>
+
+</para>
+
+@ba: 
+@pv: 
+
+
+<!-- ##### FUNCTION e2k_rule_extract_propvalue ##### -->
+<para>
+
+</para>
+
+@ptr: 
+@len: 
+@pv: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_rule_free_propvalue ##### -->
+<para>
+
+</para>
+
+@pv: 
+
+

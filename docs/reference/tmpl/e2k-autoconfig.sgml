@@ -1,0 +1,313 @@
+<!-- ##### SECTION Title ##### -->
+e2k-autoconfig
+
+<!-- ##### SECTION Short_Description ##### -->
+Account autoconfiguration
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+The %E2kAutoconfig object handles trying to automatically configure a
+user&rsquo;s account without requiring the user to have to know arcane
+details about the organization of the company&rsquo;s Exchange servers.
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### ENUM E2kExchangeVersion ##### -->
+<para>
+#E2kExchangeVersion represents the version of Exchange detected on the
+server.
+</para>
+
+@E2K_EXCHANGE_UNKNOWN: The server seems to be running Exchange 2000
+or later, but we couldn&rsquo;t figure out what version.
+@E2K_EXCHANGE_2000: The server is running Exchange 2000
+@E2K_EXCHANGE_2003: The server is running Exchange 2003
+@E2K_EXCHANGE_FUTURE: The server seems to be running some version of
+Exchange newer than Exchange 2003.
+
+<!-- ##### STRUCT E2kAutoconfig ##### -->
+<para>
+The <structfield>version</structfield>,
+<structfield>exchange_server</structfield>, and
+<structfield>timezone</structfield> fields are set by
+e2k_autoconfig_check_exchange().
+</para>
+
+<para>
+The <structfield>display_name</structfield>,
+<structfield>email</structfield>, and
+<structfield>account_uri</structfield> fields are set by
+e2k_autoconfig_check_global_catalog().
+<structfield>account_uri</structfield> is an camel-style URI
+describing the account configuration.
+</para>
+
+@gal_limit: 
+@version: 
+@timezone: 
+@pf_server: 
+@auth_pref: 
+@require_ntlm: 
+@use_ntlm: 
+@saw_basic: 
+@saw_ntlm: 
+@nt_domain_defaulted: 
+@gc_server_autodetected: 
+
+<!-- ##### ENUM E2kAutoconfigResult ##### -->
+<para>
+See e2k_autoconfig_get_context(), e2k_autoconfig_check_exchange(), and
+e2k_autoconfig_check_global_catalog() for details about what the
+specific error codes mean.
+</para>
+
+@E2K_AUTOCONFIG_OK: 
+@E2K_AUTOCONFIG_REDIRECT: 
+@E2K_AUTOCONFIG_TRY_SSL: 
+@E2K_AUTOCONFIG_AUTH_ERROR: 
+@E2K_AUTOCONFIG_AUTH_ERROR_TRY_DOMAIN: 
+@E2K_AUTOCONFIG_AUTH_ERROR_TRY_BASIC: 
+@E2K_AUTOCONFIG_AUTH_ERROR_TRY_NTLM: 
+@E2K_AUTOCONFIG_EXCHANGE_5_5: 
+@E2K_AUTOCONFIG_NOT_EXCHANGE: 
+@E2K_AUTOCONFIG_NO_OWA: 
+@E2K_AUTOCONFIG_NO_MAILBOX: 
+@E2K_AUTOCONFIG_CANT_BPROPFIND: 
+@E2K_AUTOCONFIG_CANT_RESOLVE: 
+@E2K_AUTOCONFIG_CANT_CONNECT: 
+@E2K_AUTOCONFIG_CANCELLED: 
+@E2K_AUTOCONFIG_FAILED: 
+
+<!-- ##### FUNCTION e2k_autoconfig_new ##### -->
+<para>
+
+</para>
+
+@owa_uri: 
+@username: 
+@password: 
+@auth_pref: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_autoconfig_free ##### -->
+<para>
+
+</para>
+
+@ac: 
+
+
+<!-- ##### FUNCTION e2k_autoconfig_set_owa_uri ##### -->
+<para>
+
+</para>
+
+@ac: 
+@owa_uri: 
+
+
+<!-- ##### FUNCTION e2k_autoconfig_set_gc_server ##### -->
+<para>
+
+</para>
+
+@ac: 
+@gc_server: 
+@gal_limit: 
+
+
+<!-- ##### FUNCTION e2k_autoconfig_set_username ##### -->
+<para>
+
+</para>
+
+@ac: 
+@username: 
+
+
+<!-- ##### FUNCTION e2k_autoconfig_set_password ##### -->
+<para>
+
+</para>
+
+@ac: 
+@password: 
+
+
+<!-- ##### FUNCTION e2k_autoconfig_get_context ##### -->
+<para>
+Checks if @ac's URI and authentication parameters work, and if so
+returns an #E2kContext using them. On return, *@result (which
+may not be %NULL) will contain a result code as follows:
+</para>
+
+<variablelist>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_OK</literal></term>
+<listitem><simpara>Success</simpara></listitem></varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_REDIRECT</literal></term>
+<listitem><simpara>The server issued a valid-looking redirect.
+<structfield>ac->owa_uri</structfield> has been updated and the caller
+should try again.</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_TRY_SSL</literal></term>
+<listitem><simpara>The server requires SSL.
+<structfield>ac->owa_uri</structfield> has been updated and the caller
+should try again.</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_AUTH_ERROR</literal></term>
+<listitem><simpara>Generic authentication failure. Probably password
+incorrect</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_AUTH_ERROR_TRY_DOMAIN</literal></term>
+<listitem><simpara>Authentication failed. Including an NT domain with
+the username (or using NTLM) may fix the problem.</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_AUTH_ERROR_TRY_BASIC</literal></term>
+<listitem><simpara>Caller requested NTLM auth, but only Basic was
+available.</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_AUTH_ERROR_TRY_NTLM</literal></term>
+<listitem><simpara>Caller requested Basic auth, but only NTLM was
+available.</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_EXCHANGE_5_5</literal></term>
+<listitem><simpara>Server appears to be Exchange
+5.5.</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_NOT_EXCHANGE</literal></term>
+<listitem><simpara>Server does not appear to be any version of
+Exchange</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_NO_OWA</literal></term>
+<listitem><simpara>Server may be Exchange 2000, but OWA is not present
+at the given URL.</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_NO_MAILBOX</literal></term>
+<listitem><simpara>OWA claims the user has no
+mailbox.</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_NETWORK_ERROR</literal></term>
+<listitem><simpara>A network error occurred. (usually could not
+connect or could not resolve hostname).</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_FAILED</literal></term>
+<listitem><simpara>Other error.</simpara></listitem>
+</varlistentry>
+
+</variablelist>
+
+@ac: an autoconfig context
+@op: 
+@result: on output, a result code
+@Returns: the new context, or %NULL
+
+
+<!-- ##### FUNCTION e2k_autoconfig_check_exchange ##### -->
+<para>
+Tries to connect to the the Exchange server using the OWA URL,
+username, and password in @ac. Attempts to determine the domain
+name and home_uri, and then given the home_uri, looks up the
+user's mailbox entryid (used to find his Exchange 5.5 DN) and
+default timezone.
+</para>
+
+<para>
+The result codes are the same as for e2k_autoconfig_get_context() with
+the following changes:
+</para>
+<variablelist>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_REDIRECT</literal></term>
+<listitem><simpara>The URL returned in first redirect returned another
+redirect, which was not followed.</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_CANT_BPROPFIND</literal></term>
+<listitem><simpara>The server does not allow BPROPFIND due to IIS
+Lockdown configuration</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_TRY_SSL</literal></term>
+<listitem><simpara>Not used; always handled internally by
+e2k_autoconfig_check_exchange()</simpara></listitem>
+</varlistentry>
+
+</variablelist>
+
+@ac: an autoconfiguration context
+@op: 
+@Returns: an #E2kAutoconfigResult
+
+
+<!-- ##### FUNCTION e2k_autoconfig_check_global_catalog ##### -->
+<para>
+Tries to connect to the global catalog associated with @ac
+(trying to figure it out from the domain name if the server
+name is not yet known). On success it will look up the user's
+full name and email address (based on his Exchange DN).
+</para>
+
+<para>
+The possible values for @result are:
+</para>
+<variablelist>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_OK</literal></term>
+<listitem><simpara>Success</simpara></listitem></varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_NETWORK_ERROR</literal></term>
+<listitem><simpara>Could not determine GC
+server</simpara></listitem></varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_NO_MAILBOX</literal></term>
+<listitem><simpara>Could not find information for the
+user</simpara></listitem></varlistentry>
+
+<varlistentry>
+<term><literal>E2K_AUTOCONFIG_FAILED</literal></term>
+<listitem><simpara>Other error</simpara></listitem></varlistentry>
+
+</variablelist>
+
+@ac: an autoconfig context
+@op: 
+@Returns: an #E2kAutoconfigResult.
+
+

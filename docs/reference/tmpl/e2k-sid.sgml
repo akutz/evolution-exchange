@@ -1,0 +1,182 @@
+<!-- ##### SECTION Title ##### -->
+E2kSid
+
+<!-- ##### SECTION Short_Description ##### -->
+Windows Security Identifiers
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+Every user in a Windows domain has a list of Security Identifiers, or
+SIDs, associated with them. This includes:
+</para>
+
+<itemizedlist>
+<listitem><para>their own personal SID</para></listitem>
+<listitem><para>the SID representing &ldquo;all users in the local domain&rdquo;</para></listitem>
+<listitem><para>the SID representing &ldquo;Default&rdquo;</para></listitem>
+<listitem><para>the SIDs for any Windows security groups that they are members of</para></listitem>
+</itemizedlist>
+
+<para>
+The user&rsquo;s personal SID is stored in the
+<literal>objectSid</literal> property of their Active Directory entry.
+Unfortunately, we have no way of retrieving the complete list of SIDs
+associated with a user.
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+e2k_global_catalog_lookup(), E2kSecurityDescriptor
+</para>
+
+<!-- ##### STRUCT E2kSid ##### -->
+<para>
+This corresponds to a Windows <structname>SID</structname>, as defined
+in <filename>WinNT.h</filename>:
+</para>
+
+<informalexample><programlisting>
+typedef struct {
+    BYTE  Value[6];                             // Big-Endian
+} SID_IDENTIFIER_AUTHORITY;
+
+typedef struct {
+   BYTE  Revision;
+   BYTE  SubAuthorityCount;
+   SID_IDENTIFIER_AUTHORITY IdentifierAuthority;
+   DWORD SubAuthority[ANYSIZE_ARRAY];
+} SID;
+
+#<!-- -->define SID_REVISION                     (1)    // Current revision level
+</programlisting></informalexample>
+
+<para>
+SIDs are also sometimes expressed in string form as:
+</para>
+
+<blockquote><para>
+"S-<emphasis>Revision</emphasis>-<emphasis>IdentifierAuthority</emphasis>-<emphasis>SubAuthority[0]</emphasis>-<emphasis>SubAuthority[1]</emphasis>-..."
+</para></blockquote>
+
+
+<!-- ##### ENUM E2kSidType ##### -->
+<para>
+This indicates what kind of object the SID refers to. Connector only
+uses the values %E2K_SID_TYPE_USER, %E2K_SID_TYPE_GROUP, and
+%E2K_SID_TYPE_WELL_KNOWN_GROUP (for things like &ldquo;Default&rdquo;)
+</para>
+
+@E2K_SID_TYPE_INVALID: 
+@E2K_SID_TYPE_USER: 
+@E2K_SID_TYPE_ALIAS: 
+@E2K_SID_TYPE_GROUP: 
+@E2K_SID_TYPE_WELL_KNOWN_GROUP: 
+@E2K_SID_TYPE_DOMAIN: 
+@E2K_SID_TYPE_DELETED_ACCOUNT: 
+@E2K_SID_TYPE_UNKNOWN: 
+@E2K_SID_TYPE_COMPUTER: 
+
+<!-- ##### FUNCTION e2k_sid_new_from_string_sid ##### -->
+<para>
+
+</para>
+
+@type: 
+@string_sid: 
+@display_name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_sid_new_from_binary_sid ##### -->
+<para>
+
+</para>
+
+@type: 
+@binary_sid: 
+@display_name: 
+@Returns: 
+
+
+<!-- ##### MACRO E2K_SID_WKS_EVERYONE ##### -->
+<para>
+This can be passed as the @string_sid to e2k_sid_new_from_string_sid()
+to create a SID representing default access. You can pass %NULL for
+the @display_name.
+</para>
+
+
+
+<!-- ##### MACRO E2K_SID_WKS_ANONYMOUS ##### -->
+<para>
+This can be passed as the @string_sid to e2k_sid_new_from_string_sid()
+to create a SID representing anonymous access. You can pass %NULL for
+the @display_name.
+</para>
+
+
+
+<!-- ##### FUNCTION e2k_sid_get_sid_type ##### -->
+<para>
+
+</para>
+
+@sid: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_sid_get_string_sid ##### -->
+<para>
+
+</para>
+
+@sid: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_sid_get_binary_sid ##### -->
+<para>
+
+</para>
+
+@sid: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_sid_get_display_name ##### -->
+<para>
+
+</para>
+
+@sid: 
+@Returns: 
+
+
+<!-- ##### MACRO E2K_SID_BINARY_SID_LEN ##### -->
+<para>
+Returns the length of @bsid
+</para>
+
+@bsid: the binary form of a SID
+@Returns: the length of @bsid
+
+
+<!-- ##### FUNCTION e2k_sid_binary_sid_hash ##### -->
+<para>
+
+</para>
+
+@key: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_sid_binary_sid_equal ##### -->
+<para>
+
+</para>
+
+@a: 
+@b: 
+@Returns: 
+
+

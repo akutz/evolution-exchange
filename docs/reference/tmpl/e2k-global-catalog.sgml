@@ -1,0 +1,258 @@
+<!-- ##### SECTION Title ##### -->
+E2kGlobalCatalog
+
+<!-- ##### SECTION Short_Description ##### -->
+Connection to the local Active Directory Global Catalog replica server
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+#E2kGlobalCatalog represents a connection to the local Active
+Directory Global Catalog replica. The Global Catalog is replicated at
+each site in a Windows domain, and contains a subset of Active
+Directory information for every object in the entire Active Directory
+tree. (As opposed to the regular Active Directory servers, which
+contain complete information about only the local portion of the
+tree.)
+</para>
+
+<para>
+Connector uses the global catalog for two major purposes:
+</para>
+
+<itemizedlist>
+<listitem><para>To populate the Global Address List</para></listitem>
+<listitem><para>To look up information about other users, such as what
+Exchange server their mail is on, or what their SID is.</para></listitem>
+</itemizedlist>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+#E2kAutoconfig,
+#E2kSid
+</para>
+
+<!-- ##### STRUCT E2kGlobalCatalog ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION e2k_global_catalog_new ##### -->
+<para>
+
+</para>
+
+@server: 
+@response_limit: 
+@user: 
+@domain: 
+@password: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_global_catalog_get_ldap ##### -->
+<para>
+
+</para>
+
+@gc: 
+@op: 
+@Returns: 
+
+
+<!-- ##### ENUM E2kGlobalCatalogStatus ##### -->
+<para>
+
+</para>
+
+@E2K_GLOBAL_CATALOG_OK: Success
+@E2K_GLOBAL_CATALOG_NO_SUCH_USER: User does not exist in Global Catalog
+@E2K_GLOBAL_CATALOG_NO_DATA: User exists, but the requested data does
+not. (Eg, if you ask for the email address of a non-mail-enabled user.)
+@E2K_GLOBAL_CATALOG_BAD_DATA: Data provided by caller was invalid
+@E2K_GLOBAL_CATALOG_EXISTS: Entry already exists
+@E2K_GLOBAL_CATALOG_CANCELLED: 
+@E2K_GLOBAL_CATALOG_ERROR: Other error
+
+<!-- ##### ENUM E2kGlobalCatalogLookupType ##### -->
+<para>
+This indicates what field to compare the search key against when doing
+a lookup:
+</para>
+
+@E2K_GLOBAL_CATALOG_LOOKUP_BY_EMAIL: Compare against the SMTP email address
+@E2K_GLOBAL_CATALOG_LOOKUP_BY_DN: Compare against the Active Directory
+Distinguished Name. (This is the fastest search key.)
+@E2K_GLOBAL_CATALOG_LOOKUP_BY_LEGACY_EXCHANGE_DN: Compare against the
+Exchange 5.5-style DN
+
+<!-- ##### ENUM E2kGlobalCatalogLookupFlags ##### -->
+<para>
+This bitfield is used to indicate what data should be returned from a
+lookup:
+</para>
+
+@E2K_GLOBAL_CATALOG_LOOKUP_SID: Look up the user&rsquo;s SID
+@E2K_GLOBAL_CATALOG_LOOKUP_EMAIL: Look up the user&rsquo;s email address
+@E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX: Look up the location of the user&rsquo;s
+Exchange mailbox
+@E2K_GLOBAL_CATALOG_LOOKUP_LEGACY_EXCHANGE_DN: Look up the user&rsquo;s
+Exchange 5.5-style DN
+@E2K_GLOBAL_CATALOG_LOOKUP_DELEGATES: Look up the list of the user&rsquo;s
+Exchange delegates
+@E2K_GLOBAL_CATALOG_LOOKUP_DELEGATORS: Look up the list of users who
+have made the indicated user their delegate
+@E2K_GLOBAL_CATALOG_LOOKUP_QUOTA: 
+
+<!-- ##### STRUCT E2kGlobalCatalogEntry ##### -->
+<para>
+This represents the returned data from e2k_global_catalog_lookup() or
+e2k_global_catalog_async_lookup().
+</para>
+
+<variablelist>
+
+<varlistentry>
+<term><literal>dn</literal></term>
+<listitem><simpara>The Active Directory Distinguished Name of the
+result.</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>display_name</literal></term>
+<listitem><simpara>The UTF-8 display name of the user queried
+for.</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>sid</literal></term>
+<listitem><simpara>The SID (Windows Security Identifier) of the
+user.</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>email</literal></term>
+<listitem><simpara>The user&rsquo;s SMTP email
+address.</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>exchange_server</literal></term>
+<listitem><simpara>The user&rsquo;s Exchange
+server.</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>mailbox</literal></term>
+<listitem><simpara>The name of the user&rsquo;s mailbox on 
+<structfield>exchange_server</structfield>.</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>legacy_exchange_dn</literal></term>
+<listitem><simpara>The user&rsquo;s Exchange 5.5-style
+DN.</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>delegates</literal></term>
+<listitem><simpara>An array of the Active Directory DNs of the
+user&rsquo;s Exchange delegates.</simpara></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>delegators</literal></term>
+<listitem><simpara>An array of the Active Directory DNs of the users
+who have delegated to the searched-for user.</simpara></listitem>
+</varlistentry>
+
+</variablelist>
+
+<para>
+The <structfield>dn</structfield>,
+<structfield>display_name</structfield>,
+<structfield>email</structfield>, and
+<structfield>legacy_exchange_dn</structfield> fields will be filled
+regardless of what fields are queried for. Other fields will only be
+filled in based on the @flags passed to the lookup function.
+</para>
+
+@sid: 
+@quota_warn: 
+@quota_nosend: 
+@quota_norecv: 
+@mask: 
+
+<!-- ##### FUNCTION e2k_global_catalog_lookup ##### -->
+<para>
+
+</para>
+
+@gc: 
+@op: 
+@type: 
+@key: 
+@flags: 
+@entry_p: 
+@Returns: 
+
+
+<!-- ##### MACRO e2k_global_catalog_entry_free ##### -->
+<para>
+
+</para>
+
+@gc: 
+@entry: 
+
+
+<!-- ##### USER_FUNCTION E2kGlobalCatalogCallback ##### -->
+<para>
+The prototype of the callback function passed in to
+e2k_global_catalog_async_lookup().
+</para>
+
+@gc: the global catalog
+@status: the result of the lookup
+@entry: on success, the requested data
+@user_data: the @user_data passed to e2k_global_catalog_async_lookup()
+
+
+<!-- ##### FUNCTION e2k_global_catalog_async_lookup ##### -->
+<para>
+
+</para>
+
+@gc: 
+@op: 
+@type: 
+@key: 
+@flags: 
+@callback: 
+@user_data: 
+
+
+<!-- ##### FUNCTION e2k_global_catalog_add_delegate ##### -->
+<para>
+
+</para>
+
+@gc: 
+@op: 
+@self_dn: 
+@delegate_dn: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_global_catalog_remove_delegate ##### -->
+<para>
+
+</para>
+
+@gc: 
+@op: 
+@self_dn: 
+@delegate_dn: 
+@Returns: 
+
+

@@ -1,0 +1,1827 @@
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+
+/* Copyright (C) 2000-2004 Novell, Inc.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of version 2 of the GNU General Public
+ * License as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include <fcntl.h>
+#include <time.h>
+#include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+#include <e-util/e-sexp.h>
+#include <libedataserver/e-xml-hash-utils.h>
+#include <gal/util/e-util.h>
+#include <libebook/e-address-western.h>
+#include <libebook/e-contact.h>
+#include <libedata-book/e-data-book.h>
+#include <libedata-book/e-data-book-view.h>
+#include <libedata-book/e-book-backend-sexp.h>
+#include <libedata-book/e-book-backend-summary.h>
+
+#include "e2k-context.h"
+#include "e2k-propnames.h"
+#include "e2k-restriction.h"
+#include "e2k-uri.h"
+#include "e2k-utils.h"
+#include "mapi.h"
+#include "exchange-account.h"
+#include "exchange-hierarchy.h"
+#include "e-folder-exchange.h"
+#include "e-book-backend-exchange.h"
+#include "xc-backend.h"
+
+#define DEBUG
+#define d(x) x
+
+#define SUMMARY_FLUSH_TIMEOUT 5000
+
+#define PARENT_TYPE E_TYPE_BOOK_BACKEND_SYNC
+static EBookBackendClass *parent_class;
+
+struct EBookBackendExchangePrivate {
+	char     *exchange_uri;
+	EFolder  *folder;
+
+	E2kRestriction *base_rn;
+
+	ExchangeAccount *account;
+	E2kContext *ctx;
+	gboolean connected;
+	GHashTable *ops;
+
+	EBookBackendSummary *summary;
+};
+
+typedef struct PropMapping PropMapping;
+
+static void subscription_notify (E2kContext *ctx, const char *uri, E2kContextChangeType type, gpointer user_data);
+static void proppatch_address(PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
+static void proppatch_email(PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
+static void proppatch_date(PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
+static void populate_address(EContactField field, EContact *new_contact, void *data);
+static void populate_date(EContactField field, EContact *new_contact, void *data);
+#ifdef ENABLE_CATEGORIES
+static void proppatch_categories(PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
+static void populate_categories(EContactField field, EContact *new_contact, void *data);
+#endif
+static E2kRestriction *e_book_backend_exchange_build_restriction (const char *sexp,
+							       E2kRestriction *base_rn);
+
+static const char *contact_name (EContact *contact);
+
+static GPtrArray *field_names_array;
+static const char **field_names;
+static int n_field_names;
+
+static GNOME_Evolution_Addressbook_CallStatus
+http_status_to_pas (E2kHTTPStatus status)
+{
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+		return GNOME_Evolution_Addressbook_Success;
+
+	switch (status) {
+	case E2K_HTTP_UNAUTHORIZED:
+		return GNOME_Evolution_Addressbook_AuthenticationFailed;
+	case E2K_HTTP_CANT_CONNECT:
+		return GNOME_Evolution_Addressbook_RepositoryOffline;
+	default:
+		return GNOME_Evolution_Addressbook_OtherError;
+	}
+}
+
+#define DATE_FIELD(x,z) { E_CONTACT_##x, E2K_PR_CONTACTS_##x, z, FLAG_COMPOSITE | FLAG_UNLIKEABLE, proppatch_date, populate_date }
+#define EMAIL_FIELD(x,z) { E_CONTACT_##x, E2K_PR_MAPI_##x##_ADDRESS, z, FLAG_EMAIL | FLAG_COMPOSITE, proppatch_email }
+#define ADDRESS_FIELD(x,z) { E_CONTACT_##x, E2K_PR_CONTACTS_##x, z, FLAG_COMPOSITE, proppatch_address, populate_address }
+
+#define CONTACT_FIELD(x,z) { E_CONTACT_##x, E2K_PR_CONTACTS_##x, z, 0 }
+#define MAPI_ID_FIELD(x,y,z) { E_CONTACT_##x, y, z, FLAG_UNLIKEABLE, NULL }
+#define CAL_FIELD(x,z) { E_CONTACT_##x, E2K_PR_CALENDAR_##x, z, FLAG_UNLIKEABLE, NULL }
+#define HTTPMAIL_FIELD(x,y,z) { E_CONTACT_##x, E2K_PR_HTTPMAIL_##y, z, FLAG_UNLIKEABLE | FLAG_PUT, NULL }
+#define EXCHANGE_FIELD(x,y,z,w,v) { E_CONTACT_##x, E2K_PR_EXCHANGE_##y, z, FLAG_COMPOSITE, w, v }
+
+struct PropMapping {
+	EContactField field;
+	char *prop_name;
+	char *e_book_field;
+	int flags;
+#define FLAG_UNLIKEABLE 0x001  /* can't use LIKE with it */
+#define FLAG_COMPOSITE  0x002  /* read-only fields that can be written
+                                 to only by specifying the values of
+                                 individual parts (as other fields) */
+#define FLAG_PUT        0x020  /* requires a PUT request */
+#define FLAG_EMAIL      0x100  /* email field, so we know to invoke our magic email address handling */
+	void (*composite_proppatch_func)(PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
+	void (*composite_populate_func)(EContactField e_book_field, EContact *new_contact, void *data);
+};
+
+static PropMapping
+prop_mappings[] = {
+	CONTACT_FIELD (FULL_NAME, "full_name"),
+	CONTACT_FIELD (FAMILY_NAME, "family_name"),
+	CONTACT_FIELD (GIVEN_NAME, "given_name"),
+/*	CONTACT_FIELD (ADDITIONAL_NAME, "middle_name"), FIXME */
+/*	CONTACT_FIELD (NAME_SUFFIX, "name_suffix"), FIXME */
+	CONTACT_FIELD (TITLE, "title"),
+	CONTACT_FIELD (ORG, "org"),
+	CONTACT_FIELD (FILE_AS, "file_as"),
+
+	CONTACT_FIELD (PHONE_CALLBACK, "callback_phone"),
+	CONTACT_FIELD (PHONE_BUSINESS_FAX, "business_fax"),
+	CONTACT_FIELD (PHONE_HOME_FAX, "home_fax"),
+	CONTACT_FIELD (PHONE_HOME, "home_phone"),
+	CONTACT_FIELD (PHONE_HOME_2, "home_phone_2"),
+	CONTACT_FIELD (PHONE_ISDN, "isdn"),
+	CONTACT_FIELD (PHONE_MOBILE, "mobile_phone"),
+	CONTACT_FIELD (PHONE_COMPANY, "company_phone"),
+	CONTACT_FIELD (PHONE_OTHER_FAX, "other_fax"),
+	CONTACT_FIELD (PHONE_PAGER, "pager"),
+	CONTACT_FIELD (PHONE_BUSINESS, "business_phone"),
+	CONTACT_FIELD (PHONE_BUSINESS_2, "business_phone_2"),
+	CONTACT_FIELD (PHONE_TELEX, "telex"),
+	CONTACT_FIELD (PHONE_TTYTDD, "tty"),
+	CONTACT_FIELD (PHONE_ASSISTANT, "assistant_phone"),
+	CONTACT_FIELD (PHONE_CAR, "car_phone"),
+	CONTACT_FIELD (PHONE_OTHER, "other_phone"),
+	MAPI_ID_FIELD (PHONE_RADIO, PR_RADIO_TELEPHONE_NUMBER, "radio"),
+	MAPI_ID_FIELD (PHONE_PRIMARY, PR_PRIMARY_TELEPHONE_NUMBER, "primary_phone"),
+
+	EMAIL_FIELD (EMAIL_1, "email_1"),
+	EMAIL_FIELD (EMAIL_2, "email_2"),
+	EMAIL_FIELD (EMAIL_3, "email_3"),
+
+	ADDRESS_FIELD (ADDRESS_WORK, "business_address"),
+	ADDRESS_FIELD (ADDRESS_HOME, "home_address"),
+	ADDRESS_FIELD (ADDRESS_OTHER, "other_address"),
+
+	CONTACT_FIELD (HOMEPAGE_URL, "url"),
+	CONTACT_FIELD (ORG_UNIT, "org_unit"),
+	CONTACT_FIELD (OFFICE, "office"),
+	CONTACT_FIELD (ROLE, "role"),
+	CONTACT_FIELD (MANAGER, "manager"),
+	CONTACT_FIELD (ASSISTANT, "assistant"),
+	CONTACT_FIELD (NICKNAME, "nickname"),
+	CONTACT_FIELD (SPOUSE, "spouse"),
+
+	DATE_FIELD (BIRTH_DATE, "birth_date"),
+	DATE_FIELD (ANNIVERSARY, "anniversary"),
+	CAL_FIELD (FREEBUSY_URL, "fburl"),
+
+	HTTPMAIL_FIELD (NOTE, TEXT_DESCRIPTION, "note"),
+
+#ifdef ENABLE_CATEGORIES
+	/* this doesn't work at the moment */
+	EXCHANGE_FIELD (CATEGORIES, KEYWORDS, "categories", proppatch_categories, populate_categories)
+#endif
+};
+static int num_prop_mappings = sizeof(prop_mappings) / sizeof (prop_mappings[0]);
+
+static const char *
+e_book_backend_exchange_prop_to_exchange (char *propname)
+{
+	int i;
+
+	for (i = 0; i < num_prop_mappings; i ++)
+		if (prop_mappings[i].e_book_field && !strcmp (prop_mappings[i].e_book_field, propname))
+			return prop_mappings[i].prop_name;
+
+	return NULL;
+}
+
+static void
+get_email_field_from_props (ExchangeAccount *account,
+			    PropMapping *prop_mapping, E2kResult *result,
+			    EContact *contact, char *data)
+{
+	char *emailtype;
+	char *typeselector;
+
+	/* here's where we do the super involved
+	   conversion from local email addresses to
+	   internet addresses for display in
+	   evolution. */
+	if (prop_mapping->field == E_CONTACT_EMAIL_1)
+		typeselector = E2K_PR_MAPI_EMAIL_1_ADDRTYPE;
+	else if (prop_mapping->field == E_CONTACT_EMAIL_2)
+		typeselector = E2K_PR_MAPI_EMAIL_2_ADDRTYPE;
+	else if (prop_mapping->field == E_CONTACT_EMAIL_3)
+		typeselector = E2K_PR_MAPI_EMAIL_3_ADDRTYPE;
+	else {
+		g_warning ("invalid email field");
+		return;
+	}
+
+	emailtype = e2k_properties_get_prop (result->props, typeselector);
+	if (!emailtype) {
+		g_warning ("no email info for \"%s\"", data);
+		return;
+	}
+	if (!strcmp (emailtype, "SMTP")) {
+		/* it's a normal email address, just set the value as we usually would */
+		e_contact_set (contact, prop_mapping->field, data);
+	}
+	else if (!strcmp (emailtype, "EX")) {
+		E2kGlobalCatalog *gc;
+		E2kGlobalCatalogEntry *entry = NULL;
+
+		gc = exchange_account_get_global_catalog (account);
+		if (gc) {
+			e2k_global_catalog_lookup (
+				gc, NULL, /* FIXME: cancellable */
+				E2K_GLOBAL_CATALOG_LOOKUP_BY_LEGACY_EXCHANGE_DN,
+				data, E2K_GLOBAL_CATALOG_LOOKUP_EMAIL,
+				&entry);
+		}
+		if (entry) {
+			e_contact_set (contact, prop_mapping->field,
+				       entry->email);
+			e2k_global_catalog_entry_free (gc, entry);
+		} else {
+			g_warning ("invalid EX address");
+			return;
+		}
+	}
+	else if (emailtype[0] == '\0') {
+		/* empty emailtype == no email address here */
+		return;
+	}
+	else {
+		g_warning ("email address type `%s' not handled, using the value as is", emailtype);
+		e_contact_set (contact, prop_mapping->field, data);
+	}
+
+	return;
+}
+
+/* Exchange uses \r in some strings and \r\n in others. EContact always
+ * wants just \n.
+ */
+static char *
+unixify (const char *string)
+{
+	char *out = g_malloc (strlen (string) + 1), *d = out;
+	const char *s = string;
+
+	do {
+		if (*s == '\r') {
+			if (*(s + 1) != '\n')
+				*d++ = '\n';
+		} else
+			*d++ = *s;
+	} while (*s++);
+
+	return out;
+}
+
+static EContact *
+e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
+{
+	EContact *contact;
+	char *data;
+	int i;
+
+	contact = e_contact_new ();
+
+	e_contact_set (contact, E_CONTACT_UID, result->href);
+
+	for (i = 0; i < num_prop_mappings; i ++) {
+		data = e2k_properties_get_prop (result->props,
+						prop_mappings[i].prop_name);
+		if (!data)
+			continue;
+
+		if (prop_mappings[i].flags & FLAG_EMAIL) {
+			get_email_field_from_props (be->priv->account,
+						    &prop_mappings[i],
+						    result, contact, data);
+		} else if (prop_mappings[i].flags & FLAG_COMPOSITE) {
+			prop_mappings[i].composite_populate_func (
+				prop_mappings[i].field, contact, data);
+		} else {
+			char *unix_data;
+
+			unix_data = strchr (data, '\r') ?
+				unixify (data) : data;
+			e_contact_set (contact, prop_mappings[i].field,
+				       unix_data);
+			if (unix_data != data)
+				g_free (unix_data);
+		}
+	}
+
+	return contact;
+}
+
+static char *
+vcard_from_props (EBookBackendExchange *be, E2kResult *result)
+{
+	EContact *contact;
+	char *vcard;
+
+	contact = e_contact_from_props (be, result);
+	if (!contact)
+		return NULL;
+
+	vcard = e_vcard_to_string (E_VCARD (contact), EVC_FORMAT_VCARD_30);
+	g_object_unref (contact);
+
+	return vcard;
+}
+
+static void
+build_summary (EBookBackendExchange *be)
+{
+	EBookBackendExchangePrivate *bepriv = be->priv;
+	E2kResultIter *iter;
+	E2kResult *result;
+	E2kHTTPStatus status;
+
+	iter = e_folder_exchange_search_start (bepriv->folder, NULL,
+					       field_names, n_field_names,
+					       bepriv->base_rn, NULL, TRUE);
+	while ((result = e2k_result_iter_next (iter))) {
+		EContact *contact = e_contact_from_props (be, result);
+
+		if (!contact) /* XXX should we error out here and destroy the summary? */
+			continue;
+
+		e_book_backend_summary_add_contact (bepriv->summary, contact);
+		g_object_unref (contact);
+	}
+	status = e2k_result_iter_free (iter);
+
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		g_warning ("build_summary: error building list\n");
+		/* destroy the summary object here, so we don't try to query on it */
+		g_object_unref (bepriv->summary);
+		bepriv->summary = NULL;
+		return;
+	}
+
+	e_book_backend_summary_save (bepriv->summary);
+}
+
+static const char *folder_props[] = {
+	PR_ACCESS,
+	E2K_PR_DAV_LAST_MODIFIED
+};
+static const int n_folder_props = sizeof (folder_props) / sizeof (folder_props[0]);
+
+static GNOME_Evolution_Addressbook_CallStatus
+e_book_backend_exchange_connect (EBookBackendExchange *be)
+{
+	EBookBackendExchangePrivate *bepriv = be->priv;
+	ExchangeHierarchy *hier;
+	char *summary_path;
+	char *date_prop, *access_prop;
+	int access;
+	E2kResult *results;
+	int nresults;
+	E2kHTTPStatus status;
+	time_t folder_mtime;
+
+	bepriv->account = xc_backend_get_account_for_uri (global_backend, bepriv->exchange_uri);
+	if (!bepriv->account)
+		return GNOME_Evolution_Addressbook_RepositoryOffline;
+	bepriv->ctx = exchange_account_get_context (bepriv->account);
+	if (!bepriv->ctx)
+		return GNOME_Evolution_Addressbook_RepositoryOffline;
+
+	bepriv->folder = exchange_account_get_folder (bepriv->account, bepriv->exchange_uri);
+	if (!bepriv->folder)
+		return GNOME_Evolution_Addressbook_RepositoryOffline;
+	g_object_ref (bepriv->folder);
+
+	/* check permissions on the folder */
+	status = e_folder_exchange_propfind (bepriv->folder, NULL,
+					     folder_props, n_folder_props,
+					     &results, &nresults);
+
+	if (status != E2K_HTTP_MULTI_STATUS) {
+		bepriv->connected = FALSE;
+		return GNOME_Evolution_Addressbook_OtherError;
+	}
+
+	access_prop = e2k_properties_get_prop (results[0].props, PR_ACCESS);
+	if (access_prop)
+		access = atoi (access_prop);
+	else
+		access = ~0;
+
+	if (!(access & MAPI_ACCESS_READ)) {
+		bepriv->connected = FALSE;
+		return GNOME_Evolution_Addressbook_PermissionDenied;
+	}
+
+	e_book_backend_set_is_writable (E_BOOK_BACKEND (be),
+				     (access & MAPI_ACCESS_CREATE_CONTENTS) != 0);
+
+	bepriv->base_rn = e2k_restriction_orv (
+		e2k_restriction_prop_string (E2K_PR_DAV_CONTENT_CLASS,
+					     E2K_RELOP_EQ,
+					     "urn:content-classes:person"),
+		e2k_restriction_prop_string (E2K_PR_DAV_CONTENT_CLASS,
+					     E2K_RELOP_EQ,
+					     "urn:content-classes:contact"),
+		NULL);
+
+	bepriv->base_rn = e2k_restriction_andv (
+		bepriv->base_rn,
+		e2k_restriction_prop_bool (E2K_PR_DAV_IS_COLLECTION,
+					   E2K_RELOP_EQ, FALSE),
+		NULL);
+
+	hier = e_folder_exchange_get_hierarchy (bepriv->folder);
+	if (hier->hide_private_items) {
+		bepriv->base_rn = e2k_restriction_andv (
+			bepriv->base_rn,
+			e2k_restriction_prop_int (E2K_PR_MAPI_SENSITIVITY,
+						  E2K_RELOP_NE, 2),
+			NULL);
+	}
+
+	/* once we're connected deal with the summary */
+	date_prop = e2k_properties_get_prop (results[0].props, E2K_PR_DAV_LAST_MODIFIED);
+	if (date_prop)
+		folder_mtime = e2k_parse_timestamp (date_prop);
+
+	else
+		folder_mtime = 0;
+
+	e2k_results_free (results, nresults);
+
+	/* open the summary file */
+	summary_path = e_folder_exchange_get_storage_file (bepriv->folder, "summary");
+
+	bepriv->summary = e_book_backend_summary_new (summary_path, SUMMARY_FLUSH_TIMEOUT);
+	if (e_book_backend_summary_is_up_to_date (bepriv->summary, folder_mtime) == FALSE
+	    || e_book_backend_summary_load (bepriv->summary) == FALSE ) {
+		/* generate the summary here */
+		build_summary (be);
+	}
+
+	g_free (summary_path);
+
+	/* now subscribe to our folder so we notice when it changes */
+	e_folder_exchange_subscribe (bepriv->folder,
+				     E2K_CONTEXT_OBJECT_CHANGED, 30,
+				     subscription_notify, be);
+
+	bepriv->connected = TRUE;
+	e_book_backend_set_is_loaded (E_BOOK_BACKEND (be), TRUE);
+	return GNOME_Evolution_Addressbook_Success;
+}
+
+static gboolean
+value_changed (const char *old, const char *new)
+{
+	if (old == NULL)
+		return new != NULL;
+	else if (new == NULL)
+		return old != NULL;
+	else
+		return strcmp (old, new) != 0;
+}
+
+static const EContactField email_fields[3] = {
+	E_CONTACT_EMAIL_1,
+	E_CONTACT_EMAIL_2,
+	E_CONTACT_EMAIL_3
+};
+
+static const char *email1_props[] = {
+	E2K_PR_MAPI_EMAIL_1_ENTRYID,
+	E2K_PR_MAPI_EMAIL_1_ADDRTYPE,
+	E2K_PR_MAPI_EMAIL_1_ADDRESS,
+	E2K_PR_MAPI_EMAIL_1_DISPLAY_NAME,
+	E2K_PR_CONTACTS_EMAIL1,
+};
+static const char *email2_props[] = {
+	E2K_PR_MAPI_EMAIL_2_ENTRYID,
+	E2K_PR_MAPI_EMAIL_2_ADDRTYPE,
+	E2K_PR_MAPI_EMAIL_2_ADDRESS,
+	E2K_PR_MAPI_EMAIL_2_DISPLAY_NAME,
+	E2K_PR_CONTACTS_EMAIL2,
+};
+static const char *email3_props[] = {
+	E2K_PR_MAPI_EMAIL_3_ENTRYID,
+	E2K_PR_MAPI_EMAIL_3_ADDRTYPE,
+	E2K_PR_MAPI_EMAIL_3_ADDRESS,
+	E2K_PR_MAPI_EMAIL_3_DISPLAY_NAME,
+	E2K_PR_CONTACTS_EMAIL3,
+};
+
+static const char **email_props[] = {
+	email1_props, email2_props, email3_props
+};
+
+static void
+proppatch_email (PropMapping *prop_mapping,
+		 EContact *new_contact, EContact *cur_contact,
+		 E2kProperties *props)
+{
+	gboolean changed;
+	char *new_email, *cur_email;
+	int field, prop, emaillisttype = 0;
+
+	/* We do all three email addresses (plus some additional data)
+	 * when invoked for E_CONTACT_EMAIL_1. So skip EMAIL_2
+	 * and EMAIL_3.
+	 */
+	if (prop_mapping->field != E_CONTACT_EMAIL_1)
+		return;
+
+	for (field = 0; field < 3; field++) {
+		new_email = e_contact_get (new_contact, email_fields[field]);
+		cur_email = cur_contact ? e_contact_get (cur_contact, email_fields[field]) : NULL;
+
+		if (new_email)
+			emaillisttype |= (1 << field);
+
+		changed = value_changed (cur_email, new_email);
+		g_free (cur_email);
+
+		if (!changed) {
+			g_free (new_email);
+			continue;
+		}
+
+		if (!new_email || !*new_email) {
+			g_free (new_email);
+			if (!cur_contact)
+				continue;
+
+			for (prop = 0; prop < 5; prop++) {
+				e2k_properties_remove (
+					props, email_props[field][prop]);
+			}
+			continue;
+		}
+
+		/* Clear originalentryid */
+		e2k_properties_remove (props, email_props[field][0]);
+
+		/* type is SMTP */
+		e2k_properties_set_string (props, email_props[field][1],
+					   g_strdup ("SMTP"));
+
+		for (prop = 2; prop < 5; prop++) {
+			e2k_properties_set_string (props,
+						   email_props[field][prop],
+						   g_strdup (new_email));
+		}
+		g_free (new_email);
+	}
+
+	e2k_properties_set_int (props, E2K_PR_MAPI_EMAIL_LIST_TYPE,
+				emaillisttype);
+
+	if (emaillisttype) {
+		GPtrArray *fields;
+
+		fields = g_ptr_array_new ();
+		for (field = 0; field < 3; field++) {
+			if (emaillisttype & (1 << field))
+				g_ptr_array_add (fields, g_strdup_printf ("%d", field));
+		}
+		e2k_properties_set_int_array (props,
+					      E2K_PR_MAPI_EMAIL_ADDRESS_LIST,
+					      fields);
+	} else if (cur_contact)
+		e2k_properties_remove (props, E2K_PR_MAPI_EMAIL_ADDRESS_LIST);
+}
+
+#ifdef ENABLE_CATEGORIES
+static void
+proppatch_categories (PropMapping *prop_mapping,
+		      EContact *new_contact, EContact *cur_contact,
+		      E2kProperties *props)
+{
+	gboolean changed;
+	char *new_categories, *cur_categories = NULL;
+	EList *categories;
+	EIterator *iter;
+	GPtrArray *array = NULL;
+
+	new_categories = e_contact_get (new_contact, field);
+	if (cur_contact)
+		cur_categories = e_contact_get (cur_contact, field);
+
+	changed = value_changed (cur_categories, new_categories);
+	g_free (new_categories);
+	g_free (cur_categories);
+
+	if (!changed)
+		return;
+
+
+#ifdef DEBUG
+	printf ("CATEGORIES = %s\n", new_categories);
+#endif
+
+	g_object_get ((new_contact->card),
+			"category_list", &categories,
+			NULL);
+
+	iter = e_list_get_iterator (categories);
+	while (e_iterator_is_valid (iter)) {
+		const char *category = e_iterator_get (iter);
+
+		if (!array)
+			array = g_ptr_array_new ();
+		g_ptr_array_add (array, g_strdup (category));
+		e_iterator_next (iter);
+	}
+	g_object_unref (iter);
+
+	e2k_properties_set_string_array (props, prop_mapping->prop_name, array);
+}
+
+static void
+populate_categories(EContactField field, EContact *new_contact, void *data)
+{
+	GSList *list = data;
+	GSList *l;
+	EList *categories;
+
+	categories = e_list_new ((EListCopyFunc) g_strdup, 
+				 (EListFreeFunc) g_free,
+				 NULL);
+
+	for (l = list; l; l = l->next) {
+		e_list_append (categories, l->data);
+	}
+
+	g_object_set ((new_contact->card),
+			"category_list", categories,
+			NULL);
+
+#ifdef DEBUG 
+	{
+		char *category_text = e_contact_get (new_contact, E_CONTACT_CATEGORIES);
+		printf ("populated categories = %s\n", category_text);
+		g_free (category_text);
+	}
+#endif
+
+	g_object_unref (categories);
+}
+#endif
+
+static void
+proppatch_date (PropMapping *prop_mapping,
+		EContact *new_contact, EContact *cur_contact,
+		E2kProperties *props)
+{
+	gboolean changed;
+	EContactDate *new_dt, *cur_dt;
+	time_t tt;
+	struct tm then;
+
+	new_dt = e_contact_get (new_contact, prop_mapping->field);
+	if (cur_contact)
+		cur_dt = e_contact_get (cur_contact, prop_mapping->field);
+	else
+		cur_dt = NULL;
+
+	changed = !e_contact_date_equal (cur_dt, new_dt);
+	e_contact_date_free (cur_dt);
+	e_contact_date_free (new_dt);
+
+	if (!changed)
+		return;
+
+	memset (&then, 0, sizeof(then));
+	then.tm_year = new_dt->year - 1900;
+	then.tm_mon  = new_dt->month - 1;
+	then.tm_mday = new_dt->day;
+	then.tm_isdst = -1;
+	tt = mktime (&then);
+
+	e2k_properties_set_date (props, prop_mapping->prop_name,
+				 e2k_make_timestamp (tt));
+}
+
+static void
+populate_date(EContactField field, EContact *new_contact, void *data)
+{
+	char *date = (char*)data;
+	time_t tt;
+	struct tm *then;
+	EContactDate dt;
+
+	tt = e2k_parse_timestamp (date);
+
+	then = gmtime (&tt);
+
+	dt.year = then->tm_year + 1900;
+	dt.month = then->tm_mon + 1;
+	dt.day = then->tm_mday;
+	
+	e_contact_set (new_contact, field, &dt);
+}
+
+enum addressprop {
+	ADDRPROP_POSTOFFICEBOX,
+	ADDRPROP_STREET,
+	ADDRPROP_CITY,
+	ADDRPROP_STATE,
+	ADDRPROP_POSTALCODE,
+	ADDRPROP_COUNTRY,
+	ADDRPROP_LAST
+};
+
+static char *homeaddrpropnames[] = {
+	E2K_PR_CONTACTS_HOME_PO_BOX,
+	E2K_PR_CONTACTS_HOME_STREET,
+	E2K_PR_CONTACTS_HOME_CITY,
+	E2K_PR_CONTACTS_HOME_STATE,
+	E2K_PR_CONTACTS_HOME_ZIP,
+	E2K_PR_CONTACTS_HOME_COUNTRY,
+};
+
+static char *otheraddrpropnames[] = {
+	E2K_PR_CONTACTS_OTHER_PO_BOX,
+	E2K_PR_CONTACTS_OTHER_STREET,
+	E2K_PR_CONTACTS_OTHER_CITY,
+	E2K_PR_CONTACTS_OTHER_STATE,
+	E2K_PR_CONTACTS_OTHER_ZIP,
+	E2K_PR_CONTACTS_OTHER_COUNTRY,
+};
+
+static char *workaddrpropnames[] = {
+	E2K_PR_CONTACTS_WORK_PO_BOX,
+	E2K_PR_CONTACTS_WORK_STREET,
+	E2K_PR_CONTACTS_WORK_CITY,
+	E2K_PR_CONTACTS_WORK_STATE,
+	E2K_PR_CONTACTS_WORK_ZIP,
+	E2K_PR_CONTACTS_WORK_COUNTRY,
+};
+
+static void
+proppatch_address (PropMapping *prop_mapping, 
+		   EContact *new_contact, EContact *cur_contact,
+		   E2kProperties *props)
+{
+	const EContactAddress *new_address, *cur_address = NULL;
+	char *new_addrprops[ADDRPROP_LAST], *cur_addrprops[ADDRPROP_LAST];
+	char **propnames, *value;
+	int i;
+
+	new_address = e_contact_get (new_contact, prop_mapping->field);
+	if (cur_contact)
+		cur_address = e_contact_get (cur_contact, prop_mapping->field);
+
+	switch (prop_mapping->field) {
+	case E_CONTACT_ADDRESS_HOME:
+		propnames = homeaddrpropnames;
+		break;
+
+	case E_CONTACT_ADDRESS_WORK:
+		propnames = workaddrpropnames;
+		break;
+
+	case E_CONTACT_ADDRESS_OTHER:
+	default:
+		propnames = otheraddrpropnames;
+		break;
+	}
+
+	if (!new_address) {
+		if (cur_address) {
+			for (i = 0; i < ADDRPROP_LAST; i ++)
+				e2k_properties_remove (props, propnames[i]);
+		}
+		return;
+	}
+
+	new_addrprops [ADDRPROP_POSTOFFICEBOX]		= new_address->po;
+	new_addrprops [ADDRPROP_STREET]			= new_address->street;
+	new_addrprops [ADDRPROP_CITY]			= new_address->locality;
+	new_addrprops [ADDRPROP_STATE]			= new_address->region;
+	new_addrprops [ADDRPROP_POSTALCODE]		= new_address->code;
+	new_addrprops [ADDRPROP_COUNTRY]		= new_address->country;
+	if (cur_address) {
+		cur_addrprops [ADDRPROP_POSTOFFICEBOX]	= cur_address->po;
+		cur_addrprops [ADDRPROP_STREET]		= cur_address->street;
+		cur_addrprops [ADDRPROP_CITY]		= cur_address->locality;
+		cur_addrprops [ADDRPROP_STATE]		= cur_address->region;
+		cur_addrprops [ADDRPROP_POSTALCODE]	= cur_address->code;
+		cur_addrprops [ADDRPROP_COUNTRY]	= cur_address->country;
+	}
+
+	for (i = 0; i < ADDRPROP_LAST; i ++) {
+		if (!new_addrprops[i]) {
+			if (cur_addrprops[i])
+				e2k_properties_remove (props, propnames[i]);
+			continue;
+		}
+
+		if (cur_address && cur_addrprops[i] &&
+		    !strcmp (new_addrprops[i], cur_addrprops[i])) {
+			/* they're the same */
+			continue;
+		}
+
+		if (i == ADDRPROP_STREET && new_address->ext) {
+			value = g_strdup_printf ("%s%s", new_addrprops[i],
+						 new_address->ext);
+		} else
+			value = g_strdup (new_addrprops[i]);
+		e2k_properties_set_string (props, propnames[i], value);
+	}
+}
+
+static void
+populate_address (EContactField field, EContact *new_contact, void *data)
+{
+	EAddressWestern *waddr;
+	EContactAddress addr;
+
+	waddr = e_address_western_parse ((const char *)data);
+	addr.address_format = "us"; /* FIXME? */
+	addr.po = waddr->po_box;
+	addr.ext = waddr->extended;
+	addr.street = waddr->street;
+	addr.locality = waddr->locality;
+	addr.region = waddr->region;
+	addr.code = waddr->postal_code;
+	addr.country = waddr->country;
+
+	e_contact_set (new_contact, field, &addr);
+	e_address_western_free (waddr);
+}
+
+static const char *
+contact_name (EContact *contact)
+{
+	const char *contact_name;
+
+	contact_name = e_contact_get_const (contact, E_CONTACT_FULL_NAME);
+	if (contact_name && *contact_name)
+		return contact_name;
+	contact_name = e_contact_get_const (contact, E_CONTACT_FILE_AS);
+	if (contact_name && *contact_name)
+		return contact_name;
+	contact_name = e_contact_get_const (contact, E_CONTACT_EMAIL_1);
+	if (contact_name && *contact_name)
+		return contact_name;
+	contact_name = e_contact_get_const (contact, E_CONTACT_EMAIL_2);
+	if (contact_name && *contact_name)
+		return contact_name;
+	contact_name = e_contact_get_const (contact, E_CONTACT_EMAIL_3);
+	if (contact_name && *contact_name)
+		return contact_name;
+	contact_name = e_contact_get_const (contact, E_CONTACT_ORG);
+	if (contact_name && *contact_name)
+		return contact_name;
+	contact_name = e_contact_get_const (contact, E_CONTACT_TITLE);
+	if (contact_name && *contact_name)
+		return contact_name;
+
+	return NULL;
+}
+
+static E2kProperties *
+props_from_contact (EBookBackendExchange *be,
+		    EContact *contact,
+		    EContact *old_contact)
+{
+	E2kProperties *props;
+	int i;
+
+	props = e2k_properties_new ();
+
+	if (!old_contact) {
+		const char *subject;
+
+		subject = contact_name (contact);
+
+		/* Set up some additional fields when creating a new contact */
+		e2k_properties_set_string (
+			props, E2K_PR_EXCHANGE_MESSAGE_CLASS,
+			g_strdup ("IPM.Contact"));
+		e2k_properties_set_string (
+			props, E2K_PR_HTTPMAIL_SUBJECT,
+			g_strdup (subject ? subject : ""));
+
+		e2k_properties_set_int (props, E2K_PR_MAPI_SIDE_EFFECTS, 16);
+		e2k_properties_set_int (props, PR_ACTION, 512);
+		e2k_properties_set_bool (props, E2K_PR_OUTLOOK_CONTACT_JOURNAL, FALSE);
+		e2k_properties_set_bool (props, E2K_PR_MAPI_SENSITIVITY, 0);
+	}
+
+	for (i = 0; i < num_prop_mappings; i ++) {
+		/* handle composite attributes here (like addresses) */
+		if (prop_mappings[i].flags & FLAG_COMPOSITE) {
+			prop_mappings[i].composite_proppatch_func (&prop_mappings[i], contact, old_contact, props);
+		} else if (prop_mappings[i].flags & FLAG_PUT) {
+			continue; /* FIXME */
+		} else {
+			const char *new_value, *current_value;
+
+			new_value = e_contact_get_const (contact, prop_mappings[i].field);
+			if (new_value && !*new_value)
+				new_value = NULL;
+			current_value = old_contact ? e_contact_get_const (old_contact, prop_mappings[i].field) : NULL;
+			if (current_value && !*current_value)
+				current_value = NULL;
+
+			if (value_changed (current_value, new_value)) {
+				if (new_value) {
+					e2k_properties_set_string (
+						props,
+						prop_mappings[i].prop_name,
+						g_strdup (new_value));
+				} else {
+					e2k_properties_remove (
+						props,
+						prop_mappings[i].prop_name);
+				}
+			}
+		}
+	}
+
+	if (e2k_properties_empty (props)) {
+		e2k_properties_free (props);
+		return NULL;
+	}
+
+	return props;
+}
+
+#if 0
+	for (iter = e_list_get_iterator (bepriv->book_views); e_iterator_is_valid (iter); e_iterator_next (iter)) {
+		const EBookBackendExchangeBookView *v = e_iterator_get (iter);
+		char *message;
+		if (cur_contact)
+			message = g_strdup_printf (_("Modifying %s"), uri);
+		else
+			message = g_strdup_printf (_("Creating %s"), uri);
+
+		e_data_book_view_notify_status_message (v->book_view,
+						     message);
+		g_free (message);
+	}
+	g_object_unref (iter);
+#endif
+
+static E2kHTTPStatus
+do_put (EBookBackendExchange *be, EDataBook *book,
+	const char *uri, const char *subject, const char *put_body)
+{
+	char *put_request;
+	E2kHTTPStatus status;
+
+	put_request = g_strdup_printf ("content-class: urn:content-classes:person\r\n"
+				       "MIME-Version: 1.0\r\n"
+				       "Content-Type: text/plain;\r\n"
+				       "\tcharset=\"utf-8\"\r\n"
+				       "Content-Transfer-Encoding: 8bit\r\n"
+				       "Subject: %s\r\n"
+				       "\r\n%s",
+				       subject ? subject : "",
+				       put_body);
+
+	status = e2k_context_put (be->priv->ctx, NULL, uri, "message/rfc822",
+				  put_request, strlen (put_request), NULL);
+	g_free (put_request);
+
+	return status;
+}
+
+static gboolean
+test_name (E2kContext *ctx, const char *name, gpointer summary)
+{
+	return !e_book_backend_summary_check_contact (summary, name);
+}
+
+static EBookBackendSyncStatus
+e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
+					EDataBook         *book,
+					const char        *vcard,
+					EContact         **contact)
+{
+	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
+	EBookBackendExchangePrivate *bepriv = be->priv;
+	E2kProperties *props;
+	const char *name, *note;
+	E2kHTTPStatus status;
+	char *location = NULL;
+
+	d(printf("ebbe_create_contact(%p, %p, %s)\n", backend, book, vcard));
+
+	*contact = e_contact_new_from_vcard (vcard);
+	props = props_from_contact (be, *contact, NULL);
+
+	/* figure out the right uri to be using */
+	name = contact_name (*contact);
+	if (!name)
+		name = "No Subject";
+
+	note = e_contact_get_const (*contact, E_CONTACT_NOTE);
+
+	status = e_folder_exchange_proppatch_new (bepriv->folder, NULL, name,
+						  test_name, bepriv->summary,
+						  props, &location, NULL);
+
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		e_contact_set (*contact, E_CONTACT_UID, location);
+
+		if (note) {
+			/* Do the PUT request. */
+			status = do_put (be, book, location,
+					 contact_name (*contact),
+					 note);
+		}
+		g_free (location);
+	}
+
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		e_book_backend_summary_add_contact (bepriv->summary,
+						    *contact);
+		return GNOME_Evolution_Addressbook_Success;
+	} else {
+		g_object_unref (*contact);
+		*contact = NULL;
+		return http_status_to_pas (status);
+	}
+}
+
+
+
+
+static EBookBackendSyncStatus
+e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
+					EDataBook         *book,
+					const char        *vcard,
+					EContact         **contact)
+{
+	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
+	EContact *old_contact;
+	const char *uri;
+	E2kHTTPStatus status;
+	E2kResult *results;
+	int nresults;
+	E2kProperties *props;
+
+	d(printf("ebbe_modify_contact(%p, %p, %s)\n", backend, book, vcard));
+
+	*contact = e_contact_new_from_vcard (vcard);
+	uri = e_contact_get_const (*contact, E_CONTACT_UID);
+
+	status = e2k_context_propfind (be->priv->ctx, NULL, uri,
+				       field_names, n_field_names,
+				       &results, &nresults);
+	if (status == E2K_HTTP_CANCELLED) {
+		g_object_unref (book);
+		g_object_unref (*contact);
+		*contact = NULL;
+		return GNOME_Evolution_Addressbook_OtherError;
+	}
+
+	if (status == E2K_HTTP_MULTI_STATUS && nresults > 0)
+		old_contact = e_contact_from_props (be, &results[0]);
+	else
+		old_contact = NULL;
+
+	props = props_from_contact (be, *contact, old_contact);
+	status = e2k_context_proppatch (be->priv->ctx, NULL, uri,
+					props, FALSE, NULL);
+
+	/* Do the PUT request if we need to. FIXME! */
+#if 0
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status) && mcd->put_body) {
+		status = do_put (be, book, mcd->uri,
+				 contact_name (mcd->contact),
+				 mcd->put_body);
+		g_free (mcd->put_body);
+	}
+#endif
+
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		e_book_backend_summary_remove_contact (be->priv->summary, uri);
+		e_book_backend_summary_add_contact (be->priv->summary,
+						    *contact);
+		return GNOME_Evolution_Addressbook_Success;
+	} else {
+		g_object_unref (*contact);
+		*contact = NULL;
+		return http_status_to_pas (status);
+	}
+}
+
+
+
+static EBookBackendSyncStatus
+e_book_backend_exchange_remove_contacts (EBookBackendSync  *backend,
+					 EDataBook         *book,
+					 GList             *id_list,
+					 GList            **removed_ids)
+{
+	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
+	EBookBackendExchangePrivate *bepriv = be->priv;
+	const char *uri;
+	E2kHTTPStatus status;
+
+	/* since we don't report "bulk-removes" in our static
+	 * capabilities, the id list will always contain 1 element.
+	 * (FIXME)
+	 */
+
+	d(printf("ebbe_remove_contact(%p, %p, %s)\n", backend, book, (char*)id_list->data));
+
+	uri = id_list->data;
+	status = e2k_context_delete (bepriv->ctx, NULL, uri);
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		e_book_backend_summary_remove_contact (bepriv->summary, uri);
+		*removed_ids = g_list_append (NULL, g_strdup (uri));
+		return GNOME_Evolution_Addressbook_Success;
+	} else
+		return http_status_to_pas (status);
+}
+
+
+
+
+static ESExpResult *
+func_not (ESExp *f, int argc, ESExpResult **argv, void *data)
+{
+	ESExpResult *r;
+
+	if (argc != 1 || argv[0]->type != ESEXP_RES_UNDEFINED) {
+		e_sexp_fatal_error (f, "parse error");
+		return NULL;
+	}
+
+	r = e_sexp_result_new (f, ESEXP_RES_UNDEFINED);
+	r->value.string = (char *)
+		e2k_restriction_not ((E2kRestriction *)argv[0]->value.string, TRUE);
+
+	return r;
+}
+
+static ESExpResult *
+func_and_or (ESExp *f, int argc, ESExpResult **argv, void *and)
+{
+	ESExpResult *r;
+	E2kRestriction *rn;
+	GPtrArray *rns;
+	int i;
+
+	rns = g_ptr_array_new ();
+
+	for (i = 0; i < argc; i ++) {
+		if (argv[i]->type != ESEXP_RES_UNDEFINED) {
+			g_ptr_array_free (rns, TRUE);
+			for (i = 0; i < argc; i++) {
+				if (argv[i]->type == ESEXP_RES_UNDEFINED)
+					g_free (argv[i]->value.string);
+			}
+
+			e_sexp_fatal_error (f, "parse error");
+			return NULL;
+		}
+
+		g_ptr_array_add (rns, argv[i]->value.string);
+	}
+
+	if (and)
+		rn = e2k_restriction_and (rns->len, (E2kRestriction **)rns->pdata, TRUE);
+	else
+		rn = e2k_restriction_or (rns->len, (E2kRestriction **)rns->pdata, TRUE);
+	g_ptr_array_free (rns, TRUE);
+
+	r = e_sexp_result_new (f, ESEXP_RES_UNDEFINED);
+	r->value.string = (char *)rn;
+	return r;
+}
+
+static ESExpResult *
+func_match (struct _ESExp *f, int argc, struct _ESExpResult **argv, void *data)
+{
+	ESExpResult *r;
+	E2kRestriction *rn;
+	char *propname, *str;
+	const char *exchange_prop;
+	guint flags = GPOINTER_TO_UINT (data);
+
+	if (argc != 2 ||
+	    argv[0]->type != ESEXP_RES_STRING ||
+	    argv[1]->type != ESEXP_RES_STRING) {
+		e_sexp_fatal_error (f, "parse error");
+		return NULL;
+	}
+
+	propname = argv[0]->value.string;
+	str = argv[1]->value.string;
+
+	if (!strcmp (propname, "x-evolution-any-field")) {
+		GPtrArray *rns;
+		int i;
+
+		rns = g_ptr_array_new ();
+		for (i = 0; i < num_prop_mappings; i ++) {
+			if (prop_mappings[i].flags & FLAG_UNLIKEABLE)
+				continue;
+
+			exchange_prop = prop_mappings[i].prop_name;
+			if (!*str)
+				rn = e2k_restriction_exist (exchange_prop);
+			else
+				rn = e2k_restriction_content (exchange_prop, flags, str);
+			g_ptr_array_add (rns, rn);
+		}
+
+		rn = e2k_restriction_or (rns->len, (E2kRestriction **)rns->pdata, TRUE);
+		g_ptr_array_free (rns, TRUE);
+	} else if (!strcmp (propname, "full_name") && flags == E2K_FL_PREFIX) {
+		rn = e2k_restriction_orv (
+			e2k_restriction_content (
+				e_book_backend_exchange_prop_to_exchange ("full_name"),
+				flags, str),
+			e2k_restriction_content (
+				e_book_backend_exchange_prop_to_exchange ("family_name"),
+				flags, str),
+			NULL);
+	} else if (!strcmp (propname, "email")) {
+		rn = e2k_restriction_orv (
+			e2k_restriction_content (E2K_PR_MAPI_EMAIL_1_ADDRESS, flags, str),
+			e2k_restriction_content (E2K_PR_MAPI_EMAIL_2_ADDRESS, flags, str),
+			e2k_restriction_content (E2K_PR_MAPI_EMAIL_3_ADDRESS, flags, str),
+			NULL);
+	} else {
+		exchange_prop =
+			e_book_backend_exchange_prop_to_exchange (propname);
+		if (!exchange_prop) {
+			/* FIXME. Do something better in 1.6 */
+			e_sexp_fatal_error (f, "no prop");
+			return NULL;
+		}
+
+		if (!*str)
+			rn = e2k_restriction_exist (exchange_prop);
+		else
+			rn = e2k_restriction_content (exchange_prop, flags, str);
+	}
+
+	r = e_sexp_result_new (f, ESEXP_RES_UNDEFINED);
+	r->value.string = (char *)rn;
+	return r;
+}
+
+static struct {
+	char *name;
+	ESExpFunc *func;
+	guint flags;
+} symbols[] = {
+	{ "and", func_and_or, TRUE },
+	{ "or", func_and_or, FALSE },
+	{ "not", func_not, 0 },
+	{ "contains", func_match, E2K_FL_SUBSTRING },
+	{ "is", func_match, E2K_FL_FULLSTRING },
+	{ "beginswith", func_match, E2K_FL_PREFIX },
+	{ "endswith", func_match, E2K_FL_SUFFIX },
+};
+
+static E2kRestriction *
+e_book_backend_exchange_build_restriction (const char *query,
+					E2kRestriction *base_rn)
+{
+	ESExp *sexp;
+	ESExpResult *r;
+	E2kRestriction *rn;
+	int i;
+
+	sexp = e_sexp_new ();
+
+	for (i = 0; i < sizeof (symbols) / sizeof (symbols[0]); i++) {
+		e_sexp_add_function (sexp, 0, symbols[i].name,
+				     symbols[i].func,
+				     GUINT_TO_POINTER (symbols[i].flags));
+	}
+
+	e_sexp_input_text (sexp, query, strlen (query));
+	e_sexp_parse (sexp);
+
+	r = e_sexp_eval (sexp);
+	if (r && r->type == ESEXP_RES_UNDEFINED)
+		rn = (E2kRestriction *)r->value.string;
+	else {
+		g_warning ("conversion to exchange restriction failed");
+		rn = NULL;
+	}
+
+	e_sexp_result_free (sexp, r);
+	e_sexp_unref (sexp);
+
+	if (base_rn) {
+		e2k_restriction_ref (base_rn);
+		rn = e2k_restriction_andv (rn, base_rn, NULL);
+	}
+
+	return rn;
+}
+
+
+
+static void
+notify_remove (gpointer id, gpointer value, gpointer backend)
+{
+	EBookBackendExchange *be = backend;
+
+	e_book_backend_notify_remove (backend, id);
+	e_book_backend_summary_remove_contact (be->priv->summary, id);
+}
+
+static void
+subscription_notify (E2kContext *ctx, const char *uri,
+		     E2kContextChangeType type, gpointer user_data)
+{
+	EBookBackendExchange *be = user_data;
+	EBookBackendExchangePrivate *bepriv = be->priv;
+	EBookBackend *backend = user_data;
+	GHashTable *unseen_ids;
+	GPtrArray *ids;
+	E2kResultIter *iter;
+	E2kResult *result;
+	E2kHTTPStatus status;
+	EContact *contact;
+	const char *uid;
+	int i;
+
+	bonobo_object_ref (be);
+
+	unseen_ids = g_hash_table_new (g_str_hash, g_str_equal);
+	ids = e_book_backend_summary_search (bepriv->summary,
+					     "(contains \"x-evolution-any-field\" \"\")");
+	for (i = 0; i < ids->len; i++) {
+		g_hash_table_insert (unseen_ids, ids->pdata[i],
+				     GUINT_TO_POINTER (1));
+	}
+
+	/* FIXME: don't search everything */
+
+	/* execute the query */
+	iter = e_folder_exchange_search_start (bepriv->folder, NULL,
+					       field_names, n_field_names,
+					       bepriv->base_rn, NULL, TRUE);
+	while ((result = e2k_result_iter_next (iter))) {
+		contact = e_contact_from_props (be, result);
+		if (!contact)
+			continue;
+		uid = e_contact_get_const (contact, E_CONTACT_UID);
+
+		g_hash_table_remove (unseen_ids, uid);
+		e_book_backend_notify_update (backend, contact);
+
+		e_book_backend_summary_remove_contact (bepriv->summary, uid);
+		e_book_backend_summary_add_contact (bepriv->summary, contact);
+		g_object_unref (contact);
+	}
+	status = e2k_result_iter_free (iter);
+
+	if (status == E2K_HTTP_MULTI_STATUS)
+		g_hash_table_foreach (unseen_ids, notify_remove, be);
+	g_hash_table_destroy (unseen_ids);
+	bonobo_object_unref (be);
+}
+
+
+static EBookBackendSyncStatus
+e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
+					  EDataBook         *book,
+					  const char        *query,
+					  GList            **contacts)
+{
+	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
+	EBookBackendExchangePrivate *bepriv = be->priv;
+	E2kRestriction *rn;
+	E2kResultIter *iter;
+	E2kResult *result;
+	E2kHTTPStatus status;
+	char *vcard;
+
+	d(printf("ebbe_get_contact_list(%p, %p, %s)\n", backend, book, query));
+
+	rn = e_book_backend_exchange_build_restriction (query, bepriv->base_rn);
+	iter = e_folder_exchange_search_start (bepriv->folder, NULL,
+					       field_names, n_field_names,
+					       rn, NULL, TRUE);
+	e2k_restriction_unref (rn);
+
+	*contacts = NULL;
+	while ((result = e2k_result_iter_next (iter))) {
+		vcard = vcard_from_props (be, result);
+		if (!vcard)
+			continue;
+		*contacts = g_list_prepend (*contacts, vcard);
+	}
+	status = e2k_result_iter_free (iter);
+
+	return http_status_to_pas (status);
+}
+
+static void
+e_book_backend_exchange_start_book_view (EBookBackend  *backend,
+					 EDataBookView *book_view)
+{
+	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
+	EBookBackendExchangePrivate *bepriv = be->priv;
+	const char *query = e_data_book_view_get_card_query (book_view);
+	E2kRestriction *rn;
+	E2kResultIter *iter;
+	E2kResult *result;
+	E2kHTTPStatus status;
+	EContact *contact;
+
+	d(printf("ebbe_start_book_view(%p, %p)\n", backend, book_view));
+
+	g_object_ref (book_view);
+	e_data_book_view_notify_status_message (book_view, _("Searching..."));
+
+	/* execute the query */
+	rn = e_book_backend_exchange_build_restriction (query, bepriv->base_rn);
+
+	iter = e_folder_exchange_search_start (bepriv->folder, NULL,
+					       field_names, n_field_names,
+					       rn, NULL, TRUE);
+	e2k_restriction_unref (rn);
+
+	while ((result = e2k_result_iter_next (iter))) {
+		contact = e_contact_from_props (be, result);
+		if (contact) {
+			e_data_book_view_notify_update (book_view, contact);
+			g_object_unref (contact);
+		}
+	}
+	status = e2k_result_iter_free (iter);
+
+	e_data_book_view_notify_complete (book_view,
+					  http_status_to_pas (status));
+	g_object_unref (book_view);
+}
+
+static void
+e_book_backend_exchange_stop_book_view (EBookBackend  *backend,
+				     EDataBookView *book_view)
+{
+	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
+	EBookBackendExchangePrivate *bepriv = be->priv;
+	E2kOperation *op;
+
+	d(printf("ebbe_stop_book_view(%p, %p)\n", backend, book_view));
+
+	op = g_hash_table_lookup (bepriv->ops, book_view);
+	if (op) {
+		g_hash_table_remove (bepriv->ops, book_view);
+		e2k_operation_cancel (op);
+	}
+}
+
+typedef struct {
+	EXmlHash *ehash;
+	GHashTable *seen_ids;
+	GList *changes;
+} EBookBackendExchangeChangeContext;
+
+static void
+free_change (gpointer change, gpointer user_data)
+{
+	CORBA_free (change);
+}
+
+static void
+find_deleted_ids (const char *id, const char *vcard, gpointer user_data)
+{
+	EBookBackendExchangeChangeContext *ctx = user_data;
+
+	if (!g_hash_table_lookup (ctx->seen_ids, id)) {
+		ctx->changes = g_list_prepend (
+			ctx->changes,
+			e_book_backend_change_delete_new (id));
+		e_xmlhash_remove (ctx->ehash, id);
+	}
+}
+
+static EBookBackendSyncStatus
+e_book_backend_exchange_get_changes (EBookBackendSync  *backend,
+				     EDataBook         *book,
+				     const char        *change_id,
+				     GList            **changes)
+{
+	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
+	EBookBackendExchangePrivate *bepriv = be->priv;
+	EBookBackendExchangeChangeContext *ctx;
+	char *filename, *path, *vcard;
+	E2kResultIter *iter;
+	E2kResult *result;
+	E2kHTTPStatus status;
+
+	d(printf("ebbe_get_changes(%p, %p, %s)\n", backend, book, change_id));
+
+	ctx = g_new0 (EBookBackendExchangeChangeContext, 1);
+	ctx->seen_ids = g_hash_table_new_full (g_str_hash, g_str_equal,
+					       g_free, NULL);
+
+	/* open the changes file */
+	filename = g_strdup_printf ("%s.changes", change_id);
+	path = e_folder_exchange_get_storage_file (bepriv->folder, filename);
+	ctx->ehash = e_xmlhash_new (path);
+	g_free (path);
+	g_free (filename);
+
+	iter = e_folder_exchange_search_start (bepriv->folder, NULL,
+					       field_names, n_field_names,
+					       bepriv->base_rn, NULL, TRUE);
+	while ((result = e2k_result_iter_next (iter))) {
+		vcard = vcard_from_props (be, result);
+		if (!vcard)
+			continue;
+
+		g_hash_table_insert (ctx->seen_ids, g_strdup (result->href),
+				     GINT_TO_POINTER (1));
+
+		/* Check what type of change has occurred, if any. */
+		switch (e_xmlhash_compare (ctx->ehash, result->href, vcard)) {
+		case E_XMLHASH_STATUS_SAME:
+			break;
+
+		case E_XMLHASH_STATUS_NOT_FOUND:
+			e_xmlhash_add (ctx->ehash, result->href, vcard);
+			ctx->changes = g_list_prepend (
+				ctx->changes,
+				e_book_backend_change_add_new (vcard));
+			break;
+
+		case E_XMLHASH_STATUS_DIFFERENT:
+			e_xmlhash_add (ctx->ehash, result->href, vcard);
+			ctx->changes = g_list_prepend (
+				ctx->changes,
+				e_book_backend_change_modify_new (vcard));
+			break;
+		}
+
+		g_free (vcard);
+	}
+	status = e2k_result_iter_free (iter);
+
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		g_warning ("e_book_backend_exchange_changes: error building list (err = %d)\n", status);
+		g_list_foreach (ctx->changes, free_change, NULL);
+		ctx->changes = NULL;
+	} else {
+		e_xmlhash_foreach_key (ctx->ehash, find_deleted_ids, ctx);
+		e_xmlhash_write (ctx->ehash);
+	}
+  	e_xmlhash_destroy (ctx->ehash);
+	g_hash_table_destroy (ctx->seen_ids);
+	g_free (ctx);
+
+	return http_status_to_pas (status);
+}
+
+static EBookBackendSyncStatus
+e_book_backend_exchange_get_contact (EBookBackendSync  *backend,
+				     EDataBook         *book,
+				     const char        *id,
+				     char             **vcard)
+{
+	EBookBackendExchange *be;
+
+	d(printf("ebbe_get_contact(%p, %p, %s)\n", backend, book, id));
+
+	be = E_BOOK_BACKEND_EXCHANGE (e_data_book_get_backend (book));
+
+	/* XXX finish this */
+
+	return GNOME_Evolution_Addressbook_OtherError;
+}
+
+
+static EBookBackendSyncStatus
+e_book_backend_exchange_authenticate_user (EBookBackendSync *backend,
+					   EDataBook        *book,
+					   const char       *user,
+					   const char       *password,
+					   const char       *auth_method)
+{
+	d(printf("ebbe_authenticate_user(%p, %p, %s, %s, %s)\n", backend, book, user, password, auth_method));
+
+	return GNOME_Evolution_Addressbook_Success;
+}
+
+static EBookBackendSyncStatus
+e_book_backend_exchange_get_supported_fields (EBookBackendSync  *backend,
+					      EDataBook         *book,
+					      GList            **methods)
+{
+	int i;
+
+	d(printf("ebbe_get_supported_fields(%p, %p)\n", backend, book));
+
+	*methods = NULL;
+	for (i = 0; i < num_prop_mappings; i ++) {
+		if (prop_mappings[i].e_book_field) {
+			*methods = g_list_prepend (*methods,
+						   g_strdup (prop_mappings[i].e_book_field));
+		}
+	}
+
+	return GNOME_Evolution_Addressbook_Success;
+}
+
+static GNOME_Evolution_Addressbook_CallStatus
+e_book_backend_exchange_cancel_operation (EBookBackend *backend, EDataBook *book)
+{
+	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
+	EBookBackendExchangePrivate *bepriv = be->priv;
+	E2kOperation *op;
+
+	d(printf("ebbe_cancel_operation(%p, %p)\n", backend, book));
+
+	op = g_hash_table_lookup (bepriv->ops, book);
+	if (op) {
+		e2k_operation_cancel (op);
+		return GNOME_Evolution_Addressbook_Success;
+	} else
+		return GNOME_Evolution_Addressbook_CouldNotCancel;
+}	
+
+static GNOME_Evolution_Addressbook_CallStatus
+e_book_backend_exchange_load_source (EBookBackend *backend,
+				     ESource      *source,
+				     gboolean      only_if_exists)
+{
+	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
+	EBookBackendExchangePrivate *bepriv = be->priv;
+
+	g_return_val_if_fail (be->priv->connected == FALSE, GNOME_Evolution_Addressbook_OtherError);
+
+	d(printf("ebbe_load_source(%p, %p[%s])\n", backend, source, e_source_peek_name (source)));
+
+	bepriv->exchange_uri = e_source_get_uri (source);
+	return e_book_backend_exchange_connect (be);
+}
+
+static EBookBackendSyncStatus
+e_book_backend_exchange_remove (EBookBackendSync *backend, EDataBook *book)
+{
+	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
+	E2kHTTPStatus status;
+
+	d(printf("ebbe_remove(%p, %p)\n", backend, book));
+
+	status = e_folder_exchange_delete (be->priv->folder, NULL);
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+		return GNOME_Evolution_Addressbook_Success;
+	else if (status == E2K_HTTP_UNAUTHORIZED)
+		return GNOME_Evolution_Addressbook_PermissionDenied;
+	else
+		return GNOME_Evolution_Addressbook_OtherError;
+}
+
+static char *
+e_book_backend_exchange_get_static_capabilites (EBookBackend *backend)
+{
+	return g_strdup("net,do-initial-query,cache-completions");
+}
+
+static gboolean
+e_book_backend_exchange_construct (EBookBackendExchange *backend)
+{
+	g_assert (backend != NULL);
+	g_assert (E_IS_BOOK_BACKEND_EXCHANGE (backend));
+
+	if (! e_book_backend_construct (E_BOOK_BACKEND (backend)))
+		return FALSE;
+
+	return TRUE;
+}
+
+/**
+ * e_book_backend_exchange_new:
+ */
+EBookBackend *
+e_book_backend_exchange_new (void)
+{
+	EBookBackendExchange *backend;
+
+	backend = g_object_new (e_book_backend_exchange_get_type (), NULL);
+
+	if (! e_book_backend_exchange_construct (backend)) {
+		g_object_unref (backend);
+
+		return NULL;
+	}
+
+	return E_BOOK_BACKEND (backend);
+}
+
+static void
+e_book_backend_exchange_dispose (GObject *object)
+{
+	EBookBackendExchange *be;
+
+	be = E_BOOK_BACKEND_EXCHANGE (object);
+
+	if (be->priv) {
+		if (be->priv->folder) {
+			e_folder_exchange_unsubscribe (be->priv->folder);
+			g_object_unref (be->priv->folder);
+		}
+
+		if (be->priv->exchange_uri)
+			g_free (be->priv->exchange_uri);
+
+		if (be->priv->account)
+			g_object_unref (be->priv->account);
+
+		if (be->priv->ops)
+			g_hash_table_destroy (be->priv->ops);
+
+		g_free (be->priv);
+		be->priv = NULL;
+	}
+
+	G_OBJECT_CLASS (parent_class)->dispose (object);	
+}
+
+static void
+e_book_backend_exchange_class_init (EBookBackendExchangeClass *klass)
+{
+	GObjectClass  *object_class = (GObjectClass *) klass;
+	EBookBackendClass *backend_class = E_BOOK_BACKEND_CLASS (klass);
+	EBookBackendSyncClass *sync_class = E_BOOK_BACKEND_SYNC_CLASS (klass);
+	int i;
+
+	parent_class = g_type_class_ref (e_book_backend_get_type ());
+
+	/* Static initialization */
+	field_names_array = g_ptr_array_new ();
+	g_ptr_array_add (field_names_array, E2K_PR_DAV_UID);
+	g_ptr_array_add (field_names_array, E2K_PR_DAV_LAST_MODIFIED);
+	g_ptr_array_add (field_names_array, E2K_PR_DAV_CREATION_DATE);
+	g_ptr_array_add (field_names_array, E2K_PR_MAPI_EMAIL_1_ADDRTYPE);
+	g_ptr_array_add (field_names_array, E2K_PR_MAPI_EMAIL_2_ADDRTYPE);
+	g_ptr_array_add (field_names_array, E2K_PR_MAPI_EMAIL_3_ADDRTYPE);
+	for (i = 0; i < num_prop_mappings; i ++)
+		g_ptr_array_add (field_names_array, prop_mappings[i].prop_name);
+	field_names = (const char **)field_names_array->pdata;
+	n_field_names = field_names_array->len;
+
+	/* Set the virtual methods. */
+	backend_class->load_source             = e_book_backend_exchange_load_source;
+	backend_class->get_static_capabilities = e_book_backend_exchange_get_static_capabilites;
+	backend_class->start_book_view         = e_book_backend_exchange_start_book_view;
+	backend_class->stop_book_view          = e_book_backend_exchange_stop_book_view;
+	backend_class->cancel_operation        = e_book_backend_exchange_cancel_operation;
+
+
+	sync_class->remove_sync                = e_book_backend_exchange_remove;
+	sync_class->create_contact_sync        = e_book_backend_exchange_create_contact;
+	sync_class->remove_contacts_sync       = e_book_backend_exchange_remove_contacts;
+	sync_class->modify_contact_sync        = e_book_backend_exchange_modify_contact;
+	sync_class->get_contact_sync           = e_book_backend_exchange_get_contact;
+	sync_class->get_contact_list_sync      = e_book_backend_exchange_get_contact_list;
+	sync_class->get_changes_sync           = e_book_backend_exchange_get_changes;
+	sync_class->authenticate_user_sync     = e_book_backend_exchange_authenticate_user;
+	sync_class->get_supported_fields_sync  = e_book_backend_exchange_get_supported_fields;
+
+	object_class->dispose = e_book_backend_exchange_dispose;
+}
+
+static void
+e_book_backend_exchange_init (EBookBackendExchange *backend)
+{
+	EBookBackendExchangePrivate *priv;
+
+	priv            = g_new0 (EBookBackendExchangePrivate, 1);
+	priv->ops       = g_hash_table_new (NULL, NULL);
+
+	backend->priv = priv;
+}
+
+E2K_MAKE_TYPE (e_book_backend_exchange, EBookBackendExchange, e_book_backend_exchange_class_init, e_book_backend_exchange_init, PARENT_TYPE)
+

@@ -1,0 +1,38 @@
+<!-- ##### SECTION Title ##### -->
+xntlm-des
+
+<!-- ##### SECTION Short_Description ##### -->
+DES encryption/decryption
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+These routines implement DES encryption and decryption. They are here
+primarly for xntlm-internal use, but can also be used by other code
+(such as e2k_des_encode_string() and e2k_des_decode_string()).
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+e2k_des_encode_string(), e2k_des_decode_string()
+</para>
+
+<!-- ##### FUNCTION xntlm_deskey ##### -->
+<para>
+Sets up @ks based on @key. You must call this to initialize the key
+schedule before calling xntlm_des().
+</para>
+
+@ks: key schedule to fill in
+@key: the encryption key
+@decrypt: 0 for encryption, 1 for decryption
+
+
+<!-- ##### FUNCTION xntlm_des ##### -->
+<para>
+DES encrypts/decrypts (according to @ks) a single block in ECB mode.
+</para>
+
+@ks: the key schedule to use
+@block: the block of data to encrypt or decrypt
+
+
