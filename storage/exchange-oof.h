@@ -20,7 +20,8 @@ gboolean      exchange_oof_get              (ExchangeAccount  *account,
 					     char            **mmsg);
 gboolean      exchange_oof_set              (ExchangeAccount  *account,
 					     gboolean          oof,
-					     const char       *msg);
+					     const char       *msg,
+					     gboolean          update);
 
 void          exchange_oof                  (ExchangeAccount  *account,
 					     GtkWidget        *parent);
