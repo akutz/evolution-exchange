@@ -1,3 +1,10 @@
+2004-08-05  Dan Winship  <danw@novell.com>
+
+	* lib/e2k-context.c (e2k_context_transfer_start): Make this split
+	the source_hrefs into groups of E2K_CONTEXT_MAX_BATCH_SIZE so that
+	we don't freak out the server when moving large numbers of
+	messages. (Eg, deleting everything in my Spam folder.)
+
 2004-08-05  Sushma Rai <rsushma@novell.com>
 
 	* addressbook/e-book-backend-exchange.c 

@@ -1954,8 +1954,7 @@ bdelete_msg (E2kContext *ctx, const char *uri, const char **hrefs, int nhrefs)
 	GString *xml;
 	int i;
 
-	xml = g_string_new ("<?xml version=\"1.0\" encoding=\"utf-8\" ?>"
-			    "<delete xmlns=\"DAV:\"><target>");
+	xml = g_string_new (E2K_XML_HEADER "<delete xmlns=\"DAV:\"><target>");
 
 	for (i = 0; i < nhrefs; i++) {
 		g_string_append (xml, "<href>");
@@ -2098,6 +2097,40 @@ e2k_context_mkcol (E2kContext *ctx, E2kOperation *op,
 
 /* BMOVE / BCOPY */
 
+static SoupMessage *
+transfer_msg (E2kContext *ctx,
+	      const char *source_uri, const char *dest_uri,
+	      const char **source_hrefs, int nhrefs,
+	      gboolean delete_originals)
+{
+	SoupMessage *msg;
+	GString *xml;
+	int i;
+
+	xml = g_string_new (E2K_XML_HEADER);
+	g_string_append (xml, delete_originals ? "<move" : "<copy");
+	g_string_append (xml, " xmlns=\"DAV:\"><target>");
+	for (i = 0; i < nhrefs; i++) {
+		g_string_append (xml, "<href>");
+		e2k_g_string_append_xml_escaped (xml, source_hrefs[i]);
+		g_string_append (xml, "</href>");
+	}
+	g_string_append (xml, "</target></");
+	g_string_append (xml, delete_originals ? "move>" : "copy>");
+
+	msg = e2k_soup_message_new_full (ctx, source_uri,
+					 delete_originals ? "BMOVE" : "BCOPY",
+					 "text/xml",
+					 SOUP_BUFFER_SYSTEM_OWNED,
+					 xml->str, xml->len);
+	soup_message_add_header (msg->request_headers, "Overwrite", "f");
+	soup_message_add_header (msg->request_headers, "Allow-Rename", "t");
+	soup_message_add_header (msg->request_headers, "Destination", dest_uri);
+	g_string_free (xml, FALSE);
+
+	return msg;
+}
+
 static E2kHTTPStatus
 transfer_next (E2kResultIter *iter,
 	       E2kContext *ctx, E2kOperation *op,
@@ -2105,24 +2138,33 @@ transfer_next (E2kResultIter *iter,
 	       int *first, int *total,
 	       gpointer user_data)
 {
-	SoupMessage *msg = user_data;
+	GSList **msgs = user_data;
+	SoupMessage *msg;
 	E2kHTTPStatus status;
 
-	if (msg->status != SOUP_MESSAGE_STATUS_IDLE)
+	if (!*msgs)
 		return E2K_HTTP_OK;
 
+	msg = (*msgs)->data;
+	*msgs = g_slist_remove (*msgs, msg);
+
 	status = e2k_context_send_message (ctx, op, msg);
-	if (status == E2K_HTTP_MULTI_STATUS) {
+	if (status == E2K_HTTP_MULTI_STATUS)
 		e2k_results_from_multistatus (msg, results, nresults);
-		*total = *nresults;
-	}
+
+	g_object_unref (msg);
 	return status;
 }
 
 static void
-transfer_free (E2kResultIter *iter, gpointer msg)
+transfer_free (E2kResultIter *iter, gpointer user_data)
 {
-	g_object_unref (msg);
+	GSList **msgs = user_data, *m;
+
+	for (m = *msgs; m; m = m->next)
+		g_object_unref (m->data);
+	g_slist_free (*msgs);
+	g_free (msgs);
 }
 
 /**
@@ -2150,9 +2192,10 @@ e2k_context_transfer_start (E2kContext *ctx, E2kOperation *op,
 			    const char *source_folder, const char *dest_folder,
 			    GPtrArray *source_hrefs, gboolean delete_originals)
 {
+	GSList **msgs;
 	SoupMessage *msg;
 	char *dest_uri;
-	GString *xml;
+	const char **hrefs;
 	int i;
 
 	g_return_val_if_fail (E2K_IS_CONTEXT (ctx), NULL);
@@ -2161,32 +2204,20 @@ e2k_context_transfer_start (E2kContext *ctx, E2kOperation *op,
 	g_return_val_if_fail (source_hrefs != NULL, NULL);
 
 	dest_uri = e2k_strdup_with_trailing_slash (dest_folder);
+	hrefs = (const char **)source_hrefs->pdata;
 
-	xml = g_string_new ("<?xml version=\"1.0\" encoding=\"utf-8\" ?>");
-	g_string_append (xml, delete_originals ? "<move" : "<copy");
-	g_string_append (xml, " xmlns=\"DAV:\"><target>");
-	for (i = 0; i < source_hrefs->len; i++) {
-		g_string_append (xml, "<href>");
-		e2k_g_string_append_xml_escaped (xml, source_hrefs->pdata[i]);
-		g_string_append (xml, "</href>");
+	msgs = g_new0 (GSList *, 1);
+	for (i = 0; i < source_hrefs->len; i += E2K_CONTEXT_MAX_BATCH_SIZE) {
+		msg = transfer_msg (ctx, source_folder, dest_uri,
+				    hrefs + i, MIN (E2K_CONTEXT_MAX_BATCH_SIZE, source_hrefs->len - i),
+				    delete_originals);
+		*msgs = g_slist_append (*msgs, msg);
 	}
-	g_string_append (xml, "</target></");
-	g_string_append (xml, delete_originals ? "move>" : "copy>");
-
-	msg = e2k_soup_message_new_full (ctx, source_folder,
-					 delete_originals ? "BMOVE" : "BCOPY",
-					 "text/xml",
-					 SOUP_BUFFER_SYSTEM_OWNED,
-					 xml->str, xml->len);
-	soup_message_add_header (msg->request_headers, "Overwrite", "f");
-	soup_message_add_header (msg->request_headers, "Allow-Rename", "t");
-	soup_message_add_header (msg->request_headers, "Destination", dest_uri);
-	g_string_free (xml, FALSE);
 	g_free (dest_uri);
 
-	return e2k_result_iter_new (ctx, op, TRUE, -1,
+	return e2k_result_iter_new (ctx, op, TRUE, source_hrefs->len,
 				    transfer_next, transfer_free,
-				    msg); 
+				    msgs);
 }
 
 /**
