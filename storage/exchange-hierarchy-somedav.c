@@ -137,9 +137,7 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *folder, gboolean offline)
 		return EXCHANGE_ACCOUNT_FOLDER_OK;
 	hsd->priv->scanned = TRUE;
 
-	/*FIXME : Not sure if this is the right place for this */
-	exchange_account_is_offline (hier->account, &mode);
-	if (mode != ONLINE_MODE)
+	if (offline)
 		return EXCHANGE_ACCOUNT_FOLDER_OK;
 
 	hrefs = exchange_hierarchy_somedav_get_hrefs (hsd);
