@@ -139,6 +139,10 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *folder)
 	hrefs = exchange_hierarchy_somedav_get_hrefs (hsd);
 	if (!hrefs)
 		return EXCHANGE_ACCOUNT_FOLDER_OK;
+	if (!hrefs->len) {
+		g_ptr_array_free (hrefs, TRUE);
+		return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
+	}
 
 	iter = e_folder_exchange_bpropfind_start (hier->toplevel, NULL,
 						  (const char **)hrefs->pdata,
