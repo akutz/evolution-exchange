@@ -31,6 +31,9 @@
 #include <camel/camel-exchange-summary.h>
 #include <camel/camel-file-utils.h>
 
+#include "camel-stub.h"
+#include "camel-exchange-folder.h"
+
 #define CAMEL_EXCHANGE_SUMMARY_VERSION (1)
 
 static int header_load (CamelFolderSummary *summary, FILE *in);
@@ -41,8 +44,11 @@ static CamelMessageInfo *message_info_load (CamelFolderSummary *summary,
 static int               message_info_save (CamelFolderSummary *summary,
 					    FILE *out,
 					    CamelMessageInfo *info);
-static CamelMessageInfo *message_info_new  (CamelFolderSummary *summary,
-					    struct _camel_header_raw *h);
+static CamelMessageInfo *message_info_new_from_header  (CamelFolderSummary *summary,
+							struct _camel_header_raw *h);
+
+static gboolean info_set_flags(CamelMessageInfo *info, guint32 flags, guint32 set);
+static gboolean info_set_user_tag(CamelMessageInfo *info, const char *name, const char *value);
 
 static CamelFolderSummaryClass *parent_class = NULL;
 
@@ -58,7 +64,10 @@ exchange_summary_class_init (CamelObjectClass *klass)
 	camel_folder_summary_class->summary_header_save = header_save;
 	camel_folder_summary_class->message_info_load = message_info_load;
 	camel_folder_summary_class->message_info_save = message_info_save;
-	camel_folder_summary_class->message_info_new = message_info_new;
+	camel_folder_summary_class->message_info_new_from_header = message_info_new_from_header;
+
+	camel_folder_summary_class->info_set_flags = info_set_flags;
+	camel_folder_summary_class->info_set_user_tag = info_set_user_tag;
 }
 
 static void
@@ -99,11 +108,12 @@ camel_exchange_summary_get_type (void)
  * Return value: the summary object.
  **/
 CamelFolderSummary *
-camel_exchange_summary_new (const char *filename)
+camel_exchange_summary_new (struct _CamelFolder *folder, const char *filename)
 {
 	CamelFolderSummary *summary;
 
 	summary = (CamelFolderSummary *)camel_object_new (CAMEL_EXCHANGE_SUMMARY_TYPE);
+	summary->folder = folder;
 	camel_folder_summary_set_filename (summary, filename);
 	if (camel_folder_summary_load (summary) == -1) {
 		camel_folder_summary_clear (summary);
@@ -174,7 +184,7 @@ message_info_load (CamelFolderSummary *summary, FILE *in)
 
 	return info;
 error:
-	camel_folder_summary_info_free (summary, info);
+	camel_message_info_free (info);
 	return NULL;
 }
 
@@ -190,13 +200,13 @@ message_info_save (CamelFolderSummary *summary, FILE *out, CamelMessageInfo *inf
 }
 
 static CamelMessageInfo *
-message_info_new (CamelFolderSummary *summary, struct _camel_header_raw *h)
+message_info_new_from_header (CamelFolderSummary *summary, struct _camel_header_raw *h)
 {
 	CamelMessageInfo *info;
 	CamelExchangeMessageInfo *einfo;
 	const char *thread_index;
 
-	info = CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->message_info_new (summary, h);
+	info = CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->message_info_new_from_header (summary, h);
 	if (!info)
 		return info;
 
@@ -206,6 +216,50 @@ message_info_new (CamelFolderSummary *summary, struct _camel_header_raw *h)
 		einfo->thread_index = g_strdup (thread_index + 1);
 
 	return info;
+}
+
+static gboolean
+info_set_flags(CamelMessageInfo *info, guint32 flags, guint32 set)
+{
+	int res;
+
+	if (CAMEL_EXCHANGE_SUMMARY (info->summary)->readonly)
+		return FALSE;
+
+	res = CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->info_set_flags(info, flags, set);
+	if (res && info->summary->folder && info->uid) {
+		camel_stub_send_oneway (((CamelExchangeFolder *)info->summary->folder)->stub,
+					CAMEL_STUB_CMD_SET_MESSAGE_FLAGS,
+					CAMEL_STUB_ARG_FOLDER, info->summary->folder->full_name,
+					CAMEL_STUB_ARG_STRING, info->uid,
+					CAMEL_STUB_ARG_UINT32, set,
+					CAMEL_STUB_ARG_UINT32, flags,
+					CAMEL_STUB_ARG_END);
+	}
+
+	return res;
+}
+
+static gboolean
+info_set_user_tag(CamelMessageInfo *info, const char *name, const char *value)
+{
+	int res;
+
+	if (CAMEL_EXCHANGE_SUMMARY (info->summary)->readonly)
+		return FALSE;
+
+	res = CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->info_set_user_tag(info, name, value);
+	if (res && info->summary->folder && info->uid) {
+		camel_stub_send_oneway (((CamelExchangeFolder *)info->summary->folder)->stub,
+					CAMEL_STUB_CMD_SET_MESSAGE_TAG,
+					CAMEL_STUB_ARG_FOLDER, info->summary->folder->full_name,
+					CAMEL_STUB_ARG_STRING, info->uid,
+					CAMEL_STUB_ARG_STRING, name,
+					CAMEL_STUB_ARG_STRING, value,
+					CAMEL_STUB_ARG_END);
+	}
+
+	return res;
 }
 
 /**
@@ -263,29 +317,30 @@ camel_exchange_summary_add_offline (CamelFolderSummary *summary,
 				    CamelMimeMessage *message,
 				    CamelMessageInfo *info)
 {
-	CamelMessageInfo *mi;
-	CamelFlag *flag;
-	CamelTag *tag;
+	CamelMessageInfoBase *mi;
+	const CamelFlag *flag;
+	const CamelTag *tag;
 
 	/* Create summary entry */
-	mi = camel_folder_summary_info_new_from_message (summary, message);
+	mi = (CamelMessageInfoBase *)camel_folder_summary_info_new_from_message (summary, message);
 
 	/* Copy flags 'n' tags */
-	mi->flags = info->flags;
-	flag = info->user_flags;
+	mi->flags = camel_message_info_flags(info);
+
+	flag = camel_message_info_user_flags(info);
 	while (flag) {
-		camel_flag_set (&mi->user_flags, flag->name, TRUE);
+		camel_message_info_set_user_flag((CamelMessageInfo *)mi, flag->name, TRUE);
 		flag = flag->next;
 	}
-	tag = info->user_tags;
+	tag = camel_message_info_user_tags(info);
 	while (tag) {
-		camel_tag_set (&mi->user_tags, tag->name, tag->value);
+		camel_message_info_set_user_tag((CamelMessageInfo *)mi, tag->name, tag->value);
 		tag = tag->next;
 	}
 
-	/* Set uid and add to summary */
-	camel_message_info_set_uid (mi, g_strdup (uid));
-	camel_folder_summary_add (summary, mi);
+	mi->size = camel_message_info_size(info);
+	mi->uid = g_strdup(uid);
+	camel_folder_summary_add (summary, (CamelMessageInfo *)mi);
 }
 
 /**
@@ -305,11 +360,9 @@ camel_exchange_summary_add_offline_uncached (CamelFolderSummary *summary,
 	CamelMessageInfo *mi;
 
 	/* Create summary entry */
-	mi = camel_folder_summary_info_new (summary);
-
-	camel_message_info_dup_to (info, mi);
+	mi = camel_message_info_clone(info);
 
 	/* Set uid and add to summary */
-	camel_message_info_set_uid (mi, g_strdup (uid));
+	mi->uid = g_strdup (uid);
 	camel_folder_summary_add (summary, mi);
 }

@@ -1,3 +1,14 @@
+2004-11-10  Not Zed  <NotZed@Ximian.com>
+
+	* camel/camel-exchange-folder.c (camel_exchange_folder_construct):
+	update for camel api changes, don't handle info set methods
+	anymore, and handle the message_id -> references[0] change.
+
+	* camel/camel-exchange-summary.c: updated for camel
+	implemenentation changes, now emit folder changed events from
+	here, and handle the tag and flags set methods, and set the folder
+	on the summary.
+
 2004-11-09  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* MAINTAINERS : Added a new file

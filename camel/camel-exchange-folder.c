@@ -57,10 +57,6 @@ static void expunge             (CamelFolder *folder,
 static void append_message (CamelFolder *folder, CamelMimeMessage *message,
 			    const CamelMessageInfo *info, char **appended_uid,
 			    CamelException *ex);
-static gboolean set_message_flags (CamelFolder *folder, const char *uid,
-				   guint32 flags, guint32 set);
-static void set_message_user_tag (CamelFolder *folder, const char *uid,
-				  const char *name, const char *value);
 static CamelMimeMessage *get_message         (CamelFolder *folder,
 					      const gchar *uid,
 					      CamelException *ex);
@@ -96,8 +92,6 @@ class_init (CamelFolderClass *camel_folder_class)
 	camel_folder_class->refresh_info = refresh_info;
 	camel_folder_class->expunge = expunge;
 	camel_folder_class->append_message = append_message;
-	camel_folder_class->set_message_flags = set_message_flags;
-	camel_folder_class->set_message_user_tag = set_message_user_tag;
 	camel_folder_class->get_message = get_message;
 	camel_folder_class->search_by_expression = search_by_expression;
 	camel_folder_class->search_by_uids = search_by_uids;
@@ -179,7 +173,7 @@ folder_sync (CamelFolder *folder, gboolean expunge, CamelException *ex)
 	uids = g_ptr_array_new ();
 	for (i = 0; i < summary->len; i++) {
 		info = summary->pdata[i];
-		if (!(info->flags & CAMEL_MESSAGE_DELETED))
+		if (!(camel_message_info_flags(info) & CAMEL_MESSAGE_DELETED))
 			continue;
 		g_ptr_array_add (uids, (char *)camel_message_info_uid (info));
 	}
@@ -246,7 +240,7 @@ append_message_data (CamelFolder *folder, GByteArray *message,
 
 	if (camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_APPEND_MESSAGE,
 			     CAMEL_STUB_ARG_FOLDER, folder->full_name,
-			     CAMEL_STUB_ARG_UINT32, info->flags,
+			     CAMEL_STUB_ARG_UINT32, camel_message_info_flags(info),
 			     CAMEL_STUB_ARG_STRING, subject,
 			     CAMEL_STUB_ARG_BYTEARRAY, message,
 			     CAMEL_STUB_ARG_RETURN,
@@ -285,48 +279,6 @@ append_message (CamelFolder *folder, CamelMimeMessage *message,
 			     info, appended_uid, ex);
 
 	camel_object_unref (CAMEL_OBJECT (stream_mem));
-}
-
-static gboolean
-set_message_flags (CamelFolder *folder, const char *uid,
-		   guint32 flags, guint32 set)
-{
-	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
-	gboolean changed;
-
-	if (folder->permanent_flags == 0)
-		return FALSE;
-
-	changed = CAMEL_FOLDER_CLASS (parent_class)->set_message_flags (folder, uid, flags, set);
-	if (!changed)
-		return FALSE;
-
-	camel_stub_send_oneway (exch->stub, CAMEL_STUB_CMD_SET_MESSAGE_FLAGS,
-				CAMEL_STUB_ARG_FOLDER, folder->full_name,
-				CAMEL_STUB_ARG_STRING, uid,
-				CAMEL_STUB_ARG_UINT32, set,
-				CAMEL_STUB_ARG_UINT32, flags,
-				CAMEL_STUB_ARG_END);
-	return TRUE;
-}
-
-static void
-set_message_user_tag (CamelFolder *folder, const char *uid,
-		      const char *name, const char *value)
-{
-	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
-
-	if (folder->permanent_flags == 0)
-		return;
-
-	CAMEL_FOLDER_CLASS (parent_class)->set_message_user_tag (folder, uid, name, value);
-
-	camel_stub_send_oneway (exch->stub, CAMEL_STUB_CMD_SET_MESSAGE_TAG,
-				CAMEL_STUB_ARG_FOLDER, folder->full_name,
-				CAMEL_STUB_ARG_STRING, uid,
-				CAMEL_STUB_ARG_STRING, name,
-				CAMEL_STUB_ARG_STRING, value,
-				CAMEL_STUB_ARG_END);
 }
 
 static void
@@ -559,12 +511,12 @@ transfer_messages_the_hard_way (CamelFolder *source, GPtrArray *uids,
 
 		ba = get_message_data (source, uids->pdata[i], &local_ex);
 		if (!ba) {
-			camel_folder_summary_info_free (source->summary, info);
+			camel_message_info_free(info);
 			break;
 		}
 
 		append_message_data (dest, ba, NULL, info, &ret_uid, &local_ex);
-		camel_folder_summary_info_free (source->summary, info);
+		camel_message_info_free(info);
 		g_byte_array_free (ba, TRUE);
 
 		if (camel_exception_is_set (&local_ex))
@@ -725,7 +677,7 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 
 	info = camel_folder_summary_uid (folder->summary, uid);
 	if (info) {
-		camel_folder_summary_info_free (folder->summary, info);
+		camel_message_info_free(info);
 		return;
 	}
 
@@ -738,27 +690,31 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 	einfo = (CamelExchangeMessageInfo *)info;
 
 	if (einfo->thread_index) {
-		g_hash_table_insert (exch->thread_index_to_message_id,
-				     g_strdup (einfo->thread_index),
-				     g_memdup (&info->message_id, sizeof (CamelSummaryMessageID)));
+		CamelSummaryMessageID *parent;
 
-		if (!info->references) {
-			CamelSummaryMessageID *parent;
+		if (einfo->info.references && einfo->info.references->size)
+			g_hash_table_insert (exch->thread_index_to_message_id,
+					     g_strdup (einfo->thread_index),
+					     g_memdup (&einfo->info.references->references[0], sizeof (CamelSummaryMessageID)));
 
-			parent = find_parent (exch, einfo->thread_index);
-			if (parent) {
-				info->references = g_new (CamelSummaryReferences, 1);
-				info->references->size = 1;
-				memcpy (&info->references->references[0], parent,
-					sizeof (info->references->references[0]));
-			}
+		parent = find_parent (exch, einfo->thread_index);
+		if (parent) {
+			if (einfo->info.references == NULL)
+				einfo->info.references = g_malloc0(sizeof(CamelSummaryReferences));
+			else
+				einfo->info.references = g_realloc(einfo->info.references, sizeof(CamelSummaryReferences)
+								   + (sizeof(CamelSummaryMessageID)
+								      * einfo->info.references->size));
+
+			memcpy(&einfo->info.references->references[einfo->info.references->size], parent, sizeof(*parent));
+			einfo->info.references->size++;
 		}
 	}
 	camel_object_unref (CAMEL_OBJECT (msg));
 
-	camel_message_info_set_uid (info, g_strdup (uid));
-	info->flags = flags;
-	info->size = size;
+	info->uid = g_strdup (uid);
+	einfo->info.flags = flags;
+	einfo->info.size = size;
 
 	camel_folder_summary_add (folder->summary, info);
 
@@ -805,7 +761,7 @@ camel_exchange_folder_remove_message (CamelExchangeFolder *exch,
 	}
 
 	camel_folder_summary_remove (summary, info);
-	camel_folder_summary_info_free (summary, info);
+	camel_message_info_free (info);
 	camel_data_cache_remove (exch->cache, "cache", uid, NULL);
 
 	changes = camel_folder_change_info_new ();
@@ -844,10 +800,10 @@ camel_exchange_folder_update_message_flags (CamelExchangeFolder *exch,
 					    const char *uid, guint32 flags)
 {
 	CamelFolder *folder = CAMEL_FOLDER (exch);
-	CamelMessageInfo *info;
+	CamelMessageInfoBase *info;
 	CamelFolderChangeInfo *changes;
 
-	info = camel_folder_summary_uid (folder->summary, uid);
+	info = (CamelMessageInfoBase *)camel_folder_summary_uid (folder->summary, uid);
 	if (!info)
 		return;
 
@@ -882,10 +838,10 @@ camel_exchange_folder_update_message_tag (CamelExchangeFolder *exch,
 					  const char *value)
 {
 	CamelFolder *folder = CAMEL_FOLDER (exch);
-	CamelMessageInfo *info;
+	CamelMessageInfoBase *info;
 	CamelFolderChangeInfo *changes;
 
-	info = camel_folder_summary_uid (folder->summary, uid);
+	info = (CamelMessageInfoBase *)camel_folder_summary_uid (folder->summary, uid);
 	if (!info)
 		return;
 
@@ -943,7 +899,7 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 	}
 
 	summary_file = g_strdup_printf ("%s/summary", folder_dir);
-	folder->summary = camel_exchange_summary_new (summary_file);
+	folder->summary = camel_exchange_summary_new (folder, summary_file);
 	g_free (summary_file);
 	if (!folder->summary) {
 		camel_exception_setv (ex, CAMEL_EXCEPTION_SYSTEM,
@@ -968,13 +924,13 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 		info = camel_folder_summary_index (folder->summary, i);
 		einfo = (CamelExchangeMessageInfo *)info;
 
-		if (einfo->thread_index) {
+		if (einfo->thread_index && einfo->info.references && einfo->info.references->size) {
 			g_hash_table_insert (exch->thread_index_to_message_id,
 					     g_strdup (einfo->thread_index),
-					     g_memdup (&info->message_id, sizeof (CamelSummaryMessageID)));
+					     g_memdup (&einfo->info.references->references[0], sizeof (CamelSummaryMessageID)));
 		}
 
-		camel_folder_summary_info_free (folder->summary, info);
+		camel_message_info_free(info);
 	}
 
 	if (stub) {
@@ -991,8 +947,8 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 		for (i = 0; i < summary->len; i++) {
 			info = summary->pdata[i];
 			uids->pdata[i] = (char *)camel_message_info_uid (info);
-			flags->data[i] = info->flags & CAMEL_EXCHANGE_SERVER_FLAGS;
-			camel_tag_list_free (&info->user_tags);
+			flags->data[i] = ((CamelMessageInfoBase *)info)->flags & CAMEL_EXCHANGE_SERVER_FLAGS;
+			camel_tag_list_free (&((CamelMessageInfoBase *)info)->user_tags);
 		}
 
 		camel_operation_start (NULL, _("Scanning for changed messages"));
