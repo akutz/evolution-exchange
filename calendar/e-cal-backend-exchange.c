@@ -306,7 +306,10 @@ remove_calendar (ECalBackendSync *backend, EDataCal *cal)
 	E2kHTTPStatus status;
 	
 	d(printf("ecbe_remove_calendar(%p, %p)\n", backend, cal));
-	
+	GNOME_Evolution_Calendar_PermissionDenied;
+
+	/* FIXME: Deleting calendar/tasks from respective views */
+#if 0
 	status = e_folder_exchange_delete (be->folder, NULL);
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
 		return GNOME_Evolution_Calendar_Success;
@@ -314,6 +317,7 @@ remove_calendar (ECalBackendSync *backend, EDataCal *cal)
 		return GNOME_Evolution_Calendar_PermissionDenied;
 	else
 		return GNOME_Evolution_Calendar_OtherError;
+#endif
 }
 
 static void

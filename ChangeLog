@@ -1,3 +1,12 @@
+2004-08-05  Sushma Rai <rsushma@novell.com>
+
+	* addressbook/e-book-backend-exchange.c 
+	(e_book_backend_exchange_remove): Returning error, instead of 
+	disabling delete option in contacts view. 
+	
+	* calendar/e-cal-backend-exchange.c (remove_calendar): ditto
+	Temporary fix for #57129.
+
 2004-08-05  Sarfraaz Ahmed <asarfraaz@novell.com>
 	
 	* calendar/e-cal-backend-exchange.c (discard_alarm): Implemented

@@ -1889,7 +1889,17 @@ e_book_backend_exchange_remove (EBookBackendSync *backend, EDataBook *book, guin
 	E2kHTTPStatus status;
 
 	d(printf("ebbe_remove(%p, %p)\n", backend, book));
+	return GNOME_Evolution_Addressbook_PermissionDenied;
 
+	/* FIXME: Folder deletion from contacts view */
+#if 0 
+	/*
+	char *path;
+	path = strstr (be->priv->exchange_uri, "://");
+	if (path)
+		path = strchr (path + 3, '/');
+	status = exchange_account_remove_folder (be->priv->account, path);
+	 */
 	status = e_folder_exchange_delete (be->priv->folder, NULL);
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
 		return GNOME_Evolution_Addressbook_Success;
@@ -1897,6 +1907,7 @@ e_book_backend_exchange_remove (EBookBackendSync *backend, EDataBook *book, guin
 		return GNOME_Evolution_Addressbook_PermissionDenied;
 	else
 		return GNOME_Evolution_Addressbook_OtherError;
+#endif
 }
 
 static char *
