@@ -150,8 +150,12 @@ images_DATA =				\
 	exchange-oof-48.png
 
 gladedir   = $(CONNECTOR_DATADIR)/glade
-glade_DATA = exchange-permissions-dialog.glade exchange-delegates.glade \
-	exchange-oof.glade exchange-autoconfig-wizard.glade
+glade_DATA =					\
+	exchange-autoconfig-wizard.glade	\
+	exchange-change-password.glade		\
+	exchange-delegates.glade		\
+	exchange-oof.glade			\
+	exchange-permissions-dialog.glade
 
 uidir   = $(CONNECTOR_DATADIR)/ui
 ui_DATA = ximian-connector.xml
