@@ -15,7 +15,7 @@ typedef struct _CamelExchangeSummary CamelExchangeSummary;
 typedef struct _CamelExchangeSummaryClass CamelExchangeSummaryClass;
 
 typedef struct _CamelExchangeMessageInfo {
-	CamelMessageInfo info;
+	CamelMessageInfoBase info;
 
 	char *thread_index;
 } CamelExchangeMessageInfo;
@@ -32,7 +32,7 @@ struct _CamelExchangeSummaryClass {
 };
 
 CamelType           camel_exchange_summary_get_type          (void);
-CamelFolderSummary *camel_exchange_summary_new               (const char         *filename);
+CamelFolderSummary *camel_exchange_summary_new               (struct _CamelFolder *folder, const char         *filename);
 
 gboolean            camel_exchange_summary_get_readonly      (CamelFolderSummary *summary);
 void                camel_exchange_summary_set_readonly      (CamelFolderSummary *summary,
