@@ -99,7 +99,8 @@ ximian_connector_setup_LDADD =					\
 	$(top_builddir)/lib/libexchange.la			\
 	$(top_builddir)/xntlm/libxntlm.la			\
 	$(LDAP_LIBS)						\
-	$(EXCHANGE_STORAGE_LIBS)				
+	$(EXCHANGE_STORAGE_LIBS)				\
+	$(KRB5_LIBS)
 
 install-exec-local: ximian-connector-setup
 	$(mkinstalldirs) $(DESTDIR)$(bindir)
@@ -114,7 +115,8 @@ migr_test_LDADD = 						\
 	$(top_builddir)/lib/libexchange.la			\
 	$(top_builddir)/xntlm/libxntlm.la			\
 	$(LDAP_LIBS)						\
-	$(EXCHANGE_STORAGE_LIBS)
+	$(EXCHANGE_STORAGE_LIBS)				\
+	$(KRB5_LIBS)
 
 serverdir = $(libdir)/bonobo/servers
 server_in_files = GNOME_Evolution_Exchange_Storage.server.in.in
