@@ -322,7 +322,7 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 	/* Make sure we have an open connection */
 	cbex->account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
 	if (!cbex->account)
-		return GNOME_Evolution_Calendar_RepositoryOffline;
+		return GNOME_Evolution_Calendar_PermissionDenied;
 	if (!exchange_account_get_context (cbex->account))
 		return GNOME_Evolution_Calendar_RepositoryOffline;
 
