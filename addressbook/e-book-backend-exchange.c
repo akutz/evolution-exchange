@@ -1136,24 +1136,28 @@ build_message (const char *from_name, const char *from_email,
 	camel_object_unref (from);
 
 	/* Create the body */
-	stream = camel_stream_mem_new_with_buffer (note, strlen (note));
-	wrapper = camel_data_wrapper_new ();
-	camel_data_wrapper_construct_from_stream (wrapper, stream);
-	camel_object_unref (stream);
-
-	type = camel_content_type_new ("text", "plain");
-	camel_content_type_set_param (type, "charset", "UTF-8");
-	camel_data_wrapper_set_mime_type_field (wrapper, type);
-	camel_content_type_unref (type);
-
-	if (photo)
+	if (note) {
+		stream = camel_stream_mem_new_with_buffer (note, strlen (note));
+		wrapper = camel_data_wrapper_new ();
+		camel_data_wrapper_construct_from_stream (wrapper, stream);
+		camel_object_unref (stream);
+		
+		type = camel_content_type_new ("text", "plain");
+		camel_content_type_set_param (type, "charset", "UTF-8");
+		camel_data_wrapper_set_mime_type_field (wrapper, type);
+		camel_content_type_unref (type);
+	}
+	text_part = NULL;
+	
+	if (note && photo)
 		text_part = camel_mime_part_new ();
-	else
+	else if (note)
 		text_part = CAMEL_MIME_PART (msg);
 
-	camel_medium_set_content_object (CAMEL_MEDIUM (text_part), wrapper);
-	camel_mime_part_set_encoding (text_part, CAMEL_TRANSFER_ENCODING_8BIT);
-
+	if (text_part) {
+		camel_medium_set_content_object (CAMEL_MEDIUM (text_part), wrapper);
+		camel_mime_part_set_encoding (text_part, CAMEL_TRANSFER_ENCODING_8BIT);
+	}
 	if (photo) {
 		CamelMultipart *multipart;
 		GByteArray *photo_ba;
@@ -1203,9 +1207,10 @@ build_message (const char *from_name, const char *from_email,
 		/* Build the multipart */
 		multipart = camel_multipart_new ();
 		camel_multipart_set_boundary (multipart, NULL);
-
-		camel_multipart_add_part (multipart, text_part);
-		camel_object_unref (text_part);
+		if (text_part) {
+			camel_multipart_add_part (multipart, text_part);
+			camel_object_unref (text_part);
+		}
 		camel_multipart_add_part (multipart, photo_part);
 		camel_object_unref (photo_part);
 

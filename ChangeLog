@@ -1,3 +1,11 @@
+2005-03-09 Sivaiah Nallagatla <snallagatla@novell.com>
+                                                                                           
+        * addresbook/e-book-backend-exchange.c
+        (build_message) : make sure note is non NULL
+        before processing. Basically added robustness against
+        ote being NULL.
+        Fixes #72044
+
 2005-03-09  Sushma Rai  <rsushma@novell.com>
 	
 	* storage/exchange-account.h: mbox_size definition. Missed in previous
