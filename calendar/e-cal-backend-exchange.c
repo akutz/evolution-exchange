@@ -621,7 +621,6 @@ get_object (ECalBackendSync *backend, EDataCal *cal,
 	/*any other asserts?*/
 	
 	ecomp = g_hash_table_lookup (cbex->priv->objects, uid);
-	if (!ecomp)
 	if ((!ecomp) || (!ecomp->icomp))
 		return GNOME_Evolution_Calendar_ObjectNotFound;
 	

@@ -66,7 +66,9 @@ typedef enum {
 	CAMEL_STUB_FOLDER_FILTER      = (1<<1),
 	CAMEL_STUB_FOLDER_POST        = (1<<2),
 	CAMEL_STUB_FOLDER_NOSELECT    = (1<<4),
-	CAMEL_STUB_FOLDER_FILTER_JUNK = (1<<5)
+	CAMEL_STUB_FOLDER_FILTER_JUNK = (1<<5),
+	CAMEL_STUB_FOLDER_SYSTEM      = (1<<6),
+	CAMEL_STUB_FOLDER_TYPE_INBOX  = (1<<7)
 } CamelStubFolderFlags;
 
 #ifdef __cplusplus

@@ -441,7 +441,6 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 		add_ical (cbex, result->href, modtime, uid,
 			  ical_data->data, ical_data->len);
 	}
-	// g_byte_array_free (ical_data);
 	status = e2k_result_iter_free (iter);
 
 	if (!SOUP_STATUS_IS_SUCCESSFUL (status)) {
@@ -1848,7 +1847,7 @@ discard_alarm (ECalBackendSync *backend, EDataCal *cal,
 		return GNOME_Evolution_Calendar_ObjectNotFound;
 
 	ecomp = e_cal_component_new ();
-	e_cal_component_set_icalcomponent (ecomp, ecbexcomp->icomp);
+	e_cal_component_set_icalcomponent (ecomp, icalcomponent_new_clone (ecbexcomp->icomp));
 	if (!e_cal_component_has_recurrences (ecomp))
 	{
 		e_cal_component_remove_alarm (ecomp, auid);

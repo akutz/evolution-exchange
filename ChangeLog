@@ -1,3 +1,14 @@
+2005-02-02  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* calendar/e-cal-backend-exchange-calendar.c (discard_alarm):
+	Fixed a leak
+	* calendar/e-cal-backend-exchange.c : Removed a typo.
+	* camel/camel-exchange-store.c (make_folder_info): Mark the inbox
+	flag which is newly added in camel.
+	* camel/camel-stub-constants.h : Declare the new camel flags.
+	* mail/mail-stub-exchange.c (get_folder_info): Set the flag for
+	inbox folder
+
 2005-02-01  Rodrigo Moya <rodrigo@novell.com>
 
 	* calendar/e-cal-backend-exchange-calendar.c (create_object,

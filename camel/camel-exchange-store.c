@@ -430,6 +430,12 @@ make_folder_info (CamelExchangeStore *exch, char *name, char *uri,
 	if (flags & CAMEL_STUB_FOLDER_NOSELECT)
 		info->flags = CAMEL_FOLDER_NOSELECT;
 
+	if (flags & CAMEL_STUB_FOLDER_SYSTEM)
+		info->flags |= CAMEL_FOLDER_SYSTEM;
+		
+	if (flags & CAMEL_STUB_FOLDER_TYPE_INBOX)
+		info->flags |= CAMEL_FOLDER_TYPE_INBOX;
+
 	return info;
 }
 

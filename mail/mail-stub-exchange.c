@@ -2165,6 +2165,8 @@ get_folder_info (MailStub *stub, const char *top, gboolean recursive)
 				unread_count = 0;
 				folder_flags = CAMEL_STUB_FOLDER_NOSELECT;
 			}
+			if (folder == mse->inbox)
+				folder_flags |= CAMEL_STUB_FOLDER_SYSTEM|CAMEL_STUB_FOLDER_TYPE_INBOX;
 
 			g_ptr_array_add (names, (char *)name);
 			g_ptr_array_add (uris, (char *)uri);
