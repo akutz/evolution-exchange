@@ -74,14 +74,14 @@ case $CFLAGS in
 	CFLAGS="$CFLAGS -Wno-sign-compare"
 	;;
 esac
-AC_DEFINE(G_DISABLE_DEPRECATED,1,[No deprecated glib functions])
-AC_DEFINE(GDK_DISABLE_DEPRECATED,1,[No deprecated gdk functions])
-AC_DEFINE(GTK_DISABLE_DEPRECATED,1,[No deprecated gtk functions])
-AC_DEFINE(GNOME_DISABLE_DEPRECATED,1,[No deprecated gnome functions])
-AC_DEFINE(BONOBO_DISABLE_DEPRECATED,1,[No deprecated bonobo functions])
-AC_DEFINE(BONOBO_UI_DISABLE_DEPRECATED,1,[No deprecated bonoboui functions])
-AC_DEFINE(GCONF_DISABLE_DEPRECATED,1,[No deprecated gconf functions])
-AC_DEFINE(LIBGLADE_DISABLE_DEPRECATED,1,[No deprecated libglade functions])
+dnl AC_DEFINE(G_DISABLE_DEPRECATED,1,[No deprecated glib functions])
+dnl AC_DEFINE(GDK_DISABLE_DEPRECATED,1,[No deprecated gdk functions])
+dnl AC_DEFINE(GTK_DISABLE_DEPRECATED,1,[No deprecated gtk functions])
+dnl AC_DEFINE(GNOME_DISABLE_DEPRECATED,1,[No deprecated gnome functions])
+dnl AC_DEFINE(BONOBO_DISABLE_DEPRECATED,1,[No deprecated bonobo functions])
+dnl AC_DEFINE(BONOBO_UI_DISABLE_DEPRECATED,1,[No deprecated bonoboui functions])
+dnl AC_DEFINE(GCONF_DISABLE_DEPRECATED,1,[No deprecated gconf functions])
+dnl AC_DEFINE(LIBGLADE_DISABLE_DEPRECATED,1,[No deprecated libglade functions])
 
 AC_EGREP_HEADER(socklen_t, sys/socket.h, :, AC_DEFINE(socklen_t, int, [Define to "int" if socklen_t is not defined]))
 
