@@ -1,4 +1,13 @@
 2005-03-09 Sivaiah Nallagatla <snallagatla@novell.com>
+
+	* addressbook/e-book-backend-exchange.c 
+	(e_book_backend_exchange_get_contact_list) : 
+	Don't free the vcard you just added to list !!!
+	That gets freed elsewhere.
+	Fixes #73470, #73030 #73025 and may be something 
+	else which i don't know
+
+2005-03-09 Sivaiah Nallagatla <snallagatla@novell.com>
                                                                                            
         * addresbook/e-book-backend-exchange.c
         (build_message) : make sure note is non NULL

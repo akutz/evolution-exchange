@@ -1777,7 +1777,6 @@ e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 			if (!vcard)
 				continue;
 			*contacts = g_list_prepend (*contacts, vcard);
-			g_free (vcard);
 		}
 		status = e2k_result_iter_free (iter);
 
