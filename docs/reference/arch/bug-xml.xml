@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="ximian-connector-bug-xml">
+<refmeta>
+<refentrytitle>Bugs in <application>Exchange</application>'s XML handling</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>XIMIAN-CONNECTOR Library</refmiscinfo>
+</refmeta>
+
+<refnamediv></refnamediv>
+
+<refsect2>
+<title>Illegal characters</title>
+
+<para>
+The <ulink url="http://w3.org/TR/2004/REC-xml-20040204/">XML 1.0
+Specification</ulink> defines a character as:
+</para>
+
+<informalexample><programlisting>
+        Char ::= #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
+</programlisting></informalexample>
+
+<para>
+There is no way to directly encode any other character into an XML 1.0
+document.
+</para>
+
+<para>
+In some cases, <application>Exchange</application> XML will include
+entities like <literal>&amp;#01;</literal>. (One example of this
+resulted from syncing corrupt data from a Palm device.) This renders
+the XML non-well-formed. As a result, we have to use the "recovery"
+mode of the libxml parser in order to guarantee that it will give us
+output.
+</para>
+
+<para>
+(If we want to be charitable, we could say that
+<application>Exchange</application> was just ahead of the curve,
+because <ulink url="http://w3.org/TR/2004/REC-xml11-20040204/">XML
+1.1</ulink> <emphasis>does</emphasis> allow control characters to
+appear as entities.)
+</para>
+
+</refsect2>
+
+<refsect2>
+<title>Illegal tag names</title>
+
+<para>
+The grammar for a tag name is:
+</para>
+
+<informalexample><programlisting>
+	Name ::= (Letter | '_' | ':') (NameChar)*
+</programlisting></informalexample>
+
+<para>
+But in the namespaces under
+<uri>http://schemas.microsoft.com/mapi/id/</uri>,
+<application>Exchange</application> uses tags that start with
+"<literal>0x</literal>". There is no way to force libxml to parse
+these, so <link linkend="E2kResult">e2k-result.c</link> has to mangle
+the raw response to remove the "<literal>0</literal>"s (in
+<function>sanitize_bad_multistatus()</function>), and then put them
+back into the parsed property values (in
+<function>prop_parse()</function>).
+</para>
+
+</refsect2>
+
+</refentry>

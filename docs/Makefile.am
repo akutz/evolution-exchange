@@ -14,7 +14,6 @@ EXTRA_DIST =			\
 	mail			\
 	mapi-properties		\
 	non-ipm-subtree		\
-	ntlm			\
 	openldap-ntlm.diff	\
 	rules			\
 	sending-mail		\

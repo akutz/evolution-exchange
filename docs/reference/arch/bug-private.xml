@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="ximian-connector-bug-private">
+<refmeta>
+<refentrytitle>Private Item Handling</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>XIMIAN-CONNECTOR Library</refmiscinfo>
+</refmeta>
+
+<refnamediv></refnamediv>
+
+<para>
+<application>Outlook</application> allows the user to mark items in
+folders as "private". (<application>Evolution</application> allows
+this in Calendar and Task folders, but not Contact or Mail folders.)
+Private items are not supposed to show up when other users view the
+folder, unless they have been given explicit permission to view
+private items in the <link
+linkend="ximian-connector-delegation">Delegates</link> dialog.
+</para>
+
+<para>
+Bizarrely, <application>Exchange</application> does not actually
+enforce this. Thus, when a user subscribes to another user's folder,
+Connector has to check whether or not the user is supposed to be able
+to view private items, and filter them out if not.
+</para>
+
+<note><para>
+In <application>Outlook</application> and
+<application>OWA</application>, if you are not allowed to view private
+calendar items, they still show up in the calendar, but with the
+summary changed to something like "Private item", and they can't be
+opened. See <ulink
+url="http://bugzilla.ximian.com/show_bug.cgi?id=56066">Bug
+56066</ulink>.
+</para></note>
+
+<para>
+The information about who can view private items is stored with the
+<link linkend="ximian-connector-delegation">delegates</link> data on
+the other user's mailbox. 
+<link linkend="ExchangeHierarchyForeign"><classname>ExchangeHierarchyForeign</classname></link>
+checks that data, and sets its
+<structfield>hide_private_items</structfield> flag accordingly. (If it
+cannot read the delegates data, it assumes that the user is not
+allowed to view private items.)
+</para>
+
+<para>
+<link linkend="ECalBackendExchange"><classname>ECalBackendExchange</classname></link>
+and
+<link linkend="EBookBackendExchange"><classname>EBookBackendExchange</classname></link>
+check the <structfield>hide_private_items</structfield> flag on the
+<link linkend="ExchangeHierarchy"><classname>ExchangeHierarchy</classname></link>
+of the folder they are working with, and set their
+<structfield>private_item_restriction</structfield> fields
+accordingly:
+</para>
+
+<informalexample><programlisting>
+	hier = e_folder_exchange_get_hierarchy (cbex->folder);
+	if (hier->hide_private_items) {
+		cbex->private_item_restriction =
+			e2k_restriction_prop_int (
+				E2K_PR_MAPI_SENSITIVITY, E2K_RELOP_NE, 2);
+	} else
+		cbex->private_item_restriction = NULL;
+</programlisting></informalexample>
+
+<para>
+That field is incorporated as part of the restriction in
+every <command>SEARCH</command> that they do, so that if
+<structfield>hide_private_items</structfield> was set, the private
+items will be excluded from the <command>SEARCH</command> results.
+</para>
+
+</refentry>

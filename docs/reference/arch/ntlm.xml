@@ -1,0 +1,414 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="ximian-connector-ntlm">
+<refmeta>
+<refentrytitle>NTLM Authentication Overview</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>XIMIAN-CONNECTOR Library</refmiscinfo>
+</refmeta>
+
+<refsect1>
+<title>Basic NTLM Protocol</title>
+
+<para>
+NTLM auth takes three steps:
+</para>
+
+<variablelist>
+    <varlistentry>
+	<term>Client &rarr; Server:</term>
+	<listitem><para>Negotiate message</para></listitem>
+    </varlistentry>
+    <varlistentry>
+	<term>Server &rarr; Client:</term>
+	<listitem><para>Challenge message</para></listitem>
+    </varlistentry>
+    <varlistentry>
+	<term>Client &rarr; Server:</term>
+	<listitem><para>Authenticate message</para></listitem>
+    </varlistentry>
+</variablelist>
+
+<para>
+The message header is the same in each step. The packet starts with
+<literal>"NTLMSSP\0"</literal>, followed by the 4-byte message type
+(of which only the first byte is significant: 1 for Negotiate, 2 for
+Challenge, 3 for Authenticate).
+</para>
+
+<para>
+The structure definitions below assume x86 conventions: all fields are
+little-endian. Also, the "<structfield>max_len</structfield>" fields
+<emphasis>always</emphasis> contain the same values as their
+corresponding "<structfield>len</structfield>" fields. The distinction
+is presumably historical.
+</para>
+
+<refsect2>
+<title>The Negotiate message</title>
+
+<para>
+In <application>Samba</application>, this looks like this:
+</para>
+
+<informalexample><programlisting>
+struct {
+        char    protocol[8];     // 'N', 'T', 'L', 'M', 'S', 'S', 'P', '\0'
+        guint32 type;            // 0x00000001
+        guint32 flags;           // 0x0000b203
+
+        guint16 dom_len;         // NT domain name length
+        guint16 dom_max_len;     // NT domain name max length
+        guint32 dom_off;         // NT domain name offset
+
+        guint16 host_len;        // local workstation name length
+        guint16 host_max_len;    // local workstation name max length
+        guint32 host_off;        // local workstation offset
+
+        char    host[];          // local workstation name (ASCII)
+        char    domain[];        // NT domain name (ASCII)
+};
+</programlisting></informalexample>
+
+<para>
+The request <link
+linkend="xntlm-negotiate"><function>xntlm_negotiate()</function></link>
+creates is slightly different from this: we pass
+<constant>0x00008206</constant> for the flags, <constant>0</constant>
+for all of the domain and hostname lengths and offsets, and two more
+"<structfield>len</structfield>, <structfield>max_len</structfield>,
+<structfield>offset</structfield>" pairs (with lengths
+<constant>0</constant> and offset <constant>0x30</constant>). I don't
+know exactly what that all means.
+</para>
+
+<para>
+The meanings of the flags, from
+<ulink url="http://www.opengroup.org/comsource/techref2/NCH1222X.HTM">http://www.opengroup.org/comsource/techref2/NCH1222X.HTM:</ulink>:
+</para>
+
+<informalexample><programlisting>
+#define NTLMSSP_NEGOTIATE_UNICODE     0x0001  // Text strings are in unicode
+#define NTLMSSP_NEGOTIATE_OEM         0x0002  // Text strings are in OEM
+#define NTLMSSP_REQUEST_TARGET        0x0004  // Server return its auth realm
+#define NTLMSSP_NEGOTIATE_SIGN        0x0010  // Request signature capability  
+#define NTLMSSP_NEGOTIATE_SEAL        0x0020  // Request confidentiality
+#define NTLMSSP_NEGOTIATE_LM_KEY      0x0080  // Generate session key
+#define NTLMSSP_NEGOTIATE_NTLM        0x0200  // NTLM authentication
+#define NTLMSSP_NEGOTIATE_LOCAL_CALL  0x4000  // client/server on same machine
+#define NTLMSSP_NEGOTIATE_ALWAYS_SIGN 0x8000  // Sign for all security levels
+</programlisting></informalexample>
+
+<para>
+<literal>NTLMSSP_NEGOTIATE_LOCAL_CALL</literal> is a no-op if the
+client sets it (which <application>Samba</application> does). If it's
+set in the server's response it means that the client and server are
+on the same machine. The <constant>0x06</constant> at the end of the
+flags says we only support 8-bit ("OEM") encoding (which means we
+don't have to gratuitously convert the username to UTF-16), and we
+want the server to tell us its auth realm, which is very useful to us
+because otherwise we generally don't know it.
+</para>
+
+</refsect2>
+
+
+<refsect2>
+<title>The Challenge message</title>
+
+<para>
+The server's response to the negotiate packet looks like:
+</para>
+
+<informalexample><programlisting>
+struct {
+        char    protocol[8];     // 'N', 'T', 'L', 'M', 'S', 'S', 'P', '\0'
+        guint32 type;            // 0x00000002
+
+	guint16 dom_len;         // NT domain name length
+	guint16 dom_max_len;     // NT domain name max length
+        guint32 dom_off;         // NT domain name offset (always 0x0030)
+
+        guint32 flags;
+
+        char    nonce[8];        // nonce
+        char    zero[8];
+
+	guint16 data_len;        // length of data following domain
+	guint16 data_max_len;    // length of data following domain
+        guint32 data_off;        // offset of data following domain
+
+	char    domain[];        // NT domain name
+
+        // The following piece occurs multiple times
+	guint16 type;            // Type of this data item
+	guint16 length;          // Length in bytes of this data item
+	char    data[];          // Data
+	...
+};
+</programlisting></informalexample>
+
+<para>
+The flags basically echo the request flags, but may also contain:
+</para>
+
+<informalexample><programlisting>
+#define NTLMSSP_TARGET_TYPE_DOMAIN  0x10000 // Server is a DC/AD
+#define NTLMSSP_TARGET_TYPE_SERVER  0x20000 // Server is just a server
+</programlisting></informalexample>
+
+<para>
+Our server returns <constant>0x00818206</constant>. I'm not sure what
+the <constant>0x008000000</constant> means.
+</para>
+
+<para>
+<link linkend="xntlm-parse-challenge"><function>xntlm_parse_challenge()</function></link>
+extracts the <structfield>nonce</structfield>, to be used as described
+below. The <structfield>domain</structfield> field contains the NT
+domain name of the server, which is also needed for the response
+packet.
+</para>
+
+<para>
+The additional data item types are:
+</para>
+
+<variablelist>
+    <varlistentry>
+	<term><constant>0x01</constant></term>
+	<listitem><para>WINS name of server (eg, <literal>SHREWDNESS</literal>)</para></listitem>
+    </varlistentry>
+    <varlistentry>
+	<term><constant>0x02</constant></term>
+	<listitem><para>NT domain name (eg, <literal>XCS</literal>)</para></listitem>
+    </varlistentry>
+    <varlistentry>
+	<term><constant>0x03</constant></term>
+	<listitem><para>DNS name of server (eg, <literal>shrewdness.xcs.ximian.com</literal>)</para></listitem>
+    </varlistentry>
+    <varlistentry>
+	<term><constant>0x04</constant></term>
+	<listitem><para>Windows 2000 domain name (eg, <literal>xcs.ximian.com</literal>)</para></listitem>
+    </varlistentry>
+</variablelist>
+
+<para>
+However, they may occur in any order. Note that they're returned in
+Unicode (UTF-16LE) even though we said we don't speak Unicode. The
+packet is terminated by an item with type and length
+<constant>0</constant>.
+</para>
+
+</refsect2>
+
+
+<refsect2>
+<title>The Authenticate message</title>
+
+<para>
+The final message, generated by
+<link linkend="xntlm-authenticate"><function>xntlm_authenticate()</function></link>
+looks like:
+</para>
+
+<informalexample><programlisting>
+struct {
+        char    protocol[8];     // 'N', 'T', 'L', 'M', 'S', 'S', 'P', '\0'
+        guint32 type;            // 0x00000003
+
+        guint16 lm_resp_len;     // LanManager response length (always 0x18)
+        guint16 lm_resp_max_len; // LanManager response max length
+        guint32 lm_resp_off;     // LanManager response offset
+
+        guint16 nt_resp_len;     // NT response length (always 0x18)
+        guint16 nt_resp_max_len; // NT response max length
+        guint32 nt_resp_off;     // NT response offset
+
+        guint16 dom_len;         // NT domain name length
+        guint16 dom_max_len;     // NT domain name max length
+        guint32 dom_off;         // NT domain name offset (always 0x0040)
+
+        guint16 user_len;        // username length
+        guint16 user_max_len;    // username max length
+        guint32 user_off;        // username offset
+
+        guint16 host_len;        // local workstation name length
+        guint16 host_max_len;    // local workstation name max length
+        guint32 host_off;        // local workstation name offset
+
+        guint16 session_len;     // session key length
+        guint16 session_max_len; // session key max length
+        guint32 session_off;     // session key offset
+
+        guint32 flags;           // 0x00008201
+
+        char    domain[];        // NT domain name (UCS-16LE)
+        char    user[];          // username (UCS-16LE)
+        char    host[];          // local workstation name (UCS-16LE)
+        char    lm_resp[];       // LanManager response
+        char    nt_resp[];       // NT response
+};
+</programlisting></informalexample>
+
+<para>
+It seems to always be acceptable to leave
+"<structfield>host</structfield>" blank.
+</para>
+
+<para>
+The LanManager and NT responses are computed from the user's password
+and the <structfield>nonce</structfield> from the Challenge message
+using an arcane series of computations too dull to get into here.
+UTSL.
+</para>
+
+</refsect2>
+
+</refsect1>
+
+<refsect1 id="ximian-connector-ntlm-http">
+<title>NTLM over HTTP</title>
+
+<para>
+<application>IIS</application> abuses the HTTP auth mechanism slightly
+for NTLM. The important bits are:
+</para>
+
+<orderedlist>
+    <listitem><para>
+	The HTTP connection must be kept open during the auth
+	exchange.
+    </para></listitem>
+    <listitem><para>
+	If the connection is closed, you have to start over. You
+	can't just present the reponse packet again.
+    </para></listitem>
+    <listitem><para>
+	Once you've successfully authenticated, the connection remains
+	authenticated until it's closed, without you needing to keep
+	sending the <literal>Authorization</literal> header.
+	(Normally, you authenticate only single requests, not entire
+	connections.)
+    </para></listitem>
+</orderedlist>
+
+<para>
+Certain HTTP proxies will break NTLM authentication, presumably by not
+allowing persistent connections. In these cases, the user will have to
+use "Plaintext Password" authentication (which uses the HTTP Basic
+auth mechanism).
+</para>
+
+<para>
+<application>IIS</application> also supports a third auth mechanism,
+"Negotiate", which is based on <ulink
+href="http://ietf.org/rfc/rfc2478">RFC 2478</ulink>. It's basically
+SASL inside GSSAPI. It presumably allows you to use GSSAPI-based
+Kerberos 5 authentication. Since this is standards-based, we could
+theoretically support it. However, GSS is a big mess of ASN1 encoded
+gunk, so it would probably really suck a lot.
+</para>
+
+<para>
+Each of the three auth mechanisms can be turned on and off
+independently on the server (on a per-user basis even). We know that
+there are sites that don't allow Basic, and sites that only allow
+Basic.
+</para>
+
+<para>
+It is possible for <literal>/exchange</literal> and
+<literal>/public</literal> to have different settings. (It's
+theoretically possible for one to allow only Basic and the other to
+allow only NTLM, which Connector would not like very much.)
+</para>
+
+<para>
+There are a handful of methods for which IIS does not return a 401
+when it should:
+</para>
+
+<variablelist>
+    <varlistentry>
+	<term><command>POLL</command></term>
+	<listitem><para><errorcode>207</errorcode>
+	<errorname>Multi-Status</errorname> with a
+	<errorcode>409</errorcode> <errorname>Conflict</errorname>
+	inside</para></listitem>
+    </varlistentry>
+
+    <varlistentry>
+	<term><command>BPROPPATCH</command></term>
+	<listitem><para><errorcode>207</errorcode>
+	<errorname>Multi-Status</errorname> with a
+	<errorcode>401</errorcode> <errorname>Unauthorized</errorname>
+	inside</para></listitem>
+    </varlistentry>
+
+    <varlistentry>
+	<term><command>PUT</command> to <literal>sendmsg</literal> URI</term>
+	<listitem><para><errorcode>404</errorcode> <errorname>Not
+	Found</errorname></para></listitem>
+    </varlistentry>
+</variablelist>
+
+</refsect1>
+
+<refsect1 id="ximian-connector-ntlm-ldap">
+<title>NTLM over LDAP</title>
+
+<para>
+Meanwhile, <application>Active Directory</application> (and presumably
+<application>Exchange 5.5</application> as well) abuses LDAP auth
+somewhat to support NTLM. <ulink
+href="http://ietf.org/rfc/rfc2251">RFC 2251</ulink> says:
+</para>
+
+<informalexample><programlisting>
+        BindRequest ::= [APPLICATION 0] SEQUENCE {
+                version                 INTEGER (1 .. 127),
+                name                    LDAPDN,
+                authentication          AuthenticationChoice }
+
+        AuthenticationChoice ::= CHOICE {
+                simple                  [0] OCTET STRING,
+                                         -- 1 and 2 reserved
+                sasl                    [3] SaslCredentials }
+
+        BindResponse ::= [APPLICATION 1] SEQUENCE {
+             COMPONENTS OF LDAPResult,
+             serverSaslCreds    [7] OCTET STRING OPTIONAL }
+
+        LDAPResult ::= SEQUENCE {
+                resultCode      ENUMERATED {
+                             success                      (0),
+                             ...
+                             other                        (80) },
+                matchedDN       LDAPDN,
+                errorMessage    LDAPString,
+                referral        [3] Referral OPTIONAL }
+</programlisting></informalexample>
+
+<para>
+First, the client sends a <literal>BindRequest</literal> with
+"<literal>NTLM</literal>" for the name and an
+<literal>AuthenticationChoice</literal> with a tag value of
+<constant>10</constant> followed by the NTLM request packet in an
+<literal>OCTET STRING</literal>. The server responds with a
+<literal>BindResponse</literal> containing the challenge packet in the
+<literal>matchedDN</literal> field. The client then sends another
+<literal>BindRequest</literal> with no name and an
+<literal>AuthenticationChoice</literal> of <constant>11</constant>
+followed by the response packet, and the server (hopefully) responds
+with a successful <literal>BindResponse</literal>.
+</para>
+
+<para>
+This is implemented in Connector by <link
+linkend="E2kGlobalCatalog"><classname>E2kGlobalCatalog</classname></link>.
+</para>
+
+</refsect1>
+</refentry>
