@@ -1,3 +1,13 @@
+2005-03-05  Sushma Rai  <rsushma@novell.com>
+
+	* shell/e-folder-misc-dialogs.c (do_foreign_folder_dialog): Removed the
+	corba method which was still being used to retrieve user's e-mail
+	address.
+	(user_clicked): Making name selector dialog modal.
+	(setup_name_selector): Adding the user name entry widget to the name
+	selector dialog.
+	Fixes #73218
+
 2005-03-07  Sushma Rai  <rsushma@novell.com>
 
 	* storage/exchange-account.c (exchange_account_new): Setting the
