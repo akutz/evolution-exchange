@@ -53,7 +53,9 @@ GType     e_cal_backend_exchange_get_type         (void);
 void      e_cal_backend_exchange_cache_sync_start (ECalBackendExchange *cbex);
 gboolean  e_cal_backend_exchange_in_cache         (ECalBackendExchange *cbex,
 						   const char          *uid,
-						   const char          *lastmod);
+						   const char          *lastmod,
+						   const char	       *href);
+
 void      e_cal_backend_exchange_cache_sync_end   (ECalBackendExchange *cbex);
 
 

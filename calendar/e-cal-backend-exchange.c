@@ -336,7 +336,8 @@ e_cal_backend_exchange_cache_sync_start (ECalBackendExchange *cbex)
 gboolean
 e_cal_backend_exchange_in_cache (ECalBackendExchange *cbex,
 				 const char          *uid,
-				 const char          *lastmod)
+				 const char          *lastmod,
+				 const char	     *href)
 {
 	ECalBackendExchangeComponent *ecomp;
 
@@ -350,6 +351,13 @@ e_cal_backend_exchange_in_cache (ECalBackendExchange *cbex,
 	if (strcmp (ecomp->lastmod, lastmod) < 0) {
 		g_hash_table_remove (cbex->priv->objects, uid);
 		return FALSE;
+	}
+
+	/* Update the cache with the new href */
+	if (href) {
+		if (ecomp->href)
+			g_free (ecomp->href);
+		ecomp->href = g_strdup (href);
 	}
 
 	return TRUE;

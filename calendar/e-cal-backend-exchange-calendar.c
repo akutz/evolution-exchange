@@ -261,7 +261,7 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 		modtime = e2k_properties_get_prop (result->props,
 						   E2K_PR_DAV_LAST_MODIFIED);
 
-		if (!e_cal_backend_exchange_in_cache (cbex, uid, modtime)) {
+		if (!e_cal_backend_exchange_in_cache (cbex, uid, modtime, result->href)) {
 			g_ptr_array_add (hrefs, g_strdup (result->href));
 			g_hash_table_insert (modtimes, g_strdup (result->href),
 					     g_strdup (modtime));
@@ -1103,7 +1103,7 @@ set_freebusy_info (icalcomponent *vfb, const char *data, time_t start)
 	const char *span_start, *span_end;
 	E2kBusyStatus busy;
 	icalproperty *prop;
-	time_t end;
+	time_t end = 0;
 
 	for (span_start = span_end = data; *span_start; span_start = span_end, start = end) {
 		busy = E2K_FBCHAR_TO_BUSYSTATUS (*span_start);
