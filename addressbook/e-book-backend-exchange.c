@@ -1458,11 +1458,19 @@ func_match (struct _ESExp *f, int argc, struct _ESExpResult **argv, void *data)
 				flags, str),
 			NULL);
 	} else if (!strcmp (propname, "email")) {
-		rn = e2k_restriction_orv (
-			e2k_restriction_content (E2K_PR_MAPI_EMAIL_1_ADDRESS, flags, str),
-			e2k_restriction_content (E2K_PR_MAPI_EMAIL_2_ADDRESS, flags, str),
-			e2k_restriction_content (E2K_PR_MAPI_EMAIL_3_ADDRESS, flags, str),
-			NULL);
+		if (!*str) {
+			rn  = e2k_restriction_orv (
+				e2k_restriction_exist ( E2K_PR_MAPI_EMAIL_1_ADDRESS),
+				e2k_restriction_exist ( E2K_PR_MAPI_EMAIL_1_ADDRESS),
+				e2k_restriction_exist ( E2K_PR_MAPI_EMAIL_1_ADDRESS),
+				NULL);
+		} else {
+			rn = e2k_restriction_orv (
+				e2k_restriction_content (E2K_PR_MAPI_EMAIL_1_ADDRESS, flags, str),
+				e2k_restriction_content (E2K_PR_MAPI_EMAIL_2_ADDRESS, flags, str),
+				e2k_restriction_content (E2K_PR_MAPI_EMAIL_3_ADDRESS, flags, str),
+				NULL);
+		}
 	} else {
 		exchange_prop =
 			e_book_backend_exchange_prop_to_exchange (propname);
