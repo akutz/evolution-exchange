@@ -157,7 +157,6 @@ install-data-local: $(noinst_DATA)
 
 
 EXTRA_DIST =				\
-	mail.xpm			\
 	$(server_in_files)		\
 	$(server_DATA)			\
 	$(images_DATA)			\
