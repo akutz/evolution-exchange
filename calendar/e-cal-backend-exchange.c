@@ -1030,7 +1030,7 @@ set_mode (ECalBackend *backend, CalMode mode)
 				return;
 			cbex->folder = exchange_account_get_folder (account, uristr);
 			/* FIXME : Test if available for read already */
-			priv->read_only = TRUE;
+			priv->read_only = FALSE;
 			exchange_account_set_online (account);
 			priv->mode = CAL_MODE_REMOTE;
 			e_cal_backend_notify_mode (backend, 
@@ -1048,6 +1048,7 @@ set_mode (ECalBackend *backend, CalMode mode)
 				return;
 			cbex->folder = exchange_account_get_folder (account, uristr);
 			priv->mode = CAL_MODE_LOCAL;
+			priv->read_only = TRUE;
 			exchange_account_set_offline (account);
 			e_cal_backend_notify_mode (backend, 
 				GNOME_Evolution_Calendar_CalListener_MODE_SET,
