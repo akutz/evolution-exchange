@@ -45,9 +45,10 @@ struct _ExchangeHierarchyForeignPrivate {
 
 extern const char *exchange_localfreebusy_path;
 
-#define PARENT_TYPE EXCHANGE_TYPE_HIERARCHY_WEBDAV
-static ExchangeHierarchyWebDAVClass *parent_class = NULL;
+#define PARENT_TYPE EXCHANGE_TYPE_HIERARCHY_SOMEDAV
+static ExchangeHierarchySomeDAVClass *parent_class = NULL;
 
+static GPtrArray *get_hrefs (ExchangeHierarchySomeDAV *hsd);
 static ExchangeAccountFolderResult create_folder (ExchangeHierarchy *hier,
 						  EFolder *parent,
 						  const char *name,
@@ -56,24 +57,26 @@ static ExchangeAccountFolderResult remove_folder (ExchangeHierarchy *hier,
 						  EFolder *folder);
 static ExchangeAccountFolderResult scan_subtree (ExchangeHierarchy *hier,
 						 EFolder *folder);
-static void add_to_storage (ExchangeHierarchy *hier);
 static void finalize (GObject *object);
 
 static void
 class_init (GObjectClass *object_class)
 {
-	ExchangeHierarchyClass *exchange_hierarchy_class =
+	ExchangeHierarchyClass *hierarchy_class =
 		EXCHANGE_HIERARCHY_CLASS (object_class);
+	ExchangeHierarchySomeDAVClass *somedav_class =
+		EXCHANGE_HIERARCHY_SOMEDAV_CLASS (object_class);
 
 	parent_class = g_type_class_ref (PARENT_TYPE);
 
 	/* virtual method override */
 	object_class->finalize = finalize;
 
-	exchange_hierarchy_class->add_to_storage = add_to_storage;
-	exchange_hierarchy_class->create_folder  = create_folder;
-	exchange_hierarchy_class->remove_folder  = remove_folder;
-	exchange_hierarchy_class->scan_subtree   = scan_subtree;
+	hierarchy_class->create_folder  = create_folder;
+	hierarchy_class->remove_folder  = remove_folder;
+	hierarchy_class->scan_subtree   = scan_subtree;
+
+	somedav_class->get_hrefs        = get_hrefs;
 }
 
 static void
@@ -192,15 +195,6 @@ hierarchy_foreign_cleanup (ExchangeHierarchy *hier)
 	exchange_hierarchy_removed_folder (hier, hier->toplevel);
 }
 
-static inline gboolean
-folder_is_unreadable (E2kProperties *props)
-{
-	char *access;
-
-	access = e2k_properties_get_prop (props, PR_ACCESS);
-	return !access || !atoi (access);
-}
-
 static const char *folder_props[] = {
 	E2K_PR_EXCHANGE_FOLDER_CLASS,
 	E2K_PR_HTTPMAIL_UNREAD_COUNT,
@@ -218,6 +212,7 @@ find_folder (ExchangeHierarchy *hier, const char *uri, EFolder **folder_out)
 	E2kResult *results;
 	int nresults;
 	EFolder *folder;
+	const char *access;
 
 	status = e2k_context_propfind (ctx, NULL, uri,
 				       folder_props, n_folder_props,
@@ -227,7 +222,8 @@ find_folder (ExchangeHierarchy *hier, const char *uri, EFolder **folder_out)
 	if (nresults == 0)
 		return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
 
-	if (folder_is_unreadable (results[0].props))
+	access = e2k_properties_get_prop (results[0].props, PR_ACCESS);
+	if (!access || !atoi (access))
 		return EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED;
 
 	folder = exchange_hierarchy_webdav_parse_folder (hwd, hier->toplevel,
@@ -346,100 +342,35 @@ remove_folder (ExchangeHierarchy *hier, EFolder *folder)
 	return EXCHANGE_ACCOUNT_FOLDER_OK;
 }
 
+static ExchangeAccountFolderResult
+scan_subtree (ExchangeHierarchy *hier, EFolder *folder)
+{
+	ExchangeAccountFolderResult folder_result;
+
+	check_hide_private (hier);
+
+	folder_result = EXCHANGE_HIERARCHY_CLASS (parent_class)->scan_subtree (hier, folder);
+
+	if (exchange_hierarchy_is_empty (hier))
+		hierarchy_foreign_cleanup (hier);
+
+	return folder_result;
+}
+
 static void
 add_href (ExchangeHierarchy *hier, EFolder *folder, gpointer hrefs)
 {
 	g_ptr_array_add (hrefs, (char *)e_folder_exchange_get_internal_uri (folder));
 }
 
-static ExchangeAccountFolderResult
-scan_subtree_real (ExchangeHierarchy *hier, EFolder *folder)
+static GPtrArray *
+get_hrefs (ExchangeHierarchySomeDAV *hsd)
 {
 	GPtrArray *hrefs;
-	E2kResultIter *iter;
-	E2kResult *result;
-	int folders_returned, folders_added;
-	E2kHTTPStatus status;
-	ExchangeAccountFolderResult folder_result;
-
-	if (folder != hier->toplevel)
-		return EXCHANGE_ACCOUNT_FOLDER_OK;
-
-	check_hide_private (hier);
 
 	hrefs = g_ptr_array_new ();
-	exchange_hierarchy_webdav_offline_scan_subtree (hier, add_href, hrefs);
-	if (!hrefs->len) {
-		g_ptr_array_free (hrefs, TRUE);
-		return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
-	}
-
-	g_object_ref (hier);
-
-	iter = e_folder_exchange_bpropfind_start (hier->toplevel, NULL,
-						  (const char **)hrefs->pdata,
-						  hrefs->len,
-						  folder_props,
-						  n_folder_props);
-	g_ptr_array_free (hrefs, TRUE);
-
-	while ((result = e2k_result_iter_next (iter))) {
-		folders_returned++;
-
-		/* If you have "folder visible" permission but nothing
-		 * else, you'll be able to fetch properties, but not
-		 * see anything in the folder. In that case, PR_ACCESS
-		 * will be 0, and we ignore the folder.
-		 */
-		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (result->status) ||
-		    folder_is_unreadable (result->props))
-			continue;
-
-		folders_added++;
-		folder = exchange_hierarchy_webdav_parse_folder (
-			EXCHANGE_HIERARCHY_WEBDAV (hier),
-			hier->toplevel, result);
-		exchange_hierarchy_new_folder (hier, folder);
-		g_object_unref (folder);
-	}
-	status = e2k_result_iter_free (iter);
-
-	if (folders_returned == 0)
-		folder_result = EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
-	else if (folders_added == 0)
-		folder_result = EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED;
-	else
-		folder_result = exchange_hierarchy_webdav_status_to_folder_result (status);
-
- done:
-	if (exchange_hierarchy_is_empty (hier))
-		hierarchy_foreign_cleanup (hier);
-	g_object_unref (hier);
-
-	return folder_result;
-}
-
-static ExchangeAccountFolderResult
-scan_subtree (ExchangeHierarchy *hier, EFolder *folder)
-{
-	/* Since we call scan_subtree_real in add_to_storage
-	 * below, this call must be redundant.
-	 */
-	return EXCHANGE_ACCOUNT_FOLDER_OK;
-}
-
-static void
-add_to_storage (ExchangeHierarchy *hier)
-{
-	EXCHANGE_HIERARCHY_CLASS (parent_class)->add_to_storage (hier);
-
-	/* FIXME: This is to guarantee that if you are a delegate for
-	 * someone, that their Calendar will have been discovered by
-	 * the time you open any meeting request for them, so that
-	 * we can set the X-EVOLUTION-DELEGATOR-CALENDAR-URI correctly.
-	 * But it would be nice if we could do something nicer.
-	 */
-	scan_subtree_real (hier, hier->toplevel);
+	exchange_hierarchy_webdav_offline_scan_subtree (EXCHANGE_HIERARCHY (hsd), add_href, hrefs);
+	return hrefs;
 }
 
 /**

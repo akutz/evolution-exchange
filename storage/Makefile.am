@@ -47,10 +47,14 @@ evolution_exchange_storage_SOURCES =				\
 	exchange-delegates-user.h				\
 	exchange-hierarchy.c					\
 	exchange-hierarchy.h					\
+	exchange-hierarchy-favorites.c				\
+	exchange-hierarchy-favorites.h				\
 	exchange-hierarchy-foreign.c				\
 	exchange-hierarchy-foreign.h				\
 	exchange-hierarchy-gal.c				\
 	exchange-hierarchy-gal.h				\
+	exchange-hierarchy-somedav.c				\
+	exchange-hierarchy-somedav.h				\
 	exchange-hierarchy-webdav.c				\
 	exchange-hierarchy-webdav.h				\
 	exchange-offline-handler.c				\

@@ -28,6 +28,7 @@
 #include "exchange-account.h"
 #include "exchange-change-password.h"
 #include "exchange-hierarchy-webdav.h"
+#include "exchange-hierarchy-favorites.h"
 #include "exchange-hierarchy-foreign.h"
 #include "exchange-hierarchy-gal.h"
 #include "e-folder-exchange.h"
@@ -1068,13 +1069,27 @@ exchange_account_connect (ExchangeAccount *account)
 	g_free (phys_uri_prefix);
 	personal_hier = hier;
 
+	/* Favorite Public Folders */
+	phys_uri_prefix = g_strdup_printf ("exchange://%s/favorites",
+					   account->priv->uri_authority);
+	hier = exchange_hierarchy_favorites_new (account,
+						 _("Favorite Public Folders"),
+						 phys_uri_prefix,
+						 account->home_uri,
+						 account->public_uri,
+						 account->priv->identity_name,
+						 account->priv->identity_email,
+						 account->priv->source_uri);
+	setup_hierarchy (account, hier);
+	g_free (phys_uri_prefix);
+
 	/* Public Folders */
 	phys_uri_prefix = g_strdup_printf ("exchange://%s/public",
 					   account->priv->uri_authority);
 	hier = exchange_hierarchy_webdav_new (account,
 					      EXCHANGE_HIERARCHY_PUBLIC,
 					      /* i18n: Outlookism */
-					      _("Public Folders"),
+					      _("All Public Folders"),
 					      phys_uri_prefix,
 					      account->public_uri,
 					      account->priv->identity_name,

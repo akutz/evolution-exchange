@@ -4,7 +4,7 @@
 #ifndef __EXCHANGE_HIERARCHY_FOREIGN_H__
 #define __EXCHANGE_HIERARCHY_FOREIGN_H__
 
-#include "exchange-hierarchy-webdav.h"
+#include "exchange-hierarchy-somedav.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,13 +18,13 @@ extern "C" {
 #define EXCHANGE_IS_HIERARCHY_FOREIGN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((obj), EXCHANGE_TYPE_HIERARCHY_FOREIGN))
 
 struct _ExchangeHierarchyForeign {
-	ExchangeHierarchyWebDAV parent;
+	ExchangeHierarchySomeDAV parent;
 
 	ExchangeHierarchyForeignPrivate *priv;
 };
 
 struct _ExchangeHierarchyForeignClass {
-	ExchangeHierarchyWebDAVClass parent_class;
+	ExchangeHierarchySomeDAVClass parent_class;
 
 };
 

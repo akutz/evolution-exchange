@@ -22,7 +22,9 @@ char *e2k_crlf_to_lf (const char *in);
 
 char *e2k_strdup_with_trailing_slash (const char *path);
 
-const char *e2k_entryid_to_dn (GByteArray *entryid);
+const char *e2k_entryid_to_dn           (GByteArray *entryid);
+char       *e2k_entryid_to_permanenturl (GByteArray *entryid,
+					 const char *base_uri);
 
 gint  e2k_ascii_strcase_equal (gconstpointer v,
 			       gconstpointer v2);

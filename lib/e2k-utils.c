@@ -304,6 +304,53 @@ e2k_entryid_to_dn (GByteArray *entryid)
 	return NULL;
 }
 
+static void
+append_permanenturl_section (GString *url, guint8 *entryid)
+{
+	int i;
+
+	for (i = 0; i < 16; i++)
+		g_string_append_printf (url, "%02x", entryid[i]);
+	g_string_append_c (url, '-');
+	while (i < 22 && entryid[i] == 0)
+		i++;
+	for (; i < 22; i++)
+		g_string_append_printf (url, "%02x", entryid[i]);
+}
+
+/**
+ * e2k_entryid_to_permanenturl:
+ * @entryid: an ENTRYID (specifically, a PR_SOURCE_KEY)
+ * @base_uri: base URI of the store containing @entryid
+ *
+ * Creates a permanenturl based on @entryid and @base_uri.
+ *
+ * Return value: the permanenturl, which the caller must free.
+ **/
+char *
+e2k_entryid_to_permanenturl (GByteArray *entryid, const char *base_uri)
+{
+	GString *url;
+	char *ret;
+
+	g_return_val_if_fail (entryid->len == 22 || entryid->len == 44, NULL);
+
+	url = g_string_new (base_uri);
+	if (url->str[url->len - 1] != '/')
+		g_string_append_c (url, '/');
+	g_string_append (url, "-FlatUrlSpace-/");
+
+	append_permanenturl_section (url, entryid->data);
+	if (entryid->len > 22) {
+		g_string_append_c (url, '/');
+		append_permanenturl_section (url, entryid->data + 22);
+	}
+
+	ret = url->str;
+	g_string_free (url, FALSE);
+	return ret;
+}
+
 /**
  * e2k_ascii_strcase_equal
  * @v: a string
