@@ -1,5 +1,11 @@
 2005-02-26  Sushma Rai  <rsushma@novell.com>
 
+	* storage/exchange-account.c (get_password): Forgetting temporarily
+	stored password, once the exchange component is set to interactive.
+	Fixes #73017.
+
+2005-02-26  Sushma Rai  <rsushma@novell.com>
+
 	* lib/e2k-autoconfig.c (validate): Removed the hard coded support url
 	from translateable error message. Fixes #72514
 
