@@ -1300,6 +1300,22 @@ get_supported_fields (EBookBackend *backend,
 }
 
 static void
+get_required_fields (EBookBackend *backend,
+		     EDataBook *book,
+		     guint32 opid)
+{
+	GList *fields = NULL;
+	
+	fields = g_list_append (fields, e_contact_field_name (E_CONTACT_FILE_AS));
+	e_data_book_respond_get_required_fields (book,
+						  opid,
+						  GNOME_Evolution_Addressbook_Success,
+						  fields);
+	g_list_free (fields);
+
+}
+
+static void
 get_supported_auth_methods (EBookBackend *backend,
 			    EDataBook    *book,
 			    guint32       opid)
@@ -1452,6 +1468,7 @@ class_init (EBookBackendGALClass *klass)
 	backend_class->get_changes                = get_changes;
 	backend_class->authenticate_user          = authenticate_user;
 	backend_class->get_supported_fields       = get_supported_fields;
+	backend_class->get_required_fields        = get_required_fields;
 	backend_class->get_supported_auth_methods = get_supported_auth_methods;
 	backend_class->cancel_operation           = cancel_operation;
 
