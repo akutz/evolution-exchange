@@ -567,8 +567,11 @@ e_book_backend_exchange_connect (EBookBackendExchange *be)
 		return GNOME_Evolution_Addressbook_PermissionDenied;
 	}
 
+	bepriv->is_writable = ((access & MAPI_ACCESS_CREATE_CONTENTS) != 0);
 	e_book_backend_set_is_writable (E_BOOK_BACKEND (be),
-				     (access & MAPI_ACCESS_CREATE_CONTENTS) != 0);
+			     		bepriv->is_writable);
+	e_book_backend_notify_writable (E_BOOK_BACKEND (be),
+					bepriv->is_writable);
 
 	bepriv->base_rn = e2k_restriction_orv (
 		e2k_restriction_prop_string (E2K_PR_DAV_CONTENT_CLASS,
@@ -2176,6 +2179,7 @@ e_book_backend_exchange_load_source (EBookBackend *backend,
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
+	GNOME_Evolution_Addressbook_CallStatus status;
 	const char *offline;
 
 	g_return_val_if_fail (bepriv->connected == FALSE, GNOME_Evolution_Addressbook_OtherError);
@@ -2197,6 +2201,7 @@ e_book_backend_exchange_load_source (EBookBackend *backend,
 	bepriv->original_uri = g_strdup (bepriv->exchange_uri);
 
 	if (bepriv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
+		e_book_backend_set_is_writable (backend, FALSE);
 		e_book_backend_notify_writable (backend, FALSE);
 		e_book_backend_notify_connection_status (backend, FALSE);
 	}
@@ -2210,6 +2215,11 @@ e_book_backend_exchange_load_source (EBookBackend *backend,
 	if (bepriv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
 		return GNOME_Evolution_Addressbook_Success;
 	}
+
+	status = e_book_backend_exchange_connect (be);
+	if (status != GNOME_Evolution_Addressbook_Success)
+		return status;
+
 	if (e_book_backend_cache_is_populated (bepriv->cache)) {
 		if (bepriv->is_writable)
 			g_thread_create ((GThreadFunc) update_cache, 
@@ -2219,8 +2229,8 @@ e_book_backend_exchange_load_source (EBookBackend *backend,
 		/* for personal books we always cache*/
 		g_thread_create ((GThreadFunc) build_cache, be, FALSE, NULL);
 	}
-	
-	return e_book_backend_exchange_connect (be);
+
+	return status;
 }
 
 static EBookBackendSyncStatus
@@ -2279,11 +2289,13 @@ e_book_backend_exchange_set_mode (EBookBackend *backend, int mode)
 	bepriv->mode = mode;
 	if (e_book_backend_is_loaded (backend)) {
 		if (mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
+			e_book_backend_set_is_writable (backend, FALSE);
 			e_book_backend_notify_writable (backend, FALSE);
 			e_book_backend_notify_connection_status (backend, FALSE);
 			/* FIXME : free context ? */
 		} else if (mode == GNOME_Evolution_Addressbook_MODE_REMOTE) {
-			e_book_backend_notify_writable (backend, TRUE);
+			e_book_backend_set_is_writable (backend, bepriv->is_writable);
+			e_book_backend_notify_writable (backend, bepriv->is_writable);
 			e_book_backend_notify_connection_status (backend, TRUE);
 			/* FIXME :
 			e_book_backend_notify_auth_required (backend); */
