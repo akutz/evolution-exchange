@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome 2.8 branch\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-10 14:26+0200\n"
+"POT-Creation-Date: 2005-01-11 01:26+0530\n"
 "PO-Revision-Date: 2005-01-10 14:26+0200\n"
 "Last-Translator: Vladimir Petkov <vpetkov@i-space.org>\n"
 "Language-Team: Bulgarian <dict@linux.zonebg.com>\n"
@@ -18,30 +18,30 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: addressbook/e-book-backend-exchange.c:1681
-#: addressbook/e-book-backend-gal.c:1214 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-gal.c:1341 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Търсене..."
 
-#: addressbook/e-book-backend-gal.c:239
+#: addressbook/e-book-backend-gal.c:243
 msgid "Reconnecting to LDAP server..."
 msgstr ""
 
-#: addressbook/e-book-backend-gal.c:1118
+#: addressbook/e-book-backend-gal.c:1215
 msgid "Receiving LDAP search results..."
 msgstr ""
 
-#: addressbook/e-book-backend-gal.c:1235
+#: addressbook/e-book-backend-gal.c:1362
 msgid "Error performing search"
 msgstr ""
 
-#: calendar/e-cal-backend-exchange-calendar.c:1436
+#: calendar/e-cal-backend-exchange-calendar.c:1624
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
 
-#: calendar/e-cal-backend-exchange-calendar.c:1455
+#: calendar/e-cal-backend-exchange-calendar.c:1643
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr ""
@@ -86,92 +86,75 @@ msgid "Fetching summary information for new messages"
 msgstr ""
 
 #. i18n: the '_' should appear before the same letter it
-#. does in the evolution:mail-config.glade "_Host"
-#. translation (or not at all)
-#: camel/camel-exchange-provider.c:44
-msgid "Exc_hange Server:"
-msgstr ""
-
-#. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: camel/camel-exchange-provider.c:49
+#: camel/camel-exchange-provider.c:46
 msgid "Windows User_name:"
 msgstr ""
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: camel/camel-exchange-provider.c:54
+#: camel/camel-exchange-provider.c:51
 msgid "Global Address List / Active Directory"
 msgstr ""
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: camel/camel-exchange-provider.c:58
+#: camel/camel-exchange-provider.c:55
 msgid "Global Catalog server name:"
 msgstr ""
 
-#: camel/camel-exchange-provider.c:60
+#: camel/camel-exchange-provider.c:57
 #, c-format
 msgid "Limit number of GAL responses: %s"
 msgstr ""
 
-#: camel/camel-exchange-provider.c:63
-msgid "Exchange Server"
-msgstr "Сървър Exchange"
-
-#. i18n: "Mailbox" is an Outlookism. FIXME
-#: camel/camel-exchange-provider.c:66
-msgid "Mailbox name"
-msgstr "Име на пощенската кутия"
-
-#. i18n: "OWA" == "Outlook Web Access". Might not be translated?
-#: camel/camel-exchange-provider.c:69
-msgid "OWA path"
+#: camel/camel-exchange-provider.c:60
+msgid "Password Expiry Warning"
 msgstr ""
 
-#. i18n: "Public Folder" is an Outlookism
-#: camel/camel-exchange-provider.c:72
-msgid "Public Folder server"
+#: camel/camel-exchange-provider.c:62
+#, c-format
+msgid "Password Expiry Warning period: %s"
 msgstr ""
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:76
+#: camel/camel-exchange-provider.c:66
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr ""
 
-#: camel/camel-exchange-provider.c:78
+#: camel/camel-exchange-provider.c:68
 msgid "Check new messages for Junk contents"
 msgstr "Проверка на новите писма за спам"
 
-#: camel/camel-exchange-provider.c:80
+#: camel/camel-exchange-provider.c:70
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr ""
 
-#: camel/camel-exchange-provider.c:86
+#: camel/camel-exchange-provider.c:76
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: camel/camel-exchange-provider.c:88
+#: camel/camel-exchange-provider.c:78
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr ""
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:106
+#: camel/camel-exchange-provider.c:94
 msgid "Secure Password"
 msgstr "Сигурна парола"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:109
+#: camel/camel-exchange-provider.c:97
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
 msgstr ""
 
-#: camel/camel-exchange-provider.c:117
+#: camel/camel-exchange-provider.c:105
 msgid "Plaintext Password"
 msgstr "Обикновена текстова парола"
 
-#: camel/camel-exchange-provider.c:119
+#: camel/camel-exchange-provider.c:107
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -1523,6 +1506,12 @@ msgstr ""
 #: storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr ""
+
+#~ msgid "Exchange Server"
+#~ msgstr "Сървър Exchange"
+
+#~ msgid "Mailbox name"
+#~ msgstr "Име на пощенската кутия"
 
 #~ msgid "_Move Folder..."
 #~ msgstr "_Преместване на папка..."

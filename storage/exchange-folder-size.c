@@ -101,7 +101,7 @@ init (GObject *object)
 
 	fsize->priv = g_new0 (ExchangeFolderSizePrivate, 1);
 	fsize->priv->table = g_hash_table_new_full (g_str_hash, g_str_equal,
-							g_free, free_table);
+					g_free, (GDestroyNotify)free_table);
 }
 
 E2K_MAKE_TYPE (exchange_folder_size, ExchangeFolderSize, class_init, init, PARENT_TYPE)

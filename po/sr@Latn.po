@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-20 19:02+0530\n"
+"POT-Creation-Date: 2005-01-11 01:26+0530\n"
 "PO-Revision-Date: 2004-09-03 17:47+0200\n"
 "Last-Translator: Danilo Šegan <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
@@ -19,24 +19,24 @@ msgstr ""
 "Plural-Forms: nplurals=3;    plural=n%10==1 && n%100!=11 ? 0 :    n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: addressbook/e-book-backend-exchange.c:1666
-#: addressbook/e-book-backend-gal.c:1213 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-exchange.c:1681
+#: addressbook/e-book-backend-gal.c:1341 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Tražim..."
 
-#: addressbook/e-book-backend-gal.c:238
+#: addressbook/e-book-backend-gal.c:243
 msgid "Reconnecting to LDAP server..."
 msgstr "Ponovo uspostavljam vezu sa LDAP serverom"
 
-#: addressbook/e-book-backend-gal.c:1117
+#: addressbook/e-book-backend-gal.c:1215
 msgid "Receiving LDAP search results..."
 msgstr "Primam rezultate pretrage sa LDAP servera"
 
-#: addressbook/e-book-backend-gal.c:1234
+#: addressbook/e-book-backend-gal.c:1362
 msgid "Error performing search"
 msgstr "Greška prilikom pretttrage"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1423
+#: calendar/e-cal-backend-exchange-calendar.c:1624
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -45,128 +45,111 @@ msgstr ""
 "Ne mogu da zakažem resurs „%s“ za ponovljene sastanke.\n"
 "Morate zakazati svaki sastanak pojedinačno."
 
-#: calendar/e-cal-backend-exchange-calendar.c:1442
+#: calendar/e-cal-backend-exchange-calendar.c:1643
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Resurs „%s“ je zauzet u toku izabranog vremenskog perioda."
 
-#: camel/camel-exchange-folder.c:215
+#: camel/camel-exchange-folder.c:241
 msgid "Can only expunge in Deleted Items folder"
 msgstr "Može izbaciti samo u fascikli sa obrisanim stavkama"
 
-#: camel/camel-exchange-folder.c:239
+#: camel/camel-exchange-folder.c:265
 msgid "No Subject"
 msgstr "Bez naslova"
 
-#: camel/camel-exchange-folder.c:586
+#: camel/camel-exchange-folder.c:612
 msgid "Moving messages"
 msgstr "Pomeram poruke"
 
-#: camel/camel-exchange-folder.c:587
+#: camel/camel-exchange-folder.c:613
 msgid "Copying messages"
 msgstr "Kopiram poruke"
 
-#: camel/camel-exchange-folder.c:890
+#: camel/camel-exchange-folder.c:916
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Nisam mogao da napravim direktorijum %s: %s"
 
-#: camel/camel-exchange-folder.c:900
+#: camel/camel-exchange-folder.c:926
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Nisam mogao da učitam sažetak za %s"
 
-#: camel/camel-exchange-folder.c:908
+#: camel/camel-exchange-folder.c:934
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Nisam mogao da napravim ostavu za %s"
 
-#: camel/camel-exchange-folder.c:948
+#: camel/camel-exchange-folder.c:974
 msgid "Scanning for changed messages"
 msgstr "Tragam za promenjenim porukama"
 
-#: camel/camel-exchange-folder.c:972
+#: camel/camel-exchange-folder.c:998
 msgid "Fetching summary information for new messages"
 msgstr "Prikupljam sažetu informaciju za nove poruke"
 
 #. i18n: the '_' should appear before the same letter it
-#. does in the evolution:mail-config.glade "_Host"
-#. translation (or not at all)
-#: camel/camel-exchange-provider.c:44
-msgid "Exc_hange Server:"
-msgstr "Eksčendž server:"
-
-#. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: camel/camel-exchange-provider.c:49
+#: camel/camel-exchange-provider.c:46
 msgid "Windows User_name:"
 msgstr "Vinduz _korisničko ime:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: camel/camel-exchange-provider.c:54
+#: camel/camel-exchange-provider.c:51
 msgid "Global Address List / Active Directory"
 msgstr "Opšti adresar/aktivni direktorijum"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: camel/camel-exchange-provider.c:58
+#: camel/camel-exchange-provider.c:55
 msgid "Global Catalog server name:"
 msgstr "Ime servera opšteg kataloga:"
 
-#: camel/camel-exchange-provider.c:60
+#: camel/camel-exchange-provider.c:57
 #, c-format
 msgid "Limit number of GAL responses: %s"
 msgstr "Ograniči broj OA odgovora: %s"
 
-#: camel/camel-exchange-provider.c:63
-msgid "Exchange Server"
-msgstr "Eksčendž server"
+#: camel/camel-exchange-provider.c:60
+msgid "Password Expiry Warning"
+msgstr ""
 
-#. i18n: "Mailbox" is an Outlookism. FIXME
-#: camel/camel-exchange-provider.c:66
-msgid "Mailbox name"
-msgstr "Ime sandučeta"
-
-#. i18n: "OWA" == "Outlook Web Access". Might not be translated?
-#: camel/camel-exchange-provider.c:69
-msgid "OWA path"
-msgstr "OWA putanja"
-
-#. i18n: "Public Folder" is an Outlookism
-#: camel/camel-exchange-provider.c:72
-msgid "Public Folder server"
-msgstr "Server javnih direktorijuma"
+#: camel/camel-exchange-provider.c:62
+#, c-format
+msgid "Password Expiry Warning period: %s"
+msgstr ""
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:76
+#: camel/camel-exchange-provider.c:66
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr "Primeni filtere na nove poruke u Inbox-u ovog servera"
 
-#: camel/camel-exchange-provider.c:78
+#: camel/camel-exchange-provider.c:68
 msgid "Check new messages for Junk contents"
 msgstr "Proveri da nema đubreta među novim porukama"
 
-#: camel/camel-exchange-provider.c:80
+#: camel/camel-exchange-provider.c:70
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "Proveri da nema đubreta samo u direktorijumu Inbox"
 
-#: camel/camel-exchange-provider.c:86
+#: camel/camel-exchange-provider.c:76
 msgid "Microsoft Exchange"
 msgstr "Mikrosoft Eksčendž"
 
-#: camel/camel-exchange-provider.c:88
+#: camel/camel-exchange-provider.c:78
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr ""
 "Za baratanje poštom (i ostalim podacima) na Mikrosoft Eksčendž serverima"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:106
+#: camel/camel-exchange-provider.c:94
 msgid "Secure Password"
 msgstr "Bezbedna lozinka"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:109
+#: camel/camel-exchange-provider.c:97
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -174,11 +157,11 @@ msgstr ""
 "Ova opcija će povezati na Eksčendž server korišćenjem prijave uz bezbednu "
 "lozinku (NTLM)."
 
-#: camel/camel-exchange-provider.c:117
+#: camel/camel-exchange-provider.c:105
 msgid "Plaintext Password"
 msgstr "Lozinka kao tekst"
 
-#: camel/camel-exchange-provider.c:119
+#: camel/camel-exchange-provider.c:107
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -186,19 +169,24 @@ msgstr ""
 "Ova opcija će povezati na Eksčendž server korišćenjem obične prijave uz "
 "nešifrovanu lozinku."
 
-#: camel/camel-exchange-store.c:259
+#: camel/camel-exchange-store.c:297
 #, c-format
 msgid "Exchange server %s"
 msgstr "Eksčendž server %s"
 
-#: camel/camel-exchange-store.c:262
+#: camel/camel-exchange-store.c:300
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Eksčendž nalog za %s na %s"
 
-#: camel/camel-exchange-store.c:289
+#: camel/camel-exchange-store.c:327
 msgid "Evolution Exchange backend process"
 msgstr "Uslužni proces za Eksčendž u Evoluciji"
+
+#: camel/camel-exchange-store.c:891
+#, fuzzy, c-format
+msgid "No such folder %s"
+msgstr "Nema takvog direktorijuma"
 
 #: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
@@ -284,11 +272,11 @@ msgstr "Ništa"
 msgid "Custom"
 msgstr "Proizvoljno"
 
-#: lib/e2k-user-dialog.c:149
+#: lib/e2k-user-dialog.c:144
 msgid "Select User"
 msgstr "Odaberite korisnika"
 
-#: lib/e2k-user-dialog.c:199
+#: lib/e2k-user-dialog.c:182
 msgid "Addressbook..."
 msgstr "Adresar..."
 
@@ -493,34 +481,34 @@ msgstr "Fascikla sa imenom „%s“ već postoji. Koristite neko drugo ime."
 #. It would be nice to insensitivize the OK button appropriately
 #. instead of doing this, but unfortunately we can't do this for the
 #. Bonobo control.
-#: shell/e-folder-misc-dialogs.c:460
+#: shell/e-folder-misc-dialogs.c:439
 msgid "Please select a user."
 msgstr "Izaberite korisnika."
 
-#: shell/e-folder-misc-dialogs.c:560
+#: shell/e-folder-misc-dialogs.c:539
 msgid "Opening Folder"
 msgstr "Otvaram fasciklu"
 
-#: shell/e-folder-misc-dialogs.c:566
+#: shell/e-folder-misc-dialogs.c:545
 #, c-format
 msgid "Opening Folder \"%s\""
 msgstr "Otvaram fasciklu „%s“"
 
-#: shell/e-folder-misc-dialogs.c:571
+#: shell/e-folder-misc-dialogs.c:550
 #, c-format
 msgid "in \"%s\" ..."
 msgstr "u „%s“ ..."
 
-#: shell/e-folder-misc-dialogs.c:638
+#: shell/e-folder-misc-dialogs.c:617
 #, c-format
 msgid "Could not open other user's folder: %s."
 msgstr "Ne mogu da otvorim fasciklu drugog korisnika: %s"
 
-#: shell/e-folder-misc-dialogs.c:688
+#: shell/e-folder-misc-dialogs.c:667
 msgid "Cannot find the specified other user's folder."
 msgstr "Ne mogu da nađem navedenu fasciklu drugog korisnika."
 
-#: shell/e-folder-misc-dialogs.c:720
+#: shell/e-folder-misc-dialogs.c:699
 #, c-format
 msgid ""
 "Cannot unsubscribe from folder:\n"
@@ -529,12 +517,12 @@ msgstr ""
 "Ne mogu da se odjavim sa fascikle:\n"
 "%s"
 
-#: shell/e-folder-misc-dialogs.c:773
+#: shell/e-folder-misc-dialogs.c:752
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "Zaista odjaviti pretplatu sa fascikle „%s“?"
 
-#: shell/e-folder-misc-dialogs.c:787
+#: shell/e-folder-misc-dialogs.c:766
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "Odjava pretplate sa „%s“"
@@ -620,7 +608,7 @@ msgstr "Ne mogu da napravim direktorijum sa tim imenom"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Ovu operaciju ne možete izvršiti dok radite bez mreže"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1280
+#: shell/e-storage.c:587 storage/exchange-account.c:1274
 msgid "Unknown error"
 msgstr "Nepoznata greška"
 
@@ -686,7 +674,7 @@ msgstr ""
 msgid "Could not change password"
 msgstr "Ne mogu da promenim lozinku"
 
-#: storage/exchange-account.c:1191
+#: storage/exchange-account.c:1185
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -694,7 +682,7 @@ msgstr ""
 "Ne mogu da se prijavim na server. (Lozinka neispravna?)\n"
 "\n"
 
-#: storage/exchange-account.c:1196
+#: storage/exchange-account.c:1190
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -714,7 +702,7 @@ msgstr ""
 "Ili ste jednostavno ukucali pogrešnu lozinku.\n"
 "\n"
 
-#: storage/exchange-account.c:1207
+#: storage/exchange-account.c:1201
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -731,12 +719,12 @@ msgstr ""
 "Ili ste jednostavno ukucali pogrešnu lozinku.\n"
 "\n"
 
-#: storage/exchange-account.c:1238
+#: storage/exchange-account.c:1232
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Sanduče za %s nije na ovom serveru."
 
-#: storage/exchange-account.c:1243
+#: storage/exchange-account.c:1237
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -745,7 +733,7 @@ msgstr ""
 "Server „%s“ koristi Eksčendž 5.5 i zato nije \n"
 "saglasan sa Gzimijan veznikom"
 
-#: storage/exchange-account.c:1250
+#: storage/exchange-account.c:1244
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -756,40 +744,40 @@ msgstr ""
 "Ako je OWA pokrenut na drugoj putanji, morate je navesti u \n"
 "prozorčetu za podešavanje naloga."
 
-#: storage/exchange-account.c:1258
+#: storage/exchange-account.c:1252
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Nema sandučeta za korisnika %s na %s.\n"
 
-#: storage/exchange-account.c:1264 storage/exchange-account.c:1270
-#: storage/exchange-account.c:1278
+#: storage/exchange-account.c:1258 storage/exchange-account.c:1264
+#: storage/exchange-account.c:1272
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Nisam mogao da se povežem na server %s: %s"
 
-#: storage/exchange-account.c:1266
+#: storage/exchange-account.c:1260
 msgid "Could not resolve hostname"
 msgstr "Ne mogu da razrešim ime računara"
 
-#: storage/exchange-account.c:1272
+#: storage/exchange-account.c:1266
 msgid "Network error"
 msgstr "Mrežna greška"
 
-#: storage/exchange-account.c:1350
+#: storage/exchange-account.c:1344
 msgid "Personal Folders"
 msgstr "Lične fascikle"
 
-#: storage/exchange-account.c:1365
+#: storage/exchange-account.c:1359
 msgid "Favorite Public Folders"
 msgstr "Omiljene javne fascikle"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1382
+#: storage/exchange-account.c:1376
 msgid "All Public Folders"
 msgstr "Sve javne fascikle"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1396
+#: storage/exchange-account.c:1390
 msgid "Global Address List"
 msgstr "Opšti spisak adresa"
 
@@ -1064,19 +1052,19 @@ msgid "Your current password has expired. Please change your password now."
 msgstr "Vaša tekuća lozinka je istekla. Izmenite je sada."
 
 # 48x48/emblems/emblem-mail.icon.in.h:1
-#: storage/exchange-component.c:317
+#: storage/exchange-component.c:314
 msgid "Mail"
 msgstr "Pošta"
 
-#: storage/exchange-component.c:320 storage/exchange-hierarchy-foreign.c:250
+#: storage/exchange-component.c:317 storage/exchange-hierarchy-foreign.c:250
 msgid "Contacts"
 msgstr "Kontakti"
 
-#: storage/exchange-component.c:324 storage/exchange-hierarchy-foreign.c:258
+#: storage/exchange-component.c:321 storage/exchange-hierarchy-foreign.c:258
 msgid "Tasks"
 msgstr "Zaduženja"
 
-#: storage/exchange-component.c:327 storage/exchange-hierarchy-foreign.c:249
+#: storage/exchange-component.c:324 storage/exchange-hierarchy-foreign.c:249
 msgid "Calendar"
 msgstr "Kalendar"
 
@@ -1249,12 +1237,12 @@ msgstr "_Pristiglo:"
 msgid "_Tasks:"
 msgstr "Za_duženja:"
 
-#: storage/exchange-folder-size.c:190
+#: storage/exchange-folder-size.c:204
 #, fuzzy
 msgid "Folder Name"
 msgstr "_Ime direktorijuma:"
 
-#: storage/exchange-folder-size.c:194
+#: storage/exchange-folder-size.c:208
 #, fuzzy
 msgid "Folder Size"
 msgstr "Fascikla prikazana"
@@ -1382,6 +1370,23 @@ msgstr "Asistent van kacelarije"
 msgid "Yes, Change Status"
 msgstr "Da, promeni status"
 
+#: storage/exchange-passwd-expiry.glade.h:1
+msgid "Password Expiry Warning..."
+msgstr ""
+
+#: storage/exchange-passwd-expiry.glade.h:2
+msgid "Your password will expire in 7 days..."
+msgstr ""
+
+#: storage/exchange-passwd-expiry.glade.h:3
+#, fuzzy
+msgid "_Change Password"
+msgstr "Izmeni lozinku"
+
+#: storage/exchange-passwd-expiry.glade.h:4
+msgid "ok_button"
+msgstr ""
+
 #: storage/exchange-permissions-dialog.c:222
 msgid "Could not read folder permissions"
 msgstr "Ne mogu da pročitam ovlašćenja za fasciklu"
@@ -1503,7 +1508,7 @@ msgstr "Uloga: "
 msgid "Connecting..."
 msgstr "Povezujem se..."
 
-#: storage/main.c:168
+#: storage/main.c:166
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Gzimijan veznik za Mikrosoft Eksčendž"
 
@@ -1628,6 +1633,21 @@ msgstr "Pomoćnik za _van-kacelarije"
 #: storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Ukini pretplatu na fasciklu drugog korisnika"
+
+#~ msgid "Exc_hange Server:"
+#~ msgstr "Eksčendž server:"
+
+#~ msgid "Exchange Server"
+#~ msgstr "Eksčendž server"
+
+#~ msgid "Mailbox name"
+#~ msgstr "Ime sandučeta"
+
+#~ msgid "OWA path"
+#~ msgstr "OWA putanja"
+
+#~ msgid "Public Folder server"
+#~ msgstr "Server javnih direktorijuma"
 
 #~ msgid "_Move Folder..."
 #~ msgstr "_Premesti fasciklu..."

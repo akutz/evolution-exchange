@@ -106,6 +106,7 @@ libexchange_a_SOURCES =						\
 	e2k-uri.h						\
 	e2k-utils.c						\
 	e2k-utils.h						\
+	e2k-validate.h						\
 	e2k-xml-utils.c						\
 	e2k-xml-utils.h						\
 	e2k-user-dialog.c					\

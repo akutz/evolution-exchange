@@ -207,7 +207,6 @@ static GNOME_Evolution_Addressbook_CallStatus
 gal_connect (EBookBackendGAL *bl)
 {
 	EBookBackendGALPrivate *blpriv = bl->priv;
-	ExchangeAccount *account;
 
 #ifdef DEBUG
 	{

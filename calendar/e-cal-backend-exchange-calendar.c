@@ -740,9 +740,10 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 			       "\r\n%s", summary, date,
 			       from ? from : "Evolution",
 			      body_crlf);
-#if 0
+
 	char *attach_body, *attach_boundary;
 	build_attachment (summary, g_strdup ("This is some text\n"), NULL, &attach_body, &attach_boundary);	
+#if 0
 	msg = g_strdup_printf ("Subject: %s\r\n"
 			       "Date: %s\r\n"
 			       "MIME-Version: 1.0\r\n"

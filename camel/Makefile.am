@@ -38,7 +38,7 @@ libcamelexchange_la_LDFLAGS = -avoid-version -module
 libcamelexchange_la_LIBADD = 			\
 	$(top_builddir)/lib/libexchange.a	\
 	$(top_builddir)/xntlm/libxntlm.a	\
-	$(LDAP_LIBS)				\ 
+	$(LDAP_LIBS)				\
 	$(LIBEXCHANGE_LIBS)			\
 	$(EXCHANGE_STORAGE_LIBS)
 

@@ -201,9 +201,9 @@ main (int argc, char **argv)
 		goto failed;
 
 	offline_listener = exchange_offline_listener_new (book_factory, cal_factory);
-	if (!offline_listener) { printf ("offline listener failed\n");
+	if (!offline_listener) 
 		goto failed;
-	}
+
 	exchange_component_set_offline_listener (global_exchange_component, 
 						offline_listener);
 	/* FIXME : unref offline_listener here as well ? */
