@@ -393,8 +393,11 @@ do_foreign_folder_dialog (EStorageSetView *storage_set_view,
 	GtkWidget *dialog;
 	GtkWidget *name_selector_widget;
 	GtkWidget *folder_name_entry;
-	const char *user_email_address = NULL;
+	char *user_email_address = NULL;
 	int response;
+	EDestinationStore *destination_store;
+	GList *destinations;
+	EDestination *destination;
 
 	glade_xml = glade_xml_new (CONNECTOR_GLADEDIR "/e-foreign-folder-dialog.glade",
 				   NULL, NULL);
@@ -426,8 +429,19 @@ do_foreign_folder_dialog (EStorageSetView *storage_set_view,
 			return FALSE;
 		}
 
-		user_email_address = gtk_entry_get_text (GTK_ENTRY (name_selector_widget));
-
+		destination_store = e_name_selector_entry_peek_destination_store (E_NAME_SELECTOR_ENTRY (GTK_ENTRY (name_selector_widget)));
+		destinations = e_destination_store_list_destinations (destination_store);
+		if (!destinations) {
+			g_free (*storage_name_return);
+			*storage_name_return = NULL;
+			gtk_widget_destroy (dialog);
+			g_object_unref (name_selector);
+			return FALSE;
+		}
+		destination = destinations->data;
+		user_email_address = g_strdup (e_destination_get_email (destination));
+		g_list_free (destinations);
+		
 		if (user_email_address != NULL && *user_email_address != '\0')
 			break;
 
@@ -439,7 +453,7 @@ do_foreign_folder_dialog (EStorageSetView *storage_set_view,
 	gtk_widget_show_all (dialog);
 
 	if (user_email_address)
-		*user_email_address_return = g_strdup (user_email_address);
+		*user_email_address_return = user_email_address;
 	*folder_name_return = g_strdup (gtk_entry_get_text (GTK_ENTRY (folder_name_entry)));
 
 	gtk_widget_destroy (dialog);
