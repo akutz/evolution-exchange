@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-30 17:36-0400\n"
+"POT-Creation-Date: 2004-11-26 17:22+0530\n"
 "PO-Revision-Date: 2004-10-20 00:28+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: addressbook/e-book-backend-exchange.c:1655
-#: addressbook/e-book-backend-gal.c:1204 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-gal.c:1213 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "찾는 중입니다..."
 
@@ -21,15 +21,15 @@ msgstr "찾는 중입니다..."
 msgid "Reconnecting to LDAP server..."
 msgstr "LDAP 서버에 다시 연결하는 중입니다..."
 
-#: addressbook/e-book-backend-gal.c:1110
+#: addressbook/e-book-backend-gal.c:1119
 msgid "Receiving LDAP search results..."
 msgstr "LDAP 찾기 결과를 받는 중입니다..."
 
-#: addressbook/e-book-backend-gal.c:1225
+#: addressbook/e-book-backend-gal.c:1234
 msgid "Error performing search"
 msgstr "찾기를 수행하는 데 오류"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1354
+#: calendar/e-cal-backend-exchange-calendar.c:1372
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -38,140 +38,140 @@ msgstr ""
 "되풀이되는 회의에 대해 '%s' 자원을 스케줄할 수 없습니다.\n"
 "각 회의를 따로따로 예약해야 합니다."
 
-#: calendar/e-cal-backend-exchange-calendar.c:1377
+#: calendar/e-cal-backend-exchange-calendar.c:1391
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "'%s' 자원이 일정 시간동안 계속 사용 중입니다."
 
-#: camel/camel-exchange-folder.c:219
+#: camel/camel-exchange-folder.c:215
 msgid "Can only expunge in Deleted Items folder"
 msgstr "지운 항목 폴더에서는 비울 수만 있습니다"
 
-#: camel/camel-exchange-folder.c:243
+#: camel/camel-exchange-folder.c:239
 msgid "No Subject"
 msgstr "제목 없음"
 
-#: camel/camel-exchange-folder.c:632
+#: camel/camel-exchange-folder.c:586
 msgid "Moving messages"
 msgstr "메세지를 옮기는 중입니다"
 
-#: camel/camel-exchange-folder.c:633
+#: camel/camel-exchange-folder.c:587
 msgid "Copying messages"
 msgstr "메세지를 복사하는 중입니다"
 
-#: camel/camel-exchange-folder.c:878
+#: camel/camel-exchange-folder.c:890
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "%s 디렉토리를 만들 수 없습니다: %s"
 
-#: camel/camel-exchange-folder.c:888
+#: camel/camel-exchange-folder.c:900
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "%s에 요약을 읽어들일 수 없습니다"
 
-#: camel/camel-exchange-folder.c:896
+#: camel/camel-exchange-folder.c:908
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "%s에 대한 캐시를 만들 수 없습니다"
 
-#: camel/camel-exchange-folder.c:936
+#: camel/camel-exchange-folder.c:948
 msgid "Scanning for changed messages"
 msgstr "바뀐 메세지가 있는 지 검사하는 중입니다"
 
-#: camel/camel-exchange-folder.c:960
+#: camel/camel-exchange-folder.c:972
 msgid "Fetching summary information for new messages"
 msgstr "새 메세지의 요약 정보를 가져오는 중입니다"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "_Host"
 #. translation (or not at all)
-#: camel/camel-exchange-provider.c:43
+#: camel/camel-exchange-provider.c:44
 msgid "Exc_hange Server:"
 msgstr "Exchange 서버(_H):"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: camel/camel-exchange-provider.c:48
+#: camel/camel-exchange-provider.c:49
 msgid "Windows User_name:"
 msgstr "Windows 사용자 이름(_N):"
 
 # MS에서 "전체 주소 목록"을 쓰고, Active Directory는 영문 그대로 쓰고 있다
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: camel/camel-exchange-provider.c:53
+#: camel/camel-exchange-provider.c:54
 msgid "Global Address List / Active Directory"
 msgstr "전체 주소 목록 / Active Directory"
 
 # MS에서 "글로벌 카탈로그"라고 사용한다. 엉터리 번역이지만 따라간다.
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: camel/camel-exchange-provider.c:57
+#: camel/camel-exchange-provider.c:58
 msgid "Global Catalog server name:"
 msgstr "글로벌 카탈로그 서버 이름:"
 
-#: camel/camel-exchange-provider.c:59
+#: camel/camel-exchange-provider.c:60
 #, c-format
 msgid "Limit number of GAL responses: %s"
 msgstr "전체 주소 목록 응답의 개수 제한: %s"
 
-#: camel/camel-exchange-provider.c:62
+#: camel/camel-exchange-provider.c:63
 msgid "Exchange Server"
 msgstr "Exchange 서버"
 
 #. i18n: "Mailbox" is an Outlookism. FIXME
-#: camel/camel-exchange-provider.c:65
+#: camel/camel-exchange-provider.c:66
 msgid "Mailbox name"
 msgstr "메일함 이름"
 
 #. i18n: "OWA" == "Outlook Web Access". Might not be translated?
-#: camel/camel-exchange-provider.c:68
+#: camel/camel-exchange-provider.c:69
 msgid "OWA path"
 msgstr "Outlook 웹 서비스 경로"
 
 #. i18n: "Public Folder" is an Outlookism
-#: camel/camel-exchange-provider.c:71
+#: camel/camel-exchange-provider.c:72
 msgid "Public Folder server"
 msgstr "공용 폴더 서버"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:75
+#: camel/camel-exchange-provider.c:76
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr "이 서버의 받은 편지함에 있는 새 메세지에 거르게 적용"
 
-#: camel/camel-exchange-provider.c:77
+#: camel/camel-exchange-provider.c:78
 msgid "Check new messages for Junk contents"
 msgstr "새 메세지가 정크 메일인지 확인"
 
-#: camel/camel-exchange-provider.c:79
+#: camel/camel-exchange-provider.c:80
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "받은 편지함에 있는 정크 메세지만 확인"
 
-#: camel/camel-exchange-provider.c:85
+#: camel/camel-exchange-provider.c:86
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: camel/camel-exchange-provider.c:87
+#: camel/camel-exchange-provider.c:88
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Microsoft Exchange 서버에 있는 메일 (및 기타 데이터) 처리"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:105
+#: camel/camel-exchange-provider.c:106
 msgid "Secure Password"
 msgstr "보안 열쇠글"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:108
+#: camel/camel-exchange-provider.c:109
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
 msgstr ""
 "이 옵션을 켜면 보안 열쇠글 (NTLM) 인증을 통해 Exchange 서버에 연결합니다."
 
-#: camel/camel-exchange-provider.c:116
+#: camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "일반 텍스트 열쇠글"
 
-#: camel/camel-exchange-provider.c:118
+#: camel/camel-exchange-provider.c:119
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -179,58 +179,58 @@ msgstr ""
 "이 옵션을 켜면 보통 일반 텍스트 열쇠글 인증을 통해 Exchange 서버에 연결합니"
 "다."
 
-#: camel/camel-exchange-store.c:178
+#: camel/camel-exchange-store.c:179
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange 서버 %s"
 
-#: camel/camel-exchange-store.c:181
+#: camel/camel-exchange-store.c:182
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Exchange 계정 (이름 %s, 서버 %s)"
 
-#: camel/camel-exchange-store.c:208
+#: camel/camel-exchange-store.c:209
 msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange 백엔드 프로세스"
 
-#: camel/camel-exchange-transport.c:109
+#: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "Exchange 전송은 Exchange 메일 소스를 쓸 때만 사용할 수 있습니다"
 
-#: camel/camel-exchange-transport.c:120
+#: camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "메세지를 보낼 수 없습니다: 받는 사람이 잘못되었습니다"
 
-#: camel/camel-exchange-transport.c:130
+#: camel/camel-exchange-transport.c:131
 msgid "Could not find 'From' address in message"
 msgstr "메세지에서 'From' 주소를 찾을 수 없습니다"
 
-#: camel/camel-stub.c:133
+#: camel/camel-stub.c:134
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "소켓을 만들 수 없습니다: %s"
 
-#: camel/camel-stub.c:148
+#: camel/camel-stub.c:149
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "%s에 연결할 수 없습니다: %s"
 
-#: camel/camel-stub.c:167
+#: camel/camel-stub.c:179
 #, c-format
 msgid "Path too long: %s"
 msgstr "경로가 너무 깁니다: %s"
 
-#: camel/camel-stub.c:193
+#: camel/camel-stub.c:205
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "상태 쓰레드를 시작할 수 없습니다: %s"
 
-#: camel/camel-stub.c:445
+#: camel/camel-stub.c:457
 #, c-format
 msgid "Lost connection to %s"
 msgstr "%s에 대한 연결을 잃었습니다"
 
-#: camel/camel-stub.c:449
+#: camel/camel-stub.c:461
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "%s와(과) 통신하는 데 오류가 발생했습니다: %s"
@@ -285,11 +285,11 @@ msgstr "없음"
 msgid "Custom"
 msgstr "사용자 설정"
 
-#: lib/e2k-user-dialog.c:148
+#: lib/e2k-user-dialog.c:149
 msgid "Select User"
 msgstr "사용자 선택"
 
-#: lib/e2k-user-dialog.c:198
+#: lib/e2k-user-dialog.c:199
 msgid "Addressbook..."
 msgstr "주소록..."
 
@@ -297,9 +297,9 @@ msgstr "주소록..."
 msgid "No such folder"
 msgstr "그런 폴더가 없습니다"
 
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
-#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
-#: shell/e-storage.c:573 storage/xc-commands.c:302
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2298
+#: mail/mail-stub-exchange.c:2336 mail/mail-stub-exchange.c:2396
+#: shell/e-storage.c:573 storage/xc-commands.c:315
 msgid "Permission denied"
 msgstr "권한이 거부되었습니다"
 
@@ -363,11 +363,11 @@ msgstr "메세지를 옮길/복사할 수 없습니다"
 msgid "No mail submission URI for this mailbox"
 msgstr "이 메일함에 대한 메일 제출 URI가 없습니다"
 
-#: mail/mail-stub-exchange.c:2250
+#: mail/mail-stub-exchange.c:2249
 msgid "Server won't accept mail via Exchange transport"
 msgstr "서버가 Exchange 전송을 통해서 메일을 받지 않습니다"
 
-#: mail/mail-stub-exchange.c:2252
+#: mail/mail-stub-exchange.c:2251
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -376,7 +376,7 @@ msgstr ""
 "계정에 <%s> 주소를 보낸 사람 주소로 사용할\n"
 "권한이 없습니다"
 
-#: mail/mail-stub-exchange.c:2264
+#: mail/mail-stub-exchange.c:2263
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -384,22 +384,22 @@ msgstr ""
 "메세지를 보낼 수 없습니다.\n"
 "계정의 한계 용량을 넘어갔을 수도 있습니다."
 
-#: mail/mail-stub-exchange.c:2268
+#: mail/mail-stub-exchange.c:2267
 msgid "Could not send message"
 msgstr "메세지를 보낼 수 없습니다"
 
-#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
-#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
-#: storage/xc-commands.c:306
+#: mail/mail-stub-exchange.c:2290 mail/mail-stub-exchange.c:2341
+#: mail/mail-stub-exchange.c:2400 shell/e-storage.c:557
+#: storage/xc-commands.c:319
 msgid "Generic error"
 msgstr "일반 오류"
 
-#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
+#: mail/mail-stub-exchange.c:2294 storage/xc-commands.c:309
 msgid "Folder already exists"
 msgstr "폴더가 이미 있습니다"
 
-#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
-#: mail/mail-stub-exchange.c:2393
+#: mail/mail-stub-exchange.c:2321 mail/mail-stub-exchange.c:2363
+#: mail/mail-stub-exchange.c:2392
 msgid "Folder doesn't exist"
 msgstr "폴더가 없습니다"
 
@@ -619,7 +619,7 @@ msgstr "그 이름으로 폴더를 만들 수 없습니다"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "이 동작은 오프라인 모드에서는 수행할 수 없습니다"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1103
+#: shell/e-storage.c:587 storage/exchange-account.c:1174
 msgid "Unknown error"
 msgstr "알 수 없는 오류"
 
@@ -653,25 +653,25 @@ msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:548
+#: storage/exchange-account.c:557
 #, c-format
 msgid "%s's Folders"
 msgstr "%s의 폴더"
 
-#: storage/exchange-account.c:829
+#: storage/exchange-account.c:838
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%s%s의 열쇠글을 입력하십시오"
 
-#: storage/exchange-account.c:833
+#: storage/exchange-account.c:842
 msgid "Enter password"
 msgstr "열쇠글 입력"
 
-#: storage/exchange-account.c:908
+#: storage/exchange-account.c:967
 msgid "Cannot change password due to configuration problems"
 msgstr "설정 문제때문에 열쇠글을 바꿀 수 없습니다"
 
-#: storage/exchange-account.c:923
+#: storage/exchange-account.c:982
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -679,11 +679,11 @@ msgstr ""
 "서버에서 열쇠글이 너무 간단하기 때문에 거부했습니다.\n"
 "다른 열쇠글로 다시 시도해 보십시오."
 
-#: storage/exchange-account.c:928
+#: storage/exchange-account.c:987
 msgid "Could not change password"
 msgstr "열쇠글을 바꿀 수 없습니다"
 
-#: storage/exchange-account.c:1014
+#: storage/exchange-account.c:1085
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -691,7 +691,7 @@ msgstr ""
 "서버에 인증할 수 없습니다. (열쇠글이 틀리지 않았습니까?)\n"
 "\n"
 
-#: storage/exchange-account.c:1019
+#: storage/exchange-account.c:1090
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -710,7 +710,7 @@ msgstr ""
 "아니면 열쇠글을 잘못 입력했을 수도 있습니다.\n"
 "\n"
 
-#: storage/exchange-account.c:1030
+#: storage/exchange-account.c:1101
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -726,12 +726,12 @@ msgstr ""
 "아니면 열쇠글을 잘못 입력했을 수도 있습니다.\n"
 "\n"
 
-#: storage/exchange-account.c:1061
+#: storage/exchange-account.c:1132
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "%s의 메일함은 이 서버에 없습니다."
 
-#: storage/exchange-account.c:1066
+#: storage/exchange-account.c:1137
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -740,7 +740,7 @@ msgstr ""
 "'%s' 서버는 Exchange 5.5를 돌리고 있고,\n"
 "이 버전은 Ximian Connector와 호환되지 않습니다."
 
-#: storage/exchange-account.c:1073
+#: storage/exchange-account.c:1144
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -751,43 +751,43 @@ msgstr ""
 "Outlook 웹 서비스가 다른 경로에서 실행중이라면, 계정 설정 대화 상자에서\n"
 "그 경로를 지정해야 합니다."
 
-#: storage/exchange-account.c:1081
+#: storage/exchange-account.c:1152
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "%s 사용자의 메일함은 %s에 없습니다.\n"
 
-#: storage/exchange-account.c:1087 storage/exchange-account.c:1093
-#: storage/exchange-account.c:1101
+#: storage/exchange-account.c:1158 storage/exchange-account.c:1164
+#: storage/exchange-account.c:1172
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "%s 서버에 연결할 수 없습니다: %s"
 
-#: storage/exchange-account.c:1089
+#: storage/exchange-account.c:1160
 msgid "Could not resolve hostname"
 msgstr "호스트 이름을 찾을 수 없습니다"
 
-#: storage/exchange-account.c:1095
+#: storage/exchange-account.c:1166
 msgid "Network error"
 msgstr "네트워크 오류"
 
 # MS가 사용한 용어
-#: storage/exchange-account.c:1147
+#: storage/exchange-account.c:1244
 msgid "Personal Folders"
 msgstr "개인 폴더"
 
-#: storage/exchange-account.c:1162
+#: storage/exchange-account.c:1259
 msgid "Favorite Public Folders"
 msgstr "즐겨 찾는 공용 폴더"
 
 # MS가 사용한 용어
 #. i18n: Outlookism
-#: storage/exchange-account.c:1179
+#: storage/exchange-account.c:1276
 msgid "All Public Folders"
 msgstr "모든 공용 폴더"
 
 # MS가 사용한 용어
 #. i18n: Outlookism
-#: storage/exchange-account.c:1193
+#: storage/exchange-account.c:1290
 msgid "Global Address List"
 msgstr "전체 주소 목록"
 
@@ -1242,6 +1242,21 @@ msgstr "받은 편지함(_I):"
 msgid "_Tasks:"
 msgstr "작업(_T):"
 
+#: storage/exchange-folder-size.c:190
+#, fuzzy
+msgid "Folder Name"
+msgstr "폴더 이름(_F):"
+
+#: storage/exchange-folder-size.c:194
+#, fuzzy
+msgid "Folder Size"
+msgstr "폴더 표시"
+
+#: storage/exchange-folder-tree.glade.h:1
+#, fuzzy
+msgid "Exchange Folder Tree"
+msgstr "Exchange 서버"
+
 #: storage/exchange-hierarchy-foreign.c:251
 msgid "Deleted Items"
 msgstr "지운 항목"
@@ -1481,7 +1496,7 @@ msgstr "역할: "
 msgid "Connecting..."
 msgstr "연결하는 중입니다..."
 
-#: storage/main.c:156
+#: storage/main.c:211
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector, Microsoft Exchange용"
 
@@ -1489,61 +1504,66 @@ msgstr "Ximian Connector, Microsoft Exchange용"
 msgid "Account Name"
 msgstr "계정 이름"
 
-#: storage/xc-commands.c:299
+#: storage/xc-commands.c:312
 msgid "Folder does not exist"
 msgstr "폴더가 없습니다"
 
-#: storage/xc-commands.c:322
+#: storage/xc-commands.c:339
 #, c-format
 msgid "Could not add favorite: %s"
 msgstr "즐겨찾기를 더할 수 없습니다: %s"
 
-#: storage/xc-commands.c:336
+#: storage/xc-commands.c:355
 #, c-format
 msgid "Could not remove favorite: %s"
 msgstr "즐겨찾기를 지울 수 없습니다: %s"
 
-#: storage/xc-commands.c:353
-msgid "_Move Folder..."
-msgstr "폴더 옮기기(_M)..."
-
-#: storage/xc-commands.c:356
-msgid "_Copy Folder..."
-msgstr "폴더 복사(_C)..."
-
-#: storage/xc-commands.c:359
+#.
+#. FIXME: See 62440
+#. E_POPUP_ITEM (N_("_Move Folder..."),
+#. G_CALLBACK (do_move_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#. E_POPUP_ITEM (N_("_Copy Folder..."),
+#. G_CALLBACK (do_copy_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#.
+#: storage/xc-commands.c:381
 msgid "_Rename Folder..."
 msgstr "폴더 이름 바꾸기(_R)..."
 
-#: storage/xc-commands.c:365
+#: storage/xc-commands.c:387
 msgid "_New Folder..."
 msgstr "새 폴더(_N)..."
 
-#: storage/xc-commands.c:368
+#: storage/xc-commands.c:390
 msgid "_Delete Folder"
 msgstr "폴더 지우기(_D)"
 
-#: storage/xc-commands.c:373
+#: storage/xc-commands.c:395
 msgid "_Add Other User's Folder..."
 msgstr "다른 사용자의 폴더 더하기(_A)..."
 
-#: storage/xc-commands.c:376
+#: storage/xc-commands.c:398
 msgid "_Remove Other User's Folder"
 msgstr "다른 사용자의 폴더 지우기(_R)..."
 
-#: storage/xc-commands.c:382
+#: storage/xc-commands.c:404
 msgid "Add to _Favorites"
 msgstr "즐겨찾기에 더하기(_F)"
 
-#: storage/xc-commands.c:386
+#: storage/xc-commands.c:408
 msgid "Remove from Fa_vorites"
 msgstr "즐겨찾기에서 지우기(_V)"
 
-#: storage/xc-commands.c:393
+#: storage/xc-commands.c:415
 msgid "_Permissions..."
 msgstr "권한(_P)..."
 
-#: storage/ximian-connector-setup.c:43
+#: storage/xc-commands.c:419
+msgid "_Show Folder Sizes"
+msgstr ""
+
+#: storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
 msgstr "Ximian Connector, Microsoft Exchange Setup Tool용"
 
@@ -1552,38 +1572,53 @@ msgid "Change your Exchange server password"
 msgstr "Exchange 서버 열쇠글을 바꿉니다"
 
 #: storage/ximian-connector.xml.h:2
+#, fuzzy
+msgid "Folder _Size"
+msgstr "폴더 종류(_T):"
+
+#: storage/ximian-connector.xml.h:3
+msgid "Get the size of personal folders"
+msgstr ""
+
+#: storage/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
 msgstr "다른 사용자의 폴더 등록(_O)..."
 
-#: storage/ximian-connector.xml.h:3
+#: storage/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "서버의 다른 사용자가 가지고 있는 폴더에 등록합니다"
 
-#: storage/ximian-connector.xml.h:4
+#: storage/ximian-connector.xml.h:6
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr "\"다른 사용자의 폴더 등록\"으로 더한 폴더에서 등록 취소합니다"
 
-#: storage/ximian-connector.xml.h:5
+#: storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
 msgstr "Exchange 달력의 대리인 설정을 보거나 바꿉니다"
 
-#: storage/ximian-connector.xml.h:6
+#: storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr "부재 중 상태를 및 자동 응답 메세지를 보거나 바꿉니다"
 
-#: storage/ximian-connector.xml.h:7
+#: storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
 msgstr "Exchange 열쇠글 바꾸기(_C)..."
 
-#: storage/ximian-connector.xml.h:8
+#: storage/ximian-connector.xml.h:10
 msgid "_Delegation Assistant"
 msgstr "대리인 길잡이(_D)"
 
-#: storage/ximian-connector.xml.h:9
+#: storage/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
 msgstr "부재 중 알림(_O)"
 
-#: storage/ximian-connector.xml.h:10
+#: storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "다른 사용자의 폴더 등록 취소(_U)"
+
+#~ msgid "_Move Folder..."
+#~ msgstr "폴더 옮기기(_M)..."
+
+#~ msgid "_Copy Folder..."
+#~ msgstr "폴더 복사(_C)..."

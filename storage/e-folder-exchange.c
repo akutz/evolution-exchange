@@ -299,7 +299,7 @@ e_folder_exchange_set_permanent_uri (EFolder *folder, const char *permanent_uri)
 long long int
 e_folder_exchange_get_folder_size (EFolder *folder)
 {
-	g_return_val_if_fail (E_IS_FOLDER_EXCHANGE (folder), NULL);
+	g_return_val_if_fail (E_IS_FOLDER_EXCHANGE (folder), 0);
 
 	return E_FOLDER_EXCHANGE (folder)->priv->folder_size;
 }
@@ -439,7 +439,7 @@ e_folder_exchange_save_to_file (EFolder *folder, const char *filename)
 	physical_uri = e_folder_get_physical_uri (folder);
 	internal_uri = e_folder_exchange_get_internal_uri (folder);
 	permanent_uri = e_folder_exchange_get_permanent_uri (folder);
-	folder_size = g_strdup_printf ("%d", e_folder_exchange_get_folder_size (folder));
+	folder_size = g_strdup_printf ("%llu", e_folder_exchange_get_folder_size (folder));
 
 	g_return_val_if_fail (name && type && physical_uri && internal_uri,
 			      FALSE);
@@ -868,7 +868,7 @@ e_folder_exchange_delete (EFolder *folder, E2kOperation *op)
 	ESourceList *cal_source_list, *task_source_list, *cont_source_list;
 	const char *folder_type, *physical_uri;
 
-	g_return_val_if_fail (E_IS_FOLDER_EXCHANGE (folder), NULL);
+	g_return_val_if_fail (E_IS_FOLDER_EXCHANGE (folder), E2K_HTTP_MALFORMED);
 
 	/* remove ESources */
 	hier = e_folder_exchange_get_hierarchy (folder); 

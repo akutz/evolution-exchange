@@ -459,7 +459,7 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 static void
 add_href (gpointer path, gpointer folder, gpointer hrefs)
 {
-	char *folder_type;
+	const char *folder_type;
 	
 	folder_type = e_folder_get_type_string (folder);
 
@@ -634,7 +634,6 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *parent)
 	E2kResult *result;
 	E2kHTTPStatus status;
 	EFolder *folder;
-	GHashTable *table = NULL;
 
 	if (!folders_rn) {
 		folders_rn =

@@ -104,6 +104,7 @@ Exchange delegates
 @E2K_GLOBAL_CATALOG_LOOKUP_DELEGATORS: Look up the list of users who
 have made the indicated user their delegate
 @E2K_GLOBAL_CATALOG_LOOKUP_QUOTA: Look up the user's Exchange quote information
+@E2K_GLOBAL_CATALOG_LOOKUP_ACCOUNT_CONTROL: 
 
 <!-- ##### STRUCT E2kGlobalCatalogEntry ##### -->
 <para>
@@ -120,21 +121,14 @@ regardless of what fields are queried for. Other fields will only be
 filled in based on the @flags passed to the lookup function.
 </para>
 
-@dn: The Active Directory Distinguished Name of the result.
-@display_name: The UTF-8 display name of the user queried for.
 @sid: The SID (Windows Security Identifier) of the user.
-@email: The user&rsquo;s SMTP email address.
-@exchange_server: The user&rsquo;s Exchange server.
-@mailbox: The name of the user&rsquo;s mailbox on @exchange_server.
-@legacy_exchange_dn: The user&rsquo;s Exchange 5.5-style DN.
-@delegates: An array of the Active Directory DNs of the user&rsquo;s Exchange delegates.
-@delegators: An array of the Active Directory DNs of the users who have delegated to this user.
 @quota_warn: the mailbox size (in kilobytes) at which the user should
 be warned about quota usage
 @quota_nosend: the mailbox size (in kilobytes) at which the user will
 no longer be allowed to send mail
 @quota_norecv: the mailbox size (in kilobytes) at which the user will
 no longer be able to receive mail.
+@user_account_control: 
 @mask: indicates which other fields contain valid data
 
 <!-- ##### FUNCTION e2k_global_catalog_lookup ##### -->

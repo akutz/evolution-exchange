@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-30 17:36-0400\n"
+"POT-Creation-Date: 2004-11-26 17:22+0530\n"
 "PO-Revision-Date: 2004-08-10 23:55+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: addressbook/e-book-backend-exchange.c:1655
-#: addressbook/e-book-backend-gal.c:1204 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-gal.c:1213 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Hledám..."
 
@@ -25,15 +25,15 @@ msgstr "Hledám..."
 msgid "Reconnecting to LDAP server..."
 msgstr "Znovu se připojuji k serveru LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1110
+#: addressbook/e-book-backend-gal.c:1119
 msgid "Receiving LDAP search results..."
 msgstr "Přijímám výsledky hledání LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1225
+#: addressbook/e-book-backend-gal.c:1234
 msgid "Error performing search"
 msgstr "Chyba při hledání"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1354
+#: calendar/e-cal-backend-exchange-calendar.c:1372
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -42,127 +42,127 @@ msgstr ""
 "Nemohu naplánovat zdroj '%s' pro opakované schůzky.\n"
 "Musíte každou schůzku založit zvlášť."
 
-#: calendar/e-cal-backend-exchange-calendar.c:1377
+#: calendar/e-cal-backend-exchange-calendar.c:1391
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Zdroj '%s' se ve zvoleném časovém období používá."
 
-#: camel/camel-exchange-folder.c:219
+#: camel/camel-exchange-folder.c:215
 msgid "Can only expunge in Deleted Items folder"
 msgstr "Vyčistit lze jen složku Odstraněné položky"
 
-#: camel/camel-exchange-folder.c:243
+#: camel/camel-exchange-folder.c:239
 msgid "No Subject"
 msgstr "Žádný předmět"
 
-#: camel/camel-exchange-folder.c:632
+#: camel/camel-exchange-folder.c:586
 msgid "Moving messages"
 msgstr "Přesouvám zprávy"
 
-#: camel/camel-exchange-folder.c:633
+#: camel/camel-exchange-folder.c:587
 msgid "Copying messages"
 msgstr "Kopíruji zprávy"
 
-#: camel/camel-exchange-folder.c:878
+#: camel/camel-exchange-folder.c:890
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Nemohu vytvořit adresář %s: %s"
 
-#: camel/camel-exchange-folder.c:888
+#: camel/camel-exchange-folder.c:900
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Nemohu načíst souhrn pro %s"
 
-#: camel/camel-exchange-folder.c:896
+#: camel/camel-exchange-folder.c:908
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Nemohu vytvořit vyrovnávací paměť pro %s"
 
-#: camel/camel-exchange-folder.c:936
+#: camel/camel-exchange-folder.c:948
 msgid "Scanning for changed messages"
 msgstr "Hledám změněné zprávy"
 
-#: camel/camel-exchange-folder.c:960
+#: camel/camel-exchange-folder.c:972
 msgid "Fetching summary information for new messages"
 msgstr "Stahuji souhrnné informace pro nové zprávy"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "_Host"
 #. translation (or not at all)
-#: camel/camel-exchange-provider.c:43
+#: camel/camel-exchange-provider.c:44
 msgid "Exc_hange Server:"
 msgstr "Server Exchange:"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: camel/camel-exchange-provider.c:48
+#: camel/camel-exchange-provider.c:49
 msgid "Windows User_name:"
 msgstr "_Jméno uživatele ve Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: camel/camel-exchange-provider.c:53
+#: camel/camel-exchange-provider.c:54
 msgid "Global Address List / Active Directory"
 msgstr "Globální seznam adres / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: camel/camel-exchange-provider.c:57
+#: camel/camel-exchange-provider.c:58
 msgid "Global Catalog server name:"
 msgstr "Název serveru Global Catalog:"
 
-#: camel/camel-exchange-provider.c:59
+#: camel/camel-exchange-provider.c:60
 #, c-format
 msgid "Limit number of GAL responses: %s"
 msgstr "Omezit počet odpovědí GSA: %s"
 
-#: camel/camel-exchange-provider.c:62
+#: camel/camel-exchange-provider.c:63
 msgid "Exchange Server"
 msgstr "Server Exchange"
 
 #. i18n: "Mailbox" is an Outlookism. FIXME
-#: camel/camel-exchange-provider.c:65
+#: camel/camel-exchange-provider.c:66
 msgid "Mailbox name"
 msgstr "Název složky"
 
 #. i18n: "OWA" == "Outlook Web Access". Might not be translated?
-#: camel/camel-exchange-provider.c:68
+#: camel/camel-exchange-provider.c:69
 msgid "OWA path"
 msgstr "Cesta OWA"
 
 #. i18n: "Public Folder" is an Outlookism
-#: camel/camel-exchange-provider.c:71
+#: camel/camel-exchange-provider.c:72
 msgid "Public Folder server"
 msgstr "Server veřejných složek"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:75
+#: camel/camel-exchange-provider.c:76
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr "Použít filtry na nové zprávy ve složce Příchozí na tomto serveru"
 
-#: camel/camel-exchange-provider.c:77
+#: camel/camel-exchange-provider.c:78
 msgid "Check new messages for Junk contents"
 msgstr "Hledat smetí mezi novými zprávami"
 
-#: camel/camel-exchange-provider.c:79
+#: camel/camel-exchange-provider.c:80
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "Hledat smetí jen ve složce Příchozí"
 
-#: camel/camel-exchange-provider.c:85
+#: camel/camel-exchange-provider.c:86
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: camel/camel-exchange-provider.c:87
+#: camel/camel-exchange-provider.c:88
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Pro zpracovávání pošty (a jiných dat) na serverech Microsoft Exchange"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:105
+#: camel/camel-exchange-provider.c:106
 msgid "Secure Password"
 msgstr "Zabezpečené ověřování hesla"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:108
+#: camel/camel-exchange-provider.c:109
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -170,11 +170,11 @@ msgstr ""
 "Tato možnost se k serveru Exchange připojí pomocí zabezpečené autentizace "
 "heslem (NTLM)."
 
-#: camel/camel-exchange-provider.c:116
+#: camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "Heslo v čistém textu"
 
-#: camel/camel-exchange-provider.c:118
+#: camel/camel-exchange-provider.c:119
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -182,58 +182,58 @@ msgstr ""
 "Tato možnost se k serveru Exchange připojí pomocí standardní autentizace "
 "nešifrovaným heslem."
 
-#: camel/camel-exchange-store.c:178
+#: camel/camel-exchange-store.c:179
 #, c-format
 msgid "Exchange server %s"
 msgstr "Server Exchange %s"
 
-#: camel/camel-exchange-store.c:181
+#: camel/camel-exchange-store.c:182
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Účet Exchange pro %s na %s"
 
-#: camel/camel-exchange-store.c:208
+#: camel/camel-exchange-store.c:209
 msgid "Evolution Exchange backend process"
 msgstr "Proces backendu Evolution pro Exchange"
 
-#: camel/camel-exchange-transport.c:109
+#: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "Transport Exchange lze používat jen se zdrojem pošty Exchange"
 
-#: camel/camel-exchange-transport.c:120
+#: camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "Nemohu odeslat zprávu: jeden nebo více neplatných příjemců"
 
-#: camel/camel-exchange-transport.c:130
+#: camel/camel-exchange-transport.c:131
 msgid "Could not find 'From' address in message"
 msgstr "Nemohu ve zprávě najít adresu 'Od'"
 
-#: camel/camel-stub.c:133
+#: camel/camel-stub.c:134
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Nemohu vytvořit socket: %s"
 
-#: camel/camel-stub.c:148
+#: camel/camel-stub.c:149
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Nemohu se připojit k %s: %s"
 
-#: camel/camel-stub.c:167
+#: camel/camel-stub.c:179
 #, c-format
 msgid "Path too long: %s"
 msgstr "Cesta příliš dlouhá: %s"
 
-#: camel/camel-stub.c:193
+#: camel/camel-stub.c:205
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Nemohu spustit vlákno pro stav: %s"
 
-#: camel/camel-stub.c:445
+#: camel/camel-stub.c:457
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Ztratil jsem připojení k %s"
 
-#: camel/camel-stub.c:449
+#: camel/camel-stub.c:461
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Chyba při komunikaci s %s: %s"
@@ -280,11 +280,11 @@ msgstr "Žádná"
 msgid "Custom"
 msgstr "Vlastní"
 
-#: lib/e2k-user-dialog.c:148
+#: lib/e2k-user-dialog.c:149
 msgid "Select User"
 msgstr "Zvolit uživatele"
 
-#: lib/e2k-user-dialog.c:198
+#: lib/e2k-user-dialog.c:199
 msgid "Addressbook..."
 msgstr "Adresář..."
 
@@ -292,9 +292,9 @@ msgstr "Adresář..."
 msgid "No such folder"
 msgstr "Taková složka neexistuje"
 
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
-#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
-#: shell/e-storage.c:573 storage/xc-commands.c:302
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2298
+#: mail/mail-stub-exchange.c:2336 mail/mail-stub-exchange.c:2396
+#: shell/e-storage.c:573 storage/xc-commands.c:315
 msgid "Permission denied"
 msgstr "Přístup odepřen"
 
@@ -358,11 +358,11 @@ msgstr "Nemohu přesouvat/kopírovat zprávy"
 msgid "No mail submission URI for this mailbox"
 msgstr "Pro tuto složku není URI pro odesílání pošty"
 
-#: mail/mail-stub-exchange.c:2250
+#: mail/mail-stub-exchange.c:2249
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Server nepřijímá poštu pomocí transportu Exchange"
 
-#: mail/mail-stub-exchange.c:2252
+#: mail/mail-stub-exchange.c:2251
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -371,7 +371,7 @@ msgstr ""
 "Váš účet nemá oprávnění používat <%s>\n"
 "jako adresu Od."
 
-#: mail/mail-stub-exchange.c:2264
+#: mail/mail-stub-exchange.c:2263
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -379,22 +379,22 @@ msgstr ""
 "Nemohu odeslat zprávu.\n"
 "To možná znamená, že váš účet přesáhl kvótu."
 
-#: mail/mail-stub-exchange.c:2268
+#: mail/mail-stub-exchange.c:2267
 msgid "Could not send message"
 msgstr "Nemohu odeslat zprávu"
 
-#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
-#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
-#: storage/xc-commands.c:306
+#: mail/mail-stub-exchange.c:2290 mail/mail-stub-exchange.c:2341
+#: mail/mail-stub-exchange.c:2400 shell/e-storage.c:557
+#: storage/xc-commands.c:319
 msgid "Generic error"
 msgstr "Obecná chyba"
 
-#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
+#: mail/mail-stub-exchange.c:2294 storage/xc-commands.c:309
 msgid "Folder already exists"
 msgstr "Složka již existuje"
 
-#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
-#: mail/mail-stub-exchange.c:2393
+#: mail/mail-stub-exchange.c:2321 mail/mail-stub-exchange.c:2363
+#: mail/mail-stub-exchange.c:2392
 msgid "Folder doesn't exist"
 msgstr "Složka neexistuje"
 
@@ -614,7 +614,7 @@ msgstr "Nemohu vytvořit složku s tímto názvem"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Tuto operaci nelze provést v režimu off-line"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1103
+#: shell/e-storage.c:587 storage/exchange-account.c:1174
 msgid "Unknown error"
 msgstr "Neznámá chyba"
 
@@ -649,25 +649,25 @@ msgstr "_Exchange"
 # Aaargh
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:548
+#: storage/exchange-account.c:557
 #, c-format
 msgid "%s's Folders"
 msgstr "Složky uživatele %s"
 
-#: storage/exchange-account.c:829
+#: storage/exchange-account.c:838
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sZadejte heslo pro %s"
 
-#: storage/exchange-account.c:833
+#: storage/exchange-account.c:842
 msgid "Enter password"
 msgstr "Zadejte heslo"
 
-#: storage/exchange-account.c:908
+#: storage/exchange-account.c:967
 msgid "Cannot change password due to configuration problems"
 msgstr "Nemohu změnit heslo kvůli problémům s nastavením"
 
-#: storage/exchange-account.c:923
+#: storage/exchange-account.c:982
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -675,11 +675,11 @@ msgstr ""
 "Server odmítl heslo, protože je příliš slabé.\n"
 "Zkuste to znovu s jiným heslem."
 
-#: storage/exchange-account.c:928
+#: storage/exchange-account.c:987
 msgid "Could not change password"
 msgstr "Nemohu změnit heslo"
 
-#: storage/exchange-account.c:1014
+#: storage/exchange-account.c:1085
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -687,7 +687,7 @@ msgstr ""
 "Nemohu se autentizovat u serveru. (Nesprávné heslo?)\n"
 "\n"
 
-#: storage/exchange-account.c:1019
+#: storage/exchange-account.c:1090
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -707,7 +707,7 @@ msgstr ""
 "Nebo jste prostě zadali špatné heslo.\n"
 "\n"
 
-#: storage/exchange-account.c:1030
+#: storage/exchange-account.c:1101
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -723,12 +723,12 @@ msgstr ""
 "Nebo jste prostě zadali špatné heslo.\n"
 "\n"
 
-#: storage/exchange-account.c:1061
+#: storage/exchange-account.c:1132
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Složka pro %s není na tomto serveru."
 
-#: storage/exchange-account.c:1066
+#: storage/exchange-account.c:1137
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -737,7 +737,7 @@ msgstr ""
 "Na server '%s' běží Exchange 5.5, takže server\n"
 "není kompatibilní s Ximian Connector"
 
-#: storage/exchange-account.c:1073
+#: storage/exchange-account.c:1144
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -748,40 +748,40 @@ msgstr ""
 "Pokud OWA běží na jiné cestě, musíte ji zadat v dialogu\n"
 "nastavení účtu."
 
-#: storage/exchange-account.c:1081
+#: storage/exchange-account.c:1152
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Pro uživatele %s není v %s složka.\n"
 
-#: storage/exchange-account.c:1087 storage/exchange-account.c:1093
-#: storage/exchange-account.c:1101
+#: storage/exchange-account.c:1158 storage/exchange-account.c:1164
+#: storage/exchange-account.c:1172
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Nemohu se připojit k serveru %s: %s"
 
-#: storage/exchange-account.c:1089
+#: storage/exchange-account.c:1160
 msgid "Could not resolve hostname"
 msgstr "Nemohu najít jméno počítače"
 
-#: storage/exchange-account.c:1095
+#: storage/exchange-account.c:1166
 msgid "Network error"
 msgstr "Chyba sítě"
 
-#: storage/exchange-account.c:1147
+#: storage/exchange-account.c:1244
 msgid "Personal Folders"
 msgstr "Osobní složky"
 
-#: storage/exchange-account.c:1162
+#: storage/exchange-account.c:1259
 msgid "Favorite Public Folders"
 msgstr "Oblíbené veřejné složky"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1179
+#: storage/exchange-account.c:1276
 msgid "All Public Folders"
 msgstr "Všechny veřejné složky"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1193
+#: storage/exchange-account.c:1290
 msgid "Global Address List"
 msgstr "Globální seznam adres"
 
@@ -1241,6 +1241,21 @@ msgstr "_Příchozí:"
 msgid "_Tasks:"
 msgstr "_Úkoly:"
 
+#: storage/exchange-folder-size.c:190
+#, fuzzy
+msgid "Folder Name"
+msgstr "_Název složky:"
+
+#: storage/exchange-folder-size.c:194
+#, fuzzy
+msgid "Folder Size"
+msgstr "Složka viditelná"
+
+#: storage/exchange-folder-tree.glade.h:1
+#, fuzzy
+msgid "Exchange Folder Tree"
+msgstr "Server Exchange"
+
 #: storage/exchange-hierarchy-foreign.c:251
 msgid "Deleted Items"
 msgstr "Odstraněné položky"
@@ -1479,7 +1494,7 @@ msgstr "Role: "
 msgid "Connecting..."
 msgstr "Připojuji se..."
 
-#: storage/main.c:156
+#: storage/main.c:211
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector pro Microsoft Exchange"
 
@@ -1487,61 +1502,66 @@ msgstr "Ximian Connector pro Microsoft Exchange"
 msgid "Account Name"
 msgstr "Název účtu"
 
-#: storage/xc-commands.c:299
+#: storage/xc-commands.c:312
 msgid "Folder does not exist"
 msgstr "Složka neexistuje"
 
-#: storage/xc-commands.c:322
+#: storage/xc-commands.c:339
 #, c-format
 msgid "Could not add favorite: %s"
 msgstr "Nemohu přidat oblíbené: %s"
 
-#: storage/xc-commands.c:336
+#: storage/xc-commands.c:355
 #, c-format
 msgid "Could not remove favorite: %s"
 msgstr "Nemohu odstranit oblíbené: %s"
 
-#: storage/xc-commands.c:353
-msgid "_Move Folder..."
-msgstr "_Přesunout složku..."
-
-#: storage/xc-commands.c:356
-msgid "_Copy Folder..."
-msgstr "_Kopírovat složku..."
-
-#: storage/xc-commands.c:359
+#.
+#. FIXME: See 62440
+#. E_POPUP_ITEM (N_("_Move Folder..."),
+#. G_CALLBACK (do_move_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#. E_POPUP_ITEM (N_("_Copy Folder..."),
+#. G_CALLBACK (do_copy_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#.
+#: storage/xc-commands.c:381
 msgid "_Rename Folder..."
 msgstr "Pře_jmenovat složku..."
 
-#: storage/xc-commands.c:365
+#: storage/xc-commands.c:387
 msgid "_New Folder..."
 msgstr "_Nová složka..."
 
-#: storage/xc-commands.c:368
+#: storage/xc-commands.c:390
 msgid "_Delete Folder"
 msgstr "_Odstranit složku"
 
-#: storage/xc-commands.c:373
+#: storage/xc-commands.c:395
 msgid "_Add Other User's Folder..."
 msgstr "_Přidat složku jiného uživatele..."
 
-#: storage/xc-commands.c:376
+#: storage/xc-commands.c:398
 msgid "_Remove Other User's Folder"
 msgstr "_Odstranit složku jiného uživatele"
 
-#: storage/xc-commands.c:382
+#: storage/xc-commands.c:404
 msgid "Add to _Favorites"
 msgstr "Přidat do _Oblíbených"
 
-#: storage/xc-commands.c:386
+#: storage/xc-commands.c:408
 msgid "Remove from Fa_vorites"
 msgstr "Odstranit z Ob_líbených"
 
-#: storage/xc-commands.c:393
+#: storage/xc-commands.c:415
 msgid "_Permissions..."
 msgstr "_Oprávnění..."
 
-#: storage/ximian-connector-setup.c:43
+#: storage/xc-commands.c:419
+msgid "_Show Folder Sizes"
+msgstr ""
+
+#: storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
 msgstr "Nástroj pro nastavení Ximian Connectoru pro Microsoft Exchange"
 
@@ -1550,44 +1570,59 @@ msgid "Change your Exchange server password"
 msgstr "Změnit vaše heslo na serveru Exchange"
 
 #: storage/ximian-connector.xml.h:2
+#, fuzzy
+msgid "Folder _Size"
+msgstr "_Typ složky:"
+
+#: storage/ximian-connector.xml.h:3
+msgid "Get the size of personal folders"
+msgstr ""
+
+#: storage/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
 msgstr "Přihlásit se ke složce _jiného uživatele..."
 
-#: storage/ximian-connector.xml.h:3
+#: storage/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Přihlásit se ke složce patřící jinému uživateli na serveru"
 
-#: storage/ximian-connector.xml.h:4
+#: storage/ximian-connector.xml.h:6
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
 "Odhlásit se od složky přidané pomocí \"Přihlásit se ke složce jiného "
 "uživatele\""
 
-#: storage/ximian-connector.xml.h:5
+#: storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
 msgstr "Zobrazit nebo změnit vaše nastavení delegování kalendáře Exchange"
 
-#: storage/ximian-connector.xml.h:6
+#: storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr ""
 "Zobrazit nebo změnit váš stav \"mimo kancelář\" a zprávu automatické odpovědi"
 
-#: storage/ximian-connector.xml.h:7
+#: storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
 msgstr "_Změnit heslo Exchange..."
 
-#: storage/ximian-connector.xml.h:8
+#: storage/ximian-connector.xml.h:10
 msgid "_Delegation Assistant"
 msgstr "Asistent pro _delegování"
 
-#: storage/ximian-connector.xml.h:9
+#: storage/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
 msgstr "Asistent \"_mimo kancelář\""
 
-#: storage/ximian-connector.xml.h:10
+#: storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Odhlásit se od složky jiného uživatele"
+
+#~ msgid "_Move Folder..."
+#~ msgstr "_Přesunout složku..."
+
+#~ msgid "_Copy Folder..."
+#~ msgstr "_Kopírovat složku..."
 
 #~ msgid "Exchange _Quota"
 #~ msgstr "_Kvóta exchange"

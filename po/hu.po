@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-30 17:36-0400\n"
+"POT-Creation-Date: 2004-11-26 17:22+0530\n"
 "PO-Revision-Date: 2004-08-25 00:07+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: addressbook/e-book-backend-exchange.c:1655
-#: addressbook/e-book-backend-gal.c:1204 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-gal.c:1213 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Keresés..."
 
@@ -24,15 +24,15 @@ msgstr "Keresés..."
 msgid "Reconnecting to LDAP server..."
 msgstr "Újrakapcsolódás az LDAP-kiszolgálóhoz..."
 
-#: addressbook/e-book-backend-gal.c:1110
+#: addressbook/e-book-backend-gal.c:1119
 msgid "Receiving LDAP search results..."
 msgstr "LDAP keresés eredményeinek letöltése..."
 
-#: addressbook/e-book-backend-gal.c:1225
+#: addressbook/e-book-backend-gal.c:1234
 msgid "Error performing search"
 msgstr "Hiba a keresés közben"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1354
+#: calendar/e-cal-backend-exchange-calendar.c:1372
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -41,127 +41,127 @@ msgstr ""
 "'%s' erőforrás nem ütemezhető az ismétlődő találkozókra.\n"
 "Minden egyes találkozóra külön kell beírnia."
 
-#: calendar/e-cal-backend-exchange-calendar.c:1377
+#: calendar/e-cal-backend-exchange-calendar.c:1391
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "'%s' erőforrás foglalt a kiválasztott időtartamban."
 
-#: camel/camel-exchange-folder.c:219
+#: camel/camel-exchange-folder.c:215
 msgid "Can only expunge in Deleted Items folder"
 msgstr "A tisztítás csak a \"Törölt elemek\" mappában hajtható végre"
 
-#: camel/camel-exchange-folder.c:243
+#: camel/camel-exchange-folder.c:239
 msgid "No Subject"
 msgstr "Nincs Tárgy"
 
-#: camel/camel-exchange-folder.c:632
+#: camel/camel-exchange-folder.c:586
 msgid "Moving messages"
 msgstr "Levelek áthelyezése"
 
-#: camel/camel-exchange-folder.c:633
+#: camel/camel-exchange-folder.c:587
 msgid "Copying messages"
 msgstr "Levelek másolása"
 
-#: camel/camel-exchange-folder.c:878
+#: camel/camel-exchange-folder.c:890
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Nem lehet létrehozni a(z) %s könyvtárat: %s"
 
-#: camel/camel-exchange-folder.c:888
+#: camel/camel-exchange-folder.c:900
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Nem lehet betölteni %s összefoglalóját"
 
-#: camel/camel-exchange-folder.c:896
+#: camel/camel-exchange-folder.c:908
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Nem hozható létre gyorsítótár a következőhöz: %s"
 
-#: camel/camel-exchange-folder.c:936
+#: camel/camel-exchange-folder.c:948
 msgid "Scanning for changed messages"
 msgstr "Megváltozott levelek keresése"
 
-#: camel/camel-exchange-folder.c:960
+#: camel/camel-exchange-folder.c:972
 msgid "Fetching summary information for new messages"
 msgstr "Összefoglaló adatok letöltése az új levelekhez"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "_Host"
 #. translation (or not at all)
-#: camel/camel-exchange-provider.c:43
+#: camel/camel-exchange-provider.c:44
 msgid "Exc_hange Server:"
 msgstr "Exchange kiszol_gáló:"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: camel/camel-exchange-provider.c:48
+#: camel/camel-exchange-provider.c:49
 msgid "Windows User_name:"
 msgstr "Windowsos _felhasználónév:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: camel/camel-exchange-provider.c:53
+#: camel/camel-exchange-provider.c:54
 msgid "Global Address List / Active Directory"
 msgstr "Globális címlista / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: camel/camel-exchange-provider.c:57
+#: camel/camel-exchange-provider.c:58
 msgid "Global Catalog server name:"
 msgstr "Globális katalógus-kiszolgáló neve:"
 
-#: camel/camel-exchange-provider.c:59
+#: camel/camel-exchange-provider.c:60
 #, c-format
 msgid "Limit number of GAL responses: %s"
 msgstr "Globális címlista-válaszok határértéke: %s"
 
-#: camel/camel-exchange-provider.c:62
+#: camel/camel-exchange-provider.c:63
 msgid "Exchange Server"
 msgstr "Exchange kiszolgáló"
 
 #. i18n: "Mailbox" is an Outlookism. FIXME
-#: camel/camel-exchange-provider.c:65
+#: camel/camel-exchange-provider.c:66
 msgid "Mailbox name"
 msgstr "Postafiók neve"
 
 #. i18n: "OWA" == "Outlook Web Access". Might not be translated?
-#: camel/camel-exchange-provider.c:68
+#: camel/camel-exchange-provider.c:69
 msgid "OWA path"
 msgstr "Outlook Web Access útvonal"
 
 #. i18n: "Public Folder" is an Outlookism
-#: camel/camel-exchange-provider.c:71
+#: camel/camel-exchange-provider.c:72
 msgid "Public Folder server"
 msgstr "Nyilvános mappák kiszolgálója"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:75
+#: camel/camel-exchange-provider.c:76
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr "Szűrők alkalmazása az új levelekre ennek a kiszolgálónak az INBOX-ában"
 
-#: camel/camel-exchange-provider.c:77
+#: camel/camel-exchange-provider.c:78
 msgid "Check new messages for Junk contents"
 msgstr "Levélszemét keresése az új levelek között"
 
-#: camel/camel-exchange-provider.c:79
+#: camel/camel-exchange-provider.c:80
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "Levélszemét keresése csak az Érkezett mappában"
 
-#: camel/camel-exchange-provider.c:85
+#: camel/camel-exchange-provider.c:86
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: camel/camel-exchange-provider.c:87
+#: camel/camel-exchange-provider.c:88
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Levelek (és egyéb adatok) kezelésére Microsoft Exchange kiszolgálókon"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:105
+#: camel/camel-exchange-provider.c:106
 msgid "Secure Password"
 msgstr "Biztonságos jelszó"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:108
+#: camel/camel-exchange-provider.c:109
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -169,11 +169,11 @@ msgstr ""
 "Ezen opció hatására biztonságos jelszó-hitelesítéssel (NTLM) fog kapcsolódni "
 "az Exchange kiszolgálóhoz."
 
-#: camel/camel-exchange-provider.c:116
+#: camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "Egyszerű szöveges jelszó"
 
-#: camel/camel-exchange-provider.c:118
+#: camel/camel-exchange-provider.c:119
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -181,58 +181,58 @@ msgstr ""
 "Ezen opció hatására szabvány egyszerű szöveges jelszó-hitelesítéssel fog "
 "kapcsolódni az Exchange kiszolgálóhoz."
 
-#: camel/camel-exchange-store.c:178
+#: camel/camel-exchange-store.c:179
 #, c-format
 msgid "Exchange server %s"
 msgstr "%s Exchange kiszolgáló"
 
-#: camel/camel-exchange-store.c:181
+#: camel/camel-exchange-store.c:182
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "%s Exchange fiókja %s kiszolgálón"
 
-#: camel/camel-exchange-store.c:208
+#: camel/camel-exchange-store.c:209
 msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange háttérfolyamat"
 
-#: camel/camel-exchange-transport.c:109
+#: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "Az Exchange továbbítás csak Exchange levélforrással használható együtt"
 
-#: camel/camel-exchange-transport.c:120
+#: camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "Nem lehet elküldeni a levelet: egy vagy több címzett érvénytelen"
 
-#: camel/camel-exchange-transport.c:130
+#: camel/camel-exchange-transport.c:131
 msgid "Could not find 'From' address in message"
 msgstr "Nincs megadva a feladó címe az üzenetben"
 
-#: camel/camel-stub.c:133
+#: camel/camel-stub.c:134
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Nem hozható létre foglalat: %s"
 
-#: camel/camel-stub.c:148
+#: camel/camel-stub.c:149
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Nem lehet kapcsolódni a következőhöz: %s: %s"
 
-#: camel/camel-stub.c:167
+#: camel/camel-stub.c:179
 #, c-format
 msgid "Path too long: %s"
 msgstr "Az útvonal túl hosszú: %s"
 
-#: camel/camel-stub.c:193
+#: camel/camel-stub.c:205
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Nem indítható állapotszál: %s"
 
-#: camel/camel-stub.c:445
+#: camel/camel-stub.c:457
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Megszakadt a kapcsolat a következővel: %s"
 
-#: camel/camel-stub.c:449
+#: camel/camel-stub.c:461
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Hiba a következővel való kommunikáció közben: %s : %s"
@@ -279,11 +279,11 @@ msgstr "Nincs"
 msgid "Custom"
 msgstr "Egyéni"
 
-#: lib/e2k-user-dialog.c:148
+#: lib/e2k-user-dialog.c:149
 msgid "Select User"
 msgstr "Felhasználó kiválasztása"
 
-#: lib/e2k-user-dialog.c:198
+#: lib/e2k-user-dialog.c:199
 msgid "Addressbook..."
 msgstr "Címjegyzék..."
 
@@ -291,9 +291,9 @@ msgstr "Címjegyzék..."
 msgid "No such folder"
 msgstr "Nincs ilyen mappa"
 
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
-#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
-#: shell/e-storage.c:573 storage/xc-commands.c:302
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2298
+#: mail/mail-stub-exchange.c:2336 mail/mail-stub-exchange.c:2396
+#: shell/e-storage.c:573 storage/xc-commands.c:315
 msgid "Permission denied"
 msgstr "Hozzáférés megtagadva"
 
@@ -357,11 +357,11 @@ msgstr "Nem lehet mozgatni/másolni az üzeneteket"
 msgid "No mail submission URI for this mailbox"
 msgstr "Nincs megadva levélküldési URI ehhez a postafiókhoz"
 
-#: mail/mail-stub-exchange.c:2250
+#: mail/mail-stub-exchange.c:2249
 msgid "Server won't accept mail via Exchange transport"
 msgstr "A kiszolgáló nem fogad el leveleket Exchange továbbítással"
 
-#: mail/mail-stub-exchange.c:2252
+#: mail/mail-stub-exchange.c:2251
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -370,7 +370,7 @@ msgstr ""
 "A fiókjának nincs felhatalmazása <%s> feladó\n"
 "címeként való használatára."
 
-#: mail/mail-stub-exchange.c:2264
+#: mail/mail-stub-exchange.c:2263
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -378,22 +378,22 @@ msgstr ""
 "Nem lehet elküldeni az üzenetet\n"
 "Ez azt jelentheti, hogy betelt a fiókja."
 
-#: mail/mail-stub-exchange.c:2268
+#: mail/mail-stub-exchange.c:2267
 msgid "Could not send message"
 msgstr "Nem lehet elküldeni az üzenetet"
 
-#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
-#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
-#: storage/xc-commands.c:306
+#: mail/mail-stub-exchange.c:2290 mail/mail-stub-exchange.c:2341
+#: mail/mail-stub-exchange.c:2400 shell/e-storage.c:557
+#: storage/xc-commands.c:319
 msgid "Generic error"
 msgstr "Általános hiba"
 
-#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
+#: mail/mail-stub-exchange.c:2294 storage/xc-commands.c:309
 msgid "Folder already exists"
 msgstr "A mappa már létezik"
 
-#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
-#: mail/mail-stub-exchange.c:2393
+#: mail/mail-stub-exchange.c:2321 mail/mail-stub-exchange.c:2363
+#: mail/mail-stub-exchange.c:2392
 msgid "Folder doesn't exist"
 msgstr "A mappa nem létezik"
 
@@ -613,7 +613,7 @@ msgstr "Nem hozható létre ilyen nevű mappa"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Ez a művelet nem végezhető el kapcsolat nélküli módban"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1103
+#: shell/e-storage.c:587 storage/exchange-account.c:1174
 msgid "Unknown error"
 msgstr "Ismeretlen hiba"
 
@@ -647,25 +647,25 @@ msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:548
+#: storage/exchange-account.c:557
 #, c-format
 msgid "%s's Folders"
 msgstr "%s mappái"
 
-#: storage/exchange-account.c:829
+#: storage/exchange-account.c:838
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sAdja meg %s jelszavát"
 
-#: storage/exchange-account.c:833
+#: storage/exchange-account.c:842
 msgid "Enter password"
 msgstr "Adja meg a jelszót"
 
-#: storage/exchange-account.c:908
+#: storage/exchange-account.c:967
 msgid "Cannot change password due to configuration problems"
 msgstr "Beállítási problémák miatt nem változtatható meg a jelszó"
 
-#: storage/exchange-account.c:923
+#: storage/exchange-account.c:982
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -673,11 +673,11 @@ msgstr ""
 "A kiszolgáló visszautasította a jelszót, mivel az túl egyszerű.\n"
 "Próbálja újra egy másik jelszóval."
 
-#: storage/exchange-account.c:928
+#: storage/exchange-account.c:987
 msgid "Could not change password"
 msgstr "Nem lehet megváltoztatni a jelszót"
 
-#: storage/exchange-account.c:1014
+#: storage/exchange-account.c:1085
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -685,7 +685,7 @@ msgstr ""
 "Nem sikerült a hitelesítés a kiszolgálón. (Talán hibás a jelszó?)\n"
 "\n"
 
-#: storage/exchange-account.c:1019
+#: storage/exchange-account.c:1090
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -705,7 +705,7 @@ msgstr ""
 "Vagy lehet, hogy egyszerűen csak elgépelte a jelszavát.\n"
 "\n"
 
-#: storage/exchange-account.c:1030
+#: storage/exchange-account.c:1101
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -721,12 +721,12 @@ msgstr ""
 "Vagy lehet, hogy egyszerűen csak elgépelte a jelszavát.\n"
 "\n"
 
-#: storage/exchange-account.c:1061
+#: storage/exchange-account.c:1132
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "%s postafiókja nem ezen a kiszolgálón van."
 
-#: storage/exchange-account.c:1066
+#: storage/exchange-account.c:1137
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -735,7 +735,7 @@ msgstr ""
 "'%s' kiszolgáló Exchange 5.5-öt futtat és ezért\n"
 "nem kompatibilis a Ximian Connectorral"
 
-#: storage/exchange-account.c:1073
+#: storage/exchange-account.c:1144
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -746,40 +746,40 @@ msgstr ""
 "Ha az Outlook Web Access más elérési úton fut, adja meg \n"
 "azt a fiók beállításai párbeszédablakban."
 
-#: storage/exchange-account.c:1081
+#: storage/exchange-account.c:1152
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "%s felhasználónak nincs postafiókja a(z) %s kiszolgálón.\n"
 
-#: storage/exchange-account.c:1087 storage/exchange-account.c:1093
-#: storage/exchange-account.c:1101
+#: storage/exchange-account.c:1158 storage/exchange-account.c:1164
+#: storage/exchange-account.c:1172
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Nem lehet kapcsolódni a(z) %s kiszolgálóhoz: %s"
 
-#: storage/exchange-account.c:1089
+#: storage/exchange-account.c:1160
 msgid "Could not resolve hostname"
 msgstr "Nem lehet feloldani a gépnevet"
 
-#: storage/exchange-account.c:1095
+#: storage/exchange-account.c:1166
 msgid "Network error"
 msgstr "Hálózati hiba"
 
-#: storage/exchange-account.c:1147
+#: storage/exchange-account.c:1244
 msgid "Personal Folders"
 msgstr "Személyes mappák"
 
-#: storage/exchange-account.c:1162
+#: storage/exchange-account.c:1259
 msgid "Favorite Public Folders"
 msgstr "Kedvenc nyilvános mappák"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1179
+#: storage/exchange-account.c:1276
 msgid "All Public Folders"
 msgstr "Minden nyilvános mappa"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1193
+#: storage/exchange-account.c:1290
 msgid "Global Address List"
 msgstr "Globális címlista"
 
@@ -1240,6 +1240,21 @@ msgstr "_Érkezett:"
 msgid "_Tasks:"
 msgstr "Felada_tok:"
 
+#: storage/exchange-folder-size.c:190
+#, fuzzy
+msgid "Folder Name"
+msgstr "Mappa _neve:"
+
+#: storage/exchange-folder-size.c:194
+#, fuzzy
+msgid "Folder Size"
+msgstr "Látható mappa"
+
+#: storage/exchange-folder-tree.glade.h:1
+#, fuzzy
+msgid "Exchange Folder Tree"
+msgstr "Exchange kiszolgáló"
+
 #: storage/exchange-hierarchy-foreign.c:251
 msgid "Deleted Items"
 msgstr "Törölt elemek"
@@ -1481,7 +1496,7 @@ msgstr "Szerep: "
 msgid "Connecting..."
 msgstr "Kapcsolódás..."
 
-#: storage/main.c:156
+#: storage/main.c:211
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector a Microsoft Exchange-hez"
 
@@ -1489,61 +1504,66 @@ msgstr "Ximian Connector a Microsoft Exchange-hez"
 msgid "Account Name"
 msgstr "Fióknév"
 
-#: storage/xc-commands.c:299
+#: storage/xc-commands.c:312
 msgid "Folder does not exist"
 msgstr "A mappa nem létezik"
 
-#: storage/xc-commands.c:322
+#: storage/xc-commands.c:339
 #, c-format
 msgid "Could not add favorite: %s"
 msgstr "Nem adható hozzá a kedvenc: %s"
 
-#: storage/xc-commands.c:336
+#: storage/xc-commands.c:355
 #, c-format
 msgid "Could not remove favorite: %s"
 msgstr "Nem törölhető a kedvenc: %s"
 
-#: storage/xc-commands.c:353
-msgid "_Move Folder..."
-msgstr "_Mappa áthelyezése..."
-
-#: storage/xc-commands.c:356
-msgid "_Copy Folder..."
-msgstr "Ma_ppa másolása..."
-
-#: storage/xc-commands.c:359
+#.
+#. FIXME: See 62440
+#. E_POPUP_ITEM (N_("_Move Folder..."),
+#. G_CALLBACK (do_move_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#. E_POPUP_ITEM (N_("_Copy Folder..."),
+#. G_CALLBACK (do_copy_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#.
+#: storage/xc-commands.c:381
 msgid "_Rename Folder..."
 msgstr "Mappa á_tnevezése..."
 
-#: storage/xc-commands.c:365
+#: storage/xc-commands.c:387
 msgid "_New Folder..."
 msgstr "Új _mappa..."
 
-#: storage/xc-commands.c:368
+#: storage/xc-commands.c:390
 msgid "_Delete Folder"
 msgstr "Mappa tö_rlése"
 
-#: storage/xc-commands.c:373
+#: storage/xc-commands.c:395
 msgid "_Add Other User's Folder..."
 msgstr "Más felhasználó mappájának _hozzáadása..."
 
-#: storage/xc-commands.c:376
+#: storage/xc-commands.c:398
 msgid "_Remove Other User's Folder"
 msgstr "Más felhasználó mappájának _eltávolítása"
 
-#: storage/xc-commands.c:382
+#: storage/xc-commands.c:404
 msgid "Add to _Favorites"
 msgstr "Hozzáadás a _kedvencekhez"
 
-#: storage/xc-commands.c:386
+#: storage/xc-commands.c:408
 msgid "Remove from Fa_vorites"
 msgstr "Eltá_volítás a kedvencek közül"
 
-#: storage/xc-commands.c:393
+#: storage/xc-commands.c:415
 msgid "_Permissions..."
 msgstr "_Jogosultságok..."
 
-#: storage/ximian-connector-setup.c:43
+#: storage/xc-commands.c:419
+msgid "_Show Folder Sizes"
+msgstr ""
+
+#: storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
 msgstr "Ximian Connector a Microsoft Exchange-hez beállítóeszköz"
 
@@ -1552,42 +1572,57 @@ msgid "Change your Exchange server password"
 msgstr "Jelszó megváltoztatása az Exchange kiszolgálón"
 
 #: storage/ximian-connector.xml.h:2
+#, fuzzy
+msgid "Folder _Size"
+msgstr "Mappa _típusa:"
+
+#: storage/ximian-connector.xml.h:3
+msgid "Get the size of personal folders"
+msgstr ""
+
+#: storage/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
 msgstr "Feliratk_ozás más felhasználó mappájára..."
 
-#: storage/ximian-connector.xml.h:3
+#: storage/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Feliratkozás egy másik felhasználóhoz tartozó mappára a kiszolgálón"
 
-#: storage/ximian-connector.xml.h:4
+#: storage/ximian-connector.xml.h:6
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr "Leiratkozás egy másik felhasználó mappájáról"
 
-#: storage/ximian-connector.xml.h:5
+#: storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
 msgstr ""
 "Az Exchange naptár meghatalmazási beállításainak megtekintése vagy "
 "megváltoztatása"
 
-#: storage/ximian-connector.xml.h:6
+#: storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr ""
 "\"Házon kívül\" állapot és az automatikus válaszüzenet megtekintése vagy "
 "megváltoztatása"
 
-#: storage/ximian-connector.xml.h:7
+#: storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
 msgstr "Exchange _jelszó megváltoztatása..."
 
-#: storage/ximian-connector.xml.h:8
+#: storage/ximian-connector.xml.h:10
 msgid "_Delegation Assistant"
 msgstr "_Meghatalmazási asszisztens"
 
-#: storage/ximian-connector.xml.h:9
+#: storage/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
 msgstr "\"Házon kívül\" _asszisztens"
 
-#: storage/ximian-connector.xml.h:10
+#: storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Leiratkozás más felhasználó mappájáról"
+
+#~ msgid "_Move Folder..."
+#~ msgstr "_Mappa áthelyezése..."
+
+#~ msgid "_Copy Folder..."
+#~ msgstr "Ma_ppa másolása..."

@@ -34,7 +34,7 @@
 #include <gtk/gtktreeselection.h>
 #include <gtk/gtktreeview.h>
 
-#include "exchange-hierarchy.h"
+#include "exchange-hierarchy-webdav.h"
 #include "e-folder-exchange.h"
 #include "exchange-folder-size.h"
 
@@ -156,7 +156,6 @@ exchange_folder_size_display (EFolder *folder, GtkWidget *parent)
 	ExchangeFolderSize *fsize;
         ExchangeHierarchy *hier;
         GtkTreeViewColumn *column;
-        GtkTreeIter iter;
         GHashTable *folder_size_table;
         GladeXML *xml;
         GtkWidget *dialog, *table;
