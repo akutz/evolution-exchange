@@ -902,6 +902,7 @@ exchange_delegates (ExchangeAccount *account, GtkWidget *parent)
 	int i;
 	
 	g_return_if_fail (GTK_IS_WIDGET (parent));
+	g_return_if_fail (EXCHANGE_IS_ACCOUNT (account));
 
 	delegates = g_new0 (ExchangeDelegates, 1);
 	delegates->account = g_object_ref (account);

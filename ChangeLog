@@ -1,3 +1,10 @@
+2004-08-13  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* storage/exchange-delegates.c (exchange_delegates): Checking for NULL
+	account. The tree view was returning a NULL account. This fixes #62248
+	* calendar/e-cal-backend-exchange-calendar.c (update_x_properties):
+	Fixed a build break.
+
 2004-08-13  Sushma Rai  <rsushma@novell.com>
 
 	* storage/exchange-autoconfig-wizard.c: (autoconfig_gui_apply)

@@ -638,16 +638,16 @@ update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp)
 				icalproperty_set_x (icalprop, "FREE");
 			else if (strcmp (x_val, "FREE") == 0)
 				icalproperty_set_x (icalprop, "BUSY");
-			propset |= BUSYSTATUS;
+			prop_set |= BUSYSTATUS;
 		} else if (!strcmp (x_name, "X-MICROSOFT-CDO-INSTTYPE")) {
 			icalproperty_set_x (icalprop, insttype);
-			propset |= INSTTYPE;
+			prop_set |= INSTTYPE;
 		} else if (!strcmp (x_name, "X-MICROSOFT-CDO-ALLDAYEVENT")) {
 			icalproperty_set_x (icalprop, allday);
-			propset |= ALLDAY;
+			prop_set |= ALLDAY;
 		} else if (!strcmp (x_name, "X-MICROSOFT-CDO-IMPORTANCE")) {
 			icalproperty_set_x (icalprop, importance);
-			propset |= IMPORTANCE;
+			prop_set |= IMPORTANCE;
 		} else if (!strcmp (x_name, "X-MICROSOFT-CDO-MODPROPS"))
 			icalcomponent_remove_property (icalcomp, icalprop);
 
