@@ -168,7 +168,7 @@ exchange_folder_size_display (EFolder *folder, GtkWidget *parent)
         hier = e_folder_exchange_get_hierarchy (folder);
 	/* FIXME: This should be a more generic query and not just 
 	specifically for webdav */
-        fsize = exchange_hierarchy_webdav_get_folder_size (hier);
+        fsize = exchange_hierarchy_webdav_get_folder_size (EXCHANGE_HIERARCHY_WEBDAV (hier));
 	priv = fsize->priv;
 	folder_size_table = priv->table;
 

@@ -299,7 +299,7 @@ e_folder_exchange_set_permanent_uri (EFolder *folder, const char *permanent_uri)
 long long int
 e_folder_exchange_get_folder_size (EFolder *folder)
 {
-	g_return_val_if_fail (E_IS_FOLDER_EXCHANGE (folder), 0);
+	g_return_val_if_fail (E_IS_FOLDER_EXCHANGE (folder), -1);
 
 	return E_FOLDER_EXCHANGE (folder)->priv->folder_size;
 }
@@ -431,6 +431,7 @@ e_folder_exchange_save_to_file (EFolder *folder, const char *filename)
 	const char *name, *type, *outlook_class;
 	const char *physical_uri, *internal_uri, *permanent_uri;
 	const char *folder_size;
+	long long int fsize;
 	int status;
 
 	name = e_folder_get_name (folder);
@@ -439,7 +440,10 @@ e_folder_exchange_save_to_file (EFolder *folder, const char *filename)
 	physical_uri = e_folder_get_physical_uri (folder);
 	internal_uri = e_folder_exchange_get_internal_uri (folder);
 	permanent_uri = e_folder_exchange_get_permanent_uri (folder);
-	folder_size = g_strdup_printf ("%llu", e_folder_exchange_get_folder_size (folder));
+	if ((fsize = e_folder_exchange_get_folder_size (folder)) >= 0)
+		folder_size = g_strdup_printf ("%llu", fsize);
+	else
+		return FALSE;
 
 	g_return_val_if_fail (name && type && physical_uri && internal_uri,
 			      FALSE);
