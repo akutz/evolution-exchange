@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome 2.8 branch\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-25 11:28+0530\n"
+"POT-Creation-Date: 2005-02-07 15:59+0530\n"
 "PO-Revision-Date: 2005-01-10 14:26+0200\n"
 "Last-Translator: Vladimir Petkov <vpetkov@i-space.org>\n"
 "Language-Team: Bulgarian <dict@linux.zonebg.com>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: addressbook/e-book-backend-exchange.c:1807
-#: addressbook/e-book-backend-gal.c:1341 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-gal.c:1344 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Търсене..."
 
@@ -26,22 +26,26 @@ msgstr "Търсене..."
 msgid "Reconnecting to LDAP server..."
 msgstr ""
 
-#: addressbook/e-book-backend-gal.c:1215
+#: addressbook/e-book-backend-gal.c:1218
 msgid "Receiving LDAP search results..."
 msgstr ""
 
-#: addressbook/e-book-backend-gal.c:1362
+#: addressbook/e-book-backend-gal.c:1365
 msgid "Error performing search"
 msgstr ""
 
-#: calendar/e-cal-backend-exchange-calendar.c:1733
+#: calendar/e-cal-backend-exchange.c:277
+msgid "Folder not marked for offline support"
+msgstr ""
+
+#: calendar/e-cal-backend-exchange-calendar.c:1712
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
 
-#: calendar/e-cal-backend-exchange-calendar.c:1752
+#: calendar/e-cal-backend-exchange-calendar.c:1731
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr ""
@@ -89,6 +93,24 @@ msgstr ""
 #: camel/camel-exchange-folder.c:1022
 msgid "Fetching summary information for new messages"
 msgstr ""
+
+#: camel/camel-exchange-journal.c:279
+msgid "No folder name found\n"
+msgstr ""
+
+#: camel/camel-exchange-journal.c:342
+#, fuzzy
+msgid "Cannot append message in offline mode: cache unavailable"
+msgstr ""
+"Папката не може да бъде преименувана:\n"
+"%s"
+
+#: camel/camel-exchange-journal.c:358
+#, fuzzy, c-format
+msgid "Cannot append message in offline mode: %s"
+msgstr ""
+"Папката не може да бъде преименувана:\n"
+"%s"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
@@ -188,25 +210,25 @@ msgstr ""
 msgid "No such folder %s"
 msgstr "Не съществува папка %s"
 
-#: camel/camel-exchange-store.c:474
+#: camel/camel-exchange-store.c:480
 msgid "Cannot get folder info in offline mode."
 msgstr ""
 
-#: camel/camel-exchange-store.c:536
+#: camel/camel-exchange-store.c:542
 #, fuzzy
 msgid "Cannot create folder in offline mode."
 msgstr ""
 "Неуспех при създаването на посочената папка:\n"
 "%s"
 
-#: camel/camel-exchange-store.c:563
+#: camel/camel-exchange-store.c:569
 #, fuzzy
 msgid "Cannot delete folder in offline mode."
 msgstr ""
 "Папката не може да бъде изтрита:\n"
 "%s"
 
-#: camel/camel-exchange-store.c:579
+#: camel/camel-exchange-store.c:585
 #, fuzzy
 msgid "Cannot rename folder in offline mode."
 msgstr ""
@@ -255,6 +277,75 @@ msgstr "Връзката към %s се загуби"
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Грешка по време на комуникацията с %s: %s"
+
+#: lib/e2k-autoconfig.c:1427 storage/exchange-autoconfig-wizard.c:224
+#, c-format
+msgid ""
+"Could not connect to the Exchange server.\n"
+"Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
+msgstr ""
+
+#: lib/e2k-autoconfig.c:1436 storage/exchange-autoconfig-wizard.c:232
+msgid ""
+"Could not locate Exchange server.\n"
+"Make sure the server name is spelled correctly and try again."
+msgstr ""
+
+#: lib/e2k-autoconfig.c:1446 storage/exchange-autoconfig-wizard.c:241
+msgid ""
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again."
+msgstr ""
+
+#: lib/e2k-autoconfig.c:1454 storage/exchange-autoconfig-wizard.c:248
+#, c-format
+msgid ""
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again.\n"
+"\n"
+"You may need to specify the Windows domain name as part of your username "
+"(eg, \"MY-DOMAIN\\%s\")."
+msgstr ""
+
+#: lib/e2k-autoconfig.c:1467 storage/exchange-autoconfig-wizard.c:260
+msgid ""
+"Could not find OWA data at the indicated URL.\n"
+"Make sure the URL is correct and try again."
+msgstr ""
+
+#: lib/e2k-autoconfig.c:1475
+msgid ""
+"Ximian Connector requires access to certain functionality on the Exchange "
+"Server that appears to be disabled or blocked.  (This is usually "
+"unintentional.)  Your Exchange Administrator will need to enable this "
+"functionality in order for you to be able to use Ximian Connector.\n"
+"\n"
+"For information to provide to your Exchange administrator, please follow the "
+"link below:\n"
+"http://www.ximian.com/products/connector/iis-lockdown.html, http://www."
+"ximian.com/products/connector/iis-lockdown.html"
+msgstr ""
+
+#: lib/e2k-autoconfig.c:1491 storage/exchange-autoconfig-wizard.c:288
+msgid ""
+"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
+"Connector supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+
+#: lib/e2k-autoconfig.c:1500 storage/exchange-autoconfig-wizard.c:301
+msgid ""
+"Could not configure Exchange account because an unknown error occurred. "
+"Check the URL, username, and password, and try again."
+msgstr ""
+
+#: lib/e2k-autoconfig.c:1522
+#, fuzzy, c-format
+msgid "Enter password for %s"
+msgstr "%sВъведете парола за %s"
+
+#: lib/e2k-autoconfig.c:1523 storage/exchange-account.c:859
+msgid "Enter password"
+msgstr "Въведете парола"
 
 #. i18n: These are Outlook's words for the default roles in
 #. the folder permissions dialog.
@@ -310,8 +401,8 @@ msgstr "Адресна книга..."
 msgid "No such folder"
 msgstr "Няма такава папка"
 
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
-#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2309
+#: mail/mail-stub-exchange.c:2347 mail/mail-stub-exchange.c:2407
 #: shell/e-storage.c:573 storage/xc-commands.c:315
 msgid "Permission denied"
 msgstr "Достъпът е отказан"
@@ -324,63 +415,63 @@ msgstr "Няма такава папка."
 msgid "Could not create folder."
 msgstr "Папката не може да бъде създадена."
 
-#: mail/mail-stub-exchange.c:601 mail/mail-stub-exchange.c:619
+#: mail/mail-stub-exchange.c:602 mail/mail-stub-exchange.c:620
 msgid "Could not open folder: Permission denied"
 msgstr "Папката не може да бъде отворена: Достъпът е отказан"
 
-#: mail/mail-stub-exchange.c:605 mail/mail-stub-exchange.c:718
+#: mail/mail-stub-exchange.c:606 mail/mail-stub-exchange.c:719
 msgid "Could not open folder"
 msgstr "Папката не може да бъде отворена"
 
-#: mail/mail-stub-exchange.c:773
+#: mail/mail-stub-exchange.c:774
 msgid "Could not open Deleted Items folder"
 msgstr "Папката за изтритите обекти не може да бъде отворена"
 
-#: mail/mail-stub-exchange.c:1086 mail/mail-stub-exchange.c:1127
+#: mail/mail-stub-exchange.c:1094 mail/mail-stub-exchange.c:1135
 msgid "Could not get new messages"
 msgstr "Новите писма не могат да бъдат получени"
 
-#: mail/mail-stub-exchange.c:1292
+#: mail/mail-stub-exchange.c:1300
 msgid "Could not empty Deleted Items folder"
 msgstr "Папката с изтритите обекти не може да бъде изпразнена"
 
-#: mail/mail-stub-exchange.c:1364
+#: mail/mail-stub-exchange.c:1372
 msgid "Could not append message; mailbox is over quota"
 msgstr "Неуспех при прикрепянето на писмото; пощенската кутия е пълна"
 
-#: mail/mail-stub-exchange.c:1365
+#: mail/mail-stub-exchange.c:1373
 msgid "Could not append message"
 msgstr "Писмото не може да бъде прикрепено"
 
-#: mail/mail-stub-exchange.c:1848
+#: mail/mail-stub-exchange.c:1856
 msgid "No such message"
 msgstr "Такова съобщение не съществува"
 
-#: mail/mail-stub-exchange.c:1901
+#: mail/mail-stub-exchange.c:1909
 msgid "Message has been deleted"
 msgstr "Писмото беше изтрито"
 
-#: mail/mail-stub-exchange.c:1903
+#: mail/mail-stub-exchange.c:1911
 msgid "Error retrieving message"
 msgstr "Грешка при получаването на писмо"
 
-#: mail/mail-stub-exchange.c:1945
+#: mail/mail-stub-exchange.c:1953
 msgid "Mailbox does not support full-text searching"
 msgstr "Пощенската кутия не поддържа пълнотекстово търсене"
 
-#: mail/mail-stub-exchange.c:2043
+#: mail/mail-stub-exchange.c:2051
 msgid "Unable to move/copy messages"
 msgstr "Копирането/преместването на писма е неуспешно"
 
-#: mail/mail-stub-exchange.c:2214
+#: mail/mail-stub-exchange.c:2224
 msgid "No mail submission URI for this mailbox"
 msgstr ""
 
-#: mail/mail-stub-exchange.c:2250
+#: mail/mail-stub-exchange.c:2260
 msgid "Server won't accept mail via Exchange transport"
 msgstr ""
 
-#: mail/mail-stub-exchange.c:2252
+#: mail/mail-stub-exchange.c:2262
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -389,7 +480,7 @@ msgstr ""
 "Вашият абонамент няма право да използва <%s>\n"
 "като подател."
 
-#: mail/mail-stub-exchange.c:2264
+#: mail/mail-stub-exchange.c:2274
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -397,22 +488,22 @@ msgstr ""
 "Неуспех при изпращането на писмото.\n"
 "Това може да означава, че вашият абонамент е надхвърлил квотата си."
 
-#: mail/mail-stub-exchange.c:2268
+#: mail/mail-stub-exchange.c:2278
 msgid "Could not send message"
 msgstr "Съобщението не може да бъде изпратено"
 
-#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
-#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
+#: mail/mail-stub-exchange.c:2301 mail/mail-stub-exchange.c:2352
+#: mail/mail-stub-exchange.c:2411 shell/e-storage.c:557
 #: storage/xc-commands.c:319
 msgid "Generic error"
 msgstr "Обща грешка"
 
-#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:309
+#: mail/mail-stub-exchange.c:2305 storage/xc-commands.c:309
 msgid "Folder already exists"
 msgstr "Папката вече съществува"
 
-#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
-#: mail/mail-stub-exchange.c:2393
+#: mail/mail-stub-exchange.c:2332 mail/mail-stub-exchange.c:2374
+#: mail/mail-stub-exchange.c:2403
 msgid "Folder doesn't exist"
 msgstr "Папката не съществува"
 
@@ -632,7 +723,7 @@ msgstr ""
 msgid "This operation cannot be performed in off-line mode"
 msgstr ""
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1289
+#: shell/e-storage.c:587 storage/exchange-account.c:1411
 msgid "Unknown error"
 msgstr "Непозната грешка"
 
@@ -671,36 +762,54 @@ msgstr "_Exchange"
 msgid "%s's Folders"
 msgstr "Папки на %s"
 
-#: storage/exchange-account.c:854
+#: storage/exchange-account.c:855
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sВъведете парола за %s"
 
-#: storage/exchange-account.c:858
-msgid "Enter password"
-msgstr "Въведете парола"
-
-#: storage/exchange-account.c:1032
+#: storage/exchange-account.c:1033
 msgid "Cannot change password due to configuration problems"
 msgstr ""
 
-#: storage/exchange-account.c:1047
+#: storage/exchange-account.c:1048
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
 msgstr ""
 
-#: storage/exchange-account.c:1052
+#: storage/exchange-account.c:1053
 msgid "Could not change password"
 msgstr "Неуспех при смяната на паролата"
 
-#: storage/exchange-account.c:1200
+#: storage/exchange-account.c:1137
+msgid "Personal Folders"
+msgstr "Лични папки"
+
+#: storage/exchange-account.c:1152
+msgid "Favorite Public Folders"
+msgstr "Любими публични папки"
+
+#. i18n: Outlookism
+#: storage/exchange-account.c:1169
+msgid "All Public Folders"
+msgstr "Всички публични папки"
+
+#. i18n: Outlookism
+#: storage/exchange-account.c:1183
+msgid "Global Address List"
+msgstr "Глобален адресен списък"
+
+#: storage/exchange-account.c:1269
+msgid "Exchange Account is offline. Cannot display folders\n"
+msgstr ""
+
+#: storage/exchange-account.c:1322
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
 msgstr ""
 
-#: storage/exchange-account.c:1205
+#: storage/exchange-account.c:1327
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -712,29 +821,19 @@ msgid ""
 "\n"
 msgstr ""
 
-#: storage/exchange-account.c:1216
-msgid ""
-"Could not authenticate to server.\n"
-"\n"
-"You may need to use Plaintext Password authentication.\n"
-"\n"
-"Or you might have just typed your password wrong.\n"
-"\n"
-msgstr ""
-
-#: storage/exchange-account.c:1247
+#: storage/exchange-account.c:1369
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Пощенската кутия за %s не е на този сървър."
 
-#: storage/exchange-account.c:1252
+#: storage/exchange-account.c:1374
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
 "therefore not compatible with Ximian Connector"
 msgstr ""
 
-#: storage/exchange-account.c:1259
+#: storage/exchange-account.c:1381
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -742,77 +841,24 @@ msgid ""
 "account configuration dialog."
 msgstr ""
 
-#: storage/exchange-account.c:1267
+#: storage/exchange-account.c:1389
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr ""
 
-#: storage/exchange-account.c:1273 storage/exchange-account.c:1279
-#: storage/exchange-account.c:1287
+#: storage/exchange-account.c:1395 storage/exchange-account.c:1401
+#: storage/exchange-account.c:1409
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr ""
 
-#: storage/exchange-account.c:1275
+#: storage/exchange-account.c:1397
 msgid "Could not resolve hostname"
 msgstr "Хостът не може да бъде открит"
 
-#: storage/exchange-account.c:1281
+#: storage/exchange-account.c:1403
 msgid "Network error"
 msgstr "Мрежова грешка"
-
-#: storage/exchange-account.c:1359
-msgid "Personal Folders"
-msgstr "Лични папки"
-
-#: storage/exchange-account.c:1374
-msgid "Favorite Public Folders"
-msgstr "Любими публични папки"
-
-#. i18n: Outlookism
-#: storage/exchange-account.c:1391
-msgid "All Public Folders"
-msgstr "Всички публични папки"
-
-#. i18n: Outlookism
-#: storage/exchange-account.c:1405
-msgid "Global Address List"
-msgstr "Глобален адресен списък"
-
-#: storage/exchange-autoconfig-wizard.c:224
-#, c-format
-msgid ""
-"Could not connect to the Exchange server.\n"
-"Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
-msgstr ""
-
-#: storage/exchange-autoconfig-wizard.c:232
-msgid ""
-"Could not locate Exchange server.\n"
-"Make sure the server name is spelled correctly and try again."
-msgstr ""
-
-#: storage/exchange-autoconfig-wizard.c:241
-msgid ""
-"Could not authenticate to the Exchange server.\n"
-"Make sure the username and password are correct and try again."
-msgstr ""
-
-#: storage/exchange-autoconfig-wizard.c:248
-#, c-format
-msgid ""
-"Could not authenticate to the Exchange server.\n"
-"Make sure the username and password are correct and try again.\n"
-"\n"
-"You may need to specify the Windows domain name as part of your username "
-"(eg, \"MY-DOMAIN\\%s\")."
-msgstr ""
-
-#: storage/exchange-autoconfig-wizard.c:260
-msgid ""
-"Could not find OWA data at the indicated URL.\n"
-"Make sure the URL is correct and try again."
-msgstr ""
 
 #: storage/exchange-autoconfig-wizard.c:267
 msgid ""
@@ -823,18 +869,6 @@ msgid ""
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
-msgstr ""
-
-#: storage/exchange-autoconfig-wizard.c:288
-msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-
-#: storage/exchange-autoconfig-wizard.c:301
-msgid ""
-"Could not configure Exchange account because an unknown error occurred. "
-"Check the URL, username, and password, and try again."
 msgstr ""
 
 #: storage/exchange-autoconfig-wizard.c:345
@@ -863,7 +897,7 @@ msgid ""
 msgstr ""
 
 #: storage/exchange-autoconfig-wizard.c:491
-#: storage/exchange-config-listener.c:492
+#: storage/exchange-config-listener.c:578
 msgid "You may only configure a single Exchange account"
 msgstr ""
 
@@ -996,29 +1030,29 @@ msgstr "Нова парола:"
 msgid "Your current password has expired. Please change your password now."
 msgstr ""
 
-#: storage/exchange-component.c:314
+#: storage/exchange-component.c:320
 msgid "Mail"
 msgstr "Поща"
 
-#: storage/exchange-component.c:317 storage/exchange-hierarchy-foreign.c:250
+#: storage/exchange-component.c:323 storage/exchange-hierarchy-foreign.c:251
 msgid "Contacts"
 msgstr "Контакти"
 
-#: storage/exchange-component.c:321 storage/exchange-hierarchy-foreign.c:258
+#: storage/exchange-component.c:327 storage/exchange-hierarchy-foreign.c:259
 msgid "Tasks"
 msgstr "Задачи"
 
-#: storage/exchange-component.c:324 storage/exchange-hierarchy-foreign.c:249
+#: storage/exchange-component.c:330 storage/exchange-hierarchy-foreign.c:250
 msgid "Calendar"
 msgstr "Календар"
 
-#: storage/exchange-config-listener.c:607
+#: storage/exchange-config-listener.c:693
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
 msgstr ""
 
-#: storage/exchange-config-listener.c:653
+#: storage/exchange-config-listener.c:739
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr ""
 
@@ -1181,31 +1215,31 @@ msgstr "Размер на папката"
 msgid "Exchange Folder Tree"
 msgstr "Дърво на папките към Exchange"
 
-#: storage/exchange-hierarchy-foreign.c:251
+#: storage/exchange-hierarchy-foreign.c:252
 msgid "Deleted Items"
 msgstr "Изтрити писма"
 
-#: storage/exchange-hierarchy-foreign.c:252
+#: storage/exchange-hierarchy-foreign.c:253
 msgid "Drafts"
 msgstr "Чернови"
 
-#: storage/exchange-hierarchy-foreign.c:253
+#: storage/exchange-hierarchy-foreign.c:254
 msgid "Inbox"
 msgstr "Кутия"
 
-#: storage/exchange-hierarchy-foreign.c:254
+#: storage/exchange-hierarchy-foreign.c:255
 msgid "Journal"
 msgstr "Дневник"
 
-#: storage/exchange-hierarchy-foreign.c:255
+#: storage/exchange-hierarchy-foreign.c:256
 msgid "Notes"
 msgstr "Бележки"
 
-#: storage/exchange-hierarchy-foreign.c:256
+#: storage/exchange-hierarchy-foreign.c:257
 msgid "Outbox"
 msgstr "Изпратени"
 
-#: storage/exchange-hierarchy-foreign.c:257
+#: storage/exchange-hierarchy-foreign.c:258
 msgid "Sent Items"
 msgstr "Изпратени писма"
 
@@ -1417,7 +1451,7 @@ msgstr ""
 msgid "Role: "
 msgstr ""
 
-#: storage/exchange-storage.c:336
+#: storage/exchange-storage.c:337
 msgid "Connecting..."
 msgstr "Свързване..."
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Evolution-Exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-25 11:28+0530\n"
+"POT-Creation-Date: 2005-02-07 15:59+0530\n"
 "PO-Revision-Date: 2004-11-20 00:44+0100\n"
 "Last-Translator: Marco Ciampa <ciampix@libero.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 # Novell Translation
 #: addressbook/e-book-backend-exchange.c:1807
-#: addressbook/e-book-backend-gal.c:1341 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-gal.c:1344 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Ricerca in corso..."
 
@@ -28,17 +28,21 @@ msgid "Reconnecting to LDAP server..."
 msgstr "Riconnessione al server LDAP in corso..."
 
 # Novell Translation
-#: addressbook/e-book-backend-gal.c:1215
+#: addressbook/e-book-backend-gal.c:1218
 msgid "Receiving LDAP search results..."
 msgstr "Ricezione dei risultati della ricerca di LDAP in corso..."
 
 # Novell Translation
-#: addressbook/e-book-backend-gal.c:1362
+#: addressbook/e-book-backend-gal.c:1365
 msgid "Error performing search"
 msgstr "Errore durante l'esecuzione della ricerca"
 
+#: calendar/e-cal-backend-exchange.c:277
+msgid "Folder not marked for offline support"
+msgstr ""
+
 # Novell Translation
-#: calendar/e-cal-backend-exchange-calendar.c:1733
+#: calendar/e-cal-backend-exchange-calendar.c:1712
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -48,7 +52,7 @@ msgstr ""
 "È necessario prenotare ciascuna riunione separatamente."
 
 # Novell Translation
-#: calendar/e-cal-backend-exchange-calendar.c:1752
+#: calendar/e-cal-backend-exchange-calendar.c:1731
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "La risorsa '%s' è occupata durante il periodo di tempo selezionato."
@@ -108,6 +112,26 @@ msgstr "Ricerca dei messaggi modificati"
 #: camel/camel-exchange-folder.c:1022
 msgid "Fetching summary information for new messages"
 msgstr "Recupero delle informazioni di riepilogo per i nuovi messaggi"
+
+#: camel/camel-exchange-journal.c:279
+msgid "No folder name found\n"
+msgstr ""
+
+# Novell Translation
+#: camel/camel-exchange-journal.c:342
+#, fuzzy
+msgid "Cannot append message in offline mode: cache unavailable"
+msgstr ""
+"Impossibile rinominare la cartella:\n"
+"%s"
+
+# Novell Translation
+#: camel/camel-exchange-journal.c:358
+#, fuzzy, c-format
+msgid "Cannot append message in offline mode: %s"
+msgstr ""
+"Impossibile rinominare la cartella:\n"
+"%s"
 
 # Novell Translation
 #. i18n: the '_' should appear before the same letter it
@@ -230,19 +254,19 @@ msgid "No such folder %s"
 msgstr "Cartella inesistente"
 
 # Novell Translation
-#: camel/camel-exchange-store.c:474
+#: camel/camel-exchange-store.c:480
 #, fuzzy
 msgid "Cannot get folder info in offline mode."
 msgstr "Impossibile eseguire questa operazione in modalità non in linea"
 
 # Novell Translation
-#: camel/camel-exchange-store.c:536
+#: camel/camel-exchange-store.c:542
 #, fuzzy
 msgid "Cannot create folder in offline mode."
 msgstr "Impossibile creare una cartella con questo nome"
 
 # Novell Translation
-#: camel/camel-exchange-store.c:563
+#: camel/camel-exchange-store.c:569
 #, fuzzy
 msgid "Cannot delete folder in offline mode."
 msgstr ""
@@ -250,7 +274,7 @@ msgstr ""
 "%s"
 
 # Novell Translation
-#: camel/camel-exchange-store.c:579
+#: camel/camel-exchange-store.c:585
 #, fuzzy
 msgid "Cannot rename folder in offline mode."
 msgstr ""
@@ -309,6 +333,114 @@ msgstr "Connessione a %s interrotta"
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Errore durante la comunicazione con %s: %s"
+
+# Novell Translation
+#: lib/e2k-autoconfig.c:1427 storage/exchange-autoconfig-wizard.c:224
+#, c-format
+msgid ""
+"Could not connect to the Exchange server.\n"
+"Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
+msgstr ""
+"Impossibile connettersi al server Exchange.\n"
+"Assicurarsi che l'URL sia corretto (provare, ad esempio, \"%s\" invece di \"%"
+"s\") e riprovare."
+
+# Novell Translation
+#: lib/e2k-autoconfig.c:1436 storage/exchange-autoconfig-wizard.c:232
+msgid ""
+"Could not locate Exchange server.\n"
+"Make sure the server name is spelled correctly and try again."
+msgstr ""
+"Impossibile individuare il server Exchange.\n"
+"Assicurarsi che l'ortografia del nome del server sia corretta e riprovare."
+
+# Novell Translation
+#: lib/e2k-autoconfig.c:1446 storage/exchange-autoconfig-wizard.c:241
+msgid ""
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again."
+msgstr ""
+"Impossibile autenticarsi al server Exchange.\n"
+"Assicurarsi che il nome utente e la parola d’ordine siano corretti e "
+"riprovare."
+
+# Novell Translation
+#: lib/e2k-autoconfig.c:1454 storage/exchange-autoconfig-wizard.c:248
+#, c-format
+msgid ""
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again.\n"
+"\n"
+"You may need to specify the Windows domain name as part of your username "
+"(eg, \"MY-DOMAIN\\%s\")."
+msgstr ""
+"Impossibile autenticarsi al server Exchange.\n"
+"Assicurarsi che il nome utente e la parola d’ordine siano corretti e "
+"riprovare.\n"
+"\n"
+"Potrebbe essere necessario specificare il nome del dominio Windows come "
+"parte del proprio nome utente(ad esempio, \"MIO-DOMINIO\\%s\")."
+
+# Novell Translation
+#: lib/e2k-autoconfig.c:1467 storage/exchange-autoconfig-wizard.c:260
+msgid ""
+"Could not find OWA data at the indicated URL.\n"
+"Make sure the URL is correct and try again."
+msgstr ""
+"Impossibile trovare i dati OWA nell'URL indicato.\n"
+"Accertarsi che l'URL sia corretto e riprovare."
+
+# Novell Translation
+#: lib/e2k-autoconfig.c:1475
+#, fuzzy
+msgid ""
+"Ximian Connector requires access to certain functionality on the Exchange "
+"Server that appears to be disabled or blocked.  (This is usually "
+"unintentional.)  Your Exchange Administrator will need to enable this "
+"functionality in order for you to be able to use Ximian Connector.\n"
+"\n"
+"For information to provide to your Exchange administrator, please follow the "
+"link below:\n"
+"http://www.ximian.com/products/connector/iis-lockdown.html, http://www."
+"ximian.com/products/connector/iis-lockdown.html"
+msgstr ""
+"Ximian Connector richiede l'accesso ad alcune funzionalità in ExchangeServer "
+"che sono disabilitate o bloccate (in generenon è intenzionale). "
+"L'amministratore di Exchange dovrà abilitare questafunzionalità per "
+"consentire all'utente di usare Ximian Connector.\n"
+"\n"
+"Per le informazioni da fornire all'amministratore di Exchange, fare clic "
+"sulseguente collegamento:"
+
+# Novell Translation
+#: lib/e2k-autoconfig.c:1491 storage/exchange-autoconfig-wizard.c:288
+msgid ""
+"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
+"Connector supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"L'URL del server Exchange specificato è per un server Exchange 5.5. "
+"XimianConnector supporta solo Microsoft Exchange 2000 e 2003."
+
+# Novell Translation
+#: lib/e2k-autoconfig.c:1500 storage/exchange-autoconfig-wizard.c:301
+msgid ""
+"Could not configure Exchange account because an unknown error occurred. "
+"Check the URL, username, and password, and try again."
+msgstr ""
+"Impossibile configurare il conto di Exchange a causa di un errore "
+"sconosciuto.Verificare l'URL, il nome utente e la parola d’ordine, quindi "
+"riprovare."
+
+# Novell Translation
+#: lib/e2k-autoconfig.c:1522
+#, fuzzy, c-format
+msgid "Enter password for %s"
+msgstr "%sInserire la parola d’ordine per %s"
+
+# Novell Translation
+#: lib/e2k-autoconfig.c:1523 storage/exchange-account.c:859
+msgid "Enter password"
+msgstr "Inserire la parola d’ordine"
 
 # Novell Translation
 #. i18n: These are Outlook's words for the default roles in
@@ -378,8 +510,8 @@ msgid "No such folder"
 msgstr "Cartella inesistente"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
-#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2309
+#: mail/mail-stub-exchange.c:2347 mail/mail-stub-exchange.c:2407
 #: shell/e-storage.c:573 storage/xc-commands.c:315
 msgid "Permission denied"
 msgstr "Permesso negato"
@@ -395,77 +527,77 @@ msgid "Could not create folder."
 msgstr "Impossibile creare la cartella."
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:601 mail/mail-stub-exchange.c:619
+#: mail/mail-stub-exchange.c:602 mail/mail-stub-exchange.c:620
 msgid "Could not open folder: Permission denied"
 msgstr "Impossibile aprire la cartella: permesso negato"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:605 mail/mail-stub-exchange.c:718
+#: mail/mail-stub-exchange.c:606 mail/mail-stub-exchange.c:719
 msgid "Could not open folder"
 msgstr "Impossibile aprire la cartella"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:773
+#: mail/mail-stub-exchange.c:774
 msgid "Could not open Deleted Items folder"
 msgstr "Impossibile aprire la cartella Posta eliminata"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:1086 mail/mail-stub-exchange.c:1127
+#: mail/mail-stub-exchange.c:1094 mail/mail-stub-exchange.c:1135
 msgid "Could not get new messages"
 msgstr "Impossibile ricevere nuovi messaggi"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:1292
+#: mail/mail-stub-exchange.c:1300
 msgid "Could not empty Deleted Items folder"
 msgstr "Impossibile svuotare la cartella Posta eliminata"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:1364
+#: mail/mail-stub-exchange.c:1372
 msgid "Could not append message; mailbox is over quota"
 msgstr "Impossibile allegare il messaggio; casella postale piena"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:1365
+#: mail/mail-stub-exchange.c:1373
 msgid "Could not append message"
 msgstr "Impossibile accodare il messaggio"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:1848
+#: mail/mail-stub-exchange.c:1856
 msgid "No such message"
 msgstr "Messaggio inesistente"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:1901
+#: mail/mail-stub-exchange.c:1909
 msgid "Message has been deleted"
 msgstr "Il messaggio è stato cancellato"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:1903
+#: mail/mail-stub-exchange.c:1911
 msgid "Error retrieving message"
 msgstr "Errore durante il recupero del messaggio"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:1945
+#: mail/mail-stub-exchange.c:1953
 msgid "Mailbox does not support full-text searching"
 msgstr "La casella postale non supporta la funzione di ricerca full-text"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:2043
+#: mail/mail-stub-exchange.c:2051
 msgid "Unable to move/copy messages"
 msgstr "Impossibile spostare/copiare i messaggi"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:2214
+#: mail/mail-stub-exchange.c:2224
 msgid "No mail submission URI for this mailbox"
 msgstr "Nessun URI di invio di posta per la casella postale"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:2250
+#: mail/mail-stub-exchange.c:2260
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Il server non accetterà la posta tramite il trasporto di Exchange"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:2252
+#: mail/mail-stub-exchange.c:2262
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -475,7 +607,7 @@ msgstr ""
 "come indirizzo Da."
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:2264
+#: mail/mail-stub-exchange.c:2274
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -484,25 +616,25 @@ msgstr ""
 "Il conto potrebbe essere pieno."
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:2268
+#: mail/mail-stub-exchange.c:2278
 msgid "Could not send message"
 msgstr "Impossibile inviare il messaggio"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
-#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
+#: mail/mail-stub-exchange.c:2301 mail/mail-stub-exchange.c:2352
+#: mail/mail-stub-exchange.c:2411 shell/e-storage.c:557
 #: storage/xc-commands.c:319
 msgid "Generic error"
 msgstr "Errore generico"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:309
+#: mail/mail-stub-exchange.c:2305 storage/xc-commands.c:309
 msgid "Folder already exists"
 msgstr "Cartella già esistente"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
-#: mail/mail-stub-exchange.c:2393
+#: mail/mail-stub-exchange.c:2332 mail/mail-stub-exchange.c:2374
+#: mail/mail-stub-exchange.c:2403
 msgid "Folder doesn't exist"
 msgstr "Cartella inesistente"
 
@@ -767,7 +899,7 @@ msgid "This operation cannot be performed in off-line mode"
 msgstr "Impossibile eseguire questa operazione in modalità non in linea"
 
 # Novell Translation
-#: shell/e-storage.c:587 storage/exchange-account.c:1289
+#: shell/e-storage.c:587 storage/exchange-account.c:1411
 msgid "Unknown error"
 msgstr "Errore sconosciuto"
 
@@ -815,24 +947,19 @@ msgid "%s's Folders"
 msgstr "Cartelle di %s"
 
 # Novell Translation
-#: storage/exchange-account.c:854
+#: storage/exchange-account.c:855
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sInserire la parola d’ordine per %s"
 
 # Novell Translation
-#: storage/exchange-account.c:858
-msgid "Enter password"
-msgstr "Inserire la parola d’ordine"
-
-# Novell Translation
-#: storage/exchange-account.c:1032
+#: storage/exchange-account.c:1033
 msgid "Cannot change password due to configuration problems"
 msgstr ""
 "Impossibile cambiare la parola d’ordine a causa di problemi di configurazione"
 
 # Novell Translation
-#: storage/exchange-account.c:1047
+#: storage/exchange-account.c:1048
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -841,12 +968,38 @@ msgstr ""
 "Riprovare con una parola d’ordine diversa."
 
 # Novell Translation
-#: storage/exchange-account.c:1052
+#: storage/exchange-account.c:1053
 msgid "Could not change password"
 msgstr "Impossibile cambiare la parola d’ordine"
 
 # Novell Translation
-#: storage/exchange-account.c:1200
+#: storage/exchange-account.c:1137
+msgid "Personal Folders"
+msgstr "Cartelle personali"
+
+# Novell Translation
+#: storage/exchange-account.c:1152
+msgid "Favorite Public Folders"
+msgstr "Cartelle pubbliche preferite"
+
+# Novell Translation
+#. i18n: Outlookism
+#: storage/exchange-account.c:1169
+msgid "All Public Folders"
+msgstr "Tutte le cartelle pubbliche"
+
+# Novell Translation
+#. i18n: Outlookism
+#: storage/exchange-account.c:1183
+msgid "Global Address List"
+msgstr "Elenco indirizzi globale"
+
+#: storage/exchange-account.c:1269
+msgid "Exchange Account is offline. Cannot display folders\n"
+msgstr ""
+
+# Novell Translation
+#: storage/exchange-account.c:1322
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -855,7 +1008,7 @@ msgstr ""
 "\n"
 
 # Novell Translation
-#: storage/exchange-account.c:1205
+#: storage/exchange-account.c:1327
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -876,30 +1029,13 @@ msgstr ""
 "\n"
 
 # Novell Translation
-#: storage/exchange-account.c:1216
-msgid ""
-"Could not authenticate to server.\n"
-"\n"
-"You may need to use Plaintext Password authentication.\n"
-"\n"
-"Or you might have just typed your password wrong.\n"
-"\n"
-msgstr ""
-"Impossibile autenticarsi al server.\n"
-"\n"
-"Utilizzare l'autenticazione con parola d’ordine non cifrata.\n"
-"\n"
-"Oppure la parola d’ordine potrebbe essere stata digitata in modo errato.\n"
-"\n"
-
-# Novell Translation
-#: storage/exchange-account.c:1247
+#: storage/exchange-account.c:1369
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "La casella postale per %s non si trova su questo server."
 
 # Novell Translation
-#: storage/exchange-account.c:1252
+#: storage/exchange-account.c:1374
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -909,7 +1045,7 @@ msgstr ""
 "non è compatibile con Ximian Connector"
 
 # Novell Translation
-#: storage/exchange-account.c:1259
+#: storage/exchange-account.c:1381
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -922,105 +1058,27 @@ msgstr ""
 "finestra di configurazione del conto."
 
 # Novell Translation
-#: storage/exchange-account.c:1267
+#: storage/exchange-account.c:1389
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Nessuna casella postale per l'utente %s in %s.\n"
 
 # Novell Translation
-#: storage/exchange-account.c:1273 storage/exchange-account.c:1279
-#: storage/exchange-account.c:1287
+#: storage/exchange-account.c:1395 storage/exchange-account.c:1401
+#: storage/exchange-account.c:1409
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Impossibile connettersi al server %s: %s"
 
 # Novell Translation
-#: storage/exchange-account.c:1275
+#: storage/exchange-account.c:1397
 msgid "Could not resolve hostname"
 msgstr "Impossibile risolvere il nome host"
 
 # Novell Translation
-#: storage/exchange-account.c:1281
+#: storage/exchange-account.c:1403
 msgid "Network error"
 msgstr "Errore di rete"
-
-# Novell Translation
-#: storage/exchange-account.c:1359
-msgid "Personal Folders"
-msgstr "Cartelle personali"
-
-# Novell Translation
-#: storage/exchange-account.c:1374
-msgid "Favorite Public Folders"
-msgstr "Cartelle pubbliche preferite"
-
-# Novell Translation
-#. i18n: Outlookism
-#: storage/exchange-account.c:1391
-msgid "All Public Folders"
-msgstr "Tutte le cartelle pubbliche"
-
-# Novell Translation
-#. i18n: Outlookism
-#: storage/exchange-account.c:1405
-msgid "Global Address List"
-msgstr "Elenco indirizzi globale"
-
-# Novell Translation
-#: storage/exchange-autoconfig-wizard.c:224
-#, c-format
-msgid ""
-"Could not connect to the Exchange server.\n"
-"Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
-msgstr ""
-"Impossibile connettersi al server Exchange.\n"
-"Assicurarsi che l'URL sia corretto (provare, ad esempio, \"%s\" invece di \"%"
-"s\") e riprovare."
-
-# Novell Translation
-#: storage/exchange-autoconfig-wizard.c:232
-msgid ""
-"Could not locate Exchange server.\n"
-"Make sure the server name is spelled correctly and try again."
-msgstr ""
-"Impossibile individuare il server Exchange.\n"
-"Assicurarsi che l'ortografia del nome del server sia corretta e riprovare."
-
-# Novell Translation
-#: storage/exchange-autoconfig-wizard.c:241
-msgid ""
-"Could not authenticate to the Exchange server.\n"
-"Make sure the username and password are correct and try again."
-msgstr ""
-"Impossibile autenticarsi al server Exchange.\n"
-"Assicurarsi che il nome utente e la parola d’ordine siano corretti e "
-"riprovare."
-
-# Novell Translation
-#: storage/exchange-autoconfig-wizard.c:248
-#, c-format
-msgid ""
-"Could not authenticate to the Exchange server.\n"
-"Make sure the username and password are correct and try again.\n"
-"\n"
-"You may need to specify the Windows domain name as part of your username "
-"(eg, \"MY-DOMAIN\\%s\")."
-msgstr ""
-"Impossibile autenticarsi al server Exchange.\n"
-"Assicurarsi che il nome utente e la parola d’ordine siano corretti e "
-"riprovare.\n"
-"\n"
-"Potrebbe essere necessario specificare il nome del dominio Windows come "
-"parte del proprio nome utente(ad esempio, \"MIO-DOMINIO\\%s\")."
-
-# Novell Translation
-#: storage/exchange-autoconfig-wizard.c:260
-msgid ""
-"Could not find OWA data at the indicated URL.\n"
-"Make sure the URL is correct and try again."
-msgstr ""
-"Impossibile trovare i dati OWA nell'URL indicato.\n"
-"Accertarsi che l'URL sia corretto e riprovare."
 
 # Novell Translation
 #: storage/exchange-autoconfig-wizard.c:267
@@ -1040,25 +1098,6 @@ msgstr ""
 "\n"
 "Per le informazioni da fornire all'amministratore di Exchange, fare clic "
 "sulseguente collegamento:"
-
-# Novell Translation
-#: storage/exchange-autoconfig-wizard.c:288
-msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"L'URL del server Exchange specificato è per un server Exchange 5.5. "
-"XimianConnector supporta solo Microsoft Exchange 2000 e 2003."
-
-# Novell Translation
-#: storage/exchange-autoconfig-wizard.c:301
-msgid ""
-"Could not configure Exchange account because an unknown error occurred. "
-"Check the URL, username, and password, and try again."
-msgstr ""
-"Impossibile configurare il conto di Exchange a causa di un errore "
-"sconosciuto.Verificare l'URL, il nome utente e la parola d’ordine, quindi "
-"riprovare."
 
 # Novell Translation
 #: storage/exchange-autoconfig-wizard.c:345
@@ -1098,7 +1137,7 @@ msgstr ""
 
 # Novell Translation
 #: storage/exchange-autoconfig-wizard.c:491
-#: storage/exchange-config-listener.c:492
+#: storage/exchange-config-listener.c:578
 msgid "You may only configure a single Exchange account"
 msgstr "È possibile configurare un solo conto di Exchange."
 
@@ -1282,27 +1321,27 @@ msgid "Your current password has expired. Please change your password now."
 msgstr "La parola d’ordine attuale è scaduta. Cambiare la parola d’ordine ora."
 
 # Novell Translation
-#: storage/exchange-component.c:314
+#: storage/exchange-component.c:320
 msgid "Mail"
 msgstr "Posta"
 
 # Novell Translation
-#: storage/exchange-component.c:317 storage/exchange-hierarchy-foreign.c:250
+#: storage/exchange-component.c:323 storage/exchange-hierarchy-foreign.c:251
 msgid "Contacts"
 msgstr "Contatti"
 
 # Novell Translation
-#: storage/exchange-component.c:321 storage/exchange-hierarchy-foreign.c:258
+#: storage/exchange-component.c:327 storage/exchange-hierarchy-foreign.c:259
 msgid "Tasks"
 msgstr "Compiti"
 
 # Novell Translation
-#: storage/exchange-component.c:324 storage/exchange-hierarchy-foreign.c:249
+#: storage/exchange-component.c:330 storage/exchange-hierarchy-foreign.c:250
 msgid "Calendar"
 msgstr "Calendario"
 
 # Novell Translation
-#: storage/exchange-config-listener.c:607
+#: storage/exchange-config-listener.c:693
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
@@ -1311,7 +1350,7 @@ msgstr ""
 "effetto dopo la chiusura e il riavvio di Evolution."
 
 # Novell Translation
-#: storage/exchange-config-listener.c:653
+#: storage/exchange-config-listener.c:739
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr "Il conto di Exchange verrà rimosso alla chiusura di Evolution"
 
@@ -1520,37 +1559,37 @@ msgid "Exchange Folder Tree"
 msgstr "Albero cartelle Exchange"
 
 # Novell Translation
-#: storage/exchange-hierarchy-foreign.c:251
+#: storage/exchange-hierarchy-foreign.c:252
 msgid "Deleted Items"
 msgstr "Posta eliminata"
 
 # Novell Translation
-#: storage/exchange-hierarchy-foreign.c:252
+#: storage/exchange-hierarchy-foreign.c:253
 msgid "Drafts"
 msgstr "Bozze"
 
 # Novell Translation
-#: storage/exchange-hierarchy-foreign.c:253
+#: storage/exchange-hierarchy-foreign.c:254
 msgid "Inbox"
 msgstr "Inbox"
 
 # Novell Translation
-#: storage/exchange-hierarchy-foreign.c:254
+#: storage/exchange-hierarchy-foreign.c:255
 msgid "Journal"
 msgstr "Diario"
 
 # Novell Translation
-#: storage/exchange-hierarchy-foreign.c:255
+#: storage/exchange-hierarchy-foreign.c:256
 msgid "Notes"
 msgstr "Note"
 
 # Novell Translation
-#: storage/exchange-hierarchy-foreign.c:256
+#: storage/exchange-hierarchy-foreign.c:257
 msgid "Outbox"
 msgstr "Posta di uscita"
 
 # Novell Translation
-#: storage/exchange-hierarchy-foreign.c:257
+#: storage/exchange-hierarchy-foreign.c:258
 msgid "Sent Items"
 msgstr "Posta inviata"
 
@@ -1823,7 +1862,7 @@ msgid "Role: "
 msgstr "Ruolo: "
 
 # Novell Translation
-#: storage/exchange-storage.c:336
+#: storage/exchange-storage.c:337
 msgid "Connecting..."
 msgstr "Connessione in corso…"
 
@@ -1978,6 +2017,22 @@ msgstr "_Assistente fuori ufficio…"
 #: storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Annulla sottoscrizione a cartella di altro utente"
+
+# Novell Translation
+#~ msgid ""
+#~ "Could not authenticate to server.\n"
+#~ "\n"
+#~ "You may need to use Plaintext Password authentication.\n"
+#~ "\n"
+#~ "Or you might have just typed your password wrong.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Impossibile autenticarsi al server.\n"
+#~ "\n"
+#~ "Utilizzare l'autenticazione con parola d’ordine non cifrata.\n"
+#~ "\n"
+#~ "Oppure la parola d’ordine potrebbe essere stata digitata in modo errato.\n"
+#~ "\n"
 
 # Novell Translation
 #~ msgid "Exc_hange Server:"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Evolution-Exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-25 11:28+0530\n"
+"POT-Creation-Date: 2005-02-07 15:59+0530\n"
 "PO-Revision-Date: 2004-09-21 18:37+0100\n"
 "Last-Translator: Craig Jeffares <cjeffares@novell.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -16,7 +16,7 @@ msgstr ""
 
 # Novell Translation
 #: addressbook/e-book-backend-exchange.c:1807
-#: addressbook/e-book-backend-gal.c:1341 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-gal.c:1344 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "搜尋中…"
 
@@ -26,17 +26,21 @@ msgid "Reconnecting to LDAP server..."
 msgstr "正在重新連線 LDAP 伺服器..."
 
 # Novell Translation
-#: addressbook/e-book-backend-gal.c:1215
+#: addressbook/e-book-backend-gal.c:1218
 msgid "Receiving LDAP search results..."
 msgstr "正在接收 LDAP 搜尋結果..."
 
 # Novell Translation
-#: addressbook/e-book-backend-gal.c:1362
+#: addressbook/e-book-backend-gal.c:1365
 msgid "Error performing search"
 msgstr "執行搜尋錯誤"
 
+#: calendar/e-cal-backend-exchange.c:277
+msgid "Folder not marked for offline support"
+msgstr ""
+
 # Novell Translation
-#: calendar/e-cal-backend-exchange-calendar.c:1733
+#: calendar/e-cal-backend-exchange-calendar.c:1712
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -46,7 +50,7 @@ msgstr ""
 "您必須分別預約每個會議。"
 
 # Novell Translation
-#: calendar/e-cal-backend-exchange-calendar.c:1752
+#: calendar/e-cal-backend-exchange-calendar.c:1731
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "在排定時間內，資源「%s」在忙碌中。"
@@ -104,6 +108,26 @@ msgstr "掃描已變更的訊息"
 #: camel/camel-exchange-folder.c:1022
 msgid "Fetching summary information for new messages"
 msgstr "取得新訊息的摘要資訊"
+
+#: camel/camel-exchange-journal.c:279
+msgid "No folder name found\n"
+msgstr ""
+
+# Novell Translation
+#: camel/camel-exchange-journal.c:342
+#, fuzzy
+msgid "Cannot append message in offline mode: cache unavailable"
+msgstr ""
+"無法重新命名資料夾：\n"
+"%s"
+
+# Novell Translation
+#: camel/camel-exchange-journal.c:358
+#, fuzzy, c-format
+msgid "Cannot append message in offline mode: %s"
+msgstr ""
+"無法重新命名資料夾：\n"
+"%s"
 
 # Novell Translation
 #. i18n: the '_' should appear before the same letter it
@@ -221,19 +245,19 @@ msgid "No such folder %s"
 msgstr "無此資料夾"
 
 # Novell Translation
-#: camel/camel-exchange-store.c:474
+#: camel/camel-exchange-store.c:480
 #, fuzzy
 msgid "Cannot get folder info in offline mode."
 msgstr "這項操作無法在離線模式中執行"
 
 # Novell Translation
-#: camel/camel-exchange-store.c:536
+#: camel/camel-exchange-store.c:542
 #, fuzzy
 msgid "Cannot create folder in offline mode."
 msgstr "無法以該名稱建立資料夾"
 
 # Novell Translation
-#: camel/camel-exchange-store.c:563
+#: camel/camel-exchange-store.c:569
 #, fuzzy
 msgid "Cannot delete folder in offline mode."
 msgstr ""
@@ -241,7 +265,7 @@ msgstr ""
 "%s"
 
 # Novell Translation
-#: camel/camel-exchange-store.c:579
+#: camel/camel-exchange-store.c:585
 #, fuzzy
 msgid "Cannot rename folder in offline mode."
 msgstr ""
@@ -298,6 +322,108 @@ msgstr "遺失至 %s 的連線"
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "與 %s 通訊錯誤：%s"
+
+# Novell Translation
+#: lib/e2k-autoconfig.c:1427 storage/exchange-autoconfig-wizard.c:224
+#, c-format
+msgid ""
+"Could not connect to the Exchange server.\n"
+"Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
+msgstr ""
+"無法連線到 Exchange 伺服器。\n"
+"請確定 URL 是正確的 (試試看以「%s」來取代「%s」？)，然後再試一次。"
+
+# Novell Translation
+#: lib/e2k-autoconfig.c:1436 storage/exchange-autoconfig-wizard.c:232
+msgid ""
+"Could not locate Exchange server.\n"
+"Make sure the server name is spelled correctly and try again."
+msgstr ""
+"找不到 Exchange 伺服器。\n"
+"請確定伺服器名稱的拼字是正確的，然後再試一次。"
+
+# Novell Translation
+#: lib/e2k-autoconfig.c:1446 storage/exchange-autoconfig-wizard.c:241
+msgid ""
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again."
+msgstr ""
+"無法驗證到 Exchange 伺服器。\n"
+"請確定使用者名稱及密碼是正確的，然後再試一次。"
+
+# Novell Translation
+#: lib/e2k-autoconfig.c:1454 storage/exchange-autoconfig-wizard.c:248
+#, c-format
+msgid ""
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again.\n"
+"\n"
+"You may need to specify the Windows domain name as part of your username "
+"(eg, \"MY-DOMAIN\\%s\")."
+msgstr ""
+"無法驗證到 Exchange 伺服器。\n"
+"請確定使用者名稱及密碼是正確的，然後再試一次。\n"
+"\n"
+"您可能需要指定 Windows 領域名稱來當作使用者名稱的一部分 (例如，「MY-DOMAIN\\%"
+"s」)。"
+
+# Novell Translation
+#: lib/e2k-autoconfig.c:1467 storage/exchange-autoconfig-wizard.c:260
+msgid ""
+"Could not find OWA data at the indicated URL.\n"
+"Make sure the URL is correct and try again."
+msgstr ""
+"在指出的 URL找不到 OWA 資料。\n"
+"請確定 URL 是正確的，然後再試一次。"
+
+# Novell Translation
+#: lib/e2k-autoconfig.c:1475
+#, fuzzy
+msgid ""
+"Ximian Connector requires access to certain functionality on the Exchange "
+"Server that appears to be disabled or blocked.  (This is usually "
+"unintentional.)  Your Exchange Administrator will need to enable this "
+"functionality in order for you to be able to use Ximian Connector.\n"
+"\n"
+"For information to provide to your Exchange administrator, please follow the "
+"link below:\n"
+"http://www.ximian.com/products/connector/iis-lockdown.html, http://www."
+"ximian.com/products/connector/iis-lockdown.html"
+msgstr ""
+"Ximian 連接器需要存取 Exchange 伺服器上的某些功能，但這些功能已關閉或已封鎖。"
+"(這通常不是刻意的。)您的 Exchange 管理員將需要開啟此功能，讓您可以使用 "
+"Ximian 連接器。\n"
+"\n"
+"若需有關提供給您的 Exchange 管理員的資訊，請依照下列連結："
+
+# Novell Translation
+#: lib/e2k-autoconfig.c:1491 storage/exchange-autoconfig-wizard.c:288
+msgid ""
+"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
+"Connector supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"您所提供的 Exchange 伺服器 URL 適用於 Exchange 5.5 伺服器。Ximian 連接器僅支"
+"援 Microsoft Exchange 2000 和 2003。"
+
+# Novell Translation
+#: lib/e2k-autoconfig.c:1500 storage/exchange-autoconfig-wizard.c:301
+msgid ""
+"Could not configure Exchange account because an unknown error occurred. "
+"Check the URL, username, and password, and try again."
+msgstr ""
+"無法設定 Exchange 帳戶，因為發生了未知的錯誤。請檢查 URL、使用者名稱以及密"
+"碼，然後再試一次。"
+
+# Novell Translation
+#: lib/e2k-autoconfig.c:1522
+#, fuzzy, c-format
+msgid "Enter password for %s"
+msgstr "%s輸入 %s 的密碼"
+
+# Novell Translation
+#: lib/e2k-autoconfig.c:1523 storage/exchange-account.c:859
+msgid "Enter password"
+msgstr "輸入密碼"
 
 # Novell Translation
 #. i18n: These are Outlook's words for the default roles in
@@ -367,8 +493,8 @@ msgid "No such folder"
 msgstr "無此資料夾"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
-#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2309
+#: mail/mail-stub-exchange.c:2347 mail/mail-stub-exchange.c:2407
 #: shell/e-storage.c:573 storage/xc-commands.c:315
 msgid "Permission denied"
 msgstr "許可權被拒絕"
@@ -384,77 +510,77 @@ msgid "Could not create folder."
 msgstr "無法建立資料夾。"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:601 mail/mail-stub-exchange.c:619
+#: mail/mail-stub-exchange.c:602 mail/mail-stub-exchange.c:620
 msgid "Could not open folder: Permission denied"
 msgstr "無法開啟資料夾：許可權被拒絕"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:605 mail/mail-stub-exchange.c:718
+#: mail/mail-stub-exchange.c:606 mail/mail-stub-exchange.c:719
 msgid "Could not open folder"
 msgstr "無法開啟資料夾"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:773
+#: mail/mail-stub-exchange.c:774
 msgid "Could not open Deleted Items folder"
 msgstr "無法開啟「刪除的項目」資料夾"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:1086 mail/mail-stub-exchange.c:1127
+#: mail/mail-stub-exchange.c:1094 mail/mail-stub-exchange.c:1135
 msgid "Could not get new messages"
 msgstr "無法取得新訊息"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:1292
+#: mail/mail-stub-exchange.c:1300
 msgid "Could not empty Deleted Items folder"
 msgstr "無法清空「刪除的項目」資料夾"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:1364
+#: mail/mail-stub-exchange.c:1372
 msgid "Could not append message; mailbox is over quota"
 msgstr "無法附加訊息；信箱超過限定數量"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:1365
+#: mail/mail-stub-exchange.c:1373
 msgid "Could not append message"
 msgstr "無法附加訊息"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:1848
+#: mail/mail-stub-exchange.c:1856
 msgid "No such message"
 msgstr "無此訊息"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:1901
+#: mail/mail-stub-exchange.c:1909
 msgid "Message has been deleted"
 msgstr "訊息已刪除"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:1903
+#: mail/mail-stub-exchange.c:1911
 msgid "Error retrieving message"
 msgstr "取回訊息發生錯誤"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:1945
+#: mail/mail-stub-exchange.c:1953
 msgid "Mailbox does not support full-text searching"
 msgstr "信箱不支援全文搜尋"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:2043
+#: mail/mail-stub-exchange.c:2051
 msgid "Unable to move/copy messages"
 msgstr "無法移動/複製訊息"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:2214
+#: mail/mail-stub-exchange.c:2224
 msgid "No mail submission URI for this mailbox"
 msgstr "沒有郵件提出此信箱的 URI"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:2250
+#: mail/mail-stub-exchange.c:2260
 msgid "Server won't accept mail via Exchange transport"
 msgstr "伺服器將不會透過 Exchange 輸送來接受郵件"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:2252
+#: mail/mail-stub-exchange.c:2262
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -464,7 +590,7 @@ msgstr ""
 "來當作寄件者地址的許可權。"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:2264
+#: mail/mail-stub-exchange.c:2274
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -473,25 +599,25 @@ msgstr ""
 "這表示您的帳戶可能已經超過限定數量。"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:2268
+#: mail/mail-stub-exchange.c:2278
 msgid "Could not send message"
 msgstr "無法傳送訊息"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
-#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
+#: mail/mail-stub-exchange.c:2301 mail/mail-stub-exchange.c:2352
+#: mail/mail-stub-exchange.c:2411 shell/e-storage.c:557
 #: storage/xc-commands.c:319
 msgid "Generic error"
 msgstr "一般的錯誤"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:309
+#: mail/mail-stub-exchange.c:2305 storage/xc-commands.c:309
 msgid "Folder already exists"
 msgstr "資料夾已存在"
 
 # Novell Translation
-#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
-#: mail/mail-stub-exchange.c:2393
+#: mail/mail-stub-exchange.c:2332 mail/mail-stub-exchange.c:2374
+#: mail/mail-stub-exchange.c:2403
 msgid "Folder doesn't exist"
 msgstr "資料夾不存在"
 
@@ -756,7 +882,7 @@ msgid "This operation cannot be performed in off-line mode"
 msgstr "這項操作無法在離線模式中執行"
 
 # Novell Translation
-#: shell/e-storage.c:587 storage/exchange-account.c:1289
+#: shell/e-storage.c:587 storage/exchange-account.c:1411
 msgid "Unknown error"
 msgstr "未知的錯誤"
 
@@ -804,23 +930,18 @@ msgid "%s's Folders"
 msgstr "%s 的資料夾"
 
 # Novell Translation
-#: storage/exchange-account.c:854
+#: storage/exchange-account.c:855
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%s輸入 %s 的密碼"
 
 # Novell Translation
-#: storage/exchange-account.c:858
-msgid "Enter password"
-msgstr "輸入密碼"
-
-# Novell Translation
-#: storage/exchange-account.c:1032
+#: storage/exchange-account.c:1033
 msgid "Cannot change password due to configuration problems"
 msgstr "因組態問題而無法變更密碼"
 
 # Novell Translation
-#: storage/exchange-account.c:1047
+#: storage/exchange-account.c:1048
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -829,12 +950,38 @@ msgstr ""
 "請使用不同的密碼再試一次。"
 
 # Novell Translation
-#: storage/exchange-account.c:1052
+#: storage/exchange-account.c:1053
 msgid "Could not change password"
 msgstr "無法變更密碼"
 
 # Novell Translation
-#: storage/exchange-account.c:1200
+#: storage/exchange-account.c:1137
+msgid "Personal Folders"
+msgstr "個人資料夾"
+
+# Novell Translation
+#: storage/exchange-account.c:1152
+msgid "Favorite Public Folders"
+msgstr "我的最愛公用資料夾"
+
+# Novell Translation
+#. i18n: Outlookism
+#: storage/exchange-account.c:1169
+msgid "All Public Folders"
+msgstr "所有公用資料夾"
+
+# Novell Translation
+#. i18n: Outlookism
+#: storage/exchange-account.c:1183
+msgid "Global Address List"
+msgstr "全域位址清單"
+
+#: storage/exchange-account.c:1269
+msgid "Exchange Account is offline. Cannot display folders\n"
+msgstr ""
+
+# Novell Translation
+#: storage/exchange-account.c:1322
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -843,7 +990,7 @@ msgstr ""
 "\n"
 
 # Novell Translation
-#: storage/exchange-account.c:1205
+#: storage/exchange-account.c:1327
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -864,30 +1011,13 @@ msgstr ""
 "\n"
 
 # Novell Translation
-#: storage/exchange-account.c:1216
-msgid ""
-"Could not authenticate to server.\n"
-"\n"
-"You may need to use Plaintext Password authentication.\n"
-"\n"
-"Or you might have just typed your password wrong.\n"
-"\n"
-msgstr ""
-"無法驗證伺服器。\n"
-"\n"
-"您可能需要使用「純文字密碼」驗證。\n"
-"\n"
-"或是您可能就是輸錯密碼。\n"
-"\n"
-
-# Novell Translation
-#: storage/exchange-account.c:1247
+#: storage/exchange-account.c:1369
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "%s 的信箱不在此伺服器上。"
 
 # Novell Translation
-#: storage/exchange-account.c:1252
+#: storage/exchange-account.c:1374
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -897,7 +1027,7 @@ msgstr ""
 "因此與 Ximian 連接器不相容"
 
 # Novell Translation
-#: storage/exchange-account.c:1259
+#: storage/exchange-account.c:1381
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -909,102 +1039,27 @@ msgstr ""
 "帳戶組態對話方塊中指定該項目。"
 
 # Novell Translation
-#: storage/exchange-account.c:1267
+#: storage/exchange-account.c:1389
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "沒有使用者 %s 的信箱 (於 %s 上)。\n"
 
 # Novell Translation
-#: storage/exchange-account.c:1273 storage/exchange-account.c:1279
-#: storage/exchange-account.c:1287
+#: storage/exchange-account.c:1395 storage/exchange-account.c:1401
+#: storage/exchange-account.c:1409
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "無法連線到伺服器 %s：%s"
 
 # Novell Translation
-#: storage/exchange-account.c:1275
+#: storage/exchange-account.c:1397
 msgid "Could not resolve hostname"
 msgstr "無法解析主機名稱"
 
 # Novell Translation
-#: storage/exchange-account.c:1281
+#: storage/exchange-account.c:1403
 msgid "Network error"
 msgstr "網路錯誤"
-
-# Novell Translation
-#: storage/exchange-account.c:1359
-msgid "Personal Folders"
-msgstr "個人資料夾"
-
-# Novell Translation
-#: storage/exchange-account.c:1374
-msgid "Favorite Public Folders"
-msgstr "我的最愛公用資料夾"
-
-# Novell Translation
-#. i18n: Outlookism
-#: storage/exchange-account.c:1391
-msgid "All Public Folders"
-msgstr "所有公用資料夾"
-
-# Novell Translation
-#. i18n: Outlookism
-#: storage/exchange-account.c:1405
-msgid "Global Address List"
-msgstr "全域位址清單"
-
-# Novell Translation
-#: storage/exchange-autoconfig-wizard.c:224
-#, c-format
-msgid ""
-"Could not connect to the Exchange server.\n"
-"Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
-msgstr ""
-"無法連線到 Exchange 伺服器。\n"
-"請確定 URL 是正確的 (試試看以「%s」來取代「%s」？)，然後再試一次。"
-
-# Novell Translation
-#: storage/exchange-autoconfig-wizard.c:232
-msgid ""
-"Could not locate Exchange server.\n"
-"Make sure the server name is spelled correctly and try again."
-msgstr ""
-"找不到 Exchange 伺服器。\n"
-"請確定伺服器名稱的拼字是正確的，然後再試一次。"
-
-# Novell Translation
-#: storage/exchange-autoconfig-wizard.c:241
-msgid ""
-"Could not authenticate to the Exchange server.\n"
-"Make sure the username and password are correct and try again."
-msgstr ""
-"無法驗證到 Exchange 伺服器。\n"
-"請確定使用者名稱及密碼是正確的，然後再試一次。"
-
-# Novell Translation
-#: storage/exchange-autoconfig-wizard.c:248
-#, c-format
-msgid ""
-"Could not authenticate to the Exchange server.\n"
-"Make sure the username and password are correct and try again.\n"
-"\n"
-"You may need to specify the Windows domain name as part of your username "
-"(eg, \"MY-DOMAIN\\%s\")."
-msgstr ""
-"無法驗證到 Exchange 伺服器。\n"
-"請確定使用者名稱及密碼是正確的，然後再試一次。\n"
-"\n"
-"您可能需要指定 Windows 領域名稱來當作使用者名稱的一部分 (例如，「MY-DOMAIN\\%"
-"s」)。"
-
-# Novell Translation
-#: storage/exchange-autoconfig-wizard.c:260
-msgid ""
-"Could not find OWA data at the indicated URL.\n"
-"Make sure the URL is correct and try again."
-msgstr ""
-"在指出的 URL找不到 OWA 資料。\n"
-"請確定 URL 是正確的，然後再試一次。"
 
 # Novell Translation
 #: storage/exchange-autoconfig-wizard.c:267
@@ -1022,24 +1077,6 @@ msgstr ""
 "Ximian 連接器。\n"
 "\n"
 "若需有關提供給您的 Exchange 管理員的資訊，請依照下列連結："
-
-# Novell Translation
-#: storage/exchange-autoconfig-wizard.c:288
-msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"您所提供的 Exchange 伺服器 URL 適用於 Exchange 5.5 伺服器。Ximian 連接器僅支"
-"援 Microsoft Exchange 2000 和 2003。"
-
-# Novell Translation
-#: storage/exchange-autoconfig-wizard.c:301
-msgid ""
-"Could not configure Exchange account because an unknown error occurred. "
-"Check the URL, username, and password, and try again."
-msgstr ""
-"無法設定 Exchange 帳戶，因為發生了未知的錯誤。請檢查 URL、使用者名稱以及密"
-"碼，然後再試一次。"
 
 # Novell Translation
 #: storage/exchange-autoconfig-wizard.c:345
@@ -1078,7 +1115,7 @@ msgstr ""
 
 # Novell Translation
 #: storage/exchange-autoconfig-wizard.c:491
-#: storage/exchange-config-listener.c:492
+#: storage/exchange-config-listener.c:578
 msgid "You may only configure a single Exchange account"
 msgstr "您可以只設定一個單一的 Exchange 帳戶"
 
@@ -1250,27 +1287,27 @@ msgid "Your current password has expired. Please change your password now."
 msgstr "您目前的密碼已過期。請立即變更您的密碼。"
 
 # Novell Translation
-#: storage/exchange-component.c:314
+#: storage/exchange-component.c:320
 msgid "Mail"
 msgstr "郵件"
 
 # Novell Translation
-#: storage/exchange-component.c:317 storage/exchange-hierarchy-foreign.c:250
+#: storage/exchange-component.c:323 storage/exchange-hierarchy-foreign.c:251
 msgid "Contacts"
 msgstr "連絡人"
 
 # Novell Translation
-#: storage/exchange-component.c:321 storage/exchange-hierarchy-foreign.c:258
+#: storage/exchange-component.c:327 storage/exchange-hierarchy-foreign.c:259
 msgid "Tasks"
 msgstr "工作"
 
 # Novell Translation
-#: storage/exchange-component.c:324 storage/exchange-hierarchy-foreign.c:249
+#: storage/exchange-component.c:330 storage/exchange-hierarchy-foreign.c:250
 msgid "Calendar"
 msgstr "行事曆"
 
 # Novell Translation
-#: storage/exchange-config-listener.c:607
+#: storage/exchange-config-listener.c:693
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
@@ -1279,7 +1316,7 @@ msgstr ""
 "在您結束並重新啟動 Evolution 之後生效。"
 
 # Novell Translation
-#: storage/exchange-config-listener.c:653
+#: storage/exchange-config-listener.c:739
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr "Exchange 帳戶將會在您結束 Evolution 時移除"
 
@@ -1491,37 +1528,37 @@ msgid "Exchange Folder Tree"
 msgstr "Exchange 伺服器"
 
 # Novell Translation
-#: storage/exchange-hierarchy-foreign.c:251
+#: storage/exchange-hierarchy-foreign.c:252
 msgid "Deleted Items"
 msgstr "刪除項目"
 
 # Novell Translation
-#: storage/exchange-hierarchy-foreign.c:252
+#: storage/exchange-hierarchy-foreign.c:253
 msgid "Drafts"
 msgstr "草稿"
 
 # Novell Translation
-#: storage/exchange-hierarchy-foreign.c:253
+#: storage/exchange-hierarchy-foreign.c:254
 msgid "Inbox"
 msgstr "收件匣"
 
 # Novell Translation
-#: storage/exchange-hierarchy-foreign.c:254
+#: storage/exchange-hierarchy-foreign.c:255
 msgid "Journal"
 msgstr "日誌"
 
 # Novell Translation
-#: storage/exchange-hierarchy-foreign.c:255
+#: storage/exchange-hierarchy-foreign.c:256
 msgid "Notes"
 msgstr "記事"
 
 # Novell Translation
-#: storage/exchange-hierarchy-foreign.c:256
+#: storage/exchange-hierarchy-foreign.c:257
 msgid "Outbox"
 msgstr "寄件匣"
 
 # Novell Translation
-#: storage/exchange-hierarchy-foreign.c:257
+#: storage/exchange-hierarchy-foreign.c:258
 msgid "Sent Items"
 msgstr "傳送項目"
 
@@ -1790,7 +1827,7 @@ msgid "Role: "
 msgstr "角色： "
 
 # Novell Translation
-#: storage/exchange-storage.c:336
+#: storage/exchange-storage.c:337
 msgid "Connecting..."
 msgstr "正在連線…"
 
@@ -1939,6 +1976,22 @@ msgstr "外出助理(_O)"
 #: storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "取消訂閱其他使用者的資料夾(_U)"
+
+# Novell Translation
+#~ msgid ""
+#~ "Could not authenticate to server.\n"
+#~ "\n"
+#~ "You may need to use Plaintext Password authentication.\n"
+#~ "\n"
+#~ "Or you might have just typed your password wrong.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "無法驗證伺服器。\n"
+#~ "\n"
+#~ "您可能需要使用「純文字密碼」驗證。\n"
+#~ "\n"
+#~ "或是您可能就是輸錯密碼。\n"
+#~ "\n"
 
 # Novell Translation
 #~ msgid "Exc_hange Server:"
