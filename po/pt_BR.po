@@ -1,20 +1,23 @@
+# translation of evolution-exchange.HEAD.pt_BR.po to Português/Brasil
 # Brazilian Portuguese translation of Evolution Exchange Connector.
-# Copyright (C) 2004 Free Software Foundation, Inc.
+# Copyright (C) 2004, 2005 Free Software Foundation, Inc.
 # Gustavo Maciel Dias Vieira <gustavo@sagui.org>, 2004.
 # Bruno Guimarães de Faria e Silva <melkor.faria@gmail.com>, 2004.
+# Afonso Celso Medina <medina@maua.br>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: evolution-exchange\n"
+"Project-Id-Version: evolution-exchange.HEAD.pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-25 11:28+0530\n"
-"PO-Revision-Date: 2004-12-15 18:29+0000\n"
-"Last-Translator: Bruno Guimarães de Faria e Silva <melkor.faria@gmail.com>\n"
-"Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
+"PO-Revision-Date: 2005-01-31 01:10-0200\n"
+"Last-Translator: Afonso Celso Medina <medina@maua.br>\n"
+"Language-Team: Português/Brasil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);"
+"X-Generator: KBabel 1.9.1\n"
 
 #: addressbook/e-book-backend-exchange.c:1807
 #: addressbook/e-book-backend-gal.c:1341 storage/exchange-storage.c:135
@@ -79,9 +82,9 @@ msgid "Could not create cache for %s"
 msgstr "Não foi possível criar cache para %s"
 
 #: camel/camel-exchange-folder.c:958
-#, fuzzy, c-format
+#, c-format
 msgid "Could not create journal for %s"
-msgstr "Não foi possível criar cache para %s"
+msgstr "Não foi possível criar journal para %s"
 
 #: camel/camel-exchange-folder.c:998
 msgid "Scanning for changed messages"
@@ -116,16 +119,16 @@ msgstr "Limitar número de respostas da LEG: %s"
 
 #: camel/camel-exchange-provider.c:60
 msgid "Options"
-msgstr ""
+msgstr "Opções"
 
 #: camel/camel-exchange-provider.c:62
 #, c-format
 msgid "Password Expiry Warning period: %s"
-msgstr ""
+msgstr "Período de Aviso de Expiração da Senha: %s"
 
 #: camel/camel-exchange-provider.c:64
 msgid "Automatically synchronize account locally"
-msgstr ""
+msgstr "Sincronizar automanticamente a conta localmente"
 
 #. i18n: copy from evolution:camel-imap-provider.c
 #: camel/camel-exchange-provider.c:68
@@ -189,38 +192,29 @@ msgid "Evolution Exchange backend process"
 msgstr "Processo auxiliar para Exchange do Evolution"
 
 #: camel/camel-exchange-store.c:352
-#, fuzzy, c-format
+#, c-format
 msgid "No such folder %s"
-msgstr "Não existe tal pasta"
+msgstr "Não existe tal pasta %s"
 
 #: camel/camel-exchange-store.c:474
-#, fuzzy
 msgid "Cannot get folder info in offline mode."
-msgstr "Está operação não pode ser executada enquanto desconectado"
+msgstr "Impossível obter informação da pasta no modo desconectado."
 
 #: camel/camel-exchange-store.c:536
-#, fuzzy
 msgid "Cannot create folder in offline mode."
-msgstr "Não é possível criar uma pasta com este nome"
+msgstr "Impossível criar uma pasta no modo desconectado."
 
 #: camel/camel-exchange-store.c:563
-#, fuzzy
 msgid "Cannot delete folder in offline mode."
-msgstr ""
-"Não é possível excluir pasta:\n"
-"%s"
+msgstr "Impossível excluir pasta no modo desconectado."
 
 #: camel/camel-exchange-store.c:579
-#, fuzzy
 msgid "Cannot rename folder in offline mode."
-msgstr ""
-"Não é possível renomear pasta:\n"
-"%s"
+msgstr "Impossível renomear pasta no modo desconectado."
 
 #: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr ""
-"Transporte Exchange apenas pode ser usado com fontes de correio Exchange"
+msgstr "Transporte Exchange apenas pode ser usado com fontes de correio Exchange"
 
 #: camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
@@ -1264,7 +1258,7 @@ msgstr "_Tarefas:"
 
 #: storage/exchange-folder-size.c:204
 msgid "Folder Name"
-msgstr "Nome da pasta:"
+msgstr "Nome da pasta"
 
 #: storage/exchange-folder-size.c:208
 msgid "Folder Size"
@@ -1395,20 +1389,19 @@ msgstr "Sim, altere o estado"
 
 #: storage/exchange-passwd-expiry.glade.h:1
 msgid "Password Expiry Warning..."
-msgstr ""
+msgstr "Aviso de Expiração da Senha..."
 
 #: storage/exchange-passwd-expiry.glade.h:2
 msgid "Your password will expire in 7 days..."
-msgstr ""
+msgstr "Sua senha irá expirar em 7 dias..."
 
 #: storage/exchange-passwd-expiry.glade.h:3
-#, fuzzy
 msgid "_Change Password"
-msgstr "Alterar senha"
+msgstr "Alterar _Senha"
 
 #: storage/exchange-passwd-expiry.glade.h:4
 msgid "ok_button"
-msgstr ""
+msgstr "ok_button"
 
 #: storage/exchange-permissions-dialog.c:222
 msgid "Could not read folder permissions"
@@ -1580,7 +1573,7 @@ msgstr "_Adicionar pasta de outro usuário..."
 
 #: storage/xc-commands.c:398
 msgid "_Remove Other User's Folder"
-msgstr "_Remover pasta de outro usuário..."
+msgstr "_Remover Pasta de Outro Usuário"
 
 #: storage/xc-commands.c:404
 msgid "Add to _Favorites"
@@ -1623,8 +1616,7 @@ msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Inscrever-se em uma pasta pertencente a outro usuário no servidor"
 
 #: storage/ximian-connector.xml.h:6
-msgid ""
-"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
 "Desinscrever-se de uma pasta adicionada com \"Inscrever-se em pasta de "
 "_outro usuário\""
@@ -1635,8 +1627,7 @@ msgstr "Ver ou alterar as configurações de delegação de agenda do Exchange"
 
 #: storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
-msgstr ""
-"Ver ou alterar seu estado Fora-do-Escritório e a mensagem de auto-resposta"
+msgstr "Ver ou alterar seu estado Fora-do-Escritório e a mensagem de auto-resposta"
 
 #: storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
@@ -1654,29 +1645,3 @@ msgstr "Assistente de _fora do escritório"
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Desinscrever-se de pasta de _outro usuário"
 
-#~ msgid "Exc_hange Server:"
-#~ msgstr "Servidor Exc_hange:"
-
-#~ msgid "Exchange Server"
-#~ msgstr "Servidor exchange"
-
-#~ msgid "Mailbox name"
-#~ msgstr "Nome da caixa postal"
-
-#~ msgid "OWA path"
-#~ msgstr "Caminho do OWA"
-
-#~ msgid "Public Folder server"
-#~ msgstr "Servidor de pastas públicas"
-
-#~ msgid "_Move Folder..."
-#~ msgstr "_Mover pasta..."
-
-#~ msgid "_Copy Folder..."
-#~ msgstr "_Copiar pasta..."
-
-#~ msgid "Exchange _Quota"
-#~ msgstr "_Quota Exchange"
-
-#~ msgid "View your Exchange server disk usage and limits"
-#~ msgstr "Ver ou alterar o uso e limites de disco do servidor Exchange"
