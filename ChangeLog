@@ -1,3 +1,9 @@
+2004-05-25  Dan Winship  <danw@novell.com>
+
+	* camel/camel-exchange-store.c (get_trash): Update to match the
+	camel changes for #57114. (Call camel_store_get_folder() rather
+	than using the virtual method directly.)
+
 2004-05-26  Rodney Dawes  <dobey@novell.com>
 
 	* configure.in (BASE_VERSION): Revert to previous change as using

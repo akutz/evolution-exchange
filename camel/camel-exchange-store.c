@@ -304,7 +304,7 @@ get_trash (CamelStore *store, CamelException *ex)
 			return NULL;
 	}
 
-	return CS_CLASS (store)->get_folder (store, exch->trash_name, 0, ex);
+	return camel_store_get_folder (store, exch->trash_name, 0, ex);
 }
 
 /* Note: steals @name and @uri */
