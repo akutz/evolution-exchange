@@ -1,9 +1,18 @@
+2005-03-07  Jeffrey Stedfast  <fejj@novell.com>
+
+	Fixes bug #72889, #72943 and probably others.
+
+	* camel/camel-exchange-store.c (exchange_disconnect): Removed the
+	logic, put it into finalize() instead. Simply return TRUE here.
+	(exchange_connect): Moved the logic into construct().
+	(construct): Init the strub and connect it. This needs to happen
+	here or offline mode breaks.
+
 2005-03-10 Sivaiah Nallagatla <snallagatla@novell.com>
-                                                                                           
-        * calendar/backends/e-cal-backend-exchange.c
-        (remove_objects) : Make sure object is non NULL
-        before deferencing it.
-        Fixes #73059
+
+	* calendar/backends/e-cal-backend-exchange.c
+	(remove_objects) : Make sure object is non NULL before deferencing
+	it.  Fixes #73059
 
 2005-03-10  Sushma Rai  <rsushma@novell.com>
 
@@ -26,7 +35,7 @@
 	else which i don't know
 
 2005-03-09 Sivaiah Nallagatla <snallagatla@novell.com>
-                                                                                           
+
         * addresbook/e-book-backend-exchange.c
         (build_message) : make sure note is non NULL
         before processing. Basically added robustness against
