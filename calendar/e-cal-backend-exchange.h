@@ -76,8 +76,6 @@ icaltimezone * e_cal_backend_exchange_get_default_time_zone (ECalBackendSync *ba
 
 char *	  e_cal_backend_exchange_lf_to_crlf 	(const char *in);
 char *	  e_cal_backend_exchange_make_timestamp_rfc822 	(time_t when);
-char *	  e_cal_backend_exchange_get_from_string (ECalBackendSync *backend, 
-							ECalComponent *comp);
 ECalBackendSyncStatus	get_timezone 	(ECalBackendSync *backend, 
 							EDataCal *cal, const char *tzid, char **object);
 
@@ -90,8 +88,9 @@ ECalBackendSyncStatus  e_cal_backend_exchange_extract_components (const char *ca
 
 /* Utility functions */
                                                                                 
-const char *e_cal_backend_exchange_get_cal_address (ECalBackendSync *backend);
-const char *e_cal_backend_exchange_get_cal_owner (ECalBackendSync *backend);
+void e_cal_backend_exchange_get_from (ECalBackendSync *backend, ECalComponent *comp, 
+					char **from_name, char **from_addr);
+char * e_cal_backend_exchange_get_from_string (ECalBackendSync *backend, ECalComponent *comp); 
 gboolean e_cal_backend_exchange_is_online (ECalBackendExchange *cbex);
 
 G_END_DECLS

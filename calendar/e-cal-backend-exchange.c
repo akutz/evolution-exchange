@@ -74,13 +74,9 @@ get_cal_address (ECalBackendSync *backend, EDataCal *cal, char **address)
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	ExchangeHierarchy *hier;
 
-	if (cbex->priv->mode == CAL_MODE_REMOTE) {
-		hier = e_folder_exchange_get_hierarchy (cbex->folder);
-		d(printf("ecbe_get_cal_address(%p, %p) -> %s\n", backend, cal, hier->owner_email));
-		*address = g_strdup (hier->owner_email);
-	} else {
-		*address = NULL;  /* FIXME : For offline, fetch this from gconf */
-	}
+	hier = e_folder_exchange_get_hierarchy (cbex->folder);
+	d(printf("ecbe_get_cal_address(%p, %p) -> %s\n", backend, cal, hier->owner_email));
+	*address = g_strdup (hier->owner_email);
 
 	return GNOME_Evolution_Calendar_Success;
 }
@@ -1105,25 +1101,38 @@ e_cal_backend_exchange_lf_to_crlf (const char *in)
 
 	return out;
 }
-/*
+
 static void
-e_cal_backend_exchange_get_from (ECalBackend *backend, const char **from_name, const char **from_addr)
+get_cal_owner (ECalBackendSync *backend, char **name)
+{
+	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
+	ExchangeHierarchy *hier;
+
+	g_return_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex));
+
+	hier = e_folder_exchange_get_hierarchy (cbex->folder);
+	*name = g_strdup (hier->owner_name);
+}
+
+void
+e_cal_backend_exchange_get_from (ECalBackendSync *backend, ECalComponent *comp, 
+			char **name, char **email)
 {
 	ECalComponentOrganizer org;
+	ECalBackendSyncStatus status;
 
-	e_cal_component_get_organizer (E_CAL_COMPONENT (backend), &org);
+	g_return_if_fail (E_IS_CAL_BACKEND_EXCHANGE (backend));
 
-	if (org.cn && org.cn[0] && org.value && org.value[0]) {                 *from_name = org.cn;
-                if (!g_ascii_strncasecmp (org.value, "mailto:", 7))
-                        *from_addr = org.value + 7;
-                else
-                        *from_addr = org.value;
-        } else {
-                *from_name = e_cal_backend_exchange_get_cal_owner (E_CAL_BACKEND (backend));
-                *from_addr = e_cal_backend_exchange_get_cal_address (E_CAL_BACKEND (backend));
-        }
+	e_cal_component_get_organizer (comp, &org);
+	if (org.cn) {
+		*name = g_strdup (org.cn);
+		*email = g_strdup (org.value);
+	} else {
+		get_cal_owner (backend, name);
+		status = get_cal_address (backend, NULL, email);
+	}
 }
-*/
+
 
 /* Do not internationalize */
 static const char *e2k_rfc822_months [] = {
@@ -1156,52 +1165,13 @@ e_cal_backend_exchange_make_timestamp_rfc822 (time_t when)
 				offset);
 }
 
-/* get_cal_address handler for the Exchange backend */
-const char *
-e_cal_backend_exchange_get_cal_address (ECalBackendSync *backend)
-{
-	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
-	ExchangeHierarchy *hier;
-
-	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex), NULL);
-	if (cbex->priv->mode == CAL_MODE_REMOTE) {
-		hier = e_folder_exchange_get_hierarchy (cbex->folder);
-		//cbex->priv->email_address = g_strdup (hier->owner_email);
-		return hier->owner_email;
-	} else {
-		return NULL; /* FIXME : Read this from gconf */
-	}
-}
-
-const char *
-e_cal_backend_exchange_get_cal_owner (ECalBackendSync *backend)
-{
-	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
-	ExchangeHierarchy *hier;
-
-	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex), NULL);
-
-	hier = e_folder_exchange_get_hierarchy (cbex->folder);
-	return hier->owner_name;
-}
-
 char *
 e_cal_backend_exchange_get_from_string (ECalBackendSync *backend, ECalComponent *comp)
 {
-	ECalComponentOrganizer org;
-	const char *name, *addr;
+	char *name, *addr;
 
-	/*g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex), NULL);*/
-
-	e_cal_component_get_organizer (comp, &org);
-	if (org.cn) {
-		name = org.cn;
-		addr = org.value;
-	} else {
-		name = e_cal_backend_exchange_get_cal_owner (backend);
-		addr = e_cal_backend_exchange_get_cal_address (backend);
-	}
-
+	e_cal_backend_exchange_get_from (backend, comp, &name, &addr);
+	
 	return g_strdup_printf ("\"%s\" <%s>", name, addr);
 }
 
@@ -1405,7 +1375,8 @@ finalize (GObject *object)
 
 	g_free (cbex->priv);
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	if (G_OBJECT_CLASS (parent_class)->finalize)
+		G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
 static void

@@ -67,8 +67,10 @@ struct _ECalBackendExchangeTasksPrivate {
 static ECalBackendExchange *parent_class = NULL;
 
 static void
-get_from (ECalBackendSync *backend, ECalComponent *comp, const char **from_name, const char **from_addr)
+get_from (ECalBackendSync *backend, ECalComponent *comp, char **from_name, char **from_addr)
 {
+	e_cal_backend_exchange_get_from (backend, comp, from_name, from_addr);
+#if 0
 	ECalComponentOrganizer org;
 
 	e_cal_component_get_organizer (E_CAL_COMPONENT (comp), &org);
@@ -83,6 +85,7 @@ get_from (ECalBackendSync *backend, ECalComponent *comp, const char **from_name,
                 *from_name = e_cal_backend_exchange_get_cal_owner (E_CAL_BACKEND_SYNC (backend));
                 *from_addr = e_cal_backend_exchange_get_cal_address (E_CAL_BACKEND_SYNC (backend));
         }
+#endif
 }
 
 static void
@@ -845,7 +848,8 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 	icalcomponent *icalcomp, *real_icalcomp;
 	icalcomponent_kind kind;
 	struct icaltimetype current;
-	const char *from_name, *from_addr, *summary;
+	char *from_name, *from_addr;
+	const char *summary;
 	char * modtime;
 	char *location;
 	ECalBackendSyncStatus status;
@@ -958,7 +962,8 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	ECalBackendExchange *ecalbex;
 	E2kProperties *props;
 	icalcomponent *icalcomp;
-	const char* comp_uid, *from_name, *from_addr, *summary;
+	const char* comp_uid, *summary;
+	char *from_name, *from_addr;
 	char *comp_str;
 	struct icaltimetype current;
 	ECalBackendSyncStatus status;
