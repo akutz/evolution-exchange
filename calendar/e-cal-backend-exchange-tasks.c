@@ -838,7 +838,7 @@ struct _cb_data {
 
 static ECalBackendSyncStatus
 create_task_object (ECalBackendSync *backend, EDataCal *cal,
-		    char **calobj, char **comp_uid)
+		    char **calobj, char **return_uid)
 {
 	ECalBackendExchangeTasks *ecalbextask;
 	ECalBackendExchange *ecalbex;
@@ -853,6 +853,7 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 	char * modtime;
 	char *location;
 	ECalBackendSyncStatus status;
+	const char *temp_comp_uid;
 
 	ecalbextask = E_CAL_BACKEND_EXCHANGE_TASKS (backend);
 	ecalbex = E_CAL_BACKEND_EXCHANGE (backend);
@@ -882,8 +883,16 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 
 	modtime = e2k_timestamp_from_icaltime (current);
 
+	/* Get the uid */
+	temp_comp_uid = icalcomponent_get_uid (icalcomp);
+	if (!temp_comp_uid) {
+		icalcomponent_free (icalcomp);
+		return GNOME_Evolution_Calendar_InvalidObject;
+	}
+
 	/* check if the object is already present in our cache */
-	if (e_cal_backend_exchange_in_cache (E_CAL_BACKEND_EXCHANGE (backend), *comp_uid, modtime, NULL)) {
+	if (e_cal_backend_exchange_in_cache (E_CAL_BACKEND_EXCHANGE (backend), 
+					     temp_comp_uid, modtime, NULL)) {
 		icalcomponent_free (icalcomp);
 		return GNOME_Evolution_Calendar_ObjectIdAlreadyExists;
 	}	
@@ -947,7 +956,8 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 		g_free (location);
 		g_free (modtime);
 	}
-	
+
+	*return_uid = g_strdup (temp_comp_uid); 
 	return GNOME_Evolution_Calendar_Success;
 }
 

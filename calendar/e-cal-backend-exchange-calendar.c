@@ -749,14 +749,13 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	icalcomponent *icalcomp, *real_icalcomp;
 	icalcomponent_kind kind;
 	icalproperty *icalprop;
-	const char *comp_uid;
+	const char *temp_comp_uid;
 	char *busystatus, *insttype, *allday, *importance, *lastmod;
 	struct icaltimetype current, startt;
 	char *location, *ru_header;
 	ECalComponent *comp;
 	char *body, *body_crlf, *msg;
 	char *from, *date;
-	const char *x_name, *x_val;
 	const char *summary;
 	char *attach_body = NULL;
 	char *attach_body_crlf = NULL;
@@ -793,7 +792,11 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 		return GNOME_Evolution_Calendar_InvalidObject;
 	}
 	
-	comp_uid = icalcomponent_get_uid (icalcomp);
+	temp_comp_uid = icalcomponent_get_uid (icalcomp);
+	if (!temp_comp_uid) {
+		icalcomponent_free (icalcomp);
+		return GNOME_Evolution_Calendar_InvalidObject;
+	}
 	#if 0
 	if (lookup_component (E_CAL_BACKEND_EXCHANGE (cbexc), comp_uid))
 	{
@@ -975,7 +978,8 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	g_free (lastmod);
 	g_free (location);
 	e2k_properties_free (props);
-	
+
+	*uid = g_strdup (temp_comp_uid);	
 	return GNOME_Evolution_Calendar_Success;
 }
 

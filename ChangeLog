@@ -1,3 +1,14 @@
+2005-03-10  Sushma Rai  <rsushma@novell.com>
+
+	* calendar/e-cal-backend-exchange-tasks.c (create_task_object):
+	Finding the UID from the ical component and using it while checking
+	the cache, and also returning the UID back. Fixes #72041
+	Changed the parameter name from comp_uid to return_uid.
+
+	* calendar/e-cal-backend-exchange-calendar.c (create_object): Similar
+	to tasks, here also reading the UID value from ical component and 
+	returning it back.
+
 2005-03-09 Sivaiah Nallagatla <snallagatla@novell.com>
 
 	* addressbook/e-book-backend-exchange.c 
