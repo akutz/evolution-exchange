@@ -33,8 +33,8 @@
 #include "mapi.h"
 
 #include "e-folder-exchange.h"
+#include "exchange-component.h"
 #include "exchange-hierarchy.h"
-#include "xc-backend.h"
 
 struct ECalBackendExchangePrivate {
 	gboolean read_only;
@@ -257,7 +257,7 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 
 	/* Make sure we have an open connection */
 	uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
-	cbex->account = xc_backend_get_account_for_uri (global_backend, uristr);
+	cbex->account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
 	if (!cbex->account)
 		return GNOME_Evolution_Calendar_RepositoryOffline;
 	if (!exchange_account_get_context (cbex->account))

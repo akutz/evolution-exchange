@@ -1,5 +1,5 @@
 SUBDIRS =				\
-	xntlm lib component camel	\
+	xntlm lib camel			\
 	mail addressbook calendar	\
 	shell storage			\
 	po docs 

@@ -27,12 +27,12 @@
 
 #include "exchange-account.h"
 #include "exchange-change-password.h"
+#include "exchange-component.h"
 #include "exchange-hierarchy-webdav.h"
 #include "exchange-hierarchy-favorites.h"
 #include "exchange-hierarchy-foreign.h"
 #include "exchange-hierarchy-gal.h"
 #include "e-folder-exchange.h"
-#include "xc-backend.h"
 #include "e2k-autoconfig.h"
 #include "e2k-encoding-utils.h"
 #include "e2k-marshal.h"
@@ -842,7 +842,7 @@ get_password (ExchangeAccount *account, E2kAutoconfig *ac, const char *errmsg)
 		printf ("krb error after creating config_file : %d\n", krb_err);
 	}
 	password = e_passwords_get_password ("Exchange", key);
-	if (!password && xc_backend_is_interactive (global_backend)) {
+	if (!password && exchange_component_is_interactive (global_exchange_component)) {
 		char *prompt;
 
 		prompt = g_strdup_printf (_("%sEnter password for %s"),
@@ -1042,7 +1042,7 @@ exchange_account_connect (ExchangeAccount *account)
 		e2k_autoconfig_free (ac);
 		g_mutex_unlock (account->priv->connect_lock);
 
-		if (!xc_backend_is_interactive (global_backend))
+		if (!exchange_component_is_interactive (global_exchange_component))
 			return NULL;
 
 		switch (result) {

@@ -1,3 +1,50 @@
+2004-06-03  Dan Winship  <danw@novell.com>
+
+	* component/*: Gone. Now that we're not using the other
+	components' controls to display things, there is no need for the
+	shlib proxy. (We still can't move everything into the shlib,
+	because then there would be multiple active copies of the exchange
+	backend in some cases, and the code is not currently set up to
+	deal with that possibility.)
+	
+	* Makefile.am (SUBDIRS): Remove component
+
+	* configure.in (AC_OUTPUT): Likewise
+
+	* addressbook/Makefile.am (INCLUDES): Remove -I../component
+
+	* addressbook/e-book-backend-exchange.c
+	(e_book_backend_exchange_connect): s/xc_backend/exchange_component/
+
+	* addressbook/e-book-backend-gal.c (gal_connect): Likewise
+
+	* calendar/Makefile.am (INCLUDES): Remove -I../component
+
+	* calendar/e-cal-backend-exchange.c (open_calendar):
+	s/xc_backend/exchange_component/
+
+	* storage/Makefile.am (INCLUDES): Remove -I../component
+	(evolution_exchange_storage_SOURCES): Remove xc-backend.[ch], add
+	exchange-component.c (moved here from component/, and merged with
+	the former xc-backend.c).
+
+	* storage/GNOME_Evolution_Exchange_Storage.server.in.in: Merge in
+	the component factory stuff formerly in
+	component/GNOME_Evolution_Exchange_Component.server.in.in
+
+	* storage/exchange-account.c (get_password,
+	exchange_account_connect): s/xc_backend/exchange_component/
+
+	* storage/main.c (setup_component_factory): Sets up a bonobo
+	factory for the shell component
+	(main): Call it.
+
+	* storage/xc-commands.c (xc_folder_get_account):
+	s/xc_backend/exchange_component/
+
+	* storage/connector-mini.png: Replace this 16x16 icon with a 24x24
+	one since that's what the shell sidebar needs
+
 2004-06-02  Gareth Owen  <gowen72@yahoo.com>
 
 	* configure.in: Added en_GB to ALL_LINGUAS

@@ -8,8 +8,6 @@ INCLUDES =                                                      \
         -I$(top_srcdir)/storage					\
         -I$(top_srcdir)/shell					\
 	-I$(top_builddir)/shell					\
-        -I$(top_srcdir)/component				\
-	-I$(top_builddir)/component				\
 	-DG_LOG_DOMAIN=\"e-cal-backend-exchange\"
 
 noinst_LIBRARIES =						\

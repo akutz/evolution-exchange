@@ -48,15 +48,33 @@
 #include "exchange-autoconfig-wizard.h"
 #include "exchange-component.h"
 #include "exchange-oof.h"
-#include "xc-backend.h"
 
+static BonoboGenericFactory *component_factory = NULL;
 static EDataCalFactory *cal_factory = NULL;
 static EDataBookFactory *book_factory = NULL;
-#ifdef CONFIG_CONTROLS
-static BonoboGenericFactory *config_factory = NULL;
-#endif
 
-XCBackend *global_backend;
+ExchangeComponent *global_exchange_component;
+
+static BonoboObject *
+exchange_component_factory (BonoboGenericFactory *factory,
+			    const char *component_id, void *component)
+{
+	g_return_val_if_fail (strcmp (component_id, EXCHANGE_COMPONENT_IID) == 0, NULL);
+
+	return component;
+}
+
+static gboolean
+setup_component_factory (void)
+{
+	global_exchange_component = exchange_component_new ();
+
+	component_factory =
+		bonobo_generic_factory_new (EXCHANGE_COMPONENT_FACTORY_IID,
+					    exchange_component_factory,
+					    global_exchange_component);
+	return TRUE;
+}
 
 static void
 last_calendar_gone_cb (EDataCalFactory *factory, gpointer data)
@@ -66,7 +84,7 @@ last_calendar_gone_cb (EDataCalFactory *factory, gpointer data)
 
 /* Creates the calendar factory object and registers it */
 static gboolean
-setup_calendar_factory (int argc, char **argv)
+setup_calendar_factory (void)
 {
 	cal_factory = e_data_cal_factory_new ();
 	if (!cal_factory) {
@@ -100,7 +118,7 @@ last_book_gone_cb (EDataBookFactory *factory, gpointer data)
 }
 
 static gboolean
-setup_addressbook_factory (int argc, char **argv)
+setup_addressbook_factory (void)
 {
         book_factory = e_data_book_factory_new ();
 
@@ -128,7 +146,6 @@ int
 main (int argc, char **argv)
 {
 	char *path;
-	int ret;
 
 	bindtextdomain (PACKAGE, CONNECTOR_LOCALEDIR);
 	textdomain (PACKAGE);
@@ -160,19 +177,12 @@ main (int argc, char **argv)
 	}
 	g_free (path);
 
-	global_backend = xc_backend_new ();
-
 	/* register factories */
-	ret = bonobo_activation_register_active_server (
-		XC_BACKEND_IID,
-		bonobo_object_corba_objref (BONOBO_OBJECT (global_backend)),
-		NULL);
-	if (ret != Bonobo_ACTIVATION_REG_SUCCESS)
+	if (!setup_component_factory ())
 		goto failed;
-
-	if (!setup_calendar_factory (argc, argv))
+	if (!setup_calendar_factory ())
 		goto failed;
-        if (!setup_addressbook_factory (argc, argv))
+        if (!setup_addressbook_factory ())
 		goto failed;
 
 	fprintf (stderr, "Evolution Exchange Storage up and running\n");

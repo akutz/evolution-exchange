@@ -16,11 +16,9 @@ INCLUDES =							\
 	-I$(top_srcdir)/xntlm					\
 	-I$(top_srcdir)/mail					\
 	-I$(top_srcdir)/shell					\
-	-I$(top_srcdir)/component				\
 	-I$(top_srcdir)/camel					\
 	-I$(top_srcdir)/calendar				\
 	-I$(top_builddir)/shell					\
-	-I$(top_builddir)/component				\
 	-I$(top_builddir)/lib
 
 EVOLUTION_privlibexec_PROGRAMS =				\
@@ -39,6 +37,7 @@ evolution_exchange_storage_SOURCES =				\
 	exchange-autoconfig-wizard.h				\
 	exchange-change-password.c				\
 	exchange-change-password.h				\
+	exchange-component.c					\
 	exchange-component.h					\
 	exchange-config-listener.c				\
 	exchange-config-listener.h				\
@@ -72,8 +71,6 @@ evolution_exchange_storage_SOURCES =				\
 	main.c							\
 	xc-backend-view.c					\
 	xc-backend-view.h					\
-	xc-backend.c						\
-	xc-backend.h						\
 	xc-commands.c						\
 	xc-commands.h
 

@@ -21,7 +21,7 @@
 #include "config.h"
 #endif
 
-#include "xc-backend.h"
+#include "exchange-component.h"
 
 #include <unistd.h>
 
@@ -52,7 +52,7 @@
 static BonoboObjectClass *parent_class = NULL;
 static gboolean idle_do_interactive (gpointer user_data);
 
-struct XCBackendPrivate {
+struct ExchangeComponentPrivate {
 	GdkNativeWindow xid;
 
 	EFolderTypeRegistry *folder_type_registry;
@@ -66,10 +66,10 @@ struct XCBackendPrivate {
 typedef struct {
 	ExchangeAccount *account;
 	MailStubListener *msl;
-} XCBackendAccount;
+} ExchangeComponentAccount;
 
 static void
-free_account (XCBackendAccount *baccount)
+free_account (ExchangeComponentAccount *baccount)
 {
 	g_object_unref (baccount->account);
 	g_object_unref (baccount->msl);
@@ -79,7 +79,7 @@ free_account (XCBackendAccount *baccount)
 static void
 dispose (GObject *object)
 {
-	XCBackendPrivate *priv = XC_BACKEND (object)->priv;
+	ExchangeComponentPrivate *priv = EXCHANGE_COMPONENT (object)->priv;
 	GSList *p;
 
 	if (priv->folder_type_registry) {
@@ -122,8 +122,8 @@ impl_createControls (PortableServer_Servant servant,
 		     Bonobo_Control *statusbar_control,
 		     CORBA_Environment *ev)
 {
-	XCBackend *backend = XC_BACKEND (bonobo_object_from_servant (servant));
-	XCBackendPrivate *priv = backend->priv;
+	ExchangeComponent *component = EXCHANGE_COMPONENT (bonobo_object_from_servant (servant));
+	ExchangeComponentPrivate *priv = component->priv;
 	XCBackendView *view;
 	BonoboControl *control = NULL;
 
@@ -154,13 +154,13 @@ impl_upgradeFromVersion (PortableServer_Servant servant,
 			 const CORBA_short revision,
 			 CORBA_Environment *ev)
 {
-	XCBackend *backend = XC_BACKEND (bonobo_object_from_servant (servant));
+	ExchangeComponent *component = EXCHANGE_COMPONENT (bonobo_object_from_servant (servant));
 	ExchangeAccount *account;
 	const gchar *base_directory=NULL;
 
 	d(printf("upgradeFromVersion %d %d %d\n", major, minor, revision));
 
-	account = xc_backend_get_account_for_uri (backend, NULL);
+	account = exchange_component_get_account_for_uri (component, NULL);
 	if (account) {
 		base_directory = g_build_filename (g_get_home_dir (),
 						   ".evolution",
@@ -209,14 +209,14 @@ impl_quit (PortableServer_Servant servant,
 static gboolean
 idle_do_interactive (gpointer user_data)
 {
-	XCBackend *backend = user_data;
-	XCBackendPrivate *priv = backend->priv;
-	XCBackendAccount *baccount;
+	ExchangeComponent *component = user_data;
+	ExchangeComponentPrivate *priv = component->priv;
+	ExchangeComponentAccount *baccount;
 	GSList *acc;
 
 	for (acc = priv->accounts; acc; acc = acc->next) {
 		baccount = acc->data;
-		if (xc_backend_is_interactive (backend))
+		if (exchange_component_is_interactive (component))
 			exchange_oof_init (baccount->account, priv->xid);
 	}
 	return FALSE;
@@ -228,21 +228,21 @@ impl_interactive (PortableServer_Servant servant,
 		  const CORBA_unsigned_long new_view_xid,
 		  CORBA_Environment *ev)
 {
-	XCBackend *backend = XC_BACKEND (bonobo_object_from_servant (servant));
-	XCBackendPrivate *priv = backend->priv;
+	ExchangeComponent *component = EXCHANGE_COMPONENT (bonobo_object_from_servant (servant));
+	ExchangeComponentPrivate *priv = component->priv;
 
 	d(printf("interactive? %s, xid %lu\n", now_interactive ? "yes" : "no", new_view_xid));
 
 	if (now_interactive) {
 		priv->xid = new_view_xid;
-		g_idle_add (idle_do_interactive, backend);
+		g_idle_add (idle_do_interactive, component);
 	} else
 		priv->xid = 0;
 }
 
 static void
 new_connection (MailStubListener *listener, int cmd_fd, int status_fd,
-		XCBackendAccount *baccount)
+		ExchangeComponentAccount *baccount)
 {
 	MailStub *mse;
 	ExchangeAccount *account = baccount->account;
@@ -263,12 +263,12 @@ config_listener_account_created (ExchangeConfigListener *config_listener,
 				 ExchangeAccount *account,
 				 gpointer user_data)
 {
-	XCBackend *backend = user_data;
-	XCBackendPrivate *priv = backend->priv;
-	XCBackendAccount *baccount;
+	ExchangeComponent *component = user_data;
+	ExchangeComponentPrivate *priv = component->priv;
+	ExchangeComponentAccount *baccount;
 	char *path;
 
-	baccount = g_new0 (XCBackendAccount, 1);
+	baccount = g_new0 (ExchangeComponentAccount, 1);
 	baccount->account = g_object_ref (account);
 
 	path = g_strdup_printf ("/tmp/.exchange-%s/%s",
@@ -290,9 +290,9 @@ config_listener_account_removed (ExchangeConfigListener *config_listener,
 				 ExchangeAccount *account,
 				 gpointer user_data)
 {
-	XCBackend *backend = user_data;
-	XCBackendPrivate *priv = backend->priv;
-	XCBackendAccount *baccount;
+	ExchangeComponent *component = user_data;
+	ExchangeComponentPrivate *priv = component->priv;
+	ExchangeComponentAccount *baccount;
 	GSList *acc;
 
 	for (acc = priv->accounts; acc; acc = acc->next) {
@@ -325,9 +325,9 @@ static struct {
 static int n_folder_types = G_N_ELEMENTS (folder_types);
 
 static void
-setup_folder_type_registry (XCBackend *backend)
+setup_folder_type_registry (ExchangeComponent *component)
 {
-	XCBackendPrivate *priv = backend->priv;
+	ExchangeComponentPrivate *priv = component->priv;
 	int i;
 
 	priv->folder_type_registry = e_folder_type_registry_new ();
@@ -343,7 +343,7 @@ setup_folder_type_registry (XCBackend *backend)
 }
 
 static void
-xc_backend_class_init (XCBackendClass *klass)
+exchange_component_class_init (ExchangeComponentClass *klass)
 {
 	POA_GNOME_Evolution_Component__epv *epv = &klass->epv;
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -362,38 +362,39 @@ xc_backend_class_init (XCBackendClass *klass)
 }
 
 static void
-xc_backend_init (XCBackend *backend)
+exchange_component_init (ExchangeComponent *component)
 {
-	XCBackendPrivate *priv;
+	ExchangeComponentPrivate *priv;
 
-	priv = backend->priv = g_new0 (XCBackendPrivate, 1);
+	priv = component->priv = g_new0 (ExchangeComponentPrivate, 1);
 
-	setup_folder_type_registry (backend);
+	setup_folder_type_registry (component);
 
        	priv->config_listener = exchange_config_listener_new ();
 	g_signal_connect (priv->config_listener, "exchange_account_created",
 			  G_CALLBACK (config_listener_account_created),
-			  backend);
+			  component);
 	g_signal_connect (priv->config_listener, "exchange_account_removed",
 			  G_CALLBACK (config_listener_account_removed),
-			  backend);
+			  component);
 
 }
 
-BONOBO_TYPE_FUNC_FULL (XCBackend, GNOME_Evolution_Component, PARENT_TYPE, xc_backend)
+BONOBO_TYPE_FUNC_FULL (ExchangeComponent, GNOME_Evolution_Component, PARENT_TYPE, exchange_component)
 
-XCBackend *
-xc_backend_new (void)
+ExchangeComponent *
+exchange_component_new (void)
 {
-	return g_object_new (XC_TYPE_BACKEND, NULL);
+	return g_object_new (EXCHANGE_TYPE_COMPONENT, NULL);
 }
 
 
 ExchangeAccount *
-xc_backend_get_account_for_uri (XCBackend *backend, const char *uri)
+exchange_component_get_account_for_uri (ExchangeComponent *component,
+					const char *uri)
 {
-	XCBackendPrivate *priv = backend->priv;
-	XCBackendAccount *baccount;
+	ExchangeComponentPrivate *priv = component->priv;
+	ExchangeComponentAccount *baccount;
 	GSList *acc;
 
 	for (acc = priv->accounts; acc; acc = acc->next) {
@@ -410,7 +411,7 @@ xc_backend_get_account_for_uri (XCBackend *backend, const char *uri)
 }
 
 gboolean
-xc_backend_is_interactive (XCBackend *backend)
+exchange_component_is_interactive (ExchangeComponent *component)
 {
-	return backend->priv->xid != 0;
+	return component->priv->xid != 0;
 }

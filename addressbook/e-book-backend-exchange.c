@@ -50,7 +50,7 @@
 #include "exchange-hierarchy.h"
 #include "e-folder-exchange.h"
 #include "e-book-backend-exchange.h"
-#include "xc-backend.h"
+#include "exchange-component.h"
 
 #define DEBUG
 #define d(x) x
@@ -401,7 +401,7 @@ e_book_backend_exchange_connect (EBookBackendExchange *be)
 	E2kHTTPStatus status;
 	time_t folder_mtime;
 
-	bepriv->account = xc_backend_get_account_for_uri (global_backend, bepriv->exchange_uri);
+	bepriv->account = exchange_component_get_account_for_uri (global_exchange_component, bepriv->exchange_uri);
 	if (!bepriv->account)
 		return GNOME_Evolution_Addressbook_RepositoryOffline;
 	bepriv->ctx = exchange_account_get_context (bepriv->account);

@@ -25,7 +25,6 @@
 
 #include "exchange-oof.h"
 #include "exchange-account.h"
-#include "xc-backend.h"
 #include "e2k-propnames.h"
 #include "e2k-utils.h"
 #include "e2k-uri.h"

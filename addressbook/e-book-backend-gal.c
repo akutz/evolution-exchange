@@ -30,7 +30,7 @@
 #include <string.h>
 
 #include "exchange-account.h"
-#include "xc-backend.h"
+#include "exchange-component.h"
 
 #ifdef DEBUG
 #define LDAP_DEBUG
@@ -212,7 +212,7 @@ gal_connect (EBookBackendGAL *bl)
 	blpriv->gc = NULL;
 	blpriv->connected = FALSE;
 
-	account = xc_backend_get_account_for_uri (global_backend, blpriv->gal_uri);
+	account = exchange_component_get_account_for_uri (global_exchange_component, blpriv->gal_uri);
 	if (!account)
 		return GNOME_Evolution_Addressbook_RepositoryOffline;
 	blpriv->gc = exchange_account_get_global_catalog (account);

@@ -22,9 +22,9 @@
 #endif
 
 #include "xc-commands.h"
-#include "xc-backend.h"
 #include "xc-backend-view.h"
 #include "e-folder-exchange.h"
+#include "exchange-component.h"
 #include "exchange-hierarchy-gal.h"
 #include "e2k-utils.h"
 #include "exchange-account.h"
@@ -200,7 +200,7 @@ xc_folder_command_data_free (XCFolderCommandData *fcd)
 static inline ExchangeAccount *
 xc_folder_get_account (XCFolderCommandData *fcd)
 {
-	return xc_backend_get_account_for_uri (global_backend, e_folder_exchange_get_internal_uri (fcd->folder));
+	return exchange_component_get_account_for_uri (global_exchange_component, e_folder_exchange_get_internal_uri (fcd->folder));
 }
 
 static void
