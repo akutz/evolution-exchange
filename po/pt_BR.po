@@ -3,22 +3,21 @@
 # Gustavo Maciel Dias Vieira <gustavo@sagui.org>, 2004.
 #
 # FIXME: lixo
-# FIXME: buttons: Back/Forward, Ok/Cancel/Close/Apply. Where?!?
 msgid ""
 msgstr ""
-"Project-Id-Version: ximian-connector 1.5.91\n"
+"Project-Id-Version: ximian-connector 1.5.93\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-20 16:37-0400\n"
-"PO-Revision-Date: 2004-07-20 16:42-0400\n"
+"POT-Creation-Date: 2004-08-25 17:30-0400\n"
+"PO-Revision-Date: 2004-08-25 17:37-0400\n"
 "Last-Translator: Gustavo Maciel Dias Vieira <gustavo@sagui.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: addressbook/e-book-backend-exchange.c:1655
-#: addressbook/e-book-backend-gal.c:1184 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-gal.c:1209 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Pesquisando..."
 
@@ -26,50 +25,64 @@ msgstr "Pesquisando..."
 msgid "Reconnecting to LDAP server..."
 msgstr "Reconectando ao servidor LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1099
+#: addressbook/e-book-backend-gal.c:1114
 msgid "Receiving LDAP search results..."
 msgstr "Recebendo resultados da pesquisa LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1205
+#: addressbook/e-book-backend-gal.c:1230
 msgid "Error performing search"
 msgstr "Erro ao executar pesquisa"
 
-#: camel/camel-exchange-folder.c:217
+#: calendar/e-cal-backend-exchange-calendar.c:1354
+#, c-format
+msgid ""
+"Unable to schedule resource '%s' for recurring meetings.\n"
+"You must book each meeting separately."
+msgstr ""
+"Não é possível agendar o recurso '%s' para reuniões recorrentes.\n"
+"Você deve agendar cada reunião separadamente."
+
+#: calendar/e-cal-backend-exchange-calendar.c:1377
+#, c-format
+msgid "The resource '%s' is busy during the selected time period."
+msgstr "O recurso '%s' está ocupado durante o período de tempo selecionado."
+
+#: camel/camel-exchange-folder.c:219
 msgid "Can only expunge in Deleted Items folder"
 msgstr "Só é possível excluir permanentemente na pasta Ítens excluídos"
 
-#: camel/camel-exchange-folder.c:241
+#: camel/camel-exchange-folder.c:243
 msgid "No Subject"
 msgstr "Sem assunto"
 
-#: camel/camel-exchange-folder.c:630
+#: camel/camel-exchange-folder.c:632
 msgid "Moving messages"
 msgstr "Movendo mensagens"
 
-#: camel/camel-exchange-folder.c:631
+#: camel/camel-exchange-folder.c:633
 msgid "Copying messages"
 msgstr "Copiando mensagens"
 
-#: camel/camel-exchange-folder.c:874
+#: camel/camel-exchange-folder.c:878
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Não foi possível criar o diretório %s: %s"
 
-#: camel/camel-exchange-folder.c:884
+#: camel/camel-exchange-folder.c:888
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Não foi possível carregar resumo para %s"
 
-#: camel/camel-exchange-folder.c:892
+#: camel/camel-exchange-folder.c:896
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Não foi possível criar cache para %s"
 
-#: camel/camel-exchange-folder.c:932
+#: camel/camel-exchange-folder.c:936
 msgid "Scanning for changed messages"
 msgstr "Varrendo a procura de mensagens alteradas"
 
-#: camel/camel-exchange-folder.c:956
+#: camel/camel-exchange-folder.c:960
 msgid "Fetching summary information for new messages"
 msgstr "Pegando informação de resumo para novas mensagens"
 
@@ -280,8 +293,8 @@ msgstr "Catálogo de endereços..."
 msgid "No such folder"
 msgstr "Não existe tal pasta"
 
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2278
-#: mail/mail-stub-exchange.c:2320 mail/mail-stub-exchange.c:2370
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
+#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
 #: shell/e-storage.c:573 storage/xc-commands.c:302
 msgid "Permission denied"
 msgstr "Permissão negada"
@@ -342,15 +355,15 @@ msgstr "Caixa postal não suporta pesquisa por texto"
 msgid "Unable to move/copy messages"
 msgstr "Não é possível mover/copiar mensagens"
 
-#: mail/mail-stub-exchange.c:2192
+#: mail/mail-stub-exchange.c:2213
 msgid "No mail submission URI for this mailbox"
 msgstr "Não existe URI para envio de correio para esta caixa postal"
 
-#: mail/mail-stub-exchange.c:2229
+#: mail/mail-stub-exchange.c:2250
 msgid "Server won't accept mail via Exchange transport"
 msgstr "O servidor não aceita correio pelo transporte Exchange"
 
-#: mail/mail-stub-exchange.c:2231
+#: mail/mail-stub-exchange.c:2252
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -359,7 +372,7 @@ msgstr ""
 "Sua conta não possui permissão para usar <%s> como\n"
 "um endereço de origem."
 
-#: mail/mail-stub-exchange.c:2243
+#: mail/mail-stub-exchange.c:2264
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -367,22 +380,22 @@ msgstr ""
 "Não foi possível enviar mensagem.\n"
 "Isto pode significar que a sua conta excedeu a cota."
 
-#: mail/mail-stub-exchange.c:2247
+#: mail/mail-stub-exchange.c:2268
 msgid "Could not send message"
 msgstr "Não foi possível enviar mensagem"
 
-#: mail/mail-stub-exchange.c:2270 mail/mail-stub-exchange.c:2325
-#: mail/mail-stub-exchange.c:2374 shell/e-storage.c:557
+#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
+#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
 #: storage/xc-commands.c:306
 msgid "Generic error"
 msgstr "Erro genérico"
 
-#: mail/mail-stub-exchange.c:2274 storage/xc-commands.c:296
+#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
 msgid "Folder already exists"
 msgstr "A pasta já existe"
 
-#: mail/mail-stub-exchange.c:2305 mail/mail-stub-exchange.c:2350
-#: mail/mail-stub-exchange.c:2366
+#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
+#: mail/mail-stub-exchange.c:2393
 msgid "Folder doesn't exist"
 msgstr "A pasta não existe"
 
@@ -670,7 +683,9 @@ msgstr "Não foi possível alterar senha"
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
-msgstr "Não foi possível autenticar-se com o servidor. (Senha incorreta?)\n\n"
+msgstr ""
+"Não foi possível autenticar-se com o servidor. (Senha incorreta?)\n"
+"\n"
 
 #: storage/exchange-account.c:987
 msgid ""
@@ -877,13 +892,18 @@ msgstr ""
 msgid "Unknown"
 msgstr "Desconhecido"
 
-#: storage/exchange-autoconfig-wizard.c:466
+#: storage/exchange-autoconfig-wizard.c:477
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
 msgstr ""
 "Erro do sistema de configuração.\n"
 "Não é possível criar uma nova conta."
+
+#: storage/exchange-autoconfig-wizard.c:491
+#: storage/exchange-config-listener.c:492
+msgid "You may only configure a single Exchange account"
+msgstr "Você configurar apenas uma única conta Exchange"
 
 #: storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
@@ -1008,7 +1028,9 @@ msgstr ""
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
-msgstr "A senha atual não confere com a senha existente para a sua conta. Por favor, entre a senha correta"
+msgstr ""
+"A senha atual não confere com a senha existente para a sua conta. Por favor, "
+"entre a senha correta"
 
 #: storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
@@ -1038,23 +1060,19 @@ msgstr "A sua senha atual expirou. Por favor, altere a sua senha agora."
 msgid "Mail"
 msgstr "Correio"
 
-#: storage/exchange-component.c:311 storage/exchange-hierarchy-foreign.c:248
+#: storage/exchange-component.c:311 storage/exchange-hierarchy-foreign.c:250
 msgid "Contacts"
 msgstr "Contatos"
 
-#: storage/exchange-component.c:315 storage/exchange-hierarchy-foreign.c:256
+#: storage/exchange-component.c:315 storage/exchange-hierarchy-foreign.c:258
 msgid "Tasks"
 msgstr "Tarefas"
 
-#: storage/exchange-component.c:318 storage/exchange-hierarchy-foreign.c:247
+#: storage/exchange-component.c:318 storage/exchange-hierarchy-foreign.c:249
 msgid "Calendar"
 msgstr "Agenda"
 
-#: storage/exchange-config-listener.c:492
-msgid "You may only configure a single Exchange account"
-msgstr "Você configurar apenas uma única conta Exchange"
-
-#: storage/exchange-config-listener.c:601
+#: storage/exchange-config-listener.c:607
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
@@ -1062,7 +1080,7 @@ msgstr ""
 "Alterações na configuração da conta Exchange terão\n"
 "efeito após você sair e reiniciar o Evolution."
 
-#: storage/exchange-config-listener.c:647
+#: storage/exchange-config-listener.c:653
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr "A conta Exchange será removida quando você sair do Evolution"
 
@@ -1159,11 +1177,11 @@ msgstr ""
 "Falha ao atualizar representantes:\n"
 "%s"
 
-#: storage/exchange-delegates.c:937 storage/exchange-permissions-dialog.c:706
+#: storage/exchange-delegates.c:938 storage/exchange-permissions-dialog.c:706
 msgid "Name"
 msgstr "Nome"
 
-#: storage/exchange-delegates.c:966
+#: storage/exchange-delegates.c:967
 msgid "Error reading delegates list."
 msgstr "Erro ao ler lista de representantes."
 
@@ -1223,31 +1241,31 @@ msgstr "Ca_ixa de entrada:"
 msgid "_Tasks:"
 msgstr "_Tarefas:"
 
-#: storage/exchange-hierarchy-foreign.c:249
+#: storage/exchange-hierarchy-foreign.c:251
 msgid "Deleted Items"
 msgstr "Itens excluídos"
 
-#: storage/exchange-hierarchy-foreign.c:250
+#: storage/exchange-hierarchy-foreign.c:252
 msgid "Drafts"
 msgstr "Rascunhos"
 
-#: storage/exchange-hierarchy-foreign.c:251
+#: storage/exchange-hierarchy-foreign.c:253
 msgid "Inbox"
 msgstr "Caixa de entrada"
 
-#: storage/exchange-hierarchy-foreign.c:252
+#: storage/exchange-hierarchy-foreign.c:254
 msgid "Journal"
 msgstr "Diário"
 
-#: storage/exchange-hierarchy-foreign.c:253
+#: storage/exchange-hierarchy-foreign.c:255
 msgid "Notes"
 msgstr "Notas"
 
-#: storage/exchange-hierarchy-foreign.c:254
+#: storage/exchange-hierarchy-foreign.c:256
 msgid "Outbox"
 msgstr "Caixa de saída"
 
-#: storage/exchange-hierarchy-foreign.c:255
+#: storage/exchange-hierarchy-foreign.c:257
 msgid "Sent Items"
 msgstr "Enviar ítens"
 
@@ -1534,49 +1552,47 @@ msgid "Change your Exchange server password"
 msgstr "Altere a sua senha do servidor Exchange"
 
 #: storage/ximian-connector.xml.h:2
-msgid "Exchange _Quota"
-msgstr "_Quota Exchange"
-
-#: storage/ximian-connector.xml.h:3
 msgid "Subscribe to _Other User's Folder..."
 msgstr "Inscrever-se em pasta de _outro usuário..."
 
-#: storage/ximian-connector.xml.h:4
+#: storage/ximian-connector.xml.h:3
 msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Inscrever-se em uma pasta pertencente a outro usuário no servidor"
 
-#: storage/ximian-connector.xml.h:5
+#: storage/ximian-connector.xml.h:4
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
 "Desinscrever-se de uma pasta adicionada com \"Inscrever-se em pasta de "
 "_outro usuário\""
 
-#: storage/ximian-connector.xml.h:6
+#: storage/ximian-connector.xml.h:5
 msgid "View or change your Exchange calendar delegation settings"
 msgstr "Ver ou alterar as configurações de delegação de agenda do Exchange"
 
-#: storage/ximian-connector.xml.h:7
+#: storage/ximian-connector.xml.h:6
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr ""
 "Ver ou alterar seu estado Fora-do-Escritório e a mensagem de auto-resposta"
 
-#: storage/ximian-connector.xml.h:8
-msgid "View your Exchange server disk usage and limits"
-msgstr "Ver ou alterar o uso e limites de disco do servidor Exchange"
-
-#: storage/ximian-connector.xml.h:9
+#: storage/ximian-connector.xml.h:7
 msgid "_Change Exchange Password..."
 msgstr "_Alterar senha Exchange..."
 
-#: storage/ximian-connector.xml.h:10
+#: storage/ximian-connector.xml.h:8
 msgid "_Delegation Assistant"
 msgstr "Assistente de _delegação"
 
-#: storage/ximian-connector.xml.h:11
+#: storage/ximian-connector.xml.h:9
 msgid "_Out of Office Assistant"
 msgstr "Assistente de _fora do escritório"
 
-#: storage/ximian-connector.xml.h:12
+#: storage/ximian-connector.xml.h:10
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Desinscrever-se de pasta de _outro usuário"
+
+#~ msgid "Exchange _Quota"
+#~ msgstr "_Quota Exchange"
+
+#~ msgid "View your Exchange server disk usage and limits"
+#~ msgstr "Ver ou alterar o uso e limites de disco do servidor Exchange"
