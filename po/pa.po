@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-07-26 03:27+0200\n"
-"PO-Revision-Date: 2004-08-09 15:19+0530\n"
+"PO-Revision-Date: 2004-08-10 17:51+0530\n"
 "Last-Translator: Amanpreet Singh Alam <aalam@redhat.com>\n"
 "Language-Team: Punjabi <pa@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgstr "ਖੋਜ ਕਰਨ ਗਲਤੀ"
 
 #: camel/camel-exchange-folder.c:219
 msgid "Can only expunge in Deleted Items folder"
-msgstr ""
+msgstr "ਹਟਾਈ ਇਕਾਈ ਫੋਲਡਰ ਨੂੰ ਫੈਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ"
 
 #: camel/camel-exchange-folder.c:243
 msgid "No Subject"
@@ -104,9 +104,8 @@ msgstr "ਵਿਆਪਕ ਕਾਟਾਲੋਗ ਸਰਵਰ ਨਾਂ:"
 
 #: camel/camel-exchange-provider.c:59
 #, c-format
-#, fuzzy
 msgid "Limit number of GAL responses: %s"
-msgstr "s"
+msgstr "GAL ਜਵਾਬ ਲਈ ਸੀਮਾ: %s"
 
 #: camel/camel-exchange-provider.c:62
 msgid "Exchange Server"
@@ -145,9 +144,8 @@ msgid "Microsoft Exchange"
 msgstr "ਮਾਈਕਰੋਸਾਫਟ ਐਕਸਚੇਜ਼"
 
 #: camel/camel-exchange-provider.c:87
-#, fuzzy
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
-msgstr "ਅਤੇ ਚਾਲੂ"
+msgstr "ਮਾਈਕਰੋਸਾਫਟ ਐਕਸ਼ਚੇਜ਼ ਸਰਵਰ ਤੇ ਪੱਤਰ ਕੰਟਰੋਲ(ਅਤੇ ਹੋਰ ਡਾਟਾ) ਲਈ"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
 #: camel/camel-exchange-provider.c:105
@@ -160,6 +158,8 @@ msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
 msgstr ""
+"ਇਹ ਚੋਣ ਐਕਸਚੇਜ਼ ਸਰਵਰ ਨਾਲ ਤੁਹਾਨੂੰ ਸੁਰੱਖਿਅਤ ਗੁਪਤ-ਕੋਡ (NTLM) ਪ੍ਰਮਾਣਕਿਤਾ ਰਾਹੀ "
+"ਹੀ ਜੋੜੇਗਾ|"
 
 #: camel/camel-exchange-provider.c:116
 msgid "Plaintext Password"
@@ -170,6 +170,8 @@ msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
 msgstr ""
+"ਇਹ ਚੋਣ ਐਕਸਚੇਜ਼ ਸਰਵਰ ਨਾਲ ਤੁਹਾਨੂੰ ਮਿਆਰੀ ਸਮਤਲ ਗੁਪਤ-ਕੋਡ ਪ੍ਰਮਾਣਕਿਤਾ ਰਾਹੀ "
+"ਹੀ ਜੋੜੇਗਾ|"
 
 #: camel/camel-exchange-store.c:178
 #, c-format
@@ -178,9 +180,8 @@ msgstr "ਐਕਸਚੇਜ਼ ਸਰਵਰ %s"
 
 #: camel/camel-exchange-store.c:181
 #, c-format
-#, fuzzy
 msgid "Exchange account for %s on %s"
-msgstr "s ਚਾਲੂ s"
+msgstr "%s ਲਈ %s ਤੇ ਐਕਸ਼ਚੇਜ਼ ਖਾਤਾ"
 
 #: camel/camel-exchange-store.c:208
 msgid "Evolution Exchange backend process"
@@ -188,12 +189,11 @@ msgstr "ਈਵੇਲੂਸ਼ਨ ਐਕਸ਼ਚੇਜ਼ ਬੈਕਐੱਡ ਕਾਰਜ
 
 #: camel/camel-exchange-transport.c:109
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr ""
+msgstr "ਐਕਸਚੇਜ਼ ਟਰਾਸ਼ਪੋਰਟ ਕੇਵਲ ਐਕਸਚੇਜ਼ ਮੇਲ ਸਰੋਤ ਨਾਲ ਹੀ ਵਰਤਿਆ ਜਾ ਸਕਦਾ ਹੈ"
 
 #: camel/camel-exchange-transport.c:120
-#, fuzzy
 msgid "Cannot send message: one or more invalid recipients"
-msgstr "ਜਾਂ"
+msgstr "ਸੁਨੇਹਾ ਨਹੀਂ ਭੇਜਿਆ: ਇੱਕ ਜਾਂ ਵਧੇਰੇ ਜਾਇਜ ਪ੍ਰਾਪਤ ਕਰਤਾ"
 
 #: camel/camel-exchange-transport.c:130
 msgid "Could not find 'From' address in message"
@@ -201,39 +201,33 @@ msgstr "ਸੁਨੇਹੇ ਵਿੱਚ ਵੱਲੋ ਲੱਭਣ ਵਿੱਚ �
 
 #: camel/camel-stub.c:133
 #, c-format
-#, fuzzy
 msgid "Could not create socket: %s"
-msgstr "s"
+msgstr "ਸਾਕਟ ਨਹੀਂ ਬਣਾਈ ਜਾ ਸਕਦੀ ਹੈ: %s"
 
 #: camel/camel-stub.c:148
 #, c-format
-#, fuzzy
 msgid "Could not connect to %s: %s"
-msgstr "s s"
+msgstr "%s ਨਾਲ ਜੁੜਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ: %s"
 
 #: camel/camel-stub.c:167
 #, c-format
-#, fuzzy
 msgid "Path too long: %s"
-msgstr "ਰਸਤਾ s"
+msgstr "ਰਸਤਾ ਬਹੁਤ ਲੰਮਾ ਹੈ: %s"
 
 #: camel/camel-stub.c:193
 #, c-format
-#, fuzzy
 msgid "Could not start status thread: %s"
-msgstr "s"
+msgstr "ਮਾਮਲਾ ਸਥਿਤੀ ਸ਼ੁਰੂ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕੀ ਹੈ: %s"
 
 #: camel/camel-stub.c:445
 #, c-format
-#, fuzzy
 msgid "Lost connection to %s"
-msgstr "s"
+msgstr "%s ਨਾਲ ਕੁਨੈਕਸ਼ਨ ਸਮਾਪਤ ਹੋ ਗਿਆ ਹੈ"
 
 #: camel/camel-stub.c:449
 #, c-format
-#, fuzzy
 msgid "Error communicating with %s: %s"
-msgstr "ਗਲਤੀ s s"
+msgstr "%s ਨਾਲ ਸੰਪਰਕ ਕਰਨ ਵਿੱਚ ਗਲਤੀ: %s"
 
 #. i18n: These are Outlook's words for the default roles in
 #. the folder permissions dialog.
@@ -258,13 +252,12 @@ msgid "Author"
 msgstr "ਲੇਖਕ"
 
 #: lib/e2k-security-descriptor.c:883
-#, fuzzy
 msgid "Non-editing Author"
-msgstr "ਲੇਖਕ"
+msgstr "ਕੋਈ ਸੰਪਾਦਕ ਲੇਖਕ"
 
 #: lib/e2k-security-descriptor.c:887
 msgid "Reviewer"
-msgstr ""
+msgstr "ਨਿਰੀਖਕ"
 
 #: lib/e2k-security-descriptor.c:889
 msgid "Contributor"
@@ -326,7 +319,7 @@ msgstr "ਹਟਾਈਆਂ ਇਕਾਈਆਂ ਫੋਲਡਰ ਨੂੰ ਖਾ�
 
 #: mail/mail-stub-exchange.c:1363
 msgid "Could not append message; mailbox is over quota"
-msgstr ""
+msgstr "ਸੁਨੇਹਾ ਸ਼ਾਮਿਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ, ਪੱਤਰ ਬਕਸੇ ਸੀਮਾ ਤੋਂ ਬਾਹਰ ਹੈ"
 
 #: mail/mail-stub-exchange.c:1364
 msgid "Could not append message"
@@ -345,19 +338,16 @@ msgid "Error retrieving message"
 msgstr "ਸੁਨੇਹੇ ਨੂੰ ਕਿਤੇ ਭੇਜਣ ਵਿੱਚ ਗਲਤੀ"
 
 #: mail/mail-stub-exchange.c:1944
-#, fuzzy
 msgid "Mailbox does not support full-text searching"
-msgstr "ਮੇਲ-ਬਕਸਾ"
+msgstr "ਮੇਲ-ਬਕਸਾ ਪੂਰੇ ਪਾਠ ਤੇ ਅਧਾਰਿਤ ਖੋਜ ਲਈ ਸਹਾਈ ਨਹੀਂ ਹੈ"
 
 #: mail/mail-stub-exchange.c:2042
-#, fuzzy
 msgid "Unable to move/copy messages"
-msgstr "ਨਕਲ"
+msgstr "ਸੁਨੇਹਿਆਂ ਦੀ ਨਕਲ/ਭੇਜਣ ਲਈ ਸਹਾਈ ਨਹੀਂ ਹੈ"
 
 #: mail/mail-stub-exchange.c:2192
-#, fuzzy
 msgid "No mail submission URI for this mailbox"
-msgstr "ਨਹੀਂ URI"
+msgstr "ਇਸ ਪੱਤਰ ਬਕਸੇ ਲਈ ਕੋਈ ਪੱਤਰ ਭੇਜਣ URI ਨਹੀਂ ਹੈ"
 
 #: mail/mail-stub-exchange.c:2229
 msgid "Server won't accept mail via Exchange transport"
@@ -365,17 +355,20 @@ msgstr "ਸਰਵਰ ਪੱਤਰ ਐਕਸਚੇਜ਼ ਟਰਾਂਸਪੋਰਟ
 
 #: mail/mail-stub-exchange.c:2231
 #, c-format
-#, fuzzy
 msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
-msgstr "s."
+msgstr ""
+"ਤੁਹਾਡੇ ਖਾਤੇ ਲਈ <%s> ਦੀ ਵਰਤੋਂ ਵੱਲੋਂ ਸਿਰਨਾਵਾਂ ਵਰਤਣ ਦਾ\n"
+"ਅਧਿਕਾਰ ਨਹੀਂ ਹੈ|"
 
 #: mail/mail-stub-exchange.c:2243
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
+"ਸੁਨੇਹਾ ਭੇਜਿਆ ਨਹੀਂ ਜਾ ਸਕੇਗਾ\n"
+"ਇਸ ਦਾ ਅਰਥ ਹੈ ਤਿ ਤੁਹਾਡਾ ਖਾਤਾ ਸੀਮਾ ਤੋਂ ਵਧੇਰੇ ਹੈ"
 
 #: mail/mail-stub-exchange.c:2247
 msgid "Could not send message"
@@ -462,17 +455,17 @@ msgstr "\"%s\" ਹਟਾਓ"
 
 #: shell/e-folder-misc-dialogs.c:154
 #, c-format
-#, fuzzy
 msgid ""
 "Cannot rename folder:\n"
 "%s"
-msgstr "s"
+msgstr ""
+"ਫੋਲਡਰ ਦਾ ਨਾਂ ਤਬਦੀਲ ਸੰਭਵ ਨਹੀਂ ਹੈ:\n"
+"%s"
 
 #: shell/e-folder-misc-dialogs.c:188
 #, c-format
-#, fuzzy
 msgid "Rename the \"%s\" folder to:"
-msgstr "ਨਾ-ਤਬਦੀਲ s:"
+msgstr "ਫੋਲਡਰ \"%s\" ਦਾ ਨਾਂ-ਤਬਦੀਲ ਕਰੋ:"
 
 #: shell/e-folder-misc-dialogs.c:191
 msgid "Rename Folder"
@@ -480,9 +473,8 @@ msgstr "ਫੋਲਡਰ ਦਾ ਨਾਂ ਤਬਦੀਲ"
 
 #: shell/e-folder-misc-dialogs.c:205
 #, c-format
-#, fuzzy
 msgid "A folder named \"%s\" already exists. Please use a different name."
-msgstr "s."
+msgstr "ਫੋਲਡਰ \"%s\" ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ਵੱਖਰਾ ਨਾਂ ਵਰਤੋਂ"
 
 #. It would be nice to insensitivize the OK button appropriately
 #. instead of doing this, but unfortunately we can't do this for the
@@ -502,45 +494,40 @@ msgstr "\"%s\" ਫੋਲਡਰ ਖੋਲਿਆ ਜਾ ਰਿਹਾ ਹੈ"
 
 #: shell/e-folder-misc-dialogs.c:571
 #, c-format
-#, fuzzy
 msgid "in \"%s\" ..."
-msgstr "ਇੰ s."
+msgstr "\"%s\" ਵਿੱਚ..."
 
 #: shell/e-folder-misc-dialogs.c:638
 #, c-format
-#, fuzzy
 msgid "Could not open other user's folder: %s."
-msgstr "s s."
+msgstr "ਹੋਰ ਉਪਭੋਗਤਾ ਫੋਲਡਰ ਖੋਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ: %s"
 
 #: shell/e-folder-misc-dialogs.c:688
-#, fuzzy
 msgid "Cannot find the specified other user's folder."
-msgstr "s."
+msgstr "ਨਿਰਧਾਰਿਤ ਹੋਰ ਉਪਭੋਗਤਾ ਫੋਲਡਰ ਲੱਭਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ ਹੈ"
 
 #: shell/e-folder-misc-dialogs.c:720
 #, c-format
-#, fuzzy
 msgid ""
 "Cannot unsubscribe from folder:\n"
 "%s"
-msgstr "s"
+msgstr ""
+"ਫੋਲਡਰ ਨੂੰ ਅਸਵੀਕਾਰ ਕਰਨ ਤੋਂ ਅਸਫਲ:\n"
+"%s"
 
 #: shell/e-folder-misc-dialogs.c:773
 #, c-format
-#, fuzzy
 msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "s?"
+msgstr "ਕੀ ਫੋਲਡਰ \"%s\" ਨੂੰ ਅਸਵੀਕਾਰ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
 #: shell/e-folder-misc-dialogs.c:787
 #, c-format
-#, fuzzy
 msgid "Unsubscribe from \"%s\""
-msgstr "s"
+msgstr "\"%s\" ਨੂੰ ਅਸਵੀਕਾਰ "
 
 #: shell/e-foreign-folder-dialog.glade.h:1
-#, fuzzy
 msgid "Open Other User's Folder"
-msgstr "ਖੋਲੋ ਹੋਰ ਉਪਭੋਗਤਾ s ਫੋਲਡਰ"
+msgstr "ਹੋਰ ਉਪਭੋਗਤਾ ਦਾ ਫੋਲਡਰ ਖੋਲੋ"
 
 #: shell/e-foreign-folder-dialog.glade.h:2
 msgid "_Account:"
@@ -603,31 +590,28 @@ msgid "The specified type is not supported in this storage"
 msgstr "ਇਸ ਸਟੋਰੇਜ਼ ਤੇ ਨਿਰਧਾਰਿਤ ਕਿਸਮ ਸਹਾਈ ਨਹੀਂ ਹੈ"
 
 #: shell/e-storage.c:579
-#, fuzzy
 msgid "The specified folder cannot be modified or removed"
-msgstr "ਸੋਧਿਆ ਜਾਂ"
+msgstr "ਨਿਰਧਾਰਿਤ ਫੋਲਡਰ ਨੂੰ ਸੋਧਿਆ ਜਾਂ ਹਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ"
 
 #: shell/e-storage.c:581
 msgid "Cannot make a folder a child of one of its descendants"
-msgstr ""
+msgstr "ਕਿਸੇ ਅਗਲੇ ਫੋਲਡਰ ਨੂੰ ਇਸ ਦੇ ਅਗਲੇ ਫੋਲਡਰ ਦਾ ਭਾਗ ਨਹੀਂ ਬਣਾਇਆ ਜਾ ਸਕਦਾ ਹੈ"
 
 #: shell/e-storage.c:583
 msgid "Cannot create a folder with that name"
 msgstr "ਉਸ ਨਾਂ ਨਾਲ ਫੋਲਡਰ ਬਣਾਇਆ ਜਾ ਸਕਦਾ ਹੈ"
 
 #: shell/e-storage.c:585
-#, fuzzy
 msgid "This operation cannot be performed in off-line mode"
-msgstr "ਇੰ ਬੰਦ"
+msgstr "ਇਹ ਕਾਰਵਾਈ ਆਫ ਲਾਇਨ ਮੋਡ ਵਿੱਚ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ"
 
 #: shell/e-storage.c:587 storage/exchange-account.c:1071
 msgid "Unknown error"
 msgstr "ਅਣਪਛਾਤੀ ਗਲਤੀ"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-#, fuzzy
 msgid "*Control*F5"
-msgstr "ਕੰਟਰੋਲ"
+msgstr "*Control*F5"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Addressbook Exchange backend"
@@ -674,11 +658,12 @@ msgid "Cannot change password due to configuration problems"
 msgstr "ਸੰਰਚਨਾ ਸਮੱਸਿਆ ਕਰਕੇ ਗੁਪਤ-ਕੋਡ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ"
 
 #: storage/exchange-account.c:891
-#, fuzzy
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
-msgstr "ਸਰਵਰ."
+msgstr ""
+"ਸਰਵਰ ਨੇ ਗੁਪਤ-ਕੋਡ ਨਿਕਾਰ ਦਿੱਤਾ ਹੈ, ਕਿਉਕਿ ਇਹ ਆਸਾਨ ਹੈ\n"
+"ਵੱਖਰੇ ਗੁਪਤ-ਕੋਡ ਨਾਲ ਕੋਸ਼ਿਸ ਕਰੋ"
 
 #: storage/exchange-account.c:896
 msgid "Could not change password"
@@ -693,7 +678,6 @@ msgstr ""
 "\n"
 
 #: storage/exchange-account.c:987
-#, fuzzy
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -703,10 +687,17 @@ msgid ""
 "\n"
 "Or you might have just typed your password wrong.\n"
 "\n"
-msgstr "ਝਰੋਖੇ"
+msgstr ""
+"ਸਰਵਰ ਤੋਂ ਪ੍ਰਮਾਣਿਕ ਨਹੀਂ ਹੈ\n"
+"\n"
+"ਇਸ ਦਾ ਅਰਥ ਇਹ ਹੈ ਕਿ ਤੁਹਾਡਾ ਸਰਵਰ ਤੁਹਾਡੇ ਕੋਲੋ\n"
+"ਤੁਹਾਡੇ ਆਪਣੇ ਨਾਂ ਤੋਂ ਬਿਨਾਂ ਤੁਹਾਡਾ ਝਰੋਖਾ ਡੋਮੇਨ ਨਾਂ\n"
+"ਵੀ ਚਾਹੁੰਦਾ ਹੈ( ਜਿਵੇਂ ਕਿ, \"DOMAIN\\user\")|\n"
+"\n"
+"ਜਾਂ ਸਿਰਫ ਤੁਸੀਂ ਗਲਤ ਗੁਪਤ-ਕੋਡ ਭਰਿਆ ਹੈ|\n"
+"\n"
 
 #: storage/exchange-account.c:998
-#, fuzzy
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -714,30 +705,38 @@ msgid ""
 "\n"
 "Or you might have just typed your password wrong.\n"
 "\n"
-msgstr "ਗੁਪਤ-ਕੋਡ"
+msgstr ""
+"ਸਰਵਰ ਤੇ ਪ੍ਰਮਾਣਿਤ ਨਹੀਂ \n"
+"\n"
+"ਤੁਹਾਨੂੰ ਪ੍ਰਮਾਣਿਕਤਾ ਲਈ ਸਧਾਰਨ ਗੁਪਤ-ਕੋਡ ਲੋੜੀਦਾ ਹੈ\n"
+"\n"
+"ਜਾਂ ਤੁਹਾਡਾ ਗੁਪਤ-ਕੋਡ ਗਲਤ ਹੈ|\n"
+"\n"
 
 #: storage/exchange-account.c:1029
 #, c-format
-#, fuzzy
 msgid "Mailbox for %s is not on this server."
-msgstr "ਮੇਲ-ਬਕਸਾ s ਚਾਲੂ."
+msgstr "ਇਸ ਸਰਵਰ ਤੇ %s ਲਈ ਪੱਤਰ-ਬਕਸਾ ਨਹੀਂ ਹੈ"
 
 #: storage/exchange-account.c:1034
 #, c-format
-#, fuzzy
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
 "therefore not compatible with Ximian Connector"
-msgstr "s ਅਤੇ"
+msgstr ""
+"ਸਰਵਰ '%s' Exchange 5.5 ਨਾਲ ਚੱਲ ਰਿਹਾ ਹੈ ਅਤੇ ਇਸ ਕਰਕੇ\n"
+"ਇਹ ਜੀਮੀਨ ਕੁਨੈਕਟਰ ਨਾਲ ਅਨੁਕੂਲ ਨਹੀਂ ਹੈ"
 
 #: storage/exchange-account.c:1041
 #, c-format
-#, fuzzy
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
 "If OWA is running on a different path, you must specify that in the\n"
 "account configuration dialog."
-msgstr "ਸਿਸਟਮ s ਚਾਲੂ ਇੰ."
+msgstr ""
+" %s ਤੇ ਐਕਸ਼ਚੇਜ਼ ਵੈੱਬ ਸਟੋਰੇਜ ਲੱਭੀ ਨਹੀਂ ਜਾ ਸਕੀ ਹੈ|\n"
+"ਜੇਕਰ OWA ਵੱਖਰੇ ਰਸਤੇ ਤੇ ਚੱਲ ਰਿਹਾ ਹੈ, ਤਾਂ ਤੁਹਾਨੂੰ ਖਾਤਾ ਸੰਰਚਨਾ ਤਖਤੀ \n"
+"ਵਿੱਚ ਨਿਰਧਾਰਿਤ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ|"
 
 #: storage/exchange-account.c:1049
 #, c-format
@@ -747,9 +746,8 @@ msgstr "ਉਪਭੋਗਤਾ %s ਲਈ %s ਤੇ ਕੋਈ ਪੱਤਰ-ਬਕ�
 #: storage/exchange-account.c:1055 storage/exchange-account.c:1061
 #: storage/exchange-account.c:1069
 #, c-format
-#, fuzzy
 msgid "Could not connect to server %s: %s"
-msgstr "s s"
+msgstr "ਸਰਵਰ %s ਨਾਲ ਜੁੜਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ ਹੈ: %s"
 
 #: storage/exchange-account.c:1057
 msgid "Could not resolve hostname"
@@ -764,64 +762,68 @@ msgid "Personal Folders"
 msgstr "ਨਿ"
 
 #: storage/exchange-account.c:1130
-#, fuzzy
 msgid "Favorite Public Folders"
-msgstr "ਸਰਵਜਨਕ ਫੋਲਡਰ"
+msgstr "ਪਸੰਦੀਦਾ ਸਰਵਜਨਕ ਫੋਲਡਰ"
 
 #. i18n: Outlookism
 #: storage/exchange-account.c:1147
-#, fuzzy
 msgid "All Public Folders"
 msgstr "ਸਭ ਸਰਵਜਨਕ ਫੋਲਡਰ"
 
 #. i18n: Outlookism
 #: storage/exchange-account.c:1161
-#, fuzzy
 msgid "Global Address List"
-msgstr "ਸਿਰਨਾਵਾਂ"
+msgstr "ਵਿਆਪਕ ਸਿਰਨਾਵਾਂ ਸੂਚੀ"
 
 #: storage/exchange-autoconfig-wizard.c:224
 #, c-format
-#, fuzzy
 msgid ""
 "Could not connect to the Exchange server.\n"
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
-msgstr "URL s s ਅਤੇ."
+msgstr ""
+"Exchange ਸਰਵਰ ਨਾਲ ਜੁੜਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ ਹੈ\n"
+"ਕਿਰਾਪ ਕਰਕੇ ਯਕੀਨ ਬਣਾਓ ਕਿ URL ਸਹੀ ਹੈ (\"%s\", \"%s\" ਦੀ ਥਾਂ ਵਰਤੋਂ?) ਅਤੇ ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ"
 
 #: storage/exchange-autoconfig-wizard.c:232
-#, fuzzy
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
-msgstr "ਅਤੇ."
+msgstr ""
+"ਐਕਸ਼ਚੇਜ਼ ਸਰਵਰ ਨੂੰ ਸਥਾਪਿਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ ਹੈ\n"
+"ਕਿਰਪਾ ਕਰਕੇ ਯਕੀਨੀ ਬਣਾਉ ਕਿ ਸਰਵਰ ਦੇ ਸ਼ਬਦ ਠੀਕ ਹਨ ਅਤੇ ਮੁੜ ਕੋਸਿਸ ਕਰੋ|"
 
 #: storage/exchange-autoconfig-wizard.c:241
-#, fuzzy
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
-msgstr "ਅਤੇ ਅਤੇ."
+msgstr ""
+"ਐਕਸਚੇਜ਼ ਸਰਵਰ ਲਈ ਪ੍ਰਮਾਣਿਤ ਨਹੀਂ \n"
+"ਇਹ ਯਕੀਨੀ ਕਰੋ ਕਿ ਉਪਭੋਗਤਾ ਨਾਂ ਅਤੇ ਗੁਪਤ-ਕੋਡ ਠੀਕ ਹੈ ਅਤੇ ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ"
 
 #: storage/exchange-autoconfig-wizard.c:248
 #, c-format
-#, fuzzy
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again.\n"
 "\n"
 "You may need to specify the Windows domain name as part of your username "
 "(eg, \"MY-DOMAIN\\%s\")."
-msgstr "ਅਤੇ ਅਤੇ ਝਰੋਖੇ s."
+msgstr ""
+"ਐਕਸਚੇਜ਼ ਸਰਵਰ ਲਈ ਪ੍ਰਮਾਣਿਤ ਨਹੀਂ \n"
+"ਇਹ ਯਕੀਨੀ ਕਰੋ ਕਿ ਉਪਭੋਗਤਾ ਨਾਂ ਅਤੇ ਗੁਪਤ-ਕੋਡ ਠੀਕ ਹੈ ਅਤੇ ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ\n"
+"\n"
+"ਹੋ ਸਕਦਾ ਹੈ ਕਿ ਤੁਹਾਨੂੰ ਉਪਭੋਗਤੀ ਨਾਂ ਦੇ ਤੌਰ ਤੇ ਵਿੰਡੋ ਨਾਂ ਵੀ ਨਿਰਧਾਰਿਤ ਕਰਨਾ ਪਵੇ| "
+"(ਜਿਵੇਂ ਕਿ\"MY-DOMAIN\\%s\")|"
 
 #: storage/exchange-autoconfig-wizard.c:260
-#, fuzzy
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
-msgstr "URL URL ਅਤੇ."
+msgstr ""
+"URL ਤੇ ਨਿਰਧਾਰਿਤ OWA ਡਾਟਾ ਲੱਭਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ ਹੈ|\n"
+"ਕਿਰਪਾ ਕਰਕੇ ਇਹ ਯਕੀਨੀ ਕਰੋ ਕਿ URL ਸਹੀ ਹੈ ਅਤੇ ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ|"
 
 #: storage/exchange-autoconfig-wizard.c:267
-#, fuzzy
 msgid ""
 "Ximian Connector requires access to certain functionality on the Exchange "
 "Server that appears to be disabled or blocked.  (This is usually "
@@ -830,37 +832,48 @@ msgid ""
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
-msgstr "ਚਾਲੂ ਸਰਵਰ ਅਯੋਗ ਜਾਂ ਇੰ:"
+msgstr ""
+"ਜੀਮੀਨ ਕੁਨੈਕਟਰ ਨੂੰ ਉਹ ਕਾਰਵਾਈ ਲੋੜੀਦੀ ਹੈ, ਜੋ ਕਿ ਐਕਸ਼ਚੇਜ਼ ਸਰਵਰ "
+"ਤੇ ਬੰਦ ਹੈ ਜਾਂ ਪਾਬੰਦੀਸ਼ੁਦਾ ਹੈ (ਇਹ ਆਮ ਕਰਕੇ ਨਹੀਂ ਹੁੰਦਾ ਹੈ)| ਐਕਸਚੇਜ਼ "
+"ਪ੍ਰਬੰਧਕ ਜੀਮੀਨ ਕੁਨੈਕਟਰ ਨਾਲ ਜੁੜਨ ਲਈ ਇਸ ਨੂੰ ਯੋਗ ਕਰ ਸਕਦਾ "
+"ਹੈ\n"
+"ਆਪਣੇ ਐਕਸਚੇਜ਼ ਪ੍ਰਬੰਧਕ ਨੂੰ ਜਾਣਕਾਰੀ ਦੇਣ ਲਈ, ਹੇਠਲੇ ਸੰਬੰਧ ਤੇ "
+"ਸੰਪਰਕ ਕਰੋ:"
 
 #: storage/exchange-autoconfig-wizard.c:288
-#, fuzzy
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr "URL ਸਰਵਰ ਅਤੇ."
+msgstr ""
+"ਐਕਚੇਜ਼ ਸਰਵਰ URL, ਜੋ ਕਿ ਤੁਸੀਂ ਦਿੱਤਾ ਹੈ, ਉਹ ਐਕਸ਼ਚੇਜ਼ 5.5 ਸਰਵਰ ਲਈ ਹੈ, ਜੀਮੀਨ"
+"Microsoft Exchange 2000 ਅਤੇ 2003 ਲਈ ਸਹਾਇਕ ਹੈ|"
 
 #: storage/exchange-autoconfig-wizard.c:301
-#, fuzzy
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
-msgstr "ਅਣਜਾਣਾ URL ਅਤੇ ਅਤੇ."
+msgstr ""
+"ਐਕਸਚੇਜ਼ ਖਾਤਾ ਸੰਰਚਿਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ, ਕਿਉਕਿ ਅਣਜਾਣੀ URL ਗਲਤੀ ਹੈ| "
+"ਕਿਰਪਾ ਕਰਕੇ URL, ਉਪਭੋਗਤਾ ਨਾਂ ਅਤੇ ਗੁਪਤ-ਕੋਡ ਵੇਖੋ ਤੇ ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ"
 
 #: storage/exchange-autoconfig-wizard.c:345
 #, c-format
-#, fuzzy
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
 "and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
 "\\%s\")."
-msgstr "ਅਤੇ ਝਰੋਖੇ s."
+msgstr ""
+"ਵਿਆਪਕ ਕਾਟਾਲੋਗ ਸਰਵਰ ਨਾਲ ਪ੍ਰਮਾਣਿਤ ਨਹੀਂ ਹੈ| ਤੁਹਾਨੂੰ ਵਾਪਿਸ ਜਾਣਾ ਪਵੇਗਾ ਅਤੇ ਆਪਣੇ ਨਾਂ "
+" ਨਾਲ ਵਿੰਡੋ ਡੋਮੇਨ ਨਾਂ ਵੀ ਨਿਰਧਾਰਿਤ ਕਰਨਾ ਪਵੇਗਾ, (ਜਿਵੇਂ ਕਿ \"MY-DOMAIN"
+"\\%s\")|"
 
 #: storage/exchange-autoconfig-wizard.c:352
-#, fuzzy
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
-msgstr "ਅਤੇ."
+msgstr ""
+"ਨਿਰਧਾਰਿਤ ਸਰਵਰ ਨਾਲ ਜੁੜਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ ਹੈ\n"
+"ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਸਰਵਰ ਨਾਂ ਦੀ ਜਾਂਚ ਕਰਕੇ ਕੋਸ਼ਿਸ ਕਰੋ|"
 
 #: storage/exchange-autoconfig-wizard.c:389
 #: storage/exchange-autoconfig-wizard.c:393
@@ -868,11 +881,12 @@ msgid "Unknown"
 msgstr "ਅਣਪਛਾਤਾ"
 
 #: storage/exchange-autoconfig-wizard.c:466
-#, fuzzy
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
-msgstr "ਸੰਰਚਨਾ."
+msgstr ""
+"ਸਿਸਟਮ ਸੰਰਚਨਾ ਗਲਤੀ\n"
+"ਨਵਾਂ ਖਾਤਾ ਬਣਾਉਣ ਵਿੱਚ ਅਸਫਲ"
 
 #: storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
@@ -923,29 +937,36 @@ msgid "Welcome"
 msgstr "ਜੀ ਆਇਆਂ ਨੂੰ"
 
 #: storage/exchange-autoconfig-wizard.glade.h:14
-#, fuzzy
 msgid ""
 "Welcome to Ximian Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
 "to connect to your Exchange account.\n"
 "\n"
 "Please click the \"Forward\" button to continue."
-msgstr "ਜੀ ਆਇਆਂ ਨੂੰ ਅੱਗੇ."
+msgstr ""
+"Microsoft Exchange ਨਾਲ ਜੋੜਨ ਵਾਲੇ ਜੀਮੀਨ ਤੇ ਸਵਾਗਤ ਹੈ\n"
+"ਅਗਲੇ ਪਰਦੇ ਤੁਹਾਨੂੰ ਈਵੇਲੂਸ਼ਨ ਨੂੰ ਤੁਹਾਡੇ\n"
+"Exchange ਖਾਤੇ ਨਾਲ ਜੁੜਨ ਵਿੱਚ ਸਹਾਈ ਹੋਣਗੇ|\n"
+"\n"
+"ਕਿਰਪਾ ਕਰਕੇ ਜਾਰੀ ਰਹਿਣ ਲਈ \"Forward\" ਬਟਨ ਨੂੰ ਦਬਾਓ"
 
 #: storage/exchange-autoconfig-wizard.glade.h:19
-#, fuzzy
 msgid "Ximian Connector Configuration"
-msgstr "ਸੰਰਚਨਾ"
+msgstr "ਜੀਮੀਨ ਕੁਨੈਕਟਰ ਸੰਰਚਨਾ"
 
 #: storage/exchange-autoconfig-wizard.glade.h:20
-#, fuzzy
 msgid ""
 "Ximian Connector can use account information from your existing Outlook Web "
 "Access (OWA) account.\n"
 "\n"
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
-msgstr "URL ਅਤੇ ਅੱਗੇ"
+msgstr ""
+"ਜੀਮੀਨ ਕੁਨੈਕਟਰ ਤੁਹਾਡੇ ਮੌਜੂਦਾ ਆਉਟਲੁੱਕ ਵੈਬ ਖਾਤੇ ਨੂੰ ਜਾਣਕਾਰੀ ਲਈ "
+"ਵਰਤ ਸਕਦਾ ਹੈ\n"
+"\n"
+"ਆਪਣੀ OWA ਦਾ ਸਿਰਨਾਵਾਂ ਦਿਓ(URL), ਉਪਭੋਗਤਾ ਨਾਂ ਅਤੇ ਗੁਪਤ ਕੋਡ ਦੇਕੇ "
+"\"Forward\" ਦਬਾਓ\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:24
 msgid ""
@@ -953,27 +974,35 @@ msgid ""
 "Please enter the name of your Global Catalog server. You may need to ask "
 "your system administrator for the correct value.\n"
 msgstr ""
+"ਜੀਮੀਨ ਕੁਨੈਕਟਰ ਤੁਹਾਡੇ ਲਈ ਵਿਆਪਕ ਕਾਟਾਲੋਗ ਰੀਪਲੀਕਾ ਨਹੀਂ ਲੱਭ ਸਕਿਆ ਹੈ| "
+"ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਵਿਆਪਕ ਕਾਟਾਲੋਗ ਸਰਵਰ ਦਾ ਨਾਂ ਭਰੋ| ਸਹੀ ਮੁੱਲ ਲਈ ਤੁਹਾਨੂੰ "
+"ਆਪਣ ਸਿਸਟਮ ਪ੍ਰਬੰਧਕ ਨਾਲ ਸੰਪਰਕ ਕਰਨਾ ਪੈ ਸਕਦਾ ਹੈ\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:26
 msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
 msgstr ""
+"ਜੀਮੀਨ ਕੁਨੈਕਟਰ ਨੂੰ ਐਕਸਚੇਜ਼ ਨਾਲ ਸੰਰਚਿਤ ਕਰਨ ਵਿੱਚ ਸਮੱਸਿਆ ਆਈ "
+"ਹੈ\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:28
-#, fuzzy
 msgid ""
 "Your Connector account is now ready to use. Click the \"Apply\" button to "
 "save your\n"
 "settings."
-msgstr "ਲਾਗੂ ਕਰੋ."
+msgstr ""
+"ਤੁਹਾਡਾ ਕੁਨੈਕਟਰ ਖਾਤਾ ਤਿਆਰ ਹੈ| ਆਪਣੀ ਵਿਵਸਥਾ ਨੂੰ ਸੰਭਾਲਣ ਲ਼ਈ \"Apply\" "
+"ਬਟਨ\n"
+"ਨੂੰ ਦਬਾਓ"
 
 #: storage/exchange-autoconfig-wizard.glade.h:30
-#, fuzzy
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
-msgstr "ਅੱਗੇ"
+msgstr ""
+"ਤੁਹਾਡਾ ਖਾਤਾ ਜਾਣਕਾਰੀ ਇਸਤਰਾਂ ਹਾ| ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀਆਂ ਗਲਤੀਆਂ ਠੀਕ ਕਰੋ, ਤਦ "
+"\"Forward\" ਦਬਾਓ\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
@@ -983,6 +1012,8 @@ msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
 msgstr ""
+"ਤੁਹਾਡੇ ਖਾਤੇ ਲ਼ਈ ਮੌਜੂਦਾ ਗੁਪਤ-ਕੋਡ ਮੇਲ ਨਹੀਂ ਖਾ ਰਿਹਾ ਹੈ| "
+"ਕਿਰਪਾ ਕਰਕੇ ਮੌਜੂਦਾ ਸਹੀ ਗੁਪਤ-ਕੋਡ ਭਰੋ"
 
 #: storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
@@ -1029,41 +1060,46 @@ msgid "You may only configure a single Exchange account"
 msgstr "ਤੁਸੀਂ ਸਿਰਫ ਇੱਕ ਐਕਸ਼ਚੇਜ਼ ਖਾਤੇ ਨੂੰ ਸੰਰਚਿਤ ਕਰ ਸਕਦੇ ਹੋ"
 
 #: storage/exchange-config-listener.c:601
-#, fuzzy
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
-msgstr "ਅਤੇ."
+msgstr ""
+"ਐਕਸਚੇਜ਼ ਖਾਤੇ ਵਿੱਚ ਤਬਦੀਲੀ ਸਿਰਫ ਈਵੇਲੂਸ਼ਨ ਦੇ ਮੁੜ ਚਾਲੂ ਹੋਣ\n"
+"ਬਾਅਦ ਹੀ ਲਾਗੂ ਹੋ ਸਕੇਗੀ|"
 
 #: storage/exchange-config-listener.c:647
 msgid "The Exchange account will be removed when you quit Evolution"
-msgstr ""
+msgstr "ਈਵੇਲੂਸ਼ਨ ਦੇ ਬੰਦ ਹੋਣ ਤੇ ਐਕਸਚੇਜ਼ ਖਾਤਾ ਹਟਾ ਦਿੱਤਾ ਜਾਵੇਗਾ"
 
 #: storage/exchange-delegates-user.c:191
 #: storage/exchange-permissions-dialog.c:179
 #, c-format
-#, fuzzy
 msgid "Permissions for %s"
-msgstr "ਅਧਿਕਾਰ s"
+msgstr "%s ਲਈ ਅਧਿਕਾਰ"
 
 #: storage/exchange-delegates.c:221
-#, fuzzy
 msgid ""
 "No Global Catalog server configured for this account.\n"
 "Unable to edit delegates."
-msgstr "ਨਹੀਂ."
+msgstr ""
+"ਇਸ ਖਾਤੇ ਲਈ ਵਿਆਪਕ ਕਟਾਲੋਗ ਸਰਵਰ ਸੰਰਚਨਾ ਨਹੀਂ ਲੋੜੀਦੀ ਹੈ\n"
+"ਪ੍ਰਤੀਨਿਧ ਸੋਧ ਕਰਨ ਤੋਂ ਅਸਫਲ"
 
 #: storage/exchange-delegates.c:260
 msgid ""
 "Could not read folder permissions.\n"
 "Unable to edit delegates."
 msgstr ""
+"ਫੋਲਡਰ ਪੜਨ ਲਈ ਅਧਿਕਾਰ ਨਹੀਂ ਹਨ\n"
+"ਪ੍ਰਤੀਨਿਧ ਸੋਧ ਕਰਨ ਤੋਂ ਅਸਫਲ"
 
 #: storage/exchange-delegates.c:267
 msgid ""
 "Could not determine folder permissions for delegates.\n"
 "Unable to edit delegates."
 msgstr ""
+"ਪ੍ਰਤੀਨਿਧ ਲਈ ਫੋਲਡਰ ਅਧਿਕਾਰ ਜਾਣਨ ਤੋਂ ਅਸਫਲ\n"
+"ਪ੍ਰਤੀਨਿਧ ਸੋਧ ਤੋਂ ਅਸਫਲ"
 
 #: storage/exchange-delegates.c:419
 msgid "Delegate To:"
@@ -1075,9 +1111,8 @@ msgstr "ਲਈ ਪ੍ਰਤੀਨਿਧ"
 
 #: storage/exchange-delegates.c:435
 #, c-format
-#, fuzzy
 msgid "Could not make %s a delegate"
-msgstr "s"
+msgstr "%s ਨੂੰ ਪ੍ਰਤੀਨਿਧ ਨਹੀਂ ਬਣਾਇਆ ਜਾ ਸਕਦਾ ਹੈ"
 
 #: storage/exchange-delegates.c:445
 msgid "You cannot make yourself your own delegate"
@@ -1085,37 +1120,31 @@ msgstr "ਤੁਸੀਂ ਖੁਦ ਨੂੰ ਪ੍ਰਤੀਨਿਧ ਨਹੀ�
 
 #: storage/exchange-delegates.c:454
 #, c-format
-#, fuzzy
 msgid "%s is already a delegate"
-msgstr "s"
+msgstr "%s ਪਹਿਲਾਂ ਹੀ ਪ੍ਰਤੀਨਿਧ ਹੈ"
 
 #: storage/exchange-delegates.c:563
 #, c-format
-#, fuzzy
 msgid "Remove the delegate %s?"
-msgstr "ਹਟਾਓ s?"
+msgstr "ਪ੍ਰਤੀਨਿਧ %s ਹਟਾਓ?"
 
 #: storage/exchange-delegates.c:680
-#, fuzzy
 msgid "Could not access Active Directory"
-msgstr "ਸਰਗਰਮ ਡਾਇਰੈਕਟਰੀ"
+msgstr "ਸਰਗਰਮ ਡਾਇਰੈਕਟਰੀ ਨੂੰ ਖੋਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ"
 
 #: storage/exchange-delegates.c:695
-#, fuzzy
 msgid "Could not find self in Active Directory"
-msgstr "ਇੰ ਸਰਗਰਮ ਡਾਇਰੈਕਟਰੀ"
+msgstr "ਸਰਗਰਮ ਡਾਇਰੈਕਟਰੀ ਵਿੱਚ ਖੁਦ ਨੂੰ ਲੱਭਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ ਹੈ"
 
 #: storage/exchange-delegates.c:708
 #, c-format
-#, fuzzy
 msgid "Could not find delegate %s in Active Directory"
-msgstr "s ਇੰ ਸਰਗਰਮ ਡਾਇਰੈਕਟਰੀ"
+msgstr "ਸਰਗਰਮ ਡਾਇਰੈਕਟਰੀ ਵਿੱਚ %s ਪ੍ਰਤੀਨਿਧ ਨਹੀਂ ਲੱਭਾ ਹੈ"
 
 #: storage/exchange-delegates.c:720
 #, c-format
-#, fuzzy
 msgid "Could not remove delegate %s"
-msgstr "s"
+msgstr "ਪ੍ਰਤੀਨਿਧ %s ਨੂੰ ਹਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਿਆ ਹੈ"
 
 #: storage/exchange-delegates.c:780
 msgid "Could not update list of delegates."
@@ -1123,26 +1152,25 @@ msgstr "ਪ੍ਰਤੀਨਿਧਾਂ ਦੀ ਸੂਚੀ ਦਾ ਨਵੀਨ�
 
 #: storage/exchange-delegates.c:798
 #, c-format
-#, fuzzy
 msgid "Could not add delegate %s"
-msgstr "s"
+msgstr "ਪ੍ਰਤੀਨਿਧ %s ਨੂੰ ਸ਼ਾਮਿਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ ਹੈ"
 
 #: storage/exchange-delegates.c:814
 #, c-format
-#, fuzzy
 msgid ""
 "Failed to update delegates:\n"
 "%s"
-msgstr "s"
+msgstr ""
+"ਪ੍ਰਤੀਨਿਧ ਦਾ ਨਵੀਨੀਕਰਨ ਅਸਫਲ:\n"
+"%s"
 
 #: storage/exchange-delegates.c:937 storage/exchange-permissions-dialog.c:706
 msgid "Name"
 msgstr "ਨਾਂ"
 
 #: storage/exchange-delegates.c:966
-#, fuzzy
 msgid "Error reading delegates list."
-msgstr "ਗਲਤੀ."
+msgstr "ਪ੍ਰਤੀਨਿਧ ਸੂਚੀ ਪੜਨ ਵਿੱਚ ਗਲਤੀ"
 
 #: storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
@@ -1157,34 +1185,32 @@ msgid "Co_ntacts:"
 msgstr "ਸੰਪਰਕ:"
 
 #: storage/exchange-delegates.glade.h:4
-#, fuzzy
 msgid "Delegate Permissions"
-msgstr "ਅਧਿਕਾਰ"
+msgstr "ਪ੍ਰਤੀਨਿਧ ਅਧਿਕਾਰ"
 
 #: storage/exchange-delegates.glade.h:5
 msgid "Delegates"
 msgstr "ਪ੍ਰਤੀਨਿਧ"
 
 #: storage/exchange-delegates.glade.h:6
-#, fuzzy
 msgid "Editor (read, create, edit)"
-msgstr "ਸੰਪਾਦਕ"
+msgstr "ਸੰਪਾਦਕ(ਪੜਨ, ਬਣਾਉਣ, ਸੋਧ)"
 
 #: storage/exchange-delegates.glade.h:8
-#, fuzzy
 msgid "Permissions for"
-msgstr "ਅਧਿਕਾਰ"
+msgstr "ਇਸ ਲਈ ਅਧਿਕਾਰ"
 
 #: storage/exchange-delegates.glade.h:9
 msgid "Reviewer (read-only)"
-msgstr ""
+msgstr "ਨਿਰੀਖਕ(ਪੜਨ ਲਈ)"
 
 #: storage/exchange-delegates.glade.h:10
-#, fuzzy
 msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
-msgstr "ਚਾਲੂ."
+msgstr ""
+"ਇਹ ਉਪਭੋਗਤਾ ਤੁਹਾਡੇ ਰਾਹੀਂ ਪੱਤਰ ਨਹੀਂ ਭੇਜ ਸਕਣਗੇ ਅਤੇ\n"
+"ਤੁਹਾਡੇ ਫੋਲਡਰਾਂ ਨੂੰ ਤੁਹਾਡੀ ਇਜ਼ਾਜਤ ਬਿਨਾਂ ਖੋਲ ਨਹੀਂ ਸਕਣਗੇ|"
 
 #: storage/exchange-delegates.glade.h:12
 msgid "_Delegate can see private items"
@@ -1199,7 +1225,6 @@ msgid "_Inbox:"
 msgstr "ਇੰਨਬਾਕਸ(_I):"
 
 #: storage/exchange-delegates.glade.h:15
-#, fuzzy
 msgid "_Tasks:"
 msgstr "ਕੰਮ:"
 
@@ -1232,29 +1257,34 @@ msgid "Sent Items"
 msgstr "ਭੇਜੀਆਂ ਇਕਾਈਆਂ"
 
 #: storage/exchange-migrate.c:57
-#, fuzzy
 msgid "Migrating Exchange Folders..."
-msgstr "ਫੋਲਡਰ."
+msgstr "ਐਕਸਚੇਜ਼ ਫੋਲਡਰ ਤਬਦੀਲ ਕੀਤੇ ਜਾ ਰਹੇ ਹਨ..."
 
 #: storage/exchange-migrate.c:65
 #, c-format
-#, fuzzy
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
 "changed since Evolution %d.%d.%d.\n"
 "\n"
 "Please be patient while Evolution migrates your folders..."
-msgstr "ਅਤੇ."
+msgstr ""
+"ਈਵੇਲੂਸ਼ਨ ਐਕਸਚੇਜ਼ ਖਾਤਾ ਫੋਲਡਰਾਂ ਲਈ ਸਥਿਤੀ ਤੇ ਲੜੀ ਤਬਦੀਲ ਹੋ ਚੁੱਕੀ ਹੈ, ਈਵੇਲੂਸ਼ਨ "
+" %d.%d.%d ਤੋਂ ਹੁਣ ਤੱਕ|\n"
+"\n"
+"ਕਿਰਪਾ ਕਰਕੇ ਉਡੀਕ ਕਰੋ, ਜਦੋਂ ਤੱਕ ਕਿ ਈਵੇਲੂਸ਼ਨ ਤੁਹਾਡੇ ਫੋਲਡਰਾਂ ਨੂੰ ਏਧਰ-ਓਧਰ ਕਰ ਰਹੀ ਹੈ..."
 
 #: storage/exchange-migrate.c:98
 #, c-format
-#, fuzzy
 msgid ""
 "Warning: Evolution Could not migrate all the Exchange account data from the "
 "version %d.%d.%d. \n"
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
-msgstr "ਚੇਤਾਵਨੀ ਸਭ"
+msgstr ""
+"ਚੇਤਾਵਨੀ: ਵਰਜਨ %d.%d.%d ਤੋਂ ਸਭ ਐਕਸ਼ਚੇਜ਼ ਖਾਤੇ ਈਵੇਲੂਸ਼ਨ ਪ੍ਰਾਪਤ ਨਹੀਂ ਕਰ ਸਕਦੀ "
+"ਹੈ \n"
+"ਡਾਟਾ ਹਟਾਇਆ ਤਾਂ ਨਹੀਂ ਗਿਆ ਹੈ, ਪਰ ਈਵੇਲੂਸ਼ਨ ਦੇ ਇਸ ਵਰਜਨ ਰਾਹੀ ਦੇਖਿਆ ਨਹੀਂ ਜਾ "
+"ਸਕਦਾ ਹੈ"
 
 #: storage/exchange-migrate.c:129
 #, c-format
@@ -1263,7 +1293,7 @@ msgstr "ਵਿਲੀਨ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ `%s':"
 
 #: storage/exchange-oof.c:91 storage/exchange-oof.c:290
 msgid "Could not update out-of-office state"
-msgstr ""
+msgstr "ਦਫਤਰ-ਤੋਂ-ਬਾਹਰ ਸਥਿਤੀ ਦਾ ਨਵੀਨੀਕਰਨ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ"
 
 #: storage/exchange-oof.c:308
 msgid "Could not read out-of-office state"
@@ -1275,11 +1305,13 @@ msgid ""
 "\n"
 "Would you like to change your status to \"In the Office\"? "
 msgstr ""
+"<b>ਇਸ ਸਮੇਂ, ਤੁਹਾਡੀ \"ਦਫਤਰੋਂ ਬਾਹਰ\" ਸਥਿਤੀ </b>\n"
+"\n"
+"ਕੀ ਤੁਸੀਂ ਆਪਣੀ ਸਥਿਤੀ \"ਦਫਤਰ ਵਿੱਚ \" ਤਬਦੀਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ? "
 
 #: storage/exchange-oof.glade.h:4
-#, fuzzy
 msgid "<b>Out of Office Message:</b>"
-msgstr "<b> ਸੁਨੇਹਾ</b>"
+msgstr "<b> ਦਫਤਰੋਂ ਬਾਹਰ ਸੁਨੇਹਾ</b>"
 
 #: storage/exchange-oof.glade.h:5
 msgid "<b>Status:</b>"
@@ -1291,11 +1323,13 @@ msgid ""
 "who sends\n"
 "mail to you while you are out of the office.</small>"
 msgstr ""
+"<small>ਇਹ ਹੇਠਾਂ ਦਿੱਤਾ ਸੁਨੇਹਾ, ਉਹਨਾਂ ਸਾਰੇ ਵਿਅਕਤੀਆਂ ਨੂੰ ਭੇਜਿਆ ਜਾਵੇਗਾ, "
+"ਜੋ ਕਿ ਤੁਹਾਨੂੰ ਉਦੋਂ\n"
+"ਭੇਜਣ, ਜਦੋਂ ਤੁਸੀਂ ਦਫਤਰੋਂ ਬਾਹਰ ਹੋਵੇ</small>"
 
 #: storage/exchange-oof.glade.h:8
-#, fuzzy
 msgid "I am currently in the office"
-msgstr "I ਸਵੇਰੇ ਇੰ"
+msgstr "ਮੈਂ ਇਸ ਸਮੇਂ ਦਫਤਰ ਵਿੱਚ ਹਾਂ"
 
 #: storage/exchange-oof.glade.h:9
 msgid "I am currently out of the office"
@@ -1335,6 +1369,8 @@ msgid ""
 "Unable to add user to access control list:\n"
 "No Global Catalog server is configured for this account."
 msgstr ""
+"ਉਪਭੋਗਤਾ ਨੂੰ ਅਧਿਕਾਰ ਸੂਚੀ ਵਿੱਚ ਸ਼ਾਮਿਲ ਕਰਨ ਤੋਂ ਅਸਮਰੱਥ\n"
+"ਇਸ ਖਾਤੇ ਲਈ ਕੋਈ ਵਿਆਪਕ ਕਾਟਾਲੋਗ ਸਰਵਰ ਸੰਰਚਨਾ ਨਹੀਂ ਹੈ"
 
 #: storage/exchange-permissions-dialog.c:402
 msgid "Add User:"
@@ -1351,9 +1387,8 @@ msgstr "ਉਪਭੋਗਤਾ %s ਨਹੀਂ ਹੈ"
 
 #: storage/exchange-permissions-dialog.c:425
 #, c-format
-#, fuzzy
 msgid "%s cannot be added to an access control list"
-msgstr "s"
+msgstr "%s ਨੂੰ ਪਹੁੰਚ ਕੰਟਰੋਲ ਸੂਚੀ ਵਿੱਚ ਸ਼ਾਮਿਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ"
 
 #: storage/exchange-permissions-dialog.c:430
 #, c-format
@@ -1497,7 +1532,7 @@ msgstr "ਅਧਿਕਾਰ..."
 
 #: storage/ximian-connector-setup.c:43
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
-msgstr ""
+msgstr "ਮਾਈਕਰੋਸਾਫਟ ਐਕਸਚੇਜ਼ ਸੈੱਟਅੱਪ ਸੰਦ ਲਈ ਜੀਮੀਨ ਕੁਨੈਕਟਰ"
 
 #: storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
@@ -1505,27 +1540,23 @@ msgstr "ਆਪਣਾ ਐਕਸ਼ਚੇਜ਼ ਸਰਵਰ ਗੁਪਤ-ਕੋਡ ਤ�
 
 #: storage/ximian-connector.xml.h:2
 msgid "Subscribe to _Other User's Folder..."
-msgstr ""
+msgstr "ਹੋਰ ਉਪਭੋਗਤਾ ਫੋਲਡਰ ਨੂੰ ਸਵੀਕਾਰ ਕਰੋ"
 
 #: storage/ximian-connector.xml.h:3
-#, fuzzy
 msgid "Subscribe to a folder belonging to some other user on the server"
-msgstr "ਚਾਲੂ"
+msgstr "ਸਰਵਰ ਤੇ ਕੁਝ ਹੋਰਾਂ ਨਾਲ ਸੰਬੰਧਿਤ ਫੋਲਡਰਾਂ ਨੂੰ ਸਵੀਕਾਰ ਕਰੋ"
 
 #: storage/ximian-connector.xml.h:4
-#, fuzzy
 msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
-msgstr "ਹੋਰ ਉਪਭੋਗਤਾ s ਫੋਲਡਰ"
+msgstr "ਫੋਲਡਰ, ਜੋ ਕਿ\"ਹੋਰ ਉਪਭੋਗਤਾ ਫੋਲਡਰ ਨੂੰ ਸਵੀਕਾਰ ਕਰੋ\" ਨੂੰ ਅਸਵੀਕਾਰ ਕਰਨ ਤੋਂ ਅਸਫਲ"
 
 #: storage/ximian-connector.xml.h:5
-#, fuzzy
 msgid "View or change your Exchange calendar delegation settings"
-msgstr "ਦਰਿਸ਼ ਜਾਂ"
+msgstr "ਐਕਸ਼ਚੇਜ਼ ਕੈਲੰਡਰ ਪ੍ਰਤੀਨਿਧ ਵਿਵਸਥਾ ਵੇਖਣ ਜਾਂ ਤਬਦੀਲ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
 
 #: storage/ximian-connector.xml.h:6
-#, fuzzy
 msgid "View or change your Out-of-Office status and autoreply message"
-msgstr "ਦਰਿਸ਼ ਜਾਂ ਅਤੇ"
+msgstr "ਦਫਤਰੋਂ-ਬਾਹਰ ਸਥਿਤੀ ਤੇ ਸਵੈ-ਸੁਨੇਹਾ ਵੇਖਣ ਜਾਂ ਤਬਦੀਲ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
 
 #: storage/ximian-connector.xml.h:7
 msgid "_Change Exchange Password..."
@@ -1540,7 +1571,6 @@ msgid "_Out of Office Assistant"
 msgstr "ਦਫ਼ਤਰ ਬਾਹਰੀ ਸਹਾਇਕ"
 
 #: storage/ximian-connector.xml.h:10
-#, fuzzy
 msgid "_Unsubscribe from Other User's Folder"
-msgstr "ਹੋਰ ਉਪਭੋਗਤਾ s ਫੋਲਡਰ"
+msgstr "ਹੋਰ ਉਪਭੋਗਤਾ ਦੇ ਫੋਲਡਰਾਂ ਨੂੰ ਅਸਵੀਕਾਰ ਕਰੋ"
 
