@@ -43,7 +43,7 @@ do_lookup (E2kGlobalCatalog *gc, const char *user)
 	E2kGlobalCatalogEntry *entry;
 	E2kGlobalCatalogLookupType type;
 	guint32 flags;
-	int i; 
+	int i, pwd_exp_days; 
 	double maxAge;
 
 	if (*user == '/')
@@ -121,6 +121,8 @@ do_lookup (E2kGlobalCatalog *gc, const char *user)
 
 	maxAge = lookup_passwd_max_age (gc, &op);
 	printf("Password max age is %f \n", maxAge);
+	pwd_exp_days = (maxAge * 0.000000100)/86400 ;
+	printf("Password expiery period is %d \n", pwd_exp_days);
 
 	e2k_operation_free (&op);
 

@@ -46,6 +46,10 @@
 #include <gal/util/e-util.h>
 #include <libgnome/gnome-util.h>
 
+#include <glade/glade-xml.h>
+#include <gtk/gtkdialog.h>
+#include <gtk/gtklabel.h>
+
 #include <dirent.h>
 #include <stdlib.h>
 #include <string.h>
@@ -55,6 +59,8 @@
 #define ONE_HUNDRED_NANOSECOND 0.000000100
 #define SECONDS_IN_DAY 86400
 #define PASSWD_EXPIRY_NOTIFICATION_PERIOD 7
+#define FILENAME CONNECTOR_GLADEDIR "/exchange-passwd-expiry.glade"
+#define ROOTNODE "passwd_exp_dialog"
 
 struct _ExchangeAccountPrivate {
 	E2kContext *ctx;
@@ -886,13 +892,55 @@ is_password_expired (ExchangeAccount *account, E2kAutoconfig *ac)
 }
 
 static void
+change_passwd_cb (GtkWidget *button, char *old_passwd)
+{
+	gtk_widget_hide (gtk_widget_get_toplevel(button));
+	exchange_get_new_password (old_passwd, TRUE);
+}
+
+static void
+display_passwd_expiry_message (int max_passwd_age, char *old_passwd)
+{
+	GladeXML *xml;
+	GtkWidget *top_widget, *change_passwd_button;
+	GtkResponseType response;
+	GtkLabel *warning_msg_label;
+	char *passwd_expiry_msg = 
+		g_strdup_printf ("Your password will expire in next %d days\n",
+				  max_passwd_age);
+
+	xml = glade_xml_new (FILENAME, ROOTNODE, NULL);
+	g_return_if_fail (xml != NULL);
+	top_widget = glade_xml_get_widget (xml, ROOTNODE);
+	g_return_if_fail (top_widget != NULL);
+
+	warning_msg_label = GTK_LABEL (glade_xml_get_widget (xml, 
+						"passwd_exp_label"));
+	gtk_label_set_text (warning_msg_label, passwd_expiry_msg);
+
+	change_passwd_button = glade_xml_get_widget (xml, 
+						"change_passwd_button");
+	gtk_widget_set_sensitive (change_passwd_button, TRUE);
+	g_signal_connect (change_passwd_button, 
+			  "clicked", 
+			  G_CALLBACK (change_passwd_cb), 
+			  old_passwd);
+
+	response = gtk_dialog_run (GTK_DIALOG (top_widget));
+
+	gtk_widget_destroy (top_widget);
+	g_object_unref (xml);
+	g_free (passwd_expiry_msg);
+}
+
+static void
 find_passwd_exp_period (ExchangeAccount *account, E2kGlobalCatalogEntry *entry)
 {
 	double max_pwd_age = 0;
 	int max_pwd_age_days;
 	E2kOperation gcop;
 	E2kGlobalCatalogStatus gcstatus;
-	const char *passwd_expiry_msg=NULL;
+	char *current_passwd;
 
 	/* Check for password expiry period */ 
 	/* This needs to be invoked after is_password_expired(), i.e., 
@@ -924,14 +972,14 @@ find_passwd_exp_period (ExchangeAccount *account, E2kGlobalCatalogEntry *entry)
 	if (max_pwd_age > 0) {
 		/* Calculate password expiry period */
 		max_pwd_age_days = 
-			( max_pwd_age * ONE_HUNDRED_NANOSECOND ) / SECONDS_IN_DAY;
+		( max_pwd_age * ONE_HUNDRED_NANOSECOND ) / SECONDS_IN_DAY;
 
 		if (max_pwd_age_days <= PASSWD_EXPIRY_NOTIFICATION_PERIOD) {
-			passwd_expiry_msg = 
-			g_strdup_printf ("Your password will expire in next %d days \n", 
-					  max_pwd_age_days);
-			e_notice (NULL, GTK_MESSAGE_WARNING, passwd_expiry_msg); 
-		} 
+			/* This we need for changing password */
+			current_passwd = exchange_account_get_password (account);
+			display_passwd_expiry_message (max_pwd_age_days, 
+						       current_passwd);
+		}
 	} 
 }
 

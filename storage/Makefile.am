@@ -137,7 +137,9 @@ glade_DATA =					\
 	exchange-change-password.glade		\
 	exchange-delegates.glade		\
 	exchange-oof.glade			\
-	exchange-permissions-dialog.glade
+	exchange-permissions-dialog.glade	\
+	exchange-folder-tree.glade		\
+	exchange-passwd-expiry.glade
 
 uidir   = $(CONNECTOR_DATADIR)/ui
 ui_DATA = ximian-connector.xml

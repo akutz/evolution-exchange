@@ -1,3 +1,20 @@
+2004-11-30  Sushma Rai <rsushma@novell.com>
+
+	* storage/exchange-account.c (find_passwd_exp_period): Calling
+	password expiry warning dialog.
+	
+	* storage/exchange-account.c (display_passwd_expiry_message)
+	(change_passwd_cb): Added new, to display password expiry warning
+	dialog, which can be used to invoke change password dialog.
+
+	* storage/exchange-passwd-expiry.glade: Dialog for displaying 
+	password expiry warning.
+
+	* storage/Makefile.am: Added glade files exchange-folder-tree.glade
+	and exchange-passwd-expiry.glade
+
+	* lib/gctest.c (do_lookup): Finding password expiry period.
+
 2004-11-30  Sarfraaz Ahmed <asarfraaz@novell.com>
 
         * configure.in : Removed the DEPRECATED symbols. This is for building
