@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-07 15:59+0530\n"
+"POT-Creation-Date: 2005-02-19 14:33+0200\n"
 "PO-Revision-Date: 2004-08-27 18:23+0300\n"
 "Last-Translator: Maxim Dziumanenko <mvd@mylinux.com.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -34,9 +34,9 @@ msgstr "Помилка при виконанні пошуку"
 
 #: calendar/e-cal-backend-exchange.c:277
 msgid "Folder not marked for offline support"
-msgstr ""
+msgstr "Тека не відмічена для підтримки у автономному режимі"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1712
+#: calendar/e-cal-backend-exchange-calendar.c:1716
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -45,14 +45,14 @@ msgstr ""
 "Не вдається додати у розклад ресурс '%s' для періодичного засідання.\n"
 "Необхідно резервувати кожне засідання окремо."
 
-#: calendar/e-cal-backend-exchange-calendar.c:1731
+#: calendar/e-cal-backend-exchange-calendar.c:1735
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Ресурс '%s' зайнятий протягом вибраного проміжку часу."
 
 #: camel/camel-exchange-folder.c:220
 msgid "Can only expunge in Deleted Items folder"
-msgstr "Очищення видаленого можливе лише у теці Видалені пункти"
+msgstr "Очищення можна лише теку \"Видалені пункти\""
 
 #: camel/camel-exchange-folder.c:244
 msgid "No Subject"
@@ -82,9 +82,9 @@ msgid "Could not create cache for %s"
 msgstr "Не вдається створити кеш для %s"
 
 #: camel/camel-exchange-folder.c:958
-#, fuzzy, c-format
+#, c-format
 msgid "Could not create journal for %s"
-msgstr "Не вдається створити кеш для %s"
+msgstr "Не вдається створити журнал для %s"
 
 #: camel/camel-exchange-folder.c:998
 msgid "Scanning for changed messages"
@@ -96,33 +96,28 @@ msgstr "Отримується зведення про нові повідомл
 
 #: camel/camel-exchange-journal.c:279
 msgid "No folder name found\n"
-msgstr ""
+msgstr "Не знайдено назву теки\n"
 
 #: camel/camel-exchange-journal.c:342
-#, fuzzy
 msgid "Cannot append message in offline mode: cache unavailable"
-msgstr ""
-"Не вдається видалити теку:\n"
-"%s"
+msgstr "Не вдається видалити повідомлення у автономному режимі: кеш недоступний"
 
 #: camel/camel-exchange-journal.c:358
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot append message in offline mode: %s"
-msgstr ""
-"Не вдається видалити теку:\n"
-"%s"
+msgstr "Не вдається додати повідомлення у автономному режимі: %s"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
 #: camel/camel-exchange-provider.c:46
 msgid "Windows User_name:"
-msgstr "Назва рахунку у Windows:"
+msgstr "_Назва рахунку у Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
 #: camel/camel-exchange-provider.c:51
 msgid "Global Address List / Active Directory"
-msgstr "глобальний список адрес / Active Directory"
+msgstr "Глобальний список адрес / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
@@ -137,22 +132,22 @@ msgstr "Обмеження числа GAL відповідей: %s"
 
 #: camel/camel-exchange-provider.c:60
 msgid "Options"
-msgstr ""
+msgstr "Параметри"
 
 #: camel/camel-exchange-provider.c:62
 #, c-format
 msgid "Password Expiry Warning period: %s"
-msgstr ""
+msgstr "Попереджувати про закінчення терміну дії паролю: %s"
 
 #: camel/camel-exchange-provider.c:64
 msgid "Automatically synchronize account locally"
-msgstr ""
+msgstr "Автоматично синхронізувати обліковий запис локально"
 
 #. i18n: copy from evolution:camel-imap-provider.c
 #: camel/camel-exchange-provider.c:68
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr ""
-"Застосовувати фільтри до нових повідомлень у теці Вхідні на цьому сервері"
+"Застосовувати фільтри до нових повідомлень у теці \"Вхідні\" на цьому сервері"
 
 #: camel/camel-exchange-provider.c:70
 msgid "Check new messages for Junk contents"
@@ -160,7 +155,7 @@ msgstr "Перевіряти нові повідомлення на \"спам\"
 
 #: camel/camel-exchange-provider.c:72
 msgid "Only check for Junk messages in the Inbox folder"
-msgstr "Перевіряти на \"спам\" лише теку Вхідні"
+msgstr "Перевіряти на \"спам\" лише теку \"Вхідні\""
 
 #: camel/camel-exchange-provider.c:88
 msgid "Microsoft Exchange"
@@ -186,7 +181,7 @@ msgstr ""
 
 #: camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
-msgstr "Звичайний пароль"
+msgstr "Незахищений пароль"
 
 #: camel/camel-exchange-provider.c:119
 msgid ""
@@ -211,47 +206,37 @@ msgid "Evolution Exchange backend process"
 msgstr "Процес компоненту Evolution Exchange"
 
 #: camel/camel-exchange-store.c:352
-#, fuzzy, c-format
+#, c-format
 msgid "No such folder %s"
-msgstr "Немає такої теки"
+msgstr "Немає такої теки %s"
 
 #: camel/camel-exchange-store.c:480
-#, fuzzy
 msgid "Cannot get folder info in offline mode."
-msgstr "Ця операція не може бути виконана у автономному режимі"
+msgstr "Не можна отримувати відомості про теку у автономному режимі."
 
 #: camel/camel-exchange-store.c:542
-#, fuzzy
 msgid "Cannot create folder in offline mode."
-msgstr "Не вдається створити теку з цією назвою"
+msgstr "Не можна створювати теку у автономному режимі."
 
 #: camel/camel-exchange-store.c:569
-#, fuzzy
 msgid "Cannot delete folder in offline mode."
-msgstr ""
-"Не вдається видалити теку:\n"
-"%s"
+msgstr "Не можна видаляти теку у автономному режимі."
 
 #: camel/camel-exchange-store.c:585
-#, fuzzy
 msgid "Cannot rename folder in offline mode."
-msgstr ""
-"Не вдається видалити теку:\n"
-"%s"
+msgstr "Не можна перейменовувати теку у автономному режимі."
 
 #: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr ""
-"Транспорт Exchange може використовуватись лише з джерелом пошти Exchange"
+msgstr "Транспорт Exchange може використовуватись лише з джерелом пошти Exchange"
 
 #: camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
-msgstr ""
-"Не вдається надіслати повідомлення: один або більше неправильних отримувачів"
+msgstr "Не вдається надіслати повідомлення: один або більше недійсних отримувачів"
 
 #: camel/camel-exchange-transport.c:131
 msgid "Could not find 'From' address in message"
-msgstr "Не вдається знайти 'From' адресу у повідомленні"
+msgstr "Не вдається знайти адресу 'From'у повідомленні"
 
 #: camel/camel-stub.c:134
 #, c-format
@@ -271,7 +256,7 @@ msgstr "Шлях надто довгий: %s"
 #: camel/camel-stub.c:205
 #, c-format
 msgid "Could not start status thread: %s"
-msgstr "Не вдається запустити низку статусу: %s"
+msgstr "Не вдається запустити потік статусу: %s"
 
 #: camel/camel-stub.c:457
 #, c-format
@@ -283,33 +268,33 @@ msgstr "Втрачено з'єднання з %s"
 msgid "Error communicating with %s: %s"
 msgstr "Помилка зв'язку з %s: %s"
 
-#: lib/e2k-autoconfig.c:1427 storage/exchange-autoconfig-wizard.c:224
+#: lib/e2k-autoconfig.c:1426 storage/exchange-autoconfig-wizard.c:224
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
-"Не вдається з'єднатись з Exchange сервером.\n"
+"Не вдається з'єднатись з сервером Exchange.\n"
 "Перевірте, що URL є коректним (спробуйте \"%s\" замість \"%s\"?) та "
 "спробуйте знову."
 
-#: lib/e2k-autoconfig.c:1436 storage/exchange-autoconfig-wizard.c:232
+#: lib/e2k-autoconfig.c:1435 storage/exchange-autoconfig-wizard.c:232
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
 msgstr ""
-"Не вдається знайти Exchange сервер.\n"
+"Не вдається знайти сервер Exchange.\n"
 "Перевірте, що вказано правильну назву сервера та спробуйте ще раз."
 
-#: lib/e2k-autoconfig.c:1446 storage/exchange-autoconfig-wizard.c:241
+#: lib/e2k-autoconfig.c:1445 storage/exchange-autoconfig-wizard.c:241
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
 msgstr ""
-"Не вдається пройти автентифікацію на Exchange сервері.\n"
+"Не вдається пройти автентифікацію на сервері Exchange.\n"
 "Перевірте, що вказано правильні назву облікового рахунку та спробуйте ще раз."
 
-#: lib/e2k-autoconfig.c:1454 storage/exchange-autoconfig-wizard.c:248
+#: lib/e2k-autoconfig.c:1453 storage/exchange-autoconfig-wizard.c:248
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -318,14 +303,14 @@ msgid ""
 "You may need to specify the Windows domain name as part of your username "
 "(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
-"Не вдається пройти автентифікацію на Exchange сервері.\n"
+"Не вдається пройти автентифікацію на сервері Exchange.\n"
 "Перевірте, що назва облікового рахунку та пароль набрані правильно, та "
 "спробуйте ще раз.\n"
 "\n"
 "Необхідно вказати домен Windows як частину назви вашого облікового рахунку "
 "(наприклад, \"MY-DOMAIN\\%s\")."
 
-#: lib/e2k-autoconfig.c:1467 storage/exchange-autoconfig-wizard.c:260
+#: lib/e2k-autoconfig.c:1466 storage/exchange-autoconfig-wizard.c:260
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -333,8 +318,7 @@ msgstr ""
 "Не вдається знайти дані OWA за зазначеним URL.\n"
 "Перевірте, що URL є коректним та спробуйте знову."
 
-#: lib/e2k-autoconfig.c:1475
-#, fuzzy
+#: lib/e2k-autoconfig.c:1474
 msgid ""
 "Ximian Connector requires access to certain functionality on the Exchange "
 "Server that appears to be disabled or blocked.  (This is usually "
@@ -343,17 +327,19 @@ msgid ""
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:\n"
-"http://www.ximian.com/products/connector/iis-lockdown.html, http://www."
-"ximian.com/products/connector/iis-lockdown.html"
+"http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
+"html "
 msgstr ""
-"Ximian Connector вимагає доступу до деякої функціональності Exchange "
-"сервера, яка, схоже, вимкнена або заблокована.  (Зазвичай ненавмисно.) Ваш "
+"Ximian Connector потребує доступу до деякої функціональності сервера Exchange, "
+"яка, схоже, вимкнена або заблокована.  (Зазвичай ненавмисно.) Ваш "
 "адміністратор Exchange повинен увімкнути цю функціональність, щоб ви мали "
 "змогу використовувати Ximian Connector.\n"
 "\n"
 "Інформація для вашого адміністратора Exchange:"
+"http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
+"html "
 
-#: lib/e2k-autoconfig.c:1491 storage/exchange-autoconfig-wizard.c:288
+#: lib/e2k-autoconfig.c:1490 storage/exchange-autoconfig-wizard.c:288
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
@@ -361,7 +347,7 @@ msgstr ""
 "Наданий вами URL сервера Exchange призначений для Exchange 5.5 Server. "
 "Ximian Connector підтримує лише Microsoft Exchange 2000 та 2003."
 
-#: lib/e2k-autoconfig.c:1500 storage/exchange-autoconfig-wizard.c:301
+#: lib/e2k-autoconfig.c:1499 storage/exchange-autoconfig-wizard.c:301
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -369,12 +355,12 @@ msgstr ""
 "Не вдається налаштувати обліковий рахунок Exchange через невідому помилку. "
 "Перевірте URL, назву рахунку, та пароль, та спробуйте ще раз."
 
-#: lib/e2k-autoconfig.c:1522
-#, fuzzy, c-format
+#: lib/e2k-autoconfig.c:1524
+#, c-format
 msgid "Enter password for %s"
-msgstr "%sВведіть пароль для %s"
+msgstr "Введіть пароль для %s"
 
-#: lib/e2k-autoconfig.c:1523 storage/exchange-account.c:859
+#: lib/e2k-autoconfig.c:1525 storage/exchange-account.c:859
 msgid "Enter password"
 msgstr "Введіть пароль"
 
@@ -434,7 +420,7 @@ msgstr "Немає такої теки"
 
 #: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2309
 #: mail/mail-stub-exchange.c:2347 mail/mail-stub-exchange.c:2407
-#: shell/e-storage.c:573 storage/xc-commands.c:315
+#: shell/e-storage.c:573 storage/xc-commands.c:320
 msgid "Permission denied"
 msgstr "Доступ заборонено"
 
@@ -448,7 +434,7 @@ msgstr "Не вдається створити теку."
 
 #: mail/mail-stub-exchange.c:602 mail/mail-stub-exchange.c:620
 msgid "Could not open folder: Permission denied"
-msgstr "Не вдається відкрити теку: Доступ заборонено"
+msgstr "Не вдається відкрити теку: доступ заборонено"
 
 #: mail/mail-stub-exchange.c:606 mail/mail-stub-exchange.c:719
 msgid "Could not open folder"
@@ -456,7 +442,7 @@ msgstr "Не вдається відкрити теку"
 
 #: mail/mail-stub-exchange.c:774
 msgid "Could not open Deleted Items folder"
-msgstr "Не вдається відкрити теку Видалених елементів"
+msgstr "Не вдається відкрити теку \"Видалене\""
 
 #: mail/mail-stub-exchange.c:1094 mail/mail-stub-exchange.c:1135
 msgid "Could not get new messages"
@@ -464,7 +450,7 @@ msgstr "Не вдається отримати нові повідомлення
 
 #: mail/mail-stub-exchange.c:1300
 msgid "Could not empty Deleted Items folder"
-msgstr "Не вдається очистити теку Видалених елементів"
+msgstr "Не вдається очистити теку \"Видалене\""
 
 #: mail/mail-stub-exchange.c:1372
 msgid "Could not append message; mailbox is over quota"
@@ -525,11 +511,11 @@ msgstr "Не вдається надіслати повідомлення"
 
 #: mail/mail-stub-exchange.c:2301 mail/mail-stub-exchange.c:2352
 #: mail/mail-stub-exchange.c:2411 shell/e-storage.c:557
-#: storage/xc-commands.c:319
+#: storage/xc-commands.c:324
 msgid "Generic error"
 msgstr "Загальна помилка"
 
-#: mail/mail-stub-exchange.c:2305 storage/xc-commands.c:309
+#: mail/mail-stub-exchange.c:2305 storage/xc-commands.c:314
 msgid "Folder already exists"
 msgstr "Тека вже існує"
 
@@ -754,7 +740,7 @@ msgstr "Не вдається створити теку з цією назвою
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Ця операція не може бути виконана у автономному режимі"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1411
+#: shell/e-storage.c:587 storage/exchange-account.c:1418
 msgid "Unknown error"
 msgstr "Невідома помилка"
 
@@ -798,11 +784,11 @@ msgstr "Теки %s"
 msgid "%sEnter password for %s"
 msgstr "%sВведіть пароль для %s"
 
-#: storage/exchange-account.c:1033
+#: storage/exchange-account.c:1040
 msgid "Cannot change password due to configuration problems"
 msgstr "Не вдається змінити пароль через проблеми з конфігурацією"
 
-#: storage/exchange-account.c:1048
+#: storage/exchange-account.c:1055
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -810,33 +796,33 @@ msgstr ""
 "Сервер відмовився прийняти пароль, тому що він надто слабкий.\n"
 "Спробуйте ще раз з іншим паролем."
 
-#: storage/exchange-account.c:1053
+#: storage/exchange-account.c:1060
 msgid "Could not change password"
 msgstr "Не вдається змінити пароль"
 
-#: storage/exchange-account.c:1137
+#: storage/exchange-account.c:1144
 msgid "Personal Folders"
 msgstr "Персональні теки"
 
-#: storage/exchange-account.c:1152
+#: storage/exchange-account.c:1159
 msgid "Favorite Public Folders"
 msgstr "Улюблені публічні теки"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1169
+#: storage/exchange-account.c:1176
 msgid "All Public Folders"
 msgstr "Усі публічні теки"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1183
+#: storage/exchange-account.c:1190
 msgid "Global Address List"
 msgstr "Глобальний список адрес"
 
-#: storage/exchange-account.c:1269
+#: storage/exchange-account.c:1276
 msgid "Exchange Account is offline. Cannot display folders\n"
-msgstr ""
+msgstr "Обліковий запис exchange вимкнено. Неможливо відобразити теку\n"
 
-#: storage/exchange-account.c:1322
+#: storage/exchange-account.c:1329
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -844,7 +830,7 @@ msgstr ""
 "Не вдається пройти автентифікацію на сервері. (Неправильний пароль?)\n"
 "\n"
 
-#: storage/exchange-account.c:1327
+#: storage/exchange-account.c:1334
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -864,12 +850,12 @@ msgstr ""
 "Або, можливо, ви щойно неправильно набрали ваш пароль.\n"
 "\n"
 
-#: storage/exchange-account.c:1369
+#: storage/exchange-account.c:1376
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Поштова скринька для %s не на цьому сервері."
 
-#: storage/exchange-account.c:1374
+#: storage/exchange-account.c:1381
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -878,7 +864,7 @@ msgstr ""
 "На сервері '%s' працює Exchange 5.5,\n"
 "який несумісний з Ximian Connector"
 
-#: storage/exchange-account.c:1381
+#: storage/exchange-account.c:1388
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -889,22 +875,22 @@ msgstr ""
 "Якщо OWA запущена за іншим шляхом, можна вказати його у\n"
 "діалоговому вікні налаштовування облікового запису."
 
-#: storage/exchange-account.c:1389
+#: storage/exchange-account.c:1396
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Немає поштової скриньки для користувача %s на %s.\n"
 
-#: storage/exchange-account.c:1395 storage/exchange-account.c:1401
-#: storage/exchange-account.c:1409
+#: storage/exchange-account.c:1402 storage/exchange-account.c:1408
+#: storage/exchange-account.c:1416
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Не вдається з'єднатись з сервером %s: %s"
 
-#: storage/exchange-account.c:1397
+#: storage/exchange-account.c:1404
 msgid "Could not resolve hostname"
 msgstr "Не вдається розв'язати назву вузла"
 
-#: storage/exchange-account.c:1403
+#: storage/exchange-account.c:1410
 msgid "Network error"
 msgstr "Помилка мережі"
 
@@ -1109,7 +1095,7 @@ msgstr "Новий пароль:"
 
 #: storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
-msgstr "Термін дії вашого поточного паролю вийшов. Змініть його зараз."
+msgstr "Термін дії вашого поточного паролю закінчився. Змініть його зараз."
 
 #: storage/exchange-component.c:320
 msgid "Mail"
@@ -1127,15 +1113,15 @@ msgstr "Завдання"
 msgid "Calendar"
 msgstr "Календар"
 
-#: storage/exchange-config-listener.c:693
+#: storage/exchange-config-listener.c:702
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
 msgstr ""
-"Зміни конфігурації облікового рахунку Exchange наберуть сили\n"
-"після виходу та повторного запуску Evolution."
+"Зміни облікового рахунку Exchange наберуть сили\n"
+"після повторного запуску Evolution."
 
-#: storage/exchange-config-listener.c:739
+#: storage/exchange-config-listener.c:748
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr "Обліковий рахунок Exchange буде видалений після завершення Evolution"
 
@@ -1297,19 +1283,16 @@ msgid "_Tasks:"
 msgstr "_Завдання"
 
 #: storage/exchange-folder-size.c:204
-#, fuzzy
 msgid "Folder Name"
-msgstr "Назва _теки:"
+msgstr "Назва теки"
 
 #: storage/exchange-folder-size.c:208
-#, fuzzy
 msgid "Folder Size"
-msgstr "Тека видима"
+msgstr "Розмір теки видима"
 
 #: storage/exchange-folder-tree.glade.h:1
-#, fuzzy
 msgid "Exchange Folder Tree"
-msgstr "Сервер Exchange"
+msgstr "Дерево тек Exchange"
 
 #: storage/exchange-hierarchy-foreign.c:252
 msgid "Deleted Items"
@@ -1351,7 +1334,7 @@ msgid ""
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
-"Розташування та ієрархія тек облікових рахунків Evolution змінились з часів "
+"Розташування та ієрархія тек облікових записів Evolution змінились з часів "
 "Evolution %d.%d.%d.\n"
 "\n"
 "Зачекайте, доки Evolution перетворює ваші теки..."
@@ -1375,11 +1358,11 @@ msgstr "Міграція `%s':"
 
 #: storage/exchange-oof.c:91 storage/exchange-oof.c:290
 msgid "Could not update out-of-office state"
-msgstr "Не вдається оновити статус поза-офісом"
+msgstr "Не вдається оновити статус \"на роботі/не на роботі\""
 
 #: storage/exchange-oof.c:308
 msgid "Could not read out-of-office state"
-msgstr "Не прочитати оновити статус поза-офісом"
+msgstr "Не вдається прочитати статус \"на роботі/не на роботі\""
 
 #: storage/exchange-oof.glade.h:1
 msgid ""
@@ -1387,13 +1370,13 @@ msgid ""
 "\n"
 "Would you like to change your status to \"In the Office\"? "
 msgstr ""
-"<b>Наразі, ваш статус \"Поза офісом\". </b>\n"
+"<b>Наразі, ваш статус \"Не на роботі\". </b>\n"
 "\n"
-"Бажаєте змінити ваш статус на \"У Офісі\"? "
+"Бажаєте змінити ваш статус на \"На роботі\"? "
 
 #: storage/exchange-oof.glade.h:4
 msgid "<b>Out of Office Message:</b>"
-msgstr "<b>Повідомлення для статусу поза-офісом:</b>"
+msgstr "<b>Повідомлення про відсутність:</b>"
 
 #: storage/exchange-oof.glade.h:5
 msgid "<b>Status:</b>"
@@ -1405,17 +1388,16 @@ msgid ""
 "who sends\n"
 "mail to you while you are out of the office.</small>"
 msgstr ""
-"<small>Вказане нижче повідомлення буде автоматично надіслане кожній особі, "
-"яка\n"
-"надішле вам пошту доки ви перебуваєте поза офісом.</small>"
+"<small>Вказане нижче повідомлення буде автоматично надіслане кожній особі,\n" 
+"яка надішле вам пошту за вашої відсутності на роботі.</small>"
 
 #: storage/exchange-oof.glade.h:8
 msgid "I am currently in the office"
-msgstr "Наразі я у офісі"
+msgstr "Наразі я на роботі"
 
 #: storage/exchange-oof.glade.h:9
 msgid "I am currently out of the office"
-msgstr "Наразі я поза офісом"
+msgstr "Наразі я не на роботі"
 
 #: storage/exchange-oof.glade.h:10
 msgid "No, Don't Change Status"
@@ -1423,7 +1405,7 @@ msgstr "Ні, не змінювати статус"
 
 #: storage/exchange-oof.glade.h:11
 msgid "Out of Office Assistant"
-msgstr "Помічник стану поза-офісом"
+msgstr "Заступник"
 
 #: storage/exchange-oof.glade.h:12
 msgid "Yes, Change Status"
@@ -1431,20 +1413,19 @@ msgstr "Так, змінити статус"
 
 #: storage/exchange-passwd-expiry.glade.h:1
 msgid "Password Expiry Warning..."
-msgstr ""
+msgstr "попередження про закінчення терміну дії паролю..."
 
 #: storage/exchange-passwd-expiry.glade.h:2
 msgid "Your password will expire in 7 days..."
-msgstr ""
+msgstr "Термін дії вашого паролю закінчується через 7 діб..."
 
 #: storage/exchange-passwd-expiry.glade.h:3
-#, fuzzy
 msgid "_Change Password"
-msgstr "Зміна паролю"
+msgstr "З_мінити пароль"
 
 #: storage/exchange-passwd-expiry.glade.h:4
 msgid "ok_button"
-msgstr ""
+msgstr "ok_button"
 
 #: storage/exchange-permissions-dialog.c:222
 msgid "Could not read folder permissions"
@@ -1469,7 +1450,7 @@ msgid ""
 "No Global Catalog server is configured for this account."
 msgstr ""
 "Не вдається додати користувача до списку контролю доступу.\n"
-"Для цього облікового рахунку не налаштований сервер глобального каталогу."
+"Для цього облікового запису не налаштований сервер глобального каталогу."
 
 #: storage/exchange-permissions-dialog.c:402
 msgid "Add User:"
@@ -1573,18 +1554,18 @@ msgstr "Ximian Connector для Microsoft Exchange"
 
 #: storage/xc-backend-view.c:299
 msgid "Account Name"
-msgstr "Назва рахунку"
+msgstr "Назва облікового запису"
 
-#: storage/xc-commands.c:312
+#: storage/xc-commands.c:317
 msgid "Folder does not exist"
 msgstr "Тека не існує"
 
-#: storage/xc-commands.c:339
+#: storage/xc-commands.c:344
 #, c-format
 msgid "Could not add favorite: %s"
 msgstr "Не вдається додати улюблене: %s"
 
-#: storage/xc-commands.c:355
+#: storage/xc-commands.c:360
 #, c-format
 msgid "Could not remove favorite: %s"
 msgstr "Не вдається видалити улюблене: %s"
@@ -1598,41 +1579,41 @@ msgstr "Не вдається видалити улюблене: %s"
 #. G_CALLBACK (do_copy_folder),
 #. XC_FOLDER_COMMAND_MASK_MOVECOPY),
 #.
-#: storage/xc-commands.c:381
+#: storage/xc-commands.c:386
 msgid "_Rename Folder..."
 msgstr "Пере_йменувати теку..."
 
-#: storage/xc-commands.c:387
+#: storage/xc-commands.c:392
 msgid "_New Folder..."
 msgstr "_Створити теку"
 
-#: storage/xc-commands.c:390
+#: storage/xc-commands.c:395
 msgid "_Delete Folder"
 msgstr "В_идалити теку"
 
-#: storage/xc-commands.c:395
+#: storage/xc-commands.c:400
 msgid "_Add Other User's Folder..."
 msgstr "_Додати теку іншого користувача..."
 
-#: storage/xc-commands.c:398
+#: storage/xc-commands.c:403
 msgid "_Remove Other User's Folder"
 msgstr "В_идалити теку іншого користувача"
 
-#: storage/xc-commands.c:404
+#: storage/xc-commands.c:409
 msgid "Add to _Favorites"
 msgstr "Додати до _улюбленого"
 
-#: storage/xc-commands.c:408
+#: storage/xc-commands.c:413
 msgid "Remove from Fa_vorites"
 msgstr "Видалити з у_любленого"
 
-#: storage/xc-commands.c:415
+#: storage/xc-commands.c:420
 msgid "_Permissions..."
 msgstr "_Права доступу..."
 
-#: storage/xc-commands.c:419
+#: storage/xc-commands.c:424
 msgid "_Show Folder Sizes"
-msgstr ""
+msgstr "_Показати розміри тек"
 
 #: storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
@@ -1643,13 +1624,12 @@ msgid "Change your Exchange server password"
 msgstr "Змінити ваш пароль на сервері Exchange"
 
 #: storage/ximian-connector.xml.h:2
-#, fuzzy
 msgid "Folder _Size"
-msgstr "_Тип теки:"
+msgstr "_Розмір теки"
 
 #: storage/ximian-connector.xml.h:3
 msgid "Get the size of personal folders"
-msgstr ""
+msgstr "Отримати розмір особистих тек"
 
 #: storage/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
@@ -1673,7 +1653,7 @@ msgstr "Переглянути або змінити параметри упов
 #: storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr ""
-"Переглянути або змінити статус Поза-офісом та повідомлення автовідповідача"
+"Переглянути або змінити статус \"на роботі/не на роботі\" та повідомлення автовідповідача"
 
 #: storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
@@ -1685,44 +1665,8 @@ msgstr "Асистент _уповноваження"
 
 #: storage/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
-msgstr "Асистент стану _Поза-офісом"
+msgstr "Зас_тупник"
 
 #: storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Відписатись від теки іншого користувача"
-
-#~ msgid ""
-#~ "Could not authenticate to server.\n"
-#~ "\n"
-#~ "You may need to use Plaintext Password authentication.\n"
-#~ "\n"
-#~ "Or you might have just typed your password wrong.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Не вдається пройти автентифікацію на сервері.\n"
-#~ "\n"
-#~ "Можливо, слід використовувати автентифікацію зі звичайним паролем.\n"
-#~ "\n"
-#~ "Або, можливо, ви щойно неправильно набрали ваш пароль.\n"
-#~ "\n"
-
-#~ msgid "Exc_hange Server:"
-#~ msgstr "Сервер Exchange:"
-
-#~ msgid "Exchange Server"
-#~ msgstr "Сервер Exchange"
-
-#~ msgid "Mailbox name"
-#~ msgstr "Назва поштової скриньки"
-
-#~ msgid "OWA path"
-#~ msgstr "Шлях OWA"
-
-#~ msgid "Public Folder server"
-#~ msgstr "Сервер публічної теки"
-
-#~ msgid "_Move Folder..."
-#~ msgstr "Пере_містити теку..."
-
-#~ msgid "_Copy Folder..."
-#~ msgstr "_Копіювати теку..."
