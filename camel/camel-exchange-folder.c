@@ -930,7 +930,7 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 			info = summary->pdata[i];
 			uids->pdata[i] = (char *)camel_message_info_uid (info);
 			flags->data[i] = info->flags & CAMEL_EXCHANGE_SERVER_FLAGS;
-			camel_tag_list_free (&info->user_tags);
+			//camel_tag_list_free (&info->user_tags);
 		}
 
 		camel_operation_start (NULL, _("Scanning for changed messages"));
