@@ -26,6 +26,7 @@
 #include <string.h>
 
 #include "e-util/e-path.h"
+#include <camel/camel-i18n.h>
 
 #include "camel-exchange-store.h"
 #include "camel-exchange-folder.h"

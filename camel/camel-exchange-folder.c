@@ -27,6 +27,8 @@
 #include <string.h>
 #include <sys/stat.h>
 
+#include <camel/camel-i18n.h>
+
 #include "camel-exchange-folder.h"
 #include "camel-exchange-search.h"
 #include "camel-exchange-store.h"

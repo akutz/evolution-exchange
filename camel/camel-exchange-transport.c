@@ -33,6 +33,7 @@
 #include <camel/camel-session.h>
 #include <camel/camel-stream-filter.h>
 #include <camel/camel-stream-mem.h>
+#include <camel/camel-i18n.h>
 
 #include <string.h>
 
