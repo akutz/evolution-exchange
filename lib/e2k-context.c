@@ -1195,6 +1195,8 @@ write_prop (GString *xml, const char *propertyname,
 	GPtrArray *array;
 	int i;
 
+	if (value == NULL)
+		return;
 	namespace = e2k_prop_namespace_name (propertyname);
 	abbrev = e2k_prop_namespace_abbrev (propertyname);
 	name = e2k_prop_property_name (propertyname);

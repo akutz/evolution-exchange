@@ -1,3 +1,10 @@
+2004-08-12  Sushma Rai  <rsushma@novell.com>
+
+	* lib/e2k-context.c (write_prop): Checking for value of property
+	being NULL. This fixes the crash #62259, But Internet Newsgroup 
+	folder disappears from favorite folders list on restart, which 
+	needs to be fixed.
+
 2004-08-11  Sushma Rai  <rsushma@novell.com>
 
 	* storage/exchange-config-listener.c (account_changed):
