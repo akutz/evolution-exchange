@@ -944,9 +944,10 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 			break;
 		case CALOBJ_MOD_THIS:
 			/*remove_instance and modify */
-			time_rid = icaltime_from_string (rid);
-			e_cal_util_remove_instances (ecomp->comp, time_rid, mod);
-			
+			if (rid && *rid) {
+				time_rid = icaltime_from_string (rid);
+				e_cal_util_remove_instances (ecomp->comp, time_rid, mod);
+			}
 			calobj  = (char *) icalcomponent_as_ical_string (ecomp->comp);
 			ebs_status = modify_object (backend, cal, calobj, mod, &obj);
 			if (ebs_status != GNOME_Evolution_Calendar_Success)

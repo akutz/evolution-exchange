@@ -1,5 +1,10 @@
 2004-08-12  Sarfraaz Ahmed <asarfraaz@novell.com>
 
+	* calendar/e-cal-backend-exchange-calendar.c (remove_object): Remove
+	recurrences only if rid is not NULL. This fixes the crash in #62631
+
+2004-08-12  Sarfraaz Ahmed <asarfraaz@novell.com>
+
 	* calendar/e-cal-backend-exchange-calendar.c (discard_alarm):
 	Moved this from e-cal-backend-exchange.c, since this should be in the
 	calendar derived class and not in the abstract class. This fixes #45103
