@@ -474,7 +474,7 @@ migrate_common (gchar *src_path, const gchar *dest_path)
 	return ret;
 }
 
-gboolean
+void
 exchange_migrate (const CORBA_short major, 
 		  const CORBA_short minor, 
 		  const CORBA_short revision,
@@ -491,7 +491,7 @@ exchange_migrate (const CORBA_short major,
 	if (maj == 1 && min <= 5) {
 
 		if (!base_dir)
-			return FALSE;
+			return;
 
 		/* This is not needed if done by cp_r() */
         	if (stat (base_dir, &st) == -1) {
@@ -499,7 +499,7 @@ exchange_migrate (const CORBA_short major,
 			    make_dir (base_dir, 0777) == -1) {
                        		printf ("Failed to create directory `%s': %s",
 				base_dir, g_strerror (errno));
-                        	return FALSE;
+                        	return;
                 	}
         	}
 
@@ -532,8 +532,5 @@ exchange_migrate (const CORBA_short major,
 		if (ret == FALSE)
 			show_error_dialog ();
 
-		return ret;
 	}
-	else 
-		return ret;
 }

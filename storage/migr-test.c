@@ -42,7 +42,6 @@
 int
 main (int argc, char **argv)
 {
-	gboolean ret=FALSE;
 	CORBA_short major=1;
 	CORBA_short minor=4;
 	CORBA_short revision=0;
@@ -103,11 +102,7 @@ main (int argc, char **argv)
 	base_dir = g_build_filename (dest, uid, NULL);
 	printf("base dir is %s; uid = %s; dest = %s ; source=%s \n", base_dir, uid, dest, source);
 		
-	ret = exchange_migrate (major, minor, revision, base_dir, (char *) uid);
-	if (ret)
-		printf ("Migrated\n");
-	else
-		printf ("Failed to migrate\n");
+	exchange_migrate (major, minor, revision, base_dir, (char *) uid);
 
 	g_free (base_dir);
 	g_free (uid);

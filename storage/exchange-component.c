@@ -147,7 +147,7 @@ impl_createControls (PortableServer_Servant servant,
 		CORBA_Object_duplicate (BONOBO_OBJREF (control), ev);
 }
 
-static CORBA_boolean
+static void
 impl_upgradeFromVersion (PortableServer_Servant servant,
 			 const CORBA_short major,
 			 const CORBA_short minor,
@@ -168,13 +168,9 @@ impl_upgradeFromVersion (PortableServer_Servant servant,
 						   account->account_filename,
 						   NULL);
 
-		return exchange_migrate(major, 
-					minor, 
-					revision, 
-					base_directory, 
-					account->account_filename);
+		exchange_migrate(major, minor, revision, 
+				 base_directory, account->account_filename);
 	}
-	return TRUE;
 }
 
 static CORBA_boolean
