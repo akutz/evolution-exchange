@@ -144,15 +144,23 @@ exchange_validate_user_cb (CamelURL *camel_url, const char *owa_url,
 			   gboolean *remember_password, CamelException *ex)
 {
 	gboolean valid;
-	char *host = NULL;
-	char *ad_server = NULL;
+	ExchangeParams *exchange_params;
+
+	exchange_params = g_new0 (ExchangeParams, 1);
+	exchange_params->host = NULL;
+	exchange_params->ad_server = NULL;
+	exchange_params->mailbox = NULL;
+	exchange_params->owa_path = NULL;
 
 	valid = e2k_validate_user (owa_url, camel_url->user, 
-				   &host, &ad_server, remember_password);
+				   exchange_params, remember_password);
 
-	camel_url_set_host(camel_url, valid?host:"");
-	camel_url_set_param(camel_url, "ad_server", valid?ad_server:NULL);
-
+	camel_url_set_host(camel_url, valid?exchange_params->host:"");
+	camel_url_set_param(camel_url, "ad_server", valid?exchange_params->ad_server:NULL);
+	camel_url_set_param(camel_url, "mailbox", valid?exchange_params->mailbox:NULL);
+	camel_url_set_param(camel_url, "owa_path", valid?exchange_params->owa_path:NULL);
+	g_free (exchange_params->owa_path);
+	g_free (exchange_params);
 	return valid;
 }
 

@@ -1389,13 +1389,14 @@ e2k_autoconfig_lookup_option (const char *option)
 }
 
 static gboolean 
-validate (const char *owa_url, char *user, char *password, char **host, char **ad_server)
+validate (const char *owa_url, char *user, char *password, ExchangeParams *exchange_params)
 {
 	E2kAutoconfig *ac;
 	E2kOperation op;        /* FIXME */
 	E2kAutoconfigResult result;
+	E2kUri *euri;
 	gboolean valid = FALSE;
-	const char *old, *new;
+	const char *old, *new, *path;
 
 	ac = e2k_autoconfig_new (owa_url, user, password, 
 				 E2K_AUTOCONFIG_USE_EITHER);
@@ -1408,6 +1409,24 @@ validate (const char *owa_url, char *user, char *password, char **host, char **a
 	if (result == E2K_AUTOCONFIG_OK) {
 		result = e2k_autoconfig_check_global_catalog (ac, &op);
 		e2k_operation_free (&op);
+		
+		/* find mailbox and owa_path values */	
+		euri = e2k_uri_new (ac->home_uri);
+		exchange_params->owa_path = g_strdup (euri->path + 1);
+		e2k_uri_free (euri);
+		path = exchange_params->owa_path;
+		exchange_params->mailbox = strrchr (path, '/');
+		if (exchange_params->mailbox && !exchange_params->mailbox[1]) {
+			*exchange_params->mailbox = '\0';
+			exchange_params->mailbox = strrchr (path, '/');
+		}
+		if (exchange_params->mailbox)
+			*exchange_params->mailbox++ = '\0';
+
+		exchange_params->host = ac->pf_server;
+		if (ac->gc_server) 
+			exchange_params->ad_server = ac->gc_server;
+
 		valid = TRUE;
 	}
 	else {
@@ -1504,16 +1523,13 @@ validate (const char *owa_url, char *user, char *password, char **host, char **a
 		}
 	}
 
-	*host = ac->pf_server;
-	if (ac->gc_server) 
-		*ad_server = ac->gc_server;
 
 	return valid;
 }
 
 gboolean
-e2k_validate_user (const char *owa_url, char *user, char **host, 
-		   char **ad_server, gboolean *remember_password)
+e2k_validate_user (const char *owa_url, char *user,
+		   ExchangeParams *exchange_params, gboolean *remember_password)
 {
 	gboolean valid = FALSE, remember=FALSE;
 	char *key, *password, *prompt;
@@ -1527,7 +1543,7 @@ e2k_validate_user (const char *owa_url, char *user, char **host,
 					E_PASSWORDS_REMEMBER_FOREVER|E_PASSWORDS_SECRET,
 					&remember, NULL);
 		if (password) {
-			valid = validate (owa_url, user, password, host, ad_server);
+			valid = validate (owa_url, user, password, exchange_params);
 			if (valid) {
 				/* generate the proper key once the host name 
 				 * is read and remember password temporarily, 
@@ -1539,7 +1555,7 @@ e2k_validate_user (const char *owa_url, char *user, char **host,
 				*remember_password = remember;
 				g_free (key);
 				key = g_strdup_printf ("%s//%s@%s", 
-						       "exchange:", user, *host);
+						       "exchange:", user, exchange_params->host);
 				e_passwords_add_password (key, password);
 				e_passwords_remember_password ("Exchange", key);
 			}
