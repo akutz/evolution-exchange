@@ -2241,7 +2241,6 @@ send_message (MailStub *stub, const char *from, GPtrArray *recipients,
 					 data->str, data->len);
 	g_string_free (data, FALSE);
 	soup_message_add_header (msg->request_headers, "Saveinsent", "f");
-	soup_message_set_http_version (msg, SOUP_HTTP_1_0);
 
 	status = e2k_context_send_message (mse->ctx, NULL, msg);
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
