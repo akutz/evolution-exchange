@@ -910,14 +910,20 @@ is_password_expired (ExchangeAccount *account, E2kAutoconfig *ac)
 }
 
 static void
-change_passwd_cb (GtkWidget *button, char *old_passwd)
+change_passwd_cb (GtkWidget *button, ExchangeAccount *account)
 {
+	char *current_passwd, *new_passwd;
+
 	gtk_widget_hide (gtk_widget_get_toplevel(button));
-	exchange_get_new_password (old_passwd, TRUE);
+	current_passwd = exchange_account_get_password (account);
+	new_passwd = exchange_get_new_password (current_passwd, TRUE);
+	exchange_account_set_password (account, current_passwd, new_passwd);
+	g_free (current_passwd);
+	g_free (new_passwd);
 }
 
 static void
-display_passwd_expiry_message (int max_passwd_age, char *old_passwd)
+display_passwd_expiry_message (int max_passwd_age, ExchangeAccount *account)
 {
 	GladeXML *xml;
 	GtkWidget *top_widget, *change_passwd_button;
@@ -942,7 +948,7 @@ display_passwd_expiry_message (int max_passwd_age, char *old_passwd)
 	g_signal_connect (change_passwd_button, 
 			  "clicked", 
 			  G_CALLBACK (change_passwd_cb), 
-			  old_passwd);
+			  account);
 
 	response = gtk_dialog_run (GTK_DIALOG (top_widget));
 
@@ -958,7 +964,6 @@ find_passwd_exp_period (ExchangeAccount *account, E2kGlobalCatalogEntry *entry)
 	int max_pwd_age_days;
 	E2kOperation gcop;
 	E2kGlobalCatalogStatus gcstatus;
-	char *current_passwd;
 
 	/* If user has not selected password expiry warning option, return */
 	if (account->priv->passwd_exp_warn_period == -1)
@@ -997,10 +1002,8 @@ find_passwd_exp_period (ExchangeAccount *account, E2kGlobalCatalogEntry *entry)
 		( max_pwd_age * ONE_HUNDRED_NANOSECOND ) / SECONDS_IN_DAY;
 
 		if (max_pwd_age_days <= account->priv->passwd_exp_warn_period) {
-			/* This we need for changing password */
-			current_passwd = exchange_account_get_password (account);
 			display_passwd_expiry_message (max_pwd_age_days, 
-						       current_passwd);
+						       account);
 		}
 	} 
 }

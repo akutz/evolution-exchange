@@ -1,4 +1,10 @@
 2005-02-09  Sushma Rai  <rsushma@novell.com>
+	
+	* storage/exchange-account.c (change_passwd_cb): Setting the new
+	password entered when change password is invoked by password expiry
+	check. Fixes #72091
+
+2005-02-09  Sushma Rai  <rsushma@novell.com>
 
 	* storage/exchange-account.c (exchange_account_new): Not setting
 	default warning period, if user has not selected password expiry
