@@ -31,6 +31,9 @@
 #include "e2k-propnames.h"
 #include "e2k-uri.h"
 #include "e2k-utils.h"
+#include "exchange-config-listener.h"
+
+#include <libedataserver/e-source-list.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -163,6 +166,11 @@ remove_folder (ExchangeHierarchy *hier, EFolder *folder)
 		EXCHANGE_HIERARCHY_FAVORITES (hier);
 	const char *folder_uri, *shortcut_uri;
 	E2kHTTPStatus status;
+	char *conf_key_cal="/apps/evolution/calendar/sources";
+	char *conf_key_tasks="/apps/evolution/tasks/sources";
+	char *conf_key_contacts="/apps/evolution/addressbook/sources";
+	ESourceList *cal_source_list, *task_source_list, *cont_source_list;
+	const char *folder_type, *physical_uri;
 
 	folder_uri = e_folder_exchange_get_internal_uri (folder);
 	shortcut_uri = g_hash_table_lookup (hfav->priv->shortcuts, folder_uri);
@@ -177,6 +185,40 @@ remove_folder (ExchangeHierarchy *hier, EFolder *folder)
 		g_hash_table_remove (hfav->priv->shortcuts, folder_uri);
 		exchange_hierarchy_removed_folder (hier, folder);
 	}
+
+	/* Temp Fix for remove fav folders. see #59168 */
+	/* remove ESources */
+	folder_type = e_folder_get_type_string (folder);
+	physical_uri = e_folder_get_physical_uri (folder);
+
+	if (strcmp (folder_type, "calendar") == 0) {
+		cal_source_list = e_source_list_new_for_gconf (
+					gconf_client_get_default (),
+					conf_key_cal);
+		remove_esource (hier->account, conf_key_cal, physical_uri,
+				&cal_source_list, FALSE, FALSE);
+		e_source_list_sync (cal_source_list, NULL);
+		g_object_unref (cal_source_list);
+	}
+	else if (strcmp (folder_type, "tasks") == 0) {
+		task_source_list = e_source_list_new_for_gconf (
+					gconf_client_get_default (),
+					conf_key_tasks);
+		remove_esource (hier->account, conf_key_tasks, physical_uri,
+				&task_source_list, FALSE, FALSE);
+		e_source_list_sync (task_source_list, NULL);
+		g_object_unref (task_source_list);
+	}
+	else if (strcmp (folder_type, "contacts") == 0) {
+		cont_source_list = e_source_list_new_for_gconf (
+					gconf_client_get_default (),
+					conf_key_contacts);
+		remove_esource (hier->account, conf_key_contacts, physical_uri,
+					&cont_source_list, FALSE, TRUE);
+		e_source_list_sync (cont_source_list, NULL);
+		g_object_unref (cont_source_list);
+	}
+	
 	return exchange_hierarchy_webdav_status_to_folder_result (status);
 }
 
