@@ -147,6 +147,7 @@ int
 main (int argc, char **argv)
 {
 	char *path;
+	char *config_directory;
 
 	bindtextdomain (PACKAGE, CONNECTOR_LOCALEDIR);
 	bind_textdomain_codeset (PACKAGE, "UTF-8");
@@ -157,7 +158,10 @@ main (int argc, char **argv)
 			    GNOME_PARAM_HUMAN_READABLE_NAME, _("Ximian Connector for Microsoft Exchange"),
 			    NULL);
 	e_icon_factory_init ();
-	camel_init (NULL, FALSE);
+
+	config_directory = g_build_filename (g_get_home_dir(), ".evolution", NULL);
+	camel_init (config_directory, FALSE);
+	g_free(config_directory);
 
 	path = g_strdup_printf ("/tmp/.exchange-%s", g_get_user_name ());
 	if (mkdir (path, 0700) == -1) {
