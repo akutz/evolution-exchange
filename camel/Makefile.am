@@ -42,6 +42,7 @@ libcamelexchange_la_LIBADD = 			\
 	$(top_builddir)/xntlm/libxntlm.la	\
 	$(LDAP_LIBS)				\
 	$(LIBEXCHANGE_LIBS)			\
-	$(EXCHANGE_STORAGE_LIBS)
+	$(EXCHANGE_STORAGE_LIBS)		\
+	$(KRB5_LIBS)
 
 EXTRA_DIST = libcamelexchange.urls
