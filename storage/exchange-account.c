@@ -57,7 +57,7 @@ struct _ExchangeAccountPrivate {
 	GHashTable *standard_uris;
 
 	GMutex *connect_lock;
-	gboolean connected;
+	gboolean connecting, connected;
 
 	GPtrArray *hierarchies;
 	GHashTable *hierarchies_by_folder, *foreign_hierarchies;
@@ -971,10 +971,16 @@ exchange_account_connect (ExchangeAccount *account)
 
 	g_mutex_lock (account->priv->connect_lock);
 
-	if (account->priv->ctx) {
+	if (account->priv->connecting) {
+		g_mutex_unlock (account->priv->connect_lock);
+		return NULL;
+	} else if (account->priv->ctx) {
 		g_mutex_unlock (account->priv->connect_lock);
 		return account->priv->ctx;
 	}
+
+	account->priv->connecting = TRUE;
+	g_mutex_unlock (account->priv->connect_lock);
 
 	ac = e2k_autoconfig_new (account->home_uri,
 				 account->priv->username,
@@ -985,7 +991,7 @@ exchange_account_connect (ExchangeAccount *account)
 
  try_password_again:
 	if (!get_password (account, ac, errmsg)) {
-		g_mutex_unlock (account->priv->connect_lock);
+		account->priv->connecting = FALSE;
 		return NULL;
 	}
 
@@ -1040,7 +1046,7 @@ exchange_account_connect (ExchangeAccount *account)
 		}
 
 		e2k_autoconfig_free (ac);
-		g_mutex_unlock (account->priv->connect_lock);
+		account->priv->connecting = FALSE;
 
 		if (!exchange_component_is_interactive (global_exchange_component))
 			return NULL;
@@ -1110,7 +1116,7 @@ exchange_account_connect (ExchangeAccount *account)
 				       &results, &nresults);
 
 	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-		g_mutex_unlock (account->priv->connect_lock);
+		account->priv->connecting = FALSE;
 		return NULL;
 	}
 
@@ -1211,7 +1217,7 @@ exchange_account_connect (ExchangeAccount *account)
 	fresult = exchange_hierarchy_scan_subtree (personal_hier,
 						   personal_hier->toplevel);
 	if (fresult != EXCHANGE_ACCOUNT_FOLDER_OK) {
-		g_mutex_unlock (account->priv->connect_lock);
+		account->priv->connecting = FALSE;
 		return NULL;
 	}
 
@@ -1219,17 +1225,15 @@ exchange_account_connect (ExchangeAccount *account)
 		account->priv->favorites_hierarchy,
 		account->priv->favorites_hierarchy->toplevel);
 	if (fresult != EXCHANGE_ACCOUNT_FOLDER_OK) {
-		g_mutex_unlock (account->priv->connect_lock);
+		account->priv->connecting = FALSE;
 		return NULL;
 	}
 	
-
 	account->priv->connected = TRUE;
+	account->priv->connecting = FALSE;
 
 	g_signal_connect (account->priv->ctx, "redirect",
 			  G_CALLBACK (context_redirect), account);
-
-	g_mutex_unlock (account->priv->connect_lock);
 
 	g_signal_emit (account, signals[CONNECTED], 0, account->priv->ctx);
 	return account->priv->ctx;

@@ -1,5 +1,17 @@
 2004-06-03  Dan Winship  <danw@novell.com>
 
+	* storage/xc-backend-view.c (xc_backend_view_new): Put the
+	treeview into a scrolled window, so it doesn't go all wacky if
+	it's empty. #59009
+
+	* storage/exchange-account.c (exchange_account_connect): Redo this
+	a bit; use a "connecting" flag rather than holding the lock the
+	whole time. This probably breaks other things, but it prevents a
+	deadlock when the exchnage component and the mail component both
+	try to connect at the same time.
+
+2004-06-03  Dan Winship  <danw@novell.com>
+
 	* configure.in: Bump version to 1.5.9
 
 	* acinclude.m4 (EVO_LDAP_CHECK): Fix this so it works with
