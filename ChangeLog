@@ -1,3 +1,13 @@
+2005-03-17  Sushma Rai  <rsushma@novell.com>
+
+	* camel/camel-exchange-provider.c (exchange_validate_user_cb): Setting
+	the authentication mechanism parameter in camel url.
+	
+	* lib/e2k-autoconfig.c (get_ctx_auth_handler): Initializing saw_ntlm
+	and saw_basic flags and setting saw ntlm if the response header begins
+	with "NTLM ".
+	(validate): Setting the is_ntlm flag if the user is authenticated.	
+
 2005-03-16  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* docs/reference/Makefile.am : Link to krb5 libs as well

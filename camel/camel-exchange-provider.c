@@ -151,11 +151,16 @@ exchange_validate_user_cb (CamelURL *camel_url, const char *owa_url,
 	exchange_params->ad_server = NULL;
 	exchange_params->mailbox = NULL;
 	exchange_params->owa_path = NULL;
+	exchange_params->is_ntlm = TRUE;
 
 	valid = e2k_validate_user (owa_url, camel_url->user, 
 				   exchange_params, remember_password);
 
+	/* If not valid we will not proceed with account setup */
+	/* We can check for valid once instead of doing it for every parameter */
 	camel_url_set_host(camel_url, valid?exchange_params->host:"");
+	if (valid)
+		camel_url_set_authmech (camel_url, exchange_params->is_ntlm?"NTLM":"Basic");
 	camel_url_set_param(camel_url, "ad_server", valid?exchange_params->ad_server:NULL);
 	camel_url_set_param(camel_url, "mailbox", valid?exchange_params->mailbox:NULL);
 	camel_url_set_param(camel_url, "owa_path", valid?exchange_params->owa_path:NULL);
