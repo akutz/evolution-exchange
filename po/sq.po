@@ -1,14 +1,14 @@
 # Përkthimi i mesazheve të evolution-exchange në shqip
 # This file is distributed under the same license as the evolution-exchange package.
-# Copyright (C) 2004 Free Software Foundation, Inc.
-# Laurent Dhima <laurenti@alblinux.net>, 2004.
+# Copyright (C) 2004, 2005 Free Software Foundation, Inc.
+# Laurent Dhima <laurenti@alblinux.net>, 2004, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-11 16:32+0530\n"
-"PO-Revision-Date: 2004-12-17 11:35+0100\n"
+"PO-Revision-Date: 2005-01-14 12:35+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -78,9 +78,9 @@ msgid "Could not create cache for %s"
 msgstr "I pamundur krijimi i cache për %s"
 
 #: camel/camel-exchange-folder.c:957
-#, fuzzy, c-format
+#, c-format
 msgid "Could not create journal for %s"
-msgstr "I pamundur krijimi i cache për %s"
+msgstr "I pamundur krijimi i ditarit për %s"
 
 #: camel/camel-exchange-folder.c:997
 msgid "Scanning for changed messages"
@@ -115,12 +115,12 @@ msgstr "Numri limit i përgjigjeve GAL: %s"
 
 #: camel/camel-exchange-provider.c:60
 msgid "Password Expiry Warning"
-msgstr ""
+msgstr "Paralajmërim në lidhje me skadimin e fjalëkalimit"
 
 #: camel/camel-exchange-provider.c:62
 #, c-format
 msgid "Password Expiry Warning period: %s"
-msgstr ""
+msgstr "Periudha për paralajmërim në lidhje me skadimin e fjalëkalimit: %s"
 
 #. i18n: copy from evolution:camel-imap-provider.c
 #: camel/camel-exchange-provider.c:66
@@ -186,38 +186,29 @@ msgid "Evolution Exchange backend process"
 msgstr "Proçesi backend Evolution Exchange"
 
 #: camel/camel-exchange-store.c:352
-#, fuzzy, c-format
+#, c-format
 msgid "No such folder %s"
-msgstr "Kartela nuk u gjet"
+msgstr "Kartela nuk u gjet: %s"
 
 #: camel/camel-exchange-store.c:474
-#, fuzzy
 msgid "Cannot get folder info in offline mode."
-msgstr "Ky operacion nuk mund të kryhet në modalitet jashtë linje"
+msgstr "E pamundur marrja e informacioneve në lidhje me kartelën në modalitet jashtë linje."
 
 #: camel/camel-exchange-store.c:536
-#, fuzzy
 msgid "Cannot create folder in offline mode."
-msgstr "I pamundur krijimi i një kartele me atë emër"
+msgstr "I pamundur krijimi i kartelës në modalitet jashtë linje."
 
 #: camel/camel-exchange-store.c:563
-#, fuzzy
 msgid "Cannot delete folder in offline mode."
-msgstr ""
-"E pamundur fshirja e kartelës:\n"
-"%s"
+msgstr "I pamundur eleminimi i kartelës në modalitet jashtë linje."
 
 #: camel/camel-exchange-store.c:579
-#, fuzzy
 msgid "Cannot rename folder in offline mode."
-msgstr ""
-"I pamundur ndryshimi i emrit të kartelës:\n"
-"%s"
+msgstr "I pamundur riemërtimi i kartelës në modalitet jashtë linje."
 
 #: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr ""
-"Transporti Exchange mund të përdoret vetëm me mail të buruar nga Exchange"
+msgstr "Transporti Exchange mund të përdoret vetëm me mail të buruar nga Exchange"
 
 #: camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
@@ -683,8 +674,7 @@ msgstr "Shkruaj fjalëkalimin"
 
 #: storage/exchange-account.c:1017
 msgid "Cannot change password due to configuration problems"
-msgstr ""
-"I pamundur ndryshimi i fjalëkalimit për arsye të problemeve në konfigurim"
+msgstr "I pamundur ndryshimi i fjalëkalimit për arsye të problemeve në konfigurim"
 
 #: storage/exchange-account.c:1032
 msgid ""
@@ -1396,20 +1386,19 @@ msgstr "Po, ndryshoje gjendjen"
 
 #: storage/exchange-passwd-expiry.glade.h:1
 msgid "Password Expiry Warning..."
-msgstr ""
+msgstr "Paralajmërim në lidhje me skadimin e fjalëkalimit..."
 
 #: storage/exchange-passwd-expiry.glade.h:2
 msgid "Your password will expire in 7 days..."
-msgstr ""
+msgstr "Fjalëkalimi juaj do të skadojë në 7 ditë..."
 
 #: storage/exchange-passwd-expiry.glade.h:3
-#, fuzzy
 msgid "_Change Password"
-msgstr "Ndrysho fjalëkalimin"
+msgstr "_Ndrysho fjalëkalimin"
 
 #: storage/exchange-passwd-expiry.glade.h:4
 msgid "ok_button"
-msgstr ""
+msgstr "ok_butoni"
 
 #: storage/exchange-permissions-dialog.c:222
 msgid "Could not read folder permissions"
@@ -1624,8 +1613,7 @@ msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Abonohu tek një kartelë që i përket një përdoruesi tjetër në server"
 
 #: storage/ximian-connector.xml.h:6
-msgid ""
-"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
 "Ç'regjistrohu nga një kartelë e shtuar me \"Regjistrohu tek Kartela "
 "Përdoruesit Tjetër\""
@@ -1656,17 +1644,3 @@ msgstr "Asistenti i _Jashtë Zyre"
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Ç'_regjistrohu nga Kartela e përdoruesit Tjetër"
 
-#~ msgid "Exc_hange Server:"
-#~ msgstr "Serveri Exc_hange:"
-
-#~ msgid "Exchange Server"
-#~ msgstr "Serveri Exchange"
-
-#~ msgid "Mailbox name"
-#~ msgstr "Emri i mailbox"
-
-#~ msgid "OWA path"
-#~ msgstr "pozicioni i OWA (Outlook Web Access)"
-
-#~ msgid "Public Folder server"
-#~ msgstr "Serveri i kartelës publike"
