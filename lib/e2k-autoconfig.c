@@ -1398,7 +1398,8 @@ validate (const char *owa_url, char *user, char *password, ExchangeParams *excha
 	E2kAutoconfigResult result;
 	E2kUri *euri;
 	gboolean valid = FALSE;
-	const char *old, *new, *path;
+	const char *old, *new;
+	char *path, *mailbox;
 
 	ac = e2k_autoconfig_new (owa_url, user, password, 
 				 E2K_AUTOCONFIG_USE_EITHER);
@@ -1409,22 +1410,44 @@ validate (const char *owa_url, char *user, char *password, ExchangeParams *excha
 	result = e2k_autoconfig_check_exchange (ac, &op);
 
 	if (result == E2K_AUTOCONFIG_OK) {
+		/*
+		 * On error code 403 and SSL seen in server response 
+		 * e2k_autoconfig_get_context() tries to
+		 * connect using https if owa url has http and vice versa.
+		 * And also re-sets the owa_uri in E2kAutoconfig.
+		 * So even if the uri is incorrect, 
+		 * e2k_autoconfig_check_exchange() will return success.
+		 * In this case of account set up, owa_url paramter will still
+		 * have wrong url entered, and we throw the error, instead of
+		 * going ahead with account setup and failing later. 
+		 */
+		if (g_str_has_prefix (ac->owa_uri, "http:")) {
+		    if (!g_str_has_prefix (owa_url, "http:"))
+			result = E2K_AUTOCONFIG_CANT_CONNECT;
+		}
+		else if (!g_str_has_prefix (owa_url, "https:"))
+			result = E2K_AUTOCONFIG_CANT_CONNECT;
+	}
+
+	if (result == E2K_AUTOCONFIG_OK) {
 		result = e2k_autoconfig_check_global_catalog (ac, &op);
 		e2k_operation_free (&op);
 		
 		/* find mailbox and owa_path values */	
 		euri = e2k_uri_new (ac->home_uri);
-		exchange_params->owa_path = g_strdup (euri->path + 1);
+		path = g_strdup (euri->path + 1);
 		e2k_uri_free (euri);
-		path = exchange_params->owa_path;
-		exchange_params->mailbox = strrchr (path, '/');
-		if (exchange_params->mailbox && !exchange_params->mailbox[1]) {
-			*exchange_params->mailbox = '\0';
-			exchange_params->mailbox = strrchr (path, '/');
+		mailbox = strrchr (path, '/');
+		if (mailbox && !mailbox[1]) {
+			*mailbox = '\0';
+			mailbox = strrchr (path, '/');
 		}
-		if (exchange_params->mailbox)
-			*exchange_params->mailbox++ = '\0';
+		if (mailbox)
+			*mailbox++ = '\0';
 
+		exchange_params->mailbox  = g_strdup (mailbox);
+		exchange_params->owa_path = g_strdup_printf ("%s%s", "/", path);
+		g_free (path);
 		exchange_params->host = ac->pf_server;
 		if (ac->gc_server) 
 			exchange_params->ad_server = ac->gc_server;
