@@ -6,6 +6,7 @@ CAMEL_provider_DATA = libcamelexchange.urls
 INCLUDES =					\
 	$(WARN_CFLAGS)				\
 	-I$(top_srcdir)				\
+	$(GLIB_CFLAGS)				\
 	$(CAMEL_CFLAGS)				\
 	$(SHELL_CFLAGS)				\
 	-DCONNECTOR_LOCALEDIR=\"$(localedir)\"	\

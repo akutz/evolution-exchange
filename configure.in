@@ -111,24 +111,29 @@ AC_SUBST(EVOLUTION_privdatadir)
 EVOLUTION_imagesdir="`pkg-config --variable=imagesdir evolution-shell-2.2`"
 AC_SUBST(EVOLUTION_imagesdir)
 
-CAMEL_providerdir="`pkg-config --variable=camel_providerdir camel-2.2`"
+CAMEL_providerdir="`pkg-config --variable=camel_providerdir camel-1.2`"
 AC_SUBST(CAMEL_providerdir)
 
 
-PKG_CHECK_MODULES(ADDRESSBOOK, libedata-book-1.2, camel-2.2)
+PKG_CHECK_MODULES(ADDRESSBOOK, libedata-book-1.2, camel-1.2)
 AC_SUBST(ADDRESSBOOK_CFLAGS)
 
 PKG_CHECK_MODULES(CALENDAR, libedata-cal-1.2)
 AC_SUBST(CALENDAR_CFLAGS)
 AC_SUBST(CALENDAR_LIBS)
 
-PKG_CHECK_MODULES(CAMEL, camel-2.2)
+PKG_CHECK_MODULES(CAMEL, camel-1.2)
 AC_SUBST(CAMEL_CFLAGS)
+
+dnl Should we be using this now ? We could just re-write the code that we use 
+dnl from GAL. We are anyway planning to move away from GAL
+dnl PKG_CHECK_MODULES(GAL, gal-2.4)
+dnl AC_SUBST(GAL_CFLAGS)
 
 PKG_CHECK_MODULES(MAIL, libecal-1.2)
 AC_SUBST(MAIL_CFLAGS)
 
-PKG_CHECK_MODULES(EXCHANGE_STORAGE, evolution-shell-2.2 libedata-book-1.2 libedata-cal-1.2 libsoup-2.2 libglade-2.0 libgnomeui-2.0 camel-2.2)
+PKG_CHECK_MODULES(EXCHANGE_STORAGE, evolution-shell-2.2 libedata-book-1.2 libedata-cal-1.2 libsoup-2.2 libglade-2.0 libgnomeui-2.0 camel-1.2)
 AC_SUBST(EXCHANGE_STORAGE_CFLAGS)
 AC_SUBST(EXCHANGE_STORAGE_LIBS)
 
