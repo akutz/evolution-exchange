@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-30 17:36-0400\n"
+"POT-Creation-Date: 2004-09-13 14:33-0400\n"
 "PO-Revision-Date: 2004-08-25 08:22+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Ducth <vertaling@nl.linux.org>\n"
@@ -334,7 +334,7 @@ msgstr "Map bestaat niet"
 
 #: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
 #: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
-#: shell/e-storage.c:573 storage/xc-commands.c:302
+#: shell/e-storage.c:573 storage/xc-commands.c:304
 msgid "Permission denied"
 msgstr "Toegang geweigerd"
 
@@ -432,11 +432,11 @@ msgstr "Kon bericht niet versturen"
 
 #: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
 #: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
-#: storage/xc-commands.c:306
+#: storage/xc-commands.c:308
 msgid "Generic error"
 msgstr "Algemene fout"
 
-#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
+#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:298
 msgid "Folder already exists"
 msgstr "Map bestaat al"
 
@@ -1597,57 +1597,58 @@ msgstr "Ximian Connector voor Microsoft Exchange"
 msgid "Account Name"
 msgstr "Accountnaam"
 
-#: storage/xc-commands.c:299
+#: storage/xc-commands.c:301
 msgid "Folder does not exist"
 msgstr "Map bestaat niet"
 
-#: storage/xc-commands.c:322
+#: storage/xc-commands.c:324
 #, c-format
 msgid "Could not add favorite: %s"
 msgstr "Kon favoriet niet toevoegen: %s"
 
-#: storage/xc-commands.c:336
+#: storage/xc-commands.c:338
 #, c-format
 msgid "Could not remove favorite: %s"
 msgstr "Kon favoriet niet verwijderen: %s"
 
-#: storage/xc-commands.c:353
-msgid "_Move Folder..."
-msgstr "Map _verplaatsen..."
-
-#: storage/xc-commands.c:356
-msgid "_Copy Folder..."
-msgstr "Map _kopiëren..."
-
-#: storage/xc-commands.c:359
+#.
+#. FIXME: See 62440
+#. E_POPUP_ITEM (N_("_Move Folder..."),
+#. G_CALLBACK (do_move_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#. E_POPUP_ITEM (N_("_Copy Folder..."),
+#. G_CALLBACK (do_copy_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#.
+#: storage/xc-commands.c:364
 msgid "_Rename Folder..."
 msgstr "Map _hernoemen..."
 
-#: storage/xc-commands.c:365
+#: storage/xc-commands.c:370
 msgid "_New Folder..."
 msgstr "_Nieuwe map..."
 
-#: storage/xc-commands.c:368
+#: storage/xc-commands.c:373
 msgid "_Delete Folder"
 msgstr "Map ver_wijderen"
 
-#: storage/xc-commands.c:373
+#: storage/xc-commands.c:378
 msgid "_Add Other User's Folder..."
 msgstr "Andermans map _toevoegen..."
 
-#: storage/xc-commands.c:376
+#: storage/xc-commands.c:381
 msgid "_Remove Other User's Folder"
 msgstr "Andermans map _verwijderen"
 
-#: storage/xc-commands.c:382
+#: storage/xc-commands.c:387
 msgid "Add to _Favorites"
 msgstr "Toevoegen aan _favorieten"
 
-#: storage/xc-commands.c:386
+#: storage/xc-commands.c:391
 msgid "Remove from Fa_vorites"
 msgstr "Verwijderen uit f_avorieten"
 
-#: storage/xc-commands.c:393
+#: storage/xc-commands.c:398
 msgid "_Permissions..."
 msgstr "_Rechten..."
 
@@ -1701,3 +1702,9 @@ msgstr "_Afwezigheidsassistent"
 #: storage/ximian-connector.xml.h:10
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Abonnement op andermans map opzeggen"
+
+#~ msgid "_Move Folder..."
+#~ msgstr "Map _verplaatsen..."
+
+#~ msgid "_Copy Folder..."
+#~ msgstr "Map _kopiëren..."

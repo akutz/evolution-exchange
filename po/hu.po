@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-31 19:13+0200\n"
+"POT-Creation-Date: 2004-09-13 14:33-0400\n"
 "PO-Revision-Date: 2004-09-09 16:08+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
@@ -293,7 +293,7 @@ msgstr "Nincs ilyen mappa"
 
 #: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
 #: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
-#: shell/e-storage.c:573 storage/xc-commands.c:302
+#: shell/e-storage.c:573 storage/xc-commands.c:304
 msgid "Permission denied"
 msgstr "Hozzáférés megtagadva"
 
@@ -384,11 +384,11 @@ msgstr "Nem lehet elküldeni az üzenetet"
 
 #: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
 #: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
-#: storage/xc-commands.c:306
+#: storage/xc-commands.c:308
 msgid "Generic error"
 msgstr "Általános hiba"
 
-#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
+#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:298
 msgid "Folder already exists"
 msgstr "A mappa már létezik"
 
@@ -1494,57 +1494,58 @@ msgstr "Ximian Connector a Microsoft Exchange-hez"
 msgid "Account Name"
 msgstr "Fióknév"
 
-#: storage/xc-commands.c:299
+#: storage/xc-commands.c:301
 msgid "Folder does not exist"
 msgstr "A mappa nem létezik"
 
-#: storage/xc-commands.c:322
+#: storage/xc-commands.c:324
 #, c-format
 msgid "Could not add favorite: %s"
 msgstr "Nem adható hozzá a kedvenc: %s"
 
-#: storage/xc-commands.c:336
+#: storage/xc-commands.c:338
 #, c-format
 msgid "Could not remove favorite: %s"
 msgstr "Nem törölhető a kedvenc: %s"
 
-#: storage/xc-commands.c:353
-msgid "_Move Folder..."
-msgstr "_Mappa áthelyezése..."
-
-#: storage/xc-commands.c:356
-msgid "_Copy Folder..."
-msgstr "Ma_ppa másolása..."
-
-#: storage/xc-commands.c:359
+#.
+#. FIXME: See 62440
+#. E_POPUP_ITEM (N_("_Move Folder..."),
+#. G_CALLBACK (do_move_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#. E_POPUP_ITEM (N_("_Copy Folder..."),
+#. G_CALLBACK (do_copy_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#.
+#: storage/xc-commands.c:364
 msgid "_Rename Folder..."
 msgstr "Mappa á_tnevezése..."
 
-#: storage/xc-commands.c:365
+#: storage/xc-commands.c:370
 msgid "_New Folder..."
 msgstr "Új _mappa..."
 
-#: storage/xc-commands.c:368
+#: storage/xc-commands.c:373
 msgid "_Delete Folder"
 msgstr "Mappa tö_rlése"
 
-#: storage/xc-commands.c:373
+#: storage/xc-commands.c:378
 msgid "_Add Other User's Folder..."
 msgstr "Más felhasználó mappájának _hozzáadása..."
 
-#: storage/xc-commands.c:376
+#: storage/xc-commands.c:381
 msgid "_Remove Other User's Folder"
 msgstr "Más felhasználó mappájának _eltávolítása"
 
-#: storage/xc-commands.c:382
+#: storage/xc-commands.c:387
 msgid "Add to _Favorites"
 msgstr "Hozzáadás a _kedvencekhez"
 
-#: storage/xc-commands.c:386
+#: storage/xc-commands.c:391
 msgid "Remove from Fa_vorites"
 msgstr "Eltá_volítás a kedvencek közül"
 
-#: storage/xc-commands.c:393
+#: storage/xc-commands.c:398
 msgid "_Permissions..."
 msgstr "_Jogosultságok..."
 
@@ -1596,3 +1597,9 @@ msgstr "\"Házon kívül\" _asszisztens"
 #: storage/ximian-connector.xml.h:10
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Leiratkozás más felhasználó mappájáról"
+
+#~ msgid "_Move Folder..."
+#~ msgstr "_Mappa áthelyezése..."
+
+#~ msgid "_Copy Folder..."
+#~ msgstr "Ma_ppa másolása..."

@@ -4,12 +4,11 @@
 # files from the Welsh translation project. Well, Alan Cox's program
 # that does something like msgmerge. We are unsure how to fill in the
 # copyright bit here. -- Telsa and Alan 2004-09-04
-
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-04 16:34+0100\n"
+"POT-Creation-Date: 2004-09-13 14:33-0400\n"
 "PO-Revision-Date: 2004-09-04 16:37+0100\n"
 "Last-Translator: Telsa Gwynne <hobbit@aloss.ukuu.org.uk>\n"
 "Language-Team: Cymraeg <gnome-cy@pengwyn.linux.org.uk>\n"
@@ -292,7 +291,7 @@ msgstr "Does dim ffolder %s"
 
 #: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
 #: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
-#: shell/e-storage.c:573 storage/xc-commands.c:302
+#: shell/e-storage.c:573 storage/xc-commands.c:304
 msgid "Permission denied"
 msgstr "Gwrthodwyd caniatâd"
 
@@ -385,11 +384,11 @@ msgstr "Methu anfon neges"
 
 #: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
 #: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
-#: storage/xc-commands.c:306
+#: storage/xc-commands.c:308
 msgid "Generic error"
 msgstr "Gwall generig"
 
-#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
+#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:298
 msgid "Folder already exists"
 msgstr "Mae'r ffolder eisioes yn bodoli"
 
@@ -1395,59 +1394,60 @@ msgstr "Ximian Connector for Microsoft Exchange"
 msgid "Account Name"
 msgstr "Enw'r Cyfrif"
 
-#: storage/xc-commands.c:299
+#: storage/xc-commands.c:301
 #, fuzzy
 msgid "Folder does not exist"
 msgstr "Nid yw'r ffolder yn bodoli"
 
-#: storage/xc-commands.c:322
+#: storage/xc-commands.c:324
 #, fuzzy, c-format
 msgid "Could not add favorite: %s"
 msgstr "Methu llwytho %s: %s"
 
-#: storage/xc-commands.c:336
+#: storage/xc-commands.c:338
 #, fuzzy, c-format
 msgid "Could not remove favorite: %s"
 msgstr "Methu agor ffeil: %s: %s"
 
-#: storage/xc-commands.c:353
-msgid "_Move Folder..."
-msgstr "_Symud Ffolder..."
-
-#: storage/xc-commands.c:356
-msgid "_Copy Folder..."
-msgstr "_Copïo Ffolder..."
-
-#: storage/xc-commands.c:359
+#.
+#. FIXME: See 62440
+#. E_POPUP_ITEM (N_("_Move Folder..."),
+#. G_CALLBACK (do_move_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#. E_POPUP_ITEM (N_("_Copy Folder..."),
+#. G_CALLBACK (do_copy_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#.
+#: storage/xc-commands.c:364
 msgid "_Rename Folder..."
 msgstr "_Ail-enwi Ffolder..."
 
-#: storage/xc-commands.c:365
+#: storage/xc-commands.c:370
 msgid "_New Folder..."
 msgstr "_Ffolder Newydd..."
 
-#: storage/xc-commands.c:368
+#: storage/xc-commands.c:373
 msgid "_Delete Folder"
 msgstr "Dileu'r Ffolder"
 
-#: storage/xc-commands.c:373
+#: storage/xc-commands.c:378
 msgid "_Add Other User's Folder..."
 msgstr "Mynd i Ffolder..."
 
-#: storage/xc-commands.c:376
+#: storage/xc-commands.c:381
 msgid "_Remove Other User's Folder"
 msgstr ""
 
-#: storage/xc-commands.c:382
+#: storage/xc-commands.c:387
 #, fuzzy
 msgid "Add to _Favorites"
 msgstr "Ychwanegu at Cysylltiadau"
 
-#: storage/xc-commands.c:386
+#: storage/xc-commands.c:391
 msgid "Remove from Fa_vorites"
 msgstr ""
 
-#: storage/xc-commands.c:393
+#: storage/xc-commands.c:398
 msgid "_Permissions..."
 msgstr ""
 
@@ -1495,3 +1495,9 @@ msgstr ""
 #: storage/ximian-connector.xml.h:10
 msgid "_Unsubscribe from Other User's Folder"
 msgstr ""
+
+#~ msgid "_Move Folder..."
+#~ msgstr "_Symud Ffolder..."
+
+#~ msgid "_Copy Folder..."
+#~ msgstr "_Copïo Ffolder..."

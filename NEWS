@@ -1,71 +1,38 @@
-Changes to Ximian Connector between 1.5.93 and 1.5.94
+Changes to Ximian Connector between 1.4.x and 2.0:
 
-	* Several new translations
+	* Major UI change to reflect changes in Evolution 2.0:
 
-	* Fixed a crash when moving messages [63315]
+		* Mail, addressbook, calendar, and task folders are
+                  now viewed in separate components.
 
-	* Fixed a bug in importing calendar objects [61053]
+		* If you have Connector installed, there is a fifth
+                  component available named "Exchange" which you can
+                  use to do Exchange-specific operations, such as
+                  editing folder permissions or changing your
+                  Out-of-Office status.
 
-	* Fixed an autoconfiguration problem against Exchange 2000 SP2
+		* Other users' folders that you have subscribed to
+                  will show up in the corresponding components. (Eg,
+                  another user's Calendar will show up in the Calendar
+                  component.)
 
-	* Fixes to calendar direct booking code.
+		* Public folders that you have added to your "Favorite
+                  Public Folders" hierarchy will also show up in the
+                  corresponding components. (You can add folders to
+                  the favorites hierarchy from either Outlook or
+                  Connector.)
 
-	* Fixed a crash in Favorite folders code [64235]
+	* You can now change your Exchange/Windows password from
+          Evolution, using the "Change Exchange Password" command in
+          the Exchange component. Also, if your site uses password
+          expiration, Connector will recognize when your password has
+          expired, and allow you to change it.
 
-	* Fixed a crash in autocompletion [63546]
+	* Connector is now localized to Albanian, Arabic, Bangla,
+          Czech, Danish, Dutch, British English, Canadian English,
+          German, Greek, Finnish, Gujarati, Hungarian, Japanese,
+          Korean, Polish, Portuguese, Punjabi, Serbian, Spanish,
+          Tamil, Turkish, and Ukranian. (Translations have also been
+          begun for several other languages.)
 
-Changes between 1.5.92 and 1.5.93
-
-	* Fixed several regressions from 1.4:
-		* Direct booking now works again
-		* Alarms dismissed in Evolution are considered
-		  dismissed by Outlook as well [45103]
-		* "Favorite" Public folders now show up in the various
-		  component views
-
-	* Fixed a crash unsubscribing from another user's folder
-
-	* Fixed a problem with deleting Exchange addressbooks and
-          calendars. [57129] Addressbook/calendar/task sources are now
-          properly renamed when the account is renamed [61332]
-
-	* Fixed a bug that could result in some messages not going
-          away properly when deleting large numbers of messages.
-
-	* Fixed a hang when updating meeting information [62631]
-
-	* Fixed a crash when moving an appointment [62852]
-
-	* Added configure flags for kerberos support on 64-bit
-          platforms.
-
-	* Fixed a crash in the delegation code [62248]
-
-
-Changes between 1.5.91 and 1.5.92
-
-	* Fixed some issues with JUNK folder
-
-	* Fixed subscribed folder display in components [60964], [61950]
-
-	* Fixed some issues with mail folders [58802]
-
-	* Fixed issues with Fav folder handling [62257]
-
-	* Couple of new translations like Norwegian Nynorsk
-
-Changes between 1.5.90 and 1.5.91 (2.0 beta 2)
-
-	* Fixed the entry for Connector in the View -> Window submenu
-	  [59196]
-
-	* Fixed free/busy support [61045]
-
-	* Tweaked the libxml usage to allow building on Red Hat 9's
-	  older libxml
-
-	* Fixed some problems with password changing
-
-Changes between 1.4.x and 2.0
-
-	* FIXME
+	* Various bugs fixed

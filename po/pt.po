@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-30 17:36-0400\n"
+"POT-Creation-Date: 2004-09-13 14:33-0400\n"
 "PO-Revision-Date: 2004-08-15 00:55+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
@@ -295,7 +295,7 @@ msgstr "Pasta inexistente"
 
 #: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
 #: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
-#: shell/e-storage.c:573 storage/xc-commands.c:302
+#: shell/e-storage.c:573 storage/xc-commands.c:304
 msgid "Permission denied"
 msgstr "Permissão negada"
 
@@ -386,11 +386,11 @@ msgstr "Incapaz de enviar a mensagem"
 
 #: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
 #: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
-#: storage/xc-commands.c:306
+#: storage/xc-commands.c:308
 msgid "Generic error"
 msgstr "Erro genérico"
 
-#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
+#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:298
 msgid "Folder already exists"
 msgstr "A pasta já existe"
 
@@ -1488,57 +1488,58 @@ msgstr "Conector Ximian para o Microsoft Exchange"
 msgid "Account Name"
 msgstr "Nome da Conta"
 
-#: storage/xc-commands.c:299
+#: storage/xc-commands.c:301
 msgid "Folder does not exist"
 msgstr "Pasta não existe"
 
-#: storage/xc-commands.c:322
+#: storage/xc-commands.c:324
 #, c-format
 msgid "Could not add favorite: %s"
 msgstr "Incapaz de adicionar favorito: %s"
 
-#: storage/xc-commands.c:336
+#: storage/xc-commands.c:338
 #, c-format
 msgid "Could not remove favorite: %s"
 msgstr "Incapaz de remover favorito: %s"
 
-#: storage/xc-commands.c:353
-msgid "_Move Folder..."
-msgstr "_Mover a Pasta..."
-
-#: storage/xc-commands.c:356
-msgid "_Copy Folder..."
-msgstr "_Copiar a Pasta..."
-
-#: storage/xc-commands.c:359
+#.
+#. FIXME: See 62440
+#. E_POPUP_ITEM (N_("_Move Folder..."),
+#. G_CALLBACK (do_move_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#. E_POPUP_ITEM (N_("_Copy Folder..."),
+#. G_CALLBACK (do_copy_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#.
+#: storage/xc-commands.c:364
 msgid "_Rename Folder..."
 msgstr "_Renomear a Pasta..."
 
-#: storage/xc-commands.c:365
+#: storage/xc-commands.c:370
 msgid "_New Folder..."
 msgstr "_Nova Pasta..."
 
-#: storage/xc-commands.c:368
+#: storage/xc-commands.c:373
 msgid "_Delete Folder"
 msgstr "_Apagar a Pasta"
 
-#: storage/xc-commands.c:373
+#: storage/xc-commands.c:378
 msgid "_Add Other User's Folder..."
 msgstr "A_dicionar a Pasta de Outro Utilizador..."
 
-#: storage/xc-commands.c:376
+#: storage/xc-commands.c:381
 msgid "_Remove Other User's Folder"
 msgstr "_Remover a Pasta de Outro Utilizador"
 
-#: storage/xc-commands.c:382
+#: storage/xc-commands.c:387
 msgid "Add to _Favorites"
 msgstr "Adicionar aos _Favoritos"
 
-#: storage/xc-commands.c:386
+#: storage/xc-commands.c:391
 msgid "Remove from Fa_vorites"
 msgstr "Remover dos Fa_voritos"
 
-#: storage/xc-commands.c:393
+#: storage/xc-commands.c:398
 msgid "_Permissions..."
 msgstr "_Permissões..."
 
@@ -1591,6 +1592,12 @@ msgstr "Assistente de Ausente do _Escritório"
 #: storage/ximian-connector.xml.h:10
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Remover a Subscrição da Pasta de Outro _Utilizador"
+
+#~ msgid "_Move Folder..."
+#~ msgstr "_Mover a Pasta..."
+
+#~ msgid "_Copy Folder..."
+#~ msgstr "_Copiar a Pasta..."
 
 #~ msgid "Exchange _Quota"
 #~ msgstr "_Quota Exchange"

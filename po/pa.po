@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD.pa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-30 17:36-0400\n"
+"POT-Creation-Date: 2004-09-13 14:33-0400\n"
 "PO-Revision-Date: 2004-08-21 15:19+0530\n"
 "Last-Translator: Amanpreet Singh Alam <aalam@redhat.com>\n"
 "Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
@@ -298,7 +298,7 @@ msgstr "ਇਸਤਰਾਂ ਦਾ ਕੋਈ ਫੋਲਡਰ ਨਹੀ ਹੈ"
 
 #: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
 #: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
-#: shell/e-storage.c:573 storage/xc-commands.c:302
+#: shell/e-storage.c:573 storage/xc-commands.c:304
 msgid "Permission denied"
 msgstr "ਅਧਿਕਾਰ ਪਾਬੰਦੀ"
 
@@ -389,11 +389,11 @@ msgstr "ਸੁਨੇਹਾ ਭੇਜਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ ਹ�
 
 #: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
 #: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
-#: storage/xc-commands.c:306
+#: storage/xc-commands.c:308
 msgid "Generic error"
 msgstr "ਆਮ ਗਲਤੀ"
 
-#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
+#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:298
 msgid "Folder already exists"
 msgstr "ਫੋਲਡਰ ਮੌਜੂਦ ਹੈ"
 
@@ -1475,57 +1475,58 @@ msgstr "ਮਾਈਸਾਫਟ ਐਕਸ਼ਚੇਜ਼ ਲਈ ਐਕਜ਼ਾਇਮ ਕ�
 msgid "Account Name"
 msgstr "ਖਾਤਾ ਨਾਂ"
 
-#: storage/xc-commands.c:299
+#: storage/xc-commands.c:301
 msgid "Folder does not exist"
 msgstr "ਫੋਲਡਰ ਮੌਜੂਦ ਨਹੀ ਹੈ"
 
-#: storage/xc-commands.c:322
+#: storage/xc-commands.c:324
 #, c-format
 msgid "Could not add favorite: %s"
 msgstr "ਪਸੰਦੀਦਾ ਵਿੱਚ ਸ਼ਾਮਿਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ: %s"
 
-#: storage/xc-commands.c:336
+#: storage/xc-commands.c:338
 #, c-format
 msgid "Could not remove favorite: %s"
 msgstr "ਪਸੰਦੀਦਾ ਨੂੰ ਹਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ: %s"
 
-#: storage/xc-commands.c:353
-msgid "_Move Folder..."
-msgstr "ਫੋਲਡਰ ਭੇਜੋ..."
-
-#: storage/xc-commands.c:356
-msgid "_Copy Folder..."
-msgstr "ਫੋਲਡਰ ਦੀ ਨਕਲ ਕਰੋ..."
-
-#: storage/xc-commands.c:359
+#.
+#. FIXME: See 62440
+#. E_POPUP_ITEM (N_("_Move Folder..."),
+#. G_CALLBACK (do_move_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#. E_POPUP_ITEM (N_("_Copy Folder..."),
+#. G_CALLBACK (do_copy_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#.
+#: storage/xc-commands.c:364
 msgid "_Rename Folder..."
 msgstr "ਫੋਲਡਰ ਨਾਂ-ਤਬਦੀਲ..."
 
-#: storage/xc-commands.c:365
+#: storage/xc-commands.c:370
 msgid "_New Folder..."
 msgstr "ਨਵਾਂ ਫੋਲਡਰ..."
 
-#: storage/xc-commands.c:368
+#: storage/xc-commands.c:373
 msgid "_Delete Folder"
 msgstr "ਫੋਲਡਰ ਹਟਾਓ"
 
-#: storage/xc-commands.c:373
+#: storage/xc-commands.c:378
 msgid "_Add Other User's Folder..."
 msgstr "ਹੋਰ ਉਪਭੋਗਤਾ ਫੋਲਡਰ ਸ਼ਾਮਿਲ ਕਰੋ"
 
-#: storage/xc-commands.c:376
+#: storage/xc-commands.c:381
 msgid "_Remove Other User's Folder"
 msgstr "ਹੋਰ ਉਪਭੋਗਤਾ ਦਾ ਫੋਲਡਰ ਹਟਾਓ"
 
-#: storage/xc-commands.c:382
+#: storage/xc-commands.c:387
 msgid "Add to _Favorites"
 msgstr "ਮਨਪਸੰਦ ਵਿੱਚ ਸ਼ਾਮਿਲ ਕਰੋ"
 
-#: storage/xc-commands.c:386
+#: storage/xc-commands.c:391
 msgid "Remove from Fa_vorites"
 msgstr "ਪਸੰਦੀਦਾ ਵਿੱਚੋਂ ਹਟਾਓ"
 
-#: storage/xc-commands.c:393
+#: storage/xc-commands.c:398
 msgid "_Permissions..."
 msgstr "ਅਧਿਕਾਰ..."
 
@@ -1573,3 +1574,9 @@ msgstr "ਦਫ਼ਤਰ ਬਾਹਰੀ ਸਹਾਇਕ"
 #: storage/ximian-connector.xml.h:10
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "ਹੋਰ ਉਪਭੋਗਤਾ ਦੇ ਫੋਲਡਰਾਂ ਨੂੰ ਅਸਵੀਕਾਰ ਕਰੋ"
+
+#~ msgid "_Move Folder..."
+#~ msgstr "ਫੋਲਡਰ ਭੇਜੋ..."
+
+#~ msgid "_Copy Folder..."
+#~ msgstr "ਫੋਲਡਰ ਦੀ ਨਕਲ ਕਰੋ..."

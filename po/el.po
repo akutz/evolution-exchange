@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.gnome-2-8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-02 12:46+0300\n"
+"POT-Creation-Date: 2004-09-13 14:33-0400\n"
 "PO-Revision-Date: 2004-09-02 11:33+0300\n"
 "Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
 "Language-Team:  <nls@tux.hellug.gr>\n"
@@ -300,7 +300,7 @@ msgstr "Δεν υπάρχει τέτοιος φάκελος"
 
 #: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
 #: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
-#: shell/e-storage.c:573 storage/xc-commands.c:302
+#: shell/e-storage.c:573 storage/xc-commands.c:304
 msgid "Permission denied"
 msgstr "Δεν επιτρέπεται η πρόσβαση"
 
@@ -393,11 +393,11 @@ msgstr "Αδυναμία αποστολής μηνύματος"
 
 #: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
 #: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
-#: storage/xc-commands.c:306
+#: storage/xc-commands.c:308
 msgid "Generic error"
 msgstr "Γενικό σφάλμα"
 
-#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
+#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:298
 msgid "Folder already exists"
 msgstr "Ο Φάκελος υπάρχει ήδη"
 
@@ -1502,57 +1502,58 @@ msgstr "Ximian Connector για Microsoft Exchange"
 msgid "Account Name"
 msgstr "Όνομα Λογαριασμού"
 
-#: storage/xc-commands.c:299
+#: storage/xc-commands.c:301
 msgid "Folder does not exist"
 msgstr "Ο φάκελος δεν υπάρχει"
 
-#: storage/xc-commands.c:322
+#: storage/xc-commands.c:324
 #, c-format
 msgid "Could not add favorite: %s"
 msgstr "Αδυναμία προσθήκης αγαπημένου: %s"
 
-#: storage/xc-commands.c:336
+#: storage/xc-commands.c:338
 #, c-format
 msgid "Could not remove favorite: %s"
 msgstr "Αδυναμία απομάκρυνσης αγαπημένου: %s"
 
-#: storage/xc-commands.c:353
-msgid "_Move Folder..."
-msgstr "Μετακίνηση φακέλου..."
-
-#: storage/xc-commands.c:356
-msgid "_Copy Folder..."
-msgstr "Αντιγραφή φακέλου..."
-
-#: storage/xc-commands.c:359
+#.
+#. FIXME: See 62440
+#. E_POPUP_ITEM (N_("_Move Folder..."),
+#. G_CALLBACK (do_move_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#. E_POPUP_ITEM (N_("_Copy Folder..."),
+#. G_CALLBACK (do_copy_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#.
+#: storage/xc-commands.c:364
 msgid "_Rename Folder..."
 msgstr "_Μετονομασία φακέλου..."
 
-#: storage/xc-commands.c:365
+#: storage/xc-commands.c:370
 msgid "_New Folder..."
 msgstr "_Νέος Φάκελος..."
 
-#: storage/xc-commands.c:368
+#: storage/xc-commands.c:373
 msgid "_Delete Folder"
 msgstr "_Διαγραφή φακέλου"
 
-#: storage/xc-commands.c:373
+#: storage/xc-commands.c:378
 msgid "_Add Other User's Folder..."
 msgstr "Προ_σθήκη φακέλου άλλων χρηστών"
 
-#: storage/xc-commands.c:376
+#: storage/xc-commands.c:381
 msgid "_Remove Other User's Folder"
 msgstr "Απομάκρ_υνση φακέλου άλλων χρηστών"
 
-#: storage/xc-commands.c:382
+#: storage/xc-commands.c:387
 msgid "Add to _Favorites"
 msgstr "Προσθήκη στα Α_γαπημένα"
 
-#: storage/xc-commands.c:386
+#: storage/xc-commands.c:391
 msgid "Remove from Fa_vorites"
 msgstr "Απομάκρυνση από Α_γαπημένα"
 
-#: storage/xc-commands.c:393
+#: storage/xc-commands.c:398
 msgid "_Permissions..."
 msgstr "_Δικαιώματα..."
 
@@ -1604,3 +1605,9 @@ msgstr "Βοηθός Εκ_τός Γραφείου"
 #: storage/ximian-connector.xml.h:10
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Κατάργηση συ_νδρομής από φάκελο άλλου χρήστη"
+
+#~ msgid "_Move Folder..."
+#~ msgstr "Μετακίνηση φακέλου..."
+
+#~ msgid "_Copy Folder..."
+#~ msgstr "Αντιγραφή φακέλου..."
