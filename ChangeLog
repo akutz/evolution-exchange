@@ -7,6 +7,15 @@
 	return success immediately (with no matches) rather than searching
 	the entire GC.
 
+	(ldap_search_dtor): we don't need to lock/unlock the view's mutex
+	anymore. [copied from e-book-backend-ldap.c]
+
+	(ldap_search_handler): remove the ref/unref of the book view here.
+        (e_book_backend_ldap_search): move the ref of the book view
+	here.
+        (ldap_search_dtor): and the unref to here. [copied from
+	e-book-backend-ldap.c]
+
 2004-06-16  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* storage/exchange-autoconfig-wizard.glade: Made the activate_defaults
