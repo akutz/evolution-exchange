@@ -1269,8 +1269,7 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 	switch (bepriv->mode) {
 
 	case GNOME_Evolution_Addressbook_MODE_LOCAL:
-		e_data_book_respond_create(book, opid, GNOME_Evolution_Addressbook_RepositoryOffline, NULL);
-		return GNOME_Evolution_Addressbook_Success;
+		return GNOME_Evolution_Addressbook_RepositoryOffline;
 	
 	case GNOME_Evolution_Addressbook_MODE_REMOTE:	
 		*contact = e_contact_new_from_vcard (vcard);
@@ -1752,10 +1751,8 @@ e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 						EVC_FORMAT_VCARD_30));
 			g_object_unref (offline_contacts->data);
 		}
-		e_data_book_respond_get_contact_list (book, 
-						opid, 
-						GNOME_Evolution_Addressbook_Success,
-						vcard_list);
+
+	    	*contacts = vcard_list;
 		if (temp)
 			g_list_free (temp);
 		return GNOME_Evolution_Addressbook_Success;
