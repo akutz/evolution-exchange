@@ -21,6 +21,7 @@
 #include <config.h>
 #endif
 
+#include <glib/gtypes.h>
 #include "xntlm-md4.h"
 
 #include <string.h>
@@ -36,10 +37,10 @@
 
 static void
 md4sum_round (const unsigned char *M,
-	      unsigned long *AA, unsigned long *BB,
-	      unsigned long *CC, unsigned long *DD)
+	      guint32 *AA, guint32 *BB,
+	      guint32 *CC, guint32 *DD)
 {
-	unsigned long A, B, C, D, X[16];
+	guint32 A, B, C, D, X[16];
 	int i;
 
 	for (i = 0; i < 16; i++) {
@@ -121,7 +122,7 @@ void
 xntlm_md4sum (const unsigned char *in, int nbytes, unsigned char digest[16])
 {
 	unsigned char M[128];
-	unsigned long A, B, C, D;
+	guint32 A, B, C, D;
 	int pbytes, nbits = nbytes * 8, remaining_bytes;
 	int total_len, offset;
 
