@@ -694,8 +694,7 @@ exchange_hierarchy_webdav_construct (ExchangeHierarchyWebDAV *hwd,
 				     const char *owner_email,
 				     const char *source_uri,
 				     gboolean deep_searchable,
-				     const char *toplevel_icon,
-				     int sorting_priority)
+				     const char *toplevel_icon)
 {
 	EFolder *toplevel;
 
@@ -707,7 +706,6 @@ exchange_hierarchy_webdav_construct (ExchangeHierarchyWebDAV *hwd,
 					  physical_uri_prefix,
 					  internal_uri_prefix);
 	e_folder_set_custom_icon (toplevel, toplevel_icon);
-	e_folder_set_sorting_priority (toplevel, sorting_priority);
 	e_folder_exchange_set_has_subfolders (toplevel, TRUE);
 	exchange_hierarchy_construct (EXCHANGE_HIERARCHY (hwd),
 				      account, type, toplevel,
@@ -733,8 +731,7 @@ exchange_hierarchy_webdav_new (ExchangeAccount *account,
 			       const char *owner_email,
 			       const char *source_uri,
 			       gboolean deep_searchable,
-			       const char *toplevel_icon,
-			       int sorting_priority)
+			       const char *toplevel_icon)
 {
 	ExchangeHierarchy *hier;
 
@@ -746,6 +743,6 @@ exchange_hierarchy_webdav_new (ExchangeAccount *account,
 					     internal_uri_prefix,
 					     owner_name, owner_email,
 					     source_uri, deep_searchable,
-					     toplevel_icon, sorting_priority);
+					     toplevel_icon);
 	return hier;
 }

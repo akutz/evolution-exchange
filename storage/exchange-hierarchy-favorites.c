@@ -171,12 +171,12 @@ exchange_hierarchy_favorites_new (ExchangeAccount *account,
 
 	exchange_hierarchy_webdav_construct (EXCHANGE_HIERARCHY_WEBDAV (hier),
 					     account,
-					     EXCHANGE_HIERARCHY_PUBLIC,
+					     EXCHANGE_HIERARCHY_FAVORITES,
 					     hierarchy_name,
 					     physical_uri_prefix,
 					     public_uri,
 					     owner_name, owner_email,
 					     source_uri,
-					     FALSE, "public-folder", -1);
+					     FALSE, "public-folder");
 	return hier;
 }

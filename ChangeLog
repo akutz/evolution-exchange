@@ -1,3 +1,38 @@
+2004-05-13  Dan Winship  <danw@novell.com>
+
+	* storage/exchange-hierarchy.h (ExchangeHierarchyType): Add values
+	for FAVORITES and GAL, and sort the values in the same order we
+	want the hierarchies to show up in the tree.
+
+	* storage/exchange-hierarchy.c (add_to_storage): Set the toplevel
+	folder's sorting_priority based on its type.
+
+	* storage/exchange-hierarchy-webdav.c
+	(exchange_hierarchy_webdav_construct,
+	exchange_hierarchy_webdav_new): Remove the sorting_priority arg
+	and the call to e_folder_set_sorting_priority. ExchangeHierarchy
+	will handle this now.
+
+	* storage/exchange-hierarchy-gal.c (exchange_hierarchy_gal_new):
+	Use EXCHANGE_HIERARCHY_GAL as the type now
+
+	* storage/exchange-hierarchy-foreign.c (hierarchy_foreign_new):
+	update for exchange_hierarchy_webdav_new() change
+
+	* storage/exchange-hierarchy-favorites.c
+	(exchange_hierarchy_favorites_new): use
+	EXCHANGE_HIERARCHY_FAVORITES as the type now, and don't pass a
+	sort order.
+
+	* storage/exchange-account.c (exchange_account_connect): update
+	for exchange_hierarchy_webdav_new() change
+
+	* storage/xc-commands.c (do_view_folder): Gone now.
+	(do_remove_favorite): Add (FIXMEd)
+	(xc_commands_context_menu): Simplify a little for the new
+	EXCHANGE_HIERARCHY_ values, add "remove from favorites", and
+	generally fix up a little.
+
 2004-05-13  Sushma Rai  <rsushma@novell.com>
 
 	* storage/exchange-hierarchy-webdav.c (xfer_folder): Removing

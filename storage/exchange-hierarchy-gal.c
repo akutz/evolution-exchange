@@ -50,7 +50,7 @@ exchange_hierarchy_gal_new (ExchangeAccount *account,
 					  physical_uri_prefix,
 					  physical_uri_prefix);
 	exchange_hierarchy_construct (hier, account,
-				      EXCHANGE_HIERARCHY_PUBLIC, toplevel,
+				      EXCHANGE_HIERARCHY_GAL, toplevel,
 				      NULL, NULL, NULL);
 	g_object_unref (toplevel);
 

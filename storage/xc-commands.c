@@ -206,14 +206,6 @@ xc_folder_command_data_free (XCFolderCommandData *fcd)
 
 
 static void
-do_view_folder (GtkWidget *item, XCFolderCommandData *fcd)
-{
-	e_storage_set_view_set_current_folder (fcd->storage_set_view,
-					       fcd->folder_path);
-	xc_folder_command_data_free (fcd);
-}
-
-static void
 do_move_folder (GtkWidget *item, XCFolderCommandData *fcd)
 {
 	e_notice (item, GTK_MESSAGE_ERROR, "FIXME (do_move_folder)");
@@ -300,27 +292,33 @@ do_add_favorite (GtkWidget *item, XCFolderCommandData *fcd)
 	xc_folder_command_data_free (fcd);
 }
 
-#define XC_FOLDER_COMMAND_MASK_VIEW        (1 << 0)
+static void
+do_remove_favorite (GtkWidget *item, XCFolderCommandData *fcd)
+{
+	e_notice (item, GTK_MESSAGE_ERROR, "FIXME (do_remove_favorite)");
+	xc_folder_command_data_free (fcd);
+}
+
+#define XC_FOLDER_COMMAND_MASK_MOVECOPY    (1 << 0)
 #define XC_FOLDER_COMMAND_MASK_CHANGE      (1 << 1)
 #define XC_FOLDER_COMMAND_MASK_PERMISSIONS (1 << 2)
 
 #define XC_FOLDER_COMMAND_MASK_NORMAL      (1 << 3)
-#define XC_FOLDER_COMMAND_MASK_FOREIGN     (1 << 4)
+#define XC_FOLDER_COMMAND_MASK_FAVORITES   (1 << 4)
 #define XC_FOLDER_COMMAND_MASK_PUBLIC      (1 << 5)
+#define XC_FOLDER_COMMAND_MASK_FOREIGN     (1 << 6)
 
 #define E_POPUP_SEPARATOR_WITH_MASK(mask) { "", NULL, (NULL), NULL, mask }
 
 static EPopupMenu popup_menu [] = {
-	E_POPUP_ITEM (N_("_View"),
-		      G_CALLBACK (do_view_folder),
-		      XC_FOLDER_COMMAND_MASK_VIEW),
-	E_POPUP_SEPARATOR,
-
 	E_POPUP_ITEM (N_("_Move Folder..."),
 		      G_CALLBACK (do_move_folder),
-		      XC_FOLDER_COMMAND_MASK_CHANGE),
+		      XC_FOLDER_COMMAND_MASK_MOVECOPY),
 	E_POPUP_ITEM (N_("_Copy Folder..."),
 		      G_CALLBACK (do_copy_folder),
+		      XC_FOLDER_COMMAND_MASK_MOVECOPY),
+	E_POPUP_ITEM (N_("_Rename Folder..."),
+		      G_CALLBACK (do_rename_folder),
 		      XC_FOLDER_COMMAND_MASK_CHANGE),
 
 	E_POPUP_SEPARATOR,
@@ -332,12 +330,6 @@ static EPopupMenu popup_menu [] = {
 		      G_CALLBACK (do_delete_folder),
 		      XC_FOLDER_COMMAND_MASK_CHANGE|
 		      XC_FOLDER_COMMAND_MASK_NORMAL),
-	E_POPUP_ITEM (N_("_Rename Folder..."),
-		      G_CALLBACK (do_rename_folder),
-		      XC_FOLDER_COMMAND_MASK_CHANGE|
-		      XC_FOLDER_COMMAND_MASK_NORMAL),
-
-	E_POPUP_SEPARATOR_WITH_MASK(XC_FOLDER_COMMAND_MASK_NORMAL),
 
 	E_POPUP_ITEM (N_("_Add Other User's Folder..."),
 		      G_CALLBACK (do_add_foreign_folder),
@@ -346,14 +338,22 @@ static EPopupMenu popup_menu [] = {
 		      G_CALLBACK (do_remove_foreign_folder),
 		      XC_FOLDER_COMMAND_MASK_FOREIGN),
 
-	E_POPUP_SEPARATOR_WITH_MASK(XC_FOLDER_COMMAND_MASK_FOREIGN),
+	E_POPUP_SEPARATOR,
+
+	E_POPUP_ITEM (N_("Add to _Favorites"),
+		      G_CALLBACK (do_add_favorite),
+		      XC_FOLDER_COMMAND_MASK_MOVECOPY|
+		      XC_FOLDER_COMMAND_MASK_PUBLIC),
+	E_POPUP_ITEM (N_("Remove from Fa_vorites"),
+		      G_CALLBACK (do_remove_favorite),
+		      XC_FOLDER_COMMAND_MASK_CHANGE|
+		      XC_FOLDER_COMMAND_MASK_FAVORITES),
+
+	E_POPUP_SEPARATOR_WITH_MASK(XC_FOLDER_COMMAND_MASK_PUBLIC),
 
 	E_POPUP_ITEM (N_("_Permissions..."),
 		      G_CALLBACK (do_permissions),
 		      XC_FOLDER_COMMAND_MASK_PERMISSIONS),
-	E_POPUP_ITEM (N_("Add to _Favorites"),
-		      G_CALLBACK (do_add_favorite),
-		      XC_FOLDER_COMMAND_MASK_PUBLIC),
 
 	E_POPUP_TERMINATOR,
 };
@@ -362,7 +362,7 @@ void
 xc_commands_context_menu (EStorageSetView *storage_set_view,
 			  EFolder *folder, GdkEvent *event)
 {
-	guint32 disable_mask = 0, hide_mask = 0;
+	guint32 disable_mask, hide_mask;
 	ExchangeHierarchy *hier;
 	XCFolderCommandData *fcd;
 
@@ -375,33 +375,43 @@ xc_commands_context_menu (EStorageSetView *storage_set_view,
 
 	hier = e_folder_exchange_get_hierarchy (folder);
 
-	/* Hide either the normal or foreign folder ops or both,
-	 * depending on the hierarchy type
-	 */
-	if (EXCHANGE_IS_HIERARCHY_GAL (hier)) {
-		hide_mask |= (XC_FOLDER_COMMAND_MASK_NORMAL |
-			      XC_FOLDER_COMMAND_MASK_FOREIGN);
-	} else if (hier->type == EXCHANGE_HIERARCHY_FOREIGN)
-		hide_mask |= XC_FOLDER_COMMAND_MASK_NORMAL;
-	else
-		hide_mask |= XC_FOLDER_COMMAND_MASK_FOREIGN;
+	switch (hier->type) {
+	case EXCHANGE_HIERARCHY_PERSONAL:
+		hide_mask = (XC_FOLDER_COMMAND_MASK_FAVORITES |
+			     XC_FOLDER_COMMAND_MASK_PUBLIC |
+			     XC_FOLDER_COMMAND_MASK_FOREIGN);
+		disable_mask = 0;
+		break;
 
-	/* Disable "Add to favorites" except on public folders */
-	if (hier->type != EXCHANGE_HIERARCHY_PUBLIC ||
-	    folder == hier->toplevel)
-		disable_mask |= XC_FOLDER_COMMAND_MASK_PUBLIC;
+	case EXCHANGE_HIERARCHY_FAVORITES:
+		hide_mask = (XC_FOLDER_COMMAND_MASK_NORMAL |
+			     XC_FOLDER_COMMAND_MASK_FOREIGN);
+		disable_mask = XC_FOLDER_COMMAND_MASK_MOVECOPY;
+		break;
 
-	/* Disable Move/Copy/Delete/Rename on the top levels of all
-	 * hierarchies, disable Permissions on the top level of public
-	 * hierarchies, and disable View on the top level of
-	 * everything but the GAL.
-	 */
+	case EXCHANGE_HIERARCHY_PUBLIC:
+		hide_mask = XC_FOLDER_COMMAND_MASK_FOREIGN;
+		disable_mask = XC_FOLDER_COMMAND_MASK_FAVORITES;
+		break;
+
+	case EXCHANGE_HIERARCHY_GAL:
+		/* No context menu here either. */
+		return;
+
+	case EXCHANGE_HIERARCHY_FOREIGN:
+		hide_mask = (XC_FOLDER_COMMAND_MASK_NORMAL |
+			     XC_FOLDER_COMMAND_MASK_FAVORITES |
+			     XC_FOLDER_COMMAND_MASK_PUBLIC);
+		disable_mask = XC_FOLDER_COMMAND_MASK_MOVECOPY;
+		break;
+	}
+
 	if (folder == hier->toplevel) {
-		disable_mask |= XC_FOLDER_COMMAND_MASK_CHANGE;
-		if (hier->type == EXCHANGE_HIERARCHY_PUBLIC)
+		disable_mask |= (XC_FOLDER_COMMAND_MASK_CHANGE |
+				 XC_FOLDER_COMMAND_MASK_MOVECOPY);
+
+		if (hier->type != EXCHANGE_HIERARCHY_PERSONAL)
 			disable_mask |= XC_FOLDER_COMMAND_MASK_PERMISSIONS;
-		if (!EXCHANGE_IS_HIERARCHY_GAL (hier))
-			disable_mask |= XC_FOLDER_COMMAND_MASK_VIEW;
 	}
 
 	fcd = xc_folder_command_data_new (storage_set_view, folder);

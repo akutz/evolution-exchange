@@ -341,6 +341,7 @@ exchange_hierarchy_scan_subtree (ExchangeHierarchy *hier, EFolder *folder)
 static void
 add_to_storage (ExchangeHierarchy *hier)
 {
+	e_folder_set_sorting_priority (hier->toplevel, hier->type);
 	exchange_hierarchy_new_folder (hier, hier->toplevel);
 }
 

@@ -39,8 +39,7 @@ ExchangeHierarchy *exchange_hierarchy_webdav_new (ExchangeAccount *account,
 						  const char *owner_email,
 						  const char *source_uri,
 						  gboolean deep_searchable,
-						  const char *toplevel_icon,
-						  int sorting_priority);
+						  const char *toplevel_icon);
 
 /* for subclasses */
 ExchangeAccountFolderResult exchange_hierarchy_webdav_status_to_folder_result (E2kHTTPStatus status);
@@ -58,8 +57,7 @@ void exchange_hierarchy_webdav_construct   (ExchangeHierarchyWebDAV *hwd,
 					    const char *owner_email,
 					    const char *source_uri,
 					    gboolean deep_searchable,
-					    const char *toplevel_icon,
-					    int sorting_priority);
+					    const char *toplevel_icon);
 
 typedef void (*ExchangeHierarchyWebDAVScanCallback)    (ExchangeHierarchy *hier,
 							EFolder *folder,
