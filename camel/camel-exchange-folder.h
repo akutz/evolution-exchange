@@ -12,6 +12,7 @@ extern "C" {
 #pragma }
 #endif /* __cplusplus }*/
 
+#include <camel/camel-disco-folder.h>
 #include <camel/camel-folder.h>
 #include <camel/camel-data-cache.h>
 #include "camel-stub.h"
@@ -22,7 +23,7 @@ extern "C" {
 #define CAMEL_IS_EXCHANGE_FOLDER(o)    (CAMEL_CHECK_TYPE((o), CAMEL_EXCHANGE_FOLDER_TYPE))
 
 typedef struct {
-	CamelFolder parent_object;
+	CamelDiscoFolder parent_object;
 
 	CamelStub *stub;
 	CamelDataCache *cache;
@@ -32,7 +33,7 @@ typedef struct {
 } CamelExchangeFolder;
 
 typedef struct {
-	CamelFolderClass parent_class;
+	CamelDiscoFolderClass parent_class;
 
 } CamelExchangeFolderClass;
 

@@ -45,6 +45,7 @@
 #include <camel/camel-stream-mem.h>
 
 static CamelFolderClass *parent_class = NULL;
+static CamelDiscoFolderClass *disco_folder_class = NULL ;
 
 /* Returns the class for a CamelFolder */
 #define CF_CLASS(so) CAMEL_FOLDER_CLASS (CAMEL_OBJECT_GET_CLASS(so))
@@ -81,11 +82,20 @@ static void   transfer_messages_the_hard_way (CamelFolder *source,
 					      GPtrArray **transferred_uids,
 					      gboolean delete_originals,
 					      CamelException *ex);
+static void exchange_refresh_info (CamelFolder *folder, CamelException *ex);
+static void exchange_sync_offline (CamelFolder *folder, CamelException *ex);
+static void exchange_expunge_uids_online (CamelFolder *folder, GPtrArray *uids, 
+						CamelException *ex);
+static void exchange_cache_message (CamelDiscoFolder *disco_folder, 
+					const char *uid, CamelException *ex);
 
 static void
 class_init (CamelFolderClass *camel_folder_class)
 {
 	parent_class = (CamelFolderClass *)camel_type_get_global_classfuncs (camel_folder_get_type ());
+	CamelDiscoFolderClass *camel_disco_folder_class = CAMEL_DISCO_FOLDER_CLASS (camel_folder_class);
+
+	disco_folder_class = CAMEL_DISCO_FOLDER_CLASS (camel_type_get_global_classfuncs (camel_disco_folder_get_type ())) ;
 
 	/* virtual method definition */
 	camel_folder_class->sync = folder_sync;
@@ -97,6 +107,22 @@ class_init (CamelFolderClass *camel_folder_class)
 	camel_folder_class->search_by_uids = search_by_uids;
 	camel_folder_class->search_free = search_free;
 	camel_folder_class->transfer_messages_to = transfer_messages_to;
+
+	camel_disco_folder_class->refresh_info_online = exchange_refresh_info;
+	//camel_disco_folder_class->sync_online = exchange_sync_online;
+	camel_disco_folder_class->sync_offline = exchange_sync_offline;
+	camel_disco_folder_class->sync_resyncing = exchange_sync_offline;
+	camel_disco_folder_class->expunge_uids_online = exchange_expunge_uids_online;
+        /*camel_disco_folder_class->expunge_uids_offline = exchange_expunge_uids_offline;
+          camel_disco_folder_class->expunge_uids_resyncing = exchange_expunge_uids_resyncing;
+          camel_disco_folder_class->append_online = exchange_append_online;
+         camel_disco_folder_class->append_offline = exchange_append_offline;
+          camel_disco_folder_class->append_resyncing = exchange_append_resyncing;
+          camel_disco_folder_class->transfer_online = exchange_transfer_online;
+          camel_disco_folder_class->transfer_offline = exchange_transfer_offline;
+          camel_disco_folder_class->transfer_resyncing = exchange_transfer_resyncing;*/
+	camel_disco_folder_class->cache_message = exchange_cache_message;
+
 }
 
 #define CAMEL_EXCHANGE_SERVER_FLAGS \
@@ -139,7 +165,7 @@ camel_exchange_folder_get_type (void)
 
 	if (camel_exchange_folder_type == CAMEL_INVALID_TYPE) {
 		camel_exchange_folder_type = camel_type_register (
-			CAMEL_FOLDER_TYPE, "CamelExchangeFolder",
+			CAMEL_DISCO_FOLDER_TYPE, "CamelExchangeFolder",
 			sizeof (CamelExchangeFolder),
 			sizeof (CamelExchangeFolderClass),
 			(CamelObjectClassInitFunc) class_init,
@@ -983,4 +1009,36 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 		folder->permanent_flags = 0;
 
 	return TRUE;
+}
+
+static void 
+exchange_refresh_info (CamelFolder *folder, CamelException *ex)
+{
+	refresh_info (folder, ex);
+}
+
+static void 
+exchange_sync_offline (CamelFolder *folder, CamelException *ex)
+{
+	camel_folder_summary_save (folder->summary);
+}
+
+static void 
+exchange_expunge_uids_online (CamelFolder *folder, GPtrArray *uids, 
+				CamelException *ex)
+{
+	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
+	int i;
+
+	for (i = 0; i < uids->len ; i++) {
+		camel_exchange_folder_remove_message (exch, (const char *)uids->pdata[i]);
+	}
+
+}
+
+static void 
+exchange_cache_message (CamelDiscoFolder *disco_folder, 
+			const char *uid, CamelException *ex)
+{
+	get_message (disco_folder, uid, ex);
 }

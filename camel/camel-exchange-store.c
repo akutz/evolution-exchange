@@ -26,6 +26,7 @@
 #include <string.h>
 
 #include <camel/camel-i18n.h>
+#include <camel/camel-disco-diary.h>
 
 #include "camel-exchange-store.h"
 #include "camel-exchange-folder.h"
@@ -35,7 +36,8 @@
 #define SUBFOLDER_DIR_NAME_LEN 10
 
 
-static CamelStoreClass *parent_class = NULL;
+//static CamelStoreClass *parent_class = NULL;
+static CamelDiscoStoreClass *parent_class = NULL;
 
 #define CS_CLASS(so) ((CamelStoreClass *)((CamelObject *)(so))->klass)
 
@@ -70,6 +72,28 @@ static void             exchange_rename_folder (CamelStore *store,
 						const char *new_name,
 						CamelException *ex);
 
+static gboolean exchange_can_work_offline (CamelDiscoStore *disco_store);
+static gboolean exchange_connect_online (CamelService *service, 
+						CamelException *ex);
+static gboolean exchange_connect_offline (CamelService *service, 
+						CamelException *ex);
+static gboolean exchange_disconnect_online (CamelService *service, 
+						gboolean clean, CamelException *ex);
+static gboolean exchange_disconnect_offline (CamelService *service, 
+						gboolean clean, CamelException *ex);
+static CamelFolder * exchange_get_folder_online (CamelStore *store, 
+						const char *folder_name, guint32 flags, 
+						CamelException *ex);
+static CamelFolder * exchange_get_folder_offline (CamelStore *store, 
+						const char *folder_name, guint32 flags, 
+						CamelException *ex);
+static CamelFolderInfo * exchange_get_folder_info_online (CamelStore *store, 
+						const char *top, guint32 flags, 
+						CamelException *ex);
+static CamelFolderInfo * exchange_get_folder_info_offline (CamelStore *store, 
+						const char *top, guint32 flags, 
+						CamelException *ex);
+
 static void stub_notification (CamelObject *object, gpointer event_data, gpointer user_data);
 
 static void
@@ -79,8 +103,10 @@ class_init (CamelExchangeStoreClass *camel_exchange_store_class)
 		CAMEL_SERVICE_CLASS (camel_exchange_store_class);
 	CamelStoreClass *camel_store_class =
 		CAMEL_STORE_CLASS (camel_exchange_store_class);
+	CamelDiscoStoreClass *camel_disco_store_class =
+		CAMEL_DISCO_STORE_CLASS (camel_exchange_store_class);
 	
-	parent_class = CAMEL_STORE_CLASS (camel_type_get_global_classfuncs (camel_store_get_type ()));
+	parent_class = CAMEL_DISCO_STORE_CLASS (camel_type_get_global_classfuncs (camel_disco_store_get_type ()));
 	
 	/* virtual method overload */
 	camel_service_class->construct = construct;
@@ -96,6 +122,18 @@ class_init (CamelExchangeStoreClass *camel_exchange_store_class)
 	camel_store_class->create_folder = exchange_create_folder;
 	camel_store_class->delete_folder = exchange_delete_folder;
 	camel_store_class->rename_folder = exchange_rename_folder;
+
+	camel_disco_store_class->can_work_offline = exchange_can_work_offline ;
+	camel_disco_store_class->connect_online  = exchange_connect_online;
+	camel_disco_store_class->connect_offline = exchange_connect_offline;
+	camel_disco_store_class->disconnect_offline = exchange_disconnect_offline;
+	camel_disco_store_class->disconnect_online = exchange_disconnect_online;
+	camel_disco_store_class->get_folder_online = exchange_get_folder_online ;
+	camel_disco_store_class->get_folder_offline = exchange_get_folder_offline ;
+	camel_disco_store_class->get_folder_resyncing = exchange_get_folder_online ;
+	camel_disco_store_class->get_folder_info_online = exchange_get_folder_info_online;
+	camel_disco_store_class->get_folder_info_offline = exchange_get_folder_info_offline ;
+	camel_disco_store_class->get_folder_info_resyncing = exchange_get_folder_info_online ;
 }
 
 static void
@@ -127,7 +165,7 @@ camel_exchange_store_get_type (void)
 
 	if (!camel_exchange_store_type) {
 		camel_exchange_store_type = camel_type_register (
-			CAMEL_STORE_TYPE,
+			CAMEL_DISCO_STORE_TYPE,
 			"CamelExchangeStore",
 			sizeof (CamelExchangeStore),
 			sizeof (CamelExchangeStoreClass),
@@ -765,3 +803,110 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 		break;
 	}
 }
+
+static gboolean 
+exchange_can_work_offline (CamelDiscoStore *disco_store)
+{
+	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (disco_store);
+	//return camel_store_summary_count((CamelStoreSummary *)store->summary) != 0;
+	return TRUE;
+}
+
+static gboolean 
+exchange_connect_online (CamelService *service, CamelException *ex)
+{
+	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
+	CamelDiscoStore *disco_store = CAMEL_DISCO_STORE (service);
+	char *path;
+
+	path = g_strdup_printf ("%s/journal", exch->storage_path);
+	disco_store->diary = camel_disco_diary_new (disco_store, path, ex);
+	g_free (path);
+
+	/* FIXME : Check for connection */
+	return TRUE;
+}
+
+static gboolean 
+exchange_connect_offline (CamelService *service, CamelException *ex)
+{
+	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
+	CamelDiscoStore *disco_store = CAMEL_DISCO_STORE (service);
+	char *path;
+
+	path = g_strdup_printf ("%s/journal", exch->storage_path);
+	disco_store->diary = camel_disco_diary_new (disco_store, path, ex);
+	g_free (path);
+	
+	if (!disco_store->diary)
+		return FALSE;
+	
+	return !camel_exception_is_set (ex);
+}
+
+static gboolean 
+exchange_disconnect_online (CamelService *service, gboolean clean, 
+				CamelException *ex)
+{
+	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
+	/* FIXME : Set the connection to NULL */
+
+	exchange_disconnect_offline (service, clean, ex);
+
+	return TRUE;
+}
+
+static gboolean 
+exchange_disconnect_offline (CamelService *service, gboolean clean, 
+				CamelException *ex)
+{
+	CamelDiscoStore *disco_store = CAMEL_DISCO_STORE (service);
+	
+	if (disco_store->diary) {
+		camel_object_unref (disco_store->diary);
+		disco_store->diary = NULL;
+	}
+
+	return TRUE;
+}
+
+static CamelFolder * 
+exchange_get_folder_online (CamelStore *store, 	const char *folder_name, 
+				guint32 flags, CamelException *ex)
+{
+	return exchange_get_folder (store, folder_name, flags, ex);
+}
+
+static CamelFolder * 
+exchange_get_folder_offline (CamelStore *store, const char *folder_name, 
+				guint32 flags, CamelException *ex)
+{
+	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
+	char *folder_dir;
+
+	folder_dir = exchange_path_to_physical (exch->storage_path, folder_name);
+	if (!folder_dir || access (folder_dir, F_OK) != 0) {
+		g_free (folder_dir);
+		camel_exception_setv (ex, CAMEL_EXCEPTION_STORE_NO_FOLDER,
+					_("No such folder %s"), folder_name);
+		return NULL;
+	}
+
+	return exchange_get_folder (store, folder_name, flags, ex);
+}
+
+static CamelFolderInfo * 
+exchange_get_folder_info_online (CamelStore *store, const char *top, 
+					guint32 flags, CamelException *ex)
+{
+	return exchange_get_folder_info (store, top, flags, ex);
+}
+
+static CamelFolderInfo * 
+exchange_get_folder_info_offline (CamelStore *store, const char *top, 
+					guint32 flags, CamelException *ex)
+{
+	return NULL;
+}
+
+

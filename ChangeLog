@@ -1,5 +1,14 @@
 2005-01-07  Sarfraaz Ahmed <asarfraaz@novell.com>
 
+	* camel/camel-exchange-folder.c : Now implements the CamelFolderDisco
+	class methods. Needed for making folders available when offline.
+	* camel/camel-exchange-folder.h : Similar
+	* camel/camel-exchange-store.c : CamelExchangeStore is now derived
+	from CamelDiscoStoreClass. Implemented the virtual functions for this.
+	* camel/camel-exchange-store.h : Similar
+
+2005-01-07  Sarfraaz Ahmed <asarfraaz@novell.com>
+
 	Patch submitted by JP Rosevear for SelectNames fix.
 	* configure.in : Now check for libedataserverui as well.
 	* lib/Makefile.am : Removed the IDL files.
