@@ -1,5 +1,13 @@
 2004-09-11  Sushma Rai  <rsushma@novell.com>
 
+	* storage/exchange-config-listener.c (account_changed):
+	Removing the just the e-sources if the user changes the 
+	account name, and not forgetting the password and 
+	displaying account removal warning message.
+	Fixes #64188
+
+2004-09-11  Sushma Rai  <rsushma@novell.com>
+
 	* addressbook/e-book-backend-gal.c (build_query):
 	Added check to not to return all contacts, when user 
 	tries to get the mail ID from GAL,  while composing mail,
