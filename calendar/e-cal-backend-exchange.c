@@ -48,6 +48,9 @@ struct ECalBackendExchangePrivate {
 	/* Timezones */
 	GHashTable *timezones;
 	icaltimezone *default_timezone;
+#ifdef OFFLINE_SUPPORT
+	CalMode mode;
+#endif
 };
 
 #define PARENT_TYPE E_TYPE_CAL_BACKEND_SYNC
@@ -303,7 +306,9 @@ static ECalBackendSyncStatus
 remove_calendar (ECalBackendSync *backend, EDataCal *cal)
 {
 	d(printf("ecbe_remove_calendar(%p, %p)\n", backend, cal));
-	return GNOME_Evolution_Calendar_PermissionDenied;
+
+	//display_error_dialog("Can not perform this operation, Use Exchange component for folder operations\n");
+	return GNOME_Evolution_Calendar_PermissionDenied; /* Error code is not handled in Evolution */
 
 	/* FIXME: Deleting calendar/tasks from respective views */
 #if 0
@@ -405,7 +410,7 @@ e_cal_backend_exchange_add_object (ECalBackendExchange *cbex,
 	gboolean is_instance;
 	const char *uid;
 
-	d(printf("ecbe_add_object(%p, %s, %s)\n", cbex, href, lastmod));
+	printf("ecbe_add_object(%p, %s, %s)\n", cbex, href, lastmod);
 
 	uid = icalcomponent_get_uid (comp);
 	ecomp = g_hash_table_lookup (cbex->priv->objects, uid);
@@ -910,25 +915,78 @@ start_query (ECalBackend *backend, EDataCalView *view)
 static CalMode
 get_mode (ECalBackend *backend)
 {
+#ifdef OFFLINE_SUPPORT
+	ECalBackendExchange *cbex;
+	ECalBackendExchangePrivate *priv;
+	
+	cbex = E_CAL_BACKEND_EXCHANGE (backend);
+	priv = cbex->priv;
+
 	d(printf("ecbe_get_mode(%p)\n", backend));
 
+	return priv->mode;
+#else
 	return CAL_MODE_REMOTE;
+#endif
 }
 
 static void
 set_mode (ECalBackend *backend, CalMode mode)
 {
+#ifdef OFFLINE_SUPPORT
+	ECalBackendExchange *cbex;
+	ECalBackendExchangePrivate *priv;
+	
+	cbex = E_CAL_BACKEND_EXCHANGE (backend);
+	priv = cbex->priv;
+
 	d(printf("ecbe_set_mode(%p)\n", backend));
 
-	if (mode == CAL_MODE_REMOTE) {
+	if (priv->mode == mode) {
 		e_cal_backend_notify_mode (
 			backend, GNOME_Evolution_Calendar_CalListener_MODE_SET,
+			cal_mode_to_corba (mode));
+	}
+
+	switch (mode) {
+	
+	case CAL_MODE_REMOTE:
+			/* Change status to be online now */
+			priv->mode = CAL_MODE_REMOTE;
+			/* Should we check for access rights before setting this ? */
+			priv->read_only = FALSE;
+			e_cal_backend_notify_mode (backend, 
+				GNOME_Evolution_Calendar_CalListener_MODE_SET,
+				GNOME_Evolution_Calendar_MODE_REMOTE);
+			/* FIXME : Check if online and check if authentication
+				is needed */
+			break;
+
+	case CAL_MODE_LOCAL:
+			/* FIXME : Update the cache before closing the connection */
+			priv->mode = CAL_MODE_LOCAL;
+			/* FIXME : Set connection to NULL and become offline */
+			e_cal_backend_notify_mode (backend, 
+				GNOME_Evolution_Calendar_CalListener_MODE_SET,
+				GNOME_Evolution_Calendar_MODE_LOCAL);
+			break;
+
+	default :
+		e_cal_backend_notify_mode (
+			backend, GNOME_Evolution_Calendar_CalListener_MODE_NOT_SUPPORTED,
+			cal_mode_to_corba (mode));
+	}
+#else
+	if (mode == CAL_MODE_REMOTE) {
+		e_cal_backend_notify_mode (
+                        backend, GNOME_Evolution_Calendar_CalListener_MODE_SET,
 			GNOME_Evolution_Calendar_MODE_REMOTE);
 	} else {
-		e_cal_backend_notify_mode (
+		 e_cal_backend_notify_mode (
 			backend, GNOME_Evolution_Calendar_CalListener_MODE_NOT_SUPPORTED,
 			GNOME_Evolution_Calendar_MODE_REMOTE);
 	}
+#endif
 }
 
 static ECalBackendSyncStatus
