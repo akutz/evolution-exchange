@@ -75,6 +75,9 @@ struct EBookBackendExchangePrivate {
 	E2kContext *ctx;
 	gboolean connected;
 	GHashTable *ops;
+#ifdef OFFLINE_SUPPORT
+	int mode;
+#endif
 
 	EBookBackendSummary *summary;
 };
@@ -1828,6 +1831,30 @@ e_book_backend_exchange_authenticate_user (EBookBackendSync *backend,
 	return GNOME_Evolution_Addressbook_Success;
 }
 
+#ifdef OFFLINE_SUPPORT
+static void
+e_book_backend_exchange_set_mode (EBookBackend *backend, int mode)
+{
+	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
+	EBookBackendExchangePrivate *bepriv = be->priv;
+
+	bepriv->mode = mode;
+	if (e_book_backend_is_loaded (backend)) {
+		if (mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
+			e_book_backend_notify_writable (backend, FALSE);
+			e_book_backend_notify_connection_status (backend, FALSE);
+			/* FIXME :
+			exchange_account_set_offline (); */
+		} else if (mode == GNOME_Evolution_Addressbook_MODE_REMOTE) {
+			e_book_backend_notify_writable (backend, TRUE);
+			e_book_backend_notify_connection_status (backend, TRUE);
+			/* FIXME :
+			e_book_backend_notify_auth_required (backend); */
+		}
+	}
+}
+#endif
+
 static EBookBackendSyncStatus
 e_book_backend_exchange_get_supported_fields (EBookBackendSync  *backend,
 					      EDataBook         *book,
@@ -2025,6 +2052,9 @@ e_book_backend_exchange_class_init (EBookBackendExchangeClass *klass)
 	backend_class->start_book_view         = e_book_backend_exchange_start_book_view;
 	backend_class->stop_book_view          = e_book_backend_exchange_stop_book_view;
 	backend_class->cancel_operation        = e_book_backend_exchange_cancel_operation;
+#ifdef OFFLINE_SUPORT
+	backend_class->set_mode			= e_book_backend_exchange_set_mode;
+#endif
 
 
 	sync_class->remove_sync                = e_book_backend_exchange_remove;
