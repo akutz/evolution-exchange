@@ -448,14 +448,25 @@ verify_page_changed (GtkEntry *entry, ExchangeAutoconfigGUI *gui)
 	autoconfig_gui_set_next_sensitive (gui, verify_page_check (gui));
 }
 
+static gboolean 
+is_active_exchange_account (EAccount *account) 
+{ 
+	if (!account->enabled) 
+		return FALSE; 
+	if (!account->source || !account->source->url) 
+		return FALSE; 
+	return (strncmp (account->source->url, "exchange://", 11) == 0); 
+}
 
 static void
 autoconfig_gui_apply (ExchangeAutoconfigGUI *gui)
 {
 	EAccountList *list;
 	EAccount *account;
+	EIterator *iter;
 	GConfClient *gconf;
 	char *pw_key;
+	gboolean found = FALSE;
 
 	/* Create the account. */
 	gconf = gconf_client_get_default ();
@@ -467,6 +478,24 @@ autoconfig_gui_apply (ExchangeAutoconfigGUI *gui)
 			    "Unable to create new account."));
 		return;
 	}
+
+	/* Check if any account is already configured, and throw an error if so */
+	/* NOTE: This condition check needs to be removed when we start 
+	   supporting multiple accounts */
+	for (iter = e_list_get_iterator ((EList *)list); 
+	     e_iterator_is_valid (iter); 
+	     e_iterator_next (iter)) {
+		account = (EAccount *)e_iterator_get (iter);
+		if (account && (found = is_active_exchange_account (account))) {
+			e_notice (gui->window, GTK_MESSAGE_ERROR,
+			_("You may only configure a single Exchange account"));
+			break;
+		}
+		account = NULL;
+	}
+	g_object_unref(iter);
+	if (found)
+		return;
 
 	account = e_account_new ();
 
