@@ -115,7 +115,7 @@ CAMEL_providerdir="`pkg-config --variable=camel_providerdir camel-2.2`"
 AC_SUBST(CAMEL_providerdir)
 
 
-PKG_CHECK_MODULES(ADDRESSBOOK, libedata-book-1.0, camel-2.2)
+PKG_CHECK_MODULES(ADDRESSBOOK, libedata-book-1.2, camel-2.2)
 AC_SUBST(ADDRESSBOOK_CFLAGS)
 
 PKG_CHECK_MODULES(CALENDAR, libedata-cal-1.2)
