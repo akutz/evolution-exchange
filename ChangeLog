@@ -1,3 +1,12 @@
+2004-10-08  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+        * calendar/e-cal-backend-exchange-calendar.c (book_resource): Make
+        connector actually create the meeting for the resource without
+        sending a mail.
+        (send_objects): Send the proper users list back to the client.
+        (modify_object_with_href): This now enables to send a meeting for
+        a specific href. This fixes #67510
+
 2004-10-08  Sushma Rai  <rsushma@novell.com>
 	
 	* camel/camel-exchange-folder.c: Include camel-i18n.h

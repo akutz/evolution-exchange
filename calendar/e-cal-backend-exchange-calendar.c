@@ -42,6 +42,8 @@ static ECalBackendExchange *parent_class = NULL;
 
 #define d(x)
 
+static ECalBackendSyncStatus modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, const char *calobj, CalObjModType mod, char **old_object, const char *href);
+
 static void
 add_timezones_from_comp (ECalBackendExchange *cbex, icalcomponent *comp)
 {
@@ -687,6 +689,13 @@ modify_object (ECalBackendSync *backend, EDataCal *cal,
 	       const char *calobj, CalObjModType mod,
 	       char **old_object)
 {
+	return modify_object_with_href (backend, cal, calobj, mod, old_object, NULL);
+}
+static ECalBackendSyncStatus
+modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
+	       const char *calobj, CalObjModType mod,
+	       char **old_object, const char *href)
+{
 	ECalBackendExchangeCalendar *cbexc;
 	ECalBackendExchangeComponent *ecomp;
 	icalcomponent *icalcomp, *real_icalcomp;
@@ -701,7 +710,7 @@ modify_object (ECalBackendSync *backend, EDataCal *cal,
 	icalproperty *icalprop;
 	E2kHTTPStatus http_status;
 	char *from, *date;
-	const char *summary;
+	const char *summary, *new_href;
 	E2kContext *ctx;
 	GSList *categories;
 
@@ -890,7 +899,12 @@ modify_object (ECalBackendSync *backend, EDataCal *cal,
 	ctx = exchange_account_get_context (E_CAL_BACKEND_EXCHANGE (cbexc)->account);	
 	
 	/* PUT the iCal object in the Exchange server */
-	http_status = e2k_context_put (ctx, NULL, ecomp->href, "message/rfc822",
+	if (href)
+		new_href = href;
+	else
+		new_href = ecomp->href;
+
+	http_status = e2k_context_put (ctx, NULL, new_href, "message/rfc822",
 				       		msg, strlen (msg), NULL);
 
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (http_status))
@@ -1078,19 +1092,20 @@ book_resource (ECalBackendExchange *cbex,
 	ECalBackendExchangeComponent *ecomp;
 	ECalComponentText old_text, new_text;
 	E2kHTTPStatus status = GNOME_Evolution_Calendar_Success;
-	E2kResult *results;
+	E2kResult *result;
 	E2kResultIter *iter;
 	ECalComponentDateTime dt;
 	E2kContext *ctx;
 	icaltimezone *izone;
 	guint32 access = 0;
 	time_t tt;
-	const char *uid, *prop = PR_ACCESS;
+	const char *uid, *prop_name = PR_ACCESS;
+	const char *access_prop = NULL, *meeting_prop = NULL, *cal_uid = NULL;
 	gboolean bookable;
 	char *top_uri = NULL, *cal_uri = NULL, *returned_uid = NULL, *rid = NULL;
 	char *startz, *endz, *href = NULL, *old_object = NULL, *calobj = NULL;
 	E2kRestriction *rn;
-	int nresults;
+	int nresult;
 	ECalBackendExchangeBookingResult retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
 	const char *localfreebusy_path = "NON_IPM_SUBTREE/Freebusy%20Data/LocalFreebusy.EML";
 												 
@@ -1129,34 +1144,39 @@ book_resource (ECalBackendExchange *cbex,
 	
 	ctx = exchange_account_get_context (cbex->account);
 	status = e2k_context_propfind (ctx, NULL, cal_uri,
-					&prop, 1,
-					&results, &nresults);
-	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status) && nresults >= 1) {
-		prop = e2k_properties_get_prop (results->props, PR_ACCESS);
-		if (prop)
-			access = atoi (prop);
+					&prop_name, 1,
+					&result, &nresult);
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status) && nresult >= 1) {
+		access_prop = e2k_properties_get_prop (result[0].props, PR_ACCESS);
+		if (access_prop)
+			access = atoi (access_prop);
 	}
-	e2k_results_free (results, nresults);
+	e2k_results_free (result, nresult);
 
 	if (!(access & MAPI_ACCESS_CREATE_CONTENTS)) {
 		retval = E_CAL_BACKEND_EXCHANGE_BOOKING_PERMISSION_DENIED;
 		goto cleanup;
 	}
 												 
-	prop = PR_PROCESS_MEETING_REQUESTS;
-	iter = e2k_context_bpropfind_start (ctx, NULL, cal_uri,
+	prop_name = PR_PROCESS_MEETING_REQUESTS;
+	iter = e2k_context_bpropfind_start (ctx, NULL, top_uri,
 						&localfreebusy_path, 1,
-						&prop, 1);
-	if ((results = e2k_result_iter_next (iter))) {
-		prop = e2k_properties_get_prop (results->props, PR_PROCESS_MEETING_REQUESTS);
+						&prop_name, 1);
+	result = e2k_result_iter_next (iter);
+	if (result && E2K_HTTP_STATUS_IS_SUCCESSFUL (result->status))  {
+		meeting_prop = e2k_properties_get_prop (result[0].props, PR_PROCESS_MEETING_REQUESTS);
 	}
+	if (meeting_prop)
+		bookable = atoi (meeting_prop);
+	else
+		bookable = FALSE;
 	status = e2k_result_iter_free (iter);
-	bookable = prop && atoi (prop);
+
 	if ((!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) || (!bookable)) {
 		retval = E_CAL_BACKEND_EXCHANGE_BOOKING_PERMISSION_DENIED;
 		goto cleanup;
 	}
-												 
+
 	e_cal_component_get_uid (E_CAL_COMPONENT (comp), &uid);
 	href = g_strdup_printf ("%s/%s.EML", cal_uri, uid);
 	ecomp = get_exchange_comp (E_CAL_BACKEND_EXCHANGE (cbex), uid);
@@ -1202,7 +1222,7 @@ book_resource (ECalBackendExchange *cbex,
 		e_cal_component_free_datetime (&dt);
 		endz = e2k_make_timestamp (tt);
 												 
-		prop = E2K_PR_CALENDAR_UID;
+		prop_name = E2K_PR_CALENDAR_UID;
 		rn = e2k_restriction_andv (
 			e2k_restriction_prop_bool (
 				E2K_PR_DAV_IS_COLLECTION, E2K_RELOP_EQ, FALSE),
@@ -1220,9 +1240,14 @@ book_resource (ECalBackendExchange *cbex,
 			NULL);
 												 
 		iter = e2k_context_search_start (ctx, NULL, cal_uri,
-						     &prop, 1, rn, NULL, FALSE);
-		if ((results = e2k_result_iter_next (iter))) {
-			prop = e2k_properties_get_prop (results->props, E2K_PR_CALENDAR_UID);
+						     &prop_name, 1, rn, NULL, FALSE);
+		result = e2k_result_iter_next (iter);
+		if (result) {
+			cal_uid = e2k_properties_get_prop (result[0].props, E2K_PR_CALENDAR_UID);
+		}
+		if (result && cal_uid) {
+			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_BUSY;
+			goto cleanup;
 		}
 		status = e2k_result_iter_free (iter);
 
@@ -1238,36 +1263,30 @@ book_resource (ECalBackendExchange *cbex,
 				goto cleanup;
 			}
 		}
-												 
-		if (!prop) {
-			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_BUSY;
-			goto cleanup;
-		}
 	}
 												 
 	/* We're good. Book it. */
 	/* e_cal_component_set_href (comp, href); */
+	e_cal_component_commit_sequence (comp);
+	calobj = (char *) e_cal_component_get_as_string (comp);
 												 
 	/* status = e_cal_component_update (comp, method, FALSE  ); */
-	calobj = (char *) e_cal_component_get_as_string (comp);
 	if (ecomp) {
 		/* This object is already present in the cache so update it. */
-		status = modify_object (E_CAL_BACKEND_SYNC (cbex), cal, calobj, CALOBJ_MOD_THIS, &old_object);
+		status = modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, calobj, CALOBJ_MOD_THIS, &old_object, href);
 		if (status == GNOME_Evolution_Calendar_Success) {
 			e_cal_backend_notify_object_modified (E_CAL_BACKEND (cbex), old_object, calobj);
+			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_OK;
 			g_free (old_object);
 		}
 	} else {
 		status = create_object (E_CAL_BACKEND_SYNC (cbex), cal, &calobj, &returned_uid);
-		if (status == GNOME_Evolution_Calendar_Success)
+		if (status == GNOME_Evolution_Calendar_Success) {
 			e_cal_backend_notify_object_created (E_CAL_BACKEND (cbex), calobj);
+			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_OK;
+		}
 	}
 
-	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
-		retval = E_CAL_BACKEND_EXCHANGE_BOOKING_OK;
-	else
-		retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
-												 
  cleanup:
 	g_object_unref (comp);
 	if (href)
@@ -1292,7 +1311,6 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 	icalcomponent *top_level, *icalcomp, *tzcomp;
 	icalproperty *prop;
 	icalproperty_method method;
-	GSList *attendee_list, *tmp;
 												 
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex), 
 				GNOME_Evolution_Calendar_InvalidObject);
@@ -1364,19 +1382,15 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 		case E_CAL_BACKEND_EXCHANGE_BOOKING_OK:
 			param = icalproperty_get_first_parameter (prop, ICAL_PARTSTAT_PARAMETER);
 			icalparameter_set_partstat (param, ICAL_PARTSTAT_ACCEPTED);
-			attendee_list = NULL;
-			e_cal_component_get_attendee_list (comp, &attendee_list);
-			/* Convert to a GList */
-			for (tmp = attendee_list; tmp; tmp = g_slist_next (tmp)) {
-				*users = g_list_append (*users, tmp);
-			}
+			*users = g_list_append (*users, g_strdup (attendee)) ;
 			break;
+
 		case E_CAL_BACKEND_EXCHANGE_BOOKING_BUSY:
 #if 0
 			g_snprintf (error_msg, 256,
 				    _("The resource '%s' is busy during the selected time period."),
 				    attendee + 7);
-#endif												 
+#endif							
 			retval = GNOME_Evolution_Calendar_ObjectIdAlreadyExists;
 			goto cleanup;
 												 
