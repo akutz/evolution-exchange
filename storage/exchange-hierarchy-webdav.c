@@ -412,7 +412,11 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 		return EXCHANGE_ACCOUNT_FOLDER_OK;
 	} else {
 		g_object_unref (dest);
-		return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
+		if (status == E2K_HTTP_FORBIDDEN ||
+		    status == E2K_HTTP_UNAUTHORIZED)
+			return EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED;
+		else
+			return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
 	}
 }
 

@@ -1,5 +1,10 @@
 2004-05-21  Dan Winship  <danw@novell.com>
 
+	* storage/exchange-hierarchy-webdav.c (xfer_folder): Return a
+	better error when failing to rename a stock folder. #57387.
+
+2004-05-21  Dan Winship  <danw@novell.com>
+
 	* shell/Makefile.am (libfoldertree_a_SOURCES): Remove
 	e-icon-factory; we'll use the one in e-util now
 
