@@ -63,6 +63,10 @@ enum {
 static guint signals [LAST_SIGNAL] = { 0 };
 
 #define PARENT_TYPE E_TYPE_ACCOUNT_LIST
+
+#define conf_key_selected_cal_sources "/apps/evolution/calendar/display/selected_calendars"
+#define conf_key_selected_tasks_sources "/apps/evolution/calendar/tasks/selected_tasks"
+
 static EAccountListClass *parent_class = NULL;
 
 static void dispose (GObject *object);
@@ -217,18 +221,24 @@ is_active_exchange_account (EAccount *account)
 
 void
 add_esource (ExchangeAccount *account, 
-	     char *conf_key, 
+	     FolderType folder_type, 
 	     const char *folder_name, 
 	     const char *physical_uri,
-	     ESourceList **source_list,
-	     gboolean is_contact_folder)
+	     ESourceList **source_list)
 {
 	ESource *source;
 	ESourceGroup *source_group;
 	char *relative_uri = NULL;
+	GSList *ids, *temp_ids;
+	GConfClient *client;
+	gboolean is_contacts_folder = TRUE;
 
-	if (!is_contact_folder)
+	client = gconf_client_get_default ();
+
+	if (folder_type != EXCHANGE_CONTACTS_FOLDER) {
 		relative_uri = g_strdup (physical_uri + strlen ("exchange://"));
+		is_contacts_folder = FALSE;
+	}
 
         if ((source_group = e_source_list_peek_group_by_name (*source_list, 
 					account->account_name)) == NULL){
@@ -236,11 +246,12 @@ add_esource (ExchangeAccount *account,
 						   "exchange://");
 		if (!e_source_list_add_group (*source_list, source_group, -1)) {
 			g_object_unref (source_group);
+			g_object_unref (client);
 			if (relative_uri)
         			g_free (relative_uri);
 			return;
 		}
-		if (is_contact_folder)
+		if (is_contacts_folder)
 			source = e_source_new_with_absolute_uri (folder_name,
 								 physical_uri);
 		else
@@ -255,7 +266,7 @@ add_esource (ExchangeAccount *account,
 		/* FIXME - is this check needed ?*/
 		if((source = e_source_group_peek_source_by_name (source_group, 
 							folder_name)) == NULL){
-			if (is_contact_folder)
+			if (is_contacts_folder)
 				source = e_source_new_with_absolute_uri (
 						folder_name, physical_uri);
 			else
@@ -265,16 +276,49 @@ add_esource (ExchangeAccount *account,
 			g_object_unref (source);
 		}
 	}
+
+	if (!is_contacts_folder) {
+
+		if (folder_type == EXCHANGE_CALENDAR_FOLDER) {
+			ids = gconf_client_get_list (client,
+					     conf_key_selected_cal_sources, 
+					     GCONF_VALUE_STRING, NULL);
+			ids = g_slist_append (ids, 
+					g_strdup (e_source_peek_uid (source)));
+			gconf_client_set_list (client,
+				       conf_key_selected_cal_sources, 
+				       GCONF_VALUE_STRING, ids, NULL);
+			temp_ids  = ids;
+			for (; temp_ids != NULL; temp_ids = g_slist_next (temp_ids))
+				g_free (temp_ids->data);
+			g_slist_free (ids);
+		}
+		else if (folder_type == EXCHANGE_TASKS_FOLDER) {
+
+			ids = gconf_client_get_list (client, 
+					     conf_key_selected_tasks_sources, 
+					     GCONF_VALUE_STRING, NULL);
+
+			ids = g_slist_append (ids, 
+					g_strdup (e_source_peek_uid (source)));
+			gconf_client_set_list (client,  
+				       conf_key_selected_tasks_sources, 
+				       GCONF_VALUE_STRING, ids, NULL);
+			temp_ids  = ids;
+			for (; temp_ids != NULL; temp_ids = g_slist_next (temp_ids))
+				g_free (temp_ids->data);
+			g_slist_free (ids);
+		}
+	}
+
 	if (relative_uri)
 		g_free (relative_uri);
+	g_object_unref (client);
 }
 
 static void
 add_sources (ExchangeAccount *account)
 {
-	char *conf_key_cal="/apps/evolution/calendar/sources";
-	char *conf_key_tasks="/apps/evolution/tasks/sources";
-	char *conf_key_contacts="/apps/evolution/addressbook/sources";
 	const char *folder_name, *folder_type, *physical_uri;
 	GPtrArray *exchange_folders;
 	EFolder *folder;
@@ -285,13 +329,13 @@ add_sources (ExchangeAccount *account)
         if (exchange_folders) {
 		cal_source_list = e_source_list_new_for_gconf ( 
 					gconf_client_get_default (), 
-					conf_key_cal);
+					CONF_KEY_CAL);
 		task_source_list = e_source_list_new_for_gconf ( 
 					gconf_client_get_default (), 
-					conf_key_tasks);
+					CONF_KEY_TASKS);
 		cont_source_list = e_source_list_new_for_gconf (
 					gconf_client_get_default (), 
-					conf_key_contacts);
+					CONF_KEY_CONTACTS);
 
 		for (i = 0; i < exchange_folders->len; i++) {
 			folder = exchange_folders->pdata[i];
@@ -302,32 +346,29 @@ add_sources (ExchangeAccount *account)
 			if (!(strcmp (folder_type, "calendar")) ||
 			    !(strcmp (folder_type, "calendar/public"))) {
         			add_esource (account, 
-					     conf_key_cal, 
+					     EXCHANGE_CALENDAR_FOLDER, 
 					     folder_name, 
 					     physical_uri,
-					     &cal_source_list,
-					     FALSE);
+					     &cal_source_list);
 				continue;
 			}
 			else if (!(strcmp (folder_type, "tasks")) ||
 			    	 !(strcmp (folder_type, "tasks/public"))) {
         				add_esource (account, 
-					     conf_key_tasks, 
+					     EXCHANGE_TASKS_FOLDER, 
 					     folder_name, 
 					     physical_uri,
-					     &task_source_list,
-					     FALSE);
+					     &task_source_list);
 				continue;
 			}
 			else if (!(strcmp (folder_type, "contacts")) ||
 			    	 !(strcmp (folder_type, "contacts/public")) ||
 			    	 !(strcmp (folder_type, "contacts/ldap"))) {
 					add_esource (account, 
-					     conf_key_contacts, 
+					     EXCHANGE_CONTACTS_FOLDER, 
 					     folder_name, 
 					     physical_uri,
-					     &cont_source_list,
-					     TRUE);
+					     &cont_source_list);
 				continue;
 			}
 			continue;
@@ -344,22 +385,28 @@ add_sources (ExchangeAccount *account)
 
 void 
 remove_esource (ExchangeAccount *account, 
-		char *conf_key, 
+		FolderType folder_type, 
 		const char *physical_uri,
 		ESourceList **source_list,
-		gboolean is_account,
-		gboolean is_contact_folder)
+		gboolean is_account)
 {
 	ESourceGroup *group;
 	ESource *source;
 	GSList *groups;
 	GSList *sources;
-	gboolean found_group;
+	gboolean found_group, is_contacts_folder = TRUE;
 	char *relative_uri = NULL;
 	const char *source_uid;
+	GSList *ids, *temp_ids, *node_to_be_deleted;
+	GConfClient *client;
 
-	if (!is_contact_folder)
+	client = gconf_client_get_default ();
+
+	if (folder_type != EXCHANGE_CONTACTS_FOLDER) {
 		relative_uri = g_strdup (physical_uri + strlen ("exchange://"));
+		is_contacts_folder = FALSE;
+	}
+
 	groups = e_source_list_peek_groups (*source_list);
 	found_group = FALSE;
 
@@ -376,12 +423,14 @@ remove_esource (ExchangeAccount *account,
 
 				source = E_SOURCE (sources->data);
 
-				if (((!is_contact_folder &&
+				if (((!is_contacts_folder &&
 				      strcmp (e_source_peek_relative_uri (source),
 					      relative_uri) == 0)) ||
-				      (is_contact_folder && 
+				      (is_contacts_folder && 
 				       strcmp (e_source_peek_absolute_uri (source),
 					      physical_uri) == 0)) {
+
+					source_uid = e_source_peek_uid (source);
 					if (is_account) {
 						/* Account Deleted - Remove the group */
 						e_source_list_remove_group (
@@ -390,12 +439,51 @@ remove_esource (ExchangeAccount *account,
 					}
 					else {
 						/* Folder Deleted - Remove only the source */
-						source_uid = 
-						e_source_peek_uid (source);
 						e_source_group_remove_source_by_uid (
 									group, 
 									source_uid);
 						
+					}
+					if (!is_contacts_folder) {
+						if (is_account || folder_type == EXCHANGE_CALENDAR_FOLDER) {
+							ids = gconf_client_get_list (
+									client, 
+									conf_key_selected_cal_sources , 
+									GCONF_VALUE_STRING, NULL);
+							if (ids) {
+								node_to_be_deleted = g_slist_find_custom (ids, 
+											source_uid, 
+											(GCompareFunc) strcmp);
+								if (node_to_be_deleted) {
+									g_free (node_to_be_deleted->data);
+									ids = g_slist_delete_link (ids, 
+											node_to_be_deleted);
+								}
+							}
+							temp_ids  = ids;
+							for (; temp_ids != NULL; temp_ids = g_slist_next (temp_ids))
+							g_free (temp_ids->data);
+							g_slist_free (ids);
+						}
+						else if (is_account || folder_type == EXCHANGE_TASKS_FOLDER) {
+							ids = gconf_client_get_list (client, 
+										conf_key_selected_tasks_sources , 
+										GCONF_VALUE_STRING, NULL);
+							if (ids) {
+								node_to_be_deleted = g_slist_find_custom (ids, 
+											source_uid, 
+											(GCompareFunc) strcmp);
+								if (node_to_be_deleted) {
+									g_free (node_to_be_deleted->data);
+									ids = g_slist_delete_link (ids, 
+											node_to_be_deleted);
+								}
+							}
+							temp_ids  = ids;
+							for (; temp_ids != NULL; temp_ids = g_slist_next (temp_ids))
+								g_free (temp_ids->data);
+							g_slist_free (ids);
+						}
 					}
                                         found_group = TRUE;
                                         break;
@@ -405,14 +493,12 @@ remove_esource (ExchangeAccount *account,
         }
 	if (relative_uri)
         	g_free (relative_uri);
+	g_object_unref (client);
 }
 
 static void
 remove_sources(ExchangeAccount *account)
 {
-	char *conf_key_cal="/apps/evolution/calendar/sources";
-	char *conf_key_tasks="/apps/evolution/tasks/sources";
-	char *conf_key_contacts="/apps/evolution/addressbook/sources";
 	const char *physical_uri, *folder_type;
 	EFolder *folder; 
 	ESourceList *cal_source_list, *task_source_list, *cont_source_list;
@@ -423,13 +509,13 @@ remove_sources(ExchangeAccount *account)
 	if (exchange_folders) {
 		cal_source_list = e_source_list_new_for_gconf ( 
 					gconf_client_get_default (), 
-					conf_key_cal);
+					CONF_KEY_CAL);
 		task_source_list = e_source_list_new_for_gconf ( 
 					gconf_client_get_default (), 
-					conf_key_tasks);
+					CONF_KEY_TASKS);
 		cont_source_list = e_source_list_new_for_gconf (
 					gconf_client_get_default (), 
-					conf_key_contacts);
+					CONF_KEY_CONTACTS);
 
 		for (i = 0; i < exchange_folders->len; i++) {
 			folder = exchange_folders->pdata[i];
@@ -439,29 +525,29 @@ remove_sources(ExchangeAccount *account)
 			if (!strcmp (folder_type, "calendar") ||
 			    !strcmp (folder_type, "calendar/public")) {
         			remove_esource (account, 
-						conf_key_cal, 
+						EXCHANGE_CALENDAR_FOLDER, 
 						physical_uri,
 						&cal_source_list,
-						TRUE, FALSE);
+						TRUE);
 				continue;
 			}
 			else if (!strcmp (folder_type, "tasks") || 
 			         !strcmp (folder_type, "tasks/public")) {
         				remove_esource (account, 
-						conf_key_tasks, 
+						EXCHANGE_TASKS_FOLDER, 
 						physical_uri,
 						&task_source_list,
-						TRUE, FALSE);
+						TRUE);
 				continue;
 			}
 			else if (!strcmp (folder_type, "contacts") ||
 			         !strcmp (folder_type, "contacts/public") |
 			         !strcmp (folder_type, "contacts/ldap")) {
         				remove_esource (account, 
-						conf_key_contacts, 
+						EXCHANGE_CONTACTS_FOLDER, 
 						physical_uri,
 						&cont_source_list,
-						TRUE, TRUE);
+						TRUE);
 				continue;
 			}
 			continue;

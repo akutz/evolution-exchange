@@ -36,13 +36,23 @@ struct _ExchangeConfigListenerClass {
 					  ExchangeAccount *);
 };
 
+typedef enum {
+	EXCHANGE_CALENDAR_FOLDER,
+	EXCHANGE_TASKS_FOLDER,
+	EXCHANGE_CONTACTS_FOLDER
+}FolderType;
+
+#define CONF_KEY_CAL "/apps/evolution/calendar/sources"
+#define CONF_KEY_TASKS "/apps/evolution/tasks/sources"
+#define CONF_KEY_CONTACTS "/apps/evolution/addressbook/sources"
+
 GType                   exchange_config_listener_get_type (void);
 ExchangeConfigListener *exchange_config_listener_new      (void);
 
 GSList                 *exchange_config_listener_get_accounts (ExchangeConfigListener *config_listener);
 
-void 			add_esource (ExchangeAccount *account, char *conf_key, const char *folder_name, const char *physical_uri, ESourceList **source_list, gboolean is_contact_folder);
-void 			remove_esource (ExchangeAccount *account, char *conf_key, const char *physical_uri, ESourceList **source_list, gboolean is_account, gboolean is_contact_folder);
+void 			add_esource (ExchangeAccount *account, FolderType folder_type, const char *folder_name, const char *physical_uri, ESourceList **source_list);
+void 			remove_esource (ExchangeAccount *account, FolderType folder_type, const char *physical_uri, ESourceList **source_list, gboolean is_account);
 
 #ifdef __cplusplus
 }

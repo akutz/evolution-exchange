@@ -1,3 +1,27 @@
+2005-01-27  Sushma Rai  <rsushma@novell.com>
+
+	* exchange-config-listener.[ch] (add_esource)(remove_esource): 
+	Changed the arguments for the function. Now reading folder type,
+	instead of is_contact_folder flag. 
+	Defined Gconf Key values in the header file so that it need not be
+	defined by every function calling add/remove esource functions.
+	Selecting calendar and tasks automatically, when the account or folder
+	is created and unsetting when account or folder is removed.
+	(add_sources)(remove_sources): Sending folder type to add_esource()/
+	remove_esource() functions. Fixes #71432
+	
+	* storage/e-folder-exchange.c (e_folder_exchange_new)
+	(e_folder_exchange_delete): Similar.
+
+	* storage/exchange-hierarchy-gal.c (exchange_hierarchy_gal_new): Similar
+	
+	* storage/exchange-hierarchy-foreign.c (remove_folder)
+	(exchange_hierarchy_foreign_add_folder): Similar.
+
+	* storage/exchange-hierarchy-favorites.c (remove_folder): Similar.
+
+	* storage/exchange-hierarchy-webdav.c (xfer_folder): Similar.
+
 2005-01-25  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* storage/exchange-account.c (exchange_account_connect): Properly
