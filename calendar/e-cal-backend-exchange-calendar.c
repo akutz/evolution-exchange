@@ -1048,15 +1048,358 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 	return status;
 }
 
+typedef enum {
+	E_CAL_BACKEND_EXCHANGE_BOOKING_OK,
+	E_CAL_BACKEND_EXCHANGE_BOOKING_NO_SUCH_USER,
+	E_CAL_BACKEND_EXCHANGE_BOOKING_BUSY,
+	E_CAL_BACKEND_EXCHANGE_BOOKING_PERMISSION_DENIED,
+	E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR
+} ECalBackendExchangeBookingResult;
+
+												 
+/* start_time and end_time are in e2k_timestamp format. */
+static ECalBackendExchangeBookingResult
+book_resource (ECalBackendExchange *cbex,
+	       EDataCal *cal,
+	       const char *resource_email,
+	       ECalComponent *comp,
+	       icalproperty_method method)
+{
+	E2kGlobalCatalog *gc;
+	E2kGlobalCatalogEntry *entry;
+	E2kGlobalCatalogStatus gcstatus;
+	ECalBackendExchangeComponent *ecomp;
+	ECalComponentText old_text, new_text;
+	E2kHTTPStatus status = GNOME_Evolution_Calendar_Success;
+	E2kResult *results;
+	E2kResultIter *iter;
+	ECalComponentDateTime dt;
+	E2kContext *ctx;
+	icaltimezone *izone;
+	guint32 access = 0;
+	time_t tt;
+	const char *uid, *prop = PR_ACCESS;
+	gboolean bookable;
+	char *top_uri = NULL, *cal_uri = NULL, *returned_uid = NULL, *rid = NULL;
+	char *startz, *endz, *href = NULL, *old_object = NULL, *calobj = NULL;
+	E2kRestriction *rn;
+	int nresults;
+	ECalBackendExchangeBookingResult retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
+	const char *localfreebusy_path = "NON_IPM_SUBTREE/Freebusy%20Data/LocalFreebusy.EML";
+												 
+	g_object_ref (comp);
+												 
+	/* Look up the resource's mailbox */
+	gc = exchange_account_get_global_catalog (cbex->account);
+	if (!gc)
+		goto cleanup;
+												 
+	gcstatus = e2k_global_catalog_lookup (
+		gc, NULL, E2K_GLOBAL_CATALOG_LOOKUP_BY_EMAIL, resource_email,
+		E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX, &entry);
+	switch (gcstatus) {
+	case E2K_GLOBAL_CATALOG_OK:
+		break;
+												 
+	case E2K_GLOBAL_CATALOG_NO_SUCH_USER:
+		retval = E_CAL_BACKEND_EXCHANGE_BOOKING_NO_SUCH_USER;
+		goto cleanup;
+												 
+	default:
+		retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
+		goto cleanup;
+	}
+												 
+	top_uri = exchange_account_get_foreign_uri (cbex->account,
+						    entry, NULL);
+	cal_uri = exchange_account_get_foreign_uri (cbex->account, entry,
+						    E2K_PR_STD_FOLDER_CALENDAR);
+	e2k_global_catalog_entry_free (gc, entry);
+	if (!top_uri || !cal_uri) {
+		retval = E_CAL_BACKEND_EXCHANGE_BOOKING_PERMISSION_DENIED;
+		goto cleanup;
+	}
+	
+	ctx = exchange_account_get_context (cbex->account);
+	status = e2k_context_propfind (ctx, NULL, cal_uri,
+					&prop, 1,
+					&results, &nresults);
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status) && nresults >= 1) {
+		prop = e2k_properties_get_prop (results->props, PR_ACCESS);
+		if (prop)
+			access = atoi (prop);
+	}
+	e2k_results_free (results, nresults);
+
+	if (!(access & MAPI_ACCESS_CREATE_CONTENTS)) {
+		retval = E_CAL_BACKEND_EXCHANGE_BOOKING_PERMISSION_DENIED;
+		goto cleanup;
+	}
+												 
+	prop = PR_PROCESS_MEETING_REQUESTS;
+	iter = e2k_context_bpropfind_start (ctx, NULL, cal_uri,
+						&localfreebusy_path, 1,
+						&prop, 1);
+	if ((results = e2k_result_iter_next (iter))) {
+		prop = e2k_properties_get_prop (results->props, PR_PROCESS_MEETING_REQUESTS);
+	}
+	status = e2k_result_iter_free (iter);
+	bookable = prop && atoi (prop);
+	if ((!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) || (!bookable)) {
+		retval = E_CAL_BACKEND_EXCHANGE_BOOKING_PERMISSION_DENIED;
+		goto cleanup;
+	}
+												 
+	e_cal_component_get_uid (E_CAL_COMPONENT (comp), &uid);
+	href = g_strdup_printf ("%s/%s.EML", cal_uri, uid);
+	ecomp = get_exchange_comp (E_CAL_BACKEND_EXCHANGE (cbex), uid);
+												 
+	if (method == ICAL_METHOD_CANCEL) {
+		/* g_object_unref (comp); */
+		/* If there is nothing to cancel, we're good */
+		if (!ecomp) {
+			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_OK;
+			goto cleanup;
+		}
+		
+		/* Mark the cancellation properly in the resource's calendar */
+		
+		/* Mark the item as cancelled */
+		e_cal_component_get_summary (E_CAL_COMPONENT (comp), &old_text);
+		if (old_text.value)
+			new_text.value = g_strdup_printf ("Cancelled: %s", old_text.value);
+		else
+			new_text.value = g_strdup_printf ("Cancelled");
+		new_text.altrep = NULL;
+		e_cal_component_set_summary (E_CAL_COMPONENT (comp), &new_text);
+												 
+		e_cal_component_set_transparency (E_CAL_COMPONENT (comp), E_CAL_COMPONENT_TRANSP_TRANSPARENT);
+		calobj = (char *) e_cal_component_get_as_string (comp);
+		rid = (char *) e_cal_component_get_recurid_as_string (comp);
+		status = remove_object (E_CAL_BACKEND_SYNC (cbex), cal, uid, rid, CALOBJ_MOD_THIS, &calobj);
+		e_cal_backend_notify_object_removed (E_CAL_BACKEND (cbex), uid, calobj);
+
+	} else {
+		/* Check that the new appointment doesn't conflict with any
+		 * existing appointment.
+		 */
+		e_cal_component_get_dtstart (E_CAL_COMPONENT (comp), &dt);
+		izone = e_cal_backend_internal_get_timezone (E_CAL_BACKEND (cbex), dt.tzid);
+		tt = icaltime_as_timet_with_zone (*dt.value, izone);
+		e_cal_component_free_datetime (&dt);
+		startz = e2k_make_timestamp (tt);
+												 
+		e_cal_component_get_dtend (E_CAL_COMPONENT (comp), &dt);
+		izone = e_cal_backend_internal_get_timezone (E_CAL_BACKEND (cbex), dt.tzid);
+		tt = icaltime_as_timet_with_zone (*dt.value, izone);
+		e_cal_component_free_datetime (&dt);
+		endz = e2k_make_timestamp (tt);
+												 
+		prop = E2K_PR_CALENDAR_UID;
+		rn = e2k_restriction_andv (
+			e2k_restriction_prop_bool (
+				E2K_PR_DAV_IS_COLLECTION, E2K_RELOP_EQ, FALSE),
+			e2k_restriction_prop_string (
+				E2K_PR_DAV_CONTENT_CLASS, E2K_RELOP_EQ,
+				"urn:content-classes:appointment"),
+			e2k_restriction_prop_string (
+				E2K_PR_CALENDAR_UID, E2K_RELOP_NE, uid),
+			e2k_restriction_prop_date (
+				E2K_PR_CALENDAR_DTEND, E2K_RELOP_GT, startz),
+			e2k_restriction_prop_date (
+				E2K_PR_CALENDAR_DTSTART, E2K_RELOP_LT, endz),
+			e2k_restriction_prop_string (
+				E2K_PR_CALENDAR_BUSY_STATUS, E2K_RELOP_NE, "FREE"),
+			NULL);
+												 
+		iter = e2k_context_search_start (ctx, NULL, cal_uri,
+						     &prop, 1, rn, NULL, FALSE);
+		if ((results = e2k_result_iter_next (iter))) {
+			prop = e2k_properties_get_prop (results->props, E2K_PR_CALENDAR_UID);
+		}
+		status = e2k_result_iter_free (iter);
+
+		g_free (startz);
+		g_free (endz);
+		e2k_restriction_unref (rn);
+		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+			if (status == E2K_HTTP_UNAUTHORIZED) {
+				retval = E_CAL_BACKEND_EXCHANGE_BOOKING_PERMISSION_DENIED;
+				goto cleanup;
+			} else {
+				retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
+				goto cleanup;
+			}
+		}
+												 
+		if (!prop) {
+			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_BUSY;
+			goto cleanup;
+		}
+	}
+												 
+	/* We're good. Book it. */
+	/* e_cal_component_set_href (comp, href); */
+												 
+	/* status = e_cal_component_update (comp, method, FALSE  ); */
+	calobj = (char *) e_cal_component_get_as_string (comp);
+	if (ecomp) {
+		/* This object is already present in the cache so update it. */
+		status = modify_object (E_CAL_BACKEND_SYNC (cbex), cal, calobj, CALOBJ_MOD_THIS, &old_object);
+		if (status == GNOME_Evolution_Calendar_Success) {
+			e_cal_backend_notify_object_modified (E_CAL_BACKEND (cbex), old_object, calobj);
+			g_free (old_object);
+		}
+	} else {
+		status = create_object (E_CAL_BACKEND_SYNC (cbex), cal, &calobj, &returned_uid);
+		if (status == GNOME_Evolution_Calendar_Success)
+			e_cal_backend_notify_object_created (E_CAL_BACKEND (cbex), calobj);
+	}
+
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+		retval = E_CAL_BACKEND_EXCHANGE_BOOKING_OK;
+	else
+		retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
+												 
+ cleanup:
+	g_object_unref (comp);
+	if (href)
+		g_free (href);
+	if (cal_uri)
+		g_free (cal_uri);
+	if (top_uri)
+		g_free (top_uri);
+					
+	return retval;
+}
+
 static ECalBackendSyncStatus
 send_objects (ECalBackendSync *backend, EDataCal *cal,
 	      const char *calobj,
 	      GList **users, char **modified_calobj)
 {
+	ECalBackendExchange *cbex = (ECalBackendExchange *) backend;
+	ECalBackendSyncStatus retval = GNOME_Evolution_Calendar_Success;
+	ECalBackendExchangeBookingResult result;
+	ECalComponent *comp;
+	icalcomponent *top_level, *icalcomp, *tzcomp;
+	icalproperty *prop;
+	icalproperty_method method;
+	int count;
+												 
+	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex), 
+				GNOME_Evolution_Calendar_InvalidObject);
+												 
+	top_level = icalparser_parse_string (calobj);
+	icalcomp = icalcomponent_get_inner (top_level);
+												 
+	comp = e_cal_component_new ();
+	e_cal_component_set_icalcomponent (E_CAL_COMPONENT (comp),
+					 icalcomponent_new_clone (icalcomp));
+												 
+	count = icalcomponent_count_properties (icalcomp, ICAL_ATTENDEE_PROPERTY);
+#if 0
+	*user_list = GNOME_Evolution_Calendar_UserList__alloc ();
+	(*user_list)->_maximum = count;
+	(*user_list)->_length = 0;
+	(*user_list)->_buffer = CORBA_sequence_GNOME_Evolution_Calendar_User_allocbuf (count);
+#endif												 
+	method = icalcomponent_get_method (top_level);
+	if (icalcomponent_isa (icalcomp) != ICAL_VEVENT_COMPONENT
+	    || (method != ICAL_METHOD_REQUEST && method != ICAL_METHOD_CANCEL)) {
+		*modified_calobj = g_strdup (calobj);
+		retval = GNOME_Evolution_Calendar_Success;
+		goto cleanup;
+	}
+
+	/* traverse all timezones to add them to the backend */
+	tzcomp = icalcomponent_get_first_component (top_level,
+						    ICAL_VTIMEZONE_COMPONENT);
+	while (tzcomp) {
+		e_cal_backend_exchange_add_timezone (cbex, tzcomp);
+		tzcomp = icalcomponent_get_next_component (top_level,
+							   ICAL_VTIMEZONE_COMPONENT);
+	}
+												 
+	for (prop = icalcomponent_get_first_property (icalcomp, ICAL_ATTENDEE_PROPERTY);
+	     prop != NULL;
+	     prop = icalcomponent_get_next_property (icalcomp, ICAL_ATTENDEE_PROPERTY))
+	{
+		icalvalue *value;
+		icalparameter *param;
+		const char *attendee;
+												 
+		param = icalproperty_get_first_parameter (prop, ICAL_CUTYPE_PARAMETER);
+		if (!param)
+			continue;
+		if (icalparameter_get_cutype (param) != ICAL_CUTYPE_RESOURCE)
+			continue;
+												 
+		value = icalproperty_get_value (prop);
+		if (!value)
+			continue;
+												 
+		attendee = icalvalue_get_string (value);
+		if (g_ascii_strncasecmp ("mailto:", attendee, 7))
+			continue;
+												 
+		/* See if it recurs */
+		if (icalcomponent_get_first_property (icalcomp, ICAL_RRULE_PROPERTY)
+		    || icalcomponent_get_first_property (icalcomp, ICAL_RDATE_PROPERTY)) {
+#if 0
+			g_snprintf (error_msg, 256,
+				_("Unable to schedule resource '%s' for recurring meetings.\n"
+				      "You must book each meeting separately."),
+				    attendee + 7);
+#endif												 
+			retval = GNOME_Evolution_Calendar_ObjectIdAlreadyExists;
+			goto cleanup;
+		}
+												 
+		result = book_resource (cbex, cal, attendee + 7, comp, method);
+		switch (result) {
+		case E_CAL_BACKEND_EXCHANGE_BOOKING_OK:
+			param = icalproperty_get_first_parameter (prop, ICAL_PARTSTAT_PARAMETER);			icalparameter_set_partstat (param, ICAL_PARTSTAT_ACCEPTED);
+												 
+			/* (*user_list)->_buffer[(*user_list)->_length] = CORBA_string_dup (attendee); */
+			/* (*user_list)->_length++; */
+			break;
+		case E_CAL_BACKEND_EXCHANGE_BOOKING_BUSY:
+#if 0
+			g_snprintf (error_msg, 256,
+				    _("The resource '%s' is busy during the selected time period."),
+				    attendee + 7);
+#endif												 
+			retval = GNOME_Evolution_Calendar_ObjectIdAlreadyExists;
+			goto cleanup;
+												 
+		case E_CAL_BACKEND_EXCHANGE_BOOKING_PERMISSION_DENIED:
+		case E_CAL_BACKEND_EXCHANGE_BOOKING_NO_SUCH_USER:
+			/* Do nothing, we fallback to iMip */
+			break;
+		case E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR:
+			/* What should we do here? */
+			retval = GNOME_Evolution_Calendar_PermissionDenied;
+			goto cleanup;
+		}
+	}
+												 
+	retval = GNOME_Evolution_Calendar_Success;
+	*modified_calobj = g_strdup (e_cal_component_get_as_string (comp));
+												 
+ cleanup:
+	icalcomponent_free (top_level);
+	g_object_unref (comp);
+												 
+	return retval;
+
+
+#if 0
 	*users = NULL;
 	*modified_calobj = g_strdup (calobj);
 
 	return GNOME_Evolution_Calendar_Success;
+#endif
 }
 
 #define THIRTY_MINUTES (30 * 60)
