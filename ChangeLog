@@ -1,3 +1,12 @@
+2005-01-10  Not Zed  <NotZed@Ximian.com>
+
+	* mail/mail-stub.c (mail_stub_read_args): long/int ->uint32.
+	(mail_stub_return_data): "
+
+	* camel/camel-stub.c (stub_send_internal): uint32 should be a
+	uint32, not a long.
+	(stub_send_internal): same for uint32array and int
+
 2004-12-21  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* calendar/e-cal-backend-exchange.c (e_cal_backend_exchange_add_object):

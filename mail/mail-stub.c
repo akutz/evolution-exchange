@@ -426,7 +426,7 @@ mail_stub_read_args (MailStub *stub, ...)
 
 		case CAMEL_STUB_ARG_UINT32:
 		{
-			unsigned long *val = va_arg (ap, unsigned long *);
+			guint32 *val = va_arg (ap, guint32 *);
 			guint32 val32;
 
 			status = camel_stub_marshal_decode_uint32 (stub->cmd, &val32);
@@ -488,7 +488,7 @@ mail_stub_read_args (MailStub *stub, ...)
 			status = camel_stub_marshal_decode_uint32 (stub->cmd, &len);
 			if (status == -1)
 				break;
-			*arr = g_array_new (FALSE, FALSE, sizeof (int));
+			*arr = g_array_new (FALSE, FALSE, sizeof (guint32));
 			for (i = 0; i< len && status != -1; i++) {
 				status = camel_stub_marshal_decode_uint32 (stub->cmd, &unread_count);
 				if (status != -1)
@@ -549,7 +549,7 @@ mail_stub_return_data (MailStub *stub, CamelStubRetval retval, ...)
 
 		case CAMEL_STUB_ARG_UINT32:
 		{
-			unsigned long val = va_arg (ap, unsigned long);
+			guint32 val = va_arg (ap, guint32);
 
 			camel_stub_marshal_encode_uint32 (marshal, val);
 			break;
@@ -601,7 +601,7 @@ mail_stub_return_data (MailStub *stub, CamelStubRetval retval, ...)
 
 			camel_stub_marshal_encode_uint32 (marshal, arr->len);
 			for (i = 0; i < arr->len; i++)
-				camel_stub_marshal_encode_uint32 (marshal, g_array_index (arr, int, i));
+				camel_stub_marshal_encode_uint32 (marshal, g_array_index (arr, guint32, i));
 			break;
 		}
 		
