@@ -133,6 +133,8 @@ exchange_auto_detect_cb (CamelURL *url, GHashTable **auto_detected,
 			     g_strdup (url->user));
 	g_hash_table_insert (*auto_detected, g_strdup ("pf_server"),
 			     g_strdup (url->host));
+	g_hash_table_insert (*auto_detected, g_strdup ("ad_server"),
+			     g_strdup (camel_url_get_param (url, "ad_server")));
 
 	return 0;
 }
@@ -143,11 +145,13 @@ exchange_validate_user_cb (CamelURL *camel_url, const char *owa_url,
 {
 	gboolean valid;
 	char *host = NULL;
+	char *ad_server = NULL;
 
 	valid = e2k_validate_user (owa_url, camel_url->user, 
-				   &host, remember_password);
+				   &host, &ad_server, remember_password);
 
 	camel_url_set_host(camel_url, valid?host:NULL);
+	camel_url_set_param(camel_url, "ad_server", valid?ad_server:NULL);
 	g_free(host);
 
 	return valid;

@@ -1389,7 +1389,7 @@ e2k_autoconfig_lookup_option (const char *option)
 }
 
 static gboolean 
-validate (const char *owa_url, char *user, char *password, char **host)
+validate (const char *owa_url, char *user, char *password, char **host, char **ad_server)
 {
 	E2kAutoconfig *ac;
 	E2kOperation op;        /* FIXME */
@@ -1408,7 +1408,6 @@ validate (const char *owa_url, char *user, char *password, char **host)
 	if (result == E2K_AUTOCONFIG_OK) {
 		result = e2k_autoconfig_check_global_catalog (ac, &op);
 		e2k_operation_free (&op);
-		/* Need to fill GC server and return */
 		valid = TRUE;
 	}
 	else {
@@ -1506,12 +1505,15 @@ validate (const char *owa_url, char *user, char *password, char **host)
 	}
 
 	*host = g_strdup (ac->pf_server);
+	if (ac->gc_server) 
+		*ad_server = g_strdup (ac->gc_server);
+
 	return valid;
 }
 
 gboolean
-e2k_validate_user (const char *owa_url, char *user, 
-		   char **host, gboolean *remember_password)
+e2k_validate_user (const char *owa_url, char *user, char **host, 
+		   char **ad_server, gboolean *remember_password)
 {
 	gboolean valid = FALSE, remember=FALSE;
 	char *key, *password, *prompt;
@@ -1525,10 +1527,8 @@ e2k_validate_user (const char *owa_url, char *user,
 					E_PASSWORDS_REMEMBER_FOREVER|E_PASSWORDS_SECRET,
 					&remember, NULL);
 		if (password) {
-			valid = validate (owa_url, user, password, host);
+			valid = validate (owa_url, user, password, host, ad_server);
 			if (valid) {
-				//auto_detect_gc();
-
 				/* generate the proper key once the host name 
 				 * is read and remember password temporarily, 
 				 * so that at the end of * account creation, 

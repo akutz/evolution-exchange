@@ -1,5 +1,16 @@
 2005-02-10  Sushma Rai  <rsushma@novell.com>
 
+	* camel/camel-exchange-provider.c (exchange_auto_detect_cb): Adding
+	GC server to the table of auto detected values.
+	(exchange_validate_user_cb): Setting ad_server paramemter value in
+	CamelUrl.
+
+	* lib/e2k-autoconfig.c (e2k_validate_user)(validate): Reading the GC
+	server value.
+	Fixes #71878
+
+2005-02-10  Sushma Rai  <rsushma@novell.com>
+
 	* camel/camel-exchange-provider.c: Setting HIDDEN_AUTH in 
 	exchange_provider structure, so that it auth section doesn't
 	appear while creating an account.
