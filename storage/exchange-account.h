@@ -82,6 +82,8 @@ char 		       *exchange_account_get_password (ExchangeAccount *acct);
 void		       exchange_account_set_password (ExchangeAccount *acct,
 							char *old_password,
 							char *new_password);
+void 		      exchange_account_forget_password (ExchangeAccount *acct);
+
 
 
 typedef enum {

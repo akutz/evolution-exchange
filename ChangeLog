@@ -1,7 +1,20 @@
+2004-05-26  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* storage/exchange-account.c (exchange_account_forget_password): 
+	Implemented.
+	(exchange_account_set_password): remember password only if save_passwd
+	is TRUE.
+	* storage/exchange-account.h: Likewise
+	* storage/exchange-config-listener.c (account_removed): forget the 
+	stored passwords.
+	* storage/xc-backend.c (idle_do_interactive): Call oof only if xid is
+	present.
+
 2004-05-26  Sushma Rai <rsushma@novell.com>
 
 	* addressbook/e-book-backend-exchange.c 
-	(e_book_backend_exchange_get_supported_fields): Using e_contact_field_name()
+	(e_book_backend_exchange_get_supported_fields): Using 
+	e_contact_field_name()
 
 2004-05-26  Not Zed  <NotZed@Ximian.com>
 

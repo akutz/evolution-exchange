@@ -881,6 +881,17 @@ exchange_account_get_password (ExchangeAccount *account)
 }
 
 void
+exchange_account_forget_password (ExchangeAccount *account)
+{
+	char *key;
+	
+	key = g_strdup_printf ("exchange://%s@%s",
+			       account->priv->username,
+			       account->exchange_server);
+	e_passwords_forget_password ("Exchange", key);
+}
+
+void
 exchange_account_set_password (ExchangeAccount *account, char *old_pass, char *new_pass)
 {
 	char *uri;
@@ -897,10 +908,9 @@ exchange_account_set_password (ExchangeAccount *account, char *old_pass, char *n
 	if (!err){
 		e_passwords_forget_password ("Exchange", uri);
 		e_passwords_add_password (uri, new_pass);
-		e_passwords_remember_password ("Exchange", uri);
+		if (account->priv->account->source->save_passwd)
+			e_passwords_remember_password ("Exchange", uri);
 	}
-
-
 }
 /**
  * exchange_account_connect:

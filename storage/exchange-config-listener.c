@@ -826,6 +826,8 @@ account_removed (EAccountList *account_list, EAccount *account)
 	/* Remove ESources */
 	remove_sources(priv->exchange_account);
 
+	exchange_account_forget_password (priv->exchange_account);
+
 	if (!exchange_account_get_context (priv->exchange_account)) {
 		/* The account isn't connected yet, so we can destroy
 		 * it without problems.

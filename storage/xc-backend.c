@@ -50,6 +50,7 @@
 
 #define PARENT_TYPE bonobo_object_get_type ()
 static BonoboObjectClass *parent_class = NULL;
+static gboolean idle_do_interactive (gpointer user_data);
 
 struct XCBackendPrivate {
 	GdkNativeWindow xid;
@@ -124,7 +125,7 @@ impl_createControls (PortableServer_Servant servant,
 	XCBackend *backend = XC_BACKEND (bonobo_object_from_servant (servant));
 	XCBackendPrivate *priv = backend->priv;
 	XCBackendView *view;
-	BonoboControl *control;
+	BonoboControl *control = NULL;
 
 	d(printf("createControls...\n"));
 
@@ -215,7 +216,8 @@ idle_do_interactive (gpointer user_data)
 
 	for (acc = priv->accounts; acc; acc = acc->next) {
 		baccount = acc->data;
-		exchange_oof_init (baccount->account, priv->xid);
+		if (xc_backend_is_interactive (backend))
+			exchange_oof_init (baccount->account, priv->xid);
 	}
 	return FALSE;
 }
