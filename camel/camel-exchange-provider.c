@@ -94,7 +94,7 @@ static CamelProvider exchange_provider = {
 	CAMEL_PROVIDER_IS_REMOTE | CAMEL_PROVIDER_IS_SOURCE |
 	CAMEL_PROVIDER_IS_STORAGE | CAMEL_PROVIDER_IS_EXTERNAL,
 
-	CAMEL_URL_NEED_USER | CAMEL_URL_ALLOW_AUTH,  
+	CAMEL_URL_NEED_USER | CAMEL_URL_ALLOW_AUTH | CAMEL_URL_HIDDEN_HOST,
 
 	exchange_conf_entries 
 
@@ -142,9 +142,14 @@ exchange_validate_user_cb (CamelURL *camel_url, const char *owa_url,
 			   gboolean *remember_password, CamelException *ex)
 {
 	gboolean valid;
+	char *host = NULL;
 
 	valid = e2k_validate_user (owa_url, camel_url->user, 
-				   &camel_url->host, remember_password);
+				   &host, remember_password);
+
+	camel_url_set_host(camel_url, valid?host:NULL);
+	g_free(host);
+
 	return valid;
 }
 
