@@ -174,8 +174,9 @@ LIBS="$SAVE_LIBS"
 dnl ********
 dnl Kerberos
 dnl ********
-AC_ARG_WITH(krb5, [  --with-krb5=PREFIX      Location of Kerberos 5 install dir], with_krb5="$withval", with_krb5="/usr")
-AC_ARG_WITH(krb5_libs, [  --with-krb5-libs=LIBDIR Location of Kerberos 5 libs], with_krb5_libs="$withval", with_krb5_libs="$with_krb5/lib")
+AC_ARG_WITH(krb5, [  --with-krb5=DIR      Location of Kerberos 5 installation], with_krb5="$withval", with_krb5="/usr")
+AC_ARG_WITH(krb5-libs, [  --with-krb5-libs=DIR Location of Kerberos 5 libraries], with_krb5_libs="$withval", with_krb5_libs="$with_krb5/lib")
+AC_ARG_WITH(krb5-includes, [  --with-krb5-includes=DIR Location of Kerberos 5 headers], with_krb5_includes="$withval", with_krb5_includes="")
 
 
 mitlibs="-lkrb5 -lk5crypto -lcom_err -lgssapi_krb5"
@@ -197,11 +198,20 @@ fi
 
 if test "$ac_cv_lib_kerberos5" = "$mitlibs"; then
 	AC_DEFINE(HAVE_MIT_KRB5,1,[Define if you have MIT Krb5])
-	KRB5_CFLAGS="-I$with_krb5/include"
-else
+	if test -z "$with_krb5_includes"; then
+		KRB5_CFLAGS="-I$with_krb5/include"
+	else
+		KRB5_CFLAGS="-I$with_krb5_includes"
+	fi
+  else
 	AC_DEFINE(HAVE_HEIMDAL_KRB5,1,[Define if you have Heimdal])
-	KRB5_CFLAGS="-I$with_krb5/include/heimdal"
-fi
+	if test -z "$with_krb5_includes"; then
+		KRB5_CFLAGS="-I$with_krb5/include/heimdal"
+	else
+		KRB5_CFLAGS="-I$with_krb5_includes"
+	fi
+  fi
+	
 KRB5_LIBS="-L$with_krb5_libs $ac_cv_lib_kerberos5"
 AC_SUBST(KRB5_CFLAGS)
 AC_SUBST(KRB5_LIBS)
