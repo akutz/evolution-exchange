@@ -142,8 +142,8 @@ progs_libadd =							\
 	libexchange.a						\
 	$(top_builddir)/xntlm/libxntlm.a			\
 	-L$(EVOLUTION_privlibdir) -leutil			\
-	$(LIBEXCHANGE_LIBS)					\
 	$(LDAP_LIBS)						\
+	$(LIBEXCHANGE_LIBS)					\
 	$(KRB5_LIBS)
 
 ebrowse_SOURCES =						\

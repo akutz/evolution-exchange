@@ -82,8 +82,8 @@ evolution_exchange_storage_LDADD =				\
 	$(top_builddir)/lib/libexchange.a			\
 	$(top_builddir)/xntlm/libxntlm.a			\
 	$(top_builddir)/camel/camel-stub-marshal.lo		\
-	$(EXCHANGE_STORAGE_LIBS)				\
 	$(LDAP_LIBS)						\
+	$(EXCHANGE_STORAGE_LIBS)				\
 	$(KRB5_LIBS)
 
 
@@ -94,8 +94,8 @@ ximian_connector_setup_SOURCES =				\
 ximian_connector_setup_LDADD =					\
 	$(top_builddir)/lib/libexchange.a			\
 	$(top_builddir)/xntlm/libxntlm.a			\
-	$(EXCHANGE_STORAGE_LIBS)				\
-	$(LDAP_LIBS)
+	$(LDAP_LIBS)						\
+	$(EXCHANGE_STORAGE_LIBS)				
 
 install-exec-local: ximian-connector-setup
 	$(mkinstalldirs) $(DESTDIR)$(bindir)
