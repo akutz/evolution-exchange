@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-03 13:35+0530\n"
+"POT-Creation-Date: 2004-07-19 17:02-0400\n"
 "PO-Revision-Date: 2004-07-06 13:01+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -280,7 +280,7 @@ msgstr "Taková složka neexistuje"
 
 #: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2278
 #: mail/mail-stub-exchange.c:2320 mail/mail-stub-exchange.c:2370
-#: shell/e-storage.c:573 storage/xc-commands.c:299
+#: shell/e-storage.c:573 storage/xc-commands.c:302
 msgid "Permission denied"
 msgstr "Přístup odepřen"
 
@@ -371,11 +371,11 @@ msgstr "Nemohu odeslat zprávu"
 
 #: mail/mail-stub-exchange.c:2270 mail/mail-stub-exchange.c:2325
 #: mail/mail-stub-exchange.c:2374 shell/e-storage.c:557
-#: storage/xc-commands.c:303
+#: storage/xc-commands.c:306
 msgid "Generic error"
 msgstr "Obecná chyba"
 
-#: mail/mail-stub-exchange.c:2274 storage/xc-commands.c:293
+#: mail/mail-stub-exchange.c:2274 storage/xc-commands.c:296
 msgid "Folder already exists"
 msgstr "Složka již existuje"
 
@@ -600,48 +600,72 @@ msgstr "Nemohu vytvořit složku s tímto názvem"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Tuto operaci nelze provést v režimu off-line"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1064
+#: shell/e-storage.c:587 storage/exchange-account.c:1071
 msgid "Unknown error"
 msgstr "Neznámá chyba"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
+msgid "*Control*F5"
+msgstr ""
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Addressbook Exchange backend"
 msgstr "Backend Evolution pro adresář Exchange"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
 msgid "Evolution Calendar Exchange backend"
 msgstr "Backend Evolution pro kalendář Exchange"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
 msgid "Evolution Exchange Component"
 msgstr "Komponenta Evolution pro Exchange"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
 msgid "Exchange"
 msgstr "Exchange"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
 msgid "Ximian Connector for Exchange"
 msgstr "Ximian Connector pro Exchange"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
+#, fuzzy
+msgid "_Exchange"
+msgstr "Exchange"
 
 # Aaargh
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:517
+#: storage/exchange-account.c:516
 #, c-format
 msgid "%s's Folders"
 msgstr "Složky uživatele %s"
 
-#: storage/exchange-account.c:812
+#: storage/exchange-account.c:797
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sZadejte heslo pro %s"
 
-#: storage/exchange-account.c:816
+#: storage/exchange-account.c:801
 msgid "Enter password"
 msgstr "Zadejte heslo"
 
-#: storage/exchange-account.c:975
+#: storage/exchange-account.c:876
+msgid "Cannot change password due to configuration problems"
+msgstr ""
+
+#: storage/exchange-account.c:891
+msgid ""
+"Server rejected password because it is too weak.\n"
+"Try again with a different password."
+msgstr ""
+
+#: storage/exchange-account.c:896
+#, fuzzy
+msgid "Could not change password"
+msgstr "Změnit heslo"
+
+#: storage/exchange-account.c:982
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -649,7 +673,7 @@ msgstr ""
 "Nemohu se autentizovat u serveru. (Nesprávné heslo?)\n"
 "\n"
 
-#: storage/exchange-account.c:980
+#: storage/exchange-account.c:987
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -669,7 +693,7 @@ msgstr ""
 "Nebo jste prostě zadali špatné heslo.\n"
 "\n"
 
-#: storage/exchange-account.c:991
+#: storage/exchange-account.c:998
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -685,12 +709,12 @@ msgstr ""
 "Nebo jste prostě zadali špatné heslo.\n"
 "\n"
 
-#: storage/exchange-account.c:1022
+#: storage/exchange-account.c:1029
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Složka pro %s není na tomto serveru."
 
-#: storage/exchange-account.c:1027
+#: storage/exchange-account.c:1034
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -699,7 +723,7 @@ msgstr ""
 "Na server '%s' běží Exchange 5.5, takže server\n"
 "není kompatibilní s Ximian Connector"
 
-#: storage/exchange-account.c:1034
+#: storage/exchange-account.c:1041
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -710,40 +734,40 @@ msgstr ""
 "Pokud OWA běží na jiné cestě, musíte ji zadat v dialogu\n"
 "nastavení účtu."
 
-#: storage/exchange-account.c:1042
+#: storage/exchange-account.c:1049
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Pro uživatele %s není v %s složka.\n"
 
-#: storage/exchange-account.c:1048 storage/exchange-account.c:1054
-#: storage/exchange-account.c:1062
+#: storage/exchange-account.c:1055 storage/exchange-account.c:1061
+#: storage/exchange-account.c:1069
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Nemohu se připojit k serveru %s: %s"
 
-#: storage/exchange-account.c:1050
+#: storage/exchange-account.c:1057
 msgid "Could not resolve hostname"
 msgstr "Nemohu najít jméno počítače"
 
-#: storage/exchange-account.c:1056
+#: storage/exchange-account.c:1063
 msgid "Network error"
 msgstr "Chyba sítě"
 
-#: storage/exchange-account.c:1108
+#: storage/exchange-account.c:1115
 msgid "Personal Folders"
 msgstr "Osobní složky"
 
-#: storage/exchange-account.c:1123
+#: storage/exchange-account.c:1130
 msgid "Favorite Public Folders"
 msgstr "Oblíbené veřejné složky"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1140
+#: storage/exchange-account.c:1147
 msgid "All Public Folders"
 msgstr "Všechny veřejné složky"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1154
+#: storage/exchange-account.c:1161
 msgid "Global Address List"
 msgstr "Globální seznam adres"
 
@@ -836,7 +860,10 @@ msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
 "and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
 "\\%s\")."
-msgstr "Nemohu se autentizovat u serveru Global Catalog. Možná se budete muset vrátit a zadat název domény Windows jako součást jména uživatele (např. \"MOJE-DOMÉNA\\%s\")."
+msgstr ""
+"Nemohu se autentizovat u serveru Global Catalog. Možná se budete muset "
+"vrátit a zadat název domény Windows jako součást jména uživatele (např. "
+"\"MOJE-DOMÉNA\\%s\")."
 
 #: storage/exchange-autoconfig-wizard.c:352
 msgid ""
@@ -974,24 +1001,41 @@ msgstr ""
 "Vaše informace o účtu jsou následující. Opravte prosím případné chyby a "
 "klikněte na \"Vpřed\".\n"
 
+#. User entered a wrong existing
+#. * password. Prompt him again.
+#.
+#: storage/exchange-change-password.c:114
+msgid ""
+"The current password does not match the existing password for your account. "
+"Please enter the correct password"
+msgstr ""
+
+#: storage/exchange-change-password.c:121
+msgid "The two passwords do not match. Please re-enter the passwords."
+msgstr ""
+
 #: storage/exchange-change-password.glade.h:2
 msgid "Change Password"
 msgstr "Změnit heslo"
 
 #: storage/exchange-change-password.glade.h:3
-msgid "Confirm Password  "
+#, fuzzy
+msgid "Confirm Password:"
 msgstr "Potvrďte heslo  "
 
 #: storage/exchange-change-password.glade.h:4
-msgid "Current Password  "
+#, fuzzy
+msgid "Current Password:"
 msgstr "Aktuální heslo  "
 
 #: storage/exchange-change-password.glade.h:5
-msgid "New Password  "
+#, fuzzy
+msgid "New Password:"
 msgstr "Nové heslo  "
 
 #: storage/exchange-change-password.glade.h:6
-msgid "Your current password has expired. Please change your password now.\n"
+#, fuzzy
+msgid "Your current password has expired. Please change your password now."
 msgstr ""
 "Platnost vašeho momentálního hesla vypršela. Nyní prosím změňte vaše heslo.\n"
 
@@ -1430,57 +1474,57 @@ msgstr "Ximian Connector pro Microsoft Exchange"
 msgid "Account Name"
 msgstr "Název účtu"
 
-#: storage/xc-commands.c:296
+#: storage/xc-commands.c:299
 msgid "Folder does not exist"
 msgstr "Složka neexistuje"
 
-#: storage/xc-commands.c:319
+#: storage/xc-commands.c:322
 #, c-format
 msgid "Could not add favorite: %s"
 msgstr "Nemohu přidat oblíbené: %s"
 
-#: storage/xc-commands.c:333
+#: storage/xc-commands.c:336
 #, c-format
 msgid "Could not remove favorite: %s"
 msgstr "Nemohu odstranit oblíbené: %s"
 
-#: storage/xc-commands.c:350
+#: storage/xc-commands.c:353
 msgid "_Move Folder..."
 msgstr "_Přesunout složku..."
 
-#: storage/xc-commands.c:353
+#: storage/xc-commands.c:356
 msgid "_Copy Folder..."
 msgstr "_Kopírovat složku..."
 
-#: storage/xc-commands.c:356
+#: storage/xc-commands.c:359
 msgid "_Rename Folder..."
 msgstr "Pře_jmenovat složku..."
 
-#: storage/xc-commands.c:362
+#: storage/xc-commands.c:365
 msgid "_New Folder..."
 msgstr "_Nová složka..."
 
-#: storage/xc-commands.c:365
+#: storage/xc-commands.c:368
 msgid "_Delete Folder"
 msgstr "_Odstranit složku"
 
-#: storage/xc-commands.c:370
+#: storage/xc-commands.c:373
 msgid "_Add Other User's Folder..."
 msgstr "_Přidat složku jiného uživatele..."
 
-#: storage/xc-commands.c:373
+#: storage/xc-commands.c:376
 msgid "_Remove Other User's Folder"
 msgstr "_Odstranit složku jiného uživatele"
 
-#: storage/xc-commands.c:379
+#: storage/xc-commands.c:382
 msgid "Add to _Favorites"
 msgstr "Přidat do _Oblíbených"
 
-#: storage/xc-commands.c:383
+#: storage/xc-commands.c:386
 msgid "Remove from Fa_vorites"
 msgstr "Odstranit z Ob_líbených"
 
-#: storage/xc-commands.c:390
+#: storage/xc-commands.c:393
 msgid "_Permissions..."
 msgstr "_Oprávnění..."
 

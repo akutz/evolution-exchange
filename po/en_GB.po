@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-03 13:35+0530\n"
+"POT-Creation-Date: 2004-07-19 17:02-0400\n"
 "PO-Revision-Date: 2004-06-06 12:29-0400\n"
 "Last-Translator: Gareth Owen <gowen72@yahoo.com>\n"
 "Language-Team: \n"
@@ -279,7 +279,7 @@ msgstr "No such folder"
 
 #: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2278
 #: mail/mail-stub-exchange.c:2320 mail/mail-stub-exchange.c:2370
-#: shell/e-storage.c:573 storage/xc-commands.c:299
+#: shell/e-storage.c:573 storage/xc-commands.c:302
 msgid "Permission denied"
 msgstr "Permission denied"
 
@@ -370,11 +370,11 @@ msgstr "Could not send message"
 
 #: mail/mail-stub-exchange.c:2270 mail/mail-stub-exchange.c:2325
 #: mail/mail-stub-exchange.c:2374 shell/e-storage.c:557
-#: storage/xc-commands.c:303
+#: storage/xc-commands.c:306
 msgid "Generic error"
 msgstr "Generic error"
 
-#: mail/mail-stub-exchange.c:2274 storage/xc-commands.c:293
+#: mail/mail-stub-exchange.c:2274 storage/xc-commands.c:296
 msgid "Folder already exists"
 msgstr "Folder already exists"
 
@@ -599,47 +599,71 @@ msgstr "Cannot create a folder with that name"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "This operation cannot be performed in off-line mode"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1064
+#: shell/e-storage.c:587 storage/exchange-account.c:1071
 msgid "Unknown error"
 msgstr "Unknown error"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
+msgid "*Control*F5"
+msgstr ""
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Addressbook Exchange backend"
 msgstr "Evolution Addressbook Exchange backend"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
 msgid "Evolution Calendar Exchange backend"
 msgstr "Evolution Calendar Exchange backend"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
 msgid "Evolution Exchange Component"
 msgstr "Evolution Exchange Component"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
 msgid "Exchange"
 msgstr "Exchange"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
 msgid "Ximian Connector for Exchange"
 msgstr "Ximian Connector for Exchange"
 
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
+#, fuzzy
+msgid "_Exchange"
+msgstr "Exchange"
+
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:517
+#: storage/exchange-account.c:516
 #, c-format
 msgid "%s's Folders"
 msgstr "%s's Folders"
 
-#: storage/exchange-account.c:812
+#: storage/exchange-account.c:797
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sEnter password for %s"
 
-#: storage/exchange-account.c:816
+#: storage/exchange-account.c:801
 msgid "Enter password"
 msgstr "Enter password"
 
-#: storage/exchange-account.c:975
+#: storage/exchange-account.c:876
+msgid "Cannot change password due to configuration problems"
+msgstr ""
+
+#: storage/exchange-account.c:891
+msgid ""
+"Server rejected password because it is too weak.\n"
+"Try again with a different password."
+msgstr ""
+
+#: storage/exchange-account.c:896
+#, fuzzy
+msgid "Could not change password"
+msgstr "Change Password"
+
+#: storage/exchange-account.c:982
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -647,7 +671,7 @@ msgstr ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
 
-#: storage/exchange-account.c:980
+#: storage/exchange-account.c:987
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -667,7 +691,7 @@ msgstr ""
 "Or you might have just typed your password wrong.\n"
 "\n"
 
-#: storage/exchange-account.c:991
+#: storage/exchange-account.c:998
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -683,12 +707,12 @@ msgstr ""
 "Or you might have just typed your password wrong.\n"
 "\n"
 
-#: storage/exchange-account.c:1022
+#: storage/exchange-account.c:1029
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Mailbox for %s is not on this server."
 
-#: storage/exchange-account.c:1027
+#: storage/exchange-account.c:1034
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -697,7 +721,7 @@ msgstr ""
 "The server '%s' is running Exchange 5.5 and is\n"
 "therefore not compatible with Ximian Connector"
 
-#: storage/exchange-account.c:1034
+#: storage/exchange-account.c:1041
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -708,40 +732,40 @@ msgstr ""
 "If OWA is running on a different path, you must specify that in the\n"
 "account configuration dialogue."
 
-#: storage/exchange-account.c:1042
+#: storage/exchange-account.c:1049
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "No mailbox for user %s on %s.\n"
 
-#: storage/exchange-account.c:1048 storage/exchange-account.c:1054
-#: storage/exchange-account.c:1062
+#: storage/exchange-account.c:1055 storage/exchange-account.c:1061
+#: storage/exchange-account.c:1069
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Could not connect to server %s: %s"
 
-#: storage/exchange-account.c:1050
+#: storage/exchange-account.c:1057
 msgid "Could not resolve hostname"
 msgstr "Could not resolve hostname"
 
-#: storage/exchange-account.c:1056
+#: storage/exchange-account.c:1063
 msgid "Network error"
 msgstr "Network error"
 
-#: storage/exchange-account.c:1108
+#: storage/exchange-account.c:1115
 msgid "Personal Folders"
 msgstr "Personal Folders"
 
-#: storage/exchange-account.c:1123
+#: storage/exchange-account.c:1130
 msgid "Favorite Public Folders"
 msgstr "Favourite Public Folders"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1140
+#: storage/exchange-account.c:1147
 msgid "All Public Folders"
 msgstr "All Public Folders"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1154
+#: storage/exchange-account.c:1161
 msgid "Global Address List"
 msgstr "Global Address List"
 
@@ -977,24 +1001,41 @@ msgstr ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
 
+#. User entered a wrong existing
+#. * password. Prompt him again.
+#.
+#: storage/exchange-change-password.c:114
+msgid ""
+"The current password does not match the existing password for your account. "
+"Please enter the correct password"
+msgstr ""
+
+#: storage/exchange-change-password.c:121
+msgid "The two passwords do not match. Please re-enter the passwords."
+msgstr ""
+
 #: storage/exchange-change-password.glade.h:2
 msgid "Change Password"
 msgstr "Change Password"
 
 #: storage/exchange-change-password.glade.h:3
-msgid "Confirm Password  "
+#, fuzzy
+msgid "Confirm Password:"
 msgstr "Confirm Password  "
 
 #: storage/exchange-change-password.glade.h:4
-msgid "Current Password  "
+#, fuzzy
+msgid "Current Password:"
 msgstr "Current Password  "
 
 #: storage/exchange-change-password.glade.h:5
-msgid "New Password  "
+#, fuzzy
+msgid "New Password:"
 msgstr "New Password  "
 
 #: storage/exchange-change-password.glade.h:6
-msgid "Your current password has expired. Please change your password now.\n"
+#, fuzzy
+msgid "Your current password has expired. Please change your password now."
 msgstr "Your current password has expired. Please change your password now.\n"
 
 #: storage/exchange-component.c:308
@@ -1434,57 +1475,57 @@ msgstr "Ximian Connector for Microsoft Exchange"
 msgid "Account Name"
 msgstr "Account Name"
 
-#: storage/xc-commands.c:296
+#: storage/xc-commands.c:299
 msgid "Folder does not exist"
 msgstr "Folder does not exist"
 
-#: storage/xc-commands.c:319
+#: storage/xc-commands.c:322
 #, c-format
 msgid "Could not add favorite: %s"
 msgstr "Could not add favourite: %s"
 
-#: storage/xc-commands.c:333
+#: storage/xc-commands.c:336
 #, c-format
 msgid "Could not remove favorite: %s"
 msgstr "Could not remove favourite: %s"
 
-#: storage/xc-commands.c:350
+#: storage/xc-commands.c:353
 msgid "_Move Folder..."
 msgstr "_Move Folder..."
 
-#: storage/xc-commands.c:353
+#: storage/xc-commands.c:356
 msgid "_Copy Folder..."
 msgstr "_Copy Folder..."
 
-#: storage/xc-commands.c:356
+#: storage/xc-commands.c:359
 msgid "_Rename Folder..."
 msgstr "_Rename Folder..."
 
-#: storage/xc-commands.c:362
+#: storage/xc-commands.c:365
 msgid "_New Folder..."
 msgstr "_New Folder..."
 
-#: storage/xc-commands.c:365
+#: storage/xc-commands.c:368
 msgid "_Delete Folder"
 msgstr "_Delete Folder"
 
-#: storage/xc-commands.c:370
+#: storage/xc-commands.c:373
 msgid "_Add Other User's Folder..."
 msgstr "_Add Other User's Folder..."
 
-#: storage/xc-commands.c:373
+#: storage/xc-commands.c:376
 msgid "_Remove Other User's Folder"
 msgstr "_Remove Other User's Folder"
 
-#: storage/xc-commands.c:379
+#: storage/xc-commands.c:382
 msgid "Add to _Favorites"
 msgstr "Add to _Favourites"
 
-#: storage/xc-commands.c:383
+#: storage/xc-commands.c:386
 msgid "Remove from Fa_vorites"
 msgstr "Remove from Fa_vourites"
 
-#: storage/xc-commands.c:390
+#: storage/xc-commands.c:393
 msgid "_Permissions..."
 msgstr "_Permissions..."
 
