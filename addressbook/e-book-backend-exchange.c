@@ -1136,24 +1136,28 @@ build_message (const char *from_name, const char *from_email,
 	camel_object_unref (from);
 
 	/* Create the body */
-	stream = camel_stream_mem_new_with_buffer (note, strlen (note));
-	wrapper = camel_data_wrapper_new ();
-	camel_data_wrapper_construct_from_stream (wrapper, stream);
-	camel_object_unref (stream);
-
-	type = camel_content_type_new ("text", "plain");
-	camel_content_type_set_param (type, "charset", "UTF-8");
-	camel_data_wrapper_set_mime_type_field (wrapper, type);
-	camel_content_type_unref (type);
-
-	if (photo)
+	if (note) {
+		stream = camel_stream_mem_new_with_buffer (note, strlen (note));
+		wrapper = camel_data_wrapper_new ();
+		camel_data_wrapper_construct_from_stream (wrapper, stream);
+		camel_object_unref (stream);
+		
+		type = camel_content_type_new ("text", "plain");
+		camel_content_type_set_param (type, "charset", "UTF-8");
+		camel_data_wrapper_set_mime_type_field (wrapper, type);
+		camel_content_type_unref (type);
+	}
+	text_part = NULL;
+	
+	if (note && photo)
 		text_part = camel_mime_part_new ();
-	else
+	else if (note)
 		text_part = CAMEL_MIME_PART (msg);
 
-	camel_medium_set_content_object (CAMEL_MEDIUM (text_part), wrapper);
-	camel_mime_part_set_encoding (text_part, CAMEL_TRANSFER_ENCODING_8BIT);
-
+	if (text_part) {
+		camel_medium_set_content_object (CAMEL_MEDIUM (text_part), wrapper);
+		camel_mime_part_set_encoding (text_part, CAMEL_TRANSFER_ENCODING_8BIT);
+	}
 	if (photo) {
 		CamelMultipart *multipart;
 		GByteArray *photo_ba;
@@ -1203,9 +1207,10 @@ build_message (const char *from_name, const char *from_email,
 		/* Build the multipart */
 		multipart = camel_multipart_new ();
 		camel_multipart_set_boundary (multipart, NULL);
-
-		camel_multipart_add_part (multipart, text_part);
-		camel_object_unref (text_part);
+		if (text_part) {
+			camel_multipart_add_part (multipart, text_part);
+			camel_object_unref (text_part);
+		}
 		camel_multipart_add_part (multipart, photo_part);
 		camel_object_unref (photo_part);
 
@@ -1269,6 +1274,7 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 	switch (bepriv->mode) {
 
 	case GNOME_Evolution_Addressbook_MODE_LOCAL:
+		*contact = NULL;
 		return GNOME_Evolution_Addressbook_RepositoryOffline;
 	
 	case GNOME_Evolution_Addressbook_MODE_REMOTE:	
@@ -1340,6 +1346,8 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 	switch (bepriv->mode) {
 	
 	case GNOME_Evolution_Addressbook_MODE_LOCAL:
+		*contact = NULL;
+		return GNOME_Evolution_Addressbook_RepositoryOffline;
 
 	case GNOME_Evolution_Addressbook_MODE_REMOTE:
 
@@ -1446,13 +1454,9 @@ e_book_backend_exchange_remove_contacts (EBookBackendSync  *backend,
 	switch (bepriv->mode) {
 
 	case GNOME_Evolution_Addressbook_MODE_LOCAL:
-		e_data_book_respond_remove_contacts (book, 
-						     opid, 
-						     GNOME_Evolution_Addressbook_RepositoryOffline, 
-						     NULL);
-		return GNOME_Evolution_Addressbook_Success; 
-		// GNOME_Evolution_Addressbook_RepositoryOffline FIXME
-	
+		*removed_ids = NULL;
+		return GNOME_Evolution_Addressbook_RepositoryOffline; 
+		
 	case GNOME_Evolution_Addressbook_MODE_REMOTE:
 
 		for (l = id_list; l; l = l->next) {
@@ -1566,20 +1570,39 @@ func_match (struct _ESExp *f, int argc, struct _ESExpResult **argv, void *data)
 		rn = e2k_restriction_or (rns->len, (E2kRestriction **)rns->pdata, TRUE);
 		g_ptr_array_free (rns, TRUE);
 	} else if (!strcmp (propname, "full_name") && flags == E2K_FL_PREFIX) {
-		rn = e2k_restriction_orv (
-			e2k_restriction_content (
-				e_book_backend_exchange_prop_to_exchange ("full_name"),
-				flags, str),
-			e2k_restriction_content (
-				e_book_backend_exchange_prop_to_exchange ("family_name"),
-				flags, str),
-			NULL);
+		if (!*str) {
+			rn = e2k_restriction_orv (
+				e2k_restriction_exist (
+					e_book_backend_exchange_prop_to_exchange ("full_name")),
+				e2k_restriction_exist (
+					e_book_backend_exchange_prop_to_exchange ("family_name")),
+				NULL);
+		}
+		else {
+			rn = e2k_restriction_orv (
+				e2k_restriction_content (
+					e_book_backend_exchange_prop_to_exchange ("full_name"),
+					flags, str),
+				e2k_restriction_content (
+					e_book_backend_exchange_prop_to_exchange ("family_name"),
+					flags, str),
+				NULL);
+		}
 	} else if (!strcmp (propname, "email")) {
-		rn = e2k_restriction_orv (
-			e2k_restriction_content (E2K_PR_MAPI_EMAIL_1_ADDRESS, flags, str),
-			e2k_restriction_content (E2K_PR_MAPI_EMAIL_2_ADDRESS, flags, str),
-			e2k_restriction_content (E2K_PR_MAPI_EMAIL_3_ADDRESS, flags, str),
-			NULL);
+		if (!*str) {
+			rn = e2k_restriction_orv (
+				e2k_restriction_exist (E2K_PR_MAPI_EMAIL_1_ADDRESS),
+				e2k_restriction_exist (E2K_PR_MAPI_EMAIL_2_ADDRESS),
+				e2k_restriction_exist (E2K_PR_MAPI_EMAIL_3_ADDRESS),
+				NULL);
+		}
+		else {	
+			rn = e2k_restriction_orv (
+				e2k_restriction_content (E2K_PR_MAPI_EMAIL_1_ADDRESS, flags, str),
+				e2k_restriction_content (E2K_PR_MAPI_EMAIL_2_ADDRESS, flags, str),
+				e2k_restriction_content (E2K_PR_MAPI_EMAIL_3_ADDRESS, flags, str),
+				NULL);
+		}
 	} else {
 		exchange_prop =
 			e_book_backend_exchange_prop_to_exchange (propname);
@@ -1772,7 +1795,6 @@ e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 			if (!vcard)
 				continue;
 			*contacts = g_list_prepend (*contacts, vcard);
-			g_free (vcard);
 		}
 		status = e2k_result_iter_free (iter);
 
@@ -1931,8 +1953,8 @@ e_book_backend_exchange_get_changes (EBookBackendSync  *backend,
 	switch (bepriv->mode) {
 	
 	case GNOME_Evolution_Addressbook_MODE_LOCAL:
-		/* FIXME */
-		return GNOME_Evolution_Addressbook_Success;
+		*changes = NULL;
+		return GNOME_Evolution_Addressbook_RepositoryOffline;
 
 	case GNOME_Evolution_Addressbook_MODE_REMOTE:
 
@@ -2026,22 +2048,16 @@ e_book_backend_exchange_get_contact (EBookBackendSync  *backend,
 	case GNOME_Evolution_Addressbook_MODE_LOCAL:
 		contact = e_book_backend_cache_get_contact (bepriv->cache,
 							    id);
-		*vcard =  e_vcard_to_string (E_VCARD (contact), 
-					    EVC_FORMAT_VCARD_30);
 		if (contact) {
-			e_data_book_respond_get_contact(book, 
-							opid, 
-							GNOME_Evolution_Addressbook_Success, 
-							*vcard);
+			*vcard =  e_vcard_to_string (E_VCARD (contact), 
+						     EVC_FORMAT_VCARD_30);
 			g_object_unref (contact);
+			return GNOME_Evolution_Addressbook_Success;
 		}
 		else {
-			e_data_book_respond_get_contact(book, 
-							opid, 
-							GNOME_Evolution_Addressbook_ContactNotFound, 
-							"");
+			*vcard = g_strdup ("");
+			return GNOME_Evolution_Addressbook_ContactNotFound;
 		}
-		return GNOME_Evolution_Addressbook_Success; //FIXME
 		
 	case GNOME_Evolution_Addressbook_MODE_REMOTE:
 		/* XXX finish this */

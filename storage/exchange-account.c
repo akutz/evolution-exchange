@@ -78,7 +78,7 @@ struct _ExchangeAccountPrivate {
 	gboolean uris_use_email, offline_sync;
 
 	char *identity_name, *identity_email, *source_uri, *password_key;
-	char *username, *password, *windows_domain, *ad_server;
+	char *username, *password, *windows_domain, *nt_domain, *ad_server;
 	char *owa_url;
 	E2kAutoconfigAuthPref auth_pref;
 	int ad_limit, passwd_exp_warn_period;
@@ -158,6 +158,7 @@ init (GObject *object)
 	account->priv->folders = g_hash_table_new (g_str_hash, g_str_equal);
 	account->priv->discover_data_lock = g_mutex_new ();
 	account->priv->account_online = TRUE;
+	account->priv->nt_domain = NULL;
 }
 
 static void
@@ -281,6 +282,9 @@ finalize (GObject *object)
 	}
 	if (account->priv->windows_domain)
 		g_free (account->priv->windows_domain);
+
+	if (account->priv->nt_domain)
+		g_free (account->priv->nt_domain);
 
 	if (account->priv->ad_server)
 		g_free (account->priv->ad_server);
@@ -908,6 +912,15 @@ is_password_expired (ExchangeAccount *account, E2kAutoconfig *ac)
 
 	result = e2k_kerberos_check_password (ac->username, domain,
 					      ac->password);
+	if (result != E2K_KERBEROS_OK || 
+	    result != E2K_KERBEROS_PASSWORD_EXPIRED) {
+		/* try again with nt domain */
+		domain = ac->nt_domain;
+		if (domain)
+			result = e2k_kerberos_check_password (ac->username, 
+							      domain,
+							      ac->password);
+	} 
 
 	return (result == E2K_KERBEROS_PASSWORD_EXPIRED);
 }
@@ -1040,12 +1053,21 @@ exchange_account_set_password (ExchangeAccount *account, char *old_pass, char *n
 			domain++;
 	}
 	if (!domain) {
+		/* email id is not proper, we return instead of trying nt_domain */
 		e_notice (NULL, GTK_MESSAGE_ERROR, _("Cannot change password due to configuration problems"));
 		return;
 	}
 
 	result = e2k_kerberos_change_password (account->priv->username, domain,
 					       old_pass, new_pass);
+	if (result != E2K_KERBEROS_OK || result != E2K_KERBEROS_PASSWORD_TOO_WEAK) {
+		/* try with nt_domain */
+		domain = account->priv->nt_domain;
+		if (domain)
+			result = e2k_kerberos_change_password (account->priv->username, 
+							       domain, old_pass,
+							       new_pass);
+	}
 	switch (result) {
 	case E2K_KERBEROS_OK:
 		e_passwords_forget_password ("Exchange", account->priv->password_key);
@@ -1237,11 +1259,15 @@ setup_account_hierarchies (ExchangeAccount *account)
 		return FALSE;
 	}
 
+	account->mbox_size = exchange_hierarchy_webdav_get_total_folder_size (
+					EXCHANGE_HIERARCHY_WEBDAV (personal_hier));
+
 	fresult = exchange_hierarchy_scan_subtree (
 		account->priv->favorites_hierarchy,
 		account->priv->favorites_hierarchy->toplevel,
 		(offline == OFFLINE_MODE));
-	if (fresult != EXCHANGE_ACCOUNT_FOLDER_OK) {
+	if (fresult != EXCHANGE_ACCOUNT_FOLDER_OK && 
+	    fresult != EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST) {
 		account->priv->connecting = FALSE;
 		return FALSE;
 	}
@@ -1322,6 +1348,11 @@ exchange_account_connect (ExchangeAccount *account)
 
  try_connect_again:
 	account->priv->ctx = e2k_autoconfig_get_context (ac, NULL, &result);
+
+	if (!account->priv->nt_domain && ac->nt_domain)
+		account->priv->nt_domain = g_strdup (ac->nt_domain);
+	else
+		account->priv->nt_domain = NULL;
 
 	if (result != E2K_AUTOCONFIG_OK) {
 		if ( is_password_expired (account, ac)) {
@@ -1472,7 +1503,7 @@ exchange_account_connect (ExchangeAccount *account)
 
 	if (!setup_account_hierarchies (account)) 
 		return NULL;
-	
+
 	/* Find the password expiery peripod and display warning */
 	find_passwd_exp_period(account, entry);
 	
@@ -1484,14 +1515,18 @@ exchange_account_connect (ExchangeAccount *account)
 					    E2K_GLOBAL_CATALOG_LOOKUP_QUOTA,
                                             &entry);	
 	e2k_operation_free (&gcop);
-	
+
+	/* FIXME: quota warnings are not yet marked for translation!! */
+	/* FIXME: warning message should have quota limit value and optionally current
+	 * usage 
+	 */
 	if (gcstatus == E2K_GLOBAL_CATALOG_OK) {
 
-		if (entry->quota_norecv) {
+		if (entry->quota_norecv && account->mbox_size >= entry->quota_norecv) {
 			quota_msg = g_strdup_printf ("You have exceeded your quota for storing mails on this server. Your current usage is : %d . You will not be able to either send or recieve mails now\n", entry->quota_norecv);
-		} else if (entry->quota_nosend) {
+		} else if (entry->quota_nosend && account->mbox_size >= entry->quota_nosend) {
 			quota_msg = g_strdup_printf ("You are nearing your quota available for storing mails on this server. Your current usage is : %d . You will not be able to send mails till you clear up some space by deleting some mails.\n", entry->quota_nosend);
-		} else if (entry->quota_warn) {
+		} else if (entry->quota_warn && account->mbox_size >= entry->quota_warn) {
 			quota_msg = g_strdup_printf ("You are nearing your quota available for storing mails on this server. Your current usage is : %d . Try to clear up some space by deleting some mails.\n", entry->quota_warn);
 		}
 		

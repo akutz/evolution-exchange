@@ -38,6 +38,7 @@ struct _ExchangeAccount {
 	char *legacy_exchange_dn, *default_timezone;
 
 	gboolean filter_inbox, filter_junk, filter_junk_inbox_only;
+	gdouble mbox_size;
 };
 
 struct _ExchangeAccountClass {

@@ -1,9 +1,135 @@
-2005-03-07  Sarfraaz Ahmed <asarfraaz@novell.com>
-	
-	* configure.in : Bumped the version to 2.2.0
-	* NEWS : Updated
+2005-03-14  Sivaiah Nallagatla <snallagatla@novell.com>
 
-2005-03-05  Sushma Rai  <rsushma@novell.com>
+	* addresbook/e-book-backend-excahnge.c
+	(e_book_backend_exchange_create_contact)
+	(e_book_backend_exchange_modify_contact)
+	(e_book_backend_exchange_remove_contacts)
+	(e_book_backend_exchange_get_changes)
+	(e_book_backend_exchange_get_contact) : added misc. stuff like
+	returning proper error code, assigning NULL to out params and not
+	using e_data_book_view etc to offline case error handling Don't
+	know if it fixes any bug in bugzilla
+
+2005-03-11  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+        * calendar/e-cal-backend-exchange-calendar.c (add_ical) : Make sure we
+        check for attachments in subcomponents of a vcalendar as well.
+        (get_attachment) : Moved to e-cal-backend-exchange.c
+        (build_msg) : Moved to e-cal-backend-exchange.c
+        (create_object) : Minor leak fixed.
+        (modify_object_with_href) : Dont loose the attachments while modifying.
+        * calendar/e-cal-backend-exchange-tasks.c (put_body): Handle attachments
+        (get_changed_tasks) : Check for attachments and fetch them from server.
+        (create_task_object) : Check for attachments and send them to server.
+        (modify_task_object) : Similar
+        * calendar/e-cal-backend-exchange.c (load_cache) : Create the local
+        attachment store for the GUI to store exchange attachments
+        (save_attach_file) : Make a local copy of the attachment in the backend
+        (get_attachment) : Extract the attachment from the server object.(Moved
+        from calendar.c)
+        (get_attach_file_contents) : Store the attachment in a file.
+        (build_msg) : Build the mime part to send to the server (Moved from
+        calendar.c)
+        * calendar/e-cal-backend-exchange.h : Export the attachment utility
+        functions.
+
+2005-03-11  Sushma Rai  <rsushma@novell.com>
+
+	* addressbook/e-book-backend-exchange.c (func_match): Handling the
+	query which beginswith full name or email id without any value.
+	Fixes the problem of listing items of Exchange personal contacts
+	from user selection dialog.
+
+2005-03-11  Sushma Rai  <rsushma@novell.com>
+	
+	* storage/exchange-account.c (is_password_expired)
+	(exchange_account_set_password): If kerberos calls with windows domain
+	and domain extracted from e-mail id fail, trying again with NT domain.
+	(exchange_account_connect): Storing the NT domain value in exchange
+	account.
+	(init): Initializing NT domain paramenter.
+	(finalize): Clearing NT domain value stored.
+	Fixes #72801
+
+2005-03-11 Sivaiah Nallagatla <snallagatla@novell.com>
+                                                                                           
+        * calendar/e-cal-backend-exchange-calendar.c
+        (add_timezone_cb) (modify_object_with_href) :
+        initialize the izone to NULL before passing it
+        to get_timzone.
+                                                                                           
+        Fixes #73505, #67740  and surely something else
+
+2005-03-07  Jeffrey Stedfast  <fejj@novell.com>
+
+	Fixes bug #72889, #72943 and probably others.
+
+	* camel/camel-exchange-store.c (exchange_disconnect): Removed the
+	logic, put it into finalize() instead. Simply return TRUE here.
+	(exchange_connect): Moved the logic into construct().
+	(construct): Init the strub and connect it. This needs to happen
+	here or offline mode breaks.
+	
+2005-03-10 Sivaiah Nallagatla <snallagatla@novell.com>
+
+	* calendar/backends/e-cal-backend-exchange.c
+	(remove_objects) : Make sure object is non NULL before deferencing
+	it.  Fixes #73059
+
+2005-03-10  Sushma Rai  <rsushma@novell.com>
+
+	* calendar/e-cal-backend-exchange-tasks.c (create_task_object):
+	Finding the UID from the ical component and using it while checking
+	the cache, and also returning the UID back. Fixes #72041
+	Changed the parameter name from comp_uid to return_uid.
+
+	* calendar/e-cal-backend-exchange-calendar.c (create_object): Similar
+	to tasks, here also reading the UID value from ical component and 
+	returning it back.
+
+2005-03-09 Sivaiah Nallagatla <snallagatla@novell.com>
+
+	* addressbook/e-book-backend-exchange.c 
+	(e_book_backend_exchange_get_contact_list) : 
+	Don't free the vcard you just added to list !!!
+	That gets freed elsewhere.
+	Fixes #73470, #73030 #73025 and may be something 
+	else which i don't know
+
+2005-03-09 Sivaiah Nallagatla <snallagatla@novell.com>
+
+        * addresbook/e-book-backend-exchange.c
+        (build_message) : make sure note is non NULL
+        before processing. Basically added robustness against
+        ote being NULL.
+        Fixes #72044
+
+2005-03-09  Sushma Rai  <rsushma@novell.com>
+	
+	* storage/exchange-account.h: mbox_size definition. Missed in previous
+	commit.
+
+2005-03-09  Sushma Rai  <rsushma@novell.com>
+
+	* lib/e2k-global-catalog.c (get_quota_values): Reading "mDBUseDefaults"
+	attribute to check if the user level quota settings are enabled or not.
+	(e2k_global_catalog_lookup): Added "mDBUseDefaults" attribute to quota
+	attribute list.
+
+	* storage/exchange-account.c (setup_account_hierarchies): Reading total
+	size for all the personal folders. Not returning "FALSE" in case 
+	favorite folders does not exist. Not an error condition.
+	(exchange_account_connect): Printing the quota warning, only if user's
+	mail box size exceeds the quota limit set. Fixes #72389
+
+	* storage/exchange-hierarchy-webdav.[ch](init): Initializing the total
+	folder size.
+	(exchange_hierarchy_webdav_get_total_folder_size): Returns total size 
+	of all the folders.
+	(rescan)(exchange_hierarchy_webdav_get_folder_size): Calculates the 
+	total size for all the folders.
+	
+2005-03-08  Sushma Rai  <rsushma@novell.com>
 
 	* shell/e-folder-misc-dialogs.c (do_foreign_folder_dialog): Removed the
 	corba method which was still being used to retrieve user's e-mail
@@ -11,7 +137,18 @@
 	(user_clicked): Making name selector dialog modal.
 	(setup_name_selector): Adding the user name entry widget to the name
 	selector dialog.
-	Fixes #73218
+	 Fixes #73218
+
+2005-03-07 Sivaiah Nallagatla <snallagatla@novell.com>
+
+	* calendar/e-cal-backend-exchange.c (set_mode) :
+	make sure we set proper value to priv->read_only 
+	Atleast should Fix #72168 & #72951 
+
+2005-03-07  Sarfraaz Ahmed <asarfraaz@novell.com>
+	
+	* configure.in : Bumped the version to 2.2.0
+	* NEWS : Updated
 
 2005-03-07  Sushma Rai  <rsushma@novell.com>
 
@@ -21,16 +158,16 @@
 	lost when user does modifications to his account settings.
 	Fixes #73202, #72834, #73017, #72836, and #72881
 
-2005-03-06  Rajesh Ranjan  <rranjan@redhat.com>
-
-	* configure.in: Added Hindi ALL_LINGUAS.
-
-2005-03-05  Sushma Rai  <rsushma@novell.com>
+2005-03-03  Sushma Rai  <rsushma@novell.com>
 
 	* camel/camel-exchange-provider.c: Added mail filters and junk mail
-	filters settings to "Options" section in exchange_conf_entries[]
+	filters settings to "Options" section in exchange_conf_entries[] 
 	structure so that they appear in receive options page.
-	Fixes #73237
+	Fixes #73237	
+ 
+2005-03-03  Rajesh Ranjan  <rranjan@redhat.com>
+
+	* configure.in : Added hi to ALL_LINGUAS.
 
 2005-02-28  Sarfraaz Ahmed <asarfraaz@novell.com>
 

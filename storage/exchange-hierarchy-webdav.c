@@ -50,6 +50,7 @@ struct _ExchangeHierarchyWebDAVPrivate {
 	gboolean deep_searchable;
 	char *trash_path;
 	ExchangeFolderSize *foldersize;
+	gdouble total_folder_size;
 };
 
 #define PARENT_TYPE EXCHANGE_TYPE_HIERARCHY
@@ -111,6 +112,7 @@ init (GObject *object)
 	hwd->priv = g_new0 (ExchangeHierarchyWebDAVPrivate, 1);
 	hwd->priv->folders_by_internal_path = g_hash_table_new (g_str_hash, g_str_equal);
 	hwd->priv->foldersize = exchange_folder_size_new ();
+	hwd->priv->total_folder_size = 0;
 
 	g_signal_connect (object, "new_folder",
 			  G_CALLBACK (hierarchy_new_folder), NULL);
@@ -540,6 +542,8 @@ rescan (ExchangeHierarchy *hier)
 				fsize_d = g_ascii_strtod (folder_size, NULL)/1024;
 				exchange_folder_size_update (hwd->priv->foldersize, 
 							folder_name, fsize_d);
+				hwd->priv->total_folder_size = 
+					hwd->priv->total_folder_size + fsize_d;
 			}
 		}
 	}
@@ -558,6 +562,14 @@ exchange_hierarchy_webdav_status_to_folder_result (E2kHTTPStatus status)
 		return EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED;
 	else
 		return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
+}
+
+gdouble
+exchange_hierarchy_webdav_get_total_folder_size (ExchangeHierarchyWebDAV *hwd)
+{
+	g_return_val_if_fail (EXCHANGE_IS_HIERARCHY_WEBDAV (hwd), -1);
+
+	return hwd->priv->total_folder_size;
 }
 
 ExchangeFolderSize *
@@ -638,6 +650,8 @@ exchange_hierarchy_webdav_parse_folder (ExchangeHierarchyWebDAV *hwd,
 		fsize_d = g_ascii_strtod (folder_size, NULL)/1024 ;
 		exchange_folder_size_update (hwd->priv->foldersize, 
 						name, fsize_d);
+		hwd->priv->total_folder_size = 
+				hwd->priv->total_folder_size + fsize_d;
 	}
 
 	return folder;

@@ -92,6 +92,8 @@ void e_cal_backend_exchange_get_from (ECalBackendSync *backend, ECalComponent *c
 					char **from_name, char **from_addr);
 char * e_cal_backend_exchange_get_from_string (ECalBackendSync *backend, ECalComponent *comp); 
 gboolean e_cal_backend_exchange_is_online (ECalBackendExchange *cbex);
+GSList * get_attachment (ECalBackendExchange *cbex, const char *uid, const char *body, int len);
+char * build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const char *subject, char **boundary);
 
 G_END_DECLS
 

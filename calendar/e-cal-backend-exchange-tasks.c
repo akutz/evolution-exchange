@@ -431,6 +431,7 @@ get_summary (ECalComponent *comp)
 static int
 put_body (ECalComponent *comp, E2kContext *ctx, E2kOperation *op,
          const char *uri, const char *from_name, const char *from_addr,
+	 const char *attach_body, const char *boundary,
          char **repl_uid)
 
 {
@@ -457,7 +458,41 @@ put_body (ECalComponent *comp, E2kContext *ctx, E2kOperation *op,
 	/* PUT the component on the server */
         desc_crlf = e2k_lf_to_crlf ((const char *) desc->str);
         date = e2k_make_timestamp_rfc822 (time (NULL));
-        body = g_strdup_printf ("content-class: urn:content-classes:task\r\n"
+	
+	if (attach_body) {
+		body = g_strdup_printf ("content-class: urn:content-classes:task\r\n"
+                                "Subject: %s\r\n"
+                                "Date: %s\r\n"
+                                "Message-ID: <%s>\r\n"
+                                "MIME-Version: 1.0\r\n"
+                                "Content-Type: multipart/mixed;\r\n"
+				"\tboundary=\"%s\";\r\n"
+				"X-MS_Has-Attach: yes\r\n"
+                                "From: \"%s\" <%s>\r\n"
+				"\r\n--%s\r\n"
+				"content-class: urn:content-classes:task\r\n"
+				"Content-Type: text/plain;\r\n"
+                                "\tcharset=\"utf-8\"\r\n"
+                                "Content-Transfer-Encoding: 8bit\r\n"
+                                "Thread-Topic: %s\r\n"
+                                "Priority: %s\r\n"
+                                "Importance: %s\r\n"
+                                "\r\n%s\r\n%s",
+                                get_summary (comp),
+                                date,
+                                get_uid (comp),
+				boundary,
+				from_name ? from_name : "Evolution",
+				from_addr ? from_addr : "",
+				boundary,
+                                get_summary (comp),
+                                get_priority (comp),
+                                get_priority (comp),
+                                desc_crlf,
+				attach_body);
+
+	} else {
+		body = g_strdup_printf ("content-class: urn:content-classes:task\r\n"
                                 "Subject: %s\r\n"
                                 "Date: %s\r\n"
                                 "Message-ID: <%s>\r\n"
@@ -479,6 +514,7 @@ put_body (ECalComponent *comp, E2kContext *ctx, E2kOperation *op,
                                 from_name ? from_name : "Evolution",
 				from_addr ? from_addr : "",
                                 desc_crlf);
+	}
 
         status = e2k_context_put (ctx, NULL, uri, "message/rfc822",
 				  body, strlen (body), NULL);
@@ -501,6 +537,7 @@ static const char *task_props[] = {
         E2K_PR_HTTPMAIL_SUBJECT,
         E2K_PR_HTTPMAIL_TEXT_DESCRIPTION,
         E2K_PR_HTTPMAIL_DATE,
+	E2K_PR_HTTPMAIL_HAS_ATTACHMENT,
         E2K_PR_CALENDAR_LAST_MODIFIED,
         E2K_PR_HTTPMAIL_FROM_EMAIL,
         E2K_PR_HTTPMAIL_FROM_NAME,
@@ -519,17 +556,20 @@ static const int n_task_props = sizeof (task_props) / sizeof (task_props[0]);
 static guint
 get_changed_tasks (ECalBackendExchange *cbex, const char *since)
 {
+	ECalBackendExchangeComponent *ecalbexcomp;
 	E2kRestriction *rn;
 	E2kResultIter *iter;
 	GPtrArray *hrefs, *array;
-	GHashTable *modtimes;
+	GHashTable *modtimes, *attachments;
+	GSList *attachment_list = NULL;
 	E2kResult *result;
-	const char *modtime, *str;
-	char *uid;
+	E2kContext *ctx;
+	const char *modtime, *str, *prop;
+	char *uid, *body;
 	char *tzid;
 	int status, i, priority, percent;
 	float f_percent;
-	ECalComponent *ecal;
+	ECalComponent *ecal, *ecomp;
 	struct icaltimetype itt;
 	const icaltimezone *itzone;
 	ECalComponentDateTime ecdatetime;
@@ -563,6 +603,8 @@ get_changed_tasks (ECalBackendExchange *cbex, const char *since)
 
 	hrefs = g_ptr_array_new ();
 	modtimes = g_hash_table_new_full (g_str_hash, g_str_equal,
+					  g_free, g_free);
+	attachments = g_hash_table_new_full (g_str_hash, g_str_equal,
 					  g_free, g_free);
 
 	while ((result = e2k_result_iter_next (iter))) {
@@ -753,7 +795,13 @@ get_changed_tasks (ECalBackendExchange *cbex, const char *since)
 				E2K_PR_CALENDAR_URL))) {
 			e_cal_component_set_url (ecal, str);
 		}	
-		
+
+		/* Set Attachments */
+		if ((str = e2k_properties_get_prop (result->props,
+				E2K_PR_HTTPMAIL_HAS_ATTACHMENT))) {
+			g_hash_table_insert (attachments, g_strdup (result->href),
+				g_strdup (uid));
+		}
 		e_cal_component_commit_sequence (ecal);
 		icalcomp = e_cal_component_get_icalcomponent (ecal);
 		if (icalcomp)
@@ -765,6 +813,7 @@ get_changed_tasks (ECalBackendExchange *cbex, const char *since)
 	if (!SOUP_STATUS_IS_SUCCESSFUL (status)) {
 		g_ptr_array_free (hrefs, TRUE);
 		g_hash_table_destroy (modtimes);
+		g_hash_table_destroy (attachments);
 		return status;
 	}
 
@@ -774,15 +823,86 @@ get_changed_tasks (ECalBackendExchange *cbex, const char *since)
 	if (!hrefs->len) {
 		g_ptr_array_free (hrefs, TRUE);
 		g_hash_table_destroy (modtimes);
+		g_hash_table_destroy (attachments);
 		return SOUP_STATUS_OK;
 	}
 	
-	/* FIXME */
+	prop = PR_INTERNET_CONTENT;
+	iter = e_folder_exchange_bpropfind_start (cbex->folder, NULL,
+						(const char **)hrefs->pdata,
+						hrefs->len, &prop, 1);
+	for (i = 0; i < hrefs->len; i++)
+		g_free (hrefs->pdata[i]);
+	g_ptr_array_set_size (hrefs, 0);
+
+	while ((result = e2k_result_iter_next (iter))) {
+		GByteArray *ical_data;
+		ical_data = e2k_properties_get_prop (result->props, PR_INTERNET_CONTENT);
+		if (!ical_data) {
+			g_ptr_array_add (hrefs, g_strdup (result->href));
+			continue;
+		}
+
+		uid = g_hash_table_lookup (attachments, result->href);
+		/* Fetch component from cache and update it */
+		ecalbexcomp = get_exchange_comp (cbex, uid);
+		attachment_list = get_attachment (cbex, uid, ical_data->data, ical_data->len);
+		if (attachment_list) {
+			ecomp = e_cal_component_new ();
+			e_cal_component_set_icalcomponent (ecomp, icalcomponent_new_clone (ecalbexcomp->icomp));
+			e_cal_component_set_attachment_list (ecomp, attachment_list);
+			icalcomponent_free (ecalbexcomp->icomp);
+			ecalbexcomp->icomp = icalcomponent_new_clone (e_cal_component_get_icalcomponent (ecomp));
+			g_object_unref (ecomp);
+		}
+	}
+	status = e2k_result_iter_free (iter);
+
+	if (!SOUP_STATUS_IS_SUCCESSFUL (status)) {
+		g_ptr_array_free (hrefs, TRUE);
+		g_hash_table_destroy (attachments);
+		return status;
+	}
+
+	if (!hrefs->len) {
+		g_ptr_array_free (hrefs, TRUE);
+		g_hash_table_destroy (attachments);
+		return SOUP_STATUS_OK;
+	}
+
+	ctx = exchange_account_get_context (cbex->account);
+	if (!ctx) {
+		/* This either means we lost connection or we are in offline mode */
+		return SOUP_STATUS_CANT_CONNECT;
+	}
+
+	for (i = 0; i < hrefs->len; i++) {
+		int length;
+	
+		status = e2k_context_get (ctx, NULL, hrefs->pdata[i],
+					NULL, &body, &length);
+		if (!SOUP_STATUS_IS_SUCCESSFUL (status))
+			continue;
+		uid = g_hash_table_lookup (attachments, hrefs->pdata[i]);
+		/* Fetch component from cache and update it */
+		ecalbexcomp = get_exchange_comp (cbex, uid);
+		attachment_list = get_attachment (cbex, uid, body, length);
+		if (attachment_list) {
+			ecomp = e_cal_component_new ();
+			e_cal_component_set_icalcomponent (ecomp, icalcomponent_new_clone (ecalbexcomp->icomp));
+			e_cal_component_set_attachment_list (ecomp, attachment_list);
+			icalcomponent_free (ecalbexcomp->icomp);
+			ecalbexcomp->icomp = icalcomponent_new_clone (e_cal_component_get_icalcomponent (ecomp));
+			g_object_unref (ecomp);
+		}
+		g_free (body);
+	}
 
 	for (i = 0; i < hrefs->len; i++)
 		g_free (hrefs->pdata[i]);
 	g_ptr_array_free (hrefs, TRUE);
 	g_hash_table_destroy (modtimes);
+	g_hash_table_destroy (attachments);
 	return status;
 }
 
@@ -838,7 +958,7 @@ struct _cb_data {
 
 static ECalBackendSyncStatus
 create_task_object (ECalBackendSync *backend, EDataCal *cal,
-		    char **calobj, char **comp_uid)
+		    char **calobj, char **return_uid)
 {
 	ECalBackendExchangeTasks *ecalbextask;
 	ECalBackendExchange *ecalbex;
@@ -849,10 +969,14 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 	icalcomponent_kind kind;
 	struct icaltimetype current;
 	char *from_name, *from_addr;
+	char *boundary = NULL;
+	char *attach_body = NULL;
+	char *attach_body_crlf = NULL;
 	const char *summary;
 	char * modtime;
 	char *location;
 	ECalBackendSyncStatus status;
+	const char *temp_comp_uid;
 
 	ecalbextask = E_CAL_BACKEND_EXCHANGE_TASKS (backend);
 	ecalbex = E_CAL_BACKEND_EXCHANGE (backend);
@@ -881,9 +1005,21 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 	icalcomponent_add_property (icalcomp, icalproperty_new_lastmodified (current));
 
 	modtime = e2k_timestamp_from_icaltime (current);
+	
+	summary = icalcomponent_get_summary (icalcomp);
+	if (!summary)
+		summary = "";
+
+	/* Get the uid */
+	temp_comp_uid = icalcomponent_get_uid (icalcomp);
+	if (!temp_comp_uid) {
+		icalcomponent_free (icalcomp);
+		return GNOME_Evolution_Calendar_InvalidObject;
+	}
 
 	/* check if the object is already present in our cache */
-	if (e_cal_backend_exchange_in_cache (E_CAL_BACKEND_EXCHANGE (backend), *comp_uid, modtime, NULL)) {
+	if (e_cal_backend_exchange_in_cache (E_CAL_BACKEND_EXCHANGE (backend), 
+					     temp_comp_uid, modtime, NULL)) {
 		icalcomponent_free (icalcomp);
 		return GNOME_Evolution_Calendar_ObjectIdAlreadyExists;
 	}	
@@ -893,6 +1029,13 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
         e_cal_component_set_icalcomponent (comp, icalcomp);
 
 	get_from (backend, comp, &from_name, &from_addr);
+
+	/* Check for attachments */
+	if (e_cal_component_has_attachments (comp)) {
+		d(printf ("This task has attachments\n"));
+		attach_body = build_msg (ecalbex, comp, summary, &boundary);
+		attach_body_crlf = e_cal_backend_exchange_lf_to_crlf (attach_body);
+	}
 
 	props = e2k_properties_new ();
 
@@ -930,9 +1073,6 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 	}
 
 	real_icalcomp = icalparser_parse_string (*calobj);
-	summary = e2k_properties_get_prop (props, E2K_PR_HTTPMAIL_THREAD_TOPIC);
-	if (!summary)
-		summary = g_strdup ("");
 
 	e2kctx = exchange_account_get_context (ecalbex->account);
 	status = e_folder_exchange_proppatch_new (ecalbex->folder, NULL,
@@ -940,14 +1080,16 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 						  props, &location, NULL );
 
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-		status = put_body(comp, e2kctx, NULL, location, from_name, from_addr, NULL);
+		status = put_body(comp, e2kctx, NULL, location, from_name, from_addr, 
+						attach_body_crlf, boundary, NULL);
 		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 			e_cal_backend_exchange_add_object (ecalbex, location, modtime, real_icalcomp);
 		}
 		g_free (location);
 		g_free (modtime);
 	}
-	
+
+	*return_uid = g_strdup (temp_comp_uid); 
 	return GNOME_Evolution_Calendar_Success;
 }
 
@@ -965,6 +1107,9 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	const char* comp_uid, *summary;
 	char *from_name, *from_addr;
 	char *comp_str;
+	char *attach_body = NULL;
+	char *attach_body_crlf = NULL;
+	char *boundary = NULL;
 	struct icaltimetype current;
 	ECalBackendSyncStatus status;
 	E2kContext *e2kctx;
@@ -1011,6 +1156,9 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	*old_object = e_cal_component_get_as_string (cache_comp);
 	g_free (cache_comp);
 	
+	summary = icalcomponent_get_summary (icalcomp);
+	if (!summary)
+		summary = "";
 	/* Create the cal component */
         new_comp = e_cal_component_new ();
         e_cal_component_set_icalcomponent (new_comp, icalcomp);
@@ -1019,6 +1167,12 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
         current = icaltime_from_timet (time (NULL), 0);
         e_cal_component_set_last_modified (new_comp, &current);
 
+	/* Set Attachments */
+	if (e_cal_component_has_attachments (new_comp)) {
+		d(printf ("This task has attachments for modifications\n"));
+		attach_body = build_msg (ecalbex, new_comp, summary, &boundary);
+		attach_body_crlf = e_cal_backend_exchange_lf_to_crlf (attach_body);
+	}
 	comp_str = e_cal_component_get_as_string (new_comp);
 	icalcomp = icalparser_parse_string (comp_str);
 	g_free (comp_str);
@@ -1030,7 +1184,6 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
         props = e2k_properties_new ();
 
 	update_props (new_comp, &props);
-        summary = e2k_properties_get_prop (props, E2K_PR_HTTPMAIL_THREAD_TOPIC);  
 	e_cal_component_commit_sequence (new_comp);
 
         e2kctx = exchange_account_get_context (ecalbex->account);
@@ -1038,7 +1191,8 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	comp_str = e_cal_component_get_as_string (new_comp);
 	icalcomp = icalparser_parse_string (comp_str);
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)){
-		status = put_body(new_comp, e2kctx, NULL, ecalbexcomp->href, from_name, from_addr, NULL);
+		status = put_body(new_comp, e2kctx, NULL, ecalbexcomp->href, from_name, from_addr, 
+					attach_body_crlf, boundary, NULL);
 		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
 			e_cal_backend_exchange_modify_object (ecalbex, icalcomp, mod);
 	}
