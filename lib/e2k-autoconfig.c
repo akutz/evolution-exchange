@@ -1479,7 +1479,7 @@ validate (const char *owa_url, char *user, char *password, char **host, char **a
 			  	"you to be able to use Ximian Connector.\n\n"
 			  	"For information to provide to your Exchange "
 			  	"administrator, please follow the link below:\n"
-				"http://www.ximian.com/products/connector/iis-lockdown.html, http://www.ximian.com/products/connector/iis-lockdown.html"));
+				"http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328.html "));
 
 			valid = FALSE;
 			break;
