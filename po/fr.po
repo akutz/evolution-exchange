@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange 2.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-11 01:26+0530\n"
+"POT-Creation-Date: 2005-01-11 16:32+0530\n"
 "PO-Revision-Date: 2004-09-24 12:54+0200\n"
 "Last-Translator: Craig Jeffares <cjeffares@novell.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
@@ -48,44 +48,49 @@ msgstr ""
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "La ressource « %s » est occupée pendant la période sélectionnée."
 
-#: camel/camel-exchange-folder.c:241
+#: camel/camel-exchange-folder.c:220
 msgid "Can only expunge in Deleted Items folder"
 msgstr ""
 "Vous ne pouvez effectuer des suppressions que dans le dossier Éléments "
 "supprimés"
 
-#: camel/camel-exchange-folder.c:265
+#: camel/camel-exchange-folder.c:244
 msgid "No Subject"
 msgstr "Aucun objet"
 
-#: camel/camel-exchange-folder.c:612
+#: camel/camel-exchange-folder.c:598
 msgid "Moving messages"
 msgstr "Déplacement des messages"
 
-#: camel/camel-exchange-folder.c:613
+#: camel/camel-exchange-folder.c:599
 msgid "Copying messages"
 msgstr "Copie des messages"
 
-#: camel/camel-exchange-folder.c:916
+#: camel/camel-exchange-folder.c:929
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Impossible de créer le répertoire %s : %s"
 
-#: camel/camel-exchange-folder.c:926
+#: camel/camel-exchange-folder.c:939
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Impossible de charger le résumé pour %s"
 
-#: camel/camel-exchange-folder.c:934
+#: camel/camel-exchange-folder.c:947
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Impossible de créer le cache pour %s"
 
-#: camel/camel-exchange-folder.c:974
+#: camel/camel-exchange-folder.c:957
+#, fuzzy, c-format
+msgid "Could not create journal for %s"
+msgstr "Impossible de créer le cache pour %s"
+
+#: camel/camel-exchange-folder.c:997
 msgid "Scanning for changed messages"
 msgstr "Recherche des messages modifiés"
 
-#: camel/camel-exchange-folder.c:998
+#: camel/camel-exchange-folder.c:1021
 msgid "Fetching summary information for new messages"
 msgstr "Récupération des informations de résumé des nouveaux messages"
 
@@ -174,24 +179,48 @@ msgstr ""
 "Cette option utilisera l'authentification par mot de passe en texte brut "
 "standard pour se connecter au serveur Exchange."
 
-#: camel/camel-exchange-store.c:297
+#: camel/camel-exchange-store.c:260
 #, c-format
 msgid "Exchange server %s"
 msgstr "Serveur Exchange %s"
 
-#: camel/camel-exchange-store.c:300
+#: camel/camel-exchange-store.c:263
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Compte Exchange de %s sur %s"
 
-#: camel/camel-exchange-store.c:327
+#: camel/camel-exchange-store.c:290
 msgid "Evolution Exchange backend process"
 msgstr "Processus secondaire Evolution Exchange"
 
-#: camel/camel-exchange-store.c:891
+#: camel/camel-exchange-store.c:352
 #, fuzzy, c-format
 msgid "No such folder %s"
 msgstr "Ce dossier n'existe pas"
+
+#: camel/camel-exchange-store.c:474
+#, fuzzy
+msgid "Cannot get folder info in offline mode."
+msgstr "Cette opération ne peut pas s'exécuter hors ligne"
+
+#: camel/camel-exchange-store.c:536
+#, fuzzy
+msgid "Cannot create folder in offline mode."
+msgstr "Impossible de créer un dossier avec ce nom"
+
+#: camel/camel-exchange-store.c:563
+#, fuzzy
+msgid "Cannot delete folder in offline mode."
+msgstr ""
+"Impossible de supprimer le dossier :\n"
+"%s"
+
+#: camel/camel-exchange-store.c:579
+#, fuzzy
+msgid "Cannot rename folder in offline mode."
+msgstr ""
+"Impossible de renommer le dossier :\n"
+"%s"
 
 #: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"

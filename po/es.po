@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-11 01:26+0530\n"
+"POT-Creation-Date: 2005-01-11 16:32+0530\n"
 "PO-Revision-Date: 2004-11-28 16:26+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <es@li.org>\n"
@@ -53,42 +53,47 @@ msgid "The resource '%s' is busy during the selected time period."
 msgstr ""
 "El recurso «%s» está ocupado durante el periodo de tiempo seleccionado."
 
-#: camel/camel-exchange-folder.c:241
+#: camel/camel-exchange-folder.c:220
 msgid "Can only expunge in Deleted Items folder"
 msgstr "Sólo se puede compactar en la carpeta de «Elementos borrados»"
 
-#: camel/camel-exchange-folder.c:265
+#: camel/camel-exchange-folder.c:244
 msgid "No Subject"
 msgstr "Sin asunto"
 
-#: camel/camel-exchange-folder.c:612
+#: camel/camel-exchange-folder.c:598
 msgid "Moving messages"
 msgstr "Moviendo mensajes"
 
-#: camel/camel-exchange-folder.c:613
+#: camel/camel-exchange-folder.c:599
 msgid "Copying messages"
 msgstr "Copiando mensajes"
 
-#: camel/camel-exchange-folder.c:916
+#: camel/camel-exchange-folder.c:929
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "No se puede crear el directorio %s: %s"
 
-#: camel/camel-exchange-folder.c:926
+#: camel/camel-exchange-folder.c:939
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "No se pudo cargar el resumen para %s"
 
-#: camel/camel-exchange-folder.c:934
+#: camel/camel-exchange-folder.c:947
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "No se pudo crear el cache para %s"
 
-#: camel/camel-exchange-folder.c:974
+#: camel/camel-exchange-folder.c:957
+#, fuzzy, c-format
+msgid "Could not create journal for %s"
+msgstr "No se pudo crear el cache para %s"
+
+#: camel/camel-exchange-folder.c:997
 msgid "Scanning for changed messages"
 msgstr "Buscando mensajes cambiados"
 
-#: camel/camel-exchange-folder.c:998
+#: camel/camel-exchange-folder.c:1021
 msgid "Fetching summary information for new messages"
 msgstr "Obteniendo la información del resumen para los mensajes nuevos"
 
@@ -172,24 +177,48 @@ msgstr ""
 "Esta opción conectará con el servidor Exchange usando autenticación estándar "
 "en texto plano."
 
-#: camel/camel-exchange-store.c:297
+#: camel/camel-exchange-store.c:260
 #, c-format
 msgid "Exchange server %s"
 msgstr "Servidor Exchange %s"
 
-#: camel/camel-exchange-store.c:300
+#: camel/camel-exchange-store.c:263
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Cuanta Exchange de %s en %s"
 
-#: camel/camel-exchange-store.c:327
+#: camel/camel-exchange-store.c:290
 msgid "Evolution Exchange backend process"
 msgstr "Proceso de backend de Evolution Exchange"
 
-#: camel/camel-exchange-store.c:891
+#: camel/camel-exchange-store.c:352
 #, fuzzy, c-format
 msgid "No such folder %s"
 msgstr "No existe la carpeta"
+
+#: camel/camel-exchange-store.c:474
+#, fuzzy
+msgid "Cannot get folder info in offline mode."
+msgstr "Esta operación no puede realizarse en modo «Desconectado»"
+
+#: camel/camel-exchange-store.c:536
+#, fuzzy
+msgid "Cannot create folder in offline mode."
+msgstr "No se puede crear una carpeta con ese nombre"
+
+#: camel/camel-exchange-store.c:563
+#, fuzzy
+msgid "Cannot delete folder in offline mode."
+msgstr ""
+"No se puede borrar la carpeta:\n"
+"%s"
+
+#: camel/camel-exchange-store.c:579
+#, fuzzy
+msgid "Cannot rename folder in offline mode."
+msgstr ""
+"No se puede renombrar la carpeta:\n"
+"%s"
 
 #: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"

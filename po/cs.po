@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-11 01:26+0530\n"
+"POT-Creation-Date: 2005-01-11 16:32+0530\n"
 "PO-Revision-Date: 2004-11-27 20:02+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -47,42 +47,47 @@ msgstr ""
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Zdroj '%s' se ve zvoleném časovém období používá."
 
-#: camel/camel-exchange-folder.c:241
+#: camel/camel-exchange-folder.c:220
 msgid "Can only expunge in Deleted Items folder"
 msgstr "Vyčistit lze jen složku Odstraněné položky"
 
-#: camel/camel-exchange-folder.c:265
+#: camel/camel-exchange-folder.c:244
 msgid "No Subject"
 msgstr "Žádný předmět"
 
-#: camel/camel-exchange-folder.c:612
+#: camel/camel-exchange-folder.c:598
 msgid "Moving messages"
 msgstr "Přesouvám zprávy"
 
-#: camel/camel-exchange-folder.c:613
+#: camel/camel-exchange-folder.c:599
 msgid "Copying messages"
 msgstr "Kopíruji zprávy"
 
-#: camel/camel-exchange-folder.c:916
+#: camel/camel-exchange-folder.c:929
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Nemohu vytvořit adresář %s: %s"
 
-#: camel/camel-exchange-folder.c:926
+#: camel/camel-exchange-folder.c:939
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Nemohu načíst souhrn pro %s"
 
-#: camel/camel-exchange-folder.c:934
+#: camel/camel-exchange-folder.c:947
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Nemohu vytvořit vyrovnávací paměť pro %s"
 
-#: camel/camel-exchange-folder.c:974
+#: camel/camel-exchange-folder.c:957
+#, fuzzy, c-format
+msgid "Could not create journal for %s"
+msgstr "Nemohu vytvořit vyrovnávací paměť pro %s"
+
+#: camel/camel-exchange-folder.c:997
 msgid "Scanning for changed messages"
 msgstr "Hledám změněné zprávy"
 
-#: camel/camel-exchange-folder.c:998
+#: camel/camel-exchange-folder.c:1021
 msgid "Fetching summary information for new messages"
 msgstr "Stahuji souhrnné informace pro nové zprávy"
 
@@ -165,24 +170,48 @@ msgstr ""
 "Tato možnost se k serveru Exchange připojí pomocí standardní autentizace "
 "nešifrovaným heslem."
 
-#: camel/camel-exchange-store.c:297
+#: camel/camel-exchange-store.c:260
 #, c-format
 msgid "Exchange server %s"
 msgstr "Server Exchange %s"
 
-#: camel/camel-exchange-store.c:300
+#: camel/camel-exchange-store.c:263
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Účet Exchange pro %s na %s"
 
-#: camel/camel-exchange-store.c:327
+#: camel/camel-exchange-store.c:290
 msgid "Evolution Exchange backend process"
 msgstr "Proces backendu Evolution pro Exchange"
 
-#: camel/camel-exchange-store.c:891
+#: camel/camel-exchange-store.c:352
 #, fuzzy, c-format
 msgid "No such folder %s"
 msgstr "Taková složka neexistuje"
+
+#: camel/camel-exchange-store.c:474
+#, fuzzy
+msgid "Cannot get folder info in offline mode."
+msgstr "Tuto operaci nelze provést v režimu off-line"
+
+#: camel/camel-exchange-store.c:536
+#, fuzzy
+msgid "Cannot create folder in offline mode."
+msgstr "Nemohu vytvořit složku s tímto názvem"
+
+#: camel/camel-exchange-store.c:563
+#, fuzzy
+msgid "Cannot delete folder in offline mode."
+msgstr ""
+"Nemohu odstranit složku:\n"
+"%s"
+
+#: camel/camel-exchange-store.c:579
+#, fuzzy
+msgid "Cannot rename folder in offline mode."
+msgstr ""
+"Nemohu přejmenovat složku:\n"
+"%s"
 
 #: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"

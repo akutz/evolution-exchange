@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-11 01:26+0530\n"
+"POT-Creation-Date: 2005-01-11 16:32+0530\n"
 "PO-Revision-Date: 2004-08-23 17:12+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati\n"
@@ -52,42 +52,47 @@ msgstr ""
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "પસંદ કરેલા સમય દરમ્યાન સ્રોત '%s' વ્યસ્ત હતો."
 
-#: camel/camel-exchange-folder.c:241
+#: camel/camel-exchange-folder.c:220
 msgid "Can only expunge in Deleted Items folder"
 msgstr "માત્ર કાઢી નાખેલ વસ્તુઓના ફોલ્ડરમાં જ રદ કરી શકાય છે"
 
-#: camel/camel-exchange-folder.c:265
+#: camel/camel-exchange-folder.c:244
 msgid "No Subject"
 msgstr "કોઈ વિષય નથી"
 
-#: camel/camel-exchange-folder.c:612
+#: camel/camel-exchange-folder.c:598
 msgid "Moving messages"
 msgstr "સંદેશાઓ ખસેડી રહ્યા છીએ"
 
-#: camel/camel-exchange-folder.c:613
+#: camel/camel-exchange-folder.c:599
 msgid "Copying messages"
 msgstr "સંદેશાઓની નકલ કરી રહ્યા છીએ"
 
-#: camel/camel-exchange-folder.c:916
+#: camel/camel-exchange-folder.c:929
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "ડિરેક્ટરી %s બનાવી શક્યા નહિં: %s"
 
-#: camel/camel-exchange-folder.c:926
+#: camel/camel-exchange-folder.c:939
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "%s માટે સાર લાવી શક્યા નહિં"
 
-#: camel/camel-exchange-folder.c:934
+#: camel/camel-exchange-folder.c:947
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "%s માટે કેશ બનાવી શક્યા નહિં"
 
-#: camel/camel-exchange-folder.c:974
+#: camel/camel-exchange-folder.c:957
+#, fuzzy, c-format
+msgid "Could not create journal for %s"
+msgstr "%s માટે કેશ બનાવી શક્યા નહિં"
+
+#: camel/camel-exchange-folder.c:997
 msgid "Scanning for changed messages"
 msgstr "બદલાયેલ સંદેશાઓ માટે સ્કેન કરી રહ્યા છીએ"
 
-#: camel/camel-exchange-folder.c:998
+#: camel/camel-exchange-folder.c:1021
 msgid "Fetching summary information for new messages"
 msgstr "નવા સંદેશાઓ માટે સારની જાણકારી મેળવી રહ્યા છીએ"
 
@@ -167,24 +172,48 @@ msgid ""
 msgstr ""
 "આ વિકલ્પ એક્સચેન્જ સર્વર સાથે પ્રમાણભૂત સાદા લખાણવાળા પાસવર્ડના સત્તાધિકરણ સાથે જોડાશે."
 
-#: camel/camel-exchange-store.c:297
+#: camel/camel-exchange-store.c:260
 #, c-format
 msgid "Exchange server %s"
 msgstr "એક્સચેન્જ સર્વર %s"
 
-#: camel/camel-exchange-store.c:300
+#: camel/camel-exchange-store.c:263
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "%s માટે %s પર એક્સચેન્જ ખાતુ"
 
-#: camel/camel-exchange-store.c:327
+#: camel/camel-exchange-store.c:290
 msgid "Evolution Exchange backend process"
 msgstr "ઈવોલ્યુશન એક્સચેન્જ પાશ્વ ભાગમાં ચાલતી પ્રક્રિયા"
 
-#: camel/camel-exchange-store.c:891
+#: camel/camel-exchange-store.c:352
 #, fuzzy, c-format
 msgid "No such folder %s"
 msgstr "આવુ કોઈ ફોલ્ડર નથી"
+
+#: camel/camel-exchange-store.c:474
+#, fuzzy
+msgid "Cannot get folder info in offline mode."
+msgstr "આ પ્રક્રિયા ઓફ-લાઈન સ્થિતિમાં કરી શકાતી નથી"
+
+#: camel/camel-exchange-store.c:536
+#, fuzzy
+msgid "Cannot create folder in offline mode."
+msgstr "આ નામથી ફોલ્ડર બનાવી શકતા નથી"
+
+#: camel/camel-exchange-store.c:563
+#, fuzzy
+msgid "Cannot delete folder in offline mode."
+msgstr ""
+"ફોલ્ડર કાઢી શકતા નથી:\n"
+"%s"
+
+#: camel/camel-exchange-store.c:579
+#, fuzzy
+msgid "Cannot rename folder in offline mode."
+msgstr ""
+"ફોલ્ડરનું નામ બદલી શકતા નથી:\n"
+"%s"
 
 #: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"

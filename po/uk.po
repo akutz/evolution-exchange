@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-11 01:26+0530\n"
+"POT-Creation-Date: 2005-01-11 16:32+0530\n"
 "PO-Revision-Date: 2004-08-27 18:23+0300\n"
 "Last-Translator: Maxim Dziumanenko <mvd@mylinux.com.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -46,42 +46,47 @@ msgstr ""
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Ресурс '%s' зайнятий протягом вибраного проміжку часу."
 
-#: camel/camel-exchange-folder.c:241
+#: camel/camel-exchange-folder.c:220
 msgid "Can only expunge in Deleted Items folder"
 msgstr "Очищення видаленого можливе лише у теці Видалені пункти"
 
-#: camel/camel-exchange-folder.c:265
+#: camel/camel-exchange-folder.c:244
 msgid "No Subject"
 msgstr "Немає теми"
 
-#: camel/camel-exchange-folder.c:612
+#: camel/camel-exchange-folder.c:598
 msgid "Moving messages"
 msgstr "Переміщення повідомлень"
 
-#: camel/camel-exchange-folder.c:613
+#: camel/camel-exchange-folder.c:599
 msgid "Copying messages"
 msgstr "Копіювання повідомлень"
 
-#: camel/camel-exchange-folder.c:916
+#: camel/camel-exchange-folder.c:929
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Не вдається створити каталог %s: %s"
 
-#: camel/camel-exchange-folder.c:926
+#: camel/camel-exchange-folder.c:939
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Не вдається завантажити зведення для %s"
 
-#: camel/camel-exchange-folder.c:934
+#: camel/camel-exchange-folder.c:947
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Не вдається створити кеш для %s"
 
-#: camel/camel-exchange-folder.c:974
+#: camel/camel-exchange-folder.c:957
+#, fuzzy, c-format
+msgid "Could not create journal for %s"
+msgstr "Не вдається створити кеш для %s"
+
+#: camel/camel-exchange-folder.c:997
 msgid "Scanning for changed messages"
 msgstr "Шукаються змінені повідомлення"
 
-#: camel/camel-exchange-folder.c:998
+#: camel/camel-exchange-folder.c:1021
 msgid "Fetching summary information for new messages"
 msgstr "Отримується зведення про нові повідомлення"
 
@@ -165,24 +170,48 @@ msgstr ""
 "Цей параметр призводить до з'єднання з сервером Exchange використовуючи "
 "автентифікацію зі стандартним паролем"
 
-#: camel/camel-exchange-store.c:297
+#: camel/camel-exchange-store.c:260
 #, c-format
 msgid "Exchange server %s"
 msgstr "Сервер Exchange %s"
 
-#: camel/camel-exchange-store.c:300
+#: camel/camel-exchange-store.c:263
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Обліковий рахунок Exchange для %s на %s"
 
-#: camel/camel-exchange-store.c:327
+#: camel/camel-exchange-store.c:290
 msgid "Evolution Exchange backend process"
 msgstr "Процес компоненту Evolution Exchange"
 
-#: camel/camel-exchange-store.c:891
+#: camel/camel-exchange-store.c:352
 #, fuzzy, c-format
 msgid "No such folder %s"
 msgstr "Немає такої теки"
+
+#: camel/camel-exchange-store.c:474
+#, fuzzy
+msgid "Cannot get folder info in offline mode."
+msgstr "Ця операція не може бути виконана у автономному режимі"
+
+#: camel/camel-exchange-store.c:536
+#, fuzzy
+msgid "Cannot create folder in offline mode."
+msgstr "Не вдається створити теку з цією назвою"
+
+#: camel/camel-exchange-store.c:563
+#, fuzzy
+msgid "Cannot delete folder in offline mode."
+msgstr ""
+"Не вдається видалити теку:\n"
+"%s"
+
+#: camel/camel-exchange-store.c:579
+#, fuzzy
+msgid "Cannot rename folder in offline mode."
+msgstr ""
+"Не вдається видалити теку:\n"
+"%s"
 
 #: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"

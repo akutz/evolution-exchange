@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-11 01:26+0530\n"
+"POT-Creation-Date: 2005-01-11 16:32+0530\n"
 "PO-Revision-Date: 2004-08-30 11:04+0530\n"
 "Last-Translator: Runa Bhattacharjee <runa@bengalinux.com>\n"
 "Language-Team: bangla <gnome-translation@bengalinux.org>\n"
@@ -47,42 +47,47 @@ msgstr ""
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "'%s' রিসোর্সটি নির্বাচিত সময়সীমার মাঝে ব্যস্ত থাকবে।"
 
-#: camel/camel-exchange-folder.c:241
+#: camel/camel-exchange-folder.c:220
 msgid "Can only expunge in Deleted Items folder"
 msgstr "মুছে ফেলা বস্তুর ফোল্ডার থেকে শুধুমাত্র এক্সপাঞ্জ করা সম্ভব"
 
-#: camel/camel-exchange-folder.c:265
+#: camel/camel-exchange-folder.c:244
 msgid "No Subject"
 msgstr "কোনো বিষয় লেখা হয়নি"
 
-#: camel/camel-exchange-folder.c:612
+#: camel/camel-exchange-folder.c:598
 msgid "Moving messages"
 msgstr "বার্তা সরিয়ে ফেলা হচ্ছে"
 
-#: camel/camel-exchange-folder.c:613
+#: camel/camel-exchange-folder.c:599
 msgid "Copying messages"
 msgstr "বার্তা কপি করা হচ্ছে"
 
-#: camel/camel-exchange-folder.c:916
+#: camel/camel-exchange-folder.c:929
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "%s ডিরেক্টরিটি তৈরি করা সম্ভব হয়নি: %s"
 
-#: camel/camel-exchange-folder.c:926
+#: camel/camel-exchange-folder.c:939
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "%s -র জন্য সংক্ষিপ্ত বিবরণ লোড করা সম্ভব হয় নি"
 
-#: camel/camel-exchange-folder.c:934
+#: camel/camel-exchange-folder.c:947
 #, c-format
 msgid "Could not create cache for %s"
 msgstr " %s -এ জন্য ক্যাশে তৈরি করা সম্ভব হয়নি"
 
-#: camel/camel-exchange-folder.c:974
+#: camel/camel-exchange-folder.c:957
+#, fuzzy, c-format
+msgid "Could not create journal for %s"
+msgstr " %s -এ জন্য ক্যাশে তৈরি করা সম্ভব হয়নি"
+
+#: camel/camel-exchange-folder.c:997
 msgid "Scanning for changed messages"
 msgstr "পরিবর্তিত বার্তা অনুসন্ধান করা হচ্ছে"
 
-#: camel/camel-exchange-folder.c:998
+#: camel/camel-exchange-folder.c:1021
 msgid "Fetching summary information for new messages"
 msgstr "নতুন বার্তার জন্য সংক্ষিপ্ত বিবরণ আহরণ করা হচ্ছে"
 
@@ -165,24 +170,48 @@ msgstr ""
 "এই অপশনের সাহায্যে এক্সচেঞ্জ সার্ভারের সাথে প্লেইনটেক্সট পাসওয়ার্ড ব্যবহারকারী "
 "অনুমোদন প্রক্রিয়ার দ্বারা সংযোগ করা হবে (NTLM)।"
 
-#: camel/camel-exchange-store.c:297
+#: camel/camel-exchange-store.c:260
 #, c-format
 msgid "Exchange server %s"
 msgstr "এক্সচেঞ্জ সার্ভার %s"
 
-#: camel/camel-exchange-store.c:300
+#: camel/camel-exchange-store.c:263
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "%s -র জন্য %s -এ এক্সচেঞ্জ অ্যাকাউন্ট"
 
-#: camel/camel-exchange-store.c:327
+#: camel/camel-exchange-store.c:290
 msgid "Evolution Exchange backend process"
 msgstr "ইভলিউশন এক্সচেঞ্জ-এর ব্যাকএন্ড প্রসেস"
 
-#: camel/camel-exchange-store.c:891
+#: camel/camel-exchange-store.c:352
 #, fuzzy, c-format
 msgid "No such folder %s"
 msgstr "এই ধরনের কোনো ফোল্ডার উপস্থিত নেই"
+
+#: camel/camel-exchange-store.c:474
+#, fuzzy
+msgid "Cannot get folder info in offline mode."
+msgstr "বর্তমান কর্মটি অফ-লাইন মোডে করা সম্ভব নয়"
+
+#: camel/camel-exchange-store.c:536
+#, fuzzy
+msgid "Cannot create folder in offline mode."
+msgstr "ঐ নামের কোনো ফোল্ডার তৈরি করা সম্ভব নয়"
+
+#: camel/camel-exchange-store.c:563
+#, fuzzy
+msgid "Cannot delete folder in offline mode."
+msgstr ""
+"ফোল্ডার মুছে ফেলা সম্ভব নয়:\n"
+"%s"
+
+#: camel/camel-exchange-store.c:579
+#, fuzzy
+msgid "Cannot rename folder in offline mode."
+msgstr ""
+"ফোল্ডারের নাম পরিবর্তন করা সম্ভব নয়:\n"
+"%s"
 
 #: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
