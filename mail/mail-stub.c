@@ -33,7 +33,7 @@
 #include "mail-stub.h"
 #include "camel-stub-constants.h"
 
-#define d(x) x
+#define d(x)
 
 #define PARENT_TYPE G_TYPE_OBJECT
 static MailStubClass *parent_class = NULL;
