@@ -1,21 +1,21 @@
 # evolution-exchange's Portuguese translation.
-# Copyright © 2004 evolution-exchange
+# Copyright © 2004, 2005 evolution-exchange
 # This file is distributed under the same license as the evolution-exchange package.
-# Duarte Loreto <happyguy_pt@hotmail.com>, 2004.
+# Duarte Loreto <happyguy_pt@hotmail.com>, 2004, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 2.8\n"
+"Project-Id-Version: 2.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-11 16:32+0530\n"
-"PO-Revision-Date: 2004-08-15 00:55+0000\n"
+"POT-Creation-Date: 2005-01-25 01:05+0000\n"
+"PO-Revision-Date: 2005-01-25 01:10+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: addressbook/e-book-backend-exchange.c:1681
+#: addressbook/e-book-backend-exchange.c:1807
 #: addressbook/e-book-backend-gal.c:1341 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "A procurar..."
@@ -32,7 +32,7 @@ msgstr "A receber os resultados da procura no LDAP..."
 msgid "Error performing search"
 msgstr "Erro ao efectuar a procura"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1624
+#: calendar/e-cal-backend-exchange-calendar.c:1733
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -41,7 +41,7 @@ msgstr ""
 "Incapaz de calendarizar o recurso '%s' para reuniões recorrentes.\n"
 "Terá de agendar cada reunião separadamente."
 
-#: calendar/e-cal-backend-exchange-calendar.c:1643
+#: calendar/e-cal-backend-exchange-calendar.c:1752
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr ""
@@ -63,31 +63,31 @@ msgstr "A mover as mensagens"
 msgid "Copying messages"
 msgstr "A copiar as mensagens"
 
-#: camel/camel-exchange-folder.c:929
+#: camel/camel-exchange-folder.c:930
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Incapaz de criar o directório %s: %s"
 
-#: camel/camel-exchange-folder.c:939
+#: camel/camel-exchange-folder.c:940
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Incapaz de ler o resumo para %s"
 
-#: camel/camel-exchange-folder.c:947
+#: camel/camel-exchange-folder.c:948
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Incapaz de criar a cache para %s"
 
-#: camel/camel-exchange-folder.c:957
-#, fuzzy, c-format
+#: camel/camel-exchange-folder.c:958
+#, c-format
 msgid "Could not create journal for %s"
-msgstr "Incapaz de criar a cache para %s"
+msgstr "Incapaz de criar um diário para %s"
 
-#: camel/camel-exchange-folder.c:997
+#: camel/camel-exchange-folder.c:998
 msgid "Scanning for changed messages"
 msgstr "A procurar mensagens alteradas"
 
-#: camel/camel-exchange-folder.c:1021
+#: camel/camel-exchange-folder.c:1022
 msgid "Fetching summary information for new messages"
 msgstr "A obter a informação de resumo para novas mensagens"
 
@@ -115,42 +115,46 @@ msgid "Limit number of GAL responses: %s"
 msgstr "Número limite de respostas da LEG: %s"
 
 #: camel/camel-exchange-provider.c:60
-msgid "Password Expiry Warning"
-msgstr ""
+msgid "Options"
+msgstr "Opções"
 
 #: camel/camel-exchange-provider.c:62
 #, c-format
 msgid "Password Expiry Warning period: %s"
-msgstr ""
+msgstr "Período de Aviso de Expiração de Senha: %s"
+
+#: camel/camel-exchange-provider.c:64
+msgid "Automatically synchronize account locally"
+msgstr "Sincronizar automaticamente a conta localmente"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:66
+#: camel/camel-exchange-provider.c:68
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr "Aplicar filtros às novas mensagens na pasta A Receber neste servidor"
 
-#: camel/camel-exchange-provider.c:68
+#: camel/camel-exchange-provider.c:70
 msgid "Check new messages for Junk contents"
 msgstr "Verificar Correio não solicitado nas novas mensagens"
 
-#: camel/camel-exchange-provider.c:70
+#: camel/camel-exchange-provider.c:72
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "Apenas verificar por Correio não solicitado na pasta A Receber"
 
-#: camel/camel-exchange-provider.c:76
+#: camel/camel-exchange-provider.c:88
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: camel/camel-exchange-provider.c:78
+#: camel/camel-exchange-provider.c:90
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Para manipular email (e outros dados) em servidores Microsoft Exchange"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:94
+#: camel/camel-exchange-provider.c:106
 msgid "Secure Password"
 msgstr "Senha Segura"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:97
+#: camel/camel-exchange-provider.c:109
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -158,11 +162,11 @@ msgstr ""
 "Esta opção irá estabelecer uma ligação ao servidor Exchange utilizando "
 "autenticação de senha segura (NTLM)."
 
-#: camel/camel-exchange-provider.c:105
+#: camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "Senha em Texto Simples"
 
-#: camel/camel-exchange-provider.c:107
+#: camel/camel-exchange-provider.c:119
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -185,33 +189,25 @@ msgid "Evolution Exchange backend process"
 msgstr "Processo de suporte de Exchange no Evolution"
 
 #: camel/camel-exchange-store.c:352
-#, fuzzy, c-format
+#, c-format
 msgid "No such folder %s"
-msgstr "Pasta inexistente"
+msgstr "Pasta %s inexistente"
 
 #: camel/camel-exchange-store.c:474
-#, fuzzy
 msgid "Cannot get folder info in offline mode."
-msgstr "Esta operação não pode ser realizada em modo desligado"
+msgstr "Incapaz de obter a informação de pasta em modo desligado."
 
 #: camel/camel-exchange-store.c:536
-#, fuzzy
 msgid "Cannot create folder in offline mode."
-msgstr "Incapaz de criar uma pasta com esse nome"
+msgstr "Incapaz de criar a pasta em modo desligado."
 
 #: camel/camel-exchange-store.c:563
-#, fuzzy
 msgid "Cannot delete folder in offline mode."
-msgstr ""
-"Incapaz de apagar a pasta:\n"
-"%s"
+msgstr "Incapaz de apagar a pasta em modo desligado."
 
 #: camel/camel-exchange-store.c:579
-#, fuzzy
 msgid "Cannot rename folder in offline mode."
-msgstr ""
-"Incapaz de renomear a pasta:\n"
-"%s"
+msgstr "Incapaz de renomear a pasta em modo desligado."
 
 #: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
@@ -632,7 +628,7 @@ msgstr "Incapaz de criar uma pasta com esse nome"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Esta operação não pode ser realizada em modo desligado"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1274
+#: shell/e-storage.c:587 storage/exchange-account.c:1289
 msgid "Unknown error"
 msgstr "Erro desconhecido"
 
@@ -666,25 +662,25 @@ msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:565
+#: storage/exchange-account.c:572
 #, c-format
 msgid "%s's Folders"
 msgstr "Pastas do(a) %s"
 
-#: storage/exchange-account.c:846
+#: storage/exchange-account.c:854
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sIntroduza a senha para %s"
 
-#: storage/exchange-account.c:850
+#: storage/exchange-account.c:858
 msgid "Enter password"
 msgstr "Introduza a senha"
 
-#: storage/exchange-account.c:1017
+#: storage/exchange-account.c:1032
 msgid "Cannot change password due to configuration problems"
 msgstr "Incapaz de alterar a senha devido a problemas de configuração"
 
-#: storage/exchange-account.c:1032
+#: storage/exchange-account.c:1047
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -692,11 +688,11 @@ msgstr ""
 "O servidor rejeitou a senha por ser demasiado fraca.\n"
 "Tente novamente com uma senha diferente."
 
-#: storage/exchange-account.c:1037
+#: storage/exchange-account.c:1052
 msgid "Could not change password"
 msgstr "Incapaz de alterar a senha"
 
-#: storage/exchange-account.c:1185
+#: storage/exchange-account.c:1200
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -704,7 +700,7 @@ msgstr ""
 "Falha ao autenticar-se no servidor. (Senha incorrecta?)\n"
 "\n"
 
-#: storage/exchange-account.c:1190
+#: storage/exchange-account.c:1205
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -724,7 +720,7 @@ msgstr ""
 "Ou talvez apenas tenha escrito a senha incorrectamente.\n"
 "\n"
 
-#: storage/exchange-account.c:1201
+#: storage/exchange-account.c:1216
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -740,12 +736,12 @@ msgstr ""
 "Ou talvez apenas tenha escrito a senha incorrectamente.\n"
 "\n"
 
-#: storage/exchange-account.c:1232
+#: storage/exchange-account.c:1247
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "A Caixa de Correio de %s não se encontra neste servidor."
 
-#: storage/exchange-account.c:1237
+#: storage/exchange-account.c:1252
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -754,7 +750,7 @@ msgstr ""
 "O servidor '%s' está a correr o Exchange 5.5 pelo\n"
 "que não é compatível com o Conector Ximian"
 
-#: storage/exchange-account.c:1244
+#: storage/exchange-account.c:1259
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -765,40 +761,40 @@ msgstr ""
 "Se o OWA estiver a ser executado num caminho diferente, tem de o\n"
 "especificar no diálogo de configuração de conta."
 
-#: storage/exchange-account.c:1252
+#: storage/exchange-account.c:1267
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Nenhuma caixa de correio para o utilizador %s em %s.\n"
 
-#: storage/exchange-account.c:1258 storage/exchange-account.c:1264
-#: storage/exchange-account.c:1272
+#: storage/exchange-account.c:1273 storage/exchange-account.c:1279
+#: storage/exchange-account.c:1287
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Incapaz de estabelecer uma ligação ao servidor %s: %s"
 
-#: storage/exchange-account.c:1260
+#: storage/exchange-account.c:1275
 msgid "Could not resolve hostname"
 msgstr "Incapaz de resolver o nome da máquina"
 
-#: storage/exchange-account.c:1266
+#: storage/exchange-account.c:1281
 msgid "Network error"
 msgstr "Erro de rede"
 
-#: storage/exchange-account.c:1344
+#: storage/exchange-account.c:1359
 msgid "Personal Folders"
 msgstr "Pastas Pessoais"
 
-#: storage/exchange-account.c:1359
+#: storage/exchange-account.c:1374
 msgid "Favorite Public Folders"
 msgstr "Pastas Públicas Favoritas"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1376
+#: storage/exchange-account.c:1391
 msgid "All Public Folders"
 msgstr "Todas as Pastas Públicas"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1390
+#: storage/exchange-account.c:1405
 msgid "Global Address List"
 msgstr "Lista de Endereços Global"
 
@@ -1259,19 +1255,16 @@ msgid "_Tasks:"
 msgstr "_Tarefas:"
 
 #: storage/exchange-folder-size.c:204
-#, fuzzy
 msgid "Folder Name"
-msgstr "Nome da _Pasta:"
+msgstr "Nome da Pasta"
 
 #: storage/exchange-folder-size.c:208
-#, fuzzy
 msgid "Folder Size"
-msgstr "Pasta visível"
+msgstr "Tamanho da Pasta"
 
 #: storage/exchange-folder-tree.glade.h:1
-#, fuzzy
 msgid "Exchange Folder Tree"
-msgstr "Servidor Exchange"
+msgstr "Árvore de Pastas Exchange"
 
 #: storage/exchange-hierarchy-foreign.c:251
 msgid "Deleted Items"
@@ -1393,20 +1386,19 @@ msgstr "Sim, Alterar o Estado"
 
 #: storage/exchange-passwd-expiry.glade.h:1
 msgid "Password Expiry Warning..."
-msgstr ""
+msgstr "Aviso de Expiração de Senha..."
 
 #: storage/exchange-passwd-expiry.glade.h:2
 msgid "Your password will expire in 7 days..."
-msgstr ""
+msgstr "A sua senha irá expirar dentro de 7 dias..."
 
 #: storage/exchange-passwd-expiry.glade.h:3
-#, fuzzy
 msgid "_Change Password"
-msgstr "Alterar a Senha"
+msgstr "_Alterar a Senha"
 
 #: storage/exchange-passwd-expiry.glade.h:4
 msgid "ok_button"
-msgstr ""
+msgstr "botão_ok"
 
 #: storage/exchange-permissions-dialog.c:222
 msgid "Could not read folder permissions"
@@ -1594,7 +1586,7 @@ msgstr "_Permissões..."
 
 #: storage/xc-commands.c:419
 msgid "_Show Folder Sizes"
-msgstr ""
+msgstr "_Apresentar o Tamanho das Pastas"
 
 #: storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
@@ -1606,13 +1598,12 @@ msgid "Change your Exchange server password"
 msgstr "Alterar a sua senha do servidor Exchange"
 
 #: storage/ximian-connector.xml.h:2
-#, fuzzy
 msgid "Folder _Size"
-msgstr "_Tipo de pasta:"
+msgstr "_Tamanho da Pasta"
 
 #: storage/ximian-connector.xml.h:3
 msgid "Get the size of personal folders"
-msgstr ""
+msgstr "Obter o tamanho das pastas pessoais"
 
 #: storage/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
