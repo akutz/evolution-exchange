@@ -75,7 +75,6 @@ CLEANFILES += $(MARSHAL_GENERATED)
 libexchange_a_SOURCES =						\
 	$(IDL_GENERATED)					\
 	$(MARSHAL_GENERATED)					\
-	$(PROP_GENERATED)					\
 	e2k-propnames.h						\
 	e2k-autoconfig.c					\
 	e2k-autoconfig.h					\
