@@ -64,3 +64,8 @@ include gtk-doc.make
 # Other files to distribute
 EXTRA_DIST +=					\
 	gtk-doc.make
+
+dist-hook-local:
+	mkdir $(distdir)/features
+	-cp $(srcdir)/features/*.xml $(distdir)/features
+

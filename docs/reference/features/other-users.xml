@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="other-users">
+<refmeta>
+<refentrytitle>Other Users' Folders</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>XIMIAN-CONNECTOR Library</refmiscinfo>
+</refmeta>
+
+<refnamediv></refnamediv>
+
+<para>
+Most operations concerning other users' folders are handled by
+<link linkend="ExchangeHierarchyForeign"><classname>ExchangeHierarchyForeign</classname></link>,
+with some help from
+<link linkend="ExchangeAccount"><classname>ExchangeAccount</classname></link>.
+</para>
+
+<para>
+When the user first tries to add another user's folder,
+<link linkend="ExchangeAccount"><classname>ExchangeAccount</classname></link>
+looks up the user in the Global Catalog, passing the
+<link linkend="E2kGlobalCatalogLookupFlags"><constant>E2K_GLOBAL_CATALOG_LOOKUP_EMAIL</constant></link>
+and
+<link linkend="E2kGlobalCatalogLookupFlags"><constant>E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX</constant></link>
+flags to
+<link linkend="e2k-global-catalog-lookup"><function>e2k_global_catalog_lookup()</function></link>.
+The <structfield>exchange_server</structfield> and
+<structfield>mailbox</structfield> fields in the returned
+<link linkend="E2kGlobalCatalogEntry"><classname>E2kGlobalCatalogEntry</classname></link>
+are then used to construct a URL (using the account's SSL settings).
+</para>
+
+<note><para>
+(One problem with this approach is that the returned
+<structfield>exchange_server</structfield> is not guaranteed to be running
+<application>OWA</application>. See <ulink
+url="http://bugzilla.ximian.com/show_bug.cgi?id=58526">Bug
+52526</ulink>.)
+</para></note>
+
+<para>
+<link linkend="ExchangeAccount"><classname>ExchangeAccount</classname></link>
+then creates an
+<link linkend="ExchangeHierarchyForeign"><classname>ExchangeHierarchyForeign</classname></link>
+from that data, and asks it to subscribe to the requested folder.
+<link linkend="ExchangeHierarchyForeign"><classname>ExchangeHierarchyForeign</classname></link>
+looks for the folder in two different ways. First, it tries using the
+literal folder name that the user provided.
+</para>
+
+<para>
+If that fails, and if the folder name is one of the default folder
+names (eg, "Calendar"), then it tries looking up the
+<literal>urn:schemas:httpmail:</literal> property for that folder (eg,
+<literal>urn:schemas:httpmail:calendar</literal>) on the other user's
+mailbox. (Specifically, it looks for the property on the invisible
+<uri>/NON_IPM_SUBTREE</uri> subdirectory of the user's mailbox,
+because the property won't be readable on the top-level directory
+unless the user has permission to read the top-level directory.) This
+allows the folder to be found even if it has a localized name (eg,
+"Calendario").
+</para>
+
+<refsect2>
+<title>Private items</title>
+
+<para>
+<application>Outlook</application> allows the user to mark items in
+folders as "private". (<application>Evolution</application> allows
+this in Calendar and Task folders, but not Contact or Mail folders.)
+Private items are not supposed to show up when other users view the
+folder, unless they have been given explicit permission to view
+private items in the <link linkend="delegates">Delegates</link>
+dialog.
+</para>
+
+<para>
+Bizarrely, <application>Exchange</application> does not actually
+enforce this. Thus, when a user subscribes to another user's folder,
+Connector has to check whether or not the user is supposed to be able
+to view private items, and filter them out if not.
+</para>
+
+<note><para>
+In <application>Outlook</application> and
+<application>OWA</application>, if you are not allowed to view private
+calendar items, they still show up in the calendar, but with the
+summary changed to something like "Private item", and they can't be
+opened. See <ulink
+url="http://bugzilla.ximian.com/show_bug.cgi?id=56066">Bug
+56066</ulink>.
+</para></note>
+
+<para>
+The information about who can view private items is stored with the
+<link linkend="delegates">Delegates</link> data on the other user's
+mailbox. 
+<link linkend="ExchangeHierarchyForeign"><classname>ExchangeHierarchyForeign</classname></link>
+checks that data, and sets its
+<structfield>hide_private_items</structfield> flag accordingly. (If it
+cannot read the delegates data, it assumes that the user is not
+allowed to view private items.)
+</para>
+
+<para>
+<link linkend="ECalBackendExchange"><classname>ECalBackendExchange</classname></link>
+and
+<link linkend="EBookBackendExchange"><classname>EBookBackendExchange</classname></link>
+check the <structfield>hide_private_items</structfield> flag on the
+<link linkend="ExchangeHierarchy"><classname>ExchangeHierarchy</classname></link>
+of the folder they are working with, and set their
+<structfield>private_item_restriction</structfield> fields
+accordingly. That field is incorporated as part of the restriction in
+every <command>SEARCH</command> that they do, so that if
+<structfield>hide_private_items</structfield> was set, the private
+items will be excluded from the <command>SEARCH</command> results.
+</para>
+
+</refsect2>
+
+</refentry>

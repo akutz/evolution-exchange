@@ -9,10 +9,7 @@ EXTRA_DIST =			\
 	debug			\
 	delegates		\
 	entryids		\
-	favorites		\
 	forms			\
-	forms-based-auth	\
-	freebusy		\
 	http			\
 	icalendar		\
 	mail			\
