@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-03 13:57-0400\n"
+"POT-Creation-Date: 2004-07-03 13:35+0530\n"
 "PO-Revision-Date: 2004-05-28 15:53+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -16,30 +16,20 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: addressbook/e-book-backend-exchange.c:979
-#, c-format
-msgid "Modifying %s"
-msgstr "Ändrar %s"
-
-#: addressbook/e-book-backend-exchange.c:981
-#, c-format
-msgid "Creating %s"
-msgstr "Skapar %s"
-
-#: addressbook/e-book-backend-exchange.c:1462
-#: addressbook/e-book-backend-gal.c:1181 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-exchange.c:1655
+#: addressbook/e-book-backend-gal.c:1184 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Söker..."
 
-#: addressbook/e-book-backend-gal.c:239
+#: addressbook/e-book-backend-gal.c:240
 msgid "Reconnecting to LDAP server..."
 msgstr "Återansluter till LDAP-servern..."
 
-#: addressbook/e-book-backend-gal.c:1091
+#: addressbook/e-book-backend-gal.c:1099
 msgid "Receiving LDAP search results..."
 msgstr "Mottar LDAP-sökresultat..."
 
-#: addressbook/e-book-backend-gal.c:1202
+#: addressbook/e-book-backend-gal.c:1205
 msgid "Error performing search"
 msgstr "Fel vid sökning"
 
@@ -78,7 +68,7 @@ msgstr "Kunde inte skapa cache för %s"
 msgid "Scanning for changed messages"
 msgstr "Letar efter ändrade meddelanden"
 
-#: camel/camel-exchange-folder.c:953
+#: camel/camel-exchange-folder.c:956
 msgid "Fetching summary information for new messages"
 msgstr "Hämtar meddelandeinformation för nya meddelanden"
 
@@ -137,22 +127,30 @@ msgstr ""
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr "Tillämpa filtren på nya meddelanden i Inbox på denna server"
 
-#: camel/camel-exchange-provider.c:81
+#: camel/camel-exchange-provider.c:77
+msgid "Check new messages for Junk contents"
+msgstr ""
+
+#: camel/camel-exchange-provider.c:79
+msgid "Only check for Junk messages in the Inbox folder"
+msgstr ""
+
+#: camel/camel-exchange-provider.c:85
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: camel/camel-exchange-provider.c:83
+#: camel/camel-exchange-provider.c:87
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "För hantering av e-post (och andra data) på Microsoft Exchange-servrar"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:101
+#: camel/camel-exchange-provider.c:105
 #, fuzzy
 msgid "Secure Password"
 msgstr "Ange lösenord"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:104
+#: camel/camel-exchange-provider.c:108
 #, fuzzy
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
@@ -161,11 +159,11 @@ msgstr ""
 "Detta alternativ kommer att ansluta till servern med Kerberos 4-"
 "autentisering."
 
-#: camel/camel-exchange-provider.c:112
+#: camel/camel-exchange-provider.c:116
 msgid "Plaintext Password"
 msgstr "Klartextlösenord"
 
-#: camel/camel-exchange-provider.c:114
+#: camel/camel-exchange-provider.c:118
 #, fuzzy
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
@@ -173,17 +171,17 @@ msgid ""
 msgstr ""
 "Detta alternativ ansluter till IMAP-servern med ett lösenord i klartext."
 
-#: camel/camel-exchange-store.c:175
+#: camel/camel-exchange-store.c:178
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange-server %s"
 
-#: camel/camel-exchange-store.c:178
+#: camel/camel-exchange-store.c:181
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Exchange-konto för %s på %s"
 
-#: camel/camel-exchange-store.c:205
+#: camel/camel-exchange-store.c:208
 #, fuzzy
 msgid "Evolution Exchange backend process"
 msgstr "Evolutionförlopp"
@@ -296,109 +294,109 @@ msgstr "Adressbok..."
 msgid "No such folder"
 msgstr "Det finns ingen sådan mapp"
 
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2329
-#: mail/mail-stub-exchange.c:2371 mail/mail-stub-exchange.c:2421
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2278
+#: mail/mail-stub-exchange.c:2320 mail/mail-stub-exchange.c:2370
 #: shell/e-storage.c:573 storage/xc-commands.c:299
 msgid "Permission denied"
 msgstr "Åtkomst nekas"
 
-#: mail/mail-stub-exchange.c:602
+#: mail/mail-stub-exchange.c:546
 msgid "No such folder."
 msgstr "Det finns ingen sådan mapp."
 
-#: mail/mail-stub-exchange.c:611
+#: mail/mail-stub-exchange.c:555
 msgid "Could not create folder."
 msgstr "Kunde inte skapa mapp."
 
-#: mail/mail-stub-exchange.c:657 mail/mail-stub-exchange.c:675
+#: mail/mail-stub-exchange.c:601 mail/mail-stub-exchange.c:619
 msgid "Could not open folder: Permission denied"
 msgstr "Kunde inte öppna mapp: Åtkomst nekas"
 
-#: mail/mail-stub-exchange.c:661 mail/mail-stub-exchange.c:774
+#: mail/mail-stub-exchange.c:605 mail/mail-stub-exchange.c:718
 msgid "Could not open folder"
 msgstr "Kunde inte öppna mapp"
 
-#: mail/mail-stub-exchange.c:823
+#: mail/mail-stub-exchange.c:772
 #, fuzzy
 msgid "Could not open Deleted Items folder"
 msgstr "Kunde inte ta bort mappen \"%s\": %s"
 
-#: mail/mail-stub-exchange.c:1136 mail/mail-stub-exchange.c:1177
+#: mail/mail-stub-exchange.c:1085 mail/mail-stub-exchange.c:1126
 msgid "Could not get new messages"
 msgstr "Kunde inte hämta nya meddelanden"
 
-#: mail/mail-stub-exchange.c:1342
+#: mail/mail-stub-exchange.c:1291
 #, fuzzy
 msgid "Could not empty Deleted Items folder"
 msgstr "Kunde inte ta bort mappen \"%s\": %s"
 
-#: mail/mail-stub-exchange.c:1414
+#: mail/mail-stub-exchange.c:1363
 #, fuzzy
 msgid "Could not append message; mailbox is over quota"
 msgstr "Kan inte lägga till meddelande i mapp för brevlådekatalog: %s: %s"
 
-#: mail/mail-stub-exchange.c:1415
+#: mail/mail-stub-exchange.c:1364
 msgid "Could not append message"
 msgstr "Kunde inte lägga till meddelande"
 
-#: mail/mail-stub-exchange.c:1898
+#: mail/mail-stub-exchange.c:1847
 msgid "No such message"
 msgstr "Det finns inget sådant meddelande"
 
-#: mail/mail-stub-exchange.c:1951
+#: mail/mail-stub-exchange.c:1900
 msgid "Message has been deleted"
 msgstr "Meddelandet har tagits bort"
 
-#: mail/mail-stub-exchange.c:1953
+#: mail/mail-stub-exchange.c:1902
 msgid "Error retrieving message"
 msgstr "Fel vid hämtning av meddelande"
 
-#: mail/mail-stub-exchange.c:1995
+#: mail/mail-stub-exchange.c:1944
 #, fuzzy
 msgid "Mailbox does not support full-text searching"
 msgstr "Nyckelanvändning stöder inte certifikatsignering"
 
-#: mail/mail-stub-exchange.c:2093
+#: mail/mail-stub-exchange.c:2042
 msgid "Unable to move/copy messages"
 msgstr "Kan inte flytta/kopiera meddelanden"
 
-#: mail/mail-stub-exchange.c:2243
+#: mail/mail-stub-exchange.c:2192
 msgid "No mail submission URI for this mailbox"
 msgstr ""
 
-#: mail/mail-stub-exchange.c:2280
+#: mail/mail-stub-exchange.c:2229
 msgid "Server won't accept mail via Exchange transport"
 msgstr ""
 
-#: mail/mail-stub-exchange.c:2282
+#: mail/mail-stub-exchange.c:2231
 #, fuzzy, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
 msgstr "Du har inte rättigheter att uppdatera detta objekt"
 
-#: mail/mail-stub-exchange.c:2294
+#: mail/mail-stub-exchange.c:2243
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
 
-#: mail/mail-stub-exchange.c:2298
+#: mail/mail-stub-exchange.c:2247
 msgid "Could not send message"
 msgstr "Kunde inte skicka meddelandet"
 
-#: mail/mail-stub-exchange.c:2321 mail/mail-stub-exchange.c:2376
-#: mail/mail-stub-exchange.c:2425 shell/e-storage.c:557
+#: mail/mail-stub-exchange.c:2270 mail/mail-stub-exchange.c:2325
+#: mail/mail-stub-exchange.c:2374 shell/e-storage.c:557
 #: storage/xc-commands.c:303
 msgid "Generic error"
 msgstr "Allmänt fel"
 
-#: mail/mail-stub-exchange.c:2325 storage/xc-commands.c:293
+#: mail/mail-stub-exchange.c:2274 storage/xc-commands.c:293
 msgid "Folder already exists"
 msgstr "Mappen finns redan"
 
-#: mail/mail-stub-exchange.c:2356 mail/mail-stub-exchange.c:2401
-#: mail/mail-stub-exchange.c:2417
+#: mail/mail-stub-exchange.c:2305 mail/mail-stub-exchange.c:2350
+#: mail/mail-stub-exchange.c:2366
 msgid "Folder doesn't exist"
 msgstr "Mappen finns inte"
 
@@ -617,7 +615,7 @@ msgstr "Kan inte skapa en mapp med det namnet"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Denna åtgärd kan inte utföras i frånkopplat läge"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1094
+#: shell/e-storage.c:587 storage/exchange-account.c:1064
 msgid "Unknown error"
 msgstr "Okänt fel"
 
@@ -646,21 +644,21 @@ msgstr ""
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:553
+#: storage/exchange-account.c:517
 #, fuzzy, c-format
 msgid "%s's Folders"
 msgstr "Mappar"
 
-#: storage/exchange-account.c:848
+#: storage/exchange-account.c:812
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sAnge lösenord för %s"
 
-#: storage/exchange-account.c:852
+#: storage/exchange-account.c:816
 msgid "Enter password"
 msgstr "Ange lösenord"
 
-#: storage/exchange-account.c:1005
+#: storage/exchange-account.c:975
 #, fuzzy
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
@@ -670,7 +668,7 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: storage/exchange-account.c:1010
+#: storage/exchange-account.c:980
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -682,7 +680,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: storage/exchange-account.c:1021
+#: storage/exchange-account.c:991
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -692,19 +690,19 @@ msgid ""
 "\n"
 msgstr ""
 
-#: storage/exchange-account.c:1052
+#: storage/exchange-account.c:1022
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr ""
 
-#: storage/exchange-account.c:1057
+#: storage/exchange-account.c:1027
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
 "therefore not compatible with Ximian Connector"
 msgstr ""
 
-#: storage/exchange-account.c:1064
+#: storage/exchange-account.c:1034
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -712,42 +710,42 @@ msgid ""
 "account configuration dialog."
 msgstr ""
 
-#: storage/exchange-account.c:1072
+#: storage/exchange-account.c:1042
 #, fuzzy, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Genomsöker mappar under %s på \"%s\""
 
-#: storage/exchange-account.c:1078 storage/exchange-account.c:1084
-#: storage/exchange-account.c:1092
+#: storage/exchange-account.c:1048 storage/exchange-account.c:1054
+#: storage/exchange-account.c:1062
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Kunde inte ansluta till servern %s: %s"
 
-#: storage/exchange-account.c:1080
+#: storage/exchange-account.c:1050
 msgid "Could not resolve hostname"
 msgstr "Kunde inte slå upp värdnamnet"
 
-#: storage/exchange-account.c:1086
+#: storage/exchange-account.c:1056
 msgid "Network error"
 msgstr "Nätverksfel"
 
-#: storage/exchange-account.c:1138
+#: storage/exchange-account.c:1108
 msgid "Personal Folders"
 msgstr "Personliga mappar"
 
-#: storage/exchange-account.c:1153
+#: storage/exchange-account.c:1123
 #, fuzzy
 msgid "Favorite Public Folders"
 msgstr "Virtuella mappar"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1170
+#: storage/exchange-account.c:1140
 #, fuzzy
 msgid "All Public Folders"
 msgstr "Alla mappar"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1184
+#: storage/exchange-account.c:1154
 #, fuzzy
 msgid "Global Address List"
 msgstr "Adress"
@@ -811,17 +809,25 @@ msgid ""
 msgstr ""
 
 #: storage/exchange-autoconfig-wizard.c:345
+#, c-format
+msgid ""
+"Could not authenticate to the Global Catalog server. You may need to go back "
+"and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
+"\\%s\")."
+msgstr ""
+
+#: storage/exchange-autoconfig-wizard.c:352
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
 msgstr ""
 
-#: storage/exchange-autoconfig-wizard.c:382
-#: storage/exchange-autoconfig-wizard.c:386
+#: storage/exchange-autoconfig-wizard.c:389
+#: storage/exchange-autoconfig-wizard.c:393
 msgid "Unknown"
 msgstr "Okänd"
 
-#: storage/exchange-autoconfig-wizard.c:459
+#: storage/exchange-autoconfig-wizard.c:466
 #, fuzzy
 msgid ""
 "Configuration system error.\n"
@@ -956,40 +962,33 @@ msgstr "Nytt lösenord"
 msgid "Your current password has expired. Please change your password now.\n"
 msgstr ""
 
-#: storage/exchange-component.c:312
+#: storage/exchange-component.c:308
 msgid "Mail"
 msgstr "E-post"
 
-#: storage/exchange-component.c:315 storage/exchange-hierarchy-foreign.c:248
+#: storage/exchange-component.c:311 storage/exchange-hierarchy-foreign.c:248
 msgid "Contacts"
 msgstr "Kontakter"
 
-#: storage/exchange-component.c:319 storage/exchange-hierarchy-foreign.c:256
+#: storage/exchange-component.c:315 storage/exchange-hierarchy-foreign.c:256
 msgid "Tasks"
 msgstr "Uppgifter"
 
-#: storage/exchange-component.c:322 storage/exchange-hierarchy-foreign.c:247
+#: storage/exchange-component.c:318 storage/exchange-hierarchy-foreign.c:247
 msgid "Calendar"
 msgstr "Kalender"
 
-#: storage/exchange-config-listener.c:426
-msgid ""
-"Could not set up default folders to point to your Exchange account.\n"
-"You may want to update them by hand in the \"Folder Settings\"\n"
-"section of the Settings dialog."
-msgstr ""
-
-#: storage/exchange-config-listener.c:716
+#: storage/exchange-config-listener.c:492
 msgid "You may only configure a single Exchange account"
 msgstr ""
 
-#: storage/exchange-config-listener.c:825
+#: storage/exchange-config-listener.c:601
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
 msgstr ""
 
-#: storage/exchange-config-listener.c:873
+#: storage/exchange-config-listener.c:647
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr ""
 
@@ -1390,11 +1389,11 @@ msgstr "Roll: "
 msgid "Connecting..."
 msgstr "Ansluter..."
 
-#: storage/main.c:155
+#: storage/main.c:156
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector för Microsoft Exchange"
 
-#: storage/xc-backend-view.c:292
+#: storage/xc-backend-view.c:299
 msgid "Account Name"
 msgstr "Kontonamn"
 
@@ -1513,6 +1512,12 @@ msgstr "Inte inne-assistent"
 #, fuzzy
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Ta bort en annan användares mapp"
+
+#~ msgid "Modifying %s"
+#~ msgstr "Ändrar %s"
+
+#~ msgid "Creating %s"
+#~ msgstr "Skapar %s"
 
 #, fuzzy
 #~ msgid ""

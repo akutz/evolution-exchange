@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.8\n"
-"Report-Msgid-Bugs-To: Duarte Loreto <happyguy_pt@hotmail.com>\n"
-"POT-Creation-Date: 2004-06-20 15:33+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-07-03 13:35+0530\n"
 "PO-Revision-Date: 2004-06-20 19:45+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
@@ -15,17 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: addressbook/e-book-backend-exchange.c:981
-#, c-format
-msgid "Modifying %s"
-msgstr "A alterar %s"
-
-#: addressbook/e-book-backend-exchange.c:983
-#, c-format
-msgid "Creating %s"
-msgstr "A criar %s"
-
-#: addressbook/e-book-backend-exchange.c:1468
+#: addressbook/e-book-backend-exchange.c:1655
 #: addressbook/e-book-backend-gal.c:1184 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "A procurar..."
@@ -174,8 +164,8 @@ msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
 msgstr ""
-"Esta opção irá estabelecer uma ligação a um servidor Exchange utilizando "
-"uma senha em texto simples."
+"Esta opção irá estabelecer uma ligação a um servidor Exchange utilizando uma "
+"senha em texto simples."
 
 #: camel/camel-exchange-store.c:178
 #, c-format
@@ -193,7 +183,8 @@ msgstr "Processo de suporte de Exchange no Evolution"
 
 #: camel/camel-exchange-transport.c:109
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr "Transporte Exchange apenas pode ser utilizado com origens de email Exchange"
+msgstr ""
+"Transporte Exchange apenas pode ser utilizado com origens de email Exchange"
 
 #: camel/camel-exchange-transport.c:120
 msgid "Cannot send message: one or more invalid recipients"
@@ -771,8 +762,8 @@ msgid ""
 "Make sure the server name is spelled correctly and try again."
 msgstr ""
 "Incapaz de localizar o servidor Exchange.\n"
-"Certifique-se de que o nome do servidor está escrito correctamente "
-"e tente novamente."
+"Certifique-se de que o nome do servidor está escrito correctamente e tente "
+"novamente."
 
 #: storage/exchange-autoconfig-wizard.c:241
 msgid ""
@@ -780,8 +771,8 @@ msgid ""
 "Make sure the username and password are correct and try again."
 msgstr ""
 "Incapaz de se autenticar perante o servidor Exchange.\n"
-"Certifique-se de que o nome de utilizador e senha estão "
-"correctos e tente novamente."
+"Certifique-se de que o nome de utilizador e senha estão correctos e tente "
+"novamente."
 
 #: storage/exchange-autoconfig-wizard.c:248
 #, c-format
@@ -793,11 +784,10 @@ msgid ""
 "(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
 "Incapaz de se autenticar perante o servidor Exchange.\n"
-"Certifique-se de que o nome de utilizador e senha estão "
-"correctos e tente novamente."
-"\n"
-"Poderá ter de especificar o nome do domínio Windows como parte do seu "
-"nome de utilizador (por ex. \"MEU_DOMÍNIO\\%s\")."
+"Certifique-se de que o nome de utilizador e senha estão correctos e tente "
+"novamente.\n"
+"Poderá ter de especificar o nome do domínio Windows como parte do seu nome "
+"de utilizador (por ex. \"MEU_DOMÍNIO\\%s\")."
 
 #: storage/exchange-autoconfig-wizard.c:260
 msgid ""
@@ -830,8 +820,8 @@ msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
 msgstr ""
-"O URL de servidor Exchange especificado é para um Servidor Exchange 5.5. "
-"O Conector Ximian apenas suporta o Microsoft Exchange 2000 e 2003."
+"O URL de servidor Exchange especificado é para um Servidor Exchange 5.5. O "
+"Conector Ximian apenas suporta o Microsoft Exchange 2000 e 2003."
 
 #: storage/exchange-autoconfig-wizard.c:301
 msgid ""
@@ -842,6 +832,19 @@ msgstr ""
 "Verifique o URL, nome de utilizador e senha e tente novamente."
 
 #: storage/exchange-autoconfig-wizard.c:345
+#, fuzzy, c-format
+msgid ""
+"Could not authenticate to the Global Catalog server. You may need to go back "
+"and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
+"\\%s\")."
+msgstr ""
+"Incapaz de se autenticar perante o servidor Exchange.\n"
+"Certifique-se de que o nome de utilizador e senha estão correctos e tente "
+"novamente.\n"
+"Poderá ter de especificar o nome do domínio Windows como parte do seu nome "
+"de utilizador (por ex. \"MEU_DOMÍNIO\\%s\")."
+
+#: storage/exchange-autoconfig-wizard.c:352
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -849,12 +852,12 @@ msgstr ""
 "Incapaz de estabelecer uma ligação ao servidor especificado.\n"
 "Confirme o nome do servidor e tente novamente."
 
-#: storage/exchange-autoconfig-wizard.c:382
-#: storage/exchange-autoconfig-wizard.c:386
+#: storage/exchange-autoconfig-wizard.c:389
+#: storage/exchange-autoconfig-wizard.c:393
 msgid "Unknown"
 msgstr "Desconhecido"
 
-#: storage/exchange-autoconfig-wizard.c:459
+#: storage/exchange-autoconfig-wizard.c:466
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -948,17 +951,16 @@ msgid ""
 "Please enter the name of your Global Catalog server. You may need to ask "
 "your system administrator for the correct value.\n"
 msgstr ""
-"O Conector Ximian foi incapaz de encontrar a réplica do Catálogo Global "
-"para o seu servidor. Introduza o nome do Catálogo Global do seu servidor. "
-"Poderá ter de pedir ao seu administrador de sistemas o valor correcto.\n"
+"O Conector Ximian foi incapaz de encontrar a réplica do Catálogo Global para "
+"o seu servidor. Introduza o nome do Catálogo Global do seu servidor. Poderá "
+"ter de pedir ao seu administrador de sistemas o valor correcto.\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:26
 msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
 msgstr ""
-"O Conector Ximian encontrou um problema ao configurar a sua conta "
-"Exchange.\n"
+"O Conector Ximian encontrou um problema ao configurar a sua conta Exchange.\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -1239,8 +1241,8 @@ msgid ""
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"Aviso: O Evolution foi incapaz de migrar todos os seus dados de conta Exchange "
-"da versão %d.%d.%d. \n"
+"Aviso: O Evolution foi incapaz de migrar todos os seus dados de conta "
+"Exchange da versão %d.%d.%d. \n"
 "Os dados não foram apagados, mas não serão visíveis nesta versão do Evolution"
 
 #: storage/exchange-migrate.c:129
@@ -1425,7 +1427,7 @@ msgstr "Papel: "
 msgid "Connecting..."
 msgstr "A Ligar..."
 
-#: storage/main.c:155
+#: storage/main.c:156
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Conector Ximian para o Microsoft Exchange"
 
@@ -1489,7 +1491,8 @@ msgstr "_Permissões..."
 
 #: storage/ximian-connector-setup.c:43
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
-msgstr "Ferramenta de Configuração do Conector Ximian para o Microsoft Exchange"
+msgstr ""
+"Ferramenta de Configuração do Conector Ximian para o Microsoft Exchange"
 
 #: storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
@@ -1521,7 +1524,8 @@ msgstr "Ver ou alterar as definições de delegação de calendário Exchange"
 #: storage/ximian-connector.xml.h:7
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr ""
-"Ver ou alterar o seu estado Ausente do Escritório e mensagem de resposta automática"
+"Ver ou alterar o seu estado Ausente do Escritório e mensagem de resposta "
+"automática"
 
 #: storage/ximian-connector.xml.h:8
 msgid "View your Exchange server disk usage and limits"
@@ -1542,3 +1546,9 @@ msgstr "Assistente de Ausente do _Escritório"
 #: storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Remover a Subscrição da Pasta de Outro _Utilizador"
+
+#~ msgid "Modifying %s"
+#~ msgstr "A alterar %s"
+
+#~ msgid "Creating %s"
+#~ msgstr "A criar %s"
