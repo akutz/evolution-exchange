@@ -1173,7 +1173,7 @@ init (EStorageSetView *storage_set_view)
 	priv->path_to_etree_node          = g_hash_table_new (g_str_hash, g_str_equal);
 	priv->show_folders                = TRUE;
 	priv->show_checkboxes             = FALSE;
-	priv->allow_dnd                   = TRUE;
+	priv->allow_dnd                   = FALSE;  /*FIXME: Enable dnd - See defect #62442 */
 	priv->search_enabled              = FALSE;
 
 	storage_set_view->priv = priv;
