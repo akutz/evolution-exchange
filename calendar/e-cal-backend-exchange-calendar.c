@@ -573,7 +573,7 @@ add_timezone_cb (icalparameter *param, void *data)
 	struct _cb_data *cbdata = (struct _cb_data *) data;
 	icalcomponent *vtzcomp;
 	const char *tzid;
-	char *izone;
+	char *izone = NULL;
 
 	g_return_if_fail (cbdata != NULL);
 
@@ -1231,7 +1231,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 			if (dt.tzid == NULL)
 				from_zone = icaltimezone_get_utc_timezone ();
 			else {
-				char *izone;
+				char *izone = NULL;
 				get_timezone (backend, cal, dt.tzid, &izone);
 				from_zone = icalcomponent_get_timezone (icalcomponent_new_from_string (izone),
 											dt.tzid);

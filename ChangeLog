@@ -1,3 +1,12 @@
+2005-03-11 Sivaiah Nallagatla <snallagatla@novell.com>
+                                                                                           
+        * calendar/e-cal-backend-exchange-calendar.c
+        (add_timezone_cb) (modify_object_with_href) :
+        initialize the izone to NULL before passing it
+        to get_timzone.
+                                                                                           
+        Fixes #73505, #67740  and surely something else
+
 2005-03-07  Jeffrey Stedfast  <fejj@novell.com>
 
 	Fixes bug #72889, #72943 and probably others.
