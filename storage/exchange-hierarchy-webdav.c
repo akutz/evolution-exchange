@@ -272,7 +272,17 @@ e_folder_webdav_new (ExchangeHierarchy *hier, const char *internal_uri,
 						real_type, outlook_class,
 						physical_uri, internal_uri);
 	} else {
-		http_uri = e2k_uri_concat (e_folder_exchange_get_internal_uri (parent), name);
+		char *temp_name;
+
+		/* appending "/" here, so that hash table lookup in rescan() succeeds */
+		if (*(name + (strlen (name) - 1)) != '/')
+			temp_name = g_strdup_printf ("%s/", name);
+		else
+			temp_name = g_strdup (name);
+
+		http_uri = e2k_uri_concat (e_folder_exchange_get_internal_uri (parent), temp_name);
+		g_free (temp_name);
+	
 		folder = e_folder_exchange_new (hier, name,
 						real_type, outlook_class,
 						physical_uri, http_uri);
@@ -329,6 +339,11 @@ create_folder (ExchangeHierarchy *hier, EFolder *parent,
 		g_free (permanent_url);
 		exchange_hierarchy_new_folder (hier, dest);
 		g_object_unref (dest);
+
+		/* update the folder size table, new folder, initialize the size to 0 */ 
+		exchange_folder_size_update (
+				EXCHANGE_HIERARCHY_WEBDAV (hier)->priv->foldersize,
+				name, 0);
 		return EXCHANGE_ACCOUNT_FOLDER_OK;
 	}
 
@@ -360,6 +375,10 @@ remove_folder (ExchangeHierarchy *hier, EFolder *folder)
 	status = e_folder_exchange_delete (folder, NULL);
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 		exchange_hierarchy_removed_folder (hier, folder);
+
+		/* update the folder size info */
+		exchange_folder_size_remove (EXCHANGE_HIERARCHY_WEBDAV (hier)->priv->foldersize,
+					e_folder_get_name(folder));
 		return EXCHANGE_ACCOUNT_FOLDER_OK;
 	} else
 		return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
@@ -372,12 +391,13 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 {
 	E2kHTTPStatus status;
 	EFolder *dest;
-	char *permanent_url = NULL, *physical_uri;
+	char *permanent_url = NULL, *physical_uri, *source_parent;
 	ESourceList *cal_source_list, *task_source_list, *cont_source_list;
-	const char *folder_type = NULL;
+	const char *folder_type = NULL, *source_folder_name;
 	ExchangeAccountFolderResult ret_code;
 	int offline;
-	
+	gdouble f_size;
+
 	exchange_account_is_offline (hier->account, &offline);
         if (offline != ONLINE_MODE)
                 return EXCHANGE_ACCOUNT_FOLDER_OFFLINE;
@@ -406,6 +426,30 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 		physical_uri = (char *) e_folder_get_physical_uri (source);
 		g_object_unref (dest);
 		ret_code = EXCHANGE_ACCOUNT_FOLDER_OK;
+
+		/* Find if folder movement or rename.  
+		 * update folder size in case of rename.
+		 */
+
+		source_folder_name = strrchr (physical_uri + 1, '/');
+		source_parent = g_strndup (physical_uri, 
+					   source_folder_name - physical_uri); 
+		if (!strcmp (e_folder_get_physical_uri (dest_parent), source_parent)) {
+			/* rename - remove folder entry from hash, and 
+			 * update the hash table with new name 
+			 */
+			f_size = exchange_folder_size_get (
+						EXCHANGE_HIERARCHY_WEBDAV (hier)->priv->foldersize,
+					   	source_folder_name+1);
+			exchange_folder_size_remove (
+						EXCHANGE_HIERARCHY_WEBDAV (hier)->priv->foldersize,
+						source_folder_name+1);
+			if (f_size >= 0)
+				exchange_folder_size_update (
+						EXCHANGE_HIERARCHY_WEBDAV (hier)->priv->foldersize,
+						dest_name, f_size);
+		}
+		g_free (source_parent);
 	} else {
 		physical_uri = e2k_uri_concat (
 				e_folder_get_physical_uri (dest_parent), 
@@ -479,8 +523,9 @@ add_href (gpointer path, gpointer folder, gpointer hrefs)
 	g_ptr_array_add (hrefs, path);
 }
 
+/* E2K_PR_EXCHANGE_FOLDER_SIZE also can be used for reading folder size */
 static const char *rescan_props[] = {
-	E2K_PR_EXCHANGE_FOLDER_SIZE,
+	PR_MESSAGE_SIZE_EXTENDED,
 	E2K_PR_HTTPMAIL_UNREAD_COUNT
 };
 static const int n_rescan_props = sizeof (rescan_props) / sizeof (rescan_props[0]);
@@ -535,16 +580,15 @@ rescan (ExchangeHierarchy *hier)
 			e_folder_set_unread_count (folder, unread);
 
 		folder_size = e2k_properties_get_prop (result->props,
-						E2K_PR_EXCHANGE_FOLDER_SIZE);
-		if (folder_size && personal) {
-			if (e_folder_exchange_get_permanent_uri (folder)) {
-				folder_name = e_folder_get_name (folder);
-				fsize_d = g_ascii_strtod (folder_size, NULL)/1024;
-				exchange_folder_size_update (hwd->priv->foldersize, 
-							folder_name, fsize_d);
+						PR_MESSAGE_SIZE_EXTENDED);
+		if (folder_size) {
+			folder_name = e_folder_get_name (folder);
+			fsize_d = g_ascii_strtod (folder_size, NULL)/1024;
+			exchange_folder_size_update (hwd->priv->foldersize, 
+						folder_name, fsize_d);
+			if (personal)
 				hwd->priv->total_folder_size = 
 					hwd->priv->total_folder_size + fsize_d;
-			}
 		}
 	}
 	e2k_result_iter_free (iter);
@@ -587,10 +631,9 @@ exchange_hierarchy_webdav_parse_folder (ExchangeHierarchyWebDAV *hwd,
 {
 	EFolder *folder;
 	ExchangeFolderType *folder_type;
-	const char *name, *prop, *outlook_class, *permanenturl, *folder_size;
+	const char *name, *prop, *outlook_class, *permanenturl;
 	int unread;
 	gboolean hassubs;
-	gdouble fsize_d;
 
 	g_return_val_if_fail (EXCHANGE_IS_HIERARCHY_WEBDAV (hwd), NULL);
 	g_return_val_if_fail (E_IS_FOLDER (parent), NULL);
@@ -628,11 +671,17 @@ exchange_hierarchy_webdav_parse_folder (ExchangeHierarchyWebDAV *hwd,
 	if (!outlook_class)
 		outlook_class = folder_type->contentclass;
 
+	/*
+	 * The permanenturl Field provides a unique identifier for an item 
+	 * across the *store* and will not change as long as the item remains 
+	 * in the same folder. The permanenturl Field contains the ID of the 
+	 * parent folder of the item, which changes when the item is moved to a 
+	 * different folder or deleted. Changing a field on an item will not 
+	 * change the permanenturl Field and neither will adding more items to
+	 * the folder with the same display name or message subject.
+	 */
 	permanenturl = e2k_properties_get_prop (result->props,
 						E2K_PR_EXCHANGE_PERMANENTURL);
-
-	folder_size = e2k_properties_get_prop (result->props,
-						E2K_PR_EXCHANGE_FOLDER_SIZE);
 	// Check for errors
 
 	folder = e_folder_webdav_new (EXCHANGE_HIERARCHY (hwd),
@@ -645,13 +694,10 @@ exchange_hierarchy_webdav_parse_folder (ExchangeHierarchyWebDAV *hwd,
 	if (hassubs)
 		e_folder_exchange_set_has_subfolders (folder, TRUE);
 	if (permanenturl) {
+		/* Favorite folders and subscribed folders will not have 
+		 * permanenturl 
+		 */
 		e_folder_exchange_set_permanent_uri (folder, permanenturl);
-		/* FIXME : Find a better way of doing this */
-		fsize_d = g_ascii_strtod (folder_size, NULL)/1024 ;
-		exchange_folder_size_update (hwd->priv->foldersize, 
-						name, fsize_d);
-		hwd->priv->total_folder_size = 
-				hwd->priv->total_folder_size + fsize_d;
 	}
 
 	return folder;
@@ -669,7 +715,7 @@ static const char *folder_props[] = {
 	E2K_PR_HTTPMAIL_UNREAD_COUNT,
 	E2K_PR_DAV_DISPLAY_NAME,
 	E2K_PR_EXCHANGE_PERMANENTURL,
-	E2K_PR_EXCHANGE_FOLDER_SIZE,
+	PR_MESSAGE_SIZE_EXTENDED,
 	E2K_PR_DAV_HAS_SUBS
 };
 static const int n_folder_props = sizeof (folder_props) / sizeof (folder_props[0]);
@@ -686,7 +732,10 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *parent, gboolean offline)
 	EFolder *folder, *tmp;
 	GPtrArray *folders;
 	int i;
-	
+	gdouble fsize_d;
+	const char *name, *folder_size;
+	gboolean personal = ( EXCHANGE_HIERARCHY (hwd)->type == EXCHANGE_HIERARCHY_PERSONAL );
+
 	if (offline) {
 		folders = g_ptr_array_new ();
 		exchange_hierarchy_webdav_offline_scan_subtree (EXCHANGE_HIERARCHY (hier), add_folders, folders);
@@ -721,6 +770,22 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *parent, gboolean offline)
 			subtrees = g_slist_prepend (subtrees, folder);
 		}
 		exchange_hierarchy_new_folder (hier, folder);
+
+		/* Check the folder size here */
+		name = e2k_properties_get_prop (result->props,
+							E2K_PR_DAV_DISPLAY_NAME);
+		folder_size = e2k_properties_get_prop (result->props,
+							PR_MESSAGE_SIZE_EXTENDED);
+
+		/* FIXME : Find a better way of doing this */
+		fsize_d = g_ascii_strtod (folder_size, NULL)/1024 ;
+		exchange_folder_size_update (hwd->priv->foldersize, 
+						name, fsize_d);
+		if (personal) {
+			/* calculate mail box size only for personal folders */
+			hwd->priv->total_folder_size = 
+				hwd->priv->total_folder_size + fsize_d;
+		}
 	}
 	status = e2k_result_iter_free (iter);
 
