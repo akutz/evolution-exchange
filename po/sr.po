@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-30 11:00+0530\n"
+"POT-Creation-Date: 2004-12-20 19:02+0530\n"
 "PO-Revision-Date: 2004-09-03 17:47+0200\n"
 "Last-Translator: Данило Шеган <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=3;    plural=n%10==1 && n%100!=11 ? 0 :    n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: addressbook/e-book-backend-exchange.c:1655
+#: addressbook/e-book-backend-exchange.c:1666
 #: addressbook/e-book-backend-gal.c:1213 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Тражим..."
@@ -28,7 +28,7 @@ msgstr "Тражим..."
 msgid "Reconnecting to LDAP server..."
 msgstr "Поново успостављам везу са LDAP сервером"
 
-#: addressbook/e-book-backend-gal.c:1119
+#: addressbook/e-book-backend-gal.c:1117
 msgid "Receiving LDAP search results..."
 msgstr "Примам резултате претраге са LDAP сервера"
 
@@ -36,7 +36,7 @@ msgstr "Примам резултате претраге са LDAP сервер�
 msgid "Error performing search"
 msgstr "Грешка приликом претттраге"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1372
+#: calendar/e-cal-backend-exchange-calendar.c:1423
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -45,7 +45,7 @@ msgstr ""
 "Не могу да закажем ресурс „%s“ за поновљене састанке.\n"
 "Морате заказати сваки састанак појединачно."
 
-#: calendar/e-cal-backend-exchange-calendar.c:1391
+#: calendar/e-cal-backend-exchange-calendar.c:1442
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Ресурс „%s“ је заузет у току изабраног временског периода."
@@ -185,17 +185,17 @@ msgstr ""
 "Ова опција ће повезати на Ексченџ сервер коришћењем обичне пријаве уз "
 "нешифровану лозинку."
 
-#: camel/camel-exchange-store.c:179
+#: camel/camel-exchange-store.c:259
 #, c-format
 msgid "Exchange server %s"
 msgstr "Ексченџ сервер %s"
 
-#: camel/camel-exchange-store.c:182
+#: camel/camel-exchange-store.c:262
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Ексченџ налог за %s на %s"
 
-#: camel/camel-exchange-store.c:209
+#: camel/camel-exchange-store.c:289
 msgid "Evolution Exchange backend process"
 msgstr "Услужни процес за Ексченџ у Еволуцији"
 
@@ -295,8 +295,8 @@ msgstr "Адресар..."
 msgid "No such folder"
 msgstr "Нема таквог директоријума"
 
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2298
-#: mail/mail-stub-exchange.c:2336 mail/mail-stub-exchange.c:2396
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
+#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
 #: shell/e-storage.c:573 storage/xc-commands.c:315
 msgid "Permission denied"
 msgstr "Забрањен приступ"
@@ -318,55 +318,55 @@ msgstr "Нисам могао да отворим фасциклу: забрањ
 msgid "Could not open folder"
 msgstr "Не могу да отворим фасциклу"
 
-#: mail/mail-stub-exchange.c:772
+#: mail/mail-stub-exchange.c:773
 msgid "Could not open Deleted Items folder"
 msgstr "Не могу да отворим фасциклу са обрисаним"
 
-#: mail/mail-stub-exchange.c:1085 mail/mail-stub-exchange.c:1126
+#: mail/mail-stub-exchange.c:1086 mail/mail-stub-exchange.c:1127
 msgid "Could not get new messages"
 msgstr "Не могу да примим нове поруке"
 
-#: mail/mail-stub-exchange.c:1291
+#: mail/mail-stub-exchange.c:1292
 msgid "Could not empty Deleted Items folder"
 msgstr "Не могу да испразним фасциклу са обрисаним"
 
-#: mail/mail-stub-exchange.c:1363
+#: mail/mail-stub-exchange.c:1364
 msgid "Could not append message; mailbox is over quota"
 msgstr "Не могу да прилепим поруку; сандуче је превелико"
 
-#: mail/mail-stub-exchange.c:1364
+#: mail/mail-stub-exchange.c:1365
 msgid "Could not append message"
 msgstr "Нисам могао да прилепим поруку"
 
-#: mail/mail-stub-exchange.c:1847
+#: mail/mail-stub-exchange.c:1848
 msgid "No such message"
 msgstr "Нема такве поруке"
 
-#: mail/mail-stub-exchange.c:1900
+#: mail/mail-stub-exchange.c:1901
 msgid "Message has been deleted"
 msgstr "Порука је обрисана"
 
-#: mail/mail-stub-exchange.c:1902
+#: mail/mail-stub-exchange.c:1903
 msgid "Error retrieving message"
 msgstr "Грешка при учитавању поруке"
 
-#: mail/mail-stub-exchange.c:1944
+#: mail/mail-stub-exchange.c:1945
 msgid "Mailbox does not support full-text searching"
 msgstr "Сандуче не подржава претрагу по свом тексту"
 
-#: mail/mail-stub-exchange.c:2042
+#: mail/mail-stub-exchange.c:2043
 msgid "Unable to move/copy messages"
 msgstr "Не могу да преместим/умножим поруке"
 
-#: mail/mail-stub-exchange.c:2213
+#: mail/mail-stub-exchange.c:2214
 msgid "No mail submission URI for this mailbox"
 msgstr "Нема адресе за слање поште из овог сандучета"
 
-#: mail/mail-stub-exchange.c:2249
+#: mail/mail-stub-exchange.c:2250
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Сервер не прихвата пошту путем Ексченџ преноса"
 
-#: mail/mail-stub-exchange.c:2251
+#: mail/mail-stub-exchange.c:2252
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -375,7 +375,7 @@ msgstr ""
 "Ваш налог није овлашћен да користи <%s>\n"
 "као полазну адресу."
 
-#: mail/mail-stub-exchange.c:2263
+#: mail/mail-stub-exchange.c:2264
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -383,22 +383,22 @@ msgstr ""
 "Не могу да пошаљем поруку.\n"
 "Ово може значити да је ваш налог заузео превише места."
 
-#: mail/mail-stub-exchange.c:2267
+#: mail/mail-stub-exchange.c:2268
 msgid "Could not send message"
 msgstr "Не могу да пошаљем поруку"
 
-#: mail/mail-stub-exchange.c:2290 mail/mail-stub-exchange.c:2341
-#: mail/mail-stub-exchange.c:2400 shell/e-storage.c:557
+#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
+#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
 #: storage/xc-commands.c:319
 msgid "Generic error"
 msgstr "Основна грешка"
 
-#: mail/mail-stub-exchange.c:2294 storage/xc-commands.c:309
+#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:309
 msgid "Folder already exists"
 msgstr "Директоријум већ постоји"
 
-#: mail/mail-stub-exchange.c:2321 mail/mail-stub-exchange.c:2363
-#: mail/mail-stub-exchange.c:2392
+#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
+#: mail/mail-stub-exchange.c:2393
 msgid "Folder doesn't exist"
 msgstr "Фасцикла не постоји"
 
@@ -619,7 +619,7 @@ msgstr "Не могу да направим директоријум са тим
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Ову операцију не можете извршити док радите без мреже"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1174
+#: shell/e-storage.c:587 storage/exchange-account.c:1280
 msgid "Unknown error"
 msgstr "Непозната грешка"
 
@@ -655,25 +655,25 @@ msgstr "_Ексченџ"
 # bug: this sucks!
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:557
+#: storage/exchange-account.c:565
 #, c-format
 msgid "%s's Folders"
 msgstr "%s: фасцикле"
 
-#: storage/exchange-account.c:838
+#: storage/exchange-account.c:846
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sУнесите лозинку за %s"
 
-#: storage/exchange-account.c:842
+#: storage/exchange-account.c:850
 msgid "Enter password"
 msgstr "Унесите лозинку"
 
-#: storage/exchange-account.c:967
+#: storage/exchange-account.c:1017
 msgid "Cannot change password due to configuration problems"
 msgstr "Не могу да изменим лозинку услед неприлика са подешавањима"
 
-#: storage/exchange-account.c:982
+#: storage/exchange-account.c:1032
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -681,11 +681,11 @@ msgstr ""
 "Сервер је одбио лозинку зато што је преслаба.\n"
 "Покушајте поново са другачијом лозинком."
 
-#: storage/exchange-account.c:987
+#: storage/exchange-account.c:1037
 msgid "Could not change password"
 msgstr "Не могу да променим лозинку"
 
-#: storage/exchange-account.c:1085
+#: storage/exchange-account.c:1191
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -693,7 +693,7 @@ msgstr ""
 "Не могу да се пријавим на сервер. (Лозинка неисправна?)\n"
 "\n"
 
-#: storage/exchange-account.c:1090
+#: storage/exchange-account.c:1196
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -713,7 +713,7 @@ msgstr ""
 "Или сте једноставно укуцали погрешну лозинку.\n"
 "\n"
 
-#: storage/exchange-account.c:1101
+#: storage/exchange-account.c:1207
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -730,12 +730,12 @@ msgstr ""
 "Или сте једноставно укуцали погрешну лозинку.\n"
 "\n"
 
-#: storage/exchange-account.c:1132
+#: storage/exchange-account.c:1238
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Сандуче за %s није на овом серверу."
 
-#: storage/exchange-account.c:1137
+#: storage/exchange-account.c:1243
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -744,7 +744,7 @@ msgstr ""
 "Сервер „%s“ користи Ексченџ 5.5 и зато није \n"
 "сагласан са Гзимијан везником"
 
-#: storage/exchange-account.c:1144
+#: storage/exchange-account.c:1250
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -755,40 +755,40 @@ msgstr ""
 "Ако је OWA покренут на другој путањи, морате је навести у \n"
 "прозорчету за подешавање налога."
 
-#: storage/exchange-account.c:1152
+#: storage/exchange-account.c:1258
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Нема сандучета за корисника %s на %s.\n"
 
-#: storage/exchange-account.c:1158 storage/exchange-account.c:1164
-#: storage/exchange-account.c:1172
+#: storage/exchange-account.c:1264 storage/exchange-account.c:1270
+#: storage/exchange-account.c:1278
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Нисам могао да се повежем на сервер %s: %s"
 
-#: storage/exchange-account.c:1160
+#: storage/exchange-account.c:1266
 msgid "Could not resolve hostname"
 msgstr "Не могу да разрешим име рачунара"
 
-#: storage/exchange-account.c:1166
+#: storage/exchange-account.c:1272
 msgid "Network error"
 msgstr "Мрежна грешка"
 
-#: storage/exchange-account.c:1244
+#: storage/exchange-account.c:1350
 msgid "Personal Folders"
 msgstr "Личне фасцикле"
 
-#: storage/exchange-account.c:1259
+#: storage/exchange-account.c:1365
 msgid "Favorite Public Folders"
 msgstr "Омиљене јавне фасцикле"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1276
+#: storage/exchange-account.c:1382
 msgid "All Public Folders"
 msgstr "Све јавне фасцикле"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1290
+#: storage/exchange-account.c:1396
 msgid "Global Address List"
 msgstr "Општи списак адреса"
 
@@ -1062,19 +1062,19 @@ msgid "Your current password has expired. Please change your password now."
 msgstr "Ваша текућа лозинка је истекла. Измените је сада."
 
 # 48x48/emblems/emblem-mail.icon.in.h:1
-#: storage/exchange-component.c:308
+#: storage/exchange-component.c:317
 msgid "Mail"
 msgstr "Пошта"
 
-#: storage/exchange-component.c:311 storage/exchange-hierarchy-foreign.c:250
+#: storage/exchange-component.c:320 storage/exchange-hierarchy-foreign.c:250
 msgid "Contacts"
 msgstr "Контакти"
 
-#: storage/exchange-component.c:315 storage/exchange-hierarchy-foreign.c:258
+#: storage/exchange-component.c:324 storage/exchange-hierarchy-foreign.c:258
 msgid "Tasks"
 msgstr "Задужења"
 
-#: storage/exchange-component.c:318 storage/exchange-hierarchy-foreign.c:249
+#: storage/exchange-component.c:327 storage/exchange-hierarchy-foreign.c:249
 msgid "Calendar"
 msgstr "Календар"
 
@@ -1501,7 +1501,7 @@ msgstr "Улога: "
 msgid "Connecting..."
 msgstr "Повезујем се..."
 
-#: storage/main.c:211
+#: storage/main.c:168
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Гзимијан везник за Микрософт Ексченџ"
 

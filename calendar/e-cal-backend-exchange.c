@@ -242,7 +242,6 @@ timeout_save_cache (gpointer user_data)
 		unlink (tmpfile);
 error:
 	g_free (tmpfile);
-	g_free (data);
 	return FALSE;
 }
 
@@ -709,7 +708,6 @@ get_default_object (ECalBackendSync *backend, EDataCal *cal, char **object)
 	ical_obj = icalcomponent_as_ical_string (comp);
 	*object = g_strdup (ical_obj);
 
-	g_free (ical_obj);
 	icalcomponent_free (comp);
 
 	return GNOME_Evolution_Calendar_Success;
@@ -801,7 +799,6 @@ get_timezone (ECalBackendSync *backend, EDataCal *cal,
 	ical_obj = icalcomponent_as_ical_string (vtzcomp);
 	*object = g_strdup (ical_obj);
 
-	g_free (ical_obj);
 	icalcomponent_free (vtzcomp);
 	return  GNOME_Evolution_Calendar_Success;
 }

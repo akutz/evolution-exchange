@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-30 11:00+0530\n"
+"POT-Creation-Date: 2004-12-20 19:02+0530\n"
 "PO-Revision-Date: 2004-11-28 16:26+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <es@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Generator: KBabel 1.3.1\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: addressbook/e-book-backend-exchange.c:1655
+#: addressbook/e-book-backend-exchange.c:1666
 #: addressbook/e-book-backend-gal.c:1213 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Buscando..."
@@ -30,7 +30,7 @@ msgstr "Buscando..."
 msgid "Reconnecting to LDAP server..."
 msgstr "Conectando con el servidor LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1119
+#: addressbook/e-book-backend-gal.c:1117
 msgid "Receiving LDAP search results..."
 msgstr "Recibiendo resultados de la búsqueda LDAP..."
 
@@ -38,7 +38,7 @@ msgstr "Recibiendo resultados de la búsqueda LDAP..."
 msgid "Error performing search"
 msgstr "Error al efectuar la búsqueda"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1372
+#: calendar/e-cal-backend-exchange-calendar.c:1423
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -47,7 +47,7 @@ msgstr ""
 "No es posible programar el recurso «%s» para reeuniones repetidas.\n"
 "Debe reservar cada reunión separadamente."
 
-#: calendar/e-cal-backend-exchange-calendar.c:1391
+#: calendar/e-cal-backend-exchange-calendar.c:1442
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr ""
@@ -189,17 +189,17 @@ msgstr ""
 "Esta opción conectará con el servidor Exchange usando autenticación estándar "
 "en texto plano."
 
-#: camel/camel-exchange-store.c:179
+#: camel/camel-exchange-store.c:259
 #, c-format
 msgid "Exchange server %s"
 msgstr "Servidor Exchange %s"
 
-#: camel/camel-exchange-store.c:182
+#: camel/camel-exchange-store.c:262
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Cuanta Exchange de %s en %s"
 
-#: camel/camel-exchange-store.c:209
+#: camel/camel-exchange-store.c:289
 msgid "Evolution Exchange backend process"
 msgstr "Proceso de backend de Evolution Exchange"
 
@@ -300,8 +300,8 @@ msgstr "Libreta de direcciones..."
 msgid "No such folder"
 msgstr "No existe la carpeta"
 
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2298
-#: mail/mail-stub-exchange.c:2336 mail/mail-stub-exchange.c:2396
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
+#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
 #: shell/e-storage.c:573 storage/xc-commands.c:315
 msgid "Permission denied"
 msgstr "Permiso denegado"
@@ -322,55 +322,55 @@ msgstr "No se pudo abrir carpeta: Permiso denegado"
 msgid "Could not open folder"
 msgstr "No se pudo abrir la carpeta"
 
-#: mail/mail-stub-exchange.c:772
+#: mail/mail-stub-exchange.c:773
 msgid "Could not open Deleted Items folder"
 msgstr "No se pudo abrir la carpeta de elementos borrados"
 
-#: mail/mail-stub-exchange.c:1085 mail/mail-stub-exchange.c:1126
+#: mail/mail-stub-exchange.c:1086 mail/mail-stub-exchange.c:1127
 msgid "Could not get new messages"
 msgstr "No se pudieron obtener los mensajes nuevos"
 
-#: mail/mail-stub-exchange.c:1291
+#: mail/mail-stub-exchange.c:1292
 msgid "Could not empty Deleted Items folder"
 msgstr "No se pudo vaciar la carpeta de elementos borrados"
 
-#: mail/mail-stub-exchange.c:1363
+#: mail/mail-stub-exchange.c:1364
 msgid "Could not append message; mailbox is over quota"
 msgstr "No se pudo anexar el mensaje; el buzón excede la cuota"
 
-#: mail/mail-stub-exchange.c:1364
+#: mail/mail-stub-exchange.c:1365
 msgid "Could not append message"
 msgstr "No se pudo anexar el mensaje"
 
-#: mail/mail-stub-exchange.c:1847
+#: mail/mail-stub-exchange.c:1848
 msgid "No such message"
 msgstr "No existe el mensaje"
 
-#: mail/mail-stub-exchange.c:1900
+#: mail/mail-stub-exchange.c:1901
 msgid "Message has been deleted"
 msgstr "El mensaje ha sido borrado"
 
-#: mail/mail-stub-exchange.c:1902
+#: mail/mail-stub-exchange.c:1903
 msgid "Error retrieving message"
 msgstr "Error al obtener el mensaje"
 
-#: mail/mail-stub-exchange.c:1944
+#: mail/mail-stub-exchange.c:1945
 msgid "Mailbox does not support full-text searching"
 msgstr "El buzón no soporta búsqueda en texto"
 
-#: mail/mail-stub-exchange.c:2042
+#: mail/mail-stub-exchange.c:2043
 msgid "Unable to move/copy messages"
 msgstr "Imposible mover/copiar mensajes"
 
-#: mail/mail-stub-exchange.c:2213
+#: mail/mail-stub-exchange.c:2214
 msgid "No mail submission URI for this mailbox"
 msgstr "No hay URI de envío de correo para este buzón"
 
-#: mail/mail-stub-exchange.c:2249
+#: mail/mail-stub-exchange.c:2250
 msgid "Server won't accept mail via Exchange transport"
 msgstr "El servidor no acepta correo por medio del transporte Exchange"
 
-#: mail/mail-stub-exchange.c:2251
+#: mail/mail-stub-exchange.c:2252
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -379,7 +379,7 @@ msgstr ""
 "Su cuenta no tiene permiso para usar <%s>\n"
 "como una dirección de remitente."
 
-#: mail/mail-stub-exchange.c:2263
+#: mail/mail-stub-exchange.c:2264
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -387,22 +387,22 @@ msgstr ""
 "No se pudo enviar el mensaje.\n"
 "Esto quizá signifique que su cuenta sobrepasa la cuota."
 
-#: mail/mail-stub-exchange.c:2267
+#: mail/mail-stub-exchange.c:2268
 msgid "Could not send message"
 msgstr "No se pudo enviar el mensaje"
 
-#: mail/mail-stub-exchange.c:2290 mail/mail-stub-exchange.c:2341
-#: mail/mail-stub-exchange.c:2400 shell/e-storage.c:557
+#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
+#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
 #: storage/xc-commands.c:319
 msgid "Generic error"
 msgstr "Error genérico"
 
-#: mail/mail-stub-exchange.c:2294 storage/xc-commands.c:309
+#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:309
 msgid "Folder already exists"
 msgstr "La carpeta ya existe"
 
-#: mail/mail-stub-exchange.c:2321 mail/mail-stub-exchange.c:2363
-#: mail/mail-stub-exchange.c:2392
+#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
+#: mail/mail-stub-exchange.c:2393
 msgid "Folder doesn't exist"
 msgstr "La carpeta no existe"
 
@@ -623,7 +623,7 @@ msgstr "No se puede crear una carpeta con ese nombre"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Esta operación no puede realizarse en modo «Desconectado»"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1174
+#: shell/e-storage.c:587 storage/exchange-account.c:1280
 msgid "Unknown error"
 msgstr "Error desconocido"
 
@@ -657,25 +657,25 @@ msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:557
+#: storage/exchange-account.c:565
 #, c-format
 msgid "%s's Folders"
 msgstr "Carpetas de %s"
 
-#: storage/exchange-account.c:838
+#: storage/exchange-account.c:846
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%s Introduzca la contraseña para %s"
 
-#: storage/exchange-account.c:842
+#: storage/exchange-account.c:850
 msgid "Enter password"
 msgstr "Introduzca la contraseña"
 
-#: storage/exchange-account.c:967
+#: storage/exchange-account.c:1017
 msgid "Cannot change password due to configuration problems"
 msgstr "No se pudo cambiar la contraseña debido a problemas de configuración"
 
-#: storage/exchange-account.c:982
+#: storage/exchange-account.c:1032
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -683,11 +683,11 @@ msgstr ""
 "El servidor rechazó la contraseña porque es demasiado débil.\n"
 "Intente otra vez con una contraseña diferente."
 
-#: storage/exchange-account.c:987
+#: storage/exchange-account.c:1037
 msgid "Could not change password"
 msgstr "No se pudo cambiar la contraseña"
 
-#: storage/exchange-account.c:1085
+#: storage/exchange-account.c:1191
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -695,7 +695,7 @@ msgstr ""
 "No se pudo autenticar con el servidor. (¿Contraseña incorrecta?)\n"
 "\n"
 
-#: storage/exchange-account.c:1090
+#: storage/exchange-account.c:1196
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -715,7 +715,7 @@ msgstr ""
 "O quizá ha escrito la contraseña mal.\n"
 "\n"
 
-#: storage/exchange-account.c:1101
+#: storage/exchange-account.c:1207
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -731,12 +731,12 @@ msgstr ""
 "O quizá se ha equivocado al teclear la contraseña.\n"
 "\n"
 
-#: storage/exchange-account.c:1132
+#: storage/exchange-account.c:1238
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "El buzón de %s no está en este servidor."
 
-#: storage/exchange-account.c:1137
+#: storage/exchange-account.c:1243
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -745,7 +745,7 @@ msgstr ""
 "El servidor «%s» esté ejecutando Exchange 5.5 y por tanto\n"
 "no es compatible con Ximian Connector"
 
-#: storage/exchange-account.c:1144
+#: storage/exchange-account.c:1250
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -756,40 +756,40 @@ msgstr ""
 "Si OWA está en ejecución en una ruta diferente, debe especificarla en el\n"
 "diálogo de configuración de la cuenta."
 
-#: storage/exchange-account.c:1152
+#: storage/exchange-account.c:1258
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "No hay un buzón para el usuario %s en %s.\n"
 
-#: storage/exchange-account.c:1158 storage/exchange-account.c:1164
-#: storage/exchange-account.c:1172
+#: storage/exchange-account.c:1264 storage/exchange-account.c:1270
+#: storage/exchange-account.c:1278
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "No se pudo conectar el servidor %s: %s"
 
-#: storage/exchange-account.c:1160
+#: storage/exchange-account.c:1266
 msgid "Could not resolve hostname"
 msgstr "No se pudo resolver el nombre del host"
 
-#: storage/exchange-account.c:1166
+#: storage/exchange-account.c:1272
 msgid "Network error"
 msgstr "Error de red"
 
-#: storage/exchange-account.c:1244
+#: storage/exchange-account.c:1350
 msgid "Personal Folders"
 msgstr "Carpetas personales"
 
-#: storage/exchange-account.c:1259
+#: storage/exchange-account.c:1365
 msgid "Favorite Public Folders"
 msgstr "Carpetas públicas favoritas"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1276
+#: storage/exchange-account.c:1382
 msgid "All Public Folders"
 msgstr "Todas las carpetas públicas"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1290
+#: storage/exchange-account.c:1396
 msgid "Global Address List"
 msgstr "Lista de acceso global"
 
@@ -1066,19 +1066,19 @@ msgid "Your current password has expired. Please change your password now."
 msgstr ""
 "Su contraseña actual ha caducado. Por favor, cambie su contraseña ahora."
 
-#: storage/exchange-component.c:308
+#: storage/exchange-component.c:317
 msgid "Mail"
 msgstr "Correo"
 
-#: storage/exchange-component.c:311 storage/exchange-hierarchy-foreign.c:250
+#: storage/exchange-component.c:320 storage/exchange-hierarchy-foreign.c:250
 msgid "Contacts"
 msgstr "Contactos"
 
-#: storage/exchange-component.c:315 storage/exchange-hierarchy-foreign.c:258
+#: storage/exchange-component.c:324 storage/exchange-hierarchy-foreign.c:258
 msgid "Tasks"
 msgstr "Tareas"
 
-#: storage/exchange-component.c:318 storage/exchange-hierarchy-foreign.c:249
+#: storage/exchange-component.c:327 storage/exchange-hierarchy-foreign.c:249
 msgid "Calendar"
 msgstr "Calendario"
 
@@ -1503,7 +1503,7 @@ msgstr "Rol:"
 msgid "Connecting..."
 msgstr "Conectando..."
 
-#: storage/main.c:211
+#: storage/main.c:168
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Conector Ximian para Microsoft Exchange"
 

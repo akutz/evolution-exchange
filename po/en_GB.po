@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-13 20:44+0000\n"
+"POT-Creation-Date: 2004-12-20 19:02+0530\n"
 "PO-Revision-Date: 2004-12-13 20:44+0100\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: \n"
@@ -15,9 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: addressbook/e-book-backend-exchange.c:1658
-#: addressbook/e-book-backend-gal.c:1213
-#: storage/exchange-storage.c:135
+#: addressbook/e-book-backend-exchange.c:1666
+#: addressbook/e-book-backend-gal.c:1213 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Searching..."
 
@@ -25,7 +24,7 @@ msgstr "Searching..."
 msgid "Reconnecting to LDAP server..."
 msgstr "Reconnecting to LDAP server..."
 
-#: addressbook/e-book-backend-gal.c:1119
+#: addressbook/e-book-backend-gal.c:1117
 msgid "Receiving LDAP search results..."
 msgstr "Receiving LDAP search results..."
 
@@ -33,7 +32,7 @@ msgstr "Receiving LDAP search results..."
 msgid "Error performing search"
 msgstr "Error performing search"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1393
+#: calendar/e-cal-backend-exchange-calendar.c:1423
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -42,7 +41,7 @@ msgstr ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 
-#: calendar/e-cal-backend-exchange-calendar.c:1412
+#: calendar/e-cal-backend-exchange-calendar.c:1442
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "The resource '%s' is busy during the selected time period."
@@ -87,12 +86,14 @@ msgid "Fetching summary information for new messages"
 msgstr "Fetching summary information for new messages"
 
 #. i18n: the '_' should appear before the same letter it
+#. does in the evolution:mail-config.glade "_Host"
 #. translation (or not at all)
 #: camel/camel-exchange-provider.c:44
 msgid "Exc_hange Server:"
 msgstr "Exc_hange Server:"
 
 #. i18n: the '_' should appear before the same letter it
+#. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
 #: camel/camel-exchange-provider.c:49
 msgid "Windows User_name:"
@@ -104,6 +105,7 @@ msgid "Global Address List / Active Directory"
 msgstr "Global Address List / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
+#. technical term and may not have translations?
 #: camel/camel-exchange-provider.c:58
 msgid "Global Catalog server name:"
 msgstr "Global Catalogue server name:"
@@ -160,28 +162,36 @@ msgstr "Secure Password"
 
 #. i18n: "NTLM" probably doesn't translate
 #: camel/camel-exchange-provider.c:109
-msgid "This option will connect to the Exchange server using secure password (NTLM) authentication."
-msgstr "This option will connect to the Exchange server using secure password (NTLM) authentication."
+msgid ""
+"This option will connect to the Exchange server using secure password (NTLM) "
+"authentication."
+msgstr ""
+"This option will connect to the Exchange server using secure password (NTLM) "
+"authentication."
 
 #: camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "Plaintext Password"
 
 #: camel/camel-exchange-provider.c:119
-msgid "This option will connect to the Exchange server using standard plaintext password authentication."
-msgstr "This option will connect to the Exchange server using standard plaintext password authentication."
+msgid ""
+"This option will connect to the Exchange server using standard plaintext "
+"password authentication."
+msgstr ""
+"This option will connect to the Exchange server using standard plaintext "
+"password authentication."
 
-#: camel/camel-exchange-store.c:179
+#: camel/camel-exchange-store.c:259
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange server %s"
 
-#: camel/camel-exchange-store.c:182
+#: camel/camel-exchange-store.c:262
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Exchange account for %s on %s"
 
-#: camel/camel-exchange-store.c:209
+#: camel/camel-exchange-store.c:289
 msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange backend process"
 
@@ -228,6 +238,7 @@ msgid "Error communicating with %s: %s"
 msgstr "Error communicating with %s: %s"
 
 #. i18n: These are Outlook's words for the default roles in
+#. the folder permissions dialog.
 #: lib/e2k-security-descriptor.c:847
 msgid "Owner"
 msgstr "Owner"
@@ -260,13 +271,11 @@ msgstr "Reviewer"
 msgid "Contributor"
 msgstr "Contributor"
 
-#: lib/e2k-security-descriptor.c:891
-#: storage/exchange-delegates.glade.h:7
+#: lib/e2k-security-descriptor.c:891 storage/exchange-delegates.glade.h:7
 msgid "None"
 msgstr "None"
 
-#: lib/e2k-security-descriptor.c:906
-#: storage/exchange-delegates-user.c:144
+#: lib/e2k-security-descriptor.c:906 storage/exchange-delegates-user.c:144
 msgid "Custom"
 msgstr "Custom"
 
@@ -282,12 +291,9 @@ msgstr "Addressbook..."
 msgid "No such folder"
 msgstr "No such folder"
 
-#: mail/mail-stub-exchange.c:248
-#: mail/mail-stub-exchange.c:2299
-#: mail/mail-stub-exchange.c:2337
-#: mail/mail-stub-exchange.c:2397
-#: shell/e-storage.c:573
-#: storage/xc-commands.c:315
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
+#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
+#: shell/e-storage.c:573 storage/xc-commands.c:315
 msgid "Permission denied"
 msgstr "Permission denied"
 
@@ -299,13 +305,11 @@ msgstr "No such folder."
 msgid "Could not create folder."
 msgstr "Could not create folder."
 
-#: mail/mail-stub-exchange.c:601
-#: mail/mail-stub-exchange.c:619
+#: mail/mail-stub-exchange.c:601 mail/mail-stub-exchange.c:619
 msgid "Could not open folder: Permission denied"
 msgstr "Could not open folder: Permission denied"
 
-#: mail/mail-stub-exchange.c:605
-#: mail/mail-stub-exchange.c:718
+#: mail/mail-stub-exchange.c:605 mail/mail-stub-exchange.c:718
 msgid "Could not open folder"
 msgstr "Could not open folder"
 
@@ -313,8 +317,7 @@ msgstr "Could not open folder"
 msgid "Could not open Deleted Items folder"
 msgstr "Could not open Deleted Items folder"
 
-#: mail/mail-stub-exchange.c:1086
-#: mail/mail-stub-exchange.c:1127
+#: mail/mail-stub-exchange.c:1086 mail/mail-stub-exchange.c:1127
 msgid "Could not get new messages"
 msgstr "Could not get new messages"
 
@@ -379,21 +382,17 @@ msgstr ""
 msgid "Could not send message"
 msgstr "Could not send message"
 
-#: mail/mail-stub-exchange.c:2291
-#: mail/mail-stub-exchange.c:2342
-#: mail/mail-stub-exchange.c:2401
-#: shell/e-storage.c:557
+#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
+#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
 #: storage/xc-commands.c:319
 msgid "Generic error"
 msgstr "Generic error"
 
-#: mail/mail-stub-exchange.c:2295
-#: storage/xc-commands.c:309
+#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:309
 msgid "Folder already exists"
 msgstr "Folder already exists"
 
-#: mail/mail-stub-exchange.c:2322
-#: mail/mail-stub-exchange.c:2364
+#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
 #: mail/mail-stub-exchange.c:2393
 msgid "Folder doesn't exist"
 msgstr "Folder doesn't exist"
@@ -486,6 +485,7 @@ msgid "A folder named \"%s\" already exists. Please use a different name."
 msgstr "A folder named \"%s\" already exists. Please use a different name."
 
 #. It would be nice to insensitivize the OK button appropriately
+#. instead of doing this, but unfortunately we can't do this for the
 #. Bonobo control.
 #: shell/e-folder-misc-dialogs.c:460
 msgid "Please select a user."
@@ -613,8 +613,7 @@ msgstr "Cannot create a folder with that name"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "This operation cannot be performed in off-line mode"
 
-#: shell/e-storage.c:587
-#: storage/exchange-account.c:1280
+#: shell/e-storage.c:587 storage/exchange-account.c:1280
 msgid "Unknown error"
 msgstr "Unknown error"
 
@@ -647,6 +646,7 @@ msgid "_Exchange"
 msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
+#. hierarchy. Eg, "John Doe's Folders".
 #: storage/exchange-account.c:565
 #, c-format
 msgid "%s's Folders"
@@ -751,8 +751,7 @@ msgstr ""
 msgid "No mailbox for user %s on %s.\n"
 msgstr "No mailbox for user %s on %s.\n"
 
-#: storage/exchange-account.c:1264
-#: storage/exchange-account.c:1270
+#: storage/exchange-account.c:1264 storage/exchange-account.c:1270
 #: storage/exchange-account.c:1278
 #, c-format
 msgid "Could not connect to server %s: %s"
@@ -815,12 +814,14 @@ msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again.\n"
 "\n"
-"You may need to specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
+"You may need to specify the Windows domain name as part of your username "
+"(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again.\n"
 "\n"
-"You may need to specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
+"You may need to specify the Windows domain name as part of your username "
+"(eg, \"MY-DOMAIN\\%s\")."
 
 #: storage/exchange-autoconfig-wizard.c:260
 msgid ""
@@ -832,26 +833,48 @@ msgstr ""
 
 #: storage/exchange-autoconfig-wizard.c:267
 msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange Server that appears to be disabled or blocked.  (This is usually unintentional.)  Your Exchange Administrator will need to enable this functionality in order for you to be able to use Ximian Connector.\n"
+"Ximian Connector requires access to certain functionality on the Exchange "
+"Server that appears to be disabled or blocked.  (This is usually "
+"unintentional.)  Your Exchange Administrator will need to enable this "
+"functionality in order for you to be able to use Ximian Connector.\n"
 "\n"
-"For information to provide to your Exchange administrator, please follow the link below:"
+"For information to provide to your Exchange administrator, please follow the "
+"link below:"
 msgstr ""
-"Ximian Connector requires access to certain functionality on the Exchange Server that appears to be disabled or blocked.  (This is usually unintentional.)  Your Exchange Administrator will need to enable this functionality in order for you to be able to use Ximian Connector.\n"
+"Ximian Connector requires access to certain functionality on the Exchange "
+"Server that appears to be disabled or blocked.  (This is usually "
+"unintentional.)  Your Exchange Administrator will need to enable this "
+"functionality in order for you to be able to use Ximian Connector.\n"
 "\n"
-"For information to provide to your Exchange administrator, please follow the link below:"
+"For information to provide to your Exchange administrator, please follow the "
+"link below:"
 
 #: storage/exchange-autoconfig-wizard.c:288
-msgid "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian Connector supports Microsoft Exchange 2000 and 2003 only."
+msgid ""
+"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
+"Connector supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
+"Connector supports Microsoft Exchange 2000 and 2003 only."
 
 #: storage/exchange-autoconfig-wizard.c:301
-msgid "Could not configure Exchange account because an unknown error occurred. Check the URL, username, and password, and try again."
-msgstr "Could not configure Exchange account because an unknown error occurred. Check the URL, username, and password, and try again."
+msgid ""
+"Could not configure Exchange account because an unknown error occurred. "
+"Check the URL, username, and password, and try again."
+msgstr ""
+"Could not configure Exchange account because an unknown error occurred. "
+"Check the URL, username, and password, and try again."
 
 #: storage/exchange-autoconfig-wizard.c:345
 #, c-format
-msgid "Could not authenticate to the Global Catalog server. You may need to go back and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
-msgstr "Could not authenticate to the Global Catalogue server. You may need to go back and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
+msgid ""
+"Could not authenticate to the Global Catalog server. You may need to go back "
+"and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
+"\\%s\")."
+msgstr ""
+"Could not authenticate to the Global Catalogue server. You may need to go "
+"back and specify the Windows domain name as part of your username (eg, \"MY-"
+"DOMAIN\\%s\")."
 
 #: storage/exchange-autoconfig-wizard.c:352
 msgid ""
@@ -947,38 +970,64 @@ msgstr "Ximian Connector Configuration"
 
 #: storage/exchange-autoconfig-wizard.glade.h:20
 msgid ""
-"Ximian Connector can use account information from your existing Outlook Web Access (OWA) account.\n"
+"Ximian Connector can use account information from your existing Outlook Web "
+"Access (OWA) account.\n"
 "\n"
-"Enter your OWA site address (URL), username, and password, then click \"Forward\".\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
 msgstr ""
-"Ximian Connector can use account information from your existing Outlook Web Access (OWA) account.\n"
+"Ximian Connector can use account information from your existing Outlook Web "
+"Access (OWA) account.\n"
 "\n"
-"Enter your OWA site address (URL), username, and password, then click \"Forward\".\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:24
-msgid "Ximian Connector could not find the Global Catalog replica for your site. Please enter the name of your Global Catalog server. You may need to ask your system administrator for the correct value.\n"
-msgstr "Ximian Connector could not find the Global Catalogue replica for your site. Please enter the name of your Global Catalogue server. You may need to ask your system administrator for the correct value.\n"
+msgid ""
+"Ximian Connector could not find the Global Catalog replica for your site. "
+"Please enter the name of your Global Catalog server. You may need to ask "
+"your system administrator for the correct value.\n"
+msgstr ""
+"Ximian Connector could not find the Global Catalogue replica for your site. "
+"Please enter the name of your Global Catalogue server. You may need to ask "
+"your system administrator for the correct value.\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:26
-msgid "Ximian Connector has encountered a problem configuring your Exchange account.\n"
-msgstr "Ximian Connector has encountered a problem configuring your Exchange account.\n"
+msgid ""
+"Ximian Connector has encountered a problem configuring your Exchange "
+"account.\n"
+msgstr ""
+"Ximian Connector has encountered a problem configuring your Exchange "
+"account.\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
-"Your Connector account is now ready to use. Click the \"Apply\" button to save your\n"
+"Your Connector account is now ready to use. Click the \"Apply\" button to "
+"save your\n"
 "settings."
 msgstr ""
-"Your Connector account is now ready to use. Click the \"Apply\" button to save your\n"
+"Your Connector account is now ready to use. Click the \"Apply\" button to "
+"save your\n"
 "settings."
 
 #: storage/exchange-autoconfig-wizard.glade.h:30
-msgid "Your account information is as follows. Please correct any errors, then click \"Forward\".\n"
-msgstr "Your account information is as follows. Please correct any errors, then click \"Forward\".\n"
+msgid ""
+"Your account information is as follows. Please correct any errors, then "
+"click \"Forward\".\n"
+msgstr ""
+"Your account information is as follows. Please correct any errors, then "
+"click \"Forward\".\n"
 
 #. User entered a wrong existing
+#. * password. Prompt him again.
+#.
 #: storage/exchange-change-password.c:114
-msgid "The current password does not match the existing password for your account. Please enter the correct password"
-msgstr "The current password does not match the existing password for your account. Please enter the correct password"
+msgid ""
+"The current password does not match the existing password for your account. "
+"Please enter the correct password"
+msgstr ""
+"The current password does not match the existing password for your account. "
+"Please enter the correct password"
 
 #: storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
@@ -1008,18 +1057,15 @@ msgstr "Your current password has expired. Please change your password now."
 msgid "Mail"
 msgstr "Mail"
 
-#: storage/exchange-component.c:320
-#: storage/exchange-hierarchy-foreign.c:250
+#: storage/exchange-component.c:320 storage/exchange-hierarchy-foreign.c:250
 msgid "Contacts"
 msgstr "Contacts"
 
-#: storage/exchange-component.c:324
-#: storage/exchange-hierarchy-foreign.c:258
+#: storage/exchange-component.c:324 storage/exchange-hierarchy-foreign.c:258
 msgid "Tasks"
 msgstr "Tasks"
 
-#: storage/exchange-component.c:327
-#: storage/exchange-hierarchy-foreign.c:249
+#: storage/exchange-component.c:327 storage/exchange-hierarchy-foreign.c:249
 msgid "Calendar"
 msgstr "Calendar"
 
@@ -1128,8 +1174,7 @@ msgstr ""
 "Failed to update delegates:\n"
 "%s"
 
-#: storage/exchange-delegates.c:938
-#: storage/exchange-permissions-dialog.c:706
+#: storage/exchange-delegates.c:938 storage/exchange-permissions-dialog.c:706
 msgid "Name"
 msgstr "Name"
 
@@ -1240,30 +1285,35 @@ msgstr "Migrating Exchange Folders..."
 #: storage/exchange-migrate.c:65
 #, c-format
 msgid ""
-"The location and hierarchy of the Evolution exchange account folders are changed since Evolution %d.%d.%d.\n"
+"The location and hierarchy of the Evolution exchange account folders are "
+"changed since Evolution %d.%d.%d.\n"
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
-"The location and hierarchy of the Evolution exchange account folders are changed since Evolution %d.%d.%d.\n"
+"The location and hierarchy of the Evolution exchange account folders are "
+"changed since Evolution %d.%d.%d.\n"
 "\n"
 "Please be patient while Evolution migrates your folders..."
 
 #: storage/exchange-migrate.c:98
 #, c-format
 msgid ""
-"Warning: Evolution Could not migrate all the Exchange account data from the version %d.%d.%d. \n"
-"The data hasn't been deleted, but will not be seen by this version of Evolution"
+"Warning: Evolution Could not migrate all the Exchange account data from the "
+"version %d.%d.%d. \n"
+"The data hasn't been deleted, but will not be seen by this version of "
+"Evolution"
 msgstr ""
-"Warning: Evolution Could not migrate all the Exchange account data from the version %d.%d.%d. \n"
-"The data hasn't been deleted, but will not be seen by this version of Evolution"
+"Warning: Evolution Could not migrate all the Exchange account data from the "
+"version %d.%d.%d. \n"
+"The data hasn't been deleted, but will not be seen by this version of "
+"Evolution"
 
 #: storage/exchange-migrate.c:129
 #, c-format
 msgid "Migrating `%s':"
 msgstr "Migrating `%s':"
 
-#: storage/exchange-oof.c:91
-#: storage/exchange-oof.c:290
+#: storage/exchange-oof.c:91 storage/exchange-oof.c:290
 msgid "Could not update out-of-office state"
 msgstr "Could not update out-of-office state"
 
@@ -1291,10 +1341,12 @@ msgstr "<b>Status:</b>"
 
 #: storage/exchange-oof.glade.h:6
 msgid ""
-"<small>The message specified below will be automatically sent to each person who sends\n"
+"<small>The message specified below will be automatically sent to each person "
+"who sends\n"
 "mail to you while you are out of the office.</small>"
 msgstr ""
-"<small>The message specified below will be automatically sent to each person who sends\n"
+"<small>The message specified below will be automatically sent to each person "
+"who sends\n"
 "mail to you while you are out of the office.</small>"
 
 #: storage/exchange-oof.glade.h:8
@@ -1460,10 +1512,15 @@ msgstr "Could not add favourite: %s"
 msgid "Could not remove favorite: %s"
 msgstr "Could not remove favourite: %s"
 
+#.
 #. FIXME: See 62440
+#. E_POPUP_ITEM (N_("_Move Folder..."),
 #. G_CALLBACK (do_move_folder),
-#. E_POPUP_ITEM (N_("_Copy Folder..."),
 #. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#. E_POPUP_ITEM (N_("_Copy Folder..."),
+#. G_CALLBACK (do_copy_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#.
 #: storage/xc-commands.c:381
 msgid "_Rename Folder..."
 msgstr "_Rename Folder..."
@@ -1525,8 +1582,10 @@ msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Subscribe to a folder belonging to some other user on the server"
 
 #: storage/ximian-connector.xml.h:6
-msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
-msgstr "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgid ""
+"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgstr ""
+"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 
 #: storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
@@ -1551,4 +1610,3 @@ msgstr "_Out of Office Assistant"
 #: storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Unsubscribe from Other User's Folder"
-
