@@ -691,6 +691,7 @@ scan_offline_cb (const char *physical_path, const char *path, gpointer data)
 	folder = e_folder_exchange_new_from_file (sod->hier, mf_name);
 	if (!folder) {
 		unlink (mf_name);
+		g_free (mf_name);
 		if (!sod->badpaths)
 			sod->badpaths = g_ptr_array_new ();
 		g_ptr_array_add (sod->badpaths, g_strdup (path));

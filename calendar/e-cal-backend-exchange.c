@@ -281,6 +281,7 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 	if (cbex->priv->mode == CAL_MODE_LOCAL) {
 		printf ("ECBE : cal is offline .. load cache\n");
 		load_cache (cbex, euri);
+		e2k_uri_free (euri);
 		return GNOME_Evolution_Calendar_Success;
 	}
 #endif		
@@ -868,6 +869,7 @@ add_timezone (ECalBackendSync *backend, EDataCal *cal,
 		icalcomponent_free (vtzcomp);
 		return status;
 	}
+	icalcomponent_free (vtzcomp);
 }
 
 static ECalBackendSyncStatus

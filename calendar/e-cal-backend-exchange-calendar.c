@@ -1249,7 +1249,7 @@ book_resource (ECalBackendExchange *cbex,
 		rid = (char *) e_cal_component_get_recurid_as_string (comp);
 		status = remove_object (E_CAL_BACKEND_SYNC (cbex), cal, uid, rid, CALOBJ_MOD_THIS, &calobj);
 		e_cal_backend_notify_object_removed (E_CAL_BACKEND (cbex), uid, calobj, NULL);
-
+		g_free (calobj); 
 	} else {
 		/* Check that the new appointment doesn't conflict with any
 		 * existing appointment.
@@ -1339,6 +1339,7 @@ book_resource (ECalBackendExchange *cbex,
 		g_free (cal_uri);
 	if (top_uri)
 		g_free (top_uri);
+	g_free (calobj);
 					
 	return retval;
 }
@@ -1562,6 +1563,7 @@ discard_alarm (ECalBackendSync *backend, EDataCal *cal,
 					icalcomp, CALOBJ_MOD_ALL)) {
 			result = GNOME_Evolution_Calendar_OtherError;
 		}
+		g_free (ecomp_str);
 	}
 	g_object_unref (ecomp);
 

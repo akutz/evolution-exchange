@@ -495,6 +495,7 @@ exchange_hierarchy_foreign_add_folder (ExchangeHierarchy *hier,
 				e_source_list_sync (cont_source_list, NULL);
 				g_object_unref (cont_source_list);
 		}
+		g_free (new_folder_name);
 	}
 
 	return result;
@@ -581,6 +582,7 @@ exchange_hierarchy_foreign_new (ExchangeAccount *account,
 	xmlSaveFile (mf_path, doc);
 	g_hash_table_destroy (props);
 	g_free (mf_path);
+	xmlFreeDoc (doc);
 
 	return hier;
 }
