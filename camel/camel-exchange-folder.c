@@ -103,15 +103,17 @@ class_init (CamelFolderClass *camel_folder_class)
 	camel_folder_class->transfer_messages_to = transfer_messages_to;
 }
 
+#define CAMEL_EXCHANGE_SERVER_FLAGS \
+	(CAMEL_MESSAGE_ANSWERED | CAMEL_MESSAGE_ANSWERED_ALL | \
+	 CAMEL_MESSAGE_DELETED | CAMEL_MESSAGE_DRAFT | CAMEL_MESSAGE_SEEN)
+
 static void
 init (CamelFolder *folder)
 {
 	folder->folder_flags = CAMEL_FOLDER_HAS_SUMMARY_CAPABILITY | CAMEL_FOLDER_HAS_SEARCH_CAPABILITY;
 	folder->permanent_flags =
-		CAMEL_MESSAGE_ANSWERED | CAMEL_MESSAGE_ANSWERED_ALL |
-		CAMEL_MESSAGE_DELETED | CAMEL_MESSAGE_DRAFT |
-		CAMEL_MESSAGE_FLAGGED | CAMEL_MESSAGE_SEEN |
-		CAMEL_MESSAGE_USER;
+		CAMEL_EXCHANGE_SERVER_FLAGS | CAMEL_MESSAGE_FLAGGED |
+		CAMEL_MESSAGE_JUNK | CAMEL_MESSAGE_USER;
 }
 
 static void
@@ -810,7 +812,7 @@ camel_exchange_folder_update_message_flags (CamelExchangeFolder *exch,
 	if (!info)
 		return;
 
-	flags |= (info->flags & (CAMEL_MESSAGE_ATTACHMENTS | CAMEL_MESSAGE_FLAGGED));
+	flags |= (info->flags & ~CAMEL_EXCHANGE_SERVER_FLAGS);
 
 	if (info->flags != flags) {
 		info->flags = flags;
@@ -925,7 +927,7 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 		for (i = 0; i < summary->len; i++) {
 			info = summary->pdata[i];
 			uids->pdata[i] = (char *)camel_message_info_uid (info);
-			flags->data[i] = info->flags & ~CAMEL_MESSAGE_ATTACHMENTS;
+			flags->data[i] = info->flags & CAMEL_EXCHANGE_SERVER_FLAGS;
 			camel_tag_list_free (&info->user_tags);
 		}
 
