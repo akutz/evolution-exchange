@@ -113,7 +113,15 @@ prop_parse (xmlNode *node, E2kResult *result)
 	if (!result->props)
 		result->props = e2k_properties_new ();
 
-	name = g_strdup_printf ("%s%s", node->ns->href, node->name);
+	if (!strncmp (node->ns->href, E2K_NS_MAPI_ID, E2K_NS_MAPI_ID_LEN)) {
+		/* Reinsert the illegal initial '0' that was stripped out
+		 * by sanitize_bad_multistatus. (This also covers us in
+		 * the cases where the server returns the property without
+		 * the '0'.)
+		 */
+		name = g_strdup_printf ("%s0%s", node->ns->href, node->name);
+	} else
+		name = g_strdup_printf ("%s%s", node->ns->href, node->name);
 
 	type = xmlGetNsProp (node, "dt", E2K_NS_TYPE);
 	if (type && !strcmp (type, "mv.bin.base64"))
@@ -187,6 +195,74 @@ e2k_results_array_new (void)
 	return g_array_new (FALSE, FALSE, sizeof (E2kResult));
 }
 
+/* Properties in the /mapi/id/{...} namespaces are usually (though not
+ * always) returned with names that start with '0', which is illegal
+ * and makes libxml choke. So we preprocess them to fix that.
+ */
+static char *
+sanitize_bad_multistatus (const char *buf, int len)
+{
+	GString *body;
+	const char *p;
+	int start, end;
+	char ns, badprop[7], *ret;
+
+	/* If there are no "mapi/id/{...}" namespace declarations, then
+	 * we don't need any cleanup.
+	 */
+	if (!memchr (buf, '{', len))
+		return NULL;
+
+	body = g_string_new_len (buf, len);
+
+	/* Find the start and end of namespace declarations */
+	p = strstr (body->str, " xmlns:");
+	g_return_val_if_fail (p != NULL, NULL);
+	start = p + 1 - body->str;
+
+	p = strchr (p, '>');
+	g_return_val_if_fail (p != NULL, NULL);
+	end = p - body->str;
+
+	while (1) {
+		if (strncmp (body->str + start, "xmlns:", 6) != 0)
+			break;
+		if (strncmp (body->str + start + 7, "=\"", 2) != 0)
+			break;
+		if (strncmp (body->str + start + 9, E2K_NS_MAPI_ID, E2K_NS_MAPI_ID_LEN) != 0)
+			goto next;
+
+		ns = body->str[start + 6];
+
+		/* Find properties in this namespace and strip the
+		 * initial '0' from their names to make them valid
+		 * XML NCNames.
+		 */
+		snprintf (badprop, 6, "<%c:0x", ns);
+		while ((p = strstr (body->str, badprop)))
+			g_string_erase (body, p + 3 - body->str, 1);
+		snprintf (badprop, 7, "</%c:0x", ns);
+		while ((p = strstr (body->str, badprop)))
+			g_string_erase (body, p + 4 - body->str, 1);
+
+	next:
+		p = strchr (body->str + start, '"');
+		if (!p)
+			break;
+		p = strchr (p + 1, '"');
+		if (!p)
+			break;
+		if (p[1] != ' ')
+			break;
+
+		start = p + 2 - body->str;
+	}
+
+	ret = body->str;
+	g_string_free (body, FALSE);
+	return ret;
+}
+
 /**
  * e2k_results_array_add_from_multistatus:
  * @results_array: a results array, created by e2k_results_array_new()
@@ -202,10 +278,16 @@ e2k_results_array_add_from_multistatus (GArray *results_array,
 	xmlDoc *doc;
 	xmlNode *node, *rnode;
 	E2kResult result;
+	char *body;
 
 	g_return_if_fail (msg->status_code == E2K_HTTP_MULTI_STATUS);
 
-	doc = e2k_parse_xml (msg->response.body, msg->response.length);
+	body = sanitize_bad_multistatus (msg->response.body, msg->response.length);
+	if (body) {
+		doc = e2k_parse_xml (body, -1);
+		g_free (body);
+	} else
+		doc = e2k_parse_xml (msg->response.body, msg->response.length);
 	if (!doc)
 		return;
 	node = doc->xmlRootNode;

@@ -4,6 +4,18 @@
 
 2004-05-17  Dan Winship  <danw@novell.com>
 
+	* lib/e2k-result.c (sanitize_bad_multistatus): New routine, used
+	by e2k_results_array_add_from_multistatus to fix broken Exchange
+	XML so recent versions of libxml2 will parse it correctly.
+	(#58528)
+	(prop_parse): Invert the transformation here so the rest of
+	connector still sees the invalid-but-canonical names.
+
+	* lib/e2k-propnames.h.in: add E2K_NS_MAPI_ID_LEN, the length of
+	E2K_NS_MAPI_ID.
+
+2004-05-17  Dan Winship  <danw@novell.com>
+
 	Remove a bunch of 1.4 files that should have been deleted by the
 	1.5 import, except that CVS is lame.
 	
