@@ -1313,6 +1313,7 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 			e_book_backend_summary_add_contact (bepriv->summary,
 							    *contact);
+			e_book_backend_cache_add_contact (bepriv->cache, *contact);
 			return GNOME_Evolution_Addressbook_Success;
 		} else {
 			g_object_unref (*contact);
@@ -1421,6 +1422,9 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 							       uri);
 			e_book_backend_summary_add_contact (bepriv->summary,
 							    *contact);
+			e_book_backend_cache_remove_contact (bepriv->cache, uri);
+			e_book_backend_cache_add_contact (bepriv->cache, *contact);
+			
 			return GNOME_Evolution_Addressbook_Success;
 		} else {
 			g_object_unref (*contact);
@@ -1465,6 +1469,7 @@ e_book_backend_exchange_remove_contacts (EBookBackendSync  *backend,
 			if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 				e_book_backend_summary_remove_contact (
 							bepriv->summary, uri);
+				e_book_backend_cache_remove_contact (bepriv->cache, uri);
 				*removed_ids = g_list_append (
 						*removed_ids, g_strdup (uri));
 			} else 

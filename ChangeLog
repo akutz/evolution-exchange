@@ -1,3 +1,14 @@
+ 2005-03-15 Sivaiah Nallagatla <snallagatla@novell.com>
+
+       * addressbook/e-book-backend-exchange.c
+       (e_book_backend_exchange_create_contact)
+       (e_book_backend_exchange_modify_contact)
+       (e_book_backend_exchange_remove_contacts) :
+       Make sure new or modified objects are added
+       to cache and deleted ones are actually deleted
+       from cache.
+       Fixes #73712
+
 2005-03-15  Sushma Rai  <rsushma@novell.com>
 	
 	* camel/camel-exchange-provider.c (exchange_validate_user_cb): Using
