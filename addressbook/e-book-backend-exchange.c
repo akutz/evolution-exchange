@@ -1274,6 +1274,7 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 	switch (bepriv->mode) {
 
 	case GNOME_Evolution_Addressbook_MODE_LOCAL:
+		*contact = NULL;
 		return GNOME_Evolution_Addressbook_RepositoryOffline;
 	
 	case GNOME_Evolution_Addressbook_MODE_REMOTE:	
@@ -1345,6 +1346,8 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 	switch (bepriv->mode) {
 	
 	case GNOME_Evolution_Addressbook_MODE_LOCAL:
+		*contact = NULL;
+		return GNOME_Evolution_Addressbook_RepositoryOffline;
 
 	case GNOME_Evolution_Addressbook_MODE_REMOTE:
 
@@ -1451,13 +1454,9 @@ e_book_backend_exchange_remove_contacts (EBookBackendSync  *backend,
 	switch (bepriv->mode) {
 
 	case GNOME_Evolution_Addressbook_MODE_LOCAL:
-		e_data_book_respond_remove_contacts (book, 
-						     opid, 
-						     GNOME_Evolution_Addressbook_RepositoryOffline, 
-						     NULL);
-		return GNOME_Evolution_Addressbook_Success; 
-		// GNOME_Evolution_Addressbook_RepositoryOffline FIXME
-	
+		*removed_ids = NULL;
+		return GNOME_Evolution_Addressbook_RepositoryOffline; 
+		
 	case GNOME_Evolution_Addressbook_MODE_REMOTE:
 
 		for (l = id_list; l; l = l->next) {
@@ -1954,8 +1953,8 @@ e_book_backend_exchange_get_changes (EBookBackendSync  *backend,
 	switch (bepriv->mode) {
 	
 	case GNOME_Evolution_Addressbook_MODE_LOCAL:
-		/* FIXME */
-		return GNOME_Evolution_Addressbook_Success;
+		*changes = NULL;
+		return GNOME_Evolution_Addressbook_RepositoryOffline;
 
 	case GNOME_Evolution_Addressbook_MODE_REMOTE:
 
@@ -2049,22 +2048,16 @@ e_book_backend_exchange_get_contact (EBookBackendSync  *backend,
 	case GNOME_Evolution_Addressbook_MODE_LOCAL:
 		contact = e_book_backend_cache_get_contact (bepriv->cache,
 							    id);
-		*vcard =  e_vcard_to_string (E_VCARD (contact), 
-					    EVC_FORMAT_VCARD_30);
 		if (contact) {
-			e_data_book_respond_get_contact(book, 
-							opid, 
-							GNOME_Evolution_Addressbook_Success, 
-							*vcard);
+			*vcard =  e_vcard_to_string (E_VCARD (contact), 
+						     EVC_FORMAT_VCARD_30);
 			g_object_unref (contact);
+			return GNOME_Evolution_Addressbook_Success;
 		}
 		else {
-			e_data_book_respond_get_contact(book, 
-							opid, 
-							GNOME_Evolution_Addressbook_ContactNotFound, 
-							"");
+			*vcard = g_strdup ("");
+			return GNOME_Evolution_Addressbook_ContactNotFound;
 		}
-		return GNOME_Evolution_Addressbook_Success; //FIXME
 		
 	case GNOME_Evolution_Addressbook_MODE_REMOTE:
 		/* XXX finish this */

@@ -1,3 +1,17 @@
+2005-03-14  Sivaiah Nallagatla <snallagatla@novell.com>
+
+       * addresbook/e-book-backend-excahnge.c
+       (e_book_backend_exchange_create_contact)
+       (e_book_backend_exchange_modify_contact)
+       (e_book_backend_exchange_remove_contacts)
+       (e_book_backend_exchange_get_changes)
+       (e_book_backend_exchange_get_contact) : added misc. stuff
+       like returning proper error code, assigning
+       NULL to out params and not using e_data_book_view etc
+       to offline case error handling
+       Don't know if it fixes any bug in bugzilla
+
+
 2005-03-11  Sarfraaz Ahmed <asarfraaz@novell.com>
 
         * calendar/e-cal-backend-exchange-calendar.c (add_ical) : Make sure we
