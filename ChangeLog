@@ -1,5 +1,21 @@
 2005-03-31  Sushma Rai  <rsushma@novell.com>
 
+	Patch by Sarfraaz Ahmed for a exchange-storage crash while exiting 
+	Evolution. 
+	* storage/exchange-account.c (exchange_account_set_online): Not setting 
+	"account_online" flag, as it gets initialized in 
+	exchange_account_connect().
+
+	* storage/exchange-hierarchy-somedav.c (scan_subtree): Using the 
+	offline mode parameter for the function, instead of reading it again.
+
+	* storage/exchange-offline-listener.c (setup_offline_listener): Reading
+	the connection id returned for online/offline status change.
+	(exchange_offline_listener_dispose): Using the connection ID returned 
+	by gconf_client_notify_add() while removing the notification.
+
+2005-03-31  Sushma Rai  <rsushma@novell.com>
+
 	* addressbook/e-book-backend-exchange.c 
 	(e_book_backend_exchange_connect): Setting is_writable flag of 
 	EBookBackendExchangePrivate based on user's access permissions. Also

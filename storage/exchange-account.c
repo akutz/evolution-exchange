@@ -1127,15 +1127,12 @@ exchange_account_set_offline (ExchangeAccount *account)
 gboolean
 exchange_account_set_online (ExchangeAccount *account)
 {
+	E2kContext *ctx;
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), FALSE);
 
 	if (!account->priv->account_online) {
-		account->priv->account_online = TRUE;
-
-		if (exchange_account_connect (account))
-			return TRUE;
-		else
-			return FALSE;
+		ctx = exchange_account_connect (account);
+		return ctx ? TRUE : FALSE;
 	} else {
 		return TRUE;
 	}

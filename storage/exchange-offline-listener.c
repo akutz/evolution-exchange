@@ -35,6 +35,7 @@ static GObjectClass *parent_class = NULL;
 struct _ExchangeOfflineListenerPrivate 
 {
 	GConfClient *default_client;
+	guint gconf_cnx;
 	EDataCalFactory *cal_factory;
 	EDataBookFactory *book_factory;
 	gboolean offline;
@@ -86,10 +87,10 @@ setup_offline_listener (ExchangeOfflineListener *ex_offline_listener)
 	gconf_client_add_dir (priv->default_client, "/apps/evolution/shell", 
 				GCONF_CLIENT_PRELOAD_RECURSIVE,NULL);
 
-	gconf_client_notify_add (priv->default_client, 
+	priv->gconf_cnx = gconf_client_notify_add (priv->default_client, 
 				"/apps/evolution/shell/start_offline", 
 				(GConfClientNotifyFunc)online_status_changed, 
-				ex_offline_listener, NULL, NULL);
+				(gpointer)ex_offline_listener, NULL, NULL);
 
 	value = gconf_client_get (priv->default_client, 
 				"/apps/evolution/shell/start_offline", NULL);
@@ -134,6 +135,8 @@ static void
 exchange_offline_listener_dispose (GObject *object)
 {
 	ExchangeOfflineListener *ex_offline_listener = EXCHANGE_OFFLINE_LISTENER (object);
+	gconf_client_notify_remove (ex_offline_listener->priv->default_client, 
+				ex_offline_listener->priv->gconf_cnx);
 	if (ex_offline_listener->priv->default_client) {
 		g_object_unref (ex_offline_listener->priv->default_client);
 		ex_offline_listener->priv->default_client = NULL;
