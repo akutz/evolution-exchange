@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-30 17:36-0400\n"
-"PO-Revision-Date: 2004-08-25 00:07+0200\n"
+"POT-Creation-Date: 2004-08-31 19:13+0200\n"
+"PO-Revision-Date: 2004-09-09 16:08+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
@@ -122,7 +122,7 @@ msgstr "Exchange kiszolgáló"
 #. i18n: "Mailbox" is an Outlookism. FIXME
 #: camel/camel-exchange-provider.c:65
 msgid "Mailbox name"
-msgstr "Postafiók neve"
+msgstr "Postafelhasználói fiók neve"
 
 #. i18n: "OWA" == "Outlook Web Access". Might not be translated?
 #: camel/camel-exchange-provider.c:68
@@ -166,7 +166,7 @@ msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
 msgstr ""
-"Ezen opció hatására biztonságos jelszó-hitelesítéssel (NTLM) fog kapcsolódni "
+"Ezen opció hatására biztonságos jelszó-azonosítással (NTLM) fog kapcsolódni "
 "az Exchange kiszolgálóhoz."
 
 #: camel/camel-exchange-provider.c:116
@@ -178,7 +178,7 @@ msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
 msgstr ""
-"Ezen opció hatására szabvány egyszerű szöveges jelszó-hitelesítéssel fog "
+"Ezen opció hatására szabvány egyszerű szöveges jelszó-azonosítással fog "
 "kapcsolódni az Exchange kiszolgálóhoz."
 
 #: camel/camel-exchange-store.c:178
@@ -189,7 +189,7 @@ msgstr "%s Exchange kiszolgáló"
 #: camel/camel-exchange-store.c:181
 #, c-format
 msgid "Exchange account for %s on %s"
-msgstr "%s Exchange fiókja %s kiszolgálón"
+msgstr "%s Exchange felhasználói felhasználói fiókja %s kiszolgálón"
 
 #: camel/camel-exchange-store.c:208
 msgid "Evolution Exchange backend process"
@@ -327,7 +327,7 @@ msgstr "A \"Törölt elemek\" mappa nem üríthető"
 
 #: mail/mail-stub-exchange.c:1363
 msgid "Could not append message; mailbox is over quota"
-msgstr "Nem lehet hozzáfűzni az üzenetet, a postafiók betelt"
+msgstr "Nem lehet hozzáfűzni az üzenetet, a postafelhasználói fiók betelt"
 
 #: mail/mail-stub-exchange.c:1364
 msgid "Could not append message"
@@ -347,7 +347,7 @@ msgstr "Hiba a levél letöltése közben"
 
 #: mail/mail-stub-exchange.c:1944
 msgid "Mailbox does not support full-text searching"
-msgstr "A postafiók nem támogatja a teljes szövegben keresést"
+msgstr "A postafelhasználói fiók nem támogatja a teljes szövegben keresést"
 
 #: mail/mail-stub-exchange.c:2042
 msgid "Unable to move/copy messages"
@@ -355,7 +355,7 @@ msgstr "Nem lehet mozgatni/másolni az üzeneteket"
 
 #: mail/mail-stub-exchange.c:2213
 msgid "No mail submission URI for this mailbox"
-msgstr "Nincs megadva levélküldési URI ehhez a postafiókhoz"
+msgstr "Nincs megadva levélküldési URI ehhez a postafelhasználói fiókhoz"
 
 #: mail/mail-stub-exchange.c:2250
 msgid "Server won't accept mail via Exchange transport"
@@ -367,7 +367,7 @@ msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
 msgstr ""
-"A fiókjának nincs felhatalmazása <%s> feladó\n"
+"Az Ön felhasználói fiókjának nincs felhatalmazása <%s> feladó\n"
 "címeként való használatára."
 
 #: mail/mail-stub-exchange.c:2264
@@ -376,7 +376,7 @@ msgid ""
 "This might mean that your account is over quota."
 msgstr ""
 "Nem lehet elküldeni az üzenetet\n"
-"Ez azt jelentheti, hogy betelt a fiókja."
+"Ez azt jelentheti, hogy betelt a felhasználói fiókja."
 
 #: mail/mail-stub-exchange.c:2268
 msgid "Could not send message"
@@ -539,7 +539,7 @@ msgstr "Más felhasználó mappájának megnyitása"
 
 #: shell/e-foreign-folder-dialog.glade.h:2
 msgid "_Account:"
-msgstr "_Fiók:"
+msgstr "_Felhasználói felhasználói fiók:"
 
 #: shell/e-foreign-folder-dialog.glade.h:3
 msgid "_Folder Name:"
@@ -682,7 +682,7 @@ msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
 msgstr ""
-"Nem sikerült a hitelesítés a kiszolgálón. (Talán hibás a jelszó?)\n"
+"Nem sikerült az azonosítás a kiszolgálón. (Talán hibás a jelszó?)\n"
 "\n"
 
 #: storage/exchange-account.c:1019
@@ -696,7 +696,7 @@ msgid ""
 "Or you might have just typed your password wrong.\n"
 "\n"
 msgstr ""
-"Nem sikerült a hitelesítés a kiszolgálón.\n"
+"Nem sikerült az azonosítás a kiszolgálón.\n"
 "\n"
 "Ez valószínűleg azt jelenti, hogy meg kell\n"
 "adnia a Windows tartománynevet a felhasználóneve\n"
@@ -714,7 +714,7 @@ msgid ""
 "Or you might have just typed your password wrong.\n"
 "\n"
 msgstr ""
-"Nem sikerült a hitelesítés a kiszolgálón.\n"
+"Nem sikerült az azonosítás a kiszolgálón.\n"
 "\n"
 "Lehet, hogy egyszerű szöveges jelszavas hitelesítést kell használnia.\n"
 "\n"
@@ -724,7 +724,7 @@ msgstr ""
 #: storage/exchange-account.c:1061
 #, c-format
 msgid "Mailbox for %s is not on this server."
-msgstr "%s postafiókja nem ezen a kiszolgálón van."
+msgstr "%s postafelhasználói fiókja nem ezen a kiszolgálón van."
 
 #: storage/exchange-account.c:1066
 #, c-format
@@ -744,12 +744,13 @@ msgid ""
 msgstr ""
 "Nem található Exchange Web Storage System a(z) %s kiszolgálón.\n"
 "Ha az Outlook Web Access más elérési úton fut, adja meg \n"
-"azt a fiók beállításai párbeszédablakban."
+"azt a felhasználói felhasználói fiók beállításai párbeszédablakban."
 
 #: storage/exchange-account.c:1081
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
-msgstr "%s felhasználónak nincs postafiókja a(z) %s kiszolgálón.\n"
+msgstr ""
+"%s felhasználónak nincs postafelhasználói fiókja a(z) %s kiszolgálón.\n"
 
 #: storage/exchange-account.c:1087 storage/exchange-account.c:1093
 #: storage/exchange-account.c:1101
@@ -806,7 +807,7 @@ msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
 msgstr ""
-"Nem sikerült a hitelesítés az Exchange kiszolgálón.\n"
+"Nem sikerült az azonosítás az Exchange kiszolgálón.\n"
 "Győződjön meg, hogy felhasználóneve és jelszava helyes és próbálja újra."
 
 #: storage/exchange-autoconfig-wizard.c:248
@@ -818,7 +819,7 @@ msgid ""
 "You may need to specify the Windows domain name as part of your username "
 "(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
-"Nem sikerült a hitelesítés az Exchange kiszolgálón.\n"
+"Nem sikerült az azonosítás az Exchange kiszolgálón.\n"
 "Győződjön meg, hogy felhasználóneve és jelszava helyes és próbálja újra.\n"
 "\n"
 "Lehet, hogy meg kell adnia a Windows tartománynevet a felhasználóneve "
@@ -864,8 +865,9 @@ msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
 msgstr ""
-"Ismeretlen hiba miatt nem lehet beállítani az Exchange fiókot. Ellenőrizze "
-"az URL-t, a felhasználónevet és a jelszót és próbálja újra."
+"Ismeretlen hiba miatt nem lehet beállítani az Exchange felhasználói "
+"felhasználói fiókot. Ellenőrizze az URL-t, a felhasználónevet és a jelszót, "
+"majd próbálja újra."
 
 #: storage/exchange-autoconfig-wizard.c:345
 #, c-format
@@ -874,7 +876,7 @@ msgid ""
 "and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
 "\\%s\")."
 msgstr ""
-"Nem sikerült a hitelesítés a globális katalógus-kiszolgálón. Lehet, hogy meg "
+"Nem sikerült az azonosítás a globális katalógus-kiszolgálón. Lehet, hogy meg "
 "kell adnia a Windows tartománynevet a felhasználóneve részeként (például: "
 "\"TARTOMÁNY\\%s\")."
 
@@ -897,12 +899,12 @@ msgid ""
 "Unable to create new account."
 msgstr ""
 "Hiba a beállítórendszerben.\n"
-"Nem lehet új fiókot létrehozni."
+"Nem lehet új felhasználói felhasználói fiókot létrehozni."
 
 #: storage/exchange-autoconfig-wizard.c:491
 #: storage/exchange-config-listener.c:492
 msgid "You may only configure a single Exchange account"
-msgstr "Csak egyetlen Exchange fiókot állíthat be"
+msgstr "Csak egyetlen Exchange felhasználói felhasználói fiókot állíthat be"
 
 #: storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
@@ -930,7 +932,7 @@ msgstr "Globális katalógus kiszolgáló:"
 
 #: storage/exchange-autoconfig-wizard.glade.h:8
 msgid "Make this my default account"
-msgstr "Legyen ez az alapértelmezett fiók"
+msgstr "Legyen ez az alapértelmezett felhasználói felhasználói fiókom"
 
 #: storage/exchange-autoconfig-wizard.glade.h:9
 msgid "OWA URL:"
@@ -962,7 +964,8 @@ msgid ""
 msgstr ""
 "Üdvözli a Ximian Connector a Microsoft Exchange-hez.\n"
 "A következő néhány képernyő segíteni fogja Önt\n"
-"az Evolution beállításában, hogy hozzáférhessen Exchange fiókjaihoz.\n"
+"az Evolution beállításában, hogy hozzáférhessen Exchange felhasználói "
+"felhasználói fiókjaihoz.\n"
 "\n"
 "Kérem kattintson az \"Előre\" gombra a folytatáshoz."
 
@@ -978,8 +981,8 @@ msgid ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
-"A Ximian Connector képes az Ön létező Outlook Web Access (OWA) fiókjának "
-"fiókinformációit használni.\n"
+"A Ximian Connector képes az Ön létező Outlook Web Access (OWA) felhasználói "
+"felhasználói fiókjának információit használni.\n"
 "\n"
 "Adja meg az OWA hely címét (URL), a felhasználónevet és jelszót, ezután "
 "kattintson az \"Előre\" gombra.\n"
@@ -999,8 +1002,8 @@ msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
 msgstr ""
-"A Ximian Connector problémát észlelt az Ön Exchange fiókjának beállítása "
-"közben.\n"
+"A Ximian Connector problémát észlelt az Ön Exchange felhasználói "
+"felhasználói fiókjának beállítása közben.\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -1008,8 +1011,8 @@ msgid ""
 "save your\n"
 "settings."
 msgstr ""
-"Az Ön Connector fiókja készen áll a használatra. Kattintson az \"Alkalmaz\" "
-"gombra\n"
+"Az Ön Connector felhasználói felhasználói fiókja készen áll a használatra. "
+"Kattintson az \"Alkalmaz\" gombra\n"
 "a beállítások mentéséhez."
 
 #: storage/exchange-autoconfig-wizard.glade.h:30
@@ -1017,8 +1020,8 @@ msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
 msgstr ""
-"A következő fiókinformációkat adta meg. Kérem javítsa, ha hibás, azután "
-"kattintson az \"Előre\" gombra.\n"
+"A következő felhasználói felhasználói fiókinformációkat adta meg. Kérem "
+"javítsa, ha hibás, azután kattintson az \"Előre\" gombra.\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
@@ -1028,8 +1031,8 @@ msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
 msgstr ""
-"A megadott jelszó nem egyezik a fiókjához tartozó létező jelszóval. Kérem "
-"adja meg a helyes jelszót."
+"A megadott jelszó nem egyezik a felhasználói felhasználói fiókjához tartozó "
+"létező jelszóval. Kérem adja meg a helyes jelszót."
 
 #: storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
@@ -1076,12 +1079,14 @@ msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
 msgstr ""
-"Az Exchange fiókon végrehajtott módosítások az Evolution\n"
+"Az Exchange felhasználói felhasználói fiókon végrehajtott módosítások az "
+"Evolution\n"
 "újraindítása után lépnek életbe."
 
 #: storage/exchange-config-listener.c:653
 msgid "The Exchange account will be removed when you quit Evolution"
-msgstr "Az Exchange fiók az Evolution-ből való kilépéskor törlődni fog"
+msgstr ""
+"Az Exchange felhasználói fiók az Evolution-ből való kilépéskor törlődni fog"
 
 #: storage/exchange-delegates-user.c:191
 #: storage/exchange-permissions-dialog.c:179
@@ -1094,7 +1099,7 @@ msgid ""
 "No Global Catalog server configured for this account.\n"
 "Unable to edit delegates."
 msgstr ""
-"Nincs Globális katalógus-kiszolgáló beállítva ehhez a fiókhoz.\n"
+"Nincs Globális katalógus-kiszolgáló beállítva ehhez a felhasználói fiókhoz.\n"
 "A meghatalmazottak nem szerkeszthetők."
 
 #: storage/exchange-delegates.c:260
@@ -1146,12 +1151,12 @@ msgstr "Nem lehet hozzáférni az Active Directory-hoz"
 
 #: storage/exchange-delegates.c:695
 msgid "Could not find self in Active Directory"
-msgstr "Ön nem található meg az AD-ban"
+msgstr "Ön nem található meg az Active Directory-ban"
 
 #: storage/exchange-delegates.c:708
 #, c-format
 msgid "Could not find delegate %s in Active Directory"
-msgstr "%s meghatalmazott nem található az AD-ban"
+msgstr "%s meghatalmazott nem található az Active Directory-ban"
 
 #: storage/exchange-delegates.c:720
 #, c-format
@@ -1280,8 +1285,8 @@ msgid ""
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
-"Az Evolution Exchange fiókmappák helye és hierarchiája megváltozott az "
-"Evolution %d.%d.%d. óta.\n"
+"Az Evolution Exchange felhasználói fiókmappák helye és hierarchiája "
+"megváltozott az Evolution %d.%d.%d. óta.\n"
 "\n"
 "Egy kis türelmet kérek, amíg az Evolution átköltözteti a mappáit..."
 
@@ -1293,8 +1298,8 @@ msgid ""
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"Figyelmeztetés: az Evolution nem tudott minden Exchange fiókadatot "
-"átköltöztetni %d.%d.%d verzióból.\n"
+"Figyelmeztetés: az Evolution nem tudott minden Exchange felhasználói "
+"fiókadatot átköltöztetni %d.%d.%d verzióból.\n"
 "Az adatok nem törlődtek, de nem lesznek láthatóak az Evolution ezen verziója "
 "számára."
 
@@ -1383,7 +1388,7 @@ msgid ""
 msgstr ""
 "Nem lehet hozzáadni a felhasználót a hozzáférés-szabályozási listához "
 "(ACL).\n"
-"Nincs beállítva Globális katalógus-kiszolgáló ehhez a fiókhoz."
+"Nincs beállítva Globális katalógus-kiszolgáló ehhez a felhasználói fiókhoz."
 
 #: storage/exchange-permissions-dialog.c:402
 msgid "Add User:"
