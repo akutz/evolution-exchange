@@ -82,7 +82,6 @@ enum {
 	CONNECTED,
 	NEW_FOLDER,
 	REMOVED_FOLDER,
-	UPDATED_FOLDER,
 	LAST_SIGNAL
 };
 
@@ -128,15 +127,6 @@ class_init (GObjectClass *object_class)
 			      G_OBJECT_CLASS_TYPE (object_class),
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (ExchangeAccountClass, removed_folder),
-			      NULL, NULL,
-			      e2k_marshal_NONE__POINTER,
-			      G_TYPE_NONE, 1,
-			      G_TYPE_POINTER);
-	signals[UPDATED_FOLDER] =
-		g_signal_new ("updated_folder",
-			      G_OBJECT_CLASS_TYPE (object_class),
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (ExchangeAccountClass, updated_folder),
 			      NULL, NULL,
 			      e2k_marshal_NONE__POINTER,
 			      G_TYPE_NONE, 1,
@@ -368,14 +358,6 @@ hierarchy_removed_folder (ExchangeHierarchy *hier, EFolder *folder,
 	g_object_unref (folder);
 }
 
-static void
-hierarchy_updated_folder (ExchangeHierarchy *hier, EFolder *folder,
-			  ExchangeAccount *account)
-{
-	g_signal_emit (account, signals[UPDATED_FOLDER], 0, folder);
-}
-
-
 static gboolean
 get_folder (ExchangeAccount *account, const char *path,
 	    EFolder **folder, ExchangeHierarchy **hier)
@@ -474,21 +456,6 @@ exchange_account_xfer_folder (ExchangeAccount *account,
 					       remove_source);
 }
 
-/**
- * exchange_account_update_folder:
- * @account: the account
- * @folder: the folder to update
- *
- * Tells the shell to update the unread count on the indicated folder.
- **/
-void
-exchange_account_update_folder (ExchangeAccount *account, EFolder *folder)
-{
-	g_return_if_fail (EXCHANGE_IS_ACCOUNT (account));
-
-	g_signal_emit (account, signals[UPDATED_FOLDER], 0, folder);
-}
-
 static void
 remove_hierarchy (ExchangeAccount *account, ExchangeHierarchy *hier)
 {
@@ -503,7 +470,6 @@ remove_hierarchy (ExchangeAccount *account, ExchangeHierarchy *hier)
 	g_hash_table_remove (account->priv->foreign_hierarchies,
 			     hier->owner_email);
 	g_signal_handlers_disconnect_by_func (hier, hierarchy_new_folder, account);
-	g_signal_handlers_disconnect_by_func (hier, hierarchy_updated_folder, account);
 	g_signal_handlers_disconnect_by_func (hier, hierarchy_removed_folder, account);
 	g_object_unref (hier);
 }
@@ -515,8 +481,6 @@ setup_hierarchy (ExchangeAccount *account, ExchangeHierarchy *hier)
 
 	g_signal_connect (hier, "new_folder",
 			  G_CALLBACK (hierarchy_new_folder), account);
-	g_signal_connect (hier, "updated_folder",
-			  G_CALLBACK (hierarchy_updated_folder), account);
 	g_signal_connect (hier, "removed_folder",
 			  G_CALLBACK (hierarchy_removed_folder), account);
 

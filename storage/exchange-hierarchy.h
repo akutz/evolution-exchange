@@ -67,8 +67,6 @@ struct _ExchangeHierarchyClass {
 	/* signals */
 	void (*new_folder)     (ExchangeHierarchy *hier,
 				EFolder *folder);
-	void (*updated_folder) (ExchangeHierarchy *hier,
-				EFolder *folder);
 	void (*removed_folder) (ExchangeHierarchy *hier,
 				EFolder *folder);
 };
@@ -84,8 +82,6 @@ void     exchange_hierarchy_construct           (ExchangeHierarchy *hier,
 						 const char        *source_uri);
 
 void     exchange_hierarchy_new_folder          (ExchangeHierarchy *hier,
-						 EFolder           *folder);
-void     exchange_hierarchy_updated_folder      (ExchangeHierarchy *hier,
 						 EFolder           *folder);
 void     exchange_hierarchy_removed_folder      (ExchangeHierarchy *hier,
 						 EFolder           *folder);

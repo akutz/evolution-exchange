@@ -48,7 +48,6 @@ struct _ExchangeAccountClass {
 
 	void (*new_folder) (ExchangeAccount *, EFolder *);
 	void (*removed_folder) (ExchangeAccount *, EFolder *);
-	void (*updated_folder) (ExchangeAccount *, EFolder *);
 };
 
 GType                  exchange_account_get_type             (void);
@@ -72,8 +71,6 @@ E2kContext            *exchange_account_connect              (ExchangeAccount   
 EFolder               *exchange_account_get_folder           (ExchangeAccount                *acct,
 							      const char                     *path_or_uri);
 GPtrArray             *exchange_account_get_folders          (ExchangeAccount                *acct);
-void                   exchange_account_update_folder        (ExchangeAccount                *acct,
-							      EFolder                        *folder);
 
 void                   exchange_account_rescan_tree          (ExchangeAccount                *acct);
 

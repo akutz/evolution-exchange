@@ -253,66 +253,10 @@ folder_from_name (MailStubExchange *mse, const char *folder_name,
 	return mfld;
 }
 
-static GHashTable *changes;
-
-static gboolean
-do_change (gpointer key, gpointer folder, gpointer account)
-{
-	exchange_account_update_folder (account, folder);
-	return TRUE;
-}
-
-static gboolean
-idle_update_folders (gpointer user_data)
-{
-	MailStubExchange *mse = user_data;
-	static gboolean in_update; /* FIXME; should be per-mse */
-
-	/* exchange_account_update_folder will eventually call
-	 * GNOME_Evolution_StorageListener_notifyFolderUpdated. That
-	 * may block and run the main loop from inside ORBit, which
-	 * may cause this function to be re-entered if multiple folder
-	 * changes occur close together. The problem is, if you make
-	 * another call into ORBit while one is already being
-	 * processed, there's no guarantee on the order they'll finish
-	 * in, which could result in the newer notifyFolderUpdated
-	 * finishing before the older one, resulting in an incorrect
-	 * unread count on the folder. So, if we're re-entered, bail
-	 * out and tell glib to call again later.
-	 */
-	if (in_update)
-		return TRUE;
-
-	in_update = TRUE;
-	g_hash_table_foreach_remove (changes, do_change, mse->account);
-	g_object_unref (mse);
-	in_update = FALSE;
-
-	return FALSE;
-}
-
 static void
 folder_changed (MailStubExchangeFolder *mfld)
 {
-	/* Like Outlook, we don't track unread on public folders */
-	if (mfld->type == MAIL_STUB_EXCHANGE_FOLDER_POST)
-		return;
-
-	/* If we haven't gone through refresh_folder yet then our
-	 * count is most likely innacurate.
-	 */
-	if (!mfld->scanned)
-		return;
-
-	if (!changes)
-		changes = g_hash_table_new (NULL, NULL);
-	if (g_hash_table_size (changes) == 0) {
-		g_idle_add (idle_update_folders, mfld->mse);
-		g_object_ref (mfld->mse);
-	}
-
 	e_folder_set_unread_count (mfld->folder, mfld->unread_count);
-	g_hash_table_insert (changes, mfld->folder, mfld->folder);
 }
 
 static int

@@ -481,10 +481,8 @@ rescan (ExchangeHierarchy *hier)
 			continue;
 		unread = atoi (prop);
 
-		if (unread != e_folder_get_unread_count (folder)) {
+		if (unread != e_folder_get_unread_count (folder))
 			e_folder_set_unread_count (folder, unread);
-			exchange_hierarchy_updated_folder (hier, folder);
-		}
 	}
 	e2k_result_iter_free (iter);
 	g_object_unref (hier);

@@ -743,7 +743,6 @@ etree_value_at (ETreeModel *etree,
 	EFolder *folder;
 	char *path;
 	const char *folder_name;
-	int unread_count;
 
 	storage_set_view = E_STORAGE_SET_VIEW (model_data);
 	priv = storage_set_view->priv;
@@ -761,23 +760,9 @@ etree_value_at (ETreeModel *etree,
 	case 0: /* Title */
 		if (folder == NULL)
 			return (void *) "?";
-		folder_name = e_folder_get_name (folder);
-		unread_count = e_folder_get_unread_count (folder);
-
-		if (unread_count > 0) {
-			char *name_with_unread;
-
-			name_with_unread = g_strdup_printf ("%s (%d)", folder_name,
-							    unread_count);
-			g_object_set_data_full (G_OBJECT (folder), "name_with_unread", name_with_unread, g_free);
-
-			return (void *) name_with_unread;
-		} else
-			return (void *) folder_name;
+		return (void *) e_folder_get_name (folder);
 	case 1: /* bold */
-		if (folder == NULL)
-			return GINT_TO_POINTER (FALSE);
-		return GINT_TO_POINTER (e_folder_get_highlighted (folder));
+		return GINT_TO_POINTER (FALSE);
 	case 2: /* checkbox */
 		if (!has_checkbox (storage_set_view, tree_path))
 			return GINT_TO_POINTER (2);

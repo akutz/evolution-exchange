@@ -1,5 +1,23 @@
 2004-06-10  Dan Winship  <danw@novell.com>
 
+	* shell/e-storage-set-view.c (etree_value_at): Remove support for
+	unread count
+
+	* storage/exchange-account.c (exchange_account_update_folder):
+	Remove this (and the associated signal).
+
+	* storage/exchange-hierarchy.c
+	(exchange_hierarchy_updated_folder): Likewise
+
+	* storage/exchange-hierarchy-webdav.c (rescan): Remove call to
+	exchange_hierarchy_updated_folder.
+
+	* mail/mail-stub-exchange.c (folder_changed): Just set the
+	folder's unread count. Don't worry about telling the
+	ExchangeAccount.
+
+2004-06-10  Dan Winship  <danw@novell.com>
+
 	* camel/camel-exchange-transport.c (exchange_send_to): Fix
 	camel_session_get_password() args
 

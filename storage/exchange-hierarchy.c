@@ -33,7 +33,6 @@
 
 enum {
 	NEW_FOLDER,
-	UPDATED_FOLDER,
 	REMOVED_FOLDER,
 	LAST_SIGNAL
 };
@@ -94,15 +93,6 @@ class_init (GObjectClass *object_class)
 			      e2k_marshal_NONE__POINTER,
 			      G_TYPE_NONE, 1,
 			      G_TYPE_POINTER);
-	signals[UPDATED_FOLDER] =
-		g_signal_new ("updated_folder",
-			      G_OBJECT_CLASS_TYPE (object_class),
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (ExchangeHierarchyClass, updated_folder),
-			      NULL, NULL,
-			      e2k_marshal_NONE__POINTER,
-			      G_TYPE_NONE, 1,
-			      G_TYPE_POINTER);
 	signals[REMOVED_FOLDER] =
 		g_signal_new ("removed_folder",
 			      G_OBJECT_CLASS_TYPE (object_class),
@@ -154,20 +144,6 @@ exchange_hierarchy_new_folder (ExchangeHierarchy *hier,
 			       EFolder *folder)
 {
 	g_signal_emit (hier, signals[NEW_FOLDER], 0, folder);
-}
-
-/**
- * exchange_hierarchy_updated_folder:
- * @hier: the hierarchy
- * @folder: the updated folder
- *
- * Emits an %updated_folder signal.
- **/
-void
-exchange_hierarchy_updated_folder (ExchangeHierarchy *hier,
-				   EFolder *folder)
-{
-	g_signal_emit (hier, signals[UPDATED_FOLDER], 0, folder);
 }
 
 /**
@@ -299,8 +275,7 @@ rescan (ExchangeHierarchy *hier)
  * exchange_hierarchy_rescan:
  * @hier: the hierarchy
  *
- * Tells the hierarchy to rescan its folder tree, emitting
- * %updated_folder signals as appropriate.
+ * Tells the hierarchy to rescan its folder tree
  **/
 void
 exchange_hierarchy_rescan (ExchangeHierarchy *hier)
