@@ -1,3 +1,10 @@
+2005-04-06  Vivek Jain  <jvivek@novell.com>
+ 
+	**Fixes #74218
+	* calendar/e-cal-backend-exchange-calendar.c
+	(modify_object_with_href):dup the string before assigning the 
+	value returned by icaltimezone_get_tzid. 
+
 2005-04-06  Chenthill Palanisamy  <pchenthill@novell.com>
  
 	Fixes #74227

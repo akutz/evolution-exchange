@@ -1023,7 +1023,9 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		dt.value->is_utc = FALSE;
 		dt.value->hour = dt.value->minute = dt.value->second = 0;
 		dt.value->zone = zone;
-		dt.tzid = icaltimezone_get_tzid (zone);
+		
+		g_free ((char *)dt.tzid);
+		dt.tzid = g_strdup (icaltimezone_get_tzid (zone));
 		e_cal_component_set_dtstart (real_ecomp, &dt);
 		e_cal_component_free_datetime (&dt);
 
@@ -1032,7 +1034,9 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		dt.value->is_utc = FALSE;
 		dt.value->hour = dt.value->minute = dt.value->second = 0;
 		dt.value->zone = zone;
-		dt.tzid = icaltimezone_get_tzid (zone);
+
+		g_free ((char *)dt.tzid);
+		dt.tzid = g_strdup (icaltimezone_get_tzid (zone));
 		e_cal_component_set_dtend (real_ecomp, &dt);
 	}
 	e_cal_component_free_datetime (&dt);
