@@ -25,14 +25,15 @@
 
 #include <string.h>
 
-#include "e-util/e-path.h"
 #include <camel/camel-i18n.h>
 
 #include "camel-exchange-store.h"
 #include "camel-exchange-folder.h"
 #include <camel/camel-session.h>
 
-#include <gal/util/e-util.h>
+#define SUBFOLDER_DIR_NAME     "subfolders"
+#define SUBFOLDER_DIR_NAME_LEN 10
+
 
 static CamelStoreClass *parent_class = NULL;
 
@@ -47,6 +48,7 @@ static char  *get_name         (CamelService *service, gboolean brief);
 static CamelFolder     *get_trash       (CamelStore *store,
 					 CamelException *ex);
 
+char * exchange_path_to_physical (const char *prefix, const char *vpath);
 static gboolean exchange_connect (CamelService *service, CamelException *ex);
 static gboolean exchange_disconnect (CamelService *service, gboolean clean, CamelException *ex);
 
@@ -138,6 +140,84 @@ camel_exchange_store_get_type (void)
 	return camel_exchange_store_type;
 }
 
+/* This has been now removed from evolution/e-util. So implemented this here.
+ * Also note that this is similar to the call in e2k-path.c. The name of the 
+ * function has been changed to avoid any conflicts.
+ */
+char *
+exchange_path_to_physical (const char *prefix, const char *vpath)
+{
+	const char *p, *newp;
+	char *dp;
+	char *ppath;
+	int ppath_len;
+	int prefix_len;
+
+	while (*vpath == '/')
+		vpath++;
+	if (!prefix)
+		prefix = "";
+
+	/* Calculate the length of the real path. */
+	ppath_len = strlen (vpath);
+	ppath_len++;	/* For the ending zero.  */
+
+	prefix_len = strlen (prefix);
+	ppath_len += prefix_len;
+	ppath_len++;	/* For the separating slash.  */
+
+	/* Take account of the fact that we need to translate every
+	 * separator into `subfolders/'.
+	 */
+	p = vpath;
+	while (1) {
+		newp = strchr (p, '/');
+		if (newp == NULL)
+			break;
+
+		ppath_len += SUBFOLDER_DIR_NAME_LEN;
+		ppath_len++; /* For the separating slash.  */
+
+		/* Skip consecutive slashes.  */
+		while (*newp == '/')
+			newp++;
+
+		p = newp;
+	};
+
+	ppath = g_malloc (ppath_len);
+	dp = ppath;
+
+	memcpy (dp, prefix, prefix_len);
+	dp += prefix_len;
+	*(dp++) = '/';
+
+	/* Copy the mangled path.  */
+	p = vpath;
+ 	while (1) {
+		newp = strchr (p, '/');
+		if (newp == NULL) {
+			strcpy (dp, p);
+			break;
+		}
+
+		memcpy (dp, p, newp - p + 1); /* `+ 1' to copy the slash too.  */
+		dp += newp - p + 1;
+
+		memcpy (dp, SUBFOLDER_DIR_NAME, SUBFOLDER_DIR_NAME_LEN);
+		dp += SUBFOLDER_DIR_NAME_LEN;
+
+		*(dp++) = '/';
+
+		/* Skip consecutive slashes.  */
+		while (*newp == '/')
+			newp++;
+
+		p = newp;
+	}
+
+	return ppath;
+}
 static void
 construct (CamelService *service, CamelSession *session,
 	   CamelProvider *provider, CamelURL *url, CamelException *ex)
@@ -274,7 +354,7 @@ exchange_get_folder (CamelStore *store, const char *folder_name,
 	g_hash_table_insert (exch->folders, g_strdup (folder_name), folder);
 	g_mutex_unlock (exch->folders_lock);
 
-	folder_dir = e_path_to_physical (exch->storage_path, folder_name);
+	folder_dir = exchange_path_to_physical (exch->storage_path, folder_name);
 	if (!camel_exchange_folder_construct (folder, store, folder_name,
 					      camel_flags, folder_dir,
 					      exch->stub, ex)) {

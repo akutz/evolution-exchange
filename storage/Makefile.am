@@ -65,6 +65,8 @@ evolution_exchange_storage_SOURCES =				\
 	exchange-offline-handler.h				\
 	exchange-offline-listener.c				\
 	exchange-offline-listener.h				\
+	exchange-offline-utils.c				\
+	exchange-offline-utils.h				\
 	exchange-oof.c						\
 	exchange-oof.h						\
 	exchange-permissions-dialog.c				\

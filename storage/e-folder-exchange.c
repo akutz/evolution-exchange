@@ -25,9 +25,9 @@
 #include "exchange-account.h"
 #include "exchange-hierarchy.h"
 #include "e2k-uri.h"
+#include "e2k-path.h"
 #include "exchange-config-listener.h"
 
-#include <e-util/e-path.h>
 #include <gal/util/e-util.h>
 #include <gal/util/e-xml-utils.h>
 #include <libxml/xmlmemory.h>

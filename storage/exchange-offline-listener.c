@@ -47,7 +47,7 @@ set_online_status (ExchangeOfflineListener *offline_listener, gboolean is_offlin
 	
 	priv = offline_listener->priv;
 	priv->offline = is_offline;
-	
+#if OFFLINE_SUPPORTED	
 	if (is_offline) {
 		e_data_cal_factory_set_backend_mode (priv->cal_factory, CAL_MODE_LOCAL);
 		e_data_book_factory_set_backend_mode (priv->book_factory, CAL_MODE_LOCAL);
@@ -56,6 +56,7 @@ set_online_status (ExchangeOfflineListener *offline_listener, gboolean is_offlin
 		e_data_cal_factory_set_backend_mode (priv->cal_factory, CAL_MODE_REMOTE);
 		e_data_book_factory_set_backend_mode (priv->book_factory, CAL_MODE_REMOTE);
 	}
+#endif
 }
 
 static void 

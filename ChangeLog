@@ -1,3 +1,19 @@
+2004-12-14  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* lib/e2k-path.c : Moved this from evolution/e-util as this is no
+	longer present there after camel moved to e-d-s.
+	* lib/e2k-path.h : Similar
+	* lib/Makefile.am : Included the above files
+	* storage/exchange-offline-utils.c : Has the utility functions used
+	by offline code.
+	* storage/exchange-offline-utils.h : Similar
+	* storage/Makefile.am : Added the above files
+	*  camel/camel-exchange-store.c : Fixed to make use of e2k-path methods
+	(exchange_path_to_physical : Added this new function from e-path.c
+	* storage/exchange-hierarchy-webdav.c : Now includes e2k-path.h
+	* storage/exchange-offline-listener.c : Marked for offline.
+	* storage/e-folder-exchange.c : Now makes use of e2k-path.h 
+
 2004-12-14  Sushma Rai <rsushma@novell.com>
 
 	* addressbook/e-book-backend-exchange.c (proppatch_address)

@@ -104,6 +104,8 @@ libexchange_a_SOURCES =						\
 	e2k-kerberos.h						\
 	e2k-operation.c						\
 	e2k-operation.h						\
+	e2k-path.c						\
+	e2k-path.h						\
 	e2k-properties.c					\
 	e2k-properties.h					\
 	e2k-restriction.c					\

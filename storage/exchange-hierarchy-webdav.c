@@ -38,7 +38,7 @@
 #include "exchange-folder-size.h"
 
 #include <e-util/e-passwords.h>
-#include <e-util/e-path.h>
+#include "e2k-path.h"
 #include <libedataserver/e-source-list.h>
 
 #include <stdlib.h>
