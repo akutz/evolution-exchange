@@ -1,3 +1,15 @@
+2004-12-21  Sarfraaz Ahned <asarfraaz@novell.com>
+
+	* addressbook/e-book-backend-exchange.c: Added offline error handling
+	changes.
+	* addressbook/e-book-backend-gal.c : Similar
+	* calendar/e-cal-backend-exchange.c (e_cal_backend_exchange_add_object):
+	The cache now checks for duplicate detatched instances before adding
+        them. This fixes #70414
+	(discard_detached_instance): Small leak fixed.
+	* storage/e-folder-exchange.c : Added error checks
+	* storage/exchange-folder-size.c : Object freeing code added.
+
 2004-12-21  JP Rosevear  <jpr@novell.com>
 
 	* calendar/e-cal-backend-exchange-calendar.c: update for

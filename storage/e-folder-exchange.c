@@ -587,6 +587,8 @@ e_folder_exchange_propfind (EFolder *folder, E2kOperation *op,
 			    const char **props, int nprops,
 			    E2kResult **results, int *nresults)
 {
+	g_return_val_if_fail (E_IS_FOLDER_EXCHANGE (folder), E2K_HTTP_MALFORMED);
+
 	return e2k_context_propfind (
 		E_FOLDER_EXCHANGE_CONTEXT (folder), op,
 		E_FOLDER_EXCHANGE_URI (folder),
@@ -613,6 +615,8 @@ e_folder_exchange_bpropfind_start (EFolder *folder, E2kOperation *op,
 				   const char **hrefs, int nhrefs,
 				   const char **props, int nprops)
 {
+	g_return_val_if_fail (E_IS_FOLDER_EXCHANGE (folder), NULL);
+
 	return e2k_context_bpropfind_start (
 		E_FOLDER_EXCHANGE_CONTEXT (folder), op,
 		E_FOLDER_EXCHANGE_URI (folder),
@@ -640,6 +644,8 @@ e_folder_exchange_search_start (EFolder *folder, E2kOperation *op,
 				E2kRestriction *rn, const char *orderby,
 				gboolean ascending)
 {
+	g_return_val_if_fail (E_IS_FOLDER_EXCHANGE (folder), NULL);
+
 	return e2k_context_search_start (
 		E_FOLDER_EXCHANGE_CONTEXT (folder), op,
 		E_FOLDER_EXCHANGE_URI (folder),
@@ -666,6 +672,8 @@ e_folder_exchange_subscribe (EFolder *folder,
 			     E2kContextChangeCallback callback,
 			     gpointer user_data)
 {
+	g_return_if_fail (E_IS_FOLDER_EXCHANGE (folder));
+
 	e2k_context_subscribe (E_FOLDER_EXCHANGE_CONTEXT (folder),
 			       E_FOLDER_EXCHANGE_URI (folder),
 			       type, min_interval, callback, user_data);
@@ -681,6 +689,8 @@ e_folder_exchange_subscribe (EFolder *folder,
 void
 e_folder_exchange_unsubscribe (EFolder *folder)
 {
+	g_return_if_fail (E_IS_FOLDER_EXCHANGE (folder));
+
 	e2k_context_unsubscribe (E_FOLDER_EXCHANGE_CONTEXT (folder),
 				 E_FOLDER_EXCHANGE_URI (folder));
 }
@@ -704,6 +714,8 @@ e_folder_exchange_transfer_start (EFolder *source, E2kOperation *op,
 				  EFolder *dest, GPtrArray *source_hrefs,
 				  gboolean delete_originals)
 {
+	g_return_val_if_fail (E_IS_FOLDER_EXCHANGE (source), NULL);
+
 	return e2k_context_transfer_start (E_FOLDER_EXCHANGE_CONTEXT (source), op,
 					   E_FOLDER_EXCHANGE_URI (source),
 					   E_FOLDER_EXCHANGE_URI (dest),
@@ -740,6 +752,8 @@ e_folder_exchange_put_new (EFolder *folder,
 			   const char *body, int length,
 			   char **location, char **repl_uid)
 {
+	g_return_val_if_fail (E_IS_FOLDER_EXCHANGE (folder), E2K_HTTP_MALFORMED);
+
 	return e2k_context_put_new (E_FOLDER_EXCHANGE_CONTEXT (folder), op,
 				    E_FOLDER_EXCHANGE_URI (folder),
 				    object_name, test_callback, user_data,
@@ -774,6 +788,8 @@ e_folder_exchange_proppatch_new (EFolder *folder, E2kOperation *op,
 				 E2kProperties *props,
 				 char **location, char **repl_uid)
 {
+	g_return_val_if_fail (E_IS_FOLDER_EXCHANGE (folder), E2K_HTTP_MALFORMED);
+
 	return e2k_context_proppatch_new (E_FOLDER_EXCHANGE_CONTEXT (folder), op,
 					  E_FOLDER_EXCHANGE_URI (folder),
 					  object_name,
@@ -801,6 +817,8 @@ e_folder_exchange_bproppatch_start (EFolder *folder, E2kOperation *op,
 				    const char **hrefs, int nhrefs,
 				    E2kProperties *props, gboolean create)
 {
+	g_return_val_if_fail (E_IS_FOLDER_EXCHANGE (folder), NULL);
+
 	return e2k_context_bproppatch_start (E_FOLDER_EXCHANGE_CONTEXT (folder), op,
 					     E_FOLDER_EXCHANGE_URI (folder),
 					     hrefs, nhrefs, props, create);
@@ -823,6 +841,8 @@ E2kResultIter *
 e_folder_exchange_bdelete_start (EFolder *folder, E2kOperation *op,
 				 const char **hrefs, int nhrefs)
 {
+	g_return_val_if_fail (E_IS_FOLDER_EXCHANGE (folder), NULL);
+
 	return e2k_context_bdelete_start (E_FOLDER_EXCHANGE_CONTEXT (folder), op,
 					  E_FOLDER_EXCHANGE_URI (folder),
 					  hrefs, nhrefs);
@@ -847,6 +867,8 @@ e_folder_exchange_mkcol (EFolder *folder, E2kOperation *op,
 			 E2kProperties *props,
 			 char **permanent_url)
 {
+	g_return_val_if_fail (E_IS_FOLDER_EXCHANGE (folder), E2K_HTTP_MALFORMED);
+
 	return e2k_context_mkcol (E_FOLDER_EXCHANGE_CONTEXT (folder), op,
 				  E_FOLDER_EXCHANGE_URI (folder),
 				  props, permanent_url);
@@ -947,6 +969,8 @@ e_folder_exchange_transfer_dir (EFolder *source, E2kOperation *op,
 				EFolder *dest, gboolean delete_original,
 				char **permanent_url)
 {
+	g_return_val_if_fail (E_IS_FOLDER_EXCHANGE (source), E2K_HTTP_MALFORMED);
+
 	return e2k_context_transfer_dir (E_FOLDER_EXCHANGE_CONTEXT (source), op,
 					 E_FOLDER_EXCHANGE_URI (source),
 					 E_FOLDER_EXCHANGE_URI (dest),

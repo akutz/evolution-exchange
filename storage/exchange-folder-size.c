@@ -59,6 +59,15 @@ enum {
 };
 
 static void
+free_table (gpointer key, gpointer value, gpointer data)
+{
+	folder_info *f_info = (folder_info *) value;
+	g_free (f_info->folder_name);
+	g_free (f_info->folder_size);
+	g_free (f_info);
+}
+
+static void
 finalize (GObject *object)
 {
 	ExchangeFolderSize *fsize = EXCHANGE_FOLDER_SIZE (object);
@@ -91,7 +100,8 @@ init (GObject *object)
 	ExchangeFolderSize *fsize = EXCHANGE_FOLDER_SIZE (object);
 
 	fsize->priv = g_new0 (ExchangeFolderSizePrivate, 1);
-	fsize->priv->table = g_hash_table_new (g_str_hash, g_str_equal);
+	fsize->priv->table = g_hash_table_new_full (g_str_hash, g_str_equal,
+							g_free, free_table);
 }
 
 E2K_MAKE_TYPE (exchange_folder_size, ExchangeFolderSize, class_init, init, PARENT_TYPE)
@@ -129,7 +139,7 @@ exchange_folder_size_update (ExchangeFolderSize *fsize,
 
 	/*FIXME : Check if value is already present */
 
-        f_info = (folder_info *)malloc(sizeof(folder_info));
+        f_info = g_new0(folder_info, 1);
         f_info->folder_name = g_strdup (folder_name);
         f_info->folder_size = g_strdup (folder_size);
         g_hash_table_insert (folder_size_table, g_strdup (permanent_uri), f_info); 
@@ -166,9 +176,13 @@ exchange_folder_size_display (EFolder *folder, GtkWidget *parent)
         g_return_if_fail (E_IS_FOLDER (folder));
 
         hier = e_folder_exchange_get_hierarchy (folder);
+	if (!hier)
+		return;
 	/* FIXME: This should be a more generic query and not just 
 	specifically for webdav */
         fsize = exchange_hierarchy_webdav_get_folder_size (EXCHANGE_HIERARCHY_WEBDAV (hier));
+	if (!fsize)
+		return;
 	priv = fsize->priv;
 	folder_size_table = priv->table;
 
@@ -178,8 +192,8 @@ exchange_folder_size_display (EFolder *folder, GtkWidget *parent)
         table = glade_xml_get_widget (xml, "folder_treeview");
 
         e_dialog_set_transient_for (GTK_WINDOW (dialog), parent);
-//      fsize->parent = parent;
-        //g_object_weak_ref (G_OBJECT (parent), parent_destroyed, fsize);
+	/* fsize->parent = parent;
+        g_object_weak_ref (G_OBJECT (parent), parent_destroyed, fsize); */
 
         /* Set up the table */
         model = gtk_list_store_new (NUM_COLUMNS, G_TYPE_STRING, G_TYPE_STRING);

@@ -84,6 +84,7 @@ struct _EBookBackendGALPrivate {
 	GStaticRecMutex op_hash_mutex;
 	GHashTable *id_to_op;
 	int active_ops;
+	int mode;
 	int poll_timeout;
 };
 
@@ -1287,6 +1288,36 @@ authenticate_user (EBookBackend *backend,
 					       GNOME_Evolution_Addressbook_UnsupportedAuthenticationMethod);
 }
 
+#ifdef OFFLINE_SUPPORTED
+static void
+set_mode (EBookBackend *backend, int mode)
+{
+	EBookBackendGAL *be = E_BOOK_BACKEND_GAL (backend);
+	EBookBackendGALPrivate *bepriv;
+#if 0
+	bepriv = be->priv;
+	bepriv->mode = mode;
+	if (e_book_backend_is_loaded (backend)) {
+		if (mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
+			if (bepriv->account) {
+			if (exchange_account_set_offline (bepriv->account)) {
+				e_book_backend_notify_writable (backend, FALSE);
+				e_book_backend_notify_connection_status (backend, FALSE);
+			}
+			}
+		} else if (mode == GNOME_Evolution_Addressbook_MODE_REMOTE) {
+			if (exchange_account_connect (bepriv->account)) {
+				e_book_backend_notify_writable (backend, TRUE);
+				e_book_backend_notify_connection_status (backend, TRUE);
+				/* FIXME :
+				e_book_backend_notify_auth_required (backend); */
+			}
+		}
+	}
+#endif
+}
+#endif
+
 static void
 get_supported_fields (EBookBackend *backend,
 		      EDataBook    *book,
@@ -1468,6 +1499,9 @@ class_init (EBookBackendGALClass *klass)
 	backend_class->get_changes                = get_changes;
 	backend_class->authenticate_user          = authenticate_user;
 	backend_class->get_supported_fields       = get_supported_fields;
+#ifdef OFFLINE_SUPPORTED
+	backend_class->set_mode      		  = set_mode;
+#endif
 	backend_class->get_required_fields        = get_required_fields;
 	backend_class->get_supported_auth_methods = get_supported_auth_methods;
 	backend_class->cancel_operation           = cancel_operation;

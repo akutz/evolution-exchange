@@ -75,7 +75,7 @@ struct EBookBackendExchangePrivate {
 	E2kContext *ctx;
 	gboolean connected;
 	GHashTable *ops;
-#ifdef OFFLINE_SUPPORT
+#ifdef OFFLINE_SUPPORTED
 	int mode;
 #endif
 
@@ -454,7 +454,7 @@ static const int n_folder_props = sizeof (folder_props) / sizeof (folder_props[0
 static GNOME_Evolution_Addressbook_CallStatus
 e_book_backend_exchange_connect (EBookBackendExchange *be)
 {
-	EBookBackendExchangePrivate *bepriv = be->priv;
+	EBookBackendExchangePrivate *bepriv;
 	ExchangeHierarchy *hier;
 	char *summary_path;
 	char *date_prop, *access_prop;
@@ -464,6 +464,9 @@ e_book_backend_exchange_connect (EBookBackendExchange *be)
 	E2kHTTPStatus status;
 	time_t folder_mtime;
 
+	g_return_val_if_fail (E_IS_BOOK_BACKEND_EXCHANGE (be), GNOME_Evolution_Addressbook_OtherError);
+
+	bepriv = be->priv;
 	bepriv->account = exchange_component_get_account_for_uri (global_exchange_component, bepriv->exchange_uri);
 	if (!bepriv->account)
 		return GNOME_Evolution_Addressbook_RepositoryOffline;
@@ -1196,6 +1199,13 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 
 	d(printf("ebbe_create_contact(%p, %p, %s)\n", backend, book, vcard));
 
+#ifdef OFFLINE_SUPPORTED
+	if (bepriv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL)
+		return GNOME_Evolution_Addressbook_RepositoryOffline ;
+	else if (bepriv->mode != GNOME_Evolution_Addressbook_MODE_REMOTE)
+		return GNOME_Evolution_Addressbook_OtherError;
+	/* We now assume that the repository is online */
+#endif
 	*contact = e_contact_new_from_vcard (vcard);
 	props = props_from_contact (be, *contact, NULL);
 
@@ -1239,9 +1249,6 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 	}
 }
 
-
-
-
 static EBookBackendSyncStatus
 e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 					EDataBook         *book,
@@ -1259,6 +1266,13 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 
 	d(printf("ebbe_modify_contact(%p, %p, %s)\n", backend, book, vcard));
 
+#ifdef OFFLINE_SUPPORTED
+	if (be->priv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL)
+		return GNOME_Evolution_Addressbook_RepositoryOffline ;
+	else if (be->priv->mode != GNOME_Evolution_Addressbook_MODE_REMOTE)
+		return GNOME_Evolution_Addressbook_OtherError;
+	/* We now assume that the repository is online */
+#endif
 	*contact = e_contact_new_from_vcard (vcard);
 	uri = e_contact_get_const (*contact, E_CONTACT_UID);
 
@@ -1335,8 +1349,6 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 	}
 }
 
-
-
 static EBookBackendSyncStatus
 e_book_backend_exchange_remove_contacts (EBookBackendSync  *backend,
 					 EDataBook         *book,
@@ -1354,6 +1366,14 @@ e_book_backend_exchange_remove_contacts (EBookBackendSync  *backend,
 	 /* Remove one or more contacts */
 	d(printf("ebbe_remove_contact(%p, %p, %s)\n", backend, book, (char*)id_list->data));
 
+#ifdef OFFLINE_SUPPORTED
+	if (bepriv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL)
+		return GNOME_Evolution_Addressbook_RepositoryOffline ;
+	else if (bepriv->mode != GNOME_Evolution_Addressbook_MODE_REMOTE)
+		return GNOME_Evolution_Addressbook_OtherError;
+	/* We now assume that the repository is online */
+	/* FIXME: Should we assume that we are authenticated ? */
+#endif
 	for (l = id_list; l; l = l->next) {
 		uri = l->data;
 		status = e2k_context_delete (bepriv->ctx, NULL, uri);
@@ -1839,25 +1859,32 @@ e_book_backend_exchange_authenticate_user (EBookBackendSync *backend,
 	return GNOME_Evolution_Addressbook_Success;
 }
 
-#ifdef OFFLINE_SUPPORT
+#ifdef OFFLINE_SUPPORTED
 static void
 e_book_backend_exchange_set_mode (EBookBackend *backend, int mode)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
-	EBookBackendExchangePrivate *bepriv = be->priv;
+	EBookBackendExchangePrivate *bepriv;
 
+	g_return_if_fail (E_IS_BOOK_BACKEND_EXCHANGE (be));
+
+	bepriv = be->priv;
 	bepriv->mode = mode;
 	if (e_book_backend_is_loaded (backend)) {
 		if (mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
-			e_book_backend_notify_writable (backend, FALSE);
-			e_book_backend_notify_connection_status (backend, FALSE);
-			/* FIXME :
-			exchange_account_set_offline (); */
+			if (bepriv->account) {
+			if (exchange_account_set_offline (bepriv->account)) {
+				e_book_backend_notify_writable (backend, FALSE);
+				e_book_backend_notify_connection_status (backend, FALSE);
+			}
+			}
 		} else if (mode == GNOME_Evolution_Addressbook_MODE_REMOTE) {
-			e_book_backend_notify_writable (backend, TRUE);
-			e_book_backend_notify_connection_status (backend, TRUE);
-			/* FIXME :
-			e_book_backend_notify_auth_required (backend); */
+			if (exchange_account_connect (bepriv->account)) {
+				e_book_backend_notify_writable (backend, TRUE);
+				e_book_backend_notify_connection_status (backend, TRUE);
+				/* FIXME :
+				e_book_backend_notify_auth_required (backend); */
+			}
 		}
 	}
 }
@@ -2061,7 +2088,7 @@ e_book_backend_exchange_class_init (EBookBackendExchangeClass *klass)
 	backend_class->start_book_view         = e_book_backend_exchange_start_book_view;
 	backend_class->stop_book_view          = e_book_backend_exchange_stop_book_view;
 	backend_class->cancel_operation        = e_book_backend_exchange_cancel_operation;
-#ifdef OFFLINE_SUPORT
+#ifdef OFFLINE_SUPPORTED
 	backend_class->set_mode			= e_book_backend_exchange_set_mode;
 #endif
 
