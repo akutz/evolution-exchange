@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-07 15:59+0530\n"
-"PO-Revision-Date: 2005-02-02 10:44+0100\n"
+"POT-Creation-Date: 2005-02-14 04:27+0100\n"
+"PO-Revision-Date: 2005-02-14 11:49+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -34,9 +34,9 @@ msgstr "Gabim gjatë kryerjes së kërkimit"
 
 #: calendar/e-cal-backend-exchange.c:277
 msgid "Folder not marked for offline support"
-msgstr ""
+msgstr "Kartela nuk është shënuar për suport jashtë linje"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1712
+#: calendar/e-cal-backend-exchange-calendar.c:1716
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -45,7 +45,7 @@ msgstr ""
 "I pamundur planifikimi i rezervës '%s' për mbledhjet e ardhshme.\n"
 "Çdo mbledhje do të duhet të prenotohet në veçanti."
 
-#: calendar/e-cal-backend-exchange-calendar.c:1731
+#: calendar/e-cal-backend-exchange-calendar.c:1735
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Rezerve '%s' është e zënë gjatë periudhës së zgjedhur të kohës."
@@ -96,17 +96,16 @@ msgstr "Duke marrë përmbledhjen e informacionit për mesazhet e rinj"
 
 #: camel/camel-exchange-journal.c:279
 msgid "No folder name found\n"
-msgstr ""
+msgstr "Kartela nuk u gjet\n"
 
 #: camel/camel-exchange-journal.c:342
-#, fuzzy
 msgid "Cannot append message in offline mode: cache unavailable"
-msgstr "I pamundur riemërtimi i kartelës në modalitet jashtë linje."
+msgstr "I pamundur shtimi i mesazhit në modalitetin jashtë linje: cache jo në dispozicion"
 
 #: camel/camel-exchange-journal.c:358
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot append message in offline mode: %s"
-msgstr "I pamundur riemërtimi i kartelës në modalitet jashtë linje."
+msgstr "I pamundur shtimi i mesazhit në modalitet jashtë linje: %s"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
@@ -232,8 +231,7 @@ msgstr "I pamundur riemërtimi i kartelës në modalitet jashtë linje."
 
 #: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr ""
-"Transporti Exchange mund të përdoret vetëm me mail të buruar nga Exchange"
+msgstr "Transporti Exchange mund të përdoret vetëm me mail të buruar nga Exchange"
 
 #: camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
@@ -273,7 +271,7 @@ msgstr "Humbi lidhja me %s"
 msgid "Error communicating with %s: %s"
 msgstr "Gabim gjatë komunikimit me %s: %s"
 
-#: lib/e2k-autoconfig.c:1427 storage/exchange-autoconfig-wizard.c:224
+#: lib/e2k-autoconfig.c:1426 storage/exchange-autoconfig-wizard.c:224
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -283,7 +281,7 @@ msgstr ""
 "Kontrollo që URL është korrekte (provo \"%s\" në vend të \"%s\"?) dhe "
 "riprovo."
 
-#: lib/e2k-autoconfig.c:1436 storage/exchange-autoconfig-wizard.c:232
+#: lib/e2k-autoconfig.c:1435 storage/exchange-autoconfig-wizard.c:232
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -291,7 +289,7 @@ msgstr ""
 "E pamundur gjetja e server-it Exchange.\n"
 "Kontrollo që ke shkruar emrin e tij si duhet dhe riprovo."
 
-#: lib/e2k-autoconfig.c:1446 storage/exchange-autoconfig-wizard.c:241
+#: lib/e2k-autoconfig.c:1445 storage/exchange-autoconfig-wizard.c:241
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -299,7 +297,7 @@ msgstr ""
 "E pamundur njohja nga serveri Exchange.\n"
 "Kontrollo që përdoruesi dhe fjalëkalimi janë korrekt dhe riprovo."
 
-#: lib/e2k-autoconfig.c:1454 storage/exchange-autoconfig-wizard.c:248
+#: lib/e2k-autoconfig.c:1453 storage/exchange-autoconfig-wizard.c:248
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -314,7 +312,7 @@ msgstr ""
 "Ndoshta do t'ju duhet të specifikoni emrin e domain të Windows si pjesë të "
 "emrit tuaj (p.sh, \"DOMAIN-IM\\%s\")"
 
-#: lib/e2k-autoconfig.c:1467 storage/exchange-autoconfig-wizard.c:260
+#: lib/e2k-autoconfig.c:1466 storage/exchange-autoconfig-wizard.c:260
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -322,8 +320,7 @@ msgstr ""
 "Nuk arrij të gjej të dhënat e OWA tek URL e dhënë.\n"
 "Sigurohu që URL është korrekte dhe riprovo."
 
-#: lib/e2k-autoconfig.c:1475
-#, fuzzy
+#: lib/e2k-autoconfig.c:1474
 msgid ""
 "Ximian Connector requires access to certain functionality on the Exchange "
 "Server that appears to be disabled or blocked.  (This is usually "
@@ -332,8 +329,8 @@ msgid ""
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:\n"
-"http://www.ximian.com/products/connector/iis-lockdown.html, http://www."
-"ximian.com/products/connector/iis-lockdown.html"
+"http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
+"html "
 msgstr ""
 "Ximian Connector ka nevojë të ketë hyrje në disa funksione të Serverit "
 "Exchange që mesa duket nuk janë aktive ose janë të bllokuara.  (Zakonisht "
@@ -342,9 +339,11 @@ msgstr ""
 "Connector.\n"
 "\n"
 "Informacionet që duhet t'i jepni Administratorit tuaj të Exchange, mund t'i "
-"merrni duke ndjekur lidhjen e mëposhtme:"
+"merrni duke ndjekur lidhjen e mëposhtme:\n"
+"http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
+"html "
 
-#: lib/e2k-autoconfig.c:1491 storage/exchange-autoconfig-wizard.c:288
+#: lib/e2k-autoconfig.c:1490 storage/exchange-autoconfig-wizard.c:288
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
@@ -352,7 +351,7 @@ msgstr ""
 "URL e serverit Exchange dhënë nga ju është për një server Exchange 5.5. "
 "Ximian Connector suporton vetëm Microsoft Exchange 2000 dhe 2003."
 
-#: lib/e2k-autoconfig.c:1500 storage/exchange-autoconfig-wizard.c:301
+#: lib/e2k-autoconfig.c:1499 storage/exchange-autoconfig-wizard.c:301
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -360,12 +359,12 @@ msgstr ""
 "I pamundur konfigurimi i llogarisë Exchange për shkak të një difekti të "
 "panjohur. Kontrollo URL, përdoruesin, dhe fjalëkalimin, e riprovo."
 
-#: lib/e2k-autoconfig.c:1522
-#, fuzzy, c-format
+#: lib/e2k-autoconfig.c:1524
+#, c-format
 msgid "Enter password for %s"
-msgstr "%sShkruaj fjalëkalimin për %s"
+msgstr "Shkruaj fjalëkalimin për %s"
 
-#: lib/e2k-autoconfig.c:1523 storage/exchange-account.c:859
+#: lib/e2k-autoconfig.c:1525 storage/exchange-account.c:859
 msgid "Enter password"
 msgstr "Shkruaj fjalëkalimin"
 
@@ -745,7 +744,7 @@ msgstr "I pamundur krijimi i një kartele me atë emër"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Ky operacion nuk mund të kryhet në modalitet jashtë linje"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1411
+#: shell/e-storage.c:587 storage/exchange-account.c:1418
 msgid "Unknown error"
 msgstr "Gabim i panjohur"
 
@@ -789,12 +788,11 @@ msgstr "Kartelat e %s"
 msgid "%sEnter password for %s"
 msgstr "%sShkruaj fjalëkalimin për %s"
 
-#: storage/exchange-account.c:1033
+#: storage/exchange-account.c:1040
 msgid "Cannot change password due to configuration problems"
-msgstr ""
-"I pamundur ndryshimi i fjalëkalimit për arsye të problemeve në konfigurim"
+msgstr "I pamundur ndryshimi i fjalëkalimit për arsye të problemeve në konfigurim"
 
-#: storage/exchange-account.c:1048
+#: storage/exchange-account.c:1055
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -802,33 +800,33 @@ msgstr ""
 "Serveri nuk e pranoi fjalëkalimin pasi është tepër i thjeshtë.\n"
 "Provo përsëri me një fjalëkalim tjetër."
 
-#: storage/exchange-account.c:1053
+#: storage/exchange-account.c:1060
 msgid "Could not change password"
 msgstr "I pamundur ndryshimi i fjalëkalimit"
 
-#: storage/exchange-account.c:1137
+#: storage/exchange-account.c:1144
 msgid "Personal Folders"
 msgstr "Kartelat personale"
 
-#: storage/exchange-account.c:1152
+#: storage/exchange-account.c:1159
 msgid "Favorite Public Folders"
 msgstr "Kartelat e preferuara publike"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1169
+#: storage/exchange-account.c:1176
 msgid "All Public Folders"
 msgstr "Të gjitha kartelat publike"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1183
+#: storage/exchange-account.c:1190
 msgid "Global Address List"
 msgstr "Lista e adresave globale"
 
-#: storage/exchange-account.c:1269
+#: storage/exchange-account.c:1276
 msgid "Exchange Account is offline. Cannot display folders\n"
-msgstr ""
+msgstr "Llogaria Exchange është jashtë linje. E pamundur shfaqja e kartelave\n"
 
-#: storage/exchange-account.c:1322
+#: storage/exchange-account.c:1329
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -836,7 +834,7 @@ msgstr ""
 "I pamundur autentifikimi në server. (Fjalëkalim i pasaktë?)\n"
 "\n"
 
-#: storage/exchange-account.c:1327
+#: storage/exchange-account.c:1334
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -856,12 +854,12 @@ msgstr ""
 "Ose thjesht ke shkruar keq fjalëkalimin tënd.\n"
 "\n"
 
-#: storage/exchange-account.c:1369
+#: storage/exchange-account.c:1376
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Mailbox për %s nuk është në këtë server."
 
-#: storage/exchange-account.c:1374
+#: storage/exchange-account.c:1381
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -870,7 +868,7 @@ msgstr ""
 "Serveri '%s' përdor Exchange 5.5 dhe nuk\n"
 "është kompatibël me Ximian Connector"
 
-#: storage/exchange-account.c:1381
+#: storage/exchange-account.c:1388
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -881,22 +879,22 @@ msgstr ""
 "Nëse OWA është duke u zbatuar në një pozicion tjetër, duhet t'a specifikoni\n"
 "atë tek dialogu i konfigurimit të llogarisë."
 
-#: storage/exchange-account.c:1389
+#: storage/exchange-account.c:1396
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Nuk ka mailbox për përdoruesin %s në %s.\n"
 
-#: storage/exchange-account.c:1395 storage/exchange-account.c:1401
-#: storage/exchange-account.c:1409
+#: storage/exchange-account.c:1402 storage/exchange-account.c:1408
+#: storage/exchange-account.c:1416
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "E pamundur lidhja me server-in %s: %s"
 
-#: storage/exchange-account.c:1397
+#: storage/exchange-account.c:1404
 msgid "Could not resolve hostname"
 msgstr "E pamundur zgjidhja e emrit të host"
 
-#: storage/exchange-account.c:1403
+#: storage/exchange-account.c:1410
 msgid "Network error"
 msgstr "Gabim i rrjetit"
 
@@ -1124,7 +1122,7 @@ msgstr "Aktivitete"
 msgid "Calendar"
 msgstr "Kalendari"
 
-#: storage/exchange-config-listener.c:693
+#: storage/exchange-config-listener.c:702
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
@@ -1132,7 +1130,7 @@ msgstr ""
 "Ndryshimet në llogarinë Exchange do të jenë të\n"
 "vlefshme vetëm mbasi të keni mbyllur dhe rinisur Evolution."
 
-#: storage/exchange-config-listener.c:739
+#: storage/exchange-config-listener.c:748
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr "Llogaria Exchange do të eleminohet kur të mbyllni Evolution"
 
@@ -1653,8 +1651,7 @@ msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Abonohu tek një kartelë që i përket një përdoruesi tjetër në server"
 
 #: storage/ximian-connector.xml.h:6
-msgid ""
-"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
 "Ç'regjistrohu nga një kartelë e shtuar me \"Regjistrohu tek Kartela "
 "Përdoruesit Tjetër\""
@@ -1685,18 +1682,3 @@ msgstr "Asistenti i _Jashtë Zyre"
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Ç'_regjistrohu nga Kartela e përdoruesit Tjetër"
 
-#~ msgid ""
-#~ "Could not authenticate to server.\n"
-#~ "\n"
-#~ "You may need to use Plaintext Password authentication.\n"
-#~ "\n"
-#~ "Or you might have just typed your password wrong.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "I pamundur autentifikimi në server.\n"
-#~ "\n"
-#~ "Ndoshta duhet të përdorni autentifikimin me fjalëkalim si\n"
-#~ "tekst i thjeshtë.\n"
-#~ "\n"
-#~ "Ose thjesht ke shkruar keq fjalëkalimin tënd.\n"
-#~ "\n"
