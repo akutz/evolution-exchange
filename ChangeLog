@@ -1,4 +1,13 @@
- 2005-03-15 Sivaiah Nallagatla <snallagatla@novell.com>
+2005-03-16  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+        * camel/camel-exchange-store.c (construct): Move back the stub creation
+        code to exchange_connect and invoke connect to fix the timing issue.
+        (exchange_connect) : Create a stub if it already not created.
+        (exchange_get_folder) (exchange_get_trash) (exchange_get_folder_info) :
+        Check if stub is created, if not then create it.
+        Fixes #73673
+
+2005-03-15 Sivaiah Nallagatla <snallagatla@novell.com>
 
        * addressbook/e-book-backend-exchange.c
        (e_book_backend_exchange_create_contact)
