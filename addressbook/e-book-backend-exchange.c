@@ -1645,7 +1645,7 @@ e_book_backend_exchange_get_supported_fields (EBookBackendSync  *backend,
 	for (i = 0; i < num_prop_mappings; i ++) {
 		if (prop_mappings[i].e_book_field) {
 			*methods = g_list_prepend (*methods,
-						   g_strdup (prop_mappings[i].e_book_field));
+					g_strdup (e_contact_field_name(prop_mappings[i].field)));
 		}
 	}
 
