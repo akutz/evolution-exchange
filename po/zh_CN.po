@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-02 02:07+0800\n"
+"POT-Creation-Date: 2005-01-08 12:36+0800\n"
 "PO-Revision-Date: 2004-08-12 00:17+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: addressbook/e-book-backend-exchange.c:1686
+#: addressbook/e-book-backend-exchange.c:1681
 #: addressbook/e-book-backend-gal.c:1214 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "正在搜索..."
@@ -32,7 +32,7 @@ msgstr "正在接收 LDAP 搜索结果..."
 msgid "Error performing search"
 msgstr "执行搜索出错"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1423
+#: calendar/e-cal-backend-exchange-calendar.c:1436
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -41,47 +41,47 @@ msgstr ""
 "无法将资源“%s”调度为再现会议。\n"
 "您必须单独预订每次会议。"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1442
+#: calendar/e-cal-backend-exchange-calendar.c:1455
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "在选中的时间段中，资源“%s”都处于忙状态。"
 
-#: camel/camel-exchange-folder.c:215
+#: camel/camel-exchange-folder.c:241
 msgid "Can only expunge in Deleted Items folder"
 msgstr "无法只在已删项目文件夹中销毁"
 
-#: camel/camel-exchange-folder.c:239
+#: camel/camel-exchange-folder.c:265
 msgid "No Subject"
 msgstr "无主题"
 
-#: camel/camel-exchange-folder.c:586
+#: camel/camel-exchange-folder.c:612
 msgid "Moving messages"
 msgstr "移动信件"
 
-#: camel/camel-exchange-folder.c:587
+#: camel/camel-exchange-folder.c:613
 msgid "Copying messages"
 msgstr "复制信件"
 
-#: camel/camel-exchange-folder.c:890
+#: camel/camel-exchange-folder.c:916
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "无法创建目录 %s：%s"
 
-#: camel/camel-exchange-folder.c:900
+#: camel/camel-exchange-folder.c:926
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "无法装入 %s 的概览"
 
-#: camel/camel-exchange-folder.c:908
+#: camel/camel-exchange-folder.c:934
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "无法为 %s 创建缓存"
 
-#: camel/camel-exchange-folder.c:948
+#: camel/camel-exchange-folder.c:974
 msgid "Scanning for changed messages"
 msgstr "扫描已更改的信件"
 
-#: camel/camel-exchange-folder.c:972
+#: camel/camel-exchange-folder.c:998
 msgid "Fetching summary information for new messages"
 msgstr "获取新信件的概览信息"
 
@@ -177,19 +177,24 @@ msgid ""
 "password authentication."
 msgstr "此选项将使用标准的纯文本密码身份验证方式连接到 Exchange 服务器。"
 
-#: camel/camel-exchange-store.c:259
+#: camel/camel-exchange-store.c:297
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange 服务器 %s"
 
-#: camel/camel-exchange-store.c:262
+#: camel/camel-exchange-store.c:300
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "%s 在 %s 上的 Exchange 账户"
 
-#: camel/camel-exchange-store.c:289
+#: camel/camel-exchange-store.c:327
 msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange 后端进程"
+
+#: camel/camel-exchange-store.c:891
+#, fuzzy, c-format
+msgid "No such folder %s"
+msgstr "没有这样的文件夹"
 
 #: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
@@ -275,11 +280,11 @@ msgstr "无"
 msgid "Custom"
 msgstr "自定义"
 
-#: lib/e2k-user-dialog.c:149
+#: lib/e2k-user-dialog.c:144
 msgid "Select User"
 msgstr "选择用户"
 
-#: lib/e2k-user-dialog.c:199
+#: lib/e2k-user-dialog.c:182
 msgid "Addressbook..."
 msgstr "地址簿..."
 
@@ -483,34 +488,34 @@ msgstr "已经存在名为“%s”的文件夹。请使用其它名称。"
 #. It would be nice to insensitivize the OK button appropriately
 #. instead of doing this, but unfortunately we can't do this for the
 #. Bonobo control.
-#: shell/e-folder-misc-dialogs.c:460
+#: shell/e-folder-misc-dialogs.c:439
 msgid "Please select a user."
 msgstr "请选择用户。"
 
-#: shell/e-folder-misc-dialogs.c:560
+#: shell/e-folder-misc-dialogs.c:539
 msgid "Opening Folder"
 msgstr "打开文件夹"
 
-#: shell/e-folder-misc-dialogs.c:566
+#: shell/e-folder-misc-dialogs.c:545
 #, c-format
 msgid "Opening Folder \"%s\""
 msgstr "打开文件夹“%s”"
 
-#: shell/e-folder-misc-dialogs.c:571
+#: shell/e-folder-misc-dialogs.c:550
 #, c-format
 msgid "in \"%s\" ..."
 msgstr "在“%s”..."
 
-#: shell/e-folder-misc-dialogs.c:638
+#: shell/e-folder-misc-dialogs.c:617
 #, c-format
 msgid "Could not open other user's folder: %s."
 msgstr "无法打开其他用户的文件夹：%s。"
 
-#: shell/e-folder-misc-dialogs.c:688
+#: shell/e-folder-misc-dialogs.c:667
 msgid "Cannot find the specified other user's folder."
 msgstr "找不到指定的其他用户的文件夹。"
 
-#: shell/e-folder-misc-dialogs.c:720
+#: shell/e-folder-misc-dialogs.c:699
 #, c-format
 msgid ""
 "Cannot unsubscribe from folder:\n"
@@ -519,12 +524,12 @@ msgstr ""
 "无法退订文件夹：\n"
 "%s"
 
-#: shell/e-folder-misc-dialogs.c:773
+#: shell/e-folder-misc-dialogs.c:752
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "真的要退订文件夹“%s”吗？"
 
-#: shell/e-folder-misc-dialogs.c:787
+#: shell/e-folder-misc-dialogs.c:766
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "退订“%s”"
@@ -609,7 +614,7 @@ msgstr "无法创建该名称的文件夹"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "无法在脱机模式下执行此操作"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1280
+#: shell/e-storage.c:587 storage/exchange-account.c:1274
 msgid "Unknown error"
 msgstr "未知错误"
 
@@ -673,7 +678,7 @@ msgstr ""
 msgid "Could not change password"
 msgstr "无法更改密码"
 
-#: storage/exchange-account.c:1191
+#: storage/exchange-account.c:1185
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -681,7 +686,7 @@ msgstr ""
 "无法验证到服务器。(密码不对？)\n"
 "\n"
 
-#: storage/exchange-account.c:1196
+#: storage/exchange-account.c:1190
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -700,7 +705,7 @@ msgstr ""
 "或者，您可能输错了您的密码。\n"
 "\n"
 
-#: storage/exchange-account.c:1207
+#: storage/exchange-account.c:1201
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -716,12 +721,12 @@ msgstr ""
 "或者，您可能输错了您的密码。\n"
 "\n"
 
-#: storage/exchange-account.c:1238
+#: storage/exchange-account.c:1232
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "%s 的邮箱未在此服务器上。"
 
-#: storage/exchange-account.c:1243
+#: storage/exchange-account.c:1237
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -730,7 +735,7 @@ msgstr ""
 "服务器“%s”运行着 Exchange 5.5，而该版本与\n"
 "Ximian Connector 不兼容"
 
-#: storage/exchange-account.c:1250
+#: storage/exchange-account.c:1244
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -740,40 +745,40 @@ msgstr ""
 "在 %s 找不到 Exchange Web 存储系统。\n"
 "如果 OWA 运行于不同的路径，您必须在账户配置对话框中指定。"
 
-#: storage/exchange-account.c:1258
+#: storage/exchange-account.c:1252
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "%2$s 上没有用户 %1$s 的邮箱。\n"
 
-#: storage/exchange-account.c:1264 storage/exchange-account.c:1270
-#: storage/exchange-account.c:1278
+#: storage/exchange-account.c:1258 storage/exchange-account.c:1264
+#: storage/exchange-account.c:1272
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "无法连接到服务器 %s：%s"
 
-#: storage/exchange-account.c:1266
+#: storage/exchange-account.c:1260
 msgid "Could not resolve hostname"
 msgstr "无法解析主机名"
 
-#: storage/exchange-account.c:1272
+#: storage/exchange-account.c:1266
 msgid "Network error"
 msgstr "网络错误"
 
-#: storage/exchange-account.c:1350
+#: storage/exchange-account.c:1344
 msgid "Personal Folders"
 msgstr "个人文件夹"
 
-#: storage/exchange-account.c:1365
+#: storage/exchange-account.c:1359
 msgid "Favorite Public Folders"
 msgstr "收藏的公开文件夹"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1382
+#: storage/exchange-account.c:1376
 msgid "All Public Folders"
 msgstr "全部公开文件夹"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1396
+#: storage/exchange-account.c:1390
 msgid "Global Address List"
 msgstr "全局地址列表"
 
@@ -1031,19 +1036,19 @@ msgstr "新密码："
 msgid "Your current password has expired. Please change your password now."
 msgstr "您的当前密码已过期。请立即更改您的密码。"
 
-#: storage/exchange-component.c:317
+#: storage/exchange-component.c:314
 msgid "Mail"
 msgstr "邮件"
 
-#: storage/exchange-component.c:320 storage/exchange-hierarchy-foreign.c:250
+#: storage/exchange-component.c:317 storage/exchange-hierarchy-foreign.c:250
 msgid "Contacts"
 msgstr "联系人"
 
-#: storage/exchange-component.c:324 storage/exchange-hierarchy-foreign.c:258
+#: storage/exchange-component.c:321 storage/exchange-hierarchy-foreign.c:258
 msgid "Tasks"
 msgstr "任务"
 
-#: storage/exchange-component.c:327 storage/exchange-hierarchy-foreign.c:249
+#: storage/exchange-component.c:324 storage/exchange-hierarchy-foreign.c:249
 msgid "Calendar"
 msgstr "日历"
 
@@ -1481,7 +1486,7 @@ msgstr "角色："
 msgid "Connecting..."
 msgstr "正在连接..."
 
-#: storage/main.c:168
+#: storage/main.c:166
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector for Microsoft Exchange"
 
