@@ -148,6 +148,7 @@ camel_provider_module_init (void)
 	exchange_provider.auto_detect = exchange_auto_detect_cb;
 
 	bindtextdomain (GETTEXT_PACKAGE, CONNECTOR_LOCALEDIR);
+	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	exchange_provider.translation_domain = GETTEXT_PACKAGE;
 
 	camel_provider_register (&exchange_provider);
