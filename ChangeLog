@@ -1,7 +1,14 @@
+2005-01-29  Sarfraaz Ahmed <asarfraaz@novell.com>
+	
+	* storage/exchange-hierarchy-webdav.c (hierarchy_new_folder):
+	Check for duplicate entried being added into the hashtable.
+	Fixes #68330
+	
 2005-01-27  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* calendar/e-cal-backend-exchange.c : Fixed memory leaks
 	* calendar/e-cal-backend-exchange-calendar.c : Similar
+	Fixes #70357
 
 2005-01-27  Sushma Rai  <rsushma@novell.com>
 
