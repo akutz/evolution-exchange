@@ -68,7 +68,7 @@ struct _ExchangeAccountPrivate {
 	gboolean uris_use_email;
 
 	char *identity_name, *identity_email, *source_uri, *password_key;
-	char *username, *password, *ad_server;
+	char *username, *password, *windows_domain, *ad_server;
 	E2kAutoconfigAuthPref auth_pref;
 	int ad_limit;
 
@@ -267,6 +267,9 @@ finalize (GObject *object)
 			strlen (account->priv->password));
 		g_free (account->priv->password);
 	}
+	if (account->priv->windows_domain)
+		g_free (account->priv->windows_domain);
+
 	if (account->priv->ad_server)
 		g_free (account->priv->ad_server);
 
@@ -967,6 +970,7 @@ exchange_account_connect (ExchangeAccount *account)
 	const char *quota_msg = NULL;
 	GtkWidget *quota_dialog;
 	int quota_resp;
+	const char *user_name = NULL;
 
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
 
@@ -983,10 +987,17 @@ exchange_account_connect (ExchangeAccount *account)
 	account->priv->connecting = TRUE;
 	g_mutex_unlock (account->priv->connect_lock);
 
+	if (account->priv->windows_domain)
+		user_name = g_strdup_printf ("%s\\%s", account->priv->windows_domain, account->priv->username);
+	else
+		user_name = g_strdup (account->priv->username);
+
 	ac = e2k_autoconfig_new (account->home_uri,
-				 account->priv->username,
+				 user_name,
 				 NULL,
 				 account->priv->auth_pref);
+	g_free (user_name);
+
 	e2k_autoconfig_set_gc_server (ac, account->priv->ad_server,
 				      account->priv->ad_limit);
 
@@ -1165,7 +1176,8 @@ exchange_account_connect (ExchangeAccount *account)
 			quota_msg = g_strdup_printf ("You are nearing your quota available for storing mails on this server. Your current usage is : %d . Try to clear up some space by deleting some mails.\n", entry->quota_warn);
 		}
 		
-		e_notice (NULL, GTK_MESSAGE_INFO, quota_msg);
+		if (quota_msg)
+			e_notice (NULL, GTK_MESSAGE_INFO, quota_msg);
 	}
 
 	/* Set up Personal Folders hierarchy */
@@ -1537,6 +1549,10 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 	account->priv->password_key = g_strdup_printf ("exchange://%s", account->priv->uri_authority);
 
 	account->priv->username = g_strdup (uri->user);
+	if (uri->domain)
+		account->priv->windows_domain = g_strdup (uri->domain);
+	else
+		account->priv->windows_domain = NULL;
 	account->exchange_server = g_strdup (uri->host);
 	if (uri->authmech && !strcmp (uri->authmech, "Basic"))
 		account->priv->auth_pref = E2K_AUTOCONFIG_USE_BASIC;

@@ -1,3 +1,10 @@
+2004-11-03  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* storage/exchange-account.c (exchange_account_connect)(exchange_account_new)
+	: Check if the user has provided a domain as part of the username field and
+	store it for connecting to the server using form-based-authentication
+	(finalize) : Cleanup the private member.
+
 2004-11-01  JP Rosevear  <jpr@novell.com>
 
 	* storage/Makefile.am (DISTCLEANFILES): dist clean the server file
