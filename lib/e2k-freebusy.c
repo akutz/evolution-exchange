@@ -69,9 +69,9 @@ fb_uri_for_dn (const char *public_uri, const char *dn)
 
 	str = g_string_new (public_uri);
 	g_string_append (str, "/NON_IPM_SUBTREE/SCHEDULE%2B%20FREE%20BUSY/EX:");
-	e2k_uri_append_encoded (str, org, NULL);
+	e2k_uri_append_encoded (str, org, TRUE, NULL);
 	g_string_append (str, "/USER-");
-	e2k_uri_append_encoded (str, div, NULL);
+	e2k_uri_append_encoded (str, div, TRUE, NULL);
 	g_string_append (str, ".EML");
 
 	uri = str->str;

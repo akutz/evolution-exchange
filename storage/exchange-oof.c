@@ -363,7 +363,7 @@ exchange_oof_set (ExchangeAccount *account, gboolean oof, const char *message)
 		return FALSE;
 
 	if (message) {
-		char *message_enc = e2k_uri_encode (message, NULL);
+		char *message_enc = e2k_uri_encode (message, FALSE, NULL);
 		body = g_strdup_printf ("Cmd=options&OofState=%d&"
 					"OofReply=%s",
 					oof ? 1 : 0, message_enc);

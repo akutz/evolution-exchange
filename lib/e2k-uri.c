@@ -247,7 +247,8 @@ static const int uri_encoded_char[] = {
 };
 
 void
-e2k_uri_append_encoded (GString *str, const char *in, const char *extra_enc_chars)
+e2k_uri_append_encoded (GString *str, const char *in,
+			gboolean wss_encode, const char *extra_enc_chars)
 {
 	const unsigned char *s = (const unsigned char *)in;
 
@@ -256,6 +257,8 @@ e2k_uri_append_encoded (GString *str, const char *in, const char *extra_enc_char
 			goto escape;
 		switch (uri_encoded_char[*s]) {
 		case 2:
+			if (!wss_encode)
+				goto escape;
 			switch (*s++) {
 			case '/':
 				g_string_append (str, "_xF8FF_");
@@ -283,13 +286,14 @@ e2k_uri_append_encoded (GString *str, const char *in, const char *extra_enc_char
 }
 
 char *
-e2k_uri_encode (const char *in, const char *extra_enc_chars)
+e2k_uri_encode (const char *in, gboolean wss_encode,
+		const char *extra_enc_chars)
 {
 	GString *string;
 	char *out;
 
 	string = g_string_new (NULL);
-	e2k_uri_append_encoded (string, in, extra_enc_chars);
+	e2k_uri_append_encoded (string, in, wss_encode, extra_enc_chars);
 	out = string->str;
 	g_string_free (string, FALSE);
 

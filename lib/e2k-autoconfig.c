@@ -840,16 +840,16 @@ set_account_uri_string (E2kAutoconfig *ac)
 
 	uri = g_string_new ("exchange://");
 	if (ac->nt_domain && (!ac->use_ntlm || !ac->nt_domain_defaulted)) {
-		e2k_uri_append_encoded (uri, ac->nt_domain, "\\;:@/");
+		e2k_uri_append_encoded (uri, ac->nt_domain, FALSE, "\\;:@/");
 		g_string_append_c (uri, '\\');
 	}
-	e2k_uri_append_encoded (uri, ac->username, ";:@/");
+	e2k_uri_append_encoded (uri, ac->username, FALSE, ";:@/");
 
 	if (!ac->use_ntlm)
 		g_string_append (uri, ";auth=Basic");
 
 	g_string_append_c (uri, '@');
-	e2k_uri_append_encoded (uri, owa_uri->host, ":/");
+	e2k_uri_append_encoded (uri, owa_uri->host, FALSE, ":/");
 	if (owa_uri->port)
 		g_string_append_printf (uri, ":%d", owa_uri->port);
 	g_string_append_c (uri, '/');
@@ -857,7 +857,7 @@ set_account_uri_string (E2kAutoconfig *ac)
 	if (!strcmp (owa_uri->protocol, "https"))
 		g_string_append (uri, ";use_ssl=always");
 	g_string_append (uri, ";ad_server=");
-	e2k_uri_append_encoded (uri, ac->gc_server, ";?");
+	e2k_uri_append_encoded (uri, ac->gc_server, FALSE, ";?");
 	if (ac->ad_limit) {
 		g_string_append_printf (uri, ";ad_limit=%d",
 					atoi (ac->ad_limit));
@@ -872,14 +872,14 @@ set_account_uri_string (E2kAutoconfig *ac)
 	if (mailbox) {
 		*mailbox++ = '\0';
 		g_string_append (uri, ";mailbox=");
-		e2k_uri_append_encoded (uri, mailbox, ";?");
+		e2k_uri_append_encoded (uri, mailbox, FALSE, ";?");
 	}
 	g_string_append (uri, ";owa_path=/");
-	e2k_uri_append_encoded (uri, path, ";?");
+	e2k_uri_append_encoded (uri, path, FALSE, ";?");
 	g_free (path);
 
 	g_string_append (uri, ";pf_server=");
-	e2k_uri_append_encoded (uri, ac->pf_server ? ac->pf_server : home_uri->host, ";?");
+	e2k_uri_append_encoded (uri, ac->pf_server ? ac->pf_server : home_uri->host, FALSE, ";?");
 
 	ac->account_uri = uri->str;
 	ac->exchange_server = g_strdup (home_uri->host);

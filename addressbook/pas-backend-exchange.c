@@ -1331,7 +1331,7 @@ pas_backend_exchange_process_create_card (PASBackend           *backend,
 
 	folder_uri = e_folder_exchange_get_internal_uri (bepriv->folder);
 
-	contact_name_enc = e2k_uri_encode (name, NULL);
+	contact_name_enc = e2k_uri_encode (name, TRUE, NULL);
 	contact_basename = e2k_uri_concat (folder_uri, contact_name_enc);
 	g_free (contact_name_enc);
 

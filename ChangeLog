@@ -1,3 +1,31 @@
+2004-08-05  Dan Winship  <danw@novell.com>
+
+	* configure.in: bump version to 1.4.7.3
+
+	* NEWS: Update
+
+2004-08-05  Dan Winship  <danw@novell.com>
+
+	* lib/e2k-uri.c (e2k_uri_append_encoded, e2k_uri_encode): add a
+	"wss_encode" flag, saying whether or not to use the Web Storage
+	System URI-encoding rules ("/" becomes "_xF8FF_", etc), since some
+	places don't want them.
+
+	* lib/e2k-context.c (e2k_context_fba): Don't put multiple &s
+	between flags, and use "normal" URI encoding rules without the
+	extra goofy WSS rules. Fixes FBA to E2k3 SP1.
+	(e2k_context_put_new, e2k_context_proppatch_new): Set wss_encode
+	flag to e2k_uri_encode
+
+	* lib/e2k-autoconfig.c (set_account_uri_string): Update for
+	e2k_uri_append_encoded changes
+
+	* lib/e2k-freebusy.c (fb_uri_for_dn): Likewise
+
+	* storage/exchange-account.c (exchange_account_new): Likewise
+
+	* storage/exchange-oof.c (exchange_oof_set): Likewise
+
 2004-07-07  Harry Lu  <harry.lu@sun.com>
 
 	Fix for a crash.

@@ -573,31 +573,30 @@ e2k_connection_fba (E2kConnection *conn, SoupMessage *failed_msg)
 			continue;
 		value = xmlGetProp (node, "value");
 
-		if (form_body->len > 0)
-			g_string_append_c (form_body, '&');
-
 		if (!g_ascii_strcasecmp (name, "destination") && value) {
 			g_string_append (form_body, name);
 			g_string_append_c (form_body, '=');
-			e2k_uri_append_encoded (form_body, value, NULL);
+			e2k_uri_append_encoded (form_body, value, FALSE, NULL);
+			g_string_append_c (form_body, '&');
 		} else if (!g_ascii_strcasecmp (name, "flags")) {
 			g_string_append_printf (form_body, "flags=%d",
 						E2K_FBA_FLAG_TRUSTED);
+			g_string_append_c (form_body, '&');
 		} else if (!g_ascii_strcasecmp (name, "username")) {
 			g_string_append (form_body, "username=");
-			e2k_uri_append_encoded (form_body, conn->priv->suri->user, NULL);
+			e2k_uri_append_encoded (form_body, conn->priv->suri->user, FALSE, NULL);
+			g_string_append_c (form_body, '&');
 		} else if (!g_ascii_strcasecmp (name, "password")) {
 			g_string_append (form_body, "password=");
-			e2k_uri_append_encoded (form_body, conn->priv->suri->passwd, NULL);
-		} else if (!g_ascii_strcasecmp (name, "trusted")) {
-			g_string_append_printf (form_body, "trusted=%d",
-						E2K_FBA_FLAG_TRUSTED);
+			e2k_uri_append_encoded (form_body, conn->priv->suri->passwd, FALSE, NULL);
+			g_string_append_c (form_body, '&');
 		}
 
 		if (value)
 			xmlFree (value);
 		xmlFree (name);
 	}
+	g_string_append_printf (form_body, "trusted=%d", E2K_FBA_FLAG_TRUSTED);
 	xmlFreeDoc (doc);
 	doc = NULL;
 
@@ -1344,7 +1343,7 @@ e2k_connection_append (E2kConnection *conn, const char *folder_uri,
 				     callback (conn, &error_message, user_data));
 
 	append_data = g_new (E2kAppendData, 1);
-	append_data->object_name = e2k_uri_encode (object_name, NULL);
+	append_data->object_name = e2k_uri_encode (object_name, TRUE, NULL);
 	append_data->count = 0;
 
 	append_data->body = g_memdup (body, length);
