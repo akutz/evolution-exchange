@@ -409,34 +409,6 @@ e2k_global_catalog_get_ldap (E2kGlobalCatalog *gc, E2kOperation *op)
 }
 
 /**
- * e2k_global_catalog_reconnect
- * @gc: the global catalog
- * @op: pointer to an initialized #E2kOperation to use for cancellation
- * @ldap: the LDAP connection to reconnect
- *
- * Reconnects @ldap if the server disconnected it.
- *
- * Return value: an LDAP status code
- **/
-int
-e2k_global_catalog_reconnect (E2kGlobalCatalog *gc, E2kOperation *op,
-			      LDAP *ldap)
-{
-	int err;
-
-	g_return_val_if_fail (E2K_IS_GLOBAL_CATALOG (gc), FALSE);
-	g_return_val_if_fail (ldap != NULL, FALSE);
-	
-	ldap_get_option (ldap, LDAP_OPT_ERROR_NUMBER, &err);
-	if (err != LDAP_SERVER_DOWN)
-		return err;
-
-	return get_ldap_connection (gc, op, gc->priv->server, 3268,
-				    &gc->priv->ldap);
-
-}
-
-/**
  * e2k_global_catalog_new:
  * @server: the GC server name
  * @response_limit: the maximum number of responses to return from a search

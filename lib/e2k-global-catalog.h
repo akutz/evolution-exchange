@@ -43,9 +43,6 @@ E2kGlobalCatalog *e2k_global_catalog_new             (const char *server,
 
 LDAP             *e2k_global_catalog_get_ldap        (E2kGlobalCatalog *gc,
 						      E2kOperation     *op);
-int               e2k_global_catalog_reconnect       (E2kGlobalCatalog *gc,
-						      E2kOperation     *op,
-						      LDAP             *ldap);
 
 
 typedef enum {

@@ -1,3 +1,15 @@
+2004-08-27  Dan Winship  <danw@novell.com>
+
+	* lib/e2k-global-catalog.c (e2k_global_catalog_reconnect): Hm,
+	remove this. It's not The Right Thing any more.
+
+	* addressbook/e-book-backend-gal.c (gal_reconnect): Use
+	e2k_global_catalog_get_ldap instead of
+	e2k_global_catalog_reconnect. #63546
+	(get_contact, get_contact_list, start_book_view): Use
+	bl->priv->ldap rather than caching it in a local variable since it
+	may change after a call to gal_reconnect.
+
 2004-08-27  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* storage/exchange-account.c (hierarchy_removed_folder): Typo error fix

@@ -235,15 +235,13 @@ gal_reconnect (EBookBackendGAL *bl, EDataBookView *book_view, int ldap_status)
 {
 	/* we need to reconnect if we were previously connected */
 	if (bl->priv->connected && ldap_status == LDAP_SERVER_DOWN) {
-		int ldap_error;
-
 		book_view_notify_status (book_view, _("Reconnecting to LDAP server..."));
-		ldap_error = e2k_global_catalog_reconnect (bl->priv->gc,
-							   NULL,
-							   bl->priv->ldap);
+		if (bl->priv->ldap)
+			ldap_unbind (bl->priv->ldap);
+		bl->priv->ldap = e2k_global_catalog_get_ldap (bl->priv->gc, NULL);
 		book_view_notify_status (book_view, "");
 
-		return (ldap_error == LDAP_SUCCESS);
+		return (bl->priv->ldap != NULL);
 	}
 	else {
 		return FALSE;
@@ -447,7 +445,6 @@ get_contact (EBookBackend *backend,
 {
 	LDAPGetContactOp *get_contact_op = g_new0 (LDAPGetContactOp, 1);
 	EBookBackendGAL *bl = E_BOOK_BACKEND_GAL (backend);
-	LDAP *ldap = bl->priv->ldap;
 	int get_contact_msgid;
 	EDataBookView *book_view;
 	int ldap_error;
@@ -455,7 +452,7 @@ get_contact (EBookBackend *backend,
 	book_view = find_book_view (bl);
 
 	do {	
-		ldap_error = ldap_search_ext (ldap, id,
+		ldap_error = ldap_search_ext (bl->priv->ldap, id,
 					      LDAP_SCOPE_BASE,
 					      "(objectclass=*)",
 					      search_attrs, 0, NULL, NULL,
@@ -576,7 +573,6 @@ get_contact_list (EBookBackend *backend,
 	LDAPGetContactListOp *contact_list_op = g_new0 (LDAPGetContactListOp, 1);
 	EBookBackendGAL *bl = E_BOOK_BACKEND_GAL (backend);
 	GNOME_Evolution_Addressbook_CallStatus status;
-	LDAP *ldap = bl->priv->ldap;
 	int contact_list_msgid;
 	EDataBookView *book_view;
 	int ldap_error;
@@ -593,7 +589,7 @@ get_contact_list (EBookBackend *backend,
 	d(printf ("getting contact list with filter: %s\n", ldap_query));
 
 	do {	
-		ldap_error = ldap_search_ext (ldap, LDAP_ROOT_DSE,
+		ldap_error = ldap_search_ext (bl->priv->ldap, LDAP_ROOT_DSE,
 					      LDAP_SCOPE_SUBTREE,
 					      ldap_query,
 					      search_attrs, 0, NULL, NULL,
@@ -1181,7 +1177,6 @@ start_book_view (EBookBackend  *backend,
 {
 	EBookBackendGAL *bl = E_BOOK_BACKEND_GAL (backend);
 	GNOME_Evolution_Addressbook_CallStatus status;
-	LDAP *ldap = bl->priv->ldap;
 	char *ldap_query;
 	int ldap_err;
 	int search_msgid;
@@ -1208,7 +1203,7 @@ start_book_view (EBookBackend  *backend,
 	do {
 		book_view_notify_status (view, _("Searching..."));
 
-		ldap_err = ldap_search_ext (ldap, LDAP_ROOT_DSE,
+		ldap_err = ldap_search_ext (bl->priv->ldap, LDAP_ROOT_DSE,
 					    LDAP_SCOPE_SUBTREE,
 					    ldap_query,
 					    search_attrs, 0,
