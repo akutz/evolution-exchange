@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-11 14:04+0100\n"
-"PO-Revision-Date: 2005-02-11 18:04+0100\n"
+"POT-Creation-Date: 2005-03-02 20:15+0100\n"
+"PO-Revision-Date: 2005-03-03 01:00+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Ducth <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,8 +29,8 @@ msgstr ""
 # niets mee hoeft te doen. Het is een indicatie dat het programma bezig is.
 # Het tonen van de status is al een aanduiding dat het programma 'bezig is'
 # Vandaar dat het hier in deze meldingen wordt weggelaten.
-#: addressbook/e-book-backend-exchange.c:1807
-#: addressbook/e-book-backend-gal.c:1344 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-exchange.c:1804
+#: addressbook/e-book-backend-gal.c:1351 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Zoeken..."
 
@@ -40,11 +40,11 @@ msgid "Reconnecting to LDAP server..."
 msgstr "Verbinding met LDAP server wordt opnieuw opgezet..."
 
 # Ontvangen van LDAP zoekresultaten...<
-#: addressbook/e-book-backend-gal.c:1218
+#: addressbook/e-book-backend-gal.c:1225
 msgid "Receiving LDAP search results..."
 msgstr "LDAP zoekresultaten worden ingelezen..."
 
-#: addressbook/e-book-backend-gal.c:1365
+#: addressbook/e-book-backend-gal.c:1372
 msgid "Error performing search"
 msgstr "Fout bij uitvoeren zoekopdracht"
 
@@ -55,7 +55,7 @@ msgstr "Map niet gemarkeerd voor offline ondersteuning"
 
 # doelbron?
 # mogelijk weglaten: niet in staat om 's' te plannen voor...
-#: calendar/e-cal-backend-exchange-calendar.c:1716
+#: calendar/e-cal-backend-exchange-calendar.c:1800
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -66,53 +66,58 @@ msgstr ""
 
 # ... is bezet in de geselecteerde periode
 # ... is bezet tijdens 
-#: calendar/e-cal-backend-exchange-calendar.c:1735
+#: calendar/e-cal-backend-exchange-calendar.c:1819
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "De bron '%s' is bezet gedurende de geselecteerde periode."
 
-#: camel/camel-exchange-folder.c:220
+#: camel/camel-exchange-folder.c:219
 msgid "Can only expunge in Deleted Items folder"
 msgstr "Kan alleen weggooien in de map Verwijderde items"
 
-#: camel/camel-exchange-folder.c:244
+#: camel/camel-exchange-folder.c:243
 msgid "No Subject"
 msgstr "Geen onderwerp"
 
-#: camel/camel-exchange-folder.c:598
+# niet beschikbaar wanneer u offline bent/in offline modus.
+#: camel/camel-exchange-folder.c:370
+msgid "This message is not available in offline mode."
+msgstr "Dit bericht is niet beschikbaar in offline-modus."
+
+#: camel/camel-exchange-folder.c:605
 msgid "Moving messages"
 msgstr "Berichten verplaatsen"
 
-#: camel/camel-exchange-folder.c:599
+#: camel/camel-exchange-folder.c:606
 msgid "Copying messages"
 msgstr "Berichten kopiëren"
 
-#: camel/camel-exchange-folder.c:930
+#: camel/camel-exchange-folder.c:938
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Kon map %s niet aanmaken: %s"
 
-#: camel/camel-exchange-folder.c:940
+#: camel/camel-exchange-folder.c:948
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Kon samenvatting voor %s niet laden"
 
-#: camel/camel-exchange-folder.c:948
+#: camel/camel-exchange-folder.c:956
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Kon cache-buffer voor %s niet aanmaken"
 
-#: camel/camel-exchange-folder.c:958
+#: camel/camel-exchange-folder.c:966
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Kon journaal voor %s niet aanmaken"
 
 # aangepaste berichten
-#: camel/camel-exchange-folder.c:998
+#: camel/camel-exchange-folder.c:1006
 msgid "Scanning for changed messages"
 msgstr "Scannen voor veranderde berichten"
 
-#: camel/camel-exchange-folder.c:1022
+#: camel/camel-exchange-folder.c:1032
 msgid "Fetching summary information for new messages"
 msgstr "Samenvatting voor nieuwe berichten ophalen"
 
@@ -237,24 +242,24 @@ msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange backend proces"
 
 # een dergelijke map bestaat niet
-#: camel/camel-exchange-store.c:352
+#: camel/camel-exchange-store.c:349
 #, c-format
 msgid "No such folder %s"
 msgstr "Map %s bestaat niet"
 
-#: camel/camel-exchange-store.c:480
+#: camel/camel-exchange-store.c:477
 msgid "Cannot get folder info in offline mode."
 msgstr "Kan map-info in offline toestand niet verkrijgen."
 
-#: camel/camel-exchange-store.c:542
+#: camel/camel-exchange-store.c:539
 msgid "Cannot create folder in offline mode."
 msgstr "Kan map in offline toestand niet aanmaken"
 
-#: camel/camel-exchange-store.c:569
+#: camel/camel-exchange-store.c:566
 msgid "Cannot delete folder in offline mode."
 msgstr "Kan de map in offline toestand niet verwijderen."
 
-#: camel/camel-exchange-store.c:585
+#: camel/camel-exchange-store.c:582
 msgid "Cannot rename folder in offline mode."
 msgstr "Kan map in offline toestand niet hernoemen."
 
@@ -365,9 +370,13 @@ msgid ""
 "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
 "html "
 msgstr ""
-"Ximian Connector vereist toegang tot bepaalde functionaliteit op de Exchange-server die schijnbaar is uitgezet of geblokkeerd.  (Dit is meestal zonder opzet.)  Uw Exchange systeembeheerder moet deze functionaliteit toegankelijk maken voordat u de Ximian Connector kunt gebruiken.\n"
+"Ximian Connector vereist toegang tot bepaalde functionaliteit op de Exchange-"
+"server die schijnbaar is uitgezet of geblokkeerd.  (Dit is meestal zonder "
+"opzet.)  Uw Exchange systeembeheerder moet deze functionaliteit toegankelijk "
+"maken voordat u de Ximian Connector kunt gebruiken.\n"
 "\n"
-"Bekijk de link hieronder voor informatie die u aan uw Exchange systeembeheerder moet geven:\n"
+"Bekijk de link hieronder voor informatie die u aan uw Exchange "
+"systeembeheerder moet geven:\n"
 "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328.html"
 
 #: lib/e2k-autoconfig.c:1490 storage/exchange-autoconfig-wizard.c:288
@@ -393,7 +402,7 @@ msgid "Enter password for %s"
 msgstr "Geef wachtwoord voor %s"
 
 # geef wachtwoord
-#: lib/e2k-autoconfig.c:1525 storage/exchange-account.c:859
+#: lib/e2k-autoconfig.c:1525 storage/exchange-account.c:858
 msgid "Enter password"
 msgstr "Wachtwoord invoeren"
 
@@ -460,9 +469,9 @@ msgstr "Adresboek..."
 msgid "No such folder"
 msgstr "Map bestaat niet"
 
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2309
-#: mail/mail-stub-exchange.c:2347 mail/mail-stub-exchange.c:2407
-#: shell/e-storage.c:573 storage/xc-commands.c:315
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2320
+#: mail/mail-stub-exchange.c:2358 mail/mail-stub-exchange.c:2418
+#: shell/e-storage.c:573 storage/xc-commands.c:320
 msgid "Permission denied"
 msgstr "Toegang geweigerd"
 
@@ -475,69 +484,69 @@ msgstr "Map bestaat niet."
 msgid "Could not create folder."
 msgstr "Kon map niet aanmaken."
 
-#: mail/mail-stub-exchange.c:602 mail/mail-stub-exchange.c:620
+#: mail/mail-stub-exchange.c:603 mail/mail-stub-exchange.c:621
 msgid "Could not open folder: Permission denied"
 msgstr "Kon map niet openen: Toegang geweigerd"
 
-#: mail/mail-stub-exchange.c:606 mail/mail-stub-exchange.c:719
+#: mail/mail-stub-exchange.c:607 mail/mail-stub-exchange.c:720
 msgid "Could not open folder"
 msgstr "Kon map niet openen"
 
-#: mail/mail-stub-exchange.c:774
+#: mail/mail-stub-exchange.c:775
 msgid "Could not open Deleted Items folder"
 msgstr "Kon de map Verwijderde items niet openen"
 
 # verkrijgen
 # ophalen is begrijpelijker
-#: mail/mail-stub-exchange.c:1094 mail/mail-stub-exchange.c:1135
+#: mail/mail-stub-exchange.c:1105 mail/mail-stub-exchange.c:1146
 msgid "Could not get new messages"
 msgstr "Kon nieuwe berichten niet ophalen"
 
 # legen ipv leegmaken?
-#: mail/mail-stub-exchange.c:1300
+#: mail/mail-stub-exchange.c:1311
 msgid "Could not empty Deleted Items folder"
 msgstr "Kon de map Verwijderde items niet leegmaken"
 
-#: mail/mail-stub-exchange.c:1372
+#: mail/mail-stub-exchange.c:1383
 msgid "Could not append message; mailbox is over quota"
 msgstr "Kon bericht niet toevoegen; mailbox heeft quota overschreden"
 
-#: mail/mail-stub-exchange.c:1373
+#: mail/mail-stub-exchange.c:1384
 msgid "Could not append message"
 msgstr "Kon bericht niet toevoegen"
 
 # Een dergelijk bericht bestaat niet
-#: mail/mail-stub-exchange.c:1856
+#: mail/mail-stub-exchange.c:1867
 msgid "No such message"
 msgstr "Bericht bestaat niet"
 
-#: mail/mail-stub-exchange.c:1909
+#: mail/mail-stub-exchange.c:1920
 msgid "Message has been deleted"
 msgstr "Bericht is verwijderd"
 
-#: mail/mail-stub-exchange.c:1911
+#: mail/mail-stub-exchange.c:1922
 msgid "Error retrieving message"
 msgstr "Fout bij ophalen bericht"
 
-#: mail/mail-stub-exchange.c:1953
+#: mail/mail-stub-exchange.c:1964
 msgid "Mailbox does not support full-text searching"
 msgstr ""
 "Voor deze mailbox is geen ondersteuning voor het doorzoeken van de volledige "
 "tekst"
 
-#: mail/mail-stub-exchange.c:2051
+#: mail/mail-stub-exchange.c:2062
 msgid "Unable to move/copy messages"
 msgstr "Kon berichten niet verplaatsen/kopiëren"
 
-#: mail/mail-stub-exchange.c:2224
+#: mail/mail-stub-exchange.c:2235
 msgid "No mail submission URI for this mailbox"
 msgstr "Geen mail-aanleverings-URI voor deze mailbox"
 
-#: mail/mail-stub-exchange.c:2260
+#: mail/mail-stub-exchange.c:2271
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Server zal geen berichten accepteren via Exchange transport"
 
-#: mail/mail-stub-exchange.c:2262
+#: mail/mail-stub-exchange.c:2273
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -546,7 +555,7 @@ msgstr ""
 "Uw account heeft geen rechten om <%s> te gebruiken\n"
 "als een 'Van' adres."
 
-#: mail/mail-stub-exchange.c:2274
+#: mail/mail-stub-exchange.c:2285
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -554,22 +563,22 @@ msgstr ""
 "Kon bericht niet versturen.\n"
 "Dit betekent mogelijk dat uw account over zijn quota is."
 
-#: mail/mail-stub-exchange.c:2278
+#: mail/mail-stub-exchange.c:2289
 msgid "Could not send message"
 msgstr "Kon bericht niet versturen"
 
-#: mail/mail-stub-exchange.c:2301 mail/mail-stub-exchange.c:2352
-#: mail/mail-stub-exchange.c:2411 shell/e-storage.c:557
-#: storage/xc-commands.c:319
+#: mail/mail-stub-exchange.c:2312 mail/mail-stub-exchange.c:2363
+#: mail/mail-stub-exchange.c:2422 shell/e-storage.c:557
+#: storage/xc-commands.c:324
 msgid "Generic error"
 msgstr "Algemene fout"
 
-#: mail/mail-stub-exchange.c:2305 storage/xc-commands.c:309
+#: mail/mail-stub-exchange.c:2316 storage/xc-commands.c:314
 msgid "Folder already exists"
 msgstr "Map bestaat al"
 
-#: mail/mail-stub-exchange.c:2332 mail/mail-stub-exchange.c:2374
-#: mail/mail-stub-exchange.c:2403
+#: mail/mail-stub-exchange.c:2343 mail/mail-stub-exchange.c:2385
+#: mail/mail-stub-exchange.c:2414
 msgid "Folder doesn't exist"
 msgstr "Map bestaat niet"
 
@@ -803,7 +812,7 @@ msgstr "Kan geen map aanmaken met die naam"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Deze bewerking kan niet uitgevoerd worden in de off-line stand"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1418
+#: shell/e-storage.c:587 storage/exchange-account.c:1434
 msgid "Unknown error"
 msgstr "Onbekende fout"
 
@@ -837,21 +846,21 @@ msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:572
+#: storage/exchange-account.c:568
 #, c-format
 msgid "%s's Folders"
 msgstr "%s's mappen"
 
-#: storage/exchange-account.c:855
+#: storage/exchange-account.c:853
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sGeef wachtwoord voor %s"
 
-#: storage/exchange-account.c:1040
+#: storage/exchange-account.c:1043
 msgid "Cannot change password due to configuration problems"
 msgstr "Kan wachtwoord niet veranderen vanwege configuratieproblemen"
 
-#: storage/exchange-account.c:1055
+#: storage/exchange-account.c:1058
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -859,35 +868,35 @@ msgstr ""
 "Server heeft het wachtwoord geweigerd omdat het te zwak is.\n"
 "Probeer het opnieuw met een ander wachtwoord."
 
-#: storage/exchange-account.c:1060
+#: storage/exchange-account.c:1063
 msgid "Could not change password"
 msgstr "Kon wachtwoord niet veranderen"
 
-#: storage/exchange-account.c:1144
+#: storage/exchange-account.c:1159
 msgid "Personal Folders"
 msgstr "Persoonlijke mappen"
 
-#: storage/exchange-account.c:1159
+#: storage/exchange-account.c:1174
 msgid "Favorite Public Folders"
 msgstr "Favoriete publieke mappen"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1176
+#: storage/exchange-account.c:1191
 msgid "All Public Folders"
 msgstr "Alle publieke mappen"
 
 # Volledige adreslijst
 # Algemene adreslijst
 #. i18n: Outlookism
-#: storage/exchange-account.c:1190
+#: storage/exchange-account.c:1205
 msgid "Global Address List"
 msgstr "Volledige adreslijst"
 
-#: storage/exchange-account.c:1276
+#: storage/exchange-account.c:1292
 msgid "Exchange Account is offline. Cannot display folders\n"
 msgstr "Exchange account is offline. Kan mappen niet weergeven\n"
 
-#: storage/exchange-account.c:1329
+#: storage/exchange-account.c:1345
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -895,7 +904,7 @@ msgstr ""
 "Aanmeldingscontrole bij server mislukt. (Wachtwoord onjuist?)\n"
 "\n"
 
-#: storage/exchange-account.c:1334
+#: storage/exchange-account.c:1350
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -915,12 +924,12 @@ msgstr ""
 "Of u heeft gewoon uw wachtwoord verkeerd getypt.\n"
 "\n"
 
-#: storage/exchange-account.c:1376
+#: storage/exchange-account.c:1392
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Mailbox voor %s staat niet op deze server."
 
-#: storage/exchange-account.c:1381
+#: storage/exchange-account.c:1397
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -929,7 +938,7 @@ msgstr ""
 "De server '%s' draait op Exchange 5.5 en is\n"
 "daarom niet compatibel met Ximian connector"
 
-#: storage/exchange-account.c:1388
+#: storage/exchange-account.c:1404
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -940,24 +949,24 @@ msgstr ""
 "Indien OWA op een ander pad loopt, moet u dit in de accountconfiguratie-\n"
 "dialoog specificeren"
 
-#: storage/exchange-account.c:1396
+#: storage/exchange-account.c:1412
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Geen mailbox voor gebruiker %s op %s.\n"
 
-#: storage/exchange-account.c:1402 storage/exchange-account.c:1408
-#: storage/exchange-account.c:1416
+#: storage/exchange-account.c:1418 storage/exchange-account.c:1424
+#: storage/exchange-account.c:1432
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Kon geen verbinding maken met server %s: %s"
 
 # vinden
 # oplossen
-#: storage/exchange-account.c:1404
+#: storage/exchange-account.c:1420
 msgid "Could not resolve hostname"
 msgstr "Kon de hostnaam niet traceren"
 
-#: storage/exchange-account.c:1410
+#: storage/exchange-account.c:1426
 msgid "Network error"
 msgstr "Netwerkfout"
 
@@ -1012,7 +1021,7 @@ msgstr ""
 "Aanmaken nieuw account mislukt."
 
 #: storage/exchange-autoconfig-wizard.c:491
-#: storage/exchange-config-listener.c:578
+#: storage/exchange-config-listener.c:604
 msgid "You may only configure a single Exchange account"
 msgstr "U kunt slechts één Exchange-account configureren"
 
@@ -1176,26 +1185,26 @@ msgstr "Uw huidige wachtwoord is verlopen. Verander uw wachtwoord nu."
 # Post
 # Berichten
 # E-mail
-#: storage/exchange-component.c:320
+#: storage/exchange-component.c:322
 msgid "Mail"
 msgstr "Mail"
 
-#: storage/exchange-component.c:323 storage/exchange-hierarchy-foreign.c:251
+#: storage/exchange-component.c:325 storage/exchange-hierarchy-foreign.c:251
 msgid "Contacts"
 msgstr "Contacten"
 
-#: storage/exchange-component.c:327 storage/exchange-hierarchy-foreign.c:259
+#: storage/exchange-component.c:329 storage/exchange-hierarchy-foreign.c:259
 msgid "Tasks"
 msgstr "Taken"
 
-#: storage/exchange-component.c:330 storage/exchange-hierarchy-foreign.c:250
+#: storage/exchange-component.c:332 storage/exchange-hierarchy-foreign.c:250
 msgid "Calendar"
 msgstr "Agenda"
 
 # dat er eerst afgesloten moet worden is vrij logisch
 # (ik weet het, het is gevaarlijk dat aan te nemen
 # maar op deze manier vind ik het mooier en begrijpelijker)
-#: storage/exchange-config-listener.c:702
+#: storage/exchange-config-listener.c:781
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
@@ -1203,7 +1212,7 @@ msgstr ""
 "Aanpassingen aan de Exchange accountconfiguratie zullen\n"
 "pas effect hebben nadat u Evolution opnieuw opstart."
 
-#: storage/exchange-config-listener.c:748
+#: storage/exchange-config-listener.c:827
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr "Het Exchange account zal verwijderd worden wanneer u Evolution afsluit"
 
@@ -1373,11 +1382,11 @@ msgstr "_Inbox:"
 msgid "_Tasks:"
 msgstr "_Taken:"
 
-#: storage/exchange-folder-size.c:204
+#: storage/exchange-folder-size.c:259
 msgid "Folder Name"
 msgstr "Mapnaam"
 
-#: storage/exchange-folder-size.c:208
+#: storage/exchange-folder-size.c:263
 msgid "Folder Size"
 msgstr "Grootte map"
 
@@ -1453,11 +1462,11 @@ msgstr "Omzetten van `%s':"
 
 # updaten kan ook wat mij betreft
 # misschien wel mooier
-#: storage/exchange-oof.c:91 storage/exchange-oof.c:290
+#: storage/exchange-oof.c:199 storage/exchange-oof.c:406
 msgid "Could not update out-of-office state"
 msgstr "Kon de afwezigheidsstatus niet bijwerken"
 
-#: storage/exchange-oof.c:308
+#: storage/exchange-oof.c:424
 msgid "Could not read out-of-office state"
 msgstr "Kon afwezigheidsstatus niet lezen"
 
@@ -1665,16 +1674,16 @@ msgstr "Ximian Connector voor Microsoft Exchange"
 msgid "Account Name"
 msgstr "Accountnaam"
 
-#: storage/xc-commands.c:312
+#: storage/xc-commands.c:317
 msgid "Folder does not exist"
 msgstr "Map bestaat niet"
 
-#: storage/xc-commands.c:339
+#: storage/xc-commands.c:344
 #, c-format
 msgid "Could not add favorite: %s"
 msgstr "Kon favoriet niet toevoegen: %s"
 
-#: storage/xc-commands.c:355
+#: storage/xc-commands.c:360
 #, c-format
 msgid "Could not remove favorite: %s"
 msgstr "Kon favoriet niet verwijderen: %s"
@@ -1688,39 +1697,39 @@ msgstr "Kon favoriet niet verwijderen: %s"
 #. G_CALLBACK (do_copy_folder),
 #. XC_FOLDER_COMMAND_MASK_MOVECOPY),
 #.
-#: storage/xc-commands.c:381
+#: storage/xc-commands.c:386
 msgid "_Rename Folder..."
 msgstr "Map _hernoemen..."
 
-#: storage/xc-commands.c:387
+#: storage/xc-commands.c:392
 msgid "_New Folder..."
 msgstr "_Nieuwe map..."
 
-#: storage/xc-commands.c:390
+#: storage/xc-commands.c:395
 msgid "_Delete Folder"
 msgstr "Map ver_wijderen"
 
-#: storage/xc-commands.c:395
+#: storage/xc-commands.c:400
 msgid "_Add Other User's Folder..."
 msgstr "Andermans map _toevoegen..."
 
-#: storage/xc-commands.c:398
+#: storage/xc-commands.c:403
 msgid "_Remove Other User's Folder"
 msgstr "Andermans map _verwijderen"
 
-#: storage/xc-commands.c:404
+#: storage/xc-commands.c:409
 msgid "Add to _Favorites"
 msgstr "Toevoegen aan _favorieten"
 
-#: storage/xc-commands.c:408
+#: storage/xc-commands.c:413
 msgid "Remove from Fa_vorites"
 msgstr "Verwijderen uit f_avorieten"
 
-#: storage/xc-commands.c:415
+#: storage/xc-commands.c:420
 msgid "_Permissions..."
 msgstr "_Rechten..."
 
-#: storage/xc-commands.c:419
+#: storage/xc-commands.c:424
 msgid "_Show Folder Sizes"
 msgstr "Grootte mappen _tonen"
 
