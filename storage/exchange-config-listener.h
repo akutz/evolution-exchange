@@ -6,6 +6,8 @@
 
 #include "exchange-types.h"
 #include <e-util/e-account-list.h>
+#include <libedataserver/e-source-list.h>
+#include <libedataserver/e-source-group.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -36,6 +38,8 @@ struct _ExchangeConfigListenerClass {
 
 GType                   exchange_config_listener_get_type (void);
 ExchangeConfigListener *exchange_config_listener_new      (void);
+void 			add_esource (ExchangeAccount *account, char *conf_key, const char *folder_name, const char *physical_uri, ESourceList **source_list);
+void 			remove_esource (ExchangeAccount *account, char *conf_key, const char *physical_uri, ESourceList **source_list, gboolean is_account);
 
 #ifdef __cplusplus
 }

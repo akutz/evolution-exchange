@@ -25,6 +25,7 @@
 #include "exchange-account.h"
 #include "exchange-hierarchy.h"
 #include "e2k-uri.h"
+#include "exchange-config-listener.h"
 
 #include <e-util/e-path.h>
 #include <gal/util/e-util.h>
@@ -32,6 +33,7 @@
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
+#include <libedataserver/e-source-list.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -119,6 +121,10 @@ e_folder_exchange_new (ExchangeHierarchy *hier, const char *name,
 {
 	EFolderExchange *efe;
 	EFolder *ef;
+	char *conf_key_cal="/apps/evolution/calendar/sources";
+	char *conf_key_tasks="/apps/evolution/tasks/sources";
+	char *conf_key_contacts="/apps/evolution/addressbook/sources";
+	ESourceList *cal_source_list, *task_source_list, *cont_source_list;
 
 	g_return_val_if_fail (EXCHANGE_IS_HIERARCHY (hier), NULL);
 	g_return_val_if_fail (name != NULL, NULL);
@@ -137,7 +143,48 @@ e_folder_exchange_new (ExchangeHierarchy *hier, const char *name,
 	efe->priv->internal_uri = g_strdup (internal_uri);
 	efe->priv->path = e2k_uri_path (e_folder_get_physical_uri (ef));
 	efe->priv->outlook_class = g_strdup (outlook_class);
-
+	
+	/* Add ESources */
+	if (hier->type == EXCHANGE_HIERARCHY_PERSONAL) {
+	
+		if (strcmp (type,"calendar") == 0) {
+			cal_source_list = e_source_list_new_for_gconf ( 
+						gconf_client_get_default (), 
+						conf_key_cal);
+			add_esource (hier->account, 
+				     conf_key_cal, 
+				     name, 
+				     physical_uri, 
+				     &cal_source_list);
+			e_source_list_sync (cal_source_list, NULL);
+			g_object_unref (cal_source_list);
+		}
+		if(strcmp(type,"tasks") == 0) {
+			task_source_list = e_source_list_new_for_gconf ( 
+						gconf_client_get_default (), 
+						conf_key_tasks);
+			add_esource (hier->account, 
+				     conf_key_tasks, 
+				     name, 
+				     physical_uri, 
+				     &task_source_list);
+			e_source_list_sync (task_source_list, NULL);
+			g_object_unref (task_source_list);
+		}
+		if(strcmp(type,"contacts") == 0) {
+			cont_source_list = e_source_list_new_for_gconf ( 
+						gconf_client_get_default (), 
+						conf_key_contacts);
+			add_esource (hier->account, 
+				     conf_key_contacts, 
+				     name, 
+				     physical_uri, 
+				     &cont_source_list);
+			e_source_list_sync (cont_source_list, NULL);
+			g_object_unref (cont_source_list);
+		}
+	}
+	
 	return ef;
 }
 
@@ -759,6 +806,58 @@ e_folder_exchange_mkcol (EFolder *folder, E2kOperation *op,
 E2kHTTPStatus
 e_folder_exchange_delete (EFolder *folder, E2kOperation *op)
 {
+	ExchangeHierarchy *hier;
+	char *conf_key_cal="/apps/evolution/calendar/sources";
+	char *conf_key_tasks="/apps/evolution/tasks/sources";
+	char *conf_key_contacts="/apps/evolution/addressbook/sources";
+	ESourceList *cal_source_list, *task_source_list, *cont_source_list;
+	const char *folder_type, *physical_uri;
+
+	/* remove ESources */
+	hier = e_folder_exchange_get_hierarchy (folder); 
+
+	if (hier->type == EXCHANGE_HIERARCHY_PERSONAL) {
+		folder_type = e_folder_get_type_string (folder);
+		physical_uri = e_folder_get_physical_uri (folder);
+
+		if (strcmp (folder_type, "calendar") == 0) {
+			cal_source_list = e_source_list_new_for_gconf (
+						gconf_client_get_default (),
+						conf_key_cal);
+			remove_esource (hier->account, 
+					conf_key_cal,
+					physical_uri,
+					&cal_source_list,
+					FALSE);
+			e_source_list_sync (cal_source_list, NULL);
+			g_object_unref (cal_source_list);
+		}
+		if (strcmp (folder_type, "tasks") == 0) {
+			task_source_list = e_source_list_new_for_gconf (
+						gconf_client_get_default (),
+						conf_key_tasks);
+			remove_esource (hier->account,
+					conf_key_tasks,
+					physical_uri,
+					&task_source_list,
+					FALSE);
+			e_source_list_sync (task_source_list, NULL);
+			g_object_unref (task_source_list);
+		}
+		if(strcmp (folder_type, "contacts") == 0) {
+			cont_source_list = e_source_list_new_for_gconf (
+						gconf_client_get_default (),
+						conf_key_contacts);
+			remove_esource (hier->account,
+					conf_key_contacts,
+					physical_uri,
+					&cont_source_list,
+					FALSE);
+			e_source_list_sync (cont_source_list, NULL);
+			g_object_unref (cont_source_list);
+		}
+	}
+		
 	return e2k_context_delete (E_FOLDER_EXCHANGE_CONTEXT (folder), op,
 				   E_FOLDER_EXCHANGE_URI (folder));
 }

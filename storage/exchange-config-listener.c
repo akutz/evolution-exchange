@@ -39,6 +39,7 @@
 
 #include <libedataserver/e-source.h>
 #include <libedataserver/e-source-list.h>
+#include <libedataserver/e-source-group.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -438,7 +439,7 @@ is_active_exchange_account (EAccount *account)
 	return (strncmp (account->source->url, "exchange://", 11) == 0);
 }
 
-static void
+void
 add_esource (ExchangeAccount *account, 
 	     char *conf_key, 
 	     const char *folder_name, 
@@ -551,11 +552,12 @@ add_sources (ExchangeAccount *account)
         }
 }
 
-static void 
+void 
 remove_esource (ExchangeAccount *account, 
 		char *conf_key, 
 		const char *physical_uri,
-		ESourceList **source_list)
+		ESourceList **source_list,
+		gboolean is_account)
 {
 	ESourceGroup *group;
 	ESource *source;
@@ -563,6 +565,7 @@ remove_esource (ExchangeAccount *account,
 	GSList *sources;
 	gboolean found_group;
 	char *relative_uri;
+	const char *source_uid;
 
 	relative_uri = g_strdup (physical_uri + strlen ("exchange://"));
 	groups = e_source_list_peek_groups (*source_list);
@@ -583,7 +586,21 @@ remove_esource (ExchangeAccount *account,
 
 				if (strcmp (e_source_peek_relative_uri (source), 
 					    relative_uri) == 0) {
-					e_source_list_remove_group (*source_list, group);
+					if (is_account) {
+						/* Account Deleted - Remove the group */
+						e_source_list_remove_group (
+								*source_list, 
+								group);
+					}
+					else {
+						/* Folder Deleted - Remove only the source */
+						source_uid = 
+						e_source_peek_uid (source);
+						e_source_group_remove_source_by_uid (
+									group, 
+									source_uid);
+						
+					}
                                         found_group = TRUE;
                                         break;
                                 }
@@ -625,7 +642,8 @@ remove_sources(ExchangeAccount *account)
         			remove_esource (account, 
 						conf_key_cal, 
 						physical_uri,
-						&cal_source_list);
+						&cal_source_list,
+						TRUE);
 				continue;
 			}
 			if (!(strcmp (e_folder_get_type_string (folder), "tasks"))){
@@ -633,7 +651,8 @@ remove_sources(ExchangeAccount *account)
         			remove_esource (account, 
 						conf_key_tasks, 
 						physical_uri,
-						&task_source_list);
+						&task_source_list,
+						TRUE);
 				continue;
 			}
 			if (!(strcmp (e_folder_get_type_string (folder), "contacts"))){
@@ -641,7 +660,8 @@ remove_sources(ExchangeAccount *account)
         			remove_esource (account, 
 						conf_key_contacts, 
 						physical_uri,
-						&cont_source_list);
+						&cont_source_list,
+						TRUE);
 				continue;
 			}
 			continue;
