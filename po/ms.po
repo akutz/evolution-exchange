@@ -5,7 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ms-longgok\n"
-"POT-Creation-Date: 2004-08-27 22:58+0800\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-08-30 17:36-0400\n"
 "PO-Revision-Date: 2004-08-27 23:58+0730\n"
 "Last-Translator: Hasbullah Bin Pit <sebol@my-penguin.org>\n"
 "Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.net>\n"
@@ -14,20 +15,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: addressbook/e-book-backend-exchange.c:1655
-#: addressbook/e-book-backend-gal.c:1209
-#: storage/exchange-storage.c:135
+#: addressbook/e-book-backend-gal.c:1204 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Mencari..."
 
-#: addressbook/e-book-backend-gal.c:240
+#: addressbook/e-book-backend-gal.c:238
 msgid "Reconnecting to LDAP server..."
 msgstr "Menyambung semula ke pelayan LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1114
+#: addressbook/e-book-backend-gal.c:1110
 msgid "Receiving LDAP search results..."
 msgstr "Menerima hasil pencarian LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1230
+#: addressbook/e-book-backend-gal.c:1225
 msgid "Error performing search"
 msgstr "Ralat ketika mencari"
 
@@ -60,14 +60,17 @@ msgid "Copying messages"
 msgstr "Menyalin mesej"
 
 #: camel/camel-exchange-folder.c:878
+#, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Tak dapat mencipta direktori %s: %s"
 
 #: camel/camel-exchange-folder.c:888
+#, c-format
 msgid "Could not load summary for %s"
 msgstr "Tak boleh memuatkan ringkasan bagi %s"
 
 #: camel/camel-exchange-folder.c:896
+#, c-format
 msgid "Could not create cache for %s"
 msgstr "Tak dapat mencipta cache bagi %s"
 
@@ -156,7 +159,9 @@ msgstr "Katalaluan Selamat"
 
 #. i18n: "NTLM" probably doesn't translate
 #: camel/camel-exchange-provider.c:108
-msgid "This option will connect to the Exchange server using secure password (NTLM) authentication."
+msgid ""
+"This option will connect to the Exchange server using secure password (NTLM) "
+"authentication."
 msgstr ""
 
 #: camel/camel-exchange-provider.c:116
@@ -164,14 +169,18 @@ msgid "Plaintext Password"
 msgstr "Katalaluan Teks Jernih"
 
 #: camel/camel-exchange-provider.c:118
-msgid "This option will connect to the Exchange server using standard plaintext password authentication."
+msgid ""
+"This option will connect to the Exchange server using standard plaintext "
+"password authentication."
 msgstr ""
 
 #: camel/camel-exchange-store.c:178
+#, c-format
 msgid "Exchange server %s"
 msgstr "Pelayan Exchange %s"
 
 #: camel/camel-exchange-store.c:181
+#, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Akaun Exchanges bagi %s di %s"
 
@@ -192,10 +201,12 @@ msgid "Could not find 'From' address in message"
 msgstr "Tidak menjumpai alamat 'From' pada mesej"
 
 #: camel/camel-stub.c:133
+#, c-format
 msgid "Could not create socket: %s"
 msgstr "Tak dapat mencipta soket: %s"
 
 #: camel/camel-stub.c:148
+#, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Tidak dapat menyambung ke %s: %s"
 
@@ -205,6 +216,7 @@ msgid "Path too long: %s"
 msgstr "Laluan terlalu panjang: %s"
 
 #: camel/camel-stub.c:193
+#, c-format
 msgid "Could not start status thread: %s"
 msgstr "Tak dapat imemulakan bebenamg status: %s"
 
@@ -253,13 +265,11 @@ msgstr "Pelihat"
 msgid "Contributor"
 msgstr "Penyumbang"
 
-#: lib/e2k-security-descriptor.c:891
-#: storage/exchange-delegates.glade.h:7
+#: lib/e2k-security-descriptor.c:891 storage/exchange-delegates.glade.h:7
 msgid "None"
 msgstr "Tiada"
 
-#: lib/e2k-security-descriptor.c:906
-#: storage/exchange-delegates-user.c:144
+#: lib/e2k-security-descriptor.c:906 storage/exchange-delegates-user.c:144
 msgid "Custom"
 msgstr "Tersendiri"
 
@@ -275,12 +285,9 @@ msgstr "Buku alamat..."
 msgid "No such folder"
 msgstr "Tiada folder ini"
 
-#: mail/mail-stub-exchange.c:248
-#: mail/mail-stub-exchange.c:2299
-#: mail/mail-stub-exchange.c:2337
-#: mail/mail-stub-exchange.c:2397
-#: shell/e-storage.c:573
-#: storage/xc-commands.c:302
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
+#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
+#: shell/e-storage.c:573 storage/xc-commands.c:302
 msgid "Permission denied"
 msgstr "Keizinan dinafikan"
 
@@ -292,13 +299,11 @@ msgstr "Tiada folder sebegitu."
 msgid "Could not create folder."
 msgstr "Tak dapat mencipta folder."
 
-#: mail/mail-stub-exchange.c:601
-#: mail/mail-stub-exchange.c:619
+#: mail/mail-stub-exchange.c:601 mail/mail-stub-exchange.c:619
 msgid "Could not open folder: Permission denied"
 msgstr "Tak dapat membuka folder: Keizinan dinafikan"
 
-#: mail/mail-stub-exchange.c:605
-#: mail/mail-stub-exchange.c:718
+#: mail/mail-stub-exchange.c:605 mail/mail-stub-exchange.c:718
 msgid "Could not open folder"
 msgstr "Tak dapat membuka folder"
 
@@ -306,8 +311,7 @@ msgstr "Tak dapat membuka folder"
 msgid "Could not open Deleted Items folder"
 msgstr "Tak dapat membuka folder Deleted Items"
 
-#: mail/mail-stub-exchange.c:1085
-#: mail/mail-stub-exchange.c:1126
+#: mail/mail-stub-exchange.c:1085 mail/mail-stub-exchange.c:1126
 msgid "Could not get new messages"
 msgstr "Tidak dapat peroleh mesej baru"
 
@@ -376,32 +380,32 @@ msgstr ""
 msgid "Could not send message"
 msgstr "Tidak boleh tambah mesej"
 
-#: mail/mail-stub-exchange.c:2291
-#: mail/mail-stub-exchange.c:2342
-#: mail/mail-stub-exchange.c:2401
-#: shell/e-storage.c:557
+#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
+#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
 #: storage/xc-commands.c:306
 msgid "Generic error"
 msgstr "Ralat generik"
 
-#: mail/mail-stub-exchange.c:2295
-#: storage/xc-commands.c:296
+#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
 msgid "Folder already exists"
 msgstr "Folder tersedia ada"
 
-#: mail/mail-stub-exchange.c:2322
-#: mail/mail-stub-exchange.c:2364
+#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
 #: mail/mail-stub-exchange.c:2393
 msgid "Folder doesn't exist"
 msgstr "Folder tidak wujud"
 
 #: shell/e-folder-creation-dialog.c:138
+#, c-format
 msgid ""
 "Cannot create the specified folder:\n"
 "%s"
-msgstr "Tak dapat mencipta folderyang dinyatakan:\n%s"
+msgstr ""
+"Tak dapat mencipta folderyang dinyatakan:\n"
+"%s"
 
 #: shell/e-folder-creation-dialog.c:179
+#, c-format
 msgid "The specified folder name is not valid: %s"
 msgstr "Nama folder yang dinyatakan tidak sah: %s"
 
@@ -428,32 +432,44 @@ msgid "Specify where to create the folder:"
 msgstr "Nyatakan dimana untuk mencipta folder ini:"
 
 #: shell/e-folder-dnd-bridge.c:52
+#, c-format
 msgid ""
 "Cannot transfer folder:\n"
 "%s"
-msgstr "Tak dapat memindahkan folder:\n%s"
+msgstr ""
+"Tak dapat memindahkan folder:\n"
+"%s"
 
 #: shell/e-folder-misc-dialogs.c:62
+#, c-format
 msgid ""
 "Cannot delete folder:\n"
 "%s"
-msgstr "Tak dapat memadam folder:\n %s"
+msgstr ""
+"Tak dapat memadam folder:\n"
+" %s"
 
 #: shell/e-folder-misc-dialogs.c:115
+#, c-format
 msgid "Really delete folder \"%s\"?"
 msgstr "Benar-benar  memadam folder \"%s\" ?"
 
 #: shell/e-folder-misc-dialogs.c:129
+#, c-format
 msgid "Delete \"%s\""
 msgstr "Padam \"%s\""
 
 #: shell/e-folder-misc-dialogs.c:154
+#, c-format
 msgid ""
 "Cannot rename folder:\n"
 "%s"
-msgstr "Tidak dapat menukarnama folder:\n%s"
+msgstr ""
+"Tidak dapat menukarnama folder:\n"
+"%s"
 
 #: shell/e-folder-misc-dialogs.c:188
+#, c-format
 msgid "Rename the \"%s\" folder to:"
 msgstr "Tukarnama folder \"%s\" ke:"
 
@@ -462,6 +478,7 @@ msgid "Rename Folder"
 msgstr "Tukarnama Folder"
 
 #: shell/e-folder-misc-dialogs.c:205
+#, c-format
 msgid "A folder named \"%s\" already exists. Please use a different name."
 msgstr "Folder bernama  \"%s\" sudah ada. Sila guna nama lain."
 
@@ -477,14 +494,17 @@ msgid "Opening Folder"
 msgstr "Membuka Folder"
 
 #: shell/e-folder-misc-dialogs.c:566
+#, c-format
 msgid "Opening Folder \"%s\""
 msgstr "Membuka Folder \"%s\""
 
 #: shell/e-folder-misc-dialogs.c:571
+#, c-format
 msgid "in \"%s\" ..."
 msgstr "pada \"%s\" ..."
 
 #: shell/e-folder-misc-dialogs.c:638
+#, c-format
 msgid "Could not open other user's folder: %s."
 msgstr "Tak dapat membuka folder pengguna lain: %s."
 
@@ -493,16 +513,21 @@ msgid "Cannot find the specified other user's folder."
 msgstr "Tidak dapat mencari folder pengguna lain yang dinyatakan."
 
 #: shell/e-folder-misc-dialogs.c:720
+#, c-format
 msgid ""
 "Cannot unsubscribe from folder:\n"
 "%s"
-msgstr "Tak dapat nyahlanggan drpd folder:\n%s"
+msgstr ""
+"Tak dapat nyahlanggan drpd folder:\n"
+"%s"
 
 #: shell/e-folder-misc-dialogs.c:773
+#, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "Benar-benar nyahlanggan drpd folder \"%s\" ?"
 
 #: shell/e-folder-misc-dialogs.c:787
+#, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "Nyahlanggan daripada \"%s\""
 
@@ -586,8 +611,7 @@ msgstr "Tidak boleh mencipta folder dengan nama sebegitu"
 msgid "This operation cannot be performed in off-line mode"
 msgstr ""
 
-#: shell/e-storage.c:587
-#: storage/exchange-account.c:1071
+#: shell/e-storage.c:587 storage/exchange-account.c:1103
 msgid "Unknown error"
 msgstr "Ralat tidak diketahui"
 
@@ -623,40 +647,42 @@ msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:516
+#: storage/exchange-account.c:548
+#, c-format
 msgid "%s's Folders"
 msgstr "Folder %s"
 
-#: storage/exchange-account.c:797
+#: storage/exchange-account.c:829
+#, c-format
 msgid "%sEnter password for %s"
 msgstr "%sMasukkan katalaluan bagi %s"
 
-#: storage/exchange-account.c:801
+#: storage/exchange-account.c:833
 msgid "Enter password"
 msgstr "Masukkan katalaluan"
 
-#: storage/exchange-account.c:876
+#: storage/exchange-account.c:908
 #, fuzzy
 msgid "Cannot change password due to configuration problems"
 msgstr "Tidak boleh tetap semula fail konfigurasi"
 
-#: storage/exchange-account.c:891
+#: storage/exchange-account.c:923
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
 msgstr ""
 
-#: storage/exchange-account.c:896
+#: storage/exchange-account.c:928
 msgid "Could not change password"
 msgstr "Tak dapat menukar katalaluan"
 
-#: storage/exchange-account.c:982
+#: storage/exchange-account.c:1014
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
 msgstr ""
 
-#: storage/exchange-account.c:987
+#: storage/exchange-account.c:1019
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -668,7 +694,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: storage/exchange-account.c:998
+#: storage/exchange-account.c:1030
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -678,19 +704,19 @@ msgid ""
 "\n"
 msgstr ""
 
-#: storage/exchange-account.c:1029
+#: storage/exchange-account.c:1061
 #, fuzzy, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Warna untuk pengguna tiada dalam roster"
 
-#: storage/exchange-account.c:1034
+#: storage/exchange-account.c:1066
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
 "therefore not compatible with Ximian Connector"
 msgstr ""
 
-#: storage/exchange-account.c:1041
+#: storage/exchange-account.c:1073
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -698,43 +724,42 @@ msgid ""
 "account configuration dialog."
 msgstr ""
 
-#: storage/exchange-account.c:1049
+#: storage/exchange-account.c:1081
 #, fuzzy, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Nama mailbox teruk untuk penapis : %s"
 
-#: storage/exchange-account.c:1055
-#: storage/exchange-account.c:1061
-#: storage/exchange-account.c:1069
+#: storage/exchange-account.c:1087 storage/exchange-account.c:1093
+#: storage/exchange-account.c:1101
 #, fuzzy, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Tak dapat menyambung ke pelayan FTP: %s"
 
-#: storage/exchange-account.c:1057
+#: storage/exchange-account.c:1089
 #, fuzzy
 msgid "Could not resolve hostname"
 msgstr "Tak dapat lookup namahos."
 
-#: storage/exchange-account.c:1063
+#: storage/exchange-account.c:1095
 msgid "Network error"
 msgstr "Ralat rangkaian"
 
-#: storage/exchange-account.c:1115
+#: storage/exchange-account.c:1147
 msgid "Personal Folders"
 msgstr "Folder Peribadi"
 
-#: storage/exchange-account.c:1130
+#: storage/exchange-account.c:1162
 #, fuzzy
 msgid "Favorite Public Folders"
 msgstr "Aplikasi Kegemaran"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1147
+#: storage/exchange-account.c:1179
 msgid "All Public Folders"
 msgstr "Semua Folder Awam"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1161
+#: storage/exchange-account.c:1193
 msgid "Global Address List"
 msgstr "Senarai Alamat Global"
 
@@ -763,7 +788,8 @@ msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again.\n"
 "\n"
-"You may need to specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
+"You may need to specify the Windows domain name as part of your username "
+"(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
 
 #: storage/exchange-autoconfig-wizard.c:260
@@ -778,22 +804,33 @@ msgstr ""
 
 #: storage/exchange-autoconfig-wizard.c:267
 msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange Server that appears to be disabled or blocked.  (This is usually unintentional.)  Your Exchange Administrator will need to enable this functionality in order for you to be able to use Ximian Connector.\n"
+"Ximian Connector requires access to certain functionality on the Exchange "
+"Server that appears to be disabled or blocked.  (This is usually "
+"unintentional.)  Your Exchange Administrator will need to enable this "
+"functionality in order for you to be able to use Ximian Connector.\n"
 "\n"
-"For information to provide to your Exchange administrator, please follow the link below:"
+"For information to provide to your Exchange administrator, please follow the "
+"link below:"
 msgstr ""
 
 #: storage/exchange-autoconfig-wizard.c:288
-msgid "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian Connector supports Microsoft Exchange 2000 and 2003 only."
+msgid ""
+"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
+"Connector supports Microsoft Exchange 2000 and 2003 only."
 msgstr ""
 
 #: storage/exchange-autoconfig-wizard.c:301
-msgid "Could not configure Exchange account because an unknown error occurred. Check the URL, username, and password, and try again."
+msgid ""
+"Could not configure Exchange account because an unknown error occurred. "
+"Check the URL, username, and password, and try again."
 msgstr ""
 
 #: storage/exchange-autoconfig-wizard.c:345
 #, c-format
-msgid "Could not authenticate to the Global Catalog server. You may need to go back and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
+msgid ""
+"Could not authenticate to the Global Catalog server. You may need to go back "
+"and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
+"\\%s\")."
 msgstr ""
 
 #: storage/exchange-autoconfig-wizard.c:352
@@ -884,36 +921,49 @@ msgstr "Konfigurasi Monitor"
 
 #: storage/exchange-autoconfig-wizard.glade.h:20
 msgid ""
-"Ximian Connector can use account information from your existing Outlook Web Access (OWA) account.\n"
+"Ximian Connector can use account information from your existing Outlook Web "
+"Access (OWA) account.\n"
 "\n"
-"Enter your OWA site address (URL), username, and password, then click \"Forward\".\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
 msgstr ""
 
 #: storage/exchange-autoconfig-wizard.glade.h:24
-msgid "Ximian Connector could not find the Global Catalog replica for your site. Please enter the name of your Global Catalog server. You may need to ask your system administrator for the correct value.\n"
+msgid ""
+"Ximian Connector could not find the Global Catalog replica for your site. "
+"Please enter the name of your Global Catalog server. You may need to ask "
+"your system administrator for the correct value.\n"
 msgstr ""
 
 #: storage/exchange-autoconfig-wizard.glade.h:26
-msgid "Ximian Connector has encountered a problem configuring your Exchange account.\n"
+msgid ""
+"Ximian Connector has encountered a problem configuring your Exchange "
+"account.\n"
 msgstr ""
 
 #: storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
-"Your Connector account is now ready to use. Click the \"Apply\" button to save your\n"
+"Your Connector account is now ready to use. Click the \"Apply\" button to "
+"save your\n"
 "settings."
 msgstr ""
 
 #: storage/exchange-autoconfig-wizard.glade.h:30
-msgid "Your account information is as follows. Please correct any errors, then click \"Forward\".\n"
+msgid ""
+"Your account information is as follows. Please correct any errors, then "
+"click \"Forward\".\n"
 msgstr ""
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
 #: storage/exchange-change-password.c:114
-msgid "The current password does not match the existing password for your account. Please enter the correct password"
+msgid ""
+"The current password does not match the existing password for your account. "
+"Please enter the correct password"
 msgstr ""
 
+#: storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr "Dua katalaluan itu tidak sepadan. Sila masukkan semula katalaluan."
 
@@ -935,24 +985,22 @@ msgstr "Katalaluan Baru:"
 
 #: storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
-msgstr "Katalaluan semasa anda telah luput. Sila tukar katalaluan anda sekarang-"
+msgstr ""
+"Katalaluan semasa anda telah luput. Sila tukar katalaluan anda sekarang-"
 
 #: storage/exchange-component.c:308
 msgid "Mail"
 msgstr "Mel"
 
-#: storage/exchange-component.c:311
-#: storage/exchange-hierarchy-foreign.c:250
+#: storage/exchange-component.c:311 storage/exchange-hierarchy-foreign.c:250
 msgid "Contacts"
 msgstr "Kenalan"
 
-#: storage/exchange-component.c:315
-#: storage/exchange-hierarchy-foreign.c:258
+#: storage/exchange-component.c:315 storage/exchange-hierarchy-foreign.c:258
 msgid "Tasks"
 msgstr "Tugas"
 
-#: storage/exchange-component.c:318
-#: storage/exchange-hierarchy-foreign.c:249
+#: storage/exchange-component.c:318 storage/exchange-hierarchy-foreign.c:249
 msgid "Calendar"
 msgstr "Kalendar"
 
@@ -1058,8 +1106,7 @@ msgid ""
 "%s"
 msgstr "Gagal dapat memadam \"%s\": %s"
 
-#: storage/exchange-delegates.c:938
-#: storage/exchange-permissions-dialog.c:706
+#: storage/exchange-delegates.c:938 storage/exchange-permissions-dialog.c:706
 msgid "Name"
 msgstr "Nama"
 
@@ -1173,7 +1220,8 @@ msgstr "Melakukan perubahan..."
 #: storage/exchange-migrate.c:65
 #, c-format
 msgid ""
-"The location and hierarchy of the Evolution exchange account folders are changed since Evolution %d.%d.%d.\n"
+"The location and hierarchy of the Evolution exchange account folders are "
+"changed since Evolution %d.%d.%d.\n"
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
@@ -1181,8 +1229,10 @@ msgstr ""
 #: storage/exchange-migrate.c:98
 #, c-format
 msgid ""
-"Warning: Evolution Could not migrate all the Exchange account data from the version %d.%d.%d. \n"
-"The data hasn't been deleted, but will not be seen by this version of Evolution"
+"Warning: Evolution Could not migrate all the Exchange account data from the "
+"version %d.%d.%d. \n"
+"The data hasn't been deleted, but will not be seen by this version of "
+"Evolution"
 msgstr ""
 
 #: storage/exchange-migrate.c:129
@@ -1190,8 +1240,7 @@ msgstr ""
 msgid "Migrating `%s':"
 msgstr "Memigrasi  '%s'"
 
-#: storage/exchange-oof.c:91
-#: storage/exchange-oof.c:290
+#: storage/exchange-oof.c:91 storage/exchange-oof.c:290
 #, fuzzy
 msgid "Could not update out-of-office state"
 msgstr "Tak dapat menghantar fail pada %s"
@@ -1218,7 +1267,8 @@ msgstr "<b>Status:</b>"
 
 #: storage/exchange-oof.glade.h:6
 msgid ""
-"<small>The message specified below will be automatically sent to each person who sends\n"
+"<small>The message specified below will be automatically sent to each person "
+"who sends\n"
 "mail to you while you are out of the office.</small>"
 msgstr ""
 
@@ -1251,6 +1301,7 @@ msgid "Could not update folder permissions."
 msgstr "Tak dapat mengemaskini keizinan folder."
 
 #: storage/exchange-permissions-dialog.c:293
+#, c-format
 msgid "Could not update folder permissions. %s"
 msgstr "Tak dapat mengemaskini keizinan folder. %s"
 
@@ -1275,19 +1326,22 @@ msgid "Add User"
 msgstr "Tambah Pengguna"
 
 #: storage/exchange-permissions-dialog.c:421
+#, c-format
 msgid "No such user %s"
 msgstr "Tiada pengguna sebegitu %s"
 
 #: storage/exchange-permissions-dialog.c:425
+#, c-format
 msgid "%s cannot be added to an access control list"
 msgstr "Pengguna %s tidak dapat ditambah ke senarai kawalan akses"
 
 #: storage/exchange-permissions-dialog.c:430
+#, c-format
 msgid "Unknown error looking up %s"
-msgstr ""
-"Ralat tidak diketahui mencari %s"
+msgstr "Ralat tidak diketahui mencari %s"
 
 #: storage/exchange-permissions-dialog.c:447
+#, c-format
 msgid "%s is already in the list"
 msgstr "%s tersedia ada dalam senarai"
 
@@ -1374,6 +1428,7 @@ msgid "Folder does not exist"
 msgstr "Folder tidak wujud"
 
 #: storage/xc-commands.c:322
+#, c-format
 msgid "Could not add favorite: %s"
 msgstr "Tak dapat menambah kegemaran: %s "
 
@@ -1442,7 +1497,8 @@ msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr ""
 
 #: storage/ximian-connector.xml.h:4
-msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgid ""
+"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
 
 #: storage/ximian-connector.xml.h:5
@@ -1469,4 +1525,3 @@ msgstr ""
 #: storage/ximian-connector.xml.h:10
 msgid "_Unsubscribe from Other User's Folder"
 msgstr ""
-
