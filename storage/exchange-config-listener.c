@@ -534,9 +534,9 @@ add_sources (ExchangeAccount *account)
 					     FALSE);
 				continue;
 			}
-			if (!(strcmp (folder_type, "tasks")) ||
-			    !(strcmp (folder_type, "tasks/public"))) {
-        			add_esource (account, 
+			else if (!(strcmp (folder_type, "tasks")) ||
+			    	 !(strcmp (folder_type, "tasks/public"))) {
+        				add_esource (account, 
 					     conf_key_tasks, 
 					     folder_name, 
 					     physical_uri,
@@ -544,10 +544,10 @@ add_sources (ExchangeAccount *account)
 					     FALSE);
 				continue;
 			}
-			if (!(strcmp (folder_type, "contacts")) ||
-			    !(strcmp (folder_type, "contacts/public")) ||
-			    !(strcmp (folder_type, "contacts/ldap"))) {
-        			add_esource (account, 
+			else if (!(strcmp (folder_type, "contacts")) ||
+			    	 !(strcmp (folder_type, "contacts/public")) ||
+			    	 !(strcmp (folder_type, "contacts/ldap"))) {
+					add_esource (account, 
 					     conf_key_contacts, 
 					     folder_name, 
 					     physical_uri,
@@ -601,10 +601,11 @@ remove_esource (ExchangeAccount *account,
 
 				source = E_SOURCE (sources->data);
 
-				if (((relative_uri &&
+				if (((!is_contact_folder &&
 				      strcmp (e_source_peek_relative_uri (source),
 					      relative_uri) == 0)) ||
-				      (strcmp (e_source_peek_absolute_uri (source),
+				      (is_contact_folder && 
+				       strcmp (e_source_peek_absolute_uri (source),
 					      physical_uri) == 0)) {
 					if (is_account) {
 						/* Account Deleted - Remove the group */
@@ -669,19 +670,19 @@ remove_sources(ExchangeAccount *account)
 						TRUE, FALSE);
 				continue;
 			}
-			if (!strcmp (folder_type, "tasks") || 
-			    !strcmp (folder_type, "tasks/public")) {
-        			remove_esource (account, 
+			else if (!strcmp (folder_type, "tasks") || 
+			         !strcmp (folder_type, "tasks/public")) {
+        				remove_esource (account, 
 						conf_key_tasks, 
 						physical_uri,
 						&task_source_list,
 						TRUE, FALSE);
 				continue;
 			}
-			if (!strcmp (folder_type, "contacts") ||
-			    !strcmp (folder_type, "contacts/public") |
-			    !strcmp (folder_type, "contacts/ldap")) {
-        			remove_esource (account, 
+			else if (!strcmp (folder_type, "contacts") ||
+			         !strcmp (folder_type, "contacts/public") |
+			         !strcmp (folder_type, "contacts/ldap")) {
+        				remove_esource (account, 
 						conf_key_contacts, 
 						physical_uri,
 						&cont_source_list,
