@@ -92,10 +92,15 @@ do_folder_size_menu (BonoboUIComponent *component, gpointer user_data,
 	  const char *cname)
 {
 	XCBackendView *view = user_data;
+	//EStorageSetView *storage_set_view;
+	EFolder *folder = xc_backend_view_get_selected_folder (view);
 
-	//exchange_folder_size (xc_backend_view_get_selected_account (view),
-			    //widget_for_view (view));
-	e_notice (widget_for_view (view), GTK_MESSAGE_ERROR, "FIXME (do_folder_size_menu)\n Right click a folder to view the sizes\n");
+	if (!folder)
+		/* FIXME : e_notice (_("Select a folder to view the sizes\n")); */
+		return;
+
+	//storage_set_view = xc_backend_view_get_storage_set_view (view);
+	exchange_folder_size_display (folder, widget_for_view (view));
 }
 
 static void
