@@ -1,5 +1,10 @@
 2004-05-26  Rodney Dawes  <dobey@novell.com>
 
+	* configure.in (BASE_VERSION): Revert to previous change as using
+	AC_PACKAGE_VERSION here doesn't actually work with autotools *grmbls*
+
+2004-05-26  Rodney Dawes  <dobey@novell.com>
+
 	* configure.in (BASE_VERSION): Use $AC_PACKAGE_VERSION instead of
 	$VERSION, so that intltool-update may substitute it properly
 
