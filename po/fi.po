@@ -1,0 +1,1521 @@
+# Finnish messages for evolution-exchange.
+# Copyright (C) 2004 Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# Ilkka Tuohela <hile@iki.fi> 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: evolution-exchange\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-08-18 11:26+0300\n"
+"PO-Revision-Date: 2004-08-18 11:28+0300\n"
+"Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
+"Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: addressbook/e-book-backend-exchange.c:1655
+#: addressbook/e-book-backend-gal.c:1184 storage/exchange-storage.c:135
+msgid "Searching..."
+msgstr "Haetaan..."
+
+#: addressbook/e-book-backend-gal.c:240
+msgid "Reconnecting to LDAP server..."
+msgstr "Yhdistetään uudestaan LDAP-palvelimelle..."
+
+#: addressbook/e-book-backend-gal.c:1099
+msgid "Receiving LDAP search results..."
+msgstr "Vastaanotetaan LDAP hakutuloksia"
+
+#: addressbook/e-book-backend-gal.c:1205
+msgid "Error performing search"
+msgstr "Virhe suoritettaessa hakua"
+
+#: calendar/e-cal-backend-exchange-calendar.c:1351
+#, c-format
+msgid ""
+"Unable to schedule resource '%s' for recurring meetings.\n"
+"You must book each meeting separately."
+msgstr ""
+
+#: calendar/e-cal-backend-exchange-calendar.c:1370
+#, c-format
+msgid "The resource '%s' is busy during the selected time period."
+msgstr ""
+
+#: camel/camel-exchange-folder.c:219
+msgid "Can only expunge in Deleted Items folder"
+msgstr "Poistetut voidaan tyhjentää vain kansiosta Poistetut viestit"
+
+#: camel/camel-exchange-folder.c:243
+msgid "No Subject"
+msgstr "Aihe puuttuu"
+
+#: camel/camel-exchange-folder.c:632
+msgid "Moving messages"
+msgstr "Siirretään viestejä"
+
+#: camel/camel-exchange-folder.c:633
+msgid "Copying messages"
+msgstr "Kopioidaan viestejä"
+
+#: camel/camel-exchange-folder.c:876
+#, c-format
+msgid "Could not create directory %s: %s"
+msgstr "Hakemistoa %s ei voitu luoda: %s"
+
+#: camel/camel-exchange-folder.c:886
+#, c-format
+msgid "Could not load summary for %s"
+msgstr "Yhteenvetoa kohteesta %s ei voitu ladata"
+
+#: camel/camel-exchange-folder.c:894
+#, c-format
+msgid "Could not create cache for %s"
+msgstr "Välimuistia ei voitu luoda %s:lle"
+
+#: camel/camel-exchange-folder.c:934
+msgid "Scanning for changed messages"
+msgstr "Etsitään muuttuneita viestejä"
+
+#: camel/camel-exchange-folder.c:958
+msgid "Fetching summary information for new messages"
+msgstr "Haetaan yhteenvetoa muuttuneista viesteistä"
+
+#. i18n: the '_' should appear before the same letter it
+#. does in the evolution:mail-config.glade "_Host"
+#. translation (or not at all)
+#: camel/camel-exchange-provider.c:43
+msgid "Exc_hange Server:"
+msgstr "Exc_hange-palvelin:"
+
+#. i18n: the '_' should appear before the same letter it
+#. does in the evolution:mail-config.glade "User_name"
+#. translation (or not at all)
+#: camel/camel-exchange-provider.c:48
+msgid "Windows User_name:"
+msgstr "Windows-käyttäjän _nimi:"
+
+#. i18n: GAL is an Outlookism, AD is a Windowsism
+#: camel/camel-exchange-provider.c:53
+msgid "Global Address List / Active Directory"
+msgstr "Yhteinen osoitekirja / Active Directory"
+
+#. i18n: "Global Catalog" is a Windowsism, but it's a
+#. technical term and may not have translations?
+#: camel/camel-exchange-provider.c:57
+msgid "Global Catalog server name:"
+msgstr "Yhteisen luettelopalvelimen nimi:"
+
+#: camel/camel-exchange-provider.c:59
+#, c-format
+msgid "Limit number of GAL responses: %s"
+msgstr "Rajaa GAL-vastausten määrää: %s"
+
+#: camel/camel-exchange-provider.c:62
+msgid "Exchange Server"
+msgstr "Exchange-palvelin"
+
+#. i18n: "Mailbox" is an Outlookism. FIXME
+#: camel/camel-exchange-provider.c:65
+msgid "Mailbox name"
+msgstr "Postilaatikon nimi"
+
+#. i18n: "OWA" == "Outlook Web Access". Might not be translated?
+#: camel/camel-exchange-provider.c:68
+msgid "OWA path"
+msgstr "OWA-polku"
+
+#. i18n: "Public Folder" is an Outlookism
+#: camel/camel-exchange-provider.c:71
+msgid "Public Folder server"
+msgstr "Julkisten kansioiden palvelin"
+
+#. i18n: copy from evolution:camel-imap-provider.c
+#: camel/camel-exchange-provider.c:75
+msgid "Apply filters to new messages in Inbox on this server"
+msgstr ""
+"Käytä suodattimia uusille viesteille saapuvien kansiossa tällä palvelimella"
+
+#: camel/camel-exchange-provider.c:77
+msgid "Check new messages for Junk contents"
+msgstr "Etsi roskapostia uusista viesteistä"
+
+#: camel/camel-exchange-provider.c:79
+msgid "Only check for Junk messages in the Inbox folder"
+msgstr "Etsi roskapostia vain saapuvien viestien kansiosta"
+
+#: camel/camel-exchange-provider.c:85
+msgid "Microsoft Exchange"
+msgstr "Microsoft Exchange"
+
+#: camel/camel-exchange-provider.c:87
+msgid "For handling mail (and other data) on Microsoft Exchange servers"
+msgstr "Sähköpostin ja muun tiedon käsittelyyn Microsoft Exchange-palvelimilla"
+
+#. i18n: "Secure Password Authentication" is an Outlookism
+#: camel/camel-exchange-provider.c:105
+msgid "Secure Password"
+msgstr "Suojattu salasana"
+
+#. i18n: "NTLM" probably doesn't translate
+#: camel/camel-exchange-provider.c:108
+msgid ""
+"This option will connect to the Exchange server using secure password (NTLM) "
+"authentication."
+msgstr ""
+"Tämän ollessa valittu otetaan yhteyttä Exchange-palvelimelle käyttäen "
+"suojattua salasanatunnistusta (NTLM)."
+
+#: camel/camel-exchange-provider.c:116
+msgid "Plaintext Password"
+msgstr "Selväkielinen salasana"
+
+#: camel/camel-exchange-provider.c:118
+msgid ""
+"This option will connect to the Exchange server using standard plaintext "
+"password authentication."
+msgstr ""
+"Tämän ollessa valittu otetaan yhteyttä Exchange-palvelimelle käyttäen "
+"tavallista selväkielistä salasanatunnistusta."
+
+#: camel/camel-exchange-store.c:178
+#, c-format
+msgid "Exchange server %s"
+msgstr "Exchange-palvelin %s"
+
+#: camel/camel-exchange-store.c:181
+#, c-format
+msgid "Exchange account for %s on %s"
+msgstr "Exchange-tili käyttäjälle %s palvelimella %s"
+
+#: camel/camel-exchange-store.c:208
+msgid "Evolution Exchange backend process"
+msgstr "Evolutionin Exchange taustaprosessi"
+
+#: camel/camel-exchange-transport.c:109
+msgid "Exchange transport can only be used with Exchange mail source"
+msgstr ""
+"Exchange-tiedonvälitystä voidaan käyttää vain Exchange sähköpostin kanssa"
+
+#: camel/camel-exchange-transport.c:120
+msgid "Cannot send message: one or more invalid recipients"
+msgstr ""
+"Viestiä ei voida lähettää: yksi tai useampia virheellisiä vastaanottajia"
+
+#: camel/camel-exchange-transport.c:130
+msgid "Could not find 'From' address in message"
+msgstr "Viesti ei sisältänyt lähettäjän osoitetta (otsase 'From')"
+
+#: camel/camel-stub.c:133
+#, c-format
+msgid "Could not create socket: %s"
+msgstr "Pistoketta ei voitu luoda: %s"
+
+#: camel/camel-stub.c:148
+#, c-format
+msgid "Could not connect to %s: %s"
+msgstr "Yhteydenotto kohteeseen %s epäonnistui: %s"
+
+#: camel/camel-stub.c:167
+#, c-format
+msgid "Path too long: %s"
+msgstr "Polku on liian pitkä: %s"
+
+#: camel/camel-stub.c:193
+#, c-format
+msgid "Could not start status thread: %s"
+msgstr "Tilan tarkkailun säiettä ei voitu käynnistää: %s"
+
+#: camel/camel-stub.c:445
+#, c-format
+msgid "Lost connection to %s"
+msgstr "Yhteys kohteeseen %s menetettiin"
+
+#: camel/camel-stub.c:449
+#, c-format
+msgid "Error communicating with %s: %s"
+msgstr "Virhe kommunikoitaessa kohteeseen %s: %s"
+
+#. i18n: These are Outlook's words for the default roles in
+#. the folder permissions dialog.
+#: lib/e2k-security-descriptor.c:847
+msgid "Owner"
+msgstr "Omistaja"
+
+#: lib/e2k-security-descriptor.c:857
+msgid "Publishing Editor"
+msgstr "Julkaiseva muokkaaja"
+
+#: lib/e2k-security-descriptor.c:865
+msgid "Editor"
+msgstr "Julkaisija"
+
+#: lib/e2k-security-descriptor.c:872
+msgid "Publishing Author"
+msgstr "Julkaiseva kirjoittaja"
+
+#: lib/e2k-security-descriptor.c:878
+msgid "Author"
+msgstr "Kirjoittaja"
+
+#: lib/e2k-security-descriptor.c:883
+msgid "Non-editing Author"
+msgstr "Muokkaamaton kirjoittaja"
+
+#: lib/e2k-security-descriptor.c:887
+msgid "Reviewer"
+msgstr "Tarkastaja"
+
+#: lib/e2k-security-descriptor.c:889
+msgid "Contributor"
+msgstr "Avustaja"
+
+#: lib/e2k-security-descriptor.c:891 storage/exchange-delegates.glade.h:7
+msgid "None"
+msgstr "Ei mitään"
+
+#: lib/e2k-security-descriptor.c:906 storage/exchange-delegates-user.c:144
+msgid "Custom"
+msgstr "Itse määritelty"
+
+#: lib/e2k-user-dialog.c:148
+msgid "Select User"
+msgstr "Valitse käyttäjä"
+
+#: lib/e2k-user-dialog.c:198
+msgid "Addressbook..."
+msgstr "Osoitekirja..."
+
+#: mail/mail-stub-exchange.c:231
+msgid "No such folder"
+msgstr "Kansiota ei ole olemassa"
+
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2290
+#: mail/mail-stub-exchange.c:2328 mail/mail-stub-exchange.c:2388
+#: shell/e-storage.c:573 storage/xc-commands.c:302
+msgid "Permission denied"
+msgstr "Lupa evätty"
+
+#: mail/mail-stub-exchange.c:546
+msgid "No such folder."
+msgstr "Kansiota ei ole olemassa."
+
+#: mail/mail-stub-exchange.c:555
+msgid "Could not create folder."
+msgstr "Kansiota ei voitu luoda."
+
+#: mail/mail-stub-exchange.c:601 mail/mail-stub-exchange.c:619
+msgid "Could not open folder: Permission denied"
+msgstr "Kansiota ei voitu avata: lupa evätty"
+
+#: mail/mail-stub-exchange.c:605 mail/mail-stub-exchange.c:718
+msgid "Could not open folder"
+msgstr "Kansiota ei voitu avata"
+
+#: mail/mail-stub-exchange.c:772
+msgid "Could not open Deleted Items folder"
+msgstr "Poistettujen viestien kansiota ei voida avata"
+
+#: mail/mail-stub-exchange.c:1085 mail/mail-stub-exchange.c:1126
+msgid "Could not get new messages"
+msgstr "Uusia viestejä ei voitu hakea"
+
+#: mail/mail-stub-exchange.c:1291
+msgid "Could not empty Deleted Items folder"
+msgstr "Poistettujen viestien kansiota ei voitu tyhjentää"
+
+#: mail/mail-stub-exchange.c:1363
+msgid "Could not append message; mailbox is over quota"
+msgstr "Viestiä ei voitu lisätä; postilaatikolle sallittu tila on käytetty"
+
+#: mail/mail-stub-exchange.c:1364
+msgid "Could not append message"
+msgstr "Viestiä ei voitu liittää"
+
+#: mail/mail-stub-exchange.c:1847
+msgid "No such message"
+msgstr "Viestiä ei löydy"
+
+#: mail/mail-stub-exchange.c:1900
+msgid "Message has been deleted"
+msgstr "Viesti on poistettu"
+
+#: mail/mail-stub-exchange.c:1902
+msgid "Error retrieving message"
+msgstr "Virhe haettaessa viestiä"
+
+#: mail/mail-stub-exchange.c:1944
+msgid "Mailbox does not support full-text searching"
+msgstr "Postilaatikko ei tue koko tekstin hakuja"
+
+#: mail/mail-stub-exchange.c:2042
+msgid "Unable to move/copy messages"
+msgstr "Viestejä ei voida siirtää tai kopioida"
+
+#: mail/mail-stub-exchange.c:2204
+msgid "No mail submission URI for this mailbox"
+msgstr "Sähköpostin lähetyksen URIa ei ole määritelty tälle postilaatikolle"
+
+#: mail/mail-stub-exchange.c:2241
+msgid "Server won't accept mail via Exchange transport"
+msgstr "Palvelin ei hyväksy sähköpostia Exchange sähköpostinvälityksen kautta"
+
+#: mail/mail-stub-exchange.c:2243
+#, c-format
+msgid ""
+"Your account does not have permission to use <%s>\n"
+"as a From address."
+msgstr ""
+"Tilisi ei saa käyttää osoitetta <%s>\n"
+"lähettäjän osoitteena."
+
+#: mail/mail-stub-exchange.c:2255
+msgid ""
+"Could not send message.\n"
+"This might mean that your account is over quota."
+msgstr ""
+"Viestiä ei voitu lähettä.\n"
+"Tämä voi tarkoittaa, että sähköpostitilisi levytila on loppu."
+
+#: mail/mail-stub-exchange.c:2259
+msgid "Could not send message"
+msgstr "Viestiä ei voitu lähettää"
+
+#: mail/mail-stub-exchange.c:2282 mail/mail-stub-exchange.c:2333
+#: mail/mail-stub-exchange.c:2392 shell/e-storage.c:557
+#: storage/xc-commands.c:306
+msgid "Generic error"
+msgstr "Yleinen virhe"
+
+#: mail/mail-stub-exchange.c:2286 storage/xc-commands.c:296
+msgid "Folder already exists"
+msgstr "Kansio on jo olemassa"
+
+#: mail/mail-stub-exchange.c:2313 mail/mail-stub-exchange.c:2355
+#: mail/mail-stub-exchange.c:2384
+msgid "Folder doesn't exist"
+msgstr "Kansiota ei ole olemassa"
+
+#: shell/e-folder-creation-dialog.c:138
+#, c-format
+msgid ""
+"Cannot create the specified folder:\n"
+"%s"
+msgstr ""
+"Annettua kansiota ei voida luoda:\n"
+"%s"
+
+#: shell/e-folder-creation-dialog.c:179
+#, c-format
+msgid "The specified folder name is not valid: %s"
+msgstr "Annettu kansion nimi ei ole kelvollinen: %s"
+
+#: shell/e-folder-creation-dialog.c:310
+msgid "Create New Folder"
+msgstr "Luo uusi kansio"
+
+#: shell/e-folder-creation-dialog.glade.h:1
+#: storage/exchange-autoconfig-wizard.glade.h:1
+#: storage/exchange-change-password.glade.h:1
+msgid "*"
+msgstr "*"
+
+#: shell/e-folder-creation-dialog.glade.h:2
+msgid "Folder _name:"
+msgstr "Kansion _nimi:"
+
+#: shell/e-folder-creation-dialog.glade.h:3
+msgid "Folder _type:"
+msgstr "Kansion _tyyppi:"
+
+#: shell/e-folder-creation-dialog.glade.h:4
+msgid "Specify where to create the folder:"
+msgstr "Määrittele mihin kansio luodaan:"
+
+#: shell/e-folder-dnd-bridge.c:52
+#, c-format
+msgid ""
+"Cannot transfer folder:\n"
+"%s"
+msgstr ""
+"Kansiota ei voida siirtää:\n"
+"%s"
+
+#: shell/e-folder-misc-dialogs.c:62
+#, c-format
+msgid ""
+"Cannot delete folder:\n"
+"%s"
+msgstr ""
+"Kansiota ei voida poistaa:\n"
+"%s"
+
+#: shell/e-folder-misc-dialogs.c:115
+#, c-format
+msgid "Really delete folder \"%s\"?"
+msgstr "Poistetaanko todella kansio \"%s\"?"
+
+#: shell/e-folder-misc-dialogs.c:129
+#, c-format
+msgid "Delete \"%s\""
+msgstr "Poista \"%s\""
+
+#: shell/e-folder-misc-dialogs.c:154
+#, c-format
+msgid ""
+"Cannot rename folder:\n"
+"%s"
+msgstr ""
+"Kansiota ei voida nimetä uudelleen:\n"
+"%s"
+
+#: shell/e-folder-misc-dialogs.c:188
+#, c-format
+msgid "Rename the \"%s\" folder to:"
+msgstr "Kansion \"%s\" uusi nimi:"
+
+#: shell/e-folder-misc-dialogs.c:191
+msgid "Rename Folder"
+msgstr "Nimeä kansio uudelleen"
+
+#: shell/e-folder-misc-dialogs.c:205
+#, c-format
+msgid "A folder named \"%s\" already exists. Please use a different name."
+msgstr "Kansio \"%s\" on jo olemassa. Valitse toinen nimi."
+
+#. It would be nice to insensitivize the OK button appropriately
+#. instead of doing this, but unfortunately we can't do this for the
+#. Bonobo control.
+#: shell/e-folder-misc-dialogs.c:460
+msgid "Please select a user."
+msgstr "Valitse käyttäjä."
+
+#: shell/e-folder-misc-dialogs.c:560
+msgid "Opening Folder"
+msgstr "Avataan kansiota"
+
+#: shell/e-folder-misc-dialogs.c:566
+#, c-format
+msgid "Opening Folder \"%s\""
+msgstr "Avataan kansiota \"%s\""
+
+#: shell/e-folder-misc-dialogs.c:571
+#, c-format
+msgid "in \"%s\" ..."
+msgstr "\"%s\":ssa ..."
+
+#: shell/e-folder-misc-dialogs.c:638
+#, c-format
+msgid "Could not open other user's folder: %s."
+msgstr "Toisen käyttäjän kansiota ei voitu avata: %s."
+
+#: shell/e-folder-misc-dialogs.c:688
+msgid "Cannot find the specified other user's folder."
+msgstr "Annettua toisen käyttäjän kansiota ei löydy."
+
+#: shell/e-folder-misc-dialogs.c:720
+#, c-format
+msgid ""
+"Cannot unsubscribe from folder:\n"
+"%s"
+msgstr ""
+"Kansion tilausta ei voida lopettaa:\n"
+"%s"
+
+#: shell/e-folder-misc-dialogs.c:773
+#, c-format
+msgid "Really unsubscribe from folder \"%s\"?"
+msgstr "Lopetataanko todella kansion \"%s\" tilaus?"
+
+#: shell/e-folder-misc-dialogs.c:787
+#, c-format
+msgid "Unsubscribe from \"%s\""
+msgstr "Lopeta \"%s\" tilaus"
+
+#: shell/e-foreign-folder-dialog.glade.h:1
+msgid "Open Other User's Folder"
+msgstr "Avaa toisen käyttäjän kansio"
+
+#: shell/e-foreign-folder-dialog.glade.h:2
+msgid "_Account:"
+msgstr "_Tili:"
+
+#: shell/e-foreign-folder-dialog.glade.h:3
+msgid "_Folder Name:"
+msgstr "Kansion _nimi:"
+
+#: shell/e-foreign-folder-dialog.glade.h:4
+msgid "_User:"
+msgstr "_Käyttäjä:"
+
+#: shell/e-storage-set-view.etspec.h:1
+msgid "Checkbox"
+msgstr "Rasti"
+
+#: shell/e-storage-set-view.etspec.h:2
+msgid "Folder"
+msgstr "Kansio"
+
+#: shell/e-storage.c:555
+msgid "No error"
+msgstr "Ei virhettä"
+
+#: shell/e-storage.c:559
+msgid "A folder with the same name already exists"
+msgstr "Samanniminen kansio on jo olemassa"
+
+#: shell/e-storage.c:561
+msgid "The specified folder type is not valid"
+msgstr "Annettu kansion tyyppi on virheellinen"
+
+#: shell/e-storage.c:563
+msgid "I/O error"
+msgstr "I/O-virhe"
+
+#: shell/e-storage.c:565
+msgid "Not enough space to create the folder"
+msgstr "Kansion luomiseen ei ole tarpeeksi tilaa"
+
+#: shell/e-storage.c:567
+msgid "The folder is not empty"
+msgstr "Kansio ei ole tyhjä"
+
+#: shell/e-storage.c:569
+msgid "The specified folder was not found"
+msgstr "Annettua kansiota ei löydy"
+
+#: shell/e-storage.c:571
+msgid "Function not implemented in this storage"
+msgstr "Toiminto ei ole määritelty tässä taltiossa"
+
+#: shell/e-storage.c:575
+msgid "Operation not supported"
+msgstr "Toimenpide ei ole tuettu"
+
+#: shell/e-storage.c:577
+msgid "The specified type is not supported in this storage"
+msgstr "Annettu tyyppi ei ole tuettu tässä taltiossa"
+
+#: shell/e-storage.c:579
+msgid "The specified folder cannot be modified or removed"
+msgstr "Annettua kansiota ei voida muokata tai poistaan"
+
+#: shell/e-storage.c:581
+msgid "Cannot make a folder a child of one of its descendants"
+msgstr "Kansiota ei voida siirtää oman perillisensä perilliseksi"
+
+#: shell/e-storage.c:583
+msgid "Cannot create a folder with that name"
+msgstr "Tämännimistä kansiota ei voida luoda"
+
+#: shell/e-storage.c:585
+msgid "This operation cannot be performed in off-line mode"
+msgstr "Tätä toimenpidettä ei voida tehdä yhteydettömässä tilassa"
+
+#: shell/e-storage.c:587 storage/exchange-account.c:1071
+msgid "Unknown error"
+msgstr "Tuntematon virhe"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
+msgid "*Control*F5"
+msgstr "*Control*F5"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
+msgid "Evolution Addressbook Exchange backend"
+msgstr "Evolutionin osoitekirjan Exchange-taustaohjelma"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+msgid "Evolution Calendar Exchange backend"
+msgstr "Evolutionin kalenterin Exchange-taustaohjelma"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
+msgid "Evolution Exchange Component"
+msgstr "Evolutionin Exchange-komponentti"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
+msgid "Exchange"
+msgstr "Exchange"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
+msgid "Ximian Connector for Exchange"
+msgstr "Ximian Connector Exchangelle"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
+msgid "_Exchange"
+msgstr "_Exchange"
+
+#. i18n: This is the title of an "other user's folders"
+#. hierarchy. Eg, "John Doe's Folders".
+#: storage/exchange-account.c:516
+#, c-format
+msgid "%s's Folders"
+msgstr "%s:n kansiot"
+
+#: storage/exchange-account.c:797
+#, c-format
+msgid "%sEnter password for %s"
+msgstr "%sSyötä salasana käyttäjälle %s"
+
+#: storage/exchange-account.c:801
+msgid "Enter password"
+msgstr "Syötä salasana"
+
+#: storage/exchange-account.c:876
+msgid "Cannot change password due to configuration problems"
+msgstr "Salasanaa ei voida vaihtaa asetusongelmia takia"
+
+#: storage/exchange-account.c:891
+msgid ""
+"Server rejected password because it is too weak.\n"
+"Try again with a different password."
+msgstr ""
+"Palvelin hylkäsi salasanan, koska se on liian heikko.\n"
+"Kokeile uudestaan toisenlaisella salasanalla."
+
+#: storage/exchange-account.c:896
+msgid "Could not change password"
+msgstr "Salasanaa ei voitu vaihtaa"
+
+#: storage/exchange-account.c:982
+msgid ""
+"Could not authenticate to server. (Password incorrect?)\n"
+"\n"
+msgstr ""
+"Palvelimelle ei voitu kirjatua (Virheellinen salasana?)\n"
+"\n"
+
+#: storage/exchange-account.c:987
+msgid ""
+"Could not authenticate to server.\n"
+"\n"
+"This probably means that your server requires you\n"
+"to specify the Windows domain name as part of your\n"
+"username (eg, \"DOMAIN\\user\").\n"
+"\n"
+"Or you might have just typed your password wrong.\n"
+"\n"
+msgstr ""
+"Palvelimelle ei voitu kirjautua.\n"
+"\n"
+"Luultavasti tämä tarkoittaa, että sinun tulee antaa\n"
+"Windowsin toimialue käyttäjätunnuksesi osana,\n"
+"esimerkiksi \"TOIMIALUE\\käyttäjä\".\n"
+"\n"
+"Voi olla myös että syötit salasanasi väärin.\n"
+"\n"
+
+#: storage/exchange-account.c:998
+msgid ""
+"Could not authenticate to server.\n"
+"\n"
+"You may need to use Plaintext Password authentication.\n"
+"\n"
+"Or you might have just typed your password wrong.\n"
+"\n"
+msgstr ""
+"Palvelimelle ei voitu tunnistautua.\n"
+"\n"
+"Sinun täytyy ehkä käyttää selväkielisen salasanan tunnistautumista.\n"
+"\n"
+"Voi myös olla että syötit salasanasi väärin.\n"
+"\n"
+
+#: storage/exchange-account.c:1029
+#, c-format
+msgid "Mailbox for %s is not on this server."
+msgstr "Sähköpostilaatikkoa %s:lle ei ole tällä palvelimella."
+
+#: storage/exchange-account.c:1034
+#, c-format
+msgid ""
+"The server '%s' is running Exchange 5.5 and is\n"
+"therefore not compatible with Ximian Connector"
+msgstr ""
+"Palvelin '%s' käyttää Exchangen versiota 5.5 eikä\n"
+"tämän takia ole yhteensopiva Ximian Connectorin kanssa"
+
+#: storage/exchange-account.c:1041
+#, c-format
+msgid ""
+"Could not find Exchange Web Storage System at %s.\n"
+"If OWA is running on a different path, you must specify that in the\n"
+"account configuration dialog."
+msgstr ""
+
+#: storage/exchange-account.c:1049
+#, c-format
+msgid "No mailbox for user %s on %s.\n"
+msgstr "Käyttäjälle %s ei ole sähköpostilaatikkoa palvelimella %s\n"
+
+#: storage/exchange-account.c:1055 storage/exchange-account.c:1061
+#: storage/exchange-account.c:1069
+#, c-format
+msgid "Could not connect to server %s: %s"
+msgstr "Palvelimeen %s ei saatu yhteyttä: %s"
+
+#: storage/exchange-account.c:1057
+msgid "Could not resolve hostname"
+msgstr "Palvelimen isäntänimen selvitys epäonnistui"
+
+#: storage/exchange-account.c:1063
+msgid "Network error"
+msgstr "Verkkovirhe"
+
+#: storage/exchange-account.c:1115
+msgid "Personal Folders"
+msgstr "Omat kansiot"
+
+#: storage/exchange-account.c:1130
+msgid "Favorite Public Folders"
+msgstr "Kirjanmerkit julkisissa kansioissa"
+
+#. i18n: Outlookism
+#: storage/exchange-account.c:1147
+msgid "All Public Folders"
+msgstr "Kaikki julkiset kansiot"
+
+#. i18n: Outlookism
+#: storage/exchange-account.c:1161
+msgid "Global Address List"
+msgstr ""
+
+#: storage/exchange-autoconfig-wizard.c:224
+#, c-format
+msgid ""
+"Could not connect to the Exchange server.\n"
+"Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
+msgstr ""
+"Yhteys Exchange-palvelimeen epäonnistui.\n"
+"Tarkista, että URL on oikea (kokeile \"%s\" \"%s\":n tilalla?) ja yritä "
+"uudestaan."
+
+#: storage/exchange-autoconfig-wizard.c:232
+msgid ""
+"Could not locate Exchange server.\n"
+"Make sure the server name is spelled correctly and try again."
+msgstr ""
+"Exchange-palvelinta ei löytynyt.\n"
+"Tarkista, että palvelimen nimi on oikein ja yritä uudestaan."
+
+#: storage/exchange-autoconfig-wizard.c:241
+msgid ""
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again."
+msgstr ""
+"Kirjautuminen Exchange-palvelimelle epäonnistui.\n"
+"Tarkista että käyttäjätunnus ja salasana ovat oikein ja yritä uudestaan."
+
+#: storage/exchange-autoconfig-wizard.c:248
+#, c-format
+msgid ""
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again.\n"
+"\n"
+"You may need to specify the Windows domain name as part of your username "
+"(eg, \"MY-DOMAIN\\%s\")."
+msgstr ""
+
+#: storage/exchange-autoconfig-wizard.c:260
+msgid ""
+"Could not find OWA data at the indicated URL.\n"
+"Make sure the URL is correct and try again."
+msgstr ""
+
+#: storage/exchange-autoconfig-wizard.c:267
+msgid ""
+"Ximian Connector requires access to certain functionality on the Exchange "
+"Server that appears to be disabled or blocked.  (This is usually "
+"unintentional.)  Your Exchange Administrator will need to enable this "
+"functionality in order for you to be able to use Ximian Connector.\n"
+"\n"
+"For information to provide to your Exchange administrator, please follow the "
+"link below:"
+msgstr ""
+
+#: storage/exchange-autoconfig-wizard.c:288
+msgid ""
+"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
+"Connector supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+
+#: storage/exchange-autoconfig-wizard.c:301
+msgid ""
+"Could not configure Exchange account because an unknown error occurred. "
+"Check the URL, username, and password, and try again."
+msgstr ""
+
+#: storage/exchange-autoconfig-wizard.c:345
+#, c-format
+msgid ""
+"Could not authenticate to the Global Catalog server. You may need to go back "
+"and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
+"\\%s\")."
+msgstr ""
+
+#: storage/exchange-autoconfig-wizard.c:352
+msgid ""
+"Could not connect to specified server.\n"
+"Please check the server name and try again."
+msgstr ""
+
+#: storage/exchange-autoconfig-wizard.c:389
+#: storage/exchange-autoconfig-wizard.c:393
+msgid "Unknown"
+msgstr "Tuntematon"
+
+#: storage/exchange-autoconfig-wizard.c:466
+msgid ""
+"Configuration system error.\n"
+"Unable to create new account."
+msgstr ""
+
+#: storage/exchange-autoconfig-wizard.glade.h:2
+msgid "Configuration Failed"
+msgstr ""
+
+#: storage/exchange-autoconfig-wizard.glade.h:3
+msgid "Done"
+msgstr "Valmis"
+
+#: storage/exchange-autoconfig-wizard.glade.h:4
+msgid "Email Address:"
+msgstr "Sähköpostiosoite:"
+
+#: storage/exchange-autoconfig-wizard.glade.h:5
+msgid "Exchange Configuration"
+msgstr "Exchangen asetukset"
+
+#: storage/exchange-autoconfig-wizard.glade.h:6
+msgid "Full Name:"
+msgstr "Koko nimi:"
+
+#: storage/exchange-autoconfig-wizard.glade.h:7
+msgid "GC Server:"
+msgstr ""
+
+#: storage/exchange-autoconfig-wizard.glade.h:8
+msgid "Make this my default account"
+msgstr "Tee tästä oletustilini"
+
+#: storage/exchange-autoconfig-wizard.glade.h:9
+msgid "OWA URL:"
+msgstr "OWA URL:"
+
+#: storage/exchange-autoconfig-wizard.glade.h:10
+msgid "Password:"
+msgstr "Salasana:"
+
+#: storage/exchange-autoconfig-wizard.glade.h:11
+msgid "Remember this password"
+msgstr "Muista tämä salasana"
+
+#: storage/exchange-autoconfig-wizard.glade.h:12
+msgid "Username:"
+msgstr "Käyttäjätunnus:"
+
+#: storage/exchange-autoconfig-wizard.glade.h:13
+msgid "Welcome"
+msgstr "Tervetuloa"
+
+#: storage/exchange-autoconfig-wizard.glade.h:14
+msgid ""
+"Welcome to Ximian Connector for Microsoft Exchange.\n"
+"The next few screens will help you configure Evolution\n"
+"to connect to your Exchange account.\n"
+"\n"
+"Please click the \"Forward\" button to continue."
+msgstr ""
+
+#: storage/exchange-autoconfig-wizard.glade.h:19
+msgid "Ximian Connector Configuration"
+msgstr "Ximian Connectorin asetukset"
+
+#: storage/exchange-autoconfig-wizard.glade.h:20
+msgid ""
+"Ximian Connector can use account information from your existing Outlook Web "
+"Access (OWA) account.\n"
+"\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
+msgstr ""
+
+#: storage/exchange-autoconfig-wizard.glade.h:24
+msgid ""
+"Ximian Connector could not find the Global Catalog replica for your site. "
+"Please enter the name of your Global Catalog server. You may need to ask "
+"your system administrator for the correct value.\n"
+msgstr ""
+
+#: storage/exchange-autoconfig-wizard.glade.h:26
+msgid ""
+"Ximian Connector has encountered a problem configuring your Exchange "
+"account.\n"
+msgstr ""
+
+#: storage/exchange-autoconfig-wizard.glade.h:28
+msgid ""
+"Your Connector account is now ready to use. Click the \"Apply\" button to "
+"save your\n"
+"settings."
+msgstr ""
+
+#: storage/exchange-autoconfig-wizard.glade.h:30
+msgid ""
+"Your account information is as follows. Please correct any errors, then "
+"click \"Forward\".\n"
+msgstr ""
+
+#. User entered a wrong existing
+#. * password. Prompt him again.
+#.
+#: storage/exchange-change-password.c:114
+msgid ""
+"The current password does not match the existing password for your account. "
+"Please enter the correct password"
+msgstr ""
+
+#: storage/exchange-change-password.c:121
+msgid "The two passwords do not match. Please re-enter the passwords."
+msgstr ""
+
+#: storage/exchange-change-password.glade.h:2
+msgid "Change Password"
+msgstr "Vaihda salasana"
+
+#: storage/exchange-change-password.glade.h:3
+msgid "Confirm Password:"
+msgstr "Varmista salasana:"
+
+#: storage/exchange-change-password.glade.h:4
+msgid "Current Password:"
+msgstr "Nykyinen salasana:"
+
+#: storage/exchange-change-password.glade.h:5
+msgid "New Password:"
+msgstr "Uusi salasana:"
+
+#: storage/exchange-change-password.glade.h:6
+msgid "Your current password has expired. Please change your password now."
+msgstr "Salasanasi on vanhentunut. Ole hyvä ja vaihda salasanasi nyt."
+
+#: storage/exchange-component.c:308
+msgid "Mail"
+msgstr "Sähköposti"
+
+#: storage/exchange-component.c:311 storage/exchange-hierarchy-foreign.c:250
+msgid "Contacts"
+msgstr "Yhteystiedot"
+
+#: storage/exchange-component.c:315 storage/exchange-hierarchy-foreign.c:258
+msgid "Tasks"
+msgstr "Tehtävät"
+
+#: storage/exchange-component.c:318 storage/exchange-hierarchy-foreign.c:249
+msgid "Calendar"
+msgstr "Kalenteri"
+
+#: storage/exchange-config-listener.c:492
+msgid "You may only configure a single Exchange account"
+msgstr "Voit määritellä vain yhden Exchange-tilin"
+
+#: storage/exchange-config-listener.c:601
+msgid ""
+"Changes to Exchange account configuration will take\n"
+"place after you quit and restart Evolution."
+msgstr ""
+
+#: storage/exchange-config-listener.c:647
+msgid "The Exchange account will be removed when you quit Evolution"
+msgstr ""
+
+#: storage/exchange-delegates-user.c:191
+#: storage/exchange-permissions-dialog.c:179
+#, c-format
+msgid "Permissions for %s"
+msgstr "%s käyttöoikeudet"
+
+#: storage/exchange-delegates.c:221
+msgid ""
+"No Global Catalog server configured for this account.\n"
+"Unable to edit delegates."
+msgstr ""
+
+#: storage/exchange-delegates.c:260
+msgid ""
+"Could not read folder permissions.\n"
+"Unable to edit delegates."
+msgstr ""
+
+#: storage/exchange-delegates.c:267
+msgid ""
+"Could not determine folder permissions for delegates.\n"
+"Unable to edit delegates."
+msgstr ""
+
+#: storage/exchange-delegates.c:419
+msgid "Delegate To:"
+msgstr ""
+
+#: storage/exchange-delegates.c:419
+msgid "Delegate To"
+msgstr ""
+
+#: storage/exchange-delegates.c:435
+#, c-format
+msgid "Could not make %s a delegate"
+msgstr ""
+
+#: storage/exchange-delegates.c:445
+msgid "You cannot make yourself your own delegate"
+msgstr ""
+
+#: storage/exchange-delegates.c:454
+#, c-format
+msgid "%s is already a delegate"
+msgstr ""
+
+#: storage/exchange-delegates.c:563
+#, c-format
+msgid "Remove the delegate %s?"
+msgstr ""
+
+#: storage/exchange-delegates.c:680
+msgid "Could not access Active Directory"
+msgstr ""
+
+#: storage/exchange-delegates.c:695
+msgid "Could not find self in Active Directory"
+msgstr ""
+
+#: storage/exchange-delegates.c:708
+#, c-format
+msgid "Could not find delegate %s in Active Directory"
+msgstr ""
+
+#: storage/exchange-delegates.c:720
+#, c-format
+msgid "Could not remove delegate %s"
+msgstr ""
+
+#: storage/exchange-delegates.c:780
+msgid "Could not update list of delegates."
+msgstr ""
+
+#: storage/exchange-delegates.c:798
+#, c-format
+msgid "Could not add delegate %s"
+msgstr ""
+
+#: storage/exchange-delegates.c:814
+#, c-format
+msgid ""
+"Failed to update delegates:\n"
+"%s"
+msgstr ""
+
+#: storage/exchange-delegates.c:937 storage/exchange-permissions-dialog.c:706
+msgid "Name"
+msgstr ""
+
+#: storage/exchange-delegates.c:966
+msgid "Error reading delegates list."
+msgstr ""
+
+#: storage/exchange-delegates.glade.h:1
+msgid "Author (read, create)"
+msgstr "Kirjoittaja (luku, luonti)"
+
+#: storage/exchange-delegates.glade.h:2
+msgid "C_alendar:"
+msgstr "_Kalenteri:"
+
+#: storage/exchange-delegates.glade.h:3
+msgid "Co_ntacts:"
+msgstr "_Yhteystiedot:"
+
+#: storage/exchange-delegates.glade.h:4
+msgid "Delegate Permissions"
+msgstr ""
+
+#: storage/exchange-delegates.glade.h:5
+msgid "Delegates"
+msgstr ""
+
+#: storage/exchange-delegates.glade.h:6
+msgid "Editor (read, create, edit)"
+msgstr "Muokkaaja (luku, luonti, muokkaus)"
+
+#: storage/exchange-delegates.glade.h:8
+msgid "Permissions for"
+msgstr "Käyttöoikeudet"
+
+#: storage/exchange-delegates.glade.h:9
+msgid "Reviewer (read-only)"
+msgstr "Tarkistaja (vain luku)"
+
+#: storage/exchange-delegates.glade.h:10
+msgid ""
+"These users will be able to send mail on your behalf\n"
+"and access your folders with the permissions you give them."
+msgstr ""
+
+#: storage/exchange-delegates.glade.h:12
+msgid "_Delegate can see private items"
+msgstr ""
+
+#: storage/exchange-delegates.glade.h:13
+msgid "_Edit"
+msgstr "_Muokkaa"
+
+#: storage/exchange-delegates.glade.h:14
+msgid "_Inbox:"
+msgstr "_Saapuvat:"
+
+#: storage/exchange-delegates.glade.h:15
+msgid "_Tasks:"
+msgstr "_Tehtävät:"
+
+#: storage/exchange-hierarchy-foreign.c:251
+msgid "Deleted Items"
+msgstr "Poistetut"
+
+#: storage/exchange-hierarchy-foreign.c:252
+msgid "Drafts"
+msgstr "Luonnokset"
+
+#: storage/exchange-hierarchy-foreign.c:253
+msgid "Inbox"
+msgstr "Saapuvat"
+
+#: storage/exchange-hierarchy-foreign.c:254
+msgid "Journal"
+msgstr ""
+
+#: storage/exchange-hierarchy-foreign.c:255
+msgid "Notes"
+msgstr ""
+
+#: storage/exchange-hierarchy-foreign.c:256
+msgid "Outbox"
+msgstr "Lähetetyt"
+
+#: storage/exchange-hierarchy-foreign.c:257
+msgid "Sent Items"
+msgstr "Lähetetyt viestit"
+
+#: storage/exchange-migrate.c:57
+msgid "Migrating Exchange Folders..."
+msgstr ""
+
+#: storage/exchange-migrate.c:65
+#, c-format
+msgid ""
+"The location and hierarchy of the Evolution exchange account folders are "
+"changed since Evolution %d.%d.%d.\n"
+"\n"
+"Please be patient while Evolution migrates your folders..."
+msgstr ""
+
+#: storage/exchange-migrate.c:98
+#, c-format
+msgid ""
+"Warning: Evolution Could not migrate all the Exchange account data from the "
+"version %d.%d.%d. \n"
+"The data hasn't been deleted, but will not be seen by this version of "
+"Evolution"
+msgstr ""
+
+#: storage/exchange-migrate.c:129
+#, c-format
+msgid "Migrating `%s':"
+msgstr ""
+
+#: storage/exchange-oof.c:91 storage/exchange-oof.c:290
+msgid "Could not update out-of-office state"
+msgstr "\"Poissa toimistosta\"-tilaa ei voitu päivittää"
+
+#: storage/exchange-oof.c:308
+msgid "Could not read out-of-office state"
+msgstr "\"Poissa toimistossa\"-tilaa ei voitu lukea"
+
+#: storage/exchange-oof.glade.h:1
+msgid ""
+"<b>Currently, your status is \"Out of the Office\". </b>\n"
+"\n"
+"Would you like to change your status to \"In the Office\"? "
+msgstr ""
+"<b>Tilasi on tällä hetkellä \"Poissa toimistosta\".</b>\n"
+"\n"
+"Haluatko muuttaa tilaksesi \"Toimistossa\"? "
+
+#: storage/exchange-oof.glade.h:4
+msgid "<b>Out of Office Message:</b>"
+msgstr "<b>\"Poissa toimistosta\"-viesti"
+
+#: storage/exchange-oof.glade.h:5
+msgid "<b>Status:</b>"
+msgstr "<b>Tila:</b>"
+
+#: storage/exchange-oof.glade.h:6
+msgid ""
+"<small>The message specified below will be automatically sent to each person "
+"who sends\n"
+"mail to you while you are out of the office.</small>"
+msgstr ""
+"<small>Alla määritelty viesti lähetetään automaattisesti jokaiselle "
+"henkilölle joka lähettää\n"
+"sähöpostia sinulle ollessasi poissa toimistosta.</small>"
+
+#: storage/exchange-oof.glade.h:8
+msgid "I am currently in the office"
+msgstr "Toimistossa"
+
+#: storage/exchange-oof.glade.h:9
+msgid "I am currently out of the office"
+msgstr "Poissa toimistosta"
+
+#: storage/exchange-oof.glade.h:10
+msgid "No, Don't Change Status"
+msgstr "Ei, älä muuta tilaa"
+
+#: storage/exchange-oof.glade.h:11
+msgid "Out of Office Assistant"
+msgstr "\"Poissa Toimistosta\"-apulainen"
+
+#: storage/exchange-oof.glade.h:12
+msgid "Yes, Change Status"
+msgstr "Kyllä, muuta tilaa"
+
+#: storage/exchange-permissions-dialog.c:222
+msgid "Could not read folder permissions"
+msgstr "Kansion oikeuksia ei voitu lukea"
+
+#: storage/exchange-permissions-dialog.c:264
+msgid "Could not update folder permissions."
+msgstr "Kansion oikeuksia ei voitu päivittää."
+
+#: storage/exchange-permissions-dialog.c:293
+#, c-format
+msgid "Could not update folder permissions. %s"
+msgstr "Kansion oikeuksia ei voitu päivittää. %s"
+
+#: storage/exchange-permissions-dialog.c:295
+msgid "(Permission denied.)"
+msgstr "(lupa evätty.)"
+
+#: storage/exchange-permissions-dialog.c:396
+msgid ""
+"Unable to add user to access control list:\n"
+"No Global Catalog server is configured for this account."
+msgstr ""
+
+#: storage/exchange-permissions-dialog.c:402
+msgid "Add User:"
+msgstr "Lisää käyttäjä:"
+
+#: storage/exchange-permissions-dialog.c:402
+msgid "Add User"
+msgstr "Lisää käyttäjä"
+
+#: storage/exchange-permissions-dialog.c:421
+#, c-format
+msgid "No such user %s"
+msgstr "Käyttäjää %s ei ole olemassa"
+
+#: storage/exchange-permissions-dialog.c:425
+#, c-format
+msgid "%s cannot be added to an access control list"
+msgstr "Käyttäjää %s ei voida lisätä pääsyoikeuslistalle"
+
+#: storage/exchange-permissions-dialog.c:430
+#, c-format
+msgid "Unknown error looking up %s"
+msgstr ""
+
+#: storage/exchange-permissions-dialog.c:447
+#, c-format
+msgid "%s is already in the list"
+msgstr "%s on jo listalla"
+
+#: storage/exchange-permissions-dialog.c:710
+msgid "Role"
+msgstr "Rooli"
+
+#: storage/exchange-permissions-dialog.glade.h:1
+msgid "    "
+msgstr "    "
+
+#: storage/exchange-permissions-dialog.glade.h:2
+msgid "<b>Permissions</b>"
+msgstr "<b>Käyttöoikeudet</b>"
+
+#: storage/exchange-permissions-dialog.glade.h:3
+msgid "Cannot Delete"
+msgstr "Ei voida poistaa"
+
+#: storage/exchange-permissions-dialog.glade.h:4
+msgid "Cannot Edit"
+msgstr "Ei voida muokata"
+
+#: storage/exchange-permissions-dialog.glade.h:5
+msgid "Create items"
+msgstr "Luo uusia kohteita"
+
+#: storage/exchange-permissions-dialog.glade.h:6
+msgid "Create subfolders"
+msgstr "Luo alikansioita"
+
+#: storage/exchange-permissions-dialog.glade.h:7
+msgid "Delete Any Items"
+msgstr "Poista mitä tahansa kohteita"
+
+#: storage/exchange-permissions-dialog.glade.h:8
+msgid "Delete Own Items"
+msgstr "Poista omia kohteita"
+
+#: storage/exchange-permissions-dialog.glade.h:9
+msgid "Edit Any Items"
+msgstr "Muokkaa mitä tahansa kohteita"
+
+#: storage/exchange-permissions-dialog.glade.h:10
+msgid "Edit Own Items"
+msgstr "Muokkaa omia kohteita"
+
+#: storage/exchange-permissions-dialog.glade.h:11
+msgid "Folder contact"
+msgstr "Kansion yhteystiedot"
+
+#: storage/exchange-permissions-dialog.glade.h:12
+msgid "Folder owner"
+msgstr "Kansion omistaja"
+
+#: storage/exchange-permissions-dialog.glade.h:13
+msgid "Folder visible"
+msgstr "Kansio näkyvissä"
+
+#: storage/exchange-permissions-dialog.glade.h:14
+msgid "Read items"
+msgstr "Lue kohteita"
+
+#: storage/exchange-permissions-dialog.glade.h:15
+msgid "Role: "
+msgstr "Rooli: "
+
+#: storage/exchange-storage.c:336
+msgid "Connecting..."
+msgstr "Yhdistetään..."
+
+#: storage/main.c:156
+msgid "Ximian Connector for Microsoft Exchange"
+msgstr "Ximian Connector Microsoft Exchangelle"
+
+#: storage/xc-backend-view.c:299
+msgid "Account Name"
+msgstr "Tilin nimi"
+
+#: storage/xc-commands.c:299
+msgid "Folder does not exist"
+msgstr "Kansiota ei ole olemassa"
+
+#: storage/xc-commands.c:322
+#, c-format
+msgid "Could not add favorite: %s"
+msgstr "Kirjanmerkkiä ei voitu lisätä: %s"
+
+#: storage/xc-commands.c:336
+#, c-format
+msgid "Could not remove favorite: %s"
+msgstr "Kirjanmerkkiä ei voitu poistaa: %s"
+
+#: storage/xc-commands.c:353
+msgid "_Move Folder..."
+msgstr "_Siirrä kansio..."
+
+#: storage/xc-commands.c:356
+msgid "_Copy Folder..."
+msgstr "_Kopioi kansio..."
+
+#: storage/xc-commands.c:359
+msgid "_Rename Folder..."
+msgstr "Uudelleen_nimeä kansio..."
+
+#: storage/xc-commands.c:365
+msgid "_New Folder..."
+msgstr "_Uusi kansio..."
+
+#: storage/xc-commands.c:368
+msgid "_Delete Folder"
+msgstr "_Poista kansio"
+
+#: storage/xc-commands.c:373
+msgid "_Add Other User's Folder..."
+msgstr "_Lisää toisen käyttäjän kansio..."
+
+#: storage/xc-commands.c:376
+msgid "_Remove Other User's Folder"
+msgstr "_Poista toisen käyttäjän kansio"
+
+#: storage/xc-commands.c:382
+msgid "Add to _Favorites"
+msgstr "Lisää _kirjanmerkkeihin"
+
+#: storage/xc-commands.c:386
+msgid "Remove from Fa_vorites"
+msgstr "Poista _kirjanmerkeistä"
+
+#: storage/xc-commands.c:393
+msgid "_Permissions..."
+msgstr "_Käyttöoikeudet..."
+
+#: storage/ximian-connector-setup.c:43
+msgid "Ximian Connector for Microsoft Exchange Setup Tool"
+msgstr "Ximian Conncector in asetukset"
+
+#: storage/ximian-connector.xml.h:1
+msgid "Change your Exchange server password"
+msgstr "Vaihda salasanasi Exchange-palvelimella"
+
+#: storage/ximian-connector.xml.h:2
+msgid "Subscribe to _Other User's Folder..."
+msgstr "Tilaa _muiden käyttäjien kansioita..."
+
+#: storage/ximian-connector.xml.h:3
+msgid "Subscribe to a folder belonging to some other user on the server"
+msgstr ""
+"Tilaa kansio, joka kuuluu jollekin toiselle käyttäjälle tällä palvelimella"
+
+#: storage/ximian-connector.xml.h:4
+msgid ""
+"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgstr ""
+"Peru tilauksesi kansioon, joka on lisätty \"Tilaa muiden käyttäjien kansioita"
+"\"-toiminnolla."
+
+#: storage/ximian-connector.xml.h:5
+msgid "View or change your Exchange calendar delegation settings"
+msgstr ""
+
+#: storage/ximian-connector.xml.h:6
+msgid "View or change your Out-of-Office status and autoreply message"
+msgstr ""
+"Näytä ja muuta \"Poissa toimistosta\"-tilaasi ja automaattisen vastauksen "
+"viestiä."
+
+#: storage/ximian-connector.xml.h:7
+msgid "_Change Exchange Password..."
+msgstr "_Vaihda Exchange-salasana..."
+
+#: storage/ximian-connector.xml.h:8
+msgid "_Delegation Assistant"
+msgstr ""
+
+#: storage/ximian-connector.xml.h:9
+msgid "_Out of Office Assistant"
+msgstr "\"_Poissa toimistosta\"-apulainen"
+
+#: storage/ximian-connector.xml.h:10
+msgid "_Unsubscribe from Other User's Folder"
+msgstr "_Peru toisen käyttäjän kansion tilaus"
