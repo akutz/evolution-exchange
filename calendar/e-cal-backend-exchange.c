@@ -730,14 +730,80 @@ get_default_object (ECalBackendSync *backend, EDataCal *cal, char **object)
 	return GNOME_Evolution_Calendar_Success;
 }
 
+typedef struct {
+	GList *obj_list;
+	gboolean search_needed;
+	const char *query;
+	ECalBackendSExp *obj_sexp;
+	ECalBackend *backend;
+	icaltimezone *default_zone;
+} MatchObjectData;
+
+static void
+match_recurrence_sexp (gpointer key, gpointer value, gpointer data)
+{
+	ECalComponent *comp = value;
+	MatchObjectData *match_data = data;
+
+	if ((!match_data->search_needed) ||
+	    (e_cal_backend_sexp_match_comp (match_data->obj_sexp, comp, match_data->backend))) {
+		match_data->obj_list = g_list_append (match_data->obj_list,
+						      e_cal_component_get_as_string (comp));
+	}
+}
+
+static void
+match_object_sexp (gpointer key, gpointer value, gpointer data)
+{
+	ECalBackendExchangeComponent *ecomp = value;
+	MatchObjectData *match_data = data;
+	ECalComponent *comp;
+	
+	comp = e_cal_component_new ();
+	e_cal_component_set_icalcomponent (comp, ecomp->comp);
+
+	if ((!match_data->search_needed) ||
+	    (e_cal_backend_sexp_match_comp (match_data->obj_sexp, comp, match_data->backend))) {
+		match_data->obj_list = g_list_append (match_data->obj_list,
+						      e_cal_component_get_as_string (comp));
+
+		#if 0
+		/* match also recurrences */
+		g_hash_table_foreach (obj_data->recurrences,
+				      (GHFunc) match_recurrence_sexp,
+				      match_data);
+		#endif
+	}
+}
+
 static ECalBackendSyncStatus
 get_object_list (ECalBackendSync *backend, EDataCal *cal,
 		 const char *sexp, GList **objects)
 {
-	d(printf("ecbe_get_object_list(%p, %p, %s)\n", backend, cal, sexp));
 
-	/* FIXME */
-	return GNOME_Evolution_Calendar_OtherError;
+	ECalBackendExchange *cbex;
+	MatchObjectData match_data;
+
+	cbex = E_CAL_BACKEND_EXCHANGE (backend);
+	
+	match_data.search_needed = TRUE;
+	match_data.query = sexp;
+	match_data.obj_list = NULL;
+	match_data.backend = E_CAL_BACKEND (backend);
+	match_data.default_zone = cbex->priv->default_timezone;
+
+	if (!strcmp (sexp, "#t"))
+		match_data.search_needed = FALSE;
+
+	match_data.obj_sexp = e_cal_backend_sexp_new (sexp);
+	if (!match_data.obj_sexp)
+		return GNOME_Evolution_Calendar_InvalidQuery;
+
+	g_hash_table_foreach (cbex->priv->objects, (GHFunc) match_object_sexp, &match_data);
+
+	*objects = match_data.obj_list;
+
+	return GNOME_Evolution_Calendar_Success;
 }
 
 ECalBackendSyncStatus
