@@ -274,6 +274,7 @@ user_clicked (GtkWidget *button, ENameSelector *name_selector)
 	ENameSelectorDialog *name_selector_dialog;
 
 	name_selector_dialog = e_name_selector_peek_dialog (name_selector);
+	gtk_window_set_modal (GTK_WINDOW (name_selector_dialog), TRUE);
 	gtk_widget_show (GTK_WIDGET (name_selector_dialog));
 }
 
@@ -307,6 +308,7 @@ setup_name_selector (GladeXML *glade_xml, ENameSelector **name_selector_ret)
 	button = glade_xml_get_widget (glade_xml, "button-user");
 	g_signal_connect (button, "clicked", G_CALLBACK (user_clicked), name_selector);
 
+	gtk_box_pack_start (GTK_BOX (placeholder), widget, TRUE, TRUE, 6);
 	*name_selector_ret = name_selector;
 
 	return widget;
@@ -391,7 +393,7 @@ do_foreign_folder_dialog (EStorageSetView *storage_set_view,
 	GtkWidget *dialog;
 	GtkWidget *name_selector_widget;
 	GtkWidget *folder_name_entry;
-	char *user_email_address;
+	const char *user_email_address = NULL;
 	int response;
 
 	glade_xml = glade_xml_new (CONNECTOR_GLADEDIR "/e-foreign-folder-dialog.glade",
@@ -424,22 +426,20 @@ do_foreign_folder_dialog (EStorageSetView *storage_set_view,
 			return FALSE;
 		}
 
-		bonobo_widget_get_property (BONOBO_WIDGET (name_selector_widget),
-					    "addresses", TC_CORBA_string, &user_email_address,
-					    NULL);
+		user_email_address = gtk_entry_get_text (GTK_ENTRY (name_selector_widget));
 
 		if (user_email_address != NULL && *user_email_address != '\0')
 			break;
-
-		g_free (user_email_address);
 
 		/* It would be nice to insensitivize the OK button appropriately
 		   instead of doing this, but unfortunately we can't do this for the
 		   Bonobo control.  */
 		e_notice (dialog, GTK_MESSAGE_ERROR, _("Please select a user."));
 	}
+	gtk_widget_show_all (dialog);
 
-	*user_email_address_return = user_email_address;
+	if (user_email_address)
+		*user_email_address_return = g_strdup (user_email_address);
 	*folder_name_return = g_strdup (gtk_entry_get_text (GTK_ENTRY (folder_name_entry)));
 
 	gtk_widget_destroy (dialog);
