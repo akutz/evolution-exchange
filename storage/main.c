@@ -155,6 +155,7 @@ main (int argc, char **argv)
 	char *path;
 
 	bindtextdomain (PACKAGE, CONNECTOR_LOCALEDIR);
+	bind_textdomain_codeset (PACKAGE, "UTF-8");
 	textdomain (PACKAGE);
 
 	gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE, argc, argv,
