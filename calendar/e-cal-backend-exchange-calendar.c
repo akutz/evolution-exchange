@@ -938,8 +938,114 @@ static ECalBackendSyncStatus
 receive_objects (ECalBackendSync *backend, EDataCal *cal,
 		 const char *calobj)
 {
-	/* FIXME */
-	return GNOME_Evolution_Calendar_OtherError;
+	ECalBackendExchangeCalendar *cbexc;
+	icalcomponent *toplevel_comp, *icalcomp;
+	icalcomponent_kind kind;
+	ECalComponent *comp;
+	GList *comps, *l;
+	struct icaltimetype current;
+	icalproperty_method method;
+	icalcomponent *subcomp;
+	ECalBackendSyncStatus status = GNOME_Evolution_Calendar_Success;	
+
+	cbexc =	E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
+
+	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), GNOME_Evolution_Calendar_InvalidObject);
+	g_return_val_if_fail (calobj != NULL, GNOME_Evolution_Calendar_InvalidObject);
+	
+	toplevel_comp = icalparser_parse_string (calobj);
+	if (!toplevel_comp)
+		return GNOME_Evolution_Calendar_InvalidObject;
+	
+	kind = icalcomponent_isa (toplevel_comp);
+	
+	if (kind != ICAL_VCALENDAR_COMPONENT) {
+		
+		icalcomp = toplevel_comp;
+		toplevel_comp = e_cal_util_new_top_level ();
+		icalcomponent_add_component (toplevel_comp, icalcomp);	
+	}
+
+	method = icalcomponent_get_method (toplevel_comp);
+	
+	comps = NULL;
+	subcomp = icalcomponent_get_first_component (toplevel_comp, ICAL_ANY_COMPONENT);
+	
+	while (subcomp) {
+		
+		icalcomponent_kind child_kind = icalcomponent_isa (subcomp);
+		
+		if (child_kind == ICAL_VEVENT_COMPONENT) {
+			
+			if (!icalcomponent_get_uid (subcomp))
+				return GNOME_Evolution_Calendar_InvalidObject;
+			
+			comps = g_list_prepend (comps, subcomp);
+		}
+		
+		subcomp = icalcomponent_get_next_component (toplevel_comp, ICAL_ANY_COMPONENT);
+	}
+	
+	for (l = comps; l; l= l->next) {
+		const char *uid, *rid;
+		char *calobj;
+		
+		subcomp = l->data;
+		
+		comp = e_cal_component_new ();
+		e_cal_component_set_icalcomponent (comp, subcomp);
+		
+		/*create time and last modified*/
+		current = icaltime_from_timet (time (NULL), 0);
+		e_cal_component_set_created (comp, &current);
+		e_cal_component_set_last_modified (comp, &current);
+		
+		e_cal_component_get_uid (comp, &uid);
+		rid = e_cal_component_get_recurid_as_string (comp);
+
+		switch (method) {
+		case ICAL_METHOD_PUBLISH:
+		case ICAL_METHOD_REQUEST:
+		case ICAL_METHOD_REPLY:
+			if (get_exchange_comp (E_CAL_BACKEND_EXCHANGE (cbexc), uid)) {
+				char *old_object;
+
+				calobj = (char *) icalcomponent_as_ical_string (subcomp);
+				status = modify_object (backend, cal, calobj, CALOBJ_MOD_THIS, &old_object);
+				if (status != GNOME_Evolution_Calendar_Success)
+					goto error;
+
+				e_cal_backend_notify_object_modified (E_CAL_BACKEND (backend), old_object, calobj);
+
+				g_free (old_object);
+			} else {
+				char *returned_uid;
+
+				calobj = (char *) icalcomponent_as_ical_string (subcomp);
+				status = create_object (backend, cal, &calobj, &returned_uid);
+				if (status != GNOME_Evolution_Calendar_Success)
+					goto error;
+
+				e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), calobj);
+			}
+			break;
+		case ICAL_METHOD_ADD:
+			/* FIXME This should be doable once all the recurid stuff is done ??*/
+			break;
+
+		case ICAL_METHOD_CANCEL:
+			/*FIXME*/
+			break;
+		default:
+			status = GNOME_Evolution_Calendar_UnsupportedMethod;
+			goto error;
+		}
+	}
+
+	g_list_free (comps);
+		
+ error:	
+	return status;
 }
 
 static ECalBackendSyncStatus
