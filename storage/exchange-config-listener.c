@@ -445,13 +445,15 @@ add_esource (ExchangeAccount *account,
 	     char *conf_key, 
 	     const char *folder_name, 
 	     const char *physical_uri,
-	     ESourceList **source_list)
+	     ESourceList **source_list,
+	     gboolean is_contact_folder)
 {
 	ESource *source;
 	ESourceGroup *source_group;
-	char *relative_uri;
+	char *relative_uri = NULL;
 
-	relative_uri = g_strdup (physical_uri + strlen ("exchange://"));
+	if (!is_contact_folder)
+		relative_uri = g_strdup (physical_uri + strlen ("exchange://"));
 
         if ((source_group = e_source_list_peek_group_by_name (*source_list, 
 					account->account_name)) == NULL){
@@ -459,27 +461,37 @@ add_esource (ExchangeAccount *account,
 						   "exchange://");
 		if (!e_source_list_add_group (*source_list, source_group, -1)) {
 			g_object_unref (source_group);
-        		g_free(relative_uri);
+			if (relative_uri)
+        			g_free (relative_uri);
 			return;
 		}
-		source = e_source_new (folder_name, relative_uri);
+		if (is_contact_folder)
+			source = e_source_new_with_absolute_uri (folder_name,
+								 physical_uri);
+		else
+			source = e_source_new (folder_name, relative_uri);
 		e_source_group_add_source (source_group, source, -1);
 
 		g_object_unref (source);
 		g_object_unref (source_group);
 	}
 	else {
-                /*group already exists*/
+                /* group already exists*/
 		/* FIXME - is this check needed ?*/
 		if((source = e_source_group_peek_source_by_name (source_group, 
 							folder_name)) == NULL){
-        		source = e_source_new (folder_name, relative_uri);
+			if (is_contact_folder)
+				source = e_source_new_with_absolute_uri (
+						folder_name, physical_uri);
+			else
+        			source = e_source_new (folder_name, relative_uri);
+
 			e_source_group_add_source (source_group, source, -1);
 			g_object_unref (source);
 		}
 	}
-
-        g_free(relative_uri);
+	if (relative_uri)
+		g_free (relative_uri);
 }
 
 static void
@@ -488,7 +500,7 @@ add_sources (ExchangeAccount *account)
 	char *conf_key_cal="/apps/evolution/calendar/sources";
 	char *conf_key_tasks="/apps/evolution/tasks/sources";
 	char *conf_key_contacts="/apps/evolution/addressbook/sources";
-	const char *folder_name, *physical_uri;
+	const char *folder_name, *folder_type, *physical_uri;
 	GPtrArray *exchange_folders;
 	EFolder *folder;
 	ESourceList *cal_source_list, *task_source_list, *cont_source_list;
@@ -508,37 +520,39 @@ add_sources (ExchangeAccount *account)
 
 		for (i = 0; i < exchange_folders->len; i++) {
 			folder = exchange_folders->pdata[i];
-			if (!(strcmp (e_folder_get_type_string (folder), 
-				      "calendar"))){
-				folder_name = e_folder_get_name (folder);
-				physical_uri = e_folder_get_physical_uri (folder);
+			folder_name = e_folder_get_name (folder);
+			folder_type = e_folder_get_type_string (folder);
+			physical_uri = e_folder_get_physical_uri (folder);
+
+			if (!(strcmp (folder_type, "calendar")) ||
+			    !(strcmp (folder_type, "calendar/public"))) {
         			add_esource (account, 
 					     conf_key_cal, 
 					     folder_name, 
 					     physical_uri,
-					     &cal_source_list);
+					     &cal_source_list,
+					     FALSE);
 				continue;
 			}
-			if (!(strcmp (e_folder_get_type_string (folder), 
-				      "tasks"))){
-				folder_name = e_folder_get_name (folder);
-				physical_uri = e_folder_get_physical_uri (folder);
+			if (!(strcmp (folder_type, "tasks")) ||
+			    !(strcmp (folder_type, "tasks/public"))) {
         			add_esource (account, 
 					     conf_key_tasks, 
 					     folder_name, 
 					     physical_uri,
-					     &task_source_list);
+					     &task_source_list,
+					     FALSE);
 				continue;
 			}
-			if (!(strcmp (e_folder_get_type_string (folder), 
-				      "contacts"))){
-				folder_name = e_folder_get_name (folder);
-				physical_uri = e_folder_get_physical_uri (folder);
+			if (!(strcmp (folder_type, "contacts")) ||
+			    !(strcmp (folder_type, "contacts/public")) ||
+			    !(strcmp (folder_type, "contacts/ldap"))) {
         			add_esource (account, 
 					     conf_key_contacts, 
 					     folder_name, 
 					     physical_uri,
-					     &cont_source_list);
+					     &cont_source_list,
+					     TRUE);
 				continue;
 			}
 			continue;
@@ -558,17 +572,19 @@ remove_esource (ExchangeAccount *account,
 		char *conf_key, 
 		const char *physical_uri,
 		ESourceList **source_list,
-		gboolean is_account)
+		gboolean is_account,
+		gboolean is_contact_folder)
 {
 	ESourceGroup *group;
 	ESource *source;
 	GSList *groups;
 	GSList *sources;
 	gboolean found_group;
-	char *relative_uri;
+	char *relative_uri = NULL;
 	const char *source_uid;
 
-	relative_uri = g_strdup (physical_uri + strlen ("exchange://"));
+	if (!is_contact_folder)
+		relative_uri = g_strdup (physical_uri + strlen ("exchange://"));
 	groups = e_source_list_peek_groups (*source_list);
 	found_group = FALSE;
 
@@ -585,8 +601,11 @@ remove_esource (ExchangeAccount *account,
 
 				source = E_SOURCE (sources->data);
 
-				if (strcmp (e_source_peek_relative_uri (source), 
-					    relative_uri) == 0) {
+				if (((relative_uri &&
+				      strcmp (e_source_peek_relative_uri (source),
+					      relative_uri) == 0)) ||
+				      (strcmp (e_source_peek_absolute_uri (source),
+					      physical_uri) == 0)) {
 					if (is_account) {
 						/* Account Deleted - Remove the group */
 						e_source_list_remove_group (
@@ -608,7 +627,8 @@ remove_esource (ExchangeAccount *account,
                         }
                 }
         }
-        g_free(relative_uri);
+	if (relative_uri)
+        	g_free (relative_uri);
 }
 
 static void
@@ -617,7 +637,7 @@ remove_sources(ExchangeAccount *account)
 	char *conf_key_cal="/apps/evolution/calendar/sources";
 	char *conf_key_tasks="/apps/evolution/tasks/sources";
 	char *conf_key_contacts="/apps/evolution/addressbook/sources";
-	const char *physical_uri;
+	const char *physical_uri, *folder_type;
 	EFolder *folder; 
 	ESourceList *cal_source_list, *task_source_list, *cont_source_list;
 	GPtrArray *exchange_folders;
@@ -637,32 +657,35 @@ remove_sources(ExchangeAccount *account)
 
 		for (i = 0; i < exchange_folders->len; i++) {
 			folder = exchange_folders->pdata[i];
-			if (!(strcmp (e_folder_get_type_string (folder), 
-				      "calendar"))){
-				physical_uri = e_folder_get_physical_uri (folder);
+			folder_type = e_folder_get_type_string (folder);
+			physical_uri = e_folder_get_physical_uri (folder);
+
+			if (!strcmp (folder_type, "calendar") ||
+			    !strcmp (folder_type, "calendar/public")) {
         			remove_esource (account, 
 						conf_key_cal, 
 						physical_uri,
 						&cal_source_list,
-						TRUE);
+						TRUE, FALSE);
 				continue;
 			}
-			if (!(strcmp (e_folder_get_type_string (folder), "tasks"))){
-				physical_uri = e_folder_get_physical_uri (folder);
+			if (!strcmp (folder_type, "tasks") || 
+			    !strcmp (folder_type, "tasks/public")) {
         			remove_esource (account, 
 						conf_key_tasks, 
 						physical_uri,
 						&task_source_list,
-						TRUE);
+						TRUE, FALSE);
 				continue;
 			}
-			if (!(strcmp (e_folder_get_type_string (folder), "contacts"))){
-				physical_uri = e_folder_get_physical_uri (folder);
+			if (!strcmp (folder_type, "contacts") ||
+			    !strcmp (folder_type, "contacts/public") |
+			    !strcmp (folder_type, "contacts/ldap")) {
         			remove_esource (account, 
 						conf_key_contacts, 
 						physical_uri,
 						&cont_source_list,
-						TRUE);
+						TRUE, TRUE);
 				continue;
 			}
 			continue;

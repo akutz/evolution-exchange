@@ -356,36 +356,42 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 	if (source == hier->toplevel)
 		return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
 
-	/* Remove the ESource of the source folder */
+	/* Remove the ESource of the source folder, in case of rename/move */
 
-	if (hier->type == EXCHANGE_HIERARCHY_PERSONAL) {
+	if (hier->type != EXCHANGE_HIERARCHY_GAL && remove_esource) {
 		folder_type = e_folder_get_type_string (source);
 		physical_uri = e_folder_get_physical_uri (source);
 		
-		if (strcmp (folder_type, "calendar") == 0) {
+		if ((strcmp (folder_type, "calendar") == 0) ||
+		    (strcmp (folder_type, "calendar/public") == 0)) {
 			cal_source_list = e_source_list_new_for_gconf (
 						gconf_client_get_default (),
 						conf_key_cal);
 			remove_esource (hier->account, conf_key_cal,
-					physical_uri, &cal_source_list, FALSE);
+					physical_uri, &cal_source_list,
+					FALSE, FALSE);
 			e_source_list_sync (cal_source_list, NULL);
 			g_object_unref (cal_source_list);
 		}
-		if (strcmp (folder_type, "tasks") == 0) {
+		else if ((strcmp (folder_type, "tasks") == 0) ||
+			 (strcmp (folder_type, "tasks/public") == 0)){
 			task_source_list = e_source_list_new_for_gconf (
 						gconf_client_get_default (),
 						conf_key_tasks);
 			remove_esource (hier->account, conf_key_tasks,
-					physical_uri, &task_source_list, FALSE);
+					physical_uri, &task_source_list,
+					FALSE, FALSE);
 			e_source_list_sync (task_source_list, NULL);
 			g_object_unref (task_source_list);
 		}
-		if(strcmp (folder_type, "contacts") == 0) {
+		else if ((strcmp (folder_type, "contacts") == 0) ||
+			 (strcmp (folder_type, "contacts/public") == 0)) {
 			cont_source_list = e_source_list_new_for_gconf (
 						gconf_client_get_default (),
 						conf_key_contacts);
 			remove_esource (hier->account, conf_key_contacts,
-					physical_uri, &cont_source_list, FALSE);
+					physical_uri, &cont_source_list, 
+					FALSE, TRUE);
 			e_source_list_sync (cont_source_list, NULL);
 			g_object_unref (cont_source_list);
 		}

@@ -29,6 +29,9 @@
 #include "exchange-hierarchy-gal.h"
 #include "exchange-account.h"
 #include "e-folder-exchange.h"
+#include "exchange-config-listener.h"
+
+#include <libedataserver/e-source-list.h>
 
 #define PARENT_TYPE EXCHANGE_TYPE_HIERARCHY
 
@@ -42,6 +45,8 @@ exchange_hierarchy_gal_new (ExchangeAccount *account,
 {
 	ExchangeHierarchy *hier;
 	EFolder *toplevel;
+	char *conf_key_contacts="/apps/evolution/addressbook/sources";
+	ESourceList *cont_source_list;
 
 	hier = g_object_new (EXCHANGE_TYPE_HIERARCHY_GAL, NULL);
 
@@ -52,6 +57,15 @@ exchange_hierarchy_gal_new (ExchangeAccount *account,
 	exchange_hierarchy_construct (hier, account,
 				      EXCHANGE_HIERARCHY_GAL, toplevel,
 				      NULL, NULL, NULL);
+	/* Add ESource */
+	cont_source_list = e_source_list_new_for_gconf (
+						gconf_client_get_default (),
+						conf_key_contacts);
+	add_esource (hier->account, conf_key_contacts, hierarchy_name, 
+		    physical_uri_prefix, &cont_source_list, TRUE);
+	e_source_list_sync (cont_source_list, NULL);
+	g_object_unref (cont_source_list);	
+	
 	g_object_unref (toplevel);
 
 	return hier;

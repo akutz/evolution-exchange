@@ -1,3 +1,22 @@
+2004-05-28  Sushma Rai  <rsushma@novell.com>
+
+	* storage/exchange-config-listener.[ch](add_esource)(remove_esource)
+	(add_sources)(remove_sources): Creating the ESource with absolute URI
+	for Contacts and GAL folder, So that GAL can be displayed in and 
+	accessed from Contacts view though it has been registered as a 
+	seperate protocol. Also creating and removing ESources for favorite 
+	folders while account creation and deletion respectively.
+
+	* storage/e-folder-exchange.c (e_folder_exchange_new)
+	(e_folder_exchange_delete): Identify folder type while adding and removing
+	folders. 
+
+	* storage/exchange-hierarchy-webdav.c (xfer_folder): Removing ESources 
+	while renaming or moving a folder.
+
+	* storage/exchange-hierarchy-gal.c (exchange_hierarchy_gal_new):
+	Create ESource for GAL folder. 
+
 2004-05-25  Dan Winship  <danw@novell.com>
 
 	* camel/camel-exchange-store.c (get_trash): Update to match the
