@@ -8,79 +8,80 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome 2.8 branch\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-20 19:02+0530\n"
-"PO-Revision-Date: 2004-10-01 09:37+0300\n"
+"POT-Creation-Date: 2005-01-10 14:26+0200\n"
+"PO-Revision-Date: 2005-01-10 14:26+0200\n"
 "Last-Translator: Vladimir Petkov <vpetkov@i-space.org>\n"
 "Language-Team: Bulgarian <dict@linux.zonebg.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: addressbook/e-book-backend-exchange.c:1666
-#: addressbook/e-book-backend-gal.c:1213 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-exchange.c:1681
+#: addressbook/e-book-backend-gal.c:1214 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Търсене..."
 
-#: addressbook/e-book-backend-gal.c:238
+#: addressbook/e-book-backend-gal.c:239
 msgid "Reconnecting to LDAP server..."
 msgstr ""
 
-#: addressbook/e-book-backend-gal.c:1117
+#: addressbook/e-book-backend-gal.c:1118
 msgid "Receiving LDAP search results..."
 msgstr ""
 
-#: addressbook/e-book-backend-gal.c:1234
+#: addressbook/e-book-backend-gal.c:1235
 msgid "Error performing search"
 msgstr ""
 
-#: calendar/e-cal-backend-exchange-calendar.c:1423
+#: calendar/e-cal-backend-exchange-calendar.c:1436
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
 
-#: calendar/e-cal-backend-exchange-calendar.c:1442
+#: calendar/e-cal-backend-exchange-calendar.c:1455
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr ""
 
-#: camel/camel-exchange-folder.c:215
+#: camel/camel-exchange-folder.c:241
 msgid "Can only expunge in Deleted Items folder"
 msgstr ""
 
-#: camel/camel-exchange-folder.c:239
+#: camel/camel-exchange-folder.c:265
 msgid "No Subject"
 msgstr "Няма заглавие"
 
-#: camel/camel-exchange-folder.c:586
+#: camel/camel-exchange-folder.c:612
 msgid "Moving messages"
 msgstr "Преместване на съобщения"
 
-#: camel/camel-exchange-folder.c:587
+#: camel/camel-exchange-folder.c:613
 msgid "Copying messages"
 msgstr "Копиране на съобщения"
 
-#: camel/camel-exchange-folder.c:890
+#: camel/camel-exchange-folder.c:916
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr ""
 
-#: camel/camel-exchange-folder.c:900
+#: camel/camel-exchange-folder.c:926
 #, c-format
 msgid "Could not load summary for %s"
 msgstr ""
 
-#: camel/camel-exchange-folder.c:908
+#: camel/camel-exchange-folder.c:934
 #, c-format
 msgid "Could not create cache for %s"
 msgstr ""
 
-#: camel/camel-exchange-folder.c:948
+#: camel/camel-exchange-folder.c:974
 msgid "Scanning for changed messages"
 msgstr ""
 
-#: camel/camel-exchange-folder.c:972
+#: camel/camel-exchange-folder.c:998
 msgid "Fetching summary information for new messages"
 msgstr ""
 
@@ -176,19 +177,24 @@ msgid ""
 "password authentication."
 msgstr ""
 
-#: camel/camel-exchange-store.c:259
+#: camel/camel-exchange-store.c:297
 #, c-format
 msgid "Exchange server %s"
-msgstr ""
+msgstr "Сървър от типа Exchange %s"
 
-#: camel/camel-exchange-store.c:262
+#: camel/camel-exchange-store.c:300
 #, c-format
 msgid "Exchange account for %s on %s"
-msgstr ""
+msgstr "Абонамент към Exchange за %s на %s"
 
-#: camel/camel-exchange-store.c:289
+#: camel/camel-exchange-store.c:327
 msgid "Evolution Exchange backend process"
 msgstr ""
+
+#: camel/camel-exchange-store.c:891
+#, c-format
+msgid "No such folder %s"
+msgstr "Не съществува папка %s"
 
 #: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
@@ -197,20 +203,21 @@ msgstr ""
 #: camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
 msgstr ""
+"Писмото не може да бъде изпратено: един или повече невалидни получатели"
 
 #: camel/camel-exchange-transport.c:131
 msgid "Could not find 'From' address in message"
-msgstr ""
+msgstr "Неуспех при намирането на адреса на подателя на писмото"
 
 #: camel/camel-stub.c:134
 #, c-format
 msgid "Could not create socket: %s"
-msgstr ""
+msgstr "Неуспех при създаването на socket: %s"
 
 #: camel/camel-stub.c:149
 #, c-format
 msgid "Could not connect to %s: %s"
-msgstr ""
+msgstr "Неуспех при свързването към %s: %s"
 
 #: camel/camel-stub.c:179
 #, c-format
@@ -225,12 +232,12 @@ msgstr ""
 #: camel/camel-stub.c:457
 #, c-format
 msgid "Lost connection to %s"
-msgstr ""
+msgstr "Връзката към %s се загуби"
 
 #: camel/camel-stub.c:461
 #, c-format
 msgid "Error communicating with %s: %s"
-msgstr ""
+msgstr "Грешка по време на комуникацията с %s: %s"
 
 #. i18n: These are Outlook's words for the default roles in
 #. the folder permissions dialog.
@@ -274,11 +281,11 @@ msgstr "Без"
 msgid "Custom"
 msgstr "Потребителски"
 
-#: lib/e2k-user-dialog.c:149
+#: lib/e2k-user-dialog.c:144
 msgid "Select User"
 msgstr "Избор на потребител"
 
-#: lib/e2k-user-dialog.c:199
+#: lib/e2k-user-dialog.c:182
 msgid "Addressbook..."
 msgstr "Адресна книга..."
 
@@ -318,15 +325,15 @@ msgstr "Новите писма не могат да бъдат получени
 
 #: mail/mail-stub-exchange.c:1292
 msgid "Could not empty Deleted Items folder"
-msgstr ""
+msgstr "Папката с изтритите обекти не може да бъде изпразнена"
 
 #: mail/mail-stub-exchange.c:1364
 msgid "Could not append message; mailbox is over quota"
-msgstr ""
+msgstr "Неуспех при прикрепянето на писмото; пощенската кутия е пълна"
 
 #: mail/mail-stub-exchange.c:1365
 msgid "Could not append message"
-msgstr ""
+msgstr "Писмото не може да бъде прикрепено"
 
 #: mail/mail-stub-exchange.c:1848
 msgid "No such message"
@@ -342,7 +349,7 @@ msgstr "Грешка при получаването на писмо"
 
 #: mail/mail-stub-exchange.c:1945
 msgid "Mailbox does not support full-text searching"
-msgstr ""
+msgstr "Пощенската кутия не поддържа пълнотекстово търсене"
 
 #: mail/mail-stub-exchange.c:2043
 msgid "Unable to move/copy messages"
@@ -362,12 +369,16 @@ msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
 msgstr ""
+"Вашият абонамент няма право да използва <%s>\n"
+"като подател."
 
 #: mail/mail-stub-exchange.c:2264
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
+"Неуспех при изпращането на писмото.\n"
+"Това може да означава, че вашият абонамент е надхвърлил квотата си."
 
 #: mail/mail-stub-exchange.c:2268
 msgid "Could not send message"
@@ -394,6 +405,8 @@ msgid ""
 "Cannot create the specified folder:\n"
 "%s"
 msgstr ""
+"Неуспех при създаването на посочената папка:\n"
+"%s"
 
 #: shell/e-folder-creation-dialog.c:179
 #, c-format
@@ -428,6 +441,8 @@ msgid ""
 "Cannot transfer folder:\n"
 "%s"
 msgstr ""
+"Неуспех при преноса на папка:\n"
+"%s"
 
 #: shell/e-folder-misc-dialogs.c:62
 #, c-format
@@ -464,7 +479,7 @@ msgstr "Преименуване на папка \"%s\" на:"
 
 #: shell/e-folder-misc-dialogs.c:191
 msgid "Rename Folder"
-msgstr "Преименуване на Папка"
+msgstr "Преименуване на папка"
 
 #: shell/e-folder-misc-dialogs.c:205
 #, c-format
@@ -474,46 +489,48 @@ msgstr ""
 #. It would be nice to insensitivize the OK button appropriately
 #. instead of doing this, but unfortunately we can't do this for the
 #. Bonobo control.
-#: shell/e-folder-misc-dialogs.c:460
+#: shell/e-folder-misc-dialogs.c:439
 msgid "Please select a user."
 msgstr "Моля, изберете потребител."
 
-#: shell/e-folder-misc-dialogs.c:560
+#: shell/e-folder-misc-dialogs.c:539
 msgid "Opening Folder"
 msgstr "Отваряне на папка"
 
-#: shell/e-folder-misc-dialogs.c:566
+#: shell/e-folder-misc-dialogs.c:545
 #, c-format
 msgid "Opening Folder \"%s\""
 msgstr "Отваряне на папка \"%s\""
 
-#: shell/e-folder-misc-dialogs.c:571
+#: shell/e-folder-misc-dialogs.c:550
 #, c-format
 msgid "in \"%s\" ..."
 msgstr "в \"%s\"·..."
 
-#: shell/e-folder-misc-dialogs.c:638
+#: shell/e-folder-misc-dialogs.c:617
 #, c-format
 msgid "Could not open other user's folder: %s."
-msgstr ""
+msgstr "Неуспех при отварянето на папка на друг потребител: %s."
 
-#: shell/e-folder-misc-dialogs.c:688
+#: shell/e-folder-misc-dialogs.c:667
 msgid "Cannot find the specified other user's folder."
 msgstr ""
 
-#: shell/e-folder-misc-dialogs.c:720
+#: shell/e-folder-misc-dialogs.c:699
 #, c-format
 msgid ""
 "Cannot unsubscribe from folder:\n"
 "%s"
 msgstr ""
+"Неуспех при отписването от папка:\n"
+"%s"
 
-#: shell/e-folder-misc-dialogs.c:773
+#: shell/e-folder-misc-dialogs.c:752
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr ""
 
-#: shell/e-folder-misc-dialogs.c:787
+#: shell/e-folder-misc-dialogs.c:766
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr ""
@@ -598,7 +615,7 @@ msgstr ""
 msgid "This operation cannot be performed in off-line mode"
 msgstr ""
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1280
+#: shell/e-storage.c:587 storage/exchange-account.c:1274
 msgid "Unknown error"
 msgstr "Непозната грешка"
 
@@ -635,7 +652,7 @@ msgstr "_Exchange"
 #: storage/exchange-account.c:565
 #, c-format
 msgid "%s's Folders"
-msgstr "%s's папки"
+msgstr "Папки на %s"
 
 #: storage/exchange-account.c:846
 #, c-format
@@ -660,13 +677,13 @@ msgstr ""
 msgid "Could not change password"
 msgstr "Неуспех при смяната на паролата"
 
-#: storage/exchange-account.c:1191
+#: storage/exchange-account.c:1185
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
 msgstr ""
 
-#: storage/exchange-account.c:1196
+#: storage/exchange-account.c:1190
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -678,7 +695,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: storage/exchange-account.c:1207
+#: storage/exchange-account.c:1201
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -688,19 +705,19 @@ msgid ""
 "\n"
 msgstr ""
 
-#: storage/exchange-account.c:1238
+#: storage/exchange-account.c:1232
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Пощенската кутия за %s не е на този сървър."
 
-#: storage/exchange-account.c:1243
+#: storage/exchange-account.c:1237
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
 "therefore not compatible with Ximian Connector"
 msgstr ""
 
-#: storage/exchange-account.c:1250
+#: storage/exchange-account.c:1244
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -708,40 +725,40 @@ msgid ""
 "account configuration dialog."
 msgstr ""
 
-#: storage/exchange-account.c:1258
+#: storage/exchange-account.c:1252
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr ""
 
-#: storage/exchange-account.c:1264 storage/exchange-account.c:1270
-#: storage/exchange-account.c:1278
+#: storage/exchange-account.c:1258 storage/exchange-account.c:1264
+#: storage/exchange-account.c:1272
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr ""
 
-#: storage/exchange-account.c:1266
+#: storage/exchange-account.c:1260
 msgid "Could not resolve hostname"
 msgstr "Хостът не може да бъде открит"
 
-#: storage/exchange-account.c:1272
+#: storage/exchange-account.c:1266
 msgid "Network error"
 msgstr "Мрежова грешка"
 
-#: storage/exchange-account.c:1350
+#: storage/exchange-account.c:1344
 msgid "Personal Folders"
 msgstr "Лични папки"
 
-#: storage/exchange-account.c:1365
+#: storage/exchange-account.c:1359
 msgid "Favorite Public Folders"
 msgstr "Любими публични папки"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1382
+#: storage/exchange-account.c:1376
 msgid "All Public Folders"
 msgstr "Всички публични папки"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1396
+#: storage/exchange-account.c:1390
 msgid "Global Address List"
 msgstr "Глобален адресен списък"
 
@@ -962,19 +979,19 @@ msgstr "Нова парола:"
 msgid "Your current password has expired. Please change your password now."
 msgstr ""
 
-#: storage/exchange-component.c:317
+#: storage/exchange-component.c:314
 msgid "Mail"
 msgstr "Поща"
 
-#: storage/exchange-component.c:320 storage/exchange-hierarchy-foreign.c:250
+#: storage/exchange-component.c:317 storage/exchange-hierarchy-foreign.c:250
 msgid "Contacts"
 msgstr "Контакти"
 
-#: storage/exchange-component.c:324 storage/exchange-hierarchy-foreign.c:258
+#: storage/exchange-component.c:321 storage/exchange-hierarchy-foreign.c:258
 msgid "Tasks"
 msgstr "Задачи"
 
-#: storage/exchange-component.c:327 storage/exchange-hierarchy-foreign.c:249
+#: storage/exchange-component.c:324 storage/exchange-hierarchy-foreign.c:249
 msgid "Calendar"
 msgstr "Календар"
 
@@ -1095,7 +1112,7 @@ msgstr "Ко_нтакти:"
 
 #: storage/exchange-delegates.glade.h:4
 msgid "Delegate Permissions"
-msgstr "Делегиранр на привилегии"
+msgstr "Делегиране на привилегии"
 
 #: storage/exchange-delegates.glade.h:5
 msgid "Delegates"
@@ -1135,20 +1152,17 @@ msgstr "_Кутия:"
 msgid "_Tasks:"
 msgstr "_Задачи:"
 
-#: storage/exchange-folder-size.c:190
-#, fuzzy
+#: storage/exchange-folder-size.c:204
 msgid "Folder Name"
-msgstr "Име на _папката:"
+msgstr "Име на папката"
 
-#: storage/exchange-folder-size.c:194
-#, fuzzy
+#: storage/exchange-folder-size.c:208
 msgid "Folder Size"
-msgstr "Папка"
+msgstr "Размер на папката"
 
 #: storage/exchange-folder-tree.glade.h:1
-#, fuzzy
 msgid "Exchange Folder Tree"
-msgstr "Сървър Exchange"
+msgstr "Дърво на папките към Exchange"
 
 #: storage/exchange-hierarchy-foreign.c:251
 msgid "Deleted Items"
@@ -1253,6 +1267,22 @@ msgstr ""
 
 #: storage/exchange-oof.glade.h:12
 msgid "Yes, Change Status"
+msgstr ""
+
+#: storage/exchange-passwd-expiry.glade.h:1
+msgid "Password Expiry Warning..."
+msgstr ""
+
+#: storage/exchange-passwd-expiry.glade.h:2
+msgid "Your password will expire in 7 days..."
+msgstr ""
+
+#: storage/exchange-passwd-expiry.glade.h:3
+msgid "_Change Password"
+msgstr "_Промяна на парола"
+
+#: storage/exchange-passwd-expiry.glade.h:4
+msgid "ok_button"
 msgstr ""
 
 #: storage/exchange-permissions-dialog.c:222
@@ -1374,7 +1404,7 @@ msgstr ""
 msgid "Connecting..."
 msgstr "Свързване..."
 
-#: storage/main.c:168
+#: storage/main.c:166
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr ""
 
@@ -1450,9 +1480,8 @@ msgid "Change your Exchange server password"
 msgstr ""
 
 #: storage/ximian-connector.xml.h:2
-#, fuzzy
 msgid "Folder _Size"
-msgstr "_Тип на папката:"
+msgstr "Ра_змер на папката"
 
 #: storage/ximian-connector.xml.h:3
 msgid "Get the size of personal folders"
