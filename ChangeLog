@@ -1,3 +1,10 @@
+2004-12-21  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* calendar/e-cal-backend-exchange.c (e_cal_backend_exchange_add_object):
+	The cache now checks for duplicate detatched instances before adding 
+	them. This fixes #70414
+	(discard_detached_instance): Small leak fixed.
+
 2004-12-09  Sushma Rai <rsushma@novell.com>
 
 	* storage/main.c (main): Calling camel_init with the

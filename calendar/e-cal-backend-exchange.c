@@ -404,6 +404,7 @@ e_cal_backend_exchange_add_object (ECalBackendExchange *cbex,
 	ECalBackendExchangeComponent *ecomp;
 	gboolean is_instance;
 	const char *uid;
+	struct icaltimetype rid;
 
 	d(printf("ecbe_add_object(%p, %s, %s)\n", cbex, href, lastmod));
 
@@ -431,8 +432,24 @@ e_cal_backend_exchange_add_object (ECalBackendExchange *cbex,
 	}
 
 	if (is_instance) {
-		ecomp->instances = g_list_prepend (ecomp->instances,
+		GList *l;
+		icalproperty *prop;
+		struct icaltimetype inst_rid;
+		gboolean inst_found = FALSE;
+
+		rid = icalcomponent_get_recurrenceid (comp);
+		for (l = ecomp->instances; l; l = l->next) {
+			inst_rid = icalcomponent_get_recurrenceid (l->data);
+			if (icaltime_compare (inst_rid, rid) == 0) {
+				inst_found = TRUE;
+				break;
+			}
+		}
+		if (!inst_found) {
+
+			ecomp->instances = g_list_prepend (ecomp->instances,
 						   icalcomponent_new_clone (comp));
+		}
 	} else
 		ecomp->comp = icalcomponent_new_clone (comp);
 
@@ -450,8 +467,8 @@ discard_detached_instance (ECalBackendExchangeComponent *ecomp,
 	for (inst = ecomp->instances; inst; inst = inst->next) {
 		inst_rid = icalcomponent_get_recurrenceid (inst->data);
 		if (icaltime_compare (inst_rid, rid) == 0) {
-			icalcomponent_free (inst->data);
 			ecomp->instances = g_list_remove (ecomp->instances, inst->data);
+			icalcomponent_free (inst->data);
 			return;
 		}
 	}
