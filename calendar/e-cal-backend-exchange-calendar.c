@@ -1364,7 +1364,8 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 		
 	comp = e_cal_component_new ();
 	e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (ecomp->icomp));
-	*object = e_cal_component_get_as_string (comp);
+	if(object)
+		*object = e_cal_component_get_as_string (comp);
 	
 	switch (mod) {
 		
