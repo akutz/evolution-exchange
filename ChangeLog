@@ -1,3 +1,12 @@
+2004-08-19  Dan Winship  <danw@novell.com>
+
+	* lib/e2k-autoconfig.c (e2k_autoconfig_get_context): Make the "is
+	this really an Exchange server" checks more lenient; the current
+	code fails against E2k SP2 (which people shouldn't be running any
+	more, but...)
+	(e2k_autoconfig_check_exchange): Try the "append /exchange if the
+	path was empty" trick for E2K_AUTOCONFIG_FAILED too.
+
 2004-08-18  Maxim Dziumanenko <mvd@mylinux.com.ua>
 
 	* configure.in: Added uk to ALL_LINGUAS

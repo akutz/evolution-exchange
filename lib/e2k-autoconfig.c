@@ -485,6 +485,10 @@ e2k_autoconfig_get_context (E2kAutoconfig *ac, E2kOperation *op,
 			goto done;
 		}
 
+		/* It's probably Exchange 2000... older versions
+		 * didn't include the MS-WebStorage header here. But
+		 * we don't know for sure.
+		 */
 		ac->version = E2K_EXCHANGE_UNKNOWN;
 	}
 
@@ -516,9 +520,14 @@ e2k_autoconfig_get_context (E2kAutoconfig *ac, E2kOperation *op,
 		goto done;
 	}
 
-	/* Make sure we didn't just get a page that wants to
-	 * redirect us to Exchange 5.5
-	 */
+	/* Make sure it's not Exchange 5.5 */
+	if (ac->version == E2K_EXCHANGE_UNKNOWN &&
+	    strstr (ac->owa_uri, "/logon.asp")) {
+		*result = E2K_AUTOCONFIG_EXCHANGE_5_5;
+		goto done;
+	}
+
+	/* Make sure it's not trying to redirect us to Exchange 5.5 */
 	for (node = doc->children; node; node = e2k_xml_find (node, "meta")) {
 		gboolean ex55 = FALSE;
 
@@ -537,15 +546,6 @@ e2k_autoconfig_get_context (E2kAutoconfig *ac, E2kOperation *op,
 			*result = E2K_AUTOCONFIG_EXCHANGE_5_5;
 			goto done;
 		}
-	}
-
-	/* Don't go any further if it's not really Exchange 2000 */
-	if (ac->version == E2K_EXCHANGE_UNKNOWN) {
-		if (strstr (ac->owa_uri, "/logon.asp"))
-			*result = E2K_AUTOCONFIG_EXCHANGE_5_5;
-		else
-			*result = E2K_AUTOCONFIG_NO_OWA;
-		goto done;
 	}
 
 	/* Try to find the base URI */
@@ -649,6 +649,7 @@ e2k_autoconfig_check_exchange (E2kAutoconfig *ac, E2kOperation *op)
 		goto try_again;
 
 	case E2K_AUTOCONFIG_NO_OWA:
+	default:
 		/* If the provided OWA URI had no path, try appending
 		 * /exchange.
 		 */
@@ -662,9 +663,6 @@ e2k_autoconfig_check_exchange (E2kAutoconfig *ac, E2kOperation *op)
 			goto try_again;
 		}
 		e2k_uri_free (euri);
-		return result;
-
-	default:
 		return result;
 	}
 
