@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-08-18 11:26+0300\n"
-"PO-Revision-Date: 2004-08-18 11:28+0300\n"
+"PO-Revision-Date: 2004-08-24 09:55+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr ""
 #: calendar/e-cal-backend-exchange-calendar.c:1370
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
-msgstr ""
+msgstr "Resurssi '%s' on varattu valitun aikajakson aikana."
 
 #: camel/camel-exchange-folder.c:219
 msgid "Can only expunge in Deleted Items folder"
@@ -823,6 +823,8 @@ msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 msgstr ""
+"OWA-tietoja ei löytynyt annetusta osoitteesta.\n"
+"Tarkista että URL on oikein ja yritä uudestaan."
 
 #: storage/exchange-autoconfig-wizard.c:267
 msgid ""
@@ -834,18 +836,29 @@ msgid ""
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
+"Ximian Connector vaatii pääsyä tiettyihin Exchange-palvelimen toimintoihin, "
+"jotka näyttävät olevan poissa käytössä tai joihin pääsy on estetty, usein "
+"vahingossa. Exchange-palvelin ylläpitäjäsi täytyy sallia nämä ominaisuudet, "
+"jotta voit käyttää Ximian Connectoria.\n"
+"\n"
+"Seuraa alla olevaa linkkiä, josta saat lisätietoja asiasta toimitettavaksi "
+"Exchange-ylläpidollesi."
 
 #: storage/exchange-autoconfig-wizard.c:288
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
 msgstr ""
+"Antamasi Exchange-palvelimen URL on Exchange 5.5 palvelimelle. Ximian "
+"Connector tukee ainoastaan versioita Microsoft Exchange 2000 ja 2003." 
 
 #: storage/exchange-autoconfig-wizard.c:301
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
 msgstr ""
+"Exchange-tiliä ei voitu määritellä, koska tapahtui tuntematon virhe. "
+"Tarkista URL, käyttäjätunnus ja salasana ja yritä sitten uudestaan."
 
 #: storage/exchange-autoconfig-wizard.c:345
 #, c-format
@@ -860,6 +873,8 @@ msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
 msgstr ""
+"Yhteyttä annettuun palvelimeen ei voitu avata.\n"
+"Tarkista palvelimen nimi ja yritä uudestaan."
 
 #: storage/exchange-autoconfig-wizard.c:389
 #: storage/exchange-autoconfig-wizard.c:393
@@ -871,10 +886,12 @@ msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
 msgstr ""
+"Konfiguraatiojärjestelmän virhe.\n"
+"Uutta tiliä ei voitu luoda."
 
 #: storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
-msgstr ""
+msgstr "Konfiguraatio epäonnistui"
 
 #: storage/exchange-autoconfig-wizard.glade.h:3
 msgid "Done"
@@ -894,7 +911,7 @@ msgstr "Koko nimi:"
 
 #: storage/exchange-autoconfig-wizard.glade.h:7
 msgid "GC Server:"
-msgstr ""
+msgstr "GC-palvelin:"
 
 #: storage/exchange-autoconfig-wizard.glade.h:8
 msgid "Make this my default account"
@@ -928,6 +945,11 @@ msgid ""
 "\n"
 "Please click the \"Forward\" button to continue."
 msgstr ""
+"Tervetuloa Ximian Connectorin Microsoft Exchangelle käyttäjäksi.\n"
+"Seuraavat ruudut auttavat sinua määrittelemään asetukset, joilla\n"
+"Evolution ottaa yhteyttä Exchange-tiliisi.\n"
+"\n"
+"Paina nappia \"Seuraava\" jatkaaksesi."
 
 #: storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Ximian Connector Configuration"
@@ -941,6 +963,11 @@ msgid ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
+"Ximian Connector voi käyttää tilitietoja olemassaolevasta Outlook Web Access "
+"(OWA) tilistäsi.\n"
+"\n"
+"Syötä OWA-palvelusi osoite (URL), käyttäjätunnus ja salasana ja jatka "
+"painamalla \"Jatka\".\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:24
 msgid ""
@@ -954,6 +981,8 @@ msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
 msgstr ""
+"Ximian Connectorille törmäsi ongelmiin määriteltäessä Exchange-tiliäsi."
+"\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -961,12 +990,17 @@ msgid ""
 "save your\n"
 "settings."
 msgstr ""
+"Exchange-tilisi on nyt valmis käytettäväksi. Paina nappia \"Toteuta\" "
+"tallentaaksesi asetuksesi.\n"
+" "
 
 #: storage/exchange-autoconfig-wizard.glade.h:30
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
 msgstr ""
+"Tilisi tiedot ovat seuraavat. Korjaa mahdolliset virheet ja paina nappia "
+"\"Jatka\".\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
@@ -976,10 +1010,12 @@ msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
 msgstr ""
+"Annettu salasana ei ole sama kuin tilisi olemassaoleva salasana. Anna "
+"oikea salasana."
 
 #: storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
-msgstr ""
+msgstr "Annetut salasanat eivät ole samat. Syötä salasanat uudestaan."
 
 #: storage/exchange-change-password.glade.h:2
 msgid "Change Password"
@@ -1026,10 +1062,12 @@ msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
 msgstr ""
+"Muutokset Exchange-tilin määrittelyihin tulevat voimaan, kun olet\n"
+"sulkenut ja käynnistänyt Evolutionin uudestaan."
 
 #: storage/exchange-config-listener.c:647
 msgid "The Exchange account will be removed when you quit Evolution"
-msgstr ""
+msgstr "Exchange-tili poistetaan kun suljet Evolutionin"
 
 #: storage/exchange-delegates-user.c:191
 #: storage/exchange-permissions-dialog.c:179
@@ -1048,6 +1086,8 @@ msgid ""
 "Could not read folder permissions.\n"
 "Unable to edit delegates."
 msgstr ""
+"Kansion oikeuksia ei voitu lukea.\n"
+"Delegaatteja ei voida muokata."
 
 #: storage/exchange-delegates.c:267
 msgid ""
@@ -1057,57 +1097,53 @@ msgstr ""
 
 #: storage/exchange-delegates.c:419
 msgid "Delegate To:"
-msgstr ""
-
-#: storage/exchange-delegates.c:419
-msgid "Delegate To"
-msgstr ""
+msgstr "Delegoi:"
 
 #: storage/exchange-delegates.c:435
 #, c-format
 msgid "Could not make %s a delegate"
-msgstr ""
+msgstr "Henkilöstä %s ei voitu tehdä delegaattia"
 
 #: storage/exchange-delegates.c:445
 msgid "You cannot make yourself your own delegate"
-msgstr ""
+msgstr "Et voi delegoida itsellesi tehtäviä"
 
 #: storage/exchange-delegates.c:454
 #, c-format
 msgid "%s is already a delegate"
-msgstr ""
+msgstr "%s on jo delegaatti"
 
 #: storage/exchange-delegates.c:563
 #, c-format
 msgid "Remove the delegate %s?"
-msgstr ""
+msgstr "Poista delegaatti %s?"
 
 #: storage/exchange-delegates.c:680
 msgid "Could not access Active Directory"
-msgstr ""
+msgstr "Active Directoryyn ei saatu yhteyttä"
 
 #: storage/exchange-delegates.c:695
 msgid "Could not find self in Active Directory"
-msgstr ""
+msgstr "Omia tietoja ei löytynyt Active Directorysta"
 
 #: storage/exchange-delegates.c:708
 #, c-format
 msgid "Could not find delegate %s in Active Directory"
-msgstr ""
+msgstr "Delegaattia %s ei löytynyt Active Directorysta"
 
 #: storage/exchange-delegates.c:720
 #, c-format
 msgid "Could not remove delegate %s"
-msgstr ""
+msgstr "Delegaattia %s ei voitu poistaa"
 
 #: storage/exchange-delegates.c:780
 msgid "Could not update list of delegates."
-msgstr ""
+msgstr "Delegaattien listaa ei voitu päivittää"
 
 #: storage/exchange-delegates.c:798
 #, c-format
 msgid "Could not add delegate %s"
-msgstr ""
+msgstr "Delegaattia %s ei voitu lisätä"
 
 #: storage/exchange-delegates.c:814
 #, c-format
@@ -1115,14 +1151,16 @@ msgid ""
 "Failed to update delegates:\n"
 "%s"
 msgstr ""
+"Delegaattien päivitys epäonnistui:\n"
+"%s"
 
 #: storage/exchange-delegates.c:937 storage/exchange-permissions-dialog.c:706
 msgid "Name"
-msgstr ""
+msgstr "Nimi"
 
 #: storage/exchange-delegates.c:966
 msgid "Error reading delegates list."
-msgstr ""
+msgstr "Virhe luettaessa listaa delegaateista"
 
 #: storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
@@ -1138,11 +1176,11 @@ msgstr "_Yhteystiedot:"
 
 #: storage/exchange-delegates.glade.h:4
 msgid "Delegate Permissions"
-msgstr ""
+msgstr "Delegaatin oikeudet"
 
 #: storage/exchange-delegates.glade.h:5
 msgid "Delegates"
-msgstr ""
+msgstr "Delegaatit"
 
 #: storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
@@ -1161,10 +1199,12 @@ msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
 msgstr ""
+"Seuraavat käyttäjät voivat lähettää sähköpostia nimissäsi\n"
+"ja päästä käsiksi kansioihisi määrittelemilläsi oikeuksilla."
 
 #: storage/exchange-delegates.glade.h:12
 msgid "_Delegate can see private items"
-msgstr ""
+msgstr "_Delegate voi nähdä yksityisiä kohteita"
 
 #: storage/exchange-delegates.glade.h:13
 msgid "_Edit"
@@ -1208,7 +1248,7 @@ msgstr "Lähetetyt viestit"
 
 #: storage/exchange-migrate.c:57
 msgid "Migrating Exchange Folders..."
-msgstr ""
+msgstr "Siirretään Exchange-kansioita..."
 
 #: storage/exchange-migrate.c:65
 #, c-format
@@ -1218,6 +1258,10 @@ msgid ""
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
+"Evolution Exchange-tilin kansioiden sijainti ja hierarkia ovat muuttuneet "
+"versiosta %d.%d.%d.\n"
+"\n"
+"Odota kärsivällisesti kun Evolution siirtää kansioitasi..."
 
 #: storage/exchange-migrate.c:98
 #, c-format
@@ -1231,7 +1275,7 @@ msgstr ""
 #: storage/exchange-migrate.c:129
 #, c-format
 msgid "Migrating `%s':"
-msgstr ""
+msgstr "Siirretään '%s':"
 
 #: storage/exchange-oof.c:91 storage/exchange-oof.c:290
 msgid "Could not update out-of-office state"
