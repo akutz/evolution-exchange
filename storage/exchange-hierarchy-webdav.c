@@ -606,10 +606,10 @@ exchange_hierarchy_webdav_parse_folder (ExchangeHierarchyWebDAV *hwd,
 		e_folder_set_custom_icon (folder, "stock_delete");
 	if (hassubs)
 		e_folder_exchange_set_has_subfolders (folder, TRUE);
-	if (permanenturl)
+	if (permanenturl) {
 		e_folder_exchange_set_permanent_uri (folder, permanenturl);
-	
-	exchange_folder_size_update (hwd->priv->foldersize, permanenturl, name, folder_size);
+		exchange_folder_size_update (hwd->priv->foldersize, permanenturl, name, folder_size);
+	}
 
 	return folder;
 }
