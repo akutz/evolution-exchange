@@ -611,7 +611,8 @@ transfer_messages_to (CamelFolder *source, GPtrArray *uids,
 			if (!(message = get_message (source, camel_message_info_uid (info), ex)))
 				break;
 
-			camel_exchange_journal_append (journal, message, info, NULL, ex);
+			camel_exchange_journal_transfer (journal, (CamelExchangeFolder *)source, 
+							message, info, uids->pdata[i], NULL, ex);
 			camel_object_unref (message);
 
 			if (camel_exception_is_set (ex))

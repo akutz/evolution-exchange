@@ -1,3 +1,10 @@
+2005-01-24  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* camel/camel-exchange-folder.c (transfer_messages_to):
+	We should now call journal_transfer instead of journal_append
+	* camel/camel-exchange-journal.c : Handle transfer of messages
+	and also updating the flags.
+
 2005-01-24  Sushma Rai  <rsushma@novell.com>
 
 	* addressbook/e-book-backend-exchange.c: Added offline support

@@ -59,8 +59,8 @@ struct _CamelExchangeJournalEntry {
 	int type;
 
 	char *uid;
-	char *source_container;
-	char *dest_container;
+	char *original_uid;
+	char *folder_name;
 };
 
 struct _CamelExchangeJournal {
@@ -82,8 +82,9 @@ CamelOfflineJournal *camel_exchange_journal_new (CamelExchangeFolder *folder, co
 void camel_exchange_journal_append (CamelExchangeJournal *journal, CamelMimeMessage *message, 
 				const CamelMessageInfo *mi, char **appended_uid, CamelException *ex);
 
-void camel_exchange_journal_transfer (CamelExchangeJournal *journal, CamelMimeMessage *message, 
-				const CamelMessageInfo *mi, char **transferred_uid, CamelException *ex);
+void camel_exchange_journal_transfer (CamelExchangeJournal *journal, CamelExchangeFolder *source_folder, 
+				CamelMimeMessage *message, const CamelMessageInfo *mi, const char *original_uid,
+				char **transferred_uid, CamelException *ex);
 
 #ifdef __cplusplus
 }
