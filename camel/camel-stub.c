@@ -236,7 +236,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 
 		case CAMEL_STUB_ARG_UINT32:
 		{
-			unsigned long val = va_arg (ap, unsigned long);
+			guint32 val = va_arg (ap, guint32);
 
 			camel_stub_marshal_encode_uint32 (stub->cmd, val);
 			break;
@@ -284,7 +284,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 
 			camel_stub_marshal_encode_uint32 (stub->cmd, arr->len);
 			for (i = 0; i < arr->len; i++)
-				camel_stub_marshal_encode_uint32 (stub->cmd, g_array_index (arr, int, i));
+				camel_stub_marshal_encode_uint32 (stub->cmd, g_array_index (arr, guint32, i));
 			break;
 		}		
 		
@@ -349,7 +349,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 
 				case CAMEL_STUB_ARG_UINT32:
 				{
-					unsigned long *val = va_arg (ap, unsigned long *);
+					guint32 *val = va_arg (ap, guint32 *);
 					guint32 val32;
 
 					status = camel_stub_marshal_decode_uint32 (stub->cmd, &val32);
@@ -414,7 +414,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 					status = camel_stub_marshal_decode_uint32 (stub->cmd, &len);
 					if (status == -1)
 						break;
-					*arr = g_array_new (FALSE, FALSE, sizeof (int));
+					*arr = g_array_new (FALSE, FALSE, sizeof (guint32));
 					for (i = 0; i< len && status != -1; i++) {
 						status = camel_stub_marshal_decode_uint32 (stub->cmd, &unread_count);
 						if (status != -1)
