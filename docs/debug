@@ -86,6 +86,23 @@ Note that the URL is always the last argument.
 
 You can use E2K_DEBUG with ebrowse.
 
+Example :
+=========
+
+	To view the folders of a user for checking the message files in his Inbox
+
+	First, get a list of all folders for the user.
+
+	ebrowse -t http://userid@machine-ip/exchange/userid
+
+	Select the folder under which you wish to view the list of messages.
+	Assuming you want to view the list of messages under Inbox
+
+	ebrowse -l http://userid@machine-ip/exchange/userid/Inbox
+
+	Now to see the properties of this message
+
+	ebrowse -p http://userid@machine-ip/exchange/userid/Inbox/somename.EML
 
 gctest
 ------

@@ -538,7 +538,7 @@ exchange_hierarchy_webdav_status_to_folder_result (E2kHTTPStatus status)
 }
 
 ExchangeFolderSize *
-exchange_hierarchy_get_folder_size (ExchangeHierarchyWebDAV *hwd)
+exchange_hierarchy_webdav_get_folder_size (ExchangeHierarchyWebDAV *hwd)
 {
 	return hwd->priv->foldersize;
 }

@@ -1,5 +1,13 @@
 2004-11-23  Sarfraaz Ahmed <asarfraaz@novell.com>
 
+	* storage/exchange-folder-size.c (exchange_folder_size_update):
+	Fixed a crash. The private member was being used uninitialised.
+	* storage/exchange-hierarchy-webdav.c : Similar
+	* storage/exchange-hierarchy-webdav.h : Similar
+	* docs/debug : Added some more examples.
+
+2004-11-23  Sarfraaz Ahmed <asarfraaz@novell.com>
+
 	* storage/xc-commands.c (do_folder_size): Hook for showing the folder
 	sizes. Missed this out in my previous commits.
 

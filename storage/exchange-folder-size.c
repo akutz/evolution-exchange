@@ -25,9 +25,6 @@
 
 #include <string.h>
 
-#include "exchange-hierarchy.h"
-#include "exchange-folder-size.h"
-
 #include <e-util/e-dialog-utils.h>
 #include <glade/glade-xml.h>
 #include <gtk/gtkbox.h>
@@ -36,6 +33,10 @@
 #include <gtk/gtkmessagedialog.h>
 #include <gtk/gtktreeselection.h>
 #include <gtk/gtktreeview.h>
+
+#include "exchange-hierarchy.h"
+#include "e-folder-exchange.h"
+#include "exchange-folder-size.h"
 
 #define PARENT_TYPE G_TYPE_OBJECT
 static GObjectClass *parent_class = NULL;
@@ -119,7 +120,12 @@ exchange_folder_size_update (ExchangeFolderSize *fsize,
 {
 	folder_info *f_info;
 	ExchangeFolderSizePrivate *priv;
-	GHashTable *folder_size_table = priv->table;
+	GHashTable *folder_size_table;
+
+	g_return_if_fail (EXCHANGE_IS_FOLDER_SIZE (fsize));
+
+	priv = fsize->priv;
+	folder_size_table = priv->table;
 
 	/*FIXME : Check if value is already present */
 
@@ -149,20 +155,21 @@ exchange_folder_size_display (EFolder *folder, GtkWidget *parent)
         ExchangeFolderSizePrivate *priv;
 	ExchangeFolderSize *fsize;
         ExchangeHierarchy *hier;
-        GtkWidget *button;
         GtkTreeViewColumn *column;
         GtkTreeIter iter;
         GHashTable *folder_size_table;
         GladeXML *xml;
         GtkWidget *dialog, *table;
         GtkListStore *model;
-        int i, response;
+        int response;
 
         g_return_if_fail (GTK_IS_WIDGET (parent));
         g_return_if_fail (E_IS_FOLDER (folder));
 
         hier = e_folder_exchange_get_hierarchy (folder);
-        fsize = exchange_hierarchy_get_folder_size (hier);
+	/* FIXME: This should be a more generic query and not just 
+	specifically for webdav */
+        fsize = exchange_hierarchy_webdav_get_folder_size (hier);
 	priv = fsize->priv;
 	folder_size_table = priv->table;
 
