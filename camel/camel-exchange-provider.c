@@ -71,6 +71,16 @@ CamelProviderConfEntry exchange_conf_entries[] = {
 	{ CAMEL_PROVIDER_CONF_END }
 };
 
+typedef gboolean (CamelProviderValidateUserFunc) (CamelURL *camel_url, char *url, CamelException *ex);
+
+typedef struct {
+        CamelProviderValidateUserFunc *validate_user;
+}CamelProviderValidate;
+
+static gboolean exchange_validate_user_cb (CamelURL *camel_url, char *owa_url, CamelException *ex);
+
+CamelProviderValidate validate_struct = { exchange_validate_user_cb };
+
 static CamelProvider exchange_provider = {
 	"exchange",
 	N_("Microsoft Exchange"),
@@ -84,7 +94,7 @@ static CamelProvider exchange_provider = {
 
 	CAMEL_URL_NEED_USER, 
 
-	exchange_conf_entries,
+	exchange_conf_entries 
 
 	/* ... */
 };
@@ -144,11 +154,12 @@ camel_provider_module_init (void)
 	exchange_provider.url_hash = exchange_url_hash;
 	exchange_provider.url_equal = exchange_url_equal;
 	exchange_provider.auto_detect = exchange_auto_detect_cb;
-	exchange_provider.validate_user = exchange_validate_user_cb;
 
 	bindtextdomain (GETTEXT_PACKAGE, CONNECTOR_LOCALEDIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	exchange_provider.translation_domain = GETTEXT_PACKAGE;
+	exchange_provider.translation_domain = GETTEXT_PACKAGE;
+	exchange_provider.priv = (void *)&validate_struct;
 
 	camel_provider_register (&exchange_provider);
 }
