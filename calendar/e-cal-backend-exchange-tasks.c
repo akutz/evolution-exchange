@@ -1023,12 +1023,70 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 }
 
 static ECalBackendSyncStatus
-receive_objects (ECalBackendSync *backend, EDataCal *cal,
+receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
                  const char *calobj)
 {
-        /* FIXME */
-	return e_cal_backend_exchange_receive_objects (E_CAL_BACKEND_EXCHANGE(backend), cal, calobj);
-        /* return GNOME_Evolution_Calendar_OtherError; */
+	ECalBackendExchangeTasks *ecalbextask;
+        ECalComponent *ecalcomp;
+        GList *comps, *l;
+        struct icaltimetype current;
+        icalproperty_method method;
+        icalcomponent *subcomp;
+        ECalBackendSyncStatus status = GNOME_Evolution_Calendar_Success;
+                                                                                
+	ecalbextask = E_CAL_BACKEND_EXCHANGE_TASKS (backend);
+	
+	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_TASKS (ecalbextask),
+                                        GNOME_Evolution_Calendar_NoSuchCal);
+        g_return_val_if_fail (calobj != NULL,
+                                GNOME_Evolution_Calendar_ObjectNotFound);
+                                                                                
+	status = e_cal_backend_exchange_extract_components (calobj, &method, &comps);
+        if (status != GNOME_Evolution_Calendar_Success)
+                return GNOME_Evolution_Calendar_InvalidObject;
+
+	for (l = comps; l; l = l->next) {
+                const char *uid, *rid;
+                char *calobj;
+                                                                                
+                subcomp = l->data;
+                                                                                
+                ecalcomp = e_cal_component_new ();
+                e_cal_component_set_icalcomponent (ecalcomp, subcomp);
+                                                                                
+                current = icaltime_from_timet (time (NULL), 0);
+                e_cal_component_set_created (ecalcomp, &current);
+                e_cal_component_set_last_modified (ecalcomp, &current);
+                                                                                
+                /*sanitize?*/
+
+		e_cal_component_get_uid (ecalcomp, &uid);
+                rid = e_cal_component_get_recurid_as_string (ecalcomp);
+                                                                                
+                /*see if the object is there in the cache. if found, modify object, else create object*/
+                                                                                
+                if (get_exchange_comp (E_CAL_BACKEND_EXCHANGE (ecalbextask), uid)) {
+                        char *old_object;
+                        status = modify_task_object (backend, cal, calobj, CALOBJ_MOD_THIS, &old_object);
+                        if (status != GNOME_Evolution_Calendar_Success)
+                                goto error;
+                                                                                
+                        e_cal_backend_notify_object_modified (E_CAL_BACKEND (backend), old_object, calobj);
+			g_free (old_object);
+                } else {
+                        char *returned_uid;
+			calobj = (char *) icalcomponent_as_ical_string (subcomp);
+			status = create_task_object (backend, cal, &calobj, &returned_uid);
+                        if (status != GNOME_Evolution_Calendar_Success)
+                                goto error;
+                                                                                
+                        e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), calobj);
+                }
+        }
+                                                                                
+        g_list_free (comps);
+error:
+        return status;
 }
 
 static ECalBackendSyncStatus
@@ -1098,7 +1156,7 @@ class_init (ECalBackendExchangeTasksClass *klass)
 	sync_class->create_object_sync = create_task_object;
 	sync_class->modify_object_sync = modify_task_object;
 	sync_class->remove_object_sync = remove_task_object;
-	sync_class->receive_objects_sync = receive_objects;
+	sync_class->receive_objects_sync = receive_task_objects;
 
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;

@@ -589,23 +589,16 @@ get_object (ECalBackendSync *backend, EDataCal *cal,
 	return GNOME_Evolution_Calendar_Success;
 }
 
-static ECalBackendSyncStatus
-receive_objects (ECalBackendSync *backend, EDataCal *cal,
-		 const char *calobj)
+ECalBackendSyncStatus
+e_cal_backend_exchange_extract_components (const char *calobj,
+					   icalproperty_method *method, 
+					   GList **comp_list)
 {
-	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	icalcomponent *icalcomp, *comp = NULL;
 	icalcomponent *subcomp;
 	icalcomponent_kind kind;
-	icalproperty_method method;
-	GList *comps, *comp_list;
-	ECalComponent *ecalcomp;
-	struct icaltimetype current;
+	GList *comps;
 	ECalBackendSyncStatus status = GNOME_Evolution_Calendar_Success;
-	
-	d(printf("ecbe_receive_objects(%p, %p, %s)\n", backend, cal, calobj));
-	
-	g_return_val_if_fail (calobj != NULL, GNOME_Evolution_Calendar_InvalidObject);
 	
 	icalcomp = icalparser_parse_string (calobj);
 	if (!icalcomp)
@@ -618,18 +611,18 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 		icalcomponent_add_component (icalcomp, comp);
 	}
 	
-	method = icalcomponent_get_method (icalcomp);
-	
+	*method = icalcomponent_get_method (icalcomp);
+
+#if 0
+	/* Might have to include this later */
 	/*time zone?*/
-	
 	subcomp = icalcomponent_get_first_component (icalcomp, ICAL_VTIMEZONE_COMPONENT);
-	
 	while (subcomp) {
-		
 		e_cal_backend_exchange_add_timezone (cbex, icalcomponent_new_clone (subcomp));
 		subcomp = icalcomponent_get_next_component (icalcomp, ICAL_VTIMEZONE_COMPONENT);
 	}
-	
+#endif
+
 	comps = NULL;
 	subcomp = icalcomponent_get_first_component (icalcomp, ICAL_ANY_COMPONENT);
 	while (subcomp)	{
@@ -653,65 +646,13 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 			default:
 				break;
 		}
+		subcomp = icalcomponent_get_next_component (icalcomp, ICAL_ANY_COMPONENT);
 	}
 	
-	for (comp_list = comps; comp_list; comp_list = comp_list->next)	{
-		const char *uid, *rid;
-		char *calobj;
-		
-		subcomp = comp_list->data;
-		
-		ecalcomp = e_cal_component_new ();
-		e_cal_component_set_icalcomponent (ecalcomp, subcomp);
-		
-		current = icaltime_from_timet (time (NULL), 0);
-		e_cal_component_set_created (ecalcomp, &current);
-		e_cal_component_set_last_modified (ecalcomp, &current);
-		
-		/*sanitize?*/
-		
-		e_cal_component_get_uid (ecalcomp, &uid);
-		rid = e_cal_component_get_recurid_as_string (ecalcomp);
-		
-		/*see if the object is there in the cache. if found, modify object, else create object*/
-		
-		if (get_object (backend, cal, uid, rid, &calobj) == GNOME_Evolution_Calendar_Success) {
-			
-			char *old_object;
-			status = modify_object (backend, cal, calobj, CALOBJ_MOD_THIS, &old_object);
-			if (status != GNOME_Evolution_Calendar_Success)
-				goto error;
-			
-			e_cal_backend_notify_object_modified (E_CAL_BACKEND (backend), old_object, calobj);
-						
-		} else {
-
-			char *returned_uid;
-			status = create_object (backend, cal, &calobj, &returned_uid);
-			if (status != GNOME_Evolution_Calendar_Success)
-				goto error;
-			
-			e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), calobj);
-			
-		}
-		
-	}
-	
-	g_list_free (comps);
-	
-error:
-	
+	*comp_list = comps;
+error:	
 	return status;
 }
-
-gboolean
-e_cal_backend_exchange_receive_objects (ECalBackendExchange *cbex,
-					EDataCal *cal,
-					const char *calobj)
-{
-	return receive_objects (E_CAL_BACKEND_SYNC (cbex), cal, calobj);
-}
-
 
 static ECalBackendSyncStatus
 send_objects (ECalBackendSync *backend, EDataCal *cal,
@@ -1353,7 +1294,6 @@ class_init (ECalBackendExchangeClass *klass)
 	sync_class->open_sync = open_calendar;
 	sync_class->remove_sync = remove_calendar;
 	sync_class->discard_alarm_sync = discard_alarm;
-	sync_class->receive_objects_sync = receive_objects;
 	sync_class->send_objects_sync = send_objects;
 	sync_class->get_default_object_sync = get_default_object;
 	sync_class->get_object_sync = get_object;

@@ -1,3 +1,19 @@
+2004-06-22  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	Fix for #60327
+	* calendar/e-cal-backend-exchange.c
+	(e_cal_backend_exchange_extract_components): Added new. This creates 
+	a list of objects [VEVENTS/VTODO] from a calendar object.
+	(receive_objects): Removed. This is now done separately in calendar
+	and tasks code.
+	(e_cal_backend_exchange_receive_objects): Removed. This is not being
+	used anywhere
+	* calendar/e-cal-backend-exchange.h : Likewise
+	* calendar/e-cal-backend-exchange-calendar.c (receive_objects): This
+	now makes use of the extract_component method.
+	* calendar/e-cal-backend-exchange-tasks.c (receive_task_objects):
+	Implemented
+
 2004-06-21  Dan Winship  <danw@novell.com>
 
 	* addressbook/e-book-backend-exchange.c (e_contact_from_props): if

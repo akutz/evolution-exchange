@@ -939,8 +939,6 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 		 const char *calobj)
 {
 	ECalBackendExchangeCalendar *cbexc;
-	icalcomponent *toplevel_comp, *icalcomp;
-	icalcomponent_kind kind;
 	ECalComponent *comp;
 	GList *comps, *l;
 	struct icaltimetype current;
@@ -953,39 +951,10 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), GNOME_Evolution_Calendar_InvalidObject);
 	g_return_val_if_fail (calobj != NULL, GNOME_Evolution_Calendar_InvalidObject);
 	
-	toplevel_comp = icalparser_parse_string (calobj);
-	if (!toplevel_comp)
+	status = e_cal_backend_exchange_extract_components (calobj, &method, &comps);
+	if (status != GNOME_Evolution_Calendar_Success)
 		return GNOME_Evolution_Calendar_InvalidObject;
-	
-	kind = icalcomponent_isa (toplevel_comp);
-	
-	if (kind != ICAL_VCALENDAR_COMPONENT) {
-		
-		icalcomp = toplevel_comp;
-		toplevel_comp = e_cal_util_new_top_level ();
-		icalcomponent_add_component (toplevel_comp, icalcomp);	
-	}
 
-	method = icalcomponent_get_method (toplevel_comp);
-	
-	comps = NULL;
-	subcomp = icalcomponent_get_first_component (toplevel_comp, ICAL_ANY_COMPONENT);
-	
-	while (subcomp) {
-		
-		icalcomponent_kind child_kind = icalcomponent_isa (subcomp);
-		
-		if (child_kind == ICAL_VEVENT_COMPONENT) {
-			
-			if (!icalcomponent_get_uid (subcomp))
-				return GNOME_Evolution_Calendar_InvalidObject;
-			
-			comps = g_list_prepend (comps, subcomp);
-		}
-		
-		subcomp = icalcomponent_get_next_component (toplevel_comp, ICAL_ANY_COMPONENT);
-	}
-	
 	for (l = comps; l; l= l->next) {
 		const char *uid, *rid;
 		char *calobj;

@@ -69,10 +69,6 @@ gboolean  e_cal_backend_exchange_modify_object    (ECalBackendExchange *cbex,
 gboolean  e_cal_backend_exchange_remove_object    (ECalBackendExchange *cbex,
 						   const char          *uid);
 
-gboolean e_cal_backend_exchange_receive_objects (ECalBackendExchange *cbex, 
-						 EDataCal *cal,
-						 const char *calobj);
-
 gboolean  e_cal_backend_exchange_add_timezone     (ECalBackendExchange *cbex,
 						   icalcomponent       *vtzcomp);
 						   
@@ -86,7 +82,11 @@ ECalBackendSyncStatus	get_timezone 	(ECalBackendSync *backend,
 							EDataCal *cal, const char *tzid, char **object);
 
 ECalBackendExchangeComponent * get_exchange_comp (ECalBackendExchange *cbex, 
-												const char *uid);
+						  const char *uid);
+
+ECalBackendSyncStatus  e_cal_backend_exchange_extract_components (const char *calobj,
+                                           icalproperty_method *method,
+                                           GList **comp_list);
 
 /* Utility functions */
                                                                                 
