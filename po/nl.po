@@ -2,7 +2,7 @@
 # Copyright (C) 2004 The Free Software Foundation
 # This file is distributed under the same license as the
 # evolution-exchange package.
-# Tino Meinen <a.t.meinen@chello.nl>, 2004.
+# Tino Meinen <a.t.meinen@chello.nl>, 2004, 2005.
 # -----------------------------------------------------
 # ** Outlookisms vertalen of niet? **
 # Mailbox - Brievenbus
@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: GNOME 2.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-11 16:32+0530\n"
-"PO-Revision-Date: 2004-11-29 19:16+0100\n"
+"PO-Revision-Date: 2005-01-12 23:18+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Ducth <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -97,9 +97,9 @@ msgid "Could not create cache for %s"
 msgstr "Kon cache-buffer voor %s niet aanmaken"
 
 #: camel/camel-exchange-folder.c:957
-#, fuzzy, c-format
+#, c-format
 msgid "Could not create journal for %s"
-msgstr "Kon cache-buffer voor %s niet aanmaken"
+msgstr "Kon journaal voor %s niet aanmaken"
 
 # aangepaste berichten
 #: camel/camel-exchange-folder.c:997
@@ -136,14 +136,15 @@ msgstr "Global Catalog server name:"
 msgid "Limit number of GAL responses: %s"
 msgstr "Aantal GAL antwoorden beperken: %s"
 
+# waarschuwing wanneer wachtwoord gaat/zal verlopen
 #: camel/camel-exchange-provider.c:60
 msgid "Password Expiry Warning"
-msgstr ""
+msgstr "'Wachtwoord verloopt' waarschuwing"
 
 #: camel/camel-exchange-provider.c:62
 #, c-format
 msgid "Password Expiry Warning period: %s"
-msgstr ""
+msgstr "'Wachtwoord verloopt' waarschuwingsperiode: %s"
 
 # postvak in of 'inbox'
 #. i18n: copy from evolution:camel-imap-provider.c
@@ -214,33 +215,25 @@ msgstr "Evolution Exchange backend proces"
 
 # een dergelijke map bestaat niet
 #: camel/camel-exchange-store.c:352
-#, fuzzy, c-format
+#, c-format
 msgid "No such folder %s"
-msgstr "Map bestaat niet"
+msgstr "Map %s bestaat niet"
 
 #: camel/camel-exchange-store.c:474
-#, fuzzy
 msgid "Cannot get folder info in offline mode."
-msgstr "Deze bewerking kan niet uitgevoerd worden in de off-line stand"
+msgstr "Kan map-info in offline toestand niet verkrijgen."
 
 #: camel/camel-exchange-store.c:536
-#, fuzzy
 msgid "Cannot create folder in offline mode."
-msgstr "Kan geen map aanmaken met die naam"
+msgstr "Kan map in offline toestand niet aanmaken"
 
 #: camel/camel-exchange-store.c:563
-#, fuzzy
 msgid "Cannot delete folder in offline mode."
-msgstr ""
-"Kan de map niet verwijderen:\n"
-"%s"
+msgstr "Kan de map in offline toestand niet verwijderen."
 
 #: camel/camel-exchange-store.c:579
-#, fuzzy
 msgid "Cannot rename folder in offline mode."
-msgstr ""
-"Kan map niet hernoemen:\n"
-"%s"
+msgstr "Kan map in offline toestand niet hernoemen."
 
 #: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
@@ -1471,38 +1464,35 @@ msgstr "Ik ben momenteel aanwezig"
 msgid "I am currently out of the office"
 msgstr "Ik ben momenteel afwezig"
 
-# veranderen
-# aanpassen
+# wijzigen/veranderen/aanpassen
 #: storage/exchange-oof.glade.h:10
 msgid "No, Don't Change Status"
-msgstr "Nee, status niet veranderen"
+msgstr "Nee, status niet wijzigen"
 
 #: storage/exchange-oof.glade.h:11
 msgid "Out of Office Assistant"
 msgstr "Afwezigheids-assistent"
 
-# veranderen
-# aanpassen
 #: storage/exchange-oof.glade.h:12
 msgid "Yes, Change Status"
-msgstr "Ja, status veranderen"
+msgstr "Ja, status wijzigen"
 
 #: storage/exchange-passwd-expiry.glade.h:1
 msgid "Password Expiry Warning..."
-msgstr ""
+msgstr "'Wachtwoord verloopt' waarschuwing..."
 
+# zal binnen 7 dagen verlopen
 #: storage/exchange-passwd-expiry.glade.h:2
 msgid "Your password will expire in 7 days..."
-msgstr ""
+msgstr "Uw wachtwoord verloopt over 7 dagen..."
 
 #: storage/exchange-passwd-expiry.glade.h:3
-#, fuzzy
 msgid "_Change Password"
-msgstr "Wachtwoord veranderen"
+msgstr "_Wachtwoord wijzigen"
 
 #: storage/exchange-passwd-expiry.glade.h:4
 msgid "ok_button"
-msgstr ""
+msgstr "ok_knop"
 
 # rechten/persmissies/toestemming
 #: storage/exchange-permissions-dialog.c:222
@@ -1738,12 +1728,11 @@ msgstr ""
 # tonen of wijzigen/tonen of aanpassen/tonen of veranderen
 #: storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
-msgstr "Uw Exchange-agenda gedelegeerde instellingen tonen of aanpassen"
+msgstr "Uw Exchange-agenda gedelegeerde-instellingen tonen of wijzigen"
 
 #: storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
-msgstr ""
-"Uw afwezigheidsstatus en automatisch antwoord bericht tonen of aanpassen"
+msgstr "Uw afwezigheidsstatus en automatisch antwoord bericht tonen of wijzigen"
 
 #: storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
