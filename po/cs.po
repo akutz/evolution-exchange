@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-02 16:19+0200\n"
+"POT-Creation-Date: 2004-06-03 13:57-0400\n"
 "PO-Revision-Date: 2004-06-02 17:53+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -154,7 +154,9 @@ msgstr "Zabezpečené ověřování hesla"
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
-msgstr "Tato možnost se k serveru Exchange připojí pomocí zabezpečené autentizace heslem (NTLM)."
+msgstr ""
+"Tato možnost se k serveru Exchange připojí pomocí zabezpečené autentizace "
+"heslem (NTLM)."
 
 #: camel/camel-exchange-provider.c:112
 msgid "Plaintext Password"
@@ -164,7 +166,9 @@ msgstr "Heslo v čistém textu"
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
-msgstr "Tato možnost se k serveru Exchange připojí pomocí standardní autentizace nešifrovaným heslem."
+msgstr ""
+"Tato možnost se k serveru Exchange připojí pomocí standardní autentizace "
+"nešifrovaným heslem."
 
 #: camel/camel-exchange-store.c:175
 #, c-format
@@ -222,21 +226,6 @@ msgstr "Ztratil jsem připojení k %s"
 msgid "Error communicating with %s: %s"
 msgstr "Chyba při komunikaci s %s: %s"
 
-#: component/GNOME_Evolution_Exchange_Component.server.in.in.h:1
-msgid "Evolution Exchange Component"
-msgstr "Komponenta Evolution pro Exchange"
-
-#: component/exchange-component.c:200
-#, c-format
-msgid ""
-"Cannot activate Ximian Connector backend:\n"
-"The error from the activation system is:\n"
-"%s"
-msgstr ""
-"Nemohu aktivovat backend Ximian Connector:\n"
-"Chyba od systému aktivace je:\n"
-"%s"
-
 #. i18n: These are Outlook's words for the default roles in
 #. the folder permissions dialog.
 #: lib/e2k-security-descriptor.c:847
@@ -293,7 +282,7 @@ msgstr "Taková složka neexistuje"
 
 #: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2329
 #: mail/mail-stub-exchange.c:2371 mail/mail-stub-exchange.c:2421
-#: shell/e-storage.c:573
+#: shell/e-storage.c:573 storage/xc-commands.c:299
 msgid "Permission denied"
 msgstr "Přístup odepřen"
 
@@ -384,10 +373,11 @@ msgstr "Nemohu odeslat zprávu"
 
 #: mail/mail-stub-exchange.c:2321 mail/mail-stub-exchange.c:2376
 #: mail/mail-stub-exchange.c:2425 shell/e-storage.c:557
+#: storage/xc-commands.c:303
 msgid "Generic error"
 msgstr "Obecná chyba"
 
-#: mail/mail-stub-exchange.c:2325
+#: mail/mail-stub-exchange.c:2325 storage/xc-commands.c:293
 msgid "Folder already exists"
 msgstr "Složka již existuje"
 
@@ -612,7 +602,7 @@ msgstr "Nemohu vytvořit složku s tímto názvem"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Tuto operaci nelze provést v režimu off-line"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1069
+#: shell/e-storage.c:587 storage/exchange-account.c:1094
 msgid "Unknown error"
 msgstr "Neznámá chyba"
 
@@ -625,33 +615,44 @@ msgid "Evolution Calendar Exchange backend"
 msgstr "Backend Evolution pro kalendář Exchange"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+msgid "Evolution Exchange Component"
+msgstr "Komponenta Evolution pro Exchange"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
+#, fuzzy
+msgid "Exchange"
+msgstr "_Kvóta exchange"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
 msgid "Ximian Connector for Exchange"
 msgstr "Ximian Connector pro Exchange"
 
 # Aaargh
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:552
+#: storage/exchange-account.c:553
 #, c-format
 msgid "%s's Folders"
 msgstr "Složky uživatele %s"
 
-#: storage/exchange-account.c:823
+#: storage/exchange-account.c:848
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sZadejte heslo pro %s"
 
-#: storage/exchange-account.c:827
+#: storage/exchange-account.c:852
 msgid "Enter password"
 msgstr "Zadejte heslo"
 
-#: storage/exchange-account.c:980
+#: storage/exchange-account.c:1005
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
-msgstr "Nemohu se autentizovat u serveru. (Nesprávné heslo?)\n\n"
+msgstr ""
+"Nemohu se autentizovat u serveru. (Nesprávné heslo?)\n"
+"\n"
 
-#: storage/exchange-account.c:985
+#: storage/exchange-account.c:1010
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -671,7 +672,7 @@ msgstr ""
 "Nebo jste prostě zadali špatné heslo.\n"
 "\n"
 
-#: storage/exchange-account.c:996
+#: storage/exchange-account.c:1021
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -687,12 +688,12 @@ msgstr ""
 "Nebo jste prostě zadali špatné heslo.\n"
 "\n"
 
-#: storage/exchange-account.c:1027
+#: storage/exchange-account.c:1052
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Složka pro %s není na tomto serveru."
 
-#: storage/exchange-account.c:1032
+#: storage/exchange-account.c:1057
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -701,7 +702,7 @@ msgstr ""
 "Na server '%s' běží Exchange 5.5, takže server\n"
 "není kompatibilní s Ximian Connector"
 
-#: storage/exchange-account.c:1039
+#: storage/exchange-account.c:1064
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -712,40 +713,40 @@ msgstr ""
 "Pokud OWA běží na jiné cestě, musíte ji zadat v dialogu\n"
 "nastavení účtu."
 
-#: storage/exchange-account.c:1047
+#: storage/exchange-account.c:1072
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Pro uživatele %s není v %s složka.\n"
 
-#: storage/exchange-account.c:1053 storage/exchange-account.c:1059
-#: storage/exchange-account.c:1067
+#: storage/exchange-account.c:1078 storage/exchange-account.c:1084
+#: storage/exchange-account.c:1092
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Nemohu se připojit k serveru %s: %s"
 
-#: storage/exchange-account.c:1055
+#: storage/exchange-account.c:1080
 msgid "Could not resolve hostname"
 msgstr "Nemohu najít jméno počítače"
 
-#: storage/exchange-account.c:1061
+#: storage/exchange-account.c:1086
 msgid "Network error"
 msgstr "Chyba sítě"
 
-#: storage/exchange-account.c:1113
+#: storage/exchange-account.c:1138
 msgid "Personal Folders"
 msgstr "Osobní složky"
 
-#: storage/exchange-account.c:1128
+#: storage/exchange-account.c:1153
 msgid "Favorite Public Folders"
 msgstr "Oblíbené veřejné složky"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1145
+#: storage/exchange-account.c:1170
 msgid "All Public Folders"
 msgstr "Všechny veřejné složky"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1159
+#: storage/exchange-account.c:1184
 msgid "Global Address List"
 msgstr "Globální seznam adres"
 
@@ -756,7 +757,8 @@ msgid ""
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
 "Nemohu se připojit k serveru Exchange.\n"
-"Zkontrolujte, zda je URL správné (zkuste \"%s\" místo \"%s\"?) a zkuste to znovu."
+"Zkontrolujte, zda je URL správné (zkuste \"%s\" místo \"%s\"?) a zkuste to "
+"znovu."
 
 #: storage/exchange-autoconfig-wizard.c:232
 msgid ""
@@ -807,21 +809,29 @@ msgid ""
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"Ximian Connector vyžaduje přístup k určitým funkcím na serveru Exchange, které byly zřejmě zakázány nebo zablokovány. (To obvykle není úmyslné.) Váš správce Exchange bude muset povolit tyto funkce, abyste mohli používat Ximian Connector.\n"
+"Ximian Connector vyžaduje přístup k určitým funkcím na serveru Exchange, "
+"které byly zřejmě zakázány nebo zablokovány. (To obvykle není úmyslné.) Váš "
+"správce Exchange bude muset povolit tyto funkce, abyste mohli používat "
+"Ximian Connector.\n"
 "\n"
-"Pro informace, které poskytnout vašemu správci Exchange, prosím použijte odkaz níže:"
+"Pro informace, které poskytnout vašemu správci Exchange, prosím použijte "
+"odkaz níže:"
 
 #: storage/exchange-autoconfig-wizard.c:288
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr "URL serveru Exchange, které jste zadali, je na server Exchange 5.5. Ximian Connector podporuje jen Microsoft Exchange 2000 a 2003."
+msgstr ""
+"URL serveru Exchange, které jste zadali, je na server Exchange 5.5. Ximian "
+"Connector podporuje jen Microsoft Exchange 2000 a 2003."
 
 #: storage/exchange-autoconfig-wizard.c:301
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
-msgstr "Nemohu nastavit účet Exchange, protože došlo k neznámé chybě. Zkontrolujte URL, jméno uživatele a heslo a zkuste to znovu."
+msgstr ""
+"Nemohu nastavit účet Exchange, protože došlo k neznámé chybě. Zkontrolujte "
+"URL, jméno uživatele a heslo a zkuste to znovu."
 
 #: storage/exchange-autoconfig-wizard.c:345
 msgid ""
@@ -918,22 +928,28 @@ msgid ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
-"Ximian Connector může použít informace o účtu z vašeho existujícího účtu Outlook Web Access (OWA).\n"
+"Ximian Connector může použít informace o účtu z vašeho existujícího účtu "
+"Outlook Web Access (OWA).\n"
 "\n"
-"Zadejte vaši adresu serveru OWA (URL), jméno uživatele a heslo, pak klikněte na \"Vpřed\".\n"
+"Zadejte vaši adresu serveru OWA (URL), jméno uživatele a heslo, pak klikněte "
+"na \"Vpřed\".\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:24
 msgid ""
 "Ximian Connector could not find the Global Catalog replica for your site. "
 "Please enter the name of your Global Catalog server. You may need to ask "
 "your system administrator for the correct value.\n"
-msgstr "Ximian Connector nemohl najít repliku Global Catalog pro váš server. Zadejte prosím název vašeho serveru Global Catalog. Možná se budete muset na správnou hodnotu zeptat vašeho správce systému.\n"
+msgstr ""
+"Ximian Connector nemohl najít repliku Global Catalog pro váš server. Zadejte "
+"prosím název vašeho serveru Global Catalog. Možná se budete muset na "
+"správnou hodnotu zeptat vašeho správce systému.\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:26
 msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
-msgstr "Při nastavování vašeho účtu Exchange narazil Ximian Connector na problém.\n"
+msgstr ""
+"Při nastavování vašeho účtu Exchange narazil Ximian Connector na problém.\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -941,14 +957,17 @@ msgid ""
 "save your\n"
 "settings."
 msgstr ""
-"Váš účet Connectoru je nyní připraven k použití. Uložte vaše nastavení kliknutím\n"
+"Váš účet Connectoru je nyní připraven k použití. Uložte vaše nastavení "
+"kliknutím\n"
 "na tlačítko \"Použít\"."
 
 #: storage/exchange-autoconfig-wizard.glade.h:30
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
-msgstr "Vaše informace o účtu jsou následující. Opravte prosím případné chyby a klikněte na \"Vpřed\".\n"
+msgstr ""
+"Vaše informace o účtu jsou následující. Opravte prosím případné chyby a "
+"klikněte na \"Vpřed\".\n"
 
 #: storage/exchange-change-password.glade.h:2
 msgid "Change Password"
@@ -968,7 +987,24 @@ msgstr "Nové heslo  "
 
 #: storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now.\n"
-msgstr "Platnost vašeho momentálního hesla vypršela. Nyní prosím změňte vaše heslo.\n"
+msgstr ""
+"Platnost vašeho momentálního hesla vypršela. Nyní prosím změňte vaše heslo.\n"
+
+#: storage/exchange-component.c:312
+msgid "Mail"
+msgstr "Pošta"
+
+#: storage/exchange-component.c:315 storage/exchange-hierarchy-foreign.c:248
+msgid "Contacts"
+msgstr "Kontakty"
+
+#: storage/exchange-component.c:319 storage/exchange-hierarchy-foreign.c:256
+msgid "Tasks"
+msgstr "Úkoly"
+
+#: storage/exchange-component.c:322 storage/exchange-hierarchy-foreign.c:247
+msgid "Calendar"
+msgstr "Kalendář"
 
 #: storage/exchange-config-listener.c:426
 msgid ""
@@ -1153,14 +1189,6 @@ msgstr "_Příchozí:"
 msgid "_Tasks:"
 msgstr "_Úkoly:"
 
-#: storage/exchange-hierarchy-foreign.c:247 storage/xc-backend.c:322
-msgid "Calendar"
-msgstr "Kalendář"
-
-#: storage/exchange-hierarchy-foreign.c:248 storage/xc-backend.c:315
-msgid "Contacts"
-msgstr "Kontakty"
-
 #: storage/exchange-hierarchy-foreign.c:249
 msgid "Deleted Items"
 msgstr "Odstraněné položky"
@@ -1189,10 +1217,6 @@ msgstr "Pošta k odeslání"
 msgid "Sent Items"
 msgstr "Odeslané položky"
 
-#: storage/exchange-hierarchy-foreign.c:256 storage/xc-backend.c:319
-msgid "Tasks"
-msgstr "Úkoly"
-
 #: storage/exchange-migrate.c:57
 msgid "Migrating Exchange Folders..."
 msgstr "Převádím složky Exchange..."
@@ -1205,7 +1229,8 @@ msgid ""
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
-"Umístění a hierarchie složek účtu Evolution se změnilo od Evolution %d.%d.%d.\n"
+"Umístění a hierarchie složek účtu Evolution se změnilo od Evolution %d.%d.%"
+"d.\n"
 "\n"
 "Buďte prosím trpěliví, než Evolution převede vaše složky..."
 
@@ -1217,7 +1242,8 @@ msgid ""
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"Varování: Evolution nemohla převést všechna data účtu Exchange z verze %d.%d.%d.\n"
+"Varování: Evolution nemohla převést všechna data účtu Exchange z verze %d.%d."
+"%d.\n"
 "Data nebyla odstraněna, ale tato verze Evolution je neuvidí"
 
 #: storage/exchange-migrate.c:129
@@ -1225,11 +1251,11 @@ msgstr ""
 msgid "Migrating `%s':"
 msgstr "Převádím `%s':"
 
-#: storage/exchange-oof.c:92 storage/exchange-oof.c:291
+#: storage/exchange-oof.c:91 storage/exchange-oof.c:290
 msgid "Could not update out-of-office state"
 msgstr "Nemohu aktualizovat stav \"mimo kancelář\""
 
-#: storage/exchange-oof.c:309
+#: storage/exchange-oof.c:308
 msgid "Could not read out-of-office state"
 msgstr "Nemohu číst stav \"mimo kancelář\""
 
@@ -1401,7 +1427,7 @@ msgstr "Role: "
 msgid "Connecting..."
 msgstr "Připojuji se..."
 
-#: storage/main.c:138
+#: storage/main.c:155
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector pro Microsoft Exchange"
 
@@ -1409,47 +1435,58 @@ msgstr "Ximian Connector pro Microsoft Exchange"
 msgid "Account Name"
 msgstr "Název účtu"
 
-#: storage/xc-backend.c:312
-msgid "Mail"
-msgstr "Pošta"
+#: storage/xc-commands.c:296
+#, fuzzy
+msgid "Folder does not exist"
+msgstr "Složka neexistuje"
 
-#: storage/xc-commands.c:307
+#: storage/xc-commands.c:319
+#, fuzzy, c-format
+msgid "Could not add favorite: %s"
+msgstr "Nemohu přidat delegáta %s"
+
+#: storage/xc-commands.c:333
+#, fuzzy, c-format
+msgid "Could not remove favorite: %s"
+msgstr "Nemohu dostranit delegáta %s"
+
+#: storage/xc-commands.c:350
 msgid "_Move Folder..."
 msgstr "_Přesunout složku..."
 
-#: storage/xc-commands.c:310
+#: storage/xc-commands.c:353
 msgid "_Copy Folder..."
 msgstr "_Kopírovat složku..."
 
-#: storage/xc-commands.c:313
+#: storage/xc-commands.c:356
 msgid "_Rename Folder..."
 msgstr "Pře_jmenovat složku..."
 
-#: storage/xc-commands.c:319
+#: storage/xc-commands.c:362
 msgid "_New Folder..."
 msgstr "_Nová složka..."
 
-#: storage/xc-commands.c:322
+#: storage/xc-commands.c:365
 msgid "_Delete Folder"
 msgstr "_Odstranit složku"
 
-#: storage/xc-commands.c:327
+#: storage/xc-commands.c:370
 msgid "_Add Other User's Folder..."
 msgstr "_Přidat složku jiného uživatele..."
 
-#: storage/xc-commands.c:330
+#: storage/xc-commands.c:373
 msgid "_Remove Other User's Folder"
 msgstr "_Odstranit složku jiného uživatele"
 
-#: storage/xc-commands.c:336
+#: storage/xc-commands.c:379
 msgid "Add to _Favorites"
 msgstr "Přidat do _Oblíbených"
 
-#: storage/xc-commands.c:340
+#: storage/xc-commands.c:383
 msgid "Remove from Fa_vorites"
 msgstr "Odstranit z Ob_líbených"
 
-#: storage/xc-commands.c:347
+#: storage/xc-commands.c:390
 msgid "_Permissions..."
 msgstr "_Oprávnění..."
 
@@ -1476,7 +1513,9 @@ msgstr "Přihlásit se ke složce patřící jinému uživateli na serveru"
 #: storage/ximian-connector.xml.h:5
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
-msgstr "Odhlásit se od složky přidané pomocí \"Přihlásit se ke složce jiného uživatele\""
+msgstr ""
+"Odhlásit se od složky přidané pomocí \"Přihlásit se ke složce jiného "
+"uživatele\""
 
 #: storage/ximian-connector.xml.h:6
 msgid "View or change your Exchange calendar delegation settings"
@@ -1484,7 +1523,8 @@ msgstr "Zobrazit nebo změnit vaše nastavení delegování kalendáře Exchange
 
 #: storage/ximian-connector.xml.h:7
 msgid "View or change your Out-of-Office status and autoreply message"
-msgstr "Zobrazit nebo změnit váš stav \"mimo kancelář\" a zprávu automatické odpovědi"
+msgstr ""
+"Zobrazit nebo změnit váš stav \"mimo kancelář\" a zprávu automatické odpovědi"
 
 #: storage/ximian-connector.xml.h:8
 msgid "View your Exchange server disk usage and limits"
@@ -1505,3 +1545,12 @@ msgstr "Asistent \"_mimo kancelář\""
 #: storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Odhlásit se od složky jiného uživatele"
+
+#~ msgid ""
+#~ "Cannot activate Ximian Connector backend:\n"
+#~ "The error from the activation system is:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Nemohu aktivovat backend Ximian Connector:\n"
+#~ "Chyba od systému aktivace je:\n"
+#~ "%s"

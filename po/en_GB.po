@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-02 20:19-0400\n"
+"POT-Creation-Date: 2004-06-03 13:57-0400\n"
 "PO-Revision-Date: 2004-06-02 20:24-0400\n"
 "Last-Translator: Gareth Owen <gowen72@yahoo.com>\n"
 "Language-Team: \n"
@@ -224,21 +224,6 @@ msgstr "Lost connection to %s"
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Error communicating with %s: %s"
-
-#: component/GNOME_Evolution_Exchange_Component.server.in.in.h:1
-msgid "Evolution Exchange Component"
-msgstr "Evolution Exchange Component"
-
-#: component/exchange-component.c:200
-#, c-format
-msgid ""
-"Cannot activate Ximian Connector backend:\n"
-"The error from the activation system is:\n"
-"%s"
-msgstr ""
-"Cannot activate Ximian Connector backend:\n"
-"The error from the activation system is:\n"
-"%s"
 
 #. i18n: These are Outlook's words for the default roles in
 #. the folder permissions dialog.
@@ -629,6 +614,15 @@ msgid "Evolution Calendar Exchange backend"
 msgstr "Evolution Calendar Exchange backend"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+msgid "Evolution Exchange Component"
+msgstr "Evolution Exchange Component"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
+#, fuzzy
+msgid "Exchange"
+msgstr "Exchange _Quota"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
 msgid "Ximian Connector for Exchange"
 msgstr "Ximian Connector for Exchange"
 
@@ -993,6 +987,22 @@ msgstr "New Password  "
 msgid "Your current password has expired. Please change your password now.\n"
 msgstr "Your current password has expired. Please change your password now.\n"
 
+#: storage/exchange-component.c:312
+msgid "Mail"
+msgstr "Mail"
+
+#: storage/exchange-component.c:315 storage/exchange-hierarchy-foreign.c:248
+msgid "Contacts"
+msgstr "Contacts"
+
+#: storage/exchange-component.c:319 storage/exchange-hierarchy-foreign.c:256
+msgid "Tasks"
+msgstr "Tasks"
+
+#: storage/exchange-component.c:322 storage/exchange-hierarchy-foreign.c:247
+msgid "Calendar"
+msgstr "Calendar"
+
 #: storage/exchange-config-listener.c:426
 msgid ""
 "Could not set up default folders to point to your Exchange account.\n"
@@ -1176,14 +1186,6 @@ msgstr "_Inbox:"
 msgid "_Tasks:"
 msgstr "_Tasks:"
 
-#: storage/exchange-hierarchy-foreign.c:247 storage/xc-backend.c:322
-msgid "Calendar"
-msgstr "Calendar"
-
-#: storage/exchange-hierarchy-foreign.c:248 storage/xc-backend.c:315
-msgid "Contacts"
-msgstr "Contacts"
-
 #: storage/exchange-hierarchy-foreign.c:249
 msgid "Deleted Items"
 msgstr "Deleted Items"
@@ -1211,10 +1213,6 @@ msgstr "Outbox"
 #: storage/exchange-hierarchy-foreign.c:255
 msgid "Sent Items"
 msgstr "Sent Items"
-
-#: storage/exchange-hierarchy-foreign.c:256 storage/xc-backend.c:319
-msgid "Tasks"
-msgstr "Tasks"
 
 #: storage/exchange-migrate.c:57
 msgid "Migrating Exchange Folders..."
@@ -1251,11 +1249,11 @@ msgstr ""
 msgid "Migrating `%s':"
 msgstr "Migrating `%s':"
 
-#: storage/exchange-oof.c:92 storage/exchange-oof.c:291
+#: storage/exchange-oof.c:91 storage/exchange-oof.c:290
 msgid "Could not update out-of-office state"
 msgstr "Could not update out-of-office state"
 
-#: storage/exchange-oof.c:309
+#: storage/exchange-oof.c:308
 msgid "Could not read out-of-office state"
 msgstr "Could not read out-of-office state"
 
@@ -1428,17 +1426,13 @@ msgstr "Role: "
 msgid "Connecting..."
 msgstr "Connecting..."
 
-#: storage/main.c:138
+#: storage/main.c:155
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector for Microsoft Exchange"
 
 #: storage/xc-backend-view.c:292
 msgid "Account Name"
 msgstr "Account Name"
-
-#: storage/xc-backend.c:312
-msgid "Mail"
-msgstr "Mail"
 
 #: storage/xc-commands.c:296
 msgid "Folder does not exist"
@@ -1547,3 +1541,12 @@ msgstr "_Out of Office Assistant"
 #: storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Unsubscribe from Other User's Folder"
+
+#~ msgid ""
+#~ "Cannot activate Ximian Connector backend:\n"
+#~ "The error from the activation system is:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Cannot activate Ximian Connector backend:\n"
+#~ "The error from the activation system is:\n"
+#~ "%s"

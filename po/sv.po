@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-28 15:54+0200\n"
+"POT-Creation-Date: 2004-06-03 13:57-0400\n"
 "PO-Revision-Date: 2004-05-28 15:53+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -230,21 +230,6 @@ msgstr "Tappade anslutningen till %s"
 msgid "Error communicating with %s: %s"
 msgstr "Fel vid kommunikation med %s: %s"
 
-#: component/GNOME_Evolution_Exchange_Component.server.in.in.h:1
-msgid "Evolution Exchange Component"
-msgstr "Exchange-komponent för Evolution"
-
-#: component/exchange-component.c:200
-#, fuzzy, c-format
-msgid ""
-"Cannot activate Ximian Connector backend:\n"
-"The error from the activation system is:\n"
-"%s"
-msgstr ""
-"Kan inte aktivera komponenten %s:\n"
-"Felet från aktiveringssystemet är:\n"
-"%s"
-
 #. i18n: These are Outlook's words for the default roles in
 #. the folder permissions dialog.
 #: lib/e2k-security-descriptor.c:847
@@ -313,7 +298,7 @@ msgstr "Det finns ingen sådan mapp"
 
 #: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2329
 #: mail/mail-stub-exchange.c:2371 mail/mail-stub-exchange.c:2421
-#: shell/e-storage.c:573
+#: shell/e-storage.c:573 storage/xc-commands.c:299
 msgid "Permission denied"
 msgstr "Åtkomst nekas"
 
@@ -404,10 +389,11 @@ msgstr "Kunde inte skicka meddelandet"
 
 #: mail/mail-stub-exchange.c:2321 mail/mail-stub-exchange.c:2376
 #: mail/mail-stub-exchange.c:2425 shell/e-storage.c:557
+#: storage/xc-commands.c:303
 msgid "Generic error"
 msgstr "Allmänt fel"
 
-#: mail/mail-stub-exchange.c:2325
+#: mail/mail-stub-exchange.c:2325 storage/xc-commands.c:293
 msgid "Folder already exists"
 msgstr "Mappen finns redan"
 
@@ -631,7 +617,7 @@ msgstr "Kan inte skapa en mapp med det namnet"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Denna åtgärd kan inte utföras i frånkopplat läge"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1069
+#: shell/e-storage.c:587 storage/exchange-account.c:1094
 msgid "Unknown error"
 msgstr "Okänt fel"
 
@@ -646,26 +632,35 @@ msgid "Evolution Calendar Exchange backend"
 msgstr "Evolutions kalenderbakände för lokal fil"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+msgid "Evolution Exchange Component"
+msgstr "Exchange-komponent för Evolution"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
+#, fuzzy
+msgid "Exchange"
+msgstr "Exchange-server"
+
+#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
 msgid "Ximian Connector for Exchange"
 msgstr ""
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:552
+#: storage/exchange-account.c:553
 #, fuzzy, c-format
 msgid "%s's Folders"
 msgstr "Mappar"
 
-#: storage/exchange-account.c:823
+#: storage/exchange-account.c:848
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sAnge lösenord för %s"
 
-#: storage/exchange-account.c:827
+#: storage/exchange-account.c:852
 msgid "Enter password"
 msgstr "Ange lösenord"
 
-#: storage/exchange-account.c:980
+#: storage/exchange-account.c:1005
 #, fuzzy
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
@@ -675,7 +670,7 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: storage/exchange-account.c:985
+#: storage/exchange-account.c:1010
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -687,7 +682,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: storage/exchange-account.c:996
+#: storage/exchange-account.c:1021
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -697,19 +692,19 @@ msgid ""
 "\n"
 msgstr ""
 
-#: storage/exchange-account.c:1027
+#: storage/exchange-account.c:1052
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr ""
 
-#: storage/exchange-account.c:1032
+#: storage/exchange-account.c:1057
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
 "therefore not compatible with Ximian Connector"
 msgstr ""
 
-#: storage/exchange-account.c:1039
+#: storage/exchange-account.c:1064
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -717,42 +712,42 @@ msgid ""
 "account configuration dialog."
 msgstr ""
 
-#: storage/exchange-account.c:1047
+#: storage/exchange-account.c:1072
 #, fuzzy, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Genomsöker mappar under %s på \"%s\""
 
-#: storage/exchange-account.c:1053 storage/exchange-account.c:1059
-#: storage/exchange-account.c:1067
+#: storage/exchange-account.c:1078 storage/exchange-account.c:1084
+#: storage/exchange-account.c:1092
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Kunde inte ansluta till servern %s: %s"
 
-#: storage/exchange-account.c:1055
+#: storage/exchange-account.c:1080
 msgid "Could not resolve hostname"
 msgstr "Kunde inte slå upp värdnamnet"
 
-#: storage/exchange-account.c:1061
+#: storage/exchange-account.c:1086
 msgid "Network error"
 msgstr "Nätverksfel"
 
-#: storage/exchange-account.c:1113
+#: storage/exchange-account.c:1138
 msgid "Personal Folders"
 msgstr "Personliga mappar"
 
-#: storage/exchange-account.c:1128
+#: storage/exchange-account.c:1153
 #, fuzzy
 msgid "Favorite Public Folders"
 msgstr "Virtuella mappar"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1144
+#: storage/exchange-account.c:1170
 #, fuzzy
 msgid "All Public Folders"
 msgstr "Alla mappar"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1158
+#: storage/exchange-account.c:1184
 #, fuzzy
 msgid "Global Address List"
 msgstr "Adress"
@@ -961,6 +956,22 @@ msgstr "Nytt lösenord"
 msgid "Your current password has expired. Please change your password now.\n"
 msgstr ""
 
+#: storage/exchange-component.c:312
+msgid "Mail"
+msgstr "E-post"
+
+#: storage/exchange-component.c:315 storage/exchange-hierarchy-foreign.c:248
+msgid "Contacts"
+msgstr "Kontakter"
+
+#: storage/exchange-component.c:319 storage/exchange-hierarchy-foreign.c:256
+msgid "Tasks"
+msgstr "Uppgifter"
+
+#: storage/exchange-component.c:322 storage/exchange-hierarchy-foreign.c:247
+msgid "Calendar"
+msgstr "Kalender"
+
 #: storage/exchange-config-listener.c:426
 msgid ""
 "Could not set up default folders to point to your Exchange account.\n"
@@ -1140,14 +1151,6 @@ msgstr "Inkorg"
 msgid "_Tasks:"
 msgstr "_Uppgifter:"
 
-#: storage/exchange-hierarchy-foreign.c:247 storage/xc-backend.c:322
-msgid "Calendar"
-msgstr "Kalender"
-
-#: storage/exchange-hierarchy-foreign.c:248 storage/xc-backend.c:315
-msgid "Contacts"
-msgstr "Kontakter"
-
 #: storage/exchange-hierarchy-foreign.c:249
 #, fuzzy
 msgid "Deleted Items"
@@ -1178,10 +1181,6 @@ msgstr "Utkorg"
 msgid "Sent Items"
 msgstr "Skickade objekt"
 
-#: storage/exchange-hierarchy-foreign.c:256 storage/xc-backend.c:319
-msgid "Tasks"
-msgstr "Uppgifter"
-
 #: storage/exchange-migrate.c:57
 #, fuzzy
 msgid "Migrating Exchange Folders..."
@@ -1210,12 +1209,12 @@ msgstr ""
 msgid "Migrating `%s':"
 msgstr "Skapar \"%s\""
 
-#: storage/exchange-oof.c:92 storage/exchange-oof.c:291
+#: storage/exchange-oof.c:91 storage/exchange-oof.c:290
 #, fuzzy
 msgid "Could not update out-of-office state"
 msgstr "Kunde inte uppdatera objekt"
 
-#: storage/exchange-oof.c:309
+#: storage/exchange-oof.c:308
 #, fuzzy
 msgid "Could not read out-of-office state"
 msgstr "Kunde inte byta namn på mapp: %s"
@@ -1391,7 +1390,7 @@ msgstr "Roll: "
 msgid "Connecting..."
 msgstr "Ansluter..."
 
-#: storage/main.c:138
+#: storage/main.c:155
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector för Microsoft Exchange"
 
@@ -1399,49 +1398,60 @@ msgstr "Ximian Connector för Microsoft Exchange"
 msgid "Account Name"
 msgstr "Kontonamn"
 
-#: storage/xc-backend.c:312
-msgid "Mail"
-msgstr "E-post"
+#: storage/xc-commands.c:296
+#, fuzzy
+msgid "Folder does not exist"
+msgstr "Mappen finns inte"
 
-#: storage/xc-commands.c:307
+#: storage/xc-commands.c:319
+#, fuzzy, c-format
+msgid "Could not add favorite: %s"
+msgstr "Kunde inte ta bort mappen \"%s\": %s"
+
+#: storage/xc-commands.c:333
+#, fuzzy, c-format
+msgid "Could not remove favorite: %s"
+msgstr "Kunde inte skriva data: %s"
+
+#: storage/xc-commands.c:350
 msgid "_Move Folder..."
 msgstr "_Flytta mapp..."
 
-#: storage/xc-commands.c:310
+#: storage/xc-commands.c:353
 msgid "_Copy Folder..."
 msgstr "_Kopiera mapp..."
 
-#: storage/xc-commands.c:313
+#: storage/xc-commands.c:356
 msgid "_Rename Folder..."
 msgstr "_Byt namn på mapp..."
 
-#: storage/xc-commands.c:319
+#: storage/xc-commands.c:362
 msgid "_New Folder..."
 msgstr "_Ny mapp..."
 
-#: storage/xc-commands.c:322
+#: storage/xc-commands.c:365
 msgid "_Delete Folder"
 msgstr "_Ta bort mapp"
 
-#: storage/xc-commands.c:327
+#: storage/xc-commands.c:370
 #, fuzzy
 msgid "_Add Other User's Folder..."
 msgstr "Öppna en annan _användares mapp..."
 
-#: storage/xc-commands.c:330
+#: storage/xc-commands.c:373
 msgid "_Remove Other User's Folder"
 msgstr "_Ta bort en annan användares mapp"
 
-#: storage/xc-commands.c:336
+#: storage/xc-commands.c:379
 #, fuzzy
 msgid "Add to _Favorites"
 msgstr "Lägg till i kontakter"
 
-#: storage/xc-commands.c:340
+#: storage/xc-commands.c:383
 msgid "Remove from Fa_vorites"
 msgstr ""
 
-#: storage/xc-commands.c:347
+#: storage/xc-commands.c:390
 msgid "_Permissions..."
 msgstr "_Rättigheter..."
 
@@ -1503,6 +1513,16 @@ msgstr "Inte inne-assistent"
 #, fuzzy
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Ta bort en annan användares mapp"
+
+#, fuzzy
+#~ msgid ""
+#~ "Cannot activate Ximian Connector backend:\n"
+#~ "The error from the activation system is:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Kan inte aktivera komponenten %s:\n"
+#~ "Felet från aktiveringssystemet är:\n"
+#~ "%s"
 
 #~ msgid "Creating \"%s\""
 #~ msgstr "Skapar \"%s\""
