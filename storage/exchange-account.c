@@ -76,10 +76,10 @@ struct _ExchangeAccountPrivate {
 	ExchangeHierarchy *favorites_hierarchy;
 	GHashTable *folders;
 	char *uri_authority, *http_uri_schema;
-	gboolean uris_use_email;
+	gboolean uris_use_email, offline_sync;
 
 	char *identity_name, *identity_email, *source_uri, *password_key;
-	char *username, *password, *windows_domain, *ad_server, *offline_sync;
+	char *username, *password, *windows_domain, *ad_server;
 	char *owa_url;
 	E2kAutoconfigAuthPref auth_pref;
 	int ad_limit, passwd_exp_warn_period;
@@ -285,9 +285,6 @@ finalize (GObject *object)
 
 	if (account->priv->ad_server)
 		g_free (account->priv->ad_server);
-
-	if (account->priv->offline_sync)
-		g_free (account->priv->offline_sync);
 
 	if (account->priv->owa_url)
 		g_free (account->priv->owa_url);
@@ -1495,6 +1492,18 @@ exchange_account_connect (ExchangeAccount *account)
 }
 
 /**
+ * exchange_account_is_offline_sync_set:
+ * @account: an #ExchangeAccount
+ *
+ * Return value: TRUE if offline_sync is set for @account and FALSE if not.
+ */
+gboolean
+exchange_account_is_offline_sync_set (ExchangeAccount *account)
+{
+	return account->priv->offline_sync;
+}
+
+/**
  * exchange_account_get_context:
  * @account: an #ExchangeAccount
  *
@@ -1785,10 +1794,10 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 		account->priv->passwd_exp_warn_period = atoi (passwd_exp_warn_period);
 
 	offline_sync = e2k_uri_get_param (uri, "offline_sync");
-	if (!offline_sync || !*offline_sync)
-		account->priv->offline_sync = g_strdup ("0");
-	else
-		account->priv->offline_sync = g_strdup (offline_sync);
+	if (!offline_sync) 
+		account->priv->offline_sync = FALSE;
+	else 
+		account->priv->offline_sync = TRUE;
 
 	owa_path = e2k_uri_get_param (uri, "owa_path");
 	if (!owa_path || !*owa_path)
@@ -1800,6 +1809,8 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 	if (!pf_server || !*pf_server)
 		pf_server = uri->host;
 
+	/* Now we can set protocol reading owa_url, instead of having 
+	   use_ssl parameter */
 	proto = e2k_uri_get_param (uri, "use_ssl") ? "https" : "http";
 
 	owa_url = e2k_uri_get_param (uri, "owa_url");

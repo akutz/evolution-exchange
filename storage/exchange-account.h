@@ -86,6 +86,7 @@ gboolean		 exchange_account_set_online (ExchangeAccount *account);
 
 gboolean		 exchange_account_is_offline (ExchangeAccount *account);
 
+gboolean		exchange_account_is_offline_sync_set (ExchangeAccount *account);
 
 
 typedef enum {

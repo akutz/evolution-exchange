@@ -232,6 +232,7 @@ add_esource (ExchangeAccount *account,
 	GSList *ids, *temp_ids;
 	GConfClient *client;
 	gboolean is_contacts_folder = TRUE;
+	const char *offline = NULL;
 
 	client = gconf_client_get_default ();
 
@@ -256,6 +257,14 @@ add_esource (ExchangeAccount *account,
 								 physical_uri);
 		else
 			source = e_source_new (folder_name, relative_uri);
+
+		if (exchange_account_is_offline_sync_set (account)) {
+			/* If account is marked for offline sync during account
+			 * creation, mark all the folders for offline sync 
+			 */
+			e_source_set_property (source, "offline_sync", "1");
+		}
+
 		e_source_group_add_source (source_group, source, -1);
 
 		g_object_unref (source);
@@ -272,9 +281,19 @@ add_esource (ExchangeAccount *account,
 			else
         			source = e_source_new (folder_name, relative_uri);
 
+			if (exchange_account_is_offline_sync_set (account))
+				e_source_set_property (source, "offline_sync", "1");
+
 			e_source_group_add_source (source_group, source, -1);
-			g_object_unref (source);
+		} else {
+			offline = e_source_get_property (source, "offline_sync");
+			if (!offline) {
+				/* Folder doesn't have any offline property set */
+				if (exchange_account_is_offline_sync_set (account)) 
+					e_source_set_property (source, "offline_sync", "1");
+			}
 		}
+		g_object_unref (source);
 	}
 
 	if (!is_contacts_folder) {
@@ -439,10 +458,14 @@ remove_esource (ExchangeAccount *account,
 					}
 					else {
 						/* Folder Deleted - Remove only the source */
+						/*
 						e_source_group_remove_source_by_uid (
 									group, 
 									source_uid);
-						
+						*/
+						e_source_group_remove_source (
+									group,
+									source);
 					}
 					if (!is_contacts_folder) {
 						if (is_account || folder_type == EXCHANGE_CALENDAR_FOLDER) {
@@ -695,7 +718,6 @@ account_changed (EAccountList *account_list, EAccount *account)
 	}
 	else if (strcmp (config_listener->priv->configured_name, account->name))
 		remove_sources (priv->exchange_account);
-	
 
 	/* Nope. Let the user know we're ignoring him. */
 	e_notice (NULL, GTK_MESSAGE_WARNING,

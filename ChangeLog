@@ -1,3 +1,16 @@
+2005-02-20  Sushma Rai <rsushma@novell.com>
+	
+	* storage/exchange-account.[ch] (exchange_account_is_offline_sync_set):
+	Added new, to read the offline_sync value set for the account.
+	(exchange_account_new): Checking for the account level offline sync setting
+	and storing it.
+
+	* storage/exchange-config-listener.c (add_esource): Checking for the 
+	account level and folder level offline sync values and updating the 
+	e-sources.
+
+2005-02-20  Sushma Rai <rsushma@novell.com>
+
 2005-02-19  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* camel/Makefile.am : Now link camel with krb5 for working around
