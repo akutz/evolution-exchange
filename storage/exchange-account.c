@@ -800,7 +800,7 @@ get_password (ExchangeAccount *account, E2kAutoconfig *ac, const char *errmsg)
 		password = e_passwords_ask_password (
 			_("Enter password"),
 			"Exchange", account->priv->password_key,
-			prompt, TRUE, E_PASSWORDS_REMEMBER_FOREVER,
+			prompt, E_PASSWORDS_REMEMBER_FOREVER|E_PASSWORDS_SECRET,
 			&remember, NULL);
 		if (remember != oldremember) {
 			account->priv->account->source->save_passwd = remember;
