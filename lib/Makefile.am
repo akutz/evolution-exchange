@@ -120,7 +120,8 @@ noinst_PROGRAMS =						\
 	fbtest							\
 	gctest							\
 	ruletest						\
-	cptest
+	cptest							\
+	urltest
 
 progs_libadd =							\
 	libexchange.a						\
@@ -186,6 +187,14 @@ cptest_SOURCES = 						\
 	test-utils.h
 
 cptest_LDADD = 							\
+	$(progs_libadd)
+
+urltest_SOURCES = 						\
+	urltest.c						\
+	test-utils.c						\
+	test-utils.h
+
+urltest_LDADD = 							\
 	$(progs_libadd)
 
 EXTRA_DIST =							\

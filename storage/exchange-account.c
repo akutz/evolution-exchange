@@ -80,6 +80,7 @@ struct _ExchangeAccountPrivate {
 
 	char *identity_name, *identity_email, *source_uri, *password_key;
 	char *username, *password, *windows_domain, *ad_server, *offline_sync;
+	char *owa_url;
 	E2kAutoconfigAuthPref auth_pref;
 	int ad_limit, passwd_exp_warn_period;
 
@@ -287,6 +288,9 @@ finalize (GObject *object)
 
 	if (account->priv->offline_sync)
 		g_free (account->priv->offline_sync);
+
+	if (account->priv->owa_url)
+		g_free (account->priv->owa_url);
 
 	if (account->priv->connect_lock)
 		g_mutex_free (account->priv->connect_lock);
@@ -1675,7 +1679,8 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 {
 	ExchangeAccount *account;
 	char *enc_user, *mailbox;
-	const char *param, *proto, *owa_path, *pf_server, *passwd_exp_warn_period, *offline_sync;
+	const char *param, *proto, *owa_path, *pf_server, *owa_url; 
+	const char *passwd_exp_warn_period, *offline_sync;
 	E2kUri *uri;
 
 	uri = e2k_uri_new (adata->source->url);
@@ -1757,6 +1762,11 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 		pf_server = uri->host;
 
 	proto = e2k_uri_get_param (uri, "use_ssl") ? "https" : "http";
+
+	owa_url = e2k_uri_get_param (uri, "owa_url");
+	if (owa_url)
+		account->priv->owa_url = g_strdup (owa_url); 
+
 	if (uri->port != 0) {
 		account->priv->http_uri_schema =
 			g_strdup_printf ("%s://%%s:%d/%s/%%s/",

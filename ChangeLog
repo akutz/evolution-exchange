@@ -1,3 +1,14 @@
+2005-01-22  Sushma Rai  <rsushma@novell.com>
+
+	* storage/exchange-account.c (exchange_account_new): Added owa_url
+	parameter to ExchangeAccount structure and reading it's value.
+	(finalize): free for owa_url
+
+	* lib/urltest.c: Added new. Test program which takes url as input
+	and prints E2kUri structure parameters.
+
+	* lib/Makefile.am: Handling urltest.c
+
 2005-01-20  Sarfraaz Ahmed <asarfraaz@novell.com>
 	
 	* calendar/e-cal-backend-exchange-calendar.c : Add a check to not fetch
