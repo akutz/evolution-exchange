@@ -19,7 +19,7 @@
 
 #undef G_LOG_DOMAIN
 #define G_LOG_DOMAIN "e-book-backend-gal"
-#define DEBUG
+#undef DEBUG
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>  
@@ -500,7 +500,7 @@ contact_list_handler (LDAPOp *op, LDAPMessage *res)
 			EContact *contact = build_contact_from_entry (bl, e, NULL);
 			char *vcard = e_vcard_to_string (E_VCARD (contact), EVC_FORMAT_VCARD_30);
 
-			printf ("vcard = %s\n", vcard);
+			d(printf ("vcard = %s\n", vcard));
  
 			contact_list_op->contacts = g_list_append (contact_list_op->contacts,
 								   vcard);
@@ -522,7 +522,7 @@ contact_list_handler (LDAPOp *op, LDAPMessage *res)
 		}
 		ldap_memfree (ldap_error_msg);
 
-		g_warning ("search returned %d\n", ldap_error);
+		d(printf ("search returned %d\n", ldap_error));
 
 		if (ldap_error == LDAP_TIMELIMIT_EXCEEDED)
 			e_data_book_respond_get_contact_list (op->book,
@@ -590,7 +590,7 @@ get_contact_list (EBookBackend *backend,
 		return;
 	}
 
-	printf ("getting contact list with filter: %s\n", ldap_query);
+	d(printf ("getting contact list with filter: %s\n", ldap_query));
 
 	do {	
 		ldap_error = ldap_search_ext (ldap, LDAP_ROOT_DSE,
@@ -1009,8 +1009,8 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 					break;
 				}
 
-			printf ("attr = %s, ", attr);
-			printf ("info = %p\n", info);
+			d(printf ("attr = %s, ", attr));
+			d(printf ("info = %p\n", info));
 
 			if (info) {
 				if (1) {
@@ -1018,7 +1018,7 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 
 					if (values) {
 						if (info->prop_type & PROP_TYPE_STRING) {
-							printf ("value = %s\n", values[0]);
+							d(printf ("value = %s\n", values[0]));
 							/* if it's a normal property just set the string */
 							if (values[0])
 								e_contact_set (contact, info->field_id, values[0]);
@@ -1064,7 +1064,7 @@ poll_ldap (EBookBackendGAL *bl)
 	if (rc != 0) {/* rc == 0 means timeout exceeded */
 		if (rc == -1) {
 			EDataBookView *book_view = find_book_view (bl);
-			g_warning ("ldap_result returned -1, restarting ops");
+			d(printf ("ldap_result returned -1, restarting ops\n"));
 
 			gal_reconnect (bl, book_view, LDAP_SERVER_DOWN);
 #if 0
@@ -1403,7 +1403,7 @@ dispose (GObject *object)
 		g_static_rec_mutex_free (&bl->priv->op_hash_mutex);
 
 		if (bl->priv->poll_timeout != -1) {
-			printf ("removing timeout\n");
+			d(printf ("removing timeout\n"));
 			g_source_remove (bl->priv->poll_timeout);
 		}
 
