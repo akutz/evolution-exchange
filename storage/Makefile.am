@@ -45,6 +45,8 @@ evolution_exchange_storage_SOURCES =				\
 	exchange-delegates-user.h				\
 	exchange-delegates.c					\
 	exchange-delegates.h					\
+	exchange-folder-size.c					\
+	exchange-folder-size.h					\
 	exchange-hierarchy-favorites.c				\
 	exchange-hierarchy-favorites.h				\
 	exchange-hierarchy-foreign.c				\

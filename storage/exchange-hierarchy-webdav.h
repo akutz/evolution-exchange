@@ -5,6 +5,7 @@
 #define __EXCHANGE_HIERARCHY_WEBDAV_H__
 
 #include "exchange-hierarchy.h"
+#include "exchange-folder-size.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -63,6 +64,8 @@ typedef void (*ExchangeHierarchyWebDAVScanCallback)    (ExchangeHierarchy *hier,
 void    exchange_hierarchy_webdav_offline_scan_subtree (ExchangeHierarchy *hier,
 							ExchangeHierarchyWebDAVScanCallback cb,
 							gpointer user_data);
+
+ExchangeFolderSize * exchange_hierarchy_get_folder_size (ExchangeHierarchyWebDAV *hwd);
 
 
 

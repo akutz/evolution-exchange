@@ -1,3 +1,13 @@
+2004-11-10  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* storage/exchange-hierarchy-webdav.c (dispose): Added
+	(class_init): Now instantiates the ExchangeFolderSize class
+	(exchange_hierarchy_get_folder_size): Returns the foldersize object
+	(exchange_hierarchy_webdav_parse_folder): Fetches and updates the 
+	folder size
+	* storage/exchange-hierarchy-webdav.h : Similar
+	* storage/Makefile.am : Added the new files
+
 2004-11-09  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* MAINTAINERS : Added a new file

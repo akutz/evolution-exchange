@@ -35,6 +35,7 @@
 #include "e2k-uri.h"
 #include "e2k-utils.h"
 #include "exchange-config-listener.h"
+#include "exchange-folder-size.h"
 
 #include <e-util/e-passwords.h>
 #include <e-util/e-path.h>
@@ -48,6 +49,7 @@ struct _ExchangeHierarchyWebDAVPrivate {
 	GHashTable *folders_by_internal_path;
 	gboolean deep_searchable;
 	char *trash_path;
+	ExchangeFolderSize *foldersize;
 };
 
 #define PARENT_TYPE EXCHANGE_TYPE_HIERARCHY
@@ -55,6 +57,7 @@ static ExchangeHierarchyClass *parent_class = NULL;
 
 static void folder_type_map_init (void);
 
+static void dispose (GObject *object);
 static void finalize (GObject *object);
 static gboolean is_empty (ExchangeHierarchy *hier);
 static void rescan (ExchangeHierarchy *hier);
@@ -88,6 +91,7 @@ class_init (GObjectClass *object_class)
 	parent_class = g_type_class_ref (PARENT_TYPE);
 
 	/* virtual method override */
+	object_class->dispose = dispose;
 	object_class->finalize = finalize;
 
 	exchange_hierarchy_class->is_empty = is_empty;
@@ -105,11 +109,25 @@ init (GObject *object)
 
 	hwd->priv = g_new0 (ExchangeHierarchyWebDAVPrivate, 1);
 	hwd->priv->folders_by_internal_path = g_hash_table_new (g_str_hash, g_str_equal);
+	hwd->priv->foldersize = g_new0 (ExchangeFolderSize, 1);
 
 	g_signal_connect (object, "new_folder",
 			  G_CALLBACK (hierarchy_new_folder), NULL);
 	g_signal_connect (object, "removed_folder",
 			  G_CALLBACK (hierarchy_removed_folder), NULL);
+}
+
+static void
+dispose (GObject *object)
+{
+	ExchangeHierarchyWebDAV *hwd = EXCHANGE_HIERARCHY_WEBDAV (object);
+
+	if (hwd->priv->foldersize) {
+		g_object_unref (hwd->priv->foldersize);
+		hwd->priv->foldersize = NULL;
+	}
+
+	G_OBJECT_CLASS (parent_class)->dispose (object);
 }
 
 static void
@@ -519,6 +537,12 @@ exchange_hierarchy_webdav_status_to_folder_result (E2kHTTPStatus status)
 		return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
 }
 
+ExchangeFolderSize *
+exchange_hierarchy_get_folder_size (ExchangeHierarchyWebDAV *hwd)
+{
+	return hwd->priv->foldersize;
+}
+
 EFolder *
 exchange_hierarchy_webdav_parse_folder (ExchangeHierarchyWebDAV *hwd,
 					EFolder *parent,
@@ -526,10 +550,9 @@ exchange_hierarchy_webdav_parse_folder (ExchangeHierarchyWebDAV *hwd,
 {
 	EFolder *folder;
 	ExchangeFolderType *folder_type;
-	const char *name, *prop, *outlook_class, *permanenturl, *folder_size_str;
+	const char *name, *prop, *outlook_class, *permanenturl, *folder_size;
 	int unread;
 	gboolean hassubs;
-	long long int folder_size;
 
 	g_return_val_if_fail (EXCHANGE_IS_HIERARCHY_WEBDAV (hwd), NULL);
 	g_return_val_if_fail (E_IS_FOLDER (parent), NULL);
@@ -570,9 +593,8 @@ exchange_hierarchy_webdav_parse_folder (ExchangeHierarchyWebDAV *hwd,
 	permanenturl = e2k_properties_get_prop (result->props,
 						E2K_PR_EXCHANGE_PERMANENTURL);
 
-	folder_size_str = e2k_properties_get_prop (result->props,
+	folder_size = e2k_properties_get_prop (result->props,
 						E2K_PR_EXCHANGE_FOLDER_SIZE);
-	folder_size = folder_size_str ? strtol (folder_size_str, (char **)NULL, 10) : 0;
 	// Check for errors
 
 	folder = e_folder_webdav_new (EXCHANGE_HIERARCHY (hwd),
@@ -587,7 +609,7 @@ exchange_hierarchy_webdav_parse_folder (ExchangeHierarchyWebDAV *hwd,
 	if (permanenturl)
 		e_folder_exchange_set_permanent_uri (folder, permanenturl);
 	
-	e_folder_exchange_set_folder_size (folder, folder_size);
+	exchange_folder_size_update (hwd->priv->foldersize, permanenturl, name, folder_size);
 
 	return folder;
 }
@@ -612,6 +634,7 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *parent)
 	E2kResult *result;
 	E2kHTTPStatus status;
 	EFolder *folder;
+	GHashTable *table = NULL;
 
 	if (!folders_rn) {
 		folders_rn =
