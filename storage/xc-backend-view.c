@@ -36,6 +36,7 @@
 #include <gtk/gtkscrolledwindow.h>
 #include <gtk/gtktreeselection.h>
 #include <gtk/gtktreeview.h>
+#include <shell/e-user-creatable-items-handler.h>
 
 #include "e-storage-set.h"
 #include "e-storage-set-view.h"
@@ -58,6 +59,8 @@ struct XCBackendViewPrivate {
 
 	GtkNotebook *body;
 	BonoboControl *view_control;
+
+	EUserCreatableItemsHandler *items_handler;
 };
 
 enum {
@@ -100,11 +103,18 @@ folder_context_menu (EStorageSetView *storage_set_view, GdkEvent *event,
 }
 
 static void
-activated (BonoboControl *control, gboolean active, gpointer view)
+activated (BonoboControl *control, gboolean active, gpointer user_data)
 {
-	if (active)
+	XCBackendView *view = user_data;
+	BonoboUIComponent *uic;
+
+	uic = bonobo_control_get_ui_component (control);
+	g_return_if_fail (uic != NULL);
+
+	if (active) {
 		xc_commands_activate (view);
-	else
+		e_user_creatable_items_handler_activate (view->priv->items_handler, uic);
+	} else
 		xc_commands_deactivate (view);
 }
 
@@ -296,6 +306,8 @@ xc_backend_view_new (ExchangeConfigListener *config_listener,
 	priv->statusbar = gtk_drawing_area_new ();
 	gtk_widget_show (priv->statusbar);
 	priv->statusbar_control = bonobo_control_new (priv->statusbar);
+
+	priv->items_handler = e_user_creatable_items_handler_new ("exchange", NULL, NULL);
 
 	return view;
 }

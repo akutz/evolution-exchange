@@ -304,48 +304,21 @@ config_listener_account_removed (ExchangeConfigListener *config_listener,
 }
 
 
-#define XC_IID(comp) "OAFIID:GNOME_Evolution_" comp "_Control:" EVOLUTION_BASE_VERSION
-#define XC_ICON(comp) "evolution-" comp ".png"
-
-const char *mail_dnd_types[] = { "x-uri-list", "message/rfc822" };
-const char *contact_dnd_types[] = { "text/x-vcard" };
-const char *calendar_dnd_types[] = { "text/calendar" };
-
 static struct {
-	char *type, *display_name, *icon, *viewer;
-	const char **accepted_dnd_types;
-	int num_accepted_dnd_types;
+	char *type, *display_name, *icon;
 } folder_types[] = {
-	{ "mail", N_("Mail"),
-	  XC_ICON("inbox"), XC_IID("Mail"),
-	  mail_dnd_types, G_N_ELEMENTS (mail_dnd_types) },
-	{ "mail/public", NULL,
-	  XC_ICON("inbox"), XC_IID("Mail"),
-	  mail_dnd_types, G_N_ELEMENTS (mail_dnd_types) },
+	{ "mail", N_("Mail"), "stock_folder" },
+	{ "mail/public", NULL, "stock_folder" },
 
-	{ "contacts", N_("Contacts"),
-	  XC_ICON("contacts"), XC_IID("Addressbook"),
-	  contact_dnd_types, G_N_ELEMENTS (contact_dnd_types) },
-	{ "contacts/public", NULL,
-          XC_ICON("contacts"), XC_IID("Addressbook"),
-	  contact_dnd_types, G_N_ELEMENTS (contact_dnd_types) },
-	{ "contacts/ldap", NULL,
-          XC_ICON("contacts"), XC_IID("Addressbook"),
-	  NULL, 0 },
+	{ "contacts", N_("Contacts"), "stock_contact" },
+	{ "contacts/public", NULL, "stock_contact" },
+	{ "contacts/ldap", NULL, "stock_contact" },
 
-	{ "tasks", N_("Tasks"),
-	  XC_ICON("tasks"), XC_IID("Tasks"),
-	  calendar_dnd_types, G_N_ELEMENTS (calendar_dnd_types) },
-	{ "tasks/public", NULL,
-          XC_ICON("tasks"), XC_IID("Tasks"),
-	  calendar_dnd_types, G_N_ELEMENTS (calendar_dnd_types) },
+	{ "tasks", N_("Tasks"), "stock_todo" },
+	{ "tasks/public", NULL, "stock_todo" },
 
-	{ "calendar", N_("Calendar"),
-	  XC_ICON("calendar"), XC_IID("Calendar"),
-	  calendar_dnd_types, G_N_ELEMENTS (calendar_dnd_types) },
-	{ "calendar/public", NULL,
-          XC_ICON("calendar"), XC_IID("Calendar"),
-	  calendar_dnd_types, G_N_ELEMENTS (calendar_dnd_types) }
+	{ "calendar", N_("Calendar"), "stock_calendar" },
+	{ "calendar/public", NULL, "stock_calendar" }
 };
 static int n_folder_types = G_N_ELEMENTS (folder_types);
 
@@ -361,10 +334,9 @@ setup_folder_type_registry (XCBackend *backend)
 						      folder_types[i].type,
 						      folder_types[i].icon,
 						      _(folder_types[i].display_name),
-						      folder_types[i].viewer,
+						      NULL,
 						      folder_types[i].display_name != NULL,
-						      folder_types[i].num_accepted_dnd_types,
-						      folder_types[i].accepted_dnd_types);
+						      0, NULL);
 	}
 }
 

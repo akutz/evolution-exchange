@@ -420,7 +420,7 @@ hierarchy_foreign_new (ExchangeAccount *account,
 					     internal_uri_prefix,
 					     owner_name, owner_email,
 					     source_uri,
-					     FALSE, "folder");
+					     FALSE);
 
 	return EXCHANGE_HIERARCHY (hfor);
 }

@@ -25,8 +25,6 @@ libfoldertree_a_SOURCES =				\
 	e-folder-tree.c					\
 	e-folder-type-registry.c			\
 	e-folder-type-registry.h			\
-	e-icon-factory.c				\
-	e-icon-factory.h				\
 	e-storage-set.c					\
 	e-storage-set.h					\
 	e-storage-set-view.c				\

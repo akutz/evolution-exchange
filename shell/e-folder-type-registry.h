@@ -73,9 +73,6 @@ gboolean  e_folder_type_registry_type_registered  (EFolderTypeRegistry *folder_t
 void      e_folder_type_registry_unregister_type  (EFolderTypeRegistry *folder_type_registry,
 						   const char          *type_name);
 
-GdkPixbuf                     *e_folder_type_registry_get_icon_for_type          (EFolderTypeRegistry *folder_type_registry,
-										  const char          *type_name,
-										  gboolean             mini);
 const char                    *e_folder_type_registry_get_icon_name_for_type     (EFolderTypeRegistry *folder_type_registry,
 										  const char          *type_name);
 GObject                       *e_folder_type_registry_get_handler_for_type       (EFolderTypeRegistry *folder_type_registry,

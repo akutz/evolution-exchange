@@ -43,6 +43,7 @@
 
 #include <gal/util/e-util.h>
 #include <shell/e-shell-utils.h>
+#include <e-util/e-icon-factory.h>
 
 #include "e-storage-set.h"
 #include "e-storage-set-view.h"
@@ -428,6 +429,7 @@ add_folder_types (GtkWidget *dialog,
 	for (p = folder_types; p != NULL; p = p->next) {
 		EFolderCreationType *new;
 		const char *typename = p->data;
+		const char *icon_name;
 
 		if (! e_folder_type_registry_type_is_user_creatable (folder_type_registry, typename))
 			continue;
@@ -435,7 +437,8 @@ add_folder_types (GtkWidget *dialog,
 		new = g_new0 (EFolderCreationType, 1);
 		new->type = typename;
 		new->display_name = e_folder_type_registry_get_display_name_for_type (folder_type_registry, typename);
-		new->icon = e_folder_type_registry_get_icon_for_type (folder_type_registry, typename, TRUE);
+		icon_name = e_folder_type_registry_get_icon_name_for_type (folder_type_registry, typename);
+		new->icon = e_icon_factory_get_icon (icon_name, E_ICON_SIZE_MENU);
 
 		types = g_list_prepend (types, new);
 	}

@@ -27,10 +27,10 @@
 
 #include "e-storage-set-view.h"
 
-#include "e-icon-factory.h"
 #include "e-folder-dnd-bridge.h"
 #include "e-shell-marshal.h"
 
+#include <e-util/e-icon-factory.h>
 #include <gal/util/e-util.h>
 #include <gal/widgets/e-gui-utils.h>
 #include <gal/e-table/e-tree-memory-callbacks.h>
@@ -53,7 +53,6 @@ static GdkPixbuf *checks [3];
 /*#define DEBUG_XML*/
 
 #define ROOT_NODE_NAME "/RootNode"
-#define E_SHELL_MINI_ICON_SIZE 16
 
 /* This is used on the source side to define the two basic types that we always
    export.  */
@@ -71,8 +70,6 @@ struct EStorageSetViewPrivate {
 	ETreePath root_node;
 
 	GHashTable *path_to_etree_node;
-
-	GHashTable *type_name_to_pixbuf;
 
 	/* Path of the row selected by the latest "cursor_activated" signal.  */
 	char *selected_row_path;
@@ -230,56 +227,27 @@ static GdkPixbuf *
 get_pixbuf_for_folder (EStorageSetView *storage_set_view,
 		       EFolder *folder)
 {
-	const char *type_name;
 	EStorageSetViewPrivate *priv;
-	EFolderTypeRegistry *folder_type_registry;
-	GdkPixbuf *icon_pixbuf = NULL;
-	GdkPixbuf *scaled_pixbuf;
-	const char *custom_icon_name;
-	int icon_pixbuf_width, icon_pixbuf_height;
+	const char *icon_name;
 
 	priv = storage_set_view->priv;
 
-	custom_icon_name = e_folder_get_custom_icon_name (folder);
-	if (custom_icon_name != NULL)
-		return e_icon_factory_get_icon (custom_icon_name, TRUE);
+	icon_name = e_folder_get_custom_icon_name (folder);
+	if (!icon_name) {
+		const char *type_name;
+		EFolderTypeRegistry *folder_type_registry;
 
-	type_name = e_folder_get_type_string (folder);
+		type_name = e_folder_get_type_string (folder);
+		folder_type_registry = e_storage_set_get_folder_type_registry (priv->storage_set);
 
-	scaled_pixbuf = g_hash_table_lookup (priv->type_name_to_pixbuf, type_name);
-	if (scaled_pixbuf != NULL)
-		return scaled_pixbuf;
-
-	folder_type_registry = e_storage_set_get_folder_type_registry (priv->storage_set);
-
-	icon_pixbuf = e_folder_type_registry_get_icon_for_type (folder_type_registry,
-								type_name, TRUE);
-
-	if (icon_pixbuf == NULL)
-		return NULL;
-
-	icon_pixbuf_width = gdk_pixbuf_get_width (icon_pixbuf);
-	icon_pixbuf_height = gdk_pixbuf_get_height (icon_pixbuf);
-
-	if (icon_pixbuf_width == E_SHELL_MINI_ICON_SIZE && icon_pixbuf_height == E_SHELL_MINI_ICON_SIZE) {
-		scaled_pixbuf = g_object_ref (icon_pixbuf);
-	} else {
-		scaled_pixbuf = gdk_pixbuf_new (gdk_pixbuf_get_colorspace (icon_pixbuf),
-						gdk_pixbuf_get_has_alpha (icon_pixbuf),
-						gdk_pixbuf_get_bits_per_sample (icon_pixbuf),
-						E_SHELL_MINI_ICON_SIZE, E_SHELL_MINI_ICON_SIZE);
-
-		gdk_pixbuf_scale (icon_pixbuf, scaled_pixbuf,
-				  0, 0, E_SHELL_MINI_ICON_SIZE, E_SHELL_MINI_ICON_SIZE,
-				  0.0, 0.0,
-				  (double) E_SHELL_MINI_ICON_SIZE / gdk_pixbuf_get_width (icon_pixbuf),
-				  (double) E_SHELL_MINI_ICON_SIZE / gdk_pixbuf_get_height (icon_pixbuf),
-				  GDK_INTERP_HYPER);
+		icon_name = e_folder_type_registry_get_icon_name_for_type (folder_type_registry,
+									   type_name);
 	}
 
-	g_hash_table_insert (priv->type_name_to_pixbuf, g_strdup (type_name), scaled_pixbuf);
+	if (!icon_name)
+		return NULL;
 
-	return scaled_pixbuf;
+	return e_icon_factory_get_icon (icon_name, E_ICON_SIZE_LIST);
 }
 
 /* GObject methods.  */
@@ -327,9 +295,6 @@ impl_finalize (GObject *object)
 
 	storage_set_view = E_STORAGE_SET_VIEW (object);
 	priv = storage_set_view->priv;
-
-	g_hash_table_foreach (priv->type_name_to_pixbuf, pixbuf_free_func, NULL);
-	g_hash_table_destroy (priv->type_name_to_pixbuf);
 
 	if (priv->checkboxes != NULL) {
 		g_hash_table_foreach (priv->checkboxes, (GHFunc) g_free, NULL);
@@ -1145,8 +1110,6 @@ class_init (EStorageSetViewClass *klass)
 	GObjectClass *object_class;
 	ETreeClass *etree_class;
 
-	e_icon_factory_init ();
-
 	parent_class = g_type_class_ref(PARENT_TYPE);
 
 	object_class = G_OBJECT_CLASS (klass);
@@ -1231,7 +1194,6 @@ init (EStorageSetView *storage_set_view)
 
 	priv = g_new0 (EStorageSetViewPrivate, 1);
 	priv->path_to_etree_node          = g_hash_table_new (g_str_hash, g_str_equal);
-	priv->type_name_to_pixbuf         = g_hash_table_new (g_str_hash, g_str_equal);
 	priv->show_folders                = TRUE;
 	priv->show_checkboxes             = FALSE;
 	priv->allow_dnd                   = TRUE;

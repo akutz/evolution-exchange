@@ -1,3 +1,44 @@
+2004-05-21  Dan Winship  <danw@novell.com>
+
+	* shell/Makefile.am (libfoldertree_a_SOURCES): Remove
+	e-icon-factory; we'll use the one in e-util now
+
+	* shell/e-icon-factory.c: Gone
+
+	* shell/e-folder-type-registry.c
+	(e_folder_type_registry_get_icon_for_type, etc): Remove. The
+	registry will keep icon names, but the actual pixbufs will come
+	from EIconFactory.
+
+	* shell/e-folder-creation-dialog.c (add_folder_types): Use
+	EIconFactory to get the actual pixbuf rather than expecting the
+	folder type registry to have it.
+
+	* shell/e-storage-set-view.c (get_pixbuf_for_folder): Always use
+	EIconFactory, not just for custom icons.
+
+	* storage/main.c (main): e_icon_factory_init ().
+
+	* storage/exchange-hierarchy-webdav.c
+	(exchange_hierarchy_webdav_new,
+	exchange_hierarchy_webdav_construct): Remove custom_icon arg.
+	Always use "stock_folder".
+	(exchange_hierarchy_webdav_parse_folder): Use "stock_delete" for
+	the trash icon.
+
+	* storage/exchange-hierarchy-foreign.c (hierarchy_foreign_new):
+	Remove custom_icon arg to exchange_hierarchy_webdav_construct
+
+	* storage/exchange-account.c (exchange_account_connect): Remove
+	the custom_icon arg to exchange_hierarchy_webdav_new.
+
+	* storage/xc-backend.c (setup_folder_type_registry): Change icon
+	info to use stock icons. Remove unused DnD stuff.
+
+	* storage/xc-backend-view.c (xc_backend_view_new): Create an
+	EUserCreatableItemsHandler too.
+	(activated): activate it.
+
 2004-05-21  Sarfraaz Ahmed <asarfraaz@novell.com>
 	
 	* camel/camel-exchange-transport.c (exchange_send_to): Incorporated

@@ -187,6 +187,6 @@ exchange_hierarchy_favorites_new (ExchangeAccount *account,
 					     public_uri,
 					     owner_name, owner_email,
 					     source_uri,
-					     FALSE, "public-folder");
+					     FALSE);
 	return hier;
 }

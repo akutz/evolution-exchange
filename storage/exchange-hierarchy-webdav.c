@@ -545,7 +545,7 @@ exchange_hierarchy_webdav_parse_folder (ExchangeHierarchyWebDAV *hwd,
 				      outlook_class, unread,
 				      folder_type->offline_supported);
 	if (hwd->priv->trash_path && !strcmp (e2k_uri_path (result->href), hwd->priv->trash_path))
-		e_folder_set_custom_icon (folder, "evolution-trash");
+		e_folder_set_custom_icon (folder, "stock_delete");
 	if (hassubs)
 		e_folder_exchange_set_has_subfolders (folder, TRUE);
 	if (permanenturl)
@@ -693,8 +693,7 @@ exchange_hierarchy_webdav_construct (ExchangeHierarchyWebDAV *hwd,
 				     const char *owner_name,
 				     const char *owner_email,
 				     const char *source_uri,
-				     gboolean deep_searchable,
-				     const char *toplevel_icon)
+				     gboolean deep_searchable)
 {
 	EFolder *toplevel;
 
@@ -705,7 +704,7 @@ exchange_hierarchy_webdav_construct (ExchangeHierarchyWebDAV *hwd,
 					  "noselect", NULL, 
 					  physical_uri_prefix,
 					  internal_uri_prefix);
-	e_folder_set_custom_icon (toplevel, toplevel_icon);
+	e_folder_set_custom_icon (toplevel, "stock_folder");
 	e_folder_exchange_set_has_subfolders (toplevel, TRUE);
 	exchange_hierarchy_construct (EXCHANGE_HIERARCHY (hwd),
 				      account, type, toplevel,
@@ -730,8 +729,7 @@ exchange_hierarchy_webdav_new (ExchangeAccount *account,
 			       const char *owner_name,
 			       const char *owner_email,
 			       const char *source_uri,
-			       gboolean deep_searchable,
-			       const char *toplevel_icon)
+			       gboolean deep_searchable)
 {
 	ExchangeHierarchy *hier;
 
@@ -742,7 +740,6 @@ exchange_hierarchy_webdav_new (ExchangeAccount *account,
 					     physical_uri_prefix,
 					     internal_uri_prefix,
 					     owner_name, owner_email,
-					     source_uri, deep_searchable,
-					     toplevel_icon);
+					     source_uri, deep_searchable);
 	return hier;
 }

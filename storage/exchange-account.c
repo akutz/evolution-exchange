@@ -1106,7 +1106,7 @@ exchange_account_connect (ExchangeAccount *account)
 					      account->priv->identity_name,
 					      account->priv->identity_email,
 					      account->priv->source_uri,
-					      TRUE, "folder");
+					      TRUE);
 	setup_hierarchy (account, hier);
 	g_free (phys_uri_prefix);
 	personal_hier = hier;
@@ -1137,7 +1137,7 @@ exchange_account_connect (ExchangeAccount *account)
 					      account->priv->identity_name,
 					      account->priv->identity_email,
 					      account->priv->source_uri,
-					      FALSE, "public-folder");
+					      FALSE);
 	setup_hierarchy (account, hier);
 	g_free (phys_uri_prefix);
 

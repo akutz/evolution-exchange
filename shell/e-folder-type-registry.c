@@ -46,9 +46,6 @@ typedef struct {
 
 	GObject *handler;
 
-	/* The icon, standard (48x48) and mini (16x16) versions.  */
-	GdkPixbuf *icon_pixbuf;
-	GdkPixbuf *mini_icon_pixbuf;
 } FolderType;
 
 struct EFolderTypeRegistryPrivate {
@@ -67,7 +64,6 @@ folder_type_new (const char *name,
 		 const char **accepted_dnd_types)
 {
 	FolderType *new;
-	char *icon_path;
 	int i;
 
 	new = g_new0 (FolderType, 1);
@@ -87,26 +83,6 @@ folder_type_new (const char *name,
 
 	new->handler = NULL;
 
-	icon_path = e_shell_get_icon_path (icon_name, FALSE);
-	if (icon_path == NULL)
-		new->icon_pixbuf = NULL;
-	else
-		new->icon_pixbuf = gdk_pixbuf_new_from_file (icon_path, NULL);
-
-	g_free (icon_path);
-
-	icon_path = e_shell_get_icon_path (icon_name, TRUE);
-	if (icon_path != NULL) {
-		new->mini_icon_pixbuf = gdk_pixbuf_new_from_file (icon_path, NULL);
-	} else {
-		if (new->icon_pixbuf != NULL)
-			new->mini_icon_pixbuf = g_object_ref (new->icon_pixbuf);
-		else
-			new->mini_icon_pixbuf = NULL;
-	}
-
-	g_free (icon_path);
-
 	return new;
 }
 
@@ -117,11 +93,6 @@ folder_type_free (FolderType *folder_type)
 	g_free (folder_type->icon_name);
 	g_free (folder_type->display_name);
 	g_free (folder_type->description);
-
-	if (folder_type->icon_pixbuf != NULL)
-		g_object_unref (folder_type->icon_pixbuf);
-	if (folder_type->mini_icon_pixbuf != NULL)
-		g_object_unref (folder_type->mini_icon_pixbuf);
 
 	if (folder_type->handler != NULL)
 		g_object_unref (folder_type->handler);
@@ -357,26 +328,6 @@ e_folder_type_registry_get_icon_name_for_type (EFolderTypeRegistry *folder_type_
 		return NULL;
 
 	return folder_type->icon_name;
-}
-
-GdkPixbuf *
-e_folder_type_registry_get_icon_for_type (EFolderTypeRegistry *folder_type_registry,
-					  const char *type_name,
-					  gboolean mini)
-{
-	const FolderType *folder_type;
-
-	g_return_val_if_fail (E_IS_FOLDER_TYPE_REGISTRY (folder_type_registry), NULL);
-	g_return_val_if_fail (type_name != NULL, NULL);
-
-	folder_type = get_folder_type (folder_type_registry, type_name);
-	if (folder_type == NULL)
-		return NULL;
-
-	if (mini)
-		return folder_type->mini_icon_pixbuf;
-	else
-		return folder_type->icon_pixbuf;
 }
 
 GObject *
