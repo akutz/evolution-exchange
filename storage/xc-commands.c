@@ -32,6 +32,7 @@
 #include "exchange-delegates.h"
 #include "exchange-oof.h"
 #include "exchange-permissions-dialog.h"
+#include "exchange-folder-size.h"
 
 #include "e-folder-creation-dialog.h"
 #include "e-folder-misc-dialogs.h"
@@ -86,16 +87,18 @@ do_change_password (BonoboUIComponent *component, gpointer user_data,
 	g_free (new_password);
 }
 
+#if 0
 static void
-do_folder_size (BonoboUIComponent *component, gpointer user_data,
+do_folder_size_menu (BonoboUIComponent *component, gpointer user_data,
 	  const char *cname)
 {
 	XCBackendView *view = user_data;
 
 	//exchange_folder_size (xc_backend_view_get_selected_account (view),
 			    //widget_for_view (view));
-	e_notice (widget_for_view (view), GTK_MESSAGE_ERROR, "FIXME (do_folder_size)");
+	e_notice (widget_for_view (view), GTK_MESSAGE_ERROR, "FIXME (do_folder_size_menu)");
 }
+#endif
 
 static void
 do_subscribe_user (BonoboUIComponent *component, gpointer user_data,
@@ -123,7 +126,8 @@ static BonoboUIVerb verbs [] = {
 	BONOBO_UI_VERB ("ExchangeOOF", do_oof),
 	BONOBO_UI_VERB ("ExchangeDelegation", do_delegates),
 	BONOBO_UI_VERB ("ExchangePassword", do_change_password),
-	BONOBO_UI_VERB ("ExchangeFolderSize", do_folder_size),
+	/* Use this for the menu hook if needed */
+	/* BONOBO_UI_VERB ("ExchangeFolderSize", do_folder_size_menu), */
 	BONOBO_UI_VERB ("ExchangeSubscribeUser", do_subscribe_user),
 	BONOBO_UI_VERB ("ExchangeUnsubscribeUser", do_unsubscribe_user),
 
@@ -289,6 +293,16 @@ do_permissions (GtkWidget *item, XCFolderCommandData *fcd)
 }
 
 static void
+do_folder_size (GtkWidget *item, XCFolderCommandData *fcd)
+{
+	ExchangeHierarchy *hier;
+
+	exchange_folder_size_display (fcd->folder, GTK_WIDGET (fcd->storage_set_view));
+
+	xc_folder_command_data_free (fcd);
+}
+
+static void
 favorites_error (GtkWidget *parent_widget,
 		 const char *fmt,
 		 ExchangeAccountFolderResult result)
@@ -405,6 +419,10 @@ static EPopupMenu popup_menu [] = {
 
 	E_POPUP_ITEM (N_("_Permissions..."),
 		      G_CALLBACK (do_permissions),
+		      XC_FOLDER_COMMAND_MASK_PERMISSIONS),
+
+	E_POPUP_ITEM (N_("_Show Folder Sizes"),
+		      G_CALLBACK (do_folder_size),
 		      XC_FOLDER_COMMAND_MASK_PERMISSIONS),
 
 	E_POPUP_TERMINATOR,
