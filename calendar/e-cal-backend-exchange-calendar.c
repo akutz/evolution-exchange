@@ -40,7 +40,7 @@ struct ECalBackendExchangeCalendarPrivate {
 #define PARENT_TYPE E_TYPE_CAL_BACKEND_EXCHANGE
 static ECalBackendExchange *parent_class = NULL;
 
-#define d(x) x
+#define d(x)
 
 static void
 add_timezones_from_comp (ECalBackendExchange *cbex, icalcomponent *comp)

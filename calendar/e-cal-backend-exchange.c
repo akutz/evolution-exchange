@@ -53,7 +53,7 @@ struct ECalBackendExchangePrivate {
 #define PARENT_TYPE E_TYPE_CAL_BACKEND_SYNC
 static GObjectClass *parent_class = NULL;
 
-#define d(x) x
+#define d(x)
 
 static ECalBackendSyncStatus
 is_read_only (ECalBackendSync *backend, EDataCal *cal, gboolean *read_only)

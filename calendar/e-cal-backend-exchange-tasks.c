@@ -61,7 +61,7 @@ struct _ECalBackendExchangeTasksPrivate {
 };
 
 #define PARENT_TYPE E_TYPE_CAL_BACKEND_EXCHANGE
-#define d(x) x
+#define d(x)
 static ECalBackendExchange *parent_class = NULL;
 
 static void
