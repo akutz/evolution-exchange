@@ -692,22 +692,16 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 	if (einfo->thread_index) {
 		CamelSummaryMessageID *parent;
 
-		if (einfo->info.references && einfo->info.references->size)
+		if (einfo->info.message_id.id.id)
 			g_hash_table_insert (exch->thread_index_to_message_id,
 					     g_strdup (einfo->thread_index),
-					     g_memdup (&einfo->info.references->references[0], sizeof (CamelSummaryMessageID)));
+					     g_memdup (&einfo->info.message_id, sizeof (CamelSummaryMessageID)));
 
 		parent = find_parent (exch, einfo->thread_index);
-		if (parent) {
-			if (einfo->info.references == NULL)
-				einfo->info.references = g_malloc0(sizeof(CamelSummaryReferences));
-			else
-				einfo->info.references = g_realloc(einfo->info.references, sizeof(CamelSummaryReferences)
-								   + (sizeof(CamelSummaryMessageID)
-								      * einfo->info.references->size));
-
-			memcpy(&einfo->info.references->references[einfo->info.references->size], parent, sizeof(*parent));
-			einfo->info.references->size++;
+		if (parent && einfo->info.references == NULL) {
+			einfo->info.references = g_malloc(sizeof(CamelSummaryReferences));
+			memcpy(&einfo->info.references->references[0], parent, sizeof(*parent));
+			einfo->info.references->size = 1;
 		}
 	}
 	camel_object_unref (CAMEL_OBJECT (msg));
@@ -924,10 +918,10 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 		info = camel_folder_summary_index (folder->summary, i);
 		einfo = (CamelExchangeMessageInfo *)info;
 
-		if (einfo->thread_index && einfo->info.references && einfo->info.references->size) {
+		if (einfo->thread_index && einfo->info.message_id.id.id) {
 			g_hash_table_insert (exch->thread_index_to_message_id,
 					     g_strdup (einfo->thread_index),
-					     g_memdup (&einfo->info.references->references[0], sizeof (CamelSummaryMessageID)));
+					     g_memdup (&einfo->info.message_id, sizeof (CamelSummaryMessageID)));
 		}
 
 		camel_message_info_free(info);
