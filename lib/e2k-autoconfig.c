@@ -1395,7 +1395,7 @@ validate (const char *owa_url, char *user, char *password, char **host, char **a
 	E2kOperation op;        /* FIXME */
 	E2kAutoconfigResult result;
 	gboolean valid = FALSE;
-	const char *old, *new, *url;
+	const char *old, *new;
 
 	ac = e2k_autoconfig_new (owa_url, user, password, 
 				 E2K_AUTOCONFIG_USE_EITHER);
@@ -1469,7 +1469,6 @@ validate (const char *owa_url, char *user, char *password, char **host, char **a
 			break;
 
 		case E2K_AUTOCONFIG_CANT_BPROPFIND:
-			url = "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328.html";
 			e_notice (
 				NULL, GTK_MESSAGE_ERROR,
 				_("Ximian Connector requires access to certain "
@@ -1480,7 +1479,7 @@ validate (const char *owa_url, char *user, char *password, char **host, char **a
 			  	"you to be able to use Ximian Connector.\n\n"
 			  	"For information to provide to your Exchange "
 			  	"administrator, please follow the link below:\n"
-				"%s"), url);
+				"http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328.html "));
 
 			valid = FALSE;
 			break;

@@ -1,4 +1,9 @@
 2005-02-28  Sushma Rai  <rsushma@novell.com>
+	
+	* lib/e2k-autoconfig.c (validate): Reverted fix for #72514, as it
+	breaks string freeze.
+
+2005-02-28  Sushma Rai  <rsushma@novell.com>
 
 	* storage/exchange-config-listener.c (account_changed): Checks if
 	user needs to authenticate again, based on the url changes.
