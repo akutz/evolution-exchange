@@ -341,17 +341,11 @@ remove_folder (ExchangeHierarchy *hier, EFolder *folder)
 	ESourceList *cal_source_list, *task_source_list, *cont_source_list;
 	const char *folder_type, *physical_uri;
 
-	if (folder != hier->toplevel)
-		exchange_hierarchy_removed_folder (hier, folder);
-
-	if (folder == hier->toplevel || exchange_hierarchy_is_empty (hier))
-		hierarchy_foreign_cleanup (hier);
-
 	/* Temp Fix for remove fav folders. see #59168 */
         /* remove ESources */
         folder_type = e_folder_get_type_string (folder);
         physical_uri = e_folder_get_physical_uri (folder);
-                                                                                                     
+
         if (strcmp (folder_type, "calendar") == 0) {
                 cal_source_list = e_source_list_new_for_gconf (
                                         gconf_client_get_default (),
@@ -379,6 +373,12 @@ remove_folder (ExchangeHierarchy *hier, EFolder *folder)
                 e_source_list_sync (cont_source_list, NULL);
                 g_object_unref (cont_source_list);
 	}
+
+	if (folder != hier->toplevel)
+		exchange_hierarchy_removed_folder (hier, folder);
+
+	if (folder == hier->toplevel || exchange_hierarchy_is_empty (hier))
+		hierarchy_foreign_cleanup (hier);
 
 	return EXCHANGE_ACCOUNT_FOLDER_OK;
 }

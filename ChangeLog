@@ -1,3 +1,9 @@
+2004-08-03  Sushma Rai <rsushma@novell.com>
+
+	* storage/exchange-hierarchy-foreign.c (remove_folder): Emitting the 
+	"removed_folder" signal after ESource cleanup. Fixes a crash while
+	unsubscribing other user's folder.
+
 2004-08-03  Nicel KM  <mnicel@novell.com>
 
 	* configure.in: 1.5.92
