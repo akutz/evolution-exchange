@@ -1705,7 +1705,7 @@ e_book_backend_exchange_remove (EBookBackendSync *backend, EDataBook *book)
 static char *
 e_book_backend_exchange_get_static_capabilites (EBookBackend *backend)
 {
-	return g_strdup("net,bulk-removes,do-initial-query,cache-completions");
+	return g_strdup("net,bulk-removes,do-initial-query,cache-completions,no-contactlist-option");
 }
 
 static gboolean
