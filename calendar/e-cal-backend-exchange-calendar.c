@@ -1034,7 +1034,9 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 			break;
 
 		case ICAL_METHOD_CANCEL:
-			/*FIXME*/
+			calobj = (char *) icalcomponent_as_ical_string (subcomp);
+			status = remove_object (backend, cal, uid, rid, CALOBJ_MOD_THIS, &calobj);
+			e_cal_backend_notify_object_removed (E_CAL_BACKEND (backend), uid, calobj);
 			break;
 		default:
 			status = GNOME_Evolution_Calendar_UnsupportedMethod;
