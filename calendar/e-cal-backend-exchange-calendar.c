@@ -1096,7 +1096,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 		case ICAL_METHOD_CANCEL:
 			calobj = (char *) icalcomponent_as_ical_string (subcomp);
 			status = remove_object (backend, cal, uid, rid, CALOBJ_MOD_THIS, &calobj);
-			e_cal_backend_notify_object_removed (E_CAL_BACKEND (backend), uid, calobj);
+			e_cal_backend_notify_object_removed (E_CAL_BACKEND (backend), uid, calobj, NULL);
 			break;
 		default:
 			status = GNOME_Evolution_Calendar_UnsupportedMethod;
@@ -1248,7 +1248,7 @@ book_resource (ECalBackendExchange *cbex,
 		calobj = (char *) e_cal_component_get_as_string (comp);
 		rid = (char *) e_cal_component_get_recurid_as_string (comp);
 		status = remove_object (E_CAL_BACKEND_SYNC (cbex), cal, uid, rid, CALOBJ_MOD_THIS, &calobj);
-		e_cal_backend_notify_object_removed (E_CAL_BACKEND (cbex), uid, calobj);
+		e_cal_backend_notify_object_removed (E_CAL_BACKEND (cbex), uid, calobj, NULL);
 
 	} else {
 		/* Check that the new appointment doesn't conflict with any

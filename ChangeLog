@@ -1,3 +1,12 @@
+2004-12-15  Rodrigo Moya <rodrigo@novell.com>
+
+	* addressbook/e-book-backend-exchange.c: use libedataserver's e-sexp.h.
+
+	* calendar/e-cal-backend-exchange.c (receive_objects, book_resource):
+	pass correct number of arguments to e_cal_backend_notify_object_removed.
+
+	* storage/Makefile.am: removed exchange-offline-utils.[ch] from build.
+
 2004-12-15  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* calendar/e-cal-backend-exchange.c : Fixed some memory leaks.
