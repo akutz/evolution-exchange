@@ -2394,6 +2394,7 @@ rename_folder (MailStub *stub, const char *old_name, const char *new_name)
 	new_path = g_build_filename ("/", new_name, NULL);
 
 	result = exchange_account_xfer_folder (mse->account, old_path, new_path, TRUE);
+	folder = exchange_account_get_folder (mse->account, new_path);
 	g_free (old_path);
 	g_free (new_path);
 
