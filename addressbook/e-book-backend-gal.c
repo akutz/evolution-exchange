@@ -41,7 +41,7 @@
 #undef LDAP_DEBUG
 #endif
 
-#define d(x) x
+#define d(x)
 
 #include <sys/time.h>
 

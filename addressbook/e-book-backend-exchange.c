@@ -58,7 +58,7 @@
 #include "exchange-component.h"
 
 #define DEBUG
-#define d(x) x
+#define d(x)
 
 #define SUMMARY_FLUSH_TIMEOUT 5000
 
