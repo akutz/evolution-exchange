@@ -1,3 +1,9 @@
+2004-08-19  Sushma Rai  <rsushma@novell.com>
+
+	* camel/camel-exchange-folder.c (transfer_messages_to): 
+	Not calling cache_xfer if destination uids not found.
+	Fixes #63315
+
 2004-08-18  Ilkka Tuohela  <hile@iki.fi>
 
 	* configure.in: Added fi to ALL_LINGUAS

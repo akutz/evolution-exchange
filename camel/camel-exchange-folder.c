@@ -626,7 +626,7 @@ transfer_messages_to (CamelFolder *source, GPtrArray *uids,
 {
 	CamelExchangeFolder *exch_source = CAMEL_EXCHANGE_FOLDER (source);
 	CamelExchangeFolder *exch_dest = CAMEL_EXCHANGE_FOLDER (dest);
-	GPtrArray *ret_uids;
+	GPtrArray *ret_uids = NULL;
 	int hier_len;
 
 	camel_operation_start (NULL, delete_originals ? _("Moving messages") :
@@ -649,7 +649,9 @@ transfer_messages_to (CamelFolder *source, GPtrArray *uids,
 			     CAMEL_STUB_ARG_RETURN,
 			     CAMEL_STUB_ARG_STRINGARRAY, &ret_uids,
 			     CAMEL_STUB_ARG_END)) {
-		cache_xfer (exch_source, exch_dest, uids, ret_uids, FALSE);
+		if (ret_uids->len != 0)
+			cache_xfer (exch_source, exch_dest, uids, ret_uids, FALSE);
+
 		if (transferred_uids)
 			*transferred_uids = ret_uids;
 		else {
