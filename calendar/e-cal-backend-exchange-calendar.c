@@ -316,6 +316,7 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 		add_ical (cbex, result->href, modtime,
 			  ical_data->data, ical_data->len);
 	}
+	// g_byte_array_free (ical_data);
 	status = e2k_result_iter_free (iter);
 
 	if (!SOUP_STATUS_IS_SUCCESSFUL (status)) {
@@ -539,6 +540,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	e_cal_component_commit_sequence (comp);
 	*calobj = e_cal_component_get_as_string (comp);
 	if (!*calobj) {
+		icalcomponent_free (icalcomp);
 		g_object_unref (comp);
 		icalcomponent_free (cbdata->vcal_comp);
 		g_free (cbdata);
@@ -549,10 +551,9 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	icalcomponent_foreach_tzid (real_icalcomp, add_timezone_cb, cbdata);
 	icalcomponent_add_component (cbdata->vcal_comp, real_icalcomp);	
 	
-	
 	body = icalcomponent_as_ical_string (cbdata->vcal_comp);
 	body_crlf = e_cal_backend_exchange_lf_to_crlf (body);	
-	
+		
 	summary = icalcomponent_get_summary (real_icalcomp);
 	if (!summary)
 		summary = "";
@@ -580,8 +581,20 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 						NULL, NULL, "message/rfc822", 
 						msg, strlen (msg), &location, &ru_header);	
 
-	if (http_status != E2K_HTTP_CREATED)
+	g_free (date);
+	g_free (from);
+	g_free (body_crlf);
+	g_free (msg); 
+	icalcomponent_free (cbdata->vcal_comp);	// not sure
+	g_free (cbdata);
+
+	if (http_status != E2K_HTTP_CREATED) {
+		icalcomponent_free (icalcomp);
+		g_object_unref (comp);
+		g_free (location);
+		g_free (lastmod);
 		return GNOME_Evolution_Calendar_OtherError;
+	}
 
 	/*add object*/
 	e_cal_backend_exchange_add_object (E_CAL_BACKEND_EXCHANGE (cbexc), location, lastmod, icalcomp);
@@ -590,8 +603,10 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	e_cal_backend_ref_categories (E_CAL_BACKEND (cbexc), categories);
 	e_cal_component_free_categories_list (categories);
 	
+	icalcomponent_free (icalcomp);
+	g_object_unref (comp);
 	g_free (lastmod);
-	/*cleanup ?*/	
+	g_free (location);
 	
 	return GNOME_Evolution_Calendar_Success;
 }
@@ -769,11 +784,14 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	comp_str = e_cal_component_get_as_string (comp);
 	icalcomp = icalparser_parse_string (comp_str);
 	g_free (comp_str);
-	if (!icalcomp)
+	if (!icalcomp) {
+		g_object_unref (comp);	
 		return GNOME_Evolution_Calendar_OtherError;
+	}
 
 	tmp_comp = e_cal_component_new ();
 	if (!e_cal_component_set_icalcomponent (tmp_comp, icalcomp)) {
+		g_object_unref (comp);	
 		icalcomponent_free (icalcomp);
 		return GNOME_Evolution_Calendar_OtherError;
 	}
@@ -864,6 +882,8 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		g_object_unref (tmp_comp);
 		icalcomponent_free (cbdata->vcal_comp);
 		g_free (cbdata);
+		g_object_unref (comp);	
+		icalcomponent_free (icalcomp);
 		return GNOME_Evolution_Calendar_OtherError;
 	}
 	real_icalcomp = icalparser_parse_string (comp_str);
@@ -973,8 +993,10 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 				e_cal_backend_unref_categories (E_CAL_BACKEND (cbexc), categories);
 				e_cal_component_free_categories_list (categories);
 				
-				if (e_cal_backend_exchange_remove_object (E_CAL_BACKEND_EXCHANGE (cbexc), uid))
+				if (e_cal_backend_exchange_remove_object (E_CAL_BACKEND_EXCHANGE (cbexc), uid)) {
+						g_object_unref (comp);
 						return GNOME_Evolution_Calendar_Success;
+				}
 			}
 			break;
 		case CALOBJ_MOD_THIS:
@@ -1004,7 +1026,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 		 const char *calobj)
 {
 	ECalBackendExchangeCalendar *cbexc;
-	ECalComponent *comp;
+	ECalComponent *comp = NULL;
 	GList *comps, *l;
 	struct icaltimetype current;
 	icalproperty_method method;
@@ -1076,11 +1098,13 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 			status = GNOME_Evolution_Calendar_UnsupportedMethod;
 			goto error;
 		}
+		g_object_unref (comp);
 	}
-
 	g_list_free (comps);
 		
  error:	
+	if (comp)
+		g_object_unref (comp);
 	return status;
 }
 
@@ -1134,17 +1158,18 @@ book_resource (ECalBackendExchange *cbex,
 	gcstatus = e2k_global_catalog_lookup (
 		gc, NULL, E2K_GLOBAL_CATALOG_LOOKUP_BY_EMAIL, resource_email,
 		E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX, &entry);
+
 	switch (gcstatus) {
-	case E2K_GLOBAL_CATALOG_OK:
-		break;
+		case E2K_GLOBAL_CATALOG_OK:
+			break;
 												 
-	case E2K_GLOBAL_CATALOG_NO_SUCH_USER:
-		retval = E_CAL_BACKEND_EXCHANGE_BOOKING_NO_SUCH_USER;
-		goto cleanup;
+		case E2K_GLOBAL_CATALOG_NO_SUCH_USER:
+			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_NO_SUCH_USER;
+			goto cleanup;
 												 
-	default:
-		retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
-		goto cleanup;
+		default:
+			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
+			goto cleanup;
 	}
 												 
 	top_uri = exchange_account_get_foreign_uri (cbex->account,
@@ -1214,7 +1239,7 @@ book_resource (ECalBackendExchange *cbex,
 			new_text.value = g_strdup_printf ("Cancelled");
 		new_text.altrep = NULL;
 		e_cal_component_set_summary (E_CAL_COMPONENT (comp), &new_text);
-												 
+
 		e_cal_component_set_transparency (E_CAL_COMPONENT (comp), E_CAL_COMPONENT_TRANSP_TRANSPARENT);
 		calobj = (char *) e_cal_component_get_as_string (comp);
 		rid = (char *) e_cal_component_get_recurid_as_string (comp);
@@ -1256,28 +1281,28 @@ book_resource (ECalBackendExchange *cbex,
 												 
 		iter = e2k_context_search_start (ctx, NULL, cal_uri,
 						     &prop_name, 1, rn, NULL, FALSE);
+		g_free (startz);
+		g_free (endz);
+
 		result = e2k_result_iter_next (iter);
 		if (result) {
 			cal_uid = e2k_properties_get_prop (result[0].props, E2K_PR_CALENDAR_UID);
 		}
 		if (result && cal_uid) {
 			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_BUSY;
+
+			status = e2k_result_iter_free (iter);
+
+			if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+				if (status == E2K_HTTP_UNAUTHORIZED) 
+					retval = E_CAL_BACKEND_EXCHANGE_BOOKING_PERMISSION_DENIED;
+				else 
+					retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
+			}
+			e2k_restriction_unref (rn);
 			goto cleanup;
 		}
-		status = e2k_result_iter_free (iter);
-
-		g_free (startz);
-		g_free (endz);
 		e2k_restriction_unref (rn);
-		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-			if (status == E2K_HTTP_UNAUTHORIZED) {
-				retval = E_CAL_BACKEND_EXCHANGE_BOOKING_PERMISSION_DENIED;
-				goto cleanup;
-			} else {
-				retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
-				goto cleanup;
-			}
-		}
 	}
 												 
 	/* We're good. Book it. */
@@ -1292,8 +1317,8 @@ book_resource (ECalBackendExchange *cbex,
 		if (status == GNOME_Evolution_Calendar_Success) {
 			e_cal_backend_notify_object_modified (E_CAL_BACKEND (cbex), old_object, calobj);
 			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_OK;
-			g_free (old_object);
 		}
+		g_free (old_object);
 	} else {
 		status = create_object (E_CAL_BACKEND_SYNC (cbex), cal, &calobj, &returned_uid);
 		if (status == GNOME_Evolution_Calendar_Success) {
@@ -1534,6 +1559,7 @@ discard_alarm (ECalBackendSync *backend, EDataCal *cal,
 			result = GNOME_Evolution_Calendar_OtherError;
 		}
 	}
+	g_object_unref (ecomp);
 
 	return result;
 }
