@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-13 00:43+0800\n"
-"PO-Revision-Date: 2004-08-12 00:17+0800\n"
+"POT-Creation-Date: 2005-01-24 17:13+0800\n"
+"PO-Revision-Date: 2005-01-24 17:03+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: addressbook/e-book-backend-exchange.c:1681
+#: addressbook/e-book-backend-exchange.c:1807
 #: addressbook/e-book-backend-gal.c:1341 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "正在搜索..."
@@ -32,7 +32,7 @@ msgstr "正在接收 LDAP 搜索结果..."
 msgid "Error performing search"
 msgstr "执行搜索出错"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1624
+#: calendar/e-cal-backend-exchange-calendar.c:1733
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -41,7 +41,7 @@ msgstr ""
 "无法将资源“%s”调度为再现会议。\n"
 "您必须单独预订每次会议。"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1643
+#: calendar/e-cal-backend-exchange-calendar.c:1752
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "在选中的时间段中，资源“%s”都处于忙状态。"
@@ -78,9 +78,9 @@ msgid "Could not create cache for %s"
 msgstr "无法为 %s 创建缓存"
 
 #: camel/camel-exchange-folder.c:957
-#, fuzzy, c-format
+#, c-format
 msgid "Could not create journal for %s"
-msgstr "无法为 %s 创建缓存"
+msgstr "无法为 %s 创建日记"
 
 #: camel/camel-exchange-folder.c:997
 msgid "Scanning for changed messages"
@@ -114,52 +114,56 @@ msgid "Limit number of GAL responses: %s"
 msgstr "限制 GAL 响应数：%s"
 
 #: camel/camel-exchange-provider.c:60
-msgid "Password Expiry Warning"
-msgstr ""
+msgid "Options"
+msgstr "选项"
 
 #: camel/camel-exchange-provider.c:62
 #, c-format
 msgid "Password Expiry Warning period: %s"
-msgstr ""
+msgstr "密码到期警告期限：%s"
+
+#: camel/camel-exchange-provider.c:64
+msgid "Automatically synchronize account locally"
+msgstr "自动在本地同步账户"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:66
+#: camel/camel-exchange-provider.c:68
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr "将过滤器应用到此服务器收件箱中的新信件"
 
-#: camel/camel-exchange-provider.c:68
+#: camel/camel-exchange-provider.c:70
 msgid "Check new messages for Junk contents"
 msgstr "检查新信件的垃圾邮件内容"
 
-#: camel/camel-exchange-provider.c:70
+#: camel/camel-exchange-provider.c:72
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "只检查收件箱文件夹中的垃圾信件"
 
-#: camel/camel-exchange-provider.c:86
+#: camel/camel-exchange-provider.c:88
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: camel/camel-exchange-provider.c:88
+#: camel/camel-exchange-provider.c:90
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "处理 Microsoft Exchange 服务器上的邮件(和其它数据)"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:104
+#: camel/camel-exchange-provider.c:106
 msgid "Secure Password"
 msgstr "安全密码"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:107
+#: camel/camel-exchange-provider.c:109
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
 msgstr "此选项将使用安全密码(NTLM)身份验证方式连接到 Exchange 服务器。"
 
-#: camel/camel-exchange-provider.c:115
+#: camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "纯文本密码"
 
-#: camel/camel-exchange-provider.c:117
+#: camel/camel-exchange-provider.c:119
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -180,33 +184,25 @@ msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange 后端进程"
 
 #: camel/camel-exchange-store.c:352
-#, fuzzy, c-format
+#, c-format
 msgid "No such folder %s"
-msgstr "没有这样的文件夹"
+msgstr "没有文件夹 %s"
 
 #: camel/camel-exchange-store.c:474
-#, fuzzy
 msgid "Cannot get folder info in offline mode."
-msgstr "无法在脱机模式下执行此操作"
+msgstr "无法在脱机模式下获得文件夹信息。"
 
 #: camel/camel-exchange-store.c:536
-#, fuzzy
 msgid "Cannot create folder in offline mode."
-msgstr "无法创建该名称的文件夹"
+msgstr "无法在脱机模式下创建文件夹。"
 
 #: camel/camel-exchange-store.c:563
-#, fuzzy
 msgid "Cannot delete folder in offline mode."
-msgstr ""
-"无法删除文件夹：\n"
-"%s"
+msgstr "无法在脱机模式下删除文件夹。"
 
 #: camel/camel-exchange-store.c:579
-#, fuzzy
 msgid "Cannot rename folder in offline mode."
-msgstr ""
-"无法重命名文件夹：\n"
-"%s"
+msgstr "无法在脱机模式下重命名文件夹。"
 
 #: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
@@ -626,7 +622,7 @@ msgstr "无法创建该名称的文件夹"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "无法在脱机模式下执行此操作"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1274
+#: shell/e-storage.c:587 storage/exchange-account.c:1289
 msgid "Unknown error"
 msgstr "未知错误"
 
@@ -660,25 +656,25 @@ msgstr "Exchage(_E)"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:565
+#: storage/exchange-account.c:572
 #, c-format
 msgid "%s's Folders"
 msgstr "%s 的文件夹"
 
-#: storage/exchange-account.c:846
+#: storage/exchange-account.c:854
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%s输入 %s 的密码"
 
-#: storage/exchange-account.c:850
+#: storage/exchange-account.c:858
 msgid "Enter password"
 msgstr "输入密码"
 
-#: storage/exchange-account.c:1017
+#: storage/exchange-account.c:1032
 msgid "Cannot change password due to configuration problems"
 msgstr "由于配置问题无法更改密码"
 
-#: storage/exchange-account.c:1032
+#: storage/exchange-account.c:1047
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -686,11 +682,11 @@ msgstr ""
 "服务器拒绝了密码，因为该密码太简单了。\n"
 "请使用更复杂的密码再试一次。"
 
-#: storage/exchange-account.c:1037
+#: storage/exchange-account.c:1052
 msgid "Could not change password"
 msgstr "无法更改密码"
 
-#: storage/exchange-account.c:1185
+#: storage/exchange-account.c:1200
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -698,7 +694,7 @@ msgstr ""
 "无法验证到服务器。(密码不对？)\n"
 "\n"
 
-#: storage/exchange-account.c:1190
+#: storage/exchange-account.c:1205
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -717,7 +713,7 @@ msgstr ""
 "或者，您可能输错了您的密码。\n"
 "\n"
 
-#: storage/exchange-account.c:1201
+#: storage/exchange-account.c:1216
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -733,12 +729,12 @@ msgstr ""
 "或者，您可能输错了您的密码。\n"
 "\n"
 
-#: storage/exchange-account.c:1232
+#: storage/exchange-account.c:1247
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "%s 的邮箱未在此服务器上。"
 
-#: storage/exchange-account.c:1237
+#: storage/exchange-account.c:1252
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -747,7 +743,7 @@ msgstr ""
 "服务器“%s”运行着 Exchange 5.5，而该版本与\n"
 "Ximian Connector 不兼容"
 
-#: storage/exchange-account.c:1244
+#: storage/exchange-account.c:1259
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -757,40 +753,40 @@ msgstr ""
 "在 %s 找不到 Exchange Web 存储系统。\n"
 "如果 OWA 运行于不同的路径，您必须在账户配置对话框中指定。"
 
-#: storage/exchange-account.c:1252
+#: storage/exchange-account.c:1267
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "%2$s 上没有用户 %1$s 的邮箱。\n"
 
-#: storage/exchange-account.c:1258 storage/exchange-account.c:1264
-#: storage/exchange-account.c:1272
+#: storage/exchange-account.c:1273 storage/exchange-account.c:1279
+#: storage/exchange-account.c:1287
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "无法连接到服务器 %s：%s"
 
-#: storage/exchange-account.c:1260
+#: storage/exchange-account.c:1275
 msgid "Could not resolve hostname"
 msgstr "无法解析主机名"
 
-#: storage/exchange-account.c:1266
+#: storage/exchange-account.c:1281
 msgid "Network error"
 msgstr "网络错误"
 
-#: storage/exchange-account.c:1344
+#: storage/exchange-account.c:1359
 msgid "Personal Folders"
 msgstr "个人文件夹"
 
-#: storage/exchange-account.c:1359
+#: storage/exchange-account.c:1374
 msgid "Favorite Public Folders"
 msgstr "收藏的公开文件夹"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1376
+#: storage/exchange-account.c:1391
 msgid "All Public Folders"
 msgstr "全部公开文件夹"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1390
+#: storage/exchange-account.c:1405
 msgid "Global Address List"
 msgstr "全局地址列表"
 
@@ -1230,19 +1226,16 @@ msgid "_Tasks:"
 msgstr "任务(_T)："
 
 #: storage/exchange-folder-size.c:204
-#, fuzzy
 msgid "Folder Name"
-msgstr "文件夹名称(_F)："
+msgstr "文件夹名称"
 
 #: storage/exchange-folder-size.c:208
-#, fuzzy
 msgid "Folder Size"
-msgstr "文件夹可见"
+msgstr "文件夹大小"
 
 #: storage/exchange-folder-tree.glade.h:1
-#, fuzzy
 msgid "Exchange Folder Tree"
-msgstr "Exchange 服务器"
+msgstr "Exchange 文件夹树"
 
 #: storage/exchange-hierarchy-foreign.c:251
 msgid "Deleted Items"
@@ -1362,20 +1355,19 @@ msgstr "是的，更改状态"
 
 #: storage/exchange-passwd-expiry.glade.h:1
 msgid "Password Expiry Warning..."
-msgstr ""
+msgstr "密码到期警告..."
 
 #: storage/exchange-passwd-expiry.glade.h:2
 msgid "Your password will expire in 7 days..."
-msgstr ""
+msgstr "您的密码即将于七天后过期..."
 
 #: storage/exchange-passwd-expiry.glade.h:3
-#, fuzzy
 msgid "_Change Password"
-msgstr "更改密码"
+msgstr "更改密码(_C)"
 
 #: storage/exchange-passwd-expiry.glade.h:4
 msgid "ok_button"
-msgstr ""
+msgstr "确定(_B)"
 
 #: storage/exchange-permissions-dialog.c:222
 msgid "Could not read folder permissions"
@@ -1563,7 +1555,7 @@ msgstr "权限(_P)..."
 
 #: storage/xc-commands.c:419
 msgid "_Show Folder Sizes"
-msgstr ""
+msgstr "显示文件夹大小(_S)"
 
 #: storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
@@ -1574,13 +1566,12 @@ msgid "Change your Exchange server password"
 msgstr "更改您的 Exchange 服务器密码"
 
 #: storage/ximian-connector.xml.h:2
-#, fuzzy
 msgid "Folder _Size"
-msgstr "文件夹类型(_T)："
+msgstr "文件夹大小(_S)"
 
 #: storage/ximian-connector.xml.h:3
 msgid "Get the size of personal folders"
-msgstr ""
+msgstr "获得个人文件夹的大小"
 
 #: storage/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
@@ -1619,23 +1610,3 @@ msgstr "离开办公室助手(_O)"
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "退订其他用户的文件夹(_U)"
 
-#~ msgid "Exc_hange Server:"
-#~ msgstr "Exchange 服务器(_H)："
-
-#~ msgid "Exchange Server"
-#~ msgstr "Exchange 服务器"
-
-#~ msgid "Mailbox name"
-#~ msgstr "邮箱名"
-
-#~ msgid "OWA path"
-#~ msgstr "OWA 路径"
-
-#~ msgid "Public Folder server"
-#~ msgstr "公开文件夹服务器"
-
-#~ msgid "_Move Folder..."
-#~ msgstr "移动文件夹(_M)..."
-
-#~ msgid "_Copy Folder..."
-#~ msgstr "复制文件夹(_C)..."
