@@ -404,7 +404,7 @@ e2k_results_copy (E2kResult *results, int nresults)
 
 /**
  * e2k_results_free:
- * @results: a results array returned from e2k_results_from_multistatus()
+ * @results: a results array
  * @nresults: the length of @results
  *
  * Frees the data in @results.

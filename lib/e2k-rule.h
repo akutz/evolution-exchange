@@ -40,6 +40,8 @@ typedef enum {
 } E2kRestrictionType;
 
 struct _E2kRestriction {
+	/*< private >*/
+
 	E2kRestrictionType type;
 	int ref_count;
 
@@ -136,16 +138,20 @@ typedef enum {
 } E2kActionBounceCode;
 
 struct _E2kAddrEntry {
+	/*< private >*/
 	guint32        nvalues;
 	E2kPropValue  *propval;
 };
 
 struct _E2kAddrList {
+	/*< private >*/
 	guint32        nentries;
 	E2kAddrEntry   entry[1];
 };
 
 struct _E2kAction {
+	/*< private >*/
+
 	E2kActionType type;
 	guint32       flavor;
 	guint32       flags;
@@ -168,16 +174,16 @@ struct _E2kAction {
 	} act;
 };
 
+typedef enum {
+	E2K_RULE_STATE_DISABLED          = 0x00,
+	E2K_RULE_STATE_ENABLED           = 0x01,
+	E2K_RULE_STATE_ERROR             = 0x02,
+	E2K_RULE_STATE_ONLY_WHEN_OOF     = 0x04,
+	E2K_RULE_STATE_KEEP_OOF_HISTORY  = 0x08,
+	E2K_RULE_STATE_EXIT_LEVEL        = 0x10,
 
-#define E2K_RULE_STATE_DISABLED          0x0000
-#define E2K_RULE_STATE_ENABLED           0x0001
-#define E2K_RULE_STATE_ERROR             0x0002
-#define E2K_RULE_STATE_ONLY_WHEN_OOF     0x0004
-#define E2K_RULE_STATE_KEEP_OOF_HISTORY  0x0008
-#define E2K_RULE_STATE_EXIT_LEVEL        0x0010
-
-#define E2K_RULE_STATE_CLEAR_OOF_HISTORY 0x80000000
-
+	E2K_RULE_STATE_CLEAR_OOF_HISTORY = 0x80000000
+} E2kRuleState;
 
 typedef struct {
 	char           *name;
@@ -198,7 +204,7 @@ typedef struct {
 	GPtrArray *rules;
 } E2kRules;
 
-E2kRules   *e2k_rules_from_binary (GByteArray *ba);
+E2kRules   *e2k_rules_from_binary (GByteArray *rules_data);
 GByteArray *e2k_rules_to_binary   (E2kRules   *rules);
 void        e2k_rules_free        (E2kRules   *rules);
 void        e2k_rule_free         (E2kRule    *rule);

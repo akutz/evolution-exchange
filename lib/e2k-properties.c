@@ -375,7 +375,6 @@ get_propinfo (const char *propname, E2kPropType type)
  * @value: a boolean value
  *
  * Sets @propname in @props to @value.
- * @value.
  **/
 
 /**

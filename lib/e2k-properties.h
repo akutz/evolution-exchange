@@ -26,7 +26,7 @@ typedef enum {
 	E2K_PROP_TYPE_DATE
 } E2kPropType;
 
-#define E2K_PROP_TYPE_IS_ARRAY(t) (((t) == E2K_PROP_TYPE_STRING_ARRAY) || ((t) == E2K_PROP_TYPE_BINARY_ARRAY) || ((t) == E2K_PROP_TYPE_INT_ARRAY))
+#define E2K_PROP_TYPE_IS_ARRAY(type) (((type) == E2K_PROP_TYPE_STRING_ARRAY) || ((type) == E2K_PROP_TYPE_BINARY_ARRAY) || ((type) == E2K_PROP_TYPE_INT_ARRAY))
 
 E2kProperties *e2k_properties_new               (void);
 E2kProperties *e2k_properties_copy              (E2kProperties *props);

@@ -24,10 +24,12 @@ typedef enum {
 } E2kBusyStatus;
 
 typedef struct {
+	/*< private >*/
 	time_t start, end;
 } E2kFreebusyEvent;
 
 typedef struct {
+	/*< private >*/
 	E2kContext *ctx;
 	char *dn, *uri;
 

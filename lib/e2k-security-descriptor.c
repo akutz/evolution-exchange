@@ -606,7 +606,7 @@ e2k_security_descriptor_get_default (E2kSecurityDescriptor *sd)
  * represented in @sd. You can pass these SIDs to
  * e2k_security_descriptor_get_permissions(),
  * e2k_security_descriptor_set_permissions(), and
- * e2k_security_descriptor_remove_sid.
+ * e2k_security_descriptor_remove_sid().
  *
  * Return value: a list of SIDs. The caller must free the list
  * with g_list_free(), but should not free the contents.

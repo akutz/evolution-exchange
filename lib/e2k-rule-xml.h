@@ -8,6 +8,5 @@
 #include "e2k-rule.h"
 
 xmlDoc     *e2k_rules_to_xml      (E2kRules   *rules);
-E2kRules   *e2k_rules_from_xml    (xmlDoc     *xml);
 
 #endif /* __E2K_RULE_XML_H__ */

@@ -12,9 +12,10 @@ extern "C" {
 #pragma }
 #endif /* __cplusplus */
 
-typedef void (*E2kOperationCancelFunc) (E2kOperation *, gpointer, gpointer);
+typedef void (*E2kOperationCancelFunc) (E2kOperation *op, gpointer owner, gpointer data);
 
 struct _E2kOperation {
+	/*< private >*/
 	gboolean cancelled;
 
 	E2kOperationCancelFunc canceller;

@@ -19,6 +19,13 @@
 
 /* e2k-autoconfig: Automatic account configuration backend code */
 
+/* Note on gtk-doc: Several functions in this file have intentionally-
+ * broken gtk-doc comments (that have only a single "*" after the
+ * opening "/") so that they can be overridden by versions in
+ * docs/reference/tmpl/e2k-autoconfig.sgml that use better markup.
+ * If you change the docs here, be sure to change them there as well.
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -349,6 +356,8 @@ get_ctx_auth_handler (SoupMessage *msg, gpointer user_data)
  *   %E2K_AUTOCONFIG_FAILED: Other error.
  *
  * Return value: the new context, or %NULL
+ *
+ * (If you change this comment, see the note at the top of this file.)
  **/
 E2kContext *
 e2k_autoconfig_get_context (E2kAutoconfig *ac, E2kOperation *op,
@@ -598,6 +607,8 @@ static const int n_home_properties = sizeof (home_properties) / sizeof (home_pro
  *     e2k_autoconfig_check_exchange()
  *
  * Return value: an #E2kAutoconfigResult
+ *
+ * (If you change this comment, see the note at the top of this file.)
  **/
 E2kAutoconfigResult
 e2k_autoconfig_check_exchange (E2kAutoconfig *ac, E2kOperation *op)
@@ -803,7 +814,7 @@ find_global_catalog (E2kAutoconfig *ac)
 	return;
 }
 
-/*
+/**
  * e2k_autoconfig_get_global_catalog
  * @ac: an autoconfig context
  * @op: an #E2kOperation, for cancellation
@@ -851,6 +862,8 @@ e2k_autoconfig_get_global_catalog (E2kAutoconfig *ac, E2kOperation *op)
  *   %E2K_AUTOCONFIG_FAILED: Other error.
  *
  * Return value: an #E2kAutoconfigResult.
+ *
+ * (If you change this comment, see the note at the top of this file.)
  */
 E2kAutoconfigResult
 e2k_autoconfig_check_global_catalog (E2kAutoconfig *ac, E2kOperation *op)
@@ -1358,8 +1371,7 @@ read_config (void)
  * e2k_autoconfig_lookup_option:
  * @option: option name to look up
  *
- * Looks up an option in the config file. These values are NOT SIGNED.
- * The system administrator can put whatever values he wants here.
+ * Looks up an autoconfiguration hint in the config file (if present)
  *
  * Return value: the string value of the option, or %NULL if it is unset.
  **/

@@ -759,6 +759,15 @@ rule_to_xml (E2kRule *rule, xmlNode *ruleset)
 	return TRUE;
 }
 
+/**
+ * e2k_rules_to_xml:
+ * @rules: an #E2kRules
+ *
+ * Encodes @rules into an XML format like that used by the evolution
+ * filter code.
+ *
+ * Return value: the XML rules
+ **/
 xmlDoc *
 e2k_rules_to_xml (E2kRules *rules)
 {

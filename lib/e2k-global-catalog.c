@@ -859,9 +859,6 @@ do_lookup_thread (void *user_data)
  *
  * Asynchronously look up the indicated user in the global catalog and
  * return the requested information to the callback.
- *
- * Return value: a cookie that can be passed to
- * e2k_global_catalog_cancel_lookup()
  **/
 void
 e2k_global_catalog_async_lookup (E2kGlobalCatalog *gc,
