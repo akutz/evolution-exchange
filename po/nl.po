@@ -6,13 +6,14 @@
 # -----------------------------------------------------
 # ** Outlookisms vertalen of niet? **
 # Mailbox - Brievenbus
+# meeting -? vergadering/bijeenkomst
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-07 15:59+0530\n"
-"PO-Revision-Date: 2005-01-30 23:21+0100\n"
+"POT-Creation-Date: 2005-02-11 14:04+0100\n"
+"PO-Revision-Date: 2005-02-11 18:04+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Ducth <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -47,13 +48,14 @@ msgstr "LDAP zoekresultaten worden ingelezen..."
 msgid "Error performing search"
 msgstr "Fout bij uitvoeren zoekopdracht"
 
+# niet aangewezen voor offline ondersteuning
 #: calendar/e-cal-backend-exchange.c:277
 msgid "Folder not marked for offline support"
-msgstr ""
+msgstr "Map niet gemarkeerd voor offline ondersteuning"
 
 # doelbron?
 # mogelijk weglaten: niet in staat om 's' te plannen voor...
-#: calendar/e-cal-backend-exchange-calendar.c:1712
+#: calendar/e-cal-backend-exchange-calendar.c:1716
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -64,7 +66,7 @@ msgstr ""
 
 # ... is bezet in de geselecteerde periode
 # ... is bezet tijdens 
-#: calendar/e-cal-backend-exchange-calendar.c:1731
+#: calendar/e-cal-backend-exchange-calendar.c:1735
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "De bron '%s' is bezet gedurende de geselecteerde periode."
@@ -116,17 +118,17 @@ msgstr "Samenvatting voor nieuwe berichten ophalen"
 
 #: camel/camel-exchange-journal.c:279
 msgid "No folder name found\n"
-msgstr ""
+msgstr "Geem mapnaam gevonden\n"
 
+# achteraan toevoegen/toevoegen
 #: camel/camel-exchange-journal.c:342
-#, fuzzy
 msgid "Cannot append message in offline mode: cache unavailable"
-msgstr "Kan map in offline toestand niet hernoemen."
+msgstr "Kan bericht in offline-modus niet toevoegen: cache niet beschikbaar"
 
 #: camel/camel-exchange-journal.c:358
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot append message in offline mode: %s"
-msgstr "Kan map in offline toestand niet hernoemen."
+msgstr "Kan bericht in offline-modus niet toevoegen: %s"
 
 # controleren!
 # Windows gebruikers_naam:
@@ -299,7 +301,7 @@ msgstr "Verbinding met %s is verbroken"
 msgid "Error communicating with %s: %s"
 msgstr "Fout bij communiceren met %s: %s"
 
-#: lib/e2k-autoconfig.c:1427 storage/exchange-autoconfig-wizard.c:224
+#: lib/e2k-autoconfig.c:1426 storage/exchange-autoconfig-wizard.c:224
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -310,7 +312,7 @@ msgstr ""
 "probeer dan opnieuw."
 
 # lokaliseren/vinden
-#: lib/e2k-autoconfig.c:1436 storage/exchange-autoconfig-wizard.c:232
+#: lib/e2k-autoconfig.c:1435 storage/exchange-autoconfig-wizard.c:232
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -318,7 +320,7 @@ msgstr ""
 "Kon geen Exchange-server vinden.\n"
 "Controleer of de servernaam juist is gespeld en probeer dan opnieuw."
 
-#: lib/e2k-autoconfig.c:1446 storage/exchange-autoconfig-wizard.c:241
+#: lib/e2k-autoconfig.c:1445 storage/exchange-autoconfig-wizard.c:241
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -327,7 +329,7 @@ msgstr ""
 "Controleer dat uw gebruikersnaam en wachtwoord juist zijn en probeer dan "
 "opnieuw."
 
-#: lib/e2k-autoconfig.c:1454 storage/exchange-autoconfig-wizard.c:248
+#: lib/e2k-autoconfig.c:1453 storage/exchange-autoconfig-wizard.c:248
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -343,7 +345,7 @@ msgstr ""
 "Mogelijk moet u bij uw gebruikersnaam de Windows domeinnaam opgeven (bijv. "
 "\"MIJN-DOMEIN\\%s\")."
 
-#: lib/e2k-autoconfig.c:1467 storage/exchange-autoconfig-wizard.c:260
+#: lib/e2k-autoconfig.c:1466 storage/exchange-autoconfig-wizard.c:260
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -351,8 +353,7 @@ msgstr ""
 "Kon OWA-gegevens niet bij de aangegeven URL vinden.\n"
 "Controleer of de URL juist is en probeer dan opnieuw."
 
-#: lib/e2k-autoconfig.c:1475
-#, fuzzy
+#: lib/e2k-autoconfig.c:1474
 msgid ""
 "Ximian Connector requires access to certain functionality on the Exchange "
 "Server that appears to be disabled or blocked.  (This is usually "
@@ -361,18 +362,15 @@ msgid ""
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:\n"
-"http://www.ximian.com/products/connector/iis-lockdown.html, http://www."
-"ximian.com/products/connector/iis-lockdown.html"
+"http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
+"html "
 msgstr ""
-"Ximian Connector vereist toegang bepaalde functionaliteit op de Exchange-"
-"server die schijnbaar is uitgezet of geblokkeerd.  (Dit is gewoonlijk "
-"onopzettelijk.)  Uw Exchange systeembeheerder moet deze functionaliteit "
-"toegankelijk maken voordat u de Ximian Connector kunt gebruiken.\n"
+"Ximian Connector vereist toegang tot bepaalde functionaliteit op de Exchange-server die schijnbaar is uitgezet of geblokkeerd.  (Dit is meestal zonder opzet.)  Uw Exchange systeembeheerder moet deze functionaliteit toegankelijk maken voordat u de Ximian Connector kunt gebruiken.\n"
 "\n"
-"Voor de informatie die u aan uw Exchange systeembeheerder moet geven, "
-"bekijkt u de link hieronder:"
+"Bekijk de link hieronder voor informatie die u aan uw Exchange systeembeheerder moet geven:\n"
+"http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328.html"
 
-#: lib/e2k-autoconfig.c:1491 storage/exchange-autoconfig-wizard.c:288
+#: lib/e2k-autoconfig.c:1490 storage/exchange-autoconfig-wizard.c:288
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
@@ -380,7 +378,7 @@ msgstr ""
 "De door u gegeven Exchange server URL is voor een Exchange 5.5 server. "
 "Ximian connector ondersteund echter alleen Microsoft Exchange 2000 en 2003."
 
-#: lib/e2k-autoconfig.c:1500 storage/exchange-autoconfig-wizard.c:301
+#: lib/e2k-autoconfig.c:1499 storage/exchange-autoconfig-wizard.c:301
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -388,13 +386,14 @@ msgstr ""
 "Kon Exchange account niet configureren vanwege een onbekende fout. "
 "Controleer de URL, gebruikersnaam en wachtwoord en probeer dan opnieuw."
 
-#: lib/e2k-autoconfig.c:1522
-#, fuzzy, c-format
+# wachtwoord voor %s/wachtwoord geven voor %s
+#: lib/e2k-autoconfig.c:1524
+#, c-format
 msgid "Enter password for %s"
-msgstr "%sGeef wachtwoord voor %s"
+msgstr "Geef wachtwoord voor %s"
 
 # geef wachtwoord
-#: lib/e2k-autoconfig.c:1523 storage/exchange-account.c:859
+#: lib/e2k-autoconfig.c:1525 storage/exchange-account.c:859
 msgid "Enter password"
 msgstr "Wachtwoord invoeren"
 
@@ -804,7 +803,7 @@ msgstr "Kan geen map aanmaken met die naam"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Deze bewerking kan niet uitgevoerd worden in de off-line stand"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1411
+#: shell/e-storage.c:587 storage/exchange-account.c:1418
 msgid "Unknown error"
 msgstr "Onbekende fout"
 
@@ -848,11 +847,11 @@ msgstr "%s's mappen"
 msgid "%sEnter password for %s"
 msgstr "%sGeef wachtwoord voor %s"
 
-#: storage/exchange-account.c:1033
+#: storage/exchange-account.c:1040
 msgid "Cannot change password due to configuration problems"
 msgstr "Kan wachtwoord niet veranderen vanwege configuratieproblemen"
 
-#: storage/exchange-account.c:1048
+#: storage/exchange-account.c:1055
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -860,35 +859,35 @@ msgstr ""
 "Server heeft het wachtwoord geweigerd omdat het te zwak is.\n"
 "Probeer het opnieuw met een ander wachtwoord."
 
-#: storage/exchange-account.c:1053
+#: storage/exchange-account.c:1060
 msgid "Could not change password"
 msgstr "Kon wachtwoord niet veranderen"
 
-#: storage/exchange-account.c:1137
+#: storage/exchange-account.c:1144
 msgid "Personal Folders"
 msgstr "Persoonlijke mappen"
 
-#: storage/exchange-account.c:1152
+#: storage/exchange-account.c:1159
 msgid "Favorite Public Folders"
 msgstr "Favoriete publieke mappen"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1169
+#: storage/exchange-account.c:1176
 msgid "All Public Folders"
 msgstr "Alle publieke mappen"
 
 # Volledige adreslijst
 # Algemene adreslijst
 #. i18n: Outlookism
-#: storage/exchange-account.c:1183
+#: storage/exchange-account.c:1190
 msgid "Global Address List"
 msgstr "Volledige adreslijst"
 
-#: storage/exchange-account.c:1269
+#: storage/exchange-account.c:1276
 msgid "Exchange Account is offline. Cannot display folders\n"
-msgstr ""
+msgstr "Exchange account is offline. Kan mappen niet weergeven\n"
 
-#: storage/exchange-account.c:1322
+#: storage/exchange-account.c:1329
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -896,7 +895,7 @@ msgstr ""
 "Aanmeldingscontrole bij server mislukt. (Wachtwoord onjuist?)\n"
 "\n"
 
-#: storage/exchange-account.c:1327
+#: storage/exchange-account.c:1334
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -916,12 +915,12 @@ msgstr ""
 "Of u heeft gewoon uw wachtwoord verkeerd getypt.\n"
 "\n"
 
-#: storage/exchange-account.c:1369
+#: storage/exchange-account.c:1376
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Mailbox voor %s staat niet op deze server."
 
-#: storage/exchange-account.c:1374
+#: storage/exchange-account.c:1381
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -930,7 +929,7 @@ msgstr ""
 "De server '%s' draait op Exchange 5.5 en is\n"
 "daarom niet compatibel met Ximian connector"
 
-#: storage/exchange-account.c:1381
+#: storage/exchange-account.c:1388
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -941,24 +940,24 @@ msgstr ""
 "Indien OWA op een ander pad loopt, moet u dit in de accountconfiguratie-\n"
 "dialoog specificeren"
 
-#: storage/exchange-account.c:1389
+#: storage/exchange-account.c:1396
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Geen mailbox voor gebruiker %s op %s.\n"
 
-#: storage/exchange-account.c:1395 storage/exchange-account.c:1401
-#: storage/exchange-account.c:1409
+#: storage/exchange-account.c:1402 storage/exchange-account.c:1408
+#: storage/exchange-account.c:1416
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Kon geen verbinding maken met server %s: %s"
 
 # vinden
 # oplossen
-#: storage/exchange-account.c:1397
+#: storage/exchange-account.c:1404
 msgid "Could not resolve hostname"
 msgstr "Kon de hostnaam niet traceren"
 
-#: storage/exchange-account.c:1403
+#: storage/exchange-account.c:1410
 msgid "Network error"
 msgstr "Netwerkfout"
 
@@ -1196,7 +1195,7 @@ msgstr "Agenda"
 # dat er eerst afgesloten moet worden is vrij logisch
 # (ik weet het, het is gevaarlijk dat aan te nemen
 # maar op deze manier vind ik het mooier en begrijpelijker)
-#: storage/exchange-config-listener.c:693
+#: storage/exchange-config-listener.c:702
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
@@ -1204,7 +1203,7 @@ msgstr ""
 "Aanpassingen aan de Exchange accountconfiguratie zullen\n"
 "pas effect hebben nadat u Evolution opnieuw opstart."
 
-#: storage/exchange-config-listener.c:739
+#: storage/exchange-config-listener.c:748
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr "Het Exchange account zal verwijderd worden wanneer u Evolution afsluit"
 
@@ -1784,6 +1783,26 @@ msgstr "_Afwezigheidsassistent"
 #: storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Abonnement op andermans map opzeggen"
+
+#, fuzzy
+#~ msgid ""
+#~ "Ximian Connector requires access to certain functionality on the Exchange "
+#~ "Server that appears to be disabled or blocked.  (This is usually "
+#~ "unintentional.)  Your Exchange Administrator will need to enable this "
+#~ "functionality in order for you to be able to use Ximian Connector.\n"
+#~ "\n"
+#~ "For information to provide to your Exchange administrator, please follow "
+#~ "the link below:\n"
+#~ "http://www.ximian.com/products/connector/iis-lockdown.html, http://www."
+#~ "ximian.com/products/connector/iis-lockdown.html"
+#~ msgstr ""
+#~ "Ximian Connector vereist toegang bepaalde functionaliteit op de Exchange-"
+#~ "server die schijnbaar is uitgezet of geblokkeerd.  (Dit is gewoonlijk "
+#~ "onopzettelijk.)  Uw Exchange systeembeheerder moet deze functionaliteit "
+#~ "toegankelijk maken voordat u de Ximian Connector kunt gebruiken.\n"
+#~ "\n"
+#~ "Voor de informatie die u aan uw Exchange systeembeheerder moet geven, "
+#~ "bekijkt u de link hieronder:"
 
 #~ msgid ""
 #~ "Could not authenticate to server.\n"
