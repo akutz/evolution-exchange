@@ -87,7 +87,6 @@ do_change_password (BonoboUIComponent *component, gpointer user_data,
 	g_free (new_password);
 }
 
-#if 0
 static void
 do_folder_size_menu (BonoboUIComponent *component, gpointer user_data,
 	  const char *cname)
@@ -96,9 +95,8 @@ do_folder_size_menu (BonoboUIComponent *component, gpointer user_data,
 
 	//exchange_folder_size (xc_backend_view_get_selected_account (view),
 			    //widget_for_view (view));
-	e_notice (widget_for_view (view), GTK_MESSAGE_ERROR, "FIXME (do_folder_size_menu)");
+	e_notice (widget_for_view (view), GTK_MESSAGE_ERROR, "FIXME (do_folder_size_menu)\n Right click a folder to view the sizes\n");
 }
-#endif
 
 static void
 do_subscribe_user (BonoboUIComponent *component, gpointer user_data,
@@ -126,8 +124,7 @@ static BonoboUIVerb verbs [] = {
 	BONOBO_UI_VERB ("ExchangeOOF", do_oof),
 	BONOBO_UI_VERB ("ExchangeDelegation", do_delegates),
 	BONOBO_UI_VERB ("ExchangePassword", do_change_password),
-	/* Use this for the menu hook if needed */
-	/* BONOBO_UI_VERB ("ExchangeFolderSize", do_folder_size_menu), */
+	BONOBO_UI_VERB ("ExchangeFolderSize", do_folder_size_menu),
 	BONOBO_UI_VERB ("ExchangeSubscribeUser", do_subscribe_user),
 	BONOBO_UI_VERB ("ExchangeUnsubscribeUser", do_unsubscribe_user),
 
