@@ -25,7 +25,8 @@
 #include <string.h>
 
 #include "e-cal-backend-exchange-factory.h"
-#include "e-cal-backend-exchange.h"
+#include "e-cal-backend-exchange-calendar.h"
+#include "e-cal-backend-exchange-tasks.h"
 
 static void
 e_cal_backend_exchange_factory_instance_init (ECalBackendExchangeFactory *factory)
@@ -41,7 +42,7 @@ _get_protocol (ECalBackendFactory *factory)
 static ECalBackend*
 _todos_new_backend (ECalBackendFactory *factory, ESource *source)
 {
-	return g_object_new (e_cal_backend_exchange_get_type (), 
+	return g_object_new (E_TYPE_CAL_BACKEND_EXCHANGE_TASKS, 
 			     "source", source, 
 			     "kind", ICAL_VTODO_COMPONENT, NULL);
 }
@@ -55,7 +56,7 @@ _todos_get_kind (ECalBackendFactory *factory)
 static ECalBackend*
 _events_new_backend (ECalBackendFactory *factory, ESource *source)
 {
-	return g_object_new (e_cal_backend_exchange_get_type (), 
+	return g_object_new (E_TYPE_CAL_BACKEND_EXCHANGE_CALENDAR, 
 			     "source", source, 
 			     "kind", ICAL_VEVENT_COMPONENT, NULL);
 }
