@@ -3,13 +3,16 @@
 # This file is distributed under the same license as the
 # evolution-exchange package.
 # Tino Meinen <a.t.meinen@chello.nl>, 2004.
+# -----------------------------------------------------\
+# Outlookisms vertalen of niet?
+# Mailbox - Brievenbus
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-13 15:04-0400\n"
-"PO-Revision-Date: 2004-08-10 02:16+0200\n"
+"POT-Creation-Date: 2004-08-18 11:14+0200\n"
+"PO-Revision-Date: 2004-08-19 02:19+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Ducth <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -44,21 +47,27 @@ msgstr "LDAP zoekresultaten worden ingelezen..."
 msgid "Error performing search"
 msgstr "Fout bij uitvoeren zoekopdracht"
 
+# doelbron?
+# mogelijk weglaten: niet in staat om 's' te plannen voor...
 #: calendar/e-cal-backend-exchange-calendar.c:1358
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
+"Niet in staat om bron '%s' te plannen voor herhalende vergaderingen.\n"
+"U moet elke vergadering afzonderlijk boeken."
 
+# ... is bezet in de geselecteerde periode
+# ... is bezet tijdens 
 #: calendar/e-cal-backend-exchange-calendar.c:1377
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
-msgstr ""
+msgstr "De bron '%s' is bezet gedurende de geselecteerde periode."
 
 #: camel/camel-exchange-folder.c:219
 msgid "Can only expunge in Deleted Items folder"
-msgstr ""
+msgstr "Kan alleen weggooien in de map Verwijderde items"
 
 #: camel/camel-exchange-folder.c:243
 msgid "No Subject"
@@ -220,7 +229,7 @@ msgstr "Evolution Exchange backend proces"
 
 #: camel/camel-exchange-transport.c:109
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr ""
+msgstr "Exchange-transport kan alleen worden gebruikt met Exchange-mail bron"
 
 #: camel/camel-exchange-transport.c:120
 msgid "Cannot send message: one or more invalid recipients"
@@ -259,26 +268,28 @@ msgstr "Verbinding met %s is verbroken"
 #: camel/camel-stub.c:449
 #, c-format
 msgid "Error communicating with %s: %s"
-msgstr ""
+msgstr "Fout bij communiceren met %s: %s"
 
 # mag niet vertaald worden?
 #. i18n: These are Outlook's words for the default roles in
 #. the folder permissions dialog.
 #: lib/e2k-security-descriptor.c:847
 msgid "Owner"
-msgstr "Owner"
+msgstr "Eigenaar"
 
+# redacteur
 #: lib/e2k-security-descriptor.c:857
 msgid "Publishing Editor"
-msgstr ""
+msgstr "Publicerende editor"
 
+# Redacteur
 #: lib/e2k-security-descriptor.c:865
 msgid "Editor"
 msgstr "Editor"
 
 #: lib/e2k-security-descriptor.c:872
 msgid "Publishing Author"
-msgstr ""
+msgstr "Publicerende auteur"
 
 #: lib/e2k-security-descriptor.c:878
 msgid "Author"
@@ -288,14 +299,16 @@ msgstr "Auteur"
 msgid "Non-editing Author"
 msgstr ""
 
-# redacteur
+# redacteur?
+# Controleur?
 #: lib/e2k-security-descriptor.c:887
 msgid "Reviewer"
 msgstr ""
 
+# beter woord
 #: lib/e2k-security-descriptor.c:889
 msgid "Contributor"
-msgstr ""
+msgstr "Medewerker"
 
 #: lib/e2k-security-descriptor.c:891 storage/exchange-delegates.glade.h:7
 msgid "None"
@@ -393,7 +406,7 @@ msgstr ""
 
 #: mail/mail-stub-exchange.c:2250
 msgid "Server won't accept mail via Exchange transport"
-msgstr ""
+msgstr "Server zal geen berichten accepteren via Exchange transport"
 
 #: mail/mail-stub-exchange.c:2252
 #, c-format
@@ -409,6 +422,8 @@ msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
+"Kon bericht niet versturen.\n"
+"Dit betekent mogelijk dat uw account over zijn quota is."
 
 #: mail/mail-stub-exchange.c:2268
 msgid "Could not send message"
@@ -546,32 +561,37 @@ msgstr "in \"%s\" ..."
 #: shell/e-folder-misc-dialogs.c:638
 #, c-format
 msgid "Could not open other user's folder: %s."
-msgstr ""
+msgstr "Kon de map van de andere gebruiker niet openen: %s."
 
 #: shell/e-folder-misc-dialogs.c:688
 msgid "Cannot find the specified other user's folder."
-msgstr ""
+msgstr "Kan de opgegeven map van de andere gebruiker niet vinden."
 
+# betekenis?
+# Kan abonnement op map %s niet opzeggen
+# kan abonnement op map niet opzeggen: 'melding'
 #: shell/e-folder-misc-dialogs.c:720
 #, c-format
 msgid ""
 "Cannot unsubscribe from folder:\n"
 "%s"
 msgstr ""
+"Kan abonnement op de map niet opzeggen:\n"
+"%s"
 
 #: shell/e-folder-misc-dialogs.c:773
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
-msgstr ""
+msgstr "Abonnement op map \"%s\" echt opzeggen?"
 
 #: shell/e-folder-misc-dialogs.c:787
 #, c-format
 msgid "Unsubscribe from \"%s\""
-msgstr ""
+msgstr "Abonnement op \"%s\" opzeggen"
 
 #: shell/e-foreign-folder-dialog.glade.h:1
 msgid "Open Other User's Folder"
-msgstr ""
+msgstr "Map van andere gebruiker openen"
 
 #: shell/e-foreign-folder-dialog.glade.h:2
 msgid "_Account:"
@@ -664,15 +684,15 @@ msgstr "*Control*F5"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Addressbook Exchange backend"
-msgstr ""
+msgstr "Evolution adresboek Exchange backend"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
 msgid "Evolution Calendar Exchange backend"
-msgstr ""
+msgstr "Evolution kalender Exchange backend"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
 msgid "Evolution Exchange Component"
-msgstr ""
+msgstr "Evolution Exchange component"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
 msgid "Exchange"
@@ -696,7 +716,7 @@ msgstr "%s's mappen"
 #: storage/exchange-account.c:797
 #, c-format
 msgid "%sEnter password for %s"
-msgstr ""
+msgstr "%sGeef wachtwoord voor %s"
 
 # geef wachtwoord
 #: storage/exchange-account.c:801
@@ -705,7 +725,7 @@ msgstr "Wachtwoord invoeren"
 
 #: storage/exchange-account.c:876
 msgid "Cannot change password due to configuration problems"
-msgstr ""
+msgstr "Kan wachtwoord niet veranderen vanwege configuratieproblemen"
 
 #: storage/exchange-account.c:891
 msgid ""
@@ -723,7 +743,7 @@ msgstr "Kon wachtwoord niet veranderen"
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
-msgstr ""
+msgstr "Aanmeldingscontrole bij server mislukt. (Wachtwoord onjuist?)\n\n"
 
 #: storage/exchange-account.c:987
 msgid ""
@@ -736,6 +756,14 @@ msgid ""
 "Or you might have just typed your password wrong.\n"
 "\n"
 msgstr ""
+"Aanmeldingscontrole bij server mislukt.\n"
+"\n"
+"Dit betekent waarschijnlijk dat uw server vereist\n"
+"dat u de Windows domeinnaam opgeeft bij uw\n"
+"gebruikersnaam (bijv. \"DOMEIN\\gebruiker\").\n"
+"\n"
+"Of u heeft gewoon uw wachtwoord verkeerd getypt.\n"
+"\n"
 
 #: storage/exchange-account.c:998
 msgid ""
@@ -746,11 +774,18 @@ msgid ""
 "Or you might have just typed your password wrong.\n"
 "\n"
 msgstr ""
+"Aanmeldingscontrole bij server mislukt\n"
+"\n"
+"U moet mogelijk aanmeldingscontrole in platte tekst\n"
+"gebruiken.\n"
+"\n"
+"Of u heeft gewoon uw wachtwoord verkeerd getypt.\n"
+"\n"
 
 #: storage/exchange-account.c:1029
 #, c-format
 msgid "Mailbox for %s is not on this server."
-msgstr ""
+msgstr "Mailbox voor %s staat niet op deze server."
 
 #: storage/exchange-account.c:1034
 #, c-format
@@ -758,6 +793,8 @@ msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
 "therefore not compatible with Ximian Connector"
 msgstr ""
+"De server '%s' draait op Exchange 5.5 en is\n"
+"daarom niet compatibel met Ximian connector"
 
 #: storage/exchange-account.c:1041
 #, c-format
@@ -770,7 +807,7 @@ msgstr ""
 #: storage/exchange-account.c:1049
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
-msgstr ""
+msgstr "Geen mailbox voor gebruiker %s op %s.\n"
 
 #: storage/exchange-account.c:1055 storage/exchange-account.c:1061
 #: storage/exchange-account.c:1069
@@ -778,9 +815,11 @@ msgstr ""
 msgid "Could not connect to server %s: %s"
 msgstr "Kon geen verbinding maken met server %s: %s"
 
+# vinden
+# oplossen
 #: storage/exchange-account.c:1057
 msgid "Could not resolve hostname"
-msgstr ""
+msgstr "Kon de hostnaam niet traceren"
 
 #: storage/exchange-account.c:1063
 msgid "Network error"
@@ -792,12 +831,12 @@ msgstr "Persoonlijke mappen"
 
 #: storage/exchange-account.c:1130
 msgid "Favorite Public Folders"
-msgstr ""
+msgstr "Favoriete publieke mappen"
 
 #. i18n: Outlookism
 #: storage/exchange-account.c:1147
 msgid "All Public Folders"
-msgstr ""
+msgstr "Alle publieke mappen"
 
 #. i18n: Outlookism
 #: storage/exchange-account.c:1161
@@ -822,6 +861,8 @@ msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
 msgstr ""
+"Aanmeldingscontrole bij de Exchange-server mislukt.\n"
+"Controleer dat uw gebruikersnaam en wachtwoord juist zijn en probeer opnieuw."
 
 #: storage/exchange-autoconfig-wizard.c:248
 #, c-format
@@ -854,7 +895,7 @@ msgstr ""
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
+msgstr "De door u gegeven Exchange server URL is voor een Exchange 5.5 server. Ximian connector ondersteund echter alleen Microsoft Exchange 2000 en 2003."
 
 #: storage/exchange-autoconfig-wizard.c:301
 msgid ""
@@ -875,6 +916,8 @@ msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
 msgstr ""
+"Kon met de opgegeven server geen verbinding maken.\n"
+"Controleer de naam van de server en probeer opnieuw."
 
 #: storage/exchange-autoconfig-wizard.c:389
 #: storage/exchange-autoconfig-wizard.c:393
@@ -886,15 +929,17 @@ msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
 msgstr ""
+"Systeemfout tijdens configuratie:\n"
+"Aanmaken nieuw account mislukt."
 
 #: storage/exchange-autoconfig-wizard.c:491
 #: storage/exchange-config-listener.c:492
 msgid "You may only configure a single Exchange account"
-msgstr ""
+msgstr "U kunt slechts één Exchange-account configureren"
 
 #: storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
-msgstr ""
+msgstr "Configuratie mislukt"
 
 #: storage/exchange-autoconfig-wizard.glade.h:3
 msgid "Done"
@@ -906,7 +951,7 @@ msgstr "E-mail adres:"
 
 #: storage/exchange-autoconfig-wizard.glade.h:5
 msgid "Exchange Configuration"
-msgstr ""
+msgstr "Exchange configuratie"
 
 #: storage/exchange-autoconfig-wizard.glade.h:6
 msgid "Full Name:"
@@ -982,7 +1027,7 @@ msgstr ""
 msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
-msgstr ""
+msgstr "Ximian connector is een probleem tegengekomen bij het configureren van uw Exchange account.\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -990,12 +1035,14 @@ msgid ""
 "save your\n"
 "settings."
 msgstr ""
+"Uw Connector-account is nu klaar voor gebruik.\n"
+"Klik op de knop \"Toepassen\" om uw instellingen te bewaren."
 
 #: storage/exchange-autoconfig-wizard.glade.h:30
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
-msgstr ""
+msgstr "Uw account-informatie is als volgt. Corrigeer de fouten en klik dan op \"Volgende\".\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
@@ -1004,7 +1051,7 @@ msgstr ""
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
-msgstr ""
+msgstr "Het huidige wachtwoord komt niet overeen met het bestaande wachtwoord voor uw account. Geen het juiste wachtwoord."
 
 #: storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
@@ -1066,6 +1113,10 @@ msgstr ""
 msgid "Permissions for %s"
 msgstr "Rechten voor %s"
 
+# wereldwijde
+# globale (andere betekenis)
+# algemene
+# universele
 #: storage/exchange-delegates.c:221
 msgid ""
 "No Global Catalog server configured for this account.\n"
@@ -1086,57 +1137,60 @@ msgstr ""
 
 #: storage/exchange-delegates.c:419
 msgid "Delegate To:"
-msgstr ""
+msgstr "Delegeren naar:"
 
 #: storage/exchange-delegates.c:419
 msgid "Delegate To"
-msgstr ""
+msgstr "Delegeren naar"
 
 #: storage/exchange-delegates.c:435
 #, c-format
 msgid "Could not make %s a delegate"
-msgstr ""
+msgstr "Kon %s geen gedelegeerde maken"
 
 #: storage/exchange-delegates.c:445
 msgid "You cannot make yourself your own delegate"
-msgstr ""
+msgstr "U kunt van uzelf niet uw eigen gedelegeerde maken"
 
+# is al gedelegeerd
 #: storage/exchange-delegates.c:454
 #, c-format
 msgid "%s is already a delegate"
-msgstr ""
+msgstr "%s is al een gedelegeerde"
 
 #: storage/exchange-delegates.c:563
 #, c-format
 msgid "Remove the delegate %s?"
-msgstr ""
+msgstr "De gedelegeerde %s verwijderen?"
 
+# geen toegang krijgen tot
 #: storage/exchange-delegates.c:680
 msgid "Could not access Active Directory"
-msgstr ""
+msgstr "Kon Active Directory niet benaderen"
 
 #: storage/exchange-delegates.c:695
 msgid "Could not find self in Active Directory"
-msgstr ""
+msgstr "Kon mijzelf niet vinden in Active Directory"
 
 #: storage/exchange-delegates.c:708
 #, c-format
 msgid "Could not find delegate %s in Active Directory"
-msgstr ""
+msgstr "Kon gedelegeerde %s niet vinden in Active Directory"
 
 #: storage/exchange-delegates.c:720
 #, c-format
 msgid "Could not remove delegate %s"
-msgstr ""
+msgstr "Kon gedelegeerde %s niet verwijderen"
 
+# bijwerken
 #: storage/exchange-delegates.c:780
 msgid "Could not update list of delegates."
-msgstr ""
+msgstr "Kon de lijst met gedelegeerden niet updaten."
 
 #: storage/exchange-delegates.c:798
 #, c-format
 msgid "Could not add delegate %s"
-msgstr ""
+msgstr "Kon gedelegeerde %s niet toevoegen"
 
 #: storage/exchange-delegates.c:814
 #, c-format
@@ -1144,42 +1198,44 @@ msgid ""
 "Failed to update delegates:\n"
 "%s"
 msgstr ""
+"Updaten gedelegeerden is mislukt:\n"
+"%s"
 
 #: storage/exchange-delegates.c:938 storage/exchange-permissions-dialog.c:706
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #: storage/exchange-delegates.c:967
 msgid "Error reading delegates list."
-msgstr ""
+msgstr "Fout bij lezen gedelegeerdenlijst."
 
 #: storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
-msgstr ""
+msgstr "Auteur (lezen, aanmaken)"
 
 #: storage/exchange-delegates.glade.h:2
 msgid "C_alendar:"
-msgstr ""
+msgstr "K_alender:"
 
 #: storage/exchange-delegates.glade.h:3
 msgid "Co_ntacts:"
-msgstr ""
+msgstr "Co_ntacten:"
 
 #: storage/exchange-delegates.glade.h:4
 msgid "Delegate Permissions"
-msgstr ""
+msgstr "Gedelegeerden rechten"
 
 #: storage/exchange-delegates.glade.h:5
 msgid "Delegates"
-msgstr ""
+msgstr "Gedelegeerden"
 
 #: storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
-msgstr ""
+msgstr "Editor (lezen, aanmaken, bewerken)"
 
 #: storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
-msgstr ""
+msgstr "Rechten voor"
 
 #: storage/exchange-delegates.glade.h:9
 msgid "Reviewer (read-only)"
@@ -1190,10 +1246,12 @@ msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
 msgstr ""
+"Deze gebruikers zullen namens u berichten kunnen versturen\n"
+"en uw mappen kunnen benaderen met de rechten die u ze geeft."
 
 #: storage/exchange-delegates.glade.h:12
 msgid "_Delegate can see private items"
-msgstr ""
+msgstr "_Gedelegeerde kan privé-items zien"
 
 #: storage/exchange-delegates.glade.h:13
 msgid "_Edit"
@@ -1213,7 +1271,7 @@ msgstr "Verwijderde items"
 
 #: storage/exchange-hierarchy-foreign.c:252
 msgid "Drafts"
-msgstr ""
+msgstr "Kladjes"
 
 #: storage/exchange-hierarchy-foreign.c:253
 msgid "Inbox"
@@ -1258,11 +1316,13 @@ msgid ""
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
+"Waarschuwing: Evolution kon niet alle Exchange-account gegevens van de versie %d.%d.%d. omzetten. \n"
+"De gegevens zijn niet verwijderd, maar zullen door deze versie van Evolution niet worden gezien."
 
 #: storage/exchange-migrate.c:129
 #, c-format
 msgid "Migrating `%s':"
-msgstr ""
+msgstr "Omzetten van `%s':"
 
 #: storage/exchange-oof.c:91 storage/exchange-oof.c:290
 msgid "Could not update out-of-office state"
@@ -1302,17 +1362,21 @@ msgstr "Ik ben momenteel aanwezig"
 msgid "I am currently out of the office"
 msgstr "Ik ben momenteel afwezig"
 
+# veranderen
+# aanpassen
 #: storage/exchange-oof.glade.h:10
 msgid "No, Don't Change Status"
-msgstr ""
+msgstr "Nee, status niet veranderen"
 
 #: storage/exchange-oof.glade.h:11
 msgid "Out of Office Assistant"
 msgstr "Afwezigheids-assistent"
 
+# veranderen
+# aanpassen
 #: storage/exchange-oof.glade.h:12
 msgid "Yes, Change Status"
-msgstr ""
+msgstr "Ja, status veranderen"
 
 #: storage/exchange-permissions-dialog.c:222
 msgid "Could not read folder permissions"
@@ -1354,12 +1418,12 @@ msgstr "Gebruiker %s bestaat niet"
 #: storage/exchange-permissions-dialog.c:425
 #, c-format
 msgid "%s cannot be added to an access control list"
-msgstr ""
+msgstr "%s kan niet worden toegevoegd aan een 'access control' lijst"
 
 #: storage/exchange-permissions-dialog.c:430
 #, c-format
 msgid "Unknown error looking up %s"
-msgstr ""
+msgstr "Onbekende fout bij opzoeken van %s"
 
 #: storage/exchange-permissions-dialog.c:447
 #, c-format
@@ -1394,13 +1458,18 @@ msgstr "Items aanmaken"
 msgid "Create subfolders"
 msgstr "Submappen aanmaken"
 
+# taalfout Engels:
+# Delete any items
+# (moet zijn Delete any item
+# of Delete all items)
 #: storage/exchange-permissions-dialog.glade.h:7
+#, fuzzy
 msgid "Delete Any Items"
-msgstr ""
+msgstr "Alle items verwijderen"
 
 #: storage/exchange-permissions-dialog.glade.h:8
 msgid "Delete Own Items"
-msgstr ""
+msgstr "Eigen items verwijderen"
 
 #: storage/exchange-permissions-dialog.glade.h:9
 msgid "Edit Any Items"
@@ -1408,7 +1477,7 @@ msgstr ""
 
 #: storage/exchange-permissions-dialog.glade.h:10
 msgid "Edit Own Items"
-msgstr ""
+msgstr "Eigen items bewerken"
 
 #: storage/exchange-permissions-dialog.glade.h:11
 msgid "Folder contact"
@@ -1416,15 +1485,16 @@ msgstr ""
 
 #: storage/exchange-permissions-dialog.glade.h:12
 msgid "Folder owner"
-msgstr ""
+msgstr "Eigenaar map"
 
 #: storage/exchange-permissions-dialog.glade.h:13
 msgid "Folder visible"
-msgstr ""
+msgstr "Map zichtbaar"
 
+# waarschijnlijk: de rechten om te mogen lezen
 #: storage/exchange-permissions-dialog.glade.h:14
 msgid "Read items"
-msgstr ""
+msgstr "Items lezen"
 
 #: storage/exchange-permissions-dialog.glade.h:15
 msgid "Role: "
@@ -1432,7 +1502,7 @@ msgstr "Rol:"
 
 #: storage/exchange-storage.c:336
 msgid "Connecting..."
-msgstr ""
+msgstr "Verbinding maken..."
 
 #: storage/main.c:156
 msgid "Ximian Connector for Microsoft Exchange"
@@ -1449,32 +1519,32 @@ msgstr "Map bestaat niet"
 #: storage/xc-commands.c:322
 #, c-format
 msgid "Could not add favorite: %s"
-msgstr ""
+msgstr "Kon favoriet niet toevoegen: %s"
 
 #: storage/xc-commands.c:336
 #, c-format
 msgid "Could not remove favorite: %s"
-msgstr ""
+msgstr "Kon favoriet niet verwijderen: %s"
 
 #: storage/xc-commands.c:353
 msgid "_Move Folder..."
-msgstr ""
+msgstr "Map _verplaatsen..."
 
 #: storage/xc-commands.c:356
 msgid "_Copy Folder..."
-msgstr ""
+msgstr "Map _kopiëren..."
 
 #: storage/xc-commands.c:359
 msgid "_Rename Folder..."
-msgstr ""
+msgstr "Map _hernoemen..."
 
 #: storage/xc-commands.c:365
 msgid "_New Folder..."
-msgstr ""
+msgstr "_Nieuwe map..."
 
 #: storage/xc-commands.c:368
 msgid "_Delete Folder"
-msgstr ""
+msgstr "Map ver_wijderen"
 
 #: storage/xc-commands.c:373
 msgid "_Add Other User's Folder..."
