@@ -18,7 +18,7 @@
 #include "e2k-uri.h"
 #include "e2k-utils.h"
 
-#include <e-util/e-xml-hash-utils.h>
+#include <libedataserver/e-xml-hash-utils.h>
 
 #include <stdlib.h>
 #include <string.h>
