@@ -140,6 +140,9 @@ glade_DATA =					\
 uidir   = $(CONNECTOR_DATADIR)/ui
 ui_DATA = ximian-connector.xml
 
+DISTCLEANFILES = \
+	$(server_DATA)
+
 EXTRA_DIST =				\
 	$(server_in_files)		\
 	$(server_DATA)			\
