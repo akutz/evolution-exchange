@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-03 10:05+0530\n"
+"POT-Creation-Date: 2004-08-09 12:54-0400\n"
 "PO-Revision-Date: 2004-07-24 14:03+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
@@ -36,6 +36,21 @@ msgstr "Recibiendo resultados de la búsqueda LDAP..."
 #: addressbook/e-book-backend-gal.c:1205
 msgid "Error performing search"
 msgstr "Error al efectuar la búsqueda"
+
+#: calendar/e-cal-backend-exchange-calendar.c:1351
+#, c-format
+msgid ""
+"Unable to schedule resource '%s' for recurring meetings.\n"
+"You must book each meeting separately."
+msgstr ""
+"No es posible programar el recurso «%s» para reeuniones repetidas.\n"
+"Debe reservar cada reunión separadamente."
+
+#: calendar/e-cal-backend-exchange-calendar.c:1370
+#, c-format
+msgid "The resource '%s' is busy during the selected time period."
+msgstr ""
+"El recurso «%s» está ocupado durante el periodo de tiempo seleccionado."
 
 #: camel/camel-exchange-folder.c:219
 msgid "Can only expunge in Deleted Items folder"
@@ -284,8 +299,8 @@ msgstr "Libreta de direcciones..."
 msgid "No such folder"
 msgstr "No existe la carpeta"
 
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2290
-#: mail/mail-stub-exchange.c:2328 mail/mail-stub-exchange.c:2388
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
+#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
 #: shell/e-storage.c:573 storage/xc-commands.c:302
 msgid "Permission denied"
 msgstr "Permiso denegado"
@@ -346,15 +361,15 @@ msgstr "El buzón no soporta búsqueda en texto"
 msgid "Unable to move/copy messages"
 msgstr "Imposible mover/copiar mensajes"
 
-#: mail/mail-stub-exchange.c:2204
+#: mail/mail-stub-exchange.c:2213
 msgid "No mail submission URI for this mailbox"
 msgstr "No hay URI de envío de correo para este buzón"
 
-#: mail/mail-stub-exchange.c:2241
+#: mail/mail-stub-exchange.c:2250
 msgid "Server won't accept mail via Exchange transport"
 msgstr "El servidor no acepta correo por medio del transporte Exchange"
 
-#: mail/mail-stub-exchange.c:2243
+#: mail/mail-stub-exchange.c:2252
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -363,7 +378,7 @@ msgstr ""
 "Su cuenta no tiene permiso para usar <%s>\n"
 "como una dirección de remitente."
 
-#: mail/mail-stub-exchange.c:2255
+#: mail/mail-stub-exchange.c:2264
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -371,22 +386,22 @@ msgstr ""
 "No se pudo enviar el mensaje.\n"
 "Esto quizá signifique que su cuenta sobrepasa la cuota."
 
-#: mail/mail-stub-exchange.c:2259
+#: mail/mail-stub-exchange.c:2268
 msgid "Could not send message"
 msgstr "No se pudo enviar el mensaje"
 
-#: mail/mail-stub-exchange.c:2282 mail/mail-stub-exchange.c:2333
-#: mail/mail-stub-exchange.c:2392 shell/e-storage.c:557
+#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
+#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
 #: storage/xc-commands.c:306
 msgid "Generic error"
 msgstr "Error genérico"
 
-#: mail/mail-stub-exchange.c:2286 storage/xc-commands.c:296
+#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
 msgid "Folder already exists"
 msgstr "La carpeta ya existe"
 
-#: mail/mail-stub-exchange.c:2313 mail/mail-stub-exchange.c:2355
-#: mail/mail-stub-exchange.c:2384
+#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
+#: mail/mail-stub-exchange.c:2393
 msgid "Folder doesn't exist"
 msgstr "La carpeta no existe"
 
@@ -1599,17 +1614,6 @@ msgstr "_Desuscribirse de una carpeta de otro usuario"
 
 #~ msgid "Restarting search."
 #~ msgstr "Reiniciando búsqueda."
-
-#~ msgid ""
-#~ "Unable to schedule resource '%s' for recurring meetings.\n"
-#~ "You must book each meeting separately."
-#~ msgstr ""
-#~ "No es posible programar el recurso «%s» para reeuniones repetidas.\n"
-#~ "Debe reservar cada reunión separadamente."
-
-#~ msgid "The resource '%s' is busy during the selected time period."
-#~ msgstr ""
-#~ "El recurso «%s» está ocupado durante el periodo de tiempo seleccionado."
 
 #~ msgid "Could not access personal folders"
 #~ msgstr "No se pudo acceder a las carpetas personales"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ximian Connector for Microsoft Exchange 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-03 10:05+0530\n"
+"POT-Creation-Date: 2004-08-09 12:54-0400\n"
 "PO-Revision-Date: 2003-06-16 21:26-0400\n"
 "Last-Translator: Ximian\n"
 "Language-Team:  <en@li.org>\n"
@@ -30,6 +30,21 @@ msgstr "LDAP Suchergebnisse werden empfangen..."
 #: addressbook/e-book-backend-gal.c:1205
 msgid "Error performing search"
 msgstr ""
+
+#: calendar/e-cal-backend-exchange-calendar.c:1351
+#, c-format
+msgid ""
+"Unable to schedule resource '%s' for recurring meetings.\n"
+"You must book each meeting separately."
+msgstr ""
+"Ressource '%s' für wiederkehrende Besprechungen konnte nicht geplant "
+"werden.\n"
+"Sie müssen jede Besprechung separat anmelden."
+
+#: calendar/e-cal-backend-exchange-calendar.c:1370
+#, c-format
+msgid "The resource '%s' is busy during the selected time period."
+msgstr "Die Ressource '%s' ist während der gewählten Zeitperiode belegt."
 
 #: camel/camel-exchange-folder.c:219
 msgid "Can only expunge in Deleted Items folder"
@@ -281,8 +296,8 @@ msgstr "Adressbuch..."
 msgid "No such folder"
 msgstr "Ordner gibt es nicht"
 
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2290
-#: mail/mail-stub-exchange.c:2328 mail/mail-stub-exchange.c:2388
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
+#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
 #: shell/e-storage.c:573 storage/xc-commands.c:302
 msgid "Permission denied"
 msgstr "Berechtigung verweigert"
@@ -344,15 +359,15 @@ msgstr "Mailbox unterstützt keine Volltextsuche"
 msgid "Unable to move/copy messages"
 msgstr "Nachrichten konnten nicht verschoben/kopiert werden"
 
-#: mail/mail-stub-exchange.c:2204
+#: mail/mail-stub-exchange.c:2213
 msgid "No mail submission URI for this mailbox"
 msgstr "Keine E-Mail Submission URI für diese Mailbox"
 
-#: mail/mail-stub-exchange.c:2241
+#: mail/mail-stub-exchange.c:2250
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Server wird E-Mail über Exchange Transport nicht akzeptieren"
 
-#: mail/mail-stub-exchange.c:2243
+#: mail/mail-stub-exchange.c:2252
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -361,7 +376,7 @@ msgstr ""
 "Ihr Konto hat keine Berechtigung, <%s> als eine\n"
 "Von-Adresse zu verwenden."
 
-#: mail/mail-stub-exchange.c:2255
+#: mail/mail-stub-exchange.c:2264
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -369,22 +384,22 @@ msgstr ""
 "Nachricht konnte nicht verschickt werden.\n"
 "Dies kann bedeuten, dass Ihr Konto über dem Limit ist."
 
-#: mail/mail-stub-exchange.c:2259
+#: mail/mail-stub-exchange.c:2268
 msgid "Could not send message"
 msgstr "Nachricht konnte nicht verschickt werden"
 
-#: mail/mail-stub-exchange.c:2282 mail/mail-stub-exchange.c:2333
-#: mail/mail-stub-exchange.c:2392 shell/e-storage.c:557
+#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
+#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
 #: storage/xc-commands.c:306
 msgid "Generic error"
 msgstr ""
 
-#: mail/mail-stub-exchange.c:2286 storage/xc-commands.c:296
+#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
 msgid "Folder already exists"
 msgstr ""
 
-#: mail/mail-stub-exchange.c:2313 mail/mail-stub-exchange.c:2355
-#: mail/mail-stub-exchange.c:2384
+#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
+#: mail/mail-stub-exchange.c:2393
 #, fuzzy
 msgid "Folder doesn't exist"
 msgstr "Ordnerkontakt"
@@ -1617,17 +1632,6 @@ msgstr ""
 #~ "eingestellt werden.\n"
 #~ "Sie können Sie per Hand im Abschnitt \"Ordner Einstellungen\" im\n"
 #~ "Einstellungsdialog aktualisieren."
-
-#~ msgid ""
-#~ "Unable to schedule resource '%s' for recurring meetings.\n"
-#~ "You must book each meeting separately."
-#~ msgstr ""
-#~ "Ressource '%s' für wiederkehrende Besprechungen konnte nicht geplant "
-#~ "werden.\n"
-#~ "Sie müssen jede Besprechung separat anmelden."
-
-#~ msgid "The resource '%s' is busy during the selected time period."
-#~ msgstr "Die Ressource '%s' ist während der gewählten Zeitperiode belegt."
 
 #, fuzzy
 #~ msgid ""

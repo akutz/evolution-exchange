@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-03 10:05+0530\n"
+"POT-Creation-Date: 2004-08-09 12:54-0400\n"
 "PO-Revision-Date: 2004-07-20 17:27+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -32,6 +32,18 @@ msgstr "Přijímám výsledky hledání LDAP..."
 #: addressbook/e-book-backend-gal.c:1205
 msgid "Error performing search"
 msgstr "Chyba při hledání"
+
+#: calendar/e-cal-backend-exchange-calendar.c:1351
+#, c-format
+msgid ""
+"Unable to schedule resource '%s' for recurring meetings.\n"
+"You must book each meeting separately."
+msgstr ""
+
+#: calendar/e-cal-backend-exchange-calendar.c:1370
+#, c-format
+msgid "The resource '%s' is busy during the selected time period."
+msgstr ""
 
 #: camel/camel-exchange-folder.c:219
 msgid "Can only expunge in Deleted Items folder"
@@ -278,8 +290,8 @@ msgstr "Adresář..."
 msgid "No such folder"
 msgstr "Taková složka neexistuje"
 
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2290
-#: mail/mail-stub-exchange.c:2328 mail/mail-stub-exchange.c:2388
+#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2299
+#: mail/mail-stub-exchange.c:2337 mail/mail-stub-exchange.c:2397
 #: shell/e-storage.c:573 storage/xc-commands.c:302
 msgid "Permission denied"
 msgstr "Přístup odepřen"
@@ -340,15 +352,15 @@ msgstr "Složka nepodporuje hledání v textu"
 msgid "Unable to move/copy messages"
 msgstr "Nemohu přesouvat/kopírovat zprávy"
 
-#: mail/mail-stub-exchange.c:2204
+#: mail/mail-stub-exchange.c:2213
 msgid "No mail submission URI for this mailbox"
 msgstr "Pro tuto složku není URI pro odesílání pošty"
 
-#: mail/mail-stub-exchange.c:2241
+#: mail/mail-stub-exchange.c:2250
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Server nepřijímá poštu pomocí transportu Exchange"
 
-#: mail/mail-stub-exchange.c:2243
+#: mail/mail-stub-exchange.c:2252
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -357,7 +369,7 @@ msgstr ""
 "Váš účet nemá oprávnění používat <%s>\n"
 "jako adresu Od."
 
-#: mail/mail-stub-exchange.c:2255
+#: mail/mail-stub-exchange.c:2264
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -365,22 +377,22 @@ msgstr ""
 "Nemohu odeslat zprávu.\n"
 "To možná znamená, že váš účet přesáhl kvótu."
 
-#: mail/mail-stub-exchange.c:2259
+#: mail/mail-stub-exchange.c:2268
 msgid "Could not send message"
 msgstr "Nemohu odeslat zprávu"
 
-#: mail/mail-stub-exchange.c:2282 mail/mail-stub-exchange.c:2333
-#: mail/mail-stub-exchange.c:2392 shell/e-storage.c:557
+#: mail/mail-stub-exchange.c:2291 mail/mail-stub-exchange.c:2342
+#: mail/mail-stub-exchange.c:2401 shell/e-storage.c:557
 #: storage/xc-commands.c:306
 msgid "Generic error"
 msgstr "Obecná chyba"
 
-#: mail/mail-stub-exchange.c:2286 storage/xc-commands.c:296
+#: mail/mail-stub-exchange.c:2295 storage/xc-commands.c:296
 msgid "Folder already exists"
 msgstr "Složka již existuje"
 
-#: mail/mail-stub-exchange.c:2313 mail/mail-stub-exchange.c:2355
-#: mail/mail-stub-exchange.c:2384
+#: mail/mail-stub-exchange.c:2322 mail/mail-stub-exchange.c:2364
+#: mail/mail-stub-exchange.c:2393
 msgid "Folder doesn't exist"
 msgstr "Složka neexistuje"
 
