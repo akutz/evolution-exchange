@@ -21,9 +21,20 @@
 #include <config.h>
 #endif
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/fcntl.h>
+
 #include <string.h>
 #include <unistd.h>
 #include <e-util/e-time-utils.h>
+
+#include <libgnomevfs/gnome-vfs-mime-utils.h>
+
+#include <camel/camel-mime-message.h>
+#include <camel/camel-multipart.h>
+#include <camel/camel-stream-mem.h>
+#include <camel/camel-file-utils.h>
 
 #include "e-cal-backend-exchange.h"
 #include "e2k-cal-utils.h"
@@ -44,6 +55,7 @@ struct ECalBackendExchangePrivate {
 	GHashTable *objects, *cache_unseen;
 	char *object_cache_file;
 	char *lastmod;
+	char *local_attachment_store;
 	guint save_timeout_id;
 
 	/* Timezones */
@@ -127,10 +139,32 @@ load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri)
 	struct icaltimetype comp_last_mod, folder_last_mod;
 	icalcomponent_kind kind;
 	icalproperty *prop;
-	char *lastmod;
+	char *lastmod, *mangled_uri, *storage_dir, *end;
+	const char *uristr;
+	int i;
+	struct stat buf;
 
 	cbex->priv->object_cache_file =
 		e_folder_exchange_get_storage_file (cbex->folder, "cache.ics");
+
+	/* Fixme : Try avoiding to do this everytime we come here */
+	uristr = e_cal_backend_get_uri (E_CAL_BACKEND (cbex));
+	mangled_uri = g_strdup (uristr);
+	for (i = 0; i < strlen (mangled_uri); i++) {
+		switch (mangled_uri[i]) {
+		case ':' :
+		case '/' :
+			mangled_uri[i] = '_';
+		}
+	}
+	cbex->priv->local_attachment_store = g_strdup_printf ("%s/.evolution/exchange/%s", g_get_home_dir (), mangled_uri);
+	end = strrchr (cbex->priv->object_cache_file, '/');
+	storage_dir = g_strndup (cbex->priv->object_cache_file, end - cbex->priv->object_cache_file);
+	if (lstat(cbex->priv->local_attachment_store , &buf) < 0) {
+		symlink (storage_dir, cbex->priv->local_attachment_store);
+	}
+	g_free (storage_dir);
+	g_free (mangled_uri);
 
 	vcalcomp = e_cal_util_parse_ics_file (cbex->priv->object_cache_file);
 	if (!vcalcomp)
@@ -263,6 +297,7 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 	d(printf("ecbe_open_calendar(%p, %p, %sonly if exists, user=%s, pass=%s)\n", backend, cal, only_if_exists?"":"not ", username?username:"(null)", password?password:"(null)"));
 
 	uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
+
 	if (cbex->priv->mode == CAL_MODE_LOCAL) {
 		ESource *source;
 		const char *display_contents = NULL;
@@ -1244,6 +1279,229 @@ e_cal_backend_exchange_compute_changes_foreach_key (const char *key, gpointer da
 		e_xmlhash_remove (cbedata->ehash, key);
 		g_object_unref (comp);	
 	}
+}
+
+/* Attachments */
+static char *
+save_attach_file (const char *dest_file, char *file_contents, int len)
+{
+	char *dest_url = NULL;
+	int fd;
+
+	d(printf ("dest_file is :%s\n", dest_file));
+
+	/* Write it to our local exchange store in .evolution */
+	fd = open (dest_file, O_RDWR | O_CREAT | O_TRUNC, 0600);
+	if (fd < 0) {
+		d(printf ("open of destination file for attachments failed\n"));
+		goto end;
+	}
+	
+	if (camel_write (fd, file_contents, len) < 0) {
+		d(printf ("camel write to attach file failed\n"));
+		goto end;
+	}
+	/* FIXME : Add a ATTACH:CID:someidentifier here */
+	dest_url = g_strdup_printf ("file://%s", dest_file);
+
+end :
+	close (fd);
+	return dest_url;
+}
+
+GSList * 
+get_attachment (ECalBackendExchange *cbex, const char *uid, 
+			const char *body, int len)
+{
+	CamelStream *stream;
+	CamelMimeMessage *msg;
+	CamelDataWrapper *msg_content, *content = NULL;
+	CamelMultipart *multipart;
+	CamelMimePart *part;
+	const char *filename = NULL;
+	char *attach_file_url, *attach_file;
+	int i;
+	GSList *list = NULL;
+	unsigned char *attach_data;
+
+	stream = camel_stream_mem_new_with_buffer (body, len);
+	msg = camel_mime_message_new ();
+	camel_data_wrapper_construct_from_stream (CAMEL_DATA_WRAPPER (msg), stream);
+	camel_object_unref (stream);
+
+	msg_content = camel_medium_get_content_object (CAMEL_MEDIUM (msg));
+	if (msg_content && CAMEL_IS_MULTIPART (msg_content)) {
+		multipart = (CamelMultipart *)msg_content;
+	
+		for (i = 0; i < (int)camel_multipart_get_number (multipart); i++) {
+			part = camel_multipart_get_part (multipart, i);
+			filename = camel_mime_part_get_filename (part);
+			if (filename) {
+				CamelStreamMem *stream_mem;
+
+				content = camel_medium_get_content_object (CAMEL_MEDIUM (part));
+				
+				stream = camel_stream_mem_new ();
+				stream_mem = (CamelStreamMem *)stream;
+			
+				camel_data_wrapper_decode_to_stream (content, stream);
+				attach_data = g_memdup (stream_mem->buffer->data, stream_mem->buffer->len);
+				attach_file = g_strdup_printf ("%s/%s-%s", cbex->priv->local_attachment_store, uid, filename);
+				// Attach
+				attach_file_url = save_attach_file (attach_file, attach_data, stream_mem->buffer->len);
+				g_free (attach_file);
+				d(printf ("attach file name : %s\n", attach_file_url));
+				list = g_slist_append (list, g_strdup (attach_file_url));
+
+				camel_object_unref (stream);
+			}
+		} /* Loop through each multipart */
+	}
+
+	camel_object_unref (msg);
+	return list;
+}
+
+static char *
+get_attach_file_contents (const char *filename)
+{
+	int fd, len = 0;
+	struct stat sb;
+	char *file_contents = NULL;
+
+	fd = open (filename, O_RDONLY);
+	if (fd < 0) {
+		d(printf ("Could not open the attachment file : %s\n", filename));
+		goto end;
+	}
+	if (fstat (fd, &sb) < 0) {
+		d(printf ("fstat of attachment file failed\n"));
+		goto end;
+	}
+	len = sb.st_size;
+
+	if (len > 0) {
+		file_contents = g_malloc0 (len + 1);
+
+		if (camel_read (fd, file_contents, len) < 0) {
+			d(printf ("reading from the attachment file failed\n"));
+			g_free (file_contents);
+			file_contents = NULL;
+			goto end;
+		}
+		file_contents [len] = '\0';
+	}
+
+end :
+	close (fd);
+	return file_contents;
+}
+
+char *
+build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const char *subject, char **boundary)
+{
+	CamelMimeMessage *msg;
+	CamelStreamMem *content;
+	CamelMimePart *mime_part;
+	CamelDataWrapper *dw, *wrapper;
+	CamelMultipart *multipart;
+	CamelInternetAddress *from;
+	CamelStream *stream;
+	CamelContentType *type;
+	const char *uid;
+	char *buffer = NULL, *cid;
+	char *from_name, *from_email;
+	GSList *attach_list = NULL, *l, *new_attach_list = NULL;
+	char *fname, *file_contents = NULL, *filename, *dest_url, *mime_filename, *attach_file;
+	int len = 0;
+
+	e_cal_backend_exchange_get_from (E_CAL_BACKEND_SYNC (cbex), comp, &from_name, &from_email);
+
+	msg = camel_mime_message_new ();
+
+	multipart = camel_multipart_new ();
+
+	/* Headers */
+	camel_mime_message_set_subject (msg, subject);
+
+	from = camel_internet_address_new ();
+	camel_internet_address_add (from, from_name, from_email);
+	camel_mime_message_set_from (msg, from);
+	camel_object_unref (from);
+
+	e_cal_component_get_uid (comp, &uid);
+	e_cal_component_get_attachment_list (comp, &attach_list);
+	for (l = attach_list; l ; l = l->next){
+		if (!strncmp ((char *)l->data, "file://", 7)) {
+			fname = (char *)(l->data) + strlen ("file://");
+			filename = g_strrstr (fname, "/") + 1;
+			mime_filename = filename + strlen(uid) + 1;
+			attach_file = g_strdup (fname);
+		} else {
+			fname = (char *)(l->data);
+			filename = g_strrstr (fname, "/") + 1;
+			mime_filename = filename;
+			attach_file = g_strdup_printf ("%s/%s-%s", cbex->priv->local_attachment_store, uid, filename);
+		}
+	
+		file_contents = get_attach_file_contents (fname);
+		if (!file_contents)
+			continue;
+
+		len = strlen (file_contents);
+		dest_url = save_attach_file (attach_file, file_contents, len);
+		g_free (attach_file);
+		if (!dest_url)
+			continue;
+		new_attach_list = g_slist_append (new_attach_list, dest_url);
+
+		/* Content */
+		stream = camel_stream_mem_new_with_buffer (file_contents, len);
+		wrapper = camel_data_wrapper_new ();
+		camel_data_wrapper_construct_from_stream (wrapper, stream);
+		camel_object_unref (stream);
+
+		char *mime_type = gnome_vfs_get_mime_type (dest_url + strlen ("file://"));
+		type = camel_content_type_decode (mime_type);
+		camel_data_wrapper_set_mime_type_field (wrapper, type);
+		camel_content_type_unref (type);
+
+		mime_part = camel_mime_part_new ();
+
+		camel_medium_set_content_object (CAMEL_MEDIUM (mime_part), wrapper);
+		camel_mime_part_set_filename (mime_part, mime_filename);
+		camel_mime_part_set_encoding (mime_part, CAMEL_TRANSFER_ENCODING_BASE64);
+		cid = camel_header_msgid_generate ();
+		camel_mime_part_set_content_id (mime_part, cid);	
+		camel_mime_part_set_description (mime_part, mime_filename);
+		camel_mime_part_set_disposition (mime_part, "attachment");
+		camel_multipart_set_boundary (multipart, NULL);
+		*boundary = g_strdup (camel_multipart_get_boundary (multipart));
+		camel_multipart_add_part (multipart, mime_part);
+		camel_object_unref (mime_part);
+		g_free (cid);
+
+	}
+	if (!new_attach_list) {
+		camel_object_unref (multipart);
+		camel_object_unref (msg);
+		return NULL;
+	}
+	e_cal_component_set_attachment_list (comp, new_attach_list);
+
+	camel_medium_set_content_object (CAMEL_MEDIUM (msg), CAMEL_DATA_WRAPPER (multipart));
+	camel_object_unref (multipart);
+
+	content = (CamelStreamMem *)camel_stream_mem_new();
+	dw = camel_medium_get_content_object (CAMEL_MEDIUM (msg));
+	camel_data_wrapper_decode_to_stream(dw, (CamelStream *)content);
+	buffer = g_memdup (content->buffer->data, content->buffer->len);
+	buffer[content->buffer->len] = '\0';
+	d(printf ("|| Buffer: \n%s\n", buffer));
+	camel_object_unref (content);
+	camel_object_unref (msg);
+
+	return buffer;
 }
 
 static ECalBackendSyncStatus

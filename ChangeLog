@@ -1,3 +1,26 @@
+2005-03-11  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+        * calendar/e-cal-backend-exchange-calendar.c (add_ical) : Make sure we
+        check for attachments in subcomponents of a vcalendar as well.
+        (get_attachment) : Moved to e-cal-backend-exchange.c
+        (build_msg) : Moved to e-cal-backend-exchange.c
+        (create_object) : Minor leak fixed.
+        (modify_object_with_href) : Dont loose the attachments while modifying.
+        * calendar/e-cal-backend-exchange-tasks.c (put_body): Handle attachments
+        (get_changed_tasks) : Check for attachments and fetch them from server.
+        (create_task_object) : Check for attachments and send them to server.
+        (modify_task_object) : Similar
+        * calendar/e-cal-backend-exchange.c (load_cache) : Create the local
+        attachment store for the GUI to store exchange attachments
+        (save_attach_file) : Make a local copy of the attachment in the backend
+        (get_attachment) : Extract the attachment from the server object.(Moved
+        from calendar.c)
+        (get_attach_file_contents) : Store the attachment in a file.
+        (build_msg) : Build the mime part to send to the server (Moved from
+        calendar.c)
+        * calendar/e-cal-backend-exchange.h : Export the attachment utility
+        functions.
+
 2005-03-11  Sushma Rai  <rsushma@novell.com>
 
 	* addressbook/e-book-backend-exchange.c (func_match): Handling the
