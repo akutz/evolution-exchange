@@ -7,7 +7,6 @@
 #include "exchange-types.h"
 
 #include <bonobo/bonobo-control.h>
-#include <bonobo/Bonobo.h>
 #include "e-storage-set-view.h"
 
 #ifdef __cplusplus
@@ -22,22 +21,28 @@ extern "C" {
 #define XC_IS_BACKEND_VIEW_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE ((klass), XC_TYPE_BACKEND_VIEW))
 
 struct XCBackendView {
-	BonoboControl parent;
+	GObject parent;
 
 	XCBackendViewPrivate *priv;
 };
 
 struct XCBackendViewClass {
-	BonoboControlClass parent_class;
+	GObjectClass parent_class;
 
 };
 
 GType            xc_backend_view_get_type             (void);
 
-BonoboControl   *xc_backend_view_new                  (EStorageSet   *storage_set);
+XCBackendView   *xc_backend_view_new                  (ExchangeConfigListener *config_listener,
+						       EFolderTypeRegistry    *registry);
+
+BonoboControl   *xc_backend_view_get_sidebar          (XCBackendView *view);
+BonoboControl   *xc_backend_view_get_view             (XCBackendView *view);
+BonoboControl   *xc_backend_view_get_statusbar        (XCBackendView *view);
 
 EStorageSetView *xc_backend_view_get_storage_set_view (XCBackendView *view);
 EFolder         *xc_backend_view_get_selected_folder  (XCBackendView *view);
+ExchangeAccount *xc_backend_view_get_selected_account (XCBackendView *view);
 
 #ifdef __cplusplus
 }

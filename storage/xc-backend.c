@@ -28,9 +28,6 @@
 #include <bonobo/bonobo-control.h>
 #include <bonobo/bonobo-exception.h>
 #include <bonobo/bonobo-main.h>
-#include <gal/widgets/e-popup-menu.h>
-#include <gtk/gtkdrawingarea.h>
-#include <gtk/gtkscrolledwindow.h>
 
 #include "e-storage-set.h"
 #include "e-storage-set-view.h"
@@ -58,7 +55,6 @@ struct XCBackendPrivate {
 	GdkNativeWindow xid;
 
 	EFolderTypeRegistry *folder_type_registry;
-	EStorageSet *storage_set;
 
 	ExchangeConfigListener *config_listener;
 	GSList *accounts;
@@ -68,7 +64,6 @@ struct XCBackendPrivate {
 
 typedef struct {
 	ExchangeAccount *account;
-	EStorage *storage;
 	MailStubListener *msl;
 } XCBackendAccount;
 
@@ -76,7 +71,6 @@ static void
 free_account (XCBackendAccount *baccount)
 {
 	g_object_unref (baccount->account);
-	g_object_unref (baccount->storage);
 	g_object_unref (baccount->msl);
 	g_free (baccount);
 }
@@ -86,11 +80,6 @@ dispose (GObject *object)
 {
 	XCBackendPrivate *priv = XC_BACKEND (object)->priv;
 	GSList *p;
-
-	if (priv->storage_set) {
-		g_object_unref (priv->storage_set);
-		priv->storage_set = NULL;
-	}
 
 	if (priv->folder_type_registry) {
 		g_object_unref (priv->folder_type_registry);
@@ -111,7 +100,7 @@ dispose (GObject *object)
 
 	if (priv->views) {
 		for (p = priv->views; p; p = p->next)
-			bonobo_object_unref (p->data);
+			g_object_unref (p->data);
 		g_slist_free (priv->views);
 		priv->views = NULL;
 	}
@@ -134,27 +123,25 @@ impl_createControls (PortableServer_Servant servant,
 {
 	XCBackend *backend = XC_BACKEND (bonobo_object_from_servant (servant));
 	XCBackendPrivate *priv = backend->priv;
-	GtkWidget *blank;
+	XCBackendView *view;
 	BonoboControl *control;
 
 	d(printf("createControls...\n"));
 
-	control = xc_backend_view_new (priv->storage_set);
-	if (control)
+	view = xc_backend_view_new (priv->config_listener,
+				    priv->folder_type_registry);
+	if (view)
 		priv->views = g_slist_append (priv->views, control);
 
+	control = xc_backend_view_get_sidebar (view);
 	*sidebar_control =
 		CORBA_Object_duplicate (BONOBO_OBJREF (control), ev);
 
-	blank = gtk_drawing_area_new ();
-	gtk_widget_show (blank);
-	control = bonobo_control_new (blank);
+	control = xc_backend_view_get_statusbar (view);
 	*statusbar_control =
 		CORBA_Object_duplicate (BONOBO_OBJREF (control), ev);
 
-	blank = gtk_drawing_area_new ();
-	gtk_widget_show (blank);
-	control = bonobo_control_new (blank);
+	control = xc_backend_view_get_view (view);
 	*view_control =
 		CORBA_Object_duplicate (BONOBO_OBJREF (control), ev);
 }
@@ -290,9 +277,6 @@ config_listener_account_created (ExchangeConfigListener *config_listener,
 			  G_CALLBACK (new_connection), baccount);
 	g_free (path);
 
-	baccount->storage = exchange_storage_new (account);
-	e_storage_set_add_storage (priv->storage_set, baccount->storage);
-
 	priv->accounts = g_slist_prepend (priv->accounts, baccount);
 
 	if (priv->xid)
@@ -313,8 +297,6 @@ config_listener_account_removed (ExchangeConfigListener *config_listener,
 		baccount = acc->data;
 		if (baccount->account == account) {
 			priv->accounts = g_slist_remove (priv->accounts, baccount);
-			e_storage_set_remove_storage (priv->storage_set,
-						      baccount->storage);
 			free_account (baccount);
 			return;
 		}
@@ -413,7 +395,6 @@ xc_backend_init (XCBackend *backend)
 	priv = backend->priv = g_new0 (XCBackendPrivate, 1);
 
 	setup_folder_type_registry (backend);
-	priv->storage_set = e_storage_set_new (priv->folder_type_registry);
 
        	priv->config_listener = exchange_config_listener_new ();
 	g_signal_connect (priv->config_listener, "exchange_account_created",

@@ -41,59 +41,43 @@
 #include <gal/widgets/e-popup-menu.h>
 #include <e-util/e-dialog-utils.h>
 
-static ExchangeAccount *
-get_account_for_view (BonoboControl *view)
+static inline GtkWidget *
+widget_for_view (XCBackendView *view)
 {
-	EFolder *folder;
-	ExchangeHierarchy *hier;
-
-	folder = xc_backend_view_get_selected_folder (XC_BACKEND_VIEW (view));
-	if (!folder)
-		return NULL;
-
-	/* FIXME */
-	if (!E_IS_FOLDER_EXCHANGE (folder))
-		return xc_backend_get_account_for_uri (global_backend, NULL);
-
-	hier = e_folder_exchange_get_hierarchy (folder);
-	if (!hier)
-		return NULL;
-
-	return hier->account;
+	return (GtkWidget *)xc_backend_view_get_storage_set_view (view);
 }
 
 static void
 do_oof (BonoboUIComponent *component, gpointer user_data,
 	const char *cname)
 {
-	BonoboControl *sidebar = user_data;
-	GtkWidget *sidebar_widget = bonobo_control_get_widget (sidebar);
+	XCBackendView *view = user_data;
 
-	exchange_oof (get_account_for_view (sidebar), sidebar_widget);
+	exchange_oof (xc_backend_view_get_selected_account (view),
+		      widget_for_view (view));
 }
 
 static void
 do_delegates (BonoboUIComponent *component, gpointer user_data,
 	      const char *cname)
 {
-	BonoboControl *sidebar = user_data;
-	GtkWidget *sidebar_widget = bonobo_control_get_widget (sidebar);
+	XCBackendView *view = user_data;
 
-	exchange_delegates (get_account_for_view (sidebar), sidebar_widget);
+	exchange_delegates (xc_backend_view_get_selected_account (view),
+			    widget_for_view (view));
 }
 
 static void
 do_change_password (BonoboUIComponent *component, gpointer user_data,
 		    const char *cname)
 {
-	BonoboControl *sidebar = user_data;
+	XCBackendView *view = user_data;
 	ExchangeAccount *account;
 	char *old_password, *new_password;
 
-	account = get_account_for_view (sidebar);
+	account = xc_backend_view_get_selected_account (view);
 
 	old_password = exchange_account_get_password (account);
-
 	new_password = exchange_get_new_password (old_password, 1);
 
 	exchange_account_set_password (account, old_password, new_password);
@@ -103,10 +87,9 @@ static void
 do_quota (BonoboUIComponent *component, gpointer user_data,
 	  const char *cname)
 {
-	BonoboControl *sidebar = user_data;
-	GtkWidget *sidebar_widget = bonobo_control_get_widget (sidebar);
+	XCBackendView *view = user_data;
 
-	e_notice (sidebar_widget, GTK_MESSAGE_ERROR, "FIXME (do_quota)");
+	e_notice (widget_for_view (view), GTK_MESSAGE_ERROR, "FIXME (do_quota)");
 }
 
 static void
@@ -143,19 +126,21 @@ static BonoboUIVerb verbs [] = {
 };
 
 void
-xc_commands_activate (BonoboControl *sidebar)
+xc_commands_activate (XCBackendView *view)
 {
+	BonoboControl *control;
 	BonoboUIComponent *uic;
 	Bonobo_UIContainer remote_uih;
 
-	uic = bonobo_control_get_ui_component (sidebar);
+	control = xc_backend_view_get_view (view);
+	uic = bonobo_control_get_ui_component (control);
 	g_return_if_fail (uic != NULL);
 
-	remote_uih = bonobo_control_get_remote_ui_container (sidebar, NULL);
+	remote_uih = bonobo_control_get_remote_ui_container (control, NULL);
 	bonobo_ui_component_set_container (uic, remote_uih, NULL);
 	bonobo_object_release_unref (remote_uih, NULL);
 
-	bonobo_ui_component_add_verb_list_with_data (uic, verbs, sidebar);
+	bonobo_ui_component_add_verb_list_with_data (uic, verbs, view);
 	bonobo_ui_component_freeze (uic, NULL);
 	bonobo_ui_util_set_ui (uic, PREFIX,
 			       CONNECTOR_UIDIR "/ximian-connector.xml",
@@ -165,14 +150,15 @@ xc_commands_activate (BonoboControl *sidebar)
 }
 
 void
-xc_commands_deactivate (BonoboControl *sidebar)
+xc_commands_deactivate (XCBackendView *view)
 {
+	BonoboControl *control;
 	BonoboUIComponent *uic;
 
-	uic = bonobo_control_get_ui_component (sidebar);
+	control = xc_backend_view_get_view (view);
+	uic = bonobo_control_get_ui_component (control);
 	g_return_if_fail (uic != NULL);
 
-	bonobo_ui_component_rm (uic, "/menu/Connector", NULL);
  	bonobo_ui_component_unset_container (uic, NULL);
 }
 

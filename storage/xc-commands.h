@@ -13,8 +13,8 @@ extern "C" {
 #pragma }
 #endif /* __cplusplus */
 
-void xc_commands_activate     (BonoboControl   *sidebar);
-void xc_commands_deactivate   (BonoboControl   *sidebar);
+void xc_commands_activate     (XCBackendView   *view);
+void xc_commands_deactivate   (XCBackendView   *view);
 
 void xc_commands_context_menu (EStorageSetView *view,
 			       EFolder         *folder,

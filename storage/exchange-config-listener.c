@@ -51,7 +51,8 @@ struct _ExchangeConfigListenerPrivate {
 	char *configured_uri, *configured_name;
 	EAccount *configured_account;
 
-	ExchangeAccount *exchange_account;};
+	ExchangeAccount *exchange_account;
+};
 
 
 enum {
@@ -887,5 +888,16 @@ exchange_config_listener_new (void)
 		g_idle_add (idle_construct, config_listener);
 
 	return config_listener;
+}
+
+GSList *
+exchange_config_listener_get_accounts (ExchangeConfigListener *config_listener)
+{
+	g_return_val_if_fail (EXCHANGE_IS_CONFIG_LISTENER (config_listener), NULL);
+
+	if (config_listener->priv->exchange_account)
+		return g_slist_append (NULL, config_listener->priv->exchange_account);
+	else
+		return NULL;
 }
 
