@@ -341,12 +341,13 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 {
 	E2kHTTPStatus status;
 	EFolder *dest;
-	char *permanent_url = NULL;
+	char *permanent_url = NULL, *physical_uri;
 	char *conf_key_cal="/apps/evolution/calendar/sources";
 	char *conf_key_tasks="/apps/evolution/tasks/sources";
 	char *conf_key_contacts="/apps/evolution/addressbook/sources";
 	ESourceList *cal_source_list, *task_source_list, *cont_source_list;
-	const char *folder_type, *physical_uri;
+	const char *folder_type;
+	ExchangeAccountFolderResult ret_code;
 
 #ifdef OFFLINE_SUPPORT
 	if (exchange_account_is_offline (hier->account))
@@ -356,12 +357,43 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 	if (source == hier->toplevel)
 		return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
 
+	dest = e_folder_webdav_new (hier, NULL, dest_parent, dest_name,
+				    e_folder_get_type_string (source),
+				    e_folder_exchange_get_outlook_class (source),
+				    e_folder_get_unread_count (source),
+				    e_folder_get_can_sync_offline (source));
+
+	status = e_folder_exchange_transfer_dir (source, NULL, dest,
+						 remove_source,
+						 &permanent_url);
+
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		if (permanent_url)
+			e_folder_exchange_set_permanent_uri (dest, permanent_url);
+		if (remove_source)
+			exchange_hierarchy_removed_folder (hier, source);
+		exchange_hierarchy_new_folder (hier, dest);
+		scan_subtree (hier, dest);
+		physical_uri = (char *) e_folder_get_physical_uri (source);
+		g_object_unref (dest);
+		ret_code = EXCHANGE_ACCOUNT_FOLDER_OK;
+	} else {
+		physical_uri = e2k_uri_concat (
+				e_folder_get_physical_uri (dest_parent), 
+				dest_name);
+		g_object_unref (dest);
+		if (status == E2K_HTTP_FORBIDDEN ||
+		    status == E2K_HTTP_UNAUTHORIZED)
+			ret_code = EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED;
+		else
+			ret_code = EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
+	}
+
 	/* Remove the ESource of the source folder, in case of rename/move */
 
 	if ((hier->type == EXCHANGE_HIERARCHY_PERSONAL || 
 	     hier->type == EXCHANGE_HIERARCHY_FAVORITES) && remove_esource) {
 		folder_type = e_folder_get_type_string (source);
-		physical_uri = e_folder_get_physical_uri (source);
 		
 		if ((strcmp (folder_type, "calendar") == 0) ||
 		    (strcmp (folder_type, "calendar/public") == 0)) {
@@ -397,34 +429,9 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 			g_object_unref (cont_source_list);
 		}
 	}
-
-	dest = e_folder_webdav_new (hier, NULL, dest_parent, dest_name,
-				    e_folder_get_type_string (source),
-				    e_folder_exchange_get_outlook_class (source),
-				    e_folder_get_unread_count (source),
-				    e_folder_get_can_sync_offline (source));
-
-	status = e_folder_exchange_transfer_dir (source, NULL, dest,
-						 remove_source,
-						 &permanent_url);
-
-	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-		if (permanent_url)
-			e_folder_exchange_set_permanent_uri (dest, permanent_url);
-		if (remove_source)
-			exchange_hierarchy_removed_folder (hier, source);
-		exchange_hierarchy_new_folder (hier, dest);
-		scan_subtree (hier, dest);
-		g_object_unref (dest);
-		return EXCHANGE_ACCOUNT_FOLDER_OK;
-	} else {
-		g_object_unref (dest);
-		if (status == E2K_HTTP_FORBIDDEN ||
-		    status == E2K_HTTP_UNAUTHORIZED)
-			return EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED;
-		else
-			return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
-	}
+	if (physical_uri)
+		g_free (physical_uri);
+	return ret_code;
 }
 
 static void
