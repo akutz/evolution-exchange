@@ -1,3 +1,11 @@
+2005-03-07  Sushma Rai  <rsushma@novell.com>
+
+	* storage/exchange-account.c (exchange_account_new): Setting the
+	porotcol based on OWA URL specified by the user, instead of use_ssl
+	parameter. Since we don't have a SSL section now, use_ssl is getting
+	lost when user does modifications to his account settings.
+	Fixes #73202, #72834, #73017, #72836, and #72881
+
 2005-03-06  Rajesh Ranjan  <rranjan@redhat.com>
 
 	* configure.in: Added Hindi ALL_LINGUAS.

@@ -1753,7 +1753,7 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 {
 	ExchangeAccount *account;
 	char *enc_user, *mailbox;
-	const char *param, *proto, *owa_path, *pf_server, *owa_url; 
+	const char *param, *proto="http", *owa_path, *pf_server, *owa_url; 
 	const char *passwd_exp_warn_period, *offline_sync;
 	E2kUri *uri;
 
@@ -1835,13 +1835,18 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 	if (!pf_server || !*pf_server)
 		pf_server = uri->host;
 
-	/* Now we can set protocol reading owa_url, instead of having 
-	   use_ssl parameter */
-	proto = e2k_uri_get_param (uri, "use_ssl") ? "https" : "http";
+	/* We set protocol reading owa_url, instead of having use_ssl parameter 
+	 * because we don't have SSL section anymore in the account creation
+	 * druid and account editor
+	 */
+	/* proto = e2k_uri_get_param (uri, "use_ssl") ? "https" : "http"; */
 
 	owa_url = e2k_uri_get_param (uri, "owa_url");
-	if (owa_url)
+	if (owa_url) {
 		account->priv->owa_url = g_strdup (owa_url); 
+		if (!strncmp (owa_url, "https:", 6))
+			proto = "https";
+	}
 
 	if (uri->port != 0) {
 		account->priv->http_uri_schema =
