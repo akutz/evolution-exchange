@@ -442,27 +442,25 @@ static void
 add_esource (ExchangeAccount *account, 
 	     char *conf_key, 
 	     const char *folder_name, 
-	     const char *physical_uri)
+	     const char *physical_uri,
+	     ESourceList **source_list)
 {
 	ESource *source;
-	ESourceList *source_list;
 	ESourceGroup *source_group;
 	char *relative_uri;
 
 	relative_uri = g_strdup (physical_uri + strlen ("exchange://"));
-	source_list = e_source_list_new_for_gconf (gconf_client_get_default (),
-						 conf_key);
 
-	if ((source_group = e_source_list_peek_group_by_name (source_list, 
+        if ((source_group = e_source_list_peek_group_by_name (*source_list, 
 					account->account_name)) == NULL){
-       		source_group = e_source_group_new (account->account_name, 
+		source_group = e_source_group_new (account->account_name, 
 						   "exchange://");
-        	if (!e_source_list_add_group (source_list, source_group, -1)) {
+		if (!e_source_list_add_group (*source_list, source_group, -1)) {
 			g_object_unref (source_group);
         		g_free(relative_uri);
-                	return;
+			return;
 		}
-        	source = e_source_new (folder_name, relative_uri);
+		source = e_source_new (folder_name, relative_uri);
 		e_source_group_add_source (source_group, source, -1);
 
 		g_object_unref (source);
@@ -479,8 +477,6 @@ add_esource (ExchangeAccount *account,
 		}
 	}
 
-        e_source_list_sync (source_list, NULL);
-        g_object_unref (source_list);
         g_free(relative_uri);
 }
 
@@ -492,12 +488,23 @@ add_sources (ExchangeAccount *account)
 	char *conf_key_contacts="/apps/evolution/addressbook/sources";
 	const char *folder_name, *physical_uri;
 	GPtrArray *exchange_folders;
-	EFolder *folder; 
+	EFolder *folder;
+	ESourceList *cal_source_list, *task_source_list, *cont_source_list;
 	int i;
 
 	exchange_folders = exchange_account_get_folders (account);                                                                                 
         if (exchange_folders) {
-                for (i = 0; i < exchange_folders->len; i++) {
+		cal_source_list = e_source_list_new_for_gconf ( 
+					gconf_client_get_default (), 
+					conf_key_cal);
+		task_source_list = e_source_list_new_for_gconf ( 
+					gconf_client_get_default (), 
+					conf_key_tasks);
+		cont_source_list = e_source_list_new_for_gconf (
+					gconf_client_get_default (), 
+					conf_key_contacts);
+
+		for (i = 0; i < exchange_folders->len; i++) {
 			folder = exchange_folders->pdata[i];
 			if (!(strcmp (e_folder_get_type_string (folder), 
 				      "calendar"))){
@@ -506,7 +513,8 @@ add_sources (ExchangeAccount *account)
         			add_esource (account, 
 					     conf_key_cal, 
 					     folder_name, 
-					     physical_uri);
+					     physical_uri,
+					     &cal_source_list);
 				continue;
 			}
 			if (!(strcmp (e_folder_get_type_string (folder), 
@@ -516,7 +524,8 @@ add_sources (ExchangeAccount *account)
         			add_esource (account, 
 					     conf_key_tasks, 
 					     folder_name, 
-					     physical_uri);
+					     physical_uri,
+					     &task_source_list);
 				continue;
 			}
 			if (!(strcmp (e_folder_get_type_string (folder), 
@@ -526,55 +535,61 @@ add_sources (ExchangeAccount *account)
         			add_esource (account, 
 					     conf_key_contacts, 
 					     folder_name, 
-					     physical_uri);
+					     physical_uri,
+					     &cont_source_list);
 				continue;
 			}
 			continue;
 		}
-                g_ptr_array_free (exchange_folders, TRUE);
+		e_source_list_sync (cal_source_list, NULL);
+		g_object_unref (cal_source_list);
+		e_source_list_sync (task_source_list, NULL);
+		g_object_unref (task_source_list);
+		e_source_list_sync (cont_source_list, NULL);
+		g_object_unref (cont_source_list);
+		g_ptr_array_free (exchange_folders, TRUE);
         }
 }
 
 static void 
-remove_esource (ExchangeAccount *account, char *conf_key, const char *physical_uri)
+remove_esource (ExchangeAccount *account, 
+		char *conf_key, 
+		const char *physical_uri,
+		ESourceList **source_list)
 {
-        ESourceList *list;  ESourceGroup *group;
-        ESource *source;
-        GSList *groups;
-        GSList *sources;
-        gboolean found_group;
-        char *relative_uri;
+	ESourceGroup *group;
+	ESource *source;
+	GSList *groups;
+	GSList *sources;
+	gboolean found_group;
+	char *relative_uri;
 
 	relative_uri = g_strdup (physical_uri + strlen ("exchange://"));
-        list = e_source_list_new_for_gconf (gconf_client_get_default (), 
-						conf_key);
-        groups = e_source_list_peek_groups (list);
-        found_group = FALSE;
+	groups = e_source_list_peek_groups (*source_list);
+	found_group = FALSE;
 
-        for ( ; groups != NULL && !found_group; groups = g_slist_next (groups)) {
-                group = E_SOURCE_GROUP (groups->data);
+	for ( ; groups != NULL && !found_group; groups = g_slist_next (groups)) {
+		group = E_SOURCE_GROUP (groups->data);
 
-                if (strcmp (e_source_group_peek_name (group), account->account_name) == 0
+		if (strcmp (e_source_group_peek_name (group), account->account_name) == 0
                     &&
                    strcmp (e_source_group_peek_base_uri (group), "exchange://" ) == 0) {
 
-                        sources = e_source_group_peek_sources (group);
+			sources = e_source_group_peek_sources (group);
 
-                        for( ; sources != NULL; sources = g_slist_next (sources)) {
+			for( ; sources != NULL; sources = g_slist_next (sources)) {
 
-                                source = E_SOURCE (sources->data);
+				source = E_SOURCE (sources->data);
 
-                                if (strcmp (e_source_peek_relative_uri (source), 
+				if (strcmp (e_source_peek_relative_uri (source), 
 					    relative_uri) == 0) {
-                                        e_source_list_remove_group (list, group);
-                                        e_source_list_sync (list, NULL);
+					e_source_list_remove_group (*source_list, group);
                                         found_group = TRUE;
                                         break;
                                 }
                         }
                 }
         }
-        g_object_unref (list);
         g_free(relative_uri);
 }
 
@@ -586,11 +601,22 @@ remove_sources(ExchangeAccount *account)
 	char *conf_key_contacts="/apps/evolution/addressbook/sources";
 	const char *physical_uri;
 	EFolder *folder; 
+	ESourceList *cal_source_list, *task_source_list, *cont_source_list;
 	GPtrArray *exchange_folders;
 	int i;
 
 	exchange_folders = exchange_account_get_folders (account);
 	if (exchange_folders) {
+		cal_source_list = e_source_list_new_for_gconf ( 
+					gconf_client_get_default (), 
+					conf_key_cal);
+		task_source_list = e_source_list_new_for_gconf ( 
+					gconf_client_get_default (), 
+					conf_key_tasks);
+		cont_source_list = e_source_list_new_for_gconf (
+					gconf_client_get_default (), 
+					conf_key_contacts);
+
 		for (i = 0; i < exchange_folders->len; i++) {
 			folder = exchange_folders->pdata[i];
 			if (!(strcmp (e_folder_get_type_string (folder), 
@@ -598,25 +624,34 @@ remove_sources(ExchangeAccount *account)
 				physical_uri = e_folder_get_physical_uri (folder);
         			remove_esource (account, 
 						conf_key_cal, 
-						physical_uri);
+						physical_uri,
+						&cal_source_list);
 				continue;
 			}
 			if (!(strcmp (e_folder_get_type_string (folder), "tasks"))){
 				physical_uri = e_folder_get_physical_uri (folder);
         			remove_esource (account, 
 						conf_key_tasks, 
-						physical_uri);
+						physical_uri,
+						&task_source_list);
 				continue;
 			}
 			if (!(strcmp (e_folder_get_type_string (folder), "contacts"))){
 				physical_uri = e_folder_get_physical_uri (folder);
         			remove_esource (account, 
 						conf_key_contacts, 
-						physical_uri);
+						physical_uri,
+						&cont_source_list);
 				continue;
 			}
 			continue;
 		}
+		e_source_list_sync (cal_source_list, NULL);
+		g_object_unref (cal_source_list);
+		e_source_list_sync (task_source_list, NULL);
+		g_object_unref (task_source_list);
+		e_source_list_sync (cont_source_list, NULL);
+		g_object_unref (cont_source_list);
         	g_ptr_array_free (exchange_folders, TRUE);
         }
 }

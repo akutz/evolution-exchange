@@ -1,6 +1,14 @@
 2004-05-12  Sushma Rai  <rsushma@novell.com>
 
-	storage/exchange-config-listener.c (add_esource)(remove_esource):
+	* storage/exchange-config-listener.c (add_sources)(remove_sources):
+	Calling e_source_list_sync() after forming the sources for all the 
+	folders for each component, instead of calling it for each folder 
+	in a loop.
+	Fixes bug #58320
+ 
+2004-05-12  Sushma Rai  <rsushma@novell.com>
+
+	* storage/exchange-config-listener.c (add_esource)(remove_esource):
 	Fixed problem with forming the relative uri for the subfolders.
 	(add_sources)(remove_sources): Finding physical uri of the folder.
 
