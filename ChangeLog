@@ -1,5 +1,35 @@
 2005-03-29  Sushma Rai  <rsushma@novell.com>
 
+	* storage/exchange-folder-size.[ch] (free_fsize_table): Freeing the key
+	and returning boolean.
+	(free_row_refs): Added new. Frees row reference.
+	(finalize): Freeing hash tables and private structure.
+	(init): Creating the hash table, using g_hash_table_new()
+	(exchange_folder_size_update): strdup of the key, before inserting into
+	the hash table.
+	(exchange_folder_size_remove): Added new. Removes the specifed folder
+	entry from the hash table and updates GtkListStore.
+	(exchange_folder_size_get): Added new. Returns the folder size of
+	specified folder from the cache.
+
+	* storage/exchange-hierarchy-webdav.c (e_folder_webdav_new): For the
+	folders without internal uri (newly created folder), creating the
+	internal uri with trailing slash.
+	(create_folder): Updating folder size for newly created folder.
+	(remove_folder): Removing folder size entry for the folder removed.
+	(xfer_folder): Finding whether the folder is renamed or moved. In case
+	of folder rename, removing the old entry from hash table and updating
+	the hash table with new folder name.
+	(rescan): Finding the folder size for all type for folders and not only
+	the personal folders. Also, considering only the personal folder sizes
+	for finding the total mail box size.
+	(exchange_hierarchy_webdav_parse_folder): Removed the folder size check
+	done here, now doing it in scan_subtree().
+	(scan_subtree): Finding the folder size and mail box size.
+	Fixes #73494 and #72100.
+
+2005-03-29  Sushma Rai  <rsushma@novell.com>
+
 	* lib/e2k-autoconfig.c (validate): If the OWA url entered has wrong
 	protocol during account creation, displaying error message instead
 	of correcting the url and proceeding with the account creation. 
