@@ -197,6 +197,11 @@ xc_folder_command_data_free (XCFolderCommandData *fcd)
 	g_free (fcd);
 }
 
+static inline ExchangeAccount *
+xc_folder_get_account (XCFolderCommandData *fcd)
+{
+	return xc_backend_get_account_for_uri (global_backend, e_folder_exchange_get_internal_uri (fcd->folder));
+}
 
 static void
 do_move_folder (GtkWidget *item, XCFolderCommandData *fcd)
@@ -270,25 +275,63 @@ do_remove_foreign_folder (GtkWidget *item, XCFolderCommandData *fcd)
 static void
 do_permissions (GtkWidget *item, XCFolderCommandData *fcd)
 {
-	ExchangeAccount *account;
-
-	account = xc_backend_get_account_for_uri (global_backend, e_folder_exchange_get_internal_uri (fcd->folder));
-	exchange_permissions_dialog_new (account, fcd->folder,
+	exchange_permissions_dialog_new (xc_folder_get_account (fcd),
+					 fcd->folder,
 					 GTK_WIDGET (fcd->storage_set_view));
 	xc_folder_command_data_free (fcd);
 }
 
 static void
+favorites_error (GtkWidget *parent_widget,
+		 const char *fmt,
+		 ExchangeAccountFolderResult result)
+{
+	const char *msg;
+
+	switch (result) {
+	case EXCHANGE_ACCOUNT_FOLDER_ALREADY_EXISTS:
+		msg = _("Folder already exists");
+		break;
+	case EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST:
+		msg = _("Folder does not exist");
+		break;
+	case EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED:
+		msg = _("Permission denied");
+		break;
+	case EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR:
+	default:
+		msg = _("Generic error");
+		break;
+	}
+
+	e_notice (parent_widget, GTK_MESSAGE_ERROR, fmt, msg);
+}
+
+static void
 do_add_favorite (GtkWidget *item, XCFolderCommandData *fcd)
 {
-	e_notice (item, GTK_MESSAGE_ERROR, "FIXME (do_add_favorite)");
+	ExchangeAccountFolderResult result;
+
+	result = exchange_account_add_favorite (xc_folder_get_account (fcd),
+						fcd->folder);
+	if (result != EXCHANGE_ACCOUNT_FOLDER_OK) {
+		favorites_error (GTK_WIDGET (fcd->storage_set_view),
+				 _("Could not add favorite: %s"), result);
+	}
 	xc_folder_command_data_free (fcd);
 }
 
 static void
 do_remove_favorite (GtkWidget *item, XCFolderCommandData *fcd)
 {
-	e_notice (item, GTK_MESSAGE_ERROR, "FIXME (do_remove_favorite)");
+	ExchangeAccountFolderResult result;
+
+	result = exchange_account_remove_favorite (xc_folder_get_account (fcd),
+						   fcd->folder);
+	if (result != EXCHANGE_ACCOUNT_FOLDER_OK) {
+		favorites_error (GTK_WIDGET (fcd->storage_set_view),
+				 _("Could not remove favorite: %s"), result);
+	}
 	xc_folder_command_data_free (fcd);
 }
 

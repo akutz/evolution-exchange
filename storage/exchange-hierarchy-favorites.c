@@ -38,12 +38,15 @@
 
 struct _ExchangeHierarchyFavoritesPrivate {
 	char *public_uri, *shortcuts_uri;
+	GHashTable *shortcuts;
 };
 
 #define PARENT_TYPE EXCHANGE_TYPE_HIERARCHY_SOMEDAV
 static ExchangeHierarchySomeDAVClass *parent_class = NULL;
 
 static GPtrArray *get_hrefs (ExchangeHierarchySomeDAV *hsd);
+static ExchangeAccountFolderResult remove_folder (ExchangeHierarchy *hier,
+						  EFolder *folder);
 static void finalize (GObject *object);
 
 static void
@@ -51,12 +54,14 @@ class_init (GObjectClass *object_class)
 {
 	ExchangeHierarchySomeDAVClass *somedav_class =
 		EXCHANGE_HIERARCHY_SOMEDAV_CLASS (object_class);
+	ExchangeHierarchyClass *hier_class =
+		EXCHANGE_HIERARCHY_CLASS (object_class);
 
 	parent_class = g_type_class_ref (PARENT_TYPE);
 
 	/* virtual method override */
 	object_class->finalize = finalize;
-
+	hier_class->remove_folder = remove_folder;
 	somedav_class->get_hrefs = get_hrefs;
 }
 
@@ -66,6 +71,8 @@ init (GObject *object)
 	ExchangeHierarchyFavorites *hfav = EXCHANGE_HIERARCHY_FAVORITES (object);
 
 	hfav->priv = g_new0 (ExchangeHierarchyFavoritesPrivate, 1);
+	hfav->priv->shortcuts = g_hash_table_new_full (g_str_hash, g_str_equal,
+						       g_free, g_free);
 }
 
 static void
@@ -73,6 +80,7 @@ finalize (GObject *object)
 {
 	ExchangeHierarchyFavorites *hfav = EXCHANGE_HIERARCHY_FAVORITES (object);
 
+	g_hash_table_destroy (hfav->priv->shortcuts);
 	g_free (hfav->priv->public_uri);
 	g_free (hfav->priv->shortcuts_uri);
 	g_free (hfav->priv);
@@ -102,8 +110,8 @@ get_hrefs (ExchangeHierarchySomeDAV *hsd)
 	E2kResult *result, *results;
 	E2kHTTPStatus status;
 	GByteArray *source_key;
-	const char *prop = E2K_PR_DAV_HREF;
-	char *perm_url;
+	const char *prop = E2K_PR_DAV_HREF, *shortcut_uri;
+	char *perm_url, *folder_uri;
 	int i, nresults;
 
 	hrefs = g_ptr_array_new ();
@@ -116,6 +124,7 @@ get_hrefs (ExchangeHierarchySomeDAV *hsd)
 					 shortcuts_props, n_shortcuts_props,
 					 NULL, NULL, TRUE);
 	while ((result = e2k_result_iter_next (iter))) {
+		shortcut_uri = result->href;
 		source_key = e2k_properties_get_prop (result->props, PR_FAV_PUBLIC_SOURCE_KEY);
 		if (!source_key)
 			continue;
@@ -124,7 +133,11 @@ get_hrefs (ExchangeHierarchySomeDAV *hsd)
 		status = e2k_context_propfind (ctx, NULL, perm_url,
 					       &prop, 1, &results, &nresults);
 		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status) && nresults) {
-			g_ptr_array_add (hrefs, g_strdup (results[0].href));
+			folder_uri = g_strdup (results[0].href);
+			g_ptr_array_add (hrefs, folder_uri);
+			g_hash_table_insert (hfav->priv->shortcuts,
+					     g_strdup (folder_uri),
+					     g_strdup (shortcut_uri));
 			e2k_results_free (results, nresults);
 		}
 
@@ -142,6 +155,81 @@ get_hrefs (ExchangeHierarchySomeDAV *hsd)
 
 	return hrefs;
 }	
+
+static ExchangeAccountFolderResult
+remove_folder (ExchangeHierarchy *hier, EFolder *folder)
+{
+	ExchangeHierarchyFavorites *hfav =
+		EXCHANGE_HIERARCHY_FAVORITES (hier);
+	const char *folder_uri, *shortcut_uri;
+	E2kHTTPStatus status;
+
+	folder_uri = e_folder_exchange_get_internal_uri (folder);
+	shortcut_uri = g_hash_table_lookup (hfav->priv->shortcuts, folder_uri);
+	if (!shortcut_uri)
+		return EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST;
+
+	status = e2k_context_delete (
+		exchange_account_get_context (hier->account), NULL,
+		shortcut_uri);
+
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		g_hash_table_remove (hfav->priv->shortcuts, folder_uri);
+		exchange_hierarchy_removed_folder (hier, folder);
+	}
+	return exchange_hierarchy_webdav_status_to_folder_result (status);
+}
+
+/**
+ * exchange_hierarchy_favorites_add_folder:
+ * @hier: the hierarchy
+ * @folder: the Public Folder to add to the favorites tree
+ *
+ * Adds a new folder to @hier.
+ *
+ * Return value: the folder result.
+ **/
+ExchangeAccountFolderResult
+exchange_hierarchy_favorites_add_folder (ExchangeHierarchy *hier,
+					 EFolder *folder)
+{
+	ExchangeHierarchyFavorites *hfav;
+	E2kProperties *props;
+	E2kHTTPStatus status;
+	const char *folder_uri;
+	char *shortcut_uri;
+
+	g_return_val_if_fail (EXCHANGE_IS_HIERARCHY (hier), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+	g_return_val_if_fail (E_IS_FOLDER (folder), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+	g_return_val_if_fail (e_folder_exchange_get_hierarchy (folder)->type == EXCHANGE_HIERARCHY_PUBLIC, EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+
+	hfav = EXCHANGE_HIERARCHY_FAVORITES (hier);
+
+	props = e2k_properties_new ();
+	e2k_properties_set_string (props, PR_FAV_DISPLAY_NAME,
+				   g_strdup (e_folder_get_name (folder)));
+	e2k_properties_set_binary (props, PR_FAV_PUBLIC_SOURCE_KEY,
+				   e2k_permanenturl_to_entryid (e_folder_exchange_get_permanent_uri (folder)));
+	e2k_properties_set_int (props, PR_FAV_LEVEL_MASK, 1);
+
+	status = e2k_context_proppatch_new (
+		exchange_account_get_context (hier->account), NULL,
+		hfav->priv->shortcuts_uri,
+		e_folder_get_name (folder), NULL, NULL,
+		props, &shortcut_uri, NULL);
+	e2k_properties_free (props);
+
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		folder_uri = e_folder_exchange_get_internal_uri (folder);
+
+		g_hash_table_insert (hfav->priv->shortcuts,
+				     g_strdup (folder_uri), shortcut_uri);
+		return exchange_hierarchy_somedav_add_folder (EXCHANGE_HIERARCHY_SOMEDAV (hier),
+							      folder_uri,
+							      NULL);
+	} else
+		return exchange_hierarchy_webdav_status_to_folder_result (status);
+}
 
 /**
  * exchange_hierarchy_favorites_new:

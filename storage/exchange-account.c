@@ -61,6 +61,7 @@ struct _ExchangeAccountPrivate {
 
 	GPtrArray *hierarchies;
 	GHashTable *hierarchies_by_folder, *foreign_hierarchies;
+	ExchangeHierarchy *favorites_hierarchy;
 	GHashTable *folders;
 	char *uri_authority, *http_uri_schema;
 	gboolean uris_use_email;
@@ -713,6 +714,30 @@ exchange_account_open_folder (ExchangeAccount *account, const char *path)
 	return exchange_hierarchy_scan_subtree (hier, folder);
 }
 
+ExchangeAccountFolderResult
+exchange_account_add_favorite (ExchangeAccount *account,
+			       EFolder         *folder)
+{
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+	g_return_val_if_fail (E_IS_FOLDER (folder), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+
+	return exchange_hierarchy_favorites_add_folder (
+		account->priv->favorites_hierarchy,
+		folder);
+}
+
+ExchangeAccountFolderResult
+exchange_account_remove_favorite (ExchangeAccount *account,
+				  EFolder         *folder)
+{
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+	g_return_val_if_fail (E_IS_FOLDER (folder), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
+
+	return exchange_hierarchy_remove_folder (
+		EXCHANGE_HIERARCHY (account->priv->favorites_hierarchy),
+		folder);
+}
+
 static void
 context_redirect (E2kContext *ctx, E2kHTTPStatus status,
 		  const char *old_uri, const char *new_uri,
@@ -937,7 +962,7 @@ exchange_account_connect (ExchangeAccount *account)
 	GByteArray *entryid;
 	const char *timezone;
 	char *phys_uri_prefix, *dir;
-	ExchangeHierarchy *hier, *personal_hier, *fav_hier;
+	ExchangeHierarchy *hier, *personal_hier;
 	struct dirent *dent;
 	DIR *d;
 	char *old_password, *new_password;
@@ -1134,7 +1159,7 @@ exchange_account_connect (ExchangeAccount *account)
 						 account->priv->source_uri);
 	setup_hierarchy (account, hier);
 	g_free (phys_uri_prefix);
-	fav_hier = hier;
+	account->priv->favorites_hierarchy = hier;
 
 	/* Public Folders */
 	phys_uri_prefix = g_strdup_printf ("exchange://%s/public",
@@ -1190,8 +1215,9 @@ exchange_account_connect (ExchangeAccount *account)
 		return NULL;
 	}
 
-	fresult = exchange_hierarchy_scan_subtree (fav_hier,
-						   fav_hier->toplevel);
+	fresult = exchange_hierarchy_scan_subtree (
+		account->priv->favorites_hierarchy,
+		account->priv->favorites_hierarchy->toplevel);
 	if (fresult != EXCHANGE_ACCOUNT_FOLDER_OK) {
 		g_mutex_unlock (account->priv->connect_lock);
 		return NULL;

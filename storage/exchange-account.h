@@ -119,6 +119,11 @@ void                  exchange_account_cancel_discover_shared_folder (ExchangeAc
 ExchangeAccountFolderResult exchange_account_remove_shared_folder    (ExchangeAccount *account,
 								      const char      *path);
 
+ExchangeAccountFolderResult exchange_account_add_favorite            (ExchangeAccount *account,
+								      EFolder         *folder);
+ExchangeAccountFolderResult exchange_account_remove_favorite         (ExchangeAccount *account,
+								      EFolder         *folder);
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

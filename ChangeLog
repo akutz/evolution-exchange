@@ -1,3 +1,22 @@
+2004-06-02  Dan Winship  <danw@novell.com>
+
+	* storage/exchange-account.c (exchange_account_connect): Record
+	the favorites hierarchy in a private variable
+	(exchange_account_add_favorite, exchange_account_remove_favorite):
+	Add. They just proxy to the favorites hierarchy
+
+	* storage/exchange-hierarchy-favorites.c
+	(exchange_hierarchy_favorites_add_folder): Implement this
+	(remove_folder): And this
+
+	* storage/xc-commands.c (do_add_favorite, do_remove_favorite):
+	Implement these
+
+	* lib/e2k-utils.c (e2k_entryid_to_permanenturl): Fix this up a
+	little.
+	(e2k_permanenturl_to_entryid): Add this, its inverse. Only tested
+	on folder urls.
+
 2004-06-01  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* configure.in: Add Norwegian to ALL_LINGUAS.

@@ -307,16 +307,30 @@ e2k_entryid_to_dn (GByteArray *entryid)
 static void
 append_permanenturl_section (GString *url, guint8 *entryid)
 {
-	int i;
+	int i = 0;
 
-	for (i = 0; i < 16; i++)
-		g_string_append_printf (url, "%02x", entryid[i]);
+	/* First part */
+	while (i < 16)
+		g_string_append_printf (url, "%02x", entryid[i++]);
+
+	/* Replace 0s with a single '-' */
 	g_string_append_c (url, '-');
 	while (i < 22 && entryid[i] == 0)
 		i++;
-	for (; i < 22; i++)
-		g_string_append_printf (url, "%02x", entryid[i]);
+
+	/* Last part; note that if the first non-0 byte can be
+	 * expressed in a single hex digit, we do so. (ie, the 0
+	 * in the 16's place was also accumulated into the
+	 * preceding '-'.)
+	 */
+	if (i < 22 && entryid[i] < 0x10)
+		g_string_append_printf (url, "%01x", entryid[i++]);
+	while (i < 22)
+		g_string_append_printf (url, "%02x", entryid[i++]);
 }
+
+#define E2K_PERMANENTURL_INFIX "-FlatUrlSpace-"
+#define E2K_PERMANENTURL_INFIX_LEN (sizeof (E2K_PERMANENTURL_INFIX) - 1)
 
 /**
  * e2k_entryid_to_permanenturl:
@@ -338,7 +352,8 @@ e2k_entryid_to_permanenturl (GByteArray *entryid, const char *base_uri)
 	url = g_string_new (base_uri);
 	if (url->str[url->len - 1] != '/')
 		g_string_append_c (url, '/');
-	g_string_append (url, "-FlatUrlSpace-/");
+	g_string_append (url, E2K_PERMANENTURL_INFIX);
+	g_string_append_c (url, '/');
 
 	append_permanenturl_section (url, entryid->data);
 	if (entryid->len > 22) {
@@ -349,6 +364,70 @@ e2k_entryid_to_permanenturl (GByteArray *entryid, const char *base_uri)
 	ret = url->str;
 	g_string_free (url, FALSE);
 	return ret;
+}
+
+#define HEXVAL(c) (isdigit (c) ? (c) - '0' : g_ascii_tolower (c) - 'a' + 10)
+
+static gboolean
+append_entryid_section (GByteArray *entryid, const char **permanenturl)
+{
+	const char *p;
+	char buf[44], byte;
+	int endlen;
+
+	p = *permanenturl;
+	if (strspn (p, "0123456789abcdefABCDEF") != 32)
+		return FALSE;
+	if (p[32] != '-')
+		return FALSE;
+	endlen = strspn (p + 33, "0123456789abcdefABCDEF");
+	if (endlen > 6)
+		return FALSE;
+
+	/* Expand to the full form by replacing the "-" with "0"s */
+	memcpy (buf, p, 32);
+	memset (buf + 32, '0', sizeof (buf) - 32 - endlen);
+	memcpy (buf + sizeof (buf) - endlen, p + 33, endlen);
+
+	p = buf;
+	while (p < buf + sizeof (buf)) {
+		byte = (HEXVAL (*p) << 4) + HEXVAL (*(p + 1));
+		g_byte_array_append (entryid, &byte, 1);
+		p += 2;
+	}
+
+	*permanenturl += 33 + endlen;
+	return TRUE;
+}
+
+/**
+ * e2k_permanenturl_to_entryid:
+ * @permanenturl: an Exchange permanenturl
+ *
+ * Creates an ENTRYID (specifically, a PR_SOURCE_KEY) based on
+ * @permanenturl
+ *
+ * Return value: the entryid
+ **/
+GByteArray *
+e2k_permanenturl_to_entryid (const char *permanenturl)
+{
+	GByteArray *entryid;
+
+	permanenturl = strstr (permanenturl, E2K_PERMANENTURL_INFIX);
+	if (!permanenturl)
+		return NULL;
+	permanenturl += E2K_PERMANENTURL_INFIX_LEN;
+
+	entryid = g_byte_array_new ();
+	while (*permanenturl++ == '/') {
+		if (!append_entryid_section (entryid, &permanenturl)) {
+			g_byte_array_free (entryid, TRUE);
+			return NULL;
+		}
+	}
+
+	return entryid;
 }
 
 /**

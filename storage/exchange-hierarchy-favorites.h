@@ -40,8 +40,7 @@ ExchangeHierarchy *exchange_hierarchy_favorites_new (ExchangeAccount *account,
 						     const char *source_uri);
 
 ExchangeAccountFolderResult  exchange_hierarchy_favorites_add_folder (ExchangeHierarchy *hier,
-								    const char *folder_name,
-								    EFolder **folder);
+								      EFolder *folder);
 
 #ifdef __cplusplus
 }
