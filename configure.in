@@ -1,7 +1,7 @@
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.52)
 
-AC_INIT(ximian-connector, 2.2.0, http://bugzilla.ximian.com/enter_bug.cgi?product=Connector)
+AC_INIT(ximian-connector, 2.3.0, http://bugzilla.ximian.com/enter_bug.cgi?product=Connector)
 AC_CONFIG_SRCDIR(storage)
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 
@@ -18,7 +18,8 @@ no)
 	;;
 esac
 
-EVOLUTION_API_VERSION=2.2
+EVOLUTION_API_VERSION=2.4
+EDS_API_VERSION=1.2
 
 AC_MSG_CHECKING(Evolution version)
 EVOLUTION_VERSION=`pkg-config --modversion evolution-shell-$EVOLUTION_API_VERSION 2>/dev/null`
@@ -93,36 +94,36 @@ AM_GCONF_SOURCE_2
 CONNECTOR_DATADIR='$(datadir)/ximian-connector/$(BASE_VERSION)'
 AC_SUBST(CONNECTOR_DATADIR)
 
-EVOLUTION_idldir="`pkg-config --variable=idldir evolution-shell-2.2`"
+EVOLUTION_idldir="`pkg-config --variable=idldir evolution-shell-$BASE_VERSION`"
 AC_SUBST(EVOLUTION_idldir)
 
-EVOLUTION_IDL_INCLUDES="`pkg-config --variable=IDL_INCLUDES evolution-shell-2.2`"
+EVOLUTION_IDL_INCLUDES="`pkg-config --variable=IDL_INCLUDES evolution-shell-$BASE_VERSION`"
 AC_SUBST(EVOLUTION_IDL_INCLUDES)
 
-EVOLUTION_privlibdir="`pkg-config --variable=privlibdir evolution-shell-2.2`"
+EVOLUTION_privlibdir="`pkg-config --variable=privlibdir evolution-shell-$BASE_VERSION`"
 AC_SUBST(EVOLUTION_privlibdir)
 
-EVOLUTION_privlibexecdir="`pkg-config --variable=privlibexecdir evolution-shell-2.2`"
+EVOLUTION_privlibexecdir="`pkg-config --variable=privlibexecdir evolution-shell-$BASE_VERSION`"
 AC_SUBST(EVOLUTION_privlibexecdir)
 
-EVOLUTION_privdatadir="`pkg-config --variable=privdatadir evolution-shell-2.2`"
+EVOLUTION_privdatadir="`pkg-config --variable=privdatadir evolution-shell-$BASE_VERSION`"
 AC_SUBST(EVOLUTION_privdatadir)
 
-EVOLUTION_imagesdir="`pkg-config --variable=imagesdir evolution-shell-2.2`"
+EVOLUTION_imagesdir="`pkg-config --variable=imagesdir evolution-shell-$BASE_VERSION`"
 AC_SUBST(EVOLUTION_imagesdir)
 
-CAMEL_providerdir="`pkg-config --variable=camel_providerdir camel-provider-1.2`"
+CAMEL_providerdir="`pkg-config --variable=camel_providerdir camel-provider-$EDS_API_VERSION`"
 AC_SUBST(CAMEL_providerdir)
 
 
-PKG_CHECK_MODULES(ADDRESSBOOK, libedata-book-1.2 camel-provider-1.2)
+PKG_CHECK_MODULES(ADDRESSBOOK, libedata-book-$EDS_API_VERSION camel-provider-$EDS_API_VERSION)
 AC_SUBST(ADDRESSBOOK_CFLAGS)
 
-PKG_CHECK_MODULES(CALENDAR, libedata-cal-1.2)
+PKG_CHECK_MODULES(CALENDAR, libedata-cal-$EDS_API_VERSION)
 AC_SUBST(CALENDAR_CFLAGS)
 AC_SUBST(CALENDAR_LIBS)
 
-PKG_CHECK_MODULES(CAMEL, camel-provider-1.2)
+PKG_CHECK_MODULES(CAMEL, camel-provider-$EDS_API_VERSION)
 AC_SUBST(CAMEL_CFLAGS)
 
 dnl Should we be using this now ? We could just re-write the code that we use 
@@ -130,14 +131,14 @@ dnl from GAL. We are anyway planning to move away from GAL
 dnl PKG_CHECK_MODULES(GAL, gal-2.4)
 dnl AC_SUBST(GAL_CFLAGS)
 
-PKG_CHECK_MODULES(MAIL, libecal-1.2)
+PKG_CHECK_MODULES(MAIL, libecal-$EDS_API_VERSION)
 AC_SUBST(MAIL_CFLAGS)
 
-PKG_CHECK_MODULES(EXCHANGE_STORAGE, evolution-shell-2.2 libedataserverui-1.2 libedata-book-1.2 libedata-cal-1.2 libsoup-2.2 libglade-2.0 libgnomeui-2.0 camel-provider-1.2)
+PKG_CHECK_MODULES(EXCHANGE_STORAGE, evolution-shell-$EVOLUTION_BASE_VERSION libedataserverui-$EDS_API_VERSION libedata-book-$EDS_API_VERSION libedata-cal-$EDS_API_VERSION libsoup-2.4 libglade-2.0 libgnomeui-2.0 camel-provider-$EDS_API_VERSION)
 AC_SUBST(EXCHANGE_STORAGE_CFLAGS)
 AC_SUBST(EXCHANGE_STORAGE_LIBS)
 
-PKG_CHECK_MODULES(LIBEXCHANGE, libsoup-2.2 evolution-shell-2.2 libedataserverui-1.2 libbonobo-2.0 libxml-2.0 gconf-2.0)
+PKG_CHECK_MODULES(LIBEXCHANGE, libsoup-2.4 evolution-shell-$EVOLUTION_BASE_VERSION libedataserverui-$EDS_API_VERSION libbonobo-2.0 libxml-2.0 gconf-2.0)
 AC_SUBST(LIBEXCHANGE_CFLAGS)
 AC_SUBST(LIBEXCHANGE_LIBS)
 
