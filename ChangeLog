@@ -1,5 +1,10 @@
 2005-04-22  Sushma Rai  <rsushma@novell.com>
 
+	* storage/exchange-config-listener.[ch] (requires_relogin): Check for
+	the change in auth type, only if it is set. 
+	
+2005-04-22  Sushma Rai  <rsushma@novell.com>
+
 	* storage/exchange-config-listener.[ch] (add_esources): Removed.
 	(add_account_esources): Added new to create e-sources for all the
 	folders.

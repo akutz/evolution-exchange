@@ -837,10 +837,24 @@ requires_relogin (char *current_url, char *new_url)
 	new_uri = e2k_uri_new (new_url);
 
 	if (strcmp (current_uri->user, new_uri->user) ||
-	    strcmp (current_uri->host, new_uri->host) ||
-	    strcmp (current_uri->authmech, new_uri->authmech)) {
+	    strcmp (current_uri->host, new_uri->host)) {
 		relogin = TRUE;
 		goto end;
+	}
+	
+	if (current_uri->authmech || new_uri->authmech) {
+		if (current_uri->authmech && new_uri->authmech) {
+	    		if (strcmp (current_uri->authmech, new_uri->authmech)) {
+				/* Auth mechanism has changed */
+				relogin = TRUE;
+				goto end;
+			}
+		} 
+		else {
+			/* Auth mechanism is set for the first time */
+			relogin = TRUE;
+			goto end;
+		}
 	}
 
 	for (i=0; i<n_params; i++) { 
