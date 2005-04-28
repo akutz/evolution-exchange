@@ -1,7 +1,7 @@
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.52)
 
-AC_INIT(ximian-connector, 2.3.0, http://bugzilla.ximian.com/enter_bug.cgi?product=Connector)
+AC_INIT(evolution-exchange, 2.3.1, http://bugzilla.ximian.com/enter_bug.cgi?product=Connector)
 AC_CONFIG_SRCDIR(storage)
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 
@@ -57,7 +57,7 @@ ALL_LINGUAS="ar az bg bn cs de el en_CA en_GB es fi fr gu hi hu id it ja ko lt m
 AC_PROG_INTLTOOL
 AM_GLIB_GNU_GETTEXT
 
-GETTEXT_PACKAGE=ximian-connector-${BASE_VERSION}
+GETTEXT_PACKAGE=evolution-exchange-${BASE_VERSION}
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Package name for gettext])
 
@@ -91,7 +91,7 @@ AM_PATH_ORBIT2
 AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
 AM_GCONF_SOURCE_2
 
-CONNECTOR_DATADIR='$(datadir)/ximian-connector/$(BASE_VERSION)'
+CONNECTOR_DATADIR='$(datadir)/evolution-exchange/$(BASE_VERSION)'
 AC_SUBST(CONNECTOR_DATADIR)
 
 EVOLUTION_idldir="`pkg-config --variable=idldir evolution-shell-$BASE_VERSION`"

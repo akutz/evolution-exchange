@@ -4,7 +4,7 @@
 srcdir=`dirname $0`
 test -z "$srcdir" && srcdir=.
 
-PKG_NAME="ximian-connector"
+PKG_NAME="evolution-exchange"
 REQUIRED_AUTOMAKE_VERSION=1.6
 
 (test -f $srcdir/configure.in \
