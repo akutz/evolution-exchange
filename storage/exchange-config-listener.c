@@ -1010,9 +1010,15 @@ account_removed (EAccountList *account_list, EAccount *account)
 		g_free (priv->configured_name);
 		priv->configured_name = NULL;
 	} else {
-		/* The account is in use. We can't remove it. */
-		e_notice (NULL, GTK_MESSAGE_INFO,
-			  _("The Exchange account will be removed when you quit Evolution"));
+		if (account->enabled) {
+			e_notice (NULL, GTK_MESSAGE_INFO,
+				_("The Exchange account will be removed when you quit Evolution"));
+		}
+		else {
+			/* The account is in use. We can't remove it. */
+			e_notice (NULL, GTK_MESSAGE_INFO,
+			  	_("The Exchange account will be disabled when you quit Evolution"));
+		}
 	}
 }
 
