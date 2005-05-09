@@ -1,3 +1,13 @@
+2005-05-09  Vivek Jain  <jvivek@novell.com>
+
+	**Fixes #273846
+		#273878
+	* calendar/e-cal-backend-exchange.c: (get_attach_file_contents),
+	Modified the function to take length as an argument, so that we
+	can return no of bytes in the file.
+	(build_msg): pass the len pointer and use this length for writing the
+	file
+
 2005-04-26  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* configure.in : Bumped the version to 2.3.1
