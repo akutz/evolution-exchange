@@ -1311,7 +1311,6 @@ exchange_account_connect (ExchangeAccount *account)
 	E2kGlobalCatalogStatus gcstatus;
 	E2kGlobalCatalogEntry *entry;
 	E2kOperation gcop;
-	const char *quota_msg = NULL;
 	char *user_name = NULL;
 	int offline;
 
@@ -1525,24 +1524,28 @@ exchange_account_connect (ExchangeAccount *account)
                                             &entry);	
 	e2k_operation_free (&gcop);
 
-	/* FIXME: quota warnings are not yet marked for translation!! */
-	/* FIXME: warning message should have quota limit value and optionally current
-	 * usage 
-	 */
 	if (gcstatus == E2K_GLOBAL_CATALOG_OK) {
+		char *quota_msg = NULL;
+		char *common_msg = g_strdup_printf (_("You have exceeded your quota of %d %s for storing mails on this server. Your current usage is : %.0f %s."), entry->quota_norecv, "KB", account->mbox_size, "KB");
 
 		if (entry->quota_norecv && account->mbox_size >= entry->quota_norecv) {
-			quota_msg = g_strdup_printf ("You have exceeded your quota for storing mails on this server. Your current usage is : %d . You will not be able to either send or recieve mails now\n", entry->quota_norecv);
+			quota_msg = g_strdup_printf ("%s %s", common_msg, _("You will not be able to either send or receive mails now\n"));
+			
 		} else if (entry->quota_nosend && account->mbox_size >= entry->quota_nosend) {
-			quota_msg = g_strdup_printf ("You are nearing your quota available for storing mails on this server. Your current usage is : %d . You will not be able to send mails till you clear up some space by deleting some mails.\n", entry->quota_nosend);
+			quota_msg = g_strdup_printf ("%s %s", common_msg, _("You will not be able to send mails till you clear up some space by deleting some mails.\n"));
+			g_free (common_msg);
 		} else if (entry->quota_warn && account->mbox_size >= entry->quota_warn) {
-			quota_msg = g_strdup_printf ("You are nearing your quota available for storing mails on this server. Your current usage is : %d . Try to clear up some space by deleting some mails.\n", entry->quota_warn);
+			quota_msg = g_strdup_printf ("%s %s", common_msg, _("Try to clear up some space by deleting some mails.\n"));
+			g_free (common_msg);
 		}
 		
-		if (quota_msg)
+		if (quota_msg) {
 			e_notice (NULL, GTK_MESSAGE_INFO, quota_msg);
+			g_free (quota_msg);
+		}
+		g_free (common_msg);
 	}
-	
+
 	account->priv->connected = TRUE;
 	account->priv->account_online = TRUE;
 	account->priv->connecting = FALSE;
