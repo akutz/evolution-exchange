@@ -1432,10 +1432,10 @@ exchange_account_connect (ExchangeAccount *account)
 				account->priv->username);
 			break;
 		case E2K_AUTOCONFIG_EXCHANGE_5_5:
-			errmsg = g_strdup (
+			errmsg = g_strdup_printf (
 				_("The server '%s' is running Exchange 5.5 "
 				  "and is\ntherefore not compatible with "
-				  "Ximian Connector"));
+				  "Ximian Connector"), account->exchange_server);
 			break;
 		case E2K_AUTOCONFIG_NOT_EXCHANGE:
 		case E2K_AUTOCONFIG_NO_OWA:
