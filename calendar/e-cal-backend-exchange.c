@@ -1363,7 +1363,7 @@ get_attachment (ECalBackendExchange *cbex, const char *uid,
 }
 
 static char *
-get_attach_file_contents (const char *filename)
+get_attach_file_contents (const char *filename, int *length)
 {
 	int fd, len = 0;
 	struct stat sb;
@@ -1394,6 +1394,7 @@ get_attach_file_contents (const char *filename)
 
 end :
 	close (fd);
+	*length = len;
 	return file_contents;
 }
 
@@ -1444,11 +1445,10 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const char *subject,
 			attach_file = g_strdup_printf ("%s/%s-%s", cbex->priv->local_attachment_store, uid, filename);
 		}
 	
-		file_contents = get_attach_file_contents (fname);
-		if (!file_contents)
+		file_contents = get_attach_file_contents (fname, &len);
+			if (!file_contents)
 			continue;
 
-		len = strlen (file_contents);
 		dest_url = save_attach_file (attach_file, file_contents, len);
 		g_free (attach_file);
 		if (!dest_url)
