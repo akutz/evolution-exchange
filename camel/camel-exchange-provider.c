@@ -60,7 +60,7 @@ CamelProviderConfEntry exchange_conf_entries[] = {
 	  N_("Options") },
 	{ CAMEL_PROVIDER_CONF_CHECKSPIN, "passwd_exp_warn_period", NULL,
 	  N_("Password Expiry Warning period: %s"), "y:1:7:90" },
-	{ CAMEL_PROVIDER_CONF_CHECKBOX, "offline_sync", NULL,
+	{ CAMEL_PROVIDER_CONF_CHECKBOX, "sync_offline", NULL,
 	  N_("Automatically synchronize account locally"), "0" },
 	{ CAMEL_PROVIDER_CONF_CHECKBOX, "filter", NULL,
 	  /* i18n: copy from evolution:camel-imap-provider.c */
