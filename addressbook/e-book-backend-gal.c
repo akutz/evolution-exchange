@@ -137,6 +137,7 @@ struct prop_info {
 	STRING_PROP   (E_CONTACT_FULL_NAME,   "displayName" ),
 	STRING_PROP   (E_CONTACT_GIVEN_NAME,  "givenName" ),
 	STRING_PROP   (E_CONTACT_FAMILY_NAME, "sn" ),
+	STRING_PROP   (E_CONTACT_NICKNAME,    "mailNickname" ),
 
 	/* email addresses */
 	STRING_PROP   (E_CONTACT_EMAIL_1,     "mail" ),
@@ -948,11 +949,11 @@ func_is_or_begins_with(ESExp *f, int argc, ESExpResult **argv, gboolean exact)
 			g_free (first);
 			g_free (last);
 		} else {
-			filter = g_strdup_printf("(|(displayName=%s%s)(sn=%s%s)(givenName=%s%s))",
+			filter = g_strdup_printf("(|(displayName=%s%s)(sn=%s%s)(givenName=%s%s)(mailNickname=%s%s))",
 						 str, star, str, star,
-						 str, star);
+						 str, star, str, star);
 		}
-	} else
+	} else 
 		filter = g_strdup_printf("(%s=%s%s)", ldap_attr, str, star);
 
  done:
@@ -1340,6 +1341,7 @@ start_book_view (EBookBackend  *backend,
 
 		status = build_query (bl, e_data_book_view_get_card_query (view),
 				      &ldap_query);
+
 		if (status != GNOME_Evolution_Addressbook_Success || !ldap_query) {
 			e_data_book_view_notify_complete (view, status);
 			if (ldap_query)
