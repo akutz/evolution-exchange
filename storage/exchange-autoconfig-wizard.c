@@ -33,7 +33,6 @@
 #include <e-util/e-account-list.h>
 #include <e-util/e-dialog-utils.h>
 #include <libedataserverui/e-passwords.h>
-#include <shell/evolution-wizard.h>
 
 #include <gconf/gconf-client.h>
 #include <glade/glade-xml.h>
@@ -43,8 +42,6 @@
 #include <libgnomeui/gnome-href.h>
 
 typedef struct {
-	/* One of these will be set */
-	EvolutionWizard *wizard;
 	GnomeDruid *druid;
 
 	GladeXML *xml;
@@ -89,26 +86,16 @@ static void verify_page_changed (GtkEntry *entry, ExchangeAutoconfigGUI *gui);
 static void
 autoconfig_gui_set_page (ExchangeAutoconfigGUI *gui, int page)
 {
-	if (gui->wizard)
-		evolution_wizard_set_page (gui->wizard, page, NULL);
-	else
-		gnome_druid_set_page (gui->druid, gui->pages->pdata[page]);
+	gnome_druid_set_page (gui->druid, gui->pages->pdata[page]);
 }
 	
 static void
 autoconfig_gui_set_next_sensitive (ExchangeAutoconfigGUI *gui,
 				   gboolean next_sensitive)
 {
-	if (gui->wizard) {
-		evolution_wizard_set_buttons_sensitive (gui->wizard,
-							TRUE,
-							next_sensitive,
-							TRUE, NULL);
-	} else {
-		gnome_druid_set_buttons_sensitive (gui->druid, TRUE,
-						   next_sensitive,
-						   TRUE, FALSE);
-	}
+	gnome_druid_set_buttons_sensitive (gui->druid, TRUE,
+					   next_sensitive,
+					   TRUE, FALSE);
 }
 
 
@@ -392,13 +379,6 @@ verify_page_prepare (ExchangeAutoconfigGUI *gui)
 	else
 		gtk_entry_set_text (gui->email_entry, _("Unknown"));
 
-	/* Only show the "default account" checkbox when running as
-	 * a druid; that is, if the user already has at least one other
-	 * account configured.
-	 */
-	if (gui->wizard)
-		gtk_widget_hide (GTK_WIDGET (gui->default_account_check));
-
 	verify_page_changed (NULL, gui);
 }
 
@@ -412,23 +392,11 @@ verify_page_back (ExchangeAutoconfigGUI *gui)
 static gboolean
 verify_page_next (ExchangeAutoconfigGUI *gui)
 {	
-	GConfClient *gconf;
-
 	g_free (gui->ac->display_name);
 	gui->ac->display_name = g_strdup (gtk_entry_get_text (gui->name_entry));
 	g_free (gui->ac->email);
 	gui->ac->email = g_strdup (gtk_entry_get_text (gui->email_entry));
 
-	if (gui->wizard) {
-		/* Set the timezone in gconf so it will default correctly
-		 * on the timezone page.
-		 */
-		gconf = gconf_client_get_default ();
-		gconf_client_set_string (gconf,
-					 "/apps/evolution/calendar/display/timezone",
-					 gui->ac->timezone,
-					 NULL);
-	}
 	return FALSE;
 }
 
@@ -556,97 +524,6 @@ static struct {
 	  verify_page_back, verify_page_next }
 };
 static const int num_autoconfig_pages = sizeof (autoconfig_pages) / sizeof (autoconfig_pages[0]);
-
-
-/* Bonobo autoconfig wizard */
-
-static void
-wizard_next_cb (EvolutionWizard *wizard, int page_num,
-		ExchangeAutoconfigGUI *gui)
-{
-	if (autoconfig_pages[page_num].next_func &&
-	    autoconfig_pages[page_num].next_func (gui))
-		return;
-
-	if (page_num < EXCHANGE_AUTOCONFIG_PAGE_VERIFY)
-		evolution_wizard_set_page (wizard, page_num + 1, NULL);
-}
-
-static void
-wizard_prepare_cb (EvolutionWizard *wizard, int page_num,
-		   ExchangeAutoconfigGUI *gui)
-{
-	if (autoconfig_pages[page_num].prepare_func)
-		autoconfig_pages[page_num].prepare_func (gui);
-}
-
-static void
-wizard_back_cb (EvolutionWizard *wizard, int page_num,
-		ExchangeAutoconfigGUI *gui)
-{
-	if (page_num > EXCHANGE_AUTOCONFIG_PAGE_VERIFY) {
-		evolution_wizard_set_page (wizard, EXCHANGE_AUTOCONFIG_PAGE_VERIFY, NULL);
-		return;
-	}
-
-	if (autoconfig_pages[page_num].back_func &&
-	    autoconfig_pages[page_num].back_func (gui))
-		return;
-
-	if (page_num > 0)
-		evolution_wizard_set_page (wizard, page_num - 1, NULL);
-}
-
-static void
-wizard_finish_cb (EvolutionWizard *wizard, ExchangeAutoconfigGUI *gui)
-{
-	autoconfig_gui_apply (gui);
-}
-
-static void
-wizard_destroyed (gpointer gui, GObject *where_wizard_was)
-{
-	/* FIXME: not being called */
-	autoconfig_gui_free (gui);
-}
-
-BonoboObject *
-exchange_autoconfig_wizard_new (void)
-{
-	ExchangeAutoconfigGUI *gui;
-	GnomeDruidPageStandard *page;
-	GdkPixbuf *icon;
-	GtkWidget *body;
-	int i;
-
-	gui = autoconfig_gui_new ();
-	if (!gui)
-		return NULL;
-	gui->wizard = evolution_wizard_new ();
-
-	icon = gdk_pixbuf_new_from_file (CONNECTOR_IMAGESDIR "/connector.png", NULL);
-	for (i = 0; i < num_autoconfig_pages; i++) {
-		page = (GnomeDruidPageStandard *)glade_xml_get_widget (gui->xml, autoconfig_pages[i].page_name);
-		body = glade_xml_get_widget (gui->xml, autoconfig_pages[i].body_name);
-		g_object_ref (body);
-		gtk_widget_unparent (body);
-
-		evolution_wizard_add_page (gui->wizard, page->title, icon, body);
-		g_object_unref (body);
-	}
-	g_object_unref (icon);
-
-	g_signal_connect (gui->wizard, "next", G_CALLBACK (wizard_next_cb), gui);
-	g_signal_connect (gui->wizard, "prepare", G_CALLBACK (wizard_prepare_cb), gui);
-	g_signal_connect (gui->wizard, "back", G_CALLBACK (wizard_back_cb), gui);
-	g_signal_connect (gui->wizard, "finish", G_CALLBACK (wizard_finish_cb), gui);
-
-	g_object_weak_ref (G_OBJECT (gui->wizard), wizard_destroyed, gui);
-
-	return BONOBO_OBJECT (gui->wizard);
-}
-
-
 
 /* Autoconfig druid */
 
