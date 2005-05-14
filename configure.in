@@ -134,11 +134,21 @@ dnl AC_SUBST(GAL_CFLAGS)
 PKG_CHECK_MODULES(MAIL, libecal-$EDS_API_VERSION)
 AC_SUBST(MAIL_CFLAGS)
 
-PKG_CHECK_MODULES(EXCHANGE_STORAGE, evolution-shell-$EVOLUTION_BASE_VERSION libedataserverui-$EDS_API_VERSION libedata-book-$EDS_API_VERSION libedata-cal-$EDS_API_VERSION libsoup-2.2 libglade-2.0 libgnomeui-2.0 camel-provider-$EDS_API_VERSION)
+dnl Adding a manual detection check for libsoup, since evolution still has not 
+dnl yet decided to use which version of libsoup it would be using. This check
+dnl needs to be removed once evolution is fixed to use one version of libsoup
+PKG_CHECK_MODULES(SOUP, libsoup-2.4, have_libsoup_24="yes", have_libsoup_24="no")
+if test $have_libsoup_24 = yes; then
+	LIBSOUP_VERSION=2.4
+else
+	LIBSOUP_VERSION=2.2
+fi
+
+PKG_CHECK_MODULES(EXCHANGE_STORAGE, evolution-shell-$EVOLUTION_BASE_VERSION libedataserverui-$EDS_API_VERSION libedata-book-$EDS_API_VERSION libedata-cal-$EDS_API_VERSION libsoup-$LIBSOUP_VERSION libglade-2.0 libgnomeui-2.0 camel-provider-$EDS_API_VERSION)
 AC_SUBST(EXCHANGE_STORAGE_CFLAGS)
 AC_SUBST(EXCHANGE_STORAGE_LIBS)
 
-PKG_CHECK_MODULES(LIBEXCHANGE, libsoup-2.2 evolution-shell-$EVOLUTION_BASE_VERSION libedataserverui-$EDS_API_VERSION libbonobo-2.0 libxml-2.0 gconf-2.0)
+PKG_CHECK_MODULES(LIBEXCHANGE, libsoup-$LIBSOUP_VERSION evolution-shell-$EVOLUTION_BASE_VERSION libedataserverui-$EDS_API_VERSION libbonobo-2.0 libxml-2.0 gconf-2.0)
 AC_SUBST(LIBEXCHANGE_CFLAGS)
 AC_SUBST(LIBEXCHANGE_LIBS)
 
