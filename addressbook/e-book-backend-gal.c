@@ -29,6 +29,7 @@
 #include <fcntl.h>
 #include <string.h>
 
+#include "e2k-utils.h"
 #include "exchange-account.h"
 #include "exchange-component.h"
 
@@ -115,6 +116,8 @@ static EContact *build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, 
 
 static void manager_populate (EContact *contact, char **values, EBookBackendGAL *bl, E2kOperation *op);
 
+static void last_mod_time_populate (EContact *contact, char **values, EBookBackendGAL *bl, E2kOperation *op);
+
 struct prop_info {
 	EContactField field_id;
 	char *ldap_attr;
@@ -169,6 +172,11 @@ struct prop_info {
 	STRING_PROP   (E_CONTACT_FREEBUSY_URL,       "msExchFBURL"),
 	STRING_PROP   (E_CONTACT_NOTE,               "info"), 
 	STRING_PROP   (E_CONTACT_FILE_AS,            "fileAs"),
+
+	/* whenChanged is a string value, but since we need to re-format it,
+	 * defining it as a complex property
+	 */
+	COMPLEX_PROP   (E_CONTACT_REV,                "whenChanged", last_mod_time_populate),
 
 #undef STRING_PROP
 #undef COMPLEX_PROP
@@ -239,13 +247,18 @@ gal_connect (EBookBackendGAL *bl)
 static gboolean
 gal_reconnect (EBookBackendGAL *bl, EDataBookView *book_view, int ldap_status)
 {
+	if (!bl->priv->ldap)
+		return FALSE;
+
 	/* we need to reconnect if we were previously connected */
 	if (bl->priv->connected && ldap_status == LDAP_SERVER_DOWN) {
-		book_view_notify_status (book_view, _("Reconnecting to LDAP server..."));
+		if (book_view)
+			book_view_notify_status (book_view, _("Reconnecting to LDAP server..."));
 		if (bl->priv->ldap)
 			ldap_unbind (bl->priv->ldap);
 		bl->priv->ldap = e2k_global_catalog_get_ldap (bl->priv->gc, NULL);
-		book_view_notify_status (book_view, "");
+		if (book_view)
+			book_view_notify_status (book_view, "");
 
 		return (bl->priv->ldap != NULL);
 	}
@@ -1065,7 +1078,60 @@ manager_populate(EContact *contact, char **values, EBookBackendGAL *bl, E2kOpera
 	e2k_global_catalog_entry_free (bl->priv->gc, entry);
 }
 
-
+#define G_STRNDUP(str, len) g_strndup(str, len); \
+				str += len;
+
+static char *
+get_time_stamp (char *serv_time_str)
+{
+	char *input_str = serv_time_str, *result_str = NULL;
+	char *year, *month, *date, *hour, *minute, *second, *zone;
+
+	/* input time string will be of the format 20050419162256.0Z
+	 * out put string shd be of the format 2005-04-19T16:22:56.0Z
+	 * ("%04d-%02d-%02dT%02d:%02d:%02dZ") 
+	 */
+
+	/* FIXME : Add a check for proper input string */
+	year = G_STRNDUP(input_str, 4)
+	month = G_STRNDUP(input_str, 2)
+	date = G_STRNDUP(input_str, 2)
+	hour = G_STRNDUP(input_str, 2)
+	minute = G_STRNDUP(input_str, 2)
+	second = G_STRNDUP(input_str, 2)
+	input_str ++; // parse over the dot
+	zone = G_STRNDUP(input_str, 1)
+
+	result_str = g_strdup_printf ("%s-%s-%sT%s:%s:%s.%sZ", 
+		year, month, date, hour, minute, second, zone);
+
+	printf ("rev time : %s\n", result_str);
+
+	g_free (year);
+	g_free (month);
+	g_free (date);
+	g_free (hour);
+	g_free (minute);
+	g_free (second);
+	g_free (zone);
+
+	return result_str;
+}
+
+static void
+last_mod_time_populate (EContact *contact, char **values,
+			EBookBackendGAL *bl, E2kOperation *op)
+{
+	char *time_str;
+
+	/* FIXME: Some better way to do this  */
+	time_str = get_time_stamp (values[0]);
+	if (time_str)
+		e_contact_set (contact, E_CONTACT_REV, time_str);
+	g_free (time_str);
+}
+
+
 typedef struct {
 	LDAPOp op;
 	EDataBookView *view;
