@@ -1,3 +1,9 @@
+2005-05-25  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* addressbook/e-book-backend-gal.c : Added a mutex for the ldap 
+	connection, so that access to the ldap server is locked while 
+	gal_reconnect is in progress. Fixes #305398
+
 2005-05-09  Vivek Jain  <jvivek@novell.com>
 
 	**Fixes #273846
