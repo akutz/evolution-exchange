@@ -138,7 +138,7 @@ impl_createControls (PortableServer_Servant servant,
 	view = xc_backend_view_new (priv->config_listener,
 				    priv->folder_type_registry);
 	if (view)
-		priv->views = g_slist_append (priv->views, control);
+		priv->views = g_slist_append (priv->views, view);
 
 	control = xc_backend_view_get_sidebar (view);
 	*sidebar_control =
