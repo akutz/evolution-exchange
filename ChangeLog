@@ -1,3 +1,42 @@
+2005-04-22  Sushma Rai  <rsushma@novell.com>
+
+	* storage/exchange-config-listener.[ch] (requires_relogin): Check for
+	the change in auth type, only if it is set. 
+	
+2005-04-22  Sushma Rai  <rsushma@novell.com>
+
+	* storage/exchange-config-listener.[ch] (add_esources): Removed.
+	(add_account_esources): Added new to create e-sources for all the
+	folders.
+	(add_folder_esource): Added new to create e-source for a given folder.
+	(add_sources): Creating a list which contains folder name, uri and type
+	for all the folders, which is used in add_account_sources(). Moved 
+	finding the source list and list_sync() in add_account_esources() 
+	instead of add_sources().
+	(remove_esource): Removed.
+	(remove_account_esources): Added new to remove e-sources for all the 
+	folders.
+	(remove_account_esource): Added new to remove e-sources for all folders
+	of given type.
+	(remove_folder_esource): Added new, to remove e-source for a specified 
+	folder. 
+	(requires_relogin): Checking for auth-mechanism and SSL.	
+	(account_changed): Calling remove_account_esources().
+	
+	* storage/e-folder-exchange.c (e_folder_exchange_delete): Calling 
+	remove_folder_esource().
+	(e_folder_exchange_new): Calling add_folder_esource().
+	
+	* storage/exchange-hierarchy-gal.c (exchange_hierarchy_gal_new): 
+	Similar. 
+
+	* storage/exchange-hierarchy-webdav.c (xfer_folder): Similar.
+
+	* storage/exchange-hierarchy-favorites.c (remove_folder): Similar.
+
+	* storage/exchange-hierarchy-foreign.c (remove_folder): Similar.
+	(exchange_hierarchy_foreign_add_folder): Similar.
+
 2005-05-11  Sushma Rai  <rsushma@novell.com>
 
 	* addressbook/e-book-backend-exchange.c (func_match): Forming the search

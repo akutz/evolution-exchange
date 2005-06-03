@@ -392,7 +392,6 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 	E2kHTTPStatus status;
 	EFolder *dest;
 	char *permanent_url = NULL, *physical_uri, *source_parent;
-	ESourceList *cal_source_list, *task_source_list, *cont_source_list;
 	const char *folder_type = NULL, *source_folder_name;
 	ExchangeAccountFolderResult ret_code;
 	int offline;
@@ -470,36 +469,21 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 		
 		if ((strcmp (folder_type, "calendar") == 0) ||
 		    (strcmp (folder_type, "calendar/public") == 0)) {
-			cal_source_list = e_source_list_new_for_gconf (
-						gconf_client_get_default (),
-						CONF_KEY_CAL);
-			remove_esource (hier->account, EXCHANGE_CALENDAR_FOLDER,
-					physical_uri, &cal_source_list,
-					FALSE);
-			e_source_list_sync (cal_source_list, NULL);
-			g_object_unref (cal_source_list);
+			remove_folder_esource (hier->account, 
+					       EXCHANGE_CALENDAR_FOLDER,
+					       physical_uri);
 		}
 		else if ((strcmp (folder_type, "tasks") == 0) ||
 			 (strcmp (folder_type, "tasks/public") == 0)){
-			task_source_list = e_source_list_new_for_gconf (
-						gconf_client_get_default (),
-						CONF_KEY_TASKS);
-			remove_esource (hier->account, EXCHANGE_TASKS_FOLDER,
-					physical_uri, &task_source_list,
-					FALSE);
-			e_source_list_sync (task_source_list, NULL);
-			g_object_unref (task_source_list);
+			remove_folder_esource (hier->account, 
+					       EXCHANGE_TASKS_FOLDER,
+					       physical_uri);
 		}
 		else if ((strcmp (folder_type, "contacts") == 0) ||
 			 (strcmp (folder_type, "contacts/public") == 0)) {
-			cont_source_list = e_source_list_new_for_gconf (
-						gconf_client_get_default (),
-						CONF_KEY_CONTACTS);
-			remove_esource (hier->account, EXCHANGE_CONTACTS_FOLDER,
-					physical_uri, &cont_source_list, 
-					FALSE);
-			e_source_list_sync (cont_source_list, NULL);
-			g_object_unref (cont_source_list);
+			remove_folder_esource (hier->account, 
+					       EXCHANGE_CONTACTS_FOLDER,
+					       physical_uri);
 		}
 	}
 	if (physical_uri)
