@@ -1594,6 +1594,9 @@ func_match (struct _ESExp *f, int argc, struct _ESExpResult **argv, void *data)
 				e2k_restriction_content (
 					e_book_backend_exchange_prop_to_exchange ("family_name"),
 					flags, str),
+				e2k_restriction_content (
+					e_book_backend_exchange_prop_to_exchange ("nickname"),
+					flags, str),
 				NULL);
 		}
 	} else if (!strcmp (propname, "email")) {
