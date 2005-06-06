@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-11 14:04+0100\n"
-"PO-Revision-Date: 2005-02-11 18:04+0100\n"
+"POT-Creation-Date: 2005-06-06 13:56+0000\n"
+"PO-Revision-Date: 2005-06-06 20:47+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Ducth <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,33 +29,33 @@ msgstr ""
 # niets mee hoeft te doen. Het is een indicatie dat het programma bezig is.
 # Het tonen van de status is al een aanduiding dat het programma 'bezig is'
 # Vandaar dat het hier in deze meldingen wordt weggelaten.
-#: addressbook/e-book-backend-exchange.c:1807
-#: addressbook/e-book-backend-gal.c:1344 storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:1837
+#: ../addressbook/e-book-backend-gal.c:1498 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Zoeken..."
 
 # Opnieuw verbinden met LDPA server...
-#: addressbook/e-book-backend-gal.c:243
+#: ../addressbook/e-book-backend-gal.c:266
 msgid "Reconnecting to LDAP server..."
 msgstr "Verbinding met LDAP server wordt opnieuw opgezet..."
 
 # Ontvangen van LDAP zoekresultaten...<
-#: addressbook/e-book-backend-gal.c:1218
+#: ../addressbook/e-book-backend-gal.c:1362
 msgid "Receiving LDAP search results..."
 msgstr "LDAP zoekresultaten worden ingelezen..."
 
-#: addressbook/e-book-backend-gal.c:1365
+#: ../addressbook/e-book-backend-gal.c:1521
 msgid "Error performing search"
 msgstr "Fout bij uitvoeren zoekopdracht"
 
 # niet aangewezen voor offline ondersteuning
-#: calendar/e-cal-backend-exchange.c:277
+#: ../calendar/e-cal-backend-exchange.c:312
 msgid "Folder not marked for offline support"
 msgstr "Map niet gemarkeerd voor offline ondersteuning"
 
 # doelbron?
 # mogelijk weglaten: niet in staat om 's' te plannen voor...
-#: calendar/e-cal-backend-exchange-calendar.c:1716
+#: ../calendar/e-cal-backend-exchange-calendar.c:1665
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -66,66 +66,67 @@ msgstr ""
 
 # ... is bezet in de geselecteerde periode
 # ... is bezet tijdens 
-#: calendar/e-cal-backend-exchange-calendar.c:1735
+#: ../calendar/e-cal-backend-exchange-calendar.c:1684
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "De bron '%s' is bezet gedurende de geselecteerde periode."
 
-#: camel/camel-exchange-folder.c:220
+#: ../camel/camel-exchange-folder.c:220
 msgid "Can only expunge in Deleted Items folder"
 msgstr "Kan alleen weggooien in de map Verwijderde items"
 
-#: camel/camel-exchange-folder.c:244
+#: ../camel/camel-exchange-folder.c:244
 msgid "No Subject"
 msgstr "Geen onderwerp"
 
-#: camel/camel-exchange-folder.c:598
+# ...wanneer u off-line bent
+#: ../camel/camel-exchange-folder.c:371
+msgid "This message is not available in offline mode."
+msgstr "Dit bericht is niet beschikbaar in de off-line stand."
+
+#: ../camel/camel-exchange-folder.c:606
 msgid "Moving messages"
 msgstr "Berichten verplaatsen"
 
-#: camel/camel-exchange-folder.c:599
+#: ../camel/camel-exchange-folder.c:607
 msgid "Copying messages"
 msgstr "Berichten kopiëren"
 
-#: camel/camel-exchange-folder.c:930
+#: ../camel/camel-exchange-folder.c:938
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Kon map %s niet aanmaken: %s"
 
-#: camel/camel-exchange-folder.c:940
+#: ../camel/camel-exchange-folder.c:948
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Kon samenvatting voor %s niet laden"
 
-#: camel/camel-exchange-folder.c:948
+#: ../camel/camel-exchange-folder.c:956
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Kon cache-buffer voor %s niet aanmaken"
 
-#: camel/camel-exchange-folder.c:958
+#: ../camel/camel-exchange-folder.c:966
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Kon journaal voor %s niet aanmaken"
 
 # aangepaste berichten
-#: camel/camel-exchange-folder.c:998
+#: ../camel/camel-exchange-folder.c:1011
 msgid "Scanning for changed messages"
 msgstr "Scannen voor veranderde berichten"
 
-#: camel/camel-exchange-folder.c:1022
+#: ../camel/camel-exchange-folder.c:1037
 msgid "Fetching summary information for new messages"
 msgstr "Samenvatting voor nieuwe berichten ophalen"
 
-#: camel/camel-exchange-journal.c:279
-msgid "No folder name found\n"
-msgstr "Geem mapnaam gevonden\n"
-
 # achteraan toevoegen/toevoegen
-#: camel/camel-exchange-journal.c:342
+#: ../camel/camel-exchange-journal.c:272
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "Kan bericht in offline-modus niet toevoegen: cache niet beschikbaar"
 
-#: camel/camel-exchange-journal.c:358
+#: ../camel/camel-exchange-journal.c:288
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Kan bericht in offline-modus niet toevoegen: %s"
@@ -135,72 +136,72 @@ msgstr "Kan bericht in offline-modus niet toevoegen: %s"
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: camel/camel-exchange-provider.c:46
+#: ../camel/camel-exchange-provider.c:46
 msgid "Windows User_name:"
 msgstr "Windows gebruikersnaam:"
 
 # hierom niet vertaald
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: camel/camel-exchange-provider.c:51
+#: ../camel/camel-exchange-provider.c:51
 msgid "Global Address List / Active Directory"
 msgstr "Global Address List / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:55
 msgid "Global Catalog server name:"
 msgstr "Global Catalog server name:"
 
-#: camel/camel-exchange-provider.c:57
+#: ../camel/camel-exchange-provider.c:57
 #, c-format
 msgid "Limit number of GAL responses: %s"
 msgstr "Aantal GAL antwoorden beperken: %s"
 
-#: camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:60
 msgid "Options"
 msgstr "Opties"
 
-#: camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:62
 #, c-format
 msgid "Password Expiry Warning period: %s"
 msgstr "'Wachtwoord verloopt' waarschuwingsperiode: %s"
 
-#: camel/camel-exchange-provider.c:64
+#: ../camel/camel-exchange-provider.c:64
 msgid "Automatically synchronize account locally"
 msgstr "Automatisch account lokaal synchroniseren"
 
 # postvak in of 'inbox'
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:68
+#: ../camel/camel-exchange-provider.c:67
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr "Filters toepassen op nieuwe berichten in Inbox op deze server"
 
 # ik noem het beestje gewoon bij de naam: Spam ipv troep
-#: camel/camel-exchange-provider.c:70
+#: ../camel/camel-exchange-provider.c:69
 msgid "Check new messages for Junk contents"
 msgstr "Nieuwe berichten controleren op spam"
 
-#: camel/camel-exchange-provider.c:72
+#: ../camel/camel-exchange-provider.c:71
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "Aleen Inbox controleren op nieuwe berichten"
 
 # hoofdletters omdat het een programmanaam is van MS
-#: camel/camel-exchange-provider.c:88
+#: ../camel/camel-exchange-provider.c:88
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: camel/camel-exchange-provider.c:90
+#: ../camel/camel-exchange-provider.c:90
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr ""
 "Voor het werken met mail (en andere data) op Microsoft Exchange servers"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:106
+#: ../camel/camel-exchange-provider.c:106
 msgid "Secure Password"
 msgstr "Secure Password"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:109
+#: ../camel/camel-exchange-provider.c:109
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -210,11 +211,11 @@ msgstr ""
 
 # bloot wachtwoord
 # platte tekst
-#: camel/camel-exchange-provider.c:117
+#: ../camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "Wachtwoord in gewone tekst"
 
-#: camel/camel-exchange-provider.c:119
+#: ../camel/camel-exchange-provider.c:119
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -222,86 +223,86 @@ msgstr ""
 "Met deze optie zal verbinding met de Exchange server worden gemaakt door aan "
 "te melden met een wachtwoord in gewone tekst."
 
-#: camel/camel-exchange-store.c:260
+#: ../camel/camel-exchange-store.c:267
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange server %s"
 
-#: camel/camel-exchange-store.c:263
+#: ../camel/camel-exchange-store.c:270
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Exchange account voor %s op %s"
 
-#: camel/camel-exchange-store.c:290
+#: ../camel/camel-exchange-store.c:297
 msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange backend proces"
 
 # een dergelijke map bestaat niet
-#: camel/camel-exchange-store.c:352
+#: ../camel/camel-exchange-store.c:345
 #, c-format
 msgid "No such folder %s"
 msgstr "Map %s bestaat niet"
 
-#: camel/camel-exchange-store.c:480
+#: ../camel/camel-exchange-store.c:473
 msgid "Cannot get folder info in offline mode."
 msgstr "Kan map-info in offline toestand niet verkrijgen."
 
-#: camel/camel-exchange-store.c:542
+#: ../camel/camel-exchange-store.c:537
 msgid "Cannot create folder in offline mode."
 msgstr "Kan map in offline toestand niet aanmaken"
 
-#: camel/camel-exchange-store.c:569
+#: ../camel/camel-exchange-store.c:564
 msgid "Cannot delete folder in offline mode."
 msgstr "Kan de map in offline toestand niet verwijderen."
 
-#: camel/camel-exchange-store.c:585
+#: ../camel/camel-exchange-store.c:580
 msgid "Cannot rename folder in offline mode."
 msgstr "Kan map in offline toestand niet hernoemen."
 
-#: camel/camel-exchange-transport.c:110
+#: ../camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "Exchange-transport kan alleen worden gebruikt met Exchange-mail bron"
 
-#: camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "Kan bericht niet versturen: een of meerder ongeldige ontvangers"
 
-#: camel/camel-exchange-transport.c:131
+#: ../camel/camel-exchange-transport.c:131
 msgid "Could not find 'From' address in message"
 msgstr "Kon het 'Van' adres niet vinden in het bericht"
 
 # socket is een technische term
-#: camel/camel-stub.c:134
+#: ../camel/camel-stub.c:134
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Kon socket niet aanmaken: %s"
 
-#: camel/camel-stub.c:149
+#: ../camel/camel-stub.c:149
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Kon geen verbinding krijgen met %s: %s"
 
-#: camel/camel-stub.c:179
+#: ../camel/camel-stub.c:179
 #, c-format
 msgid "Path too long: %s"
 msgstr "Pad is te lang: %s"
 
-#: camel/camel-stub.c:205
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Kon status 'thread' niet opstarten: %s"
 
-#: camel/camel-stub.c:457
+#: ../camel/camel-stub.c:457
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Verbinding met %s is verbroken"
 
-#: camel/camel-stub.c:461
+#: ../camel/camel-stub.c:461
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Fout bij communiceren met %s: %s"
 
-#: lib/e2k-autoconfig.c:1426 storage/exchange-autoconfig-wizard.c:224
+#: ../lib/e2k-autoconfig.c:1471 ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -312,7 +313,7 @@ msgstr ""
 "probeer dan opnieuw."
 
 # lokaliseren/vinden
-#: lib/e2k-autoconfig.c:1435 storage/exchange-autoconfig-wizard.c:232
+#: ../lib/e2k-autoconfig.c:1480 ../storage/exchange-autoconfig-wizard.c:219
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -320,7 +321,7 @@ msgstr ""
 "Kon geen Exchange-server vinden.\n"
 "Controleer of de servernaam juist is gespeld en probeer dan opnieuw."
 
-#: lib/e2k-autoconfig.c:1445 storage/exchange-autoconfig-wizard.c:241
+#: ../lib/e2k-autoconfig.c:1490 ../storage/exchange-autoconfig-wizard.c:228
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -329,7 +330,7 @@ msgstr ""
 "Controleer dat uw gebruikersnaam en wachtwoord juist zijn en probeer dan "
 "opnieuw."
 
-#: lib/e2k-autoconfig.c:1453 storage/exchange-autoconfig-wizard.c:248
+#: ../lib/e2k-autoconfig.c:1498 ../storage/exchange-autoconfig-wizard.c:235
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -345,7 +346,7 @@ msgstr ""
 "Mogelijk moet u bij uw gebruikersnaam de Windows domeinnaam opgeven (bijv. "
 "\"MIJN-DOMEIN\\%s\")."
 
-#: lib/e2k-autoconfig.c:1466 storage/exchange-autoconfig-wizard.c:260
+#: ../lib/e2k-autoconfig.c:1511 ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -353,7 +354,8 @@ msgstr ""
 "Kon OWA-gegevens niet bij de aangegeven URL vinden.\n"
 "Controleer of de URL juist is en probeer dan opnieuw."
 
-#: lib/e2k-autoconfig.c:1474
+#: ../lib/e2k-autoconfig.c:1520
+#, c-format
 msgid ""
 "Ximian Connector requires access to certain functionality on the Exchange "
 "Server that appears to be disabled or blocked.  (This is usually "
@@ -362,15 +364,14 @@ msgid ""
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:\n"
-"http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
-"html "
+"%s"
 msgstr ""
-"Ximian Connector vereist toegang tot bepaalde functionaliteit op de Exchange-server die schijnbaar is uitgezet of geblokkeerd.  (Dit is meestal zonder opzet.)  Uw Exchange systeembeheerder moet deze functionaliteit toegankelijk maken voordat u de Ximian Connector kunt gebruiken.\n"
+"Ximian Connector vereist toegang tot bepaalde functionaliteit op de Exchange-server die schijnbaar is uitgezet of geblokkeerd.  (Meestal zonder opzet.)  Uw systeembeheerder voor Exchange moet deze functionaliteit toegankelijk maken voordat u de Ximian Connector kunt gebruiken.\n"
 "\n"
-"Bekijk de link hieronder voor informatie die u aan uw Exchange systeembeheerder moet geven:\n"
-"http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328.html"
+"Voor de informatie die u aan uw Exchange systeembeheerder moet geven, bekijkt u de link hieronder:\n"
+"%s"
 
-#: lib/e2k-autoconfig.c:1490 storage/exchange-autoconfig-wizard.c:288
+#: ../lib/e2k-autoconfig.c:1536 ../storage/exchange-autoconfig-wizard.c:275
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
@@ -378,7 +379,7 @@ msgstr ""
 "De door u gegeven Exchange server URL is voor een Exchange 5.5 server. "
 "Ximian connector ondersteund echter alleen Microsoft Exchange 2000 en 2003."
 
-#: lib/e2k-autoconfig.c:1499 storage/exchange-autoconfig-wizard.c:301
+#: ../lib/e2k-autoconfig.c:1545 ../storage/exchange-autoconfig-wizard.c:288
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -387,42 +388,42 @@ msgstr ""
 "Controleer de URL, gebruikersnaam en wachtwoord en probeer dan opnieuw."
 
 # wachtwoord voor %s/wachtwoord geven voor %s
-#: lib/e2k-autoconfig.c:1524
+#: ../lib/e2k-autoconfig.c:1567
 #, c-format
 msgid "Enter password for %s"
 msgstr "Geef wachtwoord voor %s"
 
 # geef wachtwoord
-#: lib/e2k-autoconfig.c:1525 storage/exchange-account.c:859
+#: ../lib/e2k-autoconfig.c:1568 ../storage/exchange-account.c:874
 msgid "Enter password"
 msgstr "Wachtwoord invoeren"
 
 # mag niet vertaald worden?
 #. i18n: These are Outlook's words for the default roles in
 #. the folder permissions dialog.
-#: lib/e2k-security-descriptor.c:847
+#: ../lib/e2k-security-descriptor.c:847
 msgid "Owner"
 msgstr "Eigenaar"
 
 # redacteur
-#: lib/e2k-security-descriptor.c:857
+#: ../lib/e2k-security-descriptor.c:857
 msgid "Publishing Editor"
 msgstr "Publicerende editor"
 
 # Redacteur
-#: lib/e2k-security-descriptor.c:865
+#: ../lib/e2k-security-descriptor.c:865
 msgid "Editor"
 msgstr "Editor"
 
-#: lib/e2k-security-descriptor.c:872
+#: ../lib/e2k-security-descriptor.c:872
 msgid "Publishing Author"
 msgstr "Publicerende auteur"
 
-#: lib/e2k-security-descriptor.c:878
+#: ../lib/e2k-security-descriptor.c:878
 msgid "Author"
 msgstr "Auteur"
 
-#: lib/e2k-security-descriptor.c:883
+#: ../lib/e2k-security-descriptor.c:883
 msgid "Non-editing Author"
 msgstr "Auteur (non-editing)"
 
@@ -430,114 +431,116 @@ msgstr "Auteur (non-editing)"
 # Controleur?
 # bespreker
 # recensist
-#: lib/e2k-security-descriptor.c:887
+#: ../lib/e2k-security-descriptor.c:887
 msgid "Reviewer"
 msgstr "Reviewer"
 
 # beter woord
-#: lib/e2k-security-descriptor.c:889
+#: ../lib/e2k-security-descriptor.c:889
 msgid "Contributor"
 msgstr "Medewerker"
 
-#: lib/e2k-security-descriptor.c:891 storage/exchange-delegates.glade.h:7
+#: ../lib/e2k-security-descriptor.c:891
+#: ../storage/exchange-delegates.glade.h:7
 msgid "None"
 msgstr "Geen"
 
-#: lib/e2k-security-descriptor.c:906 storage/exchange-delegates-user.c:144
+#: ../lib/e2k-security-descriptor.c:906
+#: ../storage/exchange-delegates-user.c:144
 msgid "Custom"
 msgstr "Aangepast"
 
-#: lib/e2k-user-dialog.c:144
+#: ../lib/e2k-user-dialog.c:144
 msgid "Select User"
 msgstr "Gebruiker selecteren"
 
-#: lib/e2k-user-dialog.c:182
+#: ../lib/e2k-user-dialog.c:182
 msgid "Addressbook..."
 msgstr "Adresboek..."
 
 # een dergelijke map bestaat niet
-#: mail/mail-stub-exchange.c:231
+#: ../mail/mail-stub-exchange.c:231
 msgid "No such folder"
 msgstr "Map bestaat niet"
 
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2309
-#: mail/mail-stub-exchange.c:2347 mail/mail-stub-exchange.c:2407
-#: shell/e-storage.c:573 storage/xc-commands.c:315
+#: ../mail/mail-stub-exchange.c:248 ../mail/mail-stub-exchange.c:2320
+#: ../mail/mail-stub-exchange.c:2358 ../mail/mail-stub-exchange.c:2418
+#: ../shell/e-storage.c:573 ../storage/xc-commands.c:320
 msgid "Permission denied"
 msgstr "Toegang geweigerd"
 
 # een dergelijke map bestaat niet
-#: mail/mail-stub-exchange.c:546
+#: ../mail/mail-stub-exchange.c:546
 msgid "No such folder."
 msgstr "Map bestaat niet."
 
-#: mail/mail-stub-exchange.c:555
+#: ../mail/mail-stub-exchange.c:555
 msgid "Could not create folder."
 msgstr "Kon map niet aanmaken."
 
-#: mail/mail-stub-exchange.c:602 mail/mail-stub-exchange.c:620
+#: ../mail/mail-stub-exchange.c:603 ../mail/mail-stub-exchange.c:621
 msgid "Could not open folder: Permission denied"
 msgstr "Kon map niet openen: Toegang geweigerd"
 
-#: mail/mail-stub-exchange.c:606 mail/mail-stub-exchange.c:719
+#: ../mail/mail-stub-exchange.c:607 ../mail/mail-stub-exchange.c:720
 msgid "Could not open folder"
 msgstr "Kon map niet openen"
 
-#: mail/mail-stub-exchange.c:774
+#: ../mail/mail-stub-exchange.c:775
 msgid "Could not open Deleted Items folder"
 msgstr "Kon de map Verwijderde items niet openen"
 
 # verkrijgen
 # ophalen is begrijpelijker
-#: mail/mail-stub-exchange.c:1094 mail/mail-stub-exchange.c:1135
+#: ../mail/mail-stub-exchange.c:1105 ../mail/mail-stub-exchange.c:1146
 msgid "Could not get new messages"
 msgstr "Kon nieuwe berichten niet ophalen"
 
 # legen ipv leegmaken?
-#: mail/mail-stub-exchange.c:1300
+#: ../mail/mail-stub-exchange.c:1311
 msgid "Could not empty Deleted Items folder"
 msgstr "Kon de map Verwijderde items niet leegmaken"
 
-#: mail/mail-stub-exchange.c:1372
+#: ../mail/mail-stub-exchange.c:1383
 msgid "Could not append message; mailbox is over quota"
 msgstr "Kon bericht niet toevoegen; mailbox heeft quota overschreden"
 
-#: mail/mail-stub-exchange.c:1373
+#: ../mail/mail-stub-exchange.c:1384
 msgid "Could not append message"
 msgstr "Kon bericht niet toevoegen"
 
 # Een dergelijk bericht bestaat niet
-#: mail/mail-stub-exchange.c:1856
+#: ../mail/mail-stub-exchange.c:1867
 msgid "No such message"
 msgstr "Bericht bestaat niet"
 
-#: mail/mail-stub-exchange.c:1909
+#: ../mail/mail-stub-exchange.c:1920
 msgid "Message has been deleted"
 msgstr "Bericht is verwijderd"
 
-#: mail/mail-stub-exchange.c:1911
+#: ../mail/mail-stub-exchange.c:1922
 msgid "Error retrieving message"
 msgstr "Fout bij ophalen bericht"
 
-#: mail/mail-stub-exchange.c:1953
+#: ../mail/mail-stub-exchange.c:1964
 msgid "Mailbox does not support full-text searching"
 msgstr ""
 "Voor deze mailbox is geen ondersteuning voor het doorzoeken van de volledige "
 "tekst"
 
-#: mail/mail-stub-exchange.c:2051
+#: ../mail/mail-stub-exchange.c:2062
 msgid "Unable to move/copy messages"
 msgstr "Kon berichten niet verplaatsen/kopiëren"
 
-#: mail/mail-stub-exchange.c:2224
+#: ../mail/mail-stub-exchange.c:2235
 msgid "No mail submission URI for this mailbox"
 msgstr "Geen mail-aanleverings-URI voor deze mailbox"
 
-#: mail/mail-stub-exchange.c:2260
+#: ../mail/mail-stub-exchange.c:2271
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Server zal geen berichten accepteren via Exchange transport"
 
-#: mail/mail-stub-exchange.c:2262
+#: ../mail/mail-stub-exchange.c:2273
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -546,7 +549,7 @@ msgstr ""
 "Uw account heeft geen rechten om <%s> te gebruiken\n"
 "als een 'Van' adres."
 
-#: mail/mail-stub-exchange.c:2274
+#: ../mail/mail-stub-exchange.c:2285
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -554,26 +557,26 @@ msgstr ""
 "Kon bericht niet versturen.\n"
 "Dit betekent mogelijk dat uw account over zijn quota is."
 
-#: mail/mail-stub-exchange.c:2278
+#: ../mail/mail-stub-exchange.c:2289
 msgid "Could not send message"
 msgstr "Kon bericht niet versturen"
 
-#: mail/mail-stub-exchange.c:2301 mail/mail-stub-exchange.c:2352
-#: mail/mail-stub-exchange.c:2411 shell/e-storage.c:557
-#: storage/xc-commands.c:319
+#: ../mail/mail-stub-exchange.c:2312 ../mail/mail-stub-exchange.c:2363
+#: ../mail/mail-stub-exchange.c:2422 ../shell/e-storage.c:557
+#: ../storage/xc-commands.c:324
 msgid "Generic error"
 msgstr "Algemene fout"
 
-#: mail/mail-stub-exchange.c:2305 storage/xc-commands.c:309
+#: ../mail/mail-stub-exchange.c:2316 ../storage/xc-commands.c:314
 msgid "Folder already exists"
 msgstr "Map bestaat al"
 
-#: mail/mail-stub-exchange.c:2332 mail/mail-stub-exchange.c:2374
-#: mail/mail-stub-exchange.c:2403
+#: ../mail/mail-stub-exchange.c:2343 ../mail/mail-stub-exchange.c:2385
+#: ../mail/mail-stub-exchange.c:2414
 msgid "Folder doesn't exist"
 msgstr "Map bestaat niet"
 
-#: shell/e-folder-creation-dialog.c:138
+#: ../shell/e-folder-creation-dialog.c:138
 #, c-format
 msgid ""
 "Cannot create the specified folder:\n"
@@ -582,36 +585,36 @@ msgstr ""
 "Kan de opgegeven map niet aanmaken:\n"
 "%s"
 
-#: shell/e-folder-creation-dialog.c:179
+#: ../shell/e-folder-creation-dialog.c:179
 #, c-format
 msgid "The specified folder name is not valid: %s"
 msgstr "The opgegeven naam voor de map is niet geldig: %s"
 
-#: shell/e-folder-creation-dialog.c:310
+#: ../shell/e-folder-creation-dialog.c:310
 msgid "Create New Folder"
 msgstr "Nieuwe map aanmaken"
 
-#: shell/e-folder-creation-dialog.glade.h:1
-#: storage/exchange-autoconfig-wizard.glade.h:1
-#: storage/exchange-change-password.glade.h:1
+#: ../shell/e-folder-creation-dialog.glade.h:1
+#: ../storage/exchange-autoconfig-wizard.glade.h:1
+#: ../storage/exchange-change-password.glade.h:1
 msgid "*"
 msgstr "*"
 
-#: shell/e-folder-creation-dialog.glade.h:2
+#: ../shell/e-folder-creation-dialog.glade.h:2
 msgid "Folder _name:"
 msgstr "Map_naam:"
 
-#: shell/e-folder-creation-dialog.glade.h:3
+#: ../shell/e-folder-creation-dialog.glade.h:3
 msgid "Folder _type:"
 msgstr "Map_type:"
 
-#: shell/e-folder-creation-dialog.glade.h:4
+#: ../shell/e-folder-creation-dialog.glade.h:4
 msgid "Specify where to create the folder:"
 msgstr "Aangeven waar de map moet worden aangemaakt:"
 
 # verzetten?
 # verplaatsen? (move)
-#: shell/e-folder-dnd-bridge.c:52
+#: ../shell/e-folder-dnd-bridge.c:52
 #, c-format
 msgid ""
 "Cannot transfer folder:\n"
@@ -620,7 +623,7 @@ msgstr ""
 "Kan de map niet omzetten:\n"
 "%s"
 
-#: shell/e-folder-misc-dialogs.c:62
+#: ../shell/e-folder-misc-dialogs.c:62
 #, c-format
 msgid ""
 "Cannot delete folder:\n"
@@ -629,17 +632,17 @@ msgstr ""
 "Kan de map niet verwijderen:\n"
 "%s"
 
-#: shell/e-folder-misc-dialogs.c:115
+#: ../shell/e-folder-misc-dialogs.c:115
 #, c-format
 msgid "Really delete folder \"%s\"?"
 msgstr "Map \"%s\" daadwerkelijk verwijderen?"
 
-#: shell/e-folder-misc-dialogs.c:129
+#: ../shell/e-folder-misc-dialogs.c:129
 #, c-format
 msgid "Delete \"%s\""
 msgstr "\"%s\" verwijderen"
 
-#: shell/e-folder-misc-dialogs.c:154
+#: ../shell/e-folder-misc-dialogs.c:154
 #, c-format
 msgid ""
 "Cannot rename folder:\n"
@@ -648,17 +651,17 @@ msgstr ""
 "Kan map niet hernoemen:\n"
 "%s"
 
-#: shell/e-folder-misc-dialogs.c:188
+#: ../shell/e-folder-misc-dialogs.c:188
 #, c-format
 msgid "Rename the \"%s\" folder to:"
 msgstr "De map \"%s\" hernoemen naar:"
 
-#: shell/e-folder-misc-dialogs.c:191
+#: ../shell/e-folder-misc-dialogs.c:191
 msgid "Rename Folder"
 msgstr "Map hernoemen"
 
 # kies ipv gebruik
-#: shell/e-folder-misc-dialogs.c:205
+#: ../shell/e-folder-misc-dialogs.c:205
 #, c-format
 msgid "A folder named \"%s\" already exists. Please use a different name."
 msgstr "Een map genaamd \"%s\" bestaat al. Kies een andere naam."
@@ -667,39 +670,39 @@ msgstr "Een map genaamd \"%s\" bestaat al. Kies een andere naam."
 #. It would be nice to insensitivize the OK button appropriately
 #. instead of doing this, but unfortunately we can't do this for the
 #. Bonobo control.
-#: shell/e-folder-misc-dialogs.c:439
+#: ../shell/e-folder-misc-dialogs.c:451
 msgid "Please select a user."
 msgstr "Selecteer een gebruiker."
 
 # map wordt geopend
-#: shell/e-folder-misc-dialogs.c:539
+#: ../shell/e-folder-misc-dialogs.c:553
 msgid "Opening Folder"
 msgstr "Map openen"
 
 # map %s wordt geopend
-#: shell/e-folder-misc-dialogs.c:545
+#: ../shell/e-folder-misc-dialogs.c:559
 #, c-format
 msgid "Opening Folder \"%s\""
 msgstr "Map \"%s\" openen"
 
-#: shell/e-folder-misc-dialogs.c:550
+#: ../shell/e-folder-misc-dialogs.c:564
 #, c-format
 msgid "in \"%s\" ..."
 msgstr "in \"%s\" ..."
 
-#: shell/e-folder-misc-dialogs.c:617
+#: ../shell/e-folder-misc-dialogs.c:631
 #, c-format
 msgid "Could not open other user's folder: %s."
 msgstr "Kon de map van de andere gebruiker niet openen: %s."
 
-#: shell/e-folder-misc-dialogs.c:667
+#: ../shell/e-folder-misc-dialogs.c:681
 msgid "Cannot find the specified other user's folder."
 msgstr "Kan de opgegeven map van de andere gebruiker niet vinden."
 
 # betekenis?
 # Kan abonnement op map %s niet opzeggen
 # kan abonnement op map niet opzeggen: 'melding'
-#: shell/e-folder-misc-dialogs.c:699
+#: ../shell/e-folder-misc-dialogs.c:713
 #, c-format
 msgid ""
 "Cannot unsubscribe from folder:\n"
@@ -708,150 +711,151 @@ msgstr ""
 "Kan abonnement op de map niet opzeggen:\n"
 "%s"
 
-#: shell/e-folder-misc-dialogs.c:752
+#: ../shell/e-folder-misc-dialogs.c:766
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "Abonnement op map \"%s\" echt opzeggen?"
 
-#: shell/e-folder-misc-dialogs.c:766
+#: ../shell/e-folder-misc-dialogs.c:780
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "Abonnement op \"%s\" opzeggen"
 
-#: shell/e-foreign-folder-dialog.glade.h:1
+#: ../shell/e-foreign-folder-dialog.glade.h:1
 msgid "Open Other User's Folder"
 msgstr "Map van andere gebruiker openen"
 
-#: shell/e-foreign-folder-dialog.glade.h:2
+#: ../shell/e-foreign-folder-dialog.glade.h:2
 msgid "_Account:"
 msgstr "_Account:"
 
-#: shell/e-foreign-folder-dialog.glade.h:3
+#: ../shell/e-foreign-folder-dialog.glade.h:3
 msgid "_Folder Name:"
 msgstr "_Mapnaam:"
 
-#: shell/e-foreign-folder-dialog.glade.h:4
+#: ../shell/e-foreign-folder-dialog.glade.h:4
 msgid "_User:"
 msgstr "_Gebruiker:"
 
 # aankruisvakje
-#: shell/e-storage-set-view.etspec.h:1
+#: ../shell/e-storage-set-view.etspec.h:1
 msgid "Checkbox"
 msgstr "Vinkje"
 
-#: shell/e-storage-set-view.etspec.h:2
+#: ../shell/e-storage-set-view.etspec.h:2
 msgid "Folder"
 msgstr "Map"
 
-#: shell/e-storage.c:555
+#: ../shell/e-storage.c:555
 msgid "No error"
 msgstr "Geen fout"
 
-#: shell/e-storage.c:559
+#: ../shell/e-storage.c:559
 msgid "A folder with the same name already exists"
 msgstr "Een map met dezelfde naam bestaat al"
 
-#: shell/e-storage.c:561
+#: ../shell/e-storage.c:561
 msgid "The specified folder type is not valid"
 msgstr "Het opgegeven maptype is ongeldig"
 
-#: shell/e-storage.c:563
+#: ../shell/e-storage.c:563
 msgid "I/O error"
 msgstr "I/O fout"
 
 # ... voor het aanmaken van de map
-#: shell/e-storage.c:565
+#: ../shell/e-storage.c:565
 msgid "Not enough space to create the folder"
 msgstr "Niet genoeg ruimte om de map aan te maken"
 
-#: shell/e-storage.c:567
+#: ../shell/e-storage.c:567
 msgid "The folder is not empty"
 msgstr "De map is niet leeg"
 
-#: shell/e-storage.c:569
+#: ../shell/e-storage.c:569
 msgid "The specified folder was not found"
 msgstr "De opgegeven map is niet gevonden"
 
-#: shell/e-storage.c:571
+#: ../shell/e-storage.c:571
 msgid "Function not implemented in this storage"
 msgstr "Functie niet geïmplementeerd voor deze opslag"
 
-#: shell/e-storage.c:575
+#: ../shell/e-storage.c:575
 msgid "Operation not supported"
 msgstr "Bewerking niet ondersteund"
 
-#: shell/e-storage.c:577
+#: ../shell/e-storage.c:577
 msgid "The specified type is not supported in this storage"
 msgstr "Het opgegeven type is niet ondersteund voor deze opslag"
 
-#: shell/e-storage.c:579
+#: ../shell/e-storage.c:579
 msgid "The specified folder cannot be modified or removed"
 msgstr "De opgegeven map kan niet worden aangepast of verwijderd"
 
 # descendants, submappen?
 # afstammelingen
 # kinderen
-#: shell/e-storage.c:581
+#: ../shell/e-storage.c:581
 msgid "Cannot make a folder a child of one of its descendants"
 msgstr "Kan de map niet verplaatsen naar een van zijn eigen submappen"
 
-#: shell/e-storage.c:583
+#: ../shell/e-storage.c:583
 msgid "Cannot create a folder with that name"
 msgstr "Kan geen map aanmaken met die naam"
 
-#: shell/e-storage.c:585
+#: ../shell/e-storage.c:585
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Deze bewerking kan niet uitgevoerd worden in de off-line stand"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1418
+#: ../shell/e-storage.c:587 ../storage/exchange-account.c:1473
 msgid "Unknown error"
 msgstr "Onbekende fout"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
 msgid "*Control*F5"
 msgstr "*Control*F5"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Addressbook Exchange backend"
 msgstr "Evolution adresboek Exchange backend"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
 msgid "Evolution Calendar Exchange backend"
 msgstr "Evolution agenda Exchange backend"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
 msgid "Evolution Exchange Component"
 msgstr "Evolution Exchange component"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
 msgid "Exchange"
 msgstr "Exchange"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
 msgid "Ximian Connector for Exchange"
 msgstr "Ximian Connector voor Exchange"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
 msgid "_Exchange"
 msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:572
+#: ../storage/exchange-account.c:584
 #, c-format
 msgid "%s's Folders"
 msgstr "%s's mappen"
 
-#: storage/exchange-account.c:855
+#: ../storage/exchange-account.c:869
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sGeef wachtwoord voor %s"
 
-#: storage/exchange-account.c:1040
+#. email id is not proper, we return instead of trying nt_domain
+#: ../storage/exchange-account.c:1069
 msgid "Cannot change password due to configuration problems"
 msgstr "Kan wachtwoord niet veranderen vanwege configuratieproblemen"
 
-#: storage/exchange-account.c:1055
+#: ../storage/exchange-account.c:1092
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -859,35 +863,35 @@ msgstr ""
 "Server heeft het wachtwoord geweigerd omdat het te zwak is.\n"
 "Probeer het opnieuw met een ander wachtwoord."
 
-#: storage/exchange-account.c:1060
+#: ../storage/exchange-account.c:1097
 msgid "Could not change password"
 msgstr "Kon wachtwoord niet veranderen"
 
-#: storage/exchange-account.c:1144
+#: ../storage/exchange-account.c:1190
 msgid "Personal Folders"
 msgstr "Persoonlijke mappen"
 
-#: storage/exchange-account.c:1159
+#: ../storage/exchange-account.c:1205
 msgid "Favorite Public Folders"
 msgstr "Favoriete publieke mappen"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1176
+#: ../storage/exchange-account.c:1222
 msgid "All Public Folders"
 msgstr "Alle publieke mappen"
 
 # Volledige adreslijst
 # Algemene adreslijst
 #. i18n: Outlookism
-#: storage/exchange-account.c:1190
+#: ../storage/exchange-account.c:1236
 msgid "Global Address List"
 msgstr "Volledige adreslijst"
 
-#: storage/exchange-account.c:1276
+#: ../storage/exchange-account.c:1326
 msgid "Exchange Account is offline. Cannot display folders\n"
 msgstr "Exchange account is offline. Kan mappen niet weergeven\n"
 
-#: storage/exchange-account.c:1329
+#: ../storage/exchange-account.c:1384
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -895,7 +899,7 @@ msgstr ""
 "Aanmeldingscontrole bij server mislukt. (Wachtwoord onjuist?)\n"
 "\n"
 
-#: storage/exchange-account.c:1334
+#: ../storage/exchange-account.c:1389
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -915,12 +919,12 @@ msgstr ""
 "Of u heeft gewoon uw wachtwoord verkeerd getypt.\n"
 "\n"
 
-#: storage/exchange-account.c:1376
+#: ../storage/exchange-account.c:1431
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Mailbox voor %s staat niet op deze server."
 
-#: storage/exchange-account.c:1381
+#: ../storage/exchange-account.c:1436
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -929,7 +933,7 @@ msgstr ""
 "De server '%s' draait op Exchange 5.5 en is\n"
 "daarom niet compatibel met Ximian connector"
 
-#: storage/exchange-account.c:1388
+#: ../storage/exchange-account.c:1443
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -940,28 +944,49 @@ msgstr ""
 "Indien OWA op een ander pad loopt, moet u dit in de accountconfiguratie-\n"
 "dialoog specificeren"
 
-#: storage/exchange-account.c:1396
+#: ../storage/exchange-account.c:1451
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Geen mailbox voor gebruiker %s op %s.\n"
 
-#: storage/exchange-account.c:1402 storage/exchange-account.c:1408
-#: storage/exchange-account.c:1416
+#: ../storage/exchange-account.c:1457 ../storage/exchange-account.c:1463
+#: ../storage/exchange-account.c:1471
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Kon geen verbinding maken met server %s: %s"
 
 # vinden
 # oplossen
-#: storage/exchange-account.c:1404
+#: ../storage/exchange-account.c:1459
 msgid "Could not resolve hostname"
 msgstr "Kon de hostnaam niet traceren"
 
-#: storage/exchange-account.c:1410
+#: ../storage/exchange-account.c:1465
 msgid "Network error"
 msgstr "Netwerkfout"
 
-#: storage/exchange-autoconfig-wizard.c:267
+#: ../storage/exchange-account.c:1529
+#, c-format
+msgid ""
+"You have exceeded your quota of %d %s for storing mails on this server. Your "
+"current usage is : %.0f %s."
+msgstr "U heeft uw quota van %d %s voor het opslaan van berichten op deze server overschreden. Uw huidige gebruik is: %.0f %s."
+
+#: ../storage/exchange-account.c:1532
+msgid "You will not be able to either send or receive mails now\n"
+msgstr "U zult nu geen berichten meer kunnen verzenden of ontvangen.\n"
+
+#: ../storage/exchange-account.c:1535
+msgid ""
+"You will not be able to send mails till you clear up some space by deleting "
+"some mails.\n"
+msgstr "U zult geen berichten kunnen verzenden tenzij u eerst ruimte vrijmaakt door enkele berichten te verwijderen.\n"
+
+#: ../storage/exchange-account.c:1538
+msgid "Try to clear up some space by deleting some mails.\n"
+msgstr "Probeer ruimte vrij te maken door enkele berichten te verwijderen.\n"
+
+#: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
 "Ximian Connector requires access to certain functionality on the Exchange "
 "Server that appears to be disabled or blocked.  (This is usually "
@@ -979,7 +1004,7 @@ msgstr ""
 "Voor de informatie die u aan uw Exchange systeembeheerder moet geven, "
 "bekijkt u de link hieronder:"
 
-#: storage/exchange-autoconfig-wizard.c:345
+#: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -990,7 +1015,7 @@ msgstr ""
 "stap terug doen en bij uw gebruikersnaam de Windows domeinnaam opgeven "
 "(bijv. \"MIJN-DOMEIN\\%s\")."
 
-#: storage/exchange-autoconfig-wizard.c:352
+#: ../storage/exchange-autoconfig-wizard.c:339
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -998,12 +1023,12 @@ msgstr ""
 "Kon met de opgegeven server geen verbinding maken.\n"
 "Controleer de naam van de server en probeer dan opnieuw."
 
-#: storage/exchange-autoconfig-wizard.c:389
-#: storage/exchange-autoconfig-wizard.c:393
+#: ../storage/exchange-autoconfig-wizard.c:376
+#: ../storage/exchange-autoconfig-wizard.c:380
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: storage/exchange-autoconfig-wizard.c:477
+#: ../storage/exchange-autoconfig-wizard.c:445
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -1011,65 +1036,65 @@ msgstr ""
 "Systeemfout tijdens configuratie:\n"
 "Aanmaken nieuw account mislukt."
 
-#: storage/exchange-autoconfig-wizard.c:491
-#: storage/exchange-config-listener.c:578
+#: ../storage/exchange-autoconfig-wizard.c:459
+#: ../storage/exchange-config-listener.c:775
 msgid "You may only configure a single Exchange account"
 msgstr "U kunt slechts één Exchange-account configureren"
 
-#: storage/exchange-autoconfig-wizard.glade.h:2
+#: ../storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
 msgstr "Configuratie mislukt"
 
-#: storage/exchange-autoconfig-wizard.glade.h:3
+#: ../storage/exchange-autoconfig-wizard.glade.h:3
 msgid "Done"
 msgstr "Klaar"
 
-#: storage/exchange-autoconfig-wizard.glade.h:4
+#: ../storage/exchange-autoconfig-wizard.glade.h:4
 msgid "Email Address:"
 msgstr "E-mail adres:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:5
+#: ../storage/exchange-autoconfig-wizard.glade.h:5
 msgid "Exchange Configuration"
 msgstr "Exchange configuratie"
 
-#: storage/exchange-autoconfig-wizard.glade.h:6
+#: ../storage/exchange-autoconfig-wizard.glade.h:6
 msgid "Full Name:"
 msgstr "Volledige naam:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:7
+#: ../storage/exchange-autoconfig-wizard.glade.h:7
 msgid "GC Server:"
 msgstr "GC server:"
 
 # dit wordt mijn standaard account
 # dit mijn standaard account maken
 # maak dit mijn standaard account
-#: storage/exchange-autoconfig-wizard.glade.h:8
+#: ../storage/exchange-autoconfig-wizard.glade.h:8
 msgid "Make this my default account"
 msgstr "Dit wordt mijn standaard account"
 
-#: storage/exchange-autoconfig-wizard.glade.h:9
+#: ../storage/exchange-autoconfig-wizard.glade.h:9
 msgid "OWA URL:"
 msgstr "OWA URL:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:10
+#: ../storage/exchange-autoconfig-wizard.glade.h:10
 msgid "Password:"
 msgstr "Wachtword:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:11
+#: ../storage/exchange-autoconfig-wizard.glade.h:11
 msgid "Remember this password"
 msgstr "Dit wachtwoord onthouden"
 
-#: storage/exchange-autoconfig-wizard.glade.h:12
+#: ../storage/exchange-autoconfig-wizard.glade.h:12
 msgid "Username:"
 msgstr "Gebruikersnaam:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:13
+#: ../storage/exchange-autoconfig-wizard.glade.h:13
 msgid "Welcome"
 msgstr "Welkom"
 
 # De knop heet waarschijnlijk 'Vooruit' als vertaling van 'Forward' (dit
 # halen ze uit gtk+ ?)
-#: storage/exchange-autoconfig-wizard.glade.h:14
+#: ../storage/exchange-autoconfig-wizard.glade.h:14
 msgid ""
 "Welcome to Ximian Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
@@ -1083,12 +1108,12 @@ msgstr ""
 "\n"
 "Klik op \"Volgende\" om verder te gaan."
 
-#: storage/exchange-autoconfig-wizard.glade.h:19
+#: ../storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Ximian Connector Configuration"
 msgstr "Ximian Connector configuratie"
 
 # uit...halen/van...gebruiken
-#: storage/exchange-autoconfig-wizard.glade.h:20
+#: ../storage/exchange-autoconfig-wizard.glade.h:20
 msgid ""
 "Ximian Connector can use account information from your existing Outlook Web "
 "Access (OWA) account.\n"
@@ -1102,7 +1127,7 @@ msgstr ""
 "Geef uw OWA adres (URL), gebruikersnaam en wachtwoord en klik daarna op "
 "\"Volgende\".\n"
 
-#: storage/exchange-autoconfig-wizard.glade.h:24
+#: ../storage/exchange-autoconfig-wizard.glade.h:24
 msgid ""
 "Ximian Connector could not find the Global Catalog replica for your site. "
 "Please enter the name of your Global Catalog server. You may need to ask "
@@ -1112,7 +1137,7 @@ msgstr ""
 "naam van uw Global Catalog server. U moet mogelijk de juiste waarde "
 "hiervoor, vragen aan uw systeembeheerder.\n"
 
-#: storage/exchange-autoconfig-wizard.glade.h:26
+#: ../storage/exchange-autoconfig-wizard.glade.h:26
 msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
@@ -1120,7 +1145,7 @@ msgstr ""
 "Ximian connector is een probleem tegengekomen bij het configureren van uw "
 "Exchange account.\n"
 
-#: storage/exchange-autoconfig-wizard.glade.h:28
+#: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
 "Your Connector account is now ready to use. Click the \"Apply\" button to "
 "save your\n"
@@ -1129,7 +1154,7 @@ msgstr ""
 "Uw Connector-account is nu klaar voor gebruik.\n"
 "Klik op de knop \"Toepassen\" om uw instellingen te bewaren."
 
-#: storage/exchange-autoconfig-wizard.glade.h:30
+#: ../storage/exchange-autoconfig-wizard.glade.h:30
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
@@ -1140,7 +1165,7 @@ msgstr ""
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
-#: storage/exchange-change-password.c:114
+#: ../storage/exchange-change-password.c:114
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
@@ -1148,54 +1173,57 @@ msgstr ""
 "Het huidige wachtwoord komt niet overeen met het bestaande wachtwoord voor "
 "uw account. Geen het juiste wachtwoord."
 
-#: storage/exchange-change-password.c:121
+#: ../storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr ""
 "De twee wachtwoorden komen niet overeen. Voer de wachtwoorden opnieuw in."
 
-#: storage/exchange-change-password.glade.h:2
+#: ../storage/exchange-change-password.glade.h:2
 msgid "Change Password"
 msgstr "Wachtwoord veranderen"
 
-#: storage/exchange-change-password.glade.h:3
+#: ../storage/exchange-change-password.glade.h:3
 msgid "Confirm Password:"
 msgstr "Wachtwoord bevestigen:"
 
-#: storage/exchange-change-password.glade.h:4
+#: ../storage/exchange-change-password.glade.h:4
 msgid "Current Password:"
 msgstr "Huidige wachtwoord:"
 
-#: storage/exchange-change-password.glade.h:5
+#: ../storage/exchange-change-password.glade.h:5
 msgid "New Password:"
 msgstr "Nieuw wachtwoord:"
 
-#: storage/exchange-change-password.glade.h:6
+#: ../storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
 msgstr "Uw huidige wachtwoord is verlopen. Verander uw wachtwoord nu."
 
 # Post
 # Berichten
 # E-mail
-#: storage/exchange-component.c:320
+#: ../storage/exchange-component.c:322
 msgid "Mail"
 msgstr "Mail"
 
-#: storage/exchange-component.c:323 storage/exchange-hierarchy-foreign.c:251
+#: ../storage/exchange-component.c:325
+#: ../storage/exchange-hierarchy-foreign.c:251
 msgid "Contacts"
 msgstr "Contacten"
 
-#: storage/exchange-component.c:327 storage/exchange-hierarchy-foreign.c:259
+#: ../storage/exchange-component.c:329
+#: ../storage/exchange-hierarchy-foreign.c:259
 msgid "Tasks"
 msgstr "Taken"
 
-#: storage/exchange-component.c:330 storage/exchange-hierarchy-foreign.c:250
+#: ../storage/exchange-component.c:332
+#: ../storage/exchange-hierarchy-foreign.c:250
 msgid "Calendar"
 msgstr "Agenda"
 
 # dat er eerst afgesloten moet worden is vrij logisch
 # (ik weet het, het is gevaarlijk dat aan te nemen
 # maar op deze manier vind ik het mooier en begrijpelijker)
-#: storage/exchange-config-listener.c:702
+#: ../storage/exchange-config-listener.c:969
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
@@ -1203,12 +1231,17 @@ msgstr ""
 "Aanpassingen aan de Exchange accountconfiguratie zullen\n"
 "pas effect hebben nadat u Evolution opnieuw opstart."
 
-#: storage/exchange-config-listener.c:748
+#: ../storage/exchange-config-listener.c:1015
 msgid "The Exchange account will be removed when you quit Evolution"
-msgstr "Het Exchange account zal verwijderd worden wanneer u Evolution afsluit"
+msgstr "Het Exchange-account zal verwijderd worden wanneer u Evolution afsluit"
 
-#: storage/exchange-delegates-user.c:191
-#: storage/exchange-permissions-dialog.c:179
+# ...op niet werkbaar worden gezet...
+#: ../storage/exchange-config-listener.c:1020
+msgid "The Exchange account will be disabled when you quit Evolution"
+msgstr "Het Exchange-account zal uitgezet worden wanneer u Evolution afsluit"
+
+#: ../storage/exchange-delegates-user.c:191
+#: ../storage/exchange-permissions-dialog.c:179
 #, c-format
 msgid "Permissions for %s"
 msgstr "Rechten voor %s"
@@ -1217,7 +1250,7 @@ msgstr "Rechten voor %s"
 # globale (andere betekenis)
 # algemene
 # universele
-#: storage/exchange-delegates.c:221
+#: ../storage/exchange-delegates.c:221
 msgid ""
 "No Global Catalog server configured for this account.\n"
 "Unable to edit delegates."
@@ -1225,7 +1258,7 @@ msgstr ""
 "Geen Global Catalog server geconfigureerd voor dit account.\n"
 "Niet in staat gedelegeerden te bewerken."
 
-#: storage/exchange-delegates.c:260
+#: ../storage/exchange-delegates.c:260
 msgid ""
 "Could not read folder permissions.\n"
 "Unable to edit delegates."
@@ -1233,7 +1266,7 @@ msgstr ""
 "Kon maprechten niet lezen.\n"
 "Niet in staat gedelegeerden te bewerken."
 
-#: storage/exchange-delegates.c:267
+#: ../storage/exchange-delegates.c:267
 msgid ""
 "Could not determine folder permissions for delegates.\n"
 "Unable to edit delegates."
@@ -1241,64 +1274,64 @@ msgstr ""
 "Kon maprechten voor gedelegeerden niet bepalen.\n"
 "Niet in staat gedelegeerden te bewerken."
 
-#: storage/exchange-delegates.c:419
+#: ../storage/exchange-delegates.c:419
 msgid "Delegate To:"
 msgstr "Delegeren naar:"
 
-#: storage/exchange-delegates.c:419
+#: ../storage/exchange-delegates.c:419
 msgid "Delegate To"
 msgstr "Delegeren naar"
 
-#: storage/exchange-delegates.c:435
+#: ../storage/exchange-delegates.c:435
 #, c-format
 msgid "Could not make %s a delegate"
 msgstr "Kon %s geen gedelegeerde maken"
 
-#: storage/exchange-delegates.c:445
+#: ../storage/exchange-delegates.c:445
 msgid "You cannot make yourself your own delegate"
 msgstr "U kunt van uzelf niet uw eigen gedelegeerde maken"
 
 # is al gedelegeerd
-#: storage/exchange-delegates.c:454
+#: ../storage/exchange-delegates.c:454
 #, c-format
 msgid "%s is already a delegate"
 msgstr "%s is al een gedelegeerde"
 
-#: storage/exchange-delegates.c:563
+#: ../storage/exchange-delegates.c:563
 #, c-format
 msgid "Remove the delegate %s?"
 msgstr "De gedelegeerde %s verwijderen?"
 
 # geen toegang krijgen tot
-#: storage/exchange-delegates.c:680
+#: ../storage/exchange-delegates.c:680
 msgid "Could not access Active Directory"
 msgstr "Kon Active Directory niet benaderen"
 
-#: storage/exchange-delegates.c:695
+#: ../storage/exchange-delegates.c:695
 msgid "Could not find self in Active Directory"
 msgstr "Kon mijzelf niet vinden in Active Directory"
 
-#: storage/exchange-delegates.c:708
+#: ../storage/exchange-delegates.c:708
 #, c-format
 msgid "Could not find delegate %s in Active Directory"
 msgstr "Kon gedelegeerde %s niet vinden in Active Directory"
 
-#: storage/exchange-delegates.c:720
+#: ../storage/exchange-delegates.c:720
 #, c-format
 msgid "Could not remove delegate %s"
 msgstr "Kon gedelegeerde %s niet verwijderen"
 
 # bijwerken
-#: storage/exchange-delegates.c:780
+#: ../storage/exchange-delegates.c:780
 msgid "Could not update list of delegates."
 msgstr "Kon de lijst met gedelegeerden niet updaten."
 
-#: storage/exchange-delegates.c:798
+#: ../storage/exchange-delegates.c:798
 #, c-format
 msgid "Could not add delegate %s"
 msgstr "Kon gedelegeerde %s niet toevoegen"
 
-#: storage/exchange-delegates.c:814
+#: ../storage/exchange-delegates.c:814
 #, c-format
 msgid ""
 "Failed to update delegates:\n"
@@ -1307,49 +1340,50 @@ msgstr ""
 "Updaten gedelegeerden is mislukt:\n"
 "%s"
 
-#: storage/exchange-delegates.c:938 storage/exchange-permissions-dialog.c:706
+#: ../storage/exchange-delegates.c:938
+#: ../storage/exchange-permissions-dialog.c:706
 msgid "Name"
 msgstr "Naam"
 
-#: storage/exchange-delegates.c:967
+#: ../storage/exchange-delegates.c:967
 msgid "Error reading delegates list."
 msgstr "Fout bij lezen gedelegeerdenlijst."
 
-#: storage/exchange-delegates.glade.h:1
+#: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
 msgstr "Auteur (lezen, aanmaken)"
 
-#: storage/exchange-delegates.glade.h:2
+#: ../storage/exchange-delegates.glade.h:2
 msgid "C_alendar:"
 msgstr "K_alender:"
 
-#: storage/exchange-delegates.glade.h:3
+#: ../storage/exchange-delegates.glade.h:3
 msgid "Co_ntacts:"
 msgstr "Co_ntacten:"
 
-#: storage/exchange-delegates.glade.h:4
+#: ../storage/exchange-delegates.glade.h:4
 msgid "Delegate Permissions"
 msgstr "Gedelegeerden rechten"
 
-#: storage/exchange-delegates.glade.h:5
+#: ../storage/exchange-delegates.glade.h:5
 msgid "Delegates"
 msgstr "Gedelegeerden"
 
-#: storage/exchange-delegates.glade.h:6
+#: ../storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
 msgstr "Editor (lezen, aanmaken, bewerken)"
 
-#: storage/exchange-delegates.glade.h:8
+#: ../storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
 msgstr "Rechten voor"
 
 # bespreker
 # recencist
-#: storage/exchange-delegates.glade.h:9
+#: ../storage/exchange-delegates.glade.h:9
 msgid "Reviewer (read-only)"
 msgstr "Reviewer (alleen-lezen)"
 
-#: storage/exchange-delegates.glade.h:10
+#: ../storage/exchange-delegates.glade.h:10
 msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
@@ -1357,70 +1391,70 @@ msgstr ""
 "Deze gebruikers zullen namens u berichten kunnen versturen\n"
 "en uw mappen kunnen benaderen met de rechten die u ze geeft."
 
-#: storage/exchange-delegates.glade.h:12
+#: ../storage/exchange-delegates.glade.h:12
 msgid "_Delegate can see private items"
 msgstr "_Gedelegeerde kan privé-items zien"
 
-#: storage/exchange-delegates.glade.h:13
+#: ../storage/exchange-delegates.glade.h:13
 msgid "_Edit"
 msgstr "Be_werken"
 
-#: storage/exchange-delegates.glade.h:14
+#: ../storage/exchange-delegates.glade.h:14
 msgid "_Inbox:"
 msgstr "_Inbox:"
 
-#: storage/exchange-delegates.glade.h:15
+#: ../storage/exchange-delegates.glade.h:15
 msgid "_Tasks:"
 msgstr "_Taken:"
 
-#: storage/exchange-folder-size.c:204
+#: ../storage/exchange-folder-size.c:322
 msgid "Folder Name"
 msgstr "Mapnaam"
 
-#: storage/exchange-folder-size.c:208
+#: ../storage/exchange-folder-size.c:326
 msgid "Folder Size"
 msgstr "Grootte map"
 
-#: storage/exchange-folder-tree.glade.h:1
+#: ../storage/exchange-folder-tree.glade.h:1
 msgid "Exchange Folder Tree"
 msgstr "Exchange mappenboom"
 
-#: storage/exchange-hierarchy-foreign.c:252
+#: ../storage/exchange-hierarchy-foreign.c:252
 msgid "Deleted Items"
 msgstr "Verwijderde items"
 
-#: storage/exchange-hierarchy-foreign.c:253
+#: ../storage/exchange-hierarchy-foreign.c:253
 msgid "Drafts"
 msgstr "Kladjes"
 
-#: storage/exchange-hierarchy-foreign.c:254
+#: ../storage/exchange-hierarchy-foreign.c:254
 msgid "Inbox"
 msgstr "Inbox"
 
-#: storage/exchange-hierarchy-foreign.c:255
+#: ../storage/exchange-hierarchy-foreign.c:255
 msgid "Journal"
 msgstr "Journaal"
 
-#: storage/exchange-hierarchy-foreign.c:256
+#: ../storage/exchange-hierarchy-foreign.c:256
 msgid "Notes"
 msgstr "Aantekeningen"
 
-#: storage/exchange-hierarchy-foreign.c:257
+#: ../storage/exchange-hierarchy-foreign.c:257
 msgid "Outbox"
 msgstr "Outbox"
 
 # items hier weggelaten om het kort te houden
-#: storage/exchange-hierarchy-foreign.c:258
+#: ../storage/exchange-hierarchy-foreign.c:258
 msgid "Sent Items"
 msgstr "Verzonden"
 
 # worden gemigreerd (is niet mooi)
 # migreren ook niet
-#: storage/exchange-migrate.c:57
+#: ../storage/exchange-migrate.c:57
 msgid "Migrating Exchange Folders..."
 msgstr "Exchange mappen omzetten..."
 
-#: storage/exchange-migrate.c:65
+#: ../storage/exchange-migrate.c:65
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -1433,7 +1467,7 @@ msgstr ""
 "\n"
 "Een ogenblik geduld terwijl Evolution uw mappen omzet..."
 
-#: storage/exchange-migrate.c:98
+#: ../storage/exchange-migrate.c:98
 #, c-format
 msgid ""
 "Warning: Evolution Could not migrate all the Exchange account data from the "
@@ -1446,22 +1480,22 @@ msgstr ""
 "De gegevens zijn niet verwijderd, maar zullen door deze versie van Evolution "
 "niet worden gezien."
 
-#: storage/exchange-migrate.c:129
+#: ../storage/exchange-migrate.c:129
 #, c-format
 msgid "Migrating `%s':"
 msgstr "Omzetten van `%s':"
 
 # updaten kan ook wat mij betreft
 # misschien wel mooier
-#: storage/exchange-oof.c:91 storage/exchange-oof.c:290
+#: ../storage/exchange-oof.c:199 ../storage/exchange-oof.c:406
 msgid "Could not update out-of-office state"
 msgstr "Kon de afwezigheidsstatus niet bijwerken"
 
-#: storage/exchange-oof.c:308
+#: ../storage/exchange-oof.c:424
 msgid "Could not read out-of-office state"
 msgstr "Kon afwezigheidsstatus niet lezen"
 
-#: storage/exchange-oof.glade.h:1
+#: ../storage/exchange-oof.glade.h:1
 msgid ""
 "<b>Currently, your status is \"Out of the Office\". </b>\n"
 "\n"
@@ -1471,16 +1505,16 @@ msgstr ""
 "\n"
 "Wilt u uw status wijzen in \"Aanwezig\"? "
 
-#: storage/exchange-oof.glade.h:4
+#: ../storage/exchange-oof.glade.h:4
 msgid "<b>Out of Office Message:</b>"
 msgstr "<b>Afwezigheidsbericht:</b>"
 
-#: storage/exchange-oof.glade.h:5
+#: ../storage/exchange-oof.glade.h:5
 msgid "<b>Status:</b>"
 msgstr "<b>Status:</b>"
 
 # verzonden/verstuurd
-#: storage/exchange-oof.glade.h:6
+#: ../storage/exchange-oof.glade.h:6
 msgid ""
 "<small>The message specified below will be automatically sent to each person "
 "who sends\n"
@@ -1489,64 +1523,64 @@ msgstr ""
 "<small>Het onderstaande bericht zal tijdens uw afwezigheid automatisch naar "
 "elke persoon worden verzonden die naar u een bericht stuurt</small>"
 
-#: storage/exchange-oof.glade.h:8
+#: ../storage/exchange-oof.glade.h:8
 msgid "I am currently in the office"
 msgstr "Ik ben momenteel aanwezig"
 
-#: storage/exchange-oof.glade.h:9
+#: ../storage/exchange-oof.glade.h:9
 msgid "I am currently out of the office"
 msgstr "Ik ben momenteel afwezig"
 
 # wijzigen/veranderen/aanpassen
-#: storage/exchange-oof.glade.h:10
+#: ../storage/exchange-oof.glade.h:10
 msgid "No, Don't Change Status"
 msgstr "Nee, status niet wijzigen"
 
-#: storage/exchange-oof.glade.h:11
+#: ../storage/exchange-oof.glade.h:11
 msgid "Out of Office Assistant"
 msgstr "Afwezigheids-assistent"
 
-#: storage/exchange-oof.glade.h:12
+#: ../storage/exchange-oof.glade.h:12
 msgid "Yes, Change Status"
 msgstr "Ja, status wijzigen"
 
-#: storage/exchange-passwd-expiry.glade.h:1
+#: ../storage/exchange-passwd-expiry.glade.h:1
 msgid "Password Expiry Warning..."
 msgstr "'Wachtwoord verloopt' waarschuwing..."
 
 # zal binnen 7 dagen verlopen
-#: storage/exchange-passwd-expiry.glade.h:2
+#: ../storage/exchange-passwd-expiry.glade.h:2
 msgid "Your password will expire in 7 days..."
 msgstr "Uw wachtwoord verloopt over 7 dagen..."
 
-#: storage/exchange-passwd-expiry.glade.h:3
+#: ../storage/exchange-passwd-expiry.glade.h:3
 msgid "_Change Password"
 msgstr "_Wachtwoord wijzigen"
 
-#: storage/exchange-passwd-expiry.glade.h:4
+#: ../storage/exchange-passwd-expiry.glade.h:4
 msgid "ok_button"
 msgstr "ok_knop"
 
 # rechten/persmissies/toestemming
-#: storage/exchange-permissions-dialog.c:222
+#: ../storage/exchange-permissions-dialog.c:222
 msgid "Could not read folder permissions"
 msgstr "Kon de rechten op de map niet lezen"
 
 # bijwerken/updaten/veranderen/aanpassen
-#: storage/exchange-permissions-dialog.c:264
+#: ../storage/exchange-permissions-dialog.c:264
 msgid "Could not update folder permissions."
 msgstr "Kon de rechten op de map niet bijwerken."
 
-#: storage/exchange-permissions-dialog.c:293
+#: ../storage/exchange-permissions-dialog.c:293
 #, c-format
 msgid "Could not update folder permissions. %s"
 msgstr "Kon de rechten op de map niet bijwerken. %s"
 
-#: storage/exchange-permissions-dialog.c:295
+#: ../storage/exchange-permissions-dialog.c:295
 msgid "(Permission denied.)"
 msgstr "(Toestemming geweigerd.)"
 
-#: storage/exchange-permissions-dialog.c:396
+#: ../storage/exchange-permissions-dialog.c:396
 msgid ""
 "Unable to add user to access control list:\n"
 "No Global Catalog server is configured for this account."
@@ -1554,60 +1588,60 @@ msgstr ""
 "Niet in staat gebruiker toe te voegen aan toegangscontrole-lijst:\n"
 "Er is voor dit account geen Global Catalog server geconfigureerd."
 
-#: storage/exchange-permissions-dialog.c:402
+#: ../storage/exchange-permissions-dialog.c:402
 msgid "Add User:"
 msgstr "Gebruiker toevoegen:"
 
-#: storage/exchange-permissions-dialog.c:402
+#: ../storage/exchange-permissions-dialog.c:402
 msgid "Add User"
 msgstr "Gebruiker toevoegen"
 
 # een dergelijke gebruiker %s bestaat niet
-#: storage/exchange-permissions-dialog.c:421
+#: ../storage/exchange-permissions-dialog.c:421
 #, c-format
 msgid "No such user %s"
 msgstr "Gebruiker %s bestaat niet"
 
-#: storage/exchange-permissions-dialog.c:425
+#: ../storage/exchange-permissions-dialog.c:425
 #, c-format
 msgid "%s cannot be added to an access control list"
 msgstr "%s kan niet worden toegevoegd aan een 'access control' lijst"
 
-#: storage/exchange-permissions-dialog.c:430
+#: ../storage/exchange-permissions-dialog.c:430
 #, c-format
 msgid "Unknown error looking up %s"
 msgstr "Onbekende fout bij opzoeken van %s"
 
-#: storage/exchange-permissions-dialog.c:447
+#: ../storage/exchange-permissions-dialog.c:447
 #, c-format
 msgid "%s is already in the list"
 msgstr "%s staat al in de lijst"
 
-#: storage/exchange-permissions-dialog.c:710
+#: ../storage/exchange-permissions-dialog.c:710
 msgid "Role"
 msgstr "Rol"
 
-#: storage/exchange-permissions-dialog.glade.h:1
+#: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
 msgstr "    "
 
-#: storage/exchange-permissions-dialog.glade.h:2
+#: ../storage/exchange-permissions-dialog.glade.h:2
 msgid "<b>Permissions</b>"
 msgstr "<b>Rechten</b>"
 
-#: storage/exchange-permissions-dialog.glade.h:3
+#: ../storage/exchange-permissions-dialog.glade.h:3
 msgid "Cannot Delete"
 msgstr "Kan niet verwijderen"
 
-#: storage/exchange-permissions-dialog.glade.h:4
+#: ../storage/exchange-permissions-dialog.glade.h:4
 msgid "Cannot Edit"
 msgstr "Kan niet bewerken"
 
-#: storage/exchange-permissions-dialog.glade.h:5
+#: ../storage/exchange-permissions-dialog.glade.h:5
 msgid "Create items"
 msgstr "Items aanmaken"
 
-#: storage/exchange-permissions-dialog.glade.h:6
+#: ../storage/exchange-permissions-dialog.glade.h:6
 msgid "Create subfolders"
 msgstr "Submappen aanmaken"
 
@@ -1615,66 +1649,66 @@ msgstr "Submappen aanmaken"
 # Delete any items
 # (moet zijn Delete any item
 # of Delete all items)
-#: storage/exchange-permissions-dialog.glade.h:7
+#: ../storage/exchange-permissions-dialog.glade.h:7
 msgid "Delete Any Items"
 msgstr "Willekeurige items verwijderen"
 
-#: storage/exchange-permissions-dialog.glade.h:8
+#: ../storage/exchange-permissions-dialog.glade.h:8
 msgid "Delete Own Items"
 msgstr "Eigen items verwijderen"
 
-#: storage/exchange-permissions-dialog.glade.h:9
+#: ../storage/exchange-permissions-dialog.glade.h:9
 msgid "Edit Any Items"
 msgstr "Willekeurige items bewerken"
 
-#: storage/exchange-permissions-dialog.glade.h:10
+#: ../storage/exchange-permissions-dialog.glade.h:10
 msgid "Edit Own Items"
 msgstr "Eigen items bewerken"
 
 # wat betekent dit?
-#: storage/exchange-permissions-dialog.glade.h:11
+#: ../storage/exchange-permissions-dialog.glade.h:11
 msgid "Folder contact"
 msgstr "Map contact"
 
-#: storage/exchange-permissions-dialog.glade.h:12
+#: ../storage/exchange-permissions-dialog.glade.h:12
 msgid "Folder owner"
 msgstr "Eigenaar map"
 
-#: storage/exchange-permissions-dialog.glade.h:13
+#: ../storage/exchange-permissions-dialog.glade.h:13
 msgid "Folder visible"
 msgstr "Map zichtbaar"
 
 # waarschijnlijk: de rechten om te mogen lezen
-#: storage/exchange-permissions-dialog.glade.h:14
+#: ../storage/exchange-permissions-dialog.glade.h:14
 msgid "Read items"
 msgstr "Items lezen"
 
-#: storage/exchange-permissions-dialog.glade.h:15
+#: ../storage/exchange-permissions-dialog.glade.h:15
 msgid "Role: "
 msgstr "Rol:"
 
-#: storage/exchange-storage.c:337
+#: ../storage/exchange-storage.c:337
 msgid "Connecting..."
 msgstr "Verbinding maken..."
 
-#: storage/main.c:166
+#: ../storage/main.c:166
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector voor Microsoft Exchange"
 
-#: storage/xc-backend-view.c:299
+#: ../storage/xc-backend-view.c:299
 msgid "Account Name"
 msgstr "Accountnaam"
 
-#: storage/xc-commands.c:312
+#: ../storage/xc-commands.c:317
 msgid "Folder does not exist"
 msgstr "Map bestaat niet"
 
-#: storage/xc-commands.c:339
+#: ../storage/xc-commands.c:344
 #, c-format
 msgid "Could not add favorite: %s"
 msgstr "Kon favoriet niet toevoegen: %s"
 
-#: storage/xc-commands.c:355
+#: ../storage/xc-commands.c:360
 #, c-format
 msgid "Could not remove favorite: %s"
 msgstr "Kon favoriet niet verwijderen: %s"
@@ -1688,70 +1722,70 @@ msgstr "Kon favoriet niet verwijderen: %s"
 #. G_CALLBACK (do_copy_folder),
 #. XC_FOLDER_COMMAND_MASK_MOVECOPY),
 #.
-#: storage/xc-commands.c:381
+#: ../storage/xc-commands.c:386
 msgid "_Rename Folder..."
 msgstr "Map _hernoemen..."
 
-#: storage/xc-commands.c:387
+#: ../storage/xc-commands.c:392
 msgid "_New Folder..."
 msgstr "_Nieuwe map..."
 
-#: storage/xc-commands.c:390
+#: ../storage/xc-commands.c:395
 msgid "_Delete Folder"
 msgstr "Map ver_wijderen"
 
-#: storage/xc-commands.c:395
+#: ../storage/xc-commands.c:400
 msgid "_Add Other User's Folder..."
 msgstr "Andermans map _toevoegen..."
 
-#: storage/xc-commands.c:398
+#: ../storage/xc-commands.c:403
 msgid "_Remove Other User's Folder"
 msgstr "Andermans map _verwijderen"
 
-#: storage/xc-commands.c:404
+#: ../storage/xc-commands.c:409
 msgid "Add to _Favorites"
 msgstr "Toevoegen aan _favorieten"
 
-#: storage/xc-commands.c:408
+#: ../storage/xc-commands.c:413
 msgid "Remove from Fa_vorites"
 msgstr "Verwijderen uit f_avorieten"
 
-#: storage/xc-commands.c:415
+#: ../storage/xc-commands.c:420
 msgid "_Permissions..."
 msgstr "_Rechten..."
 
-#: storage/xc-commands.c:419
+#: ../storage/xc-commands.c:424
 msgid "_Show Folder Sizes"
 msgstr "Grootte mappen _tonen"
 
 # Dit is de titelbalk
-#: storage/ximian-connector-setup.c:44
+#: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
 msgstr "Configuratie van Ximian Connector voor Microsoft Exchange"
 
-#: storage/ximian-connector.xml.h:1
+#: ../storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
 msgstr "Uw Exchange-server wachtwoord wijzigen"
 
-#: storage/ximian-connector.xml.h:2
+#: ../storage/ximian-connector.xml.h:2
 msgid "Folder _Size"
 msgstr "_Grootte map"
 
 # berekenen/verkrijgen/ophalen/lezen/opvragen
-#: storage/ximian-connector.xml.h:3
+#: ../storage/ximian-connector.xml.h:3
 msgid "Get the size of personal folders"
 msgstr "De grootte van de persoonlijke mappen berekenen"
 
-#: storage/ximian-connector.xml.h:4
+#: ../storage/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
 msgstr "Abonneren op _andermans map..."
 
-#: storage/ximian-connector.xml.h:5
+#: ../storage/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr ""
 "Abonneren op een map die toebehoort aan een andere gebruiker op de server"
 
-#: storage/ximian-connector.xml.h:6
+#: ../storage/ximian-connector.xml.h:6
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
@@ -1759,30 +1793,55 @@ msgstr ""
 "andermans map\""
 
 # tonen of wijzigen/tonen of aanpassen/tonen of veranderen
-#: storage/ximian-connector.xml.h:7
+#: ../storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
 msgstr "Uw Exchange-agenda gedelegeerde-instellingen tonen of wijzigen"
 
-#: storage/ximian-connector.xml.h:8
+#: ../storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr ""
 "Uw afwezigheidsstatus en automatisch antwoord bericht tonen of wijzigen"
 
-#: storage/ximian-connector.xml.h:9
+#: ../storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
 msgstr "Exchange wachtwoord wijzigen..."
 
-#: storage/ximian-connector.xml.h:10
+#: ../storage/ximian-connector.xml.h:10
 msgid "_Delegation Assistant"
 msgstr "_Delegeringsassistent"
 
-#: storage/ximian-connector.xml.h:11
+#: ../storage/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
 msgstr "_Afwezigheidsassistent"
 
-#: storage/ximian-connector.xml.h:12
+#: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Abonnement op andermans map opzeggen"
+
+#~ msgid "No folder name found\n"
+#~ msgstr "Geem mapnaam gevonden\n"
+
+#~ msgid ""
+#~ "Ximian Connector requires access to certain functionality on the Exchange "
+#~ "Server that appears to be disabled or blocked.  (This is usually "
+#~ "unintentional.)  Your Exchange Administrator will need to enable this "
+#~ "functionality in order for you to be able to use Ximian Connector.\n"
+#~ "\n"
+#~ "For information to provide to your Exchange administrator, please follow "
+#~ "the link below:\n"
+#~ "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
+#~ "html "
+#~ msgstr ""
+#~ "Ximian Connector vereist toegang tot bepaalde functionaliteit op de "
+#~ "Exchange-server die schijnbaar is uitgezet of geblokkeerd.  (Dit is "
+#~ "meestal zonder opzet.)  Uw Exchange systeembeheerder moet deze "
+#~ "functionaliteit toegankelijk maken voordat u de Ximian Connector kunt "
+#~ "gebruiken.\n"
+#~ "\n"
+#~ "Bekijk de link hieronder voor informatie die u aan uw Exchange "
+#~ "systeembeheerder moet geven:\n"
+#~ "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
+#~ "html"
 
 #, fuzzy
 #~ msgid ""
