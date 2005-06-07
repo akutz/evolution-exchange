@@ -1,35 +1,38 @@
+# translation of nb.po to Norwegian Bokmal
 # translation of evolution-exchange.gnome-2-10.nb.MIN.po to
 # Norwegian (bokmål) translation of evolution-exchange.
 # Copyright (C) 2004 Novell
 # This file is distributed under the same license as the evolution-exchange package.
 # Kjartan Maraas <kmaraas@gnome.org, 2004, 2005.
+# Terance Edward Sola <terance@lyse.net>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: evolution-exchange.gnome-2-10.nb.MIN\n"
+"Project-Id-Version: nb\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-15 18:25+0200\n"
-"PO-Revision-Date: 2005-04-15 18:29+0200\n"
+"POT-Creation-Date: 2005-06-07 18:33+0200\n"
+"PO-Revision-Date: 2005-06-07 18:42+0200\n"
 "Last-Translator: Terance Edward Sola <terance@lyse.net>\n"
-"Language-Team: Norsk bokmaal  <i18n-nb@lister.ping.uio.no>\n"
+"Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.10\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1834
-#: ../addressbook/e-book-backend-gal.c:1351 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:1837
+#: ../addressbook/e-book-backend-gal.c:1498 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Søker..."
 
-#: ../addressbook/e-book-backend-gal.c:243
+#: ../addressbook/e-book-backend-gal.c:266
 msgid "Reconnecting to LDAP server..."
 msgstr "Kobler til LDAP-tjener på nytt..."
 
-#: ../addressbook/e-book-backend-gal.c:1225
+#: ../addressbook/e-book-backend-gal.c:1362
 msgid "Receiving LDAP search results..."
 msgstr "Mottar søkeresultater fra LDAP-tjener..."
 
-#: ../addressbook/e-book-backend-gal.c:1372
+#: ../addressbook/e-book-backend-gal.c:1521
 msgid "Error performing search"
 msgstr "Feil under utføring av søk"
 
@@ -268,7 +271,7 @@ msgstr "Mistet forbindelsen til %s"
 msgid "Error communicating with %s: %s"
 msgstr "Feil ved kommunikasjon med %s: %s"
 
-#: ../lib/e2k-autoconfig.c:1471 ../storage/exchange-autoconfig-wizard.c:224
+#: ../lib/e2k-autoconfig.c:1471 ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -277,7 +280,7 @@ msgstr ""
 "Kunne ikke koble til Exchange-tjener.\n"
 "Sjekk at URLen er korrekt (prøv «%s» i stedet for «%s»?) og prøv igjen."
 
-#: ../lib/e2k-autoconfig.c:1480 ../storage/exchange-autoconfig-wizard.c:232
+#: ../lib/e2k-autoconfig.c:1480 ../storage/exchange-autoconfig-wizard.c:219
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -285,7 +288,7 @@ msgstr ""
 "Kunne ikke finne Exchange-tjener.\n"
 "Sjekk at navnet på tjeneren er stavet korrekt og prøv igjen."
 
-#: ../lib/e2k-autoconfig.c:1490 ../storage/exchange-autoconfig-wizard.c:241
+#: ../lib/e2k-autoconfig.c:1490 ../storage/exchange-autoconfig-wizard.c:228
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -293,7 +296,7 @@ msgstr ""
 "Kunne ikke autentisere med exchange-tjeneren.\n"
 "Sjekk at brukernavnet og passordet er riktig og prøv igjen."
 
-#: ../lib/e2k-autoconfig.c:1498 ../storage/exchange-autoconfig-wizard.c:248
+#: ../lib/e2k-autoconfig.c:1498 ../storage/exchange-autoconfig-wizard.c:235
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -308,7 +311,7 @@ msgstr ""
 "Det er kanskje nødvendig og ha Windows domenenavnet som en del av "
 "brukernavnet (f.eks.\"MITT-DOMENE\\%s\")."
 
-#: ../lib/e2k-autoconfig.c:1511 ../storage/exchange-autoconfig-wizard.c:260
+#: ../lib/e2k-autoconfig.c:1511 ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -316,7 +319,8 @@ msgstr ""
 "Fant ikke OWA-data på den angitte adressen.\n"
 "Sjekk at adressen er korrekt og prøv igjen."
 
-#: ../lib/e2k-autoconfig.c:1519
+#: ../lib/e2k-autoconfig.c:1520
+#, c-format
 msgid ""
 "Ximian Connector requires access to certain functionality on the Exchange "
 "Server that appears to be disabled or blocked.  (This is usually "
@@ -325,20 +329,19 @@ msgid ""
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:\n"
-"http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
-"html "
+"%s"
 msgstr ""
-"Ximian Connector trenger tilgang til funksjonalitet på exchange-tjeneren som "
-"ser ut til og være deaktivert eller blokket. (Dette er vanligvis ikke med "
-"vilje.) Administratoren til din exchange-tjener må aktivere denne "
-"funksjonaliteten for at du skal være i stand til og bruke Ximian Connector.\n"
+"Ximian Connector krever tilgang til forskjellig funksjonalitet på exchange-"
+"tjeneren som ser ut til og være blokkert eller deaktivert. (Dette er som "
+"oftest ikke med vilje.) Din exchange-administrator må aktivere denne "
+"funksjonaliteten for at du skal kunne være i stand til å bruke Ximian "
+"Connector.\n"
 "\n"
-"Nyttig informasjon som du kan gi til exchange-administratoren din kan du "
-"finne på lenken nedenfor:\n"
-"http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
-"html "
+"For informasjon som du kan videreføre til din exchange-administrator, følg "
+"linken under:\n"
+"%s"
 
-#: ../lib/e2k-autoconfig.c:1535 ../storage/exchange-autoconfig-wizard.c:288
+#: ../lib/e2k-autoconfig.c:1536 ../storage/exchange-autoconfig-wizard.c:275
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
@@ -346,7 +349,7 @@ msgstr ""
 "Exchange-tjener lenken som du brukte tilhører en Exchange 5.5 tjener. Ximian "
 "Connector støtter bare Microsoft Exchange 2000 og 2003."
 
-#: ../lib/e2k-autoconfig.c:1544 ../storage/exchange-autoconfig-wizard.c:301
+#: ../lib/e2k-autoconfig.c:1545 ../storage/exchange-autoconfig-wizard.c:288
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -354,12 +357,12 @@ msgstr ""
 "Kunne ikke sette opp exchange-kontoen på grunn av en ukjent feil. Sjekk "
 "adressen, brukernavnet og passordet for så og prøve igjen."
 
-#: ../lib/e2k-autoconfig.c:1566
+#: ../lib/e2k-autoconfig.c:1567
 #, c-format
 msgid "Enter password for %s"
 msgstr "Oppgi passord for %s"
 
-#: ../lib/e2k-autoconfig.c:1567 ../storage/exchange-account.c:874
+#: ../lib/e2k-autoconfig.c:1568 ../storage/exchange-account.c:874
 msgid "Enter password"
 msgstr "Oppgi passord"
 
@@ -610,8 +613,7 @@ msgstr "Endre navn på mappe"
 #: ../shell/e-folder-misc-dialogs.c:205
 #, c-format
 msgid "A folder named \"%s\" already exists. Please use a different name."
-msgstr ""
-"En mappe med navn «%s» eksisterer allerede. Vennligst bruk et annet navn."
+msgstr "En mappe med navn «%s» eksisterer allerede. Vennligst bruk et annet navn."
 
 #. It would be nice to insensitivize the OK button appropriately
 #. instead of doing this, but unfortunately we can't do this for the
@@ -742,7 +744,7 @@ msgstr "Kan ikke opprette en mappe med det navnet"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Denne handlingen kan ikke bli utført i frakoblet modus."
 
-#: ../shell/e-storage.c:587 ../storage/exchange-account.c:1474
+#: ../shell/e-storage.c:587 ../storage/exchange-account.c:1473
 msgid "Unknown error"
 msgstr "Ukjent feil"
 
@@ -821,11 +823,11 @@ msgstr "Alle offentlige mapper"
 msgid "Global Address List"
 msgstr "Global adresseliste"
 
-#: ../storage/exchange-account.c:1327
+#: ../storage/exchange-account.c:1326
 msgid "Exchange Account is offline. Cannot display folders\n"
 msgstr "Exchange-konto er frakoblet. Kan ikke vise mapper\n"
 
-#: ../storage/exchange-account.c:1385
+#: ../storage/exchange-account.c:1384
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -833,7 +835,7 @@ msgstr ""
 "Kunne ikke autentisere mot tjener. (Feil passord?)\n"
 "\n"
 
-#: ../storage/exchange-account.c:1390
+#: ../storage/exchange-account.c:1389
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -853,12 +855,12 @@ msgstr ""
 "Eller så har du du kanskje bare skrevet passordet feil.\n"
 "\n"
 
-#: ../storage/exchange-account.c:1432
+#: ../storage/exchange-account.c:1431
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Postboks for %s finnes ikke på denne tjeneren."
 
-#: ../storage/exchange-account.c:1437
+#: ../storage/exchange-account.c:1436
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -867,7 +869,7 @@ msgstr ""
 "Tjeneren '%s' kjører Exchange 5.5 og er\n"
 "derfor ikke kompitabel med Ximian connector"
 
-#: ../storage/exchange-account.c:1444
+#: ../storage/exchange-account.c:1443
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -878,26 +880,51 @@ msgstr ""
 "Hvis OWA kjører på en annen sti, så må du spesifisere det i\n"
 "konfigurasjonsdialogen til kontoen din."
 
-#: ../storage/exchange-account.c:1452
+#: ../storage/exchange-account.c:1451
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Ingen postboks for bruker %s på %s.\n"
 
-#: ../storage/exchange-account.c:1458 ../storage/exchange-account.c:1464
-#: ../storage/exchange-account.c:1472
+#: ../storage/exchange-account.c:1457 ../storage/exchange-account.c:1463
+#: ../storage/exchange-account.c:1471
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Kunne ikke koble til tjener %s: %s"
 
-#: ../storage/exchange-account.c:1460
+#: ../storage/exchange-account.c:1459
 msgid "Could not resolve hostname"
 msgstr "Kunne ikke slå opp vertsnavn"
 
-#: ../storage/exchange-account.c:1466
+#: ../storage/exchange-account.c:1465
 msgid "Network error"
 msgstr "Nettverksfeil"
 
-#: ../storage/exchange-autoconfig-wizard.c:267
+#: ../storage/exchange-account.c:1529
+#, c-format
+msgid ""
+"You have exceeded your quota of %d %s for storing mails on this server. Your "
+"current usage is : %.0f %s."
+msgstr ""
+"Du bruker mer enn kvoten din på %d %s for lagring av e-post på denne tjeneren. "
+"Du bruker for øyeblikket: %.0f %s."
+
+#: ../storage/exchange-account.c:1532
+msgid "You will not be able to either send or receive mails now\n"
+msgstr "Du vil ikke være i stand til å sende eller motta e-post nå\n"
+
+#: ../storage/exchange-account.c:1535
+msgid ""
+"You will not be able to send mails till you clear up some space by deleting "
+"some mails.\n"
+msgstr ""
+"Du vil ikke være i stand til å sende e-post før du sletter noen e-poster for "
+"å lage ekstra plass.\n"
+
+#: ../storage/exchange-account.c:1538
+msgid "Try to clear up some space by deleting some mails.\n"
+msgstr "Prøv å lage litt plass ved å slette noen e-poster.\n"
+
+#: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
 "Ximian Connector requires access to certain functionality on the Exchange "
 "Server that appears to be disabled or blocked.  (This is usually "
@@ -916,7 +943,7 @@ msgstr ""
 "For informasjon som du kan videreføre til din exchange-administrator, følg "
 "linken under:"
 
-#: ../storage/exchange-autoconfig-wizard.c:345
+#: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -927,7 +954,7 @@ msgstr ""
 "og spesifisere Windows domenenavnet som en del av brukernavnet ditt (f.eks."
 "\"MY-DOMAIN\\%s\"):s"
 
-#: ../storage/exchange-autoconfig-wizard.c:352
+#: ../storage/exchange-autoconfig-wizard.c:339
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -935,12 +962,12 @@ msgstr ""
 "Klarte ikke og koble til tjeneren.\n"
 "Vennligst sjekk tjenernavnet og prøv igjen."
 
-#: ../storage/exchange-autoconfig-wizard.c:389
-#: ../storage/exchange-autoconfig-wizard.c:393
+#: ../storage/exchange-autoconfig-wizard.c:376
+#: ../storage/exchange-autoconfig-wizard.c:380
 msgid "Unknown"
 msgstr "Ukjent"
 
-#: ../storage/exchange-autoconfig-wizard.c:477
+#: ../storage/exchange-autoconfig-wizard.c:445
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -948,8 +975,8 @@ msgstr ""
 "Feil i konfigureringssystemet.\n"
 "Klarte ikke og lage ny konto."
 
-#: ../storage/exchange-autoconfig-wizard.c:491
-#: ../storage/exchange-config-listener.c:604
+#: ../storage/exchange-autoconfig-wizard.c:459
+#: ../storage/exchange-config-listener.c:775
 msgid "You may only configure a single Exchange account"
 msgstr "Du kan bare konfigurere en exchange konto"
 
@@ -1122,7 +1149,7 @@ msgstr "Oppgaver"
 msgid "Calendar"
 msgstr "Kalender"
 
-#: ../storage/exchange-config-listener.c:781
+#: ../storage/exchange-config-listener.c:969
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
@@ -1130,9 +1157,13 @@ msgstr ""
 "Endringer på exchange-kontoen din vil tre\n"
 "i kraft etter at du har startet Evolution på ny."
 
-#: ../storage/exchange-config-listener.c:827
+#: ../storage/exchange-config-listener.c:1015
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr "Denne exchange-kontoen vil bli fjernet når du avslutter Evolution"
+
+#: ../storage/exchange-config-listener.c:1020
+msgid "The Exchange account will be disabled when you quit Evolution"
+msgstr "Exchange-kontoen vil bli deaktivert når du avslutter Evolution"
 
 #: ../storage/exchange-delegates-user.c:191
 #: ../storage/exchange-permissions-dialog.c:179
@@ -1652,10 +1683,8 @@ msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Abonner på en mappe som tilhører en annen bruker på tjeneren."
 
 #: ../storage/ximian-connector.xml.h:6
-msgid ""
-"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
-msgstr ""
-"Fjern abonnementet på en mappe lagt til med \"Abonner på bruker sin mappe\""
+msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgstr "Fjern abonnementet på en mappe lagt til med \"Abonner på bruker sin mappe\""
 
 #: ../storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
@@ -1663,8 +1692,7 @@ msgstr "Se eller endre instillingene for exchange-kalender delegasjonen"
 
 #: ../storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
-msgstr ""
-"Se eller endre statusen til fraværsmeldinger og automatisk svar beskjeden"
+msgstr "Se eller endre statusen til fraværsmeldinger og automatisk svar beskjeden"
 
 #: ../storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
@@ -1681,3 +1709,4 @@ msgstr "_Fraværsmeldinger"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Fjern abonnement på annen brukers mappe "
+
