@@ -7,36 +7,36 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-02 09:59+0100\n"
-"PO-Revision-Date: 2005-03-02 09:59+0100\n"
+"POT-Creation-Date: 2005-06-08 15:17+0200\n"
+"PO-Revision-Date: 2005-06-08 15:25+0200\n"
 "Last-Translator: Martin Willemoes Hansen <mwh@sysrq.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1804
-#: ../addressbook/e-book-backend-gal.c:1351 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:1837
+#: ../addressbook/e-book-backend-gal.c:1498 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Søger ..."
 
-#: ../addressbook/e-book-backend-gal.c:243
+#: ../addressbook/e-book-backend-gal.c:266
 msgid "Reconnecting to LDAP server..."
 msgstr "Tilslutter LDAP-server igen ..."
 
-#: ../addressbook/e-book-backend-gal.c:1225
+#: ../addressbook/e-book-backend-gal.c:1362
 msgid "Receiving LDAP search results..."
 msgstr "Modtager søgeresultater fra LDAP-server ..."
 
-#: ../addressbook/e-book-backend-gal.c:1372
+#: ../addressbook/e-book-backend-gal.c:1521
 msgid "Error performing search"
 msgstr "Fejl under udføring af søgning"
 
-#: ../calendar/e-cal-backend-exchange.c:277
+#: ../calendar/e-cal-backend-exchange.c:312
 msgid "Folder not marked for offline support"
 msgstr "Mappe ikke markeret til afkoblet brug"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1800
+#: ../calendar/e-cal-backend-exchange-calendar.c:1665
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -45,28 +45,28 @@ msgstr ""
 "Kan ikke planlægge resursen \"%s\" for genindtræffende møder.\n"
 "Du skal booke hvert møde separat."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1819
+#: ../calendar/e-cal-backend-exchange-calendar.c:1684
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Resursen \"%s\" er optaget under den valgte tidsperiode."
 
-#: ../camel/camel-exchange-folder.c:219
+#: ../camel/camel-exchange-folder.c:220
 msgid "Can only expunge in Deleted Items folder"
 msgstr "Kan kun tømme i mappen slettede-elementer"
 
-#: ../camel/camel-exchange-folder.c:243
+#: ../camel/camel-exchange-folder.c:244
 msgid "No Subject"
 msgstr "Intet emne"
 
-#: ../camel/camel-exchange-folder.c:370
+#: ../camel/camel-exchange-folder.c:371
 msgid "This message is not available in offline mode."
 msgstr "Denne besked er ikke tilgængelig i afkoblet tilstand"
 
-#: ../camel/camel-exchange-folder.c:605
+#: ../camel/camel-exchange-folder.c:606
 msgid "Moving messages"
 msgstr "Flytter beskeder"
 
-#: ../camel/camel-exchange-folder.c:606
+#: ../camel/camel-exchange-folder.c:607
 msgid "Copying messages"
 msgstr "Kopierer beskeder"
 
@@ -90,24 +90,20 @@ msgstr "Kunne ikke oprette mellemlager for %s"
 msgid "Could not create journal for %s"
 msgstr "Kunne ikke oprette journal for %s"
 
-#: ../camel/camel-exchange-folder.c:1006
+#: ../camel/camel-exchange-folder.c:1011
 msgid "Scanning for changed messages"
 msgstr "Søger efter ændrede beskeder"
 
-#: ../camel/camel-exchange-folder.c:1032
+#: ../camel/camel-exchange-folder.c:1037
 msgid "Fetching summary information for new messages"
 msgstr "Henter sammendragsinformation for nye beskeder"
 
-#: ../camel/camel-exchange-journal.c:279
-msgid "No folder name found\n"
-msgstr "Intet mappenavn fundet\n"
-
-#: ../camel/camel-exchange-journal.c:342
+#: ../camel/camel-exchange-journal.c:272
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
 "Kan ikke tilføje besked i afkoblet tilstand: Mellemlager ikke tilgængeligt"
 
-#: ../camel/camel-exchange-journal.c:358
+#: ../camel/camel-exchange-journal.c:288
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Kunne ikke tilføje besked i afkoblet tilstand: %s"
@@ -149,15 +145,15 @@ msgid "Automatically synchronize account locally"
 msgstr "Synkronisér automatisk konti lokalt"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:68
+#: ../camel/camel-exchange-provider.c:67
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr "Anvend filtre på nye beskeder i indbakken på denne server"
 
-#: ../camel/camel-exchange-provider.c:70
+#: ../camel/camel-exchange-provider.c:69
 msgid "Check new messages for Junk contents"
 msgstr "Kontrollér om nye beskeder indeholder skrald"
 
-#: ../camel/camel-exchange-provider.c:72
+#: ../camel/camel-exchange-provider.c:71
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "Kontrollér kun om beskeder indeholder skrald i indbakken"
 
@@ -195,38 +191,38 @@ msgstr ""
 "Dette alternativ vil tilslutte Exchange-serveren ved hjælp af "
 "standardgodkendelse med adgangskode i klartekst."
 
-#: ../camel/camel-exchange-store.c:260
+#: ../camel/camel-exchange-store.c:267
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange-server %s"
 
-#: ../camel/camel-exchange-store.c:263
+#: ../camel/camel-exchange-store.c:270
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Exchange-konto for %s på %s"
 
-#: ../camel/camel-exchange-store.c:290
+#: ../camel/camel-exchange-store.c:297
 msgid "Evolution Exchange backend process"
 msgstr "Bagendeproces for Evolution Exchange"
 
-#: ../camel/camel-exchange-store.c:349
+#: ../camel/camel-exchange-store.c:345
 #, c-format
 msgid "No such folder %s"
 msgstr "Mappen %s findes ikke"
 
-#: ../camel/camel-exchange-store.c:477
+#: ../camel/camel-exchange-store.c:473
 msgid "Cannot get folder info in offline mode."
 msgstr "Kan ikke hente information for mappen i afkoblet tilstand."
 
-#: ../camel/camel-exchange-store.c:539
+#: ../camel/camel-exchange-store.c:537
 msgid "Cannot create folder in offline mode."
 msgstr "Kan ikke oprette mappe i afkoblet tilstand."
 
-#: ../camel/camel-exchange-store.c:566
+#: ../camel/camel-exchange-store.c:564
 msgid "Cannot delete folder in offline mode."
 msgstr "Kan ikke slette mappen i afkoblet tilstand."
 
-#: ../camel/camel-exchange-store.c:582
+#: ../camel/camel-exchange-store.c:580
 msgid "Cannot rename folder in offline mode."
 msgstr "Kan ikke omdøbe mappen i afkoblet tilstand."
 
@@ -273,7 +269,7 @@ msgstr "Mistede forbindelsen til %s"
 msgid "Error communicating with %s: %s"
 msgstr "Fejl ved kommunikation med %s: %s"
 
-#: ../lib/e2k-autoconfig.c:1426 ../storage/exchange-autoconfig-wizard.c:224
+#: ../lib/e2k-autoconfig.c:1471 ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -283,7 +279,7 @@ msgstr ""
 "Kontrollér at URL'en er korrekt (prøv med \"%s\" i stedet for \"%s\"?) og "
 "forsøg igen."
 
-#: ../lib/e2k-autoconfig.c:1435 ../storage/exchange-autoconfig-wizard.c:232
+#: ../lib/e2k-autoconfig.c:1480 ../storage/exchange-autoconfig-wizard.c:219
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -291,7 +287,7 @@ msgstr ""
 "Kunne ikke finde Exchange-serveren.\n"
 "Kontrollér at servernavnet er korrekt stavet og forsøg igen."
 
-#: ../lib/e2k-autoconfig.c:1445 ../storage/exchange-autoconfig-wizard.c:241
+#: ../lib/e2k-autoconfig.c:1490 ../storage/exchange-autoconfig-wizard.c:228
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -299,7 +295,7 @@ msgstr ""
 "Kunne ikke godkendes af Exchange-serveren.\n"
 "Kontrollér at brugernavnet og adgangskoden er korrekt og forsøg igen."
 
-#: ../lib/e2k-autoconfig.c:1453 ../storage/exchange-autoconfig-wizard.c:248
+#: ../lib/e2k-autoconfig.c:1498 ../storage/exchange-autoconfig-wizard.c:235
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -313,7 +309,7 @@ msgstr ""
 "Du bliver muligvis nød til at angive Windows-domænenavnet som en del af dit "
 "brugernavn (fx \"MIT-DOMÆNE\\%s\")."
 
-#: ../lib/e2k-autoconfig.c:1466 ../storage/exchange-autoconfig-wizard.c:260
+#: ../lib/e2k-autoconfig.c:1511 ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -321,7 +317,8 @@ msgstr ""
 "Kunne ikke finde OWA-data på den angivne URL.\n"
 "Kontrollér at URL'en er korrekt og forsøg igen."
 
-#: ../lib/e2k-autoconfig.c:1474
+#: ../lib/e2k-autoconfig.c:1520
+#, c-format
 msgid ""
 "Ximian Connector requires access to certain functionality on the Exchange "
 "Server that appears to be disabled or blocked.  (This is usually "
@@ -330,20 +327,18 @@ msgid ""
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:\n"
-"http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
-"html "
+"%s"
 msgstr ""
 "Ximian Connector kræver adgang til en del funktionalitet på Exchange-"
 "serveren som virker til at være deaktiveret eller blokeret (dette er "
 "almindeligvis ikke med vilje). Din Exchange-administrator skal aktivere "
 "denne funktionalitet for at du kan anvende Ximian Connector.\n"
 "\n"
-"Følg nedenstående link for information som du kan give din Exchange-"
+"Følg linken nedenfor for information som du kan give din Exchange-"
 "administrator:\n"
-"http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
-"html "
+"%s"
 
-#: ../lib/e2k-autoconfig.c:1490 ../storage/exchange-autoconfig-wizard.c:288
+#: ../lib/e2k-autoconfig.c:1536 ../storage/exchange-autoconfig-wizard.c:275
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
@@ -351,7 +346,7 @@ msgstr ""
 "URL'en til Exchange-serveren som du angav er for en Exchange 5.5-server. "
 "Ximian Connector understøtter kun Microsoft Exchange 2000 og 2003."
 
-#: ../lib/e2k-autoconfig.c:1499 ../storage/exchange-autoconfig-wizard.c:301
+#: ../lib/e2k-autoconfig.c:1545 ../storage/exchange-autoconfig-wizard.c:288
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -359,12 +354,12 @@ msgstr ""
 "Kunne ikke konfigurere Exchange-kontoen eftersom en ukendt fejl opstod. "
 "Kontrollér URL'en, brugernavnet og adgangskoden og forsøg igen."
 
-#: ../lib/e2k-autoconfig.c:1524
+#: ../lib/e2k-autoconfig.c:1567
 #, c-format
 msgid "Enter password for %s"
 msgstr "Angiv adgangskode for %s"
 
-#: ../lib/e2k-autoconfig.c:1525 ../storage/exchange-account.c:858
+#: ../lib/e2k-autoconfig.c:1568 ../storage/exchange-account.c:874
 msgid "Enter password"
 msgstr "Angiv adgangskode"
 
@@ -620,34 +615,34 @@ msgstr "Der findes allerede en mappe med navnet \"%s\". Vælg et andet navn."
 #. It would be nice to insensitivize the OK button appropriately
 #. instead of doing this, but unfortunately we can't do this for the
 #. Bonobo control.
-#: ../shell/e-folder-misc-dialogs.c:439
+#: ../shell/e-folder-misc-dialogs.c:451
 msgid "Please select a user."
 msgstr "Vælg en bruger."
 
-#: ../shell/e-folder-misc-dialogs.c:539
+#: ../shell/e-folder-misc-dialogs.c:553
 msgid "Opening Folder"
 msgstr "Åbner mappe"
 
-#: ../shell/e-folder-misc-dialogs.c:545
+#: ../shell/e-folder-misc-dialogs.c:559
 #, c-format
 msgid "Opening Folder \"%s\""
 msgstr "Åbner mappen \"%s\""
 
-#: ../shell/e-folder-misc-dialogs.c:550
+#: ../shell/e-folder-misc-dialogs.c:564
 #, c-format
 msgid "in \"%s\" ..."
 msgstr "i \"%s\" ..."
 
-#: ../shell/e-folder-misc-dialogs.c:617
+#: ../shell/e-folder-misc-dialogs.c:631
 #, c-format
 msgid "Could not open other user's folder: %s."
 msgstr "Kunne ikke åbne anden brugers mappe: %s."
 
-#: ../shell/e-folder-misc-dialogs.c:667
+#: ../shell/e-folder-misc-dialogs.c:681
 msgid "Cannot find the specified other user's folder."
 msgstr "Kan ikke finde den angivne anden brugers mappe."
 
-#: ../shell/e-folder-misc-dialogs.c:699
+#: ../shell/e-folder-misc-dialogs.c:713
 #, c-format
 msgid ""
 "Cannot unsubscribe from folder:\n"
@@ -656,12 +651,12 @@ msgstr ""
 "Kan ikke opsige abonnement på mappen:\n"
 "%s"
 
-#: ../shell/e-folder-misc-dialogs.c:752
+#: ../shell/e-folder-misc-dialogs.c:766
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "Er du sikker på at du vil opsige abonnementet på mappen \"%s\"?"
 
-#: ../shell/e-folder-misc-dialogs.c:766
+#: ../shell/e-folder-misc-dialogs.c:780
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "Opsig abonnement på \"%s\""
@@ -746,7 +741,7 @@ msgstr "Kan ikke oprette en mappe med det navn"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Denne handling kan ikke udføres i afkoblet tilstand"
 
-#: ../shell/e-storage.c:587 ../storage/exchange-account.c:1434
+#: ../shell/e-storage.c:587 ../storage/exchange-account.c:1473
 msgid "Unknown error"
 msgstr "Ukendt fejl"
 
@@ -780,21 +775,22 @@ msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: ../storage/exchange-account.c:568
+#: ../storage/exchange-account.c:584
 #, c-format
 msgid "%s's Folders"
 msgstr "%s's mapper"
 
-#: ../storage/exchange-account.c:853
+#: ../storage/exchange-account.c:869
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sAngiv adgangskode for %s"
 
-#: ../storage/exchange-account.c:1043
+#. email id is not proper, we return instead of trying nt_domain
+#: ../storage/exchange-account.c:1069
 msgid "Cannot change password due to configuration problems"
 msgstr "Kan ikke skifte adgangskode på grund af konfigurationsproblemer"
 
-#: ../storage/exchange-account.c:1058
+#: ../storage/exchange-account.c:1092
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -802,33 +798,33 @@ msgstr ""
 "Serveren afviste adgangskoden fordi den er for enkel.\n"
 "Forsøg igen med en anden adgangskode."
 
-#: ../storage/exchange-account.c:1063
+#: ../storage/exchange-account.c:1097
 msgid "Could not change password"
 msgstr "Kunne ikke ændre adgangskode"
 
-#: ../storage/exchange-account.c:1159
+#: ../storage/exchange-account.c:1190
 msgid "Personal Folders"
 msgstr "Personlige mapper"
 
-#: ../storage/exchange-account.c:1174
+#: ../storage/exchange-account.c:1205
 msgid "Favorite Public Folders"
 msgstr "Offentlige favoritmapper"
 
 #. i18n: Outlookism
-#: ../storage/exchange-account.c:1191
+#: ../storage/exchange-account.c:1222
 msgid "All Public Folders"
 msgstr "Alle offentlige mapper"
 
 #. i18n: Outlookism
-#: ../storage/exchange-account.c:1205
+#: ../storage/exchange-account.c:1236
 msgid "Global Address List"
 msgstr "Global adresseliste"
 
-#: ../storage/exchange-account.c:1292
+#: ../storage/exchange-account.c:1326
 msgid "Exchange Account is offline. Cannot display folders\n"
 msgstr "Exchange-konto er i afkoblet tilstand Kan ikke vise mapper\n"
 
-#: ../storage/exchange-account.c:1345
+#: ../storage/exchange-account.c:1384
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -836,7 +832,7 @@ msgstr ""
 "Kunne ikke godkendes af serveren. (Er adgangskoden fejlagtigt?)\n"
 "\n"
 
-#: ../storage/exchange-account.c:1350
+#: ../storage/exchange-account.c:1389
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -856,12 +852,12 @@ msgstr ""
 "Eller så har du helt enkelt skrevet din adgangskode forkert.\n"
 "\n"
 
-#: ../storage/exchange-account.c:1392
+#: ../storage/exchange-account.c:1431
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "Postkassen for %s findes ikke på denne server."
 
-#: ../storage/exchange-account.c:1397
+#: ../storage/exchange-account.c:1436
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -871,7 +867,7 @@ msgstr ""
 "derfor ikke kompatibel med Ximian Connector"
 
 # Osikker.
-#: ../storage/exchange-account.c:1404
+#: ../storage/exchange-account.c:1443
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -882,26 +878,51 @@ msgstr ""
 "Hvis OWA benytter en anden søgesti skal du angive dette i "
 "kontokonfigurationsvinduet."
 
-#: ../storage/exchange-account.c:1412
+#: ../storage/exchange-account.c:1451
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Ingen postkasse for brugeren %s på %s.\n"
 
-#: ../storage/exchange-account.c:1418 ../storage/exchange-account.c:1424
-#: ../storage/exchange-account.c:1432
+#: ../storage/exchange-account.c:1457 ../storage/exchange-account.c:1463
+#: ../storage/exchange-account.c:1471
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Kunne ikke tilslutte serveren %s: %s"
 
-#: ../storage/exchange-account.c:1420
+#: ../storage/exchange-account.c:1459
 msgid "Could not resolve hostname"
 msgstr "Kunne ikke slå værtsnavn op"
 
-#: ../storage/exchange-account.c:1426
+#: ../storage/exchange-account.c:1465
 msgid "Network error"
 msgstr "Netværksfejl"
 
-#: ../storage/exchange-autoconfig-wizard.c:267
+#: ../storage/exchange-account.c:1529
+#, c-format
+msgid ""
+"You have exceeded your quota of %d %s for storing mails on this server. Your "
+"current usage is : %.0f %s."
+msgstr ""
+"Du bruger mere end din kvote på %d %s for lagring af e-post på denne "
+"server. Dit nuværende forbrug er: %.0f %s."
+
+#: ../storage/exchange-account.c:1532
+msgid "You will not be able to either send or receive mails now\n"
+msgstr "Du vil ikke være i stand til at sende eller modtage e-post nu\n"
+
+#: ../storage/exchange-account.c:1535
+msgid ""
+"You will not be able to send mails till you clear up some space by deleting "
+"some mails.\n"
+msgstr ""
+"Du vil ikke være i stand til at sende e-post før du gør plads ved at slette "
+"nogle e-breve.\n"
+
+#: ../storage/exchange-account.c:1538
+msgid "Try to clear up some space by deleting some mails.\n"
+msgstr "Prøv at ryde noget plads ved at slette noget e-post.\n"
+
+#: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
 "Ximian Connector requires access to certain functionality on the Exchange "
 "Server that appears to be disabled or blocked.  (This is usually "
@@ -919,7 +940,7 @@ msgstr ""
 "Følg linken nedenfor for information som du kan give din Exchange-"
 "administrator:"
 
-#: ../storage/exchange-autoconfig-wizard.c:345
+#: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -930,7 +951,7 @@ msgstr ""
 "til at gå tilbage og angive Windows-domænenavnet som del af dit brugernavn "
 "(fx \"MIT-DOMÆNE\\%s\")."
 
-#: ../storage/exchange-autoconfig-wizard.c:352
+#: ../storage/exchange-autoconfig-wizard.c:339
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -938,12 +959,12 @@ msgstr ""
 "Kunne ikke tilslutte den angivne server.\n"
 "Kontrollér servernavnet og forsøg igen."
 
-#: ../storage/exchange-autoconfig-wizard.c:389
-#: ../storage/exchange-autoconfig-wizard.c:393
+#: ../storage/exchange-autoconfig-wizard.c:376
+#: ../storage/exchange-autoconfig-wizard.c:380
 msgid "Unknown"
 msgstr "Ukendt"
 
-#: ../storage/exchange-autoconfig-wizard.c:477
+#: ../storage/exchange-autoconfig-wizard.c:445
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -951,8 +972,8 @@ msgstr ""
 "Konfigurationssystemfejl.\n"
 "Kan ikke oprette ny konto."
 
-#: ../storage/exchange-autoconfig-wizard.c:491
-#: ../storage/exchange-config-listener.c:604
+#: ../storage/exchange-autoconfig-wizard.c:459
+#: ../storage/exchange-config-listener.c:775
 msgid "You may only configure a single Exchange account"
 msgstr "Du kan kun konfigurere én Exchange-konto"
 
@@ -1125,7 +1146,7 @@ msgstr "Opgaver"
 msgid "Calendar"
 msgstr "Kalender"
 
-#: ../storage/exchange-config-listener.c:781
+#: ../storage/exchange-config-listener.c:969
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
@@ -1133,9 +1154,13 @@ msgstr ""
 "Ændringer i Exchange-kontokonfigurationen\n"
 "aktiveres efter at Evolution genstartes."
 
-#: ../storage/exchange-config-listener.c:827
+#: ../storage/exchange-config-listener.c:1015
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr "Exchange-kontoen fjernes når du afslutter Evolution"
+
+#: ../storage/exchange-config-listener.c:1020
+msgid "The Exchange account will be disabled when you quit Evolution"
+msgstr "Exchange-kontoen deaktiveres når du afslutter Evolution"
 
 #: ../storage/exchange-delegates-user.c:191
 #: ../storage/exchange-permissions-dialog.c:179
@@ -1295,11 +1320,11 @@ msgstr "_Indbakke:"
 msgid "_Tasks:"
 msgstr "_Opgaver:"
 
-#: ../storage/exchange-folder-size.c:259
+#: ../storage/exchange-folder-size.c:322
 msgid "Folder Name"
 msgstr "Mappenavn"
 
-#: ../storage/exchange-folder-size.c:263
+#: ../storage/exchange-folder-size.c:326
 msgid "Folder Size"
 msgstr "Mappestørrelse"
 
@@ -1684,6 +1709,30 @@ msgstr "_Borte fra kontoret-assistent"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Opsig abonnement på anden brugers mappe"
+
+#~ msgid "No folder name found\n"
+#~ msgstr "Intet mappenavn fundet\n"
+
+#~ msgid ""
+#~ "Ximian Connector requires access to certain functionality on the Exchange "
+#~ "Server that appears to be disabled or blocked.  (This is usually "
+#~ "unintentional.)  Your Exchange Administrator will need to enable this "
+#~ "functionality in order for you to be able to use Ximian Connector.\n"
+#~ "\n"
+#~ "For information to provide to your Exchange administrator, please follow "
+#~ "the link below:\n"
+#~ "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
+#~ "html "
+#~ msgstr ""
+#~ "Ximian Connector kræver adgang til en del funktionalitet på Exchange-"
+#~ "serveren som virker til at være deaktiveret eller blokeret (dette er "
+#~ "almindeligvis ikke med vilje). Din Exchange-administrator skal aktivere "
+#~ "denne funktionalitet for at du kan anvende Ximian Connector.\n"
+#~ "\n"
+#~ "Følg nedenstående link for information som du kan give din Exchange-"
+#~ "administrator:\n"
+#~ "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
+#~ "html "
 
 #~ msgid "Exc_hange Server:"
 #~ msgstr "Exc_hange-server:"
