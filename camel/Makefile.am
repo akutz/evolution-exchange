@@ -5,11 +5,10 @@ CAMEL_provider_DATA = libcamelexchange.urls
 
 INCLUDES =					\
 	$(WARN_CFLAGS)				\
-	-I$(top_srcdir)				\
-	-I$(top_srcdir)/xntlm			\
 	$(GLIB_CFLAGS)				\
 	$(CAMEL_CFLAGS)				\
 	$(SHELL_CFLAGS)				\
+	$(LIBEXCHANGE_CFLAGS)			\
 	-DCONNECTOR_LOCALEDIR=\"$(localedir)\"	\
 	-DG_LOG_DOMAIN=\"camel-exchange-provider\"	
 
@@ -38,8 +37,6 @@ noinst_HEADERS =				\
 libcamelexchange_la_LDFLAGS = -avoid-version -module
 
 libcamelexchange_la_LIBADD = 			\
-	$(top_builddir)/lib/libexchange.la	\
-	$(top_builddir)/xntlm/libxntlm.la	\
 	$(LDAP_LIBS)				\
 	$(LIBEXCHANGE_LIBS)			\
 	$(EXCHANGE_STORAGE_LIBS)		\

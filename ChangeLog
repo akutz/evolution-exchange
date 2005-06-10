@@ -1,3 +1,29 @@
+2005-06-10  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	Initial commit to use Exchange server communication code from e-d-s
+	* Makefile.am : Removed xntlm and lib
+	* configure.in : Check for libexchange-storage-1.2.pc
+	* addressbook/Makefile.am : Dont look for lib in exchange sources
+	* calendar/Makefile.am : Similar
+	* calendar/e-cal-backend-exchange-tasks.c : Use proper includes
+	* camel/Makefile.am : Dont look for xntlm in exchange sources
+	* mail/Makefile.am : Dont look for lib in exchange sources
+	* mail/mail-stub-exchange.c : Use ExchangeComponent for offline checks
+	instead of ExchangeAccount.
+	* storage/Makefile.am : Moved out e-folder-exchange.[ch], 
+	exchange-account.[ch], exchange-delegates-user.[ch], 
+	exchange-delegates.[ch], exchange-folder-size.[ch], 
+	exchange-hierarchy-favorites.[ch], exchange-hierarchy-gal.[ch],
+	exchange-hierarchy-somedav.[ch], exchange-hierarchy-webdav.[ch],
+	exchange-hierarchy.[ch], exchange-permissions-dialog.[ch], 
+	exchange-types.h. Also dont look for lib and xntlm in exchange sources.
+	* storage/exchange-component.[ch] : Use proper header includes.
+	* storage/exchange-config-listener.[ch] : Similar
+	* storage/exchange-offline-listener.[ch] : Similar
+	* storage/xc-backend-view.c : Similar
+	* storage/xc-commands.c : Similar. Disabled delegation and permissions
+	for now. These will be moved to plugins.
+
 2005-06-06  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* configure.in : Bumped the version to 2.3.3

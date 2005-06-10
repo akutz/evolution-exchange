@@ -4,7 +4,8 @@
 #ifndef __EXCHANGE_CONFIG_LISTENER_H__
 #define __EXCHANGE_CONFIG_LISTENER_H__
 
-#include "exchange-types.h"
+#include <exchange-types.h>
+#include <exchange-constants.h>
 #include <e-util/e-account-list.h>
 #include <libedataserver/e-source-list.h>
 #include <libedataserver/e-source-group.h>
@@ -36,11 +37,13 @@ struct _ExchangeConfigListenerClass {
 					  ExchangeAccount *);
 };
 
+#if 0
 typedef enum {
 	EXCHANGE_CALENDAR_FOLDER,
 	EXCHANGE_TASKS_FOLDER,
 	EXCHANGE_CONTACTS_FOLDER
 }FolderType;
+#endif
 
 #define CONF_KEY_CAL "/apps/evolution/calendar/sources"
 #define CONF_KEY_TASKS "/apps/evolution/tasks/sources"

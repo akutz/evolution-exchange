@@ -23,9 +23,9 @@
 
 #include "xc-backend-view.h"
 #include "xc-commands.h"
-#include "exchange-account.h"
-#include "exchange-config-listener.h"
-#include "exchange-storage.h"
+#include <exchange-account.h>
+#include <exchange-config-listener.h>
+#include <exchange-storage.h>
 
 #include <bonobo/bonobo-exception.h>
 #include <gal/widgets/e-popup-menu.h>

@@ -23,16 +23,16 @@
 
 #include "xc-commands.h"
 #include "xc-backend-view.h"
-#include "e-folder-exchange.h"
+#include <e-folder-exchange.h>
 #include "exchange-component.h"
-#include "exchange-hierarchy-gal.h"
 #include "e2k-utils.h"
-#include "exchange-account.h"
+#include <exchange-account.h>
 #include "exchange-change-password.h"
 #include "exchange-delegates.h"
+#include <exchange-hierarchy.h>
 #include "exchange-oof.h"
 #include "exchange-permissions-dialog.h"
-#include "exchange-folder-size.h"
+#include <exchange-folder-size.h>
 
 #include "e-folder-creation-dialog.h"
 #include "e-folder-misc-dialogs.h"
@@ -127,7 +127,7 @@ do_unsubscribe_user (BonoboUIComponent *component, gpointer user_data,
 
 static BonoboUIVerb verbs [] = {
 	BONOBO_UI_VERB ("ExchangeOOF", do_oof),
-	BONOBO_UI_VERB ("ExchangeDelegation", do_delegates),
+	/* BONOBO_UI_VERB ("ExchangeDelegation", do_delegates), */
 	BONOBO_UI_VERB ("ExchangePassword", do_change_password),
 	BONOBO_UI_VERB ("ExchangeFolderSize", do_folder_size_menu),
 	BONOBO_UI_VERB ("ExchangeSubscribeUser", do_subscribe_user),
@@ -416,11 +416,11 @@ static EPopupMenu popup_menu [] = {
 		      XC_FOLDER_COMMAND_MASK_FAVORITES),
 
 	E_POPUP_SEPARATOR_WITH_MASK(XC_FOLDER_COMMAND_MASK_PUBLIC),
-
+/*
 	E_POPUP_ITEM (N_("_Permissions..."),
 		      G_CALLBACK (do_permissions),
 		      XC_FOLDER_COMMAND_MASK_PERMISSIONS),
-
+*/
 	E_POPUP_ITEM (N_("_Show Folder Sizes"),
 		      G_CALLBACK (do_folder_size),
 		      XC_FOLDER_COMMAND_MASK_PERMISSIONS),

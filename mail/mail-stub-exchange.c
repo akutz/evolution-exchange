@@ -37,6 +37,7 @@
 #include "e2k-restriction.h"
 #include "e2k-uri.h"
 #include "e2k-utils.h"
+#include "exchange-component.h" // for using global_exchange_component
 #include "exchange-hierarchy.h"
 #include "mapi.h"
 
@@ -591,7 +592,7 @@ get_folder (MailStub *stub, const char *name, gboolean create,
 		if (!(mmsg->flags & MAIL_STUB_MESSAGE_SEEN))
 			mfld->unread_count++;
 	}
-	exchange_account_is_offline (mse->account, &mode);
+	exchange_component_is_offline (global_exchange_component, &mode);
 	if (mode == ONLINE_MODE) {
 		mfld->changed_messages = g_ptr_array_new ();
 
@@ -821,7 +822,7 @@ sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld)
 	MailStubExchangeMessage *mmsg, *my_mmsg;
 	gboolean changes = FALSE;
 
-	exchange_account_is_offline (mse->account, &mode);
+	exchange_component_is_offline (global_exchange_component, &mode);
 	if (mode != ONLINE_MODE)
 		return;
 
@@ -1000,7 +1001,7 @@ refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 
 	g_object_ref (stub);
 
-	exchange_account_is_offline (mse->account, &mode);
+	exchange_component_is_offline (global_exchange_component, &mode);
 	if (mode == OFFLINE_MODE) {
 		if (background)
 			mail_stub_push_changes (stub);
@@ -2454,7 +2455,7 @@ mail_stub_exchange_new (ExchangeAccount *account, int cmd_fd, int status_fd)
 
 	stub = g_object_new (MAIL_TYPE_STUB_EXCHANGE, NULL);
 	mail_stub_construct (stub, cmd_fd, status_fd);
-	exchange_account_is_offline (account, &mode);
+	exchange_component_is_offline (global_exchange_component, &mode);
 
 	mse = (MailStubExchange *)stub;
 	mse->account = account;

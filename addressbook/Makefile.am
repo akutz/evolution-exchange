@@ -3,10 +3,8 @@ INCLUDES =						\
 	$(ADDRESSBOOK_CFLAGS)				\
 	-I$(top_srcdir)					\
 	-I$(top_srcdir)/shell				\
-	-I$(top_srcdir)/lib				\
 	-I$(top_srcdir)/storage				\
 	-I$(top_builddir)/shell				\
-	-I$(top_builddir)/lib				\
 	$(LDAP_CFLAGS)					\
 	$(LIBEXCHANGE_CFLAGS)
 

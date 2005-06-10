@@ -23,7 +23,8 @@
 
 #include <time.h>
 #include "e-cal-backend-exchange-tasks.h"
-#include "e2k-properties.c"
+#include "e2k-properties.h"
+#include "e2k-propnames.h"
 #include "libecal/e-cal-component.h"
 #include "e-util/e-config-listener.h"
 #include "e2k-cal-utils.h"

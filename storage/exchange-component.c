@@ -29,15 +29,14 @@
 #include <bonobo/bonobo-exception.h>
 #include <bonobo/bonobo-main.h>
 
-#include "e-storage-set.h"
-#include "e-storage-set-view.h"
+//#include "e-storage-set.h"
+//#include "e-storage-set-view.h"
 
-#include "exchange-account.h"
+#include <exchange-account.h>
+#include <exchange-constants.h>
 #include "exchange-config-listener.h"
-#include "exchange-hierarchy-gal.h"
 #include "exchange-oof.h"
-#include "exchange-storage.h"
-#include "e-folder-exchange.h"
+#include <e-folder-exchange.h>
 
 #include "mail-stub-listener.h"
 #include "mail-stub-exchange.h"

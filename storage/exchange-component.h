@@ -6,8 +6,8 @@
 
 #include <bonobo/bonobo-object.h>
 #include <shell/Evolution.h>
-#include "exchange-types.h"
-#include "exchange-offline-listener.h"
+#include <exchange-types.h>
+#include <exchange-offline-listener.h>
 
 #ifdef __cplusplus
 extern "C" {

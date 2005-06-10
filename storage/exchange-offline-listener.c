@@ -26,6 +26,7 @@
 #endif
 
 #include "exchange-offline-listener.h"
+#include <exchange-constants.h>
 #include <libedata-book/e-data-book-factory.h>
 #include <libedata-cal/e-data-cal-factory.h>
 #include <gconf/gconf-client.h>
