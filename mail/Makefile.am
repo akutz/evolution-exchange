@@ -4,16 +4,15 @@ noinst_LTLIBRARIES =						\
 
 INCLUDES =							\
 	-I$(top_srcdir)						\
-	-I$(top_builddir)/lib					\
+	-I$(top_srcdir)/shell					\
+	-I$(top_srcdir)/camel					\
 	-DG_LOG_DOMAIN=\"exchange-mail\"			\
 	$(EXTRA_GNOME_CFLAGS)					\
 	$(BONOBO_GNOME_CFLAGS)					\
 	$(MAIL_CFLAGS)						\
-        $(LIBEXCHANGE_CFLAGS)					\
-	$(LDAP_CFLAGS)						\
+	$(LIBEXCHANGE_CFLAGS)					\
 	-I$(top_srcdir)/storage  				\
-	-I$(top_srcdir)/shell					\
-	-I$(top_srcdir)/camel
+	$(LDAP_CFLAGS)						
 
 libexchangemail_la_SOURCES =					\
 	mail-stub.c						\

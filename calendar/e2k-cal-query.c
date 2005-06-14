@@ -27,8 +27,8 @@
 #include <libedata-cal/e-cal-backend-sexp.h>
 #include <libedataserver/e-sexp.h>
 
-#include "e2k-propnames.h"
-#include "e2k-utils.h"
+#include <e2k-propnames.h>
+#include <e2k-utils.h>
 
 /* E-Sexp functions */
 

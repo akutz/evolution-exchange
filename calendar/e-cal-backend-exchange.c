@@ -38,15 +38,15 @@
 
 #include "e-cal-backend-exchange.h"
 #include "e2k-cal-utils.h"
-#include "e2k-uri.h"
+#include <e2k-uri.h>
 
-#include "e2k-propnames.h"
-#include "e2k-restriction.h"
-#include "mapi.h"
+#include <e2k-propnames.h>
+#include <e2k-restriction.h>
+#include <mapi.h>
 
-#include "e-folder-exchange.h"
+#include <e-folder-exchange.h>
 #include "exchange-component.h"
-#include "exchange-hierarchy.h"
+#include <exchange-hierarchy.h>
 
 struct ECalBackendExchangePrivate {
 	gboolean read_only;

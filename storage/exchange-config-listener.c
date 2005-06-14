@@ -29,9 +29,9 @@
 #include "exchange-config-listener.h"
 
 #include <exchange-account.h>
-#include "e-folder-exchange.h"
-#include "e2k-marshal.h"
-#include "e2k-uri.h"
+#include <e-folder-exchange.h>
+#include <e2k-marshal.h>
+#include <e2k-uri.h>
 #include "mail-stub-listener.h"
 
 #include <e-util/e-dialog-utils.h>

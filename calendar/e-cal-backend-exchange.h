@@ -7,8 +7,8 @@
 #include <libedata-cal/e-cal-backend-sync.h>
 #include <libedataserver/e-xml-hash-utils.h>
 
-#include "exchange-types.h"
-#include "e-folder.h"
+#include <exchange-types.h>
+#include <e-folder.h>
 
 G_BEGIN_DECLS
 

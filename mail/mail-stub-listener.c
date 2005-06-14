@@ -29,8 +29,8 @@
 #include <unistd.h>
 
 #include "mail-stub-listener.h"
-#include "e2k-marshal.h"
-#include "e2k-types.h"
+#include <e2k-marshal.h>
+#include <e2k-types.h>
 
 enum {
 	NEW_CONNECTION,

@@ -5,7 +5,7 @@
 #define __MAIL_STUB_EXCHANGE_H__
 
 #include "mail-stub.h"
-#include "exchange-account.h"
+#include <exchange-account.h>
 
 #ifdef __cplusplus
 extern "C" {

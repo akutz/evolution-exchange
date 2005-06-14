@@ -22,7 +22,7 @@
 #endif
 
 #include "e2k-cal-utils.h"
-#include "e2k-utils.h"
+#include <e2k-utils.h>
 
 /**
  * e2k_timestamp_to_icaltime:

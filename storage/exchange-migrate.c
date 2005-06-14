@@ -35,7 +35,7 @@
 #include <gtk/gtkprogressbar.h>
 #include <e-util/e-folder-map.h>
 
-#include "exchange-types.h"
+#include <exchange-types.h>
 #include "exchange-migrate.h"
 
 static GtkWidget *window;

@@ -31,15 +31,15 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "e-folder-exchange.h"
+#include <e-folder-exchange.h>
 #include "camel-stub-constants.h"
-#include "e2k-propnames.h"
-#include "e2k-restriction.h"
-#include "e2k-uri.h"
-#include "e2k-utils.h"
+#include <e2k-propnames.h>
+#include <e2k-restriction.h>
+#include <e2k-uri.h>
+#include <e2k-utils.h>
 #include "exchange-component.h" // for using global_exchange_component
-#include "exchange-hierarchy.h"
-#include "mapi.h"
+#include <exchange-hierarchy.h>
+#include <mapi.h>
 
 #define PARENT_TYPE MAIL_TYPE_STUB
 static MailStubClass *parent_class = NULL;

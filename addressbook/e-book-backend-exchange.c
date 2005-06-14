@@ -47,15 +47,15 @@
 #include <camel/camel-multipart.h>
 #include <camel/camel-stream-mem.h>
 
-#include "e2k-context.h"
-#include "e2k-propnames.h"
-#include "e2k-restriction.h"
-#include "e2k-uri.h"
-#include "e2k-utils.h"
-#include "mapi.h"
-#include "exchange-account.h"
-#include "exchange-hierarchy.h"
-#include "e-folder-exchange.h"
+#include <e2k-context.h>
+#include <e2k-propnames.h>
+#include <e2k-restriction.h>
+#include <e2k-uri.h>
+#include <e2k-utils.h>
+#include <mapi.h>
+#include <exchange-account.h>
+#include <exchange-hierarchy.h>
+#include <e-folder-exchange.h>
 #include "e-book-backend-exchange.h"
 #include "exchange-component.h"
 

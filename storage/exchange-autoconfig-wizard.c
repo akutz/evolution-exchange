@@ -26,7 +26,7 @@
 #include <string.h>
 
 #include "e2k-autoconfig.h"
-#include "e2k-utils.h"
+#include <e2k-utils.h>
 #include "exchange-autoconfig-wizard.h"
 
 #include <e-util/e-account.h>

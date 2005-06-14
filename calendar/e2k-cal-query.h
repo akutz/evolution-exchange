@@ -4,7 +4,7 @@
 #ifndef E2K_CAL_QUERY_H
 #define E2K_CAL_QUERY_H
 
-#include "e2k-restriction.h"
+#include <e2k-restriction.h>
 #include "e-cal-backend-exchange.h"
 
 G_BEGIN_DECLS

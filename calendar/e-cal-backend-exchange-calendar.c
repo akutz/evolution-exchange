@@ -28,14 +28,14 @@
 #include "e-cal-backend-exchange-calendar.h"
 
 #include "e2k-cal-utils.h"
-#include "e2k-freebusy.h"
-#include "e2k-propnames.h"
-#include "e2k-restriction.h"
-#include "e2k-utils.h"
-#include "e2k-xml-utils.h"
-#include "e-folder-exchange.h"
-#include "exchange-account.h"
-#include "mapi.h"
+#include <e2k-freebusy.h>
+#include <e2k-propnames.h>
+#include <e2k-restriction.h>
+#include <e2k-utils.h>
+#include <e2k-xml-utils.h>
+#include <e-folder-exchange.h>
+#include <exchange-account.h>
+#include <mapi.h>
 
 struct ECalBackendExchangeCalendarPrivate {
 	int dummy;

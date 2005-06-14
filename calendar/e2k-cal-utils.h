@@ -5,7 +5,7 @@
 #define E2K_CAL_UTILS_H
 
 #include <libical/ical.h>
-#include "e2k-types.h"
+#include <e2k-types.h>
 
 G_BEGIN_DECLS
 

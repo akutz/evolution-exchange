@@ -23,17 +23,17 @@
 
 #include <time.h>
 #include "e-cal-backend-exchange-tasks.h"
-#include "e2k-properties.h"
-#include "e2k-propnames.h"
+#include <e2k-properties.h>
+#include <e2k-propnames.h>
 #include "libecal/e-cal-component.h"
 #include "e-util/e-config-listener.h"
 #include "e2k-cal-utils.h"
-#include "e2k-context.h"
-#include "exchange-account.h"
-#include "e-folder-exchange.h"
-#include "e2k-operation.h"
-#include "e2k-restriction.h"
-#include "e2k-utils.h"
+#include <e2k-context.h>
+#include <exchange-account.h>
+#include <e-folder-exchange.h>
+#include <e2k-operation.h>
+#include <e2k-restriction.h>
+#include <e2k-utils.h>
 
 #define d(x)
 

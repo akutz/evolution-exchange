@@ -28,8 +28,8 @@
 #include <sys/un.h>
 #include <unistd.h>
 
-#include "e2k-uri.h"
-#include "e2k-types.h"
+#include <e2k-uri.h>
+#include <e2k-types.h>
 #include "mail-stub.h"
 #include "camel-stub-constants.h"
 

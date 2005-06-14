@@ -23,9 +23,9 @@
 
 #include "mail-utils.h"
 #include "mail-stub.h"
-#include "e2k-propnames.h"
-#include "e2k-utils.h"
-#include "mapi.h"
+#include <e2k-propnames.h>
+#include <e2k-utils.h>
+#include <mapi.h>
 
 #include <ctype.h>
 #include <stdlib.h>

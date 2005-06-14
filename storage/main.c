@@ -42,7 +42,7 @@
 #include <libedata-cal/e-data-cal-factory.h>
 #include <libedataserver/e-data-server-module.h>
 
-#include "e2k-utils.h"
+#include <e2k-utils.h>
 #include "addressbook/e-book-backend-exchange.h"
 #include "addressbook/e-book-backend-exchange-factory.h"
 #include "addressbook/e-book-backend-gal.h"

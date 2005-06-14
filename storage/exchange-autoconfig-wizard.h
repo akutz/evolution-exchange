@@ -4,7 +4,7 @@
 #ifndef __EXCHANGE_AUTOCONFIG_WIZARD_H__
 #define __EXCHANGE_AUTOCONFIG_WIZARD_H__
 
-#include "exchange-types.h"
+#include <exchange-types.h>
 
 #include <bonobo/bonobo-object.h>
 
