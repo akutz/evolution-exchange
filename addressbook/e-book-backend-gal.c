@@ -29,8 +29,9 @@
 #include <fcntl.h>
 #include <string.h>
 
-#include "e2k-utils.h"
-#include "exchange-account.h"
+#include <e2k-utils.h>
+#include <e2k-global-catalog-ldap.h>
+#include <exchange-account.h>
 #include "exchange-component.h"
 
 #ifdef DEBUG
