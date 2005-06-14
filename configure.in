@@ -95,8 +95,8 @@ CONNECTOR_DATADIR='$(datadir)/evolution-exchange/$(BASE_VERSION)'
 AC_SUBST(CONNECTOR_DATADIR)
 
 dnl Check that e-d-s was built with Exchange support.
-EXCHANGE_PACKAGE=`pkg-config --exists libexchange-storage-$EDS_API_VERSION`
-if test "x$EXCHANGE_PACKAGE" != "x0"; then
+EXCHANGE_PACKAGE="`pkg-config --exists libexchange-storage-$EDS_API_VERSION`"
+if test "x$EXCHANGE_PACKAGE" != "x"; then
 	echo "
 		You probably have not built evolution-data-server with 
 		Exchange support or fix your PKG_CONFIG_PATH to point 
