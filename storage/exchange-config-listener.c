@@ -359,7 +359,7 @@ add_folder_esource (ExchangeAccount *account,
 	gboolean is_contacts_folder = TRUE, group_new = FALSE, source_new = FALSE;
 	const char *offline = NULL;
 	int mode;
-	ESourceList *source_list;
+	ESourceList *source_list = NULL;
 
 	client = gconf_client_get_default ();
 
@@ -540,7 +540,7 @@ remove_account_esource (ExchangeAccount *account,
 	gboolean found_group;
 	const char *source_uid;
 	GConfClient *client;
-	ESourceList *source_list;
+	ESourceList *source_list = NULL;
 
 	/* Remove the ESource group, to remove all the folders in a component */
 
@@ -640,7 +640,7 @@ remove_folder_esource (ExchangeAccount *account,
 	const char *source_uid;
 	GSList *ids, *temp_ids, *node_to_be_deleted;
 	GConfClient *client;
-	ESourceList *source_list;
+	ESourceList *source_list = NULL;
 
 	client = gconf_client_get_default ();
 

@@ -32,7 +32,7 @@
 #include "camel-exchange-store.h"
 #include "camel-exchange-transport.h"
 
-#include "lib/e2k-validate.h"
+#include <e2k-validate.h>
 
 static guint exchange_url_hash (gconstpointer key);
 static gint exchange_url_equal (gconstpointer a, gconstpointer b);

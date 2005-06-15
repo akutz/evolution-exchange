@@ -26,12 +26,12 @@
 #endif
 
 #include "exchange-hierarchy-somedav.h"
-#include "exchange-account.h"
-#include "e-folder-exchange.h"
-#include "e2k-propnames.h"
-#include "e2k-marshal.h"
-#include "e2k-uri.h"
-#include "e2k-utils.h"
+#include <exchange-account.h>
+#include <e-folder-exchange.h>
+#include <e2k-propnames.h>
+#include <e2k-marshal.h>
+#include <e2k-uri.h>
+#include <e2k-utils.h>
 
 #include <libedataserver/e-xml-hash-utils.h>
 

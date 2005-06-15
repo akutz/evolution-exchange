@@ -4,7 +4,7 @@
 #ifndef __EXCHANGE_HIERARCHY_SOMEDAV_H__
 #define __EXCHANGE_HIERARCHY_SOMEDAV_H__
 
-#include "exchange-hierarchy-webdav.h"
+#include <exchange-hierarchy-webdav.h>
 
 #ifdef __cplusplus
 extern "C" {

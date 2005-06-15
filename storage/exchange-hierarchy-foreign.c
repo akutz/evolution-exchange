@@ -26,11 +26,11 @@
 #endif
 
 #include "exchange-hierarchy-foreign.h"
-#include "exchange-account.h"
-#include "e-folder-exchange.h"
-#include "e2k-propnames.h"
-#include "e2k-uri.h"
-#include "e2k-utils.h"
+#include <exchange-account.h>
+#include <e-folder-exchange.h>
+#include <e2k-propnames.h>
+#include <e2k-uri.h>
+#include <e2k-utils.h>
 #include "exchange-config-listener.h"
 
 #include <libedataserver/e-xml-hash-utils.h>

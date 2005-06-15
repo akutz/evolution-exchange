@@ -17,6 +17,10 @@ extern "C" {
 #define EXCHANGE_IS_HIERARCHY_FOREIGN(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), EXCHANGE_TYPE_HIERARCHY_FOREIGN))
 #define EXCHANGE_IS_HIERARCHY_FOREIGN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((obj), EXCHANGE_TYPE_HIERARCHY_FOREIGN))
 
+typedef struct _ExchangeHierarchyForeign         ExchangeHierarchyForeign;
+typedef struct _ExchangeHierarchyForeignPrivate  ExchangeHierarchyForeignPrivate;
+typedef struct _ExchangeHierarchyForeignClass    ExchangeHierarchyForeignClass;
+
 struct _ExchangeHierarchyForeign {
 	ExchangeHierarchySomeDAV parent;
 
