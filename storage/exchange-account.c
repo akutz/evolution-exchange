@@ -43,7 +43,7 @@
 #include <e-util/e-dialog-utils.h>
 #include <libedataserverui/e-passwords.h>
 
-#include <gal/util/e-util.h>
+#include <e-util/e-util.h>
 #include <libgnome/gnome-util.h>
 
 #include <glade/glade-xml.h>

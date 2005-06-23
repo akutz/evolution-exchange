@@ -35,7 +35,7 @@
 
 #include <bonobo/bonobo-ui-util.h>
 #include <bonobo/bonobo-control.h>
-#include <gal/widgets/e-popup-menu.h>
+#include <misc/e-popup-menu.h>
 #include <e-util/e-dialog-utils.h>
 
 static inline GtkWidget *

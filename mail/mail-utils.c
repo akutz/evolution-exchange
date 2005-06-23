@@ -32,7 +32,7 @@
 #include <string.h>
 
 #include <e-util/e-html-utils.h>
-#include <gal/util/e-util.h>
+#include <e-util/e-util.h>
 #include <libical/ical.h>
 
 /**

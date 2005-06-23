@@ -34,8 +34,8 @@
 
 #include <glib/gi18n-lib.h>
 
-#include <gal/util/e-util.h>
-#include <gal/widgets/e-gui-utils.h>
+#include <e-util/e-util.h>
+#include <misc/e-gui-utils.h>
 
 #include <gtk/gtkbox.h>
 #include <gtk/gtklabel.h>

@@ -137,11 +137,6 @@ AC_SUBST(CALENDAR_LIBS)
 PKG_CHECK_MODULES(CAMEL, camel-provider-$EDS_API_VERSION)
 AC_SUBST(CAMEL_CFLAGS)
 
-dnl Should we be using this now ? We could just re-write the code that we use 
-dnl from GAL. We are anyway planning to move away from GAL
-dnl PKG_CHECK_MODULES(GAL, gal-2.4)
-dnl AC_SUBST(GAL_CFLAGS)
-
 PKG_CHECK_MODULES(MAIL, libecal-$EDS_API_VERSION)
 AC_SUBST(MAIL_CFLAGS)
 
@@ -155,7 +150,7 @@ else
 	LIBSOUP_VERSION=2.2
 fi
 
-PKG_CHECK_MODULES(EXCHANGE_STORAGE, evolution-shell-$EVOLUTION_BASE_VERSION libedataserverui-$EDS_API_VERSION libedata-book-$EDS_API_VERSION libedata-cal-$EDS_API_VERSION libsoup-$LIBSOUP_VERSION libglade-2.0 libgnomeui-2.0 camel-provider-$EDS_API_VERSION)
+PKG_CHECK_MODULES(EXCHANGE_STORAGE, evolution-shell-$EVOLUTION_BASE_VERSION libedataserverui-$EDS_API_VERSION libedata-book-$EDS_API_VERSION libedata-cal-$EDS_API_VERSION libsoup-$LIBSOUP_VERSION libglade-2.0 libgnomeui-2.0 libgnomeprint-2.2 >= 2.2.0 camel-provider-$EDS_API_VERSION)
 AC_SUBST(EXCHANGE_STORAGE_CFLAGS)
 AC_SUBST(EXCHANGE_STORAGE_LIBS)
 

@@ -26,7 +26,7 @@
 
 #include "e-folder-type-registry.h"
 
-#include <gal/util/e-util.h>
+#include <e-util/e-util.h>
 
 #include <shell/e-shell-utils.h>
 

@@ -31,12 +31,12 @@
 #include "e-shell-marshal.h"
 
 #include <e-util/e-icon-factory.h>
-#include <gal/util/e-util.h>
-#include <gal/widgets/e-gui-utils.h>
-#include <gal/e-table/e-tree-memory-callbacks.h>
-#include <gal/e-table/e-cell-text.h>
-#include <gal/e-table/e-cell-toggle.h>
-#include <gal/e-table/e-cell-tree.h>
+#include <e-util/e-util.h>
+#include <misc/e-gui-utils.h>
+#include <table/e-tree-memory-callbacks.h>
+#include <table/e-cell-text.h>
+#include <table/e-cell-toggle.h>
+#include <table/e-cell-tree.h>
 
 #include <libgnome/gnome-util.h>
 #include <libgnomeui/gnome-popup-menu.h>

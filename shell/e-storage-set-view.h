@@ -23,7 +23,7 @@
 #ifndef __E_STORAGE_SET_VIEW_H__
 #define __E_STORAGE_SET_VIEW_H__
 
-#include <gal/e-table/e-tree.h>
+#include <table/e-tree.h>
 #include "e-storage-set.h"
 
 #ifdef __cplusplus

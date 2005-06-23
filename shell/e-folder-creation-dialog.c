@@ -41,7 +41,7 @@
 
 #include <glade/glade-xml.h>
 
-#include <gal/util/e-util.h>
+#include <e-util/e-util.h>
 #include <shell/e-shell-utils.h>
 #include <e-util/e-icon-factory.h>
 

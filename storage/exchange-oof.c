@@ -34,7 +34,7 @@
 #include <sys/types.h>
 #include <e-util/e-dialog-utils.h>
 #include <libedataserver/e-xml-hash-utils.h>
-#include <gal/util/e-util.h>
+#include <e-util/e-util.h>
 #include <glade/glade-xml.h>
 #include <gtk/gtkdialog.h>
 #include <gtk/gtklabel.h>

@@ -28,7 +28,7 @@
 #include <exchange-storage.h>
 
 #include <bonobo/bonobo-exception.h>
-#include <gal/widgets/e-popup-menu.h>
+#include <misc/e-popup-menu.h>
 #include <gtk/gtkcellrenderertext.h>
 #include <gtk/gtkdrawingarea.h>
 #include <gtk/gtkliststore.h>

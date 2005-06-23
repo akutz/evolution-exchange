@@ -28,8 +28,8 @@
 #include "e2k-path.h"
 #include "exchange-config-listener.h"
 
-#include <gal/util/e-util.h>
-#include <gal/util/e-xml-utils.h>
+#include <e-util/e-util.h>
+#include <e-util/e-xml-utils.h>
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>

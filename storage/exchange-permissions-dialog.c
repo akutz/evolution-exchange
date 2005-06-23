@@ -48,7 +48,7 @@
 #include <gtk/gtktreeview.h>
 
 #undef GTK_DISABLE_DEPRECATED
-#include <gal/widgets/e-option-menu.h>
+#include <misc/e-option-menu.h>
 
 struct _ExchangePermissionsDialogPrivate {
 	ExchangeAccount *account;

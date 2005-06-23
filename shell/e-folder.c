@@ -29,7 +29,7 @@
 
 #include <string.h>
 #include <glib.h>
-#include <gal/util/e-util.h>
+#include <e-util/e-util.h>
 
 #define PARENT_TYPE G_TYPE_OBJECT
 static GObjectClass *parent_class = NULL;
