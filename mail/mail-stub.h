@@ -60,7 +60,7 @@ struct _MailStubClass {
 				    const char *dest_name, GPtrArray *uids,
 				    gboolean delete_originals);
 	void (*get_folder_info)    (MailStub *, const char *top,
-				    gboolean recursive);
+				    guint32 store_flags);
 	void (*send_message)       (MailStub *, const char *from,
 				    GPtrArray *recipients,
 				    const char *data, int length);
@@ -69,6 +69,9 @@ struct _MailStubClass {
 	void (*delete_folder)      (MailStub *, const char *folder_name);
 	void (*rename_folder)      (MailStub *, const char *old_name,
 				    const char *new_name);
+	void (*subscribe_folder)   (MailStub *, const char *folder_name);
+	void (*unsubscribe_folder)   (MailStub *, const char *folder_name);
+	void (*is_subscribed_folder)   (MailStub *, const char *folder_name);
 };
 
 GType             mail_stub_get_type        (void);

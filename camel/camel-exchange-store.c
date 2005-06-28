@@ -33,6 +33,7 @@
 
 #define SUBFOLDER_DIR_NAME     "subfolders"
 #define SUBFOLDER_DIR_NAME_LEN 10
+#define d(x) (x) 
 
 
 //static CamelStoreClass *parent_class = NULL;
@@ -70,6 +71,14 @@ static void             exchange_rename_folder (CamelStore *store,
 						const char *old_name,
 						const char *new_name,
 						CamelException *ex);
+static gboolean		exchange_folder_subscribed (CamelStore *store, 
+						const char *folder_name);
+static void 		exchange_subscribe_folder (CamelStore *store, 
+						const char *folder_name, 
+						CamelException *ex);
+static void 		exchange_unsubscribe_folder (CamelStore *store, 
+						const char *folder_name, 
+						CamelException *ex);
 
 static void stub_notification (CamelObject *object, gpointer event_data, gpointer user_data);
 
@@ -97,6 +106,10 @@ class_init (CamelExchangeStoreClass *camel_exchange_store_class)
 	camel_store_class->create_folder = exchange_create_folder;
 	camel_store_class->delete_folder = exchange_delete_folder;
 	camel_store_class->rename_folder = exchange_rename_folder;
+
+	camel_store_class->folder_subscribed = exchange_folder_subscribed;
+	camel_store_class->subscribe_folder = exchange_subscribe_folder;
+	camel_store_class->unsubscribe_folder = exchange_unsubscribe_folder;
 }
 
 static void
@@ -107,6 +120,7 @@ init (CamelExchangeStore *exch, CamelExchangeStoreClass *klass)
 	exch->folders_lock = g_mutex_new ();
 	exch->folders = g_hash_table_new (g_str_hash, g_str_equal);
 
+	store->flags |= CAMEL_STORE_SUBSCRIPTIONS;
 	store->flags &= ~(CAMEL_STORE_VTRASH | CAMEL_STORE_VJUNK);
 }
 
@@ -381,6 +395,64 @@ exchange_get_folder (CamelStore *store, const char *folder_name,
 	return folder;
 }
 
+static gboolean
+exchange_folder_subscribed (CamelStore *store, const char *folder_name)
+{
+	d(printf ("is subscribed folder : %s\n", folder_name));
+	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
+	guint32 is_subscribed;
+	
+	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
+		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot check if folder is subscribed in offline mode."));
+		return;
+	}
+
+	if (!camel_stub_send (exch->stub, NULL, CAMEL_STUB_CMD_IS_SUBSCRIBED_FOLDER,
+			      CAMEL_STUB_ARG_STRING, folder_name,
+			      CAMEL_STUB_ARG_RETURN,
+			      CAMEL_STUB_ARG_UINT32, &is_subscribed,
+			      CAMEL_STUB_ARG_END)) {
+		return FALSE;
+	}
+
+	return is_subscribed ? TRUE : FALSE;
+}
+
+static void
+exchange_subscribe_folder (CamelStore *store, const char *folder_name,
+				CamelException *ex)
+{
+	d(printf ("subscribe folder : %s\n", folder_name));
+	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
+	
+	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
+		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot subscribe folder in offline mode."));
+		return;
+	}
+
+	camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_SUBSCRIBE_FOLDER,
+			      CAMEL_STUB_ARG_STRING, folder_name,
+			      CAMEL_STUB_ARG_END);
+}
+
+static void
+exchange_unsubscribe_folder (CamelStore *store, const char *folder_name,
+				CamelException *ex)
+{
+	d(printf ("unsubscribe folder : %s\n", folder_name));
+	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
+	
+	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
+		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot unsubscribe folder in offline mode."));
+		return;
+	}
+
+	camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_UNSUBSCRIBE_FOLDER,
+			      CAMEL_STUB_ARG_STRING, folder_name,
+			      CAMEL_STUB_ARG_END);
+}
+
+
 static CamelFolder *
 get_trash (CamelStore *store, CamelException *ex)
 {
@@ -404,6 +476,7 @@ static CamelFolderInfo *
 make_folder_info (CamelExchangeStore *exch, char *name, char *uri,
 		  int unread_count, int flags)
 {
+	d(printf ("make folder info : %s flags : %d\n", name, flags));
 	CamelFolderInfo *info;
 	const char *path;
 
@@ -429,6 +502,10 @@ make_folder_info (CamelExchangeStore *exch, char *name, char *uri,
 	if (flags & CAMEL_STUB_FOLDER_TYPE_INBOX)
 		info->flags |= CAMEL_FOLDER_TYPE_INBOX;
 
+	if (flags & CAMEL_STUB_FOLDER_SUBSCRIBED) {
+		info->flags |= CAMEL_FOLDER_SUBSCRIBED;
+		d(printf ("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMmark as subscribed\n"));
+	}
 	return info;
 }
 
@@ -465,8 +542,9 @@ exchange_get_folder_info (CamelStore *store, const char *top, guint32 flags, Cam
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	GPtrArray *folders, *folder_names, *folder_uris;
 	GArray *unread_counts;
-	GByteArray *folder_flags;
+	GArray *folder_flags;
 	CamelFolderInfo *info;
+	guint32 store_flags = 0;
 	int i;
 #if 0	
 	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
@@ -484,16 +562,22 @@ exchange_get_folder_info (CamelStore *store, const char *top, guint32 flags, Cam
 	if (camel_stub_marshal_eof (exch->stub->cmd))
 		return NULL;
 
+	if (flags & CAMEL_STORE_FOLDER_INFO_RECURSIVE)
+		store_flags |= CAMEL_STUB_STORE_FOLDER_INFO_RECURSIVE;
+	if (flags & CAMEL_STORE_FOLDER_INFO_SUBSCRIBED)
+		store_flags |= CAMEL_STUB_STORE_FOLDER_INFO_SUBSCRIBED;
+
 	if (!camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_GET_FOLDER_INFO,
 			      CAMEL_STUB_ARG_STRING, top,
-			      CAMEL_STUB_ARG_UINT32, (flags & CAMEL_STORE_FOLDER_INFO_RECURSIVE) != 0,
+			      CAMEL_STUB_ARG_UINT32, store_flags,
 			      CAMEL_STUB_ARG_RETURN,
 			      CAMEL_STUB_ARG_STRINGARRAY, &folder_names,
 			      CAMEL_STUB_ARG_STRINGARRAY, &folder_uris,
 			      CAMEL_STUB_ARG_UINT32ARRAY, &unread_counts,
-			      CAMEL_STUB_ARG_BYTEARRAY, &folder_flags,
-			      CAMEL_STUB_ARG_END))
+			      CAMEL_STUB_ARG_UINT32ARRAY, &folder_flags,
+			      CAMEL_STUB_ARG_END)) {
 		return NULL;
+	}
 	if (!folder_names) {
 		/* This means the storage hasn't finished scanning yet.
 		 * We return NULL for now and will emit folder_created
@@ -507,14 +591,14 @@ exchange_get_folder_info (CamelStore *store, const char *top, guint32 flags, Cam
 		info = make_folder_info (exch, folder_names->pdata[i],
 					 folder_uris->pdata[i],
 					 g_array_index (unread_counts, int, i),
-					 folder_flags->data[i]);
+					 g_array_index (folder_flags, int, i));
 		if (info)
 			g_ptr_array_add (folders, info);
 	}
 	g_ptr_array_free (folder_names, TRUE);
 	g_ptr_array_free (folder_uris, TRUE);
 	g_array_free (unread_counts, TRUE);
-	g_byte_array_free (folder_flags, TRUE);
+	g_array_free (folder_flags, TRUE);
 
 	info = camel_folder_info_build (folders, top, '/', TRUE);
 	if (info)

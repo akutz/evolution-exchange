@@ -1,3 +1,17 @@
+2005-06-28  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* camel/camel-exchange-store.c (exchange_folder_subscribed)
+	(exchange_subscribe_folder) (exchange_unsubscribe_folder) : Added new
+	(get_folder_info) : Return a list of public folders if a list of
+	unsubscribed folders is asked.
+	* camel/camel-stub-constants.h : Added new enums for handling
+	subscriptions.
+	* mail/mail-stub-exchange.c (get_folder_info) : This now expects all
+	the store flags. Return the public folders when SUBSCRIBED flag is not
+	passed.
+	(subscribe_folder)(unsubscribe_folder)(is_subscribed_folder): Added new.	* mail/mail-stub.c : Added new cases for handling subscriptions.
+	* mail/mail-stub.h : Similar
+
 2005-06-23  Kaushal Kumar  <kakumar@novell.com>
 
 	* configure.in: Added libgnomeprint in required packages list for 
@@ -254,7 +268,7 @@
 
 2005-03-31  Steve Murphy  <murf@e-tools.com>
 
-        * configure.in: Added "rw" to ALL_LINGUAS.
+	* configure.in: Added "rw" to ALL_LINGUAS.
 
 2005-03-31  Sushma Rai  <rsushma@novell.com>
 
@@ -372,23 +386,23 @@
 
 2005-03-16  Sarfraaz Ahmed <asarfraaz@novell.com>
 
-        * camel/camel-exchange-store.c (construct): Move back the stub creation
-        code to exchange_connect and invoke connect to fix the timing issue.
-        (exchange_connect) : Create a stub if it already not created.
-        (exchange_get_folder) (exchange_get_trash) (exchange_get_folder_info) :
-        Check if stub is created, if not then create it.
-        Fixes #73673
+	* camel/camel-exchange-store.c (construct): Move back the stub creation
+	code to exchange_connect and invoke connect to fix the timing issue.
+	(exchange_connect) : Create a stub if it already not created.
+	(exchange_get_folder) (exchange_get_trash) (exchange_get_folder_info) :
+	Check if stub is created, if not then create it.
+	Fixes #73673
 
 2005-03-15 Sivaiah Nallagatla <snallagatla@novell.com>
-                                                                                
-        * addressbook/e-book-backend-exchange.c
-        (e_book_backend_exchange_create_contact)
-        (e_book_backend_exchange_modify_contact)
-        (e_book_backend_exchange_remove_contacts) :
-        Make sure new or modified objects are added
-        to cache and deleted ones are actually deleted
-        from cache.
-        Fixes #73712
+										
+	* addressbook/e-book-backend-exchange.c
+	(e_book_backend_exchange_create_contact)
+	(e_book_backend_exchange_modify_contact)
+	(e_book_backend_exchange_remove_contacts) :
+	Make sure new or modified objects are added
+	to cache and deleted ones are actually deleted
+	from cache.
+	Fixes #73712
 
 2005-03-15  Sushma Rai  <rsushma@novell.com>
 
@@ -429,26 +443,26 @@
 
 2005-03-11  Sarfraaz Ahmed <asarfraaz@novell.com>
 
-        * calendar/e-cal-backend-exchange-calendar.c (add_ical) : Make sure we
-        check for attachments in subcomponents of a vcalendar as well.
-        (get_attachment) : Moved to e-cal-backend-exchange.c
-        (build_msg) : Moved to e-cal-backend-exchange.c
-        (create_object) : Minor leak fixed.
-        (modify_object_with_href) : Dont loose the attachments while modifying.
-        * calendar/e-cal-backend-exchange-tasks.c (put_body): Handle attachments
-        (get_changed_tasks) : Check for attachments and fetch them from server.
-        (create_task_object) : Check for attachments and send them to server.
-        (modify_task_object) : Similar
-        * calendar/e-cal-backend-exchange.c (load_cache) : Create the local
-        attachment store for the GUI to store exchange attachments
-        (save_attach_file) : Make a local copy of the attachment in the backend
-        (get_attachment) : Extract the attachment from the server object.(Moved
-        from calendar.c)
-        (get_attach_file_contents) : Store the attachment in a file.
-        (build_msg) : Build the mime part to send to the server (Moved from
-        calendar.c)
-        * calendar/e-cal-backend-exchange.h : Export the attachment utility
-        functions.
+	* calendar/e-cal-backend-exchange-calendar.c (add_ical) : Make sure we
+	check for attachments in subcomponents of a vcalendar as well.
+	(get_attachment) : Moved to e-cal-backend-exchange.c
+	(build_msg) : Moved to e-cal-backend-exchange.c
+	(create_object) : Minor leak fixed.
+	(modify_object_with_href) : Dont loose the attachments while modifying.
+	* calendar/e-cal-backend-exchange-tasks.c (put_body): Handle attachments
+	(get_changed_tasks) : Check for attachments and fetch them from server.
+	(create_task_object) : Check for attachments and send them to server.
+	(modify_task_object) : Similar
+	* calendar/e-cal-backend-exchange.c (load_cache) : Create the local
+	attachment store for the GUI to store exchange attachments
+	(save_attach_file) : Make a local copy of the attachment in the backend
+	(get_attachment) : Extract the attachment from the server object.(Moved
+	from calendar.c)
+	(get_attach_file_contents) : Store the attachment in a file.
+	(build_msg) : Build the mime part to send to the server (Moved from
+	calendar.c)
+	* calendar/e-cal-backend-exchange.h : Export the attachment utility
+	functions.
 
 2005-03-11  Sushma Rai  <rsushma@novell.com>
 
@@ -469,13 +483,13 @@
 	Fixes #72801
 
 2005-03-11 Sivaiah Nallagatla <snallagatla@novell.com>
-                                                                                           
-        * calendar/e-cal-backend-exchange-calendar.c
-        (add_timezone_cb) (modify_object_with_href) :
-        initialize the izone to NULL before passing it
-        to get_timzone.
-                                                                                           
-        Fixes #73505, #67740  and surely something else
+											   
+	* calendar/e-cal-backend-exchange-calendar.c
+	(add_timezone_cb) (modify_object_with_href) :
+	initialize the izone to NULL before passing it
+	to get_timzone.
+											   
+	Fixes #73505, #67740  and surely something else
 
 2005-03-07  Jeffrey Stedfast  <fejj@novell.com>
 
@@ -515,11 +529,11 @@
 
 2005-03-09 Sivaiah Nallagatla <snallagatla@novell.com>
 
-        * addresbook/e-book-backend-exchange.c
-        (build_message) : make sure note is non NULL
-        before processing. Basically added robustness against
-        ote being NULL.
-        Fixes #72044
+	* addresbook/e-book-backend-exchange.c
+	(build_message) : make sure note is non NULL
+	before processing. Basically added robustness against
+	ote being NULL.
+	Fixes #72044
 
 2005-03-09  Sushma Rai  <rsushma@novell.com>
 	
@@ -703,16 +717,16 @@
 	Fixes #72104
 
 2005-02-24  Sivaiah Nallagatla <snallagatla@novell.com>
-                                                                                
-        * addressbook/e-book-backend-exchange.c
-        (e_book_backend_exchange_get_contact_list) :
-        We should not be using e_data_book_respond_ calls, as we are
-        a sync backend. Fixes #72946
-        (e_book_backend_exchange_create_contact) :
-        Don't use e_data_book_respond and don't
-        return success here. We are in offline
-        mode.
-        Fixes #72945
+										
+	* addressbook/e-book-backend-exchange.c
+	(e_book_backend_exchange_get_contact_list) :
+	We should not be using e_data_book_respond_ calls, as we are
+	a sync backend. Fixes #72946
+	(e_book_backend_exchange_create_contact) :
+	Don't use e_data_book_respond and don't
+	return success here. We are in offline
+	mode.
+	Fixes #72945
 
 2005-02-24  Hans Petter Jansson  <hpj@novell.com>
 
@@ -890,18 +904,18 @@
 
 2005-02-04  Sarfraaz Ahmed <asarfraaz@novell.com>
 
-        * addressbook/e-book-backend-gal.c :
-        * lib/e2k-types.h :
-        * shell/e-folder-creation-dialog.c :
-        * shell/e-folder-dnd-bridge.c :
-        * shell/e-folder-misc-dialogs.c :
-        * shell/e-folder-selection-dialog.c :
-        * shell/e-storage.c :
-        Should now be using gi18n.h/gi18n-lib.h
+	* addressbook/e-book-backend-gal.c :
+	* lib/e2k-types.h :
+	* shell/e-folder-creation-dialog.c :
+	* shell/e-folder-dnd-bridge.c :
+	* shell/e-folder-misc-dialogs.c :
+	* shell/e-folder-selection-dialog.c :
+	* shell/e-storage.c :
+	Should now be using gi18n.h/gi18n-lib.h
 
 2005-02-04  Kostas Papadimas <pkst@gnome.org>
 
-        * configure.in (ALL_LINGUAS): Added 'el' (Greek).
+	* configure.in (ALL_LINGUAS): Added 'el' (Greek).
 
 2005-02-02  JP Rosevear  <jpr@novell.com>
 
@@ -927,9 +941,9 @@
 
 2005-01-29  Sarfraaz Ahmed <asarfraaz@novell.com>
 
-        * storage/exchange-hierarchy-webdav.c (hierarchy_new_folder):
-        Check for duplicate entried being added into the hashtable.
-        Fixes #68330
+	* storage/exchange-hierarchy-webdav.c (hierarchy_new_folder):
+	Check for duplicate entried being added into the hashtable.
+	Fixes #68330
 
 2005-01-28  Žygimantas Beručka  <uid0@akl.lt>
 
@@ -962,9 +976,9 @@
 2005-01-25  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* storage/exchange-account.c (exchange_account_connect): Properly
-        set use_ntlm when reconnecting to server. This now tries either
-        Basic or Plaintext authentication if one of them fails. Patch submitted
-        by Soren Hansen and fixes #70730
+	set use_ntlm when reconnecting to server. This now tries either
+	Basic or Plaintext authentication if one of them fails. Patch submitted
+	by Soren Hansen and fixes #70730
 
 2005-01-25  Sarfraaz Ahmed <asarfraaz@novell.com>
 
@@ -1217,7 +1231,7 @@
 	* addressbook/e-book-backend-gal.c : Similar
 	* calendar/e-cal-backend-exchange.c (e_cal_backend_exchange_add_object):
 	The cache now checks for duplicate detatched instances before adding
-        them. This fixes #70414
+	them. This fixes #70414
 	(discard_detached_instance): Small leak fixed.
 	* storage/e-folder-exchange.c : Added error checks
 	* storage/exchange-folder-size.c : Object freeing code added.
@@ -1401,8 +1415,8 @@
 
 2004-11-30  Sarfraaz Ahmed <asarfraaz@novell.com>
 
-        * configure.in : Removed the DEPRECATED symbols. This is for building
-        against Gnome 2.9
+	* configure.in : Removed the DEPRECATED symbols. This is for building
+	against Gnome 2.9
 
 2004-11-30  Sushma Rai <rsushma@novell.com>
 
@@ -1599,16 +1613,16 @@
 
 	* storage/main.c: (main):
 	* storage/ximian-connector-setup.c: (main):
-        Initialize codeset for textdomain. Patch by Frederic Crozat.
+	Initialize codeset for textdomain. Patch by Frederic Crozat.
 
 2004-10-08  Sarfraaz Ahmed <asarfraaz@novell.com>
 
-        * calendar/e-cal-backend-exchange-calendar.c (book_resource): Make
-        connector actually create the meeting for the resource without
-        sending a mail.
-        (send_objects): Send the proper users list back to the client.
-        (modify_object_with_href): This now enables to send a meeting for
-        a specific href. This fixes #67510
+	* calendar/e-cal-backend-exchange-calendar.c (book_resource): Make
+	connector actually create the meeting for the resource without
+	sending a mail.
+	(send_objects): Send the proper users list back to the client.
+	(modify_object_with_href): This now enables to send a meeting for
+	a specific href. This fixes #67510
 
 2004-10-08  Sushma Rai  <rsushma@novell.com>
 	
@@ -1697,7 +1711,7 @@
 
 2004-09-24  Christophe Merlet  <redfox@redfoxcenter.org>
 
-        * configure.in: Added 'fr' (French) to ALL_LINGUAS
+	* configure.in: Added 'fr' (French) to ALL_LINGUAS
 
 2004-09-23  Sushma Rai  <rsushma@novell.com>
 
@@ -1707,7 +1721,7 @@
 
 2004-09-22  Craig Jeffares <cjeffares@novell.com>
 
-        * configure.in: Added 'it, zh_CN & zh_TW' to ALL_LINGUAS
+	* configure.in: Added 'it, zh_CN & zh_TW' to ALL_LINGUAS
 
 2004-09-20  Sushma Rai  <rsushma@novell.com>
 
@@ -1775,7 +1789,7 @@
 
 2004-08-29  Hasbullah Bin Pit <sebol@my-penguin.org>
 
-        * configure.in: Added "ms" to ALL_LINGUAS.
+	* configure.in: Added "ms" to ALL_LINGUAS.
 
 2004-08-27  Dan Winship  <danw@novell.com>
 
@@ -1809,12 +1823,12 @@
 
 2004-08-27  Sarfraaz Ahmed <asarfraaz@novell.com>
 
-        * storage/exchange-account.c (hierarchy_new_folder): Avoid duplications
-        in the folders hashtable. The internal uri for favorites and public
-        folders are same and should not be overwritten. Also emit the signal
-        only if the hashtable was updated. This fixes #64235.
-        (hierarchy_removed_folder): Do not remove the internal_uri entry for
-        favourite folders, since this is shared by the public folder as well.
+	* storage/exchange-account.c (hierarchy_new_folder): Avoid duplications
+	in the folders hashtable. The internal uri for favorites and public
+	folders are same and should not be overwritten. Also emit the signal
+	only if the hashtable was updated. This fixes #64235.
+	(hierarchy_removed_folder): Do not remove the internal_uri entry for
+	favourite folders, since this is shared by the public folder as well.
 
 2004-08-27  Dan Winship  <danw@novell.com>
 
@@ -2400,9 +2414,9 @@
 	anymore. [copied from e-book-backend-ldap.c]
 
 	(ldap_search_handler): remove the ref/unref of the book view here.
-        (e_book_backend_ldap_search): move the ref of the book view
+	(e_book_backend_ldap_search): move the ref of the book view
 	here.
-        (ldap_search_dtor): and the unref to here. [copied from
+	(ldap_search_dtor): and the unref to here. [copied from
 	e-book-backend-ldap.c]
 
 2004-06-16  Sarfraaz Ahmed <asarfraaz@novell.com>
@@ -2856,23 +2870,23 @@
 	Fixes the change password bug#58419
 
 	* storage/exchange-account.c (get_password): Added the code to
-        create the kerberos config file, if its not yet created.
-        (exchange_account_get_password): Retrives the password stored
-        locally.
-        (exchange_account_set_password): Updates the server with the new
-        password and also updates it locally.
-        (exchange_account_connect): Updated the code to use the new
-        exchange_get_new_password call.
-        * storage/exchange-account.h: Function declarations for
-        exchange_account_get_password and exchange_account_set_password
-        * storage/exchange-change-password.c (check_pass_cb): Removed the
-        e2k_autoconfig calls.
-        (exchange_get_new_password): This now returns the new password.
-        * storage/exchange-change-password.h: password_data struct now
-        contains the new_password.
-        * storage/xc-commands.c (do_change_password): This now makes use
-        of the new exchange_account_get/set_password and calls
-        exchange_get_new_password.
+	create the kerberos config file, if its not yet created.
+	(exchange_account_get_password): Retrives the password stored
+	locally.
+	(exchange_account_set_password): Updates the server with the new
+	password and also updates it locally.
+	(exchange_account_connect): Updated the code to use the new
+	exchange_get_new_password call.
+	* storage/exchange-account.h: Function declarations for
+	exchange_account_get_password and exchange_account_set_password
+	* storage/exchange-change-password.c (check_pass_cb): Removed the
+	e2k_autoconfig calls.
+	(exchange_get_new_password): This now returns the new password.
+	* storage/exchange-change-password.h: password_data struct now
+	contains the new_password.
+	* storage/xc-commands.c (do_change_password): This now makes use
+	of the new exchange_account_get/set_password and calls
+	exchange_get_new_password.
 
 2004-05-14  Sushma Rai  <rsushma@novell.com>
 	

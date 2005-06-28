@@ -309,16 +309,16 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 	case CAMEL_STUB_CMD_GET_FOLDER_INFO:
 	{
 		char *top;
-		guint32 recursive;
+		guint32 store_flags;
 
 		if (!mail_stub_read_args (stub,
 					  CAMEL_STUB_ARG_STRING, &top,
-					  CAMEL_STUB_ARG_UINT32, &recursive,
+					  CAMEL_STUB_ARG_UINT32, &store_flags,
 					  CAMEL_STUB_ARG_END))
 			goto comm_fail;
-		d(printf("GET_FOLDER_INFO %s%s\n", top, recursive ? " (recursive)" : ""));
+		d(printf("GET_FOLDER_INFO %s%s\n", top, store_flags ? " (recursive)" : ""));
 		g_object_ref (stub);
-		MS_CLASS (stub)->get_folder_info (stub, top, recursive);
+		MS_CLASS (stub)->get_folder_info (stub, top, store_flags);
 		g_free (top);
 		break;
 	}
@@ -393,6 +393,52 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 		MS_CLASS (stub)->rename_folder (stub, old_name, new_name);
 		g_free (old_name);
 		g_free (new_name);
+		break;
+	}
+
+	case CAMEL_STUB_CMD_SUBSCRIBE_FOLDER:
+	{
+		char *folder_name;
+
+		if (!mail_stub_read_args (stub,
+					  CAMEL_STUB_ARG_FOLDER, &folder_name,
+					  CAMEL_STUB_ARG_END))
+			goto comm_fail;
+		d(printf("SUBSCRIBE_FOLDER %s\n", folder_name));
+		g_object_ref (stub);
+		MS_CLASS (stub)->subscribe_folder (stub, folder_name);
+		g_free (folder_name);
+		break;
+	}
+
+	case CAMEL_STUB_CMD_UNSUBSCRIBE_FOLDER:
+	{
+		char *folder_name;
+
+		if (!mail_stub_read_args (stub,
+					  CAMEL_STUB_ARG_FOLDER, &folder_name,
+					  CAMEL_STUB_ARG_END))
+			goto comm_fail;
+		d(printf("UNSUBSCRIBE_FOLDER %s\n", folder_name));
+		g_object_ref (stub);
+		MS_CLASS (stub)->unsubscribe_folder (stub, folder_name);
+		g_free (folder_name);
+		break;
+	}
+
+	case CAMEL_STUB_CMD_IS_SUBSCRIBED_FOLDER:
+	{
+		char *folder_name;
+		guint32 is_subscribed;
+
+		if (!mail_stub_read_args (stub,
+					CAMEL_STUB_ARG_FOLDER, &folder_name,
+					CAMEL_STUB_ARG_END))
+			goto comm_fail;
+		d(printf("IS_SUBSCRIBED_FOLDER %s\n", folder_name));
+		g_object_ref (stub);
+		MS_CLASS (stub)->is_subscribed_folder (stub, folder_name);
+		g_free (folder_name);
 		break;
 	}
 
