@@ -403,7 +403,6 @@ exchange_folder_subscribed (CamelStore *store, const char *folder_name)
 	guint32 is_subscribed;
 	
 	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
-		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot check if folder is subscribed in offline mode."));
 		return;
 	}
 
