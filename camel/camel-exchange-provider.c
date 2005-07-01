@@ -145,6 +145,7 @@ exchange_validate_user_cb (CamelURL *camel_url, const char *owa_url,
 {
 	gboolean valid;
 	ExchangeParams *exchange_params;
+	E2kAutoconfigResult result;
 
 	exchange_params = g_new0 (ExchangeParams, 1);
 	exchange_params->host = NULL;
@@ -154,7 +155,7 @@ exchange_validate_user_cb (CamelURL *camel_url, const char *owa_url,
 	exchange_params->is_ntlm = TRUE;
 
 	valid = e2k_validate_user (owa_url, camel_url->user, 
-				   exchange_params, remember_password);
+				   exchange_params, remember_password, &result);
 
 	/* If not valid we will not proceed with account setup */
 	/* We can check for valid once instead of doing it for every parameter */
