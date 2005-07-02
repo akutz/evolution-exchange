@@ -1,3 +1,15 @@
+Evolution Exchange 2.3.4  2005-07-01
+------------------------------------
+
+	* The Exchange server communication code moved to evolution-data-server
+		* The server communication code [ lib/xntlm and most of 
+		storage ] has now been moved to evolution-data-server under 
+		servers/exchange. This will enable developers to now write 
+		plugins in evolution that can communicate with the Exchange 
+		servers.
+	* Favorite folder handling is now made as part of Folder Subscriptions
+	  To mark a public folder as your favorite you now need to subscribe it.
+
 Evolution Exchange 2.3.3  2005-06-06
 ------------------------------------
 
