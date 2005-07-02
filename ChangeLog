@@ -1,3 +1,14 @@
+2005-07-01  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* camel/camel-exchange-provider.c : Remove the validate calls which
+	are no longer used now from the plugin.
+	* storage/xc-commands.c : Removed the dead code. All this has been 
+	moved to the plugins.
+	* docs/reference/Makefile.am : Dont use the libexchange.la from local
+	area.
+	* docs/reference/ximian-connector.types : Removed references to e2k-sid
+	and e2k-user-dialog
+
 2005-07-01  Chenthill Palanisamy <pchenthill@novell.com>
 		
 	* camel/camel-exchange-provider.c 

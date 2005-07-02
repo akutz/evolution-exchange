@@ -44,6 +44,7 @@ widget_for_view (XCBackendView *view)
 	return (GtkWidget *)xc_backend_view_get_storage_set_view (view);
 }
 
+#if 0
 static void
 do_oof (BonoboUIComponent *component, gpointer user_data,
 	const char *cname)
@@ -98,6 +99,7 @@ do_folder_size_menu (BonoboUIComponent *component, gpointer user_data,
 	//storage_set_view = xc_backend_view_get_storage_set_view (view);
 	exchange_folder_size_display (folder, widget_for_view (view));
 }
+#endif
 
 static void
 do_subscribe_user (BonoboUIComponent *component, gpointer user_data,
@@ -281,6 +283,7 @@ do_remove_foreign_folder (GtkWidget *item, XCFolderCommandData *fcd)
 	xc_folder_command_data_free (fcd);
 }
 
+#if 0
 static void
 do_permissions (GtkWidget *item, XCFolderCommandData *fcd)
 {
@@ -289,7 +292,7 @@ do_permissions (GtkWidget *item, XCFolderCommandData *fcd)
 					 GTK_WIDGET (fcd->storage_set_view));
 	xc_folder_command_data_free (fcd);
 }
-
+#endif
 static void
 do_folder_size (GtkWidget *item, XCFolderCommandData *fcd)
 {

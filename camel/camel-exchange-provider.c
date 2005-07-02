@@ -32,8 +32,6 @@
 #include "camel-exchange-store.h"
 #include "camel-exchange-transport.h"
 
-#include <e2k-validate.h>
-
 static guint exchange_url_hash (gconstpointer key);
 static gint exchange_url_equal (gconstpointer a, gconstpointer b);
 
@@ -72,16 +70,6 @@ CamelProviderConfEntry exchange_conf_entries[] = {
 	{ CAMEL_PROVIDER_CONF_SECTION_END },
 	{ CAMEL_PROVIDER_CONF_END }
 };
-
-typedef gboolean (CamelProviderValidateUserFunc) (CamelURL *camel_url, const char *url, gboolean *remember_password, CamelException *ex);
-
-typedef struct {
-        CamelProviderValidateUserFunc *validate_user;
-}CamelProviderValidate;
-
-static gboolean exchange_validate_user_cb (CamelURL *camel_url, const char *owa_url, gboolean *remember_password, CamelException *ex);
-
-CamelProviderValidate validate_struct = { exchange_validate_user_cb };
 
 static CamelProvider exchange_provider = {
 	"exchange",
@@ -139,39 +127,6 @@ exchange_auto_detect_cb (CamelURL *url, GHashTable **auto_detected,
 	return 0;
 }
 
-static gboolean
-exchange_validate_user_cb (CamelURL *camel_url, const char *owa_url, 
-			   gboolean *remember_password, CamelException *ex)
-{
-	gboolean valid;
-	ExchangeParams *exchange_params;
-	E2kAutoconfigResult result;
-
-	exchange_params = g_new0 (ExchangeParams, 1);
-	exchange_params->host = NULL;
-	exchange_params->ad_server = NULL;
-	exchange_params->mailbox = NULL;
-	exchange_params->owa_path = NULL;
-	exchange_params->is_ntlm = TRUE;
-
-	valid = e2k_validate_user (owa_url, camel_url->user, 
-				   exchange_params, remember_password, &result);
-
-	/* If not valid we will not proceed with account setup */
-	/* We can check for valid once instead of doing it for every parameter */
-	camel_url_set_host(camel_url, valid?exchange_params->host:"");
-	if (valid)
-		camel_url_set_authmech (camel_url, exchange_params->is_ntlm?"NTLM":"Basic");
-	camel_url_set_param(camel_url, "ad_server", valid?exchange_params->ad_server:NULL);
-	camel_url_set_param(camel_url, "mailbox", valid?exchange_params->mailbox:NULL);
-	camel_url_set_param(camel_url, "owa_path", valid?exchange_params->owa_path:NULL);
-
-	g_free (exchange_params->owa_path);
-	g_free (exchange_params->mailbox);
-	g_free (exchange_params);
-	return valid;
-}
-
 void
 camel_provider_module_init (void)
 {
@@ -186,7 +141,6 @@ camel_provider_module_init (void)
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	exchange_provider.translation_domain = GETTEXT_PACKAGE;
 	exchange_provider.translation_domain = GETTEXT_PACKAGE;
-	exchange_provider.priv = (void *)&validate_struct;
 
 	camel_provider_register (&exchange_provider);
 }

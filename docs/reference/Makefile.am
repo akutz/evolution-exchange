@@ -42,8 +42,6 @@ INCLUDES =					\
 	$(LDAP_CFLAGS)
 
 GTKDOC_LIBS =					\
-	$(top_builddir)/lib/libexchange.la	\
-	$(top_builddir)/xntlm/libxntlm.la	\
 	$(LIBEXCHANGE_LIBS)			\
 	$(KRB5_LIBS)				\
 	$(LDAP_LIBS)
