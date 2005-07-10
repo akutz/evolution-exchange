@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-29 06:03+0000\n"
-"PO-Revision-Date: 2005-05-29 13:49+0200\n"
+"POT-Creation-Date: 2005-07-05 13:33+0000\n"
+"PO-Revision-Date: 2005-07-05 19:58+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../addressbook/e-book-backend-exchange.c:1837
-#: ../addressbook/e-book-backend-gal.c:1498 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Hledám..."
 
-#: ../addressbook/e-book-backend-gal.c:266
+#: ../addressbook/e-book-backend-gal.c:267
 msgid "Reconnecting to LDAP server..."
 msgstr "Znovu se připojuji k serveru LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1362
+#: ../addressbook/e-book-backend-gal.c:1363
 msgid "Receiving LDAP search results..."
 msgstr "Přijímám výsledky hledání LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1521
+#: ../addressbook/e-book-backend-gal.c:1522
 msgid "Error performing search"
 msgstr "Chyba při hledání"
 
@@ -111,67 +111,67 @@ msgstr "Nemohu připojit zprávu v režimu off-line: %s"
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:46
+#: ../camel/camel-exchange-provider.c:44
 msgid "Windows User_name:"
 msgstr "_Jméno uživatele ve Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:51
+#: ../camel/camel-exchange-provider.c:49
 msgid "Global Address List / Active Directory"
 msgstr "Globální seznam adres / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:53
 msgid "Global Catalog server name:"
 msgstr "Název serveru Global Catalog:"
 
-#: ../camel/camel-exchange-provider.c:57
+#: ../camel/camel-exchange-provider.c:55
 #, c-format
 msgid "Limit number of GAL responses: %s"
 msgstr "Omezit počet odpovědí GSA: %s"
 
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:58
 msgid "Options"
 msgstr "Možnosti"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:60
 #, c-format
 msgid "Password Expiry Warning period: %s"
 msgstr "Doba do vypršení hesla: %s"
 
-#: ../camel/camel-exchange-provider.c:64
+#: ../camel/camel-exchange-provider.c:62
 msgid "Automatically synchronize account locally"
 msgstr "Automaticky lokálně synchronizovat účet"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:65
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr "Použít filtry na nové zprávy ve složce Příchozí na tomto serveru"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:67
 msgid "Check new messages for Junk contents"
 msgstr "Hledat smetí mezi novými zprávami"
 
-#: ../camel/camel-exchange-provider.c:71
+#: ../camel/camel-exchange-provider.c:69
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "Hledat smetí jen ve složce Příchozí"
 
-#: ../camel/camel-exchange-provider.c:88
+#: ../camel/camel-exchange-provider.c:76
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:90
+#: ../camel/camel-exchange-provider.c:78
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Pro zpracovávání pošty (a jiných dat) na serverech Microsoft Exchange"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:106
+#: ../camel/camel-exchange-provider.c:94
 msgid "Secure Password"
 msgstr "Zabezpečené ověřování hesla"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:109
+#: ../camel/camel-exchange-provider.c:97
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -179,11 +179,11 @@ msgstr ""
 "Tato možnost se k serveru Exchange připojí pomocí zabezpečené autentizace "
 "heslem (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:117
+#: ../camel/camel-exchange-provider.c:105
 msgid "Plaintext Password"
 msgstr "Heslo v čistém textu"
 
-#: ../camel/camel-exchange-provider.c:119
+#: ../camel/camel-exchange-provider.c:107
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -191,38 +191,46 @@ msgstr ""
 "Tato možnost se k serveru Exchange připojí pomocí standardní autentizace "
 "nešifrovaným heslem."
 
-#: ../camel/camel-exchange-store.c:267
+#: ../camel/camel-exchange-store.c:281
 #, c-format
 msgid "Exchange server %s"
 msgstr "Server Exchange %s"
 
-#: ../camel/camel-exchange-store.c:270
+#: ../camel/camel-exchange-store.c:284
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Účet Exchange pro %s na %s"
 
-#: ../camel/camel-exchange-store.c:297
+#: ../camel/camel-exchange-store.c:311
 msgid "Evolution Exchange backend process"
 msgstr "Proces backendu Evolution pro Exchange"
 
-#: ../camel/camel-exchange-store.c:345
+#: ../camel/camel-exchange-store.c:359
 #, c-format
 msgid "No such folder %s"
 msgstr "Složka %s neexistuje"
 
-#: ../camel/camel-exchange-store.c:473
+#: ../camel/camel-exchange-store.c:428
+msgid "Cannot subscribe folder in offline mode."
+msgstr "Nemohu se přihlásit ke složce v režimu off-line."
+
+#: ../camel/camel-exchange-store.c:445
+msgid "Cannot unsubscribe folder in offline mode."
+msgstr "Nemohu se odhlásit od složky v režimu off-line."
+
+#: ../camel/camel-exchange-store.c:550
 msgid "Cannot get folder info in offline mode."
 msgstr "Nemohu získat informace o složce v režimu off-line."
 
-#: ../camel/camel-exchange-store.c:537
+#: ../camel/camel-exchange-store.c:620
 msgid "Cannot create folder in offline mode."
 msgstr "Nemohu vytvořit složku v režimu off-line."
 
-#: ../camel/camel-exchange-store.c:564
+#: ../camel/camel-exchange-store.c:647
 msgid "Cannot delete folder in offline mode."
 msgstr "Nemohu odstranit složku v režimu off-line."
 
-#: ../camel/camel-exchange-store.c:580
+#: ../camel/camel-exchange-store.c:663
 msgid "Cannot rename folder in offline mode."
 msgstr "Nemohu přejmenovat složku v režimu off-line."
 
@@ -329,9 +337,13 @@ msgid ""
 "link below:\n"
 "%s"
 msgstr ""
-"Ximian Connector vyžaduje přístup k určitým funkcím na serveru Exchange, které byly zřejmě zakázány nebo zablokovány. (To obvykle není úmyslné.) Váš správce Exchange bude muset povolit tyto funkce, abyste mohli používat Ximian Connector.\n"
+"Ximian Connector vyžaduje přístup k určitým funkcím na serveru Exchange, "
+"které byly zřejmě zakázány nebo zablokovány. (To obvykle není úmyslné.) Váš "
+"správce Exchange bude muset povolit tyto funkce, abyste mohli používat "
+"Ximian Connector.\n"
 "\n"
-"Pro informace, které poskytnout vašemu správci Exchange, prosím použijte odkaz níže:\n"
+"Pro informace, které poskytnout vašemu správci Exchange, prosím použijte "
+"odkaz níže:\n"
 "%s"
 
 #: ../lib/e2k-autoconfig.c:1536 ../storage/exchange-autoconfig-wizard.c:275
@@ -411,81 +423,82 @@ msgstr "Zvolit uživatele"
 msgid "Addressbook..."
 msgstr "Adresář..."
 
-#: ../mail/mail-stub-exchange.c:231
+#: ../mail/mail-stub-exchange.c:242
 msgid "No such folder"
 msgstr "Taková složka neexistuje"
 
-#: ../mail/mail-stub-exchange.c:248 ../mail/mail-stub-exchange.c:2320
-#: ../mail/mail-stub-exchange.c:2358 ../mail/mail-stub-exchange.c:2418
-#: ../shell/e-storage.c:573 ../storage/xc-commands.c:320
+#: ../mail/mail-stub-exchange.c:259 ../mail/mail-stub-exchange.c:2356
+#: ../mail/mail-stub-exchange.c:2394 ../mail/mail-stub-exchange.c:2454
+#: ../mail/mail-stub-exchange.c:2492 ../mail/mail-stub-exchange.c:2536
+#: ../shell/e-storage.c:573 ../storage/xc-commands.c:319
 msgid "Permission denied"
 msgstr "Přístup odepřen"
 
-#: ../mail/mail-stub-exchange.c:546
+#: ../mail/mail-stub-exchange.c:557
 msgid "No such folder."
 msgstr "Taková složka neexistuje."
 
-#: ../mail/mail-stub-exchange.c:555
+#: ../mail/mail-stub-exchange.c:566
 msgid "Could not create folder."
 msgstr "Nemohu vytvořit složku."
 
-#: ../mail/mail-stub-exchange.c:603 ../mail/mail-stub-exchange.c:621
+#: ../mail/mail-stub-exchange.c:614 ../mail/mail-stub-exchange.c:632
 msgid "Could not open folder: Permission denied"
 msgstr "Nemohu otevřít složku: Přístup odepřen"
 
-#: ../mail/mail-stub-exchange.c:607 ../mail/mail-stub-exchange.c:720
+#: ../mail/mail-stub-exchange.c:618 ../mail/mail-stub-exchange.c:731
 msgid "Could not open folder"
 msgstr "Nemohu otevřít složku"
 
-#: ../mail/mail-stub-exchange.c:775
+#: ../mail/mail-stub-exchange.c:786
 msgid "Could not open Deleted Items folder"
 msgstr "Nemohu otevřít složku Odstraněné položky"
 
-#: ../mail/mail-stub-exchange.c:1105 ../mail/mail-stub-exchange.c:1146
+#: ../mail/mail-stub-exchange.c:1116 ../mail/mail-stub-exchange.c:1157
 msgid "Could not get new messages"
 msgstr "Nemohu získat nové zprávy"
 
-#: ../mail/mail-stub-exchange.c:1311
+#: ../mail/mail-stub-exchange.c:1322
 msgid "Could not empty Deleted Items folder"
 msgstr "Nemohu vyprázdnit složku Odstraněné položky"
 
-#: ../mail/mail-stub-exchange.c:1383
+#: ../mail/mail-stub-exchange.c:1394
 msgid "Could not append message; mailbox is over quota"
 msgstr "Nemohu přidat zprávu; složka přesahuje kvótu"
 
-#: ../mail/mail-stub-exchange.c:1384
+#: ../mail/mail-stub-exchange.c:1395
 msgid "Could not append message"
 msgstr "Nemohu přidat zprávu"
 
-#: ../mail/mail-stub-exchange.c:1867
+#: ../mail/mail-stub-exchange.c:1878
 msgid "No such message"
 msgstr "Taková zpráva neexistuje"
 
-#: ../mail/mail-stub-exchange.c:1920
+#: ../mail/mail-stub-exchange.c:1931
 msgid "Message has been deleted"
 msgstr "Zpráva byla odstraněna"
 
-#: ../mail/mail-stub-exchange.c:1922
+#: ../mail/mail-stub-exchange.c:1933
 msgid "Error retrieving message"
 msgstr "Chyba při získávání zprávy"
 
-#: ../mail/mail-stub-exchange.c:1964
+#: ../mail/mail-stub-exchange.c:1975
 msgid "Mailbox does not support full-text searching"
 msgstr "Složka nepodporuje hledání v textu"
 
-#: ../mail/mail-stub-exchange.c:2062
+#: ../mail/mail-stub-exchange.c:2073
 msgid "Unable to move/copy messages"
 msgstr "Nemohu přesouvat/kopírovat zprávy"
 
-#: ../mail/mail-stub-exchange.c:2235
+#: ../mail/mail-stub-exchange.c:2271
 msgid "No mail submission URI for this mailbox"
 msgstr "Pro tuto složku není URI pro odesílání pošty"
 
-#: ../mail/mail-stub-exchange.c:2271
+#: ../mail/mail-stub-exchange.c:2307
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Server nepřijímá poštu pomocí transportu Exchange"
 
-#: ../mail/mail-stub-exchange.c:2273
+#: ../mail/mail-stub-exchange.c:2309
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -494,7 +507,7 @@ msgstr ""
 "Váš účet nemá oprávnění používat <%s>\n"
 "jako adresu Od."
 
-#: ../mail/mail-stub-exchange.c:2285
+#: ../mail/mail-stub-exchange.c:2321
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -502,22 +515,24 @@ msgstr ""
 "Nemohu odeslat zprávu.\n"
 "To možná znamená, že váš účet přesáhl kvótu."
 
-#: ../mail/mail-stub-exchange.c:2289
+#: ../mail/mail-stub-exchange.c:2325
 msgid "Could not send message"
 msgstr "Nemohu odeslat zprávu"
 
-#: ../mail/mail-stub-exchange.c:2312 ../mail/mail-stub-exchange.c:2363
-#: ../mail/mail-stub-exchange.c:2422 ../shell/e-storage.c:557
-#: ../storage/xc-commands.c:324
+#: ../mail/mail-stub-exchange.c:2348 ../mail/mail-stub-exchange.c:2399
+#: ../mail/mail-stub-exchange.c:2458 ../mail/mail-stub-exchange.c:2497
+#: ../mail/mail-stub-exchange.c:2541 ../shell/e-storage.c:557
+#: ../storage/xc-commands.c:323
 msgid "Generic error"
 msgstr "Obecná chyba"
 
-#: ../mail/mail-stub-exchange.c:2316 ../storage/xc-commands.c:314
+#: ../mail/mail-stub-exchange.c:2352 ../storage/xc-commands.c:313
 msgid "Folder already exists"
 msgstr "Složka již existuje"
 
-#: ../mail/mail-stub-exchange.c:2343 ../mail/mail-stub-exchange.c:2385
-#: ../mail/mail-stub-exchange.c:2414
+#: ../mail/mail-stub-exchange.c:2379 ../mail/mail-stub-exchange.c:2421
+#: ../mail/mail-stub-exchange.c:2450 ../mail/mail-stub-exchange.c:2477
+#: ../mail/mail-stub-exchange.c:2521
 msgid "Folder doesn't exist"
 msgstr "Složka neexistuje"
 
@@ -898,7 +913,9 @@ msgstr "Chyba sítě"
 msgid ""
 "You have exceeded your quota of %d %s for storing mails on this server. Your "
 "current usage is : %.0f %s."
-msgstr "Přesáhli jste vaši kvódu %d %s pro ukládání pošty na tomto serveru. Momentálně používáte: %.0f %s."
+msgstr ""
+"Přesáhli jste vaši kvódu %d %s pro ukládání pošty na tomto serveru. "
+"Momentálně používáte: %.0f %s."
 
 #: ../storage/exchange-account.c:1532
 msgid "You will not be able to either send or receive mails now\n"
@@ -908,7 +925,9 @@ msgstr "Nyní nebudete moci odesílat ani přijímat poštu\n"
 msgid ""
 "You will not be able to send mails till you clear up some space by deleting "
 "some mails.\n"
-msgstr "Nebudete moci odesílat poštu, dokud neuvolníte nějaké místo odstraněním některých zpráv.\n"
+msgstr ""
+"Nebudete moci odesílat poštu, dokud neuvolníte nějaké místo odstraněním "
+"některých zpráv.\n"
 
 #: ../storage/exchange-account.c:1538
 msgid "Try to clear up some space by deleting some mails.\n"
@@ -1120,21 +1139,21 @@ msgid "Your current password has expired. Please change your password now."
 msgstr ""
 "Platnost vašeho momentálního hesla vypršela. Nyní prosím změňte vaše heslo."
 
-#: ../storage/exchange-component.c:322
+#: ../storage/exchange-component.c:321
 msgid "Mail"
 msgstr "Pošta"
 
-#: ../storage/exchange-component.c:325
+#: ../storage/exchange-component.c:324
 #: ../storage/exchange-hierarchy-foreign.c:251
 msgid "Contacts"
 msgstr "Kontakty"
 
-#: ../storage/exchange-component.c:329
+#: ../storage/exchange-component.c:328
 #: ../storage/exchange-hierarchy-foreign.c:259
 msgid "Tasks"
 msgstr "Úkoly"
 
-#: ../storage/exchange-component.c:332
+#: ../storage/exchange-component.c:331
 #: ../storage/exchange-hierarchy-foreign.c:250
 msgid "Calendar"
 msgstr "Kalendář"
@@ -1587,16 +1606,16 @@ msgstr "Ximian Connector pro Microsoft Exchange"
 msgid "Account Name"
 msgstr "Název účtu"
 
-#: ../storage/xc-commands.c:317
+#: ../storage/xc-commands.c:316
 msgid "Folder does not exist"
 msgstr "Složka neexistuje"
 
-#: ../storage/xc-commands.c:344
+#: ../storage/xc-commands.c:343
 #, c-format
 msgid "Could not add favorite: %s"
 msgstr "Nemohu přidat oblíbené: %s"
 
-#: ../storage/xc-commands.c:360
+#: ../storage/xc-commands.c:359
 #, c-format
 msgid "Could not remove favorite: %s"
 msgstr "Nemohu odstranit oblíbené: %s"
@@ -1610,39 +1629,40 @@ msgstr "Nemohu odstranit oblíbené: %s"
 #. G_CALLBACK (do_copy_folder),
 #. XC_FOLDER_COMMAND_MASK_MOVECOPY),
 #.
-#: ../storage/xc-commands.c:386
+#: ../storage/xc-commands.c:385
 msgid "_Rename Folder..."
 msgstr "Pře_jmenovat složku..."
 
-#: ../storage/xc-commands.c:392
+#: ../storage/xc-commands.c:391
 msgid "_New Folder..."
 msgstr "_Nová složka..."
 
-#: ../storage/xc-commands.c:395
+#: ../storage/xc-commands.c:394
 msgid "_Delete Folder"
 msgstr "_Odstranit složku"
 
-#: ../storage/xc-commands.c:400
+#: ../storage/xc-commands.c:399
 msgid "_Add Other User's Folder..."
 msgstr "_Přidat složku jiného uživatele..."
 
-#: ../storage/xc-commands.c:403
+#: ../storage/xc-commands.c:402
 msgid "_Remove Other User's Folder"
 msgstr "_Odstranit složku jiného uživatele"
 
-#: ../storage/xc-commands.c:409
+#: ../storage/xc-commands.c:408
 msgid "Add to _Favorites"
 msgstr "Přidat do _Oblíbených"
 
-#: ../storage/xc-commands.c:413
+#: ../storage/xc-commands.c:412
 msgid "Remove from Fa_vorites"
 msgstr "Odstranit z Ob_líbených"
 
-#: ../storage/xc-commands.c:420
-msgid "_Permissions..."
-msgstr "_Oprávnění..."
-
-#: ../storage/xc-commands.c:424
+#.
+#. E_POPUP_ITEM (N_("_Permissions..."),
+#. G_CALLBACK (do_permissions),
+#. XC_FOLDER_COMMAND_MASK_PERMISSIONS),
+#.
+#: ../storage/xc-commands.c:423
 msgid "_Show Folder Sizes"
 msgstr "_Zobrazovat velikosti složek"
 
@@ -1701,6 +1721,9 @@ msgstr "Asistent \"_mimo kancelář\""
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Odhlásit se od složky jiného uživatele"
+
+#~ msgid "_Permissions..."
+#~ msgstr "_Oprávnění..."
 
 #~ msgid ""
 #~ "Ximian Connector requires access to certain functionality on the Exchange "
