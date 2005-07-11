@@ -224,10 +224,11 @@ idle_open_folder (gpointer user_data)
 	ExchangeStorage *exstorage = EXCHANGE_STORAGE (ofd->storage);
 	ExchangeAccount *account = exstorage->priv->account;
 	ExchangeAccountFolderResult result;
+	ExchangeAccountResult acresult;
 	E2kContext *ctx;
 
 	if (!strcmp (ofd->path, "/")) {
-		ctx = exchange_account_connect (account);
+		ctx = exchange_account_connect (account, NULL, &acresult);
 		result = ctx ?
 			E_STORAGE_OK :
 			E_STORAGE_NOTONLINE;

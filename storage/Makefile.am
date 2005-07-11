@@ -47,11 +47,7 @@ evolution_exchange_storage_SOURCES =				\
 	exchange-oof.h						\
 	exchange-storage.c					\
 	exchange-storage.h					\
-	main.c							\
-	xc-backend-view.c					\
-	xc-backend-view.h					\
-	xc-commands.c						\
-	xc-commands.h
+	main.c							
 
 evolution_exchange_storage_LDADD =				\
 	$(top_builddir)/shell/libfoldertree.la			\

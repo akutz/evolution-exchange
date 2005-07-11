@@ -1,5 +1,19 @@
 2005-07-11  Sarfraaz Ahmed <asarfraaz@novell.com>
 
+	* addressbook/Makefile.am : Include the e-d-s path first
+	* addressbook/e-book-backend-gal.c : Use the new 
+	exchange_account_connect method.
+	* storage/exchange-config-listener.c : Similar
+	* storage/exchange-storage.c : Similar
+	* storage/GNOME_Evolution_Exchange_Storage.server.in.in : Dont show
+	the exchange button now.
+	* storage/Makefile.am : Remove xc-backend-view.[ch] and xc-commands.[ch]
+	* storage/exchange-component.c : Remove the implementation for
+	createControls method and also use the new exchange_account_connect
+	method
+
+2005-07-11  Sarfraaz Ahmed <asarfraaz@novell.com>
+
 	Updated the sgml files.
 
 2005-07-01  Sarfraaz Ahmed <asarfraaz@novell.com>

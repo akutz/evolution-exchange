@@ -12,14 +12,17 @@
 		       _value="Ximian Connector for Exchange"/>
 </oaf_server>
 
+
 <oaf_server iid="OAFIID:GNOME_Evolution_Exchange_Component:@BASE_VERSION@"
 	    type="factory"
 	    location="OAFIID:GNOME_Evolution_Exchange_Component_Factory:@BASE_VERSION@">
 	
 	<oaf_attribute name="repo_ids" type="stringv">
-		<item value="IDL:GNOME/Evolution/Component:@BASE_VERSION@"/>
+<!--		<item value="IDL:GNOME/Evolution/Component:@BASE_VERSION@"/> -->
+		<item value="IDL:GNOME/Evolution/Shell:@BASE_VERSION@"/>
+<!--		<item value="IDL:GNOME/Evolution/Shell:@BASE_VERSION@"/> -->
 	</oaf_attribute>
-
+<!--
 	<oaf_attribute name="evolution:component_alias" type="string"
 			   value="exchange"/>
 	<oaf_attribute name="name" type="string"
@@ -34,6 +37,7 @@
 		       _value="Exchange"/>
 	<oaf_attribute name="evolution:button_sort_order" type="string"
 		       value="0"/>
+-->
 </oaf_server>
 
 <oaf_server iid="OAFIID:GNOME_Evolution_Exchange_Connector_BookFactory:@BASE_VERSION@"

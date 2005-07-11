@@ -120,6 +120,7 @@ finalize (GObject *object)
 	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
+#if 0
 static void
 impl_createControls (PortableServer_Servant servant,
 		     Bonobo_Control *sidebar_control,
@@ -133,6 +134,11 @@ impl_createControls (PortableServer_Servant servant,
 	BonoboControl *control = NULL;
 
 	d(printf("createControls...\n"));
+
+     *sidebar_control = *view_control = *statusbar_control = NULL;
+	//bonobo_exception_general_error_set (ev, NULL, "We do not want to have a component\n");
+	bonobo_exception_set (ev, ex_Bonobo_Storage_NotSupported);
+	return;
 
 	view = xc_backend_view_new (priv->config_listener,
 				    priv->folder_type_registry);
@@ -151,6 +157,7 @@ impl_createControls (PortableServer_Servant servant,
 	*view_control =
 		CORBA_Object_duplicate (BONOBO_OBJREF (control), ev);
 }
+#endif
 
 static void
 impl_upgradeFromVersion (PortableServer_Servant servant,
@@ -247,6 +254,7 @@ new_connection (MailStubListener *listener, int cmd_fd, int status_fd,
 {
 	MailStub *mse;
 	ExchangeAccount *account = baccount->account;
+	ExchangeAccountResult result;
 	int mode;
 
 	g_object_ref (account);
@@ -257,7 +265,7 @@ new_connection (MailStubListener *listener, int cmd_fd, int status_fd,
 		goto end;
 	}
 
-	if (exchange_account_connect (account))
+	if (exchange_account_connect (account, NULL, &result))
 		mse = mail_stub_exchange_new (account, cmd_fd, status_fd);
 	else {
 		close (cmd_fd);
@@ -362,7 +370,7 @@ exchange_component_class_init (ExchangeComponentClass *klass)
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
 
-	epv->createControls     = impl_createControls;
+	//epv->createControls     = impl_createControls;
 	epv->upgradeFromVersion = impl_upgradeFromVersion;
 	epv->requestQuit        = impl_requestQuit;
 	epv->quit               = impl_quit;
@@ -377,7 +385,7 @@ exchange_component_init (ExchangeComponent *component)
 
 	priv = component->priv = g_new0 (ExchangeComponentPrivate, 1);
 
-	setup_folder_type_registry (component);
+	//setup_folder_type_registry (component);
 
        	priv->config_listener = exchange_config_listener_new ();
 	g_signal_connect (priv->config_listener, "exchange_account_created",

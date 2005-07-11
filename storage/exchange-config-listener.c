@@ -764,6 +764,7 @@ account_added (EAccountList *account_list, EAccount *account)
 {
 	ExchangeConfigListener *config_listener;
 	ExchangeAccount *exchange_account;
+	ExchangeAccountResult result;
 
 	if (!is_active_exchange_account (account))
 		return;
@@ -802,7 +803,7 @@ account_added (EAccountList *account_list, EAccount *account)
 	g_signal_emit (config_listener, signals[EXCHANGE_ACCOUNT_CREATED], 0,
 		       exchange_account);
 	//add_sources (exchange_account);
-	exchange_account_connect (exchange_account);
+	exchange_account_connect (exchange_account, NULL, &result);
 }
 
 struct account_update_data {

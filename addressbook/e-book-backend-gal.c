@@ -1710,6 +1710,7 @@ set_mode (EBookBackend *backend, int mode)
 {
 	EBookBackendGAL *be = E_BOOK_BACKEND_GAL (backend);
 	EBookBackendGALPrivate *bepriv;
+	ExchangeAccountResult result;
 
 	bepriv = be->priv;
 
@@ -1731,7 +1732,7 @@ set_mode (EBookBackend *backend, int mode)
 			}
 			}
 		} else if (mode == GNOME_Evolution_Addressbook_MODE_REMOTE) {
-			if (exchange_account_connect (bepriv->account)) {
+			if (exchange_account_connect (bepriv->account, NULL, &result)) {
 				e_book_backend_set_is_writable (backend, FALSE);
 				e_book_backend_notify_writable (backend, FALSE);
 				e_book_backend_notify_connection_status (backend, TRUE);
