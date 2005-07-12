@@ -29,9 +29,6 @@
 #include <bonobo/bonobo-exception.h>
 #include <bonobo/bonobo-main.h>
 
-//#include "e-storage-set.h"
-//#include "e-storage-set-view.h"
-
 #include <exchange-account.h>
 #include <exchange-constants.h>
 #include "exchange-config-listener.h"
@@ -40,8 +37,6 @@
 
 #include "mail-stub-listener.h"
 #include "mail-stub-exchange.h"
-
-#include "xc-backend-view.h"
 
 #include "exchange-migrate.h" 
 
@@ -53,8 +48,6 @@ static gboolean idle_do_interactive (gpointer user_data);
 
 struct ExchangeComponentPrivate {
 	GdkNativeWindow xid;
-
-	EFolderTypeRegistry *folder_type_registry;
 
 	ExchangeConfigListener *config_listener;
 	ExchangeOfflineListener *offline_listener;
@@ -81,11 +74,6 @@ dispose (GObject *object)
 {
 	ExchangeComponentPrivate *priv = EXCHANGE_COMPONENT (object)->priv;
 	GSList *p;
-
-	if (priv->folder_type_registry) {
-		g_object_unref (priv->folder_type_registry);
-		priv->folder_type_registry = NULL;
-	}
 
 	if (priv->config_listener) {
 		g_object_unref (priv->config_listener);
@@ -119,45 +107,6 @@ finalize (GObject *object)
 {
 	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
-
-#if 0
-static void
-impl_createControls (PortableServer_Servant servant,
-		     Bonobo_Control *sidebar_control,
-		     Bonobo_Control *view_control,
-		     Bonobo_Control *statusbar_control,
-		     CORBA_Environment *ev)
-{
-	ExchangeComponent *component = EXCHANGE_COMPONENT (bonobo_object_from_servant (servant));
-	ExchangeComponentPrivate *priv = component->priv;
-	XCBackendView *view;
-	BonoboControl *control = NULL;
-
-	d(printf("createControls...\n"));
-
-     *sidebar_control = *view_control = *statusbar_control = NULL;
-	//bonobo_exception_general_error_set (ev, NULL, "We do not want to have a component\n");
-	bonobo_exception_set (ev, ex_Bonobo_Storage_NotSupported);
-	return;
-
-	view = xc_backend_view_new (priv->config_listener,
-				    priv->folder_type_registry);
-	if (view)
-		priv->views = g_slist_append (priv->views, view);
-
-	control = xc_backend_view_get_sidebar (view);
-	*sidebar_control =
-		CORBA_Object_duplicate (BONOBO_OBJREF (control), ev);
-
-	control = xc_backend_view_get_statusbar (view);
-	*statusbar_control =
-		CORBA_Object_duplicate (BONOBO_OBJREF (control), ev);
-
-	control = xc_backend_view_get_view (view);
-	*view_control =
-		CORBA_Object_duplicate (BONOBO_OBJREF (control), ev);
-}
-#endif
 
 static void
 impl_upgradeFromVersion (PortableServer_Servant servant,
@@ -342,24 +291,6 @@ static struct {
 static int n_folder_types = G_N_ELEMENTS (folder_types);
 
 static void
-setup_folder_type_registry (ExchangeComponent *component)
-{
-	ExchangeComponentPrivate *priv = component->priv;
-	int i;
-
-	priv->folder_type_registry = e_folder_type_registry_new ();
-	for (i = 0; i < n_folder_types; i++) {
-		e_folder_type_registry_register_type (priv->folder_type_registry,
-						      folder_types[i].type,
-						      folder_types[i].icon,
-						      _(folder_types[i].display_name),
-						      NULL,
-						      folder_types[i].display_name != NULL,
-						      0, NULL);
-	}
-}
-
-static void
 exchange_component_class_init (ExchangeComponentClass *klass)
 {
 	POA_GNOME_Evolution_Component__epv *epv = &klass->epv;
@@ -370,7 +301,6 @@ exchange_component_class_init (ExchangeComponentClass *klass)
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
 
-	//epv->createControls     = impl_createControls;
 	epv->upgradeFromVersion = impl_upgradeFromVersion;
 	epv->requestQuit        = impl_requestQuit;
 	epv->quit               = impl_quit;
@@ -384,8 +314,6 @@ exchange_component_init (ExchangeComponent *component)
 	ExchangeComponentPrivate *priv;
 
 	priv = component->priv = g_new0 (ExchangeComponentPrivate, 1);
-
-	//setup_folder_type_registry (component);
 
        	priv->config_listener = exchange_config_listener_new ();
 	g_signal_connect (priv->config_listener, "exchange_account_created",
