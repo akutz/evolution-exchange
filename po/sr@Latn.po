@@ -3,14 +3,14 @@
 #
 # This file is distributed under the same license as the evolution package.
 #
-# Maintainer: Danilo Šegan <danilo@gnome.org>
+# Maintainer: Igor Nestorović <jung@one.ekof.bg.ac.yu>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-07 15:59+0530\n"
-"PO-Revision-Date: 2004-09-03 17:47+0200\n"
+"POT-Creation-Date: 2005-07-14 08:25+0200\n"
+"PO-Revision-Date: 2005-07-14 02:22+0200\n"
 "Last-Translator: Danilo Šegan <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,299 +19,294 @@ msgstr ""
 "Plural-Forms: nplurals=3;    plural=n%10==1 && n%100!=11 ? 0 :    n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: addressbook/e-book-backend-exchange.c:1807
-#: addressbook/e-book-backend-gal.c:1344 storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:1837
+#: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
-msgstr "Tražim..."
+msgstr "Pretraživanje..."
 
-#: addressbook/e-book-backend-gal.c:243
+#: ../addressbook/e-book-backend-gal.c:267
 msgid "Reconnecting to LDAP server..."
-msgstr "Ponovo uspostavljam vezu sa LDAP serverom"
+msgstr "Ponovno povezivanje na LDAP server..."
 
-#: addressbook/e-book-backend-gal.c:1218
+#: ../addressbook/e-book-backend-gal.c:1363
 msgid "Receiving LDAP search results..."
-msgstr "Primam rezultate pretrage sa LDAP servera"
+msgstr "Primanje rezultata pretrage sa LDAP servera..."
 
-#: addressbook/e-book-backend-gal.c:1365
+#: ../addressbook/e-book-backend-gal.c:1522
 msgid "Error performing search"
-msgstr "Greška prilikom pretttrage"
+msgstr "Greška pri pretraživanju"
 
-#: calendar/e-cal-backend-exchange.c:277
+#: ../calendar/e-cal-backend-exchange.c:312
 msgid "Folder not marked for offline support"
-msgstr ""
+msgstr "Fascikla nije označena za rad van mreže"
 
-#: calendar/e-cal-backend-exchange-calendar.c:1712
+#: ../calendar/e-cal-backend-exchange-calendar.c:1665
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
-"Ne mogu da zakažem resurs „%s“ za ponovljene sastanke.\n"
+"Nije moguće zakazati resurs '%s' za sastanke koji se ponavljaju.\n"
 "Morate zakazati svaki sastanak pojedinačno."
 
-#: calendar/e-cal-backend-exchange-calendar.c:1731
+#: ../calendar/e-cal-backend-exchange-calendar.c:1684
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
-msgstr "Resurs „%s“ je zauzet u toku izabranog vremenskog perioda."
+msgstr "Resurs '%s' je zauzet tokom izabranog vremenskog perioda."
 
-#: camel/camel-exchange-folder.c:220
+#: ../camel/camel-exchange-folder.c:220
 msgid "Can only expunge in Deleted Items folder"
-msgstr "Može izbaciti samo u fascikli sa obrisanim stavkama"
+msgstr "Može izbaciti samo u fasciklu Obrisani predmeti"
 
-#: camel/camel-exchange-folder.c:244
+#: ../camel/camel-exchange-folder.c:244
 msgid "No Subject"
 msgstr "Bez naslova"
 
-#: camel/camel-exchange-folder.c:598
+#: ../camel/camel-exchange-folder.c:371
+msgid "This message is not available in offline mode."
+msgstr "Ova poruka nije dostupna u radu van mreže."
+
+#: ../camel/camel-exchange-folder.c:606
 msgid "Moving messages"
-msgstr "Pomeram poruke"
+msgstr "Premeštanje poruka"
 
-#: camel/camel-exchange-folder.c:599
+#: ../camel/camel-exchange-folder.c:607
 msgid "Copying messages"
-msgstr "Kopiram poruke"
+msgstr "Umnožavanje poruka"
 
-#: camel/camel-exchange-folder.c:930
+#: ../camel/camel-exchange-folder.c:938
 #, c-format
 msgid "Could not create directory %s: %s"
-msgstr "Nisam mogao da napravim direktorijum %s: %s"
+msgstr "Nije moguće napraviti direktorijum %s: %s"
 
-#: camel/camel-exchange-folder.c:940
+#: ../camel/camel-exchange-folder.c:948
 #, c-format
 msgid "Could not load summary for %s"
-msgstr "Nisam mogao da učitam sažetak za %s"
+msgstr "Nije moguće učitati pregled za %s"
 
-#: camel/camel-exchange-folder.c:948
+#: ../camel/camel-exchange-folder.c:956
 #, c-format
 msgid "Could not create cache for %s"
-msgstr "Nisam mogao da napravim ostavu za %s"
+msgstr "Nije moguće napraviti cache za %s"
 
-#: camel/camel-exchange-folder.c:958
-#, fuzzy, c-format
+#: ../camel/camel-exchange-folder.c:966
+#, c-format
 msgid "Could not create journal for %s"
-msgstr "Nisam mogao da napravim ostavu za %s"
+msgstr "Nije moguće napraviti unos u dnevnik za %s"
 
-#: camel/camel-exchange-folder.c:998
+#: ../camel/camel-exchange-folder.c:1011
 msgid "Scanning for changed messages"
-msgstr "Tragam za promenjenim porukama"
+msgstr "Pretraga za izmenjenim porukama"
 
-#: camel/camel-exchange-folder.c:1022
+#: ../camel/camel-exchange-folder.c:1037
 msgid "Fetching summary information for new messages"
-msgstr "Prikupljam sažetu informaciju za nove poruke"
+msgstr "Dobavljanje pregleda za nove poruke"
 
-#: camel/camel-exchange-journal.c:279
-msgid "No folder name found\n"
-msgstr ""
-
-#: camel/camel-exchange-journal.c:342
-#, fuzzy
+#: ../camel/camel-exchange-journal.c:272
 msgid "Cannot append message in offline mode: cache unavailable"
-msgstr ""
-"Ne mogu da primenujem fasciklu:\n"
-"%s"
+msgstr "Nije moguće dodati poruku u radu van mreže: cache nedostupan"
 
-#: camel/camel-exchange-journal.c:358
-#, fuzzy, c-format
+#: ../camel/camel-exchange-journal.c:288
+#, c-format
 msgid "Cannot append message in offline mode: %s"
-msgstr ""
-"Ne mogu da primenujem fasciklu:\n"
-"%s"
+msgstr "Nije moguće dodati poruku u radu van mreže: %s"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: camel/camel-exchange-provider.c:46
+#: ../camel/camel-exchange-provider.c:44
 msgid "Windows User_name:"
-msgstr "Vinduz _korisničko ime:"
+msgstr "Windows _korisničko ime:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: camel/camel-exchange-provider.c:51
+#: ../camel/camel-exchange-provider.c:49
 msgid "Global Address List / Active Directory"
-msgstr "Opšti adresar/aktivni direktorijum"
+msgstr "Opšta lista adresa / aktivni direktorijum"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:53
 msgid "Global Catalog server name:"
 msgstr "Ime servera opšteg kataloga:"
 
-#: camel/camel-exchange-provider.c:57
+#: ../camel/camel-exchange-provider.c:55
 #, c-format
 msgid "Limit number of GAL responses: %s"
-msgstr "Ograniči broj OA odgovora: %s"
+msgstr "Ograniči broj GAL odgovora: %s"
 
-#: camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:58
 msgid "Options"
-msgstr ""
+msgstr "Opcije"
 
-#: camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:60
 #, c-format
 msgid "Password Expiry Warning period: %s"
-msgstr ""
+msgstr "Vreme upozorenja za istek važenja lozinke: %s"
 
-#: camel/camel-exchange-provider.c:64
+#: ../camel/camel-exchange-provider.c:62
 msgid "Automatically synchronize account locally"
-msgstr ""
+msgstr "Automatski uskladi nalog lokalno"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:68
+#: ../camel/camel-exchange-provider.c:65
 msgid "Apply filters to new messages in Inbox on this server"
-msgstr "Primeni filtere na nove poruke u Inbox-u ovog servera"
+msgstr "Primeni filtere na nove poruke u sandučetu ovog servera"
 
-#: camel/camel-exchange-provider.c:70
+#: ../camel/camel-exchange-provider.c:67
 msgid "Check new messages for Junk contents"
 msgstr "Proveri da nema đubreta među novim porukama"
 
-#: camel/camel-exchange-provider.c:72
+#: ../camel/camel-exchange-provider.c:69
 msgid "Only check for Junk messages in the Inbox folder"
-msgstr "Proveri da nema đubreta samo u direktorijumu Inbox"
+msgstr "Proveri da nema đubreta samo u fascikli sandučeta"
 
-#: camel/camel-exchange-provider.c:88
+#: ../camel/camel-exchange-provider.c:76
 msgid "Microsoft Exchange"
-msgstr "Mikrosoft Eksčendž"
+msgstr "Microsoft Exchange"
 
-#: camel/camel-exchange-provider.c:90
+#: ../camel/camel-exchange-provider.c:78
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr ""
-"Za baratanje poštom (i ostalim podacima) na Mikrosoft Eksčendž serverima"
+"Za rukovanje poštom (i ostalim podacima) na Microsoft Exchange serverima"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:106
+#: ../camel/camel-exchange-provider.c:94
 msgid "Secure Password"
-msgstr "Bezbedna lozinka"
+msgstr "Sigurna lozinka"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:109
+#: ../camel/camel-exchange-provider.c:97
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
 msgstr ""
-"Ova opcija će povezati na Eksčendž server korišćenjem prijave uz bezbednu "
-"lozinku (NTLM)."
+"Ova opcija će povezati na Exchange server korišćenjem prijave sigurnom "
+"lozinkom (NTLM)."
 
-#: camel/camel-exchange-provider.c:117
+#: ../camel/camel-exchange-provider.c:105
 msgid "Plaintext Password"
-msgstr "Lozinka kao tekst"
+msgstr "Lozinka u običnom tekstu"
 
-#: camel/camel-exchange-provider.c:119
+#: ../camel/camel-exchange-provider.c:107
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
 msgstr ""
-"Ova opcija će povezati na Eksčendž server korišćenjem obične prijave uz "
-"nešifrovanu lozinku."
+"Ova opcija će povezati na Exchange server korišćenjem prijave lozinkom u "
+"običnom tekstu."
 
-#: camel/camel-exchange-store.c:260
+#: ../camel/camel-exchange-store.c:281
 #, c-format
 msgid "Exchange server %s"
-msgstr "Eksčendž server %s"
+msgstr "Exchange server %s"
 
-#: camel/camel-exchange-store.c:263
+#: ../camel/camel-exchange-store.c:284
 #, c-format
 msgid "Exchange account for %s on %s"
-msgstr "Eksčendž nalog za %s na %s"
+msgstr "Exchange nalog za %s na %s"
 
-#: camel/camel-exchange-store.c:290
+#: ../camel/camel-exchange-store.c:311
 msgid "Evolution Exchange backend process"
-msgstr "Uslužni proces za Eksčendž u Evoluciji"
+msgstr "Uslužni Exchange proces Evolucije"
 
-#: camel/camel-exchange-store.c:352
-#, fuzzy, c-format
+#: ../camel/camel-exchange-store.c:359
+#, c-format
 msgid "No such folder %s"
-msgstr "Nema takvog direktorijuma"
+msgstr "Nema takve fascikle %s"
 
-#: camel/camel-exchange-store.c:480
-#, fuzzy
+#: ../camel/camel-exchange-store.c:428
+msgid "Cannot subscribe folder in offline mode."
+msgstr "Nije moguće prijaviti fasciklu u radu van mreže."
+
+#: ../camel/camel-exchange-store.c:445
+msgid "Cannot unsubscribe folder in offline mode."
+msgstr "Nije moguće odjaviti fasciklu u radu van mreže."
+
+#: ../camel/camel-exchange-store.c:550
 msgid "Cannot get folder info in offline mode."
-msgstr "Ovu operaciju ne možete izvršiti dok radite bez mreže"
+msgstr "Nije moguće dobiti fasciklu u radu van mreže."
 
-#: camel/camel-exchange-store.c:542
-#, fuzzy
+#: ../camel/camel-exchange-store.c:620
 msgid "Cannot create folder in offline mode."
-msgstr "Ne mogu da napravim direktorijum sa tim imenom"
+msgstr "Nije moguće napraviti fasciklu u radu van mreže."
 
-#: camel/camel-exchange-store.c:569
-#, fuzzy
+#: ../camel/camel-exchange-store.c:647
 msgid "Cannot delete folder in offline mode."
-msgstr ""
-"Ne mogu da uklonim fasciklu:\n"
-"%s"
+msgstr "Nije moguće ukloniti fasciklu u radu van mreže."
 
-#: camel/camel-exchange-store.c:585
-#, fuzzy
+#: ../camel/camel-exchange-store.c:663
 msgid "Cannot rename folder in offline mode."
-msgstr ""
-"Ne mogu da primenujem fasciklu:\n"
-"%s"
+msgstr "Nije moguće preimenovati fasciklu u radu van mreže."
 
-#: camel/camel-exchange-transport.c:110
+#: ../camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr "Eksčendž prenos se može koristiti jedino sa Eksčendž izvorom pošte"
+msgstr "Exchange prenos se može koristiti samo sa Exchange izvorom pošte"
 
-#: camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
-msgstr "Ne mogu da pošaljem poruku: jedan ili više neispravnih primalaca"
+msgstr "Nije moguće slanje poruke: jedan ili više neispravnih primalaca"
 
-#: camel/camel-exchange-transport.c:131
+#: ../camel/camel-exchange-transport.c:131
 msgid "Could not find 'From' address in message"
-msgstr "Ne mogu da nađem polaznu adresu u poruci."
+msgstr "Nije moguće pronaći adresu 'Šalje' u poruci"
 
-#: camel/camel-stub.c:134
+#: ../camel/camel-stub.c:134
 #, c-format
 msgid "Could not create socket: %s"
-msgstr "Nisam mogao da napravim soket: %s"
+msgstr "Nije moguće napraviti priključak: %s"
 
-#: camel/camel-stub.c:149
+#: ../camel/camel-stub.c:149
 #, c-format
 msgid "Could not connect to %s: %s"
-msgstr "Nisam mogao da se povežem na %s: %s"
+msgstr "Nije moguće povezivanje na %s: %s"
 
-#: camel/camel-stub.c:179
+#: ../camel/camel-stub.c:179
 #, c-format
 msgid "Path too long: %s"
-msgstr "Putanja je predugačka: %s"
+msgstr "Putanja je preduga: %s"
 
-#: camel/camel-stub.c:205
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Could not start status thread: %s"
-msgstr "Nisam mogao da pokrenem nit za stanje: %s"
+msgstr "Nije moguće pokrenuti statusni niz: %s"
 
-#: camel/camel-stub.c:457
+#: ../camel/camel-stub.c:457
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Prekinuta veza sa %s"
 
-#: camel/camel-stub.c:461
+#: ../camel/camel-stub.c:461
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Greška pri sporazumevanju sa %s: %s"
 
-#: lib/e2k-autoconfig.c:1427 storage/exchange-autoconfig-wizard.c:224
+#: ../lib/e2k-autoconfig.c:1471 ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
-"Ne mogu da se povežem na Eksčendž server.\n"
-"Proverite da li je adresa ispravna (probajte „%s“ umesto „%s“?) i pokušajte "
+"Nije moguće povezivanje na Exchange server.\n"
+"Proverite da li je adresa ispravna (probajte „%s“ umesto „%s“) i pokušajte "
 "ponovo."
 
-#: lib/e2k-autoconfig.c:1436 storage/exchange-autoconfig-wizard.c:232
+#: ../lib/e2k-autoconfig.c:1480 ../storage/exchange-autoconfig-wizard.c:219
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
 msgstr ""
-"Ne mogu da nađem Eksčendž server.\n"
+"Nije moguće pronaći Exchange server.\n"
 "Proverite da li je ime servera ispravno upisano i pokušajte ponovo."
 
-#: lib/e2k-autoconfig.c:1446 storage/exchange-autoconfig-wizard.c:241
+#: ../lib/e2k-autoconfig.c:1490 ../storage/exchange-autoconfig-wizard.c:228
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
 msgstr ""
-"Ne mogu da se prijavim na Eksčendž server.\n"
+"Nije moguća prijava na Exchange server.\n"
 "Proverite da li su korisničko ime i lozinka ispravni i pokušajte ponovo."
 
-#: lib/e2k-autoconfig.c:1454 storage/exchange-autoconfig-wizard.c:248
+#: ../lib/e2k-autoconfig.c:1498 ../storage/exchange-autoconfig-wizard.c:235
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -320,22 +315,22 @@ msgid ""
 "You may need to specify the Windows domain name as part of your username "
 "(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
-"Ne mogu da se prijavim na Eksčendž server.\n"
+"Nije moguća prijava na Exchange server.\n"
 "Proverite da li su korisničko ime i lozinka ispravni i pokušajte ponovo.\n"
 "\n"
-"Moraćete da navedete ime Vinduz domena kao deo vašeg korisničkog imena (npr. "
-"„MOJ-DOMEN\\%s“)."
+"Možda ćete morati da navedete ime Windows domena kao deo vašeg korisničkog "
+"imena (npr. „MOJ-DOMEN\\%s“)."
 
-#: lib/e2k-autoconfig.c:1467 storage/exchange-autoconfig-wizard.c:260
+#: ../lib/e2k-autoconfig.c:1511 ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 msgstr ""
-"Ne mogu da nađem OWA podatke na naznačenoj adresi.\n"
+"Nije moguće pronaći OWA podatke na naznačenoj adresi.\n"
 "Proverite da li je adresa ispravna i pokušajte ponovo."
 
-#: lib/e2k-autoconfig.c:1475
-#, fuzzy
+#: ../lib/e2k-autoconfig.c:1520
+#, c-format
 msgid ""
 "Ximian Connector requires access to certain functionality on the Exchange "
 "Server that appears to be disabled or blocked.  (This is usually "
@@ -344,470 +339,460 @@ msgid ""
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:\n"
-"http://www.ximian.com/products/connector/iis-lockdown.html, http://www."
-"ximian.com/products/connector/iis-lockdown.html"
+"%s"
 msgstr ""
-"Gzimijan veznik zahteva pristup određenim mogućnostima Eksčendž servera koje "
-"su izgleda isključene ili zabranjene. (Ovo je uglavnom nenamerno.)  Vaš "
-"administrator Eksčendža će morati da uključi ove mogućnosti da biste mogli "
-"da koristite Gzimijan veznik.\n"
+"Ximian Connector zahteva pristup određenim mogućnostima Exchange servera "
+"koje izgleda nisu uključene ili su blokirane. (Ovo obično nije namerno.)  Vaš "
+"Exchange administrator će morati da uključi ove mogućnosti da biste mogli da "
+"koristite Ximian Connector.\n"
 "\n"
-"Za detalje šta da prosledite vašem administratoru, pratite vezu ispod:"
+"Za detalje šta da prosledite vašem Exchange administratoru, posetite sledeću "
+"vezu:\n"
+"%s"
 
-#: lib/e2k-autoconfig.c:1491 storage/exchange-autoconfig-wizard.c:288
+#: ../lib/e2k-autoconfig.c:1536 ../storage/exchange-autoconfig-wizard.c:275
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
 msgstr ""
-"Adresa Eksčendž servera koju ste uneli je za server Eksčendž 5.5. Gzimijan "
-"veznik podržava samo Mikrosoft Eksčendž 2000 i 2003."
+"Adresa Exchange servera koju ste uneli je za server Exchange 5.5. Ximian "
+"Connector podržava samo Microsoft Exchange 2000 i 2003."
 
-#: lib/e2k-autoconfig.c:1500 storage/exchange-autoconfig-wizard.c:301
+#: ../lib/e2k-autoconfig.c:1545 ../storage/exchange-autoconfig-wizard.c:288
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
 msgstr ""
-"Ne mogu da podesim Eksčendž nalog zato što se dogodila nepoznata greška. "
+"Nije moguće podesiti Exchange nalog zato što se dogodila nepoznata greška. "
 "Proverite adresu, korisničko ime i lozinku, pa pokušajte ponovo."
 
-#: lib/e2k-autoconfig.c:1522
-#, fuzzy, c-format
+#: ../lib/e2k-autoconfig.c:1567
+#, c-format
 msgid "Enter password for %s"
-msgstr "%sUnesite lozinku za %s"
+msgstr "Unesite lozinku za %s"
 
-#: lib/e2k-autoconfig.c:1523 storage/exchange-account.c:859
+#: ../lib/e2k-autoconfig.c:1568 ../storage/exchange-account.c:874
 msgid "Enter password"
 msgstr "Unesite lozinku"
 
 #. i18n: These are Outlook's words for the default roles in
 #. the folder permissions dialog.
-#: lib/e2k-security-descriptor.c:847
+#: ../lib/e2k-security-descriptor.c:847
 msgid "Owner"
 msgstr "Vlasnik"
 
-#: lib/e2k-security-descriptor.c:857
+#: ../lib/e2k-security-descriptor.c:857
 msgid "Publishing Editor"
-msgstr "Urednik izdanja"
+msgstr "Uređivač za objavljivanje"
 
-#: lib/e2k-security-descriptor.c:865
+#: ../lib/e2k-security-descriptor.c:865
 msgid "Editor"
-msgstr "Urednik"
+msgstr "Uređivač"
 
-#: lib/e2k-security-descriptor.c:872
+#: ../lib/e2k-security-descriptor.c:872
 msgid "Publishing Author"
-msgstr "Autor izdanja"
+msgstr "Autor za objavljivanje"
 
-#: lib/e2k-security-descriptor.c:878
+#: ../lib/e2k-security-descriptor.c:878
 msgid "Author"
 msgstr "Autor"
 
-#: lib/e2k-security-descriptor.c:883
+#: ../lib/e2k-security-descriptor.c:883
 msgid "Non-editing Author"
 msgstr "Autor koji ne uređuje"
 
-#: lib/e2k-security-descriptor.c:887
+#: ../lib/e2k-security-descriptor.c:887
 msgid "Reviewer"
-msgstr "Pregleda"
+msgstr "Recenzent"
 
-#: lib/e2k-security-descriptor.c:889
+#: ../lib/e2k-security-descriptor.c:889
 msgid "Contributor"
-msgstr "Doprineo"
+msgstr "Saradnik"
 
-#: lib/e2k-security-descriptor.c:891 storage/exchange-delegates.glade.h:7
+#: ../lib/e2k-security-descriptor.c:891
+#: ../storage/exchange-delegates.glade.h:7
 msgid "None"
 msgstr "Ništa"
 
-#: lib/e2k-security-descriptor.c:906 storage/exchange-delegates-user.c:144
+#: ../lib/e2k-security-descriptor.c:906
+#: ../storage/exchange-delegates-user.c:144
 msgid "Custom"
-msgstr "Proizvoljno"
+msgstr "Prilagođeno"
 
-#: lib/e2k-user-dialog.c:144
+#: ../lib/e2k-user-dialog.c:144
 msgid "Select User"
-msgstr "Odaberite korisnika"
+msgstr "Izaberite korisnika"
 
-#: lib/e2k-user-dialog.c:182
+#: ../lib/e2k-user-dialog.c:182
 msgid "Addressbook..."
 msgstr "Adresar..."
 
-#: mail/mail-stub-exchange.c:231
+#: ../mail/mail-stub-exchange.c:242
 msgid "No such folder"
-msgstr "Nema takvog direktorijuma"
+msgstr "Nema takve fascikle"
 
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2309
-#: mail/mail-stub-exchange.c:2347 mail/mail-stub-exchange.c:2407
-#: shell/e-storage.c:573 storage/xc-commands.c:315
+#: ../mail/mail-stub-exchange.c:259 ../mail/mail-stub-exchange.c:2356
+#: ../mail/mail-stub-exchange.c:2394 ../mail/mail-stub-exchange.c:2454
+#: ../mail/mail-stub-exchange.c:2492 ../mail/mail-stub-exchange.c:2536
+#: ../shell/e-storage.c:573 ../storage/xc-commands.c:319
 msgid "Permission denied"
 msgstr "Zabranjen pristup"
 
 # Ovako je u Vinduzu
-#: mail/mail-stub-exchange.c:546
+#: ../mail/mail-stub-exchange.c:557
 msgid "No such folder."
 msgstr "Nema takve fascikle."
 
-#: mail/mail-stub-exchange.c:555
+#: ../mail/mail-stub-exchange.c:566
 msgid "Could not create folder."
-msgstr "Nisam mogao da napravim fasciklu."
+msgstr "Nije moguće napraviti fasciklu."
 
-#: mail/mail-stub-exchange.c:602 mail/mail-stub-exchange.c:620
+#: ../mail/mail-stub-exchange.c:614 ../mail/mail-stub-exchange.c:632
 msgid "Could not open folder: Permission denied"
-msgstr "Nisam mogao da otvorim fasciklu: zabranjen pristup"
+msgstr "Nije moguće otvoriti fasciklu: zabranjen pristup"
 
-#: mail/mail-stub-exchange.c:606 mail/mail-stub-exchange.c:719
+#: ../mail/mail-stub-exchange.c:618 ../mail/mail-stub-exchange.c:731
 msgid "Could not open folder"
-msgstr "Ne mogu da otvorim fasciklu"
+msgstr "Nije moguće otvoriti fasciklu"
 
-#: mail/mail-stub-exchange.c:774
+#: ../mail/mail-stub-exchange.c:786
 msgid "Could not open Deleted Items folder"
-msgstr "Ne mogu da otvorim fasciklu sa obrisanim"
+msgstr "Nije moguće otvoriti fasciklu sa obrisanim predmetima"
 
-#: mail/mail-stub-exchange.c:1094 mail/mail-stub-exchange.c:1135
+#: ../mail/mail-stub-exchange.c:1116 ../mail/mail-stub-exchange.c:1157
 msgid "Could not get new messages"
-msgstr "Ne mogu da primim nove poruke"
+msgstr "Nije moguće dobiti nove poruke"
 
-#: mail/mail-stub-exchange.c:1300
+#: ../mail/mail-stub-exchange.c:1322
 msgid "Could not empty Deleted Items folder"
-msgstr "Ne mogu da ispraznim fasciklu sa obrisanim"
+msgstr "Nije moguće isprazniti fasciklu sa obrisanim predmetima"
 
-#: mail/mail-stub-exchange.c:1372
+#: ../mail/mail-stub-exchange.c:1394
 msgid "Could not append message; mailbox is over quota"
-msgstr "Ne mogu da prilepim poruku; sanduče je preveliko"
+msgstr "Nije moguće dodati poruku; mailbox je probio kvotu"
 
-#: mail/mail-stub-exchange.c:1373
+#: ../mail/mail-stub-exchange.c:1395
 msgid "Could not append message"
-msgstr "Nisam mogao da prilepim poruku"
+msgstr "Nije moguće dodati poruku"
 
-#: mail/mail-stub-exchange.c:1856
+#: ../mail/mail-stub-exchange.c:1878
 msgid "No such message"
 msgstr "Nema takve poruke"
 
-#: mail/mail-stub-exchange.c:1909
+#: ../mail/mail-stub-exchange.c:1931
 msgid "Message has been deleted"
 msgstr "Poruka je obrisana"
 
-#: mail/mail-stub-exchange.c:1911
+#: ../mail/mail-stub-exchange.c:1933
 msgid "Error retrieving message"
-msgstr "Greška pri učitavanju poruke"
+msgstr "Greška pri dovlačenju poruke"
 
-#: mail/mail-stub-exchange.c:1953
+#: ../mail/mail-stub-exchange.c:1975
 msgid "Mailbox does not support full-text searching"
-msgstr "Sanduče ne podržava pretragu po svom tekstu"
+msgstr "Mailbox ne podržava pretragu po svom tekstu"
 
-#: mail/mail-stub-exchange.c:2051
+#: ../mail/mail-stub-exchange.c:2073
 msgid "Unable to move/copy messages"
-msgstr "Ne mogu da premestim/umnožim poruke"
+msgstr "Nije moguće premeštanje/umnožavanje poruka"
 
-#: mail/mail-stub-exchange.c:2224
+#: ../mail/mail-stub-exchange.c:2271
 msgid "No mail submission URI for this mailbox"
-msgstr "Nema adrese za slanje pošte iz ovog sandučeta"
+msgstr "Nema adrese za slanje pošte za ovaj mailbox"
 
-#: mail/mail-stub-exchange.c:2260
+#: ../mail/mail-stub-exchange.c:2307
 msgid "Server won't accept mail via Exchange transport"
-msgstr "Server ne prihvata poštu putem Eksčendž prenosa"
+msgstr "Server neće da prihvati poštu preko Exchange prenosa"
 
-#: mail/mail-stub-exchange.c:2262
+#: ../mail/mail-stub-exchange.c:2309
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
 msgstr ""
-"Vaš nalog nije ovlašćen da koristi <%s>\n"
-"kao polaznu adresu."
+"Vaš nalog nema ovlašćenje da koristi <%s>\n"
+"kao adresu Šalje."
 
-#: mail/mail-stub-exchange.c:2274
+#: ../mail/mail-stub-exchange.c:2321
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
-"Ne mogu da pošaljem poruku.\n"
-"Ovo može značiti da je vaš nalog zauzeo previše mesta."
+"Nije moguće slanje poruke.\n"
+"Ovo može značiti da je Vaš nalog probio kvotu."
 
-#: mail/mail-stub-exchange.c:2278
+#: ../mail/mail-stub-exchange.c:2325
 msgid "Could not send message"
-msgstr "Ne mogu da pošaljem poruku"
+msgstr "Nije moguće slanje poruke"
 
-#: mail/mail-stub-exchange.c:2301 mail/mail-stub-exchange.c:2352
-#: mail/mail-stub-exchange.c:2411 shell/e-storage.c:557
-#: storage/xc-commands.c:319
+#: ../mail/mail-stub-exchange.c:2348 ../mail/mail-stub-exchange.c:2399
+#: ../mail/mail-stub-exchange.c:2458 ../mail/mail-stub-exchange.c:2497
+#: ../mail/mail-stub-exchange.c:2541 ../shell/e-storage.c:557
+#: ../storage/xc-commands.c:323
 msgid "Generic error"
-msgstr "Osnovna greška"
+msgstr "Opšta greška"
 
-#: mail/mail-stub-exchange.c:2305 storage/xc-commands.c:309
+#: ../mail/mail-stub-exchange.c:2352 ../storage/xc-commands.c:313
 msgid "Folder already exists"
-msgstr "Direktorijum već postoji"
+msgstr "Fascikla već postoji"
 
-#: mail/mail-stub-exchange.c:2332 mail/mail-stub-exchange.c:2374
-#: mail/mail-stub-exchange.c:2403
+#: ../mail/mail-stub-exchange.c:2379 ../mail/mail-stub-exchange.c:2421
+#: ../mail/mail-stub-exchange.c:2450 ../mail/mail-stub-exchange.c:2477
+#: ../mail/mail-stub-exchange.c:2521
 msgid "Folder doesn't exist"
 msgstr "Fascikla ne postoji"
 
-#: shell/e-folder-creation-dialog.c:138
+#: ../shell/e-folder-creation-dialog.c:138
 #, c-format
 msgid ""
 "Cannot create the specified folder:\n"
 "%s"
 msgstr ""
-"Ne mogu da napravim traženu fasciklu:\n"
+"Nije moguće napraviti navedenu fasciklu:\n"
 "%s"
 
-#: shell/e-folder-creation-dialog.c:179
+#: ../shell/e-folder-creation-dialog.c:179
 #, c-format
 msgid "The specified folder name is not valid: %s"
 msgstr "Navedeno ime fascikle nije ispravno: %s"
 
-#: shell/e-folder-creation-dialog.c:310
+#: ../shell/e-folder-creation-dialog.c:310
 msgid "Create New Folder"
 msgstr "Napravi novu fasciklu"
 
-#: shell/e-folder-creation-dialog.glade.h:1
-#: storage/exchange-autoconfig-wizard.glade.h:1
-#: storage/exchange-change-password.glade.h:1
+#: ../shell/e-folder-creation-dialog.glade.h:1
+#: ../storage/exchange-autoconfig-wizard.glade.h:1
+#: ../storage/exchange-change-password.glade.h:1
 msgid "*"
 msgstr "*"
 
-#: shell/e-folder-creation-dialog.glade.h:2
+#: ../shell/e-folder-creation-dialog.glade.h:2
 msgid "Folder _name:"
 msgstr "_Ime fascikle:"
 
-#: shell/e-folder-creation-dialog.glade.h:3
+#: ../shell/e-folder-creation-dialog.glade.h:3
 msgid "Folder _type:"
-msgstr "_Vrsta fascikle:"
+msgstr "_Tip fascikle:"
 
-#: shell/e-folder-creation-dialog.glade.h:4
+#: ../shell/e-folder-creation-dialog.glade.h:4
 msgid "Specify where to create the folder:"
-msgstr "Navedite gde da napravim fasciklu:"
+msgstr "Navedite gde napraviti fasciklu:"
 
-#: shell/e-folder-dnd-bridge.c:52
+#: ../shell/e-folder-dnd-bridge.c:52
 #, c-format
 msgid ""
 "Cannot transfer folder:\n"
 "%s"
 msgstr ""
-"Ne mogu da prenesem fasciklu:\n"
+"Nije moguć prenos fascikle:\n"
 "%s"
 
-#: shell/e-folder-misc-dialogs.c:62
+#: ../shell/e-folder-misc-dialogs.c:62
 #, c-format
 msgid ""
 "Cannot delete folder:\n"
 "%s"
 msgstr ""
-"Ne mogu da uklonim fasciklu:\n"
+"Nije moguće ukloniti fasciklu:\n"
 "%s"
 
-#: shell/e-folder-misc-dialogs.c:115
+#: ../shell/e-folder-misc-dialogs.c:115
 #, c-format
 msgid "Really delete folder \"%s\"?"
 msgstr "Zaista obrisati fasciklu „%s“?"
 
-#: shell/e-folder-misc-dialogs.c:129
+#: ../shell/e-folder-misc-dialogs.c:129
 #, c-format
 msgid "Delete \"%s\""
-msgstr "Ukloni „%s“"
+msgstr "Obriši „%s“"
 
-#: shell/e-folder-misc-dialogs.c:154
+#: ../shell/e-folder-misc-dialogs.c:154
 #, c-format
 msgid ""
 "Cannot rename folder:\n"
 "%s"
 msgstr ""
-"Ne mogu da primenujem fasciklu:\n"
+"Nije moguće primenovati fasciklu:\n"
 "%s"
 
-#: shell/e-folder-misc-dialogs.c:188
+#: ../shell/e-folder-misc-dialogs.c:188
 #, c-format
 msgid "Rename the \"%s\" folder to:"
 msgstr "Preimenuj fasciklu „%s“ u:"
 
-#: shell/e-folder-misc-dialogs.c:191
+#: ../shell/e-folder-misc-dialogs.c:191
 msgid "Rename Folder"
 msgstr "Preimenuj fasciklu"
 
-#: shell/e-folder-misc-dialogs.c:205
+#: ../shell/e-folder-misc-dialogs.c:205
 #, c-format
 msgid "A folder named \"%s\" already exists. Please use a different name."
-msgstr "Fascikla sa imenom „%s“ već postoji. Koristite neko drugo ime."
+msgstr "Fascikla imena „%s“ već postoji. Koristite drugo ime."
 
 #. It would be nice to insensitivize the OK button appropriately
 #. instead of doing this, but unfortunately we can't do this for the
 #. Bonobo control.
-#: shell/e-folder-misc-dialogs.c:439
+#: ../shell/e-folder-misc-dialogs.c:451
 msgid "Please select a user."
 msgstr "Izaberite korisnika."
 
-#: shell/e-folder-misc-dialogs.c:539
+#: ../shell/e-folder-misc-dialogs.c:553
 msgid "Opening Folder"
-msgstr "Otvaram fasciklu"
+msgstr "Otvaranje fascikle"
 
-#: shell/e-folder-misc-dialogs.c:545
+#: ../shell/e-folder-misc-dialogs.c:559
 #, c-format
 msgid "Opening Folder \"%s\""
-msgstr "Otvaram fasciklu „%s“"
+msgstr "Otvaranje fascikle „%s“"
 
-#: shell/e-folder-misc-dialogs.c:550
+#: ../shell/e-folder-misc-dialogs.c:564
 #, c-format
 msgid "in \"%s\" ..."
 msgstr "u „%s“ ..."
 
-#: shell/e-folder-misc-dialogs.c:617
+#: ../shell/e-folder-misc-dialogs.c:631
 #, c-format
 msgid "Could not open other user's folder: %s."
-msgstr "Ne mogu da otvorim fasciklu drugog korisnika: %s"
+msgstr "Nije moguće otvoriti fasciklu drugog korisnika: %s."
 
-#: shell/e-folder-misc-dialogs.c:667
+#: ../shell/e-folder-misc-dialogs.c:681
 msgid "Cannot find the specified other user's folder."
-msgstr "Ne mogu da nađem navedenu fasciklu drugog korisnika."
+msgstr "Nije moguće naći navedenu fasciklu drugog korisnika."
 
-#: shell/e-folder-misc-dialogs.c:699
+#: ../shell/e-folder-misc-dialogs.c:713
 #, c-format
 msgid ""
 "Cannot unsubscribe from folder:\n"
 "%s"
 msgstr ""
-"Ne mogu da se odjavim sa fascikle:\n"
+"Nije moguća odjava sa fascikle:\n"
 "%s"
 
-#: shell/e-folder-misc-dialogs.c:752
+#: ../shell/e-folder-misc-dialogs.c:766
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "Zaista odjaviti pretplatu sa fascikle „%s“?"
+msgstr "Zaista se odjaviti sa fascikle „%s“?"
 
-#: shell/e-folder-misc-dialogs.c:766
+#: ../shell/e-folder-misc-dialogs.c:780
 #, c-format
 msgid "Unsubscribe from \"%s\""
-msgstr "Odjava pretplate sa „%s“"
+msgstr "Odjava sa „%s“"
 
-#: shell/e-foreign-folder-dialog.glade.h:1
+#: ../shell/e-foreign-folder-dialog.glade.h:1
 msgid "Open Other User's Folder"
 msgstr "Otvori fasciklu drugog korisnika"
 
-#: shell/e-foreign-folder-dialog.glade.h:2
+#: ../shell/e-foreign-folder-dialog.glade.h:2
 msgid "_Account:"
 msgstr "N_alog:"
 
-#: shell/e-foreign-folder-dialog.glade.h:3
+#: ../shell/e-foreign-folder-dialog.glade.h:3
 msgid "_Folder Name:"
-msgstr "_Ime direktorijuma:"
+msgstr "_Ime fascikle:"
 
-#: shell/e-foreign-folder-dialog.glade.h:4
+#: ../shell/e-foreign-folder-dialog.glade.h:4
 msgid "_User:"
 msgstr "_Korisnik:"
 
-#: shell/e-storage-set-view.etspec.h:1
+#: ../shell/e-storage-set-view.etspec.h:1
 msgid "Checkbox"
 msgstr "Kućica"
 
-#: shell/e-storage-set-view.etspec.h:2
+#: ../shell/e-storage-set-view.etspec.h:2
 msgid "Folder"
-msgstr "Direktorijum"
+msgstr "Fascikla"
 
-#: shell/e-storage.c:555
+#: ../shell/e-storage.c:555
 msgid "No error"
 msgstr "Nema greške"
 
-#: shell/e-storage.c:559
+#: ../shell/e-storage.c:559
 msgid "A folder with the same name already exists"
-msgstr "Direktorijum sa tim imenom već postoji"
+msgstr "Fascikla toga imena već postoji"
 
-#: shell/e-storage.c:561
+#: ../shell/e-storage.c:561
 msgid "The specified folder type is not valid"
-msgstr "Navedena vrsta direktorijuma nije ispravna"
+msgstr "Navedeni tip fascikle nije ispravan"
 
-#: shell/e-storage.c:563
+#: ../shell/e-storage.c:563
 msgid "I/O error"
 msgstr "I/O greška"
 
-#: shell/e-storage.c:565
+#: ../shell/e-storage.c:565
 msgid "Not enough space to create the folder"
-msgstr "Nedovoljno mesta za pravljenje direktorijuma"
+msgstr "Nedovoljno mesta za pravljenje fascikle"
 
-#: shell/e-storage.c:567
+#: ../shell/e-storage.c:567
 msgid "The folder is not empty"
-msgstr "Direktorijum nije prazan"
+msgstr "Fascikla nije prazna"
 
-#: shell/e-storage.c:569
+#: ../shell/e-storage.c:569
 msgid "The specified folder was not found"
-msgstr "Navedeni direktorijum nije pronađen"
+msgstr "Navedena fascikla nije pronađena"
 
-#: shell/e-storage.c:571
+#: ../shell/e-storage.c:571
 msgid "Function not implemented in this storage"
 msgstr "Funkcija nije podržana za ovu ostavu"
 
-#: shell/e-storage.c:575
+#: ../shell/e-storage.c:575
 msgid "Operation not supported"
 msgstr "Operacija nije podržana"
 
-#: shell/e-storage.c:577
+#: ../shell/e-storage.c:577
 msgid "The specified type is not supported in this storage"
-msgstr "Navedena vrsta nije podržana za ovu ostavu"
+msgstr "Navedeni tip nije podržan za ovu ostavu"
 
-#: shell/e-storage.c:579
+#: ../shell/e-storage.c:579
 msgid "The specified folder cannot be modified or removed"
-msgstr "Navedeni direktorijum se ne može izmeniti niti ukloniti"
+msgstr "Navedena fascikla se ne može izmeniti niti ukloniti"
 
-#: shell/e-storage.c:581
+#: ../shell/e-storage.c:581
 msgid "Cannot make a folder a child of one of its descendants"
-msgstr ""
-"Ne mogu da prebacim direktorijum u neki od u njemu sadržanih direktorijuma"
+msgstr "Nije moguće prebaciti fasciklu u neku od u njoj sadržanih fascikli"
 
-#: shell/e-storage.c:583
+#: ../shell/e-storage.c:583
 msgid "Cannot create a folder with that name"
-msgstr "Ne mogu da napravim direktorijum sa tim imenom"
+msgstr "Nije moguće napraviti fasciklu toga imena"
 
-#: shell/e-storage.c:585
+#: ../shell/e-storage.c:585
 msgid "This operation cannot be performed in off-line mode"
-msgstr "Ovu operaciju ne možete izvršiti dok radite bez mreže"
+msgstr "Ovu operaciju ne možete izvršiti u radu van mreže"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1411
+#: ../shell/e-storage.c:587 ../storage/exchange-account.c:1473
 msgid "Unknown error"
 msgstr "Nepoznata greška"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-msgid "*Control*F5"
-msgstr "*Control*F5"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
 msgid "Evolution Addressbook Exchange backend"
-msgstr "Osnovni proces Evolucija Eksčendž-adresara"
+msgstr "Osnovni proces Evolucija Exchange adresara"
 
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Calendar Exchange backend"
-msgstr "Osnovni proces Evolucija Eksčendž-kalendara"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
-msgid "Evolution Exchange Component"
-msgstr "Deo Evolucije za Eksčendž"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
-msgid "Exchange"
-msgstr "Eksčendž"
+msgstr "Osnovni proces Evolucija Exchange kalendara"
 
 # bug: Ximian -> OUT!
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
 msgid "Ximian Connector for Exchange"
-msgstr "Gzimijan veznik za Eksčendž"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
-msgid "_Exchange"
-msgstr "_Eksčendž"
+msgstr "Ximian Connector za Exchange"
 
 # bug: this sucks!
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:572
+#: ../storage/exchange-account.c:584
 #, c-format
 msgid "%s's Folders"
-msgstr "%s: fascikle"
+msgstr "Fascikle čiji je vlasnik %s"
 
-#: storage/exchange-account.c:855
+#: ../storage/exchange-account.c:869
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sUnesite lozinku za %s"
 
-#: storage/exchange-account.c:1033
+#. email id is not proper, we return instead of trying nt_domain
+#: ../storage/exchange-account.c:1069
 msgid "Cannot change password due to configuration problems"
-msgstr "Ne mogu da izmenim lozinku usled neprilika sa podešavanjima"
+msgstr "Nije moguća izmena lozinke usled problema sa podešavanjima"
 
-#: storage/exchange-account.c:1048
+#: ../storage/exchange-account.c:1092
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -815,41 +800,41 @@ msgstr ""
 "Server je odbio lozinku zato što je preslaba.\n"
 "Pokušajte ponovo sa drugačijom lozinkom."
 
-#: storage/exchange-account.c:1053
+#: ../storage/exchange-account.c:1097
 msgid "Could not change password"
-msgstr "Ne mogu da promenim lozinku"
+msgstr "Nije moguća promena lozinke"
 
-#: storage/exchange-account.c:1137
+#: ../storage/exchange-account.c:1190
 msgid "Personal Folders"
 msgstr "Lične fascikle"
 
-#: storage/exchange-account.c:1152
+#: ../storage/exchange-account.c:1205
 msgid "Favorite Public Folders"
 msgstr "Omiljene javne fascikle"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1169
+#: ../storage/exchange-account.c:1222
 msgid "All Public Folders"
 msgstr "Sve javne fascikle"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1183
+#: ../storage/exchange-account.c:1236
 msgid "Global Address List"
-msgstr "Opšti spisak adresa"
+msgstr "Globalna lista adresa"
 
-#: storage/exchange-account.c:1269
+#: ../storage/exchange-account.c:1326
 msgid "Exchange Account is offline. Cannot display folders\n"
-msgstr ""
+msgstr "Exchange nalog nije na mreži. Nije moguć prikaz fascikli\n"
 
-#: storage/exchange-account.c:1322
+#: ../storage/exchange-account.c:1384
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
 msgstr ""
-"Ne mogu da se prijavim na server. (Lozinka neispravna?)\n"
+"Nije moguća prijava na server. (Lozinka neispravna?)\n"
 "\n"
 
-#: storage/exchange-account.c:1327
+#: ../storage/exchange-account.c:1389
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -860,60 +845,85 @@ msgid ""
 "Or you might have just typed your password wrong.\n"
 "\n"
 msgstr ""
-"Ne mogu da se prijavim na server.\n"
+"Nije moguća prijava na server.\n"
 "\n"
-"Ovo verovatno znači da vaš server zahteva da navedete\n"
-"ime Vinduz domena kao deo vašeg korisničkog imena\n"
-"(npr. „DOMEN\\korisnik“).\n"
+"Ovo verovatno znači da je serveru potrebno da\n"
+"navedete ime Windows domena kao deo korisničkog\n"
+"imena (npr. „DOMEN\\korisnik\").\n"
 "\n"
-"Ili ste jednostavno ukucali pogrešnu lozinku.\n"
+"Ili ste možda samo pogrešno ukucali lozinku.\n"
 "\n"
 
-#: storage/exchange-account.c:1369
+#: ../storage/exchange-account.c:1431
 #, c-format
 msgid "Mailbox for %s is not on this server."
-msgstr "Sanduče za %s nije na ovom serveru."
+msgstr "Mailbox za %s nije na ovom serveru."
 
-#: storage/exchange-account.c:1374
+#: ../storage/exchange-account.c:1436
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
 "therefore not compatible with Ximian Connector"
 msgstr ""
-"Server „%s“ koristi Eksčendž 5.5 i zato nije \n"
-"saglasan sa Gzimijan veznikom"
+"Server „%s“ koristi Exchange 5.5 i otuda nije \n"
+"kompatibilan sa Ximian Connector-om"
 
-#: storage/exchange-account.c:1381
+#: ../storage/exchange-account.c:1443
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
 "If OWA is running on a different path, you must specify that in the\n"
 "account configuration dialog."
 msgstr ""
-"Ne mogu da nađem Eksčendž sistem za veb smeštaj na %s.\n"
-"Ako je OWA pokrenut na drugoj putanji, morate je navesti u \n"
-"prozorčetu za podešavanje naloga."
+"Nije moguće pronaći Exchange Web Storage System na %s.\n"
+"Ukoliko OWA radi na drugoj putanji, morate je navesti u\n"
+"podešavanju naloga."
 
-#: storage/exchange-account.c:1389
+#: ../storage/exchange-account.c:1451
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
-msgstr "Nema sandučeta za korisnika %s na %s.\n"
+msgstr "Nema mailbox-a za korisnika %s na %s.\n"
 
-#: storage/exchange-account.c:1395 storage/exchange-account.c:1401
-#: storage/exchange-account.c:1409
+#: ../storage/exchange-account.c:1457 ../storage/exchange-account.c:1463
+#: ../storage/exchange-account.c:1471
 #, c-format
 msgid "Could not connect to server %s: %s"
-msgstr "Nisam mogao da se povežem na server %s: %s"
+msgstr "Nije moguće povezivanje na server %s: %s"
 
-#: storage/exchange-account.c:1397
+#: ../storage/exchange-account.c:1459
 msgid "Could not resolve hostname"
-msgstr "Ne mogu da razrešim ime računara"
+msgstr "Nije moguće povezivanje na domaćina"
 
-#: storage/exchange-account.c:1403
+#: ../storage/exchange-account.c:1465
 msgid "Network error"
-msgstr "Mrežna greška"
+msgstr "Greška na mreži"
 
-#: storage/exchange-autoconfig-wizard.c:267
+#: ../storage/exchange-account.c:1529
+#, c-format
+msgid ""
+"You have exceeded your quota of %d %s for storing mails on this server. Your "
+"current usage is : %.0f %s."
+msgstr ""
+"Probili ste kvotu od %d %s za smeštaj pošte na ovom serveru. Trenutna "
+"iskorišćenost je : %.0f %s."
+
+#: ../storage/exchange-account.c:1532
+msgid "You will not be able to either send or receive mails now\n"
+msgstr "Nećete sada moći ni da šaljete ni da primate poštu\n"
+
+#: ../storage/exchange-account.c:1535
+msgid ""
+"You will not be able to send mails till you clear up some space by deleting "
+"some mails.\n"
+msgstr ""
+"Nećete moći da šaljete poštu dok ne očistite malo prostora brisanjem dela "
+"pošte.\n"
+
+#: ../storage/exchange-account.c:1538
+msgid "Try to clear up some space by deleting some mails.\n"
+msgstr "Pokušajte da očistite malo prostora brisanjem dela pošte.\n"
+
+#: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
 "Ximian Connector requires access to certain functionality on the Exchange "
 "Server that appears to be disabled or blocked.  (This is usually "
@@ -923,99 +933,100 @@ msgid ""
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"Gzimijan veznik zahteva pristup određenim mogućnostima Eksčendž servera koje "
-"su izgleda isključene ili zabranjene. (Ovo je uglavnom nenamerno.)  Vaš "
-"administrator Eksčendža će morati da uključi ove mogućnosti da biste mogli "
-"da koristite Gzimijan veznik.\n"
+"Ximian Connector traži pristup određenim mogućnostima Exchange servera koje "
+"izgleda nisu uključene ili su blokirane. (Ovo obično nije namerno.)  Vaš "
+"Exchange administrator će morati da uključi ove mogućnosti da biste mogli da "
+"koristite Ximian Connector.\n"
 "\n"
-"Za detalje šta da prosledite vašem administratoru, pratite vezu ispod:"
+"Za detalje šta da prosledite vašem Exchange administratoru, posetite "
+"sledećuvezu:"
 
-#: storage/exchange-autoconfig-wizard.c:345
+#: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
 "and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
 "\\%s\")."
 msgstr ""
-"Ne mogu da se prijavim na server opšteg kataloga. Možda ćete morati da se "
-"vratite i navedete ime Vinduz domena kao deo vašeg korisničkog imena (npr. "
-"„MOJ-DOMEN\\%s“)."
+"Nije moguća prijava na server globalnog kataloga. Možda ćete morati da se "
+"vratite i navedete ime Windows domena kao deo korisničkog imena (npr. „MOJ-"
+"DOMEN\\%s“)."
 
-#: storage/exchange-autoconfig-wizard.c:352
+#: ../storage/exchange-autoconfig-wizard.c:339
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
 msgstr ""
-"Ne mogu da se povežem na navedeni server.\n"
+"Nije moguće povezivanje na navedeni server.\n"
 "Proverite ime servera i pokušajte ponovo."
 
-#: storage/exchange-autoconfig-wizard.c:389
-#: storage/exchange-autoconfig-wizard.c:393
+#: ../storage/exchange-autoconfig-wizard.c:376
+#: ../storage/exchange-autoconfig-wizard.c:380
 msgid "Unknown"
 msgstr "Nepoznato"
 
-#: storage/exchange-autoconfig-wizard.c:477
+#: ../storage/exchange-autoconfig-wizard.c:445
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
 msgstr ""
 "Greška u sistemu podešavanja.\n"
-"Ne mogu da napravim novi nalog."
+"Nije moguće napraviti novi nalog."
 
-#: storage/exchange-autoconfig-wizard.c:491
-#: storage/exchange-config-listener.c:578
+#: ../storage/exchange-autoconfig-wizard.c:459
+#: ../storage/exchange-config-listener.c:776
 msgid "You may only configure a single Exchange account"
-msgstr "Možete podesiti samo jedan Eksčendž nalog"
+msgstr "Možete podesiti samo jedan Exchange nalog"
 
-#: storage/exchange-autoconfig-wizard.glade.h:2
+#: ../storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
-msgstr "Neuspešno podešavanje"
+msgstr "Neuspelo podešavanje"
 
-#: storage/exchange-autoconfig-wizard.glade.h:3
+#: ../storage/exchange-autoconfig-wizard.glade.h:3
 msgid "Done"
 msgstr "Gotovo"
 
-#: storage/exchange-autoconfig-wizard.glade.h:4
+#: ../storage/exchange-autoconfig-wizard.glade.h:4
 msgid "Email Address:"
-msgstr "Adresa e-pošte:"
+msgstr "Elektronska adresa:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:5
+#: ../storage/exchange-autoconfig-wizard.glade.h:5
 msgid "Exchange Configuration"
-msgstr "Podešavanje Eksčendža"
+msgstr "Exchange podešavanje"
 
-#: storage/exchange-autoconfig-wizard.glade.h:6
+#: ../storage/exchange-autoconfig-wizard.glade.h:6
 msgid "Full Name:"
 msgstr "Puno ime:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:7
+#: ../storage/exchange-autoconfig-wizard.glade.h:7
 msgid "GC Server:"
 msgstr "GC server:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:8
+#: ../storage/exchange-autoconfig-wizard.glade.h:8
 msgid "Make this my default account"
-msgstr "Neka ovo bude moj glavni nalog"
+msgstr "Neka ovo bude moj podrazumevani nalog"
 
-#: storage/exchange-autoconfig-wizard.glade.h:9
+#: ../storage/exchange-autoconfig-wizard.glade.h:9
 msgid "OWA URL:"
 msgstr "OWA adresa:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:10
+#: ../storage/exchange-autoconfig-wizard.glade.h:10
 msgid "Password:"
 msgstr "Lozinka:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:11
+#: ../storage/exchange-autoconfig-wizard.glade.h:11
 msgid "Remember this password"
 msgstr "Zapamti ovu lozinku"
 
-#: storage/exchange-autoconfig-wizard.glade.h:12
+#: ../storage/exchange-autoconfig-wizard.glade.h:12
 msgid "Username:"
 msgstr "Korisničko ime:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:13
+#: ../storage/exchange-autoconfig-wizard.glade.h:13
 msgid "Welcome"
-msgstr "Dobrodošli"
+msgstr "Dobro došli"
 
-#: storage/exchange-autoconfig-wizard.glade.h:14
+#: ../storage/exchange-autoconfig-wizard.glade.h:14
 msgid ""
 "Welcome to Ximian Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
@@ -1023,17 +1034,17 @@ msgid ""
 "\n"
 "Please click the \"Forward\" button to continue."
 msgstr ""
-"Dobrodošli u Gzimijan veznik za Mikrosoft Eksčendž. \n"
-"Nekoliko narednih ekrana će vam pomoći da podesite Evoluciju \n"
-"da se poveže na vaše Eksčendž naloge.\n"
+"Dobro došli u Ximian Connector za Microsoft Exchange. \n"
+"Nekoliko narednih ekrana će Vam pomoći da podesite Evoluciju \n"
+"da se poveže na Exchange nalog.\n"
 "\n"
-"Pritisnite dugme „Napred“ da nastavite. "
+"Kliknite na dugme „Napred“ da nastavite."
 
-#: storage/exchange-autoconfig-wizard.glade.h:19
+#: ../storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Ximian Connector Configuration"
-msgstr "Podešavanje Gzimijan veznika"
+msgstr "Ximian Connector podešavanje"
 
-#: storage/exchange-autoconfig-wizard.glade.h:20
+#: ../storage/exchange-autoconfig-wizard.glade.h:20
 msgid ""
 "Ximian Connector can use account information from your existing Outlook Web "
 "Access (OWA) account.\n"
@@ -1041,246 +1052,253 @@ msgid ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
-"Gzimijan veznik može koristiti podatke o nalogu iz vašeg postojećeg Autluk "
-"Veb pristup (OWA) naloga.\n"
+"Ximian Connector može koristiti podatke o nalogu iz postojećeg Outlook Web "
+"Access (OWA) naloga.\n"
 "\n"
-"Unesite adresu vaše OWA stranice, korisničko ime i lozinku, zatim kliknite "
+"Unesite adresu OWA stranice, korisničko ime i lozinku, zatim kliknite "
 "„Napred“.\n"
 
-#: storage/exchange-autoconfig-wizard.glade.h:24
+#: ../storage/exchange-autoconfig-wizard.glade.h:24
 msgid ""
 "Ximian Connector could not find the Global Catalog replica for your site. "
 "Please enter the name of your Global Catalog server. You may need to ask "
 "your system administrator for the correct value.\n"
 msgstr ""
-"Gzimijan veznik ne može da nađe repliku opšteg kataloga za vaše mesto. "
-"Unesite ime vašeg servera opšteg kataloga. Možda ćete morati da pitate "
-"administratora sistema za tačnu vrednost.\n"
+"Ximian Connector ne može da nađe repliku Globalnog kataloga za Vašu "
+"stranicu. Unesite ime servera Globalnog kataloga. Možda ćete morati da "
+"pitate sistem administratora za tačnu vrednost.\n"
 
-#: storage/exchange-autoconfig-wizard.glade.h:26
+#: ../storage/exchange-autoconfig-wizard.glade.h:26
 msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
 msgstr ""
-"Gzimijan veznik je naišao na nepriliku pri podešavanju vašeg Eksčendž "
-"naloga.\n"
+"Ximian Connector je naišao na problem pri podešavanju Exchange naloga.\n"
 
-#: storage/exchange-autoconfig-wizard.glade.h:28
+#: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
 "Your Connector account is now ready to use. Click the \"Apply\" button to "
 "save your\n"
 "settings."
 msgstr ""
-"Vaš nalog sada možete koristiti. Pritisnite dugme „Primeni“ da sačuvate "
-"vaša \n"
+"Connector nalog je sada spreman za korišćenje. Klinite na dugme „Primeni“ da "
+"sačuvate\n"
 "podešavanja."
 
-#: storage/exchange-autoconfig-wizard.glade.h:30
+#: ../storage/exchange-autoconfig-wizard.glade.h:30
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
 msgstr ""
-"Podaci vašeg naloga su sledeći. Ispravite sve greške, zatim kliknite "
+"Podaci o nalogu slede. Ispravite greške ako ih ima, zatim kliknite "
 "„Napred“.\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
-#: storage/exchange-change-password.c:114
+#: ../storage/exchange-change-password.c:114
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
 msgstr ""
-"Tekuća lozinka se ne poklapa sa postojećom lozinkom za vaš nalog. Unesite "
+"Sadašnja lozinka se ne poklapa sa postojećom lozinkom za nalog. Unesite "
 "ispravnu lozinku"
 
-#: storage/exchange-change-password.c:121
+#: ../storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
-msgstr "Dve lozinke se ne poklapaju. Unesite ih ponovo."
+msgstr "Dve lozinke se ne slažu. Unesite ih ponovo."
 
-#: storage/exchange-change-password.glade.h:2
+#: ../storage/exchange-change-password.glade.h:2
 msgid "Change Password"
 msgstr "Izmeni lozinku"
 
-#: storage/exchange-change-password.glade.h:3
+#: ../storage/exchange-change-password.glade.h:3
 msgid "Confirm Password:"
 msgstr "Potvrdite lozinku:"
 
-#: storage/exchange-change-password.glade.h:4
+#: ../storage/exchange-change-password.glade.h:4
 msgid "Current Password:"
-msgstr "Tekuća lozinka:"
+msgstr "Sadašnja lozinka:"
 
-#: storage/exchange-change-password.glade.h:5
+#: ../storage/exchange-change-password.glade.h:5
 msgid "New Password:"
 msgstr "Nova lozinka:"
 
-#: storage/exchange-change-password.glade.h:6
+#: ../storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
-msgstr "Vaša tekuća lozinka je istekla. Izmenite je sada."
+msgstr "Vaša sadašnja lozinka je istekla. Izmenite je sada."
 
 # 48x48/emblems/emblem-mail.icon.in.h:1
-#: storage/exchange-component.c:320
+#: ../storage/exchange-component.c:278
 msgid "Mail"
 msgstr "Pošta"
 
-#: storage/exchange-component.c:323 storage/exchange-hierarchy-foreign.c:251
+#: ../storage/exchange-component.c:281
+#: ../storage/exchange-hierarchy-foreign.c:251
 msgid "Contacts"
 msgstr "Kontakti"
 
-#: storage/exchange-component.c:327 storage/exchange-hierarchy-foreign.c:259
+#: ../storage/exchange-component.c:285
+#: ../storage/exchange-hierarchy-foreign.c:259
 msgid "Tasks"
 msgstr "Zaduženja"
 
-#: storage/exchange-component.c:330 storage/exchange-hierarchy-foreign.c:250
+#: ../storage/exchange-component.c:288
+#: ../storage/exchange-hierarchy-foreign.c:250
 msgid "Calendar"
 msgstr "Kalendar"
 
-#: storage/exchange-config-listener.c:693
+#: ../storage/exchange-config-listener.c:970
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
 msgstr ""
-"Izmene Eksčendž naloga će uzeti maha kada\n"
+"Izmene Exchange naloga će nastupiti kada\n"
 "zatvorite i ponovo pokrenete Evoluciju."
 
-#: storage/exchange-config-listener.c:739
+#: ../storage/exchange-config-listener.c:1016
 msgid "The Exchange account will be removed when you quit Evolution"
-msgstr "Ovaj Eksčendž nalog će biti uklonjen kada zatvorite Evoluciju"
+msgstr "Exchange nalog će biti uklonjen kada zatvorite Evoluciju"
 
-#: storage/exchange-delegates-user.c:191
-#: storage/exchange-permissions-dialog.c:179
+#: ../storage/exchange-config-listener.c:1021
+msgid "The Exchange account will be disabled when you quit Evolution"
+msgstr "Exchange nalog će biti onemogućen kada zatvorite Evoluciju"
+
+#: ../storage/exchange-delegates-user.c:191
+#: ../storage/exchange-permissions-dialog.c:179
 #, c-format
 msgid "Permissions for %s"
 msgstr "Ovlašćenja za %s"
 
-#: storage/exchange-delegates.c:221
+#: ../storage/exchange-delegates.c:221
 msgid ""
 "No Global Catalog server configured for this account.\n"
 "Unable to edit delegates."
 msgstr ""
-"Nije podešen server sa opštim katalogom za ovaj nalog.\n"
-"Ne mogu da uređujem delegate."
+"Nije podešen server sa Globalnim katalogom za ovaj nalog.\n"
+"Nije moguće uređivanje delegata."
 
-#: storage/exchange-delegates.c:260
+#: ../storage/exchange-delegates.c:260
 msgid ""
 "Could not read folder permissions.\n"
 "Unable to edit delegates."
 msgstr ""
-"Ne mogu da pročitam ovlašćenja fascikle.\n"
-"Ne mogu da uređujem delegate."
+"Nije moguće pročitati ovlašćenja za fasciklu.\n"
+"Nije moguće uređivanje delegata."
 
-#: storage/exchange-delegates.c:267
+#: ../storage/exchange-delegates.c:267
 msgid ""
 "Could not determine folder permissions for delegates.\n"
 "Unable to edit delegates."
 msgstr ""
-"Ne mogu da odredim ovlašćenja fascikle za delegate.\n"
-"Ne mogu da uređujem delegate."
+"Nije moguće odrediti ovlašćenja fascikle za delegate.\n"
+"Nije moguće uređivanje delegata."
 
-#: storage/exchange-delegates.c:419
+#: ../storage/exchange-delegates.c:419
 msgid "Delegate To:"
-msgstr "Delegiraj za:"
+msgstr "Delegiraj:"
 
-#: storage/exchange-delegates.c:419
+#: ../storage/exchange-delegates.c:419
 msgid "Delegate To"
-msgstr "Delegiraj za"
+msgstr "Delegiraj"
 
-#: storage/exchange-delegates.c:435
+#: ../storage/exchange-delegates.c:435
 #, c-format
 msgid "Could not make %s a delegate"
-msgstr "Ne mogu da učinim %s delegatom"
+msgstr "Nije moguće učiniti %s delegatom"
 
-#: storage/exchange-delegates.c:445
+#: ../storage/exchange-delegates.c:445
 msgid "You cannot make yourself your own delegate"
 msgstr "Ne možete učiniti sebe svojim delegatom"
 
-#: storage/exchange-delegates.c:454
+#: ../storage/exchange-delegates.c:454
 #, c-format
 msgid "%s is already a delegate"
 msgstr "%s je već delegat"
 
-#: storage/exchange-delegates.c:563
+#: ../storage/exchange-delegates.c:563
 #, c-format
 msgid "Remove the delegate %s?"
 msgstr "Ukloniti delegata %s?"
 
-#: storage/exchange-delegates.c:680
+#: ../storage/exchange-delegates.c:680
 msgid "Could not access Active Directory"
-msgstr "Ne mogu da pristupim aktivnom direktorijumu"
+msgstr "Nije moguće pristupiti Aktivnom direktorijumu"
 
-#: storage/exchange-delegates.c:695
+#: ../storage/exchange-delegates.c:695
 msgid "Could not find self in Active Directory"
-msgstr "Ne mogu da nađem sebe u aktivnom direktorijumu"
+msgstr "Nije moguće naći sebe u Aktivnom direktorijumu"
 
-#: storage/exchange-delegates.c:708
+#: ../storage/exchange-delegates.c:708
 #, c-format
 msgid "Could not find delegate %s in Active Directory"
-msgstr "Ne mogu da nađem delegata %s u aktivnom direktorijumu"
+msgstr "Nije moguće naći delegata %s u Aktivnom direktorijumu"
 
-#: storage/exchange-delegates.c:720
+#: ../storage/exchange-delegates.c:720
 #, c-format
 msgid "Could not remove delegate %s"
-msgstr "Ne mogu da uklonim delegata %s"
+msgstr "Nije moguće ukloniti delegata %s"
 
-#: storage/exchange-delegates.c:780
+#: ../storage/exchange-delegates.c:780
 msgid "Could not update list of delegates."
-msgstr "Nisam mogao da osvežim spisak delegata."
+msgstr "Nije moguće osvežiti listu delegata."
 
-#: storage/exchange-delegates.c:798
+#: ../storage/exchange-delegates.c:798
 #, c-format
 msgid "Could not add delegate %s"
-msgstr "Ne mogu da dodam delegata %s"
+msgstr "Nije moguće dodati delegata %s"
 
-#: storage/exchange-delegates.c:814
+#: ../storage/exchange-delegates.c:814
 #, c-format
 msgid ""
 "Failed to update delegates:\n"
 "%s"
 msgstr ""
-"Neuspešno osveživanje delegata:\n"
+"Neuspelo osvežavanje delegata:\n"
 "%s"
 
-#: storage/exchange-delegates.c:938 storage/exchange-permissions-dialog.c:706
+#: ../storage/exchange-delegates.c:938
+#: ../storage/exchange-permissions-dialog.c:706
 msgid "Name"
 msgstr "Ime"
 
-#: storage/exchange-delegates.c:967
+#: ../storage/exchange-delegates.c:967
 msgid "Error reading delegates list."
-msgstr "Greška kod čitanja spiska delegata."
+msgstr "Greška pri čitanju liste delegata."
 
-#: storage/exchange-delegates.glade.h:1
+#: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
 msgstr "Autor (čita, pravi)"
 
-#: storage/exchange-delegates.glade.h:2
+#: ../storage/exchange-delegates.glade.h:2
 msgid "C_alendar:"
-msgstr "K_alendar"
+msgstr "K_alendar:"
 
-#: storage/exchange-delegates.glade.h:3
+#: ../storage/exchange-delegates.glade.h:3
 msgid "Co_ntacts:"
 msgstr "Ko_ntakti: "
 
-#: storage/exchange-delegates.glade.h:4
+#: ../storage/exchange-delegates.glade.h:4
 msgid "Delegate Permissions"
 msgstr "Ovlašćenja delegata"
 
-#: storage/exchange-delegates.glade.h:5
+#: ../storage/exchange-delegates.glade.h:5
 msgid "Delegates"
 msgstr "Delegati"
 
-#: storage/exchange-delegates.glade.h:6
+#: ../storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
-msgstr "Urednik (čita, pravi, uređuje)"
+msgstr "Uređivač (čita, pravi, uređuje)"
 
-#: storage/exchange-delegates.glade.h:8
+#: ../storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
 msgstr "Ovlašćenja za"
 
-#: storage/exchange-delegates.glade.h:9
+#: ../storage/exchange-delegates.glade.h:9
 msgid "Reviewer (read-only)"
-msgstr "Pregledač (samo čita)"
+msgstr "Recenzent (samo čita)"
 
-#: storage/exchange-delegates.glade.h:10
+#: ../storage/exchange-delegates.glade.h:10
 msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
@@ -1288,70 +1306,67 @@ msgstr ""
 "Ovi korisnici će moći da šalju poštu u vaše ime i da\n"
 "pristupaju fasciklama sa ovlašćenjima koja im date."
 
-#: storage/exchange-delegates.glade.h:12
+#: ../storage/exchange-delegates.glade.h:12
 msgid "_Delegate can see private items"
-msgstr "_Delegati mogu da vide privatne stavke"
+msgstr "_Delegati mogu da vide privatne predmete"
 
-#: storage/exchange-delegates.glade.h:13
+#: ../storage/exchange-delegates.glade.h:13
 msgid "_Edit"
 msgstr "_Uredi"
 
-#: storage/exchange-delegates.glade.h:14
+#: ../storage/exchange-delegates.glade.h:14
 msgid "_Inbox:"
-msgstr "_Pristiglo:"
+msgstr "_Sanduče:"
 
-#: storage/exchange-delegates.glade.h:15
+#: ../storage/exchange-delegates.glade.h:15
 msgid "_Tasks:"
 msgstr "Za_duženja:"
 
-#: storage/exchange-folder-size.c:204
-#, fuzzy
+#: ../storage/exchange-folder-size.c:322
 msgid "Folder Name"
-msgstr "_Ime direktorijuma:"
+msgstr "Ime fascikle"
 
-#: storage/exchange-folder-size.c:208
-#, fuzzy
+#: ../storage/exchange-folder-size.c:326
 msgid "Folder Size"
-msgstr "Fascikla prikazana"
+msgstr "Veličina fascikle"
 
-#: storage/exchange-folder-tree.glade.h:1
-#, fuzzy
+#: ../storage/exchange-folder-tree.glade.h:1
 msgid "Exchange Folder Tree"
-msgstr "Eksčendž server"
+msgstr "Exchange stablo fascikli"
 
-#: storage/exchange-hierarchy-foreign.c:252
+#: ../storage/exchange-hierarchy-foreign.c:252
 msgid "Deleted Items"
-msgstr "Obrisane stavke"
+msgstr "Obrisani predmeti"
 
-#: storage/exchange-hierarchy-foreign.c:253
+#: ../storage/exchange-hierarchy-foreign.c:253
 msgid "Drafts"
 msgstr "Priprema"
 
-#: storage/exchange-hierarchy-foreign.c:254
+#: ../storage/exchange-hierarchy-foreign.c:254
 msgid "Inbox"
 msgstr "Sanduče"
 
-#: storage/exchange-hierarchy-foreign.c:255
+#: ../storage/exchange-hierarchy-foreign.c:255
 msgid "Journal"
 msgstr "Dnevnik"
 
-#: storage/exchange-hierarchy-foreign.c:256
+#: ../storage/exchange-hierarchy-foreign.c:256
 msgid "Notes"
 msgstr "Beleške"
 
-#: storage/exchange-hierarchy-foreign.c:257
+#: ../storage/exchange-hierarchy-foreign.c:257
 msgid "Outbox"
 msgstr "Za slanje"
 
-#: storage/exchange-hierarchy-foreign.c:258
+#: ../storage/exchange-hierarchy-foreign.c:258
 msgid "Sent Items"
-msgstr "Poslate stavke"
+msgstr "Poslati predmeti"
 
-#: storage/exchange-migrate.c:57
+#: ../storage/exchange-migrate.c:57
 msgid "Migrating Exchange Folders..."
-msgstr "Preseli Eksčendž fascikle..."
+msgstr "Selidba Exchange fascikli..."
 
-#: storage/exchange-migrate.c:65
+#: ../storage/exchange-migrate.c:65
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -1359,12 +1374,12 @@ msgid ""
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
-"Putanja i hijerarhija fascikli za naloge Evolucije i Eksčendža su izmenjeni "
-"od Evolucije %d.%d.%d.\n"
+"Putanja i hijerarhija fascikli Evolucija exchange naloga su izmenjeni od "
+"Evolucije %d.%d.%d.\n"
 "\n"
-"Budite strpljivi dok Evolucija prenese vaše fascikle..."
+"Budite strpljivi dok Evolucija prenosi fascikle..."
 
-#: storage/exchange-migrate.c:98
+#: ../storage/exchange-migrate.c:98
 #, c-format
 msgid ""
 "Warning: Evolution Could not migrate all the Exchange account data from the "
@@ -1372,230 +1387,229 @@ msgid ""
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"Upozorenje: Evolucija ne može da prenese sve vaše podatke Eksčendž naloga iz "
-"izdanja %d.%d.%d.\n"
-"Vaši podaci nisu obrisani, ali neće biti prikazani u ovom izdanju Evolucije"
+"Upozorenje: Evolucija ne može da prenese sve vaše podatke Exchange naloga iz "
+"verzije %d.%d.%d.\n"
+"Podaci nisu obrisani, ali neće biti prikazani u ovom verziji Evolucije"
 
-#: storage/exchange-migrate.c:129
+#: ../storage/exchange-migrate.c:129
 #, c-format
 msgid "Migrating `%s':"
-msgstr "Prenosim „%s“:"
+msgstr "Preseljenje `%s`:"
 
-#: storage/exchange-oof.c:91 storage/exchange-oof.c:290
+#: ../storage/exchange-oof.c:199 ../storage/exchange-oof.c:406
 msgid "Could not update out-of-office state"
-msgstr "Nisam mogao da osvežim stanje van-kancelarije"
+msgstr "Nije moguće osvežiti stanje za van-kancelarije"
 
-#: storage/exchange-oof.c:308
+#: ../storage/exchange-oof.c:424
 msgid "Could not read out-of-office state"
-msgstr "Nisam mogao da pročitam stanje van-kancelarije"
+msgstr "Nije moguće pročitati stanje za van-kancelarije"
 
-#: storage/exchange-oof.glade.h:1
+#: ../storage/exchange-oof.glade.h:1
 msgid ""
 "<b>Currently, your status is \"Out of the Office\". </b>\n"
 "\n"
 "Would you like to change your status to \"In the Office\"? "
 msgstr ""
-"<b>Trenutno, vaš status je \"Van kancelarije\". </b>\n"
+"<b>Trenutno, Vaš status je \"Van kancelarije\". </b>\n"
 "\n"
-"Želite li da promenite vaš status u \"U kancelariji\"? "
+"Želite li da promenite status u \"U kancelariji\"? "
 
-#: storage/exchange-oof.glade.h:4
+#: ../storage/exchange-oof.glade.h:4
 msgid "<b>Out of Office Message:</b>"
-msgstr "<b>Poruka za van kancelarije:</b>"
+msgstr "<b>Poruka kada niste u kancelariji:</b>"
 
-#: storage/exchange-oof.glade.h:5
+#: ../storage/exchange-oof.glade.h:5
 msgid "<b>Status:</b>"
 msgstr "<b>Status:</b>"
 
-#: storage/exchange-oof.glade.h:6
+#: ../storage/exchange-oof.glade.h:6
 msgid ""
 "<small>The message specified below will be automatically sent to each person "
 "who sends\n"
 "mail to you while you are out of the office.</small>"
 msgstr ""
-"<small>Poruka koja je dole odabrana biće automatski poslata svakoj osobi "
-"koja vam pošalje\n"
-"poruku dok ste van kancelarije.</small>"
+"<small>Dole izabrana poruka će biti automatski poslata svakoj osobi koja Vam "
+"pošalje\n"
+"poštu dok niste u kancelariji.</small>"
 
-#: storage/exchange-oof.glade.h:8
+#: ../storage/exchange-oof.glade.h:8
 msgid "I am currently in the office"
 msgstr "Trenutno sam u kancelariji"
 
-#: storage/exchange-oof.glade.h:9
+#: ../storage/exchange-oof.glade.h:9
 msgid "I am currently out of the office"
 msgstr "Trenutno sam van kancelarije"
 
-#: storage/exchange-oof.glade.h:10
+#: ../storage/exchange-oof.glade.h:10
 msgid "No, Don't Change Status"
 msgstr "Ne, ne menjaj status"
 
-#: storage/exchange-oof.glade.h:11
+#: ../storage/exchange-oof.glade.h:11
 msgid "Out of Office Assistant"
-msgstr "Asistent van kacelarije"
+msgstr "Pomoćnik za van kacelarije"
 
-#: storage/exchange-oof.glade.h:12
+#: ../storage/exchange-oof.glade.h:12
 msgid "Yes, Change Status"
 msgstr "Da, promeni status"
 
-#: storage/exchange-passwd-expiry.glade.h:1
+#: ../storage/exchange-passwd-expiry.glade.h:1
 msgid "Password Expiry Warning..."
-msgstr ""
+msgstr "Upozorenje kada lozinka istekne..."
 
-#: storage/exchange-passwd-expiry.glade.h:2
+#: ../storage/exchange-passwd-expiry.glade.h:2
 msgid "Your password will expire in 7 days..."
-msgstr ""
+msgstr "Lozinka će isteći za 7 dana..."
 
-#: storage/exchange-passwd-expiry.glade.h:3
-#, fuzzy
+#: ../storage/exchange-passwd-expiry.glade.h:3
 msgid "_Change Password"
-msgstr "Izmeni lozinku"
+msgstr "_Izmeni lozinku"
 
-#: storage/exchange-passwd-expiry.glade.h:4
+#: ../storage/exchange-passwd-expiry.glade.h:4
 msgid "ok_button"
-msgstr ""
+msgstr "ok_dugme"
 
-#: storage/exchange-permissions-dialog.c:222
+#: ../storage/exchange-permissions-dialog.c:222
 msgid "Could not read folder permissions"
-msgstr "Ne mogu da pročitam ovlašćenja za fasciklu"
+msgstr "Nije moguće pročitati ovlašćenja za fasciklu"
 
-#: storage/exchange-permissions-dialog.c:264
+#: ../storage/exchange-permissions-dialog.c:264
 msgid "Could not update folder permissions."
-msgstr "Ne mogu da dopunim ovlašćenja za fasciklu."
+msgstr "Nije moguće osvežiti ovlašćenja za fasciklu."
 
-#: storage/exchange-permissions-dialog.c:293
+#: ../storage/exchange-permissions-dialog.c:293
 #, c-format
 msgid "Could not update folder permissions. %s"
-msgstr "Ne mogu da dopunim ovlašćenja za fasciklu. %s"
+msgstr "Nije moguće osvežiti ovlašćenja za fasciklu. %s"
 
-#: storage/exchange-permissions-dialog.c:295
+#: ../storage/exchange-permissions-dialog.c:295
 msgid "(Permission denied.)"
 msgstr "(Zabranjen pristup.)"
 
-#: storage/exchange-permissions-dialog.c:396
+#: ../storage/exchange-permissions-dialog.c:396
 msgid ""
 "Unable to add user to access control list:\n"
 "No Global Catalog server is configured for this account."
 msgstr ""
-"Ne mogu da dodam korisnika u spisak za upravljanje pristupima:\n"
-"Nije podešen server opšteg kataloga za ovaj nalog."
+"Nije moguće dodati korisnika listi za upravljanje pristupima:\n"
+"Nije podešen server Globalnog kataloga za ovaj nalog."
 
-#: storage/exchange-permissions-dialog.c:402
+#: ../storage/exchange-permissions-dialog.c:402
 msgid "Add User:"
 msgstr "Dodaj korisnika:"
 
-#: storage/exchange-permissions-dialog.c:402
+#: ../storage/exchange-permissions-dialog.c:402
 msgid "Add User"
 msgstr "Dodaj korisnika"
 
-#: storage/exchange-permissions-dialog.c:421
+#: ../storage/exchange-permissions-dialog.c:421
 #, c-format
 msgid "No such user %s"
 msgstr "Nema takvog korisnika %s"
 
-#: storage/exchange-permissions-dialog.c:425
+#: ../storage/exchange-permissions-dialog.c:425
 #, c-format
 msgid "%s cannot be added to an access control list"
-msgstr "%s se ne može dodati u spisak za upravljanje pristupom"
+msgstr "%s se ne može dodati listi za upravljanje pristupom"
 
-#: storage/exchange-permissions-dialog.c:430
+#: ../storage/exchange-permissions-dialog.c:430
 #, c-format
 msgid "Unknown error looking up %s"
 msgstr "Nepoznata greška pri traženju %s"
 
-#: storage/exchange-permissions-dialog.c:447
+#: ../storage/exchange-permissions-dialog.c:447
 #, c-format
 msgid "%s is already in the list"
-msgstr "%s je već u spisku"
+msgstr "%s je već na listi"
 
-#: storage/exchange-permissions-dialog.c:710
+#: ../storage/exchange-permissions-dialog.c:710
 msgid "Role"
 msgstr "Uloga"
 
-#: storage/exchange-permissions-dialog.glade.h:1
+#: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
 msgstr "    "
 
-#: storage/exchange-permissions-dialog.glade.h:2
+#: ../storage/exchange-permissions-dialog.glade.h:2
 msgid "<b>Permissions</b>"
 msgstr "<b>Ovlašćenja</b>"
 
-#: storage/exchange-permissions-dialog.glade.h:3
+#: ../storage/exchange-permissions-dialog.glade.h:3
 msgid "Cannot Delete"
-msgstr "Ne mogu da obrišem"
+msgstr "Nije moguće brisanje"
 
-#: storage/exchange-permissions-dialog.glade.h:4
+#: ../storage/exchange-permissions-dialog.glade.h:4
 msgid "Cannot Edit"
-msgstr "Ne mogu da uredim"
+msgstr "Nije moguće uređivanje"
 
-#: storage/exchange-permissions-dialog.glade.h:5
+#: ../storage/exchange-permissions-dialog.glade.h:5
 msgid "Create items"
-msgstr "Napravi stavke"
+msgstr "Napravi predmete"
 
-#: storage/exchange-permissions-dialog.glade.h:6
+#: ../storage/exchange-permissions-dialog.glade.h:6
 msgid "Create subfolders"
 msgstr "Napravi podfascikle"
 
-#: storage/exchange-permissions-dialog.glade.h:7
+#: ../storage/exchange-permissions-dialog.glade.h:7
 msgid "Delete Any Items"
-msgstr "Obriši sve stavke"
+msgstr "Obriši sve predmete"
 
-#: storage/exchange-permissions-dialog.glade.h:8
+#: ../storage/exchange-permissions-dialog.glade.h:8
 msgid "Delete Own Items"
-msgstr "Obriši svoje stavke"
+msgstr "Obriši svoje predmete"
 
-#: storage/exchange-permissions-dialog.glade.h:9
+#: ../storage/exchange-permissions-dialog.glade.h:9
 msgid "Edit Any Items"
-msgstr "Uredi sve stavke"
+msgstr "Uredi sve predmete"
 
-#: storage/exchange-permissions-dialog.glade.h:10
+#: ../storage/exchange-permissions-dialog.glade.h:10
 msgid "Edit Own Items"
-msgstr "Uredi svoje stavke"
+msgstr "Uredi svoje predmete"
 
-#: storage/exchange-permissions-dialog.glade.h:11
+#: ../storage/exchange-permissions-dialog.glade.h:11
 msgid "Folder contact"
 msgstr "Kontakt za fasciklu"
 
-#: storage/exchange-permissions-dialog.glade.h:12
+#: ../storage/exchange-permissions-dialog.glade.h:12
 msgid "Folder owner"
 msgstr "Vlasnik fascikle"
 
-#: storage/exchange-permissions-dialog.glade.h:13
+#: ../storage/exchange-permissions-dialog.glade.h:13
 msgid "Folder visible"
-msgstr "Fascikla prikazana"
+msgstr "Fascikla vidljiva"
 
-#: storage/exchange-permissions-dialog.glade.h:14
+#: ../storage/exchange-permissions-dialog.glade.h:14
 msgid "Read items"
-msgstr "Pročitaj stavke"
+msgstr "Pročitaj predmete"
 
-#: storage/exchange-permissions-dialog.glade.h:15
+#: ../storage/exchange-permissions-dialog.glade.h:15
 msgid "Role: "
 msgstr "Uloga: "
 
-#: storage/exchange-storage.c:337
+#: ../storage/exchange-storage.c:338
 msgid "Connecting..."
-msgstr "Povezujem se..."
+msgstr "Povezivanje..."
 
-#: storage/main.c:166
+#: ../storage/main.c:166
 msgid "Ximian Connector for Microsoft Exchange"
-msgstr "Gzimijan veznik za Mikrosoft Eksčendž"
+msgstr "Ximian Connector za Microsoft Exchange"
 
-#: storage/xc-backend-view.c:299
+#: ../storage/xc-backend-view.c:299
 msgid "Account Name"
 msgstr "Ime naloga"
 
-#: storage/xc-commands.c:312
+#: ../storage/xc-commands.c:316
 msgid "Folder does not exist"
 msgstr "Fascikla ne postoji"
 
-#: storage/xc-commands.c:339
+#: ../storage/xc-commands.c:343
 #, c-format
 msgid "Could not add favorite: %s"
-msgstr "Ne mogu da dodam omiljenu: %s"
+msgstr "Nije moguće dodati omiljeno: %s"
 
-#: storage/xc-commands.c:355
+#: ../storage/xc-commands.c:359
 #, c-format
 msgid "Could not remove favorite: %s"
-msgstr "Ne mogu da uklonim omiljenu: %s"
+msgstr "Nije moguće ukloniti omiljeno: %s"
 
 #.
 #. FIXME: See 62440
@@ -1606,100 +1620,131 @@ msgstr "Ne mogu da uklonim omiljenu: %s"
 #. G_CALLBACK (do_copy_folder),
 #. XC_FOLDER_COMMAND_MASK_MOVECOPY),
 #.
-#: storage/xc-commands.c:381
+#: ../storage/xc-commands.c:385
 msgid "_Rename Folder..."
 msgstr "Pre_imenuj fasciklu..."
 
-#: storage/xc-commands.c:387
+#: ../storage/xc-commands.c:391
 msgid "_New Folder..."
 msgstr "_Nova fascikla..."
 
-#: storage/xc-commands.c:390
+#: ../storage/xc-commands.c:394
 msgid "_Delete Folder"
-msgstr "U_kloni fasciklu..."
+msgstr "O_briši fasciklu"
 
-#: storage/xc-commands.c:395
+#: ../storage/xc-commands.c:399
 msgid "_Add Other User's Folder..."
 msgstr "_Dodaj fasciklu drugog korisnika..."
 
-#: storage/xc-commands.c:398
+#: ../storage/xc-commands.c:402
 msgid "_Remove Other User's Folder"
 msgstr "Ukloni _fasciklu drugog korisnika"
 
-#: storage/xc-commands.c:404
+#: ../storage/xc-commands.c:408
 msgid "Add to _Favorites"
-msgstr "Dodaj među _omiljene"
+msgstr "Dodaj u _Omiljeno"
 
-#: storage/xc-commands.c:408
+#: ../storage/xc-commands.c:412
 msgid "Remove from Fa_vorites"
-msgstr "Ukloni iz o_miljenih"
+msgstr "Ukloni iz O_miljenog"
 
-#: storage/xc-commands.c:415
-msgid "_Permissions..."
-msgstr "O_vlašćenja..."
-
-#: storage/xc-commands.c:419
+#.
+#. E_POPUP_ITEM (N_("_Permissions..."),
+#. G_CALLBACK (do_permissions),
+#. XC_FOLDER_COMMAND_MASK_PERMISSIONS),
+#.
+#: ../storage/xc-commands.c:423
 msgid "_Show Folder Sizes"
-msgstr ""
+msgstr "_Prikaži veličine fascikli"
 
-#: storage/ximian-connector-setup.c:44
+#: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
-msgstr "Alat za postavku Gzimijan veznika za Mikrosoft Eksčendž"
+msgstr "Ximian Connector alat za podešavanje za Microsoft Exchange"
 
-#: storage/ximian-connector.xml.h:1
+#: ../storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
-msgstr "Izmenite lozinku za vaš Eksčendž server"
+msgstr "Izmenite lozinku za Exchange server"
 
-#: storage/ximian-connector.xml.h:2
-#, fuzzy
+#: ../storage/ximian-connector.xml.h:2
 msgid "Folder _Size"
-msgstr "_Vrsta fascikle:"
+msgstr "_Veličina fascikle"
 
-#: storage/ximian-connector.xml.h:3
+#: ../storage/ximian-connector.xml.h:3
 msgid "Get the size of personal folders"
-msgstr ""
+msgstr "Pribavi veličinu ličnih fascikli"
 
-#: storage/ximian-connector.xml.h:4
+#: ../storage/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
-msgstr "Pretplati se na fasciklu _drugog korisnika..."
+msgstr "Prijavi se na fasciklu _drugog korisnika..."
 
-#: storage/ximian-connector.xml.h:5
+#: ../storage/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
-msgstr ""
-"Pretplati se na fasciklu koja pripada nekom drugom korisniku ovog server"
+msgstr "Prijavi se na fasciklu koja pripada nekom drugom korisniku servera"
 
-#: storage/ximian-connector.xml.h:6
+#: ../storage/ximian-connector.xml.h:6
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
-"Ukini pretplatu ustanovljenu pomoću „Preplati se na fasciklu drugog "
-"korisnika“"
+"Odjavi se sa fascikle dodate pomoću „Prijavi se na fasciklu drugog korisnika“"
 
-#: storage/ximian-connector.xml.h:7
+#: ../storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
-msgstr "Pregledajte ili izmenite podešavanja delegata vašeg Eksčendž kalendara"
+msgstr "Pregledaj ili izmeni podešavanja delegata Exchange kalendara"
 
-#: storage/ximian-connector.xml.h:8
+#: ../storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr ""
-"Pregledajte ili izmenite vaše stanje van-kancelarije i poruku za automatski "
-"odgovor"
+"Pregledaj ili izmeni status za van-kancelarije i poruku za automatski odgovor"
 
-#: storage/ximian-connector.xml.h:9
+#: ../storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
-msgstr "_Izmeni Eksčendž lozinku..."
+msgstr "_Izmeni Exchange lozinku..."
 
-#: storage/ximian-connector.xml.h:10
+#: ../storage/ximian-connector.xml.h:10
 msgid "_Delegation Assistant"
 msgstr "Pomoćnik za _delegiranje"
 
-#: storage/ximian-connector.xml.h:11
+#: ../storage/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
 msgstr "Pomoćnik za _van-kacelarije"
 
-#: storage/ximian-connector.xml.h:12
+#: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
-msgstr "_Ukini pretplatu na fasciklu drugog korisnika"
+msgstr "_Odjavi se sa Fascikle drugog korisnika"
+
+#~ msgid "*Control*F5"
+#~ msgstr "*Control*F5"
+
+#~ msgid "Evolution Exchange Component"
+#~ msgstr "Evolucija Exchange deo"
+
+#~ msgid "Exchange"
+#~ msgstr "Exchange"
+
+#~ msgid "_Exchange"
+#~ msgstr "_Exchange"
+
+#, fuzzy
+#~ msgid ""
+#~ "Ximian Connector requires access to certain functionality on the Exchange "
+#~ "Server that appears to be disabled or blocked.  (This is usually "
+#~ "unintentional.)  Your Exchange Administrator will need to enable this "
+#~ "functionality in order for you to be able to use Ximian Connector.\n"
+#~ "\n"
+#~ "For information to provide to your Exchange administrator, please follow "
+#~ "the link below:\n"
+#~ "http://www.ximian.com/products/connector/iis-lockdown.html, http://www."
+#~ "ximian.com/products/connector/iis-lockdown.html"
+#~ msgstr ""
+#~ "Gzimijan veznik zahteva pristup određenim mogućnostima Eksčendž servera "
+#~ "koje su izgleda isključene ili zabranjene. (Ovo je uglavnom nenamerno.)  "
+#~ "Vaš administrator Eksčendža će morati da uključi ove mogućnosti da biste "
+#~ "mogli da koristite Gzimijan veznik.\n"
+#~ "\n"
+#~ "Za detalje šta da prosledite vašem administratoru, pratite vezu ispod:"
+
+#~ msgid "_Permissions..."
+#~ msgstr "O_vlašćenja..."
 
 #~ msgid ""
 #~ "Could not authenticate to server.\n"
