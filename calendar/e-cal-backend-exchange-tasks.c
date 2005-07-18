@@ -1292,7 +1292,7 @@ remove_task_object (ECalBackendSync *backend, EDataCal *cal,
 	}
 
 	ecalbexcomp = get_exchange_comp (ecalbex, uid);
-	if (!ecalbexcomp && !ecalbexcomp->href)
+	if (!ecalbexcomp || !ecalbexcomp->href)
 		return GNOME_Evolution_Calendar_ObjectNotFound;		
 
         comp = e_cal_component_new ();
