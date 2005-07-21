@@ -361,8 +361,13 @@ exchange_component_get_account_for_uri (ExchangeComponent *component,
 		if (!uri)
 			return baccount->account;
 
-		if (exchange_account_get_folder (baccount->account, uri))
+		if (exchange_account_get_folder (baccount->account, uri)) {
 			return baccount->account;
+		} else {
+			exchange_account_rescan_tree (baccount->account);
+			if (exchange_account_get_folder (baccount->account, uri))
+				return baccount->account;
+		}
 		/* FIXME : Handle multiple accounts */
 	}
 	return NULL;

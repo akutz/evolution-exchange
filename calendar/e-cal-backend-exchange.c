@@ -322,7 +322,7 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 	if (!cbex->account)
 		return GNOME_Evolution_Calendar_PermissionDenied;
 	if (!exchange_account_get_context (cbex->account))
-		return GNOME_Evolution_Calendar_RepositoryOffline;
+		return GNOME_Evolution_Calendar_RepositoryOffline; 
 
 	cbex->folder = exchange_account_get_folder (cbex->account, uristr);
 	if (!cbex->folder) {
@@ -364,20 +364,26 @@ static ECalBackendSyncStatus
 remove_calendar (ECalBackendSync *backend, EDataCal *cal)
 {
 	d(printf("ecbe_remove_calendar(%p, %p)\n", backend, cal));
-
-	//display_error_dialog("Can not perform this operation, Use Exchange component for folder operations\n");
-	return GNOME_Evolution_Calendar_PermissionDenied; /* Error code is not handled in Evolution */
+	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
+	ExchangeAccountFolderResult result;
+	const char *uri;
 
 	/* FIXME: Deleting calendar/tasks from respective views */
-#if 0
-	status = e_folder_exchange_delete (be->folder, NULL);
-	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+	uri = e_folder_exchange_get_internal_uri (cbex->folder);
+	result = exchange_account_remove_folder (cbex->account, uri);
+	return GNOME_Evolution_Calendar_Success;
+
+	/* status = e_folder_exchange_delete (cbex->folder, NULL);
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		d(printf ("successfully removed\n"));
 		return GNOME_Evolution_Calendar_Success;
-	else if (status == E2K_HTTP_UNAUTHORIZED)
+	} else if (status == E2K_HTTP_UNAUTHORIZED) {
+		d(printf ("permission denied\n"));
 		return GNOME_Evolution_Calendar_PermissionDenied;
-	else
+	} else {
+		d(printf ("other error\n"));
 		return GNOME_Evolution_Calendar_OtherError;
-#endif
+	} */
 }
 
 static void

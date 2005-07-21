@@ -1,3 +1,12 @@
+2005-07-21  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* addressbook/e-book-backend-exchange.c 
+	(e_book_backend_exchange_remove): Implemented
+	* calendar/e-cal-backend-exchange.c (remove_calendar): Implemented
+	* storage/exchange-component.c (exchange_component_get_account_for_uri):
+	Do rescan once, if you cant get a folder at the first attempt. This is
+	for syncing any new folder creation that happened in the plugin.
+
 2005-07-19  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* calendar/e-cal-backend-exchange.c (get_static_capabilities): Removed 

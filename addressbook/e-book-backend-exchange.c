@@ -2239,9 +2239,15 @@ e_book_backend_exchange_load_source (EBookBackend *backend,
 static EBookBackendSyncStatus
 e_book_backend_exchange_remove (EBookBackendSync *backend, EDataBook *book, guint32 opid)
 {
-	d(printf("ebbe_remove(%p, %p)\n", backend, book));
-	return GNOME_Evolution_Addressbook_PermissionDenied;
+	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
+	EBookBackendExchangePrivate *bepriv = be->priv;
+	ExchangeAccountFolderResult result;
+	const char *uri;
 
+	d(printf("ebbe_remove(%p, %p)\n", backend, book));
+	uri = e_folder_exchange_get_internal_uri (bepriv->folder);
+	result = exchange_account_remove_folder (bepriv->account, uri);
+	return GNOME_Evolution_Addressbook_Success;
 	/* FIXME: Folder deletion from contacts view */
 #if 0 
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
