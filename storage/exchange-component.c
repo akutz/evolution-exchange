@@ -108,6 +108,22 @@ finalize (GObject *object)
 	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
+impl_createControls (PortableServer_Servant servant,
+		     Bonobo_Control *sidebar_control,
+		     Bonobo_Control *view_control,
+		     Bonobo_Control *statusbar_control,
+		     CORBA_Environment *ev)
+{
+	ExchangeComponent *component = EXCHANGE_COMPONENT (bonobo_object_from_servant (servant));
+	ExchangeComponentPrivate *priv = component->priv;
+	XCBackendView *view;
+	BonoboControl *control = NULL;
+
+	d(printf("createControls...\n"));
+
+	*sidebar_control = *view_control = *statusbar_control = NULL;
+}
+
 static void
 impl_upgradeFromVersion (PortableServer_Servant servant,
 			 const CORBA_short major,
@@ -301,6 +317,7 @@ exchange_component_class_init (ExchangeComponentClass *klass)
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
 
+	epv->createControls     = impl_createControls;
 	epv->upgradeFromVersion = impl_upgradeFromVersion;
 	epv->requestQuit        = impl_requestQuit;
 	epv->quit               = impl_quit;

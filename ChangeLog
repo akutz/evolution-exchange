@@ -1,3 +1,11 @@
+2005-07-25  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* storage/exchange-component.c (impl_createControls) : Reimplemented.
+	But we return NULL bonobo interfaces for now, since we dont need a 
+	separate Exchange component anymore.
+	* storage/GNOME_Evolution_Exchange_Storage.server.in.in : Use the 
+	Evolution/Component bonobo interface for exchange process.
+
 2005-07-25  Arunprakash <arunp@novell.com>
 
 	* camel/camel-exchange-folder.c (refresh_info) : Changed to
