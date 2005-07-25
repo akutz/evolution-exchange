@@ -30,9 +30,11 @@
 
 #include <camel/camel-exchange-summary.h>
 #include <camel/camel-file-utils.h>
+#include <camel/camel-offline-store.h>
 
 #include "camel-stub.h"
 #include "camel-exchange-folder.h"
+#include "camel-exchange-journal.h"
 
 #define CAMEL_EXCHANGE_SUMMARY_VERSION (1)
 
@@ -222,21 +224,34 @@ static gboolean
 info_set_flags(CamelMessageInfo *info, guint32 flags, guint32 set)
 {
 	int res;
+	CamelFolder *folder = (CamelFolder *) info->summary->folder;
+	CamelOfflineStore *store = (CamelOfflineStore *) folder->parent_store;
 
 	if (CAMEL_EXCHANGE_SUMMARY (info->summary)->readonly)
 		return FALSE;
 
-	res = CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->info_set_flags(info, flags, set);
-	if (res && info->summary->folder && info->uid) {
-		camel_stub_send_oneway (((CamelExchangeFolder *)info->summary->folder)->stub,
-					CAMEL_STUB_CMD_SET_MESSAGE_FLAGS,
-					CAMEL_STUB_ARG_FOLDER, info->summary->folder->full_name,
-					CAMEL_STUB_ARG_STRING, info->uid,
-					CAMEL_STUB_ARG_UINT32, set,
-					CAMEL_STUB_ARG_UINT32, flags,
-					CAMEL_STUB_ARG_END);
+	if (store->state != CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
+		res = CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->info_set_flags(info, flags, set);
+		if (res && info->summary->folder && info->uid) {
+			camel_stub_send_oneway (((CamelExchangeFolder *)info->summary->folder)->stub,
+						CAMEL_STUB_CMD_SET_MESSAGE_FLAGS,
+						CAMEL_STUB_ARG_FOLDER, info->summary->folder->full_name,
+						CAMEL_STUB_ARG_STRING, info->uid,
+						CAMEL_STUB_ARG_UINT32, set,
+						CAMEL_STUB_ARG_UINT32, flags,
+						CAMEL_STUB_ARG_END);
+		}
 	}
-
+	else {
+		res = CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->info_set_flags(info, flags, set);
+		if(res && info->summary->folder && info->uid) {
+			CamelExchangeFolder *exchange_folder = (CamelExchangeFolder *) info->summary->folder;
+			CamelExchangeJournal *journal = (CamelExchangeJournal *) exchange_folder->journal;
+			camel_exchange_journal_delete (journal, info->uid, flags, set, NULL);
+		}
+		else
+			return FALSE;
+	}
 	return res;
 }
 

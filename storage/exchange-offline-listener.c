@@ -30,8 +30,11 @@
 #include <libedata-book/e-data-book-factory.h>
 #include <libedata-cal/e-data-cal-factory.h>
 #include <gconf/gconf-client.h>
+#include <e-shell-marshal.h>
 
 static GObjectClass *parent_class = NULL;
+
+static guint linestatus_signal_id;
 
 struct _ExchangeOfflineListenerPrivate 
 {
@@ -75,6 +78,9 @@ online_status_changed (GConfClient *client, int cnxn_id, GConfEntry *entry, gpoi
 		offline = gconf_value_get_bool (value);
 	if (priv->offline != offline)
 		set_online_status (ex_offline_listener ,offline);
+
+	g_signal_emit (ex_offline_listener, linestatus_signal_id,
+		       0, offline ? OFFLINE_MODE : ONLINE_MODE);
 }
 
 static void 
@@ -170,7 +176,7 @@ exchange_offline_listener_init (ExchangeOfflineListener *listener)
 }
 
 static void
-exchange_offline_listener_class_init (ExchangeOfflineListener *klass)
+exchange_offline_listener_class_init (ExchangeOfflineListenerClass *klass)
 {
 	GObjectClass *object_class;
 
@@ -179,6 +185,18 @@ exchange_offline_listener_class_init (ExchangeOfflineListener *klass)
 	object_class = G_OBJECT_CLASS (klass);
 	object_class->dispose = exchange_offline_listener_dispose;
 	object_class->finalize = exchange_offline_listener_finalize;
+
+	linestatus_signal_id = 
+		g_signal_new ("linestatus-changed",
+			       G_TYPE_FROM_CLASS (klass),
+			       G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+			       G_STRUCT_OFFSET (ExchangeOfflineListenerClass, linestatus_notify),
+			       NULL,
+			       NULL,
+			       e_shell_marshal_VOID__INT,
+			       G_TYPE_NONE,
+			       1,
+			       G_TYPE_INT);
 }
 
 GType

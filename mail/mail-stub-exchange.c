@@ -125,6 +125,12 @@ static gboolean process_flags (gpointer user_data);
 
 static void storage_folder_changed (EFolder *folder, gpointer user_data);
 
+static void linestatus_listener (ExchangeOfflineListener *listener,
+						    gint linestatus,
+						    gpointer data);
+static void folder_update_linestatus (gpointer key, gpointer value, gpointer data);
+
+
 static void
 class_init (GObjectClass *object_class)
 {
@@ -2622,6 +2628,78 @@ stub_connect (MailStub *stub)
 	mail_stub_return_ok (stub);
 }
 
+static void 
+linestatus_listener (ExchangeOfflineListener *listener,
+					gint linestatus,
+					gpointer data)
+{
+	MailStubExchange *mse = MAIL_STUB_EXCHANGE (data);
+	ExchangeAccount *account = mse->account;
+	const char *uri;
+	
+	if (linestatus == ONLINE_MODE) {
+		mse->ctx = exchange_account_get_context (account);
+		g_object_ref (mse->ctx);
+
+		mse->mail_submission_uri = exchange_account_get_standard_uri (account, "sendmsg");
+		uri = exchange_account_get_standard_uri (account, "inbox");
+		mse->inbox = exchange_account_get_folder (account, uri);
+		uri = exchange_account_get_standard_uri (account, "deleteditems");
+		mse->deleted_items = exchange_account_get_folder (account, uri);
+		g_hash_table_foreach (mse->folders_by_name,
+				      (GHFunc) folder_update_linestatus,
+				      GINT_TO_POINTER (linestatus));
+	}
+}
+
+static void
+folder_update_linestatus (gpointer key, gpointer value, gpointer data)
+{
+	MailStubExchangeFolder *mfld = (MailStubExchangeFolder *) value;
+	E2kResult *results;
+	int nresults = 0;
+	E2kHTTPStatus status;
+	const char *prop;
+	gint linestatus = GPOINTER_TO_INT (data);
+	
+	if (linestatus == ONLINE_MODE) {
+		status = e_folder_exchange_propfind (mfld->folder, NULL,
+						     open_folder_props,
+						     n_open_folder_props,
+						     &results, &nresults);
+		
+		if (status == E2K_HTTP_UNAUTHORIZED) {
+			got_folder_error (mfld, _("Could not open folder: Permission denied"));
+			return;
+		} else if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+			g_warning ("got_folder_props: %d", status);
+			got_folder_error (mfld, _("Could not open folder"));
+			return;
+		}
+
+		if (nresults) {
+			prop = e2k_properties_get_prop (results[0].props, PR_ACCESS);
+			if (prop)
+				mfld->access = atoi (prop);
+			else
+				mfld->access = ~0;
+		} else
+			mfld->access = ~0;
+
+		if (!(mfld->access & MAPI_ACCESS_READ)) {
+			got_folder_error (mfld, _("Could not open folder: Permission denied"));
+			return;
+		}
+
+		prop = e2k_properties_get_prop (results[0].props, PR_DELETED_COUNT_TOTAL);
+		if (prop)
+			mfld->deleted_count = atoi (prop);
+	}
+	else {
+		/* FIXME: need any undo for offline */ ;
+	}
+}
+
 /**
  * mail_stub_exchange_new:
  * @account: the #ExchangeAccount this stub is for
@@ -2640,8 +2718,10 @@ mail_stub_exchange_new (ExchangeAccount *account, int cmd_fd, int status_fd)
 	MailStub *stub;
 	const char *uri;
 	int mode;
+	ExchangeOfflineListener *listener;
 
 	stub = g_object_new (MAIL_TYPE_STUB_EXCHANGE, NULL);
+	g_object_ref (stub);
 	mail_stub_construct (stub, cmd_fd, status_fd);
 	exchange_component_is_offline (global_exchange_component, &mode);
 
@@ -2657,5 +2737,11 @@ mail_stub_exchange_new (ExchangeAccount *account, int cmd_fd, int status_fd)
 		uri = exchange_account_get_standard_uri (account, "deleteditems");
 		mse->deleted_items = exchange_account_get_folder (account, uri);
 	}
+	
+	listener = exchange_component_get_offline_listener (global_exchange_component);
+	g_signal_connect (G_OBJECT (listener), "linestatus-changed",
+			  G_CALLBACK (linestatus_listener), mse);
+
 	return stub;
 }
+

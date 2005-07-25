@@ -386,3 +386,10 @@ exchange_component_is_interactive (ExchangeComponent *component)
 {
 	return component->priv->xid != 0;
 }
+
+ExchangeOfflineListener *
+exchange_component_get_offline_listener (ExchangeComponent *component)
+{
+	return component->priv->offline_listener;
+}
+

@@ -49,6 +49,8 @@ void           exchange_component_is_offline      (ExchangeComponent *component,
 void exchange_component_set_offline_listener (ExchangeComponent *component, 
 						ExchangeOfflineListener *listener);
 
+ExchangeOfflineListener *exchange_component_get_offline_listener (ExchangeComponent *component);
+
 #define EXCHANGE_COMPONENT_FACTORY_IID  "OAFIID:GNOME_Evolution_Exchange_Component_Factory:" BASE_VERSION
 #define EXCHANGE_COMPONENT_IID		"OAFIID:GNOME_Evolution_Exchange_Component:" BASE_VERSION
 #define EXCHANGE_CALENDAR_FACTORY_ID	"OAFIID:GNOME_Evolution_Exchange_Connector_CalFactory:" BASE_VERSION

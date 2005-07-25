@@ -1,3 +1,44 @@
+2005-07-25  Arunprakash <arunp@novell.com>
+
+	* camel/camel-exchange-folder.c (refresh_info) : Changed to
+	replay the journal and send refresh command only when in 
+	online mode.
+	(transfer_messages_to) : Changed to make use of the "transfer"
+	journal entry instead of "append" journal entry.
+	* camel/camel-exchange-journal.c (exchange_entry_free)
+	(exchange_entry_load) (exchange_entry_write)
+	(exchange_entry_play) : Updated for
+	the two new journal entry types - "transfer" and "delete".
+	(exchange_entry_play_delete) (exchange_entry_play_transfer) : Added
+	newly for the two new journal entries.
+	(exchange_entry_play_append) : Fixed the copying of the fake message
+	info to the original one. Used camel_exchange_folder_remove_message
+	instead of removing internally.
+	(camel_exchange_journal_transfer) (camel_exchange_journal_delete) :
+	Added newly for creating the journal entries.
+	* camel/camel-exchange-journal.h : Added two new journal entries and
+	the methods for creating them.
+	* camel/camel-exchange-store.c (stub_notification) : Skip the
+	remove message if the message is already removed in offline.
+	* camel/camel-exchange-summary.c (info_set_flags) : Added offline
+	support by creating the journal entry.
+	* mail/mail-stub-exchange.c (linestatus_listener) : Added newly
+	to initialize certain values for the backend in online mode.
+	(folder_update_linestatus) : Newly added, to update the flags
+	for each folder in online mode.
+	(mail_stub_exchange_new) : Modified to hold a reference for the
+	exchange stub and connect to the "linestatus-changed" signal.
+	* mail/mail-stub.c (connection_handler) : Fixed the call to
+	unref without ref for the exchange stub.
+	* shell/e-shell-marshal.list : Added an entry for the new
+	"linestatus-changed" signal.
+	* storage/exchange-component.c (exchange_component_get_offline_listener) :
+	Added newly, to return the offline listener.
+	* storage/exchange-offline-listener.c (online_status_changed) :
+	Modified to emit the new "linestatus-changed" signal.
+	(exchange_offline_listener_class_init) : Modified for
+	registering the new signal "linestatus-changed".
+
 2005-07-22  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
 
 	* configure.in: Added 'gl' to ALL_LINGUAS.

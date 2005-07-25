@@ -709,6 +709,7 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 	{
 		CamelExchangeFolder *folder;
 		char *folder_name, *uid;
+		CamelMessageInfo *info;
 
 		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1 ||
 		    camel_stub_marshal_decode_string (stub->status, &uid) == -1)
@@ -717,8 +718,10 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 		g_mutex_lock (exch->folders_lock);
 		folder = g_hash_table_lookup (exch->folders, folder_name);
 		g_mutex_unlock (exch->folders_lock);
-		if (folder)
+		if (folder && (info = camel_folder_summary_uid (((CamelFolder *)folder)->summary, uid))) {
+			camel_message_info_free (info);
 			camel_exchange_folder_remove_message (folder, uid);
+		}
 
 		g_free (folder_name);
 		g_free (uid);

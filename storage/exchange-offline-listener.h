@@ -59,6 +59,9 @@ struct _ExchangeOfflineListener {
 
 struct _ExchangeOfflineListenerClass {
 	GObjectClass  parent_class;
+
+	/* signal default handlers */
+	void (*linestatus_notify) (ExchangeOfflineListener *listener, guint status);
 };
 
 

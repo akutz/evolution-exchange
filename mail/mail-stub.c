@@ -86,10 +86,10 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 	guint32 command;
 
 	if (condition == G_IO_ERR || condition == G_IO_HUP)
-		goto comm_fail;
+		return FALSE;
 
 	if (camel_stub_marshal_decode_uint32 (stub->cmd, &command) == -1)
-		goto comm_fail;
+		return FALSE;
 
 	switch (command) {
 	case CAMEL_STUB_CMD_CONNECT:
