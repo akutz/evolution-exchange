@@ -108,6 +108,7 @@ finalize (GObject *object)
 	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
+static void
 impl_createControls (PortableServer_Servant servant,
 		     Bonobo_Control *sidebar_control,
 		     Bonobo_Control *view_control,
