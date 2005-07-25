@@ -587,7 +587,7 @@ cache_xfer (CamelExchangeFolder *stub_source, CamelExchangeFolder *stub_dest,
 		}
 		camel_object_unref (CAMEL_OBJECT (src));
 
-		if (remove) {
+		if (delete) {
 			camel_data_cache_remove (stub_source->cache, "cache",
 						 src_uids->pdata[i], NULL);
 		}

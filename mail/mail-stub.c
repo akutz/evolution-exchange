@@ -429,7 +429,6 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 	case CAMEL_STUB_CMD_IS_SUBSCRIBED_FOLDER:
 	{
 		char *folder_name;
-		guint32 is_subscribed;
 
 		if (!mail_stub_read_args (stub,
 					CAMEL_STUB_ARG_FOLDER, &folder_name,

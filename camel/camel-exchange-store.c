@@ -33,7 +33,7 @@
 
 #define SUBFOLDER_DIR_NAME     "subfolders"
 #define SUBFOLDER_DIR_NAME_LEN 10
-#define d(x) (x) 
+#define d(x)
 
 
 //static CamelStoreClass *parent_class = NULL;
@@ -289,6 +289,29 @@ get_name (CamelService *service, gboolean brief)
 
 #define EXCHANGE_STOREINFO_VERSION 1
 
+/* SURF : Picked this from gal/util/e-util.c */
+/* This only makes a filename safe for usage as a filename.  
+	It still may have shell meta-characters in it. */
+static void
+e_filename_make_safe (gchar *string)
+{
+	gchar *p, *ts;
+	gunichar c;
+	
+	g_return_if_fail (string != NULL);
+	p = string;
+
+	while(p && *p) {
+		c = g_utf8_get_char (p);
+		ts = p;
+		p = g_utf8_next_char (p);
+		if (!g_unichar_isprint(c) || ( c < 0xff && strchr (" /'\"`&();|<>$%{}!", c&0xff ))) {
+			while (ts<p) 	
+				*ts++ = '_';
+		}
+	}
+}
+
 static gboolean
 exchange_connect (CamelService *service, CamelException *ex)
 {
@@ -403,7 +426,7 @@ exchange_folder_subscribed (CamelStore *store, const char *folder_name)
 	guint32 is_subscribed;
 	
 	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
-		return;
+		return FALSE;
 	}
 
 	if (!camel_stub_send (exch->stub, NULL, CAMEL_STUB_CMD_IS_SUBSCRIBED_FOLDER,

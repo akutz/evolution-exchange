@@ -1119,7 +1119,7 @@ static GByteArray *
 build_message (const char *from_name, const char *from_email,
 	       const char *subject, const char *note, EContactPhoto *photo)
 {
-	CamelDataWrapper *wrapper;
+	CamelDataWrapper *wrapper = NULL;
 	CamelContentType *type;
 	CamelMimeMessage *msg;
 	CamelInternetAddress *from;

@@ -43,7 +43,7 @@
 #include <exchange-hierarchy.h>
 #include <mapi.h>
 
-#define d(x) (x)
+#define d(x)
 
 #define PARENT_TYPE MAIL_TYPE_STUB
 static MailStubClass *parent_class = NULL;
@@ -1012,8 +1012,6 @@ refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 	int got, total, i, n, mode;
 	gpointer key, value;
 	MailStubExchangeMessage *mmsg;
-	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
-
 
 	g_object_ref (stub);
 

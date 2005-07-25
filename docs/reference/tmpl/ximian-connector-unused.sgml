@@ -2,15 +2,3 @@
 
 
 
-<!-- ##### SIGNAL E2kContext::redirect ##### -->
-<para>
-Indicates that @e2kcontext has processed a redirection response. The
-application can use this to update its records so that the correct URI
-can be used automatically in the future.
-</para>
-
-@e2kcontext: the object which received the signal.
-@arg1: the HTTP status code
-@arg2: the originally-requested URI
-@arg3: the URI @old_uri was redirected to
-

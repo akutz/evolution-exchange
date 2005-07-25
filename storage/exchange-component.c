@@ -115,11 +115,6 @@ impl_createControls (PortableServer_Servant servant,
 		     Bonobo_Control *statusbar_control,
 		     CORBA_Environment *ev)
 {
-	ExchangeComponent *component = EXCHANGE_COMPONENT (bonobo_object_from_servant (servant));
-	ExchangeComponentPrivate *priv = component->priv;
-	XCBackendView *view;
-	BonoboControl *control = NULL;
-
 	d(printf("createControls...\n"));
 
 	*sidebar_control = *view_control = *statusbar_control = NULL;
@@ -287,25 +282,6 @@ config_listener_account_removed (ExchangeConfigListener *config_listener,
 		}
 	}
 }
-
-
-static struct {
-	char *type, *display_name, *icon;
-} folder_types[] = {
-	{ "mail", N_("Mail"), "stock_folder" },
-	{ "mail/public", NULL, "stock_folder" },
-
-	{ "contacts", N_("Contacts"), "stock_contact" },
-	{ "contacts/public", NULL, "stock_contact" },
-	{ "contacts/ldap", NULL, "stock_contact" },
-
-	{ "tasks", N_("Tasks"), "stock_todo" },
-	{ "tasks/public", NULL, "stock_todo" },
-
-	{ "calendar", N_("Calendar"), "stock_calendar" },
-	{ "calendar/public", NULL, "stock_calendar" }
-};
-static int n_folder_types = G_N_ELEMENTS (folder_types);
 
 static void
 exchange_component_class_init (ExchangeComponentClass *klass)
