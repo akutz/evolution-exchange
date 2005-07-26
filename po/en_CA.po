@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-03 18:19-0400\n"
-"PO-Revision-Date: 2005-07-03 15:51-0400\n"
+"POT-Creation-Date: 2005-07-26 04:00-0400\n"
+"PO-Revision-Date: 2005-07-26 15:51-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -33,10 +33,6 @@ msgstr "Receiving LDAP search results..."
 msgid "Error performing search"
 msgstr "Error performing search"
 
-#: calendar/e-cal-backend-exchange.c:312
-msgid "Folder not marked for offline support"
-msgstr "Folder not marked for offline support"
-
 #: calendar/e-cal-backend-exchange-calendar.c:1665
 #, c-format
 msgid ""
@@ -51,59 +47,73 @@ msgstr ""
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "The resource '%s' is busy during the selected time period."
 
-#: camel/camel-exchange-folder.c:220
+#: calendar/e-cal-backend-exchange.c:310
+msgid "Folder not marked for offline support"
+msgstr "Folder not marked for offline support"
+
+#: camel/camel-exchange-folder.c:223
 msgid "Can only expunge in Deleted Items folder"
 msgstr "Can only expunge in Deleted Items folder"
 
-#: camel/camel-exchange-folder.c:244
+#: camel/camel-exchange-folder.c:247
 msgid "No Subject"
 msgstr "No Subject"
 
-#: camel/camel-exchange-folder.c:371
+#: camel/camel-exchange-folder.c:374
 msgid "This message is not available in offline mode."
 msgstr "This message is not available in offline mode."
 
-#: camel/camel-exchange-folder.c:606
+#: camel/camel-exchange-folder.c:609
 msgid "Moving messages"
 msgstr "Moving messages"
 
-#: camel/camel-exchange-folder.c:607
+#: camel/camel-exchange-folder.c:610
 msgid "Copying messages"
 msgstr "Copying messages"
 
-#: camel/camel-exchange-folder.c:938
+#: camel/camel-exchange-folder.c:940
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Could not create directory %s: %s"
 
-#: camel/camel-exchange-folder.c:948
+#: camel/camel-exchange-folder.c:950
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Could not load summary for %s"
 
-#: camel/camel-exchange-folder.c:956
+#: camel/camel-exchange-folder.c:958
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Could not create cache for %s"
 
-#: camel/camel-exchange-folder.c:966
+#: camel/camel-exchange-folder.c:968
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Could not create journal for %s"
 
-#: camel/camel-exchange-folder.c:1011
+#: camel/camel-exchange-folder.c:1013
 msgid "Scanning for changed messages"
 msgstr "Scanning for changed messages"
 
-#: camel/camel-exchange-folder.c:1037
+#: camel/camel-exchange-folder.c:1039
 msgid "Fetching summary information for new messages"
 msgstr "Fetching summary information for new messages"
 
-#: camel/camel-exchange-journal.c:272
+#: camel/camel-exchange-journal.c:339
+msgid "No folder name found\n"
+msgstr "No folder name found\n"
+
+#: camel/camel-exchange-journal.c:372 mail/mail-stub-exchange.c:2383
+#: mail/mail-stub-exchange.c:2425 mail/mail-stub-exchange.c:2454
+#: mail/mail-stub-exchange.c:2481 mail/mail-stub-exchange.c:2525
+msgid "Folder doesn't exist"
+msgstr "Folder doesn't exist"
+
+#: camel/camel-exchange-journal.c:436
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "Cannot append message in offline mode: cache unavailable"
 
-#: camel/camel-exchange-journal.c:288
+#: camel/camel-exchange-journal.c:452
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Cannot append message in offline mode: %s"
@@ -201,36 +211,36 @@ msgstr "Exchange server %s"
 msgid "Exchange account for %s on %s"
 msgstr "Exchange account for %s on %s"
 
-#: camel/camel-exchange-store.c:311
+#: camel/camel-exchange-store.c:334
 msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange backend process"
 
-#: camel/camel-exchange-store.c:359
+#: camel/camel-exchange-store.c:382
 #, c-format
 msgid "No such folder %s"
 msgstr "No such folder %s"
 
-#: camel/camel-exchange-store.c:428
+#: camel/camel-exchange-store.c:451
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Cannot subscribe to folder in offline mode."
 
-#: camel/camel-exchange-store.c:445
+#: camel/camel-exchange-store.c:468
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Cannot unsubscribe from folder in offline mode."
 
-#: camel/camel-exchange-store.c:550
+#: camel/camel-exchange-store.c:573
 msgid "Cannot get folder info in offline mode."
 msgstr "Cannot get folder info in offline mode."
 
-#: camel/camel-exchange-store.c:620
+#: camel/camel-exchange-store.c:643
 msgid "Cannot create folder in offline mode."
 msgstr "Cannot create folder in offline mode."
 
-#: camel/camel-exchange-store.c:647
+#: camel/camel-exchange-store.c:670
 msgid "Cannot delete folder in offline mode."
 msgstr "Cannot delete folder in offline mode."
 
-#: camel/camel-exchange-store.c:663
+#: camel/camel-exchange-store.c:686
 msgid "Cannot rename folder in offline mode."
 msgstr "Cannot rename folder in offline mode."
 
@@ -420,82 +430,84 @@ msgstr "Select User"
 msgid "Addressbook..."
 msgstr "Addressbook..."
 
-#: mail/mail-stub-exchange.c:242
+#: mail/mail-stub-exchange.c:248
 msgid "No such folder"
 msgstr "No such folder"
 
-#: mail/mail-stub-exchange.c:259 mail/mail-stub-exchange.c:2356
-#: mail/mail-stub-exchange.c:2394 mail/mail-stub-exchange.c:2454
-#: mail/mail-stub-exchange.c:2492 mail/mail-stub-exchange.c:2536
+#: mail/mail-stub-exchange.c:265 mail/mail-stub-exchange.c:2360
+#: mail/mail-stub-exchange.c:2398 mail/mail-stub-exchange.c:2458
+#: mail/mail-stub-exchange.c:2496 mail/mail-stub-exchange.c:2540
 #: shell/e-storage.c:573 storage/xc-commands.c:319
 msgid "Permission denied"
 msgstr "Permission denied"
 
-#: mail/mail-stub-exchange.c:557
+#: mail/mail-stub-exchange.c:563
 msgid "No such folder."
 msgstr "No such folder."
 
-#: mail/mail-stub-exchange.c:566
+#: mail/mail-stub-exchange.c:572
 msgid "Could not create folder."
 msgstr "Could not create folder."
 
-#: mail/mail-stub-exchange.c:614 mail/mail-stub-exchange.c:632
+#: mail/mail-stub-exchange.c:620 mail/mail-stub-exchange.c:638
+#: mail/mail-stub-exchange.c:2670 mail/mail-stub-exchange.c:2688
 msgid "Could not open folder: Permission denied"
 msgstr "Could not open folder: Permission denied"
 
-#: mail/mail-stub-exchange.c:618 mail/mail-stub-exchange.c:731
+#: mail/mail-stub-exchange.c:624 mail/mail-stub-exchange.c:737
+#: mail/mail-stub-exchange.c:2674
 msgid "Could not open folder"
 msgstr "Could not open folder"
 
-#: mail/mail-stub-exchange.c:786
+#: mail/mail-stub-exchange.c:792
 msgid "Could not open Deleted Items folder"
 msgstr "Could not open Deleted Items folder"
 
-#: mail/mail-stub-exchange.c:1116 mail/mail-stub-exchange.c:1157
+#: mail/mail-stub-exchange.c:1120 mail/mail-stub-exchange.c:1161
 msgid "Could not get new messages"
 msgstr "Could not get new messages"
 
-#: mail/mail-stub-exchange.c:1322
+#: mail/mail-stub-exchange.c:1326
 msgid "Could not empty Deleted Items folder"
 msgstr "Could not empty Deleted Items folder"
 
-#: mail/mail-stub-exchange.c:1394
+#: mail/mail-stub-exchange.c:1398
 msgid "Could not append message; mailbox is over quota"
 msgstr "Could not append message; mailbox is over quota"
 
-#: mail/mail-stub-exchange.c:1395
+#: mail/mail-stub-exchange.c:1399
 msgid "Could not append message"
 msgstr "Could not append message"
 
-#: mail/mail-stub-exchange.c:1878
+#: mail/mail-stub-exchange.c:1882
 msgid "No such message"
 msgstr "No such message"
 
-#: mail/mail-stub-exchange.c:1931
+#: mail/mail-stub-exchange.c:1935
 msgid "Message has been deleted"
 msgstr "Message has been deleted"
 
-#: mail/mail-stub-exchange.c:1933
+#: mail/mail-stub-exchange.c:1937
 msgid "Error retrieving message"
 msgstr "Error retrieving message"
 
-#: mail/mail-stub-exchange.c:1975
+#: mail/mail-stub-exchange.c:1979
 msgid "Mailbox does not support full-text searching"
 msgstr "Mailbox does not support full-text searching"
 
-#: mail/mail-stub-exchange.c:2073
+#: mail/mail-stub-exchange.c:2077
 msgid "Unable to move/copy messages"
 msgstr "Unable to move/copy messages"
 
-#: mail/mail-stub-exchange.c:2271
+#: mail/mail-stub-exchange.c:2275
 msgid "No mail submission URI for this mailbox"
 msgstr "No mail submission URI for this mailbox"
 
-#: mail/mail-stub-exchange.c:2307
+#: mail/mail-stub-exchange.c:2311
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Server won't accept mail via Exchange transport"
 
-#: mail/mail-stub-exchange.c:2309
+#: mail/mail-stub-exchange.c:2313
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -504,7 +516,7 @@ msgstr ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
 
-#: mail/mail-stub-exchange.c:2321
+#: mail/mail-stub-exchange.c:2325
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -512,26 +524,20 @@ msgstr ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 
-#: mail/mail-stub-exchange.c:2325
+#: mail/mail-stub-exchange.c:2329
 msgid "Could not send message"
 msgstr "Could not send message"
 
-#: mail/mail-stub-exchange.c:2348 mail/mail-stub-exchange.c:2399
-#: mail/mail-stub-exchange.c:2458 mail/mail-stub-exchange.c:2497
-#: mail/mail-stub-exchange.c:2541 shell/e-storage.c:557
+#: mail/mail-stub-exchange.c:2352 mail/mail-stub-exchange.c:2403
+#: mail/mail-stub-exchange.c:2462 mail/mail-stub-exchange.c:2501
+#: mail/mail-stub-exchange.c:2545 shell/e-storage.c:557
 #: storage/xc-commands.c:323
 msgid "Generic error"
 msgstr "Generic error"
 
-#: mail/mail-stub-exchange.c:2352 storage/xc-commands.c:313
+#: mail/mail-stub-exchange.c:2356 storage/xc-commands.c:313
 msgid "Folder already exists"
 msgstr "Folder already exists"
-
-#: mail/mail-stub-exchange.c:2379 mail/mail-stub-exchange.c:2421
-#: mail/mail-stub-exchange.c:2450 mail/mail-stub-exchange.c:2477
-#: mail/mail-stub-exchange.c:2521
-msgid "Folder doesn't exist"
-msgstr "Folder doesn't exist"
 
 #: shell/e-folder-creation-dialog.c:138
 #, c-format
@@ -980,7 +986,7 @@ msgstr ""
 "Unable to create new account."
 
 #: storage/exchange-autoconfig-wizard.c:459
-#: storage/exchange-config-listener.c:775
+#: storage/exchange-config-listener.c:349
 msgid "You may only configure a single Exchange account"
 msgstr "You may only configure a single Exchange account"
 
@@ -1135,23 +1141,7 @@ msgstr "New Password:"
 msgid "Your current password has expired. Please change your password now."
 msgstr "Your current password has expired. Please change your password now."
 
-#: storage/exchange-component.c:321
-msgid "Mail"
-msgstr "Mail"
-
-#: storage/exchange-component.c:324 storage/exchange-hierarchy-foreign.c:251
-msgid "Contacts"
-msgstr "Contacts"
-
-#: storage/exchange-component.c:328 storage/exchange-hierarchy-foreign.c:259
-msgid "Tasks"
-msgstr "Tasks"
-
-#: storage/exchange-component.c:331 storage/exchange-hierarchy-foreign.c:250
-msgid "Calendar"
-msgstr "Calendar"
-
-#: storage/exchange-config-listener.c:969
+#: storage/exchange-config-listener.c:542
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
@@ -1159,11 +1149,11 @@ msgstr ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
 
-#: storage/exchange-config-listener.c:1015
+#: storage/exchange-config-listener.c:588
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr "The Exchange account will be removed when you quit Evolution"
 
-#: storage/exchange-config-listener.c:1020
+#: storage/exchange-config-listener.c:593
 msgid "The Exchange account will be disabled when you quit Evolution"
 msgstr "The Exchange account will be disabled when you quit Evolution"
 
@@ -1336,6 +1326,14 @@ msgstr "Folder Size"
 msgid "Exchange Folder Tree"
 msgstr "Exchange Folder Tree"
 
+#: storage/exchange-hierarchy-foreign.c:250
+msgid "Calendar"
+msgstr "Calendar"
+
+#: storage/exchange-hierarchy-foreign.c:251
+msgid "Contacts"
+msgstr "Contacts"
+
 #: storage/exchange-hierarchy-foreign.c:252
 msgid "Deleted Items"
 msgstr "Deleted Items"
@@ -1363,6 +1361,10 @@ msgstr "Outbox"
 #: storage/exchange-hierarchy-foreign.c:258
 msgid "Sent Items"
 msgstr "Sent Items"
+
+#: storage/exchange-hierarchy-foreign.c:259
+msgid "Tasks"
+msgstr "Tasks"
 
 #: storage/exchange-migrate.c:57
 msgid "Migrating Exchange Folders..."
@@ -1588,7 +1590,7 @@ msgstr "Read items"
 msgid "Role: "
 msgstr "Role: "
 
-#: storage/exchange-storage.c:337
+#: storage/exchange-storage.c:338
 msgid "Connecting..."
 msgstr "Connecting..."
 
