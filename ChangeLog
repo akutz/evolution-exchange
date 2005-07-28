@@ -1,5 +1,18 @@
 2005-07-25  Sarfraaz Ahmed <asarfraaz@novell.com>
 
+	* configure.in : Bumped the version to 2.3.6
+	* NEWS : Updated the file.
+	* addressbook/e-book-backend-exchange.c :
+	* camel/camel-exchange-folder.c :
+	* camel/camel-exchange-store.c :
+	* mail/mail-stub-exchange.c :
+	* mail/mail-stub.c :
+	* storage/exchange-component.c : 
+	* storage/exchange-config-listener.c : Removed some unwanted dead code
+	and also fixed some warnings for all files.
+
+2005-07-25  Sarfraaz Ahmed <asarfraaz@novell.com>
+
 	* storage/exchange-component.c (impl_createControls) : Reimplemented.
 	But we return NULL bonobo interfaces for now, since we dont need a 
 	separate Exchange component anymore.
