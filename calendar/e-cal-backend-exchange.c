@@ -1264,7 +1264,7 @@ struct cbe_data {
 };
 
 static void
-e_cal_backend_exchange_compute_changes_foreach_key (const char *key, gpointer data)
+e_cal_backend_exchange_compute_changes_foreach_key (const char *key, const char *value, gpointer data)
 {
 	struct cbe_data *cbedata = data;
 	ECalBackendExchangeComponent *ecomp;
