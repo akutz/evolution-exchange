@@ -568,6 +568,7 @@ exchange_get_folder_info (CamelStore *store, const char *top, guint32 flags, Cam
 	CamelFolderInfo *info;
 	guint32 store_flags = 0;
 	int i;
+	gchar *prefix, *slash;
 #if 0	
 	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot get folder info in offline mode."));
@@ -622,7 +623,18 @@ exchange_get_folder_info (CamelStore *store, const char *top, guint32 flags, Cam
 	g_array_free (unread_counts, TRUE);
 	g_array_free (folder_flags, TRUE);
 
-	info = camel_folder_info_build (folders, top, '/', TRUE);
+	prefix = g_strdup (top);
+	if (prefix) {
+		slash = strrchr (prefix, '/');
+		if (slash) {
+			*slash = '\0';
+		}
+	}
+	
+	info = camel_folder_info_build (folders, prefix, '/', TRUE);
+	
+	g_free (prefix);
+	
 	if (info)
 		info = postprocess_tree (info);
 	g_ptr_array_free (folders, TRUE);
@@ -865,7 +877,7 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 		info = make_folder_info (exch, name, uri, -1, 0);
 		info->flags |= CAMEL_FOLDER_NOCHILDREN;
 		camel_object_trigger_event (CAMEL_OBJECT (exch),
-					    "folder_created", info);
+					    "folder_subscribed", info);
 		camel_folder_info_free (info);
 		break;
 	}
@@ -881,7 +893,7 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 
 		info = make_folder_info (exch, name, uri, -1, 0);
 		camel_object_trigger_event (CAMEL_OBJECT (exch),
-					    "folder_deleted", info);
+					    "folder_unsubscribed", info);
 		camel_folder_info_free (info);
 		break;
 	}

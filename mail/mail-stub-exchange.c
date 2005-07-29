@@ -2482,10 +2482,16 @@ subscribe_folder (MailStub *stub, const char *folder_name)
 		g_free (path);
 		return;
 	}
+	g_free (path);
 	g_object_ref (folder);
 
+	if (e_folder_exchange_get_hierarchy (folder)->type != EXCHANGE_HIERARCHY_PUBLIC) {
+		g_object_unref (folder);
+		mail_stub_return_ok (stub);
+		return;
+	}
+	
 	result = exchange_account_add_favorite (mse->account, folder);
-	g_free (path);
 
 	switch (result) {
 	case EXCHANGE_ACCOUNT_FOLDER_OK:
@@ -2501,12 +2507,10 @@ subscribe_folder (MailStub *stub, const char *folder_name)
 		mail_stub_return_error (stub, _("Generic error"));
 		g_object_unref (folder);
 		return;
-
 	}
 
 	g_object_unref (folder);
 	mail_stub_return_ok (stub);
-
 }
 
 static void
@@ -2526,10 +2530,16 @@ unsubscribe_folder (MailStub *stub, const char *folder_name)
 		g_free (path);
 		return;
 	}
+	g_free (path);
 	g_object_ref (folder);
 
+	if (e_folder_exchange_get_hierarchy (folder)->type != EXCHANGE_HIERARCHY_FAVORITES) {
+		g_object_unref (folder);
+		mail_stub_return_ok (stub);
+		return;
+	}
+
 	result = exchange_account_remove_favorite (mse->account, folder);
-	g_free (path);
 
 	switch (result) {
 	case EXCHANGE_ACCOUNT_FOLDER_OK:
