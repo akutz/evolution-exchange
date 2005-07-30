@@ -48,6 +48,9 @@
 #define PARENT_TYPE MAIL_TYPE_STUB
 static MailStubClass *parent_class = NULL;
 
+/* FIXME : Have this as part of the appropriate class in 2.5 */
+ExchangeOfflineListener *listener = NULL;
+
 typedef struct {
 	char *uid, *href;
 	guint32 seq, flags;
@@ -228,6 +231,11 @@ dispose (GObject *object)
 		mse->new_folder_id = 0;
 		g_signal_handler_disconnect (mse->account, mse->removed_folder_id);
 		mse->removed_folder_id = 0;
+	}
+
+	if (listener) {
+		g_signal_handlers_disconnect_by_func (listener, linestatus_listener, mse);
+		listener = NULL;
 	}
 
 	G_OBJECT_CLASS (parent_class)->dispose (object);
@@ -2645,7 +2653,7 @@ linestatus_listener (ExchangeOfflineListener *listener,
 	ExchangeAccount *account = mse->account;
 	const char *uri;
 	
-	if (linestatus == ONLINE_MODE) {
+	if (listener && (linestatus == ONLINE_MODE)) {
 		mse->ctx = exchange_account_get_context (account);
 		g_object_ref (mse->ctx);
 
@@ -2726,7 +2734,6 @@ mail_stub_exchange_new (ExchangeAccount *account, int cmd_fd, int status_fd)
 	MailStub *stub;
 	const char *uri;
 	int mode;
-	ExchangeOfflineListener *listener;
 
 	stub = g_object_new (MAIL_TYPE_STUB_EXCHANGE, NULL);
 	g_object_ref (stub);
@@ -2748,7 +2755,7 @@ mail_stub_exchange_new (ExchangeAccount *account, int cmd_fd, int status_fd)
 	
 	listener = exchange_component_get_offline_listener (global_exchange_component);
 	g_signal_connect (G_OBJECT (listener), "linestatus-changed",
-			  G_CALLBACK (linestatus_listener), mse);
+				 G_CALLBACK (linestatus_listener), mse);
 
 	return stub;
 }

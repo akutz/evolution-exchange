@@ -48,6 +48,8 @@ static int               message_info_save (CamelFolderSummary *summary,
 					    CamelMessageInfo *info);
 static CamelMessageInfo *message_info_new_from_header  (CamelFolderSummary *summary,
 							struct _camel_header_raw *h);
+static gboolean check_for_trash (CamelFolder *folder);
+static gboolean expunge_mail (CamelFolder *folder, CamelMessageInfo *info);
 
 static gboolean info_set_flags(CamelMessageInfo *info, guint32 flags, guint32 set);
 static gboolean info_set_user_tag(CamelMessageInfo *info, const char *name, const char *value);
@@ -221,9 +223,45 @@ message_info_new_from_header (CamelFolderSummary *summary, struct _camel_header_
 }
 
 static gboolean
+check_for_trash (CamelFolder *folder)
+{
+	CamelStore *store = (CamelStore *) folder->parent_store;
+	CamelException lex;
+	CamelFolder *trash;
+	
+	camel_exception_init (&lex);
+	trash = camel_store_get_trash (store, &lex);
+
+	if (camel_exception_is_set (&lex) || !trash)
+		return FALSE;
+
+	return folder == trash;
+}
+
+static gboolean
+expunge_mail (CamelFolder *folder, CamelMessageInfo *info)
+{
+	CamelExchangeFolder *exchange_folder = (CamelExchangeFolder *) folder;
+	GPtrArray *uids = g_ptr_array_new ();
+	char *uid = g_strdup (info->uid);
+	CamelException lex;
+
+	g_ptr_array_add (uids, uid);
+	
+	camel_exception_init (&lex);
+	camel_stub_send (exchange_folder->stub, &lex,
+			 CAMEL_STUB_CMD_EXPUNGE_UIDS,
+			 CAMEL_STUB_ARG_FOLDER, folder->full_name,
+			 CAMEL_STUB_ARG_STRINGARRAY, uids,
+			 CAMEL_STUB_ARG_END);
+	
+	g_ptr_array_free (uids, TRUE);
+	return camel_exception_is_set (&lex);
+}
+
+static gboolean
 info_set_flags(CamelMessageInfo *info, guint32 flags, guint32 set)
 {
-	int res;
 	CamelFolder *folder = (CamelFolder *) info->summary->folder;
 	CamelOfflineStore *store = (CamelOfflineStore *) folder->parent_store;
 
@@ -231,28 +269,36 @@ info_set_flags(CamelMessageInfo *info, guint32 flags, guint32 set)
 		return FALSE;
 
 	if (store->state != CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
-		res = CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->info_set_flags(info, flags, set);
-		if (res && info->summary->folder && info->uid) {
-			camel_stub_send_oneway (((CamelExchangeFolder *)info->summary->folder)->stub,
-						CAMEL_STUB_CMD_SET_MESSAGE_FLAGS,
-						CAMEL_STUB_ARG_FOLDER, info->summary->folder->full_name,
-						CAMEL_STUB_ARG_STRING, info->uid,
-						CAMEL_STUB_ARG_UINT32, set,
-						CAMEL_STUB_ARG_UINT32, flags,
-						CAMEL_STUB_ARG_END);
+		if (folder && info->uid) {
+			if ((flags & set & CAMEL_MESSAGE_DELETED) &&
+			    check_for_trash (folder)) {
+				return expunge_mail (folder, info);
+			} else {
+				camel_stub_send_oneway (((CamelExchangeFolder *)folder)->stub,
+							CAMEL_STUB_CMD_SET_MESSAGE_FLAGS,
+							CAMEL_STUB_ARG_FOLDER, folder->full_name,
+							CAMEL_STUB_ARG_STRING, info->uid,
+							CAMEL_STUB_ARG_UINT32, set,
+							CAMEL_STUB_ARG_UINT32, flags,
+							CAMEL_STUB_ARG_END);
+				return CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->info_set_flags(info, flags, set);
+			}
 		}
 	}
 	else {
-		res = CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->info_set_flags(info, flags, set);
-		if(res && info->summary->folder && info->uid) {
-			CamelExchangeFolder *exchange_folder = (CamelExchangeFolder *) info->summary->folder;
-			CamelExchangeJournal *journal = (CamelExchangeJournal *) exchange_folder->journal;
-			camel_exchange_journal_delete (journal, info->uid, flags, set, NULL);
+		if(folder && info->uid) {
+			if ((flags & set & CAMEL_MESSAGE_DELETED) &&
+			    check_for_trash (folder)) {
+				/* FIXME: should add a separate journal entry for this case. */ ;
+			} else {
+				CamelExchangeFolder *exchange_folder = (CamelExchangeFolder *) folder;
+				CamelExchangeJournal *journal = (CamelExchangeJournal *) exchange_folder->journal;
+				camel_exchange_journal_delete (journal, info->uid, flags, set, NULL);
+				return CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->info_set_flags(info, flags, set);
+			}
 		}
-		else
-			return FALSE;
 	}
-	return res;
+	return FALSE;
 }
 
 static gboolean

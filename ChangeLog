@@ -1,3 +1,12 @@
+2005-07-30  Arunprakash <arunp@novell.com>
+
+	* camel/camel-exchange-summary.c (check_for_trash) : Newly added to
+	check a folder for trash.
+	(expunge_mail) : Sends an expunge command with a single uid of the
+	mail to the backend.
+	(info_set_flags) : Modified to invoke expunge for mails being
+	deleted in trash folder.
+	
 2005-07-29  Arunprakash <arunp@novell.com>
 
 	* camel/camel-exchange-store.c (exchange_get_folder_info) : Fixed the
