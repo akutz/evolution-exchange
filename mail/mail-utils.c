@@ -143,6 +143,13 @@ mail_util_props_to_camel_flags (E2kProperties *props, gboolean obey_read_flag)
 	if (prop && atoi (prop))
 		flags |= MAIL_STUB_MESSAGE_DELEGATED;
 
+	prop = e2k_properties_get_prop (props, PR_IMPORTANCE);
+	if (prop) {
+		val = atoi (prop);
+		if (val == MAPI_IMPORTANCE_HIGH)
+			flags |= MAIL_STUB_MESSAGE_FLAGGED;
+	}
+
 	return flags;
 }
 

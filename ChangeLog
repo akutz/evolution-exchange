@@ -1,3 +1,11 @@
+2005-08-01  Arunprakash <arunp@novell.com>
+
+	* mail/mail-stub-exchange.c (set_important_flag) : Newly added to set
+	the important flag of a message on the server.
+	(process_flags) : Added code to set the important flag on user request.
+	* mail/mail-utils.c (mail_util_props_to_camel_flags) : Added code to
+	include important flag also in the conversion. Fixes #310718.
+	
 2005-07-30  Arunprakash <arunp@novell.com>
 
 	* camel/camel-exchange-summary.c (check_for_trash) : Newly added to

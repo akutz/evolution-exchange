@@ -529,6 +529,7 @@ static const char *open_folder_sync_props[] = {
 	E2K_PR_REPL_UID,
 	PR_INTERNET_ARTICLE_NUMBER,
 	PR_ACTION_FLAG,
+	PR_IMPORTANCE,
 	PR_DELEGATED_BY_RULE,
 	E2K_PR_HTTPMAIL_READ,
 	E2K_PR_HTTPMAIL_MESSAGE_FLAG,
@@ -995,6 +996,7 @@ static const char *new_message_props[] = {
 	E2K_PR_HTTPMAIL_READ,
 	E2K_PR_HTTPMAIL_HAS_ATTACHMENT,
 	PR_ACTION_FLAG,
+	PR_IMPORTANCE,
 	PR_DELEGATED_BY_RULE,
 	E2K_PR_HTTPMAIL_MESSAGE_FLAG,
 	E2K_PR_MAILHEADER_REPLY_BY,
@@ -1469,6 +1471,28 @@ set_replied_flags (MailStubExchange *mse, MailStubExchangeMessage *mmsg)
 }
 
 static void
+set_important_flag (MailStubExchange *mse, MailStubExchangeMessage *mmsg)
+{
+	E2kProperties *props;
+	E2kHTTPStatus status;
+
+	props = e2k_properties_new ();
+
+	if (mmsg->change_flags & MAIL_STUB_MESSAGE_FLAGGED) {
+		e2k_properties_set_int (props, PR_IMPORTANCE, MAPI_IMPORTANCE_HIGH);
+	}
+	else {
+		e2k_properties_set_int (props, PR_IMPORTANCE, MAPI_IMPORTANCE_NORMAL);
+	}
+
+	status = e2k_context_proppatch (mse->ctx, NULL, mmsg->href, props,
+					FALSE, NULL);
+	e2k_properties_free (props);
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+		g_warning ("set_important_flag: %d", status);
+}
+
+static void
 update_tags (MailStubExchange *mse, MailStubExchangeMessage *mmsg)
 {
 	E2kProperties *props;
@@ -1557,6 +1581,11 @@ process_flags (gpointer user_data)
 		if (mmsg->change_mask & MAIL_STUB_MESSAGE_ANSWERED) {
 			set_replied_flags (mse, mmsg);
 			mmsg->change_mask &= ~(MAIL_STUB_MESSAGE_ANSWERED | MAIL_STUB_MESSAGE_ANSWERED_ALL);
+		}
+
+		if (mmsg->change_mask & MAIL_STUB_MESSAGE_FLAGGED) {
+			set_important_flag (mse, mmsg);
+			mmsg->change_mask &= ~MAIL_STUB_MESSAGE_FLAGGED;
 		}
 
 		if (mmsg->tag_updates)
