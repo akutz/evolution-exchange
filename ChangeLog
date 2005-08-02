@@ -1,3 +1,16 @@
+2005-08-02  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* mail/mail-stub-exchange.c (get_folder_info) : Fetch only mail type
+	of folders for the mail component. Also cleaned up the logic for 
+	identifying public and favorite folders. We should now be setting the 
+	folder as inbox based on its uri, since a rescan on the account is 
+	always changing the pointers.
+	(unsubscribe_folder) : Change the path for the public folder to a 
+	favorite folder manually in the backend, since the UI can only support
+	a list of public folders.
+	(is_subscribed_folder) : Similar
+	Fixes #311152
+
 2005-08-01  Arunprakash <arunp@novell.com>
 
 	* mail/mail-stub-exchange.c (set_important_flag) : Newly added to set

@@ -2185,7 +2185,7 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 	GArray *unread, *flags;	
 	ExchangeHierarchy *hier;
 	EFolder *folder;
-	const char *type, *name, *uri, *path;
+	const char *type, *name, *uri, *path, *inbox_uri;
 	int unread_count, i, toplen = top ? strlen (top) : 0;
 	guint32 folder_flags;
 	gboolean recursive, subscribed;
@@ -2206,8 +2206,12 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 		folder = exchange_account_get_folder (mse->account, full_path);
 		g_free (full_path);
 		if (folder) {
-			folders = g_ptr_array_new ();
-			g_ptr_array_add (folders, folder);
+			type = e_folder_get_type_string (folder);
+			if ((!strcmp (type, "mail")) || 
+				(!strcmp (type, "mail/public"))) {
+				folders = g_ptr_array_new ();
+				g_ptr_array_add (folders, folder);
+			}
 		}
 	} else {
 		folders = exchange_account_get_folders (mse->account);
@@ -2217,7 +2221,7 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 	uris = g_ptr_array_new ();
 	unread = g_array_new (FALSE, FALSE, sizeof (int));
 	flags = g_array_new (FALSE, FALSE, sizeof (int));
-	//flags = g_byte_array_new ();
+	inbox_uri = e_folder_get_physical_uri (mse->inbox);
 
 	if (folders) {
 		for (i = 0; i < folders->len; i++) {
@@ -2245,11 +2249,8 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 			name = e_folder_get_name (folder);
 			uri = e_folder_get_physical_uri (folder);
 			d(printf ("folder type is : %s\n", type));
-			if ((!strcmp (type, "mail")) || 
-				(!strcmp (type, "mail/public")) ||
-				(!strcmp (type, "calendar/public")) ||
-				(!strcmp (type, "tasks/public")) ||
-				(!strcmp (type, "contacts/public"))) {
+			if (hier->type == EXCHANGE_HIERARCHY_FAVORITES ||
+			    hier->type == EXCHANGE_HIERARCHY_PUBLIC) {
 				unread_count = e_folder_get_unread_count (folder);
 				if (exchange_account_is_favorite_folder (mse->account, folder)) {
 					folder_flags |= CAMEL_STUB_FOLDER_SUBSCRIBED;
@@ -2257,11 +2258,16 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 				}
 				else
 					folder_flags = 0;
-			} else {
-				unread_count = 0;
-				folder_flags = CAMEL_STUB_FOLDER_NOSELECT;
+			} else  {
+				if (!strcmp (type, "mail")) {
+					unread_count = e_folder_get_unread_count (folder);
+					folder_flags = 0;
+				} else {
+					unread_count = 0;
+					folder_flags = CAMEL_STUB_FOLDER_NOSELECT;
+				}
 			}
-			if (folder == mse->inbox)
+			if (!strcmp (uri, inbox_uri))
 				folder_flags |= CAMEL_STUB_FOLDER_SYSTEM|CAMEL_STUB_FOLDER_TYPE_INBOX;
 
 			g_ptr_array_add (names, (char *)name);
@@ -2557,10 +2563,11 @@ unsubscribe_folder (MailStub *stub, const char *folder_name)
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	ExchangeAccountFolderResult result;
 	EFolder *folder;
-	char *path;
+	char *path, *pub_name;
 	const char *folder_type, *physical_uri;
 
-	path = g_build_filename ("/", folder_name, NULL);
+	pub_name = strchr (folder_name, '/');
+	path = g_build_filename ("/favorites", pub_name, NULL);
 	folder = exchange_account_get_folder (mse->account, path);
 	if (!folder) {
 		mail_stub_return_error (stub, _("Folder doesn't exist"));
@@ -2595,40 +2602,6 @@ unsubscribe_folder (MailStub *stub, const char *folder_name)
 
 	}
 
-	if (result == EXCHANGE_ACCOUNT_FOLDER_OK) {
-		/* This is a dirty hack to remove the esources for favourite
-			folders. ExchangeConfigListener depends on EAccountList
-			which is present only in evolution, and so cannot be
-			included as part of the servers code in e-d-s. So,
-			ExchangeConfigListener had to be moved to evolution 
-			plugins and evolution-exchange. Ideally, this esource
-			handling should have been done in the favorites code.
-			The following code has been moved from 
-			exchanga-hierarchy-favorites.c:remove_folder
-		*/
-		/* Temp Fix for remove fav folders. see #59168 */
-		/* remove ESources */
-		folder_type = e_folder_get_type_string (folder);
-		physical_uri = e_folder_get_physical_uri (folder);
-		d(printf ("removeing folder type : %s\n", folder_type));
-		d(printf ("physical uri : %s \n", physical_uri));
-
-		if (strcmp (folder_type, "calendar/public") == 0) {
-			remove_folder_esource (mse->account,
-					       EXCHANGE_CALENDAR_FOLDER,
-					       physical_uri);
-		}
-		else if (strcmp (folder_type, "tasks/public") == 0) {
-			remove_folder_esource (mse->account,
-					       EXCHANGE_TASKS_FOLDER,
-					       physical_uri);
-		}
-		else if (strcmp (folder_type, "contacts/public") == 0) {
-			remove_folder_esource (mse->account,
-					       EXCHANGE_CONTACTS_FOLDER,
-					       physical_uri);
-		}
-	}
 	g_object_unref (folder);
 	mail_stub_return_ok (stub);
 }
@@ -2639,10 +2612,11 @@ is_subscribed_folder (MailStub *stub, const char *folder_name)
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	gboolean result;
 	EFolder *folder;
-	char *path;
+	char *path, *pub_name;
 	guint32 is_subscribed = 0;
 
-	path = g_build_filename ("/", folder_name, NULL);
+	pub_name = strchr (folder_name, '/');
+	path = g_build_filename ("/favorites", pub_name, NULL);
 	folder = exchange_account_get_folder (mse->account, path);
 	if (!folder) {
 		/* Dont ever return an exception from here as CamelException
