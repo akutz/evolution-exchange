@@ -5,17 +5,18 @@
 # Craig Jeffares <cjeffares@novell.com>,2004.
 # Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>, 2005.
 # 
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Evolution-exchange 2.3.4\n"
+"Project-Id-Version: Evolution-exchange 2.3.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-09 14:59+0800\n"
-"PO-Revision-Date: 2005-07-09 17:43+0800\n"
+"POT-Creation-Date: 2005-08-05 19:34+0800\n"
+"PO-Revision-Date: 2005-08-05 19:36+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (Traditional) <community@linuxhall.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 # Novell Translation
 #: ../addressbook/e-book-backend-exchange.c:1837
@@ -38,10 +39,6 @@ msgstr "正在接收 LDAP 搜尋結果..."
 msgid "Error performing search"
 msgstr "執行搜尋錯誤"
 
-#: ../calendar/e-cal-backend-exchange.c:312
-msgid "Folder not marked for offline support"
-msgstr "資料夾並未標記為供離線使用"
-
 # Novell Translation
 #: ../calendar/e-cal-backend-exchange-calendar.c:1665
 #, c-format
@@ -58,71 +55,86 @@ msgstr ""
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "在排定時間內，資源「%s」在忙碌中。"
 
+#: ../calendar/e-cal-backend-exchange.c:310
+msgid "Folder not marked for offline support"
+msgstr "資料夾並未標記為供離線使用"
+
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:220
+#: ../camel/camel-exchange-folder.c:223
 msgid "Can only expunge in Deleted Items folder"
 msgstr "只能在「刪除的項目」資料夾中刪除"
 
-#: ../camel/camel-exchange-folder.c:244
+#: ../camel/camel-exchange-folder.c:247
 msgid "No Subject"
 msgstr "沒有主旨"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:371
+#: ../camel/camel-exchange-folder.c:374
 msgid "This message is not available in offline mode."
 msgstr "此郵件無法在離線模式中使用。"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:606
+#: ../camel/camel-exchange-folder.c:609
 msgid "Moving messages"
 msgstr "正在移動郵件"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:607
+#: ../camel/camel-exchange-folder.c:610
 msgid "Copying messages"
 msgstr "正在複製郵件"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:938
+#: ../camel/camel-exchange-folder.c:940
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "無法建立目錄 %s：%s"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:948
+#: ../camel/camel-exchange-folder.c:950
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "無法載入 %s 的摘要"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:956
+#: ../camel/camel-exchange-folder.c:958
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "無法建立 %s 的快取"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:966
+#: ../camel/camel-exchange-folder.c:968
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "無法建立 %s 的日誌"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:1011
+#: ../camel/camel-exchange-folder.c:1013
 msgid "Scanning for changed messages"
 msgstr "掃描已變更的郵件"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:1037
+#: ../camel/camel-exchange-folder.c:1039
 msgid "Fetching summary information for new messages"
 msgstr "取得新郵件的摘要資訊"
 
+#: ../camel/camel-exchange-journal.c:339
+msgid "No folder name found\n"
+msgstr "找不到資料夾名稱\n"
+
 # Novell Translation
-#: ../camel/camel-exchange-journal.c:272
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2426
+#: ../mail/mail-stub-exchange.c:2468 ../mail/mail-stub-exchange.c:2497
+#: ../mail/mail-stub-exchange.c:2524 ../mail/mail-stub-exchange.c:2573
+msgid "Folder doesn't exist"
+msgstr "資料夾不存在"
+
+# Novell Translation
+#: ../camel/camel-exchange-journal.c:436
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "不能在離線模式中加入郵件：無法使用快取"
 
 # Novell Translation
-#: ../camel/camel-exchange-journal.c:288
+#: ../camel/camel-exchange-journal.c:452
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "不能在離線模式中加入郵件： %s"
@@ -232,43 +244,43 @@ msgid "Exchange account for %s on %s"
 msgstr "%s 的 Exchange 帳戶 (於 %s 上)"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:311
+#: ../camel/camel-exchange-store.c:334
 msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange 後端程序"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:359
+#: ../camel/camel-exchange-store.c:382
 #, c-format
 msgid "No such folder %s"
 msgstr "無此資料夾 %s"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:428
+#: ../camel/camel-exchange-store.c:451
 msgid "Cannot subscribe folder in offline mode."
 msgstr "在離線模式中無法訂閱資料夾。"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:445
+#: ../camel/camel-exchange-store.c:468
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "在離線模式中無法取消訂閱資料夾。"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:550
+#: ../camel/camel-exchange-store.c:574
 msgid "Cannot get folder info in offline mode."
 msgstr "在離線模式中無法取得資料夾資訊。"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:620
+#: ../camel/camel-exchange-store.c:655
 msgid "Cannot create folder in offline mode."
 msgstr "在離線模式中無法建立資料夾。"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:647
+#: ../camel/camel-exchange-store.c:682
 msgid "Cannot delete folder in offline mode."
 msgstr "在離線模式中無法刪除資料夾。"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:663
+#: ../camel/camel-exchange-store.c:698
 msgid "Cannot rename folder in offline mode."
 msgstr "在離線模式中無法重新命名資料夾。"
 
@@ -489,100 +501,102 @@ msgid "Addressbook..."
 msgstr "通訊錄..."
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:242
+#: ../mail/mail-stub-exchange.c:256
 msgid "No such folder"
 msgstr "無此資料夾"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:259 ../mail/mail-stub-exchange.c:2356
-#: ../mail/mail-stub-exchange.c:2394 ../mail/mail-stub-exchange.c:2454
-#: ../mail/mail-stub-exchange.c:2492 ../mail/mail-stub-exchange.c:2536
+#: ../mail/mail-stub-exchange.c:273 ../mail/mail-stub-exchange.c:2403
+#: ../mail/mail-stub-exchange.c:2441 ../mail/mail-stub-exchange.c:2501
+#: ../mail/mail-stub-exchange.c:2545 ../mail/mail-stub-exchange.c:2594
 #: ../shell/e-storage.c:573 ../storage/xc-commands.c:319
 msgid "Permission denied"
 msgstr "許可權被拒絕"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:557
+#: ../mail/mail-stub-exchange.c:572
 msgid "No such folder."
 msgstr "無此資料夾。"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:566
+#: ../mail/mail-stub-exchange.c:581
 msgid "Could not create folder."
 msgstr "無法建立資料夾。"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:614 ../mail/mail-stub-exchange.c:632
+#: ../mail/mail-stub-exchange.c:629 ../mail/mail-stub-exchange.c:647
+#: ../mail/mail-stub-exchange.c:2691 ../mail/mail-stub-exchange.c:2709
 msgid "Could not open folder: Permission denied"
 msgstr "無法開啟資料夾：許可權被拒絕"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:618 ../mail/mail-stub-exchange.c:731
+#: ../mail/mail-stub-exchange.c:633 ../mail/mail-stub-exchange.c:746
+#: ../mail/mail-stub-exchange.c:2695
 msgid "Could not open folder"
 msgstr "無法開啟資料夾"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:786
+#: ../mail/mail-stub-exchange.c:801
 msgid "Could not open Deleted Items folder"
 msgstr "無法開啟「刪除的項目」資料夾"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:1116 ../mail/mail-stub-exchange.c:1157
+#: ../mail/mail-stub-exchange.c:1130 ../mail/mail-stub-exchange.c:1171
 msgid "Could not get new messages"
 msgstr "無法取得新郵件"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:1322
+#: ../mail/mail-stub-exchange.c:1336
 msgid "Could not empty Deleted Items folder"
 msgstr "無法清空「刪除的項目」資料夾"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:1394
+#: ../mail/mail-stub-exchange.c:1408
 msgid "Could not append message; mailbox is over quota"
 msgstr "無法附加郵件；信箱超過限定數量"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:1395
+#: ../mail/mail-stub-exchange.c:1409
 msgid "Could not append message"
 msgstr "無法附加郵件"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:1878
+#: ../mail/mail-stub-exchange.c:1919
 msgid "No such message"
 msgstr "無此郵件"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:1931
+#: ../mail/mail-stub-exchange.c:1972
 msgid "Message has been deleted"
 msgstr "郵件已刪除"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:1933
+#: ../mail/mail-stub-exchange.c:1974
 msgid "Error retrieving message"
 msgstr "取回郵件發生錯誤"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:1975
+#: ../mail/mail-stub-exchange.c:2016
 msgid "Mailbox does not support full-text searching"
 msgstr "信箱不支援全文搜尋"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:2073
+#: ../mail/mail-stub-exchange.c:2114
 msgid "Unable to move/copy messages"
 msgstr "無法移動/複製郵件"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:2271
+#: ../mail/mail-stub-exchange.c:2318
 msgid "No mail submission URI for this mailbox"
 msgstr "沒有郵件提出此信箱的 URI"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:2307
+#: ../mail/mail-stub-exchange.c:2354
 msgid "Server won't accept mail via Exchange transport"
 msgstr "伺服器將不會透過 Exchange 輸送來接受郵件"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:2309
+#: ../mail/mail-stub-exchange.c:2356
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -592,7 +606,7 @@ msgstr ""
 "來當作寄件者地址的許可權。"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:2321
+#: ../mail/mail-stub-exchange.c:2368
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -601,29 +615,22 @@ msgstr ""
 "這表示您的帳戶可能已經超過限定數量。"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:2325
+#: ../mail/mail-stub-exchange.c:2372
 msgid "Could not send message"
 msgstr "無法傳送郵件"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:2348 ../mail/mail-stub-exchange.c:2399
-#: ../mail/mail-stub-exchange.c:2458 ../mail/mail-stub-exchange.c:2497
-#: ../mail/mail-stub-exchange.c:2541 ../shell/e-storage.c:557
+#: ../mail/mail-stub-exchange.c:2395 ../mail/mail-stub-exchange.c:2446
+#: ../mail/mail-stub-exchange.c:2505 ../mail/mail-stub-exchange.c:2550
+#: ../mail/mail-stub-exchange.c:2599 ../shell/e-storage.c:557
 #: ../storage/xc-commands.c:323
 msgid "Generic error"
 msgstr "一般的錯誤"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:2352 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2399 ../storage/xc-commands.c:313
 msgid "Folder already exists"
 msgstr "資料夾已存在"
-
-# Novell Translation
-#: ../mail/mail-stub-exchange.c:2379 ../mail/mail-stub-exchange.c:2421
-#: ../mail/mail-stub-exchange.c:2450 ../mail/mail-stub-exchange.c:2477
-#: ../mail/mail-stub-exchange.c:2521
-msgid "Folder doesn't exist"
-msgstr "資料夾不存在"
 
 # Novell Translation
 #: ../shell/e-folder-creation-dialog.c:138
@@ -1113,8 +1120,8 @@ msgid ""
 "and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
 "\\%s\")."
 msgstr ""
-"無法驗證「全域型錄」伺服器。您可能需要回到上一步，然後指定 Windows 領域名稱來當"
-"作您使用者名稱的一部分 (例如，「MY-DOMAIN\\%s」)。"
+"無法驗證「全域型錄」伺服器。您可能需要回到上一步，然後指定 Windows 領域名稱來"
+"當作您使用者名稱的一部分 (例如，「MY-DOMAIN\\%s」)。"
 
 # Novell Translation
 #: ../storage/exchange-autoconfig-wizard.c:339
@@ -1141,7 +1148,7 @@ msgstr ""
 
 # Novell Translation
 #: ../storage/exchange-autoconfig-wizard.c:459
-#: ../storage/exchange-config-listener.c:775
+#: ../storage/exchange-config-listener.c:349
 msgid "You may only configure a single Exchange account"
 msgstr "您可以只設定一個單一的 Exchange 帳戶"
 
@@ -1245,8 +1252,8 @@ msgid ""
 "Please enter the name of your Global Catalog server. You may need to ask "
 "your system administrator for the correct value.\n"
 msgstr ""
-"Ximian 連接器找不到您網站的「全域型錄」複製本。請輸入您的「全域型錄」伺服器名稱。"
-"您可能需要詢問系統管理員有關正確的值。\n"
+"Ximian 連接器找不到您網站的「全域型錄」複製本。請輸入您的「全域型錄」伺服器名"
+"稱。您可能需要詢問系統管理員有關正確的值。\n"
 
 # Novell Translation
 #: ../storage/exchange-autoconfig-wizard.glade.h:26
@@ -1313,30 +1320,7 @@ msgid "Your current password has expired. Please change your password now."
 msgstr "您目前的密碼已過期。請立即變更您的密碼。"
 
 # Novell Translation
-#: ../storage/exchange-component.c:321
-msgid "Mail"
-msgstr "郵件"
-
-# Novell Translation
-#: ../storage/exchange-component.c:324
-#: ../storage/exchange-hierarchy-foreign.c:251
-msgid "Contacts"
-msgstr "連絡人"
-
-# Novell Translation
-#: ../storage/exchange-component.c:328
-#: ../storage/exchange-hierarchy-foreign.c:259
-msgid "Tasks"
-msgstr "工作"
-
-# Novell Translation
-#: ../storage/exchange-component.c:331
-#: ../storage/exchange-hierarchy-foreign.c:250
-msgid "Calendar"
-msgstr "行事曆"
-
-# Novell Translation
-#: ../storage/exchange-config-listener.c:969
+#: ../storage/exchange-config-listener.c:542
 msgid ""
 "Changes to Exchange account configuration will take\n"
 "place after you quit and restart Evolution."
@@ -1345,12 +1329,12 @@ msgstr ""
 "在您結束並重新啟動 Evolution 之後生效。"
 
 # Novell Translation
-#: ../storage/exchange-config-listener.c:1015
+#: ../storage/exchange-config-listener.c:588
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr "Exchange 帳戶將會在您結束 Evolution 時移除"
 
 # Novell Translation
-#: ../storage/exchange-config-listener.c:1020
+#: ../storage/exchange-config-listener.c:593
 msgid "The Exchange account will be disabled when you quit Evolution"
 msgstr "Exchange 帳戶將會在您離開 Evolution 時停用"
 
@@ -1558,6 +1542,16 @@ msgid "Exchange Folder Tree"
 msgstr "Exchange 資料夾樹"
 
 # Novell Translation
+#: ../storage/exchange-hierarchy-foreign.c:250
+msgid "Calendar"
+msgstr "行事曆"
+
+# Novell Translation
+#: ../storage/exchange-hierarchy-foreign.c:251
+msgid "Contacts"
+msgstr "連絡人"
+
+# Novell Translation
 #: ../storage/exchange-hierarchy-foreign.c:252
 msgid "Deleted Items"
 msgstr "刪除項目"
@@ -1591,6 +1585,11 @@ msgstr "寄件匣"
 #: ../storage/exchange-hierarchy-foreign.c:258
 msgid "Sent Items"
 msgstr "傳送項目"
+
+# Novell Translation
+#: ../storage/exchange-hierarchy-foreign.c:259
+msgid "Tasks"
+msgstr "工作"
 
 # Novell Translation
 #: ../storage/exchange-migrate.c:57
@@ -1856,7 +1855,7 @@ msgid "Role: "
 msgstr "角色： "
 
 # Novell Translation
-#: ../storage/exchange-storage.c:337
+#: ../storage/exchange-storage.c:338
 msgid "Connecting..."
 msgstr "正在連線…"
 
@@ -2003,3 +2002,4 @@ msgstr "外出助理(_O)"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "取消訂閱其他使用者的資料夾(_U)"
+
