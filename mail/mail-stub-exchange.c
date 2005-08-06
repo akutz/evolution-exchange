@@ -132,7 +132,7 @@ static void linestatus_listener (ExchangeOfflineListener *listener,
 						    gint linestatus,
 						    gpointer data);
 static void folder_update_linestatus (gpointer key, gpointer value, gpointer data);
-
+static void free_folder (gpointer value);
 
 static void
 class_init (GObjectClass *object_class)
@@ -171,7 +171,8 @@ init (GObject *object)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (object);
 
-	mse->folders_by_name = g_hash_table_new (g_str_hash, g_str_equal);
+	mse->folders_by_name = g_hash_table_new_full (g_str_hash, g_str_equal, 
+						      NULL, free_folder);
 }
 
 static void
@@ -184,7 +185,7 @@ free_message (MailStubExchangeMessage *mmsg)
 }
 
 static void
-free_folder (gpointer key, gpointer value, gpointer ctx)
+free_folder (gpointer value)
 {
 	MailStubExchangeFolder *mfld = value;
 	int i;
@@ -215,8 +216,6 @@ dispose (GObject *object)
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (object);
 
 	if (mse->folders_by_name) {
-		g_hash_table_foreach (mse->folders_by_name, free_folder,
-				      mse->ctx);
 		g_hash_table_destroy (mse->folders_by_name);
 		mse->folders_by_name = NULL;
 	}
@@ -522,7 +521,7 @@ static void
 got_folder_error (MailStubExchangeFolder *mfld, const char *error)
 {
 	mail_stub_return_error (MAIL_STUB (mfld->mse), error);
-	free_folder (NULL, mfld, NULL);
+	free_folder (mfld);
 }
 
 static const char *open_folder_sync_props[] = {
@@ -2188,7 +2187,7 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 	const char *type, *name, *uri, *path, *inbox_uri;
 	int unread_count, i, toplen = top ? strlen (top) : 0;
 	guint32 folder_flags;
-	gboolean recursive, subscribed;
+	gboolean recursive, subscribed, single_folder = FALSE;
 
 	recursive = (store_flags & CAMEL_STUB_STORE_FOLDER_INFO_RECURSIVE);
 	subscribed = (store_flags & CAMEL_STUB_STORE_FOLDER_INFO_SUBSCRIBED);
@@ -2199,7 +2198,7 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 		exchange_account_open_folder (mse->account, "/public");
 	}
 
-	if (!recursive && subscribed) {
+	if (!recursive && toplen) {
 		char *full_path;
 
 		full_path = g_strdup_printf ("/%s", top);
@@ -2211,6 +2210,7 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 				(!strcmp (type, "mail/public"))) {
 				folders = g_ptr_array_new ();
 				g_ptr_array_add (folders, folder);
+				single_folder = TRUE;
 			}
 		}
 	} else {
@@ -2229,6 +2229,10 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 			hier = e_folder_exchange_get_hierarchy (folder);
 			folder_flags = 0;
 
+			/* We ll have only that folder in the folders array */
+			if (single_folder)
+				goto return_data;
+
 			if (subscribed) {
 				if (hier->type != EXCHANGE_HIERARCHY_PERSONAL &&
 				    hier->type != EXCHANGE_HIERARCHY_FAVORITES &&
@@ -2239,34 +2243,51 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 					continue;
 			}
 
-			if (recursive && top) {
+			if (recursive && toplen) {
 				path = e_folder_exchange_get_path (folder);
 				if (strncmp (path + 1, top, toplen) != 0)
 					continue;
 			}
-
+return_data:
 			type = e_folder_get_type_string (folder);
 			name = e_folder_get_name (folder);
 			uri = e_folder_get_physical_uri (folder);
-			d(printf ("folder type is : %s\n", type));
-			if (hier->type == EXCHANGE_HIERARCHY_FAVORITES ||
-			    hier->type == EXCHANGE_HIERARCHY_PUBLIC) {
-				unread_count = e_folder_get_unread_count (folder);
-				if (exchange_account_is_favorite_folder (mse->account, folder)) {
-					folder_flags |= CAMEL_STUB_FOLDER_SUBSCRIBED;
-					d(printf ("marked the folder as subscribed\n"));
-				}
-				else
-					folder_flags = 0;
-			} else  {
-				if (!strcmp (type, "mail")) {
-					unread_count = e_folder_get_unread_count (folder);
-					folder_flags = 0;
-				} else {
-					unread_count = 0;
-					folder_flags = CAMEL_STUB_FOLDER_NOSELECT;
-				}
+			d(g_print ("Uri: %s\n", uri));
+			d(g_print ("folder type is : %s\n", type));
+
+			if (!strcmp (type, "noselect")) {
+				unread_count = 0;
+				folder_flags = CAMEL_STUB_FOLDER_NOSELECT;
 			}
+
+			switch (hier->type) {
+				case EXCHANGE_HIERARCHY_FAVORITES:
+					/* folder_flags will be set only if the type
+					   is noselect and we need to include it */
+					if (strcmp (type, "mail") && !folder_flags)
+						continue;
+					/* selectable */
+					if (!folder_flags)
+						unread_count = e_folder_get_unread_count (folder);
+				case EXCHANGE_HIERARCHY_PUBLIC:
+					if (exchange_account_is_favorite_folder (mse->account, folder)) {
+						folder_flags |= CAMEL_STUB_FOLDER_SUBSCRIBED;
+						d(printf ("marked the folder as subscribed\n"));
+					}
+					break;
+				case EXCHANGE_HIERARCHY_FOREIGN:
+				case EXCHANGE_HIERARCHY_PERSONAL:
+					if (!strcmp (type, "mail")) {
+						unread_count = e_folder_get_unread_count (folder);
+					}
+					else if(!folder_flags) {
+						continue;
+					}
+					break;
+				default:
+					break;
+			}
+
 			if (!strcmp (uri, inbox_uri))
 				folder_flags |= CAMEL_STUB_FOLDER_SYSTEM|CAMEL_STUB_FOLDER_TYPE_INBOX;
 
@@ -2435,6 +2456,7 @@ delete_folder (MailStub *stub, const char *folder_name)
 	switch (result) {
 	case EXCHANGE_ACCOUNT_FOLDER_OK:
 	case EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST:
+		g_hash_table_remove (mse->folders_by_name, folder_name);
 		break;
 
 	case EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED:
@@ -2489,8 +2511,14 @@ rename_folder (MailStub *stub, const char *old_name, const char *new_name)
 		mfld->folder = g_object_ref (folder);
 		mfld->name = e_folder_exchange_get_path (folder) + 1;
 
-		g_hash_table_remove (mse->folders_by_name, old_name);
+		g_hash_table_steal (mse->folders_by_name, old_name);
 		g_hash_table_insert (mse->folders_by_name, (char *)mfld->name, mfld);
+
+		mail_stub_return_data (stub, CAMEL_STUB_RETVAL_FOLDER_RENAMED,
+				       CAMEL_STUB_ARG_FOLDER, old_name,
+				       CAMEL_STUB_ARG_FOLDER, e_folder_get_name (folder),
+				       CAMEL_STUB_ARG_STRING, e_folder_get_physical_uri (folder),
+				       CAMEL_STUB_ARG_END);
 		break;
 
 	case EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST:
@@ -2564,8 +2592,28 @@ unsubscribe_folder (MailStub *stub, const char *folder_name)
 	ExchangeAccountFolderResult result;
 	EFolder *folder;
 	char *path, *pub_name;
-	const char *folder_type, *physical_uri;
 
+	path = g_build_filename ("/", folder_name, NULL);
+	folder = exchange_account_get_folder (mse->account, path);
+	if (!folder) {
+		mail_stub_return_error (stub, _("Folder doesn't exist"));
+		g_free (path);
+		return;
+	}
+	g_free (path);
+	g_object_ref (folder);
+
+	/* if (e_folder_exchange_get_hierarchy (folder)->type != EXCHANGE_HIERARCHY_FAVORITES) {
+	   Should use above check, but the internal uri is the same for both 
+	   public and favorite hierarchies and any of them can be used for the check */
+	if (!exchange_account_is_favorite_folder (mse->account, folder)) {
+		g_object_unref (folder);
+		mail_stub_return_ok (stub);
+		return;
+	}
+
+	g_object_unref (folder);
+	
 	pub_name = strchr (folder_name, '/');
 	path = g_build_filename ("/favorites", pub_name, NULL);
 	folder = exchange_account_get_folder (mse->account, path);
@@ -2577,17 +2625,12 @@ unsubscribe_folder (MailStub *stub, const char *folder_name)
 	g_free (path);
 	g_object_ref (folder);
 
-	if (e_folder_exchange_get_hierarchy (folder)->type != EXCHANGE_HIERARCHY_FAVORITES) {
-		g_object_unref (folder);
-		mail_stub_return_ok (stub);
-		return;
-	}
-
 	result = exchange_account_remove_favorite (mse->account, folder);
 
 	switch (result) {
 	case EXCHANGE_ACCOUNT_FOLDER_OK:
 	case EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST:
+		g_hash_table_remove (mse->folders_by_name, path + 1);
 		break;
 
 	case EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED:
@@ -2610,29 +2653,26 @@ static void
 is_subscribed_folder (MailStub *stub, const char *folder_name)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
-	gboolean result;
 	EFolder *folder;
-	char *path, *pub_name;
+	char *path;
 	guint32 is_subscribed = 0;
 
-	pub_name = strchr (folder_name, '/');
-	path = g_build_filename ("/favorites", pub_name, NULL);
+	path = g_build_filename ("/", folder_name, NULL);
 	folder = exchange_account_get_folder (mse->account, path);
 	if (!folder) {
-		/* Dont ever return an exception from here as CamelException
-		is NULL for this */
-		//mail_stub_return_error (stub, _("Folder doesn't exist"));
 		g_free (path);
+		mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
+				       CAMEL_STUB_ARG_UINT32, is_subscribed,
+				       CAMEL_STUB_ARG_END);
+		mail_stub_return_ok (stub);
 		return;
 	}
+	g_free (path);
 	g_object_ref (folder);
 
-	result = exchange_account_is_favorite_folder (mse->account, folder);
-	g_free (path);
-
-	if (result)
+	if (exchange_account_is_favorite_folder (mse->account, folder))
 		is_subscribed = 1;
-	
+
 	g_object_unref (folder);
 
 	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,

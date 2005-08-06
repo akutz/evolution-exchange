@@ -568,7 +568,6 @@ exchange_get_folder_info (CamelStore *store, const char *top, guint32 flags, Cam
 	CamelFolderInfo *info;
 	guint32 store_flags = 0;
 	int i;
-	gchar *prefix, *slash;
 #if 0	
 	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot get folder info in offline mode."));
@@ -623,17 +622,7 @@ exchange_get_folder_info (CamelStore *store, const char *top, guint32 flags, Cam
 	g_array_free (unread_counts, TRUE);
 	g_array_free (folder_flags, TRUE);
 
-	prefix = g_strdup (top);
-	if (prefix) {
-		slash = strrchr (prefix, '/');
-		if (slash) {
-			*slash = '\0';
-		}
-	}
-	
-	info = camel_folder_info_build (folders, prefix, '/', TRUE);
-	
-	g_free (prefix);
+	info = camel_folder_info_build (folders, top, '/', TRUE);
 	
 	if (info)
 		info = postprocess_tree (info);
@@ -885,13 +874,23 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 	case CAMEL_STUB_RETVAL_FOLDER_DELETED:
 	{
 		CamelFolderInfo *info;
+		CamelFolder *folder;
 		char *name, *uri;
 
 		if (camel_stub_marshal_decode_string (stub->status, &name) == -1 ||
 		    camel_stub_marshal_decode_string (stub->status, &uri) == -1)
 			break;
-
+		
 		info = make_folder_info (exch, name, uri, -1, 0);
+
+		g_mutex_lock (exch->folders_lock);
+		folder = g_hash_table_lookup (exch->folders, info->full_name);
+		if (folder) {
+			g_hash_table_remove (exch->folders, info->full_name);
+			camel_object_unref (CAMEL_OBJECT (folder));
+		}
+		g_mutex_unlock (exch->folders_lock);
+
 		camel_object_trigger_event (CAMEL_OBJECT (exch),
 					    "folder_unsubscribed", info);
 		camel_folder_info_free (info);
@@ -901,6 +900,7 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 	case CAMEL_STUB_RETVAL_FOLDER_RENAMED:
 	{
 		char *new_name, *new_uri;
+		CamelFolder *folder;
 		CamelRenameInfo reninfo;
 
 		if (camel_stub_marshal_decode_folder (stub->status, &reninfo.old_base) == -1 ||
@@ -909,6 +909,15 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 			break;
 
 		reninfo.new = make_folder_info (exch, new_name, new_uri, -1, 0);
+		
+		g_mutex_lock (exch->folders_lock);
+		folder = g_hash_table_lookup (exch->folders, reninfo.old_base);
+		if (folder) {
+			g_hash_table_remove (exch->folders, reninfo.old_base);
+			camel_object_unref (CAMEL_OBJECT (folder));
+		}
+		g_mutex_unlock (exch->folders_lock);
+		
 		camel_object_trigger_event (CAMEL_OBJECT (exch),
 					    "folder_renamed", &reninfo);
 		camel_folder_info_free (reninfo.new);
