@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Evolution-Exchange HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-02-08 14:01+0100\n"
-"PO-Revision-Date: 2005-08-08 14:53+0300\n"
+"PO-Revision-Date: 2005-08-09 16:15+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr "Viga otsingu läbiviimisel"
 
 #: calendar/e-cal-backend-exchange.c:277
 msgid "Folder not marked for offline support"
-msgstr ""
+msgstr "Kaust pole märgitud kasutamiseks autonoomses režiimis"
 
 #: calendar/e-cal-backend-exchange-calendar.c:1712
 #, c-format
@@ -50,7 +50,7 @@ msgstr ""
 #: calendar/e-cal-backend-exchange-calendar.c:1731
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
-msgstr ""
+msgstr "Ressurss '%s' on valitud aja vältel hõivatud."
 
 #: camel/camel-exchange-folder.c:220
 msgid "Can only expunge in Deleted Items folder"
@@ -58,15 +58,15 @@ msgstr ""
 
 #: camel/camel-exchange-folder.c:244
 msgid "No Subject"
-msgstr ""
+msgstr "Teema puudub"
 
 #: camel/camel-exchange-folder.c:598
 msgid "Moving messages"
-msgstr ""
+msgstr "Sõnumite tõstmine"
 
 #: camel/camel-exchange-folder.c:599
 msgid "Copying messages"
-msgstr ""
+msgstr "Sõnumite kopeerimine"
 
 #: camel/camel-exchange-folder.c:930
 #, c-format
@@ -76,12 +76,12 @@ msgstr "Kataloogi %s pole võimalik luua: %s"
 #: camel/camel-exchange-folder.c:940
 #, c-format
 msgid "Could not load summary for %s"
-msgstr ""
+msgstr "%s jaoks pole võimalik kokkuvõtet laadida"
 
 #: camel/camel-exchange-folder.c:948
 #, c-format
 msgid "Could not create cache for %s"
-msgstr ""
+msgstr "%s jaoks pole võimalik puhvrit luua"
 
 #: camel/camel-exchange-folder.c:958
 #, c-format
@@ -90,47 +90,47 @@ msgstr ""
 
 #: camel/camel-exchange-folder.c:998
 msgid "Scanning for changed messages"
-msgstr ""
+msgstr "Muudetud sõnuminte skannimine"
 
 #: camel/camel-exchange-folder.c:1022
 msgid "Fetching summary information for new messages"
-msgstr ""
+msgstr "Uute sõnumite kokkuvõtvate andmete võtmine"
 
 #: camel/camel-exchange-journal.c:279
 msgid "No folder name found\n"
-msgstr ""
+msgstr "Kausta nime ei leitud\n"
 
 #: camel/camel-exchange-journal.c:342
 msgid "Cannot append message in offline mode: cache unavailable"
-msgstr ""
+msgstr "Kausta pole võimalik autonoomses režiimis lisada: puhver pole saadaval."
 
 #: camel/camel-exchange-journal.c:358
 #, c-format
 msgid "Cannot append message in offline mode: %s"
-msgstr ""
+msgstr "Kausta pole võimalik autonoomses režiimis lisada: %s"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
 #: camel/camel-exchange-provider.c:46
 msgid "Windows User_name:"
-msgstr ""
+msgstr "Windowsi kasutaja_nimi:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
 #: camel/camel-exchange-provider.c:51
 msgid "Global Address List / Active Directory"
-msgstr ""
+msgstr "Global Address List / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
 #: camel/camel-exchange-provider.c:55
 msgid "Global Catalog server name:"
-msgstr ""
+msgstr "Global Catalog'i serveri nimi:"
 
 #: camel/camel-exchange-provider.c:57
 #, c-format
 msgid "Limit number of GAL responses: %s"
-msgstr ""
+msgstr "GAL vastuste arvu piirang: %s"
 
 #: camel/camel-exchange-provider.c:60
 msgid "Options"
@@ -139,7 +139,7 @@ msgstr "Valikud"
 #: camel/camel-exchange-provider.c:62
 #, c-format
 msgid "Password Expiry Warning period: %s"
-msgstr ""
+msgstr "Parooli aegumishoiatuse periood: %s"
 
 #: camel/camel-exchange-provider.c:64
 msgid "Automatically synchronize account locally"
@@ -149,14 +149,16 @@ msgstr ""
 #: camel/camel-exchange-provider.c:68
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr ""
+"Filtrite automaatne rakendamine kõigile selle serveri Sisendkastis asuvatele "
+"uutele sõnumitele"
 
 #: camel/camel-exchange-provider.c:70
 msgid "Check new messages for Junk contents"
-msgstr ""
+msgstr "Kontroll, kas uute sõnumite sisu on rämpspost"
 
 #: camel/camel-exchange-provider.c:72
 msgid "Only check for Junk messages in the Inbox folder"
-msgstr ""
+msgstr "Rämpssõnumeid kontrollitakse ainult sisendkaustas"
 
 #: camel/camel-exchange-provider.c:88
 msgid "Microsoft Exchange"
@@ -164,12 +166,12 @@ msgstr "Microsoft Exchange"
 
 #: camel/camel-exchange-provider.c:90
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
-msgstr ""
+msgstr "E-posti (ja muude andmete) käsitlemiseks Microsoft Exchange serveris"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
 #: camel/camel-exchange-provider.c:106
 msgid "Secure Password"
-msgstr ""
+msgstr "Turvaline parool"
 
 #. i18n: "NTLM" probably doesn't translate
 #: camel/camel-exchange-provider.c:109
@@ -180,7 +182,7 @@ msgstr ""
 
 #: camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
-msgstr ""
+msgstr "Avatekstiline parool"
 
 #: camel/camel-exchange-provider.c:119
 msgid ""
@@ -205,23 +207,23 @@ msgstr ""
 #: camel/camel-exchange-store.c:352
 #, c-format
 msgid "No such folder %s"
-msgstr ""
+msgstr "Kausta %s ei ole"
 
 #: camel/camel-exchange-store.c:480
 msgid "Cannot get folder info in offline mode."
-msgstr ""
+msgstr "Kausta pole võimalik autonoomses režiimis hankida."
 
 #: camel/camel-exchange-store.c:542
 msgid "Cannot create folder in offline mode."
-msgstr ""
+msgstr "Kausta pole võimalik autonoomses režiimis luua."
 
 #: camel/camel-exchange-store.c:569
 msgid "Cannot delete folder in offline mode."
-msgstr ""
+msgstr "Kausta pole võimalik autonoomses režiimis kustutada."
 
 #: camel/camel-exchange-store.c:585
 msgid "Cannot rename folder in offline mode."
-msgstr ""
+msgstr "Kausta pole võimalik autonoomses režiimis ümber nimetada."
 
 #: camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
@@ -229,16 +231,16 @@ msgstr ""
 
 #: camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
-msgstr ""
+msgstr "Sõnumit pole võimalik saata: üks või enam saajaid on vigased"
 
 #: camel/camel-exchange-transport.c:131
 msgid "Could not find 'From' address in message"
-msgstr ""
+msgstr "Sõnumist pole võimalik 'Saatja' aadressi leida"
 
 #: camel/camel-stub.c:134
 #, c-format
 msgid "Could not create socket: %s"
-msgstr ""
+msgstr "Soklit pole võimalik luua: %s"
 
 #: camel/camel-stub.c:149
 #, c-format
@@ -253,7 +255,7 @@ msgstr "Rada on liiga pikk: %s"
 #: camel/camel-stub.c:205
 #, c-format
 msgid "Could not start status thread: %s"
-msgstr ""
+msgstr "Olekulõime pole võimalik käivitada: %s"
 
 #: camel/camel-stub.c:457
 #, c-format
@@ -299,6 +301,8 @@ msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 msgstr ""
+"Määratud URL-ilt pole võimalik OWA andmeid leida.\n"
+"Veendu, et URL on korrektne ja proovi uuesti."
 
 #: lib/e2k-autoconfig.c:1475
 msgid ""
@@ -328,11 +332,11 @@ msgstr ""
 #: lib/e2k-autoconfig.c:1522
 #, c-format
 msgid "Enter password for %s"
-msgstr ""
+msgstr "Parooli sisestamine %s jaoks"
 
 #: lib/e2k-autoconfig.c:1523 storage/exchange-account.c:859
 msgid "Enter password"
-msgstr ""
+msgstr "Parooli sisestamine"
 
 #. i18n: These are Outlook's words for the default roles in
 #. the folder permissions dialog.
@@ -444,11 +448,11 @@ msgstr ""
 
 #: mail/mail-stub-exchange.c:1953
 msgid "Mailbox does not support full-text searching"
-msgstr ""
+msgstr "Postkast ei toeta täistekstiotsingut"
 
 #: mail/mail-stub-exchange.c:2051
 msgid "Unable to move/copy messages"
-msgstr ""
+msgstr "Sõnumeid pole võimalik tõsta või kopeerida"
 
 #: mail/mail-stub-exchange.c:2224
 msgid "No mail submission URI for this mailbox"
@@ -556,11 +560,13 @@ msgid ""
 "Cannot rename folder:\n"
 "%s"
 msgstr ""
+"Kausta pole võimalik ümber nimetada:\n"
+"%s"
 
 #: shell/e-folder-misc-dialogs.c:188
 #, c-format
 msgid "Rename the \"%s\" folder to:"
-msgstr ""
+msgstr "Kausta \"%s\" ümbernimetamine nimega:"
 
 #: shell/e-folder-misc-dialogs.c:191
 msgid "Rename Folder"
@@ -569,7 +575,7 @@ msgstr "Kausta ümbernimetamine"
 #: shell/e-folder-misc-dialogs.c:205
 #, c-format
 msgid "A folder named \"%s\" already exists. Please use a different name."
-msgstr ""
+msgstr "Kaust nimega \"%s\" on juba olemas. Palun kasuta mõnda muud nime."
 
 #. It would be nice to insensitivize the OK button appropriately
 #. instead of doing this, but unfortunately we can't do this for the
@@ -595,7 +601,7 @@ msgstr ""
 #: shell/e-folder-misc-dialogs.c:617
 #, c-format
 msgid "Could not open other user's folder: %s."
-msgstr ""
+msgstr "Teise kasutaja kausta pole võimalik avada: %s."
 
 #: shell/e-folder-misc-dialogs.c:667
 msgid "Cannot find the specified other user's folder."
@@ -607,16 +613,18 @@ msgid ""
 "Cannot unsubscribe from folder:\n"
 "%s"
 msgstr ""
+"Kausta tellimusest pole võimalik loobuda:\n"
+"%s"
 
 #: shell/e-folder-misc-dialogs.c:752
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
-msgstr ""
+msgstr "Kas loobuda kausta \"%s\" tellimusest?"
 
 #: shell/e-folder-misc-dialogs.c:766
 #, c-format
 msgid "Unsubscribe from \"%s\""
-msgstr ""
+msgstr "\"%s\" tellimusest loobumine"
 
 #: shell/e-foreign-folder-dialog.glade.h:1
 msgid "Open Other User's Folder"
@@ -648,15 +656,15 @@ msgstr ""
 
 #: shell/e-storage.c:559
 msgid "A folder with the same name already exists"
-msgstr ""
+msgstr "Sama nimega kaust on juba olemas"
 
 #: shell/e-storage.c:561
 msgid "The specified folder type is not valid"
-msgstr ""
+msgstr "Määratud kaustatüüp pole lubatud"
 
 #: shell/e-storage.c:563
 msgid "I/O error"
-msgstr ""
+msgstr "S/V viga"
 
 #: shell/e-storage.c:565
 msgid "Not enough space to create the folder"
@@ -668,7 +676,7 @@ msgstr "Kaust pole tühi"
 
 #: shell/e-storage.c:569
 msgid "The specified folder was not found"
-msgstr ""
+msgstr "Määratud kausta ei leitud"
 
 #: shell/e-storage.c:571
 msgid "Function not implemented in this storage"
@@ -676,7 +684,7 @@ msgstr ""
 
 #: shell/e-storage.c:575
 msgid "Operation not supported"
-msgstr ""
+msgstr "Toiming pole toetatud"
 
 #: shell/e-storage.c:577
 msgid "The specified type is not supported in this storage"
@@ -684,7 +692,7 @@ msgstr ""
 
 #: shell/e-storage.c:579
 msgid "The specified folder cannot be modified or removed"
-msgstr ""
+msgstr "Määratud kausta pole võimalik muuta ega eemaldada"
 
 #: shell/e-storage.c:581
 msgid "Cannot make a folder a child of one of its descendants"
@@ -692,7 +700,7 @@ msgstr ""
 
 #: shell/e-storage.c:583
 msgid "Cannot create a folder with that name"
-msgstr ""
+msgstr "Sellise nimega kausta pole võimalik luua"
 
 #: shell/e-storage.c:585
 msgid "This operation cannot be performed in off-line mode"
@@ -720,7 +728,7 @@ msgstr ""
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
 msgid "Exchange"
-msgstr ""
+msgstr "Exchange"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
 msgid "Ximian Connector for Exchange"
@@ -735,22 +743,24 @@ msgstr ""
 #: storage/exchange-account.c:572
 #, c-format
 msgid "%s's Folders"
-msgstr ""
+msgstr "Kaustaja %s kaustad"
 
 #: storage/exchange-account.c:855
 #, c-format
 msgid "%sEnter password for %s"
-msgstr ""
+msgstr "%sSisesta parool %s jaoks"
 
 #: storage/exchange-account.c:1033
 msgid "Cannot change password due to configuration problems"
-msgstr ""
+msgstr "Seadistusprobleemide tõttu pole võimalik parooli muuta"
 
 #: storage/exchange-account.c:1048
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
 msgstr ""
+"Server lükkas parooli tagasi kuna see on liiga nõrk.\n"
+"Proovi uuesti mõne teise parooliga."
 
 #: storage/exchange-account.c:1053
 msgid "Could not change password"
@@ -776,7 +786,7 @@ msgstr ""
 
 #: storage/exchange-account.c:1269
 msgid "Exchange Account is offline. Cannot display folders\n"
-msgstr ""
+msgstr "Exchange konto on autonoomses režiimis. Kaustu pole võimalik kuvada\n"
 
 #: storage/exchange-account.c:1322
 msgid ""
@@ -815,6 +825,9 @@ msgid ""
 "If OWA is running on a different path, you must specify that in the\n"
 "account configuration dialog."
 msgstr ""
+"Exchange Web Storage System'i pole asukohast %s võimalik leida.\n"
+"Kui OWA töötab teisel rajal, siis pead sa selle määrama konto sätete\n"
+"dialoogist."
 
 #: storage/exchange-account.c:1389
 #, c-format
@@ -1007,7 +1020,7 @@ msgstr ""
 
 #: storage/exchange-component.c:320
 msgid "Mail"
-msgstr ""
+msgstr "Post"
 
 #: storage/exchange-component.c:323 storage/exchange-hierarchy-foreign.c:251
 msgid "Contacts"
@@ -1088,12 +1101,12 @@ msgstr ""
 
 #: storage/exchange-delegates.c:695
 msgid "Could not find self in Active Directory"
-msgstr ""
+msgstr "Enda andmeid pole Active Directory'st võimalik leida"
 
 #: storage/exchange-delegates.c:708
 #, c-format
 msgid "Could not find delegate %s in Active Directory"
-msgstr ""
+msgstr "Delegaati %s pole Active Directory'st võimalik leida"
 
 #: storage/exchange-delegates.c:720
 #, c-format
@@ -1208,7 +1221,7 @@ msgstr ""
 
 #: storage/exchange-hierarchy-foreign.c:256
 msgid "Notes"
-msgstr ""
+msgstr "Märkused"
 
 #: storage/exchange-hierarchy-foreign.c:257
 msgid "Outbox"
@@ -1216,11 +1229,11 @@ msgstr "Väljundkast"
 
 #: storage/exchange-hierarchy-foreign.c:258
 msgid "Sent Items"
-msgstr ""
+msgstr "Saadetud"
 
 #: storage/exchange-migrate.c:57
 msgid "Migrating Exchange Folders..."
-msgstr ""
+msgstr "Exchange kaustade migreerimine..."
 
 #: storage/exchange-migrate.c:65
 #, c-format
@@ -1239,6 +1252,9 @@ msgid ""
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
+"Hoiatus: Evolution ei saa migreerida kõiki Exchange kontoandmeid versioonist "
+"%d.%d.%d.\n"
+"Andmed ei ole kustutatud kuid need pole selles Evolutioni versiooni nähtaval"
 
 #: storage/exchange-migrate.c:129
 #, c-format
@@ -1297,15 +1313,15 @@ msgstr ""
 
 #: storage/exchange-passwd-expiry.glade.h:1
 msgid "Password Expiry Warning..."
-msgstr ""
+msgstr "Parooli aegumishoiatus..."
 
 #: storage/exchange-passwd-expiry.glade.h:2
 msgid "Your password will expire in 7 days..."
-msgstr ""
+msgstr "Sinu parool aegub 7 päeva pärast..."
 
 #: storage/exchange-passwd-expiry.glade.h:3
 msgid "_Change Password"
-msgstr ""
+msgstr "_Muuda parooli"
 
 #: storage/exchange-passwd-expiry.glade.h:4
 msgid "ok_button"
@@ -1326,7 +1342,7 @@ msgstr ""
 
 #: storage/exchange-permissions-dialog.c:295
 msgid "(Permission denied.)"
-msgstr ""
+msgstr "(Ligipääs keelatud.)"
 
 #: storage/exchange-permissions-dialog.c:396
 msgid ""
@@ -1345,7 +1361,7 @@ msgstr "Kasutaja lisamine"
 #: storage/exchange-permissions-dialog.c:421
 #, c-format
 msgid "No such user %s"
-msgstr ""
+msgstr "Kasutajat %s ei ole"
 
 #: storage/exchange-permissions-dialog.c:425
 #, c-format
@@ -1355,12 +1371,12 @@ msgstr ""
 #: storage/exchange-permissions-dialog.c:430
 #, c-format
 msgid "Unknown error looking up %s"
-msgstr ""
+msgstr "Tundmatu viga %s lahendamisel"
 
 #: storage/exchange-permissions-dialog.c:447
 #, c-format
 msgid "%s is already in the list"
-msgstr ""
+msgstr "%s on juba loendis"
 
 #: storage/exchange-permissions-dialog.c:710
 msgid "Role"
@@ -1424,11 +1440,11 @@ msgstr ""
 
 #: storage/exchange-permissions-dialog.glade.h:15
 msgid "Role: "
-msgstr ""
+msgstr "Roll: "
 
 #: storage/exchange-storage.c:337
 msgid "Connecting..."
-msgstr ""
+msgstr "Ühendumine..."
 
 #: storage/main.c:166
 msgid "Ximian Connector for Microsoft Exchange"
@@ -1436,21 +1452,21 @@ msgstr ""
 
 #: storage/xc-backend-view.c:299
 msgid "Account Name"
-msgstr ""
+msgstr "Konto nimi"
 
 #: storage/xc-commands.c:312
 msgid "Folder does not exist"
-msgstr ""
+msgstr "Kausta pole olemas"
 
 #: storage/xc-commands.c:339
 #, c-format
 msgid "Could not add favorite: %s"
-msgstr ""
+msgstr "Lemmikut pole võimalik lisada: %s"
 
 #: storage/xc-commands.c:355
 #, c-format
 msgid "Could not remove favorite: %s"
-msgstr ""
+msgstr "Lemmikut pole võimalik eemaldada: %s"
 
 #.
 #. FIXME: See 62440
@@ -1463,15 +1479,15 @@ msgstr ""
 #.
 #: storage/xc-commands.c:381
 msgid "_Rename Folder..."
-msgstr ""
+msgstr "_Nimeta kaust ümber..."
 
 #: storage/xc-commands.c:387
 msgid "_New Folder..."
-msgstr ""
+msgstr "_Uus kaust..."
 
 #: storage/xc-commands.c:390
 msgid "_Delete Folder"
-msgstr ""
+msgstr "_Kustuta kaust"
 
 #: storage/xc-commands.c:395
 msgid "_Add Other User's Folder..."
@@ -1483,19 +1499,19 @@ msgstr ""
 
 #: storage/xc-commands.c:404
 msgid "Add to _Favorites"
-msgstr ""
+msgstr "_Lisa lemmikute hulka"
 
 #: storage/xc-commands.c:408
 msgid "Remove from Fa_vorites"
-msgstr ""
+msgstr "_Eemalda lemmikute hulgast"
 
 #: storage/xc-commands.c:415
 msgid "_Permissions..."
-msgstr ""
+msgstr "_Pääsuõigused..."
 
 #: storage/xc-commands.c:419
 msgid "_Show Folder Sizes"
-msgstr ""
+msgstr "Näita kaustade _suurusi"
 
 #: storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
@@ -1503,32 +1519,33 @@ msgstr ""
 
 #: storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
-msgstr ""
+msgstr "Exchange serveris sinu parooli muutmine"
 
 #: storage/ximian-connector.xml.h:2
 msgid "Folder _Size"
-msgstr ""
+msgstr "Kausta _suurus"
 
 #: storage/ximian-connector.xml.h:3
 msgid "Get the size of personal folders"
-msgstr ""
+msgstr "Isiklike kaustade suuruse hankimine"
 
 #: storage/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
-msgstr ""
+msgstr "_Telli teiste kasutajate kaustu..."
 
 #: storage/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
-msgstr ""
+msgstr "Serveris olevate teistele kasutajatele kuuluvate kaustade tellimine"
 
 #: storage/ximian-connector.xml.h:6
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
+"Käsuga \"Telli teiste kasutajate kaustu\" tellitud kaustadest loobumine"
 
 #: storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
-msgstr ""
+msgstr "Exchange kalendri delegaatide sätete vaatamine või muutmine"
 
 #: storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
@@ -1536,11 +1553,11 @@ msgstr ""
 
 #: storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
-msgstr ""
+msgstr "_Muuda Exchange parooli..."
 
 #: storage/ximian-connector.xml.h:10
 msgid "_Delegation Assistant"
-msgstr ""
+msgstr "_Delegeerimisabiline"
 
 #: storage/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
