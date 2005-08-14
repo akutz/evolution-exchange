@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-11 14:06+0200\n"
-"PO-Revision-Date: 2005-08-11 14:05+0200\n"
+"POT-Creation-Date: 2005-08-14 14:03+0200\n"
+"PO-Revision-Date: 2005-08-14 13:45+0200\n"
 "Last-Translator: Frank Arnold <frank@scirocco-5v-turbo.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -96,7 +96,7 @@ msgstr "Journal für %s konnte nicht angelegt werden"
 
 #: ../camel/camel-exchange-folder.c:1013
 msgid "Scanning for changed messages"
-msgstr "Suche nach geänderten Nachrichten läuft"
+msgstr "Geänderte Nachrichten werden gesucht"
 
 #: ../camel/camel-exchange-folder.c:1039
 msgid "Fetching summary information for new messages"
@@ -163,7 +163,7 @@ msgstr "Konto automatisch lokal synchronisieren"
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:65
 msgid "Apply filters to new messages in Inbox on this server"
-msgstr "Filter auf neue Nachrichten im Eingang auf diesem Server anwenden"
+msgstr "Filter auf neue Nachrichten im Eingang dieses Servers anwenden"
 
 #: ../camel/camel-exchange-provider.c:67
 msgid "Check new messages for Junk contents"
@@ -260,8 +260,7 @@ msgstr ""
 #: ../camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
 msgstr ""
-"Nachricht konnte nicht verschickt werden: Ein oder mehrere ungültige "
-"Empfänger"
+"Nachricht konnte nicht verschickt werden: Mindestens ein Empfänger ungültig"
 
 #: ../camel/camel-exchange-transport.c:131
 msgid "Could not find 'From' address in message"
@@ -275,7 +274,7 @@ msgstr "Socket konnte nicht angelegt werden: %s"
 #: ../camel/camel-stub.c:149
 #, c-format
 msgid "Could not connect to %s: %s"
-msgstr "Verbindung mit %s konnte nicht hergestellt werden: %s"
+msgstr "Verbindung mit %s gescheitert: %s"
 
 #: ../camel/camel-stub.c:179
 #, c-format
@@ -391,7 +390,7 @@ msgstr ""
 #: ../lib/e2k-autoconfig.c:1567
 #, c-format
 msgid "Enter password for %s"
-msgstr "Passwort für %s eingeben"
+msgstr "Geben Sie das Passwort für %s ein"
 
 #: ../lib/e2k-autoconfig.c:1568 ../storage/exchange-account.c:874
 msgid "Enter password"
@@ -458,7 +457,7 @@ msgstr "Ordner existiert nicht"
 #: ../mail/mail-stub-exchange.c:2573 ../mail/mail-stub-exchange.c:2637
 #: ../shell/e-storage.c:573 ../storage/xc-commands.c:319
 msgid "Permission denied"
-msgstr "Zugriff verweigert"
+msgstr "Erlaubnis verweigert"
 
 #: ../mail/mail-stub-exchange.c:571
 msgid "No such folder."
@@ -552,7 +551,7 @@ msgstr "Nachricht konnte nicht verschickt werden"
 #: ../mail/mail-stub-exchange.c:2642 ../shell/e-storage.c:557
 #: ../storage/xc-commands.c:323
 msgid "Generic error"
-msgstr "Generischer Fehler"
+msgstr "Allgemeiner Fehler"
 
 #: ../mail/mail-stub-exchange.c:2420 ../storage/xc-commands.c:313
 msgid "Folder already exists"
@@ -690,12 +689,12 @@ msgstr ""
 #: ../shell/e-folder-misc-dialogs.c:766
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "Ordner »%s« wirklich abbestellen?"
+msgstr "Den Ordner »%s« wirklich abbestellen?"
 
 #: ../shell/e-folder-misc-dialogs.c:780
 #, c-format
 msgid "Unsubscribe from \"%s\""
-msgstr "»%s« abbestellen"
+msgstr "Abbestellen von »%s«"
 
 #: ../shell/e-foreign-folder-dialog.glade.h:1
 msgid "Open Other User's Folder"
@@ -707,7 +706,7 @@ msgstr "_Konto:"
 
 #: ../shell/e-foreign-folder-dialog.glade.h:3
 msgid "_Folder Name:"
-msgstr "_Ordnername:"
+msgstr "Ordner_name:"
 
 #: ../shell/e-foreign-folder-dialog.glade.h:4
 msgid "_User:"
@@ -735,7 +734,7 @@ msgstr "Der angegebene Ordnertyp ist ungültig"
 
 #: ../shell/e-storage.c:563
 msgid "I/O error"
-msgstr "E/A-Fehler"
+msgstr "Ein-/Ausgabefehler"
 
 #: ../shell/e-storage.c:565
 msgid "Not enough space to create the folder"
@@ -767,7 +766,7 @@ msgstr "Der angegebene Ordner kann weder geändert noch entfernt werden"
 
 #: ../shell/e-storage.c:581
 msgid "Cannot make a folder a child of one of its descendants"
-msgstr "Ein Ordner kann nicht in eines seiner Kinder verschoben werden"
+msgstr "Ein Ordner kann nicht in einen seiner Unterordner verschoben werden"
 
 #: ../shell/e-storage.c:583
 msgid "Cannot create a folder with that name"
@@ -775,7 +774,7 @@ msgstr "Es konnte kein Ordner mit diesem Namen angelegt werden"
 
 #: ../shell/e-storage.c:585
 msgid "This operation cannot be performed in off-line mode"
-msgstr "Diese Aktion kann nicht im Offline-Modus ausgeführt werden"
+msgstr "Diese Aktion kann im Offline-Modus nicht ausgeführt werden"
 
 #: ../shell/e-storage.c:587 ../storage/exchange-account.c:1473
 msgid "Unknown error"
@@ -843,10 +842,9 @@ msgstr "Passwort konnte nicht geändert werden"
 msgid "Personal Folders"
 msgstr "Persönliche Ordner"
 
-# CHECK
 #: ../storage/exchange-account.c:1205
 msgid "Favorite Public Folders"
-msgstr "Öffentliche Favoritenordner"
+msgstr "Bevorzugte öffentliche Ordner"
 
 #. i18n: Outlookism
 #: ../storage/exchange-account.c:1222
@@ -947,7 +945,7 @@ msgstr ""
 #: ../storage/exchange-account.c:1532
 msgid "You will not be able to either send or receive mails now\n"
 msgstr ""
-"Sie sind jetzt nicht mehr in der Lage, E-Mails zu empfangen oder zu senden.\n"
+"Sie sind jetzt nicht mehr in der Lage, E-Mails zu senden oder zu empfangen.\n"
 
 #: ../storage/exchange-account.c:1535
 msgid ""
@@ -1141,13 +1139,13 @@ msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
 msgstr ""
-"Das momentane Passwort stimmt nicht mit dem existierenden für Ihr Konto "
-"überein. Bitte geben Sie das Korrekte ein."
+"Das aktuelle Passwort stimmt nicht mit dem vorhandenen Passwort Ihres Kontos "
+"überein. Bitte geben Sie das korrekte Passwort ein."
 
 #: ../storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr ""
-"Die beiden Passwörter stimmen nicht überein. Bitte geben Sie sie erneut ein."
+"Die beiden Passworte stimmen nicht überein. Bitte geben Sie sie erneut ein."
 
 #: ../storage/exchange-change-password.glade.h:2
 msgid "Change Password"
@@ -1159,7 +1157,7 @@ msgstr "Passwort bestätigen:"
 
 #: ../storage/exchange-change-password.glade.h:4
 msgid "Current Password:"
-msgstr "Momentanes Passwort:"
+msgstr "Aktuelles Passwort:"
 
 #: ../storage/exchange-change-password.glade.h:5
 msgid "New Password:"
@@ -1167,7 +1165,7 @@ msgstr "Neues Passwort:"
 
 #: ../storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
-msgstr "Ihr momentanes Passwort ist ausgelaufen. Bitte ändern Sie es jetzt."
+msgstr "Ihr aktuelles Passwort ist abgelaufen. Bitte ändern Sie es jetzt."
 
 #: ../storage/exchange-config-listener.c:542
 msgid ""
@@ -1240,20 +1238,20 @@ msgstr "%s ist bereits ein Delegat"
 #: ../storage/exchange-delegates.c:563
 #, c-format
 msgid "Remove the delegate %s?"
-msgstr "Den Delegaten %s löschen?"
+msgstr "Den Delegaten %s entfernen?"
 
 #: ../storage/exchange-delegates.c:680
 msgid "Could not access Active Directory"
-msgstr "Active-Directory-Zugriff gescheitert"
+msgstr "Zugriff auf Active Directory gescheitert"
 
 #: ../storage/exchange-delegates.c:695
 msgid "Could not find self in Active Directory"
-msgstr "Selbst konnte im Active-Directory nicht gefunden werden"
+msgstr "Eigener Eintrag wurde in Active Directory nicht gefunden"
 
 #: ../storage/exchange-delegates.c:708
 #, c-format
 msgid "Could not find delegate %s in Active Directory"
-msgstr "Delegat %s konnte nicht im Active-Directory gefunden werden"
+msgstr "Delegat %s wurde in Active Directory nicht gefunden"
 
 #: ../storage/exchange-delegates.c:720
 #, c-format
@@ -1262,7 +1260,7 @@ msgstr "Delegat %s konnte nicht entfernt werden"
 
 #: ../storage/exchange-delegates.c:780
 msgid "Could not update list of delegates."
-msgstr "Liste Delegaten konnte nicht aktualisiert werden."
+msgstr "Liste der Delegaten konnte nicht aktualisiert werden."
 
 #: ../storage/exchange-delegates.c:798
 #, c-format
@@ -1289,15 +1287,15 @@ msgstr "Fehler beim Lesen der Delegatenliste."
 
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
-msgstr "Autor (lesen, erstellen)"
+msgstr "Erstellung (lesen, erstellen)"
 
 #: ../storage/exchange-delegates.glade.h:2
 msgid "C_alendar:"
-msgstr "K_alender:"
+msgstr "Ka_lender:"
 
 #: ../storage/exchange-delegates.glade.h:3
 msgid "Co_ntacts:"
-msgstr "Ko_ntakte:"
+msgstr "_Kontakte:"
 
 #: ../storage/exchange-delegates.glade.h:4
 msgid "Delegate Permissions"
@@ -1309,7 +1307,7 @@ msgstr "Delegaten"
 
 #: ../storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
-msgstr "Editor (lesen, erstellen, bearbeiten)"
+msgstr "Bearbeitung (lesen, erstellen, bearbeiten)"
 
 #: ../storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
@@ -1317,20 +1315,20 @@ msgstr "Berechtigungen für"
 
 #: ../storage/exchange-delegates.glade.h:9
 msgid "Reviewer (read-only)"
-msgstr "Prüfer (nur-lesen)"
+msgstr "Einsicht (nur lesen)"
 
 #: ../storage/exchange-delegates.glade.h:10
 msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
 msgstr ""
-"Diese Benutzer sind in der Lage, E-Mails in Ihrem Namen zu verschicken\n"
-"und haben Zugriff auf Ihre Ordnern mit den von Ihnen erteilten "
-"Berechtigungen."
+"Diese Benutzer werden in der Lage sein, in Ihrem Namen E-Mails\n"
+"zu verschicken und auf Ihre Ordner mit den von Ihnen vergebenen\n"
+"Berechtigungen zugreifen zu können."
 
 #: ../storage/exchange-delegates.glade.h:12
 msgid "_Delegate can see private items"
-msgstr "_Delegat kann private Objekte sehen"
+msgstr "Delegat kann _private Objekte einsehen"
 
 #: ../storage/exchange-delegates.glade.h:13
 msgid "_Edit"
@@ -1338,11 +1336,11 @@ msgstr "_Bearbeiten"
 
 #: ../storage/exchange-delegates.glade.h:14
 msgid "_Inbox:"
-msgstr "_Eingang:"
+msgstr "E_ingang:"
 
 #: ../storage/exchange-delegates.glade.h:15
 msgid "_Tasks:"
-msgstr "_Aufgaben:"
+msgstr "Auf_gaben:"
 
 #: ../storage/exchange-folder-size.c:322
 msgid "Folder Name"
@@ -1374,7 +1372,7 @@ msgstr "Entwürfe"
 
 #: ../storage/exchange-hierarchy-foreign.c:254
 msgid "Inbox"
-msgstr "Posteingang"
+msgstr "Eingang"
 
 #: ../storage/exchange-hierarchy-foreign.c:255
 msgid "Journal"
@@ -1386,7 +1384,7 @@ msgstr "Notizen"
 
 #: ../storage/exchange-hierarchy-foreign.c:257
 msgid "Outbox"
-msgstr "Postausgang"
+msgstr "Ausgang"
 
 #: ../storage/exchange-hierarchy-foreign.c:258
 msgid "Sent Items"
@@ -1433,11 +1431,11 @@ msgstr "»%s« wird migriert:"
 
 #: ../storage/exchange-oof.c:199 ../storage/exchange-oof.c:406
 msgid "Could not update out-of-office state"
-msgstr "Nicht-im-Büro-Status konnte nicht aktualisiert werden"
+msgstr "Abwesenheitsstatus konnte nicht aktualisiert werden"
 
 #: ../storage/exchange-oof.c:424
 msgid "Could not read out-of-office state"
-msgstr "Nicht-im-Büro-Status konnte nicht gelesen werden"
+msgstr "Abwesenheitsstatus konnte nicht gelesen werden"
 
 #: ../storage/exchange-oof.glade.h:1
 msgid ""
@@ -1445,13 +1443,13 @@ msgid ""
 "\n"
 "Would you like to change your status to \"In the Office\"? "
 msgstr ""
-"<b>Ihr momentaner Status ist »Nicht im Büro«. </b>\n"
+"<b>Im Moment ist Ihr Status »Nicht im Büro«.</b>\n"
 "\n"
-"Möchten Sie Ihren Status in »Im Büro« ändern?"
+"Wollen Sie Ihren Status in »Im Büro« ändern?"
 
 #: ../storage/exchange-oof.glade.h:4
 msgid "<b>Out of Office Message:</b>"
-msgstr "<b>Nicht im Büro-Nachricht:</b>"
+msgstr "<b>»Nicht im Büro«-Nachricht:</b>"
 
 #: ../storage/exchange-oof.glade.h:5
 msgid "<b>Status:</b>"
@@ -1477,15 +1475,15 @@ msgstr "Ich bin zur Zeit nicht im Büro"
 
 #: ../storage/exchange-oof.glade.h:10
 msgid "No, Don't Change Status"
-msgstr "Nein, Status Nicht ändern"
+msgstr "Nein, den Status nicht ändern"
 
 #: ../storage/exchange-oof.glade.h:11
 msgid "Out of Office Assistant"
-msgstr "Nicht im Büro-Assistent"
+msgstr "»Nicht im Büro«-Assistent"
 
 #: ../storage/exchange-oof.glade.h:12
 msgid "Yes, Change Status"
-msgstr "Ja, Status ändern"
+msgstr "Ja, den Status ändern"
 
 #: ../storage/exchange-passwd-expiry.glade.h:1
 msgid "Password Expiry Warning..."
@@ -1505,11 +1503,11 @@ msgstr "ok_button"
 
 #: ../storage/exchange-permissions-dialog.c:222
 msgid "Could not read folder permissions"
-msgstr "Ordner-Berechtigungen konnten nicht gelesen werden"
+msgstr "Ordnerberechtigungen konnten nicht gelesen werden"
 
 #: ../storage/exchange-permissions-dialog.c:264
 msgid "Could not update folder permissions."
-msgstr "Ordner-Berechtigungen konnten nicht aktualisiert werden."
+msgstr "Ordnerberechtigungen konnten nicht aktualisiert werden."
 
 #: ../storage/exchange-permissions-dialog.c:293
 #, c-format
@@ -1518,7 +1516,7 @@ msgstr "Ordner-Berechtigungen konnten nicht aktualisiert werden. %s"
 
 #: ../storage/exchange-permissions-dialog.c:295
 msgid "(Permission denied.)"
-msgstr "(Zugriff verweigert.)"
+msgstr "(Erlaubnis verweigert.)"
 
 #: ../storage/exchange-permissions-dialog.c:396
 msgid ""
@@ -1558,7 +1556,7 @@ msgstr "%s ist bereits in der Liste"
 
 #: ../storage/exchange-permissions-dialog.c:710
 msgid "Role"
-msgstr "Rolle"
+msgstr "Position"
 
 #: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
@@ -1570,15 +1568,15 @@ msgstr "<b>Berechtigungen</b>"
 
 #: ../storage/exchange-permissions-dialog.glade.h:3
 msgid "Cannot Delete"
-msgstr "Löschen nicht möglich"
+msgstr "Löschen fehlgeschlagen"
 
 #: ../storage/exchange-permissions-dialog.glade.h:4
 msgid "Cannot Edit"
-msgstr "Bearbeiten nicht möglich"
+msgstr "Bearbeiten fehlgeschlagen"
 
 #: ../storage/exchange-permissions-dialog.glade.h:5
 msgid "Create items"
-msgstr "Objekte anlegen"
+msgstr "Objekte erstellen"
 
 #: ../storage/exchange-permissions-dialog.glade.h:6
 msgid "Create subfolders"
@@ -1586,7 +1584,7 @@ msgstr "Unterordner anlegen"
 
 #: ../storage/exchange-permissions-dialog.glade.h:7
 msgid "Delete Any Items"
-msgstr "Alle Objekte löschen"
+msgstr "Jegliche Objekte löschen"
 
 #: ../storage/exchange-permissions-dialog.glade.h:8
 msgid "Delete Own Items"
@@ -1594,7 +1592,7 @@ msgstr "Eigene Objekte löschen"
 
 #: ../storage/exchange-permissions-dialog.glade.h:9
 msgid "Edit Any Items"
-msgstr "Alle Objekte bearbeiten"
+msgstr "Jegliche Objekte bearbeiten"
 
 #: ../storage/exchange-permissions-dialog.glade.h:10
 msgid "Edit Own Items"
@@ -1606,7 +1604,7 @@ msgstr "Ordnerkontakt"
 
 #: ../storage/exchange-permissions-dialog.glade.h:12
 msgid "Folder owner"
-msgstr "Ordnerbesitzer"
+msgstr "Besitzer des Ordners"
 
 #: ../storage/exchange-permissions-dialog.glade.h:13
 msgid "Folder visible"
@@ -1618,7 +1616,7 @@ msgstr "Objekte lesen"
 
 #: ../storage/exchange-permissions-dialog.glade.h:15
 msgid "Role: "
-msgstr "Rolle: "
+msgstr "Position: "
 
 #: ../storage/exchange-storage.c:338
 msgid "Connecting..."
@@ -1749,66 +1747,3 @@ msgstr "_Nicht im Büro-Assistent"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Ordner eines anderen Benutzers ab_bestellen"
-
-#~ msgid "Mail"
-#~ msgstr "E-Mail"
-
-#~ msgid "_Permissions..."
-#~ msgstr "_Berechtigungen..."
-
-#~ msgid ""
-#~ "Ximian Connector requires access to certain functionality on the Exchange "
-#~ "Server that appears to be disabled or blocked.  (This is usually "
-#~ "unintentional.)  Your Exchange Administrator will need to enable this "
-#~ "functionality in order for you to be able to use Ximian Connector.\n"
-#~ "\n"
-#~ "For information to provide to your Exchange administrator, please follow "
-#~ "the link below:\n"
-#~ "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
-#~ "html "
-#~ msgstr ""
-#~ "Der Ximian Connector benötigt Zugriff auf bestimmte Funktionen des "
-#~ "Exchange-Servers, die offensichtlich deaktiviert oder blockiert wurden "
-#~ "(vermutlich unabsichtlich). Ihr Exchange-Administrator muss diese "
-#~ "aktivieren, damit Sie den Ximian Connector verwenden können.\n"
-#~ "\n"
-#~ "Unter dem folgenden Link erhalten Sie die für Ihren Exchange-"
-#~ "Administrator notwendigen Informationen:\n"
-#~ "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
-#~ "html "
-
-#~ msgid ""
-#~ "Could not authenticate to server.\n"
-#~ "\n"
-#~ "You may need to use Plaintext Password authentication.\n"
-#~ "\n"
-#~ "Or you might have just typed your password wrong.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Legitimation am Server fehlgeschlagen.\n"
-#~ "\n"
-#~ "Möglicherweise müssen Sie Klartext-Passwort-Legitimation verwenden.\n"
-#~ "\n"
-#~ "Oder Sie haben Ihr Passwort falsch eingegeben.\n"
-#~ "\n"
-
-#~ msgid "Exc_hange Server:"
-#~ msgstr "Exc_hange Server:"
-
-#~ msgid "Exchange Server"
-#~ msgstr "Exchange-Server"
-
-#~ msgid "Mailbox name"
-#~ msgstr "Mailbox-Name"
-
-#~ msgid "OWA path"
-#~ msgstr "OWA-Pfad"
-
-#~ msgid "Public Folder server"
-#~ msgstr "Server für öffentliche Ordner"
-
-#~ msgid "_Move Folder..."
-#~ msgstr "Ordner _verschieben..."
-
-#~ msgid "_Copy Folder..."
-#~ msgstr "Ordner _kopieren..."
