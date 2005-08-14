@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Evolution-Exchange GNOME-2.10\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-02-08 14:01+0100\n"
-"PO-Revision-Date: 2005-08-09 16:15+0300\n"
+"PO-Revision-Date: 2005-08-12 14:50+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -102,7 +102,8 @@ msgstr "Kausta nime ei leitud\n"
 
 #: camel/camel-exchange-journal.c:342
 msgid "Cannot append message in offline mode: cache unavailable"
-msgstr "Kausta pole võimalik autonoomses režiimis lisada: puhver pole saadaval."
+msgstr ""
+"Kausta pole võimalik autonoomses režiimis lisada: puhver pole saadaval."
 
 #: camel/camel-exchange-journal.c:358
 #, c-format
@@ -396,11 +397,11 @@ msgstr ""
 #: mail/mail-stub-exchange.c:2347 mail/mail-stub-exchange.c:2407
 #: shell/e-storage.c:573 storage/xc-commands.c:315
 msgid "Permission denied"
-msgstr ""
+msgstr "Ligipääs keelatud"
 
 #: mail/mail-stub-exchange.c:546
 msgid "No such folder."
-msgstr ""
+msgstr "Sellist kausta pole."
 
 #: mail/mail-stub-exchange.c:555
 msgid "Could not create folder."
@@ -420,7 +421,7 @@ msgstr ""
 
 #: mail/mail-stub-exchange.c:1094 mail/mail-stub-exchange.c:1135
 msgid "Could not get new messages"
-msgstr ""
+msgstr "Uusi sõnumeid pole võimalik hankida"
 
 #: mail/mail-stub-exchange.c:1300
 msgid "Could not empty Deleted Items folder"
@@ -428,11 +429,11 @@ msgstr ""
 
 #: mail/mail-stub-exchange.c:1372
 msgid "Could not append message; mailbox is over quota"
-msgstr ""
+msgstr "Sõnumit pole võimalik lisada; postkasti maht ületab kvooti"
 
 #: mail/mail-stub-exchange.c:1373
 msgid "Could not append message"
-msgstr ""
+msgstr "Sõnumit pole võimalik lisada"
 
 #: mail/mail-stub-exchange.c:1856
 msgid "No such message"
@@ -547,12 +548,12 @@ msgstr ""
 #: shell/e-folder-misc-dialogs.c:115
 #, c-format
 msgid "Really delete folder \"%s\"?"
-msgstr ""
+msgstr "Kas kustutada kaust \"%s\"?"
 
 #: shell/e-folder-misc-dialogs.c:129
 #, c-format
 msgid "Delete \"%s\""
-msgstr ""
+msgstr "\"%s\" kustutamine"
 
 #: shell/e-folder-misc-dialogs.c:154
 #, c-format
@@ -777,7 +778,7 @@ msgstr ""
 #. i18n: Outlookism
 #: storage/exchange-account.c:1169
 msgid "All Public Folders"
-msgstr ""
+msgstr "Kõik avalikud kaustad"
 
 #. i18n: Outlookism
 #: storage/exchange-account.c:1183
@@ -793,6 +794,8 @@ msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
 msgstr ""
+"Serverisse pole võimalik autentida. (Parool vale?)\n"
+"\n"
 
 #: storage/exchange-account.c:1327
 msgid ""
@@ -838,15 +841,15 @@ msgstr ""
 #: storage/exchange-account.c:1409
 #, c-format
 msgid "Could not connect to server %s: %s"
-msgstr ""
+msgstr "Serveriga %s pole võimalik ühendust saada: %s"
 
 #: storage/exchange-account.c:1397
 msgid "Could not resolve hostname"
-msgstr ""
+msgstr "Hostinime pole võimalik lahendada"
 
 #: storage/exchange-account.c:1403
 msgid "Network error"
-msgstr ""
+msgstr "Võrgu viga"
 
 #: storage/exchange-autoconfig-wizard.c:267
 msgid ""
@@ -891,11 +894,11 @@ msgstr ""
 
 #: storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
-msgstr ""
+msgstr "Tõrge seadistamisel"
 
 #: storage/exchange-autoconfig-wizard.glade.h:3
 msgid "Done"
-msgstr ""
+msgstr "Valmis"
 
 #: storage/exchange-autoconfig-wizard.glade.h:4
 msgid "Email Address:"
@@ -903,7 +906,7 @@ msgstr "E-posti aadress:"
 
 #: storage/exchange-autoconfig-wizard.glade.h:5
 msgid "Exchange Configuration"
-msgstr ""
+msgstr "Exchange sätted"
 
 #: storage/exchange-autoconfig-wizard.glade.h:6
 msgid "Full Name:"
@@ -948,7 +951,7 @@ msgstr ""
 
 #: storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Ximian Connector Configuration"
-msgstr ""
+msgstr "Ximian Connector'i sätted"
 
 #: storage/exchange-autoconfig-wizard.glade.h:20
 msgid ""
@@ -1017,6 +1020,7 @@ msgstr "Uus parool:"
 #: storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
 msgstr ""
+"Sinu praegune parool on aegunud. Palun muuda oma parool viivitamatult ära."
 
 #: storage/exchange-component.c:320
 msgid "Mail"
@@ -1042,13 +1046,13 @@ msgstr ""
 
 #: storage/exchange-config-listener.c:739
 msgid "The Exchange account will be removed when you quit Evolution"
-msgstr ""
+msgstr "Exchange konto eemaldadakse peale Evolution'i sulgemist"
 
 #: storage/exchange-delegates-user.c:191
 #: storage/exchange-permissions-dialog.c:179
 #, c-format
 msgid "Permissions for %s"
-msgstr ""
+msgstr "%s pääsuõigused"
 
 #: storage/exchange-delegates.c:221
 msgid ""
@@ -1061,6 +1065,8 @@ msgid ""
 "Could not read folder permissions.\n"
 "Unable to edit delegates."
 msgstr ""
+"Kausta pääsuõiguseid pole võimalik lugeda.\n"
+"Delegaate pole võimalik muuta."
 
 #: storage/exchange-delegates.c:267
 msgid ""
@@ -1088,12 +1094,12 @@ msgstr ""
 #: storage/exchange-delegates.c:454
 #, c-format
 msgid "%s is already a delegate"
-msgstr ""
+msgstr "%s on juba delegaat"
 
 #: storage/exchange-delegates.c:563
 #, c-format
 msgid "Remove the delegate %s?"
-msgstr ""
+msgstr "Eemaldada delegaat %s?"
 
 #: storage/exchange-delegates.c:680
 msgid "Could not access Active Directory"
@@ -1111,16 +1117,16 @@ msgstr "Delegaati %s pole Active Directory'st võimalik leida"
 #: storage/exchange-delegates.c:720
 #, c-format
 msgid "Could not remove delegate %s"
-msgstr ""
+msgstr "Delegaati %s pole võimalik eemaldada"
 
 #: storage/exchange-delegates.c:780
 msgid "Could not update list of delegates."
-msgstr ""
+msgstr "Delegaatide loendit pole võimalik uuendada"
 
 #: storage/exchange-delegates.c:798
 #, c-format
 msgid "Could not add delegate %s"
-msgstr ""
+msgstr "Delegaati %s pole võimalik lisada"
 
 #: storage/exchange-delegates.c:814
 #, c-format
@@ -1128,6 +1134,8 @@ msgid ""
 "Failed to update delegates:\n"
 "%s"
 msgstr ""
+"Tõrge delegaatide uuendamisel:\n"
+"%s"
 
 #: storage/exchange-delegates.c:938 storage/exchange-permissions-dialog.c:706
 msgid "Name"
@@ -1151,11 +1159,11 @@ msgstr "Ko_ntaktid:"
 
 #: storage/exchange-delegates.glade.h:4
 msgid "Delegate Permissions"
-msgstr ""
+msgstr "Delegaadi pääsuõigused"
 
 #: storage/exchange-delegates.glade.h:5
 msgid "Delegates"
-msgstr ""
+msgstr "Delegaadid"
 
 #: storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
@@ -1329,16 +1337,16 @@ msgstr ""
 
 #: storage/exchange-permissions-dialog.c:222
 msgid "Could not read folder permissions"
-msgstr ""
+msgstr "Kausta pääsuõiguseid pole võimalik lugeda"
 
 #: storage/exchange-permissions-dialog.c:264
 msgid "Could not update folder permissions."
-msgstr ""
+msgstr "Kausta pääsuõiguseid pole võimalik uuendada"
 
 #: storage/exchange-permissions-dialog.c:293
 #, c-format
 msgid "Could not update folder permissions. %s"
-msgstr ""
+msgstr "Kausta pääsuõiguseid pole võimalik uuendada. %s"
 
 #: storage/exchange-permissions-dialog.c:295
 msgid "(Permission denied.)"
@@ -1366,7 +1374,7 @@ msgstr "Kasutajat %s ei ole"
 #: storage/exchange-permissions-dialog.c:425
 #, c-format
 msgid "%s cannot be added to an access control list"
-msgstr ""
+msgstr "%s pole võimalik lisada pääsuõiguste loendisse"
 
 #: storage/exchange-permissions-dialog.c:430
 #, c-format
