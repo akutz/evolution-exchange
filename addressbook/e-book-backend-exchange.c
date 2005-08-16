@@ -95,10 +95,8 @@ static void proppatch_email(PropMapping *prop_mapping, EContact *new_contact, EC
 static void proppatch_date(PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
 static void populate_address(EContactField field, EContact *new_contact, void *data);
 static void populate_date(EContactField field, EContact *new_contact, void *data);
-#ifdef ENABLE_CATEGORIES
-static void proppatch_categories(PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
-static void populate_categories(EContactField field, EContact *new_contact, void *data);
-#endif
+static void proppatch_categories (PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
+static void populate_categories (EContactField field, EContact *new_contact, void *data);
 static E2kRestriction *e_book_backend_exchange_build_restriction (const char *sexp,
 							       E2kRestriction *base_rn);
 
@@ -212,10 +210,7 @@ prop_mappings[] = {
 
 	HTTPMAIL_FIELD (NOTE, TEXT_DESCRIPTION, "note"),
 
-#ifdef ENABLE_CATEGORIES
-	/* this doesn't work at the moment */
 	EXCHANGE_FIELD (CATEGORIES, KEYWORDS, "categories", proppatch_categories, populate_categories)
-#endif
 };
 static int num_prop_mappings = sizeof(prop_mappings) / sizeof (prop_mappings[0]);
 
@@ -757,82 +752,41 @@ proppatch_email (PropMapping *prop_mapping,
 		e2k_properties_remove (props, E2K_PR_MAPI_EMAIL_ADDRESS_LIST);
 }
 
-#ifdef ENABLE_CATEGORIES
 static void
 proppatch_categories (PropMapping *prop_mapping,
 		      EContact *new_contact, EContact *cur_contact,
 		      E2kProperties *props)
 {
-	gboolean changed;
-	char *new_categories, *cur_categories = NULL;
-	EList *categories;
-	EIterator *iter;
-	GPtrArray *array = NULL;
+	GList *categories_list = NULL;
+	GList *l = NULL;
+	GPtrArray *prop_array = NULL;
 
-	new_categories = e_contact_get (new_contact, field);
-	if (cur_contact)
-		cur_categories = e_contact_get (cur_contact, field);
+	categories_list = e_contact_get (new_contact, E_CONTACT_CATEGORY_LIST);
+	prop_array = g_ptr_array_new ();
 
-	changed = value_changed (cur_categories, new_categories);
-	g_free (new_categories);
-	g_free (cur_categories);
-
-	if (!changed)
-		return;
-
-
-#ifdef DEBUG
-	printf ("CATEGORIES = %s\n", new_categories);
-#endif
-
-	g_object_get ((new_contact->card),
-			"category_list", &categories,
-			NULL);
-
-	iter = e_list_get_iterator (categories);
-	while (e_iterator_is_valid (iter)) {
-		const char *category = e_iterator_get (iter);
-
-		if (!array)
-			array = g_ptr_array_new ();
-		g_ptr_array_add (array, g_strdup (category));
-		e_iterator_next (iter);
+	for (l = categories_list; l; l = g_list_next (l)) {
+		g_ptr_array_add (prop_array, g_strdup (l->data));
 	}
-	g_object_unref (iter);
 
-	e2k_properties_set_string_array (props, prop_mapping->prop_name, array);
+	e2k_properties_set_string_array (props, prop_mapping->prop_name, prop_array);
 }
 
 static void
-populate_categories(EContactField field, EContact *new_contact, void *data)
+populate_categories (EContactField field, EContact *new_contact, void *data)
 {
-	GSList *list = data;
-	GSList *l;
-	EList *categories;
+	GList *updated_list = NULL;
+	GPtrArray *categories_list = data;
+	gint i;
 
-	categories = e_list_new ((EListCopyFunc) g_strdup, 
-				 (EListFreeFunc) g_free,
-				 NULL);
-
-	for (l = list; l; l = l->next) {
-		e_list_append (categories, l->data);
+	for (i = 0; i < categories_list->len; i++) {
+		updated_list = g_list_append (updated_list,
+					      (char *)categories_list->pdata[i]);
 	}
+	
 
-	g_object_set ((new_contact->card),
-			"category_list", categories,
-			NULL);
+	e_contact_set (new_contact, E_CONTACT_CATEGORY_LIST, updated_list);
 
-#ifdef DEBUG 
-	{
-		char *category_text = e_contact_get (new_contact, E_CONTACT_CATEGORIES);
-		printf ("populated categories = %s\n", category_text);
-		g_free (category_text);
-	}
-#endif
-
-	g_object_unref (categories);
 }
-#endif
 
 static void
 proppatch_date (PropMapping *prop_mapping,
