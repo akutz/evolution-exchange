@@ -1,3 +1,21 @@
+2005-08-12  Praveen Kumar  <kpraveen@novell.com>
+
+	* calendar/e-cal-backend-exchange.c:
+	(open_calendar): Remove the warning dialog as all UI stuff will
+	be handled by the plugin. Fix for the bug 273272.
+	
+
+2005-08-11  Praveen Kumar  <kpraveen@novell.com>
+
+	* storage/exchange-config-listener.c
+	(exchange_camel_urls_is_equal): Added new
+	(account_added): Removed the default folder settings as it will be 
+	handled by the plugin.
+	(account_changed): Removed the dialog popups as all dialogs are now
+	from the plugin
+	(account_removed): Removed the ESource deletion and the dialog popup
+	as it will be handled by the plugin
+	
 2005-08-16  Arunprakash  <arunp@novell.com>
 
 	* calendar/e-cal-backend-exchange-tasks.c (get_changed_tasks) :

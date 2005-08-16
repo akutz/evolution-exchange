@@ -40,6 +40,8 @@
 #include <libedataserver/e-source-list.h>
 #include <libedataserver/e-source-group.h>
 
+#include <camel/camel-url.h>
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -83,6 +85,10 @@ static void account_changed (EAccountList *account_listener,
 			     EAccount     *account);
 static void account_removed (EAccountList *account_listener,
 			     EAccount     *account);
+
+static gboolean exchange_camel_urls_is_equal (const gchar *url1, 
+					      const gchar *url2);
+
 
 static void
 class_init (GObjectClass *object_class)
@@ -345,8 +351,6 @@ account_added (EAccountList *account_list, EAccount *account)
 	config_listener = EXCHANGE_CONFIG_LISTENER (account_list);
 	if (config_listener->priv->configured_account) {
 		/* Multiple accounts configured. */
-		e_notice (NULL, GTK_MESSAGE_ERROR,
-			  _("You may only configure a single Exchange account"));
 		return;
 	}
 
@@ -366,12 +370,6 @@ account_added (EAccountList *account_list, EAccount *account)
 	g_free (config_listener->priv->configured_name);
 	config_listener->priv->configured_name = g_strdup (account->name);
 
-	if (account == e_account_list_get_default (account_list)) {
-		g_signal_connect_swapped (config_listener->priv->exchange_account,
-					  "connected",
-					  G_CALLBACK (add_defaults_for_account),
-					  config_listener);
-	}
 
 	g_signal_emit (config_listener, signals[EXCHANGE_ACCOUNT_CREATED], 0,
 		       exchange_account);
@@ -479,7 +477,12 @@ account_changed (EAccountList *account_list, EAccount *account)
 		return;
 	}
 
-	if (!strcmp (config_listener->priv->configured_uri, account->source->url) &&
+	/* FIXME: The order of the parameters in the Camel URL string is not in 
+	 * order for the two given strings. So, we will not be able to use
+	 * plain string comparison. Instead compare the parameters one by one.
+	 */
+	if (exchange_camel_urls_is_equal (config_listener->priv->configured_uri, 
+					  account->source->url) &&
 	    !strcmp (config_listener->priv->configured_name, account->name)) {
 		/* The user changed something we don't care about. */
 		return;
@@ -513,42 +516,24 @@ account_changed (EAccountList *account_list, EAccount *account)
 	 * could be due to change in hostname or some parameter value, 
 	 * remove old e-sources 
 	 */
-	if (strcmp (config_listener->priv->configured_uri, account->source->url)) {
-		/* This condition will be true always as order of parameters in 
-		 * configured_uri and source->url will not match
-		 */
-		remove_account_esources (priv->exchange_account);
-
-		/* Ask user to authenticate at next login if username, hostname,
-		 * OWA URL or GC server values are changed. 
-		 */
-		if (requires_relogin (config_listener->priv->configured_uri, 
-				      account->source->url)) {
-			exchange_account_forget_password (priv->exchange_account);
-		}
-		else {
-			/* FIXME: modify esources and don't ask for re-login */
-			/* modify_esource (priv->exchange_account, 
-			 * account->source->url); 
-			 * return;
-			 */
-		}
+	if (requires_relogin (config_listener->priv->configured_uri, 
+			      account->source->url)) {
+		exchange_account_forget_password (priv->exchange_account);
+	} else if (strcmp (config_listener->priv->configured_name, account->name)) {
+/* 		remove_account_esources (priv->exchange_account); */
+		g_free (config_listener->priv->configured_name);
+		config_listener->priv->configured_name = g_strdup (account->name);
+		return;
+	} else {
+		/* FIXME: Do ESources need to be modified? */
+		return;
 	}
-	else if (strcmp (config_listener->priv->configured_name, account->name))
-		remove_account_esources (priv->exchange_account);
-
-	/* Nope. Let the user know we're ignoring him. */
-	e_notice (NULL, GTK_MESSAGE_WARNING,
-		  _("Changes to Exchange account configuration will "
-		    "take\nplace after you quit and restart Evolution."));
 
 	/* But note the new URI so if he changes something else, we
 	 * only warn again if he changes again.
 	 */
 	g_free (config_listener->priv->configured_uri);
 	config_listener->priv->configured_uri = g_strdup (account->source->url);
-	g_free (config_listener->priv->configured_name);
-	config_listener->priv->configured_name = g_strdup (account->name);
 }
 
 static void
@@ -560,9 +545,6 @@ account_removed (EAccountList *account_list, EAccount *account)
 
 	if (account != priv->configured_account)
 		return;
-
-	/* Remove all ESources */
-	remove_account_esources (priv->exchange_account);
 
 	exchange_account_forget_password (priv->exchange_account);
 
@@ -582,17 +564,7 @@ account_removed (EAccountList *account_list, EAccount *account)
 		priv->configured_uri = NULL;
 		g_free (priv->configured_name);
 		priv->configured_name = NULL;
-	} else {
-		if (account->enabled) {
-			e_notice (NULL, GTK_MESSAGE_INFO,
-				_("The Exchange account will be removed when you quit Evolution"));
-		}
-		else {
-			/* The account is in use. We can't remove it. */
-			e_notice (NULL, GTK_MESSAGE_INFO,
-			  	_("The Exchange account will be disabled when you quit Evolution"));
-		}
-	}
+	} 
 }
 
 static gboolean
@@ -645,4 +617,53 @@ exchange_config_listener_get_accounts (ExchangeConfigListener *config_listener)
 		return g_slist_append (NULL, config_listener->priv->exchange_account);
 	else
 		return NULL;
+}
+
+/**
+ * exchange_camel_urls_is_equal 
+ * 
+ * @url1: CAMEL URL string 1
+ * @url2: CAMEL URL string 2
+ *
+ * This function checks if the parameters present in two given CAMEL URLS are
+ * identical and returns the result.
+ *
+ * Return Value: Boolean result of the comparision.
+ *
+ **/ 
+static gboolean
+exchange_camel_urls_is_equal (const gchar *url1, const gchar *url2)
+{
+	CamelURL *curl1, *curl2;
+	gchar *param1, *param2;
+	const char *params[] = {
+		"auth",
+		"owa_url",
+		"owa_path",
+		"mailbox",
+		"ad_server",
+	};
+	const int n_params = 5;
+	int i;
+	
+	curl1 = camel_url_new (url1, NULL);
+	curl2 = camel_url_new (url2, NULL);
+
+	for (i = 0; i < n_params; ++i) {
+		param1 = (gchar*) camel_url_get_param (curl1, params[i]);
+		param2 = (gchar*) camel_url_get_param (curl2, params[i]);
+		if ((param1 && !param2) || (!param1 && param2) || /* Missing */
+		    (param1 && param2 && strcmp (param1, param2))) { /* Differing */
+			g_free (param1);
+			g_free (param2);
+			g_free (curl1);
+			g_free (curl2);
+			return FALSE;
+		}		
+		g_free (param1);
+		g_free (param2);
+	}
+	g_free (curl1);
+	g_free (curl2);
+	return TRUE;
 }

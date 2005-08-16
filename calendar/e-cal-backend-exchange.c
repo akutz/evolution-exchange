@@ -307,7 +307,6 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 		display_contents = e_source_get_property (source, "offline_sync");
 		
 		if (!display_contents || !g_str_equal (display_contents, "1")) {
-			e_cal_backend_notify_error (E_CAL_BACKEND (cbex), _("Folder not marked for offline support"));
 			return GNOME_Evolution_Calendar_RepositoryOffline;
 		}
 
