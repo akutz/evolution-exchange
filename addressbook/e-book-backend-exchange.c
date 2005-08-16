@@ -103,6 +103,8 @@ static E2kRestriction *e_book_backend_exchange_build_restriction (const char *se
 							       E2kRestriction *base_rn);
 
 static const char *contact_name (EContact *contact);
+static void proppatch_im (PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
+static void populate_im (EContactField field, EContact *new_contact, void *data);
 
 static GPtrArray *field_names_array;
 static const char **field_names;
@@ -133,6 +135,7 @@ http_status_to_pas (E2kHTTPStatus status)
 #define CAL_FIELD(x,z) { E_CONTACT_##x, E2K_PR_CALENDAR_##x, z, FLAG_UNLIKEABLE, NULL }
 #define HTTPMAIL_FIELD(x,y,z) { E_CONTACT_##x, E2K_PR_HTTPMAIL_##y, z, FLAG_UNLIKEABLE | FLAG_PUT, NULL }
 #define EXCHANGE_FIELD(x,y,z,w,v) { E_CONTACT_##x, E2K_PR_EXCHANGE_##y, z, FLAG_COMPOSITE, w, v }
+#define IM_FIELD(x,z) { E_CONTACT_##x, E2K_PR_OUTLOOK_CONTACT_IM_ADDR, z, FLAG_COMPOSITE, proppatch_im, populate_im }
 
 struct PropMapping {
 	EContactField field;
@@ -200,6 +203,12 @@ prop_mappings[] = {
 	DATE_FIELD (BIRTH_DATE, "birth_date"),
 	DATE_FIELD (ANNIVERSARY, "anniversary"),
 	CAL_FIELD (FREEBUSY_URL, "fburl"),
+	IM_FIELD (IM_ICQ, "icq"),
+	IM_FIELD (IM_AIM, "aim"),
+	IM_FIELD (IM_MSN, "msn"),
+	IM_FIELD (IM_YAHOO, "yahoo"),
+	IM_FIELD (IM_JABBER, "jabber"),
+	IM_FIELD (IM_GROUPWISE, "nov"),
 
 	HTTPMAIL_FIELD (NOTE, TEXT_DESCRIPTION, "note"),
 
@@ -995,6 +1004,44 @@ proppatch_address (PropMapping *prop_mapping,
 	e_contact_address_free (new_address);
 	if (cur_address)
 		e_contact_address_free (cur_address);
+}
+
+static void
+proppatch_im (PropMapping *prop_mapping, 
+	      EContact *new_contact, EContact *cur_contact,
+	      E2kProperties *props)
+{
+	GList *new_list;
+
+	new_list = e_contact_get (new_contact, prop_mapping->field);
+	while (new_list) {
+		if (prop_mapping->field == E_CONTACT_IM_MSN) {
+			e2k_properties_set_string (props, 
+						   E2K_PR_OUTLOOK_CONTACT_IM_ADDR,
+						   g_strdup (new_list->data));
+			break;
+		}
+		new_list = g_list_next (new_list);
+	}
+}
+
+static void
+populate_im (EContactField field, EContact *new_contact, void *data)
+{
+	GList *im_attr_list = NULL;
+	EVCardAttribute *attr;
+
+	if (field == E_CONTACT_IM_MSN) {
+		attr = e_vcard_attribute_new ("", e_contact_vcard_attribute (field));
+		e_vcard_attribute_add_param_with_value (attr,
+				e_vcard_attribute_param_new (EVC_TYPE), "WORK");
+
+		e_vcard_attribute_add_value (attr, (const char *)data);
+
+		im_attr_list = g_list_append (im_attr_list, attr);
+	}
+
+	e_contact_set_attributes (new_contact, field, im_attr_list);
 }
 
 static void
