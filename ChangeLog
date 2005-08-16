@@ -1,3 +1,9 @@
+2005-08-16  Arunprakash  <arunp@novell.com>
+
+	* calendar/e-cal-backend-exchange-tasks.c (get_changed_tasks) :
+	Converted the time read from the server to local zone before
+	returning. Otherwise it was floating time. Fixes #310449.
+
 2005-08-16  Shakti Sen <shprasad@novell.com>
 
 	* addressbook/e-book-backend-exchange.c (proppatch_categories)

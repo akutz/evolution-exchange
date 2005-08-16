@@ -690,9 +690,9 @@ get_changed_tasks (ECalBackendExchange *cbex, const char *since)
 
 		/* Set DUE */
 		if ((str = e2k_properties_get_prop (result->props, E2K_PR_MAPI_COMMON_END))) {
-			itt = icaltime_from_timet (e2k_parse_timestamp (str), 0);
+			itzone = get_default_timezone ();
+			itt = icaltime_from_timet_with_zone (e2k_parse_timestamp (str), 0, itzone);
 			if (!icaltime_is_null_time (itt)) {
-				itzone = icaltime_get_timezone ((const struct icaltimetype)itt);
 				tzid = icaltimezone_get_tzid ((icaltimezone *)itzone);
 				ecdatetime.value = &itt;
 				ecdatetime.tzid = tzid;
@@ -703,9 +703,9 @@ get_changed_tasks (ECalBackendExchange *cbex, const char *since)
 		/* Set DTSTART */
 		if ((str = e2k_properties_get_prop (result->props, 
 				E2K_PR_MAPI_COMMON_START))) {
-			itt = icaltime_from_timet (e2k_parse_timestamp (str), 0);
+			itzone = get_default_timezone ();
+			itt = icaltime_from_timet_with_zone (e2k_parse_timestamp (str), 0, itzone);
 			if (!icaltime_is_null_time (itt)) {
-				itzone = icaltime_get_timezone ((const struct icaltimetype) itt);
 				tzid = icaltimezone_get_tzid ((icaltimezone *)itzone);
 				ecdatetime.value = &itt;
 				ecdatetime.tzid = tzid;
