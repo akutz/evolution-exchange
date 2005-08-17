@@ -472,7 +472,7 @@ build_cache (EBookBackendExchange *be)
 				       field_names, n_field_names,
 				       bepriv->base_rn, NULL, TRUE);
 
-	e_file_cache_freeze_changes (E_FILE_CACHE (priv->cache));
+	e_file_cache_freeze_changes (E_FILE_CACHE (bepriv->cache));
 	while ((result = e2k_result_iter_next (iter))) {
 		contact = e_contact_from_props (be, result);
 		if (!contact)
@@ -482,7 +482,7 @@ build_cache (EBookBackendExchange *be)
 	}
 	e_book_backend_cache_set_populated (bepriv->cache);
 	bepriv->is_cache_ready=TRUE;
-	e_file_cache_thaw_changes (E_FILE_CACHE (priv->cache));
+	e_file_cache_thaw_changes (E_FILE_CACHE (bepriv->cache));
 
 	return NULL;
 }
@@ -516,7 +516,7 @@ update_cache (EBookBackendExchange *be)
 				       field_names, n_field_names,
 				       bepriv->base_rn, NULL, TRUE);
 
-	e_file_cache_freeze_changes (E_FILE_CACHE (priv->cache));
+	e_file_cache_freeze_changes (E_FILE_CACHE (bepriv->cache));
 	while ((result = e2k_result_iter_next (iter))) {
 		contact = e_contact_from_props (be, result);
 		if (!contact)
@@ -526,7 +526,7 @@ update_cache (EBookBackendExchange *be)
 	}
 	e_book_backend_cache_set_populated (bepriv->cache);
 	bepriv->is_cache_ready=TRUE;
-	e_file_cache_thaw_changes (E_FILE_CACHE (priv->cache));
+	e_file_cache_thaw_changes (E_FILE_CACHE (bepriv->cache));
 
 	return TRUE;
 }
