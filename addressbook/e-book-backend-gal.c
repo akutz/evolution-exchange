@@ -1597,6 +1597,7 @@ generate_cache_handler (LDAPOp *op, LDAPMessage *res)
 		GList *l;
 
 		e_file_cache_clean (E_FILE_CACHE (bl->priv->cache));
+		e_file_cache_freeze_changes (E_FILE_CACHE (priv->cache));
 		
 		for (l = contact_list_op->contacts; l; l = g_list_next (l)) {
 			EContact *contact = l->data;
@@ -1604,6 +1605,7 @@ generate_cache_handler (LDAPOp *op, LDAPMessage *res)
 		}
 
 		e_book_backend_cache_set_populated (bl->priv->cache);
+		e_file_cache_thaw_changes (E_FILE_CACHE (priv->cache));
 		ldap_op_finished (op);
 	}
 }

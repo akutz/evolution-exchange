@@ -1,10 +1,18 @@
+2005-08-17  Sushma Rai <rsushma@novell.com>
+
+	* addressbook/e-book-backend-exchange.c (build_cache)(update_cache):
+	Freezing the cache update, and writing to the disk at the end.
+	Fixes the problem of frequent disk access, and high CPU utilization for 
+	huge caches.
+
+	* addressbook/e-book-backend-gal.c (generate_cache_handler): Similar.
+
 2005-08-12  Praveen Kumar  <kpraveen@novell.com>
 
 	* calendar/e-cal-backend-exchange.c:
 	(open_calendar): Remove the warning dialog as all UI stuff will
 	be handled by the plugin. Fix for the bug 273272.
 	
-
 2005-08-11  Praveen Kumar  <kpraveen@novell.com>
 
 	* storage/exchange-config-listener.c
