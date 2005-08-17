@@ -774,7 +774,9 @@ proppatch_categories (PropMapping *prop_mapping,
 		g_ptr_array_add (prop_array, g_strdup (l->data));
 	}
 
-	e2k_properties_set_string_array (props, prop_mapping->prop_name, prop_array);
+	if (categories_list) {
+		e2k_properties_set_string_array (props, prop_mapping->prop_name, prop_array);
+	}
 }
 
 static void
