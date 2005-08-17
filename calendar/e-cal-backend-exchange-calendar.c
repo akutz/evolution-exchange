@@ -55,6 +55,10 @@ static ECalBackendExchange *parent_class = NULL;
 
 static ECalBackendSyncStatus modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, const char *calobj, CalObjModType mod, char **old_object, const char *href);
 
+static icalproperty *find_attendee_prop (icalcomponent *ical_comp, const char *address);
+static gboolean check_owner_partstatus_for_declined (ECalBackendSync *backend,
+						     icalcomponent *icalcomp);
+
 gboolean check_for_send_options (icalcomponent *icalcomp, E2kProperties *props);
 
 static void
@@ -546,6 +550,61 @@ check_for_send_options (icalcomponent *icalcomp, E2kProperties *props)
 	}
 
 	return exists;
+}
+
+/* stolen from e-itip-control.c with some modifications */
+static icalproperty *
+find_attendee_prop (icalcomponent *ical_comp, const char *address)
+{
+	icalproperty *prop;
+
+	if (address == NULL)
+		return NULL;
+
+	for (prop = icalcomponent_get_first_property (ical_comp, ICAL_ATTENDEE_PROPERTY);
+	     prop != NULL;
+	     prop = icalcomponent_get_next_property (ical_comp, ICAL_ATTENDEE_PROPERTY)) {
+		icalvalue *value;
+		const char *attendee;
+		char *text;
+
+		value = icalproperty_get_value (prop);
+		if (!value)
+			continue;
+
+		attendee = icalvalue_get_string (value);
+
+		if (!g_strncasecmp (attendee, "mailto:", 7))
+			attendee += 7;
+		text = g_strstrip (g_strdup (attendee));
+		if (!g_strcasecmp (address, text)) {
+			g_free (text);
+			return prop;
+		}
+		g_free (text);
+	}
+	
+	return NULL;
+}
+
+static gboolean
+check_owner_partstatus_for_declined (ECalBackendSync *backend,
+				     icalcomponent *icalcomp)
+{
+	icalproperty *icalprop;
+	icalparameter *param;
+	gchar *email;
+	
+	email = e_cal_backend_exchange_get_owner_email (backend);
+	icalprop = find_attendee_prop (icalcomp, email);
+	g_free (email);
+	
+	param = icalproperty_get_first_parameter (icalprop, ICAL_PARTSTAT_PARAMETER);
+	
+	if (icalparameter_get_partstat (param) == ICAL_PARTSTAT_DECLINED) {
+		return TRUE;
+	}
+	return FALSE;
 }
 
 static ECalBackendSyncStatus
@@ -1195,6 +1254,10 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 	struct icaltimetype time_rid;
 	ECalBackendSyncStatus ebs_status;
 	
+	/* Will handle only CALOBJ_MOD_THIS and CALOBJ_MOD_ALL for mod.
+	   CALOBJ_MOD_THISANDPRIOR and CALOBJ_MOD_THISANDFUTURE are not
+	   handled. */
+	
 	cbexc = E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), GNOME_Evolution_Calendar_InvalidObject);
@@ -1214,38 +1277,30 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 	if (old_object)
 		*old_object = e_cal_component_get_as_string (comp);
 	
-	switch (mod) {
+	if (mod == CALOBJ_MOD_THIS && rid && *rid) {
+		/*remove a single instance of a recurring event and modify */
+		time_rid = icaltime_from_string (rid);
+		e_cal_util_remove_instances (ecomp->icomp, time_rid, mod);
+		calobj  = (char *) icalcomponent_as_ical_string (ecomp->icomp);
+		ebs_status = modify_object (backend, cal, calobj, mod, &obj, NULL);
+		g_object_unref (comp);
+		if (ebs_status != GNOME_Evolution_Calendar_Success)
+			goto error;
 		
-		case CALOBJ_MOD_ALL:
-			ctx = exchange_account_get_context (E_CAL_BACKEND_EXCHANGE (cbexc)->account);	
-			
-			status = e2k_context_delete (ctx, NULL, ecomp->href);			
-			if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {		
-				
-				if (e_cal_backend_exchange_remove_object (E_CAL_BACKEND_EXCHANGE (cbexc), uid)) {
-						g_object_unref (comp);
-						return GNOME_Evolution_Calendar_Success;
-				}
-			}
-			*object = NULL;
-			break;
-		case CALOBJ_MOD_THIS:
-			/*remove_instance and modify */
-			if (rid && *rid) {
-				time_rid = icaltime_from_string (rid);
-				e_cal_util_remove_instances (ecomp->icomp, time_rid, mod);
-			}
-			calobj  = (char *) icalcomponent_as_ical_string (ecomp->icomp);
-			ebs_status = modify_object (backend, cal, calobj, mod, &obj, NULL);
-			if (ebs_status != GNOME_Evolution_Calendar_Success)
-				goto error;
-			
-			g_free (obj);
-			return ebs_status;
-		
-		default:
-			break;
+		g_free (obj);
+		return ebs_status;
 	}
+	g_object_unref (comp);
+
+	ctx = exchange_account_get_context (E_CAL_BACKEND_EXCHANGE (cbexc)->account);	
+	
+	status = e2k_context_delete (ctx, NULL, ecomp->href);
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		if (e_cal_backend_exchange_remove_object (E_CAL_BACKEND_EXCHANGE (cbexc), uid)) {
+			return GNOME_Evolution_Calendar_Success;
+		}
+	}
+	*object = NULL;
 
 error:
 	return GNOME_Evolution_Calendar_OtherError;
@@ -1300,26 +1355,38 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 		case ICAL_METHOD_REQUEST:
 		case ICAL_METHOD_REPLY:
 			if (get_exchange_comp (E_CAL_BACKEND_EXCHANGE (cbexc), uid)) {
-				char *old_object;
+				char *old_object = NULL;
 				
 				calobj = (char *) icalcomponent_as_ical_string (subcomp);
-				status = modify_object (backend, cal, calobj, CALOBJ_MOD_THIS, &old_object, NULL);
-				if (status != GNOME_Evolution_Calendar_Success)
-					goto error;
-
-				e_cal_backend_notify_object_modified (E_CAL_BACKEND (backend), old_object, calobj);
+				if (check_owner_partstatus_for_declined (backend, subcomp)) {
+					status = remove_object (backend, cal, uid, NULL, 
+								CALOBJ_MOD_ALL, &old_object,
+								NULL);
+					if (status != GNOME_Evolution_Calendar_Success)
+						goto error;
+					e_cal_backend_notify_object_removed (E_CAL_BACKEND (backend), uid,
+									     old_object, NULL);
+				} else {
+					status = modify_object_with_href (backend, cal, calobj,
+									  CALOBJ_MOD_THIS,
+									  &old_object, NULL);
+					if (status != GNOME_Evolution_Calendar_Success)
+						goto error;
+					e_cal_backend_notify_object_modified (E_CAL_BACKEND (backend),
+									      old_object, calobj);
+				}
 
 				g_free (old_object);
-			} else {
+			} else if (!check_owner_partstatus_for_declined (backend, subcomp)) {
 				char *returned_uid;
-
 				calobj = (char *) icalcomponent_as_ical_string (subcomp);
 				status = create_object (backend, cal, &calobj, &returned_uid);
 				if (status != GNOME_Evolution_Calendar_Success)
 					goto error;
 
 				e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), calobj);
-			}
+			} else
+				status = GNOME_Evolution_Calendar_Success;
 			break;
 		case ICAL_METHOD_ADD:
 			/* FIXME This should be doable once all the recurid stuff is done ??*/

@@ -1215,6 +1215,15 @@ e_cal_backend_exchange_get_from_string (ECalBackendSync *backend, ECalComponent 
 	return g_strdup_printf ("\"%s\" <%s>", name, addr);
 }
 
+gchar *
+e_cal_backend_exchange_get_owner_email (ECalBackendSync *backend)
+{
+	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
+	ExchangeHierarchy *hier;
+
+	hier = e_folder_exchange_get_hierarchy (cbex->folder);
+	return g_strdup (hier->owner_email);
+}
 
 struct ChangeData {
 	EXmlHash *ehash;

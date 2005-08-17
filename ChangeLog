@@ -1,3 +1,18 @@
+2005-08-17  Arunprakash  <arunp@novell.com>
+
+	* calendar/e-cal-backend-exchange-calendar.c (find_attendee_prop)
+	(check_owner_partstatus_for_declined) : Newly added to check
+	the partstatus of the calendar item owner.
+	(remove_object) : Rearranged the code to enable the deletion of
+	non-recurring items also.
+	(receive_objects) : Included checks to remove the calendar item
+	if the request is declined later. Also not to create the item if
+	the request is declined.
+	* calendar/e-cal-backend-exchange.c 
+	(e_cal_backend_exchange_get_owner_email) : Added newly to get the
+	email address of the calendar's owner.
+	Fixes #310478, #310445.
+	
 2005-08-17  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* addressbook/e-book-backend-exchange.c :
