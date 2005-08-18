@@ -39,8 +39,6 @@ evolution_exchange_storage_SOURCES =				\
 	exchange-hierarchy-foreign.h				\
 	exchange-migrate.c					\
 	exchange-migrate.h					\
-	exchange-offline-handler.c				\
-	exchange-offline-handler.h				\
 	exchange-offline-listener.c				\
 	exchange-offline-listener.h				\
 	exchange-oof.c						\
