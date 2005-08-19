@@ -1,3 +1,14 @@
+2005-08-18  Praveen Kumar  <kpraveen@novell.com>
+
+	** Fixes bug 273470
+	
+	* addressbook/e-book-backend-exchange.c
+	(e_book_backend_exchange_init): Added creation mutex initialization
+	(e_book_backend_exchange_dispose): Added creation mutex freeing
+	(e_book_backend_exchange_create_contact): Providing mutex for this
+	function in critical path so that it works seemless when invoked 
+	as a thread.
+
 2005-08-19  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* mail/mail-stub-exchange.c : Fix the name collision for global
