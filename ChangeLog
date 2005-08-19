@@ -1,5 +1,19 @@
 2005-08-19  Arunprakash  <arunp@novell.com>
 
+	* mail/mail-stub-exchange.c : Modified to make use of global
+	exchange component for linestatus change notification.
+	(linestatus_listener) : It now disconnects the signal handler
+	when it is no longer needed.
+	* storage/Makefile.am : Removed offline listener.
+	* storage/exchange-component.c (impl_setLineStatus) : Newly added
+	to implement the new offline interface.
+	(default_linestatus_notify_handler) : Will call complete for offline
+	listener when everything is done.
+	(exchange_component_set_factories) : Newly added to set the cal and
+	addressbook factories.
+
+2005-08-19  Arunprakash  <arunp@novell.com>
+
 	* camel/camel-exchange-store.c (camel_exchange_store_connected) :
 	Newly added to ensure that we are connected when the camel session
 	is too online.

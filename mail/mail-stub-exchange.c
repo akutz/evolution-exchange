@@ -48,8 +48,7 @@
 #define PARENT_TYPE MAIL_TYPE_STUB
 static MailStubClass *parent_class = NULL;
 
-/* FIXME : Have this as part of the appropriate class in 2.5 */
-static ExchangeOfflineListener *ex_offline_listener = NULL;
+static gulong offline_listener_handler_id;
 
 typedef struct {
 	char *uid, *href;
@@ -128,13 +127,12 @@ static gboolean process_flags (gpointer user_data);
 
 static void storage_folder_changed (EFolder *folder, gpointer user_data);
 
-static void linestatus_listener (ExchangeOfflineListener *ex_off_listener,
+static void linestatus_listener (ExchangeComponent *component,
 						    gint linestatus,
 						    gpointer data);
 static void folder_update_linestatus (gpointer key, gpointer value, gpointer data);
 static void free_folder (gpointer value);
 static void get_folder_online (MailStubExchangeFolder *mfld, gboolean background);
-
 static void
 class_init (GObjectClass *object_class)
 {
@@ -233,9 +231,11 @@ dispose (GObject *object)
 		mse->removed_folder_id = 0;
 	}
 
-	if (ex_offline_listener) {
-		g_signal_handlers_disconnect_by_func (ex_offline_listener, linestatus_listener, mse);
-		ex_offline_listener = NULL;
+	if (g_signal_handler_is_connected (G_OBJECT (global_exchange_component),
+					   offline_listener_handler_id)) {
+		g_signal_handler_disconnect (G_OBJECT (global_exchange_component),
+					      offline_listener_handler_id);
+		offline_listener_handler_id = 0;
 	}
 
 	G_OBJECT_CLASS (parent_class)->dispose (object);
@@ -1679,6 +1679,11 @@ process_flags (gpointer user_data)
 								 mse->deleted_items,
 								 deleted, TRUE);
 		} else {
+			/* This is for public folder hierarchy. We cannot move
+			   a mail item deleted from a public folder to the
+			   deleted items folder. This code updates the UI to
+			   show the mail folder again if the deletion fails in 
+			   such public folder */
 			iter = e_folder_exchange_bdelete_start (mfld->folder, NULL,
 								(const char **)deleted->pdata,
 								deleted->len);
@@ -2759,18 +2764,18 @@ stub_connect (MailStub *stub)
 }
 
 static void 
-linestatus_listener (ExchangeOfflineListener *ex_off_listener,
-					gint linestatus,
-					gpointer data)
+linestatus_listener (ExchangeComponent *component,
+		     gint linestatus,
+		     gpointer data)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (data);
 	ExchangeAccount *account = mse->account;
 	const char *uri;
 	
-	if (ex_off_listener && (linestatus == ONLINE_MODE)) {
+	if (linestatus == ONLINE_MODE && mse->ctx == NULL) {
 		mse->ctx = exchange_account_get_context (account);
 		g_object_ref (mse->ctx);
-
+		
 		mse->mail_submission_uri = exchange_account_get_standard_uri (account, "sendmsg");
 		uri = exchange_account_get_standard_uri (account, "inbox");
 		mse->inbox = exchange_account_get_folder (account, uri);
@@ -2779,6 +2784,14 @@ linestatus_listener (ExchangeOfflineListener *ex_off_listener,
 		g_hash_table_foreach (mse->folders_by_name,
 				      (GHFunc) folder_update_linestatus,
 				      GINT_TO_POINTER (linestatus));
+
+		g_signal_handler_disconnect (G_OBJECT (component),
+					     offline_listener_handler_id);
+		offline_listener_handler_id = 0;
+	} else if (mse->ctx != NULL) {
+		g_signal_handler_disconnect (G_OBJECT (component),
+					     offline_listener_handler_id);
+		offline_listener_handler_id = 0;
 	}
 }
 
@@ -2833,9 +2846,9 @@ mail_stub_exchange_new (ExchangeAccount *account, int cmd_fd, int status_fd)
 		mse->deleted_items = exchange_account_get_folder (account, uri);
 	}
 	
-	ex_offline_listener = exchange_component_get_offline_listener (global_exchange_component);
-	g_signal_connect (G_OBJECT (ex_offline_listener), "linestatus-changed",
-				 G_CALLBACK (linestatus_listener), mse);
+	offline_listener_handler_id = g_signal_connect (G_OBJECT (global_exchange_component),
+							"linestatus-changed",
+							G_CALLBACK (linestatus_listener), mse);
 
 	return stub;
 }
