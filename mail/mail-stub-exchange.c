@@ -49,7 +49,7 @@
 static MailStubClass *parent_class = NULL;
 
 /* FIXME : Have this as part of the appropriate class in 2.5 */
-ExchangeOfflineListener *listener = NULL;
+static ExchangeOfflineListener *ex_offline_listener = NULL;
 
 typedef struct {
 	char *uid, *href;
@@ -128,7 +128,7 @@ static gboolean process_flags (gpointer user_data);
 
 static void storage_folder_changed (EFolder *folder, gpointer user_data);
 
-static void linestatus_listener (ExchangeOfflineListener *listener,
+static void linestatus_listener (ExchangeOfflineListener *ex_off_listener,
 						    gint linestatus,
 						    gpointer data);
 static void folder_update_linestatus (gpointer key, gpointer value, gpointer data);
@@ -232,9 +232,9 @@ dispose (GObject *object)
 		mse->removed_folder_id = 0;
 	}
 
-	if (listener) {
-		g_signal_handlers_disconnect_by_func (listener, linestatus_listener, mse);
-		listener = NULL;
+	if (ex_offline_listener) {
+		g_signal_handlers_disconnect_by_func (ex_offline_listener, linestatus_listener, mse);
+		ex_offline_listener = NULL;
 	}
 
 	G_OBJECT_CLASS (parent_class)->dispose (object);
@@ -2688,7 +2688,7 @@ stub_connect (MailStub *stub)
 }
 
 static void 
-linestatus_listener (ExchangeOfflineListener *listener,
+linestatus_listener (ExchangeOfflineListener *ex_off_listener,
 					gint linestatus,
 					gpointer data)
 {
@@ -2696,7 +2696,7 @@ linestatus_listener (ExchangeOfflineListener *listener,
 	ExchangeAccount *account = mse->account;
 	const char *uri;
 	
-	if (listener && (linestatus == ONLINE_MODE)) {
+	if (ex_off_listener && (linestatus == ONLINE_MODE)) {
 		mse->ctx = exchange_account_get_context (account);
 		g_object_ref (mse->ctx);
 
@@ -2796,8 +2796,8 @@ mail_stub_exchange_new (ExchangeAccount *account, int cmd_fd, int status_fd)
 		mse->deleted_items = exchange_account_get_folder (account, uri);
 	}
 	
-	listener = exchange_component_get_offline_listener (global_exchange_component);
-	g_signal_connect (G_OBJECT (listener), "linestatus-changed",
+	ex_offline_listener = exchange_component_get_offline_listener (global_exchange_component);
+	g_signal_connect (G_OBJECT (ex_offline_listener), "linestatus-changed",
 				 G_CALLBACK (linestatus_listener), mse);
 
 	return stub;
