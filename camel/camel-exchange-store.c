@@ -158,6 +158,28 @@ camel_exchange_store_get_type (void)
 	return camel_exchange_store_type;
 }
 
+/* Use this to ensure that the camel session is online and we are connected
+   too. Also returns the current status of the store */
+gboolean
+camel_exchange_store_connected (CamelExchangeStore *store, CamelException *ex)
+{
+	CamelService *service;
+	CamelSession *session;
+
+	g_return_val_if_fail (CAMEL_IS_EXCHANGE_STORE (store), FALSE);
+
+	service = CAMEL_SERVICE (store);
+	session = service->session;
+
+	if (service->status != CAMEL_SERVICE_CONNECTED &&
+	    camel_session_is_online (session) &&
+	    !camel_service_connect (service, ex)) {
+		return FALSE;
+	}
+
+	return CAMEL_OFFLINE_STORE (store)->state != CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL;
+}
+
 /* This has been now removed from evolution/e-util. So implemented this here.
  * Also note that this is similar to the call in e2k-path.c. The name of the 
  * function has been changed to avoid any conflicts.
@@ -359,8 +381,11 @@ exchange_disconnect (CamelService *service, gboolean clean, CamelException *ex)
 	return TRUE;
 }
 
-#define RETURN_VAL_IF_NOT_CONNECTED(service, ex, val)\
-	if (!exchange_connect((CamelService *)service, ex))\
+/* Even if we are disconnected, we need to exchange_connect
+   to get the offline data */
+#define RETURN_VAL_IF_NOT_CONNECTED(store, ex, val)\
+	if (!camel_exchange_store_connected(store, ex) && \
+	    !exchange_connect (CAMEL_SERVICE (store), ex)) \
 		return val; 
 
 static CamelFolder *
@@ -371,11 +396,11 @@ exchange_get_folder (CamelStore *store, const char *folder_name,
 	CamelFolder *folder;
 	char *folder_dir;
 	
-	RETURN_VAL_IF_NOT_CONNECTED(store, ex, NULL);
+	RETURN_VAL_IF_NOT_CONNECTED (exch, ex, NULL);
 
 	folder_dir = exchange_path_to_physical (exch->storage_path, folder_name);
 	
-	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
+	if (!camel_exchange_store_connected (exch, ex)) {
 		if (!folder_dir || access (folder_dir, F_OK) != 0) {
 			g_free (folder_dir);
 			camel_exception_setv (ex, CAMEL_EXCEPTION_STORE_NO_FOLDER,
@@ -430,7 +455,7 @@ exchange_folder_subscribed (CamelStore *store, const char *folder_name)
 	}
 
 	if (!camel_stub_send (exch->stub, NULL, CAMEL_STUB_CMD_IS_SUBSCRIBED_FOLDER,
-			      CAMEL_STUB_ARG_STRING, folder_name,
+			      CAMEL_STUB_ARG_FOLDER, folder_name,
 			      CAMEL_STUB_ARG_RETURN,
 			      CAMEL_STUB_ARG_UINT32, &is_subscribed,
 			      CAMEL_STUB_ARG_END)) {
@@ -447,13 +472,13 @@ exchange_subscribe_folder (CamelStore *store, const char *folder_name,
 	d(printf ("subscribe folder : %s\n", folder_name));
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	
-	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
+	if (!camel_exchange_store_connected (exch, ex)) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot subscribe folder in offline mode."));
 		return;
 	}
 
 	camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_SUBSCRIBE_FOLDER,
-			      CAMEL_STUB_ARG_STRING, folder_name,
+			      CAMEL_STUB_ARG_FOLDER, folder_name,
 			      CAMEL_STUB_ARG_END);
 }
 
@@ -464,13 +489,13 @@ exchange_unsubscribe_folder (CamelStore *store, const char *folder_name,
 	d(printf ("unsubscribe folder : %s\n", folder_name));
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	
-	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
+	if (!camel_exchange_store_connected (exch, ex)) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot unsubscribe folder in offline mode."));
 		return;
 	}
 
 	camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_UNSUBSCRIBE_FOLDER,
-			      CAMEL_STUB_ARG_STRING, folder_name,
+			      CAMEL_STUB_ARG_FOLDER, folder_name,
 			      CAMEL_STUB_ARG_END);
 }
 
@@ -480,7 +505,7 @@ get_trash (CamelStore *store, CamelException *ex)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	
-	RETURN_VAL_IF_NOT_CONNECTED(store, ex, NULL);
+	RETURN_VAL_IF_NOT_CONNECTED (exch, ex, NULL);
 
 	if (!exch->trash_name) {
 		if (!camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_GET_TRASH_NAME,
@@ -579,7 +604,7 @@ exchange_get_folder_info (CamelStore *store, const char *top, guint32 flags, Cam
 	 * each time auto-send/recv runs.
 	 */
 
-	RETURN_VAL_IF_NOT_CONNECTED(store, ex, NULL);
+	RETURN_VAL_IF_NOT_CONNECTED (exch, ex, NULL);
 
 	if (camel_stub_marshal_eof (exch->stub->cmd))
 		return NULL;
@@ -640,7 +665,7 @@ exchange_create_folder (CamelStore *store, const char *parent_name,
 	guint32 unread_count, flags;
 	CamelFolderInfo *info;
 	
-	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
+	if (!camel_exchange_store_connected (exch, ex)) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot create folder in offline mode."));
 		return NULL;
 	}
@@ -667,7 +692,7 @@ exchange_delete_folder (CamelStore *store, const char *folder_name,
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 
-	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
+	if (!camel_exchange_store_connected (exch, ex)) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot delete folder in offline mode."));
 		return;
 	}
@@ -683,7 +708,7 @@ exchange_rename_folder (CamelStore *store, const char *old_name,
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 
-	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
+	if (!camel_exchange_store_connected (exch, ex)) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot rename folder in offline mode."));
 		return;
 	}
@@ -788,6 +813,31 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 		g_mutex_unlock (exch->folders_lock);
 		if (folder)
 			camel_exchange_folder_update_message_flags (folder, uid, flags);
+
+		g_free (folder_name);
+		g_free (uid);
+		break;
+	}
+
+	case CAMEL_STUB_RETVAL_CHANGED_FLAGS_EX:
+	{
+		CamelExchangeFolder *folder;
+		char *folder_name, *uid;
+		guint32 flags;
+		guint32 mask;
+
+		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1 ||
+		    camel_stub_marshal_decode_string (stub->status, &uid) == -1 ||
+		    camel_stub_marshal_decode_uint32 (stub->status, &flags) == -1 ||
+		    camel_stub_marshal_decode_uint32 (stub->status, &mask) == -1)
+			break;
+
+		g_mutex_lock (exch->folders_lock);
+		folder = g_hash_table_lookup (exch->folders, folder_name);
+		g_mutex_unlock (exch->folders_lock);
+		if (folder)
+			camel_exchange_folder_update_message_flags_ex (folder, uid,
+								       flags, mask);
 
 		g_free (folder_name);
 		g_free (uid);

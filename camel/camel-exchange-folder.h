@@ -70,6 +70,11 @@ void     camel_exchange_folder_update_message_flags (CamelExchangeFolder *exch,
 						     const char *uid,
 						     guint32 flags);
 
+void     camel_exchange_folder_update_message_flags_ex (CamelExchangeFolder *exch,
+							const char *uid,
+							guint32 flags,
+							guint32 mask);
+
 void     camel_exchange_folder_update_message_tag   (CamelExchangeFolder *exch,
 						     const char *uid,
 						     const char *name,

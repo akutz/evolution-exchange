@@ -133,6 +133,7 @@ static void linestatus_listener (ExchangeOfflineListener *ex_off_listener,
 						    gpointer data);
 static void folder_update_linestatus (gpointer key, gpointer value, gpointer data);
 static void free_folder (gpointer value);
+static void get_folder_online (MailStubExchangeFolder *mfld, gboolean background);
 
 static void
 class_init (GObjectClass *object_class)
@@ -265,6 +266,12 @@ folder_from_name (MailStubExchange *mse, const char *folder_name,
 		g_source_remove (mfld->sync_deletion_timeout);
 		mfld->sync_deletion_timeout = 0;
 		sync_deletions (mse, mfld);
+	}
+
+	if ((perms == MAPI_ACCESS_MODIFY || perms == MAPI_ACCESS_DELETE) &&
+	    !(mfld->access & perms)) {
+		/* try with MAPI_ACCESS_CREATE_CONTENTS */
+		perms = MAPI_ACCESS_CREATE_CONTENTS;
 	}
 
 	if (perms && !(mfld->access & perms)) {
@@ -544,15 +551,10 @@ static const char *open_folder_props[] = {
 static const int n_open_folder_props = sizeof (open_folder_props) / sizeof (open_folder_props[0]);
 
 static void
-get_folder (MailStub *stub, const char *name, gboolean create,
-	    GPtrArray *uids, GByteArray *flags)
+get_folder_online (MailStubExchangeFolder *mfld, gboolean background)
 {
-	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
-	MailStubExchangeFolder *mfld;
 	MailStubExchangeMessage *mmsg;
-	EFolder *folder;
-	char *path;
-	const char *outlook_class;
+	MailStub *stub = MAIL_STUB (mfld->mse);
 	E2kHTTPStatus status;
 	E2kResult *results;
 	int nresults;
@@ -562,7 +564,177 @@ get_folder (MailStub *stub, const char *name, gboolean create,
 	E2kResult *result;
 	const char *prop, *uid;
 	guint32 article_num, camel_flags;
-	int i, m, total = -1, mode;
+	int i, m, total = -1;
+
+	mfld->changed_messages = g_ptr_array_new ();
+
+	status = e_folder_exchange_propfind (mfld->folder, NULL,
+					     open_folder_props,
+					     n_open_folder_props,
+					     &results, &nresults);
+	if (status == E2K_HTTP_UNAUTHORIZED) {
+		if (!background) {
+			got_folder_error (mfld, _("Could not open folder: Permission denied"));
+		}
+		return;
+	} else if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		g_warning ("got_folder_props: %d", status);
+		if (!background) {
+			got_folder_error (mfld, _("Could not open folder"));
+		}
+		return;
+	}
+
+	if (nresults) {
+		prop = e2k_properties_get_prop (results[0].props, PR_ACCESS);
+		if (prop)
+			mfld->access = atoi (prop);
+		else
+			mfld->access = ~0;
+	} else
+		mfld->access = ~0;
+
+	if (!(mfld->access & MAPI_ACCESS_READ)) {
+		if (!background) {
+			got_folder_error (mfld, _("Could not open folder: Permission denied"));
+		}
+		return;
+	}
+	readonly = (mfld->access & (MAPI_ACCESS_MODIFY | MAPI_ACCESS_CREATE_CONTENTS)) == 0;
+
+	prop = e2k_properties_get_prop (results[0].props, PR_DELETED_COUNT_TOTAL);
+	if (prop)
+		mfld->deleted_count = atoi (prop);
+
+	rn = e2k_restriction_andv (
+		e2k_restriction_prop_bool (E2K_PR_DAV_IS_COLLECTION,
+					   E2K_RELOP_EQ, FALSE),
+		e2k_restriction_prop_bool (E2K_PR_DAV_IS_HIDDEN,
+					   E2K_RELOP_EQ, FALSE),
+		NULL);
+
+	iter = e_folder_exchange_search_start (mfld->folder, NULL,
+					       open_folder_sync_props,
+					       n_open_folder_sync_props,
+					       rn, E2K_PR_DAV_CREATION_DATE,
+					       TRUE);
+	e2k_restriction_unref (rn);
+
+	m = 0;
+	total = e2k_result_iter_get_total (iter);
+	while ((result = e2k_result_iter_next (iter)) && m < mfld->messages->len) {
+		prop = e2k_properties_get_prop (result->props,
+						PR_INTERNET_ARTICLE_NUMBER);
+		if (!prop)
+			continue;
+		article_num = strtoul (prop, NULL, 10);
+
+		prop = e2k_properties_get_prop (result->props,
+						E2K_PR_REPL_UID);
+		if (!prop)
+			continue;
+		uid = uidstrip (prop);
+
+		camel_flags = mail_util_props_to_camel_flags (result->props,
+							      !readonly);
+
+		mmsg = mfld->messages->pdata[m];
+		while (strcmp (uid, mmsg->uid)) {
+			message_remove_at_index (stub, mfld, m);
+			if (m == mfld->messages->len) {
+				mmsg = NULL;
+				if (article_num < mfld->high_article_num)
+					mfld->high_article_num = article_num - 1;
+				break;
+			}
+			mmsg = mfld->messages->pdata[m];
+		}
+		if (!mmsg)
+			break;
+
+		mmsg->href = g_strdup (result->href);
+		g_hash_table_insert (mfld->messages_by_href, mmsg->href, mmsg);
+		if (article_num > mfld->high_article_num)
+			mfld->high_article_num = article_num;
+		if (mmsg->flags != camel_flags)
+			change_flags (mfld, mmsg, camel_flags);
+
+		prop = e2k_properties_get_prop (result->props, E2K_PR_HTTPMAIL_MESSAGE_FLAG);
+		if (prop)
+			return_tag (mfld, mmsg->uid, "follow-up", prop);
+		prop = e2k_properties_get_prop (result->props, E2K_PR_MAILHEADER_REPLY_BY);
+		if (prop)
+			return_tag (mfld, mmsg->uid, "due-by", prop);
+		prop = e2k_properties_get_prop (result->props, E2K_PR_MAILHEADER_COMPLETED);
+		if (prop)
+			return_tag (mfld, mmsg->uid, "completed-on", prop);
+
+		m++;
+		if (!background) {
+			mail_stub_return_progress (stub, (m * 100) / total);
+		}
+	}
+
+	/* If there are further messages beyond mfld->messages->len,
+	 * then that means camel doesn't know about them yet, and so
+	 * we need to ignore them for a while. But if any of them have
+	 * an article number lower than the highest article number
+	 * we've seen, bump high_article_num down so that that message
+	 * gets caught by refresh_info later too.
+	 */
+	while ((result = e2k_result_iter_next (iter))) {
+		prop = e2k_properties_get_prop (result->props,
+						PR_INTERNET_ARTICLE_NUMBER);
+		if (prop) {
+			article_num = strtoul (prop, NULL, 10);
+			if (article_num < mfld->high_article_num)
+				mfld->high_article_num = article_num - 1;
+		}
+
+		m++;
+		if (!background) {
+			mail_stub_return_progress (stub, (m * 100) / total);
+		}
+	}
+
+	status = e2k_result_iter_free (iter);
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		g_warning ("got_folder: %d", status);
+		if (!background) {
+			got_folder_error (mfld, _("Could not open folder"));
+		}
+		return;
+	}
+
+	/* Discard remaining messages that no longer exist. */
+	for (i = 0; i < mfld->messages->len; i++) {
+		mmsg = mfld->messages->pdata[i];
+		if (!mmsg->href)
+			message_remove_at_index (stub, mfld, i--);
+	}
+	e_folder_exchange_subscribe (mfld->folder,
+				     E2K_CONTEXT_OBJECT_ADDED, 30,
+				     notify_cb, mfld);
+	e_folder_exchange_subscribe (mfld->folder,
+				     E2K_CONTEXT_OBJECT_REMOVED, 30,
+				     notify_cb, mfld);
+	e_folder_exchange_subscribe (mfld->folder,
+				     E2K_CONTEXT_OBJECT_MOVED, 30,
+				     notify_cb, mfld);
+}
+
+static void
+get_folder (MailStub *stub, const char *name, gboolean create,
+	    GPtrArray *uids, GByteArray *flags)
+{
+	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
+	MailStubExchangeFolder *mfld;
+	MailStubExchangeMessage *mmsg;
+	EFolder *folder;
+	char *path;
+	const char *outlook_class;
+	guint32 camel_flags;
+	int i, mode;
 	ExchangeHierarchy *hier;
 
 	path = g_strdup_printf ("/%s", name);
@@ -618,150 +790,8 @@ get_folder (MailStub *stub, const char *name, gboolean create,
 	}
 	exchange_component_is_offline (global_exchange_component, &mode);
 	if (mode == ONLINE_MODE) {
-		mfld->changed_messages = g_ptr_array_new ();
-
-		status = e_folder_exchange_propfind (mfld->folder, NULL,
-						     open_folder_props,
-						     n_open_folder_props,
-						     &results, &nresults);
-		if (status == E2K_HTTP_UNAUTHORIZED) {
-			got_folder_error (mfld, _("Could not open folder: Permission denied"));
-			return;
-		} else if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-			g_warning ("got_folder_props: %d", status);
-			got_folder_error (mfld, _("Could not open folder"));
-			return;
-		}
-
-		if (nresults) {
-			prop = e2k_properties_get_prop (results[0].props, PR_ACCESS);
-			if (prop)
-				mfld->access = atoi (prop);
-			else
-				mfld->access = ~0;
-		} else
-			mfld->access = ~0;
-
-		if (!(mfld->access & MAPI_ACCESS_READ)) {
-			got_folder_error (mfld, _("Could not open folder: Permission denied"));
-			return;
-		}
-		readonly = (mfld->access & MAPI_ACCESS_MODIFY) == 0;
-
-		prop = e2k_properties_get_prop (results[0].props, PR_DELETED_COUNT_TOTAL);
-		if (prop)
-			mfld->deleted_count = atoi (prop);
-
-		rn = e2k_restriction_andv (
-			e2k_restriction_prop_bool (E2K_PR_DAV_IS_COLLECTION,
-						   E2K_RELOP_EQ, FALSE),
-			e2k_restriction_prop_bool (E2K_PR_DAV_IS_HIDDEN,
-						   E2K_RELOP_EQ, FALSE),
-			NULL);
-
-		iter = e_folder_exchange_search_start (mfld->folder, NULL,
-						       open_folder_sync_props,
-						       n_open_folder_sync_props,
-						       rn, E2K_PR_DAV_CREATION_DATE,
-						       TRUE);
-		e2k_restriction_unref (rn);
-
-		m = 0;
-		total = e2k_result_iter_get_total (iter);
-		while ((result = e2k_result_iter_next (iter)) && m < mfld->messages->len) {
-			prop = e2k_properties_get_prop (result->props,
-							PR_INTERNET_ARTICLE_NUMBER);
-			if (!prop)
-				continue;
-			article_num = strtoul (prop, NULL, 10);
-
-			prop = e2k_properties_get_prop (result->props,
-							E2K_PR_REPL_UID);
-			if (!prop)
-				continue;
-			uid = uidstrip (prop);
-
-			camel_flags = mail_util_props_to_camel_flags (result->props,
-								      !readonly);
-
-			mmsg = mfld->messages->pdata[m];
-			while (strcmp (uid, mmsg->uid)) {
-				message_remove_at_index (stub, mfld, m);
-				if (m == mfld->messages->len) {
-					mmsg = NULL;
-					if (article_num < mfld->high_article_num)
-						mfld->high_article_num = article_num - 1;
-					break;
-				}
-				mmsg = mfld->messages->pdata[m];
-			}
-			if (!mmsg)
-				break;
-
-			mmsg->href = g_strdup (result->href);
-			g_hash_table_insert (mfld->messages_by_href, mmsg->href, mmsg);
-			if (article_num > mfld->high_article_num)
-				mfld->high_article_num = article_num;
-			if (mmsg->flags != camel_flags)
-				change_flags (mfld, mmsg, camel_flags);
-
-			prop = e2k_properties_get_prop (result->props, E2K_PR_HTTPMAIL_MESSAGE_FLAG);
-			if (prop)
-				return_tag (mfld, mmsg->uid, "follow-up", prop);
-			prop = e2k_properties_get_prop (result->props, E2K_PR_MAILHEADER_REPLY_BY);
-			if (prop)
-				return_tag (mfld, mmsg->uid, "due-by", prop);
-			prop = e2k_properties_get_prop (result->props, E2K_PR_MAILHEADER_COMPLETED);
-			if (prop)
-				return_tag (mfld, mmsg->uid, "completed-on", prop);
-
-			m++;
-			mail_stub_return_progress (stub, (m * 100) / total);
-		}
-
-		/* If there are further messages beyond mfld->messages->len,
-		 * then that means camel doesn't know about them yet, and so
-		 * we need to ignore them for a while. But if any of them have
-		 * an article number lower than the highest article number
-		 * we've seen, bump high_article_num down so that that message
-		 * gets caught by refresh_info later too.
-		 */
-		while ((result = e2k_result_iter_next (iter))) {
-			prop = e2k_properties_get_prop (result->props,
-							PR_INTERNET_ARTICLE_NUMBER);
-			if (prop) {
-				article_num = strtoul (prop, NULL, 10);
-				if (article_num < mfld->high_article_num)
-					mfld->high_article_num = article_num - 1;
-			}
-
-			m++;
-			mail_stub_return_progress (stub, (m * 100) / total);
-		}
-
-		status = e2k_result_iter_free (iter);
-		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-			g_warning ("got_folder: %d", status);
-			got_folder_error (mfld, _("Could not open folder"));
-			return;
-		}
-
-		/* Discard remaining messages that no longer exist. */
-		for (i = 0; i < mfld->messages->len; i++) {
-			mmsg = mfld->messages->pdata[i];
-			if (!mmsg->href)
-				message_remove_at_index (stub, mfld, i--);
-		}
-	e_folder_exchange_subscribe (mfld->folder,
-				     E2K_CONTEXT_OBJECT_ADDED, 30,
-				     notify_cb, mfld);
-	e_folder_exchange_subscribe (mfld->folder,
-				     E2K_CONTEXT_OBJECT_REMOVED, 30,
-				     notify_cb, mfld);
-	e_folder_exchange_subscribe (mfld->folder,
-				     E2K_CONTEXT_OBJECT_MOVED, 30,
-				     notify_cb, mfld);
-	} // end online work
+		get_folder_online (mfld, FALSE);
+	}
 	g_signal_connect (mfld->folder, "changed",
 			  G_CALLBACK (storage_folder_changed), mfld);
 
@@ -769,7 +799,7 @@ get_folder (MailStub *stub, const char *name, gboolean create,
 	folder_changed (mfld);
 
 	camel_flags = 0;
-	if ((mfld->access & MAPI_ACCESS_MODIFY) == 0)
+	if ((mfld->access & (MAPI_ACCESS_MODIFY | MAPI_ACCESS_CREATE_CONTENTS)) == 0)
 		camel_flags |= CAMEL_STUB_FOLDER_READONLY;
 	if (mse->account->filter_inbox && (mfld->folder == mse->inbox))
 		camel_flags |= CAMEL_STUB_FOLDER_FILTER;
@@ -1283,6 +1313,7 @@ expunge_uids (MailStub *stub, const char *folder_name, GPtrArray *uids)
 	E2kResult *result;
 	E2kHTTPStatus status;
 	int i, ndeleted;
+	gboolean some_error = FALSE;
 
 	if (!uids->len) {
 		mail_stub_return_ok (stub);
@@ -1318,6 +1349,10 @@ expunge_uids (MailStub *stub, const char *folder_name, GPtrArray *uids)
 						hrefs->len);
 	ndeleted = 0;
 	while ((result = e2k_result_iter_next (iter))) {
+		if (result->status == E2K_HTTP_UNAUTHORIZED) {
+			some_error = TRUE;
+			continue;
+		}
 		message_removed (stub, mfld, result->href);
 		mfld->deleted_count++;
 		ndeleted++;
@@ -1333,8 +1368,13 @@ expunge_uids (MailStub *stub, const char *folder_name, GPtrArray *uids)
 	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 		g_warning ("expunged: %d", status);
 		mail_stub_return_error (stub, _("Could not empty Deleted Items folder"));
-	} else
+	} else if (some_error) {
+		/* FIXME: should be this, but string freeze freezes me to do so.
+		mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails.")); */
+		mail_stub_return_error (stub, _("Permission denied"));
+	} else {
 		mail_stub_return_ok (stub);
+	}
 
 	g_ptr_array_free (hrefs, TRUE);
 }
@@ -1558,6 +1598,7 @@ process_flags (gpointer user_data)
 	MailStubExchangeMessage *mmsg;
 	GPtrArray *seen = NULL, *unseen = NULL, *deleted = NULL;
 	int i;
+	guint32 hier_type = e_folder_exchange_get_hierarchy (mfld->folder)->type;
 
 	for (i = 0; i < mfld->changed_messages->len; i++) {
 		mmsg = mfld->changed_messages->pdata[i];
@@ -1633,13 +1674,32 @@ process_flags (gpointer user_data)
 				       CAMEL_STUB_ARG_FOLDER, mfld->name,
 				       CAMEL_STUB_ARG_END);
 
-		iter = e_folder_exchange_transfer_start (mfld->folder, NULL,
-							 mse->deleted_items,
-							 deleted, TRUE);
-		g_ptr_array_free (deleted, TRUE);
+		if (hier_type == EXCHANGE_HIERARCHY_PERSONAL) {
+			iter = e_folder_exchange_transfer_start (mfld->folder, NULL,
+								 mse->deleted_items,
+								 deleted, TRUE);
+		} else {
+			iter = e_folder_exchange_bdelete_start (mfld->folder, NULL,
+								(const char **)deleted->pdata,
+								deleted->len);
+		}
+		g_ptr_array_free (deleted, FALSE);
 		while ((result = e2k_result_iter_next (iter))) {
-			if (!e2k_properties_get_prop (result->props, E2K_PR_DAV_LOCATION))
+			if (hier_type == EXCHANGE_HIERARCHY_PERSONAL) {
+				if (!e2k_properties_get_prop (result->props,
+							      E2K_PR_DAV_LOCATION)) {
+					continue;
+				}
+			} else if (result->status == E2K_HTTP_UNAUTHORIZED) {
+				mail_stub_return_data (MAIL_STUB (mfld->mse),
+						       CAMEL_STUB_RETVAL_CHANGED_FLAGS_EX,
+						       CAMEL_STUB_ARG_FOLDER, mfld->name,
+						       CAMEL_STUB_ARG_STRING, mmsg->uid,
+						       CAMEL_STUB_ARG_UINT32, 0,
+						       CAMEL_STUB_ARG_UINT32, MAIL_STUB_MESSAGE_DELETED,
+						       CAMEL_STUB_ARG_END);
 				continue;
+			}
 
 			message_removed (stub, mfld, result->href);
 			mfld->deleted_count++;
@@ -1719,6 +1779,12 @@ set_message_flags (MailStub *stub, const char *folder_name, const char *uid,
 	 * hierarchy, we ignore it (which will cause camel to delete
 	 * it the hard way next time it syncs).
 	 */
+
+#if 0
+	/* If we allow camel stub to delete these messages hard way, it may
+	   fail to delete a mail because of permissions, but will append
+	   a mail in deleted items */
+	
 	if (mask & flags & MAIL_STUB_MESSAGE_DELETED) {
 		ExchangeHierarchy *hier;
 
@@ -1726,6 +1792,7 @@ set_message_flags (MailStub *stub, const char *folder_name, const char *uid,
 		if (hier->type != EXCHANGE_HIERARCHY_PERSONAL)
 			mask &= ~MAIL_STUB_MESSAGE_DELETED;
 	}
+#endif
 
 	/* If there's nothing left to change, return. */
 	if (!mask)
@@ -2184,7 +2251,7 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 	GArray *unread, *flags;	
 	ExchangeHierarchy *hier;
 	EFolder *folder;
-	const char *type, *name, *uri, *path, *inbox_uri;
+	const char *type, *name, *uri, *path, *inbox_uri = NULL;
 	int unread_count, i, toplen = top ? strlen (top) : 0;
 	guint32 folder_flags;
 	gboolean recursive, subscribed, single_folder = FALSE;
@@ -2221,7 +2288,10 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 	uris = g_ptr_array_new ();
 	unread = g_array_new (FALSE, FALSE, sizeof (int));
 	flags = g_array_new (FALSE, FALSE, sizeof (int));
-	inbox_uri = e_folder_get_physical_uri (mse->inbox);
+	/* Can be NULL if started in offline mode */
+	if (mse->inbox) {
+		inbox_uri = e_folder_get_physical_uri (mse->inbox);
+	}
 
 	if (folders) {
 		for (i = 0; i < folders->len; i++) {
@@ -2245,7 +2315,8 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 
 			if (recursive && toplen) {
 				path = e_folder_exchange_get_path (folder);
-				if (strncmp (path + 1, top, toplen) != 0)
+				if (strncmp (path + 1, top, toplen) != 0 ||
+				    path[toplen + 1] != '\0')
 					continue;
 			}
 return_data:
@@ -2288,7 +2359,7 @@ return_data:
 					break;
 			}
 
-			if (!strcmp (uri, inbox_uri))
+			if (inbox_uri && !strcmp (uri, inbox_uri))
 				folder_flags |= CAMEL_STUB_FOLDER_SYSTEM|CAMEL_STUB_FOLDER_TYPE_INBOX;
 
 			g_ptr_array_add (names, (char *)name);
@@ -2715,44 +2786,10 @@ static void
 folder_update_linestatus (gpointer key, gpointer value, gpointer data)
 {
 	MailStubExchangeFolder *mfld = (MailStubExchangeFolder *) value;
-	E2kResult *results;
-	int nresults = 0;
-	E2kHTTPStatus status;
-	const char *prop;
 	gint linestatus = GPOINTER_TO_INT (data);
 	
 	if (linestatus == ONLINE_MODE) {
-		status = e_folder_exchange_propfind (mfld->folder, NULL,
-						     open_folder_props,
-						     n_open_folder_props,
-						     &results, &nresults);
-		
-		if (status == E2K_HTTP_UNAUTHORIZED) {
-			got_folder_error (mfld, _("Could not open folder: Permission denied"));
-			return;
-		} else if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-			g_warning ("got_folder_props: %d", status);
-			got_folder_error (mfld, _("Could not open folder"));
-			return;
-		}
-
-		if (nresults) {
-			prop = e2k_properties_get_prop (results[0].props, PR_ACCESS);
-			if (prop)
-				mfld->access = atoi (prop);
-			else
-				mfld->access = ~0;
-		} else
-			mfld->access = ~0;
-
-		if (!(mfld->access & MAPI_ACCESS_READ)) {
-			got_folder_error (mfld, _("Could not open folder: Permission denied"));
-			return;
-		}
-
-		prop = e2k_properties_get_prop (results[0].props, PR_DELETED_COUNT_TOTAL);
-		if (prop)
-			mfld->deleted_count = atoi (prop);
+		get_folder_online (mfld, TRUE);
 	}
 	else {
 		/* FIXME: need any undo for offline */ ;

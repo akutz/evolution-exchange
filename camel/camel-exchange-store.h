@@ -42,6 +42,8 @@ typedef struct {
 /* Standard Camel function */
 CamelType camel_exchange_store_get_type (void);
 
+gboolean camel_exchange_store_connected (CamelExchangeStore *store, CamelException *ex);
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

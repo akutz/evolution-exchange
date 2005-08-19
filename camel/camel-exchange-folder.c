@@ -197,9 +197,9 @@ static void
 refresh_info (CamelFolder *folder, CamelException *ex)
 {
 	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
-	CamelOfflineStore *store = CAMEL_OFFLINE_STORE (folder->parent_store);
+	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (folder->parent_store);
 
-	if (store->state != CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
+	if (camel_exchange_store_connected (store, ex)) {
 		camel_offline_journal_replay (exch->journal, NULL);
 	
 		camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_REFRESH_FOLDER,
@@ -276,9 +276,9 @@ append_message (CamelFolder *folder, CamelMimeMessage *message,
 		CamelException *ex)
 {
 	CamelStream *stream_mem;
-	CamelOfflineStore *offline = (CamelOfflineStore *) folder->parent_store;
+	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (folder->parent_store);
 
-	if (offline->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
+	if (!camel_exchange_store_connected (store, ex)) {
 		camel_exchange_journal_append ((CamelExchangeJournal *) ((CamelExchangeFolder *)folder)->journal, message, info, appended_uid, ex);
 		return;
 	}
@@ -352,7 +352,7 @@ static GByteArray *
 get_message_data (CamelFolder *folder, const char *uid, CamelException *ex)
 {
 	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
-	CamelOfflineStore *offline = (CamelOfflineStore *) folder->parent_store;
+	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (folder->parent_store);
 	CamelStream *stream, *stream_mem;
 	GByteArray *ba;
 
@@ -369,7 +369,7 @@ get_message_data (CamelFolder *folder, const char *uid, CamelException *ex)
 		return ba;
 	}
 
-	if (offline->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
+	if (!camel_exchange_store_connected (store, ex)) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
                                      _("This message is not available in offline mode."));
 		return NULL;
@@ -555,7 +555,7 @@ transfer_messages_the_hard_way (CamelFolder *source, GPtrArray *uids,
 	}
 
 	if (delete_originals) {
-		camel_stub_send (exch_source->stub, NULL,
+		camel_stub_send (exch_source->stub, ex,
 				 CAMEL_STUB_CMD_EXPUNGE_UIDS,
 				 CAMEL_STUB_ARG_FOLDER, source->full_name,
 				 CAMEL_STUB_ARG_STRINGARRAY, uids,
@@ -601,7 +601,7 @@ transfer_messages_to (CamelFolder *source, GPtrArray *uids,
 {
 	CamelExchangeFolder *exch_source = CAMEL_EXCHANGE_FOLDER (source);
 	CamelExchangeFolder *exch_dest = CAMEL_EXCHANGE_FOLDER (dest);
-	CamelOfflineStore *offline = (CamelOfflineStore *) source->parent_store;
+	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (source->parent_store);
 	CamelMessageInfo *info;
 	GPtrArray *ret_uids = NULL;
 	int hier_len, i;
@@ -610,7 +610,7 @@ transfer_messages_to (CamelFolder *source, GPtrArray *uids,
 			       _("Copying messages"));
 
 	/* Check for offline operation */
-	if (offline->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
+	if (!camel_exchange_store_connected (store, ex)) {
 		CamelExchangeJournal *journal = (CamelExchangeJournal *) exch_dest->journal;
 		CamelMimeMessage *message;
 		
@@ -854,6 +854,47 @@ camel_exchange_folder_update_message_flags (CamelExchangeFolder *exch,
 
 	if (info->flags != flags) {
 		info->flags = flags;
+		camel_folder_summary_touch (folder->summary);
+
+		changes = camel_folder_change_info_new ();
+		camel_folder_change_info_change_uid (changes, uid);
+		camel_object_trigger_event (CAMEL_OBJECT (exch),
+					    "folder_changed", changes);
+		camel_folder_change_info_free (changes);
+	}
+}
+
+/**
+ * camel_exchange_folder_update_message_flags_ex:
+ * @exch: the folder
+ * @uid: the message
+ * @flags: new message flags
+ * @mask: the flag mask
+ *
+ * Update the message flags of @uid in @exch's summary based on @flags and @mask.
+ * Only the bits in the mask %CAMEL_EXCHANGE_SERVER_FLAGS are valid to be set or unset.
+ **/
+void
+camel_exchange_folder_update_message_flags_ex (CamelExchangeFolder *exch,
+					       const char *uid, guint32 flags,
+					       guint32 mask)
+{
+	CamelFolder *folder = CAMEL_FOLDER (exch);
+	CamelMessageInfoBase *info;
+	CamelFolderChangeInfo *changes;
+
+	info = (CamelMessageInfoBase *)camel_folder_summary_uid (folder->summary, uid);
+	if (!info)
+		return;
+
+	mask &= CAMEL_EXCHANGE_SERVER_FLAGS;
+	if (!mask) {
+		return;
+	}
+	
+	if ((info->flags & mask) != (flags & mask)) {
+		info->flags &= ~mask;
+		info->flags |= (flags & mask);
 		camel_folder_summary_touch (folder->summary);
 
 		changes = camel_folder_change_info_new ();

@@ -1,3 +1,34 @@
+2005-08-19  Arunprakash  <arunp@novell.com>
+
+	* camel/camel-exchange-store.c (camel_exchange_store_connected) :
+	Newly added to ensure that we are connected when the camel session
+	is too online.
+	* camel/camel-exchange-folder.c : Updated to make use of the new 
+	function camel_exchange_store_connected.
+	(camel_exchange_folder_update_message_flags_ex) : Newly added to
+	selectively set and unset message flags.
+	* camel/camel-exchange-store.c : Updated to use 
+	camel_exchange_store_connected.
+	(exchange_folder_subscribed) (exchange_subscribe_folder)
+	(exchange_unsubscribe_folder) : Changed the type of data for folder
+	name from string to folder type while sending to backend. Because the
+	other side expects folder type.
+	(stub_notification) : Modified to include new retval for setting and
+	unsetting specific flags.
+	* mail/mail-stub-exchange.c (folder_from_name) : Try using create
+	permission for shared folders.
+	(get_folder_online) : Newly added by removing the online code from
+	get_folder.
+	(get_folder) : Updated to use get_folder_online. Also set the readonly
+	flag only if it fails for modify and create permissions.
+	(expunge_uids) : Report the error in case of failure.
+	(process_flags) : Do an expunge for mails in non-personal folders.
+	If fails, undo the delete.
+	(get_folder_info) : Ensure the top is exactly equal to the path. Also
+	added some extra checks.
+	(folder_update_linestatus) : Updated to use get_folder_online.
+	Fixes #313637, #272751, #310726, #310437, #313797, #313071.
+
 2005-08-18  Praveen Kumar  <kpraveen@novell.com>
 
 	** Fixes bug 273470

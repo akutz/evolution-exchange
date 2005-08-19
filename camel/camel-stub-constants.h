@@ -55,6 +55,10 @@ typedef enum {
 	CAMEL_STUB_RETVAL_REMOVED_MESSAGE,
 	CAMEL_STUB_RETVAL_CHANGED_MESSAGE,
 	CAMEL_STUB_RETVAL_CHANGED_FLAGS,
+
+	/* This is used to undelete a message for which the operation failed.
+	   But can also be used to specifically set or unset a flag. */
+	CAMEL_STUB_RETVAL_CHANGED_FLAGS_EX,
 	CAMEL_STUB_RETVAL_CHANGED_TAG,
 	CAMEL_STUB_RETVAL_PROGRESS,
 	CAMEL_STUB_RETVAL_FREEZE_FOLDER,
