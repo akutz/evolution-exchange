@@ -57,6 +57,8 @@ struct ECalBackendExchangePrivate {
 	char *lastmod;
 	char *local_attachment_store;
 	guint save_timeout_id;
+	GMutex *set_lock;
+	GMutex *open_lock;
 
 	/* Timezones */
 	GHashTable *timezones;
@@ -285,6 +287,8 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	const char *uristr;
 	ExchangeHierarchy *hier;
+	ExchangeAccount *act;
+	ExchangeAccountResult acresult;
 	const char *prop = PR_ACCESS;
 	E2kHTTPStatus status;
 	E2kResult *results;
@@ -295,6 +299,8 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 	d(printf("ecbe_open_calendar(%p, %p, %sonly if exists, user=%s, pass=%s)\n", backend, cal, only_if_exists?"":"not ", username?username:"(null)", password?password:"(null)"));
 
 	uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
+
+	g_mutex_lock (cbex->priv->open_lock);
 
 	if (cbex->priv->mode == CAL_MODE_LOCAL) {
 		ESource *source;
@@ -307,27 +313,40 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 		display_contents = e_source_get_property (source, "offline_sync");
 		
 		if (!display_contents || !g_str_equal (display_contents, "1")) {
+			g_mutex_unlock (cbex->priv->open_lock);
 			return GNOME_Evolution_Calendar_RepositoryOffline;
 		}
 
 		euri = e2k_uri_new (uristr);
 		load_cache (cbex, euri);
 		e2k_uri_free (euri);
+		g_mutex_unlock (cbex->priv->open_lock);
 		return GNOME_Evolution_Calendar_Success;
 	}
 		
 	/* Make sure we have an open connection */
+	/* This steals the ExchangeAccount from ExchangeComponent */
+	act = exchange_component_get_account_for_uri (global_exchange_component, NULL);
+	if (!exchange_account_get_context (act))
+		exchange_account_connect (act, password, &acresult);
+
 	cbex->account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
-	if (!cbex->account)
+	if (!cbex->account) {
+		g_mutex_unlock (cbex->priv->open_lock);
 		return GNOME_Evolution_Calendar_PermissionDenied;
-	if (!exchange_account_get_context (cbex->account))
+	}
+
+	if (!exchange_account_get_context (cbex->account)) {
+		g_mutex_unlock (cbex->priv->open_lock);
 		return GNOME_Evolution_Calendar_RepositoryOffline; 
+	}	
 
 	cbex->folder = exchange_account_get_folder (cbex->account, uristr);
 	if (!cbex->folder) {
 		/* FIXME: theoretically we should create it if
 		 * only_if_exists is FALSE.
 		 */
+		g_mutex_unlock (cbex->priv->open_lock);
 		return GNOME_Evolution_Calendar_NoSuchCal;
 	}
 	g_object_ref (cbex->folder);
@@ -349,12 +368,16 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 			access = atoi (prop);
 	}
 
-	if (!(access & MAPI_ACCESS_READ))
+	if (!(access & MAPI_ACCESS_READ)) {
+		g_mutex_unlock (cbex->priv->open_lock);
 		return GNOME_Evolution_Calendar_PermissionDenied;
+	}
 
 	cbex->priv->read_only = ((access & MAPI_ACCESS_CREATE_CONTENTS) == 0);
 
 	load_cache (cbex, euri);
+
+	g_mutex_unlock (cbex->priv->open_lock);
 
 	return GNOME_Evolution_Calendar_Success;
 }
@@ -1056,24 +1079,32 @@ set_mode (ECalBackend *backend, CalMode mode)
 			cal_mode_to_corba (mode));
 	}
 
+	g_mutex_lock (priv->set_lock);	
+
 	switch (mode) {
 	
 	case CAL_MODE_REMOTE:
 			/* Change status to be online now */
 			/* Should we check for access rights before setting this ? */
 			d(printf ("set mode to online\n"));
+			account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
+			if (!exchange_account_get_context (account))
+				e_cal_backend_notify_auth_required(backend);
+			e_cal_backend_notify_mode (backend, 
+				GNOME_Evolution_Calendar_CalListener_MODE_SET,
+				GNOME_Evolution_Calendar_MODE_REMOTE);
+
 			uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
 			account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
-			if (!account)
+			if (!account) {
+				g_mutex_unlock (priv->set_lock);	
 				return;
+			}
 			cbex->folder = exchange_account_get_folder (account, uristr);
 			/* FIXME : Test if available for read already */
 			priv->read_only = FALSE;
 			exchange_account_set_online (account);
 			priv->mode = CAL_MODE_REMOTE;
-			e_cal_backend_notify_mode (backend, 
-				GNOME_Evolution_Calendar_CalListener_MODE_SET,
-				GNOME_Evolution_Calendar_MODE_REMOTE);
 			/* FIXME : Check if online and check if authentication
 				is needed */
 			break;
@@ -1082,8 +1113,10 @@ set_mode (ECalBackend *backend, CalMode mode)
 			d(printf ("set mode to offline\n"));
 			uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
 			account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
-			if (!account)
+			if (!account) {
+				g_mutex_unlock (priv->set_lock);	
 				return;
+			}
 			cbex->folder = exchange_account_get_folder (account, uristr);
 			priv->mode = CAL_MODE_LOCAL;
 			priv->read_only = TRUE;
@@ -1098,6 +1131,7 @@ set_mode (ECalBackend *backend, CalMode mode)
 			backend, GNOME_Evolution_Calendar_CalListener_MODE_NOT_SUPPORTED,
 			cal_mode_to_corba (mode));
 	}
+	g_mutex_unlock (priv->set_lock);
 }
 
 static ECalBackendSyncStatus
@@ -1624,6 +1658,11 @@ init (ECalBackendExchange *cbex)
 	cbex->priv->timezones = g_hash_table_new_full (
 		g_str_hash, g_str_equal,
 		g_free, (GDestroyNotify)icaltimezone_free);
+
+	cbex->priv->set_lock = g_mutex_new ();
+	cbex->priv->open_lock = g_mutex_new ();
+
+	e_cal_backend_sync_set_lock (E_CAL_BACKEND_SYNC (cbex), TRUE);
 }
 
 static void
@@ -1649,6 +1688,16 @@ finalize (GObject *object)
 	g_free (cbex->priv->lastmod);
 
 	g_hash_table_destroy (cbex->priv->timezones);
+
+	if (cbex->priv->set_lock) {
+		g_mutex_free (cbex->priv->set_lock);
+		cbex->priv->set_lock = NULL;
+	}
+
+	if (cbex->priv->open_lock) {
+		g_mutex_free (cbex->priv->open_lock);
+		cbex->priv->open_lock = NULL;
+	}
 
 	g_free (cbex->priv);
 

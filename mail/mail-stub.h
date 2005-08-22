@@ -34,7 +34,7 @@ struct _MailStubClass {
 	GObjectClass parent_class;
 
 	/* methods */
-	void (*connect)            (MailStub *);
+	void (*connect)            (MailStub *, char *pwd);
 	void (*get_folder)         (MailStub *, const char *name,
 				    gboolean create, GPtrArray *uids,
 				    GByteArray *flags);

@@ -55,9 +55,10 @@ ExchangeConfigListener *exchange_config_listener_new      (void);
 
 GSList                 *exchange_config_listener_get_accounts (ExchangeConfigListener *config_listener);
 
+void			exchange_config_listener_migrate_esources (ExchangeConfigListener *config_listener);
+
 void 			add_folder_esource (ExchangeAccount *account, FolderType folder_type, const char *folder_name, const char *physical_uri);
 void 			remove_folder_esource (ExchangeAccount *account, FolderType folder_type, const char *physical_uri);
-
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

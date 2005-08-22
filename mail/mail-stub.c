@@ -94,9 +94,15 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 	switch (command) {
 	case CAMEL_STUB_CMD_CONNECT:
 	{
+		char *pwd
 		d(printf("CONNECT\n"));
 		g_object_ref (stub);
-		MS_CLASS (stub)->connect (stub);
+		if (!mail_stub_read_args (stub,
+					  CAMEL_STUB_ARG_STRING, &pwd,
+					  CAMEL_STUB_ARG_END))
+			goto comm_fail;
+		MS_CLASS (stub)->connect (stub, pwd);
+		g_free (pwd);
 		break;
 	}
 

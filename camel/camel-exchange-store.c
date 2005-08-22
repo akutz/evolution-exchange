@@ -334,11 +334,31 @@ e_filename_make_safe (gchar *string)
 	}
 }
 
+static void
+camel_exchange_get_password (CamelService *service, CamelException *ex)
+{
+	CamelSession *session = camel_service_get_session (service);
+	char *prompt, *account_name;
+
+	if (!service->url->passwd) {
+		/* This is a hack to use the same string being used in 
+		   exchange-account.c:get_password */
+		account_name = g_strdup_printf ("%s@%s", service->url->user, service->url->host);
+		prompt = g_strdup_printf (_("%sEnter password for %s"), "", account_name);
+
+		service->url->passwd = camel_session_get_password (session, 
+					service, "Exchange", prompt, "password", CAMEL_SESSION_PASSWORD_SECRET, ex);
+		g_free (account_name);
+		g_free (prompt);
+	}
+}
+
 static gboolean
 exchange_connect (CamelService *service, CamelException *ex)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
 	char *real_user, *socket_path;
+	guint32 connect_status;
 
 	if (exch->stub)
 		return TRUE;
@@ -358,9 +378,12 @@ exchange_connect (CamelService *service, CamelException *ex)
 	if (!exch->stub)
 		return FALSE;
 	
+	camel_exchange_get_password (service, ex);
 	/* Initialize the stub connection */
 	if (!camel_stub_send (exch->stub, NULL, CAMEL_STUB_CMD_CONNECT,
+			      CAMEL_STUB_ARG_STRING, g_strdup (service->url->passwd),
 			      CAMEL_STUB_ARG_RETURN,
+			      CAMEL_STUB_ARG_UINT32, &connect_status,
 			      CAMEL_STUB_ARG_END)) {
 		/* The user cancelled the connection attempt. */
 		camel_exception_set (ex, CAMEL_EXCEPTION_USER_CANCEL,

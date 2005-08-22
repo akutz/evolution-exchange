@@ -48,6 +48,7 @@
 #define PARENT_TYPE MAIL_TYPE_STUB
 static MailStubClass *parent_class = NULL;
 
+/* FIXME : Have this as part of the appropriate class in 2.5 */
 static gulong offline_listener_handler_id;
 
 typedef struct {
@@ -88,7 +89,7 @@ typedef struct {
 
 static void dispose (GObject *);
 
-static void stub_connect (MailStub *stub);
+static void stub_connect (MailStub *stub, char *pwd);
 static void get_folder (MailStub *stub, const char *name, gboolean create,
 			GPtrArray *uids, GByteArray *flags);
 static void get_trash_name (MailStub *stub);
@@ -2758,8 +2759,44 @@ is_subscribed_folder (MailStub *stub, const char *folder_name)
 }
 
 static void
-stub_connect (MailStub *stub)
+stub_connect (MailStub *stub, char *pwd)
 {
+	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
+	ExchangeAccount *account;
+	ExchangeAccountResult result;
+	E2kContext *ctx;
+	guint32 retval = 0; /* 0 is a failure case */
+	const char *uri;
+	int mode;
+
+	account = mse->account;
+	ctx = exchange_account_get_context (account);
+	if (!ctx) {
+		ctx = exchange_account_connect (account, pwd, &result);
+	}
+	
+	if (ctx) 
+		retval = 1;
+	else
+		goto end;
+
+	exchange_component_is_offline (global_exchange_component, &mode);
+
+	if (mode == ONLINE_MODE) {
+		mse->ctx = ctx;
+		g_object_ref (mse->ctx);
+
+		mse->mail_submission_uri = exchange_account_get_standard_uri (account, "sendmsg");
+		uri = exchange_account_get_standard_uri (account, "inbox");
+		mse->inbox = exchange_account_get_folder (account, uri);
+		uri = exchange_account_get_standard_uri (account, "deleteditems");
+		mse->deleted_items = exchange_account_get_folder (account, uri);
+	}
+end:
+	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
+			       CAMEL_STUB_ARG_UINT32, retval,
+			       CAMEL_STUB_ARG_END);
+
 	mail_stub_return_ok (stub);
 }
 
@@ -2825,7 +2862,6 @@ mail_stub_exchange_new (ExchangeAccount *account, int cmd_fd, int status_fd)
 {
 	MailStubExchange *mse;
 	MailStub *stub;
-	const char *uri;
 	int mode;
 
 	stub = g_object_new (MAIL_TYPE_STUB_EXCHANGE, NULL);
@@ -2835,21 +2871,10 @@ mail_stub_exchange_new (ExchangeAccount *account, int cmd_fd, int status_fd)
 
 	mse = (MailStubExchange *)stub;
 	mse->account = account;
-	if (mode == ONLINE_MODE) {
-		mse->ctx = exchange_account_get_context (account);
-		g_object_ref (mse->ctx);
-
-		mse->mail_submission_uri = exchange_account_get_standard_uri (account, "sendmsg");
-		uri = exchange_account_get_standard_uri (account, "inbox");
-		mse->inbox = exchange_account_get_folder (account, uri);
-		uri = exchange_account_get_standard_uri (account, "deleteditems");
-		mse->deleted_items = exchange_account_get_folder (account, uri);
-	}
 	
 	offline_listener_handler_id = g_signal_connect (G_OBJECT (global_exchange_component),
 							"linestatus-changed",
 							G_CALLBACK (linestatus_listener), mse);
-
 	return stub;
 }
 

@@ -1,3 +1,34 @@
+2005-08-22  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* addressbook/e-book-backend-exchange.c 
+	(e_book_backend_exchange_authenticate_user) : Actually connect to the
+	server here.
+	(e_book_backend_exchange_get_supported_auth_methods) : Added new
+	(e_book_backend_exchange_load_source) : This only loads the local 
+	cache now.
+	(e_book_backend_exchange_set_mode) : If context is not present, reponds
+	to the backend as authentication required.
+	* calendar/e-cal-backend-exchange.c (open_calendar) : Authenticate to
+	the server if connection is not present. Uses a mutex lock for
+	serializing the access across all calendar clients.
+	(set_mode) : Checks the context and updates the backend for prompting
+	the password. Used another mutex for serialising the clients.
+	* camel/camel-exchange-provider.c : Added a new hidden conf key for
+	auth-domain.
+	* camel/camel-exchange-store.c (camel_exchange_get_password) : New
+	(exchange_connect) : Sends the password to the mail backend now.
+	* mail/mail-stub-exchange.c (stub_connect) : Now gets the password from
+	camel and authenticates to the server.
+	* mail/mail-stub.c : Handles the new stub connect interface.
+	* mail/mail-stub.h : Similar
+	* storage/exchange-component.c (ex_migrate_esources) : New
+	(new_connection) : Just create the mail stub. The server connection gets
+	postponed to the stub_connect interface.
+	* storage/exchange-config-listener.c (migrate_account_esource) : New
+	(migrate_esources) : New
+	(account_added) : Dont connect here.
+	* storage/exchange-config-listener.h : Similar.
+
 2005-08-19  Arunprakash  <arunp@novell.com>
 
 	* mail/mail-stub-exchange.c : Modified to make use of global

@@ -48,6 +48,10 @@ static BonoboObjectClass *parent_class = NULL;
 static gboolean idle_do_interactive (gpointer user_data);
 static void exchange_component_update_accounts (ExchangeComponent *component,
 							gboolean status);
+static void ex_migrate_esources (ExchangeComponent *component,
+				  const CORBA_short major, 
+				  const CORBA_short minor, 
+				  const CORBA_short revision);
 
 static guint linestatus_signal_id;
 
@@ -172,6 +176,8 @@ impl_upgradeFromVersion (PortableServer_Servant servant,
 
 		exchange_migrate(major, minor, revision, 
 				 base_directory, account->account_filename);
+				 	
+		ex_migrate_esources (component, major, minor, revision);			
 	}
 }
 
@@ -275,6 +281,19 @@ impl_setLineStatus (PortableServer_Servant servant,
 }
 
 static void
+ex_migrate_esources (ExchangeComponent *component,
+		  const CORBA_short major, 
+		  const CORBA_short minor, 
+		  const CORBA_short revision)
+{
+
+	if ((major == 1) || ((major == 2) && (minor <= 3)))
+	{
+		exchange_config_listener_migrate_esources (component->priv->config_listener);
+	}
+}
+
+static void
 exchange_component_update_accounts (ExchangeComponent *component,
 					gboolean status)
 {
@@ -297,7 +316,6 @@ new_connection (MailStubListener *listener, int cmd_fd, int status_fd,
 {
 	MailStub *mse;
 	ExchangeAccount *account = baccount->account;
-	ExchangeAccountResult result;
 	int mode;
 
 	g_object_ref (account);
@@ -308,12 +326,16 @@ new_connection (MailStubListener *listener, int cmd_fd, int status_fd,
 		goto end;
 	}
 
+	mse = mail_stub_exchange_new (account, cmd_fd, status_fd);
+	/* FIXME : We need to close these sockets */
+/*
 	if (exchange_account_connect (account, NULL, &result))
 		mse = mail_stub_exchange_new (account, cmd_fd, status_fd);
 	else {
 		close (cmd_fd);
 		close (status_fd);
 	}
+*/
 end:
 	g_object_unref (account);
 }

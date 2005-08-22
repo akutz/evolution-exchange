@@ -770,15 +770,18 @@ proppatch_categories (PropMapping *prop_mapping,
 	GPtrArray *prop_array = NULL;
 
 	categories_list = e_contact_get (new_contact, E_CONTACT_CATEGORY_LIST);
+
+	/* Dont send a NULL array to the server */
+	if (!categories_list)
+		return;
+
 	prop_array = g_ptr_array_new ();
 
 	for (l = categories_list; l; l = g_list_next (l)) {
 		g_ptr_array_add (prop_array, g_strdup (l->data));
 	}
 
-	if (categories_list) {
-		e2k_properties_set_string_array (props, prop_mapping->prop_name, prop_array);
-	}
+	e2k_properties_set_string_array (props, prop_mapping->prop_name, prop_array);
 }
 
 static void
@@ -2098,8 +2101,8 @@ e_book_backend_exchange_get_contact (EBookBackendSync  *backend,
 }
 
 
-static EBookBackendSyncStatus
-e_book_backend_exchange_authenticate_user (EBookBackendSync *backend,
+static void
+e_book_backend_exchange_authenticate_user (EBookBackend *backend,
 					   EDataBook        *book,
 					   guint32 	     opid,
 					   const char       *user,
@@ -2108,6 +2111,8 @@ e_book_backend_exchange_authenticate_user (EBookBackendSync *backend,
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
+	ExchangeAccountResult result;
+	ExchangeAccount *account;
 
 	d(printf("ebbe_authenticate_user(%p, %p, %s, %s, %s)\n", backend, book, user, password, auth_method));
 
@@ -2117,10 +2122,20 @@ e_book_backend_exchange_authenticate_user (EBookBackendSync *backend,
 		e_book_backend_notify_writable (E_BOOK_BACKEND (backend), FALSE);
 		e_book_backend_notify_connection_status (E_BOOK_BACKEND (backend), FALSE);
 		e_data_book_respond_authenticate_user (book, opid, GNOME_Evolution_Addressbook_Success);
-		return GNOME_Evolution_Addressbook_Success;
+		return;
 			
 	case GNOME_Evolution_Addressbook_MODE_REMOTE:
-
+		
+		account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
+		/* FIXME : Check for failures */
+		if (!exchange_account_get_context (account)) {
+			if(!exchange_account_connect (account, password, &result)) {
+				e_data_book_respond_authenticate_user (book, opid, GNOME_Evolution_Addressbook_AuthenticationFailed);
+				return;
+			}
+		}
+		if (!bepriv->connected);
+			e_book_backend_exchange_connect (be);
 		if (e_book_backend_cache_is_populated (bepriv->cache)) {
 			if (bepriv->is_writable)
 				g_thread_create ((GThreadFunc) update_cache, 
@@ -2130,14 +2145,35 @@ e_book_backend_exchange_authenticate_user (EBookBackendSync *backend,
 			/* for personal books we always cache*/
 			g_thread_create ((GThreadFunc) build_cache, be, FALSE, NULL);
 		}
-		return GNOME_Evolution_Addressbook_Success;
+		e_data_book_respond_authenticate_user (book, opid, GNOME_Evolution_Addressbook_Success);
+		return;
 
 	default:
 		break;
 	}
-	return GNOME_Evolution_Addressbook_Success;
+	e_data_book_respond_authenticate_user (book, opid, GNOME_Evolution_Addressbook_Success);
+	return;
 }
 
+static void
+e_book_backend_exchange_get_supported_auth_methods (EBookBackend *backend,
+						    EDataBook *book,
+						    guint32 opid)
+{
+	GList *auth_methods = NULL;
+	char *auth_method;
+
+	d(printf ("ebbe_get_supported_auth_methods (%p, %p)\n", backend, book));
+
+	auth_method = g_strdup_printf ("plain/password");
+	auth_methods = g_list_append (auth_methods, auth_method);
+	e_data_book_respond_get_supported_auth_methods (book, opid,
+				GNOME_Evolution_Addressbook_Success,
+				auth_methods);
+
+	g_free (auth_method);
+	g_list_free (auth_methods);
+}
 
 static EBookBackendSyncStatus
 e_book_backend_exchange_get_supported_fields (EBookBackendSync  *backend,
@@ -2199,7 +2235,6 @@ e_book_backend_exchange_load_source (EBookBackend *backend,
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
-	GNOME_Evolution_Addressbook_CallStatus status;
 	const char *offline;
 
 	g_return_val_if_fail (bepriv->connected == FALSE, GNOME_Evolution_Addressbook_OtherError);
@@ -2236,9 +2271,7 @@ e_book_backend_exchange_load_source (EBookBackend *backend,
 		return GNOME_Evolution_Addressbook_Success;
 	}
 
-	status = e_book_backend_exchange_connect (be);
-	if (status != GNOME_Evolution_Addressbook_Success)
-		return status;
+	e_book_backend_set_is_loaded (E_BOOK_BACKEND (be), TRUE);
 
 	if (e_book_backend_cache_is_populated (bepriv->cache)) {
 		if (bepriv->is_writable)
@@ -2250,7 +2283,7 @@ e_book_backend_exchange_load_source (EBookBackend *backend,
 		g_thread_create ((GThreadFunc) build_cache, be, FALSE, NULL);
 	}
 
-	return status;
+	return GNOME_Evolution_Addressbook_Success;
 }
 
 static EBookBackendSyncStatus
@@ -2311,9 +2344,10 @@ e_book_backend_exchange_set_mode (EBookBackend *backend, int mode)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
+	ExchangeAccount *account;
 
 	bepriv->mode = mode;
-	if (e_book_backend_is_loaded (backend)) {
+	/* if (e_book_backend_is_loaded (backend)) { */
 		if (mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
 			e_book_backend_set_is_writable (backend, FALSE);
 			e_book_backend_notify_writable (backend, FALSE);
@@ -2323,10 +2357,11 @@ e_book_backend_exchange_set_mode (EBookBackend *backend, int mode)
 			e_book_backend_set_is_writable (backend, bepriv->is_writable);
 			e_book_backend_notify_writable (backend, bepriv->is_writable);
 			e_book_backend_notify_connection_status (backend, TRUE);
-			/* FIXME :
-			e_book_backend_notify_auth_required (backend); */
+			account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
+			if (!exchange_account_get_context (account))
+				e_book_backend_notify_auth_required (backend);
 		}
-	}
+/*	} */
 }
 
 /**
@@ -2422,6 +2457,9 @@ e_book_backend_exchange_class_init (EBookBackendExchangeClass *klass)
 	backend_class->stop_book_view          = e_book_backend_exchange_stop_book_view;
 	backend_class->cancel_operation        = e_book_backend_exchange_cancel_operation;
 	backend_class->set_mode			= e_book_backend_exchange_set_mode;
+	backend_class->get_supported_auth_methods = e_book_backend_exchange_get_supported_auth_methods;
+	backend_class->authenticate_user     = e_book_backend_exchange_authenticate_user;
+
 	sync_class->remove_sync                = e_book_backend_exchange_remove;
 	sync_class->create_contact_sync        = e_book_backend_exchange_create_contact;
 	sync_class->remove_contacts_sync       = e_book_backend_exchange_remove_contacts;
@@ -2429,7 +2467,6 @@ e_book_backend_exchange_class_init (EBookBackendExchangeClass *klass)
 	sync_class->get_contact_sync           = e_book_backend_exchange_get_contact;
 	sync_class->get_contact_list_sync      = e_book_backend_exchange_get_contact_list;
 	sync_class->get_changes_sync           = e_book_backend_exchange_get_changes;
-	sync_class->authenticate_user_sync     = e_book_backend_exchange_authenticate_user;
 	sync_class->get_supported_fields_sync  = e_book_backend_exchange_get_supported_fields;
 	sync_class->get_required_fields_sync   = e_book_backend_exchange_get_required_fields;
 

@@ -185,41 +185,6 @@ standard_folder (ExchangeAccount *account, const char *folder_type)
 	return exchange_account_get_folder (account, uri);
 }
 
-static void
-set_special_mail_folder (ExchangeAccount *account, const char *folder_type,
-			 char **physical_uri)
-{
-	EFolder *folder;
-
-	folder = standard_folder (account, folder_type);
-	if (!folder)
-		return;
-
-	g_free (*physical_uri);
-	*physical_uri = g_strdup (e_folder_get_physical_uri (folder));
-}
-
-static void
-add_defaults_for_account (ExchangeConfigListener *config_listener,
-			  E2kContext *ctx,
-			  ExchangeAccount *account)
-{
-	EAccount *eaccount;
-
-#if LDEAD
-	add_autocompletion_folders (config_listener->priv->gconf, account);
-#endif
-
-	eaccount = config_listener->priv->configured_account;
-	set_special_mail_folder (account, "drafts",
-				 &eaccount->drafts_folder_uri);
-	set_special_mail_folder (account, "sentitems",
-				 &eaccount->sent_folder_uri);
-	e_account_list_change (E_ACCOUNT_LIST (config_listener), eaccount);
-	e_account_list_save (E_ACCOUNT_LIST (config_listener));
-}
-
-
 static gboolean
 is_active_exchange_account (EAccount *account)
 {
@@ -231,20 +196,27 @@ is_active_exchange_account (EAccount *account)
 }
 
 static void 
-remove_account_esource (ExchangeAccount *account, 
+migrate_account_esource (EAccount *account, 
 		        FolderType folder_type)
 {
 	ESourceGroup *group;
 	ESource *source = NULL;
 	GSList *groups;
 	GSList *sources;
-	GSList *ids, *node_to_be_deleted;
 	gboolean found_group;
-	const char *source_uid;
+	const char *user_name, *authtype;
 	GConfClient *client;
 	ESourceList *source_list = NULL;
+	E2kUri *e2kuri;
 
-	/* Remove the ESource group, to remove all the folders in a component */
+	e2kuri = e2k_uri_new (account->source->url);
+	if (!e2kuri)
+		return;
+	user_name = e2kuri->user;
+	authtype = e2kuri->authmech;
+
+	if (!user_name) 
+		return;
 
 	client = gconf_client_get_default ();
 
@@ -264,63 +236,24 @@ remove_account_esource (ExchangeAccount *account,
 	for ( ; groups != NULL && !found_group; groups = g_slist_next (groups)) {
 		group = E_SOURCE_GROUP (groups->data);
 
-		if (strcmp (e_source_group_peek_name (group), account->account_name) == 0
+		if (strcmp (e_source_group_peek_name (group), account->name) == 0
                     &&
                     strcmp (e_source_group_peek_base_uri (group), EXCHANGE_URI_PREFIX) == 0) {
 			sources = e_source_group_peek_sources (group);
 
+			found_group = TRUE;
 			for( ; sources != NULL; sources = g_slist_next (sources)) {
 				source = E_SOURCE (sources->data);
-				source_uid = e_source_peek_uid (source);
 
-				/* Remove from the selected folders */
-				if (folder_type == EXCHANGE_CALENDAR_FOLDER) {
-					ids = gconf_client_get_list (
-							client, 
-							CONF_KEY_SELECTED_CAL_SOURCES , 
-							GCONF_VALUE_STRING, NULL);
-					if (ids) {
-						node_to_be_deleted = g_slist_find_custom (
-									ids, 
-									source_uid, 
-									(GCompareFunc) strcmp);
-						if (node_to_be_deleted) {
-							g_free (node_to_be_deleted->data);
-							ids = g_slist_delete_link (ids, 
-									node_to_be_deleted);
-							gconf_client_set_list (client, 
-								CONF_KEY_SELECTED_CAL_SOURCES,
-								GCONF_VALUE_STRING, ids, NULL);
-						}
-						g_slist_foreach (ids, (GFunc) g_free, NULL);
-						g_slist_free (ids);
-					}
-				}
-				else if (folder_type == EXCHANGE_TASKS_FOLDER) {
-					ids = gconf_client_get_list (client, 
-								CONF_KEY_SELECTED_TASKS_SOURCES , 
-								GCONF_VALUE_STRING, NULL);
-					if (ids) {
-						node_to_be_deleted = g_slist_find_custom (
-									ids,
-									source_uid, 
-									(GCompareFunc) strcmp);
-						if (node_to_be_deleted) {
-							g_free (node_to_be_deleted->data);
-							ids = g_slist_delete_link (ids, 
-									node_to_be_deleted);
-							gconf_client_set_list (client, 
-								CONF_KEY_SELECTED_TASKS_SOURCES,
-								GCONF_VALUE_STRING, ids, NULL);
-						}
-						g_slist_foreach (ids, (GFunc) g_free, NULL);
-						g_slist_free (ids);
-					}
-				}
-				e_source_list_remove_group (source_list, group);
+				e_source_set_property (source, "username", user_name);
+				e_source_set_property (source, "auth-domain", "Exchange");
+				if (authtype)
+					e_source_set_property (source, "auth-type", authtype);
+				if (folder_type == EXCHANGE_CONTACTS_FOLDER)
+					e_source_set_property (source, "auth", "plain/password");
+				else
+					e_source_set_property (source, "auth", "1");
 				e_source_list_sync (source_list, NULL);
-				found_group = TRUE;
-				break;
 			}
 		}
 	}
@@ -328,14 +261,16 @@ remove_account_esource (ExchangeAccount *account,
 	g_object_unref (client);
 }
 
-static void
-remove_account_esources (ExchangeAccount *account)
+void
+exchange_config_listener_migrate_esources (ExchangeConfigListener *config_listener)
 {
-	/* Remove ESources for all the folders in all the components */
+	g_return_if_fail (config_listener != NULL);
 
-	remove_account_esource (account, EXCHANGE_CALENDAR_FOLDER);
-	remove_account_esource (account, EXCHANGE_TASKS_FOLDER);
-	remove_account_esource (account, EXCHANGE_CONTACTS_FOLDER);
+	EAccount *account = config_listener->priv->configured_account;
+
+	migrate_account_esource (account, EXCHANGE_CALENDAR_FOLDER);
+	migrate_account_esource (account, EXCHANGE_TASKS_FOLDER);
+	migrate_account_esource (account, EXCHANGE_CONTACTS_FOLDER);
 }
 
 static void
@@ -343,7 +278,6 @@ account_added (EAccountList *account_list, EAccount *account)
 {
 	ExchangeConfigListener *config_listener;
 	ExchangeAccount *exchange_account;
-	ExchangeAccountResult result;
 
 	if (!is_active_exchange_account (account))
 		return;
@@ -373,7 +307,7 @@ account_added (EAccountList *account_list, EAccount *account)
 
 	g_signal_emit (config_listener, signals[EXCHANGE_ACCOUNT_CREATED], 0,
 		       exchange_account);
-	exchange_account_connect (exchange_account, NULL, &result);
+	exchange_config_listener_migrate_esources (config_listener);
 }
 
 struct account_update_data {
@@ -520,7 +454,6 @@ account_changed (EAccountList *account_list, EAccount *account)
 			      account->source->url)) {
 		exchange_account_forget_password (priv->exchange_account);
 	} else if (strcmp (config_listener->priv->configured_name, account->name)) {
-/* 		remove_account_esources (priv->exchange_account); */
 		g_free (config_listener->priv->configured_name);
 		config_listener->priv->configured_name = g_strdup (account->name);
 		return;
