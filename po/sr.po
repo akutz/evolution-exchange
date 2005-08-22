@@ -4,22 +4,23 @@
 # This file is distributed under the same license as the evolution package.
 #
 # Maintainer: Igor Nestorović <jung@one.ekof.bg.ac.yu>
+# 
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: evolution 2.0\n"
+"Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-14 08:25+0200\n"
-"PO-Revision-Date: 2005-07-14 02:22+0200\n"
-"Last-Translator: Данило Шеган <danilo@prevod.org>\n"
-"Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
+"POT-Creation-Date: 2005-08-22 08:58+0200\n"
+"PO-Revision-Date: 2005-08-20 15:35+0200\n"
+"Last-Translator: Игор Несторовић <igor@prevod.org>\n"
+"Language-Team: Serbian (sr) <gnom@prevod.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3;    plural=n%10==1 && n%100!=11 ? 0 :    n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1837
+#: ../addressbook/e-book-backend-exchange.c:1854
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Претраживање..."
@@ -36,80 +37,87 @@ msgstr "Примање резултата претраге са LDAP серве�
 msgid "Error performing search"
 msgstr "Грешка при претраживању"
 
-#: ../calendar/e-cal-backend-exchange.c:312
-msgid "Folder not marked for offline support"
-msgstr "Фасцикла није означена за рад ван мреже"
-
-#: ../calendar/e-cal-backend-exchange-calendar.c:1665
+#: ../calendar/e-cal-backend-exchange-calendar.c:1732
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
-"Није могуће заказати ресурс '%s' за састанке који се понављају.\n"
+"Није могуће заказати ресурс ’%s‘ за састанке који се понављају.\n"
 "Морате заказати сваки састанак појединачно."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1684
+#: ../calendar/e-cal-backend-exchange-calendar.c:1751
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
-msgstr "Ресурс '%s' је заузет током изабраног временског периода."
+msgstr "Ресурс ’%s‘ је заузет током изабраног временског периода."
 
-#: ../camel/camel-exchange-folder.c:220
+#: ../camel/camel-exchange-folder.c:223
 msgid "Can only expunge in Deleted Items folder"
 msgstr "Може избацити само у фасциклу Обрисани предмети"
 
-#: ../camel/camel-exchange-folder.c:244
+#: ../camel/camel-exchange-folder.c:247
 msgid "No Subject"
 msgstr "Без наслова"
 
-#: ../camel/camel-exchange-folder.c:371
+#: ../camel/camel-exchange-folder.c:374
 msgid "This message is not available in offline mode."
-msgstr "Ова порука није доступна у раду ван мреже."
+msgstr "Ова порука није доступна у режиму ван мреже."
 
-#: ../camel/camel-exchange-folder.c:606
+#: ../camel/camel-exchange-folder.c:609
 msgid "Moving messages"
 msgstr "Премештање порука"
 
-#: ../camel/camel-exchange-folder.c:607
+#: ../camel/camel-exchange-folder.c:610
 msgid "Copying messages"
 msgstr "Умножавање порука"
 
-#: ../camel/camel-exchange-folder.c:938
+#: ../camel/camel-exchange-folder.c:981
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Није могуће направити директоријум %s: %s"
 
-#: ../camel/camel-exchange-folder.c:948
+#: ../camel/camel-exchange-folder.c:991
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Није могуће учитати преглед за %s"
 
-#: ../camel/camel-exchange-folder.c:956
+#: ../camel/camel-exchange-folder.c:999
 #, c-format
 msgid "Could not create cache for %s"
-msgstr "Није могуће направити cache за %s"
+msgstr "Није могуће направити оставу за %s"
 
-#: ../camel/camel-exchange-folder.c:966
+#: ../camel/camel-exchange-folder.c:1009
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Није могуће направити унос у дневник за %s"
 
-#: ../camel/camel-exchange-folder.c:1011
+#: ../camel/camel-exchange-folder.c:1054
 msgid "Scanning for changed messages"
 msgstr "Претрага за измењеним порукама"
 
-#: ../camel/camel-exchange-folder.c:1037
+#: ../camel/camel-exchange-folder.c:1080
 msgid "Fetching summary information for new messages"
 msgstr "Добављање прегледа за нове поруке"
 
-#: ../camel/camel-exchange-journal.c:272
-msgid "Cannot append message in offline mode: cache unavailable"
-msgstr "Није могуће додати поруку у раду ван мреже: cache недоступан"
+#: ../camel/camel-exchange-journal.c:339
+msgid "No folder name found\n"
+msgstr "Име фасцикле није пронађено\n"
 
-#: ../camel/camel-exchange-journal.c:288
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2523
+#: ../mail/mail-stub-exchange.c:2566 ../mail/mail-stub-exchange.c:2601
+#: ../mail/mail-stub-exchange.c:2628 ../mail/mail-stub-exchange.c:2675
+#: ../mail/mail-stub-exchange.c:2697
+msgid "Folder doesn't exist"
+msgstr "Фасцикла не постоји"
+
+#: ../camel/camel-exchange-journal.c:436
+msgid "Cannot append message in offline mode: cache unavailable"
+msgstr "Није могуће додати поруку у режиму ван мреже: остава недоступна"
+
+#: ../camel/camel-exchange-journal.c:452
 #, c-format
 msgid "Cannot append message in offline mode: %s"
-msgstr "Није могуће додати поруку у раду ван мреже: %s"
+msgstr "Није могуће додати поруку у режиму ван мреже: %s"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
@@ -158,7 +166,7 @@ msgstr "Провери да нема ђубрета међу новим пору
 
 #: ../camel/camel-exchange-provider.c:69
 msgid "Only check for Junk messages in the Inbox folder"
-msgstr "Провери да нема ђубрета само у фасцикли сандучета"
+msgstr "Провери да нема ђубрета само у фасцикли Сандуче"
 
 #: ../camel/camel-exchange-provider.c:76
 msgid "Microsoft Exchange"
@@ -195,48 +203,48 @@ msgstr ""
 "Ова опција ће повезати на Exchange сервер коришћењем пријаве лозинком у "
 "обичном тексту."
 
-#: ../camel/camel-exchange-store.c:281
+#: ../camel/camel-exchange-store.c:303
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange сервер %s"
 
-#: ../camel/camel-exchange-store.c:284
+#: ../camel/camel-exchange-store.c:306
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Exchange налог за %s на %s"
 
-#: ../camel/camel-exchange-store.c:311
+#: ../camel/camel-exchange-store.c:356
 msgid "Evolution Exchange backend process"
 msgstr "Услужни Exchange процес Еволуције"
 
-#: ../camel/camel-exchange-store.c:359
+#: ../camel/camel-exchange-store.c:407
 #, c-format
 msgid "No such folder %s"
 msgstr "Нема такве фасцикле %s"
 
-#: ../camel/camel-exchange-store.c:428
+#: ../camel/camel-exchange-store.c:476
 msgid "Cannot subscribe folder in offline mode."
-msgstr "Није могуће пријавити фасциклу у раду ван мреже."
+msgstr "Није могуће пријавити фасциклу у режиму ван мреже."
 
-#: ../camel/camel-exchange-store.c:445
+#: ../camel/camel-exchange-store.c:493
 msgid "Cannot unsubscribe folder in offline mode."
-msgstr "Није могуће одјавити фасциклу у раду ван мреже."
+msgstr "Није могуће одјавити фасциклу у режиму ван мреже."
 
-#: ../camel/camel-exchange-store.c:550
+#: ../camel/camel-exchange-store.c:598
 msgid "Cannot get folder info in offline mode."
-msgstr "Није могуће добити фасциклу у раду ван мреже."
+msgstr "Није могуће добити фасциклу у режиму ван мреже."
 
-#: ../camel/camel-exchange-store.c:620
+#: ../camel/camel-exchange-store.c:669
 msgid "Cannot create folder in offline mode."
-msgstr "Није могуће направити фасциклу у раду ван мреже."
+msgstr "Није могуће направити фасциклу у режиму ван мреже."
 
-#: ../camel/camel-exchange-store.c:647
+#: ../camel/camel-exchange-store.c:696
 msgid "Cannot delete folder in offline mode."
-msgstr "Није могуће уклонити фасциклу у раду ван мреже."
+msgstr "Није могуће уклонити фасциклу у режиму ван мреже."
 
-#: ../camel/camel-exchange-store.c:663
+#: ../camel/camel-exchange-store.c:712
 msgid "Cannot rename folder in offline mode."
-msgstr "Није могуће преименовати фасциклу у раду ван мреже."
+msgstr "Није могуће преименовати фасциклу у режиму ван мреже."
 
 #: ../camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
@@ -248,7 +256,7 @@ msgstr "Није могуће слање поруке: један или виш�
 
 #: ../camel/camel-exchange-transport.c:131
 msgid "Could not find 'From' address in message"
-msgstr "Није могуће пронаћи адресу 'Шаље' у поруци"
+msgstr "Није могуће пронаћи адресу ’Шаље‘ у поруци"
 
 #: ../camel/camel-stub.c:134
 #, c-format
@@ -342,9 +350,9 @@ msgid ""
 "%s"
 msgstr ""
 "Ximian Connector захтева приступ одређеним могућностима Exchange сервера "
-"које изгледа нису укључене или су блокиране. (Ово обично није намерно.)  Ваш "
-"Exchange администратор ће морати да укључи ове могућности да бисте могли да "
-"користите Ximian Connector.\n"
+"које изгледа нису укључене или су блокиране.  (Ово обично није намерно.)  "
+"Ваш Exchange администратор ће морати да укључи ове могућности да бисте могли "
+"да користите Ximian Connector.\n"
 "\n"
 "За детаље шта да проследите вашем Exchange администратору, посетите следећу "
 "везу:\n"
@@ -427,83 +435,86 @@ msgstr "Изаберите корисника"
 msgid "Addressbook..."
 msgstr "Адресар..."
 
-#: ../mail/mail-stub-exchange.c:242
+#: ../mail/mail-stub-exchange.c:256
 msgid "No such folder"
 msgstr "Нема такве фасцикле"
 
-#: ../mail/mail-stub-exchange.c:259 ../mail/mail-stub-exchange.c:2356
-#: ../mail/mail-stub-exchange.c:2394 ../mail/mail-stub-exchange.c:2454
-#: ../mail/mail-stub-exchange.c:2492 ../mail/mail-stub-exchange.c:2536
-#: ../shell/e-storage.c:573 ../storage/xc-commands.c:319
+#. FIXME: should be this, but string freeze freezes me to do so.
+#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
+#: ../mail/mail-stub-exchange.c:279 ../mail/mail-stub-exchange.c:1374
+#: ../mail/mail-stub-exchange.c:2500 ../mail/mail-stub-exchange.c:2539
+#: ../mail/mail-stub-exchange.c:2605 ../mail/mail-stub-exchange.c:2649
+#: ../mail/mail-stub-exchange.c:2713 ../shell/e-storage.c:573
+#: ../storage/xc-commands.c:319
 msgid "Permission denied"
 msgstr "Забрањен приступ"
 
-# Овако је у Виндузу
-#: ../mail/mail-stub-exchange.c:557
-msgid "No such folder."
-msgstr "Нема такве фасцикле."
-
-#: ../mail/mail-stub-exchange.c:566
-msgid "Could not create folder."
-msgstr "Није могуће направити фасциклу."
-
-#: ../mail/mail-stub-exchange.c:614 ../mail/mail-stub-exchange.c:632
+#: ../mail/mail-stub-exchange.c:577 ../mail/mail-stub-exchange.c:599
 msgid "Could not open folder: Permission denied"
 msgstr "Није могуће отворити фасциклу: забрањен приступ"
 
-#: ../mail/mail-stub-exchange.c:618 ../mail/mail-stub-exchange.c:731
+#: ../mail/mail-stub-exchange.c:583 ../mail/mail-stub-exchange.c:704
 msgid "Could not open folder"
 msgstr "Није могуће отворити фасциклу"
 
-#: ../mail/mail-stub-exchange.c:786
-msgid "Could not open Deleted Items folder"
-msgstr "Није могуће отворити фасциклу са обрисаним предметима"
+# Овако је у Виндузу
+#: ../mail/mail-stub-exchange.c:743
+msgid "No such folder."
+msgstr "Нема такве фасцикле."
 
-#: ../mail/mail-stub-exchange.c:1116 ../mail/mail-stub-exchange.c:1157
+#: ../mail/mail-stub-exchange.c:752
+msgid "Could not create folder."
+msgstr "Није могуће направити фасциклу."
+
+#: ../mail/mail-stub-exchange.c:830
+msgid "Could not open Deleted Items folder"
+msgstr "Није могуће отворити фасциклу Обрисани предмети"
+
+#: ../mail/mail-stub-exchange.c:1159 ../mail/mail-stub-exchange.c:1200
 msgid "Could not get new messages"
 msgstr "Није могуће добити нове поруке"
 
-#: ../mail/mail-stub-exchange.c:1322
+#: ../mail/mail-stub-exchange.c:1370
 msgid "Could not empty Deleted Items folder"
-msgstr "Није могуће испразнити фасциклу са обрисаним предметима"
+msgstr "Није могуће испразнити фасциклу Обрисани предмети"
 
-#: ../mail/mail-stub-exchange.c:1394
+#: ../mail/mail-stub-exchange.c:1447
 msgid "Could not append message; mailbox is over quota"
-msgstr "Није могуће додати поруку; mailbox је пробио квоту"
+msgstr "Није могуће додати поруку; поштанско сандуче је преко квоте"
 
-#: ../mail/mail-stub-exchange.c:1395
+#: ../mail/mail-stub-exchange.c:1448
 msgid "Could not append message"
 msgstr "Није могуће додати поруку"
 
-#: ../mail/mail-stub-exchange.c:1878
+#: ../mail/mail-stub-exchange.c:1990
 msgid "No such message"
 msgstr "Нема такве поруке"
 
-#: ../mail/mail-stub-exchange.c:1931
+#: ../mail/mail-stub-exchange.c:2043
 msgid "Message has been deleted"
 msgstr "Порука је обрисана"
 
-#: ../mail/mail-stub-exchange.c:1933
+#: ../mail/mail-stub-exchange.c:2045
 msgid "Error retrieving message"
 msgstr "Грешка при довлачењу поруке"
 
-#: ../mail/mail-stub-exchange.c:1975
+#: ../mail/mail-stub-exchange.c:2087
 msgid "Mailbox does not support full-text searching"
-msgstr "Mailbox не подржава претрагу по свом тексту"
+msgstr "Поштанско сандуче не подржава претрагу по свом тексту"
 
-#: ../mail/mail-stub-exchange.c:2073
+#: ../mail/mail-stub-exchange.c:2185
 msgid "Unable to move/copy messages"
 msgstr "Није могуће премештање/умножавање порука"
 
-#: ../mail/mail-stub-exchange.c:2271
+#: ../mail/mail-stub-exchange.c:2415
 msgid "No mail submission URI for this mailbox"
-msgstr "Нема адресе за слање поште за овај mailbox"
+msgstr "Нема адресе за слање поште за ово поштанско сандуче"
 
-#: ../mail/mail-stub-exchange.c:2307
+#: ../mail/mail-stub-exchange.c:2451
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Сервер неће да прихвати пошту преко Exchange преноса"
 
-#: ../mail/mail-stub-exchange.c:2309
+#: ../mail/mail-stub-exchange.c:2453
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -512,34 +523,28 @@ msgstr ""
 "Ваш налог нема овлашћење да користи <%s>\n"
 "као адресу Шаље."
 
-#: ../mail/mail-stub-exchange.c:2321
+#: ../mail/mail-stub-exchange.c:2465
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
 "Није могуће слање поруке.\n"
-"Ово може значити да је Ваш налог пробио квоту."
+"Ово може значити да је Ваш налог преко квоте."
 
-#: ../mail/mail-stub-exchange.c:2325
+#: ../mail/mail-stub-exchange.c:2469
 msgid "Could not send message"
 msgstr "Није могуће слање поруке"
 
-#: ../mail/mail-stub-exchange.c:2348 ../mail/mail-stub-exchange.c:2399
-#: ../mail/mail-stub-exchange.c:2458 ../mail/mail-stub-exchange.c:2497
-#: ../mail/mail-stub-exchange.c:2541 ../shell/e-storage.c:557
+#: ../mail/mail-stub-exchange.c:2492 ../mail/mail-stub-exchange.c:2544
+#: ../mail/mail-stub-exchange.c:2609 ../mail/mail-stub-exchange.c:2654
+#: ../mail/mail-stub-exchange.c:2718 ../shell/e-storage.c:557
 #: ../storage/xc-commands.c:323
 msgid "Generic error"
 msgstr "Општа грешка"
 
-#: ../mail/mail-stub-exchange.c:2352 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2496 ../storage/xc-commands.c:313
 msgid "Folder already exists"
 msgstr "Фасцикла већ постоји"
-
-#: ../mail/mail-stub-exchange.c:2379 ../mail/mail-stub-exchange.c:2421
-#: ../mail/mail-stub-exchange.c:2450 ../mail/mail-stub-exchange.c:2477
-#: ../mail/mail-stub-exchange.c:2521
-msgid "Folder doesn't exist"
-msgstr "Фасцикла не постоји"
 
 #: ../shell/e-folder-creation-dialog.c:138
 #, c-format
@@ -755,7 +760,7 @@ msgstr "Није могуће направити фасциклу тога им�
 
 #: ../shell/e-storage.c:585
 msgid "This operation cannot be performed in off-line mode"
-msgstr "Ову операцију не можете извршити у раду ван мреже"
+msgstr "Ову операцију не можете извршити у режиму ван мреже"
 
 #: ../shell/e-storage.c:587 ../storage/exchange-account.c:1473
 msgid "Unknown error"
@@ -790,7 +795,7 @@ msgstr "%sУнесите лозинку за %s"
 #. email id is not proper, we return instead of trying nt_domain
 #: ../storage/exchange-account.c:1069
 msgid "Cannot change password due to configuration problems"
-msgstr "Није могућа измена лозинке услед проблема са подешавањима"
+msgstr "Није могућа измена лозинке услед проблема са подешавањем"
 
 #: ../storage/exchange-account.c:1092
 msgid ""
@@ -849,7 +854,7 @@ msgstr ""
 "\n"
 "Ово вероватно значи да је серверу потребно да\n"
 "наведете име Windows домена као део корисничког\n"
-"имена (нпр. „ДОМЕН\\корисник\").\n"
+"имена (нпр. „ДОМЕН\\корисник“).\n"
 "\n"
 "Или сте можда само погрешно укуцали лозинку.\n"
 "\n"
@@ -857,7 +862,7 @@ msgstr ""
 #: ../storage/exchange-account.c:1431
 #, c-format
 msgid "Mailbox for %s is not on this server."
-msgstr "Mailbox за %s није на овом серверу."
+msgstr "Поштанско сандуче за %s није на овом серверу."
 
 #: ../storage/exchange-account.c:1436
 #, c-format
@@ -882,7 +887,7 @@ msgstr ""
 #: ../storage/exchange-account.c:1451
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
-msgstr "Нема mailbox-а за корисника %s на %s.\n"
+msgstr "Нема поштанског сандучета за корисника %s на %s.\n"
 
 #: ../storage/exchange-account.c:1457 ../storage/exchange-account.c:1463
 #: ../storage/exchange-account.c:1471
@@ -892,7 +897,7 @@ msgstr "Није могуће повезивање на сервер %s: %s"
 
 #: ../storage/exchange-account.c:1459
 msgid "Could not resolve hostname"
-msgstr "Нijе могуће повезивање на домаћина"
+msgstr "Ниjе могуће повезивање на домаћина"
 
 #: ../storage/exchange-account.c:1465
 msgid "Network error"
@@ -934,12 +939,12 @@ msgid ""
 "link below:"
 msgstr ""
 "Ximian Connector тражи приступ одређеним могућностима Exchange сервера које "
-"изгледа нису укључене или су блокиране. (Ово обично није намерно.)  Ваш "
+"изгледа нису укључене или су блокиране.  (Ово обично није намерно.)  Ваш "
 "Exchange администратор ће морати да укључи ове могућности да бисте могли да "
 "користите Ximian Connector.\n"
 "\n"
-"За детаље шта да проследите вашем Exchange администратору, посетите "
-"следећувезу:"
+"За детаље шта да проследите вашем Exchange администратору, посетите следећу "
+"везу:"
 
 #: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
@@ -974,7 +979,6 @@ msgstr ""
 "Није могуће направити нови налог."
 
 #: ../storage/exchange-autoconfig-wizard.c:459
-#: ../storage/exchange-config-listener.c:776
 msgid "You may only configure a single Exchange account"
 msgstr "Можете подесити само један Exchange налог"
 
@@ -1066,7 +1070,7 @@ msgid ""
 msgstr ""
 "Ximian Connector не може да нађе реплику Глобалног каталога за Вашу "
 "страницу. Унесите име сервера Глобалног каталога. Можда ћете морати да "
-"питате систем администратора за тачну вредност.\n"
+"питате администратора система за тачну вредност.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:26
 msgid ""
@@ -1101,7 +1105,7 @@ msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
 msgstr ""
-"Садашња лозинка се не поклапа са постојећом лозинком за налог. Унесите "
+"Тренутна лозинка се не поклапа са постојећом лозинком за налог. Унесите "
 "исправну лозинку"
 
 #: ../storage/exchange-change-password.c:121
@@ -1110,7 +1114,7 @@ msgstr "Две лозинке се не слажу. Унесите их поно
 
 #: ../storage/exchange-change-password.glade.h:2
 msgid "Change Password"
-msgstr "Измени лозинку"
+msgstr "Измените лозинку"
 
 #: ../storage/exchange-change-password.glade.h:3
 msgid "Confirm Password:"
@@ -1118,7 +1122,7 @@ msgstr "Потврдите лозинку:"
 
 #: ../storage/exchange-change-password.glade.h:4
 msgid "Current Password:"
-msgstr "Садашња лозинка:"
+msgstr "Тренутна лозинка:"
 
 #: ../storage/exchange-change-password.glade.h:5
 msgid "New Password:"
@@ -1126,43 +1130,7 @@ msgstr "Нова лозинка:"
 
 #: ../storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
-msgstr "Ваша садашња лозинка је истекла. Измените је сада."
-
-# 48x48/emblems/emblem-mail.icon.in.h:1
-#: ../storage/exchange-component.c:278
-msgid "Mail"
-msgstr "Пошта"
-
-#: ../storage/exchange-component.c:281
-#: ../storage/exchange-hierarchy-foreign.c:251
-msgid "Contacts"
-msgstr "Контакти"
-
-#: ../storage/exchange-component.c:285
-#: ../storage/exchange-hierarchy-foreign.c:259
-msgid "Tasks"
-msgstr "Задужења"
-
-#: ../storage/exchange-component.c:288
-#: ../storage/exchange-hierarchy-foreign.c:250
-msgid "Calendar"
-msgstr "Календар"
-
-#: ../storage/exchange-config-listener.c:970
-msgid ""
-"Changes to Exchange account configuration will take\n"
-"place after you quit and restart Evolution."
-msgstr ""
-"Измене Exchange налога ће наступити када\n"
-"затворите и поново покренете Еволуцију."
-
-#: ../storage/exchange-config-listener.c:1016
-msgid "The Exchange account will be removed when you quit Evolution"
-msgstr "Exchange налог ће бити уклоњен када затворите Еволуцију"
-
-#: ../storage/exchange-config-listener.c:1021
-msgid "The Exchange account will be disabled when you quit Evolution"
-msgstr "Exchange налог ће бити онемогућен када затворите Еволуцију"
+msgstr "Ваша тренутна лозинка је истекла. Измените је сада."
 
 #: ../storage/exchange-delegates-user.c:191
 #: ../storage/exchange-permissions-dialog.c:179
@@ -1200,7 +1168,7 @@ msgstr "Делегирај:"
 
 #: ../storage/exchange-delegates.c:419
 msgid "Delegate To"
-msgstr "Делегирај"
+msgstr "Делегира"
 
 #: ../storage/exchange-delegates.c:435
 #, c-format
@@ -1303,16 +1271,16 @@ msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
 msgstr ""
-"Ови корисници ће моћи да шаљу пошту у ваше име и да\n"
+"Ови корисници ће моћи да шаљу пошту у Ваше име и да\n"
 "приступају фасциклама са овлашћењима која им дате."
 
 #: ../storage/exchange-delegates.glade.h:12
 msgid "_Delegate can see private items"
-msgstr "_Делегати могу да виде приватне предмете"
+msgstr "_Делегати могу да виде личне предмете"
 
 #: ../storage/exchange-delegates.glade.h:13
 msgid "_Edit"
-msgstr "_Уреди"
+msgstr "_Уређивање"
 
 #: ../storage/exchange-delegates.glade.h:14
 msgid "_Inbox:"
@@ -1333,6 +1301,14 @@ msgstr "Величина фасцикле"
 #: ../storage/exchange-folder-tree.glade.h:1
 msgid "Exchange Folder Tree"
 msgstr "Exchange стабло фасцикли"
+
+#: ../storage/exchange-hierarchy-foreign.c:250
+msgid "Calendar"
+msgstr "Календар"
+
+#: ../storage/exchange-hierarchy-foreign.c:251
+msgid "Contacts"
+msgstr "Контакти"
 
 #: ../storage/exchange-hierarchy-foreign.c:252
 msgid "Deleted Items"
@@ -1362,9 +1338,13 @@ msgstr "За слање"
 msgid "Sent Items"
 msgstr "Послати предмети"
 
+#: ../storage/exchange-hierarchy-foreign.c:259
+msgid "Tasks"
+msgstr "Задужења"
+
 #: ../storage/exchange-migrate.c:57
 msgid "Migrating Exchange Folders..."
-msgstr "Селидба Exchange фасцикли..."
+msgstr "Пренос Exchange фасцикли..."
 
 #: ../storage/exchange-migrate.c:65
 #, c-format
@@ -1387,14 +1367,14 @@ msgid ""
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"Упозорење: Еволуција не може да пренесе све ваше податке Exchange налога из "
+"Упозорење: Еволуција не може да пренесе све податке Exchange налога из "
 "верзије %d.%d.%d.\n"
-"Подаци нису обрисани, али неће бити приказани у овом верзији Еволуције"
+"Подаци нису обрисани, али неће бити приказани у овој верзији Еволуције"
 
 #: ../storage/exchange-migrate.c:129
 #, c-format
 msgid "Migrating `%s':"
-msgstr "Пресељење `%s`:"
+msgstr "Преношење ’%s‘:"
 
 #: ../storage/exchange-oof.c:199 ../storage/exchange-oof.c:406
 msgid "Could not update out-of-office state"
@@ -1410,9 +1390,9 @@ msgid ""
 "\n"
 "Would you like to change your status to \"In the Office\"? "
 msgstr ""
-"<b>Тренутно, Ваш статус је \"Ван канцеларије\". </b>\n"
+"<b>Тренутно, Ваш статус је „Ван канцеларије“. </b>\n"
 "\n"
-"Желите ли да промените статус у \"У канцеларији\"? "
+"Желите ли да промените статус у „У канцеларији“? "
 
 #: ../storage/exchange-oof.glade.h:4
 msgid "<b>Out of Office Message:</b>"
@@ -1466,7 +1446,7 @@ msgstr "_Измени лозинку"
 
 #: ../storage/exchange-passwd-expiry.glade.h:4
 msgid "ok_button"
-msgstr "ok_дугме"
+msgstr "у_реду_дугме"
 
 #: ../storage/exchange-permissions-dialog.c:222
 msgid "Could not read folder permissions"
@@ -1499,7 +1479,7 @@ msgstr "Додај корисника:"
 
 #: ../storage/exchange-permissions-dialog.c:402
 msgid "Add User"
-msgstr "Додај корисника"
+msgstr "Додаје корисника"
 
 #: ../storage/exchange-permissions-dialog.c:421
 #, c-format
@@ -1589,7 +1569,7 @@ msgstr "Улога: "
 msgid "Connecting..."
 msgstr "Повезивање..."
 
-#: ../storage/main.c:166
+#: ../storage/main.c:165
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector за Microsoft Exchange"
 
@@ -1679,7 +1659,7 @@ msgstr "Пријави се на фасциклу _другог корисник
 
 #: ../storage/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
-msgstr "Пријави се на фасциклу која припада неком другом кориснику сервера"
+msgstr "Пријављује се на фасциклу која припада неком другом кориснику сервера"
 
 #: ../storage/ximian-connector.xml.h:6
 msgid ""
@@ -1710,7 +1690,10 @@ msgstr "Помоћник за _ван-кацеларије"
 
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
-msgstr "_Одјави се са Фасцикле другог корисника"
+msgstr "_Одјави се са фасцикле другог корисника"
+
+#~ msgid "Folder not marked for offline support"
+#~ msgstr "Фасцикла није означена за рад ван мреже"
 
 #~ msgid "*Control*F5"
 #~ msgstr "*Control*F5"
@@ -1723,6 +1706,23 @@ msgstr "_Одјави се са Фасцикле другог корисника
 
 #~ msgid "_Exchange"
 #~ msgstr "_Exchange"
+
+#~ msgid ""
+#~ "Changes to Exchange account configuration will take\n"
+#~ "place after you quit and restart Evolution."
+#~ msgstr ""
+#~ "Измене Exchange налога ће наступити када\n"
+#~ "затворите и поново покренете Еволуцију."
+
+#~ msgid "The Exchange account will be removed when you quit Evolution"
+#~ msgstr "Exchange налог ће бити уклоњен када затворите Еволуцију"
+
+#~ msgid "The Exchange account will be disabled when you quit Evolution"
+#~ msgstr "Exchange налог ће бити онемогућен када затворите Еволуцију"
+
+# 48x48/emblems/emblem-mail.icon.in.h:1
+#~ msgid "Mail"
+#~ msgstr "Пошта"
 
 #, fuzzy
 #~ msgid ""
