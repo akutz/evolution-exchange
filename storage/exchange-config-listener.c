@@ -174,17 +174,6 @@ E2K_MAKE_TYPE (exchange_config_listener, ExchangeConfigListener, class_init, ini
 #define EVOLUTION_URI_PREFIX     "evolution:/"
 #define EVOLUTION_URI_PREFIX_LEN (sizeof (EVOLUTION_URI_PREFIX) - 1)
 
-static EFolder *
-standard_folder (ExchangeAccount *account, const char *folder_type)
-{
-	const char *uri;
-
-	uri = exchange_account_get_standard_uri (account, folder_type);
-	if (!uri)
-		return NULL;
-	return exchange_account_get_folder (account, uri);
-}
-
 static gboolean
 is_active_exchange_account (EAccount *account)
 {

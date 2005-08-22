@@ -4,10 +4,11 @@
 #ifndef __EXCHANGE_COMPONENT_H__
 #define __EXCHANGE_COMPONENT_H__
 
+#include <libedata-book/e-data-book-factory.h>
+#include <libedata-cal/e-data-cal-factory.h>
 #include <bonobo/bonobo-object.h>
 #include <shell/Evolution.h>
 #include <exchange-types.h>
-#include <exchange-offline-listener.h>
 
 #ifdef __cplusplus
 extern "C" {

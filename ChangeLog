@@ -1,5 +1,11 @@
 2005-08-22  Sarfraaz Ahmed <asarfraaz@novell.com>
 
+	* storage/exchange-component.h : Include the proper header files to
+	fix a build error.
+	* storage/exchange-config-listener.c (standard_folder) : Removed.
+
+2005-08-22  Sarfraaz Ahmed <asarfraaz@novell.com>
+
 	* addressbook/e-book-backend-exchange.c 
 	(e_book_backend_exchange_authenticate_user) : Actually connect to the
 	server here.
@@ -28,6 +34,7 @@
 	(migrate_esources) : New
 	(account_added) : Dont connect here.
 	* storage/exchange-config-listener.h : Similar.
+	Fixes #309420
 
 2005-08-19  Arunprakash  <arunp@novell.com>
 
