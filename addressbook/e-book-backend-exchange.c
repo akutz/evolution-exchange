@@ -1853,7 +1853,7 @@ e_book_backend_exchange_start_book_view (EBookBackend  *backend,
 
 	d(printf("ebbe_start_book_view(%p, %p)\n", backend, book_view));
 
-	g_object_ref (book_view);
+	bonobo_object_ref (book_view);
 	e_data_book_view_notify_status_message (book_view, _("Searching..."));
 
 	switch (bepriv->mode) {
@@ -1915,7 +1915,7 @@ e_book_backend_exchange_start_book_view (EBookBackend  *backend,
 
 		e_data_book_view_notify_complete (book_view,
 						  http_status_to_pas (status));
-		g_object_unref (book_view);
+		bonobo_object_unref (book_view);
 
 	default:
 		break;

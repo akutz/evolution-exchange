@@ -1,3 +1,13 @@
+2005-08-23  Shakti Sen <shprasad@novell.com>
+
+	* addressbook/e-book-backend-exchange.c
+	(e_book_backend_exchange_start_book_view): When user starts
+	evolution in offline mode and switch back to online mode and tries
+	to create a contact, the contact editor hangs.
+	Basically it fixes this issue.
+
+	Partially fixes bug #274262.
+
 2005-08-22  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* configure.in : Bumped the version to 2.3.8
