@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD.sq\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-15 06:02+0000\n"
-"PO-Revision-Date: 2005-08-15 12:46+0200\n"
+"POT-Creation-Date: 2005-08-24 06:48+0000\n"
+"PO-Revision-Date: 2005-08-24 11:19+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1837
+#: ../addressbook/e-book-backend-exchange.c:1857
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Duke kërkuar..."
@@ -32,7 +32,7 @@ msgstr "Duke marrë rezultatet e kërkimit LDAP..."
 msgid "Error performing search"
 msgstr "Gabim gjatë kryerjes së kërkimit"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1665
+#: ../calendar/e-cal-backend-exchange-calendar.c:1732
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -41,14 +41,10 @@ msgstr ""
 "I pamundur planifikimi i rezervës '%s' për mbledhjet e ardhshme.\n"
 "Çdo mbledhje do të duhet të prenotohet në veçanti."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1684
+#: ../calendar/e-cal-backend-exchange-calendar.c:1751
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Rezerve '%s' është e zënë gjatë periudhës së zgjedhur të kohës."
-
-#: ../calendar/e-cal-backend-exchange.c:310
-msgid "Folder not marked for offline support"
-msgstr "Kartela nuk është shënuar për suport jashtë linje"
 
 #: ../camel/camel-exchange-folder.c:223
 msgid "Can only expunge in Deleted Items folder"
@@ -70,31 +66,31 @@ msgstr "Duke lëvizur mesazhet"
 msgid "Copying messages"
 msgstr "Duke kopjuar mesazhet"
 
-#: ../camel/camel-exchange-folder.c:940
+#: ../camel/camel-exchange-folder.c:981
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "I pamundur krijimi i directory %s: %s"
 
-#: ../camel/camel-exchange-folder.c:950
+#: ../camel/camel-exchange-folder.c:991
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "I pamundur leximi i përmbledhjes për %s"
 
-#: ../camel/camel-exchange-folder.c:958
+#: ../camel/camel-exchange-folder.c:999
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "I pamundur krijimi i cache për %s"
 
-#: ../camel/camel-exchange-folder.c:968
+#: ../camel/camel-exchange-folder.c:1009
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "I pamundur krijimi i ditarit për %s"
 
-#: ../camel/camel-exchange-folder.c:1013
+#: ../camel/camel-exchange-folder.c:1054
 msgid "Scanning for changed messages"
 msgstr "Duke kërkuar për mesazhet e ndryshuara"
 
-#: ../camel/camel-exchange-folder.c:1039
+#: ../camel/camel-exchange-folder.c:1080
 msgid "Fetching summary information for new messages"
 msgstr "Duke marrë përmbledhjen e informacionit për mesazhet e rinj"
 
@@ -102,10 +98,10 @@ msgstr "Duke marrë përmbledhjen e informacionit për mesazhet e rinj"
 msgid "No folder name found\n"
 msgstr "Kartela nuk u gjet\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2447
-#: ../mail/mail-stub-exchange.c:2490 ../mail/mail-stub-exchange.c:2525
-#: ../mail/mail-stub-exchange.c:2552 ../mail/mail-stub-exchange.c:2599
-#: ../mail/mail-stub-exchange.c:2621
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2524
+#: ../mail/mail-stub-exchange.c:2567 ../mail/mail-stub-exchange.c:2602
+#: ../mail/mail-stub-exchange.c:2629 ../mail/mail-stub-exchange.c:2676
+#: ../mail/mail-stub-exchange.c:2698
 msgid "Folder doesn't exist"
 msgstr "Kartela nuk ekziston"
 
@@ -169,23 +165,23 @@ msgstr "Kontrollo nëse mesazhet e rinj përmbajnë material që duhet refuzuar"
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "Kontrollo për mesazhe që duhen refuzuar vetëm tek kartela Inbox"
 
-#: ../camel/camel-exchange-provider.c:76
+#: ../camel/camel-exchange-provider.c:79
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:78
+#: ../camel/camel-exchange-provider.c:81
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr ""
 "Për trajtimin e mail (dhe të dhënave të tjera) në server-ët Microsoft "
 "Exchange"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:94
+#: ../camel/camel-exchange-provider.c:97
 msgid "Secure Password"
 msgstr "Fjalëkalim i sigurt"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:100
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -193,11 +189,11 @@ msgstr ""
 "Me këtë opcion do të lidheni me serverin Exchange duke përdorur "
 "autentifikimin me fjalëkalim të sigurt (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:105
+#: ../camel/camel-exchange-provider.c:108
 msgid "Plaintext Password"
 msgstr "Fjalëkalim si tekst i thjeshtë"
 
-#: ../camel/camel-exchange-provider.c:107
+#: ../camel/camel-exchange-provider.c:110
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -205,48 +201,53 @@ msgstr ""
 "Me këtë opcion do të lidheni me serverin Exchange duke përdorur "
 "autentifikimin standart me fjalëkalim si tekst i thjeshtë."
 
-#: ../camel/camel-exchange-store.c:281
+#: ../camel/camel-exchange-store.c:303
 #, c-format
 msgid "Exchange server %s"
 msgstr "Serveri exchange %s"
 
-#: ../camel/camel-exchange-store.c:284
+#: ../camel/camel-exchange-store.c:306
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Llogaria exchange për %s në %s"
 
-#: ../camel/camel-exchange-store.c:334
+#: ../camel/camel-exchange-store.c:347 ../storage/exchange-account.c:869
+#, c-format
+msgid "%sEnter password for %s"
+msgstr "%sShkruaj fjalëkalimin për %s"
+
+#: ../camel/camel-exchange-store.c:376
 msgid "Evolution Exchange backend process"
 msgstr "Proçesi backend Evolution Exchange"
 
-#: ../camel/camel-exchange-store.c:382
+#: ../camel/camel-exchange-store.c:430
 #, c-format
 msgid "No such folder %s"
 msgstr "Kartela nuk u gjet: %s"
 
-#: ../camel/camel-exchange-store.c:451
+#: ../camel/camel-exchange-store.c:499
 msgid "Cannot subscribe folder in offline mode."
 msgstr "I pamundur regjistrimi i kartelës në modalitetin jashtë linje."
 
-#: ../camel/camel-exchange-store.c:468
+#: ../camel/camel-exchange-store.c:516
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "I pamundur ç'regjistrimi i kartelës në modalitetin jashtë linje."
 
-#: ../camel/camel-exchange-store.c:573
+#: ../camel/camel-exchange-store.c:621
 msgid "Cannot get folder info in offline mode."
 msgstr ""
 "E pamundur marrja e informacioneve në lidhje me kartelën në modalitet jashtë "
 "linje."
 
-#: ../camel/camel-exchange-store.c:644
+#: ../camel/camel-exchange-store.c:692
 msgid "Cannot create folder in offline mode."
 msgstr "I pamundur krijimi i kartelës në modalitet jashtë linje."
 
-#: ../camel/camel-exchange-store.c:671
+#: ../camel/camel-exchange-store.c:719
 msgid "Cannot delete folder in offline mode."
 msgstr "I pamundur eleminimi i kartelës në modalitet jashtë linje."
 
-#: ../camel/camel-exchange-store.c:687
+#: ../camel/camel-exchange-store.c:735
 msgid "Cannot rename folder in offline mode."
 msgstr "I pamundur riemërtimi i kartelës në modalitet jashtë linje."
 
@@ -354,10 +355,9 @@ msgid ""
 "%s"
 msgstr ""
 "Ximian Connector ka nevojë të ketë hyrje në një funksion të Serverit "
-"Exchange që mesa duket nuk është aktiv ose është i bllokuar.  (Zakonisht "
-"kjo nuk është e qëllimshme)  Administratori juaj i Exchange duhet të "
-"aktivojë këtë funksion në menyrë që ju të keni mundësi të përdorni Ximian "
-"Connector.\n"
+"Exchange që mesa duket nuk është aktiv ose është i bllokuar.  (Zakonisht kjo "
+"nuk është e qëllimshme)  Administratori juaj i Exchange duhet të aktivojë "
+"këtë funksion në menyrë që ju të keni mundësi të përdorni Ximian Connector.\n"
 "\n"
 "Informacionet që duhet t'i jepni Administratorit tuaj të Exchange, mund t'i "
 "merrni duke ndjekur lidhjen e mëposhtme:\n"
@@ -440,84 +440,85 @@ msgstr "Zgjidh përdoruesin"
 msgid "Addressbook..."
 msgstr "Rubrika..."
 
-#: ../mail/mail-stub-exchange.c:255
+#: ../mail/mail-stub-exchange.c:257
 msgid "No such folder"
 msgstr "Kartela nuk u gjet"
 
-#: ../mail/mail-stub-exchange.c:272 ../mail/mail-stub-exchange.c:2424
-#: ../mail/mail-stub-exchange.c:2463 ../mail/mail-stub-exchange.c:2529
-#: ../mail/mail-stub-exchange.c:2573 ../mail/mail-stub-exchange.c:2637
-#: ../shell/e-storage.c:573 ../storage/xc-commands.c:319
+#. FIXME: should be this, but string freeze freezes me to do so.
+#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
+#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1375
+#: ../mail/mail-stub-exchange.c:2501 ../mail/mail-stub-exchange.c:2540
+#: ../mail/mail-stub-exchange.c:2606 ../mail/mail-stub-exchange.c:2650
+#: ../mail/mail-stub-exchange.c:2714 ../shell/e-storage.c:573
+#: ../storage/xc-commands.c:319
 msgid "Permission denied"
 msgstr "Ndalohet hyrja"
 
-#: ../mail/mail-stub-exchange.c:571
-msgid "No such folder."
-msgstr "Kartela nuk u gjet."
-
-#: ../mail/mail-stub-exchange.c:580
-msgid "Could not create folder."
-msgstr "I pamundur krijimi i kartelës."
-
-#: ../mail/mail-stub-exchange.c:628 ../mail/mail-stub-exchange.c:646
-#: ../mail/mail-stub-exchange.c:2731 ../mail/mail-stub-exchange.c:2749
+#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
 msgid "Could not open folder: Permission denied"
 msgstr "E pamundur hapja e kartelës: Ndalohet hyrja"
 
-#: ../mail/mail-stub-exchange.c:632 ../mail/mail-stub-exchange.c:745
-#: ../mail/mail-stub-exchange.c:2735
+#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:705
 msgid "Could not open folder"
 msgstr "E pamundur hapja e kartelës"
 
-#: ../mail/mail-stub-exchange.c:800
+#: ../mail/mail-stub-exchange.c:744
+msgid "No such folder."
+msgstr "Kartela nuk u gjet."
+
+#: ../mail/mail-stub-exchange.c:753
+msgid "Could not create folder."
+msgstr "I pamundur krijimi i kartelës."
+
+#: ../mail/mail-stub-exchange.c:831
 msgid "Could not open Deleted Items folder"
 msgstr "E pamundur hapja e kartelës me elementët e fshirë"
 
-#: ../mail/mail-stub-exchange.c:1129 ../mail/mail-stub-exchange.c:1170
+#: ../mail/mail-stub-exchange.c:1160 ../mail/mail-stub-exchange.c:1201
 msgid "Could not get new messages"
 msgstr "E pamundur marrja e mesazheve të rinj"
 
-#: ../mail/mail-stub-exchange.c:1335
+#: ../mail/mail-stub-exchange.c:1371
 msgid "Could not empty Deleted Items folder"
 msgstr "E pamundur zbrazja e kartelës me elementët e fshirë"
 
-#: ../mail/mail-stub-exchange.c:1407
+#: ../mail/mail-stub-exchange.c:1448
 msgid "Could not append message; mailbox is over quota"
 msgstr "I pamundur shtimi (në fund) i mesazhit; mailbox ka tejkaluar kuotën"
 
-#: ../mail/mail-stub-exchange.c:1408
+#: ../mail/mail-stub-exchange.c:1449
 msgid "Could not append message"
 msgstr "I pamundur shtimi i mesazhit"
 
-#: ../mail/mail-stub-exchange.c:1918
+#: ../mail/mail-stub-exchange.c:1991
 msgid "No such message"
 msgstr "Mesazhi nuk u gjet"
 
-#: ../mail/mail-stub-exchange.c:1971
+#: ../mail/mail-stub-exchange.c:2044
 msgid "Message has been deleted"
 msgstr "Mesazhi është fshirë"
 
-#: ../mail/mail-stub-exchange.c:1973
+#: ../mail/mail-stub-exchange.c:2046
 msgid "Error retrieving message"
 msgstr "Gabim gjatë tërheqjes së mesazhit"
 
-#: ../mail/mail-stub-exchange.c:2015
+#: ../mail/mail-stub-exchange.c:2088
 msgid "Mailbox does not support full-text searching"
 msgstr "Mailbox nuk suporton kërkimin tekst i plotë"
 
-#: ../mail/mail-stub-exchange.c:2113
+#: ../mail/mail-stub-exchange.c:2186
 msgid "Unable to move/copy messages"
 msgstr "E pamundur lëvizja/kopja e mesazheve"
 
-#: ../mail/mail-stub-exchange.c:2339
+#: ../mail/mail-stub-exchange.c:2416
 msgid "No mail submission URI for this mailbox"
 msgstr "Kjo kasetë poste nuk ka asnjë URl për mesazhet e dorëzuara"
 
-#: ../mail/mail-stub-exchange.c:2375
+#: ../mail/mail-stub-exchange.c:2452
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Serveri nuk pranon mail via Exchange transport"
 
-#: ../mail/mail-stub-exchange.c:2377
+#: ../mail/mail-stub-exchange.c:2454
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -526,7 +527,7 @@ msgstr ""
 "Llogaria juaj nuk ka të drejtë të përdorë <%s>\n"
 "si adresë \"Nga\"."
 
-#: ../mail/mail-stub-exchange.c:2389
+#: ../mail/mail-stub-exchange.c:2466
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -534,18 +535,18 @@ msgstr ""
 "I pamundur dërgimi i mesazhit.\n"
 "Kjo do të thotë që ndoshta keni tejkaluar kuotën."
 
-#: ../mail/mail-stub-exchange.c:2393
+#: ../mail/mail-stub-exchange.c:2470
 msgid "Could not send message"
 msgstr "Dërgimi i mesazhit është i pamundur"
 
-#: ../mail/mail-stub-exchange.c:2416 ../mail/mail-stub-exchange.c:2468
-#: ../mail/mail-stub-exchange.c:2533 ../mail/mail-stub-exchange.c:2578
-#: ../mail/mail-stub-exchange.c:2642 ../shell/e-storage.c:557
+#: ../mail/mail-stub-exchange.c:2493 ../mail/mail-stub-exchange.c:2545
+#: ../mail/mail-stub-exchange.c:2610 ../mail/mail-stub-exchange.c:2655
+#: ../mail/mail-stub-exchange.c:2719 ../shell/e-storage.c:557
 #: ../storage/xc-commands.c:323
 msgid "Generic error"
 msgstr "Gabim i përgjithshëm"
 
-#: ../mail/mail-stub-exchange.c:2420 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2497 ../storage/xc-commands.c:313
 msgid "Folder already exists"
 msgstr "Kartela ekziston"
 
@@ -804,11 +805,6 @@ msgstr "_Exchange"
 msgid "%s's Folders"
 msgstr "Kartelat e %s"
 
-#: ../storage/exchange-account.c:869
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%sShkruaj fjalëkalimin për %s"
-
 #. email id is not proper, we return instead of trying nt_domain
 #: ../storage/exchange-account.c:1069
 msgid "Cannot change password due to configuration problems"
@@ -922,13 +918,12 @@ msgstr "Gabim i rrjetit"
 
 #: ../storage/exchange-account.c:1529
 #, c-format
-#, fuzzy
 msgid ""
 "You have exceeded your quota of %d %s for storing mails on this server. Your "
 "current usage is : %.0f %s."
 msgstr ""
-"Keni tejkaluar kuotën tuaj prej %d %s e magazinimit të mesazheve në këtë server. "
-"Aktualisht jeni duke përdorur: %. nga %s."
+"Keni tejkaluar kuotën tuaj prej %d %s e magazinimit të mesazheve në këtë "
+"server. Aktualisht jeni duke përdorur: %.0f %s."
 
 #: ../storage/exchange-account.c:1532
 msgid "You will not be able to either send or receive mails now\n"
@@ -939,8 +934,8 @@ msgid ""
 "You will not be able to send mails till you clear up some space by deleting "
 "some mails.\n"
 msgstr ""
-"Nuk do të jesh më në gjendje të dërgosh mesazhe nëse nuk liron pak hapsirë duke "
-"fshirë disa nga mesazhet e vjetër.\n"
+"Nuk do të jesh më në gjendje të dërgosh mesazhe nëse nuk liron pak hapsirë "
+"duke fshirë disa nga mesazhet e vjetër.\n"
 
 #: ../storage/exchange-account.c:1538
 msgid "Try to clear up some space by deleting some mails.\n"
@@ -998,7 +993,6 @@ msgstr ""
 "I pamundur krijimi i llogarisë së re."
 
 #: ../storage/exchange-autoconfig-wizard.c:459
-#: ../storage/exchange-config-listener.c:349
 msgid "You may only configure a single Exchange account"
 msgstr "Ju duhet të konfiguroni vetëm një llogari Exchange"
 
@@ -1153,22 +1147,6 @@ msgstr "Fjalëkalimi i Ri:"
 #: ../storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
 msgstr "Fjalëkalimi juaj aktual ka skaduar. Ju lutem ndryshoheni tani."
-
-#: ../storage/exchange-config-listener.c:542
-msgid ""
-"Changes to Exchange account configuration will take\n"
-"place after you quit and restart Evolution."
-msgstr ""
-"Ndryshimet në llogarinë Exchange do të jenë të\n"
-"vlefshme vetëm mbasi të keni mbyllur dhe rinisur Evolution."
-
-#: ../storage/exchange-config-listener.c:588
-msgid "The Exchange account will be removed when you quit Evolution"
-msgstr "Llogaria Exchange do të eleminohet kur të mbyllni Evolution"
-
-#: ../storage/exchange-config-listener.c:593
-msgid "The Exchange account will be disabled when you quit Evolution"
-msgstr "Llogaria Exchange do të ç'aktivohet kur të mbyllni Evolution"
 
 #: ../storage/exchange-delegates-user.c:191
 #: ../storage/exchange-permissions-dialog.c:179
@@ -1608,7 +1586,7 @@ msgstr "Roli: "
 msgid "Connecting..."
 msgstr "Duke u lidhur..."
 
-#: ../storage/main.c:166
+#: ../storage/main.c:165
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector për Microsoft Exchange"
 
