@@ -1435,7 +1435,8 @@ book_resource (ECalBackendExchange *cbex,
 	       EDataCal *cal,
 	       const char *resource_email,
 	       ECalComponent *comp,
-	       icalproperty_method method)
+	       icalproperty_method method,
+	       icalparameter *part_param)
 {
 	E2kGlobalCatalog *gc;
 	E2kGlobalCatalogEntry *entry;
@@ -1453,7 +1454,7 @@ book_resource (ECalBackendExchange *cbex,
 	const char *uid, *prop_name = PR_ACCESS;
 	const char *access_prop = NULL, *meeting_prop = NULL, *cal_uid = NULL;
 	gboolean bookable;
-	char *top_uri = NULL, *cal_uri = NULL, *returned_uid = NULL, *rid = NULL;
+	char *top_uri = NULL, *cal_uri = NULL, *returned_uid = NULL;
 	char *startz, *endz, *href = NULL, *old_object = NULL, *calobj = NULL;
 	E2kRestriction *rn;
 	int nresult;
@@ -1555,12 +1556,16 @@ book_resource (ECalBackendExchange *cbex,
 		e_cal_component_set_summary (E_CAL_COMPONENT (comp), &new_text);
 
 		e_cal_component_set_transparency (E_CAL_COMPONENT (comp), E_CAL_COMPONENT_TRANSP_TRANSPARENT);
-		calobj = (char *) e_cal_component_get_as_string (comp);
-		rid = (char *) e_cal_component_get_recurid_as_string (comp);
-		status = remove_object (E_CAL_BACKEND_SYNC (cbex), cal, uid, rid, CALOBJ_MOD_THIS, &calobj, &object);
-		e_cal_backend_notify_object_removed (E_CAL_BACKEND (cbex), uid, calobj, NULL);
-		g_free (calobj); 
+
+		status = e2k_context_delete (ctx, NULL, href);
+		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_OK;
+		} else {
+			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
+		}
+		
 		g_free (object);
+		goto cleanup;
 	} else {
 		/* Check that the new appointment doesn't conflict with any
 		 * existing appointment.
@@ -1622,13 +1627,24 @@ book_resource (ECalBackendExchange *cbex,
 												 
 	/* We're good. Book it. */
 	/* e_cal_component_set_href (comp, href); */
+
+	icalparameter_set_partstat (part_param, ICAL_PARTSTAT_ACCEPTED);
+	
 	e_cal_component_commit_sequence (comp);
 	calobj = (char *) e_cal_component_get_as_string (comp);
 												 
 	/* status = e_cal_component_update (comp, method, FALSE  ); */
 	if (ecomp) {
-		/* This object is already present in the cache so update it. */
+		/* Use the PUT method to create the meeting item in the resource's calendar. */
 		status = modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, calobj, CALOBJ_MOD_THIS, &old_object, href);
+		if (status == GNOME_Evolution_Calendar_Success) {
+			/* Need this to update the participation status of the resource 
+			   in the organizer's calendar. */
+			status = modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, calobj, CALOBJ_MOD_THIS, &old_object, NULL);
+		} else {
+			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
+			goto cleanup;
+		}
 		if (status == GNOME_Evolution_Calendar_Success) {
 			e_cal_backend_notify_object_modified (E_CAL_BACKEND (cbex), old_object, calobj);
 			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_OK;
@@ -1679,11 +1695,11 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 	*modified_calobj = NULL;
 
 	top_level = icalparser_parse_string (calobj);
-	icalcomp = icalcomponent_get_inner (top_level);
+	icalcomp = icalcomponent_new_clone (icalcomponent_get_inner (top_level));
 												 
 	comp = e_cal_component_new ();
 	e_cal_component_set_icalcomponent (E_CAL_COMPONENT (comp),
-					 icalcomponent_new_clone (icalcomp));
+					   icalcomp);
 												 
 	method = icalcomponent_get_method (top_level);
 	if (icalcomponent_isa (icalcomp) != ICAL_VEVENT_COMPONENT
@@ -1701,7 +1717,7 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 		tzcomp = icalcomponent_get_next_component (top_level,
 							   ICAL_VTIMEZONE_COMPONENT);
 	}
-												 
+
 	for (prop = icalcomponent_get_first_property (icalcomp, ICAL_ATTENDEE_PROPERTY);
 	     prop != NULL;
 	     prop = icalcomponent_get_next_property (icalcomp, ICAL_ATTENDEE_PROPERTY))
@@ -1737,11 +1753,10 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 			goto cleanup;
 		}
 												 
-		result = book_resource (cbex, cal, attendee + 7, comp, method);
+		param = icalproperty_get_first_parameter (prop, ICAL_PARTSTAT_PARAMETER);
+		result = book_resource (cbex, cal, attendee + 7, comp, method, param);
 		switch (result) {
 		case E_CAL_BACKEND_EXCHANGE_BOOKING_OK:
-			param = icalproperty_get_first_parameter (prop, ICAL_PARTSTAT_PARAMETER);
-			icalparameter_set_partstat (param, ICAL_PARTSTAT_ACCEPTED);
 			*users = g_list_append (*users, g_strdup (attendee)) ;
 			break;
 

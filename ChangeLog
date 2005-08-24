@@ -1,3 +1,13 @@
+2005-08-23  Arunprakash  <arunp@novell.com>
+
+	* calendar/e-cal-backend-exchange-calendar.c (book_resource) :
+	Modified to delete the calendar item for cancelling meetings
+	in the resource's calendar. Also sets the participation status
+	to accepted before creating the calendar item.
+	(send_objects) : Modified to send the partstat parameter of the
+	resource to book_resource for setting the status.
+	** Fixes #247015.
+
 2005-08-23  Shakti Sen <shprasad@novell.com>
 
 	* addressbook/e-book-backend-exchange.c
