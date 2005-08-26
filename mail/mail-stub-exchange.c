@@ -49,7 +49,7 @@
 static MailStubClass *parent_class = NULL;
 
 /* FIXME : Have this as part of the appropriate class in 2.5 */
-static gulong offline_listener_handler_id;
+/* static gulong offline_listener_handler_id; */
 
 typedef struct {
 	char *uid, *href;
@@ -128,9 +128,9 @@ static gboolean process_flags (gpointer user_data);
 
 static void storage_folder_changed (EFolder *folder, gpointer user_data);
 
-static void linestatus_listener (ExchangeComponent *component,
+/* static void linestatus_listener (ExchangeComponent *component,
 						    gint linestatus,
-						    gpointer data);
+						    gpointer data); */
 static void folder_update_linestatus (gpointer key, gpointer value, gpointer data);
 static void free_folder (gpointer value);
 static void get_folder_online (MailStubExchangeFolder *mfld, gboolean background);
@@ -232,13 +232,13 @@ dispose (GObject *object)
 		mse->removed_folder_id = 0;
 	}
 
-	if (g_signal_handler_is_connected (G_OBJECT (global_exchange_component),
+/*	if (g_signal_handler_is_connected (G_OBJECT (global_exchange_component),
 					   offline_listener_handler_id)) {
 		g_signal_handler_disconnect (G_OBJECT (global_exchange_component),
 					      offline_listener_handler_id);
 		offline_listener_handler_id = 0;
 	}
-
+*/
 	G_OBJECT_CLASS (parent_class)->dispose (object);
 }
 
@@ -722,6 +722,9 @@ get_folder_online (MailStubExchangeFolder *mfld, gboolean background)
 	e_folder_exchange_subscribe (mfld->folder,
 				     E2K_CONTEXT_OBJECT_MOVED, 30,
 				     notify_cb, mfld);
+	if (background) {
+		mail_stub_push_changes (stub);
+	}
 }
 
 static void
@@ -2765,7 +2768,7 @@ stub_connect (MailStub *stub, char *pwd)
 	ExchangeAccount *account;
 	ExchangeAccountResult result;
 	E2kContext *ctx;
-	guint32 retval = 0; /* 0 is a failure case */
+	guint32 retval = 1;
 	const char *uri;
 	int mode;
 
@@ -2775,23 +2778,29 @@ stub_connect (MailStub *stub, char *pwd)
 		ctx = exchange_account_connect (account, pwd, &result);
 	}
 	
-	if (ctx) 
-		retval = 1;
-	else
-		goto end;
-
 	exchange_component_is_offline (global_exchange_component, &mode);
-
-	if (mode == ONLINE_MODE) {
-		mse->ctx = ctx;
-		g_object_ref (mse->ctx);
-
-		mse->mail_submission_uri = exchange_account_get_standard_uri (account, "sendmsg");
-		uri = exchange_account_get_standard_uri (account, "inbox");
-		mse->inbox = exchange_account_get_folder (account, uri);
-		uri = exchange_account_get_standard_uri (account, "deleteditems");
-		mse->deleted_items = exchange_account_get_folder (account, uri);
+	
+	if (!ctx && mode == ONLINE_MODE) {
+		retval = 0;
+		goto end;
+	} else if (mode == OFFLINE_MODE) {
+		goto end;
 	}
+
+	mse->ctx = g_object_ref (ctx);
+
+	mse->mail_submission_uri = exchange_account_get_standard_uri (account, "sendmsg");
+	uri = exchange_account_get_standard_uri (account, "inbox");
+	mse->inbox = exchange_account_get_folder (account, uri);
+	uri = exchange_account_get_standard_uri (account, "deleteditems");
+	mse->deleted_items = exchange_account_get_folder (account, uri);
+
+	/* Will be used for offline->online transition to initialize things for
+	   the first time */
+	
+	g_hash_table_foreach (mse->folders_by_name,
+			      (GHFunc) folder_update_linestatus,
+			      GINT_TO_POINTER (mode));
 end:
 	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
 			       CAMEL_STUB_ARG_UINT32, retval,
@@ -2800,6 +2809,7 @@ end:
 	mail_stub_return_ok (stub);
 }
 
+#if 0
 static void 
 linestatus_listener (ExchangeComponent *component,
 		     gint linestatus,
@@ -2832,6 +2842,8 @@ linestatus_listener (ExchangeComponent *component,
 	}
 }
 
+#endif
+
 static void
 folder_update_linestatus (gpointer key, gpointer value, gpointer data)
 {
@@ -2862,19 +2874,17 @@ mail_stub_exchange_new (ExchangeAccount *account, int cmd_fd, int status_fd)
 {
 	MailStubExchange *mse;
 	MailStub *stub;
-	int mode;
 
 	stub = g_object_new (MAIL_TYPE_STUB_EXCHANGE, NULL);
 	g_object_ref (stub);
 	mail_stub_construct (stub, cmd_fd, status_fd);
-	exchange_component_is_offline (global_exchange_component, &mode);
 
 	mse = (MailStubExchange *)stub;
 	mse->account = account;
 	
-	offline_listener_handler_id = g_signal_connect (G_OBJECT (global_exchange_component),
+	/* offline_listener_handler_id = g_signal_connect (G_OBJECT (global_exchange_component),
 							"linestatus-changed",
-							G_CALLBACK (linestatus_listener), mse);
+							G_CALLBACK (linestatus_listener), mse); */
 	return stub;
 }
 

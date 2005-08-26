@@ -31,6 +31,9 @@ typedef struct {
 	GHashTable *folders;
 	GMutex *folders_lock;
 
+	gboolean stub_connected;
+	GMutex *connect_lock;
+
 } CamelExchangeStore;
 
 typedef struct {

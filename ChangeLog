@@ -1,3 +1,27 @@
+2005-08-26  Arunprakash  <arunp@novell.com>
+
+	* addressbook/e-book-backend-exchange.c (e_book_backend_exchange_init):
+	Set the default mode to local.
+	* addressbook/e-book-backend-gal.c (set_mode) : Removed exchange
+	account set offline and connect calls, as they should be called
+	by appropriate listeners.
+	* calendar/e-cal-backend-exchange.c (set_mode) : Similar.
+	(init) : Set the default mode to local.
+	* camel/camel-exchange-store.c (camel_exchange_forget_password) : Newly
+	added to forget the password in case of wrong password.
+	(exchange_connect) : Updated to properly ask and forget password in
+	needed cases.
+	(init) : Added a new connect_lock mutex for offline mode.
+	* mail/mail-stub-exchange.c (get_folder_online) : Flushes the status
+	channel if called in background.
+	(stub_connect) : Updated to return failure only when connection fails.
+	Removed the linestatus signal handler as it is done while connecting.
+	Also to update each folder's data in online.
+	* camel/camel-exchange-journal.c (find_real_source_for_message) : Newly
+	added to enable second level offline operation.
+	(camel_exchange_journal_transfer) : Uses the new function to create the
+	right journal entry.
+	
 2005-08-26  Dan Damian  <dand@gnome.ro>
 
 	* configure.in: Added "ro" to ALL_LINGUAS.

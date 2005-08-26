@@ -497,6 +497,47 @@ camel_exchange_journal_append (CamelExchangeJournal *exchange_journal, CamelMime
 
 }
 
+static int
+find_real_source_for_message (CamelExchangeFolder *folder,
+			      const char **folder_name,
+			      const char **uid,
+			      gboolean delete_original)
+{
+	CamelOfflineJournal *journal = folder->journal;
+	EDListNode *entry, *next;
+	CamelExchangeJournalEntry *ex_entry;
+	const char *offline_uid = *uid;
+	int type = -1;
+	
+	if (*offline_uid != '-') {
+		return CAMEL_EXCHANGE_JOURNAL_ENTRY_TRANSFER;
+	}
+
+	entry = journal->queue.head;
+	while (entry->next) {
+		next = entry->next;
+		
+		ex_entry = (CamelExchangeJournalEntry *) entry;
+		if (!g_ascii_strcasecmp (ex_entry->uid, offline_uid)) {
+			if (ex_entry->type == CAMEL_EXCHANGE_JOURNAL_ENTRY_TRANSFER) {
+				*uid = ex_entry->original_uid;
+				*folder_name = ex_entry->folder_name;
+				type = CAMEL_EXCHANGE_JOURNAL_ENTRY_TRANSFER;
+			} else if (ex_entry->type == CAMEL_EXCHANGE_JOURNAL_ENTRY_APPEND) {
+				type = CAMEL_EXCHANGE_JOURNAL_ENTRY_APPEND;
+			}
+
+			if (delete_original) {
+				e_dlist_remove (entry);
+			}
+		}
+		
+		entry = next;
+	}
+
+	return type;
+}
+
 void 
 camel_exchange_journal_transfer (CamelExchangeJournal *exchange_journal, CamelExchangeFolder *source_folder,
 				CamelMimeMessage *message, const CamelMessageInfo *mi,
@@ -506,24 +547,36 @@ camel_exchange_journal_transfer (CamelExchangeJournal *exchange_journal, CamelEx
 	CamelOfflineJournal *journal = (CamelOfflineJournal *) exchange_journal;
 	CamelExchangeJournalEntry *entry;
 	char *uid;
+	const char *real_source_folder = NULL, *real_uid = NULL;
+	int type;
 	
 	if (!update_cache (exchange_journal, message, mi, &uid, ex))
 		return;
 
-	if(delete_original)
+	real_uid = original_uid;
+	real_source_folder = ((CamelFolder *)source_folder)->full_name;
+	
+	type = find_real_source_for_message (source_folder, &real_source_folder,
+					     &real_uid, delete_original);
+	
+	if(delete_original) {
 		camel_exchange_folder_remove_message (source_folder, original_uid);
+	}
 
 	entry = g_new (CamelExchangeJournalEntry, 1);
-	entry->type = CAMEL_EXCHANGE_JOURNAL_ENTRY_TRANSFER;
+	entry->type = type;
 	entry->uid = uid;
-	entry->original_uid = g_strdup (original_uid);
-	entry->folder_name = g_strdup (((CamelFolder *)source_folder)->full_name);
-	entry->delete_original = delete_original;
+
+	if (type == CAMEL_EXCHANGE_JOURNAL_ENTRY_TRANSFER) {
+		entry->original_uid = g_strdup (real_uid);
+		entry->folder_name = g_strdup (real_source_folder);
+		entry->delete_original = delete_original;
+	}
 
 	e_dlist_addtail (&journal->queue, (EDListNode *) entry);
 	
 	if (transferred_uid)
-		*transferred_uid = g_strdup (uid);	
+		*transferred_uid = g_strdup (uid);
 }
 
 void

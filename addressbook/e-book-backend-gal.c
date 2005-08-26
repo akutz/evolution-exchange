@@ -1726,26 +1726,20 @@ set_mode (EBookBackend *backend, int mode)
 
 	if (e_book_backend_is_loaded (backend)) {
 		if (mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
-			if (bepriv->account) {
-			if (exchange_account_set_offline (bepriv->account)) {
-				e_book_backend_set_is_writable (backend, FALSE);
-				e_book_backend_notify_writable (backend, FALSE);
-				e_book_backend_notify_connection_status (backend, FALSE);
-			}
-			}
+			e_book_backend_set_is_writable (backend, FALSE);
+			e_book_backend_notify_writable (backend, FALSE);
+			e_book_backend_notify_connection_status (backend, FALSE);
 		} else if (mode == GNOME_Evolution_Addressbook_MODE_REMOTE) {
-			if (exchange_account_connect (bepriv->account, NULL, &result)) {
-				e_book_backend_set_is_writable (backend, FALSE);
-				e_book_backend_notify_writable (backend, FALSE);
-				e_book_backend_notify_connection_status (backend, TRUE);
+			e_book_backend_set_is_writable (backend, FALSE);
+			e_book_backend_notify_writable (backend, FALSE);
+			e_book_backend_notify_connection_status (backend, TRUE);
 
-				if (e_book_backend_is_loaded (backend)) {
-					gal_connect (be);
-					e_book_backend_notify_auth_required (backend);
+			if (e_book_backend_is_loaded (backend)) {
+				gal_connect (be);
+				e_book_backend_notify_auth_required (backend);
 
-					if (bepriv->marked_for_offline && bepriv->cache)
-						generate_cache (be);
-				}
+				if (bepriv->marked_for_offline && bepriv->cache)
+					generate_cache (be);
 			}
 		}
 	}

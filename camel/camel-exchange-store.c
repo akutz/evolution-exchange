@@ -122,6 +122,8 @@ init (CamelExchangeStore *exch, CamelExchangeStoreClass *klass)
 
 	store->flags |= CAMEL_STORE_SUBSCRIPTIONS;
 	store->flags &= ~(CAMEL_STORE_VTRASH | CAMEL_STORE_VJUNK);
+
+	exch->connect_lock = g_mutex_new ();
 }
 
 static void
@@ -136,6 +138,9 @@ finalize (CamelExchangeStore *exch)
 	
 	if (exch->folders_lock)
 		g_mutex_free (exch->folders_lock);
+
+	if (exch->connect_lock)
+		g_mutex_free (exch->connect_lock);
 }
 
 CamelType
@@ -353,35 +358,74 @@ camel_exchange_get_password (CamelService *service, CamelException *ex)
 	}
 }
 
+static void
+camel_exchange_forget_password (CamelService *service, CamelException *ex)
+{
+	CamelSession *session = camel_service_get_session (service);
+
+	if (service->url->passwd) {
+		camel_session_forget_password (session, 
+					       service, "Exchange", 
+					       "password", ex);
+		g_free (service->url->passwd);
+		service->url->passwd = NULL;
+	}
+}
+
 static gboolean
 exchange_connect (CamelService *service, CamelException *ex)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
 	char *real_user, *socket_path;
+	gchar *password = NULL;
 	guint32 connect_status;
+	gboolean online_mode = FALSE;
 
-	if (exch->stub)
+	/* This lock is only needed for offline operation. exchange_connect
+	   is called many times in offline to ensure we are connected atleast
+	   to the mail stub. Think twice before changing anything here.*/
+	
+	g_mutex_lock (exch->connect_lock);
+
+	online_mode = camel_session_is_online (service->session);
+	
+	if (exch->stub == NULL) {
+		real_user = strpbrk (service->url->user, "\\/");
+		if (real_user)
+			real_user++;
+		else
+			real_user = service->url->user;
+		socket_path = g_strdup_printf ("/tmp/.exchange-%s/%s@%s",
+					       g_get_user_name (),
+					       real_user, service->url->host);
+		e_filename_make_safe (strchr (socket_path + 5, '/') + 1);
+		
+		exch->stub = camel_stub_new (socket_path, _("Evolution Exchange backend process"), ex);
+		g_free (socket_path);
+		if (!exch->stub) {
+			g_mutex_unlock (exch->connect_lock);
+			return FALSE;
+		}
+
+		camel_object_hook_event (CAMEL_OBJECT (exch->stub), "notification",
+					 stub_notification, exch);
+	} else if (!online_mode && exch->stub_connected) {
+		g_mutex_unlock (exch->connect_lock);
 		return TRUE;
+	}
 
-	real_user = strpbrk (service->url->user, "\\/");
-	if (real_user)
-		real_user++;
-	else
-		real_user = service->url->user;
-	socket_path = g_strdup_printf ("/tmp/.exchange-%s/%s@%s",
-				       g_get_user_name (),
-				       real_user, service->url->host);
-	e_filename_make_safe (strchr (socket_path + 5, '/') + 1);
-	
-	exch->stub = camel_stub_new (socket_path, _("Evolution Exchange backend process"), ex);
-	g_free (socket_path);
-	if (!exch->stub)
-		return FALSE;
-	
-	camel_exchange_get_password (service, ex);
+	if (online_mode) {
+		camel_exchange_get_password (service, ex);
+		if (camel_exception_is_set (ex)) {
+			g_mutex_unlock (exch->connect_lock);
+			return FALSE;
+		}
+		password = service->url->passwd;
+	}
+
 	/* Initialize the stub connection */
 	if (!camel_stub_send (exch->stub, NULL, CAMEL_STUB_CMD_CONNECT,
-			      CAMEL_STUB_ARG_STRING, g_strdup (service->url->passwd),
+			      CAMEL_STUB_ARG_STRING, password,
 			      CAMEL_STUB_ARG_RETURN,
 			      CAMEL_STUB_ARG_UINT32, &connect_status,
 			      CAMEL_STUB_ARG_END)) {
@@ -390,11 +434,23 @@ exchange_connect (CamelService *service, CamelException *ex)
 				     "Cancelled");
 		camel_object_unref (exch->stub);
 		exch->stub = NULL;
+		g_mutex_unlock (exch->connect_lock);
 		return FALSE;
 	}
+
+	if (!connect_status) {
+		camel_exchange_forget_password (service, ex);
+		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM,
+				     _("Could not authenticate to server. "
+				       "(Password incorrect?)\n\n"));
+		g_mutex_unlock (exch->connect_lock);
+		return FALSE;
+	} else {
+		exch->stub_connected = TRUE;
+	}
+
+	g_mutex_unlock (exch->connect_lock);
 	
-	camel_object_hook_event (CAMEL_OBJECT (exch->stub), "notification",
-				 stub_notification, exch);
 	return TRUE;
 }
 

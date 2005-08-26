@@ -1103,7 +1103,6 @@ set_mode (ECalBackend *backend, CalMode mode)
 			cbex->folder = exchange_account_get_folder (account, uristr);
 			/* FIXME : Test if available for read already */
 			priv->read_only = FALSE;
-			exchange_account_set_online (account);
 			priv->mode = CAL_MODE_REMOTE;
 			/* FIXME : Check if online and check if authentication
 				is needed */
@@ -1120,7 +1119,6 @@ set_mode (ECalBackend *backend, CalMode mode)
 			cbex->folder = exchange_account_get_folder (account, uristr);
 			priv->mode = CAL_MODE_LOCAL;
 			priv->read_only = TRUE;
-			exchange_account_set_offline (account);
 			e_cal_backend_notify_mode (backend, 
 				GNOME_Evolution_Calendar_CalListener_MODE_SET,
 				GNOME_Evolution_Calendar_MODE_LOCAL);
@@ -1658,6 +1656,8 @@ init (ECalBackendExchange *cbex)
 	cbex->priv->timezones = g_hash_table_new_full (
 		g_str_hash, g_str_equal,
 		g_free, (GDestroyNotify)icaltimezone_free);
+
+	cbex->priv->mode = CAL_MODE_LOCAL;
 
 	cbex->priv->set_lock = g_mutex_new ();
 	cbex->priv->open_lock = g_mutex_new ();

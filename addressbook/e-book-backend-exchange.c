@@ -2485,6 +2485,7 @@ e_book_backend_exchange_init (EBookBackendExchange *backend)
 	priv->cache		= NULL;
 	priv->original_uri 	= NULL;
 	priv->is_writable 	= TRUE;
+	priv->mode		= GNOME_Evolution_Addressbook_MODE_LOCAL;
 
 	priv->create_mutex      = g_mutex_new ();
 
