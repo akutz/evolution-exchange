@@ -1,0 +1,1645 @@
+# Romanian translation for evolution-exchange package.
+# This file is distributed under the same license as the evolution-exchange package.
+# Ruşeţ Zeno <rzeno@cwazy.co.uk>, 2005
+# Eugen Paiuc (review) <eug_paiuc@bluewin.ch>, 2005
+# Eddy Petrişor (review) <eddy.petrisor@gmail.com>, 2005
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: evolution-exchange.HEAD\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2005-08-26 10:52+0300\n"
+"Last-Translator: Ruşeţ Zeno <ruset.zeno@gmail.com>\n"
+"Language-Team:  <gnomero-list@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Romanian\n"
+"X-Poedit-Country: ROMANIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../addressbook/e-book-backend-exchange.c:1854
+#: ../addressbook/e-book-backend-gal.c:1499
+#: ../storage/exchange-storage.c:135
+msgid "Searching..."
+msgstr "Se caută..."
+
+#: ../addressbook/e-book-backend-gal.c:267
+msgid "Reconnecting to LDAP server..."
+msgstr "Reconectare la serverul LDAP..."
+
+#: ../addressbook/e-book-backend-gal.c:1363
+msgid "Receiving LDAP search results..."
+msgstr "Se recepţionează rezultatele căutării de la serverul LDAP..."
+
+#: ../addressbook/e-book-backend-gal.c:1522
+msgid "Error performing search"
+msgstr "Eroare la efectuarea căutării"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:1732
+#, c-format
+msgid ""
+"Unable to schedule resource '%s' for recurring meetings.\n"
+"You must book each meeting separately."
+msgstr ""
+"Nu se poate planifica resursa '%s' pentru programarea întâlnirilor.\n"
+"Trebuie să marcaţi fiecare întâlnire separat."
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:1751
+#, c-format
+msgid "The resource '%s' is busy during the selected time period."
+msgstr "Resursa '%s' e ocupată pe durata perioadei de timp selectate."
+
+#: ../camel/camel-exchange-folder.c:223
+msgid "Can only expunge in Deleted Items folder"
+msgstr "Se poate elimina doar în directorul Elemente şterse"
+
+#: ../camel/camel-exchange-folder.c:247
+msgid "No Subject"
+msgstr "Nici un subiect"
+
+#: ../camel/camel-exchange-folder.c:374
+msgid "This message is not available in offline mode."
+msgstr "Acest mesaj nu este disponibil în modul deconectat."
+
+#: ../camel/camel-exchange-folder.c:609
+msgid "Moving messages"
+msgstr "Se mută mesajele"
+
+#: ../camel/camel-exchange-folder.c:610
+msgid "Copying messages"
+msgstr "Se copiază mesajele"
+
+#: ../camel/camel-exchange-folder.c:981
+#, c-format
+msgid "Could not create directory %s: %s"
+msgstr "Nu se poate crea directorul %s: %s"
+
+#: ../camel/camel-exchange-folder.c:991
+#, c-format
+msgid "Could not load summary for %s"
+msgstr "Nu se poate încărca rezumatul pentru %s"
+
+#: ../camel/camel-exchange-folder.c:999
+#, c-format
+msgid "Could not create cache for %s"
+msgstr "Nu se poate crea zona de tampon (cache) pentru %s"
+
+#: ../camel/camel-exchange-folder.c:1009
+#, c-format
+msgid "Could not create journal for %s"
+msgstr "Nu se poate crea jurnal pentru %s"
+
+#: ../camel/camel-exchange-folder.c:1054
+msgid "Scanning for changed messages"
+msgstr "Se examinează pentru a găsi mesajele modificate"
+
+#: ../camel/camel-exchange-folder.c:1080
+msgid "Fetching summary information for new messages"
+msgstr "Se preiau informaţile despre mesajele noi"
+
+#: ../camel/camel-exchange-journal.c:339
+msgid "No folder name found\n"
+msgstr "Nume de director negăsit\n"
+
+#: ../camel/camel-exchange-journal.c:372
+#: ../mail/mail-stub-exchange.c:2523
+#: ../mail/mail-stub-exchange.c:2566
+#: ../mail/mail-stub-exchange.c:2601
+#: ../mail/mail-stub-exchange.c:2628
+#: ../mail/mail-stub-exchange.c:2675
+#: ../mail/mail-stub-exchange.c:2697
+msgid "Folder doesn't exist"
+msgstr "Directorul nu există"
+
+#: ../camel/camel-exchange-journal.c:436
+msgid "Cannot append message in offline mode: cache unavailable"
+msgstr "Nu se pot adăuga mesaje în modul deconectat: cache nedisponibil"
+
+#: ../camel/camel-exchange-journal.c:452
+#, c-format
+msgid "Cannot append message in offline mode: %s"
+msgstr "Nu se pot adăuga mesaje în modul deconectat: %s"
+
+#. i18n: the '_' should appear before the same letter it
+#. does in the evolution:mail-config.glade "User_name"
+#. translation (or not at all)
+#: ../camel/camel-exchange-provider.c:44
+msgid "Windows User_name:"
+msgstr "_Nume utilizator Windows:"
+
+#. i18n: GAL is an Outlookism, AD is a Windowsism
+#: ../camel/camel-exchange-provider.c:49
+msgid "Global Address List / Active Directory"
+msgstr "Listă globală de adrese (GAL) / Active Directory"
+
+#. i18n: "Global Catalog" is a Windowsism, but it's a
+#. technical term and may not have translations?
+#: ../camel/camel-exchange-provider.c:53
+msgid "Global Catalog server name:"
+msgstr "Nume server pentru catalogul global:"
+
+#: ../camel/camel-exchange-provider.c:55
+#, c-format
+msgid "Limit number of GAL responses: %s"
+msgstr "Limitează numărul de răspunsuri GAL: %s"
+
+#: ../camel/camel-exchange-provider.c:58
+msgid "Options"
+msgstr "Opţiuni"
+
+#: ../camel/camel-exchange-provider.c:60
+#, c-format
+msgid "Password Expiry Warning period: %s"
+msgstr "Perioada avertismentului expirării parolei: %s"
+
+#: ../camel/camel-exchange-provider.c:62
+msgid "Automatically synchronize account locally"
+msgstr "Sincronizare automată cu contul local"
+
+#. i18n: copy from evolution:camel-imap-provider.c
+#: ../camel/camel-exchange-provider.c:65
+msgid "Apply filters to new messages in Inbox on this server"
+msgstr "Aplică filtrele pe mesajele noi din Inbox pe acest server"
+
+#: ../camel/camel-exchange-provider.c:67
+msgid "Check new messages for Junk contents"
+msgstr "Verifică spam-ul în mesajele noi"
+
+#: ../camel/camel-exchange-provider.c:69
+msgid "Only check for Junk messages in the Inbox folder"
+msgstr "Verifică spam-ul doar în directorul Inbox"
+
+#: ../camel/camel-exchange-provider.c:76
+msgid "Microsoft Exchange"
+msgstr "Microsoft Exchange"
+
+#: ../camel/camel-exchange-provider.c:78
+msgid "For handling mail (and other data) on Microsoft Exchange servers"
+msgstr "Pentru procesarea poştei(şi altor date) pe serverele Microsoft Exchange"
+
+#. i18n: "Secure Password Authentication" is an Outlookism
+#: ../camel/camel-exchange-provider.c:94
+msgid "Secure Password"
+msgstr "Parola securizată"
+
+#. i18n: "NTLM" probably doesn't translate
+#: ../camel/camel-exchange-provider.c:97
+msgid "This option will connect to the Exchange server using secure password (NTLM) authentication."
+msgstr "Această opţiune va determina conectarea la serverul Exchange folosind autentificarea printr-o parolă securizată(NTLM)."
+
+#: ../camel/camel-exchange-provider.c:105
+msgid "Plaintext Password"
+msgstr "Parolă în clar"
+
+#: ../camel/camel-exchange-provider.c:107
+msgid "This option will connect to the Exchange server using standard plaintext password authentication."
+msgstr "Această opţiune va conecta serverul Exchange folosind autentificarea printr-o parolă în clar standard"
+
+#: ../camel/camel-exchange-store.c:303
+#, c-format
+msgid "Exchange server %s"
+msgstr "Server Exchange %s"
+
+#: ../camel/camel-exchange-store.c:306
+#, c-format
+msgid "Exchange account for %s on %s"
+msgstr "Cont Exchange pentru %s la %s"
+
+#: ../camel/camel-exchange-store.c:356
+msgid "Evolution Exchange backend process"
+msgstr "Proces de fundal Evolution Exchange"
+
+#: ../camel/camel-exchange-store.c:407
+#, c-format
+msgid "No such folder %s"
+msgstr "Nu există un astfel de director %s"
+
+#: ../camel/camel-exchange-store.c:476
+msgid "Cannot subscribe folder in offline mode."
+msgstr "Nu se poate realiza abonarea la director în modul deconectat."
+
+#: ../camel/camel-exchange-store.c:493
+msgid "Cannot unsubscribe folder in offline mode."
+msgstr "Nu se poate realiza dezabonarea la director în modul deconectat."
+
+#: ../camel/camel-exchange-store.c:598
+msgid "Cannot get folder info in offline mode."
+msgstr "Nu se pot prelua informaţi despre director în mod deconectat."
+
+#: ../camel/camel-exchange-store.c:669
+msgid "Cannot create folder in offline mode."
+msgstr "Nu se poate crea directorul în mod deconectat."
+
+#: ../camel/camel-exchange-store.c:696
+msgid "Cannot delete folder in offline mode."
+msgstr "Nu se poate şterge directorul în mod deconectat."
+
+#: ../camel/camel-exchange-store.c:712
+msgid "Cannot rename folder in offline mode."
+msgstr "Nu se poate redenumi directorul în mod deconectat."
+
+#: ../camel/camel-exchange-transport.c:110
+msgid "Exchange transport can only be used with Exchange mail source"
+msgstr "Transportul Exchange poate fi folosit doar cu sursa de poştă Exchange"
+
+#: ../camel/camel-exchange-transport.c:121
+msgid "Cannot send message: one or more invalid recipients"
+msgstr "Nu se poate transmite mesajul: unul sau mai mulţi adresanţi nevalizi"
+
+#: ../camel/camel-exchange-transport.c:131
+msgid "Could not find 'From' address in message"
+msgstr "Nu s-a putut găsi adresa 'Expeditor' în mesaj"
+
+#: ../camel/camel-stub.c:134
+#, c-format
+msgid "Could not create socket: %s"
+msgstr "Nu s-a putut crea socketul: %s"
+
+#: ../camel/camel-stub.c:149
+#, c-format
+msgid "Could not connect to %s: %s"
+msgstr "Nu s-a putut realiza conectarea la %s: %s"
+
+#: ../camel/camel-stub.c:179
+#, c-format
+msgid "Path too long: %s"
+msgstr "Cale de acces prea lungă: %s"
+
+#: ../camel/camel-stub.c:205
+#, c-format
+msgid "Could not start status thread: %s"
+msgstr "Nu s-a putut porni firul de execuţie pentru starea: %s"
+
+#: ../camel/camel-stub.c:457
+#, c-format
+msgid "Lost connection to %s"
+msgstr "S-a pierdut conexiunea la %s"
+
+#: ../camel/camel-stub.c:461
+#, c-format
+msgid "Error communicating with %s: %s"
+msgstr "Eroare de comunicare cu %s: %s"
+
+#: ../lib/e2k-autoconfig.c:1471
+#: ../storage/exchange-autoconfig-wizard.c:211
+#, c-format
+msgid ""
+"Could not connect to the Exchange server.\n"
+"Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
+msgstr ""
+"Nu s-a putut realiza conectarea la serverul Exchange.\n"
+"Asiguraţivă că URL-ul este corect (încercaţi \"%s\" în loc de \"%s\"?)  şi încercaţi din nou."
+
+#: ../lib/e2k-autoconfig.c:1480
+#: ../storage/exchange-autoconfig-wizard.c:219
+msgid ""
+"Could not locate Exchange server.\n"
+"Make sure the server name is spelled correctly and try again."
+msgstr ""
+"Nu s-a putut localiza serverul Exchange.\n"
+"Asiguraţi-vă că numele serverului este scris corect şi încercaţi din nou."
+
+#: ../lib/e2k-autoconfig.c:1490
+#: ../storage/exchange-autoconfig-wizard.c:228
+msgid ""
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again."
+msgstr ""
+"Nu s-a putut realiza autentificarea la serverul Exchange.\n"
+"Asiguraţi-vă că parola şi numele utilizatorului sunt corecte şi încercaţi din nou."
+
+#: ../lib/e2k-autoconfig.c:1498
+#: ../storage/exchange-autoconfig-wizard.c:235
+#, c-format
+msgid ""
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again.\n"
+"\n"
+"You may need to specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
+msgstr ""
+"Nu s-a putut realiza autentificarea la serverul Exchange.\n"
+"Asiguraţi-vă că parola şi numele de utilizator sunt corecte şi încercaţi din nou.\n"
+"\n"
+"Probabil că va trebui să precizaţi numele de domeniu Windows ca parte a numelui dvs. de utilizator ( de exemplu \"DOMENIUL-MEU\\%s\")."
+
+#: ../lib/e2k-autoconfig.c:1511
+#: ../storage/exchange-autoconfig-wizard.c:247
+msgid ""
+"Could not find OWA data at the indicated URL.\n"
+"Make sure the URL is correct and try again."
+msgstr ""
+"Nu s-au putut găsi datele OWA la URL-ul indicat.\n"
+"Asiguraţi-vă că URL-ul este corect şi încercaţi din nou."
+
+#: ../lib/e2k-autoconfig.c:1520
+#, c-format
+msgid ""
+"Ximian Connector requires access to certain functionality on the Exchange Server that appears to be disabled or blocked.  (This is usually unintentional.)  Your Exchange Administrator will need to enable this functionality in order for you to be able to use Ximian Connector.\n"
+"\n"
+"For information to provide to your Exchange administrator, please follow the link below:\n"
+"%s"
+msgstr ""
+"Ximian Connector necesită acces la anumite funcţionalităţi  pe serverul Exchange care apar ca dezactivate sau blocate. ( Aceasta este de obicei neintenţionat). Administratorul serverului dvs. Exchange va trebui să activeze aceste funcţionalităţi pentru ca dvs. să puteţi să le folosiţi în Ximian Conector.\n"
+"Pentru informaţia necesară administratorului serverului dvs. Exchange urmaţi legătura de mai jos:\n"
+"%s"
+
+#: ../lib/e2k-autoconfig.c:1536
+#: ../storage/exchange-autoconfig-wizard.c:275
+msgid "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian Connector supports Microsoft Exchange 2000 and 2003 only."
+msgstr "URL-ul serverului Exchange pe care l-aţi furnizat este pentru un Server Exchange 5.5. Ximian Connector suportă doar Microsoft Exchange 2000 şi 2003."
+
+#: ../lib/e2k-autoconfig.c:1545
+#: ../storage/exchange-autoconfig-wizard.c:288
+msgid "Could not configure Exchange account because an unknown error occurred. Check the URL, username, and password, and try again."
+msgstr "Nu s-a putut configura contul Exchange datorită apariţiei unei erori necunoscute. Verificaţi URL-ul, numele de utilizator, parola şi încercaţi din nou."
+
+#: ../lib/e2k-autoconfig.c:1567
+#, c-format
+msgid "Enter password for %s"
+msgstr "Introduceţi parola pentru %s"
+
+#: ../lib/e2k-autoconfig.c:1568
+#: ../storage/exchange-account.c:874
+msgid "Enter password"
+msgstr "Introduceţi parola"
+
+#. i18n: These are Outlook's words for the default roles in
+#. the folder permissions dialog.
+#: ../lib/e2k-security-descriptor.c:847
+msgid "Owner"
+msgstr "Proprietar"
+
+#: ../lib/e2k-security-descriptor.c:857
+msgid "Publishing Editor"
+msgstr "Editor principal"
+
+#: ../lib/e2k-security-descriptor.c:865
+msgid "Editor"
+msgstr "Editor"
+
+#: ../lib/e2k-security-descriptor.c:872
+msgid "Publishing Author"
+msgstr "Autor principal"
+
+#: ../lib/e2k-security-descriptor.c:878
+msgid "Author"
+msgstr "Autor"
+
+#: ../lib/e2k-security-descriptor.c:883
+msgid "Non-editing Author"
+msgstr "Autor secundar"
+
+#: ../lib/e2k-security-descriptor.c:887
+msgid "Reviewer"
+msgstr "Revizor"
+
+#: ../lib/e2k-security-descriptor.c:889
+msgid "Contributor"
+msgstr "Colaborator"
+
+#: ../lib/e2k-security-descriptor.c:891
+#: ../storage/exchange-delegates.glade.h:7
+msgid "None"
+msgstr "Nimeni"
+
+#: ../lib/e2k-security-descriptor.c:906
+#: ../storage/exchange-delegates-user.c:144
+msgid "Custom"
+msgstr "Personalizat"
+
+#: ../lib/e2k-user-dialog.c:144
+msgid "Select User"
+msgstr "Alege Utilizator"
+
+#: ../lib/e2k-user-dialog.c:182
+msgid "Addressbook..."
+msgstr "Agendă..."
+
+#: ../mail/mail-stub-exchange.c:256
+msgid "No such folder"
+msgstr "Nu există un astfel de director"
+
+#. FIXME: should be this, but string freeze freezes me to do so.
+#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
+#: ../mail/mail-stub-exchange.c:279
+#: ../mail/mail-stub-exchange.c:1374
+#: ../mail/mail-stub-exchange.c:2500
+#: ../mail/mail-stub-exchange.c:2539
+#: ../mail/mail-stub-exchange.c:2605
+#: ../mail/mail-stub-exchange.c:2649
+#: ../mail/mail-stub-exchange.c:2713
+#: ../shell/e-storage.c:573
+#: ../storage/xc-commands.c:319
+#  nu cumva: „Acces nepermis. Unele mesaje nu au putut fi şterse.” datorită comentariului?
+#  ce mi-e teamă este că acel comentariu se aplică doar la una dintre cele 9 apariţii ale aceluiaşi mesaj.
+msgid "Permission denied"
+msgstr "Acces interzis"
+
+#: ../mail/mail-stub-exchange.c:577
+#: ../mail/mail-stub-exchange.c:599
+msgid "Could not open folder: Permission denied"
+msgstr "Nu s-a putut deschide directorul: Acces nepermis"
+
+#: ../mail/mail-stub-exchange.c:583
+#: ../mail/mail-stub-exchange.c:704
+msgid "Could not open folder"
+msgstr "Nu s-a putut deschide directorul"
+
+#: ../mail/mail-stub-exchange.c:743
+msgid "No such folder."
+msgstr "Nu există un astfel de director."
+
+#: ../mail/mail-stub-exchange.c:752
+msgid "Could not create folder."
+msgstr "Nu s-a putut crea direcorul."
+
+#: ../mail/mail-stub-exchange.c:830
+msgid "Could not open Deleted Items folder"
+msgstr "Nu s-a putut deschide directorul Elemente şterse"
+
+#: ../mail/mail-stub-exchange.c:1159
+#: ../mail/mail-stub-exchange.c:1200
+msgid "Could not get new messages"
+msgstr "Nu s-au putut prelua mesajele noi"
+
+#: ../mail/mail-stub-exchange.c:1370
+msgid "Could not empty Deleted Items folder"
+msgstr "Nu s-a putut goli directorul Elemente şterse"
+
+#: ../mail/mail-stub-exchange.c:1447
+msgid "Could not append message; mailbox is over quota"
+msgstr "Nu s-a putut adăuga mesajul; cutia poştală este peste capacitate"
+
+#: ../mail/mail-stub-exchange.c:1448
+msgid "Could not append message"
+msgstr "Nu s-a putut adăuga mesajul"
+
+#: ../mail/mail-stub-exchange.c:1990
+msgid "No such message"
+msgstr "Nu există un astfel de mesaj"
+
+#: ../mail/mail-stub-exchange.c:2043
+msgid "Message has been deleted"
+msgstr "Mesajul a fost şters"
+
+#: ../mail/mail-stub-exchange.c:2045
+msgid "Error retrieving message"
+msgstr "Eroare la preluarea mesajelor"
+
+#: ../mail/mail-stub-exchange.c:2087
+#  „full-text searching” .... hmm, nu cumva trebuie tradus altfel?
+msgid "Mailbox does not support full-text searching"
+msgstr "Cutia poştală nu permite căutarea în text"
+
+#: ../mail/mail-stub-exchange.c:2185
+msgid "Unable to move/copy messages"
+msgstr "Nu se pot muta/copia mesajele"
+
+#: ../mail/mail-stub-exchange.c:2415
+msgid "No mail submission URI for this mailbox"
+msgstr "Nici un URI alocat pentru această căsuţă poştală"
+
+#: ../mail/mail-stub-exchange.c:2451
+msgid "Server won't accept mail via Exchange transport"
+msgstr "Serverul nu acceptă poştă prin mecanismul de transport Exchange"
+
+#: ../mail/mail-stub-exchange.c:2453
+#, c-format
+msgid ""
+"Your account does not have permission to use <%s>\n"
+"as a From address."
+msgstr ""
+"Contul dvs. nu are permisunea de utilizare a <%s>\n"
+"ca adresă expeditor."
+
+#: ../mail/mail-stub-exchange.c:2465
+msgid ""
+"Could not send message.\n"
+"This might mean that your account is over quota."
+msgstr ""
+"Nu s-a putut trimite mesajul.\n"
+"Acest lucru poate indica depăşirea capacităţii contului dvs."
+
+#: ../mail/mail-stub-exchange.c:2469
+msgid "Could not send message"
+msgstr "Nu s-a putut transmite mesajul"
+
+#: ../mail/mail-stub-exchange.c:2492
+#: ../mail/mail-stub-exchange.c:2544
+#: ../mail/mail-stub-exchange.c:2609
+#: ../mail/mail-stub-exchange.c:2654
+#: ../mail/mail-stub-exchange.c:2718
+#: ../shell/e-storage.c:557
+#: ../storage/xc-commands.c:323
+msgid "Generic error"
+msgstr "Eroare generică"
+
+#: ../mail/mail-stub-exchange.c:2496
+#: ../storage/xc-commands.c:313
+msgid "Folder already exists"
+msgstr "Directorul există deja"
+
+#: ../shell/e-folder-creation-dialog.c:138
+#, c-format
+msgid ""
+"Cannot create the specified folder:\n"
+"%s"
+msgstr ""
+"Nu se poate crea directorul precizat:\n"
+"%s"
+
+#: ../shell/e-folder-creation-dialog.c:179
+#, c-format
+msgid "The specified folder name is not valid: %s"
+msgstr "Numele directorului specificat nu este valid: %s"
+
+#: ../shell/e-folder-creation-dialog.c:310
+msgid "Create New Folder"
+msgstr "Crează un nou director"
+
+#: ../shell/e-folder-creation-dialog.glade.h:1
+#: ../storage/exchange-autoconfig-wizard.glade.h:1
+#: ../storage/exchange-change-password.glade.h:1
+msgid "*"
+msgstr "*"
+
+#: ../shell/e-folder-creation-dialog.glade.h:2
+msgid "Folder _name:"
+msgstr "_Nume director:"
+
+#: ../shell/e-folder-creation-dialog.glade.h:3
+msgid "Folder _type:"
+msgstr "_Tip director:"
+
+#: ../shell/e-folder-creation-dialog.glade.h:4
+msgid "Specify where to create the folder:"
+msgstr "Specificaţi unde trebuie creat directorul:"
+
+#: ../shell/e-folder-dnd-bridge.c:52
+#, c-format
+msgid ""
+"Cannot transfer folder:\n"
+"%s"
+msgstr ""
+"Nu se poate transfera directorul:\n"
+"%s"
+
+#: ../shell/e-folder-misc-dialogs.c:62
+#, c-format
+msgid ""
+"Cannot delete folder:\n"
+"%s"
+msgstr ""
+"Nu se poate şterge directorul:\n"
+"%s"
+
+#: ../shell/e-folder-misc-dialogs.c:115
+#, c-format
+msgid "Really delete folder \"%s\"?"
+msgstr "Doriţi cu adevărat să ştergeţi directorul \"%s\"?"
+
+#: ../shell/e-folder-misc-dialogs.c:129
+#, c-format
+msgid "Delete \"%s\""
+msgstr "Se şterge \"%s\""
+
+#: ../shell/e-folder-misc-dialogs.c:154
+#, c-format
+msgid ""
+"Cannot rename folder:\n"
+"%s"
+msgstr ""
+"Nu se poate redenumi directorul:\n"
+"%s"
+
+#: ../shell/e-folder-misc-dialogs.c:188
+#, c-format
+msgid "Rename the \"%s\" folder to:"
+msgstr "Se redenumeşte directorul \"%s\" ca:"
+
+#: ../shell/e-folder-misc-dialogs.c:191
+msgid "Rename Folder"
+msgstr "Redenumeşte director"
+
+#: ../shell/e-folder-misc-dialogs.c:205
+#, c-format
+msgid "A folder named \"%s\" already exists. Please use a different name."
+msgstr "Un director numit \"%s\" există deja. Vă rugăm să folosiţi un nume diferit."
+
+#. It would be nice to insensitivize the OK button appropriately
+#. instead of doing this, but unfortunately we can't do this for the
+#. Bonobo control.
+#: ../shell/e-folder-misc-dialogs.c:451
+msgid "Please select a user."
+msgstr "Vă rugăm să alegeţi un utilizator."
+
+#: ../shell/e-folder-misc-dialogs.c:553
+msgid "Opening Folder"
+msgstr "Se deschide directorul"
+
+#: ../shell/e-folder-misc-dialogs.c:559
+#, c-format
+msgid "Opening Folder \"%s\""
+msgstr "Se deschide directorul \"%s\""
+
+#: ../shell/e-folder-misc-dialogs.c:564
+#, c-format
+msgid "in \"%s\" ..."
+msgstr "în \"%s\"..."
+
+#: ../shell/e-folder-misc-dialogs.c:631
+#, c-format
+msgid "Could not open other user's folder: %s."
+msgstr "Nu s-a putut deschide directorul altor utilizatori: %s."
+
+#: ../shell/e-folder-misc-dialogs.c:681
+msgid "Cannot find the specified other user's folder."
+msgstr "Nu se poate găsi directorul specificat al altor utilizatori."
+
+#: ../shell/e-folder-misc-dialogs.c:713
+#, c-format
+msgid ""
+"Cannot unsubscribe from folder:\n"
+"%s"
+msgstr ""
+"Nu se poate realiza dezabonarea de la directorul:\n"
+"%s"
+
+#: ../shell/e-folder-misc-dialogs.c:766
+#, c-format
+msgid "Really unsubscribe from folder \"%s\"?"
+msgstr "Doriţi într-adevăr să vă dezabonaţi de la directorul \"%s\"?"
+
+#: ../shell/e-folder-misc-dialogs.c:780
+#, c-format
+msgid "Unsubscribe from \"%s\""
+msgstr "Dezabonare de la \"%s\""
+
+#: ../shell/e-foreign-folder-dialog.glade.h:1
+msgid "Open Other User's Folder"
+msgstr "Deschide directoarele altor utilizatori"
+
+#: ../shell/e-foreign-folder-dialog.glade.h:2
+msgid "_Account:"
+msgstr "_Cont:"
+
+#: ../shell/e-foreign-folder-dialog.glade.h:3
+msgid "_Folder Name:"
+msgstr "Nume _Director:"
+
+#: ../shell/e-foreign-folder-dialog.glade.h:4
+msgid "_User:"
+msgstr "_Utilizator:"
+
+#: ../shell/e-storage-set-view.etspec.h:1
+msgid "Checkbox"
+msgstr "Căsuţă de bifare"
+
+#: ../shell/e-storage-set-view.etspec.h:2
+msgid "Folder"
+msgstr "Director"
+
+#: ../shell/e-storage.c:555
+msgid "No error"
+msgstr "Nici o eroare"
+
+#: ../shell/e-storage.c:559
+msgid "A folder with the same name already exists"
+msgstr "Există deja un director cu acelaşi nume"
+
+#: ../shell/e-storage.c:561
+msgid "The specified folder type is not valid"
+msgstr "Tipul directorului specificat nu e valid"
+
+#: ../shell/e-storage.c:563
+msgid "I/O error"
+msgstr "Eroare I/E"
+
+#: ../shell/e-storage.c:565
+msgid "Not enough space to create the folder"
+msgstr "Spaţiu insuficient pentru crearea directorului"
+
+#: ../shell/e-storage.c:567
+msgid "The folder is not empty"
+msgstr "Directorul nu este gol"
+
+#: ../shell/e-storage.c:569
+msgid "The specified folder was not found"
+msgstr "Directorul specificat nu a fost găsit"
+
+#: ../shell/e-storage.c:571
+msgid "Function not implemented in this storage"
+msgstr "Funcţie neimplementată în aceast spaţiu de stocare"
+
+#: ../shell/e-storage.c:575
+msgid "Operation not supported"
+msgstr "Operaţiune nesuportată"
+
+#: ../shell/e-storage.c:577
+msgid "The specified type is not supported in this storage"
+msgstr "Tipul specificat este nesuportat în aceast spaţiu de stocare"
+
+#: ../shell/e-storage.c:579
+msgid "The specified folder cannot be modified or removed"
+msgstr "Directorul specificat nu poate fi modificat sau eliminat"
+
+#: ../shell/e-storage.c:581
+msgid "Cannot make a folder a child of one of its descendants"
+msgstr "Nu se poate face un director într-unul din descendenţii lui"
+
+#: ../shell/e-storage.c:583
+msgid "Cannot create a folder with that name"
+msgstr "Nu se poate crea un director cu acest nume"
+
+#: ../shell/e-storage.c:585
+msgid "This operation cannot be performed in off-line mode"
+msgstr "Această operaţie nu poate fi efectuată în modul deconectat"
+
+#: ../shell/e-storage.c:587
+#: ../storage/exchange-account.c:1473
+msgid "Unknown error"
+msgstr "Eroare necunoscută"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
+msgid "*Control*F5"
+msgstr "*Control*F5"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
+msgid "Evolution Addressbook Exchange backend"
+msgstr "Suport intern pentru agenda Evolution Exchange"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+msgid "Evolution Calendar Exchange backend"
+msgstr "Suport intern pentru calendarul Evolution Exchange"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
+msgid "Evolution Exchange Component"
+msgstr "Componentă Evolution Exchange"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
+msgid "Exchange"
+msgstr "Exchange"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
+msgid "Ximian Connector for Exchange"
+msgstr "Ximian Connector pentru Exchange"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
+msgid "_Exchange"
+msgstr "_Exchange"
+
+#. i18n: This is the title of an "other user's folders"
+#. hierarchy. Eg, "John Doe's Folders".
+#: ../storage/exchange-account.c:584
+#, c-format
+msgid "%s's Folders"
+msgstr "Directoarele lui %s"
+
+#: ../storage/exchange-account.c:869
+#, c-format
+msgid "%sEnter password for %s"
+msgstr "%sIntroduceţi parola pentru %s"
+
+#. email id is not proper, we return instead of trying nt_domain
+#: ../storage/exchange-account.c:1069
+msgid "Cannot change password due to configuration problems"
+msgstr "Nu se poate schimba parolă datorită unor probleme de configurare"
+
+#: ../storage/exchange-account.c:1092
+msgid ""
+"Server rejected password because it is too weak.\n"
+"Try again with a different password."
+msgstr ""
+"Serverul a respins parola deoarece e prea slabă.\n"
+"Încercaţi din nou cu altă parolă."
+
+#: ../storage/exchange-account.c:1097
+msgid "Could not change password"
+msgstr "Nu s-a putut schimba parola"
+
+#: ../storage/exchange-account.c:1190
+msgid "Personal Folders"
+msgstr "Directoare Personale"
+
+#: ../storage/exchange-account.c:1205
+msgid "Favorite Public Folders"
+msgstr "Directoare Publice Favorite"
+
+#. i18n: Outlookism
+#: ../storage/exchange-account.c:1222
+msgid "All Public Folders"
+msgstr "Toate directoarele publice"
+
+#. i18n: Outlookism
+#: ../storage/exchange-account.c:1236
+msgid "Global Address List"
+msgstr "Lista globală de adrese"
+
+#: ../storage/exchange-account.c:1326
+msgid "Exchange Account is offline. Cannot display folders\n"
+msgstr "Contul Exchange este deconectat. Nu se pot afişa directoarele\n"
+
+#: ../storage/exchange-account.c:1384
+msgid ""
+"Could not authenticate to server. (Password incorrect?)\n"
+"\n"
+msgstr "Serverul nu vă poate autentifica. (Parolă incorectă?)\n\n"
+
+#: ../storage/exchange-account.c:1389
+msgid ""
+"Could not authenticate to server.\n"
+"\n"
+"This probably means that your server requires you\n"
+"to specify the Windows domain name as part of your\n"
+"username (eg, \"DOMAIN\\user\").\n"
+"\n"
+"Or you might have just typed your password wrong.\n"
+"\n"
+msgstr ""
+"Serverul nu vă poate autentifica.\n"
+"\n"
+"Asta înseamnă probabil că serverul dvs. are nevoie\n"
+"să-i specificaţi numele de domeniu Windows ca parte a\n"
+"numelui dvs. de utilizator (ex. \"DOMENIU\\user\").\n"
+"\n"
+"Sau poate aţi tastat greşit parola dvs.\n"
+"\n"
+
+#: ../storage/exchange-account.c:1431
+#, c-format
+msgid "Mailbox for %s is not on this server."
+msgstr "Căsuţa poştală pentru %s nu e pe acest server."
+
+#: ../storage/exchange-account.c:1436
+#, c-format
+msgid ""
+"The server '%s' is running Exchange 5.5 and is\n"
+"therefore not compatible with Ximian Connector"
+msgstr ""
+"Serverul '%s' rulează Exchange 5.5 şi, de aceea,\n"
+"este incompatibil cu Ximian Connector"
+
+#: ../storage/exchange-account.c:1443
+#, c-format
+msgid ""
+"Could not find Exchange Web Storage System at %s.\n"
+"If OWA is running on a different path, you must specify that in the\n"
+"account configuration dialog."
+msgstr ""
+"Nu s-a putut găsi sistemul de stocare Web Exchange la %s.\n"
+"Daca OWA rulează pe o cale de acces diferită, trebuie să specificaţi asta în dialogul de configurarea al contului."
+
+#: ../storage/exchange-account.c:1451
+#, c-format
+msgid "No mailbox for user %s on %s.\n"
+msgstr "Nici o căsuţă poştală pentru utilizatorul %s pe %s.\n"
+
+#: ../storage/exchange-account.c:1457
+#: ../storage/exchange-account.c:1463
+#: ../storage/exchange-account.c:1471
+#, c-format
+msgid "Could not connect to server %s: %s"
+msgstr "Nu s-a putut realiza conectarea la serverul %s: %s"
+
+#: ../storage/exchange-account.c:1459
+msgid "Could not resolve hostname"
+msgstr "Nu s-a putut rezolva numele calculatorului"
+
+#: ../storage/exchange-account.c:1465
+msgid "Network error"
+msgstr "Eroare de reţea"
+
+#: ../storage/exchange-account.c:1529
+#, c-format
+msgid "You have exceeded your quota of %d %s for storing mails on this server. Your current usage is : %.0f %s."
+msgstr "Aţi depăşit capacitatea de %d %s pentru păstrarea poştei pe acest server. Folosiţi în prezent: %.0f %s."
+
+#: ../storage/exchange-account.c:1532
+msgid "You will not be able to either send or receive mails now\n"
+msgstr "Nu veţi putea nici să trimiteţi nici să primiţi poşta momentan\n"
+
+#: ../storage/exchange-account.c:1535
+msgid "You will not be able to send mails till you clear up some space by deleting some mails.\n"
+msgstr "Nu veţi putea să trimiteţi mesaje până când nu veţi elibera ceva spaţiu ştergând câteva mesaje.\n"
+
+#: ../storage/exchange-account.c:1538
+msgid "Try to clear up some space by deleting some mails.\n"
+msgstr "Încercaţi să eliberaţi ceva spaţiu stergând câteva mesaje.\n"
+
+#: ../storage/exchange-autoconfig-wizard.c:254
+msgid ""
+"Ximian Connector requires access to certain functionality on the Exchange Server that appears to be disabled or blocked.  (This is usually unintentional.)  Your Exchange Administrator will need to enable this functionality in order for you to be able to use Ximian Connector.\n"
+"\n"
+"For information to provide to your Exchange administrator, please follow the link below:"
+msgstr ""
+"Ximian Connector necesită accesul la câteva funcţionalităţi ale serverului Exchange care apar ca dezactivate sau blocate. (Asta e de obicei neintenţionat.) Administratorul serverului dvs. Exchange trebuie sa activeze aceste funcţionalităţi pentru ca dvs. să folosiţi Ximian Connector.\n"
+"\n"
+"Pentru informaţiile necesare administratorului serverului dvs. Exchange, vă rugăm să urmaţi legătura de mai jos:"
+
+#: ../storage/exchange-autoconfig-wizard.c:332
+#, c-format
+msgid "Could not authenticate to the Global Catalog server. You may need to go back and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
+msgstr "Serverul de Catalog Global nu poate vă autentifica. Este nevoie să vă întoarceţi şi să specificaţi numele de domeniu Windows ca parte a numelui dvs. de utilizator (ex, \"DOMENIU-DVS\\%s\")."
+
+#: ../storage/exchange-autoconfig-wizard.c:339
+msgid ""
+"Could not connect to specified server.\n"
+"Please check the server name and try again."
+msgstr ""
+"Nu s-a putut realiza conectarea la serverul precizat.\n"
+"Vă rugăm să verificaţi numele serverului şi să încercaţi din nou."
+
+#: ../storage/exchange-autoconfig-wizard.c:376
+#: ../storage/exchange-autoconfig-wizard.c:380
+msgid "Unknown"
+msgstr "Necunoscut"
+
+#: ../storage/exchange-autoconfig-wizard.c:445
+msgid ""
+"Configuration system error.\n"
+"Unable to create new account."
+msgstr ""
+"Eroare de configurare a sistemului.\n"
+"Nu se poate crea un cont nou."
+
+#: ../storage/exchange-autoconfig-wizard.c:459
+msgid "You may only configure a single Exchange account"
+msgstr "Trebuie să configuraţi doar un singur cont Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:2
+msgid "Configuration Failed"
+msgstr "Configurare eşuată"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:3
+msgid "Done"
+msgstr "Efectuat"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:4
+msgid "Email Address:"
+msgstr "Adresă de poştă:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:5
+msgid "Exchange Configuration"
+msgstr "Configuraţie Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:6
+msgid "Full Name:"
+msgstr "Nume Complet:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:7
+msgid "GC Server:"
+msgstr "Server GC:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:8
+msgid "Make this my default account"
+msgstr "Transformă-l în contul meu implicit"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:9
+msgid "OWA URL:"
+msgstr "URL OWA:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:10
+msgid "Password:"
+msgstr "Parola:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:11
+msgid "Remember this password"
+msgstr "Memoraţi această parolă"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:12
+msgid "Username:"
+msgstr "Nume de utilizator:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:13
+msgid "Welcome"
+msgstr "Bine aţi venit"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:14
+msgid ""
+"Welcome to Ximian Connector for Microsoft Exchange.\n"
+"The next few screens will help you configure Evolution\n"
+"to connect to your Exchange account.\n"
+"\n"
+"Please click the \"Forward\" button to continue."
+msgstr ""
+"Bine aţi venit la Ximian Connector pentru Microsoft Exchange.\n"
+"Următoarele câteva ecrane vă vor ajuta să configuraţi Evolution\n"
+"pentru conectarea la contul dvs. Exchange.\n"
+"\n"
+"Vă rugăm să daţi clic pe butonul \"Înainte\" pentru a continua."
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:19
+msgid "Ximian Connector Configuration"
+msgstr "Configuraţie Ximian Connector"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:20
+msgid ""
+"Ximian Connector can use account information from your existing Outlook Web Access (OWA) account.\n"
+"\n"
+"Enter your OWA site address (URL), username, and password, then click \"Forward\".\n"
+msgstr ""
+"Ximian Connector nu poate utiliza informaţile contului dvs. existente în contul Outlook Web Access (OWA).\n"
+"\n"
+"Introduceţi adresa sitului OWA (URL), numele de utilizator, şi parola, după care daţi click pe \"Înainte\".\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:24
+msgid "Ximian Connector could not find the Global Catalog replica for your site. Please enter the name of your Global Catalog server. You may need to ask your system administrator for the correct value.\n"
+msgstr "Ximian Connector nu poate găsi replica de Catalogului Global pentru situl dvs. Vă rog introduceţi numele serverului Catalog Global. Veţi avea nevoie să cereţi administratorului sistemului dvs. valoarea corectă.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:26
+msgid "Ximian Connector has encountered a problem configuring your Exchange account.\n"
+msgstr "Ximian Connector a întâlnit o problemă configurând contul dvs. Exchange.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:28
+msgid ""
+"Your Connector account is now ready to use. Click the \"Apply\" button to save your\n"
+"settings."
+msgstr "Contul dvs. Connector este acum gata de folosit. Apăsaţi butonul \"Aplică\" pentru a  salva preferinţele dvs."
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:30
+msgid "Your account information is as follows. Please correct any errors, then click \"Forward\".\n"
+msgstr "Informaţiile contului dvs. sunt cum urmează. Va rog corectaţi orice eroare apoi apăsaţi \"Forward\".\n"
+
+#. User entered a wrong existing
+#. * password. Prompt him again.
+#.
+#: ../storage/exchange-change-password.c:114
+msgid "The current password does not match the existing password for your account. Please enter the correct password"
+msgstr "Parola curentă nu coincide cu parola existentă pentru contul dvs. Vă rog introduceţi parola corectă"
+
+#: ../storage/exchange-change-password.c:121
+msgid "The two passwords do not match. Please re-enter the passwords."
+msgstr "Cele doua parole nu coincid. Vă rog reintroducet-ţi parolele."
+
+#: ../storage/exchange-change-password.glade.h:2
+msgid "Change Password"
+msgstr "Schimbare parolă:"
+
+#: ../storage/exchange-change-password.glade.h:3
+msgid "Confirm Password:"
+msgstr "Confirmare parolă:"
+
+#: ../storage/exchange-change-password.glade.h:4
+msgid "Current Password:"
+msgstr "Parola curentă:"
+
+#: ../storage/exchange-change-password.glade.h:5
+msgid "New Password:"
+msgstr "Noua parolă:"
+
+#: ../storage/exchange-change-password.glade.h:6
+msgid "Your current password has expired. Please change your password now."
+msgstr "Parola dvs. curentă a expirat. Vă rog schimbaţi parola acum."
+
+#: ../storage/exchange-delegates-user.c:191
+#: ../storage/exchange-permissions-dialog.c:179
+#, c-format
+msgid "Permissions for %s"
+msgstr "Drepturi de acces pentru %s"
+
+#: ../storage/exchange-delegates.c:221
+msgid ""
+"No Global Catalog server configured for this account.\n"
+"Unable to edit delegates."
+msgstr ""
+"Nici un server de Catalog Global configurat pentru acest cont.\n"
+"Nu se pot edita delegaţile."
+
+#: ../storage/exchange-delegates.c:260
+msgid ""
+"Could not read folder permissions.\n"
+"Unable to edit delegates."
+msgstr ""
+"Nu se pot citi drepturile de acces la director.\n"
+"Nu se pot edita delegările."
+
+#: ../storage/exchange-delegates.c:267
+msgid ""
+"Could not determine folder permissions for delegates.\n"
+"Unable to edit delegates."
+msgstr ""
+"Nu s-au putut determina drepturile de acces pentru delegări.\n"
+"Nu se pot edita delegările."
+
+#: ../storage/exchange-delegates.c:419
+msgid "Delegate To:"
+msgstr "Delegare la:"
+
+#: ../storage/exchange-delegates.c:419
+msgid "Delegate To"
+msgstr "Delegare la"
+
+#: ../storage/exchange-delegates.c:435
+#, c-format
+msgid "Could not make %s a delegate"
+msgstr "Nu s-a putut face %s delegat"
+
+#: ../storage/exchange-delegates.c:445
+msgid "You cannot make yourself your own delegate"
+msgstr "Nu vă puteţi face propriul dvs. delegat"
+
+#: ../storage/exchange-delegates.c:454
+#, c-format
+msgid "%s is already a delegate"
+msgstr "%s este deja delegat"
+
+#: ../storage/exchange-delegates.c:563
+#, c-format
+msgid "Remove the delegate %s?"
+msgstr "Eliminaţi delegatul %s?"
+
+#: ../storage/exchange-delegates.c:680
+msgid "Could not access Active Directory"
+msgstr "Nu se poate accesa Active Directory"
+
+#: ../storage/exchange-delegates.c:695
+msgid "Could not find self in Active Directory"
+msgstr "Nu mă pot regăsi în Active Directory"
+
+#: ../storage/exchange-delegates.c:708
+#, c-format
+msgid "Could not find delegate %s in Active Directory"
+msgstr "Nu s-a putut găsi delegatul %s în Active Directory"
+
+#: ../storage/exchange-delegates.c:720
+#, c-format
+msgid "Could not remove delegate %s"
+msgstr "Nu s-a putut elimina delegatul %s"
+
+#: ../storage/exchange-delegates.c:780
+msgid "Could not update list of delegates."
+msgstr "Nu s-a putut actualiza lista delegaţilor."
+
+#: ../storage/exchange-delegates.c:798
+#, c-format
+msgid "Could not add delegate %s"
+msgstr "Nu s-a putut adauga delegatul %s"
+
+#: ../storage/exchange-delegates.c:814
+#, c-format
+msgid ""
+"Failed to update delegates:\n"
+"%s"
+msgstr ""
+"Eşec la actualizarea delegaţilor:\n"
+"%s"
+
+#: ../storage/exchange-delegates.c:938
+#: ../storage/exchange-permissions-dialog.c:706
+msgid "Name"
+msgstr "Nume"
+
+#: ../storage/exchange-delegates.c:967
+msgid "Error reading delegates list."
+msgstr "Eroare la citirea listei delegaţilor."
+
+#: ../storage/exchange-delegates.glade.h:1
+msgid "Author (read, create)"
+msgstr "Autor (citire, creare)"
+
+#: ../storage/exchange-delegates.glade.h:2
+msgid "C_alendar:"
+msgstr "C_alendar:"
+
+#: ../storage/exchange-delegates.glade.h:3
+msgid "Co_ntacts:"
+msgstr "Co_ntacte:"
+
+#: ../storage/exchange-delegates.glade.h:4
+msgid "Delegate Permissions"
+msgstr "Drepturile de acces ale delegaţilor"
+
+#: ../storage/exchange-delegates.glade.h:5
+msgid "Delegates"
+msgstr "Delegaţi"
+
+#: ../storage/exchange-delegates.glade.h:6
+msgid "Editor (read, create, edit)"
+msgstr "Editor (citire, creare, editare)"
+
+#: ../storage/exchange-delegates.glade.h:8
+msgid "Permissions for"
+msgstr "Drepturi de acces pentru"
+
+#: ../storage/exchange-delegates.glade.h:9
+msgid "Reviewer (read-only)"
+msgstr "Revizor (doar citire)"
+
+#: ../storage/exchange-delegates.glade.h:10
+msgid ""
+"These users will be able to send mail on your behalf\n"
+"and access your folders with the permissions you give them."
+msgstr ""
+"Aceşti utilizatori vor putea trimite mesaje în numele dvs.\n"
+"şi vor putea accesa directoarele dvs. cu permisiunile pe care dvs. le acordaţi."
+
+#: ../storage/exchange-delegates.glade.h:12
+msgid "_Delegate can see private items"
+msgstr "_Delegatul nu poate vedea elementele private"
+
+#: ../storage/exchange-delegates.glade.h:13
+msgid "_Edit"
+msgstr "_Editare"
+
+#: ../storage/exchange-delegates.glade.h:14
+msgid "_Inbox:"
+msgstr "_Inbox:"
+
+#: ../storage/exchange-delegates.glade.h:15
+msgid "_Tasks:"
+msgstr "Sa_rcini:"
+
+#: ../storage/exchange-folder-size.c:322
+msgid "Folder Name"
+msgstr "Nume director"
+
+#: ../storage/exchange-folder-size.c:326
+msgid "Folder Size"
+msgstr "Mărime director"
+
+#: ../storage/exchange-folder-tree.glade.h:1
+msgid "Exchange Folder Tree"
+msgstr "Arborele directorului Exchange"
+
+#: ../storage/exchange-hierarchy-foreign.c:250
+msgid "Calendar"
+msgstr "Calendar"
+
+#: ../storage/exchange-hierarchy-foreign.c:251
+msgid "Contacts"
+msgstr "Contacte"
+
+#: ../storage/exchange-hierarchy-foreign.c:252
+msgid "Deleted Items"
+msgstr "Elemente şterse"
+
+#: ../storage/exchange-hierarchy-foreign.c:253
+msgid "Drafts"
+msgstr "Drafts"
+
+#: ../storage/exchange-hierarchy-foreign.c:254
+msgid "Inbox"
+msgstr "Inbox"
+
+#: ../storage/exchange-hierarchy-foreign.c:255
+msgid "Journal"
+msgstr "Jurnal"
+
+#: ../storage/exchange-hierarchy-foreign.c:256
+msgid "Notes"
+msgstr "Note"
+
+#: ../storage/exchange-hierarchy-foreign.c:257
+msgid "Outbox"
+msgstr "Outbox"
+
+#: ../storage/exchange-hierarchy-foreign.c:258
+msgid "Sent Items"
+msgstr "Elemente expediate"
+
+#: ../storage/exchange-hierarchy-foreign.c:259
+msgid "Tasks"
+msgstr "Sarcini"
+
+#: ../storage/exchange-migrate.c:57
+msgid "Migrating Exchange Folders..."
+msgstr "Se migrează directoarele Exchange..."
+
+#: ../storage/exchange-migrate.c:65
+#, c-format
+msgid ""
+"The location and hierarchy of the Evolution exchange account folders are changed since Evolution %d.%d.%d.\n"
+"\n"
+"Please be patient while Evolution migrates your folders..."
+msgstr ""
+"Locaţia şi ierarhia directoarelor contului schimbat din Evolution s-a modificat de la Evolution %d.%d.%d.\n"
+"\n"
+"Vă rog aveţi răbdare în timp ce Evolution migrează directoarele dvs..."
+
+#: ../storage/exchange-migrate.c:98
+#, c-format
+msgid ""
+"Warning: Evolution Could not migrate all the Exchange account data from the version %d.%d.%d. \n"
+"The data hasn't been deleted, but will not be seen by this version of Evolution"
+msgstr ""
+"Atenţie: Evolution nu poate migra toate datele conturilor Exchange de la versionea %d.%d.%d.\n"
+"Datele nu au fost şterse, dar nu vor fi vizibile de această versiune a lui Evolution"
+
+#: ../storage/exchange-migrate.c:129
+#, c-format
+msgid "Migrating `%s':"
+msgstr "Se migrează '%s':"
+
+#: ../storage/exchange-oof.c:199
+#: ../storage/exchange-oof.c:406
+msgid "Could not update out-of-office state"
+msgstr "Nu pot actualiza starea absent-de-la-birou"
+
+#: ../storage/exchange-oof.c:424
+msgid "Could not read out-of-office state"
+msgstr "Nu pot citi starea absent-de-la-birou"
+
+#: ../storage/exchange-oof.glade.h:1
+msgid ""
+"<b>Currently, your status is \"Out of the Office\". </b>\n"
+"\n"
+"Would you like to change your status to \"In the Office\"? "
+msgstr ""
+"<b>Actualmente, starea dvs. e \"Absent de la birou\". </b>\n"
+"\n"
+"Doriţi să schimbaţi starea în \"Prezent la birou\"?"
+
+#: ../storage/exchange-oof.glade.h:4
+msgid "<b>Out of Office Message:</b>"
+msgstr "<b>Mesajul absent de la birou:</b>"
+
+#: ../storage/exchange-oof.glade.h:5
+msgid "<b>Status:</b>"
+msgstr "<b>Stare:</b>"
+
+#: ../storage/exchange-oof.glade.h:6
+msgid ""
+"<small>The message specified below will be automatically sent to each person who sends\n"
+"mail to you while you are out of the office.</small>"
+msgstr "<small>Mesajul specificat în continuare va fi automat trimis la fiecare persoană care vă trimite poştă pe durata cât dvs nu sunteţi la birou</small>"
+
+#: ../storage/exchange-oof.glade.h:8
+msgid "I am currently in the office"
+msgstr "Prezent la birou"
+
+#: ../storage/exchange-oof.glade.h:9
+msgid "I am currently out of the office"
+msgstr "Absent de la birou"
+
+#: ../storage/exchange-oof.glade.h:10
+msgid "No, Don't Change Status"
+msgstr "Nu, nu schimba starea"
+
+#: ../storage/exchange-oof.glade.h:11
+msgid "Out of Office Assistant"
+msgstr "Asistent pentru absenţă de la birou"
+
+#: ../storage/exchange-oof.glade.h:12
+msgid "Yes, Change Status"
+msgstr "Da, schimbă starea"
+
+#: ../storage/exchange-passwd-expiry.glade.h:1
+msgid "Password Expiry Warning..."
+msgstr "Avertisment de expirare a parolei..."
+
+#: ../storage/exchange-passwd-expiry.glade.h:2
+msgid "Your password will expire in 7 days..."
+msgstr "Parola dvs. va expira în 7 zile..."
+
+#: ../storage/exchange-passwd-expiry.glade.h:3
+msgid "_Change Password"
+msgstr "S_chimbă parola"
+
+#: ../storage/exchange-passwd-expiry.glade.h:4
+msgid "ok_button"
+msgstr "ok_button"
+
+#: ../storage/exchange-permissions-dialog.c:222
+msgid "Could not read folder permissions"
+msgstr "Nu se pot citi drepturile de acces la director"
+
+#: ../storage/exchange-permissions-dialog.c:264
+msgid "Could not update folder permissions."
+msgstr "Nu se pot actualiza drepturile de acces la director."
+
+#: ../storage/exchange-permissions-dialog.c:293
+#, c-format
+msgid "Could not update folder permissions. %s"
+msgstr "Nu se pot actualiza drepturile de acces la director. %s"
+
+#: ../storage/exchange-permissions-dialog.c:295
+msgid "(Permission denied.)"
+msgstr "(Acces nepermis.)"
+
+#: ../storage/exchange-permissions-dialog.c:396
+msgid ""
+"Unable to add user to access control list:\n"
+"No Global Catalog server is configured for this account."
+msgstr ""
+"Nu s-a putut adăuga utilizatorul la lista de control a accesului:\n"
+"Nici un server Catalog Global nu este configurat pentru acest cont."
+
+#: ../storage/exchange-permissions-dialog.c:402
+msgid "Add User:"
+msgstr "Adaugă utilizator:"
+
+#: ../storage/exchange-permissions-dialog.c:402
+msgid "Add User"
+msgstr "Adaugă utilizator"
+
+#: ../storage/exchange-permissions-dialog.c:421
+#, c-format
+msgid "No such user %s"
+msgstr "Nici un astfel de utilizator %s"
+
+#: ../storage/exchange-permissions-dialog.c:425
+#, c-format
+msgid "%s cannot be added to an access control list"
+msgstr "%s nu poate fi adăugat la lista de control a accesului"
+
+#: ../storage/exchange-permissions-dialog.c:430
+#, c-format
+msgid "Unknown error looking up %s"
+msgstr "Eroare necunoscuta la căutarea %s"
+
+#: ../storage/exchange-permissions-dialog.c:447
+#, c-format
+msgid "%s is already in the list"
+msgstr "%s este deja pe listă"
+
+#: ../storage/exchange-permissions-dialog.c:710
+msgid "Role"
+msgstr "Rol"
+
+#: ../storage/exchange-permissions-dialog.glade.h:1
+msgid "    "
+msgstr "    "
+
+#: ../storage/exchange-permissions-dialog.glade.h:2
+msgid "<b>Permissions</b>"
+msgstr "<b>Drepturi de acces</b>"
+
+#: ../storage/exchange-permissions-dialog.glade.h:3
+msgid "Cannot Delete"
+msgstr "Nu se poate şterge"
+
+#: ../storage/exchange-permissions-dialog.glade.h:4
+msgid "Cannot Edit"
+msgstr "Nu se poate edita"
+
+#: ../storage/exchange-permissions-dialog.glade.h:5
+msgid "Create items"
+msgstr "Creează elemente"
+
+#: ../storage/exchange-permissions-dialog.glade.h:6
+msgid "Create subfolders"
+msgstr "Crează subdirectoare"
+
+#: ../storage/exchange-permissions-dialog.glade.h:7
+msgid "Delete Any Items"
+msgstr "Şterge orice elemenete"
+
+#: ../storage/exchange-permissions-dialog.glade.h:8
+msgid "Delete Own Items"
+msgstr "Şterge elementele proprii"
+
+#: ../storage/exchange-permissions-dialog.glade.h:9
+msgid "Edit Any Items"
+msgstr "Editează orice elemente"
+
+#: ../storage/exchange-permissions-dialog.glade.h:10
+msgid "Edit Own Items"
+msgstr "Editează propriile elemente"
+
+#: ../storage/exchange-permissions-dialog.glade.h:11
+msgid "Folder contact"
+msgstr "Director de contacte"
+
+#: ../storage/exchange-permissions-dialog.glade.h:12
+msgid "Folder owner"
+msgstr "Proprietar director"
+
+#: ../storage/exchange-permissions-dialog.glade.h:13
+msgid "Folder visible"
+msgstr "Director vizibil"
+
+#: ../storage/exchange-permissions-dialog.glade.h:14
+msgid "Read items"
+msgstr "Elemente citite"
+
+#: ../storage/exchange-permissions-dialog.glade.h:15
+msgid "Role: "
+msgstr "Rol: "
+
+#: ../storage/exchange-storage.c:338
+msgid "Connecting..."
+msgstr "Se conectează..."
+
+#: ../storage/main.c:165
+msgid "Ximian Connector for Microsoft Exchange"
+msgstr "Ximian Connector pentru Microsoft Exchange"
+
+#: ../storage/xc-backend-view.c:299
+msgid "Account Name"
+msgstr "Nume cont"
+
+#: ../storage/xc-commands.c:316
+msgid "Folder does not exist"
+msgstr "Directorul nu există"
+
+#: ../storage/xc-commands.c:343
+#, c-format
+msgid "Could not add favorite: %s"
+msgstr "Nu s-a putut adăuga favoritul: %s"
+
+#: ../storage/xc-commands.c:359
+#, c-format
+msgid "Could not remove favorite: %s"
+msgstr "Nu s-a putut elimina favoritul: %s"
+
+#.
+#. FIXME: See 62440
+#. E_POPUP_ITEM (N_("_Move Folder..."),
+#. G_CALLBACK (do_move_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#. E_POPUP_ITEM (N_("_Copy Folder..."),
+#. G_CALLBACK (do_copy_folder),
+#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
+#.
+#: ../storage/xc-commands.c:385
+msgid "_Rename Folder..."
+msgstr "_Redenumire Director..."
+
+#: ../storage/xc-commands.c:391
+msgid "_New Folder..."
+msgstr "Director _nou..."
+
+#: ../storage/xc-commands.c:394
+msgid "_Delete Folder"
+msgstr "Ştergere _director"
+
+#: ../storage/xc-commands.c:399
+msgid "_Add Other User's Folder..."
+msgstr "_Adaugă un director al altui utilizator..."
+
+#: ../storage/xc-commands.c:402
+msgid "_Remove Other User's Folder"
+msgstr "Elimină directo_rul altui utilizator"
+
+#: ../storage/xc-commands.c:408
+msgid "Add to _Favorites"
+msgstr "Adăugă în _Favorite"
+
+#: ../storage/xc-commands.c:412
+msgid "Remove from Fa_vorites"
+msgstr "Elimină din Fa_vorite"
+
+#.
+#. E_POPUP_ITEM (N_("_Permissions..."),
+#. G_CALLBACK (do_permissions),
+#. XC_FOLDER_COMMAND_MASK_PERMISSIONS),
+#.
+#: ../storage/xc-commands.c:423
+msgid "_Show Folder Sizes"
+msgstr "Vizualizează dimen_siunile directoarelor"
+
+#: ../storage/ximian-connector-setup.c:44
+msgid "Ximian Connector for Microsoft Exchange Setup Tool"
+msgstr "Unealta de configurare a Ximian Connector pentru Microsoft Exchange"
+
+#: ../storage/ximian-connector.xml.h:1
+msgid "Change your Exchange server password"
+msgstr "Schimbă parola dvs. pe serverul Exchange"
+
+#: ../storage/ximian-connector.xml.h:2
+msgid "Folder _Size"
+msgstr "Dimeni_sune director"
+
+#: ../storage/ximian-connector.xml.h:3
+msgid "Get the size of personal folders"
+msgstr "Preia dimensiunea directoarelor personale"
+
+#: ../storage/ximian-connector.xml.h:4
+msgid "Subscribe to _Other User's Folder..."
+msgstr "Ab_onare la directorul altui uilizator..."
+
+#: ../storage/ximian-connector.xml.h:5
+msgid "Subscribe to a folder belonging to some other user on the server"
+msgstr "Abonare la un director aparţinând altui utilizator de pe server"
+
+#: ../storage/ximian-connector.xml.h:6
+#  crap, trebuie corectat cu numele corectat
+msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgstr "Dezabonare de la un director adăugat cu \"Abonare la directorul altui utilizator\""
+
+#: ../storage/ximian-connector.xml.h:7
+msgid "View or change your Exchange calendar delegation settings"
+msgstr "Vizualizează sau modifică configuraţiile delegărilor calendarului dvs. Exchange"
+
+#: ../storage/ximian-connector.xml.h:8
+msgid "View or change your Out-of-Office status and autoreply message"
+msgstr "Vizualizează sau modifică starea de absenţă de la birou şi mesajul automat de răspuns"
+
+#: ../storage/ximian-connector.xml.h:9
+msgid "_Change Exchange Password..."
+msgstr "S_chimbă parola Exchange..."
+
+#: ../storage/ximian-connector.xml.h:10
+msgid "_Delegation Assistant"
+msgstr "Asistent de _delegare"
+
+#: ../storage/ximian-connector.xml.h:11
+msgid "_Out of Office Assistant"
+msgstr "Asistent de absenţă de la bir_ou"
+
+#: ../storage/ximian-connector.xml.h:12
+#  crap
+msgid "_Unsubscribe from Other User's Folder"
+msgstr "Dezabonare de la directorul altui _utilizator"
+
