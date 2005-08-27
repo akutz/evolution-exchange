@@ -1657,8 +1657,6 @@ init (ECalBackendExchange *cbex)
 		g_str_hash, g_str_equal,
 		g_free, (GDestroyNotify)icaltimezone_free);
 
-	cbex->priv->mode = CAL_MODE_LOCAL;
-
 	cbex->priv->set_lock = g_mutex_new ();
 	cbex->priv->open_lock = g_mutex_new ();
 
