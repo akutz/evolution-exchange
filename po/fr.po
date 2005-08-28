@@ -7,38 +7,34 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: evolution-exchange 2.1.6\n"
+"Project-Id-Version: evolution-exchange 2.3.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-04 21:48+0100\n"
-"PO-Revision-Date: 2005-03-04 21:44+0100\n"
+"POT-Creation-Date: 2005-08-28 15:28+0200\n"
+"PO-Revision-Date: 2005-08-28 15:19+0200\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: addressbook/e-book-backend-exchange.c:1804
-#: addressbook/e-book-backend-gal.c:1351 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-exchange.c:1857
+#: addressbook/e-book-backend-gal.c:1499 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Recherche en cours..."
 
-#: addressbook/e-book-backend-gal.c:243
+#: addressbook/e-book-backend-gal.c:267
 msgid "Reconnecting to LDAP server..."
 msgstr "Reconnexion au serveur LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1225
+#: addressbook/e-book-backend-gal.c:1363
 msgid "Receiving LDAP search results..."
 msgstr "Réception des résultats de la recherche LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1372
+#: addressbook/e-book-backend-gal.c:1522
 msgid "Error performing search"
 msgstr "Erreur lors de la recherche"
 
-#: calendar/e-cal-backend-exchange.c:277
-msgid "Folder not marked for offline support"
-msgstr "Dossier non marqué pour une utilisation hors-ligne"
-
-#: calendar/e-cal-backend-exchange-calendar.c:1800
+#: calendar/e-cal-backend-exchange-calendar.c:1748
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -47,71 +43,78 @@ msgstr ""
 "Impossible de planifier la ressource « %s » pour des réunions récurrentes.\n"
 "Vous devez réserver chaque réunion séparément."
 
-#: calendar/e-cal-backend-exchange-calendar.c:1819
+#: calendar/e-cal-backend-exchange-calendar.c:1766
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "La ressource « %s » est occupée pendant la période sélectionnée."
 
-#: camel/camel-exchange-folder.c:219
+#: camel/camel-exchange-folder.c:223
 msgid "Can only expunge in Deleted Items folder"
 msgstr ""
 "Vous ne pouvez effectuer des suppressions que dans le dossier Éléments "
 "supprimés"
 
-#: camel/camel-exchange-folder.c:243
+#: camel/camel-exchange-folder.c:247
 msgid "No Subject"
 msgstr "Aucun objet"
 
-#: camel/camel-exchange-folder.c:370
+#: camel/camel-exchange-folder.c:374
 msgid "This message is not available in offline mode."
 msgstr "Ce message n'est pas disponible en mode hors-ligne."
 
-#: camel/camel-exchange-folder.c:605
+#: camel/camel-exchange-folder.c:609
 msgid "Moving messages"
 msgstr "Déplacement des messages"
 
-#: camel/camel-exchange-folder.c:606
+#: camel/camel-exchange-folder.c:610
 msgid "Copying messages"
 msgstr "Copie des messages"
 
-#: camel/camel-exchange-folder.c:938
+#: camel/camel-exchange-folder.c:981
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Impossible de créer le répertoire %s : %s"
 
-#: camel/camel-exchange-folder.c:948
+#: camel/camel-exchange-folder.c:991
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Impossible de charger le résumé pour %s"
 
-#: camel/camel-exchange-folder.c:956
+#: camel/camel-exchange-folder.c:999
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Impossible de créer le cache pour %s"
 
-#: camel/camel-exchange-folder.c:966
+#: camel/camel-exchange-folder.c:1009
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Impossible de créer le journal pour %s"
 
-#: camel/camel-exchange-folder.c:1006
+#: camel/camel-exchange-folder.c:1054
 msgid "Scanning for changed messages"
 msgstr "Recherche des messages modifiés"
 
-#: camel/camel-exchange-folder.c:1032
+#: camel/camel-exchange-folder.c:1080
 msgid "Fetching summary information for new messages"
 msgstr "Récupération des informations de résumé des nouveaux messages"
 
-#: camel/camel-exchange-journal.c:279
+#: camel/camel-exchange-journal.c:339
 msgid "No folder name found\n"
 msgstr "Aucun nom de dossier trouvé\n"
 
-#: camel/camel-exchange-journal.c:342
+#: camel/camel-exchange-journal.c:372 mail/mail-stub-exchange.c:2527
+#: mail/mail-stub-exchange.c:2570 mail/mail-stub-exchange.c:2605
+#: mail/mail-stub-exchange.c:2632 mail/mail-stub-exchange.c:2679
+#: mail/mail-stub-exchange.c:2701
+msgid "Folder doesn't exist"
+msgstr "Le dossier n'existe pas"
+
+#: camel/camel-exchange-journal.c:436
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
 "Impossible d'ajouter le message en mode hors-ligne : cache indisponible"
 
-#: camel/camel-exchange-journal.c:358
+#: camel/camel-exchange-journal.c:452
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Impossible d'ajouter le message en mode hors-ligne : %s"
@@ -119,73 +122,73 @@ msgstr "Impossible d'ajouter le message en mode hors-ligne : %s"
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: camel/camel-exchange-provider.c:46
+#: camel/camel-exchange-provider.c:44
 msgid "Windows User_name:"
 msgstr "Nom d'_utilisateur Windows :"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: camel/camel-exchange-provider.c:51
+#: camel/camel-exchange-provider.c:49
 msgid "Global Address List / Active Directory"
 msgstr "Liste d'adresses globale / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: camel/camel-exchange-provider.c:55
+#: camel/camel-exchange-provider.c:53
 msgid "Global Catalog server name:"
 msgstr "Nom du serveur du catalogue global :"
 
-#: camel/camel-exchange-provider.c:57
+#: camel/camel-exchange-provider.c:55
 #, c-format
 msgid "Limit number of GAL responses: %s"
 msgstr "Limiter le nombre de réponses de liste d'adresses globale : %s"
 
-#: camel/camel-exchange-provider.c:60
+#: camel/camel-exchange-provider.c:58
 msgid "Options"
 msgstr "Options"
 
-#: camel/camel-exchange-provider.c:62
+#: camel/camel-exchange-provider.c:60
 #, c-format
 msgid "Password Expiry Warning period: %s"
 msgstr "Période d'avertissement de l'expiration du mot de passe : %s"
 
-#: camel/camel-exchange-provider.c:64
+#: camel/camel-exchange-provider.c:62
 msgid "Automatically synchronize account locally"
 msgstr "Synchroniser automatiquement en local le compte"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:68
+#: camel/camel-exchange-provider.c:65
 msgid "Apply filters to new messages in Inbox on this server"
 msgstr ""
 "Appliquer les filtres aux nouveaux messages dans la boîte de réception sur "
 "ce serveur"
 
-#: camel/camel-exchange-provider.c:70
+#: camel/camel-exchange-provider.c:67
 msgid "Check new messages for Junk contents"
 msgstr "Vérifier si les nouveaux messages contiennent du contenu indésirable"
 
-#: camel/camel-exchange-provider.c:72
+#: camel/camel-exchange-provider.c:69
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr ""
 "Vérifier uniquement la présence de courrier indésirable dans le dossier "
 "Boîte de réception"
 
-#: camel/camel-exchange-provider.c:88
+#: camel/camel-exchange-provider.c:79
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: camel/camel-exchange-provider.c:90
+#: camel/camel-exchange-provider.c:81
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr ""
 "Pour gérer les messages électroniques (et d'autres données) sur les serveurs "
 "Microsoft Exchange"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:106
+#: camel/camel-exchange-provider.c:97
 msgid "Secure Password"
 msgstr "Mot de passe sécurisé"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:109
+#: camel/camel-exchange-provider.c:100
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -193,11 +196,11 @@ msgstr ""
 "Cette option permet d'établir une connexion au serveur Exchange en utilisant "
 "l'authentification par mot de passe sécurisé (NTLM) ."
 
-#: camel/camel-exchange-provider.c:117
+#: camel/camel-exchange-provider.c:108
 msgid "Plaintext Password"
 msgstr "Mot de passe en texte brut"
 
-#: camel/camel-exchange-provider.c:119
+#: camel/camel-exchange-provider.c:110
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -205,38 +208,59 @@ msgstr ""
 "Cette option utilisera l'authentification par mot de passe en texte brut "
 "standard pour se connecter au serveur Exchange."
 
-#: camel/camel-exchange-store.c:260
+#: camel/camel-exchange-store.c:308
 #, c-format
 msgid "Exchange server %s"
 msgstr "Serveur Exchange %s"
 
-#: camel/camel-exchange-store.c:263
+#: camel/camel-exchange-store.c:311
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Compte Exchange de %s sur %s"
 
-#: camel/camel-exchange-store.c:290
+#: camel/camel-exchange-store.c:352 storage/exchange-account.c:869
+#, c-format
+msgid "%sEnter password for %s"
+msgstr "%sSaisissez le mode de passe de %s"
+
+#: camel/camel-exchange-store.c:403
 msgid "Evolution Exchange backend process"
 msgstr "Processus secondaire Evolution Exchange"
 
-#: camel/camel-exchange-store.c:349
+#: camel/camel-exchange-store.c:444 storage/exchange-account.c:1384
+msgid ""
+"Could not authenticate to server. (Password incorrect?)\n"
+"\n"
+msgstr ""
+"Échec d'authentification auprès du serveur. (mot de passe incorrect ?)\n"
+"\n"
+
+#: camel/camel-exchange-store.c:486
 #, c-format
 msgid "No such folder %s"
 msgstr "Aucun dossier %s"
 
-#: camel/camel-exchange-store.c:477
+#: camel/camel-exchange-store.c:555
+msgid "Cannot subscribe folder in offline mode."
+msgstr "Impossible de s'abonner en mode hors-ligne."
+
+#: camel/camel-exchange-store.c:572
+msgid "Cannot unsubscribe folder in offline mode."
+msgstr "Impossible de se désabonner en mode hors-ligne."
+
+#: camel/camel-exchange-store.c:677
 msgid "Cannot get folder info in offline mode."
 msgstr "Impossible d'obtenir les informations du dossier en mode hors-ligne."
 
-#: camel/camel-exchange-store.c:539
+#: camel/camel-exchange-store.c:748
 msgid "Cannot create folder in offline mode."
 msgstr "Impossible de créer un dossier en mode hors-ligne."
 
-#: camel/camel-exchange-store.c:566
+#: camel/camel-exchange-store.c:775
 msgid "Cannot delete folder in offline mode."
 msgstr "Impossible de supprimer un dossier en mode hors-ligne."
 
-#: camel/camel-exchange-store.c:582
+#: camel/camel-exchange-store.c:791
 msgid "Cannot rename folder in offline mode."
 msgstr "Impossible de renommer un dossier en mode hors-ligne."
 
@@ -286,7 +310,7 @@ msgstr "Connexion à %s perdue"
 msgid "Error communicating with %s: %s"
 msgstr "Erreur de communication avec %s : %s"
 
-#: lib/e2k-autoconfig.c:1426 storage/exchange-autoconfig-wizard.c:224
+#: lib/e2k-autoconfig.c:1471 storage/exchange-autoconfig-wizard.c:211
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -295,7 +319,7 @@ msgstr ""
 "Impossible de se connecter au serveur Exchange.\n"
 "Vérifiez l'URL (essayez « %s » au lieu de « %s ») et recommencez."
 
-#: lib/e2k-autoconfig.c:1435 storage/exchange-autoconfig-wizard.c:232
+#: lib/e2k-autoconfig.c:1480 storage/exchange-autoconfig-wizard.c:219
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -303,7 +327,7 @@ msgstr ""
 "Serveur Exchange introuvable.\n"
 "Vérifiez le nom du serveur et recommencez."
 
-#: lib/e2k-autoconfig.c:1445 storage/exchange-autoconfig-wizard.c:241
+#: lib/e2k-autoconfig.c:1490 storage/exchange-autoconfig-wizard.c:228
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -311,7 +335,7 @@ msgstr ""
 "Échec d'authentification auprès du serveur Exchange.\n"
 "Vérifiez le nom d'utilisateur et le mot de passe et recommencez."
 
-#: lib/e2k-autoconfig.c:1453 storage/exchange-autoconfig-wizard.c:248
+#: lib/e2k-autoconfig.c:1498 storage/exchange-autoconfig-wizard.c:235
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -326,7 +350,7 @@ msgstr ""
 "Il se peut que vous deviez spécifier le nom de domaine Windows dans votre "
 "nom d'utilisateur (ex. : « MON-DOMAINE\\%s »)."
 
-#: lib/e2k-autoconfig.c:1466 storage/exchange-autoconfig-wizard.c:260
+#: lib/e2k-autoconfig.c:1511 storage/exchange-autoconfig-wizard.c:247
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -334,7 +358,8 @@ msgstr ""
 "Données OWA introuvables à l'URL indiquée.\n"
 "Vérifiez l'URL et recommencez."
 
-#: lib/e2k-autoconfig.c:1474
+#: lib/e2k-autoconfig.c:1520
+#, c-format
 msgid ""
 "Ximian Connector requires access to certain functionality on the Exchange "
 "Server that appears to be disabled or blocked.  (This is usually "
@@ -343,19 +368,18 @@ msgid ""
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:\n"
-"http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
-"html "
+"%s"
 msgstr ""
-"Le connecteur Ximian doit accéder à une fonctionnalité du serveur Exchange, "
-"qui semble désactivée ou bloquée.  (Cette situation n'est généralement pas "
-"intentionnelle.)  L'administrateur Exchange doit activer cette "
-"fonctionnalité pour que vous puissiez utiliser le connecteur Ximian.\n"
+"Le connecteur Ximian doit accéder à certaines fonctionnalités du serveur "
+"Exchange qui semble désactivées ou bloquées.  (Cette situation n'est "
+"généralement pas intentionnelle.)  L'administrateur Exchange doit activer "
+"cette fonctionnalité pour que vous puissiez utiliser le connecteur Ximian.\n"
 "\n"
 "Pour savoir quelles informations vous devez fournir à l'administrateur "
-"Exchange, veuillez suivre le lien ci-dessous :http://support.novell.com/cgi-"
-"bin/search/searchtid.cgi?/ximian/ximian328.html "
+"Exchange, veuillez suivre le lien ci-dessous :\n"
+"%s"
 
-#: lib/e2k-autoconfig.c:1490 storage/exchange-autoconfig-wizard.c:288
+#: lib/e2k-autoconfig.c:1536 storage/exchange-autoconfig-wizard.c:275
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
@@ -364,7 +388,7 @@ msgstr ""
 "Exchange 5.5. Le connecteur Ximian prend uniquement en charge Microsoft "
 "Exchange 2000 et 2003."
 
-#: lib/e2k-autoconfig.c:1499 storage/exchange-autoconfig-wizard.c:301
+#: lib/e2k-autoconfig.c:1545 storage/exchange-autoconfig-wizard.c:288
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -373,12 +397,12 @@ msgstr ""
 "produite. Vérifiez l'URL, le nom d'utilisateur et le mot de passe, puis "
 "recommencez."
 
-#: lib/e2k-autoconfig.c:1524
+#: lib/e2k-autoconfig.c:1567
 #, c-format
 msgid "Enter password for %s"
 msgstr "Saisissez le mode de passe de %s"
 
-#: lib/e2k-autoconfig.c:1525 storage/exchange-account.c:858
+#: lib/e2k-autoconfig.c:1568 storage/exchange-account.c:874
 msgid "Enter password"
 msgstr "Saisissez le mot de passe"
 
@@ -432,84 +456,88 @@ msgstr "Sélectionner un utilisateur"
 msgid "Addressbook..."
 msgstr "Carnet d'adresses..."
 
-#: mail/mail-stub-exchange.c:231
+#: mail/mail-stub-exchange.c:257
 msgid "No such folder"
 msgstr "Ce dossier n'existe pas"
 
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2320
-#: mail/mail-stub-exchange.c:2358 mail/mail-stub-exchange.c:2418
-#: shell/e-storage.c:573 storage/xc-commands.c:320
+#. FIXME: should be this, but string freeze freezes me to do so.
+#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
+#: mail/mail-stub-exchange.c:280 mail/mail-stub-exchange.c:1378
+#: mail/mail-stub-exchange.c:2504 mail/mail-stub-exchange.c:2543
+#: mail/mail-stub-exchange.c:2609 mail/mail-stub-exchange.c:2653
+#: mail/mail-stub-exchange.c:2717 shell/e-storage.c:573
+#: storage/xc-commands.c:319
 msgid "Permission denied"
 msgstr "Autorisation refusée"
 
-#: mail/mail-stub-exchange.c:546
-msgid "No such folder."
-msgstr "Ce dossier n'existe pas."
-
-#: mail/mail-stub-exchange.c:555
-msgid "Could not create folder."
-msgstr "Impossible de créer le dossier."
-
-#: mail/mail-stub-exchange.c:603 mail/mail-stub-exchange.c:621
+#: mail/mail-stub-exchange.c:578 mail/mail-stub-exchange.c:600
 msgid "Could not open folder: Permission denied"
 msgstr "Impossible d'ouvrir le dossier : Autorisation refusée"
 
-#: mail/mail-stub-exchange.c:607 mail/mail-stub-exchange.c:720
+#: mail/mail-stub-exchange.c:584 mail/mail-stub-exchange.c:705
 msgid "Could not open folder"
 msgstr "Impossible d'ouvrir le dossier"
 
-#: mail/mail-stub-exchange.c:775
+#: mail/mail-stub-exchange.c:747
+msgid "No such folder."
+msgstr "Ce dossier n'existe pas."
+
+#: mail/mail-stub-exchange.c:756
+msgid "Could not create folder."
+msgstr "Impossible de créer le dossier."
+
+#: mail/mail-stub-exchange.c:834
 msgid "Could not open Deleted Items folder"
 msgstr "Impossible d'ouvrir le dossier Éléments supprimés"
 
-#: mail/mail-stub-exchange.c:1105 mail/mail-stub-exchange.c:1146
+#: mail/mail-stub-exchange.c:1163 mail/mail-stub-exchange.c:1204
 msgid "Could not get new messages"
 msgstr "Impossible d'obtenir les nouveaux messages"
 
-#: mail/mail-stub-exchange.c:1311
+#: mail/mail-stub-exchange.c:1374
 msgid "Could not empty Deleted Items folder"
 msgstr "Impossible de vider le dossier Éléments supprimés"
 
-#: mail/mail-stub-exchange.c:1383
+#: mail/mail-stub-exchange.c:1451
 msgid "Could not append message; mailbox is over quota"
 msgstr ""
 "Impossible d'ajouter le message ; la boîte aux lettres a dépassé le quota de "
 "stockage"
 
-#: mail/mail-stub-exchange.c:1384
+#: mail/mail-stub-exchange.c:1452
 msgid "Could not append message"
 msgstr "Impossible d'ajouter le message"
 
-#: mail/mail-stub-exchange.c:1867
+#: mail/mail-stub-exchange.c:1994
 msgid "No such message"
 msgstr "Ce message n'existe pas"
 
-#: mail/mail-stub-exchange.c:1920
+#: mail/mail-stub-exchange.c:2047
 msgid "Message has been deleted"
 msgstr "Le message a été supprimé"
 
-#: mail/mail-stub-exchange.c:1922
+#: mail/mail-stub-exchange.c:2049
 msgid "Error retrieving message"
 msgstr "Erreur lors de la récupération du message"
 
-#: mail/mail-stub-exchange.c:1964
+#: mail/mail-stub-exchange.c:2091
 msgid "Mailbox does not support full-text searching"
 msgstr ""
 "La boîte aux lettres ne prend pas en charge la recherche de texte intégral"
 
-#: mail/mail-stub-exchange.c:2062
+#: mail/mail-stub-exchange.c:2189
 msgid "Unable to move/copy messages"
 msgstr "Impossible de déplacer/copier les messages"
 
-#: mail/mail-stub-exchange.c:2235
+#: mail/mail-stub-exchange.c:2419
 msgid "No mail submission URI for this mailbox"
 msgstr "Aucun URI de soumission de messages pour cette boîte aux lettres"
 
-#: mail/mail-stub-exchange.c:2271
+#: mail/mail-stub-exchange.c:2455
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Le serveur n'acceptera pas le courrier via le transport Exchange"
 
-#: mail/mail-stub-exchange.c:2273
+#: mail/mail-stub-exchange.c:2457
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -518,7 +546,7 @@ msgstr ""
 "Votre compte n'est pas autorisé à utiliser <%s>\n"
 "comme adresse d'expéditeur."
 
-#: mail/mail-stub-exchange.c:2285
+#: mail/mail-stub-exchange.c:2469
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -526,24 +554,20 @@ msgstr ""
 "Impossible d'envoyer le message.\n"
 "Il se peut que votre compte ait dépassé le quota de stockage."
 
-#: mail/mail-stub-exchange.c:2289
+#: mail/mail-stub-exchange.c:2473
 msgid "Could not send message"
 msgstr "Impossible d'envoyer le message"
 
-#: mail/mail-stub-exchange.c:2312 mail/mail-stub-exchange.c:2363
-#: mail/mail-stub-exchange.c:2422 shell/e-storage.c:557
-#: storage/xc-commands.c:324
+#: mail/mail-stub-exchange.c:2496 mail/mail-stub-exchange.c:2548
+#: mail/mail-stub-exchange.c:2613 mail/mail-stub-exchange.c:2658
+#: mail/mail-stub-exchange.c:2722 shell/e-storage.c:557
+#: storage/xc-commands.c:323
 msgid "Generic error"
 msgstr "Erreur générique"
 
-#: mail/mail-stub-exchange.c:2316 storage/xc-commands.c:314
+#: mail/mail-stub-exchange.c:2500 storage/xc-commands.c:313
 msgid "Folder already exists"
 msgstr "Le dossier existe déjà"
-
-#: mail/mail-stub-exchange.c:2343 mail/mail-stub-exchange.c:2385
-#: mail/mail-stub-exchange.c:2414
-msgid "Folder doesn't exist"
-msgstr "Le dossier n'existe pas"
 
 #: shell/e-folder-creation-dialog.c:138
 #, c-format
@@ -635,34 +659,34 @@ msgstr "Un dossier nommé « %s » existe déjà. Veuillez choisir un autre no
 #. It would be nice to insensitivize the OK button appropriately
 #. instead of doing this, but unfortunately we can't do this for the
 #. Bonobo control.
-#: shell/e-folder-misc-dialogs.c:439
+#: shell/e-folder-misc-dialogs.c:451
 msgid "Please select a user."
 msgstr "Veuillez sélectionner un utilisateur."
 
-#: shell/e-folder-misc-dialogs.c:539
+#: shell/e-folder-misc-dialogs.c:553
 msgid "Opening Folder"
 msgstr "Ouverture du dossier"
 
-#: shell/e-folder-misc-dialogs.c:545
+#: shell/e-folder-misc-dialogs.c:559
 #, c-format
 msgid "Opening Folder \"%s\""
 msgstr "Ouverture du dossier « %s »"
 
-#: shell/e-folder-misc-dialogs.c:550
+#: shell/e-folder-misc-dialogs.c:564
 #, c-format
 msgid "in \"%s\" ..."
 msgstr "dans « %s » ..."
 
-#: shell/e-folder-misc-dialogs.c:617
+#: shell/e-folder-misc-dialogs.c:631
 #, c-format
 msgid "Could not open other user's folder: %s."
 msgstr "Impossible d'ouvrir un dossier d'un autre utilisateur : %s"
 
-#: shell/e-folder-misc-dialogs.c:667
+#: shell/e-folder-misc-dialogs.c:681
 msgid "Cannot find the specified other user's folder."
 msgstr "Le dossier spécifié d'un autre utilisateur est introuvable."
 
-#: shell/e-folder-misc-dialogs.c:699
+#: shell/e-folder-misc-dialogs.c:713
 #, c-format
 msgid ""
 "Cannot unsubscribe from folder:\n"
@@ -671,12 +695,12 @@ msgstr ""
 "Impossible d'annuler l'abonnement au dossier :\n"
 "%s"
 
-#: shell/e-folder-misc-dialogs.c:752
+#: shell/e-folder-misc-dialogs.c:766
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "Voulez-vous vraiment annuler l'abonnement au dossier \"%s\" ?"
 
-#: shell/e-folder-misc-dialogs.c:766
+#: shell/e-folder-misc-dialogs.c:780
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "Annuler l'abonnement à \"%s\""
@@ -761,7 +785,7 @@ msgstr "Impossible de créer un dossier avec ce nom"
 msgid "This operation cannot be performed in off-line mode"
 msgstr "Cette opération ne peut pas s'exécuter hors-ligne"
 
-#: shell/e-storage.c:587 storage/exchange-account.c:1434
+#: shell/e-storage.c:587 storage/exchange-account.c:1473
 msgid "Unknown error"
 msgstr "Erreur inconnue"
 
@@ -795,23 +819,19 @@ msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:568
+#: storage/exchange-account.c:584
 #, c-format
 msgid "%s's Folders"
 msgstr "Dossiers de %s"
 
-#: storage/exchange-account.c:853
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%sSaisissez le mode de passe de %s"
-
-#: storage/exchange-account.c:1043
+#. email id is not proper, we return instead of trying nt_domain
+#: storage/exchange-account.c:1069
 msgid "Cannot change password due to configuration problems"
 msgstr ""
 "Impossible de modifier le mot de passe en raison de problèmes de "
 "configuration"
 
-#: storage/exchange-account.c:1058
+#: storage/exchange-account.c:1092
 msgid ""
 "Server rejected password because it is too weak.\n"
 "Try again with a different password."
@@ -820,42 +840,34 @@ msgstr ""
 "suffisante.\n"
 "Recommencez avec un autre mot de passe."
 
-#: storage/exchange-account.c:1063
+#: storage/exchange-account.c:1097
 msgid "Could not change password"
 msgstr "Impossible de changer le mot de passe"
 
-#: storage/exchange-account.c:1159
+#: storage/exchange-account.c:1190
 msgid "Personal Folders"
 msgstr "Dossiers personnels"
 
-#: storage/exchange-account.c:1174
+#: storage/exchange-account.c:1205
 msgid "Favorite Public Folders"
 msgstr "Dossiers publics favoris"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1191
+#: storage/exchange-account.c:1222
 msgid "All Public Folders"
 msgstr "Tous les dossiers publics"
 
 #. i18n: Outlookism
-#: storage/exchange-account.c:1205
+#: storage/exchange-account.c:1236
 msgid "Global Address List"
 msgstr "Liste d'adresses globale"
 
-#: storage/exchange-account.c:1292
+#: storage/exchange-account.c:1326
 msgid "Exchange Account is offline. Cannot display folders\n"
 msgstr ""
 "Le compte Exchange est hors-ligne. Impossible d'afficher les dossiers\n"
 
-#: storage/exchange-account.c:1345
-msgid ""
-"Could not authenticate to server. (Password incorrect?)\n"
-"\n"
-msgstr ""
-"Échec d'authentification auprès du serveur. (mot de passe incorrect ?)\n"
-"\n"
-
-#: storage/exchange-account.c:1350
+#: storage/exchange-account.c:1389
 msgid ""
 "Could not authenticate to server.\n"
 "\n"
@@ -875,12 +887,12 @@ msgstr ""
 "Ou bien vous avez saisi un mot de passe incorrect.\n"
 "\n"
 
-#: storage/exchange-account.c:1392
+#: storage/exchange-account.c:1431
 #, c-format
 msgid "Mailbox for %s is not on this server."
 msgstr "La boîte aux lettres de %s ne figure pas sur ce serveur."
 
-#: storage/exchange-account.c:1397
+#: storage/exchange-account.c:1436
 #, c-format
 msgid ""
 "The server '%s' is running Exchange 5.5 and is\n"
@@ -889,7 +901,7 @@ msgstr ""
 "Le serveur « %s » exécute Exchange 5.5 et il\n"
 "n'est donc pas compatible avec le connecteur Ximian"
 
-#: storage/exchange-account.c:1404
+#: storage/exchange-account.c:1443
 #, c-format
 msgid ""
 "Could not find Exchange Web Storage System at %s.\n"
@@ -901,26 +913,51 @@ msgstr ""
 "boîte de\n"
 "dialogue Configuration de compte."
 
-#: storage/exchange-account.c:1412
+#: storage/exchange-account.c:1451
 #, c-format
 msgid "No mailbox for user %s on %s.\n"
 msgstr "Aucune boîte aux lettres pour l'utilisateur %s sur %s.\n"
 
-#: storage/exchange-account.c:1418 storage/exchange-account.c:1424
-#: storage/exchange-account.c:1432
+#: storage/exchange-account.c:1457 storage/exchange-account.c:1463
+#: storage/exchange-account.c:1471
 #, c-format
 msgid "Could not connect to server %s: %s"
 msgstr "Impossible de se connecter au serveur %s : %s"
 
-#: storage/exchange-account.c:1420
+#: storage/exchange-account.c:1459
 msgid "Could not resolve hostname"
 msgstr "Impossible de résoudre le nom d'hôte"
 
-#: storage/exchange-account.c:1426
+#: storage/exchange-account.c:1465
 msgid "Network error"
 msgstr "Erreur réseau"
 
-#: storage/exchange-autoconfig-wizard.c:267
+#: storage/exchange-account.c:1529
+#, c-format
+msgid ""
+"You have exceeded your quota of %d %s for storing mails on this server. Your "
+"current usage is : %.0f %s."
+msgstr ""
+"Vous avez dépassé votre quota de %d %s pour stocker vos courriels sur ce "
+"serveur. Votre usage actuel est : %.0f %s."
+
+#: storage/exchange-account.c:1532
+msgid "You will not be able to either send or receive mails now\n"
+msgstr "Vous ne serez pas capable d'envoyer ou de recevoir des courriels\n"
+
+#: storage/exchange-account.c:1535
+msgid ""
+"You will not be able to send mails till you clear up some space by deleting "
+"some mails.\n"
+msgstr ""
+"Vous ne pourrez pas envoyer de courriels tant que vous n'aurez pas dégagé de "
+"l'espace disque en supprimant quelques courriels.\n"
+
+#: storage/exchange-account.c:1538
+msgid "Try to clear up some space by deleting some mails.\n"
+msgstr "Essayez de dégager un peu d'espace en supprimant quelques courriels.\n"
+
+#: storage/exchange-autoconfig-wizard.c:254
 msgid ""
 "Ximian Connector requires access to certain functionality on the Exchange "
 "Server that appears to be disabled or blocked.  (This is usually "
@@ -938,7 +975,7 @@ msgstr ""
 "Pour savoir quelles informations vous devez fournir à l'administrateur "
 "Exchange, veuillez suivre le lien ci-dessous :"
 
-#: storage/exchange-autoconfig-wizard.c:345
+#: storage/exchange-autoconfig-wizard.c:332
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -949,7 +986,7 @@ msgstr ""
 "que vous deviez revenir en arrière et spécifier le nom de domaine Windows "
 "dans votre nom d'utilisateur (ex. : \"MON-DOMAINE\\%s\")."
 
-#: storage/exchange-autoconfig-wizard.c:352
+#: storage/exchange-autoconfig-wizard.c:339
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -957,12 +994,12 @@ msgstr ""
 "Connexion au serveur spécifié impossible.\n"
 "Veuillez vérifier le nom du serveur et recommencez."
 
-#: storage/exchange-autoconfig-wizard.c:389
-#: storage/exchange-autoconfig-wizard.c:393
+#: storage/exchange-autoconfig-wizard.c:376
+#: storage/exchange-autoconfig-wizard.c:380
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: storage/exchange-autoconfig-wizard.c:477
+#: storage/exchange-autoconfig-wizard.c:445
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -970,8 +1007,7 @@ msgstr ""
 "Erreur de configuration du système.\n"
 "Création du compte impossible."
 
-#: storage/exchange-autoconfig-wizard.c:491
-#: storage/exchange-config-listener.c:604
+#: storage/exchange-autoconfig-wizard.c:459
 msgid "You may only configure a single Exchange account"
 msgstr "Vous ne pouvez configurer qu'un seul compte Exchange"
 
@@ -1128,35 +1164,6 @@ msgid "Your current password has expired. Please change your password now."
 msgstr ""
 "Votre mot de passe actuel a expiré. Veuillez changer le mot de passe "
 "maintenant."
-
-#: storage/exchange-component.c:322
-msgid "Mail"
-msgstr "Messagerie"
-
-#: storage/exchange-component.c:325 storage/exchange-hierarchy-foreign.c:251
-msgid "Contacts"
-msgstr "Contacts"
-
-#: storage/exchange-component.c:329 storage/exchange-hierarchy-foreign.c:259
-msgid "Tasks"
-msgstr "Tâches"
-
-#: storage/exchange-component.c:332 storage/exchange-hierarchy-foreign.c:250
-msgid "Calendar"
-msgstr "Agenda"
-
-#: storage/exchange-config-listener.c:781
-msgid ""
-"Changes to Exchange account configuration will take\n"
-"place after you quit and restart Evolution."
-msgstr ""
-"Les modifications apportées à la configuration de votre compte Exchange "
-"entreront en vigueur\n"
-"après avoir quitté et redémarré Evolution."
-
-#: storage/exchange-config-listener.c:827
-msgid "The Exchange account will be removed when you quit Evolution"
-msgstr "Le compte Exchange sera supprimé lorsque vous quitterez Evolution"
 
 #: storage/exchange-delegates-user.c:191
 #: storage/exchange-permissions-dialog.c:179
@@ -1315,17 +1322,25 @@ msgstr "_Boîte de réception :"
 msgid "_Tasks:"
 msgstr "_Tâches :"
 
-#: storage/exchange-folder-size.c:259
+#: storage/exchange-folder-size.c:322
 msgid "Folder Name"
 msgstr "Nom du dossier"
 
-#: storage/exchange-folder-size.c:263
+#: storage/exchange-folder-size.c:326
 msgid "Folder Size"
 msgstr "Taille du dossier"
 
 #: storage/exchange-folder-tree.glade.h:1
 msgid "Exchange Folder Tree"
 msgstr "Arborescence des dossiers Exchange"
+
+#: storage/exchange-hierarchy-foreign.c:250
+msgid "Calendar"
+msgstr "Agenda"
+
+#: storage/exchange-hierarchy-foreign.c:251
+msgid "Contacts"
+msgstr "Contacts"
 
 #: storage/exchange-hierarchy-foreign.c:252
 msgid "Deleted Items"
@@ -1354,6 +1369,10 @@ msgstr "Boîte d'envoi"
 #: storage/exchange-hierarchy-foreign.c:258
 msgid "Sent Items"
 msgstr "Éléments envoyés"
+
+#: storage/exchange-hierarchy-foreign.c:259
+msgid "Tasks"
+msgstr "Tâches"
 
 #: storage/exchange-migrate.c:57
 msgid "Migrating Exchange Folders..."
@@ -1579,11 +1598,11 @@ msgstr "Lire des éléments"
 msgid "Role: "
 msgstr "Rôle : "
 
-#: storage/exchange-storage.c:337
+#: storage/exchange-storage.c:338
 msgid "Connecting..."
 msgstr "Connexion en cours..."
 
-#: storage/main.c:166
+#: storage/main.c:165
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Connecteur Ximian pour Microsoft Exchange"
 
@@ -1591,16 +1610,16 @@ msgstr "Connecteur Ximian pour Microsoft Exchange"
 msgid "Account Name"
 msgstr "Nom du compte"
 
-#: storage/xc-commands.c:317
+#: storage/xc-commands.c:316
 msgid "Folder does not exist"
 msgstr "Le dossier n'existe pas"
 
-#: storage/xc-commands.c:344
+#: storage/xc-commands.c:343
 #, c-format
 msgid "Could not add favorite: %s"
 msgstr "Impossible d'ajouter le favori : %s"
 
-#: storage/xc-commands.c:360
+#: storage/xc-commands.c:359
 #, c-format
 msgid "Could not remove favorite: %s"
 msgstr "Impossible de supprimer le favori : %s"
@@ -1614,39 +1633,40 @@ msgstr "Impossible de supprimer le favori : %s"
 #. G_CALLBACK (do_copy_folder),
 #. XC_FOLDER_COMMAND_MASK_MOVECOPY),
 #.
-#: storage/xc-commands.c:386
+#: storage/xc-commands.c:385
 msgid "_Rename Folder..."
 msgstr "_Renommer le dossier..."
 
-#: storage/xc-commands.c:392
+#: storage/xc-commands.c:391
 msgid "_New Folder..."
 msgstr "_Nouveau dossier..."
 
-#: storage/xc-commands.c:395
+#: storage/xc-commands.c:394
 msgid "_Delete Folder"
 msgstr "_Supprimer le dossier"
 
-#: storage/xc-commands.c:400
+#: storage/xc-commands.c:399
 msgid "_Add Other User's Folder..."
 msgstr "A_jouter un dossier d'un autre utilisateur..."
 
-#: storage/xc-commands.c:403
+#: storage/xc-commands.c:402
 msgid "_Remove Other User's Folder"
 msgstr "_Supprimer un dossier d'un autre utilisateur"
 
-#: storage/xc-commands.c:409
+#: storage/xc-commands.c:408
 msgid "Add to _Favorites"
 msgstr "Ajouter aux _Favoris"
 
-#: storage/xc-commands.c:413
+#: storage/xc-commands.c:412
 msgid "Remove from Fa_vorites"
 msgstr "Supprimer du dossier Fa_voris"
 
-#: storage/xc-commands.c:420
-msgid "_Permissions..."
-msgstr "_Autorisations..."
-
-#: storage/xc-commands.c:424
+#.
+#. E_POPUP_ITEM (N_("_Permissions..."),
+#. G_CALLBACK (do_permissions),
+#. XC_FOLDER_COMMAND_MASK_PERMISSIONS),
+#.
+#: storage/xc-commands.c:423
 msgid "_Show Folder Sizes"
 msgstr "_Afficher la taille des dossiers"
 
