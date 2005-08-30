@@ -1,3 +1,12 @@
+2005-08-30  Arunprakash  <arunp@novell.com>
+
+	* camel/camel-exchange-store.c (exchange_get_folder) : Insert into the
+	hash table only when the folder construction succeeds.
+	* mail/mail-stub-exchange.c (get_folder_online) : Changed the return
+	type to indicate failure.
+	(get_folder) : Returns on failure of online code.
+	** Fixes #314573.
+	
 2005-08-28  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* configure.in : Updated the version number to 2.4.0

@@ -133,7 +133,7 @@ static void storage_folder_changed (EFolder *folder, gpointer user_data);
 						    gpointer data); */
 static void folder_update_linestatus (gpointer key, gpointer value, gpointer data);
 static void free_folder (gpointer value);
-static void get_folder_online (MailStubExchangeFolder *mfld, gboolean background);
+static gboolean get_folder_online (MailStubExchangeFolder *mfld, gboolean background);
 static void
 class_init (GObjectClass *object_class)
 {
@@ -551,7 +551,7 @@ static const char *open_folder_props[] = {
 };
 static const int n_open_folder_props = sizeof (open_folder_props) / sizeof (open_folder_props[0]);
 
-static void
+static gboolean
 get_folder_online (MailStubExchangeFolder *mfld, gboolean background)
 {
 	MailStubExchangeMessage *mmsg;
@@ -577,13 +577,13 @@ get_folder_online (MailStubExchangeFolder *mfld, gboolean background)
 		if (!background) {
 			got_folder_error (mfld, _("Could not open folder: Permission denied"));
 		}
-		return;
+		return FALSE;
 	} else if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 		g_warning ("got_folder_props: %d", status);
 		if (!background) {
 			got_folder_error (mfld, _("Could not open folder"));
 		}
-		return;
+		return FALSE;
 	}
 
 	if (nresults) {
@@ -599,7 +599,7 @@ get_folder_online (MailStubExchangeFolder *mfld, gboolean background)
 		if (!background) {
 			got_folder_error (mfld, _("Could not open folder: Permission denied"));
 		}
-		return;
+		return FALSE;
 	}
 	readonly = (mfld->access & (MAPI_ACCESS_MODIFY | MAPI_ACCESS_CREATE_CONTENTS)) == 0;
 
@@ -704,7 +704,7 @@ get_folder_online (MailStubExchangeFolder *mfld, gboolean background)
 		if (!background) {
 			got_folder_error (mfld, _("Could not open folder"));
 		}
-		return;
+		return FALSE;
 	}
 
 	/* Discard remaining messages that no longer exist. */
@@ -725,6 +725,7 @@ get_folder_online (MailStubExchangeFolder *mfld, gboolean background)
 	if (background) {
 		mail_stub_push_changes (stub);
 	}
+	return TRUE;
 }
 
 static void
@@ -794,7 +795,9 @@ get_folder (MailStub *stub, const char *name, gboolean create,
 	}
 	exchange_component_is_offline (global_exchange_component, &mode);
 	if (mode == ONLINE_MODE) {
-		get_folder_online (mfld, FALSE);
+		if (!get_folder_online (mfld, FALSE)) {
+			return;
+		}
 	}
 	g_signal_connect (mfld->folder, "changed",
 			  G_CALLBACK (storage_folder_changed), mfld);
