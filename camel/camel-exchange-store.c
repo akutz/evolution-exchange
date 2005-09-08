@@ -499,22 +499,27 @@ exchange_get_folder (CamelStore *store, const char *folder_name,
 		g_free (folder_dir);
 		return folder;
 	}
-	g_mutex_unlock (exch->folders_lock);
 
 	folder = (CamelFolder *)camel_object_new (CAMEL_EXCHANGE_FOLDER_TYPE);
+	g_hash_table_insert (exch->folders, g_strdup (folder_name), folder);
+	g_mutex_unlock (exch->folders_lock);
 	
 	if (!camel_exchange_folder_construct (folder, store, folder_name,
 					      flags, folder_dir, ((CamelOfflineStore *) store)->state,
 					      exch->stub, ex)) {
+		gchar *key;
+		g_mutex_lock (exch->folders_lock);
+		if (g_hash_table_lookup_extended (exch->folders, folder_name,
+						  (gpointer *) &key, NULL)) {
+			g_hash_table_remove (exch->folders, key);
+			g_free (key);
+		}
+		g_mutex_unlock (exch->folders_lock);
 		g_free (folder_dir);
 		camel_object_unref (CAMEL_OBJECT (folder));
 		return NULL;
 	}
 	g_free (folder_dir);
-
-	g_mutex_lock (exch->folders_lock);
-	g_hash_table_insert (exch->folders, g_strdup (folder_name), folder);
-	g_mutex_unlock (exch->folders_lock);
 
 	/* If you move messages into a folder you haven't visited yet, it
 	 * may create and then unref the folder. That's a waste. So don't

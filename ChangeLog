@@ -1,3 +1,11 @@
+2005-09-08  Arunprakash  <arunp@novell.com>
+
+	* camel/camel-exchange-store.c (exchange_get_folder) : Reverted the
+	changes made for #314573. Now remove the folder from the hash table
+	if the folder construction fails, as the inserted is needed for
+	processing the notifications (includes new mail) from the mail stub.
+	** Fixes #315342.
+	
 2005-08-30  Arunprakash  <arunp@novell.com>
 
 	* camel/camel-exchange-store.c (exchange_get_folder) : Insert into the
