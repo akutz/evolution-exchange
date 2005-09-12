@@ -118,7 +118,7 @@ http_status_to_pas (E2kHTTPStatus status)
 
 	switch (status) {
 	case E2K_HTTP_UNAUTHORIZED:
-		return GNOME_Evolution_Addressbook_AuthenticationFailed;
+		return GNOME_Evolution_Addressbook_PermissionDenied;
 	case E2K_HTTP_CANT_CONNECT:
 		return GNOME_Evolution_Addressbook_RepositoryOffline;
 	default:
