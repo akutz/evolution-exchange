@@ -214,6 +214,13 @@ exchange_expunge (CamelFolder *folder, CamelException *ex)
 	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
 	CamelFolder *trash;
 	GPtrArray *uids;
+	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (folder->parent_store);
+
+	if (!camel_exchange_store_connected (store, ex)) {
+		camel_exception_set (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
+				     _("This operation cannot be performed in off-line mode"));
+		return;
+	}
 
 	trash = camel_store_get_trash (folder->parent_store, NULL);
 	if (trash)
