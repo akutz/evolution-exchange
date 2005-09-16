@@ -2,7 +2,6 @@ INCLUDES =							\
 	-DG_LOG_DOMAIN=\"evolution-exchange-storage\"		\
 	$(LIBEXCHANGE_CFLAGS)				\
 	$(EXCHANGE_STORAGE_CFLAGS)				\
-	$(KRB5_CFLAGS)						\
 	$(LDAP_CFLAGS)						\
 	-DPREFIX=\"$(prefix)\"					\
 	-DSYSCONFDIR=\""$(sysconfdir)"\" 			\
@@ -53,8 +52,7 @@ evolution_exchange_storage_LDADD =				\
 	$(top_builddir)/camel/camel-stub-marshal.lo		\
 	$(LDAP_LIBS)						\
 	$(EXCHANGE_STORAGE_LIBS)				\
-	$(LIBEXCHANGE_LIBS)				\
-	$(KRB5_LIBS)
+	$(LIBEXCHANGE_LIBS)
 
 
 ximian_connector_setup_SOURCES =				\
@@ -68,8 +66,7 @@ ximian_connector_setup_SOURCES =				\
 ximian_connector_setup_LDADD =					\
 	$(LDAP_LIBS)						\
 	$(EXCHANGE_STORAGE_LIBS)				\
-	$(LIBEXCHANGE_LIBS)				\
-	$(KRB5_LIBS)
+	$(LIBEXCHANGE_LIBS)
 
 install-exec-local: ximian-connector-setup
 	$(mkinstalldirs) $(DESTDIR)$(bindir)
@@ -87,8 +84,7 @@ migr_test_SOURCES =						\
 migr_test_LDADD = 						\
 	$(LDAP_LIBS)						\
 	$(EXCHANGE_STORAGE_LIBS)				\
-	$(LIBEXCHANGE_LIBS)				\
-	$(KRB5_LIBS)
+	$(LIBEXCHANGE_LIBS)
 
 serverdir = $(libdir)/bonobo/servers
 server_in_files = GNOME_Evolution_Exchange_Storage.server.in.in

@@ -1,3 +1,11 @@
+2005-09-16  Irene Huang <Irene.Huang@sun.com>
+
+	* camel/Makefile.am: Removed KRB5_LIBS from libcamelexchange_la_LIBADD.
+	* configure.in: Removed the Kerberos section for KRB5 configurations.
+	* docs/reference/Makefile.am: Removed KRB5_LIBS from GTKDOC_LIBS.
+	* storage/Makefile.am: Remove KRB5_CFLAGS from -DG_LOG_DOMAIN, KRB5_LIBS	from evolution_exchange_storage_LDADD, ximian_connector_setup_LDADD and
+	migr_test_LDADD.
+
 2005-09-15  Arunprakash  <arunp@novell.com>
 
 	* camel/camel-exchange-folder.c (exchange_expunge) : Checks for

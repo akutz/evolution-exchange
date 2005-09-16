@@ -39,7 +39,6 @@ libcamelexchange_la_LDFLAGS = -avoid-version -module
 libcamelexchange_la_LIBADD = 			\
 	$(LDAP_LIBS)				\
 	$(LIBEXCHANGE_LIBS)			\
-	$(EXCHANGE_STORAGE_LIBS)		\
-	$(KRB5_LIBS)
+	$(EXCHANGE_STORAGE_LIBS)
 
 EXTRA_DIST = libcamelexchange.urls

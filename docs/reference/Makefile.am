@@ -43,7 +43,6 @@ INCLUDES =					\
 
 GTKDOC_LIBS =					\
 	$(LIBEXCHANGE_LIBS)			\
-	$(KRB5_LIBS)				\
 	$(LDAP_LIBS)
 
 # Extra options to supply to gtkdoc-mkdb
