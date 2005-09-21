@@ -841,13 +841,13 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 
 	/*add object*/
 	e_cal_backend_exchange_add_object (E_CAL_BACKEND_EXCHANGE (cbexc), location, lastmod, icalcomp);
+	*uid = g_strdup (temp_comp_uid);	
 		
 	g_object_unref (comp);
 	g_free (lastmod);
 	g_free (location);
 	e2k_properties_free (props);
 
-	*uid = g_strdup (temp_comp_uid);	
 	return GNOME_Evolution_Calendar_Success;
 }
 
