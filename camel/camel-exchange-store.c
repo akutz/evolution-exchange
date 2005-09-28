@@ -613,18 +613,28 @@ make_folder_info (CamelExchangeStore *exch, char *name, char *uri,
 	d(printf ("make folder info : %s flags : %d\n", name, flags));
 	CamelFolderInfo *info;
 	const char *path;
+	gchar **components;
+	char *new_uri;
 
 	path = strstr (uri, "://");
 	if (!path)
 		return NULL;
-	path = strchr (path + 3, '/');
+	path = strstr (path + 3, "/;");
 	if (!path)
 		return NULL;
 
+	components = g_strsplit (uri, "/;", 2);
+	if (components[0] && components[1])
+		new_uri = g_strdup_printf ("%s/%s", components[0], components[1]);
+	else
+		new_uri = g_strdup (uri);
+	g_strfreev (components);
+
+	d(printf ("new_uri is : %s\n", new_uri));
 	info = g_new0 (CamelFolderInfo, 1);
 	info->name = name;
-	info->uri = uri;
-	info->full_name = g_strdup (path + 1);
+	info->uri = new_uri;
+	info->full_name = g_strdup (path + 2);
 	info->unread = unread_count;
 
 	if (flags & CAMEL_STUB_FOLDER_NOSELECT)

@@ -39,11 +39,17 @@
 #include <libedataserver/e-source.h>
 #include <libedataserver/e-source-list.h>
 #include <libedataserver/e-source-group.h>
+#include <libedataserver/e-xml-hash-utils.h>
 
 #include <camel/camel-url.h>
 
+#include <sys/types.h>
+#include <dirent.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+
 
 struct _ExchangeConfigListenerPrivate {
 	GConfClient *gconf;
@@ -185,6 +191,99 @@ is_active_exchange_account (EAccount *account)
 }
 
 static void 
+update_foreign_uri (const char *path, const char *account_uri)
+{
+	char *file_path, *phy_uri, *foreign_uri, *new_phy_uri;
+	struct stat file_stat;
+	GHashTable *old_props = NULL;
+	xmlDoc *old_doc, *new_doc = NULL;
+
+	if (!path)
+		return;
+
+	file_path = g_build_filename (path, "hierarchy.xml", NULL);
+	if (stat (file_path, &file_stat) < 0)
+		goto cleanup;
+
+	old_doc = xmlParseFile (file_path);
+	if (!old_doc)
+		goto cleanup;
+
+	old_props = e_xml_to_hash (old_doc, E_XML_HASH_TYPE_PROPERTY);
+	xmlFreeDoc (old_doc);
+
+	phy_uri = g_hash_table_lookup (old_props, "physical_uri_prefix");
+	if (!phy_uri)
+		goto cleanup;
+
+	foreign_uri = strstr (phy_uri, "://");
+	if (!foreign_uri)
+		goto cleanup;
+	foreign_uri = strchr (foreign_uri + 3, '/');
+	if (!foreign_uri)
+		goto cleanup;
+
+	if ((foreign_uri + 1) && (*(foreign_uri + 1) == ';'))
+		goto cleanup;
+
+	new_phy_uri = g_strdup_printf ("exchange://%s/;%s", account_uri, foreign_uri + 1);
+	g_hash_table_remove (old_props, "physical_uri_prefix");
+	g_hash_table_insert (old_props, (char *)g_strdup ("physical_uri_prefix"), new_phy_uri);
+
+	new_doc = e_xml_from_hash (old_props, E_XML_HASH_TYPE_PROPERTY, "foreign-hierarchy");
+	xmlSaveFile (file_path, new_doc);
+
+	xmlFreeDoc (new_doc);
+	g_free (new_phy_uri);
+cleanup:
+	g_free (file_path);
+	g_hash_table_destroy (old_props);
+	return;
+}
+
+static void
+migrate_foreign_hierarchy (ExchangeAccount *account)
+{
+	DIR *d;
+	struct dirent *dentry;
+	char *dir;
+
+	d = opendir (account->storage_dir);
+	if (d) {
+		while ((dentry = readdir (d))) {
+			if (!strchr (dentry->d_name, '@'))
+				continue;
+			dir = g_strdup_printf ("%s/%s", account->storage_dir, 
+							dentry->d_name);
+			update_foreign_uri (dir, account->account_filename);
+			g_free (dir);
+		}
+		closedir (d);
+	}
+}
+
+static void
+ex_set_relative_uri (ESource *source, const char *url)
+{
+	const char *rel_uri = e_source_peek_relative_uri (source);
+	char *folder_name;
+	char *new_rel_uri;
+
+	if (!rel_uri)
+		return;
+
+	folder_name = strchr (rel_uri, '/');
+	if (!folder_name)
+		return;
+
+	if ((folder_name + 1) && *(folder_name + 1) == ';') 
+		return;
+
+	new_rel_uri = g_strdup_printf ("%s;%s", url, folder_name + 1);
+	e_source_set_relative_uri (source, new_rel_uri);
+}
+
+static void 
 migrate_account_esource (EAccount *account, 
 		        FolderType folder_type)
 {
@@ -196,13 +295,15 @@ migrate_account_esource (EAccount *account,
 	const char *user_name, *authtype;
 	GConfClient *client;
 	ESourceList *source_list = NULL;
-	E2kUri *e2kuri;
+	CamelURL *camel_url;
+	char *url_string;
 
-	e2kuri = e2k_uri_new (account->source->url);
-	if (!e2kuri)
+	camel_url = camel_url_new (account->source->url, NULL);
+	if (!camel_url)
 		return;
-	user_name = e2kuri->user;
-	authtype = e2kuri->authmech;
+	user_name = camel_url->user;
+	authtype  = camel_url->authmech;
+	url_string = camel_url_to_string (camel_url, CAMEL_URL_HIDE_PASSWORD | CAMEL_URL_HIDE_PARAMS);
 
 	if (!user_name) 
 		return;
@@ -234,6 +335,7 @@ migrate_account_esource (EAccount *account,
 			for( ; sources != NULL; sources = g_slist_next (sources)) {
 				source = E_SOURCE (sources->data);
 
+				ex_set_relative_uri (source, url_string + strlen ("exchange://"));
 				e_source_set_property (source, "username", user_name);
 				e_source_set_property (source, "auth-domain", "Exchange");
 				if (authtype)
@@ -260,6 +362,7 @@ exchange_config_listener_migrate_esources (ExchangeConfigListener *config_listen
 	migrate_account_esource (account, EXCHANGE_CALENDAR_FOLDER);
 	migrate_account_esource (account, EXCHANGE_TASKS_FOLDER);
 	migrate_account_esource (account, EXCHANGE_CONTACTS_FOLDER);
+	migrate_foreign_hierarchy (config_listener->priv->exchange_account);
 }
 
 static void
