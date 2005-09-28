@@ -1456,8 +1456,12 @@ append_message (MailStub *stub, const char *folder_name, guint32 flags,
 		return;
 	}
 
-	if (flags & MAIL_STUB_MESSAGE_SEEN && location)
-		mark_one_read (mse->ctx, location, TRUE);
+	if (location) {
+		if (flags & MAIL_STUB_MESSAGE_SEEN)
+			mark_one_read (mse->ctx, location, TRUE);
+		else
+			mark_one_read (mse->ctx, location, FALSE);
+	}
 
 	if (ru_header && *ru_header == '<' && strlen (ru_header) > 3)
 		repl_uid = g_strndup (ru_header + 1, strlen (ru_header) - 2);
