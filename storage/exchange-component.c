@@ -46,6 +46,7 @@
 #define PARENT_TYPE bonobo_object_get_type ()
 static BonoboObjectClass *parent_class = NULL;
 static gboolean idle_do_interactive (gpointer user_data);
+static void e_filename_make_safe (gchar *string);
 static void exchange_component_update_accounts (ExchangeComponent *component,
 							gboolean status);
 static void ex_migrate_esources (ExchangeComponent *component,
@@ -68,6 +69,8 @@ struct ExchangeComponentPrivate {
 	GSList *accounts;
 
 	GSList *views;
+
+	GMutex *comp_lock;
 
 	GNOME_Evolution_Listener evo_listener;
 };
@@ -162,20 +165,26 @@ impl_upgradeFromVersion (PortableServer_Servant servant,
 {
 	ExchangeComponent *component = EXCHANGE_COMPONENT (bonobo_object_from_servant (servant));
 	ExchangeAccount *account;
-	const gchar *base_directory=NULL;
+	gchar *base_directory=NULL;
+	char *account_filename;
 
 	d(printf("upgradeFromVersion %d %d %d\n", major, minor, revision));
 
 	account = exchange_component_get_account_for_uri (component, NULL);
 	if (account) {
+		/*
 		base_directory = g_build_filename (g_get_home_dir (),
 						   ".evolution",
 						   "exchange",
 						   account->account_filename,
 						   NULL);
+		*/
+		base_directory = g_strdup (account->storage_dir);
+		e_filename_make_safe (base_directory);
+		account_filename = strrchr (base_directory, '/') + 1;
 
 		exchange_migrate(major, minor, revision, 
-				 base_directory, account->account_filename);
+				 base_directory, account_filename);
 				 	
 		ex_migrate_esources (component, major, minor, revision);			
 	}
@@ -310,6 +319,30 @@ exchange_component_update_accounts (ExchangeComponent *component,
 	}
 }
 
+/* SURF : Picked this from gal/util/e-util.c */
+/* This only makes a filename safe for usage as a filename.  It still may have shell meta-characters in it. */
+static void
+e_filename_make_safe (gchar *string)
+{
+	gchar *p, *ts;
+	gunichar c;
+	
+	g_return_if_fail (string != NULL);
+	p = string;
+
+	while(p && *p) {
+		c = g_utf8_get_char (p);
+		ts = p;
+		p = g_utf8_next_char (p);
+		if (!g_unichar_isprint(c) || ( c < 0xff && strchr (" /'\"`&();|<>$%{}!", c&0xff ))) {
+			while (ts<p) 	
+				*ts++ = '_';
+		}
+	}
+}
+
+
+
 static void
 new_connection (MailStubListener *listener, int cmd_fd, int status_fd,
 		ExchangeComponentAccount *baccount)
@@ -348,14 +381,17 @@ config_listener_account_created (ExchangeConfigListener *config_listener,
 	ExchangeComponent *component = user_data;
 	ExchangeComponentPrivate *priv = component->priv;
 	ExchangeComponentAccount *baccount;
-	char *path;
+	char *path, *account_filename;
 
 	baccount = g_new0 (ExchangeComponentAccount, 1);
 	baccount->account = g_object_ref (account);
 
+	account_filename = strrchr (account->storage_dir, '/') + 1;
+	e_filename_make_safe (account_filename);
+	
 	path = g_strdup_printf ("/tmp/.exchange-%s/%s",
 				g_get_user_name (),
-				account->account_filename);
+				account_filename);
 	baccount->msl = mail_stub_listener_new (path);
 	g_signal_connect (baccount->msl, "new_connection",
 			  G_CALLBACK (new_connection), baccount);
@@ -442,6 +478,8 @@ exchange_component_init (ExchangeComponent *component)
 	priv = component->priv = g_new0 (ExchangeComponentPrivate, 1);
 
        	priv->config_listener = exchange_config_listener_new ();
+	priv->comp_lock = g_mutex_new ();
+
 	g_signal_connect (priv->config_listener, "exchange_account_created",
 			  G_CALLBACK (config_listener_account_created),
 			  component);
@@ -476,7 +514,9 @@ exchange_component_get_account_for_uri (ExchangeComponent *component,
 		if (exchange_account_get_folder (baccount->account, uri)) {
 			return baccount->account;
 		} else {
+			g_mutex_lock (priv->comp_lock);
 			exchange_account_rescan_tree (baccount->account);
+			g_mutex_unlock (priv->comp_lock);
 			if (exchange_account_get_folder (baccount->account, uri))
 				return baccount->account;
 		}

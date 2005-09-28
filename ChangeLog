@@ -1,3 +1,18 @@
+2005-09-28  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* camel/camel-exchange-store.c (make_folder_info): Strip the semicolon
+	from the uri. And also create the folder path properly.
+	* storage/exchange-component.c (impl_upgradeFromVersion)
+	(config_listener_account_created): Create the account_filename
+	separately now.
+	(exchange_component_get_account_for_uri): Synchronise the rescan tree
+	with a lock
+	* storage/exchange-config-listener.c (update_foreign_uri)
+	(migrate_foreign_hierarchy)(ex_set_relative_uri) : Added new
+	(migrate_account_esource) : Update the new relative uri.
+	(exchange_config_listener_migrate_esources) : Take care of foreign uri
+	as well.
+
 2005-09-28  Arunprakash  <arunp@novell.com>
 
 	* mail/mail-stub-exchange.c (append_message) : Unread flag has to be
