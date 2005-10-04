@@ -507,10 +507,10 @@ exchange_get_folder (CamelStore *store, const char *folder_name,
 	if (!camel_exchange_folder_construct (folder, store, folder_name,
 					      flags, folder_dir, ((CamelOfflineStore *) store)->state,
 					      exch->stub, ex)) {
-		gchar *key;
+		gpointer key;
 		g_mutex_lock (exch->folders_lock);
 		if (g_hash_table_lookup_extended (exch->folders, folder_name,
-						  (gpointer *) &key, NULL)) {
+						  &key, NULL)) {
 			g_hash_table_remove (exch->folders, key);
 			g_free (key);
 		}

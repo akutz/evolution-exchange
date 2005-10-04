@@ -1712,7 +1712,6 @@ set_mode (EBookBackend *backend, int mode)
 {
 	EBookBackendGAL *be = E_BOOK_BACKEND_GAL (backend);
 	EBookBackendGALPrivate *bepriv;
-	ExchangeAccountResult result;
 
 	bepriv = be->priv;
 

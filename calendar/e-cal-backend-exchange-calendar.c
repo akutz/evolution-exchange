@@ -171,6 +171,12 @@ add_vevent (ECalBackendExchange *cbex,
 	return (status == GNOME_Evolution_Calendar_Success);
 }
 
+static void
+free_attach_list (gpointer data, gpointer user_data)
+{
+	g_free (data);
+}
+
 static gboolean
 add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod, 
 	  const char *uid, const char *body, int len, int receipts)
@@ -200,8 +206,10 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 	ical_body = g_strndup (start, end - start);
 	icalcomp = icalparser_parse_string (ical_body);
 	g_free (ical_body);
-	if (!icalcomp)
-		return FALSE;
+	if (!icalcomp) {
+		status = FALSE;
+		goto cleanup;
+	}
 
 	kind = icalcomponent_isa (icalcomp);
 	if (kind == ICAL_VEVENT_COMPONENT) {
@@ -212,17 +220,21 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 		}
 		if (attachment_list) {
 			ecomp = e_cal_component_new ();
-			e_cal_component_set_icalcomponent (ecomp, icalcomponent_new_clone (icalcomp));
+			/* 
+			   We don't have to _clone_ the icalcomponent, since we are anyway getting
+			   a cloned icalcomponent back after setting the attachment_list.
+			   This fixes a memory leak.
+			*/
+			e_cal_component_set_icalcomponent (ecomp, icalcomp);
 			e_cal_component_set_attachment_list (ecomp, attachment_list);
 			icalcomp = icalcomponent_new_clone (e_cal_component_get_icalcomponent (ecomp));
 			g_object_unref (ecomp);
 		}
 		status = add_vevent (cbex, href, lastmod, icalcomp);
-		icalcomponent_free (icalcomp);
-		return status;
+		goto cleanup;
 	} else if (kind != ICAL_VCALENDAR_COMPONENT) {
-		icalcomponent_free (icalcomp);
-		return FALSE;
+		status = FALSE;
+		goto cleanup;
 	}
 
 	add_timezones_from_comp (cbex, icalcomp);
@@ -247,9 +259,17 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 		subcomp = icalcomponent_get_next_component (
 			icalcomp, ICAL_VEVENT_COMPONENT);
 	}
-	icalcomponent_free (icalcomp);
+	status = TRUE;
 
-	return TRUE;
+ cleanup:
+	if (icalcomp)
+		icalcomponent_free (icalcomp);
+	if (attachment_list) {
+		g_slist_foreach (attachment_list, free_attach_list, NULL);
+		g_slist_free (attachment_list);
+		attachment_list = NULL;
+	}
+	return status;
 }
 
 static const char *event_properties[] = {
