@@ -95,7 +95,7 @@ show_error_dialog()
 	GtkWidget *error_dialog;
 	gchar *err_string;
 	
-	err_string = g_strdup_printf ( _("Warning: Evolution Could not migrate "
+	err_string = g_strdup_printf ( _("Warning: Evolution could not migrate "
 		  			"all the Exchange account data from "
 		  			"the version %d.%d.%d. \nThe data "
 		  			"hasn't been deleted, but will not be "
