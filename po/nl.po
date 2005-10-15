@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-01 05:56+0000\n"
+"POT-Creation-Date: 2005-10-15 12:06+0200\n"
 "PO-Revision-Date: 2005-07-18 00:49+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Ducth <vertaling@vrijschrift.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 # niets mee hoeft te doen. Het is een indicatie dat het programma bezig is.
 # Het tonen van de status is al een aanduiding dat het programma 'bezig is'
 # Vandaar dat het hier in deze meldingen wordt weggelaten.
-#: ../addressbook/e-book-backend-exchange.c:1837
+#: ../addressbook/e-book-backend-exchange.c:1857
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Zoeken..."
@@ -50,7 +50,7 @@ msgstr "Fout bij uitvoeren zoekopdracht"
 
 # doelbron?
 # mogelijk weglaten: niet in staat om 's' te plannen voor...
-#: ../calendar/e-cal-backend-exchange-calendar.c:1665
+#: ../calendar/e-cal-backend-exchange-calendar.c:1768
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -61,63 +61,62 @@ msgstr ""
 
 # ... is bezet in de geselecteerde periode
 # ... is bezet tijdens 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1684
+#: ../calendar/e-cal-backend-exchange-calendar.c:1786
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "De bron '%s' is bezet gedurende de geselecteerde periode."
 
-# niet aangewezen voor offline ondersteuning
-#: ../calendar/e-cal-backend-exchange.c:310
-msgid "Folder not marked for offline support"
-msgstr "Map niet gemarkeerd voor offline ondersteuning"
+#: ../camel/camel-exchange-folder.c:221 ../shell/e-storage.c:585
+msgid "This operation cannot be performed in off-line mode"
+msgstr "Deze bewerking kan niet uitgevoerd worden in de off-line stand"
 
-#: ../camel/camel-exchange-folder.c:223
+#: ../camel/camel-exchange-folder.c:230
 msgid "Can only expunge in Deleted Items folder"
 msgstr "Kan alleen weggooien in de map Verwijderde items"
 
-#: ../camel/camel-exchange-folder.c:247
+#: ../camel/camel-exchange-folder.c:254
 msgid "No Subject"
 msgstr "Geen onderwerp"
 
 # ...wanneer u off-line bent
-#: ../camel/camel-exchange-folder.c:374
+#: ../camel/camel-exchange-folder.c:381
 msgid "This message is not available in offline mode."
 msgstr "Dit bericht is niet beschikbaar in de off-line stand."
 
-#: ../camel/camel-exchange-folder.c:609
+#: ../camel/camel-exchange-folder.c:616
 msgid "Moving messages"
 msgstr "Berichten verplaatsen"
 
-#: ../camel/camel-exchange-folder.c:610
+#: ../camel/camel-exchange-folder.c:617
 msgid "Copying messages"
 msgstr "Berichten kopiëren"
 
-#: ../camel/camel-exchange-folder.c:940
+#: ../camel/camel-exchange-folder.c:988
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Kon map %s niet aanmaken: %s"
 
-#: ../camel/camel-exchange-folder.c:950
+#: ../camel/camel-exchange-folder.c:998
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Kon samenvatting voor %s niet laden"
 
-#: ../camel/camel-exchange-folder.c:958
+#: ../camel/camel-exchange-folder.c:1006
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Kon cache-buffer voor %s niet aanmaken"
 
-#: ../camel/camel-exchange-folder.c:968
+#: ../camel/camel-exchange-folder.c:1016
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Kon journaal voor %s niet aanmaken"
 
 # aangepaste berichten
-#: ../camel/camel-exchange-folder.c:1013
+#: ../camel/camel-exchange-folder.c:1061
 msgid "Scanning for changed messages"
 msgstr "Scannen voor veranderde berichten"
 
-#: ../camel/camel-exchange-folder.c:1039
+#: ../camel/camel-exchange-folder.c:1087
 msgid "Fetching summary information for new messages"
 msgstr "Samenvatting voor nieuwe berichten ophalen"
 
@@ -125,9 +124,10 @@ msgstr "Samenvatting voor nieuwe berichten ophalen"
 msgid "No folder name found\n"
 msgstr "Geem mapnaam gevonden\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2391
-#: ../mail/mail-stub-exchange.c:2433 ../mail/mail-stub-exchange.c:2462
-#: ../mail/mail-stub-exchange.c:2489 ../mail/mail-stub-exchange.c:2537
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2534
+#: ../mail/mail-stub-exchange.c:2577 ../mail/mail-stub-exchange.c:2612
+#: ../mail/mail-stub-exchange.c:2639 ../mail/mail-stub-exchange.c:2686
+#: ../mail/mail-stub-exchange.c:2708
 msgid "Folder doesn't exist"
 msgstr "Map bestaat niet"
 
@@ -196,22 +196,22 @@ msgid "Only check for Junk messages in the Inbox folder"
 msgstr "Aleen Inbox controleren op nieuwe berichten"
 
 # hoofdletters omdat het een programmanaam is van MS
-#: ../camel/camel-exchange-provider.c:76
+#: ../camel/camel-exchange-provider.c:79
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:78
+#: ../camel/camel-exchange-provider.c:81
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr ""
 "Voor het werken met mail (en andere data) op Microsoft Exchange servers"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:94
+#: ../camel/camel-exchange-provider.c:97
 msgid "Secure Password"
 msgstr "Secure Password"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:100
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -221,11 +221,11 @@ msgstr ""
 
 # bloot wachtwoord
 # platte tekst
-#: ../camel/camel-exchange-provider.c:105
+#: ../camel/camel-exchange-provider.c:108
 msgid "Plaintext Password"
 msgstr "Wachtwoord in gewone tekst"
 
-#: ../camel/camel-exchange-provider.c:107
+#: ../camel/camel-exchange-provider.c:110
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -233,47 +233,60 @@ msgstr ""
 "Met deze optie zal verbinding met de Exchange server worden gemaakt door aan "
 "te melden met een wachtwoord in gewone tekst."
 
-#: ../camel/camel-exchange-store.c:281
+#: ../camel/camel-exchange-store.c:308
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange server %s"
 
-#: ../camel/camel-exchange-store.c:284
+#: ../camel/camel-exchange-store.c:311
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Exchange account voor %s op %s"
 
-#: ../camel/camel-exchange-store.c:334
+#: ../camel/camel-exchange-store.c:352 ../storage/exchange-account.c:869
+#, c-format
+msgid "%sEnter password for %s"
+msgstr "%sGeef wachtwoord voor %s"
+
+#: ../camel/camel-exchange-store.c:403
 msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange backend proces"
 
+#: ../camel/camel-exchange-store.c:444 ../storage/exchange-account.c:1384
+msgid ""
+"Could not authenticate to server. (Password incorrect?)\n"
+"\n"
+msgstr ""
+"Aanmeldingscontrole bij server mislukt. (Wachtwoord onjuist?)\n"
+"\n"
+
 # een dergelijke map bestaat niet
-#: ../camel/camel-exchange-store.c:382
+#: ../camel/camel-exchange-store.c:486
 #, c-format
 msgid "No such folder %s"
 msgstr "Map %s bestaat niet"
 
-#: ../camel/camel-exchange-store.c:451
+#: ../camel/camel-exchange-store.c:563
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Kan map in offline toestand niet abonneren."
 
-#: ../camel/camel-exchange-store.c:468
+#: ../camel/camel-exchange-store.c:580
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Kan abonnement op map in offline toestand niet opzeggen."
 
-#: ../camel/camel-exchange-store.c:574
+#: ../camel/camel-exchange-store.c:695
 msgid "Cannot get folder info in offline mode."
 msgstr "Kan map-info in offline toestand niet verkrijgen."
 
-#: ../camel/camel-exchange-store.c:655
+#: ../camel/camel-exchange-store.c:766
 msgid "Cannot create folder in offline mode."
 msgstr "Kan map in offline toestand niet aanmaken"
 
-#: ../camel/camel-exchange-store.c:682
+#: ../camel/camel-exchange-store.c:793
 msgid "Cannot delete folder in offline mode."
 msgstr "Kan de map in offline toestand niet verwijderen."
 
-#: ../camel/camel-exchange-store.c:698
+#: ../camel/camel-exchange-store.c:809
 msgid "Cannot rename folder in offline mode."
 msgstr "Kan map in offline toestand niet hernoemen."
 
@@ -481,91 +494,92 @@ msgid "Addressbook..."
 msgstr "Adresboek..."
 
 # een dergelijke map bestaat niet
-#: ../mail/mail-stub-exchange.c:256
+#: ../mail/mail-stub-exchange.c:257
 msgid "No such folder"
 msgstr "Map bestaat niet"
 
-#: ../mail/mail-stub-exchange.c:273 ../mail/mail-stub-exchange.c:2368
-#: ../mail/mail-stub-exchange.c:2406 ../mail/mail-stub-exchange.c:2466
-#: ../mail/mail-stub-exchange.c:2510 ../mail/mail-stub-exchange.c:2558
-#: ../shell/e-storage.c:573 ../storage/xc-commands.c:319
+#. FIXME: should be this, but string freeze freezes me to do so.
+#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
+#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1381
+#: ../mail/mail-stub-exchange.c:2511 ../mail/mail-stub-exchange.c:2550
+#: ../mail/mail-stub-exchange.c:2616 ../mail/mail-stub-exchange.c:2660
+#: ../mail/mail-stub-exchange.c:2724 ../shell/e-storage.c:573
+#: ../storage/xc-commands.c:319
 msgid "Permission denied"
 msgstr "Toegang geweigerd"
 
-# een dergelijke map bestaat niet
-#: ../mail/mail-stub-exchange.c:571
-msgid "No such folder."
-msgstr "Map bestaat niet."
-
-#: ../mail/mail-stub-exchange.c:580
-msgid "Could not create folder."
-msgstr "Kon map niet aanmaken."
-
-#: ../mail/mail-stub-exchange.c:628 ../mail/mail-stub-exchange.c:646
-#: ../mail/mail-stub-exchange.c:2688 ../mail/mail-stub-exchange.c:2706
+#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
 msgid "Could not open folder: Permission denied"
 msgstr "Kon map niet openen: Toegang geweigerd"
 
-#: ../mail/mail-stub-exchange.c:632 ../mail/mail-stub-exchange.c:745
-#: ../mail/mail-stub-exchange.c:2692
+#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:705
 msgid "Could not open folder"
 msgstr "Kon map niet openen"
 
-#: ../mail/mail-stub-exchange.c:800
+# een dergelijke map bestaat niet
+#: ../mail/mail-stub-exchange.c:748
+msgid "No such folder."
+msgstr "Map bestaat niet."
+
+#: ../mail/mail-stub-exchange.c:757
+msgid "Could not create folder."
+msgstr "Kon map niet aanmaken."
+
+#: ../mail/mail-stub-exchange.c:837
 msgid "Could not open Deleted Items folder"
 msgstr "Kon de map Verwijderde items niet openen"
 
 # verkrijgen
 # ophalen is begrijpelijker
-#: ../mail/mail-stub-exchange.c:1128 ../mail/mail-stub-exchange.c:1169
+#: ../mail/mail-stub-exchange.c:1166 ../mail/mail-stub-exchange.c:1207
 msgid "Could not get new messages"
 msgstr "Kon nieuwe berichten niet ophalen"
 
 # legen ipv leegmaken?
-#: ../mail/mail-stub-exchange.c:1334
+#: ../mail/mail-stub-exchange.c:1377
 msgid "Could not empty Deleted Items folder"
 msgstr "Kon de map Verwijderde items niet leegmaken"
 
-#: ../mail/mail-stub-exchange.c:1406
+#: ../mail/mail-stub-exchange.c:1454
 msgid "Could not append message; mailbox is over quota"
 msgstr "Kon bericht niet toevoegen; mailbox heeft quota overschreden"
 
-#: ../mail/mail-stub-exchange.c:1407
+#: ../mail/mail-stub-exchange.c:1455
 msgid "Could not append message"
 msgstr "Kon bericht niet toevoegen"
 
 # Een dergelijk bericht bestaat niet
-#: ../mail/mail-stub-exchange.c:1890
+#: ../mail/mail-stub-exchange.c:2001
 msgid "No such message"
 msgstr "Bericht bestaat niet"
 
-#: ../mail/mail-stub-exchange.c:1943
+#: ../mail/mail-stub-exchange.c:2054
 msgid "Message has been deleted"
 msgstr "Bericht is verwijderd"
 
-#: ../mail/mail-stub-exchange.c:1945
+#: ../mail/mail-stub-exchange.c:2056
 msgid "Error retrieving message"
 msgstr "Fout bij ophalen bericht"
 
-#: ../mail/mail-stub-exchange.c:1987
+#: ../mail/mail-stub-exchange.c:2098
 msgid "Mailbox does not support full-text searching"
 msgstr ""
 "Voor deze mailbox is geen ondersteuning voor het doorzoeken van de volledige "
 "tekst"
 
-#: ../mail/mail-stub-exchange.c:2085
+#: ../mail/mail-stub-exchange.c:2196
 msgid "Unable to move/copy messages"
 msgstr "Kon berichten niet verplaatsen/kopiëren"
 
-#: ../mail/mail-stub-exchange.c:2283
+#: ../mail/mail-stub-exchange.c:2426
 msgid "No mail submission URI for this mailbox"
 msgstr "Geen mail-aanleverings-URI voor deze mailbox"
 
-#: ../mail/mail-stub-exchange.c:2319
+#: ../mail/mail-stub-exchange.c:2462
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Server zal geen berichten accepteren via Exchange transport"
 
-#: ../mail/mail-stub-exchange.c:2321
+#: ../mail/mail-stub-exchange.c:2464
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -574,7 +588,7 @@ msgstr ""
 "Uw account heeft geen rechten om <%s> te gebruiken\n"
 "als een 'Van' adres."
 
-#: ../mail/mail-stub-exchange.c:2333
+#: ../mail/mail-stub-exchange.c:2476
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -582,18 +596,18 @@ msgstr ""
 "Kon bericht niet versturen.\n"
 "Dit betekent mogelijk dat uw account over zijn quota is."
 
-#: ../mail/mail-stub-exchange.c:2337
+#: ../mail/mail-stub-exchange.c:2480
 msgid "Could not send message"
 msgstr "Kon bericht niet versturen"
 
-#: ../mail/mail-stub-exchange.c:2360 ../mail/mail-stub-exchange.c:2411
-#: ../mail/mail-stub-exchange.c:2470 ../mail/mail-stub-exchange.c:2515
-#: ../mail/mail-stub-exchange.c:2563 ../shell/e-storage.c:557
+#: ../mail/mail-stub-exchange.c:2503 ../mail/mail-stub-exchange.c:2555
+#: ../mail/mail-stub-exchange.c:2620 ../mail/mail-stub-exchange.c:2665
+#: ../mail/mail-stub-exchange.c:2729 ../shell/e-storage.c:557
 #: ../storage/xc-commands.c:323
 msgid "Generic error"
 msgstr "Algemene fout"
 
-#: ../mail/mail-stub-exchange.c:2364 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2507 ../storage/xc-commands.c:313
 msgid "Folder already exists"
 msgstr "Map bestaat al"
 
@@ -823,41 +837,21 @@ msgstr "Kan de map niet verplaatsen naar een van zijn eigen submappen"
 msgid "Cannot create a folder with that name"
 msgstr "Kan geen map aanmaken met die naam"
 
-#: ../shell/e-storage.c:585
-msgid "This operation cannot be performed in off-line mode"
-msgstr "Deze bewerking kan niet uitgevoerd worden in de off-line stand"
-
 #: ../shell/e-storage.c:587 ../storage/exchange-account.c:1473
 msgid "Unknown error"
 msgstr "Onbekende fout"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-msgid "*Control*F5"
-msgstr "*Control*F5"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Addressbook Exchange backend"
 msgstr "Evolution adresboek Exchange backend"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Calendar Exchange backend"
 msgstr "Evolution agenda Exchange backend"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
-msgid "Evolution Exchange Component"
-msgstr "Evolution Exchange component"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
-msgid "Exchange"
-msgstr "Exchange"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
 msgid "Ximian Connector for Exchange"
 msgstr "Ximian Connector voor Exchange"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
-msgid "_Exchange"
-msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
@@ -865,11 +859,6 @@ msgstr "_Exchange"
 #, c-format
 msgid "%s's Folders"
 msgstr "%s's mappen"
-
-#: ../storage/exchange-account.c:869
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%sGeef wachtwoord voor %s"
 
 #. email id is not proper, we return instead of trying nt_domain
 #: ../storage/exchange-account.c:1069
@@ -911,14 +900,6 @@ msgstr "Volledige adreslijst"
 #: ../storage/exchange-account.c:1326
 msgid "Exchange Account is offline. Cannot display folders\n"
 msgstr "Exchange account is offline. Kan mappen niet weergeven\n"
-
-#: ../storage/exchange-account.c:1384
-msgid ""
-"Could not authenticate to server. (Password incorrect?)\n"
-"\n"
-msgstr ""
-"Aanmeldingscontrole bij server mislukt. (Wachtwoord onjuist?)\n"
-"\n"
 
 #: ../storage/exchange-account.c:1389
 msgid ""
@@ -1062,7 +1043,6 @@ msgstr ""
 "Aanmaken nieuw account mislukt."
 
 #: ../storage/exchange-autoconfig-wizard.c:459
-#: ../storage/exchange-config-listener.c:349
 msgid "You may only configure a single Exchange account"
 msgstr "U kunt slechts één Exchange-account configureren"
 
@@ -1222,26 +1202,6 @@ msgstr "Nieuw wachtwoord:"
 #: ../storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
 msgstr "Uw huidige wachtwoord is verlopen. Verander uw wachtwoord nu."
-
-# dat er eerst afgesloten moet worden is vrij logisch
-# (ik weet het, het is gevaarlijk dat aan te nemen
-# maar op deze manier vind ik het mooier en begrijpelijker)
-#: ../storage/exchange-config-listener.c:542
-msgid ""
-"Changes to Exchange account configuration will take\n"
-"place after you quit and restart Evolution."
-msgstr ""
-"Aanpassingen aan de Exchange accountconfiguratie zullen\n"
-"pas effect hebben nadat u Evolution opnieuw opstart."
-
-#: ../storage/exchange-config-listener.c:588
-msgid "The Exchange account will be removed when you quit Evolution"
-msgstr "Het Exchange-account zal verwijderd worden wanneer u Evolution afsluit"
-
-# ...op niet werkbaar worden gezet...
-#: ../storage/exchange-config-listener.c:593
-msgid "The Exchange account will be disabled when you quit Evolution"
-msgstr "Het Exchange-account zal uitgezet worden wanneer u Evolution afsluit"
 
 #: ../storage/exchange-delegates-user.c:191
 #: ../storage/exchange-permissions-dialog.c:179
@@ -1706,7 +1666,7 @@ msgstr "Rol:"
 msgid "Connecting..."
 msgstr "Verbinding maken..."
 
-#: ../storage/main.c:166
+#: ../storage/main.c:165
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector voor Microsoft Exchange"
 
@@ -1833,6 +1793,41 @@ msgstr "_Afwezigheidsassistent"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Abonnement op andermans map opzeggen"
+
+# niet aangewezen voor offline ondersteuning
+#~ msgid "Folder not marked for offline support"
+#~ msgstr "Map niet gemarkeerd voor offline ondersteuning"
+
+#~ msgid "*Control*F5"
+#~ msgstr "*Control*F5"
+
+#~ msgid "Evolution Exchange Component"
+#~ msgstr "Evolution Exchange component"
+
+#~ msgid "Exchange"
+#~ msgstr "Exchange"
+
+#~ msgid "_Exchange"
+#~ msgstr "_Exchange"
+
+# dat er eerst afgesloten moet worden is vrij logisch
+# (ik weet het, het is gevaarlijk dat aan te nemen
+# maar op deze manier vind ik het mooier en begrijpelijker)
+#~ msgid ""
+#~ "Changes to Exchange account configuration will take\n"
+#~ "place after you quit and restart Evolution."
+#~ msgstr ""
+#~ "Aanpassingen aan de Exchange accountconfiguratie zullen\n"
+#~ "pas effect hebben nadat u Evolution opnieuw opstart."
+
+#~ msgid "The Exchange account will be removed when you quit Evolution"
+#~ msgstr ""
+#~ "Het Exchange-account zal verwijderd worden wanneer u Evolution afsluit"
+
+# ...op niet werkbaar worden gezet...
+#~ msgid "The Exchange account will be disabled when you quit Evolution"
+#~ msgstr ""
+#~ "Het Exchange-account zal uitgezet worden wanneer u Evolution afsluit"
 
 # Post
 # Berichten
