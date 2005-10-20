@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Evolution-Exchange HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-12 06:03+0000\n"
-"PO-Revision-Date: 2005-08-29 14:42+0300\n"
+"POT-Creation-Date: 2005-10-17 13:23+0200\n"
+"PO-Revision-Date: 2005-10-18 01:54+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1837
+#: ../addressbook/e-book-backend-exchange.c:1857
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Otsimine..."
@@ -36,67 +36,67 @@ msgstr "LDAP otsingutulemuste vastuvõtmine..."
 msgid "Error performing search"
 msgstr "Viga otsingu läbiviimisel"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1665
+#: ../calendar/e-cal-backend-exchange-calendar.c:1748
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1684
+#: ../calendar/e-cal-backend-exchange-calendar.c:1766
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Ressurss '%s' on valitud aja vältel hõivatud."
 
-#: ../calendar/e-cal-backend-exchange.c:310
-msgid "Folder not marked for offline support"
-msgstr "Kaust pole märgitud kasutamiseks autonoomses režiimis"
+#: ../camel/camel-exchange-folder.c:221
+msgid "You cannot expunge in offline mode."
+msgstr "Kausta pole võimalik autonoomses režiimis puhastada."
 
-#: ../camel/camel-exchange-folder.c:223
+#: ../camel/camel-exchange-folder.c:230
 msgid "Can only expunge in Deleted Items folder"
 msgstr ""
 
-#: ../camel/camel-exchange-folder.c:247
+#: ../camel/camel-exchange-folder.c:254
 msgid "No Subject"
 msgstr "Teema puudub"
 
-#: ../camel/camel-exchange-folder.c:374
+#: ../camel/camel-exchange-folder.c:381
 msgid "This message is not available in offline mode."
 msgstr "See sõnum pole autonoomses režiimis saadaval."
 
-#: ../camel/camel-exchange-folder.c:609
+#: ../camel/camel-exchange-folder.c:616
 msgid "Moving messages"
 msgstr "Sõnumite tõstmine"
 
-#: ../camel/camel-exchange-folder.c:610
+#: ../camel/camel-exchange-folder.c:617
 msgid "Copying messages"
 msgstr "Sõnumite kopeerimine"
 
-#: ../camel/camel-exchange-folder.c:940
+#: ../camel/camel-exchange-folder.c:988
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Kataloogi %s pole võimalik luua: %s"
 
-#: ../camel/camel-exchange-folder.c:950
+#: ../camel/camel-exchange-folder.c:998
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "%s jaoks pole võimalik kokkuvõtet laadida"
 
-#: ../camel/camel-exchange-folder.c:958
+#: ../camel/camel-exchange-folder.c:1006
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "%s jaoks pole võimalik puhvrit luua"
 
-#: ../camel/camel-exchange-folder.c:968
+#: ../camel/camel-exchange-folder.c:1016
 #, c-format
 msgid "Could not create journal for %s"
 msgstr ""
 
-#: ../camel/camel-exchange-folder.c:1013
+#: ../camel/camel-exchange-folder.c:1061
 msgid "Scanning for changed messages"
 msgstr "Muudetud sõnuminte skannimine"
 
-#: ../camel/camel-exchange-folder.c:1039
+#: ../camel/camel-exchange-folder.c:1087
 msgid "Fetching summary information for new messages"
 msgstr "Uute sõnumite kokkuvõtvate andmete võtmine"
 
@@ -104,10 +104,10 @@ msgstr "Uute sõnumite kokkuvõtvate andmete võtmine"
 msgid "No folder name found\n"
 msgstr "Kausta nime ei leitud\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2447
-#: ../mail/mail-stub-exchange.c:2490 ../mail/mail-stub-exchange.c:2525
-#: ../mail/mail-stub-exchange.c:2552 ../mail/mail-stub-exchange.c:2599
-#: ../mail/mail-stub-exchange.c:2621
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2534
+#: ../mail/mail-stub-exchange.c:2577 ../mail/mail-stub-exchange.c:2612
+#: ../mail/mail-stub-exchange.c:2639 ../mail/mail-stub-exchange.c:2686
+#: ../mail/mail-stub-exchange.c:2708
 msgid "Folder doesn't exist"
 msgstr "Kausta pole olemas"
 
@@ -172,76 +172,89 @@ msgstr "Kontroll, kas uute sõnumite sisu on rämpspost"
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "Rämpssõnumeid kontrollitakse ainult sisendkaustas"
 
-#: ../camel/camel-exchange-provider.c:76
+#: ../camel/camel-exchange-provider.c:79
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:78
+#: ../camel/camel-exchange-provider.c:81
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "E-posti (ja muude andmete) käsitlemiseks Microsoft Exchange serveris"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:94
+#: ../camel/camel-exchange-provider.c:97
 msgid "Secure Password"
 msgstr "Turvaline parool"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:100
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
 msgstr ""
 
-#: ../camel/camel-exchange-provider.c:105
+#: ../camel/camel-exchange-provider.c:108
 msgid "Plaintext Password"
 msgstr "Avatekstiline parool"
 
-#: ../camel/camel-exchange-provider.c:107
+#: ../camel/camel-exchange-provider.c:110
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
 msgstr ""
 
-#: ../camel/camel-exchange-store.c:281
+#: ../camel/camel-exchange-store.c:308
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange server %s"
 
-#: ../camel/camel-exchange-store.c:284
+#: ../camel/camel-exchange-store.c:311
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr ""
 
-#: ../camel/camel-exchange-store.c:334
+#: ../camel/camel-exchange-store.c:352 ../storage/exchange-account.c:869
+#, c-format
+msgid "%sEnter password for %s"
+msgstr "%sSisesta parool %s jaoks"
+
+#: ../camel/camel-exchange-store.c:403
 msgid "Evolution Exchange backend process"
 msgstr ""
 
-#: ../camel/camel-exchange-store.c:382
+#: ../camel/camel-exchange-store.c:444 ../storage/exchange-account.c:1384
+msgid ""
+"Could not authenticate to server. (Password incorrect?)\n"
+"\n"
+msgstr ""
+"Serverisse pole võimalik autentida. (Parool vale?)\n"
+"\n"
+
+#: ../camel/camel-exchange-store.c:486
 #, c-format
 msgid "No such folder %s"
 msgstr "Kausta %s ei ole"
 
-#: ../camel/camel-exchange-store.c:451
+#: ../camel/camel-exchange-store.c:563
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik tellida."
 
-#: ../camel/camel-exchange-store.c:468
+#: ../camel/camel-exchange-store.c:580
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Kaustas tellimusest pole autonoomses režiimis võimalik loobuda."
 
-#: ../camel/camel-exchange-store.c:573
+#: ../camel/camel-exchange-store.c:695
 msgid "Cannot get folder info in offline mode."
 msgstr "Kausta pole võimalik autonoomses režiimis hankida."
 
-#: ../camel/camel-exchange-store.c:644
+#: ../camel/camel-exchange-store.c:766
 msgid "Cannot create folder in offline mode."
 msgstr "Kausta pole võimalik autonoomses režiimis luua."
 
-#: ../camel/camel-exchange-store.c:671
+#: ../camel/camel-exchange-store.c:793
 msgid "Cannot delete folder in offline mode."
 msgstr "Kausta pole võimalik autonoomses režiimis kustutada."
 
-#: ../camel/camel-exchange-store.c:687
+#: ../camel/camel-exchange-store.c:809
 msgid "Cannot rename folder in offline mode."
 msgstr "Kausta pole võimalik autonoomses režiimis ümber nimetada."
 
@@ -410,108 +423,109 @@ msgstr ""
 msgid "Addressbook..."
 msgstr "Aadressiraamat..."
 
-#: ../mail/mail-stub-exchange.c:255
+#: ../mail/mail-stub-exchange.c:257
 msgid "No such folder"
 msgstr ""
 
-#: ../mail/mail-stub-exchange.c:272 ../mail/mail-stub-exchange.c:2424
-#: ../mail/mail-stub-exchange.c:2463 ../mail/mail-stub-exchange.c:2529
-#: ../mail/mail-stub-exchange.c:2573 ../mail/mail-stub-exchange.c:2637
-#: ../shell/e-storage.c:573 ../storage/xc-commands.c:319
+#. FIXME: should be this, but string freeze freezes me to do so.
+#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
+#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1381
+#: ../mail/mail-stub-exchange.c:2511 ../mail/mail-stub-exchange.c:2550
+#: ../mail/mail-stub-exchange.c:2616 ../mail/mail-stub-exchange.c:2660
+#: ../mail/mail-stub-exchange.c:2724 ../shell/e-storage.c:573
+#: ../storage/xc-commands.c:319
 msgid "Permission denied"
 msgstr "Ligipääs keelatud"
 
-#: ../mail/mail-stub-exchange.c:571
-msgid "No such folder."
-msgstr "Sellist kausta pole."
-
-#: ../mail/mail-stub-exchange.c:580
-msgid "Could not create folder."
-msgstr "Kausta pole võimalik luua."
-
-#: ../mail/mail-stub-exchange.c:628 ../mail/mail-stub-exchange.c:646
-#: ../mail/mail-stub-exchange.c:2731 ../mail/mail-stub-exchange.c:2749
+#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
 msgid "Could not open folder: Permission denied"
 msgstr "Kausta pole võimalik avada: Ligipääs keelatud"
 
-#: ../mail/mail-stub-exchange.c:632 ../mail/mail-stub-exchange.c:745
-#: ../mail/mail-stub-exchange.c:2735
+#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:705
 msgid "Could not open folder"
 msgstr "Kausta pole võimalik avada"
 
-#: ../mail/mail-stub-exchange.c:800
+#: ../mail/mail-stub-exchange.c:748
+msgid "No such folder."
+msgstr "Sellist kausta pole."
+
+#: ../mail/mail-stub-exchange.c:757
+msgid "Could not create folder."
+msgstr "Kausta pole võimalik luua."
+
+#: ../mail/mail-stub-exchange.c:837
 msgid "Could not open Deleted Items folder"
 msgstr ""
 
-#: ../mail/mail-stub-exchange.c:1129 ../mail/mail-stub-exchange.c:1170
+#: ../mail/mail-stub-exchange.c:1166 ../mail/mail-stub-exchange.c:1207
 msgid "Could not get new messages"
 msgstr "Uusi sõnumeid pole võimalik hankida"
 
-#: ../mail/mail-stub-exchange.c:1335
+#: ../mail/mail-stub-exchange.c:1377
 msgid "Could not empty Deleted Items folder"
 msgstr ""
 
-#: ../mail/mail-stub-exchange.c:1407
+#: ../mail/mail-stub-exchange.c:1454
 msgid "Could not append message; mailbox is over quota"
 msgstr "Sõnumit pole võimalik lisada; postkasti maht ületab kvooti"
 
-#: ../mail/mail-stub-exchange.c:1408
+#: ../mail/mail-stub-exchange.c:1455
 msgid "Could not append message"
 msgstr "Sõnumit pole võimalik lisada"
 
-#: ../mail/mail-stub-exchange.c:1918
+#: ../mail/mail-stub-exchange.c:2001
 msgid "No such message"
 msgstr "Sellist sõnumit pole"
 
-#: ../mail/mail-stub-exchange.c:1971
+#: ../mail/mail-stub-exchange.c:2054
 msgid "Message has been deleted"
 msgstr "Sõnum on kustutatud"
 
-#: ../mail/mail-stub-exchange.c:1973
+#: ../mail/mail-stub-exchange.c:2056
 msgid "Error retrieving message"
-msgstr ""
+msgstr "Viga sõnumi vastuvõtmisel"
 
-#: ../mail/mail-stub-exchange.c:2015
+#: ../mail/mail-stub-exchange.c:2098
 msgid "Mailbox does not support full-text searching"
 msgstr "Postkast ei toeta täistekstiotsingut"
 
-#: ../mail/mail-stub-exchange.c:2113
+#: ../mail/mail-stub-exchange.c:2196
 msgid "Unable to move/copy messages"
 msgstr "Sõnumeid pole võimalik tõsta või kopeerida"
 
-#: ../mail/mail-stub-exchange.c:2339
+#: ../mail/mail-stub-exchange.c:2426
 msgid "No mail submission URI for this mailbox"
 msgstr ""
 
-#: ../mail/mail-stub-exchange.c:2375
+#: ../mail/mail-stub-exchange.c:2462
 msgid "Server won't accept mail via Exchange transport"
 msgstr ""
 
-#: ../mail/mail-stub-exchange.c:2377
+#: ../mail/mail-stub-exchange.c:2464
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
 msgstr ""
 
-#: ../mail/mail-stub-exchange.c:2389
+#: ../mail/mail-stub-exchange.c:2476
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
 
-#: ../mail/mail-stub-exchange.c:2393
+#: ../mail/mail-stub-exchange.c:2480
 msgid "Could not send message"
 msgstr "Sõnumit pole võimalik saata"
 
-#: ../mail/mail-stub-exchange.c:2416 ../mail/mail-stub-exchange.c:2468
-#: ../mail/mail-stub-exchange.c:2533 ../mail/mail-stub-exchange.c:2578
-#: ../mail/mail-stub-exchange.c:2642 ../shell/e-storage.c:557
+#: ../mail/mail-stub-exchange.c:2503 ../mail/mail-stub-exchange.c:2555
+#: ../mail/mail-stub-exchange.c:2620 ../mail/mail-stub-exchange.c:2665
+#: ../mail/mail-stub-exchange.c:2729 ../shell/e-storage.c:557
 #: ../storage/xc-commands.c:323
 msgid "Generic error"
 msgstr "Üldine viga"
 
-#: ../mail/mail-stub-exchange.c:2420 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2507 ../storage/xc-commands.c:313
 msgid "Folder already exists"
 msgstr "Kaust on juba olemas"
 
@@ -705,7 +719,7 @@ msgstr "Määratud kausta ei leitud"
 
 #: ../shell/e-storage.c:571
 msgid "Function not implemented in this storage"
-msgstr ""
+msgstr "Funktsioon pole selle salvesti puhul teostatud"
 
 #: ../shell/e-storage.c:575
 msgid "Operation not supported"
@@ -713,7 +727,7 @@ msgstr "Toiming pole toetatud"
 
 #: ../shell/e-storage.c:577
 msgid "The specified type is not supported in this storage"
-msgstr ""
+msgstr "Kirjeldatud tüüp pole selle salvesti poolt toetatud"
 
 #: ../shell/e-storage.c:579
 msgid "The specified folder cannot be modified or removed"
@@ -736,31 +750,15 @@ msgid "Unknown error"
 msgstr "Tundmatu viga"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-msgid "*Control*F5"
-msgstr ""
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Addressbook Exchange backend"
 msgstr ""
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Calendar Exchange backend"
 msgstr ""
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
-msgid "Evolution Exchange Component"
-msgstr ""
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
-msgid "Exchange"
-msgstr "Exchange"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
 msgid "Ximian Connector for Exchange"
-msgstr ""
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
-msgid "_Exchange"
 msgstr ""
 
 #. i18n: This is the title of an "other user's folders"
@@ -769,11 +767,6 @@ msgstr ""
 #, c-format
 msgid "%s's Folders"
 msgstr "Kaustaja %s kaustad"
-
-#: ../storage/exchange-account.c:869
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%sSisesta parool %s jaoks"
 
 #. email id is not proper, we return instead of trying nt_domain
 #: ../storage/exchange-account.c:1069
@@ -813,14 +806,6 @@ msgstr ""
 #: ../storage/exchange-account.c:1326
 msgid "Exchange Account is offline. Cannot display folders\n"
 msgstr "Exchange konto on autonoomses režiimis. Kaustu pole võimalik kuvada\n"
-
-#: ../storage/exchange-account.c:1384
-msgid ""
-"Could not authenticate to server. (Password incorrect?)\n"
-"\n"
-msgstr ""
-"Serverisse pole võimalik autentida. (Parool vale?)\n"
-"\n"
 
 #: ../storage/exchange-account.c:1389
 msgid ""
@@ -934,7 +919,6 @@ msgid ""
 msgstr ""
 
 #: ../storage/exchange-autoconfig-wizard.c:459
-#: ../storage/exchange-config-listener.c:349
 msgid "You may only configure a single Exchange account"
 msgstr ""
 
@@ -964,7 +948,7 @@ msgstr ""
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:8
 msgid "Make this my default account"
-msgstr ""
+msgstr "Muuda see minu vaikimis kontoks"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:9
 msgid "OWA URL:"
@@ -1045,7 +1029,7 @@ msgstr ""
 
 #: ../storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
-msgstr ""
+msgstr "Paroolid ei klapi omavahel. Palun sisesta paroolid uuesti."
 
 #: ../storage/exchange-change-password.glade.h:2
 msgid "Change Password"
@@ -1067,20 +1051,6 @@ msgstr "Uus parool:"
 msgid "Your current password has expired. Please change your password now."
 msgstr ""
 "Sinu praegune parool on aegunud. Palun muuda oma parool viivitamatult ära."
-
-#: ../storage/exchange-config-listener.c:542
-msgid ""
-"Changes to Exchange account configuration will take\n"
-"place after you quit and restart Evolution."
-msgstr ""
-
-#: ../storage/exchange-config-listener.c:588
-msgid "The Exchange account will be removed when you quit Evolution"
-msgstr "Exchange konto eemaldadakse peale Evolution'i sulgemist"
-
-#: ../storage/exchange-config-listener.c:593
-msgid "The Exchange account will be disabled when you quit Evolution"
-msgstr "Exchange konto keelatakse peale Evolution'i sulgemist"
 
 #: ../storage/exchange-delegates-user.c:191
 #: ../storage/exchange-permissions-dialog.c:179
@@ -1110,7 +1080,7 @@ msgstr ""
 
 #: ../storage/exchange-delegates.c:419
 msgid "Delegate To:"
-msgstr ""
+msgstr "Kellele delegeerida:"
 
 #: ../storage/exchange-delegates.c:419
 msgid "Delegate To"
@@ -1119,11 +1089,11 @@ msgstr ""
 #: ../storage/exchange-delegates.c:435
 #, c-format
 msgid "Could not make %s a delegate"
-msgstr ""
+msgstr "%s pole võimalik delegaadiks määrata"
 
 #: ../storage/exchange-delegates.c:445
 msgid "You cannot make yourself your own delegate"
-msgstr ""
+msgstr "Ennast pole võimalik enda delegaadiks määrata"
 
 #: ../storage/exchange-delegates.c:454
 #, c-format
@@ -1137,7 +1107,7 @@ msgstr "Eemaldada delegaat %s?"
 
 #: ../storage/exchange-delegates.c:680
 msgid "Could not access Active Directory"
-msgstr ""
+msgstr "Active Directory'le pole võimalik ligi pääseda"
 
 #: ../storage/exchange-delegates.c:695
 msgid "Could not find self in Active Directory"
@@ -1302,14 +1272,14 @@ msgstr ""
 #: ../storage/exchange-migrate.c:98
 #, c-format
 msgid ""
-"Warning: Evolution Could not migrate all the Exchange account data from the "
+"Warning: Evolution could not migrate all the Exchange account data from the "
 "version %d.%d.%d. \n"
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
 "Hoiatus: Evolution ei saa migreerida kõiki Exchange kontoandmeid versioonist "
-"%d.%d.%d.\n"
-"Andmed ei ole kustutatud kuid need pole selles Evolutioni versiooni nähtaval"
+"%d.%d.%d. \n"
+"Andmeid ei kustutatud, kuid need pole selles Evolutioni versioonis nähtaval"
 
 #: ../storage/exchange-migrate.c:129
 #, c-format
@@ -1356,7 +1326,7 @@ msgstr ""
 
 #: ../storage/exchange-oof.glade.h:10
 msgid "No, Don't Change Status"
-msgstr ""
+msgstr "Ei, olekut mitte muuta"
 
 #: ../storage/exchange-oof.glade.h:11
 msgid "Out of Office Assistant"
@@ -1364,7 +1334,7 @@ msgstr ""
 
 #: ../storage/exchange-oof.glade.h:12
 msgid "Yes, Change Status"
-msgstr ""
+msgstr "Jah, olekut tuleb muuta"
 
 #: ../storage/exchange-passwd-expiry.glade.h:1
 msgid "Password Expiry Warning..."
@@ -1501,7 +1471,7 @@ msgstr "Roll: "
 msgid "Connecting..."
 msgstr "Ühendumine..."
 
-#: ../storage/main.c:166
+#: ../storage/main.c:165
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr ""
 
@@ -1623,3 +1593,14 @@ msgstr ""
 msgid "_Unsubscribe from Other User's Folder"
 msgstr ""
 
+#~ msgid "Folder not marked for offline support"
+#~ msgstr "Kaust pole märgitud kasutamiseks autonoomses režiimis"
+
+#~ msgid "Exchange"
+#~ msgstr "Exchange"
+
+#~ msgid "The Exchange account will be removed when you quit Evolution"
+#~ msgstr "Exchange konto eemaldadakse peale Evolution'i sulgemist"
+
+#~ msgid "The Exchange account will be disabled when you quit Evolution"
+#~ msgstr "Exchange konto keelatakse peale Evolution'i sulgemist"
