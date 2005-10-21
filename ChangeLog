@@ -1,3 +1,12 @@
+2005-10-21  Sarfraaz Ahmed <asarfraaz@novell.com>
+
+	* addressbook/e-book-backend-exchange.c
+	(e_book_backend_exchange_remove) : Check for the proper return values
+	from the server and return the appropriate status back.
+	* calendar/e-cal-backend-exchange.c (remove_calendar) : Similar
+	* mail/mail-stub-exchange.c (delete_folder) : Similar
+	This fixes #312848.
+
 2005-10-19  Theppitak Karoonboonyanan  <thep@linux.thai.net>
 
 	* configure.in:
