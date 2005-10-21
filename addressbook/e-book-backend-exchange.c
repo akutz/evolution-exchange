@@ -2297,28 +2297,18 @@ e_book_backend_exchange_remove (EBookBackendSync *backend, EDataBook *book, guin
 	d(printf("ebbe_remove(%p, %p)\n", backend, book));
 	uri = e_folder_exchange_get_internal_uri (bepriv->folder);
 	result = exchange_account_remove_folder (bepriv->account, uri);
-	return GNOME_Evolution_Addressbook_Success;
-	/* FIXME: Folder deletion from contacts view */
-#if 0 
-	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
-	E2kHTTPStatus status;
-
-	/*
-	char *path;
-	path = strstr (be->priv->exchange_uri, "://");
-	if (path)
-		path = strchr (path + 3, '/');
-	status = exchange_account_remove_folder (be->priv->account, path);
-	g_free (path);
-	 */
-	status = e_folder_exchange_delete (be->priv->folder, NULL);
-	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
-		return GNOME_Evolution_Addressbook_Success;
-	else if (status == E2K_HTTP_UNAUTHORIZED)
-		return GNOME_Evolution_Addressbook_PermissionDenied;
-	else
+	if (result == EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR)
 		return GNOME_Evolution_Addressbook_OtherError;
-#endif
+	if (result == EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST)
+		return GNOME_Evolution_Addressbook_NoSuchBook;
+	if (result == EXCHANGE_ACCOUNT_FOLDER_UNSUPPORTED_OPERATION)
+		return GNOME_Evolution_Addressbook_PermissionDenied;
+	if (result == EXCHANGE_ACCOUNT_FOLDER_OFFLINE)
+		return GNOME_Evolution_Addressbook_OfflineUnavailable;
+	if (result == EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED)
+		return GNOME_Evolution_Addressbook_PermissionDenied;
+	if (result == EXCHANGE_ACCOUNT_FOLDER_OK)
+		return GNOME_Evolution_Addressbook_Success;
 }
 
 static char *

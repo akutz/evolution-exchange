@@ -393,7 +393,18 @@ remove_calendar (ECalBackendSync *backend, EDataCal *cal)
 	/* FIXME: Deleting calendar/tasks from respective views */
 	uri = e_folder_exchange_get_internal_uri (cbex->folder);
 	result = exchange_account_remove_folder (cbex->account, uri);
-	return GNOME_Evolution_Calendar_Success;
+	if (result == EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR)
+		return GNOME_Evolution_Calendar_OtherError;
+	if (result == EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST)
+		return GNOME_Evolution_Calendar_NoSuchCal;
+	if (result == EXCHANGE_ACCOUNT_FOLDER_UNSUPPORTED_OPERATION)
+		return GNOME_Evolution_Calendar_PermissionDenied;
+	if (result == EXCHANGE_ACCOUNT_FOLDER_OFFLINE)
+		return GNOME_Evolution_Calendar_OfflineUnavailable;
+	if (result == EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED)
+		return GNOME_Evolution_Calendar_PermissionDenied;
+	if (result == EXCHANGE_ACCOUNT_FOLDER_OK)
+		return GNOME_Evolution_Calendar_Success;
 
 	/* status = e_folder_exchange_delete (cbex->folder, NULL);
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {

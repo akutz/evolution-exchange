@@ -2546,7 +2546,8 @@ delete_folder (MailStub *stub, const char *folder_name)
 		g_hash_table_remove (mse->folders_by_name, folder_name);
 		break;
 
-	case EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED:
+	case EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED: /* Fall through */
+	case EXCHANGE_ACCOUNT_FOLDER_UNSUPPORTED_OPERATION:
 		mail_stub_return_error (stub, _("Permission denied"));
 		g_object_unref (folder);
 		return;
