@@ -390,33 +390,20 @@ remove_calendar (ECalBackendSync *backend, EDataCal *cal)
 	ExchangeAccountFolderResult result;
 	const char *uri;
 
-	/* FIXME: Deleting calendar/tasks from respective views */
 	uri = e_folder_exchange_get_internal_uri (cbex->folder);
 	result = exchange_account_remove_folder (cbex->account, uri);
-	if (result == EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR)
-		return GNOME_Evolution_Calendar_OtherError;
-	if (result == EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST)
-		return GNOME_Evolution_Calendar_NoSuchCal;
-	if (result == EXCHANGE_ACCOUNT_FOLDER_UNSUPPORTED_OPERATION)
-		return GNOME_Evolution_Calendar_PermissionDenied;
-	if (result == EXCHANGE_ACCOUNT_FOLDER_OFFLINE)
-		return GNOME_Evolution_Calendar_OfflineUnavailable;
-	if (result == EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED)
-		return GNOME_Evolution_Calendar_PermissionDenied;
 	if (result == EXCHANGE_ACCOUNT_FOLDER_OK)
 		return GNOME_Evolution_Calendar_Success;
-
-	/* status = e_folder_exchange_delete (cbex->folder, NULL);
-	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-		d(printf ("successfully removed\n"));
-		return GNOME_Evolution_Calendar_Success;
-	} else if (status == E2K_HTTP_UNAUTHORIZED) {
-		d(printf ("permission denied\n"));
+	else if (result == EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST)
+		return GNOME_Evolution_Calendar_NoSuchCal;
+	else if (result == EXCHANGE_ACCOUNT_FOLDER_UNSUPPORTED_OPERATION)
 		return GNOME_Evolution_Calendar_PermissionDenied;
-	} else {
-		d(printf ("other error\n"));
+	else if (result == EXCHANGE_ACCOUNT_FOLDER_OFFLINE)
+		return GNOME_Evolution_Calendar_OfflineUnavailable;
+	else if (result == EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED)
+		return GNOME_Evolution_Calendar_PermissionDenied;
+	else
 		return GNOME_Evolution_Calendar_OtherError;
-	} */
 }
 
 static void
