@@ -18,8 +18,11 @@ no)
 	;;
 esac
 
+dnl Update these for every new development release of evolution. These numbers
+dnl actually correspond to the next stable release number
 EVOLUTION_API_VERSION=2.6
 EDS_API_VERSION=1.2
+EDS_BASE_VERSION=1.6
 
 AC_MSG_CHECKING(Evolution version)
 EVOLUTION_VERSION=`pkg-config --modversion evolution-shell-$EVOLUTION_API_VERSION 2>/dev/null`
@@ -35,6 +38,7 @@ AC_DEFINE_UNQUOTED(EVOLUTION_BASE_VERSION,"$EVOLUTION_BASE_VERSION",Evolution ve
 BASE_VERSION=$EVOLUTION_API_VERSION
 AC_DEFINE_UNQUOTED(BASE_VERSION, "$BASE_VERSION", Connector base version)
 AC_SUBST(BASE_VERSION)
+AC_SUBST(EDS_BASE_VERSION)
 
 dnl Initialize maintainer mode
 AM_MAINTAINER_MODE

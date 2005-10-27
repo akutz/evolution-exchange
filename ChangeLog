@@ -1,4 +1,11 @@
 2005-10-27  Sarfraaz Ahmed <asarfraaz@novell.com>
+	
+	* configure.in : Added a new EDS_BASE_VERSION variable
+	* storage/GNOME_Evolution_Exchange_Storage.server.in.in : Use 
+	EDS_BASE_VERSION for the calendar and addressbook factory interfaces
+	* storage/Makefile.am : Add a rule to substitute it in the server file.
+
+2005-10-27  Sarfraaz Ahmed <asarfraaz@novell.com>
 
 	* configure.in : Use 2.6 as the evolution api version. Fixes a build 
 	break.
