@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Evolution-Exchange HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-10-17 13:23+0200\n"
-"PO-Revision-Date: 2005-10-18 01:54+0300\n"
+"PO-Revision-Date: 2005-11-15 00:10+0200\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -191,6 +191,8 @@ msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
 msgstr ""
+"Selle valikuga kasutab Exchange server ühendumisel turvalise parooliga "
+"(NTLM) autentimist."
 
 #: ../camel/camel-exchange-provider.c:108
 msgid "Plaintext Password"
@@ -201,6 +203,8 @@ msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
 msgstr ""
+"Selle valikuga kasutab Exchange server ühendumisel standardset avatekstilise "
+"parooliga autentimist."
 
 #: ../camel/camel-exchange-store.c:308
 #, c-format
@@ -417,7 +421,7 @@ msgstr "Kohandatud"
 
 #: ../lib/e2k-user-dialog.c:144
 msgid "Select User"
-msgstr ""
+msgstr "Kasutaja valimine"
 
 #: ../lib/e2k-user-dialog.c:182
 msgid "Addressbook..."
@@ -425,7 +429,7 @@ msgstr "Aadressiraamat..."
 
 #: ../mail/mail-stub-exchange.c:257
 msgid "No such folder"
-msgstr ""
+msgstr "Sellist kausta pole"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
@@ -499,7 +503,7 @@ msgstr ""
 
 #: ../mail/mail-stub-exchange.c:2462
 msgid "Server won't accept mail via Exchange transport"
-msgstr ""
+msgstr "Server ei nõustu posti transportimisega läbi Exchange"
 
 #: ../mail/mail-stub-exchange.c:2464
 #, c-format
@@ -507,12 +511,16 @@ msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
 msgstr ""
+"Sinu kontol pole õiguset kasutada\n"
+"<%s> saatja aadressiks."
 
 #: ../mail/mail-stub-exchange.c:2476
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
+"Sõnumit pole võimalik saata.\n"
+"See võib tähendada, et Sinu konto ületab kehtestatud kvooti."
 
 #: ../mail/mail-stub-exchange.c:2480
 msgid "Could not send message"
@@ -743,7 +751,7 @@ msgstr "Sellise nimega kausta pole võimalik luua"
 
 #: ../shell/e-storage.c:585
 msgid "This operation cannot be performed in off-line mode"
-msgstr ""
+msgstr "Seda operatsiooni pole autonoomses režiimis võimalik teostada"
 
 #: ../shell/e-storage.c:587 ../storage/exchange-account.c:1473
 msgid "Unknown error"
@@ -801,7 +809,7 @@ msgstr "Kõik avalikud kaustad"
 #. i18n: Outlookism
 #: ../storage/exchange-account.c:1236
 msgid "Global Address List"
-msgstr ""
+msgstr "Globaalne aadressiloend"
 
 #: ../storage/exchange-account.c:1326
 msgid "Exchange Account is offline. Cannot display folders\n"
@@ -1198,11 +1206,11 @@ msgstr ""
 
 #: ../storage/exchange-delegates.glade.h:14
 msgid "_Inbox:"
-msgstr ""
+msgstr "_Sisendkast:"
 
 #: ../storage/exchange-delegates.glade.h:15
 msgid "_Tasks:"
-msgstr ""
+msgstr "Ü_lesanded:"
 
 #: ../storage/exchange-folder-size.c:322
 msgid "Folder Name"
