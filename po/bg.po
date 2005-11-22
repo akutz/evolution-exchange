@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution exchange server\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-01 09:32+0300\n"
-"PO-Revision-Date: 2005-09-01 01:45+0300\n"
+"POT-Creation-Date: 2005-11-22 17:55+0200\n"
+"PO-Revision-Date: 2005-11-22 17:55+0200\n"
 "Last-Translator: Alexander Shopov <ash@contact.bg>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -49,51 +49,55 @@ msgstr ""
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Ресурсът „%s“ е зает през избрания период."
 
-#: ../camel/camel-exchange-folder.c:223
+#: ../camel/camel-exchange-folder.c:221
+msgid "You cannot expunge in offline mode."
+msgstr "Папката не може да бъде изчистена, когато сте в режим „Изключен“."
+
+#: ../camel/camel-exchange-folder.c:230
 msgid "Can only expunge in Deleted Items folder"
 msgstr "Можете да изчистите само папката за изтрити обекти"
 
-#: ../camel/camel-exchange-folder.c:247
+#: ../camel/camel-exchange-folder.c:254
 msgid "No Subject"
 msgstr "Няма заглавие"
 
-#: ../camel/camel-exchange-folder.c:374
+#: ../camel/camel-exchange-folder.c:381
 msgid "This message is not available in offline mode."
 msgstr "Това писмо не е налично в режим „Изключен“."
 
-#: ../camel/camel-exchange-folder.c:609
+#: ../camel/camel-exchange-folder.c:616
 msgid "Moving messages"
 msgstr "Преместване на писма"
 
-#: ../camel/camel-exchange-folder.c:610
+#: ../camel/camel-exchange-folder.c:617
 msgid "Copying messages"
 msgstr "Копиране на писма"
 
-#: ../camel/camel-exchange-folder.c:981
+#: ../camel/camel-exchange-folder.c:988
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Неуспех при създаването на папката %s: %s"
 
-#: ../camel/camel-exchange-folder.c:991
+#: ../camel/camel-exchange-folder.c:998
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Неуспех при зареждането на обобщението за %s"
 
-#: ../camel/camel-exchange-folder.c:999
+#: ../camel/camel-exchange-folder.c:1006
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Неуспех при създаването на кеш за %s"
 
-#: ../camel/camel-exchange-folder.c:1009
+#: ../camel/camel-exchange-folder.c:1016
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Неуспех при създаването дневник за %s"
 
-#: ../camel/camel-exchange-folder.c:1054
+#: ../camel/camel-exchange-folder.c:1061
 msgid "Scanning for changed messages"
 msgstr "Проверка за променени писма"
 
-#: ../camel/camel-exchange-folder.c:1080
+#: ../camel/camel-exchange-folder.c:1087
 msgid "Fetching summary information for new messages"
 msgstr "Доставяне на обобщение за новите писма"
 
@@ -101,10 +105,10 @@ msgstr "Доставяне на обобщение за новите писма"
 msgid "No folder name found\n"
 msgstr "Не е намерено име на папка\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2530
-#: ../mail/mail-stub-exchange.c:2573 ../mail/mail-stub-exchange.c:2608
-#: ../mail/mail-stub-exchange.c:2635 ../mail/mail-stub-exchange.c:2682
-#: ../mail/mail-stub-exchange.c:2704
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2534
+#: ../mail/mail-stub-exchange.c:2578 ../mail/mail-stub-exchange.c:2613
+#: ../mail/mail-stub-exchange.c:2640 ../mail/mail-stub-exchange.c:2687
+#: ../mail/mail-stub-exchange.c:2709
 msgid "Folder doesn't exist"
 msgstr "Папката не съществува"
 
@@ -235,27 +239,27 @@ msgstr ""
 msgid "No such folder %s"
 msgstr "Папката %s не съществува"
 
-#: ../camel/camel-exchange-store.c:558
+#: ../camel/camel-exchange-store.c:563
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Не може да се запишете към папка, когато сте в режим „Изключен“."
 
-#: ../camel/camel-exchange-store.c:575
+#: ../camel/camel-exchange-store.c:580
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Не може да се отпишете от папка, когато сте в режим „Изключен“."
 
-#: ../camel/camel-exchange-store.c:680
+#: ../camel/camel-exchange-store.c:695
 msgid "Cannot get folder info in offline mode."
 msgstr "Неуспех при получаването на информация за папката в режим „Изключен“."
 
-#: ../camel/camel-exchange-store.c:751
+#: ../camel/camel-exchange-store.c:766
 msgid "Cannot create folder in offline mode."
 msgstr "Не може да създавате папки, когато сте в режим „Изключен“."
 
-#: ../camel/camel-exchange-store.c:778
+#: ../camel/camel-exchange-store.c:793
 msgid "Cannot delete folder in offline mode."
 msgstr "Папката не може да бъде изтрита, когато сте в режим „Изключен“."
 
-#: ../camel/camel-exchange-store.c:794
+#: ../camel/camel-exchange-store.c:809
 msgid "Cannot rename folder in offline mode."
 msgstr "Папката не може да бъде преименувана, когато сте в режим „Изключен“."
 
@@ -460,9 +464,9 @@ msgstr "Няма такава папка"
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1381
-#: ../mail/mail-stub-exchange.c:2507 ../mail/mail-stub-exchange.c:2546
-#: ../mail/mail-stub-exchange.c:2612 ../mail/mail-stub-exchange.c:2656
-#: ../mail/mail-stub-exchange.c:2720 ../shell/e-storage.c:573
+#: ../mail/mail-stub-exchange.c:2511 ../mail/mail-stub-exchange.c:2551
+#: ../mail/mail-stub-exchange.c:2617 ../mail/mail-stub-exchange.c:2661
+#: ../mail/mail-stub-exchange.c:2725 ../shell/e-storage.c:573
 #: ../storage/xc-commands.c:319
 msgid "Permission denied"
 msgstr "Достъпът е отказан"
@@ -503,35 +507,35 @@ msgstr "Неуспех при прикрепянето на писмото: по
 msgid "Could not append message"
 msgstr "Писмото не може да бъде прикрепено"
 
-#: ../mail/mail-stub-exchange.c:1997
+#: ../mail/mail-stub-exchange.c:2001
 msgid "No such message"
 msgstr "Такова писмо не съществува"
 
-#: ../mail/mail-stub-exchange.c:2050
+#: ../mail/mail-stub-exchange.c:2054
 msgid "Message has been deleted"
 msgstr "Писмото беше изтрито"
 
-#: ../mail/mail-stub-exchange.c:2052
+#: ../mail/mail-stub-exchange.c:2056
 msgid "Error retrieving message"
 msgstr "Грешка при получаването на писмо"
 
-#: ../mail/mail-stub-exchange.c:2094
+#: ../mail/mail-stub-exchange.c:2098
 msgid "Mailbox does not support full-text searching"
 msgstr "Пощенската кутия не поддържа пълнотекстово търсене"
 
-#: ../mail/mail-stub-exchange.c:2192
+#: ../mail/mail-stub-exchange.c:2196
 msgid "Unable to move/copy messages"
 msgstr "Копирането/преместването на писма е неуспешно"
 
-#: ../mail/mail-stub-exchange.c:2422
+#: ../mail/mail-stub-exchange.c:2426
 msgid "No mail submission URI for this mailbox"
 msgstr "Липсва URI за изпращане на писма за тази пощенска кутия"
 
-#: ../mail/mail-stub-exchange.c:2458
+#: ../mail/mail-stub-exchange.c:2462
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Сървърът няма да приема поща през транспорта на Exchange"
 
-#: ../mail/mail-stub-exchange.c:2460
+#: ../mail/mail-stub-exchange.c:2464
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -540,7 +544,7 @@ msgstr ""
 "Вашият абонамент няма право да използва <%s>\n"
 "като подател."
 
-#: ../mail/mail-stub-exchange.c:2472
+#: ../mail/mail-stub-exchange.c:2476
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -548,18 +552,18 @@ msgstr ""
 "Неуспех при изпращането на писмото.\n"
 "Това може да означава, че Вашият абонамент е надхвърлил квотата си."
 
-#: ../mail/mail-stub-exchange.c:2476
+#: ../mail/mail-stub-exchange.c:2480
 msgid "Could not send message"
 msgstr "Писмото не може да бъде изпратено"
 
-#: ../mail/mail-stub-exchange.c:2499 ../mail/mail-stub-exchange.c:2551
-#: ../mail/mail-stub-exchange.c:2616 ../mail/mail-stub-exchange.c:2661
-#: ../mail/mail-stub-exchange.c:2725 ../shell/e-storage.c:557
+#: ../mail/mail-stub-exchange.c:2503 ../mail/mail-stub-exchange.c:2556
+#: ../mail/mail-stub-exchange.c:2621 ../mail/mail-stub-exchange.c:2666
+#: ../mail/mail-stub-exchange.c:2730 ../shell/e-storage.c:557
 #: ../storage/xc-commands.c:323
 msgid "Generic error"
 msgstr "Обща грешка"
 
-#: ../mail/mail-stub-exchange.c:2503 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2507 ../storage/xc-commands.c:313
 msgid "Folder already exists"
 msgstr "Папката вече съществува"
 
@@ -784,32 +788,16 @@ msgid "Unknown error"
 msgstr "Непозната грешка"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-msgid "*Control*F5"
-msgstr "*Control*F5"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Addressbook Exchange backend"
 msgstr "Ядро за адресника на Evolution Exchange"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Calendar Exchange backend"
 msgstr "Ядро за календара към Evolution Exchange"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
-msgid "Evolution Exchange Component"
-msgstr "Компонент на Evolution Exchange"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
-msgid "Exchange"
-msgstr "Exchange"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
 msgid "Ximian Connector for Exchange"
 msgstr "Ximian Connector за Exchange"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
-msgid "_Exchange"
-msgstr "_Exchange"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
@@ -1381,12 +1369,12 @@ msgstr ""
 #: ../storage/exchange-migrate.c:98
 #, c-format
 msgid ""
-"Warning: Evolution Could not migrate all the Exchange account data from the "
+"Warning: Evolution could not migrate all the Exchange account data from the "
 "version %d.%d.%d. \n"
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"Предупреждение: Evolution не може да мигрира всички Exchange данни от "
+"Предупреждение: Evolution не може да мигрира всички данни от Exchange от "
 "версията %d.%d.%d.\n"
 "Данните не са изтрити, но няма да могат да се видят през тази версия на "
 "Evolution."
