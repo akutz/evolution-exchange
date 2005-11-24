@@ -68,6 +68,26 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Package name for gettex
 localedir='$(prefix)/$(DATADIRNAME)/locale'
 AC_SUBST(localedir)
 
+dnl ******************************
+dnl Check for Win32
+dnl ******************************
+
+AC_MSG_CHECKING([for Win32])
+case "$host" in
+*-mingw*)
+    os_win32=yes
+    NO_UNDEFINED='-no-undefined'
+    SOCKET_LIBS='-lws2_32'
+    ;;
+*)  os_win32=no
+    NO_UNDEFINED=''
+    SOCKET_LIBS=''
+    ;;
+esac
+AC_MSG_RESULT([$os_win32])
+AC_SUBST(NO_UNDEFINED)
+AC_SUBST(SOCKET_LIBS)
+
 dnl *************************
 dnl CFLAGS and LIBS and stuff
 dnl *************************
@@ -181,9 +201,15 @@ esac
 AC_DEFINE_UNQUOTED(E2K_APPROX_BUILD_TIME, $abt, [Used to prevent clock-setting attacks against pilot licenses])
 
 
+dnl *************
+dnl pthread check
+dnl *************
+EVO_PTHREAD_CHECK
+
 dnl *********************
 dnl OpenLDAP NTLM support
 dnl *********************
+if test "$os_win32" != yes; then
 EVO_LDAP_CHECK(yes)
 case $with_openldap in
 no)
@@ -198,7 +224,14 @@ LIBS="$LIBS $LDAP_LIBS"
 AC_CHECK_FUNCS(ldap_ntlm_bind)
 CFLAGS="$SAVE_CFLAGS"
 LIBS="$SAVE_LIBS"
-
+else # Win32
+LDAP_CFLAGS=""
+LDAP_LIBS="-lwldap32"
+AC_SUBST(LDAP_CFLAGS)
+AC_SUBST(LDAP_LIBS)
+AC_DEFINE(HAVE_LDAP,1,[Define if you have LDAP support])
+AM_CONDITIONAL(ENABLE_LDAP, true)
+fi # Win32
 
 dnl *******
 dnl gtk-doc
@@ -238,5 +271,3 @@ docs/openldap-ntlm.diff
 ])
 	;;
 esac
-		
-

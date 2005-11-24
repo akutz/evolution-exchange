@@ -1,5 +1,9 @@
 2005-11-24  Tor Lillqvist  <tml@novell.com>
 
+	* configure.in: Check for Win32, set NO_UNDEFINED and
+	SOCKET_LIBS. Invoke EVO_PTHREAD_CHECK. Don't check for LDAP
+	support on Win32, it is always present.
+
 	* lib/e2k-http-utils.c
 	* lib/e2k-utils.c
 	* lib/e2k-freebusy.c
