@@ -53,7 +53,6 @@
 
 #include "exchange-autoconfig-wizard.h"
 #include "exchange-component.h"
-#include "exchange-oof.h"
 
 static BonoboGenericFactory *component_factory = NULL;
 static EDataCalFactory *cal_factory = NULL;

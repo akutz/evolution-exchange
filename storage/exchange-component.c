@@ -32,7 +32,6 @@
 #include <exchange-account.h>
 #include <exchange-constants.h>
 #include "exchange-config-listener.h"
-#include "exchange-oof.h"
 #include <e-folder-exchange.h>
 #include <e-shell-marshal.h>
 
@@ -45,7 +44,6 @@
 
 #define PARENT_TYPE bonobo_object_get_type ()
 static BonoboObjectClass *parent_class = NULL;
-static gboolean idle_do_interactive (gpointer user_data);
 static void e_filename_make_safe (gchar *string);
 static void exchange_component_update_accounts (ExchangeComponent *component,
 							gboolean status);
@@ -57,8 +55,6 @@ static void ex_migrate_esources (ExchangeComponent *component,
 static guint linestatus_signal_id;
 
 struct ExchangeComponentPrivate {
-	GdkNativeWindow xid;
-
 	ExchangeConfigListener *config_listener;
 
 	EDataCalFactory *cal_factory;
@@ -219,28 +215,14 @@ impl_quit (PortableServer_Servant servant,
 	return TRUE;
 }
 
-static gboolean
-idle_do_interactive (gpointer user_data)
-{
-	ExchangeComponent *component = user_data;
-	ExchangeComponentPrivate *priv = component->priv;
-	ExchangeComponentAccount *baccount;
-	GSList *acc;
-
-	for (acc = priv->accounts; acc; acc = acc->next) {
-		baccount = acc->data;
-		if (exchange_component_is_interactive (component))
-			exchange_oof_init (baccount->account, priv->xid);
-	}
-	return FALSE;
-}
-
+/* This interface is not being used anymore */
 static void
 impl_interactive (PortableServer_Servant servant,
 		  const CORBA_boolean now_interactive,
 		  const CORBA_unsigned_long new_view_xid,
 		  CORBA_Environment *ev)
 {
+/*
 	ExchangeComponent *component = EXCHANGE_COMPONENT (bonobo_object_from_servant (servant));
 	ExchangeComponentPrivate *priv = component->priv;
 
@@ -248,9 +230,9 @@ impl_interactive (PortableServer_Servant servant,
 
 	if (now_interactive) {
 		priv->xid = new_view_xid;
-		g_idle_add (idle_do_interactive, component);
 	} else
 		priv->xid = 0;
+*/
 }
 
 static void
@@ -398,9 +380,6 @@ config_listener_account_created (ExchangeConfigListener *config_listener,
 	g_free (path);
 
 	priv->accounts = g_slist_prepend (priv->accounts, baccount);
-
-	if (priv->xid)
-		exchange_oof_init (account, priv->xid);
 }
 
 static void
@@ -533,11 +512,13 @@ exchange_component_is_offline (ExchangeComponent *component, int *state)
 	*state = component->priv->linestatus ? ONLINE_MODE : OFFLINE_MODE;
 }
 
+/*
 gboolean
 exchange_component_is_interactive (ExchangeComponent *component)
 {
 	return component->priv->xid != 0;
 }
+*/
 
 void
 exchange_component_set_factories (ExchangeComponent *component,
