@@ -27,7 +27,7 @@
 
 #include <string.h>
 #include <unistd.h>
-#include <e-util/e-time-utils.h>
+#include <libedataserver/e-time-utils.h>
 
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
 

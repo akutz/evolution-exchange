@@ -23,7 +23,7 @@
 
 #include "e2k-http-utils.h"
 
-#include <e-util/e-time-utils.h>
+#include <libedataserver/e-time-utils.h>
 
 #include <ctype.h>
 #include <stdlib.h>

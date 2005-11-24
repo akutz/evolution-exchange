@@ -26,7 +26,7 @@
 #include "e2k-propnames.h"
 #include "e2k-rule.h"
 
-#include <e-util/e-time-utils.h>
+#include <libedataserver/e-time-utils.h>
 
 #include <ctype.h>
 #include <stdlib.h>

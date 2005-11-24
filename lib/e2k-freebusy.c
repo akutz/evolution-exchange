@@ -32,7 +32,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <e-util/e-time-utils.h>
+#include <libedataserver/e-time-utils.h>
 
 /**
  * e2k_freebusy_destroy:
