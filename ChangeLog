@@ -1,3 +1,15 @@
+2005-11-24  Sushma Rai  <rsushma@novell.com>
+
+	* storage/Makefile.am: Removed unused exchange-oof.[ch]
+
+	* storage/exchange-component.c (idle_do_interactive)
+	(exchange_component_is_interactive): Removed.
+	(impl_interactive): Having just the stub.
+	(config_listener_account_created): Not calling oof_init here also.
+	ExchangeComponentPrivate: Removed unused variable xid.
+
+	* storage/main.c: Not including exchange-oof.h
+
 2005-10-27  Theppitak Karoonboonyanan  <thep@linux.thai.net>
 
 	* configure.in: Added 'th' (Thai) to ALL_LINGUAS.
