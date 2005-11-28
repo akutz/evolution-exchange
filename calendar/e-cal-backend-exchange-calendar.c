@@ -51,7 +51,7 @@ enum {
 #define PARENT_TYPE E_TYPE_CAL_BACKEND_EXCHANGE
 static ECalBackendExchange *parent_class = NULL;
 
-#define d(x)
+#define d(x) (x)
 
 static ECalBackendSyncStatus modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, const char *calobj, CalObjModType mod, char **old_object, const char *href);
 
@@ -633,6 +633,8 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	struct _cb_data *cbdata;
 	gboolean send_options;
 	
+	d(printf ("ecbexc_create_object(%p, %p, %s, %s)", backend, cal, *calobj ? *calobj : NULL, *uid ? *uid : NULL));
+
 	cbexc =	E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 	
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), GNOME_Evolution_Calendar_InvalidObject);
@@ -959,6 +961,8 @@ modify_object (ECalBackendSync *backend, EDataCal *cal,
 	       const char *calobj, CalObjModType mod,
 	       char **old_object, char **new_object)
 {
+	d(printf ("ecbexc_modify_object(%p, %p, %d, %s)", backend, cal, mod, *old_object ? *old_object : NULL));
+
 	return modify_object_with_href (backend, cal, calobj, mod, old_object, NULL);
 }
 
@@ -977,7 +981,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	char *attach_body = NULL;
 	char *attach_body_crlf = NULL;
 	char *boundary = NULL;
-	struct icaltimetype last_modified;
+	struct icaltimetype last_modified, key_rid;
 	icalcomponent_kind kind;
 	ECalComponentDateTime dt;
 	struct _cb_data *cbdata;
@@ -1010,6 +1014,8 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		return GNOME_Evolution_Calendar_InvalidObject;
 	}
 	comp_uid = icalcomponent_get_uid (icalcomp);
+	if (mod == CALOBJ_MOD_THIS)
+		key_rid = icalcomponent_get_recurrenceid (icalcomp);
 	
 	ecomp = get_exchange_comp (E_CAL_BACKEND_EXCHANGE (cbexc), comp_uid);
 	
@@ -1037,6 +1043,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		attach_body_crlf = e_cal_backend_exchange_lf_to_crlf (attach_body);	
 	}
 
+	e_cal_component_commit_sequence (updated_ecomp);
 	updated_ecomp_str = e_cal_component_get_as_string (updated_ecomp);
 	updated_icalcomp = icalparser_parse_string (updated_ecomp_str);
 	g_free (updated_ecomp_str);
@@ -1156,6 +1163,9 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	g_free (real_comp_str);
 
 	icalcomponent_foreach_tzid (real_icalcomp, add_timezone_cb, cbdata);
+	if (mod == CALOBJ_MOD_THIS) {
+		icalcomponent_add_component (cbdata->vcal_comp, ecomp->icomp);	
+	}
 	icalcomponent_add_component (cbdata->vcal_comp, real_icalcomp);
 
 	body = icalcomponent_as_ical_string (cbdata->vcal_comp);
@@ -1208,7 +1218,23 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	g_free (body_crlf);
 
 	cached_ecomp = e_cal_component_new ();
-	e_cal_component_set_icalcomponent (cached_ecomp, icalcomponent_new_clone (ecomp->icomp));
+	if (mod == CALOBJ_MOD_THIS) {
+		GList *l;
+		struct icaltimetype inst_rid, key_rid;
+
+		for (l = ecomp->instances; l ; l = l->next) {
+			inst_rid = icalcomponent_get_recurrenceid (l->data);
+			if (icaltime_compare (inst_rid, key_rid) == 0) {
+				e_cal_component_set_icalcomponent (cached_ecomp,
+					 icalcomponent_new_clone (l->data));
+				break;
+			}
+		}
+
+	} else {
+		e_cal_component_set_icalcomponent (cached_ecomp, icalcomponent_new_clone (ecomp->icomp));
+	}
+	e_cal_component_commit_sequence (cached_ecomp);
 	*old_object = e_cal_component_get_as_string (cached_ecomp);
 	
 	ctx = exchange_account_get_context (E_CAL_BACKEND_EXCHANGE (cbexc)->account);	
@@ -1274,8 +1300,10 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 		
 	comp = e_cal_component_new ();
 	e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (ecomp->icomp));
-	if (old_object)
+	if (old_object) {
+		e_cal_component_commit_sequence (comp);
 		*old_object = e_cal_component_get_as_string (comp);
+	}
 	
 	if (mod == CALOBJ_MOD_THIS && rid && *rid) {
 		/*remove a single instance of a recurring event and modify */
@@ -1310,7 +1338,9 @@ static ECalBackendSyncStatus
 receive_objects (ECalBackendSync *backend, EDataCal *cal,
 		 const char *calobj)
 {
+	d(printf ("ecbexc_modify_object(%p, %p, %s)", backend, cal, calobj ? calobj : NULL));
 	ECalBackendExchangeCalendar *cbexc;
+	ECalBackendExchangeComponent *ecomp;
 	ECalComponent *comp = NULL;
 	GList *comps, *l;
 	struct icaltimetype current;
@@ -1334,7 +1364,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 
 	for (l = comps; l; l= l->next) {
 		const char *uid, *rid;
-		char *calobj;
+		char *icalobj;
 		char *object = NULL;
 		
 		subcomp = l->data;
@@ -1354,10 +1384,11 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 		case ICAL_METHOD_PUBLISH:
 		case ICAL_METHOD_REQUEST:
 		case ICAL_METHOD_REPLY:
-			if (get_exchange_comp (E_CAL_BACKEND_EXCHANGE (cbexc), uid)) {
+			if ((ecomp = get_exchange_comp (E_CAL_BACKEND_EXCHANGE (cbexc), uid)) != NULL ) {
 				char *old_object = NULL;
-				
-				calobj = (char *) icalcomponent_as_ical_string (subcomp);
+
+				d(printf ("uid : %s : found in the cache\n", uid));
+
 				if (check_owner_partstatus_for_declined (backend, subcomp)) {
 					status = remove_object (backend, cal, uid, NULL, 
 								CALOBJ_MOD_ALL, &old_object,
@@ -1367,24 +1398,34 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 					e_cal_backend_notify_object_removed (E_CAL_BACKEND (backend), uid,
 									     old_object, NULL);
 				} else {
-					status = modify_object_with_href (backend, cal, calobj,
+					struct icaltimetype time_rid;
+					time_rid = icaltime_from_string (rid);
+					e_cal_util_remove_instances (ecomp->icomp, time_rid, CALOBJ_MOD_THIS);
+					icalobj = (char *) icalcomponent_as_ical_string (subcomp);
+					status = modify_object_with_href (backend, cal, icalobj,
 									  CALOBJ_MOD_THIS,
 									  &old_object, NULL);
+					d(printf ("Modify this particular instance : %s\n", rid));
+					d(printf ("Modify object : %s\n", icalobj));
 					if (status != GNOME_Evolution_Calendar_Success)
 						goto error;
 					e_cal_backend_notify_object_modified (E_CAL_BACKEND (backend),
-									      old_object, calobj);
+									      old_object, icalobj);
+					d(printf ("Notify that the new object after modication is : %s\n", icalobj));
 				}
 
 				g_free (old_object);
 			} else if (!check_owner_partstatus_for_declined (backend, subcomp)) {
+				d(printf ("object : %s .. not found in the cache\n", uid));
 				char *returned_uid;
-				calobj = (char *) icalcomponent_as_ical_string (subcomp);
-				status = create_object (backend, cal, &calobj, &returned_uid);
+				icalobj = (char *) icalcomponent_as_ical_string (subcomp);
+				d(printf ("Create a new object : %s\n", icalobj));
+				status = create_object (backend, cal, &icalobj, &returned_uid);
 				if (status != GNOME_Evolution_Calendar_Success)
 					goto error;
 
-				e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), calobj);
+				e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), icalobj);
+				d(printf ("Notify that the new object is created : %s\n", icalobj));
 			} else
 				status = GNOME_Evolution_Calendar_Success;
 			break;
@@ -1393,13 +1434,13 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 			break;
 
 		case ICAL_METHOD_CANCEL:
-			calobj = (char *) icalcomponent_as_ical_string (subcomp);
+			icalobj = (char *) icalcomponent_as_ical_string (subcomp);
 			if (rid)
-				status = remove_object (backend, cal, uid, rid, CALOBJ_MOD_THIS, &calobj, &object);
+				status = remove_object (backend, cal, uid, rid, CALOBJ_MOD_THIS, &icalobj, &object);
 			else
-				status = remove_object (backend, cal, uid, NULL, CALOBJ_MOD_ALL, &calobj, &object);
+				status = remove_object (backend, cal, uid, NULL, CALOBJ_MOD_ALL, &icalobj, &object);
 			if (status == GNOME_Evolution_Calendar_Success) 
-				e_cal_backend_notify_object_removed (E_CAL_BACKEND (backend), uid, calobj, NULL);
+				e_cal_backend_notify_object_removed (E_CAL_BACKEND (backend), uid, icalobj, NULL);
 			if (object) {
 				g_free (object);
 				object = NULL;
@@ -1781,6 +1822,7 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 	}
 												 
 	retval = GNOME_Evolution_Calendar_Success;
+	e_cal_component_commit_sequence (comp);
 	*modified_calobj = g_strdup (e_cal_component_get_as_string (comp));
 												 
  cleanup:

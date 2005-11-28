@@ -1,3 +1,20 @@
+2005-11-28  Sarfraaz Ahmed  <asarfraaz@novell.com>
+
+	* calendar/e-cal-backend-exchange-calendar.c (modify_object_with_href):
+	Fetch the recurring instance from the cache.
+	(receive_objects) : Remove the instance from the master object in the
+	cache.
+
+	* calendar/e-cal-backend-exchange.c (e_cal_backend_exchange_add_object):
+	Remove the instance from the master object while adding the detatched
+	instance.
+	(discard_detached_instance): Similar.
+	(add_instances_to_vcal) : Added new. Adds the detatched instances to
+	the top level vcalendar object.
+	(get_object) : Modified to return the detatched instance when the rid
+	is requested.
+	Fixes #235580.
+
 2005-11-24  Tor Lillqvist  <tml@novell.com>
 
 	* configure.in: Check for Win32, set NO_UNDEFINED and
