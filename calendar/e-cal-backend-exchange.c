@@ -495,7 +495,7 @@ e_cal_backend_exchange_add_object (ECalBackendExchange *cbex,
 	const char *uid;
 	struct icaltimetype rid;
 
-	d(printf("ecbe_add_object(%p, %s, %s)\n", cbex, href, lastmod));
+	printf("ecbe_add_object(%p, %s, %s)\n", cbex, href, lastmod);
 
 	uid = icalcomponent_get_uid (comp);
 	ecomp = g_hash_table_lookup (cbex->priv->objects, uid);
@@ -537,6 +537,8 @@ e_cal_backend_exchange_add_object (ECalBackendExchange *cbex,
 
 			ecomp->instances = g_list_prepend (ecomp->instances,
 						   icalcomponent_new_clone (comp));
+			if (ecomp->icomp)
+				e_cal_util_remove_instances (ecomp->icomp, rid, CALOBJ_MOD_THIS);
 		}
 	} else
 		ecomp->icomp = icalcomponent_new_clone (comp);
@@ -557,9 +559,14 @@ discard_detached_instance (ECalBackendExchangeComponent *ecomp,
 		if (icaltime_compare (inst_rid, rid) == 0) {
 			ecomp->instances = g_list_remove (ecomp->instances, inst->data);
 			icalcomponent_free (inst->data);
-			return;
+			break;
 		}
 	}
+
+	if (ecomp->icomp) /* This check should ideally not be needed. */
+		e_cal_util_remove_instances (ecomp->icomp, rid, CALOBJ_MOD_THIS);
+
+	return;
 }
 
 /**
@@ -666,35 +673,94 @@ get_exchange_comp (ECalBackendExchange *cbex, const char *uid)
 	return NULL;			
 }
 
+static void
+add_instances_to_vcal (gpointer value, gpointer user_data)
+{
+	icalcomponent *recurrence = value;
+	icalcomponent *vcalendar = user_data;
+
+	icalcomponent_add_component (
+		vcalendar,
+		icalcomponent_new_clone (recurrence));		     
+
+}
+
 static ECalBackendSyncStatus
 get_object (ECalBackendSync *backend, EDataCal *cal,
 	    const char *uid, const char *rid, char **object)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	ECalBackendExchangeComponent *ecomp;
-	ECalComponent *comp;
 	
 	d(printf("ecbe_get_object(%p, %p, uid=%s, rid=%s)\n", backend, cal, uid, rid));
 	
 	g_return_val_if_fail (uid != NULL, GNOME_Evolution_Calendar_InvalidObject);
 	/*any other asserts?*/
 	
+	*object = NULL;
 	ecomp = g_hash_table_lookup (cbex->priv->objects, uid);
-	if ((!ecomp) || (!ecomp->icomp))
+	if (!ecomp)
 		return GNOME_Evolution_Calendar_ObjectNotFound;
-	
-	/*anything on recur id here????*/
-	
-	comp = e_cal_component_new ();
-	if (e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (ecomp->icomp))) {
-		*object = e_cal_component_get_as_string (comp);
-	} else {
-		*object = NULL;
-		g_object_unref (comp);
+
+	if (!rid && (!(ecomp->icomp)))	
 		return GNOME_Evolution_Calendar_ObjectNotFound;
+
+	if (rid && *rid) {
+		GList *l;
+		struct icaltimetype inst_rid, key_rid;
+		gboolean inst_found = FALSE;
+
+		for (l = ecomp->instances; l ; l = l->next) {
+			key_rid = icaltime_from_string (rid);
+			inst_rid = icalcomponent_get_recurrenceid (l->data);
+			if (icaltime_compare (inst_rid, key_rid) == 0) {
+				inst_found = TRUE;
+				break;
+			}
+		}
+		
+		if (inst_found) {
+			*object = g_strdup (icalcomponent_as_ical_string (l->data));
+		} else {
+			/* Instance is not found. Send the master object instead */	
+			if (ecomp->icomp) {
+				icalcomponent *new_inst;
+				struct icaltimetype itt;
+
+				itt = icaltime_from_string (rid);
+				new_inst = e_cal_util_construct_instance (
+					icalcomponent_new_clone (ecomp->icomp), itt);
+				if (!new_inst)
+					return GNOME_Evolution_Calendar_ObjectNotFound;
+				
+				*object = g_strdup (icalcomponent_as_ical_string (new_inst));
+				icalcomponent_free (new_inst);
+			} else {
+				/* Oops. No instance and no master as well !! */
+				return GNOME_Evolution_Calendar_ObjectNotFound;
+			} /* Close check for master object */
+		} /* Close check for instance */
+	}/* Close check if rid is being asked */
+	else {
+		/* rid is not asked */
+		if (g_list_length (ecomp->instances) > 0) {
+			/* Ok, we have detached instances, return a VCALENDAR */
+			/* Send the whole object including all its detatched instances */
+			icalcomponent *vcalcomp;
+
+			vcalcomp = e_cal_util_new_top_level ();
+			icalcomponent_add_component (vcalcomp,
+				icalcomponent_new_clone (ecomp->icomp));
+			g_list_foreach (ecomp->instances, (GFunc) add_instances_to_vcal, vcalcomp);
+			
+			*object = g_strdup (icalcomponent_as_ical_string (vcalcomp));
+			icalcomponent_free (vcalcomp);	
+		} else {
+			/* There are no detached instances. Send only the master object */
+			*object = g_strdup (icalcomponent_as_ical_string (ecomp->icomp));
+		}
 	}
-	
-	g_object_unref (comp);
+
 	return GNOME_Evolution_Calendar_Success;
 }
 
