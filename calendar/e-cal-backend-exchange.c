@@ -378,7 +378,7 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 	load_cache (cbex, euri);
 
 	g_mutex_unlock (cbex->priv->open_lock);
-
+	
 	return GNOME_Evolution_Calendar_Success;
 }
 
@@ -501,6 +501,8 @@ e_cal_backend_exchange_add_object (ECalBackendExchange *cbex,
 	ecomp = g_hash_table_lookup (cbex->priv->objects, uid);
 
 	is_instance = (icalcomponent_get_first_property (comp, ICAL_RECURRENCEID_PROPERTY) != NULL);
+
+	d(printf("ecbe_add_object: is_instance: %d\n", is_instance));	
 
 	if (ecomp && ecomp->icomp && !is_instance)
 		return FALSE;
@@ -865,6 +867,30 @@ typedef struct {
 	ECalBackend *backend;
 	icaltimezone *default_zone;
 } MatchObjectData;
+static void
+match_recurrence_sexp (gpointer data, gpointer user_data)
+{
+	icalcomponent *icomp = data;
+	MatchObjectData *match_data = user_data;
+	ECalComponent *comp = NULL;
+	char* comp_as_string = NULL;
+	
+	d(printf("ecbe_match_recurrence_sexp(%p, %p)\n", icomp, match_data));
+
+	if (!icomp || !match_data)
+		return;
+
+	comp = e_cal_component_new ();
+	e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (icomp));
+
+	if ((!match_data->search_needed) ||
+	    (e_cal_backend_sexp_match_comp (match_data->obj_sexp, comp, match_data->backend))) {
+		comp_as_string = e_cal_component_get_as_string (comp);
+		match_data->obj_list = g_list_append (match_data->obj_list, comp_as_string);
+		d(printf ("ecbe_match_recurrence_sexp: match found, adding \n%s\n", comp_as_string));
+	}
+	g_object_unref (comp);
+}
 
 static void
 match_object_sexp (gpointer key, gpointer value, gpointer data)
@@ -872,23 +898,31 @@ match_object_sexp (gpointer key, gpointer value, gpointer data)
 	ECalBackendExchangeComponent *ecomp = value;
 	MatchObjectData *match_data = data;
 	ECalComponent *comp;
-	
-	comp = e_cal_component_new ();
-	e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (ecomp->icomp));
 
-	if ((!match_data->search_needed) ||
-	    (e_cal_backend_sexp_match_comp (match_data->obj_sexp, comp, match_data->backend))) {
-		match_data->obj_list = g_list_append (match_data->obj_list,
+	/* 
+	   In case of detached instances with no master object,
+	   ecomp->icomp will be NULL and hence should be skipped
+	   from matching.
+	*/
+	if (!ecomp || !match_data)
+		return;
+
+	if (ecomp->icomp) {
+		comp = e_cal_component_new ();
+		e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (ecomp->icomp));
+		
+		if ((!match_data->search_needed) ||
+		    (e_cal_backend_sexp_match_comp (match_data->obj_sexp, comp, match_data->backend))) {
+			match_data->obj_list = g_list_append (match_data->obj_list,
 						      e_cal_component_get_as_string (comp));
-
-		#if 0
-		/* match also recurrences */
-		g_hash_table_foreach (obj_data->recurrences,
-				      (GHFunc) match_recurrence_sexp,
-				      match_data);
-		#endif
+		}
+		g_object_unref (comp);
 	}
-	g_object_unref (comp);
+
+	/* match also recurrences */
+	g_list_foreach (ecomp->instances,
+			(GFunc) match_recurrence_sexp,
+			match_data);
 }
 
 static ECalBackendSyncStatus
@@ -971,6 +1005,7 @@ e_cal_backend_exchange_add_timezone (ECalBackendExchange *cbex,
 	if (!prop) 
 		return GNOME_Evolution_Calendar_InvalidObject;
 	tzid = icalproperty_get_tzid (prop);
+	d(printf("ecbe_add_timezone: tzid = %s\n", tzid));
 	if (g_hash_table_lookup (cbex->priv->timezones, tzid))
 		return GNOME_Evolution_Calendar_ObjectIdAlreadyExists;
 
@@ -991,6 +1026,9 @@ add_timezone (ECalBackendSync *backend, EDataCal *cal,
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	GNOME_Evolution_Calendar_CallStatus status;
 	icalcomponent *vtzcomp;
+
+	if (!tzobj)
+		return GNOME_Evolution_Calendar_InvalidObject;
 
 	vtzcomp = icalcomponent_new_from_string ((char *)tzobj);
 	if (!vtzcomp)
@@ -1017,16 +1055,16 @@ set_default_timezone (ECalBackendSync *backend, EDataCal *cal,
 		      const char *tzid)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
-	icaltimezone *zone;
 
 	d(printf("ecbe_set_default_timezone(%p, %p, %s)\n", backend, cal, tzid));
-
-	zone = g_hash_table_lookup (cbex->priv->timezones, tzid);
-	if (zone) {
-		cbex->priv->default_timezone = zone;
-		return GNOME_Evolution_Calendar_Success;
-	} else
-		return GNOME_Evolution_Calendar_ObjectNotFound;
+	/* 
+	   We call this function before calling e_cal_open in client and
+	   hence we set the timezone directly.  In the implementation of
+	   e_cal_open, we set this timezone to every-objects that we create.
+	*/
+	   
+	cbex->priv->default_timezone = icaltimezone_get_builtin_timezone_from_tzid (tzid);
+	return GNOME_Evolution_Calendar_Success;
 }
 
 struct search_data {
@@ -1333,13 +1371,30 @@ check_change_type (gpointer key, gpointer value, gpointer data)
 	ECalBackendExchangeComponent *ecomp = value;
 	struct ChangeData *change_data = data;
 	char *calobj;
-	ECalComponent *comp;
+	ECalComponent *comp = NULL;
 	char *uid = key;
+	GList *l = NULL;
+	icalcomponent *icomp = NULL;
 	
-	if (ecomp != NULL) {
+	/* 
+	   In case of detached instances with no master object,
+	   ecomp->icomp will be NULL and hence should be skipped
+	   from matching.
+	*/
+	if (!ecomp)
+		return;
+	icomp = ecomp->icomp;
+	l = ecomp->instances;
+	for (icomp = ecomp->icomp; l; icomp = l->data, l = l->next) {
+		if (!icomp)
+			continue;
 
 		comp = e_cal_component_new ();
-		e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (ecomp->icomp));
+		/*
+		  e_cal_component_set_icalcomponent does a icalcomponent_free of 
+		  previous icalcomponent before setting the new one. 
+		 */
+		e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (icomp));	
 
 		calobj = e_cal_component_get_as_string (comp);
 		switch (e_xmlhash_compare (change_data->ehash, uid, calobj)){
@@ -1355,9 +1410,8 @@ check_change_type (gpointer key, gpointer value, gpointer data)
 		}
 		
 		g_free (calobj);
-		g_object_unref (comp);
 	}
-		
+	g_object_unref (comp);		
 }
 
 struct cbe_data {
@@ -1367,7 +1421,7 @@ struct cbe_data {
 	EXmlHash *ehash;
 };
 
-static void
+static gboolean
 e_cal_backend_exchange_compute_changes_foreach_key (const char *key, const char *value, gpointer data)
 {
 	struct cbe_data *cbedata = data;
@@ -1377,16 +1431,19 @@ e_cal_backend_exchange_compute_changes_foreach_key (const char *key, const char 
 	if (!ecomp) {
 		ECalComponent *comp;
 		comp = e_cal_component_new ();
+		if (ecomp->icomp)
+			e_cal_component_set_icalcomponent (comp, 
+							   icalcomponent_new_clone (ecomp->icomp));
 		if (cbedata->kind == ICAL_VTODO_COMPONENT)
 			e_cal_component_set_new_vtype (comp, E_CAL_COMPONENT_TODO);
 		else
 			e_cal_component_set_new_vtype (comp, E_CAL_COMPONENT_EVENT);
 		e_cal_component_set_uid (comp, key);
 		cbedata->deletes = g_list_prepend (cbedata->deletes, e_cal_component_get_as_string (comp));
-		
-		e_xmlhash_remove (cbedata->ehash, key);
 		g_object_unref (comp);	
+		return TRUE;
 	}
+	return FALSE;
 }
 
 /* Attachments */
@@ -1650,7 +1707,7 @@ get_changes (ECalBackendSync *backend, EDataCal *cal,
 	cbedata.kind = e_cal_backend_get_kind (E_CAL_BACKEND (cbex));
 	cbedata.deletes = NULL;
 	cbedata.ehash = ehash;
-	e_xmlhash_foreach_key (ehash, (EXmlHashFunc)e_cal_backend_exchange_compute_changes_foreach_key, &cbedata);
+	e_xmlhash_foreach_key_remove (ehash, (EXmlHashRemoveFunc)e_cal_backend_exchange_compute_changes_foreach_key, &cbedata);
 	
 	*deletes = cbedata.deletes;
 	

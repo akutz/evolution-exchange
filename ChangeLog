@@ -1,3 +1,22 @@
+2005-11-23  Veerapuram Varadhan <vvaradhan@novell.com>
+
+	* calendar/e-cal-backend-exchange.c: (match_object_sexp)
+	(check_change_type): Calendar components that are just instances
+	and without master object, don't have corresponding
+	icalcomponent. Check for the existence of icalcomponent before
+	adding them to the change list.  Also, process the instances and
+	return them.
+	(match_recurrence_sexp): Local function added for handling 
+	recurrences during a query.
+	(get_changes): Use e_xmlhash_foreach_key_remove() instead of 
+	e_xmlhash_foreach_key ().
+	(e_cal_backend_exchange_compute_changes_foreach_key): Change
+	return type to gboolean and don't remove elements from hash as we
+	are in "_foreach_" callback.
+	(set_default_timezone): Just set the timezone without doing any
+	existence check.
+	** Fixes #316315 + other recurrence related issues.
+	
 2005-11-28  Sarfraaz Ahmed  <asarfraaz@novell.com>
 
 	* calendar/e-cal-backend-exchange-calendar.c (modify_object_with_href):
