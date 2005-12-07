@@ -16,6 +16,12 @@
 
 	* storage/Makefile.am: Drop shell/libfoldertree.la from
 	evolution_exchange_storage_LDADD.
+
+	* addressbook/Makefile.am
+	* calendar/Makefile.am
+	* mail/Makefile.am
+	* storage/Makefile.am: Remove references to the shell directory
+	from CFLAGS, too.
 	
 2005-11-23  Veerapuram Varadhan <vvaradhan@novell.com>
 

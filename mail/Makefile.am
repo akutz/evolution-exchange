@@ -4,7 +4,6 @@ noinst_LTLIBRARIES =						\
 
 INCLUDES =							\
 	-I$(top_srcdir)						\
-	-I$(top_srcdir)/shell					\
 	-I$(top_srcdir)/camel					\
 	-DG_LOG_DOMAIN=\"exchange-mail\"			\
 	$(EXTRA_GNOME_CFLAGS)					\

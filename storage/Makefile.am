@@ -13,10 +13,8 @@ INCLUDES =							\
 	-DCONNECTOR_LOCALEDIR=\""$(localedir)\""		\
 	-I$(top_srcdir)						\
 	-I$(top_srcdir)/mail					\
-	-I$(top_srcdir)/shell					\
 	-I$(top_srcdir)/camel					\
-	-I$(top_srcdir)/calendar				\
-	-I$(top_builddir)/shell					
+	-I$(top_srcdir)/calendar
 
 EVOLUTION_privlibexec_PROGRAMS =				\
 	evolution-exchange-storage

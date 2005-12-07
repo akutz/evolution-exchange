@@ -3,9 +3,7 @@ INCLUDES =						\
 	$(ADDRESSBOOK_CFLAGS)				\
 	$(LIBEXCHANGE_CFLAGS)				\
 	-I$(top_srcdir)					\
-	-I$(top_srcdir)/shell				\
 	-I$(top_srcdir)/storage				\
-	-I$(top_builddir)/shell				\
 	$(LDAP_CFLAGS)					
 
 noinst_LTLIBRARIES = libexchangeaddressbook.la

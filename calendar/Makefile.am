@@ -3,9 +3,7 @@ INCLUDES =                                                      \
 	$(LIBEXCHANGE_CFLAGS)					\
 	$(LDAP_CFLAGS)						\
 	-I$(top_srcdir)						\
-        -I$(top_srcdir)/shell					\
         -I$(top_srcdir)/storage					\
-	-I$(top_builddir)/shell					\
 	-DG_LOG_DOMAIN=\"e-cal-backend-exchange\"
 
 noinst_LTLIBRARIES =						\
