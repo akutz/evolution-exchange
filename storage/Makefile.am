@@ -32,8 +32,6 @@ evolution_exchange_storage_SOURCES =				\
 	exchange-config-listener.h				\
 	exchange-change-password.c				\
 	exchange-change-password.h				\
-	exchange-hierarchy-foreign.c				\
-	exchange-hierarchy-foreign.h				\
 	exchange-migrate.c					\
 	exchange-migrate.h					\
 	exchange-storage.c					\
@@ -54,8 +52,6 @@ ximian_connector_setup_SOURCES =				\
 	ximian-connector-setup.c				\
 	exchange-config-listener.c				\
 	exchange-config-listener.h				\
-	exchange-hierarchy-foreign.c				\
-	exchange-hierarchy-foreign.h				\
 	exchange-autoconfig-wizard.c
 
 ximian_connector_setup_LDADD =					\
@@ -71,8 +67,6 @@ migr_test_SOURCES =						\
 	migr-test.c						\
 	exchange-config-listener.c				\
 	exchange-config-listener.h				\
-	exchange-hierarchy-foreign.c				\
-	exchange-hierarchy-foreign.h				\
 	exchange-migrate.c					\
 	exchange-migrate.h
 

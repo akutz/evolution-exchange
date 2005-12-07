@@ -43,6 +43,17 @@
 	* storage/exchange-oof.h: Remove unused files (have been moved to
 	e-d-s).
 
+	* storage/exchange-hierarchy-foreign.c: This was being compiled
+	into the executables here, but it has also actually moved to
+	e-d-s. Having it duplicated here caused weird problems on Win32,
+	even if happened to work on Linux (due to differences in how
+	dynamic linking works). So remove.
+
+	* storage/exchange-hierarchy-foreign.h: Ditto, has moved in e-d-s,
+	remove.
+
+	* Makefile.am: Remove from here, too.
+	
 2005-11-23  Veerapuram Varadhan <vvaradhan@novell.com>
 
 	* calendar/e-cal-backend-exchange.c: (match_object_sexp)
