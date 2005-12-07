@@ -43,7 +43,6 @@ evolution_exchange_storage_SOURCES =				\
 	main.c							
 
 evolution_exchange_storage_LDADD =				\
-	$(top_builddir)/shell/libfoldertree.la			\
 	$(top_builddir)/mail/libexchangemail.la 		\
 	$(top_builddir)/addressbook/libexchangeaddressbook.la	\
 	$(top_builddir)/calendar/libexchangecalendar.la		\

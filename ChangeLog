@@ -5,6 +5,18 @@
 	mentioned in Makefile.am. The code from these directories has been
 	moved to e-d-s some time ago.)
 
+	* shell: Remove this directory too. It was compiled, and the
+	resulting libfoldertree.la was being linked to
+	storage/evolution-exchange-storage. But in fact, the code was
+	duplicated in e-d-s's libexchange-storage-1.2.la. This caused a
+	hard-to-find problem on Win32, but happened not to have any ill
+	effects on Linux. Sushma says it's OK to remove it.
+
+	* Makefile.am: Drop shell from SUBDIRS.
+
+	* storage/Makefile.am: Drop shell/libfoldertree.la from
+	evolution_exchange_storage_LDADD.
+	
 2005-11-23  Veerapuram Varadhan <vvaradhan@novell.com>
 
 	* calendar/e-cal-backend-exchange.c: (match_object_sexp)
