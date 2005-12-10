@@ -327,8 +327,12 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 	/* Make sure we have an open connection */
 	/* This steals the ExchangeAccount from ExchangeComponent */
 	act = exchange_component_get_account_for_uri (global_exchange_component, NULL);
-	if (!exchange_account_get_context (act))
-		exchange_account_connect (act, password, &acresult);
+	if (!exchange_account_get_context (act)) {
+		if (!exchange_account_connect (act, password, &acresult)) {
+			g_mutex_unlock (cbex->priv->open_lock);
+			return GNOME_Evolution_Calendar_AuthenticationFailed;
+		}
+	}
 
 	cbex->account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
 	if (!cbex->account) {
