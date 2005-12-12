@@ -1194,11 +1194,9 @@ set_mode (ECalBackend *backend, CalMode mode)
 			/* Should we check for access rights before setting this ? */
 			d(printf ("set mode to online\n"));
 			account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
+			/* check if authentication is required */
 			if (!exchange_account_get_context (account))
 				e_cal_backend_notify_auth_required(backend);
-			e_cal_backend_notify_mode (backend, 
-				GNOME_Evolution_Calendar_CalListener_MODE_SET,
-				GNOME_Evolution_Calendar_MODE_REMOTE);
 
 			uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
 			account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
@@ -1207,11 +1205,18 @@ set_mode (ECalBackend *backend, CalMode mode)
 				return;
 			}
 			cbex->folder = exchange_account_get_folder (account, uristr);
+
+			if (!cbex->folder) {
+				g_mutex_unlock (priv->set_lock);	
+				return;
+			}
+
+			e_cal_backend_notify_mode (backend, 
+				GNOME_Evolution_Calendar_CalListener_MODE_SET,
+				GNOME_Evolution_Calendar_MODE_REMOTE);
 			/* FIXME : Test if available for read already */
 			priv->read_only = FALSE;
 			priv->mode = CAL_MODE_REMOTE;
-			/* FIXME : Check if online and check if authentication
-				is needed */
 			break;
 
 	case CAL_MODE_LOCAL:
