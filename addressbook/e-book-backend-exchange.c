@@ -32,7 +32,7 @@
 #include <time.h>
 
 #include <libedataserver/e-sexp.h>
-#include <e-util/e-uid.h>
+#include <libedataserver/e-uid.h>
 #include <e-util/e-util.h>
 #include <libebook/e-address-western.h>
 #include <libebook/e-contact.h>
