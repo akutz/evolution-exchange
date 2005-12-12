@@ -1,3 +1,24 @@
+Evolution Exchange 2.5.3  2005-12-12
+------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.gnome.org/show_bug.cgi)
+
+	#235580 - Evo not handling Outlook recurring mtg. changes well (Sarfraaz)
+	#316315 - Evolution exchange storage crashes on ECalendar sync (Varadhan)
+	
+Other Fixes
+	
+	- Removed exchange out-of-office handling form here, which is
+	implemented in libexchange-storage (Sushma)
+	- WIN32 support fixes. (Tor Lillqvist)
+	- Remove duplicate code, which also exists in e-d-s/servers/exchange 
+	and unused files. (Tor Lillqvist)
+	- Returning proper error code if calendar authentication fails (sushma)
+	- In set_mode() returning if failed to get the folder, and setting the
+	mode at the end. (sushma)
+	- using e-uid.h from libedataserver and not from e-util (Irene)
+
+
 Evolution Exchange 2.5.2  2005-11-14
 ------------------------------------
 
