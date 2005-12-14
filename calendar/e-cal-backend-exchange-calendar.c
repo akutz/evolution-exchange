@@ -815,10 +815,13 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 			if (dt.tzid == NULL)
 				from_zone = icaltimezone_get_utc_timezone ();
 			else {
-				char *izone;
+				char *izone = NULL;
 				get_timezone (backend, cal, dt.tzid, &izone);
-				from_zone = icalcomponent_get_timezone (icalcomponent_new_from_string (izone),
+				if (izone)
+					from_zone = icalcomponent_get_timezone (icalcomponent_new_from_string (izone),
 											dt.tzid);
+				else
+					from_zone = icaltimezone_get_utc_timezone ();
 			}
 			to_zone = icaltimezone_get_utc_timezone ();
 
