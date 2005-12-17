@@ -1207,7 +1207,7 @@ set_mode (ECalBackend *backend, CalMode mode)
 			cbex->folder = exchange_account_get_folder (account, uristr);
 
 			if (!cbex->folder) {
-				g_mutex_unlock (priv->set_lock);	
+				g_mutex_unlock (priv->set_lock);
 				return;
 			}
 
@@ -1228,6 +1228,10 @@ set_mode (ECalBackend *backend, CalMode mode)
 				return;
 			}
 			cbex->folder = exchange_account_get_folder (account, uristr);
+			if (!cbex->folder) {
+				g_mutex_unlock (priv->set_lock);
+				return;
+			}
 			priv->mode = CAL_MODE_LOCAL;
 			priv->read_only = TRUE;
 			e_cal_backend_notify_mode (backend, 

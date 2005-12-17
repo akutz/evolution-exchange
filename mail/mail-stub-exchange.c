@@ -2780,13 +2780,19 @@ stub_connect (MailStub *stub, char *pwd)
 	const char *uri;
 	int mode;
 
+	exchange_component_is_offline (global_exchange_component, &mode);
+
 	account = mse->account;
+	if (mode == ONLINE_MODE)
+		exchange_account_set_online (account);
+	else if (mode == OFFLINE_MODE)
+		exchange_account_set_offline (account);
+
 	ctx = exchange_account_get_context (account);
 	if (!ctx) {
 		ctx = exchange_account_connect (account, pwd, &result);
 	}
 	
-	exchange_component_is_offline (global_exchange_component, &mode);
 	
 	if (!ctx && mode == ONLINE_MODE) {
 		retval = 0;

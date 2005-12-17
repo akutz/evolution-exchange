@@ -485,7 +485,6 @@ build_cache (EBookBackendExchange *be)
 	e_book_backend_cache_set_populated (bepriv->cache);
 	bepriv->is_cache_ready=TRUE;
 	e_file_cache_thaw_changes (E_FILE_CACHE (bepriv->cache));
-
 	return NULL;
 }
 
@@ -2338,20 +2337,20 @@ e_book_backend_exchange_set_mode (EBookBackend *backend, int mode)
 
 	bepriv->mode = mode;
 	/* if (e_book_backend_is_loaded (backend)) { */
-		if (mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
-			e_book_backend_set_is_writable (backend, FALSE);
-			e_book_backend_notify_writable (backend, FALSE);
-			e_book_backend_notify_connection_status (backend, FALSE);
-			/* FIXME : free context ? */
-		} else if (mode == GNOME_Evolution_Addressbook_MODE_REMOTE) {
-			e_book_backend_set_is_writable (backend, bepriv->is_writable);
-			e_book_backend_notify_writable (backend, bepriv->is_writable);
-			e_book_backend_notify_connection_status (backend, TRUE);
-			account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
-			if (!exchange_account_get_context (account))
-				e_book_backend_notify_auth_required (backend);
-		}
-/*	} */
+	if (mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
+		e_book_backend_set_is_writable (backend, FALSE);
+		e_book_backend_notify_writable (backend, FALSE);
+		e_book_backend_notify_connection_status (backend, FALSE);
+		/* FIXME : free context ? */
+	} else if (mode == GNOME_Evolution_Addressbook_MODE_REMOTE) {
+		e_book_backend_set_is_writable (backend, bepriv->is_writable);
+		e_book_backend_notify_writable (backend, bepriv->is_writable);
+		e_book_backend_notify_connection_status (backend, TRUE);
+		account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
+		if (!exchange_account_get_context (account))
+			e_book_backend_notify_auth_required (backend);
+	}
+	/*}*/
 }
 
 /**
@@ -2475,7 +2474,6 @@ e_book_backend_exchange_init (EBookBackendExchange *backend)
 	priv->cache		= NULL;
 	priv->original_uri 	= NULL;
 	priv->is_writable 	= TRUE;
-	priv->mode		= GNOME_Evolution_Addressbook_MODE_LOCAL;
 
 	priv->create_mutex      = g_mutex_new ();
 

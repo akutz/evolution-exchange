@@ -1,3 +1,21 @@
+2005-12-17  Sushma Rai  <rsushma@novell.com>
+
+	* storage/main.c (setup_calendar_factory): Set the offline/online mode
+	of the calendar as it impl_setLineStatus() does not get invoked when
+	started in offline mode. This fixes the problem of not loading 
+	addressbook contents when started in offline mode.
+	(setup_addressbook_factory): Similar.
+
+	* calendar/e-cal-backend-exchange.c (set_mode): Return if failed to 
+	retrieve the folder, and set the mode only if successful, in the
+	offline mode.
+
+	* mail/mail-stub-exchange.c (stub_connect): Set the ExchangeAccount
+	mode to offline/online based on exchange component mode, as 
+	impl_setLineStatus() does not get invoked when started in offline mode.
+	This fixes the problem of not loading the folder, after account 
+	creation, even if the user is authenticated.
+
 2005-12-12  Sushma Rai  <rsushma@novell.com>
 
 	* configure.in : Bumped the version to 2.5.3

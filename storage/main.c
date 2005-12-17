@@ -43,6 +43,7 @@
 #include <libedataserver/e-data-server-module.h>
 
 #include <e2k-utils.h>
+#include <exchange-constants.h>
 #include "addressbook/e-book-backend-exchange.h"
 #include "addressbook/e-book-backend-exchange-factory.h"
 #include "addressbook/e-book-backend-gal.h"
@@ -91,11 +92,20 @@ last_calendar_gone_cb (EDataCalFactory *factory, gpointer data)
 static gboolean
 setup_calendar_factory (void)
 {
+	int mode;
+
 	cal_factory = e_data_cal_factory_new ();
 	if (!cal_factory) {
 		g_message ("setup_calendar_factory(): Could not create the calendar factory");
 		return FALSE;
 	}
+
+	exchange_component_is_offline (global_exchange_component, &mode);
+	
+	if (mode == ONLINE_MODE)
+		e_data_cal_factory_set_backend_mode (cal_factory, ONLINE_MODE);	
+	else if (mode == OFFLINE_MODE)
+		e_data_cal_factory_set_backend_mode (cal_factory, OFFLINE_MODE);	
 
 	e_data_cal_factory_register_backend (cal_factory,
 					     (g_object_new (events_backend_exchange_factory_get_type(),
@@ -126,9 +136,18 @@ last_book_gone_cb (EDataBookFactory *factory, gpointer data)
 static gboolean
 setup_addressbook_factory (void)
 {
+	int mode;
+
         book_factory = e_data_book_factory_new ();
         if (!book_factory)
                 return FALSE;
+
+	exchange_component_is_offline (global_exchange_component, &mode);
+	
+	if (mode == ONLINE_MODE)
+		e_data_book_factory_set_backend_mode (book_factory, ONLINE_MODE);	
+	else if (mode == OFFLINE_MODE)
+		e_data_book_factory_set_backend_mode (book_factory, OFFLINE_MODE);
 
 	e_data_book_factory_register_backend (book_factory, 
 					      (g_object_new (e_book_backend_exchange_factory_get_type(), 
