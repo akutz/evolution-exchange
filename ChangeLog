@@ -9,13 +9,14 @@
 	* calendar/e-cal-backend-exchange.c (set_mode): Return if failed to 
 	retrieve the folder, and set the mode only if successful, in the
 	offline mode.
+	Fixes #315105.
 
 	* mail/mail-stub-exchange.c (stub_connect): Set the ExchangeAccount
 	mode to offline/online based on exchange component mode, as 
 	impl_setLineStatus() does not get invoked when started in offline mode.
 	This fixes the problem of not loading the folder, after account 
 	creation, even if the user is authenticated.
-	Fixes #315605.
+	Fixes #315605, #315333.
 
 2005-12-12  Sushma Rai  <rsushma@novell.com>
 
