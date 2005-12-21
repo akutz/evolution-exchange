@@ -1,3 +1,13 @@
+2005-12-21  Sushma Rai  <rsushma@novell.com>
+
+	* addressbook/e-book-backend-exchange.c 
+	(e_book_backend_exchange_start_book_view): Added the check for NULL 
+	context.
+	(e_book_backend_exchange_authenticate_user): Corrected the typo, an if
+	condition was terminated by ";".
+	(e_book_backend_exchange_load_source): Initializing the writable state
+	and notifying the connection status.
+
 2005-12-17  Sushma Rai  <rsushma@novell.com>
 
 	* storage/main.c (setup_calendar_factory): Set the offline/online mode

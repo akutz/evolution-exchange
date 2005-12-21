@@ -1893,6 +1893,14 @@ e_book_backend_exchange_start_book_view (EBookBackend  *backend,
 		
 	case GNOME_Evolution_Addressbook_MODE_REMOTE:
 
+		if (!be->priv->ctx) {
+			e_book_backend_notify_auth_required (backend);
+			e_data_book_view_notify_complete (book_view,
+						GNOME_Evolution_Addressbook_AuthenticationRequired);
+			bonobo_object_unref (book_view);
+			return;
+		}
+
 		/* execute the query */
 		rn = e_book_backend_exchange_build_restriction (query, 
 							bepriv->base_rn);
@@ -1901,7 +1909,7 @@ e_book_backend_exchange_start_book_view (EBookBackend  *backend,
 					       field_names, n_field_names,
 					       rn, NULL, TRUE);
 		e2k_restriction_unref (rn);
-
+		
 		while ((result = e2k_result_iter_next (iter))) {
 			contact = e_contact_from_props (be, result);
 			if (contact) {
@@ -2133,7 +2141,7 @@ e_book_backend_exchange_authenticate_user (EBookBackend *backend,
 				return;
 			}
 		}
-		if (!bepriv->connected);
+		if (!bepriv->connected)
 			e_book_backend_exchange_connect (be);
 		if (e_book_backend_cache_is_populated (bepriv->cache)) {
 			if (bepriv->is_writable)
@@ -2258,8 +2266,6 @@ e_book_backend_exchange_load_source (EBookBackend *backend,
 		e_book_backend_set_is_writable (backend, FALSE);
 		e_book_backend_notify_writable (backend, FALSE);
 		e_book_backend_notify_connection_status (backend, FALSE);
-	}
-	if (bepriv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
 		if (!e_book_backend_cache_exists (bepriv->original_uri))
 			return GNOME_Evolution_Addressbook_OfflineUnavailable;
 	}
@@ -2270,7 +2276,10 @@ e_book_backend_exchange_load_source (EBookBackend *backend,
 		return GNOME_Evolution_Addressbook_Success;
 	}
 
+	// writable property will be set in authenticate_user callback
+	e_book_backend_set_is_writable (E_BOOK_BACKEND(backend), FALSE);
 	e_book_backend_set_is_loaded (E_BOOK_BACKEND (be), TRUE);
+	e_book_backend_notify_connection_status (E_BOOK_BACKEND (be), TRUE);
 
 	if (e_book_backend_cache_is_populated (bepriv->cache)) {
 		if (bepriv->is_writable)
