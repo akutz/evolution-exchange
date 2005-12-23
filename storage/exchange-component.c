@@ -22,6 +22,7 @@
 #endif
 
 #include "exchange-component.h"
+#include "shell/e-component-view.h"
 
 #include <unistd.h>
 
@@ -140,16 +141,19 @@ finalize (GObject *object)
 	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
-static void
-impl_createControls (PortableServer_Servant servant,
-		     Bonobo_Control *sidebar_control,
-		     Bonobo_Control *view_control,
-		     Bonobo_Control *statusbar_control,
-		     CORBA_Environment *ev)
+static GNOME_Evolution_ComponentView
+impl_createView (PortableServer_Servant servant,
+		 GNOME_Evolution_ShellView parent,
+		 CORBA_Environment *ev)
 {
-	d(printf("createControls...\n"));
+	d(printf("createView...\n"));
 
-	*sidebar_control = *view_control = *statusbar_control = NULL;
+	EComponentView *component_view = e_component_view_new_controls (parent, "exchange",
+                                                        		NULL,
+									NULL,
+                                                        		NULL);
+
+        return BONOBO_OBJREF(component_view);
 }
 
 static void
@@ -427,7 +431,7 @@ exchange_component_class_init (ExchangeComponentClass *klass)
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
 
-	epv->createControls     = impl_createControls;
+	epv->createView     	= impl_createView;
 	epv->upgradeFromVersion = impl_upgradeFromVersion;
 	epv->requestQuit        = impl_requestQuit;
 	epv->quit               = impl_quit;
