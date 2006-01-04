@@ -51,7 +51,7 @@ enum {
 #define PARENT_TYPE E_TYPE_CAL_BACKEND_EXCHANGE
 static ECalBackendExchange *parent_class = NULL;
 
-#define d(x) (x)
+#define d(x) 
 
 static ECalBackendSyncStatus modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, const char *calobj, CalObjModType mod, char **old_object, const char *href);
 
@@ -294,6 +294,10 @@ get_changed_events (ECalBackendExchange *cbex, const char *since)
 						  E2K_RELOP_EQ, cdoSingle),
 			e2k_restriction_prop_int (E2K_PR_CALENDAR_INSTANCE_TYPE,
 						  E2K_RELOP_EQ, cdoMaster),
+			e2k_restriction_prop_int (E2K_PR_CALENDAR_INSTANCE_TYPE,
+						  E2K_RELOP_EQ, cdoInstance),
+			e2k_restriction_prop_int (E2K_PR_CALENDAR_INSTANCE_TYPE,
+						  E2K_RELOP_EQ, cdoException),
 			NULL),
 		NULL);
 	if (cbex->private_item_restriction) {
@@ -686,12 +690,12 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 		if (transp_val == ICAL_TRANSP_TRANSPARENT)
 			busystatus = "FREE";
 	}
-	
+
 	if (e_cal_util_component_has_recurrences (icalcomp))
 		insttype = "1";
 	else
 		insttype = "0";
-	
+
 	startt = icalcomponent_get_dtstart (icalcomp);
 	if(icaltime_is_date (startt))
 		allday = "TRUE";
@@ -709,7 +713,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	icalprop = icalproperty_new_x (busystatus);
 	icalproperty_set_x_name (icalprop, "X-MICROSOFT-CDO-BUSYSTATUS");
 	icalcomponent_add_property (icalcomp, icalprop);
-	
+
 	icalprop = icalproperty_new_x (insttype);
 	icalproperty_set_x_name (icalprop, "X-MICROSOFT-CDO-INSTTYPE");
 	icalcomponent_add_property (icalcomp, icalprop);
@@ -974,7 +978,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	ECalBackendExchangeCalendar *cbexc;
 	ECalBackendExchangeComponent *ecomp;
 	icalcomponent *icalcomp, *real_icalcomp, *updated_icalcomp;
-	ECalComponent *real_ecomp, *cached_ecomp, *updated_ecomp;
+	ECalComponent *real_ecomp, *cached_ecomp = NULL, *updated_ecomp;
 	const char *comp_uid;
 	char *updated_ecomp_str, *real_comp_str;
 	char *body, *body_crlf, *msg;
@@ -1217,7 +1221,6 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	g_free (from);
 	g_free (body_crlf);
 
-	cached_ecomp = e_cal_component_new ();
 	if (mod == CALOBJ_MOD_THIS) {
 		GList *l;
 		struct icaltimetype inst_rid, key_rid;
@@ -1225,6 +1228,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		for (l = ecomp->instances; l ; l = l->next) {
 			inst_rid = icalcomponent_get_recurrenceid (l->data);
 			if (icaltime_compare (inst_rid, key_rid) == 0) {
+				cached_ecomp = e_cal_component_new ();
 				e_cal_component_set_icalcomponent (cached_ecomp,
 					 icalcomponent_new_clone (l->data));
 				break;
@@ -1232,10 +1236,15 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		}
 
 	} else {
+		cached_ecomp = e_cal_component_new ();
 		e_cal_component_set_icalcomponent (cached_ecomp, icalcomponent_new_clone (ecomp->icomp));
 	}
-	e_cal_component_commit_sequence (cached_ecomp);
-	*old_object = e_cal_component_get_as_string (cached_ecomp);
+	if (cached_ecomp) {
+		e_cal_component_commit_sequence (cached_ecomp);
+		*old_object = e_cal_component_get_as_string (cached_ecomp);
+	} else {
+		*old_object = e_cal_component_get_as_string (updated_ecomp);
+	}
 	
 	ctx = exchange_account_get_context (E_CAL_BACKEND_EXCHANGE (cbexc)->account);	
 	
@@ -1258,7 +1267,10 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	g_free (msg);
 	g_object_unref (real_ecomp);
 	g_object_unref (updated_ecomp);
-	g_object_unref (cached_ecomp);
+	
+	if (cached_ecomp)
+		g_object_unref (cached_ecomp);
+
 	icalcomponent_free (cbdata->vcal_comp);
 	g_free (cbdata);
 	e2k_properties_free (props);
@@ -1399,8 +1411,12 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 									     old_object, NULL);
 				} else {
 					struct icaltimetype time_rid;
-					time_rid = icaltime_from_string (rid);
-					e_cal_util_remove_instances (ecomp->icomp, time_rid, CALOBJ_MOD_THIS);
+					
+					if (rid) {
+						time_rid = icaltime_from_string (rid);
+						e_cal_util_remove_instances (ecomp->icomp, time_rid, CALOBJ_MOD_THIS);
+					}
+
 					icalobj = (char *) icalcomponent_as_ical_string (subcomp);
 					status = modify_object_with_href (backend, cal, icalobj,
 									  CALOBJ_MOD_THIS,
@@ -1417,7 +1433,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 				g_free (old_object);
 			} else if (!check_owner_partstatus_for_declined (backend, subcomp)) {
 				d(printf ("object : %s .. not found in the cache\n", uid));
-				char *returned_uid;
+				char *returned_uid, *old;
 				icalobj = (char *) icalcomponent_as_ical_string (subcomp);
 				d(printf ("Create a new object : %s\n", icalobj));
 				status = create_object (backend, cal, &icalobj, &returned_uid);

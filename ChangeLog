@@ -1,3 +1,15 @@
+2006-01-04  Chenthill Palanisamy  <pchenthill@novell.com>
+
+	Fixes two crashes and appearance of recurring exception events.
+	* calendar/e-cal-backend-exchange-calendar.c (get_changed_events):
+	Get the changed events for instances and instances with no master 
+	object.
+	(modify_object_with_href): If modifying a master object of recurrence get
+	the object string from updated_comp.
+	(receive_objects): check if the rid is present before converting to string.
+	* calendar/e-cal-backend-exchange.c: (get_object): Check if it has
+	a master component before adding it in the vcalendar.
+
 2006-01-02  Sushma Rai  <rsushma@novell.com>
 
 	* configure.in : Bumped the version to 2.5.4
@@ -42,6 +54,7 @@
 	creation, even if the user is authenticated.
 	Fixes #315605, #315333.
 
+>>>>>>> 1.435
 2005-12-12  Sushma Rai  <rsushma@novell.com>
 
 	* configure.in : Bumped the version to 2.5.3

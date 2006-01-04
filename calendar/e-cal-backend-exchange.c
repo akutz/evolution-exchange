@@ -69,7 +69,7 @@ struct ECalBackendExchangePrivate {
 #define PARENT_TYPE E_TYPE_CAL_BACKEND_SYNC
 static GObjectClass *parent_class = NULL;
 
-#define d(x) (x)
+#define d(x) 
 
 static ECalBackendSyncStatus
 is_read_only (ECalBackendSync *backend, EDataCal *cal, gboolean *read_only)
@@ -755,8 +755,10 @@ get_object (ECalBackendSync *backend, EDataCal *cal,
 			icalcomponent *vcalcomp;
 
 			vcalcomp = e_cal_util_new_top_level ();
-			icalcomponent_add_component (vcalcomp,
-				icalcomponent_new_clone (ecomp->icomp));
+		
+			if (ecomp->icomp)
+				icalcomponent_add_component (vcalcomp,
+					icalcomponent_new_clone (ecomp->icomp));
 			g_list_foreach (ecomp->instances, (GFunc) add_instances_to_vcal, vcalcomp);
 			
 			*object = g_strdup (icalcomponent_as_ical_string (vcalcomp));
