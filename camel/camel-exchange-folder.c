@@ -223,20 +223,18 @@ exchange_expunge (CamelFolder *folder, CamelException *ex)
 	}
 
 	trash = camel_store_get_trash (folder->parent_store, NULL);
-	if (trash)
-		camel_object_unref (CAMEL_OBJECT (trash));
-	if (trash != folder) {
-		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM,
-				     _("Can only expunge in Deleted Items folder"));
+	if (!trash) {
+		printf ("Expunge failed, could not read trash folder\n");
 		return;
 	}
 
-	uids = camel_folder_get_uids (folder);
+	uids = camel_folder_get_uids (trash);
 	camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_EXPUNGE_UIDS,
-			 CAMEL_STUB_ARG_FOLDER, folder->full_name,
+			 CAMEL_STUB_ARG_FOLDER, trash->full_name,
 			 CAMEL_STUB_ARG_STRINGARRAY, uids,
 			 CAMEL_STUB_ARG_END);
-	camel_folder_free_uids (folder, uids);
+	camel_folder_free_uids (trash, uids);
+	camel_object_unref (CAMEL_OBJECT (trash));
 }
 
 static void

@@ -1,5 +1,10 @@
 2006-01-06  Sushma Rai  <rsushma@novell.com>
 
+	* camel/camel-exchange-folder.c (exchange_expunge): Expunge deleted
+	items from all folders. Fixes #273546.
+
+2006-01-06  Sushma Rai  <rsushma@novell.com>
+
 	* calendar/e-cal-backend-exchange.c (load_cache): Returning error
 	code on any failures. Return if fail to read the cache file
 	corresponding to the folder.
