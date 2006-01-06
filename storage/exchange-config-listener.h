@@ -6,7 +6,7 @@
 
 #include <exchange-types.h>
 #include <exchange-constants.h>
-#include <e-util/e-account-list.h>
+#include <libedataserver/e-account-list.h>
 #include <libedataserver/e-source-list.h>
 #include <libedataserver/e-source-group.h>
 

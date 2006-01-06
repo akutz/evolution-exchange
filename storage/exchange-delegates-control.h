@@ -11,7 +11,7 @@
 #include <shell/evolution-config-control.h>
 
 #include <bonobo/bonobo-object.h>
-#include <e-util/e-account.h>
+#include <libedataserver/e-account.h>
 #include <glade/glade-xml.h>
 #include <gtk/gtkliststore.h>
 

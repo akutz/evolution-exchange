@@ -29,8 +29,8 @@
 #include <e2k-utils.h>
 #include "exchange-autoconfig-wizard.h"
 
-#include <e-util/e-account.h>
-#include <e-util/e-account-list.h>
+#include <libedataserver/e-account.h>
+#include <libedataserver/e-account-list.h>
 #include <e-util/e-dialog-utils.h>
 #include <libedataserverui/e-passwords.h>
 
