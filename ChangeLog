@@ -1,3 +1,17 @@
+2006-01-06  Sushma Rai  <rsushma@novell.com>
+
+	* calendar/e-cal-backend-exchange.c (load_cache): Returning error
+	code on any failures. Return if fail to read the cache file
+	corresponding to the folder.
+	(open_calendar): Return the status of load_cache instead of success
+	always.
+	(set_mode): Set the mode, writable status and notify mode always.
+	Fixes.
+	In case of local mode, set the account status to offline and call
+	exchange_account_connect, so that folder hierarchy is set and loading
+	the cache file succeeds.
+	Fixes #325717, #325726.
+
 2006-01-04  Chenthill Palanisamy  <pchenthill@novell.com>
 
 	Fixes two crashes and appearance of recurring exception events.

@@ -132,7 +132,7 @@ get_static_capabilities (ECalBackendSync *backend, EDataCal *cal, char **capabil
 	return GNOME_Evolution_Calendar_Success;
 }
 
-static void
+static ECalBackendSyncStatus
 load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri)
 {
 	icalcomponent *vcalcomp, *comp, *tmp_comp;
@@ -144,11 +144,15 @@ load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri)
 	int i;
 	struct stat buf;
 
+	uristr = e_cal_backend_get_uri (E_CAL_BACKEND (cbex));
 	cbex->priv->object_cache_file =
 		e_folder_exchange_get_storage_file (cbex->folder, "cache.ics");
+	if (!cbex->priv->object_cache_file) {
+		printf ("could not load cache for %s\n", uristr);
+		return GNOME_Evolution_Calendar_OfflineUnavailable;
+	}
 
 	/* Fixme : Try avoiding to do this everytime we come here */
-	uristr = e_cal_backend_get_uri (E_CAL_BACKEND (cbex));
 	mangled_uri = g_strdup (uristr);
 	for (i = 0; i < strlen (mangled_uri); i++) {
 		switch (mangled_uri[i]) {
@@ -168,11 +172,11 @@ load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri)
 
 	vcalcomp = e_cal_util_parse_ics_file (cbex->priv->object_cache_file);
 	if (!vcalcomp)
-		return;
+		return GNOME_Evolution_Calendar_InvalidObject;
 
 	if (icalcomponent_isa (vcalcomp) != ICAL_VCALENDAR_COMPONENT) {
 		icalcomponent_free (vcalcomp);
-		return;
+		return GNOME_Evolution_Calendar_InvalidObject;
 	}
 
 	kind = e_cal_backend_get_kind (E_CAL_BACKEND (cbex));
@@ -205,6 +209,7 @@ load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri)
 	}
 
 	icalcomponent_free (vcalcomp);
+	return GNOME_Evolution_Calendar_Success;
 }
 
 static void
@@ -291,6 +296,7 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 	ExchangeAccountResult acresult;
 	const char *prop = PR_ACCESS;
 	E2kHTTPStatus status;
+	ECalBackendSyncStatus load_status;
 	E2kResult *results;
 	E2kUri *euri = NULL;
 	int nresults;
@@ -318,10 +324,10 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 		}
 
 		euri = e2k_uri_new (uristr);
-		load_cache (cbex, euri);
+		load_status = load_cache (cbex, euri);
 		e2k_uri_free (euri);
 		g_mutex_unlock (cbex->priv->open_lock);
-		return GNOME_Evolution_Calendar_Success;
+		return load_status;
 	}
 		
 	/* Make sure we have an open connection */
@@ -379,11 +385,11 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 
 	cbex->priv->read_only = ((access & MAPI_ACCESS_CREATE_CONTENTS) == 0);
 
-	load_cache (cbex, euri);
+	load_status = load_cache (cbex, euri);
 
 	g_mutex_unlock (cbex->priv->open_lock);
 	
-	return GNOME_Evolution_Calendar_Success;
+	return load_status;
 }
 
 static ECalBackendSyncStatus
@@ -499,7 +505,7 @@ e_cal_backend_exchange_add_object (ECalBackendExchange *cbex,
 	const char *uid;
 	struct icaltimetype rid;
 
-	printf("ecbe_add_object(%p, %s, %s)\n", cbex, href, lastmod);
+	d(printf("ecbe_add_object(%p, %s, %s)\n", cbex, href, lastmod));
 
 	uid = icalcomponent_get_uid (comp);
 	ecomp = g_hash_table_lookup (cbex->priv->objects, uid);
@@ -1174,6 +1180,7 @@ set_mode (ECalBackend *backend, CalMode mode)
 	ECalBackendExchange *cbex;
 	ECalBackendExchangePrivate *priv;
 	ExchangeAccount *account;
+	ExchangeAccountResult acresult;
 	const char *uristr;
 	
 	cbex = E_CAL_BACKEND_EXCHANGE (backend);
@@ -1202,16 +1209,8 @@ set_mode (ECalBackend *backend, CalMode mode)
 
 			uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
 			account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
-			if (!account) {
-				g_mutex_unlock (priv->set_lock);	
-				return;
-			}
-			cbex->folder = exchange_account_get_folder (account, uristr);
-
-			if (!cbex->folder) {
-				g_mutex_unlock (priv->set_lock);
-				return;
-			}
+			if (account)
+				cbex->folder = exchange_account_get_folder (account, uristr);
 
 			e_cal_backend_notify_mode (backend, 
 				GNOME_Evolution_Calendar_CalListener_MODE_SET,
@@ -1223,16 +1222,15 @@ set_mode (ECalBackend *backend, CalMode mode)
 
 	case CAL_MODE_LOCAL:
 			d(printf ("set mode to offline\n"));
-			uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
-			account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
-			if (!account) {
-				g_mutex_unlock (priv->set_lock);	
-				return;
-			}
-			cbex->folder = exchange_account_get_folder (account, uristr);
-			if (!cbex->folder) {
-				g_mutex_unlock (priv->set_lock);
-				return;
+			account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
+			if (account) {
+				/* Call exchange_account_connect to populate the folder hierarchy,
+				 * so that load_cache succeeds */
+				exchange_account_set_offline (account);
+				if (!exchange_account_connect (account, NULL, &acresult)) {
+					uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
+					cbex->folder = exchange_account_get_folder (account, uristr);
+				}
 			}
 			priv->mode = CAL_MODE_LOCAL;
 			priv->read_only = TRUE;
