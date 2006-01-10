@@ -1,3 +1,14 @@
+2006-01-10  Simon Zheng  <simon.zheng@sun.com>
+
+	* camel/camel-exchange-folder.c (camel_exchange_folder_construct):
+	* storage/exchange-migrate.c (cp_r):
+	(migrate_contacts):
+	(exchange_migrate):
+	Delete make_dir() and use the e_util_mkdir_hier() instead of it.
+	
+	* mail/mail-utils.c (mail_util_extract_transport_headers): Use
+	e_util_strstrcase() instead of e_strstrcasea().
+
 2006-01-06  Simon Zheng <simon.zheng@sun.com>
 
 	* storage/exchange-autoconfig-wizard.c:

@@ -27,6 +27,7 @@
 #include <string.h>
 #include <sys/stat.h>
 
+#include <libedataserver/e-data-server-util.h>
 #include <camel/camel-i18n.h>
 
 #include "camel-exchange-folder.h"
@@ -981,7 +982,7 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 		short_name = name;
 	camel_folder_construct (folder, parent, name, short_name);
 
-	if (camel_mkdir (folder_dir, S_IRWXU) != 0) {
+	if (e_util_mkdir_hier (folder_dir, S_IRWXU) != 0) {
 		camel_exception_setv (ex, CAMEL_EXCEPTION_SYSTEM,
 				      _("Could not create directory %s: %s"),
 				      folder_dir, g_strerror (errno));

@@ -33,6 +33,7 @@
 #include <gtk/gtkmain.h>
 #include <gtk/gtklabel.h>
 #include <gtk/gtkprogressbar.h>
+#include <libedataserver/e-data-server-util.h>
 #include <e-util/e-folder-map.h>
 
 #include <exchange-types.h>
@@ -151,33 +152,6 @@ dialog_set_progress (double percent)
 }
 
 static gboolean
-make_dir (const char *path, mode_t mode)
-{
-	char *copy, *p;
-
-	g_assert(path && path[0] == '/');
-
-	p = copy = g_alloca (strlen (path) + 1);
-	strcpy(copy, path);
-	do {
-		p = strchr(p + 1, '/');
-        	if (p)
-                	*p = '\0';
-        	if (access(copy, F_OK) == -1) {
-                	if (mkdir(copy, mode) == -1) {
-				g_free (copy);
-                        	return FALSE;
-			}
-		}
-		if (p)
-			*p = '/';
-	} while (p);
-
-	g_free (copy);
-	return TRUE;
-}
-
-static gboolean
 cp (const char *src, const char *dest, gboolean show_progress)
 {
 	unsigned char readbuf[65536];
@@ -268,7 +242,7 @@ cp_r (char *src, const char *dest)
 	struct stat st;
 	DIR *dir;
 
-	if (make_dir (dest, 0777) == -1)
+	if (e_util_mkdir_hier (dest, 0777) == -1)
 		return FALSE;
 
 	if (!(dir = opendir (src)))
@@ -400,7 +374,7 @@ migrate_contacts (gchar *src_path, const gchar *dest_path)
 							NULL);
 			
 				/* Create destination dir, and copy the files */
-       				if (make_dir (contacts_dir, 0777) == -1) {
+       				if (e_util_mkdir_hier (contacts_dir, 0777) == -1) {
 					ret = FALSE;
 					g_free (dest_file);
 					g_free (contacts_dir);
@@ -497,7 +471,7 @@ exchange_migrate (const CORBA_short major,
 		/* This is not needed if done by cp_r() */
         	if (stat (base_dir, &st) == -1) {
 			if (errno != ENOENT || 
-			    make_dir (base_dir, 0777) == -1) {
+			    e_util_mkdir_hier (base_dir, 0777) == -1) {
                        		printf ("Failed to create directory `%s': %s",
 				base_dir, g_strerror (errno));
                         	return;

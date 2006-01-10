@@ -31,6 +31,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <libedataserver/e-data-server-util.h>
 #include <e-util/e-html-utils.h>
 #include <e-util/e-util.h>
 #include <libical/ical.h>
@@ -201,7 +202,7 @@ mail_util_extract_transport_headers (E2kProperties *props)
 	if (!hend)
 		hend = hstart + strlen (hstart);
 
-	ctstart = e_strstrcase (hstart - 1, "\nContent-Type:");
+	ctstart = e_util_strstrcase (hstart - 1, "\nContent-Type:");
 	if (ctstart && ctstart < hend) {
 		ctend = strchr (ctstart, '\n');
 
