@@ -1,3 +1,15 @@
+2006-01-14  Sushma Rai  <rsushma@novell.com>
+
+	* configure.in: Define API_VERSION.
+
+	* storage/Makefile.am: Replace @API_VERSION@
+
+	* storage/exchange-component.h: using API_VERSION for Exchange 
+	Connector book and calendar factories. 
+
+	* storage/GNOME_Evolution_Exchange_Storage.server.in.in: Similar.
+	See #323115.
+
 2006-01-10  Simon Zheng  <simon.zheng@sun.com>
 
 	* camel/camel-exchange-folder.c (camel_exchange_folder_construct):

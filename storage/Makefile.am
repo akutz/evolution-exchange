@@ -83,6 +83,7 @@ server_DATA = $(server_in_files:.server.in.in=_$(BASE_VERSION).server)
 	sed -e "s;\@CONNECTOR_PATH\@;${EVOLUTION_privlibexecdir};g"	\
 	    -e "s;\@IMAGESDIR\@;${imagesdir};g"				\
 	    -e "s;\@BASE_VERSION\@;${BASE_VERSION};g"			\
+	    -e "s;\@API_VERSION\@;${API_VERSION};g"			\
 	    -e "s;\@EDS_BASE_VERSION\@;${EDS_BASE_VERSION};g"		\
 	    < $< > $@
 
