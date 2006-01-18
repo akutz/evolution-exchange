@@ -1,3 +1,30 @@
+Evolution Exchange 2.5.5  2006-01-16
+------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.gnome.org/show_bug.cgi)
+
+	#325717 - Exchange calendar does not switch to offline (Sushma)
+
+	#325726 - Infinite loop in calendar on switch folder selection
+	in offline mode (Sushma)
+
+	#273546 - 'Expunge' on junk deletes mail's in junk (Sushma)
+
+	#323115 - --force-shutdown does not shutdown e-d-s, exchange part
+	(Sushma)
+
+Other Fixes
+
+	- Handling the instances with no master object and checking for the
+	RIDs and master component of the object. Fixes two crashes and also
+	fixes the problem of recurring exception events not appearing
+	(Chenthill).
+
+	- Using proper e-account-list.h and e-account.h files (Simon Zheng).
+
+	- Using e_util_mkdir_hier() and e_util_strstrcase() instead of make_dir
+	and e_strstrcasea() respectively (Simon Zheng).
+
 Evolution Exchange 2.5.4  2006-01-02
 ------------------------------------
 
