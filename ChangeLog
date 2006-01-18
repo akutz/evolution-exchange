@@ -1,3 +1,16 @@
+2006-01-18  Tor Lillqvist  <tml@novell.com>
+
+	* evolution-exchange-zip.in: New file, used to build a zipfile
+	Win32 binary distribution of evolution-exchange for developers and
+	beta testers.
+
+	* configure.in
+	* Makefile.am: Expand and distribute it.
+	
+	* configure.in: Add evolution-plugin to the EXCHANGE_STORAGE
+	dependency list as it uses functions from libeutil, which is in
+	evolution-plugin's .pc file.
+	
 2006-01-16  Sushma Rai  <rsushma@novell.com>
 
 	* calendar/e-cal-backend-exchange.c (open_calendar): Trying to get the

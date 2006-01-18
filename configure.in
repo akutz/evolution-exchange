@@ -178,7 +178,7 @@ else
 	LIBSOUP_VERSION=2.2
 fi
 
-PKG_CHECK_MODULES(EXCHANGE_STORAGE, evolution-shell-$EVOLUTION_BASE_VERSION libedataserverui-$EDS_API_VERSION libedata-book-$EDS_API_VERSION libedata-cal-$EDS_API_VERSION libsoup-$LIBSOUP_VERSION libglade-2.0 libgnomeui-2.0 libgnomeprint-2.2 >= 2.2.0 camel-provider-$EDS_API_VERSION)
+PKG_CHECK_MODULES(EXCHANGE_STORAGE, evolution-shell-$EVOLUTION_BASE_VERSION evolution-plugin-$EVOLUTION_BASE_VERSION libedataserverui-$EDS_API_VERSION libedata-book-$EDS_API_VERSION libedata-cal-$EDS_API_VERSION libsoup-$LIBSOUP_VERSION libglade-2.0 libgnomeui-2.0 libgnomeprint-2.2 >= 2.2.0 camel-provider-$EDS_API_VERSION)
 AC_SUBST(EXCHANGE_STORAGE_CFLAGS)
 AC_SUBST(EXCHANGE_STORAGE_LIBS)
 
@@ -252,6 +252,7 @@ dnl ******************************
 
 AC_OUTPUT([
 Makefile
+evolution-exchange-zip
 camel/Makefile
 mail/Makefile
 addressbook/Makefile
