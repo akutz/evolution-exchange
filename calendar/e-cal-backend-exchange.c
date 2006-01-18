@@ -170,6 +170,11 @@ load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri)
 	g_free (storage_dir);
 	g_free (mangled_uri);
 
+       /* Check if the cache file is present. If it is not present the account might
+          be newly created one. It will be created while save the cache */
+       if (!g_file_test (cbex->priv->object_cache_file, G_FILE_TEST_EXISTS))
+               return GNOME_Evolution_Calendar_Success;
+
 	vcalcomp = e_cal_util_parse_ics_file (cbex->priv->object_cache_file);
 	if (!vcalcomp)
 		return GNOME_Evolution_Calendar_InvalidObject;

@@ -1,3 +1,11 @@
+2006-01-18  Chenthill Palanisamy  <pchenthill@novell.com>
+
+	Fixes #327305
+	* calendar/e-cal-backend-exchange.c: 
+	(load_cache): Check if the file is present, if not, just
+	return	sucess. The file will be created while saving the 
+	items into the cache.
+
 2006-01-16  Sushma Rai  <rsushma@novell.com>
 
 	* calendar/e-cal-backend-exchange.c (open_calendar): Calling 
