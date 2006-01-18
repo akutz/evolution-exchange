@@ -1,3 +1,9 @@
+2006-01-16  Sushma Rai  <rsushma@novell.com>
+
+	* calendar/e-cal-backend-exchange.c (open_calendar): Calling 
+	exchange_account_connect(), if account for given URI is not 
+	found. Fixes #327305. 
+
 2006-01-18  Tor Lillqvist  <tml@novell.com>
 
 	* evolution-exchange-zip.in: New file, used to build a zipfile
