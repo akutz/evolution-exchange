@@ -1,5 +1,13 @@
 2006-01-16  Sushma Rai  <rsushma@novell.com>
 
+	* calendar/e-cal-backend-exchange.c (open_calendar): Trying to get the
+	ExchangeAccount for the URI, and if the account is not found calling
+	exchange_account_connect. Folder list does not get populated, when 
+	account is obtained using NULL uri, and hence loading calendar fails.
+	Fixes #327305.
+
+2006-01-16  Sushma Rai  <rsushma@novell.com>
+
 	* storage/GNOME_Evolution_Exchange_Storage.server.in.in: Using API 
 	version for DataServer BookFactory and CalFactory.
 
