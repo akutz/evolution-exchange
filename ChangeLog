@@ -6,7 +6,7 @@
 	return	sucess. The file will be created while saving the 
 	items into the cache.
 
-2006-01-16  Sushma Rai  <rsushma@novell.com>
+2006-01-18  Sushma Rai  <rsushma@novell.com>
 
 	* calendar/e-cal-backend-exchange.c (open_calendar): Calling 
 	exchange_account_connect(), if account for given URI is not 
@@ -25,7 +25,7 @@
 	dependency list as it uses functions from libeutil, which is in
 	evolution-plugin's .pc file.
 	
-2006-01-16  Sushma Rai  <rsushma@novell.com>
+2006-01-18  Sushma Rai  <rsushma@novell.com>
 
 	* calendar/e-cal-backend-exchange.c (open_calendar): Trying to get the
 	ExchangeAccount for the URI, and if the account is not found calling
@@ -33,7 +33,7 @@
 	account is obtained using NULL uri, and hence loading calendar fails.
 	Fixes #327305.
 
-2006-01-16  Sushma Rai  <rsushma@novell.com>
+2006-01-18  Sushma Rai  <rsushma@novell.com>
 
 	* storage/GNOME_Evolution_Exchange_Storage.server.in.in: Using API 
 	version for DataServer BookFactory and CalFactory.
