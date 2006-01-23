@@ -1858,6 +1858,11 @@ e_book_backend_exchange_start_book_view (EBookBackend  *backend,
 	switch (bepriv->mode) {
 
 	case GNOME_Evolution_Addressbook_MODE_LOCAL:
+		if (!bepriv->marked_for_offline) {
+			e_data_book_view_notify_complete (book_view, 
+					GNOME_Evolution_Addressbook_OfflineUnavailable);
+			return;
+		}
 		if (!bepriv->cache) {
 			e_data_book_view_notify_complete (book_view, 
 					GNOME_Evolution_Addressbook_Success);
@@ -2136,6 +2141,7 @@ e_book_backend_exchange_authenticate_user (EBookBackend *backend,
 		account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
 		/* FIXME : Check for failures */
 		if (!exchange_account_get_context (account)) {
+			exchange_account_set_online (account);
 			if(!exchange_account_connect (account, password, &result)) {
 				e_data_book_respond_authenticate_user (book, opid, GNOME_Evolution_Addressbook_AuthenticationFailed);
 				return;
