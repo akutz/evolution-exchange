@@ -241,23 +241,34 @@ impl_interactive (PortableServer_Servant servant,
 
 static void
 impl_setLineStatus (PortableServer_Servant servant,
-		    const CORBA_boolean status,
+		    const GNOME_Evolution_ShellState status,
 		    const GNOME_Evolution_Listener listener,
 		    CORBA_Environment *ev)
 {
 	ExchangeComponent *component = EXCHANGE_COMPONENT (bonobo_object_from_servant (servant));
 	ExchangeComponentPrivate *priv = component->priv;
 
-	priv->linestatus = status;
+	switch (status) {
+		case GNOME_Evolution_USER_OFFLINE:
+		case GNOME_Evolution_FORCED_OFFLINE:
+			priv->linestatus = FALSE;
+			break;
+		
+		case GNOME_Evolution_USER_ONLINE:
+			priv->linestatus = TRUE;
+			break;
+		default:
+			break;
+	}
 	
 	if (priv->cal_factory) {
 		e_data_cal_factory_set_backend_mode (priv->cal_factory,
-						     status ? ONLINE_MODE : OFFLINE_MODE);
+						     priv->linestatus ? ONLINE_MODE : OFFLINE_MODE);
 	}
 
 	if (priv->book_factory) {
 		e_data_book_factory_set_backend_mode (priv->book_factory,
-						      status ? ONLINE_MODE : OFFLINE_MODE);
+						      priv->linestatus ? ONLINE_MODE : OFFLINE_MODE);
 	}
 
 	if (priv->evo_listener == NULL) {
