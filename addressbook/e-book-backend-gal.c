@@ -1798,15 +1798,18 @@ load_source (EBookBackend *backend,
 
 	g_return_val_if_fail (bl->priv->connected == FALSE, GNOME_Evolution_Addressbook_OtherError);
 
-	uri = e_source_get_uri (source);
-
 	offline = e_source_get_property (source, "offline_sync");
 	if (offline && g_str_equal (offline, "1"))
 		bl->priv->marked_for_offline = TRUE;
 
+	if (bl->priv->mode ==  GNOME_Evolution_Addressbook_MODE_LOCAL &&
+	    !bl->priv->marked_for_offline)
+		return GNOME_Evolution_Addressbook_OfflineUnavailable;
+
+	uri = e_source_get_uri (source);
 	host = uri + sizeof ("gal://") - 1;
 	if (strncmp (uri, "gal://", host - uri))
-		return FALSE;
+		return GNOME_Evolution_Addressbook_OtherError;
 
 	bl->priv->gal_uri = uri;
 
@@ -1824,9 +1827,6 @@ load_source (EBookBackend *backend,
 		e_book_backend_set_is_writable (backend, FALSE);
 		e_book_backend_notify_writable (backend, FALSE);
 		e_book_backend_notify_connection_status (backend, FALSE);
-
-		if (!bl->priv->marked_for_offline)
-			return GNOME_Evolution_Addressbook_RepositoryOffline;
 
 		return GNOME_Evolution_Addressbook_Success;
 	}

@@ -1,5 +1,11 @@
 2006-01-23  Sushma Rai  <rsushma@novell.com>
 
+	* addressbook/e-book-backend-gal.c (load_source): Return 
+	OfflineUnavailable error code if the mode is offline and GAL is not 
+	marked for offline usage. Fixes #327312.
+
+2006-01-23  Sushma Rai  <rsushma@novell.com>
+
 	* storage/exchange-component.c (impl_setLineStatus): Using proper
 	status variable, GNOME_Evolution_ShellState, and Setting the offline
 	status based on that.
