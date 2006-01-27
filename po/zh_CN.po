@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-30 14:52+0000\n"
-"PO-Revision-Date: 2005-07-30 23:53+0800\n"
+"POT-Creation-Date: 2006-01-26 22:37+0100\n"
+"PO-Revision-Date: 2006-01-27 11:53+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1837
+#: ../addressbook/e-book-backend-exchange.c:1856
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "正在搜索..."
@@ -32,7 +32,7 @@ msgstr "正在接收 LDAP 搜索结果..."
 msgid "Error performing search"
 msgstr "执行搜索出错"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1665
+#: ../calendar/e-cal-backend-exchange-calendar.c:1805
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -41,60 +41,56 @@ msgstr ""
 "无法将资源“%s”调度为再现会议。\n"
 "您必须单独预订每次会议。"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1684
+#: ../calendar/e-cal-backend-exchange-calendar.c:1823
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "在选中的时间段中，资源“%s”都处于忙状态。"
 
-#: ../calendar/e-cal-backend-exchange.c:310
-msgid "Folder not marked for offline support"
-msgstr "文件夹未标为支持脱机"
+#: ../camel/camel-exchange-folder.c:222
+msgid "You cannot expunge in offline mode."
+msgstr "无法在脱机模式下销毁。"
 
-#: ../camel/camel-exchange-folder.c:223
-msgid "Can only expunge in Deleted Items folder"
-msgstr "无法只在已删项目文件夹中销毁"
-
-#: ../camel/camel-exchange-folder.c:247
+#: ../camel/camel-exchange-folder.c:253
 msgid "No Subject"
 msgstr "无主题"
 
-#: ../camel/camel-exchange-folder.c:374
+#: ../camel/camel-exchange-folder.c:380
 msgid "This message is not available in offline mode."
 msgstr "这封信在脱机模式下不可用。"
 
-#: ../camel/camel-exchange-folder.c:609
+#: ../camel/camel-exchange-folder.c:615
 msgid "Moving messages"
 msgstr "移动信件"
 
-#: ../camel/camel-exchange-folder.c:610
+#: ../camel/camel-exchange-folder.c:616
 msgid "Copying messages"
 msgstr "复制信件"
 
-#: ../camel/camel-exchange-folder.c:940
+#: ../camel/camel-exchange-folder.c:987
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "无法创建目录 %s：%s"
 
-#: ../camel/camel-exchange-folder.c:950
+#: ../camel/camel-exchange-folder.c:997
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "无法装入 %s 的概览"
 
-#: ../camel/camel-exchange-folder.c:958
+#: ../camel/camel-exchange-folder.c:1005
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "无法为 %s 创建缓存"
 
-#: ../camel/camel-exchange-folder.c:968
+#: ../camel/camel-exchange-folder.c:1015
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "无法为 %s 创建日记"
 
-#: ../camel/camel-exchange-folder.c:1013
+#: ../camel/camel-exchange-folder.c:1060
 msgid "Scanning for changed messages"
 msgstr "扫描已更改的信件"
 
-#: ../camel/camel-exchange-folder.c:1039
+#: ../camel/camel-exchange-folder.c:1086
 msgid "Fetching summary information for new messages"
 msgstr "获取新信件的概览信息"
 
@@ -102,9 +98,10 @@ msgstr "获取新信件的概览信息"
 msgid "No folder name found\n"
 msgstr "没有找到文件夹名称\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2391
-#: ../mail/mail-stub-exchange.c:2433 ../mail/mail-stub-exchange.c:2462
-#: ../mail/mail-stub-exchange.c:2489 ../mail/mail-stub-exchange.c:2537
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2534
+#: ../mail/mail-stub-exchange.c:2578 ../mail/mail-stub-exchange.c:2613
+#: ../mail/mail-stub-exchange.c:2640 ../mail/mail-stub-exchange.c:2687
+#: ../mail/mail-stub-exchange.c:2709
 msgid "Folder doesn't exist"
 msgstr "文件夹不存在"
 
@@ -166,76 +163,89 @@ msgstr "检查新信件的垃圾邮件内容"
 msgid "Only check for Junk messages in the Inbox folder"
 msgstr "只检查收件箱文件夹中的垃圾信件"
 
-#: ../camel/camel-exchange-provider.c:76
+#: ../camel/camel-exchange-provider.c:79
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:78
+#: ../camel/camel-exchange-provider.c:81
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "处理 Microsoft Exchange 服务器上的邮件(和其它数据)"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:94
+#: ../camel/camel-exchange-provider.c:97
 msgid "Secure Password"
 msgstr "安全密码"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:100
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
 msgstr "此选项将使用安全密码(NTLM)身份验证方式连接到 Exchange 服务器。"
 
-#: ../camel/camel-exchange-provider.c:105
+#: ../camel/camel-exchange-provider.c:108
 msgid "Plaintext Password"
 msgstr "纯文本密码"
 
-#: ../camel/camel-exchange-provider.c:107
+#: ../camel/camel-exchange-provider.c:110
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
 msgstr "此选项将使用标准的纯文本密码身份验证方式连接到 Exchange 服务器。"
 
-#: ../camel/camel-exchange-store.c:281
+#: ../camel/camel-exchange-store.c:308
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange 服务器 %s"
 
-#: ../camel/camel-exchange-store.c:284
+#: ../camel/camel-exchange-store.c:311
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "%s 在 %s 上的 Exchange 账户"
 
-#: ../camel/camel-exchange-store.c:334
+#: ../camel/camel-exchange-store.c:352
+#, c-format
+msgid "%sEnter password for %s"
+msgstr "%s输入 %s 的密码"
+
+#: ../camel/camel-exchange-store.c:403
 msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange 后端进程"
 
-#: ../camel/camel-exchange-store.c:382
+#: ../camel/camel-exchange-store.c:444
+msgid ""
+"Could not authenticate to server. (Password incorrect?)\n"
+"\n"
+msgstr ""
+"无法验证到服务器。(密码不对？)\n"
+"\n"
+
+#: ../camel/camel-exchange-store.c:486
 #, c-format
 msgid "No such folder %s"
 msgstr "没有文件夹 %s"
 
-#: ../camel/camel-exchange-store.c:451
+#: ../camel/camel-exchange-store.c:563
 msgid "Cannot subscribe folder in offline mode."
 msgstr "无法在脱机模式下订阅文件夹。"
 
-#: ../camel/camel-exchange-store.c:468
+#: ../camel/camel-exchange-store.c:580
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "无法在脱机模式下退订文件夹。"
 
-#: ../camel/camel-exchange-store.c:574
+#: ../camel/camel-exchange-store.c:695
 msgid "Cannot get folder info in offline mode."
 msgstr "无法在脱机模式下获得文件夹信息。"
 
-#: ../camel/camel-exchange-store.c:655
+#: ../camel/camel-exchange-store.c:766
 msgid "Cannot create folder in offline mode."
 msgstr "无法在脱机模式下创建文件夹。"
 
-#: ../camel/camel-exchange-store.c:682
+#: ../camel/camel-exchange-store.c:793
 msgid "Cannot delete folder in offline mode."
 msgstr "无法在脱机模式下删除文件夹。"
 
-#: ../camel/camel-exchange-store.c:698
+#: ../camel/camel-exchange-store.c:809
 msgid "Cannot rename folder in offline mode."
 msgstr "无法在脱机模式下重命名文件夹。"
 
@@ -281,7 +291,127 @@ msgstr "丢失到 %s 的连接"
 msgid "Error communicating with %s: %s"
 msgstr "与 %s 通讯出错：%s"
 
-#: ../lib/e2k-autoconfig.c:1471 ../storage/exchange-autoconfig-wizard.c:211
+#: ../mail/mail-stub-exchange.c:257
+msgid "No such folder"
+msgstr "没有这样的文件夹"
+
+#. FIXME: should be this, but string freeze freezes me to do so.
+#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
+#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1381
+#: ../mail/mail-stub-exchange.c:2511 ../mail/mail-stub-exchange.c:2551
+#: ../mail/mail-stub-exchange.c:2617 ../mail/mail-stub-exchange.c:2661
+#: ../mail/mail-stub-exchange.c:2725 ../storage/xc-commands.c:319
+msgid "Permission denied"
+msgstr "权限被禁止"
+
+#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
+msgid "Could not open folder: Permission denied"
+msgstr "无法打开文件夹：权限被禁止"
+
+#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:705
+msgid "Could not open folder"
+msgstr "无法打开文件夹"
+
+#: ../mail/mail-stub-exchange.c:748
+msgid "No such folder."
+msgstr "没有这样的文件夹。"
+
+#: ../mail/mail-stub-exchange.c:757
+msgid "Could not create folder."
+msgstr "无法创建文件夹。"
+
+#: ../mail/mail-stub-exchange.c:837
+msgid "Could not open Deleted Items folder"
+msgstr "无法打开已删项目文件夹"
+
+#: ../mail/mail-stub-exchange.c:1166 ../mail/mail-stub-exchange.c:1207
+msgid "Could not get new messages"
+msgstr "无法获得新信件"
+
+#: ../mail/mail-stub-exchange.c:1377
+msgid "Could not empty Deleted Items folder"
+msgstr "无法清空已删项目文件夹"
+
+#: ../mail/mail-stub-exchange.c:1454
+msgid "Could not append message; mailbox is over quota"
+msgstr "无法追加信件；邮箱超出配额"
+
+#: ../mail/mail-stub-exchange.c:1455
+msgid "Could not append message"
+msgstr "无法追加信件"
+
+#: ../mail/mail-stub-exchange.c:2001
+msgid "No such message"
+msgstr "没有这样的信件"
+
+#: ../mail/mail-stub-exchange.c:2054
+msgid "Message has been deleted"
+msgstr "信件已被删除"
+
+#: ../mail/mail-stub-exchange.c:2056
+msgid "Error retrieving message"
+msgstr "获取信件出错"
+
+#: ../mail/mail-stub-exchange.c:2098
+msgid "Mailbox does not support full-text searching"
+msgstr "邮箱不支持全文搜索"
+
+#: ../mail/mail-stub-exchange.c:2196
+msgid "Unable to move/copy messages"
+msgstr "无法移动/复制信件"
+
+#: ../mail/mail-stub-exchange.c:2426
+msgid "No mail submission URI for this mailbox"
+msgstr "没有此邮箱的提交 URI"
+
+#: ../mail/mail-stub-exchange.c:2462
+msgid "Server won't accept mail via Exchange transport"
+msgstr "服务器无法接受通过 Exchange 传送的邮件"
+
+#: ../mail/mail-stub-exchange.c:2464
+#, c-format
+msgid ""
+"Your account does not have permission to use <%s>\n"
+"as a From address."
+msgstr ""
+"您的账户没有权限使用 <%s>\n"
+"作为 From 地址。"
+
+#: ../mail/mail-stub-exchange.c:2476
+msgid ""
+"Could not send message.\n"
+"This might mean that your account is over quota."
+msgstr ""
+"无法发送信件。\n"
+"这可能意味着您的账户已超出配额。"
+
+#: ../mail/mail-stub-exchange.c:2480
+msgid "Could not send message"
+msgstr "无法发送信件"
+
+#: ../mail/mail-stub-exchange.c:2503 ../mail/mail-stub-exchange.c:2556
+#: ../mail/mail-stub-exchange.c:2621 ../mail/mail-stub-exchange.c:2666
+#: ../mail/mail-stub-exchange.c:2730 ../storage/xc-commands.c:323
+msgid "Generic error"
+msgstr "常规错误"
+
+#: ../mail/mail-stub-exchange.c:2507 ../storage/xc-commands.c:313
+msgid "Folder already exists"
+msgstr "文件夹已存在"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
+msgid "Evolution Addressbook Exchange backend"
+msgstr "Evolution 地址簿 Exchange 后端"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
+msgid "Evolution Calendar Exchange backend"
+msgstr "Evolution 日历 Exchange 后端"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+msgid "Ximian Connector for Exchange"
+msgstr "Ximian Connector for Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -290,7 +420,7 @@ msgstr ""
 "无法连接到 Exchange 服务器。\n"
 "请确定 URL 正确(试着用“%s”来取代“%s”)然后再试一次。"
 
-#: ../lib/e2k-autoconfig.c:1480 ../storage/exchange-autoconfig-wizard.c:219
+#: ../storage/exchange-autoconfig-wizard.c:219
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -298,7 +428,7 @@ msgstr ""
 "无法定位 Exchange 服务器。\n"
 "请确定服务器名拼写正确，然后再试一次。"
 
-#: ../lib/e2k-autoconfig.c:1490 ../storage/exchange-autoconfig-wizard.c:228
+#: ../storage/exchange-autoconfig-wizard.c:228
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -306,7 +436,7 @@ msgstr ""
 "无法验证到 Exchange 服务器。\n"
 "请确定用户名和密码正确，然后再试一次。"
 
-#: ../lib/e2k-autoconfig.c:1498 ../storage/exchange-autoconfig-wizard.c:235
+#: ../storage/exchange-autoconfig-wizard.c:235
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -320,608 +450,13 @@ msgstr ""
 "\n"
 "您可能需要将 Windows 域名指定为您用户名的一部分(如“MY-DOMAIN\\%s”)。"
 
-#: ../lib/e2k-autoconfig.c:1511 ../storage/exchange-autoconfig-wizard.c:247
+#: ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 msgstr ""
 "在标明的 URL 找不到 OWA 数据。\n"
 "请确定 URL 正确，然后再试一次。"
-
-#: ../lib/e2k-autoconfig.c:1520
-#, c-format
-msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
-"\n"
-"For information to provide to your Exchange administrator, please follow the "
-"link below:\n"
-"%s"
-msgstr ""
-"Ximian Connector 需要访问 Exchange 服务器上特定的功能，但该功能似乎被禁止或屏"
-"蔽。(这一问题通常是无意间造成的。)要让您能够使用 Ximian Connector，您的 "
-"Exchange 管理员必须启用此功能。\n"
-"\n"
-"关于需要向您的 Exchange 管理员提供的信息，请查看下面的链接：\n"
-"%s"
-
-#: ../lib/e2k-autoconfig.c:1536 ../storage/exchange-autoconfig-wizard.c:275
-msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"您提供的 Exchange 服务器 URL 是 Exchange 5.5 服务器。Ximian Connector 只支持 "
-"Microsoft Exchange 2000 和 2003。"
-
-#: ../lib/e2k-autoconfig.c:1545 ../storage/exchange-autoconfig-wizard.c:288
-msgid ""
-"Could not configure Exchange account because an unknown error occurred. "
-"Check the URL, username, and password, and try again."
-msgstr ""
-"无法配置 Exchange 账户，原因是发生了未知错误。请检查 URL、用户名和密码，然后"
-"再试一次。"
-
-#: ../lib/e2k-autoconfig.c:1567
-#, c-format
-msgid "Enter password for %s"
-msgstr "输入 %s 的密码"
-
-#: ../lib/e2k-autoconfig.c:1568 ../storage/exchange-account.c:874
-msgid "Enter password"
-msgstr "输入密码"
-
-#. i18n: These are Outlook's words for the default roles in
-#. the folder permissions dialog.
-#: ../lib/e2k-security-descriptor.c:847
-msgid "Owner"
-msgstr "所有者"
-
-#: ../lib/e2k-security-descriptor.c:857
-msgid "Publishing Editor"
-msgstr "发布编辑器"
-
-#: ../lib/e2k-security-descriptor.c:865
-msgid "Editor"
-msgstr "编辑器"
-
-#: ../lib/e2k-security-descriptor.c:872
-msgid "Publishing Author"
-msgstr "发布作者"
-
-#: ../lib/e2k-security-descriptor.c:878
-msgid "Author"
-msgstr "作者"
-
-#: ../lib/e2k-security-descriptor.c:883
-msgid "Non-editing Author"
-msgstr "非编辑作者"
-
-#: ../lib/e2k-security-descriptor.c:887
-msgid "Reviewer"
-msgstr "复核者"
-
-#: ../lib/e2k-security-descriptor.c:889
-msgid "Contributor"
-msgstr "贡献者"
-
-#: ../lib/e2k-security-descriptor.c:891
-#: ../storage/exchange-delegates.glade.h:7
-msgid "None"
-msgstr "无"
-
-#: ../lib/e2k-security-descriptor.c:906
-#: ../storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "自定义"
-
-#: ../lib/e2k-user-dialog.c:144
-msgid "Select User"
-msgstr "选择用户"
-
-#: ../lib/e2k-user-dialog.c:182
-msgid "Addressbook..."
-msgstr "地址簿..."
-
-#: ../mail/mail-stub-exchange.c:256
-msgid "No such folder"
-msgstr "没有这样的文件夹"
-
-#: ../mail/mail-stub-exchange.c:273 ../mail/mail-stub-exchange.c:2368
-#: ../mail/mail-stub-exchange.c:2406 ../mail/mail-stub-exchange.c:2466
-#: ../mail/mail-stub-exchange.c:2510 ../mail/mail-stub-exchange.c:2558
-#: ../shell/e-storage.c:573 ../storage/xc-commands.c:319
-msgid "Permission denied"
-msgstr "权限被禁止"
-
-#: ../mail/mail-stub-exchange.c:571
-msgid "No such folder."
-msgstr "没有这样的文件夹。"
-
-#: ../mail/mail-stub-exchange.c:580
-msgid "Could not create folder."
-msgstr "无法创建文件夹。"
-
-#: ../mail/mail-stub-exchange.c:628 ../mail/mail-stub-exchange.c:646
-#: ../mail/mail-stub-exchange.c:2688 ../mail/mail-stub-exchange.c:2706
-msgid "Could not open folder: Permission denied"
-msgstr "无法打开文件夹：权限被禁止"
-
-#: ../mail/mail-stub-exchange.c:632 ../mail/mail-stub-exchange.c:745
-#: ../mail/mail-stub-exchange.c:2692
-msgid "Could not open folder"
-msgstr "无法打开文件夹"
-
-#: ../mail/mail-stub-exchange.c:800
-msgid "Could not open Deleted Items folder"
-msgstr "无法打开已删项目文件夹"
-
-#: ../mail/mail-stub-exchange.c:1128 ../mail/mail-stub-exchange.c:1169
-msgid "Could not get new messages"
-msgstr "无法获得新信件"
-
-#: ../mail/mail-stub-exchange.c:1334
-msgid "Could not empty Deleted Items folder"
-msgstr "无法清空已删项目文件夹"
-
-#: ../mail/mail-stub-exchange.c:1406
-msgid "Could not append message; mailbox is over quota"
-msgstr "无法追加信件；邮箱超出配额"
-
-#: ../mail/mail-stub-exchange.c:1407
-msgid "Could not append message"
-msgstr "无法追加信件"
-
-#: ../mail/mail-stub-exchange.c:1890
-msgid "No such message"
-msgstr "没有这样的信件"
-
-#: ../mail/mail-stub-exchange.c:1943
-msgid "Message has been deleted"
-msgstr "信件已被删除"
-
-#: ../mail/mail-stub-exchange.c:1945
-msgid "Error retrieving message"
-msgstr "获取信件出错"
-
-#: ../mail/mail-stub-exchange.c:1987
-msgid "Mailbox does not support full-text searching"
-msgstr "邮箱不支持全文搜索"
-
-#: ../mail/mail-stub-exchange.c:2085
-msgid "Unable to move/copy messages"
-msgstr "无法移动/复制信件"
-
-#: ../mail/mail-stub-exchange.c:2283
-msgid "No mail submission URI for this mailbox"
-msgstr "没有此邮箱的提交 URI"
-
-#: ../mail/mail-stub-exchange.c:2319
-msgid "Server won't accept mail via Exchange transport"
-msgstr "服务器无法接受通过 Exchange 传送的邮件"
-
-#: ../mail/mail-stub-exchange.c:2321
-#, c-format
-msgid ""
-"Your account does not have permission to use <%s>\n"
-"as a From address."
-msgstr ""
-"您的账户没有权限使用 <%s>\n"
-"作为 From 地址。"
-
-#: ../mail/mail-stub-exchange.c:2333
-msgid ""
-"Could not send message.\n"
-"This might mean that your account is over quota."
-msgstr ""
-"无法发送信件。\n"
-"这可能意味着您的账户已超出配额。"
-
-#: ../mail/mail-stub-exchange.c:2337
-msgid "Could not send message"
-msgstr "无法发送信件"
-
-#: ../mail/mail-stub-exchange.c:2360 ../mail/mail-stub-exchange.c:2411
-#: ../mail/mail-stub-exchange.c:2470 ../mail/mail-stub-exchange.c:2515
-#: ../mail/mail-stub-exchange.c:2563 ../shell/e-storage.c:557
-#: ../storage/xc-commands.c:323
-msgid "Generic error"
-msgstr "常规错误"
-
-#: ../mail/mail-stub-exchange.c:2364 ../storage/xc-commands.c:313
-msgid "Folder already exists"
-msgstr "文件夹已存在"
-
-#: ../shell/e-folder-creation-dialog.c:138
-#, c-format
-msgid ""
-"Cannot create the specified folder:\n"
-"%s"
-msgstr ""
-"无法创建指定文件夹：\n"
-"%s"
-
-#: ../shell/e-folder-creation-dialog.c:179
-#, c-format
-msgid "The specified folder name is not valid: %s"
-msgstr "指定的文件夹名称无效：%s"
-
-#: ../shell/e-folder-creation-dialog.c:310
-msgid "Create New Folder"
-msgstr "创建新文件夹"
-
-#: ../shell/e-folder-creation-dialog.glade.h:1
-#: ../storage/exchange-autoconfig-wizard.glade.h:1
-#: ../storage/exchange-change-password.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ../shell/e-folder-creation-dialog.glade.h:2
-msgid "Folder _name:"
-msgstr "文件夹名称(_N)："
-
-#: ../shell/e-folder-creation-dialog.glade.h:3
-msgid "Folder _type:"
-msgstr "文件夹类型(_T)："
-
-#: ../shell/e-folder-creation-dialog.glade.h:4
-msgid "Specify where to create the folder:"
-msgstr "指定在哪里创建文件夹："
-
-#: ../shell/e-folder-dnd-bridge.c:52
-#, c-format
-msgid ""
-"Cannot transfer folder:\n"
-"%s"
-msgstr ""
-"无法传送文件夹：\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:62
-#, c-format
-msgid ""
-"Cannot delete folder:\n"
-"%s"
-msgstr ""
-"无法删除文件夹：\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:115
-#, c-format
-msgid "Really delete folder \"%s\"?"
-msgstr "真的要删除文件夹“%s”吗？"
-
-#: ../shell/e-folder-misc-dialogs.c:129
-#, c-format
-msgid "Delete \"%s\""
-msgstr "删除“%s”"
-
-#: ../shell/e-folder-misc-dialogs.c:154
-#, c-format
-msgid ""
-"Cannot rename folder:\n"
-"%s"
-msgstr ""
-"无法重命名文件夹：\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:188
-#, c-format
-msgid "Rename the \"%s\" folder to:"
-msgstr "将“%s”文件夹重命名为："
-
-#: ../shell/e-folder-misc-dialogs.c:191
-msgid "Rename Folder"
-msgstr "重命名文件夹"
-
-#: ../shell/e-folder-misc-dialogs.c:205
-#, c-format
-msgid "A folder named \"%s\" already exists. Please use a different name."
-msgstr "已经存在名为“%s”的文件夹。请使用其它名称。"
-
-#. It would be nice to insensitivize the OK button appropriately
-#. instead of doing this, but unfortunately we can't do this for the
-#. Bonobo control.
-#: ../shell/e-folder-misc-dialogs.c:451
-msgid "Please select a user."
-msgstr "请选择用户。"
-
-#: ../shell/e-folder-misc-dialogs.c:553
-msgid "Opening Folder"
-msgstr "打开文件夹"
-
-#: ../shell/e-folder-misc-dialogs.c:559
-#, c-format
-msgid "Opening Folder \"%s\""
-msgstr "打开文件夹“%s”"
-
-#: ../shell/e-folder-misc-dialogs.c:564
-#, c-format
-msgid "in \"%s\" ..."
-msgstr "在“%s”..."
-
-#: ../shell/e-folder-misc-dialogs.c:631
-#, c-format
-msgid "Could not open other user's folder: %s."
-msgstr "无法打开其他用户的文件夹：%s。"
-
-#: ../shell/e-folder-misc-dialogs.c:681
-msgid "Cannot find the specified other user's folder."
-msgstr "找不到指定的其他用户的文件夹。"
-
-#: ../shell/e-folder-misc-dialogs.c:713
-#, c-format
-msgid ""
-"Cannot unsubscribe from folder:\n"
-"%s"
-msgstr ""
-"无法退订文件夹：\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:766
-#, c-format
-msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "真的要退订文件夹“%s”吗？"
-
-#: ../shell/e-folder-misc-dialogs.c:780
-#, c-format
-msgid "Unsubscribe from \"%s\""
-msgstr "退订“%s”"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:1
-msgid "Open Other User's Folder"
-msgstr "打开其他用户的文件夹"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:2
-msgid "_Account:"
-msgstr "账户(_A)："
-
-#: ../shell/e-foreign-folder-dialog.glade.h:3
-msgid "_Folder Name:"
-msgstr "文件夹名称(_F)："
-
-#: ../shell/e-foreign-folder-dialog.glade.h:4
-msgid "_User:"
-msgstr "用户(_U)："
-
-#: ../shell/e-storage-set-view.etspec.h:1
-msgid "Checkbox"
-msgstr "复选框"
-
-#: ../shell/e-storage-set-view.etspec.h:2
-msgid "Folder"
-msgstr "文件夹"
-
-#: ../shell/e-storage.c:555
-msgid "No error"
-msgstr "无错误"
-
-#: ../shell/e-storage.c:559
-msgid "A folder with the same name already exists"
-msgstr "已经存在同名文件夹"
-
-#: ../shell/e-storage.c:561
-msgid "The specified folder type is not valid"
-msgstr "指定的文件夹类型无效"
-
-#: ../shell/e-storage.c:563
-msgid "I/O error"
-msgstr "I/O 错误"
-
-#: ../shell/e-storage.c:565
-msgid "Not enough space to create the folder"
-msgstr "没有足够的空间创建文件夹"
-
-#: ../shell/e-storage.c:567
-msgid "The folder is not empty"
-msgstr "文件夹不空"
-
-#: ../shell/e-storage.c:569
-msgid "The specified folder was not found"
-msgstr "指定的文件夹未找到"
-
-#: ../shell/e-storage.c:571
-msgid "Function not implemented in this storage"
-msgstr "此存储未实现此功能"
-
-#: ../shell/e-storage.c:575
-msgid "Operation not supported"
-msgstr "操作不支持"
-
-#: ../shell/e-storage.c:577
-msgid "The specified type is not supported in this storage"
-msgstr "此存储不支持指定的类型"
-
-#: ../shell/e-storage.c:579
-msgid "The specified folder cannot be modified or removed"
-msgstr "无法修改或删除指定文件夹"
-
-#: ../shell/e-storage.c:581
-msgid "Cannot make a folder a child of one of its descendants"
-msgstr "无法将文件夹变成其后代的子文件夹"
-
-#: ../shell/e-storage.c:583
-msgid "Cannot create a folder with that name"
-msgstr "无法创建该名称的文件夹"
-
-#: ../shell/e-storage.c:585
-msgid "This operation cannot be performed in off-line mode"
-msgstr "无法在脱机模式下执行此操作"
-
-#: ../shell/e-storage.c:587 ../storage/exchange-account.c:1473
-msgid "Unknown error"
-msgstr "未知错误"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-msgid "*Control*F5"
-msgstr "*Control*F5"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
-msgid "Evolution Addressbook Exchange backend"
-msgstr "Evolution 地址簿 Exchange 后端"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Evolution Calendar Exchange backend"
-msgstr "Evolution 日历 Exchange 后端"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
-msgid "Evolution Exchange Component"
-msgstr "Evolution Exchange 组件"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
-msgid "Exchange"
-msgstr "Exchange"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
-msgid "Ximian Connector for Exchange"
-msgstr "Ximian Connector for Exchange"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
-msgid "_Exchange"
-msgstr "Exchage(_E)"
-
-#. i18n: This is the title of an "other user's folders"
-#. hierarchy. Eg, "John Doe's Folders".
-#: ../storage/exchange-account.c:584
-#, c-format
-msgid "%s's Folders"
-msgstr "%s 的文件夹"
-
-#: ../storage/exchange-account.c:869
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%s输入 %s 的密码"
-
-#. email id is not proper, we return instead of trying nt_domain
-#: ../storage/exchange-account.c:1069
-msgid "Cannot change password due to configuration problems"
-msgstr "由于配置问题无法更改密码"
-
-#: ../storage/exchange-account.c:1092
-msgid ""
-"Server rejected password because it is too weak.\n"
-"Try again with a different password."
-msgstr ""
-"服务器拒绝了密码，因为该密码太简单了。\n"
-"请使用更复杂的密码再试一次。"
-
-#: ../storage/exchange-account.c:1097
-msgid "Could not change password"
-msgstr "无法更改密码"
-
-#: ../storage/exchange-account.c:1190
-msgid "Personal Folders"
-msgstr "个人文件夹"
-
-#: ../storage/exchange-account.c:1205
-msgid "Favorite Public Folders"
-msgstr "收藏的公开文件夹"
-
-#. i18n: Outlookism
-#: ../storage/exchange-account.c:1222
-msgid "All Public Folders"
-msgstr "全部公开文件夹"
-
-#. i18n: Outlookism
-#: ../storage/exchange-account.c:1236
-msgid "Global Address List"
-msgstr "全局地址列表"
-
-#: ../storage/exchange-account.c:1326
-msgid "Exchange Account is offline. Cannot display folders\n"
-msgstr "Exchange 账户脱机。无法显示文件夹\n"
-
-#: ../storage/exchange-account.c:1384
-msgid ""
-"Could not authenticate to server. (Password incorrect?)\n"
-"\n"
-msgstr ""
-"无法验证到服务器。(密码不对？)\n"
-"\n"
-
-#: ../storage/exchange-account.c:1389
-msgid ""
-"Could not authenticate to server.\n"
-"\n"
-"This probably means that your server requires you\n"
-"to specify the Windows domain name as part of your\n"
-"username (eg, \"DOMAIN\\user\").\n"
-"\n"
-"Or you might have just typed your password wrong.\n"
-"\n"
-msgstr ""
-"无法验证到服务器。\n"
-"\n"
-"这可能意味着您的服务器需要您将 Windows 域名指定为\n"
-"您用户名的一部分(如“DOMAIN\\user”)。\n"
-"\n"
-"或者，您可能输错了您的密码。\n"
-"\n"
-
-#: ../storage/exchange-account.c:1431
-#, c-format
-msgid "Mailbox for %s is not on this server."
-msgstr "%s 的邮箱未在此服务器上。"
-
-#: ../storage/exchange-account.c:1436
-#, c-format
-msgid ""
-"The server '%s' is running Exchange 5.5 and is\n"
-"therefore not compatible with Ximian Connector"
-msgstr ""
-"服务器“%s”运行着 Exchange 5.5，而该版本与\n"
-"Ximian Connector 不兼容"
-
-#: ../storage/exchange-account.c:1443
-#, c-format
-msgid ""
-"Could not find Exchange Web Storage System at %s.\n"
-"If OWA is running on a different path, you must specify that in the\n"
-"account configuration dialog."
-msgstr ""
-"在 %s 找不到 Exchange Web 存储系统。\n"
-"如果 OWA 运行于不同的路径，您必须在账户配置对话框中指定。"
-
-#: ../storage/exchange-account.c:1451
-#, c-format
-msgid "No mailbox for user %s on %s.\n"
-msgstr "%2$s 上没有用户 %1$s 的邮箱。\n"
-
-#: ../storage/exchange-account.c:1457 ../storage/exchange-account.c:1463
-#: ../storage/exchange-account.c:1471
-#, c-format
-msgid "Could not connect to server %s: %s"
-msgstr "无法连接到服务器 %s：%s"
-
-#: ../storage/exchange-account.c:1459
-msgid "Could not resolve hostname"
-msgstr "无法解析主机名"
-
-#: ../storage/exchange-account.c:1465
-msgid "Network error"
-msgstr "网络错误"
-
-#: ../storage/exchange-account.c:1529
-#, c-format
-msgid ""
-"You have exceeded your quota of %d %s for storing mails on this server. Your "
-"current usage is : %.0f %s."
-msgstr "您已经达到了在此服务器上 %d %s 的配额。您目前使用了 %.0f %s。"
-
-#: ../storage/exchange-account.c:1532
-msgid "You will not be able to either send or receive mails now\n"
-msgstr "您现在将无法再发送或接收邮件\n"
-
-#: ../storage/exchange-account.c:1535
-msgid ""
-"You will not be able to send mails till you clear up some space by deleting "
-"some mails.\n"
-msgstr "您将无法再发送或接收邮件，除非您删除一些邮件来腾出空间。\n"
-
-#: ../storage/exchange-account.c:1538
-msgid "Try to clear up some space by deleting some mails.\n"
-msgstr "试着删除一些邮件来腾出空间。\n"
 
 #: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
@@ -938,6 +473,22 @@ msgstr ""
 "Exchange 管理员必须启用此功能。\n"
 "\n"
 "关于需要向您的 Exchange 管理员提供的信息，请查看下面的链接："
+
+#: ../storage/exchange-autoconfig-wizard.c:275
+msgid ""
+"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
+"Connector supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"您提供的 Exchange 服务器 URL 是 Exchange 5.5 服务器。Ximian Connector 只支持 "
+"Microsoft Exchange 2000 和 2003。"
+
+#: ../storage/exchange-autoconfig-wizard.c:288
+msgid ""
+"Could not configure Exchange account because an unknown error occurred. "
+"Check the URL, username, and password, and try again."
+msgstr ""
+"无法配置 Exchange 账户，原因是发生了未知错误。请检查 URL、用户名和密码，然后"
+"再试一次。"
 
 #: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
@@ -971,9 +522,13 @@ msgstr ""
 "无法创建新账户。"
 
 #: ../storage/exchange-autoconfig-wizard.c:459
-#: ../storage/exchange-config-listener.c:349
 msgid "You may only configure a single Exchange account"
 msgstr "您只能配置一个 Exchange 账户"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:1
+#: ../storage/exchange-change-password.glade.h:1
+msgid "*"
+msgstr "*"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
@@ -1114,19 +669,9 @@ msgstr "新密码："
 msgid "Your current password has expired. Please change your password now."
 msgstr "您的当前密码已过期。请立即更改您的密码。"
 
-#: ../storage/exchange-config-listener.c:542
-msgid ""
-"Changes to Exchange account configuration will take\n"
-"place after you quit and restart Evolution."
-msgstr "对 Exchange 账户的更改将在您退出并重新启动 Evolution 后生效。"
-
-#: ../storage/exchange-config-listener.c:588
-msgid "The Exchange account will be removed when you quit Evolution"
-msgstr "Exchange 账户将在您退出 Evolution 后删除。"
-
-#: ../storage/exchange-config-listener.c:593
-msgid "The Exchange account will be disabled when you quit Evolution"
-msgstr "Exchange 账户将在您退出 Evolution 后禁用"
+#: ../storage/exchange-delegates-user.c:144
+msgid "Custom"
+msgstr "自定义"
 
 #: ../storage/exchange-delegates-user.c:191
 #: ../storage/exchange-permissions-dialog.c:179
@@ -1254,6 +799,10 @@ msgstr "代表"
 msgid "Editor (read, create, edit)"
 msgstr "编辑者(读取、创建、编辑)"
 
+#: ../storage/exchange-delegates.glade.h:7
+msgid "None"
+msgstr "无"
+
 #: ../storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
 msgstr "权限设置"
@@ -1284,63 +833,15 @@ msgstr "收件箱(_I)："
 msgid "_Tasks:"
 msgstr "任务(_T)："
 
-#: ../storage/exchange-folder-size.c:322
-msgid "Folder Name"
-msgstr "文件夹名称"
-
-#: ../storage/exchange-folder-size.c:326
-msgid "Folder Size"
-msgstr "文件夹大小"
-
 #: ../storage/exchange-folder-tree.glade.h:1
 msgid "Exchange Folder Tree"
 msgstr "Exchange 文件夹树"
 
-#: ../storage/exchange-hierarchy-foreign.c:250
-msgid "Calendar"
-msgstr "日历"
-
-#: ../storage/exchange-hierarchy-foreign.c:251
-msgid "Contacts"
-msgstr "联系人"
-
-#: ../storage/exchange-hierarchy-foreign.c:252
-msgid "Deleted Items"
-msgstr "已删项目"
-
-#: ../storage/exchange-hierarchy-foreign.c:253
-msgid "Drafts"
-msgstr "草稿箱"
-
-#: ../storage/exchange-hierarchy-foreign.c:254
-msgid "Inbox"
-msgstr "收件箱"
-
-#: ../storage/exchange-hierarchy-foreign.c:255
-msgid "Journal"
-msgstr "日记"
-
-#: ../storage/exchange-hierarchy-foreign.c:256
-msgid "Notes"
-msgstr "便笺"
-
-#: ../storage/exchange-hierarchy-foreign.c:257
-msgid "Outbox"
-msgstr "发件箱"
-
-#: ../storage/exchange-hierarchy-foreign.c:258
-msgid "Sent Items"
-msgstr "已发项目"
-
-#: ../storage/exchange-hierarchy-foreign.c:259
-msgid "Tasks"
-msgstr "任务"
-
-#: ../storage/exchange-migrate.c:57
+#: ../storage/exchange-migrate.c:58
 msgid "Migrating Exchange Folders..."
 msgstr "正在升迁 Exchange 文件夹..."
 
-#: ../storage/exchange-migrate.c:65
+#: ../storage/exchange-migrate.c:66
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -1353,10 +854,10 @@ msgstr ""
 "\n"
 "请稍候，Evolution 正在升迁您的文件夹..."
 
-#: ../storage/exchange-migrate.c:98
+#: ../storage/exchange-migrate.c:99
 #, c-format
 msgid ""
-"Warning: Evolution Could not migrate all the Exchange account data from the "
+"Warning: Evolution could not migrate all the Exchange account data from the "
 "version %d.%d.%d. \n"
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
@@ -1364,18 +865,10 @@ msgstr ""
 "警告：Evolution 无法从版本 %d.%d.%d 中升迁全部 Exchange 账户数据。\n"
 "数据未被删除，但是此版本的 Evolution 看不到"
 
-#: ../storage/exchange-migrate.c:129
+#: ../storage/exchange-migrate.c:130
 #, c-format
 msgid "Migrating `%s':"
 msgstr "升迁“%s”："
-
-#: ../storage/exchange-oof.c:199 ../storage/exchange-oof.c:406
-msgid "Could not update out-of-office state"
-msgstr "无法更新离开办公室状态"
-
-#: ../storage/exchange-oof.c:424
-msgid "Could not read out-of-office state"
-msgstr "无法读取离开办公室状态"
 
 #: ../storage/exchange-oof.glade.h:1
 msgid ""
@@ -1561,7 +1054,7 @@ msgstr "角色："
 msgid "Connecting..."
 msgstr "正在连接..."
 
-#: ../storage/main.c:166
+#: ../storage/main.c:183
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector for Microsoft Exchange"
 
@@ -1682,45 +1175,3 @@ msgstr "离开办公室助手(_O)"
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "退订其他用户的文件夹(_U)"
 
-#~ msgid "Mail"
-#~ msgstr "邮件"
-
-#~ msgid ""
-#~ "Ximian Connector requires access to certain functionality on the Exchange "
-#~ "Server that appears to be disabled or blocked.  (This is usually "
-#~ "unintentional.)  Your Exchange Administrator will need to enable this "
-#~ "functionality in order for you to be able to use Ximian Connector.\n"
-#~ "\n"
-#~ "For information to provide to your Exchange administrator, please follow "
-#~ "the link below:\n"
-#~ "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
-#~ "html "
-#~ msgstr ""
-#~ "Ximian Connector 需要访问 Exchange 服务器上特定的功能，但该功能似乎被禁止"
-#~ "或屏蔽。(这一问题通常是无意间造成的。)要让您能够使用 Ximian Connector，您"
-#~ "的 Exchange 管理员必须启用此功能。\n"
-#~ "\n"
-#~ "关于需要向您的 Exchange 管理员提供的信息，请查看下面的链接：http://"
-#~ "support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328.html "
-
-#~ msgid "_Permissions..."
-#~ msgstr "权限(_P)..."
-
-#~ msgid ""
-#~ "Ximian Connector requires access to certain functionality on the Exchange "
-#~ "Server that appears to be disabled or blocked.  (This is usually "
-#~ "unintentional.)  Your Exchange Administrator will need to enable this "
-#~ "functionality in order for you to be able to use Ximian Connector.\n"
-#~ "\n"
-#~ "For information to provide to your Exchange administrator, please follow "
-#~ "the link below:\n"
-#~ "http://www.ximian.com/products/connector/iis-lockdown.html, http://www."
-#~ "ximian.com/products/connector/iis-lockdown.html"
-#~ msgstr ""
-#~ "Ximian Connector 需要访问 Exchange 服务器上特定的功能，但该功能似乎被禁止"
-#~ "或屏蔽。(这一问题通常是无意间造成的。)要让您能够使用 Ximian Connector，您"
-#~ "的 Exchange 管理员必须启用此功能。\n"
-#~ "\n"
-#~ "关于需要向您的 Exchange 管理员提供的信息，请查看下面的链接：\n"
-#~ "http://www.ximian.com/products/connector/iis-lockdown.html，http://www."
-#~ "ximian.com/products/connector/iis-lockdown.html"
