@@ -1,3 +1,15 @@
+2005-01-27  Sushma Rai  <rsushma@novell.com>
+
+	* configure.in: Define API_VERSION.
+
+	* storage/Makefile.am: Replace @API_VERSION@
+
+	* storage/exchange-component.h: using API_VERSION for Exchange
+	Connector book and calendar factories.
+
+	* storage/GNOME_Evolution_Exchange_Storage.server.in.in: Similar.
+	See #323115.
+
 2005-12-29  Abel Cheung  <maddog@linuxhall.org>
 
 	* configure.in: Added "ca" "da" "mk" "ru" "vi" "zh_HK" to ALL_LINGUAS.
