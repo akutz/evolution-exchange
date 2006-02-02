@@ -2287,16 +2287,6 @@ e_book_backend_exchange_load_source (EBookBackend *backend,
 	e_book_backend_set_is_loaded (E_BOOK_BACKEND (be), TRUE);
 	e_book_backend_notify_connection_status (E_BOOK_BACKEND (be), TRUE);
 
-	if (e_book_backend_cache_is_populated (bepriv->cache)) {
-		if (bepriv->is_writable)
-			g_thread_create ((GThreadFunc) update_cache, 
-					  be, FALSE, NULL);
-	}
-	else if (bepriv->is_writable || bepriv->marked_for_offline){ 
-		/* for personal books we always cache*/
-		g_thread_create ((GThreadFunc) build_cache, be, FALSE, NULL);
-	}
-
 	return GNOME_Evolution_Addressbook_Success;
 }
 

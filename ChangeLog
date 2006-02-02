@@ -1,3 +1,10 @@
+2006-02-02  Sushma Rai  <rsushma@novell.com>
+
+	* addressbook/e-book-backend-exchange.c 
+	(e_book_backend_exchange_load_source): Not builiding/updating cache in
+	load_source, but doing it only after authenticating and setting up the
+	folder hierarchy. Fixes #328507.
+
 2006-01-30  Sushma Rai  <rsushma@novell.com>
 
 	* configure.in : Bumped the version to 2.5.9.0
