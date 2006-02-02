@@ -1,21 +1,21 @@
 # Përkthimi i mesazheve të evolution-exchange në shqip
 # This file is distributed under the same license as the evolution-exchange package.
-# Copyright (C) 2004, 2005 Free Software Foundation, Inc.
-# Laurent Dhima <laurenti@alblinux.net>, 2004, 2005.
+# Copyright (C) 2006 Free Software Foundation, Inc.
 #
+# Laurent Dhima <laurenti@alblinux.net>, 2004, 2005, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: evolution-exchange.HEAD.sq\n"
+"Project-Id-Version: evolution-exchange HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-24 06:48+0000\n"
-"PO-Revision-Date: 2005-08-24 11:19+0200\n"
+"POT-Creation-Date: 2006-02-02 06:49+0100\n"
+"PO-Revision-Date: 2006-02-02 12:55+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1857
+#: ../addressbook/e-book-backend-exchange.c:1856
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Duke kërkuar..."
@@ -32,7 +32,7 @@ msgstr "Duke marrë rezultatet e kërkimit LDAP..."
 msgid "Error performing search"
 msgstr "Gabim gjatë kryerjes së kërkimit"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1732
+#: ../calendar/e-cal-backend-exchange-calendar.c:1805
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -41,56 +41,56 @@ msgstr ""
 "I pamundur planifikimi i rezervës '%s' për mbledhjet e ardhshme.\n"
 "Çdo mbledhje do të duhet të prenotohet në veçanti."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1751
+#: ../calendar/e-cal-backend-exchange-calendar.c:1823
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Rezerve '%s' është e zënë gjatë periudhës së zgjedhur të kohës."
 
-#: ../camel/camel-exchange-folder.c:223
-msgid "Can only expunge in Deleted Items folder"
-msgstr "Mund vetëm t'a çoj tek kartela e elementëve të eleminuar"
+#: ../camel/camel-exchange-folder.c:222
+msgid "You cannot expunge in offline mode."
+msgstr "E pamundur fshirja në modalitet jashtë linje."
 
-#: ../camel/camel-exchange-folder.c:247
+#: ../camel/camel-exchange-folder.c:253
 msgid "No Subject"
 msgstr "Asnjë Subjekt"
 
-#: ../camel/camel-exchange-folder.c:374
+#: ../camel/camel-exchange-folder.c:380
 msgid "This message is not available in offline mode."
 msgstr "Ky mesazh nuk gjendet në dispozicion në modalitetin jashtë linje"
 
-#: ../camel/camel-exchange-folder.c:609
+#: ../camel/camel-exchange-folder.c:615
 msgid "Moving messages"
 msgstr "Duke lëvizur mesazhet"
 
-#: ../camel/camel-exchange-folder.c:610
+#: ../camel/camel-exchange-folder.c:616
 msgid "Copying messages"
 msgstr "Duke kopjuar mesazhet"
 
-#: ../camel/camel-exchange-folder.c:981
+#: ../camel/camel-exchange-folder.c:987
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "I pamundur krijimi i directory %s: %s"
 
-#: ../camel/camel-exchange-folder.c:991
+#: ../camel/camel-exchange-folder.c:997
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "I pamundur leximi i përmbledhjes për %s"
 
-#: ../camel/camel-exchange-folder.c:999
+#: ../camel/camel-exchange-folder.c:1005
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "I pamundur krijimi i cache për %s"
 
-#: ../camel/camel-exchange-folder.c:1009
+#: ../camel/camel-exchange-folder.c:1015
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "I pamundur krijimi i ditarit për %s"
 
-#: ../camel/camel-exchange-folder.c:1054
+#: ../camel/camel-exchange-folder.c:1060
 msgid "Scanning for changed messages"
 msgstr "Duke kërkuar për mesazhet e ndryshuara"
 
-#: ../camel/camel-exchange-folder.c:1080
+#: ../camel/camel-exchange-folder.c:1086
 msgid "Fetching summary information for new messages"
 msgstr "Duke marrë përmbledhjen e informacionit për mesazhet e rinj"
 
@@ -98,10 +98,10 @@ msgstr "Duke marrë përmbledhjen e informacionit për mesazhet e rinj"
 msgid "No folder name found\n"
 msgstr "Kartela nuk u gjet\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2524
-#: ../mail/mail-stub-exchange.c:2567 ../mail/mail-stub-exchange.c:2602
-#: ../mail/mail-stub-exchange.c:2629 ../mail/mail-stub-exchange.c:2676
-#: ../mail/mail-stub-exchange.c:2698
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2534
+#: ../mail/mail-stub-exchange.c:2578 ../mail/mail-stub-exchange.c:2613
+#: ../mail/mail-stub-exchange.c:2640 ../mail/mail-stub-exchange.c:2687
+#: ../mail/mail-stub-exchange.c:2709
 msgid "Folder doesn't exist"
 msgstr "Kartela nuk ekziston"
 
@@ -201,53 +201,61 @@ msgstr ""
 "Me këtë opcion do të lidheni me serverin Exchange duke përdorur "
 "autentifikimin standart me fjalëkalim si tekst i thjeshtë."
 
-#: ../camel/camel-exchange-store.c:303
+#: ../camel/camel-exchange-store.c:308
 #, c-format
 msgid "Exchange server %s"
 msgstr "Serveri exchange %s"
 
-#: ../camel/camel-exchange-store.c:306
+#: ../camel/camel-exchange-store.c:311
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Llogaria exchange për %s në %s"
 
-#: ../camel/camel-exchange-store.c:347 ../storage/exchange-account.c:869
+#: ../camel/camel-exchange-store.c:352
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sShkruaj fjalëkalimin për %s"
 
-#: ../camel/camel-exchange-store.c:376
+#: ../camel/camel-exchange-store.c:403
 msgid "Evolution Exchange backend process"
 msgstr "Proçesi backend Evolution Exchange"
 
-#: ../camel/camel-exchange-store.c:430
+#: ../camel/camel-exchange-store.c:444
+msgid ""
+"Could not authenticate to server. (Password incorrect?)\n"
+"\n"
+msgstr ""
+"I pamundur autentifikimi në server. (Fjalëkalim i pasaktë?)\n"
+"\n"
+
+#: ../camel/camel-exchange-store.c:486
 #, c-format
 msgid "No such folder %s"
 msgstr "Kartela nuk u gjet: %s"
 
-#: ../camel/camel-exchange-store.c:499
+#: ../camel/camel-exchange-store.c:563
 msgid "Cannot subscribe folder in offline mode."
 msgstr "I pamundur regjistrimi i kartelës në modalitetin jashtë linje."
 
-#: ../camel/camel-exchange-store.c:516
+#: ../camel/camel-exchange-store.c:580
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "I pamundur ç'regjistrimi i kartelës në modalitetin jashtë linje."
 
-#: ../camel/camel-exchange-store.c:621
+#: ../camel/camel-exchange-store.c:695
 msgid "Cannot get folder info in offline mode."
 msgstr ""
 "E pamundur marrja e informacioneve në lidhje me kartelën në modalitet jashtë "
 "linje."
 
-#: ../camel/camel-exchange-store.c:692
+#: ../camel/camel-exchange-store.c:766
 msgid "Cannot create folder in offline mode."
 msgstr "I pamundur krijimi i kartelës në modalitet jashtë linje."
 
-#: ../camel/camel-exchange-store.c:719
+#: ../camel/camel-exchange-store.c:793
 msgid "Cannot delete folder in offline mode."
 msgstr "I pamundur eleminimi i kartelës në modalitet jashtë linje."
 
-#: ../camel/camel-exchange-store.c:735
+#: ../camel/camel-exchange-store.c:809
 msgid "Cannot rename folder in offline mode."
 msgstr "I pamundur riemërtimi i kartelës në modalitet jashtë linje."
 
@@ -293,7 +301,127 @@ msgstr "Humbi lidhja me %s"
 msgid "Error communicating with %s: %s"
 msgstr "Gabim gjatë komunikimit me %s: %s"
 
-#: ../lib/e2k-autoconfig.c:1471 ../storage/exchange-autoconfig-wizard.c:211
+#: ../mail/mail-stub-exchange.c:257
+msgid "No such folder"
+msgstr "Kartela nuk u gjet"
+
+#. FIXME: should be this, but string freeze freezes me to do so.
+#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
+#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1381
+#: ../mail/mail-stub-exchange.c:2511 ../mail/mail-stub-exchange.c:2551
+#: ../mail/mail-stub-exchange.c:2617 ../mail/mail-stub-exchange.c:2661
+#: ../mail/mail-stub-exchange.c:2725 ../storage/xc-commands.c:319
+msgid "Permission denied"
+msgstr "Ndalohet hyrja"
+
+#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
+msgid "Could not open folder: Permission denied"
+msgstr "E pamundur hapja e kartelës: Ndalohet hyrja"
+
+#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:705
+msgid "Could not open folder"
+msgstr "E pamundur hapja e kartelës"
+
+#: ../mail/mail-stub-exchange.c:748
+msgid "No such folder."
+msgstr "Kartela nuk u gjet."
+
+#: ../mail/mail-stub-exchange.c:757
+msgid "Could not create folder."
+msgstr "I pamundur krijimi i kartelës."
+
+#: ../mail/mail-stub-exchange.c:837
+msgid "Could not open Deleted Items folder"
+msgstr "E pamundur hapja e kartelës me elementët e fshirë"
+
+#: ../mail/mail-stub-exchange.c:1166 ../mail/mail-stub-exchange.c:1207
+msgid "Could not get new messages"
+msgstr "E pamundur marrja e mesazheve të rinj"
+
+#: ../mail/mail-stub-exchange.c:1377
+msgid "Could not empty Deleted Items folder"
+msgstr "E pamundur zbrazja e kartelës me elementët e fshirë"
+
+#: ../mail/mail-stub-exchange.c:1454
+msgid "Could not append message; mailbox is over quota"
+msgstr "I pamundur shtimi (në fund) i mesazhit; mailbox ka tejkaluar kuotën"
+
+#: ../mail/mail-stub-exchange.c:1455
+msgid "Could not append message"
+msgstr "I pamundur shtimi i mesazhit"
+
+#: ../mail/mail-stub-exchange.c:2001
+msgid "No such message"
+msgstr "Mesazhi nuk u gjet"
+
+#: ../mail/mail-stub-exchange.c:2054
+msgid "Message has been deleted"
+msgstr "Mesazhi është fshirë"
+
+#: ../mail/mail-stub-exchange.c:2056
+msgid "Error retrieving message"
+msgstr "Gabim gjatë tërheqjes së mesazhit"
+
+#: ../mail/mail-stub-exchange.c:2098
+msgid "Mailbox does not support full-text searching"
+msgstr "Mailbox nuk suporton kërkimin tekst i plotë"
+
+#: ../mail/mail-stub-exchange.c:2196
+msgid "Unable to move/copy messages"
+msgstr "E pamundur lëvizja/kopja e mesazheve"
+
+#: ../mail/mail-stub-exchange.c:2426
+msgid "No mail submission URI for this mailbox"
+msgstr "Kjo kasetë poste nuk ka asnjë URl për mesazhet e dorëzuara"
+
+#: ../mail/mail-stub-exchange.c:2462
+msgid "Server won't accept mail via Exchange transport"
+msgstr "Serveri nuk pranon mail via Exchange transport"
+
+#: ../mail/mail-stub-exchange.c:2464
+#, c-format
+msgid ""
+"Your account does not have permission to use <%s>\n"
+"as a From address."
+msgstr ""
+"Llogaria juaj nuk ka të drejtë të përdorë <%s>\n"
+"si adresë \"Nga\"."
+
+#: ../mail/mail-stub-exchange.c:2476
+msgid ""
+"Could not send message.\n"
+"This might mean that your account is over quota."
+msgstr ""
+"I pamundur dërgimi i mesazhit.\n"
+"Kjo do të thotë që ndoshta keni tejkaluar kuotën."
+
+#: ../mail/mail-stub-exchange.c:2480
+msgid "Could not send message"
+msgstr "Dërgimi i mesazhit është i pamundur"
+
+#: ../mail/mail-stub-exchange.c:2503 ../mail/mail-stub-exchange.c:2556
+#: ../mail/mail-stub-exchange.c:2621 ../mail/mail-stub-exchange.c:2666
+#: ../mail/mail-stub-exchange.c:2730 ../storage/xc-commands.c:323
+msgid "Generic error"
+msgstr "Gabim i përgjithshëm"
+
+#: ../mail/mail-stub-exchange.c:2507 ../storage/xc-commands.c:313
+msgid "Folder already exists"
+msgstr "Kartela ekziston"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
+msgid "Evolution Addressbook Exchange backend"
+msgstr "Evolution Addressbook Exchange backend"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
+msgid "Evolution Calendar Exchange backend"
+msgstr "Evolution Calendar Exchange backend"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+msgid "Ximian Connector for Exchange"
+msgstr "Ximian Connector për Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -303,7 +431,7 @@ msgstr ""
 "Kontrollo që URL është korrekte (provo \"%s\" në vend të \"%s\"?) dhe "
 "riprovo."
 
-#: ../lib/e2k-autoconfig.c:1480 ../storage/exchange-autoconfig-wizard.c:219
+#: ../storage/exchange-autoconfig-wizard.c:219
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -311,7 +439,7 @@ msgstr ""
 "E pamundur gjetja e server-it Exchange.\n"
 "Kontrollo që ke shkruar emrin e tij si duhet dhe riprovo."
 
-#: ../lib/e2k-autoconfig.c:1490 ../storage/exchange-autoconfig-wizard.c:228
+#: ../storage/exchange-autoconfig-wizard.c:228
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -319,7 +447,7 @@ msgstr ""
 "E pamundur njohja nga serveri Exchange.\n"
 "Kontrollo që përdoruesi dhe fjalëkalimi janë korrekt dhe riprovo."
 
-#: ../lib/e2k-autoconfig.c:1498 ../storage/exchange-autoconfig-wizard.c:235
+#: ../storage/exchange-autoconfig-wizard.c:235
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -334,612 +462,13 @@ msgstr ""
 "Ndoshta do t'ju duhet të specifikoni emrin e domain të Windows si pjesë të "
 "emrit tuaj (p.sh, \"DOMAIN-IM\\%s\")"
 
-#: ../lib/e2k-autoconfig.c:1511 ../storage/exchange-autoconfig-wizard.c:247
+#: ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 msgstr ""
 "Nuk arrij të gjej të dhënat e OWA tek URL e dhënë.\n"
 "Sigurohu që URL është korrekte dhe riprovo."
-
-#: ../lib/e2k-autoconfig.c:1520
-#, c-format
-msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
-"\n"
-"For information to provide to your Exchange administrator, please follow the "
-"link below:\n"
-"%s"
-msgstr ""
-"Ximian Connector ka nevojë të ketë hyrje në një funksion të Serverit "
-"Exchange që mesa duket nuk është aktiv ose është i bllokuar.  (Zakonisht kjo "
-"nuk është e qëllimshme)  Administratori juaj i Exchange duhet të aktivojë "
-"këtë funksion në menyrë që ju të keni mundësi të përdorni Ximian Connector.\n"
-"\n"
-"Informacionet që duhet t'i jepni Administratorit tuaj të Exchange, mund t'i "
-"merrni duke ndjekur lidhjen e mëposhtme:\n"
-"%s"
-
-#: ../lib/e2k-autoconfig.c:1536 ../storage/exchange-autoconfig-wizard.c:275
-msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"URL e serverit Exchange dhënë nga ju është për një server Exchange 5.5. "
-"Ximian Connector suporton vetëm Microsoft Exchange 2000 dhe 2003."
-
-#: ../lib/e2k-autoconfig.c:1545 ../storage/exchange-autoconfig-wizard.c:288
-msgid ""
-"Could not configure Exchange account because an unknown error occurred. "
-"Check the URL, username, and password, and try again."
-msgstr ""
-"I pamundur konfigurimi i llogarisë Exchange për shkak të një difekti të "
-"panjohur. Kontrollo URL, përdoruesin, dhe fjalëkalimin, e riprovo."
-
-#: ../lib/e2k-autoconfig.c:1567
-#, c-format
-msgid "Enter password for %s"
-msgstr "Shkruaj fjalëkalimin për %s"
-
-#: ../lib/e2k-autoconfig.c:1568 ../storage/exchange-account.c:874
-msgid "Enter password"
-msgstr "Shkruaj fjalëkalimin"
-
-#. i18n: These are Outlook's words for the default roles in
-#. the folder permissions dialog.
-#: ../lib/e2k-security-descriptor.c:847
-msgid "Owner"
-msgstr "Pronari"
-
-#: ../lib/e2k-security-descriptor.c:857
-msgid "Publishing Editor"
-msgstr "Redaktori i publikimit"
-
-#: ../lib/e2k-security-descriptor.c:865
-msgid "Editor"
-msgstr "Editori"
-
-#: ../lib/e2k-security-descriptor.c:872
-msgid "Publishing Author"
-msgstr "Autori Publikimit"
-
-#: ../lib/e2k-security-descriptor.c:878
-msgid "Author"
-msgstr "Autori"
-
-#: ../lib/e2k-security-descriptor.c:883
-msgid "Non-editing Author"
-msgstr "Autor jo publikues"
-
-#: ../lib/e2k-security-descriptor.c:887
-msgid "Reviewer"
-msgstr "Rishikuesi"
-
-#: ../lib/e2k-security-descriptor.c:889
-msgid "Contributor"
-msgstr "Kontribuesi"
-
-#: ../lib/e2k-security-descriptor.c:891
-#: ../storage/exchange-delegates.glade.h:7
-msgid "None"
-msgstr "Asnjë"
-
-#: ../lib/e2k-security-descriptor.c:906
-#: ../storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "E personalizuar"
-
-#: ../lib/e2k-user-dialog.c:144
-msgid "Select User"
-msgstr "Zgjidh përdoruesin"
-
-#: ../lib/e2k-user-dialog.c:182
-msgid "Addressbook..."
-msgstr "Rubrika..."
-
-#: ../mail/mail-stub-exchange.c:257
-msgid "No such folder"
-msgstr "Kartela nuk u gjet"
-
-#. FIXME: should be this, but string freeze freezes me to do so.
-#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1375
-#: ../mail/mail-stub-exchange.c:2501 ../mail/mail-stub-exchange.c:2540
-#: ../mail/mail-stub-exchange.c:2606 ../mail/mail-stub-exchange.c:2650
-#: ../mail/mail-stub-exchange.c:2714 ../shell/e-storage.c:573
-#: ../storage/xc-commands.c:319
-msgid "Permission denied"
-msgstr "Ndalohet hyrja"
-
-#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
-msgid "Could not open folder: Permission denied"
-msgstr "E pamundur hapja e kartelës: Ndalohet hyrja"
-
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:705
-msgid "Could not open folder"
-msgstr "E pamundur hapja e kartelës"
-
-#: ../mail/mail-stub-exchange.c:744
-msgid "No such folder."
-msgstr "Kartela nuk u gjet."
-
-#: ../mail/mail-stub-exchange.c:753
-msgid "Could not create folder."
-msgstr "I pamundur krijimi i kartelës."
-
-#: ../mail/mail-stub-exchange.c:831
-msgid "Could not open Deleted Items folder"
-msgstr "E pamundur hapja e kartelës me elementët e fshirë"
-
-#: ../mail/mail-stub-exchange.c:1160 ../mail/mail-stub-exchange.c:1201
-msgid "Could not get new messages"
-msgstr "E pamundur marrja e mesazheve të rinj"
-
-#: ../mail/mail-stub-exchange.c:1371
-msgid "Could not empty Deleted Items folder"
-msgstr "E pamundur zbrazja e kartelës me elementët e fshirë"
-
-#: ../mail/mail-stub-exchange.c:1448
-msgid "Could not append message; mailbox is over quota"
-msgstr "I pamundur shtimi (në fund) i mesazhit; mailbox ka tejkaluar kuotën"
-
-#: ../mail/mail-stub-exchange.c:1449
-msgid "Could not append message"
-msgstr "I pamundur shtimi i mesazhit"
-
-#: ../mail/mail-stub-exchange.c:1991
-msgid "No such message"
-msgstr "Mesazhi nuk u gjet"
-
-#: ../mail/mail-stub-exchange.c:2044
-msgid "Message has been deleted"
-msgstr "Mesazhi është fshirë"
-
-#: ../mail/mail-stub-exchange.c:2046
-msgid "Error retrieving message"
-msgstr "Gabim gjatë tërheqjes së mesazhit"
-
-#: ../mail/mail-stub-exchange.c:2088
-msgid "Mailbox does not support full-text searching"
-msgstr "Mailbox nuk suporton kërkimin tekst i plotë"
-
-#: ../mail/mail-stub-exchange.c:2186
-msgid "Unable to move/copy messages"
-msgstr "E pamundur lëvizja/kopja e mesazheve"
-
-#: ../mail/mail-stub-exchange.c:2416
-msgid "No mail submission URI for this mailbox"
-msgstr "Kjo kasetë poste nuk ka asnjë URl për mesazhet e dorëzuara"
-
-#: ../mail/mail-stub-exchange.c:2452
-msgid "Server won't accept mail via Exchange transport"
-msgstr "Serveri nuk pranon mail via Exchange transport"
-
-#: ../mail/mail-stub-exchange.c:2454
-#, c-format
-msgid ""
-"Your account does not have permission to use <%s>\n"
-"as a From address."
-msgstr ""
-"Llogaria juaj nuk ka të drejtë të përdorë <%s>\n"
-"si adresë \"Nga\"."
-
-#: ../mail/mail-stub-exchange.c:2466
-msgid ""
-"Could not send message.\n"
-"This might mean that your account is over quota."
-msgstr ""
-"I pamundur dërgimi i mesazhit.\n"
-"Kjo do të thotë që ndoshta keni tejkaluar kuotën."
-
-#: ../mail/mail-stub-exchange.c:2470
-msgid "Could not send message"
-msgstr "Dërgimi i mesazhit është i pamundur"
-
-#: ../mail/mail-stub-exchange.c:2493 ../mail/mail-stub-exchange.c:2545
-#: ../mail/mail-stub-exchange.c:2610 ../mail/mail-stub-exchange.c:2655
-#: ../mail/mail-stub-exchange.c:2719 ../shell/e-storage.c:557
-#: ../storage/xc-commands.c:323
-msgid "Generic error"
-msgstr "Gabim i përgjithshëm"
-
-#: ../mail/mail-stub-exchange.c:2497 ../storage/xc-commands.c:313
-msgid "Folder already exists"
-msgstr "Kartela ekziston"
-
-#: ../shell/e-folder-creation-dialog.c:138
-#, c-format
-msgid ""
-"Cannot create the specified folder:\n"
-"%s"
-msgstr ""
-"I pamundur krijimi i kartelës së specifikuar:\n"
-"%s"
-
-#: ../shell/e-folder-creation-dialog.c:179
-#, c-format
-msgid "The specified folder name is not valid: %s"
-msgstr "Emri i kartelës së specifikuar nuk është i vlefshëm: %s"
-
-#: ../shell/e-folder-creation-dialog.c:310
-msgid "Create New Folder"
-msgstr "Krijo një Kartelë të Re"
-
-#: ../shell/e-folder-creation-dialog.glade.h:1
-#: ../storage/exchange-autoconfig-wizard.glade.h:1
-#: ../storage/exchange-change-password.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ../shell/e-folder-creation-dialog.glade.h:2
-msgid "Folder _name:"
-msgstr "_Emri i kartelës:"
-
-#: ../shell/e-folder-creation-dialog.glade.h:3
-msgid "Folder _type:"
-msgstr "_Lloji i kartelës:"
-
-#: ../shell/e-folder-creation-dialog.glade.h:4
-msgid "Specify where to create the folder:"
-msgstr "Përcakto ku duhet krijuar kartela:"
-
-#: ../shell/e-folder-dnd-bridge.c:52
-#, c-format
-msgid ""
-"Cannot transfer folder:\n"
-"%s"
-msgstr ""
-"I pamundur transferimi i kartelës:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:62
-#, c-format
-msgid ""
-"Cannot delete folder:\n"
-"%s"
-msgstr ""
-"E pamundur fshirja e kartelës:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:115
-#, c-format
-msgid "Really delete folder \"%s\"?"
-msgstr "Me të vërtetë eleminoj kartelën \"%s\"?"
-
-#: ../shell/e-folder-misc-dialogs.c:129
-#, c-format
-msgid "Delete \"%s\""
-msgstr "Fshi \"%s\""
-
-#: ../shell/e-folder-misc-dialogs.c:154
-#, c-format
-msgid ""
-"Cannot rename folder:\n"
-"%s"
-msgstr ""
-"I pamundur ndryshimi i emrit të kartelës:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:188
-#, c-format
-msgid "Rename the \"%s\" folder to:"
-msgstr "Riemërto kartelën \"%s\" në:"
-
-#: ../shell/e-folder-misc-dialogs.c:191
-msgid "Rename Folder"
-msgstr "Riemërto kartelën"
-
-#: ../shell/e-folder-misc-dialogs.c:205
-#, c-format
-msgid "A folder named \"%s\" already exists. Please use a different name."
-msgstr "Një kartelë me emrin \"%s\" ekziston. Përdorni një emër tjetër."
-
-#. It would be nice to insensitivize the OK button appropriately
-#. instead of doing this, but unfortunately we can't do this for the
-#. Bonobo control.
-#: ../shell/e-folder-misc-dialogs.c:451
-msgid "Please select a user."
-msgstr "Ju lutem zgjidhni një përdorues."
-
-#: ../shell/e-folder-misc-dialogs.c:553
-msgid "Opening Folder"
-msgstr "Duke hapur kartelën"
-
-#: ../shell/e-folder-misc-dialogs.c:559
-#, c-format
-msgid "Opening Folder \"%s\""
-msgstr "Duke hapur kartelën \"%s\""
-
-#: ../shell/e-folder-misc-dialogs.c:564
-#, c-format
-msgid "in \"%s\" ..."
-msgstr "në \"%s\" ..."
-
-#: ../shell/e-folder-misc-dialogs.c:631
-#, c-format
-msgid "Could not open other user's folder: %s."
-msgstr "Nuk mund të hapet kartela e një përdoruesi tjetër: %s"
-
-#: ../shell/e-folder-misc-dialogs.c:681
-msgid "Cannot find the specified other user's folder."
-msgstr "E pamundur gjetja e kartelës së specifikuar të përdoruesit tjetër."
-
-#: ../shell/e-folder-misc-dialogs.c:713
-#, c-format
-msgid ""
-"Cannot unsubscribe from folder:\n"
-"%s"
-msgstr ""
-"I pamundur ç'regjistrimi nga kartela:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:766
-#, c-format
-msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "Me të vërtetë ç'regjistrohesh nga kartela \"%s\"?"
-
-#: ../shell/e-folder-misc-dialogs.c:780
-#, c-format
-msgid "Unsubscribe from \"%s\""
-msgstr "Ç'regjistrohu nga \"%s\""
-
-#: ../shell/e-foreign-folder-dialog.glade.h:1
-msgid "Open Other User's Folder"
-msgstr "Hap kartelën e përdoruesit tjetër"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:2
-msgid "_Account:"
-msgstr "_Llogaria:"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:3
-msgid "_Folder Name:"
-msgstr "Emri i _Kartelës:"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:4
-msgid "_User:"
-msgstr "_Përdoruesi:"
-
-#: ../shell/e-storage-set-view.etspec.h:1
-msgid "Checkbox"
-msgstr "Kutia e zgjedhjes"
-
-#: ../shell/e-storage-set-view.etspec.h:2
-msgid "Folder"
-msgstr "Kartelë"
-
-#: ../shell/e-storage.c:555
-msgid "No error"
-msgstr "Asnjë gabim"
-
-#: ../shell/e-storage.c:559
-msgid "A folder with the same name already exists"
-msgstr "Një kartelë me të njëjtin emër ekziston"
-
-#: ../shell/e-storage.c:561
-msgid "The specified folder type is not valid"
-msgstr "Lloji i kartelës së specifikuar nuk është i vlefshëm"
-
-#: ../shell/e-storage.c:563
-msgid "I/O error"
-msgstr "Gabim I/O"
-
-#: ../shell/e-storage.c:565
-msgid "Not enough space to create the folder"
-msgstr "Hapësirë e pamjaftueshme për të krijuar kartelën"
-
-#: ../shell/e-storage.c:567
-msgid "The folder is not empty"
-msgstr "Kartela nuk është bosh"
-
-#: ../shell/e-storage.c:569
-msgid "The specified folder was not found"
-msgstr "Kartela e specifikuar nuk u gjet"
-
-#: ../shell/e-storage.c:571
-msgid "Function not implemented in this storage"
-msgstr "Funksion i pasuportuar në këtë storage"
-
-#: ../shell/e-storage.c:575
-msgid "Operation not supported"
-msgstr "Operacioni nuk suportohet"
-
-#: ../shell/e-storage.c:577
-msgid "The specified type is not supported in this storage"
-msgstr "Lloji i specifikuar nuk suportohet në këtë magazinë"
-
-#: ../shell/e-storage.c:579
-msgid "The specified folder cannot be modified or removed"
-msgstr "Kartela e specifikuar nuk mund të ndryshohet apo fshihet"
-
-#: ../shell/e-storage.c:581
-msgid "Cannot make a folder a child of one of its descendants"
-msgstr "Kartela nuk mund të jetë bijë e pasardhësve të saj"
-
-#: ../shell/e-storage.c:583
-msgid "Cannot create a folder with that name"
-msgstr "I pamundur krijimi i një kartele me atë emër"
-
-#: ../shell/e-storage.c:585
-msgid "This operation cannot be performed in off-line mode"
-msgstr "Ky operacion nuk mund të kryhet në modalitet jashtë linje"
-
-#: ../shell/e-storage.c:587 ../storage/exchange-account.c:1473
-msgid "Unknown error"
-msgstr "Gabim i panjohur"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-msgid "*Control*F5"
-msgstr "*Control*F5"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
-msgid "Evolution Addressbook Exchange backend"
-msgstr "Evolution Addressbook Exchange backend"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Evolution Calendar Exchange backend"
-msgstr "Evolution Calendar Exchange backend"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
-msgid "Evolution Exchange Component"
-msgstr "Komponuesi i Evolution Exchange"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
-msgid "Exchange"
-msgstr "Exchange"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
-msgid "Ximian Connector for Exchange"
-msgstr "Ximian Connector për Exchange"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
-msgid "_Exchange"
-msgstr "_Exchange"
-
-#. i18n: This is the title of an "other user's folders"
-#. hierarchy. Eg, "John Doe's Folders".
-#: ../storage/exchange-account.c:584
-#, c-format
-msgid "%s's Folders"
-msgstr "Kartelat e %s"
-
-#. email id is not proper, we return instead of trying nt_domain
-#: ../storage/exchange-account.c:1069
-msgid "Cannot change password due to configuration problems"
-msgstr "I pamundur ndryshimi i fjalëkalimit për arsye të problemeve në konfigurim"
-
-#: ../storage/exchange-account.c:1092
-msgid ""
-"Server rejected password because it is too weak.\n"
-"Try again with a different password."
-msgstr ""
-"Serveri nuk e pranoi fjalëkalimin pasi është tepër i thjeshtë.\n"
-"Provo përsëri me një fjalëkalim tjetër."
-
-#: ../storage/exchange-account.c:1097
-msgid "Could not change password"
-msgstr "I pamundur ndryshimi i fjalëkalimit"
-
-#: ../storage/exchange-account.c:1190
-msgid "Personal Folders"
-msgstr "Kartelat personale"
-
-#: ../storage/exchange-account.c:1205
-msgid "Favorite Public Folders"
-msgstr "Kartelat e preferuara publike"
-
-#. i18n: Outlookism
-#: ../storage/exchange-account.c:1222
-msgid "All Public Folders"
-msgstr "Të gjitha kartelat publike"
-
-#. i18n: Outlookism
-#: ../storage/exchange-account.c:1236
-msgid "Global Address List"
-msgstr "Lista e adresave globale"
-
-#: ../storage/exchange-account.c:1326
-msgid "Exchange Account is offline. Cannot display folders\n"
-msgstr "Llogaria Exchange është jashtë linje. E pamundur shfaqja e kartelave\n"
-
-#: ../storage/exchange-account.c:1384
-msgid ""
-"Could not authenticate to server. (Password incorrect?)\n"
-"\n"
-msgstr ""
-"I pamundur autentifikimi në server. (Fjalëkalim i pasaktë?)\n"
-"\n"
-
-#: ../storage/exchange-account.c:1389
-msgid ""
-"Could not authenticate to server.\n"
-"\n"
-"This probably means that your server requires you\n"
-"to specify the Windows domain name as part of your\n"
-"username (eg, \"DOMAIN\\user\").\n"
-"\n"
-"Or you might have just typed your password wrong.\n"
-"\n"
-msgstr ""
-"I pamundur autentifikimi në server.\n"
-"\n"
-"Kjo do të thotë që serveri ju kërkon të specifikoni\n"
-"emrin e domain të Windows si pjesë të emrit tuaj të\n"
-"përdoruesit (p.sh, \"DOMAIN\\përdoruesi\").\n"
-"\n"
-"Ose thjesht ke shkruar keq fjalëkalimin tënd.\n"
-"\n"
-
-#: ../storage/exchange-account.c:1431
-#, c-format
-msgid "Mailbox for %s is not on this server."
-msgstr "Mailbox për %s nuk është në këtë server."
-
-#: ../storage/exchange-account.c:1436
-#, c-format
-msgid ""
-"The server '%s' is running Exchange 5.5 and is\n"
-"therefore not compatible with Ximian Connector"
-msgstr ""
-"Serveri '%s' përdor Exchange 5.5 dhe nuk\n"
-"është kompatibël me Ximian Connector"
-
-#: ../storage/exchange-account.c:1443
-#, c-format
-msgid ""
-"Could not find Exchange Web Storage System at %s.\n"
-"If OWA is running on a different path, you must specify that in the\n"
-"account configuration dialog."
-msgstr ""
-"E pamundur gjetja e sistemit të Exchange Web Storage tek %s.\n"
-"Nëse OWA është duke u zbatuar në një pozicion tjetër, duhet t'a specifikoni\n"
-"atë tek dialogu i konfigurimit të llogarisë."
-
-#: ../storage/exchange-account.c:1451
-#, c-format
-msgid "No mailbox for user %s on %s.\n"
-msgstr "Nuk ka mailbox për përdoruesin %s në %s.\n"
-
-#: ../storage/exchange-account.c:1457 ../storage/exchange-account.c:1463
-#: ../storage/exchange-account.c:1471
-#, c-format
-msgid "Could not connect to server %s: %s"
-msgstr "E pamundur lidhja me server-in %s: %s"
-
-#: ../storage/exchange-account.c:1459
-msgid "Could not resolve hostname"
-msgstr "E pamundur zgjidhja e emrit të host"
-
-#: ../storage/exchange-account.c:1465
-msgid "Network error"
-msgstr "Gabim i rrjetit"
-
-#: ../storage/exchange-account.c:1529
-#, c-format
-msgid ""
-"You have exceeded your quota of %d %s for storing mails on this server. Your "
-"current usage is : %.0f %s."
-msgstr ""
-"Keni tejkaluar kuotën tuaj prej %d %s e magazinimit të mesazheve në këtë "
-"server. Aktualisht jeni duke përdorur: %.0f %s."
-
-#: ../storage/exchange-account.c:1532
-msgid "You will not be able to either send or receive mails now\n"
-msgstr "Nuk do të jesh më në gjendje të dërgosh apo të marrësh mesazhe tani\n"
-
-#: ../storage/exchange-account.c:1535
-msgid ""
-"You will not be able to send mails till you clear up some space by deleting "
-"some mails.\n"
-msgstr ""
-"Nuk do të jesh më në gjendje të dërgosh mesazhe nëse nuk liron pak hapsirë "
-"duke fshirë disa nga mesazhet e vjetër.\n"
-
-#: ../storage/exchange-account.c:1538
-msgid "Try to clear up some space by deleting some mails.\n"
-msgstr "Provo të lirosh pak hapsirë duke fshirë disa nga mesazhet e vjetër.\n"
 
 #: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
@@ -959,6 +488,22 @@ msgstr ""
 "\n"
 "Informacionet që duhet t'i jepni Administratorit tuaj të Exchange, mund t'i "
 "merrni duke ndjekur lidhjen e mëposhtme:"
+
+#: ../storage/exchange-autoconfig-wizard.c:275
+msgid ""
+"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
+"Connector supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"URL e serverit Exchange dhënë nga ju është për një server Exchange 5.5. "
+"Ximian Connector suporton vetëm Microsoft Exchange 2000 dhe 2003."
+
+#: ../storage/exchange-autoconfig-wizard.c:288
+msgid ""
+"Could not configure Exchange account because an unknown error occurred. "
+"Check the URL, username, and password, and try again."
+msgstr ""
+"I pamundur konfigurimi i llogarisë Exchange për shkak të një difekti të "
+"panjohur. Kontrollo URL, përdoruesin, dhe fjalëkalimin, e riprovo."
 
 #: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
@@ -995,6 +540,11 @@ msgstr ""
 #: ../storage/exchange-autoconfig-wizard.c:459
 msgid "You may only configure a single Exchange account"
 msgstr "Ju duhet të konfiguroni vetëm një llogari Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:1
+#: ../storage/exchange-change-password.glade.h:1
+msgid "*"
+msgstr "*"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
@@ -1148,6 +698,10 @@ msgstr "Fjalëkalimi i Ri:"
 msgid "Your current password has expired. Please change your password now."
 msgstr "Fjalëkalimi juaj aktual ka skaduar. Ju lutem ndryshoheni tani."
 
+#: ../storage/exchange-delegates-user.c:144
+msgid "Custom"
+msgstr "E personalizuar"
+
 #: ../storage/exchange-delegates-user.c:191
 #: ../storage/exchange-permissions-dialog.c:179
 #, c-format
@@ -1274,6 +828,10 @@ msgstr "Delegatë"
 msgid "Editor (read, create, edit)"
 msgstr "Editori (lexim, krijim, ndryshim)"
 
+#: ../storage/exchange-delegates.glade.h:7
+msgid "None"
+msgstr "Asnjë"
+
 #: ../storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
 msgstr "Të drejtat për"
@@ -1306,63 +864,15 @@ msgstr "_Inbox:"
 msgid "_Tasks:"
 msgstr "_Aktivitete:"
 
-#: ../storage/exchange-folder-size.c:322
-msgid "Folder Name"
-msgstr "Emri i kartelës"
-
-#: ../storage/exchange-folder-size.c:326
-msgid "Folder Size"
-msgstr "Madhësia e kartelës"
-
 #: ../storage/exchange-folder-tree.glade.h:1
 msgid "Exchange Folder Tree"
 msgstr "Struktura e kartelës Exchange"
 
-#: ../storage/exchange-hierarchy-foreign.c:250
-msgid "Calendar"
-msgstr "Kalendari"
-
-#: ../storage/exchange-hierarchy-foreign.c:251
-msgid "Contacts"
-msgstr "Kontakte"
-
-#: ../storage/exchange-hierarchy-foreign.c:252
-msgid "Deleted Items"
-msgstr "Elementët e eleminuar"
-
-#: ../storage/exchange-hierarchy-foreign.c:253
-msgid "Drafts"
-msgstr "Kopje"
-
-#: ../storage/exchange-hierarchy-foreign.c:254
-msgid "Inbox"
-msgstr "Inbox"
-
-#: ../storage/exchange-hierarchy-foreign.c:255
-msgid "Journal"
-msgstr "Gazeta"
-
-#: ../storage/exchange-hierarchy-foreign.c:256
-msgid "Notes"
-msgstr "Shënime"
-
-#: ../storage/exchange-hierarchy-foreign.c:257
-msgid "Outbox"
-msgstr "Nisur"
-
-#: ../storage/exchange-hierarchy-foreign.c:258
-msgid "Sent Items"
-msgstr "Elementët e dërguar"
-
-#: ../storage/exchange-hierarchy-foreign.c:259
-msgid "Tasks"
-msgstr "Aktivitete"
-
-#: ../storage/exchange-migrate.c:57
+#: ../storage/exchange-migrate.c:58
 msgid "Migrating Exchange Folders..."
 msgstr "Duke migruar Kartelat e Exchange..."
 
-#: ../storage/exchange-migrate.c:65
+#: ../storage/exchange-migrate.c:66
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -1375,31 +885,23 @@ msgstr ""
 "\n"
 "Durim derisa Evolution të migrojë kartelat tuaja..."
 
-#: ../storage/exchange-migrate.c:98
+#: ../storage/exchange-migrate.c:99
 #, c-format
 msgid ""
-"Warning: Evolution Could not migrate all the Exchange account data from the "
+"Warning: Evolution could not migrate all the Exchange account data from the "
 "version %d.%d.%d. \n"
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"Kujdes: Evolution Nuk mund të migrojë të gjitha të dhënat e llogarisë "
+"Kujdes: Evolution nuk mund të migrojë të gjitha të dhënat e llogarisë "
 "Exchange nga versioni %d.%d.%d. \n"
 "Të dhënat nuk janë eleminuar, por nuk mund të shihen nga ky version i "
 "Evolution"
 
-#: ../storage/exchange-migrate.c:129
+#: ../storage/exchange-migrate.c:130
 #, c-format
 msgid "Migrating `%s':"
 msgstr "Duke migruar `%s':"
-
-#: ../storage/exchange-oof.c:199 ../storage/exchange-oof.c:406
-msgid "Could not update out-of-office state"
-msgstr "I pamundur rifreskimi i gjendjes \"jashtë-nga-zyra\""
-
-#: ../storage/exchange-oof.c:424
-msgid "Could not read out-of-office state"
-msgstr "I pamundur leximi i gjendjes \"jashtë-nga-zyra\""
 
 #: ../storage/exchange-oof.glade.h:1
 msgid ""
@@ -1586,7 +1088,7 @@ msgstr "Roli: "
 msgid "Connecting..."
 msgstr "Duke u lidhur..."
 
-#: ../storage/main.c:165
+#: ../storage/main.c:183
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector për Microsoft Exchange"
 
