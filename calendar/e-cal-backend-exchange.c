@@ -63,6 +63,7 @@ struct ECalBackendExchangePrivate {
 	/* Timezones */
 	GHashTable *timezones;
 	icaltimezone *default_timezone;
+	gboolean is_loaded;
 	CalMode mode;
 };
 
@@ -327,9 +328,22 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 			return GNOME_Evolution_Calendar_RepositoryOffline;
 		}
 
+		cbex->account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
+
+		if (cbex->account) {
+			
+			exchange_account_set_offline (cbex->account);
+			if (!exchange_account_connect (cbex->account, NULL, &acresult)) {
+				cbex->folder = exchange_account_get_folder (cbex->account, uristr);
+			}
+		}
+
 		euri = e2k_uri_new (uristr);
 		load_status = load_cache (cbex, euri);
 		e2k_uri_free (euri);
+		
+		if (load_status == GNOME_Evolution_Calendar_Success)
+			cbex->priv->is_loaded = TRUE;
 		g_mutex_unlock (cbex->priv->open_lock);
 		return load_status;
 	}
@@ -345,16 +359,12 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 		}
 	}
 
-	if (!cbex->account) {
-		g_mutex_unlock (cbex->priv->open_lock);
-		return GNOME_Evolution_Calendar_PermissionDenied;
-	}
-
 	if (!exchange_account_get_context (cbex->account)) {
-		g_mutex_unlock (cbex->priv->open_lock);
-		return GNOME_Evolution_Calendar_AuthenticationFailed;
+		if(!exchange_account_connect (cbex->account, password, &acresult)) {
+			g_mutex_unlock (cbex->priv->open_lock);
+			return GNOME_Evolution_Calendar_AuthenticationFailed;
+		}
 	}
-
 
 	cbex->folder = exchange_account_get_folder (cbex->account, uristr);
 	if (!cbex->folder) {
@@ -391,6 +401,9 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 	cbex->priv->read_only = ((access & MAPI_ACCESS_CREATE_CONTENTS) == 0);
 
 	load_status = load_cache (cbex, euri);
+
+	if (load_status == GNOME_Evolution_Calendar_Success)
+		cbex->priv->is_loaded = TRUE;
 
 	g_mutex_unlock (cbex->priv->open_lock);
 	
@@ -1165,6 +1178,18 @@ e_cal_backend_exchange_is_online (ECalBackendExchange *cbex)
 		return TRUE;
 }
 
+static gboolean
+is_loaded (ECalBackend *backend)
+{
+	ECalBackendExchange *cbex;
+	ECalBackendExchangePrivate *priv;
+
+	cbex = E_CAL_BACKEND_EXCHANGE (backend);
+	priv = cbex->priv;
+
+	return priv->is_loaded;
+}
+
 static CalMode
 get_mode (ECalBackend *backend)
 {
@@ -1204,44 +1229,26 @@ set_mode (ECalBackend *backend, CalMode mode)
 	switch (mode) {
 	
 	case CAL_MODE_REMOTE:
-			/* Change status to be online now */
-			/* Should we check for access rights before setting this ? */
-			d(printf ("set mode to online\n"));
-			account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
-			/* check if authentication is required */
-			if (!exchange_account_get_context (account))
-				e_cal_backend_notify_auth_required(backend);
-
-			uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
-			account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
-			if (account)
-				cbex->folder = exchange_account_get_folder (account, uristr);
-
 			e_cal_backend_notify_mode (backend, 
 				GNOME_Evolution_Calendar_CalListener_MODE_SET,
 				GNOME_Evolution_Calendar_MODE_REMOTE);
 			/* FIXME : Test if available for read already */
 			priv->read_only = FALSE;
 			priv->mode = CAL_MODE_REMOTE;
+		
+			e_cal_backend_notify_readonly (backend, priv->read_only);
+			if (is_loaded (backend))
+				e_cal_backend_notify_auth_required(backend);
 			break;
 
 	case CAL_MODE_LOCAL:
 			d(printf ("set mode to offline\n"));
-			account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
-			if (account) {
-				/* Call exchange_account_connect to populate the folder hierarchy,
-				 * so that load_cache succeeds */
-				exchange_account_set_offline (account);
-				if (!exchange_account_connect (account, NULL, &acresult)) {
-					uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
-					cbex->folder = exchange_account_get_folder (account, uristr);
-				}
-			}
-			priv->mode = CAL_MODE_LOCAL;
+					priv->mode = CAL_MODE_LOCAL;
 			priv->read_only = TRUE;
 			e_cal_backend_notify_mode (backend, 
 				GNOME_Evolution_Calendar_CalListener_MODE_SET,
 				GNOME_Evolution_Calendar_MODE_LOCAL);
+			e_cal_backend_notify_readonly (backend, priv->read_only);
 			break;
 
 	default :
@@ -1876,6 +1883,7 @@ class_init (ECalBackendExchangeClass *klass)
  	backend_class->start_query = start_query;
  	backend_class->get_mode = get_mode;
  	backend_class->set_mode = set_mode;
+	backend_class->is_loaded = is_loaded;
 	backend_class->internal_get_default_timezone = internal_get_default_timezone;
 	backend_class->internal_get_timezone = internal_get_timezone;
 
