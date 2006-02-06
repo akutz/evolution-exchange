@@ -541,7 +541,7 @@ e_book_backend_exchange_connect (EBookBackendExchange *be)
 	char *date_prop, *access_prop;
 	int access;
 	E2kResult *results;
-	int nresults;
+	int nresults = 0;
 	E2kHTTPStatus status;
 	time_t folder_mtime;
 
@@ -575,6 +575,8 @@ e_book_backend_exchange_connect (EBookBackendExchange *be)
 
 	if (!(access & MAPI_ACCESS_READ)) {
 		bepriv->connected = FALSE;
+		if (nresults)
+			e2k_results_free (results, nresults);
 		return GNOME_Evolution_Addressbook_PermissionDenied;
 	}
 
@@ -616,8 +618,6 @@ e_book_backend_exchange_connect (EBookBackendExchange *be)
 	else
 		folder_mtime = 0;
 
-	e2k_results_free (results, nresults);
-
 	/* open the summary file */
 	summary_path = e_folder_exchange_get_storage_file (bepriv->folder, "summary");
 
@@ -637,6 +637,8 @@ e_book_backend_exchange_connect (EBookBackendExchange *be)
 
 	bepriv->connected = TRUE;
 	e_book_backend_set_is_loaded (E_BOOK_BACKEND (be), TRUE);
+	if (nresults)
+		e2k_results_free (results, nresults);
 	return GNOME_Evolution_Addressbook_Success;
 }
 
@@ -1361,7 +1363,7 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 	const char *uri;
 	E2kHTTPStatus status;
 	E2kResult *results;
-	int nresults;
+	int nresults = 0;
 	E2kProperties *props;
 
 	d(printf("ebbe_modify_contact(%p, %p, %s)\n", backend, book, vcard));
@@ -1438,6 +1440,9 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 
 		if (old_contact)
 			g_object_unref (old_contact);
+
+		if (nresults)
+			e2k_results_free (results, nresults);
 
 		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 			e_book_backend_summary_remove_contact (bepriv->summary,

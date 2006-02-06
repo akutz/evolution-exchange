@@ -558,7 +558,7 @@ get_folder_online (MailStubExchangeFolder *mfld, gboolean background)
 	MailStub *stub = MAIL_STUB (mfld->mse);
 	E2kHTTPStatus status;
 	E2kResult *results;
-	int nresults;
+	int nresults = 0;
 	gboolean readonly;
 	E2kRestriction *rn;
 	E2kResultIter *iter;
@@ -599,6 +599,8 @@ get_folder_online (MailStubExchangeFolder *mfld, gboolean background)
 		if (!background) {
 			got_folder_error (mfld, _("Could not open folder: Permission denied"));
 		}
+		if (nresults)
+			e2k_results_free (results, nresults);
 		return FALSE;
 	}
 	readonly = (mfld->access & (MAPI_ACCESS_MODIFY | MAPI_ACCESS_CREATE_CONTENTS)) == 0;
@@ -704,6 +706,9 @@ get_folder_online (MailStubExchangeFolder *mfld, gboolean background)
 		if (!background) {
 			got_folder_error (mfld, _("Could not open folder"));
 		}
+		if (nresults)
+			e2k_results_free (results, nresults);
+
 		return FALSE;
 	}
 
@@ -725,6 +730,8 @@ get_folder_online (MailStubExchangeFolder *mfld, gboolean background)
 	if (background) {
 		mail_stub_push_changes (stub);
 	}
+	if (nresults)
+		e2k_results_free (results, nresults);
 	return TRUE;
 }
 
@@ -873,7 +880,7 @@ sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld)
 	MailStub *stub = MAIL_STUB (mse);
 	E2kHTTPStatus status;
 	E2kResult *results;
-	int nresults;
+	int nresults = 0;
 	const char *prop;
 	int deleted_count = -1, new_deleted_count, visible_count = -1, mode;
 	E2kRestriction *rn;
@@ -906,6 +913,8 @@ sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld)
 					E2K_PR_DAV_VISIBLE_COUNT);
 	if (prop)
 		visible_count = atoi (prop);
+
+	e2k_results_free (results, nresults);
 
 	if (visible_count >= mfld->messages->len) {
 		if (mfld->deleted_count == deleted_count)
@@ -1858,7 +1867,7 @@ get_stickynote (E2kContext *ctx, E2kOperation *op, const char *uri,
 {
 	E2kHTTPStatus status;
 	E2kResult *results;
-	int nresults;
+	int nresults = 0;
 	GString *message;
 
 	status = e2k_context_propfind (ctx, op, uri,
@@ -1883,7 +1892,7 @@ build_message_from_document (E2kContext *ctx, E2kOperation *op,
 {
 	E2kHTTPStatus status;
 	E2kResult *results;
-	int nresults;
+	int nresults = 0;
 	GByteArray *message;
 	char *headers;
 
@@ -1907,6 +1916,7 @@ build_message_from_document (E2kContext *ctx, E2kOperation *op,
 	*body = (char *)message->data;
 	*len = message->len;
 	g_byte_array_free (message, FALSE);
+	e2k_results_free (results, nresults);
 	return status;
 }
 
@@ -1925,7 +1935,7 @@ unmangle_delegated_meeting_request (MailStubExchange *mse, E2kOperation *op,
 	EFolder *folder;
 	E2kHTTPStatus status;
 	E2kResult *results;
-	int nresults;
+	int nresults = 0;
 
 	status = e2k_context_propfind (mse->ctx, op, uri, &prop, 1,
 				       &results, &nresults);
@@ -1935,13 +1945,16 @@ unmangle_delegated_meeting_request (MailStubExchange *mse, E2kOperation *op,
 		return E2K_HTTP_MALFORMED;
 
 	delegator_dn = e2k_properties_get_prop (results[0].props, PR_RCVD_REPRESENTING_EMAIL_ADDRESS);
-	if (!delegator_dn)
+	if (!delegator_dn) {
+		e2k_results_free (results, nresults);
 		return E2K_HTTP_OK;
+	}
 
 	account = mse->account;
 	gc = exchange_account_get_global_catalog (account);
 	if (!gc) {
 		g_warning ("No GC: could not unmangle meeting request");
+		e2k_results_free (results, nresults);
 		return E2K_HTTP_OK;
 	}
 
@@ -1952,6 +1965,7 @@ unmangle_delegated_meeting_request (MailStubExchange *mse, E2kOperation *op,
 		&entry);
 	if (gcstatus != E2K_GLOBAL_CATALOG_OK) {
 		g_warning ("GC lookup failed: could not unmangle meeting request");
+		e2k_results_free (results, nresults);
 		return E2K_HTTP_OK;
 	}
 
@@ -1975,6 +1989,7 @@ unmangle_delegated_meeting_request (MailStubExchange *mse, E2kOperation *op,
 	}
 	e2k_global_catalog_entry_free (gc, entry);
 
+	e2k_results_free (results, nresults);
 	return E2K_HTTP_OK;
 }
 

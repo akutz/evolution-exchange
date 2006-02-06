@@ -304,7 +304,7 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 	ECalBackendSyncStatus load_status;
 	E2kResult *results;
 	E2kUri *euri = NULL;
-	int nresults;
+	int nresults = 0;
 	guint access = 0;
 
 	d(printf("ecbe_open_calendar(%p, %p, %sonly if exists, user=%s, pass=%s)\n", backend, cal, only_if_exists?"":"not ", username?username:"(null)", password?password:"(null)"));
@@ -395,6 +395,8 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 
 	if (!(access & MAPI_ACCESS_READ)) {
 		g_mutex_unlock (cbex->priv->open_lock);
+		if (nresults)
+			e2k_results_free (results, nresults);
 		return GNOME_Evolution_Calendar_PermissionDenied;
 	}
 
@@ -407,6 +409,8 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 
 	g_mutex_unlock (cbex->priv->open_lock);
 	
+	if (nresults)
+		e2k_results_free (results, nresults);
 	return load_status;
 }
 
@@ -758,8 +762,7 @@ get_object (ECalBackendSync *backend, EDataCal *cal,
 				struct icaltimetype itt;
 
 				itt = icaltime_from_string (rid);
-				new_inst = e_cal_util_construct_instance (
-					icalcomponent_new_clone (ecomp->icomp), itt);
+				new_inst = e_cal_util_construct_instance (ecomp->icomp, itt);
 				if (!new_inst)
 					return GNOME_Evolution_Calendar_ObjectNotFound;
 				
@@ -1435,8 +1438,8 @@ check_change_type (gpointer key, gpointer value, gpointer data)
 		}
 		
 		g_free (calobj);
+		g_object_unref (comp);		
 	}
-	g_object_unref (comp);		
 }
 
 struct cbe_data {

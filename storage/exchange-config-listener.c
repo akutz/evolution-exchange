@@ -281,6 +281,7 @@ ex_set_relative_uri (ESource *source, const char *url)
 
 	new_rel_uri = g_strdup_printf ("%s;%s", url, folder_name + 1);
 	e_source_set_relative_uri (source, new_rel_uri);
+	g_free (new_rel_uri);
 }
 
 static void 
@@ -305,8 +306,11 @@ migrate_account_esource (EAccount *account,
 	authtype  = camel_url->authmech;
 	url_string = camel_url_to_string (camel_url, CAMEL_URL_HIDE_PASSWORD | CAMEL_URL_HIDE_PARAMS);
 
-	if (!user_name) 
+	if (!user_name) {
+		g_free (url_string);
+		camel_url_free (camel_url);
 		return;
+	}
 
 	client = gconf_client_get_default ();
 
@@ -348,6 +352,8 @@ migrate_account_esource (EAccount *account,
 			}
 		}
 	}
+	g_free (url_string);
+	camel_url_free (camel_url);
 	g_object_unref (source_list);
 	g_object_unref (client);
 }
@@ -681,14 +687,14 @@ exchange_camel_urls_is_equal (const gchar *url1, const gchar *url2)
 		    (param1 && param2 && strcmp (param1, param2))) { /* Differing */
 			g_free (param1);
 			g_free (param2);
-			g_free (curl1);
-			g_free (curl2);
+			camel_url_free (curl1);
+			camel_url_free (curl2);
 			return FALSE;
 		}		
 		g_free (param1);
 		g_free (param2);
 	}
-	g_free (curl1);
-	g_free (curl2);
+	camel_url_free (curl1);
+	camel_url_free (curl2);
 	return TRUE;
 }

@@ -1,3 +1,28 @@
+2006-02-06  Sushma Rai  <rsushma@novell.com>
+
+	* addressbook/e-book-backend-exchange.c 
+	(e_book_backend_exchange_connect): Initializing nresults to zero and
+	freeing E2kResult.
+	(e_book_backend_exchange_modify_contact): Similar.
+
+	* mail/mail-stub-exchange.c (get_folder_online)(sync_deletions)
+	(get_stickynote)(build_message_from_document)
+	(unmangle_delegated_meeting_request): Similar.
+
+	* calendar/e-cal-backend-exchange.c (open_calendar): Similar.
+	(get_object): Not cloning alreadry memory allocated icalcomponent.
+	(check_change_type): Freeing e-cal component inside the loop.
+	
+	* calendar/e-cal-backend-exchange-calendar.c (add_ical): Not cloning
+	alreadry memory allocated icalcomponent.
+
+	* storage/exchange-config-listener.c (ex_set_relative_uri): Freeing 
+	relative URI.
+	(migrate_account_esource): Freeing CamelURL, and url_string.
+	(exchange_camel_urls_is_equal): Using camel_url_free() to free the 
+	CamelURLs instead of g_free().
+	Fixes #329251.
+
 2006-02-06  Chenthill Palanisamy  <pchenthill@novell.com>
 
 	* calendar/e-cal-backend-exchange.c: (open_calendar), 
