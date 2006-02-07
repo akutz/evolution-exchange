@@ -826,15 +826,22 @@ proppatch_date (PropMapping *prop_mapping,
 		return;
 	}
 
-	memset (&then, 0, sizeof(then));
-	then.tm_year = new_dt->year - 1900;
-	then.tm_mon  = new_dt->month - 1;
-	then.tm_mday = new_dt->day;
-	then.tm_isdst = -1;
-	tt = mktime (&then);
+	if (new_dt) {
+		memset (&then, 0, sizeof(then));
+		then.tm_year = new_dt->year - 1900;
+		then.tm_mon  = new_dt->month - 1;
+		then.tm_mday = new_dt->day;
+		then.tm_isdst = -1;
+		tt = mktime (&then);
 
-	e2k_properties_set_date (props, prop_mapping->prop_name,
-				 e2k_make_timestamp (tt));
+		e2k_properties_set_date (props, prop_mapping->prop_name,
+					 e2k_make_timestamp (tt));
+	}
+	else {
+		/* remove the dates set */
+		e2k_properties_set_date (props, prop_mapping->prop_name,
+					 e2k_make_timestamp (time (NULL)));
+	}
 	e_contact_date_free (new_dt);
 }
 
