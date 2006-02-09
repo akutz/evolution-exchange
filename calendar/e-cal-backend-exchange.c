@@ -1212,9 +1212,6 @@ set_mode (ECalBackend *backend, CalMode mode)
 {
 	ECalBackendExchange *cbex;
 	ECalBackendExchangePrivate *priv;
-	ExchangeAccount *account;
-	ExchangeAccountResult acresult;
-	const char *uristr;
 	
 	cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	priv = cbex->priv;
@@ -1544,7 +1541,7 @@ get_attachment (ECalBackendExchange *cbex, const char *uid,
 				attach_file_url = save_attach_file (attach_file, attach_data, stream_mem->buffer->len);
 				g_free (attach_file);
 				d(printf ("attach file name : %s\n", attach_file_url));
-				list = g_slist_append (list, g_strdup (attach_file_url));
+				list = g_slist_append (list, attach_file_url);
 
 				camel_object_unref (stream);
 			}
@@ -1673,7 +1670,7 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const char *subject,
 		camel_multipart_add_part (multipart, mime_part);
 		camel_object_unref (mime_part);
 		g_free (cid);
-
+		g_free (dest_url);
 	}
 	if (!new_attach_list) {
 		camel_object_unref (multipart);
@@ -1833,6 +1830,7 @@ finalize (GObject *object)
 		g_hash_table_destroy (cbex->priv->cache_unseen);
 	g_free (cbex->priv->object_cache_file);
 	g_free (cbex->priv->lastmod);
+	g_free (cbex->priv->local_attachment_store);
 
 	g_hash_table_destroy (cbex->priv->timezones);
 

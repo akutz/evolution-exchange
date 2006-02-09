@@ -973,7 +973,6 @@ proppatch_address (PropMapping *prop_mapping,
 		} else
 			value = g_strdup (new_addrprops[i]);
 		e2k_properties_set_string (props, propnames[i], value);
-		g_free (value);
 	}
 
 	e_contact_address_free (new_address);

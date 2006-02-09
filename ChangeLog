@@ -1,3 +1,13 @@
+2006-02-09  Sushma Rai  <rsushma@novell.com>
+
+	* addressbook/e-book-backend-exchange.c (proppatch_address): Not 
+	freeing address value, which causes memory corruption. Fixes #330224.
+
+	* calendar/e-cal-backend-exchange.c (set_mode): Removed unused 
+	variables.
+	(get_attachment)(build_msg)(finalize): Fixed memory leaks.
+	See #3292251.
+
 2006-02-07  Sushma Rai  <rsushma@novell.com>
 
 	* addressbook/e-book-backend-exchange.c (proppatch_date): Handling the
