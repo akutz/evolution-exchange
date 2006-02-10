@@ -113,6 +113,9 @@ get_ldap_attribute (ECalBackendSync *backend, EDataCal *cal, char **attribute)
 {
 	d(printf("ecbe_get_ldap_attribute(%p, %p)\n", backend, cal));
 
+	if (!attribute)
+		return GNOME_Evolution_Calendar_InvalidObject;
+	
 	/* This is just a hack for SunONE */
 	*attribute = NULL;
 	return GNOME_Evolution_Calendar_Success;

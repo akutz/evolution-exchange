@@ -1168,7 +1168,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 
 	icalcomponent_foreach_tzid (real_icalcomp, add_timezone_cb, cbdata);
 	if (mod == CALOBJ_MOD_THIS) {
-		icalcomponent_add_component (cbdata->vcal_comp, ecomp->icomp);	
+		icalcomponent_add_component (cbdata->vcal_comp, icalcomponent_new_clone (ecomp->icomp));	
 	}
 	icalcomponent_add_component (cbdata->vcal_comp, real_icalcomp);
 
