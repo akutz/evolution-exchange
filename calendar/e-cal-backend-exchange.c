@@ -1115,7 +1115,7 @@ match_object (gpointer key, gpointer value, gpointer data)
 	ECalBackendExchangeComponent *ecomp = value;
 	struct search_data *sd = data;
 	ECalComponent *cal_comp;
-	icalcomponent *tmp;
+	icalcomponent *tmp = NULL;
 	char * ecal_str;
 	GList *inst;
 
@@ -1123,8 +1123,9 @@ match_object (gpointer key, gpointer value, gpointer data)
 	cal_comp = e_cal_component_new ();
 
 	/* Find a way to test if the icalcomp added to cal_comp is not null */
-	tmp = icalcomponent_new_clone (ecomp->icomp);
-	if (tmp) {
+	/* ecomp->icomp would not exist for a detached instance with no master object */
+	if (ecomp->icomp) {
+		tmp = icalcomponent_new_clone (ecomp->icomp);
 		e_cal_component_set_icalcomponent (cal_comp, tmp);
 		if (e_cal_backend_sexp_match_comp (sd->sexp, cal_comp, sd->backend)) {
 			ecal_str = e_cal_component_get_as_string (cal_comp);
