@@ -50,14 +50,14 @@ CamelProviderConfEntry exchange_conf_entries[] = {
 	{ CAMEL_PROVIDER_CONF_ENTRY, "ad_server", NULL,
 	  /* i18n: "Global Catalog" is a Windowsism, but it's a
 	     technical term and may not have translations? */
-	  N_("Global Catalog server name:") },
+	  N_("_Global Catalog server name:") },
 	{ CAMEL_PROVIDER_CONF_CHECKSPIN, "ad_limit", NULL,
-	  N_("Limit number of GAL responses: %s"), "y:1:500:10000" },
+	  N_("_Limit number of GAL responses: %s"), "y:1:500:10000" },
 	{ CAMEL_PROVIDER_CONF_SECTION_END },
 	{ CAMEL_PROVIDER_CONF_SECTION_START, "generals", NULL,
 	  N_("Options") },
 	{ CAMEL_PROVIDER_CONF_CHECKSPIN, "passwd_exp_warn_period", NULL,
-	  N_("Password Expiry Warning period: %s"), "y:1:7:90" },
+	  N_("_Password Expiry Warning period: %s"), "y:1:7:90" },
 	{ CAMEL_PROVIDER_CONF_CHECKBOX, "sync_offline", NULL,
 	  N_("Automatically synchroni_ze account locally"), "0" },
 	{ CAMEL_PROVIDER_CONF_CHECKBOX, "filter", NULL,
