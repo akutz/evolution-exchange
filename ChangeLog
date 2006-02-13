@@ -1,3 +1,16 @@
+2006-02-13  Sankar P  <psankar@novell.com>
+
+	* Committing on behalf of Arunprakash <arunp@novell.com>
+	
+	* camel/camel-exchange-store.c (stub_notification) : Added code to
+	update the readonly flag of the camel folder.
+	* mail/mail-stub-exchange.c (folder_update_linestatus) : Notifies
+	the readonly flag change of the folder to camel stub.
+	* camel/camel-stub-constants.h : Added the enumeration value 
+	CAMEL_STUB_RETVAL_FOLDER_SET_READONLY
+
+	Fixes #311017.
+
 2006-02-13  Sushma Rai  <rsushma@novell.com>
 
 	* camel/camel-exchange-provider.c (exchange_conf_entries[]): Added

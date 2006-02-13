@@ -2877,10 +2877,17 @@ static void
 folder_update_linestatus (gpointer key, gpointer value, gpointer data)
 {
 	MailStubExchangeFolder *mfld = (MailStubExchangeFolder *) value;
+	MailStub *stub = MAIL_STUB (mfld->mse);
 	gint linestatus = GPOINTER_TO_INT (data);
+	guint32 readonly;
 	
 	if (linestatus == ONLINE_MODE) {
 		get_folder_online (mfld, TRUE);
+		readonly = (mfld->access & (MAPI_ACCESS_MODIFY | MAPI_ACCESS_CREATE_CONTENTS)) ? 0 : 1;
+		mail_stub_return_data (stub, CAMEL_STUB_RETVAL_FOLDER_SET_READONLY,
+				       CAMEL_STUB_ARG_FOLDER, mfld->name,
+				       CAMEL_STUB_ARG_UINT32, readonly,
+				       CAMEL_STUB_ARG_END);
 	}
 	else {
 		/* FIXME: need any undo for offline */ ;
