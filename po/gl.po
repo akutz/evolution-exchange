@@ -1,23 +1,22 @@
 # translation of gl.po to Galego
-# translation of evolution-exchange.gnome-2-10.po to Galego
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2005.
 #
+# Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2005, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-21 00:50+0200\n"
-"PO-Revision-Date: 2005-10-21 00:56+0200\n"
+"POT-Creation-Date: 2006-02-14 13:52+0100\n"
+"PO-Revision-Date: 2006-02-14 13:53+0100\n"
 "Last-Translator: Ignacio Casal Quinteiro <nacho.resa@gmail.com>\n"
-"Language-Team: Galego\n"
+"Language-Team: Galego <trasno@ceu.fi.udc.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.11.2\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1857
+#: ../addressbook/e-book-backend-exchange.c:1867
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Buscando..."
@@ -34,7 +33,7 @@ msgstr "Recibindo resultados da busca LDAP..."
 msgid "Error performing search"
 msgstr "Erro ao efectuar a busca"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1748
+#: ../calendar/e-cal-backend-exchange-calendar.c:1805
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -43,60 +42,56 @@ msgstr ""
 "Non é posible programar o recurso '%s' para reunións repetidas.\n"
 "Debe reservar cada reunión separadamente."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1766
+#: ../calendar/e-cal-backend-exchange-calendar.c:1823
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "O recurso '%s' está ocupado durante o periodo de tempo seleccionado."
 
-#: ../camel/camel-exchange-folder.c:221
+#: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
 msgstr "Non se pode borrar en modo desconectado."
 
-#: ../camel/camel-exchange-folder.c:230
-msgid "Can only expunge in Deleted Items folder"
-msgstr "Só se pode compactar no cartafol de Elementos borrados"
-
-#: ../camel/camel-exchange-folder.c:254
+#: ../camel/camel-exchange-folder.c:253
 msgid "No Subject"
 msgstr "Sen asunto"
 
-#: ../camel/camel-exchange-folder.c:381
+#: ../camel/camel-exchange-folder.c:380
 msgid "This message is not available in offline mode."
 msgstr "Esta mensaxe non está dispoñible en modo desconectado."
 
-#: ../camel/camel-exchange-folder.c:616
+#: ../camel/camel-exchange-folder.c:615
 msgid "Moving messages"
 msgstr "Movendo mensaxes"
 
-#: ../camel/camel-exchange-folder.c:617
+#: ../camel/camel-exchange-folder.c:616
 msgid "Copying messages"
 msgstr "Copiando mensaxes"
 
-#: ../camel/camel-exchange-folder.c:988
+#: ../camel/camel-exchange-folder.c:987
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Non se pode crear o directorio %s: %s"
 
-#: ../camel/camel-exchange-folder.c:998
+#: ../camel/camel-exchange-folder.c:997
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Non se puido cargar o resumo para %s"
 
-#: ../camel/camel-exchange-folder.c:1006
+#: ../camel/camel-exchange-folder.c:1005
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Non se puido crear a caché para %s"
 
-#: ../camel/camel-exchange-folder.c:1016
+#: ../camel/camel-exchange-folder.c:1015
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Non se puido crear o diario para %s"
 
-#: ../camel/camel-exchange-folder.c:1061
+#: ../camel/camel-exchange-folder.c:1060
 msgid "Scanning for changed messages"
 msgstr "Buscando mensaxes cambiadas"
 
-#: ../camel/camel-exchange-folder.c:1087
+#: ../camel/camel-exchange-folder.c:1086
 msgid "Fetching summary information for new messages"
 msgstr "Obtendo a información do resumo para as mensaxes novas"
 
@@ -104,10 +99,10 @@ msgstr "Obtendo a información do resumo para as mensaxes novas"
 msgid "No folder name found\n"
 msgstr "Nome de cartafol non atopado\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2534
-#: ../mail/mail-stub-exchange.c:2577 ../mail/mail-stub-exchange.c:2612
-#: ../mail/mail-stub-exchange.c:2639 ../mail/mail-stub-exchange.c:2686
-#: ../mail/mail-stub-exchange.c:2708
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
+#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
+#: ../mail/mail-stub-exchange.c:2724
 msgid "Folder doesn't exist"
 msgstr "O cartafol non existe"
 
@@ -137,13 +132,13 @@ msgstr "Lista de acceso global / Directorio Activo"
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
 #: ../camel/camel-exchange-provider.c:53
-msgid "Global Catalog server name:"
-msgstr "Nome do servidor de Catálogo Global:"
+msgid "_Global Catalog server name:"
+msgstr "Nome do servidor de Catálogo _Global:"
 
 #: ../camel/camel-exchange-provider.c:55
 #, c-format
-msgid "Limit number of GAL responses: %s"
-msgstr "Limitar o número de respostas GAL: %s"
+msgid "_Limit number of GAL responses: %s"
+msgstr "_Limitar o número de respostas GAL: %s"
 
 #: ../camel/camel-exchange-provider.c:58
 msgid "Options"
@@ -151,25 +146,25 @@ msgstr "Opcións"
 
 #: ../camel/camel-exchange-provider.c:60
 #, c-format
-msgid "Password Expiry Warning period: %s"
-msgstr "Período de caducidade do contrasinal: %s"
+msgid "_Password Expiry Warning period: %s"
+msgstr "Período de caducidade do _contrasinal: %s"
 
 #: ../camel/camel-exchange-provider.c:62
-msgid "Automatically synchronize account locally"
-msgstr "Sincronizar automaticamente a conta localmente"
+msgid "Automatically synchroni_ze account locally"
+msgstr "Sincroni_zar automaticamente a conta localmente"
 
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:65
-msgid "Apply filters to new messages in Inbox on this server"
-msgstr "Aplicar filtros en mensaxes novas na Bandexa de entrada neste servidor"
+msgid "_Apply filters to new messages in Inbox on this server"
+msgstr "_Aplicar filtros en mensaxes novas na Bandexa de entrada neste servidor"
 
 #: ../camel/camel-exchange-provider.c:67
-msgid "Check new messages for Junk contents"
-msgstr "Comprobar se as mensaxes son spam"
+msgid "Check new messages for _Junk contents"
+msgstr "Comprobar se as mensaxes son s_pam"
 
 #: ../camel/camel-exchange-provider.c:69
-msgid "Only check for Junk messages in the Inbox folder"
-msgstr "Só comprobar mensaxes de spam no cartafol de entrada"
+msgid "Only check for Junk messag_es in the Inbox folder"
+msgstr "Só comprobar mensa_xes de spam no cartafol de entrada"
 
 #: ../camel/camel-exchange-provider.c:79
 msgid "Microsoft Exchange"
@@ -215,7 +210,7 @@ msgstr "Servidor Exchange %s"
 msgid "Exchange account for %s on %s"
 msgstr "Conta Exchange de %s en %s"
 
-#: ../camel/camel-exchange-store.c:352 ../storage/exchange-account.c:869
+#: ../camel/camel-exchange-store.c:352
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%s Introduza o contrasinal para %s"
@@ -224,7 +219,7 @@ msgstr "%s Introduza o contrasinal para %s"
 msgid "Evolution Exchange backend process"
 msgstr "Proceso de backend de Evolution Exchange"
 
-#: ../camel/camel-exchange-store.c:444 ../storage/exchange-account.c:1384
+#: ../camel/camel-exchange-store.c:444
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -303,7 +298,127 @@ msgstr "Perdeuse a conexión con %s"
 msgid "Error communicating with %s: %s"
 msgstr "Erro ao comunicarse con %s: %s"
 
-#: ../lib/e2k-autoconfig.c:1471 ../storage/exchange-autoconfig-wizard.c:211
+#: ../mail/mail-stub-exchange.c:257
+msgid "No such folder"
+msgstr "Non existe o cartafol"
+
+#. FIXME: should be this, but string freeze freezes me to do so.
+#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
+#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
+#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
+#: ../mail/mail-stub-exchange.c:2740 ../storage/xc-commands.c:319
+msgid "Permission denied"
+msgstr "Permiso denegado"
+
+#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
+msgid "Could not open folder: Permission denied"
+msgstr "Non se puido abrir o cartafol: Permiso denegado"
+
+#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
+msgid "Could not open folder"
+msgstr "Non se puido abrir o cartafol"
+
+#: ../mail/mail-stub-exchange.c:755
+msgid "No such folder."
+msgstr "Non existe o cartafol."
+
+#: ../mail/mail-stub-exchange.c:764
+msgid "Could not create folder."
+msgstr "Non se puido crear o cartafol."
+
+#: ../mail/mail-stub-exchange.c:844
+msgid "Could not open Deleted Items folder"
+msgstr "Non se puido abrir o cartafol de elementos borrados"
+
+#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
+msgid "Could not get new messages"
+msgstr "Non se puideron obter as mensaxes novas"
+
+#: ../mail/mail-stub-exchange.c:1386
+msgid "Could not empty Deleted Items folder"
+msgstr "Non se puido baleirar o cartafol de elementos borrados"
+
+#: ../mail/mail-stub-exchange.c:1463
+msgid "Could not append message; mailbox is over quota"
+msgstr "Non se puido anexar a mensaxe; o buzón excede a cuota"
+
+#: ../mail/mail-stub-exchange.c:1464
+msgid "Could not append message"
+msgstr "Non se puido anexar a mensaxe"
+
+#: ../mail/mail-stub-exchange.c:2016
+msgid "No such message"
+msgstr "Non existe a mensaxe"
+
+#: ../mail/mail-stub-exchange.c:2069
+msgid "Message has been deleted"
+msgstr "A mensaxe foi eliminada"
+
+#: ../mail/mail-stub-exchange.c:2071
+msgid "Error retrieving message"
+msgstr "Erro ao obter a mensaxe"
+
+#: ../mail/mail-stub-exchange.c:2113
+msgid "Mailbox does not support full-text searching"
+msgstr "O buzón non soporta busca en texto"
+
+#: ../mail/mail-stub-exchange.c:2211
+msgid "Unable to move/copy messages"
+msgstr "Imposible mover/copiar mensaxes"
+
+#: ../mail/mail-stub-exchange.c:2441
+msgid "No mail submission URI for this mailbox"
+msgstr "Non hai URI de envío de correo para este buzón"
+
+#: ../mail/mail-stub-exchange.c:2477
+msgid "Server won't accept mail via Exchange transport"
+msgstr "O servidor non acepta correo por medio do transporte Exchange"
+
+#: ../mail/mail-stub-exchange.c:2479
+#, c-format
+msgid ""
+"Your account does not have permission to use <%s>\n"
+"as a From address."
+msgstr ""
+"Súa conta non ten permiso para usar <%s>\n"
+"como un enderezo de remitente."
+
+#: ../mail/mail-stub-exchange.c:2491
+msgid ""
+"Could not send message.\n"
+"This might mean that your account is over quota."
+msgstr ""
+"Non se puido enviar a mensaxe.\n"
+"Isto quizá signifique que a súa conta sobrepasa a cuota."
+
+#: ../mail/mail-stub-exchange.c:2495
+msgid "Could not send message"
+msgstr "Non se puido enviar a mensaxe"
+
+#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
+#: ../mail/mail-stub-exchange.c:2745 ../storage/xc-commands.c:323
+msgid "Generic error"
+msgstr "Erro xenérico"
+
+#: ../mail/mail-stub-exchange.c:2522 ../storage/xc-commands.c:313
+msgid "Folder already exists"
+msgstr "O cartafol xa existe"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
+msgid "Evolution Addressbook Exchange backend"
+msgstr "Backend da libreta de enderezos de Exchange de Evolution"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
+msgid "Evolution Calendar Exchange backend"
+msgstr "Backend do Calendario de Exchange"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+msgid "Ximian Connector for Exchange"
+msgstr "Conector Ximian para Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -313,7 +428,7 @@ msgstr ""
 "Asegúrese de que a URL é correcta (intente \"%s\" en vez de \"%s\") e probe "
 "de novo."
 
-#: ../lib/e2k-autoconfig.c:1480 ../storage/exchange-autoconfig-wizard.c:219
+#: ../storage/exchange-autoconfig-wizard.c:219
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -322,7 +437,7 @@ msgstr ""
 "Asegúrese de que o nome do servidor está escrito correctamente e probe de "
 "novo."
 
-#: ../lib/e2k-autoconfig.c:1490 ../storage/exchange-autoconfig-wizard.c:228
+#: ../storage/exchange-autoconfig-wizard.c:228
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -330,7 +445,7 @@ msgstr ""
 "Non se puido autenticar no servidor Exchange.\n"
 "Asegúrese de que o usuario e contrasinal son correctos e probe de novo."
 
-#: ../lib/e2k-autoconfig.c:1498 ../storage/exchange-autoconfig-wizard.c:235
+#: ../storage/exchange-autoconfig-wizard.c:235
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -346,584 +461,13 @@ msgstr ""
 "Quizá necesite especificar o nome do dominio Windows como parte do seu nome "
 "de usuario (ex:\"MEU-DOMINIO\\%s\")."
 
-#: ../lib/e2k-autoconfig.c:1511 ../storage/exchange-autoconfig-wizard.c:247
+#: ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 msgstr ""
 "Non se puido atopar os datos OWA na URL indicada.\n"
 "Asegúrese de que a URL é correcta e inténteo de novo."
-
-#: ../lib/e2k-autoconfig.c:1520
-#, c-format
-msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
-"\n"
-"For information to provide to your Exchange administrator, please follow the "
-"link below:\n"
-"%s"
-msgstr ""
-"Ximian Connector require acceso a certa funcionalidade do servidor Exchange "
-"que aparenta estar desactivada ou bloqueada. (Isto é normalmente non "
-"intencionado.) Seu Administrador de Exchange necesitará activar esta "
-"funcionalidade para que poida usar Ximian Connector.\n"
-"\n"
-"Para a información que debe proporcionar a seu administrador, siga o ligazón "
-"inferior:\n"
-"%s"
-
-#: ../lib/e2k-autoconfig.c:1536 ../storage/exchange-autoconfig-wizard.c:275
-msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"A URL do servidor Exchange que proporcionou é para un servidor Exchange 5.5. "
-"O Conector Ximian soporta Microsoft Exchange 2000 e 2003 únicamente."
-
-#: ../lib/e2k-autoconfig.c:1545 ../storage/exchange-autoconfig-wizard.c:288
-msgid ""
-"Could not configure Exchange account because an unknown error occurred. "
-"Check the URL, username, and password, and try again."
-msgstr ""
-"Non se puido configurar a conta de Exchange porque ocorreu un erro "
-"decoñecido. Comprobe a URL, usuario e contrasinal e inténteo de novo."
-
-#: ../lib/e2k-autoconfig.c:1567
-#, c-format
-msgid "Enter password for %s"
-msgstr "Introduza o contrasinal para %s"
-
-#: ../lib/e2k-autoconfig.c:1568 ../storage/exchange-account.c:874
-msgid "Enter password"
-msgstr "Introduza o contrasinal"
-
-#. i18n: These are Outlook's words for the default roles in
-#. the folder permissions dialog.
-#: ../lib/e2k-security-descriptor.c:847
-msgid "Owner"
-msgstr "Propietario"
-
-#: ../lib/e2k-security-descriptor.c:857
-msgid "Publishing Editor"
-msgstr "Editor de publicación"
-
-#: ../lib/e2k-security-descriptor.c:865
-msgid "Editor"
-msgstr "Editor"
-
-#: ../lib/e2k-security-descriptor.c:872
-msgid "Publishing Author"
-msgstr "Autor de publicación"
-
-#: ../lib/e2k-security-descriptor.c:878
-msgid "Author"
-msgstr "Autor"
-
-#: ../lib/e2k-security-descriptor.c:883
-msgid "Non-editing Author"
-msgstr "Autor de non-edición"
-
-#: ../lib/e2k-security-descriptor.c:887
-msgid "Reviewer"
-msgstr "Revisor"
-
-#: ../lib/e2k-security-descriptor.c:889
-msgid "Contributor"
-msgstr "Contribuidor"
-
-#: ../lib/e2k-security-descriptor.c:891
-#: ../storage/exchange-delegates.glade.h:7
-msgid "None"
-msgstr "Ningún"
-
-#: ../lib/e2k-security-descriptor.c:906
-#: ../storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "Personalizado"
-
-#: ../lib/e2k-user-dialog.c:144
-msgid "Select User"
-msgstr "Seleccione usuario"
-
-#: ../lib/e2k-user-dialog.c:182
-msgid "Addressbook..."
-msgstr "Libreta de enderezos..."
-
-#: ../mail/mail-stub-exchange.c:257
-msgid "No such folder"
-msgstr "Non existe o cartafol"
-
-#. FIXME: should be this, but string freeze freezes me to do so.
-#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1381
-#: ../mail/mail-stub-exchange.c:2511 ../mail/mail-stub-exchange.c:2550
-#: ../mail/mail-stub-exchange.c:2616 ../mail/mail-stub-exchange.c:2660
-#: ../mail/mail-stub-exchange.c:2724 ../shell/e-storage.c:573
-#: ../storage/xc-commands.c:319
-msgid "Permission denied"
-msgstr "Permiso denegado"
-
-#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
-msgid "Could not open folder: Permission denied"
-msgstr "Non se puido abrir o cartafol: Permiso denegado"
-
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:705
-msgid "Could not open folder"
-msgstr "Non se puido abrir o cartafol"
-
-#: ../mail/mail-stub-exchange.c:748
-msgid "No such folder."
-msgstr "Non existe o cartafol."
-
-#: ../mail/mail-stub-exchange.c:757
-msgid "Could not create folder."
-msgstr "Non se puido crear o cartafol."
-
-#: ../mail/mail-stub-exchange.c:837
-msgid "Could not open Deleted Items folder"
-msgstr "Non se puido abrir o cartafol de elementos borrados"
-
-#: ../mail/mail-stub-exchange.c:1166 ../mail/mail-stub-exchange.c:1207
-msgid "Could not get new messages"
-msgstr "Non se puideron obter as mensaxes novas"
-
-#: ../mail/mail-stub-exchange.c:1377
-msgid "Could not empty Deleted Items folder"
-msgstr "Non se puido baleirar o cartafol de elementos borrados"
-
-#: ../mail/mail-stub-exchange.c:1454
-msgid "Could not append message; mailbox is over quota"
-msgstr "Non se puido anexar a mensaxe; o buzón excede a cuota"
-
-#: ../mail/mail-stub-exchange.c:1455
-msgid "Could not append message"
-msgstr "Non se puido anexar a mensaxe"
-
-#: ../mail/mail-stub-exchange.c:2001
-msgid "No such message"
-msgstr "Non existe a mensaxe"
-
-#: ../mail/mail-stub-exchange.c:2054
-msgid "Message has been deleted"
-msgstr "A mensaxe foi eliminada"
-
-#: ../mail/mail-stub-exchange.c:2056
-msgid "Error retrieving message"
-msgstr "Erro ao obter a mensaxe"
-
-#: ../mail/mail-stub-exchange.c:2098
-msgid "Mailbox does not support full-text searching"
-msgstr "O buzón non soporta busca en texto"
-
-#: ../mail/mail-stub-exchange.c:2196
-msgid "Unable to move/copy messages"
-msgstr "Imposible mover/copiar mensaxes"
-
-#: ../mail/mail-stub-exchange.c:2426
-msgid "No mail submission URI for this mailbox"
-msgstr "Non hai URI de envío de correo para este buzón"
-
-#: ../mail/mail-stub-exchange.c:2462
-msgid "Server won't accept mail via Exchange transport"
-msgstr "O servidor non acepta correo por medio do transporte Exchange"
-
-#: ../mail/mail-stub-exchange.c:2464
-#, c-format
-msgid ""
-"Your account does not have permission to use <%s>\n"
-"as a From address."
-msgstr ""
-"Súa conta non ten permiso para usar <%s>\n"
-"como un enderezo de remitente."
-
-#: ../mail/mail-stub-exchange.c:2476
-msgid ""
-"Could not send message.\n"
-"This might mean that your account is over quota."
-msgstr ""
-"Non se puido enviar a mensaxe.\n"
-"Isto quizá signifique que a súa conta sobrepasa a cuota."
-
-#: ../mail/mail-stub-exchange.c:2480
-msgid "Could not send message"
-msgstr "Non se puido enviar a mensaxe"
-
-#: ../mail/mail-stub-exchange.c:2503 ../mail/mail-stub-exchange.c:2555
-#: ../mail/mail-stub-exchange.c:2620 ../mail/mail-stub-exchange.c:2665
-#: ../mail/mail-stub-exchange.c:2729 ../shell/e-storage.c:557
-#: ../storage/xc-commands.c:323
-msgid "Generic error"
-msgstr "Erro xenérico"
-
-#: ../mail/mail-stub-exchange.c:2507 ../storage/xc-commands.c:313
-msgid "Folder already exists"
-msgstr "O cartafol xa existe"
-
-#: ../shell/e-folder-creation-dialog.c:138
-#, c-format
-msgid ""
-"Cannot create the specified folder:\n"
-"%s"
-msgstr ""
-"Non se puido crear o cartafol especificado:\n"
-"%s"
-
-#: ../shell/e-folder-creation-dialog.c:179
-#, c-format
-msgid "The specified folder name is not valid: %s"
-msgstr "O nome do cartafol especificado non é válido: %s"
-
-#: ../shell/e-folder-creation-dialog.c:310
-msgid "Create New Folder"
-msgstr "Crear novo cartafol"
-
-#: ../shell/e-folder-creation-dialog.glade.h:1
-#: ../storage/exchange-autoconfig-wizard.glade.h:1
-#: ../storage/exchange-change-password.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ../shell/e-folder-creation-dialog.glade.h:2
-msgid "Folder _name:"
-msgstr "_Nome do cartafol:"
-
-#: ../shell/e-folder-creation-dialog.glade.h:3
-msgid "Folder _type:"
-msgstr "_Tipo do cartafol:"
-
-#: ../shell/e-folder-creation-dialog.glade.h:4
-msgid "Specify where to create the folder:"
-msgstr "Especifique onde crear o cartafol:"
-
-#: ../shell/e-folder-dnd-bridge.c:52
-#, c-format
-msgid ""
-"Cannot transfer folder:\n"
-"%s"
-msgstr ""
-"Non se pode transferir o cartafol:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:62
-#, c-format
-msgid ""
-"Cannot delete folder:\n"
-"%s"
-msgstr ""
-"Non se pode borrar o cartafol:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:115
-#, c-format
-msgid "Really delete folder \"%s\"?"
-msgstr "Seguro de que quere borrar o cartafol \"%s\"?"
-
-#: ../shell/e-folder-misc-dialogs.c:129
-#, c-format
-msgid "Delete \"%s\""
-msgstr "Eliminar \"%s\""
-
-#: ../shell/e-folder-misc-dialogs.c:154
-#, c-format
-msgid ""
-"Cannot rename folder:\n"
-"%s"
-msgstr ""
-"Non se pode renomear o cartafol:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:188
-#, c-format
-msgid "Rename the \"%s\" folder to:"
-msgstr "Renomear o cartafol \"%s\" a:"
-
-#: ../shell/e-folder-misc-dialogs.c:191
-msgid "Rename Folder"
-msgstr "Renomear cartafol"
-
-#: ../shell/e-folder-misc-dialogs.c:205
-#, c-format
-msgid "A folder named \"%s\" already exists. Please use a different name."
-msgstr "Xa existe un cartafol co nome \"%s\". Use un nome diferente."
-
-#. It would be nice to insensitivize the OK button appropriately
-#. instead of doing this, but unfortunately we can't do this for the
-#. Bonobo control.
-#: ../shell/e-folder-misc-dialogs.c:451
-msgid "Please select a user."
-msgstr "Seleccione un usuario."
-
-#: ../shell/e-folder-misc-dialogs.c:553
-msgid "Opening Folder"
-msgstr "Abrindo cartafol"
-
-#: ../shell/e-folder-misc-dialogs.c:559
-#, c-format
-msgid "Opening Folder \"%s\""
-msgstr "Abrindo cartafol \"%s\""
-
-#: ../shell/e-folder-misc-dialogs.c:564
-#, c-format
-msgid "in \"%s\" ..."
-msgstr "en \"%s\"..."
-
-#: ../shell/e-folder-misc-dialogs.c:631
-#, c-format
-msgid "Could not open other user's folder: %s."
-msgstr "Non se puido abrir o cartafol doutro usuario: %s."
-
-#: ../shell/e-folder-misc-dialogs.c:681
-msgid "Cannot find the specified other user's folder."
-msgstr "Non se puido atopar o cartafol doutro usuario especificado."
-
-#: ../shell/e-folder-misc-dialogs.c:713
-#, c-format
-msgid ""
-"Cannot unsubscribe from folder:\n"
-"%s"
-msgstr ""
-"Non se pode desubscribir do cartafol:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:766
-#, c-format
-msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "Seguro que quere desubscribirse do cartafol \"%s\"?"
-
-#: ../shell/e-folder-misc-dialogs.c:780
-#, c-format
-msgid "Unsubscribe from \"%s\""
-msgstr "Desubscribirse de \"%s\""
-
-#: ../shell/e-foreign-folder-dialog.glade.h:1
-msgid "Open Other User's Folder"
-msgstr "Abrir o cartafol doutro usuario"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:2
-msgid "_Account:"
-msgstr "_Conta:"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:3
-msgid "_Folder Name:"
-msgstr "_Nome do cartafol:"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:4
-msgid "_User:"
-msgstr "_Usuario:"
-
-#: ../shell/e-storage-set-view.etspec.h:1
-msgid "Checkbox"
-msgstr "Casilla"
-
-#: ../shell/e-storage-set-view.etspec.h:2
-msgid "Folder"
-msgstr "Cartafol"
-
-#: ../shell/e-storage.c:555
-msgid "No error"
-msgstr "Ningún erro"
-
-#: ../shell/e-storage.c:559
-msgid "A folder with the same name already exists"
-msgstr "Xa existe un cartafol co mesmo nome"
-
-#: ../shell/e-storage.c:561
-msgid "The specified folder type is not valid"
-msgstr "O tipo de cartafol especificado non é válido"
-
-#: ../shell/e-storage.c:563
-msgid "I/O error"
-msgstr "Erro E/S"
-
-#: ../shell/e-storage.c:565
-msgid "Not enough space to create the folder"
-msgstr "Non hai suficiente espacio para crear o cartafol"
-
-#: ../shell/e-storage.c:567
-msgid "The folder is not empty"
-msgstr "O cartafol non está baleiro"
-
-#: ../shell/e-storage.c:569
-msgid "The specified folder was not found"
-msgstr "O cartafol especificado non foi atopado"
-
-#: ../shell/e-storage.c:571
-msgid "Function not implemented in this storage"
-msgstr "Función non implementada neste almacén"
-
-#: ../shell/e-storage.c:575
-msgid "Operation not supported"
-msgstr "Operación non soportada"
-
-#: ../shell/e-storage.c:577
-msgid "The specified type is not supported in this storage"
-msgstr "O tipo especificado non está soportado neste almacenamiento"
-
-#: ../shell/e-storage.c:579
-msgid "The specified folder cannot be modified or removed"
-msgstr "O cartafol especificado non pode ser modificado ou eliminado"
-
-#: ../shell/e-storage.c:581
-msgid "Cannot make a folder a child of one of its descendants"
-msgstr "Non se pode facer un cartafol descendente dun dos seus descendentes"
-
-#: ../shell/e-storage.c:583
-msgid "Cannot create a folder with that name"
-msgstr "Non se pode crear un cartafol con ese nome"
-
-#: ../shell/e-storage.c:585
-msgid "This operation cannot be performed in off-line mode"
-msgstr "Esta operación non pode realizarse en modo desconectado"
-
-#: ../shell/e-storage.c:587 ../storage/exchange-account.c:1473
-msgid "Unknown error"
-msgstr "Erro descoñecido"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-msgid "Evolution Addressbook Exchange backend"
-msgstr "Backend da libreta de enderezos de Exchange de Evolution"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
-msgid "Evolution Calendar Exchange backend"
-msgstr "Backend do Calendario de Exchange"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Ximian Connector for Exchange"
-msgstr "Conector Ximian para Exchange"
-
-#. i18n: This is the title of an "other user's folders"
-#. hierarchy. Eg, "John Doe's Folders".
-#: ../storage/exchange-account.c:584
-#, c-format
-msgid "%s's Folders"
-msgstr "Cartafoles de %s"
-
-#. email id is not proper, we return instead of trying nt_domain
-#: ../storage/exchange-account.c:1069
-msgid "Cannot change password due to configuration problems"
-msgstr "Non se puido cambiar o contrasinal debido a problemas de configuración"
-
-#: ../storage/exchange-account.c:1092
-msgid ""
-"Server rejected password because it is too weak.\n"
-"Try again with a different password."
-msgstr ""
-"O servidor rechazou o contrasinal porque é demasiado débil.\n"
-"Intenteo outra vez cun contrasinal diferente."
-
-#: ../storage/exchange-account.c:1097
-msgid "Could not change password"
-msgstr "Non se puido cambiar o contrasinal"
-
-#: ../storage/exchange-account.c:1190
-msgid "Personal Folders"
-msgstr "Cartafoles persoais"
-
-#: ../storage/exchange-account.c:1205
-msgid "Favorite Public Folders"
-msgstr "Carpetas públicas favoritas"
-
-#. i18n: Outlookism
-#: ../storage/exchange-account.c:1222
-msgid "All Public Folders"
-msgstr "Todos os cartafoles públicos"
-
-#. i18n: Outlookism
-#: ../storage/exchange-account.c:1236
-msgid "Global Address List"
-msgstr "Lista de acceso global"
-
-#: ../storage/exchange-account.c:1326
-msgid "Exchange Account is offline. Cannot display folders\n"
-msgstr "A conta de Exchange está desconectada. Non se poden mostrar os cartafoles\n"
-
-#: ../storage/exchange-account.c:1389
-msgid ""
-"Could not authenticate to server.\n"
-"\n"
-"This probably means that your server requires you\n"
-"to specify the Windows domain name as part of your\n"
-"username (eg, \"DOMAIN\\user\").\n"
-"\n"
-"Or you might have just typed your password wrong.\n"
-"\n"
-msgstr ""
-"Non se pode autenticar co servidor.\n"
-"\n"
-"Isto probablemente significa que seu servidor quere que\n"
-"especifique o nome de dominio de Windows como parte\n"
-"do seu nome de usuario (Ex, \"DOMINIO\\usuario\").\n"
-"\n"
-"Ou quizais escribiu o contrasinal mal.\n"
-"\n"
-
-#: ../storage/exchange-account.c:1431
-#, c-format
-msgid "Mailbox for %s is not on this server."
-msgstr "O buzón de %s non está neste servidor"
-
-#: ../storage/exchange-account.c:1436
-#, c-format
-msgid ""
-"The server '%s' is running Exchange 5.5 and is\n"
-"therefore not compatible with Ximian Connector"
-msgstr ""
-"O servidor '%s' está executando Exchange 5.5 e por tanto\n"
-"non é compatible con Ximian Connector"
-
-#: ../storage/exchange-account.c:1443
-#, c-format
-msgid ""
-"Could not find Exchange Web Storage System at %s.\n"
-"If OWA is running on a different path, you must specify that in the\n"
-"account configuration dialog."
-msgstr ""
-"Non se puido atopar un Sistema de Almacenamiento Web de Exchange en %s.\n"
-"Se OWA está en execución nunha ruta dirente, debe especificala no\n"
-"diálogo de configuración da conta."
-
-#: ../storage/exchange-account.c:1451
-#, c-format
-msgid "No mailbox for user %s on %s.\n"
-msgstr "Non hai un buzón para o usuario %s en %s.\n"
-
-#: ../storage/exchange-account.c:1457 ../storage/exchange-account.c:1463
-#: ../storage/exchange-account.c:1471
-#, c-format
-msgid "Could not connect to server %s: %s"
-msgstr "Non se puido conectar ao servidor %s: %s"
-
-#: ../storage/exchange-account.c:1459
-msgid "Could not resolve hostname"
-msgstr "Non se puido resolver o nome do anfitrión"
-
-#: ../storage/exchange-account.c:1465
-msgid "Network error"
-msgstr "Erro de rede"
-
-#: ../storage/exchange-account.c:1529
-#, c-format
-msgid ""
-"You have exceeded your quota of %d %s for storing mails on this server. Your "
-"current usage is : %.0f %s."
-msgstr "Escedeu a cuota de %d %s para almacenar correos neste servidor. O seu uso actual é : %.0f %s."
-
-#: ../storage/exchange-account.c:1532
-msgid "You will not be able to either send or receive mails now\n"
-msgstr "Non poderá nin enviar nin recibir mensaxes agora\n"
-
-#: ../storage/exchange-account.c:1535
-msgid ""
-"You will not be able to send mails till you clear up some space by deleting "
-"some mails.\n"
-msgstr "Non poderá enviar mensaxes ata que faga algo de espazo borrando algúns correos.\n"
-
-#: ../storage/exchange-account.c:1538
-msgid "Try to clear up some space by deleting some mails.\n"
-msgstr "Tente facer espazo borrando algúns correos.\n"
 
 #: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
@@ -942,6 +486,22 @@ msgstr ""
 "\n"
 "Para a información que debe proporcionar a seu administrador, siga o ligazón "
 "inferior:"
+
+#: ../storage/exchange-autoconfig-wizard.c:275
+msgid ""
+"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
+"Connector supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"A URL do servidor Exchange que proporcionou é para un servidor Exchange 5.5. "
+"O Conector Ximian soporta Microsoft Exchange 2000 e 2003 únicamente."
+
+#: ../storage/exchange-autoconfig-wizard.c:288
+msgid ""
+"Could not configure Exchange account because an unknown error occurred. "
+"Check the URL, username, and password, and try again."
+msgstr ""
+"Non se puido configurar a conta de Exchange porque ocorreu un erro "
+"decoñecido. Comprobe a URL, usuario e contrasinal e inténteo de novo."
 
 #: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
@@ -978,6 +538,11 @@ msgstr ""
 #: ../storage/exchange-autoconfig-wizard.c:459
 msgid "You may only configure a single Exchange account"
 msgstr "Só pode configurar unha conta de Exchange individual"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:1
+#: ../storage/exchange-change-password.glade.h:1
+msgid "*"
+msgstr "*"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
@@ -1127,6 +692,10 @@ msgstr "Novo contrasinal:"
 msgid "Your current password has expired. Please change your password now."
 msgstr "Seu contrasinal actual caducou. Cambie seu contrasinal agora."
 
+#: ../storage/exchange-delegates-user.c:144
+msgid "Custom"
+msgstr "Personalizado"
+
 #: ../storage/exchange-delegates-user.c:191
 #: ../storage/exchange-permissions-dialog.c:179
 #, c-format
@@ -1253,6 +822,10 @@ msgstr "Delegados"
 msgid "Editor (read, create, edit)"
 msgstr "Editor (ler, crear, editar)"
 
+#: ../storage/exchange-delegates.glade.h:7
+msgid "None"
+msgstr "Ningún"
+
 #: ../storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
 msgstr "Permisos para"
@@ -1285,63 +858,15 @@ msgstr "_Entrada:"
 msgid "_Tasks:"
 msgstr "_Tarefas:"
 
-#: ../storage/exchange-folder-size.c:322
-msgid "Folder Name"
-msgstr "Nome do cartafol"
-
-#: ../storage/exchange-folder-size.c:326
-msgid "Folder Size"
-msgstr "Tamaño do cartafol"
-
 #: ../storage/exchange-folder-tree.glade.h:1
 msgid "Exchange Folder Tree"
 msgstr "Árbore de cartafoles de Exchange"
 
-#: ../storage/exchange-hierarchy-foreign.c:250
-msgid "Calendar"
-msgstr "Calendario"
-
-#: ../storage/exchange-hierarchy-foreign.c:251
-msgid "Contacts"
-msgstr "Contactos"
-
-#: ../storage/exchange-hierarchy-foreign.c:252
-msgid "Deleted Items"
-msgstr "Elementos borrados"
-
-#: ../storage/exchange-hierarchy-foreign.c:253
-msgid "Drafts"
-msgstr "Borradores"
-
-#: ../storage/exchange-hierarchy-foreign.c:254
-msgid "Inbox"
-msgstr "Bandexa de entrada"
-
-#: ../storage/exchange-hierarchy-foreign.c:255
-msgid "Journal"
-msgstr "Xornal"
-
-#: ../storage/exchange-hierarchy-foreign.c:256
-msgid "Notes"
-msgstr "Notas"
-
-#: ../storage/exchange-hierarchy-foreign.c:257
-msgid "Outbox"
-msgstr "Bandexa de saída"
-
-#: ../storage/exchange-hierarchy-foreign.c:258
-msgid "Sent Items"
-msgstr "Elementos enviados"
-
-#: ../storage/exchange-hierarchy-foreign.c:259
-msgid "Tasks"
-msgstr "Tarefas"
-
-#: ../storage/exchange-migrate.c:57
+#: ../storage/exchange-migrate.c:58
 msgid "Migrating Exchange Folders..."
 msgstr "Migrando cartafoles de Exchange..."
 
-#: ../storage/exchange-migrate.c:65
+#: ../storage/exchange-migrate.c:66
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -1354,7 +879,7 @@ msgstr ""
 "\n"
 "Teña paciencia mentras Evolution migra seus cartafoles..."
 
-#: ../storage/exchange-migrate.c:98
+#: ../storage/exchange-migrate.c:99
 #, c-format
 msgid ""
 "Warning: Evolution could not migrate all the Exchange account data from the "
@@ -1366,18 +891,10 @@ msgstr ""
 "versión %d.%d.%d. \n"
 "Os datos non foron borrados, pero non se verán con esta versión de Evolution"
 
-#: ../storage/exchange-migrate.c:129
+#: ../storage/exchange-migrate.c:130
 #, c-format
 msgid "Migrating `%s':"
 msgstr "Migrando `%s':"
-
-#: ../storage/exchange-oof.c:199 ../storage/exchange-oof.c:406
-msgid "Could not update out-of-office state"
-msgstr "Non se puido atualizar o estado de fora da oficina"
-
-#: ../storage/exchange-oof.c:424
-msgid "Could not read out-of-office state"
-msgstr "Non se puido ler o estado de fora da oficina"
 
 #: ../storage/exchange-oof.glade.h:1
 msgid ""
@@ -1564,7 +1081,7 @@ msgstr "Rol: "
 msgid "Connecting..."
 msgstr "Conectando..."
 
-#: ../storage/main.c:165
+#: ../storage/main.c:183
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Conector Ximian para Microsoft Exchange"
 
