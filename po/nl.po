@@ -2,7 +2,7 @@
 # Copyright (C) 2004 The Free Software Foundation
 # This file is distributed under the same license as the
 # evolution-exchange package.
-# Tino Meinen <a.t.meinen@chello.nl>, 2004, 2005.
+# Tino Meinen <a.t.meinen@chello.nl>, 2004, 2005, 2006.
 # -----------------------------------------------------
 # ** Outlookisms vertalen of niet? **
 # Mailbox - Brievenbus
@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-21 22:11+0100\n"
-"PO-Revision-Date: 2005-12-22 02:55+0100\n"
+"POT-Creation-Date: 2006-02-17 07:31+0100\n"
+"PO-Revision-Date: 2006-02-17 12:51+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr ""
 # niets mee hoeft te doen. Het is een indicatie dat het programma bezig is.
 # Het tonen van de status is al een aanduiding dat het programma 'bezig is'
 # Vandaar dat het hier in deze meldingen wordt weggelaten.
-#: ../addressbook/e-book-backend-exchange.c:1856
+#: ../addressbook/e-book-backend-exchange.c:1867
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Zoeken..."
@@ -50,7 +50,7 @@ msgstr "Fout bij uitvoeren zoekopdracht"
 
 # doelbron?
 # mogelijk weglaten: niet in staat om 's' te plannen voor...
-#: ../calendar/e-cal-backend-exchange-calendar.c:1789
+#: ../calendar/e-cal-backend-exchange-calendar.c:1805
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -61,63 +61,58 @@ msgstr ""
 
 # ... is bezet in de geselecteerde periode
 # ... is bezet tijdens 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1807
+#: ../calendar/e-cal-backend-exchange-calendar.c:1823
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "De bron '%s' is bezet gedurende de geselecteerde periode."
 
-#: ../camel/camel-exchange-folder.c:221
+#: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
 msgstr "Wanneer u offline bent, kunt u niet weggooien."
 
-# mag/kan
-#: ../camel/camel-exchange-folder.c:230
-msgid "Can only expunge in Deleted Items folder"
-msgstr "Kan alleen weggooien in de map Verwijderde items"
-
-#: ../camel/camel-exchange-folder.c:254
+#: ../camel/camel-exchange-folder.c:253
 msgid "No Subject"
 msgstr "Geen onderwerp"
 
 # ...wanneer u off-line bent
-#: ../camel/camel-exchange-folder.c:381
+#: ../camel/camel-exchange-folder.c:380
 msgid "This message is not available in offline mode."
 msgstr "Dit bericht is niet beschikbaar in de off-line stand."
 
-#: ../camel/camel-exchange-folder.c:616
+#: ../camel/camel-exchange-folder.c:615
 msgid "Moving messages"
 msgstr "Berichten verplaatsen"
 
-#: ../camel/camel-exchange-folder.c:617
+#: ../camel/camel-exchange-folder.c:616
 msgid "Copying messages"
 msgstr "Berichten kopiëren"
 
-#: ../camel/camel-exchange-folder.c:988
+#: ../camel/camel-exchange-folder.c:987
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Kon map %s niet aanmaken: %s"
 
-#: ../camel/camel-exchange-folder.c:998
+#: ../camel/camel-exchange-folder.c:997
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Kon samenvatting voor %s niet laden"
 
-#: ../camel/camel-exchange-folder.c:1006
+#: ../camel/camel-exchange-folder.c:1005
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Kon cache-buffer voor %s niet aanmaken"
 
-#: ../camel/camel-exchange-folder.c:1016
+#: ../camel/camel-exchange-folder.c:1015
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Kon journaal voor %s niet aanmaken"
 
 # aangepaste berichten
-#: ../camel/camel-exchange-folder.c:1061
+#: ../camel/camel-exchange-folder.c:1060
 msgid "Scanning for changed messages"
 msgstr "Scannen voor veranderde berichten"
 
-#: ../camel/camel-exchange-folder.c:1087
+#: ../camel/camel-exchange-folder.c:1086
 msgid "Fetching summary information for new messages"
 msgstr "Samenvatting voor nieuwe berichten ophalen"
 
@@ -125,10 +120,10 @@ msgstr "Samenvatting voor nieuwe berichten ophalen"
 msgid "No folder name found\n"
 msgstr "Geem mapnaam gevonden\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2534
-#: ../mail/mail-stub-exchange.c:2578 ../mail/mail-stub-exchange.c:2613
-#: ../mail/mail-stub-exchange.c:2640 ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2709
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
+#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
+#: ../mail/mail-stub-exchange.c:2724
 msgid "Folder doesn't exist"
 msgstr "Map bestaat niet"
 
@@ -160,13 +155,13 @@ msgstr "Global Address List / Active Directory"
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
 #: ../camel/camel-exchange-provider.c:53
-msgid "Global Catalog server name:"
-msgstr "Global Catalog server name:"
+msgid "_Global Catalog server name:"
+msgstr "_Global Catalog servernaam:"
 
 #: ../camel/camel-exchange-provider.c:55
 #, c-format
-msgid "Limit number of GAL responses: %s"
-msgstr "Aantal GAL antwoorden beperken: %s"
+msgid "_Limit number of GAL responses: %s"
+msgstr "_Aantal GAL reacties beperken: %s"
 
 #: ../camel/camel-exchange-provider.c:58
 msgid "Options"
@@ -174,27 +169,27 @@ msgstr "Opties"
 
 #: ../camel/camel-exchange-provider.c:60
 #, c-format
-msgid "Password Expiry Warning period: %s"
-msgstr "'Wachtwoord verloopt' waarschuwingsperiode: %s"
+msgid "_Password Expiry Warning period: %s"
+msgstr "'_Wachtwoord verloopt' waarschuwingsperiode: %s"
 
 #: ../camel/camel-exchange-provider.c:62
-msgid "Automatically synchronize account locally"
-msgstr "Automatisch account lokaal synchroniseren"
+msgid "Automatically synchroni_ze account locally"
+msgstr "_Automatisch account locaal synchroniseren"
 
 # postvak in of 'inbox'
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:65
-msgid "Apply filters to new messages in Inbox on this server"
-msgstr "Filters toepassen op nieuwe berichten in Inbox op deze server"
+msgid "_Apply filters to new messages in Inbox on this server"
+msgstr "_Filters toepassen op nieuwe berichten in Inbox op deze server"
 
 # ik noem het beestje gewoon bij de naam: Spam ipv troep
 #: ../camel/camel-exchange-provider.c:67
-msgid "Check new messages for Junk contents"
-msgstr "Nieuwe berichten controleren op spam"
+msgid "Check new messages for _Junk contents"
+msgstr "Nieuwe berichten controleren op _spam"
 
 #: ../camel/camel-exchange-provider.c:69
-msgid "Only check for Junk messages in the Inbox folder"
-msgstr "Aleen Inbox controleren op nieuwe berichten"
+msgid "Only check for Junk messag_es in the Inbox folder"
+msgstr "Alleen de I_nbox controleren op nieuwe spamberichten"
 
 # hoofdletters omdat het een programmanaam is van MS
 #: ../camel/camel-exchange-provider.c:79
@@ -341,10 +336,10 @@ msgstr "Map bestaat niet"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1381
-#: ../mail/mail-stub-exchange.c:2511 ../mail/mail-stub-exchange.c:2551
-#: ../mail/mail-stub-exchange.c:2617 ../mail/mail-stub-exchange.c:2661
-#: ../mail/mail-stub-exchange.c:2725 ../storage/xc-commands.c:319
+#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
+#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
+#: ../mail/mail-stub-exchange.c:2740 ../storage/xc-commands.c:319
 msgid "Permission denied"
 msgstr "Toegang geweigerd"
 
@@ -352,74 +347,74 @@ msgstr "Toegang geweigerd"
 msgid "Could not open folder: Permission denied"
 msgstr "Kon map niet openen: Toegang geweigerd"
 
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:705
+#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
 msgid "Could not open folder"
 msgstr "Kon map niet openen"
 
 # een dergelijke map bestaat niet
-#: ../mail/mail-stub-exchange.c:748
+#: ../mail/mail-stub-exchange.c:755
 msgid "No such folder."
 msgstr "Map bestaat niet."
 
-#: ../mail/mail-stub-exchange.c:757
+#: ../mail/mail-stub-exchange.c:764
 msgid "Could not create folder."
 msgstr "Kon map niet aanmaken."
 
-#: ../mail/mail-stub-exchange.c:837
+#: ../mail/mail-stub-exchange.c:844
 msgid "Could not open Deleted Items folder"
 msgstr "Kon de map Verwijderde items niet openen"
 
 # verkrijgen
 # ophalen is begrijpelijker
-#: ../mail/mail-stub-exchange.c:1166 ../mail/mail-stub-exchange.c:1207
+#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
 msgid "Could not get new messages"
 msgstr "Kon nieuwe berichten niet ophalen"
 
 # legen ipv leegmaken?
-#: ../mail/mail-stub-exchange.c:1377
+#: ../mail/mail-stub-exchange.c:1386
 msgid "Could not empty Deleted Items folder"
 msgstr "Kon de map Verwijderde items niet leegmaken"
 
-#: ../mail/mail-stub-exchange.c:1454
+#: ../mail/mail-stub-exchange.c:1463
 msgid "Could not append message; mailbox is over quota"
 msgstr "Kon bericht niet toevoegen; mailbox heeft quota overschreden"
 
-#: ../mail/mail-stub-exchange.c:1455
+#: ../mail/mail-stub-exchange.c:1464
 msgid "Could not append message"
 msgstr "Kon bericht niet toevoegen"
 
 # Een dergelijk bericht bestaat niet
-#: ../mail/mail-stub-exchange.c:2001
+#: ../mail/mail-stub-exchange.c:2016
 msgid "No such message"
 msgstr "Bericht bestaat niet"
 
-#: ../mail/mail-stub-exchange.c:2054
+#: ../mail/mail-stub-exchange.c:2069
 msgid "Message has been deleted"
 msgstr "Bericht is verwijderd"
 
-#: ../mail/mail-stub-exchange.c:2056
+#: ../mail/mail-stub-exchange.c:2071
 msgid "Error retrieving message"
 msgstr "Fout bij ophalen bericht"
 
-#: ../mail/mail-stub-exchange.c:2098
+#: ../mail/mail-stub-exchange.c:2113
 msgid "Mailbox does not support full-text searching"
 msgstr ""
 "Voor deze mailbox is geen ondersteuning voor het doorzoeken van de volledige "
 "tekst"
 
-#: ../mail/mail-stub-exchange.c:2196
+#: ../mail/mail-stub-exchange.c:2211
 msgid "Unable to move/copy messages"
 msgstr "Kon berichten niet verplaatsen/kopiëren"
 
-#: ../mail/mail-stub-exchange.c:2426
+#: ../mail/mail-stub-exchange.c:2441
 msgid "No mail submission URI for this mailbox"
 msgstr "Geen mail-aanleverings-URI voor deze mailbox"
 
-#: ../mail/mail-stub-exchange.c:2462
+#: ../mail/mail-stub-exchange.c:2477
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Server zal geen berichten accepteren via Exchange transport"
 
-#: ../mail/mail-stub-exchange.c:2464
+#: ../mail/mail-stub-exchange.c:2479
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -428,7 +423,7 @@ msgstr ""
 "Uw account heeft geen rechten om <%s> te gebruiken\n"
 "als een 'Van' adres."
 
-#: ../mail/mail-stub-exchange.c:2476
+#: ../mail/mail-stub-exchange.c:2491
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -436,17 +431,17 @@ msgstr ""
 "Kon bericht niet versturen.\n"
 "Dit betekent mogelijk dat uw account over zijn quota is."
 
-#: ../mail/mail-stub-exchange.c:2480
+#: ../mail/mail-stub-exchange.c:2495
 msgid "Could not send message"
 msgstr "Kon bericht niet versturen"
 
-#: ../mail/mail-stub-exchange.c:2503 ../mail/mail-stub-exchange.c:2556
-#: ../mail/mail-stub-exchange.c:2621 ../mail/mail-stub-exchange.c:2666
-#: ../mail/mail-stub-exchange.c:2730 ../storage/xc-commands.c:323
+#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
+#: ../mail/mail-stub-exchange.c:2745 ../storage/xc-commands.c:323
 msgid "Generic error"
 msgstr "Algemene fout"
 
-#: ../mail/mail-stub-exchange.c:2507 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2522 ../storage/xc-commands.c:313
 msgid "Folder already exists"
 msgstr "Map bestaat al"
 
@@ -756,10 +751,7 @@ msgstr "Aangepast"
 msgid "Permissions for %s"
 msgstr "Rechten voor %s"
 
-# wereldwijde
-# globale (andere betekenis)
-# algemene
-# universele
+# global catalog is een windowism
 #: ../storage/exchange-delegates.c:221
 msgid ""
 "No Global Catalog server configured for this account.\n"
@@ -927,11 +919,11 @@ msgstr "Exchange mappenboom"
 
 # worden gemigreerd (is niet mooi)
 # migreren ook niet
-#: ../storage/exchange-migrate.c:57
+#: ../storage/exchange-migrate.c:58
 msgid "Migrating Exchange Folders..."
 msgstr "Exchange mappen omzetten..."
 
-#: ../storage/exchange-migrate.c:65
+#: ../storage/exchange-migrate.c:66
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -944,7 +936,7 @@ msgstr ""
 "\n"
 "Een ogenblik geduld terwijl Evolution uw mappen omzet..."
 
-#: ../storage/exchange-migrate.c:98
+#: ../storage/exchange-migrate.c:99
 #, c-format
 msgid ""
 "Warning: Evolution could not migrate all the Exchange account data from the "
@@ -952,10 +944,12 @@ msgid ""
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"Waarschuwing: Evolution kon niet alle Exchange-accountgegevens van de versie %d.%d.%d. omzetten. \n"
-"De gegevens zijn niet verwijderd, maar zullen door deze versie van Evolution niet worden gezien."
+"Waarschuwing: Evolution kon niet alle Exchange-accountgegevens van de versie "
+"%d.%d.%d. omzetten. \n"
+"De gegevens zijn niet verwijderd, maar zullen door deze versie van Evolution "
+"niet worden gezien."
 
-#: ../storage/exchange-migrate.c:129
+#: ../storage/exchange-migrate.c:130
 #, c-format
 msgid "Migrating `%s':"
 msgstr "Omzetten van `%s':"
@@ -1283,6 +1277,10 @@ msgstr "_Afwezigheidsassistent"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Abonnement op andermans map opzeggen"
+
+# mag/kan
+#~ msgid "Can only expunge in Deleted Items folder"
+#~ msgstr "Kan alleen weggooien in de map Verwijderde items"
 
 #~ msgid "This operation cannot be performed in off-line mode"
 #~ msgstr "Deze bewerking kan niet uitgevoerd worden in de off-line stand"
