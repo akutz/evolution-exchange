@@ -666,7 +666,7 @@ static gboolean
 exchange_camel_urls_is_equal (const gchar *url1, const gchar *url2)
 {
 	CamelURL *curl1, *curl2;
-	gchar *param1, *param2;
+	const char *param1, *param2;
 	const char *params[] = {
 		"auth",
 		"owa_url",
@@ -685,14 +685,10 @@ exchange_camel_urls_is_equal (const gchar *url1, const gchar *url2)
 		param2 = (gchar*) camel_url_get_param (curl2, params[i]);
 		if ((param1 && !param2) || (!param1 && param2) || /* Missing */
 		    (param1 && param2 && strcmp (param1, param2))) { /* Differing */
-			g_free (param1);
-			g_free (param2);
 			camel_url_free (curl1);
 			camel_url_free (curl2);
 			return FALSE;
 		}		
-		g_free (param1);
-		g_free (param2);
 	}
 	camel_url_free (curl1);
 	camel_url_free (curl2);

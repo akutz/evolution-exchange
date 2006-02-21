@@ -1,3 +1,9 @@
+2006-02-21  Sushma Rai  <rsushma@novell.com>
+
+	* storage/exchange-config-listener.c (exchange_camel_urls_is_equal):
+	Not freeing camel params, which don't have any memory allocated.
+	Fixes #331980.
+
 2006-02-13  Sushma Rai  <rsushma@novell.com>
 
 	* configure.in : Bumped the version to 2.5.91
