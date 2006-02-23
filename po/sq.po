@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-02 06:49+0100\n"
-"PO-Revision-Date: 2006-02-02 12:55+0100\n"
+"POT-Creation-Date: 2006-02-23 07:18+0100\n"
+"PO-Revision-Date: 2006-02-23 10:30+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1856
+#: ../addressbook/e-book-backend-exchange.c:1867
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Duke kërkuar..."
@@ -98,10 +98,10 @@ msgstr "Duke marrë përmbledhjen e informacionit për mesazhet e rinj"
 msgid "No folder name found\n"
 msgstr "Kartela nuk u gjet\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2534
-#: ../mail/mail-stub-exchange.c:2578 ../mail/mail-stub-exchange.c:2613
-#: ../mail/mail-stub-exchange.c:2640 ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2709
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
+#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
+#: ../mail/mail-stub-exchange.c:2724
 msgid "Folder doesn't exist"
 msgstr "Kartela nuk ekziston"
 
@@ -131,13 +131,13 @@ msgstr "Lista globale e adresave / Active Directory"
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
 #: ../camel/camel-exchange-provider.c:53
-msgid "Global Catalog server name:"
-msgstr "Emri i serverit të Katallogut global:"
+msgid "_Global Catalog server name:"
+msgstr "Emri i serverit të Katalogut _Global:"
 
 #: ../camel/camel-exchange-provider.c:55
 #, c-format
-msgid "Limit number of GAL responses: %s"
-msgstr "Numri limit i përgjigjeve GAL: %s"
+msgid "_Limit number of GAL responses: %s"
+msgstr "Numri i _Limit i përgjigjeve GAL: %s"
 
 #: ../camel/camel-exchange-provider.c:58
 msgid "Options"
@@ -145,25 +145,25 @@ msgstr "Opcione"
 
 #: ../camel/camel-exchange-provider.c:60
 #, c-format
-msgid "Password Expiry Warning period: %s"
-msgstr "Periudha për paralajmërim në lidhje me skadimin e fjalëkalimit: %s"
+msgid "_Password Expiry Warning period: %s"
+msgstr "_Periudha për paralajmërim në lidhje me skadimin e fjalëkalimit: %s"
 
 #: ../camel/camel-exchange-provider.c:62
-msgid "Automatically synchronize account locally"
-msgstr "Sinkronizo automatikisht llogarinë në lokale"
+msgid "Automatically synchroni_ze account locally"
+msgstr "Sinkroni_zo automatikisht llogarinë në lokale"
 
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:65
-msgid "Apply filters to new messages in Inbox on this server"
-msgstr "Aplikoi filtrat mesazheve të rinj në \"Inbox\" tek ky server"
+msgid "_Apply filters to new messages in Inbox on this server"
+msgstr "_Aplikoi filtrat mesazheve të rinj në \"Inbox\" tek ky server"
 
 #: ../camel/camel-exchange-provider.c:67
-msgid "Check new messages for Junk contents"
-msgstr "Kontrollo nëse mesazhet e rinj përmbajnë material që duhet refuzuar"
+msgid "Check new messages for _Junk contents"
+msgstr "Kontrollo nëse mesazhet e rinj përmbajnë material që duhet _refuzuar"
 
 #: ../camel/camel-exchange-provider.c:69
-msgid "Only check for Junk messages in the Inbox folder"
-msgstr "Kontrollo për mesazhe që duhen refuzuar vetëm tek kartela Inbox"
+msgid "Only check for Junk messag_es in the Inbox folder"
+msgstr "Kontrollo për mesazh_e që duhen refuzuar vetëm tek kartela Inbox"
 
 #: ../camel/camel-exchange-provider.c:79
 msgid "Microsoft Exchange"
@@ -307,10 +307,10 @@ msgstr "Kartela nuk u gjet"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1381
-#: ../mail/mail-stub-exchange.c:2511 ../mail/mail-stub-exchange.c:2551
-#: ../mail/mail-stub-exchange.c:2617 ../mail/mail-stub-exchange.c:2661
-#: ../mail/mail-stub-exchange.c:2725 ../storage/xc-commands.c:319
+#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
+#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
+#: ../mail/mail-stub-exchange.c:2740 ../storage/xc-commands.c:319
 msgid "Permission denied"
 msgstr "Ndalohet hyrja"
 
@@ -318,67 +318,67 @@ msgstr "Ndalohet hyrja"
 msgid "Could not open folder: Permission denied"
 msgstr "E pamundur hapja e kartelës: Ndalohet hyrja"
 
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:705
+#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
 msgid "Could not open folder"
 msgstr "E pamundur hapja e kartelës"
 
-#: ../mail/mail-stub-exchange.c:748
+#: ../mail/mail-stub-exchange.c:755
 msgid "No such folder."
 msgstr "Kartela nuk u gjet."
 
-#: ../mail/mail-stub-exchange.c:757
+#: ../mail/mail-stub-exchange.c:764
 msgid "Could not create folder."
 msgstr "I pamundur krijimi i kartelës."
 
-#: ../mail/mail-stub-exchange.c:837
+#: ../mail/mail-stub-exchange.c:844
 msgid "Could not open Deleted Items folder"
 msgstr "E pamundur hapja e kartelës me elementët e fshirë"
 
-#: ../mail/mail-stub-exchange.c:1166 ../mail/mail-stub-exchange.c:1207
+#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
 msgid "Could not get new messages"
 msgstr "E pamundur marrja e mesazheve të rinj"
 
-#: ../mail/mail-stub-exchange.c:1377
+#: ../mail/mail-stub-exchange.c:1386
 msgid "Could not empty Deleted Items folder"
 msgstr "E pamundur zbrazja e kartelës me elementët e fshirë"
 
-#: ../mail/mail-stub-exchange.c:1454
+#: ../mail/mail-stub-exchange.c:1463
 msgid "Could not append message; mailbox is over quota"
 msgstr "I pamundur shtimi (në fund) i mesazhit; mailbox ka tejkaluar kuotën"
 
-#: ../mail/mail-stub-exchange.c:1455
+#: ../mail/mail-stub-exchange.c:1464
 msgid "Could not append message"
 msgstr "I pamundur shtimi i mesazhit"
 
-#: ../mail/mail-stub-exchange.c:2001
+#: ../mail/mail-stub-exchange.c:2016
 msgid "No such message"
 msgstr "Mesazhi nuk u gjet"
 
-#: ../mail/mail-stub-exchange.c:2054
+#: ../mail/mail-stub-exchange.c:2069
 msgid "Message has been deleted"
 msgstr "Mesazhi është fshirë"
 
-#: ../mail/mail-stub-exchange.c:2056
+#: ../mail/mail-stub-exchange.c:2071
 msgid "Error retrieving message"
 msgstr "Gabim gjatë tërheqjes së mesazhit"
 
-#: ../mail/mail-stub-exchange.c:2098
+#: ../mail/mail-stub-exchange.c:2113
 msgid "Mailbox does not support full-text searching"
 msgstr "Mailbox nuk suporton kërkimin tekst i plotë"
 
-#: ../mail/mail-stub-exchange.c:2196
+#: ../mail/mail-stub-exchange.c:2211
 msgid "Unable to move/copy messages"
 msgstr "E pamundur lëvizja/kopja e mesazheve"
 
-#: ../mail/mail-stub-exchange.c:2426
+#: ../mail/mail-stub-exchange.c:2441
 msgid "No mail submission URI for this mailbox"
 msgstr "Kjo kasetë poste nuk ka asnjë URl për mesazhet e dorëzuara"
 
-#: ../mail/mail-stub-exchange.c:2462
+#: ../mail/mail-stub-exchange.c:2477
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Serveri nuk pranon mail via Exchange transport"
 
-#: ../mail/mail-stub-exchange.c:2464
+#: ../mail/mail-stub-exchange.c:2479
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -387,7 +387,7 @@ msgstr ""
 "Llogaria juaj nuk ka të drejtë të përdorë <%s>\n"
 "si adresë \"Nga\"."
 
-#: ../mail/mail-stub-exchange.c:2476
+#: ../mail/mail-stub-exchange.c:2491
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -395,17 +395,17 @@ msgstr ""
 "I pamundur dërgimi i mesazhit.\n"
 "Kjo do të thotë që ndoshta keni tejkaluar kuotën."
 
-#: ../mail/mail-stub-exchange.c:2480
+#: ../mail/mail-stub-exchange.c:2495
 msgid "Could not send message"
 msgstr "Dërgimi i mesazhit është i pamundur"
 
-#: ../mail/mail-stub-exchange.c:2503 ../mail/mail-stub-exchange.c:2556
-#: ../mail/mail-stub-exchange.c:2621 ../mail/mail-stub-exchange.c:2666
-#: ../mail/mail-stub-exchange.c:2730 ../storage/xc-commands.c:323
+#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
+#: ../mail/mail-stub-exchange.c:2745 ../storage/xc-commands.c:323
 msgid "Generic error"
 msgstr "Gabim i përgjithshëm"
 
-#: ../mail/mail-stub-exchange.c:2507 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2522 ../storage/xc-commands.c:313
 msgid "Folder already exists"
 msgstr "Kartela ekziston"
 
