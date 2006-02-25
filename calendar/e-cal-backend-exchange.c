@@ -1371,11 +1371,13 @@ e_cal_backend_exchange_make_timestamp_rfc822 (time_t when)
 char *
 e_cal_backend_exchange_get_from_string (ECalBackendSync *backend, ECalComponent *comp)
 {
-	char *name, *addr;
+	char *name = NULL, *addr = NULL, *from_string = NULL;
 
 	e_cal_backend_exchange_get_from (backend, comp, &name, &addr);
-	
-	return g_strdup_printf ("\"%s\" <%s>", name, addr);
+	from_string = g_strdup_printf ("\"%s\" <%s>", name, addr);
+	g_free (name);
+	g_free (addr);
+	return from_string;
 }
 
 gchar *
@@ -1543,6 +1545,7 @@ get_attachment (ECalBackendExchange *cbex, const char *uid,
 				attach_file = g_strdup_printf ("%s/%s-%s", cbex->priv->local_attachment_store, uid, filename);
 				// Attach
 				attach_file_url = save_attach_file (attach_file, attach_data, stream_mem->buffer->len);
+				g_free (attach_data);
 				g_free (attach_file);
 				d(printf ("attach file name : %s\n", attach_file_url));
 				list = g_slist_append (list, attach_file_url);
@@ -1605,7 +1608,7 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const char *subject,
 	CamelContentType *type;
 	const char *uid;
 	char *buffer = NULL, *cid;
-	char *from_name, *from_email;
+	char *from_name = NULL, *from_email = NULL;
 	GSList *attach_list = NULL, *l, *new_attach_list = NULL;
 	char *fname, *file_contents = NULL, *filename, *dest_url, *mime_filename, *attach_file;
 	int len = 0;
@@ -1622,6 +1625,8 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const char *subject,
 	from = camel_internet_address_new ();
 	camel_internet_address_add (from, from_name, from_email);
 	camel_mime_message_set_from (msg, from);
+	g_free (from_name);
+	g_free (from_email);
 	camel_object_unref (from);
 
 	e_cal_component_get_uid (comp, &uid);

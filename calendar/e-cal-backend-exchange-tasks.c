@@ -804,9 +804,10 @@ get_changed_tasks (ECalBackendExchange *cbex, const char *since)
 		}
 		e_cal_component_commit_sequence (ecal);
 		icalcomp = e_cal_component_get_icalcomponent (ecal);
-		if (icalcomp)
+		if (icalcomp) {
 			e_cal_backend_exchange_add_object (cbex, result->href, 
 						modtime, icalcomp);
+		}
 	} /* End while */
 	status = e2k_result_iter_free (iter);
 
@@ -854,6 +855,8 @@ get_changed_tasks (ECalBackendExchange *cbex, const char *since)
 			icalcomponent_free (ecalbexcomp->icomp);
 			ecalbexcomp->icomp = icalcomponent_new_clone (e_cal_component_get_icalcomponent (ecomp));
 			g_object_unref (ecomp);
+			g_slist_foreach (attachment_list, (GFunc) g_free, NULL);
+			g_slist_free (attachment_list);
 		}
 	}
 	status = e2k_result_iter_free (iter);
@@ -894,6 +897,8 @@ get_changed_tasks (ECalBackendExchange *cbex, const char *since)
 			icalcomponent_free (ecalbexcomp->icomp);
 			ecalbexcomp->icomp = icalcomponent_new_clone (e_cal_component_get_icalcomponent (ecomp));
 			g_object_unref (ecomp);
+			g_slist_foreach (attachment_list, (GFunc) g_free, NULL);
+			g_slist_free (attachment_list);
 		}
 		g_free (body);
 	}
@@ -1090,6 +1095,7 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 	}
 
 	*return_uid = g_strdup (temp_comp_uid); 
+	icalcomponent_free (real_icalcomp);
 	return GNOME_Evolution_Calendar_Success;
 }
 
@@ -1152,9 +1158,9 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	}
         
         cache_comp = e_cal_component_new ();
-        e_cal_component_set_icalcomponent (cache_comp, ecalbexcomp->icomp);
+        e_cal_component_set_icalcomponent (cache_comp, icalcomponent_new_clone (ecalbexcomp->icomp));
 	*old_object = e_cal_component_get_as_string (cache_comp);
-	g_free (cache_comp);
+	g_object_unref (cache_comp);
 	
 	summary = icalcomponent_get_summary (icalcomp);
 	if (!summary)
@@ -1178,6 +1184,7 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	g_free (comp_str);
 	if (!icalcomp)
 		return GNOME_Evolution_Calendar_OtherError;
+	icalcomponent_free (icalcomp);
 
 	get_from (backend, new_comp, &from_name, &from_addr);
                                                                                 
@@ -1190,12 +1197,14 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	status = e2k_context_proppatch (e2kctx, NULL, ecalbexcomp->href, props, FALSE, NULL);
 	comp_str = e_cal_component_get_as_string (new_comp);
 	icalcomp = icalparser_parse_string (comp_str);
+	g_free (comp_str);
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)){
 		status = put_body(new_comp, e2kctx, NULL, ecalbexcomp->href, from_name, from_addr, 
 					attach_body_crlf, boundary, NULL);
 		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
 			e_cal_backend_exchange_modify_object (ecalbex, icalcomp, mod);
 	}
+	icalcomponent_free (icalcomp);
 	return GNOME_Evolution_Calendar_Success;
 }
 
@@ -1295,8 +1304,9 @@ remove_task_object (ECalBackendSync *backend, EDataCal *cal,
 		return GNOME_Evolution_Calendar_ObjectNotFound;		
 
         comp = e_cal_component_new ();
-        e_cal_component_set_icalcomponent (comp, ecalbexcomp->icomp);
+	e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (ecalbexcomp->icomp));
 	*old_object = e_cal_component_get_as_string (comp);
+	g_object_unref (comp);
 
 	ctx = exchange_account_get_context (ecalbex->account);
 

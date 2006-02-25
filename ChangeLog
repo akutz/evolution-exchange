@@ -1,3 +1,23 @@
+2006-02-25  Sushma Rai  <rsushma@novell.com>
+
+	* calendar/e-cal-backend-exchange.c 
+	(e_cal_backend_exchange_get_from_string): Freeing name and address.
+	(get_attachment): Freeing attachment data.
+	(build_msg): Freeing name and email.
+	
+	* calendar/e-cal-backend-exchange-calendar.c (add_vevent): Freeing ical
+	property.
+	(add_ical): Freeing attachment list.
+	(discard_alarm): Freeing ical component.
+	
+	* calendar/e-cal-backend-exchange-tasks.c (get_changed_tasks): Freeing
+	attachment list.
+	(create_task_object): Freeing ical component.
+	(modify_task_object): Freeing component string and ical component.
+	Cloning ical component and freeing ecal component.
+	(remove_task_object): Similar.
+	See #329251.	
+
 2006-02-21  Sushma Rai  <rsushma@novell.com>
 
 	* storage/exchange-config-listener.c (exchange_camel_urls_is_equal):

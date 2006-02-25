@@ -129,8 +129,11 @@ add_vevent (ECalBackendExchange *cbex,
 			 * TRANSP property, so set it from the busy
 			 * status.
 			 */
-			if (transp)
+			if (transp) {
 				icalcomponent_remove_property (icalcomp,transp);
+				icalproperty_free (transp); 
+				transp = NULL;
+			}
 
 			if (!strcmp (x_val, "BUSY"))
 				transp = icalproperty_new_transp (ICAL_TRANSP_OPAQUE);
@@ -163,11 +166,14 @@ add_vevent (ECalBackendExchange *cbex,
 	 *   user's calendar.
 	 */
 	prop = icalcomponent_get_first_property (icalcomp, ICAL_ORGANIZER_PROPERTY);
-	if (prop && !icalcomponent_get_first_property (icalcomp, ICAL_ATTENDEE_PROPERTY))
+	if (prop && !icalcomponent_get_first_property (icalcomp, ICAL_ATTENDEE_PROPERTY)) {
 		icalcomponent_remove_property (icalcomp, prop);
+		icalproperty_free (prop);
+	}
 
 	/* Now add to the cache */
 	status = e_cal_backend_exchange_add_object (cbex, href, lastmod, icalcomp);
+	
 	return (status == GNOME_Evolution_Calendar_Success);
 }
 
@@ -212,16 +218,22 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 		}
 		if (attachment_list) {
 			ecomp = e_cal_component_new ();
-			e_cal_component_set_icalcomponent (ecomp, icalcomponent_new_clone (icalcomp));
+			e_cal_component_set_icalcomponent (ecomp, icalcomp);
 			e_cal_component_set_attachment_list (ecomp, attachment_list);
 			icalcomp = icalcomponent_new_clone (e_cal_component_get_icalcomponent (ecomp));
 			g_object_unref (ecomp);
+			g_slist_foreach (attachment_list, (GFunc) g_free, NULL);
+			g_slist_free (attachment_list);
 		}
 		status = add_vevent (cbex, href, lastmod, icalcomp);
 		icalcomponent_free (icalcomp);
 		return status;
 	} else if (kind != ICAL_VCALENDAR_COMPONENT) {
 		icalcomponent_free (icalcomp);
+		if (attachment_list) {
+			g_slist_foreach (attachment_list, (GFunc) g_free, NULL);
+			g_slist_free (attachment_list);
+		}
 		return FALSE;
 	}
 
@@ -249,6 +261,10 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 	}
 	icalcomponent_free (icalcomp);
 
+	if (attachment_list) {
+		g_slist_foreach (attachment_list, (GFunc) g_free, NULL);
+		g_slist_free (attachment_list);
+	}
 	return TRUE;
 }
 
@@ -926,8 +942,9 @@ update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp)
 		} else if (!strcmp (x_name, "X-MICROSOFT-CDO-IMPORTANCE")) {
 			icalproperty_set_x (icalprop, importance);
 			prop_set |= IMPORTANCE;
-		} else if (!strcmp (x_name, "X-MICROSOFT-CDO-MODPROPS"))
+		} else if (!strcmp (x_name, "X-MICROSOFT-CDO-MODPROPS")) {
 			icalcomponent_remove_property (icalcomp, icalprop);
+		}
 
 		icalprop = icalcomponent_get_next_property (icalcomp, ICAL_X_PROPERTY);
 	}
@@ -1953,6 +1970,7 @@ discard_alarm (ECalBackendSync *backend, EDataCal *cal,
 		g_free (ecomp_str);
 	}
 	g_object_unref (ecomp);
+	icalcomponent_free (icalcomp);
 
 	return result;
 }
