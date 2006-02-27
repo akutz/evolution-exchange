@@ -60,6 +60,10 @@ struct _ECalBackendExchangeTasksPrivate {
 	
 	GList *comp;
 
+	GMutex *mutex;
+
+	gboolean is_loaded;
+
 	int dummy;
 };
 
@@ -554,7 +558,7 @@ static const char *task_props[] = {
 static const int n_task_props = sizeof (task_props) / sizeof (task_props[0]);
 
 static guint
-get_changed_tasks (ECalBackendExchange *cbex, const char *since)
+get_changed_tasks (ECalBackendExchange *cbex)
 {
 	ECalBackendExchangeComponent *ecalbexcomp;
 	E2kRestriction *rn;
@@ -574,8 +578,12 @@ get_changed_tasks (ECalBackendExchange *cbex, const char *since)
 	const icaltimezone *itzone;
 	ECalComponentDateTime ecdatetime;
 	icalcomponent *icalcomp;
+	const char *since = NULL;
+	ECalBackendExchangeTasks *cbext = E_CAL_BACKEND_EXCHANGE_TASKS (cbex);
 
         g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex), SOUP_STATUS_CANCELLED);
+
+	g_mutex_lock (cbext->priv->mutex);
 
 	rn = e2k_restriction_prop_string (E2K_PR_DAV_CONTENT_CLASS,
 					  E2K_RELOP_EQ,
@@ -805,8 +813,15 @@ get_changed_tasks (ECalBackendExchange *cbex, const char *since)
 		e_cal_component_commit_sequence (ecal);
 		icalcomp = e_cal_component_get_icalcomponent (ecal);
 		if (icalcomp) {
-			e_cal_backend_exchange_add_object (cbex, result->href, 
-						modtime, icalcomp);
+			gboolean status = FALSE;
+			icalcomponent_kind kind = icalcomponent_isa (icalcomp);
+
+			status = e_cal_backend_exchange_add_object (cbex, result->href, 
+					modtime, icalcomp);
+
+			if (status && kind == ICAL_VTODO_COMPONENT)
+				e_cal_backend_notify_object_created (E_CAL_BACKEND (cbex), icalcomponent_as_ical_string (icalcomp));
+
 		}
 	} /* End while */
 	status = e2k_result_iter_free (iter);
@@ -815,6 +830,7 @@ get_changed_tasks (ECalBackendExchange *cbex, const char *since)
 		g_ptr_array_free (hrefs, TRUE);
 		g_hash_table_destroy (modtimes);
 		g_hash_table_destroy (attachments);
+		g_mutex_unlock (cbext->priv->mutex);
 		return status;
 	}
 
@@ -825,6 +841,8 @@ get_changed_tasks (ECalBackendExchange *cbex, const char *since)
 		g_ptr_array_free (hrefs, TRUE);
 		g_hash_table_destroy (modtimes);
 		g_hash_table_destroy (attachments);
+		cbext->priv->is_loaded = TRUE;
+		g_mutex_unlock (cbext->priv->mutex);
 		return SOUP_STATUS_OK;
 	}
 	
@@ -864,17 +882,21 @@ get_changed_tasks (ECalBackendExchange *cbex, const char *since)
 	if (!SOUP_STATUS_IS_SUCCESSFUL (status)) {
 		g_ptr_array_free (hrefs, TRUE);
 		g_hash_table_destroy (attachments);
+		g_mutex_unlock (cbext->priv->mutex);
 		return status;
 	}
 
 	if (!hrefs->len) {
 		g_ptr_array_free (hrefs, TRUE);
 		g_hash_table_destroy (attachments);
+		cbext->priv->is_loaded = TRUE;
+		g_mutex_unlock (cbext->priv->mutex);
 		return SOUP_STATUS_OK;
 	}
 
 	ctx = exchange_account_get_context (cbex->account);
 	if (!ctx) {
+		g_mutex_unlock (cbext->priv->mutex);
 		/* This either means we lost connection or we are in offline mode */
 		return SOUP_STATUS_CANT_CONNECT;
 	}
@@ -908,6 +930,11 @@ get_changed_tasks (ECalBackendExchange *cbex, const char *since)
 	g_ptr_array_free (hrefs, TRUE);
 	g_hash_table_destroy (modtimes);
 	g_hash_table_destroy (attachments);
+
+	if (status == SOUP_STATUS_OK)
+		cbext->priv->is_loaded = TRUE;
+
+	g_mutex_unlock (cbext->priv->mutex);
 	return status;
 }
 
@@ -922,7 +949,7 @@ notify_changes (E2kContext *ctx, const char *uri,
 	g_return_if_fail (E_IS_CAL_BACKEND_EXCHANGE (ecalbex));
 	g_return_if_fail (uri != NULL);
 
-	get_changed_tasks (ecalbex, NULL);
+	get_changed_tasks (ecalbex);
 	
 }
 
@@ -932,6 +959,9 @@ open_task (ECalBackendSync *backend, EDataCal *cal,
 	   const char *username, const char *password)
 {
 	ECalBackendSyncStatus status;
+	GThread *thread = NULL;
+	GError *error = NULL;
+	ECalBackendExchangeTasks *cbext = E_CAL_BACKEND_EXCHANGE_TASKS (backend);
 
 	status = E_CAL_BACKEND_SYNC_CLASS (parent_class)->open_sync (backend,
 				     cal, only_if_exits, username, password);
@@ -942,15 +972,23 @@ open_task (ECalBackendSync *backend, EDataCal *cal,
 		d(printf ("ECBEC : calendar is offline\n"));
 		return GNOME_Evolution_Calendar_Success;
 	}
-
-	status = get_changed_tasks (E_CAL_BACKEND_EXCHANGE (backend), NULL);
-	if (status != E2K_HTTP_OK)
-		return GNOME_Evolution_Calendar_OtherError;
 	
+	if (cbext->priv->is_loaded)
+		return GNOME_Evolution_Calendar_Success;
+
 	/* Subscribe to the folder to notice changes */
         e_folder_exchange_subscribe (E_CAL_BACKEND_EXCHANGE (backend)->folder,
                                         E2K_CONTEXT_OBJECT_CHANGED, 30,
                                         notify_changes, backend);
+
+	thread = g_thread_create ((GThreadFunc) get_changed_tasks, E_CAL_BACKEND_EXCHANGE (backend), FALSE, &error);
+	if (!thread) {
+		g_warning (G_STRLOC ": %s", error->message);
+		g_error_free (error);
+
+		return GNOME_Evolution_Calendar_OtherError;
+	}
+
 
 	return GNOME_Evolution_Calendar_Success;
 }
@@ -1322,6 +1360,9 @@ static void
 init (ECalBackendExchangeTasks *cbext)
 {
 	cbext->priv = g_new0 (ECalBackendExchangeTasksPrivate, 1);
+
+	cbext->priv->mutex = g_mutex_new ();
+	cbext->priv->is_loaded = FALSE;
 }
 
 static void
@@ -1335,6 +1376,11 @@ finalize (GObject *object)
 {
 	ECalBackendExchangeTasks *cbext =
 		E_CAL_BACKEND_EXCHANGE_TASKS (object);
+
+	if (cbext->priv->mutex) {
+		g_mutex_free (cbext->priv->mutex);
+		cbext->priv->mutex = NULL;
+	}
 
 	g_free (cbext->priv);
 

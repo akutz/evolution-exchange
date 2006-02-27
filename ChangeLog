@@ -1,3 +1,21 @@
+2006-02-20  Chenthill Palanisamy  <pchenthill@novell.com>
+
+	* calendar/e-cal-backend-exchange-calendar.c: 
+	(add_ical): Notify the client the if a new object gets created.
+	(get_changed_events): Make it thread safe.
+	(notify_changes): get the change notifications. Do not get notifications 
+	for generated instances.
+	(open_calendar): Check if the client is already loaded, if so return 
+	immediately.
+	(ECalBackendExchangeCalendarPrivate): Added a mutex and a is_loaded variable.
+	(init): Intialiazed mutex and is_loaded variables.
+	* calendar/e-cal-backend-exchange-tasks.c: (get_changed_tasks),
+	(notify_changes), (open_task), (init)
+	(struct _ECalBackendExchangeTasksPrivate): Same as calendar.
+	* calendar/e-cal-backend-exchange.c: 
+	(open_calendar): Check if the calendar is loaded and dont reload again.
+	(init): Intialize cache unseen.
+
 2006-02-25  Sushma Rai  <rsushma@novell.com>
 
 	* calendar/e-cal-backend-exchange.c 

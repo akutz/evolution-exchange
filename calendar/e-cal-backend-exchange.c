@@ -322,6 +322,7 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 
 		d(printf ("ECBE : cal is offline .. load cache\n"));
 
+		
 		cbex->priv->read_only = TRUE;
 		source = e_cal_backend_get_source (E_CAL_BACKEND (cbex));
 		display_contents = e_source_get_property (source, "offline_sync");
@@ -340,6 +341,11 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 				cbex->folder = exchange_account_get_folder (cbex->account, uristr);
 			}
 		}
+		
+		if (cbex->priv->is_loaded) {
+			g_mutex_unlock (cbex->priv->open_lock);
+			return GNOME_Evolution_Calendar_Success;
+		}
 
 		euri = e2k_uri_new (uristr);
 		load_status = load_cache (cbex, euri);
@@ -349,6 +355,12 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 			cbex->priv->is_loaded = TRUE;
 		g_mutex_unlock (cbex->priv->open_lock);
 		return load_status;
+	}
+		
+	/* What else to check */
+	if (cbex->priv->is_loaded && cbex->account && exchange_account_get_context (cbex->account)) {
+		g_mutex_unlock (cbex->priv->open_lock);
+		return GNOME_Evolution_Calendar_Success;
 	}
 		
 	/* Make sure we have an open connection */
@@ -492,8 +504,23 @@ static void
 uncache (gpointer key, gpointer value, gpointer data)
 {
 	ECalBackendExchange *cbex = data;
+	ECalBackend *backend = E_CAL_BACKEND (cbex);
+	ECalComponentId *id = g_new0 (ECalComponentId, 1);
+	ECalBackendExchangeComponent *ecomp;
 
+	ecomp = (ECalBackendExchangeComponent *)value;
+	
+	/* FIXME Need get the recurrence id here */
+	id->uid = g_strdup (key);
+	id->rid = NULL;
+	if (ecomp->icomp) {
+		/* FIXME somehow the query does not match with the component in some cases, so user needs to press a
+		   clear to get rid of the component from the view in that case*/
+		e_cal_backend_notify_object_removed (backend, id, icalcomponent_as_ical_string (ecomp->icomp)
+				, NULL);
+	}
 	g_hash_table_remove (cbex->priv->objects, key);
+	e_cal_component_free_id (id);
 }
 
 void
@@ -1814,6 +1841,7 @@ init (ECalBackendExchange *cbex)
 
 	cbex->priv->set_lock = g_mutex_new ();
 	cbex->priv->open_lock = g_mutex_new ();
+	cbex->priv->cache_unseen = NULL;
 
 	e_cal_backend_sync_set_lock (E_CAL_BACKEND_SYNC (cbex), TRUE);
 }
