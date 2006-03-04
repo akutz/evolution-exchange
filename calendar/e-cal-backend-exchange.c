@@ -647,7 +647,8 @@ discard_detached_instance (ECalBackendExchangeComponent *ecomp,
 gboolean
 e_cal_backend_exchange_modify_object (ECalBackendExchange *cbex,
 				      icalcomponent *comp,
-				      CalObjModType mod)
+				      CalObjModType mod,
+				      gboolean discard_detached)
 {
 	ECalBackendExchangeComponent *ecomp;
 	const char *uid;
@@ -665,11 +666,12 @@ e_cal_backend_exchange_modify_object (ECalBackendExchange *cbex,
 	if (!ecomp)
 		return FALSE;
 
-	if (mod == CALOBJ_MOD_ALL || icaltime_is_null_time (rid)) {
+	if (mod == CALOBJ_MOD_ALL || icaltime_is_null_time (rid) || discard_detached) {
 		icalcomponent_free (ecomp->icomp);
 		ecomp->icomp = icalcomponent_new_clone (comp);
+		if (discard_detached && !icaltime_is_null_time (rid))
+			discard_detached_instance (ecomp, rid);
 	} else {
-		discard_detached_instance (ecomp, rid);
 		ecomp->instances = g_list_prepend (ecomp->instances,
 						   icalcomponent_new_clone (comp));
 	}

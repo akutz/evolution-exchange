@@ -1240,7 +1240,7 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 		status = put_body(new_comp, e2kctx, NULL, ecalbexcomp->href, from_name, from_addr, 
 					attach_body_crlf, boundary, NULL);
 		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
-			e_cal_backend_exchange_modify_object (ecalbex, icalcomp, mod);
+			e_cal_backend_exchange_modify_object (ecalbex, icalcomp, mod, FALSE);
 	}
 	icalcomponent_free (icalcomp);
 	return GNOME_Evolution_Calendar_Success;

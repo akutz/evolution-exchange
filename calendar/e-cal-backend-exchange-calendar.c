@@ -55,13 +55,14 @@ static ECalBackendExchange *parent_class = NULL;
 
 #define d(x) 
 
-static ECalBackendSyncStatus modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, const char *calobj, CalObjModType mod, char **old_object, const char *href);
+static ECalBackendSyncStatus modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, const char *calobj, CalObjModType mod, char **old_object, char **new_object, const char *href, const char *rid_to_remove);
 
 static icalproperty *find_attendee_prop (icalcomponent *ical_comp, const char *address);
 static gboolean check_owner_partstatus_for_declined (ECalBackendSync *backend,
 						     icalcomponent *icalcomp);
 
 gboolean check_for_send_options (icalcomponent *icalcomp, E2kProperties *props);
+static void update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp);
 
 static void
 add_timezones_from_comp (ECalBackendExchange *cbex, icalcomponent *icalcomp)
@@ -692,8 +693,8 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	icalcomponent_kind kind;
 	icalproperty *icalprop;
 	const char *temp_comp_uid;
-	char *busystatus, *insttype, *allday, *importance, *lastmod;
-	struct icaltimetype current, startt;
+	char *lastmod;
+	struct icaltimetype current;
 	char *location, *ru_header;
 	ECalComponent *comp;
 	char *body, *body_crlf, *msg;
@@ -752,51 +753,6 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	/* Send options */
 	send_options = check_for_send_options (icalcomp, props);
 	
-	/*set X-MICROSOFT-CDO properties*/
-	busystatus = "BUSY";
-	icalprop = icalcomponent_get_first_property (icalcomp, 
-						     ICAL_TRANSP_PROPERTY);
-	if (icalprop) {
-		icalproperty_transp transp_val = icalproperty_get_transp (icalprop);
-		if (transp_val == ICAL_TRANSP_TRANSPARENT)
-			busystatus = "FREE";
-	}
-
-	if (e_cal_util_component_has_recurrences (icalcomp))
-		insttype = "1";
-	else
-		insttype = "0";
-
-	startt = icalcomponent_get_dtstart (icalcomp);
-	if(icaltime_is_date (startt))
-		allday = "TRUE";
-	else
-		allday = "FALSE";
-	
-	importance = "1";
-	icalprop = icalcomponent_get_first_property (icalcomp,
-						     ICAL_PRIORITY_PROPERTY);
-	if (icalprop) {
-		int prio = icalproperty_get_priority (icalprop);
-		importance = prio < 5 ? "2" : prio > 5 ? "0" : "1";
-	}
-	
-	icalprop = icalproperty_new_x (busystatus);
-	icalproperty_set_x_name (icalprop, "X-MICROSOFT-CDO-BUSYSTATUS");
-	icalcomponent_add_property (icalcomp, icalprop);
-
-	icalprop = icalproperty_new_x (insttype);
-	icalproperty_set_x_name (icalprop, "X-MICROSOFT-CDO-INSTTYPE");
-	icalcomponent_add_property (icalcomp, icalprop);
-	
-	icalprop = icalproperty_new_x (allday);
-	icalproperty_set_x_name (icalprop, "X-MICROSOFT-CDO-ALLDAYEVENT");
-	icalcomponent_add_property (icalcomp, icalprop);
-	
-	icalprop = icalproperty_new_x (importance);
-	icalproperty_set_x_name (icalprop, "X-MICROSOFT-CDO-IMPORTANCE");
-	icalcomponent_add_property (icalcomp, icalprop);
-
 	/*set created and last_modified*/
 	current = icaltime_from_timet (time (NULL), 0);
 	icalcomponent_add_property (icalcomp, icalproperty_new_created (current));
@@ -818,6 +774,8 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 		attach_body = build_msg (E_CAL_BACKEND_EXCHANGE (cbexc), comp, summary, &boundary);
 		attach_body_crlf = e_cal_backend_exchange_lf_to_crlf (attach_body);	
 	}
+	
+	update_x_properties (E_CAL_BACKEND_EXCHANGE (cbexc), comp);
 
 	cbdata = g_new0 (struct _cb_data, 1);
 	cbdata->be = backend;
@@ -944,6 +902,7 @@ update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp)
 	int *priority;
 	const char *busystatus, *insttype, *allday, *importance;
 	int prop_set = 0;
+	GSList *props = NULL, *l = NULL;
 
 	e_cal_component_get_transparency (comp, &transp);
 	if (transp == E_CAL_COMPONENT_TRANSP_TRANSPARENT)
@@ -998,12 +957,22 @@ update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp)
 			icalproperty_set_x (icalprop, importance);
 			prop_set |= IMPORTANCE;
 		} else if (!strcmp (x_name, "X-MICROSOFT-CDO-MODPROPS")) {
-			icalcomponent_remove_property (icalcomp, icalprop);
+			props = g_slist_append (props, icalprop);
 		}
 
 		icalprop = icalcomponent_get_next_property (icalcomp, ICAL_X_PROPERTY);
 	}
 
+	/* Remove all CDO-MODPROPS properties, else server would return error for the operation
+	   performed */
+	for (l = props; l != NULL; l = l->next) {
+		icalprop = l->data;
+		icalcomponent_remove_property (icalcomp, icalprop);
+		icalproperty_free (icalprop);
+	}
+	
+	g_slist_free (props);
+	
 	/* Now set the ones that weren't set. */
 	if (!(prop_set & BUSYSTATUS)) {
 		icalprop = icalproperty_new_x (busystatus);
@@ -1030,8 +999,6 @@ update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp)
 	}
 }
 
-
-
 static ECalBackendSyncStatus
 modify_object (ECalBackendSync *backend, EDataCal *cal,
 	       const char *calobj, CalObjModType mod,
@@ -1039,13 +1006,13 @@ modify_object (ECalBackendSync *backend, EDataCal *cal,
 {
 	d(printf ("ecbexc_modify_object(%p, %p, %d, %s)", backend, cal, mod, *old_object ? *old_object : NULL));
 
-	return modify_object_with_href (backend, cal, calobj, mod, old_object, NULL);
+	return modify_object_with_href (backend, cal, calobj, mod, old_object, new_object, NULL, NULL);
 }
 
 static ECalBackendSyncStatus
 modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	       const char *calobj, CalObjModType mod,
-	       char **old_object, const char *href)
+	       char **old_object, char **new_object, const char *href, const char *rid_to_remove)
 {
 	ECalBackendExchangeCalendar *cbexc;
 	ECalBackendExchangeComponent *ecomp;
@@ -1068,6 +1035,9 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	gboolean send_options;
 	E2kContext *ctx;
 	E2kProperties *props = e2k_properties_new ();
+	GList *l = NULL;
+	struct icaltimetype inst_rid;
+	gboolean remove = FALSE;
 
 	cbexc =	E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 
@@ -1078,6 +1048,9 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
                 /* FIXME */
                 return GNOME_Evolution_Calendar_InvalidObject;
         }
+
+	if (rid_to_remove)
+		remove = TRUE;
 
 	icalcomp = icalparser_parse_string (calobj);
 	if (!icalcomp)
@@ -1090,8 +1063,12 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		return GNOME_Evolution_Calendar_InvalidObject;
 	}
 	comp_uid = icalcomponent_get_uid (icalcomp);
-	if (mod == CALOBJ_MOD_THIS)
+
+	if (!remove)
 		key_rid = icalcomponent_get_recurrenceid (icalcomp);
+	else  
+		key_rid = icaltime_from_string (rid_to_remove);
+	
 	
 	ecomp = get_exchange_comp (E_CAL_BACKEND_EXCHANGE (cbexc), comp_uid);
 	
@@ -1104,7 +1081,47 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	summary = icalcomponent_get_summary (icalcomp);
 	if (!summary)
 		summary = "";
+
+	/* If rid is present and mod is ALL we need to set the times of the master object */
+	if ((mod == CALOBJ_MOD_ALL) && e_cal_util_component_has_recurrences (icalcomp) && !icaltime_is_null_time (key_rid)) {
+		icaltimetype start;
+
+		start = icalcomponent_get_dtstart (icalcomp);
+
+		if (!key_rid.zone)
+			key_rid.zone = start.zone;
+
+		/* This means its a instance generated from master object. So replace 
+		   the dates stored dates from the master object */
+
+		if (icaltime_compare_date_only (start, key_rid) == 0) {
+			icaltimetype m_end, m_start, end;
+			icalproperty *prop;
+
+			m_start = icalcomponent_get_dtstart (ecomp->icomp);
+			m_end = icalcomponent_get_dtend (ecomp->icomp);
+			end = icalcomponent_get_dtend (icalcomp);
 	
+			if (icaltime_compare (start, key_rid) != 0) {
+					icaltimetype end = icalcomponent_get_dtend (icalcomp);
+					
+					m_start.hour = start.hour;
+					m_start.minute = start.minute;
+					m_start.second = start.second;
+						
+					m_end.hour = end.hour;
+					m_end.minute = end.minute;
+					m_end.second = end.second;
+			} 
+			icalcomponent_set_dtstart (icalcomp, m_start);
+			icalcomponent_set_dtend (icalcomp, m_end);
+			
+			prop = icalcomponent_get_first_property (icalcomp, ICAL_RECURRENCEID_PROPERTY);
+			icalcomponent_remove_property (icalcomp, prop);
+			icalproperty_free (prop);
+		}
+	}
+
 	updated_ecomp = e_cal_component_new ();
 	e_cal_component_set_icalcomponent (updated_ecomp, icalcomp);
 
@@ -1239,10 +1256,45 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	g_free (real_comp_str);
 
 	icalcomponent_foreach_tzid (real_icalcomp, add_timezone_cb, cbdata);
-	if (mod == CALOBJ_MOD_THIS) {
-		icalcomponent_add_component (cbdata->vcal_comp, icalcomponent_new_clone (ecomp->icomp));	
+
+	/* Master object should be added first */
+	if (!remove && mod == CALOBJ_MOD_ALL)
+		icalcomponent_add_component (cbdata->vcal_comp, real_icalcomp);
+	
+
+	/* We need to add all the instances to the VCalendar component while sending to
+	   the server, so that we don't lose any detached instances */
+	if (ecomp->icomp && mod == CALOBJ_MOD_THIS) {
+		icalcomponent_add_component (cbdata->vcal_comp, icalcomponent_new_clone (ecomp->icomp));
 	}
-	icalcomponent_add_component (cbdata->vcal_comp, real_icalcomp);
+
+	for (l = ecomp->instances; l != NULL; l = l->next) {
+		icalcomponent *icomp = l->data;
+
+		inst_rid = icalcomponent_get_recurrenceid (icomp);
+		if (icaltime_compare (inst_rid, key_rid) == 0) {
+			cached_ecomp = e_cal_component_new ();
+
+			e_cal_component_set_icalcomponent (cached_ecomp,
+					icalcomponent_new_clone (l->data));
+			if (remove) {
+				icalcomponent_free (l->data);
+				l = g_list_remove_link (ecomp->instances, l);
+				if (!l)
+					break;
+			}
+
+			continue;
+		} else {
+			icalcomponent_add_component (cbdata->vcal_comp, icalcomponent_new_clone (icomp));
+		}
+	}
+
+	if (!cached_ecomp && remove)
+		*new_object = g_strdup (icalcomponent_as_ical_string (icalcomp));
+
+	if (!remove && mod == CALOBJ_MOD_THIS)
+		icalcomponent_add_component (cbdata->vcal_comp, real_icalcomp);
 
 	body = icalcomponent_as_ical_string (cbdata->vcal_comp);
 	body_crlf = e_cal_backend_exchange_lf_to_crlf (body);
@@ -1293,31 +1345,11 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	g_free (from);
 	g_free (body_crlf);
 
-	if (mod == CALOBJ_MOD_THIS) {
-		GList *l;
-		struct icaltimetype inst_rid, key_rid;
-
-		for (l = ecomp->instances; l ; l = l->next) {
-			inst_rid = icalcomponent_get_recurrenceid (l->data);
-			if (icaltime_compare (inst_rid, key_rid) == 0) {
-				cached_ecomp = e_cal_component_new ();
-				e_cal_component_set_icalcomponent (cached_ecomp,
-					 icalcomponent_new_clone (l->data));
-				break;
-			}
-		}
-
-	} else {
-		cached_ecomp = e_cal_component_new ();
-		e_cal_component_set_icalcomponent (cached_ecomp, icalcomponent_new_clone (ecomp->icomp));
-	}
 	if (cached_ecomp) {
 		e_cal_component_commit_sequence (cached_ecomp);
 		*old_object = e_cal_component_get_as_string (cached_ecomp);
-	} else {
-		*old_object = e_cal_component_get_as_string (updated_ecomp);
 	}
-	
+
 	ctx = exchange_account_get_context (E_CAL_BACKEND_EXCHANGE (cbexc)->account);	
 	
 	/* PUT the iCal object in the Exchange server */
@@ -1334,8 +1366,11 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (http_status))
 		e_cal_backend_exchange_modify_object (E_CAL_BACKEND_EXCHANGE (cbexc), 
-							real_icalcomp, mod);
+							e_cal_component_get_icalcomponent (real_ecomp), mod, remove);
 	
+	if (!remove)
+		*new_object = e_cal_component_get_as_string (real_ecomp);
+
 	g_free (msg);
 	g_object_unref (real_ecomp);
 	g_object_unref (updated_ecomp);
@@ -1360,7 +1395,7 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 	E2kHTTPStatus status;
 	E2kContext *ctx;
 	ECalComponent *comp;
-	char *calobj, *obj;
+	char *calobj, *obj = NULL;
 	struct icaltimetype time_rid;
 	ECalBackendSyncStatus ebs_status;
 	
@@ -1388,18 +1423,26 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 		e_cal_component_commit_sequence (comp);
 		*old_object = e_cal_component_get_as_string (comp);
 	}
-	
-	if (mod == CALOBJ_MOD_THIS && rid && *rid) {
+
+	/*TODO How handle multiple detached intances with no master object ?*/	
+	if (mod == CALOBJ_MOD_THIS && rid && *rid && ecomp->icomp) {
+		char *new_object = NULL;
+		
 		/*remove a single instance of a recurring event and modify */
 		time_rid = icaltime_from_string (rid);
 		e_cal_util_remove_instances (ecomp->icomp, time_rid, mod);
 		calobj  = (char *) icalcomponent_as_ical_string (ecomp->icomp);
-		ebs_status = modify_object (backend, cal, calobj, mod, &obj, NULL);
+		ebs_status = modify_object_with_href (backend, cal, calobj, mod, &obj, &new_object, NULL, rid);
 		g_object_unref (comp);
 		if (ebs_status != GNOME_Evolution_Calendar_Success)
 			goto error;
+		if (obj) {
+			g_free (*old_object);
+			*old_object = obj;
+		}
 		
-		g_free (obj);
+		g_free (new_object);
+
 		return ebs_status;
 	}
 	g_object_unref (comp);
@@ -1429,7 +1472,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 	GList *comps, *l;
 	struct icaltimetype current;
 	icalproperty_method method;
-	icalcomponent *subcomp;
+	icalcomponent *subcomp, *icalcomp;
 	ECalBackendSyncStatus status = GNOME_Evolution_Calendar_Success;	
 
 	cbexc =	E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
@@ -1442,9 +1485,14 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
                 return GNOME_Evolution_Calendar_InvalidObject;
         }
 
+
 	status = e_cal_backend_exchange_extract_components (calobj, &method, &comps);
 	if (status != GNOME_Evolution_Calendar_Success)
 		return GNOME_Evolution_Calendar_InvalidObject;
+		
+	icalcomp = icalparser_parse_string (calobj);
+	add_timezones_from_comp (E_CAL_BACKEND_EXCHANGE (backend), icalcomp);
+	icalcomponent_free (icalcomp);
 
 	for (l = comps; l; l= l->next) {
 		const char *uid, *rid;
@@ -1483,22 +1531,28 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 									     old_object, NULL);
 				} else {
 					struct icaltimetype time_rid;
+					char *new_object = NULL;
+					CalObjModType mod = CALOBJ_MOD_ALL;
 					
 					if (rid) {
 						time_rid = icaltime_from_string (rid);
 						e_cal_util_remove_instances (ecomp->icomp, time_rid, CALOBJ_MOD_THIS);
 					}
 
+					if (e_cal_util_component_is_instance (subcomp))
+						mod = CALOBJ_MOD_THIS;
+
 					icalobj = (char *) icalcomponent_as_ical_string (subcomp);
 					status = modify_object_with_href (backend, cal, icalobj,
-									  CALOBJ_MOD_THIS,
-									  &old_object, NULL);
+									  mod,
+									  &old_object, &new_object, NULL, NULL);
 					d(printf ("Modify this particular instance : %s\n", rid));
 					d(printf ("Modify object : %s\n", icalobj));
 					if (status != GNOME_Evolution_Calendar_Success)
 						goto error;
 					e_cal_backend_notify_object_modified (E_CAL_BACKEND (backend),
-									      old_object, icalobj);
+									      old_object, new_object);
+					g_free (new_object);
 					d(printf ("Notify that the new object after modication is : %s\n", icalobj));
 				}
 
@@ -1584,7 +1638,7 @@ book_resource (ECalBackendExchange *cbex,
 	const char *access_prop = NULL, *meeting_prop = NULL, *cal_uid = NULL;
 	gboolean bookable;
 	char *top_uri = NULL, *cal_uri = NULL, *returned_uid = NULL;
-	char *startz, *endz, *href = NULL, *old_object = NULL, *calobj = NULL;
+	char *startz, *endz, *href = NULL, *old_object = NULL, *calobj = NULL, *new_object = NULL;
 	E2kRestriction *rn;
 	int nresult;
 	ECalBackendExchangeBookingResult retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
@@ -1765,11 +1819,11 @@ book_resource (ECalBackendExchange *cbex,
 	/* status = e_cal_component_update (comp, method, FALSE  ); */
 	if (ecomp) {
 		/* Use the PUT method to create the meeting item in the resource's calendar. */
-		status = modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, calobj, CALOBJ_MOD_THIS, &old_object, href);
+		status = modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, calobj, CALOBJ_MOD_THIS, &old_object, &new_object, href, NULL);
 		if (status == GNOME_Evolution_Calendar_Success) {
 			/* Need this to update the participation status of the resource 
 			   in the organizer's calendar. */
-			status = modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, calobj, CALOBJ_MOD_THIS, &old_object, NULL);
+			status = modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, calobj, CALOBJ_MOD_THIS, &old_object, &new_object, NULL, NULL);
 		} else {
 			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
 			goto cleanup;
@@ -1779,6 +1833,7 @@ book_resource (ECalBackendExchange *cbex,
 			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_OK;
 		}
 		g_free (old_object);
+		g_free (new_object);
 	} else {
 		status = create_object (E_CAL_BACKEND_SYNC (cbex), cal, &calobj, &returned_uid);
 		if (status == GNOME_Evolution_Calendar_Success) {
@@ -1988,7 +2043,7 @@ discard_alarm (ECalBackendSync *backend, EDataCal *cal,
 	ECalBackendExchangeComponent *ecbexcomp;
 	ECalComponent *ecomp;
 	char *ecomp_str;
-	icalcomponent *icalcomp;
+	icalcomponent *icalcomp = NULL;
 
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (backend),
 					GNOME_Evolution_Calendar_InvalidObject);
@@ -2019,13 +2074,13 @@ discard_alarm (ECalBackendSync *backend, EDataCal *cal,
 		ecomp_str = e_cal_component_get_as_string (ecomp);
 		icalcomp = icalparser_parse_string (ecomp_str);
 		if (!e_cal_backend_exchange_modify_object ( cbex,
-					icalcomp, CALOBJ_MOD_ALL)) {
+					icalcomp, CALOBJ_MOD_ALL, FALSE)) {
 			result = GNOME_Evolution_Calendar_OtherError;
 		}
+		icalcomponent_free (icalcomp);
 		g_free (ecomp_str);
 	}
 	g_object_unref (ecomp);
-	icalcomponent_free (icalcomp);
 
 	return result;
 }
