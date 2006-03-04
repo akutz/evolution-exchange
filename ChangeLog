@@ -1,3 +1,10 @@
+2006-03-03  Sankar P  <psankar@novell.com>
+
+	* camel/camel-exchange-folder.c:
+	(append_message): Substitutes characters troubling HTTP-url-creation, 
+			  like TAB, with a blank.
+	Fixes #271567 and a bunch of its duplicates.		  
+
 2006-02-27  Sushma Rai  <rsushma@novell.com>
 
 	* configure.in : Bumped the version to 2.5.92

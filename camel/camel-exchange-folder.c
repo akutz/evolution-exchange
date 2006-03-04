@@ -284,6 +284,33 @@ append_message (CamelFolder *folder, CamelMimeMessage *message,
 	CamelStream *stream_mem;
 	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (folder->parent_store);
 
+	char *old_subject = NULL;
+	GString *new_subject;
+	int i, len;
+
+	/* 
+	   FIXME: We should add a top-level camel API camel_mime_message_prune_invalid_chars 
+	   which each of the provider will have to implement to remove things 
+	   that are invalid for their Transport mechanism. This will help in 
+	   avoiding  duplication of work. Now Sending and Importing both requires
+	   substitution of \t and \n with blank. 
+	*/
+	
+	old_subject = g_strdup(camel_mime_message_get_subject (message));
+	
+	if (old_subject) {
+		len = strlen (old_subject);
+		new_subject = g_string_new("");
+		for (i = 0; i < len; i++) 
+			if ((old_subject[i] != '\t') && (old_subject[i] != '\n'))
+				new_subject = g_string_append_c (new_subject, old_subject[i]);
+			else
+				new_subject = g_string_append_c (new_subject, ' ');
+		camel_mime_message_set_subject (message, new_subject->str);
+		g_free (old_subject);
+		g_string_free (new_subject, TRUE);
+	}	
+
 	if (!camel_exchange_store_connected (store, ex)) {
 		camel_exchange_journal_append ((CamelExchangeJournal *) ((CamelExchangeFolder *)folder)->journal, message, info, appended_uid, ex);
 		return;
