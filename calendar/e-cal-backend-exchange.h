@@ -65,7 +65,8 @@ gboolean  e_cal_backend_exchange_add_object       (ECalBackendExchange *cbex,
 						   icalcomponent       *comp);
 gboolean  e_cal_backend_exchange_modify_object    (ECalBackendExchange *cbex,
 						   icalcomponent       *comp,
-						   CalObjModType mod);
+						   CalObjModType mod,
+						   gboolean remove_detached);
 gboolean  e_cal_backend_exchange_remove_object    (ECalBackendExchange *cbex,
 						   const char          *uid);
 
