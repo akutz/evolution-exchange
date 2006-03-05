@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution exchange server\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-22 17:55+0200\n"
-"PO-Revision-Date: 2005-11-22 17:55+0200\n"
+"POT-Creation-Date: 2006-03-05 13:02+0200\n"
+"PO-Revision-Date: 2006-03-05 13:03+0200\n"
 "Last-Translator: Alexander Shopov <ash@contact.bg>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1857
+#: ../addressbook/e-book-backend-exchange.c:1867
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Търсене..."
@@ -35,7 +35,7 @@ msgstr "Получаване на резултатите от търсенето
 msgid "Error performing search"
 msgstr "Грешка при изпълнението на търсенето"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1748
+#: ../calendar/e-cal-backend-exchange-calendar.c:1932
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -44,60 +44,56 @@ msgstr ""
 "Ресурсът „%s“ не може да се задели за периодични събрания.\n"
 "Трябва да определяте всяко събрание отделно."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1766
+#: ../calendar/e-cal-backend-exchange-calendar.c:1950
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Ресурсът „%s“ е зает през избрания период."
 
-#: ../camel/camel-exchange-folder.c:221
+#: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
 msgstr "Папката не може да бъде изчистена, когато сте в режим „Изключен“."
 
-#: ../camel/camel-exchange-folder.c:230
-msgid "Can only expunge in Deleted Items folder"
-msgstr "Можете да изчистите само папката за изтрити обекти"
-
-#: ../camel/camel-exchange-folder.c:254
+#: ../camel/camel-exchange-folder.c:253
 msgid "No Subject"
 msgstr "Няма заглавие"
 
-#: ../camel/camel-exchange-folder.c:381
+#: ../camel/camel-exchange-folder.c:407
 msgid "This message is not available in offline mode."
 msgstr "Това писмо не е налично в режим „Изключен“."
 
-#: ../camel/camel-exchange-folder.c:616
+#: ../camel/camel-exchange-folder.c:642
 msgid "Moving messages"
 msgstr "Преместване на писма"
 
-#: ../camel/camel-exchange-folder.c:617
+#: ../camel/camel-exchange-folder.c:643
 msgid "Copying messages"
 msgstr "Копиране на писма"
 
-#: ../camel/camel-exchange-folder.c:988
+#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Неуспех при създаването на папката %s: %s"
 
-#: ../camel/camel-exchange-folder.c:998
+#: ../camel/camel-exchange-folder.c:1024
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Неуспех при зареждането на обобщението за %s"
 
-#: ../camel/camel-exchange-folder.c:1006
+#: ../camel/camel-exchange-folder.c:1032
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Неуспех при създаването на кеш за %s"
 
-#: ../camel/camel-exchange-folder.c:1016
+#: ../camel/camel-exchange-folder.c:1042
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Неуспех при създаването дневник за %s"
 
-#: ../camel/camel-exchange-folder.c:1061
+#: ../camel/camel-exchange-folder.c:1087
 msgid "Scanning for changed messages"
 msgstr "Проверка за променени писма"
 
-#: ../camel/camel-exchange-folder.c:1087
+#: ../camel/camel-exchange-folder.c:1113
 msgid "Fetching summary information for new messages"
 msgstr "Доставяне на обобщение за новите писма"
 
@@ -105,10 +101,10 @@ msgstr "Доставяне на обобщение за новите писма"
 msgid "No folder name found\n"
 msgstr "Не е намерено име на папка\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2534
-#: ../mail/mail-stub-exchange.c:2578 ../mail/mail-stub-exchange.c:2613
-#: ../mail/mail-stub-exchange.c:2640 ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2709
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
+#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
+#: ../mail/mail-stub-exchange.c:2724
 msgid "Folder doesn't exist"
 msgstr "Папката не съществува"
 
@@ -138,13 +134,13 @@ msgstr "Глобален списък с адреси / активна дире�
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
 #: ../camel/camel-exchange-provider.c:53
-msgid "Global Catalog server name:"
-msgstr "Име на сървъра за глобалния каталог:"
+msgid "_Global Catalog server name:"
+msgstr "_Име на сървъра за глобалния каталог:"
 
 #: ../camel/camel-exchange-provider.c:55
 #, c-format
-msgid "Limit number of GAL responses: %s"
-msgstr "Ограничаване на отговорите на GAL: %s"
+msgid "_Limit number of GAL responses: %s"
+msgstr "_Ограничаване на отговорите на GAL: %s"
 
 #: ../camel/camel-exchange-provider.c:58
 msgid "Options"
@@ -152,26 +148,25 @@ msgstr "Настройки"
 
 #: ../camel/camel-exchange-provider.c:60
 #, c-format
-msgid "Password Expiry Warning period: %s"
-msgstr "Период за изтичане валидността на паролата: %s"
+msgid "_Password Expiry Warning period: %s"
+msgstr "_Период за изтичане валидността на паролата: %s"
 
 #: ../camel/camel-exchange-provider.c:62
-msgid "Automatically synchronize account locally"
-msgstr "Автоматично, локално синхронизиране на абонамент"
+msgid "Automatically synchroni_ze account locally"
+msgstr "Автоматично локално _синхронизиране на абонамент"
 
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:65
-msgid "Apply filters to new messages in Inbox on this server"
-msgstr ""
-"Прилагане на филтри спрямо новите писма за входящата кутия на този сървър."
+msgid "_Apply filters to new messages in Inbox on this server"
+msgstr "Прилагане на _филтри спрямо новите писма за входящата кутия на този сървър."
 
 #: ../camel/camel-exchange-provider.c:67
-msgid "Check new messages for Junk contents"
-msgstr "Проверка на новите писма за нежелана поща"
+msgid "Check new messages for _Junk contents"
+msgstr "Проверка на новите писма за _нежелана поща"
 
 #: ../camel/camel-exchange-provider.c:69
-msgid "Only check for Junk messages in the Inbox folder"
-msgstr "Да се проверява за нежелана поща само във входящата кутия."
+msgid "Only check for Junk messag_es in the Inbox folder"
+msgstr "Да се проверява за нежелана поща само във _входящата кутия."
 
 #: ../camel/camel-exchange-provider.c:79
 msgid "Microsoft Exchange"
@@ -217,7 +212,7 @@ msgstr "Сървър с Exchange %s"
 msgid "Exchange account for %s on %s"
 msgstr "Абонамент към Exchange за %s на %s"
 
-#: ../camel/camel-exchange-store.c:352 ../storage/exchange-account.c:869
+#: ../camel/camel-exchange-store.c:352
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sВъведете парола за %s"
@@ -226,7 +221,7 @@ msgstr "%sВъведете парола за %s"
 msgid "Evolution Exchange backend process"
 msgstr "Процес на ядрото на Evolution Exchange"
 
-#: ../camel/camel-exchange-store.c:444 ../storage/exchange-account.c:1384
+#: ../camel/camel-exchange-store.c:444
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -308,7 +303,127 @@ msgstr "Връзката към %s се загуби"
 msgid "Error communicating with %s: %s"
 msgstr "Грешка по време на комуникацията с %s: %s"
 
-#: ../lib/e2k-autoconfig.c:1471 ../storage/exchange-autoconfig-wizard.c:211
+#: ../mail/mail-stub-exchange.c:257
+msgid "No such folder"
+msgstr "Няма такава папка"
+
+#. FIXME: should be this, but string freeze freezes me to do so.
+#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
+#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
+#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
+#: ../mail/mail-stub-exchange.c:2740 ../storage/xc-commands.c:319
+msgid "Permission denied"
+msgstr "Достъпът е отказан"
+
+#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
+msgid "Could not open folder: Permission denied"
+msgstr "Папката не може да бъде отворена: достъпът е отказан"
+
+#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
+msgid "Could not open folder"
+msgstr "Папката не може да бъде отворена"
+
+#: ../mail/mail-stub-exchange.c:755
+msgid "No such folder."
+msgstr "Няма такава папка."
+
+#: ../mail/mail-stub-exchange.c:764
+msgid "Could not create folder."
+msgstr "Папката не може да бъде създадена."
+
+#: ../mail/mail-stub-exchange.c:844
+msgid "Could not open Deleted Items folder"
+msgstr "Папката за изтритите обекти не може да бъде отворена"
+
+#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
+msgid "Could not get new messages"
+msgstr "Новите писма не могат да бъдат получени"
+
+#: ../mail/mail-stub-exchange.c:1386
+msgid "Could not empty Deleted Items folder"
+msgstr "Папката с изтритите обекти не може да бъде изпразнена"
+
+#: ../mail/mail-stub-exchange.c:1463
+msgid "Could not append message; mailbox is over quota"
+msgstr "Неуспех при прикрепянето на писмото: пощенската кутия е пълна"
+
+#: ../mail/mail-stub-exchange.c:1464
+msgid "Could not append message"
+msgstr "Писмото не може да бъде прикрепено"
+
+#: ../mail/mail-stub-exchange.c:2016
+msgid "No such message"
+msgstr "Такова писмо не съществува"
+
+#: ../mail/mail-stub-exchange.c:2069
+msgid "Message has been deleted"
+msgstr "Писмото беше изтрито"
+
+#: ../mail/mail-stub-exchange.c:2071
+msgid "Error retrieving message"
+msgstr "Грешка при получаването на писмо"
+
+#: ../mail/mail-stub-exchange.c:2113
+msgid "Mailbox does not support full-text searching"
+msgstr "Пощенската кутия не поддържа пълнотекстово търсене"
+
+#: ../mail/mail-stub-exchange.c:2211
+msgid "Unable to move/copy messages"
+msgstr "Копирането/преместването на писма е неуспешно"
+
+#: ../mail/mail-stub-exchange.c:2441
+msgid "No mail submission URI for this mailbox"
+msgstr "Липсва URI за изпращане на писма за тази пощенска кутия"
+
+#: ../mail/mail-stub-exchange.c:2477
+msgid "Server won't accept mail via Exchange transport"
+msgstr "Сървърът няма да приема поща през транспорта на Exchange"
+
+#: ../mail/mail-stub-exchange.c:2479
+#, c-format
+msgid ""
+"Your account does not have permission to use <%s>\n"
+"as a From address."
+msgstr ""
+"Вашият абонамент няма право да използва <%s>\n"
+"като подател."
+
+#: ../mail/mail-stub-exchange.c:2491
+msgid ""
+"Could not send message.\n"
+"This might mean that your account is over quota."
+msgstr ""
+"Неуспех при изпращането на писмото.\n"
+"Това може да означава, че Вашият абонамент е надхвърлил квотата си."
+
+#: ../mail/mail-stub-exchange.c:2495
+msgid "Could not send message"
+msgstr "Писмото не може да бъде изпратено"
+
+#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
+#: ../mail/mail-stub-exchange.c:2745 ../storage/xc-commands.c:323
+msgid "Generic error"
+msgstr "Обща грешка"
+
+#: ../mail/mail-stub-exchange.c:2522 ../storage/xc-commands.c:313
+msgid "Folder already exists"
+msgstr "Папката вече съществува"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
+msgid "Evolution Addressbook Exchange backend"
+msgstr "Ядро за адресника на Evolution Exchange"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
+msgid "Evolution Calendar Exchange backend"
+msgstr "Ядро за календара към Evolution Exchange"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+msgid "Ximian Connector for Exchange"
+msgstr "Ximian Connector за Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -318,7 +433,7 @@ msgstr ""
 "Проверете дали сте написали адреса правилно (опитайте „%s“ вместо „%s“) и "
 "опитайте отново."
 
-#: ../lib/e2k-autoconfig.c:1480 ../storage/exchange-autoconfig-wizard.c:219
+#: ../storage/exchange-autoconfig-wizard.c:219
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -326,7 +441,7 @@ msgstr ""
 "Сървърът с Exchange не може да бъде открит.\n"
 "Проверете дали сте написали правилно името и опитайте отново."
 
-#: ../lib/e2k-autoconfig.c:1490 ../storage/exchange-autoconfig-wizard.c:228
+#: ../storage/exchange-autoconfig-wizard.c:228
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -334,7 +449,7 @@ msgstr ""
 "Неуспех при идентификацията пред сървъра с Exchange.\n"
 "Проверете дали паролата и потребителското име са правилни и опитайте пак."
 
-#: ../lib/e2k-autoconfig.c:1498 ../storage/exchange-autoconfig-wizard.c:235
+#: ../storage/exchange-autoconfig-wizard.c:235
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -350,590 +465,13 @@ msgstr ""
 "Може да се наложи да укажете името на Вашия домейн в Windows, като част от "
 "потребителското име (напр.: „MY-DOMAIN\\%s“)."
 
-#: ../lib/e2k-autoconfig.c:1511 ../storage/exchange-autoconfig-wizard.c:247
+#: ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 msgstr ""
 "Не могат да се намерят данни за ДАУ на посоченото URL.\n"
 "Проверете дали URL-то е правилно и опитайте отново."
-
-#: ../lib/e2k-autoconfig.c:1520
-#, c-format
-msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
-"\n"
-"For information to provide to your Exchange administrator, please follow the "
-"link below:\n"
-"%s"
-msgstr ""
-"Ximian Connector изисква достъп до определени функции на сървъра с Exchange, "
-"които явно за изключени или блокирани. (Това обикновено не е умишлено). "
-"Администраторът на Вашия сървър с Exchange трябва да включи тази "
-"функционалност, за да може да използвате Ximian Connector.\n"
-"\n"
-"За да видите информацията, която трябва да дадете на администратора  на "
-"Exchange, вижте долната препратка:\n"
-"%s"
-
-#: ../lib/e2k-autoconfig.c:1536 ../storage/exchange-autoconfig-wizard.c:275
-msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"URL-то за сървър с Exchange, което сте дали, е на сървър с Exchange 5.5. "
-"Ximian Connector поддържа само Microsoft Exchange 2000 и 2003."
-
-#: ../lib/e2k-autoconfig.c:1545 ../storage/exchange-autoconfig-wizard.c:288
-msgid ""
-"Could not configure Exchange account because an unknown error occurred. "
-"Check the URL, username, and password, and try again."
-msgstr ""
-"Не може да се настрои абонамента към Exchange, защото се появи непозната "
-"грешка. Проверете URL-то, потребителското име и паролата. После опитайте "
-"отново."
-
-#: ../lib/e2k-autoconfig.c:1567
-#, c-format
-msgid "Enter password for %s"
-msgstr "Въведете парола за %s"
-
-#: ../lib/e2k-autoconfig.c:1568 ../storage/exchange-account.c:874
-msgid "Enter password"
-msgstr "Въведете парола"
-
-#. i18n: These are Outlook's words for the default roles in
-#. the folder permissions dialog.
-#: ../lib/e2k-security-descriptor.c:847
-msgid "Owner"
-msgstr "Собственик"
-
-#: ../lib/e2k-security-descriptor.c:857
-msgid "Publishing Editor"
-msgstr "Публикуващ редактор"
-
-#: ../lib/e2k-security-descriptor.c:865
-msgid "Editor"
-msgstr "Редактор"
-
-#: ../lib/e2k-security-descriptor.c:872
-msgid "Publishing Author"
-msgstr "Публикуващ автор"
-
-#: ../lib/e2k-security-descriptor.c:878
-msgid "Author"
-msgstr "Автор"
-
-#: ../lib/e2k-security-descriptor.c:883
-msgid "Non-editing Author"
-msgstr "Нередактиращ автор"
-
-#: ../lib/e2k-security-descriptor.c:887
-msgid "Reviewer"
-msgstr "Рецензент"
-
-#: ../lib/e2k-security-descriptor.c:889
-msgid "Contributor"
-msgstr "Сътрудник"
-
-#: ../lib/e2k-security-descriptor.c:891
-#: ../storage/exchange-delegates.glade.h:7
-msgid "None"
-msgstr "Без"
-
-#: ../lib/e2k-security-descriptor.c:906
-#: ../storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "Потребителски"
-
-#: ../lib/e2k-user-dialog.c:144
-msgid "Select User"
-msgstr "Избор на потребител"
-
-#: ../lib/e2k-user-dialog.c:182
-msgid "Addressbook..."
-msgstr "Адресник..."
-
-#: ../mail/mail-stub-exchange.c:257
-msgid "No such folder"
-msgstr "Няма такава папка"
-
-#. FIXME: should be this, but string freeze freezes me to do so.
-#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1381
-#: ../mail/mail-stub-exchange.c:2511 ../mail/mail-stub-exchange.c:2551
-#: ../mail/mail-stub-exchange.c:2617 ../mail/mail-stub-exchange.c:2661
-#: ../mail/mail-stub-exchange.c:2725 ../shell/e-storage.c:573
-#: ../storage/xc-commands.c:319
-msgid "Permission denied"
-msgstr "Достъпът е отказан"
-
-#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
-msgid "Could not open folder: Permission denied"
-msgstr "Папката не може да бъде отворена: достъпът е отказан"
-
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:705
-msgid "Could not open folder"
-msgstr "Папката не може да бъде отворена"
-
-#: ../mail/mail-stub-exchange.c:748
-msgid "No such folder."
-msgstr "Няма такава папка."
-
-#: ../mail/mail-stub-exchange.c:757
-msgid "Could not create folder."
-msgstr "Папката не може да бъде създадена."
-
-#: ../mail/mail-stub-exchange.c:837
-msgid "Could not open Deleted Items folder"
-msgstr "Папката за изтритите обекти не може да бъде отворена"
-
-#: ../mail/mail-stub-exchange.c:1166 ../mail/mail-stub-exchange.c:1207
-msgid "Could not get new messages"
-msgstr "Новите писма не могат да бъдат получени"
-
-#: ../mail/mail-stub-exchange.c:1377
-msgid "Could not empty Deleted Items folder"
-msgstr "Папката с изтритите обекти не може да бъде изпразнена"
-
-#: ../mail/mail-stub-exchange.c:1454
-msgid "Could not append message; mailbox is over quota"
-msgstr "Неуспех при прикрепянето на писмото: пощенската кутия е пълна"
-
-#: ../mail/mail-stub-exchange.c:1455
-msgid "Could not append message"
-msgstr "Писмото не може да бъде прикрепено"
-
-#: ../mail/mail-stub-exchange.c:2001
-msgid "No such message"
-msgstr "Такова писмо не съществува"
-
-#: ../mail/mail-stub-exchange.c:2054
-msgid "Message has been deleted"
-msgstr "Писмото беше изтрито"
-
-#: ../mail/mail-stub-exchange.c:2056
-msgid "Error retrieving message"
-msgstr "Грешка при получаването на писмо"
-
-#: ../mail/mail-stub-exchange.c:2098
-msgid "Mailbox does not support full-text searching"
-msgstr "Пощенската кутия не поддържа пълнотекстово търсене"
-
-#: ../mail/mail-stub-exchange.c:2196
-msgid "Unable to move/copy messages"
-msgstr "Копирането/преместването на писма е неуспешно"
-
-#: ../mail/mail-stub-exchange.c:2426
-msgid "No mail submission URI for this mailbox"
-msgstr "Липсва URI за изпращане на писма за тази пощенска кутия"
-
-#: ../mail/mail-stub-exchange.c:2462
-msgid "Server won't accept mail via Exchange transport"
-msgstr "Сървърът няма да приема поща през транспорта на Exchange"
-
-#: ../mail/mail-stub-exchange.c:2464
-#, c-format
-msgid ""
-"Your account does not have permission to use <%s>\n"
-"as a From address."
-msgstr ""
-"Вашият абонамент няма право да използва <%s>\n"
-"като подател."
-
-#: ../mail/mail-stub-exchange.c:2476
-msgid ""
-"Could not send message.\n"
-"This might mean that your account is over quota."
-msgstr ""
-"Неуспех при изпращането на писмото.\n"
-"Това може да означава, че Вашият абонамент е надхвърлил квотата си."
-
-#: ../mail/mail-stub-exchange.c:2480
-msgid "Could not send message"
-msgstr "Писмото не може да бъде изпратено"
-
-#: ../mail/mail-stub-exchange.c:2503 ../mail/mail-stub-exchange.c:2556
-#: ../mail/mail-stub-exchange.c:2621 ../mail/mail-stub-exchange.c:2666
-#: ../mail/mail-stub-exchange.c:2730 ../shell/e-storage.c:557
-#: ../storage/xc-commands.c:323
-msgid "Generic error"
-msgstr "Обща грешка"
-
-#: ../mail/mail-stub-exchange.c:2507 ../storage/xc-commands.c:313
-msgid "Folder already exists"
-msgstr "Папката вече съществува"
-
-#: ../shell/e-folder-creation-dialog.c:138
-#, c-format
-msgid ""
-"Cannot create the specified folder:\n"
-"%s"
-msgstr ""
-"Неуспех при създаването на посочената папка:\n"
-"%s"
-
-#: ../shell/e-folder-creation-dialog.c:179
-#, c-format
-msgid "The specified folder name is not valid: %s"
-msgstr "Зададеното име на папка не е валидно: %s"
-
-#: ../shell/e-folder-creation-dialog.c:310
-msgid "Create New Folder"
-msgstr "Създаване на нова папка"
-
-#: ../shell/e-folder-creation-dialog.glade.h:1
-#: ../storage/exchange-autoconfig-wizard.glade.h:1
-#: ../storage/exchange-change-password.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ../shell/e-folder-creation-dialog.glade.h:2
-msgid "Folder _name:"
-msgstr "_Име на папката:"
-
-#: ../shell/e-folder-creation-dialog.glade.h:3
-msgid "Folder _type:"
-msgstr "_Тип на папката:"
-
-#: ../shell/e-folder-creation-dialog.glade.h:4
-msgid "Specify where to create the folder:"
-msgstr "Определете къде да бъде създадена папката:"
-
-#: ../shell/e-folder-dnd-bridge.c:52
-#, c-format
-msgid ""
-"Cannot transfer folder:\n"
-"%s"
-msgstr ""
-"Неуспех при пренасянето на папка:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:62
-#, c-format
-msgid ""
-"Cannot delete folder:\n"
-"%s"
-msgstr ""
-"Папката не може да бъде изтрита:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:115
-#, c-format
-msgid "Really delete folder \"%s\"?"
-msgstr "Наистина ли желаете папката „%s“ да бъде изтрита?"
-
-#: ../shell/e-folder-misc-dialogs.c:129
-#, c-format
-msgid "Delete \"%s\""
-msgstr "Изтриване на „%s“"
-
-#: ../shell/e-folder-misc-dialogs.c:154
-#, c-format
-msgid ""
-"Cannot rename folder:\n"
-"%s"
-msgstr ""
-"Папката не може да бъде преименувана:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:188
-#, c-format
-msgid "Rename the \"%s\" folder to:"
-msgstr "Преименуване на папка „%s“ на:"
-
-#: ../shell/e-folder-misc-dialogs.c:191
-msgid "Rename Folder"
-msgstr "Преименуване на папка"
-
-#: ../shell/e-folder-misc-dialogs.c:205
-#, c-format
-msgid "A folder named \"%s\" already exists. Please use a different name."
-msgstr "Вече съществува папка с име „%s“. Използвайте друго име."
-
-#. It would be nice to insensitivize the OK button appropriately
-#. instead of doing this, but unfortunately we can't do this for the
-#. Bonobo control.
-#: ../shell/e-folder-misc-dialogs.c:451
-msgid "Please select a user."
-msgstr "Изберете потребител."
-
-#: ../shell/e-folder-misc-dialogs.c:553
-msgid "Opening Folder"
-msgstr "Отваряне на папка"
-
-#: ../shell/e-folder-misc-dialogs.c:559
-#, c-format
-msgid "Opening Folder \"%s\""
-msgstr "Отваряне на папка „%s“"
-
-#: ../shell/e-folder-misc-dialogs.c:564
-#, c-format
-msgid "in \"%s\" ..."
-msgstr "в „%s“ ..."
-
-#: ../shell/e-folder-misc-dialogs.c:631
-#, c-format
-msgid "Could not open other user's folder: %s."
-msgstr "Неуспех при отварянето на папка на друг потребител: %s."
-
-#: ../shell/e-folder-misc-dialogs.c:681
-msgid "Cannot find the specified other user's folder."
-msgstr "Неуспех при намирането на другата зададена потребителска папка."
-
-#: ../shell/e-folder-misc-dialogs.c:713
-#, c-format
-msgid ""
-"Cannot unsubscribe from folder:\n"
-"%s"
-msgstr ""
-"Неуспех при отписването от папка:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:766
-#, c-format
-msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "Наистина ли искате да се отпишете от папката „%s“?"
-
-#: ../shell/e-folder-misc-dialogs.c:780
-#, c-format
-msgid "Unsubscribe from \"%s\""
-msgstr "Отписване от „%s“"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:1
-msgid "Open Other User's Folder"
-msgstr "Отваряне на друга потребителска папка"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:2
-msgid "_Account:"
-msgstr "_Абонамент:"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:3
-msgid "_Folder Name:"
-msgstr "Име на _папката:"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:4
-msgid "_User:"
-msgstr "_Потребител:"
-
-#: ../shell/e-storage-set-view.etspec.h:1
-msgid "Checkbox"
-msgstr "Кутия за отмятане"
-
-#: ../shell/e-storage-set-view.etspec.h:2
-msgid "Folder"
-msgstr "Папка"
-
-#: ../shell/e-storage.c:555
-msgid "No error"
-msgstr "Няма грешка"
-
-#: ../shell/e-storage.c:559
-msgid "A folder with the same name already exists"
-msgstr "Вече съществува папка със същото име"
-
-#: ../shell/e-storage.c:561
-msgid "The specified folder type is not valid"
-msgstr "Зададения тип папка е невалиден"
-
-#: ../shell/e-storage.c:563
-msgid "I/O error"
-msgstr "Вх./изх. грешка"
-
-#: ../shell/e-storage.c:565
-msgid "Not enough space to create the folder"
-msgstr "Няма достатъчно място, за да бъде създадена папка"
-
-#: ../shell/e-storage.c:567
-msgid "The folder is not empty"
-msgstr "Папката не е празна"
-
-#: ../shell/e-storage.c:569
-msgid "The specified folder was not found"
-msgstr "Указаната папка не беше намерена"
-
-#: ../shell/e-storage.c:571
-msgid "Function not implemented in this storage"
-msgstr "Функцията не е налична в това хранилище"
-
-#: ../shell/e-storage.c:575
-msgid "Operation not supported"
-msgstr "Операцията не се поддържа"
-
-#: ../shell/e-storage.c:577
-msgid "The specified type is not supported in this storage"
-msgstr "Зададения тип не се поддържа в това хранилище"
-
-#: ../shell/e-storage.c:579
-msgid "The specified folder cannot be modified or removed"
-msgstr "Зададената папка не може да бъде променяна или премахвана"
-
-#: ../shell/e-storage.c:581
-msgid "Cannot make a folder a child of one of its descendants"
-msgstr "Папка не може да бъде дете на свой наследник"
-
-#: ../shell/e-storage.c:583
-msgid "Cannot create a folder with that name"
-msgstr "Папка с такова име не може да бъде създадена"
-
-#: ../shell/e-storage.c:585
-msgid "This operation cannot be performed in off-line mode"
-msgstr "Тази операция не може да бъде изпълнена в режим „Изключен“"
-
-#: ../shell/e-storage.c:587 ../storage/exchange-account.c:1473
-msgid "Unknown error"
-msgstr "Непозната грешка"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-msgid "Evolution Addressbook Exchange backend"
-msgstr "Ядро за адресника на Evolution Exchange"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
-msgid "Evolution Calendar Exchange backend"
-msgstr "Ядро за календара към Evolution Exchange"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Ximian Connector for Exchange"
-msgstr "Ximian Connector за Exchange"
-
-#. i18n: This is the title of an "other user's folders"
-#. hierarchy. Eg, "John Doe's Folders".
-#: ../storage/exchange-account.c:584
-#, c-format
-msgid "%s's Folders"
-msgstr "Папки на %s"
-
-#. email id is not proper, we return instead of trying nt_domain
-#: ../storage/exchange-account.c:1069
-msgid "Cannot change password due to configuration problems"
-msgstr "Паролата не може да бъде променена поради проблеми в настройките"
-
-#: ../storage/exchange-account.c:1092
-msgid ""
-"Server rejected password because it is too weak.\n"
-"Try again with a different password."
-msgstr ""
-"Сървърът отхвърли тази парола, защото е твърде лесна.\n"
-"Опитайте отново с друга парола."
-
-#: ../storage/exchange-account.c:1097
-msgid "Could not change password"
-msgstr "Неуспех при смяната на паролата"
-
-#: ../storage/exchange-account.c:1190
-msgid "Personal Folders"
-msgstr "Лични папки"
-
-#: ../storage/exchange-account.c:1205
-msgid "Favorite Public Folders"
-msgstr "Любими публични папки"
-
-#. i18n: Outlookism
-#: ../storage/exchange-account.c:1222
-msgid "All Public Folders"
-msgstr "Всички публични папки"
-
-#. i18n: Outlookism
-#: ../storage/exchange-account.c:1236
-msgid "Global Address List"
-msgstr "Глобален списък с адреси"
-
-#: ../storage/exchange-account.c:1326
-msgid "Exchange Account is offline. Cannot display folders\n"
-msgstr ""
-"Абонаментът към Exchange е изключен. Папките не могат да бъдат показани\n"
-
-#: ../storage/exchange-account.c:1389
-msgid ""
-"Could not authenticate to server.\n"
-"\n"
-"This probably means that your server requires you\n"
-"to specify the Windows domain name as part of your\n"
-"username (eg, \"DOMAIN\\user\").\n"
-"\n"
-"Or you might have just typed your password wrong.\n"
-"\n"
-msgstr ""
-"Неуспешна идентификация пред сървъра.\n"
-"\n"
-"Това най-вероятно означава, че сървърът изисква да\n"
-"укажете името на домейна на Windows, като част от\n"
-"потребителското си име (пример: „DOMAIN\\user“).\n"
-"\n"
-"Възможно е и да сте написали грешно паролата си.\n"
-"\n"
-
-#: ../storage/exchange-account.c:1431
-#, c-format
-msgid "Mailbox for %s is not on this server."
-msgstr "Пощенската кутия за %s не е на този сървър."
-
-#: ../storage/exchange-account.c:1436
-#, c-format
-msgid ""
-"The server '%s' is running Exchange 5.5 and is\n"
-"therefore not compatible with Ximian Connector"
-msgstr ""
-"Сървърът „%s“ работи с Exchange 5.5 и следователно\n"
-"той не е съвместим с Ximian Connector"
-
-#: ../storage/exchange-account.c:1443
-#, c-format
-msgid ""
-"Could not find Exchange Web Storage System at %s.\n"
-"If OWA is running on a different path, you must specify that in the\n"
-"account configuration dialog."
-msgstr ""
-"Не може да се открие системата-хранилище по уеб на Exchange на %s.\n"
-"Ако ДАУ работи на различен път, трябва да го укажете в настройките на "
-"абонамента."
-
-#: ../storage/exchange-account.c:1451
-#, c-format
-msgid "No mailbox for user %s on %s.\n"
-msgstr "Няма пощенска кутия за потребителя %s на %s.\n"
-
-#: ../storage/exchange-account.c:1457 ../storage/exchange-account.c:1463
-#: ../storage/exchange-account.c:1471
-#, c-format
-msgid "Could not connect to server %s: %s"
-msgstr "Не може да се осъществи връзка със сървъра %s: %s"
-
-#: ../storage/exchange-account.c:1459
-msgid "Could not resolve hostname"
-msgstr "Хостът не може да бъде открит"
-
-#: ../storage/exchange-account.c:1465
-msgid "Network error"
-msgstr "Мрежова грешка"
-
-#: ../storage/exchange-account.c:1529
-#, c-format
-msgid ""
-"You have exceeded your quota of %d %s for storing mails on this server. Your "
-"current usage is : %.0f %s."
-msgstr ""
-"Преминалите сте квотата си от %d %s за писма на този сървър. В момента "
-"ползвате: %.0f %s."
-
-#: ../storage/exchange-account.c:1532
-msgid "You will not be able to either send or receive mails now\n"
-msgstr "Няма да можете нито да изпращате, нито да получавате писма.\n"
-
-#: ../storage/exchange-account.c:1535
-msgid ""
-"You will not be able to send mails till you clear up some space by deleting "
-"some mails.\n"
-msgstr ""
-"Няма да можете да пращате писма, докато не освободите малко място като "
-"изтриете някои писма.\n"
-
-#: ../storage/exchange-account.c:1538
-msgid "Try to clear up some space by deleting some mails.\n"
-msgstr "Освободете малко място, като изтриете някои писма.\n"
 
 #: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
@@ -952,6 +490,23 @@ msgstr ""
 "\n"
 "За да видите информацията, която трябва да дадете на администратора  на "
 "Exchange, вижте долната препратка:"
+
+#: ../storage/exchange-autoconfig-wizard.c:275
+msgid ""
+"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
+"Connector supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"URL-то за сървър с Exchange, което сте дали, е на сървър с Exchange 5.5. "
+"Ximian Connector поддържа само Microsoft Exchange 2000 и 2003."
+
+#: ../storage/exchange-autoconfig-wizard.c:288
+msgid ""
+"Could not configure Exchange account because an unknown error occurred. "
+"Check the URL, username, and password, and try again."
+msgstr ""
+"Не може да се настрои абонамента към Exchange, защото се появи непозната "
+"грешка. Проверете URL-то, потребителското име и паролата. После опитайте "
+"отново."
 
 #: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
@@ -989,6 +544,11 @@ msgstr ""
 #: ../storage/exchange-autoconfig-wizard.c:459
 msgid "You may only configure a single Exchange account"
 msgstr "Можете за настройвате само един абонамент към Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:1
+#: ../storage/exchange-change-password.glade.h:1
+msgid "*"
+msgstr "*"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
@@ -1139,6 +699,10 @@ msgstr "Нова парола:"
 msgid "Your current password has expired. Please change your password now."
 msgstr "Текущата Ви парола изтече. Променете я сега."
 
+#: ../storage/exchange-delegates-user.c:144
+msgid "Custom"
+msgstr "Потребителски"
+
 #: ../storage/exchange-delegates-user.c:191
 #: ../storage/exchange-permissions-dialog.c:179
 #, c-format
@@ -1265,6 +829,10 @@ msgstr "Делегати"
 msgid "Editor (read, create, edit)"
 msgstr "Редактор (четене, писане, редактиране)"
 
+#: ../storage/exchange-delegates.glade.h:7
+msgid "None"
+msgstr "Без"
+
 #: ../storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
 msgstr "Права за"
@@ -1297,63 +865,15 @@ msgstr "_Кутия:"
 msgid "_Tasks:"
 msgstr "_Задачи:"
 
-#: ../storage/exchange-folder-size.c:322
-msgid "Folder Name"
-msgstr "Име на папката"
-
-#: ../storage/exchange-folder-size.c:326
-msgid "Folder Size"
-msgstr "Размер на папката"
-
 #: ../storage/exchange-folder-tree.glade.h:1
 msgid "Exchange Folder Tree"
 msgstr "Дърво на папките към Exchange"
 
-#: ../storage/exchange-hierarchy-foreign.c:250
-msgid "Calendar"
-msgstr "Календар"
-
-#: ../storage/exchange-hierarchy-foreign.c:251
-msgid "Contacts"
-msgstr "Контакти"
-
-#: ../storage/exchange-hierarchy-foreign.c:252
-msgid "Deleted Items"
-msgstr "Изтрити писма"
-
-#: ../storage/exchange-hierarchy-foreign.c:253
-msgid "Drafts"
-msgstr "Чернови"
-
-#: ../storage/exchange-hierarchy-foreign.c:254
-msgid "Inbox"
-msgstr "Кутия"
-
-#: ../storage/exchange-hierarchy-foreign.c:255
-msgid "Journal"
-msgstr "Дневник"
-
-#: ../storage/exchange-hierarchy-foreign.c:256
-msgid "Notes"
-msgstr "Бележки"
-
-#: ../storage/exchange-hierarchy-foreign.c:257
-msgid "Outbox"
-msgstr "Изпратени"
-
-#: ../storage/exchange-hierarchy-foreign.c:258
-msgid "Sent Items"
-msgstr "Изпратени писма"
-
-#: ../storage/exchange-hierarchy-foreign.c:259
-msgid "Tasks"
-msgstr "Задачи"
-
-#: ../storage/exchange-migrate.c:57
+#: ../storage/exchange-migrate.c:58
 msgid "Migrating Exchange Folders..."
 msgstr "Мигриране на папките на Exchange..."
 
-#: ../storage/exchange-migrate.c:65
+#: ../storage/exchange-migrate.c:66
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -1366,7 +886,7 @@ msgstr ""
 "\n"
 "Бъдете търпеливи, докато Evolution мигрира папките Ви..."
 
-#: ../storage/exchange-migrate.c:98
+#: ../storage/exchange-migrate.c:99
 #, c-format
 msgid ""
 "Warning: Evolution could not migrate all the Exchange account data from the "
@@ -1379,18 +899,10 @@ msgstr ""
 "Данните не са изтрити, но няма да могат да се видят през тази версия на "
 "Evolution."
 
-#: ../storage/exchange-migrate.c:129
+#: ../storage/exchange-migrate.c:130
 #, c-format
 msgid "Migrating `%s':"
 msgstr "Мигриране на „%s“:"
-
-#: ../storage/exchange-oof.c:199 ../storage/exchange-oof.c:406
-msgid "Could not update out-of-office state"
-msgstr "Неуспех при актуализирането на състоянието „Извън офиса“"
-
-#: ../storage/exchange-oof.c:424
-msgid "Could not read out-of-office state"
-msgstr "Неуспех при четенето на състоянието на „Извън офиса“"
 
 #: ../storage/exchange-oof.glade.h:1
 msgid ""
@@ -1576,7 +1088,7 @@ msgstr "Роля:"
 msgid "Connecting..."
 msgstr "Свързване..."
 
-#: ../storage/main.c:165
+#: ../storage/main.c:183
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector за Microsoft Exchange"
 
