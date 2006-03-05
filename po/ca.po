@@ -1,14 +1,14 @@
 # Catalan translation of evolution-exchange package
-# Copyright (C) 2004,2005 Free Software Foundation
+# Copyright © 2004, 2005, 2006 Free Software Foundation, Inc.
 # This file is distributed under the same license as the evolution-exchange
-# Xavier Conde Rueda <xavi.conde@gmail.com>, 2004,2005
+# Xavier Conde Rueda <xavi.conde@gmail.com>, 2004, 2005, 2006
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-09 04:07+0100\n"
-"PO-Revision-Date: 2006-01-09 04:11+0100\n"
+"POT-Creation-Date: 2006-03-05 23:20+0100\n"
+"PO-Revision-Date: 2006-03-05 23:21+0100\n"
 "Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: ../addressbook/e-book-backend-exchange.c:1856
+#: ../addressbook/e-book-backend-exchange.c:1867
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "S'està cercant..."
@@ -33,7 +33,7 @@ msgstr "S'estan rebent els resultats de la cerca LDAP..."
 msgid "Error performing search"
 msgstr "S'ha produït un error en cercar"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1805
+#: ../calendar/e-cal-backend-exchange-calendar.c:1932
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -42,56 +42,56 @@ msgstr ""
 "No s'ha pogut planificar el recurs '%s' per a reunions que es repeteixen.\n"
 "Haureu de reservar cada reunió per separat."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1823
+#: ../calendar/e-cal-backend-exchange-calendar.c:1950
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Els recurs '%s' està ocupat durant el període de temps seleccionat."
 
-#: ../camel/camel-exchange-folder.c:221
+#: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
 msgstr "No es podeu buidar si no esteu connectat."
 
-#: ../camel/camel-exchange-folder.c:252
+#: ../camel/camel-exchange-folder.c:253
 msgid "No Subject"
 msgstr "Sense assumpte"
 
-#: ../camel/camel-exchange-folder.c:379
+#: ../camel/camel-exchange-folder.c:407
 msgid "This message is not available in offline mode."
 msgstr "Aquest missatge no està disponible estant desconnectat."
 
-#: ../camel/camel-exchange-folder.c:614
+#: ../camel/camel-exchange-folder.c:642
 msgid "Moving messages"
 msgstr "S'està movent els missatges"
 
-#: ../camel/camel-exchange-folder.c:615
+#: ../camel/camel-exchange-folder.c:643
 msgid "Copying messages"
 msgstr "S'està copiant els missatges"
 
-#: ../camel/camel-exchange-folder.c:986
+#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "No s'ha pogut crear el directori %s: %s"
 
-#: ../camel/camel-exchange-folder.c:996
+#: ../camel/camel-exchange-folder.c:1024
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "No s'ha pogut carregar el resum per a %s"
 
-#: ../camel/camel-exchange-folder.c:1004
+#: ../camel/camel-exchange-folder.c:1032
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "No s'ha pogut crear la memòria cau per a %s"
 
-#: ../camel/camel-exchange-folder.c:1014
+#: ../camel/camel-exchange-folder.c:1042
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "No s'ha pogut crear el diari per a %s"
 
-#: ../camel/camel-exchange-folder.c:1059
+#: ../camel/camel-exchange-folder.c:1087
 msgid "Scanning for changed messages"
 msgstr "S'està cercant els missatges canviats"
 
-#: ../camel/camel-exchange-folder.c:1085
+#: ../camel/camel-exchange-folder.c:1113
 msgid "Fetching summary information for new messages"
 msgstr "S'està recollint la informació de resum per als nous missatges"
 
@@ -99,10 +99,10 @@ msgstr "S'està recollint la informació de resum per als nous missatges"
 msgid "No folder name found\n"
 msgstr "No s'ha trobat el nom de carpeta\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2534
-#: ../mail/mail-stub-exchange.c:2578 ../mail/mail-stub-exchange.c:2613
-#: ../mail/mail-stub-exchange.c:2640 ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2709
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
+#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
+#: ../mail/mail-stub-exchange.c:2724
 msgid "Folder doesn't exist"
 msgstr "La carpeta no existeix"
 
@@ -132,13 +132,13 @@ msgstr "Llista d'adreces global / directori actiu"
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
 #: ../camel/camel-exchange-provider.c:53
-msgid "Global Catalog server name:"
-msgstr "Nom del servidor de catàleg global:"
+msgid "_Global Catalog server name:"
+msgstr "Nom del servidor de catàleg _global:"
 
 #: ../camel/camel-exchange-provider.c:55
 #, c-format
-msgid "Limit number of GAL responses: %s"
-msgstr "Nombre límit de respostes de GAL: %s"
+msgid "_Limit number of GAL responses: %s"
+msgstr "Quantitat _límit de respostes de GAL: %s"
 
 #: ../camel/camel-exchange-provider.c:58
 msgid "Options"
@@ -146,28 +146,28 @@ msgstr "Opcions"
 
 #: ../camel/camel-exchange-provider.c:60
 #, c-format
-msgid "Password Expiry Warning period: %s"
-msgstr "Període d'avís de venciment de la contrasenya: %s"
+msgid "_Password Expiry Warning period: %s"
+msgstr "_Període d'avís de venciment de la contrasenya: %s"
 
 #: ../camel/camel-exchange-provider.c:62
-msgid "Automatically synchronize account locally"
-msgstr "Sincrontiza automàticament el compte localment"
+msgid "Automatically synchroni_ze account locally"
+msgstr "Sincrontiza _automàticament el compte localment"
 
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:65
-msgid "Apply filters to new messages in Inbox on this server"
+msgid "_Apply filters to new messages in Inbox on this server"
 msgstr ""
-"Aplica els filtres als nous missatges a la safata d'entrada en aquest "
+"_Aplica els filtres als nous missatges a la safata d'entrada en aquest "
 "servidor"
 
 #: ../camel/camel-exchange-provider.c:67
-msgid "Check new messages for Junk contents"
-msgstr "Comprova si hi ha brossa al contingut dels nous missatges"
+msgid "Check new messages for _Junk contents"
+msgstr "_Comprova si hi ha brossa al contingut dels nous missatges"
 
 #: ../camel/camel-exchange-provider.c:69
-msgid "Only check for Junk messages in the Inbox folder"
+msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr ""
-"Només comprova els missatges brossa a la carpeta de la safata d'entrada"
+"Només comprova els missatges _brossa a la carpeta de la safata d'entrada"
 
 #: ../camel/camel-exchange-provider.c:79
 msgid "Microsoft Exchange"
@@ -310,10 +310,10 @@ msgstr "No existeix aquesta carpeta"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1381
-#: ../mail/mail-stub-exchange.c:2511 ../mail/mail-stub-exchange.c:2551
-#: ../mail/mail-stub-exchange.c:2617 ../mail/mail-stub-exchange.c:2661
-#: ../mail/mail-stub-exchange.c:2725 ../storage/xc-commands.c:319
+#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
+#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
+#: ../mail/mail-stub-exchange.c:2740 ../storage/xc-commands.c:319
 msgid "Permission denied"
 msgstr "Permís denegat"
 
@@ -321,68 +321,68 @@ msgstr "Permís denegat"
 msgid "Could not open folder: Permission denied"
 msgstr "No s'ha pogut obrir la carpeta: permís denegat"
 
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:705
+#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
 msgid "Could not open folder"
 msgstr "No s'ha pogut obrir la carpeta"
 
-#: ../mail/mail-stub-exchange.c:748
+#: ../mail/mail-stub-exchange.c:755
 msgid "No such folder."
 msgstr "No existeix aquesta carpeta."
 
-#: ../mail/mail-stub-exchange.c:757
+#: ../mail/mail-stub-exchange.c:764
 msgid "Could not create folder."
 msgstr "No s'ha pogut crear la carpeta."
 
-#: ../mail/mail-stub-exchange.c:837
+#: ../mail/mail-stub-exchange.c:844
 msgid "Could not open Deleted Items folder"
 msgstr "No s'ha pogut obrir la carpeta Elements suprimits"
 
-#: ../mail/mail-stub-exchange.c:1166 ../mail/mail-stub-exchange.c:1207
+#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
 msgid "Could not get new messages"
 msgstr "No s'ha pogut obtenir els nous missatges"
 
-#: ../mail/mail-stub-exchange.c:1377
+#: ../mail/mail-stub-exchange.c:1386
 msgid "Could not empty Deleted Items folder"
 msgstr "No s'ha pogut buidar la carpeta Elements suprimits"
 
-#: ../mail/mail-stub-exchange.c:1454
+#: ../mail/mail-stub-exchange.c:1463
 msgid "Could not append message; mailbox is over quota"
 msgstr ""
 "No s'ha pogut afegir el missatge. La bústia de correu ha superat la quota"
 
-#: ../mail/mail-stub-exchange.c:1455
+#: ../mail/mail-stub-exchange.c:1464
 msgid "Could not append message"
 msgstr "No s'ha pogut afegir el missatge"
 
-#: ../mail/mail-stub-exchange.c:2001
+#: ../mail/mail-stub-exchange.c:2016
 msgid "No such message"
 msgstr "No existeix el missatge"
 
-#: ../mail/mail-stub-exchange.c:2054
+#: ../mail/mail-stub-exchange.c:2069
 msgid "Message has been deleted"
 msgstr "S'ha suprimit el missatge"
 
-#: ../mail/mail-stub-exchange.c:2056
+#: ../mail/mail-stub-exchange.c:2071
 msgid "Error retrieving message"
 msgstr "S'ha produït un error en obtenir el missatge"
 
-#: ../mail/mail-stub-exchange.c:2098
+#: ../mail/mail-stub-exchange.c:2113
 msgid "Mailbox does not support full-text searching"
 msgstr "La bústia de correu no implementa la cerca de text complet"
 
-#: ../mail/mail-stub-exchange.c:2196
+#: ../mail/mail-stub-exchange.c:2211
 msgid "Unable to move/copy messages"
 msgstr "No es pot moure ni copiar missatges"
 
-#: ../mail/mail-stub-exchange.c:2426
+#: ../mail/mail-stub-exchange.c:2441
 msgid "No mail submission URI for this mailbox"
 msgstr "No hi ha cap URI per enviar correu per a aquesta bústia"
 
-#: ../mail/mail-stub-exchange.c:2462
+#: ../mail/mail-stub-exchange.c:2477
 msgid "Server won't accept mail via Exchange transport"
 msgstr "El servidor no acceptarà correu mitjançant transport Exchange"
 
-#: ../mail/mail-stub-exchange.c:2464
+#: ../mail/mail-stub-exchange.c:2479
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -391,7 +391,7 @@ msgstr ""
 "El vostre compte no té permís per usar <%s>\n"
 "com a adreça del remitent."
 
-#: ../mail/mail-stub-exchange.c:2476
+#: ../mail/mail-stub-exchange.c:2491
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -399,17 +399,17 @@ msgstr ""
 "No s'ha pogut enviar el missatge.\n"
 "Pot significar que el vostre compte ha superat la quota."
 
-#: ../mail/mail-stub-exchange.c:2480
+#: ../mail/mail-stub-exchange.c:2495
 msgid "Could not send message"
 msgstr "No s'ha pogut enviar el missatge"
 
-#: ../mail/mail-stub-exchange.c:2503 ../mail/mail-stub-exchange.c:2556
-#: ../mail/mail-stub-exchange.c:2621 ../mail/mail-stub-exchange.c:2666
-#: ../mail/mail-stub-exchange.c:2730 ../storage/xc-commands.c:323
+#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
+#: ../mail/mail-stub-exchange.c:2745 ../storage/xc-commands.c:323
 msgid "Generic error"
 msgstr "Error genèric"
 
-#: ../mail/mail-stub-exchange.c:2507 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2522 ../storage/xc-commands.c:313
 msgid "Folder already exists"
 msgstr "La carpeta ja existeix"
 
@@ -870,11 +870,11 @@ msgstr "_Tasques:"
 msgid "Exchange Folder Tree"
 msgstr "Arbre de carpetes d'Exchange"
 
-#: ../storage/exchange-migrate.c:57
+#: ../storage/exchange-migrate.c:58
 msgid "Migrating Exchange Folders..."
 msgstr "S'està fent la migració de les carpetes d'Exchange..."
 
-#: ../storage/exchange-migrate.c:65
+#: ../storage/exchange-migrate.c:66
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -887,7 +887,7 @@ msgstr ""
 "\n"
 "Espereu mentre l'Evolution fa la migració de les carpetes..."
 
-#: ../storage/exchange-migrate.c:98
+#: ../storage/exchange-migrate.c:99
 #, c-format
 msgid ""
 "Warning: Evolution could not migrate all the Exchange account data from the "
@@ -900,7 +900,7 @@ msgstr ""
 "Les dades no s'han suprimit, però no es veuran amb aquesta versió de "
 "l'Evolution"
 
-#: ../storage/exchange-migrate.c:129
+#: ../storage/exchange-migrate.c:130
 #, c-format
 msgid "Migrating `%s':"
 msgstr "S'està migrant «%s»:"
