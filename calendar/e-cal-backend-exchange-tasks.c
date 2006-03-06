@@ -1011,7 +1011,7 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 	icalcomponent *icalcomp, *real_icalcomp;
 	icalcomponent_kind kind;
 	struct icaltimetype current;
-	char *from_name, *from_addr;
+	char *from_name = NULL, *from_addr = NULL;
 	char *boundary = NULL;
 	char *attach_body = NULL;
 	char *attach_body_crlf = NULL;
@@ -1112,6 +1112,8 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 	*calobj = e_cal_component_get_as_string (comp);
 	if (!*calobj){
 		g_object_unref (comp);
+		g_free (from_name);
+		g_free (from_addr);
 		return GNOME_Evolution_Calendar_OtherError;
 	}
 
@@ -1134,6 +1136,8 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 
 	*return_uid = g_strdup (temp_comp_uid); 
 	icalcomponent_free (real_icalcomp);
+	g_free (from_name);
+	g_free (from_addr);
 	return GNOME_Evolution_Calendar_Success;
 }
 

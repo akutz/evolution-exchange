@@ -2725,7 +2725,6 @@ unsubscribe_folder (MailStub *stub, const char *folder_name)
 		g_free (path);
 		return;
 	}
-	g_free (path);
 	g_object_ref (folder);
 
 	result = exchange_account_remove_favorite (mse->account, folder);
@@ -2739,16 +2738,19 @@ unsubscribe_folder (MailStub *stub, const char *folder_name)
 	case EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED:
 		mail_stub_return_error (stub, _("Permission denied"));
 		g_object_unref (folder);
+		g_free (path);
 		return;
 
 	default:
 		mail_stub_return_error (stub, _("Generic error"));
 		g_object_unref (folder);
+		g_free (path);
 		return;
 
 	}
 
 	g_object_unref (folder);
+	g_free (path);
 	mail_stub_return_ok (stub);
 }
 
