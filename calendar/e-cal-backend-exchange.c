@@ -674,6 +674,8 @@ e_cal_backend_exchange_modify_object (ECalBackendExchange *cbex,
 	} else {
 		ecomp->instances = g_list_prepend (ecomp->instances,
 						   icalcomponent_new_clone (comp));
+		/*FIXME This is a workaround to cover the timezone issue while setting rid from evolution */
+		discard_detached_instance (ecomp, rid);
 	}
 
 	save_cache (cbex);
@@ -1245,6 +1247,7 @@ set_mode (ECalBackend *backend, CalMode mode)
 {
 	ECalBackendExchange *cbex;
 	ECalBackendExchangePrivate *priv;
+	gboolean re_open = FALSE;
 	
 	cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	priv = cbex->priv;
@@ -1257,7 +1260,10 @@ set_mode (ECalBackend *backend, CalMode mode)
 			cal_mode_to_corba (mode));
 	}
 
+
 	g_mutex_lock (priv->set_lock);	
+	if ((priv->mode == CAL_MODE_LOCAL) && (mode == CAL_MODE_REMOTE))
+		re_open = TRUE;
 
 	switch (mode) {
 	
@@ -1270,7 +1276,7 @@ set_mode (ECalBackend *backend, CalMode mode)
 			priv->mode = CAL_MODE_REMOTE;
 		
 			e_cal_backend_notify_readonly (backend, priv->read_only);
-			if (is_loaded (backend))
+			if (is_loaded (backend) && re_open)
 				e_cal_backend_notify_auth_required(backend);
 			break;
 

@@ -1,3 +1,10 @@
+2006-03-06  Chenthill Palanisamy  <pchenthill@novell.com>
+
+	Fixes #333603.
+	* calendar/e-cal-backend-exchange.c:
+	(set_mode): Notify the client to authenticate only when
+	the mode is changed from offline to online.
+
 2006-03-06  Sushma Rai  <rsushma@novell.com>
 
 	* po/POTFILES.in : Removed the non existing files. 
