@@ -1,16 +1,22 @@
-2006-03-01  Chenthill Palanisamy  <pchenthill@novell.com>
+2006-03-06  Sushma Rai  <rsushma@novell.com>
+
+	* storage/exchange-config-listener.c (account_removed): Not unrefing 
+	the account passed to the signal handler. 
+
+2006-03-03  Chenthill Palanisamy  <pchenthill@novell.com>
 
 	Fixes #273057 and problems in modification and deletion
 	of instances, Accepting exception instances from mail.
 	* calendar/e-cal-backend-exchange-calendar.c: 
-	(create_object): Use update_x_properties to remove the X_MOD_PROPS. Server
-	would not allow us to create the object if they are present. 
+	(create_object): Use update_x_properties to remove the X_MOD_PROPS. 
+	Server would not allow us to create the object if they are present. 
 	(update_x_properties): Add the properties to the list and later remove
 	them all, so that all of them are removed.			       
-	(modify_object_with_href): Added a parameter to pass the right rid while removing
-	an instance. Set the start and end times of the master object and remove the recurrence
-	id while modifying all instances. Add all the instance to the VCalendar component, else
-	the excluded ones would be removed from the server.
+	(modify_object_with_href): Added a parameter to pass the right rid i
+	while removing an instance. Set the start and end times of the master 
+	object and remove the recurrence id while modifying all instances. 
+	Add all the instance to the VCalendar component, else the excluded 
+	ones would be removed from the server.
 	(modify_object): 
 	(remove_object)
 	(book_resource): Pass the additional parameter as NULL.
@@ -20,8 +26,8 @@
 	* calendar/e-cal-backend-exchange-tasks.c: (modify_task_object):
 	* calendar/e-cal-backend-exchange.h:
 	* calendar/e-cal-backend-exchange.c:
-	(e_cal_backend_exchange_modify_object): Added a boolean variable to indicate
-	the removal of an instance.
+	(e_cal_backend_exchange_modify_object): Added a boolean variable to 
+	indicate the removal of an instance.
 
 2006-03-03  Chenthill Palanisamy  <pchenthill@novell.com>
 
