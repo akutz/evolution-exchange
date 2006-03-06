@@ -674,6 +674,8 @@ check_owner_partstatus_for_declined (ECalBackendSync *backend,
 	email = e_cal_backend_exchange_get_owner_email (backend);
 	icalprop = find_attendee_prop (icalcomp, email);
 	g_free (email);
+	if (!icalprop)
+		return FALSE;
 	
 	param = icalproperty_get_first_parameter (icalprop, ICAL_PARTSTAT_PARAMETER);
 	
