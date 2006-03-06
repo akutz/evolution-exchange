@@ -1,5 +1,10 @@
 2006-03-06  Sushma Rai  <rsushma@novell.com>
 
+	* storage/exchange-offline-listener.c (setup_offline_listener): 
+	Freeing GConfValue. See #329251.
+
+2006-03-06  Sushma Rai  <rsushma@novell.com>
+
 	* storage/exchange-config-listener.c (account_removed): Not unrefing 
 	the account passed to the signal handler. 
 

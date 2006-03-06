@@ -105,6 +105,7 @@ setup_offline_listener (ExchangeOfflineListener *ex_offline_listener)
 		offline = gconf_value_get_bool (value);
 
 	set_online_status (ex_offline_listener, offline); 
+	gconf_value_free (value);
 }
 
 ExchangeOfflineListener*
