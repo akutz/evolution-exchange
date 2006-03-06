@@ -1,5 +1,10 @@
 2006-03-06  Sushma Rai  <rsushma@novell.com>
 
+	* po/POTFILES.in : Removed the non existing files. 
+	Fixes #317432. Patch submitted by Sebastien Bacher <seb128@debian.org>.
+
+2006-03-06  Sushma Rai  <rsushma@novell.com>
+
 	* storage/exchange-config-listener.c (update_foreign_uri): Using 
 	e_xml_destroy_hash() to free the xml hash, instead of 
 	g_hash_table_destroy(). See #329251.
