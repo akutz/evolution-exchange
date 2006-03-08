@@ -1,21 +1,22 @@
 # Danish translation of Evolution Exchange
-# Copyright (C) 2004 Free Software Foundation, Inc.
+# Copyright (C) 2004, 06 Free Software Foundation, Inc.
 # This file is distributed under the same license as the evolution-exchange package.
+# Ole Laursen <olau@hardworking.dk>, 2006.
 # Martin Willemoes Hansen <mwh@sysrq.dk>, 2004, 05.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-17 16:56+0200\n"
-"PO-Revision-Date: 2005-10-17 16:58+0200\n"
-"Last-Translator: Martin Willemoes Hansen <mwh@sysrq.dk>\n"
+"POT-Creation-Date: 2006-03-08 23:01+0100\n"
+"PO-Revision-Date: 2006-03-08 23:01+0100\n"
+"Last-Translator: Ole Laursen <olau@hardworking.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1857
+#: ../addressbook/e-book-backend-exchange.c:1867
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Søger ..."
@@ -32,7 +33,7 @@ msgstr "Modtager søgeresultater fra LDAP-server ..."
 msgid "Error performing search"
 msgstr "Fejl under udføring af søgning"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1748
+#: ../calendar/e-cal-backend-exchange-calendar.c:1934
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -41,60 +42,56 @@ msgstr ""
 "Kan ikke planlægge resursen \"%s\" for genindtræffende møder.\n"
 "Du skal booke hvert møde separat."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1766
+#: ../calendar/e-cal-backend-exchange-calendar.c:1952
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Resursen \"%s\" er optaget under den valgte tidsperiode."
 
-#: ../camel/camel-exchange-folder.c:221
+#: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
-msgstr "Kan ikke tømme i afkoblet tilstand."
+msgstr "Kan ikke tømme i frakoblet tilstand."
 
-#: ../camel/camel-exchange-folder.c:230
-msgid "Can only expunge in Deleted Items folder"
-msgstr "Kan kun tømme i mappen slettede-elementer"
-
-#: ../camel/camel-exchange-folder.c:254
+#: ../camel/camel-exchange-folder.c:253
 msgid "No Subject"
 msgstr "Intet emne"
 
-#: ../camel/camel-exchange-folder.c:381
+#: ../camel/camel-exchange-folder.c:407
 msgid "This message is not available in offline mode."
-msgstr "Denne besked er ikke tilgængelig i afkoblet tilstand"
+msgstr "Denne besked er ikke tilgængelig i frakoblet tilstand."
 
-#: ../camel/camel-exchange-folder.c:616
+#: ../camel/camel-exchange-folder.c:642
 msgid "Moving messages"
 msgstr "Flytter beskeder"
 
-#: ../camel/camel-exchange-folder.c:617
+#: ../camel/camel-exchange-folder.c:643
 msgid "Copying messages"
 msgstr "Kopierer beskeder"
 
-#: ../camel/camel-exchange-folder.c:988
+#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not create directory %s: %s"
-msgstr "Kunne ikke oprette kataloget %s: %s"
+msgstr "Kunne ikke oprette mappen %s: %s"
 
-#: ../camel/camel-exchange-folder.c:998
+#: ../camel/camel-exchange-folder.c:1024
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Kunne ikke indlæse sammendrag for %s"
 
-#: ../camel/camel-exchange-folder.c:1006
+#: ../camel/camel-exchange-folder.c:1032
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Kunne ikke oprette mellemlager for %s"
 
-#: ../camel/camel-exchange-folder.c:1016
+#: ../camel/camel-exchange-folder.c:1042
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Kunne ikke oprette journal for %s"
 
-#: ../camel/camel-exchange-folder.c:1061
+#: ../camel/camel-exchange-folder.c:1087
 msgid "Scanning for changed messages"
 msgstr "Søger efter ændrede beskeder"
 
-#: ../camel/camel-exchange-folder.c:1087
+#: ../camel/camel-exchange-folder.c:1113
 msgid "Fetching summary information for new messages"
 msgstr "Henter sammendragsinformation for nye beskeder"
 
@@ -102,10 +99,10 @@ msgstr "Henter sammendragsinformation for nye beskeder"
 msgid "No folder name found\n"
 msgstr "Intet mappenavn fundet\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2534
-#: ../mail/mail-stub-exchange.c:2577 ../mail/mail-stub-exchange.c:2612
-#: ../mail/mail-stub-exchange.c:2639 ../mail/mail-stub-exchange.c:2686
-#: ../mail/mail-stub-exchange.c:2708
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
+#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
+#: ../mail/mail-stub-exchange.c:2724
 msgid "Folder doesn't exist"
 msgstr "Mappen findes ikke"
 
@@ -134,13 +131,13 @@ msgstr "Global adresseliste / Active Directory"
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
 #: ../camel/camel-exchange-provider.c:53
-msgid "Global Catalog server name:"
-msgstr "Navn på global katalogserver:"
+msgid "_Global Catalog server name:"
+msgstr "Navn på _global katalogserver:"
 
 #: ../camel/camel-exchange-provider.c:55
 #, c-format
-msgid "Limit number of GAL responses: %s"
-msgstr "Begrænset antal svar fra GAL: %s"
+msgid "_Limit number of GAL responses: %s"
+msgstr "_Begræns antallet af GAL-svar: %s"
 
 #: ../camel/camel-exchange-provider.c:58
 msgid "Options"
@@ -148,25 +145,25 @@ msgstr "Indstillinger"
 
 #: ../camel/camel-exchange-provider.c:60
 #, c-format
-msgid "Password Expiry Warning period: %s"
-msgstr "Advarselsperiode for udløb af adgangskode: %s"
+msgid "_Password Expiry Warning period: %s"
+msgstr "Advarselsperiode for _udløb af adgangskode: %s"
 
 #: ../camel/camel-exchange-provider.c:62
-msgid "Automatically synchronize account locally"
-msgstr "Synkronisér automatisk konti lokalt"
+msgid "Automatically synchroni_ze account locally"
+msgstr "_Synkronisér automatisk konto lokalt"
 
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:65
-msgid "Apply filters to new messages in Inbox on this server"
-msgstr "Anvend filtre på nye beskeder i indbakken på denne server"
+msgid "_Apply filters to new messages in Inbox on this server"
+msgstr "Anvend _filtre på nye beskeder i indbakken på denne server"
 
 #: ../camel/camel-exchange-provider.c:67
-msgid "Check new messages for Junk contents"
-msgstr "Kontrollér om nye beskeder indeholder skrald"
+msgid "Check new messages for _Junk contents"
+msgstr "Kontrollér om nye beskeder er s_pam"
 
 #: ../camel/camel-exchange-provider.c:69
-msgid "Only check for Junk messages in the Inbox folder"
-msgstr "Kontrollér kun om beskeder indeholder skrald i indbakken"
+msgid "Only check for Junk messag_es in the Inbox folder"
+msgstr "Kontrollér _kun om beskeder er spam i indbakken"
 
 #: ../camel/camel-exchange-provider.c:79
 msgid "Microsoft Exchange"
@@ -174,7 +171,7 @@ msgstr "Microsoft Exchange"
 
 #: ../camel/camel-exchange-provider.c:81
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
-msgstr "For håndtering af e-post (og andre data) på Microsoft Exchange-servere"
+msgstr "Til håndtering af e-post (og andre data) på Microsoft Exchange-servere"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
 #: ../camel/camel-exchange-provider.c:97
@@ -212,7 +209,7 @@ msgstr "Exchange-server %s"
 msgid "Exchange account for %s on %s"
 msgstr "Exchange-konto for %s på %s"
 
-#: ../camel/camel-exchange-store.c:352 ../storage/exchange-account.c:869
+#: ../camel/camel-exchange-store.c:352
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sAngiv adgangskode for %s"
@@ -221,7 +218,7 @@ msgstr "%sAngiv adgangskode for %s"
 msgid "Evolution Exchange backend process"
 msgstr "Bagendeproces for Evolution Exchange"
 
-#: ../camel/camel-exchange-store.c:444 ../storage/exchange-account.c:1384
+#: ../camel/camel-exchange-store.c:444
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -301,163 +298,16 @@ msgstr "Mistede forbindelsen til %s"
 msgid "Error communicating with %s: %s"
 msgstr "Fejl ved kommunikation med %s: %s"
 
-#: ../lib/e2k-autoconfig.c:1471 ../storage/exchange-autoconfig-wizard.c:211
-#, c-format
-msgid ""
-"Could not connect to the Exchange server.\n"
-"Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
-msgstr ""
-"Kunne ikke tilslutte Exchange-serveren.\n"
-"Kontrollér at URL'en er korrekt (prøv med \"%s\" i stedet for \"%s\"?) og "
-"forsøg igen."
-
-#: ../lib/e2k-autoconfig.c:1480 ../storage/exchange-autoconfig-wizard.c:219
-msgid ""
-"Could not locate Exchange server.\n"
-"Make sure the server name is spelled correctly and try again."
-msgstr ""
-"Kunne ikke finde Exchange-serveren.\n"
-"Kontrollér at servernavnet er korrekt stavet og forsøg igen."
-
-#: ../lib/e2k-autoconfig.c:1490 ../storage/exchange-autoconfig-wizard.c:228
-msgid ""
-"Could not authenticate to the Exchange server.\n"
-"Make sure the username and password are correct and try again."
-msgstr ""
-"Kunne ikke godkendes af Exchange-serveren.\n"
-"Kontrollér at brugernavnet og adgangskoden er korrekt og forsøg igen."
-
-#: ../lib/e2k-autoconfig.c:1498 ../storage/exchange-autoconfig-wizard.c:235
-#, c-format
-msgid ""
-"Could not authenticate to the Exchange server.\n"
-"Make sure the username and password are correct and try again.\n"
-"\n"
-"You may need to specify the Windows domain name as part of your username "
-"(eg, \"MY-DOMAIN\\%s\")."
-msgstr ""
-"Kunne ikke godkendes af Exchange-serveren.\n"
-"Kontrollér at brugernavnet og adgangskoden er korrekt og forsøg igen.\n"
-"Du bliver muligvis nød til at angive Windows-domænenavnet som en del af dit "
-"brugernavn (fx \"MIT-DOMÆNE\\%s\")."
-
-#: ../lib/e2k-autoconfig.c:1511 ../storage/exchange-autoconfig-wizard.c:247
-msgid ""
-"Could not find OWA data at the indicated URL.\n"
-"Make sure the URL is correct and try again."
-msgstr ""
-"Kunne ikke finde OWA-data på den angivne URL.\n"
-"Kontrollér at URL'en er korrekt og forsøg igen."
-
-#: ../lib/e2k-autoconfig.c:1520
-#, c-format
-msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
-"\n"
-"For information to provide to your Exchange administrator, please follow the "
-"link below:\n"
-"%s"
-msgstr ""
-"Ximian Connector kræver adgang til en del funktionalitet på Exchange-"
-"serveren som virker til at være deaktiveret eller blokeret (dette er "
-"almindeligvis ikke med vilje). Din Exchange-administrator skal aktivere "
-"denne funktionalitet for at du kan anvende Ximian Connector.\n"
-"\n"
-"Følg linken nedenfor for information som du kan give din Exchange-"
-"administrator:\n"
-"%s"
-
-#: ../lib/e2k-autoconfig.c:1536 ../storage/exchange-autoconfig-wizard.c:275
-msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"URL'en til Exchange-serveren som du angav er for en Exchange 5.5-server. "
-"Ximian Connector understøtter kun Microsoft Exchange 2000 og 2003."
-
-#: ../lib/e2k-autoconfig.c:1545 ../storage/exchange-autoconfig-wizard.c:288
-msgid ""
-"Could not configure Exchange account because an unknown error occurred. "
-"Check the URL, username, and password, and try again."
-msgstr ""
-"Kunne ikke konfigurere Exchange-kontoen eftersom en ukendt fejl opstod. "
-"Kontrollér URL'en, brugernavnet og adgangskoden og forsøg igen."
-
-#: ../lib/e2k-autoconfig.c:1567
-#, c-format
-msgid "Enter password for %s"
-msgstr "Angiv adgangskode for %s"
-
-#: ../lib/e2k-autoconfig.c:1568 ../storage/exchange-account.c:874
-msgid "Enter password"
-msgstr "Angiv adgangskode"
-
-#. i18n: These are Outlook's words for the default roles in
-#. the folder permissions dialog.
-#: ../lib/e2k-security-descriptor.c:847
-msgid "Owner"
-msgstr "Ejer"
-
-#: ../lib/e2k-security-descriptor.c:857
-msgid "Publishing Editor"
-msgstr "Publiceringsredaktør"
-
-#: ../lib/e2k-security-descriptor.c:865
-msgid "Editor"
-msgstr "Redaktør"
-
-#: ../lib/e2k-security-descriptor.c:872
-msgid "Publishing Author"
-msgstr "Publiceringsforfatter"
-
-#: ../lib/e2k-security-descriptor.c:878
-msgid "Author"
-msgstr "Forfatter"
-
-#: ../lib/e2k-security-descriptor.c:883
-msgid "Non-editing Author"
-msgstr "Ikke-redigerende forfatter"
-
-#: ../lib/e2k-security-descriptor.c:887
-msgid "Reviewer"
-msgstr "Gennemlæser"
-
-#: ../lib/e2k-security-descriptor.c:889
-msgid "Contributor"
-msgstr "Bidragyder"
-
-#: ../lib/e2k-security-descriptor.c:891
-#: ../storage/exchange-delegates.glade.h:7
-msgid "None"
-msgstr "Ingen"
-
-#: ../lib/e2k-security-descriptor.c:906
-#: ../storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "Tilpasset"
-
-#: ../lib/e2k-user-dialog.c:144
-msgid "Select User"
-msgstr "Vælg bruger"
-
-#: ../lib/e2k-user-dialog.c:182
-msgid "Addressbook..."
-msgstr "Adressebog ..."
-
 #: ../mail/mail-stub-exchange.c:257
 msgid "No such folder"
 msgstr "Mappen findes ikke"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1381
-#: ../mail/mail-stub-exchange.c:2511 ../mail/mail-stub-exchange.c:2550
-#: ../mail/mail-stub-exchange.c:2616 ../mail/mail-stub-exchange.c:2660
-#: ../mail/mail-stub-exchange.c:2724 ../shell/e-storage.c:573
-#: ../storage/xc-commands.c:319
+#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
+#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
+#: ../mail/mail-stub-exchange.c:2739
 msgid "Permission denied"
 msgstr "Adgang nægtet"
 
@@ -465,67 +315,67 @@ msgstr "Adgang nægtet"
 msgid "Could not open folder: Permission denied"
 msgstr "Kunne ikke åbne mappen: Adgang nægtet"
 
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:705
+#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
 msgid "Could not open folder"
 msgstr "Kunne ikke åbne mappen"
 
-#: ../mail/mail-stub-exchange.c:748
+#: ../mail/mail-stub-exchange.c:755
 msgid "No such folder."
 msgstr "Mappen findes ikke."
 
-#: ../mail/mail-stub-exchange.c:757
+#: ../mail/mail-stub-exchange.c:764
 msgid "Could not create folder."
 msgstr "Kunne ikke oprette mappe."
 
-#: ../mail/mail-stub-exchange.c:837
+#: ../mail/mail-stub-exchange.c:844
 msgid "Could not open Deleted Items folder"
 msgstr "Kunne ikke åbne mappen slettede-elementer"
 
-#: ../mail/mail-stub-exchange.c:1166 ../mail/mail-stub-exchange.c:1207
+#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
 msgid "Could not get new messages"
 msgstr "Kunne ikke hente nye beskeder"
 
-#: ../mail/mail-stub-exchange.c:1377
+#: ../mail/mail-stub-exchange.c:1386
 msgid "Could not empty Deleted Items folder"
 msgstr "Kunne ikke tømme mappen slettede-elementer"
 
-#: ../mail/mail-stub-exchange.c:1454
+#: ../mail/mail-stub-exchange.c:1463
 msgid "Could not append message; mailbox is over quota"
 msgstr "Kunne ikke tilføje besked; postkassen har overskredet sin kvote"
 
-#: ../mail/mail-stub-exchange.c:1455
+#: ../mail/mail-stub-exchange.c:1464
 msgid "Could not append message"
 msgstr "Kunne ikke tilføje besked"
 
-#: ../mail/mail-stub-exchange.c:2001
+#: ../mail/mail-stub-exchange.c:2016
 msgid "No such message"
 msgstr "Det findes ingen sådan besked"
 
-#: ../mail/mail-stub-exchange.c:2054
+#: ../mail/mail-stub-exchange.c:2069
 msgid "Message has been deleted"
 msgstr "Beskeden er blevet slettet"
 
-#: ../mail/mail-stub-exchange.c:2056
+#: ../mail/mail-stub-exchange.c:2071
 msgid "Error retrieving message"
 msgstr "Fejl ved hentning af besked"
 
-#: ../mail/mail-stub-exchange.c:2098
+#: ../mail/mail-stub-exchange.c:2113
 msgid "Mailbox does not support full-text searching"
 msgstr "Postkassen understøtter ikke fuldtekstsøgning"
 
-#: ../mail/mail-stub-exchange.c:2196
+#: ../mail/mail-stub-exchange.c:2211
 msgid "Unable to move/copy messages"
 msgstr "Kan ikke flytte/kopiere beskeder"
 
-#: ../mail/mail-stub-exchange.c:2426
+#: ../mail/mail-stub-exchange.c:2441
 msgid "No mail submission URI for this mailbox"
 msgstr "Ingen URI for e-post-sendende for denne postkasse"
 
-#: ../mail/mail-stub-exchange.c:2462
+#: ../mail/mail-stub-exchange.c:2477
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Serveren acceptere ikke e-post via Exchange-transporten"
 
-#: ../mail/mail-stub-exchange.c:2464
+#: ../mail/mail-stub-exchange.c:2479
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -534,7 +384,7 @@ msgstr ""
 "Din konto har ikke tilladelse til at anvende <%s>\n"
 "som Fra-adresse."
 
-#: ../mail/mail-stub-exchange.c:2476
+#: ../mail/mail-stub-exchange.c:2491
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -542,240 +392,19 @@ msgstr ""
 "Kunne ikke sende beskeden.\n"
 "Dette kan indebære at din konto har overskredet sin kvote."
 
-#: ../mail/mail-stub-exchange.c:2480
+#: ../mail/mail-stub-exchange.c:2495
 msgid "Could not send message"
 msgstr "Kunne ikke sende beskeden"
 
-#: ../mail/mail-stub-exchange.c:2503 ../mail/mail-stub-exchange.c:2555
-#: ../mail/mail-stub-exchange.c:2620 ../mail/mail-stub-exchange.c:2665
-#: ../mail/mail-stub-exchange.c:2729 ../shell/e-storage.c:557
-#: ../storage/xc-commands.c:323
+#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
+#: ../mail/mail-stub-exchange.c:2745
 msgid "Generic error"
 msgstr "Generel fejl"
 
-#: ../mail/mail-stub-exchange.c:2507 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2522
 msgid "Folder already exists"
 msgstr "Mappen findes allerede"
-
-#: ../shell/e-folder-creation-dialog.c:138
-#, c-format
-msgid ""
-"Cannot create the specified folder:\n"
-"%s"
-msgstr ""
-"Kan ikke oprette den angivne mappe:\n"
-"%s"
-
-#: ../shell/e-folder-creation-dialog.c:179
-#, c-format
-msgid "The specified folder name is not valid: %s"
-msgstr "Det angivne mappenavn er ikke gyldigt: %s"
-
-#: ../shell/e-folder-creation-dialog.c:310
-msgid "Create New Folder"
-msgstr "Opret ny mappe"
-
-#: ../shell/e-folder-creation-dialog.glade.h:1
-#: ../storage/exchange-autoconfig-wizard.glade.h:1
-#: ../storage/exchange-change-password.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ../shell/e-folder-creation-dialog.glade.h:2
-msgid "Folder _name:"
-msgstr "Mappe_navn:"
-
-#: ../shell/e-folder-creation-dialog.glade.h:3
-msgid "Folder _type:"
-msgstr "Mappe_type:"
-
-#: ../shell/e-folder-creation-dialog.glade.h:4
-msgid "Specify where to create the folder:"
-msgstr "Angiv hvor mappen skal oprettes:"
-
-#: ../shell/e-folder-dnd-bridge.c:52
-#, c-format
-msgid ""
-"Cannot transfer folder:\n"
-"%s"
-msgstr ""
-"Kan ikke overføre mappen:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:62
-#, c-format
-msgid ""
-"Cannot delete folder:\n"
-"%s"
-msgstr ""
-"Kan ikke fjerne mappen:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:115
-#, c-format
-msgid "Really delete folder \"%s\"?"
-msgstr "Er du sikker på at du vil slette mappen \"%s\"?"
-
-#: ../shell/e-folder-misc-dialogs.c:129
-#, c-format
-msgid "Delete \"%s\""
-msgstr "Slet \"%s\""
-
-#: ../shell/e-folder-misc-dialogs.c:154
-#, c-format
-msgid ""
-"Cannot rename folder:\n"
-"%s"
-msgstr ""
-"Kan ikke omdøbe mappen:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:188
-#, c-format
-msgid "Rename the \"%s\" folder to:"
-msgstr "Omdøb mappen \"%s\" til:"
-
-#: ../shell/e-folder-misc-dialogs.c:191
-msgid "Rename Folder"
-msgstr "Omdøb mappen"
-
-#: ../shell/e-folder-misc-dialogs.c:205
-#, c-format
-msgid "A folder named \"%s\" already exists. Please use a different name."
-msgstr "Der findes allerede en mappe med navnet \"%s\". Vælg et andet navn."
-
-#. It would be nice to insensitivize the OK button appropriately
-#. instead of doing this, but unfortunately we can't do this for the
-#. Bonobo control.
-#: ../shell/e-folder-misc-dialogs.c:451
-msgid "Please select a user."
-msgstr "Vælg en bruger."
-
-#: ../shell/e-folder-misc-dialogs.c:553
-msgid "Opening Folder"
-msgstr "Åbner mappe"
-
-#: ../shell/e-folder-misc-dialogs.c:559
-#, c-format
-msgid "Opening Folder \"%s\""
-msgstr "Åbner mappen \"%s\""
-
-#: ../shell/e-folder-misc-dialogs.c:564
-#, c-format
-msgid "in \"%s\" ..."
-msgstr "i \"%s\" ..."
-
-#: ../shell/e-folder-misc-dialogs.c:631
-#, c-format
-msgid "Could not open other user's folder: %s."
-msgstr "Kunne ikke åbne anden brugers mappe: %s."
-
-#: ../shell/e-folder-misc-dialogs.c:681
-msgid "Cannot find the specified other user's folder."
-msgstr "Kan ikke finde den angivne anden brugers mappe."
-
-#: ../shell/e-folder-misc-dialogs.c:713
-#, c-format
-msgid ""
-"Cannot unsubscribe from folder:\n"
-"%s"
-msgstr ""
-"Kan ikke opsige abonnement på mappen:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:766
-#, c-format
-msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "Er du sikker på at du vil opsige abonnementet på mappen \"%s\"?"
-
-#: ../shell/e-folder-misc-dialogs.c:780
-#, c-format
-msgid "Unsubscribe from \"%s\""
-msgstr "Opsig abonnement på \"%s\""
-
-#: ../shell/e-foreign-folder-dialog.glade.h:1
-msgid "Open Other User's Folder"
-msgstr "Åben anden brugers mappe"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:2
-msgid "_Account:"
-msgstr "_Konto:"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:3
-msgid "_Folder Name:"
-msgstr "_Mappenavn:"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:4
-msgid "_User:"
-msgstr "Br_uger:"
-
-#: ../shell/e-storage-set-view.etspec.h:1
-msgid "Checkbox"
-msgstr "Afkrydsningsfelt"
-
-#: ../shell/e-storage-set-view.etspec.h:2
-msgid "Folder"
-msgstr "Mappe"
-
-#: ../shell/e-storage.c:555
-msgid "No error"
-msgstr "Ingen fejl"
-
-#: ../shell/e-storage.c:559
-msgid "A folder with the same name already exists"
-msgstr "En mappe med samme navn findes allerede"
-
-#: ../shell/e-storage.c:561
-msgid "The specified folder type is not valid"
-msgstr "Den angivne mappetype er ikke gyldig"
-
-#: ../shell/e-storage.c:563
-msgid "I/O error"
-msgstr "I/O-fejl"
-
-#: ../shell/e-storage.c:565
-msgid "Not enough space to create the folder"
-msgstr "Ikke nok plads til at oprette mappen"
-
-#: ../shell/e-storage.c:567
-msgid "The folder is not empty"
-msgstr "Mappen er ikke tom"
-
-#: ../shell/e-storage.c:569
-msgid "The specified folder was not found"
-msgstr "Den angivne mappe blev ikke fundet"
-
-#: ../shell/e-storage.c:571
-msgid "Function not implemented in this storage"
-msgstr "Funktionen er ikke indarbejdet i dette lager"
-
-#: ../shell/e-storage.c:575
-msgid "Operation not supported"
-msgstr "Operationen er ikke understøttet"
-
-#: ../shell/e-storage.c:577
-msgid "The specified type is not supported in this storage"
-msgstr "Den angivne type understøttes ikke i dette lager"
-
-#: ../shell/e-storage.c:579
-msgid "The specified folder cannot be modified or removed"
-msgstr "Den angivne mappe kan ikke ændres eller fjernes"
-
-#: ../shell/e-storage.c:581
-msgid "Cannot make a folder a child of one of its descendants"
-msgstr "Kan ikke gøre en mappe til undermappe af dens undermapper"
-
-#: ../shell/e-storage.c:583
-msgid "Cannot create a folder with that name"
-msgstr "Kan ikke oprette en mappe med det navn"
-
-#: ../shell/e-storage.c:585
-msgid "This operation cannot be performed in off-line mode"
-msgstr "Denne handling kan ikke udføres i afkoblet tilstand"
-
-#: ../shell/e-storage.c:587 ../storage/exchange-account.c:1473
-msgid "Unknown error"
-msgstr "Ukendt fejl"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
 msgid "Evolution Addressbook Exchange backend"
@@ -789,141 +418,53 @@ msgstr "Evolutions kalenderbagende for Exchange"
 msgid "Ximian Connector for Exchange"
 msgstr "Ximian Connector for Exchange"
 
-#. i18n: This is the title of an "other user's folders"
-#. hierarchy. Eg, "John Doe's Folders".
-#: ../storage/exchange-account.c:584
-#, c-format
-msgid "%s's Folders"
-msgstr "%s's mapper"
-
-#. email id is not proper, we return instead of trying nt_domain
-#: ../storage/exchange-account.c:1069
-msgid "Cannot change password due to configuration problems"
-msgstr "Kan ikke skifte adgangskode på grund af konfigurationsproblemer"
-
-#: ../storage/exchange-account.c:1092
-msgid ""
-"Server rejected password because it is too weak.\n"
-"Try again with a different password."
-msgstr ""
-"Serveren afviste adgangskoden fordi den er for enkel.\n"
-"Forsøg igen med en anden adgangskode."
-
-#: ../storage/exchange-account.c:1097
-msgid "Could not change password"
-msgstr "Kunne ikke ændre adgangskode"
-
-#: ../storage/exchange-account.c:1190
-msgid "Personal Folders"
-msgstr "Personlige mapper"
-
-#: ../storage/exchange-account.c:1205
-msgid "Favorite Public Folders"
-msgstr "Offentlige favoritmapper"
-
-#. i18n: Outlookism
-#: ../storage/exchange-account.c:1222
-msgid "All Public Folders"
-msgstr "Alle offentlige mapper"
-
-#. i18n: Outlookism
-#: ../storage/exchange-account.c:1236
-msgid "Global Address List"
-msgstr "Global adresseliste"
-
-#: ../storage/exchange-account.c:1326
-msgid "Exchange Account is offline. Cannot display folders\n"
-msgstr "Exchange-konto er i afkoblet tilstand Kan ikke vise mapper\n"
-
-#: ../storage/exchange-account.c:1389
-msgid ""
-"Could not authenticate to server.\n"
-"\n"
-"This probably means that your server requires you\n"
-"to specify the Windows domain name as part of your\n"
-"username (eg, \"DOMAIN\\user\").\n"
-"\n"
-"Or you might have just typed your password wrong.\n"
-"\n"
-msgstr ""
-"Kunne ikke godkendes af serveren.\n"
-"\n"
-"Dette indebære sandsynligvis at din server kræver at\n"
-"du angiver Windows-domænenavnet som en del af dit\n"
-"brugernavn (fx \"MIT-DOMÆNE\\bruger\").\n"
-"\n"
-"Eller så har du helt enkelt skrevet din adgangskode forkert.\n"
-"\n"
-
-#: ../storage/exchange-account.c:1431
-#, c-format
-msgid "Mailbox for %s is not on this server."
-msgstr "Postkassen for %s findes ikke på denne server."
-
-#: ../storage/exchange-account.c:1436
+#: ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
 msgid ""
-"The server '%s' is running Exchange 5.5 and is\n"
-"therefore not compatible with Ximian Connector"
+"Could not connect to the Exchange server.\n"
+"Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
-"Serveren \"%s\" køre Exchange 5.5 og er \n"
-"derfor ikke kompatibel med Ximian Connector"
+"Kunne ikke tilslutte Exchange-serveren.\n"
+"Kontrollér at URL'en er korrekt (prøv med \"%s\" i stedet for \"%s\"?) og "
+"forsøg igen."
 
-# Osikker.
-#: ../storage/exchange-account.c:1443
+#: ../storage/exchange-autoconfig-wizard.c:219
+msgid ""
+"Could not locate Exchange server.\n"
+"Make sure the server name is spelled correctly and try again."
+msgstr ""
+"Kunne ikke finde Exchange-serveren.\n"
+"Kontrollér at servernavnet er korrekt stavet og forsøg igen."
+
+#: ../storage/exchange-autoconfig-wizard.c:228
+msgid ""
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again."
+msgstr ""
+"Kunne ikke godkendes af Exchange-serveren.\n"
+"Kontrollér at brugernavnet og adgangskoden er korrekt og forsøg igen."
+
+#: ../storage/exchange-autoconfig-wizard.c:235
 #, c-format
 msgid ""
-"Could not find Exchange Web Storage System at %s.\n"
-"If OWA is running on a different path, you must specify that in the\n"
-"account configuration dialog."
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again.\n"
+"\n"
+"You may need to specify the Windows domain name as part of your username "
+"(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
-"Kunne ikke finde Exchange-weblagringssystemet på %s.\n"
-"Hvis OWA benytter en anden søgesti skal du angive dette i "
-"kontokonfigurationsvinduet."
+"Kunne ikke godkendes af Exchange-serveren.\n"
+"Kontrollér at brugernavnet og adgangskoden er korrekt og forsøg igen.\n"
+"Du bliver muligvis nød til at angive Windows-domænenavnet som en del af dit "
+"brugernavn (fx \"MIT-DOMÆNE\\%s\")."
 
-#: ../storage/exchange-account.c:1451
-#, c-format
-msgid "No mailbox for user %s on %s.\n"
-msgstr "Ingen postkasse for brugeren %s på %s.\n"
-
-#: ../storage/exchange-account.c:1457 ../storage/exchange-account.c:1463
-#: ../storage/exchange-account.c:1471
-#, c-format
-msgid "Could not connect to server %s: %s"
-msgstr "Kunne ikke tilslutte serveren %s: %s"
-
-#: ../storage/exchange-account.c:1459
-msgid "Could not resolve hostname"
-msgstr "Kunne ikke slå værtsnavn op"
-
-#: ../storage/exchange-account.c:1465
-msgid "Network error"
-msgstr "Netværksfejl"
-
-#: ../storage/exchange-account.c:1529
-#, c-format
+#: ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
-"You have exceeded your quota of %d %s for storing mails on this server. Your "
-"current usage is : %.0f %s."
+"Could not find OWA data at the indicated URL.\n"
+"Make sure the URL is correct and try again."
 msgstr ""
-"Du bruger mere end din kvote på %d %s for lagring af e-post på denne server. "
-"Dit nuværende forbrug er: %.0f %s."
-
-#: ../storage/exchange-account.c:1532
-msgid "You will not be able to either send or receive mails now\n"
-msgstr "Du vil ikke være i stand til at sende eller modtage e-post nu\n"
-
-#: ../storage/exchange-account.c:1535
-msgid ""
-"You will not be able to send mails till you clear up some space by deleting "
-"some mails.\n"
-msgstr ""
-"Du vil ikke være i stand til at sende e-post før du gør plads ved at slette "
-"nogle e-breve.\n"
-
-#: ../storage/exchange-account.c:1538
-msgid "Try to clear up some space by deleting some mails.\n"
-msgstr "Prøv at rydde noget plads ved at slette noget e-post.\n"
+"Kunne ikke finde OWA-data på den angivne URL.\n"
+"Kontrollér at URL'en er korrekt og forsøg igen."
 
 #: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
@@ -942,6 +483,22 @@ msgstr ""
 "\n"
 "Følg linken nedenfor for information som du kan give din Exchange-"
 "administrator:"
+
+#: ../storage/exchange-autoconfig-wizard.c:275
+msgid ""
+"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
+"Connector supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"URL'en til Exchange-serveren som du angav er for en Exchange 5.5-server. "
+"Ximian Connector understøtter kun Microsoft Exchange 2000 og 2003."
+
+#: ../storage/exchange-autoconfig-wizard.c:288
+msgid ""
+"Could not configure Exchange account because an unknown error occurred. "
+"Check the URL, username, and password, and try again."
+msgstr ""
+"Kunne ikke konfigurere Exchange-kontoen eftersom en ukendt fejl opstod. "
+"Kontrollér URL'en, brugernavnet og adgangskoden og forsøg igen."
 
 #: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
@@ -978,6 +535,11 @@ msgstr ""
 #: ../storage/exchange-autoconfig-wizard.c:459
 msgid "You may only configure a single Exchange account"
 msgstr "Du kan kun konfigurere én Exchange-konto"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:1
+#: ../storage/exchange-change-password.glade.h:1
+msgid "*"
+msgstr "*"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
@@ -1129,108 +691,6 @@ msgstr "Ny adgangskode:"
 msgid "Your current password has expired. Please change your password now."
 msgstr "Din nuværende adgangskode er udløbet. Skift din adgangskode nu."
 
-#: ../storage/exchange-delegates-user.c:191
-#: ../storage/exchange-permissions-dialog.c:179
-#, c-format
-msgid "Permissions for %s"
-msgstr "Rettigheder for %s"
-
-#: ../storage/exchange-delegates.c:221
-msgid ""
-"No Global Catalog server configured for this account.\n"
-"Unable to edit delegates."
-msgstr ""
-"Ingen global katalogserver er konfigureret for denne konto.\n"
-"Kan ikke redigere delegater."
-
-#: ../storage/exchange-delegates.c:260
-msgid ""
-"Could not read folder permissions.\n"
-"Unable to edit delegates."
-msgstr ""
-"Kunne ikke læse rettigheder for mapper.\n"
-"Kan ikke redigere delegater."
-
-#: ../storage/exchange-delegates.c:267
-msgid ""
-"Could not determine folder permissions for delegates.\n"
-"Unable to edit delegates."
-msgstr ""
-"Kunne ikke afgøre mapperettigheder for delegater.\n"
-"Kan ikke redigere delegater."
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To:"
-msgstr "Deleger til:"
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To"
-msgstr "Deleger til"
-
-#: ../storage/exchange-delegates.c:435
-#, c-format
-msgid "Could not make %s a delegate"
-msgstr "Kunne ikke gøre %s til en delegat"
-
-#: ../storage/exchange-delegates.c:445
-msgid "You cannot make yourself your own delegate"
-msgstr "Du kan ikke gøre dig selv til din egen delegat"
-
-#: ../storage/exchange-delegates.c:454
-#, c-format
-msgid "%s is already a delegate"
-msgstr "%s er allerede en delegat"
-
-#: ../storage/exchange-delegates.c:563
-#, c-format
-msgid "Remove the delegate %s?"
-msgstr "Fjern delegaten %s?"
-
-#: ../storage/exchange-delegates.c:680
-msgid "Could not access Active Directory"
-msgstr "Kunne ikke tilgå Active Directory"
-
-#: ../storage/exchange-delegates.c:695
-msgid "Could not find self in Active Directory"
-msgstr "Kunne ikke finde sig selv i Active Directory"
-
-#: ../storage/exchange-delegates.c:708
-#, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "Kunne ikke finde delegaten %s i Active Directory"
-
-#: ../storage/exchange-delegates.c:720
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "Kunne ikke fjerne delegaten %s"
-
-#: ../storage/exchange-delegates.c:780
-msgid "Could not update list of delegates."
-msgstr "Kunne ikke opdatere listen med delegater."
-
-#: ../storage/exchange-delegates.c:798
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "Kunne ikke tilføje delegaten %s"
-
-#: ../storage/exchange-delegates.c:814
-#, c-format
-msgid ""
-"Failed to update delegates:\n"
-"%s"
-msgstr ""
-"Det mislykkedes at opdatere delegater:\n"
-"%s"
-
-#: ../storage/exchange-delegates.c:938
-#: ../storage/exchange-permissions-dialog.c:706
-msgid "Name"
-msgstr "Navn"
-
-#: ../storage/exchange-delegates.c:967
-msgid "Error reading delegates list."
-msgstr "Fejl ved læsning af delegatlisten."
-
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
 msgstr "Forfatter (læs, opret)"
@@ -1254,6 +714,10 @@ msgstr "Delegater"
 #: ../storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
 msgstr "Redaktør (læs, opret, redigér)"
+
+#: ../storage/exchange-delegates.glade.h:7
+msgid "None"
+msgstr "Ingen"
 
 #: ../storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
@@ -1287,63 +751,15 @@ msgstr "_Indbakke:"
 msgid "_Tasks:"
 msgstr "_Opgaver:"
 
-#: ../storage/exchange-folder-size.c:322
-msgid "Folder Name"
-msgstr "Mappenavn"
-
-#: ../storage/exchange-folder-size.c:326
-msgid "Folder Size"
-msgstr "Mappestørrelse"
-
 #: ../storage/exchange-folder-tree.glade.h:1
 msgid "Exchange Folder Tree"
 msgstr "Exchange-mappetræ"
 
-#: ../storage/exchange-hierarchy-foreign.c:250
-msgid "Calendar"
-msgstr "Kalender"
-
-#: ../storage/exchange-hierarchy-foreign.c:251
-msgid "Contacts"
-msgstr "Kontakter"
-
-#: ../storage/exchange-hierarchy-foreign.c:252
-msgid "Deleted Items"
-msgstr "Slettede-elementer"
-
-#: ../storage/exchange-hierarchy-foreign.c:253
-msgid "Drafts"
-msgstr "Kladder"
-
-#: ../storage/exchange-hierarchy-foreign.c:254
-msgid "Inbox"
-msgstr "Indbakke"
-
-#: ../storage/exchange-hierarchy-foreign.c:255
-msgid "Journal"
-msgstr "Dagbog"
-
-#: ../storage/exchange-hierarchy-foreign.c:256
-msgid "Notes"
-msgstr "Noter"
-
-#: ../storage/exchange-hierarchy-foreign.c:257
-msgid "Outbox"
-msgstr "Udbakke"
-
-#: ../storage/exchange-hierarchy-foreign.c:258
-msgid "Sent Items"
-msgstr "Sendte elementer"
-
-#: ../storage/exchange-hierarchy-foreign.c:259
-msgid "Tasks"
-msgstr "Opgaver"
-
-#: ../storage/exchange-migrate.c:57
+#: ../storage/exchange-migrate.c:58
 msgid "Migrating Exchange Folders..."
 msgstr "Migrerer Exchange-mapper ..."
 
-#: ../storage/exchange-migrate.c:65
+#: ../storage/exchange-migrate.c:66
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -1356,7 +772,7 @@ msgstr ""
 "\n"
 "Vent venligst mens Evolution migrerer dine mapper ..."
 
-#: ../storage/exchange-migrate.c:98
+#: ../storage/exchange-migrate.c:99
 #, c-format
 msgid ""
 "Warning: Evolution could not migrate all the Exchange account data from the "
@@ -1364,23 +780,15 @@ msgid ""
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"Advarsel: Evolution kunne ikke migrere alle Exchange-kontodata fra version "
-"%d.%d.%d. \n"
+"Advarsel: Evolution kunne ikke migrere alle Exchange-kontodata fra version %"
+"d.%d.%d. \n"
 "Disse data er ikke slettet, men de kommer ikke til at kunne ses af denne "
 "version af Evolution"
 
-#: ../storage/exchange-migrate.c:129
+#: ../storage/exchange-migrate.c:130
 #, c-format
 msgid "Migrating `%s':"
 msgstr "Migrerer \"%s\":"
-
-#: ../storage/exchange-oof.c:199 ../storage/exchange-oof.c:406
-msgid "Could not update out-of-office state"
-msgstr "Kunne ikke opdatere borte-fra-kontoret-tilstanden."
-
-#: ../storage/exchange-oof.c:424
-msgid "Could not read out-of-office state"
-msgstr "Kunne ikke læse borte-fra-kontoret-tilstanden"
 
 #: ../storage/exchange-oof.glade.h:1
 msgid ""
@@ -1444,63 +852,6 @@ msgstr "_Ændr adgangskode"
 #: ../storage/exchange-passwd-expiry.glade.h:4
 msgid "ok_button"
 msgstr "o.k.-_knap"
-
-#: ../storage/exchange-permissions-dialog.c:222
-msgid "Could not read folder permissions"
-msgstr "Kunne ikke læse mapperettighederne"
-
-#: ../storage/exchange-permissions-dialog.c:264
-msgid "Could not update folder permissions."
-msgstr "Kunne ikke opdatere mapperettighederne."
-
-#: ../storage/exchange-permissions-dialog.c:293
-#, c-format
-msgid "Could not update folder permissions. %s"
-msgstr "Kunne ikke opdatere mapperettighederne. %s"
-
-#: ../storage/exchange-permissions-dialog.c:295
-msgid "(Permission denied.)"
-msgstr "(Adgang nægtet.)"
-
-#: ../storage/exchange-permissions-dialog.c:396
-msgid ""
-"Unable to add user to access control list:\n"
-"No Global Catalog server is configured for this account."
-msgstr ""
-"Kunne ikke føje brugeren til adgangkontrollisten:\n"
-"Ingen global katalogserver er konfigureret for denne konto."
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User:"
-msgstr "Tilføj bruger:"
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User"
-msgstr "Tilføj bruger"
-
-#: ../storage/exchange-permissions-dialog.c:421
-#, c-format
-msgid "No such user %s"
-msgstr "Der findes ingen sådan bruger %s"
-
-#: ../storage/exchange-permissions-dialog.c:425
-#, c-format
-msgid "%s cannot be added to an access control list"
-msgstr "%s kan ikke tilføjes en adgangskontrolliste"
-
-#: ../storage/exchange-permissions-dialog.c:430
-#, c-format
-msgid "Unknown error looking up %s"
-msgstr "Ukendt fejl ved opslag af %s"
-
-#: ../storage/exchange-permissions-dialog.c:447
-#, c-format
-msgid "%s is already in the list"
-msgstr "%s findes allerede i listen"
-
-#: ../storage/exchange-permissions-dialog.c:710
-msgid "Role"
-msgstr "Rolle"
 
 #: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
@@ -1566,73 +917,9 @@ msgstr "Rolle: "
 msgid "Connecting..."
 msgstr "Kobler til ..."
 
-#: ../storage/main.c:165
+#: ../storage/main.c:183
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector for Microsoft Exchange"
-
-#: ../storage/xc-backend-view.c:299
-msgid "Account Name"
-msgstr "Kontonavn"
-
-#: ../storage/xc-commands.c:316
-msgid "Folder does not exist"
-msgstr "Mappen findes ikke"
-
-#: ../storage/xc-commands.c:343
-#, c-format
-msgid "Could not add favorite: %s"
-msgstr "Kunne ikke tilføje favorit: %s"
-
-#: ../storage/xc-commands.c:359
-#, c-format
-msgid "Could not remove favorite: %s"
-msgstr "Kunne ikke fjerne favorit: %s"
-
-#.
-#. FIXME: See 62440
-#. E_POPUP_ITEM (N_("_Move Folder..."),
-#. G_CALLBACK (do_move_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#. E_POPUP_ITEM (N_("_Copy Folder..."),
-#. G_CALLBACK (do_copy_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#.
-#: ../storage/xc-commands.c:385
-msgid "_Rename Folder..."
-msgstr "_Omdøb mappe ..."
-
-#: ../storage/xc-commands.c:391
-msgid "_New Folder..."
-msgstr "_Ny mappe ..."
-
-#: ../storage/xc-commands.c:394
-msgid "_Delete Folder"
-msgstr "_Slet mappe"
-
-#: ../storage/xc-commands.c:399
-msgid "_Add Other User's Folder..."
-msgstr "_Tilføj anden brugers mappe ..."
-
-#: ../storage/xc-commands.c:402
-msgid "_Remove Other User's Folder"
-msgstr "_Fjern anden brugers mappe"
-
-#: ../storage/xc-commands.c:408
-msgid "Add to _Favorites"
-msgstr "Føj til _Favoriter"
-
-#: ../storage/xc-commands.c:412
-msgid "Remove from Fa_vorites"
-msgstr "Fjern fra Fa_voriter"
-
-#.
-#. E_POPUP_ITEM (N_("_Permissions..."),
-#. G_CALLBACK (do_permissions),
-#. XC_FOLDER_COMMAND_MASK_PERMISSIONS),
-#.
-#: ../storage/xc-commands.c:423
-msgid "_Show Folder Sizes"
-msgstr "_Vis mappestørrelser"
 
 #: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
@@ -1689,6 +976,512 @@ msgstr "_Borte fra kontoret-assistent"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Opsig abonnement på anden brugers mappe"
+
+#~ msgid "Can only expunge in Deleted Items folder"
+#~ msgstr "Kan kun tømme i mappen slettede-elementer"
+
+#~ msgid ""
+#~ "Ximian Connector requires access to certain functionality on the Exchange "
+#~ "Server that appears to be disabled or blocked.  (This is usually "
+#~ "unintentional.)  Your Exchange Administrator will need to enable this "
+#~ "functionality in order for you to be able to use Ximian Connector.\n"
+#~ "\n"
+#~ "For information to provide to your Exchange administrator, please follow "
+#~ "the link below:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Ximian Connector kræver adgang til en del funktionalitet på Exchange-"
+#~ "serveren som virker til at være deaktiveret eller blokeret (dette er "
+#~ "almindeligvis ikke med vilje). Din Exchange-administrator skal aktivere "
+#~ "denne funktionalitet for at du kan anvende Ximian Connector.\n"
+#~ "\n"
+#~ "Følg linken nedenfor for information som du kan give din Exchange-"
+#~ "administrator:\n"
+#~ "%s"
+
+#~ msgid "Enter password for %s"
+#~ msgstr "Angiv adgangskode for %s"
+
+#~ msgid "Enter password"
+#~ msgstr "Angiv adgangskode"
+
+#~ msgid "Owner"
+#~ msgstr "Ejer"
+
+#~ msgid "Publishing Editor"
+#~ msgstr "Publiceringsredaktør"
+
+#~ msgid "Editor"
+#~ msgstr "Redaktør"
+
+#~ msgid "Publishing Author"
+#~ msgstr "Publiceringsforfatter"
+
+#~ msgid "Author"
+#~ msgstr "Forfatter"
+
+#~ msgid "Non-editing Author"
+#~ msgstr "Ikke-redigerende forfatter"
+
+#~ msgid "Reviewer"
+#~ msgstr "Gennemlæser"
+
+#~ msgid "Contributor"
+#~ msgstr "Bidragyder"
+
+#~ msgid "Custom"
+#~ msgstr "Tilpasset"
+
+#~ msgid "Select User"
+#~ msgstr "Vælg bruger"
+
+#~ msgid "Addressbook..."
+#~ msgstr "Adressebog ..."
+
+#~ msgid ""
+#~ "Cannot create the specified folder:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Kan ikke oprette den angivne mappe:\n"
+#~ "%s"
+
+#~ msgid "The specified folder name is not valid: %s"
+#~ msgstr "Det angivne mappenavn er ikke gyldigt: %s"
+
+#~ msgid "Create New Folder"
+#~ msgstr "Opret ny mappe"
+
+#~ msgid "Folder _name:"
+#~ msgstr "Mappe_navn:"
+
+#~ msgid "Folder _type:"
+#~ msgstr "Mappe_type:"
+
+#~ msgid "Specify where to create the folder:"
+#~ msgstr "Angiv hvor mappen skal oprettes:"
+
+#~ msgid ""
+#~ "Cannot transfer folder:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Kan ikke overføre mappen:\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "Cannot delete folder:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Kan ikke fjerne mappen:\n"
+#~ "%s"
+
+#~ msgid "Really delete folder \"%s\"?"
+#~ msgstr "Er du sikker på at du vil slette mappen \"%s\"?"
+
+#~ msgid "Delete \"%s\""
+#~ msgstr "Slet \"%s\""
+
+#~ msgid ""
+#~ "Cannot rename folder:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Kan ikke omdøbe mappen:\n"
+#~ "%s"
+
+#~ msgid "Rename the \"%s\" folder to:"
+#~ msgstr "Omdøb mappen \"%s\" til:"
+
+#~ msgid "Rename Folder"
+#~ msgstr "Omdøb mappen"
+
+#~ msgid "A folder named \"%s\" already exists. Please use a different name."
+#~ msgstr "Der findes allerede en mappe med navnet \"%s\". Vælg et andet navn."
+
+#~ msgid "Please select a user."
+#~ msgstr "Vælg en bruger."
+
+#~ msgid "Opening Folder"
+#~ msgstr "Åbner mappe"
+
+#~ msgid "Opening Folder \"%s\""
+#~ msgstr "Åbner mappen \"%s\""
+
+#~ msgid "in \"%s\" ..."
+#~ msgstr "i \"%s\" ..."
+
+#~ msgid "Could not open other user's folder: %s."
+#~ msgstr "Kunne ikke åbne anden brugers mappe: %s."
+
+#~ msgid "Cannot find the specified other user's folder."
+#~ msgstr "Kan ikke finde den angivne anden brugers mappe."
+
+#~ msgid ""
+#~ "Cannot unsubscribe from folder:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Kan ikke opsige abonnement på mappen:\n"
+#~ "%s"
+
+#~ msgid "Really unsubscribe from folder \"%s\"?"
+#~ msgstr "Er du sikker på at du vil opsige abonnementet på mappen \"%s\"?"
+
+#~ msgid "Unsubscribe from \"%s\""
+#~ msgstr "Opsig abonnement på \"%s\""
+
+#~ msgid "Open Other User's Folder"
+#~ msgstr "Åben anden brugers mappe"
+
+#~ msgid "_Account:"
+#~ msgstr "_Konto:"
+
+#~ msgid "_Folder Name:"
+#~ msgstr "_Mappenavn:"
+
+#~ msgid "_User:"
+#~ msgstr "Br_uger:"
+
+#~ msgid "Checkbox"
+#~ msgstr "Afkrydsningsfelt"
+
+#~ msgid "Folder"
+#~ msgstr "Mappe"
+
+#~ msgid "No error"
+#~ msgstr "Ingen fejl"
+
+#~ msgid "A folder with the same name already exists"
+#~ msgstr "En mappe med samme navn findes allerede"
+
+#~ msgid "The specified folder type is not valid"
+#~ msgstr "Den angivne mappetype er ikke gyldig"
+
+#~ msgid "I/O error"
+#~ msgstr "I/O-fejl"
+
+#~ msgid "Not enough space to create the folder"
+#~ msgstr "Ikke nok plads til at oprette mappen"
+
+#~ msgid "The folder is not empty"
+#~ msgstr "Mappen er ikke tom"
+
+#~ msgid "The specified folder was not found"
+#~ msgstr "Den angivne mappe blev ikke fundet"
+
+#~ msgid "Function not implemented in this storage"
+#~ msgstr "Funktionen er ikke indarbejdet i dette lager"
+
+#~ msgid "Operation not supported"
+#~ msgstr "Operationen er ikke understøttet"
+
+#~ msgid "The specified type is not supported in this storage"
+#~ msgstr "Den angivne type understøttes ikke i dette lager"
+
+#~ msgid "The specified folder cannot be modified or removed"
+#~ msgstr "Den angivne mappe kan ikke ændres eller fjernes"
+
+#~ msgid "Cannot make a folder a child of one of its descendants"
+#~ msgstr "Kan ikke gøre en mappe til undermappe af dens undermapper"
+
+#~ msgid "Cannot create a folder with that name"
+#~ msgstr "Kan ikke oprette en mappe med det navn"
+
+#~ msgid "This operation cannot be performed in off-line mode"
+#~ msgstr "Denne handling kan ikke udføres i afkoblet tilstand"
+
+#~ msgid "Unknown error"
+#~ msgstr "Ukendt fejl"
+
+#~ msgid "%s's Folders"
+#~ msgstr "%s's mapper"
+
+#~ msgid "Cannot change password due to configuration problems"
+#~ msgstr "Kan ikke skifte adgangskode på grund af konfigurationsproblemer"
+
+#~ msgid ""
+#~ "Server rejected password because it is too weak.\n"
+#~ "Try again with a different password."
+#~ msgstr ""
+#~ "Serveren afviste adgangskoden fordi den er for enkel.\n"
+#~ "Forsøg igen med en anden adgangskode."
+
+#~ msgid "Could not change password"
+#~ msgstr "Kunne ikke ændre adgangskode"
+
+#~ msgid "Personal Folders"
+#~ msgstr "Personlige mapper"
+
+#~ msgid "Favorite Public Folders"
+#~ msgstr "Offentlige favoritmapper"
+
+#~ msgid "All Public Folders"
+#~ msgstr "Alle offentlige mapper"
+
+#~ msgid "Global Address List"
+#~ msgstr "Global adresseliste"
+
+#~ msgid "Exchange Account is offline. Cannot display folders\n"
+#~ msgstr "Exchange-konto er i afkoblet tilstand Kan ikke vise mapper\n"
+
+#~ msgid ""
+#~ "Could not authenticate to server.\n"
+#~ "\n"
+#~ "This probably means that your server requires you\n"
+#~ "to specify the Windows domain name as part of your\n"
+#~ "username (eg, \"DOMAIN\\user\").\n"
+#~ "\n"
+#~ "Or you might have just typed your password wrong.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Kunne ikke godkendes af serveren.\n"
+#~ "\n"
+#~ "Dette indebære sandsynligvis at din server kræver at\n"
+#~ "du angiver Windows-domænenavnet som en del af dit\n"
+#~ "brugernavn (fx \"MIT-DOMÆNE\\bruger\").\n"
+#~ "\n"
+#~ "Eller så har du helt enkelt skrevet din adgangskode forkert.\n"
+#~ "\n"
+
+#~ msgid "Mailbox for %s is not on this server."
+#~ msgstr "Postkassen for %s findes ikke på denne server."
+
+#~ msgid ""
+#~ "The server '%s' is running Exchange 5.5 and is\n"
+#~ "therefore not compatible with Ximian Connector"
+#~ msgstr ""
+#~ "Serveren \"%s\" køre Exchange 5.5 og er \n"
+#~ "derfor ikke kompatibel med Ximian Connector"
+
+# Osikker.
+#~ msgid ""
+#~ "Could not find Exchange Web Storage System at %s.\n"
+#~ "If OWA is running on a different path, you must specify that in the\n"
+#~ "account configuration dialog."
+#~ msgstr ""
+#~ "Kunne ikke finde Exchange-weblagringssystemet på %s.\n"
+#~ "Hvis OWA benytter en anden søgesti skal du angive dette i "
+#~ "kontokonfigurationsvinduet."
+
+#~ msgid "No mailbox for user %s on %s.\n"
+#~ msgstr "Ingen postkasse for brugeren %s på %s.\n"
+
+#~ msgid "Could not connect to server %s: %s"
+#~ msgstr "Kunne ikke tilslutte serveren %s: %s"
+
+#~ msgid "Could not resolve hostname"
+#~ msgstr "Kunne ikke slå værtsnavn op"
+
+#~ msgid "Network error"
+#~ msgstr "Netværksfejl"
+
+#~ msgid ""
+#~ "You have exceeded your quota of %d %s for storing mails on this server. "
+#~ "Your current usage is : %.0f %s."
+#~ msgstr ""
+#~ "Du bruger mere end din kvote på %d %s for lagring af e-post på denne "
+#~ "server. Dit nuværende forbrug er: %.0f %s."
+
+#~ msgid "You will not be able to either send or receive mails now\n"
+#~ msgstr "Du vil ikke være i stand til at sende eller modtage e-post nu\n"
+
+#~ msgid ""
+#~ "You will not be able to send mails till you clear up some space by "
+#~ "deleting some mails.\n"
+#~ msgstr ""
+#~ "Du vil ikke være i stand til at sende e-post før du gør plads ved at "
+#~ "slette nogle e-breve.\n"
+
+#~ msgid "Try to clear up some space by deleting some mails.\n"
+#~ msgstr "Prøv at rydde noget plads ved at slette noget e-post.\n"
+
+#~ msgid "Permissions for %s"
+#~ msgstr "Rettigheder for %s"
+
+#~ msgid ""
+#~ "No Global Catalog server configured for this account.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Ingen global katalogserver er konfigureret for denne konto.\n"
+#~ "Kan ikke redigere delegater."
+
+#~ msgid ""
+#~ "Could not read folder permissions.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Kunne ikke læse rettigheder for mapper.\n"
+#~ "Kan ikke redigere delegater."
+
+#~ msgid ""
+#~ "Could not determine folder permissions for delegates.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Kunne ikke afgøre mapperettigheder for delegater.\n"
+#~ "Kan ikke redigere delegater."
+
+#~ msgid "Delegate To:"
+#~ msgstr "Deleger til:"
+
+#~ msgid "Delegate To"
+#~ msgstr "Deleger til"
+
+#~ msgid "Could not make %s a delegate"
+#~ msgstr "Kunne ikke gøre %s til en delegat"
+
+#~ msgid "You cannot make yourself your own delegate"
+#~ msgstr "Du kan ikke gøre dig selv til din egen delegat"
+
+#~ msgid "%s is already a delegate"
+#~ msgstr "%s er allerede en delegat"
+
+#~ msgid "Remove the delegate %s?"
+#~ msgstr "Fjern delegaten %s?"
+
+#~ msgid "Could not access Active Directory"
+#~ msgstr "Kunne ikke tilgå Active Directory"
+
+#~ msgid "Could not find self in Active Directory"
+#~ msgstr "Kunne ikke finde sig selv i Active Directory"
+
+#~ msgid "Could not find delegate %s in Active Directory"
+#~ msgstr "Kunne ikke finde delegaten %s i Active Directory"
+
+#~ msgid "Could not remove delegate %s"
+#~ msgstr "Kunne ikke fjerne delegaten %s"
+
+#~ msgid "Could not update list of delegates."
+#~ msgstr "Kunne ikke opdatere listen med delegater."
+
+#~ msgid "Could not add delegate %s"
+#~ msgstr "Kunne ikke tilføje delegaten %s"
+
+#~ msgid ""
+#~ "Failed to update delegates:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Det mislykkedes at opdatere delegater:\n"
+#~ "%s"
+
+#~ msgid "Name"
+#~ msgstr "Navn"
+
+#~ msgid "Error reading delegates list."
+#~ msgstr "Fejl ved læsning af delegatlisten."
+
+#~ msgid "Folder Name"
+#~ msgstr "Mappenavn"
+
+#~ msgid "Folder Size"
+#~ msgstr "Mappestørrelse"
+
+#~ msgid "Calendar"
+#~ msgstr "Kalender"
+
+#~ msgid "Contacts"
+#~ msgstr "Kontakter"
+
+#~ msgid "Deleted Items"
+#~ msgstr "Slettede-elementer"
+
+#~ msgid "Drafts"
+#~ msgstr "Kladder"
+
+#~ msgid "Inbox"
+#~ msgstr "Indbakke"
+
+#~ msgid "Journal"
+#~ msgstr "Dagbog"
+
+#~ msgid "Notes"
+#~ msgstr "Noter"
+
+#~ msgid "Outbox"
+#~ msgstr "Udbakke"
+
+#~ msgid "Sent Items"
+#~ msgstr "Sendte elementer"
+
+#~ msgid "Tasks"
+#~ msgstr "Opgaver"
+
+#~ msgid "Could not update out-of-office state"
+#~ msgstr "Kunne ikke opdatere borte-fra-kontoret-tilstanden."
+
+#~ msgid "Could not read out-of-office state"
+#~ msgstr "Kunne ikke læse borte-fra-kontoret-tilstanden"
+
+#~ msgid "Could not read folder permissions"
+#~ msgstr "Kunne ikke læse mapperettighederne"
+
+#~ msgid "Could not update folder permissions."
+#~ msgstr "Kunne ikke opdatere mapperettighederne."
+
+#~ msgid "Could not update folder permissions. %s"
+#~ msgstr "Kunne ikke opdatere mapperettighederne. %s"
+
+#~ msgid "(Permission denied.)"
+#~ msgstr "(Adgang nægtet.)"
+
+#~ msgid ""
+#~ "Unable to add user to access control list:\n"
+#~ "No Global Catalog server is configured for this account."
+#~ msgstr ""
+#~ "Kunne ikke føje brugeren til adgangkontrollisten:\n"
+#~ "Ingen global katalogserver er konfigureret for denne konto."
+
+#~ msgid "Add User:"
+#~ msgstr "Tilføj bruger:"
+
+#~ msgid "Add User"
+#~ msgstr "Tilføj bruger"
+
+#~ msgid "No such user %s"
+#~ msgstr "Der findes ingen sådan bruger %s"
+
+#~ msgid "%s cannot be added to an access control list"
+#~ msgstr "%s kan ikke tilføjes en adgangskontrolliste"
+
+#~ msgid "Unknown error looking up %s"
+#~ msgstr "Ukendt fejl ved opslag af %s"
+
+#~ msgid "%s is already in the list"
+#~ msgstr "%s findes allerede i listen"
+
+#~ msgid "Role"
+#~ msgstr "Rolle"
+
+#~ msgid "Account Name"
+#~ msgstr "Kontonavn"
+
+#~ msgid "Folder does not exist"
+#~ msgstr "Mappen findes ikke"
+
+#~ msgid "Could not add favorite: %s"
+#~ msgstr "Kunne ikke tilføje favorit: %s"
+
+#~ msgid "Could not remove favorite: %s"
+#~ msgstr "Kunne ikke fjerne favorit: %s"
+
+#~ msgid "_Rename Folder..."
+#~ msgstr "_Omdøb mappe ..."
+
+#~ msgid "_New Folder..."
+#~ msgstr "_Ny mappe ..."
+
+#~ msgid "_Delete Folder"
+#~ msgstr "_Slet mappe"
+
+#~ msgid "_Add Other User's Folder..."
+#~ msgstr "_Tilføj anden brugers mappe ..."
+
+#~ msgid "_Remove Other User's Folder"
+#~ msgstr "_Fjern anden brugers mappe"
+
+#~ msgid "Add to _Favorites"
+#~ msgstr "Føj til _Favoriter"
+
+#~ msgid "Remove from Fa_vorites"
+#~ msgstr "Fjern fra Fa_voriter"
+
+#~ msgid "_Show Folder Sizes"
+#~ msgstr "_Vis mappestørrelser"
 
 #~ msgid "Folder not marked for offline support"
 #~ msgstr "Mappe ikke markeret til afkoblet brug"
