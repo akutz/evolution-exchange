@@ -8,16 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-26 21:53+0000\n"
-"PO-Revision-Date: 2005-07-27 13:05-0300\n"
-"Last-Translator: Afonso Celso Medina <afmedina@uol.com.br>\n"
+"POT-Creation-Date: 2006-03-11 15:55-0300\n"
+"PO-Revision-Date: 2006-03-11 15:56-0300\n"
+"Last-Translator: Leandro A. F. Pereira <leandro@linuxmag.com.br>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1837
+#: ../addressbook/e-book-backend-exchange.c:1867
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Pesquisando..."
@@ -34,7 +34,7 @@ msgstr "Recebendo resultados da pesquisa LDAP..."
 msgid "Error performing search"
 msgstr "Erro ao executar pesquisa"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1665
+#: ../calendar/e-cal-backend-exchange-calendar.c:1934
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -43,60 +43,56 @@ msgstr ""
 "Impossível agendar o recurso '%s' para reuniões recorrentes.\n"
 "Você deve agendar cada reunião separadamente."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1684
+#: ../calendar/e-cal-backend-exchange-calendar.c:1952
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "O recurso '%s' está ocupado durante o período de tempo selecionado."
 
-#: ../calendar/e-cal-backend-exchange.c:310
-msgid "Folder not marked for offline support"
-msgstr "Pasta não marcada para suporte desconectado"
+#: ../camel/camel-exchange-folder.c:222
+msgid "You cannot expunge in offline mode."
+msgstr "Impossível apagar no modo desconectado."
 
-#: ../camel/camel-exchange-folder.c:223
-msgid "Can only expunge in Deleted Items folder"
-msgstr "Só é possível excluir permanentemente na pasta Ítens excluídos"
-
-#: ../camel/camel-exchange-folder.c:247
+#: ../camel/camel-exchange-folder.c:253
 msgid "No Subject"
 msgstr "Sem Assunto"
 
-#: ../camel/camel-exchange-folder.c:374
+#: ../camel/camel-exchange-folder.c:407
 msgid "This message is not available in offline mode."
 msgstr "Esta mensagem não está disponível em modo desconectado"
 
-#: ../camel/camel-exchange-folder.c:609
+#: ../camel/camel-exchange-folder.c:642
 msgid "Moving messages"
 msgstr "Movendo mensagens"
 
-#: ../camel/camel-exchange-folder.c:610
+#: ../camel/camel-exchange-folder.c:643
 msgid "Copying messages"
 msgstr "Copiando mensagens"
 
-#: ../camel/camel-exchange-folder.c:940
+#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Não foi possível criar o diretório %s: %s"
 
-#: ../camel/camel-exchange-folder.c:950
+#: ../camel/camel-exchange-folder.c:1024
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Não foi possível carregar o resumo para %s"
 
-#: ../camel/camel-exchange-folder.c:958
+#: ../camel/camel-exchange-folder.c:1032
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Não foi possível criar cache para %s"
 
-#: ../camel/camel-exchange-folder.c:968
+#: ../camel/camel-exchange-folder.c:1042
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Não foi possível criar diário para %s"
 
-#: ../camel/camel-exchange-folder.c:1013
+#: ../camel/camel-exchange-folder.c:1087
 msgid "Scanning for changed messages"
 msgstr "Varrendo a procura de mensagens alteradas"
 
-#: ../camel/camel-exchange-folder.c:1039
+#: ../camel/camel-exchange-folder.c:1113
 msgid "Fetching summary information for new messages"
 msgstr "Obtendo informação de resumo para novas mensagens"
 
@@ -104,9 +100,10 @@ msgstr "Obtendo informação de resumo para novas mensagens"
 msgid "No folder name found\n"
 msgstr "Nome de pasta não encontrado\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2383
-#: ../mail/mail-stub-exchange.c:2425 ../mail/mail-stub-exchange.c:2454
-#: ../mail/mail-stub-exchange.c:2481 ../mail/mail-stub-exchange.c:2525
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
+#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
+#: ../mail/mail-stub-exchange.c:2724
 msgid "Folder doesn't exist"
 msgstr "A pasta não existe"
 
@@ -134,13 +131,13 @@ msgstr "Lista de Endereços Global / Active Directory"
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
 #: ../camel/camel-exchange-provider.c:53
-msgid "Global Catalog server name:"
-msgstr "Nome do servidor de Catálogo Global:"
+msgid "_Global Catalog server name:"
+msgstr "NNome do servidor de Catálogo Global:"
 
 #: ../camel/camel-exchange-provider.c:55
 #, c-format
-msgid "Limit number of GAL responses: %s"
-msgstr "Limitar número de respostas da LEG: %s"
+msgid "_Limit number of GAL responses: %s"
+msgstr "_Limitar número de respostas da LEG: %s"
 
 #: ../camel/camel-exchange-provider.c:58
 msgid "Options"
@@ -148,41 +145,41 @@ msgstr "Opções"
 
 #: ../camel/camel-exchange-provider.c:60
 #, c-format
-msgid "Password Expiry Warning period: %s"
+msgid "_Password Expiry Warning period: %s"
 msgstr "Período de Aviso de Expiração da Senha: %s"
 
 #: ../camel/camel-exchange-provider.c:62
-msgid "Automatically synchronize account locally"
-msgstr "Sincronizar automanticamente a conta localmente"
+msgid "Automatically synchroni_ze account locally"
+msgstr "Sincronizar automaticamente a conta localmente"
 
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:65
-msgid "Apply filters to new messages in Inbox on this server"
+msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "Aplicar filtros às novas mensagens na caixa de entrada deste servidor"
 
 #: ../camel/camel-exchange-provider.c:67
-msgid "Check new messages for Junk contents"
+msgid "Check new messages for _Junk contents"
 msgstr "Verificar se novas mensagens são Indesejadas"
 
 #: ../camel/camel-exchange-provider.c:69
-msgid "Only check for Junk messages in the Inbox folder"
+msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Verificar mensagens Indesejadas apenas na caixa de entrada"
 
-#: ../camel/camel-exchange-provider.c:76
+#: ../camel/camel-exchange-provider.c:79
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:78
+#: ../camel/camel-exchange-provider.c:81
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Para tratar correio (e outros dados) em sevidores Microsoft Exchange"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:94
+#: ../camel/camel-exchange-provider.c:97
 msgid "Secure Password"
 msgstr "Senha Segura"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:100
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -190,11 +187,11 @@ msgstr ""
 "Esta opção estabelelece conexão com o servidor Exchange usando autenticação "
 "por senha segura (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:105
+#: ../camel/camel-exchange-provider.c:108
 msgid "Plaintext Password"
 msgstr "Senha em Texto Puro"
 
-#: ../camel/camel-exchange-provider.c:107
+#: ../camel/camel-exchange-provider.c:110
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -202,52 +199,66 @@ msgstr ""
 "Esta opção estabelelece conexão com o servidor Exchange usando autenticação "
 "por senha em texto puro padrão."
 
-#: ../camel/camel-exchange-store.c:281
+#: ../camel/camel-exchange-store.c:308
 #, c-format
 msgid "Exchange server %s"
 msgstr "Servidor Exchange %s"
 
-#: ../camel/camel-exchange-store.c:284
+#: ../camel/camel-exchange-store.c:311
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Conta Exchange para %s em %s"
 
-#: ../camel/camel-exchange-store.c:334
+#: ../camel/camel-exchange-store.c:352
+#, c-format
+msgid "%sEnter password for %s"
+msgstr "%sEntre com a senha para %s"
+
+#: ../camel/camel-exchange-store.c:403
 msgid "Evolution Exchange backend process"
 msgstr "Processo auxiliar para Exchange do Evolution"
 
-#: ../camel/camel-exchange-store.c:382
+#: ../camel/camel-exchange-store.c:444
+msgid ""
+"Could not authenticate to server. (Password incorrect?)\n"
+"\n"
+msgstr ""
+"Não foi possível autenticar-se com o servidor. (Senha incorreta?)\n"
+"\n"
+
+#: ../camel/camel-exchange-store.c:486
 #, c-format
 msgid "No such folder %s"
 msgstr "Não existe tal pasta %s"
 
-#: ../camel/camel-exchange-store.c:451
+#: ../camel/camel-exchange-store.c:563
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Impossível inscrever-se na pasta no modo desconectado"
 
-#: ../camel/camel-exchange-store.c:468
+#: ../camel/camel-exchange-store.c:580
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Impossível cancelar a inscrição na pasta no modo desconectado."
 
-#: ../camel/camel-exchange-store.c:573
+#: ../camel/camel-exchange-store.c:695
 msgid "Cannot get folder info in offline mode."
 msgstr "Impossível obter informação no modo desconectado."
 
-#: ../camel/camel-exchange-store.c:643
+#: ../camel/camel-exchange-store.c:766
 msgid "Cannot create folder in offline mode."
 msgstr "Impossível criar uma pasta no modo desconectado."
 
-#: ../camel/camel-exchange-store.c:670
+#: ../camel/camel-exchange-store.c:793
 msgid "Cannot delete folder in offline mode."
 msgstr "Impossível excluir pasta no modo desconectado."
 
-#: ../camel/camel-exchange-store.c:686
+#: ../camel/camel-exchange-store.c:809
 msgid "Cannot rename folder in offline mode."
 msgstr "Impossível renomear pasta no modo desconectado."
 
 #: ../camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr "Transporte Exchange apenas pode ser usado com fontes de correio Exchange"
+msgstr ""
+"Transporte Exchange apenas pode ser usado com fontes de correio Exchange"
 
 #: ../camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
@@ -287,7 +298,127 @@ msgstr "Perdida a conexão a %s"
 msgid "Error communicating with %s: %s"
 msgstr "Erro ao comunicar-se com %s: %s"
 
-#: ../lib/e2k-autoconfig.c:1471 ../storage/exchange-autoconfig-wizard.c:211
+#: ../mail/mail-stub-exchange.c:257
+msgid "No such folder"
+msgstr "Não existe tal pasta"
+
+#. FIXME: should be this, but string freeze freezes me to do so.
+#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
+#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
+#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
+#: ../mail/mail-stub-exchange.c:2739
+msgid "Permission denied"
+msgstr "Permissão negada"
+
+#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
+msgid "Could not open folder: Permission denied"
+msgstr "Não foi possível abrir pasta: Permissão negada"
+
+#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
+msgid "Could not open folder"
+msgstr "Não foi possível abrir pasta"
+
+#: ../mail/mail-stub-exchange.c:755
+msgid "No such folder."
+msgstr "Não existe tal pasta."
+
+#: ../mail/mail-stub-exchange.c:764
+msgid "Could not create folder."
+msgstr "Não foi possível criar pasta."
+
+#: ../mail/mail-stub-exchange.c:844
+msgid "Could not open Deleted Items folder"
+msgstr "Não foi possível abrir pasta Itens excluídos"
+
+#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
+msgid "Could not get new messages"
+msgstr "Não foi possível obter novas mensagens"
+
+#: ../mail/mail-stub-exchange.c:1386
+msgid "Could not empty Deleted Items folder"
+msgstr "Não foi possível esvaziar a pasta Itens excluídos"
+
+#: ../mail/mail-stub-exchange.c:1463
+msgid "Could not append message; mailbox is over quota"
+msgstr "Não foi possível acrescentar mensagem; caixa postal excedeu a cota"
+
+#: ../mail/mail-stub-exchange.c:1464
+msgid "Could not append message"
+msgstr "Não foi possível acrescentar a mensagem"
+
+#: ../mail/mail-stub-exchange.c:2016
+msgid "No such message"
+msgstr "Não existe tal mensagem"
+
+#: ../mail/mail-stub-exchange.c:2069
+msgid "Message has been deleted"
+msgstr "A mensagem foi excluída"
+
+#: ../mail/mail-stub-exchange.c:2071
+msgid "Error retrieving message"
+msgstr "Erro obtendo a mensagem"
+
+#: ../mail/mail-stub-exchange.c:2113
+msgid "Mailbox does not support full-text searching"
+msgstr "A Caixa de correio não suporta pesquisa por texto"
+
+#: ../mail/mail-stub-exchange.c:2211
+msgid "Unable to move/copy messages"
+msgstr "Impossível mover/copiar mensagens"
+
+#: ../mail/mail-stub-exchange.c:2441
+msgid "No mail submission URI for this mailbox"
+msgstr "Não existe URI para envio de correio para esta caixa postal"
+
+#: ../mail/mail-stub-exchange.c:2477
+msgid "Server won't accept mail via Exchange transport"
+msgstr "O servidor não aceita correio pelo transporte Exchange"
+
+#: ../mail/mail-stub-exchange.c:2479
+#, c-format
+msgid ""
+"Your account does not have permission to use <%s>\n"
+"as a From address."
+msgstr ""
+"Sua conta não possui permissão para usar <%s> como\n"
+"um endereço de origem."
+
+#: ../mail/mail-stub-exchange.c:2491
+msgid ""
+"Could not send message.\n"
+"This might mean that your account is over quota."
+msgstr ""
+"Não foi possível enviar a mensagem.\n"
+"Isto pode significar que a sua conta excedeu a cota."
+
+#: ../mail/mail-stub-exchange.c:2495
+msgid "Could not send message"
+msgstr "Não foi possível enviar a mensagem"
+
+#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
+#: ../mail/mail-stub-exchange.c:2745
+msgid "Generic error"
+msgstr "Erro genérico"
+
+#: ../mail/mail-stub-exchange.c:2522
+msgid "Folder already exists"
+msgstr "A pasta já existe"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
+msgid "Evolution Addressbook Exchange backend"
+msgstr "Backend do catálogo de endereços Exchange do Evolution"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
+msgid "Evolution Calendar Exchange backend"
+msgstr "Backend da agenda Exchange do Evolution"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+msgid "Ximian Connector for Exchange"
+msgstr "Ximian Connector para Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -297,7 +428,7 @@ msgstr ""
 "Verifique se a URL está correta (tente \"%s\" no lugar de \"%s\") e tente "
 "novamente."
 
-#: ../lib/e2k-autoconfig.c:1480 ../storage/exchange-autoconfig-wizard.c:219
+#: ../storage/exchange-autoconfig-wizard.c:219
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -305,7 +436,7 @@ msgstr ""
 "Não foi possível localizar o servidor Exchange.\n"
 "Verifique se o nome do servidor foi digitado corretamente e tente novamente."
 
-#: ../lib/e2k-autoconfig.c:1490 ../storage/exchange-autoconfig-wizard.c:228
+#: ../storage/exchange-autoconfig-wizard.c:228
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -313,7 +444,7 @@ msgstr ""
 "Não foi possível autenticar-se com o servidor Exchange.\n"
 "Verifique se a senha e o nome do usuário estão corretos e tente novamente."
 
-#: ../lib/e2k-autoconfig.c:1498 ../storage/exchange-autoconfig-wizard.c:235
+#: ../storage/exchange-autoconfig-wizard.c:235
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -328,616 +459,13 @@ msgstr ""
 "Você pode precisar especificar o nome do domínio Windows como parte de seu "
 "nome de usuário (ex.: \"MEU-DOMÍNIO\\%s\")."
 
-#: ../lib/e2k-autoconfig.c:1511 ../storage/exchange-autoconfig-wizard.c:247
+#: ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 msgstr ""
 "Não foi possível localizar dados OWA na URL indicada.\n"
 "Verifique se a URL está correta e tente novamente."
-
-#: ../lib/e2k-autoconfig.c:1520
-#, c-format
-msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
-"\n"
-"For information to provide to your Exchange administrator, please follow the "
-"link below:\n"
-"%s"
-msgstr ""
-"O Ximian Connector requer o acesso a certas funcionalidades no servidor "
-"Exchange que aparentam estar desativadas ou bloqueadas. (Isto é normalmente "
-"não intencional.) O seu administrador Exchange deverá ativar estas "
-"funcionalidades para que você possa usar o Ximian Connector.\n"
-"\n"
-"Para obter a informação a ser fornecida ao seu administrador Exchange, por "
-"favor siga o link abaixo:\n"
-"%s"
-
-#: ../lib/e2k-autoconfig.c:1536 ../storage/exchange-autoconfig-wizard.c:275
-msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"A URL de servidor Exchange fornecida é para um servidor Exchange 5.5. O "
-"Ximian Connector suporta apenas o Microsoft Exchange 2000 ou  2003."
-
-#: ../lib/e2k-autoconfig.c:1545 ../storage/exchange-autoconfig-wizard.c:288
-msgid ""
-"Could not configure Exchange account because an unknown error occurred. "
-"Check the URL, username, and password, and try again."
-msgstr ""
-"Não foi possível configurar a conta Exchange devido a um erro desconhecido. "
-"Verifique a URL, o nome do usuário, a senha e tente novamente."
-
-#: ../lib/e2k-autoconfig.c:1567
-#, c-format
-msgid "Enter password for %s"
-msgstr "Entre com a senha para %s"
-
-#: ../lib/e2k-autoconfig.c:1568 ../storage/exchange-account.c:874
-msgid "Enter password"
-msgstr "Entre com a senha"
-
-#. i18n: These are Outlook's words for the default roles in
-#. the folder permissions dialog.
-#: ../lib/e2k-security-descriptor.c:847
-msgid "Owner"
-msgstr "Proprietário"
-
-#: ../lib/e2k-security-descriptor.c:857
-msgid "Publishing Editor"
-msgstr "Editor de Publicação"
-
-#: ../lib/e2k-security-descriptor.c:865
-msgid "Editor"
-msgstr "Editor"
-
-#: ../lib/e2k-security-descriptor.c:872
-msgid "Publishing Author"
-msgstr "Autor de Publicação"
-
-#: ../lib/e2k-security-descriptor.c:878
-msgid "Author"
-msgstr "Autor"
-
-#: ../lib/e2k-security-descriptor.c:883
-msgid "Non-editing Author"
-msgstr "Autor Não-editor"
-
-#: ../lib/e2k-security-descriptor.c:887
-msgid "Reviewer"
-msgstr "Revisor"
-
-#: ../lib/e2k-security-descriptor.c:889
-msgid "Contributor"
-msgstr "Contribuinte"
-
-#: ../lib/e2k-security-descriptor.c:891
-#: ../storage/exchange-delegates.glade.h:7
-msgid "None"
-msgstr "Nenhum"
-
-#: ../lib/e2k-security-descriptor.c:906
-#: ../storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "Personalizado"
-
-#: ../lib/e2k-user-dialog.c:144
-msgid "Select User"
-msgstr "Selecionar Usuário"
-
-#: ../lib/e2k-user-dialog.c:182
-msgid "Addressbook..."
-msgstr "Catálogo de Endereços..."
-
-#: ../mail/mail-stub-exchange.c:248
-msgid "No such folder"
-msgstr "Não existe tal pasta"
-
-#: ../mail/mail-stub-exchange.c:265 ../mail/mail-stub-exchange.c:2360
-#: ../mail/mail-stub-exchange.c:2398 ../mail/mail-stub-exchange.c:2458
-#: ../mail/mail-stub-exchange.c:2496 ../mail/mail-stub-exchange.c:2540
-#: ../shell/e-storage.c:573 ../storage/xc-commands.c:319
-msgid "Permission denied"
-msgstr "Permissão negada"
-
-#: ../mail/mail-stub-exchange.c:563
-msgid "No such folder."
-msgstr "Não existe tal pasta."
-
-#: ../mail/mail-stub-exchange.c:572
-msgid "Could not create folder."
-msgstr "Não foi possível criar pasta."
-
-#: ../mail/mail-stub-exchange.c:620 ../mail/mail-stub-exchange.c:638
-#: ../mail/mail-stub-exchange.c:2670 ../mail/mail-stub-exchange.c:2688
-msgid "Could not open folder: Permission denied"
-msgstr "Não foi possível abrir pasta: Permissão negada"
-
-#: ../mail/mail-stub-exchange.c:624 ../mail/mail-stub-exchange.c:737
-#: ../mail/mail-stub-exchange.c:2674
-msgid "Could not open folder"
-msgstr "Não foi possível abrir pasta"
-
-#: ../mail/mail-stub-exchange.c:792
-msgid "Could not open Deleted Items folder"
-msgstr "Não foi possível abrir pasta Itens excluídos"
-
-#: ../mail/mail-stub-exchange.c:1120 ../mail/mail-stub-exchange.c:1161
-msgid "Could not get new messages"
-msgstr "Não foi possível obter novas mensagens"
-
-#: ../mail/mail-stub-exchange.c:1326
-msgid "Could not empty Deleted Items folder"
-msgstr "Não foi possível esvaziar a pasta Itens excluídos"
-
-#: ../mail/mail-stub-exchange.c:1398
-msgid "Could not append message; mailbox is over quota"
-msgstr "Não foi possível acrescentar mensagem; caixa postal excedeu a cota"
-
-#: ../mail/mail-stub-exchange.c:1399
-msgid "Could not append message"
-msgstr "Não foi possível acrescentar a mensagem"
-
-#: ../mail/mail-stub-exchange.c:1882
-msgid "No such message"
-msgstr "Não existe tal mensagem"
-
-#: ../mail/mail-stub-exchange.c:1935
-msgid "Message has been deleted"
-msgstr "A mensagem foi excluída"
-
-#: ../mail/mail-stub-exchange.c:1937
-msgid "Error retrieving message"
-msgstr "Erro obtendo a mensagem"
-
-#: ../mail/mail-stub-exchange.c:1979
-msgid "Mailbox does not support full-text searching"
-msgstr "A Caixa de correio não suporta pesquisa por texto"
-
-#: ../mail/mail-stub-exchange.c:2077
-msgid "Unable to move/copy messages"
-msgstr "Impossível mover/copiar mensagens"
-
-#: ../mail/mail-stub-exchange.c:2275
-msgid "No mail submission URI for this mailbox"
-msgstr "Não existe URI para envio de correio para esta caixa postal"
-
-#: ../mail/mail-stub-exchange.c:2311
-msgid "Server won't accept mail via Exchange transport"
-msgstr "O servidor não aceita correio pelo transporte Exchange"
-
-#: ../mail/mail-stub-exchange.c:2313
-#, c-format
-msgid ""
-"Your account does not have permission to use <%s>\n"
-"as a From address."
-msgstr ""
-"Sua conta não possui permissão para usar <%s> como\n"
-"um endereço de origem."
-
-#: ../mail/mail-stub-exchange.c:2325
-msgid ""
-"Could not send message.\n"
-"This might mean that your account is over quota."
-msgstr ""
-"Não foi possível enviar a mensagem.\n"
-"Isto pode significar que a sua conta excedeu a cota."
-
-#: ../mail/mail-stub-exchange.c:2329
-msgid "Could not send message"
-msgstr "Não foi possível enviar a mensagem"
-
-#: ../mail/mail-stub-exchange.c:2352 ../mail/mail-stub-exchange.c:2403
-#: ../mail/mail-stub-exchange.c:2462 ../mail/mail-stub-exchange.c:2501
-#: ../mail/mail-stub-exchange.c:2545 ../shell/e-storage.c:557
-#: ../storage/xc-commands.c:323
-msgid "Generic error"
-msgstr "Erro genérico"
-
-#: ../mail/mail-stub-exchange.c:2356 ../storage/xc-commands.c:313
-msgid "Folder already exists"
-msgstr "A pasta já existe"
-
-#: ../shell/e-folder-creation-dialog.c:138
-#, c-format
-msgid ""
-"Cannot create the specified folder:\n"
-"%s"
-msgstr ""
-"Impossível criar a pasta especificada:\n"
-"%s"
-
-#: ../shell/e-folder-creation-dialog.c:179
-#, c-format
-msgid "The specified folder name is not valid: %s"
-msgstr "O nome de pasta especificado não é válido: %s"
-
-#: ../shell/e-folder-creation-dialog.c:310
-msgid "Create New Folder"
-msgstr "Criar Nova Pasta"
-
-#: ../shell/e-folder-creation-dialog.glade.h:1
-#: ../storage/exchange-autoconfig-wizard.glade.h:1
-#: ../storage/exchange-change-password.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ../shell/e-folder-creation-dialog.glade.h:2
-msgid "Folder _name:"
-msgstr "_Nome da pasta:"
-
-#: ../shell/e-folder-creation-dialog.glade.h:3
-msgid "Folder _type:"
-msgstr "_Tipo da pasta:"
-
-#: ../shell/e-folder-creation-dialog.glade.h:4
-msgid "Specify where to create the folder:"
-msgstr "Especificar onde criar a pasta:"
-
-#: ../shell/e-folder-dnd-bridge.c:52
-#, c-format
-msgid ""
-"Cannot transfer folder:\n"
-"%s"
-msgstr ""
-"Impossível transferir pasta:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:62
-#, c-format
-msgid ""
-"Cannot delete folder:\n"
-"%s"
-msgstr ""
-"Impossível excluir pasta:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:115
-#, c-format
-msgid "Really delete folder \"%s\"?"
-msgstr "Você realmente deseja excluir a pasta \"%s\"?"
-
-#: ../shell/e-folder-misc-dialogs.c:129
-#, c-format
-msgid "Delete \"%s\""
-msgstr "Excluir \"%s\""
-
-#: ../shell/e-folder-misc-dialogs.c:154
-#, c-format
-msgid ""
-"Cannot rename folder:\n"
-"%s"
-msgstr ""
-"Impossível renomear a pasta:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:188
-#, c-format
-msgid "Rename the \"%s\" folder to:"
-msgstr "Renomear a pasta \"%s\" para:"
-
-#: ../shell/e-folder-misc-dialogs.c:191
-msgid "Rename Folder"
-msgstr "Renomear Pasta"
-
-#: ../shell/e-folder-misc-dialogs.c:205
-#, c-format
-msgid "A folder named \"%s\" already exists. Please use a different name."
-msgstr "Uma pasta chamada \"%s\" já existe. Por favor, use um nome diferente."
-
-#. It would be nice to insensitivize the OK button appropriately
-#. instead of doing this, but unfortunately we can't do this for the
-#. Bonobo control.
-#: ../shell/e-folder-misc-dialogs.c:451
-msgid "Please select a user."
-msgstr "Por favor, selecione um usuário."
-
-#: ../shell/e-folder-misc-dialogs.c:553
-msgid "Opening Folder"
-msgstr "Abrindo a Pasta"
-
-#: ../shell/e-folder-misc-dialogs.c:559
-#, c-format
-msgid "Opening Folder \"%s\""
-msgstr "Abrindo a Pasta \"%s\""
-
-#: ../shell/e-folder-misc-dialogs.c:564
-#, c-format
-msgid "in \"%s\" ..."
-msgstr "em \"%s\" ..."
-
-#: ../shell/e-folder-misc-dialogs.c:631
-#, c-format
-msgid "Could not open other user's folder: %s."
-msgstr "Não foi possível abrir pasta de outro usuário: %s."
-
-#: ../shell/e-folder-misc-dialogs.c:681
-msgid "Cannot find the specified other user's folder."
-msgstr "Impossível localizar a pasta de outro usuário especificada."
-
-#: ../shell/e-folder-misc-dialogs.c:713
-#, c-format
-msgid ""
-"Cannot unsubscribe from folder:\n"
-"%s"
-msgstr ""
-"Impossível cancelar a inscrição da pasta:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:766
-#, c-format
-msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "Você realmente deseja cancelar a inscrição da pasta \"%s\"?"
-
-#: ../shell/e-folder-misc-dialogs.c:780
-#, c-format
-msgid "Unsubscribe from \"%s\""
-msgstr "Cancelar a inscrição de \"%s\""
-
-#: ../shell/e-foreign-folder-dialog.glade.h:1
-msgid "Open Other User's Folder"
-msgstr "Abrir uma pasta de outro usuário"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:2
-msgid "_Account:"
-msgstr "_Conta:"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:3
-msgid "_Folder Name:"
-msgstr "_Nome da Pasta:"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:4
-msgid "_User:"
-msgstr "_Usuário:"
-
-#: ../shell/e-storage-set-view.etspec.h:1
-msgid "Checkbox"
-msgstr "Caixa de marcação"
-
-#: ../shell/e-storage-set-view.etspec.h:2
-msgid "Folder"
-msgstr "Pasta"
-
-#: ../shell/e-storage.c:555
-msgid "No error"
-msgstr "Sem erro"
-
-#: ../shell/e-storage.c:559
-msgid "A folder with the same name already exists"
-msgstr "Já existe uma pasta com o mesmo nome"
-
-#: ../shell/e-storage.c:561
-msgid "The specified folder type is not valid"
-msgstr "O tipo de pasta especificado não é válido"
-
-#: ../shell/e-storage.c:563
-msgid "I/O error"
-msgstr "Erro de E/S"
-
-#: ../shell/e-storage.c:565
-msgid "Not enough space to create the folder"
-msgstr "Não existe espaço suficiente para criar a pasta"
-
-#: ../shell/e-storage.c:567
-msgid "The folder is not empty"
-msgstr "A pasta não está vazia"
-
-#: ../shell/e-storage.c:569
-msgid "The specified folder was not found"
-msgstr "A pasta especificada não foi encontrada"
-
-#: ../shell/e-storage.c:571
-msgid "Function not implemented in this storage"
-msgstr "Função não implementada neste repositório"
-
-#: ../shell/e-storage.c:575
-msgid "Operation not supported"
-msgstr "Operação não suportada"
-
-#: ../shell/e-storage.c:577
-msgid "The specified type is not supported in this storage"
-msgstr "O tipo especificado não é suportadao neste repositório"
-
-#: ../shell/e-storage.c:579
-msgid "The specified folder cannot be modified or removed"
-msgstr "A pasta especificada não pode ser modificada ou removida"
-
-#: ../shell/e-storage.c:581
-msgid "Cannot make a folder a child of one of its descendants"
-msgstr "Impossível transformar uma pasta em um filho dos seus descendentes"
-
-#: ../shell/e-storage.c:583
-msgid "Cannot create a folder with that name"
-msgstr "Impossível criar uma pasta com este nome"
-
-#: ../shell/e-storage.c:585
-msgid "This operation cannot be performed in off-line mode"
-msgstr "Está operação não pode ser executada enquanto desconectado"
-
-#: ../shell/e-storage.c:587 ../storage/exchange-account.c:1473
-msgid "Unknown error"
-msgstr "Erro desconhecido"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-msgid "*Control*F5"
-msgstr "*Control*F5"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
-msgid "Evolution Addressbook Exchange backend"
-msgstr "Backend do catálogo de endereços Exchange do Evolution"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Evolution Calendar Exchange backend"
-msgstr "Backend da agenda Exchange do Evolution"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
-msgid "Evolution Exchange Component"
-msgstr "Componente Exchange do Evolution"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
-msgid "Exchange"
-msgstr "Exchange"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
-msgid "Ximian Connector for Exchange"
-msgstr "Ximian Connector para Exchange"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
-msgid "_Exchange"
-msgstr "_Exchange"
-
-#. i18n: This is the title of an "other user's folders"
-#. hierarchy. Eg, "John Doe's Folders".
-#: ../storage/exchange-account.c:584
-#, c-format
-msgid "%s's Folders"
-msgstr "Pastas de %s"
-
-#: ../storage/exchange-account.c:869
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%sEntre com a senha para %s"
-
-#. email id is not proper, we return instead of trying nt_domain
-#: ../storage/exchange-account.c:1069
-msgid "Cannot change password due to configuration problems"
-msgstr "Impossível alterar a senha devido a problemas de configuração"
-
-#: ../storage/exchange-account.c:1092
-msgid ""
-"Server rejected password because it is too weak.\n"
-"Try again with a different password."
-msgstr ""
-"O servidor rejeitou a senha pois ela é muito fraca.\n"
-"Tente novamente com uma senha diferente."
-
-#: ../storage/exchange-account.c:1097
-msgid "Could not change password"
-msgstr "Não foi possível alterar a senha"
-
-#: ../storage/exchange-account.c:1190
-msgid "Personal Folders"
-msgstr "Pastas Particulares"
-
-#: ../storage/exchange-account.c:1205
-msgid "Favorite Public Folders"
-msgstr "Pastas Públicas Favoritas"
-
-#. i18n: Outlookism
-#: ../storage/exchange-account.c:1222
-msgid "All Public Folders"
-msgstr "Todas as Pastas Públicas"
-
-#. i18n: Outlookism
-#: ../storage/exchange-account.c:1236
-msgid "Global Address List"
-msgstr "Lista de Endereços Global"
-
-#: ../storage/exchange-account.c:1326
-msgid "Exchange Account is offline. Cannot display folders\n"
-msgstr "Conta do Exchange desconectada. Impossível mostrar pastas\n"
-
-#: ../storage/exchange-account.c:1384
-msgid ""
-"Could not authenticate to server. (Password incorrect?)\n"
-"\n"
-msgstr ""
-"Não foi possível autenticar-se com o servidor. (Senha incorreta?)\n"
-"\n"
-
-#: ../storage/exchange-account.c:1389
-msgid ""
-"Could not authenticate to server.\n"
-"\n"
-"This probably means that your server requires you\n"
-"to specify the Windows domain name as part of your\n"
-"username (eg, \"DOMAIN\\user\").\n"
-"\n"
-"Or you might have just typed your password wrong.\n"
-"\n"
-msgstr ""
-"Não foi possível autenticar-se com o servidor.\n"
-"\n"
-"Isto provavelmente significa que o seu servidor exige que\n"
-"você especifique o nome do domínio Windows como parte\n"
-"de seu nome de usuário (ex.: \"DOMÍNIO\\usuário\").\n"
-"\n"
-"Ou você apenas digitou incorretamente a sua senha.\n"
-"\n"
-
-#: ../storage/exchange-account.c:1431
-#, c-format
-msgid "Mailbox for %s is not on this server."
-msgstr "A Caixa de correio para %s não está neste servidor."
-
-#: ../storage/exchange-account.c:1436
-#, c-format
-msgid ""
-"The server '%s' is running Exchange 5.5 and is\n"
-"therefore not compatible with Ximian Connector"
-msgstr ""
-"O servidor '%s' está executando o Exchange 5.5,\n"
-"contudo, não é compatível com o Ximian Connector"
-
-#: ../storage/exchange-account.c:1443
-#, c-format
-msgid ""
-"Could not find Exchange Web Storage System at %s.\n"
-"If OWA is running on a different path, you must specify that in the\n"
-"account configuration dialog."
-msgstr ""
-"Não foi possível localizar o Exchange Web Storage System em %s.\n"
-"Se o OWA estiver executando em uma caminho diferente, você deve\n"
-"especificá-lo no diálogo de configuração de conta."
-
-#: ../storage/exchange-account.c:1451
-#, c-format
-msgid "No mailbox for user %s on %s.\n"
-msgstr "Não existe caixa de correio para o usuário %s em %s.\n"
-
-#: ../storage/exchange-account.c:1457 ../storage/exchange-account.c:1463
-#: ../storage/exchange-account.c:1471
-#, c-format
-msgid "Could not connect to server %s: %s"
-msgstr "Não foi possível se conectar ao servidor %s: %s"
-
-#: ../storage/exchange-account.c:1459
-msgid "Could not resolve hostname"
-msgstr "Não foi possível resolver o nome da máquina"
-
-#: ../storage/exchange-account.c:1465
-msgid "Network error"
-msgstr "Erro de rede"
-
-#: ../storage/exchange-account.c:1529
-#, c-format
-msgid ""
-"You have exceeded your quota of %d %s for storing mails on this server. Your "
-"current usage is : %.0f %s."
-msgstr ""
-"Você excedeu sua cota de %d%s para armazenamento de mensagens neste "
-"servidor. Sua utilização atual é: %.0f %s."
-
-#: ../storage/exchange-account.c:1532
-msgid "You will not be able to either send or receive mails now\n"
-msgstr "Você não será capaz nem de enviar, nem de receber mensagens agora\n"
-
-#: ../storage/exchange-account.c:1535
-msgid ""
-"You will not be able to send mails till you clear up some space by deleting "
-"some mails.\n"
-msgstr ""
-"Você não será capaz de enviar mensagens enquanto não limpar algum "
-"espaço excluíndo algumas mensagens.\n"
-
-#: ../storage/exchange-account.c:1538
-msgid "Try to clear up some space by deleting some mails.\n"
-msgstr "Tente limpar algum espaço excluíndo algumas mensagens.\n"
 
 #: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
@@ -956,6 +484,22 @@ msgstr ""
 "\n"
 "Para obter a informação a ser fornecida ao seu administrador Exchange, por "
 "favor siga o link abaixo:"
+
+#: ../storage/exchange-autoconfig-wizard.c:275
+msgid ""
+"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
+"Connector supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"A URL de servidor Exchange fornecida é para um servidor Exchange 5.5. O "
+"Ximian Connector suporta apenas o Microsoft Exchange 2000 ou  2003."
+
+#: ../storage/exchange-autoconfig-wizard.c:288
+msgid ""
+"Could not configure Exchange account because an unknown error occurred. "
+"Check the URL, username, and password, and try again."
+msgstr ""
+"Não foi possível configurar a conta Exchange devido a um erro desconhecido. "
+"Verifique a URL, o nome do usuário, a senha e tente novamente."
 
 #: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
@@ -990,9 +534,13 @@ msgstr ""
 "Impossível criar uma nova conta."
 
 #: ../storage/exchange-autoconfig-wizard.c:459
-#: ../storage/exchange-config-listener.c:349
 msgid "You may only configure a single Exchange account"
 msgstr "Você pode configurar apenas uma única conta Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:1
+#: ../storage/exchange-change-password.glade.h:1
+msgid "*"
+msgstr "*"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
@@ -1051,8 +599,8 @@ msgid ""
 "Please click the \"Forward\" button to continue."
 msgstr ""
 "Bem-vindo ao Ximian Connector para o Microsoft Exchange.\n"
-"As próximas poucas telas devem ajudá-lo a configurar o Evolution"
-"para que ele possa se conectar a sua conta no Exchange. \n"
+"As próximas poucas telas devem ajudá-lo a configurar o Evolutionpara que ele "
+"possa se conectar a sua conta no Exchange. \n"
 "\n"
 "Por favor, clique o botão \"Avançar\" para continuar."
 
@@ -1068,8 +616,8 @@ msgid ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
-"O Ximian Connector pode utilizar as informações da sua conta Outlook "
-"Web Access (OWA) existente.\n"
+"O Ximian Connector pode utilizar as informações da sua conta Outlook Web "
+"Access (OWA) existente.\n"
 "\n"
 "Forneça o endereço do site (URL), nome do usuário e senha do OWA e clique em "
 "\"Avançar\".\n"
@@ -1082,15 +630,16 @@ msgid ""
 msgstr ""
 "O Ximian Connector não pôde encontrar a réplica do Catálogo Global para o "
 "seu site. Por favor, entre o nome do seu servidor de Catálogo Global. Você "
-"talvez tenha que solicitar o valor correto ao seu administrador de sistemas.\n"
+"talvez tenha que solicitar o valor correto ao seu administrador de "
+"sistemas.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:26
 msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
 msgstr ""
-"O Ximian Connector encontrou um problema ao configurar a sua conta "
-"no Exchange.\n"
+"O Ximian Connector encontrou um problema ao configurar a sua conta no "
+"Exchange.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -1145,124 +694,6 @@ msgstr "Nova Senha:"
 msgid "Your current password has expired. Please change your password now."
 msgstr "A sua senha atual expirou. Por favor, altere a sua senha agora."
 
-#: ../storage/exchange-config-listener.c:542
-msgid ""
-"Changes to Exchange account configuration will take\n"
-"place after you quit and restart Evolution."
-msgstr ""
-"Alterações na configuração da conta Exchange terão\n"
-"efeito após você sair e reiniciar o Evolution."
-
-#: ../storage/exchange-config-listener.c:588
-msgid "The Exchange account will be removed when you quit Evolution"
-msgstr "A conta Exchange será removida quando você sair do Evolution"
-
-#: ../storage/exchange-config-listener.c:593
-msgid "The Exchange account will be disabled when you quit Evolution"
-msgstr "A conta Exchange será desabilitada quando você sair do Evolution"
-
-#: ../storage/exchange-delegates-user.c:191
-#: ../storage/exchange-permissions-dialog.c:179
-#, c-format
-msgid "Permissions for %s"
-msgstr "Permissões para %s"
-
-#: ../storage/exchange-delegates.c:221
-msgid ""
-"No Global Catalog server configured for this account.\n"
-"Unable to edit delegates."
-msgstr ""
-"Não existe servidor de Catálogo Global configurado para esta conta.\n"
-"Não é possível editar representantes."
-
-#: ../storage/exchange-delegates.c:260
-msgid ""
-"Could not read folder permissions.\n"
-"Unable to edit delegates."
-msgstr ""
-"Não foi possível ler permissões de pasta.\n"
-"Impossível editar representantes."
-
-#: ../storage/exchange-delegates.c:267
-msgid ""
-"Could not determine folder permissions for delegates.\n"
-"Unable to edit delegates."
-msgstr ""
-"Não foi possível determinar permissões de pasta para representantes.\n"
-"Impossível editar representantes."
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To:"
-msgstr "Delegar Para:"
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To"
-msgstr "Delegar Para"
-
-#: ../storage/exchange-delegates.c:435
-#, c-format
-msgid "Could not make %s a delegate"
-msgstr "Não foi possível tornar %s um representante"
-
-#: ../storage/exchange-delegates.c:445
-msgid "You cannot make yourself your own delegate"
-msgstr "Você não pode se tornar seu próprio representante"
-
-#: ../storage/exchange-delegates.c:454
-#, c-format
-msgid "%s is already a delegate"
-msgstr "%s já é um representante"
-
-#: ../storage/exchange-delegates.c:563
-#, c-format
-msgid "Remove the delegate %s?"
-msgstr "Remover o representante %s?"
-
-#: ../storage/exchange-delegates.c:680
-msgid "Could not access Active Directory"
-msgstr "Não foi possível acessar o Active Directory"
-
-#: ../storage/exchange-delegates.c:695
-msgid "Could not find self in Active Directory"
-msgstr "Não foi possível localizar-se no Active Directory"
-
-#: ../storage/exchange-delegates.c:708
-#, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "Não foi possível localizar o representante %s no Active Directory"
-
-#: ../storage/exchange-delegates.c:720
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "Não foi possível remover o representante %s"
-
-#: ../storage/exchange-delegates.c:780
-msgid "Could not update list of delegates."
-msgstr "Não foi possível atualizar a lista de representantes."
-
-#: ../storage/exchange-delegates.c:798
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "Não foi possível adicionar o representante %s"
-
-#: ../storage/exchange-delegates.c:814
-#, c-format
-msgid ""
-"Failed to update delegates:\n"
-"%s"
-msgstr ""
-"Falha ao atualizar os representantes:\n"
-"%s"
-
-#: ../storage/exchange-delegates.c:938
-#: ../storage/exchange-permissions-dialog.c:706
-msgid "Name"
-msgstr "Nome"
-
-#: ../storage/exchange-delegates.c:967
-msgid "Error reading delegates list."
-msgstr "Erro ao ler lista de representantes."
-
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
 msgstr "Autor (ler, criar)"
@@ -1286,6 +717,10 @@ msgstr "Representantes"
 #: ../storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
 msgstr "Editor (ler, criar, editar)"
+
+#: ../storage/exchange-delegates.glade.h:7
+msgid "None"
+msgstr "Nenhum"
 
 #: ../storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
@@ -1319,63 +754,15 @@ msgstr "Ca_ixa de entrada:"
 msgid "_Tasks:"
 msgstr "_Tarefas:"
 
-#: ../storage/exchange-folder-size.c:322
-msgid "Folder Name"
-msgstr "Nome da Pasta"
-
-#: ../storage/exchange-folder-size.c:326
-msgid "Folder Size"
-msgstr "Tamanho da Pasta"
-
 #: ../storage/exchange-folder-tree.glade.h:1
 msgid "Exchange Folder Tree"
 msgstr "Árvore de Pastas do Exchange"
 
-#: ../storage/exchange-hierarchy-foreign.c:250
-msgid "Calendar"
-msgstr "Agenda"
-
-#: ../storage/exchange-hierarchy-foreign.c:251
-msgid "Contacts"
-msgstr "Contatos"
-
-#: ../storage/exchange-hierarchy-foreign.c:252
-msgid "Deleted Items"
-msgstr "Itens excluídos"
-
-#: ../storage/exchange-hierarchy-foreign.c:253
-msgid "Drafts"
-msgstr "Rascunhos"
-
-#: ../storage/exchange-hierarchy-foreign.c:254
-msgid "Inbox"
-msgstr "Caixa de entrada"
-
-#: ../storage/exchange-hierarchy-foreign.c:255
-msgid "Journal"
-msgstr "Diário"
-
-#: ../storage/exchange-hierarchy-foreign.c:256
-msgid "Notes"
-msgstr "Notas"
-
-#: ../storage/exchange-hierarchy-foreign.c:257
-msgid "Outbox"
-msgstr "Caixa de saída"
-
-#: ../storage/exchange-hierarchy-foreign.c:258
-msgid "Sent Items"
-msgstr "Enviar ítens"
-
-#: ../storage/exchange-hierarchy-foreign.c:259
-msgid "Tasks"
-msgstr "Tarefas"
-
-#: ../storage/exchange-migrate.c:57
+#: ../storage/exchange-migrate.c:58
 msgid "Migrating Exchange Folders..."
 msgstr "Migrando Pastas do Exchange..."
 
-#: ../storage/exchange-migrate.c:65
+#: ../storage/exchange-migrate.c:66
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -1388,31 +775,22 @@ msgstr ""
 "\n"
 "Por favor, aguarde enquanto o Evolution migra as sua pastas..."
 
-#: ../storage/exchange-migrate.c:98
+#: ../storage/exchange-migrate.c:99
 #, c-format
 msgid ""
-"Warning: Evolution Could not migrate all the Exchange account data from the "
+"Warning: Evolution could not migrate all the Exchange account data from the "
 "version %d.%d.%d. \n"
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
 "Alerta: O Evolution não foi capaz de migrar todos os dados da conta Exchange "
 "da versão %d.%d.%d. \n"
-"Os dados não foram apagados, mas não serão visíveis nesta versão do "
-"Evolution"
+"Os dados não foram apagados, mas não serão visíveis nesta versão do Evolution"
 
-#: ../storage/exchange-migrate.c:129
+#: ../storage/exchange-migrate.c:130
 #, c-format
 msgid "Migrating `%s':"
 msgstr "Migrando `%s':"
-
-#: ../storage/exchange-oof.c:199 ../storage/exchange-oof.c:406
-msgid "Could not update out-of-office state"
-msgstr "Não foi possível atualizar estado fora-do-escritório"
-
-#: ../storage/exchange-oof.c:424
-msgid "Could not read out-of-office state"
-msgstr "Não foi possível ler estado fora-do-escritório"
 
 #: ../storage/exchange-oof.glade.h:1
 msgid ""
@@ -1478,63 +856,6 @@ msgstr "Alterar _Senha"
 msgid "ok_button"
 msgstr "ok_button"
 
-#: ../storage/exchange-permissions-dialog.c:222
-msgid "Could not read folder permissions"
-msgstr "Não foi possível ler permissões da pasta"
-
-#: ../storage/exchange-permissions-dialog.c:264
-msgid "Could not update folder permissions."
-msgstr "Não foi possível atualizar permissões da pasta."
-
-#: ../storage/exchange-permissions-dialog.c:293
-#, c-format
-msgid "Could not update folder permissions. %s"
-msgstr "Não foi possível atualizar permissões da pasta. %s"
-
-#: ../storage/exchange-permissions-dialog.c:295
-msgid "(Permission denied.)"
-msgstr "(Permissão negada.)"
-
-#: ../storage/exchange-permissions-dialog.c:396
-msgid ""
-"Unable to add user to access control list:\n"
-"No Global Catalog server is configured for this account."
-msgstr ""
-"Impossível adicionar o usuário à lista de controle de acesso:\n"
-"Não existe servidor de Catálogo Global configurado para esta conta."
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User:"
-msgstr "Adicionar Usuário:"
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User"
-msgstr "Adicionar Usuário"
-
-#: ../storage/exchange-permissions-dialog.c:421
-#, c-format
-msgid "No such user %s"
-msgstr "Não existe o usuário %s"
-
-#: ../storage/exchange-permissions-dialog.c:425
-#, c-format
-msgid "%s cannot be added to an access control list"
-msgstr "Impossível adicionar %s à uma lista de controle de acesso"
-
-#: ../storage/exchange-permissions-dialog.c:430
-#, c-format
-msgid "Unknown error looking up %s"
-msgstr "Erro desconhecido ao procurar por %s"
-
-#: ../storage/exchange-permissions-dialog.c:447
-#, c-format
-msgid "%s is already in the list"
-msgstr "%s já está na lista"
-
-#: ../storage/exchange-permissions-dialog.c:710
-msgid "Role"
-msgstr "Papel"
-
 #: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
 msgstr "    "
@@ -1599,73 +920,9 @@ msgstr "Papel: "
 msgid "Connecting..."
 msgstr "Conectando..."
 
-#: ../storage/main.c:166
+#: ../storage/main.c:183
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector para o Microsoft Exchange"
-
-#: ../storage/xc-backend-view.c:299
-msgid "Account Name"
-msgstr "Nome da Conta"
-
-#: ../storage/xc-commands.c:316
-msgid "Folder does not exist"
-msgstr "A pasta não existe"
-
-#: ../storage/xc-commands.c:343
-#, c-format
-msgid "Could not add favorite: %s"
-msgstr "Não foi possível adicionar favorito: %s"
-
-#: ../storage/xc-commands.c:359
-#, c-format
-msgid "Could not remove favorite: %s"
-msgstr "Não foi possível remover favorito: %s"
-
-#.
-#. FIXME: See 62440
-#. E_POPUP_ITEM (N_("_Move Folder..."),
-#. G_CALLBACK (do_move_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#. E_POPUP_ITEM (N_("_Copy Folder..."),
-#. G_CALLBACK (do_copy_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#.
-#: ../storage/xc-commands.c:385
-msgid "_Rename Folder..."
-msgstr "_Renomear a Pasta..."
-
-#: ../storage/xc-commands.c:391
-msgid "_New Folder..."
-msgstr "_Nova Pasta..."
-
-#: ../storage/xc-commands.c:394
-msgid "_Delete Folder"
-msgstr "_Excluir a Pasta"
-
-#: ../storage/xc-commands.c:399
-msgid "_Add Other User's Folder..."
-msgstr "_Adicionar Pasta de Outro Usuário..."
-
-#: ../storage/xc-commands.c:402
-msgid "_Remove Other User's Folder"
-msgstr "_Remover Pasta de Outro Usuário"
-
-#: ../storage/xc-commands.c:408
-msgid "Add to _Favorites"
-msgstr "Adicionar a _favoritos"
-
-#: ../storage/xc-commands.c:412
-msgid "Remove from Fa_vorites"
-msgstr "Remover de fa_voritos"
-
-#.
-#. E_POPUP_ITEM (N_("_Permissions..."),
-#. G_CALLBACK (do_permissions),
-#. XC_FOLDER_COMMAND_MASK_PERMISSIONS),
-#.
-#: ../storage/xc-commands.c:423
-msgid "_Show Folder Sizes"
-msgstr "Mostrar Tamanho das Pasta_s"
 
 #: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
@@ -1722,6 +979,540 @@ msgstr "Assistente de _fora do escritório"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Cancelar a Inscrição da Pasta de Outro Usuário"
+
+#~ msgid "Folder not marked for offline support"
+#~ msgstr "Pasta não marcada para suporte desconectado"
+
+#~ msgid "Can only expunge in Deleted Items folder"
+#~ msgstr "Só é possível excluir permanentemente na pasta Ítens excluídos"
+
+#~ msgid ""
+#~ "Ximian Connector requires access to certain functionality on the Exchange "
+#~ "Server that appears to be disabled or blocked.  (This is usually "
+#~ "unintentional.)  Your Exchange Administrator will need to enable this "
+#~ "functionality in order for you to be able to use Ximian Connector.\n"
+#~ "\n"
+#~ "For information to provide to your Exchange administrator, please follow "
+#~ "the link below:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "O Ximian Connector requer o acesso a certas funcionalidades no servidor "
+#~ "Exchange que aparentam estar desativadas ou bloqueadas. (Isto é "
+#~ "normalmente não intencional.) O seu administrador Exchange deverá ativar "
+#~ "estas funcionalidades para que você possa usar o Ximian Connector.\n"
+#~ "\n"
+#~ "Para obter a informação a ser fornecida ao seu administrador Exchange, "
+#~ "por favor siga o link abaixo:\n"
+#~ "%s"
+
+#~ msgid "Enter password for %s"
+#~ msgstr "Entre com a senha para %s"
+
+#~ msgid "Enter password"
+#~ msgstr "Entre com a senha"
+
+#~ msgid "Owner"
+#~ msgstr "Proprietário"
+
+#~ msgid "Publishing Editor"
+#~ msgstr "Editor de Publicação"
+
+#~ msgid "Editor"
+#~ msgstr "Editor"
+
+#~ msgid "Publishing Author"
+#~ msgstr "Autor de Publicação"
+
+#~ msgid "Author"
+#~ msgstr "Autor"
+
+#~ msgid "Non-editing Author"
+#~ msgstr "Autor Não-editor"
+
+#~ msgid "Reviewer"
+#~ msgstr "Revisor"
+
+#~ msgid "Contributor"
+#~ msgstr "Contribuinte"
+
+#~ msgid "Custom"
+#~ msgstr "Personalizado"
+
+#~ msgid "Select User"
+#~ msgstr "Selecionar Usuário"
+
+#~ msgid "Addressbook..."
+#~ msgstr "Catálogo de Endereços..."
+
+#~ msgid ""
+#~ "Cannot create the specified folder:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Impossível criar a pasta especificada:\n"
+#~ "%s"
+
+#~ msgid "The specified folder name is not valid: %s"
+#~ msgstr "O nome de pasta especificado não é válido: %s"
+
+#~ msgid "Create New Folder"
+#~ msgstr "Criar Nova Pasta"
+
+#~ msgid "Folder _name:"
+#~ msgstr "_Nome da pasta:"
+
+#~ msgid "Folder _type:"
+#~ msgstr "_Tipo da pasta:"
+
+#~ msgid "Specify where to create the folder:"
+#~ msgstr "Especificar onde criar a pasta:"
+
+#~ msgid ""
+#~ "Cannot transfer folder:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Impossível transferir pasta:\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "Cannot delete folder:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Impossível excluir pasta:\n"
+#~ "%s"
+
+#~ msgid "Really delete folder \"%s\"?"
+#~ msgstr "Você realmente deseja excluir a pasta \"%s\"?"
+
+#~ msgid "Delete \"%s\""
+#~ msgstr "Excluir \"%s\""
+
+#~ msgid ""
+#~ "Cannot rename folder:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Impossível renomear a pasta:\n"
+#~ "%s"
+
+#~ msgid "Rename the \"%s\" folder to:"
+#~ msgstr "Renomear a pasta \"%s\" para:"
+
+#~ msgid "Rename Folder"
+#~ msgstr "Renomear Pasta"
+
+#~ msgid "A folder named \"%s\" already exists. Please use a different name."
+#~ msgstr ""
+#~ "Uma pasta chamada \"%s\" já existe. Por favor, use um nome diferente."
+
+#~ msgid "Please select a user."
+#~ msgstr "Por favor, selecione um usuário."
+
+#~ msgid "Opening Folder"
+#~ msgstr "Abrindo a Pasta"
+
+#~ msgid "Opening Folder \"%s\""
+#~ msgstr "Abrindo a Pasta \"%s\""
+
+#~ msgid "in \"%s\" ..."
+#~ msgstr "em \"%s\" ..."
+
+#~ msgid "Could not open other user's folder: %s."
+#~ msgstr "Não foi possível abrir pasta de outro usuário: %s."
+
+#~ msgid "Cannot find the specified other user's folder."
+#~ msgstr "Impossível localizar a pasta de outro usuário especificada."
+
+#~ msgid ""
+#~ "Cannot unsubscribe from folder:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Impossível cancelar a inscrição da pasta:\n"
+#~ "%s"
+
+#~ msgid "Really unsubscribe from folder \"%s\"?"
+#~ msgstr "Você realmente deseja cancelar a inscrição da pasta \"%s\"?"
+
+#~ msgid "Unsubscribe from \"%s\""
+#~ msgstr "Cancelar a inscrição de \"%s\""
+
+#~ msgid "Open Other User's Folder"
+#~ msgstr "Abrir uma pasta de outro usuário"
+
+#~ msgid "_Account:"
+#~ msgstr "_Conta:"
+
+#~ msgid "_Folder Name:"
+#~ msgstr "_Nome da Pasta:"
+
+#~ msgid "_User:"
+#~ msgstr "_Usuário:"
+
+#~ msgid "Checkbox"
+#~ msgstr "Caixa de marcação"
+
+#~ msgid "Folder"
+#~ msgstr "Pasta"
+
+#~ msgid "No error"
+#~ msgstr "Sem erro"
+
+#~ msgid "A folder with the same name already exists"
+#~ msgstr "Já existe uma pasta com o mesmo nome"
+
+#~ msgid "The specified folder type is not valid"
+#~ msgstr "O tipo de pasta especificado não é válido"
+
+#~ msgid "I/O error"
+#~ msgstr "Erro de E/S"
+
+#~ msgid "Not enough space to create the folder"
+#~ msgstr "Não existe espaço suficiente para criar a pasta"
+
+#~ msgid "The folder is not empty"
+#~ msgstr "A pasta não está vazia"
+
+#~ msgid "The specified folder was not found"
+#~ msgstr "A pasta especificada não foi encontrada"
+
+#~ msgid "Function not implemented in this storage"
+#~ msgstr "Função não implementada neste repositório"
+
+#~ msgid "Operation not supported"
+#~ msgstr "Operação não suportada"
+
+#~ msgid "The specified type is not supported in this storage"
+#~ msgstr "O tipo especificado não é suportadao neste repositório"
+
+#~ msgid "The specified folder cannot be modified or removed"
+#~ msgstr "A pasta especificada não pode ser modificada ou removida"
+
+#~ msgid "Cannot make a folder a child of one of its descendants"
+#~ msgstr "Impossível transformar uma pasta em um filho dos seus descendentes"
+
+#~ msgid "Cannot create a folder with that name"
+#~ msgstr "Impossível criar uma pasta com este nome"
+
+#~ msgid "This operation cannot be performed in off-line mode"
+#~ msgstr "Está operação não pode ser executada enquanto desconectado"
+
+#~ msgid "Unknown error"
+#~ msgstr "Erro desconhecido"
+
+#~ msgid "*Control*F5"
+#~ msgstr "*Control*F5"
+
+#~ msgid "Evolution Exchange Component"
+#~ msgstr "Componente Exchange do Evolution"
+
+#~ msgid "Exchange"
+#~ msgstr "Exchange"
+
+#~ msgid "_Exchange"
+#~ msgstr "_Exchange"
+
+#~ msgid "%s's Folders"
+#~ msgstr "Pastas de %s"
+
+#~ msgid "Cannot change password due to configuration problems"
+#~ msgstr "Impossível alterar a senha devido a problemas de configuração"
+
+#~ msgid ""
+#~ "Server rejected password because it is too weak.\n"
+#~ "Try again with a different password."
+#~ msgstr ""
+#~ "O servidor rejeitou a senha pois ela é muito fraca.\n"
+#~ "Tente novamente com uma senha diferente."
+
+#~ msgid "Could not change password"
+#~ msgstr "Não foi possível alterar a senha"
+
+#~ msgid "Personal Folders"
+#~ msgstr "Pastas Particulares"
+
+#~ msgid "Favorite Public Folders"
+#~ msgstr "Pastas Públicas Favoritas"
+
+#~ msgid "All Public Folders"
+#~ msgstr "Todas as Pastas Públicas"
+
+#~ msgid "Global Address List"
+#~ msgstr "Lista de Endereços Global"
+
+#~ msgid "Exchange Account is offline. Cannot display folders\n"
+#~ msgstr "Conta do Exchange desconectada. Impossível mostrar pastas\n"
+
+#~ msgid ""
+#~ "Could not authenticate to server.\n"
+#~ "\n"
+#~ "This probably means that your server requires you\n"
+#~ "to specify the Windows domain name as part of your\n"
+#~ "username (eg, \"DOMAIN\\user\").\n"
+#~ "\n"
+#~ "Or you might have just typed your password wrong.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Não foi possível autenticar-se com o servidor.\n"
+#~ "\n"
+#~ "Isto provavelmente significa que o seu servidor exige que\n"
+#~ "você especifique o nome do domínio Windows como parte\n"
+#~ "de seu nome de usuário (ex.: \"DOMÍNIO\\usuário\").\n"
+#~ "\n"
+#~ "Ou você apenas digitou incorretamente a sua senha.\n"
+#~ "\n"
+
+#~ msgid "Mailbox for %s is not on this server."
+#~ msgstr "A Caixa de correio para %s não está neste servidor."
+
+#~ msgid ""
+#~ "The server '%s' is running Exchange 5.5 and is\n"
+#~ "therefore not compatible with Ximian Connector"
+#~ msgstr ""
+#~ "O servidor '%s' está executando o Exchange 5.5,\n"
+#~ "contudo, não é compatível com o Ximian Connector"
+
+#~ msgid ""
+#~ "Could not find Exchange Web Storage System at %s.\n"
+#~ "If OWA is running on a different path, you must specify that in the\n"
+#~ "account configuration dialog."
+#~ msgstr ""
+#~ "Não foi possível localizar o Exchange Web Storage System em %s.\n"
+#~ "Se o OWA estiver executando em uma caminho diferente, você deve\n"
+#~ "especificá-lo no diálogo de configuração de conta."
+
+#~ msgid "No mailbox for user %s on %s.\n"
+#~ msgstr "Não existe caixa de correio para o usuário %s em %s.\n"
+
+#~ msgid "Could not connect to server %s: %s"
+#~ msgstr "Não foi possível se conectar ao servidor %s: %s"
+
+#~ msgid "Could not resolve hostname"
+#~ msgstr "Não foi possível resolver o nome da máquina"
+
+#~ msgid "Network error"
+#~ msgstr "Erro de rede"
+
+#~ msgid ""
+#~ "You have exceeded your quota of %d %s for storing mails on this server. "
+#~ "Your current usage is : %.0f %s."
+#~ msgstr ""
+#~ "Você excedeu sua cota de %d%s para armazenamento de mensagens neste "
+#~ "servidor. Sua utilização atual é: %.0f %s."
+
+#~ msgid "You will not be able to either send or receive mails now\n"
+#~ msgstr "Você não será capaz nem de enviar, nem de receber mensagens agora\n"
+
+#~ msgid ""
+#~ "You will not be able to send mails till you clear up some space by "
+#~ "deleting some mails.\n"
+#~ msgstr ""
+#~ "Você não será capaz de enviar mensagens enquanto não limpar algum espaço "
+#~ "excluíndo algumas mensagens.\n"
+
+#~ msgid "Try to clear up some space by deleting some mails.\n"
+#~ msgstr "Tente limpar algum espaço excluíndo algumas mensagens.\n"
+
+#~ msgid ""
+#~ "Changes to Exchange account configuration will take\n"
+#~ "place after you quit and restart Evolution."
+#~ msgstr ""
+#~ "Alterações na configuração da conta Exchange terão\n"
+#~ "efeito após você sair e reiniciar o Evolution."
+
+#~ msgid "The Exchange account will be removed when you quit Evolution"
+#~ msgstr "A conta Exchange será removida quando você sair do Evolution"
+
+#~ msgid "The Exchange account will be disabled when you quit Evolution"
+#~ msgstr "A conta Exchange será desabilitada quando você sair do Evolution"
+
+#~ msgid "Permissions for %s"
+#~ msgstr "Permissões para %s"
+
+#~ msgid ""
+#~ "No Global Catalog server configured for this account.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Não existe servidor de Catálogo Global configurado para esta conta.\n"
+#~ "Não é possível editar representantes."
+
+#~ msgid ""
+#~ "Could not read folder permissions.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Não foi possível ler permissões de pasta.\n"
+#~ "Impossível editar representantes."
+
+#~ msgid ""
+#~ "Could not determine folder permissions for delegates.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Não foi possível determinar permissões de pasta para representantes.\n"
+#~ "Impossível editar representantes."
+
+#~ msgid "Delegate To:"
+#~ msgstr "Delegar Para:"
+
+#~ msgid "Delegate To"
+#~ msgstr "Delegar Para"
+
+#~ msgid "Could not make %s a delegate"
+#~ msgstr "Não foi possível tornar %s um representante"
+
+#~ msgid "You cannot make yourself your own delegate"
+#~ msgstr "Você não pode se tornar seu próprio representante"
+
+#~ msgid "%s is already a delegate"
+#~ msgstr "%s já é um representante"
+
+#~ msgid "Remove the delegate %s?"
+#~ msgstr "Remover o representante %s?"
+
+#~ msgid "Could not access Active Directory"
+#~ msgstr "Não foi possível acessar o Active Directory"
+
+#~ msgid "Could not find self in Active Directory"
+#~ msgstr "Não foi possível localizar-se no Active Directory"
+
+#~ msgid "Could not find delegate %s in Active Directory"
+#~ msgstr "Não foi possível localizar o representante %s no Active Directory"
+
+#~ msgid "Could not remove delegate %s"
+#~ msgstr "Não foi possível remover o representante %s"
+
+#~ msgid "Could not update list of delegates."
+#~ msgstr "Não foi possível atualizar a lista de representantes."
+
+#~ msgid "Could not add delegate %s"
+#~ msgstr "Não foi possível adicionar o representante %s"
+
+#~ msgid ""
+#~ "Failed to update delegates:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Falha ao atualizar os representantes:\n"
+#~ "%s"
+
+#~ msgid "Name"
+#~ msgstr "Nome"
+
+#~ msgid "Error reading delegates list."
+#~ msgstr "Erro ao ler lista de representantes."
+
+#~ msgid "Folder Name"
+#~ msgstr "Nome da Pasta"
+
+#~ msgid "Folder Size"
+#~ msgstr "Tamanho da Pasta"
+
+#~ msgid "Calendar"
+#~ msgstr "Agenda"
+
+#~ msgid "Contacts"
+#~ msgstr "Contatos"
+
+#~ msgid "Deleted Items"
+#~ msgstr "Itens excluídos"
+
+#~ msgid "Drafts"
+#~ msgstr "Rascunhos"
+
+#~ msgid "Inbox"
+#~ msgstr "Caixa de entrada"
+
+#~ msgid "Journal"
+#~ msgstr "Diário"
+
+#~ msgid "Notes"
+#~ msgstr "Notas"
+
+#~ msgid "Outbox"
+#~ msgstr "Caixa de saída"
+
+#~ msgid "Sent Items"
+#~ msgstr "Enviar ítens"
+
+#~ msgid "Tasks"
+#~ msgstr "Tarefas"
+
+#~ msgid "Could not update out-of-office state"
+#~ msgstr "Não foi possível atualizar estado fora-do-escritório"
+
+#~ msgid "Could not read out-of-office state"
+#~ msgstr "Não foi possível ler estado fora-do-escritório"
+
+#~ msgid "Could not read folder permissions"
+#~ msgstr "Não foi possível ler permissões da pasta"
+
+#~ msgid "Could not update folder permissions."
+#~ msgstr "Não foi possível atualizar permissões da pasta."
+
+#~ msgid "Could not update folder permissions. %s"
+#~ msgstr "Não foi possível atualizar permissões da pasta. %s"
+
+#~ msgid "(Permission denied.)"
+#~ msgstr "(Permissão negada.)"
+
+#~ msgid ""
+#~ "Unable to add user to access control list:\n"
+#~ "No Global Catalog server is configured for this account."
+#~ msgstr ""
+#~ "Impossível adicionar o usuário à lista de controle de acesso:\n"
+#~ "Não existe servidor de Catálogo Global configurado para esta conta."
+
+#~ msgid "Add User:"
+#~ msgstr "Adicionar Usuário:"
+
+#~ msgid "Add User"
+#~ msgstr "Adicionar Usuário"
+
+#~ msgid "No such user %s"
+#~ msgstr "Não existe o usuário %s"
+
+#~ msgid "%s cannot be added to an access control list"
+#~ msgstr "Impossível adicionar %s à uma lista de controle de acesso"
+
+#~ msgid "Unknown error looking up %s"
+#~ msgstr "Erro desconhecido ao procurar por %s"
+
+#~ msgid "%s is already in the list"
+#~ msgstr "%s já está na lista"
+
+#~ msgid "Role"
+#~ msgstr "Papel"
+
+#~ msgid "Account Name"
+#~ msgstr "Nome da Conta"
+
+#~ msgid "Folder does not exist"
+#~ msgstr "A pasta não existe"
+
+#~ msgid "Could not add favorite: %s"
+#~ msgstr "Não foi possível adicionar favorito: %s"
+
+#~ msgid "Could not remove favorite: %s"
+#~ msgstr "Não foi possível remover favorito: %s"
+
+#~ msgid "_Rename Folder..."
+#~ msgstr "_Renomear a Pasta..."
+
+#~ msgid "_New Folder..."
+#~ msgstr "_Nova Pasta..."
+
+#~ msgid "_Delete Folder"
+#~ msgstr "_Excluir a Pasta"
+
+#~ msgid "_Add Other User's Folder..."
+#~ msgstr "_Adicionar Pasta de Outro Usuário..."
+
+#~ msgid "_Remove Other User's Folder"
+#~ msgstr "_Remover Pasta de Outro Usuário"
+
+#~ msgid "Add to _Favorites"
+#~ msgstr "Adicionar a _favoritos"
+
+#~ msgid "Remove from Fa_vorites"
+#~ msgstr "Remover de fa_voritos"
+
+#~ msgid "_Show Folder Sizes"
+#~ msgstr "Mostrar Tamanho das Pasta_s"
 
 #~ msgid ""
 #~ "Ximian Connector requires access to certain functionality on the Exchange "
