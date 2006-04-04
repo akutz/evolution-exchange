@@ -1,3 +1,11 @@
+2006-04-04  Sushma Rai  <rsushma@novell.com>
+
+	* calendar/e-cal-backend-exchange-calendar.c (create_object):
+	Initialize variables location and ru_header to NULL.
+
+	* mail/mail-stub-exchange.c (append_message): Similar.
+	Fixes #334391.
+
 2006-03-30  Rhys Jones  <rhys@sucs.org>
 
 	* configure.in: Added Welsh (cy) to ALL_LINGUAS.
