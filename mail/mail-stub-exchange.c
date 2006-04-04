@@ -1446,7 +1446,7 @@ append_message (MailStub *stub, const char *folder_name, guint32 flags,
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	MailStubExchangeFolder *mfld;
 	E2kHTTPStatus status;
-	char *ru_header, *repl_uid, *location;
+	char *ru_header = NULL, *repl_uid, *location = NULL;
 
 	mfld = folder_from_name (mse, folder_name, MAPI_ACCESS_CREATE_CONTENTS, FALSE);
 	if (!mfld)

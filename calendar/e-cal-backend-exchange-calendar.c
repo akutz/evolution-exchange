@@ -697,7 +697,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	const char *temp_comp_uid;
 	char *lastmod;
 	struct icaltimetype current;
-	char *location, *ru_header;
+	char *location = NULL, *ru_header = NULL;
 	ECalComponent *comp;
 	char *body, *body_crlf, *msg;
 	char *from, *date;
