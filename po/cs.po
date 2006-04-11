@@ -1,20 +1,23 @@
 # Czech translation of evolution-exchange.
 # Copyright (C) 2004, 2005, 2006 evolution-exchange'S COPYRIGHT HOLDER
 # Copyright (C) 2004, 2005, 2006 Miloslav Trmac <mitr@volny.cz>
+# Copyright (C) 2006 Lukas Novotny <lukasnov@cvs.gnome.org>
 # This file is distributed under the same license as the evolution-exchange package.
 # Miloslav Trmac <mitr@volny.cz>, 2004 - 2006.
-#
+# Lukas Novotny <lukasnov@cvs.gnome.org>, 2006.
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-19 07:44+0100\n"
-"PO-Revision-Date: 2006-02-20 03:25+0100\n"
-"Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
+"POT-Creation-Date: 2006-04-10 21:03+0200\n"
+"PO-Revision-Date: 2006-04-11 14:13+0200\n"
+"Last-Translator: Lukas Novotny <lukasnov@cvs.gnome.org>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../addressbook/e-book-backend-exchange.c:1867
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
@@ -33,7 +36,7 @@ msgstr "Přijímám výsledky hledání LDAP..."
 msgid "Error performing search"
 msgstr "Chyba při hledání"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1805
+#: ../calendar/e-cal-backend-exchange-calendar.c:1934
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -42,7 +45,7 @@ msgstr ""
 "Nemohu naplánovat zdroj '%s' pro opakované schůzky.\n"
 "Musíte každou schůzku založit zvlášť."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1823
+#: ../calendar/e-cal-backend-exchange-calendar.c:1952
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Zdroj '%s' se ve zvoleném časovém období používá."
@@ -55,43 +58,43 @@ msgstr "Nemůžete čistit v režimu off-line."
 msgid "No Subject"
 msgstr "Žádný předmět"
 
-#: ../camel/camel-exchange-folder.c:380
+#: ../camel/camel-exchange-folder.c:407
 msgid "This message is not available in offline mode."
 msgstr "Tato zpráva není k dispozici v režimu off-line."
 
-#: ../camel/camel-exchange-folder.c:615
+#: ../camel/camel-exchange-folder.c:642
 msgid "Moving messages"
 msgstr "Přesouvám zprávy"
 
-#: ../camel/camel-exchange-folder.c:616
+#: ../camel/camel-exchange-folder.c:643
 msgid "Copying messages"
 msgstr "Kopíruji zprávy"
 
-#: ../camel/camel-exchange-folder.c:987
+#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Nemohu vytvořit adresář %s: %s"
 
-#: ../camel/camel-exchange-folder.c:997
+#: ../camel/camel-exchange-folder.c:1024
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Nemohu načíst souhrn pro %s"
 
-#: ../camel/camel-exchange-folder.c:1005
+#: ../camel/camel-exchange-folder.c:1032
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Nemohu vytvořit vyrovnávací paměť pro %s"
 
-#: ../camel/camel-exchange-folder.c:1015
+#: ../camel/camel-exchange-folder.c:1042
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Nemohu vytvořit záznam pro %s"
 
-#: ../camel/camel-exchange-folder.c:1060
+#: ../camel/camel-exchange-folder.c:1087
 msgid "Scanning for changed messages"
 msgstr "Hledám změněné zprávy"
 
-#: ../camel/camel-exchange-folder.c:1086
+#: ../camel/camel-exchange-folder.c:1113
 msgid "Fetching summary information for new messages"
 msgstr "Stahuji souhrnné informace pro nové zprávy"
 
@@ -130,9 +133,8 @@ msgstr "Globální seznam adres / Active Directory"
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
 #: ../camel/camel-exchange-provider.c:53
-#, fuzzy
 msgid "_Global Catalog server name:"
-msgstr "Název serveru Global Catalog:"
+msgstr "Název serveru _Global Catalog:"
 
 #: ../camel/camel-exchange-provider.c:55
 #, c-format
@@ -306,7 +308,7 @@ msgstr "Taková složka neexistuje"
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
 #: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
 #: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
-#: ../mail/mail-stub-exchange.c:2740 ../storage/xc-commands.c:319
+#: ../mail/mail-stub-exchange.c:2739
 msgid "Permission denied"
 msgstr "Přístup odepřen"
 
@@ -397,11 +399,11 @@ msgstr "Nemohu odeslat zprávu"
 
 #: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
 #: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
-#: ../mail/mail-stub-exchange.c:2745 ../storage/xc-commands.c:323
+#: ../mail/mail-stub-exchange.c:2745
 msgid "Generic error"
 msgstr "Obecná chyba"
 
-#: ../mail/mail-stub-exchange.c:2522 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2522
 msgid "Folder already exists"
 msgstr "Složka již existuje"
 
@@ -692,115 +694,9 @@ msgid "Your current password has expired. Please change your password now."
 msgstr ""
 "Platnost vašeho momentálního hesla vypršela. Nyní prosím změňte vaše heslo."
 
-#: ../storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "Vlastní"
-
-#: ../storage/exchange-delegates-user.c:191
-#: ../storage/exchange-permissions-dialog.c:179
-#, c-format
-msgid "Permissions for %s"
-msgstr "Oprávnění pro %s"
-
-#: ../storage/exchange-delegates.c:221
-msgid ""
-"No Global Catalog server configured for this account.\n"
-"Unable to edit delegates."
-msgstr ""
-"Pro tento účet nebyl nastaven server Global Catalog.\n"
-"Nemohu upravovat delegáty."
-
-#: ../storage/exchange-delegates.c:260
-msgid ""
-"Could not read folder permissions.\n"
-"Unable to edit delegates."
-msgstr ""
-"Nemohu číst oprávnění složky.\n"
-"Nemohu upravovat delegáty."
-
-#: ../storage/exchange-delegates.c:267
-msgid ""
-"Could not determine folder permissions for delegates.\n"
-"Unable to edit delegates."
-msgstr ""
-"Nemohu určit oprávění složky pro delegáty.\n"
-"Nemohu upravovat delegáty."
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To:"
-msgstr "Delegovat:"
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To"
-msgstr "Delegovat"
-
-#: ../storage/exchange-delegates.c:435
-#, c-format
-msgid "Could not make %s a delegate"
-msgstr "Nemohu učinit %s delegátem"
-
-#: ../storage/exchange-delegates.c:445
-msgid "You cannot make yourself your own delegate"
-msgstr "Nemůžete sám sebe učinit svým delegátem"
-
-#: ../storage/exchange-delegates.c:454
-#, c-format
-msgid "%s is already a delegate"
-msgstr "%s již je delegát"
-
-#: ../storage/exchange-delegates.c:563
-#, c-format
-msgid "Remove the delegate %s?"
-msgstr "Odstranit delegáta %s?"
-
-#: ../storage/exchange-delegates.c:680
-msgid "Could not access Active Directory"
-msgstr "Nemohu přistupovat k Active Directory"
-
-#: ../storage/exchange-delegates.c:695
-msgid "Could not find self in Active Directory"
-msgstr "Nemohu se najít v Active Directory"
-
-#: ../storage/exchange-delegates.c:708
-#, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "Nemohu najít delegáta %s v Active Directory"
-
-#: ../storage/exchange-delegates.c:720
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "Nemohu odstranit delegáta %s"
-
-#: ../storage/exchange-delegates.c:780
-msgid "Could not update list of delegates."
-msgstr "Nemohu aktualizovat seznam delegátů."
-
-#: ../storage/exchange-delegates.c:798
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "Nemohu přidat delegáta %s"
-
-#: ../storage/exchange-delegates.c:814
-#, c-format
-msgid ""
-"Failed to update delegates:\n"
-"%s"
-msgstr ""
-"Nemohu aktualizovat delgáty:\n"
-"%s"
-
-#: ../storage/exchange-delegates.c:938
-#: ../storage/exchange-permissions-dialog.c:706
-msgid "Name"
-msgstr "Jméno"
-
-#: ../storage/exchange-delegates.c:967
-msgid "Error reading delegates list."
-msgstr "Chyba při čtení seznamu delegátů."
-
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
-msgstr ""
+msgstr "Autor (čte,·vytváří)"
 
 #: ../storage/exchange-delegates.glade.h:2
 msgid "C_alendar:"
@@ -820,7 +716,7 @@ msgstr "Delegáti"
 
 #: ../storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
-msgstr ""
+msgstr "Editor·(čte, vytváří, upravuje)"
 
 #: ../storage/exchange-delegates.glade.h:7
 msgid "None"
@@ -832,7 +728,7 @@ msgstr "Oprávnění pro"
 
 #: ../storage/exchange-delegates.glade.h:9
 msgid "Reviewer (read-only)"
-msgstr ""
+msgstr "Kontrolor (pouze čte)"
 
 #: ../storage/exchange-delegates.glade.h:10
 msgid ""
@@ -959,63 +855,6 @@ msgstr "_Změnit heslo"
 msgid "ok_button"
 msgstr "ok_button"
 
-#: ../storage/exchange-permissions-dialog.c:222
-msgid "Could not read folder permissions"
-msgstr "Nemohu číst oprávnění složky"
-
-#: ../storage/exchange-permissions-dialog.c:264
-msgid "Could not update folder permissions."
-msgstr "Nemohu aktualizovat oprávnění složky."
-
-#: ../storage/exchange-permissions-dialog.c:293
-#, c-format
-msgid "Could not update folder permissions. %s"
-msgstr "Nemohu aktualizovat oprávnění složky. %s"
-
-#: ../storage/exchange-permissions-dialog.c:295
-msgid "(Permission denied.)"
-msgstr "(Přístup odepřen.)"
-
-#: ../storage/exchange-permissions-dialog.c:396
-msgid ""
-"Unable to add user to access control list:\n"
-"No Global Catalog server is configured for this account."
-msgstr ""
-"Nemohu přidat uživatele do seznamu řízení přístupu:\n"
-"Pro tento účet není nastaven server Global Catalog."
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User:"
-msgstr "Přidat uživatele:"
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User"
-msgstr "Přidat uživatele"
-
-#: ../storage/exchange-permissions-dialog.c:421
-#, c-format
-msgid "No such user %s"
-msgstr "Uživatel %s neexistuje"
-
-#: ../storage/exchange-permissions-dialog.c:425
-#, c-format
-msgid "%s cannot be added to an access control list"
-msgstr "%s nelze přidat do seznamu řízení přístupu"
-
-#: ../storage/exchange-permissions-dialog.c:430
-#, c-format
-msgid "Unknown error looking up %s"
-msgstr "Neznámá chyba při vyhledávání %s"
-
-#: ../storage/exchange-permissions-dialog.c:447
-#, c-format
-msgid "%s is already in the list"
-msgstr "%s již je v seznamu"
-
-#: ../storage/exchange-permissions-dialog.c:710
-msgid "Role"
-msgstr "Role"
-
 #: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
 msgstr "    "
@@ -1084,70 +923,6 @@ msgstr "Připojuji se..."
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector pro Microsoft Exchange"
 
-#: ../storage/xc-backend-view.c:299
-msgid "Account Name"
-msgstr "Název účtu"
-
-#: ../storage/xc-commands.c:316
-msgid "Folder does not exist"
-msgstr "Složka neexistuje"
-
-#: ../storage/xc-commands.c:343
-#, c-format
-msgid "Could not add favorite: %s"
-msgstr "Nemohu přidat oblíbené: %s"
-
-#: ../storage/xc-commands.c:359
-#, c-format
-msgid "Could not remove favorite: %s"
-msgstr "Nemohu odstranit oblíbené: %s"
-
-#.
-#. FIXME: See 62440
-#. E_POPUP_ITEM (N_("_Move Folder..."),
-#. G_CALLBACK (do_move_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#. E_POPUP_ITEM (N_("_Copy Folder..."),
-#. G_CALLBACK (do_copy_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#.
-#: ../storage/xc-commands.c:385
-msgid "_Rename Folder..."
-msgstr "Pře_jmenovat složku..."
-
-#: ../storage/xc-commands.c:391
-msgid "_New Folder..."
-msgstr "_Nová složka..."
-
-#: ../storage/xc-commands.c:394
-msgid "_Delete Folder"
-msgstr "_Odstranit složku"
-
-#: ../storage/xc-commands.c:399
-msgid "_Add Other User's Folder..."
-msgstr "_Přidat složku jiného uživatele..."
-
-#: ../storage/xc-commands.c:402
-msgid "_Remove Other User's Folder"
-msgstr "_Odstranit složku jiného uživatele"
-
-#: ../storage/xc-commands.c:408
-msgid "Add to _Favorites"
-msgstr "Přidat do _Oblíbených"
-
-#: ../storage/xc-commands.c:412
-msgid "Remove from Fa_vorites"
-msgstr "Odstranit z Ob_líbených"
-
-#.
-#. E_POPUP_ITEM (N_("_Permissions..."),
-#. G_CALLBACK (do_permissions),
-#. XC_FOLDER_COMMAND_MASK_PERMISSIONS),
-#.
-#: ../storage/xc-commands.c:423
-msgid "_Show Folder Sizes"
-msgstr "_Zobrazovat velikosti složek"
-
 #: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
 msgstr "Nástroj pro nastavení Ximian Connectoru pro Microsoft Exchange"
@@ -1203,3 +978,155 @@ msgstr "Asistent \"_mimo kancelář\""
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Odhlásit se od složky jiného uživatele"
+
+#~ msgid "Custom"
+#~ msgstr "Vlastní"
+
+#~ msgid "Permissions for %s"
+#~ msgstr "Oprávnění pro %s"
+
+#~ msgid ""
+#~ "No Global Catalog server configured for this account.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Pro tento účet nebyl nastaven server Global Catalog.\n"
+#~ "Nemohu upravovat delegáty."
+
+#~ msgid ""
+#~ "Could not read folder permissions.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Nemohu číst oprávnění složky.\n"
+#~ "Nemohu upravovat delegáty."
+
+#~ msgid ""
+#~ "Could not determine folder permissions for delegates.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Nemohu určit oprávění složky pro delegáty.\n"
+#~ "Nemohu upravovat delegáty."
+
+#~ msgid "Delegate To:"
+#~ msgstr "Delegovat:"
+
+#~ msgid "Delegate To"
+#~ msgstr "Delegovat"
+
+#~ msgid "Could not make %s a delegate"
+#~ msgstr "Nemohu učinit %s delegátem"
+
+#~ msgid "You cannot make yourself your own delegate"
+#~ msgstr "Nemůžete sám sebe učinit svým delegátem"
+
+#~ msgid "%s is already a delegate"
+#~ msgstr "%s již je delegát"
+
+#~ msgid "Remove the delegate %s?"
+#~ msgstr "Odstranit delegáta %s?"
+
+#~ msgid "Could not access Active Directory"
+#~ msgstr "Nemohu přistupovat k Active Directory"
+
+#~ msgid "Could not find self in Active Directory"
+#~ msgstr "Nemohu se najít v Active Directory"
+
+#~ msgid "Could not find delegate %s in Active Directory"
+#~ msgstr "Nemohu najít delegáta %s v Active Directory"
+
+#~ msgid "Could not remove delegate %s"
+#~ msgstr "Nemohu odstranit delegáta %s"
+
+#~ msgid "Could not update list of delegates."
+#~ msgstr "Nemohu aktualizovat seznam delegátů."
+
+#~ msgid "Could not add delegate %s"
+#~ msgstr "Nemohu přidat delegáta %s"
+
+#~ msgid ""
+#~ "Failed to update delegates:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Nemohu aktualizovat delgáty:\n"
+#~ "%s"
+
+#~ msgid "Name"
+#~ msgstr "Jméno"
+
+#~ msgid "Error reading delegates list."
+#~ msgstr "Chyba při čtení seznamu delegátů."
+
+#~ msgid "Could not read folder permissions"
+#~ msgstr "Nemohu číst oprávnění složky"
+
+#~ msgid "Could not update folder permissions."
+#~ msgstr "Nemohu aktualizovat oprávnění složky."
+
+#~ msgid "Could not update folder permissions. %s"
+#~ msgstr "Nemohu aktualizovat oprávnění složky. %s"
+
+#~ msgid "(Permission denied.)"
+#~ msgstr "(Přístup odepřen.)"
+
+#~ msgid ""
+#~ "Unable to add user to access control list:\n"
+#~ "No Global Catalog server is configured for this account."
+#~ msgstr ""
+#~ "Nemohu přidat uživatele do seznamu řízení přístupu:\n"
+#~ "Pro tento účet není nastaven server Global Catalog."
+
+#~ msgid "Add User:"
+#~ msgstr "Přidat uživatele:"
+
+#~ msgid "Add User"
+#~ msgstr "Přidat uživatele"
+
+#~ msgid "No such user %s"
+#~ msgstr "Uživatel %s neexistuje"
+
+#~ msgid "%s cannot be added to an access control list"
+#~ msgstr "%s nelze přidat do seznamu řízení přístupu"
+
+#~ msgid "Unknown error looking up %s"
+#~ msgstr "Neznámá chyba při vyhledávání %s"
+
+#~ msgid "%s is already in the list"
+#~ msgstr "%s již je v seznamu"
+
+#~ msgid "Role"
+#~ msgstr "Role"
+
+#~ msgid "Account Name"
+#~ msgstr "Název účtu"
+
+#~ msgid "Folder does not exist"
+#~ msgstr "Složka neexistuje"
+
+#~ msgid "Could not add favorite: %s"
+#~ msgstr "Nemohu přidat oblíbené: %s"
+
+#~ msgid "Could not remove favorite: %s"
+#~ msgstr "Nemohu odstranit oblíbené: %s"
+
+#~ msgid "_Rename Folder..."
+#~ msgstr "Pře_jmenovat složku..."
+
+#~ msgid "_New Folder..."
+#~ msgstr "_Nová složka..."
+
+#~ msgid "_Delete Folder"
+#~ msgstr "_Odstranit složku"
+
+#~ msgid "_Add Other User's Folder..."
+#~ msgstr "_Přidat složku jiného uživatele..."
+
+#~ msgid "_Remove Other User's Folder"
+#~ msgstr "_Odstranit složku jiného uživatele"
+
+#~ msgid "Add to _Favorites"
+#~ msgstr "Přidat do _Oblíbených"
+
+#~ msgid "Remove from Fa_vorites"
+#~ msgstr "Odstranit z Ob_líbených"
+
+#~ msgid "_Show Folder Sizes"
+#~ msgstr "_Zobrazovat velikosti složek"
