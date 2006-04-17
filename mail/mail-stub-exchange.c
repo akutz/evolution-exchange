@@ -752,7 +752,7 @@ get_folder (MailStub *stub, const char *name, gboolean create,
 	path = g_strdup_printf ("/%s", name);
 	folder = exchange_account_get_folder (mse->account, path);
 	if (!folder && !create) {
-		mail_stub_return_error (stub, _("No such folder."));
+		mail_stub_return_error (stub, _("No such folder"));
 		g_free (path);
 		return;
 	} else if (!folder) {
