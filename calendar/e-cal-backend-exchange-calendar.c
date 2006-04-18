@@ -673,6 +673,7 @@ check_owner_partstatus_for_declined (ECalBackendSync *backend,
 	
 	email = e_cal_backend_exchange_get_owner_email (backend);
 	icalprop = find_attendee_prop (icalcomp, email);
+
 	g_free (email);
 	if (!icalprop)
 		return FALSE;
@@ -1524,13 +1525,16 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 				d(printf ("uid : %s : found in the cache\n", uid));
 
 				if (check_owner_partstatus_for_declined (backend, subcomp)) {
+					ECalComponentId *id = NULL;
 					status = remove_object (backend, cal, uid, NULL, 
 								CALOBJ_MOD_ALL, &old_object,
 								NULL);
 					if (status != GNOME_Evolution_Calendar_Success)
 						goto error;
-					e_cal_backend_notify_object_removed (E_CAL_BACKEND (backend), uid,
+					id = e_cal_component_get_id (comp);
+					e_cal_backend_notify_object_removed (E_CAL_BACKEND (backend), id,
 									     old_object, NULL);
+					e_cal_component_free_id (id);
 				} else {
 					struct icaltimetype time_rid;
 					char *new_object = NULL;
@@ -1578,8 +1582,12 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 				status = remove_object (backend, cal, uid, rid, CALOBJ_MOD_THIS, &icalobj, &object);
 			else
 				status = remove_object (backend, cal, uid, NULL, CALOBJ_MOD_ALL, &icalobj, &object);
-			if (status == GNOME_Evolution_Calendar_Success) 
-				e_cal_backend_notify_object_removed (E_CAL_BACKEND (backend), uid, icalobj, NULL);
+			if (status == GNOME_Evolution_Calendar_Success) {
+				ECalComponentId *id = e_cal_component_get_id (comp);
+				e_cal_backend_notify_object_removed (E_CAL_BACKEND (backend), id, icalobj, NULL);
+				e_cal_component_free_id (id);
+				
+			}
 			if (object) {
 				g_free (object);
 				object = NULL;
