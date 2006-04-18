@@ -1536,11 +1536,6 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 					char *new_object = NULL;
 					CalObjModType mod = CALOBJ_MOD_ALL;
 					
-					if (rid) {
-						time_rid = icaltime_from_string (rid);
-						e_cal_util_remove_instances (ecomp->icomp, time_rid, CALOBJ_MOD_THIS);
-					}
-
 					if (e_cal_util_component_is_instance (subcomp))
 						mod = CALOBJ_MOD_THIS;
 

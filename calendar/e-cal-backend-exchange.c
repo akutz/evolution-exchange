@@ -675,7 +675,8 @@ e_cal_backend_exchange_modify_object (ECalBackendExchange *cbex,
 		ecomp->instances = g_list_prepend (ecomp->instances,
 						   icalcomponent_new_clone (comp));
 		/*FIXME This is a workaround to cover the timezone issue while setting rid from evolution */
-		discard_detached_instance (ecomp, rid);
+		if (ecomp->icomp)
+			e_cal_util_remove_instances (ecomp->icomp, rid, CALOBJ_MOD_THIS);
 	}
 
 	save_cache (cbex);
