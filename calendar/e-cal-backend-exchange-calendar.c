@@ -177,7 +177,7 @@ add_vevent (ECalBackendExchange *cbex,
 	/* Now add to the cache */
 	status = e_cal_backend_exchange_add_object (cbex, href, lastmod, icalcomp);
 	
-	return (status == GNOME_Evolution_Calendar_Success);
+	return status;
 }
 
 /* Add the event to the cache, Notify the backend if it is sucessfully added */
@@ -233,7 +233,9 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 		status = add_vevent (cbex, href, lastmod, icalcomp);
 
 		if (status) {
-			e_cal_backend_notify_object_created (backend, icalcomponent_as_ical_string (icalcomp));
+			char *object = g_strdup (icalcomponent_as_ical_string (icalcomp));
+			e_cal_backend_notify_object_created (backend, object);
+			g_free (object);
 		}
 
 		icalcomponent_free (icalcomp);
@@ -266,7 +268,9 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 			status = add_vevent (cbex, href, lastmod, new_comp);
 			
 			if (status) {
-				e_cal_backend_notify_object_created (backend, icalcomponent_as_ical_string (new_comp));
+				char *object = g_strdup (icalcomponent_as_ical_string (new_comp));
+				e_cal_backend_notify_object_created (backend, object);
+				g_free (object);
 			}
 
 			icalcomponent_free (new_comp);
@@ -1560,14 +1564,16 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 				g_free (old_object);
 			} else if (!check_owner_partstatus_for_declined (backend, subcomp)) {
 				d(printf ("object : %s .. not found in the cache\n", uid));
-				char *returned_uid, *old;
+				char *returned_uid, *old, *object;
 				icalobj = (char *) icalcomponent_as_ical_string (subcomp);
 				d(printf ("Create a new object : %s\n", icalobj));
 				status = create_object (backend, cal, &icalobj, &returned_uid);
 				if (status != GNOME_Evolution_Calendar_Success)
 					goto error;
 
+				object = g_strdup (icalobj);
 				e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), icalobj);
+				g_free (object);
 				d(printf ("Notify that the new object is created : %s\n", icalobj));
 			} else
 				status = GNOME_Evolution_Calendar_Success;
