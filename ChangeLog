@@ -1,5 +1,12 @@
 2006-04-18  Chenthill Palanisamy  <pchenthill@novell.com>
 
+	Fixes #334727
+	* calendar/e-cal-backend-exchange-calendar.c: 
+	(add_vevent): Return correct status.
+	(add_ical), (receive_objects): Pass the duped string.
+				       
+2006-04-18  Chenthill Palanisamy  <pchenthill@novell.com>
+
 	Fixes #330674
 	* calendar/e-cal-backend-exchange-calendar.c:
 	(receive_objects): Passed ECalComponentId for notifying
