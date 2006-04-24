@@ -1715,7 +1715,6 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const char *subject,
 		camel_multipart_add_part (multipart, mime_part);
 		camel_object_unref (mime_part);
 		g_free (cid);
-		g_free (dest_url);
 	}
 	if (!new_attach_list) {
 		camel_object_unref (multipart);
