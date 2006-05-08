@@ -1,3 +1,18 @@
+2006-05-04  Jeffrey Stedfast  <fejj@novell.com>
+
+	Fix for the hang in Novell bug #166987
+
+	* camel/camel-stub.c (status_main): Create a CamelOperation
+	context so our main-loop/reads/writes can all be cancelled.
+	(finalize): Call camel_operation_cancel() on the stub's
+	CamelOperation so that the status_main thread exits more-or-less
+	immediately rather than hanging indefinitely in a system read()
+	call.
+
+	* camel/camel-stub-marshal.c (do_read): Use camel_read() so the
+	read is cancellable.
+	(camel_stub_marshal_flush): Use camel_write().
+
 2006-04-24  Chenthill Palanisamy  <pchenthill@novell.com>
 
 	* calendar/e-cal-backend-exchange.c: (build_msg): Not freeing the

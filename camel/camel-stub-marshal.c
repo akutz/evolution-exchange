@@ -27,6 +27,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#include <camel/camel-file-utils.h>
+
 #include "camel-stub-marshal.h"
 
 #if 1
@@ -82,27 +84,14 @@ camel_stub_marshal_free (CamelStubMarshal *marshal)
 }
 
 static gboolean
-do_read (CamelStubMarshal *marshal, char *buf, int len)
+do_read (CamelStubMarshal *marshal, char *buf, size_t len)
 {
-	int nread;
-
-	while (len) {
-		nread = read (marshal->fd, buf, len);
-		if (nread < 1) {
-			if (nread == -1 && errno == EINTR) {
-				if (DEBUGGING)
-					printf ("<<< Interrupted read\n");
-				continue;
-			}
-			if (DEBUGGING)
-				printf ("<<< read: %d (%s)\n", nread, g_strerror (errno));
-			close (marshal->fd);
-			marshal->fd = -1;
-			return FALSE;
-		}
-		len -= nread;
-		buf += nread;
+	if (camel_read (marshal->fd, buf, len) == -1) {
+		close (marshal->fd);
+		marshal->fd = -1;
+		return FALSE;
 	}
+	
 	return TRUE;
 }
 
@@ -425,8 +414,8 @@ camel_stub_marshal_decode_bytes (CamelStubMarshal *marshal, GByteArray **ba)
 int
 camel_stub_marshal_flush (CamelStubMarshal *marshal)
 {
-	int nwrote, off, left;
-
+	int left;
+	
 	if (marshal->out->len == 4)
 		return 0;
 
@@ -438,35 +427,22 @@ camel_stub_marshal_flush (CamelStubMarshal *marshal)
 
 	if (DEBUGGING)
 		printf ("---\n");
-
-	off = 0;
+	
 	left = marshal->out->len;
-
+	
 	marshal->out->data[0] =  left        & 0xFF;
 	marshal->out->data[1] = (left >>  8) & 0xFF;
 	marshal->out->data[2] = (left >> 16) & 0xFF;
 	marshal->out->data[3] = (left >> 24) & 0xFF;
-
-	while (left) {
-		nwrote = write (marshal->fd, marshal->out->data + off, left);
-		if (nwrote == -1 && errno == EINTR) {
-			if (DEBUGGING)
-				printf (">>> Interrupted write\n");
-			continue;
-		}
-		if (nwrote < 1) {
-			if (DEBUGGING)
-				printf (">>> write: %d (%s)\n", nwrote, g_strerror (errno));
-			if (nwrote == -1 && errno == EPIPE) {
-				close (marshal->fd);
-				marshal->fd = -1;
-			}
-			return -1;
-		}
-		off += nwrote;
-		left -= nwrote;
+	
+	if (camel_write (marshal->fd, marshal->out->data, marshal->out->len) == -1) {
+		close (marshal->fd);
+		marshal->fd = -1;
+		return -1;
 	}
+	
 	g_byte_array_set_size (marshal->out, 4);
+	
 	return 0;
 }
 
