@@ -14,6 +14,8 @@ extern "C" {
 #endif /* __cplusplus }*/
 
 #include <camel/camel-object.h>
+#include <camel/camel-operation.h>
+
 #include "camel-stub-constants.h"
 #include "camel-stub-marshal.h"
 #include <pthread.h>
@@ -27,9 +29,11 @@ typedef struct {
 	CamelObject parent_object;
 
 	char *backend_name;
-
+	
 	GMutex *read_lock, *write_lock;
 	CamelStubMarshal *cmd, *status;
+	
+	CamelOperation *op;      /* for cancelling */
 	pthread_t status_thread;
 } CamelStub;
 

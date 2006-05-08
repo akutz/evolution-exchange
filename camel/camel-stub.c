@@ -62,9 +62,19 @@ finalize (CamelStub *stub)
 		/* When we close the command channel, the storage will
 		 * close the status channel, which will in turn cause
 		 * the status loop to exit.
+		 *
+		 * Hah... as if. More than likely it'll just get caught in a read() call.
 		 */
+		if (stub->op)
+			camel_operation_cancel (stub->op);
+		
 		pthread_join (stub->status_thread, &unused);
 		camel_stub_marshal_free (stub->status);
+		
+		if (stub->op) {
+			camel_operation_unref (stub->op);
+			stub->op = NULL;
+		}
 	}
 
 	if (stub->backend_name)
@@ -104,11 +114,17 @@ status_main (void *data)
 	CamelStub *stub = data;
 	CamelStubMarshal *status_channel = stub->status;
 	guint32 retval;
-
+	
+	stub->op = camel_operation_new (NULL, NULL);
+	camel_operation_register (stub->op);
+	
 	while (1) {
+		if (camel_operation_cancel_check (stub->op))
+			break;
+		
 		if (camel_stub_marshal_decode_uint32 (status_channel, &retval) == -1)
 			break;
-
+		
 		/* FIXME. If you don't have exactly one thing listening
 		 * to this, it will get out of sync. But I don't want
 		 * CamelStub to have to know the details of the message
@@ -118,7 +134,9 @@ status_main (void *data)
 		camel_object_trigger_event (stub_object, "notification",
 					    GUINT_TO_POINTER (retval));
 	}
-
+	
+	camel_operation_unregister (stub->op);
+	
 	return NULL;
 }
 
