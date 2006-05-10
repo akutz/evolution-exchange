@@ -2716,8 +2716,8 @@ unsubscribe_folder (MailStub *stub, const char *folder_name)
 	}
 
 	g_object_unref (folder);
-	
-	pub_name = strchr (folder_name, '/');
+
+	pub_name = strrchr (folder_name, '/');
 	path = g_build_filename ("/favorites", pub_name, NULL);
 	folder = exchange_account_get_folder (mse->account, path);
 	if (!folder) {
