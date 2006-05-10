@@ -2665,6 +2665,12 @@ subscribe_folder (MailStub *stub, const char *folder_name)
 		return;
 	}
 	
+	if (!strcmp (e_folder_get_type_string (folder), "noselect")) {
+		g_object_unref (folder);
+		mail_stub_return_ok (stub);
+		return;
+	}
+	
 	result = exchange_account_add_favorite (mse->account, folder);
 
 	switch (result) {
