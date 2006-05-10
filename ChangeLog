@@ -1,5 +1,10 @@
 2006-05-10  Sushma Rai  <rsushma@novell.com>
 
+	mail/mail-stub-exchange.c (subscribe_folder): Not adding the toplevel
+	"All Public Folders" to the list of favorite folders. Fixes #339277.
+
+2006-05-10  Sushma Rai  <rsushma@novell.com>
+
 	* mail/mail-stub-exchange.c (unsubscribe_folder): Extracting the folder
 	name instead of folder patch. Fixes the issue of unsubscribing the sub
 	favorite folders. Related to bug #268412.
