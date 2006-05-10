@@ -961,14 +961,16 @@ proppatch_address (PropMapping *prop_mapping,
 			continue;
 		}
 
+		/* If a contact is being modified, we need to also check if the extension field has changed*/
 		if (cur_address && cur_addrprops[i] &&
-		    !strcmp (new_addrprops[i], cur_addrprops[i])) {
+		    !strcmp (new_addrprops[i], cur_addrprops[i]) &&
+		    !strcmp (new_address->ext, cur_address->ext)) {
 			/* they're the same */
 			continue;
 		}
 
 		if (i == ADDRPROP_STREET && new_address->ext) {
-			value = g_strdup_printf ("%s%s", new_addrprops[i],
+			value = g_strdup_printf ("%s %s", new_addrprops[i],
 						 new_address->ext);
 		} else
 			value = g_strdup (new_addrprops[i]);
