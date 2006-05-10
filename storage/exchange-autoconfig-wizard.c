@@ -262,7 +262,7 @@ owa_page_next (ExchangeAutoconfigGUI *gui)
 
 		if (gui->failure_href)
 			gtk_widget_destroy (gui->failure_href);
-		gui->failure_href = gnome_href_new ("http://www.ximian.com/products/connector/iis-lockdown.html", "http://www.ximian.com/products/connector/iis-lockdown.html");
+		gui->failure_href = gnome_href_new ("http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328.html", "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328.html");
 		gtk_box_pack_start (gui->failure_vbox, gui->failure_href, FALSE, FALSE, 0);
 		gtk_widget_show (gui->failure_href);
 
