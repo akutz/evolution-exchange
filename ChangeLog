@@ -1,3 +1,21 @@
+2006-05-11  Chenthill Palanisamy  <pchenthill@novell.com>
+
+	Fixes #339827
+	* calendar/e-cal-backend-exchange-calendar.c: (add_vevent),
+	(get_changed_events), (create_object), (modify_object),
+	(modify_object_with_href), (remove_object), (receive_objects),
+	(book_resource), (discard_alarm):
+	* calendar/e-cal-backend-exchange-tasks.c: (get_changed_tasks),
+	(create_task_object), (modify_task_object), (receive_task_objects),
+	(remove_task_object):
+	* calendar/e-cal-backend-exchange.c:
+	(e_cal_backend_exchange_cache_sync_end),
+	(e_cal_backend_exchange_cache_lock),
+	(e_cal_backend_exchange_cache_unlock), (get_object),
+	(get_object_list), (start_query), (init), (finalize):
+	* calendar/e-cal-backend-exchange.h: Set the cache lock while
+	accessing the components from the hash table.
+
 2006-05-10  Sushma Rai  <rsushma@novell.com>
 
 	* storage/exchange-autoconfig-wizard.c (owa_page_next): Corrected the
