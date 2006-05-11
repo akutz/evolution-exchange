@@ -174,8 +174,10 @@ add_vevent (ECalBackendExchange *cbex,
 		icalproperty_free (prop);
 	}
 
+	e_cal_backend_exchange_cache_lock (cbex);
 	/* Now add to the cache */
 	status = e_cal_backend_exchange_add_object (cbex, href, lastmod, icalcomp);
+	e_cal_backend_exchange_cache_unlock (cbex);
 	
 	return status;
 }
@@ -343,6 +345,7 @@ get_changed_events (ECalBackendExchange *cbex)
 					   cbex->private_item_restriction,
 					   NULL);
 	}
+	e_cal_backend_exchange_cache_lock (cbex);
 	if (since) {
 		rn = e2k_restriction_andv (
 			rn,
@@ -351,6 +354,7 @@ get_changed_events (ECalBackendExchange *cbex)
 			NULL);
 	} else
 		e_cal_backend_exchange_cache_sync_start (cbex);
+	e_cal_backend_exchange_cache_unlock (cbex);
 
 	iter = e_folder_exchange_search_start (cbex->folder, NULL,
 					       event_properties,
@@ -389,6 +393,7 @@ get_changed_events (ECalBackendExchange *cbex)
 				status_tracking = EX_READ_AND_DELIVERED;
 		}
 
+		e_cal_backend_exchange_cache_lock (cbex);
 		if (!e_cal_backend_exchange_in_cache (cbex, uid, modtime, result->href)) {
 			g_ptr_array_add (hrefs, g_strdup (result->href));
 			g_hash_table_insert (modtimes, g_strdup (result->href),
@@ -397,6 +402,7 @@ get_changed_events (ECalBackendExchange *cbex)
 				g_hash_table_insert (attachments, g_strdup (result->href),
 						g_strdup (uid));
 		}
+		e_cal_backend_exchange_cache_unlock (cbex);
 	}
 	status = e2k_result_iter_free (iter);
 
@@ -408,8 +414,10 @@ get_changed_events (ECalBackendExchange *cbex)
 		return status;
 	}
 
+	e_cal_backend_exchange_cache_lock (cbex);
 	if (!since)
 		e_cal_backend_exchange_cache_sync_end (cbex);
+	e_cal_backend_exchange_cache_unlock (cbex);
 
 	if (!hrefs->len) {
 		g_ptr_array_free (hrefs, TRUE);
@@ -469,12 +477,14 @@ get_changed_events (ECalBackendExchange *cbex)
 	if (!SOUP_STATUS_IS_SUCCESSFUL (status)) {
 		g_ptr_array_free (hrefs, TRUE);
 		g_hash_table_destroy (modtimes);
+		g_hash_table_destroy (attachments);
 		g_mutex_unlock (cbexc->priv->mutex);
 		return status;
 	}
 	if (!hrefs->len) {
 		g_ptr_array_free (hrefs, TRUE);
 		g_hash_table_destroy (modtimes);
+		g_hash_table_destroy (attachments);
 		cbexc->priv->is_loaded = TRUE;
 		g_mutex_unlock (cbexc->priv->mutex);
 		return SOUP_STATUS_OK;
@@ -696,6 +706,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 {
 	/* FIXME : Return some value in uid */
 	ECalBackendExchangeCalendar *cbexc;
+	ECalBackendExchange *cbex;
 	icalcomponent *icalcomp, *real_icalcomp;
 	icalcomponent_kind kind;
 	icalproperty *icalprop;
@@ -719,6 +730,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	d(printf ("ecbexc_create_object(%p, %p, %s, %s)", backend, cal, *calobj ? *calobj : NULL, *uid ? *uid : NULL));
 
 	cbexc =	E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
+	cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), GNOME_Evolution_Calendar_InvalidObject);
 	g_return_val_if_fail (calobj != NULL, GNOME_Evolution_Calendar_InvalidObject);
@@ -881,8 +893,10 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 		return GNOME_Evolution_Calendar_OtherError;
 	}
 
+	e_cal_backend_exchange_cache_lock (cbex);
 	/*add object*/
 	e_cal_backend_exchange_add_object (E_CAL_BACKEND_EXCHANGE (cbexc), location, lastmod, icalcomp);
+	e_cal_backend_exchange_cache_unlock (cbex);
 	*uid = g_strdup (temp_comp_uid);	
 		
 	g_object_unref (comp);
@@ -1011,9 +1025,14 @@ modify_object (ECalBackendSync *backend, EDataCal *cal,
 	       const char *calobj, CalObjModType mod,
 	       char **old_object, char **new_object)
 {
+	ECalBackendSyncStatus status;
+	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
+
 	d(printf ("ecbexc_modify_object(%p, %p, %d, %s)", backend, cal, mod, *old_object ? *old_object : NULL));
 
-	return modify_object_with_href (backend, cal, calobj, mod, old_object, new_object, NULL, NULL);
+	status = modify_object_with_href (backend, cal, calobj, mod, old_object, new_object, NULL, NULL);
+
+	return status;
 }
 
 static ECalBackendSyncStatus
@@ -1023,6 +1042,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 {
 	ECalBackendExchangeCalendar *cbexc;
 	ECalBackendExchangeComponent *ecomp;
+	ECalBackendExchange *cbex;
 	icalcomponent *icalcomp, *real_icalcomp, *updated_icalcomp;
 	ECalComponent *real_ecomp, *cached_ecomp = NULL, *updated_ecomp;
 	const char *comp_uid;
@@ -1047,6 +1067,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	gboolean remove = FALSE;
 
 	cbexc =	E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
+	cbex = E_CAL_BACKEND_EXCHANGE (backend);
 
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), GNOME_Evolution_Calendar_InvalidObject);
 	g_return_val_if_fail (calobj != NULL, GNOME_Evolution_Calendar_InvalidObject);
@@ -1076,11 +1097,12 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	else  
 		key_rid = icaltime_from_string (rid_to_remove);
 	
-	
-	ecomp = get_exchange_comp (E_CAL_BACKEND_EXCHANGE (cbexc), comp_uid);
+	e_cal_backend_exchange_cache_lock (cbex);
+	ecomp = get_exchange_comp (cbex, comp_uid);
 	
 	if (!ecomp){
 		icalcomponent_free (icalcomp);
+		e_cal_backend_exchange_cache_unlock (cbex);
 		return GNOME_Evolution_Calendar_ObjectNotFound;
 	}
 	
@@ -1149,6 +1171,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	g_free (updated_ecomp_str);
 	if (!updated_icalcomp) {
 		g_object_unref (updated_ecomp);
+		e_cal_backend_exchange_cache_unlock (cbex);
 		return GNOME_Evolution_Calendar_OtherError;
 	}
 
@@ -1169,6 +1192,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	if (!e_cal_component_set_icalcomponent (real_ecomp, updated_icalcomp)) {
 		g_object_unref (real_ecomp);
 		g_object_unref (updated_ecomp);
+		e_cal_backend_exchange_cache_unlock (cbex);
 		return GNOME_Evolution_Calendar_OtherError;
 	}
 
@@ -1257,6 +1281,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		g_object_unref (updated_ecomp);	
 		icalcomponent_free (cbdata->vcal_comp);
 		g_free (cbdata);
+		e_cal_backend_exchange_cache_unlock (cbex);
 		return GNOME_Evolution_Calendar_OtherError;
 	}
 	real_icalcomp = icalparser_parse_string (real_comp_str);
@@ -1296,6 +1321,8 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 			icalcomponent_add_component (cbdata->vcal_comp, icalcomponent_new_clone (icomp));
 		}
 	}
+
+	e_cal_backend_exchange_cache_unlock (cbex);
 
 	if (!cached_ecomp && remove)
 		*new_object = g_strdup (icalcomponent_as_ical_string (icalcomp));
@@ -1371,9 +1398,12 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	if ((E2K_HTTP_STATUS_IS_SUCCESSFUL (http_status)) && send_options)
 		http_status = e2k_context_proppatch (ctx, NULL, new_href, props, FALSE, NULL);
 
-	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (http_status))
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (http_status)) {
+		e_cal_backend_exchange_cache_lock (cbex);
 		e_cal_backend_exchange_modify_object (E_CAL_BACKEND_EXCHANGE (cbexc), 
 							e_cal_component_get_icalcomponent (real_ecomp), mod, remove);
+		e_cal_backend_exchange_cache_unlock (cbex);
+	}
 	
 	if (!remove)
 		*new_object = e_cal_component_get_as_string (real_ecomp);
@@ -1398,6 +1428,7 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 	       char **old_object, char **object)
 {
 	ECalBackendExchangeCalendar *cbexc;
+	ECalBackendExchange *cbex;
 	ECalBackendExchangeComponent *ecomp;
 	E2kHTTPStatus status;
 	E2kContext *ctx;
@@ -1411,6 +1442,7 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 	   handled. */
 	
 	cbexc = E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
+	cbex = E_CAL_BACKEND_EXCHANGE (backend);
 
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), GNOME_Evolution_Calendar_InvalidObject);
 
@@ -1419,10 +1451,13 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
                 return GNOME_Evolution_Calendar_InvalidObject;
         }
 
+	e_cal_backend_exchange_cache_lock (cbex);
 	ecomp = get_exchange_comp (E_CAL_BACKEND_EXCHANGE (cbexc), uid);
 	
-	if (!ecomp)
+	if (!ecomp) {
+		e_cal_backend_exchange_cache_unlock (cbex);
 		return GNOME_Evolution_Calendar_ObjectNotFound;
+	}
 		
 	comp = e_cal_component_new ();
 	e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (ecomp->icomp));
@@ -1439,6 +1474,8 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 		time_rid = icaltime_from_string (rid);
 		e_cal_util_remove_instances (ecomp->icomp, time_rid, mod);
 		calobj  = (char *) icalcomponent_as_ical_string (ecomp->icomp);
+		
+		e_cal_backend_exchange_cache_unlock (cbex);
 		ebs_status = modify_object_with_href (backend, cal, calobj, mod, &obj, &new_object, NULL, rid);
 		g_object_unref (comp);
 		if (ebs_status != GNOME_Evolution_Calendar_Success)
@@ -1451,16 +1488,21 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 		g_free (new_object);
 
 		return ebs_status;
-	}
+	} else 
+		e_cal_backend_exchange_cache_unlock (cbex);
+
 	g_object_unref (comp);
 
 	ctx = exchange_account_get_context (E_CAL_BACKEND_EXCHANGE (cbexc)->account);	
 	
 	status = e2k_context_delete (ctx, NULL, ecomp->href);
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		e_cal_backend_exchange_cache_lock (cbex);
 		if (e_cal_backend_exchange_remove_object (E_CAL_BACKEND_EXCHANGE (cbexc), uid)) {
+			e_cal_backend_exchange_cache_unlock (cbex);
 			return GNOME_Evolution_Calendar_Success;
 		}
+		e_cal_backend_exchange_cache_unlock (cbex);
 	}
 	*object = NULL;
 
@@ -1474,6 +1516,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 {
 	d(printf ("ecbexc_modify_object(%p, %p, %s)", backend, cal, calobj ? calobj : NULL));
 	ECalBackendExchangeCalendar *cbexc;
+	ECalBackendExchange *cbex;
 	ECalBackendExchangeComponent *ecomp;
 	ECalComponent *comp = NULL;
 	GList *comps, *l;
@@ -1483,6 +1526,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 	ECalBackendSyncStatus status = GNOME_Evolution_Calendar_Success;	
 
 	cbexc =	E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
+	cbex =	E_CAL_BACKEND_EXCHANGE (backend);
 
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), GNOME_Evolution_Calendar_InvalidObject);
 	g_return_val_if_fail (calobj != NULL, GNOME_Evolution_Calendar_InvalidObject);
@@ -1523,11 +1567,13 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 		case ICAL_METHOD_PUBLISH:
 		case ICAL_METHOD_REQUEST:
 		case ICAL_METHOD_REPLY:
+			e_cal_backend_exchange_cache_lock (cbex);
 			if ((ecomp = get_exchange_comp (E_CAL_BACKEND_EXCHANGE (cbexc), uid)) != NULL ) {
 				char *old_object = NULL;
 
 				d(printf ("uid : %s : found in the cache\n", uid));
 
+				e_cal_backend_exchange_cache_unlock (cbex);
 				if (check_owner_partstatus_for_declined (backend, subcomp)) {
 					ECalComponentId *id = NULL;
 					status = remove_object (backend, cal, uid, NULL, 
@@ -1567,6 +1613,8 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 				char *returned_uid, *old, *object;
 				icalobj = (char *) icalcomponent_as_ical_string (subcomp);
 				d(printf ("Create a new object : %s\n", icalobj));
+				
+				e_cal_backend_exchange_cache_unlock (cbex);
 				status = create_object (backend, cal, &icalobj, &returned_uid);
 				if (status != GNOME_Evolution_Calendar_Success)
 					goto error;
@@ -1575,8 +1623,11 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 				e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), icalobj);
 				g_free (object);
 				d(printf ("Notify that the new object is created : %s\n", icalobj));
-			} else
+			} else {
+				e_cal_backend_exchange_cache_unlock (cbex);
 				status = GNOME_Evolution_Calendar_Success;
+			}
+
 			break;
 		case ICAL_METHOD_ADD:
 			/* FIXME This should be doable once all the recurid stuff is done ??*/
@@ -1726,7 +1777,10 @@ book_resource (ECalBackendExchange *cbex,
 
 	e_cal_component_get_uid (E_CAL_COMPONENT (comp), &uid);
 	href = g_strdup_printf ("%s/%s.EML", cal_uri, uid);
+	
+	e_cal_backend_exchange_cache_lock (cbex);
 	ecomp = get_exchange_comp (E_CAL_BACKEND_EXCHANGE (cbex), uid);
+	e_cal_backend_exchange_cache_unlock (cbex);
 												 
 	if (method == ICAL_METHOD_CANCEL) {
 		char *object = NULL;
@@ -2072,10 +2126,13 @@ discard_alarm (ECalBackendSync *backend, EDataCal *cal,
 
 	cbex = E_CAL_BACKEND_EXCHANGE (backend);
 
+	e_cal_backend_exchange_cache_lock (cbex);
 	ecbexcomp = get_exchange_comp (cbex, uid);
 
-	if (!ecbexcomp) 
+	if (!ecbexcomp) {
+		e_cal_backend_exchange_cache_unlock (cbex);
 		return GNOME_Evolution_Calendar_ObjectNotFound;
+	}
 
 	ecomp = e_cal_component_new ();
 	e_cal_component_set_icalcomponent (ecomp, icalcomponent_new_clone (ecbexcomp->icomp));
@@ -2093,6 +2150,7 @@ discard_alarm (ECalBackendSync *backend, EDataCal *cal,
 	}
 	g_object_unref (ecomp);
 
+	e_cal_backend_exchange_cache_unlock (cbex);
 	return result;
 }
 

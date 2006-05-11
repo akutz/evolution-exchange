@@ -59,6 +59,7 @@ struct ECalBackendExchangePrivate {
 	guint save_timeout_id;
 	GMutex *set_lock;
 	GMutex *open_lock;
+	GMutex *cache_lock;
 
 	/* Timezones */
 	GHashTable *timezones;
@@ -529,6 +530,7 @@ e_cal_backend_exchange_cache_sync_end (ECalBackendExchange *cbex)
 	g_return_if_fail (cbex->priv->cache_unseen != NULL);
 
 	g_hash_table_foreach (cbex->priv->cache_unseen, uncache, cbex);
+
 	g_hash_table_destroy (cbex->priv->cache_unseen);
 	cbex->priv->cache_unseen = NULL;
 
@@ -730,6 +732,18 @@ modify_object (ECalBackendSync *backend, EDataCal *cal,
 	return GNOME_Evolution_Calendar_OtherError;
 }
 
+void
+e_cal_backend_exchange_cache_lock (ECalBackendExchange *cbex) 
+{
+	g_mutex_lock (cbex->priv->cache_lock);
+}
+
+void
+e_cal_backend_exchange_cache_unlock (ECalBackendExchange *cbex) 
+{
+	g_mutex_unlock (cbex->priv->cache_lock);
+}
+
 ECalBackendExchangeComponent *
 get_exchange_comp (ECalBackendExchange *cbex, const char *uid)
 {
@@ -767,12 +781,18 @@ get_object (ECalBackendSync *backend, EDataCal *cal,
 	/*any other asserts?*/
 	
 	*object = NULL;
+	
+	g_mutex_lock (cbex->priv->cache_lock);
 	ecomp = g_hash_table_lookup (cbex->priv->objects, uid);
-	if (!ecomp)
+	if (!ecomp) {
+		g_mutex_unlock (cbex->priv->cache_lock);
 		return GNOME_Evolution_Calendar_ObjectNotFound;
+	}
 
-	if (!rid && (!(ecomp->icomp)))	
+	if (!rid && (!(ecomp->icomp)))	{
+		g_mutex_unlock (cbex->priv->cache_lock);
 		return GNOME_Evolution_Calendar_ObjectNotFound;
+	}
 
 	if (rid && *rid) {
 		GList *l;
@@ -798,13 +818,16 @@ get_object (ECalBackendSync *backend, EDataCal *cal,
 
 				itt = icaltime_from_string (rid);
 				new_inst = e_cal_util_construct_instance (ecomp->icomp, itt);
-				if (!new_inst)
+				if (!new_inst) {
+					g_mutex_unlock (cbex->priv->cache_lock);
 					return GNOME_Evolution_Calendar_ObjectNotFound;
+				}
 				
 				*object = g_strdup (icalcomponent_as_ical_string (new_inst));
 				icalcomponent_free (new_inst);
 			} else {
 				/* Oops. No instance and no master as well !! */
+				g_mutex_unlock (cbex->priv->cache_lock);
 				return GNOME_Evolution_Calendar_ObjectNotFound;
 			} /* Close check for master object */
 		} /* Close check for instance */
@@ -830,6 +853,7 @@ get_object (ECalBackendSync *backend, EDataCal *cal,
 			*object = g_strdup (icalcomponent_as_ical_string (ecomp->icomp));
 		}
 	}
+	g_mutex_unlock (cbex->priv->cache_lock);
 
 	return GNOME_Evolution_Calendar_Success;
 }
@@ -999,9 +1023,11 @@ get_object_list (ECalBackendSync *backend, EDataCal *cal,
 {
 
 	ECalBackendExchange *cbex;
+	ECalBackendExchangePrivate *priv;
 	MatchObjectData match_data;
 
 	cbex = E_CAL_BACKEND_EXCHANGE (backend);
+	priv = cbex->priv;
 	
 	match_data.search_needed = TRUE;
 	match_data.query = sexp;
@@ -1015,10 +1041,14 @@ get_object_list (ECalBackendSync *backend, EDataCal *cal,
 	match_data.obj_sexp = e_cal_backend_sexp_new (sexp);
 	if (!match_data.obj_sexp)
 		return GNOME_Evolution_Calendar_InvalidQuery;
-
+	
+	g_mutex_lock (priv->cache_lock);
 	g_hash_table_foreach (cbex->priv->objects, (GHFunc) match_object_sexp, &match_data);
+	g_mutex_unlock (priv->cache_lock);
 
 	*objects = match_data.obj_list;
+
+	g_object_unref (match_data.obj_sexp);
 
 	return GNOME_Evolution_Calendar_Success;
 }
@@ -1135,74 +1165,32 @@ set_default_timezone (ECalBackendSync *backend, EDataCal *cal,
 	return GNOME_Evolution_Calendar_Success;
 }
 
-struct search_data {
-	ECalBackendSExp *sexp;
-	GList *matches;
-	ECalBackend *backend;
-};
-
-static void
-match_object (gpointer key, gpointer value, gpointer data)
-{
-	ECalBackendExchangeComponent *ecomp = value;
-	struct search_data *sd = data;
-	ECalComponent *cal_comp;
-	icalcomponent *tmp = NULL;
-	char * ecal_str;
-	GList *inst;
-
-	/* FIXME: we shouldn't have to convert to ECalComponent here */
-	cal_comp = e_cal_component_new ();
-
-	/* Find a way to test if the icalcomp added to cal_comp is not null */
-	/* ecomp->icomp would not exist for a detached instance with no master object */
-	if (ecomp->icomp) {
-		tmp = icalcomponent_new_clone (ecomp->icomp);
-		e_cal_component_set_icalcomponent (cal_comp, tmp);
-		if (e_cal_backend_sexp_match_comp (sd->sexp, cal_comp, sd->backend)) {
-			ecal_str = e_cal_component_get_as_string (cal_comp);
-			if (ecal_str)
-				sd->matches = g_list_prepend (sd->matches, ecal_str);
-		}
-	}
-
-	for (inst = ecomp->instances; inst; inst = inst->next) {
-		e_cal_component_set_icalcomponent (cal_comp, icalcomponent_new_clone (inst->data));
-		if (e_cal_backend_sexp_match_comp (sd->sexp, cal_comp, sd->backend)) {
-			ecal_str = e_cal_component_get_as_string (cal_comp);
-			if (ecal_str)
-				sd->matches = g_list_prepend (sd->matches, ecal_str);
-		}
-	}
-
-	g_object_unref (cal_comp);
-}
-
 static void
 start_query (ECalBackend *backend, EDataCalView *view)
 {
-	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
-	struct search_data sd;
-	GList *m;
+	char *sexp = NULL;
+	ECalBackendSyncStatus status = GNOME_Evolution_Calendar_OtherError;
+	GList *m, *objects = NULL;
 
 	d(printf("ecbe_start_query(%p, %p)\n", backend, view));
 
-	sd.sexp = e_data_cal_view_get_object_sexp (view);
-	if (!sd.sexp) {
+	sexp = e_data_cal_view_get_text (view);
+	if (!sexp) {
 		e_data_cal_view_notify_done (view, GNOME_Evolution_Calendar_InvalidQuery);
 		return;
 	}
-	sd.matches = NULL;
-	sd.backend = backend;
+	status = get_object_list (E_CAL_BACKEND_SYNC (backend), NULL, sexp, &objects);
+	if (status != GNOME_Evolution_Calendar_Success) {
+		 e_data_cal_view_notify_done (view, status);
+		 return;
+	}
 
-	g_hash_table_foreach (cbex->priv->objects, match_object, &sd);
+	if (objects) {
+		e_data_cal_view_notify_objects_added (view, objects);
 
-	if (sd.matches) {
-		e_data_cal_view_notify_objects_added (view, sd.matches);
-
-		for (m = sd.matches; m; m = m->next)
+		for (m = objects; m; m = m->next)
 			g_free (m->data);
-		g_list_free (sd.matches);
+		g_list_free (objects);
 	}
 
 	e_data_cal_view_notify_done (view, GNOME_Evolution_Calendar_Success);
@@ -1849,6 +1837,7 @@ init (ECalBackendExchange *cbex)
 
 	cbex->priv->set_lock = g_mutex_new ();
 	cbex->priv->open_lock = g_mutex_new ();
+	cbex->priv->cache_lock = g_mutex_new ();
 	cbex->priv->cache_unseen = NULL;
 
 	e_cal_backend_sync_set_lock (E_CAL_BACKEND_SYNC (cbex), TRUE);
@@ -1889,6 +1878,10 @@ finalize (GObject *object)
 		cbex->priv->open_lock = NULL;
 	}
 
+	if (cbex->priv->cache_lock) {
+		g_mutex_free (cbex->priv->cache_lock);
+		cbex->priv->cache_lock = NULL;
+	}
 	g_free (cbex->priv);
 
 	if (G_OBJECT_CLASS (parent_class)->finalize)

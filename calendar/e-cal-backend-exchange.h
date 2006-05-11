@@ -96,6 +96,8 @@ gboolean e_cal_backend_exchange_is_online (ECalBackendExchange *cbex);
 GSList * get_attachment (ECalBackendExchange *cbex, const char *uid, const char *body, int len);
 char * build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const char *subject, char **boundary);
 gchar *e_cal_backend_exchange_get_owner_email (ECalBackendSync *backend);
+void e_cal_backend_exchange_cache_lock (ECalBackendExchange *cbex);
+void e_cal_backend_exchange_cache_unlock (ECalBackendExchange *cbex) ;
 
 G_END_DECLS
 
