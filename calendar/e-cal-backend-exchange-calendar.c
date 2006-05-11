@@ -1272,8 +1272,13 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		e_cal_component_free_recur_list (rrule_list);
 	}
 
+	if (mod == CALOBJ_MOD_ALL && ecomp->icomp) {
+		cached_ecomp = e_cal_component_new ();
+		e_cal_component_set_icalcomponent (cached_ecomp, icalcomponent_new_clone (ecomp->icomp));
+		if (e_cal_component_has_recurrences (real_ecomp))
+			e_cal_component_set_recurid (real_ecomp, NULL);
+	}
 
-	
 	/* add the timezones information and the component itself
 	   to the VCALENDAR object */
 	e_cal_component_commit_sequence (real_ecomp);
@@ -1301,7 +1306,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	if (ecomp->icomp && mod == CALOBJ_MOD_THIS) {
 		icalcomponent_add_component (cbdata->vcal_comp, icalcomponent_new_clone (ecomp->icomp));
 	}
-
+	
 	for (l = ecomp->instances; l != NULL; l = l->next) {
 		icalcomponent *icomp = l->data;
 
