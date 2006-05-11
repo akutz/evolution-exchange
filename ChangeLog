@@ -1,5 +1,11 @@
 2006-05-11  Chenthill Palanisamy  <pchenthill@novell.com>
 
+	Fixes #339561
+	* calendar/e-cal-backend-exchange-calendar.c:
+	(modify_object_with_href): check for modification of end times.
+				   
+2006-05-11  Chenthill Palanisamy  <pchenthill@novell.com>
+
 	Fixes #339827
 	* calendar/e-cal-backend-exchange-calendar.c: (add_vevent),
 	(get_changed_events), (create_object), (modify_object),
