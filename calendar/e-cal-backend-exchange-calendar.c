@@ -1132,16 +1132,18 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 			end = icalcomponent_get_dtend (icalcomp);
 	
 			if (icaltime_compare (start, key_rid) != 0) {
-					icaltimetype end = icalcomponent_get_dtend (icalcomp);
-					
 					m_start.hour = start.hour;
 					m_start.minute = start.minute;
 					m_start.second = start.second;
 						
+			}
+
+			if (!((m_end.hour == end.hour) && (m_end.minute == end.minute) && (m_end.second == end.second))) {
 					m_end.hour = end.hour;
 					m_end.minute = end.minute;
 					m_end.second = end.second;
-			} 
+			}
+
 			icalcomponent_set_dtstart (icalcomp, m_start);
 			icalcomponent_set_dtend (icalcomp, m_end);
 			
