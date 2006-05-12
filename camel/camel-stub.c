@@ -238,6 +238,8 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 	int status = 0;
 	guint32 retval;
 
+	g_return_val_if_fail (stub, FALSE);
+	
 	camel_object_ref (CAMEL_OBJECT (stub));
 	if (!oneway)
 		g_mutex_lock (stub->read_lock);
