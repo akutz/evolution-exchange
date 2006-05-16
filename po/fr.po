@@ -5,20 +5,21 @@
 # Craig Jeffares <cjeffares@novell.com> pour Novell(tm), 2004.
 # Christophe Merlet (RedFox) <redfox@redfoxcenter.org>, 2004-2005.
 # Laurent Richard <laurent.richard@ael.be>, 2006
+# Robert-André Mauchin <zebob.m@gmail.com>, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: evolution-exchange 2.5.92\n"
+"Project-Id-Version: evolution-exchange 2.6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-22 23:18+0100\n"
-"PO-Revision-Date: 2006-03-22 21:19+0200\n"
-"Last-Translator: Laurent Richard <laurent.richard@ael.be>\n"
+"POT-Creation-Date: 2006-05-16 19:31+0200\n"
+"PO-Revision-Date: 2006-05-16 16:58+0200\n"
+"Last-Translator: Robert-André Mauchin <zebob.m@gmail.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1867
+#: ../addressbook/e-book-backend-exchange.c:1869
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Recherche en cours..."
@@ -35,7 +36,7 @@ msgstr "Réception des résultats de la recherche LDAP..."
 msgid "Error performing search"
 msgstr "Erreur lors de la recherche"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1934
+#: ../calendar/e-cal-backend-exchange-calendar.c:2004
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -44,7 +45,7 @@ msgstr ""
 "Impossible de planifier la ressource « %s » pour des réunions récurrentes.\n"
 "Vous devez réserver chaque réunion séparément."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1952
+#: ../calendar/e-cal-backend-exchange-calendar.c:2022
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "La ressource « %s » est occupée pendant la période sélectionnée."
@@ -103,8 +104,8 @@ msgstr "Aucun nom de dossier trouvé\n"
 
 #: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
 #: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2724
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
+#: ../mail/mail-stub-exchange.c:2730
 msgid "Folder doesn't exist"
 msgstr "Le dossier n'existe pas"
 
@@ -152,7 +153,7 @@ msgstr "_Période d'avertissement de l'expiration du mot de passe : %s"
 
 #: ../camel/camel-exchange-provider.c:62
 msgid "Automatically synchroni_ze account locally"
-msgstr "Synchroni_ser automatiquement en local le compte"
+msgstr "Synchroni_ser automatiquement le compte en local"
 
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:65
@@ -279,32 +280,32 @@ msgstr ""
 msgid "Could not find 'From' address in message"
 msgstr "Impossible de trouver l'adresse de l'expéditeur dans le message"
 
-#: ../camel/camel-stub.c:134
+#: ../camel/camel-stub.c:152
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Impossible de créer le socket : %s"
 
-#: ../camel/camel-stub.c:149
+#: ../camel/camel-stub.c:167
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Impossible d'établir la connexion à %s : %s"
 
-#: ../camel/camel-stub.c:179
+#: ../camel/camel-stub.c:197
 #, c-format
 msgid "Path too long: %s"
 msgstr "Chemin trop long : %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:223
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Impossible de démarrer le thread d'état : %s"
 
-#: ../camel/camel-stub.c:457
+#: ../camel/camel-stub.c:477
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Connexion à %s perdue"
 
-#: ../camel/camel-stub.c:461
+#: ../camel/camel-stub.c:481
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Erreur de communication avec %s : %s"
@@ -317,8 +318,8 @@ msgstr "Ce dossier n'existe pas"
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
 #: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
-#: ../mail/mail-stub-exchange.c:2739
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
+#: ../mail/mail-stub-exchange.c:2745
 msgid "Permission denied"
 msgstr "Autorisation refusée"
 
@@ -411,8 +412,8 @@ msgid "Could not send message"
 msgstr "Impossible d'envoyer le message"
 
 #: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
-#: ../mail/mail-stub-exchange.c:2745
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
+#: ../mail/mail-stub-exchange.c:2751
 msgid "Generic error"
 msgstr "Erreur générique"
 
@@ -422,11 +423,11 @@ msgstr "Le dossier existe déjà"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
 msgid "Evolution Addressbook Exchange backend"
-msgstr "Ordinateur principal Exchange du carnet d'adresses Evolution"
+msgstr "Moteur Exchange du carnet d'adresses Evolution"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Calendar Exchange backend"
-msgstr "Ordinateur principal Exchange de l'agenda Evolution"
+msgstr "Moteur principal Exchange de l'agenda Evolution"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
 msgid "Ximian Connector for Exchange"
@@ -454,7 +455,7 @@ msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
 msgstr ""
-"Échec d'authentification auprès du serveur Exchange.\n"
+"L'authentification auprès du serveur Exchange a échoué.\n"
 "Vérifiez le nom d'utilisateur et le mot de passe et recommencez."
 
 #: ../storage/exchange-autoconfig-wizard.c:235
@@ -466,7 +467,7 @@ msgid ""
 "You may need to specify the Windows domain name as part of your username "
 "(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
-"Échec d'authentification auprès du serveur Exchange.\n"
+"L'authentification auprès du serveur Exchange a échoué.\n"
 "Vérifiez le nom d'utilisateur et le mot de passe et recommencez.\n"
 "\n"
 "Il se peut que vous deviez spécifier le nom de domaine Windows dans votre "
@@ -477,7 +478,7 @@ msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 msgstr ""
-"Données OWA introuvables à l'URL indiquée.\n"
+"Données OWA introuvables à l'URL indiqué.\n"
 "Vérifiez l'URL et recommencez."
 
 #: ../storage/exchange-autoconfig-wizard.c:254
@@ -503,7 +504,7 @@ msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
 msgstr ""
-"L'URL de serveur Exchange que vous avez fournie est celle d'un serveur "
+"L'URL de serveur Exchange que vous avez fourni est celle d'un serveur "
 "Exchange 5.5. Le connecteur Ximian prend uniquement en charge Microsoft "
 "Exchange 2000 et 2003."
 
@@ -559,7 +560,7 @@ msgstr "*"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
-msgstr "Échec de la configuration"
+msgstr "La configuration a échoué"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:3
 msgid "Done"
@@ -567,7 +568,7 @@ msgstr "Terminé"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:4
 msgid "Email Address:"
-msgstr "Adresse de courrier électronique :"
+msgstr "Adresse électronique :"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:5
 msgid "Exchange Configuration"
@@ -686,8 +687,7 @@ msgstr ""
 #: ../storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr ""
-"Les deux mots de passe ne correspondent pas. Veuillez saisir de nouveau les "
-"mots de passe."
+"Les deux mots de passe ne correspondent pas. Veuillez les saisir de nouveau."
 
 #: ../storage/exchange-change-password.glade.h:2
 msgid "Change Password"
@@ -860,7 +860,7 @@ msgstr "Oui, changer l'état"
 
 #: ../storage/exchange-passwd-expiry.glade.h:1
 msgid "Password Expiry Warning..."
-msgstr "Avertissement de l'expiration du mot de passe"
+msgstr "Avertissement de l'expiration du mot de passe..."
 
 #: ../storage/exchange-passwd-expiry.glade.h:2
 msgid "Your password will expire in 7 days..."
@@ -998,529 +998,3 @@ msgstr "G_estionnaire d'absence du bureau"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Annuler l'abonnement à un dossier d'un autre utilisateur"
-
-#~ msgid "Can only expunge in Deleted Items folder"
-#~ msgstr ""
-#~ "Vous ne pouvez effectuer des suppressions que dans le dossier Éléments "
-#~ "supprimés"
-
-#~ msgid ""
-#~ "Ximian Connector requires access to certain functionality on the Exchange "
-#~ "Server that appears to be disabled or blocked.  (This is usually "
-#~ "unintentional.)  Your Exchange Administrator will need to enable this "
-#~ "functionality in order for you to be able to use Ximian Connector.\n"
-#~ "\n"
-#~ "For information to provide to your Exchange administrator, please follow "
-#~ "the link below:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Le connecteur Ximian doit accéder à certaines fonctionnalités du serveur "
-#~ "Exchange qui semble désactivées ou bloquées.  (Cette situation n'est "
-#~ "généralement pas intentionnelle.)  L'administrateur Exchange doit activer "
-#~ "cette fonctionnalité pour que vous puissiez utiliser le connecteur "
-#~ "Ximian.\n"
-#~ "\n"
-#~ "Pour savoir quelles informations vous devez fournir à l'administrateur "
-#~ "Exchange, veuillez suivre le lien ci-dessous :\n"
-#~ "%s"
-
-#~ msgid "Enter password for %s"
-#~ msgstr "Saisissez le mode de passe de %s"
-
-#~ msgid "Enter password"
-#~ msgstr "Saisissez le mot de passe"
-
-#~ msgid "Owner"
-#~ msgstr "Propriétaire"
-
-#~ msgid "Publishing Editor"
-#~ msgstr "Éditeur principal"
-
-#~ msgid "Editor"
-#~ msgstr "Éditeur"
-
-#~ msgid "Publishing Author"
-#~ msgstr "Auteur principal"
-
-#~ msgid "Author"
-#~ msgstr "Auteur"
-
-#~ msgid "Non-editing Author"
-#~ msgstr "Auteur secondaire"
-
-#~ msgid "Reviewer"
-#~ msgstr "Relecteur"
-
-#~ msgid "Contributor"
-#~ msgstr "Collaborateur"
-
-#~ msgid "Custom"
-#~ msgstr "Personnaliser"
-
-#~ msgid "Select User"
-#~ msgstr "Sélectionner un utilisateur"
-
-#~ msgid "Addressbook..."
-#~ msgstr "Carnet d'adresses..."
-
-#~ msgid ""
-#~ "Cannot create the specified folder:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Impossible de créer le dossier spécifié :\n"
-#~ "%s"
-
-#~ msgid "The specified folder name is not valid: %s"
-#~ msgstr "Le nom de dossier spécifié n'est pas valide : %s"
-
-#~ msgid "Create New Folder"
-#~ msgstr "Créer un dossier"
-
-#~ msgid "Folder _name:"
-#~ msgstr "Nom du _dossier :"
-
-#~ msgid "Folder _type:"
-#~ msgstr "Type du d_ossier :"
-
-#~ msgid "Specify where to create the folder:"
-#~ msgstr "Définissez l'emplacement de création du dossier :"
-
-#~ msgid ""
-#~ "Cannot transfer folder:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Impossible de transférer le dossier :\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "Cannot delete folder:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Impossible de supprimer le dossier :\n"
-#~ "%s"
-
-#~ msgid "Really delete folder \"%s\"?"
-#~ msgstr "Voulez-vous vraiment supprimer le dossier « %s » ?"
-
-#~ msgid "Delete \"%s\""
-#~ msgstr "Supprimer « %s »"
-
-#~ msgid ""
-#~ "Cannot rename folder:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Impossible de renommer le dossier :\n"
-#~ "%s"
-
-#~ msgid "Rename the \"%s\" folder to:"
-#~ msgstr "Renommer le dossier « %s » :"
-
-#~ msgid "Rename Folder"
-#~ msgstr "Renommer le dossier"
-
-#~ msgid "A folder named \"%s\" already exists. Please use a different name."
-#~ msgstr "Un dossier nommé « %s » existe déjà. Veuillez choisir un autre nom."
-
-#~ msgid "Please select a user."
-#~ msgstr "Veuillez sélectionner un utilisateur."
-
-#~ msgid "Opening Folder"
-#~ msgstr "Ouverture du dossier"
-
-#~ msgid "Opening Folder \"%s\""
-#~ msgstr "Ouverture du dossier « %s »"
-
-#~ msgid "in \"%s\" ..."
-#~ msgstr "dans « %s » ..."
-
-#~ msgid "Could not open other user's folder: %s."
-#~ msgstr "Impossible d'ouvrir un dossier d'un autre utilisateur : %s"
-
-#~ msgid "Cannot find the specified other user's folder."
-#~ msgstr "Le dossier spécifié d'un autre utilisateur est introuvable."
-
-#~ msgid ""
-#~ "Cannot unsubscribe from folder:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Impossible d'annuler l'abonnement au dossier :\n"
-#~ "%s"
-
-#~ msgid "Really unsubscribe from folder \"%s\"?"
-#~ msgstr "Voulez-vous vraiment annuler l'abonnement au dossier \"%s\" ?"
-
-#~ msgid "Unsubscribe from \"%s\""
-#~ msgstr "Annuler l'abonnement à \"%s\""
-
-#~ msgid "Open Other User's Folder"
-#~ msgstr "Ouvrir un dossier d'un autre utilisateur"
-
-#~ msgid "_Account:"
-#~ msgstr "_Compte :"
-
-#~ msgid "_Folder Name:"
-#~ msgstr "_Nom de dossier :"
-
-#~ msgid "_User:"
-#~ msgstr "_Utilisateur :"
-
-#~ msgid "Checkbox"
-#~ msgstr "Case à cocher"
-
-#~ msgid "Folder"
-#~ msgstr "Dossier"
-
-#~ msgid "No error"
-#~ msgstr "Aucune erreur"
-
-#~ msgid "A folder with the same name already exists"
-#~ msgstr "Un dossier du même nom existe déjà"
-
-#~ msgid "The specified folder type is not valid"
-#~ msgstr "Le type de dossier spécifié n'est pas valide"
-
-#~ msgid "I/O error"
-#~ msgstr "Erreur E/S"
-
-#~ msgid "Not enough space to create the folder"
-#~ msgstr "Espace insuffisant pour créer le dossier"
-
-#~ msgid "The folder is not empty"
-#~ msgstr "Le dossier n'est pas vide"
-
-#~ msgid "The specified folder was not found"
-#~ msgstr "Le dossier spécifié est introuvable"
-
-#~ msgid "Function not implemented in this storage"
-#~ msgstr "La fonction n'est pas implémentée pour ce stockage"
-
-#~ msgid "Operation not supported"
-#~ msgstr "Opération non prise en charge"
-
-#~ msgid "The specified type is not supported in this storage"
-#~ msgstr "Le type spécifié n'est pas pris en charge dans ce stockage"
-
-#~ msgid "The specified folder cannot be modified or removed"
-#~ msgstr "Le dossier spécifié ne peut pas être modifié, ni supprimé"
-
-#~ msgid "Cannot make a folder a child of one of its descendants"
-#~ msgstr "Un dossier ne peut pas être l'enfant de ses descendants"
-
-#~ msgid "Cannot create a folder with that name"
-#~ msgstr "Impossible de créer un dossier avec ce nom"
-
-#~ msgid "This operation cannot be performed in off-line mode"
-#~ msgstr "Cette opération ne peut pas s'exécuter hors-ligne"
-
-#~ msgid "Unknown error"
-#~ msgstr "Erreur inconnue"
-
-#~ msgid "*Control*F5"
-#~ msgstr "*Ctrl*F5"
-
-#~ msgid "Evolution Exchange Component"
-#~ msgstr "Composant Exchange Evolution"
-
-#~ msgid "Exchange"
-#~ msgstr "Exchange"
-
-#~ msgid "_Exchange"
-#~ msgstr "_Exchange"
-
-#~ msgid "%s's Folders"
-#~ msgstr "Dossiers de %s"
-
-#~ msgid "Cannot change password due to configuration problems"
-#~ msgstr ""
-#~ "Impossible de modifier le mot de passe en raison de problèmes de "
-#~ "configuration"
-
-#~ msgid ""
-#~ "Server rejected password because it is too weak.\n"
-#~ "Try again with a different password."
-#~ msgstr ""
-#~ "Le serveur a rejeté le mot de passe car il n'offre pas une protection "
-#~ "suffisante.\n"
-#~ "Recommencez avec un autre mot de passe."
-
-#~ msgid "Could not change password"
-#~ msgstr "Impossible de changer le mot de passe"
-
-#~ msgid "Personal Folders"
-#~ msgstr "Dossiers personnels"
-
-#~ msgid "Favorite Public Folders"
-#~ msgstr "Dossiers publics favoris"
-
-#~ msgid "All Public Folders"
-#~ msgstr "Tous les dossiers publics"
-
-#~ msgid "Global Address List"
-#~ msgstr "Liste d'adresses globale"
-
-#~ msgid "Exchange Account is offline. Cannot display folders\n"
-#~ msgstr ""
-#~ "Le compte Exchange est hors-ligne. Impossible d'afficher les dossiers\n"
-
-#~ msgid ""
-#~ "Could not authenticate to server.\n"
-#~ "\n"
-#~ "This probably means that your server requires you\n"
-#~ "to specify the Windows domain name as part of your\n"
-#~ "username (eg, \"DOMAIN\\user\").\n"
-#~ "\n"
-#~ "Or you might have just typed your password wrong.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Échec d'authentification auprès du serveur.\n"
-#~ "\n"
-#~ "Votre serveur vous impose probablement de \n"
-#~ "spécifier le nom de domaine Windows dans votre \n"
-#~ "nom d'utilisateur (exemple : « DOMAINE\\utilisateur »).\n"
-#~ "\n"
-#~ "Ou bien vous avez saisi un mot de passe incorrect.\n"
-#~ "\n"
-
-#~ msgid "Mailbox for %s is not on this server."
-#~ msgstr "La boîte aux lettres de %s ne figure pas sur ce serveur."
-
-#~ msgid ""
-#~ "The server '%s' is running Exchange 5.5 and is\n"
-#~ "therefore not compatible with Ximian Connector"
-#~ msgstr ""
-#~ "Le serveur « %s » exécute Exchange 5.5 et il\n"
-#~ "n'est donc pas compatible avec le connecteur Ximian"
-
-#~ msgid ""
-#~ "Could not find Exchange Web Storage System at %s.\n"
-#~ "If OWA is running on a different path, you must specify that in the\n"
-#~ "account configuration dialog."
-#~ msgstr ""
-#~ "Système de stockage Web Exchange introuvable sur %s.\n"
-#~ "Si OWA est exécuté dans un autre chemin, vous devez le spécifier dans la "
-#~ "boîte de\n"
-#~ "dialogue Configuration de compte."
-
-#~ msgid "No mailbox for user %s on %s.\n"
-#~ msgstr "Aucune boîte aux lettres pour l'utilisateur %s sur %s.\n"
-
-#~ msgid "Could not connect to server %s: %s"
-#~ msgstr "Impossible de se connecter au serveur %s : %s"
-
-#~ msgid "Could not resolve hostname"
-#~ msgstr "Impossible de résoudre le nom d'hôte"
-
-#~ msgid "Network error"
-#~ msgstr "Erreur réseau"
-
-#~ msgid ""
-#~ "You have exceeded your quota of %d %s for storing mails on this server. "
-#~ "Your current usage is : %.0f %s."
-#~ msgstr ""
-#~ "Vous avez dépassé votre quota de %d %s pour stocker vos courriels sur ce "
-#~ "serveur. Votre usage actuel est : %.0f %s."
-
-#~ msgid "You will not be able to either send or receive mails now\n"
-#~ msgstr "Vous ne serez pas capable d'envoyer ou de recevoir des courriels\n"
-
-#~ msgid ""
-#~ "You will not be able to send mails till you clear up some space by "
-#~ "deleting some mails.\n"
-#~ msgstr ""
-#~ "Vous ne pourrez pas envoyer de courriels tant que vous n'aurez pas dégagé "
-#~ "de l'espace disque en supprimant quelques courriels.\n"
-
-#~ msgid "Try to clear up some space by deleting some mails.\n"
-#~ msgstr ""
-#~ "Essayez de dégager un peu d'espace en supprimant quelques courriels.\n"
-
-#~ msgid "Permissions for %s"
-#~ msgstr "Autorisations pour %s"
-
-#~ msgid ""
-#~ "No Global Catalog server configured for this account.\n"
-#~ "Unable to edit delegates."
-#~ msgstr ""
-#~ "Aucun serveur de catalogue global n'est configuré pour ce compte.\n"
-#~ "Impossible de modifier les délégués."
-
-#~ msgid ""
-#~ "Could not read folder permissions.\n"
-#~ "Unable to edit delegates."
-#~ msgstr ""
-#~ "Impossible de lire les autorisations de dossier.\n"
-#~ "Impossible de modifier les délégués."
-
-#~ msgid ""
-#~ "Could not determine folder permissions for delegates.\n"
-#~ "Unable to edit delegates."
-#~ msgstr ""
-#~ "Impossible de déterminer les autorisations de dossier des délégués.\n"
-#~ "Impossible de modifier les délégués."
-
-#~ msgid "Delegate To:"
-#~ msgstr "Déléguer à :"
-
-#~ msgid "Delegate To"
-#~ msgstr "Déléguer à"
-
-#~ msgid "Could not make %s a delegate"
-#~ msgstr "Impossible de définir %s comme délégué"
-
-#~ msgid "You cannot make yourself your own delegate"
-#~ msgstr "Vous ne pouvez pas être votre propre délégué"
-
-#~ msgid "%s is already a delegate"
-#~ msgstr "%s est déjà délégué"
-
-#~ msgid "Remove the delegate %s?"
-#~ msgstr "Supprimer le délégué %s ?"
-
-#~ msgid "Could not access Active Directory"
-#~ msgstr "Impossible d'accéder à Active Directory"
-
-#~ msgid "Could not find self in Active Directory"
-#~ msgstr "Impossible de se trouver soi-même dans Active Directory"
-
-#~ msgid "Could not find delegate %s in Active Directory"
-#~ msgstr "Délégué %s introuvable dans Active Directory"
-
-#~ msgid "Could not remove delegate %s"
-#~ msgstr "Impossible de supprimer le délégué %s"
-
-#~ msgid "Could not update list of delegates."
-#~ msgstr "Impossible de mettre à jour la liste des délégués."
-
-#~ msgid "Could not add delegate %s"
-#~ msgstr "Impossible d'ajouter le délégué %s"
-
-#~ msgid ""
-#~ "Failed to update delegates:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Échec de la mise à jour des délégués :\n"
-#~ "%s"
-
-#~ msgid "Name"
-#~ msgstr "Nom"
-
-#~ msgid "Error reading delegates list."
-#~ msgstr "Erreur lors de la lecture de la liste des délégués."
-
-#~ msgid "Folder Name"
-#~ msgstr "Nom du dossier"
-
-#~ msgid "Folder Size"
-#~ msgstr "Taille du dossier"
-
-#~ msgid "Calendar"
-#~ msgstr "Agenda"
-
-#~ msgid "Contacts"
-#~ msgstr "Contacts"
-
-#~ msgid "Deleted Items"
-#~ msgstr "Éléments supprimés"
-
-#~ msgid "Drafts"
-#~ msgstr "Brouillons"
-
-#~ msgid "Inbox"
-#~ msgstr "Boîte de réception"
-
-#~ msgid "Journal"
-#~ msgstr "Journal"
-
-#~ msgid "Notes"
-#~ msgstr "Notes"
-
-#~ msgid "Outbox"
-#~ msgstr "Boîte d'envoi"
-
-#~ msgid "Sent Items"
-#~ msgstr "Éléments envoyés"
-
-#~ msgid "Tasks"
-#~ msgstr "Tâches"
-
-#~ msgid "Could not update out-of-office state"
-#~ msgstr "Impossible de mettre à jour l'état Absent du bureau"
-
-#~ msgid "Could not read out-of-office state"
-#~ msgstr "Impossible de lire l'état Absent du bureau"
-
-#~ msgid "Could not read folder permissions"
-#~ msgstr "Impossible de lire les autorisations de dossier"
-
-#~ msgid "Could not update folder permissions."
-#~ msgstr "Impossible de mettre à jour les autorisations de dossier"
-
-#~ msgid "Could not update folder permissions. %s"
-#~ msgstr "Impossible de mettre à jour les autorisations de dossier %s"
-
-#~ msgid "(Permission denied.)"
-#~ msgstr "(Autorisation refusée.)"
-
-#~ msgid ""
-#~ "Unable to add user to access control list:\n"
-#~ "No Global Catalog server is configured for this account."
-#~ msgstr ""
-#~ "Impossible d'ajouter l'utilisateur à la liste de contrôle d'accès :\n"
-#~ "Aucun serveur de catalogue global n'est configuré pour ce compte."
-
-#~ msgid "Add User:"
-#~ msgstr "Ajouter un utilisateur :"
-
-#~ msgid "Add User"
-#~ msgstr "Ajouter un utilisateur"
-
-#~ msgid "No such user %s"
-#~ msgstr "L'utilisateur %s n'existe pas"
-
-#~ msgid "%s cannot be added to an access control list"
-#~ msgstr "%s ne peut pas être ajouté à une liste de contrôle d'accès"
-
-#~ msgid "Unknown error looking up %s"
-#~ msgstr "Erreur inconnue lors de la recherche de %s"
-
-#~ msgid "%s is already in the list"
-#~ msgstr "%s figure déjà dans la liste"
-
-#~ msgid "Role"
-#~ msgstr "Rôle"
-
-#~ msgid "Account Name"
-#~ msgstr "Nom du compte"
-
-#~ msgid "Folder does not exist"
-#~ msgstr "Le dossier n'existe pas"
-
-#~ msgid "Could not add favorite: %s"
-#~ msgstr "Impossible d'ajouter le favori : %s"
-
-#~ msgid "Could not remove favorite: %s"
-#~ msgstr "Impossible de supprimer le favori : %s"
-
-#~ msgid "_Rename Folder..."
-#~ msgstr "_Renommer le dossier..."
-
-#~ msgid "_New Folder..."
-#~ msgstr "_Nouveau dossier..."
-
-#~ msgid "_Delete Folder"
-#~ msgstr "_Supprimer le dossier"
-
-#~ msgid "_Add Other User's Folder..."
-#~ msgstr "A_jouter un dossier d'un autre utilisateur..."
-
-#~ msgid "_Remove Other User's Folder"
-#~ msgstr "_Supprimer un dossier d'un autre utilisateur"
-
-#~ msgid "Add to _Favorites"
-#~ msgstr "Ajouter aux _Favoris"
-
-#~ msgid "Remove from Fa_vorites"
-#~ msgstr "Supprimer du dossier Fa_voris"
-
-#~ msgid "_Show Folder Sizes"
-#~ msgstr "_Afficher la taille des dossiers"
