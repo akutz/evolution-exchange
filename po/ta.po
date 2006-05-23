@@ -1,45 +1,42 @@
+# translation of ta.po to 
 # translation of ta.po to Tamil
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Jayaradha N <jaya@pune.redhat.com>, 2004.
+# Jayaradha N <njayaradha@yahoo.com>, 2004, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-07 15:59+0530\n"
-"PO-Revision-Date: 2004-08-23 16:31+0530\n"
-"Last-Translator: Jayaradha N <jaya@pune.redhat.com>\n"
-"Language-Team: Tamil <zhakanini@yahoogroups.com>\n"
+"POT-Creation-Date: 2006-05-22 23:28+0200\n"
+"PO-Revision-Date: 2006-05-22 20:30-0700\n"
+"Last-Translator: \n"
+"Language-Team:  <zhakanini@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
+"X-Generator: KBabel 1.9.1\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 
-#: addressbook/e-book-backend-exchange.c:1807
-#: addressbook/e-book-backend-gal.c:1344 storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:1869
+#: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "தேடுகிறது"
 
-#: addressbook/e-book-backend-gal.c:243
+#: ../addressbook/e-book-backend-gal.c:267
 msgid "Reconnecting to LDAP server..."
 msgstr "LDAP சேவகனுடன் மீண்டும் இணைகிறது"
 
-#: addressbook/e-book-backend-gal.c:1218
+#: ../addressbook/e-book-backend-gal.c:1363
 msgid "Receiving LDAP search results..."
 msgstr "LDAP தேடல் முடிவுகளை பெறுகிறது..."
 
-#: addressbook/e-book-backend-gal.c:1365
+#: ../addressbook/e-book-backend-gal.c:1522
 msgid "Error performing search"
 msgstr "தேடுவதில் பிழை"
 
-#: calendar/e-cal-backend-exchange.c:277
-msgid "Folder not marked for offline support"
-msgstr ""
-
-#: calendar/e-cal-backend-exchange-calendar.c:1712
+#: ../calendar/e-cal-backend-exchange-calendar.c:2004
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -48,137 +45,143 @@ msgstr ""
 "'%s' திரும்ப நிகழும் கூட்டங்களுக்காக வளங்களை ஒதுக்க முடியவில்லை \n"
 "ஒவ்வொரு கூட்டத்தையும் தனியாக பதிவு செய்யவேண்டும."
 
-#: calendar/e-cal-backend-exchange-calendar.c:1731
+#: ../calendar/e-cal-backend-exchange-calendar.c:2022
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "தேர்வு செய்யப்பட்ட கால அளவில் '%s' வேலையாக உள்ளது."
 
-#: camel/camel-exchange-folder.c:220
-msgid "Can only expunge in Deleted Items folder"
-msgstr "நீக்கப்பட்ட கோப்புகள் அடைவை முழுமையாக அழிக்க மட்டுமே முடியும்"
+#: ../camel/camel-exchange-folder.c:222
+msgid "You cannot expunge in offline mode."
+msgstr "இணையத் தொடர்பு இல்லாத போது அடிக்க முடியாது."
 
-#: camel/camel-exchange-folder.c:244
+#: ../camel/camel-exchange-folder.c:253
 msgid "No Subject"
 msgstr "தலைப்பு இல்லை"
 
-#: camel/camel-exchange-folder.c:598
+#: ../camel/camel-exchange-folder.c:407
+msgid "This message is not available in offline mode."
+msgstr "இணையத் தொடர்பு இல்லாத போது இந்த செய்தி கிடைக்காது."
+
+#: ../camel/camel-exchange-folder.c:642
 msgid "Moving messages"
 msgstr "செய்திகளை நகர்த்துகிறது"
 
-#: camel/camel-exchange-folder.c:599
+#: ../camel/camel-exchange-folder.c:643
 msgid "Copying messages"
 msgstr "செய்திகளை படியெடுக்கிறது"
 
-#: camel/camel-exchange-folder.c:930
+#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "அடைவை உருவாக்க முடியவில்லை %s: %s"
 
-#: camel/camel-exchange-folder.c:940
+#: ../camel/camel-exchange-folder.c:1024
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "சுருக்க குறிப்பை ஏற்ற முடியவில்லை %s"
 
-#: camel/camel-exchange-folder.c:948
+#: ../camel/camel-exchange-folder.c:1032
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "%s க்கான தற்காலிக நினைவிடத்தை உருவாக்க முடியவில்லை"
 
-#: camel/camel-exchange-folder.c:958
-#, fuzzy, c-format
+#: ../camel/camel-exchange-folder.c:1042
+#, c-format
 msgid "Could not create journal for %s"
-msgstr "%s க்கான தற்காலிக நினைவிடத்தை உருவாக்க முடியவில்லை"
+msgstr "நடப்புக் குறிப்பு புத்தகத்தை உருவாக்க முடியவில்லை %s"
 
-#: camel/camel-exchange-folder.c:998
+#: ../camel/camel-exchange-folder.c:1087
 msgid "Scanning for changed messages"
 msgstr "மாற்றப்பட்ட செய்திகளை தேடுகிறது"
 
-#: camel/camel-exchange-folder.c:1022
+#: ../camel/camel-exchange-folder.c:1113
 msgid "Fetching summary information for new messages"
 msgstr "புதிய செய்திக்கான சுருக்கத்தகவலை உள்ளிடுகிறது"
 
-#: camel/camel-exchange-journal.c:279
+#: ../camel/camel-exchange-journal.c:339
 msgid "No folder name found\n"
-msgstr ""
+msgstr "அடைவின் பெயரைக்காணவில்லை\n"
 
-#: camel/camel-exchange-journal.c:342
-#, fuzzy
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
+#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
+#: ../mail/mail-stub-exchange.c:2730
+msgid "Folder doesn't exist"
+msgstr "அடைவு ஏற்கெனவே இல்லை"
+
+#: ../camel/camel-exchange-journal.c:436
 msgid "Cannot append message in offline mode: cache unavailable"
-msgstr ""
-"அடைவின் பெயரை மாற்ற முடியவில்லை:\n"
-"%s"
+msgstr "இணையத்தொடர்பில் இல்லாத போது செய்தியை சேர்க்க முடியாது."
 
-#: camel/camel-exchange-journal.c:358
-#, fuzzy, c-format
+#: ../camel/camel-exchange-journal.c:452
+#, c-format
 msgid "Cannot append message in offline mode: %s"
-msgstr ""
-"அடைவின் பெயரை மாற்ற முடியவில்லை:\n"
-"%s"
+msgstr "இணையத்தொடர்பில் இல்லாத போது செய்தியை சேர்க்க முடியாது:%s"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: camel/camel-exchange-provider.c:46
+#: ../camel/camel-exchange-provider.c:44
 msgid "Windows User_name:"
 msgstr "(_n)விண்டோஸ் பயனீட்டாளர் பெயர்"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: camel/camel-exchange-provider.c:51
+#: ../camel/camel-exchange-provider.c:49
 msgid "Global Address List / Active Directory"
 msgstr "பொதுவான முகவரி பட்டியல்/ செயலில் உள்ள அடைவு"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: camel/camel-exchange-provider.c:55
-msgid "Global Catalog server name:"
-msgstr "பொதுவான விவரப் பட்டியல் சேவகன் பெயர்:"
+#: ../camel/camel-exchange-provider.c:53
+msgid "_Global Catalog server name:"
+msgstr "(_G)பொதுவான விவரப் பட்டியல் சேவகன் பெயர்:"
 
-#: camel/camel-exchange-provider.c:57
+#: ../camel/camel-exchange-provider.c:55
 #, c-format
-msgid "Limit number of GAL responses: %s"
-msgstr "GAL பதிளின் எண்ணிக்கையை குறை : %s"
+msgid "_Limit number of GAL responses: %s"
+msgstr "(_L)GAL பதிளின் எண்ணிக்கையை குறை : %s"
 
-#: camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:58
 msgid "Options"
-msgstr ""
+msgstr "தேர்வுகள்"
 
-#: camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:60
 #, c-format
-msgid "Password Expiry Warning period: %s"
-msgstr ""
+msgid "_Password Expiry Warning period: %s"
+msgstr "(_P)கடவுச்சொல் காலாவதியாகும் எச்சரிக்கை காலஅளவு: %s"
 
-#: camel/camel-exchange-provider.c:64
-msgid "Automatically synchronize account locally"
-msgstr ""
+#: ../camel/camel-exchange-provider.c:62
+msgid "Automatically synchroni_ze account locally"
+msgstr "(_z)கணினியில் உள்ள கணக்குகளை தானாக ஒத்திசை"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:68
-msgid "Apply filters to new messages in Inbox on this server"
-msgstr "இந்த சேவகனில் உள்ள புதிய செய்திகளுக்கான வடிகட்டியை செயல்படுத்து"
+#: ../camel/camel-exchange-provider.c:65
+msgid "_Apply filters to new messages in Inbox on this server"
+msgstr "(_A)இந்த சேவகனில் உள்ள புதிய செய்திகளுக்கான வடிகட்டியை செயல்படுத்து"
 
-#: camel/camel-exchange-provider.c:70
-msgid "Check new messages for Junk contents"
-msgstr "புதிய தேவையற்ற செய்திகளுக்காக சோதி"
+#: ../camel/camel-exchange-provider.c:67
+msgid "Check new messages for _Junk contents"
+msgstr "(_J)புதிய தேவையற்ற செய்திகளுகளை கவனி"
 
-#: camel/camel-exchange-provider.c:72
-msgid "Only check for Junk messages in the Inbox folder"
-msgstr "தேவையற்ற செய்திகள் உங்கள் உள்பெட்டி அடைவில் உள்ளதா என்பதை மட்டும் சோதி"
+#: ../camel/camel-exchange-provider.c:69
+msgid "Only check for Junk messag_es in the Inbox folder"
+msgstr "(_e)தேவையற்ற செய்திகள் உங்கள் உள்பெட்டி அடைவில் உள்ளதா என்பதை மட்டும் சோதி"
 
-#: camel/camel-exchange-provider.c:88
+#: ../camel/camel-exchange-provider.c:79
 msgid "Microsoft Exchange"
 msgstr "மைக்ரோசாஃப்ட் மாற்று சேவகன்"
 
-#: camel/camel-exchange-provider.c:90
+#: ../camel/camel-exchange-provider.c:81
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "மைக்ரோசாஃப்ட் மாற்று சேவகனில் மின்னஞ்சல்களை கையாள(மேலும் மற்ற தகவல்கள்)"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:106
+#: ../camel/camel-exchange-provider.c:97
 msgid "Secure Password"
 msgstr "பாதுகாப்பான கடவுச்சொல்"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:109
+#: ../camel/camel-exchange-provider.c:100
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -186,102 +189,231 @@ msgstr ""
 "இந்த தேர்வு மாற்று சேவகனினுடன் பாதுகாப்பான கடவுச்சொல்லை பயன்படுத்தி இணைக்க பயன்படும்"
 "(NTLM)"
 
-#: camel/camel-exchange-provider.c:117
+#: ../camel/camel-exchange-provider.c:108
 msgid "Plaintext Password"
 msgstr "வெற்று உரை கடவுச்சொல்"
 
-#: camel/camel-exchange-provider.c:119
+#: ../camel/camel-exchange-provider.c:110
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
 msgstr "இந்த தேர்வு மாற்று சேவகனுடன் வெற்று உரை கடவுச்சொல்லை பயன்படுத்தி இணைக்க பயன்படும்"
 
-#: camel/camel-exchange-store.c:260
+#: ../camel/camel-exchange-store.c:308
 #, c-format
 msgid "Exchange server %s"
 msgstr "மாற்று சேவகன் %s"
 
-#: camel/camel-exchange-store.c:263
+#: ../camel/camel-exchange-store.c:311
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "%s இல் %s கணக்கை மற்றவும் "
 
-#: camel/camel-exchange-store.c:290
+#: ../camel/camel-exchange-store.c:352
+#, c-format
+msgid "%sEnter password for %s"
+msgstr "%sக்கான கடவுச்சொல்லை உள்ளிடு %s"
+
+#: ../camel/camel-exchange-store.c:403
 msgid "Evolution Exchange backend process"
 msgstr "எவல்யூஷன் மாற்று பின்புல செயல்"
 
-#: camel/camel-exchange-store.c:352
-#, fuzzy, c-format
+#: ../camel/camel-exchange-store.c:444
+msgid ""
+"Could not authenticate to server. (Password incorrect?)\n"
+"\n"
+msgstr ""
+"சேவகனில் அனுமதிக்க முடியவில்லை(கடவுச்சொல் பிழை?)\n"
+"\n"
+
+#: ../camel/camel-exchange-store.c:486
+#, c-format
 msgid "No such folder %s"
-msgstr "இப்படி ஒரு அடைவு இல்லை"
+msgstr "இப்படி ஒரு அடைவு இல்லை %s"
 
-#: camel/camel-exchange-store.c:480
-#, fuzzy
+#: ../camel/camel-exchange-store.c:563
+msgid "Cannot subscribe folder in offline mode."
+msgstr "இணையத்தொடர்பில் இல்லாத போது அடைவை பங்கிட முடியாது.யாது"
+
+#: ../camel/camel-exchange-store.c:580
+msgid "Cannot unsubscribe folder in offline mode."
+msgstr "இணையத்தொடர்பில் இல்லாத போது அடைவின் பங்களிப்பை மீட்க முடியாது"
+
+#: ../camel/camel-exchange-store.c:695
 msgid "Cannot get folder info in offline mode."
-msgstr "இணைய இணைப்பு இல்லாத போது இந்த செயலை செய்ய முடியாது"
+msgstr "இணைய இணைப்பு அடைவின் தகவலை பெற முடியாது."
 
-#: camel/camel-exchange-store.c:542
-#, fuzzy
+#: ../camel/camel-exchange-store.c:766
 msgid "Cannot create folder in offline mode."
-msgstr "இந்த பெயரில் அடைவை உருவாக்க முடியவில்லை"
+msgstr "இணையத்தொடர்பில் இல்லாத போது அடைவை உருவாக்க முடியாது."
 
-#: camel/camel-exchange-store.c:569
-#, fuzzy
+#: ../camel/camel-exchange-store.c:793
 msgid "Cannot delete folder in offline mode."
-msgstr ""
-"அடைவை நீக்க முடியவில்லை:\n"
-"%s"
+msgstr "இணையத்தொடர்பில் இல்லாத போது அடைவை நீக்க முடியவில்லை:"
 
-#: camel/camel-exchange-store.c:585
-#, fuzzy
+#: ../camel/camel-exchange-store.c:809
 msgid "Cannot rename folder in offline mode."
-msgstr ""
-"அடைவின் பெயரை மாற்ற முடியவில்லை:\n"
-"%s"
+msgstr "இணையத்தொடர்பில் இல்லாத போது அடைவின் பெயரை மாற்ற முடியவில்லை:"
 
-#: camel/camel-exchange-transport.c:110
+#: ../camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "மாற்று தகவல் பரிமாற்றம் மாற்று மின்னஞ்சலை பயன்படுத்தி மட்டுமே நிகழும்"
 
-#: camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "செய்தியை அனுப்ப முடியவில்லை: ஒன்றுக்கும் மேற்பட்ட செல்லாத பெறுநர்கள்"
 
-#: camel/camel-exchange-transport.c:131
+#: ../camel/camel-exchange-transport.c:131
 msgid "Could not find 'From' address in message"
 msgstr "'பெறுநர்' முகவரியை கண்டுபிடிக்க முடியவில்லை"
 
-#: camel/camel-stub.c:134
+#: ../camel/camel-stub.c:152
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "இணைப்பை உருவாக்க முடியவில்லை: %s"
 
-#: camel/camel-stub.c:149
+#: ../camel/camel-stub.c:167
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "இணைக்க முடியவில்லை %s: %s"
 
-#: camel/camel-stub.c:179
+#: ../camel/camel-stub.c:197
 #, c-format
 msgid "Path too long: %s"
 msgstr "பாதை நீளமாக உள்ளது: %s"
 
-#: camel/camel-stub.c:205
+#: ../camel/camel-stub.c:223
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "நிலை கிளையை துவக்க முடியவில்லை: %s"
 
-#: camel/camel-stub.c:457
+#: ../camel/camel-stub.c:477
 #, c-format
 msgid "Lost connection to %s"
 msgstr "இணைப்பை இழந்துவிட்டது %s"
 
-#: camel/camel-stub.c:461
+#: ../camel/camel-stub.c:481
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "தொடர்புகொள்கையில் பிழை %s: %s"
 
-#: lib/e2k-autoconfig.c:1427 storage/exchange-autoconfig-wizard.c:224
+#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
+msgid "No such folder"
+msgstr "இப்படி ஒரு அடைவு இல்லை"
+
+#. FIXME: should be this, but string freeze freezes me to do so.
+#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
+#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
+#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
+#: ../mail/mail-stub-exchange.c:2745
+msgid "Permission denied"
+msgstr "அனுமதி மறுக்கப்பட்டது"
+
+#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
+msgid "Could not open folder: Permission denied"
+msgstr "அடைவை உருவாக்க முடியவில்லை: அனுமதி மறுக்கப்பட்டது"
+
+#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
+msgid "Could not open folder"
+msgstr "அடைவை திறக்க முடியவில்லை"
+
+#: ../mail/mail-stub-exchange.c:764
+msgid "Could not create folder."
+msgstr "அடைவை உருவாக்க முடியவில்லை"
+
+#: ../mail/mail-stub-exchange.c:844
+msgid "Could not open Deleted Items folder"
+msgstr "நீக்கப்பட்ட உருப்படிகள் உள்ள அடைவை திறக்க முடியலில்லை"
+
+#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
+msgid "Could not get new messages"
+msgstr "புதிய செய்திகளை பெற முடியவில்லை"
+
+#: ../mail/mail-stub-exchange.c:1386
+msgid "Could not empty Deleted Items folder"
+msgstr "நீக்கப்பட்ட உருப்படிகள் உள்ள அடைவை காலி செய்ய முடியவில்லை"
+
+#: ../mail/mail-stub-exchange.c:1463
+msgid "Could not append message; mailbox is over quota"
+msgstr "செய்திகளை சேர்க்க முடியவில்லை; மின்னஞ்சல் பெட்டியில் அதிக இடமில்லை"
+
+#: ../mail/mail-stub-exchange.c:1464
+msgid "Could not append message"
+msgstr "செய்தியை சேர்க்க முடியவில்லை"
+
+#: ../mail/mail-stub-exchange.c:2016
+msgid "No such message"
+msgstr "இப்படி ஒரு செய்தி இல்லை"
+
+#: ../mail/mail-stub-exchange.c:2069
+msgid "Message has been deleted"
+msgstr "செய்தி நீக்கப்பட்டது"
+
+#: ../mail/mail-stub-exchange.c:2071
+msgid "Error retrieving message"
+msgstr "செய்தியை பெறுவதில் பிழை"
+
+#: ../mail/mail-stub-exchange.c:2113
+msgid "Mailbox does not support full-text searching"
+msgstr "முழு-உரை தேடலுக்கு மின்னஞ்சல் பெட்டியில் ஆதரவு இல்லை"
+
+#: ../mail/mail-stub-exchange.c:2211
+msgid "Unable to move/copy messages"
+msgstr "செய்தியை நகர்த்த/நகலெடுக்க முடியவில்லை"
+
+#: ../mail/mail-stub-exchange.c:2441
+msgid "No mail submission URI for this mailbox"
+msgstr "இந்த பெட்டிக்கான மின்னஞ்சல் சமர்பிக்கும் URI இல்லை"
+
+#: ../mail/mail-stub-exchange.c:2477
+msgid "Server won't accept mail via Exchange transport"
+msgstr "மாற்று தகவல் பரிமாற்றத்தை சேவகனால் ஏற்க முடியாது"
+
+#: ../mail/mail-stub-exchange.c:2479
+#, c-format
+msgid ""
+"Your account does not have permission to use <%s>\n"
+"as a From address."
+msgstr ""
+"<%s> ஐ பெறுநர் முகவரியாக பயன்படுத்த\n"
+"உங்கள் கணக்கிற்கு ஆதரவு இல்லை"
+
+#: ../mail/mail-stub-exchange.c:2491
+msgid ""
+"Could not send message.\n"
+"This might mean that your account is over quota."
+msgstr ""
+"செய்தியை அனுப்ப முடியவில்லை \n"
+"இதற்கு காரணம் உங்கள் கணக்கில் இடம் இல்லை"
+
+#: ../mail/mail-stub-exchange.c:2495
+msgid "Could not send message"
+msgstr "செய்தியை அனுப்ப முடியவில்லை"
+
+#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
+#: ../mail/mail-stub-exchange.c:2751
+msgid "Generic error"
+msgstr "பொதுவான பிழை"
+
+#: ../mail/mail-stub-exchange.c:2522
+msgid "Folder already exists"
+msgstr "அடைவு ஏற்கெனவே உள்ளது"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
+msgid "Evolution Addressbook Exchange backend"
+msgstr "எவல்யூஷன் முகவரி புத்தக மாற்று பின்புலம்"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
+msgid "Evolution Calendar Exchange backend"
+msgstr "எவல்யூஷன் நாள்காட்டி மாற்று பின்புலம்"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+msgid "Ximian Connector for Exchange"
+msgstr "எக்ஸ்சேஞ்க்கான சேமியான் இணைப்பு"
+
+#: ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -291,7 +423,7 @@ msgstr ""
 "URL சரியாக உள்ளதா என பார்க்கவும்(\"%s\" க்கு பதில் \"%s\" ஐ முயற்சிக்கவும்?). மீண்டும் "
 "முயலவும்."
 
-#: lib/e2k-autoconfig.c:1436 storage/exchange-autoconfig-wizard.c:232
+#: ../storage/exchange-autoconfig-wizard.c:219
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -299,7 +431,7 @@ msgstr ""
 "எக்ஸேஞ் சேவகனை கண்டுபிடிக்க முடியவில்லை\n"
 "சேவகன் பெயர் சரியாக உள்ளதா என பார்க்கவும்"
 
-#: lib/e2k-autoconfig.c:1446 storage/exchange-autoconfig-wizard.c:241
+#: ../storage/exchange-autoconfig-wizard.c:228
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -307,7 +439,7 @@ msgstr ""
 "எக்ஸேஞ் சேவகனுனால் அனுமதிக்க முடியவில்லை\n"
 "பயனீட்டாளர் பெயர் மற்றும் கடவுச்சொல் சரியாக உள்ளதா என பார்க்கவும்."
 
-#: lib/e2k-autoconfig.c:1454 storage/exchange-autoconfig-wizard.c:248
+#: ../storage/exchange-autoconfig-wizard.c:235
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -322,7 +454,7 @@ msgstr ""
 "விண்டோஸ் டொமைன் பெயரை உங்கள் பயனீட்டாளர் பெயருடன் சேர்த்து தரவேண்டும் (உம், \"MY-DOMAIN\\%s"
 "\")."
 
-#: lib/e2k-autoconfig.c:1467 storage/exchange-autoconfig-wizard.c:260
+#: ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -330,581 +462,7 @@ msgstr ""
 "URL குறிப்பிட்ட OWA தகவலை கண்டுபிடிக்க முடியவில்லை\n"
 "URL சரியாக உள்ளதா என பார்க்கவும்"
 
-#: lib/e2k-autoconfig.c:1475
-#, fuzzy
-msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
-"\n"
-"For information to provide to your Exchange administrator, please follow the "
-"link below:\n"
-"http://www.ximian.com/products/connector/iis-lockdown.html, http://www."
-"ximian.com/products/connector/iis-lockdown.html"
-msgstr ""
-"சேமியான் இணைப்பி எக்ஸேஞ் சேவகனில் சில செயல்கூறுகளுக்கான அனுமதி செயல்நீக்கம் "
-"செய்யப்பட்டுள்ளது(இதற்கு காரணம் எதுவுமில்லை) உங்கள் எக்ஸேஞ் மேலாளர் இந்த செயல் கூறுகளை "
-"செயல்படுத்தினால் தான் சேமியான் இணைப்பை உங்களார் அணுக முடியும்\n"
-"\n"
-"உங்கள் எக்ஸேஞ் மேலாளருக்கான தகவலை: கீழ் கண்ட இணைப்பில் பார்க்கலாம்."
-
-#: lib/e2k-autoconfig.c:1491 storage/exchange-autoconfig-wizard.c:288
-msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"நீங்கள் கொடுத்த எக்ஸேஞ் சேவகன் URL  எக்ஸேஞ் 5,5 க்கானது. சேமியான் மைரோசாஃப்ட் எக்ஸேஞ் 2000 "
-"மற்றும் 2003 க்கு மட்டுமே ஆதரவு தரும்"
-
-#: lib/e2k-autoconfig.c:1500 storage/exchange-autoconfig-wizard.c:301
-msgid ""
-"Could not configure Exchange account because an unknown error occurred. "
-"Check the URL, username, and password, and try again."
-msgstr ""
-"எக்ஸேஞ் கணக்கில் அமைக்க முடியவில்லை. காரணம் தெரியாத பிழை நேர்ந்தது, URL, பயனீட்டாளர்பெயர் "
-"மற்றும் கடவுச்சொல்லை உள்ளிட்டு மீண்டும் முயலவும்."
-
-#: lib/e2k-autoconfig.c:1522
-#, fuzzy, c-format
-msgid "Enter password for %s"
-msgstr "%sக்கான கடவுச்சொல்லை உள்ளிடு %s"
-
-#: lib/e2k-autoconfig.c:1523 storage/exchange-account.c:859
-msgid "Enter password"
-msgstr "கடவுச்சொல்லை உள்ளிடு"
-
-#. i18n: These are Outlook's words for the default roles in
-#. the folder permissions dialog.
-#: lib/e2k-security-descriptor.c:847
-msgid "Owner"
-msgstr "உரிமையாளர்"
-
-#: lib/e2k-security-descriptor.c:857
-msgid "Publishing Editor"
-msgstr "ஆசிரியர் பதிப்பித்தல்"
-
-#: lib/e2k-security-descriptor.c:865
-msgid "Editor"
-msgstr "ஆசிரியர்"
-
-#: lib/e2k-security-descriptor.c:872
-msgid "Publishing Author"
-msgstr "பதிப்பிக்கும் உருவாக்கியவர்"
-
-#: lib/e2k-security-descriptor.c:878
-msgid "Author"
-msgstr "உருவாக்கியவர்"
-
-#: lib/e2k-security-descriptor.c:883
-msgid "Non-editing Author"
-msgstr "மாற்றப்படாத உருவாக்கியவர்"
-
-#: lib/e2k-security-descriptor.c:887
-msgid "Reviewer"
-msgstr "திருத்தியவர்"
-
-#: lib/e2k-security-descriptor.c:889
-msgid "Contributor"
-msgstr "பங்குபெற்றவர்"
-
-#: lib/e2k-security-descriptor.c:891 storage/exchange-delegates.glade.h:7
-msgid "None"
-msgstr "எதுவுமில்லை"
-
-#: lib/e2k-security-descriptor.c:906 storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "தனிப்பயன்"
-
-#: lib/e2k-user-dialog.c:144
-msgid "Select User"
-msgstr "பயனீட்டாளரை தேர்வு செய்"
-
-#: lib/e2k-user-dialog.c:182
-msgid "Addressbook..."
-msgstr "முகவரி புத்தகம்"
-
-#: mail/mail-stub-exchange.c:231
-msgid "No such folder"
-msgstr "இப்படி ஒரு அடைவு இல்லை"
-
-#: mail/mail-stub-exchange.c:248 mail/mail-stub-exchange.c:2309
-#: mail/mail-stub-exchange.c:2347 mail/mail-stub-exchange.c:2407
-#: shell/e-storage.c:573 storage/xc-commands.c:315
-msgid "Permission denied"
-msgstr "அனுமதி மறுக்கப்பட்டது"
-
-#: mail/mail-stub-exchange.c:546
-msgid "No such folder."
-msgstr "இப்படி ஒரு அடைவு இல்லை"
-
-#: mail/mail-stub-exchange.c:555
-msgid "Could not create folder."
-msgstr "அடைவை உருவாக்க முடியவில்லை"
-
-#: mail/mail-stub-exchange.c:602 mail/mail-stub-exchange.c:620
-msgid "Could not open folder: Permission denied"
-msgstr "அடைவை உருவாக்க முடியவில்லை: அனுமதி மறுக்கப்பட்டது"
-
-#: mail/mail-stub-exchange.c:606 mail/mail-stub-exchange.c:719
-msgid "Could not open folder"
-msgstr "அடைவை திறக்க முடியவில்லை"
-
-#: mail/mail-stub-exchange.c:774
-msgid "Could not open Deleted Items folder"
-msgstr "நீக்கப்பட்ட உருப்படிகள் உள்ள அடைவை திறக்க முடியலில்லை"
-
-#: mail/mail-stub-exchange.c:1094 mail/mail-stub-exchange.c:1135
-msgid "Could not get new messages"
-msgstr "புதிய செய்திகளை பெற முடியவில்லை"
-
-#: mail/mail-stub-exchange.c:1300
-msgid "Could not empty Deleted Items folder"
-msgstr "நீக்கப்பட்ட உருப்படிகள் உள்ள அடைவை காலி செய்ய முடியவில்லை"
-
-#: mail/mail-stub-exchange.c:1372
-msgid "Could not append message; mailbox is over quota"
-msgstr "செய்திகளை சேர்க்க முடியவில்லை; மின்னஞ்சல் பெட்டியில் அதிக இடமில்லை"
-
-#: mail/mail-stub-exchange.c:1373
-msgid "Could not append message"
-msgstr "செய்தியை சேர்க்க முடியவில்லை"
-
-#: mail/mail-stub-exchange.c:1856
-msgid "No such message"
-msgstr "இப்படி ஒரு செய்தி இல்லை"
-
-#: mail/mail-stub-exchange.c:1909
-msgid "Message has been deleted"
-msgstr "செய்தி நீக்கப்பட்டது"
-
-#: mail/mail-stub-exchange.c:1911
-msgid "Error retrieving message"
-msgstr "செய்தியை பெறுவதில் பிழை"
-
-#: mail/mail-stub-exchange.c:1953
-msgid "Mailbox does not support full-text searching"
-msgstr "முழு-உரை தேடலுக்கு மின்னஞ்சல் பெட்டியில் ஆதரவு இல்லை"
-
-#: mail/mail-stub-exchange.c:2051
-msgid "Unable to move/copy messages"
-msgstr "செய்தியை நகர்த்த/நகலெடுக்க முடியவில்லை"
-
-#: mail/mail-stub-exchange.c:2224
-msgid "No mail submission URI for this mailbox"
-msgstr "இந்த பெட்டிக்கான மின்னஞ்சல் சமர்பிக்கும் URI இல்லை"
-
-#: mail/mail-stub-exchange.c:2260
-msgid "Server won't accept mail via Exchange transport"
-msgstr "மாற்று தகவல் பரிமாற்றத்தை சேவகனால் ஏற்க முடியாது"
-
-#: mail/mail-stub-exchange.c:2262
-#, c-format
-msgid ""
-"Your account does not have permission to use <%s>\n"
-"as a From address."
-msgstr ""
-"<%s> ஐ பெறுநர் முகவரியாக பயன்படுத்த\n"
-"உங்கள் கணக்கிற்கு ஆதரவு இல்லை"
-
-#: mail/mail-stub-exchange.c:2274
-msgid ""
-"Could not send message.\n"
-"This might mean that your account is over quota."
-msgstr ""
-"செய்தியை அனுப்ப முடியவில்லை \n"
-"இதற்கு காரணம் உங்கள் கணக்கில் இடம் இல்லை"
-
-#: mail/mail-stub-exchange.c:2278
-msgid "Could not send message"
-msgstr "செய்தியை அனுப்ப முடியவில்லை"
-
-#: mail/mail-stub-exchange.c:2301 mail/mail-stub-exchange.c:2352
-#: mail/mail-stub-exchange.c:2411 shell/e-storage.c:557
-#: storage/xc-commands.c:319
-msgid "Generic error"
-msgstr "பொதுவான பிழை"
-
-#: mail/mail-stub-exchange.c:2305 storage/xc-commands.c:309
-msgid "Folder already exists"
-msgstr "அடைவு ஏற்கெனவே உள்ளது"
-
-#: mail/mail-stub-exchange.c:2332 mail/mail-stub-exchange.c:2374
-#: mail/mail-stub-exchange.c:2403
-msgid "Folder doesn't exist"
-msgstr "அடைவு ஏற்கெனவே இல்லை"
-
-#: shell/e-folder-creation-dialog.c:138
-#, c-format
-msgid ""
-"Cannot create the specified folder:\n"
-"%s"
-msgstr ""
-"குறிப்பிட்ட அடைவை உருவாக்க முடியவில்லை:\n"
-"%s"
-
-#: shell/e-folder-creation-dialog.c:179
-#, c-format
-msgid "The specified folder name is not valid: %s"
-msgstr "குறிப்பிட்ட அடைவின் பெயர் செல்லாது: %s"
-
-#: shell/e-folder-creation-dialog.c:310
-msgid "Create New Folder"
-msgstr "புதிய அடைவை உருவாக்கு"
-
-#: shell/e-folder-creation-dialog.glade.h:1
-#: storage/exchange-autoconfig-wizard.glade.h:1
-#: storage/exchange-change-password.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: shell/e-folder-creation-dialog.glade.h:2
-msgid "Folder _name:"
-msgstr "(_n)அடைவின் பெயர்:"
-
-#: shell/e-folder-creation-dialog.glade.h:3
-msgid "Folder _type:"
-msgstr "(_t)அடைவின் வகை:"
-
-#: shell/e-folder-creation-dialog.glade.h:4
-msgid "Specify where to create the folder:"
-msgstr "அடைவை எங்கே உருவாக்க வேண்டும் என்பதை குறிப்பிடு"
-
-#: shell/e-folder-dnd-bridge.c:52
-#, c-format
-msgid ""
-"Cannot transfer folder:\n"
-"%s"
-msgstr ""
-"அடைவை இடம்மாற்ற முடியவில்லை:\n"
-"%s"
-
-#: shell/e-folder-misc-dialogs.c:62
-#, c-format
-msgid ""
-"Cannot delete folder:\n"
-"%s"
-msgstr ""
-"அடைவை நீக்க முடியவில்லை:\n"
-"%s"
-
-#: shell/e-folder-misc-dialogs.c:115
-#, c-format
-msgid "Really delete folder \"%s\"?"
-msgstr "அடைவை நீக்க வேண்டுமா \"%s\"?"
-
-#: shell/e-folder-misc-dialogs.c:129
-#, c-format
-msgid "Delete \"%s\""
-msgstr "நீக்கு \"%s\""
-
-#: shell/e-folder-misc-dialogs.c:154
-#, c-format
-msgid ""
-"Cannot rename folder:\n"
-"%s"
-msgstr ""
-"அடைவின் பெயரை மாற்ற முடியவில்லை:\n"
-"%s"
-
-#: shell/e-folder-misc-dialogs.c:188
-#, c-format
-msgid "Rename the \"%s\" folder to:"
-msgstr "\"%s\" அடைவை மறுபெயரிடு:"
-
-#: shell/e-folder-misc-dialogs.c:191
-msgid "Rename Folder"
-msgstr "அடைவிற்கு மறுபெயரிடு"
-
-#: shell/e-folder-misc-dialogs.c:205
-#, c-format
-msgid "A folder named \"%s\" already exists. Please use a different name."
-msgstr "இந்த அடைவு பெயர் \"%s\" ஏற்கெனவே உள்ளது. வேறு பெயரை தேர்வு செய்யவும்."
-
-#. It would be nice to insensitivize the OK button appropriately
-#. instead of doing this, but unfortunately we can't do this for the
-#. Bonobo control.
-#: shell/e-folder-misc-dialogs.c:439
-msgid "Please select a user."
-msgstr "பயனீட்டாளரை தேர்வு செய்யவும்"
-
-#: shell/e-folder-misc-dialogs.c:539
-msgid "Opening Folder"
-msgstr "அடைவை திறக்கிறது"
-
-#: shell/e-folder-misc-dialogs.c:545
-#, c-format
-msgid "Opening Folder \"%s\""
-msgstr "அடைவை திறக்கிறது \"%s\""
-
-#: shell/e-folder-misc-dialogs.c:550
-#, c-format
-msgid "in \"%s\" ..."
-msgstr "இல் \"%s\" ..."
-
-#: shell/e-folder-misc-dialogs.c:617
-#, c-format
-msgid "Could not open other user's folder: %s."
-msgstr "மற்ற பயனீடாளருக்கான அடைவை திறக்க முடியாது: %s."
-
-#: shell/e-folder-misc-dialogs.c:667
-msgid "Cannot find the specified other user's folder."
-msgstr "குறிப்பிட்ட மற்ற பயனீடாளர் அடைவை காணவில்லை"
-
-#: shell/e-folder-misc-dialogs.c:699
-#, c-format
-msgid ""
-"Cannot unsubscribe from folder:\n"
-"%s"
-msgstr ""
-"இந்த அடைவிலிருந்து உறுப்பினர் நீக்கம் செய்ய முடியாது:\n"
-"%s"
-
-#: shell/e-folder-misc-dialogs.c:752
-#, c-format
-msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "இந்த அடைவிலிருந்து உறுப்பினர் நீக்கம் செய்ய வேண்டுமா \"%s\"?"
-
-#: shell/e-folder-misc-dialogs.c:766
-#, c-format
-msgid "Unsubscribe from \"%s\""
-msgstr "\"%s\" லிருந்து உறுப்பினர் நீக்கம்"
-
-#: shell/e-foreign-folder-dialog.glade.h:1
-msgid "Open Other User's Folder"
-msgstr "மற்ற பயனீட்டாளர் பெயரை திற"
-
-#: shell/e-foreign-folder-dialog.glade.h:2
-msgid "_Account:"
-msgstr "(_A)கணக்கு:"
-
-#: shell/e-foreign-folder-dialog.glade.h:3
-msgid "_Folder Name:"
-msgstr "(_F)அடைவின் பெயர்:"
-
-#: shell/e-foreign-folder-dialog.glade.h:4
-msgid "_User:"
-msgstr "(_U)பயனீட்டாளர்:"
-
-#: shell/e-storage-set-view.etspec.h:1
-msgid "Checkbox"
-msgstr "பரிசோதனைப்பெட்டி"
-
-#: shell/e-storage-set-view.etspec.h:2
-msgid "Folder"
-msgstr "அடைவு"
-
-#: shell/e-storage.c:555
-msgid "No error"
-msgstr "பிழை இல்லை"
-
-#: shell/e-storage.c:559
-msgid "A folder with the same name already exists"
-msgstr "இதே பெயரில் ஏற்கெனவே அடைவு உள்ளது"
-
-#: shell/e-storage.c:561
-msgid "The specified folder type is not valid"
-msgstr "குறிப்பிட்ட அடைவின் வகை செல்லாது"
-
-#: shell/e-storage.c:563
-msgid "I/O error"
-msgstr "I/O பிழை"
-
-#: shell/e-storage.c:565
-msgid "Not enough space to create the folder"
-msgstr "அடைவை உருவாக்க இடமில்லை"
-
-#: shell/e-storage.c:567
-msgid "The folder is not empty"
-msgstr "அடைவு காலியாக இல்லை"
-
-#: shell/e-storage.c:569
-msgid "The specified folder was not found"
-msgstr "குறிப்பிட்ட அடைவை காணவில்லை"
-
-#: shell/e-storage.c:571
-msgid "Function not implemented in this storage"
-msgstr "இந்த சேமிப்பில் செயல்கூறி இடம்பெறவில்லை"
-
-#: shell/e-storage.c:575
-msgid "Operation not supported"
-msgstr "செயலுக்கு ஆதரவு இல்லை"
-
-#: shell/e-storage.c:577
-msgid "The specified type is not supported in this storage"
-msgstr "இந்த சேமிப்பில் குறிப்பிட்ட வகை ஆதரவு இல்லை"
-
-#: shell/e-storage.c:579
-msgid "The specified folder cannot be modified or removed"
-msgstr "குறிப்பிட்ட அடைவை திருத்த அல்லது நீக்க முடியாது"
-
-#: shell/e-storage.c:581
-msgid "Cannot make a folder a child of one of its descendants"
-msgstr "முந்தைய அடைவிலுல் அடைவை உருவாக்க முடியாது"
-
-#: shell/e-storage.c:583
-msgid "Cannot create a folder with that name"
-msgstr "இந்த பெயரில் அடைவை உருவாக்க முடியவில்லை"
-
-#: shell/e-storage.c:585
-msgid "This operation cannot be performed in off-line mode"
-msgstr "இணைய இணைப்பு இல்லாத போது இந்த செயலை செய்ய முடியாது"
-
-#: shell/e-storage.c:587 storage/exchange-account.c:1411
-msgid "Unknown error"
-msgstr "தெரியாத பிழை"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-msgid "*Control*F5"
-msgstr "*Control*F5"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
-msgid "Evolution Addressbook Exchange backend"
-msgstr "எவல்யூஷன் முகவரி புத்தக மாற்று பின்புலம்"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Evolution Calendar Exchange backend"
-msgstr "எவல்யூஷன் நாள்காட்டி மாற்று பின்புலம்"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
-msgid "Evolution Exchange Component"
-msgstr "எவல்யூஷன் மற்று பொருள்கள்"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
-msgid "Exchange"
-msgstr "மாற்று"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
-msgid "Ximian Connector for Exchange"
-msgstr "எக்ஸ்சேஞ்க்கான சேமியான் இணைப்பு"
-
-#: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
-msgid "_Exchange"
-msgstr "(_E)மாற்று"
-
-#. i18n: This is the title of an "other user's folders"
-#. hierarchy. Eg, "John Doe's Folders".
-#: storage/exchange-account.c:572
-#, c-format
-msgid "%s's Folders"
-msgstr "%s'இன் அடைவுகள்"
-
-#: storage/exchange-account.c:855
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%sக்கான கடவுச்சொல்லை உள்ளிடு %s"
-
-#: storage/exchange-account.c:1033
-msgid "Cannot change password due to configuration problems"
-msgstr "அமைப்பு சிக்கலால் கடவுச்சொல்லை மாற்ற முடியாது"
-
-#: storage/exchange-account.c:1048
-msgid ""
-"Server rejected password because it is too weak.\n"
-"Try again with a different password."
-msgstr ""
-"சேவகன் கடவுச்சொல்லை ரத்து செய்தது காரம் சேவகனில் போதிய சக்தி இல்லை\n"
-"வேறு கடவுச்சொல்லை பயன்படுத்தி முயற்சிக்கவும்"
-
-#: storage/exchange-account.c:1053
-msgid "Could not change password"
-msgstr "கடவுச்சொல்லை மாற்ற முடியவில்லை"
-
-#: storage/exchange-account.c:1137
-msgid "Personal Folders"
-msgstr "தனி அடைவு"
-
-#: storage/exchange-account.c:1152
-msgid "Favorite Public Folders"
-msgstr "விருப்பங்கள் பொது அடைவு"
-
-#. i18n: Outlookism
-#: storage/exchange-account.c:1169
-msgid "All Public Folders"
-msgstr "எல்லா பொது அடைவுகளும்"
-
-#. i18n: Outlookism
-#: storage/exchange-account.c:1183
-msgid "Global Address List"
-msgstr "பொது முகவரி பட்டியல்"
-
-#: storage/exchange-account.c:1269
-msgid "Exchange Account is offline. Cannot display folders\n"
-msgstr ""
-
-#: storage/exchange-account.c:1322
-msgid ""
-"Could not authenticate to server. (Password incorrect?)\n"
-"\n"
-msgstr ""
-"சேவகனில் அனுமதிக்க முடியவில்லை(கடவுச்சொல் பிழை?)\n"
-"\n"
-
-#: storage/exchange-account.c:1327
-msgid ""
-"Could not authenticate to server.\n"
-"\n"
-"This probably means that your server requires you\n"
-"to specify the Windows domain name as part of your\n"
-"username (eg, \"DOMAIN\\user\").\n"
-"\n"
-"Or you might have just typed your password wrong.\n"
-"\n"
-msgstr ""
-"சேவகனில் அனுமதிக்க முடியவில்லை\n"
-"\n"
-"இதற்கு காரணம் உங்கள் சேவகனுக்கு \n"
-"விண்டோஸ் டொமைன் பெயர் மற்றும்\n"
-"பயனீட்டாளர் பெயர்(eg, \"DOMAIN\\user\") தேவை.\n"
-"\n"
-"அல்லது உங்கள் கடவுச்சொல்லில் பிழை இருக்கலாம்\n"
-"\n"
-
-#: storage/exchange-account.c:1369
-#, c-format
-msgid "Mailbox for %s is not on this server."
-msgstr "%s க்கான மின்னஞ்சல் பெட்டி இந்த சேவகனில் இல்லை"
-
-#: storage/exchange-account.c:1374
-#, c-format
-msgid ""
-"The server '%s' is running Exchange 5.5 and is\n"
-"therefore not compatible with Ximian Connector"
-msgstr ""
-"சேவகன் '%s' Exchange 5.5 இயங்கிக்கொண்டிருக்கிறது\n"
-"இதனால் சேமியான் இணைப்பியை பயன்படுத்த முடியாது."
-
-#: storage/exchange-account.c:1381
-#, c-format
-msgid ""
-"Could not find Exchange Web Storage System at %s.\n"
-"If OWA is running on a different path, you must specify that in the\n"
-"account configuration dialog."
-msgstr ""
-"%s இல் மாற்று இணைய சேமிப்பகத்தை காணவில்லை.\n"
-"OWA வேறு பாதையில் இயங்கினால்,நீங்கள்\n"
-"கணக்கு அமைக்கும் உரையாடல் பெட்டியில் இதை குறிப்பிடவும்."
-
-#: storage/exchange-account.c:1389
-#, c-format
-msgid "No mailbox for user %s on %s.\n"
-msgstr "பயனீட்டாளருக்கான மின்னஞ்சல் பெட்டி %s இல் %s.\n"
-
-#: storage/exchange-account.c:1395 storage/exchange-account.c:1401
-#: storage/exchange-account.c:1409
-#, c-format
-msgid "Could not connect to server %s: %s"
-msgstr "சேவகனில் இணைக்க முடியவில்லை %s: %s"
-
-#: storage/exchange-account.c:1397
-msgid "Could not resolve hostname"
-msgstr "புரவலன் பெயரை கண்டு பிடிக்க முடியவில்லை"
-
-#: storage/exchange-account.c:1403
-msgid "Network error"
-msgstr "வலைப்பின்னல் பிழை"
-
-#: storage/exchange-autoconfig-wizard.c:267
+#: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
 "Ximian Connector requires access to certain functionality on the Exchange "
 "Server that appears to be disabled or blocked.  (This is usually "
@@ -920,7 +478,23 @@ msgstr ""
 "\n"
 "உங்கள் எக்ஸேஞ் மேலாளருக்கான தகவலை: கீழ் கண்ட இணைப்பில் பார்க்கலாம்."
 
-#: storage/exchange-autoconfig-wizard.c:345
+#: ../storage/exchange-autoconfig-wizard.c:275
+msgid ""
+"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
+"Connector supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"நீங்கள் கொடுத்த எக்ஸேஞ் சேவகன் URL  எக்ஸேஞ் 5,5 க்கானது. சேமியான் மைரோசாஃப்ட் எக்ஸேஞ் 2000 "
+"மற்றும் 2003 க்கு மட்டுமே ஆதரவு தரும்"
+
+#: ../storage/exchange-autoconfig-wizard.c:288
+msgid ""
+"Could not configure Exchange account because an unknown error occurred. "
+"Check the URL, username, and password, and try again."
+msgstr ""
+"எக்ஸேஞ் கணக்கில் அமைக்க முடியவில்லை. காரணம் தெரியாத பிழை நேர்ந்தது, URL, பயனீட்டாளர்பெயர் "
+"மற்றும் கடவுச்சொல்லை உள்ளிட்டு மீண்டும் முயலவும்."
+
+#: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -930,7 +504,7 @@ msgstr ""
 "பொது எக்ஸேஞ் சேவகனால் அனுமதிக்க முடியவில்லை. நீங்கள் பின் சென்று விண்டோஸ் டொமைன் பெயரை "
 "உங்கள் பயனீட்டாளர் பெயருடன் சேர்த்து உள்ளிடவும்(உம், \"MY-DOMAIN\\%s\")."
 
-#: storage/exchange-autoconfig-wizard.c:352
+#: ../storage/exchange-autoconfig-wizard.c:339
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -938,12 +512,12 @@ msgstr ""
 "குறிப்பிட்ட சேவகனில் இணைக்க முடியவில்லை\n"
 "சேவகன் பெயரை சரிபார்த்து மீண்டும் முயலவும்."
 
-#: storage/exchange-autoconfig-wizard.c:389
-#: storage/exchange-autoconfig-wizard.c:393
+#: ../storage/exchange-autoconfig-wizard.c:376
+#: ../storage/exchange-autoconfig-wizard.c:380
 msgid "Unknown"
 msgstr "தெரியாத"
 
-#: storage/exchange-autoconfig-wizard.c:477
+#: ../storage/exchange-autoconfig-wizard.c:445
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -951,60 +525,64 @@ msgstr ""
 "அமைப்பு பிழை\n"
 "கணக்கை உருவாக்க முடியவில்லை"
 
-#: storage/exchange-autoconfig-wizard.c:491
-#: storage/exchange-config-listener.c:578
+#: ../storage/exchange-autoconfig-wizard.c:459
 msgid "You may only configure a single Exchange account"
 msgstr "ஒரு எக்ஸேஞ் கணக்கை மட்டும் அமைக்கவும்"
 
-#: storage/exchange-autoconfig-wizard.glade.h:2
+#: ../storage/exchange-autoconfig-wizard.glade.h:1
+#: ../storage/exchange-change-password.glade.h:1
+msgid "*"
+msgstr "*"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
 msgstr "அமைப்பு தோல்வியுற்றது"
 
-#: storage/exchange-autoconfig-wizard.glade.h:3
+#: ../storage/exchange-autoconfig-wizard.glade.h:3
 msgid "Done"
 msgstr "முடிந்தது"
 
-#: storage/exchange-autoconfig-wizard.glade.h:4
+#: ../storage/exchange-autoconfig-wizard.glade.h:4
 msgid "Email Address:"
 msgstr "மின்னஞ்சல் முகவரி:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:5
+#: ../storage/exchange-autoconfig-wizard.glade.h:5
 msgid "Exchange Configuration"
 msgstr "எக்ஸேஞ் அமைப்பு"
 
-#: storage/exchange-autoconfig-wizard.glade.h:6
+#: ../storage/exchange-autoconfig-wizard.glade.h:6
 msgid "Full Name:"
 msgstr "முழு பெயர்:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:7
+#: ../storage/exchange-autoconfig-wizard.glade.h:7
 msgid "GC Server:"
 msgstr "GC சேவகன்:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:8
+#: ../storage/exchange-autoconfig-wizard.glade.h:8
 msgid "Make this my default account"
 msgstr "இதை என் இயல்பான கணக்காக அனுமதி"
 
-#: storage/exchange-autoconfig-wizard.glade.h:9
+#: ../storage/exchange-autoconfig-wizard.glade.h:9
 msgid "OWA URL:"
 msgstr "OWA URL:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:10
+#: ../storage/exchange-autoconfig-wizard.glade.h:10
 msgid "Password:"
 msgstr "கடவுச்சொல்:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:11
+#: ../storage/exchange-autoconfig-wizard.glade.h:11
 msgid "Remember this password"
 msgstr "இந்த கடவுச்சொல்லை நினைவில் கொள்"
 
-#: storage/exchange-autoconfig-wizard.glade.h:12
+#: ../storage/exchange-autoconfig-wizard.glade.h:12
 msgid "Username:"
 msgstr "பயனீட்டாளர் பெயர்:"
 
-#: storage/exchange-autoconfig-wizard.glade.h:13
+#: ../storage/exchange-autoconfig-wizard.glade.h:13
 msgid "Welcome"
 msgstr "நல்வரவு"
 
-#: storage/exchange-autoconfig-wizard.glade.h:14
+#: ../storage/exchange-autoconfig-wizard.glade.h:14
 msgid ""
 "Welcome to Ximian Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
@@ -1018,11 +596,11 @@ msgstr ""
 "\n"
 "\"அடுத்து\" என்பதை க்ளிக் செய்து தொடரவும்.ஷன் "
 
-#: storage/exchange-autoconfig-wizard.glade.h:19
+#: ../storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Ximian Connector Configuration"
 msgstr "சேமியான் இணைப்பு அமைப்பு"
 
-#: storage/exchange-autoconfig-wizard.glade.h:20
+#: ../storage/exchange-autoconfig-wizard.glade.h:20
 msgid ""
 "Ximian Connector can use account information from your existing Outlook Web "
 "Access (OWA) account.\n"
@@ -1036,7 +614,7 @@ msgstr ""
 "OWA முகவரி (URL), பயனீட்டாளர் பெயர், மற்றும் கடவுச்சொல்லை உள்ளிட்டு \"அடுத்து\" என்பதை "
 "க்ளிக் செய்யவும்\n"
 
-#: storage/exchange-autoconfig-wizard.glade.h:24
+#: ../storage/exchange-autoconfig-wizard.glade.h:24
 msgid ""
 "Ximian Connector could not find the Global Catalog replica for your site. "
 "Please enter the name of your Global Catalog server. You may need to ask "
@@ -1046,13 +624,13 @@ msgstr ""
 "உங்கள் பொது பட்டியலின் பெயரை உள்ளிடவும். சரியான மதிப்பை தெரிந்து கொள்ள உங்கள் கணினி "
 "மேலாளரை அனுகவும்\n"
 
-#: storage/exchange-autoconfig-wizard.glade.h:26
+#: ../storage/exchange-autoconfig-wizard.glade.h:26
 msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
 msgstr "சேமியான் இணைப்பில் எக்ஸேஞ் கணக்கை அமைப்பதில் சிக்கல் ஏற்பட்டது\n"
 
-#: storage/exchange-autoconfig-wizard.glade.h:28
+#: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
 "Your Connector account is now ready to use. Click the \"Apply\" button to "
 "save your\n"
@@ -1062,7 +640,7 @@ msgstr ""
 "உங்கள் \n"
 "அமைப்பை சேமிக்கவும்"
 
-#: storage/exchange-autoconfig-wizard.glade.h:30
+#: ../storage/exchange-autoconfig-wizard.glade.h:30
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
@@ -1073,199 +651,73 @@ msgstr ""
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
-#: storage/exchange-change-password.c:114
+#: ../storage/exchange-change-password.c:114
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
-msgstr ""
-"இந்த கடவுச்சொல் ஏற்கெனவே உள்ள கடவுச்சொல்லோடு பொருந்தவில்லை சரியான கடவுச்சொல்லை உள்ளிடவும்."
+msgstr "இந்த கடவுச்சொல் ஏற்கெனவே உள்ள கடவுச்சொல்லோடு பொருந்தவில்லை சரியான கடவுச்சொல்லை உள்ளிடவும்."
 
-#: storage/exchange-change-password.c:121
+#: ../storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr "இரு கடவுச்சொல்லும் பொருந்த வில்லை, கடவுச்சொல்லை உள்ளிடவும்"
 
-#: storage/exchange-change-password.glade.h:2
+#: ../storage/exchange-change-password.glade.h:2
 msgid "Change Password"
 msgstr "கடவுச்சொல்லை மாற்று"
 
-#: storage/exchange-change-password.glade.h:3
+#: ../storage/exchange-change-password.glade.h:3
 msgid "Confirm Password:"
 msgstr "கடவுச்சொல்லை உறுதிசெய்:"
 
-#: storage/exchange-change-password.glade.h:4
+#: ../storage/exchange-change-password.glade.h:4
 msgid "Current Password:"
 msgstr "தற்போதைய கடவுச்சொல்:"
 
-#: storage/exchange-change-password.glade.h:5
+#: ../storage/exchange-change-password.glade.h:5
 msgid "New Password:"
 msgstr "புதிய கடவுச்சொல்:"
 
-#: storage/exchange-change-password.glade.h:6
+#: ../storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
 msgstr "உங்கள் தற்போதைய கடவுச்சொல் காலாவதியாகிவிட்டது. உங்கள் கடவுச்சொல்லை மாற்றவும்."
 
-#: storage/exchange-component.c:320
-msgid "Mail"
-msgstr "மின்னஞ்சல்"
-
-#: storage/exchange-component.c:323 storage/exchange-hierarchy-foreign.c:251
-msgid "Contacts"
-msgstr "தொடர்புகள்"
-
-#: storage/exchange-component.c:327 storage/exchange-hierarchy-foreign.c:259
-msgid "Tasks"
-msgstr "பணிகள்"
-
-#: storage/exchange-component.c:330 storage/exchange-hierarchy-foreign.c:250
-msgid "Calendar"
-msgstr "நாள்காட்டி"
-
-#: storage/exchange-config-listener.c:693
-msgid ""
-"Changes to Exchange account configuration will take\n"
-"place after you quit and restart Evolution."
-msgstr ""
-"எக்ஸேஞ் சேவகன் அமைப்பு மாற்றம் \n"
-"எவல்யூஷனை மீண்டும் துவங்கும் போது துவங்கும்"
-
-#: storage/exchange-config-listener.c:739
-msgid "The Exchange account will be removed when you quit Evolution"
-msgstr "எவல்யூஷனிலிருந்து வெளியேறினால் எக்ஸேஞ் கணக்கு நீக்கப்படும்"
-
-#: storage/exchange-delegates-user.c:191
-#: storage/exchange-permissions-dialog.c:179
-#, c-format
-msgid "Permissions for %s"
-msgstr "%s க்கான அனுமதி"
-
-#: storage/exchange-delegates.c:221
-msgid ""
-"No Global Catalog server configured for this account.\n"
-"Unable to edit delegates."
-msgstr ""
-"இந்த கணக்கில் பொது பட்டியல் சேவகன் எதுவும் அமைக்கப்படவில்லை\n"
-"திருத்த முடியாது"
-
-#: storage/exchange-delegates.c:260
-msgid ""
-"Could not read folder permissions.\n"
-"Unable to edit delegates."
-msgstr ""
-"அடைவுக்கான அனுமதியை படிக்க முடியவில்லை\n"
-"திருத்த முடியாது"
-
-#: storage/exchange-delegates.c:267
-msgid ""
-"Could not determine folder permissions for delegates.\n"
-"Unable to edit delegates."
-msgstr ""
-"விருந்தினருக்கான அடைவு அனுமதிகளை கண்டுபிடிக்க முடியவில்லை \n"
-"திருத்த முடியவில்லை"
-
-#: storage/exchange-delegates.c:419
-msgid "Delegate To:"
-msgstr "விருந்தினர்:"
-
-#: storage/exchange-delegates.c:419
-msgid "Delegate To"
-msgstr "விருந்தினர்"
-
-#: storage/exchange-delegates.c:435
-#, c-format
-msgid "Could not make %s a delegate"
-msgstr "%s ஐ விருந்தினராக்க முடியாது"
-
-#: storage/exchange-delegates.c:445
-msgid "You cannot make yourself your own delegate"
-msgstr "உங்களை உங்களார் விருந்தினராக்க முடியாது"
-
-#: storage/exchange-delegates.c:454
-#, c-format
-msgid "%s is already a delegate"
-msgstr "%s ஏற்கெனவே விருந்தினர்"
-
-#: storage/exchange-delegates.c:563
-#, c-format
-msgid "Remove the delegate %s?"
-msgstr "விருந்தினர் %s ஐ நீக்க வேண்டுமா?"
-
-#: storage/exchange-delegates.c:680
-msgid "Could not access Active Directory"
-msgstr "செயல் அடைவை அணுக முடியவில்லை"
-
-#: storage/exchange-delegates.c:695
-msgid "Could not find self in Active Directory"
-msgstr "செயல் அடைவில் உங்களை கண்டுபிடிக்க முடியவில்லை"
-
-#: storage/exchange-delegates.c:708
-#, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "விருந்தினர் %s ஐ செயல் அடைவில் காணவில்லை"
-
-#: storage/exchange-delegates.c:720
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "விருந்தினரை நீக்கு %s"
-
-#: storage/exchange-delegates.c:780
-msgid "Could not update list of delegates."
-msgstr "விருந்தினர் பட்டியலை புதுப்பிக்க முடியவில்லை"
-
-#: storage/exchange-delegates.c:798
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "விருந்தினரை சேர்க்க முடியவில்லை %s"
-
-#: storage/exchange-delegates.c:814
-#, c-format
-msgid ""
-"Failed to update delegates:\n"
-"%s"
-msgstr ""
-"விருந்தினரை புதுப்பிக்க முடியவில்லை\n"
-"%s"
-
-#: storage/exchange-delegates.c:938 storage/exchange-permissions-dialog.c:706
-msgid "Name"
-msgstr "பெயர்"
-
-#: storage/exchange-delegates.c:967
-msgid "Error reading delegates list."
-msgstr "விருந்தினர் பட்டியலை ஏற்றுவதில் பிழை"
-
-#: storage/exchange-delegates.glade.h:1
+#: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
 msgstr "ஆசிரியர் (படி, உருவாக்கு)"
 
-#: storage/exchange-delegates.glade.h:2
+#: ../storage/exchange-delegates.glade.h:2
 msgid "C_alendar:"
 msgstr "(_a)நாள்காட்டி:"
 
-#: storage/exchange-delegates.glade.h:3
+#: ../storage/exchange-delegates.glade.h:3
 msgid "Co_ntacts:"
 msgstr "(_n)தொடர்புகள்:"
 
-#: storage/exchange-delegates.glade.h:4
+#: ../storage/exchange-delegates.glade.h:4
 msgid "Delegate Permissions"
 msgstr "விருந்தினர் அனுமதி:"
 
-#: storage/exchange-delegates.glade.h:5
+#: ../storage/exchange-delegates.glade.h:5
 msgid "Delegates"
 msgstr "விருந்தினர்கள்"
 
-#: storage/exchange-delegates.glade.h:6
+#: ../storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
 msgstr "ஆசிரியர் (படி, உருவாக்கு, திருத்து)"
 
-#: storage/exchange-delegates.glade.h:8
+#: ../storage/exchange-delegates.glade.h:7
+msgid "None"
+msgstr "எதுவுமில்லை"
+
+#: ../storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
 msgstr "அனுமதி"
 
-#: storage/exchange-delegates.glade.h:9
+#: ../storage/exchange-delegates.glade.h:9
 msgid "Reviewer (read-only)"
 msgstr "திருத்தியவர்(படிக்க-மட்டும்)"
 
-#: storage/exchange-delegates.glade.h:10
+#: ../storage/exchange-delegates.glade.h:10
 msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
@@ -1273,70 +725,31 @@ msgstr ""
 "நீங்கள் கொடுத்துள்ள அனுமதிகளின் படி இந்த பயனீட்டாளர் உங்கள் பெயரில் மின்னஞ்சல் அனுப்ப\n"
 "மற்றும் உங்கள் அடைவுகளை அணுக முடியும்."
 
-#: storage/exchange-delegates.glade.h:12
+#: ../storage/exchange-delegates.glade.h:12
 msgid "_Delegate can see private items"
 msgstr "(_D)விருந்தினர் தனி உருப்படிகளை பார்க்கலாம்"
 
-#: storage/exchange-delegates.glade.h:13
+#: ../storage/exchange-delegates.glade.h:13
 msgid "_Edit"
 msgstr "(_E)திருத்து"
 
-#: storage/exchange-delegates.glade.h:14
+#: ../storage/exchange-delegates.glade.h:14
 msgid "_Inbox:"
 msgstr "(_I)உள்பெட்டி:"
 
-#: storage/exchange-delegates.glade.h:15
+#: ../storage/exchange-delegates.glade.h:15
 msgid "_Tasks:"
 msgstr "(_T)பணிகள்:"
 
-#: storage/exchange-folder-size.c:204
-#, fuzzy
-msgid "Folder Name"
-msgstr "(_F)அடைவின் பெயர்:"
-
-#: storage/exchange-folder-size.c:208
-#, fuzzy
-msgid "Folder Size"
-msgstr "அடைவு காட்சி"
-
-#: storage/exchange-folder-tree.glade.h:1
-#, fuzzy
+#: ../storage/exchange-folder-tree.glade.h:1
 msgid "Exchange Folder Tree"
-msgstr "மாற்றி சேவகன்:"
+msgstr "அடைவில் கிளைகளை மாற்று:"
 
-#: storage/exchange-hierarchy-foreign.c:252
-msgid "Deleted Items"
-msgstr "நீக்கப்பட்ட உருப்படிகள்"
-
-#: storage/exchange-hierarchy-foreign.c:253
-msgid "Drafts"
-msgstr "கடிதங்கள்"
-
-#: storage/exchange-hierarchy-foreign.c:254
-msgid "Inbox"
-msgstr "உள்பெட்டி"
-
-#: storage/exchange-hierarchy-foreign.c:255
-msgid "Journal"
-msgstr "இதழ்"
-
-#: storage/exchange-hierarchy-foreign.c:256
-msgid "Notes"
-msgstr "குறிப்பு"
-
-#: storage/exchange-hierarchy-foreign.c:257
-msgid "Outbox"
-msgstr "வெளிப்பெட்டி"
-
-#: storage/exchange-hierarchy-foreign.c:258
-msgid "Sent Items"
-msgstr "அனுப்பப்பட்ட உருப்படிகள்"
-
-#: storage/exchange-migrate.c:57
+#: ../storage/exchange-migrate.c:58
 msgid "Migrating Exchange Folders..."
 msgstr "எக்ஸேஞ் அடைவிலிருந்து மாறுகிறது..."
 
-#: storage/exchange-migrate.c:65
+#: ../storage/exchange-migrate.c:66
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -1349,31 +762,23 @@ msgstr ""
 "\n"
 "உங்கள் அடைவை எவல்யூஷன் நகர்துகிறது பொருமையாக இருக்கவும்..."
 
-#: storage/exchange-migrate.c:98
+#: ../storage/exchange-migrate.c:99
 #, c-format
 msgid ""
-"Warning: Evolution Could not migrate all the Exchange account data from the "
+"Warning: Evolution could not migrate all the Exchange account data from the "
 "version %d.%d.%d. \n"
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"எச்சரிக்கை:எவல்யூஷனால் எக்ஸேஞ் கணக்குத்தகவல் பதிப்பை %d.%d.%d. நகர்த்த முடியவில்லை\n"
-"தகவலை நீக்க முடியவில்லை, ஆனால் எவல்யூஷனில் இந்த பதிப்பால் பார்க்க முடியாது"
+"எச்சரிக்கை:எவல்யூஷனால் எக்ஸேஞ் கணக்குக்கு தகவல்களை %d.%d.%d. நகர்த்த முடியவில்லை\n"
+"தகவலை நீக்க முடியவில்லை, ஆனால் எவல்யூஷனில் இந்த பதிப்பால் மட்டும் பார்க்க முடியாது"
 
-#: storage/exchange-migrate.c:129
+#: ../storage/exchange-migrate.c:130
 #, c-format
 msgid "Migrating `%s':"
 msgstr "நகர்கிறது `%s':"
 
-#: storage/exchange-oof.c:91 storage/exchange-oof.c:290
-msgid "Could not update out-of-office state"
-msgstr "அலுவலகதிற்கு வெளியில் இருக்கும் நிலையை மாற்ற முடியவில்லை"
-
-#: storage/exchange-oof.c:308
-msgid "Could not read out-of-office state"
-msgstr "அலுவலகதிற்கு வெளியில் இருக்கும் நிலையை படிக்க முடியவில்லை"
-
-#: storage/exchange-oof.glade.h:1
+#: ../storage/exchange-oof.glade.h:1
 msgid ""
 "<b>Currently, your status is \"Out of the Office\". </b>\n"
 "\n"
@@ -1383,15 +788,15 @@ msgstr ""
 "\n"
 "நினையை\"அலுவலகத்தில்\" என மாற்ற விருப்பமா? "
 
-#: storage/exchange-oof.glade.h:4
+#: ../storage/exchange-oof.glade.h:4
 msgid "<b>Out of Office Message:</b>"
 msgstr "<b>அலுவலகத்தில் இல்லை செய்தி:</b>"
 
-#: storage/exchange-oof.glade.h:5
+#: ../storage/exchange-oof.glade.h:5
 msgid "<b>Status:</b>"
 msgstr "<b>நிலை:</b>"
 
-#: storage/exchange-oof.glade.h:6
+#: ../storage/exchange-oof.glade.h:6
 msgid ""
 "<small>The message specified below will be automatically sent to each person "
 "who sends\n"
@@ -1400,317 +805,159 @@ msgstr ""
 "<small> கீழ் குறிப்பிட்ட செய்தி நீங்கள் அலுவலகத்தில் இல்லாத போது\n"
 "அனைவருக்கும் தானாக அனுப்படும் </small>"
 
-#: storage/exchange-oof.glade.h:8
+#: ../storage/exchange-oof.glade.h:8
 msgid "I am currently in the office"
 msgstr "இப்போது நான் அலுவலகத்தில் இருக்கிறேன்"
 
-#: storage/exchange-oof.glade.h:9
+#: ../storage/exchange-oof.glade.h:9
 msgid "I am currently out of the office"
 msgstr "நான் இப்போது அலுவலகத்தில் இல்லை"
 
-#: storage/exchange-oof.glade.h:10
+#: ../storage/exchange-oof.glade.h:10
 msgid "No, Don't Change Status"
 msgstr "இல்லை, நிலையை மாற்றாதே"
 
-#: storage/exchange-oof.glade.h:11
+#: ../storage/exchange-oof.glade.h:11
 msgid "Out of Office Assistant"
 msgstr "அலுவலகத்தில் இல்லை துணைவன்"
 
-#: storage/exchange-oof.glade.h:12
+#: ../storage/exchange-oof.glade.h:12
 msgid "Yes, Change Status"
 msgstr "ஆம், நிலையை மாற்றுகிறது"
 
-#: storage/exchange-passwd-expiry.glade.h:1
+#: ../storage/exchange-passwd-expiry.glade.h:1
 msgid "Password Expiry Warning..."
-msgstr ""
+msgstr "கடவுச்சொல் காலாவதி எச்சரிக்கை..."
 
-#: storage/exchange-passwd-expiry.glade.h:2
+#: ../storage/exchange-passwd-expiry.glade.h:2
 msgid "Your password will expire in 7 days..."
-msgstr ""
+msgstr "7 நாட்களுக்குள் கடவுச்சொல் காலாவதியாகிவிடும்..."
 
-#: storage/exchange-passwd-expiry.glade.h:3
-#, fuzzy
+#: ../storage/exchange-passwd-expiry.glade.h:3
 msgid "_Change Password"
-msgstr "கடவுச்சொல்லை மாற்று"
+msgstr "(_C)கடவுச்சொல்லை மாற்று"
 
-#: storage/exchange-passwd-expiry.glade.h:4
+#: ../storage/exchange-passwd-expiry.glade.h:4
 msgid "ok_button"
-msgstr ""
+msgstr "(_b)சரி பட்டன்"
 
-#: storage/exchange-permissions-dialog.c:222
-msgid "Could not read folder permissions"
-msgstr "அடைவின் அனுமதிகளை படிக்க முடியவில்லை"
-
-#: storage/exchange-permissions-dialog.c:264
-msgid "Could not update folder permissions."
-msgstr "அடைவின் அனுமதிகளை திருத்த முடியவில்லை"
-
-#: storage/exchange-permissions-dialog.c:293
-#, c-format
-msgid "Could not update folder permissions. %s"
-msgstr "அடைவின் அனுமதிகளை திருத்த முடியவில்லை %s"
-
-#: storage/exchange-permissions-dialog.c:295
-msgid "(Permission denied.)"
-msgstr "(அனுமதி மறுக்கப்பட்டது)"
-
-#: storage/exchange-permissions-dialog.c:396
-msgid ""
-"Unable to add user to access control list:\n"
-"No Global Catalog server is configured for this account."
-msgstr ""
-"கட்டுப்பாட்டு பட்டியலின் பயனீட்டாளர் பெயரை சேர்க்க முடியவில்லை\n"
-"பொது பட்டியல் அமைக்கப்படவில்லை."
-
-#: storage/exchange-permissions-dialog.c:402
-msgid "Add User:"
-msgstr "பயனீட்டாளரை சேர்:"
-
-#: storage/exchange-permissions-dialog.c:402
-msgid "Add User"
-msgstr "பயனீட்டாளரை சேர்"
-
-#: storage/exchange-permissions-dialog.c:421
-#, c-format
-msgid "No such user %s"
-msgstr "இப்படி ஒரு பயனீட்டாளர் இல்லை %s"
-
-#: storage/exchange-permissions-dialog.c:425
-#, c-format
-msgid "%s cannot be added to an access control list"
-msgstr "%s கட்டுப்பாட்டு பட்டியலில் சேர்க்க முடியவில்லை"
-
-#: storage/exchange-permissions-dialog.c:430
-#, c-format
-msgid "Unknown error looking up %s"
-msgstr "தெரியாத பிழை காட்சி %s"
-
-#: storage/exchange-permissions-dialog.c:447
-#, c-format
-msgid "%s is already in the list"
-msgstr "%s ஏற்கெனவே பட்டியலில் உள்ளது"
-
-#: storage/exchange-permissions-dialog.c:710
-msgid "Role"
-msgstr "பங்களிப்பு"
-
-#: storage/exchange-permissions-dialog.glade.h:1
+#: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
 msgstr "    "
 
-#: storage/exchange-permissions-dialog.glade.h:2
+#: ../storage/exchange-permissions-dialog.glade.h:2
 msgid "<b>Permissions</b>"
 msgstr "<b>அனுமதிகள்</b>"
 
-#: storage/exchange-permissions-dialog.glade.h:3
+#: ../storage/exchange-permissions-dialog.glade.h:3
 msgid "Cannot Delete"
 msgstr "நீக்க முடியாது"
 
-#: storage/exchange-permissions-dialog.glade.h:4
+#: ../storage/exchange-permissions-dialog.glade.h:4
 msgid "Cannot Edit"
 msgstr "திருத்த முடியாது"
 
-#: storage/exchange-permissions-dialog.glade.h:5
+#: ../storage/exchange-permissions-dialog.glade.h:5
 msgid "Create items"
 msgstr "உருப்படிகளை உருவாக்கு"
 
-#: storage/exchange-permissions-dialog.glade.h:6
+#: ../storage/exchange-permissions-dialog.glade.h:6
 msgid "Create subfolders"
 msgstr "உப அடைவுகளை உருவாக்கு"
 
-#: storage/exchange-permissions-dialog.glade.h:7
+#: ../storage/exchange-permissions-dialog.glade.h:7
 msgid "Delete Any Items"
 msgstr "ஏதாவது உருப்படியை நீக்கு"
 
-#: storage/exchange-permissions-dialog.glade.h:8
+#: ../storage/exchange-permissions-dialog.glade.h:8
 msgid "Delete Own Items"
 msgstr "உங்கள் உருப்படியை நீக்கு"
 
-#: storage/exchange-permissions-dialog.glade.h:9
+#: ../storage/exchange-permissions-dialog.glade.h:9
 msgid "Edit Any Items"
 msgstr "ஏதாவது உருப்படியை திருத்து"
 
-#: storage/exchange-permissions-dialog.glade.h:10
+#: ../storage/exchange-permissions-dialog.glade.h:10
 msgid "Edit Own Items"
 msgstr "உங்கள் உருப்படியை திருத்து"
 
-#: storage/exchange-permissions-dialog.glade.h:11
+#: ../storage/exchange-permissions-dialog.glade.h:11
 msgid "Folder contact"
 msgstr "அடைவு தொடர்புகள்"
 
-#: storage/exchange-permissions-dialog.glade.h:12
+#: ../storage/exchange-permissions-dialog.glade.h:12
 msgid "Folder owner"
 msgstr "அடைவு உரிமையாளர்"
 
-#: storage/exchange-permissions-dialog.glade.h:13
+#: ../storage/exchange-permissions-dialog.glade.h:13
 msgid "Folder visible"
 msgstr "அடைவு காட்சி"
 
-#: storage/exchange-permissions-dialog.glade.h:14
+#: ../storage/exchange-permissions-dialog.glade.h:14
 msgid "Read items"
 msgstr "உருப்படியை படி"
 
-#: storage/exchange-permissions-dialog.glade.h:15
+#: ../storage/exchange-permissions-dialog.glade.h:15
 msgid "Role: "
 msgstr "பங்களிப்பு:"
 
-#: storage/exchange-storage.c:337
+#: ../storage/exchange-storage.c:338
 msgid "Connecting..."
 msgstr "இணைக்கிறது...."
 
-#: storage/main.c:166
+#: ../storage/main.c:183
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "மைக்ரோசாஃப்ட் எக்ஸேஞ்சுக்கான சேமியான் இணைப்பு"
 
-#: storage/xc-backend-view.c:299
-msgid "Account Name"
-msgstr "பயனீட்டாளர் பெயர்"
-
-#: storage/xc-commands.c:312
-msgid "Folder does not exist"
-msgstr "அடைவு ஏற்கெனவே இல்லை"
-
-#: storage/xc-commands.c:339
-#, c-format
-msgid "Could not add favorite: %s"
-msgstr "விருப்பங்களில் சேர்க்க முடியாது: %s"
-
-#: storage/xc-commands.c:355
-#, c-format
-msgid "Could not remove favorite: %s"
-msgstr "விருப்பங்களை நீக்க முடியாது: %s"
-
-#.
-#. FIXME: See 62440
-#. E_POPUP_ITEM (N_("_Move Folder..."),
-#. G_CALLBACK (do_move_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#. E_POPUP_ITEM (N_("_Copy Folder..."),
-#. G_CALLBACK (do_copy_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#.
-#: storage/xc-commands.c:381
-msgid "_Rename Folder..."
-msgstr "(_R)அடைவிற்கு மறுபெயரிடு..."
-
-#: storage/xc-commands.c:387
-msgid "_New Folder..."
-msgstr "(_N)புதிய அடைவு..."
-
-#: storage/xc-commands.c:390
-msgid "_Delete Folder"
-msgstr "(_D)அடைவை நீக்கு"
-
-#: storage/xc-commands.c:395
-msgid "_Add Other User's Folder..."
-msgstr "(_A)மற்ற பயனீடாளர் அடைவை சேர்..."
-
-#: storage/xc-commands.c:398
-msgid "_Remove Other User's Folder"
-msgstr "(_R)மற்ற பயனீட்டாளர் அடைவை நீக்கு"
-
-#: storage/xc-commands.c:404
-msgid "Add to _Favorites"
-msgstr "(_F)விருப்பங்களில் சேர்"
-
-#: storage/xc-commands.c:408
-msgid "Remove from Fa_vorites"
-msgstr "(_v)விருப்பங்களிலிருந்து நீக்கு"
-
-#: storage/xc-commands.c:415
-msgid "_Permissions..."
-msgstr "(_P)அனுமதிகள்..."
-
-#: storage/xc-commands.c:419
-msgid "_Show Folder Sizes"
-msgstr ""
-
-#: storage/ximian-connector-setup.c:44
+#: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
 msgstr "சேமியான் இணைப்பிக்கானா மைக்ரோசாஃப்ட் எக்ஸேஞ் அமைப்பு கருவி"
 
-#: storage/ximian-connector.xml.h:1
+#: ../storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
 msgstr "உங்கள் எக்ஸேஞ் சேவகன் கடவுச்சொல்லை மாற்றவும்"
 
-#: storage/ximian-connector.xml.h:2
-#, fuzzy
+#: ../storage/ximian-connector.xml.h:2
 msgid "Folder _Size"
-msgstr "(_t)அடைவின் வகை:"
+msgstr "( _S)அடைவின் அளவு:"
 
-#: storage/ximian-connector.xml.h:3
+#: ../storage/ximian-connector.xml.h:3
 msgid "Get the size of personal folders"
-msgstr ""
+msgstr "தனி அடைவில் அளவைப்பெறவும்"
 
-#: storage/ximian-connector.xml.h:4
+#: ../storage/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
 msgstr "(_O)மற்ற பயனீட்டாளர் அடைவிற்கு உறுப்பினராகு..."
 
-#: storage/ximian-connector.xml.h:5
+#: ../storage/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "சேவகனில் உள்ள மற்ற பயனீட்டாளரின் அடைவிற்கு சந்தாதாரராகு"
 
-#: storage/ximian-connector.xml.h:6
-msgid ""
-"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+#: ../storage/ximian-connector.xml.h:6
+msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr "\"மற்ற பயனீட்டாளரில் சந்தாதாரராகு\" அடைவின் உறுப்பினரை நீக்கு"
 
-#: storage/ximian-connector.xml.h:7
+#: ../storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
 msgstr "உங்கள் எக்ஸேஞ் நாள்காட்டி அமைப்பை பார் அல்லது மாற்று"
 
-#: storage/ximian-connector.xml.h:8
+#: ../storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr "அலுவலத்தில் இல்லை செய்தியின் தன்னியக்க பதிலை பார் அல்லது மாற்று"
 
-#: storage/ximian-connector.xml.h:9
+#: ../storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
 msgstr "(_C)எக்ஸேஞ் கடவுச்சொல்லை மாற்று..."
 
-#: storage/ximian-connector.xml.h:10
+#: ../storage/ximian-connector.xml.h:10
 msgid "_Delegation Assistant"
 msgstr "(_D)விருந்தினர் உதவி"
 
-#: storage/ximian-connector.xml.h:11
+#: ../storage/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
 msgstr "(_O)அலுவலத்தில் இல்லை உதவி"
 
-#: storage/ximian-connector.xml.h:12
+#: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "(_U)மற்ற அடைவிலிருந்து உறுப்பினர் நீக்கம் செய்"
 
-#~ msgid ""
-#~ "Could not authenticate to server.\n"
-#~ "\n"
-#~ "You may need to use Plaintext Password authentication.\n"
-#~ "\n"
-#~ "Or you might have just typed your password wrong.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "சேவனில் அனுமதிக்க முடியவில்லை\n"
-#~ "\n"
-#~ "வெற்று உரை கடவுச்சொல்லை பயன்படுத்த முடியவில்லை\n"
-#~ "\n"
-#~ "அல்லது தவறான கடவுச்சொல்லை பயன்படுத்தியுள்ளீர்கள் \n"
-#~ "\n"
-
-#~ msgid "Exc_hange Server:"
-#~ msgstr "(_h)மாற்றி சேவகன்:"
-
-#~ msgid "Exchange Server"
-#~ msgstr "மாற்றி சேவகன்:"
-
-#~ msgid "Mailbox name"
-#~ msgstr "மின்னஞ்சல் பெட்டியின் பெயர்"
-
-#~ msgid "OWA path"
-#~ msgstr "OWA பாதை"
-
-#~ msgid "Public Folder server"
-#~ msgstr "பொது அடைவு சேவகன்"
-
-#~ msgid "_Move Folder..."
-#~ msgstr "(_M)அடைவை நகர்த்து..."
-
-#~ msgid "_Copy Folder..."
-#~ msgstr "(_C)அடைவை படியெடு..."
