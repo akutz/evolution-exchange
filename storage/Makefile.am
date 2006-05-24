@@ -20,7 +20,7 @@ EVOLUTION_privlibexec_PROGRAMS =				\
 	evolution-exchange-storage
 
 noinst_PROGRAMS =						\
-	ximian-connector-setup					\
+	exchange-connector-setup				\
 	migr-test
 
 evolution_exchange_storage_SOURCES =				\
@@ -48,20 +48,20 @@ evolution_exchange_storage_LDADD =				\
 	$(LIBEXCHANGE_LIBS)
 
 
-ximian_connector_setup_SOURCES =				\
+exchange_connector_setup_SOURCES =				\
 	ximian-connector-setup.c				\
 	exchange-config-listener.c				\
 	exchange-config-listener.h				\
 	exchange-autoconfig-wizard.c
 
-ximian_connector_setup_LDADD =					\
+exchange_connector_setup_LDADD =				\
 	$(LDAP_LIBS)						\
 	$(EXCHANGE_STORAGE_LIBS)				\
 	$(LIBEXCHANGE_LIBS)
 
-install-exec-local: ximian-connector-setup
+install-exec-local: exchange-connector-setup
 	$(mkinstalldirs) $(DESTDIR)$(bindir)
-	$(LIBTOOL) --mode=install $(INSTALL_PROGRAM) ximian-connector-setup $(DESTDIR)$(bindir)/ximian-connector-setup-$(BASE_VERSION)
+	$(LIBTOOL) --mode=install $(INSTALL_PROGRAM) exchange-connector-setup $(DESTDIR)$(bindir)/exchange-connector-setup-$(BASE_VERSION)
 
 migr_test_SOURCES =						\
 	migr-test.c						\
