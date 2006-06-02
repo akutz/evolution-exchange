@@ -86,7 +86,14 @@ camel_stub_marshal_free (CamelStubMarshal *marshal)
 static gboolean
 do_read (CamelStubMarshal *marshal, char *buf, size_t len)
 {
-	if (camel_read (marshal->fd, buf, len) == -1) {
+	size_t n, nread = 0;
+	
+	do {
+		if ((n = camel_read (marshal->fd, buf + nread, len - nread)) > 0)
+			nread += n;
+	} while (n && nread < len && errno != EINTR);
+	
+	if (nread < len) {
 		close (marshal->fd);
 		marshal->fd = -1;
 		return FALSE;

@@ -1,3 +1,11 @@
+2006-06-02  Jeffrey Stedfast  <fejj@novell.com>
+
+	* camel/camel-stub-marshal.c (do_read): Patch to my last
+	patch. Oops, camel_read() doesn't guarantee that it will read 'n'
+	requested bytes (as camel_write() guarantees that it will write
+	'n' bytes), it is just a cancellable read() implementation. This
+	should fix bug #179566.
+
 2006-05-29  Sushma Rai  <rsushma@novell.com>
 
 	* configure.in : Bumped the version to 2.6.2
