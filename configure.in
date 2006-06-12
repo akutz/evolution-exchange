@@ -213,12 +213,18 @@ dnl *********************
 dnl OpenLDAP NTLM support
 dnl *********************
 if test "$os_win32" != yes; then
-EVO_LDAP_CHECK(yes)
+EVO_LDAP_CHECK(no)
 case $with_openldap in
 no)
-	AC_ERROR(LDAP support is required for Connector)
+	EVO_SUNLDAP_CHECK(no)
+	case $with_sunldap in
+	no)
+		AC_ERROR(LDAP support is required for Connector)
+	;;
+	esac
 	;;
 esac
+AM_CONDITIONAL(SUNLDAP, test "$with_sunldap" != no)
 
 SAVE_CFLAGS="$CFLAGS"
 SAVE_LIBS="$LIBS"
