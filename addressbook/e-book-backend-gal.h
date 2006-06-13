@@ -7,12 +7,6 @@
 #include "libedata-book/e-book-backend.h"
 #include "exchange-component.h"
 
-#ifdef SUNLDAP
-/*   copy from openldap ldap.h   */
-#define LDAP_RANGE(n,x,y)      (((x) <= (n)) && ((n) <= (y)))
-#define LDAP_NAME_ERROR(n)     LDAP_RANGE((n), 0x20, 0x24)
-#endif
-
 typedef struct _EBookBackendGALPrivate EBookBackendGALPrivate;
 
 typedef struct {
