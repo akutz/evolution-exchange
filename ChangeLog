@@ -1,3 +1,9 @@
+2006-06-15  Jeffrey Stedfast  <fejj@novell.com>
+
+	* camel/camel-stub-marshal.c (do_read): Changed 'n' to be of type
+	ssize_t rather than size_t so that we can properly catch '-1'
+	return values. Still for bug #179566.
+
 2006-06-13  Sankar P  <psankar@novell.com>
 
 	* Reverting the previous patch. As the LDAP support checking
