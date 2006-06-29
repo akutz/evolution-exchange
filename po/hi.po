@@ -2,14 +2,14 @@
 # translation of hi.po to Hindi
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Rajesh Ranjan <rranjan@redhat.com>, 2005.
+# Rajesh Ranjan <rranjan@redhat.com>, 2005, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD.hi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-02 06:03+0000\n"
-"PO-Revision-Date: 2005-08-02 14:18+0530\n"
+"POT-Creation-Date: 2006-06-29 06:57+0200\n"
+"PO-Revision-Date: 2006-06-29 12:24+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -19,8 +19,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
 "\n"
 "\n"
+"\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1837
+#: ../addressbook/e-book-backend-exchange.c:1869
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "ढूंढ रहे..."
@@ -37,7 +38,7 @@ msgstr "LDAP खोज परिणाम प्राप्त किया ज
 msgid "Error performing search"
 msgstr "खोज के दौरान त्रुटि"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1665
+#: ../calendar/e-cal-backend-exchange-calendar.c:2004
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -46,60 +47,57 @@ msgstr ""
 "संसाधन '%s' को पुनरावर्तित बैठक के लिये निर्धारित करने में असमर्थ.\n"
 "आप हर बैठक को अलग से निर्धारित करें."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1684
+#: ../calendar/e-cal-backend-exchange-calendar.c:2022
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "संसाधन '%s' चयनित समय काल में व्यस्त."
 
-#: ../calendar/e-cal-backend-exchange.c:310
-msgid "Folder not marked for offline support"
-msgstr "फ़ोल्डर ऑफ़लाइन समर्थन के लिये चिह्नित नहीं"
+#: ../camel/camel-exchange-folder.c:222
+#, fuzzy
+msgid "You cannot expunge in offline mode."
+msgstr "ऑफ़लाइन मोड में फ़ोल्डर नहीं बना सकता."
 
-#: ../camel/camel-exchange-folder.c:223
-msgid "Can only expunge in Deleted Items folder"
-msgstr "विलोपित मद फ़ोल्डर में सिर्फ खत्म कर सकता है"
-
-#: ../camel/camel-exchange-folder.c:247
+#: ../camel/camel-exchange-folder.c:253
 msgid "No Subject"
 msgstr "कोई विषय नहीं"
 
-#: ../camel/camel-exchange-folder.c:374
+#: ../camel/camel-exchange-folder.c:407
 msgid "This message is not available in offline mode."
 msgstr "ऑफ़लाइन में संदेश उपलब्ध नहीं है."
 
-#: ../camel/camel-exchange-folder.c:609
+#: ../camel/camel-exchange-folder.c:642
 msgid "Moving messages"
 msgstr "संदेश प्रतिस्थापित कर रहा है"
 
-#: ../camel/camel-exchange-folder.c:610
+#: ../camel/camel-exchange-folder.c:643
 msgid "Copying messages"
 msgstr "संदेश कापी कर रहा है"
 
-#: ../camel/camel-exchange-folder.c:940
+#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "%s डायरेक्टरी निर्मित नहीं कर सका: %s"
 
-#: ../camel/camel-exchange-folder.c:950
+#: ../camel/camel-exchange-folder.c:1024
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "%s के लिये सारांश अधिभारित नहीं कर सका"
 
-#: ../camel/camel-exchange-folder.c:958
+#: ../camel/camel-exchange-folder.c:1032
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "%s के लिये कैश बना नहीं सका"
 
-#: ../camel/camel-exchange-folder.c:968
+#: ../camel/camel-exchange-folder.c:1042
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "%s के लिये जर्नेल बना नहीं सका"
 
-#: ../camel/camel-exchange-folder.c:1013
+#: ../camel/camel-exchange-folder.c:1087
 msgid "Scanning for changed messages"
 msgstr "परिवर्तित संदेश के लिये स्कैनिंग"
 
-#: ../camel/camel-exchange-folder.c:1039
+#: ../camel/camel-exchange-folder.c:1113
 msgid "Fetching summary information for new messages"
 msgstr "नए संदेश के लिये सारांश सूचना ला रहा है"
 
@@ -107,9 +105,10 @@ msgstr "नए संदेश के लिये सारांश सूच�
 msgid "No folder name found\n"
 msgstr "कोई फोल्डर नाम नहीं मिला\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2420
-#: ../mail/mail-stub-exchange.c:2462 ../mail/mail-stub-exchange.c:2491
-#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2566
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
+#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
+#: ../mail/mail-stub-exchange.c:2730
 msgid "Folder doesn't exist"
 msgstr "फ़ोल्डर मौजूद नहीं है"
 
@@ -137,12 +136,13 @@ msgstr "वैश्विक पता सूची / सक्रिय डि
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
 #: ../camel/camel-exchange-provider.c:53
-msgid "Global Catalog server name:"
+#, fuzzy
+msgid "_Global Catalog server name:"
 msgstr "वैश्विक कैटालॉग सर्वर नाम:"
 
 #: ../camel/camel-exchange-provider.c:55
-#, c-format
-msgid "Limit number of GAL responses: %s"
+#, fuzzy, c-format
+msgid "_Limit number of GAL responses: %s"
 msgstr "GAL अनुक्रिया की सीमित संख्या: %s"
 
 #: ../camel/camel-exchange-provider.c:58
@@ -150,97 +150,114 @@ msgid "Options"
 msgstr "विकल्प"
 
 #: ../camel/camel-exchange-provider.c:60
-#, c-format
-msgid "Password Expiry Warning period: %s"
+#, fuzzy, c-format
+msgid "_Password Expiry Warning period: %s"
 msgstr "शब्दकूट समाप्ति चेतावनी काल: %s"
 
 #: ../camel/camel-exchange-provider.c:62
-msgid "Automatically synchronize account locally"
+#, fuzzy
+msgid "Automatically synchroni_ze account locally"
 msgstr "स्वचालित तुल्यकालन खाता स्थानीय रूप से"
 
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:65
-msgid "Apply filters to new messages in Inbox on this server"
+#, fuzzy
+msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "इस सर्वर पर इनबाक्स में नए संदेश के लिए निस्पंदक चलाएं"
 
 #: ../camel/camel-exchange-provider.c:67
-msgid "Check new messages for Junk contents"
-msgstr "नये संदेश को जंक अंतर्वस्तु के लिये जांचें"
+#, fuzzy
+msgid "Check new messages for _Junk contents"
+msgstr "नये संदेश को जंक अंतर्वस्तु के लिये जांचें (_J)"
 
 #: ../camel/camel-exchange-provider.c:69
-msgid "Only check for Junk messages in the Inbox folder"
+#, fuzzy
+msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "इनबॉक्स फ़ोल्डर में जंक संदेश के लिये जांचें"
 
-#: ../camel/camel-exchange-provider.c:76
+#: ../camel/camel-exchange-provider.c:79
 msgid "Microsoft Exchange"
 msgstr "माइक्रोसाफ्ट एक्सेंज"
 
-#: ../camel/camel-exchange-provider.c:78
+#: ../camel/camel-exchange-provider.c:81
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "माइक्रोसाफ्ट एक्सेंज पर डाक नियंत्रण (और अन्य डाटा) के लिये"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:94
+#: ../camel/camel-exchange-provider.c:97
 msgid "Secure Password"
 msgstr "सुरक्षित शब्दकूट"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:100
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
 msgstr "यह विकल्प विनिमय सर्वर से सुरक्षित शब्दकूट (NTLM) प्रमाणन के प्रयोग से जुड़ेग."
 
-#: ../camel/camel-exchange-provider.c:105
+#: ../camel/camel-exchange-provider.c:108
 msgid "Plaintext Password"
 msgstr "सादापाठ शब्दकूट"
 
-#: ../camel/camel-exchange-provider.c:107
+#: ../camel/camel-exchange-provider.c:110
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
 msgstr "यह विकल्प विनिमय सर्वर से मानक सादापाठ शब्दकूट सत्यापन के प्रयोग से जुड़ेग."
 
-#: ../camel/camel-exchange-store.c:281
+#: ../camel/camel-exchange-store.c:308
 #, c-format
 msgid "Exchange server %s"
 msgstr "एक्जेंज सर्वर %s"
 
-#: ../camel/camel-exchange-store.c:284
+#: ../camel/camel-exchange-store.c:311
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "%s के लिये एक्जेंज खता %s पर"
 
-#: ../camel/camel-exchange-store.c:334
+#: ../camel/camel-exchange-store.c:352
+#, c-format
+msgid "%sEnter password for %s"
+msgstr "%sEnter password for %s"
+
+#: ../camel/camel-exchange-store.c:403
 msgid "Evolution Exchange backend process"
 msgstr "एवॉल्यूशन लेनदेन बैकेंड प्रक्रिया"
 
-#: ../camel/camel-exchange-store.c:382
+#: ../camel/camel-exchange-store.c:444
+msgid ""
+"Could not authenticate to server. (Password incorrect?)\n"
+"\n"
+msgstr ""
+"सर्वर में प्रमाणित नहीं कर सकता. (शब्दकूट गलत?)\n"
+"\n"
+
+#: ../camel/camel-exchange-store.c:486
 #, c-format
 msgid "No such folder %s"
 msgstr "ऐसा कोई %s फोल्डर नहीं"
 
-#: ../camel/camel-exchange-store.c:451
+#: ../camel/camel-exchange-store.c:563
 msgid "Cannot subscribe folder in offline mode."
 msgstr "ऑफ़लाइन मोड में फ़ोल्डर सदस्यता नहीं ले सकता."
 
-#: ../camel/camel-exchange-store.c:468
+#: ../camel/camel-exchange-store.c:580
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "ऑफ़लाइन मोड में फ़ोल्डर सदस्यता वापस नहीं ले सकता."
 
-#: ../camel/camel-exchange-store.c:574
+#: ../camel/camel-exchange-store.c:695
 msgid "Cannot get folder info in offline mode."
 msgstr "ऑफ़लाइन मोड में फ़ोल्डर सूचना नहीं ले सकता."
 
-#: ../camel/camel-exchange-store.c:655
+#: ../camel/camel-exchange-store.c:766
 msgid "Cannot create folder in offline mode."
 msgstr "ऑफ़लाइन मोड में फ़ोल्डर नहीं बना सकता."
 
-#: ../camel/camel-exchange-store.c:682
+#: ../camel/camel-exchange-store.c:793
 msgid "Cannot delete folder in offline mode."
 msgstr "ऑफ़लाइन मोड में फ़ोल्डर नहीं मिटा सकता."
 
-#: ../camel/camel-exchange-store.c:698
+#: ../camel/camel-exchange-store.c:809
 msgid "Cannot rename folder in offline mode."
 msgstr "ऑफ़लाइन मोड में फ़ोल्डर नहीं बना सकता."
 
@@ -256,37 +273,153 @@ msgstr "संदेश नहीं भेज सकता है: एक य�
 msgid "Could not find 'From' address in message"
 msgstr "'प्रेषक' पता संदेश में नहीं पा सकता"
 
-#: ../camel/camel-stub.c:134
+#: ../camel/camel-stub.c:152
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "सॉकेट नहीं बना सका: %s"
 
-#: ../camel/camel-stub.c:149
+#: ../camel/camel-stub.c:167
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "%s में जुड़ नहीं सका: %s"
 
-#: ../camel/camel-stub.c:179
+#: ../camel/camel-stub.c:197
 #, c-format
 msgid "Path too long: %s"
 msgstr "पथ काफी लंबा है: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:223
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "प्रस्थिति थ्रेड नहीं शुरू कर सका: %s"
 
-#: ../camel/camel-stub.c:457
+#: ../camel/camel-stub.c:477
 #, c-format
 msgid "Lost connection to %s"
 msgstr "%s में संबंधन खोया"
 
-#: ../camel/camel-stub.c:461
+#: ../camel/camel-stub.c:481
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "%s के साथ में त्रुटि: %s"
 
-#: ../lib/e2k-autoconfig.c:1471 ../storage/exchange-autoconfig-wizard.c:211
+#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
+msgid "No such folder"
+msgstr "ऐसा नहीं है कोई फ़ोल्डर"
+
+#. FIXME: should be this, but string freeze freezes me to do so.
+#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
+#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
+#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
+#: ../mail/mail-stub-exchange.c:2745
+msgid "Permission denied"
+msgstr "अनुमति निषेधित"
+
+#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
+msgid "Could not open folder: Permission denied"
+msgstr "फ़ोल्डर नहीं खोल सका: अनुमति नहीं है"
+
+#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
+msgid "Could not open folder"
+msgstr "फ़ोल्डर नहीं खोल सका."
+
+#: ../mail/mail-stub-exchange.c:764
+msgid "Could not create folder."
+msgstr "फ़ोल्डर नहीं बना सका."
+
+#: ../mail/mail-stub-exchange.c:844
+msgid "Could not open Deleted Items folder"
+msgstr "विलोपित वस्तुएँ फ़ोल्डर खोल नहीं सका"
+
+#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
+msgid "Could not get new messages"
+msgstr "नया संदेश नहीं पा सका"
+
+#: ../mail/mail-stub-exchange.c:1386
+msgid "Could not empty Deleted Items folder"
+msgstr "विलोपित वस्तुएँ फ़ोल्डर खाली नहीं कर सका"
+
+#: ../mail/mail-stub-exchange.c:1463
+msgid "Could not append message; mailbox is over quota"
+msgstr "संदेश में जोड़ नहीं सका; मेलबॉक्स कोटा से ऊपर है"
+
+#: ../mail/mail-stub-exchange.c:1464
+msgid "Could not append message"
+msgstr "संदेश नहीं जोड़ सका"
+
+#: ../mail/mail-stub-exchange.c:2016
+msgid "No such message"
+msgstr "ऐसा कोई संदेश नहीं"
+
+#: ../mail/mail-stub-exchange.c:2069
+msgid "Message has been deleted"
+msgstr "संदेश मिटाया जा रहा है"
+
+#: ../mail/mail-stub-exchange.c:2071
+msgid "Error retrieving message"
+msgstr "संदेश पाने में त्रुटि"
+
+#: ../mail/mail-stub-exchange.c:2113
+msgid "Mailbox does not support full-text searching"
+msgstr "पूर्ण पाठ खोज को मेलबॉक्स समर्थन नहीं करता"
+
+#: ../mail/mail-stub-exchange.c:2211
+msgid "Unable to move/copy messages"
+msgstr "संदेश खिसकाने/कॉपी करने में असमर्थ"
+
+#: ../mail/mail-stub-exchange.c:2441
+msgid "No mail submission URI for this mailbox"
+msgstr "मेलबॉक्स के लिये कोई डाक जमा यूआरआई नहीं"
+
+#: ../mail/mail-stub-exchange.c:2477
+msgid "Server won't accept mail via Exchange transport"
+msgstr "सर्वर एक्जेंज परिवहन के द्वारा मेल स्वीकार नहीं कर सकता"
+
+#: ../mail/mail-stub-exchange.c:2479
+#, c-format
+msgid ""
+"Your account does not have permission to use <%s>\n"
+"as a From address."
+msgstr ""
+"आपके खाता को <%s> के प्रयोग की \n"
+"एक प्रेषक पता के रूप में उपयोग की अनुमति नहीं है."
+
+#: ../mail/mail-stub-exchange.c:2491
+msgid ""
+"Could not send message.\n"
+"This might mean that your account is over quota."
+msgstr ""
+"संदेश नहीं भेज सका.\n"
+"इसका मतलब हो सकता है कि आपका खाता आरक्षित जगह से ज्यादा का उपयोग कर रहा है."
+
+#: ../mail/mail-stub-exchange.c:2495
+msgid "Could not send message"
+msgstr "संदेश नहीं भेज सका"
+
+#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
+#: ../mail/mail-stub-exchange.c:2751
+msgid "Generic error"
+msgstr "ज़ेनेरिक त्रुटि"
+
+#: ../mail/mail-stub-exchange.c:2522
+msgid "Folder already exists"
+msgstr "फोल्डर पहले से उपस्थित है"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
+msgid "Evolution Addressbook Exchange backend"
+msgstr "एवॉल्यूशन पता-पुस्तिका एक्जेंज बैकेंड"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
+msgid "Evolution Calendar Exchange backend"
+msgstr "एवॉल्यूशन कैलेन्डर एक्जेंज बैकेंड"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+msgid "Ximian Connector for Exchange"
+msgstr "एक्जेंज के लिये ज़िमिआन कनेक्टर "
+
+#: ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -295,7 +428,7 @@ msgstr ""
 "विनिमय सर्वर से जुड़ नहीं सकेगा.\n"
 "सुनिश्चिक करें कि URL ठीक है (\"%s\" को \"%s\" के बजाय प्रयोग करें?) और फिर कोशिश करें."
 
-#: ../lib/e2k-autoconfig.c:1480 ../storage/exchange-autoconfig-wizard.c:219
+#: ../storage/exchange-autoconfig-wizard.c:219
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -303,7 +436,7 @@ msgstr ""
 "विनिमय सर्वर नहीं पा सका.\n"
 "निश्चित करें कि सर्वर नाम की वर्तनी ठीक है औऱ फिर कोशिश करें."
 
-#: ../lib/e2k-autoconfig.c:1490 ../storage/exchange-autoconfig-wizard.c:228
+#: ../storage/exchange-autoconfig-wizard.c:228
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -311,7 +444,7 @@ msgstr ""
 "विनिमय सर्वर सत्यापित नहीं कर सका.\n"
 "निश्चित करें कि उपयोक्तानाम व शब्दकूट ठीक है औऱ फिर कोशिश करें."
 
-#: ../lib/e2k-autoconfig.c:1498 ../storage/exchange-autoconfig-wizard.c:235
+#: ../storage/exchange-autoconfig-wizard.c:235
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -323,613 +456,16 @@ msgstr ""
 "Exchange सर्वर में सत्यापित नहीं कर सका.\n"
 "निश्चित करें कि उपयोक्तानाम व शब्दकूट सही हैं और फिर कोशिश करें.\n"
 "\n"
-"आपको विंडोज डोमेन नाम को निर्दिष्ट करने की जरूरत पड़ेगी अपने उपयोक्तानाम के हिस्से के रूप में (उदा, \"MY-DOMAIN\\%s\")."
+"आपको विंडोज डोमेन नाम को निर्दिष्ट करने की जरूरत पड़ेगी अपने उपयोक्तानाम के हिस्से के रूप में "
+"(उदा, \"MY-DOMAIN\\%s\")."
 
-#: ../lib/e2k-autoconfig.c:1511 ../storage/exchange-autoconfig-wizard.c:247
+#: ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 msgstr ""
 "OWA आंकडे को इंगित URL पर नहीं पा सका.\n"
 "निश्चित करें कि URL ठीक है औऱ फिर कोशिश करें."
-
-#: ../lib/e2k-autoconfig.c:1520
-#, c-format
-msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
-"\n"
-"For information to provide to your Exchange administrator, please follow the "
-"link below:\n"
-"%s"
-msgstr ""
-"Ximian Connector को Exchange "
-"Server पर कुछ प्रकार्यात्मकता की जरूरत है जो कि लगता है कि निष्क्रिय है या अवरूद्ध है.  (यह प्रायः बिना किसी खास उद्देश्य के है.)  आपका Exchange प्रशासक को इसे सक्रिय करने की जरूरत होगी आपके लिये Ximian Connector को प्रयोग करने के उद्देश्य से.\n"
-"\n"
-"आपके Exchange प्रशासक को सूचना देने के लिये, कृपया नीचे का लिंक का अनुसरण करें:\n"
-"%s"
-
-#: ../lib/e2k-autoconfig.c:1536 ../storage/exchange-autoconfig-wizard.c:275
-msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"आपके द्वारा प्रदत्त Exchange सर्वर Exchange 5.5 सर्वर के लिये है. Ximian "
-"Connector Microsoft Exchange 2000 और 2003 को सिर्फ समर्थन करता है."
-
-#: ../lib/e2k-autoconfig.c:1545 ../storage/exchange-autoconfig-wizard.c:288
-msgid ""
-"Could not configure Exchange account because an unknown error occurred. "
-"Check the URL, username, and password, and try again."
-msgstr ""
-"विनिमय खाता नहीं विन्यस्त कर सका क्योंकि एक अनजान गलती हुई. URL , उपयोक्तानाम, और "
-"शब्दकूट जांचें और फिर कोशिश करें."
-
-#: ../lib/e2k-autoconfig.c:1567
-#, c-format
-msgid "Enter password for %s"
-msgstr "%s के लिये शब्दकूट डालें"
-
-#: ../lib/e2k-autoconfig.c:1568 ../storage/exchange-account.c:874
-msgid "Enter password"
-msgstr "शब्दकूट दाखिल करें"
-
-#. i18n: These are Outlook's words for the default roles in
-#. the folder permissions dialog.
-#: ../lib/e2k-security-descriptor.c:847
-msgid "Owner"
-msgstr "मालिक"
-
-#: ../lib/e2k-security-descriptor.c:857
-msgid "Publishing Editor"
-msgstr "प्रकाशक संपादक"
-
-#: ../lib/e2k-security-descriptor.c:865
-msgid "Editor"
-msgstr "संपादक"
-
-#: ../lib/e2k-security-descriptor.c:872
-msgid "Publishing Author"
-msgstr "प्रकाशक लेखक"
-
-#: ../lib/e2k-security-descriptor.c:878
-msgid "Author"
-msgstr "लेखक"
-
-#: ../lib/e2k-security-descriptor.c:883
-msgid "Non-editing Author"
-msgstr "गैर संपादन लेखक"
-
-#: ../lib/e2k-security-descriptor.c:887
-msgid "Reviewer"
-msgstr "समीक्षक"
-
-#: ../lib/e2k-security-descriptor.c:889
-msgid "Contributor"
-msgstr "सहयोगी"
-
-#: ../lib/e2k-security-descriptor.c:891
-#: ../storage/exchange-delegates.glade.h:7
-msgid "None"
-msgstr "कुछ नहीं"
-
-#: ../lib/e2k-security-descriptor.c:906
-#: ../storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "मनपसंद"
-
-#: ../lib/e2k-user-dialog.c:144
-msgid "Select User"
-msgstr "उपयोक्ता चुनें"
-
-#: ../lib/e2k-user-dialog.c:182
-msgid "Addressbook..."
-msgstr "पता-पुस्तिका..."
-
-#: ../mail/mail-stub-exchange.c:256
-msgid "No such folder"
-msgstr "ऐसा नहीं है कोई फ़ोल्डर"
-
-#: ../mail/mail-stub-exchange.c:273 ../mail/mail-stub-exchange.c:2397
-#: ../mail/mail-stub-exchange.c:2435 ../mail/mail-stub-exchange.c:2495
-#: ../mail/mail-stub-exchange.c:2539 ../mail/mail-stub-exchange.c:2587
-#: ../shell/e-storage.c:573 ../storage/xc-commands.c:319
-msgid "Permission denied"
-msgstr "अनुमति निषेधित"
-
-#: ../mail/mail-stub-exchange.c:572
-msgid "No such folder."
-msgstr "कोई फ़ोल्डर ऐसा नहीं."
-
-#: ../mail/mail-stub-exchange.c:581
-msgid "Could not create folder."
-msgstr "फ़ोल्डर नहीं बना सका."
-
-#: ../mail/mail-stub-exchange.c:629 ../mail/mail-stub-exchange.c:647
-#: ../mail/mail-stub-exchange.c:2717 ../mail/mail-stub-exchange.c:2735
-msgid "Could not open folder: Permission denied"
-msgstr "फ़ोल्डर नहीं खोल सका: अनुमति नहीं है"
-
-#: ../mail/mail-stub-exchange.c:633 ../mail/mail-stub-exchange.c:746
-#: ../mail/mail-stub-exchange.c:2721
-msgid "Could not open folder"
-msgstr "फ़ोल्डर नहीं खोल सका."
-
-#: ../mail/mail-stub-exchange.c:801
-msgid "Could not open Deleted Items folder"
-msgstr "विलोपित वस्तुएँ फ़ोल्डर खोल नहीं सका"
-
-#: ../mail/mail-stub-exchange.c:1130 ../mail/mail-stub-exchange.c:1171
-msgid "Could not get new messages"
-msgstr "नया संदेश नहीं पा सका"
-
-#: ../mail/mail-stub-exchange.c:1336
-msgid "Could not empty Deleted Items folder"
-msgstr "विलोपित वस्तुएँ फ़ोल्डर खाली नहीं कर सका"
-
-#: ../mail/mail-stub-exchange.c:1408
-msgid "Could not append message; mailbox is over quota"
-msgstr "संदेश में जोड़ नहीं सका; मेलबॉक्स कोटा से ऊपर है"
-
-#: ../mail/mail-stub-exchange.c:1409
-msgid "Could not append message"
-msgstr "संदेश नहीं जोड़ सका"
-
-#: ../mail/mail-stub-exchange.c:1919
-msgid "No such message"
-msgstr "ऐसा कोई संदेश नहीं"
-
-#: ../mail/mail-stub-exchange.c:1972
-msgid "Message has been deleted"
-msgstr "संदेश मिटाया जा रहा है"
-
-#: ../mail/mail-stub-exchange.c:1974
-msgid "Error retrieving message"
-msgstr "संदेश पाने में त्रुटि"
-
-#: ../mail/mail-stub-exchange.c:2016
-msgid "Mailbox does not support full-text searching"
-msgstr "पूर्ण पाठ खोज को मेलबॉक्स समर्थन नहीं करता"
-
-#: ../mail/mail-stub-exchange.c:2114
-msgid "Unable to move/copy messages"
-msgstr "संदेश खिसकाने/कॉपी करने में असमर्थ"
-
-#: ../mail/mail-stub-exchange.c:2312
-msgid "No mail submission URI for this mailbox"
-msgstr "मेलबॉक्स के लिये कोई डाक जमा यूआरआई नहीं"
-
-#: ../mail/mail-stub-exchange.c:2348
-msgid "Server won't accept mail via Exchange transport"
-msgstr "सर्वर एक्जेंज परिवहन के द्वारा मेल स्वीकार नहीं कर सकता"
-
-#: ../mail/mail-stub-exchange.c:2350
-#, c-format
-msgid ""
-"Your account does not have permission to use <%s>\n"
-"as a From address."
-msgstr ""
-"आपके खाता को <%s> के प्रयोग की \n"
-"एक प्रेषक पता के रूप में उपयोग की अनुमति नहीं है."
-
-#: ../mail/mail-stub-exchange.c:2362
-msgid ""
-"Could not send message.\n"
-"This might mean that your account is over quota."
-msgstr ""
-"संदेश नहीं भेज सका.\n"
-"इसका मतलब हो सकता है कि आपका खाता आरक्षित जगह से ज्यादा का उपयोग कर रहा है."
-
-#: ../mail/mail-stub-exchange.c:2366
-msgid "Could not send message"
-msgstr "संदेश नहीं भेज सका"
-
-#: ../mail/mail-stub-exchange.c:2389 ../mail/mail-stub-exchange.c:2440
-#: ../mail/mail-stub-exchange.c:2499 ../mail/mail-stub-exchange.c:2544
-#: ../mail/mail-stub-exchange.c:2592 ../shell/e-storage.c:557
-#: ../storage/xc-commands.c:323
-msgid "Generic error"
-msgstr "ज़ेनेरिक त्रुटि"
-
-#: ../mail/mail-stub-exchange.c:2393 ../storage/xc-commands.c:313
-msgid "Folder already exists"
-msgstr "फोल्डर पहले से उपस्थित है"
-
-#: ../shell/e-folder-creation-dialog.c:138
-#, c-format
-msgid ""
-"Cannot create the specified folder:\n"
-"%s"
-msgstr ""
-"निर्दिष्ट फोल्डर बना नहीं सकता:\n"
-"%s"
-
-#: ../shell/e-folder-creation-dialog.c:179
-#, c-format
-msgid "The specified folder name is not valid: %s"
-msgstr "निर्दिष्ट फोल्डर नाम मान्य नहीं है: %s"
-
-#: ../shell/e-folder-creation-dialog.c:310
-msgid "Create New Folder"
-msgstr "नया फोल्डर बनाएं"
-
-#: ../shell/e-folder-creation-dialog.glade.h:1
-#: ../storage/exchange-autoconfig-wizard.glade.h:1
-#: ../storage/exchange-change-password.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ../shell/e-folder-creation-dialog.glade.h:2
-msgid "Folder _name:"
-msgstr "फोल्डर नाम (_n):"
-
-#: ../shell/e-folder-creation-dialog.glade.h:3
-msgid "Folder _type:"
-msgstr "फ़ोल्डर प्रकार (_t):"
-
-#: ../shell/e-folder-creation-dialog.glade.h:4
-msgid "Specify where to create the folder:"
-msgstr "निर्दिष्ट करें कि कहां फोल्डर बनाना है:"
-
-#: ../shell/e-folder-dnd-bridge.c:52
-#, c-format
-msgid ""
-"Cannot transfer folder:\n"
-"%s"
-msgstr ""
-"फोल्डर स्थानांतरित नहीं कर सकता:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:62
-#, c-format
-msgid ""
-"Cannot delete folder:\n"
-"%s"
-msgstr ""
-"फोल्डर मिटा नहीं सकता:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:115
-#, c-format
-msgid "Really delete folder \"%s\"?"
-msgstr "क्या वास्तव में \"%s\" फोल्डर मिटाना चाहते हैं?"
-
-#: ../shell/e-folder-misc-dialogs.c:129
-#, c-format
-msgid "Delete \"%s\""
-msgstr "मिटायें \"%s\""
-
-#: ../shell/e-folder-misc-dialogs.c:154
-#, c-format
-msgid ""
-"Cannot rename folder:\n"
-"%s"
-msgstr ""
-"फोल्डर का नाम नहीं बदल सकता:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:188
-#, c-format
-msgid "Rename the \"%s\" folder to:"
-msgstr "\"%s\" फोल्डर का पुनर्नामकरण ऐसे करें:"
-
-#: ../shell/e-folder-misc-dialogs.c:191
-msgid "Rename Folder"
-msgstr "फोल्डर का पुनर्नामकरण करें"
-
-#: ../shell/e-folder-misc-dialogs.c:205
-#, c-format
-msgid "A folder named \"%s\" already exists. Please use a different name."
-msgstr "\"%s\" नाम का फोल्डर पहले से मौजूद है. कृपया एक अलग नाम प्रयोग करें."
-
-#. It would be nice to insensitivize the OK button appropriately
-#. instead of doing this, but unfortunately we can't do this for the
-#. Bonobo control.
-#: ../shell/e-folder-misc-dialogs.c:451
-msgid "Please select a user."
-msgstr "कृपया एक उपयोक्ता चुनें"
-
-#: ../shell/e-folder-misc-dialogs.c:553
-msgid "Opening Folder"
-msgstr "फ़ोल्डर खोल रहा है"
-
-#: ../shell/e-folder-misc-dialogs.c:559
-#, c-format
-msgid "Opening Folder \"%s\""
-msgstr "\"%s\" फ़ोल्डर खोल रहा है"
-
-#: ../shell/e-folder-misc-dialogs.c:564
-#, c-format
-msgid "in \"%s\" ..."
-msgstr "में \"%s\" ..."
-
-#: ../shell/e-folder-misc-dialogs.c:631
-#, c-format
-msgid "Could not open other user's folder: %s."
-msgstr "अन्य उपयोक्ता फोल्डर को खोल नहीं सका: %s."
-
-#: ../shell/e-folder-misc-dialogs.c:681
-msgid "Cannot find the specified other user's folder."
-msgstr "अन्य उपयोक्ता फोल्डर को निर्दिष्ट नहीं सक सका."
-
-#: ../shell/e-folder-misc-dialogs.c:713
-#, c-format
-msgid ""
-"Cannot unsubscribe from folder:\n"
-"%s"
-msgstr ""
-"फोल्डर से सदस्यता वापस न लें:\n"
-"%s"
-
-#: ../shell/e-folder-misc-dialogs.c:766
-#, c-format
-msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "\"%s\" से वास्तव में सदस्यता वापस लेना चाहते हैं?"
-
-#: ../shell/e-folder-misc-dialogs.c:780
-#, c-format
-msgid "Unsubscribe from \"%s\""
-msgstr "\"%s\" सदस्यता त्यागें"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:1
-msgid "Open Other User's Folder"
-msgstr "अन्य उपयोक्ता फ़ोल्डर खोलें "
-
-#: ../shell/e-foreign-folder-dialog.glade.h:2
-msgid "_Account:"
-msgstr "खाता (_A):"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:3
-msgid "_Folder Name:"
-msgstr "फ़ोल्डर नाम (_F):"
-
-#: ../shell/e-foreign-folder-dialog.glade.h:4
-msgid "_User:"
-msgstr "उपयोगकर्ता (_U):S"
-
-#: ../shell/e-storage-set-view.etspec.h:1
-msgid "Checkbox"
-msgstr "चेकबॉक्स"
-
-#: ../shell/e-storage-set-view.etspec.h:2
-msgid "Folder"
-msgstr "फ़ोल्डर"
-
-#: ../shell/e-storage.c:555
-msgid "No error"
-msgstr "कोई गलती नहीं"
-
-#: ../shell/e-storage.c:559
-msgid "A folder with the same name already exists"
-msgstr "एक फ़ोल्डर समान नाम से पहले उपस्थित है"
-
-#: ../shell/e-storage.c:561
-msgid "The specified folder type is not valid"
-msgstr "निर्दिष्ट फ़ोल्डर प्रकार उपलब्ध नहीं है"
-
-#: ../shell/e-storage.c:563
-msgid "I/O error"
-msgstr "I/O त्रुटि"
-
-#: ../shell/e-storage.c:565
-msgid "Not enough space to create the folder"
-msgstr "फ़ोल्डर बनाने के लिये पर्याप्त स्थान नहीं"
-
-#: ../shell/e-storage.c:567
-msgid "The folder is not empty"
-msgstr "फ़ोल्डर खाली नहीं है"
-
-#: ../shell/e-storage.c:569
-msgid "The specified folder was not found"
-msgstr "निर्दिष्ट फ़ोल्डर नहीं मिला"
-
-#: ../shell/e-storage.c:571
-msgid "Function not implemented in this storage"
-msgstr "फंक्शन इस भंडारण में नहीं लागू है"
-
-#: ../shell/e-storage.c:575
-msgid "Operation not supported"
-msgstr "ऑपरेशन समर्थित नहीं है"
-
-#: ../shell/e-storage.c:577
-msgid "The specified type is not supported in this storage"
-msgstr "निर्दिष्ट प्रकार इस भंडारण में समर्थित नहीं है"
-
-#: ../shell/e-storage.c:579
-msgid "The specified folder cannot be modified or removed"
-msgstr "निर्दिष्ट फ़ोल्डर परिवर्धित या हटाया नहीं जा सकता"
-
-#: ../shell/e-storage.c:581
-msgid "Cannot make a folder a child of one of its descendants"
-msgstr "इसके संतति के शिशु का फोल्डर नहीं बना सकता"
-
-#: ../shell/e-storage.c:583
-msgid "Cannot create a folder with that name"
-msgstr "एक फ़ोल्डर उस नाम से नहीं बना सकता"
-
-#: ../shell/e-storage.c:585
-msgid "This operation cannot be performed in off-line mode"
-msgstr "ऑफलाइन मोड में संक्रिया नहीं की जा सकती है"
-
-#: ../shell/e-storage.c:587 ../storage/exchange-account.c:1473
-msgid "Unknown error"
-msgstr "अज्ञात त्रुटि"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-msgid "*Control*F5"
-msgstr "*Control*F5"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
-msgid "Evolution Addressbook Exchange backend"
-msgstr "एवॉल्यूशन पता-पुस्तिका एक्जेंज बैकेंड"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Evolution Calendar Exchange backend"
-msgstr "एवॉल्यूशन कैलेन्डर एक्जेंज बैकेंड"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
-msgid "Evolution Exchange Component"
-msgstr "एवॉल्यूशन एक्जेंज घटक"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
-msgid "Exchange"
-msgstr "विनिमय"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
-msgid "Ximian Connector for Exchange"
-msgstr "एक्जेंज के लिये ज़िमिआन कनेक्टर "
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
-msgid "_Exchange"
-msgstr "एक्सचेंज (_E)"
-
-#. i18n: This is the title of an "other user's folders"
-#. hierarchy. Eg, "John Doe's Folders".
-#: ../storage/exchange-account.c:584
-#, c-format
-msgid "%s's Folders"
-msgstr "%s' का फोल्डर"
-
-#: ../storage/exchange-account.c:869
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%sEnter password for %s"
-
-#. email id is not proper, we return instead of trying nt_domain
-#: ../storage/exchange-account.c:1069
-msgid "Cannot change password due to configuration problems"
-msgstr "विन्यास समस्या के चलते शब्दकूट को नहीं बदल सकता है"
-
-#: ../storage/exchange-account.c:1092
-msgid ""
-"Server rejected password because it is too weak.\n"
-"Try again with a different password."
-msgstr ""
-"सर्वर ने शब्दकूट अस्वीकृत किया क्योंकि यह काफी कमजोर है.\n"
-"अलग शब्दकूट से फिर कोशिश करें."
-
-#: ../storage/exchange-account.c:1097
-msgid "Could not change password"
-msgstr "शब्दकूट नहीं बदल सका"
-
-#: ../storage/exchange-account.c:1190
-msgid "Personal Folders"
-msgstr "व्यक्तिगत फ़ोल्डर"
-
-#: ../storage/exchange-account.c:1205
-msgid "Favorite Public Folders"
-msgstr "पसंदीदा सार्वजनिक फ़ोल्डर"
-
-#. i18n: Outlookism
-#: ../storage/exchange-account.c:1222
-msgid "All Public Folders"
-msgstr "सभी सार्वजनिक फ़ोल्डर"
-
-#. i18n: Outlookism
-#: ../storage/exchange-account.c:1236
-msgid "Global Address List"
-msgstr "वैश्विक पता सूची"
-
-#: ../storage/exchange-account.c:1326
-msgid "Exchange Account is offline. Cannot display folders\n"
-msgstr "एक्सचेंज खाता ऑफलाइन है. फोल्डर दिखा नहीं सकता\n"
-
-#: ../storage/exchange-account.c:1384
-msgid ""
-"Could not authenticate to server. (Password incorrect?)\n"
-"\n"
-msgstr ""
-"सर्वर में प्रमाणित नहीं कर सकता. (शब्दकूट गलत?)\n"
-"\n"
-
-#: ../storage/exchange-account.c:1389
-msgid ""
-"Could not authenticate to server.\n"
-"\n"
-"This probably means that your server requires you\n"
-"to specify the Windows domain name as part of your\n"
-"username (eg, \"DOMAIN\\user\").\n"
-"\n"
-"Or you might have just typed your password wrong.\n"
-"\n"
-msgstr ""
-"सर्वर से सत्यापित नहीं कर सका.\n"
-"\n"
-"इसका संभवतः मतलब है कि आपको सर्वर के लिये\n"
-"Windows डोमेन नाम को अपने उपयोक्तानाम के हिस्से के रूप में\n"
-"जरूरत है (उदा., \"DOMAIN\\user\").\n"
-"\n"
-"या आपने शब्दकूट गलत टाइप कर दिया होगा.\n"
-"\n"
-
-#: ../storage/exchange-account.c:1431
-#, c-format
-msgid "Mailbox for %s is not on this server."
-msgstr "%s के लिये मेलबॉक्स इस सर्वर पर नहीं है"
-
-#: ../storage/exchange-account.c:1436
-#, c-format
-msgid ""
-"The server '%s' is running Exchange 5.5 and is\n"
-"therefore not compatible with Ximian Connector"
-msgstr ""
-"सर्वर '%s' Exchange 5.5 को चला रहा है औऱ \n"
-"Ximian संयोजक के साथ सुसंगत नहीं है."
-
-#: ../storage/exchange-account.c:1443
-#, c-format
-msgid ""
-"Could not find Exchange Web Storage System at %s.\n"
-"If OWA is running on a different path, you must specify that in the\n"
-"account configuration dialog."
-msgstr ""
-"Exchange Web Storage System को %s पर नहीं पा सका.\n"
-"अगर OWA अलग पथ पर चल रहा है, आपको उसे \n"
-"खाता विन्यास  संवाद में निर्दिष्ट करने की जरूरत होगी"
-
-#: ../storage/exchange-account.c:1451
-#, c-format
-msgid "No mailbox for user %s on %s.\n"
-msgstr "%s उपयोक्ता के लिये %s पर कोई मेलबॉक्स नहीं.\n"
-
-#: ../storage/exchange-account.c:1457 ../storage/exchange-account.c:1463
-#: ../storage/exchange-account.c:1471
-#, c-format
-msgid "Could not connect to server %s: %s"
-msgstr "%s सर्वर से जुड़ नहीं सका: %s"
-
-#: ../storage/exchange-account.c:1459
-msgid "Could not resolve hostname"
-msgstr "मेजबाननाम को हल नहीं कर सका"
-
-#: ../storage/exchange-account.c:1465
-msgid "Network error"
-msgstr "नेटवर्क त्रुटि"
-
-#: ../storage/exchange-account.c:1529
-#, c-format
-msgid ""
-"You have exceeded your quota of %d %s for storing mails on this server. Your "
-"current usage is : %.0f %s."
-msgstr ""
-"आप मेल रखने का अपना कोटा %d %s सर्वर पर पार कर चुके हैं. आप अभी उपयोग कर रहे हैं: %.0f "
-"%s. "
-
-#: ../storage/exchange-account.c:1532
-msgid "You will not be able to either send or receive mails now\n"
-msgstr "अब आप मेल भेजने व पाने में समर्थ न होंगे\n"
-
-#: ../storage/exchange-account.c:1535
-msgid ""
-"You will not be able to send mails till you clear up some space by deleting "
-"some mails.\n"
-msgstr "आप मेल भेजने में समर्थ नहीं होंगे जबतक आप कुछ मेल मिटाकर स्थान खाली न करें.\n"
-
-#: ../storage/exchange-account.c:1538
-msgid "Try to clear up some space by deleting some mails.\n"
-msgstr "कुछ मेल को मिटाकर कुछ स्थान खाली करने की कोशिश करें.\n"
 
 #: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
@@ -941,10 +477,28 @@ msgid ""
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"Ximian Connector को Exchange "
-"Server पर कुछ प्रकार्यात्मकता की जरूरत है जो कि लगता है कि निष्क्रिय है या अवरूद्ध है.  (यह प्रायः बिना किसी खास उद्देश्य के है.)  आपका Exchange प्रशासक को इसे सक्रिय करने की जरूरत होगी आपके लिये Ximian Connector को प्रयोग करने के उद्देश्य से.\n"
+"Ximian Connector को Exchange Server पर कुछ प्रकार्यात्मकता की जरूरत है जो कि लगता "
+"है कि निष्क्रिय है या अवरूद्ध है.  (यह प्रायः बिना किसी खास उद्देश्य के है.)  आपका "
+"Exchange प्रशासक को इसे सक्रिय करने की जरूरत होगी आपके लिये Ximian Connector को "
+"प्रयोग करने के उद्देश्य से.\n"
 "\n"
 "आपके Exchange प्रशासक को सूचना देने के लिये, कृपया नीचे का लिंक का अनुसरण करें:"
+
+#: ../storage/exchange-autoconfig-wizard.c:275
+msgid ""
+"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
+"Connector supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"आपके द्वारा प्रदत्त Exchange सर्वर Exchange 5.5 सर्वर के लिये है. Ximian Connector "
+"Microsoft Exchange 2000 और 2003 को सिर्फ समर्थन करता है."
+
+#: ../storage/exchange-autoconfig-wizard.c:288
+msgid ""
+"Could not configure Exchange account because an unknown error occurred. "
+"Check the URL, username, and password, and try again."
+msgstr ""
+"विनिमय खाता नहीं विन्यस्त कर सका क्योंकि एक अनजान गलती हुई. URL , उपयोक्तानाम, और "
+"शब्दकूट जांचें और फिर कोशिश करें."
 
 #: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
@@ -978,9 +532,13 @@ msgstr ""
 "Uनया खाता बनाने में असमर्थ"
 
 #: ../storage/exchange-autoconfig-wizard.c:459
-#: ../storage/exchange-config-listener.c:349
 msgid "You may only configure a single Exchange account"
 msgstr "एकल एक्सजेंज खाता आप विन्यस्त करें"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:1
+#: ../storage/exchange-change-password.glade.h:1
+msgid "*"
+msgstr "*"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
@@ -1056,10 +614,11 @@ msgid ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
-"Ximian Connector आपके मौजूदा Outlook Web "
-"Access (OWA) खाता से खाता सूचना ले सकता है.\n"
+"Ximian Connector आपके मौजूदा Outlook Web Access (OWA) खाता से खाता सूचना ले सकता "
+"है.\n"
 "\n"
-"अपने OWA साइट पता (URL), उपयोक्तानाम, और शब्दकूट डालें, औऱ तब क्लिक करें \"अग्रसारित करें\".\n"
+"अपने OWA साइट पता (URL), उपयोक्तानाम, और शब्दकूट डालें, औऱ तब क्लिक करें \"अग्रसारित करें"
+"\".\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:24
 msgid ""
@@ -1067,9 +626,9 @@ msgid ""
 "Please enter the name of your Global Catalog server. You may need to ask "
 "your system administrator for the correct value.\n"
 msgstr ""
-"Ximian Connector Global Catalog नकल को आपके साइट के लिये पा नहीं सका. "
-"कृपया अपने वैश्विक कैटालॉग सर्वर का नाम दें. आपको अपने "
-"सिस्टम प्रशासक को सही मान के लिये पूछने की जरूरत हो सकती है.\n"
+"Ximian Connector Global Catalog नकल को आपके साइट के लिये पा नहीं सका. कृपया अपने "
+"वैश्विक कैटालॉग सर्वर का नाम दें. आपको अपने सिस्टम प्रशासक को सही मान के लिये पूछने की "
+"जरूरत हो सकती है.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:26
 msgid ""
@@ -1127,124 +686,6 @@ msgstr "नया पासवर्ड"
 msgid "Your current password has expired. Please change your password now."
 msgstr "मौजूदा शब्दकूट खत्म हो गया. कृपया अपना शब्दकूट बदलें."
 
-#: ../storage/exchange-config-listener.c:542
-msgid ""
-"Changes to Exchange account configuration will take\n"
-"place after you quit and restart Evolution."
-msgstr ""
-"विनिमय खाता विन्यास में बदलाव \n"
-"तब आयेगा जब आप छोड़े व एवोल्यूशन फिर शुरू करें."
-
-#: ../storage/exchange-config-listener.c:588
-msgid "The Exchange account will be removed when you quit Evolution"
-msgstr "एक्सचेंज खाता तब हटाया जायेगा जब आप एवॉल्यूशन छोड़ देंगे"
-
-#: ../storage/exchange-config-listener.c:593
-msgid "The Exchange account will be disabled when you quit Evolution"
-msgstr "एक्सचेंज खाता तब निष्क्रिय किया जायेगा जब आप एवॉल्यूशन छोड़ देंगे"
-
-#: ../storage/exchange-delegates-user.c:191
-#: ../storage/exchange-permissions-dialog.c:179
-#, c-format
-msgid "Permissions for %s"
-msgstr "%s के लिये अनुमति"
-
-#: ../storage/exchange-delegates.c:221
-msgid ""
-"No Global Catalog server configured for this account.\n"
-"Unable to edit delegates."
-msgstr ""
-"कोई वैश्विक कैटालॉग सर्वर को इस खाता के लिये विन्यस्त किया गया.\n"
-"डेलिगेट के संपादन में असमर्थ."
-
-#: ../storage/exchange-delegates.c:260
-msgid ""
-"Could not read folder permissions.\n"
-"Unable to edit delegates."
-msgstr ""
-"फ़ोल्डर अनुमतियाँ नहीं पढ़ सका.\n"
-"डेलिगेट संपादन में विफल."
-
-#: ../storage/exchange-delegates.c:267
-msgid ""
-"Could not determine folder permissions for delegates.\n"
-"Unable to edit delegates."
-msgstr ""
-"डेलिगेट के लिये फ़ोल्डर अनुमतियाँ निश्चित नहीं कर सकता.\n"
-"डेलिगेट संपादन में विफल."
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To:"
-msgstr "इसको दिया गया:"
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To"
-msgstr "को दिया गया"
-
-#: ../storage/exchange-delegates.c:435
-#, c-format
-msgid "Could not make %s a delegate"
-msgstr "%s को एक डेलिगेट नहीं बना सकता"
-
-#: ../storage/exchange-delegates.c:445
-msgid "You cannot make yourself your own delegate"
-msgstr "आप स्वयं को नहीं दे सकते हैं"
-
-#: ../storage/exchange-delegates.c:454
-#, c-format
-msgid "%s is already a delegate"
-msgstr "%s पहले से एक डेलिगेट है"
-
-#: ../storage/exchange-delegates.c:563
-#, c-format
-msgid "Remove the delegate %s?"
-msgstr " %s डेलिगेट हटायें? "
-
-#: ../storage/exchange-delegates.c:680
-msgid "Could not access Active Directory"
-msgstr "सक्रिय डिरेक्ट्री नहीं अभिगम कर सकता"
-
-#: ../storage/exchange-delegates.c:695
-msgid "Could not find self in Active Directory"
-msgstr "सक्रिय डिरेक्ट्री में स्वयं को पा नहीं सकता"
-
-#: ../storage/exchange-delegates.c:708
-#, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "%s डेलिगेट को सक्रिय निर्देशिका में नहीं पा सकता"
-
-#: ../storage/exchange-delegates.c:720
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "%s डेलिगेट हटा नहीं सकता"
-
-#: ../storage/exchange-delegates.c:780
-msgid "Could not update list of delegates."
-msgstr "डेलिगेट की सूची अद्यतन नहीं सक सकता."
-
-#: ../storage/exchange-delegates.c:798
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "डेलिगेट %s जोड़ नहीं सका"
-
-#: ../storage/exchange-delegates.c:814
-#, c-format
-msgid ""
-"Failed to update delegates:\n"
-"%s"
-msgstr ""
-"डेलिगेट अद्यतन में विफल:\n"
-"%s"
-
-#: ../storage/exchange-delegates.c:938
-#: ../storage/exchange-permissions-dialog.c:706
-msgid "Name"
-msgstr "नाम"
-
-#: ../storage/exchange-delegates.c:967
-msgid "Error reading delegates list."
-msgstr "डेलिगेट सूची पढने में त्रुटि"
-
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
 msgstr "लेखक (पढे, बनायें)"
@@ -1268,6 +709,10 @@ msgstr "डेलिगेट"
 #: ../storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
 msgstr "संपादक (पढे, बनायें, संपादक)"
+
+#: ../storage/exchange-delegates.glade.h:7
+msgid "None"
+msgstr "कुछ नहीं"
 
 #: ../storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
@@ -1301,63 +746,15 @@ msgstr "इनबॉक्स (_I):"
 msgid "_Tasks:"
 msgstr "कार्य (_T):"
 
-#: ../storage/exchange-folder-size.c:322
-msgid "Folder Name"
-msgstr "फ़ोल्डर नाम"
-
-#: ../storage/exchange-folder-size.c:326
-msgid "Folder Size"
-msgstr "फ़ोल्डर आकार"
-
 #: ../storage/exchange-folder-tree.glade.h:1
 msgid "Exchange Folder Tree"
 msgstr "विनिमय फ़ोल्डर तरू"
 
-#: ../storage/exchange-hierarchy-foreign.c:250
-msgid "Calendar"
-msgstr "कैलेन्डर"
-
-#: ../storage/exchange-hierarchy-foreign.c:251
-msgid "Contacts"
-msgstr "संपर्क"
-
-#: ../storage/exchange-hierarchy-foreign.c:252
-msgid "Deleted Items"
-msgstr "विलोपित वस्तुएँ"
-
-#: ../storage/exchange-hierarchy-foreign.c:253
-msgid "Drafts"
-msgstr "प्रारूप"
-
-#: ../storage/exchange-hierarchy-foreign.c:254
-msgid "Inbox"
-msgstr "इनबाक्स"
-
-#: ../storage/exchange-hierarchy-foreign.c:255
-msgid "Journal"
-msgstr "पत्रिका"
-
-#: ../storage/exchange-hierarchy-foreign.c:256
-msgid "Notes"
-msgstr "टीप"
-
-#: ../storage/exchange-hierarchy-foreign.c:257
-msgid "Outbox"
-msgstr "गई-डाक"
-
-#: ../storage/exchange-hierarchy-foreign.c:258
-msgid "Sent Items"
-msgstr "भेजी गई वस्तुएँ"
-
-#: ../storage/exchange-hierarchy-foreign.c:259
-msgid "Tasks"
-msgstr "कार्य"
-
-#: ../storage/exchange-migrate.c:57
+#: ../storage/exchange-migrate.c:58
 msgid "Migrating Exchange Folders..."
 msgstr "विनिमय फ़ोल्डर से उत्प्रवासित कर रहा है..."
 
-#: ../storage/exchange-migrate.c:65
+#: ../storage/exchange-migrate.c:66
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -1365,33 +762,27 @@ msgid ""
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
-"एवोल्यूशन विनिमय खाता फोल्डर का पदक्रम व स्थान Evolution %d.%d.%d के बाद बदल गया है.\n"
+"एवोल्यूशन विनिमय खाता फोल्डर का पदक्रम व स्थान Evolution %d.%d.%d के बाद बदल गया "
+"है.\n"
 "\n"
 "कृपया धैर्य रखें जबतक एवोल्यूशन आपके फोल्डर को उत्प्रवासित करता है..."
 
-#: ../storage/exchange-migrate.c:98
-#, c-format
+#: ../storage/exchange-migrate.c:99
+#, fuzzy, c-format
 msgid ""
-"Warning: Evolution Could not migrate all the Exchange account data from the "
+"Warning: Evolution could not migrate all the Exchange account data from the "
 "version %d.%d.%d. \n"
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"चेतावनी: एवोल्यूशन सारे Exchange खाता आंकडों को %d.%d.%d संस्करण से उत्प्रवासित नहीं कर सकता है. \n"
+"चेतावनी: एवोल्यूशन सारे Exchange खाता आंकडों को %d.%d.%d संस्करण से उत्प्रवासित नहीं कर "
+"सकता है. \n"
 "आंकडे को मिटाया नहीं जा रहा है, लेकिन Evolution के इस संस्करण में नहीं देखा जायेगा"
 
-#: ../storage/exchange-migrate.c:129
+#: ../storage/exchange-migrate.c:130
 #, c-format
 msgid "Migrating `%s':"
 msgstr "`%s' को उत्प्रवासित कर रहा है"
-
-#: ../storage/exchange-oof.c:199 ../storage/exchange-oof.c:406
-msgid "Could not update out-of-office state"
-msgstr "कार्यालय से बाहर की स्थिति नहीं अद्यतन कर सका"
-
-#: ../storage/exchange-oof.c:424
-msgid "Could not read out-of-office state"
-msgstr "कार्यालय से बाहर की स्थिति नहीं पढ़ सका"
 
 #: ../storage/exchange-oof.glade.h:1
 msgid ""
@@ -1455,63 +846,6 @@ msgstr "बदलें शब्दकूट (_C)"
 #: ../storage/exchange-passwd-expiry.glade.h:4
 msgid "ok_button"
 msgstr "ठीक बटन (_b)"
-
-#: ../storage/exchange-permissions-dialog.c:222
-msgid "Could not read folder permissions"
-msgstr "फ़ोल्डर अनुमतियाँ पढ़ नहीं सका"
-
-#: ../storage/exchange-permissions-dialog.c:264
-msgid "Could not update folder permissions."
-msgstr "फ़ोल्डर अनुमतियाँ अद्यतन नहीं कर सका."
-
-#: ../storage/exchange-permissions-dialog.c:293
-#, c-format
-msgid "Could not update folder permissions. %s"
-msgstr "फ़ोल्डर अनुमतियाँ अद्यतन नहीं कर सकता. %s"
-
-#: ../storage/exchange-permissions-dialog.c:295
-msgid "(Permission denied.)"
-msgstr "(अनुमति निषेधित.)"
-
-#: ../storage/exchange-permissions-dialog.c:396
-msgid ""
-"Unable to add user to access control list:\n"
-"No Global Catalog server is configured for this account."
-msgstr ""
-"पहुंच नियंत्रण सूची में उपयोक्ता नहीं जोड़ सकता:\n"
-"इस खाता के लिये कोई वैश्विक कैटालॉग सर्वर नहीं."
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User:"
-msgstr "जोड़ें उपयोक्ता:"
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User"
-msgstr "उपयोक्ता जोड़ें"
-
-#: ../storage/exchange-permissions-dialog.c:421
-#, c-format
-msgid "No such user %s"
-msgstr "%s जैसा कोई उपयोक्ता नहीं"
-
-#: ../storage/exchange-permissions-dialog.c:425
-#, c-format
-msgid "%s cannot be added to an access control list"
-msgstr "%s पहुंच नियंत्रण सूची में जोड़ा नहीं जा सकता"
-
-#: ../storage/exchange-permissions-dialog.c:430
-#, c-format
-msgid "Unknown error looking up %s"
-msgstr "अज्ञात त्रुटि के लिये %s को देख रहा है"
-
-#: ../storage/exchange-permissions-dialog.c:447
-#, c-format
-msgid "%s is already in the list"
-msgstr "%s पहले से सूची में है"
-
-#: ../storage/exchange-permissions-dialog.c:710
-msgid "Role"
-msgstr "भूमिका"
 
 #: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
@@ -1577,73 +911,9 @@ msgstr "भूमिका: "
 msgid "Connecting..."
 msgstr "जुड़ रहा है..."
 
-#: ../storage/main.c:166
+#: ../storage/main.c:183
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "माइक्रोसाफ्ट के लिये ज़िमिआन कनेक्टर "
-
-#: ../storage/xc-backend-view.c:299
-msgid "Account Name"
-msgstr "खाता नाम"
-
-#: ../storage/xc-commands.c:316
-msgid "Folder does not exist"
-msgstr "फ़ोल्डर मौजूद नहीं है"
-
-#: ../storage/xc-commands.c:343
-#, c-format
-msgid "Could not add favorite: %s"
-msgstr "पसंदीदा नहीं जोड़ सका: %s"
-
-#: ../storage/xc-commands.c:359
-#, c-format
-msgid "Could not remove favorite: %s"
-msgstr "पसंदीदा नहीं हटा सका: %s"
-
-#.
-#. FIXME: See 62440
-#. E_POPUP_ITEM (N_("_Move Folder..."),
-#. G_CALLBACK (do_move_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#. E_POPUP_ITEM (N_("_Copy Folder..."),
-#. G_CALLBACK (do_copy_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#.
-#: ../storage/xc-commands.c:385
-msgid "_Rename Folder..."
-msgstr "फ़ोल्डर का नाम बदलें (_R)..."
-
-#: ../storage/xc-commands.c:391
-msgid "_New Folder..."
-msgstr "नया फोल्डर (_N)..."
-
-#: ../storage/xc-commands.c:394
-msgid "_Delete Folder"
-msgstr "मिटाओ फ़ोल्डर (_D)"
-
-#: ../storage/xc-commands.c:399
-msgid "_Add Other User's Folder..."
-msgstr "जोड़ें अन्य उपयोक्ता फ़ोल्डर से (_A)..."
-
-#: ../storage/xc-commands.c:402
-msgid "_Remove Other User's Folder"
-msgstr "हटाओ अन्य उपयोक्ता फ़ोल्डर से (_R)"
-
-#: ../storage/xc-commands.c:408
-msgid "Add to _Favorites"
-msgstr "पसंदीदा में जोड़ें (_F)"
-
-#: ../storage/xc-commands.c:412
-msgid "Remove from Fa_vorites"
-msgstr "पसंदीदा से हटायें (_v)"
-
-#.
-#. E_POPUP_ITEM (N_("_Permissions..."),
-#. G_CALLBACK (do_permissions),
-#. XC_FOLDER_COMMAND_MASK_PERMISSIONS),
-#.
-#: ../storage/xc-commands.c:423
-msgid "_Show Folder Sizes"
-msgstr "दिखाएँ फ़ोल्डर आकार (_S)"
 
 #: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
