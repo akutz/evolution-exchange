@@ -1663,7 +1663,15 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const char *subject,
 			attach_file = g_strdup (fname);
 		} else {
 			fname = (char *)(l->data);
-			filename = g_strrstr (fname, "/") + 1;
+			filename = g_strrstr (fname, "/");
+			if (!filename) {
+				/*
+				 * some vcards contain e.g. ATTACH:CID:0fd601c67efb$ef66760d$_CDOEX
+				 * -> ignore instead of crashing
+				 */
+				continue;
+			}
+			filename++;
 			mime_filename = filename;
 			attach_file = g_strdup_printf ("%s/%s-%s", cbex->priv->local_attachment_store, uid, filename);
 		}
