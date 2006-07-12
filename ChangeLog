@@ -1,3 +1,13 @@
+2006-07-12  Chenthill Palanisamy  <pchenthill@novell.com>
+
+	Fixes #344651
+	* calendar/e-cal-backend-exchange.c: (build_msg):
+	avoid crash when importing events with 
+	attachements which are MIME references instead of file names by ignoring
+	these attachments (e.g. ATTACH:CID:0fd601c67efb$ef66760d$_CDOEX)
+
+	Committed on behalf of Patrick Ohly <patrick.ohly@intel.com>
+
 2006-07-08  Raivis Dejus  <orvils@gmail.com>
 
         * configure.in: Added "lv" (Latvian) to ALL_LINGUAS.
