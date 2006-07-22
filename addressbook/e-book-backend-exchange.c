@@ -859,7 +859,7 @@ populate_date(EContactField field, EContact *new_contact, void *data)
 
 	dt.year = then->tm_year + 1900;
 	dt.month = then->tm_mon + 1;
-	dt.day = then->tm_mday;
+	dt.day = then->tm_mday + 1;
 	
 	e_contact_set (new_contact, field, &dt);
 }
