@@ -396,8 +396,10 @@ e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 			stream_mem = (CamelStreamMem *)stream;
 			camel_data_wrapper_decode_to_stream (content, stream);
 
-			photo.data = stream_mem->buffer->data;
-			photo.length = stream_mem->buffer->len;
+			photo.type = E_CONTACT_PHOTO_TYPE_INLINED;
+			photo.data.inlined.mime_type = NULL;
+			photo.data.inlined.data = stream_mem->buffer->data;
+			photo.data.inlined.length = stream_mem->buffer->len;
 			e_contact_set (contact, E_CONTACT_PHOTO, &photo);
 
 			camel_object_unref (stream);
@@ -1195,7 +1197,8 @@ build_message (const char *from_name, const char *from_email,
 
 		/* Determine the MIME type of the photo */
 		loader = gdk_pixbuf_loader_new ();
-		gdk_pixbuf_loader_write (loader, photo->data, photo->length, NULL);
+		gdk_pixbuf_loader_write (loader, photo->data.inlined.data, 
+					 photo->data.inlined.length, NULL);
 		gdk_pixbuf_loader_close (loader, NULL);
 
 		format = gdk_pixbuf_loader_get_format (loader);
@@ -1214,7 +1217,8 @@ build_message (const char *from_name, const char *from_email,
 
 		/* Build the MIME part */
 		photo_ba = g_byte_array_new ();
-		g_byte_array_append (photo_ba, photo->data, photo->length);
+		g_byte_array_append (photo_ba, photo->data.inlined.data, 
+				     photo->data.inlined.length);
 		stream = camel_stream_mem_new_with_byte_array (photo_ba);
 
 		wrapper = camel_data_wrapper_new ();
@@ -1421,17 +1425,25 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 			if ((old_note && !new_note) ||
 		    	    (new_note && !old_note) ||
 		    	    (old_note && new_note &&
-		     	strcmp (old_note, new_note) != 0))
+		     	     strcmp (old_note, new_note) != 0))
 				changed = TRUE;
-			else if ((old_photo && !new_photo) ||
-				 (new_photo && !old_photo) ||
-			 	(old_photo && new_photo &&
-			  	((old_photo->length != new_photo->length) ||
-			   	(memcmp (old_photo->data, new_photo->data, 
-					 old_photo->length) != 0))))
-					changed = TRUE;
-			else
-				changed = FALSE;
+			else if ((old_photo && !new_photo) || (new_photo && !old_photo))
+				changed = TRUE;
+			else if (old_photo && new_photo) {
+				if ((old_photo->type == new_photo->type) && 
+				     old_photo->type == E_CONTACT_PHOTO_TYPE_INLINED) {
+					changed = ((old_photo->data.inlined.length == new_photo->data.inlined.length)
+                                 	     	    && !memcmp (old_photo->data.inlined.data, 
+							 	new_photo->data.inlined.data, 
+								old_photo->data.inlined.length));
+				}
+				else if ((old_photo->type == new_photo->type) &&
+					  old_photo->type == E_CONTACT_PHOTO_TYPE_URI) {
+					changed = !strcmp (old_photo->data.uri, new_photo->data.uri);
+				}
+				else
+					changed = FALSE;
+			}
 
 			if (changed) {
 				status = do_put (be, book, uri,
