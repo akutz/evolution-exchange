@@ -55,6 +55,7 @@
 #include <mapi.h>
 #include <exchange-account.h>
 #include <exchange-hierarchy.h>
+#include <exchange-esource.h>
 #include <e-folder-exchange.h>
 #include "e-book-backend-exchange.h"
 #include "exchange-component.h"
@@ -1942,6 +1943,9 @@ e_book_backend_exchange_start_book_view (EBookBackend  *backend,
 						  http_status_to_pas (status));
 		bonobo_object_unref (book_view);
 
+		/* also update the folder list */
+		exchange_account_rescan_tree (bepriv->account);
+
 	default:
 		break;
 	}
@@ -2308,12 +2312,25 @@ e_book_backend_exchange_remove (EBookBackendSync *backend, EDataBook *book, guin
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
-	ExchangeAccountFolderResult result;
-	const char *uri;
+	ExchangeAccountFolderResult result = EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
+	const char *int_uri = NULL;
 
 	d(printf("ebbe_remove(%p, %p)\n", backend, book));
-	uri = e_folder_exchange_get_internal_uri (bepriv->folder);
-	result = exchange_account_remove_folder (bepriv->account, uri);
+	int_uri = e_folder_exchange_get_internal_uri (bepriv->folder);
+	if (int_uri)
+		result = exchange_account_remove_folder (bepriv->account, int_uri);
+	else {
+		ExchangeAccount *account;
+
+		/* internal URI is NULL, mostly the case where folder doesn't exists anymore 
+		 * in the server, update the gconf sources. 
+		 */
+		account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
+		if (exchange_account_get_context (account)) {
+			remove_folder_esource (account, EXCHANGE_CONTACTS_FOLDER, bepriv->exchange_uri);
+			result = EXCHANGE_ACCOUNT_FOLDER_OK;
+		}
+	}
 	if (result == EXCHANGE_ACCOUNT_FOLDER_OK)
 		return GNOME_Evolution_Addressbook_Success;
 	else if (result == EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST)
