@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the GNU General Public License Version 2.
 #
 # Craig Jeffares <cjeffares@novell.com> pour Novell(tm), 2004.
-# Christophe Merlet (RedFox) <redfox@redfoxcenter.org>, 2004-2005.
+# Christophe Merlet (RedFox) <redfox@redfoxcenter.org>, 2004-2006.
 # Laurent Richard <laurent.richard@ael.be>, 2006.
 # Robert-André Mauchin <zebob.m@gmail.com>, 2006.
 #
@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange 2.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-26 19:57+0200\n"
-"PO-Revision-Date: 2006-05-16 16:58+0200\n"
-"Last-Translator: Robert-André Mauchin <zebob.m@gmail.com>\n"
+"POT-Creation-Date: 2006-07-31 16:27+0200\n"
+"PO-Revision-Date: 2006-07-31 15:08+0200\n"
+"Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -135,7 +135,7 @@ msgstr "Liste d'adresses globale / Active Directory"
 #. technical term and may not have translations?
 #: ../camel/camel-exchange-provider.c:53
 msgid "_Global Catalog server name:"
-msgstr "Nom du serveur du catalogue _global : "
+msgstr "Nom du serveur du catalogue _global :"
 
 #: ../camel/camel-exchange-provider.c:55
 #, c-format
@@ -164,13 +164,13 @@ msgstr ""
 
 #: ../camel/camel-exchange-provider.c:67
 msgid "Check new messages for _Junk contents"
-msgstr "Vérifier si les nouveaux messages contiennent du contenu _indésirable"
+msgstr "Vérifier si les nouveaux messages contiennent des _pourriels"
 
 #: ../camel/camel-exchange-provider.c:69
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr ""
-"Vérifier uniquement la présence de cou_rrier indésirable dans le dossier "
-"Boîte de réception"
+"Vérifier uniquement la présence de _pourriels dans le dossier Boîte de "
+"réception"
 
 #: ../camel/camel-exchange-provider.c:79
 msgid "Microsoft Exchange"
@@ -194,7 +194,7 @@ msgid ""
 "authentication."
 msgstr ""
 "Cette option permet d'établir une connexion au serveur Exchange en utilisant "
-"l'authentification par mot de passe sécurisé (NTLM) ."
+"l'authentification par mot de passe sécurisé (NTLM)."
 
 #: ../camel/camel-exchange-provider.c:108
 msgid "Plaintext Password"
@@ -205,8 +205,8 @@ msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
 msgstr ""
-"Cette option utilisera l'authentification par mot de passe en texte brut "
-"standard pour se connecter au serveur Exchange."
+"Cette option permet d'établir une connexion au serveur Exchange en utilisant "
+"l'authentification par mot de passe en texte brut standard."
 
 #: ../camel/camel-exchange-store.c:308
 #, c-format
@@ -288,7 +288,7 @@ msgstr "Impossible de créer le socket : %s"
 #: ../camel/camel-stub.c:167
 #, c-format
 msgid "Could not connect to %s: %s"
-msgstr "Impossible d'établir la connexion à %s : %s"
+msgstr "Impossible de se connecter à %s : %s"
 
 #: ../camel/camel-stub.c:197
 #, c-format
@@ -321,11 +321,11 @@ msgstr "Ce dossier n'existe pas"
 #: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
 #: ../mail/mail-stub-exchange.c:2745
 msgid "Permission denied"
-msgstr "Autorisation refusée"
+msgstr "Permission refusée"
 
 #: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
 msgid "Could not open folder: Permission denied"
-msgstr "Impossible d'ouvrir le dossier : Autorisation refusée"
+msgstr "Impossible d'ouvrir le dossier : permission refusée"
 
 #: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
 msgid "Could not open folder"
@@ -440,23 +440,24 @@ msgid ""
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
 "Impossible de se connecter au serveur Exchange.\n"
-"Vérifiez l'URL (essayez « %s » au lieu de « %s ») et recommencez."
+"Veuillez vérifiez l'URL (essayez « %s » au lieu de « %s ») et recommencez."
 
 #: ../storage/exchange-autoconfig-wizard.c:219
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
 msgstr ""
-"Serveur Exchange introuvable.\n"
-"Vérifiez le nom du serveur et recommencez."
+"Impossible de trouver le Serveur Exchange.\n"
+"Veuillez vérifiez le nom du serveur et recommencez."
 
 #: ../storage/exchange-autoconfig-wizard.c:228
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
 msgstr ""
-"L'authentification auprès du serveur Exchange a échoué.\n"
-"Vérifiez le nom d'utilisateur et le mot de passe et recommencez."
+"Impossible de s'authentification auprès du serveur Exchange.\n"
+"Veuillez vérifiez que l'identifiant et le mot de passe sont corrects et "
+"recommencez."
 
 #: ../storage/exchange-autoconfig-wizard.c:235
 #, c-format
@@ -467,11 +468,12 @@ msgid ""
 "You may need to specify the Windows domain name as part of your username "
 "(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
-"L'authentification auprès du serveur Exchange a échoué.\n"
-"Vérifiez le nom d'utilisateur et le mot de passe et recommencez.\n"
+"Impossible de s'authentification auprès du serveur Exchange.\n"
+"Veuillez vérifiez que l'identifiant et le mot de passe sont corrects et "
+"recommencez.\n"
 "\n"
 "Il se peut que vous deviez spécifier le nom de domaine Windows dans votre "
-"nom d'utilisateur (ex. : « MON-DOMAINE\\%s »)."
+"identifiant (ex. : « MON-DOMAINE\\%s »)."
 
 #: ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
@@ -513,9 +515,8 @@ msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
 msgstr ""
-"Impossible de configurer le compte Exchange, car une erreur inconnue s'est "
-"produite. Vérifiez l'URL, le nom d'utilisateur et le mot de passe, puis "
-"recommencez."
+"Impossible de configurer le compte Exchange, car une erreur inconnue est "
+"survenue. Vérifiez l'URL, l'identifiant et le mot de passe, puis recommencez."
 
 #: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
@@ -526,7 +527,7 @@ msgid ""
 msgstr ""
 "Échec d'authentification auprès du serveur du catalogue global. Il se peut "
 "que vous deviez revenir en arrière et spécifier le nom de domaine Windows "
-"dans votre nom d'utilisateur (ex. : \"MON-DOMAINE\\%s\")."
+"dans votre identifiant (ex. : \"MON-DOMAINE\\%s\")."
 
 #: ../storage/exchange-autoconfig-wizard.c:339
 msgid ""
@@ -600,7 +601,7 @@ msgstr "Mémoriser le mot de passe"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:12
 msgid "Username:"
-msgstr "Nom d'utilisateur :"
+msgstr "Identifiant :"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:13
 msgid "Welcome"
@@ -635,8 +636,8 @@ msgstr ""
 "Le connecteur Ximian peut utiliser les informations de votre compte Outlook "
 "Web Access (OWA).\n"
 "\n"
-"Entrez l'adresse de votre site OWA (URL), votre nom d'utilisateur et votre "
-"mot de passe, puis cliquez sur « Suivant ».\n"
+"Saisissez l'adresse de votre site OWA (URL), votre identifiant et votre mot "
+"de passe, puis cliquez sur « Suivant ».\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:24
 msgid ""
@@ -682,12 +683,13 @@ msgid ""
 "Please enter the correct password"
 msgstr ""
 "Le mot de passe actuel ne correspond pas au mot de passe existant de votre "
-"compte. Veuillez saisir le mot de passe correct"
+"compte. Veuillez saisir le bon mot de passe"
 
 #: ../storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr ""
-"Les deux mots de passe ne correspondent pas. Veuillez les saisir de nouveau."
+"Les deux mots de passe ne correspondent pas. Veuillez ressaisir les mots de "
+"passe."
 
 #: ../storage/exchange-change-password.glade.h:2
 msgid "Change Password"
@@ -695,7 +697,7 @@ msgstr "Changer le mot de passe"
 
 #: ../storage/exchange-change-password.glade.h:3
 msgid "Confirm Password:"
-msgstr "Confirmer le mot de passe :"
+msgstr "Confirmez le mot de passe :"
 
 #: ../storage/exchange-change-password.glade.h:4
 msgid "Current Password:"
@@ -708,7 +710,7 @@ msgstr "Nouveau mot de passe :"
 #: ../storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
 msgstr ""
-"Votre mot de passe actuel a expiré. Veuillez changer le mot de passe "
+"Votre mot de passe actuel a expiré. Veuillez changer votre mot de passe "
 "maintenant."
 
 #: ../storage/exchange-delegates.glade.h:1
@@ -725,7 +727,7 @@ msgstr "Co_ntacts :"
 
 #: ../storage/exchange-delegates.glade.h:4
 msgid "Delegate Permissions"
-msgstr "Autorisations accordées aux délégués"
+msgstr "Permissions du délégué"
 
 #: ../storage/exchange-delegates.glade.h:5
 msgid "Delegates"
@@ -741,7 +743,7 @@ msgstr "Aucun"
 
 #: ../storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
-msgstr "Autorisations pour"
+msgstr "Permissions pour"
 
 #: ../storage/exchange-delegates.glade.h:9
 msgid "Reviewer (read-only)"
@@ -752,12 +754,12 @@ msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
 msgstr ""
-"Ces utilisateurs pourront envoyer des messages électroniques en votre nom\n"
-"et accéder à vos dossiers avec les autorisations que vous leur accordez."
+"Ces utilisateurs pourront envoyer des courriels en votre nom\n"
+"et accéder à vos dossiers avec les permissions que vous leur accordez."
 
 #: ../storage/exchange-delegates.glade.h:12
 msgid "_Delegate can see private items"
-msgstr "_Le délégué peut afficher les éléments privés"
+msgstr "_Le délégué peut voir les éléments privés"
 
 #: ../storage/exchange-delegates.glade.h:13
 msgid "_Edit"
@@ -816,9 +818,9 @@ msgid ""
 "\n"
 "Would you like to change your status to \"In the Office\"? "
 msgstr ""
-"<b>Votre état actuel est « Absent du bureau ».</b>\n"
+"<b>Votre état actuel est « Absent du bureau ». </b>\n"
 "\n"
-"Voulez-vous remplacer votre état par « Je suis actuellement au bureau » ? "
+"Voulez-vous remplacer votre état par « Au bureau » ? "
 
 #: ../storage/exchange-oof.glade.h:4
 msgid "<b>Out of Office Message:</b>"
@@ -835,8 +837,8 @@ msgid ""
 "mail to you while you are out of the office.</small>"
 msgstr ""
 "<small>Le message spécifié ci-dessous sera envoyé automatiquement à toutes "
-"les personnes qui vous envoient du courrier\n"
-"lorsque vous êtes absent du bureau.</small>"
+"les personnes vous\n"
+"envoyant des courriels en votre absence du bureau.</small>"
 
 #: ../storage/exchange-oof.glade.h:8
 msgid "I am currently in the office"
@@ -852,7 +854,7 @@ msgstr "Non, ne pas changer l'état"
 
 #: ../storage/exchange-oof.glade.h:11
 msgid "Out of Office Assistant"
-msgstr "Gestionnaire d'absence du bureau :"
+msgstr "Assistant d'absence du bureau"
 
 #: ../storage/exchange-oof.glade.h:12
 msgid "Yes, Change Status"
@@ -860,7 +862,7 @@ msgstr "Oui, changer l'état"
 
 #: ../storage/exchange-passwd-expiry.glade.h:1
 msgid "Password Expiry Warning..."
-msgstr "Avertissement de l'expiration du mot de passe..."
+msgstr "Avertissement d'expiration du mot de passe..."
 
 #: ../storage/exchange-passwd-expiry.glade.h:2
 msgid "Your password will expire in 7 days..."
@@ -880,15 +882,15 @@ msgstr "    "
 
 #: ../storage/exchange-permissions-dialog.glade.h:2
 msgid "<b>Permissions</b>"
-msgstr "<b>Autorisations</b>"
+msgstr "<b>Permissions</b>"
 
 #: ../storage/exchange-permissions-dialog.glade.h:3
 msgid "Cannot Delete"
-msgstr "Suppression impossible"
+msgstr "Impossible de supprimer"
 
 #: ../storage/exchange-permissions-dialog.glade.h:4
 msgid "Cannot Edit"
-msgstr "Modification impossible"
+msgstr "Impossible de modifier"
 
 #: ../storage/exchange-permissions-dialog.glade.h:5
 msgid "Create items"
@@ -900,19 +902,19 @@ msgstr "Créer des sous-dossiers"
 
 #: ../storage/exchange-permissions-dialog.glade.h:7
 msgid "Delete Any Items"
-msgstr "Supprimer des éléments"
+msgstr "Supprimer n'importe quels éléments"
 
 #: ../storage/exchange-permissions-dialog.glade.h:8
 msgid "Delete Own Items"
-msgstr "Supprimer les éléments personnels"
+msgstr "Supprimer ses propres éléments"
 
 #: ../storage/exchange-permissions-dialog.glade.h:9
 msgid "Edit Any Items"
-msgstr "Modifier des éléments"
+msgstr "Modifier n'importe quels éléments"
 
 #: ../storage/exchange-permissions-dialog.glade.h:10
 msgid "Edit Own Items"
-msgstr "Modifier les éléments personnels"
+msgstr "Modifier ses propres éléments"
 
 #: ../storage/exchange-permissions-dialog.glade.h:11
 msgid "Folder contact"
