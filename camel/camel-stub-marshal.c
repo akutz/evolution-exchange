@@ -90,9 +90,10 @@ do_read (CamelStubMarshal *marshal, char *buf, size_t len)
 	ssize_t n;
 	
 	do {
-		if ((n = camel_read (marshal->fd, buf + nread, len - nread)) > 0)
-			nread += n;
-	} while (n && nread < len && errno != EINTR);
+		if ((n = camel_read (marshal->fd, buf + nread, len - nread)) <= 0)
+			break;
+		nread += n;
+	} while (nread < len);
 	
 	if (nread < len) {
 		close (marshal->fd);
@@ -111,6 +112,7 @@ marshal_read (CamelStubMarshal *marshal, char *buf, int len)
 
 	if (avail == 0) {
 		g_byte_array_set_size (marshal->in, 4);
+		marshal->inptr = (char *)marshal->in->data + 4;
 		if (!do_read (marshal, (char *)marshal->in->data, 4))
 			return -1;
 		avail =  (int)marshal->in->data[0]        +
@@ -118,9 +120,12 @@ marshal_read (CamelStubMarshal *marshal, char *buf, int len)
 			((int)marshal->in->data[2] << 16) +
 			((int)marshal->in->data[3] << 24) - 4;
 		g_byte_array_set_size (marshal->in, avail + 4);
-		if (!do_read (marshal, ((char *)marshal->in->data) + 4, avail))
-			return -1;
 		marshal->inptr = (char *)marshal->in->data + 4;
+		if (!do_read (marshal, ((char *)marshal->in->data) + 4, avail)) {
+			g_byte_array_set_size (marshal->in, 4);
+			marshal->inptr = (char *)marshal->in->data + 4;
+			return -1;
+		}
 	}
 
 	if (len <= avail)
