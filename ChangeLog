@@ -1,6 +1,15 @@
+2006-07-31  Sushma Rai  <rsushma@novell.com>
+
+	* camel/camel-stub-marshal.c (do_read): Come out of the loop on
+	failure. Fixes the hang.
+	(marshal_read): Resetting the byte array size when read fails.
+	Patch submitted by "Jeffrey Stedfast <fejj@novell.com>" and
+	"Arunprakash <twizst@gmail.com>". Fixes #344196 and Novell
+	bugzilla bug https://bugzilla.novell.com/show_bug.cgi?id=179545.
+
 2006-07-27  Chenthill Palanisamy  <pchenthill@novell.com>
 
-	Fixes #170058
+	Fixes Novell bugzilla bug #170058
 	* calendar/e-cal-backend-exchange-calendar.c: 
 	(discard_alarm): Check if the icalcomponent is set
 	in ECalComponent before removing the alarms.
