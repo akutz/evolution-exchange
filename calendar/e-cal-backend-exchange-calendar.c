@@ -2142,8 +2142,7 @@ discard_alarm (ECalBackendSync *backend, EDataCal *cal,
 	}
 
 	ecomp = e_cal_component_new ();
-	e_cal_component_set_icalcomponent (ecomp, icalcomponent_new_clone (ecbexcomp->icomp));
-	if (!e_cal_component_has_recurrences (ecomp))
+	if (e_cal_component_set_icalcomponent (ecomp, icalcomponent_new_clone (ecbexcomp->icomp)) && !e_cal_component_has_recurrences (ecomp))
 	{
 		e_cal_component_remove_alarm (ecomp, auid);
 		ecomp_str = e_cal_component_get_as_string (ecomp);
