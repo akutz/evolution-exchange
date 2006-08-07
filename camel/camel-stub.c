@@ -162,7 +162,15 @@ connect_to_storage (CamelStub *stub, struct sockaddr_un *sa_un,
 			 */
 			camel_exception_set (ex, CAMEL_EXCEPTION_USER_CANCEL,
 					     "Cancelled");
-		} else {
+		} else if (errno == ENOENT) {
+			/* socket_path has changed, mostly because user name has been changed.
+			 * need to restart evolution for changes to take effect.
+			 */
+			camel_exception_setv (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
+					      _("Could not connect to %s: Please restart Evolution"),
+					      stub->backend_name);
+		}
+		else {
 			camel_exception_setv (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
 					      _("Could not connect to %s: %s"),
 					      stub->backend_name,
