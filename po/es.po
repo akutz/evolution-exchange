@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-14 18:38+0100\n"
-"PO-Revision-Date: 2006-02-14 18:39+0100\n"
+"POT-Creation-Date: 2006-08-07 18:28+0200\n"
+"PO-Revision-Date: 2006-08-07 18:28+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1867
+#: ../addressbook/e-book-backend-exchange.c:1882
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Buscando..."
@@ -36,7 +36,7 @@ msgstr "Recibiendo resultados de la búsqueda LDAP..."
 msgid "Error performing search"
 msgstr "Error al efectuar la búsqueda"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1805
+#: ../calendar/e-cal-backend-exchange-calendar.c:2004
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -45,7 +45,7 @@ msgstr ""
 "No es posible programar el recurso «%s» para reuniones repetidas.\n"
 "Debe reservar cada reunión separadamente."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1823
+#: ../calendar/e-cal-backend-exchange-calendar.c:2022
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr ""
@@ -59,43 +59,43 @@ msgstr "No se puede compactar en modo desconectado."
 msgid "No Subject"
 msgstr "Sin asunto"
 
-#: ../camel/camel-exchange-folder.c:380
+#: ../camel/camel-exchange-folder.c:407
 msgid "This message is not available in offline mode."
 msgstr "Este mensaje no está disponible en modo «Desconectado»."
 
-#: ../camel/camel-exchange-folder.c:615
+#: ../camel/camel-exchange-folder.c:642
 msgid "Moving messages"
 msgstr "Moviendo mensajes"
 
-#: ../camel/camel-exchange-folder.c:616
+#: ../camel/camel-exchange-folder.c:643
 msgid "Copying messages"
 msgstr "Copiando mensajes"
 
-#: ../camel/camel-exchange-folder.c:987
+#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "No se puede crear el directorio %s: %s"
 
-#: ../camel/camel-exchange-folder.c:997
+#: ../camel/camel-exchange-folder.c:1024
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "No se pudo cargar el resumen para %s"
 
-#: ../camel/camel-exchange-folder.c:1005
+#: ../camel/camel-exchange-folder.c:1032
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "No se pudo crear el cache para %s"
 
-#: ../camel/camel-exchange-folder.c:1015
+#: ../camel/camel-exchange-folder.c:1042
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "No se pudo crear el diario para %s"
 
-#: ../camel/camel-exchange-folder.c:1060
+#: ../camel/camel-exchange-folder.c:1087
 msgid "Scanning for changed messages"
 msgstr "Buscando mensajes cambiados"
 
-#: ../camel/camel-exchange-folder.c:1086
+#: ../camel/camel-exchange-folder.c:1113
 msgid "Fetching summary information for new messages"
 msgstr "Obteniendo la información del resumen para los mensajes nuevos"
 
@@ -105,8 +105,8 @@ msgstr "No se encontró ningún nombre de carpeta\n"
 
 #: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
 #: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2724
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
+#: ../mail/mail-stub-exchange.c:2730
 msgid "Folder doesn't exist"
 msgstr "La carpeta no existe"
 
@@ -160,7 +160,8 @@ msgstr "_Sincronizar automáticamente la cuenta localmente"
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:65
 msgid "_Apply filters to new messages in Inbox on this server"
-msgstr "_Aplicar filtros en mensajes nuevos en la Bandeja de entrada en este servidor"
+msgstr ""
+"_Aplicar filtros en mensajes nuevos en la Bandeja de entrada en este servidor"
 
 #: ../camel/camel-exchange-provider.c:67
 msgid "Check new messages for _Junk contents"
@@ -273,37 +274,42 @@ msgstr "No se puede enviar el mensaje: uno o más destinatarios inválidos"
 msgid "Could not find 'From' address in message"
 msgstr "No se pudo encontrar la dirección de remite en el mensaje"
 
-#: ../camel/camel-stub.c:134
+#: ../camel/camel-stub.c:152
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "No se pudo crear socket : %s"
 
-#: ../camel/camel-stub.c:149
+#: ../camel/camel-stub.c:170
+#, c-format
+msgid "Could not connect to %s: Please restart Evolution"
+msgstr "No se pudo conectar a %s: Reinicie Evolution"
+
+#: ../camel/camel-stub.c:175
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "No se pudo conectar a %s: %s"
 
-#: ../camel/camel-stub.c:179
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Path too long: %s"
 msgstr "Ruta demasiado larga: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:231
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "No se pudo iniciar el hilo de estado: %s"
 
-#: ../camel/camel-stub.c:457
+#: ../camel/camel-stub.c:485
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Se perdió la conexión con %s"
 
-#: ../camel/camel-stub.c:461
+#: ../camel/camel-stub.c:489
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Error al comunicarse con %s: %s"
 
-#: ../mail/mail-stub-exchange.c:257
+#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
 msgid "No such folder"
 msgstr "No existe la carpeta"
 
@@ -311,8 +317,8 @@ msgstr "No existe la carpeta"
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
 #: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
-#: ../mail/mail-stub-exchange.c:2740 ../storage/xc-commands.c:319
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
+#: ../mail/mail-stub-exchange.c:2745
 msgid "Permission denied"
 msgstr "Permiso denegado"
 
@@ -323,10 +329,6 @@ msgstr "No se pudo abrir carpeta: Permiso denegado"
 #: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
 msgid "Could not open folder"
 msgstr "No se pudo abrir la carpeta"
-
-#: ../mail/mail-stub-exchange.c:755
-msgid "No such folder."
-msgstr "No existe la carpeta."
 
 #: ../mail/mail-stub-exchange.c:764
 msgid "Could not create folder."
@@ -402,42 +404,26 @@ msgid "Could not send message"
 msgstr "No se pudo enviar el mensaje"
 
 #: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
-#: ../mail/mail-stub-exchange.c:2745 ../storage/xc-commands.c:323
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
+#: ../mail/mail-stub-exchange.c:2751
 msgid "Generic error"
 msgstr "Error genérico"
 
-#: ../mail/mail-stub-exchange.c:2522 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2522
 msgid "Folder already exists"
 msgstr "La carpeta ya existe"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-msgid "*Control*F5"
-msgstr "*Control*F5"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Addressbook Exchange backend"
 msgstr "Backend de libreta de direcciones de Exchange de Evolution"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Calendar Exchange backend"
 msgstr "Backend de Calendario de Exchange"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
-msgid "Evolution Exchange Component"
-msgstr "Componente de Evolution Exchange"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
-msgid "Exchange"
-msgstr "Exchange"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
 msgid "Ximian Connector for Exchange"
 msgstr "Conector Ximian para Exchange"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
-msgid "_Exchange"
-msgstr "_Exchange"
 
 #: ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
@@ -716,112 +702,6 @@ msgid "Your current password has expired. Please change your password now."
 msgstr ""
 "Su contraseña actual ha caducado. Por favor, cambie su contraseña ahora."
 
-#: ../storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "Personalizado"
-
-#: ../storage/exchange-delegates-user.c:191
-#: ../storage/exchange-permissions-dialog.c:179
-#, c-format
-msgid "Permissions for %s"
-msgstr "Permisos de %s"
-
-#: ../storage/exchange-delegates.c:221
-msgid ""
-"No Global Catalog server configured for this account.\n"
-"Unable to edit delegates."
-msgstr ""
-"No hay un servidor de Catálogo Global configurado para esta cuenta. No es "
-"posible editar delegados."
-
-#: ../storage/exchange-delegates.c:260
-msgid ""
-"Could not read folder permissions.\n"
-"Unable to edit delegates."
-msgstr ""
-"No se pudo leer los permisos de la carpeta.\n"
-"Imposible editar delegados."
-
-#: ../storage/exchange-delegates.c:267
-msgid ""
-"Could not determine folder permissions for delegates.\n"
-"Unable to edit delegates."
-msgstr ""
-"No se pudieron determinar los permisos de la carpeta para los delegados. No "
-"se pueden editar los delegados"
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To:"
-msgstr "Delegar en:"
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To"
-msgstr "Delegar en"
-
-#: ../storage/exchange-delegates.c:435
-#, c-format
-msgid "Could not make %s a delegate"
-msgstr "No se pudo hacer a %s un delegado"
-
-#: ../storage/exchange-delegates.c:445
-msgid "You cannot make yourself your own delegate"
-msgstr "No puedes hacerse a sí mismo su propio delegado"
-
-#: ../storage/exchange-delegates.c:454
-#, c-format
-msgid "%s is already a delegate"
-msgstr "%s ya es un delegado"
-
-#: ../storage/exchange-delegates.c:563
-#, c-format
-msgid "Remove the delegate %s?"
-msgstr "¿Borrar la delegación en %s?"
-
-#: ../storage/exchange-delegates.c:680
-msgid "Could not access Active Directory"
-msgstr "No se puede acceder al Directorio Activo"
-
-#: ../storage/exchange-delegates.c:695
-msgid "Could not find self in Active Directory"
-msgstr "No me encuentro en el Directorio Activo"
-
-#: ../storage/exchange-delegates.c:708
-#, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "No se pudo encontrar al delegado %s en el Directorio Activo"
-
-#: ../storage/exchange-delegates.c:720
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "No se pudo eliminar el delegado de %s"
-
-#: ../storage/exchange-delegates.c:780
-msgid "Could not update list of delegates."
-msgstr "No se pudo actualizar la lista de delegados."
-
-#: ../storage/exchange-delegates.c:798
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "No se pudo añadir el delegado %s"
-
-#: ../storage/exchange-delegates.c:814
-#, c-format
-msgid ""
-"Failed to update delegates:\n"
-"%s"
-msgstr ""
-"Falló al actualizar los delegados:\n"
-"%s"
-
-#: ../storage/exchange-delegates.c:938
-#: ../storage/exchange-permissions-dialog.c:706
-msgid "Name"
-msgstr "Nombre"
-
-#: ../storage/exchange-delegates.c:967
-msgid "Error reading delegates list."
-msgstr "Error leyendo la lista de delegados."
-
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
 msgstr "Autor (leer, crear)"
@@ -985,63 +865,6 @@ msgstr "_Cambiar contraseña"
 msgid "ok_button"
 msgstr "_Aceptar"
 
-#: ../storage/exchange-permissions-dialog.c:222
-msgid "Could not read folder permissions"
-msgstr "No se pudieron leer los permisos de la carpeta"
-
-#: ../storage/exchange-permissions-dialog.c:264
-msgid "Could not update folder permissions."
-msgstr "No se pudieron actualizar los permisos de la carpeta."
-
-#: ../storage/exchange-permissions-dialog.c:293
-#, c-format
-msgid "Could not update folder permissions. %s"
-msgstr "No se pudo cambiar los permisos de la carpeta. %s"
-
-#: ../storage/exchange-permissions-dialog.c:295
-msgid "(Permission denied.)"
-msgstr "(Permiso denegado)"
-
-#: ../storage/exchange-permissions-dialog.c:396
-msgid ""
-"Unable to add user to access control list:\n"
-"No Global Catalog server is configured for this account."
-msgstr ""
-"No se puede añadir al usuario a la lista de control de acceso:\n"
-"No hay un servidor de Catálogo Global configurado para esta cuenta."
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User:"
-msgstr "Añadir usuario:"
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User"
-msgstr "Añadir usuario"
-
-#: ../storage/exchange-permissions-dialog.c:421
-#, c-format
-msgid "No such user %s"
-msgstr "No existe el usuario %s"
-
-#: ../storage/exchange-permissions-dialog.c:425
-#, c-format
-msgid "%s cannot be added to an access control list"
-msgstr "%s no puede ser añadido a una lista de control de acceso"
-
-#: ../storage/exchange-permissions-dialog.c:430
-#, c-format
-msgid "Unknown error looking up %s"
-msgstr "Error desconocido al buscar %s"
-
-#: ../storage/exchange-permissions-dialog.c:447
-#, c-format
-msgid "%s is already in the list"
-msgstr "%s ya está en la lista"
-
-#: ../storage/exchange-permissions-dialog.c:710
-msgid "Role"
-msgstr "Rol"
-
 #: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
 msgstr "    "
@@ -1110,70 +933,6 @@ msgstr "Conectando..."
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Conector Ximian para Microsoft Exchange"
 
-#: ../storage/xc-backend-view.c:299
-msgid "Account Name"
-msgstr "Nombre de la cuenta"
-
-#: ../storage/xc-commands.c:316
-msgid "Folder does not exist"
-msgstr "La carpeta no existe"
-
-#: ../storage/xc-commands.c:343
-#, c-format
-msgid "Could not add favorite: %s"
-msgstr "No se pudo añadir el favorito: %s"
-
-#: ../storage/xc-commands.c:359
-#, c-format
-msgid "Could not remove favorite: %s"
-msgstr "No se pudo eliminar el favorito: %s"
-
-#.
-#. FIXME: See 62440
-#. E_POPUP_ITEM (N_("_Move Folder..."),
-#. G_CALLBACK (do_move_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#. E_POPUP_ITEM (N_("_Copy Folder..."),
-#. G_CALLBACK (do_copy_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#.
-#: ../storage/xc-commands.c:385
-msgid "_Rename Folder..."
-msgstr "_Renombrar carpeta..."
-
-#: ../storage/xc-commands.c:391
-msgid "_New Folder..."
-msgstr "Carpeta _nueva..."
-
-#: ../storage/xc-commands.c:394
-msgid "_Delete Folder"
-msgstr "_Borrar carpeta"
-
-#: ../storage/xc-commands.c:399
-msgid "_Add Other User's Folder..."
-msgstr "_Añadir carpeta de otro usuario..."
-
-#: ../storage/xc-commands.c:402
-msgid "_Remove Other User's Folder"
-msgstr "_Quitar carpeta de otro usuario"
-
-#: ../storage/xc-commands.c:408
-msgid "Add to _Favorites"
-msgstr "Añadir a _favoritos"
-
-#: ../storage/xc-commands.c:412
-msgid "Remove from Fa_vorites"
-msgstr "Quitar de fa_voritos"
-
-#.
-#. E_POPUP_ITEM (N_("_Permissions..."),
-#. G_CALLBACK (do_permissions),
-#. XC_FOLDER_COMMAND_MASK_PERMISSIONS),
-#.
-#: ../storage/xc-commands.c:423
-msgid "_Show Folder Sizes"
-msgstr "_Mostrar el tamaño de las carpetas"
-
 #: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
 msgstr ""
@@ -1233,6 +992,173 @@ msgstr "Asistente para _fuera de oficina"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Desuscribirse de una carpeta de otro usuario"
+
+#~ msgid "No such folder."
+#~ msgstr "No existe la carpeta."
+
+#~ msgid "*Control*F5"
+#~ msgstr "*Control*F5"
+
+#~ msgid "Evolution Exchange Component"
+#~ msgstr "Componente de Evolution Exchange"
+
+#~ msgid "Exchange"
+#~ msgstr "Exchange"
+
+#~ msgid "_Exchange"
+#~ msgstr "_Exchange"
+
+#~ msgid "Custom"
+#~ msgstr "Personalizado"
+
+#~ msgid "Permissions for %s"
+#~ msgstr "Permisos de %s"
+
+#~ msgid ""
+#~ "No Global Catalog server configured for this account.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "No hay un servidor de Catálogo Global configurado para esta cuenta. No es "
+#~ "posible editar delegados."
+
+#~ msgid ""
+#~ "Could not read folder permissions.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "No se pudo leer los permisos de la carpeta.\n"
+#~ "Imposible editar delegados."
+
+#~ msgid ""
+#~ "Could not determine folder permissions for delegates.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "No se pudieron determinar los permisos de la carpeta para los delegados. "
+#~ "No se pueden editar los delegados"
+
+#~ msgid "Delegate To:"
+#~ msgstr "Delegar en:"
+
+#~ msgid "Delegate To"
+#~ msgstr "Delegar en"
+
+#~ msgid "Could not make %s a delegate"
+#~ msgstr "No se pudo hacer a %s un delegado"
+
+#~ msgid "You cannot make yourself your own delegate"
+#~ msgstr "No puedes hacerse a sí mismo su propio delegado"
+
+#~ msgid "%s is already a delegate"
+#~ msgstr "%s ya es un delegado"
+
+#~ msgid "Remove the delegate %s?"
+#~ msgstr "¿Borrar la delegación en %s?"
+
+#~ msgid "Could not access Active Directory"
+#~ msgstr "No se puede acceder al Directorio Activo"
+
+#~ msgid "Could not find self in Active Directory"
+#~ msgstr "No me encuentro en el Directorio Activo"
+
+#~ msgid "Could not find delegate %s in Active Directory"
+#~ msgstr "No se pudo encontrar al delegado %s en el Directorio Activo"
+
+#~ msgid "Could not remove delegate %s"
+#~ msgstr "No se pudo eliminar el delegado de %s"
+
+#~ msgid "Could not update list of delegates."
+#~ msgstr "No se pudo actualizar la lista de delegados."
+
+#~ msgid "Could not add delegate %s"
+#~ msgstr "No se pudo añadir el delegado %s"
+
+#~ msgid ""
+#~ "Failed to update delegates:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Falló al actualizar los delegados:\n"
+#~ "%s"
+
+#~ msgid "Name"
+#~ msgstr "Nombre"
+
+#~ msgid "Error reading delegates list."
+#~ msgstr "Error leyendo la lista de delegados."
+
+#~ msgid "Could not read folder permissions"
+#~ msgstr "No se pudieron leer los permisos de la carpeta"
+
+#~ msgid "Could not update folder permissions."
+#~ msgstr "No se pudieron actualizar los permisos de la carpeta."
+
+#~ msgid "Could not update folder permissions. %s"
+#~ msgstr "No se pudo cambiar los permisos de la carpeta. %s"
+
+#~ msgid "(Permission denied.)"
+#~ msgstr "(Permiso denegado)"
+
+#~ msgid ""
+#~ "Unable to add user to access control list:\n"
+#~ "No Global Catalog server is configured for this account."
+#~ msgstr ""
+#~ "No se puede añadir al usuario a la lista de control de acceso:\n"
+#~ "No hay un servidor de Catálogo Global configurado para esta cuenta."
+
+#~ msgid "Add User:"
+#~ msgstr "Añadir usuario:"
+
+#~ msgid "Add User"
+#~ msgstr "Añadir usuario"
+
+#~ msgid "No such user %s"
+#~ msgstr "No existe el usuario %s"
+
+#~ msgid "%s cannot be added to an access control list"
+#~ msgstr "%s no puede ser añadido a una lista de control de acceso"
+
+#~ msgid "Unknown error looking up %s"
+#~ msgstr "Error desconocido al buscar %s"
+
+#~ msgid "%s is already in the list"
+#~ msgstr "%s ya está en la lista"
+
+#~ msgid "Role"
+#~ msgstr "Rol"
+
+#~ msgid "Account Name"
+#~ msgstr "Nombre de la cuenta"
+
+#~ msgid "Folder does not exist"
+#~ msgstr "La carpeta no existe"
+
+#~ msgid "Could not add favorite: %s"
+#~ msgstr "No se pudo añadir el favorito: %s"
+
+#~ msgid "Could not remove favorite: %s"
+#~ msgstr "No se pudo eliminar el favorito: %s"
+
+#~ msgid "_Rename Folder..."
+#~ msgstr "_Renombrar carpeta..."
+
+#~ msgid "_New Folder..."
+#~ msgstr "Carpeta _nueva..."
+
+#~ msgid "_Delete Folder"
+#~ msgstr "_Borrar carpeta"
+
+#~ msgid "_Add Other User's Folder..."
+#~ msgstr "_Añadir carpeta de otro usuario..."
+
+#~ msgid "_Remove Other User's Folder"
+#~ msgstr "_Quitar carpeta de otro usuario"
+
+#~ msgid "Add to _Favorites"
+#~ msgstr "Añadir a _favoritos"
+
+#~ msgid "Remove from Fa_vorites"
+#~ msgstr "Quitar de fa_voritos"
+
+#~ msgid "_Show Folder Sizes"
+#~ msgstr "_Mostrar el tamaño de las carpetas"
 
 #~ msgid "Can only expunge in Deleted Items folder"
 #~ msgstr "Sólo se puede compactar en la carpeta de «Elementos borrados»"
