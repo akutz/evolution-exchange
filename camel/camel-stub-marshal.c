@@ -90,8 +90,12 @@ do_read (CamelStubMarshal *marshal, char *buf, size_t len)
 	ssize_t n;
 	
 	do {
-		if ((n = camel_read (marshal->fd, buf + nread, len - nread)) <= 0)
-			break;
+		if ((n = camel_read (marshal->fd, buf + nread, len - nread)) <= 0) {
+			if (errno != ETIMEDOUT)
+				break;
+			else
+				n = 0;
+		}
 		nread += n;
 	} while (nread < len);
 	
