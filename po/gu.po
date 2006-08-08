@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-19 18:42+0100\n"
-"PO-Revision-Date: 2006-02-20 15:52+0530\n"
+"POT-Creation-Date: 2006-08-07 23:22+0200\n"
+"PO-Revision-Date: 2006-08-08 10:05+0530\n"
 "Last-Translator: Ankit Patel <ankit644@yahoo.com>\n"
 "Language-Team: Gujarati <indianoss-gujarati@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,9 @@ msgstr ""
 "\n"
 "\n"
 "\n"
+"\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1867
+#: ../addressbook/e-book-backend-exchange.c:1882
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "શોધી રહ્યા છીએ..."
@@ -34,7 +35,7 @@ msgstr "LDAP શોધ પરિણામો મેળવી રહ્યા છ
 msgid "Error performing search"
 msgstr "શોધ કરવામાં ભૂલ આવી"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1805
+#: ../calendar/e-cal-backend-exchange-calendar.c:2004
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -43,7 +44,7 @@ msgstr ""
 "મંત્રણાઓ ફરીથી ભરવા માટે સ્રોત '%s' માટે સમયક્રમ નક્કી કરવા સમર્થ નથી.\n"
 "તમે દરેક મંત્રણા અલગ રીતે નોંધાવી જોઈએ જ."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1823
+#: ../calendar/e-cal-backend-exchange-calendar.c:2022
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "પસંદ કરેલા સમય દરમ્યાન સ્રોત '%s' વ્યસ્ત હતો."
@@ -56,43 +57,43 @@ msgstr "તમે ઓફલાઈન સ્થિતિ બગાડી શક�
 msgid "No Subject"
 msgstr "કોઈ વિષય નથી"
 
-#: ../camel/camel-exchange-folder.c:380
+#: ../camel/camel-exchange-folder.c:407
 msgid "This message is not available in offline mode."
 msgstr "આ સંદેશો ઓફલાઈન સ્થિતિમાં ઉપ્લબ્ધ નથી."
 
-#: ../camel/camel-exchange-folder.c:615
+#: ../camel/camel-exchange-folder.c:642
 msgid "Moving messages"
 msgstr "સંદેશાઓ ખસેડી રહ્યા છીએ"
 
-#: ../camel/camel-exchange-folder.c:616
+#: ../camel/camel-exchange-folder.c:643
 msgid "Copying messages"
 msgstr "સંદેશાઓની નકલ કરી રહ્યા છીએ"
 
-#: ../camel/camel-exchange-folder.c:987
+#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "ડિરેક્ટરી %s બનાવી શક્યા નહિં: %s"
 
-#: ../camel/camel-exchange-folder.c:997
+#: ../camel/camel-exchange-folder.c:1024
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "%s માટે સાર લાવી શક્યા નહિં"
 
-#: ../camel/camel-exchange-folder.c:1005
+#: ../camel/camel-exchange-folder.c:1032
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "%s માટે કેશ બનાવી શક્યા નહિં"
 
-#: ../camel/camel-exchange-folder.c:1015
+#: ../camel/camel-exchange-folder.c:1042
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "%s માટે જર્નલ બનાવી શક્યા નથી"
 
-#: ../camel/camel-exchange-folder.c:1060
+#: ../camel/camel-exchange-folder.c:1087
 msgid "Scanning for changed messages"
 msgstr "બદલાયેલ સંદેશાઓ માટે સ્કેન કરી રહ્યા છીએ"
 
-#: ../camel/camel-exchange-folder.c:1086
+#: ../camel/camel-exchange-folder.c:1113
 msgid "Fetching summary information for new messages"
 msgstr "નવા સંદેશાઓ માટે સારની જાણકારી મેળવી રહ્યા છીએ"
 
@@ -102,8 +103,8 @@ msgstr "કોઈ ફોલ્ડર નામ મળ્યું નથી\n"
 
 #: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
 #: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2724
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
+#: ../mail/mail-stub-exchange.c:2730
 msgid "Folder doesn't exist"
 msgstr "ફોલ્ડર ઉપલબ્ધ નથી"
 
@@ -263,37 +264,42 @@ msgstr "સંદેશો મોકલી શકાતો નથી: એક અ
 msgid "Could not find 'From' address in message"
 msgstr "'પ્રતિ' સરનામુ સંદેશામાંથી મેળવી શકાયું નહિં"
 
-#: ../camel/camel-stub.c:134
+#: ../camel/camel-stub.c:152
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "સોકેટ બનાવી શકાયું નહિં: %s"
 
-#: ../camel/camel-stub.c:149
+#: ../camel/camel-stub.c:170
+#, c-format
+msgid "Could not connect to %s: Please restart Evolution"
+msgstr "%s સાથે જોડાઈ શક્યા નહિં: મહેરબાની કરીને ઈવોલ્યુશન પુનઃશરૂ કરો"
+
+#: ../camel/camel-stub.c:175
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "%s સાથે જોડાણ કરી શકાયું નહિં: %s"
 
-#: ../camel/camel-stub.c:179
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Path too long: %s"
 msgstr "પથ ખૂબ મોટો છે: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:231
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "સ્થિતિ થ્રેડ શરુ કરી શકાયો નહિં: %s"
 
-#: ../camel/camel-stub.c:457
+#: ../camel/camel-stub.c:485
 #, c-format
 msgid "Lost connection to %s"
 msgstr "%s સાથેનું જોડાણ ખોવાઈ ગયું"
 
-#: ../camel/camel-stub.c:461
+#: ../camel/camel-stub.c:489
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "%s સાથે સંપર્ક કરવામાં ભૂલ: %s"
 
-#: ../mail/mail-stub-exchange.c:257
+#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
 msgid "No such folder"
 msgstr "આવુ કોઈ ફોલ્ડર નથી"
 
@@ -301,8 +307,8 @@ msgstr "આવુ કોઈ ફોલ્ડર નથી"
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
 #: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
-#: ../mail/mail-stub-exchange.c:2740 ../storage/xc-commands.c:319
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
+#: ../mail/mail-stub-exchange.c:2745
 msgid "Permission denied"
 msgstr "પરવાનગી મળી નહિં"
 
@@ -313,10 +319,6 @@ msgstr "ફોલ્ડર ખોલી શકાયું નહિં: પર�
 #: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
 msgid "Could not open folder"
 msgstr "ફોલ્ડર ખોલી શકાયું નહિં"
-
-#: ../mail/mail-stub-exchange.c:755
-msgid "No such folder."
-msgstr "આવુ કોઈ ફોલ્ડર નથી."
 
 #: ../mail/mail-stub-exchange.c:764
 msgid "Could not create folder."
@@ -392,12 +394,12 @@ msgid "Could not send message"
 msgstr "સંદેશો મોકલી શકાયો નહિં"
 
 #: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
-#: ../mail/mail-stub-exchange.c:2745 ../storage/xc-commands.c:323
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
+#: ../mail/mail-stub-exchange.c:2751
 msgid "Generic error"
 msgstr "સામાન્ય ભૂલ"
 
-#: ../mail/mail-stub-exchange.c:2522 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2522
 msgid "Folder already exists"
 msgstr "ફોલ્ડર પહેલાથી જ હાજર છે"
 
@@ -682,112 +684,6 @@ msgstr "નવો પાસવર્ડ:"
 msgid "Your current password has expired. Please change your password now."
 msgstr "તમારો વર્તમાન પાસવર્ડની મર્યાદા પૂરી થઈ ગઈ. મહેરબાની કરીને તમારો પાસવર્ડ હમણાં બદલો."
 
-#: ../storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "વૈવિધ્યપૂર્ણ"
-
-#: ../storage/exchange-delegates-user.c:191
-#: ../storage/exchange-permissions-dialog.c:179
-#, c-format
-msgid "Permissions for %s"
-msgstr "%s માટે પરવાનગીઓ"
-
-#: ../storage/exchange-delegates.c:221
-msgid ""
-"No Global Catalog server configured for this account.\n"
-"Unable to edit delegates."
-msgstr ""
-"કોઈ વૈશ્વિક કેટલોગ સર્વર આ ખાતા માટે રૂપરેખાંકિત થયેલ નથી.\n"
-"પ્રતિનિધીઓમાં ફેરફાર કરવા માટે અસમર્થ."
-
-#: ../storage/exchange-delegates.c:260
-msgid ""
-"Could not read folder permissions.\n"
-"Unable to edit delegates."
-msgstr ""
-"ફોલ્ડર પરવાનગીઓ વાંચી શક્યા નહિં.\n"
-"પ્રતિનિધીઓમાં ફેરફાર કરવા માટે અસમર્થ."
-
-#: ../storage/exchange-delegates.c:267
-msgid ""
-"Could not determine folder permissions for delegates.\n"
-"Unable to edit delegates."
-msgstr ""
-"પ્રતિનિધીઓ માટે ફોલ્ડર પરવાનગીઓ નક્કી કરી શક્યા નહિં.\n"
-"પ્રતિનિધીઓમાં ફેરફાર કરવામાં અસમર્થ."
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To:"
-msgstr "પ્રતિનિધી પ્રતિ:"
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To"
-msgstr "પ્રતિનિધી પ્રતિ"
-
-#: ../storage/exchange-delegates.c:435
-#, c-format
-msgid "Could not make %s a delegate"
-msgstr "%s ને પ્રતિનિધી બનાવી શક્યા નહિં"
-
-#: ../storage/exchange-delegates.c:445
-msgid "You cannot make yourself your own delegate"
-msgstr "તમે તમારા પોતાને પ્રતિનિધી બનાવી શકો નહિં"
-
-#: ../storage/exchange-delegates.c:454
-#, c-format
-msgid "%s is already a delegate"
-msgstr "%s એ પહેલાથી જ પ્રતિનિધી છે"
-
-#: ../storage/exchange-delegates.c:563
-#, c-format
-msgid "Remove the delegate %s?"
-msgstr "શું પ્રતિનિધી %s દૂર કરવો છે?"
-
-#: ../storage/exchange-delegates.c:680
-msgid "Could not access Active Directory"
-msgstr "ક્રિયાશીલ ડિરેક્ટરી વાપરી શક્યા નહિં"
-
-#: ../storage/exchange-delegates.c:695
-msgid "Could not find self in Active Directory"
-msgstr "ક્રિયાશીલ ડિરેક્ટરીમાં પોતાને શોધી શક્યા નહિં"
-
-#: ../storage/exchange-delegates.c:708
-#, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "પ્રતિનિધી %s ને ક્રિયાશીલ ડિરેક્ટરીમાં શોધી શક્યા નહિં"
-
-#: ../storage/exchange-delegates.c:720
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "પ્રતિનિધી %s દૂર કરી શક્યા નહિં"
-
-#: ../storage/exchange-delegates.c:780
-msgid "Could not update list of delegates."
-msgstr "પ્રતિનિધીઓની યાદી સુધારી શક્યા નહિં."
-
-#: ../storage/exchange-delegates.c:798
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "પ્રતિનિધી %s ઉમેરી શક્યા નહિં"
-
-#: ../storage/exchange-delegates.c:814
-#, c-format
-msgid ""
-"Failed to update delegates:\n"
-"%s"
-msgstr ""
-"પ્રતિનિધીઓ સુધારવામાં નિષ્ફળ:\n"
-"%s"
-
-#: ../storage/exchange-delegates.c:938
-#: ../storage/exchange-permissions-dialog.c:706
-msgid "Name"
-msgstr "નામ"
-
-#: ../storage/exchange-delegates.c:967
-msgid "Error reading delegates list."
-msgstr "પ્રતિનિધીઓની યાદી વાંચવામાં ભૂલ."
-
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
 msgstr "લેખક (વાંચો, બનાવો)"
@@ -949,63 +845,6 @@ msgstr "પાસવર્ડ બદલો (_C)"
 msgid "ok_button"
 msgstr "બરાબર_બટન"
 
-#: ../storage/exchange-permissions-dialog.c:222
-msgid "Could not read folder permissions"
-msgstr "ફોલ્ડર પરવાનગીઓ વાંચી શક્યા નહિં"
-
-#: ../storage/exchange-permissions-dialog.c:264
-msgid "Could not update folder permissions."
-msgstr "ફોલ્ડર પરવાનગીઓ સુધારી શક્યા નહિં."
-
-#: ../storage/exchange-permissions-dialog.c:293
-#, c-format
-msgid "Could not update folder permissions. %s"
-msgstr "ફોલ્ડર પરવાનગીઓ સુધારી શક્યા નહિં. %s"
-
-#: ../storage/exchange-permissions-dialog.c:295
-msgid "(Permission denied.)"
-msgstr "(પરવાનગી મળી નહિં.)"
-
-#: ../storage/exchange-permissions-dialog.c:396
-msgid ""
-"Unable to add user to access control list:\n"
-"No Global Catalog server is configured for this account."
-msgstr ""
-"વપરાશકર્તાને વપરાશ નિયંત્રણ યાદીમાં ઉમેરવા માટે અસમર્થ:\n"
-"આ ખાતા માટે કોઈ વૈશ્વિક કેટેલોગ સર્વર રૂપરેખાંકિત નથી."
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User:"
-msgstr "વપરાશકર્તા ઉમેરો:"
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User"
-msgstr "વપરાશકર્તા ઉમેરો"
-
-#: ../storage/exchange-permissions-dialog.c:421
-#, c-format
-msgid "No such user %s"
-msgstr "%s જેવો કોઈ વપરાશકર્તા નથી"
-
-#: ../storage/exchange-permissions-dialog.c:425
-#, c-format
-msgid "%s cannot be added to an access control list"
-msgstr "%s એ વપરાશ નિયંત્રણ યાદીમાં ઉમેરી શકાતો નથી"
-
-#: ../storage/exchange-permissions-dialog.c:430
-#, c-format
-msgid "Unknown error looking up %s"
-msgstr "અજ્ઞાત બૂલ જુઓ %s"
-
-#: ../storage/exchange-permissions-dialog.c:447
-#, c-format
-msgid "%s is already in the list"
-msgstr "%s એ પહેલાથી જ યાદીમાં છે"
-
-#: ../storage/exchange-permissions-dialog.c:710
-msgid "Role"
-msgstr "ભૂમિકા"
-
 #: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
 msgstr "    "
@@ -1073,70 +912,6 @@ msgstr "જોડાઈ રહ્યા છીએ..."
 #: ../storage/main.c:183
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "માઈક્રોસોફ્ટ એક્સચેન્જ માટે Ximian જોડનાર"
-
-#: ../storage/xc-backend-view.c:299
-msgid "Account Name"
-msgstr "ખાતા નામ"
-
-#: ../storage/xc-commands.c:316
-msgid "Folder does not exist"
-msgstr "ફોલ્ડર અસ્તિત્વમાં નથી"
-
-#: ../storage/xc-commands.c:343
-#, c-format
-msgid "Could not add favorite: %s"
-msgstr "મનગમતાઓમાં ઉમેરી શક્યા નહિં: %s"
-
-#: ../storage/xc-commands.c:359
-#, c-format
-msgid "Could not remove favorite: %s"
-msgstr "મનગમતાઓ દૂર કરી શક્યા નહિં: %s"
-
-#.
-#. FIXME: See 62440
-#. E_POPUP_ITEM (N_("_Move Folder..."),
-#. G_CALLBACK (do_move_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#. E_POPUP_ITEM (N_("_Copy Folder..."),
-#. G_CALLBACK (do_copy_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#.
-#: ../storage/xc-commands.c:385
-msgid "_Rename Folder..."
-msgstr "ફોલ્ડરનું નામ બદલો (_R)..."
-
-#: ../storage/xc-commands.c:391
-msgid "_New Folder..."
-msgstr "નવું ફોલ્ડર (_N)..."
-
-#: ../storage/xc-commands.c:394
-msgid "_Delete Folder"
-msgstr "ફોલ્ડર કાઢી નાંખો (_D)"
-
-#: ../storage/xc-commands.c:399
-msgid "_Add Other User's Folder..."
-msgstr "અન્ય વપરાશકર્તાના ફોલ્ડરમાં ઉમેરો (_A)..."
-
-#: ../storage/xc-commands.c:402
-msgid "_Remove Other User's Folder"
-msgstr "અન્ય વપરાશકર્તાના ફોલ્ડરને દૂર કરો (_R)"
-
-#: ../storage/xc-commands.c:408
-msgid "Add to _Favorites"
-msgstr "મનગમતાઓમાં ઉમેરો (_F)"
-
-#: ../storage/xc-commands.c:412
-msgid "Remove from Fa_vorites"
-msgstr "મનગમતાઓમાંથી દૂર કરો (_v)"
-
-#.
-#. E_POPUP_ITEM (N_("_Permissions..."),
-#. G_CALLBACK (do_permissions),
-#. XC_FOLDER_COMMAND_MASK_PERMISSIONS),
-#.
-#: ../storage/xc-commands.c:423
-msgid "_Show Folder Sizes"
-msgstr "ફોલ્ડર માપો બતાવો (_S)"
 
 #: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
