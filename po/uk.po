@@ -1,21 +1,21 @@
 # Ukrainian translation to evolution-exchange.
 # Copyright (C) 2004 Free Software Foundation, Inc.
 # This file is distributed under the same license as the evolution-exchange package.
-# Maxim Dziumanenko <mvd@mylinux.ua>, 2004-2006.
+# Maxim Dziumanenko <dziumanenko@gmail.com>, 2004-2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-06 12:32+0200\n"
+"POT-Creation-Date: 2006-08-10 14:17+0300\n"
 "PO-Revision-Date: 2006-03-03 18:23+0300\n"
-"Last-Translator: Maxim Dziumanenko <mvd@mylinux.ua>\n"
+"Last-Translator: Maxim Dziumanenko <dziumanenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1867
+#: ../addressbook/e-book-backend-exchange.c:1882
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Пошук..."
@@ -32,7 +32,7 @@ msgstr "Отримання результатів пошуку LDAP..."
 msgid "Error performing search"
 msgstr "Помилка при виконанні пошуку"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1932
+#: ../calendar/e-cal-backend-exchange-calendar.c:2004
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -41,7 +41,7 @@ msgstr ""
 "Не вдається додати у розклад ресурс '%s' для періодичного засідання.\n"
 "Необхідно резервувати кожне засідання окремо."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1950
+#: ../calendar/e-cal-backend-exchange-calendar.c:2022
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Ресурс '%s' зайнятий протягом вибраного проміжку часу."
@@ -100,8 +100,8 @@ msgstr "Не знайдено назву теки\n"
 
 #: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
 #: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2724
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
+#: ../mail/mail-stub-exchange.c:2730
 msgid "Folder doesn't exist"
 msgstr "Тека не існує"
 
@@ -270,37 +270,42 @@ msgstr ""
 msgid "Could not find 'From' address in message"
 msgstr "Не вдається знайти адресу 'From'у повідомленні"
 
-#: ../camel/camel-stub.c:134
+#: ../camel/camel-stub.c:152
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Не вдається створити сокет: %s"
 
-#: ../camel/camel-stub.c:149
+#: ../camel/camel-stub.c:170
+#, c-format
+msgid "Could not connect to %s: Please restart Evolution"
+msgstr "Не вдається підключитись до %s: перезапустіть Evolution"
+
+#: ../camel/camel-stub.c:175
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Не вдається підключитись до %s: %s"
 
-#: ../camel/camel-stub.c:179
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Path too long: %s"
 msgstr "Шлях надто довгий: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:231
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Не вдається запустити потік статусу: %s"
 
-#: ../camel/camel-stub.c:457
+#: ../camel/camel-stub.c:485
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Втрачено з'єднання з %s"
 
-#: ../camel/camel-stub.c:461
+#: ../camel/camel-stub.c:489
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Помилка зв'язку з %s: %s"
 
-#: ../mail/mail-stub-exchange.c:257
+#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
 msgid "No such folder"
 msgstr "Немає такої теки"
 
@@ -308,8 +313,8 @@ msgstr "Немає такої теки"
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
 #: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
-#: ../mail/mail-stub-exchange.c:2739
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
+#: ../mail/mail-stub-exchange.c:2745
 msgid "Permission denied"
 msgstr "Доступ заборонено"
 
@@ -320,10 +325,6 @@ msgstr "Не вдається відкрити теку: доступ забор
 #: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
 msgid "Could not open folder"
 msgstr "Не вдається відкрити теку"
-
-#: ../mail/mail-stub-exchange.c:755
-msgid "No such folder."
-msgstr "Немає такої теки."
 
 #: ../mail/mail-stub-exchange.c:764
 msgid "Could not create folder."
@@ -399,8 +400,8 @@ msgid "Could not send message"
 msgstr "Не вдається надіслати повідомлення"
 
 #: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
-#: ../mail/mail-stub-exchange.c:2745
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
+#: ../mail/mail-stub-exchange.c:2751
 msgid "Generic error"
 msgstr "Загальна помилка"
 
@@ -978,6 +979,9 @@ msgstr "Зас_тупник"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Відписатись від теки іншого користувача"
+
+#~ msgid "No such folder."
+#~ msgstr "Немає такої теки."
 
 #~ msgid "Custom"
 #~ msgstr "Власний"
