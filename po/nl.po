@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-17 07:31+0100\n"
-"PO-Revision-Date: 2006-02-17 12:51+0100\n"
+"POT-Creation-Date: 2006-08-10 23:23+0200\n"
+"PO-Revision-Date: 2006-08-11 06:10+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr ""
 # niets mee hoeft te doen. Het is een indicatie dat het programma bezig is.
 # Het tonen van de status is al een aanduiding dat het programma 'bezig is'
 # Vandaar dat het hier in deze meldingen wordt weggelaten.
-#: ../addressbook/e-book-backend-exchange.c:1867
+#: ../addressbook/e-book-backend-exchange.c:1882
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Zoeken..."
@@ -50,69 +50,69 @@ msgstr "Fout bij uitvoeren zoekopdracht"
 
 # doelbron?
 # mogelijk weglaten: niet in staat om 's' te plannen voor...
-#: ../calendar/e-cal-backend-exchange-calendar.c:1805
+#: ../calendar/e-cal-backend-exchange-calendar.c:2004
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
-"Niet in staat om bron '%s' te plannen voor herhalende vergaderingen.\n"
+"Niet in staat om bron ‘%s’ in te plannen voor herhalende vergaderingen.\n"
 "U moet elke vergadering afzonderlijk boeken."
 
 # ... is bezet in de geselecteerde periode
 # ... is bezet tijdens 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1823
+#: ../calendar/e-cal-backend-exchange-calendar.c:2022
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
-msgstr "De bron '%s' is bezet gedurende de geselecteerde periode."
+msgstr "De bron ‘%s’ is bezet gedurende de geselecteerde periode."
 
 #: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
-msgstr "Wanneer u offline bent, kunt u niet weggooien."
+msgstr "Wanneer u offline bent, kunt u niet leegmaken."
 
 #: ../camel/camel-exchange-folder.c:253
 msgid "No Subject"
 msgstr "Geen onderwerp"
 
 # ...wanneer u off-line bent
-#: ../camel/camel-exchange-folder.c:380
+#: ../camel/camel-exchange-folder.c:407
 msgid "This message is not available in offline mode."
 msgstr "Dit bericht is niet beschikbaar in de off-line stand."
 
-#: ../camel/camel-exchange-folder.c:615
+#: ../camel/camel-exchange-folder.c:642
 msgid "Moving messages"
 msgstr "Berichten verplaatsen"
 
-#: ../camel/camel-exchange-folder.c:616
+#: ../camel/camel-exchange-folder.c:643
 msgid "Copying messages"
 msgstr "Berichten kopiëren"
 
-#: ../camel/camel-exchange-folder.c:987
+#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Kon map %s niet aanmaken: %s"
 
-#: ../camel/camel-exchange-folder.c:997
+#: ../camel/camel-exchange-folder.c:1024
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Kon samenvatting voor %s niet laden"
 
-#: ../camel/camel-exchange-folder.c:1005
+#: ../camel/camel-exchange-folder.c:1032
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Kon cache-buffer voor %s niet aanmaken"
 
-#: ../camel/camel-exchange-folder.c:1015
+#: ../camel/camel-exchange-folder.c:1042
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Kon journaal voor %s niet aanmaken"
 
 # aangepaste berichten
-#: ../camel/camel-exchange-folder.c:1060
+#: ../camel/camel-exchange-folder.c:1087
 msgid "Scanning for changed messages"
 msgstr "Scannen voor veranderde berichten"
 
-#: ../camel/camel-exchange-folder.c:1086
+#: ../camel/camel-exchange-folder.c:1113
 msgid "Fetching summary information for new messages"
 msgstr "Samenvatting voor nieuwe berichten ophalen"
 
@@ -122,8 +122,8 @@ msgstr "Geem mapnaam gevonden\n"
 
 #: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
 #: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2724
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
+#: ../mail/mail-stub-exchange.c:2730
 msgid "Folder doesn't exist"
 msgstr "Map bestaat niet"
 
@@ -170,7 +170,7 @@ msgstr "Opties"
 #: ../camel/camel-exchange-provider.c:60
 #, c-format
 msgid "_Password Expiry Warning period: %s"
-msgstr "'_Wachtwoord verloopt' waarschuwingsperiode: %s"
+msgstr "‘_Wachtwoord verloopt’ waarschuwingsperiode: %s"
 
 #: ../camel/camel-exchange-provider.c:62
 msgid "Automatically synchroni_ze account locally"
@@ -296,41 +296,46 @@ msgstr "Kan bericht niet versturen: een of meerder ongeldige ontvangers"
 
 #: ../camel/camel-exchange-transport.c:131
 msgid "Could not find 'From' address in message"
-msgstr "Kon het 'Van' adres niet vinden in het bericht"
+msgstr "Kon het ‘Van’ adres niet vinden in het bericht"
 
 # socket is een technische term
-#: ../camel/camel-stub.c:134
+#: ../camel/camel-stub.c:152
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Kon socket niet aanmaken: %s"
 
-#: ../camel/camel-stub.c:149
+#: ../camel/camel-stub.c:170
+#, c-format
+msgid "Could not connect to %s: Please restart Evolution"
+msgstr "Kon geen verbinding krijgen met %s: Start Evolution opnieuw op"
+
+#: ../camel/camel-stub.c:175
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Kon geen verbinding krijgen met %s: %s"
 
-#: ../camel/camel-stub.c:179
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Path too long: %s"
 msgstr "Pad is te lang: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:231
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Kon status 'thread' niet opstarten: %s"
 
-#: ../camel/camel-stub.c:457
+#: ../camel/camel-stub.c:485
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Verbinding met %s is verbroken"
 
-#: ../camel/camel-stub.c:461
+#: ../camel/camel-stub.c:489
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Fout bij communiceren met %s: %s"
 
 # een dergelijke map bestaat niet
-#: ../mail/mail-stub-exchange.c:257
+#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
 msgid "No such folder"
 msgstr "Map bestaat niet"
 
@@ -338,8 +343,8 @@ msgstr "Map bestaat niet"
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
 #: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
-#: ../mail/mail-stub-exchange.c:2740 ../storage/xc-commands.c:319
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
+#: ../mail/mail-stub-exchange.c:2745
 msgid "Permission denied"
 msgstr "Toegang geweigerd"
 
@@ -350,11 +355,6 @@ msgstr "Kon map niet openen: Toegang geweigerd"
 #: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
 msgid "Could not open folder"
 msgstr "Kon map niet openen"
-
-# een dergelijke map bestaat niet
-#: ../mail/mail-stub-exchange.c:755
-msgid "No such folder."
-msgstr "Map bestaat niet."
 
 #: ../mail/mail-stub-exchange.c:764
 msgid "Could not create folder."
@@ -421,7 +421,7 @@ msgid ""
 "as a From address."
 msgstr ""
 "Uw account heeft geen rechten om <%s> te gebruiken\n"
-"als een 'Van' adres."
+"als een ‘Van’ adres."
 
 #: ../mail/mail-stub-exchange.c:2491
 msgid ""
@@ -436,12 +436,12 @@ msgid "Could not send message"
 msgstr "Kon bericht niet versturen"
 
 #: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
-#: ../mail/mail-stub-exchange.c:2745 ../storage/xc-commands.c:323
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
+#: ../mail/mail-stub-exchange.c:2751
 msgid "Generic error"
 msgstr "Algemene fout"
 
-#: ../mail/mail-stub-exchange.c:2522 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2522
 msgid "Folder already exists"
 msgstr "Map bestaat al"
 
@@ -646,10 +646,11 @@ msgid ""
 "Please click the \"Forward\" button to continue."
 msgstr ""
 "Welkom bij Ximian Connector voor Microsoft Exchange.\n"
-"De volgende schermen zullen u assisteren Evolution te\n"
-"configureren om verbinding te maken met uw Exchange account.\n"
+"De volgende pagina's zullen u assisteren Evolution zo te\n"
+"configureren dat verbinding kan worden gemaakt met \n"
+"uw Exchange account.\n"
 "\n"
-"Klik op \"Volgende\" om verder te gaan."
+"Klik op ‘Volgende’ om verder te gaan."
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Ximian Connector Configuration"
@@ -664,11 +665,9 @@ msgid ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
-"Ximian Connector kan informatie uit uw bestaande Outlook Web Access (OWA) "
-"halen.\n"
+"Ximian Connector kan informatie uit uw bestaande Outlook Web Access (OWA) halen.\n"
 "\n"
-"Geef uw OWA adres (URL), gebruikersnaam en wachtwoord en klik daarna op "
-"\"Volgende\".\n"
+"Geef uw OWA adres (URL), gebruikersnaam en wachtwoord en klik daarna op ‘Volgende’.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:24
 msgid ""
@@ -695,15 +694,13 @@ msgid ""
 "settings."
 msgstr ""
 "Uw Connector-account is nu klaar voor gebruik.\n"
-"Klik op de knop \"Toepassen\" om uw instellingen te bewaren."
+"Klik op de knop ‘Toepassen’ om uw instellingen te bewaren."
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:30
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
-msgstr ""
-"Uw account-informatie is als volgt. Corrigeer de fouten en klik dan op "
-"\"Volgende\".\n"
+msgstr "Uw account-informatie is als volgt. Corrigeer de fouten en klik dan op ‘Volgende’.\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
@@ -723,7 +720,7 @@ msgstr ""
 
 #: ../storage/exchange-change-password.glade.h:2
 msgid "Change Password"
-msgstr "Wachtwoord veranderen"
+msgstr "Wachtwoord wijzigen"
 
 #: ../storage/exchange-change-password.glade.h:3
 msgid "Confirm Password:"
@@ -739,117 +736,7 @@ msgstr "Nieuw wachtwoord:"
 
 #: ../storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
-msgstr "Uw huidige wachtwoord is verlopen. Verander uw wachtwoord nu."
-
-#: ../storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "Aangepast"
-
-#: ../storage/exchange-delegates-user.c:191
-#: ../storage/exchange-permissions-dialog.c:179
-#, c-format
-msgid "Permissions for %s"
-msgstr "Rechten voor %s"
-
-# global catalog is een windowism
-#: ../storage/exchange-delegates.c:221
-msgid ""
-"No Global Catalog server configured for this account.\n"
-"Unable to edit delegates."
-msgstr ""
-"Geen Global Catalog server geconfigureerd voor dit account.\n"
-"Niet in staat gedelegeerden te bewerken."
-
-#: ../storage/exchange-delegates.c:260
-msgid ""
-"Could not read folder permissions.\n"
-"Unable to edit delegates."
-msgstr ""
-"Kon maprechten niet lezen.\n"
-"Niet in staat gedelegeerden te bewerken."
-
-#: ../storage/exchange-delegates.c:267
-msgid ""
-"Could not determine folder permissions for delegates.\n"
-"Unable to edit delegates."
-msgstr ""
-"Kon maprechten voor gedelegeerden niet bepalen.\n"
-"Niet in staat gedelegeerden te bewerken."
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To:"
-msgstr "Delegeren naar:"
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To"
-msgstr "Delegeren naar"
-
-#: ../storage/exchange-delegates.c:435
-#, c-format
-msgid "Could not make %s a delegate"
-msgstr "Kon %s geen gedelegeerde maken"
-
-#: ../storage/exchange-delegates.c:445
-msgid "You cannot make yourself your own delegate"
-msgstr "U kunt van uzelf niet uw eigen gedelegeerde maken"
-
-# is al gedelegeerd
-#: ../storage/exchange-delegates.c:454
-#, c-format
-msgid "%s is already a delegate"
-msgstr "%s is al een gedelegeerde"
-
-#: ../storage/exchange-delegates.c:563
-#, c-format
-msgid "Remove the delegate %s?"
-msgstr "De gedelegeerde %s verwijderen?"
-
-# geen toegang krijgen tot
-#: ../storage/exchange-delegates.c:680
-msgid "Could not access Active Directory"
-msgstr "Kon Active Directory niet benaderen"
-
-#: ../storage/exchange-delegates.c:695
-msgid "Could not find self in Active Directory"
-msgstr "Kon mijzelf niet vinden in Active Directory"
-
-#: ../storage/exchange-delegates.c:708
-#, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "Kon gedelegeerde %s niet vinden in Active Directory"
-
-#: ../storage/exchange-delegates.c:720
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "Kon gedelegeerde %s niet verwijderen"
-
-# bijwerken
-#: ../storage/exchange-delegates.c:780
-msgid "Could not update list of delegates."
-msgstr "Kon de lijst met gedelegeerden niet updaten."
-
-#: ../storage/exchange-delegates.c:798
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "Kon gedelegeerde %s niet toevoegen"
-
-#: ../storage/exchange-delegates.c:814
-#, c-format
-msgid ""
-"Failed to update delegates:\n"
-"%s"
-msgstr ""
-"Updaten gedelegeerden is mislukt:\n"
-"%s"
-
-#: ../storage/exchange-delegates.c:938
-#: ../storage/exchange-permissions-dialog.c:706
-msgid "Name"
-msgstr "Naam"
-
-#: ../storage/exchange-delegates.c:967
-msgid "Error reading delegates list."
-msgstr "Fout bij lezen gedelegeerdenlijst."
+msgstr "Uw huidige wachtwoord is verlopen. Wijzig uw wachtwoord nu."
 
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
@@ -879,6 +766,7 @@ msgstr "Editor (lezen, aanmaken, bewerken)"
 msgid "None"
 msgstr "Geen"
 
+# toegangsrechten
 #: ../storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
 msgstr "Rechten voor"
@@ -952,7 +840,7 @@ msgstr ""
 #: ../storage/exchange-migrate.c:130
 #, c-format
 msgid "Migrating `%s':"
-msgstr "Omzetten van `%s':"
+msgstr "Omzetten van ‘%s’:"
 
 #: ../storage/exchange-oof.glade.h:1
 msgid ""
@@ -960,9 +848,9 @@ msgid ""
 "\n"
 "Would you like to change your status to \"In the Office\"? "
 msgstr ""
-"<b>Momenteel is uw status \"Afwezig\". </b>\n"
+"<b>Momenteel is uw status ‘Afwezig’. </b>\n"
 "\n"
-"Wilt u uw status wijzen in \"Aanwezig\"? "
+"Wilt u uw status wijzigen in ‘Aanwezig’? "
 
 #: ../storage/exchange-oof.glade.h:4
 msgid "<b>Out of Office Message:</b>"
@@ -1019,66 +907,6 @@ msgstr "_Wachtwoord wijzigen"
 #: ../storage/exchange-passwd-expiry.glade.h:4
 msgid "ok_button"
 msgstr "ok_knop"
-
-# rechten/persmissies/toestemming
-#: ../storage/exchange-permissions-dialog.c:222
-msgid "Could not read folder permissions"
-msgstr "Kon de rechten op de map niet lezen"
-
-# bijwerken/updaten/veranderen/aanpassen
-#: ../storage/exchange-permissions-dialog.c:264
-msgid "Could not update folder permissions."
-msgstr "Kon de rechten op de map niet bijwerken."
-
-#: ../storage/exchange-permissions-dialog.c:293
-#, c-format
-msgid "Could not update folder permissions. %s"
-msgstr "Kon de rechten op de map niet bijwerken. %s"
-
-#: ../storage/exchange-permissions-dialog.c:295
-msgid "(Permission denied.)"
-msgstr "(Toestemming geweigerd.)"
-
-#: ../storage/exchange-permissions-dialog.c:396
-msgid ""
-"Unable to add user to access control list:\n"
-"No Global Catalog server is configured for this account."
-msgstr ""
-"Niet in staat gebruiker toe te voegen aan toegangscontrole-lijst:\n"
-"Er is voor dit account geen Global Catalog server geconfigureerd."
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User:"
-msgstr "Gebruiker toevoegen:"
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User"
-msgstr "Gebruiker toevoegen"
-
-# een dergelijke gebruiker %s bestaat niet
-#: ../storage/exchange-permissions-dialog.c:421
-#, c-format
-msgid "No such user %s"
-msgstr "Gebruiker %s bestaat niet"
-
-#: ../storage/exchange-permissions-dialog.c:425
-#, c-format
-msgid "%s cannot be added to an access control list"
-msgstr "%s kan niet worden toegevoegd aan een 'access control' lijst"
-
-#: ../storage/exchange-permissions-dialog.c:430
-#, c-format
-msgid "Unknown error looking up %s"
-msgstr "Onbekende fout bij opzoeken van %s"
-
-#: ../storage/exchange-permissions-dialog.c:447
-#, c-format
-msgid "%s is already in the list"
-msgstr "%s staat al in de lijst"
-
-#: ../storage/exchange-permissions-dialog.c:710
-msgid "Role"
-msgstr "Rol"
 
 #: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
@@ -1154,70 +982,6 @@ msgstr "Verbinding maken..."
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector voor Microsoft Exchange"
 
-#: ../storage/xc-backend-view.c:299
-msgid "Account Name"
-msgstr "Accountnaam"
-
-#: ../storage/xc-commands.c:316
-msgid "Folder does not exist"
-msgstr "Map bestaat niet"
-
-#: ../storage/xc-commands.c:343
-#, c-format
-msgid "Could not add favorite: %s"
-msgstr "Kon favoriet niet toevoegen: %s"
-
-#: ../storage/xc-commands.c:359
-#, c-format
-msgid "Could not remove favorite: %s"
-msgstr "Kon favoriet niet verwijderen: %s"
-
-#.
-#. FIXME: See 62440
-#. E_POPUP_ITEM (N_("_Move Folder..."),
-#. G_CALLBACK (do_move_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#. E_POPUP_ITEM (N_("_Copy Folder..."),
-#. G_CALLBACK (do_copy_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#.
-#: ../storage/xc-commands.c:385
-msgid "_Rename Folder..."
-msgstr "Map _hernoemen..."
-
-#: ../storage/xc-commands.c:391
-msgid "_New Folder..."
-msgstr "_Nieuwe map..."
-
-#: ../storage/xc-commands.c:394
-msgid "_Delete Folder"
-msgstr "Map ver_wijderen"
-
-#: ../storage/xc-commands.c:399
-msgid "_Add Other User's Folder..."
-msgstr "Andermans map _toevoegen..."
-
-#: ../storage/xc-commands.c:402
-msgid "_Remove Other User's Folder"
-msgstr "Andermans map _verwijderen"
-
-#: ../storage/xc-commands.c:408
-msgid "Add to _Favorites"
-msgstr "Toevoegen aan _favorieten"
-
-#: ../storage/xc-commands.c:412
-msgid "Remove from Fa_vorites"
-msgstr "Verwijderen uit f_avorieten"
-
-#.
-#. E_POPUP_ITEM (N_("_Permissions..."),
-#. G_CALLBACK (do_permissions),
-#. XC_FOLDER_COMMAND_MASK_PERMISSIONS),
-#.
-#: ../storage/xc-commands.c:423
-msgid "_Show Folder Sizes"
-msgstr "Grootte mappen _tonen"
-
 # Dit is de titelbalk
 #: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
@@ -1248,9 +1012,7 @@ msgstr ""
 #: ../storage/ximian-connector.xml.h:6
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
-msgstr ""
-"Abonnement opzeggen van een map die toegevoegd is via \"Abonneren op "
-"andermans map\""
+msgstr "Abonnement opzeggen van een map die toegevoegd is via ‘Abonneren op andermans map’"
 
 # tonen of wijzigen/tonen of aanpassen/tonen of veranderen
 #: ../storage/ximian-connector.xml.h:7
@@ -1278,9 +1040,168 @@ msgstr "_Afwezigheidsassistent"
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Abonnement op andermans map opzeggen"
 
-# mag/kan
-#~ msgid "Can only expunge in Deleted Items folder"
-#~ msgstr "Kan alleen weggooien in de map Verwijderde items"
+# een dergelijke map bestaat niet
+#~ msgid "No such folder."
+#~ msgstr "Map bestaat niet."
+
+#~ msgid "Custom"
+#~ msgstr "Aangepast"
+
+#~ msgid "Permissions for %s"
+#~ msgstr "Rechten voor %s"
+
+# global catalog is een windowism
+#~ msgid ""
+#~ "No Global Catalog server configured for this account.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Geen Global Catalog server geconfigureerd voor dit account.\n"
+#~ "Niet in staat gedelegeerden te bewerken."
+
+#~ msgid ""
+#~ "Could not read folder permissions.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Kon maprechten niet lezen.\n"
+#~ "Niet in staat gedelegeerden te bewerken."
+
+#~ msgid ""
+#~ "Could not determine folder permissions for delegates.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Kon maprechten voor gedelegeerden niet bepalen.\n"
+#~ "Niet in staat gedelegeerden te bewerken."
+
+#~ msgid "Delegate To:"
+#~ msgstr "Delegeren naar:"
+
+#~ msgid "Delegate To"
+#~ msgstr "Delegeren naar"
+
+#~ msgid "Could not make %s a delegate"
+#~ msgstr "Kon %s geen gedelegeerde maken"
+
+#~ msgid "You cannot make yourself your own delegate"
+#~ msgstr "U kunt van uzelf niet uw eigen gedelegeerde maken"
+
+# is al gedelegeerd
+#~ msgid "%s is already a delegate"
+#~ msgstr "%s is al een gedelegeerde"
+
+#~ msgid "Remove the delegate %s?"
+#~ msgstr "De gedelegeerde %s verwijderen?"
+
+# geen toegang krijgen tot
+#~ msgid "Could not access Active Directory"
+#~ msgstr "Kon Active Directory niet benaderen"
+
+#~ msgid "Could not find self in Active Directory"
+#~ msgstr "Kon mijzelf niet vinden in Active Directory"
+
+#~ msgid "Could not find delegate %s in Active Directory"
+#~ msgstr "Kon gedelegeerde %s niet vinden in Active Directory"
+
+#~ msgid "Could not remove delegate %s"
+#~ msgstr "Kon gedelegeerde %s niet verwijderen"
+
+# bijwerken
+#~ msgid "Could not update list of delegates."
+#~ msgstr "Kon de lijst met gedelegeerden niet updaten."
+
+#~ msgid "Could not add delegate %s"
+#~ msgstr "Kon gedelegeerde %s niet toevoegen"
+
+#~ msgid ""
+#~ "Failed to update delegates:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Updaten gedelegeerden is mislukt:\n"
+#~ "%s"
+
+#~ msgid "Name"
+#~ msgstr "Naam"
+
+#~ msgid "Error reading delegates list."
+#~ msgstr "Fout bij lezen gedelegeerdenlijst."
+
+# rechten/persmissies/toestemming
+#~ msgid "Could not read folder permissions"
+#~ msgstr "Kon de rechten op de map niet lezen"
+
+# bijwerken/updaten/veranderen/aanpassen
+#~ msgid "Could not update folder permissions."
+#~ msgstr "Kon de rechten op de map niet bijwerken."
+
+#~ msgid "Could not update folder permissions. %s"
+#~ msgstr "Kon de rechten op de map niet bijwerken. %s"
+
+#~ msgid "(Permission denied.)"
+#~ msgstr "(Toestemming geweigerd.)"
+
+#~ msgid ""
+#~ "Unable to add user to access control list:\n"
+#~ "No Global Catalog server is configured for this account."
+#~ msgstr ""
+#~ "Niet in staat gebruiker toe te voegen aan toegangscontrole-lijst:\n"
+#~ "Er is voor dit account geen Global Catalog server geconfigureerd."
+
+#~ msgid "Add User:"
+#~ msgstr "Gebruiker toevoegen:"
+
+#~ msgid "Add User"
+#~ msgstr "Gebruiker toevoegen"
+
+# een dergelijke gebruiker %s bestaat niet
+#~ msgid "No such user %s"
+#~ msgstr "Gebruiker %s bestaat niet"
+
+#~ msgid "%s cannot be added to an access control list"
+#~ msgstr "%s kan niet worden toegevoegd aan een 'access control' lijst"
+
+#~ msgid "Unknown error looking up %s"
+#~ msgstr "Onbekende fout bij opzoeken van %s"
+
+#~ msgid "%s is already in the list"
+#~ msgstr "%s staat al in de lijst"
+
+#~ msgid "Role"
+#~ msgstr "Rol"
+
+#~ msgid "Account Name"
+#~ msgstr "Accountnaam"
+
+#~ msgid "Folder does not exist"
+#~ msgstr "Map bestaat niet"
+
+#~ msgid "Could not add favorite: %s"
+#~ msgstr "Kon favoriet niet toevoegen: %s"
+
+#~ msgid "Could not remove favorite: %s"
+#~ msgstr "Kon favoriet niet verwijderen: %s"
+
+#~ msgid "_Rename Folder..."
+#~ msgstr "Map _hernoemen..."
+
+#~ msgid "_New Folder..."
+#~ msgstr "_Nieuwe map..."
+
+#~ msgid "_Delete Folder"
+#~ msgstr "Map ver_wijderen"
+
+#~ msgid "_Add Other User's Folder..."
+#~ msgstr "Andermans map _toevoegen..."
+
+#~ msgid "_Remove Other User's Folder"
+#~ msgstr "Andermans map _verwijderen"
+
+#~ msgid "Add to _Favorites"
+#~ msgstr "Toevoegen aan _favorieten"
+
+#~ msgid "Remove from Fa_vorites"
+#~ msgstr "Verwijderen uit f_avorieten"
+
+#~ msgid "_Show Folder Sizes"
+#~ msgstr "Grootte mappen _tonen"
 
 #~ msgid "This operation cannot be performed in off-line mode"
 #~ msgstr "Deze bewerking kan niet uitgevoerd worden in de off-line stand"
@@ -1517,18 +1438,12 @@ msgstr "_Abonnement op andermans map opzeggen"
 #~ msgid "%s's Folders"
 #~ msgstr "%s's mappen"
 
-#~ msgid "Cannot change password due to configuration problems"
-#~ msgstr "Kan wachtwoord niet veranderen vanwege configuratieproblemen"
-
 #~ msgid ""
 #~ "Server rejected password because it is too weak.\n"
 #~ "Try again with a different password."
 #~ msgstr ""
 #~ "Server heeft het wachtwoord geweigerd omdat het te zwak is.\n"
 #~ "Probeer het opnieuw met een ander wachtwoord."
-
-#~ msgid "Could not change password"
-#~ msgstr "Kon wachtwoord niet veranderen"
 
 #~ msgid "Personal Folders"
 #~ msgstr "Persoonlijke mappen"
