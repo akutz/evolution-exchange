@@ -4,15 +4,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-01 03:02+0900\n"
-"PO-Revision-Date: 2006-07-01 03:11+0900\n"
+"POT-Creation-Date: 2006-08-12 19:38+0900\n"
+"PO-Revision-Date: 2006-08-12 19:39+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1869
+#: ../addressbook/e-book-backend-exchange.c:1882
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "찾는 중입니다..."
@@ -53,7 +53,7 @@ msgstr "제목 없음"
 
 #: ../camel/camel-exchange-folder.c:407
 msgid "This message is not available in offline mode."
-msgstr "이 메세지는 오프라인 모드에서는 볼 수 없습니다"
+msgstr "이 메세지는 오프라인 모드에서는 볼 수 없습니다."
 
 #: ../camel/camel-exchange-folder.c:642
 msgid "Moving messages"
@@ -181,7 +181,8 @@ msgstr "보안 열쇠글"
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
-msgstr "이 옵션을 켜면 보안 열쇠글 (NTLM) 인증을 통해 익스체인지 서버에 연결합니다."
+msgstr ""
+"이 옵션을 켜면 보안 열쇠글 (NTLM) 인증을 통해 익스체인지 서버에 연결합니다."
 
 #: ../camel/camel-exchange-provider.c:108
 msgid "Plaintext Password"
@@ -191,7 +192,9 @@ msgstr "일반 텍스트 열쇠글"
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
-msgstr "이 옵션을 켜면 보통 일반 텍스트 열쇠글 인증을 통해 익스체인지 서버에 연결합니다."
+msgstr ""
+"이 옵션을 켜면 보통 일반 텍스트 열쇠글 인증을 통해 익스체인지 서버에 연결합니"
+"다."
 
 #: ../camel/camel-exchange-store.c:308
 #, c-format
@@ -266,27 +269,32 @@ msgstr "메세지에서 'From' 주소를 찾을 수 없습니다"
 msgid "Could not create socket: %s"
 msgstr "소켓을 만들 수 없습니다: %s"
 
-#: ../camel/camel-stub.c:167
+#: ../camel/camel-stub.c:170
+#, c-format
+msgid "Could not connect to %s: Please restart Evolution"
+msgstr "%s에 연결할 수 없습니다: 에볼루션을 다시 시작하십시오"
+
+#: ../camel/camel-stub.c:175
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "%s에 연결할 수 없습니다: %s"
 
-#: ../camel/camel-stub.c:197
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Path too long: %s"
 msgstr "경로가 너무 깁니다: %s"
 
-#: ../camel/camel-stub.c:223
+#: ../camel/camel-stub.c:231
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "상태 쓰레드를 시작할 수 없습니다: %s"
 
-#: ../camel/camel-stub.c:477
+#: ../camel/camel-stub.c:485
 #, c-format
 msgid "Lost connection to %s"
 msgstr "%s에 대한 연결을 잃었습니다"
 
-#: ../camel/camel-stub.c:481
+#: ../camel/camel-stub.c:489
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "%s와(과) 통신하는 데 오류가 발생했습니다: %s"
@@ -444,7 +452,8 @@ msgstr ""
 "익스체인지 서버에 인증할 수 없습니다.\n"
 "사용자 이름과 열쇠글이 맞는 지 확인하시고 다시 시도해 보십시오.\n"
 "\n"
-"사용자 이름에 윈도우즈 도메인 이름을 써야 할 수도 있습니다. (예를 들어, \"도메인\\%s\")"
+"사용자 이름에 윈도우즈 도메인 이름을 써야 할 수도 있습니다. (예를 들어, \"도"
+"메인\\%s\")"
 
 #: ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
@@ -464,7 +473,9 @@ msgid ""
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"지미안 커넥터는 익스체인지 서버에서 꺼 놓았거나 막은 것처럼 보이는 어떤 기능에 접근해야 합니다.  (보통 의도적으로 꺼 놓거나 막은 건 아닙니다.)  익스체인지 관리자에게 알려서 이 기능을 켜야 지미안 커넥터를 사용할 수 있습니다.\n"
+"지미안 커넥터는 익스체인지 서버에서 꺼 놓았거나 막은 것처럼 보이는 어떤 기능"
+"에 접근해야 합니다.  (보통 의도적으로 꺼 놓거나 막은 건 아닙니다.)  익스체인"
+"지 관리자에게 알려서 이 기능을 켜야 지미안 커넥터를 사용할 수 있습니다.\n"
 "\n"
 "익스체인지 관리자에게 알려줄 정보에 대해서는 다음 바로가기를 참고하십시오:"
 
@@ -472,13 +483,17 @@ msgstr ""
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr "해당 익스체인지 서버 URL에서 익스체인지 5.5 서버를 돌리고 있습니다.  지미안 커넥터 마이크로소프트 익스체인지 2000과 2003만 지원합니다."
+msgstr ""
+"해당 익스체인지 서버 URL에서 익스체인지 5.5 서버를 돌리고 있습니다.  지미안 "
+"커넥터 마이크로소프트 익스체인지 2000과 2003만 지원합니다."
 
 #: ../storage/exchange-autoconfig-wizard.c:288
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
-msgstr "알 수 없는 오류가 발생해서 익스체인지 계정을 설정할 수 없습니다. URL, 사용자 이름, 열쇠글을 확인하시고 다시 시도해 보십시오."
+msgstr ""
+"알 수 없는 오류가 발생해서 익스체인지 계정을 설정할 수 없습니다. URL, 사용자 "
+"이름, 열쇠글을 확인하시고 다시 시도해 보십시오."
 
 #: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
@@ -486,7 +501,9 @@ msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
 "and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
 "\\%s\")."
-msgstr "글로벌 카탈로그 서버에 인증할 수 없습니다. 뒤로 돌아가서 사용자 이름에 윈도우즈 도메인을 지정해야 할 수도 있습니다 (예를 들어, \"내도메인\\%s\")."
+msgstr ""
+"글로벌 카탈로그 서버에 인증할 수 없습니다. 뒤로 돌아가서 사용자 이름에 윈도우"
+"즈 도메인을 지정해야 할 수도 있습니다 (예를 들어, \"내도메인\\%s\")."
 
 #: ../storage/exchange-autoconfig-wizard.c:339
 msgid ""
@@ -595,14 +612,18 @@ msgid ""
 msgstr ""
 "현재 Outlook 웹 서비스 계정에서 계정 정보를 이용할 수 있습니다.\n"
 "\n"
-"Outlook 웹 서비스 사이트 주소 (URL), 사용자 이름, 열쇠글을 입력하시고, \"다음\"을 클릭하십시오.\n"
+"Outlook 웹 서비스 사이트 주소 (URL), 사용자 이름, 열쇠글을 입력하시고, \"다음"
+"\"을 클릭하십시오.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:24
 msgid ""
 "Ximian Connector could not find the Global Catalog replica for your site. "
 "Please enter the name of your Global Catalog server. You may need to ask "
 "your system administrator for the correct value.\n"
-msgstr "현재 위치에서 지미안 커넥터가 글로벌 카탈로그 복사본을 찾을 수 없습니다. 글로벌 카탈로그 서버의 이름을 입력하십시오. 제대로 입력하려면 해당 시스템 관리자에게 문의하셔야 할 수도 있습니다.\n"
+msgstr ""
+"현재 위치에서 지미안 커넥터가 글로벌 카탈로그 복사본을 찾을 수 없습니다. 글로"
+"벌 카탈로그 서버의 이름을 입력하십시오. 제대로 입력하려면 해당 시스템 관리자"
+"에게 문의하셔야 할 수도 있습니다.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:26
 msgid ""
@@ -739,7 +760,8 @@ msgid ""
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
-"에볼루션 %d.%d.%d 이후에 에볼루션 exchange 계정 폴더의 위치화 구조가 바뀌었습니다.\n"
+"에볼루션 %d.%d.%d 이후에 에볼루션 exchange 계정 폴더의 위치화 구조가 바뀌었습"
+"니다.\n"
 "\n"
 "에볼루션에서 폴더를 옮겨오는 동안 기다려 주십시오..."
 
@@ -751,8 +773,10 @@ msgid ""
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"경고: 에볼루션에서 익스체인지 계정의 데이터를 %d.%d.%d 버전에서 모두 옮겨오지 못했습니다.\n"
-"데이터는 지워지지 않았지만, 이 버전의 에볼루션에서는 그 데이터를 볼 수 없습니다"
+"경고: 에볼루션에서 익스체인지 계정의 데이터를 %d.%d.%d 버전에서 모두 옮겨오"
+"지 못했습니다.\n"
+"데이터는 지워지지 않았지만, 이 버전의 에볼루션에서는 그 데이터를 볼 수 없습니"
+"다"
 
 #: ../storage/exchange-migrate.c:130
 #, c-format
