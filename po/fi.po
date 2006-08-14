@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-15 04:46+0200\n"
-"PO-Revision-Date: 2006-02-15 05:10+0200\n"
+"POT-Creation-Date: 2006-08-14 09:52+0300\n"
+"PO-Revision-Date: 2006-08-14 09:53+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1867
+#: ../addressbook/e-book-backend-exchange.c:1882
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Haetaan..."
@@ -33,7 +33,7 @@ msgstr "Vastaanotetaan LDAP hakutuloksia"
 msgid "Error performing search"
 msgstr "Virhe suoritettaessa hakua"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1805
+#: ../calendar/e-cal-backend-exchange-calendar.c:2004
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -42,7 +42,7 @@ msgstr ""
 "Resurssia '%s' ei voi varata toistuviin kokouksiin.\n"
 "Jokainen kokous täytyy varata erikseen."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1823
+#: ../calendar/e-cal-backend-exchange-calendar.c:2022
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Resurssi '%s' on varattu valitun aikajakson aikana."
@@ -55,43 +55,43 @@ msgstr "Et voi tyhjentää poistettuja yhteydettömässä tilassa."
 msgid "No Subject"
 msgstr "Aihe puuttuu"
 
-#: ../camel/camel-exchange-folder.c:380
+#: ../camel/camel-exchange-folder.c:407
 msgid "This message is not available in offline mode."
 msgstr "Tämä viesti ei ole saatavilla yhteydettömässä tilassa."
 
-#: ../camel/camel-exchange-folder.c:615
+#: ../camel/camel-exchange-folder.c:642
 msgid "Moving messages"
 msgstr "Siirretään viestejä"
 
-#: ../camel/camel-exchange-folder.c:616
+#: ../camel/camel-exchange-folder.c:643
 msgid "Copying messages"
 msgstr "Kopioidaan viestejä"
 
-#: ../camel/camel-exchange-folder.c:987
+#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Hakemistoa %s ei voitu luoda: %s"
 
-#: ../camel/camel-exchange-folder.c:997
+#: ../camel/camel-exchange-folder.c:1024
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Yhteenvetoa kohteesta %s ei voitu ladata"
 
-#: ../camel/camel-exchange-folder.c:1005
+#: ../camel/camel-exchange-folder.c:1032
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Välimuistia ei voitu luoda %s:lle"
 
-#: ../camel/camel-exchange-folder.c:1015
+#: ../camel/camel-exchange-folder.c:1042
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Journalia %s ei voitu luoda"
 
-#: ../camel/camel-exchange-folder.c:1060
+#: ../camel/camel-exchange-folder.c:1087
 msgid "Scanning for changed messages"
 msgstr "Etsitään muuttuneita viestejä"
 
-#: ../camel/camel-exchange-folder.c:1086
+#: ../camel/camel-exchange-folder.c:1113
 msgid "Fetching summary information for new messages"
 msgstr "Haetaan yhteenvetoa muuttuneista viesteistä"
 
@@ -101,8 +101,8 @@ msgstr "Kansion nimeä ei löytynyt\n"
 
 #: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
 #: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2724
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
+#: ../mail/mail-stub-exchange.c:2730
 msgid "Folder doesn't exist"
 msgstr "Kansiota ei ole olemassa"
 
@@ -156,7 +156,8 @@ msgstr "S_ynkronoi tili automaattisesti omalle tietokoneelle"
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:65
 msgid "_Apply filters to new messages in Inbox on this server"
-msgstr "_Käytä suodattimia saapuvien kansion uusille viesteille tällä palvelimella"
+msgstr ""
+"_Käytä suodattimia saapuvien kansion uusille viesteille tällä palvelimella"
 
 #: ../camel/camel-exchange-provider.c:67
 msgid "Check new messages for _Junk contents"
@@ -269,37 +270,42 @@ msgstr "Viestiä ei voi lähettää: yksi tai useampia virheellisiä vastaanotta
 msgid "Could not find 'From' address in message"
 msgstr "Viesti ei sisältänyt lähettäjän osoitetta (otsase 'From')"
 
-#: ../camel/camel-stub.c:134
+#: ../camel/camel-stub.c:152
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Pistoketta ei voitu luoda: %s"
 
-#: ../camel/camel-stub.c:149
+#: ../camel/camel-stub.c:170
+#, c-format
+msgid "Could not connect to %s: Please restart Evolution"
+msgstr "Yhteydenotto palvelimeen %s epäonnistui: käynnistä Evolution uudestaan"
+
+#: ../camel/camel-stub.c:175
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Yhteydenotto kohteeseen %s epäonnistui: %s"
 
-#: ../camel/camel-stub.c:179
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Path too long: %s"
 msgstr "Polku on liian pitkä: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:231
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Tilan tarkkailun säiettä ei voitu käynnistää: %s"
 
-#: ../camel/camel-stub.c:457
+#: ../camel/camel-stub.c:485
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Yhteys kohteeseen %s menetettiin"
 
-#: ../camel/camel-stub.c:461
+#: ../camel/camel-stub.c:489
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Virhe kommunikoitaessa kohteeseen %s: %s"
 
-#: ../mail/mail-stub-exchange.c:257
+#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
 msgid "No such folder"
 msgstr "Kansiota ei ole olemassa"
 
@@ -307,8 +313,8 @@ msgstr "Kansiota ei ole olemassa"
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
 #: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
-#: ../mail/mail-stub-exchange.c:2740 ../storage/xc-commands.c:319
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
+#: ../mail/mail-stub-exchange.c:2745
 msgid "Permission denied"
 msgstr "Lupa evätty"
 
@@ -319,10 +325,6 @@ msgstr "Kansiota ei voitu avata: lupa evätty"
 #: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
 msgid "Could not open folder"
 msgstr "Kansiota ei voitu avata"
-
-#: ../mail/mail-stub-exchange.c:755
-msgid "No such folder."
-msgstr "Kansiota ei ole olemassa."
 
 #: ../mail/mail-stub-exchange.c:764
 msgid "Could not create folder."
@@ -398,12 +400,12 @@ msgid "Could not send message"
 msgstr "Viestiä ei voitu lähettää"
 
 #: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
-#: ../mail/mail-stub-exchange.c:2745 ../storage/xc-commands.c:323
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
+#: ../mail/mail-stub-exchange.c:2751
 msgid "Generic error"
 msgstr "Yleinen virhe"
 
-#: ../mail/mail-stub-exchange.c:2522 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2522
 msgid "Folder already exists"
 msgstr "Kansio on jo olemassa"
 
@@ -692,112 +694,6 @@ msgstr "Uusi salasana:"
 msgid "Your current password has expired. Please change your password now."
 msgstr "Salasanasi on vanhentunut. Ole hyvä ja vaihda salasanasi nyt."
 
-#: ../storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "Itse määritelty"
-
-#: ../storage/exchange-delegates-user.c:191
-#: ../storage/exchange-permissions-dialog.c:179
-#, c-format
-msgid "Permissions for %s"
-msgstr "%s käyttöoikeudet"
-
-#: ../storage/exchange-delegates.c:221
-msgid ""
-"No Global Catalog server configured for this account.\n"
-"Unable to edit delegates."
-msgstr ""
-"Yhteistä luettelopalvelinta ei ole määritelty tälle tilille.\n"
-"Delegaatteja ei voi muokata."
-
-#: ../storage/exchange-delegates.c:260
-msgid ""
-"Could not read folder permissions.\n"
-"Unable to edit delegates."
-msgstr ""
-"Kansion oikeuksia ei voitu lukea.\n"
-"Delegaatteja ei voi muokata."
-
-#: ../storage/exchange-delegates.c:267
-msgid ""
-"Could not determine folder permissions for delegates.\n"
-"Unable to edit delegates."
-msgstr ""
-"Kansion oikeuksia delegaateille ei voitu selvittää.\n"
-"Delegaatteja ei voi muokata."
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To:"
-msgstr "Delegoi:"
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To"
-msgstr "Delegoi"
-
-#: ../storage/exchange-delegates.c:435
-#, c-format
-msgid "Could not make %s a delegate"
-msgstr "Henkilöstä %s ei voitu tehdä delegaattia"
-
-#: ../storage/exchange-delegates.c:445
-msgid "You cannot make yourself your own delegate"
-msgstr "Et voi delegoida itsellesi tehtäviä"
-
-#: ../storage/exchange-delegates.c:454
-#, c-format
-msgid "%s is already a delegate"
-msgstr "%s on jo delegaatti"
-
-#: ../storage/exchange-delegates.c:563
-#, c-format
-msgid "Remove the delegate %s?"
-msgstr "Poista delegaatti %s?"
-
-#: ../storage/exchange-delegates.c:680
-msgid "Could not access Active Directory"
-msgstr "Active Directoryyn ei saatu yhteyttä"
-
-#: ../storage/exchange-delegates.c:695
-msgid "Could not find self in Active Directory"
-msgstr "Omia tietoja ei löytynyt Active Directorysta"
-
-#: ../storage/exchange-delegates.c:708
-#, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "Delegaattia %s ei löytynyt Active Directorysta"
-
-#: ../storage/exchange-delegates.c:720
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "Delegaattia %s ei voitu poistaa"
-
-#: ../storage/exchange-delegates.c:780
-msgid "Could not update list of delegates."
-msgstr "Delegaattien listaa ei voitu päivittää"
-
-#: ../storage/exchange-delegates.c:798
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "Delegaattia %s ei voitu lisätä"
-
-#: ../storage/exchange-delegates.c:814
-#, c-format
-msgid ""
-"Failed to update delegates:\n"
-"%s"
-msgstr ""
-"Delegaattien päivitys epäonnistui:\n"
-"%s"
-
-#: ../storage/exchange-delegates.c:938
-#: ../storage/exchange-permissions-dialog.c:706
-msgid "Name"
-msgstr "Nimi"
-
-#: ../storage/exchange-delegates.c:967
-msgid "Error reading delegates list."
-msgstr "Virhe luettaessa listaa delegaateista"
-
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
 msgstr "Kirjoittaja (luku, luonti)"
@@ -960,63 +856,6 @@ msgstr "_Vaihda salasana"
 msgid "ok_button"
 msgstr "ok_nappi"
 
-#: ../storage/exchange-permissions-dialog.c:222
-msgid "Could not read folder permissions"
-msgstr "Kansion oikeuksia ei voitu lukea"
-
-#: ../storage/exchange-permissions-dialog.c:264
-msgid "Could not update folder permissions."
-msgstr "Kansion oikeuksia ei voitu päivittää."
-
-#: ../storage/exchange-permissions-dialog.c:293
-#, c-format
-msgid "Could not update folder permissions. %s"
-msgstr "Kansion oikeuksia ei voitu päivittää. %s"
-
-#: ../storage/exchange-permissions-dialog.c:295
-msgid "(Permission denied.)"
-msgstr "(lupa evätty.)"
-
-#: ../storage/exchange-permissions-dialog.c:396
-msgid ""
-"Unable to add user to access control list:\n"
-"No Global Catalog server is configured for this account."
-msgstr ""
-"Käyttäjää ei voi lisätä pääsylistaan:\n"
-"Yhteistä luettelopalvelinta ei ole määritelty tälle tilille."
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User:"
-msgstr "Lisää käyttäjä:"
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User"
-msgstr "Lisää käyttäjä"
-
-#: ../storage/exchange-permissions-dialog.c:421
-#, c-format
-msgid "No such user %s"
-msgstr "Käyttäjää %s ei ole olemassa"
-
-#: ../storage/exchange-permissions-dialog.c:425
-#, c-format
-msgid "%s cannot be added to an access control list"
-msgstr "Käyttäjää %s ei voi lisätä pääsyoikeuslistalle"
-
-#: ../storage/exchange-permissions-dialog.c:430
-#, c-format
-msgid "Unknown error looking up %s"
-msgstr "Tuntematon virhe etsittäessä %s"
-
-#: ../storage/exchange-permissions-dialog.c:447
-#, c-format
-msgid "%s is already in the list"
-msgstr "%s on jo listalla"
-
-#: ../storage/exchange-permissions-dialog.c:710
-msgid "Role"
-msgstr "Rooli"
-
 #: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
 msgstr "    "
@@ -1085,70 +924,6 @@ msgstr "Yhdistetään..."
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector Microsoft Exchangelle"
 
-#: ../storage/xc-backend-view.c:299
-msgid "Account Name"
-msgstr "Tilin nimi"
-
-#: ../storage/xc-commands.c:316
-msgid "Folder does not exist"
-msgstr "Kansiota ei ole olemassa"
-
-#: ../storage/xc-commands.c:343
-#, c-format
-msgid "Could not add favorite: %s"
-msgstr "Kirjanmerkkiä ei voitu lisätä: %s"
-
-#: ../storage/xc-commands.c:359
-#, c-format
-msgid "Could not remove favorite: %s"
-msgstr "Kirjanmerkkiä ei voitu poistaa: %s"
-
-#.
-#. FIXME: See 62440
-#. E_POPUP_ITEM (N_("_Move Folder..."),
-#. G_CALLBACK (do_move_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#. E_POPUP_ITEM (N_("_Copy Folder..."),
-#. G_CALLBACK (do_copy_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#.
-#: ../storage/xc-commands.c:385
-msgid "_Rename Folder..."
-msgstr "Uudelleen_nimeä kansio..."
-
-#: ../storage/xc-commands.c:391
-msgid "_New Folder..."
-msgstr "_Uusi kansio..."
-
-#: ../storage/xc-commands.c:394
-msgid "_Delete Folder"
-msgstr "_Poista kansio"
-
-#: ../storage/xc-commands.c:399
-msgid "_Add Other User's Folder..."
-msgstr "_Lisää toisen käyttäjän kansio..."
-
-#: ../storage/xc-commands.c:402
-msgid "_Remove Other User's Folder"
-msgstr "_Poista toisen käyttäjän kansio"
-
-#: ../storage/xc-commands.c:408
-msgid "Add to _Favorites"
-msgstr "Lisää _kirjanmerkkeihin"
-
-#: ../storage/xc-commands.c:412
-msgid "Remove from Fa_vorites"
-msgstr "Poista _kirjanmerkeistä"
-
-#.
-#. E_POPUP_ITEM (N_("_Permissions..."),
-#. G_CALLBACK (do_permissions),
-#. XC_FOLDER_COMMAND_MASK_PERMISSIONS),
-#.
-#: ../storage/xc-commands.c:423
-msgid "_Show Folder Sizes"
-msgstr "_Näytä kansioiden koko"
-
 #: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
 msgstr "Ximian Conncector in asetukset"
@@ -1206,6 +981,161 @@ msgstr "\"_Poissa toimistosta\"-apulainen"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Peru toisen käyttäjän kansion tilaus"
+
+#~ msgid "No such folder."
+#~ msgstr "Kansiota ei ole olemassa."
+
+#~ msgid "Custom"
+#~ msgstr "Itse määritelty"
+
+#~ msgid "Permissions for %s"
+#~ msgstr "%s käyttöoikeudet"
+
+#~ msgid ""
+#~ "No Global Catalog server configured for this account.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Yhteistä luettelopalvelinta ei ole määritelty tälle tilille.\n"
+#~ "Delegaatteja ei voi muokata."
+
+#~ msgid ""
+#~ "Could not read folder permissions.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Kansion oikeuksia ei voitu lukea.\n"
+#~ "Delegaatteja ei voi muokata."
+
+#~ msgid ""
+#~ "Could not determine folder permissions for delegates.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Kansion oikeuksia delegaateille ei voitu selvittää.\n"
+#~ "Delegaatteja ei voi muokata."
+
+#~ msgid "Delegate To:"
+#~ msgstr "Delegoi:"
+
+#~ msgid "Delegate To"
+#~ msgstr "Delegoi"
+
+#~ msgid "Could not make %s a delegate"
+#~ msgstr "Henkilöstä %s ei voitu tehdä delegaattia"
+
+#~ msgid "You cannot make yourself your own delegate"
+#~ msgstr "Et voi delegoida itsellesi tehtäviä"
+
+#~ msgid "%s is already a delegate"
+#~ msgstr "%s on jo delegaatti"
+
+#~ msgid "Remove the delegate %s?"
+#~ msgstr "Poista delegaatti %s?"
+
+#~ msgid "Could not access Active Directory"
+#~ msgstr "Active Directoryyn ei saatu yhteyttä"
+
+#~ msgid "Could not find self in Active Directory"
+#~ msgstr "Omia tietoja ei löytynyt Active Directorysta"
+
+#~ msgid "Could not find delegate %s in Active Directory"
+#~ msgstr "Delegaattia %s ei löytynyt Active Directorysta"
+
+#~ msgid "Could not remove delegate %s"
+#~ msgstr "Delegaattia %s ei voitu poistaa"
+
+#~ msgid "Could not update list of delegates."
+#~ msgstr "Delegaattien listaa ei voitu päivittää"
+
+#~ msgid "Could not add delegate %s"
+#~ msgstr "Delegaattia %s ei voitu lisätä"
+
+#~ msgid ""
+#~ "Failed to update delegates:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Delegaattien päivitys epäonnistui:\n"
+#~ "%s"
+
+#~ msgid "Name"
+#~ msgstr "Nimi"
+
+#~ msgid "Error reading delegates list."
+#~ msgstr "Virhe luettaessa listaa delegaateista"
+
+#~ msgid "Could not read folder permissions"
+#~ msgstr "Kansion oikeuksia ei voitu lukea"
+
+#~ msgid "Could not update folder permissions."
+#~ msgstr "Kansion oikeuksia ei voitu päivittää."
+
+#~ msgid "Could not update folder permissions. %s"
+#~ msgstr "Kansion oikeuksia ei voitu päivittää. %s"
+
+#~ msgid "(Permission denied.)"
+#~ msgstr "(lupa evätty.)"
+
+#~ msgid ""
+#~ "Unable to add user to access control list:\n"
+#~ "No Global Catalog server is configured for this account."
+#~ msgstr ""
+#~ "Käyttäjää ei voi lisätä pääsylistaan:\n"
+#~ "Yhteistä luettelopalvelinta ei ole määritelty tälle tilille."
+
+#~ msgid "Add User:"
+#~ msgstr "Lisää käyttäjä:"
+
+#~ msgid "Add User"
+#~ msgstr "Lisää käyttäjä"
+
+#~ msgid "No such user %s"
+#~ msgstr "Käyttäjää %s ei ole olemassa"
+
+#~ msgid "%s cannot be added to an access control list"
+#~ msgstr "Käyttäjää %s ei voi lisätä pääsyoikeuslistalle"
+
+#~ msgid "Unknown error looking up %s"
+#~ msgstr "Tuntematon virhe etsittäessä %s"
+
+#~ msgid "%s is already in the list"
+#~ msgstr "%s on jo listalla"
+
+#~ msgid "Role"
+#~ msgstr "Rooli"
+
+#~ msgid "Account Name"
+#~ msgstr "Tilin nimi"
+
+#~ msgid "Folder does not exist"
+#~ msgstr "Kansiota ei ole olemassa"
+
+#~ msgid "Could not add favorite: %s"
+#~ msgstr "Kirjanmerkkiä ei voitu lisätä: %s"
+
+#~ msgid "Could not remove favorite: %s"
+#~ msgstr "Kirjanmerkkiä ei voitu poistaa: %s"
+
+#~ msgid "_Rename Folder..."
+#~ msgstr "Uudelleen_nimeä kansio..."
+
+#~ msgid "_New Folder..."
+#~ msgstr "_Uusi kansio..."
+
+#~ msgid "_Delete Folder"
+#~ msgstr "_Poista kansio"
+
+#~ msgid "_Add Other User's Folder..."
+#~ msgstr "_Lisää toisen käyttäjän kansio..."
+
+#~ msgid "_Remove Other User's Folder"
+#~ msgstr "_Poista toisen käyttäjän kansio"
+
+#~ msgid "Add to _Favorites"
+#~ msgstr "Lisää _kirjanmerkkeihin"
+
+#~ msgid "Remove from Fa_vorites"
+#~ msgstr "Poista _kirjanmerkeistä"
+
+#~ msgid "_Show Folder Sizes"
+#~ msgstr "_Näytä kansioiden koko"
 
 #~ msgid "Can only expunge in Deleted Items folder"
 #~ msgstr "Poistetut voidaan tyhjentää vain kansiosta Poistetut viestit"
