@@ -4,24 +4,24 @@
 # Ximian Inc., 2003.
 # Christian Neumair <chris@gnome-de.org>, 2004.
 # Frank Arnold <frank@scirocco-5v-turbo.de>, 2005, 2006.
-# Hendrik Richter <hendrikr@gnome.org>, 2005. 
+# Hendrik Richter <hendrikr@gnome.org>, 2005, 2006.
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-06 09:17+0100\n"
-"PO-Revision-Date: 2006-06-15 16:11+0200\n"
+"POT-Creation-Date: 2006-08-15 23:05+0200\n"
+"PO-Revision-Date: 2006-08-15 23:06+0200\n"
 "Last-Translator: Hendrik Richter <hendrikr@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1867
+#: ../addressbook/e-book-backend-exchange.c:1882
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
-msgstr "Suchvorgang …"
+msgstr "Suche läuft …"
 
 #: ../addressbook/e-book-backend-gal.c:267
 msgid "Reconnecting to LDAP server..."
@@ -35,7 +35,7 @@ msgstr "LDAP-Suchergebnisse werden empfangen …"
 msgid "Error performing search"
 msgstr "Fehler beim Ausführen der Suche"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1932
+#: ../calendar/e-cal-backend-exchange-calendar.c:2004
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -45,7 +45,7 @@ msgstr ""
 "werden.\n"
 "Sie müssen jede Besprechung separat ansetzen."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1950
+#: ../calendar/e-cal-backend-exchange-calendar.c:2022
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Die Ressource »%s« ist während der gewählten Zeitperiode beschäftigt."
@@ -104,8 +104,8 @@ msgstr "Keinen Ordnernamen gefunden\n"
 
 #: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
 #: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2724
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
+#: ../mail/mail-stub-exchange.c:2730
 msgid "Folder doesn't exist"
 msgstr "Ordner existiert nicht"
 
@@ -275,37 +275,42 @@ msgstr ""
 msgid "Could not find 'From' address in message"
 msgstr "Es konnte keine »Von«-Adresse in der Nachricht gefunden werden"
 
-#: ../camel/camel-stub.c:134
+#: ../camel/camel-stub.c:152
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Socket konnte nicht angelegt werden: %s"
 
-#: ../camel/camel-stub.c:149
+#: ../camel/camel-stub.c:170
+#, c-format
+msgid "Could not connect to %s: Please restart Evolution"
+msgstr "Verbindung mit %s gescheitert: Bitte starten Sie Evolution neu"
+
+#: ../camel/camel-stub.c:175
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Verbindung mit %s gescheitert: %s"
 
-#: ../camel/camel-stub.c:179
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Path too long: %s"
 msgstr "Pfad zu lang: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:231
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Status-Thread konnte nicht gestartet werden: %s"
 
-#: ../camel/camel-stub.c:457
+#: ../camel/camel-stub.c:485
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Verbindung mit %s verloren"
 
-#: ../camel/camel-stub.c:461
+#: ../camel/camel-stub.c:489
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Fehler beim Kommunizieren mit %s: %s"
 
-#: ../mail/mail-stub-exchange.c:257
+#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
 msgid "No such folder"
 msgstr "Ordner existiert nicht"
 
@@ -313,8 +318,8 @@ msgstr "Ordner existiert nicht"
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
 #: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
-#: ../mail/mail-stub-exchange.c:2739 ../storage/xc-commands.c:319
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
+#: ../mail/mail-stub-exchange.c:2745
 msgid "Permission denied"
 msgstr "Erlaubnis verweigert"
 
@@ -325,10 +330,6 @@ msgstr "Ordner konnte nicht geöffnet werden: Zugriff verweigert"
 #: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
 msgid "Could not open folder"
 msgstr "Ordner konnte nicht geöffnet werden"
-
-#: ../mail/mail-stub-exchange.c:755
-msgid "No such folder."
-msgstr "Ordner existiert nicht."
 
 #: ../mail/mail-stub-exchange.c:764
 msgid "Could not create folder."
@@ -404,12 +405,12 @@ msgid "Could not send message"
 msgstr "Nachricht konnte nicht verschickt werden"
 
 #: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
-#: ../mail/mail-stub-exchange.c:2745 ../storage/xc-commands.c:323
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
+#: ../mail/mail-stub-exchange.c:2751
 msgid "Generic error"
 msgstr "Allgemeiner Fehler"
 
-#: ../mail/mail-stub-exchange.c:2522 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2522
 msgid "Folder already exists"
 msgstr "Ordner existiert bereits"
 
@@ -706,112 +707,6 @@ msgstr "Neues Passwort:"
 msgid "Your current password has expired. Please change your password now."
 msgstr "Ihr aktuelles Passwort ist abgelaufen. Bitte ändern Sie es jetzt."
 
-#: ../storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "Benutzerdefiniert"
-
-#: ../storage/exchange-delegates-user.c:191
-#: ../storage/exchange-permissions-dialog.c:179
-#, c-format
-msgid "Permissions for %s"
-msgstr "Berechtigungen für %s"
-
-#: ../storage/exchange-delegates.c:221
-msgid ""
-"No Global Catalog server configured for this account.\n"
-"Unable to edit delegates."
-msgstr ""
-"Kein »Global Catalog«-Server für dieses Konto konfiguriert.\n"
-"Delegaten können nicht bearbeitet werden."
-
-#: ../storage/exchange-delegates.c:260
-msgid ""
-"Could not read folder permissions.\n"
-"Unable to edit delegates."
-msgstr ""
-"Ordnerberechtigungen konnten nicht gelesen werden.\n"
-"Delegaten können nicht bearbeitet werden."
-
-#: ../storage/exchange-delegates.c:267
-msgid ""
-"Could not determine folder permissions for delegates.\n"
-"Unable to edit delegates."
-msgstr ""
-"Ordnerberechtigungen für Delegaten konnten nicht bestimmt werden.\n"
-"Delegaten können nicht bearbeitet werden."
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To:"
-msgstr "Delegieren an:"
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To"
-msgstr "Delegieren an"
-
-#: ../storage/exchange-delegates.c:435
-#, c-format
-msgid "Could not make %s a delegate"
-msgstr "%s konnte nicht als Delegat benannt werden"
-
-#: ../storage/exchange-delegates.c:445
-msgid "You cannot make yourself your own delegate"
-msgstr "Sie können sich nicht selbst als Ihren eigenen Delegaten angeben."
-
-#: ../storage/exchange-delegates.c:454
-#, c-format
-msgid "%s is already a delegate"
-msgstr "%s ist bereits ein Delegat"
-
-#: ../storage/exchange-delegates.c:563
-#, c-format
-msgid "Remove the delegate %s?"
-msgstr "Den Delegaten %s entfernen?"
-
-#: ../storage/exchange-delegates.c:680
-msgid "Could not access Active Directory"
-msgstr "Zugriff auf Active Directory gescheitert"
-
-#: ../storage/exchange-delegates.c:695
-msgid "Could not find self in Active Directory"
-msgstr "Eigener Eintrag wurde in Active Directory nicht gefunden"
-
-#: ../storage/exchange-delegates.c:708
-#, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "Delegat %s wurde in Active Directory nicht gefunden"
-
-#: ../storage/exchange-delegates.c:720
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "Delegat %s konnte nicht entfernt werden"
-
-#: ../storage/exchange-delegates.c:780
-msgid "Could not update list of delegates."
-msgstr "Liste der Delegaten konnte nicht aktualisiert werden."
-
-#: ../storage/exchange-delegates.c:798
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "Delegat %s konnte nicht hinzugefügt werden"
-
-#: ../storage/exchange-delegates.c:814
-#, c-format
-msgid ""
-"Failed to update delegates:\n"
-"%s"
-msgstr ""
-"Aktualisieren der Delegaten fehlgeschlagen:\n"
-"%s"
-
-#: ../storage/exchange-delegates.c:938
-#: ../storage/exchange-permissions-dialog.c:706
-msgid "Name"
-msgstr "Name"
-
-#: ../storage/exchange-delegates.c:967
-msgid "Error reading delegates list."
-msgstr "Fehler beim Lesen der Delegatenliste."
-
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
 msgstr "Erstellung (lesen, erstellen)"
@@ -976,63 +871,6 @@ msgstr "Passwort ä_ndern"
 msgid "ok_button"
 msgstr "ok_button"
 
-#: ../storage/exchange-permissions-dialog.c:222
-msgid "Could not read folder permissions"
-msgstr "Ordnerberechtigungen konnten nicht gelesen werden"
-
-#: ../storage/exchange-permissions-dialog.c:264
-msgid "Could not update folder permissions."
-msgstr "Ordnerberechtigungen konnten nicht aktualisiert werden."
-
-#: ../storage/exchange-permissions-dialog.c:293
-#, c-format
-msgid "Could not update folder permissions. %s"
-msgstr "Ordner-Berechtigungen konnten nicht aktualisiert werden. %s"
-
-#: ../storage/exchange-permissions-dialog.c:295
-msgid "(Permission denied.)"
-msgstr "(Erlaubnis verweigert.)"
-
-#: ../storage/exchange-permissions-dialog.c:396
-msgid ""
-"Unable to add user to access control list:\n"
-"No Global Catalog server is configured for this account."
-msgstr ""
-"Benutzer konnte nicht zur Zugriffsberechtigungsliste hinzugefügt werden:\n"
-"Für dieses Konto ist kein »Global Catalog«-Server konfiguriert."
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User:"
-msgstr "Benutzer hinzufügen:"
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User"
-msgstr "Benutzer hinzufügen"
-
-#: ../storage/exchange-permissions-dialog.c:421
-#, c-format
-msgid "No such user %s"
-msgstr "Benutzer %s existiert nicht"
-
-#: ../storage/exchange-permissions-dialog.c:425
-#, c-format
-msgid "%s cannot be added to an access control list"
-msgstr "%s kann zu keiner Zugriffsberechtigungsliste hinzugefügt werden"
-
-#: ../storage/exchange-permissions-dialog.c:430
-#, c-format
-msgid "Unknown error looking up %s"
-msgstr "Unbekannter Fehler beim Nachschlagen von %s"
-
-#: ../storage/exchange-permissions-dialog.c:447
-#, c-format
-msgid "%s is already in the list"
-msgstr "%s ist bereits in der Liste"
-
-#: ../storage/exchange-permissions-dialog.c:710
-msgid "Role"
-msgstr "Position"
-
 #: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
 msgstr "    "
@@ -1101,70 +939,6 @@ msgstr "Verbindung wird hergestellt …"
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector für Microsoft Exchange"
 
-#: ../storage/xc-backend-view.c:299
-msgid "Account Name"
-msgstr "Kontoname"
-
-#: ../storage/xc-commands.c:316
-msgid "Folder does not exist"
-msgstr "Ordner existiert nicht"
-
-#: ../storage/xc-commands.c:343
-#, c-format
-msgid "Could not add favorite: %s"
-msgstr "Favorit konnte nicht hinzugefügt werden: %s"
-
-#: ../storage/xc-commands.c:359
-#, c-format
-msgid "Could not remove favorite: %s"
-msgstr "Favorit konnte nicht entfernt werden: %s"
-
-#.
-#. FIXME: See 62440
-#. E_POPUP_ITEM (N_("_Move Folder..."),
-#. G_CALLBACK (do_move_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#. E_POPUP_ITEM (N_("_Copy Folder..."),
-#. G_CALLBACK (do_copy_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#.
-#: ../storage/xc-commands.c:385
-msgid "_Rename Folder..."
-msgstr "Ordner _umbenennen …"
-
-#: ../storage/xc-commands.c:391
-msgid "_New Folder..."
-msgstr "Ordner a_nlegen …"
-
-#: ../storage/xc-commands.c:394
-msgid "_Delete Folder"
-msgstr "Ordner _löschen"
-
-#: ../storage/xc-commands.c:399
-msgid "_Add Other User's Folder..."
-msgstr "Ordner eines anderen Benutzers _hinzufügen …"
-
-#: ../storage/xc-commands.c:402
-msgid "_Remove Other User's Folder"
-msgstr "Ordner eines anderen Benutzers _entfernen"
-
-#: ../storage/xc-commands.c:408
-msgid "Add to _Favorites"
-msgstr "Zu _Favoriten hinzufügen"
-
-#: ../storage/xc-commands.c:412
-msgid "Remove from Fa_vorites"
-msgstr "Aus Fa_voriten entfernen"
-
-#.
-#. E_POPUP_ITEM (N_("_Permissions..."),
-#. G_CALLBACK (do_permissions),
-#. XC_FOLDER_COMMAND_MASK_PERMISSIONS),
-#.
-#: ../storage/xc-commands.c:423
-msgid "_Show Folder Sizes"
-msgstr "Ordnergrößen _anzeigen"
-
 #: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
 msgstr "Ximian Connector für Microsoft Exchange Einstellungs-Tool"
@@ -1222,6 +996,161 @@ msgstr "_Nicht im Büro-Assistent"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Ordner eines anderen Benutzers ab_bestellen"
+
+#~ msgid "No such folder."
+#~ msgstr "Ordner existiert nicht."
+
+#~ msgid "Custom"
+#~ msgstr "Benutzerdefiniert"
+
+#~ msgid "Permissions for %s"
+#~ msgstr "Berechtigungen für %s"
+
+#~ msgid ""
+#~ "No Global Catalog server configured for this account.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Kein »Global Catalog«-Server für dieses Konto konfiguriert.\n"
+#~ "Delegaten können nicht bearbeitet werden."
+
+#~ msgid ""
+#~ "Could not read folder permissions.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Ordnerberechtigungen konnten nicht gelesen werden.\n"
+#~ "Delegaten können nicht bearbeitet werden."
+
+#~ msgid ""
+#~ "Could not determine folder permissions for delegates.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Ordnerberechtigungen für Delegaten konnten nicht bestimmt werden.\n"
+#~ "Delegaten können nicht bearbeitet werden."
+
+#~ msgid "Delegate To:"
+#~ msgstr "Delegieren an:"
+
+#~ msgid "Delegate To"
+#~ msgstr "Delegieren an"
+
+#~ msgid "Could not make %s a delegate"
+#~ msgstr "%s konnte nicht als Delegat benannt werden"
+
+#~ msgid "You cannot make yourself your own delegate"
+#~ msgstr "Sie können sich nicht selbst als Ihren eigenen Delegaten angeben."
+
+#~ msgid "%s is already a delegate"
+#~ msgstr "%s ist bereits ein Delegat"
+
+#~ msgid "Remove the delegate %s?"
+#~ msgstr "Den Delegaten %s entfernen?"
+
+#~ msgid "Could not access Active Directory"
+#~ msgstr "Zugriff auf Active Directory gescheitert"
+
+#~ msgid "Could not find self in Active Directory"
+#~ msgstr "Eigener Eintrag wurde in Active Directory nicht gefunden"
+
+#~ msgid "Could not find delegate %s in Active Directory"
+#~ msgstr "Delegat %s wurde in Active Directory nicht gefunden"
+
+#~ msgid "Could not remove delegate %s"
+#~ msgstr "Delegat %s konnte nicht entfernt werden"
+
+#~ msgid "Could not update list of delegates."
+#~ msgstr "Liste der Delegaten konnte nicht aktualisiert werden."
+
+#~ msgid "Could not add delegate %s"
+#~ msgstr "Delegat %s konnte nicht hinzugefügt werden"
+
+#~ msgid ""
+#~ "Failed to update delegates:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Aktualisieren der Delegaten fehlgeschlagen:\n"
+#~ "%s"
+
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#~ msgid "Error reading delegates list."
+#~ msgstr "Fehler beim Lesen der Delegatenliste."
+
+#~ msgid "Could not read folder permissions"
+#~ msgstr "Ordnerberechtigungen konnten nicht gelesen werden"
+
+#~ msgid "Could not update folder permissions."
+#~ msgstr "Ordnerberechtigungen konnten nicht aktualisiert werden."
+
+#~ msgid "Could not update folder permissions. %s"
+#~ msgstr "Ordner-Berechtigungen konnten nicht aktualisiert werden. %s"
+
+#~ msgid "(Permission denied.)"
+#~ msgstr "(Erlaubnis verweigert.)"
+
+#~ msgid ""
+#~ "Unable to add user to access control list:\n"
+#~ "No Global Catalog server is configured for this account."
+#~ msgstr ""
+#~ "Benutzer konnte nicht zur Zugriffsberechtigungsliste hinzugefügt werden:\n"
+#~ "Für dieses Konto ist kein »Global Catalog«-Server konfiguriert."
+
+#~ msgid "Add User:"
+#~ msgstr "Benutzer hinzufügen:"
+
+#~ msgid "Add User"
+#~ msgstr "Benutzer hinzufügen"
+
+#~ msgid "No such user %s"
+#~ msgstr "Benutzer %s existiert nicht"
+
+#~ msgid "%s cannot be added to an access control list"
+#~ msgstr "%s kann zu keiner Zugriffsberechtigungsliste hinzugefügt werden"
+
+#~ msgid "Unknown error looking up %s"
+#~ msgstr "Unbekannter Fehler beim Nachschlagen von %s"
+
+#~ msgid "%s is already in the list"
+#~ msgstr "%s ist bereits in der Liste"
+
+#~ msgid "Role"
+#~ msgstr "Position"
+
+#~ msgid "Account Name"
+#~ msgstr "Kontoname"
+
+#~ msgid "Folder does not exist"
+#~ msgstr "Ordner existiert nicht"
+
+#~ msgid "Could not add favorite: %s"
+#~ msgstr "Favorit konnte nicht hinzugefügt werden: %s"
+
+#~ msgid "Could not remove favorite: %s"
+#~ msgstr "Favorit konnte nicht entfernt werden: %s"
+
+#~ msgid "_Rename Folder..."
+#~ msgstr "Ordner _umbenennen …"
+
+#~ msgid "_New Folder..."
+#~ msgstr "Ordner a_nlegen …"
+
+#~ msgid "_Delete Folder"
+#~ msgstr "Ordner _löschen"
+
+#~ msgid "_Add Other User's Folder..."
+#~ msgstr "Ordner eines anderen Benutzers _hinzufügen …"
+
+#~ msgid "_Remove Other User's Folder"
+#~ msgstr "Ordner eines anderen Benutzers _entfernen"
+
+#~ msgid "Add to _Favorites"
+#~ msgstr "Zu _Favoriten hinzufügen"
+
+#~ msgid "Remove from Fa_vorites"
+#~ msgstr "Aus Fa_voriten entfernen"
+
+#~ msgid "_Show Folder Sizes"
+#~ msgstr "Ordnergrößen _anzeigen"
 
 #~ msgid "Folder not marked for offline support"
 #~ msgstr "Der Ordner ist nicht für eine Offline-Unterstützung markiert"
@@ -1614,6 +1543,3 @@ msgstr "Ordner eines anderen Benutzers ab_bestellen"
 
 #~ msgid "Could not read out-of-office state"
 #~ msgstr "Abwesenheitsstatus konnte nicht gelesen werden"
-
-
-
