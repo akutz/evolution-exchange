@@ -1,3 +1,5 @@
+# translation of evolution-exchange.HEAD.pl.po to Polish
+# Artur Flinta <aflinta@at.kernel.pl>, 2006.
 # Copyright (C) 2004-2006 Free Software Foundation, Inc.
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Aktualną wersję tego pliku możesz odnaleźć w repozytorium cvs.gnomepl.org
@@ -8,17 +10,20 @@
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 msgid ""
 msgstr ""
-"Project-Id-Version: evolution-exchange\n"
+"Project-Id-Version: evolution-exchange.HEAD.pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-26 14:37+0100\n"
-"PO-Revision-Date: 2006-02-26 14:18+0100\n"
-"Last-Translator: GNOME PL Team <translators@gnomepl.org>\n"
-"Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
+"POT-Creation-Date: 2006-08-16 23:54+0200\n"
+"PO-Revision-Date: 2006-08-12 23:09+0200\n"
+"Last-Translator: Artur Flinta <aflinta@at.kernel.pl>\n"
+"Language-Team: Polish <translators@gnomepl.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms:  nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1867
+#: ../addressbook/e-book-backend-exchange.c:1882
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Wyszukiwanie..."
@@ -35,16 +40,16 @@ msgstr "Odbieranie wyników wyszukiwania LDAP..."
 msgid "Error performing search"
 msgstr "Błąd wyszukiwania"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1822
+#: ../calendar/e-cal-backend-exchange-calendar.c:2004
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
 "Nie można zaplanować zasobu \"%s\" dla spotkań okresowych.\n"
-"Należy zarejestrowac każde spotkanie osobno."
+"Należy zarejestrować każde spotkanie osobno."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1840
+#: ../calendar/e-cal-backend-exchange-calendar.c:2022
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "W ustawionym okresie czasu zasób \"%s\" jest zajęty."
@@ -57,43 +62,43 @@ msgstr "Nie można opróżnić trybie bez podłączenia."
 msgid "No Subject"
 msgstr "Bez tematu"
 
-#: ../camel/camel-exchange-folder.c:380
+#: ../camel/camel-exchange-folder.c:407
 msgid "This message is not available in offline mode."
 msgstr "Ten list nie jest dostępny w trybie bez podłączenia."
 
-#: ../camel/camel-exchange-folder.c:615
+#: ../camel/camel-exchange-folder.c:642
 msgid "Moving messages"
 msgstr "Przenoszenie listów"
 
-#: ../camel/camel-exchange-folder.c:616
+#: ../camel/camel-exchange-folder.c:643
 msgid "Copying messages"
 msgstr "Kopiowanie listów"
 
-#: ../camel/camel-exchange-folder.c:987
+#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Nie można utworzyć katalogu %s: %s"
 
-#: ../camel/camel-exchange-folder.c:997
+#: ../camel/camel-exchange-folder.c:1024
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Nie można wczytać zestawienia dla %s"
 
-#: ../camel/camel-exchange-folder.c:1005
+#: ../camel/camel-exchange-folder.c:1032
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Nie można utworzyć buforu dla %s"
 
-#: ../camel/camel-exchange-folder.c:1015
+#: ../camel/camel-exchange-folder.c:1042
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Nie można utworzyć dziennika dla %s"
 
-#: ../camel/camel-exchange-folder.c:1060
+#: ../camel/camel-exchange-folder.c:1087
 msgid "Scanning for changed messages"
 msgstr "Wyszukiwanie zmodyfikowanych listów"
 
-#: ../camel/camel-exchange-folder.c:1086
+#: ../camel/camel-exchange-folder.c:1113
 msgid "Fetching summary information for new messages"
 msgstr "Pobieranie informacji podsumowujących nowe listy"
 
@@ -103,8 +108,8 @@ msgstr "Nie znaleziono nazwy folderu\n"
 
 #: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
 #: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2724
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
+#: ../mail/mail-stub-exchange.c:2730
 msgid "Folder doesn't exist"
 msgstr "Folder nie istnieje"
 
@@ -188,7 +193,7 @@ msgid ""
 "authentication."
 msgstr ""
 "Opcja ta spowoduje połączenie z serwerem Exchange przy użyciu bezpiecznego "
-"uwierzytelniania hasła (NTML)."
+"uwierzytelniania hasła (NTLM)."
 
 #: ../camel/camel-exchange-provider.c:108
 msgid "Plaintext Password"
@@ -236,7 +241,7 @@ msgstr "Nie ma takiego folderu %s"
 
 #: ../camel/camel-exchange-store.c:563
 msgid "Cannot subscribe folder in offline mode."
-msgstr "Nie można zasubskrybować folderu w trybie bez podłączenia."
+msgstr "Nie można subskrybować folderu w trybie bez podłączenia."
 
 #: ../camel/camel-exchange-store.c:580
 msgid "Cannot unsubscribe folder in offline mode."
@@ -260,7 +265,7 @@ msgstr "Nie można zmienić nazwy folderu w trybie bez podłączenia."
 
 #: ../camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr "Trnasport Exchange może być użyty tylko ze źródłem poczty Exchange"
+msgstr "Transport Exchange może być użyty tylko ze źródłem poczty Exchange"
 
 #: ../camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
@@ -269,39 +274,44 @@ msgstr ""
 
 #: ../camel/camel-exchange-transport.c:131
 msgid "Could not find 'From' address in message"
-msgstr "Nie można odnaleźć adresu nadwacy w wiadomości"
+msgstr "Nie można odnaleźć adresu nadawcy w wiadomości"
 
-#: ../camel/camel-stub.c:134
+#: ../camel/camel-stub.c:152
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Nie można utworzyć gniazda: %s"
 
-#: ../camel/camel-stub.c:149
+#: ../camel/camel-stub.c:170
+#, c-format
+msgid "Could not connect to %s: Please restart Evolution"
+msgstr "Nie można nawiązać połączenia z %s: Uruchom ponownie Evolution"
+
+#: ../camel/camel-stub.c:175
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Nie można nawiązać połączenia z %s: %s"
 
-#: ../camel/camel-stub.c:179
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Path too long: %s"
 msgstr "Ścieżka zbyt długa: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:231
 #, c-format
 msgid "Could not start status thread: %s"
-msgstr "Nie można uruchomić wątka stanu: %s"
+msgstr "Nie można uruchomić wątku stanu: %s"
 
-#: ../camel/camel-stub.c:457
+#: ../camel/camel-stub.c:485
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Przerwane połączenie z %s"
 
-#: ../camel/camel-stub.c:461
+#: ../camel/camel-stub.c:489
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Błąd połączenia z %s: %s"
 
-#: ../mail/mail-stub-exchange.c:257
+#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
 msgid "No such folder"
 msgstr "Nie ma takiego folderu"
 
@@ -309,8 +319,8 @@ msgstr "Nie ma takiego folderu"
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
 #: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
-#: ../mail/mail-stub-exchange.c:2740 ../storage/xc-commands.c:319
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
+#: ../mail/mail-stub-exchange.c:2745
 msgid "Permission denied"
 msgstr "Brak uprawnień"
 
@@ -322,13 +332,9 @@ msgstr "Nie można otworzyć folderu: Brak uprawnień"
 msgid "Could not open folder"
 msgstr "Nie można otworzyć folderu"
 
-#: ../mail/mail-stub-exchange.c:755
-msgid "No such folder."
-msgstr "Nie ma takiego folderu."
-
 #: ../mail/mail-stub-exchange.c:764
 msgid "Could not create folder."
-msgstr "Nie można utowrzyć folderu."
+msgstr "Nie można utworzyć folderu."
 
 #: ../mail/mail-stub-exchange.c:844
 msgid "Could not open Deleted Items folder"
@@ -401,12 +407,12 @@ msgid "Could not send message"
 msgstr "Nie można wysłać listu"
 
 #: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
-#: ../mail/mail-stub-exchange.c:2745 ../storage/xc-commands.c:323
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
+#: ../mail/mail-stub-exchange.c:2751
 msgid "Generic error"
 msgstr "Błąd ogólny"
 
-#: ../mail/mail-stub-exchange.c:2522 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2522
 msgid "Folder already exists"
 msgstr "Folder już istnieje"
 
@@ -494,7 +500,7 @@ msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
 msgstr ""
-"Podany adres URL serwera Exchange wskauje na serwer Exchange 5.5. Ximian "
+"Podany adres URL serwera Exchange wskazuje na serwer Exchange 5.5. Ximian "
 "Connector obsługuje tylko Microsoft xchange 2000 oraz 2003."
 
 #: ../storage/exchange-autoconfig-wizard.c:288
@@ -696,112 +702,6 @@ msgstr "Nowe hasło:"
 msgid "Your current password has expired. Please change your password now."
 msgstr "Bieżące hasło utraciło ważność. Zmień teraz swoje hasło."
 
-#: ../storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "Własny"
-
-#: ../storage/exchange-delegates-user.c:191
-#: ../storage/exchange-permissions-dialog.c:179
-#, c-format
-msgid "Permissions for %s"
-msgstr "Uprawnienia do %s"
-
-#: ../storage/exchange-delegates.c:221
-msgid ""
-"No Global Catalog server configured for this account.\n"
-"Unable to edit delegates."
-msgstr ""
-"Brak skonfigurowanego serwera ogólnego katalogu dla tego konta.\n"
-"Nie można zmodyfikować delegacji."
-
-#: ../storage/exchange-delegates.c:260
-msgid ""
-"Could not read folder permissions.\n"
-"Unable to edit delegates."
-msgstr ""
-"Nie można odczytać uprawnień folderu.\n"
-"Nie można zmodyfikować delegacji."
-
-#: ../storage/exchange-delegates.c:267
-msgid ""
-"Could not determine folder permissions for delegates.\n"
-"Unable to edit delegates."
-msgstr ""
-"Nie można ustalić uprawnień folderu dla delegacji.\n"
-"Unable to edit delegates."
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To:"
-msgstr "Oddelegowanie do:"
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To"
-msgstr "Oddelegowanie do"
-
-#: ../storage/exchange-delegates.c:435
-#, c-format
-msgid "Could not make %s a delegate"
-msgstr "Nie można oddelegować %s"
-
-#: ../storage/exchange-delegates.c:445
-msgid "You cannot make yourself your own delegate"
-msgstr "Nie można się oddelegować do siebie"
-
-#: ../storage/exchange-delegates.c:454
-#, c-format
-msgid "%s is already a delegate"
-msgstr "%s jest już delegatem"
-
-#: ../storage/exchange-delegates.c:563
-#, c-format
-msgid "Remove the delegate %s?"
-msgstr "Usunąć delegację %s?"
-
-#: ../storage/exchange-delegates.c:680
-msgid "Could not access Active Directory"
-msgstr "Brak dostępu do Active Directory"
-
-#: ../storage/exchange-delegates.c:695
-msgid "Could not find self in Active Directory"
-msgstr "Nie można odnaleźć siebie w Active Directory"
-
-#: ../storage/exchange-delegates.c:708
-#, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "Nie można odnaleźć delegacji %s w Active Directory"
-
-#: ../storage/exchange-delegates.c:720
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "Nie można usunąć delegacji %s"
-
-#: ../storage/exchange-delegates.c:780
-msgid "Could not update list of delegates."
-msgstr "Nie można uaktualnić listy delgacji."
-
-#: ../storage/exchange-delegates.c:798
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "Nie można dodać delegacji %s"
-
-#: ../storage/exchange-delegates.c:814
-#, c-format
-msgid ""
-"Failed to update delegates:\n"
-"%s"
-msgstr ""
-"Aktualizacja delegacji nie powiodła się:\n"
-"%s"
-
-#: ../storage/exchange-delegates.c:938
-#: ../storage/exchange-permissions-dialog.c:706
-msgid "Name"
-msgstr "Nazwa"
-
-#: ../storage/exchange-delegates.c:967
-msgid "Error reading delegates list."
-msgstr "Błąd przy odczytywaniu listy delegacji."
-
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
 msgstr "Autor (odczyt, tworzenie)"
@@ -964,63 +864,6 @@ msgstr "_Zmień hasło"
 msgid "ok_button"
 msgstr "przycisk ok"
 
-#: ../storage/exchange-permissions-dialog.c:222
-msgid "Could not read folder permissions"
-msgstr "Nie można odczytać uprawnień folderu"
-
-#: ../storage/exchange-permissions-dialog.c:264
-msgid "Could not update folder permissions."
-msgstr "Nie można uaktualnić uprawnień folderu."
-
-#: ../storage/exchange-permissions-dialog.c:293
-#, c-format
-msgid "Could not update folder permissions. %s"
-msgstr "Nie można uaktualnić uprawnień folderu. %s"
-
-#: ../storage/exchange-permissions-dialog.c:295
-msgid "(Permission denied.)"
-msgstr "(Brak uprawnień.)"
-
-#: ../storage/exchange-permissions-dialog.c:396
-msgid ""
-"Unable to add user to access control list:\n"
-"No Global Catalog server is configured for this account."
-msgstr ""
-"Nie można dodać użytkownika do listy kontroli dostępu:\n"
-"Nie skonfigurowano serwera ogólnego katalogu dla tego konta."
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User:"
-msgstr "Dodawany użytkownik:"
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User"
-msgstr "Dodawanie użytkownika"
-
-#: ../storage/exchange-permissions-dialog.c:421
-#, c-format
-msgid "No such user %s"
-msgstr "Nie ma użytkownika %s"
-
-#: ../storage/exchange-permissions-dialog.c:425
-#, c-format
-msgid "%s cannot be added to an access control list"
-msgstr "Nie można dodać użytkownika %s do listy kontroli dostępu"
-
-#: ../storage/exchange-permissions-dialog.c:430
-#, c-format
-msgid "Unknown error looking up %s"
-msgstr "Nieznany błąd wyszukiwania %s"
-
-#: ../storage/exchange-permissions-dialog.c:447
-#, c-format
-msgid "%s is already in the list"
-msgstr "Użytkownik %s znajduje się już na liście"
-
-#: ../storage/exchange-permissions-dialog.c:710
-msgid "Role"
-msgstr "Rola"
-
 #: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
 msgstr "    "
@@ -1089,70 +932,6 @@ msgstr "Nawiązywanie połączenia..."
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector dla Microsoft Exchange"
 
-#: ../storage/xc-backend-view.c:299
-msgid "Account Name"
-msgstr "Nazwa konta"
-
-#: ../storage/xc-commands.c:316
-msgid "Folder does not exist"
-msgstr "Folder nie istnieje"
-
-#: ../storage/xc-commands.c:343
-#, c-format
-msgid "Could not add favorite: %s"
-msgstr "Nie można utworzyć ulubionych: %s"
-
-#: ../storage/xc-commands.c:359
-#, c-format
-msgid "Could not remove favorite: %s"
-msgstr "Nie można usunąć ulubionych: %s"
-
-#.
-#. FIXME: See 62440
-#. E_POPUP_ITEM (N_("_Move Folder..."),
-#. G_CALLBACK (do_move_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#. E_POPUP_ITEM (N_("_Copy Folder..."),
-#. G_CALLBACK (do_copy_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#.
-#: ../storage/xc-commands.c:385
-msgid "_Rename Folder..."
-msgstr "_Zmień nazwę folderu..."
-
-#: ../storage/xc-commands.c:391
-msgid "_New Folder..."
-msgstr "_Nowy folder..."
-
-#: ../storage/xc-commands.c:394
-msgid "_Delete Folder"
-msgstr "_Usuń folder"
-
-#: ../storage/xc-commands.c:399
-msgid "_Add Other User's Folder..."
-msgstr "_Dodaj folder innego użytkownika..."
-
-#: ../storage/xc-commands.c:402
-msgid "_Remove Other User's Folder"
-msgstr "U_suń folder innego użytkownika"
-
-#: ../storage/xc-commands.c:408
-msgid "Add to _Favorites"
-msgstr "D_odaj do ulubionych"
-
-#: ../storage/xc-commands.c:412
-msgid "Remove from Fa_vorites"
-msgstr "Usuń z u_lubionych"
-
-#.
-#. E_POPUP_ITEM (N_("_Permissions..."),
-#. G_CALLBACK (do_permissions),
-#. XC_FOLDER_COMMAND_MASK_PERMISSIONS),
-#.
-#: ../storage/xc-commands.c:423
-msgid "_Show Folder Sizes"
-msgstr "_Wyświetl rozmiary folderów"
-
 #: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
 msgstr "Narzędzie konfigurujące Ximian Connector dla Microsoft Exchange"
@@ -1207,4 +986,3 @@ msgstr "Asystent obecności poza _biurem"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Usuń subskrypcję folderu innego użytkownika"
-
