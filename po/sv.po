@@ -1,7 +1,7 @@
 # Swedish messages for evolution-exchange.
 # Copyright (C) 2004, 2005, 2006 Free Software Foundation, Inc.
-# Christian Rose <menthos@menthos.com>, 2004, 2005.
 # Daniel Nylander <po@danielnylander.se>, 2006.
+# Christian Rose <menthos@menthos.com>, 2004, 2005.
 #
 # $Id$
 #
@@ -19,15 +19,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-29 08:12+0200\n"
-"PO-Revision-Date: 2006-03-08 00:42+0100\n"
+"POT-Creation-Date: 2006-08-15 16:09+0200\n"
+"PO-Revision-Date: 2006-08-15 18:09+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1867
+#: ../addressbook/e-book-backend-exchange.c:1882
 #: ../addressbook/e-book-backend-gal.c:1499
 #: ../storage/exchange-storage.c:135
 msgid "Searching..."
@@ -45,7 +45,7 @@ msgstr "Mottar LDAP-sökresultat..."
 msgid "Error performing search"
 msgstr "Fel vid sökning"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1934
+#: ../calendar/e-cal-backend-exchange-calendar.c:2004
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -54,7 +54,7 @@ msgstr ""
 "Kan inte schemalägga resursen \"%s\" för återkommande sammanträden.\n"
 "Du måste boka varje sammanträde separat."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1952
+#: ../calendar/e-cal-backend-exchange-calendar.c:2022
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Resursen \"%s\" är upptagen under den valda tidsperioden."
@@ -116,8 +116,8 @@ msgstr "Inget mappnamn hittat\n"
 #: ../mail/mail-stub-exchange.c:2593
 #: ../mail/mail-stub-exchange.c:2628
 #: ../mail/mail-stub-exchange.c:2655
-#: ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2724
+#: ../mail/mail-stub-exchange.c:2708
+#: ../mail/mail-stub-exchange.c:2730
 msgid "Folder doesn't exist"
 msgstr "Mappen finns inte"
 
@@ -275,37 +275,43 @@ msgstr "Kan inte skicka meddelande: en eller flera ogiltiga mottagare"
 msgid "Could not find 'From' address in message"
 msgstr "Kunde inte hitta \"Från\"-adress i meddelandet"
 
-#: ../camel/camel-stub.c:134
+#: ../camel/camel-stub.c:152
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Kunde inte skapa uttag: %s"
 
-#: ../camel/camel-stub.c:149
+#: ../camel/camel-stub.c:170
+#, c-format
+msgid "Could not connect to %s: Please restart Evolution"
+msgstr "Kunde inte ansluta till %s: Starta om Evolution"
+
+#: ../camel/camel-stub.c:175
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Kunde inte ansluta till %s: %s"
 
-#: ../camel/camel-stub.c:179
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Path too long: %s"
 msgstr "Sökvägen för lång: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:231
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Kunde inte starta statustråd: %s"
 
-#: ../camel/camel-stub.c:457
+#: ../camel/camel-stub.c:485
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Tappade anslutningen till %s"
 
-#: ../camel/camel-stub.c:461
+#: ../camel/camel-stub.c:489
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Fel vid kommunikation med %s: %s"
 
 #: ../mail/mail-stub-exchange.c:257
+#: ../mail/mail-stub-exchange.c:755
 msgid "No such folder"
 msgstr "Det finns ingen sådan mapp"
 
@@ -316,8 +322,8 @@ msgstr "Det finns ingen sådan mapp"
 #: ../mail/mail-stub-exchange.c:2526
 #: ../mail/mail-stub-exchange.c:2566
 #: ../mail/mail-stub-exchange.c:2632
-#: ../mail/mail-stub-exchange.c:2676
-#: ../mail/mail-stub-exchange.c:2739
+#: ../mail/mail-stub-exchange.c:2682
+#: ../mail/mail-stub-exchange.c:2745
 msgid "Permission denied"
 msgstr "Åtkomst nekas"
 
@@ -330,10 +336,6 @@ msgstr "Kunde inte öppna mapp: Åtkomst nekas"
 #: ../mail/mail-stub-exchange.c:707
 msgid "Could not open folder"
 msgstr "Kunde inte öppna mapp"
-
-#: ../mail/mail-stub-exchange.c:755
-msgid "No such folder."
-msgstr "Det finns ingen sådan mapp."
 
 #: ../mail/mail-stub-exchange.c:764
 msgid "Could not create folder."
@@ -412,8 +414,8 @@ msgstr "Kunde inte skicka meddelandet"
 #: ../mail/mail-stub-exchange.c:2518
 #: ../mail/mail-stub-exchange.c:2571
 #: ../mail/mail-stub-exchange.c:2636
-#: ../mail/mail-stub-exchange.c:2681
-#: ../mail/mail-stub-exchange.c:2745
+#: ../mail/mail-stub-exchange.c:2687
+#: ../mail/mail-stub-exchange.c:2751
 msgid "Generic error"
 msgstr "Allmänt fel"
 
@@ -934,4 +936,7 @@ msgstr "_Inte inne-assistent"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Säg upp prenumeration på annan användares mapp"
+
+#~ msgid "No such folder."
+#~ msgstr "Det finns ingen sådan mapp."
 
