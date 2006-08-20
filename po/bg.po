@@ -1,16 +1,16 @@
 # Bulgarian translation of evolution-exchange.
-# Copyright (C) 2004 Free Software Foundation
+# Copyright (C) 2004, 2005, 2006 Free Software Foundation
 # This file is distributed under the same license as the evolution-exchange package.
 # Vladimir Petkov <vpetkov@i-space.org>, 2004, 2005.
 # Rostislav "zbrox" Raykov <zbrox@i-space.org>, 2005.
-# Alexander Shopov <ash@contact.bg>, 2005.
+# Alexander Shopov <ash@contact.bg>, 2005, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: evolution exchange server\n"
+"Project-Id-Version: evolution exchange server HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-05 13:02+0200\n"
-"PO-Revision-Date: 2006-03-05 13:03+0200\n"
+"POT-Creation-Date: 2006-08-20 09:35+0300\n"
+"PO-Revision-Date: 2006-08-20 09:35+0300\n"
 "Last-Translator: Alexander Shopov <ash@contact.bg>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1867
+#: ../addressbook/e-book-backend-exchange.c:1882
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Търсене..."
@@ -35,7 +35,7 @@ msgstr "Получаване на резултатите от търсенето
 msgid "Error performing search"
 msgstr "Грешка при изпълнението на търсенето"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1932
+#: ../calendar/e-cal-backend-exchange-calendar.c:2004
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -44,7 +44,7 @@ msgstr ""
 "Ресурсът „%s“ не може да се задели за периодични събрания.\n"
 "Трябва да определяте всяко събрание отделно."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1950
+#: ../calendar/e-cal-backend-exchange-calendar.c:2022
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Ресурсът „%s“ е зает през избрания период."
@@ -103,8 +103,8 @@ msgstr "Не е намерено име на папка\n"
 
 #: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
 #: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2724
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
+#: ../mail/mail-stub-exchange.c:2730
 msgid "Folder doesn't exist"
 msgstr "Папката не съществува"
 
@@ -158,7 +158,8 @@ msgstr "Автоматично локално _синхронизиране на
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:65
 msgid "_Apply filters to new messages in Inbox on this server"
-msgstr "Прилагане на _филтри спрямо новите писма за входящата кутия на този сървър."
+msgstr ""
+"Прилагане на _филтри спрямо новите писма за входящата кутия на този сървър."
 
 #: ../camel/camel-exchange-provider.c:67
 msgid "Check new messages for _Junk contents"
@@ -273,37 +274,42 @@ msgstr ""
 msgid "Could not find 'From' address in message"
 msgstr "Неуспех при намирането на адреса на подателя на писмото"
 
-#: ../camel/camel-stub.c:134
+#: ../camel/camel-stub.c:152
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Неуспех при създаването на гнездо: %s"
 
-#: ../camel/camel-stub.c:149
+#: ../camel/camel-stub.c:170
+#, c-format
+msgid "Could not connect to %s: Please restart Evolution"
+msgstr "Неуспех при свързването към %s: рестартирайте Evolution"
+
+#: ../camel/camel-stub.c:175
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Неуспех при свързването към %s: %s"
 
-#: ../camel/camel-stub.c:179
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Path too long: %s"
 msgstr "Пътят е твърде дълъг: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:231
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Неуспех при стартирането на нишката за състоянието: %s"
 
-#: ../camel/camel-stub.c:457
+#: ../camel/camel-stub.c:485
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Връзката към %s се загуби"
 
-#: ../camel/camel-stub.c:461
+#: ../camel/camel-stub.c:489
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Грешка по време на комуникацията с %s: %s"
 
-#: ../mail/mail-stub-exchange.c:257
+#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
 msgid "No such folder"
 msgstr "Няма такава папка"
 
@@ -311,8 +317,8 @@ msgstr "Няма такава папка"
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
 #: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
-#: ../mail/mail-stub-exchange.c:2740 ../storage/xc-commands.c:319
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
+#: ../mail/mail-stub-exchange.c:2745
 msgid "Permission denied"
 msgstr "Достъпът е отказан"
 
@@ -323,10 +329,6 @@ msgstr "Папката не може да бъде отворена: достъ�
 #: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
 msgid "Could not open folder"
 msgstr "Папката не може да бъде отворена"
-
-#: ../mail/mail-stub-exchange.c:755
-msgid "No such folder."
-msgstr "Няма такава папка."
 
 #: ../mail/mail-stub-exchange.c:764
 msgid "Could not create folder."
@@ -402,12 +404,12 @@ msgid "Could not send message"
 msgstr "Писмото не може да бъде изпратено"
 
 #: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
-#: ../mail/mail-stub-exchange.c:2745 ../storage/xc-commands.c:323
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
+#: ../mail/mail-stub-exchange.c:2751
 msgid "Generic error"
 msgstr "Обща грешка"
 
-#: ../mail/mail-stub-exchange.c:2522 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2522
 msgid "Folder already exists"
 msgstr "Папката вече съществува"
 
@@ -470,8 +472,8 @@ msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 msgstr ""
-"Не могат да се намерят данни за ДАУ на посоченото URL.\n"
-"Проверете дали URL-то е правилно и опитайте отново."
+"Не могат да се намерят данни за ДАУ на посочения адрес.\n"
+"Проверете дали адресът е правилен и опитайте отново."
 
 #: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
@@ -496,7 +498,7 @@ msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
 msgstr ""
-"URL-то за сървър с Exchange, което сте дали, е на сървър с Exchange 5.5. "
+"Адресът за сървър с Exchange, който сте дали, е на сървър с Exchange 5.5. "
 "Ximian Connector поддържа само Microsoft Exchange 2000 и 2003."
 
 #: ../storage/exchange-autoconfig-wizard.c:288
@@ -505,7 +507,7 @@ msgid ""
 "Check the URL, username, and password, and try again."
 msgstr ""
 "Не може да се настрои абонамента към Exchange, защото се появи непозната "
-"грешка. Проверете URL-то, потребителското име и паролата. После опитайте "
+"грешка. Проверете адреса, потребителското име и паролата. После опитайте "
 "отново."
 
 #: ../storage/exchange-autoconfig-wizard.c:332
@@ -580,7 +582,7 @@ msgstr "Този абонамент да стане абонамент по по
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:9
 msgid "OWA URL:"
-msgstr "URL за ДАУ:"
+msgstr "Адрес за ДАУ:"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:10
 msgid "Password:"
@@ -627,7 +629,7 @@ msgstr ""
 "Ximian Connector може да използва абонаментна информация от Вашия абонамент "
 "за достъп на Outlook по уеб (ДАУ).\n"
 "\n"
-"Въведете адреса (URL) за Вашия ДАУ, потребителското име и паролата. После "
+"Въведете адреса за Вашия ДАУ, потребителското име и паролата. После "
 "натиснете бутона „Напред“.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:24
@@ -698,112 +700,6 @@ msgstr "Нова парола:"
 #: ../storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
 msgstr "Текущата Ви парола изтече. Променете я сега."
-
-#: ../storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "Потребителски"
-
-#: ../storage/exchange-delegates-user.c:191
-#: ../storage/exchange-permissions-dialog.c:179
-#, c-format
-msgid "Permissions for %s"
-msgstr "Права за достъп за %s"
-
-#: ../storage/exchange-delegates.c:221
-msgid ""
-"No Global Catalog server configured for this account.\n"
-"Unable to edit delegates."
-msgstr ""
-"За този абонамент няма настроен сървър за глобален каталог.\n"
-"Делегатите не могат да бъдат редактирани."
-
-#: ../storage/exchange-delegates.c:260
-msgid ""
-"Could not read folder permissions.\n"
-"Unable to edit delegates."
-msgstr ""
-"Неуспех при четенето на правата за достъп до папката.\n"
-"Делегатите не могат да бъдат редактирани."
-
-#: ../storage/exchange-delegates.c:267
-msgid ""
-"Could not determine folder permissions for delegates.\n"
-"Unable to edit delegates."
-msgstr ""
-"Неуспех при промяната на правата за достъп до папката за делегатите.\n"
-"Делегатите не могат да бъдат редактирани."
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To:"
-msgstr "Делегиране на:"
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To"
-msgstr "Делегиране на"
-
-#: ../storage/exchange-delegates.c:435
-#, c-format
-msgid "Could not make %s a delegate"
-msgstr "%s не може да бъде направен делегат"
-
-#: ../storage/exchange-delegates.c:445
-msgid "You cannot make yourself your own delegate"
-msgstr "Не можете да направите себе си Ваш делегат"
-
-#: ../storage/exchange-delegates.c:454
-#, c-format
-msgid "%s is already a delegate"
-msgstr "%s вече е делегат"
-
-#: ../storage/exchange-delegates.c:563
-#, c-format
-msgid "Remove the delegate %s?"
-msgstr "Премахване на делегата %s?"
-
-#: ../storage/exchange-delegates.c:680
-msgid "Could not access Active Directory"
-msgstr "Активната директория не може да бъде достъпена"
-
-#: ../storage/exchange-delegates.c:695
-msgid "Could not find self in Active Directory"
-msgstr "Не можете да се намерите в активната директория"
-
-#: ../storage/exchange-delegates.c:708
-#, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "Делегатът %s не може да се открие в активната директория"
-
-#: ../storage/exchange-delegates.c:720
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "Делегатът %s не може да бъде премахнат."
-
-#: ../storage/exchange-delegates.c:780
-msgid "Could not update list of delegates."
-msgstr "Неуспех при обновяването на списъка на делегатите."
-
-#: ../storage/exchange-delegates.c:798
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "Неуспех при добавянето на делегат %s"
-
-#: ../storage/exchange-delegates.c:814
-#, c-format
-msgid ""
-"Failed to update delegates:\n"
-"%s"
-msgstr ""
-"Неуспех при обновяването на делегатите:\n"
-"%s"
-
-#: ../storage/exchange-delegates.c:938
-#: ../storage/exchange-permissions-dialog.c:706
-msgid "Name"
-msgstr "Име"
-
-#: ../storage/exchange-delegates.c:967
-msgid "Error reading delegates list."
-msgstr "Грешка при прочитането на списъка с делегати."
 
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
@@ -967,63 +863,6 @@ msgstr "_Промяна на парола"
 msgid "ok_button"
 msgstr "бутон_ок"
 
-#: ../storage/exchange-permissions-dialog.c:222
-msgid "Could not read folder permissions"
-msgstr "Правата на папката не могат да бъдат прочетени"
-
-#: ../storage/exchange-permissions-dialog.c:264
-msgid "Could not update folder permissions."
-msgstr "Правата на папката не могат да бъдат обновени"
-
-#: ../storage/exchange-permissions-dialog.c:293
-#, c-format
-msgid "Could not update folder permissions. %s"
-msgstr "Правата на папката не могат да бъдат обновени: %s"
-
-#: ../storage/exchange-permissions-dialog.c:295
-msgid "(Permission denied.)"
-msgstr "(Достъпът е отказан.)"
-
-#: ../storage/exchange-permissions-dialog.c:396
-msgid ""
-"Unable to add user to access control list:\n"
-"No Global Catalog server is configured for this account."
-msgstr ""
-"Неуспех при добавянето на потребителя в списъка за достъп:\n"
-"Няма настроен сървър за глобалния каталог за този абонамент."
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User:"
-msgstr "Добавяне на потребител:"
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User"
-msgstr "Добавяне на потребител"
-
-#: ../storage/exchange-permissions-dialog.c:421
-#, c-format
-msgid "No such user %s"
-msgstr "Потребителят %s не съществува"
-
-#: ../storage/exchange-permissions-dialog.c:425
-#, c-format
-msgid "%s cannot be added to an access control list"
-msgstr "%s не може да бъде добавен списъка за достъп"
-
-#: ../storage/exchange-permissions-dialog.c:430
-#, c-format
-msgid "Unknown error looking up %s"
-msgstr "Неизвестна грешка при търсенето на %s"
-
-#: ../storage/exchange-permissions-dialog.c:447
-#, c-format
-msgid "%s is already in the list"
-msgstr "%s е вече в списъка"
-
-#: ../storage/exchange-permissions-dialog.c:710
-msgid "Role"
-msgstr "Роля"
-
 #: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
 msgstr "    "
@@ -1091,70 +930,6 @@ msgstr "Свързване..."
 #: ../storage/main.c:183
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector за Microsoft Exchange"
-
-#: ../storage/xc-backend-view.c:299
-msgid "Account Name"
-msgstr "Име на абонамента"
-
-#: ../storage/xc-commands.c:316
-msgid "Folder does not exist"
-msgstr "Папката не съществува"
-
-#: ../storage/xc-commands.c:343
-#, c-format
-msgid "Could not add favorite: %s"
-msgstr "Неуспех при добавянето на любими: %s"
-
-#: ../storage/xc-commands.c:359
-#, c-format
-msgid "Could not remove favorite: %s"
-msgstr "Неуспех при премахването на любими: %s"
-
-#.
-#. FIXME: See 62440
-#. E_POPUP_ITEM (N_("_Move Folder..."),
-#. G_CALLBACK (do_move_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#. E_POPUP_ITEM (N_("_Copy Folder..."),
-#. G_CALLBACK (do_copy_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#.
-#: ../storage/xc-commands.c:385
-msgid "_Rename Folder..."
-msgstr "_Преименуване на папка..."
-
-#: ../storage/xc-commands.c:391
-msgid "_New Folder..."
-msgstr "_Нова папка..."
-
-#: ../storage/xc-commands.c:394
-msgid "_Delete Folder"
-msgstr "_Изтриване на папка"
-
-#: ../storage/xc-commands.c:399
-msgid "_Add Other User's Folder..."
-msgstr "_Добавяне на папка на друг потребител..."
-
-#: ../storage/xc-commands.c:402
-msgid "_Remove Other User's Folder"
-msgstr "_Премахване на папка на друг потребител"
-
-#: ../storage/xc-commands.c:408
-msgid "Add to _Favorites"
-msgstr "Добавяне към _любимите"
-
-#: ../storage/xc-commands.c:412
-msgid "Remove from Fa_vorites"
-msgstr "Премахване от лю_бими"
-
-#.
-#. E_POPUP_ITEM (N_("_Permissions..."),
-#. G_CALLBACK (do_permissions),
-#. XC_FOLDER_COMMAND_MASK_PERMISSIONS),
-#.
-#: ../storage/xc-commands.c:423
-msgid "_Show Folder Sizes"
-msgstr "_Показване размерите на папките"
 
 #: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
