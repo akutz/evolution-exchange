@@ -29,6 +29,7 @@
 
 #include "camel-exchange-store.h"
 #include "camel-exchange-folder.h"
+#include "camel-exchange-summary.h"
 #include <camel/camel-session.h>
 
 #define SUBFOLDER_DIR_NAME     "subfolders"
