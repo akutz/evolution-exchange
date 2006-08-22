@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-05 23:20+0100\n"
-"PO-Revision-Date: 2006-03-05 23:21+0100\n"
+"POT-Creation-Date: 2006-08-22 13:03+0200\n"
+"PO-Revision-Date: 2006-08-22 13:05+0200\n"
 "Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: ../addressbook/e-book-backend-exchange.c:1867
+#: ../addressbook/e-book-backend-exchange.c:1882
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "S'està cercant..."
@@ -33,7 +33,7 @@ msgstr "S'estan rebent els resultats de la cerca LDAP..."
 msgid "Error performing search"
 msgstr "S'ha produït un error en cercar"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1932
+#: ../calendar/e-cal-backend-exchange-calendar.c:2004
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -42,7 +42,7 @@ msgstr ""
 "No s'ha pogut planificar el recurs '%s' per a reunions que es repeteixen.\n"
 "Haureu de reservar cada reunió per separat."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1950
+#: ../calendar/e-cal-backend-exchange-calendar.c:2022
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Els recurs '%s' està ocupat durant el període de temps seleccionat."
@@ -101,8 +101,8 @@ msgstr "No s'ha trobat el nom de carpeta\n"
 
 #: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
 #: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2724
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
+#: ../mail/mail-stub-exchange.c:2730
 msgid "Folder doesn't exist"
 msgstr "La carpeta no existeix"
 
@@ -204,26 +204,26 @@ msgstr ""
 "Amb aquesta opció es connectarà al servidor Exchange fent servir "
 "autenticació amb contrasenya sense xifrar."
 
-#: ../camel/camel-exchange-store.c:308
+#: ../camel/camel-exchange-store.c:309
 #, c-format
 msgid "Exchange server %s"
 msgstr "Servidor Exchange %s"
 
-#: ../camel/camel-exchange-store.c:311
+#: ../camel/camel-exchange-store.c:312
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Compte Exchange per a %s a %s"
 
-#: ../camel/camel-exchange-store.c:352
+#: ../camel/camel-exchange-store.c:353
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sIntroduïu la contrasenya per a %s"
 
-#: ../camel/camel-exchange-store.c:403
+#: ../camel/camel-exchange-store.c:404
 msgid "Evolution Exchange backend process"
 msgstr "Procés de suport per a Exchange d'Evolution"
 
-#: ../camel/camel-exchange-store.c:444
+#: ../camel/camel-exchange-store.c:445
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -231,32 +231,32 @@ msgstr ""
 "No es pot autenticar al servidor. Potser la contrasenya és incorrecta.\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:486
+#: ../camel/camel-exchange-store.c:487
 #, c-format
 msgid "No such folder %s"
 msgstr "No existeix la carpeta %s"
 
-#: ../camel/camel-exchange-store.c:563
+#: ../camel/camel-exchange-store.c:564
 msgid "Cannot subscribe folder in offline mode."
 msgstr "No es pot subscriure a una carpeta en mode desconnectat."
 
-#: ../camel/camel-exchange-store.c:580
+#: ../camel/camel-exchange-store.c:581
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "No es pot desfer la subscripció a una carpeta en mode desconnectat."
 
-#: ../camel/camel-exchange-store.c:695
+#: ../camel/camel-exchange-store.c:696
 msgid "Cannot get folder info in offline mode."
 msgstr "No es pot obtenir la carpeta estant desconnectat."
 
-#: ../camel/camel-exchange-store.c:766
+#: ../camel/camel-exchange-store.c:767
 msgid "Cannot create folder in offline mode."
 msgstr "No es pot crear una carpeta en mode desconnectat."
 
-#: ../camel/camel-exchange-store.c:793
+#: ../camel/camel-exchange-store.c:794
 msgid "Cannot delete folder in offline mode."
 msgstr "No es pot suprimir la carpeta en mode desconnexió."
 
-#: ../camel/camel-exchange-store.c:809
+#: ../camel/camel-exchange-store.c:810
 msgid "Cannot rename folder in offline mode."
 msgstr "No es pot reanomenar la carpeta en mode desconnectat."
 
@@ -274,37 +274,42 @@ msgstr "No s'ha pogut enviar el missatge: un o més destinataris són invàlids"
 msgid "Could not find 'From' address in message"
 msgstr "No s'ha pogut trobar l'adreça 'De' al missatge"
 
-#: ../camel/camel-stub.c:134
+#: ../camel/camel-stub.c:152
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "No s'ha pogut crear el sòcol: %s"
 
-#: ../camel/camel-stub.c:149
+#: ../camel/camel-stub.c:170
+#, c-format
+msgid "Could not connect to %s: Please restart Evolution"
+msgstr "No s'ha pogut connectar a %s: reinicieu l'Evolution"
+
+#: ../camel/camel-stub.c:175
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "No s'ha pogut connectar a %s: %s"
 
-#: ../camel/camel-stub.c:179
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Path too long: %s"
 msgstr "El camí és massa llarg: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:231
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "No s'ha pogut iniciar el fil d'estat: %s"
 
-#: ../camel/camel-stub.c:457
+#: ../camel/camel-stub.c:485
 #, c-format
 msgid "Lost connection to %s"
 msgstr "S'ha perdut la connexió a %s"
 
-#: ../camel/camel-stub.c:461
+#: ../camel/camel-stub.c:489
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "S'ha produït un error en comunicar amb %s: %s"
 
-#: ../mail/mail-stub-exchange.c:257
+#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
 msgid "No such folder"
 msgstr "No existeix aquesta carpeta"
 
@@ -312,8 +317,8 @@ msgstr "No existeix aquesta carpeta"
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
 #: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
-#: ../mail/mail-stub-exchange.c:2740 ../storage/xc-commands.c:319
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
+#: ../mail/mail-stub-exchange.c:2745
 msgid "Permission denied"
 msgstr "Permís denegat"
 
@@ -324,10 +329,6 @@ msgstr "No s'ha pogut obrir la carpeta: permís denegat"
 #: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
 msgid "Could not open folder"
 msgstr "No s'ha pogut obrir la carpeta"
-
-#: ../mail/mail-stub-exchange.c:755
-msgid "No such folder."
-msgstr "No existeix aquesta carpeta."
 
 #: ../mail/mail-stub-exchange.c:764
 msgid "Could not create folder."
@@ -404,12 +405,12 @@ msgid "Could not send message"
 msgstr "No s'ha pogut enviar el missatge"
 
 #: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
-#: ../mail/mail-stub-exchange.c:2745 ../storage/xc-commands.c:323
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
+#: ../mail/mail-stub-exchange.c:2751
 msgid "Generic error"
 msgstr "Error genèric"
 
-#: ../mail/mail-stub-exchange.c:2522 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2522
 msgid "Folder already exists"
 msgstr "La carpeta ja existeix"
 
@@ -432,7 +433,7 @@ msgid ""
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
 "No es pot connectar al servidor Exchange.\n"
-"Assegureu-vos que la URL és correcta. Podeu provar '%s' en comptes de '%s'."
+"Assegureu-vos que la URL és correcta. Podeu provar «%s» en comptes de «%s»."
 
 #: ../storage/exchange-autoconfig-wizard.c:219
 msgid ""
@@ -462,7 +463,7 @@ msgstr ""
 "No es pot autenticar al servidor Exchange.\n"
 "Assegureu-vos que el nom d'usuari i la contrasenya són correctes.\n"
 "Potser heu d'especificar el nom de domini de Windows com a part del vostre "
-"nom d'usuari, per exemple 'EL-MEU-DOMINI\\%s'."
+"nom d'usuari, per exemple «EL-MEU-DOMINI\\%s»."
 
 #: ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
@@ -700,112 +701,6 @@ msgstr ""
 "La vostra contrasenya actual ha caducat. Canvieu ara mateix la vostra "
 "contrasenya."
 
-#: ../storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "Personal"
-
-#: ../storage/exchange-delegates-user.c:191
-#: ../storage/exchange-permissions-dialog.c:179
-#, c-format
-msgid "Permissions for %s"
-msgstr "Permisos per a %s"
-
-#: ../storage/exchange-delegates.c:221
-msgid ""
-"No Global Catalog server configured for this account.\n"
-"Unable to edit delegates."
-msgstr ""
-"No s'han configurat catàlegs globals per a aquest compte.\n"
-"No es poden editar delegats."
-
-#: ../storage/exchange-delegates.c:260
-msgid ""
-"Could not read folder permissions.\n"
-"Unable to edit delegates."
-msgstr ""
-"No es poden llegir els permisos de la carpeta.\n"
-"No es poden editar els delegats."
-
-#: ../storage/exchange-delegates.c:267
-msgid ""
-"Could not determine folder permissions for delegates.\n"
-"Unable to edit delegates."
-msgstr ""
-"No s'han pogut determinar els permisos de la carpeta per als delegats.\n"
-"No es poden editar els delegats."
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To:"
-msgstr "Delega a:"
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To"
-msgstr "Delega a"
-
-#: ../storage/exchange-delegates.c:435
-#, c-format
-msgid "Could not make %s a delegate"
-msgstr "No es pot convertir %s en delegat"
-
-#: ../storage/exchange-delegates.c:445
-msgid "You cannot make yourself your own delegate"
-msgstr "No podeu fer-vos el vostre propi delegat"
-
-#: ../storage/exchange-delegates.c:454
-#, c-format
-msgid "%s is already a delegate"
-msgstr "%s ja és un delegat"
-
-#: ../storage/exchange-delegates.c:563
-#, c-format
-msgid "Remove the delegate %s?"
-msgstr "Voleu suprimir el delegat %s?"
-
-#: ../storage/exchange-delegates.c:680
-msgid "Could not access Active Directory"
-msgstr "No es pot accedir al Directori Actiu"
-
-#: ../storage/exchange-delegates.c:695
-msgid "Could not find self in Active Directory"
-msgstr "No se us ha trobat al Directori Actiu"
-
-#: ../storage/exchange-delegates.c:708
-#, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "No s'ha trobat al delegat %s al Directori Actiu"
-
-#: ../storage/exchange-delegates.c:720
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "No es pot suprimir el delegat %s"
-
-#: ../storage/exchange-delegates.c:780
-msgid "Could not update list of delegates."
-msgstr "No es pot actualitzar la llista de delegats."
-
-#: ../storage/exchange-delegates.c:798
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "No es pot afegir el delegat %s"
-
-#: ../storage/exchange-delegates.c:814
-#, c-format
-msgid ""
-"Failed to update delegates:\n"
-"%s"
-msgstr ""
-"No s'ha pogut actualitzar els delegats:\n"
-"%s"
-
-#: ../storage/exchange-delegates.c:938
-#: ../storage/exchange-permissions-dialog.c:706
-msgid "Name"
-msgstr "Nom"
-
-#: ../storage/exchange-delegates.c:967
-msgid "Error reading delegates list."
-msgstr "S'ha produït un error en llegir la llista de delegats."
-
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
 msgstr "Autor (lectura, creació)"
@@ -969,63 +864,6 @@ msgstr "_Canvia la contrasenya"
 msgid "ok_button"
 msgstr "botó_d_acord"
 
-#: ../storage/exchange-permissions-dialog.c:222
-msgid "Could not read folder permissions"
-msgstr "No s'han pogut llegir els permisos de la carpeta"
-
-#: ../storage/exchange-permissions-dialog.c:264
-msgid "Could not update folder permissions."
-msgstr "No s'han pogut actualitzar els permisos de la carpeta."
-
-#: ../storage/exchange-permissions-dialog.c:293
-#, c-format
-msgid "Could not update folder permissions. %s"
-msgstr "No s'han pogut actualitzar els permisos de la carpeta. %s"
-
-#: ../storage/exchange-permissions-dialog.c:295
-msgid "(Permission denied.)"
-msgstr "(Permís denegat.)"
-
-#: ../storage/exchange-permissions-dialog.c:396
-msgid ""
-"Unable to add user to access control list:\n"
-"No Global Catalog server is configured for this account."
-msgstr ""
-"No es pot afegir l'usuari a la llista de control d'accés:\n"
-"No s'ha configurat cap servidor de catàleg global per a aquest compte."
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User:"
-msgstr "Afegeix un usuar:"
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User"
-msgstr "Afegeix un usuari"
-
-#: ../storage/exchange-permissions-dialog.c:421
-#, c-format
-msgid "No such user %s"
-msgstr "No existeix l'usuari %s"
-
-#: ../storage/exchange-permissions-dialog.c:425
-#, c-format
-msgid "%s cannot be added to an access control list"
-msgstr "No es pot afegir %s a una llista de control d'accés"
-
-#: ../storage/exchange-permissions-dialog.c:430
-#, c-format
-msgid "Unknown error looking up %s"
-msgstr "Error desconegut en cercar %s"
-
-#: ../storage/exchange-permissions-dialog.c:447
-#, c-format
-msgid "%s is already in the list"
-msgstr "%s ja hi és a la llista"
-
-#: ../storage/exchange-permissions-dialog.c:710
-msgid "Role"
-msgstr "Rol"
-
 #: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
 msgstr "    "
@@ -1094,70 +932,6 @@ msgstr "S'està connectant..."
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector per a Microsoft Exchange"
 
-#: ../storage/xc-backend-view.c:299
-msgid "Account Name"
-msgstr "Nom del compte"
-
-#: ../storage/xc-commands.c:316
-msgid "Folder does not exist"
-msgstr "La carpeta no existeix"
-
-#: ../storage/xc-commands.c:343
-#, c-format
-msgid "Could not add favorite: %s"
-msgstr "No es pot afegir el favorit: %s"
-
-#: ../storage/xc-commands.c:359
-#, c-format
-msgid "Could not remove favorite: %s"
-msgstr "No es pot suprimir el favorit: %s"
-
-#.
-#. FIXME: See 62440
-#. E_POPUP_ITEM (N_("_Move Folder..."),
-#. G_CALLBACK (do_move_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#. E_POPUP_ITEM (N_("_Copy Folder..."),
-#. G_CALLBACK (do_copy_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#.
-#: ../storage/xc-commands.c:385
-msgid "_Rename Folder..."
-msgstr "_Reanomena la carpeta..."
-
-#: ../storage/xc-commands.c:391
-msgid "_New Folder..."
-msgstr "_Nova carpeta..."
-
-#: ../storage/xc-commands.c:394
-msgid "_Delete Folder"
-msgstr "Suprimeix la _carpeta"
-
-#: ../storage/xc-commands.c:399
-msgid "_Add Other User's Folder..."
-msgstr "_Afegeix una carpeta d'un altre usuari..."
-
-#: ../storage/xc-commands.c:402
-msgid "_Remove Other User's Folder"
-msgstr "Suprimeix _la carpeta d'un altre usuari..."
-
-#: ../storage/xc-commands.c:408
-msgid "Add to _Favorites"
-msgstr "Afegeix als _favorits"
-
-#: ../storage/xc-commands.c:412
-msgid "Remove from Fa_vorites"
-msgstr "Suprimeix dels fa_vorits"
-
-#.
-#. E_POPUP_ITEM (N_("_Permissions..."),
-#. G_CALLBACK (do_permissions),
-#. XC_FOLDER_COMMAND_MASK_PERMISSIONS),
-#.
-#: ../storage/xc-commands.c:423
-msgid "_Show Folder Sizes"
-msgstr "Mo_stra les mides de les carpetes"
-
 #: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
 msgstr "Eina de configuració del Ximian Connector per a Microsoft Exchange"
@@ -1216,6 +990,161 @@ msgstr "Auxiliar per a «f_ora de l'oficina»"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Esborra la s_ubscripció de carpeta d'altres usuaris"
+
+#~ msgid "No such folder."
+#~ msgstr "No existeix aquesta carpeta."
+
+#~ msgid "Custom"
+#~ msgstr "Personal"
+
+#~ msgid "Permissions for %s"
+#~ msgstr "Permisos per a %s"
+
+#~ msgid ""
+#~ "No Global Catalog server configured for this account.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "No s'han configurat catàlegs globals per a aquest compte.\n"
+#~ "No es poden editar delegats."
+
+#~ msgid ""
+#~ "Could not read folder permissions.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "No es poden llegir els permisos de la carpeta.\n"
+#~ "No es poden editar els delegats."
+
+#~ msgid ""
+#~ "Could not determine folder permissions for delegates.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "No s'han pogut determinar els permisos de la carpeta per als delegats.\n"
+#~ "No es poden editar els delegats."
+
+#~ msgid "Delegate To:"
+#~ msgstr "Delega a:"
+
+#~ msgid "Delegate To"
+#~ msgstr "Delega a"
+
+#~ msgid "Could not make %s a delegate"
+#~ msgstr "No es pot convertir %s en delegat"
+
+#~ msgid "You cannot make yourself your own delegate"
+#~ msgstr "No podeu fer-vos el vostre propi delegat"
+
+#~ msgid "%s is already a delegate"
+#~ msgstr "%s ja és un delegat"
+
+#~ msgid "Remove the delegate %s?"
+#~ msgstr "Voleu suprimir el delegat %s?"
+
+#~ msgid "Could not access Active Directory"
+#~ msgstr "No es pot accedir al Directori Actiu"
+
+#~ msgid "Could not find self in Active Directory"
+#~ msgstr "No se us ha trobat al Directori Actiu"
+
+#~ msgid "Could not find delegate %s in Active Directory"
+#~ msgstr "No s'ha trobat al delegat %s al Directori Actiu"
+
+#~ msgid "Could not remove delegate %s"
+#~ msgstr "No es pot suprimir el delegat %s"
+
+#~ msgid "Could not update list of delegates."
+#~ msgstr "No es pot actualitzar la llista de delegats."
+
+#~ msgid "Could not add delegate %s"
+#~ msgstr "No es pot afegir el delegat %s"
+
+#~ msgid ""
+#~ "Failed to update delegates:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "No s'ha pogut actualitzar els delegats:\n"
+#~ "%s"
+
+#~ msgid "Name"
+#~ msgstr "Nom"
+
+#~ msgid "Error reading delegates list."
+#~ msgstr "S'ha produït un error en llegir la llista de delegats."
+
+#~ msgid "Could not read folder permissions"
+#~ msgstr "No s'han pogut llegir els permisos de la carpeta"
+
+#~ msgid "Could not update folder permissions."
+#~ msgstr "No s'han pogut actualitzar els permisos de la carpeta."
+
+#~ msgid "Could not update folder permissions. %s"
+#~ msgstr "No s'han pogut actualitzar els permisos de la carpeta. %s"
+
+#~ msgid "(Permission denied.)"
+#~ msgstr "(Permís denegat.)"
+
+#~ msgid ""
+#~ "Unable to add user to access control list:\n"
+#~ "No Global Catalog server is configured for this account."
+#~ msgstr ""
+#~ "No es pot afegir l'usuari a la llista de control d'accés:\n"
+#~ "No s'ha configurat cap servidor de catàleg global per a aquest compte."
+
+#~ msgid "Add User:"
+#~ msgstr "Afegeix un usuar:"
+
+#~ msgid "Add User"
+#~ msgstr "Afegeix un usuari"
+
+#~ msgid "No such user %s"
+#~ msgstr "No existeix l'usuari %s"
+
+#~ msgid "%s cannot be added to an access control list"
+#~ msgstr "No es pot afegir %s a una llista de control d'accés"
+
+#~ msgid "Unknown error looking up %s"
+#~ msgstr "Error desconegut en cercar %s"
+
+#~ msgid "%s is already in the list"
+#~ msgstr "%s ja hi és a la llista"
+
+#~ msgid "Role"
+#~ msgstr "Rol"
+
+#~ msgid "Account Name"
+#~ msgstr "Nom del compte"
+
+#~ msgid "Folder does not exist"
+#~ msgstr "La carpeta no existeix"
+
+#~ msgid "Could not add favorite: %s"
+#~ msgstr "No es pot afegir el favorit: %s"
+
+#~ msgid "Could not remove favorite: %s"
+#~ msgstr "No es pot suprimir el favorit: %s"
+
+#~ msgid "_Rename Folder..."
+#~ msgstr "_Reanomena la carpeta..."
+
+#~ msgid "_New Folder..."
+#~ msgstr "_Nova carpeta..."
+
+#~ msgid "_Delete Folder"
+#~ msgstr "Suprimeix la _carpeta"
+
+#~ msgid "_Add Other User's Folder..."
+#~ msgstr "_Afegeix una carpeta d'un altre usuari..."
+
+#~ msgid "_Remove Other User's Folder"
+#~ msgstr "Suprimeix _la carpeta d'un altre usuari..."
+
+#~ msgid "Add to _Favorites"
+#~ msgstr "Afegeix als _favorits"
+
+#~ msgid "Remove from Fa_vorites"
+#~ msgstr "Suprimeix dels fa_vorits"
+
+#~ msgid "_Show Folder Sizes"
+#~ msgstr "Mo_stra les mides de les carpetes"
 
 #~ msgid "Can only expunge in Deleted Items folder"
 #~ msgstr "Només es pot buidar la carpeta d'elements suprimits"
