@@ -5,17 +5,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 2.14\n"
+"Project-Id-Version: 2.16\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-04 03:10+0000\n"
-"PO-Revision-Date: 2006-02-04 03:15+0000\n"
+"POT-Creation-Date: 2006-08-29 22:41+0000\n"
+"PO-Revision-Date: 2006-08-29 22:50+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1856
+#: ../addressbook/e-book-backend-exchange.c:1882
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "A procurar..."
@@ -32,7 +32,7 @@ msgstr "A receber os resultados da procura no LDAP..."
 msgid "Error performing search"
 msgstr "Erro ao efectuar a procura"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1805
+#: ../calendar/e-cal-backend-exchange-calendar.c:2004
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -41,7 +41,7 @@ msgstr ""
 "Incapaz de calendarizar o recurso '%s' para reuniões recorrentes.\n"
 "Terá de agendar cada reunião separadamente."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1823
+#: ../calendar/e-cal-backend-exchange-calendar.c:2022
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr ""
@@ -55,43 +55,43 @@ msgstr "Incapaz de expurgar em modo desligado."
 msgid "No Subject"
 msgstr "Sem Assunto"
 
-#: ../camel/camel-exchange-folder.c:380
+#: ../camel/camel-exchange-folder.c:407
 msgid "This message is not available in offline mode."
 msgstr "Esta mensagem não se encontra disponível em modo desligado."
 
-#: ../camel/camel-exchange-folder.c:615
+#: ../camel/camel-exchange-folder.c:642
 msgid "Moving messages"
 msgstr "A mover as mensagens"
 
-#: ../camel/camel-exchange-folder.c:616
+#: ../camel/camel-exchange-folder.c:643
 msgid "Copying messages"
 msgstr "A copiar as mensagens"
 
-#: ../camel/camel-exchange-folder.c:987
+#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Incapaz de criar o directório %s: %s"
 
-#: ../camel/camel-exchange-folder.c:997
+#: ../camel/camel-exchange-folder.c:1024
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Incapaz de ler o resumo para %s"
 
-#: ../camel/camel-exchange-folder.c:1005
+#: ../camel/camel-exchange-folder.c:1032
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Incapaz de criar a cache para %s"
 
-#: ../camel/camel-exchange-folder.c:1015
+#: ../camel/camel-exchange-folder.c:1042
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Incapaz de criar um diário para %s"
 
-#: ../camel/camel-exchange-folder.c:1060
+#: ../camel/camel-exchange-folder.c:1087
 msgid "Scanning for changed messages"
 msgstr "A procurar mensagens alteradas"
 
-#: ../camel/camel-exchange-folder.c:1086
+#: ../camel/camel-exchange-folder.c:1113
 msgid "Fetching summary information for new messages"
 msgstr "A obter a informação de resumo para novas mensagens"
 
@@ -99,10 +99,10 @@ msgstr "A obter a informação de resumo para novas mensagens"
 msgid "No folder name found\n"
 msgstr "Nenhum nome de pasta encontrado\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2534
-#: ../mail/mail-stub-exchange.c:2578 ../mail/mail-stub-exchange.c:2613
-#: ../mail/mail-stub-exchange.c:2640 ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2709
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
+#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
+#: ../mail/mail-stub-exchange.c:2730
 msgid "Folder doesn't exist"
 msgstr "A pasta não existe"
 
@@ -130,13 +130,13 @@ msgstr "Lista de Endereços Global / Active Directory"
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
 #: ../camel/camel-exchange-provider.c:53
-msgid "Global Catalog server name:"
-msgstr "Nome do servidor de Catálogo Global:"
+msgid "_Global Catalog server name:"
+msgstr "Nome do servidor de Catálogo _Global:"
 
 #: ../camel/camel-exchange-provider.c:55
 #, c-format
-msgid "Limit number of GAL responses: %s"
-msgstr "Número limite de respostas da LEG: %s"
+msgid "_Limit number of GAL responses: %s"
+msgstr "Número _limite de respostas da LEG: %s"
 
 #: ../camel/camel-exchange-provider.c:58
 msgid "Options"
@@ -144,25 +144,25 @@ msgstr "Opções"
 
 #: ../camel/camel-exchange-provider.c:60
 #, c-format
-msgid "Password Expiry Warning period: %s"
-msgstr "Período de Aviso de Expiração de Senha: %s"
+msgid "_Password Expiry Warning period: %s"
+msgstr "_Período de Aviso de Expiração de Senha: %s"
 
 #: ../camel/camel-exchange-provider.c:62
-msgid "Automatically synchronize account locally"
-msgstr "Sincronizar automaticamente a conta localmente"
+msgid "Automatically synchroni_ze account locally"
+msgstr "Sincroni_zar automaticamente a conta localmente"
 
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:65
-msgid "Apply filters to new messages in Inbox on this server"
-msgstr "Aplicar filtros às novas mensagens na pasta A Receber neste servidor"
+msgid "_Apply filters to new messages in Inbox on this server"
+msgstr "_Aplicar filtros às novas mensagens na pasta A Receber neste servidor"
 
 #: ../camel/camel-exchange-provider.c:67
-msgid "Check new messages for Junk contents"
-msgstr "Verificar Correio não solicitado nas novas mensagens"
+msgid "Check new messages for _Junk contents"
+msgstr "Verificar por correio _Não Solicitado nas novas mensagens"
 
 #: ../camel/camel-exchange-provider.c:69
-msgid "Only check for Junk messages in the Inbox folder"
-msgstr "Apenas verificar por Correio não solicitado na pasta A Receber"
+msgid "Only check for Junk messag_es in the Inbox folder"
+msgstr "Apenas verificar por corr_eio Não Solicitado na pasta A Receber"
 
 #: ../camel/camel-exchange-provider.c:79
 msgid "Microsoft Exchange"
@@ -198,26 +198,26 @@ msgstr ""
 "Esta opção irá estabelecer uma ligação a um servidor Exchange utilizando uma "
 "senha em texto simples."
 
-#: ../camel/camel-exchange-store.c:308
+#: ../camel/camel-exchange-store.c:309
 #, c-format
 msgid "Exchange server %s"
 msgstr "Servidor Exchange %s"
 
-#: ../camel/camel-exchange-store.c:311
+#: ../camel/camel-exchange-store.c:312
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Conta Exchange para %s em %s"
 
-#: ../camel/camel-exchange-store.c:352
+#: ../camel/camel-exchange-store.c:353
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sIntroduza a senha para %s"
 
-#: ../camel/camel-exchange-store.c:403
+#: ../camel/camel-exchange-store.c:404
 msgid "Evolution Exchange backend process"
 msgstr "Processo de suporte de Exchange no Evolution"
 
-#: ../camel/camel-exchange-store.c:444
+#: ../camel/camel-exchange-store.c:445
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -225,32 +225,32 @@ msgstr ""
 "Falha ao autenticar-se no servidor. (Senha incorrecta?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:486
+#: ../camel/camel-exchange-store.c:487
 #, c-format
 msgid "No such folder %s"
 msgstr "Pasta %s inexistente"
 
-#: ../camel/camel-exchange-store.c:563
+#: ../camel/camel-exchange-store.c:564
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Incapaz de subscrever uma pasta em modo desligado."
 
-#: ../camel/camel-exchange-store.c:580
+#: ../camel/camel-exchange-store.c:581
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Incapaz de remover a subscrição de uma pasta em modo desligado."
 
-#: ../camel/camel-exchange-store.c:695
+#: ../camel/camel-exchange-store.c:696
 msgid "Cannot get folder info in offline mode."
 msgstr "Incapaz de obter a informação de pasta em modo desligado."
 
-#: ../camel/camel-exchange-store.c:766
+#: ../camel/camel-exchange-store.c:767
 msgid "Cannot create folder in offline mode."
 msgstr "Incapaz de criar a pasta em modo desligado."
 
-#: ../camel/camel-exchange-store.c:793
+#: ../camel/camel-exchange-store.c:794
 msgid "Cannot delete folder in offline mode."
 msgstr "Incapaz de apagar a pasta em modo desligado."
 
-#: ../camel/camel-exchange-store.c:809
+#: ../camel/camel-exchange-store.c:810
 msgid "Cannot rename folder in offline mode."
 msgstr "Incapaz de renomear a pasta em modo desligado."
 
@@ -267,46 +267,51 @@ msgstr "Incapaz de enviar a mensagem: um ou mais destinatários inválidos"
 msgid "Could not find 'From' address in message"
 msgstr "Incapaz de encontrar o endereço 'De' na mensagem"
 
-#: ../camel/camel-stub.c:134
+#: ../camel/camel-stub.c:152
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Incapaz de criar um socket: %s"
 
-#: ../camel/camel-stub.c:149
+#: ../camel/camel-stub.c:170
+#, c-format
+msgid "Could not connect to %s: Please restart Evolution"
+msgstr "Incapaz de se ligar a %s: Reinicie o Evolution"
+
+#: ../camel/camel-stub.c:175
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Incapaz de se ligar a %s: %s"
 
-#: ../camel/camel-stub.c:179
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Path too long: %s"
 msgstr "Caminho demasiado longo: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:231
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Incapaz de iniciar a thread de estado: %s"
 
-#: ../camel/camel-stub.c:457
+#: ../camel/camel-stub.c:485
 #, c-format
 msgid "Lost connection to %s"
 msgstr "A ligação a %s foi perdida"
 
-#: ../camel/camel-stub.c:461
+#: ../camel/camel-stub.c:489
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Erro ao comunicar com %s: %s"
 
-#: ../mail/mail-stub-exchange.c:257
+#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
 msgid "No such folder"
 msgstr "Pasta inexistente"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1381
-#: ../mail/mail-stub-exchange.c:2511 ../mail/mail-stub-exchange.c:2551
-#: ../mail/mail-stub-exchange.c:2617 ../mail/mail-stub-exchange.c:2661
-#: ../mail/mail-stub-exchange.c:2725 ../storage/xc-commands.c:319
+#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
+#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
+#: ../mail/mail-stub-exchange.c:2745
 msgid "Permission denied"
 msgstr "Permissão negada"
 
@@ -314,67 +319,63 @@ msgstr "Permissão negada"
 msgid "Could not open folder: Permission denied"
 msgstr "Incapaz de abrir a pasta: Permissão negada"
 
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:705
+#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
 msgid "Could not open folder"
 msgstr "Incapaz de abrir a pasta"
 
-#: ../mail/mail-stub-exchange.c:748
-msgid "No such folder."
-msgstr "Pasta inexistente."
-
-#: ../mail/mail-stub-exchange.c:757
+#: ../mail/mail-stub-exchange.c:764
 msgid "Could not create folder."
 msgstr "Incapaz de criar a pasta."
 
-#: ../mail/mail-stub-exchange.c:837
+#: ../mail/mail-stub-exchange.c:844
 msgid "Could not open Deleted Items folder"
 msgstr "Incapaz de abrir a pasta de Itens Eliminados"
 
-#: ../mail/mail-stub-exchange.c:1166 ../mail/mail-stub-exchange.c:1207
+#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
 msgid "Could not get new messages"
 msgstr "Incapaz de obter novas mensagens"
 
-#: ../mail/mail-stub-exchange.c:1377
+#: ../mail/mail-stub-exchange.c:1386
 msgid "Could not empty Deleted Items folder"
 msgstr "Incapaz de esvaziar a pasta de Itens Eliminados"
 
-#: ../mail/mail-stub-exchange.c:1454
+#: ../mail/mail-stub-exchange.c:1463
 msgid "Could not append message; mailbox is over quota"
 msgstr "Incapaz de adicionar a mensagem; a caixa de correio está cheia"
 
-#: ../mail/mail-stub-exchange.c:1455
+#: ../mail/mail-stub-exchange.c:1464
 msgid "Could not append message"
 msgstr "Incapaz de adicionar a mensagem"
 
-#: ../mail/mail-stub-exchange.c:2001
+#: ../mail/mail-stub-exchange.c:2016
 msgid "No such message"
 msgstr "Mensagem inexistente"
 
-#: ../mail/mail-stub-exchange.c:2054
+#: ../mail/mail-stub-exchange.c:2069
 msgid "Message has been deleted"
 msgstr "A mensagem foi apagada"
 
-#: ../mail/mail-stub-exchange.c:2056
+#: ../mail/mail-stub-exchange.c:2071
 msgid "Error retrieving message"
 msgstr "Erro ao obter a mensagem"
 
-#: ../mail/mail-stub-exchange.c:2098
+#: ../mail/mail-stub-exchange.c:2113
 msgid "Mailbox does not support full-text searching"
 msgstr "A caixa de correio não suporta procura de texto completo"
 
-#: ../mail/mail-stub-exchange.c:2196
+#: ../mail/mail-stub-exchange.c:2211
 msgid "Unable to move/copy messages"
 msgstr "Incapaz de mover/copiar as mensagens"
 
-#: ../mail/mail-stub-exchange.c:2426
+#: ../mail/mail-stub-exchange.c:2441
 msgid "No mail submission URI for this mailbox"
 msgstr "Nenhum URI de envio de email para esta caixa de correio"
 
-#: ../mail/mail-stub-exchange.c:2462
+#: ../mail/mail-stub-exchange.c:2477
 msgid "Server won't accept mail via Exchange transport"
 msgstr "O servidor não aceita email através do transporte Exchange"
 
-#: ../mail/mail-stub-exchange.c:2464
+#: ../mail/mail-stub-exchange.c:2479
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -383,7 +384,7 @@ msgstr ""
 "A sua conta não possui permissões para utilizar <%s>\n"
 "como um endereço De."
 
-#: ../mail/mail-stub-exchange.c:2476
+#: ../mail/mail-stub-exchange.c:2491
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -391,17 +392,17 @@ msgstr ""
 "Incapaz de enviar a mensagem.\n"
 "Isto poderá significar que a sua conta excedeu a quota de espaço."
 
-#: ../mail/mail-stub-exchange.c:2480
+#: ../mail/mail-stub-exchange.c:2495
 msgid "Could not send message"
 msgstr "Incapaz de enviar a mensagem"
 
-#: ../mail/mail-stub-exchange.c:2503 ../mail/mail-stub-exchange.c:2556
-#: ../mail/mail-stub-exchange.c:2621 ../mail/mail-stub-exchange.c:2666
-#: ../mail/mail-stub-exchange.c:2730 ../storage/xc-commands.c:323
+#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
+#: ../mail/mail-stub-exchange.c:2751
 msgid "Generic error"
 msgstr "Erro genérico"
 
-#: ../mail/mail-stub-exchange.c:2507 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2522
 msgid "Folder already exists"
 msgstr "A pasta já existe"
 
@@ -692,112 +693,6 @@ msgstr "Nova Senha:"
 msgid "Your current password has expired. Please change your password now."
 msgstr "A sua senha actual expirou. Altere agora a sua senha."
 
-#: ../storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "Personalizado"
-
-#: ../storage/exchange-delegates-user.c:191
-#: ../storage/exchange-permissions-dialog.c:179
-#, c-format
-msgid "Permissions for %s"
-msgstr "Permissões para %s"
-
-#: ../storage/exchange-delegates.c:221
-msgid ""
-"No Global Catalog server configured for this account.\n"
-"Unable to edit delegates."
-msgstr ""
-"Nenhum servidor de Catálogo Global configurado para esta conta.\n"
-"Incapaz de editar as delegações."
-
-#: ../storage/exchange-delegates.c:260
-msgid ""
-"Could not read folder permissions.\n"
-"Unable to edit delegates."
-msgstr ""
-"Incapaz de ler as permissões de pasta.\n"
-"Incapaz de editar as delegações."
-
-#: ../storage/exchange-delegates.c:267
-msgid ""
-"Could not determine folder permissions for delegates.\n"
-"Unable to edit delegates."
-msgstr ""
-"Incapaz de determinar as permissões de pasta para as delegações.\n"
-"Incapaz de editar as delegações."
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To:"
-msgstr "Delegar A:"
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To"
-msgstr "Delegar A"
-
-#: ../storage/exchange-delegates.c:435
-#, c-format
-msgid "Could not make %s a delegate"
-msgstr "Incapaz de tornar %s um delegado"
-
-#: ../storage/exchange-delegates.c:445
-msgid "You cannot make yourself your own delegate"
-msgstr "Não se pode tornar um delegado de si próprio"
-
-#: ../storage/exchange-delegates.c:454
-#, c-format
-msgid "%s is already a delegate"
-msgstr "%s já é um delegado"
-
-#: ../storage/exchange-delegates.c:563
-#, c-format
-msgid "Remove the delegate %s?"
-msgstr "Remover a delegação a %s?"
-
-#: ../storage/exchange-delegates.c:680
-msgid "Could not access Active Directory"
-msgstr "Incapaz de aceder ao Active Directory"
-
-#: ../storage/exchange-delegates.c:695
-msgid "Could not find self in Active Directory"
-msgstr "Incapaz de encontrar próprio no Active Directory"
-
-#: ../storage/exchange-delegates.c:708
-#, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "Incapaz de encontrar o delegado %s no Active Directory"
-
-#: ../storage/exchange-delegates.c:720
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "Incapaz de remover o delegado %s"
-
-#: ../storage/exchange-delegates.c:780
-msgid "Could not update list of delegates."
-msgstr "Incapaz de actualizar a lista de delegações."
-
-#: ../storage/exchange-delegates.c:798
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "Incapaz de adicionar o delegado %s"
-
-#: ../storage/exchange-delegates.c:814
-#, c-format
-msgid ""
-"Failed to update delegates:\n"
-"%s"
-msgstr ""
-"Falha ao actualizar as delegações:\n"
-"%s"
-
-#: ../storage/exchange-delegates.c:938
-#: ../storage/exchange-permissions-dialog.c:706
-msgid "Name"
-msgstr "Nome"
-
-#: ../storage/exchange-delegates.c:967
-msgid "Error reading delegates list."
-msgstr "Erro ao ler a lista de delegações."
-
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
 msgstr "Autor (ler, criar)"
@@ -960,63 +855,6 @@ msgstr "_Alterar a Senha"
 msgid "ok_button"
 msgstr "botão_ok"
 
-#: ../storage/exchange-permissions-dialog.c:222
-msgid "Could not read folder permissions"
-msgstr "Incapaz de ler as permissões da pasta"
-
-#: ../storage/exchange-permissions-dialog.c:264
-msgid "Could not update folder permissions."
-msgstr "Incapaz de actualizar as permissões da pasta."
-
-#: ../storage/exchange-permissions-dialog.c:293
-#, c-format
-msgid "Could not update folder permissions. %s"
-msgstr "Incapaz de actualizar as permissões da pasta. %s"
-
-#: ../storage/exchange-permissions-dialog.c:295
-msgid "(Permission denied.)"
-msgstr "(Permissão negada.)"
-
-#: ../storage/exchange-permissions-dialog.c:396
-msgid ""
-"Unable to add user to access control list:\n"
-"No Global Catalog server is configured for this account."
-msgstr ""
-"Incapaz de adicionar o utilizador à lista de controlo de acessos:\n"
-"Não existe nenhum servidor de Catálogo Global configurado para esta conta."
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User:"
-msgstr "Adicionar Utilizador:"
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User"
-msgstr "Adicionar Utilizador"
-
-#: ../storage/exchange-permissions-dialog.c:421
-#, c-format
-msgid "No such user %s"
-msgstr "Utilizador %s inexistente"
-
-#: ../storage/exchange-permissions-dialog.c:425
-#, c-format
-msgid "%s cannot be added to an access control list"
-msgstr "%s não pode ser adicionado a uma lista de controlo de acesso"
-
-#: ../storage/exchange-permissions-dialog.c:430
-#, c-format
-msgid "Unknown error looking up %s"
-msgstr "Erro desconhecido ao procurar %s"
-
-#: ../storage/exchange-permissions-dialog.c:447
-#, c-format
-msgid "%s is already in the list"
-msgstr "%s já se encontra na lista"
-
-#: ../storage/exchange-permissions-dialog.c:710
-msgid "Role"
-msgstr "Papel"
-
 #: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
 msgstr "    "
@@ -1085,70 +923,6 @@ msgstr "A Ligar..."
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Conector Ximian para o Microsoft Exchange"
 
-#: ../storage/xc-backend-view.c:299
-msgid "Account Name"
-msgstr "Nome da Conta"
-
-#: ../storage/xc-commands.c:316
-msgid "Folder does not exist"
-msgstr "Pasta não existe"
-
-#: ../storage/xc-commands.c:343
-#, c-format
-msgid "Could not add favorite: %s"
-msgstr "Incapaz de adicionar favorito: %s"
-
-#: ../storage/xc-commands.c:359
-#, c-format
-msgid "Could not remove favorite: %s"
-msgstr "Incapaz de remover favorito: %s"
-
-#.
-#. FIXME: See 62440
-#. E_POPUP_ITEM (N_("_Move Folder..."),
-#. G_CALLBACK (do_move_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#. E_POPUP_ITEM (N_("_Copy Folder..."),
-#. G_CALLBACK (do_copy_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#.
-#: ../storage/xc-commands.c:385
-msgid "_Rename Folder..."
-msgstr "_Renomear a Pasta..."
-
-#: ../storage/xc-commands.c:391
-msgid "_New Folder..."
-msgstr "_Nova Pasta..."
-
-#: ../storage/xc-commands.c:394
-msgid "_Delete Folder"
-msgstr "_Apagar a Pasta"
-
-#: ../storage/xc-commands.c:399
-msgid "_Add Other User's Folder..."
-msgstr "A_dicionar a Pasta de Outro Utilizador..."
-
-#: ../storage/xc-commands.c:402
-msgid "_Remove Other User's Folder"
-msgstr "_Remover a Pasta de Outro Utilizador"
-
-#: ../storage/xc-commands.c:408
-msgid "Add to _Favorites"
-msgstr "Adicionar aos _Favoritos"
-
-#: ../storage/xc-commands.c:412
-msgid "Remove from Fa_vorites"
-msgstr "Remover dos Fa_voritos"
-
-#.
-#. E_POPUP_ITEM (N_("_Permissions..."),
-#. G_CALLBACK (do_permissions),
-#. XC_FOLDER_COMMAND_MASK_PERMISSIONS),
-#.
-#: ../storage/xc-commands.c:423
-msgid "_Show Folder Sizes"
-msgstr "_Apresentar o Tamanho das Pastas"
-
 #: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
 msgstr ""
@@ -1206,6 +980,161 @@ msgstr "Assistente de Ausente do _Escritório"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Remover a Subscrição da Pasta de Outro _Utilizador"
+
+#~ msgid "No such folder."
+#~ msgstr "Pasta inexistente."
+
+#~ msgid "Custom"
+#~ msgstr "Personalizado"
+
+#~ msgid "Permissions for %s"
+#~ msgstr "Permissões para %s"
+
+#~ msgid ""
+#~ "No Global Catalog server configured for this account.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Nenhum servidor de Catálogo Global configurado para esta conta.\n"
+#~ "Incapaz de editar as delegações."
+
+#~ msgid ""
+#~ "Could not read folder permissions.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Incapaz de ler as permissões de pasta.\n"
+#~ "Incapaz de editar as delegações."
+
+#~ msgid ""
+#~ "Could not determine folder permissions for delegates.\n"
+#~ "Unable to edit delegates."
+#~ msgstr ""
+#~ "Incapaz de determinar as permissões de pasta para as delegações.\n"
+#~ "Incapaz de editar as delegações."
+
+#~ msgid "Delegate To:"
+#~ msgstr "Delegar A:"
+
+#~ msgid "Delegate To"
+#~ msgstr "Delegar A"
+
+#~ msgid "Could not make %s a delegate"
+#~ msgstr "Incapaz de tornar %s um delegado"
+
+#~ msgid "You cannot make yourself your own delegate"
+#~ msgstr "Não se pode tornar um delegado de si próprio"
+
+#~ msgid "%s is already a delegate"
+#~ msgstr "%s já é um delegado"
+
+#~ msgid "Remove the delegate %s?"
+#~ msgstr "Remover a delegação a %s?"
+
+#~ msgid "Could not access Active Directory"
+#~ msgstr "Incapaz de aceder ao Active Directory"
+
+#~ msgid "Could not find self in Active Directory"
+#~ msgstr "Incapaz de encontrar próprio no Active Directory"
+
+#~ msgid "Could not find delegate %s in Active Directory"
+#~ msgstr "Incapaz de encontrar o delegado %s no Active Directory"
+
+#~ msgid "Could not remove delegate %s"
+#~ msgstr "Incapaz de remover o delegado %s"
+
+#~ msgid "Could not update list of delegates."
+#~ msgstr "Incapaz de actualizar a lista de delegações."
+
+#~ msgid "Could not add delegate %s"
+#~ msgstr "Incapaz de adicionar o delegado %s"
+
+#~ msgid ""
+#~ "Failed to update delegates:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Falha ao actualizar as delegações:\n"
+#~ "%s"
+
+#~ msgid "Name"
+#~ msgstr "Nome"
+
+#~ msgid "Error reading delegates list."
+#~ msgstr "Erro ao ler a lista de delegações."
+
+#~ msgid "Could not read folder permissions"
+#~ msgstr "Incapaz de ler as permissões da pasta"
+
+#~ msgid "Could not update folder permissions."
+#~ msgstr "Incapaz de actualizar as permissões da pasta."
+
+#~ msgid "Could not update folder permissions. %s"
+#~ msgstr "Incapaz de actualizar as permissões da pasta. %s"
+
+#~ msgid "(Permission denied.)"
+#~ msgstr "(Permissão negada.)"
+
+#~ msgid ""
+#~ "Unable to add user to access control list:\n"
+#~ "No Global Catalog server is configured for this account."
+#~ msgstr ""
+#~ "Incapaz de adicionar o utilizador à lista de controlo de acessos:\n"
+#~ "Não existe nenhum servidor de Catálogo Global configurado para esta conta."
+
+#~ msgid "Add User:"
+#~ msgstr "Adicionar Utilizador:"
+
+#~ msgid "Add User"
+#~ msgstr "Adicionar Utilizador"
+
+#~ msgid "No such user %s"
+#~ msgstr "Utilizador %s inexistente"
+
+#~ msgid "%s cannot be added to an access control list"
+#~ msgstr "%s não pode ser adicionado a uma lista de controlo de acesso"
+
+#~ msgid "Unknown error looking up %s"
+#~ msgstr "Erro desconhecido ao procurar %s"
+
+#~ msgid "%s is already in the list"
+#~ msgstr "%s já se encontra na lista"
+
+#~ msgid "Role"
+#~ msgstr "Papel"
+
+#~ msgid "Account Name"
+#~ msgstr "Nome da Conta"
+
+#~ msgid "Folder does not exist"
+#~ msgstr "Pasta não existe"
+
+#~ msgid "Could not add favorite: %s"
+#~ msgstr "Incapaz de adicionar favorito: %s"
+
+#~ msgid "Could not remove favorite: %s"
+#~ msgstr "Incapaz de remover favorito: %s"
+
+#~ msgid "_Rename Folder..."
+#~ msgstr "_Renomear a Pasta..."
+
+#~ msgid "_New Folder..."
+#~ msgstr "_Nova Pasta..."
+
+#~ msgid "_Delete Folder"
+#~ msgstr "_Apagar a Pasta"
+
+#~ msgid "_Add Other User's Folder..."
+#~ msgstr "A_dicionar a Pasta de Outro Utilizador..."
+
+#~ msgid "_Remove Other User's Folder"
+#~ msgstr "_Remover a Pasta de Outro Utilizador"
+
+#~ msgid "Add to _Favorites"
+#~ msgstr "Adicionar aos _Favoritos"
+
+#~ msgid "Remove from Fa_vorites"
+#~ msgstr "Remover dos Fa_voritos"
+
+#~ msgid "_Show Folder Sizes"
+#~ msgstr "_Apresentar o Tamanho das Pastas"
 
 #~ msgid "Can only expunge in Deleted Items folder"
 #~ msgstr "Apenas é possível expurgar na pasta de Itens Eliminados"
