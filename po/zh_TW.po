@@ -11,16 +11,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Evolution-exchange 2.5.92\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-28 12:48+0800\n"
-"PO-Revision-Date: 2006-02-28 12:49+0800\n"
+"POT-Creation-Date: 2006-09-04 18:59+0800\n"
+"PO-Revision-Date: 2006-09-04 19:02+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (Taiwan) <community@linuxhall.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
 # Novell Translation
-#: ../addressbook/e-book-backend-exchange.c:1867
+#: ../addressbook/e-book-backend-exchange.c:1882
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "搜尋中..."
@@ -41,7 +41,7 @@ msgid "Error performing search"
 msgstr "執行搜尋錯誤"
 
 # Novell Translation
-#: ../calendar/e-cal-backend-exchange-calendar.c:1877
+#: ../calendar/e-cal-backend-exchange-calendar.c:2004
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -51,7 +51,7 @@ msgstr ""
 "您必須分別預約每個會議。"
 
 # Novell Translation
-#: ../calendar/e-cal-backend-exchange-calendar.c:1895
+#: ../calendar/e-cal-backend-exchange-calendar.c:2022
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "在排定時間內，資源「%s」在忙碌中。"
@@ -65,51 +65,51 @@ msgid "No Subject"
 msgstr "沒有主旨"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:380
+#: ../camel/camel-exchange-folder.c:407
 msgid "This message is not available in offline mode."
 msgstr "此郵件無法在離線模式中使用。"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:615
+#: ../camel/camel-exchange-folder.c:642
 msgid "Moving messages"
 msgstr "正在移動郵件"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:616
+#: ../camel/camel-exchange-folder.c:643
 msgid "Copying messages"
 msgstr "正在複製郵件"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:987
+#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not create directory %s: %s"
-msgstr "無法建立目錄 %s：%s"
+msgstr "無法建構目錄 %s：%s"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:997
+#: ../camel/camel-exchange-folder.c:1024
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "無法載入 %s 的摘要"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:1005
+#: ../camel/camel-exchange-folder.c:1032
 #, c-format
 msgid "Could not create cache for %s"
-msgstr "無法建立 %s 的快取"
+msgstr "無法建構 %s 的快取"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:1015
+#: ../camel/camel-exchange-folder.c:1042
 #, c-format
 msgid "Could not create journal for %s"
-msgstr "無法建立 %s 的日誌"
+msgstr "無法建構 %s 的日誌"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:1060
+#: ../camel/camel-exchange-folder.c:1087
 msgid "Scanning for changed messages"
 msgstr "掃描已變更的郵件"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:1086
+#: ../camel/camel-exchange-folder.c:1113
 msgid "Fetching summary information for new messages"
 msgstr "取得新郵件的摘要資訊"
 
@@ -120,8 +120,8 @@ msgstr "找不到資料夾名稱\n"
 # Novell Translation
 #: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
 #: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2724
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
+#: ../mail/mail-stub-exchange.c:2730
 msgid "Folder doesn't exist"
 msgstr "資料夾不存在"
 
@@ -157,13 +157,13 @@ msgstr "全域通訊錄(GAL) / Active Directory"
 #. technical term and may not have translations?
 #: ../camel/camel-exchange-provider.c:53
 msgid "_Global Catalog server name:"
-msgstr "「通用類別目錄」(GC)伺服器名稱(_G)"
+msgstr "「通用類別目錄」(_GC) 伺服器名稱"
 
 # Novell Translation
 #: ../camel/camel-exchange-provider.c:55
 #, c-format
 msgid "_Limit number of GAL responses: %s"
-msgstr "限制 GAL 回應的數目(_L): %s"
+msgstr "限制 GA_L 回應的數目: %s"
 
 #: ../camel/camel-exchange-provider.c:58
 msgid "Options"
@@ -231,28 +231,28 @@ msgid ""
 msgstr "此選項將會連接到使用標準純文字密碼驗證的 Exchange 伺服器。"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:308
+#: ../camel/camel-exchange-store.c:309
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange 伺服器 %s"
 
-#: ../camel/camel-exchange-store.c:311
+#: ../camel/camel-exchange-store.c:312
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "於 %2$s 上，屬於 %1$s 的 Exchange 帳戶"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:352
+#: ../camel/camel-exchange-store.c:353
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%s輸入 %s 的密碼"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:403
+#: ../camel/camel-exchange-store.c:404
 msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange 後端程序"
 
-#: ../camel/camel-exchange-store.c:444
+#: ../camel/camel-exchange-store.c:445
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -261,38 +261,38 @@ msgstr ""
 "\n"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:486
+#: ../camel/camel-exchange-store.c:487
 #, c-format
 msgid "No such folder %s"
 msgstr "無此資料夾：%s"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:563
+#: ../camel/camel-exchange-store.c:564
 msgid "Cannot subscribe folder in offline mode."
 msgstr "在離線模式中無法訂閱資料夾。"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:580
+#: ../camel/camel-exchange-store.c:581
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "在離線模式中無法取消訂閱資料夾。"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:695
+#: ../camel/camel-exchange-store.c:696
 msgid "Cannot get folder info in offline mode."
 msgstr "在離線模式中無法取得資料夾資訊。"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:766
+#: ../camel/camel-exchange-store.c:767
 msgid "Cannot create folder in offline mode."
-msgstr "在離線模式中無法建立資料夾。"
+msgstr "在離線模式中無法建構資料夾。"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:793
+#: ../camel/camel-exchange-store.c:794
 msgid "Cannot delete folder in offline mode."
 msgstr "在離線模式中無法刪除資料夾。"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:809
+#: ../camel/camel-exchange-store.c:810
 msgid "Cannot rename folder in offline mode."
 msgstr "在離線模式中無法重新命名資料夾。"
 
@@ -311,43 +311,49 @@ msgstr "無法傳送郵件：一個或多個收件者無效"
 msgid "Could not find 'From' address in message"
 msgstr "郵件中找不到「寄件者」地址"
 
-#: ../camel/camel-stub.c:134
+#: ../camel/camel-stub.c:152
 #, c-format
 msgid "Could not create socket: %s"
-msgstr "無法建立 socket：%s"
+msgstr "無法建構 socket：%s"
 
 # Novell Translation
-#: ../camel/camel-stub.c:149
+#: ../camel/camel-stub.c:170
+#, c-format
+msgid "Could not connect to %s: Please restart Evolution"
+msgstr "無法連接到 %s：請重新啟動 Evolution"
+
+# Novell Translation
+#: ../camel/camel-stub.c:175
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "無法連接到 %s：%s"
 
 # Novell Translation
-#: ../camel/camel-stub.c:179
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Path too long: %s"
 msgstr "路徑太長：%s"
 
 # Novell Translation
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:231
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "無法啟動狀態線串：%s"
 
 # Novell Translation
-#: ../camel/camel-stub.c:457
+#: ../camel/camel-stub.c:485
 #, c-format
 msgid "Lost connection to %s"
 msgstr "遺失至 %s 的連線"
 
 # Novell Translation
-#: ../camel/camel-stub.c:461
+#: ../camel/camel-stub.c:489
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "與 %s 通訊錯誤：%s"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:257
+#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
 msgid "No such folder"
 msgstr "無此資料夾"
 
@@ -355,8 +361,8 @@ msgstr "無此資料夾"
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
 #: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
-#: ../mail/mail-stub-exchange.c:2740 ../storage/xc-commands.c:319
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
+#: ../mail/mail-stub-exchange.c:2745
 msgid "Permission denied"
 msgstr "存取被拒"
 
@@ -370,14 +376,9 @@ msgid "Could not open folder"
 msgstr "無法開啟資料夾"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:755
-msgid "No such folder."
-msgstr "無此資料夾。"
-
-# Novell Translation
 #: ../mail/mail-stub-exchange.c:764
 msgid "Could not create folder."
-msgstr "無法建立資料夾。"
+msgstr "無法建構資料夾。"
 
 # Novell Translation
 #: ../mail/mail-stub-exchange.c:844
@@ -461,47 +462,29 @@ msgid "Could not send message"
 msgstr "無法傳送郵件"
 
 #: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
-#: ../mail/mail-stub-exchange.c:2745 ../storage/xc-commands.c:323
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
+#: ../mail/mail-stub-exchange.c:2751
 msgid "Generic error"
 msgstr "一般性錯誤"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:2522 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2522
 msgid "Folder already exists"
 msgstr "資料夾已存在"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-msgid "*Control*F5"
-msgstr "*Control*F5"
-
 # Novell Translation
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
 msgid "Evolution Addressbook Exchange backend"
 msgstr "Evolution 通訊錄的 Exchange 後端"
 
 # Novell Translation
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Calendar Exchange backend"
 msgstr "Evolution 行事曆的 Exchange 後端"
 
-# Novell Translation
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:4
-msgid "Evolution Exchange Component"
-msgstr "Evolution Exchange 元件"
-
-# Novell Translation
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:5
-msgid "Exchange"
-msgstr "Exchange"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:6
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
 msgid "Ximian Connector for Exchange"
 msgstr "適用於 Exchange 的 Ximian Connector"
-
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:7
-msgid "_Exchange"
-msgstr "_Exchange"
 
 # Novell Translation
 #: ../storage/exchange-autoconfig-wizard.c:211
@@ -542,8 +525,7 @@ msgstr ""
 "無法登入 Exchange 伺服器。\n"
 "請確定使用者名稱及密碼是正確的，然後再試一次。\n"
 "\n"
-"您可能需要指定 Windows 網域名稱來當作使用者名稱的一部分 (例如「MY-DOMAIN\\%"
-"s」)。"
+"您可能需要指定 Windows 網域名稱來當作使用者名稱的一部分 (例如「MY-DOMAIN\\%s」)。"
 
 # Novell Translation
 #: ../storage/exchange-autoconfig-wizard.c:247
@@ -564,9 +546,7 @@ msgid ""
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"Ximian Connector 需要使用 Exchange 伺服器上某些已關閉或已封鎖的功能。(這通常"
-"不是故意的。) 您的 Exchange 管理員將需要開啟此功能，讓您可以使用 Ximian "
-"Connector。\n"
+"Ximian Connector 需要使用 Exchange 伺服器上某些已關閉或已封鎖的功能。(這通常不是故意的。) 您的 Exchange 管理員將需要開啟此功能，讓您可以使用 Ximian Connector。\n"
 "\n"
 "若需要有資料提供給 Exchange 管理員，請跟隨下列連結：\n"
 "%s"
@@ -575,18 +555,14 @@ msgstr ""
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"您所提供的 Exchange 伺服器 URL 是一部 Exchange 5.5 伺服器。Ximian Connector "
-"僅支援 Microsoft Exchange 2000 和 2003。"
+msgstr "您所提供的 Exchange 伺服器 URL 是一部 Exchange 5.5 伺服器。Ximian Connector 僅支援 Microsoft Exchange 2000 和 2003。"
 
 # Novell Translation
 #: ../storage/exchange-autoconfig-wizard.c:288
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
-msgstr ""
-"無法設定 Exchange 帳戶，因為發生了未知的錯誤。請檢查 URL、使用者名稱以及密"
-"碼，然後再試一次。"
+msgstr "無法設定 Exchange 帳戶，因為發生了未知的錯誤。請檢查 URL、使用者名稱以及密碼，然後再試一次。"
 
 #: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
@@ -594,9 +570,7 @@ msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
 "and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
 "\\%s\")."
-msgstr ""
-"無法登入「通用類別目錄」(GC)伺服器。您可能需要回到上一步，然後指定 Windows 網"
-"域名稱來當作使用者名稱的一部分 (例如「MY-DOMAIN\\%s」)。"
+msgstr "無法登入「通用類別目錄」(GC)伺服器。您可能需要回到上一步，然後指定 Windows 網域名稱來當作使用者名稱的一部分 (例如「MY-DOMAIN\\%s」)。"
 
 # Novell Translation
 #: ../storage/exchange-autoconfig-wizard.c:339
@@ -619,7 +593,7 @@ msgid ""
 "Unable to create new account."
 msgstr ""
 "組態系統錯誤。\n"
-"無法建立新帳戶。"
+"無法建構新帳戶。"
 
 #: ../storage/exchange-autoconfig-wizard.c:459
 msgid "You may only configure a single Exchange account"
@@ -727,9 +701,7 @@ msgid ""
 "Ximian Connector could not find the Global Catalog replica for your site. "
 "Please enter the name of your Global Catalog server. You may need to ask "
 "your system administrator for the correct value.\n"
-msgstr ""
-"Ximian Connector 找不到網站的「通用類別目錄」複製本。請輸入「通用類別目錄」伺"
-"服器名稱。您可能需要詢問系統管理員有關正確的設定值。\n"
+msgstr "Ximian Connector 找不到網站的「通用類別目錄」複製本。請輸入「通用類別目錄」伺服器名稱。您可能需要詢問系統管理員有關正確的設定值。\n"
 
 # Novell Translation
 #: ../storage/exchange-autoconfig-wizard.glade.h:26
@@ -794,121 +766,9 @@ msgid "Your current password has expired. Please change your password now."
 msgstr "目前的密碼已過期。請立即變更密碼。"
 
 # Novell Translation
-#: ../storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "自訂"
-
-#: ../storage/exchange-delegates-user.c:191
-#: ../storage/exchange-permissions-dialog.c:179
-#, c-format
-msgid "Permissions for %s"
-msgstr "%s 的權限"
-
-# (Abel) M$ 網站中，delegates 是「代理人」
-#: ../storage/exchange-delegates.c:221
-msgid ""
-"No Global Catalog server configured for this account.\n"
-"Unable to edit delegates."
-msgstr ""
-"沒有為此帳戶設定「通用類別目錄」伺服器。\n"
-"無法編輯代理人。"
-
-#: ../storage/exchange-delegates.c:260
-msgid ""
-"Could not read folder permissions.\n"
-"Unable to edit delegates."
-msgstr ""
-"無法讀取資料夾權限。\n"
-"無法編輯代理人。"
-
-#: ../storage/exchange-delegates.c:267
-msgid ""
-"Could not determine folder permissions for delegates.\n"
-"Unable to edit delegates."
-msgstr ""
-"無法決定代理人的資料夾權限。\n"
-"無法編輯代理人。"
-
-# Novell Translation
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To:"
-msgstr "委託給："
-
-# Novell Translation
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To"
-msgstr "委託給"
-
-#: ../storage/exchange-delegates.c:435
-#, c-format
-msgid "Could not make %s a delegate"
-msgstr "無法將 %s 設為代理人"
-
-#: ../storage/exchange-delegates.c:445
-msgid "You cannot make yourself your own delegate"
-msgstr "您不可能將自己設為自己的代理人"
-
-#: ../storage/exchange-delegates.c:454
-#, c-format
-msgid "%s is already a delegate"
-msgstr "%s 已經是一個代理人了"
-
-#: ../storage/exchange-delegates.c:563
-#, c-format
-msgid "Remove the delegate %s?"
-msgstr "要移除代理人 %s 嗎？"
-
-# Novell Translation
-#: ../storage/exchange-delegates.c:680
-msgid "Could not access Active Directory"
-msgstr "無法存取 Active Directory"
-
-# Novell Translation
-#: ../storage/exchange-delegates.c:695
-msgid "Could not find self in Active Directory"
-msgstr "在 Active Directory 中找不到自己"
-
-#: ../storage/exchange-delegates.c:708
-#, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "在 Active Directory 中找不到代理人 %s"
-
-#: ../storage/exchange-delegates.c:720
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "無法移除代理人 %s"
-
-#: ../storage/exchange-delegates.c:780
-msgid "Could not update list of delegates."
-msgstr "無法更新代理人的清單。"
-
-#: ../storage/exchange-delegates.c:798
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "無法新增代理人 %s"
-
-#: ../storage/exchange-delegates.c:814
-#, c-format
-msgid ""
-"Failed to update delegates:\n"
-"%s"
-msgstr ""
-"更新代理人失敗：\n"
-"%s"
-
-#: ../storage/exchange-delegates.c:938
-#: ../storage/exchange-permissions-dialog.c:706
-msgid "Name"
-msgstr "名稱"
-
-#: ../storage/exchange-delegates.c:967
-msgid "Error reading delegates list."
-msgstr "讀取代理人清單發生錯誤。"
-
-# Novell Translation
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
-msgstr "原著者 (讀取，建立)"
+msgstr "原著者 (讀取，建構)"
 
 #: ../storage/exchange-delegates.glade.h:2
 msgid "C_alendar:"
@@ -929,7 +789,7 @@ msgstr "代理人"
 # Novell Translation
 #: ../storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
-msgstr "編輯者 (讀取、建立、編輯)"
+msgstr "編輯者 (讀取、建構、編輯)"
 
 #: ../storage/exchange-delegates.glade.h:7
 msgid "None"
@@ -989,8 +849,7 @@ msgid ""
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
-"Evolution Exchange 帳戶資料夾的位置與階層從 Evolution %d.%d.%d 開始已經變"
-"更。\n"
+"Evolution Exchange 帳戶資料夾的位置與階層從 Evolution %d.%d.%d 開始已經變更。\n"
 "\n"
 "在 Evolution 匯入您的資料夾時請耐心稍候..."
 
@@ -1036,8 +895,7 @@ msgid ""
 "<small>The message specified below will be automatically sent to each person "
 "who sends\n"
 "mail to you while you are out of the office.</small>"
-msgstr ""
-"<small>當您不在辦公室時，任何傳送郵件給您的人都會收到以下指定的訊息。</small>"
+msgstr "<small>當您不在辦公室時，任何傳送郵件給您的人都會收到以下指定的訊息。</small>"
 
 # Novell Translation
 #: ../storage/exchange-oof.glade.h:8
@@ -1083,75 +941,6 @@ msgid "ok_button"
 msgstr "確定按鈕(_B)"
 
 # Novell Translation
-#: ../storage/exchange-permissions-dialog.c:222
-msgid "Could not read folder permissions"
-msgstr "無法讀取資料夾權限"
-
-# Novell Translation
-#: ../storage/exchange-permissions-dialog.c:264
-msgid "Could not update folder permissions."
-msgstr "無法更新資料夾權限。"
-
-# Novell Translation
-#: ../storage/exchange-permissions-dialog.c:293
-#, c-format
-msgid "Could not update folder permissions. %s"
-msgstr "無法更新資料夾權限。%s"
-
-# Novell Translation
-#: ../storage/exchange-permissions-dialog.c:295
-msgid "(Permission denied.)"
-msgstr "(存取被拒。)"
-
-# Novell Translation
-#: ../storage/exchange-permissions-dialog.c:396
-msgid ""
-"Unable to add user to access control list:\n"
-"No Global Catalog server is configured for this account."
-msgstr ""
-"無法將使用者加入至存取權控制清單：\n"
-"沒有為此帳戶設定「通用類別目錄」伺服器。"
-
-# Novell Translation
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User:"
-msgstr "新增使用者："
-
-# Novell Translation
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User"
-msgstr "新增使用者"
-
-# Novell Translation
-#: ../storage/exchange-permissions-dialog.c:421
-#, c-format
-msgid "No such user %s"
-msgstr "無此使用者 %s"
-
-# Novell Translation
-#: ../storage/exchange-permissions-dialog.c:425
-#, c-format
-msgid "%s cannot be added to an access control list"
-msgstr "無法將 %s 加入至存取權控制清單中"
-
-# Novell Translation
-#: ../storage/exchange-permissions-dialog.c:430
-#, c-format
-msgid "Unknown error looking up %s"
-msgstr "查詢 %s 時發生未知的錯誤"
-
-# Novell Translation
-#: ../storage/exchange-permissions-dialog.c:447
-#, c-format
-msgid "%s is already in the list"
-msgstr "%s 已經在清單中"
-
-# Novell Translation
-#: ../storage/exchange-permissions-dialog.c:710
-msgid "Role"
-msgstr "角色"
-
-# Novell Translation
 #: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
 msgstr "    "
@@ -1174,12 +963,12 @@ msgstr "無法編輯"
 # Novell Translation
 #: ../storage/exchange-permissions-dialog.glade.h:5
 msgid "Create items"
-msgstr "建立項目"
+msgstr "建構項目"
 
 # Novell Translation
 #: ../storage/exchange-permissions-dialog.glade.h:6
 msgid "Create subfolders"
-msgstr "建立子資料夾"
+msgstr "建構子資料夾"
 
 # Novell Translation
 #: ../storage/exchange-permissions-dialog.glade.h:7
@@ -1235,77 +1024,6 @@ msgstr "正在連線..."
 #: ../storage/main.c:183
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "適用於 Microsoft Exchange 的 Ximian Connector"
-
-# Novell Translation
-#: ../storage/xc-backend-view.c:299
-msgid "Account Name"
-msgstr "帳戶名稱"
-
-# Novell Translation
-#: ../storage/xc-commands.c:316
-msgid "Folder does not exist"
-msgstr "資料夾不存在"
-
-#: ../storage/xc-commands.c:343
-#, c-format
-msgid "Could not add favorite: %s"
-msgstr "無法加入我的最愛：%s"
-
-# Novell Translation
-#: ../storage/xc-commands.c:359
-#, c-format
-msgid "Could not remove favorite: %s"
-msgstr "無法移除我的最愛：%s"
-
-# Novell Translation
-#.
-#. FIXME: See 62440
-#. E_POPUP_ITEM (N_("_Move Folder..."),
-#. G_CALLBACK (do_move_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#. E_POPUP_ITEM (N_("_Copy Folder..."),
-#. G_CALLBACK (do_copy_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#.
-#: ../storage/xc-commands.c:385
-msgid "_Rename Folder..."
-msgstr "重新命名資料夾(_R)..."
-
-#: ../storage/xc-commands.c:391
-msgid "_New Folder..."
-msgstr "新增資料夾(_N)..."
-
-# Novell Translation
-#: ../storage/xc-commands.c:394
-msgid "_Delete Folder"
-msgstr "刪除資料夾(_D)"
-
-#: ../storage/xc-commands.c:399
-msgid "_Add Other User's Folder..."
-msgstr "加入其他使用者的資料夾(_A)..."
-
-# Novell Translation
-#: ../storage/xc-commands.c:402
-msgid "_Remove Other User's Folder"
-msgstr "移除其他使用者的資料夾(_R)"
-
-#: ../storage/xc-commands.c:408
-msgid "Add to _Favorites"
-msgstr "加入至我的最愛(_F)"
-
-# Novell Translation
-#: ../storage/xc-commands.c:412
-msgid "Remove from Fa_vorites"
-msgstr "從我的最愛中移除(_V)"
-
-#.
-#. E_POPUP_ITEM (N_("_Permissions..."),
-#. G_CALLBACK (do_permissions),
-#. XC_FOLDER_COMMAND_MASK_PERMISSIONS),
-#.
-#: ../storage/xc-commands.c:423
-msgid "_Show Folder Sizes"
-msgstr "顯示資料夾大小(_S)"
 
 # (Abel) 再加甚麼 Microsoft Exchange 太累贅了
 #: ../storage/ximian-connector-setup.c:44
