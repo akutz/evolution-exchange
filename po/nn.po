@@ -1,24 +1,23 @@
-# translation of evolution-exchange.HEAD.nn.po to Norwegian Nynorsk
 # translation of nn.po to Norwegian Nynorsk
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Åsmund Skjæveland <aasmunds@fys.uio.no>, 2004, 2005, 2006.
 #
+# Åsmund Skjæveland <aasmunds@fys.uio.no>, 2004, 2005, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: evolution-exchange.HEAD.nn\n"
+"Project-Id-Version: nn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-30 22:21+0100\n"
-"PO-Revision-Date: 2006-01-01 18:44+0100\n"
+"POT-Creation-Date: 2006-09-05 02:28+0200\n"
+"PO-Revision-Date: 2006-09-05 02:28+0200\n"
 "Last-Translator: Åsmund Skjæveland <aasmunds@fys.uio.no>\n"
 "Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.11.2\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1856
+#: ../addressbook/e-book-backend-exchange.c:1882
 #: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Søkjer ..."
@@ -35,7 +34,7 @@ msgstr "Hentar LDAP-søkjesvar ..."
 msgid "Error performing search"
 msgstr "Feil under utføring av søk"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1789
+#: ../calendar/e-cal-backend-exchange-calendar.c:2004
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -44,60 +43,56 @@ msgstr ""
 "Klarte ikkje å reservera ressursen «%s» for gjentakande møter.\n"
 "Du må reservera kvart møte for seg."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1807
+#: ../calendar/e-cal-backend-exchange-calendar.c:2022
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Ressursen «%s» er oppteken i det valde tidsrommet."
 
-#: ../camel/camel-exchange-folder.c:221
+#: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
 msgstr "Du kan ikkje fjerna sletta element i fråkopla modus."
 
-#: ../camel/camel-exchange-folder.c:230
-msgid "Can only expunge in Deleted Items folder"
-msgstr "Kan berre fjerna sletta element i papirkorga"
-
-#: ../camel/camel-exchange-folder.c:254
+#: ../camel/camel-exchange-folder.c:253
 msgid "No Subject"
 msgstr "Ikkje noko emne"
 
-#: ../camel/camel-exchange-folder.c:381
+#: ../camel/camel-exchange-folder.c:407
 msgid "This message is not available in offline mode."
 msgstr "Denne meldinga er ikkje tilgjengeleg i fråkopla modus."
 
-#: ../camel/camel-exchange-folder.c:616
+#: ../camel/camel-exchange-folder.c:642
 msgid "Moving messages"
 msgstr "Flyttar meldingar"
 
-#: ../camel/camel-exchange-folder.c:617
+#: ../camel/camel-exchange-folder.c:643
 msgid "Copying messages"
 msgstr "Kopierer meldingar"
 
-#: ../camel/camel-exchange-folder.c:988
+#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Klarte ikkje å laga katalogen «%s»: %s"
 
-#: ../camel/camel-exchange-folder.c:998
+#: ../camel/camel-exchange-folder.c:1024
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Klarte ikkje å lasta oppsummeringa til %s"
 
-#: ../camel/camel-exchange-folder.c:1006
+#: ../camel/camel-exchange-folder.c:1032
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Klarte ikkje å laga mellomlageret til %s"
 
-#: ../camel/camel-exchange-folder.c:1016
+#: ../camel/camel-exchange-folder.c:1042
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Klarte ikkje å laga journal for %s"
 
-#: ../camel/camel-exchange-folder.c:1061
+#: ../camel/camel-exchange-folder.c:1087
 msgid "Scanning for changed messages"
 msgstr "Ser etter endra meldingar"
 
-#: ../camel/camel-exchange-folder.c:1087
+#: ../camel/camel-exchange-folder.c:1113
 msgid "Fetching summary information for new messages"
 msgstr "Hentar oppsummeringar av nye meldingar"
 
@@ -105,16 +100,17 @@ msgstr "Hentar oppsummeringar av nye meldingar"
 msgid "No folder name found\n"
 msgstr "Fann ikkje noko mappenamn\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2534
-#: ../mail/mail-stub-exchange.c:2578 ../mail/mail-stub-exchange.c:2613
-#: ../mail/mail-stub-exchange.c:2640 ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2709
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
+#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
+#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
+#: ../mail/mail-stub-exchange.c:2730
 msgid "Folder doesn't exist"
 msgstr "Mappa finst ikkje"
 
 #: ../camel/camel-exchange-journal.c:436
 msgid "Cannot append message in offline mode: cache unavailable"
-msgstr "Kan ikkje leggja til melding i fråkopla modus: Mellomlager utilgjengeleg"
+msgstr ""
+"Kan ikkje leggja til melding i fråkopla modus: Mellomlager utilgjengeleg"
 
 #: ../camel/camel-exchange-journal.c:452
 #, c-format
@@ -136,13 +132,13 @@ msgstr "Global adresseliste / Active Directory"
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
 #: ../camel/camel-exchange-provider.c:53
-msgid "Global Catalog server name:"
-msgstr "Namn på global katalogtenar:"
+msgid "_Global Catalog server name:"
+msgstr "Namn på _global katalogtenar:"
 
 #: ../camel/camel-exchange-provider.c:55
 #, c-format
-msgid "Limit number of GAL responses: %s"
-msgstr "Avgrensa talet på GAL-førespurnader: %s"
+msgid "_Limit number of GAL responses: %s"
+msgstr "_Avgrensa talet på GAL-førespurnader: %s"
 
 #: ../camel/camel-exchange-provider.c:58
 msgid "Options"
@@ -150,25 +146,25 @@ msgstr "Val"
 
 #: ../camel/camel-exchange-provider.c:60
 #, c-format
-msgid "Password Expiry Warning period: %s"
-msgstr "Tid med åtvaring om gamalt passord: %s"
+msgid "_Password Expiry Warning period: %s"
+msgstr "_Tid med åtvaring om gamalt passord: %s"
 
 #: ../camel/camel-exchange-provider.c:62
-msgid "Automatically synchronize account locally"
-msgstr "Synkroniser konto lokalt automatisk"
+msgid "Automatically synchroni_ze account locally"
+msgstr "_Synkroniser konto lokalt automatisk"
 
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:65
-msgid "Apply filters to new messages in Inbox on this server"
-msgstr "Bruk filter på nye meldingar i innboksen på denne tenaren"
+msgid "_Apply filters to new messages in Inbox on this server"
+msgstr "_Bruk filter på nye meldingar i innboksen på denne tenaren"
 
 #: ../camel/camel-exchange-provider.c:67
-msgid "Check new messages for Junk contents"
-msgstr "Kontroller om ny e-post er skrot"
+msgid "Check new messages for _Junk contents"
+msgstr "Kontroller om ny e-post er _skrot"
 
 #: ../camel/camel-exchange-provider.c:69
-msgid "Only check for Junk messages in the Inbox folder"
-msgstr "Sjå etter skrotmeldingar berre i innboksen"
+msgid "Only check for Junk messag_es in the Inbox folder"
+msgstr "Sjå etter skrotm_eldingar berre i innboksen"
 
 #: ../camel/camel-exchange-provider.c:79
 msgid "Microsoft Exchange"
@@ -188,7 +184,9 @@ msgstr "Trygt passord"
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
-msgstr "Dette valet vil kopla til Exchange-tenaren med trygg passord-autentisering (NTLM)."
+msgstr ""
+"Dette valet vil kopla til Exchange-tenaren med trygg passord-autentisering "
+"(NTLM)."
 
 #: ../camel/camel-exchange-provider.c:108
 msgid "Plaintext Password"
@@ -198,28 +196,29 @@ msgstr "Passord i klartekst"
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
-msgstr "Dette valet vil kopla til Exchange-tenaren med klartekstpassordautentisering."
+msgstr ""
+"Dette valet vil kopla til Exchange-tenaren med klartekstpassordautentisering."
 
-#: ../camel/camel-exchange-store.c:308
+#: ../camel/camel-exchange-store.c:309
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange-tenar %s"
 
-#: ../camel/camel-exchange-store.c:311
+#: ../camel/camel-exchange-store.c:312
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Exchange-kontoen til %s på %s"
 
-#: ../camel/camel-exchange-store.c:352
+#: ../camel/camel-exchange-store.c:353
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sSkriv passordet til %s"
 
-#: ../camel/camel-exchange-store.c:403
+#: ../camel/camel-exchange-store.c:404
 msgid "Evolution Exchange backend process"
-msgstr ""
+msgstr "Evolution Exchange motorprosess"
 
-#: ../camel/camel-exchange-store.c:444
+#: ../camel/camel-exchange-store.c:445
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -227,32 +226,32 @@ msgstr ""
 "Klarte ikkje å autentisera mot tenar. (Passord feil?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:486
+#: ../camel/camel-exchange-store.c:487
 #, c-format
 msgid "No such folder %s"
 msgstr "Mappa «%s» finst ikkje"
 
-#: ../camel/camel-exchange-store.c:563
+#: ../camel/camel-exchange-store.c:564
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Kan ikkje tinga mappa i fråkopla modus."
 
-#: ../camel/camel-exchange-store.c:580
+#: ../camel/camel-exchange-store.c:581
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Kan ikkje slutta å tinga mappa i fråkopla modus."
 
-#: ../camel/camel-exchange-store.c:695
+#: ../camel/camel-exchange-store.c:696
 msgid "Cannot get folder info in offline mode."
 msgstr "Kan ikkje henta mappeinformasjon i fråkopla modus."
 
-#: ../camel/camel-exchange-store.c:766
+#: ../camel/camel-exchange-store.c:767
 msgid "Cannot create folder in offline mode."
 msgstr "Kan ikkje laga mappa i fråkopla modus."
 
-#: ../camel/camel-exchange-store.c:793
+#: ../camel/camel-exchange-store.c:794
 msgid "Cannot delete folder in offline mode."
 msgstr "Kan ikkje sletta mappa i fråkopla modus."
 
-#: ../camel/camel-exchange-store.c:809
+#: ../camel/camel-exchange-store.c:810
 msgid "Cannot rename folder in offline mode."
 msgstr "Kan ikkje byta namn på mappa i fråkopla modus."
 
@@ -268,46 +267,51 @@ msgstr "Kan ikkje senda meldinga. Ein eller fleire ugyldige mottakarar"
 msgid "Could not find 'From' address in message"
 msgstr "Kan ikkje finna nokon frå-adresse i meldinga"
 
-#: ../camel/camel-stub.c:134
+#: ../camel/camel-stub.c:152
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Klarte ikkje å laga sokkel: %s"
 
-#: ../camel/camel-stub.c:149
+#: ../camel/camel-stub.c:170
+#, c-format
+msgid "Could not connect to %s: Please restart Evolution"
+msgstr "Kan ikkje kopla til %s: Avslutt og start Evolution på nytt"
+
+#: ../camel/camel-stub.c:175
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Kan ikkje kopla til %s: %s"
 
-#: ../camel/camel-stub.c:179
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Path too long: %s"
 msgstr "Stien er for lang: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:231
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Klarte ikkje å starta statustråd: %s"
 
-#: ../camel/camel-stub.c:457
+#: ../camel/camel-stub.c:485
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Mista tilkoplinga til %s"
 
-#: ../camel/camel-stub.c:461
+#: ../camel/camel-stub.c:489
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Feil i sambandet til %s: %s"
 
-#: ../mail/mail-stub-exchange.c:257
+#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
 msgid "No such folder"
 msgstr "Mappa finst ikkje"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1381
-#: ../mail/mail-stub-exchange.c:2511 ../mail/mail-stub-exchange.c:2551
-#: ../mail/mail-stub-exchange.c:2617 ../mail/mail-stub-exchange.c:2661
-#: ../mail/mail-stub-exchange.c:2725 ../storage/xc-commands.c:319
+#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
+#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
+#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
+#: ../mail/mail-stub-exchange.c:2745
 msgid "Permission denied"
 msgstr "Nekta tilgang"
 
@@ -315,67 +319,63 @@ msgstr "Nekta tilgang"
 msgid "Could not open folder: Permission denied"
 msgstr "Klarte ikkje å opna mappa. Tilgang vart nekta"
 
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:705
+#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
 msgid "Could not open folder"
 msgstr "Klarte ikkje å opna mappa"
 
-#: ../mail/mail-stub-exchange.c:748
-msgid "No such folder."
-msgstr "Mappa finst ikkje."
-
-#: ../mail/mail-stub-exchange.c:757
+#: ../mail/mail-stub-exchange.c:764
 msgid "Could not create folder."
 msgstr "Klarte ikkje å laga mappa."
 
-#: ../mail/mail-stub-exchange.c:837
+#: ../mail/mail-stub-exchange.c:844
 msgid "Could not open Deleted Items folder"
 msgstr "Klarte ikkje å opna papirkorga"
 
-#: ../mail/mail-stub-exchange.c:1166 ../mail/mail-stub-exchange.c:1207
+#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
 msgid "Could not get new messages"
 msgstr "Klarte ikkje å henta nye meldingar"
 
-#: ../mail/mail-stub-exchange.c:1377
+#: ../mail/mail-stub-exchange.c:1386
 msgid "Could not empty Deleted Items folder"
 msgstr "Klarte ikkje å tøma papirkorga"
 
-#: ../mail/mail-stub-exchange.c:1454
+#: ../mail/mail-stub-exchange.c:1463
 msgid "Could not append message; mailbox is over quota"
 msgstr "Klarte ikkje å leggja til meldinga, postboksen er over kvota"
 
-#: ../mail/mail-stub-exchange.c:1455
+#: ../mail/mail-stub-exchange.c:1464
 msgid "Could not append message"
 msgstr "Klarte ikkje å leggja til melding"
 
-#: ../mail/mail-stub-exchange.c:2001
+#: ../mail/mail-stub-exchange.c:2016
 msgid "No such message"
 msgstr "Meldinga finst ikkje"
 
-#: ../mail/mail-stub-exchange.c:2054
+#: ../mail/mail-stub-exchange.c:2069
 msgid "Message has been deleted"
 msgstr "Meldinga er sletta"
 
-#: ../mail/mail-stub-exchange.c:2056
+#: ../mail/mail-stub-exchange.c:2071
 msgid "Error retrieving message"
 msgstr "Feil under henting av melding"
 
-#: ../mail/mail-stub-exchange.c:2098
+#: ../mail/mail-stub-exchange.c:2113
 msgid "Mailbox does not support full-text searching"
 msgstr "Postboksen støttar ikkje fulltekstsøk"
 
-#: ../mail/mail-stub-exchange.c:2196
+#: ../mail/mail-stub-exchange.c:2211
 msgid "Unable to move/copy messages"
 msgstr "Klarte ikkje å flytta/kopiera meldingar"
 
-#: ../mail/mail-stub-exchange.c:2426
+#: ../mail/mail-stub-exchange.c:2441
 msgid "No mail submission URI for this mailbox"
 msgstr "Inga postleveringsadresse på denne postboksen"
 
-#: ../mail/mail-stub-exchange.c:2462
+#: ../mail/mail-stub-exchange.c:2477
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Tenaren tek ikkje imot e-post over Exchange-transporten"
 
-#: ../mail/mail-stub-exchange.c:2464
+#: ../mail/mail-stub-exchange.c:2479
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -384,7 +384,7 @@ msgstr ""
 "Kontoen din har ikkje lov til å bruka <%s> som\n"
 "Frå-adresse."
 
-#: ../mail/mail-stub-exchange.c:2476
+#: ../mail/mail-stub-exchange.c:2491
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -392,27 +392,27 @@ msgstr ""
 "Klarte ikkje å senda meldinga.\n"
 "Det kan tyda på at kontoen din har gått over kvota."
 
-#: ../mail/mail-stub-exchange.c:2480
+#: ../mail/mail-stub-exchange.c:2495
 msgid "Could not send message"
 msgstr "Klarte ikkje å senda meldinga"
 
-#: ../mail/mail-stub-exchange.c:2503 ../mail/mail-stub-exchange.c:2556
-#: ../mail/mail-stub-exchange.c:2621 ../mail/mail-stub-exchange.c:2666
-#: ../mail/mail-stub-exchange.c:2730 ../storage/xc-commands.c:323
+#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
+#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
+#: ../mail/mail-stub-exchange.c:2751
 msgid "Generic error"
 msgstr "Allmenn feil"
 
-#: ../mail/mail-stub-exchange.c:2507 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2522
 msgid "Folder already exists"
 msgstr "Mappa finst frå før"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
 msgid "Evolution Addressbook Exchange backend"
-msgstr ""
+msgstr "Evolution Adressebok Exchange motor"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Calendar Exchange backend"
-msgstr ""
+msgstr "Evolution Kalender Exchange motor"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
 msgid "Ximian Connector for Exchange"
@@ -455,8 +455,8 @@ msgstr ""
 "Klarte ikkje å autentisera mot Exchange-tenaren.\n"
 "Kontroller at brukarnamnet og passordet er rett og prøv igjen.\n"
 "\n"
-"Det er mogleg at du må oppgje Windows-domenet som ein del av brukarnamnet "
-"(t.d. «DOMENE\\%s»)."
+"Det er mogleg at du må oppgje Windows-domenet som ein del av brukarnamnet (t."
+"d. «DOMENE\\%s»)."
 
 #: ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
@@ -476,20 +476,20 @@ msgid ""
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"Exchange Connector krev adgang til visse funksjonar "
-"på Exchange-tenaren som ser ut til å vera slått av "
-"eller sperra. (Dette er vanlegvis gjort ved ein feil.) "
-"Exchange-administratoren din på slå på desse funksjonane "
-"for at du skal kunna bruka Ximian Connector."
-"\n"
-"Følg lenkja under for informasjon du kan gje til "
-"Exchange-administratoren din."
+"Exchange Connector krev adgang til visse funksjonar på Exchange-tenaren som "
+"ser ut til å vera slått av eller sperra. (Dette er vanlegvis gjort ved ein "
+"feil.) Exchange-administratoren din på slå på desse funksjonane for at du "
+"skal kunna bruka Ximian Connector.\n"
+"Følg lenkja under for informasjon du kan gje til Exchange-administratoren "
+"din."
 
 #: ../storage/exchange-autoconfig-wizard.c:275
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr "Den oppgjevne adressa til Exchange-tenaren er til ein Exchange 5.5-tenar. Ximian Connector støttar berre Microsoft Exchange 2002 og 2003."
+msgstr ""
+"Den oppgjevne adressa til Exchange-tenaren er til ein Exchange 5.5-tenar. "
+"Ximian Connector støttar berre Microsoft Exchange 2002 og 2003."
 
 #: ../storage/exchange-autoconfig-wizard.c:288
 msgid ""
@@ -505,7 +505,10 @@ msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
 "and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
 "\\%s\")."
-msgstr "Klarte ikkje å autentisera mot den globale katalogtenaren. Det er mogleg du må gå tilbake og oppgje Windows-domenet som ein del av brukarnamnet (t.d. «DOMENE\\%s»)."
+msgstr ""
+"Klarte ikkje å autentisera mot den globale katalogtenaren. Det er mogleg du "
+"må gå tilbake og oppgje Windows-domenet som ein del av brukarnamnet (t.d. "
+"«DOMENE\\%s»)."
 
 #: ../storage/exchange-autoconfig-wizard.c:339
 msgid ""
@@ -611,7 +614,8 @@ msgid ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
-"Ximian Connector kan bruka kontoinformasjon frå den eksisterande Outlook Web Access (OWA)-kontoen din.\n"
+"Ximian Connector kan bruka kontoinformasjon frå den eksisterande Outlook Web "
+"Access (OWA)-kontoen din.\n"
 "\n"
 "Skriv inn OWA-adressa, brukarnamn og passord, og klikk «Framover».\n"
 
@@ -620,26 +624,35 @@ msgid ""
 "Ximian Connector could not find the Global Catalog replica for your site. "
 "Please enter the name of your Global Catalog server. You may need to ask "
 "your system administrator for the correct value.\n"
-msgstr "Ximian Connector klarte ikkje å finna kopien av den globale katalogen for nettstaden din. Skriv inn vertsnamnet til den globale tenaren. Det er mogleg at du må spørja systemadministratoren din om dette.\n"
+msgstr ""
+"Ximian Connector klarte ikkje å finna kopien av den globale katalogen for "
+"nettstaden din. Skriv inn vertsnamnet til den globale tenaren. Det er mogleg "
+"at du må spørja systemadministratoren din om dette.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:26
 msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
-msgstr "Ximian Connector har støytt på eit problem under oppsettet av Exchange-kontoen din.\n"
+msgstr ""
+"Ximian Connector har støytt på eit problem under oppsettet av Exchange-"
+"kontoen din.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
 "Your Connector account is now ready to use. Click the \"Apply\" button to "
 "save your\n"
 "settings."
-msgstr "Connector-kontoen din er klar til bruk. Klikk på «Bruk»-knappen for å lagra innstillingane."
+msgstr ""
+"Connector-kontoen din er klar til bruk. Klikk på «Bruk»-knappen for å lagra "
+"innstillingane."
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:30
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
-msgstr "Kontoinformasjonen din følgjer. Rett opp eventuelle feil, og klikk «Framover».\n"
+msgstr ""
+"Kontoinformasjonen din følgjer. Rett opp eventuelle feil, og klikk "
+"«Framover».\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
@@ -675,112 +688,6 @@ msgstr "Nytt passord:"
 #: ../storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
 msgstr "Ditt noverande passord har gått ut. Byt passordet ditt no."
-
-#: ../storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "Tilpassa"
-
-#: ../storage/exchange-delegates-user.c:191
-#: ../storage/exchange-permissions-dialog.c:179
-#, c-format
-msgid "Permissions for %s"
-msgstr "Løyve for %s"
-
-#: ../storage/exchange-delegates.c:221
-msgid ""
-"No Global Catalog server configured for this account.\n"
-"Unable to edit delegates."
-msgstr ""
-"Det er ikkje stilt inn nokon global katalogtenar for denne kontoen.\n"
-"Kan ikkje redigera delegatar."
-
-#: ../storage/exchange-delegates.c:260
-msgid ""
-"Could not read folder permissions.\n"
-"Unable to edit delegates."
-msgstr ""
-"Klarte ikkje å lesa mappeløyve.\n"
-"Kan ikkje redigera delegatar."
-
-#: ../storage/exchange-delegates.c:267
-msgid ""
-"Could not determine folder permissions for delegates.\n"
-"Unable to edit delegates."
-msgstr ""
-"Klarte ikkje å fastslå mappeløyve for delegatar.\n"
-"Kan ikkje redigera delegatar."
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To:"
-msgstr "Delegér til:"
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To"
-msgstr "Delegér til"
-
-#: ../storage/exchange-delegates.c:435
-#, c-format
-msgid "Could not make %s a delegate"
-msgstr "Klarte ikkje å gjera %s til delegat"
-
-#: ../storage/exchange-delegates.c:445
-msgid "You cannot make yourself your own delegate"
-msgstr "Du kan ikkje gjera deg sjølv til din eigen delegat"
-
-#: ../storage/exchange-delegates.c:454
-#, c-format
-msgid "%s is already a delegate"
-msgstr "%s er allereie ein delegat"
-
-#: ../storage/exchange-delegates.c:563
-#, c-format
-msgid "Remove the delegate %s?"
-msgstr "Fjerna delegaten %s?"
-
-#: ../storage/exchange-delegates.c:680
-msgid "Could not access Active Directory"
-msgstr "Klarte ikkje å kopla til Active Directory"
-
-#: ../storage/exchange-delegates.c:695
-msgid "Could not find self in Active Directory"
-msgstr "Klarte ikkje å finna seg sjølve i Active Directory"
-
-#: ../storage/exchange-delegates.c:708
-#, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "Klarte ikkje å finna delegaten %s i Active Directory"
-
-#: ../storage/exchange-delegates.c:720
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "Klarte ikkje å fjerna delegaten %s"
-
-#: ../storage/exchange-delegates.c:780
-msgid "Could not update list of delegates."
-msgstr "Klarte ikkje å oppdatera lista over delegatar."
-
-#: ../storage/exchange-delegates.c:798
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "Klarte ikkje å legga til delegaten %s"
-
-#: ../storage/exchange-delegates.c:814
-#, c-format
-msgid ""
-"Failed to update delegates:\n"
-"%s"
-msgstr ""
-"Klarte ikkje å oppdatera delegatar:\n"
-"%s"
-
-#: ../storage/exchange-delegates.c:938
-#: ../storage/exchange-permissions-dialog.c:706
-msgid "Name"
-msgstr "Namn"
-
-#: ../storage/exchange-delegates.c:967
-msgid "Error reading delegates list."
-msgstr "Feil ved lesing av delegatliste."
 
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
@@ -846,11 +753,11 @@ msgstr "_Oppgåver:"
 msgid "Exchange Folder Tree"
 msgstr "Exchange-mappetre"
 
-#: ../storage/exchange-migrate.c:57
+#: ../storage/exchange-migrate.c:58
 msgid "Migrating Exchange Folders..."
 msgstr "Migrerer Exchange-mapper ..."
 
-#: ../storage/exchange-migrate.c:65
+#: ../storage/exchange-migrate.c:66
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -858,11 +765,12 @@ msgid ""
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
-"Plasseringa av og hierarkiet i Evolution Exchange-kontoar sine mapper har endra seg sidan Evolution %d.%d.%d.\n"
+"Plasseringa av og hierarkiet i Evolution Exchange-kontoar sine mapper har "
+"endra seg sidan Evolution %d.%d.%d.\n"
 "\n"
 "Ha tolmod medan Evolution migrerer mappene dine ..."
 
-#: ../storage/exchange-migrate.c:98
+#: ../storage/exchange-migrate.c:99
 #, c-format
 msgid ""
 "Warning: Evolution could not migrate all the Exchange account data from the "
@@ -870,10 +778,11 @@ msgid ""
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"Åtvaring: Evolution klarte ikkje å migrera alle data frå Exchange-konto versjon %d.%d.%d.\n"
+"Åtvaring: Evolution klarte ikkje å migrera alle data frå Exchange-konto "
+"versjon %d.%d.%d.\n"
 "Ingen data er sletta, men denne versjonen av Evolution kan ikkje visa dei"
 
-#: ../storage/exchange-migrate.c:129
+#: ../storage/exchange-migrate.c:130
 #, c-format
 msgid "Migrating `%s':"
 msgstr "Overfører «%s»:"
@@ -941,63 +850,6 @@ msgstr "_Endra passord"
 #: ../storage/exchange-passwd-expiry.glade.h:4
 msgid "ok_button"
 msgstr "ok_knapp"
-
-#: ../storage/exchange-permissions-dialog.c:222
-msgid "Could not read folder permissions"
-msgstr "Klarte ikkje å lesa mappeløyve"
-
-#: ../storage/exchange-permissions-dialog.c:264
-msgid "Could not update folder permissions."
-msgstr "Klarte ikkje å oppdatera mappeløyve."
-
-#: ../storage/exchange-permissions-dialog.c:293
-#, c-format
-msgid "Could not update folder permissions. %s"
-msgstr "Klarte ikkje å oppdatera mappeløyve. %s"
-
-#: ../storage/exchange-permissions-dialog.c:295
-msgid "(Permission denied.)"
-msgstr "(Nekta tilgang.)"
-
-#: ../storage/exchange-permissions-dialog.c:396
-msgid ""
-"Unable to add user to access control list:\n"
-"No Global Catalog server is configured for this account."
-msgstr ""
-"Klarte ikkje å leggka brukar til i tilgangskontrollista:\n"
-"Kontoen har ikkje definert ein global katalogtenar."
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User:"
-msgstr "Legg til brukar:"
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User"
-msgstr "Legg til brukar"
-
-#: ../storage/exchange-permissions-dialog.c:421
-#, c-format
-msgid "No such user %s"
-msgstr "Brukaren %s finst ikkje"
-
-#: ../storage/exchange-permissions-dialog.c:425
-#, c-format
-msgid "%s cannot be added to an access control list"
-msgstr "%s kan ikkje leggjast til ei tilgangskontrolliste"
-
-#: ../storage/exchange-permissions-dialog.c:430
-#, c-format
-msgid "Unknown error looking up %s"
-msgstr "Ukjend feil under oppslag av %s"
-
-#: ../storage/exchange-permissions-dialog.c:447
-#, c-format
-msgid "%s is already in the list"
-msgstr "%s er allereie i lista"
-
-#: ../storage/exchange-permissions-dialog.c:710
-msgid "Role"
-msgstr "Rolle"
 
 #: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
@@ -1067,70 +919,6 @@ msgstr "Koplar til ..."
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector for Microsoft Exchange"
 
-#: ../storage/xc-backend-view.c:299
-msgid "Account Name"
-msgstr "Kontonamn"
-
-#: ../storage/xc-commands.c:316
-msgid "Folder does not exist"
-msgstr "Mappa finst ikkje"
-
-#: ../storage/xc-commands.c:343
-#, c-format
-msgid "Could not add favorite: %s"
-msgstr "Klarte ikkje å leggja til favoritt: %s"
-
-#: ../storage/xc-commands.c:359
-#, c-format
-msgid "Could not remove favorite: %s"
-msgstr "Klarte ikkje å fjerna favoritt: %s"
-
-#.
-#. FIXME: See 62440
-#. E_POPUP_ITEM (N_("_Move Folder..."),
-#. G_CALLBACK (do_move_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#. E_POPUP_ITEM (N_("_Copy Folder..."),
-#. G_CALLBACK (do_copy_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#.
-#: ../storage/xc-commands.c:385
-msgid "_Rename Folder..."
-msgstr "_Byt namn på mappe ..."
-
-#: ../storage/xc-commands.c:391
-msgid "_New Folder..."
-msgstr "_Ny mappe ..."
-
-#: ../storage/xc-commands.c:394
-msgid "_Delete Folder"
-msgstr "_Slett mappe"
-
-#: ../storage/xc-commands.c:399
-msgid "_Add Other User's Folder..."
-msgstr "Legg til _annan brukar si mappe ..."
-
-#: ../storage/xc-commands.c:402
-msgid "_Remove Other User's Folder"
-msgstr "Fje_rn annan brukar si mappe"
-
-#: ../storage/xc-commands.c:408
-msgid "Add to _Favorites"
-msgstr "Legg til _favorittar"
-
-#: ../storage/xc-commands.c:412
-msgid "Remove from Fa_vorites"
-msgstr "Fjern frå fa_vorittar"
-
-#.
-#. E_POPUP_ITEM (N_("_Permissions..."),
-#. G_CALLBACK (do_permissions),
-#. XC_FOLDER_COMMAND_MASK_PERMISSIONS),
-#.
-#: ../storage/xc-commands.c:423
-msgid "_Show Folder Sizes"
-msgstr "Vi_s mappestorleikar"
-
 #: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
 msgstr "Oppsettsverktøy for Ximian Connector for Microsoft Exchange"
@@ -1156,7 +944,8 @@ msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Tinga ei mappe som tilhøyrer ein annan brukar på tenaren"
 
 #: ../storage/ximian-connector.xml.h:6
-msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgid ""
+"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr "Slutta å tinga ei mappe som tilhøyrer ein annan brukar på tenaren"
 
 #: ../storage/ximian-connector.xml.h:7
@@ -1182,4 +971,3 @@ msgstr "_Ikkje på kontoret-assistent"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Sl_utt å tinga annan brukar si mappe"
-
