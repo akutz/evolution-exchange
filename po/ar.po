@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-18 17:07+0200\n"
-"PO-Revision-Date: 2006-07-21 21:51-0000\n"
+"POT-Creation-Date: 2006-10-04 07:38+0200\n"
+"PO-Revision-Date: 2006-10-05 21:07-0000\n"
 "Last-Translator: Djihed Afifi <djihed@gmail.com>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.3.1\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1869
+#: ../addressbook/e-book-backend-exchange.c:1882
 #: ../addressbook/e-book-backend-gal.c:1499
 #: ../storage/exchange-storage.c:135
 msgid "Searching..."
@@ -195,26 +195,26 @@ msgstr "كلمة مرور نصّيّة"
 msgid "This option will connect to the Exchange server using standard plaintext password authentication."
 msgstr "سيتّصل هذا الخيار بنادل إكستشينج باستخدام توثّق كلمة مرور نصّّيّّة."
 
-#: ../camel/camel-exchange-store.c:308
+#: ../camel/camel-exchange-store.c:309
 #, c-format
 msgid "Exchange server %s"
 msgstr "نادل إكستشينج %s"
 
-#: ../camel/camel-exchange-store.c:311
+#: ../camel/camel-exchange-store.c:312
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "حساب إكستشينج لـ %s على %s"
 
-#: ../camel/camel-exchange-store.c:352
+#: ../camel/camel-exchange-store.c:353
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sأدخل كلمة المرور لـ %s"
 
-#: ../camel/camel-exchange-store.c:403
+#: ../camel/camel-exchange-store.c:404
 msgid "Evolution Exchange backend process"
 msgstr "عملية إيفوليوشن إكستشينج الخلفيّة"
 
-#: ../camel/camel-exchange-store.c:444
+#: ../camel/camel-exchange-store.c:445
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -222,32 +222,32 @@ msgstr ""
 "لم أستطع التوثّق للنادل. (كلمة المرور غير صحيحة؟)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:486
+#: ../camel/camel-exchange-store.c:487
 #, c-format
 msgid "No such folder %s"
 msgstr "لا مجلّد بهذا الإسم %s"
 
-#: ../camel/camel-exchange-store.c:563
+#: ../camel/camel-exchange-store.c:564
 msgid "Cannot subscribe folder in offline mode."
 msgstr "لايمكن الإشتراك بالمجلد بالوضع دون اتّصال."
 
-#: ../camel/camel-exchange-store.c:580
+#: ../camel/camel-exchange-store.c:581
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "لايمكن إلغاء الإشتراك بالمجلد بالوضع دون اتّصال."
 
-#: ../camel/camel-exchange-store.c:695
+#: ../camel/camel-exchange-store.c:696
 msgid "Cannot get folder info in offline mode."
 msgstr "لايمكن الحصول على معلومات المجلد بالوضع دون اتّصال."
 
-#: ../camel/camel-exchange-store.c:766
+#: ../camel/camel-exchange-store.c:767
 msgid "Cannot create folder in offline mode."
 msgstr "لايمكن إنشاء المجلد بالوضع دون اتّصال."
 
-#: ../camel/camel-exchange-store.c:793
+#: ../camel/camel-exchange-store.c:794
 msgid "Cannot delete folder in offline mode."
 msgstr "لايمكن حذف المجلد بالوضع دون اتّصال."
 
-#: ../camel/camel-exchange-store.c:809
+#: ../camel/camel-exchange-store.c:810
 msgid "Cannot rename folder in offline mode."
 msgstr "لايمكن إعادة تسمية المجلد بالوضع دون اتّصال."
 
@@ -268,27 +268,32 @@ msgstr "لم أستطع إيجاد عنوان 'من' في الرّسالة"
 msgid "Could not create socket: %s"
 msgstr "لم أستطع إنشاء مقبس: %s"
 
-#: ../camel/camel-stub.c:167
+#: ../camel/camel-stub.c:170
+#, c-format
+msgid "Could not connect to %s: Please restart Evolution"
+msgstr "لم أستطع الاتّصال بـ %s: الرجاء إعادة تشغيل إفولوشن"
+
+#: ../camel/camel-stub.c:175
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "لم أستطع الاتّصال بـ %s: %s"
 
-#: ../camel/camel-stub.c:197
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Path too long: %s"
 msgstr "المسار طويل جداً: %s"
 
-#: ../camel/camel-stub.c:223
+#: ../camel/camel-stub.c:231
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "لم أستطع بدء قناة الحالة: %s"
 
-#: ../camel/camel-stub.c:477
+#: ../camel/camel-stub.c:485
 #, c-format
 msgid "Lost connection to %s"
 msgstr "فقدت الاتّصال بـ %s"
 
-#: ../camel/camel-stub.c:481
+#: ../camel/camel-stub.c:489
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "خطأ بالاتصال بـ %s: %s"
