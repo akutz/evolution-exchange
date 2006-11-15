@@ -369,15 +369,19 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 	cbex->account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
 	if (!cbex->account) {
 		cbex->account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
+		exchange_account_set_online (cbex->account);
 		if (!exchange_account_connect (cbex->account, password, &acresult)) {
 			g_mutex_unlock (cbex->priv->open_lock);
+			e_cal_backend_notify_error (E_CAL_BACKEND (cbex), _("Authentication failed"));
 			return GNOME_Evolution_Calendar_AuthenticationFailed;
 		}
 	}
 
-	if (!exchange_account_get_context (cbex->account)) {
+	if (exchange_account_get_context (cbex->account)) {
+		exchange_account_set_online (cbex->account);
 		if(!exchange_account_connect (cbex->account, password, &acresult)) {
 			g_mutex_unlock (cbex->priv->open_lock);
+			e_cal_backend_notify_error (E_CAL_BACKEND (cbex), _("Authentication failed"));
 			return GNOME_Evolution_Calendar_AuthenticationFailed;
 		}
 	}
@@ -388,6 +392,7 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 		 * only_if_exists is FALSE.
 		 */
 		g_mutex_unlock (cbex->priv->open_lock);
+		e_cal_backend_notify_error (E_CAL_BACKEND (cbex), _("Could not find the calendar"));
 		return GNOME_Evolution_Calendar_NoSuchCal;
 	}
 	g_object_ref (cbex->folder);

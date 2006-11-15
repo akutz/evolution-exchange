@@ -1,5 +1,12 @@
 2006-11-15  Chenthill Palanisamy  <pchenthill@novell.com>
 
+	* calendar/e-cal-backend-exchange.c: (open_calendar):
+	Set the online status before connecting to the server.
+	Notify error messages to evolution.
+	Fixes #219729 (bugzilla.novell.com)
+
+2006-11-15  Chenthill Palanisamy  <pchenthill@novell.com>
+
 	* calendar/e-cal-backend-exchange-calendar.c:
 	(modify_object_with_href):Removed the deleted link
 	properly. Remove the stale X-MOD-PROPS from the instances.
