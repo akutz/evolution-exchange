@@ -1,3 +1,11 @@
+2006-11-15  Chenthill Palanisamy  <pchenthill@novell.com>
+
+	* calendar/e-cal-backend-exchange-calendar.c:
+	(modify_object_with_href): Removed the deleted link
+	properly. Remove the stale X-MOD-PROPS from the instances.
+	Send the status to properly to indicate some errors.
+	Fixes #215633 (bugzilla.novell.com)
+
 2006-10-02 Harish Krishnaswamy <kharish@novell.com>
 
 	* NEWS, configure.in: Connector 2.8.1 release.
