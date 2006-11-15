@@ -1065,6 +1065,8 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	GList *l = NULL;
 	struct icaltimetype inst_rid;
 	gboolean remove = FALSE;
+	ECalBackendSyncStatus status = GNOME_Evolution_Calendar_Success;
+	GList *to_remove = NULL;
 
 	cbexc =	E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 	cbex = E_CAL_BACKEND_EXCHANGE (backend);
@@ -1315,18 +1317,26 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 			cached_ecomp = e_cal_component_new ();
 
 			e_cal_component_set_icalcomponent (cached_ecomp,
-					icalcomponent_new_clone (l->data));
-			if (remove) {
-				icalcomponent_free (l->data);
-				l = g_list_remove_link (ecomp->instances, l);
-				if (!l)
-					break;
-			}
-
+					icalcomponent_new_clone (icomp));
+			if (remove) 
+				to_remove = l;
 			continue;
 		} else {
-			icalcomponent_add_component (cbdata->vcal_comp, icalcomponent_new_clone (icomp));
+			ECalComponent *comp = e_cal_component_new ();
+			e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (icomp));
+
+			update_x_properties (E_CAL_BACKEND_EXCHANGE (cbexc), comp);
+
+			icalcomponent_add_component (cbdata->vcal_comp, 
+					icalcomponent_new_clone (e_cal_component_get_icalcomponent (comp)));
+
+			g_object_unref (comp);
 		}
+	}
+
+	if (to_remove) {
+		icalcomponent_free (to_remove->data);
+		ecomp->instances = g_list_remove_link (ecomp->instances, to_remove);
 	}
 
 	e_cal_backend_exchange_cache_unlock (cbex);
@@ -1410,10 +1420,11 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		e_cal_backend_exchange_modify_object (E_CAL_BACKEND_EXCHANGE (cbexc), 
 							e_cal_component_get_icalcomponent (real_ecomp), mod, remove);
 		e_cal_backend_exchange_cache_unlock (cbex);
-	}
 	
-	if (!remove)
-		*new_object = e_cal_component_get_as_string (real_ecomp);
+		if (!remove)
+			*new_object = e_cal_component_get_as_string (real_ecomp);
+	} else 
+	 	status = GNOME_Evolution_Calendar_OtherError;		
 
 	g_free (msg);
 	g_object_unref (real_ecomp);
@@ -1426,7 +1437,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	g_free (cbdata);
 	e2k_properties_free (props);
 
-	return GNOME_Evolution_Calendar_Success;
+	return status;
 }
  
 static ECalBackendSyncStatus
