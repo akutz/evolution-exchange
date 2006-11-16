@@ -606,7 +606,6 @@ contact_list_handler (LDAPOp *op, LDAPMessage *res)
 			contact_list_op->contacts = g_list_append (contact_list_op->contacts,
 								   vcard);
 
-			g_free (vcard);
 			g_object_unref (contact);
 			g_mutex_lock (bl->priv->ldap_lock);
 			e = ldap_next_entry(ldap, e);
