@@ -31,10 +31,11 @@
 #include "camel-exchange-folder.h"
 #include "camel-exchange-summary.h"
 #include <camel/camel-session.h>
+#include <camel/camel-url.h>
 
 #define SUBFOLDER_DIR_NAME     "subfolders"
 #define SUBFOLDER_DIR_NAME_LEN 10
-#define d(x)
+#define d(x) 
 
 
 //static CamelStoreClass *parent_class = NULL;
@@ -616,6 +617,7 @@ make_folder_info (CamelExchangeStore *exch, char *name, char *uri,
 	const char *path;
 	gchar **components;
 	char *new_uri;
+	char *fixed_path, *temp;
 
 	path = strstr (uri, "://");
 	if (!path)
@@ -635,7 +637,25 @@ make_folder_info (CamelExchangeStore *exch, char *name, char *uri,
 	info = g_new0 (CamelFolderInfo, 1);
 	info->name = name;
 	info->uri = new_uri;
-	info->full_name = g_strdup (path + 2);
+	
+	/* Process the full-path and decode if required */
+	temp = strrchr (path+2, '/');
+	if (temp) {
+		/* info->full_name should not have encoded path */
+		info->full_name = camel_url_decode_path (path+2);
+
+		/*
+		fixed_path = g_strndup (path+2, temp-(path+2));
+		info->full_name = g_strdup_printf ("%s/%s", fixed_path, name);
+		g_free (fixed_path);
+		*/
+	} else {
+		/* If there are no sub-directories, decoded(name) will be 
+		   equal to that of path+2.
+		   Ex: personal
+		*/
+		info->full_name = g_strdup (path+2);
+	}	
 	info->unread = unread_count;
 
 	if (flags & CAMEL_STUB_FOLDER_NOSELECT)

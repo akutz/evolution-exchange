@@ -33,7 +33,7 @@
 #include "mail-stub.h"
 #include "camel-stub-constants.h"
 
-#define d(x)
+#define d(x) 
 
 #define PARENT_TYPE G_TYPE_OBJECT
 static MailStubClass *parent_class = NULL;
@@ -94,7 +94,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 	switch (command) {
 	case CAMEL_STUB_CMD_CONNECT:
 	{
-		char *pwd
+		char *pwd;
 		d(printf("CONNECT\n"));
 		g_object_ref (stub);
 		if (!mail_stub_read_args (stub,
