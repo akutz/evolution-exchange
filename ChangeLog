@@ -1,3 +1,18 @@
+2006-12-01  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** Committing GAL Caching implementation from Devashish
+
+	* addressbook/Makefile.am: Added the gconf support to exchange storage
+	* addressbook/apps_exchange_addressbook.schemas.in.in: Schema to set
+	the cache reload interval
+	* addressbook/e-book-backend-gal.c: (gal_reconnect),
+	(get_contact_handler), (get_contact), (contact_list_handler),
+	(get_contact_list), (build_contact_from_entry), (poll_ldap),
+	(ldap_search_handler), (start_book_view), (tool_server_controls),
+	(parse_page_control), (dosearch), (generate_cache), (set_mode),
+	(load_source), (dispose): Implementation of GAL Cache for Exchange.
+	* configure.in:
+
 2006-11-16  Srinivasa Ragavan  <sragavan@novell.com>
 
 	* addressbook/e-book-backend-gal.c: (contact_list_handler): Fix for
