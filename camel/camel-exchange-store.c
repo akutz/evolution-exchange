@@ -637,20 +637,22 @@ make_folder_info (CamelExchangeStore *exch, char *name, char *uri,
 	info = g_new0 (CamelFolderInfo, 1);
 	info->name = name;
 	info->uri = new_uri;
-	
+
+#if 0	
 	/* Process the full-path and decode if required */
 	temp = strrchr (path+2, '/');
 	if (temp) {
 		/* info->full_name should not have encoded path */
-		info->full_name = camel_url_decode_path (path+2);
-
+		/*info->full_name = camel_url_decode_path (path+2);*/
 	} else {
 		/* If there are no sub-directories, decoded(name) will be 
 		   equal to that of path+2.
 		   Ex: personal
 		*/
 		info->full_name = g_strdup (path+2);
-	}	
+	}
+#endif
+	info->full_name = g_strdup (path+2);
 	info->unread = unread_count;
 
 	if (flags & CAMEL_STUB_FOLDER_NOSELECT)
