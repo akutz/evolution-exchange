@@ -56,6 +56,8 @@ CamelProviderConfEntry exchange_conf_entries[] = {
 	{ CAMEL_PROVIDER_CONF_SECTION_END },
 	{ CAMEL_PROVIDER_CONF_SECTION_START, "generals", NULL,
 	  N_("Options") },
+        { CAMEL_PROVIDER_CONF_CHECKBOX, "check_all", NULL,
+          N_("C_heck for new messages in all folders"), "0" },
 	{ CAMEL_PROVIDER_CONF_CHECKSPIN, "passwd_exp_warn_period", NULL,
 	  N_("_Password Expiry Warning period: %s"), "y:1:7:90" },
 	{ CAMEL_PROVIDER_CONF_CHECKBOX, "sync_offline", NULL,
