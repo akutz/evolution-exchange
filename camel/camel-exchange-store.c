@@ -642,7 +642,7 @@ make_folder_info (CamelExchangeStore *exch, char *name, char *uri,
 	temp = strrchr (path+2, '/');
 	if (temp) {
 		/* info->full_name should not have encoded path */
-		/*info->full_name = camel_url_decode_path (path+2);*/
+		info->full_name = camel_url_decode_path (path+2);
 	} else {
 		/* If there are no sub-directories, decoded(name) will be 
 		   equal to that of path+2.
