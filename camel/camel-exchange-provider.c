@@ -36,6 +36,12 @@ static guint exchange_url_hash (gconstpointer key);
 static gint exchange_url_equal (gconstpointer a, gconstpointer b);
 
 CamelProviderConfEntry exchange_conf_entries[] = {
+	{ CAMEL_PROVIDER_CONF_SECTION_START, "mailcheck", NULL,
+	  N_("Checking for New Mail") },
+	{ CAMEL_PROVIDER_CONF_CHECKBOX, "check_all", NULL,
+	  N_("C_heck for new messages in all folders"), "1" },
+	{ CAMEL_PROVIDER_CONF_SECTION_END },
+
 	/* override the labels/defaults of the standard settings */
 	{ CAMEL_PROVIDER_CONF_LABEL, "username", NULL,
 	  /* i18n: the '_' should appear before the same letter it
