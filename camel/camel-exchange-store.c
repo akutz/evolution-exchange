@@ -638,7 +638,6 @@ make_folder_info (CamelExchangeStore *exch, char *name, char *uri,
 	info->name = name;
 	info->uri = new_uri;
 
-#if 0	
 	/* Process the full-path and decode if required */
 	temp = strrchr (path+2, '/');
 	if (temp) {
@@ -651,8 +650,6 @@ make_folder_info (CamelExchangeStore *exch, char *name, char *uri,
 		*/
 		info->full_name = g_strdup (path+2);
 	}
-#endif
-	info->full_name = g_strdup (path+2);
 	info->unread = unread_count;
 
 	if (flags & CAMEL_STUB_FOLDER_NOSELECT)

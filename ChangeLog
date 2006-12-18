@@ -1,5 +1,10 @@
 2006-12-18  Veerapuram Varadhan  <vvaradhan@novell.com>
 
+	* camel/camel-exchange-store.c: (make_folder_info): Decode path
+	name and use it as full_name - reversing the reverted commit.
+	
+2006-12-18  Veerapuram Varadhan  <vvaradhan@novell.com>
+
 	** Fix for 346728, 268412
 
 	* mail/mail-stub-exchange.c: (get_folder_info):  Don't scan all
@@ -18,13 +23,6 @@
 	* camel/camel-exchange-store.c: (make_folder_info): Commented out
 	decode path code as e-d-s part of the patch couldn't make it in
 	time for 2.9.3
-	
-2006-12-04  Veerapuram Varadhan  <vvaradhan@novell.com>
-
-	** Committing Check-all-folders implmentation from P Sankar
-
-	* camel/camel-exchange-provider.c: Add a checkbox to enable the
-	user to not to choose all folders while fetching mails.
 	
 2006-12-04  Veerapuram Varadhan  <vvaradhan@novell.com>
 
