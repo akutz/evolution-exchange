@@ -1,3 +1,8 @@
+2007-01-08  Matthew Barnes  <mbarnes@redhat.com>
+
+	* calendar/e-cal-backend-exchange-calendar.c: (find_attendee_prop)
+	Use g_ascii_str[n]casecmp instead of deprecated g_str[n]casecmp.
+
 2006-12-18  Veerapuram Varadhan  <vvaradhan@novell.com>
 
 	* camel/camel-exchange-store.c: (make_folder_info): Uncoment the
