@@ -664,10 +664,10 @@ find_attendee_prop (icalcomponent *ical_comp, const char *address)
 
 		attendee = icalvalue_get_string (value);
 
-		if (!g_strncasecmp (attendee, "mailto:", 7))
+		if (!g_ascii_strncasecmp (attendee, "mailto:", 7))
 			attendee += 7;
 		text = g_strstrip (g_strdup (attendee));
-		if (!g_strcasecmp (address, text)) {
+		if (!g_ascii_strcasecmp (address, text)) {
 			g_free (text);
 			return prop;
 		}
