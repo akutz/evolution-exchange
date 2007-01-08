@@ -2284,7 +2284,7 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 	EFolder *folder;
 	const char *type, *name, *uri, *path, *inbox_uri = NULL;
 	int unread_count, i, toplen = top ? strlen (top) : 0;
-	guint32 folder_flags;
+	guint32 folder_flags = 0;
 	gboolean recursive, subscribed, single_folder = FALSE;
 	int mode = -1;
 	char *full_path;
@@ -2292,30 +2292,24 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 	recursive = (store_flags & CAMEL_STUB_STORE_FOLDER_INFO_RECURSIVE);
 	subscribed = (store_flags & CAMEL_STUB_STORE_FOLDER_INFO_SUBSCRIBED);
 
-	/* exchange_account_rescan_tree (mse->account); */
-
 	exchange_account_is_offline (mse->account, &mode);
 	if (!subscribed) {
 		ExchangeAccountResult result = -1;
-		d(g_print ("%s(%d):%s: NOT SUBSCRIBED top = [%s]\n", __FILE__, __LINE__, __PRETTY_FUNCTION__, top));
+		d(g_print ("%s(%d):%s: NOT SUBSCRIBED top = [%s]\n", __FILE__, __LINE__, __GNUC_PRETTY_FUNCTION__, top));
 		if (!toplen)
 			result = exchange_account_open_folder (mse->account, "/public");
 		if (result ==  EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST) {
-			hier = exchange_account_get_hierarchy (mse->account, EXCHANGE_HIERARCHY_PUBLIC);
+			hier = exchange_account_get_hierarchy_by_type (mse->account, EXCHANGE_HIERARCHY_PUBLIC);
 			if (hier)
 				exchange_hierarchy_scan_subtree (hier, hier->toplevel, mode);
 		} else
-			d(g_print ("%s(%d):%s: NOT SUBSCRIBED - open_folder returned = [%d]\n", __FILE__, __LINE__, __PRETTY_FUNCTION__, result));
+			d(g_print ("%s(%d):%s: NOT SUBSCRIBED - open_folder returned = [%d]\n", __FILE__, __LINE__, __GNUC_PRETTY_FUNCTION__, result));
 	}
 
 	if (!recursive && toplen) {
-		d(g_print ("%s(%d):%s: NOT RECURSIVE and toplen top = [%s]\n", __FILE__, __LINE__, __PRETTY_FUNCTION__, top));
+		d(g_print ("%s(%d):%s: NOT RECURSIVE and toplen top = [%s]\n", __FILE__, __LINE__, __GNUC_PRETTY_FUNCTION__, top));
 		full_path = g_strdup_printf ("/%s", top);
-		folder = exchange_account_get_folder (mse->account, full_path);
-		if (folder) {
-			folders = exchange_account_get_folder_tree (mse->account, full_path);
-
-			/* folders = exchange_account_get_folders_for_path (mse->account, full_path); */
+		folders = exchange_account_get_folder_tree (mse->account, full_path);
 			/*
 			type = e_folder_get_type_string (folder);
 			if ((!strcmp (type, "mail")) || 
@@ -2326,30 +2320,10 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 				single_folder = TRUE;
 			}
 			*/
-		} else {
-			d(g_print ("%s(%d):%s folder [%s] not found!! \n", __FILE__, __LINE__,
-					   __PRETTY_FUNCTION__, full_path));
-		}
 		g_free (full_path);
 	} else {
-		/*
-		if (toplen) {
-			char *full_path;
-
-			full_path = g_strdup_printf ("/%s", top);
-			folder = exchange_account_get_folder (mse->account, full_path);
-			g_free (full_path);
-
-			if (folder) {
-				d(g_print ("%s(%d):%s top = [%s] *********************** \n", __FILE__, __LINE__,
-					   __PRETTY_FUNCTION__, top));
-				hier = e_folder_exchange_get_hierarchy (folder);
-				exchange_hierarchy_scan_subtree (hier, folder, mode);
-			}
-		}
-		*/
 		d(g_print ("%s(%d):%s calling exchange_account_get_folders \n", __FILE__, __LINE__,
-					   __PRETTY_FUNCTION__));
+					   __GNUC_PRETTY_FUNCTION__));
 		folders = exchange_account_get_folders (mse->account);
 	}
 
@@ -2431,6 +2405,14 @@ return_data:
 			if (inbox_uri && !strcmp (uri, inbox_uri))
 				folder_flags |= CAMEL_STUB_FOLDER_SYSTEM|CAMEL_STUB_FOLDER_TYPE_INBOX;
 
+			if (!e_folder_exchange_get_has_subfolders (folder)) {
+				d(printf ("%s:%d:%s - %s has no subfolders", __FILE__, __LINE__, __GNUC_PRETTY_FUNCTION__,
+					  name));
+				folder_flags |= CAMEL_STUB_FOLDER_NOCHILDREN;
+			}
+
+			d(g_print ("folder flags is : %d\n", folder_flags));
+			
 			g_ptr_array_add (names, (char *)name);
 			g_ptr_array_add (uris, (char *)uri);
 			g_array_append_val (unread, unread_count);

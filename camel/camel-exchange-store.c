@@ -665,6 +665,9 @@ make_folder_info (CamelExchangeStore *exch, char *name, char *uri,
 		info->flags |= CAMEL_FOLDER_SUBSCRIBED;
 		d(printf ("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMmark as subscribed\n"));
 	}
+
+	if (flags & CAMEL_STUB_FOLDER_NOCHILDREN)
+		info->flags |= CAMEL_FOLDER_NOCHILDREN;
 	return info;
 }
 
@@ -681,7 +684,8 @@ postprocess_tree (CamelFolderInfo *info)
 	/* If the node still has children, keep it */
 	if (info->child)
 		return info;
-	info->flags |= CAMEL_FOLDER_NOCHILDREN;
+
+	/* info->flags |= CAMEL_FOLDER_NOCHILDREN; */
 
 	/* If it's a mail folder (not noselect), keep it */
 	if (!(info->flags & CAMEL_FOLDER_NOSELECT))

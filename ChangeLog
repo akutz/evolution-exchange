@@ -1,3 +1,19 @@
+2007-01-08  Veerapuram Varadhan  <vvaradhan@novell.com>
+
+	** Fixes 346728, 268412
+
+	* camel/camel-stub-constants.h: Define
+	CAMEL_STUB_FOLDER_NOCHILDREN
+	
+	* mail/mail-stub-exchange.c: (get_folder_info): Remove commented
+	code.  Set CAMEL_STUB_FOLDER_NOCHILDREN, when folders don't have a
+	sub-folder - second level optimization for public-folder issue.
+
+	* camel/camel-exchange-store: (make_folder_info): Set
+	CAMEL_FOLDER_NOCHILDREN appropriate.
+	(postprocess_tree): CAMEL_FOLDER_NOCHILDREN is set in
+	make_folder_info.
+	
 2007-01-08  Matthew Barnes  <mbarnes@redhat.com>
 
 	Fixes #357660
