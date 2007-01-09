@@ -3,7 +3,7 @@
 # Daniel Nylander <po@danielnylander.se>, 2006.
 # Christian Rose <menthos@menthos.com>, 2004, 2005.
 #
-# $Id$
+# $Id: sv.po,v 1.23 2006/11/19 16:03:32 dnylande Exp $
 #
 # Skenbar Outlook-terminologi:
 #
@@ -19,31 +19,54 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-16 03:16+0000\n"
-"PO-Revision-Date: 2006-11-19 13:21+0100\n"
+"POT-Creation-Date: 2007-01-02 02:21+0000\n"
+"PO-Revision-Date: 2007-01-09 16:46+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr "Anger tidsintervallet för uppdatering av GAL-cachen."
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+msgid "This key specifies the number of days interval between the GAL cache refresh. Set this value to zero, if you don't want to update GAL and use the curernt cache forever. This will work only if you have enabled offline caching for GAL."
+msgstr "Den här anger antalet dagars intervall mellan uppdatering av GAL-cachen. Ställ in det här värdet till noll om du inte vill uppdatera GAL och använder den nuvarande cachen för alltid. Det här kommer endast att fungera om du har aktiverat frånkopplad cachning för GAL."
+
 #: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1499
+#: ../addressbook/e-book-backend-gal.c:1547
 #: ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Söker..."
 
-#: ../addressbook/e-book-backend-gal.c:267
+#: ../addressbook/e-book-backend-gal.c:265
 msgid "Reconnecting to LDAP server..."
 msgstr "Återansluter till LDAP-servern..."
 
-#: ../addressbook/e-book-backend-gal.c:1363
+#: ../addressbook/e-book-backend-gal.c:1384
 msgid "Receiving LDAP search results..."
 msgstr "Mottar LDAP-sökresultat..."
 
-#: ../addressbook/e-book-backend-gal.c:1522
+#: ../addressbook/e-book-backend-gal.c:1570
 msgid "Error performing search"
 msgstr "Fel vid sökning"
+
+#: ../addressbook/e-book-backend-gal.c:1758
+#, c-format
+msgid "Internal error.\n"
+msgstr "Internt fel.\n"
+
+#: ../addressbook/e-book-backend-gal.c:1769
+#, c-format
+msgid "Paged results response control could not be decoded.\n"
+msgstr ""
+
+#: ../addressbook/e-book-backend-gal.c:1775
+#, c-format
+msgid "Invalid entries estimate in paged results response.\n"
+msgstr ""
 
 #: ../calendar/e-cal-backend-exchange-calendar.c:2015
 #, c-format
@@ -121,12 +144,12 @@ msgid "No folder name found\n"
 msgstr "Inget mappnamn hittat\n"
 
 #: ../camel/camel-exchange-journal.c:372
-#: ../mail/mail-stub-exchange.c:2549
-#: ../mail/mail-stub-exchange.c:2593
-#: ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655
-#: ../mail/mail-stub-exchange.c:2708
-#: ../mail/mail-stub-exchange.c:2730
+#: ../mail/mail-stub-exchange.c:2587
+#: ../mail/mail-stub-exchange.c:2631
+#: ../mail/mail-stub-exchange.c:2666
+#: ../mail/mail-stub-exchange.c:2693
+#: ../mail/mail-stub-exchange.c:2746
+#: ../mail/mail-stub-exchange.c:2768
 msgid "Folder doesn't exist"
 msgstr "Mappen finns inte"
 
@@ -139,103 +162,112 @@ msgstr "Kan inte lägga till meddelande i frånkopplat läge: cachen inte tillg�
 msgid "Cannot append message in offline mode: %s"
 msgstr "Kan inte lägga till meddelande i frånkopplat läge: %s"
 
+#: ../camel/camel-exchange-provider.c:40
+msgid "Checking for New Mail"
+msgstr "Letar efter ny post"
+
+#: ../camel/camel-exchange-provider.c:42
+#: ../camel/camel-exchange-provider.c:66
+msgid "C_heck for new messages in all folders"
+msgstr "Leta _efter nya meddelanden i alla mappar"
+
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:44
+#: ../camel/camel-exchange-provider.c:50
 msgid "Windows User_name:"
 msgstr "Windows-användar_namn:"
 
 # Osäker.
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:49
+#: ../camel/camel-exchange-provider.c:55
 msgid "Global Address List / Active Directory"
 msgstr "Global adresslista / Active Directory"
 
 # Osäker.
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:59
 msgid "_Global Catalog server name:"
 msgstr "Namn på _global katalogserver:"
 
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:61
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "Begrä_nsa antalet GAL-svar: %s"
 
-#: ../camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:64
 msgid "Options"
 msgstr "Alternativ"
 
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:68
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "Varnings_period för lösenordsutgång: %s"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:70
 msgid "Automatically synchroni_ze account locally"
 msgstr "Synkronise_ra automatiskt konto lokalt"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:73
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "Tillämpa _filtren på nya meddelanden i inkorgen på denna server"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:75
 msgid "Check new messages for _Junk contents"
 msgstr "Kontrollera om _nya meddelanden innehåller skräp"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:77
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Kontrollera _endast om meddelanden innehåller skräp i inkorgsmappen"
 
-#: ../camel/camel-exchange-provider.c:79
+#: ../camel/camel-exchange-provider.c:87
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:81
+#: ../camel/camel-exchange-provider.c:89
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "För hantering av e-post (och andra data) på Microsoft Exchange-servrar"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:105
 msgid "Secure Password"
 msgstr "Säkert lösenord"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:108
 msgid "This option will connect to the Exchange server using secure password (NTLM) authentication."
 msgstr "Detta alternativ kommer att ansluta till Exchange-servern med hjälp av säker lösenordsverifiering (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:108
+#: ../camel/camel-exchange-provider.c:116
 msgid "Plaintext Password"
 msgstr "Klartextlösenord"
 
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:118
 msgid "This option will connect to the Exchange server using standard plaintext password authentication."
 msgstr "Detta alternativ kommer att ansluta till Exchange-servern med hjälp av standardautentisering med lösenord i klartext."
 
-#: ../camel/camel-exchange-store.c:309
+#: ../camel/camel-exchange-store.c:310
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange-server %s"
 
-#: ../camel/camel-exchange-store.c:312
+#: ../camel/camel-exchange-store.c:313
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Exchange-konto för %s på %s"
 
-#: ../camel/camel-exchange-store.c:353
+#: ../camel/camel-exchange-store.c:354
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sAnge lösenord för %s"
 
-#: ../camel/camel-exchange-store.c:404
+#: ../camel/camel-exchange-store.c:405
 msgid "Evolution Exchange backend process"
 msgstr "Bakändesprocess för Evolution Exchange"
 
-#: ../camel/camel-exchange-store.c:445
+#: ../camel/camel-exchange-store.c:446
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -243,32 +275,32 @@ msgstr ""
 "Kunde inte autentisera till servern. (Är lösenordet felaktigt?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:487
+#: ../camel/camel-exchange-store.c:488
 #, c-format
 msgid "No such folder %s"
 msgstr "Det finns ingen sådan mapp %s"
 
-#: ../camel/camel-exchange-store.c:564
+#: ../camel/camel-exchange-store.c:565
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Kan inte prenumerera på mapp i frånkopplat läge."
 
-#: ../camel/camel-exchange-store.c:581
+#: ../camel/camel-exchange-store.c:582
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Kan inte säga upp prenumeration på mapp i frånkopplat läge."
 
-#: ../camel/camel-exchange-store.c:696
+#: ../camel/camel-exchange-store.c:710
 msgid "Cannot get folder info in offline mode."
 msgstr "Kan inte få tag i mappinformation i frånkopplat läge."
 
-#: ../camel/camel-exchange-store.c:767
+#: ../camel/camel-exchange-store.c:781
 msgid "Cannot create folder in offline mode."
 msgstr "Kan inte skapa mapp i frånkopplat läge."
 
-#: ../camel/camel-exchange-store.c:794
+#: ../camel/camel-exchange-store.c:808
 msgid "Cannot delete folder in offline mode."
 msgstr "Kan inte ta bort mapp i frånkopplat läge."
 
-#: ../camel/camel-exchange-store.c:810
+#: ../camel/camel-exchange-store.c:824
 msgid "Cannot rename folder in offline mode."
 msgstr "Kan inte byta namn på mapp i frånkopplat läge."
 
@@ -328,11 +360,11 @@ msgstr "Det finns ingen sådan mapp"
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280
 #: ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2526
-#: ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632
-#: ../mail/mail-stub-exchange.c:2682
-#: ../mail/mail-stub-exchange.c:2745
+#: ../mail/mail-stub-exchange.c:2564
+#: ../mail/mail-stub-exchange.c:2604
+#: ../mail/mail-stub-exchange.c:2670
+#: ../mail/mail-stub-exchange.c:2720
+#: ../mail/mail-stub-exchange.c:2783
 msgid "Permission denied"
 msgstr "Åtkomst nekas"
 
@@ -391,15 +423,15 @@ msgstr "Postlådan stöder inte fulltextsökning"
 msgid "Unable to move/copy messages"
 msgstr "Kan inte flytta/kopiera meddelanden"
 
-#: ../mail/mail-stub-exchange.c:2441
+#: ../mail/mail-stub-exchange.c:2479
 msgid "No mail submission URI for this mailbox"
 msgstr "Ingen URI för e-postskickande för denna postlåda"
 
-#: ../mail/mail-stub-exchange.c:2477
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Servern kommer inte att acceptera e-post via Exchange-transporten"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:2517
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -408,7 +440,7 @@ msgstr ""
 "Ditt konto har inte rättigheter att använda <%s>\n"
 "som Från-adress."
 
-#: ../mail/mail-stub-exchange.c:2491
+#: ../mail/mail-stub-exchange.c:2529
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -416,19 +448,19 @@ msgstr ""
 "Kunde inte skicka meddelandet.\n"
 "Detta kan innebära att ditt konto är över kvoten."
 
-#: ../mail/mail-stub-exchange.c:2495
+#: ../mail/mail-stub-exchange.c:2533
 msgid "Could not send message"
 msgstr "Kunde inte skicka meddelandet"
 
-#: ../mail/mail-stub-exchange.c:2518
-#: ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636
-#: ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2751
+#: ../mail/mail-stub-exchange.c:2556
+#: ../mail/mail-stub-exchange.c:2609
+#: ../mail/mail-stub-exchange.c:2674
+#: ../mail/mail-stub-exchange.c:2725
+#: ../mail/mail-stub-exchange.c:2789
 msgid "Generic error"
 msgstr "Allmänt fel"
 
-#: ../mail/mail-stub-exchange.c:2522
+#: ../mail/mail-stub-exchange.c:2560
 msgid "Folder already exists"
 msgstr "Mappen finns redan"
 
