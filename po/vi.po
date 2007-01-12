@@ -1,15 +1,15 @@
 # Vietnamese translation for Evolution Exchange.
-# Copyright © 2006 Gnome i18n Project for Vietnamese.
+# Copyright © 2007 Gnome i18n Project for Vietnamese.
 # This file is distributed under the same license as the evolution-exchange package.
 # Phan Vĩnh Thịnh <teppi@vnlinux.org>, 2005.
-# Clytie Siddall <clytie@riverland.net.au>, 2005-2006.
+# Clytie Siddall <clytie@riverland.net.au>, 2005-2007.
 # 
 msgid ""
 ""
 msgstr "Project-Id-Version: evolution-exchange Gnome HEAD.\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-13 07:27+0200\n"
-"PO-Revision-Date: 2006-08-13 18:03+0930\n"
+"POT-Creation-Date: 2007-01-02 02:21+0000\n"
+"PO-Revision-Date: 2007-01-12 22:21+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -18,25 +18,52 @@ msgstr "Project-Id-Version: evolution-exchange Gnome HEAD.\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: LocFactoryEditor 1.6fc1\n"
 
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr "Xác định khoảng thời gian giữa hai lần cập nhật Bộ nhớ tạm GAL."
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+msgid ""
+"This key specifies the number of days interval between the GAL cache "
+"refresh. Set this value to zero, if you don't want to update GAL and use the "
+"curernt cache forever. This will work only if you have enabled offline "
+"caching for GAL."
+msgstr "Khoá này xác định số ngày giữa hai lần cập nhật bộ nhớ tạm GAL. Đặt giá trị này thành số không, nếu bạn không muốn cập nhật GAL, vẫn muốn sử dụng bộ nhớ tạm hiện thời suốt. Thiết lập này sẽ hoạt động được chỉ nếu bạn đã bật khả năng lưu tạm ngoại tuyến cho GAL."
+
 #: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1499
+#: ../addressbook/e-book-backend-gal.c:1547
 #: ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Đang tìm kiếm..."
 
-#: ../addressbook/e-book-backend-gal.c:267
+#: ../addressbook/e-book-backend-gal.c:265
 msgid "Reconnecting to LDAP server..."
 msgstr "Đang kết nối lại tới máy phục vụ LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1363
+#: ../addressbook/e-book-backend-gal.c:1384
 msgid "Receiving LDAP search results..."
 msgstr "Đang nhận kết quả tìm kiếm LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1522
+#: ../addressbook/e-book-backend-gal.c:1570
 msgid "Error performing search"
 msgstr "Lỗi thực hiện tìm kiếm"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2004
+#: ../addressbook/e-book-backend-gal.c:1758
+#, c-format
+msgid "Internal error.\n"
+msgstr "Lỗi nội bộ.\n"
+
+#: ../addressbook/e-book-backend-gal.c:1769
+#, c-format
+msgid "Paged results response control could not be decoded.\n"
+msgstr "Không thể giải mã điều khiển đáp ứng của kết quả đã dàn trang.\n"
+
+#: ../addressbook/e-book-backend-gal.c:1775
+#, c-format
+msgid "Invalid entries estimate in paged results response.\n"
+msgstr "Gặp số ước lượng không hợp lệ trong đáp ứng của kết quả đã dàn trang.\n"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:2015
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -44,10 +71,19 @@ msgid ""
 msgstr "Không thể lập lịch tài nguyên « %s » cho những cuộc họp định kỳ.\n"
 "Bạn phải ghi riêng rẽ mỗi cuộc họp."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2022
+#: ../calendar/e-cal-backend-exchange-calendar.c:2033
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Nguồn « %s » bận trong khoảng thời gian đã chọn."
+
+#: ../calendar/e-cal-backend-exchange.c:375
+#: ../calendar/e-cal-backend-exchange.c:384
+msgid "Authentication failed"
+msgstr "Lỗi xác thực"
+
+#: ../calendar/e-cal-backend-exchange.c:395
+msgid "Could not find the calendar"
+msgstr "Không tìm thấy lịch"
 
 #: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
@@ -102,12 +138,12 @@ msgid "No folder name found\n"
 msgstr "Không tìm thấy tên thư mục\n"
 
 #: ../camel/camel-exchange-journal.c:372
-#: ../mail/mail-stub-exchange.c:2549
-#: ../mail/mail-stub-exchange.c:2593
-#: ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655
-#: ../mail/mail-stub-exchange.c:2708
-#: ../mail/mail-stub-exchange.c:2730
+#: ../mail/mail-stub-exchange.c:2587
+#: ../mail/mail-stub-exchange.c:2631
+#: ../mail/mail-stub-exchange.c:2666
+#: ../mail/mail-stub-exchange.c:2693
+#: ../mail/mail-stub-exchange.c:2746
+#: ../mail/mail-stub-exchange.c:2768
 msgid "Folder doesn't exist"
 msgstr "Thư mục không tồn tại"
 
@@ -120,138 +156,150 @@ msgstr "Không thể phụ thêm thư trong chế độ ngoại tuyến: không 
 msgid "Cannot append message in offline mode: %s"
 msgstr "Không thể phụ thêm thư trong chế độ ngoại tuyến: %s"
 
+#: ../camel/camel-exchange-provider.c:40
+msgid "Checking for New Mail"
+msgstr "Đang kiểm tra có thư mới chưa"
+
+#: ../camel/camel-exchange-provider.c:42
+#: ../camel/camel-exchange-provider.c:66
+msgid "C_heck for new messages in all folders"
+msgstr "Kiểm tra có t_hư mới chưa trong mọi thư mục"
+
 #.i18n: the '_' should appear before the same letter it
 #.does in the evolution:mail-config.glade "User_name"
 #.translation (or not at all)
-#: ../camel/camel-exchange-provider.c:44
+#: ../camel/camel-exchange-provider.c:50
 msgid "Windows User_name:"
 msgstr "Tê_n người dùng Windows:"
 
 #.i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:49
+#: ../camel/camel-exchange-provider.c:55
 msgid "Global Address List / Active Directory"
 msgstr "Danh sách địa chỉ toàn cục/Thư mục hoạt động"
 
 #.i18n: "Global Catalog" is a Windowsism, but it's a
 #.technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:59
 msgid "_Global Catalog server name:"
 msgstr "Tên máy phục vụ Danh bạ t_oàn cục:"
 
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:61
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "Giới hạn số đáp ứng GA_L: %s"
 
-#: ../camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:64
 msgid "Options"
 msgstr "Tùy chọn"
 
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:68
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "Giai đoạn cảnh báo hết hạn dùng _mật khẩu : %s"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:70
 msgid "Automatically synchroni_ze account locally"
 msgstr "Tự động đồng bộ h_oá nội bộ tài khoản"
 
 #.i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:73
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "Á_p dụng các bộ lọc cho thư mới trong hộp Đến trên máy phục vụ này"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:75
 msgid "Check new messages for _Junk contents"
 msgstr "Kiểm tra có đoạn _Rác trong thư mới"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:77
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Chỉ kiểm tr_a có thư Rác trong thư mục hộp Đến"
 
 # Name: don't translate / Tên: đừng dịch
-#: ../camel/camel-exchange-provider.c:79
+#: ../camel/camel-exchange-provider.c:87
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:81
+#: ../camel/camel-exchange-provider.c:89
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
-msgstr "Để thao tác thư (và các dữ liệu khác) trên máy phục vụ kiểu Microsoft Exchange"
+msgstr "Để thao tác thư (và các dữ liệu khác) trên máy phục vụ kiểu Microsoft "
+"Exchange"
 
 #.i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:105
 msgid "Secure Password"
 msgstr "Mật khẩu bảo mật"
 
 #.i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:108
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
-msgstr "Tùy chọn này sẽ kết nối tới máy phục vụ Exchange sử dụng việc xác thực với mật khẩu bảo mật (NTLM)."
+msgstr "Tùy chọn này sẽ kết nối tới máy phục vụ Exchange sử dụng việc xác thực với "
+"mật khẩu bảo mật (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:108
+#: ../camel/camel-exchange-provider.c:116
 msgid "Plaintext Password"
 msgstr "Mật khẩu nhập thô"
 
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:118
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
-msgstr "Tùy chọn này sẽ kết nối tới máy phục vụ Exchange sử dụng việc xác thực với mật khẩu nhập thô chuẩn."
+msgstr "Tùy chọn này sẽ kết nối tới máy phục vụ Exchange sử dụng việc xác thực với "
+"mật khẩu nhập thô chuẩn."
 
-#: ../camel/camel-exchange-store.c:308
+#: ../camel/camel-exchange-store.c:310
 #, c-format
 msgid "Exchange server %s"
 msgstr "Máy phục vụ Exchange %s"
 
-#: ../camel/camel-exchange-store.c:311
+#: ../camel/camel-exchange-store.c:313
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Tài khoản Exchange cho %s trên %s"
 
-#: ../camel/camel-exchange-store.c:352
+#: ../camel/camel-exchange-store.c:354
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sNhập mật khẩu cho %s"
 
-#: ../camel/camel-exchange-store.c:403
+#: ../camel/camel-exchange-store.c:405
 msgid "Evolution Exchange backend process"
 msgstr "Tiến trình hậu phương Evolution Exchange"
 
-#: ../camel/camel-exchange-store.c:444
+#: ../camel/camel-exchange-store.c:446
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
 msgstr "Không thể xác thực tới máy phục vụ. (Mật khẩu sai?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:486
+#: ../camel/camel-exchange-store.c:488
 #, c-format
 msgid "No such folder %s"
 msgstr "Không có thư mục như vậy %s"
 
-#: ../camel/camel-exchange-store.c:563
+#: ../camel/camel-exchange-store.c:565
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Không thể đăng ký thư mục trong chế độ ngoại tuyến."
 
-#: ../camel/camel-exchange-store.c:580
+#: ../camel/camel-exchange-store.c:582
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Không thể hủy đăng ký thư mục trong chế độ ngoại tuyến."
 
-#: ../camel/camel-exchange-store.c:695
+#: ../camel/camel-exchange-store.c:710
 msgid "Cannot get folder info in offline mode."
 msgstr "Không thể lấy thông tin về thư mục trong chế độ ngoại tuyến."
 
-#: ../camel/camel-exchange-store.c:766
+#: ../camel/camel-exchange-store.c:781
 msgid "Cannot create folder in offline mode."
 msgstr "Không thể tạo thư mục trong chế độ ngoại tuyến."
 
-#: ../camel/camel-exchange-store.c:793
+#: ../camel/camel-exchange-store.c:808
 msgid "Cannot delete folder in offline mode."
 msgstr "Không thể xoá bỏ thư mục trong chế độ ngoại tuyến."
 
-#: ../camel/camel-exchange-store.c:809
+#: ../camel/camel-exchange-store.c:824
 msgid "Cannot rename folder in offline mode."
 msgstr "Không thể thay đổi tên của thư mục trong chế độ ngoại tuyến."
 
@@ -311,11 +359,11 @@ msgstr "Không có thư mục như vậy"
 #.mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280
 #: ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2526
-#: ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632
-#: ../mail/mail-stub-exchange.c:2682
-#: ../mail/mail-stub-exchange.c:2745
+#: ../mail/mail-stub-exchange.c:2564
+#: ../mail/mail-stub-exchange.c:2604
+#: ../mail/mail-stub-exchange.c:2670
+#: ../mail/mail-stub-exchange.c:2720
+#: ../mail/mail-stub-exchange.c:2783
 msgid "Permission denied"
 msgstr "Không đủ quyền"
 
@@ -374,15 +422,15 @@ msgstr "Hộp thư không hỗ trợ khả năng tìm kiếm kiểu đoạn ch�
 msgid "Unable to move/copy messages"
 msgstr "Không thể di chuyển/sao chép thư"
 
-#: ../mail/mail-stub-exchange.c:2441
+#: ../mail/mail-stub-exchange.c:2479
 msgid "No mail submission URI for this mailbox"
 msgstr "Không có địa chỉ URI đệ trình thư dành cho hộp thư này"
 
-#: ../mail/mail-stub-exchange.c:2477
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Máy phục vụ không chấp nhận thư qua truyền tải Exchange"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:2517
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -390,26 +438,26 @@ msgid ""
 msgstr "Tài khoản của bạn không có quyền sử dụng <%s>\n"
 "làm địa chỉ « Từ »."
 
-#: ../mail/mail-stub-exchange.c:2491
+#: ../mail/mail-stub-exchange.c:2529
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr "Không thể gửi thư.\n"
 "Có thể tài khoản của bạn vượt quá giới hạn."
 
-#: ../mail/mail-stub-exchange.c:2495
+#: ../mail/mail-stub-exchange.c:2533
 msgid "Could not send message"
 msgstr "Không thể gửi thư"
 
-#: ../mail/mail-stub-exchange.c:2518
-#: ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636
-#: ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2751
+#: ../mail/mail-stub-exchange.c:2556
+#: ../mail/mail-stub-exchange.c:2609
+#: ../mail/mail-stub-exchange.c:2674
+#: ../mail/mail-stub-exchange.c:2725
+#: ../mail/mail-stub-exchange.c:2789
 msgid "Generic error"
 msgstr "Lỗi giống loài"
 
-#: ../mail/mail-stub-exchange.c:2522
+#: ../mail/mail-stub-exchange.c:2560
 msgid "Folder already exists"
 msgstr "Thư mục đã có"
 
@@ -431,7 +479,8 @@ msgid ""
 "Could not connect to the Exchange server.\n"
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr "Không thể kết nối tới máy phục vụ Exchange.\n"
-"Hãy kiểm tra xem bạn đã gõ đúng địa chỉ URL (thử « %s » thay cho « %s » ?) rồi thử lại."
+"Hãy kiểm tra xem bạn đã gõ đúng địa chỉ URL (thử « %s » thay cho « %s » ?) "
+"rồi thử lại."
 
 #: ../storage/exchange-autoconfig-wizard.c:219
 msgid ""
@@ -445,7 +494,8 @@ msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
 msgstr "Không thể xác thực tới máy phục vụ Exchange.\n"
-"Hãy kiểm tra xem tên người dùng và mật khẩu đều có chính tả đúng, rồi thử lại."
+"Hãy kiểm tra xem tên người dùng và mật khẩu đều có chính tả đúng, rồi thử "
+"lại."
 
 #: ../storage/exchange-autoconfig-wizard.c:235
 #, c-format
@@ -456,10 +506,11 @@ msgid ""
 "You may need to specify the Windows domain name as part of your username "
 "(eg, \"MY-DOMAIN\\%s\")."
 msgstr "Không thể xác thực tới máy phục vụ Exchange.\n"
-"Hãy kiểm tra xem tên người dùng và mật khẩu đều đã được gõ đúng rồi thử lại.\n"
+"Hãy kiểm tra xem tên người dùng và mật khẩu đều đã được gõ đúng rồi thử "
+"lại.\n"
 "\n"
-"Có thể bạn cần phải xác định tên miền Windows là phần của tên người dùng của bạn :(v.d. "
-"\"MIỀN_TÔI\\%s\")."
+"Có thể bạn cần phải xác định tên miền Windows là phần của tên người dùng của "
+"bạn :(v.d. \"MIỀN_TÔI\\%s\")."
 
 #: ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
@@ -477,21 +528,28 @@ msgid ""
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
-msgstr "Bộ kết nối Ximian yêu cầu truy cập tới chức năng tương ứng trên máy phục vụ Exchange, nhưng nó bị tắt hoặc bị khoá. (Thông thường không phải do chủ tâm.) Nhà quản trị Exchange cần phải bật chức năng này để cho bạn có khả năng sử dụng Bộ kết nối Ximian.\n"
+msgstr "Bộ kết nối Ximian yêu cầu truy cập tới chức năng tương ứng trên máy phục vụ "
+"Exchange, nhưng nó bị tắt hoặc bị khoá. (Thông thường không phải do chủ "
+"tâm.) Nhà quản trị Exchange cần phải bật chức năng này để cho bạn có khả "
+"năng sử dụng Bộ kết nối Ximian.\n"
 "\n"
-"Để tìm thông tin cần cung cấp cho nhà quản trị Exchange của bạn, hãy theo liên kết này:"
+"Để tìm thông tin cần cung cấp cho nhà quản trị Exchange của bạn, hãy theo "
+"liên kết này:"
 
 #: ../storage/exchange-autoconfig-wizard.c:275
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr "Bạn đã cung cấp một địa chỉ URL máy phục vụ Exchange dành cho máy phục vụ Exchange phiên bản 5.5. Ximian Connector hỗ trợ chỉ Microsoft Exchange 2000 và 2003."
+msgstr "Bạn đã cung cấp một địa chỉ URL máy phục vụ Exchange dành cho máy phục vụ "
+"Exchange phiên bản 5.5. Ximian Connector hỗ trợ chỉ Microsoft Exchange 2000 "
+"và 2003."
 
 #: ../storage/exchange-autoconfig-wizard.c:288
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
-msgstr "Không thể cấu hình tài khoản Exchange vì gặp lỗi không rõ. Hãy kiểm tra lại địa chỉ URL, tên người dùng và mật khẩu, rồi thử lại."
+msgstr "Không thể cấu hình tài khoản Exchange vì gặp lỗi không rõ. Hãy kiểm tra lại "
+"địa chỉ URL, tên người dùng và mật khẩu, rồi thử lại."
 
 #: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
@@ -499,7 +557,9 @@ msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
 "and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
 "\\%s\")."
-msgstr "Không thể xác thực tới máy phục vụ Danh Bạ Toàn Cục. Có thể bạn cần quay trở lại và chỉ rõ tên miền Windows là phần của tên người dùng (v.d. \"MIỀN_TÔI\\%s\")."
+msgstr "Không thể xác thực tới máy phục vụ Danh Bạ Toàn Cục. Có thể bạn cần quay trở "
+"lại và chỉ rõ tên miền Windows là phần của tên người dùng (v.d. \"MIỀN_TÔI\\%"
+"s\")."
 
 #: ../storage/exchange-autoconfig-wizard.c:339
 msgid ""
@@ -601,17 +661,20 @@ msgid ""
 "\n"
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
-msgstr "Bộ Kết Nối Ximian có khả năng sử dụng thông tin tài khoản từ tài khoản Outlook Web "
-"Access (OWA: Truy cập Mạng Outlook).\n"
+msgstr "Bộ Kết Nối Ximian có khả năng sử dụng thông tin tài khoản từ tài khoản "
+"Outlook Web Access (OWA: Truy cập Mạng Outlook).\n"
 "\n"
-"Hãy nhập địa chỉ URL trang OWA của bạn, tên người dùng và mật khẩu, rồi nhấn «Tiếp ».\n"
+"Hãy nhập địa chỉ URL trang OWA của bạn, tên người dùng và mật khẩu, rồi nhấn "
+"«Tiếp ».\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:24
 msgid ""
 "Ximian Connector could not find the Global Catalog replica for your site. "
 "Please enter the name of your Global Catalog server. You may need to ask "
 "your system administrator for the correct value.\n"
-msgstr "Bộ Kết Nối Ximian không tìm thấy bản sao Danh Bạ Toàn Cục cho trang của bạn. Hãy nhập tên máy phục vụ Danh Bạ Toàn Cục. Có thể bạn cần hỏi nhà quản trị hệ thống cung cấp giá trị chính xác.\n"
+msgstr "Bộ Kết Nối Ximian không tìm thấy bản sao Danh Bạ Toàn Cục cho trang của bạn. "
+"Hãy nhập tên máy phục vụ Danh Bạ Toàn Cục. Có thể bạn cần hỏi nhà quản trị "
+"hệ thống cung cấp giá trị chính xác.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:26
 msgid ""
@@ -631,7 +694,8 @@ msgstr "Tài khoản Connector của bạn là sẵn sàng sử dụng. Nhấn n
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
-msgstr "Thông tin tài khoản của bạn như sau. Hãy sửa lỗi nào, rồi nhấn nút « Tiếp ».\n"
+msgstr "Thông tin tài khoản của bạn như sau. Hãy sửa lỗi nào, rồi nhấn nút « Tiếp "
+"».\n"
 
 #.User entered a wrong existing
 #.* password. Prompt him again.
@@ -640,7 +704,8 @@ msgstr "Thông tin tài khoản của bạn như sau. Hãy sửa lỗi nào, r�
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
-msgstr "Bạn đã nhập một mật khẩu không trùng với mật khẩu tồn tại của tài khoản bạn. Hãy nhập mật khẩu đúng."
+msgstr "Bạn đã nhập một mật khẩu không trùng với mật khẩu tồn tại của tài khoản bạn. "
+"Hãy nhập mật khẩu đúng."
 
 #: ../storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
@@ -664,7 +729,8 @@ msgstr "Mật khẩu mới:"
 
 #: ../storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
-msgstr "Mật khẩu hiện thời của bạn đã hết hạn sử dụng. Hãy thay đổi mật khẩu ngay bây giờ."
+msgstr "Mật khẩu hiện thời của bạn đã hết hạn sử dụng. Hãy thay đổi mật khẩu ngay "
+"bây giờ."
 
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
@@ -740,7 +806,8 @@ msgid ""
 "changed since Evolution %d.%d.%d.\n"
 "\n"
 "Please be patient while Evolution migrates your folders..."
-msgstr "Vị trí và phân cấp của thư mục tài khoản Evolution Exchange đã thay đổi kể từ Evolution %d.%d.%d.\n"
+msgstr "Vị trí và phân cấp của thư mục tài khoản Evolution Exchange đã thay đổi kể "
+"từ Evolution %d.%d.%d.\n"
 "\n"
 "Hãy kiên nhẫn trong khi trình Evolution nâng cấp các thư mục của bạn..."
 
@@ -751,8 +818,10 @@ msgid ""
 "version %d.%d.%d. \n"
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
-msgstr "Cảnh báo : trình Evolution không thể chuyển đổi tất cả các dữ liệu tài khoản Exchange từ phiên bản %d.%d.%d. \n"
-"Dữ liệu chưa được xoá bỏ, nhưng không thể thấy trong phiên bản này của Evolution."
+msgstr "Cảnh báo : trình Evolution không thể chuyển đổi tất cả các dữ liệu tài khoản "
+"Exchange từ phiên bản %d.%d.%d. \n"
+"Dữ liệu chưa được xoá bỏ, nhưng không thể thấy trong phiên bản này của "
+"Evolution."
 
 #: ../storage/exchange-migrate.c:130
 #, c-format
@@ -916,7 +985,8 @@ msgstr "Đăng ký với một thư mục thuộc về một người dùng khá
 #: ../storage/ximian-connector.xml.h:6
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
-msgstr "Hủy đăng ký khỏi một thư mục đã thêm bằng « Đăng ký với thư mục của người dùng khác »"
+msgstr "Hủy đăng ký khỏi một thư mục đã thêm bằng « Đăng ký với thư mục của người "
+"dùng khác »"
 
 #: ../storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
