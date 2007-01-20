@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-28 22:46+0100\n"
-"PO-Revision-Date: 2006-12-28 22:46+0100\n"
+"POT-Creation-Date: 2007-01-20 21:49+0100\n"
+"PO-Revision-Date: 2007-01-20 21:50+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -28,37 +28,37 @@ msgid ""
 "caching for GAL."
 msgstr ""
 
-#: ../addressbook/e-book-backend-exchange.c:1881
-#: ../addressbook/e-book-backend-gal.c:1547 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:1882
+#: ../addressbook/e-book-backend-gal.c:1716 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Søker..."
 
-#: ../addressbook/e-book-backend-gal.c:265
+#: ../addressbook/e-book-backend-gal.c:290
 msgid "Reconnecting to LDAP server..."
 msgstr "Kobler til LDAP-tjener på nytt..."
 
-#: ../addressbook/e-book-backend-gal.c:1384
+#: ../addressbook/e-book-backend-gal.c:1513
 msgid "Receiving LDAP search results..."
 msgstr "Mottar søkeresultater fra LDAP-tjener..."
 
-#: ../addressbook/e-book-backend-gal.c:1570
+#: ../addressbook/e-book-backend-gal.c:1743
 msgid "Error performing search"
 msgstr "Feil under utføring av søk"
 
-#: ../addressbook/e-book-backend-gal.c:1758
+#: ../addressbook/e-book-backend-gal.c:1869
 #, c-format
 msgid "Internal error.\n"
 msgstr "Intern feil.\n"
 
-#: ../addressbook/e-book-backend-gal.c:1769
+#: ../addressbook/e-book-backend-gal.c:1879
 #, c-format
 msgid "Paged results response control could not be decoded.\n"
 msgstr ""
 
-#: ../addressbook/e-book-backend-gal.c:1775
+#: ../addressbook/e-book-backend-gal.c:1885
 #, c-format
 msgid "Invalid entries estimate in paged results response.\n"
-msgstr ""
+msgstr "Estimerte ugyldige oppføringer i sideutvekslet resultatsvar.\n"
 
 #: ../calendar/e-cal-backend-exchange-calendar.c:2015
 #, c-format
@@ -135,10 +135,10 @@ msgstr "Henter sammendragsinformasjon for nye meldinger"
 msgid "No folder name found\n"
 msgstr "Fant ingen mappenavn\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2587
-#: ../mail/mail-stub-exchange.c:2631 ../mail/mail-stub-exchange.c:2666
-#: ../mail/mail-stub-exchange.c:2693 ../mail/mail-stub-exchange.c:2746
-#: ../mail/mail-stub-exchange.c:2768
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2569
+#: ../mail/mail-stub-exchange.c:2613 ../mail/mail-stub-exchange.c:2648
+#: ../mail/mail-stub-exchange.c:2675 ../mail/mail-stub-exchange.c:2728
+#: ../mail/mail-stub-exchange.c:2750
 msgid "Folder doesn't exist"
 msgstr "Mappen eksisterer ikke"
 
@@ -282,19 +282,19 @@ msgstr "Kan ikke abonnere på mappe i frakoblet modus."
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Kan ikke fjerne abonnement på mappe i frakoblet modus."
 
-#: ../camel/camel-exchange-store.c:710
+#: ../camel/camel-exchange-store.c:714
 msgid "Cannot get folder info in offline mode."
 msgstr "Kan ikke hente mappeinformasjon i frakoblet modus."
 
-#: ../camel/camel-exchange-store.c:781
+#: ../camel/camel-exchange-store.c:785
 msgid "Cannot create folder in offline mode."
 msgstr "Kunne ikke opprette mappe i frakoblet modus."
 
-#: ../camel/camel-exchange-store.c:808
+#: ../camel/camel-exchange-store.c:812
 msgid "Cannot delete folder in offline mode."
 msgstr "Kan ikke slette mappe i frakoblet modus."
 
-#: ../camel/camel-exchange-store.c:824
+#: ../camel/camel-exchange-store.c:828
 msgid "Cannot rename folder in offline mode."
 msgstr "Kan ikke endre navn på mappe i frakoblet modus."
 
@@ -352,9 +352,9 @@ msgstr "Mappen finnes ikke"
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2564 ../mail/mail-stub-exchange.c:2604
-#: ../mail/mail-stub-exchange.c:2670 ../mail/mail-stub-exchange.c:2720
-#: ../mail/mail-stub-exchange.c:2783
+#: ../mail/mail-stub-exchange.c:2546 ../mail/mail-stub-exchange.c:2586
+#: ../mail/mail-stub-exchange.c:2652 ../mail/mail-stub-exchange.c:2702
+#: ../mail/mail-stub-exchange.c:2765
 msgid "Permission denied"
 msgstr "Tilgang nektet"
 
@@ -410,15 +410,15 @@ msgstr "Postboksen støtter ikke fulltekstsøk"
 msgid "Unable to move/copy messages"
 msgstr "Kan ikke flytte/kopiere meldinger"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:2461
 msgid "No mail submission URI for this mailbox"
 msgstr "Ingen e-post leveranse URI for denne e-postboksen"
 
-#: ../mail/mail-stub-exchange.c:2515
+#: ../mail/mail-stub-exchange.c:2497
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Tjeneren aksepterer ikke e-post via exchange transport"
 
-#: ../mail/mail-stub-exchange.c:2517
+#: ../mail/mail-stub-exchange.c:2499
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -427,7 +427,7 @@ msgstr ""
 "Din konto har ikke rettigheter til å bruke <%s>\n"
 "som Fra adresse."
 
-#: ../mail/mail-stub-exchange.c:2529
+#: ../mail/mail-stub-exchange.c:2511
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -435,17 +435,17 @@ msgstr ""
 "Kunne ikke sende e-posten.\n"
 "Kontoen din har muligens overgått kvoten."
 
-#: ../mail/mail-stub-exchange.c:2533
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Could not send message"
 msgstr "Kunne ikke sende melding"
 
-#: ../mail/mail-stub-exchange.c:2556 ../mail/mail-stub-exchange.c:2609
-#: ../mail/mail-stub-exchange.c:2674 ../mail/mail-stub-exchange.c:2725
-#: ../mail/mail-stub-exchange.c:2789
+#: ../mail/mail-stub-exchange.c:2538 ../mail/mail-stub-exchange.c:2591
+#: ../mail/mail-stub-exchange.c:2656 ../mail/mail-stub-exchange.c:2707
+#: ../mail/mail-stub-exchange.c:2771
 msgid "Generic error"
 msgstr "Generisk feil"
 
-#: ../mail/mail-stub-exchange.c:2560
+#: ../mail/mail-stub-exchange.c:2542
 msgid "Folder already exists"
 msgstr "Mappen eksisterer allerede"
 
