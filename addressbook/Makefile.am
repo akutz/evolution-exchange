@@ -5,7 +5,9 @@ INCLUDES =						\
 	-I$(top_srcdir)					\
 	-I$(top_srcdir)/storage				\
 	"-I /usr/include"				\
-	$(LDAP_CFLAGS)					
+	$(LDAP_CFLAGS)					\
+	$(DB_CFLAGS)
+
 # GConf schemas
 
 schemadir   = $(GCONF_SCHEMA_FILE_DIR)
@@ -24,7 +26,6 @@ install-data-local:
 	fi
 
 noinst_LTLIBRARIES = libexchangeaddressbook.la
-DB_LIBS=-L/usr/lib -ldb
 
 libexchangeaddressbook_la_SOURCES =	\
 	e-book-backend-exchange.c	\
@@ -46,4 +47,4 @@ libexchangeaddressbook_la_LDFLAGS =	\
 
 EXTRA_DIST =				\
 	$(schema_in_files)
- 
+

@@ -1,3 +1,12 @@
+2007-01-22  Veerapuram Varadhan  <vvaradhan@novell.com>
+
+	* configure.in: Check for the availability of libdb devel packages
+	and provide "--with-libdb" parameter for custom locations of
+	libdb.
+
+	* addressbook/Makefile.am:  Do not hard-code libdb path - breaks
+	build when libdb headers are not installed.
+	
 2007-01-12  Devashish Sharma <sdevashish@novell.com>
 
 	* addressbook/e-book-backend-gal-cache.c : Committing DB based gal 

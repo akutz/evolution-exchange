@@ -251,6 +251,32 @@ dnl notice it, which makes it not run gtkdocize and copy gtk-doc.make
 dnl into the top level where I don't want it.
  GTK_DOC_CHECK([1.0])
 
+dnl **************************************************
+dnl * libdb checking - taken from EDS
+dnl **************************************************
+
+AC_ARG_WITH(libdb, AC_HELP_STRING([--with-libdb],[Prefix where libdb is installed]), dynamic_libdb=yes, dynamic_libdb=no)
+if test "x${dynamic_libdb}" = "xyes"; then
+        DB_CFLAGS="-I$withval/include"
+        DB_LIBS="-L$withval/lib -ldb"
+else
+	DB_CFLAGS="$CFLAGS"
+	DB_LIBS="$LIBS -ldb"
+fi
+	
+AC_MSG_CHECKING([Berkeley DB])
+save_cflags=$CFLAGS; CFLAGS=$DB_CFLAGS
+save_libs=$LIBS; LIBS="$DB_LIBS"
+AC_LINK_IFELSE(
+        [AC_LANG_PROGRAM([[#include <db.h>]],
+                         [db_create(NULL, NULL, 0)])],
+        AC_MSG_RESULT(yes),
+        AC_MSG_ERROR(cannot find libdb))
+CFLAGS=$save_cflags
+LIBS=$save_libs
+AC_SUBST(DB_CFLAGS)
+AC_SUBST(DB_LIBS)
+
 
 dnl ******************************
 dnl Makefiles
