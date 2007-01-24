@@ -2,16 +2,18 @@
 # Estonian translation of Evolution-Exchange.
 #
 # Copyright (C) 2005, 2006 Free Software Foundation, Inc.
-# This file is distributed under the same license as the evolution-exchange package.
+# Copyright (C) 2007 The GNOME Project.
+# This file is distributed under the same license as the evolution-exchange
+# package.
 #
-# Ivar Smolin <okul@linux.ee>, 2005, 2006.
+# Ivar Smolin <okul@linux.ee>, 2005-2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Evolution-Exchange HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-10 15:43+0200\n"
-"PO-Revision-Date: 2006-11-05 18:32+0200\n"
+"POT-Creation-Date: 2007-01-02 02:21+0000\n"
+"PO-Revision-Date: 2007-01-23 10:50+0200\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -19,24 +21,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr "GAL-puhvrite värskendamise sageduse määramine."
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+msgid ""
+"This key specifies the number of days interval between the GAL cache "
+"refresh. Set this value to zero, if you don't want to update GAL and use the "
+"curernt cache forever. This will work only if you have enabled offline "
+"caching for GAL."
+msgstr ""
+"Selle võtmega määratakse päevade arv, mille möödudes tuleb GAL-puhvreid "
+"värskendada. Kui sul pole vaja GAL-puhvreid värskendada, määra väärtuseks 0. "
+"See võti rakendub ainult juhul, kui sul on GAL-i tarbeks offline "
+"puhverdamine lubatud."
+
 #: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-gal.c:1547 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Otsimine..."
 
-#: ../addressbook/e-book-backend-gal.c:267
+#: ../addressbook/e-book-backend-gal.c:265
 msgid "Reconnecting to LDAP server..."
 msgstr "Taasühendumine LDAP serverisse..."
 
-#: ../addressbook/e-book-backend-gal.c:1363
+#: ../addressbook/e-book-backend-gal.c:1384
 msgid "Receiving LDAP search results..."
 msgstr "LDAP otsingutulemuste vastuvõtmine..."
 
-#: ../addressbook/e-book-backend-gal.c:1522
+#: ../addressbook/e-book-backend-gal.c:1570
 msgid "Error performing search"
 msgstr "Viga otsingu läbiviimisel"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2004
+#: ../addressbook/e-book-backend-gal.c:1758
+#, c-format
+msgid "Internal error.\n"
+msgstr "Sisemine viga.\n"
+
+#: ../addressbook/e-book-backend-gal.c:1769
+#, c-format
+msgid "Paged results response control could not be decoded.\n"
+msgstr ""
+
+#: ../addressbook/e-book-backend-gal.c:1775
+#, c-format
+msgid "Invalid entries estimate in paged results response.\n"
+msgstr ""
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:2015
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -45,10 +78,19 @@ msgstr ""
 "Ressurssi '%s' pole võimalik korduvale koosolekule ajastada.\n"
 "Sa pead iga koosoleku eraldi kirjeldama."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2022
+#: ../calendar/e-cal-backend-exchange-calendar.c:2033
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Ressurss '%s' on valitud aja vältel hõivatud."
+
+#: ../calendar/e-cal-backend-exchange.c:375
+#: ../calendar/e-cal-backend-exchange.c:384
+msgid "Authentication failed"
+msgstr "Tõrge autentimisel"
+
+#: ../calendar/e-cal-backend-exchange.c:395
+msgid "Could not find the calendar"
+msgstr "Kalendrit pole võimalik leida"
 
 #: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
@@ -102,10 +144,10 @@ msgstr "Uute sõnumite kokkuvõtvate andmete hankimine"
 msgid "No folder name found\n"
 msgstr "Kausta nime ei leitud\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
-#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
-#: ../mail/mail-stub-exchange.c:2730
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2587
+#: ../mail/mail-stub-exchange.c:2631 ../mail/mail-stub-exchange.c:2666
+#: ../mail/mail-stub-exchange.c:2693 ../mail/mail-stub-exchange.c:2746
+#: ../mail/mail-stub-exchange.c:2768
 msgid "Folder doesn't exist"
 msgstr "Kausta pole olemas"
 
@@ -119,72 +161,80 @@ msgstr ""
 msgid "Cannot append message in offline mode: %s"
 msgstr "Kausta pole võimalik autonoomses režiimis lisada: %s"
 
+#: ../camel/camel-exchange-provider.c:40
+msgid "Checking for New Mail"
+msgstr "Uute sõnumite kontroll"
+
+#: ../camel/camel-exchange-provider.c:42 ../camel/camel-exchange-provider.c:66
+msgid "C_heck for new messages in all folders"
+msgstr "_Rämpssõnumeid kontrollitakse kõigis kaustades"
+
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:44
+#: ../camel/camel-exchange-provider.c:50
 msgid "Windows User_name:"
 msgstr "Windowsi kasutaja_nimi:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:49
+#: ../camel/camel-exchange-provider.c:55
 msgid "Global Address List / Active Directory"
 msgstr "Global Address List / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:59
 msgid "_Global Catalog server name:"
 msgstr "_Global Catalog'i serveri nimi:"
 
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:61
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "GA_L vastuste arvu piirang: %s"
 
-#: ../camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:64
 msgid "Options"
 msgstr "Valikud"
 
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:68
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Parooli aegumishoiatuse periood: %s"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:70
 msgid "Automatically synchroni_ze account locally"
 msgstr "Ko_nto automaatne kohalik sünkroniseerimine"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:73
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr ""
 "Filtrite _automaatne rakendamine kõigile selle serveri Sisendkastis "
 "asuvatele uutele sõnumitele"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:75
 msgid "Check new messages for _Junk contents"
 msgstr "Kontroll, kas uute sõnumite sisu on _rämpspost"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:77
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Rämpssõnumeid kontrollitakse ainult sis_endkaustas"
 
-#: ../camel/camel-exchange-provider.c:79
+#: ../camel/camel-exchange-provider.c:87
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:81
+#: ../camel/camel-exchange-provider.c:89
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "E-posti (ja muude andmete) käsitlemiseks Microsoft Exchange serveris"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:105
 msgid "Secure Password"
 msgstr "Turvaline parool"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:108
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -192,11 +242,11 @@ msgstr ""
 "Selle valikuga kasutab Exchange server ühendumisel turvalise parooliga "
 "(NTLM) autentimist."
 
-#: ../camel/camel-exchange-provider.c:108
+#: ../camel/camel-exchange-provider.c:116
 msgid "Plaintext Password"
 msgstr "Avatekstiline parool"
 
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:118
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -204,26 +254,26 @@ msgstr ""
 "Selle valikuga kasutab Exchange server ühendumisel standardset avatekstilise "
 "parooliga autentimist."
 
-#: ../camel/camel-exchange-store.c:308
+#: ../camel/camel-exchange-store.c:310
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange server %s"
 
-#: ../camel/camel-exchange-store.c:311
+#: ../camel/camel-exchange-store.c:313
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Kasutaja %s Exchange konto hostil %s"
 
-#: ../camel/camel-exchange-store.c:352
+#: ../camel/camel-exchange-store.c:354
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sSisesta parool %s jaoks"
 
-#: ../camel/camel-exchange-store.c:403
+#: ../camel/camel-exchange-store.c:405
 msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange taustaprotsess"
 
-#: ../camel/camel-exchange-store.c:444
+#: ../camel/camel-exchange-store.c:446
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -231,32 +281,32 @@ msgstr ""
 "Serverisse pole võimalik autentida. (Parool vale?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:486
+#: ../camel/camel-exchange-store.c:488
 #, c-format
 msgid "No such folder %s"
 msgstr "Kausta %s ei ole"
 
-#: ../camel/camel-exchange-store.c:563
+#: ../camel/camel-exchange-store.c:565
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik tellida."
 
-#: ../camel/camel-exchange-store.c:580
+#: ../camel/camel-exchange-store.c:582
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Kaustas tellimusest pole autonoomses režiimis võimalik loobuda."
 
-#: ../camel/camel-exchange-store.c:695
+#: ../camel/camel-exchange-store.c:710
 msgid "Cannot get folder info in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik hankida."
 
-#: ../camel/camel-exchange-store.c:766
+#: ../camel/camel-exchange-store.c:781
 msgid "Cannot create folder in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik luua."
 
-#: ../camel/camel-exchange-store.c:793
+#: ../camel/camel-exchange-store.c:808
 msgid "Cannot delete folder in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik kustutada."
 
-#: ../camel/camel-exchange-store.c:809
+#: ../camel/camel-exchange-store.c:824
 msgid "Cannot rename folder in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik ümber nimetada."
 
@@ -314,9 +364,9 @@ msgstr "Sellist kausta pole"
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
-#: ../mail/mail-stub-exchange.c:2745
+#: ../mail/mail-stub-exchange.c:2564 ../mail/mail-stub-exchange.c:2604
+#: ../mail/mail-stub-exchange.c:2670 ../mail/mail-stub-exchange.c:2720
+#: ../mail/mail-stub-exchange.c:2783
 msgid "Permission denied"
 msgstr "Ligipääs keelatud"
 
@@ -372,15 +422,15 @@ msgstr "Postkast ei toeta täistekstiotsingut"
 msgid "Unable to move/copy messages"
 msgstr "Sõnumeid pole võimalik kopeerida või ümber tõsta"
 
-#: ../mail/mail-stub-exchange.c:2441
+#: ../mail/mail-stub-exchange.c:2479
 msgid "No mail submission URI for this mailbox"
 msgstr "Sellele postkastile pole posti tellimise URI"
 
-#: ../mail/mail-stub-exchange.c:2477
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Server ei nõustu posti transportimisega läbi Exchange"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:2517
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -389,7 +439,7 @@ msgstr ""
 "Sinu kontol pole õiguset kasutada\n"
 "<%s> saatja aadressiks."
 
-#: ../mail/mail-stub-exchange.c:2491
+#: ../mail/mail-stub-exchange.c:2529
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -397,17 +447,17 @@ msgstr ""
 "Sõnumit pole võimalik saata.\n"
 "See võib tähendada, et Sinu konto ületab kehtestatud kvooti."
 
-#: ../mail/mail-stub-exchange.c:2495
+#: ../mail/mail-stub-exchange.c:2533
 msgid "Could not send message"
 msgstr "Sõnumit pole võimalik saata"
 
-#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2751
+#: ../mail/mail-stub-exchange.c:2556 ../mail/mail-stub-exchange.c:2609
+#: ../mail/mail-stub-exchange.c:2674 ../mail/mail-stub-exchange.c:2725
+#: ../mail/mail-stub-exchange.c:2789
 msgid "Generic error"
 msgstr "Üldine viga"
 
-#: ../mail/mail-stub-exchange.c:2522
+#: ../mail/mail-stub-exchange.c:2560
 msgid "Folder already exists"
 msgstr "Kaust on juba olemas"
 
@@ -459,8 +509,7 @@ msgid ""
 "(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
 "Exchange serverisse pole võimalik autentida.\n"
-"Veendu, et kasutajanimi ja parool on õiged ning proovi uuesti."
-"\n"
+"Veendu, et kasutajanimi ja parool on õiged ning proovi uuesti.\n"
 "Võibolla pead sa oma kasutajanimele lisama ka Windowsi domeeni nime (näiteks "
 "\"MINUDOMEEN\\%s\")."
 
@@ -496,8 +545,8 @@ msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
 msgstr ""
-"Tundmatu vea tõttu pole Exchange kontot võimalik seadistada. Kontrolli "
-"URL-i, kasutajanime ja parooli ning proovi uuesti."
+"Tundmatu vea tõttu pole Exchange kontot võimalik seadistada. Kontrolli URL-"
+"i, kasutajanime ja parooli ning proovi uuesti."
 
 #: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
