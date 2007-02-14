@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-15 12:47+0300\n"
-"PO-Revision-Date: 2006-12-15 12:49+0300\n"
+"POT-Creation-Date: 2007-02-14 06:05+0300\n"
+"PO-Revision-Date: 2007-02-14 06:08+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -16,37 +16,53 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr "Määrittää GAL-välimuistin virkistysten aikavälin"
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+msgid ""
+"This key specifies the number of days interval between the GAL cache "
+"refresh. Set this value to zero, if you don't want to update GAL and use the "
+"curernt cache forever. This will work only if you have enabled offline "
+"caching for GAL."
+msgstr ""
+"Tämä avain määrittää, kuinka monen päivän välein GAL-välimuisti "
+"päivitetään. Aseta arvoksi 0, jos et halu päivittää GAL-välimuistia "
+"ja haluat käyttää nykyistä välimuistia aina. Tämä toimii ainoastaan, "
+"jos GAL-välimuisti on käytössä yhteydettömässä tilassa."
+
 #: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1547 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-gal.c:1716 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Haetaan..."
 
-#: ../addressbook/e-book-backend-gal.c:265
+#: ../addressbook/e-book-backend-gal.c:290
 msgid "Reconnecting to LDAP server..."
 msgstr "Yhdistetään uudestaan LDAP-palvelimelle..."
 
-#: ../addressbook/e-book-backend-gal.c:1384
+#: ../addressbook/e-book-backend-gal.c:1513
 msgid "Receiving LDAP search results..."
 msgstr "Vastaanotetaan LDAP hakutuloksia"
 
-#: ../addressbook/e-book-backend-gal.c:1570
+#: ../addressbook/e-book-backend-gal.c:1743
 msgid "Error performing search"
 msgstr "Virhe suoritettaessa hakua"
 
-#: ../addressbook/e-book-backend-gal.c:1758
+#: ../addressbook/e-book-backend-gal.c:1869
 #, c-format
 msgid "Internal error.\n"
 msgstr "Sisäinen virhe.\n"
 
-#: ../addressbook/e-book-backend-gal.c:1769
+#: ../addressbook/e-book-backend-gal.c:1879
 #, c-format
 msgid "Paged results response control could not be decoded.\n"
-msgstr ""
+msgstr "Sivutettujen tulosten vastausta ei voitu tulkita.\n"
 
-#: ../addressbook/e-book-backend-gal.c:1775
+#: ../addressbook/e-book-backend-gal.c:1885
 #, c-format
 msgid "Invalid entries estimate in paged results response.\n"
-msgstr ""
+msgstr "Sivutettujen tulosten vastauksen määräarvio on virheellinen.\n"
 
 #: ../calendar/e-cal-backend-exchange-calendar.c:2015
 #, c-format
@@ -123,10 +139,10 @@ msgstr "Haetaan yhteenvetoa muuttuneista viesteistä"
 msgid "No folder name found\n"
 msgstr "Kansion nimeä ei löytynyt\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
-#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
-#: ../mail/mail-stub-exchange.c:2730
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2569
+#: ../mail/mail-stub-exchange.c:2613 ../mail/mail-stub-exchange.c:2648
+#: ../mail/mail-stub-exchange.c:2675 ../mail/mail-stub-exchange.c:2728
+#: ../mail/mail-stub-exchange.c:2750
 msgid "Folder doesn't exist"
 msgstr "Kansiota ei ole olemassa"
 
@@ -141,75 +157,79 @@ msgstr ""
 msgid "Cannot append message in offline mode: %s"
 msgstr "Viestiä ei voi lisätä yhteydettömässä tilassa: %s"
 
+#: ../camel/camel-exchange-provider.c:40
+msgid "Checking for New Mail"
+msgstr "Tarkistetaan, onko uusia viestejä"
+
+#: ../camel/camel-exchange-provider.c:42 ../camel/camel-exchange-provider.c:66
+msgid "C_heck for new messages in all folders"
+msgstr "Etsi _uusia viestejä kaikista kansioista"
+
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:44
+#: ../camel/camel-exchange-provider.c:50
 msgid "Windows User_name:"
 msgstr "Windows-käyttäjän _nimi:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:49
+#: ../camel/camel-exchange-provider.c:55
 msgid "Global Address List / Active Directory"
 msgstr "Yhteinen osoitekirja / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:59
 msgid "_Global Catalog server name:"
 msgstr "_Yhteisen luettelopalvelimen nimi:"
 
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:61
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "_Rajoita GAL-vastausten määrää: %s"
 
-#: ../camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:64
 msgid "Options"
 msgstr "Asetukset"
 
-#: ../camel/camel-exchange-provider.c:60
-msgid "C_heck for new messages in all folders"
-msgstr "Etsi _uusia viestejä kaikista kansioista"
-
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:68
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Salasanan vanhenemisen varoitusaika: %s"
 
-#: ../camel/camel-exchange-provider.c:64
+#: ../camel/camel-exchange-provider.c:70
 msgid "Automatically synchroni_ze account locally"
 msgstr "S_ynkronoi tili automaattisesti omalle tietokoneelle"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:73
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr ""
 "_Käytä suodattimia saapuvien kansion uusille viesteille tällä palvelimella"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:75
 msgid "Check new messages for _Junk contents"
 msgstr "Etsi _roskapostia uusista viesteistä"
 
-#: ../camel/camel-exchange-provider.c:71
+#: ../camel/camel-exchange-provider.c:77
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Etsi roskapostia vain saapuvi_en viestien kansiosta"
 
-#: ../camel/camel-exchange-provider.c:81
+#: ../camel/camel-exchange-provider.c:87
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:83
+#: ../camel/camel-exchange-provider.c:89
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Sähköpostin ja muun tiedon käsittelyyn Microsoft Exchange-palvelimilla"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:99
+#: ../camel/camel-exchange-provider.c:105
 msgid "Secure Password"
 msgstr "Suojattu salasana"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:102
+#: ../camel/camel-exchange-provider.c:108
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -217,11 +237,11 @@ msgstr ""
 "Tämän ollessa valittu otetaan yhteyttä Exchange-palvelimelle käyttäen "
 "suojattua salasanatunnistusta (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:116
 msgid "Plaintext Password"
 msgstr "Selväkielinen salasana"
 
-#: ../camel/camel-exchange-provider.c:112
+#: ../camel/camel-exchange-provider.c:118
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -269,19 +289,19 @@ msgstr "Kansiota ei voi tilata yhteydettömässä tilassa."
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Kansion tilausta ei voi perua yhteydettömässä tilassa."
 
-#: ../camel/camel-exchange-store.c:713
+#: ../camel/camel-exchange-store.c:714
 msgid "Cannot get folder info in offline mode."
 msgstr "Kansion tietoja ei voi hakea yhteydettömässä tilassa"
 
-#: ../camel/camel-exchange-store.c:784
+#: ../camel/camel-exchange-store.c:785
 msgid "Cannot create folder in offline mode."
 msgstr "Kansiota ei voi luoda yhteydettömässä tilassa"
 
-#: ../camel/camel-exchange-store.c:811
+#: ../camel/camel-exchange-store.c:812
 msgid "Cannot delete folder in offline mode."
 msgstr "Kansiota ei voi poistaa yhteydettömässä tilassa"
 
-#: ../camel/camel-exchange-store.c:827
+#: ../camel/camel-exchange-store.c:828
 msgid "Cannot rename folder in offline mode."
 msgstr "Kansiota ei voi nimetä uudelleen yhteydettömässä tilassa"
 
@@ -340,9 +360,9 @@ msgstr "Kansiota ei ole olemassa"
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
-#: ../mail/mail-stub-exchange.c:2745
+#: ../mail/mail-stub-exchange.c:2546 ../mail/mail-stub-exchange.c:2586
+#: ../mail/mail-stub-exchange.c:2652 ../mail/mail-stub-exchange.c:2702
+#: ../mail/mail-stub-exchange.c:2765
 msgid "Permission denied"
 msgstr "Lupa evätty"
 
@@ -398,15 +418,15 @@ msgstr "Postilaatikko ei tue koko tekstin hakuja"
 msgid "Unable to move/copy messages"
 msgstr "Viestejä ei voi siirtää tai kopioida"
 
-#: ../mail/mail-stub-exchange.c:2441
+#: ../mail/mail-stub-exchange.c:2461
 msgid "No mail submission URI for this mailbox"
 msgstr "Sähköpostin lähetyksen URIa ei ole määritelty tälle postilaatikolle"
 
-#: ../mail/mail-stub-exchange.c:2477
+#: ../mail/mail-stub-exchange.c:2497
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Palvelin ei hyväksy sähköpostia Exchange sähköpostinvälityksen kautta"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:2499
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -415,7 +435,7 @@ msgstr ""
 "Tilisi ei saa käyttää osoitetta <%s>\n"
 "lähettäjän osoitteena."
 
-#: ../mail/mail-stub-exchange.c:2491
+#: ../mail/mail-stub-exchange.c:2511
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -423,17 +443,17 @@ msgstr ""
 "Viestiä ei voitu lähettä.\n"
 "Tämä voi tarkoittaa, että sähköpostitilisi levytila on loppu."
 
-#: ../mail/mail-stub-exchange.c:2495
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Could not send message"
 msgstr "Viestiä ei voitu lähettää"
 
-#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2751
+#: ../mail/mail-stub-exchange.c:2538 ../mail/mail-stub-exchange.c:2591
+#: ../mail/mail-stub-exchange.c:2656 ../mail/mail-stub-exchange.c:2707
+#: ../mail/mail-stub-exchange.c:2771
 msgid "Generic error"
 msgstr "Yleinen virhe"
 
-#: ../mail/mail-stub-exchange.c:2522
+#: ../mail/mail-stub-exchange.c:2542
 msgid "Folder already exists"
 msgstr "Kansio on jo olemassa"
 
