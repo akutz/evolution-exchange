@@ -1,3 +1,15 @@
+2007-02-19  Veerapuram Varadhan  <vvaradhan@novell.com>
+
+	* Fixes BGO #400735
+
+	configure.in:
+	addressbook/Makefile.am:
+	addressbook/e-book-backend-gal.c:
+	addressbook/e-book-backend-db-cache.c:
+	addressbook/e-book-backend-db-cache.h: Reverted the changes
+	corresponding to GAL DB implementation.  Please read the bug for
+	further information.
+	
 2007-02-12  Srinivasa Ragavan <sragavan@novell.com>
 
 	* NEWS, configure.in: Evolution-Exchange 2.9.91 release updates.
