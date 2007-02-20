@@ -10,6 +10,7 @@ DISTCLEANFILES =				\
 	intltool-merge
 
 EXTRA_DIST =				\
+	MAINTAINERS			\
 	intltool-extract.in		\
 	intltool-merge.in		\
 	intltool-update.in		\
