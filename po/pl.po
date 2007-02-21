@@ -12,47 +12,86 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD.pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-16 23:54+0200\n"
-"PO-Revision-Date: 2006-08-12 23:09+0200\n"
-"Last-Translator: Artur Flinta <aflinta@at.kernel.pl>\n"
+"POT-Creation-Date: 2007-02-22 00:55+0100\n"
+"PO-Revision-Date: 2007-02-21 21:03+0100\n"
+"Last-Translator: wadim dziedzic <nikdo@aviary.pl>\n"
 "Language-Team: Polish <translators@gnomepl.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
-"Plural-Forms:  nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr "Określa okres czasu pomiędzy odświeżeniami GAL Cache."
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+msgid ""
+"This key specifies the number of days interval between the GAL cache "
+"refresh. Set this value to zero, if you don't want to update GAL and use the "
+"curernt cache forever. This will work only if you have enabled offline "
+"caching for GAL."
+msgstr ""
+"Ten klucz określe liczbę dni pomiędzy odświeżeniami GAL Cache. Wartość 0 "
+"wyłącza odświeżanie i bieżąca zawartość bufora pozostanie na stałe. "
+"Ustawienie to działa tylko gdy włączono bufor pracy w trybie offline dla GAL."
 
 #: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-gal.c:1547 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Wyszukiwanie..."
 
-#: ../addressbook/e-book-backend-gal.c:267
+#: ../addressbook/e-book-backend-gal.c:265
 msgid "Reconnecting to LDAP server..."
 msgstr "Ponowne nawiązywanie połączenia z serwerem LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1363
+#: ../addressbook/e-book-backend-gal.c:1384
 msgid "Receiving LDAP search results..."
 msgstr "Odbieranie wyników wyszukiwania LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1522
+#: ../addressbook/e-book-backend-gal.c:1570
 msgid "Error performing search"
 msgstr "Błąd wyszukiwania"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2004
+#: ../addressbook/e-book-backend-gal.c:1758
+#, c-format
+msgid "Internal error.\n"
+msgstr "Błąd wewnętrzny.\n"
+
+#: ../addressbook/e-book-backend-gal.c:1769
+#, c-format
+msgid "Paged results response control could not be decoded.\n"
+msgstr "Nie można zdekodować kontroli stronicowanej odpowiedzi.\n"
+
+#: ../addressbook/e-book-backend-gal.c:1775
+#, c-format
+msgid "Invalid entries estimate in paged results response.\n"
+msgstr "Błędne wpisy w stronicowanej odpowiedzi z rezulatami.\n"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:2015
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
 "Nie można zaplanować zasobu \"%s\" dla spotkań okresowych.\n"
-"Należy zarejestrować każde spotkanie osobno."
+"Należy zarejestrować każde zebranie osobno."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2022
+#: ../calendar/e-cal-backend-exchange-calendar.c:2033
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "W ustawionym okresie czasu zasób \"%s\" jest zajęty."
+
+#: ../calendar/e-cal-backend-exchange.c:375
+#: ../calendar/e-cal-backend-exchange.c:384
+msgid "Authentication failed"
+msgstr "Uwierzytelnianie nie powiodło się"
+
+#: ../calendar/e-cal-backend-exchange.c:395
+msgid "Could not find the calendar"
+msgstr "Nie można znaleźć kalendarza"
 
 #: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
@@ -64,15 +103,15 @@ msgstr "Bez tematu"
 
 #: ../camel/camel-exchange-folder.c:407
 msgid "This message is not available in offline mode."
-msgstr "Ten list nie jest dostępny w trybie bez podłączenia."
+msgstr "Ta wiadomość nie jest dostępna w trybie bez podłączenia."
 
 #: ../camel/camel-exchange-folder.c:642
 msgid "Moving messages"
-msgstr "Przenoszenie listów"
+msgstr "Przenoszenie wiadomości"
 
 #: ../camel/camel-exchange-folder.c:643
 msgid "Copying messages"
-msgstr "Kopiowanie listów"
+msgstr "Kopiowanie wiadomości"
 
 #: ../camel/camel-exchange-folder.c:1014
 #, c-format
@@ -96,20 +135,20 @@ msgstr "Nie można utworzyć dziennika dla %s"
 
 #: ../camel/camel-exchange-folder.c:1087
 msgid "Scanning for changed messages"
-msgstr "Wyszukiwanie zmodyfikowanych listów"
+msgstr "Wyszukiwanie zmodyfikowanych wiadomości"
 
 #: ../camel/camel-exchange-folder.c:1113
 msgid "Fetching summary information for new messages"
-msgstr "Pobieranie informacji podsumowujących nowe listy"
+msgstr "Pobieranie podsumowań nowych wiadomości"
 
 #: ../camel/camel-exchange-journal.c:339
 msgid "No folder name found\n"
 msgstr "Nie znaleziono nazwy folderu\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
-#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
-#: ../mail/mail-stub-exchange.c:2730
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2569
+#: ../mail/mail-stub-exchange.c:2613 ../mail/mail-stub-exchange.c:2648
+#: ../mail/mail-stub-exchange.c:2675 ../mail/mail-stub-exchange.c:2728
+#: ../mail/mail-stub-exchange.c:2750
 msgid "Folder doesn't exist"
 msgstr "Folder nie istnieje"
 
@@ -123,71 +162,79 @@ msgstr ""
 msgid "Cannot append message in offline mode: %s"
 msgstr "Nie można dołączyć wiadomości w trybie bez podłączenia: %s"
 
+#: ../camel/camel-exchange-provider.c:40
+msgid "Checking for New Mail"
+msgstr "Sprawdzanie poczty"
+
+#: ../camel/camel-exchange-provider.c:42 ../camel/camel-exchange-provider.c:66
+msgid "C_heck for new messages in all folders"
+msgstr "P_obierz nowe wiadomości ze wszystkich folderów"
+
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:44
+#: ../camel/camel-exchange-provider.c:50
 msgid "Windows User_name:"
 msgstr "Nazwa _użytkownika Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:49
+#: ../camel/camel-exchange-provider.c:55
 msgid "Global Address List / Active Directory"
 msgstr "Ogólna lista adresowa / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:59
 msgid "_Global Catalog server name:"
 msgstr "_Nazwa serwera katalogu ogólnego:"
 
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:61
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "_Ograniczenie liczby odpowiedzi ogólnej listy adresowej: %s"
 
-#: ../camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:64
 msgid "Options"
 msgstr "Opcje"
 
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:68
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "Okres ostrzegania o wygaśnięciu _hasła: %s"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:70
 msgid "Automatically synchroni_ze account locally"
 msgstr "Automatyczna _synchronizacja kont lokalnie"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:73
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr ""
 "_Zastosowanie filtrów na nowych wiadomościach w Nadchodzących na tym serwerze"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:75
 msgid "Check new messages for _Junk contents"
-msgstr "Sp_rawdzanie nowych listów pod kątem spamu"
+msgstr "Sp_rawdzanie nowych wiadomości pod kątem spamu"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:77
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Sprawdzanie spamu tylko w folderze _Nadchodzących"
 
-#: ../camel/camel-exchange-provider.c:79
+#: ../camel/camel-exchange-provider.c:87
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:81
+#: ../camel/camel-exchange-provider.c:89
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Do obsługi poczty (i innych danych) na serwerach Microsoft Exchange"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:105
 msgid "Secure Password"
 msgstr "Bezpieczne uwierzytelnianie hasła"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:108
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -195,11 +242,11 @@ msgstr ""
 "Opcja ta spowoduje połączenie z serwerem Exchange przy użyciu bezpiecznego "
 "uwierzytelniania hasła (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:108
+#: ../camel/camel-exchange-provider.c:116
 msgid "Plaintext Password"
 msgstr "Hasło tekstowe"
 
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:118
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -207,26 +254,26 @@ msgstr ""
 "Opcja ta spowoduje połączenie z serwerem Exchange przy użyciu standardowego "
 "uwierzytelniania hasła tekstowego."
 
-#: ../camel/camel-exchange-store.c:308
+#: ../camel/camel-exchange-store.c:310
 #, c-format
 msgid "Exchange server %s"
 msgstr "Serwer Exchange %s"
 
-#: ../camel/camel-exchange-store.c:311
+#: ../camel/camel-exchange-store.c:313
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Konto Exchange dla %s na %s"
 
-#: ../camel/camel-exchange-store.c:352
+#: ../camel/camel-exchange-store.c:354
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sWprowadź hasło dla %s"
 
-#: ../camel/camel-exchange-store.c:403
+#: ../camel/camel-exchange-store.c:405
 msgid "Evolution Exchange backend process"
 msgstr "Proces wspierający Evolution Exchange"
 
-#: ../camel/camel-exchange-store.c:444
+#: ../camel/camel-exchange-store.c:446
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -234,32 +281,32 @@ msgstr ""
 "Nie można uwierzytelnić na serwerze. (Niepoprawne hasło?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:486
+#: ../camel/camel-exchange-store.c:488
 #, c-format
 msgid "No such folder %s"
 msgstr "Nie ma takiego folderu %s"
 
-#: ../camel/camel-exchange-store.c:563
+#: ../camel/camel-exchange-store.c:565
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Nie można subskrybować folderu w trybie bez podłączenia."
 
-#: ../camel/camel-exchange-store.c:580
+#: ../camel/camel-exchange-store.c:582
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Nie można odsubskrybować folderu w trybie bez podłączenia."
 
-#: ../camel/camel-exchange-store.c:695
+#: ../camel/camel-exchange-store.c:714
 msgid "Cannot get folder info in offline mode."
 msgstr "Nie można pobrać informacji o folderze w trybie bez podłączenia."
 
-#: ../camel/camel-exchange-store.c:766
+#: ../camel/camel-exchange-store.c:785
 msgid "Cannot create folder in offline mode."
 msgstr "Nie można utworzyć folderu w trybie bez podłączenia."
 
-#: ../camel/camel-exchange-store.c:793
+#: ../camel/camel-exchange-store.c:812
 msgid "Cannot delete folder in offline mode."
 msgstr "Nie można usunąć folderu w trybie bez podłączenia."
 
-#: ../camel/camel-exchange-store.c:809
+#: ../camel/camel-exchange-store.c:828
 msgid "Cannot rename folder in offline mode."
 msgstr "Nie można zmienić nazwy folderu w trybie bez podłączenia."
 
@@ -270,7 +317,7 @@ msgstr "Transport Exchange może być użyty tylko ze źródłem poczty Exchange
 #: ../camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
 msgstr ""
-"Nie można wysłać listu: przynajmniej jeden z odbiorców jest niepoprawny"
+"Nie można wysłać wiadomości: przynajmniej jeden z odbiorców jest niepoprawny"
 
 #: ../camel/camel-exchange-transport.c:131
 msgid "Could not find 'From' address in message"
@@ -318,9 +365,9 @@ msgstr "Nie ma takiego folderu"
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
-#: ../mail/mail-stub-exchange.c:2745
+#: ../mail/mail-stub-exchange.c:2546 ../mail/mail-stub-exchange.c:2586
+#: ../mail/mail-stub-exchange.c:2652 ../mail/mail-stub-exchange.c:2702
+#: ../mail/mail-stub-exchange.c:2765
 msgid "Permission denied"
 msgstr "Brak uprawnień"
 
@@ -342,7 +389,7 @@ msgstr "Nie można otworzyć folderu elementów usuniętych"
 
 #: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
 msgid "Could not get new messages"
-msgstr "Nie można pobrać nowych listów"
+msgstr "Nie można pobrać nowych wiadomości"
 
 #: ../mail/mail-stub-exchange.c:1386
 msgid "Could not empty Deleted Items folder"
@@ -350,23 +397,23 @@ msgstr "Nie można wyczyścić folderu elementów usuniętych"
 
 #: ../mail/mail-stub-exchange.c:1463
 msgid "Could not append message; mailbox is over quota"
-msgstr "Nie można dołączyć listu; przekroczono pojemność folderu"
+msgstr "Nie można dopisać wiadomości; przekroczono pojemność folderu"
 
 #: ../mail/mail-stub-exchange.c:1464
 msgid "Could not append message"
-msgstr "Nie można dodać listu"
+msgstr "Nie można dopisać wiadomości"
 
 #: ../mail/mail-stub-exchange.c:2016
 msgid "No such message"
-msgstr "Nie ma takiego listu"
+msgstr "Nie ma takiej wiadomości"
 
 #: ../mail/mail-stub-exchange.c:2069
 msgid "Message has been deleted"
-msgstr "List został usunięty"
+msgstr "Wiadomość została usunięta"
 
 #: ../mail/mail-stub-exchange.c:2071
 msgid "Error retrieving message"
-msgstr "Błąd podczas pobierania listu"
+msgstr "Błąd podczas pobierania wiadomości"
 
 #: ../mail/mail-stub-exchange.c:2113
 msgid "Mailbox does not support full-text searching"
@@ -374,18 +421,18 @@ msgstr "Skrzynka nie obsługuje wyszukiwania pełnotekstowego"
 
 #: ../mail/mail-stub-exchange.c:2211
 msgid "Unable to move/copy messages"
-msgstr "Nie można przenieść/skopiować listu"
+msgstr "Nie można przenieść/skopiować wiadomości"
 
 # FIXME - nie mam pjęcia jak inaczej
-#: ../mail/mail-stub-exchange.c:2441
+#: ../mail/mail-stub-exchange.c:2461
 msgid "No mail submission URI for this mailbox"
 msgstr "Brak adresu URI podawania poczty dla tej skrzynki"
 
-#: ../mail/mail-stub-exchange.c:2477
+#: ../mail/mail-stub-exchange.c:2497
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Serwer nie będzie przyjmował poczty poprzez transport Exchange"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:2499
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -394,25 +441,25 @@ msgstr ""
 "Twoje konto nie posiada uprawnień do używania <%s>\n"
 "jako adresu nadawcy."
 
-#: ../mail/mail-stub-exchange.c:2491
+#: ../mail/mail-stub-exchange.c:2511
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
-"Nie można wysłać listu.\n"
+"Nie można wysłać wiadomości.\n"
 "Może to oznaczać, że konto przekroczyło dopuszczalną pojemność."
 
-#: ../mail/mail-stub-exchange.c:2495
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Could not send message"
-msgstr "Nie można wysłać listu"
+msgstr "Nie można wysłać wiadomości"
 
-#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2751
+#: ../mail/mail-stub-exchange.c:2538 ../mail/mail-stub-exchange.c:2591
+#: ../mail/mail-stub-exchange.c:2656 ../mail/mail-stub-exchange.c:2707
+#: ../mail/mail-stub-exchange.c:2771
 msgid "Generic error"
 msgstr "Błąd ogólny"
 
-#: ../mail/mail-stub-exchange.c:2522
+#: ../mail/mail-stub-exchange.c:2542
 msgid "Folder already exists"
 msgstr "Folder już istnieje"
 
