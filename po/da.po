@@ -1,39 +1,64 @@
 # Danish translation of Evolution Exchange
-# Copyright (C) 2004, 06 Free Software Foundation, Inc.
+# Copyright (C) 2004-07 Free Software Foundation, Inc.
 # This file is distributed under the same license as the evolution-exchange package.
 # Ole Laursen <olau@hardworking.dk>, 2006.
 # Martin Willemoes Hansen <mwh@sysrq.dk>, 2004, 05.
+# Peter Bach <bach.peter@gmail.com>, 2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-08 23:01+0100\n"
-"PO-Revision-Date: 2006-03-08 23:01+0100\n"
-"Last-Translator: Ole Laursen <olau@hardworking.dk>\n"
+"POT-Creation-Date: 2007-02-22 10:31+0200\n"
+"PO-Revision-Date: 2007-02-22 10:43+0200\n"
+"Last-Translator: Peter Bach <bach.peter@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1867
-#: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr "Angiver tidsintervallet for opdatering af GAL-mellemlageret."
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+msgid "This key specifies the number of days interval between the GAL cache refresh. Set this value to zero, if you don't want to update GAL and use the curernt cache forever. This will work only if you have enabled offline caching for GAL."
+msgstr "Denne nøgle angiver antallet af dage mellem opdatering af GAL-mellemlageret. Sæt denne værdi til nul, hvis du ikke ønsker at opdatere GAL og bruge det nuværende mellemlager fremover. Dette vil kun virke hvis du aktiverer afkoblet mellemlagering for GAL."
+
+#: ../addressbook/e-book-backend-exchange.c:1882
+#: ../addressbook/e-book-backend-gal.c:1547
+#: ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Søger ..."
 
-#: ../addressbook/e-book-backend-gal.c:267
+#: ../addressbook/e-book-backend-gal.c:265
 msgid "Reconnecting to LDAP server..."
 msgstr "Tilslutter LDAP-server igen ..."
 
-#: ../addressbook/e-book-backend-gal.c:1363
+#: ../addressbook/e-book-backend-gal.c:1384
 msgid "Receiving LDAP search results..."
 msgstr "Modtager søgeresultater fra LDAP-server ..."
 
-#: ../addressbook/e-book-backend-gal.c:1522
+#: ../addressbook/e-book-backend-gal.c:1570
 msgid "Error performing search"
 msgstr "Fejl under udføring af søgning"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1934
+#: ../addressbook/e-book-backend-gal.c:1758
+#, c-format
+msgid "Internal error.\n"
+msgstr "Generel fejl.\n"
+
+#: ../addressbook/e-book-backend-gal.c:1769
+#, c-format
+msgid "Paged results response control could not be decoded.\n"
+msgstr "Sideresultater svarkontrol kunne ikke afkodes.\n"
+
+#: ../addressbook/e-book-backend-gal.c:1775
+#, c-format
+msgid "Invalid entries estimate in paged results response.\n"
+msgstr "Ugyldig punkter forventet i sideresultater svar.\n"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:2015
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -42,10 +67,19 @@ msgstr ""
 "Kan ikke planlægge resursen \"%s\" for genindtræffende møder.\n"
 "Du skal booke hvert møde separat."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1952
+#: ../calendar/e-cal-backend-exchange-calendar.c:2033
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Resursen \"%s\" er optaget under den valgte tidsperiode."
+
+#: ../calendar/e-cal-backend-exchange.c:375
+#: ../calendar/e-cal-backend-exchange.c:384
+msgid "Authentication failed"
+msgstr "Autorisation mislykkedes"
+
+#: ../calendar/e-cal-backend-exchange.c:395
+msgid "Could not find the calendar"
+msgstr "Kunne ikke finde kalenderen"
 
 #: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
@@ -99,126 +133,129 @@ msgstr "Henter sammendragsinformation for nye beskeder"
 msgid "No folder name found\n"
 msgstr "Intet mappenavn fundet\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
-#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2724
+#: ../camel/camel-exchange-journal.c:372
+#: ../mail/mail-stub-exchange.c:2569
+#: ../mail/mail-stub-exchange.c:2613
+#: ../mail/mail-stub-exchange.c:2648
+#: ../mail/mail-stub-exchange.c:2675
+#: ../mail/mail-stub-exchange.c:2728
+#: ../mail/mail-stub-exchange.c:2750
 msgid "Folder doesn't exist"
 msgstr "Mappen findes ikke"
 
 #: ../camel/camel-exchange-journal.c:436
 msgid "Cannot append message in offline mode: cache unavailable"
-msgstr ""
-"Kan ikke tilføje besked i afkoblet tilstand: Mellemlager ikke tilgængeligt"
+msgstr "Kan ikke tilføje besked i afkoblet tilstand: Mellemlager ikke tilgængeligt"
 
 #: ../camel/camel-exchange-journal.c:452
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Kunne ikke tilføje besked i afkoblet tilstand: %s"
 
+#: ../camel/camel-exchange-provider.c:40
+msgid "Checking for New Mail"
+msgstr "Kontrollerer for ny post"
+
+#: ../camel/camel-exchange-provider.c:42
+#: ../camel/camel-exchange-provider.c:66
+msgid "C_heck for new messages in all folders"
+msgstr "_Kontrollér for nye beskeder i alle mapper"
+
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:44
+#: ../camel/camel-exchange-provider.c:50
 msgid "Windows User_name:"
 msgstr "Windows-bruger_navn:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:49
+#: ../camel/camel-exchange-provider.c:55
 msgid "Global Address List / Active Directory"
 msgstr "Global adresseliste / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:59
 msgid "_Global Catalog server name:"
 msgstr "Navn på _global katalogserver:"
 
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:61
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "_Begræns antallet af GAL-svar: %s"
 
-#: ../camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:64
 msgid "Options"
 msgstr "Indstillinger"
 
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:68
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "Advarselsperiode for _udløb af adgangskode: %s"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:70
 msgid "Automatically synchroni_ze account locally"
 msgstr "_Synkronisér automatisk konto lokalt"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:73
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "Anvend _filtre på nye beskeder i indbakken på denne server"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:75
 msgid "Check new messages for _Junk contents"
 msgstr "Kontrollér om nye beskeder er s_pam"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:77
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Kontrollér _kun om beskeder er spam i indbakken"
 
-#: ../camel/camel-exchange-provider.c:79
+#: ../camel/camel-exchange-provider.c:87
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:81
+#: ../camel/camel-exchange-provider.c:89
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Til håndtering af e-post (og andre data) på Microsoft Exchange-servere"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:105
 msgid "Secure Password"
 msgstr "Sikker adgangskode"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:100
-msgid ""
-"This option will connect to the Exchange server using secure password (NTLM) "
-"authentication."
-msgstr ""
-"Dette alternativ vil tilslutte Exchange-serveren ved hjælp af sikker "
-"adgangskode (NTLM)-godkendelse."
-
 #: ../camel/camel-exchange-provider.c:108
+msgid "This option will connect to the Exchange server using secure password (NTLM) authentication."
+msgstr "Dette alternativ vil tilslutte Exchange-serveren ved hjælp af sikker adgangskode (NTLM)-godkendelse."
+
+#: ../camel/camel-exchange-provider.c:116
 msgid "Plaintext Password"
 msgstr "Adgangskode i klartekst"
 
-#: ../camel/camel-exchange-provider.c:110
-msgid ""
-"This option will connect to the Exchange server using standard plaintext "
-"password authentication."
-msgstr ""
-"Dette alternativ vil tilslutte Exchange-serveren ved hjælp af "
-"standardgodkendelse med adgangskode i klartekst."
+#: ../camel/camel-exchange-provider.c:118
+msgid "This option will connect to the Exchange server using standard plaintext password authentication."
+msgstr "Dette alternativ vil tilslutte Exchange-serveren ved hjælp af standardgodkendelse med adgangskode i klartekst."
 
-#: ../camel/camel-exchange-store.c:308
+#: ../camel/camel-exchange-store.c:310
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange-server %s"
 
-#: ../camel/camel-exchange-store.c:311
+#: ../camel/camel-exchange-store.c:313
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Exchange-konto for %s på %s"
 
-#: ../camel/camel-exchange-store.c:352
+#: ../camel/camel-exchange-store.c:354
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sAngiv adgangskode for %s"
 
-#: ../camel/camel-exchange-store.c:403
+#: ../camel/camel-exchange-store.c:405
 msgid "Evolution Exchange backend process"
 msgstr "Bagendeproces for Evolution Exchange"
 
-#: ../camel/camel-exchange-store.c:444
+#: ../camel/camel-exchange-store.c:446
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -226,39 +263,38 @@ msgstr ""
 "Kunne ikke godkendes af serveren. (Er adgangskoden fejlagtigt?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:486
+#: ../camel/camel-exchange-store.c:488
 #, c-format
 msgid "No such folder %s"
 msgstr "Mappen %s findes ikke"
 
-#: ../camel/camel-exchange-store.c:563
+#: ../camel/camel-exchange-store.c:565
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Kan ikke abonnere på mappe i afkoblet tilstand."
 
-#: ../camel/camel-exchange-store.c:580
+#: ../camel/camel-exchange-store.c:582
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Kan ikke opsige abonnement på mappe i afkoblet tilstand."
 
-#: ../camel/camel-exchange-store.c:695
+#: ../camel/camel-exchange-store.c:714
 msgid "Cannot get folder info in offline mode."
 msgstr "Kan ikke hente information for mappen i afkoblet tilstand."
 
-#: ../camel/camel-exchange-store.c:766
+#: ../camel/camel-exchange-store.c:785
 msgid "Cannot create folder in offline mode."
 msgstr "Kan ikke oprette mappe i afkoblet tilstand."
 
-#: ../camel/camel-exchange-store.c:793
+#: ../camel/camel-exchange-store.c:812
 msgid "Cannot delete folder in offline mode."
 msgstr "Kan ikke slette mappen i afkoblet tilstand."
 
-#: ../camel/camel-exchange-store.c:809
+#: ../camel/camel-exchange-store.c:828
 msgid "Cannot rename folder in offline mode."
 msgstr "Kan ikke omdøbe mappen i afkoblet tilstand."
 
 #: ../camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr ""
-"Exchange-transporten kan kun anvendes sammen med en Exchange-e-post-kilde"
+msgstr "Exchange-transporten kan kun anvendes sammen med en Exchange-e-post-kilde"
 
 #: ../camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
@@ -268,60 +304,67 @@ msgstr "Kan ikke sende besked: en eller flere ugyldige modtagere"
 msgid "Could not find 'From' address in message"
 msgstr "Kunne ikke finde \"Fra\"-adresse i beskeden"
 
-#: ../camel/camel-stub.c:134
+#: ../camel/camel-stub.c:152
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Kunne ikke oprette sokkel: %s"
 
-#: ../camel/camel-stub.c:149
+#: ../camel/camel-stub.c:170
+#, c-format
+msgid "Could not connect to %s: Please restart Evolution"
+msgstr "Kunne ikke tilslutte til %s: Genstart venligst Evolution"
+
+#: ../camel/camel-stub.c:175
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Kunne ikke tilslutte %s: %s"
 
-#: ../camel/camel-stub.c:179
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Path too long: %s"
 msgstr "Søgestien er for lang: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:231
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Kunne ikke starte statustråd: %s"
 
-#: ../camel/camel-stub.c:457
+#: ../camel/camel-stub.c:485
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Mistede forbindelsen til %s"
 
-#: ../camel/camel-stub.c:461
+#: ../camel/camel-stub.c:489
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Fejl ved kommunikation med %s: %s"
 
 #: ../mail/mail-stub-exchange.c:257
+#: ../mail/mail-stub-exchange.c:755
 msgid "No such folder"
 msgstr "Mappen findes ikke"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
-#: ../mail/mail-stub-exchange.c:2739
+#: ../mail/mail-stub-exchange.c:280
+#: ../mail/mail-stub-exchange.c:1390
+#: ../mail/mail-stub-exchange.c:2546
+#: ../mail/mail-stub-exchange.c:2586
+#: ../mail/mail-stub-exchange.c:2652
+#: ../mail/mail-stub-exchange.c:2702
+#: ../mail/mail-stub-exchange.c:2765
 msgid "Permission denied"
 msgstr "Adgang nægtet"
 
-#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
+#: ../mail/mail-stub-exchange.c:578
+#: ../mail/mail-stub-exchange.c:600
 msgid "Could not open folder: Permission denied"
 msgstr "Kunne ikke åbne mappen: Adgang nægtet"
 
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
+#: ../mail/mail-stub-exchange.c:584
+#: ../mail/mail-stub-exchange.c:707
 msgid "Could not open folder"
 msgstr "Kunne ikke åbne mappen"
-
-#: ../mail/mail-stub-exchange.c:755
-msgid "No such folder."
-msgstr "Mappen findes ikke."
 
 #: ../mail/mail-stub-exchange.c:764
 msgid "Could not create folder."
@@ -331,7 +374,8 @@ msgstr "Kunne ikke oprette mappe."
 msgid "Could not open Deleted Items folder"
 msgstr "Kunne ikke åbne mappen slettede-elementer"
 
-#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
+#: ../mail/mail-stub-exchange.c:1175
+#: ../mail/mail-stub-exchange.c:1216
 msgid "Could not get new messages"
 msgstr "Kunne ikke hente nye beskeder"
 
@@ -367,15 +411,15 @@ msgstr "Postkassen understøtter ikke fuldtekstsøgning"
 msgid "Unable to move/copy messages"
 msgstr "Kan ikke flytte/kopiere beskeder"
 
-#: ../mail/mail-stub-exchange.c:2441
+#: ../mail/mail-stub-exchange.c:2461
 msgid "No mail submission URI for this mailbox"
 msgstr "Ingen URI for e-post-sendende for denne postkasse"
 
-#: ../mail/mail-stub-exchange.c:2477
+#: ../mail/mail-stub-exchange.c:2497
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Serveren acceptere ikke e-post via Exchange-transporten"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:2499
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -384,7 +428,7 @@ msgstr ""
 "Din konto har ikke tilladelse til at anvende <%s>\n"
 "som Fra-adresse."
 
-#: ../mail/mail-stub-exchange.c:2491
+#: ../mail/mail-stub-exchange.c:2511
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -392,17 +436,19 @@ msgstr ""
 "Kunne ikke sende beskeden.\n"
 "Dette kan indebære at din konto har overskredet sin kvote."
 
-#: ../mail/mail-stub-exchange.c:2495
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Could not send message"
 msgstr "Kunne ikke sende beskeden"
 
-#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
-#: ../mail/mail-stub-exchange.c:2745
+#: ../mail/mail-stub-exchange.c:2538
+#: ../mail/mail-stub-exchange.c:2591
+#: ../mail/mail-stub-exchange.c:2656
+#: ../mail/mail-stub-exchange.c:2707
+#: ../mail/mail-stub-exchange.c:2771
 msgid "Generic error"
 msgstr "Generel fejl"
 
-#: ../mail/mail-stub-exchange.c:2522
+#: ../mail/mail-stub-exchange.c:2542
 msgid "Folder already exists"
 msgstr "Mappen findes allerede"
 
@@ -425,8 +471,7 @@ msgid ""
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
 "Kunne ikke tilslutte Exchange-serveren.\n"
-"Kontrollér at URL'en er korrekt (prøv med \"%s\" i stedet for \"%s\"?) og "
-"forsøg igen."
+"Kontrollér at URL'en er korrekt (prøv med \"%s\" i stedet for \"%s\"?) og forsøg igen."
 
 #: ../storage/exchange-autoconfig-wizard.c:219
 msgid ""
@@ -450,13 +495,11 @@ msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again.\n"
 "\n"
-"You may need to specify the Windows domain name as part of your username "
-"(eg, \"MY-DOMAIN\\%s\")."
+"You may need to specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
 "Kunne ikke godkendes af Exchange-serveren.\n"
 "Kontrollér at brugernavnet og adgangskoden er korrekt og forsøg igen.\n"
-"Du bliver muligvis nød til at angive Windows-domænenavnet som en del af dit "
-"brugernavn (fx \"MIT-DOMÆNE\\%s\")."
+"Du bliver muligvis nød til at angive Windows-domænenavnet som en del af dit brugernavn (fx \"MIT-DOMÆNE\\%s\")."
 
 #: ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
@@ -468,48 +511,26 @@ msgstr ""
 
 #: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
+"Ximian Connector requires access to certain functionality on the Exchange Server that appears to be disabled or blocked.  (This is usually unintentional.)  Your Exchange Administrator will need to enable this functionality in order for you to be able to use Ximian Connector.\n"
 "\n"
-"For information to provide to your Exchange administrator, please follow the "
-"link below:"
+"For information to provide to your Exchange administrator, please follow the link below:"
 msgstr ""
-"Ximian Connector kræver adgang til en del funktionalitet på Exchange-"
-"serveren som virker til at være deaktiveret eller blokeret (dette er "
-"almindeligvis ikke med vilje). Din Exchange-administrator skal aktivere "
-"denne funktionalitet for at du kan anvende Ximian Connector.\n"
+"Ximian Connector kræver adgang til en del funktionalitet på Exchange-serveren som virker til at være deaktiveret eller blokeret (dette er almindeligvis ikke med vilje). Din Exchange-administrator skal aktivere denne funktionalitet for at du kan anvende Ximian Connector.\n"
 "\n"
-"Følg linken nedenfor for information som du kan give din Exchange-"
-"administrator:"
+"Følg linken nedenfor for information som du kan give din Exchange-administrator:"
 
 #: ../storage/exchange-autoconfig-wizard.c:275
-msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"URL'en til Exchange-serveren som du angav er for en Exchange 5.5-server. "
-"Ximian Connector understøtter kun Microsoft Exchange 2000 og 2003."
+msgid "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian Connector supports Microsoft Exchange 2000 and 2003 only."
+msgstr "URL'en til Exchange-serveren som du angav er for en Exchange 5.5-server. Ximian Connector understøtter kun Microsoft Exchange 2000 og 2003."
 
 #: ../storage/exchange-autoconfig-wizard.c:288
-msgid ""
-"Could not configure Exchange account because an unknown error occurred. "
-"Check the URL, username, and password, and try again."
-msgstr ""
-"Kunne ikke konfigurere Exchange-kontoen eftersom en ukendt fejl opstod. "
-"Kontrollér URL'en, brugernavnet og adgangskoden og forsøg igen."
+msgid "Could not configure Exchange account because an unknown error occurred. Check the URL, username, and password, and try again."
+msgstr "Kunne ikke konfigurere Exchange-kontoen eftersom en ukendt fejl opstod. Kontrollér URL'en, brugernavnet og adgangskoden og forsøg igen."
 
 #: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
-msgid ""
-"Could not authenticate to the Global Catalog server. You may need to go back "
-"and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
-"\\%s\")."
-msgstr ""
-"Kunne ikke godkendes af den globale katalogserver. Du bliver muligvis nød "
-"til at gå tilbage og angive Windows-domænenavnet som del af dit brugernavn "
-"(fx \"MIT-DOMÆNE\\%s\")."
+msgid "Could not authenticate to the Global Catalog server. You may need to go back and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
+msgstr "Kunne ikke godkendes af den globale katalogserver. Du bliver muligvis nød til at gå tilbage og angive Windows-domænenavnet som del af dit brugernavn (fx \"MIT-DOMÆNE\\%s\")."
 
 #: ../storage/exchange-autoconfig-wizard.c:339
 msgid ""
@@ -609,63 +630,40 @@ msgstr "Konfiguration af Ximian Connector"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:20
 msgid ""
-"Ximian Connector can use account information from your existing Outlook Web "
-"Access (OWA) account.\n"
+"Ximian Connector can use account information from your existing Outlook Web Access (OWA) account.\n"
 "\n"
-"Enter your OWA site address (URL), username, and password, then click "
-"\"Forward\".\n"
+"Enter your OWA site address (URL), username, and password, then click \"Forward\".\n"
 msgstr ""
-"Ximian Connector kan anvende kontoinformation fra din eksisterende Outlook "
-"Web Access (OWA)-konto.\n"
+"Ximian Connector kan anvende kontoinformation fra din eksisterende Outlook Web Access (OWA)-konto.\n"
 "\n"
-"Angiv din OWA-sted-adresse (URL), brugernavn og adgangskode, og klik "
-"derefter på \"Fremad\".\n"
+"Angiv din OWA-sted-adresse (URL), brugernavn og adgangskode, og klik derefter på \"Fremad\".\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:24
-msgid ""
-"Ximian Connector could not find the Global Catalog replica for your site. "
-"Please enter the name of your Global Catalog server. You may need to ask "
-"your system administrator for the correct value.\n"
-msgstr ""
-"Ximian Connector kunne ikke finde kopien af det globale katalog for dit "
-"sted. Angiv navnet på serveren for dit globale katalog. Du bliver muligvis "
-"nød til at spørge din systemadministrator om den korrekte værdi.\n"
+msgid "Ximian Connector could not find the Global Catalog replica for your site. Please enter the name of your Global Catalog server. You may need to ask your system administrator for the correct value.\n"
+msgstr "Ximian Connector kunne ikke finde kopien af det globale katalog for dit sted. Angiv navnet på serveren for dit globale katalog. Du bliver muligvis nød til at spørge din systemadministrator om den korrekte værdi.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:26
-msgid ""
-"Ximian Connector has encountered a problem configuring your Exchange "
-"account.\n"
-msgstr ""
-"Ximian Connector er stødt på et problem ved konfigurationen af din Exchange-"
-"konto.\n"
+msgid "Ximian Connector has encountered a problem configuring your Exchange account.\n"
+msgstr "Ximian Connector er stødt på et problem ved konfigurationen af din Exchange-konto.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
-"Your Connector account is now ready to use. Click the \"Apply\" button to "
-"save your\n"
+"Your Connector account is now ready to use. Click the \"Apply\" button to save your\n"
 "settings."
 msgstr ""
 "Din Connector-konto er nu klar til brug. Klik på knappen \"Anvend\" for at\n"
 "gemme dine indstillinger."
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:30
-msgid ""
-"Your account information is as follows. Please correct any errors, then "
-"click \"Forward\".\n"
-msgstr ""
-"Din kontoinformation er som følger. Ret eventuelle fejl og klik derefter på "
-"\"Fremad\".\n"
+msgid "Your account information is as follows. Please correct any errors, then click \"Forward\".\n"
+msgstr "Din kontoinformation er som følger. Ret eventuelle fejl og klik derefter på \"Fremad\".\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
 #: ../storage/exchange-change-password.c:114
-msgid ""
-"The current password does not match the existing password for your account. "
-"Please enter the correct password"
-msgstr ""
-"Den nuværende adgangskode matcher ikke den eksisterende adgangskode for din "
-"konto. Angiv den korrekte adgangskode"
+msgid "The current password does not match the existing password for your account. Please enter the correct password"
+msgstr "Den nuværende adgangskode matcher ikke den eksisterende adgangskode for din konto. Angiv den korrekte adgangskode"
 
 #: ../storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
@@ -762,28 +760,22 @@ msgstr "Migrerer Exchange-mapper ..."
 #: ../storage/exchange-migrate.c:66
 #, c-format
 msgid ""
-"The location and hierarchy of the Evolution exchange account folders are "
-"changed since Evolution %d.%d.%d.\n"
+"The location and hierarchy of the Evolution exchange account folders are changed since Evolution %d.%d.%d.\n"
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
-"Stedet og hierarkiet for Evolution-exchangekontomapperne har ændret sig "
-"siden Evolution %d.%d.%d.\n"
+"Stedet og hierarkiet for Evolution-exchangekontomapperne har ændret sig siden Evolution %d.%d.%d.\n"
 "\n"
 "Vent venligst mens Evolution migrerer dine mapper ..."
 
 #: ../storage/exchange-migrate.c:99
 #, c-format
 msgid ""
-"Warning: Evolution could not migrate all the Exchange account data from the "
-"version %d.%d.%d. \n"
-"The data hasn't been deleted, but will not be seen by this version of "
-"Evolution"
+"Warning: Evolution could not migrate all the Exchange account data from the version %d.%d.%d. \n"
+"The data hasn't been deleted, but will not be seen by this version of Evolution"
 msgstr ""
-"Advarsel: Evolution kunne ikke migrere alle Exchange-kontodata fra version %"
-"d.%d.%d. \n"
-"Disse data er ikke slettet, men de kommer ikke til at kunne ses af denne "
-"version af Evolution"
+"Advarsel: Evolution kunne ikke migrere alle Exchange-kontodata fra version %d.%d.%d. \n"
+"Disse data er ikke slettet, men de kommer ikke til at kunne ses af denne version af Evolution"
 
 #: ../storage/exchange-migrate.c:130
 #, c-format
@@ -810,8 +802,7 @@ msgstr "<b>Status:</b>"
 
 #: ../storage/exchange-oof.glade.h:6
 msgid ""
-"<small>The message specified below will be automatically sent to each person "
-"who sends\n"
+"<small>The message specified below will be automatically sent to each person who sends\n"
 "mail to you while you are out of the office.</small>"
 msgstr ""
 "<small>Beskeden nedenfor sendes automatisk til hver person som\n"
@@ -946,16 +937,12 @@ msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Abonnér på en mappe som tilhøre en anden bruger på serveren"
 
 #: ../storage/ximian-connector.xml.h:6
-msgid ""
-"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
-msgstr ""
-"Opsig abonnement på en mappe som blev tilføjet med \"Abonnér på anden "
-"_brugers mappe\""
+msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgstr "Opsig abonnement på en mappe som blev tilføjet med \"Abonnér på anden _brugers mappe\""
 
 #: ../storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
-msgstr ""
-"Vis eller ændre dine indstillinger for delegation af Exchange-kalenderen"
+msgstr "Vis eller ændre dine indstillinger for delegation af Exchange-kalenderen"
 
 #: ../storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
@@ -977,9 +964,10 @@ msgstr "_Borte fra kontoret-assistent"
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Opsig abonnement på anden brugers mappe"
 
+#~ msgid "No such folder."
+#~ msgstr "Mappen findes ikke."
 #~ msgid "Can only expunge in Deleted Items folder"
 #~ msgstr "Kan kun tømme i mappen slettede-elementer"
-
 #~ msgid ""
 #~ "Ximian Connector requires access to certain functionality on the Exchange "
 #~ "Server that appears to be disabled or blocked.  (This is usually "
@@ -998,229 +986,162 @@ msgstr "_Opsig abonnement på anden brugers mappe"
 #~ "Følg linken nedenfor for information som du kan give din Exchange-"
 #~ "administrator:\n"
 #~ "%s"
-
 #~ msgid "Enter password for %s"
 #~ msgstr "Angiv adgangskode for %s"
-
 #~ msgid "Enter password"
 #~ msgstr "Angiv adgangskode"
-
 #~ msgid "Owner"
 #~ msgstr "Ejer"
-
 #~ msgid "Publishing Editor"
 #~ msgstr "Publiceringsredaktør"
-
 #~ msgid "Editor"
 #~ msgstr "Redaktør"
-
 #~ msgid "Publishing Author"
 #~ msgstr "Publiceringsforfatter"
-
 #~ msgid "Author"
 #~ msgstr "Forfatter"
-
 #~ msgid "Non-editing Author"
 #~ msgstr "Ikke-redigerende forfatter"
-
 #~ msgid "Reviewer"
 #~ msgstr "Gennemlæser"
-
 #~ msgid "Contributor"
 #~ msgstr "Bidragyder"
-
 #~ msgid "Custom"
 #~ msgstr "Tilpasset"
-
 #~ msgid "Select User"
 #~ msgstr "Vælg bruger"
-
 #~ msgid "Addressbook..."
 #~ msgstr "Adressebog ..."
-
 #~ msgid ""
 #~ "Cannot create the specified folder:\n"
 #~ "%s"
 #~ msgstr ""
 #~ "Kan ikke oprette den angivne mappe:\n"
 #~ "%s"
-
 #~ msgid "The specified folder name is not valid: %s"
 #~ msgstr "Det angivne mappenavn er ikke gyldigt: %s"
-
 #~ msgid "Create New Folder"
 #~ msgstr "Opret ny mappe"
-
 #~ msgid "Folder _name:"
 #~ msgstr "Mappe_navn:"
-
 #~ msgid "Folder _type:"
 #~ msgstr "Mappe_type:"
-
 #~ msgid "Specify where to create the folder:"
 #~ msgstr "Angiv hvor mappen skal oprettes:"
-
 #~ msgid ""
 #~ "Cannot transfer folder:\n"
 #~ "%s"
 #~ msgstr ""
 #~ "Kan ikke overføre mappen:\n"
 #~ "%s"
-
 #~ msgid ""
 #~ "Cannot delete folder:\n"
 #~ "%s"
 #~ msgstr ""
 #~ "Kan ikke fjerne mappen:\n"
 #~ "%s"
-
 #~ msgid "Really delete folder \"%s\"?"
 #~ msgstr "Er du sikker på at du vil slette mappen \"%s\"?"
-
 #~ msgid "Delete \"%s\""
 #~ msgstr "Slet \"%s\""
-
 #~ msgid ""
 #~ "Cannot rename folder:\n"
 #~ "%s"
 #~ msgstr ""
 #~ "Kan ikke omdøbe mappen:\n"
 #~ "%s"
-
 #~ msgid "Rename the \"%s\" folder to:"
 #~ msgstr "Omdøb mappen \"%s\" til:"
-
 #~ msgid "Rename Folder"
 #~ msgstr "Omdøb mappen"
-
 #~ msgid "A folder named \"%s\" already exists. Please use a different name."
 #~ msgstr "Der findes allerede en mappe med navnet \"%s\". Vælg et andet navn."
-
 #~ msgid "Please select a user."
 #~ msgstr "Vælg en bruger."
-
 #~ msgid "Opening Folder"
 #~ msgstr "Åbner mappe"
-
 #~ msgid "Opening Folder \"%s\""
 #~ msgstr "Åbner mappen \"%s\""
-
 #~ msgid "in \"%s\" ..."
 #~ msgstr "i \"%s\" ..."
-
 #~ msgid "Could not open other user's folder: %s."
 #~ msgstr "Kunne ikke åbne anden brugers mappe: %s."
-
 #~ msgid "Cannot find the specified other user's folder."
 #~ msgstr "Kan ikke finde den angivne anden brugers mappe."
-
 #~ msgid ""
 #~ "Cannot unsubscribe from folder:\n"
 #~ "%s"
 #~ msgstr ""
 #~ "Kan ikke opsige abonnement på mappen:\n"
 #~ "%s"
-
 #~ msgid "Really unsubscribe from folder \"%s\"?"
 #~ msgstr "Er du sikker på at du vil opsige abonnementet på mappen \"%s\"?"
-
 #~ msgid "Unsubscribe from \"%s\""
 #~ msgstr "Opsig abonnement på \"%s\""
-
 #~ msgid "Open Other User's Folder"
 #~ msgstr "Åben anden brugers mappe"
-
 #~ msgid "_Account:"
 #~ msgstr "_Konto:"
-
 #~ msgid "_Folder Name:"
 #~ msgstr "_Mappenavn:"
-
 #~ msgid "_User:"
 #~ msgstr "Br_uger:"
-
 #~ msgid "Checkbox"
 #~ msgstr "Afkrydsningsfelt"
-
 #~ msgid "Folder"
 #~ msgstr "Mappe"
-
 #~ msgid "No error"
 #~ msgstr "Ingen fejl"
-
 #~ msgid "A folder with the same name already exists"
 #~ msgstr "En mappe med samme navn findes allerede"
-
 #~ msgid "The specified folder type is not valid"
 #~ msgstr "Den angivne mappetype er ikke gyldig"
-
 #~ msgid "I/O error"
 #~ msgstr "I/O-fejl"
-
 #~ msgid "Not enough space to create the folder"
 #~ msgstr "Ikke nok plads til at oprette mappen"
-
 #~ msgid "The folder is not empty"
 #~ msgstr "Mappen er ikke tom"
-
 #~ msgid "The specified folder was not found"
 #~ msgstr "Den angivne mappe blev ikke fundet"
-
 #~ msgid "Function not implemented in this storage"
 #~ msgstr "Funktionen er ikke indarbejdet i dette lager"
-
 #~ msgid "Operation not supported"
 #~ msgstr "Operationen er ikke understøttet"
-
 #~ msgid "The specified type is not supported in this storage"
 #~ msgstr "Den angivne type understøttes ikke i dette lager"
-
 #~ msgid "The specified folder cannot be modified or removed"
 #~ msgstr "Den angivne mappe kan ikke ændres eller fjernes"
-
 #~ msgid "Cannot make a folder a child of one of its descendants"
 #~ msgstr "Kan ikke gøre en mappe til undermappe af dens undermapper"
-
 #~ msgid "Cannot create a folder with that name"
 #~ msgstr "Kan ikke oprette en mappe med det navn"
-
 #~ msgid "This operation cannot be performed in off-line mode"
 #~ msgstr "Denne handling kan ikke udføres i afkoblet tilstand"
-
 #~ msgid "Unknown error"
 #~ msgstr "Ukendt fejl"
-
 #~ msgid "%s's Folders"
 #~ msgstr "%s's mapper"
-
 #~ msgid "Cannot change password due to configuration problems"
 #~ msgstr "Kan ikke skifte adgangskode på grund af konfigurationsproblemer"
-
 #~ msgid ""
 #~ "Server rejected password because it is too weak.\n"
 #~ "Try again with a different password."
 #~ msgstr ""
 #~ "Serveren afviste adgangskoden fordi den er for enkel.\n"
 #~ "Forsøg igen med en anden adgangskode."
-
 #~ msgid "Could not change password"
 #~ msgstr "Kunne ikke ændre adgangskode"
-
 #~ msgid "Personal Folders"
 #~ msgstr "Personlige mapper"
-
 #~ msgid "Favorite Public Folders"
 #~ msgstr "Offentlige favoritmapper"
-
 #~ msgid "All Public Folders"
 #~ msgstr "Alle offentlige mapper"
-
 #~ msgid "Global Address List"
 #~ msgstr "Global adresseliste"
-
 #~ msgid "Exchange Account is offline. Cannot display folders\n"
 #~ msgstr "Exchange-konto er i afkoblet tilstand Kan ikke vise mapper\n"
-
 #~ msgid ""
 #~ "Could not authenticate to server.\n"
 #~ "\n"
@@ -1239,10 +1160,8 @@ msgstr "_Opsig abonnement på anden brugers mappe"
 #~ "\n"
 #~ "Eller så har du helt enkelt skrevet din adgangskode forkert.\n"
 #~ "\n"
-
 #~ msgid "Mailbox for %s is not on this server."
 #~ msgstr "Postkassen for %s findes ikke på denne server."
-
 #~ msgid ""
 #~ "The server '%s' is running Exchange 5.5 and is\n"
 #~ "therefore not compatible with Ximian Connector"
@@ -1250,319 +1169,3 @@ msgstr "_Opsig abonnement på anden brugers mappe"
 #~ "Serveren \"%s\" køre Exchange 5.5 og er \n"
 #~ "derfor ikke kompatibel med Ximian Connector"
 
-# Osikker.
-#~ msgid ""
-#~ "Could not find Exchange Web Storage System at %s.\n"
-#~ "If OWA is running on a different path, you must specify that in the\n"
-#~ "account configuration dialog."
-#~ msgstr ""
-#~ "Kunne ikke finde Exchange-weblagringssystemet på %s.\n"
-#~ "Hvis OWA benytter en anden søgesti skal du angive dette i "
-#~ "kontokonfigurationsvinduet."
-
-#~ msgid "No mailbox for user %s on %s.\n"
-#~ msgstr "Ingen postkasse for brugeren %s på %s.\n"
-
-#~ msgid "Could not connect to server %s: %s"
-#~ msgstr "Kunne ikke tilslutte serveren %s: %s"
-
-#~ msgid "Could not resolve hostname"
-#~ msgstr "Kunne ikke slå værtsnavn op"
-
-#~ msgid "Network error"
-#~ msgstr "Netværksfejl"
-
-#~ msgid ""
-#~ "You have exceeded your quota of %d %s for storing mails on this server. "
-#~ "Your current usage is : %.0f %s."
-#~ msgstr ""
-#~ "Du bruger mere end din kvote på %d %s for lagring af e-post på denne "
-#~ "server. Dit nuværende forbrug er: %.0f %s."
-
-#~ msgid "You will not be able to either send or receive mails now\n"
-#~ msgstr "Du vil ikke være i stand til at sende eller modtage e-post nu\n"
-
-#~ msgid ""
-#~ "You will not be able to send mails till you clear up some space by "
-#~ "deleting some mails.\n"
-#~ msgstr ""
-#~ "Du vil ikke være i stand til at sende e-post før du gør plads ved at "
-#~ "slette nogle e-breve.\n"
-
-#~ msgid "Try to clear up some space by deleting some mails.\n"
-#~ msgstr "Prøv at rydde noget plads ved at slette noget e-post.\n"
-
-#~ msgid "Permissions for %s"
-#~ msgstr "Rettigheder for %s"
-
-#~ msgid ""
-#~ "No Global Catalog server configured for this account.\n"
-#~ "Unable to edit delegates."
-#~ msgstr ""
-#~ "Ingen global katalogserver er konfigureret for denne konto.\n"
-#~ "Kan ikke redigere delegater."
-
-#~ msgid ""
-#~ "Could not read folder permissions.\n"
-#~ "Unable to edit delegates."
-#~ msgstr ""
-#~ "Kunne ikke læse rettigheder for mapper.\n"
-#~ "Kan ikke redigere delegater."
-
-#~ msgid ""
-#~ "Could not determine folder permissions for delegates.\n"
-#~ "Unable to edit delegates."
-#~ msgstr ""
-#~ "Kunne ikke afgøre mapperettigheder for delegater.\n"
-#~ "Kan ikke redigere delegater."
-
-#~ msgid "Delegate To:"
-#~ msgstr "Deleger til:"
-
-#~ msgid "Delegate To"
-#~ msgstr "Deleger til"
-
-#~ msgid "Could not make %s a delegate"
-#~ msgstr "Kunne ikke gøre %s til en delegat"
-
-#~ msgid "You cannot make yourself your own delegate"
-#~ msgstr "Du kan ikke gøre dig selv til din egen delegat"
-
-#~ msgid "%s is already a delegate"
-#~ msgstr "%s er allerede en delegat"
-
-#~ msgid "Remove the delegate %s?"
-#~ msgstr "Fjern delegaten %s?"
-
-#~ msgid "Could not access Active Directory"
-#~ msgstr "Kunne ikke tilgå Active Directory"
-
-#~ msgid "Could not find self in Active Directory"
-#~ msgstr "Kunne ikke finde sig selv i Active Directory"
-
-#~ msgid "Could not find delegate %s in Active Directory"
-#~ msgstr "Kunne ikke finde delegaten %s i Active Directory"
-
-#~ msgid "Could not remove delegate %s"
-#~ msgstr "Kunne ikke fjerne delegaten %s"
-
-#~ msgid "Could not update list of delegates."
-#~ msgstr "Kunne ikke opdatere listen med delegater."
-
-#~ msgid "Could not add delegate %s"
-#~ msgstr "Kunne ikke tilføje delegaten %s"
-
-#~ msgid ""
-#~ "Failed to update delegates:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Det mislykkedes at opdatere delegater:\n"
-#~ "%s"
-
-#~ msgid "Name"
-#~ msgstr "Navn"
-
-#~ msgid "Error reading delegates list."
-#~ msgstr "Fejl ved læsning af delegatlisten."
-
-#~ msgid "Folder Name"
-#~ msgstr "Mappenavn"
-
-#~ msgid "Folder Size"
-#~ msgstr "Mappestørrelse"
-
-#~ msgid "Calendar"
-#~ msgstr "Kalender"
-
-#~ msgid "Contacts"
-#~ msgstr "Kontakter"
-
-#~ msgid "Deleted Items"
-#~ msgstr "Slettede-elementer"
-
-#~ msgid "Drafts"
-#~ msgstr "Kladder"
-
-#~ msgid "Inbox"
-#~ msgstr "Indbakke"
-
-#~ msgid "Journal"
-#~ msgstr "Dagbog"
-
-#~ msgid "Notes"
-#~ msgstr "Noter"
-
-#~ msgid "Outbox"
-#~ msgstr "Udbakke"
-
-#~ msgid "Sent Items"
-#~ msgstr "Sendte elementer"
-
-#~ msgid "Tasks"
-#~ msgstr "Opgaver"
-
-#~ msgid "Could not update out-of-office state"
-#~ msgstr "Kunne ikke opdatere borte-fra-kontoret-tilstanden."
-
-#~ msgid "Could not read out-of-office state"
-#~ msgstr "Kunne ikke læse borte-fra-kontoret-tilstanden"
-
-#~ msgid "Could not read folder permissions"
-#~ msgstr "Kunne ikke læse mapperettighederne"
-
-#~ msgid "Could not update folder permissions."
-#~ msgstr "Kunne ikke opdatere mapperettighederne."
-
-#~ msgid "Could not update folder permissions. %s"
-#~ msgstr "Kunne ikke opdatere mapperettighederne. %s"
-
-#~ msgid "(Permission denied.)"
-#~ msgstr "(Adgang nægtet.)"
-
-#~ msgid ""
-#~ "Unable to add user to access control list:\n"
-#~ "No Global Catalog server is configured for this account."
-#~ msgstr ""
-#~ "Kunne ikke føje brugeren til adgangkontrollisten:\n"
-#~ "Ingen global katalogserver er konfigureret for denne konto."
-
-#~ msgid "Add User:"
-#~ msgstr "Tilføj bruger:"
-
-#~ msgid "Add User"
-#~ msgstr "Tilføj bruger"
-
-#~ msgid "No such user %s"
-#~ msgstr "Der findes ingen sådan bruger %s"
-
-#~ msgid "%s cannot be added to an access control list"
-#~ msgstr "%s kan ikke tilføjes en adgangskontrolliste"
-
-#~ msgid "Unknown error looking up %s"
-#~ msgstr "Ukendt fejl ved opslag af %s"
-
-#~ msgid "%s is already in the list"
-#~ msgstr "%s findes allerede i listen"
-
-#~ msgid "Role"
-#~ msgstr "Rolle"
-
-#~ msgid "Account Name"
-#~ msgstr "Kontonavn"
-
-#~ msgid "Folder does not exist"
-#~ msgstr "Mappen findes ikke"
-
-#~ msgid "Could not add favorite: %s"
-#~ msgstr "Kunne ikke tilføje favorit: %s"
-
-#~ msgid "Could not remove favorite: %s"
-#~ msgstr "Kunne ikke fjerne favorit: %s"
-
-#~ msgid "_Rename Folder..."
-#~ msgstr "_Omdøb mappe ..."
-
-#~ msgid "_New Folder..."
-#~ msgstr "_Ny mappe ..."
-
-#~ msgid "_Delete Folder"
-#~ msgstr "_Slet mappe"
-
-#~ msgid "_Add Other User's Folder..."
-#~ msgstr "_Tilføj anden brugers mappe ..."
-
-#~ msgid "_Remove Other User's Folder"
-#~ msgstr "_Fjern anden brugers mappe"
-
-#~ msgid "Add to _Favorites"
-#~ msgstr "Føj til _Favoriter"
-
-#~ msgid "Remove from Fa_vorites"
-#~ msgstr "Fjern fra Fa_voriter"
-
-#~ msgid "_Show Folder Sizes"
-#~ msgstr "_Vis mappestørrelser"
-
-#~ msgid "Folder not marked for offline support"
-#~ msgstr "Mappe ikke markeret til afkoblet brug"
-
-#~ msgid "*Control*F5"
-#~ msgstr "*Control*F5"
-
-#~ msgid "Evolution Exchange Component"
-#~ msgstr "Exchange-komponent for Evolution"
-
-#~ msgid "Exchange"
-#~ msgstr "Exchange"
-
-#~ msgid "_Exchange"
-#~ msgstr "_Exchange"
-
-#~ msgid "Mail"
-#~ msgstr "E-post"
-
-#~ msgid ""
-#~ "Changes to Exchange account configuration will take\n"
-#~ "place after you quit and restart Evolution."
-#~ msgstr ""
-#~ "Ændringer i Exchange-kontokonfigurationen\n"
-#~ "aktiveres efter at Evolution genstartes."
-
-#~ msgid "The Exchange account will be removed when you quit Evolution"
-#~ msgstr "Exchange-kontoen fjernes når du afslutter Evolution"
-
-#~ msgid "The Exchange account will be disabled when you quit Evolution"
-#~ msgstr "Exchange-kontoen deaktiveres når du afslutter Evolution"
-
-#~ msgid "_Permissions..."
-#~ msgstr "_Rettigheder ..."
-
-#~ msgid ""
-#~ "Ximian Connector requires access to certain functionality on the Exchange "
-#~ "Server that appears to be disabled or blocked.  (This is usually "
-#~ "unintentional.)  Your Exchange Administrator will need to enable this "
-#~ "functionality in order for you to be able to use Ximian Connector.\n"
-#~ "\n"
-#~ "For information to provide to your Exchange administrator, please follow "
-#~ "the link below:\n"
-#~ "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
-#~ "html "
-#~ msgstr ""
-#~ "Ximian Connector kræver adgang til en del funktionalitet på Exchange-"
-#~ "serveren som virker til at være deaktiveret eller blokeret (dette er "
-#~ "almindeligvis ikke med vilje). Din Exchange-administrator skal aktivere "
-#~ "denne funktionalitet for at du kan anvende Ximian Connector.\n"
-#~ "\n"
-#~ "Følg nedenstående link for information som du kan give din Exchange-"
-#~ "administrator:\n"
-#~ "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
-#~ "html "
-
-#~ msgid "Exc_hange Server:"
-#~ msgstr "Exc_hange-server:"
-
-#~ msgid "Mailbox name"
-#~ msgstr "Navn på postkasse"
-
-#~ msgid "OWA path"
-#~ msgstr "OWA-adresse"
-
-#~ msgid "Public Folder server"
-#~ msgstr "Server for offentlige mapper"
-
-# Bad writing in original message...
-#~ msgid ""
-#~ "Could not authenticate to server.\n"
-#~ "\n"
-#~ "You may need to use Plaintext Password authentication.\n"
-#~ "\n"
-#~ "Or you might have just typed your password wrong.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Kunne ikke godkendes af serveren.\n"
-#~ "\n"
-#~ "Du kan muligvis blive nød til at anvende godkendelse med adgangskode i "
-#~ "klartekst.\n"
-#~ "\n"
-#~ "Eller så har du helt enkelt skrevet din adgangskode forkert.\n"
-#~ "\n"
