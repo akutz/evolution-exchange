@@ -1,16 +1,16 @@
-# Bulgarian translation of evolution-exchange.
-# Copyright (C) 2004, 2005, 2006 Free Software Foundation
+# Bulgarian translation of evolution-exchange po-file.
+# Copyright (C) 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the evolution-exchange package.
 # Vladimir Petkov <vpetkov@i-space.org>, 2004, 2005.
 # Rostislav "zbrox" Raykov <zbrox@i-space.org>, 2005.
-# Alexander Shopov <ash@contact.bg>, 2005, 2006.
+# Alexander Shopov <ash@contact.bg>, 2005, 2006, 2007.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: evolution exchange server HEAD\n"
+"Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-20 09:35+0300\n"
-"PO-Revision-Date: 2006-08-20 09:35+0300\n"
+"POT-Creation-Date: 2007-02-23 09:46+0200\n"
+"PO-Revision-Date: 2007-02-23 09:44+0200\n"
 "Last-Translator: Alexander Shopov <ash@contact.bg>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,24 +18,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr "Време за обновяване на кеша за глобалния списък с адреси"
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+msgid ""
+"This key specifies the number of days interval between the GAL cache "
+"refresh. Set this value to zero, if you don't want to update GAL and use the "
+"curernt cache forever. This will work only if you have enabled offline "
+"caching for GAL."
+msgstr ""
+"Този ключ указвя броя на дните между обновяваниета на глобалния списък с "
+"адреси. Ако е 0, списъкът няма да се обновява и ще ползвате само кеша. "
+"Настройката работи, само ако сте позволили кеширнето."
+
 #: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-gal.c:1547 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Търсене..."
 
-#: ../addressbook/e-book-backend-gal.c:267
+#: ../addressbook/e-book-backend-gal.c:265
 msgid "Reconnecting to LDAP server..."
 msgstr "Повторно свързване със сървъра за LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1363
+#: ../addressbook/e-book-backend-gal.c:1384
 msgid "Receiving LDAP search results..."
 msgstr "Получаване на резултатите от търсенето чрез LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1522
+#: ../addressbook/e-book-backend-gal.c:1570
 msgid "Error performing search"
 msgstr "Грешка при изпълнението на търсенето"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2004
+#: ../addressbook/e-book-backend-gal.c:1758
+#, c-format
+msgid "Internal error.\n"
+msgstr "Вътрешна грешка\n"
+
+#: ../addressbook/e-book-backend-gal.c:1769
+#, c-format
+msgid "Paged results response control could not be decoded.\n"
+msgstr "Отговорът за резутатите по страници не може да бъде анализиран.\n"
+
+#: ../addressbook/e-book-backend-gal.c:1775
+#, c-format
+msgid "Invalid entries estimate in paged results response.\n"
+msgstr ""
+"Неправилна оценка на елементите в отговора за резутатите по страници.\n"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:2015
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -44,10 +75,19 @@ msgstr ""
 "Ресурсът „%s“ не може да се задели за периодични събрания.\n"
 "Трябва да определяте всяко събрание отделно."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2022
+#: ../calendar/e-cal-backend-exchange-calendar.c:2033
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Ресурсът „%s“ е зает през избрания период."
+
+#: ../calendar/e-cal-backend-exchange.c:375
+#: ../calendar/e-cal-backend-exchange.c:384
+msgid "Authentication failed"
+msgstr "Неуспешна идентификация"
+
+#: ../calendar/e-cal-backend-exchange.c:395
+msgid "Could not find the calendar"
+msgstr "Календарът не може да бъде открит"
 
 #: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
@@ -101,10 +141,10 @@ msgstr "Доставяне на обобщение за новите писма"
 msgid "No folder name found\n"
 msgstr "Не е намерено име на папка\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
-#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
-#: ../mail/mail-stub-exchange.c:2730
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2569
+#: ../mail/mail-stub-exchange.c:2613 ../mail/mail-stub-exchange.c:2648
+#: ../mail/mail-stub-exchange.c:2675 ../mail/mail-stub-exchange.c:2728
+#: ../mail/mail-stub-exchange.c:2750
 msgid "Folder doesn't exist"
 msgstr "Папката не съществува"
 
@@ -119,71 +159,79 @@ msgstr ""
 msgid "Cannot append message in offline mode: %s"
 msgstr "Не може да прикрепяте писма, когато сте в режим „Изключен“: %s"
 
+#: ../camel/camel-exchange-provider.c:40
+msgid "Checking for New Mail"
+msgstr "Проверка за нови писма"
+
+#: ../camel/camel-exchange-provider.c:42 ../camel/camel-exchange-provider.c:66
+msgid "C_heck for new messages in all folders"
+msgstr "_Проверка за нови писма във всички папки"
+
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:44
+#: ../camel/camel-exchange-provider.c:50
 msgid "Windows User_name:"
 msgstr "Потребителско _име за Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:49
+#: ../camel/camel-exchange-provider.c:55
 msgid "Global Address List / Active Directory"
-msgstr "Глобален списък с адреси / активна директория"
+msgstr "Глобален списък с адреси/активна директория"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:59
 msgid "_Global Catalog server name:"
 msgstr "_Име на сървъра за глобалния каталог:"
 
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:61
 #, c-format
 msgid "_Limit number of GAL responses: %s"
-msgstr "_Ограничаване на отговорите на GAL: %s"
+msgstr "_Ограничаване на отговорите на глобалния списък с адреси: %s"
 
-#: ../camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:64
 msgid "Options"
 msgstr "Настройки"
 
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:68
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Период за изтичане валидността на паролата: %s"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:70
 msgid "Automatically synchroni_ze account locally"
 msgstr "Автоматично локално _синхронизиране на абонамент"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:73
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr ""
 "Прилагане на _филтри спрямо новите писма за входящата кутия на този сървър."
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:75
 msgid "Check new messages for _Junk contents"
 msgstr "Проверка на новите писма за _нежелана поща"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:77
 msgid "Only check for Junk messag_es in the Inbox folder"
-msgstr "Да се проверява за нежелана поща само във _входящата кутия."
+msgstr "Да се проверява за спам само във _входящата кутия."
 
-#: ../camel/camel-exchange-provider.c:79
+#: ../camel/camel-exchange-provider.c:87
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:81
+#: ../camel/camel-exchange-provider.c:89
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "За обработване на поща (и други данни) на сървъри с Microsoft Exchange"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:105
 msgid "Secure Password"
 msgstr "Сигурна парола"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:108
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -191,11 +239,11 @@ msgstr ""
 "Тази настройка осигурява връзка чрез сигурна парола (NTLM) към сървъра с "
 "Exchange."
 
-#: ../camel/camel-exchange-provider.c:108
+#: ../camel/camel-exchange-provider.c:116
 msgid "Plaintext Password"
 msgstr "Парола в прав текст"
 
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:118
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -203,26 +251,26 @@ msgstr ""
 "Тази настройка позволява връзка чрез парола в прав текст към сървъра с "
 "Exchange."
 
-#: ../camel/camel-exchange-store.c:308
+#: ../camel/camel-exchange-store.c:310
 #, c-format
 msgid "Exchange server %s"
 msgstr "Сървър с Exchange %s"
 
-#: ../camel/camel-exchange-store.c:311
+#: ../camel/camel-exchange-store.c:313
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Абонамент към Exchange за %s на %s"
 
-#: ../camel/camel-exchange-store.c:352
+#: ../camel/camel-exchange-store.c:354
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sВъведете парола за %s"
 
-#: ../camel/camel-exchange-store.c:403
+#: ../camel/camel-exchange-store.c:405
 msgid "Evolution Exchange backend process"
 msgstr "Процес на ядрото на Evolution Exchange"
 
-#: ../camel/camel-exchange-store.c:444
+#: ../camel/camel-exchange-store.c:446
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -230,32 +278,33 @@ msgstr ""
 "Неуспех при идентификацията пред сървъра. (Проверете паролата!)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:486
+#: ../camel/camel-exchange-store.c:488
 #, c-format
 msgid "No such folder %s"
 msgstr "Папката %s не съществува"
 
-#: ../camel/camel-exchange-store.c:563
+#: ../camel/camel-exchange-store.c:565
 msgid "Cannot subscribe folder in offline mode."
-msgstr "Не може да се запишете към папка, когато сте в режим „Изключен“."
+msgstr "Не може да се абонирате към папка, когато сте в режим „Изключен“."
 
-#: ../camel/camel-exchange-store.c:580
+#: ../camel/camel-exchange-store.c:582
 msgid "Cannot unsubscribe folder in offline mode."
-msgstr "Не може да се отпишете от папка, когато сте в режим „Изключен“."
+msgstr ""
+"Не може да преустановите абонамент към папка, когато сте в режим „Изключен“."
 
-#: ../camel/camel-exchange-store.c:695
+#: ../camel/camel-exchange-store.c:714
 msgid "Cannot get folder info in offline mode."
 msgstr "Неуспех при получаването на информация за папката в режим „Изключен“."
 
-#: ../camel/camel-exchange-store.c:766
+#: ../camel/camel-exchange-store.c:785
 msgid "Cannot create folder in offline mode."
 msgstr "Не може да създавате папки, когато сте в режим „Изключен“."
 
-#: ../camel/camel-exchange-store.c:793
+#: ../camel/camel-exchange-store.c:812
 msgid "Cannot delete folder in offline mode."
 msgstr "Папката не може да бъде изтрита, когато сте в режим „Изключен“."
 
-#: ../camel/camel-exchange-store.c:809
+#: ../camel/camel-exchange-store.c:828
 msgid "Cannot rename folder in offline mode."
 msgstr "Папката не може да бъде преименувана, когато сте в режим „Изключен“."
 
@@ -316,11 +365,11 @@ msgstr "Няма такава папка"
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
-#: ../mail/mail-stub-exchange.c:2745
+#: ../mail/mail-stub-exchange.c:2546 ../mail/mail-stub-exchange.c:2586
+#: ../mail/mail-stub-exchange.c:2652 ../mail/mail-stub-exchange.c:2702
+#: ../mail/mail-stub-exchange.c:2765
 msgid "Permission denied"
-msgstr "Достъпът е отказан"
+msgstr "Достъпът е отказан. Някои писма не могат да бъдат изтрити."
 
 #: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
 msgid "Could not open folder: Permission denied"
@@ -344,7 +393,7 @@ msgstr "Новите писма не могат да бъдат получени
 
 #: ../mail/mail-stub-exchange.c:1386
 msgid "Could not empty Deleted Items folder"
-msgstr "Папката с изтритите обекти не може да бъде изпразнена"
+msgstr "Папката с изтритите обекти не може да бъде изчистена"
 
 #: ../mail/mail-stub-exchange.c:1463
 msgid "Could not append message; mailbox is over quota"
@@ -374,15 +423,15 @@ msgstr "Пощенската кутия не поддържа пълнотекс
 msgid "Unable to move/copy messages"
 msgstr "Копирането/преместването на писма е неуспешно"
 
-#: ../mail/mail-stub-exchange.c:2441
+#: ../mail/mail-stub-exchange.c:2461
 msgid "No mail submission URI for this mailbox"
-msgstr "Липсва URI за изпращане на писма за тази пощенска кутия"
+msgstr "Липсва адрес за изпращане на писма за тази пощенска кутия"
 
-#: ../mail/mail-stub-exchange.c:2477
+#: ../mail/mail-stub-exchange.c:2497
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Сървърът няма да приема поща през транспорта на Exchange"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:2499
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -391,25 +440,25 @@ msgstr ""
 "Вашият абонамент няма право да използва <%s>\n"
 "като подател."
 
-#: ../mail/mail-stub-exchange.c:2491
+#: ../mail/mail-stub-exchange.c:2511
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
 "Неуспех при изпращането на писмото.\n"
-"Това може да означава, че Вашият абонамент е надхвърлил квотата си."
+"Това може да означава, че вашият абонамент е надхвърлил квотата си."
 
-#: ../mail/mail-stub-exchange.c:2495
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Could not send message"
 msgstr "Писмото не може да бъде изпратено"
 
-#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2751
+#: ../mail/mail-stub-exchange.c:2538 ../mail/mail-stub-exchange.c:2591
+#: ../mail/mail-stub-exchange.c:2656 ../mail/mail-stub-exchange.c:2707
+#: ../mail/mail-stub-exchange.c:2771
 msgid "Generic error"
 msgstr "Обща грешка"
 
-#: ../mail/mail-stub-exchange.c:2522
+#: ../mail/mail-stub-exchange.c:2542
 msgid "Folder already exists"
 msgstr "Папката вече съществува"
 
@@ -487,7 +536,7 @@ msgid ""
 msgstr ""
 "Ximian Connector изисква достъп до определени функции на сървъра с Exchange, "
 "които явно за изключени или блокирани. (Това обикновено не е умишлено). "
-"Администраторът на Вашия сървър с Exchange трябва да включи тази "
+"Администраторът на вашия сървър с Exchange трябва да включи тази "
 "функционалност, за да може да използвате Ximian Connector.\n"
 "\n"
 "За да видите информацията, която трябва да дадете на администратора  на "
@@ -506,7 +555,7 @@ msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
 msgstr ""
-"Не може да се настрои абонамента към Exchange, защото се появи непозната "
+"Не може да се настрои абонаментът към Exchange, защото се появи непозната "
 "грешка. Проверете адреса, потребителското име и паролата. После опитайте "
 "отново."
 
@@ -519,7 +568,7 @@ msgid ""
 msgstr ""
 "Неуспех при идентификацията пред сървъра с сървъра с глобалния каталог.\n"
 "\n"
-"Може да се наложи да укажете името на Вашия домейн в Windows, като част от "
+"Може да се наложи да укажете името на вашия домейн в Windows, като част от "
 "потребителското име (напр.: „MY-DOMAIN\\%s“)."
 
 #: ../storage/exchange-autoconfig-wizard.c:339
@@ -609,7 +658,7 @@ msgid ""
 "Please click the \"Forward\" button to continue."
 msgstr ""
 "Добре дошли в Ximian Connector за Microsoft Exchange.\n"
-"Следващите няколко екрана ще Ви помогнат да настроите Evolution,\n"
+"Следващите няколко екрана ще ви помогнат да настроите Evolution,\n"
 "за да може да ползвате абонамент в Exchange.\n"
 "\n"
 "Натиснете бутона „Напред“, за да продължите."
@@ -626,10 +675,10 @@ msgid ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
-"Ximian Connector може да използва абонаментна информация от Вашия абонамент "
+"Ximian Connector може да използва абонаментна информация от вашия абонамент "
 "за достъп на Outlook по уеб (ДАУ).\n"
 "\n"
-"Въведете адреса за Вашия ДАУ, потребителското име и паролата. После "
+"Въведете адреса за вашия ДАУ, потребителското име и паролата. После "
 "натиснете бутона „Напред“.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:24
@@ -638,16 +687,16 @@ msgid ""
 "Please enter the name of your Global Catalog server. You may need to ask "
 "your system administrator for the correct value.\n"
 msgstr ""
-"Ximian Connector не може да намери копието на глобалния каталог за Вашия "
-"сайт. Въведете името на сървъра на Вашия глобален каталог. Може да се наложи "
-"да попитате Вашия системен администратор за правилните стойности.\n"
+"Ximian Connector не може да намери копието на глобалния каталог за вашия "
+"сайт. Въведете името на сървъра на вашия глобален каталог. Може да се наложи "
+"да попитате вашия системен администратор за правилните стойности.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:26
 msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
 msgstr ""
-"Ximian Connector срещна проблеми при настройката на Вашия абонамент в "
+"Ximian Connector срещна проблеми при настройката на вашия абонамент в "
 "Exchange.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
@@ -658,14 +707,14 @@ msgid ""
 msgstr ""
 "Вашият абонамент за Connector е готов за употреба. Натиснете бутона "
 "„Прилагане“, за да \n"
-"запазите Вашите настройки."
+"запазите вашите настройки."
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:30
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
 msgstr ""
-"Информацията за Вашия абонамент е както следва. Ако има грешки ги поправете, "
+"Информацията за вашия абонамент е както следва. Ако има грешки ги поправете, "
 "след което натиснете „Напред“.\n"
 
 #. User entered a wrong existing
@@ -699,7 +748,7 @@ msgstr "Нова парола:"
 
 #: ../storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
-msgstr "Текущата Ви парола изтече. Променете я сега."
+msgstr "Текущата ви парола изтече. Променете я сега."
 
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
@@ -742,8 +791,8 @@ msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
 msgstr ""
-"Тези потребители ще могат да изпращат писма от Ваше име\n"
-"и ще имат достъп до папките Ви с правата, които им предоставите."
+"Тези потребители ще могат да изпращат писма от ваше име\n"
+"и ще имат достъп до папките ви с правата, които им предоставите."
 
 #: ../storage/exchange-delegates.glade.h:12
 msgid "_Delegate can see private items"
@@ -780,7 +829,7 @@ msgstr ""
 "Местонахождението и йерархията на папките с абонаментите за Exchange, са "
 "променени от Evolution %d.%d.%d.\n"
 "\n"
-"Бъдете търпеливи, докато Evolution мигрира папките Ви..."
+"Бъдете търпеливи, докато Evolution мигрира папките ви..."
 
 #: ../storage/exchange-migrate.c:99
 #, c-format
@@ -806,7 +855,7 @@ msgid ""
 "\n"
 "Would you like to change your status to \"In the Office\"? "
 msgstr ""
-"<b>В момента Вашето състояние е „Извън офиса“.n\n"
+"<b>В момента вашето състояние е „Извън офиса“.n\n"
 "Искате ли да го промените на „В офиса“? "
 
 #: ../storage/exchange-oof.glade.h:4
@@ -824,7 +873,7 @@ msgid ""
 "mail to you while you are out of the office.</small>"
 msgstr ""
 "<small>Текстът, написан по-долу, ще бъде изпращан автоматично до всеки, "
-"който Ви изпраща писмо\n"
+"който ви изпраща писмо\n"
 "когато сте извън офиса.</small>"
 
 #: ../storage/exchange-oof.glade.h:8
@@ -937,7 +986,7 @@ msgstr "Инструмент за настройки на Ximian Connector за 
 
 #: ../storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
-msgstr "Промяна на Вашата парола за сървъра с Exchange"
+msgstr "Промяна на вашата парола за сървъра с Exchange"
 
 #: ../storage/ximian-connector.xml.h:2
 msgid "Folder _Size"
