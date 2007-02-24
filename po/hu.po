@@ -1,40 +1,67 @@
 # Hungarian translation of evolution-exchange.
-# Copyright (C) 2004, 2005, 2006 Free Software Foundation, Inc.
+# Copyright (C) 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the evolution-exchange package.
 #
-# Gabor Kelemen <kelemeng@gnome.hu>, 2004, 2005, 2006.
+# Gabor Kelemen <kelemeng@gnome.hu>, 2004, 2005, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD.hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-27 11:15+0200\n"
-"PO-Revision-Date: 2006-08-30 15:19+0200\n"
+"POT-Creation-Date: 2007-01-02 02:21+0000\n"
+"PO-Revision-Date: 2007-02-24 10:30+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
+"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr "Megadja a GAL gyorsítótár frissítési gyakoriságát."
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+msgid ""
+"This key specifies the number of days interval between the GAL cache "
+"refresh. Set this value to zero, if you don't want to update GAL and use the "
+"curernt cache forever. This will work only if you have enabled offline "
+"caching for GAL."
+msgstr "A kulcs megadja a GAL gyorsítótár frissítései közötti napok számát. Állítsa nullára a GAL frissítésének letiltásához és a jelenlegi gyorsítótár használatához. Ez csak akkor működik, ha engedélyezte a GAL kapcsolat nélküli gyorsítótárazását."
+
 #: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-gal.c:1547 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Keresés..."
 
-#: ../addressbook/e-book-backend-gal.c:267
+#: ../addressbook/e-book-backend-gal.c:265
 msgid "Reconnecting to LDAP server..."
 msgstr "Újrakapcsolódás az LDAP-kiszolgálóhoz..."
 
-#: ../addressbook/e-book-backend-gal.c:1363
+#: ../addressbook/e-book-backend-gal.c:1384
 msgid "Receiving LDAP search results..."
 msgstr "LDAP keresés eredményeinek letöltése..."
 
-#: ../addressbook/e-book-backend-gal.c:1522
+#: ../addressbook/e-book-backend-gal.c:1570
 msgid "Error performing search"
 msgstr "Hiba a keresés közben"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2004
+#: ../addressbook/e-book-backend-gal.c:1758
+#, c-format
+msgid "Internal error.\n"
+msgstr "Belső hiba.\n"
+
+#: ../addressbook/e-book-backend-gal.c:1769
+#, c-format
+msgid "Paged results response control could not be decoded.\n"
+msgstr "A lapozott eredmények válaszvezérlése nem fejthető vissza.\n"
+
+#: ../addressbook/e-book-backend-gal.c:1775
+#, c-format
+msgid "Invalid entries estimate in paged results response.\n"
+msgstr "Érvénytelen bejegyzésbecslés a lapozott eredményválaszban.\n"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:2015
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -43,10 +70,19 @@ msgstr ""
 "\"%s\" erőforrás nem ütemezhető az ismétlődő találkozókra.\n"
 "Minden egyes találkozóra külön kell beírnia."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2022
+#: ../calendar/e-cal-backend-exchange-calendar.c:2033
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "\"%s\" erőforrás foglalt a kiválasztott időtartamban."
+
+#: ../calendar/e-cal-backend-exchange.c:375
+#: ../calendar/e-cal-backend-exchange.c:384
+msgid "Authentication failed"
+msgstr "Hitelesítés sikertelen"
+
+#: ../calendar/e-cal-backend-exchange.c:395
+msgid "Could not find the calendar"
+msgstr "A naptár nem található"
 
 #: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
@@ -100,10 +136,10 @@ msgstr "Összefoglaló adatok letöltése az új levelekhez"
 msgid "No folder name found\n"
 msgstr "Nem található mappanév\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
-#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
-#: ../mail/mail-stub-exchange.c:2730
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2587
+#: ../mail/mail-stub-exchange.c:2631 ../mail/mail-stub-exchange.c:2666
+#: ../mail/mail-stub-exchange.c:2693 ../mail/mail-stub-exchange.c:2746
+#: ../mail/mail-stub-exchange.c:2768
 msgid "Folder doesn't exist"
 msgstr "A mappa nem létezik"
 
@@ -118,70 +154,78 @@ msgstr ""
 msgid "Cannot append message in offline mode: %s"
 msgstr "A levél kapcsolat nélküli módban nem fűzhető össze: %s"
 
+#: ../camel/camel-exchange-provider.c:40
+msgid "Checking for New Mail"
+msgstr "Új levelek keresése"
+
+#: ../camel/camel-exchange-provider.c:42 ../camel/camel-exchange-provider.c:66
+msgid "C_heck for new messages in all folders"
+msgstr "Új levelek _keresése az összes mappában"
+
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:44
+#: ../camel/camel-exchange-provider.c:50
 msgid "Windows User_name:"
 msgstr "Windowsos _felhasználónév:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:49
+#: ../camel/camel-exchange-provider.c:55
 msgid "Global Address List / Active Directory"
 msgstr "Globális címlista / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:59
 msgid "_Global Catalog server name:"
 msgstr "_Globális katalógus kiszolgáló neve:"
 
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:61
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "_Globális címlista-válaszok határértéke: %s"
 
-#: ../camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:64
 msgid "Options"
 msgstr "Beállítások"
 
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:68
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Jelszó lejáratára figyelmeztetés periódusa: %s"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:70
 msgid "Automatically synchroni_ze account locally"
 msgstr "_A felhasználói fiók automatikus szinkronizálása helyileg"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:73
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "_Szűrők alkalmazása az új levelekre ennek a kiszolgálónak az Inbox-ában"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:75
 msgid "Check new messages for _Junk contents"
 msgstr "_Levélszemét keresése az új levelek között"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:77
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Levélszemét keresése _csak az Érkezett mappában"
 
-#: ../camel/camel-exchange-provider.c:79
+#: ../camel/camel-exchange-provider.c:87
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:81
+#: ../camel/camel-exchange-provider.c:89
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Levelek (és egyéb adatok) kezelésére Microsoft Exchange kiszolgálókon"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:105
 msgid "Secure Password"
 msgstr "Biztonságos jelszó"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:108
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -189,11 +233,11 @@ msgstr ""
 "Ezen opció hatására biztonságos jelszó-hitelesítéssel (NTLM) fog kapcsolódni "
 "az Exchange kiszolgálóhoz."
 
-#: ../camel/camel-exchange-provider.c:108
+#: ../camel/camel-exchange-provider.c:116
 msgid "Plaintext Password"
 msgstr "Egyszerű szöveges jelszó"
 
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:118
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -201,26 +245,26 @@ msgstr ""
 "Ezen opció hatására szabvány egyszerű szöveges jelszó-hitelesítéssel fog "
 "kapcsolódni az Exchange kiszolgálóhoz."
 
-#: ../camel/camel-exchange-store.c:309
+#: ../camel/camel-exchange-store.c:310
 #, c-format
 msgid "Exchange server %s"
 msgstr "%s Exchange kiszolgáló"
 
-#: ../camel/camel-exchange-store.c:312
+#: ../camel/camel-exchange-store.c:313
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "%s Exchange fiókja %s kiszolgálón"
 
-#: ../camel/camel-exchange-store.c:353
+#: ../camel/camel-exchange-store.c:354
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sAdja meg %s jelszavát"
 
-#: ../camel/camel-exchange-store.c:404
+#: ../camel/camel-exchange-store.c:405
 msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange háttérfolyamat"
 
-#: ../camel/camel-exchange-store.c:445
+#: ../camel/camel-exchange-store.c:446
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -228,32 +272,32 @@ msgstr ""
 "Nem sikerült a hitelesítés a kiszolgálón. (Talán hibás a jelszó?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:487
+#: ../camel/camel-exchange-store.c:488
 #, c-format
 msgid "No such folder %s"
 msgstr "Nincs %s mappa"
 
-#: ../camel/camel-exchange-store.c:564
+#: ../camel/camel-exchange-store.c:565
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Nem lehet feliratkozni a mappára kapcsolat nélküli módban."
 
-#: ../camel/camel-exchange-store.c:581
+#: ../camel/camel-exchange-store.c:582
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Nem lehet leiratkozni a mappáról kapcsolat nélküli módban."
 
-#: ../camel/camel-exchange-store.c:696
+#: ../camel/camel-exchange-store.c:710
 msgid "Cannot get folder info in offline mode."
 msgstr "A mappainformációk nem kérhetők le kapcsolat nélküli módban."
 
-#: ../camel/camel-exchange-store.c:767
+#: ../camel/camel-exchange-store.c:781
 msgid "Cannot create folder in offline mode."
 msgstr "Nem hozható létre mappa kapcsolat nélküli módban."
 
-#: ../camel/camel-exchange-store.c:794
+#: ../camel/camel-exchange-store.c:808
 msgid "Cannot delete folder in offline mode."
 msgstr "A mappa nem törölhető kapcsolat nélküli módban."
 
-#: ../camel/camel-exchange-store.c:810
+#: ../camel/camel-exchange-store.c:824
 msgid "Cannot rename folder in offline mode."
 msgstr "A mappa nem nevezhető át kapcsolat nélküli módban."
 
@@ -311,9 +355,9 @@ msgstr "Nincs ilyen mappa"
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
-#: ../mail/mail-stub-exchange.c:2745
+#: ../mail/mail-stub-exchange.c:2564 ../mail/mail-stub-exchange.c:2604
+#: ../mail/mail-stub-exchange.c:2670 ../mail/mail-stub-exchange.c:2720
+#: ../mail/mail-stub-exchange.c:2783
 msgid "Permission denied"
 msgstr "Hozzáférés megtagadva"
 
@@ -369,15 +413,15 @@ msgstr "A postafiók nem támogatja a teljes szövegben keresést"
 msgid "Unable to move/copy messages"
 msgstr "Nem lehet mozgatni/másolni az üzeneteket"
 
-#: ../mail/mail-stub-exchange.c:2441
+#: ../mail/mail-stub-exchange.c:2479
 msgid "No mail submission URI for this mailbox"
 msgstr "Nincs megadva levélküldési URI ehhez a postafiókhoz"
 
-#: ../mail/mail-stub-exchange.c:2477
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Server won't accept mail via Exchange transport"
 msgstr "A kiszolgáló nem fogad el leveleket Exchange továbbítással"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:2517
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -386,7 +430,7 @@ msgstr ""
 "A fiókjának nincs felhatalmazása <%s> feladó\n"
 "címeként való használatára."
 
-#: ../mail/mail-stub-exchange.c:2491
+#: ../mail/mail-stub-exchange.c:2529
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -394,17 +438,17 @@ msgstr ""
 "Az üzenet nem küldhető el\n"
 "Ez azt jelentheti, hogy betelt a fiókja."
 
-#: ../mail/mail-stub-exchange.c:2495
+#: ../mail/mail-stub-exchange.c:2533
 msgid "Could not send message"
 msgstr "Az üzenet nem küldhető el"
 
-#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2751
+#: ../mail/mail-stub-exchange.c:2556 ../mail/mail-stub-exchange.c:2609
+#: ../mail/mail-stub-exchange.c:2674 ../mail/mail-stub-exchange.c:2725
+#: ../mail/mail-stub-exchange.c:2789
 msgid "Generic error"
 msgstr "Általános hiba"
 
-#: ../mail/mail-stub-exchange.c:2522
+#: ../mail/mail-stub-exchange.c:2560
 msgid "Folder already exists"
 msgstr "A mappa már létezik"
 
@@ -468,7 +512,7 @@ msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 msgstr ""
-"A megadott URL-en nem található Outlook Web Access adat.\n"
+"A megadott URL címen nem található Outlook Web Access adat.\n"
 "Győződjön meg, hogy az URL helyes és próbálja újra."
 
 #: ../storage/exchange-autoconfig-wizard.c:254
@@ -502,9 +546,7 @@ msgstr ""
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
-msgstr ""
-"Ismeretlen hiba miatt az Exchange fiók nem állítható be. Ellenőrizze az URL-"
-"t, a felhasználónevet és a jelszót, majd próbálja újra."
+msgstr "Ismeretlen hiba miatt az Exchange fiók nem állítható be. Ellenőrizze az URL címet, a felhasználónevet és a jelszót, majd próbálja újra."
 
 #: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
