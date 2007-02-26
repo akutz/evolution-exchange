@@ -1488,7 +1488,7 @@ e_cal_backend_exchange_compute_changes_foreach_key (const char *key, const char 
 	ECalBackendExchangeComponent *ecomp;
 	ecomp = g_hash_table_lookup (cbedata->cbex->priv->objects, key);
 
-	if (!ecomp) {
+	if (ecomp) {
 		ECalComponent *comp;
 		comp = e_cal_component_new ();
 		if (ecomp->icomp)
