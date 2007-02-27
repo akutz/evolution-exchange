@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lt\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-29 22:29+0300\n"
+"POT-Creation-Date: 2007-02-27 15:47+0200\n"
 "PO-Revision-Date: 2006-08-29 22:36+0300\n"
 "Last-Translator: Gintautas Miliauskas <gintas@akl.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
@@ -18,26 +18,54 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr ""
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+msgid ""
+"This key specifies the number of days interval between the GAL cache "
+"refresh. Set this value to zero, if you don't want to update GAL and use the "
+"curernt cache forever. This will work only if you have enabled offline "
+"caching for GAL."
+msgstr ""
 
 #: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-gal.c:1547 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Ieškoma..."
 
-#: ../addressbook/e-book-backend-gal.c:267
+#: ../addressbook/e-book-backend-gal.c:265
 msgid "Reconnecting to LDAP server..."
 msgstr "Iš naujo jungiamasi prie LDAP serverio..."
 
-#: ../addressbook/e-book-backend-gal.c:1363
+#: ../addressbook/e-book-backend-gal.c:1384
 msgid "Receiving LDAP search results..."
 msgstr "Gaunami LDAP paieškos rezultatai..."
 
-#: ../addressbook/e-book-backend-gal.c:1522
+#: ../addressbook/e-book-backend-gal.c:1570
 msgid "Error performing search"
 msgstr "Klaida atliekant paiešką"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2004
+#: ../addressbook/e-book-backend-gal.c:1758
+#, fuzzy, c-format
+msgid "Internal error.\n"
+msgstr "Bendroji klaida"
+
+#: ../addressbook/e-book-backend-gal.c:1769
+#, c-format
+msgid "Paged results response control could not be decoded.\n"
+msgstr ""
+
+#: ../addressbook/e-book-backend-gal.c:1775
+#, c-format
+msgid "Invalid entries estimate in paged results response.\n"
+msgstr ""
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:2015
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -46,10 +74,21 @@ msgstr ""
 "Nepavyko suplanuoti resurso „%s“ pasikartojantiems susitikimams.\n"
 "Jūs turite įtraukti kiekvieną susitikimą atskirai."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2022
+#: ../calendar/e-cal-backend-exchange-calendar.c:2033
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Resursas „%s“ yra užimtas, pasirinktu laiko periodu."
+
+#: ../calendar/e-cal-backend-exchange.c:375
+#: ../calendar/e-cal-backend-exchange.c:384
+#, fuzzy
+msgid "Authentication failed"
+msgstr "Konfigūravimas nepavyko"
+
+#: ../calendar/e-cal-backend-exchange.c:395
+#, fuzzy
+msgid "Could not find the calendar"
+msgstr "Nepavyko išsiųsti žinutės"
 
 #: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
@@ -103,10 +142,10 @@ msgstr "Gaunama naujų žinučių santrauka"
 msgid "No folder name found\n"
 msgstr "Nerastas aplanko pavadinimas\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
-#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
-#: ../mail/mail-stub-exchange.c:2730
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2569
+#: ../mail/mail-stub-exchange.c:2613 ../mail/mail-stub-exchange.c:2648
+#: ../mail/mail-stub-exchange.c:2675 ../mail/mail-stub-exchange.c:2728
+#: ../mail/mail-stub-exchange.c:2750
 msgid "Folder doesn't exist"
 msgstr "Aplankas neegzistuoja"
 
@@ -119,70 +158,79 @@ msgstr "Atsijungimo režime negalima pridurti žinutės: talpykla neprieinama."
 msgid "Cannot append message in offline mode: %s"
 msgstr "Atsijungimo režime negalima pridurti žinutės: %s"
 
+#: ../camel/camel-exchange-provider.c:40
+msgid "Checking for New Mail"
+msgstr ""
+
+#: ../camel/camel-exchange-provider.c:42 ../camel/camel-exchange-provider.c:66
+#, fuzzy
+msgid "C_heck for new messages in all folders"
+msgstr "I_eškoti šlamšto tik Inbox aplanke"
+
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:44
+#: ../camel/camel-exchange-provider.c:50
 msgid "Windows User_name:"
 msgstr "Windows naudotojo _vardas:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:49
+#: ../camel/camel-exchange-provider.c:55
 msgid "Global Address List / Active Directory"
 msgstr "Globalus adresų sąrašas / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:59
 msgid "_Global Catalog server name:"
 msgstr "_Globalaus katalogo serverio vardas:"
 
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:61
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "_Apriboti GAL atsakymų kiekį: %s"
 
-#: ../camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:64
 msgid "Options"
 msgstr "Nustatymai"
 
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:68
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Perspėjimo apie slaptažodžio galiojimą periodas: %s"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:70
 msgid "Automatically synchroni_ze account locally"
 msgstr "Automatiškai sinchroni_zuoti vietinius abonementus"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:73
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "Žin_utėms, esančioms šio serverio Inbox aplanke, pritaikyti filtrus"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:75
 msgid "Check new messages for _Junk contents"
 msgstr "Naujose žinutėse ieškoti šla_mšto"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:77
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "I_eškoti šlamšto tik Inbox aplanke"
 
-#: ../camel/camel-exchange-provider.c:79
+#: ../camel/camel-exchange-provider.c:87
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:81
+#: ../camel/camel-exchange-provider.c:89
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Pašto (ir kitų duomenų) valdymui Microsoft Exchange serveriuose"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:105
 msgid "Secure Password"
 msgstr "Saugus slaptažodis"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:108
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -190,11 +238,11 @@ msgstr ""
 "Naudojant šį nustatymą, prie Exchange serverio bus jungiamasi naudojantis "
 "saugaus slaptažodžio (NTLM) autentikacija. "
 
-#: ../camel/camel-exchange-provider.c:108
+#: ../camel/camel-exchange-provider.c:116
 msgid "Plaintext Password"
 msgstr "Paprasto teksto slaptažodis"
 
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:118
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -202,26 +250,26 @@ msgstr ""
 "Naudojant šį nustatymą, prie Exchange serverio bus jungiamasi naudojantis "
 "paprasto teksto slaptažodžio autentikacija."
 
-#: ../camel/camel-exchange-store.c:309
+#: ../camel/camel-exchange-store.c:310
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange serveris %s"
 
-#: ../camel/camel-exchange-store.c:312
+#: ../camel/camel-exchange-store.c:313
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "%s esančio %s Exchange abonementas"
 
-#: ../camel/camel-exchange-store.c:353
+#: ../camel/camel-exchange-store.c:354
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sĮveskite %s slaptažodį"
 
-#: ../camel/camel-exchange-store.c:404
+#: ../camel/camel-exchange-store.c:405
 msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange posistemės procesas"
 
-#: ../camel/camel-exchange-store.c:445
+#: ../camel/camel-exchange-store.c:446
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -229,38 +277,39 @@ msgstr ""
 "Nepavyko autentikuotis su serveriu. (Neteisingas slaptažodis?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:487
+#: ../camel/camel-exchange-store.c:488
 #, c-format
 msgid "No such folder %s"
 msgstr "Nėra tokio aplanko %s"
 
-#: ../camel/camel-exchange-store.c:564
+#: ../camel/camel-exchange-store.c:565
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Atsijungimo režime negalima užsisakyti aplanko."
 
-#: ../camel/camel-exchange-store.c:581
+#: ../camel/camel-exchange-store.c:582
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Atsijungimo režime negalima atsisakyti aplanko."
 
-#: ../camel/camel-exchange-store.c:696
+#: ../camel/camel-exchange-store.c:714
 msgid "Cannot get folder info in offline mode."
 msgstr "Atsijungimo režime negalima gauti aplanko informacijos."
 
-#: ../camel/camel-exchange-store.c:767
+#: ../camel/camel-exchange-store.c:785
 msgid "Cannot create folder in offline mode."
 msgstr "Atsijungimo režime negalima sukurti aplanko."
 
-#: ../camel/camel-exchange-store.c:794
+#: ../camel/camel-exchange-store.c:812
 msgid "Cannot delete folder in offline mode."
 msgstr "Atsijungimo režime negalima ištrinti aplanko."
 
-#: ../camel/camel-exchange-store.c:810
+#: ../camel/camel-exchange-store.c:828
 msgid "Cannot rename folder in offline mode."
 msgstr "Atsijungimo režime negalima pervadinti aplanko."
 
 #: ../camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr "Exchange transportas gali būti naudojamas tik su Exchange pašto šaltiniu"
+msgstr ""
+"Exchange transportas gali būti naudojamas tik su Exchange pašto šaltiniu"
 
 #: ../camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
@@ -312,9 +361,9 @@ msgstr "Nėra tokio aplanko"
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
-#: ../mail/mail-stub-exchange.c:2745
+#: ../mail/mail-stub-exchange.c:2546 ../mail/mail-stub-exchange.c:2586
+#: ../mail/mail-stub-exchange.c:2652 ../mail/mail-stub-exchange.c:2702
+#: ../mail/mail-stub-exchange.c:2765
 msgid "Permission denied"
 msgstr "Neduotas leidimas"
 
@@ -370,15 +419,15 @@ msgstr "Paštadėžėje nėra galimybės ieškoti viso teksto"
 msgid "Unable to move/copy messages"
 msgstr "Nepavyko perkelti/kopijuoti žinučių"
 
-#: ../mail/mail-stub-exchange.c:2441
+#: ../mail/mail-stub-exchange.c:2461
 msgid "No mail submission URI for this mailbox"
 msgstr "Ši pašto dėžutė neturi pašto pateikimo adreso"
 
-#: ../mail/mail-stub-exchange.c:2477
+#: ../mail/mail-stub-exchange.c:2497
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Serveris nepriims pašto per Exchange transportą"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:2499
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -387,7 +436,7 @@ msgstr ""
 "Jūsų abonementui nesuteiktas leidimas naudoti <%s>\n"
 "kaip Nuo adresą."
 
-#: ../mail/mail-stub-exchange.c:2491
+#: ../mail/mail-stub-exchange.c:2511
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -395,17 +444,17 @@ msgstr ""
 "Nepavyko išsiųsti žinutės.\n"
 "Tai gali reikšti, jog Jūsų abonementas viršijo kvotą."
 
-#: ../mail/mail-stub-exchange.c:2495
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Could not send message"
 msgstr "Nepavyko išsiųsti žinutės"
 
-#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2751
+#: ../mail/mail-stub-exchange.c:2538 ../mail/mail-stub-exchange.c:2591
+#: ../mail/mail-stub-exchange.c:2656 ../mail/mail-stub-exchange.c:2707
+#: ../mail/mail-stub-exchange.c:2771
 msgid "Generic error"
 msgstr "Bendroji klaida"
 
-#: ../mail/mail-stub-exchange.c:2522
+#: ../mail/mail-stub-exchange.c:2542
 msgid "Folder already exists"
 msgstr "Aplankas jau egzistuoja"
 
@@ -958,7 +1007,8 @@ msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Užsisakyti aplanką priklausantį kitam šio serverio naudotojui"
 
 #: ../storage/ximian-connector.xml.h:6
-msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgid ""
+"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr "Atsisakyti aplanko pridėto su „Užsisakyti kito naudotojo aplanką“"
 
 #: ../storage/ximian-connector.xml.h:7
@@ -967,7 +1017,8 @@ msgstr "Žiūrėti arba keisti Jūsų Exchange kalendoriaus delegavimo nustatymu
 
 #: ../storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
-msgstr "Žiūrėti arba keisti Jūsų nebuvimo darbe būseną ir automatinio atsakymo žinutę"
+msgstr ""
+"Žiūrėti arba keisti Jūsų nebuvimo darbe būseną ir automatinio atsakymo žinutę"
 
 #: ../storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
@@ -984,4 +1035,3 @@ msgstr "_Nebuvimo darbe asistentas"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Atsisakyti kito naudotojo aplanko"
-
