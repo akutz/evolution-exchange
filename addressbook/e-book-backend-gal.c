@@ -1755,7 +1755,7 @@ parse_page_control(
 		ctrlp = *ctrl;
 		ber = ber_init( &ctrlp->ldctl_value );
 		if ( ber == NULL ) {
-			fprintf( stderr, _("Internal error.\n") );
+			fprintf( stderr, "Internal error.\n");
 			return EXIT_FAILURE;
 		}
 
@@ -1766,13 +1766,13 @@ parse_page_control(
 
 		if( tag == LBER_ERROR ) {
 			fprintf( stderr,
-				_("Paged results response control could not be decoded.\n") );
+				"Paged results response control could not be decoded.\n");
 			return EXIT_FAILURE;
 		}
 
 		if( entriesLeft < 0 ) {
 			fprintf( stderr,
-				_("Invalid entries estimate in paged results response.\n") );
+				"Invalid entries estimate in paged results response.\n");
 			return EXIT_FAILURE;
 		}
 		ldap_controls_free( ctrl );
