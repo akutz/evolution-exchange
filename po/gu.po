@@ -1,13 +1,14 @@
 # translation of evolution-exchange.HEAD.gu.po to Gujarati
 # Ankit Patel <ankit644@yahoo.com>, 2005, 2006.
+# Ankit Patel <ankit@redhat.com>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-07 23:22+0200\n"
-"PO-Revision-Date: 2006-08-08 10:05+0530\n"
-"Last-Translator: Ankit Patel <ankit644@yahoo.com>\n"
-"Language-Team: Gujarati <indianoss-gujarati@lists.sourceforge.net>\n"
+"POT-Creation-Date: 2007-03-01 03:16+0000\n"
+"PO-Revision-Date: 2007-03-01 15:46+0530\n"
+"Last-Translator: Ankit Patel <ankit@redhat.com>\n"
+"Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,25 +18,38 @@ msgstr ""
 "\n"
 "\n"
 "\n"
+"\n"
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr "GAL કેશ પુનઃતાજી કરવા માટેનો સમય અંતરાલ સ્પષ્ટ કરે છે."
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+msgid ""
+"This key specifies the number of days interval between the GAL cache "
+"refresh. Set this value to zero, if you don't want to update GAL and use the "
+"curernt cache forever. This will work only if you have enabled offline "
+"caching for GAL."
+msgstr "આ કી GAL કેશ પુનઃતાજું કરવા વચ્ચે દિવસોના અંતરાલની સંખ્યા સ્પષ્ટ કરે છે. આ કિંમતને શૂન્યમાં સુયોજિત કરો, જો તમે GAL સુધારવા માંગો નહિં અને વર્તમાન કેશને હંમેશ માટે વાપરવા માંગો. આ માત્ર ત્યારે જ કામ કરશે જો તમે GAL માટે ઓફલાઈન કેશીંગ સક્રિય કરેલ હોય."
 
 #: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-gal.c:1547 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "શોધી રહ્યા છીએ..."
 
-#: ../addressbook/e-book-backend-gal.c:267
+#: ../addressbook/e-book-backend-gal.c:265
 msgid "Reconnecting to LDAP server..."
 msgstr "LDAP સર્વર સાથે ફરીથી જોડાઈ રહ્યા છીએ..."
 
-#: ../addressbook/e-book-backend-gal.c:1363
+#: ../addressbook/e-book-backend-gal.c:1384
 msgid "Receiving LDAP search results..."
 msgstr "LDAP શોધ પરિણામો મેળવી રહ્યા છીએ..."
 
-#: ../addressbook/e-book-backend-gal.c:1522
+#: ../addressbook/e-book-backend-gal.c:1570
 msgid "Error performing search"
 msgstr "શોધ કરવામાં ભૂલ આવી"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2004
+#: ../calendar/e-cal-backend-exchange-calendar.c:2015
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -44,10 +58,19 @@ msgstr ""
 "મંત્રણાઓ ફરીથી ભરવા માટે સ્રોત '%s' માટે સમયક્રમ નક્કી કરવા સમર્થ નથી.\n"
 "તમે દરેક મંત્રણા અલગ રીતે નોંધાવી જોઈએ જ."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2022
+#: ../calendar/e-cal-backend-exchange-calendar.c:2033
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "પસંદ કરેલા સમય દરમ્યાન સ્રોત '%s' વ્યસ્ત હતો."
+
+#: ../calendar/e-cal-backend-exchange.c:375
+#: ../calendar/e-cal-backend-exchange.c:384
+msgid "Authentication failed"
+msgstr "સત્તાધિકરણ નિષ્ફળ"
+
+#: ../calendar/e-cal-backend-exchange.c:395
+msgid "Could not find the calendar"
+msgstr "કેલેન્ડર શોધી શક્યા નહિં"
 
 #: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
@@ -101,10 +124,10 @@ msgstr "નવા સંદેશાઓ માટે સારની જાણ�
 msgid "No folder name found\n"
 msgstr "કોઈ ફોલ્ડર નામ મળ્યું નથી\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
-#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
-#: ../mail/mail-stub-exchange.c:2730
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2569
+#: ../mail/mail-stub-exchange.c:2613 ../mail/mail-stub-exchange.c:2648
+#: ../mail/mail-stub-exchange.c:2675 ../mail/mail-stub-exchange.c:2728
+#: ../mail/mail-stub-exchange.c:2750
 msgid "Folder doesn't exist"
 msgstr "ફોલ્ડર ઉપલબ્ધ નથી"
 
@@ -117,105 +140,113 @@ msgstr "ઓફલાઈન સ્થિતિમાં સંદેશો ઉમ
 msgid "Cannot append message in offline mode: %s"
 msgstr "ઓફલાઈન સ્થિતિમાં સંદેશો ઉમેરી શકતા નથી: %s"
 
+#: ../camel/camel-exchange-provider.c:40
+msgid "Checking for New Mail"
+msgstr "નવા મેઈલ માટે ચકાસી રહ્યા છીએ"
+
+#: ../camel/camel-exchange-provider.c:42 ../camel/camel-exchange-provider.c:66
+msgid "C_heck for new messages in all folders"
+msgstr "બધા ફોલ્ડરોમાં નવા સંદેશાઓ માટે ચકાસો (_h)"
+
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:44
+#: ../camel/camel-exchange-provider.c:50
 msgid "Windows User_name:"
 msgstr "વિન્ડોઝ વપરાશકર્તા નામ (_n):"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:49
+#: ../camel/camel-exchange-provider.c:55
 msgid "Global Address List / Active Directory"
 msgstr "ઉમદા સરનામા યાદી / સક્રિય ડિરેક્ટરી"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:59
 msgid "_Global Catalog server name:"
 msgstr "વૈશ્વિક કેટલોગ સર્વર નામ (_G):"
 
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:61
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "GAL પ્રત્યુત્તરોની સંખ્યા પર મર્યાદા મૂકો: %s (_L)"
 
-#: ../camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:64
 msgid "Options"
 msgstr "વિકલ્પો"
 
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:68
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "પાસવર્ડ સમયસમાપ્તિ ચેતવણી સમયગાળો: %s (_P)"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:70
 msgid "Automatically synchroni_ze account locally"
 msgstr "ખાતું સ્થાનિકપણે આપોઆપ સુમેળ કરો (_z)"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:73
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "આ સર્વર પર ઈનબોક્સમાં નવા સંદેશાઓ પર ગાળકો લાગુ કરો (_A)"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:75
 msgid "Check new messages for _Junk contents"
 msgstr "બગડેલા સમાવિષ્ટો માટે નવા સંદેશાઓ માટે ચકાસો (_J)"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:77
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "ઈનબોક્સ ફોલ્ડરમાં માત્ર બગડેલ સંદેશાઓ માટે ચકાસો (_e)"
 
-#: ../camel/camel-exchange-provider.c:79
+#: ../camel/camel-exchange-provider.c:87
 msgid "Microsoft Exchange"
 msgstr "માઈક્રોસોફ્ટ એક્સચેન્જ"
 
-#: ../camel/camel-exchange-provider.c:81
+#: ../camel/camel-exchange-provider.c:89
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "માઈક્રોસોફ્ટ એક્સચેન્જ સર્વર પરે મેઈલ (અને બીજી માહિતી) નિયંત્રિત કરવા માટે"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:105
 msgid "Secure Password"
 msgstr "સુરક્ષિત પાસવર્ડ"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:108
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
 msgstr "આ વિકલ્પ એક્સચેન્જ સર્વર સાથે સુરક્ષિત પાસવર્ડ (NTLM) સત્તાધિકરણ પદ્ધતિથી જોડાશે."
 
-#: ../camel/camel-exchange-provider.c:108
+#: ../camel/camel-exchange-provider.c:116
 msgid "Plaintext Password"
 msgstr "સાદા લખાણવાળો પાસવર્ડ"
 
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:118
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
 msgstr "આ વિકલ્પ એક્સચેન્જ સર્વર સાથે પ્રમાણભૂત સાદા લખાણવાળા પાસવર્ડના સત્તાધિકરણ સાથે જોડાશે."
 
-#: ../camel/camel-exchange-store.c:308
+#: ../camel/camel-exchange-store.c:310
 #, c-format
 msgid "Exchange server %s"
 msgstr "એક્સચેન્જ સર્વર %s"
 
-#: ../camel/camel-exchange-store.c:311
+#: ../camel/camel-exchange-store.c:313
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "%s માટે %s પર એક્સચેન્જ ખાતુ"
 
-#: ../camel/camel-exchange-store.c:352
+#: ../camel/camel-exchange-store.c:354
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%s માટે પાસવર્ડ દાખલ કરો %s"
 
-#: ../camel/camel-exchange-store.c:403
+#: ../camel/camel-exchange-store.c:405
 msgid "Evolution Exchange backend process"
 msgstr "ઈવોલ્યુશન એક્સચેન્જ પાશ્વ ભાગમાં ચાલતી પ્રક્રિયા"
 
-#: ../camel/camel-exchange-store.c:444
+#: ../camel/camel-exchange-store.c:446
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -223,32 +254,32 @@ msgstr ""
 "સર્વરનું સત્તાધિકરણ કરી શક્યા નહિં. (શું પાસવર્ડ અયોગ્ય છે?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:486
+#: ../camel/camel-exchange-store.c:488
 #, c-format
 msgid "No such folder %s"
 msgstr "%s જેવું કોઈ ફોલ્ડર નથી"
 
-#: ../camel/camel-exchange-store.c:563
+#: ../camel/camel-exchange-store.c:565
 msgid "Cannot subscribe folder in offline mode."
 msgstr "ફોલ્ડરની ઓફલાઈન સ્થિતિમાં ઉમેદવારી નોંધાવી શકાતી નથી."
 
-#: ../camel/camel-exchange-store.c:580
+#: ../camel/camel-exchange-store.c:582
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "ફોલ્ડરને ઓફલાઈન સ્થિતિમાં ઉમેદવારી દૂર કરી શકાતી નથી."
 
-#: ../camel/camel-exchange-store.c:695
+#: ../camel/camel-exchange-store.c:714
 msgid "Cannot get folder info in offline mode."
 msgstr "ઓફલાઈન સ્થિતિમાં ફોલ્ડર જાણકારી મેળવી શકતા નથી."
 
-#: ../camel/camel-exchange-store.c:766
+#: ../camel/camel-exchange-store.c:785
 msgid "Cannot create folder in offline mode."
 msgstr "ઓફલાઈન સ્થિતિમાં ફોલ્ડર બનાવી શકતા નથી."
 
-#: ../camel/camel-exchange-store.c:793
+#: ../camel/camel-exchange-store.c:812
 msgid "Cannot delete folder in offline mode."
 msgstr "ઓફલાઈન સ્થિતિમાં ફોલ્ડર કાઢી શકતા નથી."
 
-#: ../camel/camel-exchange-store.c:809
+#: ../camel/camel-exchange-store.c:828
 msgid "Cannot rename folder in offline mode."
 msgstr "ઓફલાઈન સ્થિતિમાં ફોલ્ડરનું નામ બદલી શકતા નથી."
 
@@ -306,9 +337,9 @@ msgstr "આવુ કોઈ ફોલ્ડર નથી"
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
-#: ../mail/mail-stub-exchange.c:2745
+#: ../mail/mail-stub-exchange.c:2546 ../mail/mail-stub-exchange.c:2586
+#: ../mail/mail-stub-exchange.c:2652 ../mail/mail-stub-exchange.c:2702
+#: ../mail/mail-stub-exchange.c:2765
 msgid "Permission denied"
 msgstr "પરવાનગી મળી નહિં"
 
@@ -364,15 +395,15 @@ msgstr "મેઈલબોક્સ પૂરા-લખાણને શોધવ
 msgid "Unable to move/copy messages"
 msgstr "સંદેશાઓ ખસેડવામાં/નકલ કરવામાં અસમર્થ"
 
-#: ../mail/mail-stub-exchange.c:2441
+#: ../mail/mail-stub-exchange.c:2461
 msgid "No mail submission URI for this mailbox"
 msgstr "આ મેઈલબોક્સ માટે કોઈ URI રજૂઆત નથી"
 
-#: ../mail/mail-stub-exchange.c:2477
+#: ../mail/mail-stub-exchange.c:2497
 msgid "Server won't accept mail via Exchange transport"
 msgstr "એક્સચેન્જ પરિવહન દ્વારા સર્વર મેઈલ સ્વીકારશે નહિં"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:2499
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -381,7 +412,7 @@ msgstr ""
 "તમારા ખાતાને <%s> ને માંથી સરનામા તરીકે વાપરવાની \n"
 "પરવાનગી નથી."
 
-#: ../mail/mail-stub-exchange.c:2491
+#: ../mail/mail-stub-exchange.c:2511
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -389,17 +420,17 @@ msgstr ""
 "સંદેશો મોકલી શકાયો નહિં.\n"
 "એનો અર્થ એ થાય કે તમારા ખાતાનો ક્વોટા પૂરો થઈ ગયો."
 
-#: ../mail/mail-stub-exchange.c:2495
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Could not send message"
 msgstr "સંદેશો મોકલી શકાયો નહિં"
 
-#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2751
+#: ../mail/mail-stub-exchange.c:2538 ../mail/mail-stub-exchange.c:2591
+#: ../mail/mail-stub-exchange.c:2656 ../mail/mail-stub-exchange.c:2707
+#: ../mail/mail-stub-exchange.c:2771
 msgid "Generic error"
 msgstr "સામાન્ય ભૂલ"
 
-#: ../mail/mail-stub-exchange.c:2522
+#: ../mail/mail-stub-exchange.c:2542
 msgid "Folder already exists"
 msgstr "ફોલ્ડર પહેલાથી જ હાજર છે"
 
