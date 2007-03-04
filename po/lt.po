@@ -1,29 +1,28 @@
 # translation of lt.po to Lithuanian
 # Lithuanian translation of evolution-exchange.
-# Copyright (C) 2005-2006 Free Software Foundation, Inc.
+# Copyright (C) 2005-2006, 2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the evolution-exchange package.
 #
 #
 # Žygimantas Beručka <zygis@gnome.org>, 2005-2006.
-# Gintautas Miliauskas <gintas@akl.lt>, 2006.
+# Gintautas Miliauskas <gintas@akl.lt>, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: lt\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-27 15:47+0200\n"
-"PO-Revision-Date: 2006-08-29 22:36+0300\n"
+"POT-Creation-Date: 2007-03-04 18:05+0200\n"
+"PO-Revision-Date: 2007-03-04 18:09+0200\n"
 "Last-Translator: Gintautas Miliauskas <gintas@akl.lt>\n"
-"Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
+"Language-Team: Lithuanian <gnome-lt@lists.akl.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
 msgid "Specifies the time interval to refresh the GAL Cache."
-msgstr ""
+msgstr "Nurodo laiko intervalą GAL kaupui atnaujinti."
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
 msgid ""
@@ -31,7 +30,7 @@ msgid ""
 "refresh. Set this value to zero, if you don't want to update GAL and use the "
 "curernt cache forever. This will work only if you have enabled offline "
 "caching for GAL."
-msgstr ""
+msgstr "Šis raktas nurodo intervalą dienomis, kada bus atnaujinamas GAL kaupas. Nustatykite į 0, jei nenorite atnaujinti GAL ir visada naudoti esamą kaupą. Tai galima padaryti tik jei įjungėte GAL atsijungimo veikseną."
 
 #: ../addressbook/e-book-backend-exchange.c:1882
 #: ../addressbook/e-book-backend-gal.c:1547 ../storage/exchange-storage.c:135
@@ -51,19 +50,19 @@ msgid "Error performing search"
 msgstr "Klaida atliekant paiešką"
 
 #: ../addressbook/e-book-backend-gal.c:1758
-#, fuzzy, c-format
+#, c-format
 msgid "Internal error.\n"
-msgstr "Bendroji klaida"
+msgstr "Vidinė klaida.\n"
 
 #: ../addressbook/e-book-backend-gal.c:1769
 #, c-format
 msgid "Paged results response control could not be decoded.\n"
-msgstr ""
+msgstr "Puslapiuotų rezultatų atsakymo nepavyko dekoduoti.\n"
 
 #: ../addressbook/e-book-backend-gal.c:1775
 #, c-format
 msgid "Invalid entries estimate in paged results response.\n"
-msgstr ""
+msgstr "Netaisyklingas įrašų įvertis puslapiuotų rezultatų atsakyme.\n"
 
 #: ../calendar/e-cal-backend-exchange-calendar.c:2015
 #, c-format
@@ -81,14 +80,12 @@ msgstr "Resursas „%s“ yra užimtas, pasirinktu laiko periodu."
 
 #: ../calendar/e-cal-backend-exchange.c:375
 #: ../calendar/e-cal-backend-exchange.c:384
-#, fuzzy
 msgid "Authentication failed"
-msgstr "Konfigūravimas nepavyko"
+msgstr "Autentikacija nepavyko"
 
 #: ../calendar/e-cal-backend-exchange.c:395
-#, fuzzy
 msgid "Could not find the calendar"
-msgstr "Nepavyko išsiųsti žinutės"
+msgstr "Nepavyko rasti kalendoriaus"
 
 #: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
@@ -160,12 +157,11 @@ msgstr "Atsijungimo režime negalima pridurti žinutės: %s"
 
 #: ../camel/camel-exchange-provider.c:40
 msgid "Checking for New Mail"
-msgstr ""
+msgstr "Tikrinama naujo pašto"
 
 #: ../camel/camel-exchange-provider.c:42 ../camel/camel-exchange-provider.c:66
-#, fuzzy
 msgid "C_heck for new messages in all folders"
-msgstr "I_eškoti šlamšto tik Inbox aplanke"
+msgstr "I_eškoti naujų žinučių visuose aplankuose"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
@@ -308,8 +304,7 @@ msgstr "Atsijungimo režime negalima pervadinti aplanko."
 
 #: ../camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr ""
-"Exchange transportas gali būti naudojamas tik su Exchange pašto šaltiniu"
+msgstr "Exchange transportas gali būti naudojamas tik su Exchange pašto šaltiniu"
 
 #: ../camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
@@ -1007,8 +1002,7 @@ msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Užsisakyti aplanką priklausantį kitam šio serverio naudotojui"
 
 #: ../storage/ximian-connector.xml.h:6
-msgid ""
-"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr "Atsisakyti aplanko pridėto su „Užsisakyti kito naudotojo aplanką“"
 
 #: ../storage/ximian-connector.xml.h:7
@@ -1017,8 +1011,7 @@ msgstr "Žiūrėti arba keisti Jūsų Exchange kalendoriaus delegavimo nustatymu
 
 #: ../storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
-msgstr ""
-"Žiūrėti arba keisti Jūsų nebuvimo darbe būseną ir automatinio atsakymo žinutę"
+msgstr "Žiūrėti arba keisti Jūsų nebuvimo darbe būseną ir automatinio atsakymo žinutę"
 
 #: ../storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
@@ -1035,3 +1028,4 @@ msgstr "_Nebuvimo darbe asistentas"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Atsisakyti kito naudotojo aplanko"
+
