@@ -730,6 +730,14 @@ exchange_get_folder_info (CamelStore *store, const char *top, guint32 flags, Cam
 	if (flags & CAMEL_STORE_FOLDER_INFO_SUBSCRIBED)
 		store_flags |= CAMEL_STUB_STORE_FOLDER_INFO_SUBSCRIBED;
 
+	/* CAMEL_STORE_FOLDER_INFO_FAST is called on only subscribed folders
+	   and the stub implementation checks for subscribed and recursive
+	   flags alone and hence, we need to OR SUBSCRIBED flag as well
+	 */
+	if (flags & CAMEL_STORE_FOLDER_INFO_FAST)
+		store_flags |= (CAMEL_STUB_STORE_FOLDER_INFO_SUBSCRIBED | 
+				CAMEL_STUB_STORE_FOLDER_INFO_FAST);
+
 	if (!camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_GET_FOLDER_INFO,
 			      CAMEL_STUB_ARG_STRING, top,
 			      CAMEL_STUB_ARG_UINT32, store_flags,

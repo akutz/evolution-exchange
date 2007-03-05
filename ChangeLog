@@ -1,3 +1,10 @@
+2007-03-06  Veerapuram Varadhan  <vvaradhan@novell.com>
+
+	* camel/camel-exchange-store.c (exchange_get_folder_info): Mask
+	CAMEL_FOLDER_INFO_FAST with CAMEL_FOLDER_INFO_SUBSCRIBED in order
+	to fetch the correct folder list, which changed after the public
+	folder optimization fix.
+	
 2007-02-28  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* addressbook/e-book-backend-gal.c: (parse_page_control):
