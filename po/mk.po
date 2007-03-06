@@ -1,41 +1,58 @@
-# translation of evolution-exchange.HEAD.mk.po to Macedonian
+# translation of evolution-exchange.HEAD.po to Macedonian
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Арангел Ангов <ufo@linux.net.mk>, 2005.
 # Arangel Angov <ufo@linux.net.mk>, 2006.
 # Jovan Naumovski <jovan@lugola.net>, 2006.
+# Arangel Angov <arangel@linux.net.mk>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: evolution-exchange.HEAD.mk\n"
+"Project-Id-Version: evolution-exchange.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-30 08:48+0200\n"
-"PO-Revision-Date: 2006-08-30 17:57+0200\n"
-"Last-Translator: Jovan Naumovski <jovan@lugola.net>\n"
+"POT-Creation-Date: 2007-03-01 03:16+0000\n"
+"PO-Revision-Date: 2007-03-06 10:45+0100\n"
+"Last-Translator: Arangel Angov <arangel@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr "Го одредува временскиот интервал за освежување на GAL кешот."
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+msgid ""
+"This key specifies the number of days interval between the GAL cache "
+"refresh. Set this value to zero, if you don't want to update GAL and use the "
+"curernt cache forever. This will work only if you have enabled offline "
+"caching for GAL."
+msgstr ""
+"Ова копче го одредува бројот на денови помеѓу освежувањето на GAL "
+"кешот. Поставете го на нула ако не сакате да го освежувате GAL и да го "
+"користите тековниот кеш засекогаш. Ова ќе работи само ако имате вклучено "
+"офлајн кеширање за GAL."
 
 #: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-gal.c:1547 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Пребарувам..."
 
-#: ../addressbook/e-book-backend-gal.c:267
+#: ../addressbook/e-book-backend-gal.c:265
 msgid "Reconnecting to LDAP server..."
 msgstr "Се врзувам со LDAP серверот..."
 
-#: ../addressbook/e-book-backend-gal.c:1363
+#: ../addressbook/e-book-backend-gal.c:1384
 msgid "Receiving LDAP search results..."
 msgstr "Примам резултати од LDAP пребарувањето..."
 
-#: ../addressbook/e-book-backend-gal.c:1522
+#: ../addressbook/e-book-backend-gal.c:1570
 msgid "Error performing search"
 msgstr "Грешка при барањето"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2004
+#: ../calendar/e-cal-backend-exchange-calendar.c:2015
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -44,10 +61,19 @@ msgstr ""
 "Не успеав да резервирам ресури '%s' за средбите.\n"
 "Морате да ја резервирате секоја средна посебно."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2022
+#: ../calendar/e-cal-backend-exchange-calendar.c:2033
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Ресурсот '%s' е зафатен во овој период."
+
+#: ../calendar/e-cal-backend-exchange.c:375
+#: ../calendar/e-cal-backend-exchange.c:384
+msgid "Authentication failed"
+msgstr "Проверката беше неуспешна"
+
+#: ../calendar/e-cal-backend-exchange.c:395
+msgid "Could not find the calendar"
+msgstr "Не можам да го најдам календарот"
 
 #: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
@@ -101,10 +127,10 @@ msgstr "Собирам информации за нови пораки"
 msgid "No folder name found\n"
 msgstr "Не е најдено името на папката\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
-#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
-#: ../mail/mail-stub-exchange.c:2730
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2569
+#: ../mail/mail-stub-exchange.c:2613 ../mail/mail-stub-exchange.c:2648
+#: ../mail/mail-stub-exchange.c:2675 ../mail/mail-stub-exchange.c:2728
+#: ../mail/mail-stub-exchange.c:2750
 msgid "Folder doesn't exist"
 msgstr "Папката не постои"
 
@@ -117,70 +143,78 @@ msgstr "Не можам да додадам порака во офлајн ре�
 msgid "Cannot append message in offline mode: %s"
 msgstr "Не можам да додадам порака во офлајн режим: %s"
 
+#: ../camel/camel-exchange-provider.c:40
+msgid "Checking for New Mail"
+msgstr "Проверувам пошта"
+
+#: ../camel/camel-exchange-provider.c:42 ../camel/camel-exchange-provider.c:66
+msgid "C_heck for new messages in all folders"
+msgstr "П_роверувај пораки во сите папки"
+
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:44
+#: ../camel/camel-exchange-provider.c:50
 msgid "Windows User_name:"
 msgstr "Корисничко име за _Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:49
+#: ../camel/camel-exchange-provider.c:55
 msgid "Global Address List / Active Directory"
 msgstr "Глобална листа на адреси / Активен директориум"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:59
 msgid "_Global Catalog server name:"
 msgstr "_Име на серверот со глобалниот каталог:"
 
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:61
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "_Ограничи го бројот на одговори за GAL: %s"
 
-#: ../camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:64
 msgid "Options"
 msgstr "Опции"
 
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:68
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Период за предупредување пред истекување на лозинката: %s"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:70
 msgid "Automatically synchroni_ze account locally"
 msgstr "Автоматски сихронизир_ај ја сметката локално"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:73
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "_Примени филтри на новите пораки во сандачето на овој сервер"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:75
 msgid "Check new messages for _Junk contents"
 msgstr "Проверувај нови пораки за _отпадна содржина"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:77
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Проверувај отпадни порак_и само во папката за сандачето"
 
-#: ../camel/camel-exchange-provider.c:79
+#: ../camel/camel-exchange-provider.c:87
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:81
+#: ../camel/camel-exchange-provider.c:89
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "За справување со пошта (и други податоци) на Microsoft Exchange сервери"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:105
 msgid "Secure Password"
 msgstr "Безбедна лозинка"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:108
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -188,11 +222,11 @@ msgstr ""
 "Опцијата ќе се врзе за Exchange серверот преку користење на безбедна лозинка "
 "за автентикација (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:108
+#: ../camel/camel-exchange-provider.c:116
 msgid "Plaintext Password"
 msgstr "Лозинка со чист текст"
 
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:118
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -200,26 +234,26 @@ msgstr ""
 "Оваа опција ќе се врзе за Exchange серверот преку користење на лозинка со "
 "чист текст."
 
-#: ../camel/camel-exchange-store.c:309
+#: ../camel/camel-exchange-store.c:310
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange сервер %s"
 
-#: ../camel/camel-exchange-store.c:312
+#: ../camel/camel-exchange-store.c:313
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Exchange сметка за %s на %s"
 
-#: ../camel/camel-exchange-store.c:353
+#: ../camel/camel-exchange-store.c:354
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sВнесете лозинка за %s"
 
-#: ../camel/camel-exchange-store.c:404
+#: ../camel/camel-exchange-store.c:405
 msgid "Evolution Exchange backend process"
 msgstr "Бекенд процес за Evolution Exchange"
 
-#: ../camel/camel-exchange-store.c:445
+#: ../camel/camel-exchange-store.c:446
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -227,32 +261,32 @@ msgstr ""
 "Не можам да се автентицирам на серверот (Неточна лозинка?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:487
+#: ../camel/camel-exchange-store.c:488
 #, c-format
 msgid "No such folder %s"
 msgstr "Не постои таква папка %s"
 
-#: ../camel/camel-exchange-store.c:564
+#: ../camel/camel-exchange-store.c:565
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Не можам да ја претплатам папката во офлајн режим."
 
-#: ../camel/camel-exchange-store.c:581
+#: ../camel/camel-exchange-store.c:582
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Не можам да ја откажам претплатата на папката во офлајн режим."
 
-#: ../camel/camel-exchange-store.c:696
+#: ../camel/camel-exchange-store.c:714
 msgid "Cannot get folder info in offline mode."
 msgstr "Не можам да добијам информации за папката во офлајн режим."
 
-#: ../camel/camel-exchange-store.c:767
+#: ../camel/camel-exchange-store.c:785
 msgid "Cannot create folder in offline mode."
 msgstr "Не можам да креирај папка во офлајн режим."
 
-#: ../camel/camel-exchange-store.c:794
+#: ../camel/camel-exchange-store.c:812
 msgid "Cannot delete folder in offline mode."
 msgstr "Не можам да креирам папка во офлајн режим."
 
-#: ../camel/camel-exchange-store.c:810
+#: ../camel/camel-exchange-store.c:828
 msgid "Cannot rename folder in offline mode."
 msgstr "Не можам да реименувам папка во офлајн режим."
 
@@ -312,9 +346,9 @@ msgstr "Нема таква папка"
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
-#: ../mail/mail-stub-exchange.c:2745
+#: ../mail/mail-stub-exchange.c:2546 ../mail/mail-stub-exchange.c:2586
+#: ../mail/mail-stub-exchange.c:2652 ../mail/mail-stub-exchange.c:2702
+#: ../mail/mail-stub-exchange.c:2765
 msgid "Permission denied"
 msgstr "Дозволата е одбиена."
 
@@ -370,15 +404,15 @@ msgstr "Сандачето не поддржува пребарување на �
 msgid "Unable to move/copy messages"
 msgstr "Не можам да преместувам/копирам пораки"
 
-#: ../mail/mail-stub-exchange.c:2441
+#: ../mail/mail-stub-exchange.c:2461
 msgid "No mail submission URI for this mailbox"
 msgstr "Нема поднесено адреса за пошта за ова сандаче"
 
-#: ../mail/mail-stub-exchange.c:2477
+#: ../mail/mail-stub-exchange.c:2497
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Серверот не прифаќа пошта преку Exchange транспорт"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:2499
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -387,7 +421,7 @@ msgstr ""
 "Вашата сметка нема дозвола да користи <%s>\n"
 "како адреса „Од“."
 
-#: ../mail/mail-stub-exchange.c:2491
+#: ../mail/mail-stub-exchange.c:2511
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -395,17 +429,17 @@ msgstr ""
 "Не можам да испратам порака.\n"
 "Ова може да значи дека Вашата сметка ја поминала квотата."
 
-#: ../mail/mail-stub-exchange.c:2495
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Could not send message"
 msgstr "Не можам да ја испратам пораката"
 
-#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2751
+#: ../mail/mail-stub-exchange.c:2538 ../mail/mail-stub-exchange.c:2591
+#: ../mail/mail-stub-exchange.c:2656 ../mail/mail-stub-exchange.c:2707
+#: ../mail/mail-stub-exchange.c:2771
 msgid "Generic error"
 msgstr "Генеричка грешка"
 
-#: ../mail/mail-stub-exchange.c:2522
+#: ../mail/mail-stub-exchange.c:2542
 msgid "Folder already exists"
 msgstr "Папката веќе постои"
 
@@ -460,8 +494,8 @@ msgstr ""
 "Не можам да се автентицирам на Exchange серверот.\n"
 "Осигурајте се дека корисничкото име и лозинката се точни и пробајте пак.\n"
 "\n"
-"Може ќе треба да го одредите името на доменот на Windows како дел од "
-"Вашето корисничко име (пр, \"Мојот-домен\\%s\")."
+"Може ќе треба да го одредите името на доменот на Windows како дел од Вашето "
+"корисничко име (пр, \"Мојот-домен\\%s\")."
 
 #: ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
