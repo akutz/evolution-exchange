@@ -1862,6 +1862,7 @@ done:
 	return( rc );
 }
 
+#ifdef LDAP_CONTROL_PAGEDRESULTS
 static void
 generate_cache (EBookBackendGAL *book_backend_gal)
 {
@@ -1954,6 +1955,7 @@ getNextPage:
 //		generate_cache_dtor ((LDAPOp *) contact_list_op);
 //	}
 }
+#endif
 
 static void
 authenticate_user (EBookBackend *backend,
@@ -2023,9 +2025,10 @@ set_mode (EBookBackend *backend, int mode)
 			if (e_book_backend_is_loaded (backend)) {
 				gal_connect (be);
 				e_book_backend_notify_auth_required (backend);
-
+#ifdef LDAP_CONTROL_PAGEDRESULTS
 				if (bepriv->marked_for_offline && bepriv->cache)
 					generate_cache (be);
+#endif				
 			}
 		}
 	}
@@ -2107,8 +2110,11 @@ load_source (EBookBackend *backend,
 		bl->priv->cache = NULL;
 	}
 
+#ifndef LDAP_CONTROL_PAGEDRESULTS
+	bl->priv->cache = NULL;
+#else	
 	bl->priv->cache = e_book_backend_cache_new (uri);
-
+#endif
 
 	if (bl->priv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
 		/* Offline */
@@ -2127,7 +2133,7 @@ load_source (EBookBackend *backend,
 	result = gal_connect (bl);
 	if (result != GNOME_Evolution_Addressbook_Success)
 		return result;
-
+#ifdef LDAP_CONTROL_PAGEDRESULTS
 	if (bl->priv->marked_for_offline) {
 		if (e_book_backend_cache_is_populated (bl->priv->cache) ) {
 			printf("Cache is populated, check if refresh is required \n");
@@ -2154,7 +2160,7 @@ load_source (EBookBackend *backend,
 			generate_cache(bl);
 		}
 	}
-
+#endif
 	return result;
 }
 
@@ -2230,7 +2236,7 @@ dispose (GObject *object)
 
 		if (bl->priv->gc)
 			g_object_unref (bl->priv->gc);
-		printf("%s(%d):%s: Unreffing cache. %d \n", __FILE__, __LINE__, __PRETTY_FUNCTION__, ((GObject *) bl->priv->cache)->ref_count);
+		
 		if (bl->priv->cache)
 			g_object_unref (bl->priv->cache);
 

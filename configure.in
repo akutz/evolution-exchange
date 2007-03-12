@@ -243,6 +243,26 @@ AC_DEFINE(HAVE_LDAP,1,[Define if you have LDAP support])
 AM_CONDITIONAL(ENABLE_LDAP, true)
 fi # Win32
 
+AC_MSG_CHECKING(for LDAP Paged Control)
+AC_TRY_RUN([
+#include <ldap.h>
+
+int main(int argc, char **argv)
+{
+#ifdef LDAP_CONTROL_PAGEDRESULTS	
+		exit(0);
+#else		
+		exit(1);
+#endif		
+}],[
+AC_DEFINE(HAVE_LDAP_PAGED, 1, [Supports Paged results])
+ac_cv_ldappaged=yes
+],ac_cv_ldappaged="no (GAL Caching disabled)",ac_cv_ldappaged="no (GAL Caching disabled)",[
+AC_DEFINE(HAVE_LDAP_PAGED, 1, [Supports Paged results])
+ac_cv_ldappaged=yes
+])
+AC_MSG_RESULT($ac_cv_ldappaged)
+
 dnl *******
 dnl gtk-doc
 dnl *******
