@@ -1,38 +1,55 @@
 # Përkthimi i mesazheve të evolution-exchange në shqip
 # This file is distributed under the same license as the evolution-exchange package.
-# Copyright (C) 2006 Free Software Foundation, Inc.
+# Copyright (C) 2006, 2007 Free Software Foundation, Inc.
 #
-# Laurent Dhima <laurenti@alblinux.net>, 2004, 2005, 2006.
+# Laurent Dhima <laurenti@alblinux.net>, 2004, 2005, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-23 07:18+0100\n"
-"PO-Revision-Date: 2006-02-23 10:30+0100\n"
+"POT-Creation-Date: 2007-03-14 17:46+0100\n"
+"PO-Revision-Date: 2007-03-14 17:52+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
-"Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
+"Language-Team: albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1867
-#: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr "Specifikon intervalin kohor për rifreskimin e Cache të GAL."
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+msgid ""
+"This key specifies the number of days interval between the GAL cache "
+"refresh. Set this value to zero, if you don't want to update GAL and use the "
+"curernt cache forever. This will work only if you have enabled offline "
+"caching for GAL."
+msgstr ""
+"Kjo vlerë specifikon numrin e ditëve të intervalit të rifreskimit të cache të "
+"GAL. Caktoje këtë vlerë në zero, nëse nuk dëshiron të përditësosh GAL dhe "
+"përdor përgjithmonë cache aktuale. Kjo dë të funksionojë vetëm nëse keni "
+"aktivuar magazinimin jashtë linje për GAL."
+
+#: ../addressbook/e-book-backend-exchange.c:1882
+#: ../addressbook/e-book-backend-gal.c:1547 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Duke kërkuar..."
 
-#: ../addressbook/e-book-backend-gal.c:267
+#: ../addressbook/e-book-backend-gal.c:265
 msgid "Reconnecting to LDAP server..."
 msgstr "Duke u rilidhur me server-in LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1363
+#: ../addressbook/e-book-backend-gal.c:1384
 msgid "Receiving LDAP search results..."
 msgstr "Duke marrë rezultatet e kërkimit LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1522
+#: ../addressbook/e-book-backend-gal.c:1570
 msgid "Error performing search"
 msgstr "Gabim gjatë kryerjes së kërkimit"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1805
+#: ../calendar/e-cal-backend-exchange-calendar.c:2015
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -41,10 +58,19 @@ msgstr ""
 "I pamundur planifikimi i rezervës '%s' për mbledhjet e ardhshme.\n"
 "Çdo mbledhje do të duhet të prenotohet në veçanti."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:1823
+#: ../calendar/e-cal-backend-exchange-calendar.c:2033
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Rezerve '%s' është e zënë gjatë periudhës së zgjedhur të kohës."
+
+#: ../calendar/e-cal-backend-exchange.c:375
+#: ../calendar/e-cal-backend-exchange.c:384
+msgid "Authentication failed"
+msgstr "Identifikimi dështoi"
+
+#: ../calendar/e-cal-backend-exchange.c:395
+msgid "Could not find the calendar"
+msgstr "E pamundur gjetja e kalendarit"
 
 #: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
@@ -54,43 +80,43 @@ msgstr "E pamundur fshirja në modalitet jashtë linje."
 msgid "No Subject"
 msgstr "Asnjë Subjekt"
 
-#: ../camel/camel-exchange-folder.c:380
+#: ../camel/camel-exchange-folder.c:407
 msgid "This message is not available in offline mode."
 msgstr "Ky mesazh nuk gjendet në dispozicion në modalitetin jashtë linje"
 
-#: ../camel/camel-exchange-folder.c:615
+#: ../camel/camel-exchange-folder.c:642
 msgid "Moving messages"
 msgstr "Duke lëvizur mesazhet"
 
-#: ../camel/camel-exchange-folder.c:616
+#: ../camel/camel-exchange-folder.c:643
 msgid "Copying messages"
 msgstr "Duke kopjuar mesazhet"
 
-#: ../camel/camel-exchange-folder.c:987
+#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "I pamundur krijimi i directory %s: %s"
 
-#: ../camel/camel-exchange-folder.c:997
+#: ../camel/camel-exchange-folder.c:1024
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "I pamundur leximi i përmbledhjes për %s"
 
-#: ../camel/camel-exchange-folder.c:1005
+#: ../camel/camel-exchange-folder.c:1032
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "I pamundur krijimi i cache për %s"
 
-#: ../camel/camel-exchange-folder.c:1015
+#: ../camel/camel-exchange-folder.c:1042
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "I pamundur krijimi i ditarit për %s"
 
-#: ../camel/camel-exchange-folder.c:1060
+#: ../camel/camel-exchange-folder.c:1087
 msgid "Scanning for changed messages"
 msgstr "Duke kërkuar për mesazhet e ndryshuara"
 
-#: ../camel/camel-exchange-folder.c:1086
+#: ../camel/camel-exchange-folder.c:1113
 msgid "Fetching summary information for new messages"
 msgstr "Duke marrë përmbledhjen e informacionit për mesazhet e rinj"
 
@@ -98,10 +124,10 @@ msgstr "Duke marrë përmbledhjen e informacionit për mesazhet e rinj"
 msgid "No folder name found\n"
 msgstr "Kartela nuk u gjet\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
-#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2724
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2569
+#: ../mail/mail-stub-exchange.c:2613 ../mail/mail-stub-exchange.c:2648
+#: ../mail/mail-stub-exchange.c:2675 ../mail/mail-stub-exchange.c:2728
+#: ../mail/mail-stub-exchange.c:2750
 msgid "Folder doesn't exist"
 msgstr "Kartela nuk ekziston"
 
@@ -116,72 +142,80 @@ msgstr ""
 msgid "Cannot append message in offline mode: %s"
 msgstr "I pamundur shtimi i mesazhit në modalitet jashtë linje: %s"
 
+#: ../camel/camel-exchange-provider.c:40
+msgid "Checking for New Mail"
+msgstr "Kërkimi për mesazhe të rinj"
+
+#: ../camel/camel-exchange-provider.c:42 ../camel/camel-exchange-provider.c:66
+msgid "C_heck for new messages in all folders"
+msgstr "Kontrollo për mesaz_he të rinj në të gjitha kartelat"
+
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:44
+#: ../camel/camel-exchange-provider.c:50
 msgid "Windows User_name:"
 msgstr "Emri _përdoruesit windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:49
+#: ../camel/camel-exchange-provider.c:55
 msgid "Global Address List / Active Directory"
 msgstr "Lista globale e adresave / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:59
 msgid "_Global Catalog server name:"
 msgstr "Emri i serverit të Katalogut _Global:"
 
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:61
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "Numri i _Limit i përgjigjeve GAL: %s"
 
-#: ../camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:64
 msgid "Options"
 msgstr "Opcione"
 
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:68
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Periudha për paralajmërim në lidhje me skadimin e fjalëkalimit: %s"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:70
 msgid "Automatically synchroni_ze account locally"
 msgstr "Sinkroni_zo automatikisht llogarinë në lokale"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:73
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "_Aplikoi filtrat mesazheve të rinj në \"Inbox\" tek ky server"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:75
 msgid "Check new messages for _Junk contents"
 msgstr "Kontrollo nëse mesazhet e rinj përmbajnë material që duhet _refuzuar"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:77
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Kontrollo për mesazh_e që duhen refuzuar vetëm tek kartela Inbox"
 
-#: ../camel/camel-exchange-provider.c:79
+#: ../camel/camel-exchange-provider.c:87
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:81
+#: ../camel/camel-exchange-provider.c:89
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr ""
 "Për trajtimin e mail (dhe të dhënave të tjera) në server-ët Microsoft "
 "Exchange"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:105
 msgid "Secure Password"
 msgstr "Fjalëkalim i sigurt"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:108
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -189,11 +223,11 @@ msgstr ""
 "Me këtë opcion do të lidheni me serverin Exchange duke përdorur "
 "autentifikimin me fjalëkalim të sigurt (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:108
+#: ../camel/camel-exchange-provider.c:116
 msgid "Plaintext Password"
 msgstr "Fjalëkalim si tekst i thjeshtë"
 
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:118
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -201,26 +235,26 @@ msgstr ""
 "Me këtë opcion do të lidheni me serverin Exchange duke përdorur "
 "autentifikimin standart me fjalëkalim si tekst i thjeshtë."
 
-#: ../camel/camel-exchange-store.c:308
+#: ../camel/camel-exchange-store.c:310
 #, c-format
 msgid "Exchange server %s"
 msgstr "Serveri exchange %s"
 
-#: ../camel/camel-exchange-store.c:311
+#: ../camel/camel-exchange-store.c:313
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Llogaria exchange për %s në %s"
 
-#: ../camel/camel-exchange-store.c:352
+#: ../camel/camel-exchange-store.c:354
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sShkruaj fjalëkalimin për %s"
 
-#: ../camel/camel-exchange-store.c:403
+#: ../camel/camel-exchange-store.c:405
 msgid "Evolution Exchange backend process"
 msgstr "Proçesi backend Evolution Exchange"
 
-#: ../camel/camel-exchange-store.c:444
+#: ../camel/camel-exchange-store.c:446
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -228,34 +262,34 @@ msgstr ""
 "I pamundur autentifikimi në server. (Fjalëkalim i pasaktë?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:486
+#: ../camel/camel-exchange-store.c:488
 #, c-format
 msgid "No such folder %s"
 msgstr "Kartela nuk u gjet: %s"
 
-#: ../camel/camel-exchange-store.c:563
+#: ../camel/camel-exchange-store.c:565
 msgid "Cannot subscribe folder in offline mode."
 msgstr "I pamundur regjistrimi i kartelës në modalitetin jashtë linje."
 
-#: ../camel/camel-exchange-store.c:580
+#: ../camel/camel-exchange-store.c:582
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "I pamundur ç'regjistrimi i kartelës në modalitetin jashtë linje."
 
-#: ../camel/camel-exchange-store.c:695
+#: ../camel/camel-exchange-store.c:714
 msgid "Cannot get folder info in offline mode."
 msgstr ""
 "E pamundur marrja e informacioneve në lidhje me kartelën në modalitet jashtë "
 "linje."
 
-#: ../camel/camel-exchange-store.c:766
+#: ../camel/camel-exchange-store.c:793
 msgid "Cannot create folder in offline mode."
 msgstr "I pamundur krijimi i kartelës në modalitet jashtë linje."
 
-#: ../camel/camel-exchange-store.c:793
+#: ../camel/camel-exchange-store.c:820
 msgid "Cannot delete folder in offline mode."
 msgstr "I pamundur eleminimi i kartelës në modalitet jashtë linje."
 
-#: ../camel/camel-exchange-store.c:809
+#: ../camel/camel-exchange-store.c:836
 msgid "Cannot rename folder in offline mode."
 msgstr "I pamundur riemërtimi i kartelës në modalitet jashtë linje."
 
@@ -271,46 +305,51 @@ msgstr "E pamundur nisja e mesazhit: një apo më shumë adresa të pasakta"
 msgid "Could not find 'From' address in message"
 msgstr "E pamundur gjetja e adresës 'Nga' në mesazh"
 
-#: ../camel/camel-stub.c:134
+#: ../camel/camel-stub.c:152
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "I pamundur krijimi i socket: %s"
 
-#: ../camel/camel-stub.c:149
+#: ../camel/camel-stub.c:170
+#, c-format
+msgid "Could not connect to %s: Please restart Evolution"
+msgstr "E pamundur lidhja me %s: Të lutem rinis Evolution"
+
+#: ../camel/camel-stub.c:175
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "E pamundur lidhja me %s: %s"
 
-#: ../camel/camel-stub.c:179
+#: ../camel/camel-stub.c:205
 #, c-format
 msgid "Path too long: %s"
 msgstr "Poath tepër i gjatë: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:231
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "E pamundur nisja e thread të gjendjes: %s"
 
-#: ../camel/camel-stub.c:457
+#: ../camel/camel-stub.c:485
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Humbi lidhja me %s"
 
-#: ../camel/camel-stub.c:461
+#: ../camel/camel-stub.c:489
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Gabim gjatë komunikimit me %s: %s"
 
-#: ../mail/mail-stub-exchange.c:257
+#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
 msgid "No such folder"
 msgstr "Kartela nuk u gjet"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
-#: ../mail/mail-stub-exchange.c:2740 ../storage/xc-commands.c:319
+#: ../mail/mail-stub-exchange.c:2546 ../mail/mail-stub-exchange.c:2586
+#: ../mail/mail-stub-exchange.c:2652 ../mail/mail-stub-exchange.c:2702
+#: ../mail/mail-stub-exchange.c:2765
 msgid "Permission denied"
 msgstr "Ndalohet hyrja"
 
@@ -321,10 +360,6 @@ msgstr "E pamundur hapja e kartelës: Ndalohet hyrja"
 #: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
 msgid "Could not open folder"
 msgstr "E pamundur hapja e kartelës"
-
-#: ../mail/mail-stub-exchange.c:755
-msgid "No such folder."
-msgstr "Kartela nuk u gjet."
 
 #: ../mail/mail-stub-exchange.c:764
 msgid "Could not create folder."
@@ -370,15 +405,15 @@ msgstr "Mailbox nuk suporton kërkimin tekst i plotë"
 msgid "Unable to move/copy messages"
 msgstr "E pamundur lëvizja/kopja e mesazheve"
 
-#: ../mail/mail-stub-exchange.c:2441
+#: ../mail/mail-stub-exchange.c:2461
 msgid "No mail submission URI for this mailbox"
 msgstr "Kjo kasetë poste nuk ka asnjë URl për mesazhet e dorëzuara"
 
-#: ../mail/mail-stub-exchange.c:2477
+#: ../mail/mail-stub-exchange.c:2497
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Serveri nuk pranon mail via Exchange transport"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:2499
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -387,7 +422,7 @@ msgstr ""
 "Llogaria juaj nuk ka të drejtë të përdorë <%s>\n"
 "si adresë \"Nga\"."
 
-#: ../mail/mail-stub-exchange.c:2491
+#: ../mail/mail-stub-exchange.c:2511
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -395,17 +430,17 @@ msgstr ""
 "I pamundur dërgimi i mesazhit.\n"
 "Kjo do të thotë që ndoshta keni tejkaluar kuotën."
 
-#: ../mail/mail-stub-exchange.c:2495
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Could not send message"
 msgstr "Dërgimi i mesazhit është i pamundur"
 
-#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
-#: ../mail/mail-stub-exchange.c:2745 ../storage/xc-commands.c:323
+#: ../mail/mail-stub-exchange.c:2538 ../mail/mail-stub-exchange.c:2591
+#: ../mail/mail-stub-exchange.c:2656 ../mail/mail-stub-exchange.c:2707
+#: ../mail/mail-stub-exchange.c:2771
 msgid "Generic error"
 msgstr "Gabim i përgjithshëm"
 
-#: ../mail/mail-stub-exchange.c:2522 ../storage/xc-commands.c:313
+#: ../mail/mail-stub-exchange.c:2542
 msgid "Folder already exists"
 msgstr "Kartela ekziston"
 
@@ -698,112 +733,6 @@ msgstr "Fjalëkalimi i Ri:"
 msgid "Your current password has expired. Please change your password now."
 msgstr "Fjalëkalimi juaj aktual ka skaduar. Ju lutem ndryshoheni tani."
 
-#: ../storage/exchange-delegates-user.c:144
-msgid "Custom"
-msgstr "E personalizuar"
-
-#: ../storage/exchange-delegates-user.c:191
-#: ../storage/exchange-permissions-dialog.c:179
-#, c-format
-msgid "Permissions for %s"
-msgstr "Të drejtat për %s"
-
-#: ../storage/exchange-delegates.c:221
-msgid ""
-"No Global Catalog server configured for this account.\n"
-"Unable to edit delegates."
-msgstr ""
-"Asnjë server Katallogu Global është konfiguruar për këtë llogari.\n"
-"I pamundur ndryshimi i delegimeve."
-
-#: ../storage/exchange-delegates.c:260
-msgid ""
-"Could not read folder permissions.\n"
-"Unable to edit delegates."
-msgstr ""
-"I pamundur leximi i të drejtave të kartelës.\n"
-"I pamundur ndryshimi i delegimeve."
-
-#: ../storage/exchange-delegates.c:267
-msgid ""
-"Could not determine folder permissions for delegates.\n"
-"Unable to edit delegates."
-msgstr ""
-"I pamundur përcaktimi i të drejtave të kartelës për delegimet.\n"
-"I pamundur ndryshimi i delegimeve."
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To:"
-msgstr "Delegoje tek:"
-
-#: ../storage/exchange-delegates.c:419
-msgid "Delegate To"
-msgstr "Delegoje tek"
-
-#: ../storage/exchange-delegates.c:435
-#, c-format
-msgid "Could not make %s a delegate"
-msgstr "E pamundur kthimi i %s në delegat"
-
-#: ../storage/exchange-delegates.c:445
-msgid "You cannot make yourself your own delegate"
-msgstr "Nuk mund të delegoni vetveten"
-
-#: ../storage/exchange-delegates.c:454
-#, c-format
-msgid "%s is already a delegate"
-msgstr "%s është një delegat"
-
-#: ../storage/exchange-delegates.c:563
-#, c-format
-msgid "Remove the delegate %s?"
-msgstr "Eleminoj delegatin %s?"
-
-#: ../storage/exchange-delegates.c:680
-msgid "Could not access Active Directory"
-msgstr "E pamundur futja në Active Directory"
-
-#: ../storage/exchange-delegates.c:695
-msgid "Could not find self in Active Directory"
-msgstr "Nuk arrij të gjej veten në Active Directory"
-
-#: ../storage/exchange-delegates.c:708
-#, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "Nuk arrij të gjej të deleguarin %s në Active Directory"
-
-#: ../storage/exchange-delegates.c:720
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "I pamundur eleminimi i delegatit %s"
-
-#: ../storage/exchange-delegates.c:780
-msgid "Could not update list of delegates."
-msgstr "I pamundur rifreskimi i listës së delegatëve."
-
-#: ../storage/exchange-delegates.c:798
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "I pamundur shtimi i delegatit %s"
-
-#: ../storage/exchange-delegates.c:814
-#, c-format
-msgid ""
-"Failed to update delegates:\n"
-"%s"
-msgstr ""
-"Rifreskimi i delegatëve dështoi:\n"
-"%s"
-
-#: ../storage/exchange-delegates.c:938
-#: ../storage/exchange-permissions-dialog.c:706
-msgid "Name"
-msgstr "Emri"
-
-#: ../storage/exchange-delegates.c:967
-msgid "Error reading delegates list."
-msgstr "Gabim gjatë leximit të listës së delegatëve."
-
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
 msgstr "Autori (lexim, krijim)"
@@ -967,63 +896,6 @@ msgstr "_Ndrysho fjalëkalimin"
 msgid "ok_button"
 msgstr "ok_butoni"
 
-#: ../storage/exchange-permissions-dialog.c:222
-msgid "Could not read folder permissions"
-msgstr "I pamundur leximi i të drejtave të kartelës"
-
-#: ../storage/exchange-permissions-dialog.c:264
-msgid "Could not update folder permissions."
-msgstr "I pamundur rifreskimi i të drejtave të kartelës."
-
-#: ../storage/exchange-permissions-dialog.c:293
-#, c-format
-msgid "Could not update folder permissions. %s"
-msgstr "I pamundur rifreskimi i të drejtave të kartelës. %s"
-
-#: ../storage/exchange-permissions-dialog.c:295
-msgid "(Permission denied.)"
-msgstr "(Ndalohet hyrja.)"
-
-#: ../storage/exchange-permissions-dialog.c:396
-msgid ""
-"Unable to add user to access control list:\n"
-"No Global Catalog server is configured for this account."
-msgstr ""
-"I pamundur shtimi i përdoruesit në listën e kontrollit të hyrjeve:\n"
-"Asnjë server Katallogu Global është konfiguruar për këtë llogari."
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User:"
-msgstr "Shto përdoruesin:"
-
-#: ../storage/exchange-permissions-dialog.c:402
-msgid "Add User"
-msgstr "Shto përdorues"
-
-#: ../storage/exchange-permissions-dialog.c:421
-#, c-format
-msgid "No such user %s"
-msgstr "Përdoruesi %s nuk ekziston"
-
-#: ../storage/exchange-permissions-dialog.c:425
-#, c-format
-msgid "%s cannot be added to an access control list"
-msgstr "%s nuk mund të shtohet në një listë kontrolli të hyrjeve"
-
-#: ../storage/exchange-permissions-dialog.c:430
-#, c-format
-msgid "Unknown error looking up %s"
-msgstr "Gabim i panjohur gjatë mbikqyrjes së %s"
-
-#: ../storage/exchange-permissions-dialog.c:447
-#, c-format
-msgid "%s is already in the list"
-msgstr "%s ekziston në listë"
-
-#: ../storage/exchange-permissions-dialog.c:710
-msgid "Role"
-msgstr "Roli"
-
 #: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
 msgstr "    "
@@ -1091,70 +963,6 @@ msgstr "Duke u lidhur..."
 #: ../storage/main.c:183
 msgid "Ximian Connector for Microsoft Exchange"
 msgstr "Ximian Connector për Microsoft Exchange"
-
-#: ../storage/xc-backend-view.c:299
-msgid "Account Name"
-msgstr "Emri i llogarisë"
-
-#: ../storage/xc-commands.c:316
-msgid "Folder does not exist"
-msgstr "Kartela nuk ekziston"
-
-#: ../storage/xc-commands.c:343
-#, c-format
-msgid "Could not add favorite: %s"
-msgstr "I pamundur shtimi i të preferuarit: %s"
-
-#: ../storage/xc-commands.c:359
-#, c-format
-msgid "Could not remove favorite: %s"
-msgstr "E pamundur heqja e të preferuarit: %s"
-
-#.
-#. FIXME: See 62440
-#. E_POPUP_ITEM (N_("_Move Folder..."),
-#. G_CALLBACK (do_move_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#. E_POPUP_ITEM (N_("_Copy Folder..."),
-#. G_CALLBACK (do_copy_folder),
-#. XC_FOLDER_COMMAND_MASK_MOVECOPY),
-#.
-#: ../storage/xc-commands.c:385
-msgid "_Rename Folder..."
-msgstr "_Riemërto Kartelën..."
-
-#: ../storage/xc-commands.c:391
-msgid "_New Folder..."
-msgstr "Kartelë e _Re..."
-
-#: ../storage/xc-commands.c:394
-msgid "_Delete Folder"
-msgstr "_Elemino Kartelën"
-
-#: ../storage/xc-commands.c:399
-msgid "_Add Other User's Folder..."
-msgstr "_Shto Kartelën e përdoruesit tjetër..."
-
-#: ../storage/xc-commands.c:402
-msgid "_Remove Other User's Folder"
-msgstr "_Hiq Kartelën e përdoruesit tjetër"
-
-#: ../storage/xc-commands.c:408
-msgid "Add to _Favorites"
-msgstr "Shtoje tek të _Preferuarit"
-
-#: ../storage/xc-commands.c:412
-msgid "Remove from Fa_vorites"
-msgstr "Hiqe nga të Pr_eferuarit"
-
-#.
-#. E_POPUP_ITEM (N_("_Permissions..."),
-#. G_CALLBACK (do_permissions),
-#. XC_FOLDER_COMMAND_MASK_PERMISSIONS),
-#.
-#: ../storage/xc-commands.c:423
-msgid "_Show Folder Sizes"
-msgstr "_Shfaq madhësitë e kartelës"
 
 #: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
