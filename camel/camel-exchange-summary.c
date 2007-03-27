@@ -28,13 +28,13 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include <camel/camel-exchange-summary.h>
 #include <camel/camel-file-utils.h>
 #include <camel/camel-offline-store.h>
 
 #include "camel-stub.h"
 #include "camel-exchange-folder.h"
 #include "camel-exchange-journal.h"
+#include "camel-exchange-summary.h"
 
 #define CAMEL_EXCHANGE_SUMMARY_VERSION (1)
 
