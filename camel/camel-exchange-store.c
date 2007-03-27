@@ -535,10 +535,10 @@ exchange_get_folder (CamelStore *store, const char *folder_name,
 static gboolean
 exchange_folder_subscribed (CamelStore *store, const char *folder_name)
 {
-	d(printf ("is subscribed folder : %s\n", folder_name));
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	guint32 is_subscribed;
 	
+	d(printf ("is subscribed folder : %s\n", folder_name));
 	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
 		return FALSE;
 	}
@@ -558,9 +558,9 @@ static void
 exchange_subscribe_folder (CamelStore *store, const char *folder_name,
 				CamelException *ex)
 {
-	d(printf ("subscribe folder : %s\n", folder_name));
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	
+	d(printf ("subscribe folder : %s\n", folder_name));
 	if (!camel_exchange_store_connected (exch, ex)) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot subscribe folder in offline mode."));
 		return;
@@ -575,9 +575,9 @@ static void
 exchange_unsubscribe_folder (CamelStore *store, const char *folder_name,
 				CamelException *ex)
 {
-	d(printf ("unsubscribe folder : %s\n", folder_name));
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	
+	d(printf ("unsubscribe folder : %s\n", folder_name));
 	if (!camel_exchange_store_connected (exch, ex)) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot unsubscribe folder in offline mode."));
 		return;
@@ -612,13 +612,13 @@ static CamelFolderInfo *
 make_folder_info (CamelExchangeStore *exch, char *name, char *uri,
 		  int unread_count, int flags)
 {
-	d(printf ("make folder info : %s flags : %d\n", name, flags));
 	CamelFolderInfo *info;
 	const char *path;
 	gchar **components;
 	char *new_uri;
 	char *temp;
 
+	d(printf ("make folder info : %s flags : %d\n", name, flags));
 	path = strstr (uri, "://");
 	if (!path)
 		return NULL;

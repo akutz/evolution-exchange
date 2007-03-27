@@ -146,12 +146,11 @@ impl_createView (PortableServer_Servant servant,
 		 GNOME_Evolution_ShellView parent,
 		 CORBA_Environment *ev)
 {
-	d(printf("createView...\n"));
-
 	EComponentView *component_view = e_component_view_new_controls (parent, "exchange",
                                                         		NULL,
 									NULL,
                                                         		NULL);
+	d(printf("createView...\n"));
 
         return BONOBO_OBJREF(component_view);
 }

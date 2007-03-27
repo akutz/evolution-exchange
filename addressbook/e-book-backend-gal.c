@@ -418,12 +418,13 @@ get_contact_handler (LDAPOp *op, LDAPMessage *res)
 	   the op after either */
 	msg_type = ldap_msgtype (res);
 	if (msg_type == LDAP_RES_SEARCH_ENTRY) {
-		g_mutex_lock (bl->priv->ldap_lock);
-		LDAPMessage *e = ldap_first_entry(bl->priv->ldap, res);
-		g_mutex_unlock (bl->priv->ldap_lock);
-
+		LDAPMessage *e;
 		EContact *contact;
 		char *vcard;
+
+		g_mutex_lock (bl->priv->ldap_lock);
+		e = ldap_first_entry(bl->priv->ldap, res);
+		g_mutex_unlock (bl->priv->ldap_lock);
 
 		if (!e) {
 			g_warning ("uh, this shouldn't happen");
@@ -1829,10 +1830,12 @@ static int dosearch(
 			msg != NULL;
 			msg = ldap_next_message( ld, msg ) )
 		{
+			EContact *contact;
+
 			switch( ldap_msgtype( msg ) ) {
 			case LDAP_RES_SEARCH_ENTRY:
 				count ++;
-				EContact *contact = build_contact_from_entry (bl, msg, NULL);
+				contact = build_contact_from_entry (bl, msg, NULL);
 				e_book_backend_cache_add_contact (bl->priv->cache, contact);
 				g_object_unref (contact);
 				printf ("Count :%d\n", count);
@@ -1866,13 +1869,16 @@ done:
 static void
 generate_cache (EBookBackendGAL *book_backend_gal)
 {
-	printf ("Generate Cache\n");
 	LDAPGetContactListOp *contact_list_op = g_new0 (LDAPGetContactListOp, 1);
 	EBookBackendGALPrivate *priv;
 	gchar *ldap_query;
 	int  i = 0, rc ;
 	BerElement *prber = NULL;
+	time_t t1;
+	char t[15];
+	LDAPControl c[6];
 
+	printf ("Generate Cache\n");
 	priv = book_backend_gal->priv;
 
 	npagedresponses = npagedentries = npagedreferences =
@@ -1891,7 +1897,6 @@ getNextPage:
 	/*start iteration*/
 
 	i = 0;
-	LDAPControl c[6];
 	if ( pagedResults ) {
 		if (( prber = ber_alloc_t(LBER_USE_DER)) == NULL ) {
 			return;
@@ -1928,8 +1933,7 @@ getNextPage:
 	/* Set the cache to populated and thaw the changes */
 
 	e_book_backend_cache_set_populated (priv->cache);
-	time_t t1 =  time (NULL);
-	char t[15] ;
+	t1 = time (NULL);
 	g_sprintf (t," %d", (int)t1);
 	e_book_backend_cache_set_time (priv->cache, t);
 	e_file_cache_thaw_changes (E_FILE_CACHE (priv->cache));
@@ -2136,11 +2140,11 @@ load_source (EBookBackend *backend,
 #ifdef LDAP_CONTROL_PAGEDRESULTS
 	if (bl->priv->marked_for_offline) {
 		if (e_book_backend_cache_is_populated (bl->priv->cache) ) {
-			printf("Cache is populated, check if refresh is required \n");
 			time_t t1, t2;
 			int diff;
 
 			char *t = e_book_backend_cache_get_time (bl->priv->cache);
+			printf("Cache is populated, check if refresh is required \n");
 			if (t && *t)
 				t1 = atoi (t);
 			else

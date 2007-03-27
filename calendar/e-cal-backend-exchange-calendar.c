@@ -1532,7 +1532,6 @@ static ECalBackendSyncStatus
 receive_objects (ECalBackendSync *backend, EDataCal *cal,
 		 const char *calobj)
 {
-	d(printf ("ecbexc_modify_object(%p, %p, %s)", backend, cal, calobj ? calobj : NULL));
 	ECalBackendExchangeCalendar *cbexc;
 	ECalBackendExchange *cbex;
 	ECalBackendExchangeComponent *ecomp;
@@ -1543,6 +1542,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 	icalcomponent *subcomp, *icalcomp;
 	ECalBackendSyncStatus status = GNOME_Evolution_Calendar_Success;	
 
+	d(printf ("ecbexc_modify_object(%p, %p, %s)", backend, cal, calobj ? calobj : NULL));
 	cbexc =	E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 	cbex =	E_CAL_BACKEND_EXCHANGE (backend);
 
@@ -1627,8 +1627,8 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 
 				g_free (old_object);
 			} else if (!check_owner_partstatus_for_declined (backend, subcomp)) {
-				d(printf ("object : %s .. not found in the cache\n", uid));
 				char *returned_uid, *old, *object;
+				d(printf ("object : %s .. not found in the cache\n", uid));
 				icalobj = (char *) icalcomponent_as_ical_string (subcomp);
 				d(printf ("Create a new object : %s\n", icalobj));
 				

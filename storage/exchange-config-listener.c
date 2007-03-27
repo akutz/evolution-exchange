@@ -361,10 +361,11 @@ migrate_account_esource (EAccount *account,
 void
 exchange_config_listener_migrate_esources (ExchangeConfigListener *config_listener)
 {
+	EAccount *account;
+
 	g_return_if_fail (config_listener != NULL);
 
-	EAccount *account = config_listener->priv->configured_account;
-
+	account = config_listener->priv->configured_account;
 	migrate_account_esource (account, EXCHANGE_CALENDAR_FOLDER);
 	migrate_account_esource (account, EXCHANGE_TASKS_FOLDER);
 	migrate_account_esource (account, EXCHANGE_CONTACTS_FOLDER);
