@@ -1273,7 +1273,7 @@ do_put (EBookBackendExchange *be, EDataBook *book,
 	body = build_message (hier->owner_name, hier->owner_email,
 			      subject, note, photo);
 	status = e2k_context_put (be->priv->ctx, NULL, uri, "message/rfc822",
-				  body->data, body->len, NULL);
+				  (char *) body->data, body->len, NULL);
 	g_byte_array_free (body, TRUE);
 
 	return status;
@@ -1415,7 +1415,7 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 			/* Do the PUT request if we need to. */
 			char *old_note, *new_note;
 			EContactPhoto *old_photo, *new_photo;
-			gboolean changed;
+			gboolean changed = FALSE;
 
 			old_note = e_contact_get (old_contact, E_CONTACT_NOTE);
 			old_photo = e_contact_get (old_contact, E_CONTACT_PHOTO);
@@ -1441,8 +1441,6 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 					  old_photo->type == E_CONTACT_PHOTO_TYPE_URI) {
 					changed = !strcmp (old_photo->data.uri, new_photo->data.uri);
 				}
-				else
-					changed = FALSE;
 			}
 
 			if (changed) {

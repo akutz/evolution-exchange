@@ -205,7 +205,7 @@ encode_string (CamelStubMarshal *marshal, const char *str)
 
 	len = strlen (str);
 	encode_uint32 (marshal, len + 1);
-	g_byte_array_append (marshal->out, str, len);
+	g_byte_array_append (marshal->out, (guint8 *) str, len);
 }
 
 static int
@@ -407,7 +407,7 @@ camel_stub_marshal_decode_bytes (CamelStubMarshal *marshal, GByteArray **ba)
 
 	*ba = g_byte_array_new ();
 	g_byte_array_set_size (*ba, len);
-	if (len > 0 && marshal_read (marshal, (*ba)->data, len) != len) {
+	if (len > 0 && marshal_read (marshal, (char *) (*ba)->data, len) != len) {
 		g_byte_array_free (*ba, TRUE);
 		*ba = NULL;
 		return -1;
@@ -452,7 +452,7 @@ camel_stub_marshal_flush (CamelStubMarshal *marshal)
 	marshal->out->data[2] = (left >> 16) & 0xFF;
 	marshal->out->data[3] = (left >> 24) & 0xFF;
 	
-	if (camel_write (marshal->fd, marshal->out->data, marshal->out->len) == -1) {
+	if (camel_write (marshal->fd, (char *) marshal->out->data, marshal->out->len) == -1) {
 		close (marshal->fd);
 		marshal->fd = -1;
 		return -1;

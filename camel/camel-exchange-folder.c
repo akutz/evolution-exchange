@@ -263,7 +263,8 @@ append_message_data (CamelFolder *folder, GByteArray *message,
 		stream_cache = camel_data_cache_add (exch->cache,
 						     "cache", new_uid, NULL);
 		if (stream_cache) {
-			camel_stream_write (stream_cache, message->data,
+			camel_stream_write (stream_cache,
+					    (char *) message->data,
 					    message->len);
 			camel_stream_flush (stream_cache);
 			camel_object_unref (CAMEL_OBJECT (stream_cache));
@@ -422,7 +423,7 @@ get_message_data (CamelFolder *folder, const char *uid, CamelException *ex)
 		return NULL;
 	}
 
-	camel_stream_write (stream, ba->data, ba->len);
+	camel_stream_write (stream, (char *) ba->data, ba->len);
 	camel_stream_flush (stream);
 	camel_object_unref (CAMEL_OBJECT (stream));
 

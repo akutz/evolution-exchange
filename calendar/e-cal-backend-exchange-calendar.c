@@ -444,6 +444,7 @@ get_changed_events (ECalBackendExchange *cbex)
 		GByteArray *ical_data;
 		status_tracking = EX_NO_RECEIPTS;
 
+		/* XXX e2k_properties_get_prop() ought to return a GString. */
 		ical_data = e2k_properties_get_prop (result->props, PR_INTERNET_CONTENT);
 		if (!ical_data) {
 			/* We didn't get the body, so postpone. */
@@ -470,7 +471,7 @@ get_changed_events (ECalBackendExchange *cbex)
 		/* The icaldata already has the attachment. So no need to
 			re-fetch it from the server. */
 		add_ical (cbex, result->href, modtime, uid,
-			  ical_data->data, ical_data->len, status_tracking);
+			  (char *) ical_data->data, ical_data->len, status_tracking);
 	}
 	status = e2k_result_iter_free (iter);
 
@@ -1026,7 +1027,6 @@ modify_object (ECalBackendSync *backend, EDataCal *cal,
 	       char **old_object, char **new_object)
 {
 	ECalBackendSyncStatus status;
-	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 
 	d(printf ("ecbexc_modify_object(%p, %p, %d, %s)", backend, cal, mod, *old_object ? *old_object : NULL));
 
@@ -1604,7 +1604,6 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 									     old_object, NULL);
 					e_cal_component_free_id (id);
 				} else {
-					struct icaltimetype time_rid;
 					char *new_object = NULL;
 					CalObjModType mod = CALOBJ_MOD_ALL;
 					
@@ -1627,7 +1626,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 
 				g_free (old_object);
 			} else if (!check_owner_partstatus_for_declined (backend, subcomp)) {
-				char *returned_uid, *old, *object;
+				char *returned_uid, *object;
 				d(printf ("object : %s .. not found in the cache\n", uid));
 				icalobj = (char *) icalcomponent_as_ical_string (subcomp);
 				d(printf ("Create a new object : %s\n", icalobj));
@@ -2241,6 +2240,7 @@ get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 		icalproperty *organizer;
 		xmlNode *node, *fbdata;
 		char *org_uri, *calobj;
+		char *content;
 
 		fbdata = e2k_xml_find_in (item, item, "fbdata");
 		if (!fbdata || !fbdata->children || !fbdata->children->content)
@@ -2257,7 +2257,8 @@ get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 		if (node && node->children && node->children->content) {
 			icalparameter *cn;
 
-			cn = icalparameter_new_cn (node->children->content);
+			content = (char *) node->children->content;
+			cn = icalparameter_new_cn (content);
 			icalproperty_add_parameter (organizer, cn);
 		}
 
@@ -2266,7 +2267,8 @@ get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 		icalcomponent_set_dtend (vfb, icaltime_from_timet_with_zone (end, 0, utc));
 		icalcomponent_add_property (vfb, organizer);
 
-		set_freebusy_info (vfb, fbdata->children->content, start);
+		content = (char *) fbdata->children->content;
+		set_freebusy_info (vfb, content, start);
 
 		calobj = icalcomponent_as_ical_string (vfb);
 		*freebusy = g_list_prepend (*freebusy, g_strdup (calobj));

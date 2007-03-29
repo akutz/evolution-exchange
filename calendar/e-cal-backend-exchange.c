@@ -25,6 +25,7 @@
 #include <sys/stat.h>
 #include <sys/fcntl.h>
 
+#include <errno.h>
 #include <string.h>
 #include <unistd.h>
 #include <libedataserver/e-time-utils.h>
@@ -170,7 +171,8 @@ load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri)
 	end = strrchr (cbex->priv->object_cache_file, '/');
 	storage_dir = g_strndup (cbex->priv->object_cache_file, end - cbex->priv->object_cache_file);
 	if (lstat(cbex->priv->local_attachment_store , &buf) < 0) {
-		symlink (storage_dir, cbex->priv->local_attachment_store);
+		if (symlink (storage_dir, cbex->priv->local_attachment_store) < 0)
+			g_warning ("%s: symlink() failed: %s", G_STRFUNC, g_strerror (errno));
 	}
 	g_free (storage_dir);
 	g_free (mangled_uri);
@@ -1173,7 +1175,7 @@ set_default_timezone (ECalBackendSync *backend, EDataCal *cal,
 static void
 start_query (ECalBackend *backend, EDataCalView *view)
 {
-	char *sexp = NULL;
+	const char *sexp = NULL;
 	ECalBackendSyncStatus status = GNOME_Evolution_Calendar_OtherError;
 	GList *m, *objects = NULL;
 
@@ -1573,7 +1575,7 @@ get_attachment (ECalBackendExchange *cbex, const char *uid,
 				attach_data = g_memdup (stream_mem->buffer->data, stream_mem->buffer->len);
 				attach_file = g_strdup_printf ("%s/%s-%s", cbex->priv->local_attachment_store, uid, filename);
 				// Attach
-				attach_file_url = save_attach_file (attach_file, attach_data, stream_mem->buffer->len);
+				attach_file_url = save_attach_file (attach_file, (char *) attach_data, stream_mem->buffer->len);
 				g_free (attach_data);
 				g_free (attach_file);
 				d(printf ("attach file name : %s\n", attach_file_url));

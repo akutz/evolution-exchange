@@ -438,7 +438,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 				case CAMEL_STUB_ARG_UINT32ARRAY:
 				{
 					GArray **arr = va_arg (ap, GArray **);
-					int i, len, unread_count;
+					guint32 i, len, unread_count;
 					status = camel_stub_marshal_decode_uint32 (stub->cmd, &len);
 					if (status == -1)
 						break;

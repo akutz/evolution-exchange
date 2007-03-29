@@ -20,7 +20,7 @@ guint32  mail_util_props_to_camel_flags (E2kProperties *props,
 
 char *   mail_util_extract_transport_headers (E2kProperties *props);
 
-gboolean mail_util_demangle_delegated_meeting (GByteArray *body,
+gboolean mail_util_demangle_delegated_meeting (GString *body,
 					       const char *delegator_cn,
 					       const char *delegator_email,
 					       const char *delegator_cal_uri);

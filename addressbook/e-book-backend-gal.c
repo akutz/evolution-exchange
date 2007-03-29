@@ -2152,7 +2152,7 @@ load_source (EBookBackend *backend,
 			t2 = time (NULL);
 			diff = interval * 24 * 60 *60;
 			printf("Interval:%d, diff:%d\n", interval, diff);
-			printf("t2:%d, t1:%d\n", t2 , t1);
+			printf("t2:%d, t1:%d\n", (int) t2 , (int) t1);
 			/* We have a day specified, then we cache it. */
 			if (!diff || t2 - t1 > diff) {
 				printf ("Cache older than 1 day, refreshing \n");

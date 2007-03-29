@@ -1893,7 +1893,7 @@ build_message_from_document (E2kContext *ctx, E2kOperation *op,
 	E2kHTTPStatus status;
 	E2kResult *results;
 	int nresults = 0;
-	GByteArray *message;
+	GString *message;
 	char *headers;
 
 	status = e2k_context_propfind (ctx, op, uri,
@@ -1907,15 +1907,15 @@ build_message_from_document (E2kContext *ctx, E2kOperation *op,
 
 	headers = mail_util_mapi_to_smtp_headers (results[0].props);
 
-	message = g_byte_array_new ();
-	g_byte_array_append (message, headers, strlen (headers));
+	message = g_string_new (headers);
+	g_string_append_len (message, *body, *len);
+
 	g_free (headers);
-	g_byte_array_append (message, *body, *len);
 	g_free (*body);
 
-	*body = (char *)message->data;
 	*len = message->len;
-	g_byte_array_free (message, FALSE);
+	*body = g_string_free (message, FALSE);
+
 	e2k_results_free (results, nresults);
 	return status;
 }
@@ -1926,7 +1926,6 @@ unmangle_delegated_meeting_request (MailStubExchange *mse, E2kOperation *op,
 				    char **body, int *len)
 {
 	const char *prop = PR_RCVD_REPRESENTING_EMAIL_ADDRESS;
-	GByteArray *message;
 	char *delegator_dn, *delegator_uri;
 	ExchangeAccount *account;
 	E2kGlobalCatalog *gc;
@@ -1974,16 +1973,17 @@ unmangle_delegated_meeting_request (MailStubExchange *mse, E2kOperation *op,
 	if (delegator_uri) {
 		folder = exchange_account_get_folder (account, delegator_uri);
 		if (folder) {
-			message = g_byte_array_new ();
-			g_byte_array_append (message, *body, *len);
+			GString *message;
+
+			message = g_string_new_len (*body, *len);
 			mail_util_demangle_delegated_meeting (
 				message, entry->display_name,
 				entry->email,
 				e_folder_get_physical_uri (folder));
 			g_free (*body);
-			*body = (char *)message->data;
+			*body = message->str;
 			*len = message->len;
-			g_byte_array_free (message, FALSE);
+			*body = g_string_free (message, FALSE);
 		}
 		g_free (delegator_uri);
 	}

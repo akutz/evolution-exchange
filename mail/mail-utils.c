@@ -207,11 +207,11 @@ mail_util_extract_transport_headers (E2kProperties *props)
 		ctend = strchr (ctstart, '\n');
 
 		headers = g_strdup_printf ("%.*s\nContent-Type: text/plain; charset=\"UTF-8\"%.*s\n\n",
-					   ctstart - hstart, hstart,
-					   hend - ctend, ctend);
+					   (int) (ctstart - hstart), hstart,
+					   (int) (hend - ctend), ctend);
 	} else {
 		headers = g_strdup_printf ("%.*s\nContent-Type: text/plain; charset=\"UTF-8\"\n\n\n",
-					   hend - hstart, hstart);
+					   (int) (hend - hstart), hstart);
 	}
 
 	return headers;
@@ -310,7 +310,7 @@ mail_util_stickynote_to_rfc822 (E2kProperties *props)
  * Return value: %TRUE if we successfully demangled @body (in place).
  **/
 gboolean
-mail_util_demangle_delegated_meeting (GByteArray *body,
+mail_util_demangle_delegated_meeting (GString *body,
 				      const char *delegator_cn,
 				      const char *delegator_email,
 				      const char *delegator_cal_uri)
@@ -321,10 +321,7 @@ mail_util_demangle_delegated_meeting (GByteArray *body,
 	char *delegator_mailto, *ical_str;
 	int oldlen, newlen;
 
-	g_byte_array_append (body, "", 1);
-	body->len--;
-
-	vstart = strstr (body->data, "BEGIN:VCALENDAR");
+	vstart = strstr (body->str, "BEGIN:VCALENDAR");
 	if (!vstart)
 		return FALSE;
 	vend = strstr (vstart, "END:VCALENDAR");
@@ -383,9 +380,9 @@ mail_util_demangle_delegated_meeting (GByteArray *body,
 	if (newlen < oldlen) {
 		memcpy (vstart, ical_str, newlen);
 		memcpy (vstart + newlen, vend, strlen (vend));
-		g_byte_array_set_size (body, body->len + newlen - oldlen);
+		g_string_set_size (body, body->len + newlen - oldlen);
 	} else {
-		g_byte_array_set_size (body, body->len + newlen - oldlen);
+		g_string_set_size (body, body->len + newlen - oldlen);
 		memmove (vstart + newlen, vend, strlen (vend));
 		memcpy (vstart, ical_str, newlen);
 	}

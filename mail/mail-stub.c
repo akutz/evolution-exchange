@@ -202,7 +202,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 		d(printf("APPEND_MESSAGE %s %lu %s\n", folder_name,
 			 (gulong)flags, subject));
 		g_object_ref (stub);
-		MS_CLASS (stub)->append_message (stub, folder_name, flags, subject, body->data, body->len);
+		MS_CLASS (stub)->append_message (stub, folder_name, flags, subject, (char *) body->data, body->len);
 		g_free (folder_name);
 		g_free (subject);
 		g_byte_array_free (body, TRUE);
@@ -345,7 +345,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 			 from, recips->len));
 		g_object_ref (stub);
 		MS_CLASS (stub)->send_message (stub, from, recips,
-					       body->data, body->len);
+					       (char *) body->data, body->len);
 		g_free (from);
 		free_string_array (recips);
 		g_byte_array_free (body, TRUE);
@@ -547,7 +547,7 @@ mail_stub_read_args (MailStub *stub, ...)
 		case CAMEL_STUB_ARG_UINT32ARRAY:
 		{
 			GArray **arr = va_arg (ap, GArray **);
-			int i, len, unread_count;
+			guint32 i, len, unread_count;
 			status = camel_stub_marshal_decode_uint32 (stub->cmd, &len);
 			if (status == -1)
 				break;
@@ -641,7 +641,7 @@ mail_stub_return_data (MailStub *stub, CamelStubRetval retval, ...)
 			int len = va_arg (ap, int);
 			GByteArray ba;
 
-			ba.data = data;
+			ba.data = (guint8 *) data;
 			ba.len = len;
 			camel_stub_marshal_encode_bytes (marshal, &ba);
 			break;

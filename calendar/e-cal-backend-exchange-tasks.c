@@ -865,6 +865,8 @@ get_changed_tasks (ECalBackendExchange *cbex)
 
 	while ((result = e2k_result_iter_next (iter))) {
 		GByteArray *ical_data;
+
+		/* XXX e2k_properties_get_prop() ought to return a GString. */
 		ical_data = e2k_properties_get_prop (result->props, PR_INTERNET_CONTENT);
 		if (!ical_data) {
 			g_ptr_array_add (hrefs, g_strdup (result->href));
@@ -876,7 +878,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 		
 		e_cal_backend_exchange_cache_lock (cbex);
 		ecalbexcomp = get_exchange_comp (cbex, uid);
-		attachment_list = get_attachment (cbex, uid, ical_data->data, ical_data->len);
+		attachment_list = get_attachment (cbex, uid, (char *) ical_data->data, ical_data->len);
 		if (attachment_list) {
 			ecomp = e_cal_component_new ();
 			e_cal_component_set_icalcomponent (ecomp, icalcomponent_new_clone (ecalbexcomp->icomp));

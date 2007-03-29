@@ -122,7 +122,7 @@ exchange_entry_load (CamelOfflineJournal *journal, FILE *in)
 	
 	entry = g_malloc0 (sizeof (CamelExchangeJournalEntry));
 	
-	if (camel_file_util_decode_uint32 (in, &entry->type) == -1)
+	if (camel_file_util_decode_uint32 (in, (guint32 *) &entry->type) == -1)
 		goto exception;
 	
 	switch (entry->type) {
