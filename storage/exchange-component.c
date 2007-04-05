@@ -34,7 +34,6 @@
 #include <exchange-constants.h>
 #include "exchange-config-listener.h"
 #include <e-folder-exchange.h>
-#include <e-shell-marshal.h>
 
 #include "mail-stub-listener.h"
 #include "mail-stub-exchange.h"
@@ -457,7 +456,7 @@ exchange_component_class_init (ExchangeComponentClass *klass)
 			       G_STRUCT_OFFSET (ExchangeComponentClass, linestatus_notify),
 			       NULL,
 			       NULL,
-			       e_shell_marshal_VOID__INT,
+			       g_cclosure_marshal_VOID__INT,
 			       G_TYPE_NONE,
 			       1,
 			       G_TYPE_INT);
