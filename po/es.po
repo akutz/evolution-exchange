@@ -1,23 +1,34 @@
 # Spanish translation of Ximian Conector 1.4
-# Copyright (C) 2004 THE Ximian Conector'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the Ximian Conector package.
-# cyphra <cyphra@hal9000.eui.upm.es>, 2004.
 # cyphra <cyphra@hal9000.eui.upm.es>, 2004.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004, 2005.
-#
+# Jorge González <jorgegonz@svn.gnome.org>, 2007.
+# Copyright (C) 2004 THE Ximian Conector'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Ximian Conector package.
 msgid ""
 msgstr ""
-"Project-Id-Version: es\n"
+"Project-Id-Version: evolution-exchange.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-22 14:47+0100\n"
-"PO-Revision-Date: 2006-12-22 14:49+0100\n"
-"Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
+"POT-Creation-Date: 2007-03-01 03:16+0000\n"
+"PO-Revision-Date: 2007-04-23 18:11+0200\n"
+"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr "Especifica el intervalo de tiempo para refrescar la caché GAL."
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+msgid ""
+"This key specifies the number of days interval between the GAL cache "
+"refresh. Set this value to zero, if you don't want to update GAL and use the "
+"curernt cache forever. This will work only if you have enabled offline "
+"caching for GAL."
+msgstr "Esta clave especifica el intervalo, en número de días, entre los que la caché GAL se refrescará. Establezca este valor a cero si no quiere actualizar GAL y usar la caché actual para siempre. Esto sólo funcionará si la caché de GAL está activada en modo desconectado."
 
 #: ../addressbook/e-book-backend-exchange.c:1882
 #: ../addressbook/e-book-backend-gal.c:1547 ../storage/exchange-storage.c:135
@@ -36,21 +47,6 @@ msgstr "Recibiendo resultados de la búsqueda LDAP..."
 msgid "Error performing search"
 msgstr "Error al efectuar la búsqueda"
 
-#: ../addressbook/e-book-backend-gal.c:1758
-#, c-format
-msgid "Internal error.\n"
-msgstr "Error interno.\n"
-
-#: ../addressbook/e-book-backend-gal.c:1769
-#, c-format
-msgid "Paged results response control could not be decoded.\n"
-msgstr "La respuesta de control paginada no se pudo decodificar.\n"
-
-#: ../addressbook/e-book-backend-gal.c:1775
-#, c-format
-msgid "Invalid entries estimate in paged results response.\n"
-msgstr "Estimación inválida de entradas en la respuesta paginada de resultados.\n"
-
 #: ../calendar/e-cal-backend-exchange-calendar.c:2015
 #, c-format
 msgid ""
@@ -63,8 +59,7 @@ msgstr ""
 #: ../calendar/e-cal-backend-exchange-calendar.c:2033
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
-msgstr ""
-"El recurso «%s» está ocupado durante el periodo de tiempo seleccionado."
+msgstr "El recurso «%s» está ocupado durante el periodo de tiempo seleccionado."
 
 #: ../calendar/e-cal-backend-exchange.c:375
 #: ../calendar/e-cal-backend-exchange.c:384
@@ -127,10 +122,10 @@ msgstr "Obteniendo la información del resumen para los mensajes nuevos"
 msgid "No folder name found\n"
 msgstr "No se encontró ningún nombre de carpeta\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2587
-#: ../mail/mail-stub-exchange.c:2631 ../mail/mail-stub-exchange.c:2666
-#: ../mail/mail-stub-exchange.c:2693 ../mail/mail-stub-exchange.c:2746
-#: ../mail/mail-stub-exchange.c:2768
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2569
+#: ../mail/mail-stub-exchange.c:2613 ../mail/mail-stub-exchange.c:2648
+#: ../mail/mail-stub-exchange.c:2675 ../mail/mail-stub-exchange.c:2728
+#: ../mail/mail-stub-exchange.c:2750
 msgid "Folder doesn't exist"
 msgstr "La carpeta no existe"
 
@@ -192,8 +187,7 @@ msgstr "_Sincronizar automáticamente la cuenta localmente"
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:73
 msgid "_Apply filters to new messages in Inbox on this server"
-msgstr ""
-"_Aplicar filtros en mensajes nuevos en la Bandeja de entrada en este servidor"
+msgstr "_Aplicar filtros en mensajes nuevos en la Bandeja de entrada en este servidor"
 
 #: ../camel/camel-exchange-provider.c:75
 msgid "Check new messages for _Junk contents"
@@ -277,26 +271,25 @@ msgstr "No se puede crear suscribirse a una carpeta en modo desconectado."
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "No se puede desuscribirse de una carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-store.c:710
+#: ../camel/camel-exchange-store.c:714
 msgid "Cannot get folder info in offline mode."
 msgstr "No se puede obtener la info de la carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-store.c:781
+#: ../camel/camel-exchange-store.c:785
 msgid "Cannot create folder in offline mode."
 msgstr "No se puede crear una carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-store.c:808
+#: ../camel/camel-exchange-store.c:812
 msgid "Cannot delete folder in offline mode."
 msgstr "No se puede borrar la carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-store.c:824
+#: ../camel/camel-exchange-store.c:828
 msgid "Cannot rename folder in offline mode."
 msgstr "No se puede renombrar la carpeta en modo desconectado."
 
 #: ../camel/camel-exchange-transport.c:110
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr ""
-"El transporte Exchange sólo puede ser usado con una fuente de correo Exchange"
+msgstr "El transporte Exchange sólo puede ser usado con una fuente de correo Exchange"
 
 #: ../camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
@@ -348,9 +341,9 @@ msgstr "No existe la carpeta"
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2564 ../mail/mail-stub-exchange.c:2604
-#: ../mail/mail-stub-exchange.c:2670 ../mail/mail-stub-exchange.c:2720
-#: ../mail/mail-stub-exchange.c:2783
+#: ../mail/mail-stub-exchange.c:2546 ../mail/mail-stub-exchange.c:2586
+#: ../mail/mail-stub-exchange.c:2652 ../mail/mail-stub-exchange.c:2702
+#: ../mail/mail-stub-exchange.c:2765
 msgid "Permission denied"
 msgstr "Permiso denegado"
 
@@ -406,15 +399,15 @@ msgstr "El buzón no soporta búsqueda en texto"
 msgid "Unable to move/copy messages"
 msgstr "Imposible mover/copiar mensajes"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:2461
 msgid "No mail submission URI for this mailbox"
 msgstr "No hay URI de envío de correo para este buzón"
 
-#: ../mail/mail-stub-exchange.c:2515
+#: ../mail/mail-stub-exchange.c:2497
 msgid "Server won't accept mail via Exchange transport"
 msgstr "El servidor no acepta correo por medio del transporte Exchange"
 
-#: ../mail/mail-stub-exchange.c:2517
+#: ../mail/mail-stub-exchange.c:2499
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -423,7 +416,7 @@ msgstr ""
 "Su cuenta no tiene permiso para usar <%s>\n"
 "como una dirección de remitente."
 
-#: ../mail/mail-stub-exchange.c:2529
+#: ../mail/mail-stub-exchange.c:2511
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -431,17 +424,17 @@ msgstr ""
 "No se pudo enviar el mensaje.\n"
 "Esto quizá signifique que su cuenta sobrepasa la cuota."
 
-#: ../mail/mail-stub-exchange.c:2533
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Could not send message"
 msgstr "No se pudo enviar el mensaje"
 
-#: ../mail/mail-stub-exchange.c:2556 ../mail/mail-stub-exchange.c:2609
-#: ../mail/mail-stub-exchange.c:2674 ../mail/mail-stub-exchange.c:2725
-#: ../mail/mail-stub-exchange.c:2789
+#: ../mail/mail-stub-exchange.c:2538 ../mail/mail-stub-exchange.c:2591
+#: ../mail/mail-stub-exchange.c:2656 ../mail/mail-stub-exchange.c:2707
+#: ../mail/mail-stub-exchange.c:2771
 msgid "Generic error"
 msgstr "Error genérico"
 
-#: ../mail/mail-stub-exchange.c:2560
+#: ../mail/mail-stub-exchange.c:2542
 msgid "Folder already exists"
 msgstr "La carpeta ya existe"
 
@@ -677,8 +670,7 @@ msgstr ""
 msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
-msgstr ""
-"Ximian Connector ha encontrado un problema configurando su cuenta Exchange.\n"
+msgstr "Ximian Connector ha encontrado un problema configurando su cuenta Exchange.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -731,8 +723,7 @@ msgstr "Contraseña nueva:"
 
 #: ../storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
-msgstr ""
-"Su contraseña actual ha caducado. Por favor, cambie su contraseña ahora."
+msgstr "Su contraseña actual ha caducado. Por favor, cambie su contraseña ahora."
 
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
@@ -967,8 +958,7 @@ msgstr "Conector Ximian para Microsoft Exchange"
 
 #: ../storage/ximian-connector-setup.c:44
 msgid "Ximian Connector for Microsoft Exchange Setup Tool"
-msgstr ""
-"Conector Ximian para la Herramienta de Configuración de Microsoft Exchange"
+msgstr "Conector Ximian para la Herramienta de Configuración de Microsoft Exchange"
 
 #: ../storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
@@ -988,20 +978,17 @@ msgstr "Suscribirse a una carpeta de _otro usuario..."
 
 #: ../storage/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
-msgstr ""
-"Suscribirse a una carpeta perteneciente a algún otro usuario en el servidor"
+msgstr "Suscribirse a una carpeta perteneciente a algún otro usuario en el servidor"
 
 #: ../storage/ximian-connector.xml.h:6
-msgid ""
-"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
 "Desuscríbase de una carpeta añadida con «Subscribirse a una carpeta de otro "
 "usuario»"
 
 #: ../storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
-msgstr ""
-"Vea o cambie la configuración de delegaciones de su calendario de Exchange"
+msgstr "Vea o cambie la configuración de delegaciones de su calendario de Exchange"
 
 #: ../storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
@@ -1025,624 +1012,3 @@ msgstr "Asistente para _fuera de oficina"
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Desuscribirse de una carpeta de otro usuario"
 
-#~ msgid "No such folder."
-#~ msgstr "No existe la carpeta."
-
-#~ msgid "*Control*F5"
-#~ msgstr "*Control*F5"
-
-#~ msgid "Evolution Exchange Component"
-#~ msgstr "Componente de Evolution Exchange"
-
-#~ msgid "Exchange"
-#~ msgstr "Exchange"
-
-#~ msgid "_Exchange"
-#~ msgstr "_Exchange"
-
-#~ msgid "Custom"
-#~ msgstr "Personalizado"
-
-#~ msgid "Permissions for %s"
-#~ msgstr "Permisos de %s"
-
-#~ msgid ""
-#~ "No Global Catalog server configured for this account.\n"
-#~ "Unable to edit delegates."
-#~ msgstr ""
-#~ "No hay un servidor de Catálogo Global configurado para esta cuenta. No es "
-#~ "posible editar delegados."
-
-#~ msgid ""
-#~ "Could not read folder permissions.\n"
-#~ "Unable to edit delegates."
-#~ msgstr ""
-#~ "No se pudo leer los permisos de la carpeta.\n"
-#~ "Imposible editar delegados."
-
-#~ msgid ""
-#~ "Could not determine folder permissions for delegates.\n"
-#~ "Unable to edit delegates."
-#~ msgstr ""
-#~ "No se pudieron determinar los permisos de la carpeta para los delegados. "
-#~ "No se pueden editar los delegados"
-
-#~ msgid "Delegate To:"
-#~ msgstr "Delegar en:"
-
-#~ msgid "Delegate To"
-#~ msgstr "Delegar en"
-
-#~ msgid "Could not make %s a delegate"
-#~ msgstr "No se pudo hacer a %s un delegado"
-
-#~ msgid "You cannot make yourself your own delegate"
-#~ msgstr "No puedes hacerse a sí mismo su propio delegado"
-
-#~ msgid "%s is already a delegate"
-#~ msgstr "%s ya es un delegado"
-
-#~ msgid "Remove the delegate %s?"
-#~ msgstr "¿Borrar la delegación en %s?"
-
-#~ msgid "Could not access Active Directory"
-#~ msgstr "No se puede acceder al Directorio Activo"
-
-#~ msgid "Could not find self in Active Directory"
-#~ msgstr "No me encuentro en el Directorio Activo"
-
-#~ msgid "Could not find delegate %s in Active Directory"
-#~ msgstr "No se pudo encontrar al delegado %s en el Directorio Activo"
-
-#~ msgid "Could not remove delegate %s"
-#~ msgstr "No se pudo eliminar el delegado de %s"
-
-#~ msgid "Could not update list of delegates."
-#~ msgstr "No se pudo actualizar la lista de delegados."
-
-#~ msgid "Could not add delegate %s"
-#~ msgstr "No se pudo añadir el delegado %s"
-
-#~ msgid ""
-#~ "Failed to update delegates:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Falló al actualizar los delegados:\n"
-#~ "%s"
-
-#~ msgid "Name"
-#~ msgstr "Nombre"
-
-#~ msgid "Error reading delegates list."
-#~ msgstr "Error leyendo la lista de delegados."
-
-#~ msgid "Could not read folder permissions"
-#~ msgstr "No se pudieron leer los permisos de la carpeta"
-
-#~ msgid "Could not update folder permissions."
-#~ msgstr "No se pudieron actualizar los permisos de la carpeta."
-
-#~ msgid "Could not update folder permissions. %s"
-#~ msgstr "No se pudo cambiar los permisos de la carpeta. %s"
-
-#~ msgid "(Permission denied.)"
-#~ msgstr "(Permiso denegado)"
-
-#~ msgid ""
-#~ "Unable to add user to access control list:\n"
-#~ "No Global Catalog server is configured for this account."
-#~ msgstr ""
-#~ "No se puede añadir al usuario a la lista de control de acceso:\n"
-#~ "No hay un servidor de Catálogo Global configurado para esta cuenta."
-
-#~ msgid "Add User:"
-#~ msgstr "Añadir usuario:"
-
-#~ msgid "Add User"
-#~ msgstr "Añadir usuario"
-
-#~ msgid "No such user %s"
-#~ msgstr "No existe el usuario %s"
-
-#~ msgid "%s cannot be added to an access control list"
-#~ msgstr "%s no puede ser añadido a una lista de control de acceso"
-
-#~ msgid "Unknown error looking up %s"
-#~ msgstr "Error desconocido al buscar %s"
-
-#~ msgid "%s is already in the list"
-#~ msgstr "%s ya está en la lista"
-
-#~ msgid "Role"
-#~ msgstr "Rol"
-
-#~ msgid "Account Name"
-#~ msgstr "Nombre de la cuenta"
-
-#~ msgid "Folder does not exist"
-#~ msgstr "La carpeta no existe"
-
-#~ msgid "Could not add favorite: %s"
-#~ msgstr "No se pudo añadir el favorito: %s"
-
-#~ msgid "Could not remove favorite: %s"
-#~ msgstr "No se pudo eliminar el favorito: %s"
-
-#~ msgid "_Rename Folder..."
-#~ msgstr "_Renombrar carpeta..."
-
-#~ msgid "_New Folder..."
-#~ msgstr "Carpeta _nueva..."
-
-#~ msgid "_Delete Folder"
-#~ msgstr "_Borrar carpeta"
-
-#~ msgid "_Add Other User's Folder..."
-#~ msgstr "_Añadir carpeta de otro usuario..."
-
-#~ msgid "_Remove Other User's Folder"
-#~ msgstr "_Quitar carpeta de otro usuario"
-
-#~ msgid "Add to _Favorites"
-#~ msgstr "Añadir a _favoritos"
-
-#~ msgid "Remove from Fa_vorites"
-#~ msgstr "Quitar de fa_voritos"
-
-#~ msgid "_Show Folder Sizes"
-#~ msgstr "_Mostrar el tamaño de las carpetas"
-
-#~ msgid "Can only expunge in Deleted Items folder"
-#~ msgstr "Sólo se puede compactar en la carpeta de «Elementos borrados»"
-
-#~ msgid ""
-#~ "Ximian Connector requires access to certain functionality on the Exchange "
-#~ "Server that appears to be disabled or blocked.  (This is usually "
-#~ "unintentional.)  Your Exchange Administrator will need to enable this "
-#~ "functionality in order for you to be able to use Ximian Connector.\n"
-#~ "\n"
-#~ "For information to provide to your Exchange administrator, please follow "
-#~ "the link below:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Ximian Connector requiere acceso a cierta funcionalidad del servidor "
-#~ "Exchange que aparenta estar desactivada o bloqueada.  ( Esto es "
-#~ "normalmente no intencionado.)Su administrador de Exchange tendrá que "
-#~ "activar esta funcionalidad para que pueda usar Ximian Conector.\n"
-#~ "\n"
-#~ "Para la información que debe proporcionar a su administrador Exchange, "
-#~ "siga el enlace inferior:\n"
-#~ "%s"
-
-#~ msgid "Enter password for %s"
-#~ msgstr "Introduzca la contraseña para %s"
-
-#~ msgid "Enter password"
-#~ msgstr "Introduzca la contraseña"
-
-#~ msgid "Owner"
-#~ msgstr "Propietario"
-
-#~ msgid "Publishing Editor"
-#~ msgstr "Editor de publicación"
-
-#~ msgid "Editor"
-#~ msgstr "Editor"
-
-#~ msgid "Publishing Author"
-#~ msgstr "Autor de publicación"
-
-#~ msgid "Author"
-#~ msgstr "Autor"
-
-#~ msgid "Non-editing Author"
-#~ msgstr "Autor de no-edición"
-
-#~ msgid "Reviewer"
-#~ msgstr "Revisor"
-
-#~ msgid "Contributor"
-#~ msgstr "Contribuidor"
-
-#~ msgid "Select User"
-#~ msgstr "Seleccione usuario"
-
-#~ msgid "Addressbook..."
-#~ msgstr "Libreta de direcciones..."
-
-#~ msgid ""
-#~ "Cannot create the specified folder:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "No se pudo crear la carpeta especificada:\n"
-#~ "%s"
-
-#~ msgid "The specified folder name is not valid: %s"
-#~ msgstr "El nombre de la carpeta especificada no es válido: %s"
-
-#~ msgid "Create New Folder"
-#~ msgstr "Crear carpeta nueva"
-
-#~ msgid "Folder _name:"
-#~ msgstr "_Nombre de la carpeta:"
-
-#~ msgid "Folder _type:"
-#~ msgstr "_Tipo de la carpeta:"
-
-#~ msgid "Specify where to create the folder:"
-#~ msgstr "Especifique dónde crear la carpeta:"
-
-#~ msgid ""
-#~ "Cannot transfer folder:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "No se puede transferir la carpeta:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "Cannot delete folder:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "No se puede borrar la carpeta:\n"
-#~ "%s"
-
-#~ msgid "Really delete folder \"%s\"?"
-#~ msgstr "¿Seguro que quiere borrar la carpeta «%s»?"
-
-#~ msgid "Delete \"%s\""
-#~ msgstr "Borrar «%s»"
-
-#~ msgid ""
-#~ "Cannot rename folder:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "No se puede renombrar la carpeta:\n"
-#~ "%s"
-
-#~ msgid "Rename the \"%s\" folder to:"
-#~ msgstr "Renombrar la carpeta «%s» a:"
-
-#~ msgid "Rename Folder"
-#~ msgstr "Renombrar carpeta"
-
-#~ msgid "A folder named \"%s\" already exists. Please use a different name."
-#~ msgstr "Ya existe una carpeta nombrada «%s». Use un nombre diferente."
-
-#~ msgid "Please select a user."
-#~ msgstr "Por favor seleccione un usuario."
-
-#~ msgid "Opening Folder"
-#~ msgstr "Abriendo carpeta"
-
-#~ msgid "Opening Folder \"%s\""
-#~ msgstr "Abriendo carpeta «%s»"
-
-#~ msgid "in \"%s\" ..."
-#~ msgstr "en «%s» ..."
-
-#~ msgid "Could not open other user's folder: %s."
-#~ msgstr "No se pudo abrir la carpeta de otro usuario: %s."
-
-#~ msgid "Cannot find the specified other user's folder."
-#~ msgstr "No se puede encontrar la carpeta de otro usuario especificada."
-
-#~ msgid ""
-#~ "Cannot unsubscribe from folder:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "No se puede desuscribir de la carpeta:\n"
-#~ "%s"
-
-#~ msgid "Really unsubscribe from folder \"%s\"?"
-#~ msgstr "¿Seguro que quiere desuscribirse de la carpeta «%s»?"
-
-#~ msgid "Unsubscribe from \"%s\""
-#~ msgstr "Desubscribirse de «%s»"
-
-#~ msgid "Open Other User's Folder"
-#~ msgstr "Abrir la carpeta de otro usuario"
-
-#~ msgid "_Account:"
-#~ msgstr "_Cuenta:"
-
-#~ msgid "_Folder Name:"
-#~ msgstr "_Nombre de la carpeta:"
-
-#~ msgid "_User:"
-#~ msgstr "_Usuario:"
-
-#~ msgid "Checkbox"
-#~ msgstr "Casilla"
-
-#~ msgid "Folder"
-#~ msgstr "Carpeta"
-
-#~ msgid "No error"
-#~ msgstr "Ningún error"
-
-#~ msgid "A folder with the same name already exists"
-#~ msgstr "Ya existe una carpeta con el mismo nombre"
-
-#~ msgid "The specified folder type is not valid"
-#~ msgstr "El tipo de carpeta especificada no es válido"
-
-#~ msgid "I/O error"
-#~ msgstr "Error E/S"
-
-#~ msgid "Not enough space to create the folder"
-#~ msgstr "No hay suficiente espacio para crear la carpeta"
-
-#~ msgid "The folder is not empty"
-#~ msgstr "La carpeta no está vacía"
-
-#~ msgid "The specified folder was not found"
-#~ msgstr "La carpeta especificada no fue encontrada"
-
-#~ msgid "Function not implemented in this storage"
-#~ msgstr "Función no implementada en este almacén"
-
-#~ msgid "Operation not supported"
-#~ msgstr "Operación no soportada"
-
-#~ msgid "The specified type is not supported in this storage"
-#~ msgstr "El tipo especificado no está soportado en este almacenamiento"
-
-#~ msgid "The specified folder cannot be modified or removed"
-#~ msgstr "La carpeta especificada no puede ser modificada o eliminada"
-
-#~ msgid "Cannot make a folder a child of one of its descendants"
-#~ msgstr ""
-#~ "No se puede hacer una carpeta un descendiente de uno de sus descendientes"
-
-#~ msgid "Cannot create a folder with that name"
-#~ msgstr "No se puede crear una carpeta con ese nombre"
-
-#~ msgid "This operation cannot be performed in off-line mode"
-#~ msgstr "Esta operación no puede realizarse en modo «Desconectado»"
-
-#~ msgid "Unknown error"
-#~ msgstr "Error desconocido"
-
-#~ msgid "%s's Folders"
-#~ msgstr "Carpetas de %s"
-
-#~ msgid "Cannot change password due to configuration problems"
-#~ msgstr ""
-#~ "No se pudo cambiar la contraseña debido a problemas de configuración"
-
-#~ msgid ""
-#~ "Server rejected password because it is too weak.\n"
-#~ "Try again with a different password."
-#~ msgstr ""
-#~ "El servidor rechazó la contraseña porque es demasiado débil.\n"
-#~ "Intente otra vez con una contraseña diferente."
-
-#~ msgid "Could not change password"
-#~ msgstr "No se pudo cambiar la contraseña"
-
-#~ msgid "Personal Folders"
-#~ msgstr "Carpetas personales"
-
-#~ msgid "Favorite Public Folders"
-#~ msgstr "Carpetas públicas favoritas"
-
-#~ msgid "All Public Folders"
-#~ msgstr "Todas las carpetas públicas"
-
-#~ msgid "Global Address List"
-#~ msgstr "Lista de acceso global"
-
-#~ msgid "Exchange Account is offline. Cannot display folders\n"
-#~ msgstr ""
-#~ "La cuenta de Exchange está desconectada. No se pueden mostrar las "
-#~ "carpetas\n"
-
-#~ msgid ""
-#~ "Could not authenticate to server.\n"
-#~ "\n"
-#~ "This probably means that your server requires you\n"
-#~ "to specify the Windows domain name as part of your\n"
-#~ "username (eg, \"DOMAIN\\user\").\n"
-#~ "\n"
-#~ "Or you might have just typed your password wrong.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "No se puede autenticar con el servidor.\n"
-#~ "\n"
-#~ "Esto probablemente significa que su servidor quiere que\n"
-#~ "especifique el nombre de dominio de Windows como parte\n"
-#~ "de su nombre de usuario (EJ: \"DOMINIO\\usuario\").\n"
-#~ "\n"
-#~ "O quizá ha escrito la contraseña mal.\n"
-#~ "\n"
-
-#~ msgid "Mailbox for %s is not on this server."
-#~ msgstr "El buzón de %s no está en este servidor."
-
-#~ msgid ""
-#~ "The server '%s' is running Exchange 5.5 and is\n"
-#~ "therefore not compatible with Ximian Connector"
-#~ msgstr ""
-#~ "El servidor «%s» esté ejecutando Exchange 5.5 y por tanto\n"
-#~ "no es compatible con Ximian Connector"
-
-#~ msgid ""
-#~ "Could not find Exchange Web Storage System at %s.\n"
-#~ "If OWA is running on a different path, you must specify that in the\n"
-#~ "account configuration dialog."
-#~ msgstr ""
-#~ "No se pudo encontrar un Sistema de Almacenamiento Web de Exchange en %s.\n"
-#~ "Si OWA está en ejecución en una ruta diferente, debe especificarla en el\n"
-#~ "diálogo de configuración de la cuenta."
-
-#~ msgid "No mailbox for user %s on %s.\n"
-#~ msgstr "No hay un buzón para el usuario %s en %s.\n"
-
-#~ msgid "Could not connect to server %s: %s"
-#~ msgstr "No se pudo conectar el servidor %s: %s"
-
-#~ msgid "Could not resolve hostname"
-#~ msgstr "No se pudo resolver el nombre del host"
-
-#~ msgid "Network error"
-#~ msgstr "Error de red"
-
-#~ msgid ""
-#~ "You have exceeded your quota of %d %s for storing mails on this server. "
-#~ "Your current usage is : %.0f %s."
-#~ msgstr ""
-#~ "Ha excedido su cuota de %d %s para almacenar correo en este servidor. "
-#~ "Su \n"
-#~ "uso actual es %.0f %s."
-
-#~ msgid "You will not be able to either send or receive mails now\n"
-#~ msgstr "No podrá ni enviar ni recibir mensajes ahora\n"
-
-#~ msgid ""
-#~ "You will not be able to send mails till you clear up some space by "
-#~ "deleting some mails.\n"
-#~ msgstr ""
-#~ "No podrá enviar mensajes hasta que haga algo de espacio borrando algunos "
-#~ "correos.\n"
-
-#~ msgid "Try to clear up some space by deleting some mails.\n"
-#~ msgstr "Intente hacer espacio borrando algunos correos.\n"
-
-#~ msgid "Folder Name"
-#~ msgstr "Nombre de la carpeta"
-
-#~ msgid "Folder Size"
-#~ msgstr "Tamaño de la carpeta"
-
-#~ msgid "Calendar"
-#~ msgstr "Calendario"
-
-#~ msgid "Contacts"
-#~ msgstr "Contactos"
-
-#~ msgid "Deleted Items"
-#~ msgstr "Elementos borrados"
-
-#~ msgid "Drafts"
-#~ msgstr "Borradores"
-
-#~ msgid "Inbox"
-#~ msgstr "Bandeja de entrada"
-
-#~ msgid "Journal"
-#~ msgstr "Diario"
-
-#~ msgid "Notes"
-#~ msgstr "Notas"
-
-#~ msgid "Outbox"
-#~ msgstr "Bandeja de salida"
-
-#~ msgid "Sent Items"
-#~ msgstr "Elementos enviados"
-
-#~ msgid "Tasks"
-#~ msgstr "Tareas"
-
-#~ msgid "Could not update out-of-office state"
-#~ msgstr "No se pudo actualizar el estado de fuera de la oficina"
-
-#~ msgid "Could not read out-of-office state"
-#~ msgstr "No se pudo leer el estado -fuera de la oficina-"
-
-#~ msgid "Folder not marked for offline support"
-#~ msgstr "Carpeta no marcada para soporte desconectado"
-
-#~ msgid "Mail"
-#~ msgstr "Correo"
-
-#~ msgid ""
-#~ "Changes to Exchange account configuration will take\n"
-#~ "place after you quit and restart Evolution."
-#~ msgstr ""
-#~ "Los cambios a la configuración de la cuenta Exchange tendrán\n"
-#~ "lugar después de que salga y reinicie Evolution."
-
-#~ msgid "The Exchange account will be removed when you quit Evolution"
-#~ msgstr "La cuenta Exchange será eliminada cuando salga de Evolution"
-
-#~ msgid "The Exchange account will be disabled when you quit Evolution"
-#~ msgstr "La cuenta Exchange será desactivada cuando salga de Evolution"
-
-#~ msgid "_Permissions..."
-#~ msgstr "_Permisos..."
-
-#~ msgid ""
-#~ "Ximian Connector requires access to certain functionality on the Exchange "
-#~ "Server that appears to be disabled or blocked.  (This is usually "
-#~ "unintentional.)  Your Exchange Administrator will need to enable this "
-#~ "functionality in order for you to be able to use Ximian Connector.\n"
-#~ "\n"
-#~ "For information to provide to your Exchange administrator, please follow "
-#~ "the link below:\n"
-#~ "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
-#~ "html "
-#~ msgstr ""
-#~ "Ximian Connector requiere acceso a cierta funcionalidad del servidor "
-#~ "Exchange que aparenta estar desactivada o bloqueada.  ( Esto es "
-#~ "normalmente no intencionado). Su Administrador de Exchange necesitará "
-#~ "activar esta funcionalidad para que pueda usar Ximian Conector.\n"
-#~ "\n"
-#~ "Para la información que debe proporcionar a su administrador Exchange, "
-#~ "siga el enlace inferior:\n"
-#~ "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
-#~ "html"
-
-#~ msgid ""
-#~ "Ximian Connector requires access to certain functionality on the Exchange "
-#~ "Server that appears to be disabled or blocked.  (This is usually "
-#~ "unintentional.)  Your Exchange Administrator will need to enable this "
-#~ "functionality in order for you to be able to use Ximian Connector.\n"
-#~ "\n"
-#~ "For information to provide to your Exchange administrator, please follow "
-#~ "the link below:\n"
-#~ "http://www.ximian.com/products/connector/iis-lockdown.html, http://www."
-#~ "ximian.com/products/connector/iis-lockdown.html"
-#~ msgstr ""
-#~ "Ximian Connector requiere acceso a cierta funcionalidad del servidor "
-#~ "Exchange que aparenta estar desactivada o bloqueada.  (Esto es "
-#~ "normalmente no intencionado). Su administrador de Exchange necesitará "
-#~ "activar esta funcionalidad para que pueda usar Ximian Conector.\n"
-#~ "\n"
-#~ "Para la información que debe proporcionar a su administrador Exchange, "
-#~ "siga el enlace inferior:\n"
-#~ "http://www.ximian.com/products/connector/iis-lockdown.html, http://www."
-#~ "ximian.com/products/connector/iis-lockdown.html"
-
-#~ msgid ""
-#~ "Could not authenticate to server.\n"
-#~ "\n"
-#~ "You may need to use Plaintext Password authentication.\n"
-#~ "\n"
-#~ "Or you might have just typed your password wrong.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "No se pudo autenticar con el servidor.\n"
-#~ "\n"
-#~ "Quizá necesite usar autenticación en texto plano.\n"
-#~ "\n"
-#~ "O quizá se ha equivocado al teclear la contraseña.\n"
-#~ "\n"
-
-#~ msgid "Password Expiry Warning"
-#~ msgstr "Advertencia de caducidad de contraseña"
-
-#~ msgid "Exc_hange Server:"
-#~ msgstr "Servidor E_xchange:"
-
-#~ msgid "Exchange Server"
-#~ msgstr "Servidor Exchange"
-
-#~ msgid "Mailbox name"
-#~ msgstr "Nombre del buzón:"
-
-#~ msgid "OWA path"
-#~ msgstr "Ruta OWA"
-
-#~ msgid "Public Folder server"
-#~ msgstr "Servidor de carpeta pública"
