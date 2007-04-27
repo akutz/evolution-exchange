@@ -25,7 +25,7 @@
 
 #include <string.h>
 
-#include <camel/camel-i18n.h>
+#include <glib/gi18n-lib.h>
 
 #include "camel-exchange-store.h"
 #include "camel-exchange-folder.h"

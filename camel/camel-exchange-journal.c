@@ -32,7 +32,8 @@
 #include <ctype.h>
 #include <errno.h>
 
-#include <camel/camel-i18n.h>
+#include <glib/gi18n-lib.h>
+
 #include <camel/camel-folder.h>
 #include <camel/camel-file-utils.h>
 #include <camel/camel-folder-summary.h>

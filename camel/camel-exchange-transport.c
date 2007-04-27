@@ -23,6 +23,8 @@
 #include <config.h>
 #endif
 
+#include <glib/gi18n-lib.h>
+
 #include "camel-exchange-transport.h"
 #include "camel-stub.h"
 
@@ -33,7 +35,6 @@
 #include <camel/camel-session.h>
 #include <camel/camel-stream-filter.h>
 #include <camel/camel-stream-mem.h>
-#include <camel/camel-i18n.h>
 
 #include <string.h>
 

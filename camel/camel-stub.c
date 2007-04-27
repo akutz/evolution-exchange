@@ -23,11 +23,12 @@
 #include <config.h>
 #endif
 
+#include <glib/gi18n-lib.h>
+
 #include "camel-stub.h"
 
 #include <camel/camel-exception.h>
 #include <camel/camel-operation.h>
-#include <camel/camel-i18n.h>
 
 #include <errno.h>
 #include <string.h>
