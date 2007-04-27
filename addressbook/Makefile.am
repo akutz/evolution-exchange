@@ -37,3 +37,5 @@ libexchangeaddressbook_la_SOURCES =	\
 EXTRA_DIST =				\
 	$(schema_in_files)
  
+CLEANFILES = \
+	apps_exchange_addressbook-$(BASE_VERSION).schemas
