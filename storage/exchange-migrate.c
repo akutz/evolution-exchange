@@ -242,7 +242,7 @@ cp_r (char *src, const char *dest)
 	struct stat st;
 	DIR *dir;
 
-	if (e_util_mkdir_hier (dest, 0777) == -1)
+	if (g_mkdir_with_parents (dest, 0777) == -1)
 		return FALSE;
 
 	if (!(dir = opendir (src)))
@@ -374,7 +374,7 @@ migrate_contacts (gchar *src_path, const gchar *dest_path)
 							NULL);
 			
 				/* Create destination dir, and copy the files */
-       				if (e_util_mkdir_hier (contacts_dir, 0777) == -1) {
+       				if (g_mkdir_with_parents (contacts_dir, 0777) == -1) {
 					ret = FALSE;
 					g_free (dest_file);
 					g_free (contacts_dir);
@@ -471,7 +471,7 @@ exchange_migrate (const CORBA_short major,
 		/* This is not needed if done by cp_r() */
         	if (stat (base_dir, &st) == -1) {
 			if (errno != ENOENT || 
-			    e_util_mkdir_hier (base_dir, 0777) == -1) {
+			    g_mkdir_with_parents (base_dir, 0777) == -1) {
                        		printf ("Failed to create directory `%s': %s",
 				base_dir, g_strerror (errno));
                         	return;
