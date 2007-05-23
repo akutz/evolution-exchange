@@ -10,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-15 22:39+0100\n"
-"PO-Revision-Date: 2007-02-15 22:50+0100\n"
+"POT-Creation-Date: 2007-05-23 13:03+0200\n"
+"PO-Revision-Date: 2007-05-23 13:03+0200\n"
 "Last-Translator: Hendrik Richter <hendrikr@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
 msgid "Specifies the time interval to refresh the GAL Cache."
@@ -30,43 +30,29 @@ msgid ""
 "refresh. Set this value to zero, if you don't want to update GAL and use the "
 "curernt cache forever. This will work only if you have enabled offline "
 "caching for GAL."
-msgstr "Dieser Schlüssel legt die Anzahl an Tagen fest, die zwischen einzelnen Auffrischen "
-"des GAL-Speichers liegt. "
-"Setzen Sie diesen Wert auf 0, wenn GAL nicht aktualisiert werden soll und stattdessen den "
-"vorhandenen Zwischenspeicher zu verwenden. "
-"Dies wird nur funktionieren, wenn Sie den Offline-Speicher von GAL aktiviert haben."
+msgstr ""
+"Dieser Schlüssel legt die Anzahl an Tagen fest, die zwischen einzelnen "
+"Auffrischen des GAL-Speichers liegt. Setzen Sie diesen Wert auf 0, wenn GAL "
+"nicht aktualisiert werden soll und stattdessen den vorhandenen "
+"Zwischenspeicher zu verwenden. Dies wird nur funktionieren, wenn Sie den "
+"Offline-Speicher von GAL aktiviert haben."
 
 #: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1716 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-gal.c:1547 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Suche läuft …"
 
-#: ../addressbook/e-book-backend-gal.c:290
+#: ../addressbook/e-book-backend-gal.c:265
 msgid "Reconnecting to LDAP server..."
 msgstr "Verbindung mit LDAP-Server wird erneut hergestellt …"
 
-#: ../addressbook/e-book-backend-gal.c:1513
+#: ../addressbook/e-book-backend-gal.c:1384
 msgid "Receiving LDAP search results..."
 msgstr "LDAP-Suchergebnisse werden empfangen …"
 
-#: ../addressbook/e-book-backend-gal.c:1743
+#: ../addressbook/e-book-backend-gal.c:1570
 msgid "Error performing search"
 msgstr "Fehler beim Ausführen der Suche"
-
-#: ../addressbook/e-book-backend-gal.c:1869
-#, c-format
-msgid "Internal error.\n"
-msgstr "Interner Fehler.\n"
-
-#: ../addressbook/e-book-backend-gal.c:1879
-#, c-format
-msgid "Paged results response control could not be decoded.\n"
-msgstr "Zwischengespeicherte Antwortsteuerung konnte nicht dekodiert werden.\n"
-
-#: ../addressbook/e-book-backend-gal.c:1885
-#, c-format
-msgid "Invalid entries estimate in paged results response.\n"
-msgstr "Es wurden ungültige Einträge in den gespeicherten Antworten erhalten.\n"
 
 #: ../calendar/e-cal-backend-exchange-calendar.c:2015
 #, c-format
@@ -186,7 +172,7 @@ msgstr "Globale Adressliste/Active-Directory"
 #. technical term and may not have translations?
 #: ../camel/camel-exchange-provider.c:59
 msgid "_Global Catalog server name:"
-msgstr "_Global-Catolog-Server-Name:"
+msgstr "_Global-Catalog-Server-Name:"
 
 #: ../camel/camel-exchange-provider.c:61
 #, c-format
@@ -299,15 +285,15 @@ msgstr "Ordner können im Offline-Modus nicht abbestellt werden."
 msgid "Cannot get folder info in offline mode."
 msgstr "Ordnerinformationen können im Offline-Modus nicht abgerufen werden."
 
-#: ../camel/camel-exchange-store.c:785
+#: ../camel/camel-exchange-store.c:793
 msgid "Cannot create folder in offline mode."
 msgstr "Ordner können im Offline-Modus nicht erstellt werden."
 
-#: ../camel/camel-exchange-store.c:812
+#: ../camel/camel-exchange-store.c:820
 msgid "Cannot delete folder in offline mode."
 msgstr "Ordner können im Offline-Modus nicht gelöscht werden."
 
-#: ../camel/camel-exchange-store.c:828
+#: ../camel/camel-exchange-store.c:836
 msgid "Cannot rename folder in offline mode."
 msgstr "Ordner können im Offline-Modus nicht umbenannt werden."
 
@@ -1046,6 +1032,17 @@ msgstr "_Nicht im Büro-Assistent"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Ordner eines anderen Benutzers ab_bestellen"
+
+#~ msgid "Internal error.\n"
+#~ msgstr "Interner Fehler.\n"
+
+#~ msgid "Paged results response control could not be decoded.\n"
+#~ msgstr ""
+#~ "Zwischengespeicherte Antwortsteuerung konnte nicht dekodiert werden.\n"
+
+#~ msgid "Invalid entries estimate in paged results response.\n"
+#~ msgstr ""
+#~ "Es wurden ungültige Einträge in den gespeicherten Antworten erhalten.\n"
 
 #~ msgid "No such folder."
 #~ msgstr "Ordner existiert nicht."
