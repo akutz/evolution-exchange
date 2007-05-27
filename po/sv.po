@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-09 16:06+0000\n"
-"PO-Revision-Date: 2007-01-30 21:21+0100\n"
+"POT-Creation-Date: 2007-05-27 12:19+0200\n"
+"PO-Revision-Date: 2007-05-27 11:43+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -32,12 +32,19 @@ msgid "Specifies the time interval to refresh the GAL Cache."
 msgstr "Anger tidsintervallet för uppdatering av GAL-cachen."
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
-msgid "This key specifies the number of days interval between the GAL cache refresh. Set this value to zero, if you don't want to update GAL and use the curernt cache forever. This will work only if you have enabled offline caching for GAL."
-msgstr "Den här anger antalet dagars intervall mellan uppdatering av GAL-cachen. Ställ in det här värdet till noll om du inte vill uppdatera GAL och använder den nuvarande cachen för alltid. Det här kommer endast att fungera om du har aktiverat frånkopplad cachning för GAL."
+msgid ""
+"This key specifies the number of days interval between the GAL cache "
+"refresh. Set this value to zero, if you don't want to update GAL and use the "
+"current cache forever. This will work only if you have enabled offline "
+"caching for GAL."
+msgstr ""
+"Den här anger antalet dagars intervall mellan uppdatering av GAL-cachen. "
+"Ställ in det här värdet till noll om du inte vill uppdatera GAL och använd "
+"den aktuella cachen för alltid. Det här kommer endast att fungera om du har "
+"aktiverat frånkopplad cachning för GAL."
 
-#: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1547
-#: ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:1880
+#: ../addressbook/e-book-backend-gal.c:1548 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Söker..."
 
@@ -45,30 +52,15 @@ msgstr "Söker..."
 msgid "Reconnecting to LDAP server..."
 msgstr "Återansluter till LDAP-servern..."
 
-#: ../addressbook/e-book-backend-gal.c:1384
+#: ../addressbook/e-book-backend-gal.c:1385
 msgid "Receiving LDAP search results..."
 msgstr "Mottar LDAP-sökresultat..."
 
-#: ../addressbook/e-book-backend-gal.c:1570
+#: ../addressbook/e-book-backend-gal.c:1571
 msgid "Error performing search"
 msgstr "Fel vid sökning"
 
-#: ../addressbook/e-book-backend-gal.c:1758
-#, c-format
-msgid "Internal error.\n"
-msgstr "Internt fel.\n"
-
-#: ../addressbook/e-book-backend-gal.c:1769
-#, c-format
-msgid "Paged results response control could not be decoded.\n"
-msgstr "Svarskontrollen för mellanlagrade resultat kunde inte avkodas.\n"
-
-#: ../addressbook/e-book-backend-gal.c:1775
-#, c-format
-msgid "Invalid entries estimate in paged results response.\n"
-msgstr "Ogiltiga postestimat i svar för mellanlagrade resultat.\n"
-
-#: ../calendar/e-cal-backend-exchange-calendar.c:2015
+#: ../calendar/e-cal-backend-exchange-calendar.c:2014
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -77,176 +69,181 @@ msgstr ""
 "Kan inte schemalägga resursen \"%s\" för återkommande sammanträden.\n"
 "Du måste boka varje sammanträde separat."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2033
+#: ../calendar/e-cal-backend-exchange-calendar.c:2032
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Resursen \"%s\" är upptagen under den valda tidsperioden."
 
-#: ../calendar/e-cal-backend-exchange.c:375
-#: ../calendar/e-cal-backend-exchange.c:384
+#: ../calendar/e-cal-backend-exchange.c:377
+#: ../calendar/e-cal-backend-exchange.c:386
 msgid "Authentication failed"
 msgstr "Autentisering misslyckades"
 
-#: ../calendar/e-cal-backend-exchange.c:395
+#: ../calendar/e-cal-backend-exchange.c:397
 msgid "Could not find the calendar"
 msgstr "Kunde inte hitta kalendern"
 
-#: ../camel/camel-exchange-folder.c:222
+#: ../camel/camel-exchange-folder.c:223
 msgid "You cannot expunge in offline mode."
 msgstr "Kan inte tömma i frånkopplat läge."
 
-#: ../camel/camel-exchange-folder.c:253
+#: ../camel/camel-exchange-folder.c:254
 msgid "No Subject"
 msgstr "Inget ämne"
 
-#: ../camel/camel-exchange-folder.c:407
+#: ../camel/camel-exchange-folder.c:409
 msgid "This message is not available in offline mode."
 msgstr "Detta meddelande är inte tillgängligt i frånkopplat läge."
 
-#: ../camel/camel-exchange-folder.c:642
+#: ../camel/camel-exchange-folder.c:644
 msgid "Moving messages"
 msgstr "Flyttar meddelanden"
 
-#: ../camel/camel-exchange-folder.c:643
+#: ../camel/camel-exchange-folder.c:645
 msgid "Copying messages"
 msgstr "Kopierar meddelanden"
 
-#: ../camel/camel-exchange-folder.c:1014
+#: ../camel/camel-exchange-folder.c:1016
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Kunde inte skapa katalogen %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1024
+#: ../camel/camel-exchange-folder.c:1026
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Kunde inte läsa in sammanfattning för %s"
 
-#: ../camel/camel-exchange-folder.c:1032
+#: ../camel/camel-exchange-folder.c:1034
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Kunde inte skapa cache för %s"
 
-#: ../camel/camel-exchange-folder.c:1042
+#: ../camel/camel-exchange-folder.c:1044
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Kunde inte skapa journal för %s"
 
-#: ../camel/camel-exchange-folder.c:1087
+#: ../camel/camel-exchange-folder.c:1089
 msgid "Scanning for changed messages"
 msgstr "Letar efter ändrade meddelanden"
 
-#: ../camel/camel-exchange-folder.c:1113
+#: ../camel/camel-exchange-folder.c:1115
 msgid "Fetching summary information for new messages"
 msgstr "Hämtar meddelandeinformation för nya meddelanden"
 
-#: ../camel/camel-exchange-journal.c:339
+#: ../camel/camel-exchange-journal.c:340
 msgid "No folder name found\n"
 msgstr "Inget mappnamn hittat\n"
 
-#: ../camel/camel-exchange-journal.c:372
-#: ../mail/mail-stub-exchange.c:2569
-#: ../mail/mail-stub-exchange.c:2613
-#: ../mail/mail-stub-exchange.c:2648
-#: ../mail/mail-stub-exchange.c:2675
-#: ../mail/mail-stub-exchange.c:2728
+#: ../camel/camel-exchange-journal.c:373 ../mail/mail-stub-exchange.c:2569
+#: ../mail/mail-stub-exchange.c:2613 ../mail/mail-stub-exchange.c:2648
+#: ../mail/mail-stub-exchange.c:2675 ../mail/mail-stub-exchange.c:2728
 #: ../mail/mail-stub-exchange.c:2750
 msgid "Folder doesn't exist"
 msgstr "Mappen finns inte"
 
-#: ../camel/camel-exchange-journal.c:436
+#: ../camel/camel-exchange-journal.c:437
 msgid "Cannot append message in offline mode: cache unavailable"
-msgstr "Kan inte lägga till meddelande i frånkopplat läge: cachen inte tillgänglig"
+msgstr ""
+"Kan inte lägga till meddelande i frånkopplat läge: cachen inte tillgänglig"
 
-#: ../camel/camel-exchange-journal.c:452
+#: ../camel/camel-exchange-journal.c:453
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Kan inte lägga till meddelande i frånkopplat läge: %s"
 
-#: ../camel/camel-exchange-provider.c:40
+#: ../camel/camel-exchange-provider.c:41
 msgid "Checking for New Mail"
 msgstr "Letar efter ny post"
 
-#: ../camel/camel-exchange-provider.c:42
-#: ../camel/camel-exchange-provider.c:66
+#: ../camel/camel-exchange-provider.c:43 ../camel/camel-exchange-provider.c:67
 msgid "C_heck for new messages in all folders"
 msgstr "Leta _efter nya meddelanden i alla mappar"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:50
+#: ../camel/camel-exchange-provider.c:51
 msgid "Windows User_name:"
 msgstr "Windows-användar_namn:"
 
 # Osäker.
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:56
 msgid "Global Address List / Active Directory"
 msgstr "Global adresslista / Active Directory"
 
 # Osäker.
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:59
+#: ../camel/camel-exchange-provider.c:60
 msgid "_Global Catalog server name:"
 msgstr "Namn på _global katalogserver:"
 
-#: ../camel/camel-exchange-provider.c:61
+#: ../camel/camel-exchange-provider.c:62
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "Begrä_nsa antalet GAL-svar: %s"
 
-#: ../camel/camel-exchange-provider.c:64
+#: ../camel/camel-exchange-provider.c:65
 msgid "Options"
 msgstr "Alternativ"
 
-#: ../camel/camel-exchange-provider.c:68
+#: ../camel/camel-exchange-provider.c:69
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "Varnings_period för lösenordsutgång: %s"
 
-#: ../camel/camel-exchange-provider.c:70
+#: ../camel/camel-exchange-provider.c:71
 msgid "Automatically synchroni_ze account locally"
 msgstr "Synkronise_ra automatiskt konto lokalt"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:73
+#: ../camel/camel-exchange-provider.c:74
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "Tillämpa _filtren på nya meddelanden i inkorgen på denna server"
 
-#: ../camel/camel-exchange-provider.c:75
+#: ../camel/camel-exchange-provider.c:76
 msgid "Check new messages for _Junk contents"
 msgstr "Kontrollera om _nya meddelanden innehåller skräp"
 
-#: ../camel/camel-exchange-provider.c:77
+#: ../camel/camel-exchange-provider.c:78
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Kontrollera _endast om meddelanden innehåller skräp i inkorgsmappen"
 
-#: ../camel/camel-exchange-provider.c:87
+#: ../camel/camel-exchange-provider.c:88
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:89
+#: ../camel/camel-exchange-provider.c:90
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "För hantering av e-post (och andra data) på Microsoft Exchange-servrar"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:105
+#: ../camel/camel-exchange-provider.c:106
 msgid "Secure Password"
 msgstr "Säkert lösenord"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:108
-msgid "This option will connect to the Exchange server using secure password (NTLM) authentication."
-msgstr "Detta alternativ kommer att ansluta till Exchange-servern med hjälp av säker lösenordsverifiering (NTLM)."
+#: ../camel/camel-exchange-provider.c:109
+msgid ""
+"This option will connect to the Exchange server using secure password (NTLM) "
+"authentication."
+msgstr ""
+"Detta alternativ kommer att ansluta till Exchange-servern med hjälp av säker "
+"lösenordsverifiering (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:116
+#: ../camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "Klartextlösenord"
 
-#: ../camel/camel-exchange-provider.c:118
-msgid "This option will connect to the Exchange server using standard plaintext password authentication."
-msgstr "Detta alternativ kommer att ansluta till Exchange-servern med hjälp av standardautentisering med lösenord i klartext."
+#: ../camel/camel-exchange-provider.c:119
+msgid ""
+"This option will connect to the Exchange server using standard plaintext "
+"password authentication."
+msgstr ""
+"Detta alternativ kommer att ansluta till Exchange-servern med hjälp av "
+"standardautentisering med lösenord i klartext."
 
 #: ../camel/camel-exchange-store.c:310
 #, c-format
@@ -292,89 +289,85 @@ msgstr "Kan inte säga upp prenumeration på mapp i frånkopplat läge."
 msgid "Cannot get folder info in offline mode."
 msgstr "Kan inte få tag i mappinformation i frånkopplat läge."
 
-#: ../camel/camel-exchange-store.c:785
+#: ../camel/camel-exchange-store.c:793
 msgid "Cannot create folder in offline mode."
 msgstr "Kan inte skapa mapp i frånkopplat läge."
 
-#: ../camel/camel-exchange-store.c:812
+#: ../camel/camel-exchange-store.c:820
 msgid "Cannot delete folder in offline mode."
 msgstr "Kan inte ta bort mapp i frånkopplat läge."
 
-#: ../camel/camel-exchange-store.c:828
+#: ../camel/camel-exchange-store.c:836
 msgid "Cannot rename folder in offline mode."
 msgstr "Kan inte byta namn på mapp i frånkopplat läge."
 
-#: ../camel/camel-exchange-transport.c:110
+#: ../camel/camel-exchange-transport.c:111
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr "Exchange-transporten kan endast användas tillsammans med en Exchange-epostkälla"
+msgstr ""
+"Exchange-transporten kan endast användas tillsammans med en Exchange-"
+"epostkälla"
 
-#: ../camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-transport.c:122
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "Kan inte skicka meddelande: en eller flera ogiltiga mottagare"
 
-#: ../camel/camel-exchange-transport.c:131
+#: ../camel/camel-exchange-transport.c:132
 msgid "Could not find 'From' address in message"
 msgstr "Kunde inte hitta \"Från\"-adress i meddelandet"
 
-#: ../camel/camel-stub.c:152
+#: ../camel/camel-stub.c:153
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Kunde inte skapa uttag: %s"
 
-#: ../camel/camel-stub.c:170
+#: ../camel/camel-stub.c:171
 #, c-format
 msgid "Could not connect to %s: Please restart Evolution"
 msgstr "Kunde inte ansluta till %s: Starta om Evolution"
 
-#: ../camel/camel-stub.c:175
+#: ../camel/camel-stub.c:176
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Kunde inte ansluta till %s: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:206
 #, c-format
 msgid "Path too long: %s"
 msgstr "Sökvägen för lång: %s"
 
-#: ../camel/camel-stub.c:231
+#: ../camel/camel-stub.c:232
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Kunde inte starta statustråd: %s"
 
-#: ../camel/camel-stub.c:485
+#: ../camel/camel-stub.c:486
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Tappade anslutningen till %s"
 
-#: ../camel/camel-stub.c:489
+#: ../camel/camel-stub.c:490
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Fel vid kommunikation med %s: %s"
 
-#: ../mail/mail-stub-exchange.c:257
-#: ../mail/mail-stub-exchange.c:755
+#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
 msgid "No such folder"
 msgstr "Det finns ingen sådan mapp"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280
-#: ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2546
-#: ../mail/mail-stub-exchange.c:2586
-#: ../mail/mail-stub-exchange.c:2652
-#: ../mail/mail-stub-exchange.c:2702
+#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
+#: ../mail/mail-stub-exchange.c:2546 ../mail/mail-stub-exchange.c:2586
+#: ../mail/mail-stub-exchange.c:2652 ../mail/mail-stub-exchange.c:2702
 #: ../mail/mail-stub-exchange.c:2765
 msgid "Permission denied"
 msgstr "Åtkomst nekas"
 
-#: ../mail/mail-stub-exchange.c:578
-#: ../mail/mail-stub-exchange.c:600
+#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
 msgid "Could not open folder: Permission denied"
 msgstr "Kunde inte öppna mapp: Åtkomst nekas"
 
-#: ../mail/mail-stub-exchange.c:584
-#: ../mail/mail-stub-exchange.c:707
+#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
 msgid "Could not open folder"
 msgstr "Kunde inte öppna mapp"
 
@@ -386,8 +379,7 @@ msgstr "Kunde inte skapa mapp."
 msgid "Could not open Deleted Items folder"
 msgstr "Kunde inte öppna mappen Borttaget"
 
-#: ../mail/mail-stub-exchange.c:1175
-#: ../mail/mail-stub-exchange.c:1216
+#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
 msgid "Could not get new messages"
 msgstr "Kunde inte hämta nya meddelanden"
 
@@ -452,10 +444,8 @@ msgstr ""
 msgid "Could not send message"
 msgstr "Kunde inte skicka meddelandet"
 
-#: ../mail/mail-stub-exchange.c:2538
-#: ../mail/mail-stub-exchange.c:2591
-#: ../mail/mail-stub-exchange.c:2656
-#: ../mail/mail-stub-exchange.c:2707
+#: ../mail/mail-stub-exchange.c:2538 ../mail/mail-stub-exchange.c:2591
+#: ../mail/mail-stub-exchange.c:2656 ../mail/mail-stub-exchange.c:2707
 #: ../mail/mail-stub-exchange.c:2771
 msgid "Generic error"
 msgstr "Allmänt fel"
@@ -483,7 +473,8 @@ msgid ""
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
 "Kunde inte ansluta till Exchange-servern.\n"
-"Försäkra dig om att URL:en är korrekt (försök med \"%s\" istället för \"%s\"?) och försök igen."
+"Försäkra dig om att URL:en är korrekt (försök med \"%s\" istället för \"%s"
+"\"?) och försök igen."
 
 #: ../storage/exchange-autoconfig-wizard.c:219
 msgid ""
@@ -499,7 +490,8 @@ msgid ""
 "Make sure the username and password are correct and try again."
 msgstr ""
 "Kunde inte autentisera till Exchange-servern.\n"
-"Försäkra dig om att användarnamnet och lösenordet är korrekta och försök igen."
+"Försäkra dig om att användarnamnet och lösenordet är korrekta och försök "
+"igen."
 
 #: ../storage/exchange-autoconfig-wizard.c:235
 #, c-format
@@ -507,11 +499,14 @@ msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again.\n"
 "\n"
-"You may need to specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
+"You may need to specify the Windows domain name as part of your username "
+"(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
 "Kunde inte autentisera till Exchange-servern.\n"
-"Försäkra dig om att användarnamnet och lösenordet är korrekta och försök igen.\n"
-"Du kan kanske behöva ange Windows-domännamnet som en del av ditt användarnamn (t.ex. \"MIN-DOMÄN\\%s\")."
+"Försäkra dig om att användarnamnet och lösenordet är korrekta och försök "
+"igen.\n"
+"Du kan kanske behöva ange Windows-domännamnet som en del av ditt "
+"användarnamn (t.ex. \"MIN-DOMÄN\\%s\")."
 
 #: ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
@@ -523,26 +518,48 @@ msgstr ""
 
 #: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange Server that appears to be disabled or blocked.  (This is usually unintentional.)  Your Exchange Administrator will need to enable this functionality in order for you to be able to use Ximian Connector.\n"
+"Ximian Connector requires access to certain functionality on the Exchange "
+"Server that appears to be disabled or blocked.  (This is usually "
+"unintentional.)  Your Exchange Administrator will need to enable this "
+"functionality in order for you to be able to use Ximian Connector.\n"
 "\n"
-"For information to provide to your Exchange administrator, please follow the link below:"
+"For information to provide to your Exchange administrator, please follow the "
+"link below:"
 msgstr ""
-"Ximian Connector kräver åtkomst till en del funktionalitet på Exchange-servern som verkar vara inaktiverad eller blockerad (detta är vanligtvis oavsiktligt). Din Exchange-administratör måste aktivera denna funktionalitet för att du ska kunna använda Ximian Connector.\n"
+"Ximian Connector kräver åtkomst till en del funktionalitet på Exchange-"
+"servern som verkar vara inaktiverad eller blockerad (detta är vanligtvis "
+"oavsiktligt). Din Exchange-administratör måste aktivera denna funktionalitet "
+"för att du ska kunna använda Ximian Connector.\n"
 "\n"
-"Följ länken nedan för information som du kan delge din Exchange-administratör:"
+"Följ länken nedan för information som du kan delge din Exchange-"
+"administratör:"
 
 #: ../storage/exchange-autoconfig-wizard.c:275
-msgid "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr "URL:en till Exchange-servern som du angav är för en Exchange 5.5-server. Ximian Connector stöder endast Microsoft Exchange 2000 och 2003."
+msgid ""
+"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
+"Connector supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"URL:en till Exchange-servern som du angav är för en Exchange 5.5-server. "
+"Ximian Connector stöder endast Microsoft Exchange 2000 och 2003."
 
 #: ../storage/exchange-autoconfig-wizard.c:288
-msgid "Could not configure Exchange account because an unknown error occurred. Check the URL, username, and password, and try again."
-msgstr "Kunde inte konfigurera Exchange-kontot eftersom ett okänt fel inträffade.Kontrollera URL:en, användarnamnet och lösenordet och försök igen."
+msgid ""
+"Could not configure Exchange account because an unknown error occurred. "
+"Check the URL, username, and password, and try again."
+msgstr ""
+"Kunde inte konfigurera Exchange-kontot eftersom ett okänt fel inträffade."
+"Kontrollera URL:en, användarnamnet och lösenordet och försök igen."
 
 #: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
-msgid "Could not authenticate to the Global Catalog server. You may need to go back and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
-msgstr "Kunde inte autentisera till den globala katalogservern. Du kan behöva gå tillbaka och ange Windows-domännamnet som del av ditt användarnamn (t.ex. \"MIN-DOMÄN\\%s\")."
+msgid ""
+"Could not authenticate to the Global Catalog server. You may need to go back "
+"and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
+"\\%s\")."
+msgstr ""
+"Kunde inte autentisera till den globala katalogservern. Du kan behöva gå "
+"tillbaka och ange Windows-domännamnet som del av ditt användarnamn (t.ex. "
+"\"MIN-DOMÄN\\%s\")."
 
 #: ../storage/exchange-autoconfig-wizard.c:339
 msgid ""
@@ -642,40 +659,64 @@ msgstr "Konfiguration av Ximian Connector"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:20
 msgid ""
-"Ximian Connector can use account information from your existing Outlook Web Access (OWA) account.\n"
+"Ximian Connector can use account information from your existing Outlook Web "
+"Access (OWA) account.\n"
 "\n"
-"Enter your OWA site address (URL), username, and password, then click \"Forward\".\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
 msgstr ""
-"Ximian Connector kan använda kontoinformation från ditt befintliga Outlook Web Access (OWA)-konto.\n"
+"Ximian Connector kan använda kontoinformation från ditt befintliga Outlook "
+"Web Access (OWA)-konto.\n"
 "\n"
-"Ange din OWA-webbplatsadress (URL), användarnamn och lösenord, och klicka sedan på \"Framåt\".\n"
+"Ange din OWA-webbplatsadress (URL), användarnamn och lösenord, och klicka "
+"sedan på \"Framåt\".\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:24
-msgid "Ximian Connector could not find the Global Catalog replica for your site. Please enter the name of your Global Catalog server. You may need to ask your system administrator for the correct value.\n"
-msgstr "Ximian Connector kunde inte hitta kopian av den globala katalogen för din webbplats. Ange namnet på servern för din globala katalog. Du kan behöva fråga din systemadministratör om det korrekta värdet.\n"
+msgid ""
+"Ximian Connector could not find the Global Catalog replica for your site. "
+"Please enter the name of your Global Catalog server. You may need to ask "
+"your system administrator for the correct value.\n"
+msgstr ""
+"Ximian Connector kunde inte hitta kopian av den globala katalogen för din "
+"webbplats. Ange namnet på servern för din globala katalog. Du kan behöva "
+"fråga din systemadministratör om det korrekta värdet.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:26
-msgid "Ximian Connector has encountered a problem configuring your Exchange account.\n"
-msgstr "Ximian Connector har stött på ett problem vid konfiguration av ditt Exchange-konto.\n"
+msgid ""
+"Ximian Connector has encountered a problem configuring your Exchange "
+"account.\n"
+msgstr ""
+"Ximian Connector har stött på ett problem vid konfiguration av ditt Exchange-"
+"konto.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
-"Your Connector account is now ready to use. Click the \"Apply\" button to save your\n"
+"Your Connector account is now ready to use. Click the \"Apply\" button to "
+"save your\n"
 "settings."
 msgstr ""
-"Ditt Connector-konto är nu redo att användas. Klicka på knappen \"Verkställ\" för att\n"
+"Ditt Connector-konto är nu redo att användas. Klicka på knappen \"Verkställ"
+"\" för att\n"
 "spara dina inställningar."
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:30
-msgid "Your account information is as follows. Please correct any errors, then click \"Forward\".\n"
-msgstr "Din kontoinformation är som följer. Korrigera eventuella fel och klicka sedan på \"Framåt\".\n"
+msgid ""
+"Your account information is as follows. Please correct any errors, then "
+"click \"Forward\".\n"
+msgstr ""
+"Din kontoinformation är som följer. Korrigera eventuella fel och klicka "
+"sedan på \"Framåt\".\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
 #: ../storage/exchange-change-password.c:114
-msgid "The current password does not match the existing password for your account. Please enter the correct password"
-msgstr "Det aktuella lösenordet stämmer inte överens med det befintliga lösenordet för ditt konto. Ange det korrekta lösenordet"
+msgid ""
+"The current password does not match the existing password for your account. "
+"Please enter the correct password"
+msgstr ""
+"Det aktuella lösenordet stämmer inte överens med det befintliga lösenordet "
+"för ditt konto. Ange det korrekta lösenordet"
 
 #: ../storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
@@ -772,22 +813,28 @@ msgstr "Migrerar Exchange-mappar..."
 #: ../storage/exchange-migrate.c:66
 #, c-format
 msgid ""
-"The location and hierarchy of the Evolution exchange account folders are changed since Evolution %d.%d.%d.\n"
+"The location and hierarchy of the Evolution exchange account folders are "
+"changed since Evolution %d.%d.%d.\n"
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
-"Platsen och hierarkin för Evolution-exchangekontomapparna har ändrats sedan Evolution %d.%d.%d.\n"
+"Platsen och hierarkin för Evolution-exchangekontomapparna har ändrats sedan "
+"Evolution %d.%d.%d.\n"
 "\n"
 "Var vänlig vänta medan Evolution migrerar dina mappar..."
 
 #: ../storage/exchange-migrate.c:99
 #, c-format
 msgid ""
-"Warning: Evolution could not migrate all the Exchange account data from the version %d.%d.%d. \n"
-"The data hasn't been deleted, but will not be seen by this version of Evolution"
+"Warning: Evolution could not migrate all the Exchange account data from the "
+"version %d.%d.%d. \n"
+"The data hasn't been deleted, but will not be seen by this version of "
+"Evolution"
 msgstr ""
-"Varning: Evolution kunde inte migrera all Exchange-kontodata från version %d.%d.%d. \n"
-"Dessa data har inte tagits bort, men de kommer inte att kunna ses av denna version av Evolution"
+"Varning: Evolution kunde inte migrera all Exchange-kontodata från version %d."
+"%d.%d. \n"
+"Dessa data har inte tagits bort, men de kommer inte att kunna ses av denna "
+"version av Evolution"
 
 #: ../storage/exchange-migrate.c:130
 #, c-format
@@ -814,10 +861,12 @@ msgstr "<b>Status:</b>"
 
 #: ../storage/exchange-oof.glade.h:6
 msgid ""
-"<small>The message specified below will be automatically sent to each person who sends\n"
+"<small>The message specified below will be automatically sent to each person "
+"who sends\n"
 "mail to you while you are out of the office.</small>"
 msgstr ""
-"<small>Meddelandet nedan kommer automatiskt att skickas till varje person som\n"
+"<small>Meddelandet nedan kommer automatiskt att skickas till varje person "
+"som\n"
 "som skickar e-post till dig när du inte är inne på kontoret.</small>"
 
 #: ../storage/exchange-oof.glade.h:8
@@ -949,13 +998,17 @@ msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Prenumerera på en mapp som tillhör någon annan användare på servern"
 
 #: ../storage/ximian-connector.xml.h:6
-msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
-msgstr "Säg upp prenumerationen på en mapp som lagts till med \"Prenumerera på annan användares mapp\""
+msgid ""
+"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgstr ""
+"Säg upp prenumerationen på en mapp som lagts till med \"Prenumerera på annan "
+"användares mapp\""
 
 # Osäker / unsure
 #: ../storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
-msgstr "Visa eller ändra dina inställningar för delegation av Exchange-kalendern"
+msgstr ""
+"Visa eller ändra dina inställningar för delegation av Exchange-kalendern"
 
 #: ../storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
@@ -978,6 +1031,14 @@ msgstr "_Inte inne-assistent"
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Säg upp prenumeration på annan användares mapp"
 
+#~ msgid "Internal error.\n"
+#~ msgstr "Internt fel.\n"
+
+#~ msgid "Paged results response control could not be decoded.\n"
+#~ msgstr "Svarskontrollen för mellanlagrade resultat kunde inte avkodas.\n"
+
+#~ msgid "Invalid entries estimate in paged results response.\n"
+#~ msgstr "Ogiltiga postestimat i svar för mellanlagrade resultat.\n"
+
 #~ msgid "No such folder."
 #~ msgstr "Det finns ingen sådan mapp."
-
