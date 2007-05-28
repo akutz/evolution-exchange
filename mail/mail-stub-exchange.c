@@ -2285,16 +2285,18 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 	const char *type, *name, *uri, *path, *inbox_uri = NULL;
 	int unread_count, i, toplen = top ? strlen (top) : 0;
 	guint32 folder_flags = 0;
-	gboolean recursive, subscribed, single_folder = FALSE;
+	gboolean recursive, subscribed, info_fast;
 	int mode = -1;
 	char *full_path;
 
 	recursive = (store_flags & CAMEL_STUB_STORE_FOLDER_INFO_RECURSIVE);
 	subscribed = (store_flags & CAMEL_STUB_STORE_FOLDER_INFO_SUBSCRIBED);
+	info_fast = (store_flags & CAMEL_STUB_STORE_FOLDER_INFO_FAST);
 
 	exchange_account_is_offline (mse->account, &mode);
-	if (!subscribed) {
+	if (!subscribed && info_fast) {
 		ExchangeAccountResult result = -1;
+
 		d(g_print ("%s(%d):%s: NOT SUBSCRIBED top = [%s]\n", __FILE__, __LINE__, __GNUC_PRETTY_FUNCTION__, top));
 		if (!toplen)
 			result = exchange_account_open_folder (mse->account, "/public");
@@ -2310,16 +2312,6 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 		d(g_print ("%s(%d):%s: NOT RECURSIVE and toplen top = [%s]\n", __FILE__, __LINE__, __GNUC_PRETTY_FUNCTION__, top));
 		full_path = g_strdup_printf ("/%s", top);
 		folders = exchange_account_get_folder_tree (mse->account, full_path);
-			/*
-			type = e_folder_get_type_string (folder);
-			if ((!strcmp (type, "mail")) || 
-				(!strcmp (type, "mail/public"))) {
-				d(g_print ("%s(%d):%s: Setting single_folder = TRUE\n", __FILE__, __LINE__, __PRETTY_FUNCTION__));
-				folders = g_ptr_array_new ();
-				g_ptr_array_add (folders, folder);
-				single_folder = TRUE;
-			}
-			*/
 		g_free (full_path);
 	} else {
 		d(g_print ("%s(%d):%s calling exchange_account_get_folders \n", __FILE__, __LINE__,
@@ -2342,16 +2334,12 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 			hier = e_folder_exchange_get_hierarchy (folder);
 			folder_flags = 0;
 
-			/* We ll have only that folder in the folders array */
-			if (single_folder)
-				goto return_data;
-
 			if (subscribed) {
 				if (hier->type != EXCHANGE_HIERARCHY_PERSONAL &&
 				    hier->type != EXCHANGE_HIERARCHY_FAVORITES &&
 				    hier->type != EXCHANGE_HIERARCHY_FOREIGN)
 					continue;
-			} else {
+			} else if (info_fast) {
 				if (hier->type != EXCHANGE_HIERARCHY_PUBLIC)
 					continue;
 			}

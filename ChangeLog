@@ -1,3 +1,11 @@
+2007-05-28  Veerapuram Varadhan <vvaradhan@novell.com>
+
+	* camel/camel-exchange-store.c (exchange_store_get_folder_info):
+	* mail/mail-stub-exchange.c (get_folder_info):  Don't mast
+	CAMEL_FOLDER_INFO_FAST with CAMEL_FOLDER_INFO_SUBSCRIBED and
+	handle, CAMEL_FOLDER_INFO_FAST in stub.  FOLDER_INFO_FAST should
+	fetch available folders - without a rescan.
+	
 2007-04-27  Matthew Barnes  <mbarnes@redhat.com>
 
 	* addressbook/Makefile.am:
