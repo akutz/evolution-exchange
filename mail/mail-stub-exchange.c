@@ -134,6 +134,9 @@ static void storage_folder_changed (EFolder *folder, gpointer user_data);
 static void folder_update_linestatus (gpointer key, gpointer value, gpointer data);
 static void free_folder (gpointer value);
 static gboolean get_folder_online (MailStubExchangeFolder *mfld, gboolean background);
+
+static GStaticMutex g_changed_msgs_mutex = G_STATIC_MUTEX_INIT;
+
 static void
 class_init (GObjectClass *object_class)
 {
@@ -190,9 +193,13 @@ free_folder (gpointer value)
 	MailStubExchangeFolder *mfld = value;
 	int i;
 
+	d(g_print ("%s:%s:%d: freeing mfld: name=[%s]\n", __FILE__, __PRETTY_FUNCTION__, __LINE__,
+		   mfld->name));
+
 	e_folder_exchange_unsubscribe (mfld->folder);
 	g_signal_handlers_disconnect_by_func (mfld->folder, storage_folder_changed, mfld);
 	g_object_unref (mfld->folder);
+	mfld->folder = NULL;
 
 	for (i = 0; i < mfld->messages->len; i++)
 		free_message (mfld->messages->pdata[i]);
@@ -346,6 +353,7 @@ message_remove_at_index (MailStub *stub, MailStubExchangeFolder *mfld, int index
 	MailStubExchangeMessage *mmsg;
 
 	mmsg = mfld->messages->pdata[index];
+	g_static_rec_mutex_lock (&g_changed_msgs_mutex);
 	g_ptr_array_remove_index (mfld->messages, index);
 	g_hash_table_remove (mfld->messages_by_uid, mmsg->uid);
 	if (mmsg->href)
@@ -354,13 +362,16 @@ message_remove_at_index (MailStub *stub, MailStubExchangeFolder *mfld, int index
 		mfld->unread_count--;
 		folder_changed (mfld);
 	}
+	g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
 
 	if (mmsg->change_mask || mmsg->tag_updates) {
 		int i;
 
 		for (i = 0; i < mfld->changed_messages->len; i++) {
 			if (mfld->changed_messages->pdata[i] == (gpointer)mmsg) {
+				g_static_rec_mutex_lock (&g_changed_msgs_mutex);
 				g_ptr_array_remove_index_fast (mfld->changed_messages, i);
+				g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
 				break;
 			}
 		}
@@ -1620,8 +1631,15 @@ process_flags (gpointer user_data)
 	int i;
 	guint32 hier_type = e_folder_exchange_get_hierarchy (mfld->folder)->type;
 
+	g_static_rec_mutex_lock (&g_changed_msgs_mutex);
+
 	for (i = 0; i < mfld->changed_messages->len; i++) {
 		mmsg = mfld->changed_messages->pdata[i];
+		
+		if (!mmsg->href) {
+			d(g_print ("%s:%s:%d: mfld = [%s], type=[%d]\n", __FILE__, __GNUC_PRETTY_FUNCTION__,
+				   __LINE__, mfld->name, mfld->type));
+		}
 
 		if (mmsg->change_mask & MAIL_STUB_MESSAGE_SEEN) {
 			if (mmsg->change_flags & MAIL_STUB_MESSAGE_SEEN) {
@@ -1655,6 +1673,8 @@ process_flags (gpointer user_data)
 			g_ptr_array_remove_index_fast (mfld->changed_messages, i--);
 	}
 
+	g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
+
 	if (seen || unseen) {
 		if (seen) {
 			mark_read (mfld->folder, seen, TRUE);
@@ -1672,6 +1692,8 @@ process_flags (gpointer user_data)
 		} else
 			return TRUE;
 	}
+	
+	g_static_rec_mutex_lock (&g_changed_msgs_mutex);
 
 	for (i = 0; i < mfld->changed_messages->len; i++) {
 		mmsg = mfld->changed_messages->pdata[i];
@@ -1681,6 +1703,7 @@ process_flags (gpointer user_data)
 			g_ptr_array_add (deleted, strrchr (mmsg->href, '/') + 1);
 		}
 	}
+	g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
 
 	if (deleted) {
 		MailStub *stub = MAIL_STUB (mse);
