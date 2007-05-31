@@ -1,20 +1,20 @@
 # Thai translation of evolution-exchange.
-# Copyright (C) 2005-2006 Free Software Foundation, Inc.
+# Copyright (C) 2005-2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the evolution-exchange package.
 # Udomsak Chundang <udomsak@swpark.or.th>, 2005.
-# Theppitak Karoonboonyanan <thep@linux.thai.net>, 2005-2006.
+# Theppitak Karoonboonyanan <thep@linux.thai.net>, 2005-2007.
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange 2.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-29 15:20+0700\n"
-"PO-Revision-Date: 2006-12-29 15:24+0700\n"
+"POT-Creation-Date: 2007-05-31 16:08+0700\n"
+"PO-Revision-Date: 2007-05-31 16:09+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <l10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: addressbook/apps_exchange_addressbook.schemas.in.in.h:1
 msgid "Specifies the time interval to refresh the GAL Cache."
@@ -24,15 +24,15 @@ msgstr "ระบุช่วงเวลาปรับข้อมูลแค
 msgid ""
 "This key specifies the number of days interval between the GAL cache "
 "refresh. Set this value to zero, if you don't want to update GAL and use the "
-"curernt cache forever. This will work only if you have enabled offline "
+"current cache forever. This will work only if you have enabled offline "
 "caching for GAL."
 msgstr ""
 "คีย์นี้ระบุจำนวนวันระหว่างการปรับข้อมูลแคชของ GAL แต่ละรอบ "
 "กำหนดค่านี้เป็นศูนย์ถ้าคุณไม่ต้องการปรับข้อมูล GAL และใช้แคชปัจจุบันไปตลอด "
 "คีย์นี้จะมีผลก็ต่อเมื่อคุณได้เปิดการทำแคชแบบออฟไลน์สำหรับ GAL ไว้เท่านั้น"
 
-#: addressbook/e-book-backend-exchange.c:1882
-#: addressbook/e-book-backend-gal.c:1547 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-exchange.c:1880
+#: addressbook/e-book-backend-gal.c:1548 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "กำลังค้นหา..."
 
@@ -40,30 +40,15 @@ msgstr "กำลังค้นหา..."
 msgid "Reconnecting to LDAP server..."
 msgstr "กำลังเชื่อมต่อใหม่ไปยังเซิร์ฟเวอร์ LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1384
+#: addressbook/e-book-backend-gal.c:1385
 msgid "Receiving LDAP search results..."
 msgstr "กำลังรับผลการค้นหา LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1570
+#: addressbook/e-book-backend-gal.c:1571
 msgid "Error performing search"
 msgstr "เกิดข้อผิดพลาดขณะค้นหา"
 
-#: addressbook/e-book-backend-gal.c:1758
-#, c-format
-msgid "Internal error.\n"
-msgstr "ข้อผิดพลาดภายใน\n"
-
-#: addressbook/e-book-backend-gal.c:1769
-#, c-format
-msgid "Paged results response control could not be decoded.\n"
-msgstr "ไม่สามารถอ่านรหัสจากตัวควบคุมผลลัพธ์แบบแบ่งหน้าได้\n"
-
-#: addressbook/e-book-backend-gal.c:1775
-#, c-format
-msgid "Invalid entries estimate in paged results response.\n"
-msgstr "ค่าประมาณจำนวนรายการในผลลัพธ์แบบแบ่งหน้าไม่ถูกต้อง\n"
-
-#: calendar/e-cal-backend-exchange-calendar.c:2015
+#: calendar/e-cal-backend-exchange-calendar.c:2014
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -72,170 +57,170 @@ msgstr ""
 "ไม่สามารถจัดตารางเวลาสำหรับทรัพยากร '%s' เพื่อใช้ในการประชุมแบบเวียนซ้ำได้\n"
 "คุณจะต้องจองการประชุมแต่ละครั้งแยกจากกัน"
 
-#: calendar/e-cal-backend-exchange-calendar.c:2033
+#: calendar/e-cal-backend-exchange-calendar.c:2032
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "ทรัพยากร '%s'  ไม่ว่างระหว่างช่วงเวลาที่เลือก"
 
-#: calendar/e-cal-backend-exchange.c:375
-#: calendar/e-cal-backend-exchange.c:384
+#: calendar/e-cal-backend-exchange.c:377
+#: calendar/e-cal-backend-exchange.c:386
 msgid "Authentication failed"
 msgstr "การยืนยันตัวบุคคลไม่ผ่าน"
 
-#: calendar/e-cal-backend-exchange.c:395
+#: calendar/e-cal-backend-exchange.c:397
 msgid "Could not find the calendar"
 msgstr "หาปฏิทินไม่พบ"
 
-#: camel/camel-exchange-folder.c:222
+#: camel/camel-exchange-folder.c:223
 msgid "You cannot expunge in offline mode."
 msgstr "ไม่สามารถเก็บกวาดโฟลเดอร์ขณะออฟไลน์ได้"
 
-#: camel/camel-exchange-folder.c:253
+#: camel/camel-exchange-folder.c:254
 msgid "No Subject"
 msgstr "ไม่มีชื่อเรื่อง"
 
-#: camel/camel-exchange-folder.c:407
+#: camel/camel-exchange-folder.c:409
 msgid "This message is not available in offline mode."
 msgstr "ข้อความนี้ ไม่สามารถอ่านได้ขณะออฟไลน์"
 
-#: camel/camel-exchange-folder.c:642
+#: camel/camel-exchange-folder.c:644
 msgid "Moving messages"
 msgstr "กำลังย้ายข้อความ"
 
-#: camel/camel-exchange-folder.c:643
+#: camel/camel-exchange-folder.c:645
 msgid "Copying messages"
 msgstr "กำลังคัดลอกข้อความ"
 
-#: camel/camel-exchange-folder.c:1014
+#: camel/camel-exchange-folder.c:1016
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "ไม่สามารถสร้างไดเรกทอรี %s: %s"
 
-#: camel/camel-exchange-folder.c:1024
+#: camel/camel-exchange-folder.c:1026
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "ไม่สามารถโหลดข้อมูลสรุปสำหรับ %s ได้"
 
-#: camel/camel-exchange-folder.c:1032
+#: camel/camel-exchange-folder.c:1034
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "ไม่สามารถสร้างแคชสำหรับ %s"
 
-#: camel/camel-exchange-folder.c:1042
+#: camel/camel-exchange-folder.c:1044
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "ไม่สามารถสร้างวารสารสำหรับ %s"
 
-#: camel/camel-exchange-folder.c:1087
+#: camel/camel-exchange-folder.c:1089
 msgid "Scanning for changed messages"
 msgstr "กำลังตรวจหาข้อความที่เปลี่ยนแปลง"
 
-#: camel/camel-exchange-folder.c:1113
+#: camel/camel-exchange-folder.c:1115
 msgid "Fetching summary information for new messages"
 msgstr "กำลังดึงข้อมูลสรุปสำหรับข้อความใหม่"
 
-#: camel/camel-exchange-journal.c:339
+#: camel/camel-exchange-journal.c:340
 msgid "No folder name found\n"
 msgstr "ไม่พบชื่อโฟลเดอร์\n"
 
-#: camel/camel-exchange-journal.c:372 mail/mail-stub-exchange.c:2587
-#: mail/mail-stub-exchange.c:2631 mail/mail-stub-exchange.c:2666
-#: mail/mail-stub-exchange.c:2693 mail/mail-stub-exchange.c:2746
-#: mail/mail-stub-exchange.c:2768
+#: camel/camel-exchange-journal.c:373 mail/mail-stub-exchange.c:2569
+#: mail/mail-stub-exchange.c:2613 mail/mail-stub-exchange.c:2648
+#: mail/mail-stub-exchange.c:2675 mail/mail-stub-exchange.c:2728
+#: mail/mail-stub-exchange.c:2750
 msgid "Folder doesn't exist"
 msgstr "ไม่มีโฟลเดอร์นั้นอยู่"
 
-#: camel/camel-exchange-journal.c:436
+#: camel/camel-exchange-journal.c:437
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "ไม่สามารถเพิ่มข้อความต่อท้ายขณะออฟไลน์: ไม่มีแคชให้ใช้"
 
-#: camel/camel-exchange-journal.c:452
+#: camel/camel-exchange-journal.c:453
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "ไม่สามารถเพิ่มข้อความต่อท้ายขณะออฟไลน์: %s"
 
-#: camel/camel-exchange-provider.c:40
+#: camel/camel-exchange-provider.c:41
 msgid "Checking for New Mail"
 msgstr "ตรวจสอบเมลใหม่"
 
-#: camel/camel-exchange-provider.c:42 camel/camel-exchange-provider.c:66
+#: camel/camel-exchange-provider.c:43 camel/camel-exchange-provider.c:67
 msgid "C_heck for new messages in all folders"
 msgstr "_ตรวจสอบข้อความใหม่ในทุกโฟลเดอร์"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: camel/camel-exchange-provider.c:50
+#: camel/camel-exchange-provider.c:51
 msgid "Windows User_name:"
 msgstr "_ชื่อผู้ใช้ Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: camel/camel-exchange-provider.c:55
+#: camel/camel-exchange-provider.c:56
 msgid "Global Address List / Active Directory"
 msgstr "Global Address List / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: camel/camel-exchange-provider.c:59
+#: camel/camel-exchange-provider.c:60
 msgid "_Global Catalog server name:"
 msgstr "ชื่อเซิร์ฟเวอร์ _Global Catalog:"
 
-#: camel/camel-exchange-provider.c:61
+#: camel/camel-exchange-provider.c:62
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "_จำกัดจำนวนการตอบรับจาก GAL: %s"
 
-#: camel/camel-exchange-provider.c:64
+#: camel/camel-exchange-provider.c:65
 msgid "Options"
 msgstr "ตัวเลือก"
 
-#: camel/camel-exchange-provider.c:68
+#: camel/camel-exchange-provider.c:69
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "ช่วงเวลาการเตือนรหัสผ่านห_มดอายุ: %s"
 
-#: camel/camel-exchange-provider.c:70
+#: camel/camel-exchange-provider.c:71
 msgid "Automatically synchroni_ze account locally"
 msgstr "_ปรับบัญชีผู้ใช้ให้ตรงกันภายในเครื่องโดยอัตโนมัติ"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:73
+#: camel/camel-exchange-provider.c:74
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "ใช้ตัว_กรองกับข้อความใหม่ในกล่องจดหมายเข้าที่เซิร์ฟเวอร์นี้"
 
-#: camel/camel-exchange-provider.c:75
+#: camel/camel-exchange-provider.c:76
 msgid "Check new messages for _Junk contents"
 msgstr "ตรวจสอบ_ขยะในข้อความใหม่"
 
-#: camel/camel-exchange-provider.c:77
+#: camel/camel-exchange-provider.c:78
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "ตรวจสอบข้อความขยะในโฟลเดอร์กล่อง_จดหมายเข้าเท่านั้น"
 
-#: camel/camel-exchange-provider.c:87
+#: camel/camel-exchange-provider.c:88
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: camel/camel-exchange-provider.c:89
+#: camel/camel-exchange-provider.c:90
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "สำหรับจัดการเมล (และข้อมูลอื่น) ในเซิร์ฟเวอร์ Microsoft Exchange"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:105
+#: camel/camel-exchange-provider.c:106
 msgid "Secure Password"
 msgstr "รหัสผ่านแบบนิรภัย"
 
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:108
+#: camel/camel-exchange-provider.c:109
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
 msgstr "ตัวเลือกนี้จะเชื่อมต่อไปยังเซิร์ฟเวอร์ Exchange โดยยืนยันตัวบุคคลด้วยรหัสผ่านนิรภัย (NTLM)"
 
-#: camel/camel-exchange-provider.c:116
+#: camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "รหัสผ่าน ตัวอักษรธรรมดา"
 
-#: camel/camel-exchange-provider.c:118
+#: camel/camel-exchange-provider.c:119
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -282,65 +267,65 @@ msgstr "ไม่สามารถบอกรับข้อมูลให้
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "ไม่สามารถเลิกบอกรับข้อมูลสำหรับโฟลเดอร์ขณะออฟไลน์ได้"
 
-#: camel/camel-exchange-store.c:710
+#: camel/camel-exchange-store.c:714
 msgid "Cannot get folder info in offline mode."
 msgstr "ไม่สามารถอ่านข้อมูลโฟลเดอร์ขณะออฟไลน์ได้"
 
-#: camel/camel-exchange-store.c:781
+#: camel/camel-exchange-store.c:793
 msgid "Cannot create folder in offline mode."
 msgstr "ไม่สามารถสร้างโฟลเดอร์ขณะออฟไลน์ได้"
 
-#: camel/camel-exchange-store.c:808
+#: camel/camel-exchange-store.c:820
 msgid "Cannot delete folder in offline mode."
 msgstr "ไม่สามารถลบโฟลเดอร์ขณะออฟไลน์ได้"
 
-#: camel/camel-exchange-store.c:824
+#: camel/camel-exchange-store.c:836
 msgid "Cannot rename folder in offline mode."
 msgstr "ไม่สามารถเปลี่ยนชื่อโฟลเดอร์ขณะออฟไลน์ได้"
 
-#: camel/camel-exchange-transport.c:110
+#: camel/camel-exchange-transport.c:111
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "การส่งข้อมูล Exchange สามารถใช้ได้กับแหล่งเมลของ Exchange เท่านั้น"
 
-#: camel/camel-exchange-transport.c:121
+#: camel/camel-exchange-transport.c:122
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "ไม่สามารถส่งข้อความ: มีผู้รับอย่างน้อยหนึ่งคนไม่ถูกต้อง"
 
-#: camel/camel-exchange-transport.c:131
+#: camel/camel-exchange-transport.c:132
 msgid "Could not find 'From' address in message"
 msgstr "หาที่อยู่ 'จาก' ในข้อความไม่พบ"
 
-#: camel/camel-stub.c:152
+#: camel/camel-stub.c:153
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "ไม่สามารถสร้าง socket: %s"
 
-#: camel/camel-stub.c:170
+#: camel/camel-stub.c:171
 #, c-format
 msgid "Could not connect to %s: Please restart Evolution"
 msgstr "ไม่สามารถเชื่อมต่อไปยัง %s: กรุณาเริ่ม Evolution ใหม่"
 
-#: camel/camel-stub.c:175
+#: camel/camel-stub.c:176
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "ไม่สามารถเชื่อมต่อไปยัง %s: %s"
 
-#: camel/camel-stub.c:205
+#: camel/camel-stub.c:206
 #, c-format
 msgid "Path too long: %s"
 msgstr "พาธยาวเกินไป: %s"
 
-#: camel/camel-stub.c:231
+#: camel/camel-stub.c:232
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "ไม่สามารถเริ่มเธรดสถานะ: %s"
 
-#: camel/camel-stub.c:485
+#: camel/camel-stub.c:486
 #, c-format
 msgid "Lost connection to %s"
 msgstr "การเชื่อมต่อไปยัง %s ถูกตัดขาด"
 
-#: camel/camel-stub.c:489
+#: camel/camel-stub.c:490
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "เกิดข้อผิดพลาดขณะสื่อสารกับ %s: %s"
@@ -352,9 +337,9 @@ msgstr "ไม่มีโฟลเดอร์ดังกล่าว"
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: mail/mail-stub-exchange.c:280 mail/mail-stub-exchange.c:1390
-#: mail/mail-stub-exchange.c:2564 mail/mail-stub-exchange.c:2604
-#: mail/mail-stub-exchange.c:2670 mail/mail-stub-exchange.c:2720
-#: mail/mail-stub-exchange.c:2783
+#: mail/mail-stub-exchange.c:2546 mail/mail-stub-exchange.c:2586
+#: mail/mail-stub-exchange.c:2652 mail/mail-stub-exchange.c:2702
+#: mail/mail-stub-exchange.c:2765
 msgid "Permission denied"
 msgstr "ไม่ได้รับอนุญาต"
 
@@ -410,22 +395,22 @@ msgstr "กล่องจดหมายไม่สนับสนุนกา
 msgid "Unable to move/copy messages"
 msgstr "ไม่สามารถย้ายหรือคัดลอกข้อความ"
 
-#: mail/mail-stub-exchange.c:2479
+#: mail/mail-stub-exchange.c:2461
 msgid "No mail submission URI for this mailbox"
 msgstr "ไม่มี URI ส่งเมลสำหรับกล่องเมลนี้"
 
-#: mail/mail-stub-exchange.c:2515
+#: mail/mail-stub-exchange.c:2497
 msgid "Server won't accept mail via Exchange transport"
 msgstr "เซิร์ฟเวอร์ไม่รับเมลผ่าน Exchange"
 
-#: mail/mail-stub-exchange.c:2517
+#: mail/mail-stub-exchange.c:2499
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
 msgstr "บัญชีของคุณไม่มีสิทธิ์ใช้ <%s> เป็นที่อยู่ส่งเมล"
 
-#: mail/mail-stub-exchange.c:2529
+#: mail/mail-stub-exchange.c:2511
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -433,17 +418,17 @@ msgstr ""
 "ไม่สามารถส่งข้อความ\n"
 "อาจหมายความว่าบัญชีของคุณกำลังเก็บข้อมูลเกินขนาดที่อนุญาต"
 
-#: mail/mail-stub-exchange.c:2533
+#: mail/mail-stub-exchange.c:2515
 msgid "Could not send message"
 msgstr "ไม่สามารถส่งข้อความได้"
 
-#: mail/mail-stub-exchange.c:2556 mail/mail-stub-exchange.c:2609
-#: mail/mail-stub-exchange.c:2674 mail/mail-stub-exchange.c:2725
-#: mail/mail-stub-exchange.c:2789
+#: mail/mail-stub-exchange.c:2538 mail/mail-stub-exchange.c:2591
+#: mail/mail-stub-exchange.c:2656 mail/mail-stub-exchange.c:2707
+#: mail/mail-stub-exchange.c:2771
 msgid "Generic error"
 msgstr "ข้อผิดพลาดทั่วไป"
 
-#: mail/mail-stub-exchange.c:2560
+#: mail/mail-stub-exchange.c:2542
 msgid "Folder already exists"
 msgstr "มีโฟลเดอร์อยู่แล้ว"
 
@@ -998,6 +983,15 @@ msgstr "ผู้ช่วยจัดการสถานะไ_ม่อย�
 #: storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_เลิกบอกรับข้อมูลจากโฟลเดอร์ผู้ใช้อื่น"
+
+#~ msgid "Internal error.\n"
+#~ msgstr "ข้อผิดพลาดภายใน\n"
+
+#~ msgid "Paged results response control could not be decoded.\n"
+#~ msgstr "ไม่สามารถอ่านรหัสจากตัวควบคุมผลลัพธ์แบบแบ่งหน้าได้\n"
+
+#~ msgid "Invalid entries estimate in paged results response.\n"
+#~ msgstr "ค่าประมาณจำนวนรายการในผลลัพธ์แบบแบ่งหน้าไม่ถูกต้อง\n"
 
 #~ msgid "No such folder."
 #~ msgstr "ไม่มีโฟลเดอร์ดังกล่าว"
