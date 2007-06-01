@@ -1,3 +1,19 @@
+2007-06-01  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** Adds support for GAL Caching and summary. It uses libdb and makes it
+	a soft dependency.
+
+	* addressbook/Makefile.am:
+	* addressbook/e-book-backend-exchange.c: (update_cache):
+	* addressbook/e-book-backend-gal.c: (ldap_reconnect),
+	(get_contact), (get_contact_list), (func_contains),
+	(member_populate), (get_time_stamp), (build_contact_from_entry),
+	(ldap_search_handler), (get_contacts_from_cache),
+	(start_book_view), (parse_page_control), (dosearch),
+	(generate_cache), (authenticate_user), (set_mode),
+	(get_supported_auth_methods), (load_source), (dispose):
+	* configure.in:
+
 2007-05-26  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* addressbook/apps_exchange_addressbook.schemas.in.in: Fix

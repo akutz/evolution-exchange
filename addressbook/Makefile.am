@@ -5,6 +5,12 @@ INCLUDES =						\
 	-I$(top_srcdir)					\
 	-I$(top_srcdir)/storage				\
 	$(LDAP_CFLAGS)					
+
+if HAVE_LIBDB	
+INCLUDES += "-I /usr/include"				\
+	$(DB_CFLAGS)
+endif
+
 # GConf schemas
 
 schemadir   = $(GCONF_SCHEMA_FILE_DIR)
@@ -29,10 +35,21 @@ libexchangeaddressbook_la_SOURCES =	\
 	e-book-backend-exchange.h	\
 	e-book-backend-exchange-factory.c	\
 	e-book-backend-exchange-factory.h	\
-	e-book-backend-gal.c		\
-	e-book-backend-gal.h		\
 	e-book-backend-gal-factory.c	\
-	e-book-backend-gal-factory.h
+	e-book-backend-gal-factory.h	\
+	e-book-backend-gal.c		\
+	e-book-backend-gal.h		
+
+if HAVE_LIBDB	
+libexchangeaddressbook_la_SOURCES += e-book-backend-db-cache.c	\
+			             e-book-backend-db-cache.h	
+
+libexchangeaddressbook_la_LIBADD = 	\
+	$(DB_LIBS)
+
+libexchangeaddressbook_la_LDFLAGS =	\
+	-module -avoid-version $(NO_UNDEFINED)
+endif
 
 EXTRA_DIST =				\
 	$(schema_in_files)
