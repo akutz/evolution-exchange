@@ -10,9 +10,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Evolution-Exchange HEAD\n"
+"Project-Id-Version: Evolution-Exchange 2.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-02 02:21+0000\n"
+"POT-Creation-Date: 2007-03-18 03:15+0000\n"
 "PO-Revision-Date: 2007-01-23 10:50+0200\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
@@ -53,21 +53,6 @@ msgstr "LDAP otsingutulemuste vastuvõtmine..."
 #: ../addressbook/e-book-backend-gal.c:1570
 msgid "Error performing search"
 msgstr "Viga otsingu läbiviimisel"
-
-#: ../addressbook/e-book-backend-gal.c:1758
-#, c-format
-msgid "Internal error.\n"
-msgstr "Sisemine viga.\n"
-
-#: ../addressbook/e-book-backend-gal.c:1769
-#, c-format
-msgid "Paged results response control could not be decoded.\n"
-msgstr ""
-
-#: ../addressbook/e-book-backend-gal.c:1775
-#, c-format
-msgid "Invalid entries estimate in paged results response.\n"
-msgstr ""
 
 #: ../calendar/e-cal-backend-exchange-calendar.c:2015
 #, c-format
@@ -144,10 +129,10 @@ msgstr "Uute sõnumite kokkuvõtvate andmete hankimine"
 msgid "No folder name found\n"
 msgstr "Kausta nime ei leitud\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2587
-#: ../mail/mail-stub-exchange.c:2631 ../mail/mail-stub-exchange.c:2666
-#: ../mail/mail-stub-exchange.c:2693 ../mail/mail-stub-exchange.c:2746
-#: ../mail/mail-stub-exchange.c:2768
+#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2569
+#: ../mail/mail-stub-exchange.c:2613 ../mail/mail-stub-exchange.c:2648
+#: ../mail/mail-stub-exchange.c:2675 ../mail/mail-stub-exchange.c:2728
+#: ../mail/mail-stub-exchange.c:2750
 msgid "Folder doesn't exist"
 msgstr "Kausta pole olemas"
 
@@ -294,19 +279,19 @@ msgstr "Kausta pole autonoomses režiimis võimalik tellida."
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Kaustas tellimusest pole autonoomses režiimis võimalik loobuda."
 
-#: ../camel/camel-exchange-store.c:710
+#: ../camel/camel-exchange-store.c:714
 msgid "Cannot get folder info in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik hankida."
 
-#: ../camel/camel-exchange-store.c:781
+#: ../camel/camel-exchange-store.c:793
 msgid "Cannot create folder in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik luua."
 
-#: ../camel/camel-exchange-store.c:808
+#: ../camel/camel-exchange-store.c:820
 msgid "Cannot delete folder in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik kustutada."
 
-#: ../camel/camel-exchange-store.c:824
+#: ../camel/camel-exchange-store.c:836
 msgid "Cannot rename folder in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik ümber nimetada."
 
@@ -364,9 +349,9 @@ msgstr "Sellist kausta pole"
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2564 ../mail/mail-stub-exchange.c:2604
-#: ../mail/mail-stub-exchange.c:2670 ../mail/mail-stub-exchange.c:2720
-#: ../mail/mail-stub-exchange.c:2783
+#: ../mail/mail-stub-exchange.c:2546 ../mail/mail-stub-exchange.c:2586
+#: ../mail/mail-stub-exchange.c:2652 ../mail/mail-stub-exchange.c:2702
+#: ../mail/mail-stub-exchange.c:2765
 msgid "Permission denied"
 msgstr "Ligipääs keelatud"
 
@@ -422,15 +407,15 @@ msgstr "Postkast ei toeta täistekstiotsingut"
 msgid "Unable to move/copy messages"
 msgstr "Sõnumeid pole võimalik kopeerida või ümber tõsta"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:2461
 msgid "No mail submission URI for this mailbox"
 msgstr "Sellele postkastile pole posti tellimise URI"
 
-#: ../mail/mail-stub-exchange.c:2515
+#: ../mail/mail-stub-exchange.c:2497
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Server ei nõustu posti transportimisega läbi Exchange"
 
-#: ../mail/mail-stub-exchange.c:2517
+#: ../mail/mail-stub-exchange.c:2499
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -439,7 +424,7 @@ msgstr ""
 "Sinu kontol pole õiguset kasutada\n"
 "<%s> saatja aadressiks."
 
-#: ../mail/mail-stub-exchange.c:2529
+#: ../mail/mail-stub-exchange.c:2511
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -447,17 +432,17 @@ msgstr ""
 "Sõnumit pole võimalik saata.\n"
 "See võib tähendada, et Sinu konto ületab kehtestatud kvooti."
 
-#: ../mail/mail-stub-exchange.c:2533
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Could not send message"
 msgstr "Sõnumit pole võimalik saata"
 
-#: ../mail/mail-stub-exchange.c:2556 ../mail/mail-stub-exchange.c:2609
-#: ../mail/mail-stub-exchange.c:2674 ../mail/mail-stub-exchange.c:2725
-#: ../mail/mail-stub-exchange.c:2789
+#: ../mail/mail-stub-exchange.c:2538 ../mail/mail-stub-exchange.c:2591
+#: ../mail/mail-stub-exchange.c:2656 ../mail/mail-stub-exchange.c:2707
+#: ../mail/mail-stub-exchange.c:2771
 msgid "Generic error"
 msgstr "Üldine viga"
 
-#: ../mail/mail-stub-exchange.c:2560
+#: ../mail/mail-stub-exchange.c:2542
 msgid "Folder already exists"
 msgstr "Kaust on juba olemas"
 
