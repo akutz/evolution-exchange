@@ -1004,7 +1004,7 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 	guint32 folder_flags;
 	CamelMessageInfo *info;
 	CamelExchangeMessageInfo *einfo;
-	int i, len;
+	int i, len = 0;
 
 	short_name = strrchr (name, '/');
 	if (!short_name++)
@@ -1102,6 +1102,9 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 		camel_folder_free_summary (folder, summary);
 		if (!ok)
 			return FALSE;
+
+		if (len)
+			return TRUE;
 
 		if (folder_flags & CAMEL_STUB_FOLDER_FILTER)
 			folder->folder_flags |= CAMEL_FOLDER_FILTER_RECENT;
