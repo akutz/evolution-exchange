@@ -1,3 +1,11 @@
+2007-05-28  Veerapuram Varadhan  <vvaradhan@novell.com>
+
+	** Fixes #406155
+
+	* mail/mail-stub-exchange.c (free_folder(),
+	message_remove_at_index(), process_flags ()): Guard access to
+	changed_messages array with G_STATIC_REC_MUTEX locks.
+		
 2007-06-04  Veerapuram Varadhan  <vvaradhan@novell.com>
 
 	* camel/camel-exchange-folder.c (camel_exchange_folder_construct):
