@@ -1,7 +1,7 @@
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.52)
 
-AC_INIT(evolution-exchange, 2.11.3, http://bugzilla.gnome.org/enter_bug.cgi?product=Evolution%20Exchange)
+AC_INIT(evolution-exchange, 2.11.3.1, http://bugzilla.gnome.org/enter_bug.cgi?product=Evolution%20Exchange)
 AC_CONFIG_SRCDIR(storage)
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 
@@ -25,7 +25,7 @@ EDS_API_VERSION=1.2
 EDS_BASE_VERSION=1.12
 
 AC_MSG_CHECKING(Evolution version)
-EVOLUTION_VERSION=`pkg-config --modversion evolution-shell-$EVOLUTION_API_VERSION 2>/dev/null`
+EVOLUTION_VERSION=`pkg-config --modversion evolution-shell 2>/dev/null`
 if test -z "$EVOLUTION_VERSION"; then
 	AC_MSG_ERROR(Evolution development libraries not installed)
 fi
@@ -132,22 +132,22 @@ if test "x$EXCHANGE_PACKAGE" != "x"; then
 	exit 1
 fi
 
-EVOLUTION_idldir="`pkg-config --variable=idldir evolution-shell-$BASE_VERSION`"
+EVOLUTION_idldir="`pkg-config --variable=idldir evolution-shell`"
 AC_SUBST(EVOLUTION_idldir)
 
-EVOLUTION_IDL_INCLUDES="`pkg-config --variable=IDL_INCLUDES evolution-shell-$BASE_VERSION`"
+EVOLUTION_IDL_INCLUDES="`pkg-config --variable=IDL_INCLUDES evolution-shell`"
 AC_SUBST(EVOLUTION_IDL_INCLUDES)
 
-EVOLUTION_privlibdir="`pkg-config --variable=privlibdir evolution-shell-$BASE_VERSION`"
+EVOLUTION_privlibdir="`pkg-config --variable=privlibdir evolution-shell`"
 AC_SUBST(EVOLUTION_privlibdir)
 
-EVOLUTION_privlibexecdir="`pkg-config --variable=privlibexecdir evolution-shell-$BASE_VERSION`"
+EVOLUTION_privlibexecdir="`pkg-config --variable=privlibexecdir evolution-shell`"
 AC_SUBST(EVOLUTION_privlibexecdir)
 
-EVOLUTION_privdatadir="`pkg-config --variable=privdatadir evolution-shell-$BASE_VERSION`"
+EVOLUTION_privdatadir="`pkg-config --variable=privdatadir evolution-shell`"
 AC_SUBST(EVOLUTION_privdatadir)
 
-EVOLUTION_imagesdir="`pkg-config --variable=imagesdir evolution-shell-$BASE_VERSION`"
+EVOLUTION_imagesdir="`pkg-config --variable=imagesdir evolution-shell`"
 AC_SUBST(EVOLUTION_imagesdir)
 
 CAMEL_providerdir="`pkg-config --variable=camel_providerdir camel-provider-$EDS_API_VERSION`"
