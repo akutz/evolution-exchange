@@ -11,6 +11,8 @@
 /*   copy from openldap ldap.h   */
 #define LDAP_RANGE(n,x,y)      (((x) <= (n)) && ((n) <= (y)))
 #define LDAP_NAME_ERROR(n)     LDAP_RANGE((n), 0x20, 0x24)
+#define LBER_USE_DER			0x01
+#define LDAP_CONTROL_PAGEDRESULTS      "1.2.840.113556.1.4.319"
 #endif
 
 typedef struct _EBookBackendGALPrivate EBookBackendGALPrivate;

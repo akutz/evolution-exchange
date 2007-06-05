@@ -1,3 +1,12 @@
+2007-06-05  Wang Xin  <jedy.wang@sun.com>
+
+	** Fixes #385354, Matthew Barnes updated the patch for trunk.
+	Replace all __PRETTY_FUNCTION__ with G_GNUC_PRETTY_FUNCTION.
+
+	* addressbook/e-book-backend-gal.c:
+	* addressbook/e-book-backend-gal.h: Add LBER_USE_DER and
+	LDAP_CONTROL_PAGEDRESULTS if sunldap is used.
+
 2007-06-04  Srinivasa Ragavan  <sragavan@novell.com>
 
 	** Evolution Exchange 2.11.3.1 release
