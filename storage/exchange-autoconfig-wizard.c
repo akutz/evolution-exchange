@@ -37,9 +37,9 @@
 #include <gconf/gconf-client.h>
 #include <glade/glade-xml.h>
 #include <gtk/gtkentry.h>
+#include <gtk/gtklinkbutton.h>
 #include <libgnomeui/gnome-druid.h>
 #include <libgnomeui/gnome-druid-page-standard.h>
-#include <libgnomeui/gnome-href.h>
 
 typedef struct {
 	GnomeDruid *druid;
@@ -262,7 +262,7 @@ owa_page_next (ExchangeAutoconfigGUI *gui)
 
 		if (gui->failure_href)
 			gtk_widget_destroy (gui->failure_href);
-		gui->failure_href = gnome_href_new ("http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328.html", "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328.html");
+		gui->failure_href = gtk_link_button_new ("http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328.html");
 		gtk_box_pack_start (gui->failure_vbox, gui->failure_href, FALSE, FALSE, 0);
 		gtk_widget_show (gui->failure_href);
 

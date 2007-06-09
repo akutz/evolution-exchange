@@ -151,7 +151,7 @@ static EContact *build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, 
 
 static void manager_populate (EContact *contact, char **values, EBookBackendGAL *bl, E2kOperation *op);
 
-static void member_populate (EContact *contact, char **values);
+static void member_populate (EContact *contact, char **values, EBookBackendGAL *bl, E2kOperation *op);
 
 static void last_mod_time_populate (EContact *contact, char **values, EBookBackendGAL *bl, E2kOperation *op);
 
@@ -1235,7 +1235,7 @@ manager_populate(EContact *contact, char **values, EBookBackendGAL *bl, E2kOpera
 				str += len;
 
 static void
-member_populate (EContact *contact, char **values)
+member_populate (EContact *contact, char **values, EBookBackendGAL *bl, E2kOperation *op)
 {
 	int i;
 	gchar **member_info;
@@ -1326,7 +1326,7 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 	EContact *contact = e_contact_new ();
 	char *dn;
 	char *attr;
-	BerElement *ber = NULL, *tber = NULL;;
+	BerElement *ber = NULL, *tber = NULL;
 	gboolean is_group = FALSE;
 	
 	dn = ldap_get_dn(ldap, e);
@@ -1722,7 +1722,7 @@ start_book_view (EBookBackend  *backend,
 #if ENABLE_CACHE		
 		printf("Mode:Remote\n");
 		if (bl->priv->marked_for_offline && bl->priv->file_db) {
-			char *query = e_data_book_view_get_card_query (view);
+			const char *query = e_data_book_view_get_card_query (view);
 			GPtrArray *ids = NULL;
 			printf("Marked for offline and cache present\n");
 
@@ -2202,11 +2202,11 @@ authenticate_user (EBookBackend *backend,
 #if ENABLE_CACHE		
 		if (be->priv->marked_for_offline) {
 			if (e_book_backend_db_cache_is_populated (be->priv->file_db) ) {
-				printf("Cache is populated, check if refresh is required \n");
 				time_t t1, t2;
 				int diff;
 
 				char *t = e_book_backend_db_cache_get_time (be->priv->file_db);
+				printf("Cache is populated, check if refresh is required \n");
 				if (t && *t)
 					t1 = atoi (t);
 				else
@@ -2510,7 +2510,7 @@ load_source (EBookBackend *backend,
  			int rv;
  
  			/* the database didn't exist, so we create the directory then the .db */
- 			rv= e_util_mkdir_hier (dirname, 0777);
+ 			rv= g_mkdir_with_parents (dirname, 0777);
  			if (rv == -1 && errno != EEXIST) {
  				g_warning ("failed to make directory %s: %s", dirname, strerror (errno));
  				g_free (dirname);

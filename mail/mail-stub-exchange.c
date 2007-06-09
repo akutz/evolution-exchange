@@ -135,7 +135,7 @@ static void folder_update_linestatus (gpointer key, gpointer value, gpointer dat
 static void free_folder (gpointer value);
 static gboolean get_folder_online (MailStubExchangeFolder *mfld, gboolean background);
 
-static GStaticMutex g_changed_msgs_mutex = G_STATIC_MUTEX_INIT;
+static GStaticRecMutex g_changed_msgs_mutex = G_STATIC_REC_MUTEX_INIT;
 
 static void
 class_init (GObjectClass *object_class)
@@ -2373,7 +2373,7 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 				    path[toplen + 1] != '\0')
 					continue;
 			}
-return_data:
+
 			type = e_folder_get_type_string (folder);
 			name = e_folder_get_name (folder);
 			uri = e_folder_get_physical_uri (folder);
