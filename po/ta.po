@@ -1,42 +1,55 @@
-# translation of ta.po to 
-# translation of ta.po to Tamil
+# translation of evolution-exchange.HEAD.po to TAMIL
+# translation of ta.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Jayaradha N <njayaradha@yahoo.com>, 2004, 2006.
 #
+# Jayaradha N <njayaradha@yahoo.com>, 2004, 2006.
+# Dr.T.Vasudevan <agnihot3@gmail.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ta\n"
+"Project-Id-Version: evolution-exchange.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-22 23:28+0200\n"
-"PO-Revision-Date: 2006-05-22 20:30-0700\n"
-"Last-Translator: \n"
-"Language-Team:  <zhakanini@yahoogroups.com>\n"
+"POT-Creation-Date: 2007-05-27 03:16+0100\n"
+"PO-Revision-Date: 2007-06-11 13:07+0530\n"
+"Last-Translator: Dr.T.Vasudevan <agnihot3@gmail.com>\n"
+"Language-Team: TAMIL <ubuntu-l10n-tam@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1869
-#: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
-msgid "Searching..."
-msgstr "தேடுகிறது"
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr "ஜிஏஎல் இடைமாற்றை புதுப்பிக்க கால இடைவெளியை குறிக்கிறது."
 
-#: ../addressbook/e-book-backend-gal.c:267
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+msgid ""
+"This key specifies the number of days interval between the GAL cache "
+"refresh. Set this value to zero, if you don't want to update GAL and use the "
+"current cache forever. This will work only if you have enabled offline "
+"caching for GAL."
+msgstr "ஜிஏஎல் இடைமாற்றை புதுப்பிக்க கால இடைவெளியை இந்த விசை நாட்களில் குறிக்கிறது. ஜிஏஎல் இடைமாற்றை புதுப்பிக்காமல் இப்போதைய இடைமாற்றையே பயன்படுத்த இந்த மதிப்பை 0 என அமைக்கவும். நீங்கள் வலை அகன்ற இடைமாற்றை இயலுமை படுத்தி இருந்தால் மட்டுமே இது வேலை செய்யும்."
+
+#: ../addressbook/e-book-backend-exchange.c:1880
+#: ../addressbook/e-book-backend-gal.c:1548 ../storage/exchange-storage.c:135
+msgid "Searching..."
+msgstr "தேடுகிறது..."
+
+#: ../addressbook/e-book-backend-gal.c:265
 msgid "Reconnecting to LDAP server..."
 msgstr "LDAP சேவகனுடன் மீண்டும் இணைகிறது"
 
-#: ../addressbook/e-book-backend-gal.c:1363
+#: ../addressbook/e-book-backend-gal.c:1385
 msgid "Receiving LDAP search results..."
 msgstr "LDAP தேடல் முடிவுகளை பெறுகிறது..."
 
-#: ../addressbook/e-book-backend-gal.c:1522
+#: ../addressbook/e-book-backend-gal.c:1571
 msgid "Error performing search"
 msgstr "தேடுவதில் பிழை"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2004
+#: ../calendar/e-cal-backend-exchange-calendar.c:2014
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -45,143 +58,160 @@ msgstr ""
 "'%s' திரும்ப நிகழும் கூட்டங்களுக்காக வளங்களை ஒதுக்க முடியவில்லை \n"
 "ஒவ்வொரு கூட்டத்தையும் தனியாக பதிவு செய்யவேண்டும."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2022
+#: ../calendar/e-cal-backend-exchange-calendar.c:2032
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "தேர்வு செய்யப்பட்ட கால அளவில் '%s' வேலையாக உள்ளது."
 
-#: ../camel/camel-exchange-folder.c:222
+#: ../calendar/e-cal-backend-exchange.c:377
+#: ../calendar/e-cal-backend-exchange.c:386
+msgid "Authentication failed"
+msgstr "உறுதி படுத்தல் தோல்வியுற்றது"
+
+#: ../calendar/e-cal-backend-exchange.c:397
+msgid "Could not find the calendar"
+msgstr "நாள் காட்டியை கண்டு பிடிக்க முடியவில்லை"
+
+#: ../camel/camel-exchange-folder.c:223
 msgid "You cannot expunge in offline mode."
-msgstr "இணையத் தொடர்பு இல்லாத போது அடிக்க முடியாது."
+msgstr "இணையத் தொடர்பு இல்லாத போது நீக்க முடியாது."
 
-#: ../camel/camel-exchange-folder.c:253
+#: ../camel/camel-exchange-folder.c:254
 msgid "No Subject"
-msgstr "தலைப்பு இல்லை"
+msgstr "பொருள் இல்லை"
 
-#: ../camel/camel-exchange-folder.c:407
+#: ../camel/camel-exchange-folder.c:409
 msgid "This message is not available in offline mode."
 msgstr "இணையத் தொடர்பு இல்லாத போது இந்த செய்தி கிடைக்காது."
 
-#: ../camel/camel-exchange-folder.c:642
+#: ../camel/camel-exchange-folder.c:644
 msgid "Moving messages"
 msgstr "செய்திகளை நகர்த்துகிறது"
 
-#: ../camel/camel-exchange-folder.c:643
+#: ../camel/camel-exchange-folder.c:645
 msgid "Copying messages"
 msgstr "செய்திகளை படியெடுக்கிறது"
 
-#: ../camel/camel-exchange-folder.c:1014
+#: ../camel/camel-exchange-folder.c:1016
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "அடைவை உருவாக்க முடியவில்லை %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1024
+#: ../camel/camel-exchange-folder.c:1026
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "சுருக்க குறிப்பை ஏற்ற முடியவில்லை %s"
 
-#: ../camel/camel-exchange-folder.c:1032
+#: ../camel/camel-exchange-folder.c:1034
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "%s க்கான தற்காலிக நினைவிடத்தை உருவாக்க முடியவில்லை"
 
-#: ../camel/camel-exchange-folder.c:1042
+#: ../camel/camel-exchange-folder.c:1044
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "நடப்புக் குறிப்பு புத்தகத்தை உருவாக்க முடியவில்லை %s"
 
-#: ../camel/camel-exchange-folder.c:1087
+#: ../camel/camel-exchange-folder.c:1089
 msgid "Scanning for changed messages"
 msgstr "மாற்றப்பட்ட செய்திகளை தேடுகிறது"
 
-#: ../camel/camel-exchange-folder.c:1113
+#: ../camel/camel-exchange-folder.c:1115
 msgid "Fetching summary information for new messages"
 msgstr "புதிய செய்திக்கான சுருக்கத்தகவலை உள்ளிடுகிறது"
 
-#: ../camel/camel-exchange-journal.c:339
+#: ../camel/camel-exchange-journal.c:340
 msgid "No folder name found\n"
 msgstr "அடைவின் பெயரைக்காணவில்லை\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
-#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
-#: ../mail/mail-stub-exchange.c:2730
+#: ../camel/camel-exchange-journal.c:373 ../mail/mail-stub-exchange.c:2569
+#: ../mail/mail-stub-exchange.c:2613 ../mail/mail-stub-exchange.c:2648
+#: ../mail/mail-stub-exchange.c:2675 ../mail/mail-stub-exchange.c:2728
+#: ../mail/mail-stub-exchange.c:2750
 msgid "Folder doesn't exist"
 msgstr "அடைவு ஏற்கெனவே இல்லை"
 
-#: ../camel/camel-exchange-journal.c:436
+#: ../camel/camel-exchange-journal.c:437
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "இணையத்தொடர்பில் இல்லாத போது செய்தியை சேர்க்க முடியாது."
 
-#: ../camel/camel-exchange-journal.c:452
+#: ../camel/camel-exchange-journal.c:453
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "இணையத்தொடர்பில் இல்லாத போது செய்தியை சேர்க்க முடியாது:%s"
 
+#: ../camel/camel-exchange-provider.c:41
+msgid "Checking for New Mail"
+msgstr "புதிய அஞ்சலுக்கு சோதிக்கிறது."
+
+#: ../camel/camel-exchange-provider.c:43 ../camel/camel-exchange-provider.c:67
+msgid "C_heck for new messages in all folders"
+msgstr "எல்ல அடைவுகளிலும் புதிய அஞ்சல்கள் உள்ளதா என சோதிக்கவும்."
+
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:44
+#: ../camel/camel-exchange-provider.c:51
 msgid "Windows User_name:"
-msgstr "(_n)விண்டோஸ் பயனீட்டாளர் பெயர்"
+msgstr "விண்டோஸ் _பயனீட்டாளர் பெயர்"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:49
+#: ../camel/camel-exchange-provider.c:56
 msgid "Global Address List / Active Directory"
 msgstr "பொதுவான முகவரி பட்டியல்/ செயலில் உள்ள அடைவு"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:60
 msgid "_Global Catalog server name:"
 msgstr "(_G)பொதுவான விவரப் பட்டியல் சேவகன் பெயர்:"
 
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:62
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "(_L)GAL பதிளின் எண்ணிக்கையை குறை : %s"
 
-#: ../camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:65
 msgid "Options"
 msgstr "தேர்வுகள்"
 
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:69
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "(_P)கடவுச்சொல் காலாவதியாகும் எச்சரிக்கை காலஅளவு: %s"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:71
 msgid "Automatically synchroni_ze account locally"
 msgstr "(_z)கணினியில் உள்ள கணக்குகளை தானாக ஒத்திசை"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:74
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "(_A)இந்த சேவகனில் உள்ள புதிய செய்திகளுக்கான வடிகட்டியை செயல்படுத்து"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:76
 msgid "Check new messages for _Junk contents"
 msgstr "(_J)புதிய தேவையற்ற செய்திகளுகளை கவனி"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:78
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "(_e)தேவையற்ற செய்திகள் உங்கள் உள்பெட்டி அடைவில் உள்ளதா என்பதை மட்டும் சோதி"
 
-#: ../camel/camel-exchange-provider.c:79
+#: ../camel/camel-exchange-provider.c:88
 msgid "Microsoft Exchange"
 msgstr "மைக்ரோசாஃப்ட் மாற்று சேவகன்"
 
-#: ../camel/camel-exchange-provider.c:81
+#: ../camel/camel-exchange-provider.c:90
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "மைக்ரோசாஃப்ட் மாற்று சேவகனில் மின்னஞ்சல்களை கையாள(மேலும் மற்ற தகவல்கள்)"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:106
 msgid "Secure Password"
 msgstr "பாதுகாப்பான கடவுச்சொல்"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:109
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -189,36 +219,36 @@ msgstr ""
 "இந்த தேர்வு மாற்று சேவகனினுடன் பாதுகாப்பான கடவுச்சொல்லை பயன்படுத்தி இணைக்க பயன்படும்"
 "(NTLM)"
 
-#: ../camel/camel-exchange-provider.c:108
+#: ../camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "வெற்று உரை கடவுச்சொல்"
 
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:119
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
 msgstr "இந்த தேர்வு மாற்று சேவகனுடன் வெற்று உரை கடவுச்சொல்லை பயன்படுத்தி இணைக்க பயன்படும்"
 
-#: ../camel/camel-exchange-store.c:308
+#: ../camel/camel-exchange-store.c:310
 #, c-format
 msgid "Exchange server %s"
 msgstr "மாற்று சேவகன் %s"
 
-#: ../camel/camel-exchange-store.c:311
+#: ../camel/camel-exchange-store.c:313
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "%s இல் %s கணக்கை மற்றவும் "
 
-#: ../camel/camel-exchange-store.c:352
+#: ../camel/camel-exchange-store.c:354
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sக்கான கடவுச்சொல்லை உள்ளிடு %s"
 
-#: ../camel/camel-exchange-store.c:403
+#: ../camel/camel-exchange-store.c:405
 msgid "Evolution Exchange backend process"
 msgstr "எவல்யூஷன் மாற்று பின்புல செயல்"
 
-#: ../camel/camel-exchange-store.c:444
+#: ../camel/camel-exchange-store.c:446
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -226,73 +256,78 @@ msgstr ""
 "சேவகனில் அனுமதிக்க முடியவில்லை(கடவுச்சொல் பிழை?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:486
+#: ../camel/camel-exchange-store.c:488
 #, c-format
 msgid "No such folder %s"
 msgstr "இப்படி ஒரு அடைவு இல்லை %s"
 
-#: ../camel/camel-exchange-store.c:563
+#: ../camel/camel-exchange-store.c:565
 msgid "Cannot subscribe folder in offline mode."
-msgstr "இணையத்தொடர்பில் இல்லாத போது அடைவை பங்கிட முடியாது.யாது"
+msgstr "இணையத்தொடர்பில் இல்லாத போது அடைவை பங்கிட முடியாது."
 
-#: ../camel/camel-exchange-store.c:580
+#: ../camel/camel-exchange-store.c:582
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "இணையத்தொடர்பில் இல்லாத போது அடைவின் பங்களிப்பை மீட்க முடியாது"
 
-#: ../camel/camel-exchange-store.c:695
+#: ../camel/camel-exchange-store.c:714
 msgid "Cannot get folder info in offline mode."
 msgstr "இணைய இணைப்பு அடைவின் தகவலை பெற முடியாது."
 
-#: ../camel/camel-exchange-store.c:766
+#: ../camel/camel-exchange-store.c:793
 msgid "Cannot create folder in offline mode."
 msgstr "இணையத்தொடர்பில் இல்லாத போது அடைவை உருவாக்க முடியாது."
 
-#: ../camel/camel-exchange-store.c:793
+#: ../camel/camel-exchange-store.c:820
 msgid "Cannot delete folder in offline mode."
 msgstr "இணையத்தொடர்பில் இல்லாத போது அடைவை நீக்க முடியவில்லை:"
 
-#: ../camel/camel-exchange-store.c:809
+#: ../camel/camel-exchange-store.c:836
 msgid "Cannot rename folder in offline mode."
 msgstr "இணையத்தொடர்பில் இல்லாத போது அடைவின் பெயரை மாற்ற முடியவில்லை:"
 
-#: ../camel/camel-exchange-transport.c:110
+#: ../camel/camel-exchange-transport.c:111
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "மாற்று தகவல் பரிமாற்றம் மாற்று மின்னஞ்சலை பயன்படுத்தி மட்டுமே நிகழும்"
 
-#: ../camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-transport.c:122
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "செய்தியை அனுப்ப முடியவில்லை: ஒன்றுக்கும் மேற்பட்ட செல்லாத பெறுநர்கள்"
 
-#: ../camel/camel-exchange-transport.c:131
+#: ../camel/camel-exchange-transport.c:132
 msgid "Could not find 'From' address in message"
-msgstr "'பெறுநர்' முகவரியை கண்டுபிடிக்க முடியவில்லை"
+msgstr "அஞ்சலில் 'அனுப்புநர்' முகவரியை கண்டுபிடிக்க முடியவில்லை"
 
-#: ../camel/camel-stub.c:152
+#: ../camel/camel-stub.c:153
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "இணைப்பை உருவாக்க முடியவில்லை: %s"
 
-#: ../camel/camel-stub.c:167
+#: ../camel/camel-stub.c:171
+#, c-format
+msgid "Could not connect to %s: Please restart Evolution"
+msgstr "%s க்கு இணைக்க முடியவில்லை. எவலூஷனை மீள் துவக்கவும்."
+
+#: ../camel/camel-stub.c:176
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "இணைக்க முடியவில்லை %s: %s"
 
-#: ../camel/camel-stub.c:197
+#: ../camel/camel-stub.c:206
 #, c-format
 msgid "Path too long: %s"
 msgstr "பாதை நீளமாக உள்ளது: %s"
 
-#: ../camel/camel-stub.c:223
+#: ../camel/camel-stub.c:232
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "நிலை கிளையை துவக்க முடியவில்லை: %s"
 
-#: ../camel/camel-stub.c:477
+#: ../camel/camel-stub.c:486
 #, c-format
 msgid "Lost connection to %s"
 msgstr "இணைப்பை இழந்துவிட்டது %s"
 
-#: ../camel/camel-stub.c:481
+#: ../camel/camel-stub.c:490
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "தொடர்புகொள்கையில் பிழை %s: %s"
@@ -304,9 +339,9 @@ msgstr "இப்படி ஒரு அடைவு இல்லை"
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
-#: ../mail/mail-stub-exchange.c:2745
+#: ../mail/mail-stub-exchange.c:2546 ../mail/mail-stub-exchange.c:2586
+#: ../mail/mail-stub-exchange.c:2652 ../mail/mail-stub-exchange.c:2702
+#: ../mail/mail-stub-exchange.c:2765
 msgid "Permission denied"
 msgstr "அனுமதி மறுக்கப்பட்டது"
 
@@ -362,15 +397,15 @@ msgstr "முழு-உரை தேடலுக்கு மின்னஞ்
 msgid "Unable to move/copy messages"
 msgstr "செய்தியை நகர்த்த/நகலெடுக்க முடியவில்லை"
 
-#: ../mail/mail-stub-exchange.c:2441
+#: ../mail/mail-stub-exchange.c:2461
 msgid "No mail submission URI for this mailbox"
 msgstr "இந்த பெட்டிக்கான மின்னஞ்சல் சமர்பிக்கும் URI இல்லை"
 
-#: ../mail/mail-stub-exchange.c:2477
+#: ../mail/mail-stub-exchange.c:2497
 msgid "Server won't accept mail via Exchange transport"
 msgstr "மாற்று தகவல் பரிமாற்றத்தை சேவகனால் ஏற்க முடியாது"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:2499
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -379,7 +414,7 @@ msgstr ""
 "<%s> ஐ பெறுநர் முகவரியாக பயன்படுத்த\n"
 "உங்கள் கணக்கிற்கு ஆதரவு இல்லை"
 
-#: ../mail/mail-stub-exchange.c:2491
+#: ../mail/mail-stub-exchange.c:2511
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -387,17 +422,17 @@ msgstr ""
 "செய்தியை அனுப்ப முடியவில்லை \n"
 "இதற்கு காரணம் உங்கள் கணக்கில் இடம் இல்லை"
 
-#: ../mail/mail-stub-exchange.c:2495
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Could not send message"
 msgstr "செய்தியை அனுப்ப முடியவில்லை"
 
-#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2751
+#: ../mail/mail-stub-exchange.c:2538 ../mail/mail-stub-exchange.c:2591
+#: ../mail/mail-stub-exchange.c:2656 ../mail/mail-stub-exchange.c:2707
+#: ../mail/mail-stub-exchange.c:2771
 msgid "Generic error"
 msgstr "பொதுவான பிழை"
 
-#: ../mail/mail-stub-exchange.c:2522
+#: ../mail/mail-stub-exchange.c:2542
 msgid "Folder already exists"
 msgstr "அடைவு ஏற்கெனவே உள்ளது"
 
@@ -411,7 +446,7 @@ msgstr "எவல்யூஷன் நாள்காட்டி மாற்�
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
 msgid "Ximian Connector for Exchange"
-msgstr "எக்ஸ்சேஞ்க்கான சேமியான் இணைப்பு"
+msgstr "எக்ஸ்சேஞ்க்கான சேமியான்(Ximian) இணைப்பு"
 
 #: ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
@@ -420,8 +455,7 @@ msgid ""
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
 "எக்ஸேஞ் சேவகனுடன் இணைக்க முடியவில்லை\n"
-"URL சரியாக உள்ளதா என பார்க்கவும்(\"%s\" க்கு பதில் \"%s\" ஐ முயற்சிக்கவும்?). மீண்டும் "
-"முயலவும்."
+"URL சரியாக உள்ளதா என பார்க்கவும்(\"%s\" ஐ  \"%s\" க்கு பதில் முயற்சிக்கவும்?). மீண்டும் முயலவும்."
 
 #: ../storage/exchange-autoconfig-wizard.c:219
 msgid ""
@@ -483,7 +517,7 @@ msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
 "Connector supports Microsoft Exchange 2000 and 2003 only."
 msgstr ""
-"நீங்கள் கொடுத்த எக்ஸேஞ் சேவகன் URL  எக்ஸேஞ் 5,5 க்கானது. சேமியான் மைரோசாஃப்ட் எக்ஸேஞ் 2000 "
+"நீங்கள் கொடுத்த எக்ஸேஞ் சேவகன் URL  எக்ஸேஞ் 5,5 க்கானது. சேமியான் மைக்ரோசாஃப்ட் எக்ஸேஞ் 2000 "
 "மற்றும் 2003 க்கு மட்டுமே ஆதரவு தரும்"
 
 #: ../storage/exchange-autoconfig-wizard.c:288
@@ -591,10 +625,10 @@ msgid ""
 "Please click the \"Forward\" button to continue."
 msgstr ""
 "மைக்ரோசாஃப்ட் எக்ஸேஞ்சிக்கான சேமியான் இணைப்பி உங்களை வரவேற்கிறது\n"
-"பின்வரும் சில திரைஎவல்யூஷனை அமைக்கவும்\n"
-"எக்ஸேஞ் சேவனகன் கணக்கை இணைக்கவும் உதவும்\n"
+"பின்வரும் சில திரைகள் எவல்யூஷனை அமைக்கவும்\n"
+"எக்ஸேஞ் சேவகன் கணக்கை இணைக்கவும் உதவும்\n"
 "\n"
-"\"அடுத்து\" என்பதை க்ளிக் செய்து தொடரவும்.ஷன் "
+"\"அடுத்து\" என்பதை க்ளிக் செய்து தொடரவும்."
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Ximian Connector Configuration"
@@ -608,7 +642,7 @@ msgid ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
-"சேமியான் உங்கள் அவுச்லுக் இணைய இணைப்புகளக்கை பயன்படுத்தும்\n"
+"சேமியான் உங்கள் அவுட்லுக் இணைய இணைப்புகளை பயன்படுத்தும்\n"
 "\n"
 "\n"
 "OWA முகவரி (URL), பயனீட்டாளர் பெயர், மற்றும் கடவுச்சொல்லை உள்ளிட்டு \"அடுத்து\" என்பதை "
@@ -636,7 +670,7 @@ msgid ""
 "save your\n"
 "settings."
 msgstr ""
-"உங்கள் இணைப்பு கணக்கு பயன்படுத்த தயாராகிவிட்டது. \"செயல்படுத்து\" ஒ பட்டனை க்ளிக் செய்து "
+"உங்கள் இணைப்பு கணக்கு பயன்படுத்த தயாராகிவிட்டது. \"செயல்படுத்து\" பட்டனை க்ளிக் செய்து "
 "உங்கள் \n"
 "அமைப்பை சேமிக்கவும்"
 
@@ -715,7 +749,7 @@ msgstr "அனுமதி"
 
 #: ../storage/exchange-delegates.glade.h:9
 msgid "Reviewer (read-only)"
-msgstr "திருத்தியவர்(படிக்க-மட்டும்)"
+msgstr "ஆய்வாளர் (படிக்க-மட்டும்)"
 
 #: ../storage/exchange-delegates.glade.h:10
 msgid ""
@@ -831,7 +865,7 @@ msgstr "கடவுச்சொல் காலாவதி எச்சரி�
 
 #: ../storage/exchange-passwd-expiry.glade.h:2
 msgid "Your password will expire in 7 days..."
-msgstr "7 நாட்களுக்குள் கடவுச்சொல் காலாவதியாகிவிடும்..."
+msgstr "7 நாட்களில் கடவுச்சொல் காலாவதியாகிவிடும்..."
 
 #: ../storage/exchange-passwd-expiry.glade.h:3
 msgid "_Change Password"
