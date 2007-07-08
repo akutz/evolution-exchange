@@ -58,7 +58,8 @@ void     camel_exchange_folder_add_message          (CamelExchangeFolder *exch,
 						     const char *uid,
 						     guint32 flags,
 						     guint32 size,
-						     const char *headers);
+						     const char *headers,
+						     const char *href);
 
 void     camel_exchange_folder_remove_message       (CamelExchangeFolder *exch,
 						     const char *uid);

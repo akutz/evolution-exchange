@@ -18,12 +18,15 @@ typedef struct _CamelExchangeMessageInfo {
 	CamelMessageInfoBase info;
 
 	char *thread_index;
+	char *href;
 } CamelExchangeMessageInfo;
 
 struct _CamelExchangeSummary {
 	CamelFolderSummary parent;
 
 	gboolean readonly;
+	guint32 high_article_num;
+	guint32 version;
 };
 
 struct _CamelExchangeSummaryClass {
@@ -46,6 +49,10 @@ void                camel_exchange_summary_add_offline       (CamelFolderSummary
 void                camel_exchange_summary_add_offline_uncached (CamelFolderSummary *summary,
 								 const char         *uid,
 								 CamelMessageInfo   *info);
+
+guint32             camel_exchange_summary_get_article_num      (CamelFolderSummary *summary);
+void                camel_exchange_summary_set_article_num      (CamelFolderSummary *summary,
+								 guint32            high_article_num);
 
 #endif /* ! _CAMEL_EXCHANGE_SUMMARY_H */
 

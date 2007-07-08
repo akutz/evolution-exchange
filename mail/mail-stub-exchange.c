@@ -91,7 +91,7 @@ static void dispose (GObject *);
 
 static void stub_connect (MailStub *stub, char *pwd);
 static void get_folder (MailStub *stub, const char *name, gboolean create,
-			GPtrArray *uids, GByteArray *flags);
+			GPtrArray *uids, GByteArray *flags, GPtrArray *hrefs, guint32 high_article_num);
 static void get_trash_name (MailStub *stub);
 static void sync_folder (MailStub *stub, const char *folder_name);
 static void refresh_folder (MailStub *stub, const char *folder_name);
@@ -562,24 +562,289 @@ static const char *open_folder_props[] = {
 };
 static const int n_open_folder_props = sizeof (open_folder_props) / sizeof (open_folder_props[0]);
 
+static void 
+mse_get_folder_online_sync_updates (gpointer key, gpointer value, 
+				    gpointer user_data)
+{
+	unsigned int index, seq, i;
+	MailStubExchangeFolder *mfld = (MailStubExchangeFolder *)user_data;	
+	MailStub *stub = MAIL_STUB (mfld->mse);
+	MailStubExchangeMessage *mmsg = NULL;
+
+	index = GPOINTER_TO_UINT (key);
+	seq = GPOINTER_TO_UINT (value);
+	
+	g_static_rec_mutex_lock (&g_changed_msgs_mutex);
+	mmsg = mfld->messages->pdata[index];
+	if (mmsg->seq != seq) {
+		for (i = 0; i < mfld->messages->len; i++) {
+			mmsg = mfld->messages->pdata[i];
+			if (mmsg->seq == seq)
+				break;
+		}
+		seq = i;
+	}
+	g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
+
+	/* FIXME FIXME FIXME: Some miscalculation happens here,though,
+	not a serious one 
+	*/
+	/* message_remove_at_index already handles lock/unlock */
+	/*message_remove_at_index (stub, mfld, seq);*/
+
+}
+static gboolean
+get_folder_contents_online (MailStubExchangeFolder *mfld, gboolean background)
+{
+	MailStubExchangeMessage *mmsg, *mmsg_cpy;
+	MailStub *stub = MAIL_STUB (mfld->mse);
+	E2kHTTPStatus status;
+	gboolean readonly = FALSE;
+	E2kRestriction *rn;
+	E2kResultIter *iter;
+	E2kResult *result;
+	const char *prop, *uid;
+	guint32 article_num, camel_flags, high_article_num;
+	int i, total = -1;
+	unsigned int m;
+
+	GPtrArray *msgs_copy = NULL;
+	GHashTable *rm_idx_uid = NULL;
+
+	/* Make a copy of the mfld->messages array for our processing */
+	msgs_copy = g_ptr_array_new ();
+
+	/* Store the index/seq of the messages to be removed from mfld->messages */
+	rm_idx_uid = g_hash_table_new (g_direct_hash, g_direct_equal);
+
+	g_static_rec_mutex_lock (&g_changed_msgs_mutex);
+	for (i = 0; i < mfld->messages->len; i++) {
+		mmsg = mfld->messages->pdata[i];
+		mmsg_cpy = new_message (mmsg->uid, mmsg->href, mmsg->seq, mmsg->flags);
+		g_ptr_array_add (msgs_copy, mmsg_cpy);
+	}
+	high_article_num = 0;
+	g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
+
+	rn = e2k_restriction_andv (
+		e2k_restriction_prop_bool (E2K_PR_DAV_IS_COLLECTION,
+					   E2K_RELOP_EQ, FALSE),
+		e2k_restriction_prop_bool (E2K_PR_DAV_IS_HIDDEN,
+					   E2K_RELOP_EQ, FALSE),
+		NULL);
+
+	iter = e_folder_exchange_search_start (mfld->folder, NULL,
+					       open_folder_sync_props,
+					       n_open_folder_sync_props,
+					       rn, E2K_PR_DAV_CREATION_DATE,
+					       TRUE);
+	e2k_restriction_unref (rn);
+
+	m = 0;
+	total = e2k_result_iter_get_total (iter);
+	while ((result = e2k_result_iter_next (iter)) && m < msgs_copy->len) {
+		prop = e2k_properties_get_prop (result->props,
+						PR_INTERNET_ARTICLE_NUMBER);
+		if (!prop)
+			continue;
+		article_num = strtoul (prop, NULL, 10);
+
+		prop = e2k_properties_get_prop (result->props,
+						E2K_PR_REPL_UID);
+		if (!prop)
+			continue;
+		uid = uidstrip (prop);
+
+		camel_flags = mail_util_props_to_camel_flags (result->props,
+							      !readonly);
+
+		mmsg_cpy = msgs_copy->pdata[m];
+		while (strcmp (uid, mmsg_cpy->uid)) {
+			/* Remove mmsg from our msgs_copy array */
+			g_ptr_array_remove_index (msgs_copy, m);
+
+			/* Put the index/uid as key/value in the rm_idx_uid hashtable.
+			   This hashtable will be used to sync with mfld->messages.
+			 */
+			g_hash_table_insert (rm_idx_uid, GUINT_TO_POINTER(m), 
+					     GUINT_TO_POINTER(mmsg_cpy->seq));
+			g_free (mmsg_cpy->uid);
+			g_free (mmsg_cpy->href);
+			g_free (mmsg_cpy);
+
+			if (m == msgs_copy->len) {
+				mmsg_cpy = NULL;
+				if (article_num < high_article_num)
+					high_article_num = article_num - 1;
+				break;
+			}
+			mmsg_cpy = msgs_copy->pdata[m];
+		}
+		if (!mmsg_cpy)
+			break;
+
+		if (article_num > high_article_num)
+			high_article_num = article_num;
+
+		g_static_rec_mutex_lock (&g_changed_msgs_mutex);
+		mmsg = mfld->messages->pdata[m];
+		
+		/* Validate mmsg == mmsg_cpy - this may fail if user has deleted some messages, 
+		   while we were updating in a separate thread.
+		*/
+		if (mmsg->seq != mmsg_cpy->seq) {
+			/* We don't want to scan all of mfld->messages, as some new messages
+			   would have got added to the array and hence restrict to the original
+			   array of messages that we loaded from summary.
+			*/
+			for (i = 0; i < msgs_copy->len; i++) {
+				mmsg = mfld->messages->pdata[i];
+				if (mmsg->seq == mmsg_cpy->seq)
+					break;
+			}
+		}
+
+		if (!mmsg->href) {
+			mmsg->href = g_strdup (result->href);
+			/* Do not allow duplicates */
+			if (!g_hash_table_lookup (mfld->messages_by_href, mmsg->href))
+				g_hash_table_insert (mfld->messages_by_href, mmsg->href, mmsg);
+		}	
+
+		if (mmsg->flags != camel_flags)
+			change_flags (mfld, mmsg, camel_flags);
+
+		g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
+		
+
+		if (article_num > high_article_num)
+			high_article_num = article_num;
+
+		prop = e2k_properties_get_prop (result->props, E2K_PR_HTTPMAIL_MESSAGE_FLAG);
+		if (prop)
+			return_tag (mfld, mmsg->uid, "follow-up", prop);
+		prop = e2k_properties_get_prop (result->props, E2K_PR_MAILHEADER_REPLY_BY);
+		if (prop)
+			return_tag (mfld, mmsg->uid, "due-by", prop);
+		prop = e2k_properties_get_prop (result->props, E2K_PR_MAILHEADER_COMPLETED);
+		if (prop)
+			return_tag (mfld, mmsg->uid, "completed-on", prop);
+
+		m++;
+#if 0		
+		if (!background) {
+			mail_stub_return_progress (stub, (m * 100) / total);
+		}
+#endif
+	}
+
+	/* If there are further messages beyond mfld->messages->len,
+	 * then that means camel doesn't know about them yet, and so
+	 * we need to ignore them for a while. But if any of them have
+	 * an article number lower than the highest article number
+	 * we've seen, bump high_article_num down so that that message
+	 * gets caught by refresh_info later too.
+	 */
+	while ((result = e2k_result_iter_next (iter))) {
+		prop = e2k_properties_get_prop (result->props,
+						PR_INTERNET_ARTICLE_NUMBER);
+		if (prop) {
+			article_num = strtoul (prop, NULL, 10);
+			if (article_num < high_article_num)
+				high_article_num = article_num - 1;
+		}
+
+		m++;
+#if 0
+		if (!background) {
+			mail_stub_return_progress (stub, (m * 100) / total);
+		}
+#endif
+	}
+	status = e2k_result_iter_free (iter);
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		g_warning ("got_folder: %d", status);
+		if (!background) {
+			got_folder_error (mfld, _("Could not open folder"));
+		}
+		return FALSE;
+	}
+
+	/* Discard remaining messages that no longer exist. */
+	for (i = 0; i < msgs_copy->len; i++) {
+		mmsg_cpy = msgs_copy->pdata[i];
+		if (!mmsg_cpy->href) {
+			/* Put the index/uid as key/value in the rm_idx_uid hashtable.
+			   This hashtable will be used to sync with mfld->messages.
+			 */
+			g_hash_table_insert (rm_idx_uid, GUINT_TO_POINTER(m), 
+					     GUINT_TO_POINTER(mmsg_cpy->seq));
+		}
+
+		/* Remove mmsg from our msgs_copy array */
+		g_ptr_array_remove_index (msgs_copy, i);
+
+		g_free (mmsg_cpy->uid);
+		g_free (mmsg_cpy->href);
+		g_free (mmsg_cpy);			
+	}
+
+	g_static_rec_mutex_lock (&g_changed_msgs_mutex);
+	if (mfld->high_article_num < high_article_num)
+		mfld->high_article_num = high_article_num;
+	g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
+
+	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_FOLDER_SET_ARTICLE_NUM,
+			       CAMEL_STUB_ARG_FOLDER, mfld->name,
+			       CAMEL_STUB_ARG_UINT32, mfld->high_article_num,
+			       CAMEL_STUB_ARG_END);
+
+	g_hash_table_foreach (rm_idx_uid, mse_get_folder_online_sync_updates, 
+			      mfld);
+
+	g_ptr_array_free (msgs_copy, TRUE);
+	g_hash_table_destroy (rm_idx_uid);
+
+	return TRUE;
+}
+
+struct _get_folder_thread_data {
+	MailStubExchangeFolder *mfld;
+	gboolean background;
+};
+
+static gpointer 
+get_folder_contents_online_func (gpointer data)
+{
+	MailStubExchangeFolder* mfld;
+	gboolean background;
+
+	struct _get_folder_thread_data *gf_thread_data = (struct _get_folder_thread_data *)data;
+	if (!gf_thread_data)
+		return NULL;
+	
+	mfld = gf_thread_data->mfld;
+	background = gf_thread_data->background;
+
+	get_folder_contents_online (mfld, background);
+
+	g_free (gf_thread_data);
+	
+	return NULL;
+}
+
 static gboolean
 get_folder_online (MailStubExchangeFolder *mfld, gboolean background)
 {
-	MailStubExchangeMessage *mmsg;
 	MailStub *stub = MAIL_STUB (mfld->mse);
 	E2kHTTPStatus status;
 	E2kResult *results;
 	int nresults = 0;
 	gboolean readonly;
-	E2kRestriction *rn;
-	E2kResultIter *iter;
-	E2kResult *result;
-	const char *prop, *uid;
-	guint32 article_num, camel_flags;
-	int i, m, total = -1;
+	const char *prop;
 
 	mfld->changed_messages = g_ptr_array_new ();
-
+	
 	status = e_folder_exchange_propfind (mfld->folder, NULL,
 					     open_folder_props,
 					     n_open_folder_props,
@@ -620,115 +885,29 @@ get_folder_online (MailStubExchangeFolder *mfld, gboolean background)
 	if (prop)
 		mfld->deleted_count = atoi (prop);
 
-	rn = e2k_restriction_andv (
-		e2k_restriction_prop_bool (E2K_PR_DAV_IS_COLLECTION,
-					   E2K_RELOP_EQ, FALSE),
-		e2k_restriction_prop_bool (E2K_PR_DAV_IS_HIDDEN,
-					   E2K_RELOP_EQ, FALSE),
-		NULL);
+	/* 
+	   TODO: Varadhan - June 16, 2007 - Compare deleted_count with
+	   that of CamelFolder and appropriately sync mfld->messages.
+	   Also, sync flags and camel_flags of all messages - No reliable
+	   way to fetch only changed messages as Read/UnRead flags do not
+	   change the PR_LAST_MODIFICATION_TIME property of a message. 
+	*/
+	if (g_hash_table_size (mfld->messages_by_href) < 1) {
+		if (!get_folder_contents_online (mfld, background))
+			return FALSE;
+	} else {
+		struct _get_folder_thread_data *gf_thread_data = NULL;
 
-	iter = e_folder_exchange_search_start (mfld->folder, NULL,
-					       open_folder_sync_props,
-					       n_open_folder_sync_props,
-					       rn, E2K_PR_DAV_CREATION_DATE,
-					       TRUE);
-	e2k_restriction_unref (rn);
+		gf_thread_data = g_new0 (struct _get_folder_thread_data, 1);
+		gf_thread_data->mfld = mfld;
+		gf_thread_data->background = background;
 
-	m = 0;
-	total = e2k_result_iter_get_total (iter);
-	while ((result = e2k_result_iter_next (iter)) && m < mfld->messages->len) {
-		prop = e2k_properties_get_prop (result->props,
-						PR_INTERNET_ARTICLE_NUMBER);
-		if (!prop)
-			continue;
-		article_num = strtoul (prop, NULL, 10);
-
-		prop = e2k_properties_get_prop (result->props,
-						E2K_PR_REPL_UID);
-		if (!prop)
-			continue;
-		uid = uidstrip (prop);
-
-		camel_flags = mail_util_props_to_camel_flags (result->props,
-							      !readonly);
-
-		mmsg = mfld->messages->pdata[m];
-		while (strcmp (uid, mmsg->uid)) {
-			message_remove_at_index (stub, mfld, m);
-			if (m == mfld->messages->len) {
-				mmsg = NULL;
-				if (article_num < mfld->high_article_num)
-					mfld->high_article_num = article_num - 1;
-				break;
-			}
-			mmsg = mfld->messages->pdata[m];
-		}
-		if (!mmsg)
-			break;
-
-		mmsg->href = g_strdup (result->href);
-		g_hash_table_insert (mfld->messages_by_href, mmsg->href, mmsg);
-		if (article_num > mfld->high_article_num)
-			mfld->high_article_num = article_num;
-		if (mmsg->flags != camel_flags)
-			change_flags (mfld, mmsg, camel_flags);
-
-		prop = e2k_properties_get_prop (result->props, E2K_PR_HTTPMAIL_MESSAGE_FLAG);
-		if (prop)
-			return_tag (mfld, mmsg->uid, "follow-up", prop);
-		prop = e2k_properties_get_prop (result->props, E2K_PR_MAILHEADER_REPLY_BY);
-		if (prop)
-			return_tag (mfld, mmsg->uid, "due-by", prop);
-		prop = e2k_properties_get_prop (result->props, E2K_PR_MAILHEADER_COMPLETED);
-		if (prop)
-			return_tag (mfld, mmsg->uid, "completed-on", prop);
-
-		m++;
-		if (!background) {
-			mail_stub_return_progress (stub, (m * 100) / total);
-		}
+		/* FIXME: Pass a GError and handle the error */
+		g_thread_create (get_folder_contents_online_func, 
+				 gf_thread_data, FALSE,
+				 NULL);
 	}
 
-	/* If there are further messages beyond mfld->messages->len,
-	 * then that means camel doesn't know about them yet, and so
-	 * we need to ignore them for a while. But if any of them have
-	 * an article number lower than the highest article number
-	 * we've seen, bump high_article_num down so that that message
-	 * gets caught by refresh_info later too.
-	 */
-	while ((result = e2k_result_iter_next (iter))) {
-		prop = e2k_properties_get_prop (result->props,
-						PR_INTERNET_ARTICLE_NUMBER);
-		if (prop) {
-			article_num = strtoul (prop, NULL, 10);
-			if (article_num < mfld->high_article_num)
-				mfld->high_article_num = article_num - 1;
-		}
-
-		m++;
-		if (!background) {
-			mail_stub_return_progress (stub, (m * 100) / total);
-		}
-	}
-
-	status = e2k_result_iter_free (iter);
-	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-		g_warning ("got_folder: %d", status);
-		if (!background) {
-			got_folder_error (mfld, _("Could not open folder"));
-		}
-		if (nresults)
-			e2k_results_free (results, nresults);
-
-		return FALSE;
-	}
-
-	/* Discard remaining messages that no longer exist. */
-	for (i = 0; i < mfld->messages->len; i++) {
-		mmsg = mfld->messages->pdata[i];
-		if (!mmsg->href)
-			message_remove_at_index (stub, mfld, i--);
-	}
 	e_folder_exchange_subscribe (mfld->folder,
 				     E2K_CONTEXT_OBJECT_ADDED, 30,
 				     notify_cb, mfld);
@@ -748,7 +927,8 @@ get_folder_online (MailStubExchangeFolder *mfld, gboolean background)
 
 static void
 get_folder (MailStub *stub, const char *name, gboolean create,
-	    GPtrArray *uids, GByteArray *flags)
+	    GPtrArray *uids, GByteArray *flags, GPtrArray *hrefs, 
+	    guint32 high_article_num)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	MailStubExchangeFolder *mfld;
@@ -808,9 +988,17 @@ get_folder (MailStub *stub, const char *name, gboolean create,
 		mmsg = new_message (uids->pdata[i], NULL, mfld->seq++, flags->data[i]);
 		g_ptr_array_add (mfld->messages, mmsg);
 		g_hash_table_insert (mfld->messages_by_uid, mmsg->uid, mmsg);
+
+		if (hrefs->pdata[i] && *((char *)hrefs->pdata[i])) {
+			mmsg->href = g_strdup (hrefs->pdata[i]);
+			g_hash_table_insert (mfld->messages_by_href, mmsg->href, mmsg);
+		}
 		if (!(mmsg->flags & MAIL_STUB_MESSAGE_SEEN))
 			mfld->unread_count++;
 	}
+
+	mfld->high_article_num = high_article_num;
+
 	exchange_component_is_offline (global_exchange_component, &mode);
 	if (mode == ONLINE_MODE) {
 		if (!get_folder_online (mfld, FALSE)) {
@@ -1269,11 +1457,17 @@ refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 					       CAMEL_STUB_ARG_UINT32, rm.flags,
 					       CAMEL_STUB_ARG_UINT32, rm.size,
 					       CAMEL_STUB_ARG_STRING, rm.headers,
+					       CAMEL_STUB_ARG_STRING, rm.href,
 					       CAMEL_STUB_ARG_END);
 		}
 
-		if (rm.article_num > mfld->high_article_num)
+		if (rm.article_num > mfld->high_article_num) {
 			mfld->high_article_num = rm.article_num;
+			mail_stub_return_data (stub, CAMEL_STUB_RETVAL_FOLDER_SET_ARTICLE_NUM,
+					       CAMEL_STUB_ARG_FOLDER, mfld->name,
+					       CAMEL_STUB_ARG_UINT32, mfld->high_article_num,
+					       CAMEL_STUB_ARG_END);
+		}
 
 		if (rm.fff)
 			return_tag (mfld, rm.uid, "follow-up", rm.fff);

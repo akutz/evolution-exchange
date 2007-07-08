@@ -750,7 +750,8 @@ find_parent (CamelExchangeFolder *exch, const char *thread_index)
 void
 camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 				   const char *uid, guint32 flags,
-				   guint32 size, const char *headers)
+				   guint32 size, const char *headers,
+				   const char *href)
 {
 	CamelFolder *folder = CAMEL_FOLDER (exch);
 	CamelMessageInfo *info;
@@ -793,6 +794,7 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 	info->uid = g_strdup (uid);
 	einfo->info.flags = flags;
 	einfo->info.size = size;
+	einfo->href = g_strdup (href);
 
 	camel_folder_summary_add (folder->summary, info);
 
@@ -999,7 +1001,7 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 	CamelExchangeFolder *exch = (CamelExchangeFolder *)folder;
 	const char *short_name;
 	char *summary_file, *journal_file, *path;
-	GPtrArray *summary, *uids;
+	GPtrArray *summary, *uids, *hrefs;
 	GByteArray *flags;
 	guint32 folder_flags;
 	CamelMessageInfo *info;
@@ -1078,11 +1080,14 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 		g_ptr_array_set_size (uids, summary->len);
 		flags = g_byte_array_new ();
 		g_byte_array_set_size (flags, summary->len);
+		hrefs = g_ptr_array_new ();
+		g_ptr_array_set_size (hrefs, summary->len);
 
 		for (i = 0; i < summary->len; i++) {
 			info = summary->pdata[i];
 			uids->pdata[i] = (char *)camel_message_info_uid (info);
 			flags->data[i] = ((CamelMessageInfoBase *)info)->flags & CAMEL_EXCHANGE_SERVER_FLAGS;
+			hrefs->pdata[i] = ((CamelExchangeMessageInfo *)info)->href;
 			//camel_tag_list_free (&((CamelMessageInfoBase *)info)->user_tags);
 		}
 
@@ -1092,6 +1097,8 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 				      CAMEL_STUB_ARG_UINT32, create,
 				      CAMEL_STUB_ARG_STRINGARRAY, uids,
 				      CAMEL_STUB_ARG_BYTEARRAY, flags,
+				      CAMEL_STUB_ARG_STRINGARRAY, hrefs,
+				      CAMEL_STUB_ARG_UINT32, CAMEL_EXCHANGE_SUMMARY(folder->summary)->high_article_num,
 				      CAMEL_STUB_ARG_RETURN,
 				      CAMEL_STUB_ARG_UINT32, &folder_flags,
 				      CAMEL_STUB_ARG_STRING, &exch->source,
@@ -1099,6 +1106,7 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 		camel_operation_end (NULL);
 		g_ptr_array_free (uids, TRUE);
 		g_byte_array_free (flags, TRUE);
+		g_ptr_array_free (hrefs, TRUE);
 		camel_folder_free_summary (folder, summary);
 		if (!ok)
 			return FALSE;

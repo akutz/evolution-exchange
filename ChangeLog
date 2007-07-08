@@ -1,3 +1,42 @@
+2007-07-08  Veerapuram Varadhan  <vvaradhan@novell.com>
+
+	** Fixes #442186, part of 341214 and #421091
+	This set of fixes changes the very basic behaviour of folder
+	loading in Exchange.  This version of Evolution-exchange should
+	work much much much better for those having relatively big mail
+	folders.  The optimization fix has been tested fairly well,
+	however, may have introduced some regressions - considering the
+	nature of the work.  Please feel free to mail me or file a bug in
+	bugzilla.gnome.org, in case of any regressions or new bugs and assign 
+	it to me. Refer to
+	http://vvaradhan.blogspot.com/2007/06/evolution-exchange-performance-series_28.html
+	for sample data.
+
+	* camel/camel-exchange-folder.c:
+	(camel_exchange_folder_add_message): update minfo with href as we
+	store hrefs now.
+	(camel_exchange_folder_construct): Pass hrefs loaded from disk
+	* camel/camel-exchange-folder.h: Add href parameter to
+	camel_exchange_folder_add_message ()
+	* camel/camel-exchange-store.c: (stub_notification): stub
+	implementation for SET_ARTICLE_NUM and modify NEW_MESSAGE handler
+	to use href.
+	* camel/camel-exchange-summary.c: (header_load), (header_save),
+	(message_info_load), (message_info_save): Use the latest summary
+	format and load/save the new fields and auto-migrate the older
+	summary files.
+	(camel_exchange_summary_get_article_num),
+	(camel_exchange_summary_set_article_num): Get/Set for high_article_num field.
+	* camel/camel-exchange-summary.h: - do -
+	* camel/camel-stub-constants.h: Add constants for HIGH_ARTICLE_NUM
+	cmd in stub.
+	* mail/mail-stub-exchange.c: (mse_get_folder_online_sync_updates),
+	(get_folder_contents_online), (get_folder_contents_online_func),
+	(get_folder_online), (get_folder) : Break the big guy in to sleek functions.
+	(refresh_folder_internal): Update high_article_num in folder->summary.
+	* mail/mail-stub.c: (connection_handler): Handle standard uri event.
+	* mail/mail-stub.h: Added hrefs and high_article_num parameters.
+
 2007-06-18  Srinivasa Ragavan  <sragavan@novell.com>
 
 	** Evolution Exchange 2.11.4 release

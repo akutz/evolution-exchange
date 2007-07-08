@@ -37,7 +37,8 @@ struct _MailStubClass {
 	void (*connect)            (MailStub *, char *pwd);
 	void (*get_folder)         (MailStub *, const char *name,
 				    gboolean create, GPtrArray *uids,
-				    GByteArray *flags);
+				    GByteArray *flags, GPtrArray *hrefs,
+				    guint32 high_article_num);
 	void (*get_trash_name)     (MailStub *);
 	void (*sync_folder)        (MailStub *, const char *folder_name);
 	void (*refresh_folder)     (MailStub *, const char *folder_name);

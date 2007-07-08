@@ -36,7 +36,9 @@
 #include "camel-exchange-journal.h"
 #include "camel-exchange-summary.h"
 
-#define CAMEL_EXCHANGE_SUMMARY_VERSION (1)
+#define CAMEL_EXCHANGE_SUMMARY_VERSION (2)
+
+#define d(x) (x)
 
 static int header_load (CamelFolderSummary *summary, FILE *in);
 static int header_save (CamelFolderSummary *summary, FILE *out);
@@ -132,20 +134,35 @@ static int
 header_load (CamelFolderSummary *summary, FILE *in)
 {
 	CamelExchangeSummary *exchange = (CamelExchangeSummary *) summary;
-	guint32 version, readonly;
+	guint32 version, readonly, high_article_num = 0;
 	
 	if (CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->summary_header_load (summary, in) == -1)
 		return -1;
 	
 	if (camel_file_util_decode_uint32 (in, &version) == -1)
 		return -1;
-	if (version > CAMEL_EXCHANGE_SUMMARY_VERSION)
-		return -1;
 
 	if (camel_file_util_decode_uint32 (in, &readonly) == -1)
 		return -1;
+
+	/* Old summary file - We need to migrate.  Migration automagically happens when 
+	   camel_folder_summary_save is called 
+	*/
+	if (camel_file_util_decode_uint32 (in, &high_article_num) == -1) {
+		if (version > CAMEL_EXCHANGE_SUMMARY_VERSION)
+			return -1;
+	}
+
+	/* During migration we will not have high_article_num stored in the summary and
+	   essentially we will end up computing it atleast once.
+	*/
 	exchange->readonly = readonly;
+	exchange->high_article_num = high_article_num;
+	exchange->version = version;
 	
+
+	d(g_print ("%s:%s:%d: high_article_num = [%d]\n", __FILE__, __PRETTY_FUNCTION__, __LINE__, high_article_num));
+
 	return 0;
 }
 
@@ -157,12 +174,17 @@ header_save (CamelFolderSummary *summary, FILE *out)
 	if (CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->summary_header_save (summary, out) == -1)
 		return -1;
 	
-	if (camel_file_util_encode_uint32 (out, CAMEL_EXCHANGE_SUMMARY_VERSION) == -1)
+	if (camel_file_util_encode_uint32 (out, exchange->version) == -1)
 		return -1;
 
 	if (camel_file_util_encode_uint32 (out, exchange->readonly) == -1)
 		return -1;
 	
+	if (camel_file_util_encode_uint32 (out, exchange->high_article_num) == -1)
+		return -1;
+
+	d(g_print ("%s:%s:%d: high_article_num = [%d]\n", __FILE__, __PRETTY_FUNCTION__, __LINE__, exchange->high_article_num));
+
 	return 0;
 }
 
@@ -171,7 +193,7 @@ message_info_load (CamelFolderSummary *summary, FILE *in)
 {
 	CamelMessageInfo *info;
 	CamelExchangeMessageInfo *einfo;
-	char *thread_index;
+	char *thread_index, *href = NULL;
 
 	info = CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->message_info_load (summary, in);
 	if (info) {
@@ -184,6 +206,17 @@ message_info_load (CamelFolderSummary *summary, FILE *in)
 			einfo->thread_index = thread_index;
 		else
 			g_free (thread_index);
+
+		/* Old summary file - We need to migrate.  Migration automagically happens when 
+		   camel_folder_summary_save is called 
+		*/
+		if (camel_file_util_decode_string (in, &href) == -1) {
+			if (CAMEL_EXCHANGE_SUMMARY (summary)->version > CAMEL_EXCHANGE_SUMMARY_VERSION)
+				goto error;
+		}
+		
+		einfo->href = href;
+		d(g_print ("%s:%s:%d: einfo->href = [%s]\n", __FILE__, __PRETTY_FUNCTION__, __LINE__, einfo->href));
 	}
 
 	return info;
@@ -200,7 +233,15 @@ message_info_save (CamelFolderSummary *summary, FILE *out, CamelMessageInfo *inf
 	if (CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->message_info_save (summary, out, info) == -1)
 		return -1;
 
-	return camel_file_util_encode_string (out, einfo->thread_index ? einfo->thread_index : "");
+	if (camel_file_util_encode_string (out, einfo->thread_index ? einfo->thread_index : "") == -1)
+		return -1;
+	
+	if (camel_file_util_encode_string (out, einfo->href ? einfo->href : "") == -1)
+		return -1;
+
+	d(g_print ("%s:%s:%d: einfo->href = [%s]\n", __FILE__, __PRETTY_FUNCTION__, __LINE__, einfo->href));
+
+	return 0;
 }
 
 static CamelMessageInfo *
@@ -360,6 +401,43 @@ camel_exchange_summary_set_readonly (CamelFolderSummary *summary,
 	if (es->readonly != readonly)
 		camel_folder_summary_touch (summary);
 	es->readonly = readonly;
+}
+
+/**
+ * camel_exchange_summary_get_article_num:
+ * @summary: the summary
+ *
+ * Returns the highest article number of a message present in the folder represented by @summary.
+ *
+ * Return value: Highest article number for a message present in the folder.
+ **/
+guint32
+camel_exchange_summary_get_article_num (CamelFolderSummary *summary)
+{
+	g_return_val_if_fail (CAMEL_IS_EXCHANGE_SUMMARY (summary), FALSE);
+
+	return CAMEL_EXCHANGE_SUMMARY (summary)->high_article_num;
+}
+
+/**
+ * camel_exchange_summary_set_article_num:
+ * @summary: the summary
+ * @article_num: Highest article number of a message present in the folder.
+ *
+ * Sets @summary's high-article-number to @article_num. 
+ **/
+void
+camel_exchange_summary_set_article_num (CamelFolderSummary *summary,
+					guint32 article_num)
+{
+	CamelExchangeSummary *es;
+
+	g_return_if_fail (CAMEL_IS_EXCHANGE_SUMMARY (summary));
+
+	es = CAMEL_EXCHANGE_SUMMARY (summary);
+	if (!es->readonly)
+		camel_folder_summary_touch (summary);
+	es->high_article_num = article_num;
 }
 
 /**

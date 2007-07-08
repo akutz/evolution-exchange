@@ -111,6 +111,8 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 		char *folder_name;
 		GPtrArray *uids;
 		GByteArray *flags;
+		GPtrArray *hrefs;
+		guint32 high_article_num;
 		guint32 create;
 
 		if (!mail_stub_read_args (stub,
@@ -118,12 +120,14 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 					  CAMEL_STUB_ARG_UINT32, &create,
 					  CAMEL_STUB_ARG_STRINGARRAY, &uids,
 					  CAMEL_STUB_ARG_BYTEARRAY, &flags,
+					  CAMEL_STUB_ARG_STRINGARRAY, &hrefs,
+					  CAMEL_STUB_ARG_UINT32, &high_article_num,
 					  CAMEL_STUB_ARG_END))
 			goto comm_fail;
 		d(printf("GET_FOLDER %s\n", folder_name));
 		g_object_ref (stub);
 		MS_CLASS (stub)->get_folder (stub, folder_name, create,
-					     uids, flags);
+					     uids, flags, hrefs, high_article_num);
 		g_free (folder_name);
 		free_string_array (uids);
 		g_byte_array_free (flags, TRUE);

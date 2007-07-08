@@ -848,14 +848,15 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 	case CAMEL_STUB_RETVAL_NEW_MESSAGE:
 	{
 		CamelExchangeFolder *folder;
-		char *folder_name, *uid, *headers;
+		char *folder_name, *uid, *headers, *href;
 		guint32 flags, size;
 
 		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1 ||
 		    camel_stub_marshal_decode_string (stub->status, &uid) == -1 ||
 		    camel_stub_marshal_decode_uint32 (stub->status, &flags) == -1 ||
 		    camel_stub_marshal_decode_uint32 (stub->status, &size) == -1 ||
-		    camel_stub_marshal_decode_string (stub->status, &headers) == -1)
+		    camel_stub_marshal_decode_string (stub->status, &headers) == -1 ||
+		    camel_stub_marshal_decode_string (stub->status, &href) == -1)
 			return;
 
 		g_mutex_lock (exch->folders_lock);
@@ -863,12 +864,13 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 		g_mutex_unlock (exch->folders_lock);
 		if (folder) {
 			camel_exchange_folder_add_message (folder, uid, flags,
-							   size, headers);
+							   size, headers, href);
 		}
 
 		g_free (folder_name);
 		g_free (uid);
 		g_free (headers);
+		g_free (href);
 		break;
 	}
 
@@ -1108,6 +1110,27 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 		g_mutex_unlock (exch->folders_lock);
 		if (folder) {
 			camel_exchange_summary_set_readonly (folder->summary, readonly ? TRUE : FALSE);
+		}
+
+		g_free (folder_name);
+		break;
+	}
+
+	case CAMEL_STUB_RETVAL_FOLDER_SET_ARTICLE_NUM:
+	{
+		CamelFolder *folder;
+		gchar *folder_name;
+		guint32 high_article_num;
+
+		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1 ||
+		    camel_stub_marshal_decode_uint32 (stub->status, &high_article_num) == -1)
+			break;
+
+		g_mutex_lock (exch->folders_lock);
+		folder = g_hash_table_lookup (exch->folders, folder_name);
+		g_mutex_unlock (exch->folders_lock);
+		if (folder) {
+			camel_exchange_summary_set_article_num (folder->summary, high_article_num);
 		}
 
 		g_free (folder_name);
