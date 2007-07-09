@@ -27,9 +27,8 @@
 #include <string.h>
 #include <sys/stat.h>
 
-#include <glib/gi18n-lib.h>
-
 #include <libedataserver/e-data-server-util.h>
+#include <camel/camel-i18n.h>
 
 #include "camel-exchange-folder.h"
 #include "camel-exchange-search.h"
@@ -440,6 +439,7 @@ get_message (CamelFolder *folder, const char *uid, CamelException *ex)
 	CamelStreamFilter *filtered_stream;
 	CamelMimeFilter *crlffilter;
 	GByteArray *ba;
+	const char *from, *from_changed, *sender, **sender_name;
 
 	ba = get_message_data (folder, uid, ex);
 	if (!ba)
@@ -457,8 +457,40 @@ get_message (CamelFolder *folder, const char *uid, CamelException *ex)
 	camel_data_wrapper_construct_from_stream (CAMEL_DATA_WRAPPER (msg),
 						  CAMEL_STREAM (filtered_stream));
 	camel_object_unref (CAMEL_OBJECT (filtered_stream));
-
 	camel_mime_message_set_source (msg, exch->source);
+
+	/*Get the from address*/
+	from = camel_medium_get_header(CAMEL_MEDIUM(msg), "From");
+	const gchar* from_initial = g_strdup(from);
+	
+	/*Check if the sender header exists. The sender header suggests that the mail message is a 
+	delegated message. So Evolution recognizes it as a delegated mail sent by the 
+	"sender" on behalf of "from" */
+
+	if(sender = (const char *) camel_medium_get_header (CAMEL_MEDIUM (msg), "Sender")) {
+
+		struct _camel_header_address *sender_addr = camel_header_address_decode (sender, NULL);
+
+		/* If the sender header has no display name then split up the address field 
+		and display it as the name. Evolution accounts should neccesarily have names specified. 
+		This piece of code is for some other clients which may have the name field as NULL.*/
+		if(sender_addr->name == NULL) {
+			sender_name = g_strsplit (sender_addr->v.addr, "@", 2);        
+			from_changed = g_strdup_printf (_("%s at %s on behalf of %s"), sender_name[0], 
+							sender_name[1], from_initial);
+		}
+
+		else {
+			from_changed=g_strdup_printf (_("%s on behalf of %s"), sender_addr->name, from_initial);
+		}
+
+		camel_medium_set_header (CAMEL_MEDIUM (msg), "From", from_changed);
+	
+		/*Set the Reply-to field since the from field is modified.*/
+		if(!camel_medium_get_header (CAMEL_MEDIUM(msg), "Reply-to")) { 
+			camel_medium_add_header (CAMEL_MEDIUM(msg), "Reply-to", from_initial);	
+		}
+	}
 	fix_broken_multipart_related (CAMEL_MIME_PART (msg));
 	return msg;
 }
@@ -1113,6 +1145,7 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 
 		if (len)
 			return TRUE;
+
 
 		if (folder_flags & CAMEL_STUB_FOLDER_FILTER)
 			folder->folder_flags |= CAMEL_FOLDER_FILTER_RECENT;

@@ -609,6 +609,69 @@ add_timezone_cb (icalparameter *param, void *data)
 		icalcomponent_add_component (cbdata->vcal_comp, vtzcomp);
 }
 
+void
+process_delegated_cal_object (icalcomponent *icalcomp, char *delegator_name, char *delegator_email, char *delegatee_email)
+{
+	icalproperty *prop = NULL;
+
+	prop = icalcomponent_get_first_property (icalcomp, ICAL_ORGANIZER_PROPERTY);
+	if (prop) {
+		const char *organizer;
+		char *text;
+
+		organizer = icalproperty_get_value_as_string (prop);
+		if (organizer) {
+			if (!g_ascii_strncasecmp (organizer, "mailto:", 7))
+				text = g_strdup (organizer+7);
+
+			text = g_strstrip (text);
+			if (text && (!g_ascii_strcasecmp (delegatee_email, text) || !g_ascii_strcasecmp (delegator_email, text))) {
+				icalproperty_set_organizer (prop, g_strdup_printf ("MAILTO:%s", delegator_email));
+				icalproperty_remove_parameter_by_kind (prop, ICAL_CN_PARAMETER);
+				icalproperty_add_parameter (prop, icalparameter_new_cn (g_strdup(delegator_name)));
+				icalproperty_remove_parameter_by_kind (prop, ICAL_SENTBY_PARAMETER);
+				icalproperty_add_parameter (prop, icalparameter_new_sentby (g_strdup_printf("MAILTO:%s", delegatee_email)));
+				prop = find_attendee_prop (icalcomp, delegator_email);
+				if (prop != NULL) {
+					icalcomponent_remove_property (icalcomp, prop);
+					icalproperty_free (prop);
+				}
+				g_free (text);
+				return; 
+			}
+			g_free (text);
+		}
+	}
+	prop = NULL;
+
+	for (prop = icalcomponent_get_first_property (icalcomp, ICAL_ATTENDEE_PROPERTY);
+	     prop != NULL;
+	     prop = icalcomponent_get_next_property (icalcomp, ICAL_ATTENDEE_PROPERTY)) {
+		const char *attendee;
+		char *text;
+
+		attendee = icalproperty_get_value_as_string (prop);
+		if (!attendee)
+			continue;
+
+		if (!g_ascii_strncasecmp (attendee, "mailto:", 7))
+			text = g_strdup (attendee+7);
+
+		text = g_strstrip (text);
+		if (text && !g_ascii_strcasecmp (delegator_email, text)) {
+			icalproperty_remove_parameter_by_kind (prop, ICAL_CN_PARAMETER);
+			icalproperty_add_parameter (prop, icalparameter_new_cn (g_strdup(delegator_name)));
+			icalproperty_remove_parameter_by_kind (prop, ICAL_SENTBY_PARAMETER);
+			icalproperty_add_parameter (prop, icalparameter_new_sentby (g_strdup_printf("MAILTO:%s", delegatee_email)));
+			g_free (text);
+			break;
+		}
+		g_free (text);
+	}
+
+	return;
+}
+
 gboolean
 check_for_send_options (icalcomponent *icalcomp, E2kProperties *props)
 {
@@ -655,27 +718,24 @@ find_attendee_prop (icalcomponent *ical_comp, const char *address)
 	for (prop = icalcomponent_get_first_property (ical_comp, ICAL_ATTENDEE_PROPERTY);
 	     prop != NULL;
 	     prop = icalcomponent_get_next_property (ical_comp, ICAL_ATTENDEE_PROPERTY)) {
-		icalvalue *value;
 		const char *attendee;
 		char *text;
 
-		value = icalproperty_get_value (prop);
-		if (!value)
+		attendee = icalproperty_get_value_as_string (prop);
+		if (!attendee)
 			continue;
 
-		attendee = icalvalue_get_string (value);
-
 		if (!g_ascii_strncasecmp (attendee, "mailto:", 7))
-			attendee += 7;
-		text = g_strstrip (g_strdup (attendee));
+			text = g_strdup (attendee + 7);
+		text = g_strstrip (text);
+
 		if (!g_ascii_strcasecmp (address, text)) {
 			g_free (text);
-			return prop;
+			break;
 		}
 		g_free (text);
 	}
-	
-	return NULL;
+	return prop;
 }
 
 static gboolean
@@ -770,9 +830,13 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	}
 	#endif
 	
+	/* Delegated calendar */
+	if (g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (cbex->account)))
+		process_delegated_cal_object (icalcomp, e_cal_backend_exchange_get_owner_name (backend), e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (cbex->account));
+
 	/* Send options */
 	send_options = check_for_send_options (icalcomp, props);
-	
+
 	/*set created and last_modified*/
 	current = icaltime_from_timet (time (NULL), 0);
 	icalcomponent_add_property (icalcomp, icalproperty_new_created (current));
@@ -831,7 +895,10 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	body_crlf = e_cal_backend_exchange_lf_to_crlf (body);	
 		
 	date = e_cal_backend_exchange_make_timestamp_rfc822 (time (NULL));
-	from = e_cal_backend_exchange_get_from_string (backend, comp);
+	if (!g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (cbex->account)))
+		from = e_cal_backend_exchange_get_from_string (backend, comp);
+	else 
+		from = e_cal_backend_exchange_get_sender_string (backend, comp);
 
 	if (attach_body) {
 		msg = g_strdup_printf ("Subject: %s\r\n"
@@ -1179,6 +1246,10 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		return GNOME_Evolution_Calendar_OtherError;
 	}
 
+	/* Delegated calendar */
+	if (g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (cbex->account)))
+		process_delegated_cal_object (updated_icalcomp, e_cal_backend_exchange_get_owner_name (backend), e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (cbex->account));
+
 	/* send options */
 	send_options = check_for_send_options (updated_icalcomp, props);
 
@@ -1351,7 +1422,10 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	body_crlf = e_cal_backend_exchange_lf_to_crlf (body);
 	
 	date = e_cal_backend_exchange_make_timestamp_rfc822 (time (NULL));
-	from = e_cal_backend_exchange_get_from_string (backend, updated_ecomp);	
+	if (!g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (cbex->account)))
+		from = e_cal_backend_exchange_get_from_string (backend, updated_ecomp);
+	else 
+		from = e_cal_backend_exchange_get_sender_string (backend, updated_ecomp);
 	
 	if (attach_body) {
 		msg = g_strdup_printf ("Subject: %s\r\n"

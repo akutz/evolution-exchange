@@ -2143,12 +2143,13 @@ unmangle_delegated_meeting_request (MailStubExchange *mse, E2kOperation *op,
 				    char **body, int *len)
 {
 	const char *prop = PR_RCVD_REPRESENTING_EMAIL_ADDRESS;
-	char *delegator_dn, *delegator_uri;
+	GString *message;
+	char *delegator_dn, *delegator_uri, *delegator_folder_physical_uri = NULL;
 	ExchangeAccount *account;
 	E2kGlobalCatalog *gc;
 	E2kGlobalCatalogEntry *entry;
 	E2kGlobalCatalogStatus gcstatus;
-	EFolder *folder;
+	EFolder *folder = NULL;
 	E2kHTTPStatus status;
 	E2kResult *results;
 	int nresults = 0;
@@ -2169,7 +2170,7 @@ unmangle_delegated_meeting_request (MailStubExchange *mse, E2kOperation *op,
 	account = mse->account;
 	gc = exchange_account_get_global_catalog (account);
 	if (!gc) {
-		g_warning ("No GC: could not unmangle meeting request");
+		g_warning ("\nNo GC: could not unmangle meeting request");
 		e2k_results_free (results, nresults);
 		return E2K_HTTP_OK;
 	}
@@ -2180,31 +2181,121 @@ unmangle_delegated_meeting_request (MailStubExchange *mse, E2kOperation *op,
 		delegator_dn, E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX,
 		&entry);
 	if (gcstatus != E2K_GLOBAL_CATALOG_OK) {
-		g_warning ("GC lookup failed: could not unmangle meeting request");
+		g_warning ("\nGC lookup failed: could not unmangle meeting request");
 		e2k_results_free (results, nresults);
 		return E2K_HTTP_OK;
 	}
 
 	delegator_uri = exchange_account_get_foreign_uri (
 		account, entry, E2K_PR_STD_FOLDER_CALENDAR);
+
 	if (delegator_uri) {
 		folder = exchange_account_get_folder (account, delegator_uri);
-		if (folder) {
-			GString *message;
-
-			message = g_string_new_len (*body, *len);
-			mail_util_demangle_delegated_meeting (
-				message, entry->display_name,
-				entry->email,
-				e_folder_get_physical_uri (folder));
-			g_free (*body);
-			*body = message->str;
-			*len = message->len;
-			*body = g_string_free (message, FALSE);
-		}
+		if (folder)
+			delegator_folder_physical_uri = g_strdup (e_folder_get_physical_uri (folder));
 		g_free (delegator_uri);
 	}
+
+	message = g_string_new_len (*body, *len); 
+	mail_util_demangle_delegated_meeting (
+			message, entry->display_name,
+			entry->email,
+			delegator_folder_physical_uri, 
+			exchange_account_get_email_id (account));
+	g_free (*body);
+	*body = message->str;
+	*len = message->len;
+	*body = g_string_free (message, FALSE);
+
 	e2k_global_catalog_entry_free (gc, entry);
+	g_free (delegator_folder_physical_uri);
+
+	e2k_results_free (results, nresults);
+	return E2K_HTTP_OK;
+}
+
+static E2kHTTPStatus
+unmangle_sender_field (MailStubExchange *mse, E2kOperation *op,
+				    const char *uri,
+				    char **body, int *len)
+{
+	const char *props[] = { PR_SENT_REPRESENTING_EMAIL_ADDRESS, PR_SENDER_EMAIL_ADDRESS };
+	GString *message;
+	char *delegator_dn, *sender_dn;
+	ExchangeAccount *account;
+	E2kGlobalCatalog *gc;
+	E2kGlobalCatalogEntry *delegator_entry;
+	E2kGlobalCatalogEntry *sender_entry;
+	E2kGlobalCatalogStatus gcstatus;
+	E2kHTTPStatus status;
+	E2kResult *results;
+	int nresults = 0;
+
+	status = e2k_context_propfind (mse->ctx, op, uri, props, 2,
+				       &results, &nresults);
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+		return status;
+	if (!nresults)
+		return E2K_HTTP_MALFORMED;
+
+	delegator_dn = e2k_properties_get_prop (results[0].props, PR_SENT_REPRESENTING_EMAIL_ADDRESS);
+	if (!delegator_dn) {
+		e2k_results_free (results, nresults);
+		return E2K_HTTP_OK;
+	}
+
+	sender_dn = e2k_properties_get_prop (results[0].props, PR_SENDER_EMAIL_ADDRESS);
+	if (!sender_dn) {
+		e2k_results_free (results, nresults);
+		return E2K_HTTP_OK;
+	}
+
+	if (!g_ascii_strcasecmp (delegator_dn, sender_dn)) {
+		e2k_results_free (results, nresults);
+		return E2K_HTTP_OK;
+	}
+
+	account = mse->account;
+	gc = exchange_account_get_global_catalog (account);
+	if (!gc) {
+		g_warning ("\nNo GC: could not unmangle sender field");
+		e2k_results_free (results, nresults);
+		return E2K_HTTP_OK;
+	}
+
+	gcstatus = e2k_global_catalog_lookup (
+		gc, NULL, /* FIXME; cancellable */
+		E2K_GLOBAL_CATALOG_LOOKUP_BY_LEGACY_EXCHANGE_DN,
+		delegator_dn, E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX,
+		&delegator_entry);
+	if (gcstatus != E2K_GLOBAL_CATALOG_OK) {
+		g_warning ("\nGC lookup failed: for delegator_entry - could not unmangle sender field");
+		e2k_results_free (results, nresults);
+		return E2K_HTTP_OK;
+	}
+
+	gcstatus = e2k_global_catalog_lookup (
+		gc, NULL, /* FIXME; cancellable */
+		E2K_GLOBAL_CATALOG_LOOKUP_BY_LEGACY_EXCHANGE_DN,
+		sender_dn, E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX,
+		&sender_entry);
+	if (gcstatus != E2K_GLOBAL_CATALOG_OK) {
+		g_warning ("\nGC lookup failed: for sender_entry - could not unmangle sender field");
+		e2k_results_free (results, nresults);
+		return E2K_HTTP_OK;
+	}
+
+	message = g_string_new_len (*body, *len);
+	mail_util_demangle_sender_field (message, 
+					 delegator_entry->email, 
+					 sender_entry->email);
+	g_free (*body);
+	*body = message->str;
+	*len = message->len;
+	*body = g_string_free (message, FALSE);
+
+	e2k_global_catalog_entry_free (gc, delegator_entry);
+	e2k_global_catalog_entry_free (gc, sender_entry);
 
 	e2k_results_free (results, nresults);
 	return E2K_HTTP_OK;
@@ -2268,6 +2359,15 @@ get_message (MailStub *stub, const char *folder_name, const char *uid)
 		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
 			goto error;
 	}
+
+	/* If there is a sender field in the meeting request/response, 
+	 * we need to know who it is.
+	 */
+	status = unmangle_sender_field (mse, NULL,
+				        mmsg->href,
+					&body, &len);
+	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+		goto error;
 
 	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
 			       CAMEL_STUB_ARG_BYTEARRAY, body, len,

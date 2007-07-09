@@ -1,3 +1,26 @@
+2007-07-09  Chenthill Palanisamy  <pchenthill@novell.com>
+
+	reviewed by: Veerapuram Varadhan <vvaradhan@novell.com>
+
+	* calendar/e-cal-backend-exchange-calendar.c:
+	(process_delegated_cal_object), (find_attendee_prop),
+	(create_object), (modify_object_with_href):
+	* calendar/e-cal-backend-exchange.c: (get_cal_owner),
+	(e_cal_backend_exchange_get_sender),
+	(e_cal_backend_exchange_get_sender_string),
+	(e_cal_backend_exchange_get_owner_name):
+	* calendar/e-cal-backend-exchange.h:
+	* camel/camel-exchange-folder.c: (get_message),
+	(camel_exchange_folder_construct):
+	* mail/mail-stub-exchange.c: (unmangle_delegated_meeting_request),
+	(unmangle_sender_field), (get_message):
+	* mail/mail-utils.c: (mail_util_demangle_sender_field),
+	(mail_util_demangle_delegated_meeting):
+	* mail/mail-utils.h: Adding the delegation feature.
+
+	Committing on behalf of Suman Manjunath <msuman@novell.com> and 
+	Bharath Acharya <abharath@novell.com>	
+
 2007-07-08  Veerapuram Varadhan  <vvaradhan@novell.com>
 
 	** Fixes #442186, part of 341214 and #421091

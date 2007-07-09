@@ -98,6 +98,18 @@ get_cal_address (ECalBackendSync *backend, EDataCal *cal, char **address)
 	return GNOME_Evolution_Calendar_Success;
 }
 
+static void
+get_cal_owner (ECalBackendSync *backend, char **name)
+{
+	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
+	ExchangeHierarchy *hier;
+
+	g_return_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex));
+
+	hier = e_folder_exchange_get_hierarchy (cbex->folder);
+	*name = g_strdup (hier->owner_name);
+}
+
 static ECalBackendSyncStatus
 get_alarm_email_address (ECalBackendSync *backend, EDataCal *cal, char **address)
 {
@@ -1336,18 +1348,6 @@ e_cal_backend_exchange_lf_to_crlf (const char *in)
 	return out;
 }
 
-static void
-get_cal_owner (ECalBackendSync *backend, char **name)
-{
-	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
-	ExchangeHierarchy *hier;
-
-	g_return_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex));
-
-	hier = e_folder_exchange_get_hierarchy (cbex->folder);
-	*name = g_strdup (hier->owner_name);
-}
-
 void
 e_cal_backend_exchange_get_from (ECalBackendSync *backend, ECalComponent *comp, 
 			char **name, char **email)
@@ -1367,6 +1367,19 @@ e_cal_backend_exchange_get_from (ECalBackendSync *backend, ECalComponent *comp,
 	}
 }
 
+void
+e_cal_backend_exchange_get_sender (ECalBackendSync *backend, ECalComponent *comp, 
+			char **name, char **email)
+{
+	ECalBackendExchange *cbex;
+
+	g_return_if_fail (E_IS_CAL_BACKEND_EXCHANGE (backend));
+
+	cbex = E_CAL_BACKEND_EXCHANGE (backend);
+
+	*name = g_strdup (exchange_account_get_username (cbex->account));
+	*email = g_strdup (exchange_account_get_email_id (cbex->account));
+}
 
 /* Do not internationalize */
 static const char *e2k_rfc822_months [] = {
@@ -1411,6 +1424,18 @@ e_cal_backend_exchange_get_from_string (ECalBackendSync *backend, ECalComponent 
 	return from_string;
 }
 
+char *
+e_cal_backend_exchange_get_sender_string (ECalBackendSync *backend, ECalComponent *comp)
+{
+	char *name = NULL, *addr = NULL, *sender_string = NULL;
+
+	e_cal_backend_exchange_get_sender (backend, comp, &name, &addr);
+	sender_string = g_strdup_printf ("\"%s\" <%s>", name, addr);
+	g_free (name);
+	g_free (addr);
+	return sender_string;
+}
+
 gchar *
 e_cal_backend_exchange_get_owner_email (ECalBackendSync *backend)
 {
@@ -1419,6 +1444,16 @@ e_cal_backend_exchange_get_owner_email (ECalBackendSync *backend)
 
 	hier = e_folder_exchange_get_hierarchy (cbex->folder);
 	return g_strdup (hier->owner_email);
+}
+
+gchar *
+e_cal_backend_exchange_get_owner_name (ECalBackendSync *backend)
+{
+	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
+	ExchangeHierarchy *hier;
+
+	hier = e_folder_exchange_get_hierarchy (cbex->folder);
+	return g_strdup (hier->owner_name);
 }
 
 struct ChangeData {

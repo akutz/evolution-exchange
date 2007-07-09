@@ -296,29 +296,22 @@ mail_util_stickynote_to_rfc822 (E2kProperties *props)
 }
 
 /**
- * mail_util_demangle_delegated_meeting:
- * @body: the body of the message
- * @delegator_cn: the iCalendar "CN" (common name) of the delegator
- * @delegator_email: the email address of the delegator
- * @delegator_cal_uri: the exchange: URI of the delegator's Calendar
+ * mail_util_demangle_sender_field:
+ * @sender_email: the email address of the sender
  *
- * When a meeting request is delegated to another user via a
- * server-side rule, Exchange mangles the iCalendar, such that we need
- * to demangle it in order to get the iTIP control to do the right
- * thing with it. That happens here.
- *
+ * 
+ * 
  * Return value: %TRUE if we successfully demangled @body (in place).
  **/
 gboolean
-mail_util_demangle_delegated_meeting (GString *body,
-				      const char *delegator_cn,
-				      const char *delegator_email,
-				      const char *delegator_cal_uri)
+mail_util_demangle_sender_field (GString *body,
+				 const char *delegator_email,
+				 const char *sender_email)
 {
 	icalcomponent *vcal_comp, *event_comp;
 	icalproperty *prop;
 	char *vstart, *vend;
-	char *delegator_mailto, *ical_str;
+	char *ical_str;
 	int oldlen, newlen;
 
 	vstart = strstr (body->str, "BEGIN:VCALENDAR");
@@ -342,37 +335,56 @@ mail_util_demangle_delegated_meeting (GString *body,
 		return FALSE;
 	}
 
-	/* The delegated meeting request lists all of the delegates and
-	 * none of the original attendees. We change the first one to be
-	 * the delegator and remove the rest.
-	 */
-	prop = icalcomponent_get_first_property (event_comp, ICAL_ATTENDEE_PROPERTY);
+	prop = icalcomponent_get_first_property (event_comp, ICAL_ORGANIZER_PROPERTY);
+	if (prop) {
+		const char *organizer;
+		char *text;
+
+		organizer = icalproperty_get_value_as_string (prop);
+		if (organizer) {
+			if (!g_ascii_strncasecmp (organizer, "mailto:", 7))
+				text = g_strdup (organizer+7);
+
+			text = g_strstrip (text);
+			if (text && !g_ascii_strcasecmp (delegator_email, text)) {
+				g_free (text);
+				goto cleanup_sender;
+			}
+		}
+		g_free (text);
+	}
+	prop = NULL;
+
+	for (prop = icalcomponent_get_first_property (event_comp, ICAL_ATTENDEE_PROPERTY);
+	     prop != NULL;
+	     prop = icalcomponent_get_next_property (event_comp, ICAL_ATTENDEE_PROPERTY)) {
+		const char *attendee;
+		char *text;
+
+		attendee = icalproperty_get_value_as_string (prop);
+		if (!attendee)
+			continue;
+
+		if (!g_ascii_strncasecmp (attendee, "mailto:", 7))
+			text = g_strdup (attendee+7);
+
+		text = g_strstrip (text);
+		if (text && !g_ascii_strcasecmp (delegator_email, text)) {
+			g_free (text);
+			break;
+		}
+		g_free (text);
+	}
+
+cleanup_sender:
 	if (!prop) {
 		icalcomponent_free (vcal_comp);
 		return FALSE;
 	}
-	delegator_mailto = g_strdup_printf ("MAILTO:%s", delegator_email);
-	icalproperty_set_attendee (prop, delegator_mailto);
-	g_free (delegator_mailto);
-	icalproperty_set_parameter_from_string (prop, "CN", delegator_cn);
 
-	while ((prop = icalcomponent_get_next_property (event_comp, ICAL_ATTENDEE_PROPERTY))) {
-		icalcomponent_remove_property (event_comp, prop);
-		prop = icalcomponent_get_first_property (event_comp, ICAL_ATTENDEE_PROPERTY);
-	}
-
-	/* And now add the X-properties. */
-	prop = icalproperty_new_x (delegator_cal_uri);
-	icalproperty_set_x_name (prop, "X-EVOLUTION-DELEGATOR-CALENDAR-URI");
-	icalcomponent_add_property (event_comp, prop);
-
-	prop = icalproperty_new_x (delegator_email);
-	icalproperty_set_x_name (prop, "X-EVOLUTION-DELEGATOR-ADDRESS");
-	icalcomponent_add_property (event_comp, prop);
-
-	prop = icalproperty_new_x (delegator_cn); 
-	icalproperty_set_x_name (prop, "X-EVOLUTION-DELEGATOR-NAME");
-	icalcomponent_add_property (event_comp, prop);
+	icalproperty_remove_parameter_by_kind (prop, ICAL_SENTBY_PARAMETER);
+	icalproperty_add_parameter (prop, 
+		icalparameter_new_sentby (g_strdup_printf("MAILTO:%s", sender_email)));
 
 	/* Put the updated ical string back into the body */
 	ical_str = e2k_lf_to_crlf (icalcomponent_as_ical_string (vcal_comp));
@@ -386,6 +398,168 @@ mail_util_demangle_delegated_meeting (GString *body,
 		memmove (vstart + newlen, vend, strlen (vend));
 		memcpy (vstart, ical_str, newlen);
 	}
+
+	icalcomponent_free (vcal_comp);
+	g_free (ical_str);
+
+	return TRUE;
+}
+
+/**
+ * mail_util_demangle_delegated_meeting:
+ * @body: the body of the message
+ * @delegator_cn: the iCalendar "CN" (common name) of the delegator
+ * @delegator_email: the email address of the delegator
+ * @delegator_cal_uri: the exchange: URI of the delegator's Calendar
+ *
+ * When delegatees are set to receive copies of meeting requests via a
+ * server-side rule, Exchange mangles the iCalendar, such that we need
+ * to demangle it in order to get the iTIP control to do the right
+ * thing with it. That happens here.
+ *
+ * Return value: %TRUE if we successfully demangled @body (in place).
+ **/
+gboolean
+mail_util_demangle_delegated_meeting (GString *body,
+				      const char *delegator_cn,
+				      const char *delegator_email,
+				      const char *delegator_cal_uri,
+				      const char *delegatee_email)
+{
+	icalcomponent *vcal_comp, *event_comp;
+	icalproperty *prop;
+	char *vstart, *vend;
+	char *ical_str;
+	int oldlen, newlen;
+
+	vstart = strstr (body->str, "BEGIN:VCALENDAR");
+	if (!vstart)
+		return FALSE;
+	vend = strstr (vstart, "END:VCALENDAR");
+	if (!vend)
+		return FALSE;
+	vend += 13;
+	while (isspace ((unsigned char)*vend))
+		vend++;
+	oldlen = vend - vstart;
+
+	vcal_comp = icalparser_parse_string (vstart);
+	if (!vcal_comp)
+		return FALSE;
+
+	event_comp = icalcomponent_get_first_component (vcal_comp, ICAL_VEVENT_COMPONENT);
+	if (!event_comp) {
+		icalcomponent_free (vcal_comp);
+		return FALSE;
+	}
+
+	/* When meeting responses are received on behalf of an ORGANIZER, Exchange  
+	   mangles the iCalendar in the following way:
+		It sets the ORGANIZER CN parameter as the correct ORGANIZER i.e. the 
+		delegator's CN. However, it sets the ORGANIZER VALUE parameter 
+		incorrectly - i.e. it sets it to the delegatee's e-mail address
+	   Here, we check if the ORGANIZER VALUE parameter is identical to the 
+	   delegatee's e-mail id. If they are found to be identical, then the 
+	   ORGANIZER VALUE is reset to be the delegator's e-mail id. Additionally, 
+	   a SENT-BY parameter is set to be the delegatee's e-mail id.
+
+	   When meeting requests are received on behalf of an ATTENDEE, Exchange 
+	   does not mangle the iCalendar. Hence, we just add a SENT-BY parameter set
+	   to the delegatee's e-mail id to the ATTENDEE property which corresponds 
+	   to the delegator. 
+
+	   Remember - this routine is called only when the PR_RCVD_REPRESENTING_EMAIL_ADDRESS 
+	   property is set for the incoming message. Hence, we can be sure that one 
+	   of either the ORGANIZER or an ATTENDEE "is" the delegator. This also 
+	   implies the correctness of this 'de-mangling' procedure.
+
+	   The SENT-BY parameters are set in both scenarios only to ensure that any 
+	   action taken by the delegatee can be recognized by any Calendar client 
+	   built on the RFC 2445 standards. They also reduce additional processing 
+	   later on. The changes made here are not synchronised with the Exchange 
+	   server (which is the correct way to go) unless the delegatee takes any 
+	   action on behalf of the delegator. 
+	*/
+
+	prop = icalcomponent_get_first_property (event_comp, ICAL_ORGANIZER_PROPERTY);
+	if (prop) {
+		const char *organizer;
+		char *text;
+
+		organizer = icalproperty_get_value_as_string (prop);
+		if (organizer) {
+			if (!g_ascii_strncasecmp (organizer, "mailto:", 7))
+				text = g_strdup (organizer+7);
+
+			text = g_strstrip (text);
+			if (text && !g_ascii_strcasecmp (delegatee_email, text)) {
+				icalproperty_set_organizer (prop, g_strdup_printf ("MAILTO:%s", delegator_email));
+				icalproperty_remove_parameter_by_kind (prop, ICAL_CN_PARAMETER);
+				icalproperty_add_parameter (prop, icalparameter_new_cn (g_strdup(delegator_cn)));
+				g_free (text);
+				goto cleanup_copy;
+			}
+		}
+		g_free (text);
+	}
+	prop = NULL;
+
+	for (prop = icalcomponent_get_first_property (event_comp, ICAL_ATTENDEE_PROPERTY);
+	     prop != NULL;
+	     prop = icalcomponent_get_next_property (event_comp, ICAL_ATTENDEE_PROPERTY)) {
+		const char *attendee;
+		char *text;
+
+		attendee = icalproperty_get_value_as_string (prop);
+		if (!attendee)
+			continue;
+
+		if (!g_ascii_strncasecmp (attendee, "mailto:", 7))
+			text = g_strdup (attendee+7);
+
+		text = g_strstrip (text);
+		if (text && !g_ascii_strcasecmp (delegator_email, text)) {
+			/* We do not really need to set the CN parameter. However, setting it might improve usability. */
+			icalproperty_remove_parameter_by_kind (prop, ICAL_CN_PARAMETER);
+			icalproperty_add_parameter (prop, icalparameter_new_cn (g_strdup(delegator_cn)));
+			g_free (text);
+			break;
+		}
+		g_free (text);
+	}
+
+cleanup_copy:
+	if (!prop) {
+		icalcomponent_free (vcal_comp);
+		return FALSE;
+	}
+
+	icalproperty_remove_parameter_by_kind (prop, ICAL_SENTBY_PARAMETER);
+	icalproperty_add_parameter (prop, 
+		icalparameter_new_sentby (g_strdup_printf("MAILTO:%s", delegatee_email)));
+
+	/* And now add the X-property */
+	if (delegator_cal_uri) {
+		prop = icalproperty_new_x (delegator_cal_uri);
+		icalproperty_set_x_name (prop, "X-EVOLUTION-DELEGATOR-CALENDAR-URI");
+		icalcomponent_add_property (event_comp, prop);
+	}
+
+	/* Put the updated ical string back into the body */
+	ical_str = e2k_lf_to_crlf (icalcomponent_as_ical_string (vcal_comp));
+	newlen = strlen (ical_str);
+	if (newlen < oldlen) {
+		memcpy (vstart, ical_str, newlen);
+		memcpy (vstart + newlen, vend, strlen (vend));
+		g_string_set_size (body, body->len + newlen - oldlen);
+	} else {
+		g_string_set_size (body, body->len + newlen - oldlen);
+		memmove (vstart + newlen, vend, strlen (vend));
+		memcpy (vstart, ical_str, newlen);
+	}
+
+	icalcomponent_remove_component (vcal_comp, event_comp);
+	icalcomponent_free (event_comp);
 
 	icalcomponent_free (vcal_comp);
 	g_free (ical_str);

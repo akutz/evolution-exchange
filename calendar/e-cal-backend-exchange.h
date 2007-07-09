@@ -92,10 +92,14 @@ ECalBackendSyncStatus  e_cal_backend_exchange_extract_components (const char *ca
 void e_cal_backend_exchange_get_from (ECalBackendSync *backend, ECalComponent *comp, 
 					char **from_name, char **from_addr);
 char * e_cal_backend_exchange_get_from_string (ECalBackendSync *backend, ECalComponent *comp); 
+void e_cal_backend_exchange_get_sender (ECalBackendSync *backend, ECalComponent *comp, 
+					char **from_name, char **from_addr);
+char * e_cal_backend_exchange_get_sender_string (ECalBackendSync *backend, ECalComponent *comp); 
 gboolean e_cal_backend_exchange_is_online (ECalBackendExchange *cbex);
 GSList * get_attachment (ECalBackendExchange *cbex, const char *uid, const char *body, int len);
 char * build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const char *subject, char **boundary);
 gchar *e_cal_backend_exchange_get_owner_email (ECalBackendSync *backend);
+gchar *e_cal_backend_exchange_get_owner_name (ECalBackendSync *backend);
 void e_cal_backend_exchange_cache_lock (ECalBackendExchange *cbex);
 void e_cal_backend_exchange_cache_unlock (ECalBackendExchange *cbex) ;
 
