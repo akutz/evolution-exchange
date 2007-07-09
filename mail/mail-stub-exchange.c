@@ -568,7 +568,7 @@ mse_get_folder_online_sync_updates (gpointer key, gpointer value,
 {
 	unsigned int index, seq, i;
 	MailStubExchangeFolder *mfld = (MailStubExchangeFolder *)user_data;	
-	MailStub *stub = MAIL_STUB (mfld->mse);
+	/*MailStub *stub = MAIL_STUB (mfld->mse);*/
 	MailStubExchangeMessage *mmsg = NULL;
 
 	index = GPOINTER_TO_UINT (key);

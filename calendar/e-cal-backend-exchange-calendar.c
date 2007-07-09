@@ -609,7 +609,7 @@ add_timezone_cb (icalparameter *param, void *data)
 		icalcomponent_add_component (cbdata->vcal_comp, vtzcomp);
 }
 
-void
+static void
 process_delegated_cal_object (icalcomponent *icalcomp, char *delegator_name, char *delegator_email, char *delegatee_email)
 {
 	icalproperty *prop = NULL;
@@ -617,7 +617,7 @@ process_delegated_cal_object (icalcomponent *icalcomp, char *delegator_name, cha
 	prop = icalcomponent_get_first_property (icalcomp, ICAL_ORGANIZER_PROPERTY);
 	if (prop) {
 		const char *organizer;
-		char *text;
+		char *text = NULL;
 
 		organizer = icalproperty_get_value_as_string (prop);
 		if (organizer) {
@@ -648,7 +648,7 @@ process_delegated_cal_object (icalcomponent *icalcomp, char *delegator_name, cha
 	     prop != NULL;
 	     prop = icalcomponent_get_next_property (icalcomp, ICAL_ATTENDEE_PROPERTY)) {
 		const char *attendee;
-		char *text;
+		char *text = NULL;
 
 		attendee = icalproperty_get_value_as_string (prop);
 		if (!attendee)
@@ -719,7 +719,7 @@ find_attendee_prop (icalcomponent *ical_comp, const char *address)
 	     prop != NULL;
 	     prop = icalcomponent_get_next_property (ical_comp, ICAL_ATTENDEE_PROPERTY)) {
 		const char *attendee;
-		char *text;
+		char *text = NULL;
 
 		attendee = icalproperty_get_value_as_string (prop);
 		if (!attendee)

@@ -439,7 +439,8 @@ get_message (CamelFolder *folder, const char *uid, CamelException *ex)
 	CamelStreamFilter *filtered_stream;
 	CamelMimeFilter *crlffilter;
 	GByteArray *ba;
-	const char *from, *from_changed, *sender, **sender_name;
+	const char *from, *from_changed, *sender;
+	const gchar *from_initial;
 
 	ba = get_message_data (folder, uid, ex);
 	if (!ba)
@@ -461,13 +462,13 @@ get_message (CamelFolder *folder, const char *uid, CamelException *ex)
 
 	/*Get the from address*/
 	from = camel_medium_get_header(CAMEL_MEDIUM(msg), "From");
-	const gchar* from_initial = g_strdup(from);
+	from_initial = g_strdup(from);
 	
 	/*Check if the sender header exists. The sender header suggests that the mail message is a 
 	delegated message. So Evolution recognizes it as a delegated mail sent by the 
 	"sender" on behalf of "from" */
 
-	if(sender = (const char *) camel_medium_get_header (CAMEL_MEDIUM (msg), "Sender")) {
+	if((sender = (const char *) camel_medium_get_header (CAMEL_MEDIUM (msg), "Sender"))) {
 
 		struct _camel_header_address *sender_addr = camel_header_address_decode (sender, NULL);
 
@@ -475,9 +476,12 @@ get_message (CamelFolder *folder, const char *uid, CamelException *ex)
 		and display it as the name. Evolution accounts should neccesarily have names specified. 
 		This piece of code is for some other clients which may have the name field as NULL.*/
 		if(sender_addr->name == NULL) {
+			gchar **sender_name;
+
 			sender_name = g_strsplit (sender_addr->v.addr, "@", 2);        
 			from_changed = g_strdup_printf (_("%s at %s on behalf of %s"), sender_name[0], 
 							sender_name[1], from_initial);
+			g_strfreev (sender_name);
 		}
 
 		else {

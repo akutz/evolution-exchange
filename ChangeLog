@@ -1,3 +1,13 @@
+2007-09-09  Matthew Barnes  <mbarnes@redhat.com>
+
+	* calendar/e-cal-backend-exchange-calendar.c
+	(process_delegated_cal_object), (find_attendee_prop):
+	* camel/camel-exchange-folder.c (get_message):
+	* mail/mail-stub-exchange.c (mse_get_folder_online_sync_updates):
+	* mail/mail-utils.c (mail_util_demangle_delegated_meeting),
+	(mail_util_demangle_delegated_meeting):
+	Fix newly introduced compiler warnings as well as a memory leak.
+
 2007-07-09  Chenthill Palanisamy  <pchenthill@novell.com>
 
 	reviewed by: Veerapuram Varadhan <vvaradhan@novell.com>

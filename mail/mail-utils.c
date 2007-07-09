@@ -338,7 +338,7 @@ mail_util_demangle_sender_field (GString *body,
 	prop = icalcomponent_get_first_property (event_comp, ICAL_ORGANIZER_PROPERTY);
 	if (prop) {
 		const char *organizer;
-		char *text;
+		char *text = NULL;
 
 		organizer = icalproperty_get_value_as_string (prop);
 		if (organizer) {
@@ -359,7 +359,7 @@ mail_util_demangle_sender_field (GString *body,
 	     prop != NULL;
 	     prop = icalcomponent_get_next_property (event_comp, ICAL_ATTENDEE_PROPERTY)) {
 		const char *attendee;
-		char *text;
+		char *text = NULL;
 
 		attendee = icalproperty_get_value_as_string (prop);
 		if (!attendee)
@@ -484,7 +484,7 @@ mail_util_demangle_delegated_meeting (GString *body,
 	prop = icalcomponent_get_first_property (event_comp, ICAL_ORGANIZER_PROPERTY);
 	if (prop) {
 		const char *organizer;
-		char *text;
+		char *text = NULL;
 
 		organizer = icalproperty_get_value_as_string (prop);
 		if (organizer) {
@@ -508,7 +508,7 @@ mail_util_demangle_delegated_meeting (GString *body,
 	     prop != NULL;
 	     prop = icalcomponent_get_next_property (event_comp, ICAL_ATTENDEE_PROPERTY)) {
 		const char *attendee;
-		char *text;
+		char *text = NULL;
 
 		attendee = icalproperty_get_value_as_string (prop);
 		if (!attendee)
