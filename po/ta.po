@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-27 03:16+0100\n"
-"PO-Revision-Date: 2007-06-11 13:07+0530\n"
+"POT-Creation-Date: 2007-07-10 03:25+0100\n"
+"PO-Revision-Date: 2007-07-11 21:43+0530\n"
 "Last-Translator: Dr.T.Vasudevan <agnihot3@gmail.com>\n"
 "Language-Team: TAMIL <ubuntu-l10n-tam@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -30,26 +30,30 @@ msgid ""
 "refresh. Set this value to zero, if you don't want to update GAL and use the "
 "current cache forever. This will work only if you have enabled offline "
 "caching for GAL."
-msgstr "ஜிஏஎல் இடைமாற்றை புதுப்பிக்க கால இடைவெளியை இந்த விசை நாட்களில் குறிக்கிறது. ஜிஏஎல் இடைமாற்றை புதுப்பிக்காமல் இப்போதைய இடைமாற்றையே பயன்படுத்த இந்த மதிப்பை 0 என அமைக்கவும். நீங்கள் வலை அகன்ற இடைமாற்றை இயலுமை படுத்தி இருந்தால் மட்டுமே இது வேலை செய்யும்."
+msgstr ""
+"ஜிஏஎல் இடைமாற்றை புதுப்பிக்க கால இடைவெளியை இந்த விசை நாட்களில் குறிக்கிறது. ஜிஏஎல் "
+"இடைமாற்றை புதுப்பிக்காமல் இப்போதைய இடைமாற்றையே பயன்படுத்த இந்த மதிப்பை 0 என அமைக்கவும். "
+"நீங்கள் வலை அகன்ற இடைமாற்றை இயலுமை படுத்தி இருந்தால் மட்டுமே இது வேலை செய்யும்."
 
 #: ../addressbook/e-book-backend-exchange.c:1880
-#: ../addressbook/e-book-backend-gal.c:1548 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-gal.c:1796 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "தேடுகிறது..."
 
-#: ../addressbook/e-book-backend-gal.c:265
+#: ../addressbook/e-book-backend-gal.c:301
+#: ../addressbook/e-book-backend-gal.c:326
 msgid "Reconnecting to LDAP server..."
 msgstr "LDAP சேவகனுடன் மீண்டும் இணைகிறது"
 
-#: ../addressbook/e-book-backend-gal.c:1385
+#: ../addressbook/e-book-backend-gal.c:1585
 msgid "Receiving LDAP search results..."
 msgstr "LDAP தேடல் முடிவுகளை பெறுகிறது..."
 
-#: ../addressbook/e-book-backend-gal.c:1571
+#: ../addressbook/e-book-backend-gal.c:1823
 msgid "Error performing search"
 msgstr "தேடுவதில் பிழை"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2014
+#: ../calendar/e-cal-backend-exchange-calendar.c:2088
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -58,65 +62,75 @@ msgstr ""
 "'%s' திரும்ப நிகழும் கூட்டங்களுக்காக வளங்களை ஒதுக்க முடியவில்லை \n"
 "ஒவ்வொரு கூட்டத்தையும் தனியாக பதிவு செய்யவேண்டும."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2032
+#: ../calendar/e-cal-backend-exchange-calendar.c:2106
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "தேர்வு செய்யப்பட்ட கால அளவில் '%s' வேலையாக உள்ளது."
 
-#: ../calendar/e-cal-backend-exchange.c:377
-#: ../calendar/e-cal-backend-exchange.c:386
+#: ../calendar/e-cal-backend-exchange.c:389
+#: ../calendar/e-cal-backend-exchange.c:398
 msgid "Authentication failed"
 msgstr "உறுதி படுத்தல் தோல்வியுற்றது"
 
-#: ../calendar/e-cal-backend-exchange.c:397
+#: ../calendar/e-cal-backend-exchange.c:409
 msgid "Could not find the calendar"
 msgstr "நாள் காட்டியை கண்டு பிடிக்க முடியவில்லை"
 
-#: ../camel/camel-exchange-folder.c:223
+#: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
 msgstr "இணையத் தொடர்பு இல்லாத போது நீக்க முடியாது."
 
-#: ../camel/camel-exchange-folder.c:254
+#: ../camel/camel-exchange-folder.c:253
 msgid "No Subject"
 msgstr "பொருள் இல்லை"
 
-#: ../camel/camel-exchange-folder.c:409
+#: ../camel/camel-exchange-folder.c:408
 msgid "This message is not available in offline mode."
 msgstr "இணையத் தொடர்பு இல்லாத போது இந்த செய்தி கிடைக்காது."
 
-#: ../camel/camel-exchange-folder.c:644
+#: ../camel/camel-exchange-folder.c:482
+#, c-format
+msgid "%s at %s on behalf of %s"
+msgstr "%s  %s இல் %s க்காக"
+
+#: ../camel/camel-exchange-folder.c:488
+#, c-format
+msgid "%s on behalf of %s"
+msgstr "%s %s க்காக"
+
+#: ../camel/camel-exchange-folder.c:680
 msgid "Moving messages"
 msgstr "செய்திகளை நகர்த்துகிறது"
 
-#: ../camel/camel-exchange-folder.c:645
+#: ../camel/camel-exchange-folder.c:681
 msgid "Copying messages"
 msgstr "செய்திகளை படியெடுக்கிறது"
 
-#: ../camel/camel-exchange-folder.c:1016
+#: ../camel/camel-exchange-folder.c:1054
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "அடைவை உருவாக்க முடியவில்லை %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1026
+#: ../camel/camel-exchange-folder.c:1064
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "சுருக்க குறிப்பை ஏற்ற முடியவில்லை %s"
 
-#: ../camel/camel-exchange-folder.c:1034
+#: ../camel/camel-exchange-folder.c:1072
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "%s க்கான தற்காலிக நினைவிடத்தை உருவாக்க முடியவில்லை"
 
-#: ../camel/camel-exchange-folder.c:1044
+#: ../camel/camel-exchange-folder.c:1082
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "நடப்புக் குறிப்பு புத்தகத்தை உருவாக்க முடியவில்லை %s"
 
-#: ../camel/camel-exchange-folder.c:1089
+#: ../camel/camel-exchange-folder.c:1130
 msgid "Scanning for changed messages"
 msgstr "மாற்றப்பட்ட செய்திகளை தேடுகிறது"
 
-#: ../camel/camel-exchange-folder.c:1115
+#: ../camel/camel-exchange-folder.c:1163
 msgid "Fetching summary information for new messages"
 msgstr "புதிய செய்திக்கான சுருக்கத்தகவலை உள்ளிடுகிறது"
 
@@ -124,10 +138,10 @@ msgstr "புதிய செய்திக்கான சுருக்க�
 msgid "No folder name found\n"
 msgstr "அடைவின் பெயரைக்காணவில்லை\n"
 
-#: ../camel/camel-exchange-journal.c:373 ../mail/mail-stub-exchange.c:2569
-#: ../mail/mail-stub-exchange.c:2613 ../mail/mail-stub-exchange.c:2648
-#: ../mail/mail-stub-exchange.c:2675 ../mail/mail-stub-exchange.c:2728
-#: ../mail/mail-stub-exchange.c:2750
+#: ../camel/camel-exchange-journal.c:373 ../mail/mail-stub-exchange.c:2874
+#: ../mail/mail-stub-exchange.c:2918 ../mail/mail-stub-exchange.c:2953
+#: ../mail/mail-stub-exchange.c:2980 ../mail/mail-stub-exchange.c:3033
+#: ../mail/mail-stub-exchange.c:3055
 msgid "Folder doesn't exist"
 msgstr "அடைவு ஏற்கெனவே இல்லை"
 
@@ -273,15 +287,15 @@ msgstr "இணையத்தொடர்பில் இல்லாத போ�
 msgid "Cannot get folder info in offline mode."
 msgstr "இணைய இணைப்பு அடைவின் தகவலை பெற முடியாது."
 
-#: ../camel/camel-exchange-store.c:793
+#: ../camel/camel-exchange-store.c:787
 msgid "Cannot create folder in offline mode."
 msgstr "இணையத்தொடர்பில் இல்லாத போது அடைவை உருவாக்க முடியாது."
 
-#: ../camel/camel-exchange-store.c:820
+#: ../camel/camel-exchange-store.c:814
 msgid "Cannot delete folder in offline mode."
 msgstr "இணையத்தொடர்பில் இல்லாத போது அடைவை நீக்க முடியவில்லை:"
 
-#: ../camel/camel-exchange-store.c:836
+#: ../camel/camel-exchange-store.c:830
 msgid "Cannot rename folder in offline mode."
 msgstr "இணையத்தொடர்பில் இல்லாத போது அடைவின் பெயரை மாற்ற முடியவில்லை:"
 
@@ -332,80 +346,80 @@ msgstr "இணைப்பை இழந்துவிட்டது %s"
 msgid "Error communicating with %s: %s"
 msgstr "தொடர்புகொள்கையில் பிழை %s: %s"
 
-#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
+#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:946
 msgid "No such folder"
 msgstr "இப்படி ஒரு அடைவு இல்லை"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2546 ../mail/mail-stub-exchange.c:2586
-#: ../mail/mail-stub-exchange.c:2652 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2765
+#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1595
+#: ../mail/mail-stub-exchange.c:2851 ../mail/mail-stub-exchange.c:2891
+#: ../mail/mail-stub-exchange.c:2957 ../mail/mail-stub-exchange.c:3007
+#: ../mail/mail-stub-exchange.c:3070
 msgid "Permission denied"
 msgstr "அனுமதி மறுக்கப்பட்டது"
 
-#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
-msgid "Could not open folder: Permission denied"
-msgstr "அடைவை உருவாக்க முடியவில்லை: அனுமதி மறுக்கப்பட்டது"
-
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
+#: ../mail/mail-stub-exchange.c:768 ../mail/mail-stub-exchange.c:860
 msgid "Could not open folder"
 msgstr "அடைவை திறக்க முடியவில்லை"
 
-#: ../mail/mail-stub-exchange.c:764
+#: ../mail/mail-stub-exchange.c:854 ../mail/mail-stub-exchange.c:876
+msgid "Could not open folder: Permission denied"
+msgstr "அடைவை உருவாக்க முடியவில்லை: அனுமதி மறுக்கப்பட்டது"
+
+#: ../mail/mail-stub-exchange.c:955
 msgid "Could not create folder."
 msgstr "அடைவை உருவாக்க முடியவில்லை"
 
-#: ../mail/mail-stub-exchange.c:844
+#: ../mail/mail-stub-exchange.c:1043
 msgid "Could not open Deleted Items folder"
 msgstr "நீக்கப்பட்ட உருப்படிகள் உள்ள அடைவை திறக்க முடியலில்லை"
 
-#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
+#: ../mail/mail-stub-exchange.c:1374 ../mail/mail-stub-exchange.c:1415
 msgid "Could not get new messages"
 msgstr "புதிய செய்திகளை பெற முடியவில்லை"
 
-#: ../mail/mail-stub-exchange.c:1386
+#: ../mail/mail-stub-exchange.c:1591
 msgid "Could not empty Deleted Items folder"
 msgstr "நீக்கப்பட்ட உருப்படிகள் உள்ள அடைவை காலி செய்ய முடியவில்லை"
 
-#: ../mail/mail-stub-exchange.c:1463
+#: ../mail/mail-stub-exchange.c:1668
 msgid "Could not append message; mailbox is over quota"
 msgstr "செய்திகளை சேர்க்க முடியவில்லை; மின்னஞ்சல் பெட்டியில் அதிக இடமில்லை"
 
-#: ../mail/mail-stub-exchange.c:1464
+#: ../mail/mail-stub-exchange.c:1669
 msgid "Could not append message"
 msgstr "செய்தியை சேர்க்க முடியவில்லை"
 
-#: ../mail/mail-stub-exchange.c:2016
+#: ../mail/mail-stub-exchange.c:2324
 msgid "No such message"
 msgstr "இப்படி ஒரு செய்தி இல்லை"
 
-#: ../mail/mail-stub-exchange.c:2069
+#: ../mail/mail-stub-exchange.c:2386
 msgid "Message has been deleted"
 msgstr "செய்தி நீக்கப்பட்டது"
 
-#: ../mail/mail-stub-exchange.c:2071
+#: ../mail/mail-stub-exchange.c:2388
 msgid "Error retrieving message"
 msgstr "செய்தியை பெறுவதில் பிழை"
 
-#: ../mail/mail-stub-exchange.c:2113
+#: ../mail/mail-stub-exchange.c:2430
 msgid "Mailbox does not support full-text searching"
 msgstr "முழு-உரை தேடலுக்கு மின்னஞ்சல் பெட்டியில் ஆதரவு இல்லை"
 
-#: ../mail/mail-stub-exchange.c:2211
+#: ../mail/mail-stub-exchange.c:2528
 msgid "Unable to move/copy messages"
 msgstr "செய்தியை நகர்த்த/நகலெடுக்க முடியவில்லை"
 
-#: ../mail/mail-stub-exchange.c:2461
+#: ../mail/mail-stub-exchange.c:2766
 msgid "No mail submission URI for this mailbox"
 msgstr "இந்த பெட்டிக்கான மின்னஞ்சல் சமர்பிக்கும் URI இல்லை"
 
-#: ../mail/mail-stub-exchange.c:2497
+#: ../mail/mail-stub-exchange.c:2802
 msgid "Server won't accept mail via Exchange transport"
 msgstr "மாற்று தகவல் பரிமாற்றத்தை சேவகனால் ஏற்க முடியாது"
 
-#: ../mail/mail-stub-exchange.c:2499
+#: ../mail/mail-stub-exchange.c:2804
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -414,7 +428,7 @@ msgstr ""
 "<%s> ஐ பெறுநர் முகவரியாக பயன்படுத்த\n"
 "உங்கள் கணக்கிற்கு ஆதரவு இல்லை"
 
-#: ../mail/mail-stub-exchange.c:2511
+#: ../mail/mail-stub-exchange.c:2816
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -422,17 +436,17 @@ msgstr ""
 "செய்தியை அனுப்ப முடியவில்லை \n"
 "இதற்கு காரணம் உங்கள் கணக்கில் இடம் இல்லை"
 
-#: ../mail/mail-stub-exchange.c:2515
+#: ../mail/mail-stub-exchange.c:2820
 msgid "Could not send message"
 msgstr "செய்தியை அனுப்ப முடியவில்லை"
 
-#: ../mail/mail-stub-exchange.c:2538 ../mail/mail-stub-exchange.c:2591
-#: ../mail/mail-stub-exchange.c:2656 ../mail/mail-stub-exchange.c:2707
-#: ../mail/mail-stub-exchange.c:2771
+#: ../mail/mail-stub-exchange.c:2843 ../mail/mail-stub-exchange.c:2896
+#: ../mail/mail-stub-exchange.c:2961 ../mail/mail-stub-exchange.c:3012
+#: ../mail/mail-stub-exchange.c:3076
 msgid "Generic error"
 msgstr "பொதுவான பிழை"
 
-#: ../mail/mail-stub-exchange.c:2542
+#: ../mail/mail-stub-exchange.c:2847
 msgid "Folder already exists"
 msgstr "அடைவு ஏற்கெனவே உள்ளது"
 
@@ -455,7 +469,8 @@ msgid ""
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
 "எக்ஸேஞ் சேவகனுடன் இணைக்க முடியவில்லை\n"
-"URL சரியாக உள்ளதா என பார்க்கவும்(\"%s\" ஐ  \"%s\" க்கு பதில் முயற்சிக்கவும்?). மீண்டும் முயலவும்."
+"URL சரியாக உள்ளதா என பார்க்கவும்(\"%s\" ஐ  \"%s\" க்கு பதில் முயற்சிக்கவும்?). மீண்டும் "
+"முயலவும்."
 
 #: ../storage/exchange-autoconfig-wizard.c:219
 msgid ""
