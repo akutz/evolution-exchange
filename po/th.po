@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange 2.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-31 16:08+0700\n"
-"PO-Revision-Date: 2007-05-31 16:09+0700\n"
+"POT-Creation-Date: 2007-07-21 20:13+0700\n"
+"PO-Revision-Date: 2007-07-21 20:16+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
-"Language-Team: Thai <l10n@opentle.org>\n"
+"Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -32,23 +32,24 @@ msgstr ""
 "คีย์นี้จะมีผลก็ต่อเมื่อคุณได้เปิดการทำแคชแบบออฟไลน์สำหรับ GAL ไว้เท่านั้น"
 
 #: addressbook/e-book-backend-exchange.c:1880
-#: addressbook/e-book-backend-gal.c:1548 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-gal.c:1796 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "กำลังค้นหา..."
 
-#: addressbook/e-book-backend-gal.c:265
+#: addressbook/e-book-backend-gal.c:301
+#: addressbook/e-book-backend-gal.c:326
 msgid "Reconnecting to LDAP server..."
 msgstr "กำลังเชื่อมต่อใหม่ไปยังเซิร์ฟเวอร์ LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1385
+#: addressbook/e-book-backend-gal.c:1585
 msgid "Receiving LDAP search results..."
 msgstr "กำลังรับผลการค้นหา LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1571
+#: addressbook/e-book-backend-gal.c:1823
 msgid "Error performing search"
 msgstr "เกิดข้อผิดพลาดขณะค้นหา"
 
-#: calendar/e-cal-backend-exchange-calendar.c:2014
+#: calendar/e-cal-backend-exchange-calendar.c:2088
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -57,65 +58,75 @@ msgstr ""
 "ไม่สามารถจัดตารางเวลาสำหรับทรัพยากร '%s' เพื่อใช้ในการประชุมแบบเวียนซ้ำได้\n"
 "คุณจะต้องจองการประชุมแต่ละครั้งแยกจากกัน"
 
-#: calendar/e-cal-backend-exchange-calendar.c:2032
+#: calendar/e-cal-backend-exchange-calendar.c:2106
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "ทรัพยากร '%s'  ไม่ว่างระหว่างช่วงเวลาที่เลือก"
 
-#: calendar/e-cal-backend-exchange.c:377
-#: calendar/e-cal-backend-exchange.c:386
+#: calendar/e-cal-backend-exchange.c:389
+#: calendar/e-cal-backend-exchange.c:398
 msgid "Authentication failed"
 msgstr "การยืนยันตัวบุคคลไม่ผ่าน"
 
-#: calendar/e-cal-backend-exchange.c:397
+#: calendar/e-cal-backend-exchange.c:409
 msgid "Could not find the calendar"
 msgstr "หาปฏิทินไม่พบ"
 
-#: camel/camel-exchange-folder.c:223
+#: camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
 msgstr "ไม่สามารถเก็บกวาดโฟลเดอร์ขณะออฟไลน์ได้"
 
-#: camel/camel-exchange-folder.c:254
+#: camel/camel-exchange-folder.c:253
 msgid "No Subject"
 msgstr "ไม่มีชื่อเรื่อง"
 
-#: camel/camel-exchange-folder.c:409
+#: camel/camel-exchange-folder.c:408
 msgid "This message is not available in offline mode."
 msgstr "ข้อความนี้ ไม่สามารถอ่านได้ขณะออฟไลน์"
 
-#: camel/camel-exchange-folder.c:644
+#: camel/camel-exchange-folder.c:482
+#, c-format
+msgid "%s at %s on behalf of %s"
+msgstr "%s ที่ %s ในนามของ %s"
+
+#: camel/camel-exchange-folder.c:488
+#, c-format
+msgid "%s on behalf of %s"
+msgstr "%s ในนามของ %s"
+
+#: camel/camel-exchange-folder.c:680
 msgid "Moving messages"
 msgstr "กำลังย้ายข้อความ"
 
-#: camel/camel-exchange-folder.c:645
+#: camel/camel-exchange-folder.c:681
 msgid "Copying messages"
 msgstr "กำลังคัดลอกข้อความ"
 
-#: camel/camel-exchange-folder.c:1016
+#: camel/camel-exchange-folder.c:1054
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "ไม่สามารถสร้างไดเรกทอรี %s: %s"
 
-#: camel/camel-exchange-folder.c:1026
+#: camel/camel-exchange-folder.c:1064
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "ไม่สามารถโหลดข้อมูลสรุปสำหรับ %s ได้"
 
-#: camel/camel-exchange-folder.c:1034
+#: camel/camel-exchange-folder.c:1072
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "ไม่สามารถสร้างแคชสำหรับ %s"
 
-#: camel/camel-exchange-folder.c:1044
+#: camel/camel-exchange-folder.c:1082
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "ไม่สามารถสร้างวารสารสำหรับ %s"
 
-#: camel/camel-exchange-folder.c:1089
+#: camel/camel-exchange-folder.c:1130
 msgid "Scanning for changed messages"
 msgstr "กำลังตรวจหาข้อความที่เปลี่ยนแปลง"
 
-#: camel/camel-exchange-folder.c:1115
+#: camel/camel-exchange-folder.c:1163
 msgid "Fetching summary information for new messages"
 msgstr "กำลังดึงข้อมูลสรุปสำหรับข้อความใหม่"
 
@@ -123,10 +134,10 @@ msgstr "กำลังดึงข้อมูลสรุปสำหรับ
 msgid "No folder name found\n"
 msgstr "ไม่พบชื่อโฟลเดอร์\n"
 
-#: camel/camel-exchange-journal.c:373 mail/mail-stub-exchange.c:2569
-#: mail/mail-stub-exchange.c:2613 mail/mail-stub-exchange.c:2648
-#: mail/mail-stub-exchange.c:2675 mail/mail-stub-exchange.c:2728
-#: mail/mail-stub-exchange.c:2750
+#: camel/camel-exchange-journal.c:373 mail/mail-stub-exchange.c:2874
+#: mail/mail-stub-exchange.c:2918 mail/mail-stub-exchange.c:2953
+#: mail/mail-stub-exchange.c:2980 mail/mail-stub-exchange.c:3033
+#: mail/mail-stub-exchange.c:3055
 msgid "Folder doesn't exist"
 msgstr "ไม่มีโฟลเดอร์นั้นอยู่"
 
@@ -271,15 +282,15 @@ msgstr "ไม่สามารถเลิกบอกรับข้อมู
 msgid "Cannot get folder info in offline mode."
 msgstr "ไม่สามารถอ่านข้อมูลโฟลเดอร์ขณะออฟไลน์ได้"
 
-#: camel/camel-exchange-store.c:793
+#: camel/camel-exchange-store.c:787
 msgid "Cannot create folder in offline mode."
 msgstr "ไม่สามารถสร้างโฟลเดอร์ขณะออฟไลน์ได้"
 
-#: camel/camel-exchange-store.c:820
+#: camel/camel-exchange-store.c:814
 msgid "Cannot delete folder in offline mode."
 msgstr "ไม่สามารถลบโฟลเดอร์ขณะออฟไลน์ได้"
 
-#: camel/camel-exchange-store.c:836
+#: camel/camel-exchange-store.c:830
 msgid "Cannot rename folder in offline mode."
 msgstr "ไม่สามารถเปลี่ยนชื่อโฟลเดอร์ขณะออฟไลน์ได้"
 
@@ -330,87 +341,87 @@ msgstr "การเชื่อมต่อไปยัง %s ถูกตั�
 msgid "Error communicating with %s: %s"
 msgstr "เกิดข้อผิดพลาดขณะสื่อสารกับ %s: %s"
 
-#: mail/mail-stub-exchange.c:257 mail/mail-stub-exchange.c:755
+#: mail/mail-stub-exchange.c:264 mail/mail-stub-exchange.c:946
 msgid "No such folder"
 msgstr "ไม่มีโฟลเดอร์ดังกล่าว"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: mail/mail-stub-exchange.c:280 mail/mail-stub-exchange.c:1390
-#: mail/mail-stub-exchange.c:2546 mail/mail-stub-exchange.c:2586
-#: mail/mail-stub-exchange.c:2652 mail/mail-stub-exchange.c:2702
-#: mail/mail-stub-exchange.c:2765
+#: mail/mail-stub-exchange.c:287 mail/mail-stub-exchange.c:1595
+#: mail/mail-stub-exchange.c:2851 mail/mail-stub-exchange.c:2891
+#: mail/mail-stub-exchange.c:2957 mail/mail-stub-exchange.c:3007
+#: mail/mail-stub-exchange.c:3070
 msgid "Permission denied"
 msgstr "ไม่ได้รับอนุญาต"
 
-#: mail/mail-stub-exchange.c:578 mail/mail-stub-exchange.c:600
-msgid "Could not open folder: Permission denied"
-msgstr "ไม่สามารถเปิดโฟลเดอร์: ไม่ได้รับอนุญาต"
-
-#: mail/mail-stub-exchange.c:584 mail/mail-stub-exchange.c:707
+#: mail/mail-stub-exchange.c:768 mail/mail-stub-exchange.c:860
 msgid "Could not open folder"
 msgstr "ไม่สามารถเปิดโฟลเดอร์"
 
-#: mail/mail-stub-exchange.c:764
+#: mail/mail-stub-exchange.c:854 mail/mail-stub-exchange.c:876
+msgid "Could not open folder: Permission denied"
+msgstr "ไม่สามารถเปิดโฟลเดอร์: ไม่ได้รับอนุญาต"
+
+#: mail/mail-stub-exchange.c:955
 msgid "Could not create folder."
 msgstr "ไม่สามารถสร้างโฟลเดอร์"
 
-#: mail/mail-stub-exchange.c:844
+#: mail/mail-stub-exchange.c:1043
 msgid "Could not open Deleted Items folder"
 msgstr "ไม่สามารถเปิดโฟลเดอร์ \"รายการที่ลบ\" ได้"
 
-#: mail/mail-stub-exchange.c:1175 mail/mail-stub-exchange.c:1216
+#: mail/mail-stub-exchange.c:1374 mail/mail-stub-exchange.c:1415
 msgid "Could not get new messages"
 msgstr "ไม่สามารถอ่านข้อความใหม่ได้"
 
-#: mail/mail-stub-exchange.c:1386
+#: mail/mail-stub-exchange.c:1591
 msgid "Could not empty Deleted Items folder"
 msgstr "ไม่สามารถเทขยะในโฟลเดอร์ \"รายการที่ลบ\" ทิ้งได้"
 
-#: mail/mail-stub-exchange.c:1463
+#: mail/mail-stub-exchange.c:1668
 msgid "Could not append message; mailbox is over quota"
 msgstr "ไม่สามารถเพิ่มข้อความต่อท้ายได้; กล่องจดหมายโตเกินขนาดที่อนุญาต"
 
-#: mail/mail-stub-exchange.c:1464
+#: mail/mail-stub-exchange.c:1669
 msgid "Could not append message"
 msgstr "ไม่สามารถเพิ่มข้อความต่อท้าย"
 
-#: mail/mail-stub-exchange.c:2016
+#: mail/mail-stub-exchange.c:2324
 msgid "No such message"
 msgstr "ไม่มีข้อความดังกล่าว"
 
-#: mail/mail-stub-exchange.c:2069
+#: mail/mail-stub-exchange.c:2386
 msgid "Message has been deleted"
 msgstr "ข้อความถูกลบไปแล้ว"
 
-#: mail/mail-stub-exchange.c:2071
+#: mail/mail-stub-exchange.c:2388
 msgid "Error retrieving message"
 msgstr "เกิดข้อผิดพลาดขณะรับข้อความ"
 
-#: mail/mail-stub-exchange.c:2113
+#: mail/mail-stub-exchange.c:2430
 msgid "Mailbox does not support full-text searching"
 msgstr "กล่องจดหมายไม่สนับสนุนการค้นหาแบบ full text"
 
-#: mail/mail-stub-exchange.c:2211
+#: mail/mail-stub-exchange.c:2528
 msgid "Unable to move/copy messages"
 msgstr "ไม่สามารถย้ายหรือคัดลอกข้อความ"
 
-#: mail/mail-stub-exchange.c:2461
+#: mail/mail-stub-exchange.c:2766
 msgid "No mail submission URI for this mailbox"
 msgstr "ไม่มี URI ส่งเมลสำหรับกล่องเมลนี้"
 
-#: mail/mail-stub-exchange.c:2497
+#: mail/mail-stub-exchange.c:2802
 msgid "Server won't accept mail via Exchange transport"
 msgstr "เซิร์ฟเวอร์ไม่รับเมลผ่าน Exchange"
 
-#: mail/mail-stub-exchange.c:2499
+#: mail/mail-stub-exchange.c:2804
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
 msgstr "บัญชีของคุณไม่มีสิทธิ์ใช้ <%s> เป็นที่อยู่ส่งเมล"
 
-#: mail/mail-stub-exchange.c:2511
+#: mail/mail-stub-exchange.c:2816
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -418,17 +429,17 @@ msgstr ""
 "ไม่สามารถส่งข้อความ\n"
 "อาจหมายความว่าบัญชีของคุณกำลังเก็บข้อมูลเกินขนาดที่อนุญาต"
 
-#: mail/mail-stub-exchange.c:2515
+#: mail/mail-stub-exchange.c:2820
 msgid "Could not send message"
 msgstr "ไม่สามารถส่งข้อความได้"
 
-#: mail/mail-stub-exchange.c:2538 mail/mail-stub-exchange.c:2591
-#: mail/mail-stub-exchange.c:2656 mail/mail-stub-exchange.c:2707
-#: mail/mail-stub-exchange.c:2771
+#: mail/mail-stub-exchange.c:2843 mail/mail-stub-exchange.c:2896
+#: mail/mail-stub-exchange.c:2961 mail/mail-stub-exchange.c:3012
+#: mail/mail-stub-exchange.c:3076
 msgid "Generic error"
 msgstr "ข้อผิดพลาดทั่วไป"
 
-#: mail/mail-stub-exchange.c:2542
+#: mail/mail-stub-exchange.c:2847
 msgid "Folder already exists"
 msgstr "มีโฟลเดอร์อยู่แล้ว"
 
