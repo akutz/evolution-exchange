@@ -1,3 +1,4 @@
+# translation of de.po to
 # German evolution-exchange translation.
 # Copyright (C) 2003 Ximian, Inc.
 # Copyright (C) 2004, 2005 Novell, Inc.
@@ -5,18 +6,19 @@
 # Christian Neumair <chris@gnome-de.org>, 2004.
 # Frank Arnold <frank@scirocco-5v-turbo.de>, 2005, 2006.
 # Hendrik Richter <hendrikr@gnome.org>, 2005, 2006, 2007.
-# 
+# Andre Klapper <ak-47@gmx.net>, 2007.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: evolution-exchange\n"
+"Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-15 22:39+0100\n"
-"PO-Revision-Date: 2007-05-23 13:02+0200\n"
-"Last-Translator: Hendrik Richter <hendrikr@gnome.org>\n"
-"Language-Team: German <gnome-de@gnome.org>\n"
+"POT-Creation-Date: 2007-07-22 01:13+0200\n"
+"PO-Revision-Date: 2007-07-22 02:57+0200\n"
+"Last-Translator: Andre Klapper <ak-47@gmx.net>\n"
+"Language-Team:  German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
 msgid "Specifies the time interval to refresh the GAL Cache."
@@ -28,47 +30,34 @@ msgstr ""
 msgid ""
 "This key specifies the number of days interval between the GAL cache "
 "refresh. Set this value to zero, if you don't want to update GAL and use the "
-"curernt cache forever. This will work only if you have enabled offline "
+"current cache forever. This will work only if you have enabled offline "
 "caching for GAL."
-msgstr "Dieser Schlüssel legt die Anzahl an Tagen fest, die zwischen einzelnen Auffrischen "
-"des GAL-Speichers liegt. "
-"Setzen Sie diesen Wert auf 0, wenn GAL nicht aktualisiert werden soll und stattdessen den "
-"vorhandenen Zwischenspeicher zu verwenden. "
-"Dies wird nur funktionieren, wenn Sie den Offline-Speicher von GAL aktiviert haben."
+msgstr ""
+"Dieser Schlüssel legt die Anzahl an Tagen fest, die zwischen einzelnen "
+"Auffrischen des GAL-Speichers liegt. Setzen Sie diesen Wert auf 0, wenn GAL "
+"nicht aktualisiert werden soll und stattdessen den vorhandenen "
+"Zwischenspeicher zu verwenden. Dies wird nur funktionieren, wenn Sie den "
+"Offline-Speicher von GAL aktiviert haben."
 
-#: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1716 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:1880
+#: ../addressbook/e-book-backend-gal.c:1796 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Suche läuft …"
 
-#: ../addressbook/e-book-backend-gal.c:290
+#: ../addressbook/e-book-backend-gal.c:301
+#: ../addressbook/e-book-backend-gal.c:326
 msgid "Reconnecting to LDAP server..."
 msgstr "Verbindung mit LDAP-Server wird erneut hergestellt …"
 
-#: ../addressbook/e-book-backend-gal.c:1513
+#: ../addressbook/e-book-backend-gal.c:1585
 msgid "Receiving LDAP search results..."
 msgstr "LDAP-Suchergebnisse werden empfangen …"
 
-#: ../addressbook/e-book-backend-gal.c:1743
+#: ../addressbook/e-book-backend-gal.c:1823
 msgid "Error performing search"
 msgstr "Fehler beim Ausführen der Suche"
 
-#: ../addressbook/e-book-backend-gal.c:1869
-#, c-format
-msgid "Internal error.\n"
-msgstr "Interner Fehler.\n"
-
-#: ../addressbook/e-book-backend-gal.c:1879
-#, c-format
-msgid "Paged results response control could not be decoded.\n"
-msgstr "Zwischengespeicherte Antwortsteuerung konnte nicht dekodiert werden.\n"
-
-#: ../addressbook/e-book-backend-gal.c:1885
-#, c-format
-msgid "Invalid entries estimate in paged results response.\n"
-msgstr "Es wurden ungültige Einträge in den gespeicherten Antworten erhalten.\n"
-
-#: ../calendar/e-cal-backend-exchange-calendar.c:2015
+#: ../calendar/e-cal-backend-exchange-calendar.c:2088
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -78,17 +67,17 @@ msgstr ""
 "werden.\n"
 "Sie müssen jede Besprechung separat ansetzen."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2033
+#: ../calendar/e-cal-backend-exchange-calendar.c:2106
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Die Ressource »%s« ist während der gewählten Zeitperiode beschäftigt."
 
-#: ../calendar/e-cal-backend-exchange.c:375
-#: ../calendar/e-cal-backend-exchange.c:384
+#: ../calendar/e-cal-backend-exchange.c:389
+#: ../calendar/e-cal-backend-exchange.c:398
 msgid "Authentication failed"
 msgstr "Legitimation gescheitert"
 
-#: ../calendar/e-cal-backend-exchange.c:395
+#: ../calendar/e-cal-backend-exchange.c:409
 msgid "Could not find the calendar"
 msgstr "Kalender konnte nicht gefunden werden"
 
@@ -100,142 +89,152 @@ msgstr "Im Offline-Modus kann nicht gesäubert werden."
 msgid "No Subject"
 msgstr "Kein Betreff"
 
-#: ../camel/camel-exchange-folder.c:407
+#: ../camel/camel-exchange-folder.c:408
 msgid "This message is not available in offline mode."
 msgstr "Diese Nachricht ist im Offline-Modus nicht verfügbar."
 
-#: ../camel/camel-exchange-folder.c:642
+#: ../camel/camel-exchange-folder.c:482
+#, c-format
+msgid "%s at %s on behalf of %s"
+msgstr "%s@%s im Namen von %s"
+
+#: ../camel/camel-exchange-folder.c:488
+#, c-format
+msgid "%s on behalf of %s"
+msgstr "%s im Namen von %s"
+
+#: ../camel/camel-exchange-folder.c:680
 msgid "Moving messages"
 msgstr "Nachrichten werden verschoben"
 
-#: ../camel/camel-exchange-folder.c:643
+#: ../camel/camel-exchange-folder.c:681
 msgid "Copying messages"
 msgstr "Nachrichten werden kopiert"
 
-#: ../camel/camel-exchange-folder.c:1014
+#: ../camel/camel-exchange-folder.c:1054
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Verzeichnis %s konnte nicht angelegt werden: %s"
 
-#: ../camel/camel-exchange-folder.c:1024
+#: ../camel/camel-exchange-folder.c:1064
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Zusammenfassung für %s konnte nicht geladen werden"
 
-#: ../camel/camel-exchange-folder.c:1032
+#: ../camel/camel-exchange-folder.c:1072
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Cache für %s konnte nicht angelegt werden"
 
-#: ../camel/camel-exchange-folder.c:1042
+#: ../camel/camel-exchange-folder.c:1082
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Journal für %s konnte nicht angelegt werden"
 
-#: ../camel/camel-exchange-folder.c:1087
+#: ../camel/camel-exchange-folder.c:1130
 msgid "Scanning for changed messages"
 msgstr "Geänderte Nachrichten werden gesucht"
 
-#: ../camel/camel-exchange-folder.c:1113
+#: ../camel/camel-exchange-folder.c:1163
 msgid "Fetching summary information for new messages"
 msgstr "Zusammenfassende Informationen für neue Nachrichten werden abgerufen"
 
-#: ../camel/camel-exchange-journal.c:339
+#: ../camel/camel-exchange-journal.c:340
 msgid "No folder name found\n"
 msgstr "Keinen Ordnernamen gefunden\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2569
-#: ../mail/mail-stub-exchange.c:2613 ../mail/mail-stub-exchange.c:2648
-#: ../mail/mail-stub-exchange.c:2675 ../mail/mail-stub-exchange.c:2728
-#: ../mail/mail-stub-exchange.c:2750
+#: ../camel/camel-exchange-journal.c:373 ../mail/mail-stub-exchange.c:2874
+#: ../mail/mail-stub-exchange.c:2918 ../mail/mail-stub-exchange.c:2953
+#: ../mail/mail-stub-exchange.c:2980 ../mail/mail-stub-exchange.c:3033
+#: ../mail/mail-stub-exchange.c:3055
 msgid "Folder doesn't exist"
 msgstr "Ordner existiert nicht"
 
-#: ../camel/camel-exchange-journal.c:436
+#: ../camel/camel-exchange-journal.c:437
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
 "Nachricht konnte im Offline-Modus nicht angehängt werden: Zwischenspeicher "
 "nicht verfügbar"
 
-#: ../camel/camel-exchange-journal.c:452
+#: ../camel/camel-exchange-journal.c:453
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Nachricht konnte im Offline-Modus nicht angehängt werden: %s"
 
-#: ../camel/camel-exchange-provider.c:40
+#: ../camel/camel-exchange-provider.c:41
 msgid "Checking for New Mail"
 msgstr "Auf neue Nachrichten überprüfen"
 
-#: ../camel/camel-exchange-provider.c:42 ../camel/camel-exchange-provider.c:66
+#: ../camel/camel-exchange-provider.c:43 ../camel/camel-exchange-provider.c:67
 msgid "C_heck for new messages in all folders"
 msgstr "A_lle Ordner auf neue Nachrichten prüfen"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:50
+#: ../camel/camel-exchange-provider.c:51
 msgid "Windows User_name:"
 msgstr "Windows-Benutzer_name:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:56
 msgid "Global Address List / Active Directory"
 msgstr "Globale Adressliste/Active-Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:59
+#: ../camel/camel-exchange-provider.c:60
 msgid "_Global Catalog server name:"
 msgstr "_Globale-Catalog-Server-Name:"
 
-#: ../camel/camel-exchange-provider.c:61
+#: ../camel/camel-exchange-provider.c:62
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "Anzahl der GAL-Antworten be_grenzen: %s"
 
-#: ../camel/camel-exchange-provider.c:64
+#: ../camel/camel-exchange-provider.c:65
 msgid "Options"
 msgstr "Optionen"
 
-#: ../camel/camel-exchange-provider.c:68
+#: ../camel/camel-exchange-provider.c:69
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "Häufigkeit der _Passwortablauf-Warnung: %s"
 
-#: ../camel/camel-exchange-provider.c:70
+#: ../camel/camel-exchange-provider.c:71
 msgid "Automatically synchroni_ze account locally"
 msgstr "Konto automatisch lokal s_ynchronisieren"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:73
+#: ../camel/camel-exchange-provider.c:74
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "Filter auf neue Nachrichten im Eingang dieses Servers an_wenden"
 
-#: ../camel/camel-exchange-provider.c:75
+#: ../camel/camel-exchange-provider.c:76
 msgid "Check new messages for _Junk contents"
 msgstr "Neue Nachrichten auf _unerwünschten Inhalt prüfen"
 
-#: ../camel/camel-exchange-provider.c:77
+#: ../camel/camel-exchange-provider.c:78
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Ausschließlich den _Eingang auf unerwünschte Nachrichten prüfen"
 
-#: ../camel/camel-exchange-provider.c:87
+#: ../camel/camel-exchange-provider.c:88
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:89
+#: ../camel/camel-exchange-provider.c:90
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr ""
 "Für die Behandlung von E-Mails (und anderen Daten) auf Microsoft Exchange-"
 "Servern"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:105
+#: ../camel/camel-exchange-provider.c:106
 msgid "Secure Password"
 msgstr "Sicheres Passwort"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:108
+#: ../camel/camel-exchange-provider.c:109
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -243,11 +242,11 @@ msgstr ""
 "Diese Option stellt eine Verbindung mit dem Exchange-Server her, wobei eine "
 "sichere Passwort-Legitimation (NTLM) verwendet wird."
 
-#: ../camel/camel-exchange-provider.c:116
+#: ../camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "Klartext-Passwort"
 
-#: ../camel/camel-exchange-provider.c:118
+#: ../camel/camel-exchange-provider.c:119
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -299,141 +298,139 @@ msgstr "Ordner können im Offline-Modus nicht abbestellt werden."
 msgid "Cannot get folder info in offline mode."
 msgstr "Ordnerinformationen können im Offline-Modus nicht abgerufen werden."
 
-#: ../camel/camel-exchange-store.c:785
+#: ../camel/camel-exchange-store.c:787
 msgid "Cannot create folder in offline mode."
 msgstr "Ordner können im Offline-Modus nicht erstellt werden."
 
-#: ../camel/camel-exchange-store.c:812
+#: ../camel/camel-exchange-store.c:814
 msgid "Cannot delete folder in offline mode."
 msgstr "Ordner können im Offline-Modus nicht gelöscht werden."
 
-#: ../camel/camel-exchange-store.c:828
+#: ../camel/camel-exchange-store.c:830
 msgid "Cannot rename folder in offline mode."
 msgstr "Ordner können im Offline-Modus nicht umbenannt werden."
 
-#: ../camel/camel-exchange-transport.c:110
+#: ../camel/camel-exchange-transport.c:111
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr ""
-"Exchange-Transport kann nur mit Exchange-E-Mail-Quelle verwendet werden"
+msgstr "Exchange-Transport kann nur mit Exchange-E-Mail-Quelle verwendet werden"
 
-#: ../camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-transport.c:122
 msgid "Cannot send message: one or more invalid recipients"
-msgstr ""
-"Nachricht konnte nicht verschickt werden: Mindestens ein Empfänger ungültig"
+msgstr "Nachricht konnte nicht verschickt werden: Mindestens ein Empfänger ungültig"
 
-#: ../camel/camel-exchange-transport.c:131
+#: ../camel/camel-exchange-transport.c:132
 msgid "Could not find 'From' address in message"
 msgstr "Es konnte keine »Von«-Adresse in der Nachricht gefunden werden"
 
-#: ../camel/camel-stub.c:152
+#: ../camel/camel-stub.c:153
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Socket konnte nicht angelegt werden: %s"
 
-#: ../camel/camel-stub.c:170
+#: ../camel/camel-stub.c:171
 #, c-format
 msgid "Could not connect to %s: Please restart Evolution"
 msgstr "Verbindung mit %s gescheitert: Bitte starten Sie Evolution neu"
 
-#: ../camel/camel-stub.c:175
+#: ../camel/camel-stub.c:176
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Verbindung mit %s gescheitert: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:206
 #, c-format
 msgid "Path too long: %s"
 msgstr "Pfad zu lang: %s"
 
-#: ../camel/camel-stub.c:231
+#: ../camel/camel-stub.c:232
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Status-Thread konnte nicht gestartet werden: %s"
 
-#: ../camel/camel-stub.c:485
+#: ../camel/camel-stub.c:486
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Verbindung mit %s verloren"
 
-#: ../camel/camel-stub.c:489
+#: ../camel/camel-stub.c:490
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Fehler beim Kommunizieren mit %s: %s"
 
-#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
+#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:946
 msgid "No such folder"
 msgstr "Ordner existiert nicht"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2546 ../mail/mail-stub-exchange.c:2586
-#: ../mail/mail-stub-exchange.c:2652 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2765
+#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1595
+#: ../mail/mail-stub-exchange.c:2851 ../mail/mail-stub-exchange.c:2891
+#: ../mail/mail-stub-exchange.c:2957 ../mail/mail-stub-exchange.c:3007
+#: ../mail/mail-stub-exchange.c:3070
 msgid "Permission denied"
 msgstr "Erlaubnis verweigert"
 
-#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
-msgid "Could not open folder: Permission denied"
-msgstr "Ordner konnte nicht geöffnet werden: Zugriff verweigert"
-
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
+#: ../mail/mail-stub-exchange.c:768 ../mail/mail-stub-exchange.c:860
 msgid "Could not open folder"
 msgstr "Ordner konnte nicht geöffnet werden"
 
-#: ../mail/mail-stub-exchange.c:764
+#: ../mail/mail-stub-exchange.c:854 ../mail/mail-stub-exchange.c:876
+msgid "Could not open folder: Permission denied"
+msgstr "Ordner konnte nicht geöffnet werden: Zugriff verweigert"
+
+#: ../mail/mail-stub-exchange.c:955
 msgid "Could not create folder."
 msgstr "Ordner konnte nicht angelegt werden."
 
-#: ../mail/mail-stub-exchange.c:844
+#: ../mail/mail-stub-exchange.c:1043
 msgid "Could not open Deleted Items folder"
 msgstr "Ordner »Gelöschte Objekte« konnte nicht geöffnet werden"
 
-#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
+#: ../mail/mail-stub-exchange.c:1374 ../mail/mail-stub-exchange.c:1415
 msgid "Could not get new messages"
 msgstr "Neue Nachrichten konnten nicht abgerufen werden"
 
-#: ../mail/mail-stub-exchange.c:1386
+#: ../mail/mail-stub-exchange.c:1591
 msgid "Could not empty Deleted Items folder"
 msgstr "Ordner »Gelöschte Objekte« konnte nicht geleert werden"
 
-#: ../mail/mail-stub-exchange.c:1463
+#: ../mail/mail-stub-exchange.c:1668
 msgid "Could not append message; mailbox is over quota"
 msgstr "Nachricht konnte nicht angehängt werden; Mailbox ist über Limit"
 
-#: ../mail/mail-stub-exchange.c:1464
+#: ../mail/mail-stub-exchange.c:1669
 msgid "Could not append message"
 msgstr "Nachricht konnte nicht angehängt werden"
 
-#: ../mail/mail-stub-exchange.c:2016
+#: ../mail/mail-stub-exchange.c:2324
 msgid "No such message"
 msgstr "Nachricht existiert nicht"
 
-#: ../mail/mail-stub-exchange.c:2069
+#: ../mail/mail-stub-exchange.c:2386
 msgid "Message has been deleted"
 msgstr "Nachricht wurde gelöscht"
 
-#: ../mail/mail-stub-exchange.c:2071
+#: ../mail/mail-stub-exchange.c:2388
 msgid "Error retrieving message"
 msgstr "Fehler beim Abrufen der Nachricht"
 
-#: ../mail/mail-stub-exchange.c:2113
+#: ../mail/mail-stub-exchange.c:2430
 msgid "Mailbox does not support full-text searching"
 msgstr "Mailbox unterstützt keine Volltextsuche"
 
-#: ../mail/mail-stub-exchange.c:2211
+#: ../mail/mail-stub-exchange.c:2528
 msgid "Unable to move/copy messages"
 msgstr "Nachrichten konnten nicht verschoben/kopiert werden"
 
-#: ../mail/mail-stub-exchange.c:2461
+#: ../mail/mail-stub-exchange.c:2766
 msgid "No mail submission URI for this mailbox"
 msgstr "Keine E-Mail-Übertragungs-URI für diese Mailbox"
 
-#: ../mail/mail-stub-exchange.c:2497
+#: ../mail/mail-stub-exchange.c:2802
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Server akzeptiert keine E-Mails über Exchange-Transport"
 
-#: ../mail/mail-stub-exchange.c:2499
+#: ../mail/mail-stub-exchange.c:2804
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -442,7 +439,7 @@ msgstr ""
 "Ihr Konto berechtigt Sie nicht, <%s> als\n"
 "Von-Adresse zu verwenden."
 
-#: ../mail/mail-stub-exchange.c:2511
+#: ../mail/mail-stub-exchange.c:2816
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -450,17 +447,17 @@ msgstr ""
 "Nachricht konnte nicht verschickt werden.\n"
 "Dies kann bedeuten, dass Ihr Konto über dem Limit ist."
 
-#: ../mail/mail-stub-exchange.c:2515
+#: ../mail/mail-stub-exchange.c:2820
 msgid "Could not send message"
 msgstr "Nachricht konnte nicht verschickt werden"
 
-#: ../mail/mail-stub-exchange.c:2538 ../mail/mail-stub-exchange.c:2591
-#: ../mail/mail-stub-exchange.c:2656 ../mail/mail-stub-exchange.c:2707
-#: ../mail/mail-stub-exchange.c:2771
+#: ../mail/mail-stub-exchange.c:2843 ../mail/mail-stub-exchange.c:2896
+#: ../mail/mail-stub-exchange.c:2961 ../mail/mail-stub-exchange.c:3012
+#: ../mail/mail-stub-exchange.c:3076
 msgid "Generic error"
 msgstr "Allgemeiner Fehler"
 
-#: ../mail/mail-stub-exchange.c:2542
+#: ../mail/mail-stub-exchange.c:2847
 msgid "Folder already exists"
 msgstr "Ordner existiert bereits"
 
@@ -700,8 +697,7 @@ msgstr ""
 msgid ""
 "Ximian Connector has encountered a problem configuring your Exchange "
 "account.\n"
-msgstr ""
-"Beim Konfigurieren Ihres Exchange-Kontos ist ein Problem aufgetreten.\n"
+msgstr "Beim Konfigurieren Ihres Exchange-Kontos ist ein Problem aufgetreten.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -734,8 +730,7 @@ msgstr ""
 
 #: ../storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
-msgstr ""
-"Die beiden Passworte stimmen nicht überein. Bitte geben Sie sie erneut ein."
+msgstr "Die beiden Passworte stimmen nicht überein. Bitte geben Sie sie erneut ein."
 
 #: ../storage/exchange-change-password.glade.h:2
 msgid "Change Password"
@@ -1011,12 +1006,10 @@ msgstr "Ordner eines anderen Benutzers _abonnieren. …"
 
 #: ../storage/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
-msgstr ""
-"Einen Ordner auf dem Server abonnieren, der einem anderen Benutzer gehört"
+msgstr "Einen Ordner auf dem Server abonnieren, der einem anderen Benutzer gehört"
 
 #: ../storage/ximian-connector.xml.h:6
-msgid ""
-"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
 "Einen mit »Ordner eines anderen Benutzers abonnieren« hinzugefügten Ordner "
 "abbestellen"
@@ -1047,549 +1040,3 @@ msgstr "_Nicht im Büro-Assistent"
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Ordner eines anderen Benutzers ab_bestellen"
 
-#~ msgid "No such folder."
-#~ msgstr "Ordner existiert nicht."
-
-#~ msgid "Custom"
-#~ msgstr "Benutzerdefiniert"
-
-#~ msgid "Permissions for %s"
-#~ msgstr "Berechtigungen für %s"
-
-#~ msgid ""
-#~ "No Global Catalog server configured for this account.\n"
-#~ "Unable to edit delegates."
-#~ msgstr ""
-#~ "Kein »Global Catalog«-Server für dieses Konto konfiguriert.\n"
-#~ "Delegaten können nicht bearbeitet werden."
-
-#~ msgid ""
-#~ "Could not read folder permissions.\n"
-#~ "Unable to edit delegates."
-#~ msgstr ""
-#~ "Ordnerberechtigungen konnten nicht gelesen werden.\n"
-#~ "Delegaten können nicht bearbeitet werden."
-
-#~ msgid ""
-#~ "Could not determine folder permissions for delegates.\n"
-#~ "Unable to edit delegates."
-#~ msgstr ""
-#~ "Ordnerberechtigungen für Delegaten konnten nicht bestimmt werden.\n"
-#~ "Delegaten können nicht bearbeitet werden."
-
-#~ msgid "Delegate To:"
-#~ msgstr "Delegieren an:"
-
-#~ msgid "Delegate To"
-#~ msgstr "Delegieren an"
-
-#~ msgid "Could not make %s a delegate"
-#~ msgstr "%s konnte nicht als Delegat benannt werden"
-
-#~ msgid "You cannot make yourself your own delegate"
-#~ msgstr "Sie können sich nicht selbst als Ihren eigenen Delegaten angeben."
-
-#~ msgid "%s is already a delegate"
-#~ msgstr "%s ist bereits ein Delegat"
-
-#~ msgid "Remove the delegate %s?"
-#~ msgstr "Den Delegaten %s entfernen?"
-
-#~ msgid "Could not access Active Directory"
-#~ msgstr "Zugriff auf Active Directory gescheitert"
-
-#~ msgid "Could not find self in Active Directory"
-#~ msgstr "Eigener Eintrag wurde in Active Directory nicht gefunden"
-
-#~ msgid "Could not find delegate %s in Active Directory"
-#~ msgstr "Delegat %s wurde in Active Directory nicht gefunden"
-
-#~ msgid "Could not remove delegate %s"
-#~ msgstr "Delegat %s konnte nicht entfernt werden"
-
-#~ msgid "Could not update list of delegates."
-#~ msgstr "Liste der Delegaten konnte nicht aktualisiert werden."
-
-#~ msgid "Could not add delegate %s"
-#~ msgstr "Delegat %s konnte nicht hinzugefügt werden"
-
-#~ msgid ""
-#~ "Failed to update delegates:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Aktualisieren der Delegaten fehlgeschlagen:\n"
-#~ "%s"
-
-#~ msgid "Name"
-#~ msgstr "Name"
-
-#~ msgid "Error reading delegates list."
-#~ msgstr "Fehler beim Lesen der Delegatenliste."
-
-#~ msgid "Could not read folder permissions"
-#~ msgstr "Ordnerberechtigungen konnten nicht gelesen werden"
-
-#~ msgid "Could not update folder permissions."
-#~ msgstr "Ordnerberechtigungen konnten nicht aktualisiert werden."
-
-#~ msgid "Could not update folder permissions. %s"
-#~ msgstr "Ordner-Berechtigungen konnten nicht aktualisiert werden. %s"
-
-#~ msgid "(Permission denied.)"
-#~ msgstr "(Erlaubnis verweigert.)"
-
-#~ msgid ""
-#~ "Unable to add user to access control list:\n"
-#~ "No Global Catalog server is configured for this account."
-#~ msgstr ""
-#~ "Benutzer konnte nicht zur Zugriffsberechtigungsliste hinzugefügt werden:\n"
-#~ "Für dieses Konto ist kein »Global Catalog«-Server konfiguriert."
-
-#~ msgid "Add User:"
-#~ msgstr "Benutzer hinzufügen:"
-
-#~ msgid "Add User"
-#~ msgstr "Benutzer hinzufügen"
-
-#~ msgid "No such user %s"
-#~ msgstr "Benutzer %s existiert nicht"
-
-#~ msgid "%s cannot be added to an access control list"
-#~ msgstr "%s kann zu keiner Zugriffsberechtigungsliste hinzugefügt werden"
-
-#~ msgid "Unknown error looking up %s"
-#~ msgstr "Unbekannter Fehler beim Nachschlagen von %s"
-
-#~ msgid "%s is already in the list"
-#~ msgstr "%s ist bereits in der Liste"
-
-#~ msgid "Role"
-#~ msgstr "Position"
-
-#~ msgid "Account Name"
-#~ msgstr "Kontoname"
-
-#~ msgid "Folder does not exist"
-#~ msgstr "Ordner existiert nicht"
-
-#~ msgid "Could not add favorite: %s"
-#~ msgstr "Favorit konnte nicht hinzugefügt werden: %s"
-
-#~ msgid "Could not remove favorite: %s"
-#~ msgstr "Favorit konnte nicht entfernt werden: %s"
-
-#~ msgid "_Rename Folder..."
-#~ msgstr "Ordner _umbenennen …"
-
-#~ msgid "_New Folder..."
-#~ msgstr "Ordner a_nlegen …"
-
-#~ msgid "_Delete Folder"
-#~ msgstr "Ordner _löschen"
-
-#~ msgid "_Add Other User's Folder..."
-#~ msgstr "Ordner eines anderen Benutzers _hinzufügen …"
-
-#~ msgid "_Remove Other User's Folder"
-#~ msgstr "Ordner eines anderen Benutzers _entfernen"
-
-#~ msgid "Add to _Favorites"
-#~ msgstr "Zu _Favoriten hinzufügen"
-
-#~ msgid "Remove from Fa_vorites"
-#~ msgstr "Aus Fa_voriten entfernen"
-
-#~ msgid "_Show Folder Sizes"
-#~ msgstr "Ordnergrößen _anzeigen"
-
-#~ msgid "Folder not marked for offline support"
-#~ msgstr "Der Ordner ist nicht für eine Offline-Unterstützung markiert"
-
-#~ msgid "Can only expunge in Deleted Items folder"
-#~ msgstr ""
-#~ "Es kann ausschließlich der Ordner »Gelöschte Objekte« gesäubert werden"
-
-#~ msgid ""
-#~ "Ximian Connector requires access to certain functionality on the Exchange "
-#~ "Server that appears to be disabled or blocked.  (This is usually "
-#~ "unintentional.)  Your Exchange Administrator will need to enable this "
-#~ "functionality in order for you to be able to use Ximian Connector.\n"
-#~ "\n"
-#~ "For information to provide to your Exchange administrator, please follow "
-#~ "the link below:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Der Ximian Connector benötigt Zugriff auf bestimmte Funktionen des "
-#~ "Exchange-Servers, die offensichtlich deaktiviert oder blockiert wurden "
-#~ "(vermutlich unabsichtlich). Ihr Exchange-Administrator muss diese "
-#~ "aktivieren, damit Sie den Ximian Connector verwenden können.\n"
-#~ "\n"
-#~ "Unter dem folgenden Link erhalten Sie die für Ihren Exchange-Adminstrator "
-#~ "notwendigen Informationen:\n"
-#~ "%s"
-
-#~ msgid "Enter password for %s"
-#~ msgstr "Geben Sie das Passwort für %s ein"
-
-#~ msgid "Enter password"
-#~ msgstr "Passwort eingeben"
-
-#~ msgid "Owner"
-#~ msgstr "Besitzer"
-
-#~ msgid "Publishing Editor"
-#~ msgstr "Veröffentlichender Editor"
-
-#~ msgid "Editor"
-#~ msgstr "Editor"
-
-#~ msgid "Publishing Author"
-#~ msgstr "Veröffentlichender Autor"
-
-#~ msgid "Author"
-#~ msgstr "Autor"
-
-#~ msgid "Non-editing Author"
-#~ msgstr "Nicht-bearbeitender Autor"
-
-#~ msgid "Reviewer"
-#~ msgstr "Prüfer"
-
-#~ msgid "Contributor"
-#~ msgstr "Mitarbeiter"
-
-#~ msgid "Select User"
-#~ msgstr "Benutzer auswählen"
-
-#~ msgid "Addressbook..."
-#~ msgstr "Adressbuch …"
-
-#~ msgid ""
-#~ "Cannot create the specified folder:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Der angegebene Ordner konnte nicht angelegt werden:\n"
-#~ "%s"
-
-#~ msgid "The specified folder name is not valid: %s"
-#~ msgstr "Der angegebene Ordnername ist ungültig: %s"
-
-#~ msgid "Create New Folder"
-#~ msgstr "Neuen Ordner anlegen"
-
-#~ msgid "Folder _name:"
-#~ msgstr "Ordner_name:"
-
-#~ msgid "Folder _type:"
-#~ msgstr "Ordner_typ:"
-
-#~ msgid "Specify where to create the folder:"
-#~ msgstr "Angeben, wo der Ordner angelegt werden soll:"
-
-#~ msgid ""
-#~ "Cannot transfer folder:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Ordner konnte nicht übertragen werden:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "Cannot delete folder:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Ordner konnte nicht gelöscht werden:\n"
-#~ "%s"
-
-#~ msgid "Really delete folder \"%s\"?"
-#~ msgstr "Ordner »%s« wirklich löschen?"
-
-#~ msgid "Delete \"%s\""
-#~ msgstr "»%s« löschen"
-
-#~ msgid ""
-#~ "Cannot rename folder:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Ordner konnte nicht umbenannt werden:\n"
-#~ "%s"
-
-#~ msgid "Rename the \"%s\" folder to:"
-#~ msgstr "Den Ordner »%s« umbenennen in:"
-
-#~ msgid "Rename Folder"
-#~ msgstr "Ordner umbenennen"
-
-#~ msgid "A folder named \"%s\" already exists. Please use a different name."
-#~ msgstr ""
-#~ "Es existiert bereits ein Ordner namens »%s«. Bitte verwenden Sie einen "
-#~ "anderen."
-
-#~ msgid "Please select a user."
-#~ msgstr "Bitte wählen Sie einen Benutzer."
-
-#~ msgid "Opening Folder"
-#~ msgstr "Ordner wird geöffnet"
-
-#~ msgid "Opening Folder \"%s\""
-#~ msgstr "Ordner »%s« wird geöffnet"
-
-#~ msgid "in \"%s\" ..."
-#~ msgstr "in »%s« …"
-
-#~ msgid "Could not open other user's folder: %s."
-#~ msgstr "Ordner eines anderen Benutzers konnte nicht geöffnet werden: %s."
-
-#~ msgid "Cannot find the specified other user's folder."
-#~ msgstr ""
-#~ "Der angegebene Ordner eines anderen Benutzers konnte nicht gefunden "
-#~ "werden."
-
-#~ msgid ""
-#~ "Cannot unsubscribe from folder:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Ordner konnte nicht abbestellt werden:\n"
-#~ "%s"
-
-#~ msgid "Really unsubscribe from folder \"%s\"?"
-#~ msgstr "Den Ordner »%s« wirklich abbestellen?"
-
-#~ msgid "Unsubscribe from \"%s\""
-#~ msgstr "Abbestellen von »%s«"
-
-#~ msgid "Open Other User's Folder"
-#~ msgstr "Ordner eines anderen Benutzers öffnen"
-
-#~ msgid "_Account:"
-#~ msgstr "_Konto:"
-
-#~ msgid "_Folder Name:"
-#~ msgstr "Ordner_name:"
-
-#~ msgid "_User:"
-#~ msgstr "_Benutzer:"
-
-#~ msgid "Checkbox"
-#~ msgstr "Kontrollkästchen"
-
-#~ msgid "Folder"
-#~ msgstr "Ordner"
-
-#~ msgid "No error"
-#~ msgstr "Kein Fehler"
-
-#~ msgid "A folder with the same name already exists"
-#~ msgstr "Es existiert bereits ein gleichnamiger Ordner"
-
-#~ msgid "The specified folder type is not valid"
-#~ msgstr "Der angegebene Ordnertyp ist ungültig"
-
-#~ msgid "I/O error"
-#~ msgstr "Ein-/Ausgabefehler"
-
-#~ msgid "Not enough space to create the folder"
-#~ msgstr "Unzureichender Speicherplatz zum Anlegen des Ordners"
-
-#~ msgid "The folder is not empty"
-#~ msgstr "Der Ordner ist nicht leer"
-
-#~ msgid "The specified folder was not found"
-#~ msgstr "Der angegebene Ordner wurde nicht gefunden"
-
-#~ msgid "Function not implemented in this storage"
-#~ msgstr "Funktion in diesem Speicher nicht implementiert"
-
-#~ msgid "Operation not supported"
-#~ msgstr "Operation nicht unterstützt"
-
-#~ msgid "The specified type is not supported in this storage"
-#~ msgstr "Der angegebene Typ wird in diesem Speicher nicht unterstützt"
-
-#~ msgid "The specified folder cannot be modified or removed"
-#~ msgstr "Der angegebene Ordner kann weder geändert noch entfernt werden"
-
-#~ msgid "Cannot make a folder a child of one of its descendants"
-#~ msgstr "Ein Ordner kann nicht in einen seiner Unterordner verschoben werden"
-
-#~ msgid "Cannot create a folder with that name"
-#~ msgstr "Es konnte kein Ordner mit diesem Namen angelegt werden"
-
-#~ msgid "This operation cannot be performed in off-line mode"
-#~ msgstr "Diese Aktion kann im Offline-Modus nicht ausgeführt werden"
-
-#~ msgid "Unknown error"
-#~ msgstr "Unbekannter Fehler"
-
-#~ msgid "*Control*F5"
-#~ msgstr "*Control*F5"
-
-#~ msgid "Evolution Exchange Component"
-#~ msgstr "Evolution Exchange-Komponente"
-
-#~ msgid "Exchange"
-#~ msgstr "Exchange"
-
-#~ msgid "_Exchange"
-#~ msgstr "_Exchange"
-
-#~ msgid "%s's Folders"
-#~ msgstr "Ordner von %s"
-
-#~ msgid "Cannot change password due to configuration problems"
-#~ msgstr ""
-#~ "Passwort konnte auf Grund von Konfigurationsproblemen nicht geändert "
-#~ "werden"
-
-#~ msgid ""
-#~ "Server rejected password because it is too weak.\n"
-#~ "Try again with a different password."
-#~ msgstr ""
-#~ "Der Server hat das Passwort verweigert, da es zu schwach ist.\n"
-#~ "Versuchen Sie es noch einmal mit einem anderen."
-
-#~ msgid "Could not change password"
-#~ msgstr "Passwort konnte nicht geändert werden"
-
-#~ msgid "Personal Folders"
-#~ msgstr "Persönliche Ordner"
-
-#~ msgid "Favorite Public Folders"
-#~ msgstr "Bevorzugte öffentliche Ordner"
-
-#~ msgid "All Public Folders"
-#~ msgstr "Alle öffentlichen Ordner"
-
-#~ msgid "Global Address List"
-#~ msgstr "Globale Adressliste"
-
-#~ msgid "Exchange Account is offline. Cannot display folders\n"
-#~ msgstr ""
-#~ "Das Exchange-Konto ist offline. Die Ordner können nicht angezeigt werden\n"
-
-#~ msgid ""
-#~ "Could not authenticate to server.\n"
-#~ "\n"
-#~ "This probably means that your server requires you\n"
-#~ "to specify the Windows domain name as part of your\n"
-#~ "username (eg, \"DOMAIN\\user\").\n"
-#~ "\n"
-#~ "Or you might have just typed your password wrong.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Legitimation am Server fehlgeschlagen.\n"
-#~ "\n"
-#~ "Dies bedeutet wahrscheinlich, dass Ihr Server verlangt, dass der\n"
-#~ "Windows-Domainname als Teil Ihres Benutzernamens angegeben\n"
-#~ "wird (z.B., »DOMAIN\\benutzer«).\n"
-#~ "\n"
-#~ "Oder Sie haben Ihr Passwort falsch eingegeben.\n"
-#~ "\n"
-
-#~ msgid "Mailbox for %s is not on this server."
-#~ msgstr "Mailbox für %s ist nicht auf diesem Server."
-
-#~ msgid ""
-#~ "The server '%s' is running Exchange 5.5 and is\n"
-#~ "therefore not compatible with Ximian Connector"
-#~ msgstr ""
-#~ "Der Server »%s« arbeitet mit Exchange 5.5 und ist\n"
-#~ "daher nicht mit dem Ximian-Connector kompatibel"
-
-#~ msgid ""
-#~ "Could not find Exchange Web Storage System at %s.\n"
-#~ "If OWA is running on a different path, you must specify that in the\n"
-#~ "account configuration dialog."
-#~ msgstr ""
-#~ "Exchange Web-Speichersystem auf %s konnte nicht gefunden werden.\n"
-#~ "Falls OWA in einem anderen Pfad läuft, müssen Sie dies im\n"
-#~ "Konfigurationsdialog des Kontos angeben."
-
-#~ msgid "No mailbox for user %s on %s.\n"
-#~ msgstr "Keine Mailbox für Benutzer %s auf %s.\n"
-
-#~ msgid "Could not connect to server %s: %s"
-#~ msgstr "Verbindung mit Server %s konnte nicht hergestellt werden: %s"
-
-#~ msgid "Could not resolve hostname"
-#~ msgstr "Rechnername konnte nicht aufgelöst werden"
-
-#~ msgid "Network error"
-#~ msgstr "Netzwerkfehler"
-
-#~ msgid ""
-#~ "You have exceeded your quota of %d %s for storing mails on this server. "
-#~ "Your current usage is : %.0f %s."
-#~ msgstr ""
-#~ "Sie haben Ihr Speicherplatz-Kontingent von %d %s zum Speichern von "
-#~ "Nachrichten auf diesem Server überschritten. Momentan belegen Sie %.0f %s."
-
-#~ msgid "You will not be able to either send or receive mails now\n"
-#~ msgstr ""
-#~ "Sie sind jetzt nicht mehr in der Lage, E-Mails zu senden oder zu "
-#~ "empfangen.\n"
-
-#~ msgid ""
-#~ "You will not be able to send mails till you clear up some space by "
-#~ "deleting some mails.\n"
-#~ msgstr ""
-#~ "Erst nachdem etwas Speicherplatz durch das Löschen einiger Nachrichten "
-#~ "freigemacht wurde, werden Sie wieder E-Mails verschicken können.\n"
-
-#~ msgid "Try to clear up some space by deleting some mails.\n"
-#~ msgstr ""
-#~ "Versuchen Sie durch Löschung einiger E-Mails etwas Platz zu schaffen.\n"
-
-#~ msgid ""
-#~ "Changes to Exchange account configuration will take\n"
-#~ "place after you quit and restart Evolution."
-#~ msgstr ""
-#~ "Änderungen in der Konfiguration des Exchange Kontos werden wirksam,\n"
-#~ "sobald Sie Evolution beendet und neu gestartet haben."
-
-#~ msgid "The Exchange account will be removed when you quit Evolution"
-#~ msgstr "Das Exchange-Konto wird entfernt, sobald Sie Evolution beenden"
-
-#~ msgid "The Exchange account will be disabled when you quit Evolution"
-#~ msgstr "Das Exchange-Konto wird deaktiviert, sobald Sie Evolution beenden"
-
-#~ msgid "Folder Name"
-#~ msgstr "Ordnername"
-
-#~ msgid "Folder Size"
-#~ msgstr "Ordnergröße"
-
-#~ msgid "Calendar"
-#~ msgstr "Kalender"
-
-#~ msgid "Contacts"
-#~ msgstr "Kontakte"
-
-#~ msgid "Deleted Items"
-#~ msgstr "Gelöschte Objekte"
-
-#~ msgid "Drafts"
-#~ msgstr "Entwürfe"
-
-#~ msgid "Inbox"
-#~ msgstr "Eingang"
-
-#~ msgid "Journal"
-#~ msgstr "Journal"
-
-#~ msgid "Notes"
-#~ msgstr "Notizen"
-
-#~ msgid "Outbox"
-#~ msgstr "Ausgang"
-
-#~ msgid "Sent Items"
-#~ msgstr "Verschickte Objekte"
-
-#~ msgid "Tasks"
-#~ msgstr "Aufgaben"
-
-#~ msgid "Could not update out-of-office state"
-#~ msgstr "Abwesenheitsstatus konnte nicht aktualisiert werden"
-
-#~ msgid "Could not read out-of-office state"
-#~ msgstr "Abwesenheitsstatus konnte nicht gelesen werden"
