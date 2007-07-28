@@ -2,40 +2,57 @@
 # Basque translation of Ximian Conector
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2005, 2006.
 #
+# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2005, 2006.
+# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-07 11:19+0000\n"
-"PO-Revision-Date: 2006-08-07 11:19+0000\n"
-"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
-"Language-Team: Basque <itzulpena@euskalgnu.org>\n"
+"POT-Creation-Date: 2007-07-28 16:22+0200\n"
+"PO-Revision-Date: 2007-07-28 16:39+0200\n"
+"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
+"Language-Team: Basque <eu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.11.4\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr "GAL cachea freskatzeko bitartea zehazten du."
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+msgid ""
+"This key specifies the number of days interval between the GAL cache "
+"refresh. Set this value to zero, if you don't want to update GAL and use the "
+"current cache forever. This will work only if you have enabled offline "
+"caching for GAL."
+msgstr ""
+"Gako honek GAL cachea freskatzeko igaroko den egun kopurua zehazten "
+"du. Ezarri zero balioarekin GAL eguneratzerik ez baduzu nahi eta uneko "
+"cachea betirako erabiltzea nahi baduzu. GALen lineaz kanpoko cachea gaituta egonez gero bakarrik funtzionatuko du."
+
+#: ../addressbook/e-book-backend-exchange.c:1880
+#: ../addressbook/e-book-backend-gal.c:1796 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Bilatzen..."
 
-#: ../addressbook/e-book-backend-gal.c:267
+#: ../addressbook/e-book-backend-gal.c:301
+#: ../addressbook/e-book-backend-gal.c:326
 msgid "Reconnecting to LDAP server..."
 msgstr "LDAP zerbitzarira berriro konektatzen..."
 
-#: ../addressbook/e-book-backend-gal.c:1363
+#: ../addressbook/e-book-backend-gal.c:1585
 msgid "Receiving LDAP search results..."
 msgstr "LDAPren bilaketaren emaitzak jasotzen..."
 
-#: ../addressbook/e-book-backend-gal.c:1522
+#: ../addressbook/e-book-backend-gal.c:1823
 msgid "Error performing search"
 msgstr "Errorea bilaketa lantzean"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2004
+#: ../calendar/e-cal-backend-exchange-calendar.c:2088
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -44,10 +61,19 @@ msgstr ""
 "Ezin da '%s' baliabidea antolatu errepikatutako bilerentzako.\n"
 "Bilera bakoitza bereiztuta erreserbatu behar duzu."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2022
+#: ../calendar/e-cal-backend-exchange-calendar.c:2106
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "'%s' baliabidea lanpetuta dago hautatutako denbora aldian"
+
+#: ../calendar/e-cal-backend-exchange.c:389
+#: ../calendar/e-cal-backend-exchange.c:398
+msgid "Authentication failed"
+msgstr "Autentifikazioak huts egin du"
+
+#: ../calendar/e-cal-backend-exchange.c:409
+msgid "Could not find the calendar"
+msgstr "Ezin izan da egutegia aurkitu"
 
 #: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
@@ -57,130 +83,148 @@ msgstr "Ezin da ezabatu lineaz kanpo moduan."
 msgid "No Subject"
 msgstr "Gairik ez"
 
-#: ../camel/camel-exchange-folder.c:407
+#: ../camel/camel-exchange-folder.c:408
 msgid "This message is not available in offline mode."
 msgstr "Mezu hau ez dago lineaz kanpo moduan eskuragarri."
 
-#: ../camel/camel-exchange-folder.c:642
+#: ../camel/camel-exchange-folder.c:482
+#, c-format
+msgid "%s at %s on behalf of %s"
+msgstr "%s(e)ngo %s %s(r)en izenean"
+
+#: ../camel/camel-exchange-folder.c:488
+#, c-format
+msgid "%s on behalf of %s"
+msgstr "%s %s(r)en izenean"
+
+#: ../camel/camel-exchange-folder.c:680
 msgid "Moving messages"
 msgstr "Mezuak lekuz aldatzea"
 
-#: ../camel/camel-exchange-folder.c:643
+#: ../camel/camel-exchange-folder.c:681
 msgid "Copying messages"
 msgstr "Mezuak kopiatzea"
 
-#: ../camel/camel-exchange-folder.c:1014
+#: ../camel/camel-exchange-folder.c:1054
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Ezin izan da %s direktorioa sortu: %s"
 
-#: ../camel/camel-exchange-folder.c:1024
+#: ../camel/camel-exchange-folder.c:1064
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Ezin izan da %s(r)en laburpena kargatu"
 
-#: ../camel/camel-exchange-folder.c:1032
+#: ../camel/camel-exchange-folder.c:1072
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Ezin izan da %s(r)en cache-a sortu"
 
-#: ../camel/camel-exchange-folder.c:1042
+#: ../camel/camel-exchange-folder.c:1082
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Ezin izan da %s(r)en egunkaria sortu"
 
-#: ../camel/camel-exchange-folder.c:1087
+#: ../camel/camel-exchange-folder.c:1130
 msgid "Scanning for changed messages"
 msgstr "Aldatutako mezuak eskaneatzen"
 
-#: ../camel/camel-exchange-folder.c:1113
+#: ../camel/camel-exchange-folder.c:1163
 msgid "Fetching summary information for new messages"
 msgstr "Mezu berrien laburnepeko datuak eskuratzea"
 
-#: ../camel/camel-exchange-journal.c:339
+#: ../camel/camel-exchange-journal.c:340
 msgid "No folder name found\n"
 msgstr "Ez da karpeta-izenik aurkitu\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
-#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
-#: ../mail/mail-stub-exchange.c:2730
+#: ../camel/camel-exchange-journal.c:373 ../mail/mail-stub-exchange.c:2874
+#: ../mail/mail-stub-exchange.c:2918 ../mail/mail-stub-exchange.c:2953
+#: ../mail/mail-stub-exchange.c:2980 ../mail/mail-stub-exchange.c:3033
+#: ../mail/mail-stub-exchange.c:3055
 msgid "Folder doesn't exist"
 msgstr "Karpeta ez dago"
 
-#: ../camel/camel-exchange-journal.c:436
+#: ../camel/camel-exchange-journal.c:437
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "Ezin da mezua erantsi lineaz kanpo moduan: cache-a ez dago eskuragarri"
 
-#: ../camel/camel-exchange-journal.c:452
+#: ../camel/camel-exchange-journal.c:453
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Ezin izan da mezua erantsi lineaz kanpo moduan: %s"
 
+#: ../camel/camel-exchange-provider.c:41
+msgid "Checking for New Mail"
+msgstr "Mezu berririk dagoen begiratzen"
+
+#: ../camel/camel-exchange-provider.c:43 ../camel/camel-exchange-provider.c:67
+msgid "C_heck for new messages in all folders"
+msgstr "_Begiratu mezu berriak karpeta guztietan"
+
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:44
+#: ../camel/camel-exchange-provider.c:51
 msgid "Windows User_name:"
 msgstr "Windows-eko erabiltzaile-izena:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:49
+#: ../camel/camel-exchange-provider.c:56
 msgid "Global Address List / Active Directory"
 msgstr "Helbide-Zerrenda Globala / Direktorio Aktiboa"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:60
 msgid "_Global Catalog server name:"
 msgstr "Katalogo-zerbitzari _globalaren izena:"
 
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:62
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "_HZGren erantzun-kopuruaren muga: %s"
 
-#: ../camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:65
 msgid "Options"
 msgstr "Aukerak"
 
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:69
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Pasahitza iraungitzeko abisu-aldia: %s"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:71
 msgid "Automatically synchroni_ze account locally"
 msgstr "_Sinkronizatu automatikoki kontua lokalki"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:74
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "_Aplikatu iragazkiak zerbitzariko sarrerako ontizko mezu berriei"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:76
 msgid "Check new messages for _Junk contents"
 msgstr "Begiratu mezu berriak eduki _baztergarriak dituzten"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:78
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Begiratu mezu ba_ztergarriak sarrerako karpetan soilik"
 
-#: ../camel/camel-exchange-provider.c:79
+#: ../camel/camel-exchange-provider.c:88
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:81
+#: ../camel/camel-exchange-provider.c:90
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Microsoft Exchange zerbitzarian posta (eta bestelako datuak) kudeatzeko"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:106
 msgid "Secure Password"
 msgstr "Pasahitz segurua"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:109
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -188,11 +232,11 @@ msgstr ""
 "Aukera honek Exchange zerbitzariarekin konektatuko zaitu  NTLM pasahitz "
 "seguruaren autentifikazioaren bidez."
 
-#: ../camel/camel-exchange-provider.c:108
+#: ../camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "Testu arrunteko pasahitza"
 
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:119
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -200,26 +244,26 @@ msgstr ""
 "Aukera honek Exchange zerbitzariarekin konektatuko zaitu testu arrunteko "
 "pasahitzaren bidez."
 
-#: ../camel/camel-exchange-store.c:308
+#: ../camel/camel-exchange-store.c:310
 #, c-format
 msgid "Exchange server %s"
 msgstr "%s Exchange zerbitzaria"
 
-#: ../camel/camel-exchange-store.c:311
+#: ../camel/camel-exchange-store.c:313
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "%s Exchange kontua %s(e)n"
 
-#: ../camel/camel-exchange-store.c:352
+#: ../camel/camel-exchange-store.c:354
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sSartu %s(r)en pasahitza"
 
-#: ../camel/camel-exchange-store.c:403
+#: ../camel/camel-exchange-store.c:405
 msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange motorraren prozesua"
 
-#: ../camel/camel-exchange-store.c:444
+#: ../camel/camel-exchange-store.c:446
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -227,156 +271,156 @@ msgstr ""
 "Ezin izan da zerbitzarian autentifikatu. (Pasahitz okerra?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:486
+#: ../camel/camel-exchange-store.c:488
 #, c-format
 msgid "No such folder %s"
 msgstr "Ez dago %s bezalako karpetarik"
 
-#: ../camel/camel-exchange-store.c:563
+#: ../camel/camel-exchange-store.c:565
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Ezin da karpetaren harpidetza egin lineaz kanpo moduan."
 
-#: ../camel/camel-exchange-store.c:580
+#: ../camel/camel-exchange-store.c:582
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Ezin da karpetatik harpidetza kendu lineaz kanpo moduan."
 
-#: ../camel/camel-exchange-store.c:695
+#: ../camel/camel-exchange-store.c:714
 msgid "Cannot get folder info in offline mode."
 msgstr "Ezin da karpetaren datuak jaso lineaz kanpo moduan."
 
-#: ../camel/camel-exchange-store.c:766
+#: ../camel/camel-exchange-store.c:787
 msgid "Cannot create folder in offline mode."
 msgstr "Ezin da karpeta sortu lineaz kanpo moduan."
 
-#: ../camel/camel-exchange-store.c:793
+#: ../camel/camel-exchange-store.c:814
 msgid "Cannot delete folder in offline mode."
 msgstr "Ezin da karpeta ezabatu lineaz kanpo moduan."
 
-#: ../camel/camel-exchange-store.c:809
+#: ../camel/camel-exchange-store.c:830
 msgid "Cannot rename folder in offline mode."
 msgstr "Ezin da karpeta izenez aldatu lineaz kanpo moduan."
 
-#: ../camel/camel-exchange-transport.c:110
+#: ../camel/camel-exchange-transport.c:111
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "Exchange garraioa Exchange posta-iturburuarekin soilik erabil daiteke"
 
-#: ../camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-transport.c:122
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "Ezin da mezua bidali: hartzaile (bat edo gehiago) baliogabea"
 
-#: ../camel/camel-exchange-transport.c:131
+#: ../camel/camel-exchange-transport.c:132
 msgid "Could not find 'From' address in message"
 msgstr "Ezin izan da 'Nork' eremuko helbidea mezuan aurkitu"
 
-#: ../camel/camel-stub.c:152
+#: ../camel/camel-stub.c:153
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Ezin izan da socket-a sortu: %s"
 
-#: ../camel/camel-stub.c:170
+#: ../camel/camel-stub.c:171
 #, c-format
 msgid "Could not connect to %s: Please restart Evolution"
 msgstr "Ezin izan da %s(e)kin konektatu: berrabiarazi Evolution"
 
-#: ../camel/camel-stub.c:175
+#: ../camel/camel-stub.c:176
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Ezin izan da %s(e)kin konektatu: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:206
 #, c-format
 msgid "Path too long: %s"
 msgstr "Bide-izena luzeegia: %s"
 
-#: ../camel/camel-stub.c:231
+#: ../camel/camel-stub.c:232
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Ezin izan da hariaren egoera abiarazi: %s"
 
-#: ../camel/camel-stub.c:485
+#: ../camel/camel-stub.c:486
 #, c-format
 msgid "Lost connection to %s"
 msgstr "%s(r)ekin konexioa galdu da"
 
-#: ../camel/camel-stub.c:489
+#: ../camel/camel-stub.c:490
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Errorea %s(r)ekin komunikatzean: %s"
 
-#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
+#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:946
 msgid "No such folder"
 msgstr "Ez dago horrelako karpetarik"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
-#: ../mail/mail-stub-exchange.c:2745
+#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1595
+#: ../mail/mail-stub-exchange.c:2851 ../mail/mail-stub-exchange.c:2891
+#: ../mail/mail-stub-exchange.c:2957 ../mail/mail-stub-exchange.c:3007
+#: ../mail/mail-stub-exchange.c:3070
 msgid "Permission denied"
 msgstr "Baimena ukatua"
 
-#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
-msgid "Could not open folder: Permission denied"
-msgstr "Ezin izan da karpeta ireki: baimena ikatua"
-
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
+#: ../mail/mail-stub-exchange.c:768 ../mail/mail-stub-exchange.c:860
 msgid "Could not open folder"
 msgstr "Ezin izan da karpeta ireki"
 
-#: ../mail/mail-stub-exchange.c:764
+#: ../mail/mail-stub-exchange.c:854 ../mail/mail-stub-exchange.c:876
+msgid "Could not open folder: Permission denied"
+msgstr "Ezin izan da karpeta ireki: baimena ikatua"
+
+#: ../mail/mail-stub-exchange.c:955
 msgid "Could not create folder."
 msgstr "Ezin izan da karpeta sortu."
 
-#: ../mail/mail-stub-exchange.c:844
+#: ../mail/mail-stub-exchange.c:1043
 msgid "Could not open Deleted Items folder"
 msgstr "Ezin izan da ezabatutako elementuen karpeta ireki"
 
-#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
+#: ../mail/mail-stub-exchange.c:1374 ../mail/mail-stub-exchange.c:1415
 msgid "Could not get new messages"
 msgstr "Ezin izan da mezu berriak eskuratu"
 
-#: ../mail/mail-stub-exchange.c:1386
+#: ../mail/mail-stub-exchange.c:1591
 msgid "Could not empty Deleted Items folder"
 msgstr "Ezin izan da ezabatutako elementuen karpeta hustu"
 
-#: ../mail/mail-stub-exchange.c:1463
+#: ../mail/mail-stub-exchange.c:1668
 msgid "Could not append message; mailbox is over quota"
 msgstr "Ezin izan da mezua erantsi: postontziak kuota gainditu du"
 
-#: ../mail/mail-stub-exchange.c:1464
+#: ../mail/mail-stub-exchange.c:1669
 msgid "Could not append message"
 msgstr "Ezin izan  da mezua erantsi"
 
-#: ../mail/mail-stub-exchange.c:2016
+#: ../mail/mail-stub-exchange.c:2324
 msgid "No such message"
 msgstr "Ez dago horrelako mezurik"
 
-#: ../mail/mail-stub-exchange.c:2069
+#: ../mail/mail-stub-exchange.c:2386
 msgid "Message has been deleted"
 msgstr "Mezua ezabatu da"
 
-#: ../mail/mail-stub-exchange.c:2071
+#: ../mail/mail-stub-exchange.c:2388
 msgid "Error retrieving message"
 msgstr "Errorea mezua berreskuratzean"
 
-#: ../mail/mail-stub-exchange.c:2113
+#: ../mail/mail-stub-exchange.c:2430
 msgid "Mailbox does not support full-text searching"
 msgstr "Postontziak ez du testu-osoko bilaketa onartzen"
 
-#: ../mail/mail-stub-exchange.c:2211
+#: ../mail/mail-stub-exchange.c:2528
 msgid "Unable to move/copy messages"
 msgstr "Ezin izan da mezuak lekuz aldatu edo kopiatu"
 
-#: ../mail/mail-stub-exchange.c:2441
+#: ../mail/mail-stub-exchange.c:2766
 msgid "No mail submission URI for this mailbox"
 msgstr "Ez dago posta bidaltzeko URIrik postontziarentzako"
 
-#: ../mail/mail-stub-exchange.c:2477
+#: ../mail/mail-stub-exchange.c:2802
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Zerbitzariak ez du Exchange garraio bidezko posta onartzen"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:2804
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -385,7 +429,7 @@ msgstr ""
 "Zure kontuak ez du baimenik <%s> \n"
 "'Nork' helbide gisa erabiltzeko."
 
-#: ../mail/mail-stub-exchange.c:2491
+#: ../mail/mail-stub-exchange.c:2816
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -393,17 +437,17 @@ msgstr ""
 "Ezin izan da mezua bidali .\n"
 "Zure kontuak kuota gainditu duela adierazten du."
 
-#: ../mail/mail-stub-exchange.c:2495
+#: ../mail/mail-stub-exchange.c:2820
 msgid "Could not send message"
 msgstr "Ezin izan da mezua bidali"
 
-#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2751
+#: ../mail/mail-stub-exchange.c:2843 ../mail/mail-stub-exchange.c:2896
+#: ../mail/mail-stub-exchange.c:2961 ../mail/mail-stub-exchange.c:3012
+#: ../mail/mail-stub-exchange.c:3076
 msgid "Generic error"
 msgstr "Errore orokorra"
 
-#: ../mail/mail-stub-exchange.c:2522
+#: ../mail/mail-stub-exchange.c:2847
 msgid "Folder already exists"
 msgstr "Karpeta badago lehendik"
 
