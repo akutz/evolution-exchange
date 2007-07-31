@@ -430,6 +430,8 @@ get_message_data (CamelFolder *folder, const char *uid, CamelException *ex)
 	return ba;
 }
 
+#define MAILING_LIST_HEADERS "X-MAILING-LIST X-LOOP LIST-ID LIST-POST MAILING-LIST ORIGINATOR X-LIST RETURN-PATH X-BEENTHERE "
+
 static CamelMimeMessage *
 get_message (CamelFolder *folder, const char *uid, CamelException *ex)
 {
@@ -439,6 +441,8 @@ get_message (CamelFolder *folder, const char *uid, CamelException *ex)
 	CamelStreamFilter *filtered_stream;
 	CamelMimeFilter *crlffilter;
 	GByteArray *ba;
+	gchar **list_headers = NULL;
+	gboolean found_list = FALSE;
 
 	ba = get_message_data (folder, uid, ex);
 	if (!ba)
@@ -457,6 +461,24 @@ get_message (CamelFolder *folder, const char *uid, CamelException *ex)
 						  CAMEL_STREAM (filtered_stream));
 	camel_object_unref (CAMEL_OBJECT (filtered_stream));
 	camel_mime_message_set_source (msg, exch->source);
+
+	if(camel_medium_get_header (CAMEL_MEDIUM (msg), "Sender")) {
+		list_headers = g_strsplit (MAILING_LIST_HEADERS, " ", 0);
+		if (list_headers) {
+			int i = 0;
+			while (list_headers[i]) {
+				if (camel_medium_get_header (CAMEL_MEDIUM (msg), list_headers[i])) {
+					found_list = TRUE;
+					break;
+				}
+				i++;
+			}
+			g_strfreev (list_headers);
+		}
+		
+		if (!found_list)
+			camel_medium_set_header (CAMEL_MEDIUM (msg), "X-Evolution-Mail-From-Delegate", "yes");
+	}
 
 	fix_broken_multipart_related (CAMEL_MIME_PART (msg));
 	return msg;

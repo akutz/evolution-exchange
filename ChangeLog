@@ -1,3 +1,12 @@
+2007-07-31  Veerapuram Varadhan  <vvaradhan@novell.com>
+
+	* camel/camel-exchange-folder.c: (get_message): Check for Sender
+	and Mailing list fields, if Sender alone exist, add
+	X-Evolution-Mail-From-Delegate header that would be handled by
+	Evolution, while formatting the message.
+
+	* camel/camel-exchange-summary.c: Disable d(x)
+	
 2007-07-30  Chenthill Palanisamy  <pchenthill@novell.com>
 
 	* camel/camel-exchange-folder.c: (get_message): Removed all the 

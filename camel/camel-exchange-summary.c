@@ -38,7 +38,7 @@
 
 #define CAMEL_EXCHANGE_SUMMARY_VERSION (2)
 
-#define d(x) (x)
+#define d(x)
 
 static int header_load (CamelFolderSummary *summary, FILE *in);
 static int header_save (CamelFolderSummary *summary, FILE *out);
