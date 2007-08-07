@@ -213,7 +213,8 @@ exchange_entry_write (CamelOfflineJournal *journal, EDListNode *entry, FILE *out
 		g_free (tmp);
 		break;
 	default:
-		g_assert_not_reached ();
+		g_critical ("%s: Uncaught case (%d)", G_STRLOC, exchange_entry->type);
+		return -1;
 	}
 	
 	return 0;
@@ -400,7 +401,7 @@ exchange_entry_play (CamelOfflineJournal *journal, EDListNode *entry, CamelExcep
 	case CAMEL_EXCHANGE_JOURNAL_ENTRY_DELETE:
 		return exchange_entry_play_delete (journal, exchange_entry, ex);
 	default:
-		g_assert_not_reached ();
+		g_critical ("%s: Uncaught case (%d)", G_STRLOC, exchange_entry->type);
 		return -1;
 	}
 }

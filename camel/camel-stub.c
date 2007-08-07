@@ -318,7 +318,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 		}		
 		
 		default:
-			g_assert_not_reached ();
+			g_critical ("%s: Uncaught case (%d)", G_STRLOC, argtype);
 			break;
 		}
 	}
@@ -456,7 +456,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 				}
 
 				default:
-					g_assert_not_reached ();
+					g_critical ("%s: Uncaught case (%d)", G_STRLOC, argtype);
 					status = -1;
 					break;
 				}
@@ -469,7 +469,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 		}
 
 		default:
-			g_assert_not_reached ();
+			g_critical ("%s: Uncaught case (%d)", G_STRLOC, retval);
 			break;
 		}
 	} while (retval != CAMEL_STUB_RETVAL_OK);

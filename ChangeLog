@@ -1,3 +1,15 @@
+2007-08-07  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #347930
+
+	* camel/camel-exchange-journal.c: (exchange_entry_write),
+	(exchange_entry_play):
+	* camel/camel-exchange-store.c: (stub_notification):
+	* camel/camel-stub.c: (stub_send_internal):
+	* mail/mail-stub.c: (connection_handler), (mail_stub_read_args),
+	(mail_stub_return_data):
+	Changed g_assert_not_reached to g_critical.
+
 2007-07-31  Veerapuram Varadhan <vvaradhan@novell.com>
 
 	* NEWS, configure.in: Evolution Exchange 2.11.6.1 release

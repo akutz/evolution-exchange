@@ -452,8 +452,8 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 	}
 
 	default:
-		g_assert_not_reached ();
-		break;
+		g_critical ("%s: Uncaught case (%d)", G_STRLOC, command);
+		goto comm_fail;
 	}
 
 	return TRUE;
@@ -569,7 +569,7 @@ mail_stub_read_args (MailStub *stub, ...)
 		
 		
 		default:
-			g_assert_not_reached ();
+			g_critical ("%s: Uncaught case (%d)", G_STRLOC, argtype);
 			status = -1;
 			break;
 		}
@@ -675,8 +675,8 @@ mail_stub_return_data (MailStub *stub, CamelStubRetval retval, ...)
 		
 		
 		default:
-			g_assert_not_reached ();
-			break;
+			g_critical ("%s: Uncaught case (%d)", G_STRLOC, argtype);
+			return;
 		}
 	}
 }

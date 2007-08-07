@@ -1138,7 +1138,7 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 	}
 
 	default:
-		g_assert_not_reached ();
+		g_critical ("%s: Uncaught case (%d)", G_STRLOC, retval);
 		break;
 	}
 }
