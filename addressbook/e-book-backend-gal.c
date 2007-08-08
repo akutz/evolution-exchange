@@ -2021,9 +2021,14 @@ static int dosearch(
 	LDAPMessage		*res, *msg;
 	ber_int_t		msgid;
 	static int count = 0;
-
+	char *ssize = getenv("LDAP_LIMIT");
+	int size = 0;
+	
+	if (ssize && *ssize) 
+		size = atoi(ssize);
+	
 	rc = ldap_search_ext( ld, base, scope, value, attrs, attrsonly,
-		sctrls, cctrls, timeout, -1 /*LDAP_NO_LIMIT*/, &msgid );
+		sctrls, cctrls, timeout, size /*LDAP_NO_LIMIT*/, &msgid );
 
 	if( rc != LDAP_SUCCESS ) {
 		return( rc );
