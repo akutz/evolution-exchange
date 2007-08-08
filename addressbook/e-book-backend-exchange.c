@@ -2108,7 +2108,10 @@ e_book_backend_exchange_get_contact (EBookBackendSync  *backend,
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
 	EContact *contact;
-
+	E2kResult *results;
+	E2kHTTPStatus status;
+	int nresults = 0;
+	
 	d(printf("ebbe_get_contact(%p, %p, %s)\n", backend, book, id));
 
 	be = E_BOOK_BACKEND_EXCHANGE (e_data_book_get_backend (book));
@@ -2130,7 +2133,44 @@ e_book_backend_exchange_get_contact (EBookBackendSync  *backend,
 		}
 		
 	case GNOME_Evolution_Addressbook_MODE_REMOTE:
-		/* XXX finish this */
+
+		if (bepriv->marked_for_offline && e_book_backend_cache_is_populated (bepriv->cache)) {
+			contact = e_book_backend_cache_get_contact (bepriv->cache,
+								    id);
+			if (contact) {
+				*vcard =  e_vcard_to_string (E_VCARD (contact), 
+							     EVC_FORMAT_VCARD_30);
+				g_object_unref (contact);
+				return GNOME_Evolution_Addressbook_Success;
+			}
+			else {
+				*vcard = g_strdup ("");
+				return GNOME_Evolution_Addressbook_ContactNotFound;
+			}
+
+		} else {
+			status = e2k_context_propfind (bepriv->ctx, NULL, id,
+						       field_names, n_field_names,
+						       &results, &nresults);
+		
+			if (status == E2K_HTTP_CANCELLED)
+				return GNOME_Evolution_Addressbook_OtherError;
+
+			if (status == E2K_HTTP_MULTI_STATUS && nresults > 0) {
+				contact = e_contact_from_props (be, &results[0]);
+				*vcard =  e_vcard_to_string (E_VCARD (contact), 
+							     EVC_FORMAT_VCARD_30);
+				g_object_unref (contact);
+				e2k_results_free (results, nresults);
+				
+				return GNOME_Evolution_Addressbook_Success;
+			
+			} else {
+				*vcard = g_strdup ("");
+				
+				return GNOME_Evolution_Addressbook_ContactNotFound;			
+			}
+		}
 
 	default:
 		break;
