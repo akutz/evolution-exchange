@@ -2108,7 +2108,7 @@ e_book_backend_exchange_get_contact (EBookBackendSync  *backend,
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
 	EContact *contact;
-	E2kResult *results;
+	E2kResult *results=NULL;
 	E2kHTTPStatus status;
 	int nresults = 0;
 	
@@ -2149,6 +2149,17 @@ e_book_backend_exchange_get_contact (EBookBackendSync  *backend,
 			}
 
 		} else {
+			E2kUri *uri;
+
+			/* Dont allow any non uri to go GAL UID is not a uri */
+			uri = e2k_uri_new (id);
+			if (!uri->protocol ||  !*uri->protocol) {
+				e2k_uri_free (uri);
+				*vcard = g_strdup ("");
+				return GNOME_Evolution_Addressbook_ContactNotFound;
+			}
+			e2k_uri_free (uri);
+
 			status = e2k_context_propfind (bepriv->ctx, NULL, id,
 						       field_names, n_field_names,
 						       &results, &nresults);
