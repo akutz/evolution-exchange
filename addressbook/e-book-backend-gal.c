@@ -2470,7 +2470,7 @@ load_source (EBookBackend *backend,
  				return GNOME_Evolution_Addressbook_OtherError;
  			}
  
- 			db_error = env->open (env, NULL, DB_CREATE | DB_INIT_MPOOL | DB_PRIVATE | DB_THREAD, 0);
+ 			db_error = (*env->open) (env, NULL, DB_CREATE | DB_INIT_MPOOL | DB_PRIVATE | DB_THREAD, 0);
  			if (db_error != 0) {
  				env->close (env, 0);
  				g_warning ("db_env_open failed with %d", db_error);
@@ -2495,7 +2495,7 @@ load_source (EBookBackend *backend,
  			return GNOME_Evolution_Addressbook_OtherError;
  		}
  
- 		db_error = db->open (db, NULL, filename, NULL, DB_HASH, DB_THREAD, 0666);
+ 		db_error = (*db->open) (db, NULL, filename, NULL, DB_HASH, DB_THREAD, 0666);
  
  		if (db_error == DB_OLD_VERSION) {
  			db_error = e_db3_utils_upgrade_format (filename);
@@ -2507,7 +2507,7 @@ load_source (EBookBackend *backend,
  				return GNOME_Evolution_Addressbook_OtherError;
  			}
  
- 			db_error = db->open (db, NULL,filename, NULL, DB_HASH, DB_THREAD, 0666);
+ 			db_error = (*db->open) (db, NULL,filename, NULL, DB_HASH, DB_THREAD, 0666);
  		}
  
  		bl->priv->file_db = db;
@@ -2526,7 +2526,7 @@ load_source (EBookBackend *backend,
  					return GNOME_Evolution_Addressbook_OtherError;
  			}
  
- 			db_error = db->open (db, NULL, filename, NULL, DB_HASH, DB_CREATE | DB_THREAD, 0666);
+ 			db_error = (*db->open) (db, NULL, filename, NULL, DB_HASH, DB_CREATE | DB_THREAD, 0666);
  			if (db_error != 0) {
  				g_warning ("db->open (...DB_CREATE...) failed with %d", db_error);
  			}
