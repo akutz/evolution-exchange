@@ -1646,11 +1646,13 @@ ldap_search_dtor (LDAPOp *op)
 	d(printf ("ldap_search_dtor (%p)\n", search_op->view));
 
 	/* unhook us from our EDataBookView */
+	printf ("ldap_search_dtor: Setting null inplace of %p in view %p\n", op, search_op->view);
 	g_object_set_data (G_OBJECT (search_op->view), "EBookBackendGAL.BookView::search_op", NULL);
 
 	bonobo_object_unref (search_op->view);
 
-	g_free (search_op);
+	if (!search_op->aborted)
+		g_free (search_op);
 }
 
 #if ENABLE_CACHE		
@@ -1825,17 +1827,18 @@ start_book_view (EBookBackend  *backend,
 			}
 			else {
 				LDAPSearchOp *op = g_new0 (LDAPSearchOp, 1);
-
+				
 				d(printf ("adding search_op (%p, %d)\n", view, search_msgid));
 				printf("%s(%d):%s: adding search \n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION);
 				op->view = view;
+				op->aborted = FALSE;
 
 				bonobo_object_ref (view);
 
 				ldap_op_add ((LDAPOp*)op, E_BOOK_BACKEND (bl), NULL, view,
 					     0, search_msgid,
 					     ldap_search_handler, ldap_search_dtor);
-
+				printf("start_book_view: Setting op %p in book %p\n", op, view);
 				g_object_set_data (G_OBJECT (view), "EBookBackendGAL.BookView::search_op", op);
 			}
 #if ENABLE_CACHE			
@@ -1853,8 +1856,12 @@ stop_book_view (EBookBackend  *backend,
 	d(printf ("stop_book_view (%p)\n", view));
 
 	op = g_object_get_data (G_OBJECT (view), "EBookBackendGAL.BookView::search_op");
-	if (op)
+	printf("STOP BOOK VIEW: Getting op %p from view %p\n", op, view);
+	if (op) {
+		op->aborted = TRUE;
 		ldap_op_finished ((LDAPOp*)op);
+		g_free (op);
+	}
 }
 
 static void

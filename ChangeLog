@@ -1,3 +1,11 @@
+2007-08-17  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** Fix for bug #332979
+
+	* addressbook/e-book-backend-gal.c: (ldap_search_dtor),
+	(start_book_view), (stop_book_view): Fixes a GAL Synchronization issue
+	while doing autocompletion.
+
 2007-08-16  Matthew Barnes  <mbarnes@redhat.com>
 
 	* addressbook/e-book-backend-gal.c (load_source):
