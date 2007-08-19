@@ -1,17 +1,17 @@
-# Brazilian Portuguese translation of evolution-exchange
 # Copyright (C) 2004-2007 Free Software Foundation, Inc.
 # Gustavo Maciel Dias Vieira <gustavo@sagui.org>, 2004.
 # Bruno Guimarães de Faria e Silva <melkor.faria@gmail.com>, 2004.
 # Afonso Celso Medina <afmedina@uol.com.br>, 2005.
 # Washington Lins <washington-lins@uol.com.br>, 2007.
+# Raul Pereira <contato@raulpereira.com>, 2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-02 03:16+0000\n"
-"PO-Revision-Date: 2007-02-02 14:04-0200\n"
-"Last-Translator: Washington Lins <washington-lins@uol.com.br>\n"
+"POT-Creation-Date: 2007-08-19 17:14-0300\n"
+"PO-Revision-Date: 2007-08-19 17:19-0300\n"
+"Last-Translator: Raul Pereira <contato@raulpereira.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,206 +26,196 @@ msgstr "Especifica o intervalo de tempo para atualizar o Cache do GAL."
 msgid ""
 "This key specifies the number of days interval between the GAL cache "
 "refresh. Set this value to zero, if you don't want to update GAL and use the "
-"curernt cache forever. This will work only if you have enabled offline "
+"current cache forever. This will work only if you have enabled offline "
 "caching for GAL."
-msgstr "Esta chave especifica o número do intervalo de dias entre as atualizações do cache do GAL. Se o valor for zero, o GAL não será atualizado e o chace atual será usado indefinidademente. Isto só funcionará se o armazenamento off-line do GAL estiver habilitado."
+msgstr ""
+"Esta chave especifica o número do intervalo de dias entre as atualizações do "
+"cache do GAL. Se o valor for zero, o GAL não será atualizado e o cache atual "
+"será usado indefinidademente. Isto só funcionará se o armazenamento off-line "
+"do GAL estiver habilitado."
 
-#: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1716 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:1880
+#: ../addressbook/e-book-backend-gal.c:1798 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Pesquisando..."
 
-#: ../addressbook/e-book-backend-gal.c:290
+#: ../addressbook/e-book-backend-gal.c:301
+#: ../addressbook/e-book-backend-gal.c:326
 msgid "Reconnecting to LDAP server..."
 msgstr "Reconectando ao servidor LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1513
+#: ../addressbook/e-book-backend-gal.c:1585
 msgid "Receiving LDAP search results..."
 msgstr "Recebendo resultados da pesquisa LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1743
+#: ../addressbook/e-book-backend-gal.c:1825
 msgid "Error performing search"
 msgstr "Erro ao executar pesquisa"
 
-#: ../addressbook/e-book-backend-gal.c:1869
-#, c-format
-msgid "Internal error.\n"
-msgstr "Erro interno.\n"
-
-#: ../addressbook/e-book-backend-gal.c:1879
-#, c-format
-msgid "Paged results response control could not be decoded.\n"
-msgstr ""
-"Não foi possível decodificar a resposta paginada do controle utilizado.\n"
-
-#: ../addressbook/e-book-backend-gal.c:1885
-#, c-format
-msgid "Invalid entries estimate in paged results response.\n"
-msgstr "Estimativa inválida de entradas na resposta paginada de resultados.\n"
-
-#: ../calendar/e-cal-backend-exchange-calendar.c:2015
+#: ../calendar/e-cal-backend-exchange-calendar.c:2088
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
-"Impossível agendar o recurso '%s' para reuniões recorrentes.\n"
+"Não foi possível agendar o recurso \"%s\" para reuniões recorrentes.\n"
 "Você deve agendar cada reunião separadamente."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2033
+#: ../calendar/e-cal-backend-exchange-calendar.c:2106
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
-msgstr "O recurso '%s' está ocupado durante o período de tempo selecionado."
+msgstr "O recurso \"%s\" está ocupado durante o período de tempo selecionado."
 
-#: ../calendar/e-cal-backend-exchange.c:375
-#: ../calendar/e-cal-backend-exchange.c:384
+#: ../calendar/e-cal-backend-exchange.c:389
+#: ../calendar/e-cal-backend-exchange.c:398
 msgid "Authentication failed"
 msgstr "A autenticação falhou"
 
-#: ../calendar/e-cal-backend-exchange.c:395
+#: ../calendar/e-cal-backend-exchange.c:409
 msgid "Could not find the calendar"
-msgstr "Não foi possível encontrar a agenda"
+msgstr "Não foi possível localizar a agenda"
 
 #: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
-msgstr "Impossível apagar modo off-line."
+msgstr "Não foi possível apagar modo off-line."
 
 #: ../camel/camel-exchange-folder.c:253
 msgid "No Subject"
 msgstr "Sem Assunto"
 
-#: ../camel/camel-exchange-folder.c:407
+#: ../camel/camel-exchange-folder.c:408
 msgid "This message is not available in offline mode."
-msgstr "Esta mensagem não está disponível em modo desconectado"
+msgstr "Esta mensagem não está disponível em modo desconectado."
 
-#: ../camel/camel-exchange-folder.c:642
+#: ../camel/camel-exchange-folder.c:665
 msgid "Moving messages"
 msgstr "Movendo mensagens"
 
-#: ../camel/camel-exchange-folder.c:643
+#: ../camel/camel-exchange-folder.c:666
 msgid "Copying messages"
 msgstr "Copiando mensagens"
 
-#: ../camel/camel-exchange-folder.c:1014
+#: ../camel/camel-exchange-folder.c:1039
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Não foi possível criar o diretório %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1024
+#: ../camel/camel-exchange-folder.c:1049
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Não foi possível carregar o resumo para %s"
 
-#: ../camel/camel-exchange-folder.c:1032
+#: ../camel/camel-exchange-folder.c:1057
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Não foi possível criar cache para %s"
 
-#: ../camel/camel-exchange-folder.c:1042
+#: ../camel/camel-exchange-folder.c:1067
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Não foi possível criar diário para %s"
 
-#: ../camel/camel-exchange-folder.c:1087
+#: ../camel/camel-exchange-folder.c:1115
 msgid "Scanning for changed messages"
 msgstr "Varrendo a procura de mensagens alteradas"
 
-#: ../camel/camel-exchange-folder.c:1113
+#: ../camel/camel-exchange-folder.c:1148
 msgid "Fetching summary information for new messages"
 msgstr "Obtendo informação de resumo para novas mensagens"
 
-#: ../camel/camel-exchange-journal.c:339
+#: ../camel/camel-exchange-journal.c:341
 msgid "No folder name found\n"
 msgstr "Nome de pasta não encontrado\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2569
-#: ../mail/mail-stub-exchange.c:2613 ../mail/mail-stub-exchange.c:2648
-#: ../mail/mail-stub-exchange.c:2675 ../mail/mail-stub-exchange.c:2728
-#: ../mail/mail-stub-exchange.c:2750
+#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:2874
+#: ../mail/mail-stub-exchange.c:2918 ../mail/mail-stub-exchange.c:2953
+#: ../mail/mail-stub-exchange.c:2980 ../mail/mail-stub-exchange.c:3033
+#: ../mail/mail-stub-exchange.c:3055
 msgid "Folder doesn't exist"
 msgstr "A pasta não existe"
 
-#: ../camel/camel-exchange-journal.c:436
+#: ../camel/camel-exchange-journal.c:438
 msgid "Cannot append message in offline mode: cache unavailable"
-msgstr "Impossível adicionar mensagem em modo desconectado: cache indisponível"
+msgstr ""
+"Não foi possível adicionar mensagem em modo desconectado: cache indisponível"
 
-#: ../camel/camel-exchange-journal.c:452
+#: ../camel/camel-exchange-journal.c:454
 #, c-format
 msgid "Cannot append message in offline mode: %s"
-msgstr "Impossível adicionar mensagem em modo desconectado: %s"
+msgstr "Não foi possível adicionar mensagem em modo desconectado: %s"
 
-#: ../camel/camel-exchange-provider.c:40
+#: ../camel/camel-exchange-provider.c:41
 msgid "Checking for New Mail"
 msgstr "Verificando novas e-mails"
 
-#: ../camel/camel-exchange-provider.c:42 ../camel/camel-exchange-provider.c:66
+#: ../camel/camel-exchange-provider.c:43
 msgid "C_heck for new messages in all folders"
 msgstr "_Verificar novas mensagens em todas as pastas"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:50
+#: ../camel/camel-exchange-provider.c:51
 msgid "Windows User_name:"
 msgstr "_Nome do usuário Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:56
 msgid "Global Address List / Active Directory"
 msgstr "Lista de Endereços Global / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:59
+#: ../camel/camel-exchange-provider.c:60
 msgid "_Global Catalog server name:"
 msgstr "Nome do servidor de Catálogo _Global:"
 
-#: ../camel/camel-exchange-provider.c:61
+#: ../camel/camel-exchange-provider.c:62
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "_Limitar número de respostas do GAL: %s"
 
-#: ../camel/camel-exchange-provider.c:64
+#: ../camel/camel-exchange-provider.c:65
 msgid "Options"
 msgstr "Opções"
 
-#: ../camel/camel-exchange-provider.c:68
+#: ../camel/camel-exchange-provider.c:67
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Período de Aviso de Expiração da Senha: %s"
 
-#: ../camel/camel-exchange-provider.c:70
+#: ../camel/camel-exchange-provider.c:69
 msgid "Automatically synchroni_ze account locally"
 msgstr "Sincroni_zar automaticamente a conta localmente"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:73
+#: ../camel/camel-exchange-provider.c:72
 msgid "_Apply filters to new messages in Inbox on this server"
-msgstr "_Aplicar filtros às novas mensagens na Caixa de Entrada deste servidor"
+msgstr "_Aplicar filtros às novas mensagens na Entrada deste servidor"
 
-#: ../camel/camel-exchange-provider.c:75
+#: ../camel/camel-exchange-provider.c:74
 msgid "Check new messages for _Junk contents"
-msgstr "Verificar se novas mensagens são _Indesejadas"
+msgstr "Verificar se novas mensagens são _Spams"
 
-#: ../camel/camel-exchange-provider.c:77
+#: ../camel/camel-exchange-provider.c:76
 msgid "Only check for Junk messag_es in the Inbox folder"
-msgstr "Verificar mensagens Indese_jadas apenas na Caixa de Entrada"
+msgstr "Verificar mensagens Spa_m apenas na Entrada"
 
-#: ../camel/camel-exchange-provider.c:87
+#: ../camel/camel-exchange-provider.c:86
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:89
+#: ../camel/camel-exchange-provider.c:88
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Para tratar correio (e outros dados) em sevidores Microsoft Exchange"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:105
+#: ../camel/camel-exchange-provider.c:104
 msgid "Secure Password"
 msgstr "Senha Segura"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:108
+#: ../camel/camel-exchange-provider.c:107
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -233,11 +223,11 @@ msgstr ""
 "Esta opção estabelelece conexão com o servidor Exchange usando autenticação "
 "por senha segura (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:116
+#: ../camel/camel-exchange-provider.c:115
 msgid "Plaintext Password"
 msgstr "Senha em Texto Puro"
 
-#: ../camel/camel-exchange-provider.c:118
+#: ../camel/camel-exchange-provider.c:117
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -279,150 +269,150 @@ msgstr "Não existe tal pasta %s"
 
 #: ../camel/camel-exchange-store.c:565
 msgid "Cannot subscribe folder in offline mode."
-msgstr "Impossível inscrever-se na pasta no modo desconectado"
+msgstr "Não foi possível inscrever-se na pasta no modo desconectado."
 
 #: ../camel/camel-exchange-store.c:582
 msgid "Cannot unsubscribe folder in offline mode."
-msgstr "Impossível cancelar a inscrição na pasta no modo desconectado."
+msgstr "Não foi possível cancelar a inscrição na pasta no modo desconectado."
 
 #: ../camel/camel-exchange-store.c:714
 msgid "Cannot get folder info in offline mode."
-msgstr "Impossível obter informação no modo desconectado."
+msgstr "Não foi possível obter informação no modo desconectado."
 
-#: ../camel/camel-exchange-store.c:785
+#: ../camel/camel-exchange-store.c:787
 msgid "Cannot create folder in offline mode."
-msgstr "Impossível criar uma pasta no modo desconectado."
+msgstr "Não foi possível criar uma pasta no modo desconectado."
 
-#: ../camel/camel-exchange-store.c:812
+#: ../camel/camel-exchange-store.c:814
 msgid "Cannot delete folder in offline mode."
-msgstr "Impossível excluir pasta no modo desconectado."
+msgstr "Não foi possível excluir pasta no modo desconectado."
 
-#: ../camel/camel-exchange-store.c:828
+#: ../camel/camel-exchange-store.c:830
 msgid "Cannot rename folder in offline mode."
-msgstr "Impossível renomear pasta no modo desconectado."
+msgstr "Não foi possível renomear pasta no modo desconectado."
 
-#: ../camel/camel-exchange-transport.c:110
+#: ../camel/camel-exchange-transport.c:111
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr ""
 "Transporte Exchange apenas pode ser usado com fontes de correio Exchange"
 
-#: ../camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-transport.c:122
 msgid "Cannot send message: one or more invalid recipients"
-msgstr "Impossível enviar mensagem: um ou mais destinatários inválidos"
+msgstr "Não foi possível enviar mensagem: um ou mais destinatários inválidos"
 
-#: ../camel/camel-exchange-transport.c:131
+#: ../camel/camel-exchange-transport.c:132
 msgid "Could not find 'From' address in message"
-msgstr "Não foi possível localizar endereço 'De' na mensagem"
+msgstr "Não foi possível localizar endereço \"De\" na mensagem"
 
-#: ../camel/camel-stub.c:152
+#: ../camel/camel-stub.c:153
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Não foi possível criar socket: %s"
 
-#: ../camel/camel-stub.c:170
+#: ../camel/camel-stub.c:171
 #, c-format
 msgid "Could not connect to %s: Please restart Evolution"
 msgstr "Não foi possível se conectar a %s: Por favor, reinicie o Evolution"
 
-#: ../camel/camel-stub.c:175
+#: ../camel/camel-stub.c:176
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Não foi possível se conectar a %s: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:206
 #, c-format
 msgid "Path too long: %s"
 msgstr "Caminho muito comprido: %s"
 
-#: ../camel/camel-stub.c:231
+#: ../camel/camel-stub.c:232
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Não foi possível iniciar thread de estado: %s"
 
-#: ../camel/camel-stub.c:485
+#: ../camel/camel-stub.c:486
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Perdida a conexão a %s"
 
-#: ../camel/camel-stub.c:489
+#: ../camel/camel-stub.c:490
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Erro ao comunicar-se com %s: %s"
 
-#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
+#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:946
 msgid "No such folder"
 msgstr "Não existe tal pasta"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2546 ../mail/mail-stub-exchange.c:2586
-#: ../mail/mail-stub-exchange.c:2652 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2765
+#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1595
+#: ../mail/mail-stub-exchange.c:2851 ../mail/mail-stub-exchange.c:2891
+#: ../mail/mail-stub-exchange.c:2957 ../mail/mail-stub-exchange.c:3007
+#: ../mail/mail-stub-exchange.c:3070
 msgid "Permission denied"
 msgstr "Permissão negada"
 
-#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
-msgid "Could not open folder: Permission denied"
-msgstr "Não foi possível abrir pasta: Permissão negada"
-
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
+#: ../mail/mail-stub-exchange.c:768 ../mail/mail-stub-exchange.c:860
 msgid "Could not open folder"
 msgstr "Não foi possível abrir pasta"
 
-#: ../mail/mail-stub-exchange.c:764
+#: ../mail/mail-stub-exchange.c:854 ../mail/mail-stub-exchange.c:876
+msgid "Could not open folder: Permission denied"
+msgstr "Não foi possível abrir pasta: Permissão negada"
+
+#: ../mail/mail-stub-exchange.c:955
 msgid "Could not create folder."
 msgstr "Não foi possível criar pasta."
 
-#: ../mail/mail-stub-exchange.c:844
+#: ../mail/mail-stub-exchange.c:1043
 msgid "Could not open Deleted Items folder"
 msgstr "Não foi possível abrir pasta Itens excluídos"
 
-#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
+#: ../mail/mail-stub-exchange.c:1374 ../mail/mail-stub-exchange.c:1415
 msgid "Could not get new messages"
 msgstr "Não foi possível obter novas mensagens"
 
-#: ../mail/mail-stub-exchange.c:1386
+#: ../mail/mail-stub-exchange.c:1591
 msgid "Could not empty Deleted Items folder"
 msgstr "Não foi possível esvaziar a pasta Itens excluídos"
 
-#: ../mail/mail-stub-exchange.c:1463
+#: ../mail/mail-stub-exchange.c:1668
 msgid "Could not append message; mailbox is over quota"
 msgstr "Não foi possível acrescentar mensagem; caixa postal excedeu a cota"
 
-#: ../mail/mail-stub-exchange.c:1464
+#: ../mail/mail-stub-exchange.c:1669
 msgid "Could not append message"
 msgstr "Não foi possível acrescentar a mensagem"
 
-#: ../mail/mail-stub-exchange.c:2016
+#: ../mail/mail-stub-exchange.c:2324
 msgid "No such message"
 msgstr "Não existe tal mensagem"
 
-#: ../mail/mail-stub-exchange.c:2069
+#: ../mail/mail-stub-exchange.c:2386
 msgid "Message has been deleted"
 msgstr "A mensagem foi excluída"
 
-#: ../mail/mail-stub-exchange.c:2071
+#: ../mail/mail-stub-exchange.c:2388
 msgid "Error retrieving message"
 msgstr "Erro obtendo a mensagem"
 
-#: ../mail/mail-stub-exchange.c:2113
+#: ../mail/mail-stub-exchange.c:2430
 msgid "Mailbox does not support full-text searching"
-msgstr "A Caixa de correio não suporta pesquisa por texto"
+msgstr "A Caixa de correio não dá suporte a pesquisa por texto"
 
-#: ../mail/mail-stub-exchange.c:2211
+#: ../mail/mail-stub-exchange.c:2528
 msgid "Unable to move/copy messages"
-msgstr "Impossível mover/copiar mensagens"
+msgstr "Não foi possível mover/copiar mensagens"
 
-#: ../mail/mail-stub-exchange.c:2461
+#: ../mail/mail-stub-exchange.c:2766
 msgid "No mail submission URI for this mailbox"
 msgstr "Não existe URI para envio de correio para esta caixa postal"
 
-#: ../mail/mail-stub-exchange.c:2497
+#: ../mail/mail-stub-exchange.c:2802
 msgid "Server won't accept mail via Exchange transport"
 msgstr "O servidor não aceita correio pelo transporte Exchange"
 
-#: ../mail/mail-stub-exchange.c:2499
+#: ../mail/mail-stub-exchange.c:2804
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -431,7 +421,7 @@ msgstr ""
 "Sua conta não possui permissão para usar <%s> como\n"
 "um endereço de origem."
 
-#: ../mail/mail-stub-exchange.c:2511
+#: ../mail/mail-stub-exchange.c:2816
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -439,17 +429,17 @@ msgstr ""
 "Não foi possível enviar a mensagem.\n"
 "Isto pode significar que a sua conta excedeu a cota."
 
-#: ../mail/mail-stub-exchange.c:2515
+#: ../mail/mail-stub-exchange.c:2820
 msgid "Could not send message"
 msgstr "Não foi possível enviar a mensagem"
 
-#: ../mail/mail-stub-exchange.c:2538 ../mail/mail-stub-exchange.c:2591
-#: ../mail/mail-stub-exchange.c:2656 ../mail/mail-stub-exchange.c:2707
-#: ../mail/mail-stub-exchange.c:2771
+#: ../mail/mail-stub-exchange.c:2843 ../mail/mail-stub-exchange.c:2896
+#: ../mail/mail-stub-exchange.c:2961 ../mail/mail-stub-exchange.c:3012
+#: ../mail/mail-stub-exchange.c:3076
 msgid "Generic error"
 msgstr "Erro genérico"
 
-#: ../mail/mail-stub-exchange.c:2542
+#: ../mail/mail-stub-exchange.c:2847
 msgid "Folder already exists"
 msgstr "A pasta já existe"
 
@@ -538,7 +528,7 @@ msgid ""
 "Connector supports Microsoft Exchange 2000 and 2003 only."
 msgstr ""
 "A URL de servidor Exchange fornecida é para um servidor Exchange 5.5. O "
-"Ximian Connector suporta apenas o Microsoft Exchange 2000 ou  2003."
+"Ximian Connector dá suporte apenas ao Microsoft Exchange 2000 ou 2003."
 
 #: ../storage/exchange-autoconfig-wizard.c:288
 msgid ""
@@ -578,7 +568,7 @@ msgid ""
 "Unable to create new account."
 msgstr ""
 "Erro do sistema de configuração.\n"
-"Impossível criar uma nova conta."
+"Não foi possível criar uma nova conta."
 
 #: ../storage/exchange-autoconfig-wizard.c:459
 msgid "You may only configure a single Exchange account"
@@ -675,7 +665,7 @@ msgid ""
 "Please enter the name of your Global Catalog server. You may need to ask "
 "your system administrator for the correct value.\n"
 msgstr ""
-"O Ximian Connector não pôde encontrar a réplica do Catálogo Global para o "
+"O Ximian Connector não pôde localizar a réplica do Catálogo Global para o "
 "seu site. Por favor, entre o nome do seu servidor de Catálogo Global. Você "
 "talvez tenha que solicitar o valor correto ao seu administrador de "
 "sistemas.\n"
@@ -795,7 +785,7 @@ msgstr "_Editar"
 
 #: ../storage/exchange-delegates.glade.h:14
 msgid "_Inbox:"
-msgstr "Ca_ixa de entrada:"
+msgstr "E_ntrada:"
 
 #: ../storage/exchange-delegates.glade.h:15
 msgid "_Tasks:"
@@ -837,7 +827,7 @@ msgstr ""
 #: ../storage/exchange-migrate.c:130
 #, c-format
 msgid "Migrating `%s':"
-msgstr "Migrando `%s':"
+msgstr "Migrando \"%s\":"
 
 #: ../storage/exchange-oof.glade.h:1
 msgid ""
@@ -855,7 +845,7 @@ msgstr "<b>Mensagem de Fora do Escritório:</b>"
 
 #: ../storage/exchange-oof.glade.h:5
 msgid "<b>Status:</b>"
-msgstr "<b>Estado:</b> "
+msgstr "<b>Estado:</b>"
 
 #: ../storage/exchange-oof.glade.h:6
 msgid ""
@@ -913,11 +903,11 @@ msgstr "<b>Permissões</b>"
 
 #: ../storage/exchange-permissions-dialog.glade.h:3
 msgid "Cannot Delete"
-msgstr "Impossível Excluir"
+msgstr "Não foi possível Excluir"
 
 #: ../storage/exchange-permissions-dialog.glade.h:4
 msgid "Cannot Edit"
-msgstr "Impossível Editar"
+msgstr "Não foi possível Editar"
 
 #: ../storage/exchange-permissions-dialog.glade.h:5
 msgid "Create items"
@@ -998,7 +988,9 @@ msgstr "Inscrever-se em uma pasta pertencente a outro usuário no servidor"
 #: ../storage/ximian-connector.xml.h:6
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
-msgstr "Desinscrever-se de uma pasta adicionada com \"Inscrever-se em pasta de outro usuário\""
+msgstr ""
+"Desinscrever-se de uma pasta adicionada com \"Inscrever-se em pasta de outro "
+"usuário\""
 
 #: ../storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
@@ -1024,6 +1016,17 @@ msgstr "Assistente de _fora do escritório"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Cancelar a Inscrição da Pasta de Outro _Usuário"
+
+#~ msgid "Internal error.\n"
+#~ msgstr "Erro interno.\n"
+
+#~ msgid "Paged results response control could not be decoded.\n"
+#~ msgstr ""
+#~ "Não foi possível decodificar a resposta paginada do controle utilizado.\n"
+
+#~ msgid "Invalid entries estimate in paged results response.\n"
+#~ msgstr ""
+#~ "Estimativa inválida de entradas na resposta paginada de resultados.\n"
 
 #~ msgid "Folder not marked for offline support"
 #~ msgstr "Pasta não marcada para suporte desconectado"
@@ -1096,7 +1099,7 @@ msgstr "Cancelar a Inscrição da Pasta de Outro _Usuário"
 #~ "Cannot create the specified folder:\n"
 #~ "%s"
 #~ msgstr ""
-#~ "Impossível criar a pasta especificada:\n"
+#~ "Não foi possível criar a pasta especificada:\n"
 #~ "%s"
 
 #~ msgid "The specified folder name is not valid: %s"
@@ -1118,14 +1121,14 @@ msgstr "Cancelar a Inscrição da Pasta de Outro _Usuário"
 #~ "Cannot transfer folder:\n"
 #~ "%s"
 #~ msgstr ""
-#~ "Impossível transferir pasta:\n"
+#~ "Não foi possível transferir pasta:\n"
 #~ "%s"
 
 #~ msgid ""
 #~ "Cannot delete folder:\n"
 #~ "%s"
 #~ msgstr ""
-#~ "Impossível excluir pasta:\n"
+#~ "Não foi possível excluir pasta:\n"
 #~ "%s"
 
 #~ msgid "Really delete folder \"%s\"?"
@@ -1138,7 +1141,7 @@ msgstr "Cancelar a Inscrição da Pasta de Outro _Usuário"
 #~ "Cannot rename folder:\n"
 #~ "%s"
 #~ msgstr ""
-#~ "Impossível renomear a pasta:\n"
+#~ "Não foi possível renomear a pasta:\n"
 #~ "%s"
 
 #~ msgid "Rename the \"%s\" folder to:"
@@ -1167,13 +1170,13 @@ msgstr "Cancelar a Inscrição da Pasta de Outro _Usuário"
 #~ msgstr "Não foi possível abrir pasta de outro usuário: %s."
 
 #~ msgid "Cannot find the specified other user's folder."
-#~ msgstr "Impossível localizar a pasta de outro usuário especificada."
+#~ msgstr "Não foi possível localizar a pasta de outro usuário especificada."
 
 #~ msgid ""
 #~ "Cannot unsubscribe from folder:\n"
 #~ "%s"
 #~ msgstr ""
-#~ "Impossível cancelar a inscrição da pasta:\n"
+#~ "Não foi possível cancelar a inscrição da pasta:\n"
 #~ "%s"
 
 #~ msgid "Really unsubscribe from folder \"%s\"?"
@@ -1234,10 +1237,11 @@ msgstr "Cancelar a Inscrição da Pasta de Outro _Usuário"
 #~ msgstr "A pasta especificada não pode ser modificada ou removida"
 
 #~ msgid "Cannot make a folder a child of one of its descendants"
-#~ msgstr "Impossível transformar uma pasta em um filho dos seus descendentes"
+#~ msgstr ""
+#~ "Não foi possível transformar uma pasta em um filho dos seus descendentes"
 
 #~ msgid "Cannot create a folder with that name"
-#~ msgstr "Impossível criar uma pasta com este nome"
+#~ msgstr "Não foi possível criar uma pasta com este nome"
 
 #~ msgid "This operation cannot be performed in off-line mode"
 #~ msgstr "Está operação não pode ser executada enquanto desconectado"
@@ -1261,7 +1265,7 @@ msgstr "Cancelar a Inscrição da Pasta de Outro _Usuário"
 #~ msgstr "Pastas de %s"
 
 #~ msgid "Cannot change password due to configuration problems"
-#~ msgstr "Impossível alterar a senha devido a problemas de configuração"
+#~ msgstr "Não foi possível alterar a senha devido a problemas de configuração"
 
 #~ msgid ""
 #~ "Server rejected password because it is too weak.\n"
@@ -1286,7 +1290,7 @@ msgstr "Cancelar a Inscrição da Pasta de Outro _Usuário"
 #~ msgstr "Lista de Endereços Global"
 
 #~ msgid "Exchange Account is offline. Cannot display folders\n"
-#~ msgstr "Conta do Exchange desconectada. Impossível mostrar pastas\n"
+#~ msgstr "Conta do Exchange desconectada. Não foi possível mostrar pastas\n"
 
 #~ msgid ""
 #~ "Could not authenticate to server.\n"
@@ -1314,7 +1318,7 @@ msgstr "Cancelar a Inscrição da Pasta de Outro _Usuário"
 #~ "The server '%s' is running Exchange 5.5 and is\n"
 #~ "therefore not compatible with Ximian Connector"
 #~ msgstr ""
-#~ "O servidor '%s' está executando o Exchange 5.5,\n"
+#~ "O servidor \"%s\" está executando o Exchange 5.5,\n"
 #~ "contudo, não é compatível com o Ximian Connector"
 
 #~ msgid ""
@@ -1386,14 +1390,14 @@ msgstr "Cancelar a Inscrição da Pasta de Outro _Usuário"
 #~ "Unable to edit delegates."
 #~ msgstr ""
 #~ "Não foi possível ler permissões de pasta.\n"
-#~ "Impossível editar representantes."
+#~ "Não foi possível editar representantes."
 
 #~ msgid ""
 #~ "Could not determine folder permissions for delegates.\n"
 #~ "Unable to edit delegates."
 #~ msgstr ""
 #~ "Não foi possível determinar permissões de pasta para representantes.\n"
-#~ "Impossível editar representantes."
+#~ "Não foi possível editar representantes."
 
 #~ msgid "Delegate To:"
 #~ msgstr "Delegar Para:"
@@ -1463,7 +1467,7 @@ msgstr "Cancelar a Inscrição da Pasta de Outro _Usuário"
 #~ msgstr "Rascunhos"
 
 #~ msgid "Inbox"
-#~ msgstr "Caixa de entrada"
+#~ msgstr "Entrada"
 
 #~ msgid "Journal"
 #~ msgstr "Diário"
@@ -1502,7 +1506,7 @@ msgstr "Cancelar a Inscrição da Pasta de Outro _Usuário"
 #~ "Unable to add user to access control list:\n"
 #~ "No Global Catalog server is configured for this account."
 #~ msgstr ""
-#~ "Impossível adicionar o usuário à lista de controle de acesso:\n"
+#~ "Não foi possível adicionar o usuário à lista de controle de acesso:\n"
 #~ "Não existe servidor de Catálogo Global configurado para esta conta."
 
 #~ msgid "Add User:"
@@ -1515,7 +1519,7 @@ msgstr "Cancelar a Inscrição da Pasta de Outro _Usuário"
 #~ msgstr "Não existe o usuário %s"
 
 #~ msgid "%s cannot be added to an access control list"
-#~ msgstr "Impossível adicionar %s à uma lista de controle de acesso"
+#~ msgstr "Não foi possível adicionar %s à uma lista de controle de acesso"
 
 #~ msgid "Unknown error looking up %s"
 #~ msgstr "Erro desconhecido ao procurar por %s"
