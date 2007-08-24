@@ -161,7 +161,7 @@ header_load (CamelFolderSummary *summary, FILE *in)
 	exchange->version = version;
 	
 
-	d(g_print ("%s:%s:%d: high_article_num = [%d]\n", __FILE__, __PRETTY_FUNCTION__, __LINE__, high_article_num));
+	d(g_print ("%s:%s:%d: high_article_num = [%d]\n", __FILE__, G_GNUC_PRETTY_FUNCTION, __LINE__, high_article_num));
 
 	return 0;
 }
@@ -183,7 +183,7 @@ header_save (CamelFolderSummary *summary, FILE *out)
 	if (camel_file_util_encode_uint32 (out, exchange->high_article_num) == -1)
 		return -1;
 
-	d(g_print ("%s:%s:%d: high_article_num = [%d]\n", __FILE__, __PRETTY_FUNCTION__, __LINE__, exchange->high_article_num));
+	d(g_print ("%s:%s:%d: high_article_num = [%d]\n", __FILE__, G_GNUC_PRETTY_FUNCTION, __LINE__, exchange->high_article_num));
 
 	return 0;
 }
@@ -216,7 +216,7 @@ message_info_load (CamelFolderSummary *summary, FILE *in)
 		}
 		
 		einfo->href = href;
-		d(g_print ("%s:%s:%d: einfo->href = [%s]\n", __FILE__, __PRETTY_FUNCTION__, __LINE__, einfo->href));
+		d(g_print ("%s:%s:%d: einfo->href = [%s]\n", __FILE__, G_GNUC_PRETTY_FUNCTION, __LINE__, einfo->href));
 	}
 
 	return info;
@@ -239,7 +239,7 @@ message_info_save (CamelFolderSummary *summary, FILE *out, CamelMessageInfo *inf
 	if (camel_file_util_encode_string (out, einfo->href ? einfo->href : "") == -1)
 		return -1;
 
-	d(g_print ("%s:%s:%d: einfo->href = [%s]\n", __FILE__, __PRETTY_FUNCTION__, __LINE__, einfo->href));
+	d(g_print ("%s:%s:%d: einfo->href = [%s]\n", __FILE__, G_GNUC_PRETTY_FUNCTION, __LINE__, einfo->href));
 
 	return 0;
 }
