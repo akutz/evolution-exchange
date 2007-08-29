@@ -402,12 +402,34 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 
 	cbex->folder = exchange_account_get_folder (cbex->account, uristr);
 	if (!cbex->folder) {
+		ESource *source;
+		const char *foreign; 		
 		/* FIXME: theoretically we should create it if
 		 * only_if_exists is FALSE.
 		 */
-		g_mutex_unlock (cbex->priv->open_lock);
-		e_cal_backend_notify_error (E_CAL_BACKEND (cbex), _("Could not find the calendar"));
-		return GNOME_Evolution_Calendar_NoSuchCal;
+		
+		source = e_cal_backend_get_source (E_CAL_BACKEND (cbex));
+		foreign = e_source_get_property (source, "foreign");
+
+		if (foreign && (g_str_equal (foreign, "1"))) {
+			char **split_path;
+			const char *email, *path;
+
+			path = strrchr (uristr, ';');
+			split_path = g_strsplit (++path, "/", -1);
+			email = split_path [0];
+			
+			exchange_account_scan_foreign_hierarchy (cbex->account, email);
+			cbex->folder = exchange_account_get_folder (cbex->account, uristr);
+			
+			g_strfreev (split_path);
+		} else
+			e_cal_backend_notify_error (E_CAL_BACKEND (cbex), _("Could not find the calendar"));
+	
+		if (!cbex->folder) {
+			g_mutex_unlock (cbex->priv->open_lock);
+			return GNOME_Evolution_Calendar_NoSuchCal;
+		}
 	}
 	g_object_ref (cbex->folder);
 
