@@ -1323,6 +1323,16 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 		note = e_contact_get (*contact, E_CONTACT_NOTE);
 		photo = e_contact_get (*contact, E_CONTACT_PHOTO);
 
+		if (!bepriv->connected || !bepriv->ctx || !bepriv->summary) {
+			GNOME_Evolution_Addressbook_CallStatus state;
+
+			state = e_book_backend_exchange_connect (be);
+			if ( state != GNOME_Evolution_Addressbook_Success) {
+				d(printf("Returning status %d while creating contact\n", state));
+				return state;
+			}
+		}
+
 		status = e_folder_exchange_proppatch_new (bepriv->folder, NULL, name,
 							  test_name, bepriv->summary,
 							  props, &location, NULL);
@@ -1391,6 +1401,16 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 
 		*contact = e_contact_new_from_vcard (vcard);
 		uri = e_contact_get_const (*contact, E_CONTACT_UID);
+
+		if (!bepriv->connected || !bepriv->ctx || !bepriv->summary) {
+			GNOME_Evolution_Addressbook_CallStatus state;
+
+			state = e_book_backend_exchange_connect (be);
+			if ( state != GNOME_Evolution_Addressbook_Success) {
+				d(printf("Returning status %d while modifying contact\n", state));
+				return state;
+			}
+		}
 
 		status = e2k_context_propfind (bepriv->ctx, NULL, uri,
 					       field_names, n_field_names,
