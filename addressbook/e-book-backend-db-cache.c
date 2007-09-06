@@ -340,7 +340,7 @@ e_book_backend_db_cache_get_contacts (DB *db, const char *query)
 		if (vcard_dbt.data && !strncmp (vcard_dbt.data, "BEGIN:VCARD", 11))
 		if (e_book_backend_sexp_match_vcard(sexp, vcard_dbt.data)) {
 			contact = e_contact_new_from_vcard (vcard_dbt.data);
-			list = g_list_append (list, contact);
+			list = g_list_prepend (list, contact);
 		}
 		db_error = dbc->c_get (dbc, &uid_dbt, &vcard_dbt, DB_NEXT);
 	}
