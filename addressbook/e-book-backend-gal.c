@@ -315,12 +315,8 @@ ldap_reconnect (EBookBackendGAL *bl, EDataBookView *book_view, LDAP **ldap, int 
 static gboolean
 gal_reconnect (EBookBackendGAL *bl, EDataBookView *book_view, int ldap_status)
 {
-	if (!bl->priv->ldap) {
-		return FALSE;
-	}
-
 	/* we need to reconnect if we were previously connected */
-	if (bl->priv->connected && ldap_status == LDAP_SERVER_DOWN) {
+	if ((bl->priv->connected && ldap_status == LDAP_SERVER_DOWN) || (!bl->priv->ldap && !bl->priv->connected)) {
 		g_mutex_lock (bl->priv->ldap_lock);
 		if (book_view)
 			book_view_notify_status (book_view, _("Reconnecting to LDAP server..."));
@@ -331,6 +327,7 @@ gal_reconnect (EBookBackendGAL *bl, EDataBookView *book_view, int ldap_status)
 			book_view_notify_status (book_view, "");
 
 		if (bl->priv->ldap != NULL) {
+			bl->priv->connected = TRUE;
 			g_mutex_unlock (bl->priv->ldap_lock);
 			return TRUE;
 		} else {
@@ -339,6 +336,7 @@ gal_reconnect (EBookBackendGAL *bl, EDataBookView *book_view, int ldap_status)
 		}
 	}
 	else {
+		printf("Connected and ldap is null sigh\n");
 		return FALSE;
 	}
 }
@@ -1766,10 +1764,12 @@ start_book_view (EBookBackend  *backend,
 #endif			
 			printf("Not marked for offline or cache not there\n");
 			if (!bl->priv->ldap) {
-				printf("%s(%d):%s: no ldap :(\n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION);
-				e_data_book_view_notify_complete (view,
-								  GNOME_Evolution_Addressbook_InvalidQuery);
-				return;
+				if (!gal_reconnect (bl, view, 0)) {
+					printf("%s(%d):%s: no ldap :(\n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION);
+					e_data_book_view_notify_complete (view,
+									  GNOME_Evolution_Addressbook_InvalidQuery);
+					return;
+				}
 			}
 
 			/* we start at 1 so the user sees stuff as it appears and we
@@ -1795,21 +1795,24 @@ start_book_view (EBookBackend  *backend,
 			}
 
 			do {
-				book_view_notify_status (view, _("Searching..."));
-
-				g_mutex_lock (bl->priv->ldap_lock);
-				printf("%s(%d):%s: starting \n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION);
-				ldap_err = ldap_search_ext (bl->priv->ldap, LDAP_ROOT_DSE,
-							    LDAP_SCOPE_SUBTREE,
-							    ldap_query,
-							    search_attrs, 0,
-							    NULL, /* XXX */
-							    NULL, /* XXX */
-							    NULL, /* XXX timeout */
-							    view_limit,
-							    &search_msgid);
-				g_mutex_unlock (bl->priv->ldap_lock);
-				printf("%s(%d):%s: %d\n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION, ldap_err);
+				if (bl->priv->ldap) {
+					book_view_notify_status (view, _("Searching..."));
+	
+					g_mutex_lock (bl->priv->ldap_lock);
+					printf("%s(%d):%s: starting \n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION);
+					ldap_err = ldap_search_ext (bl->priv->ldap, LDAP_ROOT_DSE,
+								    LDAP_SCOPE_SUBTREE,
+								    ldap_query,
+								    search_attrs, 0,
+								    NULL, /* XXX */
+								    NULL, /* XXX */
+								    NULL, /* XXX timeout */
+								    view_limit,
+								    &search_msgid);
+					g_mutex_unlock (bl->priv->ldap_lock);
+					printf("%s(%d):%s: %d\n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION, ldap_err);
+				} else 
+					bl->priv->connected = FALSE;
 			} while (gal_reconnect (bl, view, ldap_err));
 
 			g_free (ldap_query);
