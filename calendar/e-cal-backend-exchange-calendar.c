@@ -407,6 +407,9 @@ get_changed_events (ECalBackendExchange *cbex)
 	status = e2k_result_iter_free (iter);
 
 	if (!SOUP_STATUS_IS_SUCCESSFUL (status)) {
+		if (!since)
+			e_cal_backend_exchange_cache_sync_end (cbex);
+
 		g_ptr_array_free (hrefs, TRUE);
 		g_hash_table_destroy (modtimes);
 		g_hash_table_destroy (attachments);

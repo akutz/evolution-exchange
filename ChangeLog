@@ -1,3 +1,11 @@
+2007-09-07  Chenthill Palanisamy  <pchenthill@novell.com>
+
+	Fixes #295558 (bnc)
+	* calendar/e-cal-backend-exchange-calendar.c: (get_changed_events):
+	* calendar/e-cal-backend-exchange-tasks.c: (get_changed_tasks): Sync 
+	the changes with the cache if something fails in between while iterating
+	through the response from the server.
+
 2007-09-07  Srinivasa Ragavan  <sragavan@novell.com>
 	
 	** Fix for bug #295622 (Novell Bugzilla)
