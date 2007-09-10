@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-05 11:03+0200\n"
-"PO-Revision-Date: 2007-03-05 18:23+0300\n"
+"POT-Creation-Date: 2007-09-10 16:19+0300\n"
+"PO-Revision-Date: 2007-09-10 18:23+0300\n"
 "Last-Translator: Maxim Dziumanenko <dziumanenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,32 +23,33 @@ msgstr "Вказує період оновлення кешу GAL."
 msgid ""
 "This key specifies the number of days interval between the GAL cache "
 "refresh. Set this value to zero, if you don't want to update GAL and use the "
-"curernt cache forever. This will work only if you have enabled offline "
+"current cache forever. This will work only if you have enabled offline "
 "caching for GAL."
 msgstr ""
-"Цей ключ вказує період у днях між оновленнями кешу GAL. "
-"Якщо ви не бажаєте оновлювати GAL, а бажаєте завжди використовувати поточний кеш, тоді "
-"встановіть нульове значення. Параметр має дію, лише якщо увімкнено фонове кешування "
-"для GAL."
+"Цей ключ вказує період у днях між оновленнями кешу GAL. Якщо ви не бажаєте "
+"оновлювати GAL, а бажаєте завжди використовувати поточний кеш, тоді "
+"встановіть нульове значення. Параметр має дію, лише якщо увімкнено фонове "
+"кешування для GAL."
 
-#: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1547 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:1917
+#: ../addressbook/e-book-backend-gal.c:1799 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Пошук..."
 
-#: ../addressbook/e-book-backend-gal.c:265
+#: ../addressbook/e-book-backend-gal.c:301
+#: ../addressbook/e-book-backend-gal.c:322
 msgid "Reconnecting to LDAP server..."
 msgstr "Повторне з'єднання з сервером LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1384
+#: ../addressbook/e-book-backend-gal.c:1583
 msgid "Receiving LDAP search results..."
 msgstr "Отримання результатів пошуку LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1570
+#: ../addressbook/e-book-backend-gal.c:1828
 msgid "Error performing search"
 msgstr "Помилка при виконанні пошуку"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2015
+#: ../calendar/e-cal-backend-exchange-calendar.c:2091
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -57,17 +58,17 @@ msgstr ""
 "Не вдається додати у розклад ресурс '%s' для періодичного засідання.\n"
 "Необхідно резервувати кожне засідання окремо."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2033
+#: ../calendar/e-cal-backend-exchange-calendar.c:2109
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Ресурс '%s' зайнятий протягом вибраного проміжку часу."
 
-#: ../calendar/e-cal-backend-exchange.c:375
-#: ../calendar/e-cal-backend-exchange.c:384
+#: ../calendar/e-cal-backend-exchange.c:390
+#: ../calendar/e-cal-backend-exchange.c:400
 msgid "Authentication failed"
 msgstr "Помилка автентифікації"
 
-#: ../calendar/e-cal-backend-exchange.c:395
+#: ../calendar/e-cal-backend-exchange.c:441
 msgid "Could not find the calendar"
 msgstr "Не вдається знайти календар"
 
@@ -79,141 +80,141 @@ msgstr "Очищення не можна виконувати автономно
 msgid "No Subject"
 msgstr "Немає теми"
 
-#: ../camel/camel-exchange-folder.c:407
+#: ../camel/camel-exchange-folder.c:408
 msgid "This message is not available in offline mode."
 msgstr "Це повідомлення недоступне у автономному режимі."
 
-#: ../camel/camel-exchange-folder.c:642
+#: ../camel/camel-exchange-folder.c:665
 msgid "Moving messages"
 msgstr "Переміщення повідомлень"
 
-#: ../camel/camel-exchange-folder.c:643
+#: ../camel/camel-exchange-folder.c:666
 msgid "Copying messages"
 msgstr "Копіювання повідомлень"
 
-#: ../camel/camel-exchange-folder.c:1014
+#: ../camel/camel-exchange-folder.c:1039
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Не вдається створити каталог %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1024
+#: ../camel/camel-exchange-folder.c:1049
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Не вдається завантажити зведення для %s"
 
-#: ../camel/camel-exchange-folder.c:1032
+#: ../camel/camel-exchange-folder.c:1057
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Не вдається створити кеш для %s"
 
-#: ../camel/camel-exchange-folder.c:1042
+#: ../camel/camel-exchange-folder.c:1067
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Не вдається створити журнал для %s"
 
-#: ../camel/camel-exchange-folder.c:1087
+#: ../camel/camel-exchange-folder.c:1115
 msgid "Scanning for changed messages"
 msgstr "Шукаються змінені повідомлення"
 
-#: ../camel/camel-exchange-folder.c:1113
+#: ../camel/camel-exchange-folder.c:1148
 msgid "Fetching summary information for new messages"
 msgstr "Отримується зведення про нові повідомлення"
 
-#: ../camel/camel-exchange-journal.c:339
+#: ../camel/camel-exchange-journal.c:341
 msgid "No folder name found\n"
 msgstr "Не знайдено назву теки\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2569
-#: ../mail/mail-stub-exchange.c:2613 ../mail/mail-stub-exchange.c:2648
-#: ../mail/mail-stub-exchange.c:2675 ../mail/mail-stub-exchange.c:2728
-#: ../mail/mail-stub-exchange.c:2750
+#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:2874
+#: ../mail/mail-stub-exchange.c:2918 ../mail/mail-stub-exchange.c:2953
+#: ../mail/mail-stub-exchange.c:2980 ../mail/mail-stub-exchange.c:3033
+#: ../mail/mail-stub-exchange.c:3055
 msgid "Folder doesn't exist"
 msgstr "Тека не існує"
 
-#: ../camel/camel-exchange-journal.c:436
+#: ../camel/camel-exchange-journal.c:438
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
 "Не вдається видалити повідомлення у автономному режимі: кеш недоступний"
 
-#: ../camel/camel-exchange-journal.c:452
+#: ../camel/camel-exchange-journal.c:454
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Не вдається додати повідомлення у автономному режимі: %s"
 
-#: ../camel/camel-exchange-provider.c:40
+#: ../camel/camel-exchange-provider.c:41
 msgid "Checking for New Mail"
 msgstr "Перевірка нової пошти"
 
-#: ../camel/camel-exchange-provider.c:42 ../camel/camel-exchange-provider.c:66
+#: ../camel/camel-exchange-provider.c:43
 msgid "C_heck for new messages in all folders"
 msgstr "П_еревіряти нові повідомлення в усіх теках"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:50
+#: ../camel/camel-exchange-provider.c:51
 msgid "Windows User_name:"
 msgstr "_Назва рахунку у Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:56
 msgid "Global Address List / Active Directory"
 msgstr "Глобальний список адрес / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:59
+#: ../camel/camel-exchange-provider.c:60
 msgid "_Global Catalog server name:"
 msgstr "Назва сервера г_лобального каталогу:"
 
-#: ../camel/camel-exchange-provider.c:61
+#: ../camel/camel-exchange-provider.c:62
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "_Обмеження числа GAL відповідей: %s"
 
-#: ../camel/camel-exchange-provider.c:64
+#: ../camel/camel-exchange-provider.c:65
 msgid "Options"
 msgstr "Параметри"
 
-#: ../camel/camel-exchange-provider.c:68
+#: ../camel/camel-exchange-provider.c:67
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "Інтервал попередження про закінчення терміну дії _паролю: %s"
 
-#: ../camel/camel-exchange-provider.c:70
+#: ../camel/camel-exchange-provider.c:69
 msgid "Automatically synchroni_ze account locally"
 msgstr "Автоматично син_хронізувати обліковий запис локально"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:73
+#: ../camel/camel-exchange-provider.c:72
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr ""
 "Зас_тосовувати фільтри до нових повідомлень у теці \"Вхідні\" на цьому "
 "сервері"
 
-#: ../camel/camel-exchange-provider.c:75
+#: ../camel/camel-exchange-provider.c:74
 msgid "Check new messages for _Junk contents"
 msgstr "Перевіряти нові повідомлення на \"с_пам\""
 
-#: ../camel/camel-exchange-provider.c:77
+#: ../camel/camel-exchange-provider.c:76
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Перевіряти на \"спам\" лише _теку \"Вхідні\""
 
-#: ../camel/camel-exchange-provider.c:87
+#: ../camel/camel-exchange-provider.c:86
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:89
+#: ../camel/camel-exchange-provider.c:88
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Для обробки пошти (та інших даних) на сервері Microsoft Exchange"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:105
+#: ../camel/camel-exchange-provider.c:104
 msgid "Secure Password"
 msgstr "Безпечний пароль"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:108
+#: ../camel/camel-exchange-provider.c:107
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -221,11 +222,11 @@ msgstr ""
 "Цей параметр призводить до з'єднання з сервером Exchange використовуючи "
 "автентифікацію з безпечним паролем (NTLM)"
 
-#: ../camel/camel-exchange-provider.c:116
+#: ../camel/camel-exchange-provider.c:115
 msgid "Plaintext Password"
 msgstr "Незахищений пароль"
 
-#: ../camel/camel-exchange-provider.c:118
+#: ../camel/camel-exchange-provider.c:117
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -277,141 +278,141 @@ msgstr "Не можна відписуватись від теки у автон
 msgid "Cannot get folder info in offline mode."
 msgstr "Не можна отримувати відомості про теку у автономному режимі."
 
-#: ../camel/camel-exchange-store.c:785
+#: ../camel/camel-exchange-store.c:787
 msgid "Cannot create folder in offline mode."
 msgstr "Не можна створювати теку у автономному режимі."
 
-#: ../camel/camel-exchange-store.c:812
+#: ../camel/camel-exchange-store.c:814
 msgid "Cannot delete folder in offline mode."
 msgstr "Не можна видаляти теку у автономному режимі."
 
-#: ../camel/camel-exchange-store.c:828
+#: ../camel/camel-exchange-store.c:830
 msgid "Cannot rename folder in offline mode."
 msgstr "Не можна перейменовувати теку у автономному режимі."
 
-#: ../camel/camel-exchange-transport.c:110
+#: ../camel/camel-exchange-transport.c:111
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr ""
 "Транспорт Exchange може використовуватись лише з джерелом пошти Exchange"
 
-#: ../camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-transport.c:122
 msgid "Cannot send message: one or more invalid recipients"
 msgstr ""
 "Не вдається надіслати повідомлення: один або більше недійсних отримувачів"
 
-#: ../camel/camel-exchange-transport.c:131
+#: ../camel/camel-exchange-transport.c:132
 msgid "Could not find 'From' address in message"
 msgstr "Не вдається знайти адресу 'From'у повідомленні"
 
-#: ../camel/camel-stub.c:152
+#: ../camel/camel-stub.c:153
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Не вдається створити сокет: %s"
 
-#: ../camel/camel-stub.c:170
+#: ../camel/camel-stub.c:171
 #, c-format
 msgid "Could not connect to %s: Please restart Evolution"
 msgstr "Не вдається підключитись до %s: перезапустіть Evolution"
 
-#: ../camel/camel-stub.c:175
+#: ../camel/camel-stub.c:176
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Не вдається підключитись до %s: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:206
 #, c-format
 msgid "Path too long: %s"
 msgstr "Шлях надто довгий: %s"
 
-#: ../camel/camel-stub.c:231
+#: ../camel/camel-stub.c:232
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Не вдається запустити потік статусу: %s"
 
-#: ../camel/camel-stub.c:485
+#: ../camel/camel-stub.c:486
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Втрачено з'єднання з %s"
 
-#: ../camel/camel-stub.c:489
+#: ../camel/camel-stub.c:490
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Помилка зв'язку з %s: %s"
 
-#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
+#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:946
 msgid "No such folder"
 msgstr "Немає такої теки"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2546 ../mail/mail-stub-exchange.c:2586
-#: ../mail/mail-stub-exchange.c:2652 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2765
+#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1595
+#: ../mail/mail-stub-exchange.c:2851 ../mail/mail-stub-exchange.c:2891
+#: ../mail/mail-stub-exchange.c:2957 ../mail/mail-stub-exchange.c:3007
+#: ../mail/mail-stub-exchange.c:3070
 msgid "Permission denied"
 msgstr "Доступ заборонено"
 
-#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
-msgid "Could not open folder: Permission denied"
-msgstr "Не вдається відкрити теку: доступ заборонено"
-
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
+#: ../mail/mail-stub-exchange.c:768 ../mail/mail-stub-exchange.c:860
 msgid "Could not open folder"
 msgstr "Не вдається відкрити теку"
 
-#: ../mail/mail-stub-exchange.c:764
+#: ../mail/mail-stub-exchange.c:854 ../mail/mail-stub-exchange.c:876
+msgid "Could not open folder: Permission denied"
+msgstr "Не вдається відкрити теку: доступ заборонено"
+
+#: ../mail/mail-stub-exchange.c:955
 msgid "Could not create folder."
 msgstr "Не вдається створити теку."
 
-#: ../mail/mail-stub-exchange.c:844
+#: ../mail/mail-stub-exchange.c:1043
 msgid "Could not open Deleted Items folder"
 msgstr "Не вдається відкрити теку \"Видалене\""
 
-#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
+#: ../mail/mail-stub-exchange.c:1374 ../mail/mail-stub-exchange.c:1415
 msgid "Could not get new messages"
 msgstr "Не вдається отримати нові повідомлення"
 
-#: ../mail/mail-stub-exchange.c:1386
+#: ../mail/mail-stub-exchange.c:1591
 msgid "Could not empty Deleted Items folder"
 msgstr "Не вдається очистити теку \"Видалене\""
 
-#: ../mail/mail-stub-exchange.c:1463
+#: ../mail/mail-stub-exchange.c:1668
 msgid "Could not append message; mailbox is over quota"
 msgstr "Не вдається приєднати повідомлення: перевищена квота поштової скриньки"
 
-#: ../mail/mail-stub-exchange.c:1464
+#: ../mail/mail-stub-exchange.c:1669
 msgid "Could not append message"
 msgstr "Не вдається приєднати повідомлення"
 
-#: ../mail/mail-stub-exchange.c:2016
+#: ../mail/mail-stub-exchange.c:2324
 msgid "No such message"
 msgstr "Немає такого повідомлення"
 
-#: ../mail/mail-stub-exchange.c:2069
+#: ../mail/mail-stub-exchange.c:2386
 msgid "Message has been deleted"
 msgstr "Повідомлення було видалено"
 
-#: ../mail/mail-stub-exchange.c:2071
+#: ../mail/mail-stub-exchange.c:2388
 msgid "Error retrieving message"
 msgstr "Помилка при отриманні повідомлення"
 
-#: ../mail/mail-stub-exchange.c:2113
+#: ../mail/mail-stub-exchange.c:2430
 msgid "Mailbox does not support full-text searching"
 msgstr "Поштова скринька не підтримує пошук по усьому вмісту"
 
-#: ../mail/mail-stub-exchange.c:2211
+#: ../mail/mail-stub-exchange.c:2528
 msgid "Unable to move/copy messages"
 msgstr "Не вдається перемістити/копіювати повідомлення"
 
-#: ../mail/mail-stub-exchange.c:2461
+#: ../mail/mail-stub-exchange.c:2766
 msgid "No mail submission URI for this mailbox"
 msgstr "Відсутній URI передавання для цієї поштової скриньки"
 
-#: ../mail/mail-stub-exchange.c:2497
+#: ../mail/mail-stub-exchange.c:2802
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Сервер не приймає пошту через транспорт Exchange"
 
-#: ../mail/mail-stub-exchange.c:2499
+#: ../mail/mail-stub-exchange.c:2804
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -420,7 +421,7 @@ msgstr ""
 "Ваш обліковий рахунок не має прав для використання <%s>\n"
 "у якості адреси \"Від:\"."
 
-#: ../mail/mail-stub-exchange.c:2511
+#: ../mail/mail-stub-exchange.c:2816
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -428,17 +429,17 @@ msgstr ""
 "Не вдається надіслати повідомлення.\n"
 "Це може означати, що ваш обліковий рахунок перевищив квоту."
 
-#: ../mail/mail-stub-exchange.c:2515
+#: ../mail/mail-stub-exchange.c:2820
 msgid "Could not send message"
 msgstr "Не вдається надіслати повідомлення"
 
-#: ../mail/mail-stub-exchange.c:2538 ../mail/mail-stub-exchange.c:2591
-#: ../mail/mail-stub-exchange.c:2656 ../mail/mail-stub-exchange.c:2707
-#: ../mail/mail-stub-exchange.c:2771
+#: ../mail/mail-stub-exchange.c:2843 ../mail/mail-stub-exchange.c:2896
+#: ../mail/mail-stub-exchange.c:2961 ../mail/mail-stub-exchange.c:3012
+#: ../mail/mail-stub-exchange.c:3076
 msgid "Generic error"
 msgstr "Загальна помилка"
 
-#: ../mail/mail-stub-exchange.c:2542
+#: ../mail/mail-stub-exchange.c:2847
 msgid "Folder already exists"
 msgstr "Тека вже існує"
 
