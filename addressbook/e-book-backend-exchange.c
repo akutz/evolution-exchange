@@ -548,16 +548,33 @@ e_book_backend_exchange_connect (EBookBackendExchange *be)
 	E2kHTTPStatus status;
 	time_t folder_mtime;
 
-	bepriv->account = exchange_component_get_account_for_uri (global_exchange_component, bepriv->exchange_uri);
-	if (!bepriv->account)
-		return GNOME_Evolution_Addressbook_RepositoryOffline;
-	bepriv->ctx = exchange_account_get_context (bepriv->account);
-	if (!bepriv->ctx)
-		return GNOME_Evolution_Addressbook_RepositoryOffline;
+	if (!bepriv->account) {
+		bepriv->account = exchange_component_get_account_for_uri (global_exchange_component, bepriv->exchange_uri);
+		if (!bepriv->account)
+			return GNOME_Evolution_Addressbook_RepositoryOffline;
+	}
+	if (!bepriv->ctx) {
+		bepriv->ctx = exchange_account_get_context (bepriv->account);
+		if (!bepriv->ctx)
+			return GNOME_Evolution_Addressbook_RepositoryOffline;
+	}
 
 	bepriv->folder = exchange_account_get_folder (bepriv->account, bepriv->exchange_uri);
-	if (!bepriv->folder)
-		return GNOME_Evolution_Addressbook_RepositoryOffline;
+	if (!bepriv->folder) {
+		ExchangeHierarchy *hier;
+
+		/* Rescan the hierarchy to see if any new addressbooks got added */
+		hier = exchange_account_get_hierarchy_by_type (bepriv->account, EXCHANGE_HIERARCHY_PERSONAL);
+		g_object_ref (hier->toplevel);
+		e_folder_exchange_set_rescan_tree (hier->toplevel, TRUE);
+		exchange_hierarchy_scan_subtree (hier, hier->toplevel, ONLINE_MODE);
+		e_folder_exchange_set_rescan_tree (hier->toplevel, FALSE);
+		g_object_unref (hier->toplevel);
+
+		bepriv->folder = exchange_account_get_folder (bepriv->account, bepriv->exchange_uri);
+		if (!bepriv->folder)
+			return GNOME_Evolution_Addressbook_RepositoryOffline;
+	}
 	g_object_ref (bepriv->folder);
 
 	/* check permissions on the folder */
@@ -2236,9 +2253,9 @@ e_book_backend_exchange_authenticate_user (EBookBackend *backend,
 			
 	case GNOME_Evolution_Addressbook_MODE_REMOTE:
 		
-		account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
+		bepriv->account = account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
 		/* FIXME : Check for failures */
-		if (!exchange_account_get_context (account)) {
+		if (!(bepriv->ctx = exchange_account_get_context (account))) {
 			exchange_account_set_online (account);
 			if(!exchange_account_connect (account, password, &result)) {
 				e_data_book_respond_authenticate_user (book, opid, GNOME_Evolution_Addressbook_AuthenticationFailed);

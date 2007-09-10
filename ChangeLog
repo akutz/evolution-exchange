@@ -1,3 +1,14 @@
+2007-09-10  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** Fix for bug #295646 (Novell Bugzilla)
+
+	* addressbook/e-book-backend-exchange.c:
+	(e_book_backend_exchange_connect),
+	(e_book_backend_exchange_authenticate_user): Use rescan subtree for
+	personal hierarchy to get the newly created book.
+	* calendar/e-cal-backend-exchange.c: (open_calendar): Use rescan
+	subtree to get the newly created calendar.
+
 2007-09-07  Chenthill Palanisamy  <pchenthill@novell.com>
 
 	Fixes #295558 (bnc)

@@ -380,14 +380,16 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 		
 	/* Make sure we have an open connection */
 	/* This steals the ExchangeAccount from ExchangeComponent */
-	cbex->account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
 	if (!cbex->account) {
-		cbex->account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
-		exchange_account_set_online (cbex->account);
-		if (!exchange_account_connect (cbex->account, password, &acresult)) {
-			g_mutex_unlock (cbex->priv->open_lock);
-			e_cal_backend_notify_error (E_CAL_BACKEND (cbex), _("Authentication failed"));
-			return GNOME_Evolution_Calendar_AuthenticationFailed;
+		cbex->account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
+		if (!cbex->account) {
+			cbex->account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
+			exchange_account_set_online (cbex->account);
+			if (!exchange_account_connect (cbex->account, password, &acresult)) {
+				g_mutex_unlock (cbex->priv->open_lock);
+				e_cal_backend_notify_error (E_CAL_BACKEND (cbex), _("Authentication failed"));
+				return GNOME_Evolution_Calendar_AuthenticationFailed;
+			}
 		}
 	}
 
@@ -423,8 +425,21 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 			cbex->folder = exchange_account_get_folder (cbex->account, uristr);
 			
 			g_strfreev (split_path);
-		} else
-			e_cal_backend_notify_error (E_CAL_BACKEND (cbex), _("Could not find the calendar"));
+		} else {
+			/* Rescan to see if this is any new calendar */
+		        ExchangeHierarchy *hier;
+	
+			hier = exchange_account_get_hierarchy_by_type (cbex->account, EXCHANGE_HIERARCHY_PERSONAL);
+	       	       	g_object_ref (hier->toplevel);
+	       	       	e_folder_exchange_set_rescan_tree (hier->toplevel, TRUE);
+	               	exchange_hierarchy_scan_subtree (hier, hier->toplevel, ONLINE_MODE);
+	               	e_folder_exchange_set_rescan_tree (hier->toplevel, FALSE);
+	               	g_object_unref (hier->toplevel);
+	
+	               	cbex->folder = exchange_account_get_folder (cbex->account, uristr);
+		 	if (!cbex->folder)
+				e_cal_backend_notify_error (E_CAL_BACKEND (cbex), _("Could not find the calendar"));
+		}
 	
 		if (!cbex->folder) {
 			g_mutex_unlock (cbex->priv->open_lock);
