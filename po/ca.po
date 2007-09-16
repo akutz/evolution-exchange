@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-12 02:45+0100\n"
+"POT-Creation-Date: 2007-09-16 19:15+0200\n"
 "PO-Revision-Date: 2007-02-11 13:05+0200\n"
 "Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
@@ -24,50 +24,35 @@ msgstr ""
 msgid ""
 "This key specifies the number of days interval between the GAL cache "
 "refresh. Set this value to zero, if you don't want to update GAL and use the "
-"curernt cache forever. This will work only if you have enabled offline "
+"current cache forever. This will work only if you have enabled offline "
 "caching for GAL."
 msgstr ""
 "Aquesta clau especifica l'interval de dies entre actualitzacions de la "
-"memòria cau del GAL. Establiu-ho a zero per fer servir la memòria cau actual "
-"i no actualitzar-la mai. Això funcionarà només si heu habilitat la memòria "
-"cau sense connexió per al GAL."
+"memòria cau de la GAL. Establiu el seu valor a zero si voleu fer servir "
+"la memòria cau actual sempre, en lloc d'actualitzar la GAL. Això només "
+"funcionarà si heu habilitat la memòria cau de la GAL per a treballar fora "
+"de línia."
 
 # Netscape_4.7->String:RESDLL.DLL
-#: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1716 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:1917
+#: ../addressbook/e-book-backend-gal.c:1799 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "S'està cercant..."
 
-#: ../addressbook/e-book-backend-gal.c:290
+#: ../addressbook/e-book-backend-gal.c:301
+#: ../addressbook/e-book-backend-gal.c:322
 msgid "Reconnecting to LDAP server..."
 msgstr "S'està tornant a connectar amb el servidor LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1513
+#: ../addressbook/e-book-backend-gal.c:1583
 msgid "Receiving LDAP search results..."
 msgstr "S'estan rebent els resultats de la cerca LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1743
+#: ../addressbook/e-book-backend-gal.c:1828
 msgid "Error performing search"
 msgstr "S'ha produït un error en cercar"
 
-#: ../addressbook/e-book-backend-gal.c:1869
-#, c-format
-msgid "Internal error.\n"
-msgstr "Error intern.\n"
-
-#: ../addressbook/e-book-backend-gal.c:1879
-#, c-format
-msgid "Paged results response control could not be decoded.\n"
-msgstr ""
-"No s'ha pogut descodificar el control de resposta de la pàgina de "
-"resultats.\n"
-
-#: ../addressbook/e-book-backend-gal.c:1885
-#, c-format
-msgid "Invalid entries estimate in paged results response.\n"
-msgstr "Estimació d'entrades invàlides en la resposta de resultats paginada.\n"
-
-#: ../calendar/e-cal-backend-exchange-calendar.c:2015
+#: ../calendar/e-cal-backend-exchange-calendar.c:2091
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -76,17 +61,17 @@ msgstr ""
 "No s'ha pogut planificar el recurs '%s' per a reunions periòdiques.\n"
 "Haureu de reservar cada reunió per separat."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2033
+#: ../calendar/e-cal-backend-exchange-calendar.c:2109
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Els recurs '%s' està ocupat durant el període de temps seleccionat."
 
-#: ../calendar/e-cal-backend-exchange.c:375
-#: ../calendar/e-cal-backend-exchange.c:384
+#: ../calendar/e-cal-backend-exchange.c:390
+#: ../calendar/e-cal-backend-exchange.c:400
 msgid "Authentication failed"
 msgstr "Ha fallat l'autenticació"
 
-#: ../calendar/e-cal-backend-exchange.c:395
+#: ../calendar/e-cal-backend-exchange.c:441
 msgid "Could not find the calendar"
 msgstr "No es pot trobar el calendari"
 
@@ -98,144 +83,144 @@ msgstr "No es podeu buidar si no esteu connectat."
 msgid "No Subject"
 msgstr "Sense assumpte"
 
-#: ../camel/camel-exchange-folder.c:407
+#: ../camel/camel-exchange-folder.c:408
 msgid "This message is not available in offline mode."
 msgstr "Aquest missatge no està disponible estant desconnectat."
 
-#: ../camel/camel-exchange-folder.c:642
+#: ../camel/camel-exchange-folder.c:665
 msgid "Moving messages"
 msgstr "S'està movent els missatges"
 
-#: ../camel/camel-exchange-folder.c:643
+#: ../camel/camel-exchange-folder.c:666
 msgid "Copying messages"
 msgstr "S'està copiant els missatges"
 
-#: ../camel/camel-exchange-folder.c:1014
+#: ../camel/camel-exchange-folder.c:1039
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "No s'ha pogut crear el directori %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1024
+#: ../camel/camel-exchange-folder.c:1049
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "No s'ha pogut carregar el resum per a %s"
 
-#: ../camel/camel-exchange-folder.c:1032
+#: ../camel/camel-exchange-folder.c:1057
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "No s'ha pogut crear la memòria cau per a %s"
 
-#: ../camel/camel-exchange-folder.c:1042
+#: ../camel/camel-exchange-folder.c:1067
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "No s'ha pogut crear el diari per a %s"
 
-#: ../camel/camel-exchange-folder.c:1087
+#: ../camel/camel-exchange-folder.c:1115
 msgid "Scanning for changed messages"
 msgstr "S'està cercant els missatges canviats"
 
-#: ../camel/camel-exchange-folder.c:1113
+#: ../camel/camel-exchange-folder.c:1148
 msgid "Fetching summary information for new messages"
 msgstr "S'està recollint la informació de resum per als nous missatges"
 
-#: ../camel/camel-exchange-journal.c:339
+#: ../camel/camel-exchange-journal.c:341
 msgid "No folder name found\n"
 msgstr "No s'ha trobat el nom de carpeta\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2569
-#: ../mail/mail-stub-exchange.c:2613 ../mail/mail-stub-exchange.c:2648
-#: ../mail/mail-stub-exchange.c:2675 ../mail/mail-stub-exchange.c:2728
-#: ../mail/mail-stub-exchange.c:2750
+#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:2874
+#: ../mail/mail-stub-exchange.c:2918 ../mail/mail-stub-exchange.c:2953
+#: ../mail/mail-stub-exchange.c:2980 ../mail/mail-stub-exchange.c:3033
+#: ../mail/mail-stub-exchange.c:3055
 msgid "Folder doesn't exist"
 msgstr "La carpeta no existeix"
 
-#: ../camel/camel-exchange-journal.c:436
+#: ../camel/camel-exchange-journal.c:438
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
 "No es pot afegir el missatge en mode desconnectat: la memòria cau no està "
 "disponible"
 
-#: ../camel/camel-exchange-journal.c:452
+#: ../camel/camel-exchange-journal.c:454
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "No es pot afegir el missatge en mode desconnectat: %s"
 
-#: ../camel/camel-exchange-provider.c:40
+#: ../camel/camel-exchange-provider.c:41
 msgid "Checking for New Mail"
 msgstr "Comprovació de correu nou"
 
-#: ../camel/camel-exchange-provider.c:42 ../camel/camel-exchange-provider.c:66
+#: ../camel/camel-exchange-provider.c:43
 msgid "C_heck for new messages in all folders"
 msgstr "Compro_va els missatges nous en totes les carpetes"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:50
+#: ../camel/camel-exchange-provider.c:51
 msgid "Windows User_name:"
 msgstr "_Nom d'usuari del Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:56
 msgid "Global Address List / Active Directory"
 msgstr "Llista d'adreces global / directori actiu"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:59
+#: ../camel/camel-exchange-provider.c:60
 msgid "_Global Catalog server name:"
 msgstr "Nom del servidor de catàleg _global:"
 
-#: ../camel/camel-exchange-provider.c:61
+#: ../camel/camel-exchange-provider.c:62
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "Quantitat _límit de respostes de GAL: %s"
 
-#: ../camel/camel-exchange-provider.c:64
+#: ../camel/camel-exchange-provider.c:65
 msgid "Options"
 msgstr "Opcions"
 
-#: ../camel/camel-exchange-provider.c:68
+#: ../camel/camel-exchange-provider.c:67
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Període d'avís de venciment de la contrasenya: %s"
 
-#: ../camel/camel-exchange-provider.c:70
+#: ../camel/camel-exchange-provider.c:69
 msgid "Automatically synchroni_ze account locally"
 msgstr "Sincrontiza _automàticament el compte localment"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:73
+#: ../camel/camel-exchange-provider.c:72
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr ""
 "_Aplica els filtres als nous missatges a la safata d'entrada en aquest "
 "servidor"
 
-#: ../camel/camel-exchange-provider.c:75
+#: ../camel/camel-exchange-provider.c:74
 msgid "Check new messages for _Junk contents"
 msgstr "_Comprova si hi ha brossa al contingut dels nous missatges"
 
-#: ../camel/camel-exchange-provider.c:77
+#: ../camel/camel-exchange-provider.c:76
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr ""
 "Només comprova els missatges _brossa a la carpeta de la safata d'entrada"
 
-#: ../camel/camel-exchange-provider.c:87
+#: ../camel/camel-exchange-provider.c:86
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:89
+#: ../camel/camel-exchange-provider.c:88
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr ""
 "Per gestionar el correu (i altres dades) en servidors Microsoft Exchange"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:105
+#: ../camel/camel-exchange-provider.c:104
 msgid "Secure Password"
 msgstr "Contrasenya segura"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:108
+#: ../camel/camel-exchange-provider.c:107
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -243,11 +228,11 @@ msgstr ""
 "Amb aquesta opció es connectarà al servidor Exchange fent servir "
 "autenticació amb contrasenya segura (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:116
+#: ../camel/camel-exchange-provider.c:115
 msgid "Plaintext Password"
 msgstr "Contrasenya sense xifrar"
 
-#: ../camel/camel-exchange-provider.c:118
+#: ../camel/camel-exchange-provider.c:117
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -299,142 +284,142 @@ msgstr "No es pot desfer la subscripció a una carpeta en mode desconnectat."
 msgid "Cannot get folder info in offline mode."
 msgstr "No es pot obtenir la carpeta estant desconnectat."
 
-#: ../camel/camel-exchange-store.c:785
+#: ../camel/camel-exchange-store.c:787
 msgid "Cannot create folder in offline mode."
 msgstr "No es pot crear una carpeta en mode desconnectat."
 
-#: ../camel/camel-exchange-store.c:812
+#: ../camel/camel-exchange-store.c:814
 msgid "Cannot delete folder in offline mode."
 msgstr "No es pot suprimir la carpeta en mode desconnexió."
 
-#: ../camel/camel-exchange-store.c:828
+#: ../camel/camel-exchange-store.c:830
 msgid "Cannot rename folder in offline mode."
 msgstr "No es pot reanomenar la carpeta en mode desconnectat."
 
-#: ../camel/camel-exchange-transport.c:110
+#: ../camel/camel-exchange-transport.c:111
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr ""
 "El transport Exchange només es pot fer servir amb una font de correu "
 "d'Exchange"
 
-#: ../camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-transport.c:122
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "No s'ha pogut enviar el missatge: un o més destinataris són invàlids"
 
-#: ../camel/camel-exchange-transport.c:131
+#: ../camel/camel-exchange-transport.c:132
 msgid "Could not find 'From' address in message"
 msgstr "No s'ha pogut trobar l'adreça 'De' al missatge"
 
-#: ../camel/camel-stub.c:152
+#: ../camel/camel-stub.c:153
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "No s'ha pogut crear el sòcol: %s"
 
-#: ../camel/camel-stub.c:170
+#: ../camel/camel-stub.c:171
 #, c-format
 msgid "Could not connect to %s: Please restart Evolution"
 msgstr "No s'ha pogut connectar a %s: reinicieu l'Evolution"
 
-#: ../camel/camel-stub.c:175
+#: ../camel/camel-stub.c:176
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "No s'ha pogut connectar a %s: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:206
 #, c-format
 msgid "Path too long: %s"
 msgstr "El camí és massa llarg: %s"
 
-#: ../camel/camel-stub.c:231
+#: ../camel/camel-stub.c:232
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "No s'ha pogut iniciar el fil d'estat: %s"
 
-#: ../camel/camel-stub.c:485
+#: ../camel/camel-stub.c:486
 #, c-format
 msgid "Lost connection to %s"
 msgstr "S'ha perdut la connexió a %s"
 
-#: ../camel/camel-stub.c:489
+#: ../camel/camel-stub.c:490
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "S'ha produït un error en comunicar amb %s: %s"
 
-#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
+#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:946
 msgid "No such folder"
 msgstr "No existeix aquesta carpeta"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2546 ../mail/mail-stub-exchange.c:2586
-#: ../mail/mail-stub-exchange.c:2652 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2765
+#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1595
+#: ../mail/mail-stub-exchange.c:2851 ../mail/mail-stub-exchange.c:2891
+#: ../mail/mail-stub-exchange.c:2957 ../mail/mail-stub-exchange.c:3007
+#: ../mail/mail-stub-exchange.c:3070
 msgid "Permission denied"
 msgstr "Permís denegat"
 
-#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
-msgid "Could not open folder: Permission denied"
-msgstr "No s'ha pogut obrir la carpeta: permís denegat"
-
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
+#: ../mail/mail-stub-exchange.c:768 ../mail/mail-stub-exchange.c:860
 msgid "Could not open folder"
 msgstr "No s'ha pogut obrir la carpeta"
 
-#: ../mail/mail-stub-exchange.c:764
+#: ../mail/mail-stub-exchange.c:854 ../mail/mail-stub-exchange.c:876
+msgid "Could not open folder: Permission denied"
+msgstr "No s'ha pogut obrir la carpeta: permís denegat"
+
+#: ../mail/mail-stub-exchange.c:955
 msgid "Could not create folder."
 msgstr "No s'ha pogut crear la carpeta."
 
-#: ../mail/mail-stub-exchange.c:844
+#: ../mail/mail-stub-exchange.c:1043
 msgid "Could not open Deleted Items folder"
 msgstr "No s'ha pogut obrir la carpeta Elements suprimits"
 
-#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
+#: ../mail/mail-stub-exchange.c:1374 ../mail/mail-stub-exchange.c:1415
 msgid "Could not get new messages"
 msgstr "No s'han pogut obtenir els nous missatges"
 
-#: ../mail/mail-stub-exchange.c:1386
+#: ../mail/mail-stub-exchange.c:1591
 msgid "Could not empty Deleted Items folder"
 msgstr "No s'ha pogut buidar la carpeta Elements suprimits"
 
-#: ../mail/mail-stub-exchange.c:1463
+#: ../mail/mail-stub-exchange.c:1668
 msgid "Could not append message; mailbox is over quota"
 msgstr ""
 "No s'ha pogut afegir el missatge. La bústia de correu ha superat la quota"
 
-#: ../mail/mail-stub-exchange.c:1464
+#: ../mail/mail-stub-exchange.c:1669
 msgid "Could not append message"
 msgstr "No s'ha pogut afegir el missatge"
 
-#: ../mail/mail-stub-exchange.c:2016
+#: ../mail/mail-stub-exchange.c:2324
 msgid "No such message"
 msgstr "No existeix el missatge"
 
-#: ../mail/mail-stub-exchange.c:2069
+#: ../mail/mail-stub-exchange.c:2386
 msgid "Message has been deleted"
 msgstr "S'ha suprimit el missatge"
 
-#: ../mail/mail-stub-exchange.c:2071
+#: ../mail/mail-stub-exchange.c:2388
 msgid "Error retrieving message"
 msgstr "S'ha produït un error en obtenir el missatge"
 
-#: ../mail/mail-stub-exchange.c:2113
+#: ../mail/mail-stub-exchange.c:2430
 msgid "Mailbox does not support full-text searching"
 msgstr "La bústia de correu no implementa la cerca de text complet"
 
-#: ../mail/mail-stub-exchange.c:2211
+#: ../mail/mail-stub-exchange.c:2528
 msgid "Unable to move/copy messages"
 msgstr "No es pot moure ni copiar missatges"
 
-#: ../mail/mail-stub-exchange.c:2461
+#: ../mail/mail-stub-exchange.c:2766
 msgid "No mail submission URI for this mailbox"
 msgstr "No hi ha cap URI per enviar correu per a aquesta bústia"
 
-#: ../mail/mail-stub-exchange.c:2497
+#: ../mail/mail-stub-exchange.c:2802
 msgid "Server won't accept mail via Exchange transport"
 msgstr "El servidor no acceptarà correu mitjançant transport Exchange"
 
-#: ../mail/mail-stub-exchange.c:2499
+#: ../mail/mail-stub-exchange.c:2804
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -443,7 +428,7 @@ msgstr ""
 "El vostre compte no té permís per emprar <%s>\n"
 "com a adreça del remitent."
 
-#: ../mail/mail-stub-exchange.c:2511
+#: ../mail/mail-stub-exchange.c:2816
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -451,17 +436,17 @@ msgstr ""
 "No s'ha pogut enviar el missatge.\n"
 "Pot significar que el vostre compte ha superat la quota."
 
-#: ../mail/mail-stub-exchange.c:2515
+#: ../mail/mail-stub-exchange.c:2820
 msgid "Could not send message"
 msgstr "No s'ha pogut enviar el missatge"
 
-#: ../mail/mail-stub-exchange.c:2538 ../mail/mail-stub-exchange.c:2591
-#: ../mail/mail-stub-exchange.c:2656 ../mail/mail-stub-exchange.c:2707
-#: ../mail/mail-stub-exchange.c:2771
+#: ../mail/mail-stub-exchange.c:2843 ../mail/mail-stub-exchange.c:2896
+#: ../mail/mail-stub-exchange.c:2961 ../mail/mail-stub-exchange.c:3012
+#: ../mail/mail-stub-exchange.c:3076
 msgid "Generic error"
 msgstr "Error genèric"
 
-#: ../mail/mail-stub-exchange.c:2542
+#: ../mail/mail-stub-exchange.c:2847
 msgid "Folder already exists"
 msgstr "La carpeta ja existeix"
 
@@ -1041,3 +1026,15 @@ msgstr "Auxiliar per a «f_ora de l'oficina»"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Esborra la s_ubscripció de carpeta d'altres usuaris"
+
+#~ msgid "Internal error.\n"
+#~ msgstr "Error intern.\n"
+
+#~ msgid "Paged results response control could not be decoded.\n"
+#~ msgstr ""
+#~ "No s'ha pogut descodificar el control de resposta de la pàgina de "
+#~ "resultats.\n"
+
+#~ msgid "Invalid entries estimate in paged results response.\n"
+#~ msgstr ""
+#~ "Estimació d'entrades invàlides en la resposta de resultats paginada.\n"
