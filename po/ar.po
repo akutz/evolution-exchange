@@ -10,35 +10,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-26 14:15-0700\n"
-"PO-Revision-Date: 2007-02-22 20:36+0200\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2007-07-31 03:18+0100\n"
+"PO-Revision-Date: 2007-09-15 17:32+0100\n"
+"Last-Translator: Djihed Afifi <djihed@gmail.com>\n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: Plural-Forms: nplurals=4; plural=n==1 ? 0 : n==2 ? 1 : n>=3 && "
-"n<=10 ? 2 : 3\n"
+"Plural-Forms: Plural-Forms: nplurals=4; plural=n==1 ? 0 : n==2 ? 1 : n>=3 && n<=10 ? 2 : 3\n"
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
 msgid "Specifies the time interval to refresh the GAL Cache."
 msgstr "تحدد الفترة الزمنيّة لإنعاش ذاكرة GAL المخبّأة."
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
-#, fuzzy
-msgid ""
-"This key specifies the number of days interval between the GAL cache "
-"refresh. Set this value to zero, if you don't want to update GAL and use the "
-"current cache forever. This will work only if you have enabled offline "
-"caching for GAL."
-msgstr ""
-"يحدد هذا المفتاح الفترة بالأيام مابين إنعاش ذاكرة GAL المخبأة. اضبط هذه "
-"القيمة بصفر إذا لم ترغب في تحديث GAL واستخدم الذاكرة المخبأة الحالية للأبد. "
-"سيعمل هذا فقط إذا كنت قد فعلت الذاكرة المخبأة لـ GAL بدون اتصال."
+msgid "This key specifies the number of days interval between the GAL cache refresh. Set this value to zero, if you don't want to update GAL and use the current cache forever. This will work only if you have enabled offline caching for GAL."
+msgstr "يحدد هذا المفتاح الفترة بالأيام مابين إنعاش ذاكرة GAL المخبأة. اضبط هذه القيمة بصفر إذا لم ترغب في تحديث GAL واستخدم الذاكرة المخبأة الحالية للأبد. سيعمل هذا فقط إذا كنت قد فعلت الذاكرة المخبأة لـ GAL بدون اتصال."
 
 #: ../addressbook/e-book-backend-exchange.c:1880
-#: ../addressbook/e-book-backend-gal.c:1798 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-gal.c:1796
+#: ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "يجري البحث..."
 
@@ -51,7 +43,7 @@ msgstr "إعادة الاتصال بخادم LDAP..."
 msgid "Receiving LDAP search results..."
 msgstr "استقبال نتائج بحث LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1825
+#: ../addressbook/e-book-backend-gal.c:1823
 msgid "Error performing search"
 msgstr "خطأ في تنفيذ البحث"
 
@@ -90,58 +82,61 @@ msgstr "بلا موضوع"
 msgid "This message is not available in offline mode."
 msgstr "هذه الرسالة غير متوفّرة بالوضع دون اتّصال."
 
-#: ../camel/camel-exchange-folder.c:665
+#: ../camel/camel-exchange-folder.c:643
 msgid "Moving messages"
 msgstr "نقل رسائل"
 
-#: ../camel/camel-exchange-folder.c:666
+#: ../camel/camel-exchange-folder.c:644
 msgid "Copying messages"
 msgstr "نسخ رسائل"
 
-#: ../camel/camel-exchange-folder.c:1039
+#: ../camel/camel-exchange-folder.c:1017
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "تعذّر إنشاء الدليل %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1049
+#: ../camel/camel-exchange-folder.c:1027
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "تعذّر تحميل الملخّص لـ%s"
 
-#: ../camel/camel-exchange-folder.c:1057
+#: ../camel/camel-exchange-folder.c:1035
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "تعذّر إنشاء ذاكرة مخبئيّة لـ%s"
 
-#: ../camel/camel-exchange-folder.c:1067
+#: ../camel/camel-exchange-folder.c:1045
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "لا يمكن إنشاء السّجل لـ%s"
 
-#: ../camel/camel-exchange-folder.c:1115
+#: ../camel/camel-exchange-folder.c:1093
 msgid "Scanning for changed messages"
 msgstr "مسح عن الرسائل المتغيّرة"
 
-#: ../camel/camel-exchange-folder.c:1148
+#: ../camel/camel-exchange-folder.c:1126
 msgid "Fetching summary information for new messages"
 msgstr "جلب معلومات المجموع للرّسائل الجديدة"
 
-#: ../camel/camel-exchange-journal.c:341
+#: ../camel/camel-exchange-journal.c:340
 msgid "No folder name found\n"
 msgstr "لم يحدَّد اسم مجلّد\n"
 
-#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:2874
-#: ../mail/mail-stub-exchange.c:2918 ../mail/mail-stub-exchange.c:2953
-#: ../mail/mail-stub-exchange.c:2980 ../mail/mail-stub-exchange.c:3033
+#: ../camel/camel-exchange-journal.c:373
+#: ../mail/mail-stub-exchange.c:2874
+#: ../mail/mail-stub-exchange.c:2918
+#: ../mail/mail-stub-exchange.c:2953
+#: ../mail/mail-stub-exchange.c:2980
+#: ../mail/mail-stub-exchange.c:3033
 #: ../mail/mail-stub-exchange.c:3055
 msgid "Folder doesn't exist"
 msgstr "المجلّد غير موجود"
 
-#: ../camel/camel-exchange-journal.c:438
+#: ../camel/camel-exchange-journal.c:437
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "تعذّر إلحاق الرسالة في الوضع دون اتّصال: الذاكرة غير متوفرة"
 
-#: ../camel/camel-exchange-journal.c:454
+#: ../camel/camel-exchange-journal.c:453
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "تعذّر إلحاق الرّسالة بالوضع دون اتّصال: %s"
@@ -151,6 +146,7 @@ msgid "Checking for New Mail"
 msgstr "يجري التحقق عن بريد جديد"
 
 #: ../camel/camel-exchange-provider.c:43
+#: ../camel/camel-exchange-provider.c:67
 msgid "C_heck for new messages in all folders"
 msgstr "_تحقق من وصول رسائل جديدة في كل المجلّدات"
 
@@ -181,56 +177,52 @@ msgstr "حدّ عدد استجابات GAL: %s"
 msgid "Options"
 msgstr "خيارات"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:69
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "الفترة بين التّنبيه و بطلان كلمة السّر: %s"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:71
 msgid "Automatically synchroni_ze account locally"
 msgstr "زامِن الحساب محلياً بشكل آلي"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:72
+#: ../camel/camel-exchange-provider.c:74
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "_طبّق المرشّّحات على الرّسائل الجديدة في صندوق الوارد على هذا الخادم"
 
-#: ../camel/camel-exchange-provider.c:74
+#: ../camel/camel-exchange-provider.c:76
 msgid "Check new messages for _Junk contents"
 msgstr "تفقّد المحتويات غير المر_غوبة في الرسائل الجديدة"
 
-#: ../camel/camel-exchange-provider.c:76
+#: ../camel/camel-exchange-provider.c:78
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "ابحث عن رسائل غير مرغوبة في صندوق الوارد فقط"
 
-#: ../camel/camel-exchange-provider.c:86
+#: ../camel/camel-exchange-provider.c:88
 msgid "Microsoft Exchange"
 msgstr "مايكروسوفت إكستشينج"
 
-#: ../camel/camel-exchange-provider.c:88
+#: ../camel/camel-exchange-provider.c:90
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "لمعالجة البريد (و معلومات أخرى) على خوادم مايكروسوفت إكستشينج"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:104
+#: ../camel/camel-exchange-provider.c:106
 msgid "Secure Password"
 msgstr "كلمة سرّ آمنة"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:107
-msgid ""
-"This option will connect to the Exchange server using secure password (NTLM) "
-"authentication."
+#: ../camel/camel-exchange-provider.c:109
+msgid "This option will connect to the Exchange server using secure password (NTLM) authentication."
 msgstr "سيتّصل هذا الخيار بخادم إكستشينج باستخدام توثّق كلمة سرّ آمنة (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:115
+#: ../camel/camel-exchange-provider.c:117
 msgid "Plaintext Password"
 msgstr "كلمة سرّ نصّيّة صِرْفة"
 
-#: ../camel/camel-exchange-provider.c:117
-msgid ""
-"This option will connect to the Exchange server using standard plaintext "
-"password authentication."
+#: ../camel/camel-exchange-provider.c:119
+msgid "This option will connect to the Exchange server using standard plaintext password authentication."
 msgstr "سيتّصل هذا الخيار بخادم إكستشينج باستخدام توثّق كلمة سرّ نصيّة صِرْفة."
 
 #: ../camel/camel-exchange-store.c:310
@@ -336,24 +328,30 @@ msgstr "فقدت الاتّصال بـ %s"
 msgid "Error communicating with %s: %s"
 msgstr "خطأ بالاتصال بـ %s: %s"
 
-#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:946
+#: ../mail/mail-stub-exchange.c:264
+#: ../mail/mail-stub-exchange.c:946
 msgid "No such folder"
 msgstr "ليس ثمّة مجلّد"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1595
-#: ../mail/mail-stub-exchange.c:2851 ../mail/mail-stub-exchange.c:2891
-#: ../mail/mail-stub-exchange.c:2957 ../mail/mail-stub-exchange.c:3007
+#: ../mail/mail-stub-exchange.c:287
+#: ../mail/mail-stub-exchange.c:1595
+#: ../mail/mail-stub-exchange.c:2851
+#: ../mail/mail-stub-exchange.c:2891
+#: ../mail/mail-stub-exchange.c:2957
+#: ../mail/mail-stub-exchange.c:3007
 #: ../mail/mail-stub-exchange.c:3070
 msgid "Permission denied"
 msgstr "رُفِض الإذن"
 
-#: ../mail/mail-stub-exchange.c:768 ../mail/mail-stub-exchange.c:860
+#: ../mail/mail-stub-exchange.c:768
+#: ../mail/mail-stub-exchange.c:860
 msgid "Could not open folder"
 msgstr "تعذّر فتح المجلّد"
 
-#: ../mail/mail-stub-exchange.c:854 ../mail/mail-stub-exchange.c:876
+#: ../mail/mail-stub-exchange.c:854
+#: ../mail/mail-stub-exchange.c:876
 msgid "Could not open folder: Permission denied"
 msgstr "تعذّر فتح المجلّد: رُفِض الإذن"
 
@@ -365,7 +363,8 @@ msgstr "تعذّر إنشاء المجلّد."
 msgid "Could not open Deleted Items folder"
 msgstr "تعذّر فتح مجلّد العناصر المحذوفة"
 
-#: ../mail/mail-stub-exchange.c:1374 ../mail/mail-stub-exchange.c:1415
+#: ../mail/mail-stub-exchange.c:1374
+#: ../mail/mail-stub-exchange.c:1415
 msgid "Could not get new messages"
 msgstr "تعذّر جلب الرّسائل الجّديدة"
 
@@ -430,8 +429,10 @@ msgstr ""
 msgid "Could not send message"
 msgstr "تعذّر إرسال الرّسالة"
 
-#: ../mail/mail-stub-exchange.c:2843 ../mail/mail-stub-exchange.c:2896
-#: ../mail/mail-stub-exchange.c:2961 ../mail/mail-stub-exchange.c:3012
+#: ../mail/mail-stub-exchange.c:2843
+#: ../mail/mail-stub-exchange.c:2896
+#: ../mail/mail-stub-exchange.c:2961
+#: ../mail/mail-stub-exchange.c:3012
 #: ../mail/mail-stub-exchange.c:3076
 msgid "Generic error"
 msgstr "خطأ عام"
@@ -483,14 +484,12 @@ msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again.\n"
 "\n"
-"You may need to specify the Windows domain name as part of your username "
-"(eg, \"MY-DOMAIN\\%s\")."
+"You may need to specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
 "تعذّر التوثّق إلى خادم إكستشينج.\n"
 "تأكّد أن اسم المستخدم و كلمة السرّ صحيحان ثم أعد المحاولة. \n"
 "\n"
-"قد تحتاج لتحديد اسم ميدان ويندوز كجزء من اسم المستخدم الخاص بك (مثلاً، \"MY-"
-"DOMAIN\\%s\"(."
+"قد تحتاج لتحديد اسم ميدان ويندوز كجزء من اسم المستخدم الخاص بك (مثلاً، \"MY-DOMAIN\\%s\"(."
 
 #: ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
@@ -502,45 +501,26 @@ msgstr ""
 
 #: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
+"Ximian Connector requires access to certain functionality on the Exchange Server that appears to be disabled or blocked.  (This is usually unintentional.)  Your Exchange Administrator will need to enable this functionality in order for you to be able to use Ximian Connector.\n"
 "\n"
-"For information to provide to your Exchange administrator, please follow the "
-"link below:"
+"For information to provide to your Exchange administrator, please follow the link below:"
 msgstr ""
-"يتطلب Ximian Connector وصولاً لوظيفة تبدو معطّلة أو موقوفة على خادم إكستشينج. "
-"(عادة هذا غير مقصود.) سيحتاج مدير إكستشينج إلى تفعيل هذه الوظيفة لتتمكن من "
-"استخدام متّصل زيميان.\n"
+"يتطلب Ximian Connector وصولاً لوظيفة تبدو معطّلة أو موقوفة على خادم إكستشينج. (عادة هذا غير مقصود.) سيحتاج مدير إكستشينج إلى تفعيل هذه الوظيفة لتتمكن من استخدام متّصل زيميان.\n"
 "\n"
 "لتزويد معلومات لمدير إكستشينج، اتبع الرابط التّالي:"
 
 #: ../storage/exchange-autoconfig-wizard.c:275
-msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"عنوان خادم إكستشينج الذي زودتّه هو لخادم إكستشينج 5.5. يدعم  Ximian Connector "
-"مايكروسوفت إكستشينج 2000 و 2003 فقط."
+msgid "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian Connector supports Microsoft Exchange 2000 and 2003 only."
+msgstr "عنوان خادم إكستشينج الذي زودتّه هو لخادم إكستشينج 5.5. يدعم  Ximian Connector مايكروسوفت إكستشينج 2000 و 2003 فقط."
 
 #: ../storage/exchange-autoconfig-wizard.c:288
-msgid ""
-"Could not configure Exchange account because an unknown error occurred. "
-"Check the URL, username, and password, and try again."
-msgstr ""
-"تعذّر إعداد حساب إكستشينج بسبب وقوع خطأ غير معروف. افحص العنوان، اسم "
-"المستخدم، و كلمة السرّ، و أعد المحاولة."
+msgid "Could not configure Exchange account because an unknown error occurred. Check the URL, username, and password, and try again."
+msgstr "تعذّر إعداد حساب إكستشينج بسبب وقوع خطأ غير معروف. افحص العنوان، اسم المستخدم، و كلمة السرّ، و أعد المحاولة."
 
 #: ../storage/exchange-autoconfig-wizard.c:332
 #, c-format
-msgid ""
-"Could not authenticate to the Global Catalog server. You may need to go back "
-"and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
-"\\%s\")."
-msgstr ""
-"تعذّر التوثّق إلى خادم الكشوف العام. قد تحتاج للعودة  لتحديد اسم ميدان ويندوز "
-"كجزء من اسم المستخدم الخاص بك (مثلاً، \"MY-DOMAIN\\%s\")."
+msgid "Could not authenticate to the Global Catalog server. You may need to go back and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
+msgstr "تعذّر التوثّق إلى خادم الكشوف العام. قد تحتاج للعودة  لتحديد اسم ميدان ويندوز كجزء من اسم المستخدم الخاص بك (مثلاً، \"MY-DOMAIN\\%s\")."
 
 #: ../storage/exchange-autoconfig-wizard.c:339
 msgid ""
@@ -640,59 +620,40 @@ msgstr "إعداد متّصل زيميان"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:20
 msgid ""
-"Ximian Connector can use account information from your existing Outlook Web "
-"Access (OWA) account.\n"
+"Ximian Connector can use account information from your existing Outlook Web Access (OWA) account.\n"
 "\n"
-"Enter your OWA site address (URL), username, and password, then click "
-"\"Forward\".\n"
+"Enter your OWA site address (URL), username, and password, then click \"Forward\".\n"
 msgstr ""
-"يمكن لمتّصل زيميان أن يستخدم حساب آوتلووك للوصول من ويب (OWE) الموجود الخاص "
-"بك.\n"
+"يمكن لمتّصل زيميان أن يستخدم حساب آوتلووك للوصول من ويب (OWE) الموجود الخاص بك.\n"
 "\n"
-"أدخل عنوان موقع OWE الخاص بك، اسم المستخدم، و كلمة السرّ، ثمّ اضغط \"إلى الأمام"
-"\".\n"
+"أدخل عنوان موقع OWE الخاص بك، اسم المستخدم، و كلمة السرّ، ثمّ اضغط \"إلى الأمام\".\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:24
-msgid ""
-"Ximian Connector could not find the Global Catalog replica for your site. "
-"Please enter the name of your Global Catalog server. You may need to ask "
-"your system administrator for the correct value.\n"
-msgstr ""
-"لم يستطع متّصل زيميان أن يجد نسخة الكشوف العامة لموقعك. الرجاء ادخال اسم خادم "
-"الكشوف العام الخاص بك. قد تحتاج لأن تسأل مدير نظامك عن القيمة الصحيحة.\n"
+msgid "Ximian Connector could not find the Global Catalog replica for your site. Please enter the name of your Global Catalog server. You may need to ask your system administrator for the correct value.\n"
+msgstr "لم يستطع متّصل زيميان أن يجد نسخة الكشوف العامة لموقعك. الرجاء ادخال اسم خادم الكشوف العام الخاص بك. قد تحتاج لأن تسأل مدير نظامك عن القيمة الصحيحة.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:26
-msgid ""
-"Ximian Connector has encountered a problem configuring your Exchange "
-"account.\n"
+msgid "Ximian Connector has encountered a problem configuring your Exchange account.\n"
 msgstr "واجه متّصل زيميان مشكلة أثناء إعداد حساب إكستشينج الخاص بك.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
-"Your Connector account is now ready to use. Click the \"Apply\" button to "
-"save your\n"
+"Your Connector account is now ready to use. Click the \"Apply\" button to save your\n"
 "settings."
 msgstr ""
 "حساب المتصل الخاصّ بك مستخدم الآن. اضغط زرّ \"تطبيق\" لحفظ\n"
 " إعدادتك."
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:30
-msgid ""
-"Your account information is as follows. Please correct any errors, then "
-"click \"Forward\".\n"
-msgstr ""
-"معلومات حسابك هي كالتّالي. الرجاء تصحيح أي أخطاء، ثمّ اضغط \"إلى الأمام\".\n"
+msgid "Your account information is as follows. Please correct any errors, then click \"Forward\".\n"
+msgstr "معلومات حسابك هي كالتّالي. الرجاء تصحيح أي أخطاء، ثمّ اضغط \"إلى الأمام\".\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
 #: ../storage/exchange-change-password.c:114
-msgid ""
-"The current password does not match the existing password for your account. "
-"Please enter the correct password"
-msgstr ""
-"كلمة السرّ الحالية لا تتطابق مع كلمة سرّ حسابك الموجودة. الرجاء إدخال كلمة "
-"السرّ الصحيحة"
+msgid "The current password does not match the existing password for your account. Please enter the correct password"
+msgstr "كلمة السرّ الحالية لا تتطابق مع كلمة سرّ حسابك الموجودة. الرجاء إدخال كلمة السرّ الصحيحة"
 
 #: ../storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
@@ -789,8 +750,7 @@ msgstr "تصدير أدلّة إكستشينج..."
 #: ../storage/exchange-migrate.c:66
 #, c-format
 msgid ""
-"The location and hierarchy of the Evolution exchange account folders are "
-"changed since Evolution %d.%d.%d.\n"
+"The location and hierarchy of the Evolution exchange account folders are changed since Evolution %d.%d.%d.\n"
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
@@ -801,13 +761,10 @@ msgstr ""
 #: ../storage/exchange-migrate.c:99
 #, c-format
 msgid ""
-"Warning: Evolution could not migrate all the Exchange account data from the "
-"version %d.%d.%d. \n"
-"The data hasn't been deleted, but will not be seen by this version of "
-"Evolution"
+"Warning: Evolution could not migrate all the Exchange account data from the version %d.%d.%d. \n"
+"The data hasn't been deleted, but will not be seen by this version of Evolution"
 msgstr ""
-"تحذير: لم يتمكّن إيفوليوشن من تصدير كلّ بيانات حساب إكستشينج من النسخة %d.%d.%"
-"d. \n"
+"تحذير: لم يتمكّن إيفوليوشن من تصدير كلّ بيانات حساب إكستشينج من النسخة %d.%d.%d. \n"
 "لم تحذف البيانات، ولكنها لن ترَ من هذا الاصدار من إيفوليوشن"
 
 #: ../storage/exchange-migrate.c:130
@@ -835,8 +792,7 @@ msgstr "<b>الحالة:</b>"
 
 #: ../storage/exchange-oof.glade.h:6
 msgid ""
-"<small>The message specified below will be automatically sent to each person "
-"who sends\n"
+"<small>The message specified below will be automatically sent to each person who sends\n"
 "mail to you while you are out of the office.</small>"
 msgstr ""
 "<small>الرّسالة المحددّة في الأسفل سترسل آلياً إلى كل شخص يرسل\n"
@@ -971,9 +927,8 @@ msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "اشترك بمجلّد يعود لمستخدم آخر على الخادم"
 
 #: ../storage/ximian-connector.xml.h:6
-msgid ""
-"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
-msgstr "الغِ الاشتراك من مجلّد أضيف بـ \"اشترك بمجلّد مستخدم آخر\""
+msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgstr "إلغي الاشتراك من مجلّد أضيف بـ \"اشترك بمجلّد مستخدم آخر\""
 
 #: ../storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
@@ -1001,9 +956,8 @@ msgstr "إلغاء الاشتراك بمجلّد مستخدم آخر"
 
 #~ msgid "Internal error.\n"
 #~ msgstr "خطأ داخلي.\n"
-
 #~ msgid "Paged results response control could not be decoded.\n"
 #~ msgstr "غير قادر على فك تشفير عنصر تحكم الد القابل للتصفح.\n"
-
 #~ msgid "Invalid entries estimate in paged results response.\n"
 #~ msgstr "تقييم المدخلات في الرد القابل للتصفح غير صالح.\n"
+
