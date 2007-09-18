@@ -46,6 +46,7 @@
 #include <mapi.h>
 
 #include <e-folder-exchange.h>
+#include <exchange-account.h>
 #include "exchange-component.h"
 #include <exchange-hierarchy.h>
 
