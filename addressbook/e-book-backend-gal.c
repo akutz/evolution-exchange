@@ -1687,7 +1687,7 @@ start_book_view (EBookBackend  *backend,
 	GNOME_Evolution_Addressbook_CallStatus status;
 	GList *contacts;
 	char *ldap_query;
-	int ldap_err;
+	int ldap_err = LDAP_SUCCESS;
 	int search_msgid;
 	int view_limit;
 	GList *l;
