@@ -1,15 +1,22 @@
 # Catalan translation of evolution-exchange package
 # Copyright © 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the evolution-exchange
-# Xavier Conde Rueda <xavi.conde@gmail.com>, 2004, 2005, 2006, 2007
+# Xavier Conde Rueda <xavi.conde@gmail.com>, 2004, 2005, 2006, 2007.
+# David Planella Molas <david.planella@googlemail.com>, 2007.
 #
+# Notes de traducció:
+# 
+# Active Directory - no es tradueix; a vegades s'abrevia com a AD
+# Global Address List - llista global d'adreces; a vegades s'abrevia
+#                       com a GAL. No té res a veure amb el grup 
+#                       antiterrorista.
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-16 19:15+0200\n"
-"PO-Revision-Date: 2007-02-11 13:05+0200\n"
-"Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
+"POT-Creation-Date: 2007-09-22 17:10+0200\n"
+"PO-Revision-Date: 2007-09-21 17:42+0200\n"
+"Last-Translator: David Planella Molas <david.planella@googlemail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,8 +25,9 @@ msgstr ""
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
 msgid "Specifies the time interval to refresh the GAL Cache."
 msgstr ""
-"Especifica l'interval de temps per a actualitzar la memòria cau del GAL"
+"Especifica l'interval de temps per a actualitzar la memòria cau de la GAL"
 
+# FIXME: això s'hauria de formular millor (dpm)
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
 msgid ""
 "This key specifies the number of days interval between the GAL cache "
@@ -28,10 +36,10 @@ msgid ""
 "caching for GAL."
 msgstr ""
 "Aquesta clau especifica l'interval de dies entre actualitzacions de la "
-"memòria cau de la GAL. Establiu el seu valor a zero si voleu fer servir "
-"la memòria cau actual sempre, en lloc d'actualitzar la GAL. Això només "
-"funcionarà si heu habilitat la memòria cau de la GAL per a treballar fora "
-"de línia."
+"memòria cau de la GAL. Establiu el seu valor a zero si voleu fer servir la "
+"memòria cau actual sempre, en lloc d'actualitzar la GAL. Això només "
+"funcionarà si heu habilitat la memòria cau de la GAL per a treballar fora de "
+"línia."
 
 # Netscape_4.7->String:RESDLL.DLL
 #: ../addressbook/e-book-backend-exchange.c:1917
@@ -58,26 +66,26 @@ msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
-"No s'ha pogut planificar el recurs '%s' per a reunions periòdiques.\n"
+"No s'ha pogut planificar el recurs «%s» per a reunions periòdiques.\n"
 "Haureu de reservar cada reunió per separat."
 
 #: ../calendar/e-cal-backend-exchange-calendar.c:2109
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
-msgstr "Els recurs '%s' està ocupat durant el període de temps seleccionat."
+msgstr "Els recurs «%s» està ocupat durant el període de temps seleccionat."
 
-#: ../calendar/e-cal-backend-exchange.c:390
-#: ../calendar/e-cal-backend-exchange.c:400
+#: ../calendar/e-cal-backend-exchange.c:391
+#: ../calendar/e-cal-backend-exchange.c:401
 msgid "Authentication failed"
 msgstr "Ha fallat l'autenticació"
 
-#: ../calendar/e-cal-backend-exchange.c:441
+#: ../calendar/e-cal-backend-exchange.c:442
 msgid "Could not find the calendar"
 msgstr "No es pot trobar el calendari"
 
 #: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
-msgstr "No es podeu buidar si no esteu connectat."
+msgstr "No es pot buidar en mode fora de línia."
 
 #: ../camel/camel-exchange-folder.c:253
 msgid "No Subject"
@@ -85,15 +93,15 @@ msgstr "Sense assumpte"
 
 #: ../camel/camel-exchange-folder.c:408
 msgid "This message is not available in offline mode."
-msgstr "Aquest missatge no està disponible estant desconnectat."
+msgstr "Aquest missatge no està disponible en mode fora de línia."
 
 #: ../camel/camel-exchange-folder.c:665
 msgid "Moving messages"
-msgstr "S'està movent els missatges"
+msgstr "S'estan movent els missatges"
 
 #: ../camel/camel-exchange-folder.c:666
 msgid "Copying messages"
-msgstr "S'està copiant els missatges"
+msgstr "S'estan copiant els missatges"
 
 #: ../camel/camel-exchange-folder.c:1039
 #, c-format
@@ -117,11 +125,11 @@ msgstr "No s'ha pogut crear el diari per a %s"
 
 #: ../camel/camel-exchange-folder.c:1115
 msgid "Scanning for changed messages"
-msgstr "S'està cercant els missatges canviats"
+msgstr "S'estan cercant els missatges canviats"
 
 #: ../camel/camel-exchange-folder.c:1148
 msgid "Fetching summary information for new messages"
-msgstr "S'està recollint la informació de resum per als nous missatges"
+msgstr "S'està recollint la informació de resum per als missatges nous"
 
 #: ../camel/camel-exchange-journal.c:341
 msgid "No folder name found\n"
@@ -137,13 +145,13 @@ msgstr "La carpeta no existeix"
 #: ../camel/camel-exchange-journal.c:438
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
-"No es pot afegir el missatge en mode desconnectat: la memòria cau no està "
+"No es pot afegir el missatge en mode fora de línia: la memòria cau no està "
 "disponible"
 
 #: ../camel/camel-exchange-journal.c:454
 #, c-format
 msgid "Cannot append message in offline mode: %s"
-msgstr "No es pot afegir el missatge en mode desconnectat: %s"
+msgstr "No es pot afegir el missatge en mode fora de línia: %s"
 
 #: ../camel/camel-exchange-provider.c:41
 msgid "Checking for New Mail"
@@ -151,7 +159,7 @@ msgstr "Comprovació de correu nou"
 
 #: ../camel/camel-exchange-provider.c:43
 msgid "C_heck for new messages in all folders"
-msgstr "Compro_va els missatges nous en totes les carpetes"
+msgstr "Compro_va els missatges nous a totes les carpetes"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
@@ -160,10 +168,11 @@ msgstr "Compro_va els missatges nous en totes les carpetes"
 msgid "Windows User_name:"
 msgstr "_Nom d'usuari del Windows:"
 
+# Active Directory (AD) no es tradueix (dpm)
 #. i18n: GAL is an Outlookism, AD is a Windowsism
 #: ../camel/camel-exchange-provider.c:56
 msgid "Global Address List / Active Directory"
-msgstr "Llista d'adreces global / directori actiu"
+msgstr "Llista d'adreces global / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
@@ -174,7 +183,7 @@ msgstr "Nom del servidor de catàleg _global:"
 #: ../camel/camel-exchange-provider.c:62
 #, c-format
 msgid "_Limit number of GAL responses: %s"
-msgstr "Quantitat _límit de respostes de GAL: %s"
+msgstr "Quantitat _límit de respostes de la GAL: %s"
 
 #: ../camel/camel-exchange-provider.c:65
 msgid "Options"
@@ -187,23 +196,22 @@ msgstr "_Període d'avís de venciment de la contrasenya: %s"
 
 #: ../camel/camel-exchange-provider.c:69
 msgid "Automatically synchroni_ze account locally"
-msgstr "Sincrontiza _automàticament el compte localment"
+msgstr "Sincronitza localment el compte de manera _automàtica"
 
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:72
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr ""
-"_Aplica els filtres als nous missatges a la safata d'entrada en aquest "
+"_Aplica els filtres als missatges nous de la safata d'entrada en aquest "
 "servidor"
 
 #: ../camel/camel-exchange-provider.c:74
 msgid "Check new messages for _Junk contents"
-msgstr "_Comprova si hi ha brossa al contingut dels nous missatges"
+msgstr "_Comprova si hi ha correu brossa al contingut dels missatges nous"
 
 #: ../camel/camel-exchange-provider.c:76
 msgid "Only check for Junk messag_es in the Inbox folder"
-msgstr ""
-"Només comprova els missatges _brossa a la carpeta de la safata d'entrada"
+msgstr "Només comprova els missatges _brossa a la safata d'entrada"
 
 #: ../camel/camel-exchange-provider.c:86
 msgid "Microsoft Exchange"
@@ -257,7 +265,7 @@ msgstr "%sIntroduïu la contrasenya per a %s"
 
 #: ../camel/camel-exchange-store.c:405
 msgid "Evolution Exchange backend process"
-msgstr "Procés de suport per a Exchange d'Evolution"
+msgstr "Procés de rerefons per a Exchange de l'Evolution"
 
 #: ../camel/camel-exchange-store.c:446
 msgid ""
@@ -274,27 +282,28 @@ msgstr "No existeix la carpeta %s"
 
 #: ../camel/camel-exchange-store.c:565
 msgid "Cannot subscribe folder in offline mode."
-msgstr "No es pot subscriure a una carpeta en mode desconnectat."
+msgstr "No es pot subscriure a una carpeta en mode fora de línia."
 
 #: ../camel/camel-exchange-store.c:582
 msgid "Cannot unsubscribe folder in offline mode."
-msgstr "No es pot desfer la subscripció a una carpeta en mode desconnectat."
+msgstr ""
+"No es pot cancel·lar la subscripció a una carpeta en mode fora de línia."
 
 #: ../camel/camel-exchange-store.c:714
 msgid "Cannot get folder info in offline mode."
-msgstr "No es pot obtenir la carpeta estant desconnectat."
+msgstr "No es pot obtenir la carpeta estant en mode fora de línia."
 
 #: ../camel/camel-exchange-store.c:787
 msgid "Cannot create folder in offline mode."
-msgstr "No es pot crear una carpeta en mode desconnectat."
+msgstr "No es pot crear una carpeta en mode en mode fora de línia."
 
 #: ../camel/camel-exchange-store.c:814
 msgid "Cannot delete folder in offline mode."
-msgstr "No es pot suprimir la carpeta en mode desconnexió."
+msgstr "No es pot suprimir la carpeta en mode en mode fora de línia."
 
 #: ../camel/camel-exchange-store.c:830
 msgid "Cannot rename folder in offline mode."
-msgstr "No es pot reanomenar la carpeta en mode desconnectat."
+msgstr "No es pot reanomenar la carpeta en mode en mode fora de línia."
 
 #: ../camel/camel-exchange-transport.c:111
 msgid "Exchange transport can only be used with Exchange mail source"
@@ -308,7 +317,7 @@ msgstr "No s'ha pogut enviar el missatge: un o més destinataris són invàlids"
 
 #: ../camel/camel-exchange-transport.c:132
 msgid "Could not find 'From' address in message"
-msgstr "No s'ha pogut trobar l'adreça 'De' al missatge"
+msgstr "No s'ha pogut trobar l'adreça «De» al missatge"
 
 #: ../camel/camel-stub.c:153
 #, c-format
@@ -425,7 +434,7 @@ msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
 msgstr ""
-"El vostre compte no té permís per emprar <%s>\n"
+"El vostre compte no té permís per a emprar <%s>\n"
 "com a adreça del remitent."
 
 #: ../mail/mail-stub-exchange.c:2816
@@ -434,7 +443,7 @@ msgid ""
 "This might mean that your account is over quota."
 msgstr ""
 "No s'ha pogut enviar el missatge.\n"
-"Pot significar que el vostre compte ha superat la quota."
+"Això podria significar que el vostre compte ha superat la seva quota."
 
 #: ../mail/mail-stub-exchange.c:2820
 msgid "Could not send message"
@@ -452,11 +461,11 @@ msgstr "La carpeta ja existeix"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
 msgid "Evolution Addressbook Exchange backend"
-msgstr "Suport d'Evolution per a la llibreta d'adreces d'Exchange"
+msgstr "Rerefons Exchange per a la llibreta d'adreces de l'Evolution"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Calendar Exchange backend"
-msgstr "Suport d'Evolution per al calendari d'Exchange"
+msgstr "Rerefons Exchange per al calendari de l'Evolution"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
 msgid "Ximian Connector for Exchange"
@@ -524,8 +533,8 @@ msgstr ""
 "El vostre administrador d'Exchange haurà d'habilitar-ho perquè pugueu fer "
 "servir el Ximian Connector.\n"
 "\n"
-"En el següent enllaç trobareu la informació que heu de proporcionar al "
-"vostre administrador d'Exchange:"
+"En l'enllaç següent trobareu la informació que heu de proporcionar al vostre "
+"administrador d'Exchange:"
 
 #: ../storage/exchange-autoconfig-wizard.c:275
 msgid ""
@@ -577,7 +586,7 @@ msgstr ""
 
 #: ../storage/exchange-autoconfig-wizard.c:459
 msgid "You may only configure a single Exchange account"
-msgstr "Només podeu configurar un compte d'Exchange"
+msgstr "Només podeu configurar un sol compte d'Exchange"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:1
 #: ../storage/exchange-change-password.glade.h:1
@@ -630,7 +639,7 @@ msgstr "Nom d'usuari:"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:13
 msgid "Welcome"
-msgstr "Benvingut"
+msgstr "Us donem la benvinguda"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:14
 msgid ""
@@ -640,9 +649,9 @@ msgid ""
 "\n"
 "Please click the \"Forward\" button to continue."
 msgstr ""
-"Benvinguts al Ximian Connector per a Microsoft Exchange.\n"
-"En les següents pantalles configurareu l'Evolution per connectar\n"
-"amb el vostre compte d'Exchange.\n"
+"Us donem la benvinguda al Ximian Connector per al\n"
+"Microsoft Exchange. A les pantalles següents configurareu\n"
+"l'Evolution per a connectar-vos al vostre compte d'Exchange.\n"
 "\n"
 "Cliqueu «Endavant» per continuar."
 
@@ -658,11 +667,11 @@ msgid ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
-"El Ximian Connector pot usar informació de comptes del vostre compte Outlook "
-"Web Access (OWA).\n"
+"El Ximian Connector pot utilitzar informació de comptes del vostre compte "
+"Outlook Web Access (OWA).\n"
 "\n"
-"Introduïu l'adreça (URL) del vostre lloc OWA, nom d'usuari, contrasenya i "
-"cliqueu «Endavant».\n"
+"Introduïu l'adreça (URL) del vostre lloc OWA, el nom d'usuari, la "
+"contrasenya i cliqueu «Endavant».\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:24
 msgid ""
@@ -725,11 +734,11 @@ msgstr "Confirmeu la contrasenya:"
 
 #: ../storage/exchange-change-password.glade.h:4
 msgid "Current Password:"
-msgstr "Nova contrasenya:"
+msgstr "Contrasenya actual:"
 
 #: ../storage/exchange-change-password.glade.h:5
 msgid "New Password:"
-msgstr "Nova contrasenya:"
+msgstr "Contrasenya nova:"
 
 #: ../storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
@@ -866,11 +875,11 @@ msgstr ""
 
 #: ../storage/exchange-oof.glade.h:8
 msgid "I am currently in the office"
-msgstr "En aquest moment estic a l'oficina"
+msgstr "En aquest moment sóc a l'oficina"
 
 #: ../storage/exchange-oof.glade.h:9
 msgid "I am currently out of the office"
-msgstr "En aquest moment no estic a l'oficina"
+msgstr "En aquest moment no sóc a l'oficina"
 
 #: ../storage/exchange-oof.glade.h:10
 msgid "No, Don't Change Status"
