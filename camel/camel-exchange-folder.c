@@ -737,18 +737,18 @@ static CamelSummaryMessageID *
 find_parent (CamelExchangeFolder *exch, const char *thread_index)
 {
 	CamelSummaryMessageID *msgid;
-	char *decoded, *parent;
-	int dlen;
+	guchar *decoded;
+	gchar *parent;
+	gsize dlen;
 
-	decoded = g_strdup (thread_index);
-	dlen = camel_base64_decode_simple (decoded, strlen (decoded));
+	decoded = g_base64_decode (thread_index, &dlen);
 	if (dlen < 5) {
 		/* Shouldn't happen */
 		g_free (decoded);
 		return NULL;
 	}
 
-	parent = camel_base64_encode_simple (decoded, dlen - 5);
+	parent = g_base64_encode (decoded, dlen - 5);
 	g_free (decoded);
 
 	msgid = g_hash_table_lookup (exch->thread_index_to_message_id,
