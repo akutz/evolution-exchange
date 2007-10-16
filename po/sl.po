@@ -1,15 +1,15 @@
 # translation of evolution-exchange.gnome-2-12.po to Slovenian
 # -*- mode:po; coding:utf-8; -*- Slovenian message catalogue for evolution-exchange.gnome-2-12.
 # Copyright (C) 2005 Free Software Foundation, Inc.
-# Matej Urbančič <matej.urban@gmail.com>, 2005.
+# Matej Urbančič <matej.urban@gmail.com>, 2005 - 2007
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.gnome 2-12.\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-12 07:19+0200\n"
-"PO-Revision-Date: 2006-08-12 21:46+0100\n"
-"Last-Translator: Matic Žgur <mr.zgur@gmail.com>\n"
+"POT-Creation-Date: 2007-03-01 03:16+0000\n"
+"PO-Revision-Date: 2007-10-16 17:18+0100\n"
+"Last-Translator: Matej Urbančič <matej.urban@gmail.com>\n"
 "Language-Team: Slovenian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,25 +18,34 @@ msgstr ""
 "X-Poedit-Country: SLOVENIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1499
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr "Določa časovni zamik osveževanja GAL predpomnilnika"
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+msgid "This key specifies the number of days interval between the GAL cache refresh. Set this value to zero, if you don't want to update GAL and use the current cache forever. This will work only if you have enabled offline caching for GAL."
+msgstr "Ključ določa časovni zamik v dneh za osveževanje GAL predpomnilnika. Vrednost 0 onemogoči osvežitev predpomnilnika. Nastavitev deluje le, če ste omogočili predpomnjenje pomnilnika GAL brez povezave."
+
+#: ../addressbook/e-book-backend-exchange.c:1917
+#: ../addressbook/e-book-backend-gal.c:1799
 #: ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Iskanje ..."
 
-#: ../addressbook/e-book-backend-gal.c:267
+#: ../addressbook/e-book-backend-gal.c:301
+#: ../addressbook/e-book-backend-gal.c:322
 msgid "Reconnecting to LDAP server..."
 msgstr "Ponovno se povezujem z LDAP strežnikom ..."
 
-#: ../addressbook/e-book-backend-gal.c:1363
+#: ../addressbook/e-book-backend-gal.c:1583
 msgid "Receiving LDAP search results..."
 msgstr "Sprejemanje LDAP rezultate iskanja ..."
 
-#: ../addressbook/e-book-backend-gal.c:1522
+#: ../addressbook/e-book-backend-gal.c:1828
 msgid "Error performing search"
 msgstr "Napaka med iskanjem"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2004
+#: ../calendar/e-cal-backend-exchange-calendar.c:2091
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -45,10 +54,19 @@ msgstr ""
 "Ni mogoče razporediti vira '%s' za ponavljajoče sestanke.\n"
 "Vsak sestanek morate rezervirati posebej."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2022
+#: ../calendar/e-cal-backend-exchange-calendar.c:2109
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Vir '%s' je med izbranim časovnim obdobjem zaseden."
+
+#: ../calendar/e-cal-backend-exchange.c:391
+#: ../calendar/e-cal-backend-exchange.c:401
+msgid "Authentication failed"
+msgstr "Neuspešna overitev"
+
+#: ../calendar/e-cal-backend-exchange.c:442
+msgid "Could not find the calendar"
+msgstr "Ni mogoče najti koledarja"
 
 #: ../camel/camel-exchange-folder.c:222
 msgid "You cannot expunge in offline mode."
@@ -58,164 +76,172 @@ msgstr "Uničenje v načinu brez povezave ni možno."
 msgid "No Subject"
 msgstr "Ni naslova"
 
-#: ../camel/camel-exchange-folder.c:407
+#: ../camel/camel-exchange-folder.c:408
 msgid "This message is not available in offline mode."
 msgstr "Sporočilo ni na voljo v načinu brez povezave."
 
-#: ../camel/camel-exchange-folder.c:642
+#: ../camel/camel-exchange-folder.c:665
 msgid "Moving messages"
 msgstr "Premikam sporočila"
 
-#: ../camel/camel-exchange-folder.c:643
+#: ../camel/camel-exchange-folder.c:666
 msgid "Copying messages"
 msgstr "Kopiram sporočila"
 
-#: ../camel/camel-exchange-folder.c:1014
+#: ../camel/camel-exchange-folder.c:1039
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Ni mogoče ustvariti mape %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1024
+#: ../camel/camel-exchange-folder.c:1049
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Ni bilo mogoče naložiti povzetka za %s"
 
-#: ../camel/camel-exchange-folder.c:1032
+#: ../camel/camel-exchange-folder.c:1057
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Ni bilo mogoče ustvariti predpomnilnika za %s"
 
-#: ../camel/camel-exchange-folder.c:1042
+#: ../camel/camel-exchange-folder.c:1067
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Ni bilo mogoče ustvariti dnevnika za %s"
 
-#: ../camel/camel-exchange-folder.c:1087
+#: ../camel/camel-exchange-folder.c:1115
 msgid "Scanning for changed messages"
 msgstr "Iskanje spremenjenih sporočil"
 
-#: ../camel/camel-exchange-folder.c:1113
+#: ../camel/camel-exchange-folder.c:1148
 msgid "Fetching summary information for new messages"
 msgstr "Prenašanje povzetkov novih sporočil"
 
-#: ../camel/camel-exchange-journal.c:339
+#: ../camel/camel-exchange-journal.c:341
 msgid "No folder name found\n"
 msgstr "Nobeno ime mape ni bilo najdeno\n"
 
-#: ../camel/camel-exchange-journal.c:372
-#: ../mail/mail-stub-exchange.c:2549
-#: ../mail/mail-stub-exchange.c:2593
-#: ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655
-#: ../mail/mail-stub-exchange.c:2708
-#: ../mail/mail-stub-exchange.c:2730
+#: ../camel/camel-exchange-journal.c:374
+#: ../mail/mail-stub-exchange.c:2874
+#: ../mail/mail-stub-exchange.c:2918
+#: ../mail/mail-stub-exchange.c:2953
+#: ../mail/mail-stub-exchange.c:2980
+#: ../mail/mail-stub-exchange.c:3033
+#: ../mail/mail-stub-exchange.c:3055
 msgid "Folder doesn't exist"
 msgstr "Mapa ne obstaja"
 
-#: ../camel/camel-exchange-journal.c:436
+#: ../camel/camel-exchange-journal.c:438
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "Sporočila ni mogoče dodati v načinu brez povezave: predpomnilnik ni na voljo"
 
-#: ../camel/camel-exchange-journal.c:452
+#: ../camel/camel-exchange-journal.c:454
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Sporočila ni mogoče dodati v načinu brez povezave: %s"
 
+#: ../camel/camel-exchange-provider.c:41
+msgid "Checking for New Mail"
+msgstr "Preverjanje za novo pošto"
+
+#: ../camel/camel-exchange-provider.c:43
+msgid "C_heck for new messages in all folders"
+msgstr "_Preveri za nova sporočila v vseh mapah"
+
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:44
+#: ../camel/camel-exchange-provider.c:51
 msgid "Windows User_name:"
 msgstr "_Uporabniško ime v Windows"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:49
+#: ../camel/camel-exchange-provider.c:56
 msgid "Global Address List / Active Directory"
 msgstr "Splošni seznam naslovov (GAL) / Aktivni imenik (AD)"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:60
 msgid "_Global Catalog server name:"
 msgstr "Ime strežnika s _Splošnim katalogom"
 
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:62
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "Omejitev števi_la odgovorov GAL: %s"
 
-#: ../camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:65
 msgid "Options"
 msgstr "Možnosti"
 
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:67
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "Doba opozarjanja na potek _gesla: %s"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:69
 msgid "Automatically synchroni_ze account locally"
 msgstr "Samodejno sinhroni_ziraj račun lokalno"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:72
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "Uvelj_avi filtre na novih sporočilih v mapi Dohodna pošta na tem strežniku"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:74
 msgid "Check new messages for _Junk contents"
 msgstr "Preveri neželeno pošto v novih sporočilih"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:76
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Neželeno pošto preveri samo v mapi Dohodna pošta"
 
-#: ../camel/camel-exchange-provider.c:79
+#: ../camel/camel-exchange-provider.c:86
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:81
+#: ../camel/camel-exchange-provider.c:88
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Za upravljanje pošte (in drugih podatkov) na strežnikih Microsoft Exchange"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:104
 msgid "Secure Password"
 msgstr "Varno geslo"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:107
 msgid "This option will connect to the Exchange server using secure password (NTLM) authentication."
 msgstr "Ta možnost bo vzpostavila povezavo s strežnikom Exchange ob uporabi varne overitve z geslom (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:108
+#: ../camel/camel-exchange-provider.c:115
 msgid "Plaintext Password"
 msgstr "Besedilno geslo"
 
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:117
 msgid "This option will connect to the Exchange server using standard plaintext password authentication."
 msgstr "Ta možnost bo vzpostavila povezavo s strežnikom Exchange ob uporabi običajne overitve z geslom kot navadnim besedilom."
 
-#: ../camel/camel-exchange-store.c:308
+#: ../camel/camel-exchange-store.c:310
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange strežnik %s"
 
-#: ../camel/camel-exchange-store.c:311
+#: ../camel/camel-exchange-store.c:313
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Exchange račun za %s na %s"
 
-#: ../camel/camel-exchange-store.c:352
+#: ../camel/camel-exchange-store.c:354
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%s Vnesi geslo za %s"
 
-#: ../camel/camel-exchange-store.c:403
+#: ../camel/camel-exchange-store.c:405
 msgid "Evolution Exchange backend process"
 msgstr "Hrbtni del procesa Evolution Exchange"
 
-#: ../camel/camel-exchange-store.c:444
+#: ../camel/camel-exchange-store.c:446
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -223,163 +249,163 @@ msgstr ""
 "Overitev na strežniku ni uspela. (Napačno geslo?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:486
+#: ../camel/camel-exchange-store.c:488
 #, c-format
 msgid "No such folder %s"
 msgstr "Mapa %s ne obstaja"
 
-#: ../camel/camel-exchange-store.c:563
+#: ../camel/camel-exchange-store.c:565
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Ni se mogoče naročiti na mapo v načinu brez povezave."
 
-#: ../camel/camel-exchange-store.c:580
+#: ../camel/camel-exchange-store.c:582
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Ni mogoče preklicati naročnine na mapo v načinu brez povezave."
 
-#: ../camel/camel-exchange-store.c:695
+#: ../camel/camel-exchange-store.c:714
 msgid "Cannot get folder info in offline mode."
 msgstr "Ni mogoče pridobiti podatkov o mapi v načinu brez povezave."
 
-#: ../camel/camel-exchange-store.c:766
+#: ../camel/camel-exchange-store.c:787
 msgid "Cannot create folder in offline mode."
 msgstr "Ni mogoče ustvariti mape v načinu brez povezave."
 
-#: ../camel/camel-exchange-store.c:793
+#: ../camel/camel-exchange-store.c:814
 msgid "Cannot delete folder in offline mode."
 msgstr "Ni mogoče zbrisati mape v načinu brez povezave."
 
-#: ../camel/camel-exchange-store.c:809
+#: ../camel/camel-exchange-store.c:830
 msgid "Cannot rename folder in offline mode."
 msgstr "Ni mogoče preimenovati mape v načinu brez povezave."
 
-#: ../camel/camel-exchange-transport.c:110
+#: ../camel/camel-exchange-transport.c:111
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "Transport Exchange lahko uporabite le s poštnim virom Exchange"
 
-#: ../camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-transport.c:122
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "Ni mogoče poslati sporočila: vsaj en neveljaven prejemnik"
 
-#: ../camel/camel-exchange-transport.c:131
+#: ../camel/camel-exchange-transport.c:132
 msgid "Could not find 'From' address in message"
 msgstr "Ni bilo mogoče najti naslova 'Od' v sporočilu"
 
-#: ../camel/camel-stub.c:152
+#: ../camel/camel-stub.c:153
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Ni bilo mogoče ustvariti vtičnice: %s"
 
-#: ../camel/camel-stub.c:170
+#: ../camel/camel-stub.c:171
 #, c-format
 msgid "Could not connect to %s: Please restart Evolution"
 msgstr "Ni se bilo mogoče povezati z %s: Ponovno zaženiti Evolution"
 
-#: ../camel/camel-stub.c:175
+#: ../camel/camel-stub.c:176
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Ni se mogoče povezati s %s: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:206
 #, c-format
 msgid "Path too long: %s"
 msgstr "Pot predolga: %s"
 
-#: ../camel/camel-stub.c:231
+#: ../camel/camel-stub.c:232
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Ni bilo mogoče začeti niti stanja: %s"
 
-#: ../camel/camel-stub.c:485
+#: ../camel/camel-stub.c:486
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Povezava z %s je prekinjena"
 
-#: ../camel/camel-stub.c:489
+#: ../camel/camel-stub.c:490
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Napaka pri povezovanju z %s: %s"
 
-#: ../mail/mail-stub-exchange.c:257
-#: ../mail/mail-stub-exchange.c:755
+#: ../mail/mail-stub-exchange.c:264
+#: ../mail/mail-stub-exchange.c:946
 msgid "No such folder"
 msgstr "Ta imenik ne obstaja"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280
-#: ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2526
-#: ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632
-#: ../mail/mail-stub-exchange.c:2682
-#: ../mail/mail-stub-exchange.c:2745
+#: ../mail/mail-stub-exchange.c:287
+#: ../mail/mail-stub-exchange.c:1595
+#: ../mail/mail-stub-exchange.c:2851
+#: ../mail/mail-stub-exchange.c:2891
+#: ../mail/mail-stub-exchange.c:2957
+#: ../mail/mail-stub-exchange.c:3007
+#: ../mail/mail-stub-exchange.c:3070
 msgid "Permission denied"
 msgstr "Nimate dovoljenja. Nekaterih sporočil ni bilo mogoče zbrisati."
 
-#: ../mail/mail-stub-exchange.c:578
-#: ../mail/mail-stub-exchange.c:600
-msgid "Could not open folder: Permission denied"
-msgstr "Ni bilo mogoče odprti mape: nimate dovoljenja"
-
-#: ../mail/mail-stub-exchange.c:584
-#: ../mail/mail-stub-exchange.c:707
+#: ../mail/mail-stub-exchange.c:768
+#: ../mail/mail-stub-exchange.c:860
 msgid "Could not open folder"
 msgstr "Ni bilo mogoče odprti mape"
 
-#: ../mail/mail-stub-exchange.c:764
+#: ../mail/mail-stub-exchange.c:854
+#: ../mail/mail-stub-exchange.c:876
+msgid "Could not open folder: Permission denied"
+msgstr "Ni bilo mogoče odprti mape: nimate dovoljenja"
+
+#: ../mail/mail-stub-exchange.c:955
 msgid "Could not create folder."
 msgstr "Ni bilo mogoče ustvariti mape"
 
-#: ../mail/mail-stub-exchange.c:844
+#: ../mail/mail-stub-exchange.c:1043
 msgid "Could not open Deleted Items folder"
 msgstr "Ni bilo mogoče odprti mape Zbrisani predmeti"
 
-#: ../mail/mail-stub-exchange.c:1175
-#: ../mail/mail-stub-exchange.c:1216
+#: ../mail/mail-stub-exchange.c:1374
+#: ../mail/mail-stub-exchange.c:1415
 msgid "Could not get new messages"
 msgstr "Ni bilo mogoče dobiti novih sporočil"
 
-#: ../mail/mail-stub-exchange.c:1386
+#: ../mail/mail-stub-exchange.c:1591
 msgid "Could not empty Deleted Items folder"
 msgstr "Ni bilo mogoče sprazniti mape Zbrisani predmeti"
 
-#: ../mail/mail-stub-exchange.c:1463
+#: ../mail/mail-stub-exchange.c:1668
 msgid "Could not append message; mailbox is over quota"
 msgstr "Ni bilo mogoče dodati sporočila; poštni predal poln"
 
-#: ../mail/mail-stub-exchange.c:1464
+#: ../mail/mail-stub-exchange.c:1669
 msgid "Could not append message"
 msgstr "Ni bilo mogoče dodati sporočila"
 
-#: ../mail/mail-stub-exchange.c:2016
+#: ../mail/mail-stub-exchange.c:2324
 msgid "No such message"
 msgstr "Ni takega sporočila"
 
-#: ../mail/mail-stub-exchange.c:2069
+#: ../mail/mail-stub-exchange.c:2386
 msgid "Message has been deleted"
 msgstr "Sporočilo je bilo izbrisano"
 
-#: ../mail/mail-stub-exchange.c:2071
+#: ../mail/mail-stub-exchange.c:2388
 msgid "Error retrieving message"
 msgstr "Napaka pri pridobivanju sporočila"
 
-#: ../mail/mail-stub-exchange.c:2113
+#: ../mail/mail-stub-exchange.c:2430
 msgid "Mailbox does not support full-text searching"
 msgstr "Poštni predal ne podpira iskanja po celotnem besedilu"
 
-#: ../mail/mail-stub-exchange.c:2211
+#: ../mail/mail-stub-exchange.c:2528
 msgid "Unable to move/copy messages"
 msgstr "Ni bilo mogoče premakniti/kopirati sporočil"
 
-#: ../mail/mail-stub-exchange.c:2441
+#: ../mail/mail-stub-exchange.c:2766
 msgid "No mail submission URI for this mailbox"
 msgstr "V poštnem predalu ni URI za potrditev pošte"
 
-#: ../mail/mail-stub-exchange.c:2477
+#: ../mail/mail-stub-exchange.c:2802
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Strežnik ne bo sprejel pošte preko transporta Exchange"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:2804
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -388,7 +414,7 @@ msgstr ""
 "Vaš račun nima dovoljenj za uporabo <%s>\n"
 "kot naslov Od."
 
-#: ../mail/mail-stub-exchange.c:2491
+#: ../mail/mail-stub-exchange.c:2816
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -396,19 +422,19 @@ msgstr ""
 "Ni bilo mogoče poslati sporočila.\n"
 "Vaš poštni predal utegne biti poln."
 
-#: ../mail/mail-stub-exchange.c:2495
+#: ../mail/mail-stub-exchange.c:2820
 msgid "Could not send message"
 msgstr "Ni bilo mogoče poslati sporočila"
 
-#: ../mail/mail-stub-exchange.c:2518
-#: ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636
-#: ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2751
+#: ../mail/mail-stub-exchange.c:2843
+#: ../mail/mail-stub-exchange.c:2896
+#: ../mail/mail-stub-exchange.c:2961
+#: ../mail/mail-stub-exchange.c:3012
+#: ../mail/mail-stub-exchange.c:3076
 msgid "Generic error"
 msgstr "Splošna napaka"
 
-#: ../mail/mail-stub-exchange.c:2522
+#: ../mail/mail-stub-exchange.c:2847
 msgid "Folder already exists"
 msgstr "Mapa že obstaja"
 
