@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 # The name of the module.
-DOC_MODULE=ximian-connector
+DOC_MODULE=evolution-exchange
 
 # The top-level SGML file.
 DOC_MAIN_SGML_FILE=$(DOC_MODULE)-docs.sgml

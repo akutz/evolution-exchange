@@ -18,31 +18,3 @@ primarly for xntlm-internal use, but can also be used by other code.
 <!-- ##### SECTION Stability_Level ##### -->
 
 
-<!-- ##### TYPEDEF XNTLM_DES_KS ##### -->
-<para>
-This represents a DES key schedule. After initializing it with
-xntlm_deskey(), you can then pass it to xntlm_des() as many time as
-you need.
-</para>
-
-
-<!-- ##### FUNCTION xntlm_deskey ##### -->
-<para>
-Sets up @ks based on @key. You must call this to initialize the key
-schedule before calling xntlm_des().
-</para>
-
-@ks: key schedule to fill in
-@key: the encryption key
-@decrypt: 0 for encryption, 1 for decryption
-
-
-<!-- ##### FUNCTION xntlm_des ##### -->
-<para>
-DES encrypts/decrypts (according to @ks) a single block in ECB mode.
-</para>
-
-@ks: the key schedule to use
-@block: the block of data to encrypt or decrypt
-
-
