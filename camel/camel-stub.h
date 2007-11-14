@@ -29,10 +29,10 @@ typedef struct {
 	CamelObject parent_object;
 
 	char *backend_name;
-	
+
 	GMutex *read_lock, *write_lock;
 	CamelStubMarshal *cmd, *status;
-	
+
 	CamelOperation *op;      /* for cancelling */
 	pthread_t status_thread;
 } CamelStub;

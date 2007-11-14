@@ -44,9 +44,9 @@ camel_exchange_search_class_init (CamelExchangeSearchClass *camel_exchange_searc
 	/* virtual method overload */
 	CamelFolderSearchClass *camel_folder_search_class =
 		CAMEL_FOLDER_SEARCH_CLASS (camel_exchange_search_class);
-	
+
 	parent_class = (CamelFolderSearchClass *) camel_folder_search_get_type ();
-	
+
 	/* virtual method overload */
 	camel_folder_search_class->body_contains = exchange_body_contains;
 }
@@ -80,10 +80,10 @@ exchange_body_contains (struct _ESExp *f, int argc, struct _ESExpResult **argv,
 	GHashTable *uid_hash = NULL;
 	GPtrArray *found_uids;
 	int i;
-	
+
 	if (((CamelOfflineStore *) s->folder->parent_store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL)
 		return parent_class->body_contains (f, argc, argv, s);
-	
+
 	if (s->current) {
 		r = e_sexp_result_new (f, ESEXP_RES_BOOL);
 		r->value.bool = FALSE;

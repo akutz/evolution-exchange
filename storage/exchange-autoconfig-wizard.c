@@ -88,7 +88,7 @@ autoconfig_gui_set_page (ExchangeAutoconfigGUI *gui, int page)
 {
 	gnome_druid_set_page (gui->druid, gui->pages->pdata[page]);
 }
-	
+
 static void
 autoconfig_gui_set_next_sensitive (ExchangeAutoconfigGUI *gui,
 				   gboolean next_sensitive)
@@ -168,7 +168,7 @@ owa_page_prepare (ExchangeAutoconfigGUI *gui)
 
 static gboolean
 owa_page_next (ExchangeAutoconfigGUI *gui)
-{	
+{
 	E2kAutoconfigResult result;
 	const char *old, *new;
 
@@ -314,7 +314,7 @@ gc_page_prepare (ExchangeAutoconfigGUI *gui)
 
 static gboolean
 gc_page_next (ExchangeAutoconfigGUI *gui)
-{	
+{
 	E2kAutoconfigResult result;
 
 	e2k_autoconfig_set_gc_server (gui->ac, gtk_entry_get_text (gui->gc_server_entry), -1);
@@ -362,7 +362,7 @@ failure_page_prepare (ExchangeAutoconfigGUI *gui)
 
 static gboolean
 failure_page_back (ExchangeAutoconfigGUI *gui)
-{	
+{
 	autoconfig_gui_set_page (gui, EXCHANGE_AUTOCONFIG_PAGE_OWA);
 	return TRUE;
 }
@@ -384,14 +384,14 @@ verify_page_prepare (ExchangeAutoconfigGUI *gui)
 
 static gboolean
 verify_page_back (ExchangeAutoconfigGUI *gui)
-{	
+{
 	autoconfig_gui_set_page (gui, EXCHANGE_AUTOCONFIG_PAGE_OWA);
 	return TRUE;
 }
 
 static gboolean
 verify_page_next (ExchangeAutoconfigGUI *gui)
-{	
+{
 	g_free (gui->ac->display_name);
 	gui->ac->display_name = g_strdup (gtk_entry_get_text (gui->name_entry));
 	g_free (gui->ac->email);
@@ -416,14 +416,14 @@ verify_page_changed (GtkEntry *entry, ExchangeAutoconfigGUI *gui)
 	autoconfig_gui_set_next_sensitive (gui, verify_page_check (gui));
 }
 
-static gboolean 
-is_active_exchange_account (EAccount *account) 
-{ 
-	if (!account->enabled) 
-		return FALSE; 
-	if (!account->source || !account->source->url) 
-		return FALSE; 
-	return (strncmp (account->source->url, "exchange://", 11) == 0); 
+static gboolean
+is_active_exchange_account (EAccount *account)
+{
+	if (!account->enabled)
+		return FALSE;
+	if (!account->source || !account->source->url)
+		return FALSE;
+	return (strncmp (account->source->url, "exchange://", 11) == 0);
 }
 
 static void
@@ -448,10 +448,10 @@ autoconfig_gui_apply (ExchangeAutoconfigGUI *gui)
 	}
 
 	/* Check if any account is already configured, and throw an error if so */
-	/* NOTE: This condition check needs to be removed when we start 
+	/* NOTE: This condition check needs to be removed when we start
 	   supporting multiple accounts */
-	for (iter = e_list_get_iterator ((EList *)list); 
-	     e_iterator_is_valid (iter); 
+	for (iter = e_list_get_iterator ((EList *)list);
+	     e_iterator_is_valid (iter);
 	     e_iterator_next (iter)) {
 		account = (EAccount *)e_iterator_get (iter);
 		if (account && (found = is_active_exchange_account (account))) {
@@ -514,13 +514,13 @@ static struct {
 	gboolean (*back_func) (ExchangeAutoconfigGUI *gui);
 	gboolean (*next_func) (ExchangeAutoconfigGUI *gui);
 } autoconfig_pages[] = {
-	{ "owa_page", "owa_page_vbox", owa_page_prepare, 
+	{ "owa_page", "owa_page_vbox", owa_page_prepare,
 	  NULL, owa_page_next },
-	{ "gc_page", "gc_page_vbox", gc_page_prepare, 
+	{ "gc_page", "gc_page_vbox", gc_page_prepare,
 	  NULL, gc_page_next },
-	{ "failure_page", "failure_page_vbox", failure_page_prepare, 
+	{ "failure_page", "failure_page_vbox", failure_page_prepare,
 	  failure_page_back, NULL },
-	{ "verify_page", "verify_page_vbox", verify_page_prepare, 
+	{ "verify_page", "verify_page_vbox", verify_page_prepare,
 	  verify_page_back, verify_page_next }
 };
 static const int num_autoconfig_pages = sizeof (autoconfig_pages) / sizeof (autoconfig_pages[0]);

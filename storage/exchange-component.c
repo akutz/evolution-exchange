@@ -38,7 +38,7 @@
 #include "mail-stub-listener.h"
 #include "mail-stub-exchange.h"
 
-#include "exchange-migrate.h" 
+#include "exchange-migrate.h"
 
 #define d(x)
 
@@ -48,8 +48,8 @@ static void e_filename_make_safe (gchar *string);
 static void exchange_component_update_accounts (ExchangeComponent *component,
 							gboolean status);
 static void ex_migrate_esources (ExchangeComponent *component,
-				  const CORBA_short major, 
-				  const CORBA_short minor, 
+				  const CORBA_short major,
+				  const CORBA_short minor,
 				  const CORBA_short revision);
 
 static guint linestatus_signal_id;
@@ -127,7 +127,7 @@ dispose (GObject *object)
 		CORBA_exception_free (&ev);
 		CORBA_Object_release (priv->evo_listener, &ev);
 		CORBA_exception_free (&ev);
-		
+
 		priv->evo_listener = NULL;
 	}
 
@@ -181,10 +181,10 @@ impl_upgradeFromVersion (PortableServer_Servant servant,
 		e_filename_make_safe (base_directory);
 		account_filename = strrchr (base_directory, '/') + 1;
 
-		exchange_migrate(major, minor, revision, 
+		exchange_migrate(major, minor, revision,
 				 base_directory, account_filename);
-				 	
-		ex_migrate_esources (component, major, minor, revision);			
+
+		ex_migrate_esources (component, major, minor, revision);
 	}
 }
 
@@ -251,14 +251,14 @@ impl_setLineStatus (PortableServer_Servant servant,
 		case GNOME_Evolution_FORCED_OFFLINE:
 			priv->linestatus = FALSE;
 			break;
-		
+
 		case GNOME_Evolution_USER_ONLINE:
 			priv->linestatus = TRUE;
 			break;
 		default:
 			break;
 	}
-	
+
 	if (priv->cal_factory) {
 		e_data_cal_factory_set_backend_mode (priv->cal_factory,
 						     priv->linestatus ? ONLINE_MODE : OFFLINE_MODE);
@@ -286,8 +286,8 @@ impl_setLineStatus (PortableServer_Servant servant,
 
 static void
 ex_migrate_esources (ExchangeComponent *component,
-		  const CORBA_short major, 
-		  const CORBA_short minor, 
+		  const CORBA_short major,
+		  const CORBA_short minor,
 		  const CORBA_short revision)
 {
 
@@ -306,7 +306,7 @@ exchange_component_update_accounts (ExchangeComponent *component,
 	GSList *acc;
 
 	for (acc = priv->accounts; acc; acc = acc->next) {
-		baccount = acc->data;	
+		baccount = acc->data;
 		if (status)
 			exchange_account_set_online (baccount->account);
 		else
@@ -321,7 +321,7 @@ e_filename_make_safe (gchar *string)
 {
 	gchar *p, *ts;
 	gunichar c;
-	
+
 	g_return_if_fail (string != NULL);
 	p = string;
 
@@ -330,7 +330,7 @@ e_filename_make_safe (gchar *string)
 		ts = p;
 		p = g_utf8_next_char (p);
 		if (!g_unichar_isprint(c) || ( c < 0xff && strchr (" /'\"`&();|<>$%{}!", c&0xff ))) {
-			while (ts<p) 	
+			while (ts<p)
 				*ts++ = '_';
 		}
 	}
@@ -383,7 +383,7 @@ config_listener_account_created (ExchangeConfigListener *config_listener,
 
 	account_filename = strrchr (account->storage_dir, '/') + 1;
 	e_filename_make_safe (account_filename);
-	
+
 	path = g_strdup_printf ("/tmp/.exchange-%s/%s",
 				g_get_user_name (),
 				account_filename);
@@ -449,7 +449,7 @@ exchange_component_class_init (ExchangeComponentClass *klass)
 
 	klass->linestatus_notify = default_linestatus_notify_handler;
 
-	linestatus_signal_id = 
+	linestatus_signal_id =
 		g_signal_new ("linestatus-changed",
 			       G_TYPE_FROM_CLASS (klass),
 			       G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,

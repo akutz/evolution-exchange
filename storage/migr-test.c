@@ -67,7 +67,7 @@ main (int argc, char **argv)
 	if (argc < 15) {
 		printf("Warning.. All the arguments not provided, Proceeding with the default values \n");
 	}
-	
+
 	while ((opt = getopt (argc, argv, optstr)) != EOF) {
 		switch (opt) {
 			case 'M':
@@ -93,15 +93,15 @@ main (int argc, char **argv)
 				break;
 			default:
 				break;
-		}	
+		}
 	}
-	
+
 	uid = g_strdup_printf ("%s@%s", user, server);
 
 	/* destination path */
 	base_dir = g_build_filename (dest, uid, NULL);
 	printf("base dir is %s; uid = %s; dest = %s ; source=%s \n", base_dir, uid, dest, source);
-		
+
 	exchange_migrate (major, minor, revision, base_dir, (char *) uid);
 
 	g_free (base_dir);

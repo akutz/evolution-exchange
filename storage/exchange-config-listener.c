@@ -92,7 +92,7 @@ static void account_changed (EAccountList *account_listener,
 static void account_removed (EAccountList *account_listener,
 			     EAccount     *account);
 
-static gboolean exchange_camel_urls_is_equal (const gchar *url1, 
+static gboolean exchange_camel_urls_is_equal (const gchar *url1,
 					      const gchar *url2);
 
 
@@ -190,7 +190,7 @@ is_active_exchange_account (EAccount *account)
 	return (strncmp (account->source->url, EXCHANGE_URI_PREFIX, 11) == 0);
 }
 
-static void 
+static void
 update_foreign_uri (const char *path, const char *account_uri)
 {
 	char *file_path, *phy_uri, *foreign_uri, *new_phy_uri;
@@ -253,7 +253,7 @@ migrate_foreign_hierarchy (ExchangeAccount *account)
 		while ((dentry = readdir (d))) {
 			if (!strchr (dentry->d_name, '@'))
 				continue;
-			dir = g_strdup_printf ("%s/%s", account->storage_dir, 
+			dir = g_strdup_printf ("%s/%s", account->storage_dir,
 							dentry->d_name);
 			update_foreign_uri (dir, account->account_filename);
 			g_free (dir);
@@ -276,7 +276,7 @@ ex_set_relative_uri (ESource *source, const char *url)
 	if (!folder_name)
 		return;
 
-	if ((folder_name + 1) && *(folder_name + 1) == ';') 
+	if ((folder_name + 1) && *(folder_name + 1) == ';')
 		return;
 
 	new_rel_uri = g_strdup_printf ("%s;%s", url, folder_name + 1);
@@ -284,8 +284,8 @@ ex_set_relative_uri (ESource *source, const char *url)
 	g_free (new_rel_uri);
 }
 
-static void 
-migrate_account_esource (EAccount *account, 
+static void
+migrate_account_esource (EAccount *account,
 		        FolderType folder_type)
 {
 	ESourceGroup *group;
@@ -315,10 +315,10 @@ migrate_account_esource (EAccount *account,
 	client = gconf_client_get_default ();
 
 	if (folder_type == EXCHANGE_CONTACTS_FOLDER)
-		source_list = e_source_list_new_for_gconf ( client, 
+		source_list = e_source_list_new_for_gconf ( client,
 							CONF_KEY_CONTACTS);
 	else if (folder_type == EXCHANGE_CALENDAR_FOLDER)
-		source_list = e_source_list_new_for_gconf ( client, 
+		source_list = e_source_list_new_for_gconf ( client,
 							CONF_KEY_CAL);
 	else if (folder_type == EXCHANGE_TASKS_FOLDER)
 		source_list = e_source_list_new_for_gconf ( client,
@@ -445,7 +445,7 @@ requires_relogin (char *current_url, char *new_url)
 		relogin = TRUE;
 		goto end;
 	}
-	
+
 	if (current_uri->authmech || new_uri->authmech) {
 		if (current_uri->authmech && new_uri->authmech) {
 	    		if (strcmp (current_uri->authmech, new_uri->authmech)) {
@@ -453,7 +453,7 @@ requires_relogin (char *current_url, char *new_url)
 				relogin = TRUE;
 				goto end;
 			}
-		} 
+		}
 		else {
 			/* Auth mechanism is set for the first time */
 			relogin = TRUE;
@@ -461,10 +461,10 @@ requires_relogin (char *current_url, char *new_url)
 		}
 	}
 
-	for (i=0; i<n_params; i++) { 
+	for (i=0; i<n_params; i++) {
 		current_param_val = e2k_uri_get_param (current_uri, params[i]);
-		new_param_val = e2k_uri_get_param (new_uri, params[i]); 
-	
+		new_param_val = e2k_uri_get_param (new_uri, params[i]);
+
 		if (current_param_val && new_param_val) {
 			/* both the urls have params to be compared */
 			if (strcmp (current_param_val, new_param_val)) {
@@ -510,11 +510,11 @@ account_changed (EAccountList *account_list, EAccount *account)
 		return;
 	}
 
-	/* FIXME: The order of the parameters in the Camel URL string is not in 
+	/* FIXME: The order of the parameters in the Camel URL string is not in
 	 * order for the two given strings. So, we will not be able to use
 	 * plain string comparison. Instead compare the parameters one by one.
 	 */
-	if (exchange_camel_urls_is_equal (config_listener->priv->configured_uri, 
+	if (exchange_camel_urls_is_equal (config_listener->priv->configured_uri,
 					  account->source->url) &&
 	    !strcmp (config_listener->priv->configured_name, account->name)) {
 		/* The user changed something we don't care about. */
@@ -545,11 +545,11 @@ account_changed (EAccountList *account_list, EAccount *account)
 		return;
 	}
 
-	/* If account name has changed, or the url value has changed, which 
-	 * could be due to change in hostname or some parameter value, 
-	 * remove old e-sources 
+	/* If account name has changed, or the url value has changed, which
+	 * could be due to change in hostname or some parameter value,
+	 * remove old e-sources
 	 */
-	if (requires_relogin (config_listener->priv->configured_uri, 
+	if (requires_relogin (config_listener->priv->configured_uri,
 			      account->source->url)) {
 		exchange_account_forget_password (priv->exchange_account);
 	} else if (strcmp (config_listener->priv->configured_name, account->name)) {
@@ -593,7 +593,7 @@ account_removed (EAccountList *account_list, EAccount *account)
 		priv->configured_uri = NULL;
 		g_free (priv->configured_name);
 		priv->configured_name = NULL;
-	} 
+	}
 }
 
 static gboolean
@@ -649,8 +649,8 @@ exchange_config_listener_get_accounts (ExchangeConfigListener *config_listener)
 }
 
 /**
- * exchange_camel_urls_is_equal 
- * 
+ * exchange_camel_urls_is_equal
+ *
  * @url1: CAMEL URL string 1
  * @url2: CAMEL URL string 2
  *
@@ -659,7 +659,7 @@ exchange_config_listener_get_accounts (ExchangeConfigListener *config_listener)
  *
  * Return Value: Boolean result of the comparision.
  *
- **/ 
+ **/
 static gboolean
 exchange_camel_urls_is_equal (const gchar *url1, const gchar *url2)
 {
@@ -674,7 +674,7 @@ exchange_camel_urls_is_equal (const gchar *url1, const gchar *url2)
 	};
 	const int n_params = 5;
 	int i;
-	
+
 	curl1 = camel_url_new (url1, NULL);
 	curl2 = camel_url_new (url2, NULL);
 
@@ -686,7 +686,7 @@ exchange_camel_urls_is_equal (const gchar *url1, const gchar *url2)
 			camel_url_free (curl1);
 			camel_url_free (curl2);
 			return FALSE;
-		}		
+		}
 	}
 	camel_url_free (curl1);
 	camel_url_free (curl2);

@@ -56,7 +56,7 @@ enum {
 
 struct _CamelExchangeJournalEntry {
 	EDListNode node;
-	
+
 	int type;
 
 	char *uid;
@@ -69,12 +69,12 @@ struct _CamelExchangeJournalEntry {
 
 struct _CamelExchangeJournal {
 	CamelOfflineJournal parent_object;
-	
+
 };
 
 struct _CamelExchangeJournalClass {
 	CamelOfflineJournalClass parent_class;
-	
+
 };
 
 
@@ -83,15 +83,15 @@ CamelType camel_exchange_journal_get_type (void);
 CamelOfflineJournal *camel_exchange_journal_new (CamelExchangeFolder *folder, const char *filename);
 
 /* interfaces for adding a journal entry */
-void camel_exchange_journal_append (CamelExchangeJournal *journal, CamelMimeMessage *message, 
+void camel_exchange_journal_append (CamelExchangeJournal *journal, CamelMimeMessage *message,
 				    const CamelMessageInfo *mi, char **appended_uid, CamelException *ex);
 
-void camel_exchange_journal_transfer (CamelExchangeJournal *journal, CamelExchangeFolder *source_folder, 
-				      CamelMimeMessage *message, const CamelMessageInfo *mi, 
-				      const char *original_uid, char **transferred_uid, 
+void camel_exchange_journal_transfer (CamelExchangeJournal *journal, CamelExchangeFolder *source_folder,
+				      CamelMimeMessage *message, const CamelMessageInfo *mi,
+				      const char *original_uid, char **transferred_uid,
 				      gboolean delete_original, CamelException *ex);
 
-void camel_exchange_journal_delete (CamelExchangeJournal *journal, const char *uid, 
+void camel_exchange_journal_delete (CamelExchangeJournal *journal, const char *uid,
 				    guint32 flags, guint32 set, CamelException *ex);
 
 #ifdef __cplusplus

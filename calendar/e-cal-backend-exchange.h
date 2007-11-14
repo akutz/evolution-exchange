@@ -72,15 +72,15 @@ gboolean  e_cal_backend_exchange_remove_object    (ECalBackendExchange *cbex,
 
 ECalBackendSyncStatus  e_cal_backend_exchange_add_timezone     (ECalBackendExchange *cbex,
 						   icalcomponent       *vtzcomp);
-						   
+
 icaltimezone * e_cal_backend_exchange_get_default_time_zone (ECalBackendSync *backend);
 
 char *	  e_cal_backend_exchange_lf_to_crlf 	(const char *in);
 char *	  e_cal_backend_exchange_make_timestamp_rfc822 	(time_t when);
-ECalBackendSyncStatus	get_timezone 	(ECalBackendSync *backend, 
+ECalBackendSyncStatus	get_timezone 	(ECalBackendSync *backend,
 							EDataCal *cal, const char *tzid, char **object);
 
-ECalBackendExchangeComponent * get_exchange_comp (ECalBackendExchange *cbex, 
+ECalBackendExchangeComponent * get_exchange_comp (ECalBackendExchange *cbex,
 						  const char *uid);
 
 ECalBackendSyncStatus  e_cal_backend_exchange_extract_components (const char *calobj,
@@ -88,13 +88,13 @@ ECalBackendSyncStatus  e_cal_backend_exchange_extract_components (const char *ca
                                            GList **comp_list);
 
 /* Utility functions */
-                                                                                
-void e_cal_backend_exchange_get_from (ECalBackendSync *backend, ECalComponent *comp, 
+
+void e_cal_backend_exchange_get_from (ECalBackendSync *backend, ECalComponent *comp,
 					char **from_name, char **from_addr);
-char * e_cal_backend_exchange_get_from_string (ECalBackendSync *backend, ECalComponent *comp); 
-void e_cal_backend_exchange_get_sender (ECalBackendSync *backend, ECalComponent *comp, 
+char * e_cal_backend_exchange_get_from_string (ECalBackendSync *backend, ECalComponent *comp);
+void e_cal_backend_exchange_get_sender (ECalBackendSync *backend, ECalComponent *comp,
 					char **from_name, char **from_addr);
-char * e_cal_backend_exchange_get_sender_string (ECalBackendSync *backend, ECalComponent *comp); 
+char * e_cal_backend_exchange_get_sender_string (ECalBackendSync *backend, ECalComponent *comp);
 gboolean e_cal_backend_exchange_is_online (ECalBackendExchange *cbex);
 GSList * get_attachment (ECalBackendExchange *cbex, const char *uid, const char *body, int len);
 char * build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const char *subject, char **boundary);

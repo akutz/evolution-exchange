@@ -69,7 +69,7 @@ e_book_backend_exchange_factory_get_type (void)
 			(GInstanceInitFunc) e_book_backend_exchange_factory_instance_init
 		};
 
-		type = g_type_register_static (E_TYPE_BOOK_BACKEND_FACTORY, 
+		type = g_type_register_static (E_TYPE_BOOK_BACKEND_FACTORY,
 					       "EBookBackendExchangeFactory", &info, 0);
 	}
 	return type;

@@ -57,7 +57,7 @@ struct _ECalBackendExchangeTasksPrivate {
          * table. Each item in the hash table is a ECalBackendExchangeTasksObject.
          */
         GHashTable *comp_uid_hash;
-	
+
 	GList *comp;
 
 	GMutex *mutex;
@@ -79,7 +79,7 @@ get_from (ECalBackendSync *backend, ECalComponent *comp, char **from_name, char 
 
 	e_cal_component_get_organizer (E_CAL_COMPONENT (comp), &org);
 
-	if (org.cn && org.cn[0] && org.value && org.value[0]) { 
+	if (org.cn && org.cn[0] && org.value && org.value[0]) {
                 *from_name = org.cn;
                 if (!g_ascii_strncasecmp (org.value, "mailto:", 7))
                         *from_addr = org.value + 7;
@@ -96,7 +96,7 @@ static void
 set_uid (E2kProperties *props, ECalComponent *comp)
 {
         const char *uid;
-        
+
 	e_cal_component_get_uid (E_CAL_COMPONENT (comp), &uid);
         e2k_properties_set_string (props, E2K_PR_CALENDAR_UID, g_strdup (uid));
 }
@@ -105,7 +105,7 @@ static void
 set_summary (E2kProperties *props, ECalComponent *comp)
 {
         static ECalComponentText summary;
-        
+
 	e_cal_component_get_summary (E_CAL_COMPONENT (comp), &summary);
         if (summary.value) {
                 e2k_properties_set_string (props, E2K_PR_HTTPMAIL_THREAD_TOPIC,
@@ -118,7 +118,7 @@ static void
 set_priority (E2kProperties *props, ECalComponent *comp)
 {
         int *priority, value = 0;
-        
+
 	e_cal_component_get_priority (E_CAL_COMPONENT (comp), &priority);
         if (priority) {
                 if (*priority == 0)
@@ -139,7 +139,7 @@ set_sensitivity (E2kProperties *props, ECalComponent *comp)
 {
         ECalComponentClassification classif;
         int sensitivity;
-        
+
 	e_cal_component_get_classification (E_CAL_COMPONENT (comp), &classif);
         switch (classif) {
         case E_CAL_COMPONENT_CLASS_PRIVATE:
@@ -152,20 +152,20 @@ set_sensitivity (E2kProperties *props, ECalComponent *comp)
                 sensitivity = 0;
                 break;
         }
-        
+
 	e2k_properties_set_int (props, E2K_PR_MAPI_SENSITIVITY, sensitivity);
 }
- 
+
 icaltimezone *
 get_default_timezone (void)
 {
         static EConfigListener *cl = NULL;
         gchar *location;
         icaltimezone *local_timezone;
-        
+
 	if (!cl)
                 cl = e_config_listener_new ();
-        
+
 	location = e_config_listener_get_string_with_default (cl, "/apps/evolution/calendar/display/timezone", "UTC", NULL);
 
         if (location && location[0]) {
@@ -173,9 +173,9 @@ get_default_timezone (void)
         } else {
                 local_timezone = icaltimezone_get_utc_timezone ();
         }
-        
+
 	g_free (location);
-        
+
 	return local_timezone;
 }
 
@@ -184,15 +184,15 @@ calcomponentdatetime_to_string (ECalComponentDateTime *dt,
                                 icaltimezone *izone)
 {
         time_t tt;
-        
+
 	g_return_val_if_fail (dt != NULL, NULL);
         g_return_val_if_fail (dt->value != NULL, NULL);
-        
+
 	if (izone != NULL)
                 tt = icaltime_as_timet_with_zone (*dt->value, izone);
         else
                 tt = icaltime_as_timet (*dt->value);
-        
+
 	return e2k_make_timestamp (tt);
 }
 
@@ -201,14 +201,14 @@ convert_to_utc (ECalComponentDateTime *dt)
 {
         icaltimezone *from_zone;
         icaltimezone *utc_zone;
-        
+
 	from_zone = icaltimezone_get_builtin_timezone_from_tzid (dt->tzid);
         utc_zone = icaltimezone_get_utc_timezone ();
         if (!from_zone)
                 from_zone = get_default_timezone ();
         dt->value->is_date = 0;
         icaltimezone_convert_time (dt->value, from_zone, utc_zone);
-        
+
 	return calcomponentdatetime_to_string (dt, utc_zone);
 }
 
@@ -218,14 +218,14 @@ set_dtstart (E2kProperties *props, ECalComponent *comp)
 {
         ECalComponentDateTime dt;
         char *dtstart_str;
-        
+
 	e_cal_component_get_dtstart (E_CAL_COMPONENT (comp), &dt);
         if (!dt.value || icaltime_is_null_time (*dt.value)) {
                 e_cal_component_free_datetime (&dt);
                 e2k_properties_remove (props, E2K_PR_MAPI_COMMON_START);
                 return;
         }
-        
+
 	dtstart_str = convert_to_utc (&dt);
         e_cal_component_free_datetime (&dt);
         e2k_properties_set_date (props, E2K_PR_MAPI_COMMON_START, dtstart_str);
@@ -236,14 +236,14 @@ set_due_date (E2kProperties *props, ECalComponent *comp)
 {
         ECalComponentDateTime dt;
         char *due_str;
-        
+
 	e_cal_component_get_due (E_CAL_COMPONENT (comp), &dt);
         if (!dt.value || icaltime_is_null_time (*dt.value)) {
                 e_cal_component_free_datetime (&dt);
                 e2k_properties_remove (props, E2K_PR_MAPI_COMMON_END);
                 return;
         }
-        
+
 	due_str = convert_to_utc (&dt);
         e_cal_component_free_datetime (&dt);
         e2k_properties_set_date (props, E2K_PR_MAPI_COMMON_END, due_str);
@@ -253,9 +253,9 @@ char *
 icaltime_to_e2k_time (struct icaltimetype *itt)
 {
         time_t tt;
-        
+
 	g_return_val_if_fail (itt != NULL, NULL);
-        
+
 	tt = icaltime_as_timet_with_zone (*itt, icaltimezone_get_utc_timezone ());
         return e2k_make_timestamp (tt);
 }
@@ -265,19 +265,19 @@ set_date_completed (E2kProperties *props, ECalComponent *comp)
 {
         struct icaltimetype *itt;
         char *tstr;
-        
+
 	e_cal_component_get_completed (E_CAL_COMPONENT (comp), &itt);
         if (!itt || icaltime_is_null_time (*itt)) {
                 e2k_properties_remove (props, E2K_PR_OUTLOOK_TASK_DONE_DT);
                 return;
         }
-        
-	icaltimezone_convert_time (itt, 
-				   icaltimezone_get_builtin_timezone ((const char *)itt->zone), 
+
+	icaltimezone_convert_time (itt,
+				   icaltimezone_get_builtin_timezone ((const char *)itt->zone),
 				   icaltimezone_get_utc_timezone ());
         tstr = icaltime_to_e2k_time (itt);
         e_cal_component_free_icaltimetype (itt);
-        
+
 	e2k_properties_set_date (props, E2K_PR_OUTLOOK_TASK_DONE_DT, tstr);
 }
 
@@ -286,7 +286,7 @@ set_status (E2kProperties *props, ECalComponent *comp)
 {
         icalproperty_status ical_status;
         int status;
-        
+
 	e_cal_component_get_status (E_CAL_COMPONENT (comp), &ical_status);
         switch (ical_status) {
         case ICAL_STATUS_NONE :
@@ -309,7 +309,7 @@ set_status (E2kProperties *props, ECalComponent *comp)
         default :
                 status = 0;
         }
-        
+
 	e2k_properties_set_int (props, E2K_PR_OUTLOOK_TASK_STATUS, status);
         e2k_properties_set_bool (props, E2K_PR_OUTLOOK_TASK_IS_DONE, status == 2);
 }
@@ -319,14 +319,14 @@ set_percent (E2kProperties *props, ECalComponent *comp)
 {
         int *percent;
         float res;
-        
+
 	e_cal_component_get_percent (E_CAL_COMPONENT (comp), &percent);
         if (percent) {
                 res = (float) *percent / 100.0;
                 e_cal_component_free_percent (percent);
         } else
                 res = 0.;
-        
+
 	e2k_properties_set_float (props, E2K_PR_OUTLOOK_TASK_PERCENT, res);
 }
 
@@ -336,22 +336,22 @@ set_categories (E2kProperties *props, ECalComponent *comp)
         GSList *categories;
         GSList *sl;
         GPtrArray *array;
-        
+
 	e_cal_component_get_categories_list (E_CAL_COMPONENT (comp), &categories);
         if (!categories) {
                 e2k_properties_remove (props, E2K_PR_EXCHANGE_KEYWORDS);
                 return;
         }
-        
+
 	array = g_ptr_array_new ();
         for (sl = categories; sl != NULL; sl = sl->next) {
                 char *cat = (char *) sl->data;
-                
+
 		if (cat)
                         g_ptr_array_add (array, g_strdup (cat));
         }
         e_cal_component_free_categories_list (categories);
-        
+
 	e2k_properties_set_string_array (props, E2K_PR_EXCHANGE_KEYWORDS, array);
 }
 
@@ -359,7 +359,7 @@ static void
 set_url (E2kProperties *props, ECalComponent *comp)
 {
         const char *url;
-        
+
 	e_cal_component_get_url (E_CAL_COMPONENT (comp), &url);
         if (url)
                 e2k_properties_set_string (props, E2K_PR_CALENDAR_URL, g_strdup (url));
@@ -371,7 +371,7 @@ static void
 update_props (ECalComponent *comp, E2kProperties **properties)
 {
 	E2kProperties *props = *properties;
-	
+
 	set_uid (props, E_CAL_COMPONENT (comp));
 	set_summary (props, E_CAL_COMPONENT (comp));
 	set_priority (props, E_CAL_COMPONENT (comp));
@@ -398,7 +398,7 @@ get_priority (ECalComponent *comp)
 
 	if (!priority)
 		return "normal";
-	
+
 	if (*priority == 0)
 		result = "normal";
 	else if (*priority <= 4)
@@ -462,7 +462,7 @@ put_body (ECalComponent *comp, E2kContext *ctx, E2kOperation *op,
 	/* PUT the component on the server */
         desc_crlf = e2k_lf_to_crlf ((const char *) desc->str);
         date = e2k_make_timestamp_rfc822 (time (NULL));
-	
+
 	if (attach_body) {
 		body = g_strdup_printf ("content-class: urn:content-classes:task\r\n"
                                 "Subject: %s\r\n"
@@ -627,7 +627,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 		}
 		if (!uid)
 			continue;
-		
+
 		ecal = e_cal_component_new ();
 		icalcomp = icalcomponent_new_vtodo ();
 		e_cal_component_set_icalcomponent (ecal, icalcomp);
@@ -644,14 +644,14 @@ get_changed_tasks (ECalBackendExchange *cbex)
 		}
 		e_cal_backend_exchange_cache_unlock (cbex);
 
-		e_cal_backend_exchange_add_timezone (cbex, icalcomp);		
+		e_cal_backend_exchange_add_timezone (cbex, icalcomp);
 
 		itt = icaltime_from_timet (e2k_parse_timestamp (modtime), 0);
-		if (!icaltime_is_null_time (itt)) 
+		if (!icaltime_is_null_time (itt))
 			e_cal_component_set_last_modified (ecal, &itt);
 
 		/* Set Priority */
-		if ((str = e2k_properties_get_prop (result->props, 
+		if ((str = e2k_properties_get_prop (result->props,
 				E2K_PR_MAILHEADER_IMPORTANCE))) {
 			if (!strcmp (str, "high"))
 				priority = 3;
@@ -661,21 +661,21 @@ get_changed_tasks (ECalBackendExchange *cbex)
 				priority = 5;
 			else
 				priority = 0;
-			
+
 			e_cal_component_set_priority (ecal, &priority);
 		}
 
 		/* Set Summary */
-		if ((str = e2k_properties_get_prop (result->props, 
+		if ((str = e2k_properties_get_prop (result->props,
 				E2K_PR_HTTPMAIL_SUBJECT))) {
 			ECalComponentText summary;
 			summary.value = str;
 			summary.altrep = result->href;
 			e_cal_component_set_summary (E_CAL_COMPONENT (ecal), &summary);
 		}
-		
+
 		/* Set DTSTAMP */
-		if ((str = e2k_properties_get_prop (result->props, 
+		if ((str = e2k_properties_get_prop (result->props,
 				E2K_PR_HTTPMAIL_DATE))) {
 			itt = icaltime_from_timet (e2k_parse_timestamp (str), 0);
 			if (!icaltime_is_null_time (itt)) {
@@ -685,13 +685,13 @@ get_changed_tasks (ECalBackendExchange *cbex)
 					E_CAL_COMPONENT (ecal), &itt);
 			}
 		}
-	
+
 		/* Set DESCRIPTION */
-		if ((str = e2k_properties_get_prop (result->props, 
+		if ((str = e2k_properties_get_prop (result->props,
 				E2K_PR_HTTPMAIL_TEXT_DESCRIPTION))) {
 			GSList sl;
 			ECalComponentText text;
-		
+
 			text.value = e2k_crlf_to_lf (str);
 			text.altrep = result->href;
 			sl.data = &text;
@@ -708,12 +708,12 @@ get_changed_tasks (ECalBackendExchange *cbex)
 				tzid = icaltimezone_get_tzid ((icaltimezone *)itzone);
 				ecdatetime.value = &itt;
 				ecdatetime.tzid = tzid;
-				e_cal_component_set_due (ecal, &ecdatetime);	
+				e_cal_component_set_due (ecal, &ecdatetime);
 			}
-		}	
-	
+		}
+
 		/* Set DTSTART */
-		if ((str = e2k_properties_get_prop (result->props, 
+		if ((str = e2k_properties_get_prop (result->props,
 				E2K_PR_MAPI_COMMON_START))) {
 			itzone = get_default_timezone ();
 			itt = icaltime_from_timet_with_zone (e2k_parse_timestamp (str), 0, itzone);
@@ -726,7 +726,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 		}
 
 		/* Set CLASSIFICATION */
-		if ((str = e2k_properties_get_prop (result->props, 
+		if ((str = e2k_properties_get_prop (result->props,
 				E2K_PR_MAPI_SENSITIVITY))){
 			if (!strcmp (str, "0"))
 				e_cal_component_set_classification (ecal,
@@ -737,26 +737,26 @@ get_changed_tasks (ECalBackendExchange *cbex)
 			else if (!strcmp (str, "2"))
 				e_cal_component_set_classification (ecal,
 					E_CAL_COMPONENT_CLASS_PRIVATE);
-		}		
+		}
 
 		/* Set Percent COMPLETED */
-		if ((str = e2k_properties_get_prop (result->props, 
+		if ((str = e2k_properties_get_prop (result->props,
 				E2K_PR_OUTLOOK_TASK_PERCENT))) {
-			
+
 			f_percent = atof (str);
 			percent = (int) (f_percent * 100);
 			e_cal_component_set_percent (ecal, &percent);
 		}
 
 		/* Set STATUS */
-		if ((str = e2k_properties_get_prop (result->props, 
+		if ((str = e2k_properties_get_prop (result->props,
 				E2K_PR_OUTLOOK_TASK_STATUS))) {
 			if (!strcmp (str, "0")) {
 				/* Not Started */
-				e_cal_component_set_status (ecal, 
+				e_cal_component_set_status (ecal,
 					ICAL_STATUS_NEEDSACTION);
 			} else if (!strcmp (str, "1")) {
-				/* In Progress */	
+				/* In Progress */
 				e_cal_component_set_status (ecal,
 					ICAL_STATUS_INPROCESS);
 			} else if (!strcmp (str, "2")) {
@@ -775,39 +775,39 @@ get_changed_tasks (ECalBackendExchange *cbex)
 		}
 
 		/* Set DATE COMPLETED */
-		if ((str = e2k_properties_get_prop (result->props, 
+		if ((str = e2k_properties_get_prop (result->props,
 				E2K_PR_OUTLOOK_TASK_DONE_DT))) {
 			itt = icaltime_from_timet (e2k_parse_timestamp (str), 0);
 			if (!icaltime_is_null_time (itt))
 				e_cal_component_set_completed (ecal, &itt);
 		}
-	
+
 		/* Set LAST MODIFIED */
-		if ((str = e2k_properties_get_prop (result->props, 
+		if ((str = e2k_properties_get_prop (result->props,
 				E2K_PR_CALENDAR_LAST_MODIFIED))) {
 			itt = icaltime_from_timet (e2k_parse_timestamp(str), 0);
 			if (!icaltime_is_null_time (itt))
 				e_cal_component_set_last_modified (ecal, &itt);
 		}
-		
-		/* Set CATEGORIES */	
-		if ((array = e2k_properties_get_prop (result->props, 
+
+		/* Set CATEGORIES */
+		if ((array = e2k_properties_get_prop (result->props,
 				E2K_PR_EXCHANGE_KEYWORDS))) {
 			GSList *list = NULL;
 			int i;
-		
+
 			for (i = 0; i < array->len; i++)
 				list = g_slist_prepend (list, array->pdata[i]);
-			
+
 			e_cal_component_set_categories_list (ecal, list);
 			g_slist_free (list);
 		}
-		
+
 		/* Set URL */
-		if ((str = e2k_properties_get_prop (result->props, 
+		if ((str = e2k_properties_get_prop (result->props,
 				E2K_PR_CALENDAR_URL))) {
 			e_cal_component_set_url (ecal, str);
-		}	
+		}
 
 		/* Set Attachments */
 		if ((str = e2k_properties_get_prop (result->props,
@@ -822,7 +822,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 			icalcomponent_kind kind = icalcomponent_isa (icalcomp);
 
 			e_cal_backend_exchange_cache_lock (cbex);
-			status = e_cal_backend_exchange_add_object (cbex, result->href, 
+			status = e_cal_backend_exchange_add_object (cbex, result->href,
 					modtime, icalcomp);
 			e_cal_backend_exchange_cache_unlock (cbex);
 
@@ -857,7 +857,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 		g_mutex_unlock (cbext->priv->mutex);
 		return SOUP_STATUS_OK;
 	}
-	
+
 	prop = PR_INTERNET_CONTENT;
 	iter = e_folder_exchange_bpropfind_start (cbex->folder, NULL,
 						(const char **)hrefs->pdata,
@@ -878,7 +878,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 
 		uid = g_hash_table_lookup (attachments, result->href);
 		/* Fetch component from cache and update it */
-		
+
 		e_cal_backend_exchange_cache_lock (cbex);
 		ecalbexcomp = get_exchange_comp (cbex, uid);
 		attachment_list = get_attachment (cbex, uid, (char *) ical_data->data, ical_data->len);
@@ -920,7 +920,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 
 	for (i = 0; i < hrefs->len; i++) {
 		int length;
-	
+
 		status = e2k_context_get (ctx, NULL, hrefs->pdata[i],
 					NULL, &body, &length);
 		if (!SOUP_STATUS_IS_SUCCESSFUL (status))
@@ -964,12 +964,12 @@ notify_changes (E2kContext *ctx, const char *uri,
 {
 
 	ECalBackendExchange *ecalbex = E_CAL_BACKEND_EXCHANGE (user_data);
-	
+
 	g_return_if_fail (E_IS_CAL_BACKEND_EXCHANGE (ecalbex));
 	g_return_if_fail (uri != NULL);
 
 	get_changed_tasks (ecalbex);
-	
+
 }
 
 static ECalBackendSyncStatus
@@ -991,7 +991,7 @@ open_task (ECalBackendSync *backend, EDataCal *cal,
 		d(printf ("ECBEC : calendar is offline\n"));
 		return GNOME_Evolution_Calendar_Success;
 	}
-	
+
 	if (cbext->priv->is_loaded)
 		return GNOME_Evolution_Calendar_Success;
 
@@ -1067,7 +1067,7 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 	icalcomponent_add_property (icalcomp, icalproperty_new_lastmodified (current));
 
 	modtime = e2k_timestamp_from_icaltime (current);
-	
+
 	summary = icalcomponent_get_summary (icalcomp);
 	if (!summary)
 		summary = "";
@@ -1081,12 +1081,12 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 
 	e_cal_backend_exchange_cache_lock (ecalbex);
 	/* check if the object is already present in our cache */
-	if (e_cal_backend_exchange_in_cache (E_CAL_BACKEND_EXCHANGE (backend), 
+	if (e_cal_backend_exchange_in_cache (E_CAL_BACKEND_EXCHANGE (backend),
 					     temp_comp_uid, modtime, NULL)) {
 		e_cal_backend_exchange_cache_unlock (ecalbex);
 		icalcomponent_free (icalcomp);
 		return GNOME_Evolution_Calendar_ObjectIdAlreadyExists;
-	}	
+	}
 	e_cal_backend_exchange_cache_unlock (ecalbex);
 
 	/* Create the cal component */
@@ -1147,7 +1147,7 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 						  props, &location, NULL );
 
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-		status = put_body(comp, e2kctx, NULL, location, from_name, from_addr, 
+		status = put_body(comp, e2kctx, NULL, location, from_name, from_addr,
 						attach_body_crlf, boundary, NULL);
 		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 			e_cal_backend_exchange_cache_lock (ecalbex);
@@ -1159,7 +1159,7 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 		g_free (modtime);
 	}
 
-	*return_uid = g_strdup (temp_comp_uid); 
+	*return_uid = g_strdup (temp_comp_uid);
 	icalcomponent_free (real_icalcomp);
 	g_free (from_name);
 	g_free (from_addr);
@@ -1190,9 +1190,9 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	ecalbextask = E_CAL_BACKEND_EXCHANGE_TASKS (backend);
 	ecalbex = E_CAL_BACKEND_EXCHANGE (backend);
 
-	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_TASKS (ecalbextask), 
+	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_TASKS (ecalbextask),
 					GNOME_Evolution_Calendar_NoSuchCal);
-	g_return_val_if_fail (calobj != NULL, 
+	g_return_val_if_fail (calobj != NULL,
 				GNOME_Evolution_Calendar_ObjectNotFound);
 
 	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
@@ -1204,20 +1204,20 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
         icalcomp = icalparser_parse_string ((char *) calobj);
         if (!icalcomp)
                 return GNOME_Evolution_Calendar_InvalidObject;
-        
+
 	/* Check kind with the parent */
-        if (icalcomponent_isa (icalcomp) != 
+        if (icalcomponent_isa (icalcomp) !=
 			e_cal_backend_get_kind (E_CAL_BACKEND (backend))) {
                 icalcomponent_free (icalcomp);
                 return GNOME_Evolution_Calendar_InvalidObject;
         }
-        
+
 	/* Get the uid */
         comp_uid = icalcomponent_get_uid (icalcomp);
-        
+
 	e_cal_backend_exchange_cache_lock (ecalbex);
 	/* Get the object from our cache */
-	ecalbexcomp = get_exchange_comp (E_CAL_BACKEND_EXCHANGE (backend), 
+	ecalbexcomp = get_exchange_comp (E_CAL_BACKEND_EXCHANGE (backend),
 								comp_uid);
 
 	if (!ecalbexcomp) {
@@ -1225,21 +1225,21 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 		e_cal_backend_exchange_cache_unlock (ecalbex);
 		return GNOME_Evolution_Calendar_ObjectNotFound;
 	}
-        
+
         cache_comp = e_cal_component_new ();
         e_cal_component_set_icalcomponent (cache_comp, icalcomponent_new_clone (ecalbexcomp->icomp));
 	*old_object = e_cal_component_get_as_string (cache_comp);
 	g_object_unref (cache_comp);
-		
+
 	e_cal_backend_exchange_cache_unlock (ecalbex);
-	
+
 	summary = icalcomponent_get_summary (icalcomp);
 	if (!summary)
 		summary = "";
 	/* Create the cal component */
         new_comp = e_cal_component_new ();
         e_cal_component_set_icalcomponent (new_comp, icalcomp);
-        	
+
 	/* Set the last modified time on the component */
         current = icaltime_from_timet (time (NULL), 0);
         e_cal_component_set_last_modified (new_comp, &current);
@@ -1258,7 +1258,7 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	icalcomponent_free (icalcomp);
 
 	get_from (backend, new_comp, &from_name, &from_addr);
-                                                                                
+
         props = e2k_properties_new ();
 
 	update_props (new_comp, &props);
@@ -1270,13 +1270,13 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	icalcomp = icalparser_parse_string (comp_str);
 	g_free (comp_str);
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)){
-		status = put_body(new_comp, e2kctx, NULL, ecalbexcomp->href, from_name, from_addr, 
+		status = put_body(new_comp, e2kctx, NULL, ecalbexcomp->href, from_name, from_addr,
 					attach_body_crlf, boundary, NULL);
 		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 			e_cal_backend_exchange_cache_lock (ecalbex);
 			e_cal_backend_exchange_modify_object (ecalbex, icalcomp, mod, FALSE);
 			e_cal_backend_exchange_cache_unlock (ecalbex);
-		} 
+		}
 	}
 	icalcomponent_free (icalcomp);
 	return GNOME_Evolution_Calendar_Success;
@@ -1294,15 +1294,15 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
         icalproperty_method method;
         icalcomponent *subcomp;
         ECalBackendSyncStatus status = GNOME_Evolution_Calendar_Success;
-                                                                                
+
 	ecalbextask = E_CAL_BACKEND_EXCHANGE_TASKS (backend);
 	cbex = E_CAL_BACKEND_EXCHANGE (backend);
-	
+
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_TASKS (ecalbextask),
                                         GNOME_Evolution_Calendar_NoSuchCal);
         g_return_val_if_fail (calobj != NULL,
                                 GNOME_Evolution_Calendar_ObjectNotFound);
-                                                                                
+
 	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
 		d(printf ("tasks are offline\n"));
 		return GNOME_Evolution_Calendar_InvalidObject;
@@ -1315,47 +1315,47 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
 	for (l = comps; l; l = l->next) {
                 const char *uid, *rid;
                 char *calobj;
-                                                                                
+
                 subcomp = l->data;
-                                                                                
+
                 ecalcomp = e_cal_component_new ();
                 e_cal_component_set_icalcomponent (ecalcomp, subcomp);
-                                                                                
+
                 current = icaltime_from_timet (time (NULL), 0);
                 e_cal_component_set_created (ecalcomp, &current);
                 e_cal_component_set_last_modified (ecalcomp, &current);
-                                                                                
+
                 /*sanitize?*/
 
 		e_cal_component_get_uid (ecalcomp, &uid);
                 rid = e_cal_component_get_recurid_as_string (ecalcomp);
-                                                                                
+
                 /*see if the object is there in the cache. if found, modify object, else create object*/
-                                                                                
+
 		e_cal_backend_exchange_cache_lock (cbex);
                 if (get_exchange_comp (E_CAL_BACKEND_EXCHANGE (ecalbextask), uid)) {
                         char *old_object;
-		
+
 			e_cal_backend_exchange_cache_unlock (cbex);
                         status = modify_task_object (backend, cal, calobj, CALOBJ_MOD_THIS, &old_object, NULL);
                         if (status != GNOME_Evolution_Calendar_Success)
                                 goto error;
-                                                                                
+
                         e_cal_backend_notify_object_modified (E_CAL_BACKEND (backend), old_object, calobj);
 			g_free (old_object);
                 } else {
                         char *returned_uid;
-			
+
 			e_cal_backend_exchange_cache_unlock (cbex);
 			calobj = (char *) icalcomponent_as_ical_string (subcomp);
 			status = create_task_object (backend, cal, &calobj, &returned_uid);
                         if (status != GNOME_Evolution_Calendar_Success)
                                 goto error;
-                                                                                
+
                         e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), calobj);
                 }
         }
-                                                                                
+
         g_list_free (comps);
 error:
         return status;
@@ -1371,8 +1371,8 @@ remove_task_object (ECalBackendSync *backend, EDataCal *cal,
 	ECalComponent *comp;
 	E2kContext *ctx;
 	int status;
-	
-	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (ecalbex), 
+
+	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (ecalbex),
 					GNOME_Evolution_Calendar_OtherError);
 
 	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
@@ -1385,14 +1385,14 @@ remove_task_object (ECalBackendSync *backend, EDataCal *cal,
 
 	if (!ecalbexcomp || !ecalbexcomp->href) {
 		e_cal_backend_exchange_cache_unlock (ecalbex);
-		return GNOME_Evolution_Calendar_ObjectNotFound;		
+		return GNOME_Evolution_Calendar_ObjectNotFound;
 	}
 
         comp = e_cal_component_new ();
 	e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (ecalbexcomp->icomp));
 	*old_object = e_cal_component_get_as_string (comp);
 	g_object_unref (comp);
-	
+
 	e_cal_backend_exchange_cache_unlock (ecalbex);
 
 	ctx = exchange_account_get_context (ecalbex->account);
@@ -1404,7 +1404,7 @@ remove_task_object (ECalBackendSync *backend, EDataCal *cal,
 	}
 	return GNOME_Evolution_Calendar_OtherError;
 }
- 
+
 static void
 init (ECalBackendExchangeTasks *cbext)
 {

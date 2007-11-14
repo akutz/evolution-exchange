@@ -181,7 +181,7 @@ create_folder (EStorage *storage,
 }
 
 static void
-remove_folder (EStorage *storage, const char *path, 
+remove_folder (EStorage *storage, const char *path,
 	       EStorageResultCallback callback,
 	       gpointer user_data)
 {
@@ -194,7 +194,7 @@ remove_folder (EStorage *storage, const char *path,
 }
 
 static void
-xfer_folder (EStorage *storage, 
+xfer_folder (EStorage *storage,
 	     const char *source_path, const char *dest_path,
 	     const gboolean remove_source,
 	     EStorageResultCallback callback,
@@ -259,7 +259,7 @@ open_folder (EStorage *storage, const char *path,
 	ofd->path = g_strdup (path);
 	ofd->callback = callback;
 	ofd->user_data = user_data;
-	
+
 	g_idle_add (idle_open_folder, ofd);
 }
 

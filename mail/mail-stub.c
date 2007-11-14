@@ -563,11 +563,11 @@ mail_stub_read_args (MailStub *stub, ...)
 			}
 			if (status == -1)
 				g_array_free (*arr, TRUE);
-			
+
 			break;
 		}
-		
-		
+
+
 		default:
 			g_critical ("%s: Uncaught case (%d)", G_STRLOC, argtype);
 			status = -1;
@@ -672,8 +672,8 @@ mail_stub_return_data (MailStub *stub, CamelStubRetval retval, ...)
 				camel_stub_marshal_encode_uint32 (marshal, g_array_index (arr, guint32, i));
 			break;
 		}
-		
-		
+
+
 		default:
 			g_critical ("%s: Uncaught case (%d)", G_STRLOC, argtype);
 			return;

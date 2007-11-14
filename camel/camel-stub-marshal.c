@@ -88,7 +88,7 @@ do_read (CamelStubMarshal *marshal, char *buf, size_t len)
 {
 	size_t nread = 0;
 	ssize_t n;
-	
+
 	do {
 		if ((n = camel_read (marshal->fd, buf + nread, len - nread)) <= 0) {
 			if (errno != ETIMEDOUT)
@@ -98,13 +98,13 @@ do_read (CamelStubMarshal *marshal, char *buf, size_t len)
 		}
 		nread += n;
 	} while (nread < len);
-	
+
 	if (nread < len) {
 		close (marshal->fd);
 		marshal->fd = -1;
 		return FALSE;
 	}
-	
+
 	return TRUE;
 }
 
@@ -432,7 +432,7 @@ int
 camel_stub_marshal_flush (CamelStubMarshal *marshal)
 {
 	int left;
-	
+
 	if (marshal->out->len == 4)
 		return 0;
 
@@ -444,22 +444,22 @@ camel_stub_marshal_flush (CamelStubMarshal *marshal)
 
 	if (DEBUGGING)
 		printf ("---\n");
-	
+
 	left = marshal->out->len;
-	
+
 	marshal->out->data[0] =  left        & 0xFF;
 	marshal->out->data[1] = (left >>  8) & 0xFF;
 	marshal->out->data[2] = (left >> 16) & 0xFF;
 	marshal->out->data[3] = (left >> 24) & 0xFF;
-	
+
 	if (camel_write (marshal->fd, (char *) marshal->out->data, marshal->out->len) == -1) {
 		close (marshal->fd);
 		marshal->fd = -1;
 		return -1;
 	}
-	
+
 	g_byte_array_set_size (marshal->out, 4);
-	
+
 	return 0;
 }
 

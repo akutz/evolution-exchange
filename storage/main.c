@@ -101,19 +101,19 @@ setup_calendar_factory (void)
 	}
 
 	exchange_component_is_offline (global_exchange_component, &mode);
-	
+
 	if (mode == ONLINE_MODE)
-		e_data_cal_factory_set_backend_mode (cal_factory, ONLINE_MODE);	
+		e_data_cal_factory_set_backend_mode (cal_factory, ONLINE_MODE);
 	else if (mode == OFFLINE_MODE)
-		e_data_cal_factory_set_backend_mode (cal_factory, OFFLINE_MODE);	
+		e_data_cal_factory_set_backend_mode (cal_factory, OFFLINE_MODE);
 
 	e_data_cal_factory_register_backend (cal_factory,
 					     (g_object_new (events_backend_exchange_factory_get_type(),
-						            NULL))); 
+						            NULL)));
 
 	e_data_cal_factory_register_backend (cal_factory,
 					     (g_object_new (todos_backend_exchange_factory_get_type(),
-						            NULL))); 
+						            NULL)));
 
 	/* register the factory with bonobo */
 	if (!e_data_cal_factory_register_storage (cal_factory, EXCHANGE_CALENDAR_FACTORY_ID)) {
@@ -143,17 +143,17 @@ setup_addressbook_factory (void)
                 return FALSE;
 
 	exchange_component_is_offline (global_exchange_component, &mode);
-	
+
 	if (mode == ONLINE_MODE)
-		e_data_book_factory_set_backend_mode (book_factory, ONLINE_MODE);	
+		e_data_book_factory_set_backend_mode (book_factory, ONLINE_MODE);
 	else if (mode == OFFLINE_MODE)
 		e_data_book_factory_set_backend_mode (book_factory, OFFLINE_MODE);
 
-	e_data_book_factory_register_backend (book_factory, 
-					      (g_object_new (e_book_backend_exchange_factory_get_type(), 
+	e_data_book_factory_register_backend (book_factory,
+					      (g_object_new (e_book_backend_exchange_factory_get_type(),
 							     NULL)));
-	e_data_book_factory_register_backend (book_factory, 
-					      (g_object_new (e_book_backend_gal_factory_get_type(), 
+	e_data_book_factory_register_backend (book_factory,
+					      (g_object_new (e_book_backend_gal_factory_get_type(),
 							     NULL)));
 
         g_signal_connect (book_factory, "last_book_gone",

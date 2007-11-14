@@ -202,7 +202,7 @@ refresh_info (CamelFolder *folder, CamelException *ex)
 
 	if (camel_exchange_store_connected (store, ex)) {
 		camel_offline_journal_replay (exch->journal, NULL);
-	
+
 		camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_REFRESH_FOLDER,
 				 CAMEL_STUB_ARG_FOLDER, folder->full_name,
 				 CAMEL_STUB_ARG_END);
@@ -289,20 +289,20 @@ append_message (CamelFolder *folder, CamelMimeMessage *message,
 	GString *new_subject;
 	int i, len;
 
-	/* 
-	   FIXME: We should add a top-level camel API camel_mime_message_prune_invalid_chars 
-	   which each of the provider will have to implement to remove things 
-	   that are invalid for their Transport mechanism. This will help in 
+	/*
+	   FIXME: We should add a top-level camel API camel_mime_message_prune_invalid_chars
+	   which each of the provider will have to implement to remove things
+	   that are invalid for their Transport mechanism. This will help in
 	   avoiding  duplication of work. Now Sending and Importing both requires
-	   substitution of \t and \n with blank. 
+	   substitution of \t and \n with blank.
 	*/
-	
+
 	old_subject = g_strdup(camel_mime_message_get_subject (message));
-	
+
 	if (old_subject) {
 		len = strlen (old_subject);
 		new_subject = g_string_new("");
-		for (i = 0; i < len; i++) 
+		for (i = 0; i < len; i++)
 			if ((old_subject[i] != '\t') && (old_subject[i] != '\n'))
 				new_subject = g_string_append_c (new_subject, old_subject[i]);
 			else
@@ -310,7 +310,7 @@ append_message (CamelFolder *folder, CamelMimeMessage *message,
 		camel_mime_message_set_subject (message, new_subject->str);
 		g_free (old_subject);
 		g_string_free (new_subject, TRUE);
-	}	
+	}
 
 	if (!camel_exchange_store_connected (store, ex)) {
 		camel_exchange_journal_append ((CamelExchangeJournal *) ((CamelExchangeFolder *)folder)->journal, message, info, appended_uid, ex);
@@ -336,9 +336,9 @@ fix_broken_multipart_related (CamelMimePart *part)
 	CamelMultipart *multipart, *new;
 	CamelMimePart *subpart;
 	int i, count, broken_parts;
-	
+
 	content = camel_medium_get_content_object (CAMEL_MEDIUM (part));
-	
+
 	content_type = content->mime_type;
 	if (camel_content_type_is (content_type, "message", "rfc822")) {
 		fix_broken_multipart_related (CAMEL_MIME_PART (content));
@@ -407,7 +407,7 @@ get_message_data (CamelFolder *folder, const char *uid, CamelException *ex)
 		camel_exception_set (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
                                      _("This message is not available in offline mode."));
 		return NULL;
-	}	
+	}
 
 	if (!camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_GET_MESSAGE,
 			      CAMEL_STUB_ARG_FOLDER, folder->full_name,
@@ -475,7 +475,7 @@ get_message (CamelFolder *folder, const char *uid, CamelException *ex)
 			}
 			g_strfreev (list_headers);
 		}
-		
+
 		if (!found_list)
 			camel_medium_set_header (CAMEL_MEDIUM (msg), "X-Evolution-Mail-From-Delegate", "yes");
 	}
@@ -669,19 +669,19 @@ transfer_messages_to (CamelFolder *source, GPtrArray *uids,
 	if (!camel_exchange_store_connected (store, ex)) {
 		CamelExchangeJournal *journal = (CamelExchangeJournal *) exch_dest->journal;
 		CamelMimeMessage *message;
-		
+
 		for (i = 0; i < uids->len; i++) {
 			info = camel_folder_summary_uid (source->summary, uids->pdata[i]);
 			if (!info)
 				continue;
-			
+
 			if (!(message = get_message (source, camel_message_info_uid (info), ex)))
 				break;
-			
-			camel_exchange_journal_transfer (journal, exch_source, message, 
+
+			camel_exchange_journal_transfer (journal, exch_source, message,
 							 info, uids->pdata[i], NULL,
 							 delete_originals, ex);
-							 
+
 			camel_object_unref (message);
 
 			if (camel_exception_is_set (ex))
@@ -949,7 +949,7 @@ camel_exchange_folder_update_message_flags_ex (CamelExchangeFolder *exch,
 	if (!mask) {
 		return;
 	}
-	
+
 	if ((info->flags & mask) != (flags & mask)) {
 		info->flags &= ~mask;
 		info->flags |= (flags & mask);
@@ -1157,15 +1157,15 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 
 	if (camel_exchange_summary_get_readonly (folder->summary))
 		folder->permanent_flags = 0;
-	
+
 	return TRUE;
 }
 
-static void 
+static void
 exchange_sync (CamelFolder *folder, gboolean expunge, CamelException *ex)
 {
 	if (expunge)
 		exchange_expunge (folder, ex);
-	
+
 	camel_folder_summary_save (folder->summary);
 }

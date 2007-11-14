@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 
 /* Copyright (C) 2002-2004 Novell, Inc.
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of version 2 of the GNU General Public
  * License as published by the Free Software Foundation.
@@ -69,7 +69,7 @@ e_book_backend_gal_factory_get_type (void)
 			(GInstanceInitFunc) e_book_backend_gal_factory_instance_init
 		};
 
-		type = g_type_register_static (E_TYPE_BOOK_BACKEND_FACTORY, 
+		type = g_type_register_static (E_TYPE_BOOK_BACKEND_FACTORY,
 					       "EBookBackendGalFactory", &info, 0);
 	}
 	return type;

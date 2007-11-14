@@ -27,7 +27,7 @@ typedef struct ExchangeComponentClass           ExchangeComponentClass;
 
 struct ExchangeComponent {
 	BonoboObject parent;
-	
+
 	ExchangeComponentPrivate *priv;
 };
 

@@ -299,8 +299,8 @@ mail_util_stickynote_to_rfc822 (E2kProperties *props)
  * mail_util_demangle_sender_field:
  * @sender_email: the email address of the sender
  *
- * 
- * 
+ *
+ *
  * Return value: %TRUE if we successfully demangled @body (in place).
  **/
 gboolean
@@ -383,7 +383,7 @@ cleanup_sender:
 	}
 
 	icalproperty_remove_parameter_by_kind (prop, ICAL_SENTBY_PARAMETER);
-	icalproperty_add_parameter (prop, 
+	icalproperty_add_parameter (prop,
 		icalparameter_new_sentby (g_strdup_printf("MAILTO:%s", sender_email)));
 
 	/* Put the updated ical string back into the body */
@@ -453,32 +453,32 @@ mail_util_demangle_delegated_meeting (GString *body,
 		return FALSE;
 	}
 
-	/* When meeting responses are received on behalf of an ORGANIZER, Exchange  
+	/* When meeting responses are received on behalf of an ORGANIZER, Exchange
 	   mangles the iCalendar in the following way:
-		It sets the ORGANIZER CN parameter as the correct ORGANIZER i.e. the 
-		delegator's CN. However, it sets the ORGANIZER VALUE parameter 
+		It sets the ORGANIZER CN parameter as the correct ORGANIZER i.e. the
+		delegator's CN. However, it sets the ORGANIZER VALUE parameter
 		incorrectly - i.e. it sets it to the delegatee's e-mail address
-	   Here, we check if the ORGANIZER VALUE parameter is identical to the 
-	   delegatee's e-mail id. If they are found to be identical, then the 
-	   ORGANIZER VALUE is reset to be the delegator's e-mail id. Additionally, 
+	   Here, we check if the ORGANIZER VALUE parameter is identical to the
+	   delegatee's e-mail id. If they are found to be identical, then the
+	   ORGANIZER VALUE is reset to be the delegator's e-mail id. Additionally,
 	   a SENT-BY parameter is set to be the delegatee's e-mail id.
 
-	   When meeting requests are received on behalf of an ATTENDEE, Exchange 
+	   When meeting requests are received on behalf of an ATTENDEE, Exchange
 	   does not mangle the iCalendar. Hence, we just add a SENT-BY parameter set
-	   to the delegatee's e-mail id to the ATTENDEE property which corresponds 
-	   to the delegator. 
+	   to the delegatee's e-mail id to the ATTENDEE property which corresponds
+	   to the delegator.
 
-	   Remember - this routine is called only when the PR_RCVD_REPRESENTING_EMAIL_ADDRESS 
-	   property is set for the incoming message. Hence, we can be sure that one 
-	   of either the ORGANIZER or an ATTENDEE "is" the delegator. This also 
+	   Remember - this routine is called only when the PR_RCVD_REPRESENTING_EMAIL_ADDRESS
+	   property is set for the incoming message. Hence, we can be sure that one
+	   of either the ORGANIZER or an ATTENDEE "is" the delegator. This also
 	   implies the correctness of this 'de-mangling' procedure.
 
-	   The SENT-BY parameters are set in both scenarios only to ensure that any 
-	   action taken by the delegatee can be recognized by any Calendar client 
-	   built on the RFC 2445 standards. They also reduce additional processing 
-	   later on. The changes made here are not synchronised with the Exchange 
-	   server (which is the correct way to go) unless the delegatee takes any 
-	   action on behalf of the delegator. 
+	   The SENT-BY parameters are set in both scenarios only to ensure that any
+	   action taken by the delegatee can be recognized by any Calendar client
+	   built on the RFC 2445 standards. They also reduce additional processing
+	   later on. The changes made here are not synchronised with the Exchange
+	   server (which is the correct way to go) unless the delegatee takes any
+	   action on behalf of the delegator.
 	*/
 
 	prop = icalcomponent_get_first_property (event_comp, ICAL_ORGANIZER_PROPERTY);
@@ -535,7 +535,7 @@ cleanup_copy:
 	}
 
 	icalproperty_remove_parameter_by_kind (prop, ICAL_SENTBY_PARAMETER);
-	icalproperty_add_parameter (prop, 
+	icalproperty_add_parameter (prop,
 		icalparameter_new_sentby (g_strdup_printf("MAILTO:%s", delegatee_email)));
 
 	/* And now add the X-property */

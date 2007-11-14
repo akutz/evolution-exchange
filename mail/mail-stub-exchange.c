@@ -174,7 +174,7 @@ init (GObject *object)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (object);
 
-	mse->folders_by_name = g_hash_table_new_full (g_str_hash, g_str_equal, 
+	mse->folders_by_name = g_hash_table_new_full (g_str_hash, g_str_equal,
 						      NULL, free_folder);
 }
 
@@ -562,18 +562,18 @@ static const char *open_folder_props[] = {
 };
 static const int n_open_folder_props = sizeof (open_folder_props) / sizeof (open_folder_props[0]);
 
-static void 
-mse_get_folder_online_sync_updates (gpointer key, gpointer value, 
+static void
+mse_get_folder_online_sync_updates (gpointer key, gpointer value,
 				    gpointer user_data)
 {
 	unsigned int index, seq, i;
-	MailStubExchangeFolder *mfld = (MailStubExchangeFolder *)user_data;	
+	MailStubExchangeFolder *mfld = (MailStubExchangeFolder *)user_data;
 	/*MailStub *stub = MAIL_STUB (mfld->mse);*/
 	MailStubExchangeMessage *mmsg = NULL;
 
 	index = GPOINTER_TO_UINT (key);
 	seq = GPOINTER_TO_UINT (value);
-	
+
 	g_static_rec_mutex_lock (&g_changed_msgs_mutex);
 	mmsg = mfld->messages->pdata[index];
 	if (mmsg->seq != seq) {
@@ -587,7 +587,7 @@ mse_get_folder_online_sync_updates (gpointer key, gpointer value,
 	g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
 
 	/* FIXME FIXME FIXME: Some miscalculation happens here,though,
-	not a serious one 
+	not a serious one
 	*/
 	/* message_remove_at_index already handles lock/unlock */
 	/*message_remove_at_index (stub, mfld, seq);*/
@@ -666,7 +666,7 @@ get_folder_contents_online (MailStubExchangeFolder *mfld, gboolean background)
 			/* Put the index/uid as key/value in the rm_idx_uid hashtable.
 			   This hashtable will be used to sync with mfld->messages.
 			 */
-			g_hash_table_insert (rm_idx_uid, GUINT_TO_POINTER(m), 
+			g_hash_table_insert (rm_idx_uid, GUINT_TO_POINTER(m),
 					     GUINT_TO_POINTER(mmsg_cpy->seq));
 			g_free (mmsg_cpy->uid);
 			g_free (mmsg_cpy->href);
@@ -688,8 +688,8 @@ get_folder_contents_online (MailStubExchangeFolder *mfld, gboolean background)
 
 		g_static_rec_mutex_lock (&g_changed_msgs_mutex);
 		mmsg = mfld->messages->pdata[m];
-		
-		/* Validate mmsg == mmsg_cpy - this may fail if user has deleted some messages, 
+
+		/* Validate mmsg == mmsg_cpy - this may fail if user has deleted some messages,
 		   while we were updating in a separate thread.
 		*/
 		if (mmsg->seq != mmsg_cpy->seq) {
@@ -709,13 +709,13 @@ get_folder_contents_online (MailStubExchangeFolder *mfld, gboolean background)
 			/* Do not allow duplicates */
 			if (!g_hash_table_lookup (mfld->messages_by_href, mmsg->href))
 				g_hash_table_insert (mfld->messages_by_href, mmsg->href, mmsg);
-		}	
+		}
 
 		if (mmsg->flags != camel_flags)
 			change_flags (mfld, mmsg, camel_flags);
 
 		g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
-		
+
 
 		if (article_num > high_article_num)
 			high_article_num = article_num;
@@ -731,7 +731,7 @@ get_folder_contents_online (MailStubExchangeFolder *mfld, gboolean background)
 			return_tag (mfld, mmsg->uid, "completed-on", prop);
 
 		m++;
-#if 0		
+#if 0
 		if (!background) {
 			mail_stub_return_progress (stub, (m * 100) / total);
 		}
@@ -777,7 +777,7 @@ get_folder_contents_online (MailStubExchangeFolder *mfld, gboolean background)
 			/* Put the index/uid as key/value in the rm_idx_uid hashtable.
 			   This hashtable will be used to sync with mfld->messages.
 			 */
-			g_hash_table_insert (rm_idx_uid, GUINT_TO_POINTER(m), 
+			g_hash_table_insert (rm_idx_uid, GUINT_TO_POINTER(m),
 					     GUINT_TO_POINTER(mmsg_cpy->seq));
 		}
 
@@ -786,7 +786,7 @@ get_folder_contents_online (MailStubExchangeFolder *mfld, gboolean background)
 
 		g_free (mmsg_cpy->uid);
 		g_free (mmsg_cpy->href);
-		g_free (mmsg_cpy);			
+		g_free (mmsg_cpy);
 	}
 
 	g_static_rec_mutex_lock (&g_changed_msgs_mutex);
@@ -799,7 +799,7 @@ get_folder_contents_online (MailStubExchangeFolder *mfld, gboolean background)
 			       CAMEL_STUB_ARG_UINT32, mfld->high_article_num,
 			       CAMEL_STUB_ARG_END);
 
-	g_hash_table_foreach (rm_idx_uid, mse_get_folder_online_sync_updates, 
+	g_hash_table_foreach (rm_idx_uid, mse_get_folder_online_sync_updates,
 			      mfld);
 
 	g_ptr_array_free (msgs_copy, TRUE);
@@ -813,7 +813,7 @@ struct _get_folder_thread_data {
 	gboolean background;
 };
 
-static gpointer 
+static gpointer
 get_folder_contents_online_func (gpointer data)
 {
 	MailStubExchangeFolder* mfld;
@@ -822,14 +822,14 @@ get_folder_contents_online_func (gpointer data)
 	struct _get_folder_thread_data *gf_thread_data = (struct _get_folder_thread_data *)data;
 	if (!gf_thread_data)
 		return NULL;
-	
+
 	mfld = gf_thread_data->mfld;
 	background = gf_thread_data->background;
 
 	get_folder_contents_online (mfld, background);
 
 	g_free (gf_thread_data);
-	
+
 	return NULL;
 }
 
@@ -844,7 +844,7 @@ get_folder_online (MailStubExchangeFolder *mfld, gboolean background)
 	const char *prop;
 
 	mfld->changed_messages = g_ptr_array_new ();
-	
+
 	status = e_folder_exchange_propfind (mfld->folder, NULL,
 					     open_folder_props,
 					     n_open_folder_props,
@@ -885,12 +885,12 @@ get_folder_online (MailStubExchangeFolder *mfld, gboolean background)
 	if (prop)
 		mfld->deleted_count = atoi (prop);
 
-	/* 
+	/*
 	   TODO: Varadhan - June 16, 2007 - Compare deleted_count with
 	   that of CamelFolder and appropriately sync mfld->messages.
 	   Also, sync flags and camel_flags of all messages - No reliable
 	   way to fetch only changed messages as Read/UnRead flags do not
-	   change the PR_LAST_MODIFICATION_TIME property of a message. 
+	   change the PR_LAST_MODIFICATION_TIME property of a message.
 	*/
 	if (g_hash_table_size (mfld->messages_by_href) < 1) {
 		if (!get_folder_contents_online (mfld, background))
@@ -903,7 +903,7 @@ get_folder_online (MailStubExchangeFolder *mfld, gboolean background)
 		gf_thread_data->background = background;
 
 		/* FIXME: Pass a GError and handle the error */
-		g_thread_create (get_folder_contents_online_func, 
+		g_thread_create (get_folder_contents_online_func,
 				 gf_thread_data, FALSE,
 				 NULL);
 	}
@@ -927,7 +927,7 @@ get_folder_online (MailStubExchangeFolder *mfld, gboolean background)
 
 static void
 get_folder (MailStub *stub, const char *name, gboolean create,
-	    GPtrArray *uids, GByteArray *flags, GPtrArray *hrefs, 
+	    GPtrArray *uids, GByteArray *flags, GPtrArray *hrefs,
 	    guint32 high_article_num)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
@@ -1017,7 +1017,7 @@ get_folder (MailStub *stub, const char *name, gboolean create,
 	if (mse->account->filter_inbox && (mfld->folder == mse->inbox))
 		camel_flags |= CAMEL_STUB_FOLDER_FILTER;
 	if (mse->account->filter_junk) {
-		if ((mfld->folder != mse->deleted_items) && 
+		if ((mfld->folder != mse->deleted_items) &&
 		    ((mfld->folder == mse->inbox) ||
 		    !mse->account->filter_junk_inbox_only))
 			camel_flags |= CAMEL_STUB_FOLDER_FILTER_JUNK;
@@ -1829,7 +1829,7 @@ process_flags (gpointer user_data)
 
 	for (i = 0; i < mfld->changed_messages->len; i++) {
 		mmsg = mfld->changed_messages->pdata[i];
-		
+
 		if (!mmsg->href) {
 			d(g_print ("%s:%s:%d: mfld = [%s], type=[%d]\n", __FILE__, __GNUC_PRETTY_FUNCTION__,
 				   __LINE__, mfld->name, mfld->type));
@@ -1886,7 +1886,7 @@ process_flags (gpointer user_data)
 		} else
 			return TRUE;
 	}
-	
+
 	g_static_rec_mutex_lock (&g_changed_msgs_mutex);
 
 	for (i = 0; i < mfld->changed_messages->len; i++) {
@@ -1919,7 +1919,7 @@ process_flags (gpointer user_data)
 			/* This is for public folder hierarchy. We cannot move
 			   a mail item deleted from a public folder to the
 			   deleted items folder. This code updates the UI to
-			   show the mail folder again if the deletion fails in 
+			   show the mail folder again if the deletion fails in
 			   such public folder */
 			iter = e_folder_exchange_bdelete_start (mfld->folder, NULL,
 								(const char **)deleted->pdata,
@@ -2026,7 +2026,7 @@ set_message_flags (MailStub *stub, const char *folder_name, const char *uid,
 	/* If we allow camel stub to delete these messages hard way, it may
 	   fail to delete a mail because of permissions, but will append
 	   a mail in deleted items */
-	
+
 	if (mask & flags & MAIL_STUB_MESSAGE_DELETED) {
 		ExchangeHierarchy *hier;
 
@@ -2196,11 +2196,11 @@ unmangle_delegated_meeting_request (MailStubExchange *mse, E2kOperation *op,
 		g_free (delegator_uri);
 	}
 
-	message = g_string_new_len (*body, *len); 
+	message = g_string_new_len (*body, *len);
 	mail_util_demangle_delegated_meeting (
 			message, entry->display_name,
 			entry->email,
-			delegator_folder_physical_uri, 
+			delegator_folder_physical_uri,
 			exchange_account_get_email_id (account));
 	g_free (*body);
 	*body = message->str;
@@ -2286,8 +2286,8 @@ unmangle_sender_field (MailStubExchange *mse, E2kOperation *op,
 	}
 
 	message = g_string_new_len (*body, *len);
-	mail_util_demangle_sender_field (message, 
-					 delegator_entry->email, 
+	mail_util_demangle_sender_field (message,
+					 delegator_entry->email,
 					 sender_entry->email);
 	g_free (*body);
 	*body = message->str;
@@ -2324,7 +2324,7 @@ get_message (MailStub *stub, const char *folder_name, const char *uid)
 		mail_stub_return_error (stub, _("No such message"));
 		return;
 	}
-	
+
 	if (mfld->type == MAIL_STUB_EXCHANGE_FOLDER_NOTES) {
 		status = get_stickynote (mse->ctx, NULL, mmsg->href,
 					 &body, &len);
@@ -2360,7 +2360,7 @@ get_message (MailStub *stub, const char *folder_name, const char *uid)
 			goto error;
 	}
 
-	/* If there is a sender field in the meeting request/response, 
+	/* If there is a sender field in the meeting request/response,
 	 * we need to know who it is.
 	 */
 	status = unmangle_sender_field (mse, NULL,
@@ -2569,7 +2569,7 @@ account_removed_folder (ExchangeAccount *account, EFolder *folder, gpointer user
 	MailStubExchange *mse = user_data;
 	ExchangeHierarchy *hier;
 
-	if (strcmp (e_folder_get_type_string (folder), "mail") != 0 && 
+	if (strcmp (e_folder_get_type_string (folder), "mail") != 0 &&
 	    strcmp (e_folder_get_type_string (folder), "mail/public") != 0)
 		return;
 
@@ -2596,7 +2596,7 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	GPtrArray *folders = NULL, *names, *uris;
-	GArray *unread, *flags;	
+	GArray *unread, *flags;
 	ExchangeHierarchy *hier;
 	EFolder *folder;
 	const char *type, *name, *uri, *path, *inbox_uri = NULL;
@@ -2717,7 +2717,7 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 			}
 
 			d(g_print ("folder flags is : %d\n", folder_flags));
-			
+
 			g_ptr_array_add (names, (char *)name);
 			g_ptr_array_add (uris, (char *)uri);
 			g_array_append_val (unread, unread_count);
@@ -2785,7 +2785,7 @@ send_message (MailStub *stub, const char *from, GPtrArray *recipients,
 				hostname, mse->account->exchange_server,
 				timestamp);
 	g_free (timestamp);
-	
+
 	g_string_append_len (data, body, length);
 
 	msg = e2k_soup_message_new_full (mse->ctx, mse->mail_submission_uri,
@@ -2989,13 +2989,13 @@ subscribe_folder (MailStub *stub, const char *folder_name)
 		mail_stub_return_ok (stub);
 		return;
 	}
-	
+
 	if (!strcmp (e_folder_get_type_string (folder), "noselect")) {
 		g_object_unref (folder);
 		mail_stub_return_ok (stub);
 		return;
 	}
-	
+
 	result = exchange_account_add_favorite (mse->account, folder);
 
 	switch (result) {
@@ -3038,7 +3038,7 @@ unsubscribe_folder (MailStub *stub, const char *folder_name)
 	g_object_ref (folder);
 
 	/* if (e_folder_exchange_get_hierarchy (folder)->type != EXCHANGE_HIERARCHY_FAVORITES) {
-	   Should use above check, but the internal uri is the same for both 
+	   Should use above check, but the internal uri is the same for both
 	   public and favorite hierarchies and any of them can be used for the check */
 	if (!exchange_account_is_favorite_folder (mse->account, folder)) {
 		g_object_unref (folder);
@@ -3140,8 +3140,8 @@ stub_connect (MailStub *stub, char *pwd)
 	if (!ctx) {
 		ctx = exchange_account_connect (account, pwd, &result);
 	}
-	
-	
+
+
 	if (!ctx && mode == ONLINE_MODE) {
 		retval = 0;
 		goto end;
@@ -3159,7 +3159,7 @@ stub_connect (MailStub *stub, char *pwd)
 
 	/* Will be used for offline->online transition to initialize things for
 	   the first time */
-	
+
 	g_hash_table_foreach (mse->folders_by_name,
 			      (GHFunc) folder_update_linestatus,
 			      GINT_TO_POINTER (mode));
@@ -3172,7 +3172,7 @@ end:
 }
 
 #if 0
-static void 
+static void
 linestatus_listener (ExchangeComponent *component,
 		     gint linestatus,
 		     gpointer data)
@@ -3180,11 +3180,11 @@ linestatus_listener (ExchangeComponent *component,
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (data);
 	ExchangeAccount *account = mse->account;
 	const char *uri;
-	
+
 	if (linestatus == ONLINE_MODE && mse->ctx == NULL) {
 		mse->ctx = exchange_account_get_context (account);
 		g_object_ref (mse->ctx);
-		
+
 		mse->mail_submission_uri = exchange_account_get_standard_uri (account, "sendmsg");
 		uri = exchange_account_get_standard_uri (account, "inbox");
 		mse->inbox = exchange_account_get_folder (account, uri);
@@ -3213,7 +3213,7 @@ folder_update_linestatus (gpointer key, gpointer value, gpointer data)
 	MailStub *stub = MAIL_STUB (mfld->mse);
 	gint linestatus = GPOINTER_TO_INT (data);
 	guint32 readonly;
-	
+
 	if (linestatus == ONLINE_MODE) {
 		get_folder_online (mfld, TRUE);
 		readonly = (mfld->access & (MAPI_ACCESS_MODIFY | MAPI_ACCESS_CREATE_CONTENTS)) ? 0 : 1;
@@ -3250,7 +3250,7 @@ mail_stub_exchange_new (ExchangeAccount *account, int cmd_fd, int status_fd)
 
 	mse = (MailStubExchange *)stub;
 	mse->account = account;
-	
+
 	/* offline_listener_handler_id = g_signal_connect (G_OBJECT (global_exchange_component),
 							"linestatus-changed",
 							G_CALLBACK (linestatus_listener), mse); */

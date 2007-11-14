@@ -76,7 +76,7 @@ CamelProviderConfEntry exchange_conf_entries[] = {
 	  N_("Only check for Junk messag_es in the Inbox folder"), "0" },
 	{ CAMEL_PROVIDER_CONF_HIDDEN, "auth-domain", NULL,
 	  NULL, "Exchange" },
-	 	
+
 	{ CAMEL_PROVIDER_CONF_SECTION_END },
 	{ CAMEL_PROVIDER_CONF_END }
 };
@@ -94,7 +94,7 @@ static CamelProvider exchange_provider = {
 
 	CAMEL_URL_NEED_USER | CAMEL_URL_HIDDEN_AUTH | CAMEL_URL_HIDDEN_HOST,
 
-	exchange_conf_entries 
+	exchange_conf_entries
 
 	/* ... */
 };

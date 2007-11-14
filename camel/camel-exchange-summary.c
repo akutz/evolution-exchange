@@ -63,9 +63,9 @@ exchange_summary_class_init (CamelObjectClass *klass)
 {
 	CamelFolderSummaryClass *camel_folder_summary_class =
 		(CamelFolderSummaryClass *) klass;
-	
+
 	parent_class = CAMEL_FOLDER_SUMMARY_CLASS (camel_type_get_global_classfuncs (camel_folder_summary_get_type()));
-	
+
 	camel_folder_summary_class->summary_header_load = header_load;
 	camel_folder_summary_class->summary_header_save = header_save;
 	camel_folder_summary_class->message_info_load = message_info_load;
@@ -89,7 +89,7 @@ CamelType
 camel_exchange_summary_get_type (void)
 {
 	static CamelType type = CAMEL_INVALID_TYPE;
-	
+
 	if (type == CAMEL_INVALID_TYPE) {
 		type = camel_type_register(
 			camel_folder_summary_get_type (),
@@ -101,7 +101,7 @@ camel_exchange_summary_get_type (void)
 			exchange_summary_init,
 			NULL);
 	}
-	
+
 	return type;
 }
 
@@ -135,18 +135,18 @@ header_load (CamelFolderSummary *summary, FILE *in)
 {
 	CamelExchangeSummary *exchange = (CamelExchangeSummary *) summary;
 	guint32 version, readonly, high_article_num = 0;
-	
+
 	if (CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->summary_header_load (summary, in) == -1)
 		return -1;
-	
+
 	if (camel_file_util_decode_uint32 (in, &version) == -1)
 		return -1;
 
 	if (camel_file_util_decode_uint32 (in, &readonly) == -1)
 		return -1;
 
-	/* Old summary file - We need to migrate.  Migration automagically happens when 
-	   camel_folder_summary_save is called 
+	/* Old summary file - We need to migrate.  Migration automagically happens when
+	   camel_folder_summary_save is called
 	*/
 	if (camel_file_util_decode_uint32 (in, &high_article_num) == -1) {
 		if (version > CAMEL_EXCHANGE_SUMMARY_VERSION)
@@ -159,7 +159,7 @@ header_load (CamelFolderSummary *summary, FILE *in)
 	exchange->readonly = readonly;
 	exchange->high_article_num = high_article_num;
 	exchange->version = version;
-	
+
 
 	d(g_print ("%s:%s:%d: high_article_num = [%d]\n", __FILE__, G_GNUC_PRETTY_FUNCTION, __LINE__, high_article_num));
 
@@ -170,16 +170,16 @@ static int
 header_save (CamelFolderSummary *summary, FILE *out)
 {
 	CamelExchangeSummary *exchange = (CamelExchangeSummary *) summary;
-	
+
 	if (CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->summary_header_save (summary, out) == -1)
 		return -1;
-	
+
 	if (camel_file_util_encode_uint32 (out, exchange->version) == -1)
 		return -1;
 
 	if (camel_file_util_encode_uint32 (out, exchange->readonly) == -1)
 		return -1;
-	
+
 	if (camel_file_util_encode_uint32 (out, exchange->high_article_num) == -1)
 		return -1;
 
@@ -207,14 +207,14 @@ message_info_load (CamelFolderSummary *summary, FILE *in)
 		else
 			g_free (thread_index);
 
-		/* Old summary file - We need to migrate.  Migration automagically happens when 
-		   camel_folder_summary_save is called 
+		/* Old summary file - We need to migrate.  Migration automagically happens when
+		   camel_folder_summary_save is called
 		*/
 		if (camel_file_util_decode_string (in, &href) == -1) {
 			if (CAMEL_EXCHANGE_SUMMARY (summary)->version > CAMEL_EXCHANGE_SUMMARY_VERSION)
 				goto error;
 		}
-		
+
 		einfo->href = href;
 		d(g_print ("%s:%s:%d: einfo->href = [%s]\n", __FILE__, G_GNUC_PRETTY_FUNCTION, __LINE__, einfo->href));
 	}
@@ -235,7 +235,7 @@ message_info_save (CamelFolderSummary *summary, FILE *out, CamelMessageInfo *inf
 
 	if (camel_file_util_encode_string (out, einfo->thread_index ? einfo->thread_index : "") == -1)
 		return -1;
-	
+
 	if (camel_file_util_encode_string (out, einfo->href ? einfo->href : "") == -1)
 		return -1;
 
@@ -269,7 +269,7 @@ check_for_trash (CamelFolder *folder)
 	CamelStore *store = (CamelStore *) folder->parent_store;
 	CamelException lex;
 	CamelFolder *trash;
-	
+
 	camel_exception_init (&lex);
 	trash = camel_store_get_trash (store, &lex);
 
@@ -288,14 +288,14 @@ expunge_mail (CamelFolder *folder, CamelMessageInfo *info)
 	CamelException lex;
 
 	g_ptr_array_add (uids, uid);
-	
+
 	camel_exception_init (&lex);
 	camel_stub_send (exchange_folder->stub, &lex,
 			 CAMEL_STUB_CMD_EXPUNGE_UIDS,
 			 CAMEL_STUB_ARG_FOLDER, folder->full_name,
 			 CAMEL_STUB_ARG_STRINGARRAY, uids,
 			 CAMEL_STUB_ARG_END);
-	
+
 	g_ptr_array_free (uids, TRUE);
 	return camel_exception_is_set (&lex);
 }
@@ -424,7 +424,7 @@ camel_exchange_summary_get_article_num (CamelFolderSummary *summary)
  * @summary: the summary
  * @article_num: Highest article number of a message present in the folder.
  *
- * Sets @summary's high-article-number to @article_num. 
+ * Sets @summary's high-article-number to @article_num.
  **/
 void
 camel_exchange_summary_set_article_num (CamelFolderSummary *summary,

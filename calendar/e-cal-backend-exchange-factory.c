@@ -42,29 +42,29 @@ _get_protocol (ECalBackendFactory *factory)
 static ECalBackend*
 _todos_new_backend (ECalBackendFactory *factory, ESource *source)
 {
-	return g_object_new (E_TYPE_CAL_BACKEND_EXCHANGE_TASKS, 
-			     "source", source, 
+	return g_object_new (E_TYPE_CAL_BACKEND_EXCHANGE_TASKS,
+			     "source", source,
 			     "kind", ICAL_VTODO_COMPONENT, NULL);
 }
 
-static icalcomponent_kind 
-_todos_get_kind (ECalBackendFactory *factory) 
-{ 
-	return ICAL_VTODO_COMPONENT; 
+static icalcomponent_kind
+_todos_get_kind (ECalBackendFactory *factory)
+{
+	return ICAL_VTODO_COMPONENT;
 }
 
 static ECalBackend*
 _events_new_backend (ECalBackendFactory *factory, ESource *source)
 {
-	return g_object_new (E_TYPE_CAL_BACKEND_EXCHANGE_CALENDAR, 
-			     "source", source, 
+	return g_object_new (E_TYPE_CAL_BACKEND_EXCHANGE_CALENDAR,
+			     "source", source,
 			     "kind", ICAL_VEVENT_COMPONENT, NULL);
 }
 
-static icalcomponent_kind 
-_events_get_kind (ECalBackendFactory *factory) 
-{ 
-	return ICAL_VEVENT_COMPONENT; 
+static icalcomponent_kind
+_events_get_kind (ECalBackendFactory *factory)
+{
+	return ICAL_VEVENT_COMPONENT;
 }
 
 static void

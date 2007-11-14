@@ -35,7 +35,7 @@
 
 #define SUBFOLDER_DIR_NAME     "subfolders"
 #define SUBFOLDER_DIR_NAME_LEN 10
-#define d(x) 
+#define d(x)
 
 
 //static CamelStoreClass *parent_class = NULL;
@@ -73,13 +73,13 @@ static void             exchange_rename_folder (CamelStore *store,
 						const char *old_name,
 						const char *new_name,
 						CamelException *ex);
-static gboolean		exchange_folder_subscribed (CamelStore *store, 
+static gboolean		exchange_folder_subscribed (CamelStore *store,
 						const char *folder_name);
-static void 		exchange_subscribe_folder (CamelStore *store, 
-						const char *folder_name, 
+static void 		exchange_subscribe_folder (CamelStore *store,
+						const char *folder_name,
 						CamelException *ex);
-static void 		exchange_unsubscribe_folder (CamelStore *store, 
-						const char *folder_name, 
+static void 		exchange_unsubscribe_folder (CamelStore *store,
+						const char *folder_name,
 						CamelException *ex);
 
 static void stub_notification (CamelObject *object, gpointer event_data, gpointer user_data);
@@ -91,16 +91,16 @@ class_init (CamelExchangeStoreClass *camel_exchange_store_class)
 		CAMEL_SERVICE_CLASS (camel_exchange_store_class);
 	CamelStoreClass *camel_store_class =
 		CAMEL_STORE_CLASS (camel_exchange_store_class);
-	
+
 	parent_class = CAMEL_OFFLINE_STORE_CLASS (camel_type_get_global_classfuncs (camel_offline_store_get_type ()));
-	
+
 	/* virtual method overload */
 	camel_service_class->construct = construct;
 	camel_service_class->query_auth_types = query_auth_types;
 	camel_service_class->get_name = get_name;
 	camel_service_class->connect = exchange_connect;
 	camel_service_class->disconnect = exchange_disconnect;
-	
+
 	camel_store_class->get_trash = get_trash;
 	camel_store_class->free_folder_info = camel_store_free_folder_info_full;
 	camel_store_class->get_folder = exchange_get_folder;
@@ -135,9 +135,9 @@ finalize (CamelExchangeStore *exch)
 		camel_object_unref (CAMEL_OBJECT (exch->stub));
 		exch->stub = NULL;
 	}
-	
+
 	g_free (exch->trash_name);
-	
+
 	if (exch->folders_lock)
 		g_mutex_free (exch->folders_lock);
 
@@ -188,7 +188,7 @@ camel_exchange_store_connected (CamelExchangeStore *store, CamelException *ex)
 }
 
 /* This has been now removed from evolution/e-util. So implemented this here.
- * Also note that this is similar to the call in e2k-path.c. The name of the 
+ * Also note that this is similar to the call in e2k-path.c. The name of the
  * function has been changed to avoid any conflicts.
  */
 char *
@@ -272,7 +272,7 @@ construct (CamelService *service, CamelSession *session,
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
 	char *p;
-	
+
 	CAMEL_SERVICE_CLASS (parent_class)->construct (service, session, provider, url, ex);
 
 	exch->base_url = camel_url_to_string (url, CAMEL_URL_HIDE_ALL);
@@ -286,10 +286,10 @@ construct (CamelService *service, CamelSession *session,
 
 	if (!(exch->storage_path = camel_session_get_storage_path (session, service, ex)))
 		return;
-	
+
 	if (camel_url_get_param (url, "filter_junk"))
 		CAMEL_STORE (service)->flags |= CAMEL_STORE_VJUNK;
-	
+
 	exch->stub = NULL;
 }
 
@@ -319,14 +319,14 @@ get_name (CamelService *service, gboolean brief)
 #define EXCHANGE_STOREINFO_VERSION 1
 
 /* SURF : Picked this from gal/util/e-util.c */
-/* This only makes a filename safe for usage as a filename.  
+/* This only makes a filename safe for usage as a filename.
 	It still may have shell meta-characters in it. */
 static void
 e_filename_make_safe (gchar *string)
 {
 	gchar *p, *ts;
 	gunichar c;
-	
+
 	g_return_if_fail (string != NULL);
 	p = string;
 
@@ -335,7 +335,7 @@ e_filename_make_safe (gchar *string)
 		ts = p;
 		p = g_utf8_next_char (p);
 		if (!g_unichar_isprint(c) || ( c < 0xff && strchr (" /'\"`&();|<>$%{}!", c&0xff ))) {
-			while (ts<p) 	
+			while (ts<p)
 				*ts++ = '_';
 		}
 	}
@@ -348,12 +348,12 @@ camel_exchange_get_password (CamelService *service, CamelException *ex)
 	char *prompt, *account_name;
 
 	if (!service->url->passwd) {
-		/* This is a hack to use the same string being used in 
+		/* This is a hack to use the same string being used in
 		   exchange-account.c:get_password */
 		account_name = g_strdup_printf ("%s@%s", service->url->user, service->url->host);
 		prompt = g_strdup_printf (_("%sEnter password for %s"), "", account_name);
 
-		service->url->passwd = camel_session_get_password (session, 
+		service->url->passwd = camel_session_get_password (session,
 					service, "Exchange", prompt, "password", CAMEL_SESSION_PASSWORD_SECRET, ex);
 		g_free (account_name);
 		g_free (prompt);
@@ -366,8 +366,8 @@ camel_exchange_forget_password (CamelService *service, CamelException *ex)
 	CamelSession *session = camel_service_get_session (service);
 
 	if (service->url->passwd) {
-		camel_session_forget_password (session, 
-					       service, "Exchange", 
+		camel_session_forget_password (session,
+					       service, "Exchange",
 					       "password", ex);
 		g_free (service->url->passwd);
 		service->url->passwd = NULL;
@@ -386,11 +386,11 @@ exchange_connect (CamelService *service, CamelException *ex)
 	/* This lock is only needed for offline operation. exchange_connect
 	   is called many times in offline to ensure we are connected atleast
 	   to the mail stub. Think twice before changing anything here.*/
-	
+
 	g_mutex_lock (exch->connect_lock);
 
 	online_mode = camel_session_is_online (service->session);
-	
+
 	if (exch->stub == NULL) {
 		real_user = strpbrk (service->url->user, "\\/");
 		if (real_user)
@@ -401,7 +401,7 @@ exchange_connect (CamelService *service, CamelException *ex)
 					       g_get_user_name (),
 					       real_user, service->url->host);
 		e_filename_make_safe (strchr (socket_path + 5, '/') + 1);
-		
+
 		exch->stub = camel_stub_new (socket_path, _("Evolution Exchange backend process"), ex);
 		g_free (socket_path);
 		if (!exch->stub) {
@@ -452,7 +452,7 @@ exchange_connect (CamelService *service, CamelException *ex)
 	}
 
 	g_mutex_unlock (exch->connect_lock);
-	
+
 	return TRUE;
 }
 
@@ -467,7 +467,7 @@ exchange_disconnect (CamelService *service, gboolean clean, CamelException *ex)
 #define RETURN_VAL_IF_NOT_CONNECTED(store, ex, val)\
 	if (!camel_exchange_store_connected(store, ex) && \
 	    !exchange_connect (CAMEL_SERVICE (store), ex)) \
-		return val; 
+		return val;
 
 static CamelFolder *
 exchange_get_folder (CamelStore *store, const char *folder_name,
@@ -476,11 +476,11 @@ exchange_get_folder (CamelStore *store, const char *folder_name,
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	CamelFolder *folder;
 	char *folder_dir;
-	
+
 	RETURN_VAL_IF_NOT_CONNECTED (exch, ex, NULL);
 
 	folder_dir = exchange_path_to_physical (exch->storage_path, folder_name);
-	
+
 	if (!camel_exchange_store_connected (exch, ex)) {
 		if (!folder_dir || access (folder_dir, F_OK) != 0) {
 			g_free (folder_dir);
@@ -489,7 +489,7 @@ exchange_get_folder (CamelStore *store, const char *folder_name,
 			return NULL;
 		}
 	}
-	
+
 	g_mutex_lock (exch->folders_lock);
 	folder = g_hash_table_lookup (exch->folders, folder_name);
 	if (folder) {
@@ -505,7 +505,7 @@ exchange_get_folder (CamelStore *store, const char *folder_name,
 	folder = (CamelFolder *)camel_object_new (CAMEL_EXCHANGE_FOLDER_TYPE);
 	g_hash_table_insert (exch->folders, g_strdup (folder_name), folder);
 	g_mutex_unlock (exch->folders_lock);
-	
+
 	if (!camel_exchange_folder_construct (folder, store, folder_name,
 					      flags, folder_dir, ((CamelOfflineStore *) store)->state,
 					      exch->stub, ex)) {
@@ -525,7 +525,7 @@ exchange_get_folder (CamelStore *store, const char *folder_name,
 
 	/* If you move messages into a folder you haven't visited yet, it
 	 * may create and then unref the folder. That's a waste. So don't
-	 * let that happen. Probably not the best fix... 
+	 * let that happen. Probably not the best fix...
 	 */
 	camel_object_ref (CAMEL_OBJECT (folder));
 
@@ -537,7 +537,7 @@ exchange_folder_subscribed (CamelStore *store, const char *folder_name)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	guint32 is_subscribed;
-	
+
 	d(printf ("is subscribed folder : %s\n", folder_name));
 	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
 		return FALSE;
@@ -559,7 +559,7 @@ exchange_subscribe_folder (CamelStore *store, const char *folder_name,
 				CamelException *ex)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
-	
+
 	d(printf ("subscribe folder : %s\n", folder_name));
 	if (!camel_exchange_store_connected (exch, ex)) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot subscribe folder in offline mode."));
@@ -576,7 +576,7 @@ exchange_unsubscribe_folder (CamelStore *store, const char *folder_name,
 				CamelException *ex)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
-	
+
 	d(printf ("unsubscribe folder : %s\n", folder_name));
 	if (!camel_exchange_store_connected (exch, ex)) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot unsubscribe folder in offline mode."));
@@ -593,7 +593,7 @@ static CamelFolder *
 get_trash (CamelStore *store, CamelException *ex)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
-	
+
 	RETURN_VAL_IF_NOT_CONNECTED (exch, ex, NULL);
 
 	if (!exch->trash_name) {
@@ -644,7 +644,7 @@ make_folder_info (CamelExchangeStore *exch, char *name, char *uri,
 		/* info->full_name should not have encoded path */
 		info->full_name = camel_url_decode_path (path+2);
 	} else {
-		/* If there are no sub-directories, decoded(name) will be 
+		/* If there are no sub-directories, decoded(name) will be
 		   equal to that of path+2.
 		   Ex: personal
 		*/
@@ -657,7 +657,7 @@ make_folder_info (CamelExchangeStore *exch, char *name, char *uri,
 
 	if (flags & CAMEL_STUB_FOLDER_SYSTEM)
 		info->flags |= CAMEL_FOLDER_SYSTEM;
-		
+
 	if (flags & CAMEL_STUB_FOLDER_TYPE_INBOX)
 		info->flags |= CAMEL_FOLDER_TYPE_INBOX;
 
@@ -697,7 +697,7 @@ postprocess_tree (CamelFolderInfo *info)
 	camel_folder_info_free (info);
 	return sibling;
 }
-			
+
 
 static CamelFolderInfo *
 exchange_get_folder_info (CamelStore *store, const char *top, guint32 flags, CamelException *ex)
@@ -709,13 +709,13 @@ exchange_get_folder_info (CamelStore *store, const char *top, guint32 flags, Cam
 	CamelFolderInfo *info;
 	guint32 store_flags = 0;
 	int i;
-#if 0	
+#if 0
 	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot get folder info in offline mode."));
 		return NULL;
 	}
-#endif	
-	
+#endif
+
 	/* If the backend crashed, don't keep returning an error
 	 * each time auto-send/recv runs.
 	 */
@@ -766,7 +766,7 @@ exchange_get_folder_info (CamelStore *store, const char *top, guint32 flags, Cam
 	g_array_free (folder_flags, TRUE);
 
 	info = camel_folder_info_build (folders, top, '/', TRUE);
-	
+
 	if (info)
 		info = postprocess_tree (info);
 	g_ptr_array_free (folders, TRUE);
@@ -782,7 +782,7 @@ exchange_create_folder (CamelStore *store, const char *parent_name,
 	char *folder_uri;
 	guint32 unread_count, flags;
 	CamelFolderInfo *info;
-	
+
 	if (!camel_exchange_store_connected (exch, ex)) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot create folder in offline mode."));
 		return NULL;
@@ -1050,7 +1050,7 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 		if (camel_stub_marshal_decode_string (stub->status, &name) == -1 ||
 		    camel_stub_marshal_decode_string (stub->status, &uri) == -1)
 			break;
-		
+
 		info = make_folder_info (exch, name, uri, -1, 0);
 
 		g_mutex_lock (exch->folders_lock);
@@ -1079,7 +1079,7 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 			break;
 
 		reninfo.new = make_folder_info (exch, new_name, new_uri, -1, 0);
-		
+
 		g_mutex_lock (exch->folders_lock);
 		folder = g_hash_table_lookup (exch->folders, reninfo.old_base);
 		if (folder) {
@@ -1087,14 +1087,14 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 			camel_object_unref (CAMEL_OBJECT (folder));
 		}
 		g_mutex_unlock (exch->folders_lock);
-		
+
 		camel_object_trigger_event (CAMEL_OBJECT (exch),
 					    "folder_renamed", &reninfo);
 		camel_folder_info_free (reninfo.new);
 		g_free (reninfo.old_base);
 		break;
 	}
-	
+
 	case CAMEL_STUB_RETVAL_FOLDER_SET_READONLY:
 	{
 		CamelFolder *folder;

@@ -95,12 +95,12 @@ show_error_dialog()
 	GtkWidget *window;
 	GtkWidget *error_dialog;
 	gchar *err_string;
-	
+
 	err_string = g_strdup_printf ( _("Warning: Evolution could not migrate "
 		  			"all the Exchange account data from "
 		  			"the version %d.%d.%d. \nThe data "
 		  			"hasn't been deleted, but will not be "
-		  			"seen by this version of Evolution"), 
+		  			"seen by this version of Evolution"),
 		  			maj, min, rev);
 
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -167,7 +167,7 @@ cp (const char *src, const char *dest, gboolean show_progress)
         if (stat (dest, &st) == 0 && st.st_size > 0)
 		goto ret;
 
-	if (stat (src, &st) == -1) 
+	if (stat (src, &st) == -1)
 		goto ret;
 
 	if ((readfd = open (src, O_RDONLY)) == -1)
@@ -199,7 +199,7 @@ cp (const char *src, const char *dest, gboolean show_progress)
                 total += nwritten;
 
                 if (show_progress)
-                	dialog_set_progress ((((double) total) / 
+                	dialog_set_progress ((((double) total) /
 					      ((double) st.st_size)));
         } while (total < st.st_size);
 
@@ -255,7 +255,7 @@ cp_r (char *src, const char *dest)
 	destpath = g_string_new (dest);
 	g_string_append_c (destpath, '/');
 	dlen = destpath->len;
-		
+
 	dialog_set_folder_name(src);
 
 	while ((dent = readdir (dir))) {
@@ -300,7 +300,7 @@ form_dir_path (char *file_name, char *delim)
 	}
 	dir_path = g_strndup(path->str, strlen(path->str) - 12);
 	g_string_free (path, TRUE);
-	return dir_path; 
+	return dir_path;
 }
 
 static gchar*
@@ -311,26 +311,26 @@ get_contacts_dir_from_filename(const char *migr_file)
 	gchar *dir_path = NULL;
 
 	dot = strchr (file_to_be_migrated, '.');
-	if (dot) { 
+	if (dot) {
 		file_name = g_strndup (file_to_be_migrated, dot - file_to_be_migrated);
 		dir_path = form_dir_path (file_name, delim);
 		g_free (file_name);
 	}
-	g_free (file_to_be_migrated);	
+	g_free (file_to_be_migrated);
 	return dir_path;
 }
 
 /*
- * Parse the names of summary and changes files in 
- * ~/evolution/exchange/user@exchange-server/Addressbook and  
- * copy them into the respective directories under 
+ * Parse the names of summary and changes files in
+ * ~/evolution/exchange/user@exchange-server/Addressbook and
+ * copy them into the respective directories under
  * ~/.evolution/exchange/user@exchange-server
  *
  */
 /* FIXME: handling .changes files */
 /* FIXME: handling VCARD attributes changes */
 
-static gboolean 
+static gboolean
 migrate_contacts (gchar *src_path, const gchar *dest_path)
 {
 	gchar *dest_sub_dir = NULL, *summary_file = NULL;
@@ -344,27 +344,27 @@ migrate_contacts (gchar *src_path, const gchar *dest_path)
 	dir = opendir (src_path);
 	if (dir) {
 		while ((dent = readdir (dir))) {
-			if (!strcmp (dent->d_name, ".") || 
+			if (!strcmp (dent->d_name, ".") ||
 			    !strcmp (dent->d_name, ".."))
 				continue;
 
 			/* Parse the file name and form the dir hierarchy */
-			dest_sub_dir = get_contacts_dir_from_filename ( 
+			dest_sub_dir = get_contacts_dir_from_filename (
 								dent->d_name);
 
 			if (dest_sub_dir) {
 				contacts_dir = g_build_filename (
-							dest_path, 
+							dest_path,
 							dest_sub_dir,
 							NULL);
-	
+
 				/* Check if it is a summary file */
-				summary_file = g_strrstr (dent->d_name, 
+				summary_file = g_strrstr (dent->d_name,
 							  ".summary");
-				if (summary_file) 
+				if (summary_file)
 					dest_file = g_build_filename (
 							contacts_dir,
-							"summary", 
+							"summary",
 							NULL);
 				else
 					/* FIXME: replace d_name by change_id */
@@ -372,7 +372,7 @@ migrate_contacts (gchar *src_path, const gchar *dest_path)
 							contacts_dir,
 							dent->d_name,
 							NULL);
-			
+
 				/* Create destination dir, and copy the files */
        				if (g_mkdir_with_parents (contacts_dir, 0777) == -1) {
 					ret = FALSE;
@@ -381,8 +381,8 @@ migrate_contacts (gchar *src_path, const gchar *dest_path)
                 			continue;
 				}
 
-				src_file = g_build_filename ( src_path, 
-							      dent->d_name, 
+				src_file = g_build_filename ( src_path,
+							      dent->d_name,
 							      NULL);
 
 				ret = cp (src_file, dest_file, TRUE);
@@ -402,11 +402,11 @@ migrate_contacts (gchar *src_path, const gchar *dest_path)
 	return ret;
 }
 
-/* 
- * Copy the summary files from ~/evolution/mail/exchange to 
+/*
+ * Copy the summary files from ~/evolution/mail/exchange to
  * ~/.evolution/exchange/
  */
-static gboolean 
+static gboolean
 migrate_mail (gchar *src_path, const gchar *dest_path)
 {
 	gboolean ret;
@@ -414,16 +414,16 @@ migrate_mail (gchar *src_path, const gchar *dest_path)
 	setup_progress_dialog ();
 	ret = cp_r (src_path, dest_path);
 	dialog_close ();
-	
+
 	return ret;
 }
 
-/* 
- * copy personal and public folders from ~/evolution/exchange into 
+/*
+ * copy personal and public folders from ~/evolution/exchange into
  * ~/.evolution/exchange.
- * 
+ *
  * This includes copying all the folders and metadata.xml files, also
- * Calendar and Tasks, cache files 
+ * Calendar and Tasks, cache files
  */
 static gboolean
 migrate_common (gchar *src_path, const gchar *dest_path)
@@ -450,8 +450,8 @@ migrate_common (gchar *src_path, const gchar *dest_path)
 }
 
 void
-exchange_migrate (const CORBA_short major, 
-		  const CORBA_short minor, 
+exchange_migrate (const CORBA_short major,
+		  const CORBA_short minor,
 		  const CORBA_short revision,
 		  const gchar *base_dir,
 		  char *account_filename)
@@ -470,7 +470,7 @@ exchange_migrate (const CORBA_short major,
 
 		/* This is not needed if done by cp_r() */
         	if (stat (base_dir, &st) == -1) {
-			if (errno != ENOENT || 
+			if (errno != ENOENT ||
 			    g_mkdir_with_parents (base_dir, 0777) == -1) {
                        		printf ("Failed to create directory `%s': %s",
 				base_dir, g_strerror (errno));
@@ -478,28 +478,28 @@ exchange_migrate (const CORBA_short major,
                 	}
         	}
 
-		src_path = g_build_filename (g_get_home_dir (), 
-					     "evolution", 
-					     "exchange", 
-					     account_filename, 
+		src_path = g_build_filename (g_get_home_dir (),
+					     "evolution",
+					     "exchange",
+					     account_filename,
 					     NULL);
 		ret = migrate_common (src_path, base_dir);
 		g_free (src_path);
 
-		src_path = g_build_filename (g_get_home_dir (), 
-					     "evolution", 
-					     "exchange", 
-					     account_filename, 
+		src_path = g_build_filename (g_get_home_dir (),
+					     "evolution",
+					     "exchange",
+					     account_filename,
 					     "Addressbook",
 					     NULL);
 		ret = migrate_contacts ( src_path, base_dir);
 		g_free (src_path);
-		
-		src_path = g_build_filename (g_get_home_dir (), 
-					     "evolution", 
+
+		src_path = g_build_filename (g_get_home_dir (),
+					     "evolution",
 					     "mail",
-					     "exchange", 
-					     account_filename, 
+					     "exchange",
+					     account_filename,
 					     NULL);
 		ret = migrate_mail ( src_path, base_dir);
 		g_free (src_path);

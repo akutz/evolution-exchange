@@ -160,9 +160,9 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 			bcc = g_slist_append (bcc, g_strdup (header->value));
 		header = header->next;
 	}
-	
+
 	camel_medium_remove_header (CAMEL_MEDIUM (message), "Bcc");
-	
+
 	camel_data_wrapper_write_to_stream (CAMEL_DATA_WRAPPER (message),
 					    CAMEL_STREAM (filtered_stream));
 	camel_stream_flush (CAMEL_STREAM (filtered_stream));

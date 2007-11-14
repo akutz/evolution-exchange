@@ -68,10 +68,10 @@ finalize (CamelStub *stub)
 		 */
 		if (stub->op)
 			camel_operation_cancel (stub->op);
-		
+
 		pthread_join (stub->status_thread, &unused);
 		camel_stub_marshal_free (stub->status);
-		
+
 		if (stub->op) {
 			camel_operation_unref (stub->op);
 			stub->op = NULL;
@@ -115,17 +115,17 @@ status_main (void *data)
 	CamelStub *stub = data;
 	CamelStubMarshal *status_channel = stub->status;
 	guint32 retval;
-	
+
 	stub->op = camel_operation_new (NULL, NULL);
 	camel_operation_register (stub->op);
-	
+
 	while (1) {
 		if (camel_operation_cancel_check (stub->op))
 			break;
-		
+
 		if (camel_stub_marshal_decode_uint32 (status_channel, &retval) == -1)
 			break;
-		
+
 		/* FIXME. If you don't have exactly one thing listening
 		 * to this, it will get out of sync. But I don't want
 		 * CamelStub to have to know the details of the message
@@ -135,9 +135,9 @@ status_main (void *data)
 		camel_object_trigger_event (stub_object, "notification",
 					    GUINT_TO_POINTER (retval));
 	}
-	
+
 	camel_operation_unregister (stub->op);
-	
+
 	return NULL;
 }
 
@@ -248,7 +248,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 	guint32 retval;
 
 	g_return_val_if_fail (stub, FALSE);
-	
+
 	camel_object_ref (CAMEL_OBJECT (stub));
 	if (!oneway)
 		g_mutex_lock (stub->read_lock);
@@ -315,8 +315,8 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 			for (i = 0; i < arr->len; i++)
 				camel_stub_marshal_encode_uint32 (stub->cmd, g_array_index (arr, guint32, i));
 			break;
-		}		
-		
+		}
+
 		default:
 			g_critical ("%s: Uncaught case (%d)", G_STRLOC, argtype);
 			break;
@@ -435,7 +435,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 
 					break;
 				}
-				
+
 				case CAMEL_STUB_ARG_UINT32ARRAY:
 				{
 					GArray **arr = va_arg (ap, GArray **);
@@ -451,7 +451,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 					}
 					if (status == -1)
 						g_array_free (*arr, TRUE);
-					
+
 					break;
 				}
 
