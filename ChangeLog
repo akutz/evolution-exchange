@@ -1,3 +1,12 @@
+2007-11-16  Bharath Acharya  <abharath@novell.com>
+
+	** Fixes bug #444503
+
+	* camel/camel-exchange-folder.c: (camel_exchange_folder_construct): 
+	Check and store the folder filter and junk filter flags before 
+	performing the check for folder summary being available. Do not fetch 
+	messages if folder summary is available.
+
 2007-11-14  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Remove trailing whitespace from source code.
