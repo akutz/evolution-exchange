@@ -634,7 +634,7 @@ make_folder_info (CamelExchangeStore *exch, char *name, char *uri,
 	g_strfreev (components);
 
 	d(printf ("new_uri is : %s\n", new_uri));
-	info = g_new0 (CamelFolderInfo, 1);
+	info = camel_folder_info_new ();
 	info->name = name;
 	info->uri = new_uri;
 
