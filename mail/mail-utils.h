@@ -11,6 +11,12 @@ extern "C" {
 
 #include "e2k-properties.h"
 
+typedef enum {
+	MAIL_UTIL_DEMANGLE_DELGATED_MEETING, 
+	MAIL_UTIL_DEMANGLE_MEETING_IN_SUBSCRIBED_INBOX, 
+	MAIL_UTIL_DEMANGLE_SENDER_FIELD 
+} MailUtilDemangleType;
+
 char    *mail_util_mapi_to_smtp_headers (E2kProperties *props);
 
 GString *mail_util_stickynote_to_rfc822 (E2kProperties *props);
@@ -20,16 +26,13 @@ guint32  mail_util_props_to_camel_flags (E2kProperties *props,
 
 char *   mail_util_extract_transport_headers (E2kProperties *props);
 
-gboolean mail_util_demangle_delegated_meeting (GString *body,
-					    const char *delegator_cn,
-					    const char *delegator_email,
-					    const char *delegator_cal_uri,
-					    const char *delegatee_email);
-
 gboolean
-mail_util_demangle_sender_field (GString *body,
-				const char *delegator_email,
-				const char *sender_email);
+mail_util_demangle_meeting_related_message (GString *body,
+				const char *owner_cn,
+				const char *owner_email,
+				const char *owner_cal_uri,
+				const char *subscriber_email,
+				MailUtilDemangleType unmangle_type);
 
 #ifdef __cplusplus
 }

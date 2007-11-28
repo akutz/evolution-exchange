@@ -73,7 +73,11 @@ static ECalBackendExchange *parent_class = NULL;
 static void
 get_from (ECalBackendSync *backend, ECalComponent *comp, char **from_name, char **from_addr)
 {
-	e_cal_backend_exchange_get_from (backend, comp, from_name, from_addr);
+	if (!g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (E_CAL_BACKEND_EXCHANGE (backend)->account)))
+		e_cal_backend_exchange_get_from (backend, comp, from_name, from_addr);
+	else 
+		e_cal_backend_exchange_get_sender (backend, comp, from_name, from_addr);
+
 #if 0
 	ECalComponentOrganizer org;
 
@@ -1068,10 +1072,6 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 
 	modtime = e2k_timestamp_from_icaltime (current);
 
-	summary = icalcomponent_get_summary (icalcomp);
-	if (!summary)
-		summary = "";
-
 	/* Get the uid */
 	temp_comp_uid = icalcomponent_get_uid (icalcomp);
 	if (!temp_comp_uid) {
@@ -1088,6 +1088,14 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 		return GNOME_Evolution_Calendar_ObjectIdAlreadyExists;
 	}
 	e_cal_backend_exchange_cache_unlock (ecalbex);
+
+	/* Delegated calendar */
+	if (g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (ecalbex->account)))
+		process_delegated_cal_object (icalcomp, e_cal_backend_exchange_get_owner_name (backend), e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (ecalbex->account));
+
+	summary = icalcomponent_get_summary (icalcomp);
+	if (!summary)
+		summary = "";
 
 	/* Create the cal component */
         comp = e_cal_component_new ();
@@ -1233,9 +1241,14 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 
 	e_cal_backend_exchange_cache_unlock (ecalbex);
 
+	/* Delegated calendar */
+	if (g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (ecalbex->account)))
+		process_delegated_cal_object (icalcomp, e_cal_backend_exchange_get_owner_name (backend), e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (ecalbex->account));
+
 	summary = icalcomponent_get_summary (icalcomp);
 	if (!summary)
 		summary = "";
+
 	/* Create the cal component */
         new_comp = e_cal_component_new ();
         e_cal_component_set_icalcomponent (new_comp, icalcomp);

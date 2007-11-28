@@ -2153,6 +2153,7 @@ unmangle_delegated_meeting_request (MailStubExchange *mse, E2kOperation *op,
 	E2kHTTPStatus status;
 	E2kResult *results;
 	int nresults = 0;
+	MailUtilDemangleType unmangle_type = MAIL_UTIL_DEMANGLE_DELGATED_MEETING;
 
 	status = e2k_context_propfind (mse->ctx, op, uri, &prop, 1,
 				       &results, &nresults);
@@ -2197,11 +2198,11 @@ unmangle_delegated_meeting_request (MailStubExchange *mse, E2kOperation *op,
 	}
 
 	message = g_string_new_len (*body, *len);
-	mail_util_demangle_delegated_meeting (
-			message, entry->display_name,
-			entry->email,
-			delegator_folder_physical_uri,
-			exchange_account_get_email_id (account));
+	mail_util_demangle_meeting_related_message (message, entry->display_name, 
+						entry->email,
+						delegator_folder_physical_uri, 
+						exchange_account_get_email_id (account),
+						unmangle_type);
 	g_free (*body);
 	*body = message->str;
 	*len = message->len;
@@ -2211,6 +2212,64 @@ unmangle_delegated_meeting_request (MailStubExchange *mse, E2kOperation *op,
 	g_free (delegator_folder_physical_uri);
 
 	e2k_results_free (results, nresults);
+	return E2K_HTTP_OK;
+}
+
+static E2kHTTPStatus
+unmangle_meeting_request_in_subscribed_inbox (MailStubExchange *mse, 
+					      const char *delegator_email,
+					      char **body, int *len)
+{
+	GString *message;
+	char *delegator_uri, *delegator_folder_physical_uri = NULL;
+	ExchangeAccount *account;
+	E2kGlobalCatalog *gc;
+	E2kGlobalCatalogEntry *entry;
+	E2kGlobalCatalogStatus gcstatus;
+	EFolder *folder = NULL;
+	MailUtilDemangleType unmangle_type = MAIL_UTIL_DEMANGLE_MEETING_IN_SUBSCRIBED_INBOX;
+
+	account = mse->account;
+	gc = exchange_account_get_global_catalog (account);
+	if (!gc) {
+		g_warning ("\nNo GC: could not unmangle meeting request in subscribed folder");
+		return E2K_HTTP_OK;
+	}
+
+	gcstatus = e2k_global_catalog_lookup (
+		gc, NULL, /* FIXME; cancellable */
+		E2K_GLOBAL_CATALOG_LOOKUP_BY_EMAIL,
+		delegator_email, E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX,
+		&entry);
+	if (gcstatus != E2K_GLOBAL_CATALOG_OK) {
+		g_warning ("\nGC lookup failed: could not unmangle meeting request in subscribed folder");
+		return E2K_HTTP_OK;
+	}
+
+	delegator_uri = exchange_account_get_foreign_uri (
+		account, entry, E2K_PR_STD_FOLDER_CALENDAR);
+
+	if (delegator_uri) {
+		folder = exchange_account_get_folder (account, delegator_uri);
+		if (folder)
+			delegator_folder_physical_uri = g_strdup (e_folder_get_physical_uri (folder));
+		g_free (delegator_uri);
+	}
+
+	message = g_string_new_len (*body, *len); 
+	mail_util_demangle_meeting_related_message (message, entry->display_name,
+						entry->email,
+						delegator_folder_physical_uri, 
+						exchange_account_get_email_id (account),
+						unmangle_type);
+	g_free (*body);
+	*body = message->str;
+	*len = message->len;
+	*body = g_string_free (message, FALSE);
+
+	e2k_global_catalog_entry_free (gc, entry);
+	g_free (delegator_folder_physical_uri);
+
 	return E2K_HTTP_OK;
 }
 
@@ -2230,6 +2289,7 @@ unmangle_sender_field (MailStubExchange *mse, E2kOperation *op,
 	E2kHTTPStatus status;
 	E2kResult *results;
 	int nresults = 0;
+	MailUtilDemangleType unmangle_type = MAIL_UTIL_DEMANGLE_SENDER_FIELD;
 
 	status = e2k_context_propfind (mse->ctx, op, uri, props, 2,
 				       &results, &nresults);
@@ -2286,9 +2346,11 @@ unmangle_sender_field (MailStubExchange *mse, E2kOperation *op,
 	}
 
 	message = g_string_new_len (*body, *len);
-	mail_util_demangle_sender_field (message,
-					 delegator_entry->email,
-					 sender_entry->email);
+	mail_util_demangle_meeting_related_message (message, delegator_entry->display_name,
+						delegator_entry->email, 
+						NULL, 
+						sender_entry->email, 
+						unmangle_type);
 	g_free (*body);
 	*body = message->str;
 	*len = message->len;
@@ -2301,6 +2363,36 @@ unmangle_sender_field (MailStubExchange *mse, E2kOperation *op,
 	return E2K_HTTP_OK;
 }
 
+static gboolean
+is_foreign_folder (MailStub *stub, const char *folder_name, char **owner_email)
+{
+	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
+	EFolder *folder;
+	ExchangeHierarchy *hier;
+	char *path;
+
+	path = g_build_filename ("/", folder_name, NULL);
+	folder = exchange_account_get_folder (mse->account, path);
+	if (!folder) {
+		g_free (path);
+		return FALSE;
+	}
+	g_free (path);
+	g_object_ref (folder);
+
+	hier = e_folder_exchange_get_hierarchy (folder); 
+
+	if (hier->type != EXCHANGE_HIERARCHY_FOREIGN) {
+		g_object_unref (folder);
+		return FALSE;
+	}
+
+	*owner_email = g_strdup (hier->owner_email);
+
+	g_object_unref (folder);
+	return TRUE;
+}
+
 static void
 get_message (MailStub *stub, const char *folder_name, const char *uid)
 {
@@ -2308,7 +2400,7 @@ get_message (MailStub *stub, const char *folder_name, const char *uid)
 	MailStubExchangeFolder *mfld;
 	MailStubExchangeMessage *mmsg;
 	E2kHTTPStatus status;
-	char *body = NULL, *content_type = NULL;
+	char *body = NULL, *content_type = NULL, *owner_email = NULL;
 	int len = 0;
 
 	mfld = folder_from_name (mse, folder_name, MAPI_ACCESS_READ, FALSE);
@@ -2360,7 +2452,19 @@ get_message (MailStub *stub, const char *folder_name, const char *uid)
 			goto error;
 	}
 
-	/* If there is a sender field in the meeting request/response,
+	/* If the message is in a subscribed inbox, 
+	 * we need to modify the message appropriately.
+	 */
+	if (is_foreign_folder (stub, folder_name, &owner_email)) {
+		
+		status = unmangle_meeting_request_in_subscribed_inbox  (mse, 
+									owner_email,
+									&body, &len);
+		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+			goto error;
+	}
+
+	/* If there is a sender field in the meeting request/response, 
 	 * we need to know who it is.
 	 */
 	status = unmangle_sender_field (mse, NULL,
@@ -2390,6 +2494,7 @@ get_message (MailStub *stub, const char *folder_name, const char *uid)
 cleanup:
 	g_free (body);
 	g_free (content_type);
+	g_free (owner_email);
 }
 
 
