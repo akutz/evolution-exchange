@@ -1,3 +1,18 @@
+2007-11-28  Suman Manjunath  <msuman@novell.com>
+
+	* calendar/e-cal-backend-exchange-calendar.c:
+	* calendar/e-cal-backend-exchange-tasks.c: (get_from),
+	(create_task_object), (modify_task_object):
+	* calendar/e-cal-backend-exchange.c:
+	(process_delegated_cal_object), (build_msg):
+	* calendar/e-cal-backend-exchange.h: Support for Tasks delegation. 
+	* mail/mail-stub-exchange.c: (unmangle_delegated_meeting_request),
+	(unmangle_meeting_request_in_subscribed_inbox),
+	(unmangle_sender_field), (is_foreign_folder), (get_message):
+	* mail/mail-utils.c: (mail_util_demangle_meeting_related_message):
+	* mail/mail-utils.h: Removing redundancy in code, demangle meeting
+	related messages in subscribed inboxes.
+
 2007-11-12  Srinivasa Ragavan  <sragavan@novell.com>
 
 	* NEWS, configure.in: Evolution Exchange 2.21.2 release.

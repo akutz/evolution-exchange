@@ -1699,6 +1699,61 @@ end :
 	return file_contents;
 }
 
+void
+process_delegated_cal_object (icalcomponent *icalcomp, const char *delegator_name, const char *delegator_email, const char *delegatee_email)
+{
+	icalproperty *prop = NULL;
+
+	prop = icalcomponent_get_first_property (icalcomp, ICAL_ORGANIZER_PROPERTY);
+	if (prop) {
+		const char *organizer;
+		char *text = NULL;
+
+		organizer = icalproperty_get_value_as_string (prop);
+		if (organizer) {
+			if (!g_ascii_strncasecmp (organizer, "mailto:", 7))
+				text = g_strdup (organizer+7);
+
+			text = g_strstrip (text);
+			if (text && (!g_ascii_strcasecmp (delegatee_email, text) || !g_ascii_strcasecmp (delegator_email, text))) {
+				icalproperty_set_organizer (prop, g_strdup_printf ("MAILTO:%s", delegator_email));
+				icalproperty_remove_parameter_by_kind (prop, ICAL_CN_PARAMETER);
+				icalproperty_add_parameter (prop, icalparameter_new_cn (g_strdup(delegator_name)));
+				icalproperty_remove_parameter_by_kind (prop, ICAL_SENTBY_PARAMETER);
+				icalproperty_add_parameter (prop, icalparameter_new_sentby (g_strdup_printf("MAILTO:%s", delegatee_email)));
+			}
+		}
+		if (text) 
+			g_free (text);
+	}
+	prop = NULL;
+
+	for (prop = icalcomponent_get_first_property (icalcomp, ICAL_ATTENDEE_PROPERTY);
+	     prop != NULL;
+	     prop = icalcomponent_get_next_property (icalcomp, ICAL_ATTENDEE_PROPERTY)) {
+		const char *attendee;
+		char *text = NULL;
+
+		attendee = icalproperty_get_value_as_string (prop);
+		if (!attendee)
+			continue;
+
+		if (!g_ascii_strncasecmp (attendee, "mailto:", 7))
+			text = g_strdup (attendee+7);
+
+		text = g_strstrip (text);
+		if (text && !g_ascii_strcasecmp (delegator_email, text)) {
+			icalproperty_remove_parameter_by_kind (prop, ICAL_CN_PARAMETER);
+			icalproperty_add_parameter (prop, icalparameter_new_cn (g_strdup(delegator_name)));
+			icalproperty_remove_parameter_by_kind (prop, ICAL_SENTBY_PARAMETER);
+			icalproperty_add_parameter (prop, icalparameter_new_sentby (g_strdup_printf("MAILTO:%s", delegatee_email)));
+			g_free (text);
+			break;
+		}
+		g_free (text);
+	}
+}
+
 char *
 build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const char *subject, char **boundary)
 {
@@ -1717,7 +1772,10 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const char *subject,
 	char *fname, *file_contents = NULL, *filename, *dest_url, *mime_filename, *attach_file;
 	int len = 0;
 
-	e_cal_backend_exchange_get_from (E_CAL_BACKEND_SYNC (cbex), comp, &from_name, &from_email);
+	if (!g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (E_CAL_BACKEND_SYNC (cbex)), exchange_account_get_email_id (cbex->account)))
+		e_cal_backend_exchange_get_from (E_CAL_BACKEND_SYNC (cbex), comp, &from_name, &from_email);
+	else 
+		e_cal_backend_exchange_get_sender (E_CAL_BACKEND_SYNC (cbex), comp, &from_name, &from_email);
 
 	msg = camel_mime_message_new ();
 
