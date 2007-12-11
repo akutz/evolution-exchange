@@ -81,6 +81,7 @@ static void 		exchange_subscribe_folder (CamelStore *store,
 static void 		exchange_unsubscribe_folder (CamelStore *store,
 						const char *folder_name,
 						CamelException *ex);
+static gboolean exchange_can_refresh_folder (CamelStore *store, CamelFolderInfo *info, CamelException *ex);
 
 static void stub_notification (CamelObject *object, gpointer event_data, gpointer user_data);
 
@@ -112,6 +113,7 @@ class_init (CamelExchangeStoreClass *camel_exchange_store_class)
 	camel_store_class->folder_subscribed = exchange_folder_subscribed;
 	camel_store_class->subscribe_folder = exchange_subscribe_folder;
 	camel_store_class->unsubscribe_folder = exchange_unsubscribe_folder;
+	camel_store_class->can_refresh_folder = exchange_can_refresh_folder;
 }
 
 static void
@@ -1141,4 +1143,23 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 		g_critical ("%s: Uncaught case (%d)", G_STRLOC, retval);
 		break;
 	}
+}
+
+static gboolean
+exchange_can_refresh_folder (CamelStore *store, CamelFolderInfo *info, CamelException *ex)
+{
+	gboolean res;
+
+	res = CAMEL_STORE_CLASS(parent_class)->can_refresh_folder (store, info, ex) ||
+	      (camel_url_get_param (((CamelService *)store)->url, "check_all") != NULL);
+
+	if (!res && !camel_exception_is_set (ex)) {
+		CamelFolder *folder;
+
+		folder = camel_store_get_folder (store, info->full_name, 0, ex);
+		if (folder && CAMEL_IS_EXCHANGE_FOLDER (folder))
+			res = CAMEL_EXCHANGE_FOLDER (folder)->check_folder;
+	}
+
+	return res;
 }

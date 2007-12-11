@@ -24,6 +24,15 @@ extern "C" {
 #define CAMEL_EXCHANGE_FOLDER_CLASS(k) (CAMEL_CHECK_CLASS_CAST ((k), CAMEL_EXCHANGE_FOLDER_TYPE, CamelExchangeFolderClass))
 #define CAMEL_IS_EXCHANGE_FOLDER(o)    (CAMEL_CHECK_TYPE((o), CAMEL_EXCHANGE_FOLDER_TYPE))
 
+enum {
+	CAMEL_EXCHANGE_FOLDER_ARG_CHECK_FOLDER = CAMEL_OFFLINE_FOLDER_ARG_LAST,
+	CAMEL_EXCHANGE_FOLDER_ARG_LAST = CAMEL_OFFLINE_FOLDER_ARG_LAST + 0x100
+};
+
+enum {
+	CAMEL_EXCHANGE_FOLDER_CHECK_FOLDER = CAMEL_EXCHANGE_FOLDER_ARG_CHECK_FOLDER | CAMEL_ARG_BOO,
+};
+
 typedef struct {
 	CamelOfflineFolder parent_object;
 
@@ -33,6 +42,7 @@ typedef struct {
 	char *source;
 
 	GHashTable *thread_index_to_message_id;
+	unsigned int check_folder:1;
 } CamelExchangeFolder;
 
 typedef struct {

@@ -48,6 +48,10 @@
 
 static CamelOfflineFolderClass *parent_class = NULL;
 
+static CamelProperty exchange_property_list[] = {
+	{ CAMEL_EXCHANGE_FOLDER_CHECK_FOLDER, "check_folder", N_("Always check for new mail in this folder") },
+};
+
 /* Returns the class for a CamelFolder */
 #define CF_CLASS(so) CAMEL_FOLDER_CLASS (CAMEL_OBJECT_GET_CLASS(so))
 
@@ -84,6 +88,9 @@ static void   transfer_messages_the_hard_way (CamelFolder *source,
 static void refresh_info (CamelFolder *folder, CamelException *ex);
 static void exchange_sync (CamelFolder *folder, gboolean expunge, CamelException *ex);
 
+static int exchange_getv (CamelObject *object, CamelException *ex, CamelArgGetV *args);
+static int exchange_setv (CamelObject *object, CamelException *ex, CamelArgV *args);
+
 static void
 class_init (CamelFolderClass *camel_folder_class)
 {
@@ -100,6 +107,9 @@ class_init (CamelFolderClass *camel_folder_class)
 	camel_folder_class->transfer_messages_to = transfer_messages_to;
 	camel_folder_class->refresh_info = refresh_info;
 	camel_folder_class->sync = exchange_sync;
+
+ 	((CamelObjectClass *)camel_folder_class)->getv = exchange_getv;
+	((CamelObjectClass *)camel_folder_class)->setv = exchange_setv;
 }
 
 #define CAMEL_EXCHANGE_SERVER_FLAGS \
@@ -141,6 +151,8 @@ camel_exchange_folder_get_type (void)
 	static CamelType camel_exchange_folder_type = CAMEL_INVALID_TYPE;
 
 	if (camel_exchange_folder_type == CAMEL_INVALID_TYPE) {
+		int i;
+
 		camel_exchange_folder_type = camel_type_register (
 			camel_offline_folder_get_type (),
 			"CamelExchangeFolder",
@@ -150,6 +162,10 @@ camel_exchange_folder_get_type (void)
 			NULL,
 			(CamelObjectInitFunc) init,
 			(CamelObjectFinalizeFunc) finalize );
+
+		/* only localize here, do not create GSList, we do not want to leak */
+		for (i = 0; i < sizeof (exchange_property_list)/sizeof (exchange_property_list [0]); i++)
+			exchange_property_list [i].description = _(exchange_property_list [i].description);
 	}
 
 	return camel_exchange_folder_type;
@@ -1169,3 +1185,78 @@ exchange_sync (CamelFolder *folder, gboolean expunge, CamelException *ex)
 
 	camel_folder_summary_save (folder->summary);
 }
+
+static int
+exchange_getv (CamelObject *object, CamelException *ex, CamelArgGetV *args)
+{
+	int i, count=0;
+	guint32 tag;
+
+	for (i = 0; i < args->argc; i++) {
+		CamelArgGet *arg = &args->argv[i];
+
+		tag = arg->tag;
+
+		switch (tag & CAMEL_ARG_TAG) {
+		case CAMEL_OBJECT_ARG_PERSISTENT_PROPERTIES:
+		case CAMEL_FOLDER_ARG_PROPERTIES: {
+			CamelArgGetV props;
+			int i;
+
+			props.argc = 1;
+			props.argv[0] = *arg;
+			((CamelObjectClass *)parent_class)->getv(object, ex, &props);
+
+			for (i = 0; i < sizeof (exchange_property_list)/sizeof (exchange_property_list [0]); i++)
+				*arg->ca_ptr = g_slist_append (*arg->ca_ptr, &exchange_property_list[i]);
+			break; }
+			/* exchange args */
+		case CAMEL_EXCHANGE_FOLDER_ARG_CHECK_FOLDER:
+			*arg->ca_int = ((CamelExchangeFolder *)object)->check_folder;
+			break;
+		default:
+			count++;
+			continue;
+		}
+
+		arg->tag = (tag & CAMEL_ARG_TYPE) | CAMEL_ARG_IGNORE;
+	}
+
+	if (count)
+		return ((CamelObjectClass *)parent_class)->getv (object, ex, args);
+
+	return 0;
+}
+
+static int
+exchange_setv (CamelObject *object, CamelException *ex, CamelArgV *args)
+{
+	int save = 0;
+	int i;
+	guint32 tag;
+
+	for (i = 0; i < args->argc; i++) {
+		CamelArg *arg = &args->argv[i];
+
+		tag = arg->tag;
+
+		switch (tag & CAMEL_ARG_TAG) {
+		case CAMEL_EXCHANGE_FOLDER_ARG_CHECK_FOLDER:
+			if (((CamelExchangeFolder *)object)->check_folder != arg->ca_int) {
+				((CamelExchangeFolder *)object)->check_folder = arg->ca_int;
+				save = 1;
+			}
+			break;
+		default:
+			continue;
+		}
+
+		arg->tag = (tag & CAMEL_ARG_TYPE) | CAMEL_ARG_IGNORE;
+	}
+
+	if (save)
+		camel_object_state_write (object);
+
+	return ((CamelObjectClass *)parent_class)->setv (object, ex, args);
+}
+
