@@ -1,15 +1,15 @@
 # Norwegian (bokmål) translation of evolution-exchange.
 # Copyright (C) 2004 Novell
 # This file is distributed under the same license as the evolution-exchange package.
-# Kjartan Maraas <kmaraas@gnome.org, 2004, 2006.
+# Kjartan Maraas <kmaraas@gnome.org, 2004-2007.
 # Terance Edward Sola <terance@lyse.net>, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-23 10:53+0200\n"
-"PO-Revision-Date: 2007-06-23 10:54+0200\n"
+"POT-Creation-Date: 2007-12-15 12:24+0100\n"
+"PO-Revision-Date: 2007-12-15 12:25+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -32,25 +32,25 @@ msgstr ""
 "heller vil bruke nåværende mellomlager for alltid. Dette vil kun fungere "
 "hvis du har aktivert frakoblet mellomlagring for GAL."
 
-#: ../addressbook/e-book-backend-exchange.c:1879
-#: ../addressbook/e-book-backend-gal.c:1796 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:1916
+#: ../addressbook/e-book-backend-gal.c:1799 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Søker..."
 
 #: ../addressbook/e-book-backend-gal.c:301
-#: ../addressbook/e-book-backend-gal.c:326
+#: ../addressbook/e-book-backend-gal.c:322
 msgid "Reconnecting to LDAP server..."
 msgstr "Kobler til LDAP-tjener på nytt..."
 
-#: ../addressbook/e-book-backend-gal.c:1585
+#: ../addressbook/e-book-backend-gal.c:1583
 msgid "Receiving LDAP search results..."
 msgstr "Mottar søkeresultater fra LDAP-tjener..."
 
-#: ../addressbook/e-book-backend-gal.c:1823
+#: ../addressbook/e-book-backend-gal.c:1828
 msgid "Error performing search"
 msgstr "Feil under utføring av søk"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2014
+#: ../calendar/e-cal-backend-exchange-calendar.c:2028
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -59,84 +59,88 @@ msgstr ""
 "Kan ikke planlegge ressurs «%s» for repeterende møter.\n"
 "Du må legge inn møtene separat."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2032
+#: ../calendar/e-cal-backend-exchange-calendar.c:2046
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Ressurs «%s» er opptatt i valgt periode."
 
-#: ../calendar/e-cal-backend-exchange.c:377
-#: ../calendar/e-cal-backend-exchange.c:386
+#: ../calendar/e-cal-backend-exchange.c:391
+#: ../calendar/e-cal-backend-exchange.c:401
 msgid "Authentication failed"
 msgstr "Autentisering feilet"
 
-#: ../calendar/e-cal-backend-exchange.c:397
+#: ../calendar/e-cal-backend-exchange.c:442
 msgid "Could not find the calendar"
 msgstr "Kunne ikke finne kalenderen"
 
-#: ../camel/camel-exchange-folder.c:223
+#: ../camel/camel-exchange-folder.c:52
+msgid "Always check for new mail in this folder"
+msgstr "Alltid se etter nye meldinger i denne mappen"
+
+#: ../camel/camel-exchange-folder.c:238
 msgid "You cannot expunge in offline mode."
 msgstr "Kan ikke tømme mappe i frakoblet modus."
 
-#: ../camel/camel-exchange-folder.c:254
+#: ../camel/camel-exchange-folder.c:269
 msgid "No Subject"
 msgstr "Ingen emne"
 
-#: ../camel/camel-exchange-folder.c:409
+#: ../camel/camel-exchange-folder.c:424
 msgid "This message is not available in offline mode."
 msgstr "Denne beskjeden er ikke tilgjengelig i frakoblet modus."
 
-#: ../camel/camel-exchange-folder.c:644
+#: ../camel/camel-exchange-folder.c:681
 msgid "Moving messages"
 msgstr "Flytter meldinger"
 
-#: ../camel/camel-exchange-folder.c:645
+#: ../camel/camel-exchange-folder.c:682
 msgid "Copying messages"
 msgstr "Kopierer meldinger"
 
-#: ../camel/camel-exchange-folder.c:1016
+#: ../camel/camel-exchange-folder.c:1055
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Kunne ikke opprette katalog %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1026
+#: ../camel/camel-exchange-folder.c:1065
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Kunne ikke laste sammendrag for %s"
 
-#: ../camel/camel-exchange-folder.c:1034
+#: ../camel/camel-exchange-folder.c:1073
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Kunne ikke opprette mellomlager for %s"
 
-#: ../camel/camel-exchange-folder.c:1044
+#: ../camel/camel-exchange-folder.c:1083
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Kunne ikke opprette journal for %s"
 
-#: ../camel/camel-exchange-folder.c:1089
+#: ../camel/camel-exchange-folder.c:1131
 msgid "Scanning for changed messages"
 msgstr "Søker etter endrede meldinger"
 
-#: ../camel/camel-exchange-folder.c:1118
+#: ../camel/camel-exchange-folder.c:1164
 msgid "Fetching summary information for new messages"
 msgstr "Henter sammendragsinformasjon for nye meldinger"
 
-#: ../camel/camel-exchange-journal.c:340
+#: ../camel/camel-exchange-journal.c:341
 msgid "No folder name found\n"
 msgstr "Fant ingen mappenavn\n"
 
-#: ../camel/camel-exchange-journal.c:373 ../mail/mail-stub-exchange.c:2580
-#: ../mail/mail-stub-exchange.c:2624 ../mail/mail-stub-exchange.c:2659
-#: ../mail/mail-stub-exchange.c:2686 ../mail/mail-stub-exchange.c:2739
-#: ../mail/mail-stub-exchange.c:2761
+#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:2979
+#: ../mail/mail-stub-exchange.c:3023 ../mail/mail-stub-exchange.c:3058
+#: ../mail/mail-stub-exchange.c:3085 ../mail/mail-stub-exchange.c:3138
+#: ../mail/mail-stub-exchange.c:3160
 msgid "Folder doesn't exist"
 msgstr "Mappen eksisterer ikke"
 
-#: ../camel/camel-exchange-journal.c:437
+#: ../camel/camel-exchange-journal.c:438
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "Kan ikke legge til melding i frakoblet modus: buffer ikke tilgjengelig"
 
-#: ../camel/camel-exchange-journal.c:453
+#: ../camel/camel-exchange-journal.c:454
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Kan ikke legge til melding i frakoblet modus: %s"
@@ -145,7 +149,7 @@ msgstr "Kan ikke legge til melding i frakoblet modus: %s"
 msgid "Checking for New Mail"
 msgstr "Ser etter nye meldinger"
 
-#: ../camel/camel-exchange-provider.c:43 ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:43
 msgid "C_heck for new messages in all folders"
 msgstr "Se etter _nye meldinger i alle mapper"
 
@@ -176,43 +180,43 @@ msgstr "Begrens anta_ll svar fra GAL: %s"
 msgid "Options"
 msgstr "Alternativer"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:67
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "Varslingstid for utgått _passord: %s"
 
-#: ../camel/camel-exchange-provider.c:71
+#: ../camel/camel-exchange-provider.c:69
 msgid "Automatically synchroni_ze account locally"
 msgstr "S_ynkroniser konto lokalt automatisk"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:74
+#: ../camel/camel-exchange-provider.c:72
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "_Bruk filtre på nye meldinger i Innboks på denne tjeneren"
 
-#: ../camel/camel-exchange-provider.c:76
+#: ../camel/camel-exchange-provider.c:74
 msgid "Check new messages for _Junk contents"
 msgstr "Sjekk _nye meldinger for uønsket innhold"
 
-#: ../camel/camel-exchange-provider.c:78
+#: ../camel/camel-exchange-provider.c:76
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Kun sjekk for uønskede meldinger i Innboks-mappen"
 
-#: ../camel/camel-exchange-provider.c:88
+#: ../camel/camel-exchange-provider.c:86
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:90
+#: ../camel/camel-exchange-provider.c:88
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "For håndtering av e-post (og andre data) på Microsoft Exchange-tjenere"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:106
+#: ../camel/camel-exchange-provider.c:104
 msgid "Secure Password"
 msgstr "Sikkert passord"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:109
+#: ../camel/camel-exchange-provider.c:107
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -220,11 +224,11 @@ msgstr ""
 "Dette alternativet vil la deg koble til Exchange-tjeneren med bruk av "
 "autentisering med sikre passord (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:117
+#: ../camel/camel-exchange-provider.c:115
 msgid "Plaintext Password"
 msgstr "Passord i klartekst"
 
-#: ../camel/camel-exchange-provider.c:119
+#: ../camel/camel-exchange-provider.c:117
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -232,26 +236,26 @@ msgstr ""
 "Dette alternativet vil la deg koble til Exchange-tjeneren med bruk av "
 "autentisering med vanlig passord i klartekst."
 
-#: ../camel/camel-exchange-store.c:310
+#: ../camel/camel-exchange-store.c:312
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange-tjener %s"
 
-#: ../camel/camel-exchange-store.c:313
+#: ../camel/camel-exchange-store.c:315
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Exchange-konto for %s på %s"
 
-#: ../camel/camel-exchange-store.c:354
+#: ../camel/camel-exchange-store.c:356
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sOppgi passord for %s"
 
-#: ../camel/camel-exchange-store.c:405
+#: ../camel/camel-exchange-store.c:407
 msgid "Evolution Exchange backend process"
 msgstr "Evolution's datalager for Exchange"
 
-#: ../camel/camel-exchange-store.c:446
+#: ../camel/camel-exchange-store.c:448
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -259,32 +263,32 @@ msgstr ""
 "Kunne ikke autentisere mot tjener. (Feil passord?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:488
+#: ../camel/camel-exchange-store.c:490
 #, c-format
 msgid "No such folder %s"
 msgstr "Mappen %s finnes ikke"
 
-#: ../camel/camel-exchange-store.c:565
+#: ../camel/camel-exchange-store.c:567
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Kan ikke abonnere på mappe i frakoblet modus."
 
-#: ../camel/camel-exchange-store.c:582
+#: ../camel/camel-exchange-store.c:584
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Kan ikke fjerne abonnement på mappe i frakoblet modus."
 
-#: ../camel/camel-exchange-store.c:714
+#: ../camel/camel-exchange-store.c:716
 msgid "Cannot get folder info in offline mode."
 msgstr "Kan ikke hente mappeinformasjon i frakoblet modus."
 
-#: ../camel/camel-exchange-store.c:787
+#: ../camel/camel-exchange-store.c:789
 msgid "Cannot create folder in offline mode."
 msgstr "Kunne ikke opprette mappe i frakoblet modus."
 
-#: ../camel/camel-exchange-store.c:814
+#: ../camel/camel-exchange-store.c:816
 msgid "Cannot delete folder in offline mode."
 msgstr "Kan ikke slette mappe i frakoblet modus."
 
-#: ../camel/camel-exchange-store.c:830
+#: ../camel/camel-exchange-store.c:832
 msgid "Cannot rename folder in offline mode."
 msgstr "Kan ikke endre navn på mappe i frakoblet modus."
 
@@ -335,80 +339,80 @@ msgstr "Mistet forbindelsen til %s"
 msgid "Error communicating with %s: %s"
 msgstr "Feil ved kommunikasjon med %s: %s"
 
-#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:766
+#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:946
 msgid "No such folder"
 msgstr "Mappen finnes ikke"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1401
-#: ../mail/mail-stub-exchange.c:2557 ../mail/mail-stub-exchange.c:2597
-#: ../mail/mail-stub-exchange.c:2663 ../mail/mail-stub-exchange.c:2713
-#: ../mail/mail-stub-exchange.c:2776
+#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1595
+#: ../mail/mail-stub-exchange.c:2956 ../mail/mail-stub-exchange.c:2996
+#: ../mail/mail-stub-exchange.c:3062 ../mail/mail-stub-exchange.c:3112
+#: ../mail/mail-stub-exchange.c:3175
 msgid "Permission denied"
 msgstr "Tilgang nektet"
 
-#: ../mail/mail-stub-exchange.c:589 ../mail/mail-stub-exchange.c:611
-msgid "Could not open folder: Permission denied"
-msgstr "Kunne ikke åpne mappe: tilgang nektet"
-
-#: ../mail/mail-stub-exchange.c:595 ../mail/mail-stub-exchange.c:718
+#: ../mail/mail-stub-exchange.c:768 ../mail/mail-stub-exchange.c:860
 msgid "Could not open folder"
 msgstr "Kunne ikke åpne mappe"
 
-#: ../mail/mail-stub-exchange.c:775
+#: ../mail/mail-stub-exchange.c:854 ../mail/mail-stub-exchange.c:876
+msgid "Could not open folder: Permission denied"
+msgstr "Kunne ikke åpne mappe: tilgang nektet"
+
+#: ../mail/mail-stub-exchange.c:955
 msgid "Could not create folder."
 msgstr "Kunne ikke opprette mappe."
 
-#: ../mail/mail-stub-exchange.c:855
+#: ../mail/mail-stub-exchange.c:1043
 msgid "Could not open Deleted Items folder"
 msgstr "Kunne ikke åpne mappen Slettede elementer"
 
-#: ../mail/mail-stub-exchange.c:1186 ../mail/mail-stub-exchange.c:1227
+#: ../mail/mail-stub-exchange.c:1374 ../mail/mail-stub-exchange.c:1415
 msgid "Could not get new messages"
 msgstr "Kunne ikke hente nye meldinger"
 
-#: ../mail/mail-stub-exchange.c:1397
+#: ../mail/mail-stub-exchange.c:1591
 msgid "Could not empty Deleted Items folder"
 msgstr "Kunne ikke tømme mappen Slettede elementer"
 
-#: ../mail/mail-stub-exchange.c:1474
+#: ../mail/mail-stub-exchange.c:1668
 msgid "Could not append message; mailbox is over quota"
 msgstr "Kunne ikke legge til melding. Kvoten er oversteget"
 
-#: ../mail/mail-stub-exchange.c:1475
+#: ../mail/mail-stub-exchange.c:1669
 msgid "Could not append message"
 msgstr "Kunne ikke legge til melding"
 
-#: ../mail/mail-stub-exchange.c:2039
+#: ../mail/mail-stub-exchange.c:2416
 msgid "No such message"
 msgstr "Ingen slik melding"
 
-#: ../mail/mail-stub-exchange.c:2092
+#: ../mail/mail-stub-exchange.c:2490
 msgid "Message has been deleted"
 msgstr "Meldingen er slettet"
 
-#: ../mail/mail-stub-exchange.c:2094
+#: ../mail/mail-stub-exchange.c:2492
 msgid "Error retrieving message"
 msgstr "Feil ved henting av melding"
 
-#: ../mail/mail-stub-exchange.c:2136
+#: ../mail/mail-stub-exchange.c:2535
 msgid "Mailbox does not support full-text searching"
 msgstr "Postboksen støtter ikke fulltekstsøk"
 
-#: ../mail/mail-stub-exchange.c:2234
+#: ../mail/mail-stub-exchange.c:2633
 msgid "Unable to move/copy messages"
 msgstr "Kan ikke flytte/kopiere meldinger"
 
-#: ../mail/mail-stub-exchange.c:2472
+#: ../mail/mail-stub-exchange.c:2871
 msgid "No mail submission URI for this mailbox"
 msgstr "Ingen e-post leveranse URI for denne e-postboksen"
 
-#: ../mail/mail-stub-exchange.c:2508
+#: ../mail/mail-stub-exchange.c:2907
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Tjeneren aksepterer ikke e-post via exchange transport"
 
-#: ../mail/mail-stub-exchange.c:2510
+#: ../mail/mail-stub-exchange.c:2909
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -417,7 +421,7 @@ msgstr ""
 "Din konto har ikke rettigheter til å bruke <%s>\n"
 "som Fra adresse."
 
-#: ../mail/mail-stub-exchange.c:2522
+#: ../mail/mail-stub-exchange.c:2921
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -425,17 +429,17 @@ msgstr ""
 "Kunne ikke sende e-posten.\n"
 "Kontoen din har muligens overgått kvoten."
 
-#: ../mail/mail-stub-exchange.c:2526
+#: ../mail/mail-stub-exchange.c:2925
 msgid "Could not send message"
 msgstr "Kunne ikke sende melding"
 
-#: ../mail/mail-stub-exchange.c:2549 ../mail/mail-stub-exchange.c:2602
-#: ../mail/mail-stub-exchange.c:2667 ../mail/mail-stub-exchange.c:2718
-#: ../mail/mail-stub-exchange.c:2782
+#: ../mail/mail-stub-exchange.c:2948 ../mail/mail-stub-exchange.c:3001
+#: ../mail/mail-stub-exchange.c:3066 ../mail/mail-stub-exchange.c:3117
+#: ../mail/mail-stub-exchange.c:3181
 msgid "Generic error"
 msgstr "Generisk feil"
 
-#: ../mail/mail-stub-exchange.c:2553
+#: ../mail/mail-stub-exchange.c:2952
 msgid "Folder already exists"
 msgstr "Mappen eksisterer allerede"
 
