@@ -2452,8 +2452,8 @@ e_book_backend_exchange_get_static_capabilites (EBookBackend *backend)
 static gboolean
 e_book_backend_exchange_construct (EBookBackendExchange *backend)
 {
-	g_assert (backend != NULL);
-	g_assert (E_IS_BOOK_BACKEND_EXCHANGE (backend));
+	g_return_val_if_fail (backend != NULL, FALSE);
+	g_return_val_if_fail (E_IS_BOOK_BACKEND_EXCHANGE (backend), FALSE);
 
 	if (! e_book_backend_construct (E_BOOK_BACKEND (backend)))
 		return FALSE;
