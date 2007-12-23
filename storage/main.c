@@ -180,7 +180,7 @@ main (int argc, char **argv)
 
 	gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE, argc, argv,
 			    GNOME_PROGRAM_STANDARD_PROPERTIES,
-			    GNOME_PARAM_HUMAN_READABLE_NAME, _("Ximian Connector for Microsoft Exchange"),
+			    GNOME_PARAM_HUMAN_READABLE_NAME, _("Evolution Connector for Microsoft Exchange"),
 			    NULL);
 	e_icon_factory_init ();
 

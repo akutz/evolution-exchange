@@ -251,12 +251,13 @@ owa_page_next (ExchangeAutoconfigGUI *gui)
 	case E2K_AUTOCONFIG_CANT_BPROPFIND:
 		gtk_label_set_text (
 			gui->failure_label,
-			_("Ximian Connector requires access to certain "
-			  "functionality on the Exchange Server that appears "
-			  "to be disabled or blocked.  (This is usually "
-			  "unintentional.)  Your Exchange Administrator will "
-			  "need to enable this functionality in order for "
-			  "you to be able to use Ximian Connector.\n\n"
+			_("Evolution Connector for Microsoft Exchange requires "
+			  "access to certain functionality on the Exchange "
+			  "server that appears to be disabled or blocked.  "
+			  "(This is usually unintentional.)  Your Exchange "
+			  "administrator will need to enable this "
+			  "functionality in order for you to be able to use "
+			  "the Evolution Connector.\n\n"
 			  "For information to provide to your Exchange "
 			  "administrator, please follow the link below:"));
 
@@ -273,8 +274,9 @@ owa_page_next (ExchangeAutoconfigGUI *gui)
 		gtk_label_set_text (
 			gui->failure_label,
 			_("The Exchange server URL you provided is for an "
-			  "Exchange 5.5 Server. Ximian Connector supports "
-			  "Microsoft Exchange 2000 and 2003 only."));
+			  "Exchange 5.5 server. Evolution Connector for "
+			  "Microsoft Exchange supports Microsoft Exchange 2000 "
+			  "and 2003 only."));
 
 		if (gui->failure_href) {
 			gtk_widget_destroy (gui->failure_href);

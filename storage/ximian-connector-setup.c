@@ -41,7 +41,7 @@ main (int argc, char **argv)
 	gnome_program_init ("ximian-connector-setup", VERSION,
 			    LIBGNOMEUI_MODULE, argc, argv,
 			    GNOME_PROGRAM_STANDARD_PROPERTIES,
-			    GNOME_PARAM_HUMAN_READABLE_NAME, _("Ximian Connector for Microsoft Exchange Setup Tool"),
+			    GNOME_PARAM_HUMAN_READABLE_NAME, _("Evolution Connector for Microsoft Exchange Setup Tool"),
 			    NULL);
 
 	exchange_autoconfig_druid_run ();
