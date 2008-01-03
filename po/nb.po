@@ -1,15 +1,15 @@
 # Norwegian (bokmål) translation of evolution-exchange.
 # Copyright (C) 2004 Novell
 # This file is distributed under the same license as the evolution-exchange package.
-# Kjartan Maraas <kmaraas@gnome.org, 2004-2007.
+# Kjartan Maraas <kmaraas@gnome.org, 2004-2008.
 # Terance Edward Sola <terance@lyse.net>, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-15 12:24+0100\n"
-"PO-Revision-Date: 2007-12-15 12:25+0100\n"
+"POT-Creation-Date: 2008-01-03 21:52+0100\n"
+"PO-Revision-Date: 2008-01-03 22:00+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -452,8 +452,9 @@ msgid "Evolution Calendar Exchange backend"
 msgstr "Evolution kalender exchange-bakstykke"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Ximian Connector for Exchange"
-msgstr "Ximian Connector for Exchange"
+#: ../storage/main.c:183
+msgid "Evolution Connector for Microsoft Exchange"
+msgstr "Evolution Connector for Microsoft Exchange"
 
 #: ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
@@ -505,32 +506,27 @@ msgstr ""
 
 #: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
+"Evolution Connector for Microsoft Exchange requires access to certain "
+"functionality on the Exchange server that appears to be disabled or "
+"blocked.  (This is usually unintentional.)  Your Exchange administrator will "
+"need to enable this functionality in order for you to be able to use the "
+"Evolution Connector.\n"
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"Ximian Connector krever tilgang til forskjellig funksjonalitet på exchange-"
-"tjeneren som ser ut til og være blokkert eller deaktivert. (Dette er som "
-"oftest ikke med vilje.) Din exchange-administrator må aktivere denne "
-"funksjonaliteten for at du skal kunne være i stand til og bruke Ximian "
-"Connector.\n"
+"Evolution Connector for Microsoft Exchange krever tilgang til forskjellig funksjonalitet på exchange-tjeneren som ser ut til og være blokkert eller deaktivert. (Dette er som oftest ikke med vilje.) Din exchange-administrator må aktivere denne funksjonaliteten for at du skal kunne være i stand til og bruke Ximian Connector.\n"
 "\n"
-"For informasjon som du kan videreføre til din exchange-administrator, følg "
-"linken under:"
+"For informasjon som du kan videreføre til din exchange-administrator, følg linken under:"
 
-#: ../storage/exchange-autoconfig-wizard.c:275
+#: ../storage/exchange-autoconfig-wizard.c:276
 msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"Exchange-tjener lenken som du brukte tilhører en Exchange 5.5 tjener. Ximian "
-"Connector støtter bare Microsoft Exchange 2000 og 2003."
+"The Exchange server URL you provided is for an Exchange 5.5 server. "
+"Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
+"and 2003 only."
+msgstr "Exchange-tjener lenken som du brukte tilhører en Exchange 5.5 tjener. Evolution Connector for Microsoft Exchange støtter bare Microsoft Exchange 2000 og 2003."
 
-#: ../storage/exchange-autoconfig-wizard.c:288
+#: ../storage/exchange-autoconfig-wizard.c:290
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -538,7 +534,7 @@ msgstr ""
 "Kunne ikke sette opp exchange-kontoen på grunn av en ukjent feil. Sjekk "
 "adressen, brukernavnet og passordet for så og prøve igjen."
 
-#: ../storage/exchange-autoconfig-wizard.c:332
+#: ../storage/exchange-autoconfig-wizard.c:334
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -549,7 +545,7 @@ msgstr ""
 "og spesifisere Windows domenenavnet som en del av brukernavnet ditt (f.eks."
 "\"MY-DOMAIN\\%s\"):s"
 
-#: ../storage/exchange-autoconfig-wizard.c:339
+#: ../storage/exchange-autoconfig-wizard.c:341
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -557,12 +553,12 @@ msgstr ""
 "Klarte ikke og koble til tjeneren.\n"
 "Vennligst sjekk tjenernavnet og prøv igjen."
 
-#: ../storage/exchange-autoconfig-wizard.c:376
-#: ../storage/exchange-autoconfig-wizard.c:380
+#: ../storage/exchange-autoconfig-wizard.c:378
+#: ../storage/exchange-autoconfig-wizard.c:382
 msgid "Unknown"
 msgstr "Ukjent"
 
-#: ../storage/exchange-autoconfig-wizard.c:445
+#: ../storage/exchange-autoconfig-wizard.c:447
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -570,7 +566,7 @@ msgstr ""
 "Feil i konfigureringssystemet.\n"
 "Klarte ikke og lage ny konto."
 
-#: ../storage/exchange-autoconfig-wizard.c:459
+#: ../storage/exchange-autoconfig-wizard.c:461
 msgid "You may only configure a single Exchange account"
 msgstr "Du kan bare konfigurere en exchange konto"
 
@@ -592,89 +588,83 @@ msgid "Email Address:"
 msgstr "E-postadresse:"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:5
+msgid "Evolution Connector for Microsoft Exchange Configuration"
+msgstr "Konfigurasjon av Evolution Connector for Microsoft Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:6
+msgid ""
+"Evolution Connector for Microsoft Exchange can use account information from "
+"your existing Outlook Web Access (OWA) account.\n"
+"\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
+msgstr ""
+"Evolution Connector for Microsoft Exchange kan bruke kontoinformasjon fra din eksisterende Outlook Web Access (OWA) konto.\n"
+"\n"
+"Skriv din OWA-adresse (URL), brukernavn, passord og trykk på \"Framover\".\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:10
+msgid ""
+"Evolution Connector for Microsoft Exchange could not find the Global Catalog "
+"replica for your site. Please enter the name of your Global Catalog server. "
+"You may need to ask your system administrator for the correct value.\n"
+msgstr "Evolution Connector for Microsoft Exchange kunne ikke finne kopi av Global Catalog for denne løsningen. Skriv navnet på din Global Catalog tjener. Du må kanskje spørre din administrator for den rette verdien.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:12
+msgid ""
+"Evolution Connector for Microsoft Exchange has encountered a problem "
+"configuring your Exchange account.\n"
+msgstr "Evolution Connector for Microsoft Exchange har støtt på et problem under oppsettet av din Exchange-konto.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:14
 msgid "Exchange Configuration"
 msgstr "Konfigurasjon av Exchange"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:6
+#: ../storage/exchange-autoconfig-wizard.glade.h:15
 msgid "Full Name:"
 msgstr "Fullt navn:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:7
+#: ../storage/exchange-autoconfig-wizard.glade.h:16
 msgid "GC Server:"
 msgstr "GC-tjener:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:8
+#: ../storage/exchange-autoconfig-wizard.glade.h:17
 msgid "Make this my default account"
 msgstr "Gjør dette til min forvalgte konto"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:9
+#: ../storage/exchange-autoconfig-wizard.glade.h:18
 msgid "OWA URL:"
 msgstr "URL til OWA:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:10
+#: ../storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Password:"
 msgstr "Passord:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:11
+#: ../storage/exchange-autoconfig-wizard.glade.h:20
 msgid "Remember this password"
 msgstr "Husk dette passordet"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:12
+#: ../storage/exchange-autoconfig-wizard.glade.h:21
 msgid "Username:"
 msgstr "Brukernavn:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:13
+#: ../storage/exchange-autoconfig-wizard.glade.h:22
 msgid "Welcome"
 msgstr "Velkommen"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:14
+#: ../storage/exchange-autoconfig-wizard.glade.h:23
 msgid ""
-"Welcome to Ximian Connector for Microsoft Exchange.\n"
+"Welcome to Evolution Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
 "to connect to your Exchange account.\n"
 "\n"
 "Please click the \"Forward\" button to continue."
 msgstr ""
-"Velkommen til Ximian Connector for Microsoft Exchange\n"
-"De neste stegene vil hjelpe deg og sette opp Evolution\n"
-"til å koble til din exchange-konto.\n"
+"Velkommen til Evolution Connector for Microsoft Exchange.\n"
+"De neste skjermene vil hjelpe deg å konfigurere Evolution\n"
+"for å koble til din Exchange-konto.\n"
 "\n"
-"Trykk på \"Fremover\" knappen for og fortsette."
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:19
-msgid "Ximian Connector Configuration"
-msgstr "Konfigurasjon av Evolution-connector"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:20
-msgid ""
-"Ximian Connector can use account information from your existing Outlook Web "
-"Access (OWA) account.\n"
-"\n"
-"Enter your OWA site address (URL), username, and password, then click "
-"\"Forward\".\n"
-msgstr ""
-"Ximian Connector kan bruke kontoinformasjon fra din eksisterende Outlook Web "
-"Access (OWA) konto.\n"
-"\n"
-"Skriv din OWA-adresse (URL), brukernavn, passord og trykk på \"Fremover\".\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:24
-msgid ""
-"Ximian Connector could not find the Global Catalog replica for your site. "
-"Please enter the name of your Global Catalog server. You may need to ask "
-"your system administrator for the correct value.\n"
-msgstr ""
-"Ximian Connector kunne ikke finne Global Catalog kopien for din side. Skriv "
-"navnet på din Global Catalog tjener. Du må kanskje spørre din administrator "
-"for den rette verdien.\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:26
-msgid ""
-"Ximian Connector has encountered a problem configuring your Exchange "
-"account.\n"
-msgstr ""
-"Ximian Connector har støtt på et problem under oppsettet av din Exchange-"
-"konto.\n"
+"Trykk på knappen «Framover» for å fortsette."
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -690,9 +680,7 @@ msgstr ""
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
-msgstr ""
-"Din kontoinformasjon er som følgende. Vennligst korriger mulige feil og "
-"trykk på \"Fremover\".\n"
+msgstr "Din kontoinformasjon er som følgende. Vennligst korriger mulige feil og trykk på \"Framover\".\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
@@ -955,12 +943,9 @@ msgstr "Rolle:"
 msgid "Connecting..."
 msgstr "Kobler til..."
 
-#: ../storage/main.c:183
-msgid "Ximian Connector for Microsoft Exchange"
-msgstr "Novell Connector for Microsoft Exchange"
-
 #: ../storage/ximian-connector-setup.c:44
-msgid "Ximian Connector for Microsoft Exchange Setup Tool"
+#, fuzzy
+msgid "Evolution Connector for Microsoft Exchange Setup Tool"
 msgstr "Ximian Connector for Microsoft Exchange oppsettverktøy"
 
 #: ../storage/ximian-connector.xml.h:1
@@ -1013,3 +998,9 @@ msgstr "_Fraværsmeldinger"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Fjern abonnement på annen brukers mappe "
+
+#~ msgid "Ximian Connector for Exchange"
+#~ msgstr "Ximian Connector for Exchange"
+
+#~ msgid "Ximian Connector Configuration"
+#~ msgstr "Konfigurasjon av Evolution-connector"
