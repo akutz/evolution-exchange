@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-05 20:30-0200\n"
-"PO-Revision-Date: 2007-12-05 20:42-0200\n"
-"Last-Translator: Rodrigo Flores <rodrigomarquesflores@gmail.com>\n"
+"POT-Creation-Date: 2008-01-04 22:54-0200\n"
+"PO-Revision-Date: 2007-12-30 00:21-0400\n"
+"Last-Translator: Washington Lins <washington-lins@uol.com.br>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,7 +53,7 @@ msgstr "Recebendo resultados da pesquisa LDAP..."
 msgid "Error performing search"
 msgstr "Erro ao executar pesquisa"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2091
+#: ../calendar/e-cal-backend-exchange-calendar.c:2028
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -62,7 +62,7 @@ msgstr ""
 "Não foi possível agendar o recurso \"%s\" para reuniões recorrentes.\n"
 "Você deve agendar cada reunião separadamente."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2109
+#: ../calendar/e-cal-backend-exchange-calendar.c:2046
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "O recurso \"%s\" está ocupado durante o período de tempo selecionado."
@@ -76,51 +76,55 @@ msgstr "A autenticação falhou"
 msgid "Could not find the calendar"
 msgstr "Não foi possível localizar a agenda"
 
-#: ../camel/camel-exchange-folder.c:222
+#: ../camel/camel-exchange-folder.c:52
+msgid "Always check for new mail in this folder"
+msgstr "Sempre verificar por novos e-mails nesta pasta"
+
+#: ../camel/camel-exchange-folder.c:238
 msgid "You cannot expunge in offline mode."
 msgstr "Você não pode excluir permanentemente em modo off-line."
 
-#: ../camel/camel-exchange-folder.c:253
+#: ../camel/camel-exchange-folder.c:269
 msgid "No Subject"
 msgstr "Sem Assunto"
 
-#: ../camel/camel-exchange-folder.c:408
+#: ../camel/camel-exchange-folder.c:424
 msgid "This message is not available in offline mode."
 msgstr "Esta mensagem não está disponível em modo desconectado."
 
-#: ../camel/camel-exchange-folder.c:665
+#: ../camel/camel-exchange-folder.c:681
 msgid "Moving messages"
 msgstr "Movendo mensagens"
 
-#: ../camel/camel-exchange-folder.c:666
+#: ../camel/camel-exchange-folder.c:682
 msgid "Copying messages"
 msgstr "Copiando mensagens"
 
-#: ../camel/camel-exchange-folder.c:1039
+#: ../camel/camel-exchange-folder.c:1055
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Não foi possível criar o diretório %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1049
+#: ../camel/camel-exchange-folder.c:1065
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Não foi possível carregar o resumo para %s"
 
-#: ../camel/camel-exchange-folder.c:1057
+#: ../camel/camel-exchange-folder.c:1073
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Não foi possível criar cache para %s"
 
-#: ../camel/camel-exchange-folder.c:1067
+#: ../camel/camel-exchange-folder.c:1083
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Não foi possível criar diário para %s"
 
-#: ../camel/camel-exchange-folder.c:1115
+#: ../camel/camel-exchange-folder.c:1131
 msgid "Scanning for changed messages"
 msgstr "Varrendo a procura de mensagens alteradas"
 
-#: ../camel/camel-exchange-folder.c:1148
+#: ../camel/camel-exchange-folder.c:1164
 msgid "Fetching summary information for new messages"
 msgstr "Obtendo informação de resumo para novas mensagens"
 
@@ -128,10 +132,10 @@ msgstr "Obtendo informação de resumo para novas mensagens"
 msgid "No folder name found\n"
 msgstr "Nome de pasta não encontrado\n"
 
-#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:2874
-#: ../mail/mail-stub-exchange.c:2918 ../mail/mail-stub-exchange.c:2953
-#: ../mail/mail-stub-exchange.c:2980 ../mail/mail-stub-exchange.c:3033
-#: ../mail/mail-stub-exchange.c:3055
+#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:2979
+#: ../mail/mail-stub-exchange.c:3023 ../mail/mail-stub-exchange.c:3058
+#: ../mail/mail-stub-exchange.c:3085 ../mail/mail-stub-exchange.c:3138
+#: ../mail/mail-stub-exchange.c:3160
 msgid "Folder doesn't exist"
 msgstr "A pasta não existe"
 
@@ -236,26 +240,26 @@ msgstr ""
 "Esta opção estabelelece conexão com o servidor Exchange usando autenticação "
 "por senha em texto puro padrão."
 
-#: ../camel/camel-exchange-store.c:310
+#: ../camel/camel-exchange-store.c:312
 #, c-format
 msgid "Exchange server %s"
 msgstr "Servidor Exchange %s"
 
-#: ../camel/camel-exchange-store.c:313
+#: ../camel/camel-exchange-store.c:315
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Conta Exchange para %s em %s"
 
-#: ../camel/camel-exchange-store.c:354
+#: ../camel/camel-exchange-store.c:356
 #, c-format
 msgid "%sEnter password for %s"
 msgstr "%sEntre com a senha para %s"
 
-#: ../camel/camel-exchange-store.c:405
+#: ../camel/camel-exchange-store.c:407
 msgid "Evolution Exchange backend process"
 msgstr "Processo auxiliar para Exchange do Evolution"
 
-#: ../camel/camel-exchange-store.c:446
+#: ../camel/camel-exchange-store.c:448
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -263,32 +267,32 @@ msgstr ""
 "Não foi possível autenticar-se com o servidor. (Senha incorreta?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:488
+#: ../camel/camel-exchange-store.c:490
 #, c-format
 msgid "No such folder %s"
 msgstr "Não existe tal pasta %s"
 
-#: ../camel/camel-exchange-store.c:565
+#: ../camel/camel-exchange-store.c:567
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Não foi possível inscrever-se na pasta no modo desconectado."
 
-#: ../camel/camel-exchange-store.c:582
+#: ../camel/camel-exchange-store.c:584
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Não foi possível cancelar a inscrição na pasta no modo desconectado."
 
-#: ../camel/camel-exchange-store.c:714
+#: ../camel/camel-exchange-store.c:716
 msgid "Cannot get folder info in offline mode."
 msgstr "Não foi possível obter informação no modo desconectado."
 
-#: ../camel/camel-exchange-store.c:787
+#: ../camel/camel-exchange-store.c:789
 msgid "Cannot create folder in offline mode."
 msgstr "Não foi possível criar uma pasta no modo desconectado."
 
-#: ../camel/camel-exchange-store.c:814
+#: ../camel/camel-exchange-store.c:816
 msgid "Cannot delete folder in offline mode."
 msgstr "Não foi possível excluir pasta no modo desconectado."
 
-#: ../camel/camel-exchange-store.c:830
+#: ../camel/camel-exchange-store.c:832
 msgid "Cannot rename folder in offline mode."
 msgstr "Não foi possível renomear pasta no modo desconectado."
 
@@ -347,9 +351,9 @@ msgstr "Não existe tal pasta"
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1595
-#: ../mail/mail-stub-exchange.c:2851 ../mail/mail-stub-exchange.c:2891
-#: ../mail/mail-stub-exchange.c:2957 ../mail/mail-stub-exchange.c:3007
-#: ../mail/mail-stub-exchange.c:3070
+#: ../mail/mail-stub-exchange.c:2956 ../mail/mail-stub-exchange.c:2996
+#: ../mail/mail-stub-exchange.c:3062 ../mail/mail-stub-exchange.c:3112
+#: ../mail/mail-stub-exchange.c:3175
 msgid "Permission denied"
 msgstr "Permissão negada"
 
@@ -385,35 +389,35 @@ msgstr "Não foi possível acrescentar mensagem; caixa postal excedeu a cota"
 msgid "Could not append message"
 msgstr "Não foi possível acrescentar a mensagem"
 
-#: ../mail/mail-stub-exchange.c:2324
+#: ../mail/mail-stub-exchange.c:2416
 msgid "No such message"
 msgstr "Não existe tal mensagem"
 
-#: ../mail/mail-stub-exchange.c:2386
+#: ../mail/mail-stub-exchange.c:2490
 msgid "Message has been deleted"
 msgstr "A mensagem foi excluída"
 
-#: ../mail/mail-stub-exchange.c:2388
+#: ../mail/mail-stub-exchange.c:2492
 msgid "Error retrieving message"
 msgstr "Erro obtendo a mensagem"
 
-#: ../mail/mail-stub-exchange.c:2430
+#: ../mail/mail-stub-exchange.c:2535
 msgid "Mailbox does not support full-text searching"
 msgstr "A Caixa de correio não dá suporte a pesquisa por texto"
 
-#: ../mail/mail-stub-exchange.c:2528
+#: ../mail/mail-stub-exchange.c:2633
 msgid "Unable to move/copy messages"
 msgstr "Não foi possível mover/copiar mensagens"
 
-#: ../mail/mail-stub-exchange.c:2766
+#: ../mail/mail-stub-exchange.c:2871
 msgid "No mail submission URI for this mailbox"
 msgstr "Não existe URI para envio de correio para esta caixa postal"
 
-#: ../mail/mail-stub-exchange.c:2802
+#: ../mail/mail-stub-exchange.c:2907
 msgid "Server won't accept mail via Exchange transport"
 msgstr "O servidor não aceita correio pelo transporte Exchange"
 
-#: ../mail/mail-stub-exchange.c:2804
+#: ../mail/mail-stub-exchange.c:2909
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -422,7 +426,7 @@ msgstr ""
 "Sua conta não possui permissão para usar <%s> como\n"
 "um endereço de origem."
 
-#: ../mail/mail-stub-exchange.c:2816
+#: ../mail/mail-stub-exchange.c:2921
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -430,17 +434,17 @@ msgstr ""
 "Não foi possível enviar a mensagem.\n"
 "Isto pode significar que a sua conta excedeu a cota."
 
-#: ../mail/mail-stub-exchange.c:2820
+#: ../mail/mail-stub-exchange.c:2925
 msgid "Could not send message"
 msgstr "Não foi possível enviar a mensagem"
 
-#: ../mail/mail-stub-exchange.c:2843 ../mail/mail-stub-exchange.c:2896
-#: ../mail/mail-stub-exchange.c:2961 ../mail/mail-stub-exchange.c:3012
-#: ../mail/mail-stub-exchange.c:3076
+#: ../mail/mail-stub-exchange.c:2948 ../mail/mail-stub-exchange.c:3001
+#: ../mail/mail-stub-exchange.c:3066 ../mail/mail-stub-exchange.c:3117
+#: ../mail/mail-stub-exchange.c:3181
 msgid "Generic error"
 msgstr "Erro genérico"
 
-#: ../mail/mail-stub-exchange.c:2847
+#: ../mail/mail-stub-exchange.c:2952
 msgid "Folder already exists"
 msgstr "A pasta já existe"
 
@@ -453,8 +457,9 @@ msgid "Evolution Calendar Exchange backend"
 msgstr "Backend da agenda Exchange do Evolution"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Ximian Connector for Exchange"
-msgstr "Ximian Connector para Exchange"
+#: ../storage/main.c:183
+msgid "Evolution Connector for Microsoft Exchange"
+msgstr "Evolution Connector para o Microsoft Exchange"
 
 #: ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
@@ -507,31 +512,33 @@ msgstr ""
 
 #: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
+"Evolution Connector for Microsoft Exchange requires access to certain "
+"functionality on the Exchange server that appears to be disabled or "
+"blocked.  (This is usually unintentional.)  Your Exchange administrator will "
+"need to enable this functionality in order for you to be able to use the "
+"Evolution Connector.\n"
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"O Ximian Connector exige acesso a certas funcionalidades no servidor "
+"O Evolution Connector exige acesso a certas funcionalidades no servidor "
 "Exchange que aparentam estar desativadas ou bloqueadas. (Isto é normalmente "
 "não intencional.) O seu administrador Exchange deverá ativar esta "
-"funcionalidades para que você possa usar o Ximian Connector.\n"
+"funcionalidades para que você possa usar o Evolution Connector.\n"
 "\n"
 "Para obter a informação a ser fornecida ao seu administrador Exchange, por "
 "favor siga o link abaixo:"
 
-#: ../storage/exchange-autoconfig-wizard.c:275
+#: ../storage/exchange-autoconfig-wizard.c:276
 msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
+"The Exchange server URL you provided is for an Exchange 5.5 server. "
+"Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
+"and 2003 only."
 msgstr ""
 "A URL de servidor Exchange fornecida é para um servidor Exchange 5.5. O "
-"Ximian Connector dá suporte apenas ao Microsoft Exchange 2000 ou 2003."
+"Evolution Connector dá suporte apenas ao Microsoft Exchange 2000 ou 2003."
 
-#: ../storage/exchange-autoconfig-wizard.c:288
+#: ../storage/exchange-autoconfig-wizard.c:290
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -539,7 +546,7 @@ msgstr ""
 "Não foi possível configurar a conta Exchange devido a um erro desconhecido. "
 "Verifique a URL, o nome do usuário, a senha e tente novamente."
 
-#: ../storage/exchange-autoconfig-wizard.c:332
+#: ../storage/exchange-autoconfig-wizard.c:334
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -550,7 +557,7 @@ msgstr ""
 "precisar voltar e especificar o nome do domínio Windows como parte de seu "
 "nome de usuário (ex.: \"MEU-DOMÍNIO\\%s\")."
 
-#: ../storage/exchange-autoconfig-wizard.c:339
+#: ../storage/exchange-autoconfig-wizard.c:341
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -558,12 +565,12 @@ msgstr ""
 "Não foi possível se conectar ao servidor especificado.\n"
 "Verifique o nome do servidor e tente novamente."
 
-#: ../storage/exchange-autoconfig-wizard.c:376
-#: ../storage/exchange-autoconfig-wizard.c:380
+#: ../storage/exchange-autoconfig-wizard.c:378
+#: ../storage/exchange-autoconfig-wizard.c:382
 msgid "Unknown"
 msgstr "Desconhecido"
 
-#: ../storage/exchange-autoconfig-wizard.c:445
+#: ../storage/exchange-autoconfig-wizard.c:447
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -571,7 +578,7 @@ msgstr ""
 "Erro do sistema de configuração.\n"
 "Não foi possível criar uma nova conta."
 
-#: ../storage/exchange-autoconfig-wizard.c:459
+#: ../storage/exchange-autoconfig-wizard.c:461
 msgid "You may only configure a single Exchange account"
 msgstr "Você pode configurar apenas uma única conta Exchange"
 
@@ -593,91 +600,93 @@ msgid "Email Address:"
 msgstr "Endereço de Email:"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:5
-msgid "Exchange Configuration"
-msgstr "Configuração do Exchange"
+msgid "Evolution Connector for Microsoft Exchange Configuration"
+msgstr ""
+"Configuração do Evolution Connector para a Ferramenta de Configuração do "
+"Microsoft Exchange"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:6
-msgid "Full Name:"
-msgstr "Nome Completo:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:7
-msgid "GC Server:"
-msgstr "Servidor CG:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:8
-msgid "Make this my default account"
-msgstr "Torne esta a minha conta padrão"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:9
-msgid "OWA URL:"
-msgstr "URL OWA:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:10
-msgid "Password:"
-msgstr "Senha:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:11
-msgid "Remember this password"
-msgstr "Lembrar esta senha"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:12
-msgid "Username:"
-msgstr "Nome do usuário:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:13
-msgid "Welcome"
-msgstr "Bem-vindo"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:14
 msgid ""
-"Welcome to Ximian Connector for Microsoft Exchange.\n"
-"The next few screens will help you configure Evolution\n"
-"to connect to your Exchange account.\n"
-"\n"
-"Please click the \"Forward\" button to continue."
-msgstr ""
-"Bem-vindo ao Ximian Connector para o Microsoft Exchange.\n"
-"As próximas poucas telas devem ajudá-lo a configurar o Evolutionpara que ele "
-"possa se conectar a sua conta no Exchange. \n"
-"\n"
-"Por favor, clique o botão \"Avançar\" para continuar."
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:19
-msgid "Ximian Connector Configuration"
-msgstr "Configuração do Ximian Connector"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:20
-msgid ""
-"Ximian Connector can use account information from your existing Outlook Web "
-"Access (OWA) account.\n"
+"Evolution Connector for Microsoft Exchange can use account information from "
+"your existing Outlook Web Access (OWA) account.\n"
 "\n"
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
-"O Ximian Connector pode utilizar as informações da sua conta Outlook Web "
+"O Evolution Connector pode utilizar as informações da sua conta Outlook Web "
 "Access (OWA) existente.\n"
 "\n"
 "Forneça o endereço do site (URL), nome do usuário e senha do OWA e clique em "
 "\"Avançar\".\n"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:24
+#: ../storage/exchange-autoconfig-wizard.glade.h:10
 msgid ""
-"Ximian Connector could not find the Global Catalog replica for your site. "
-"Please enter the name of your Global Catalog server. You may need to ask "
-"your system administrator for the correct value.\n"
+"Evolution Connector for Microsoft Exchange could not find the Global Catalog "
+"replica for your site. Please enter the name of your Global Catalog server. "
+"You may need to ask your system administrator for the correct value.\n"
 msgstr ""
-"O Ximian Connector não pôde localizar a réplica do Catálogo Global para o "
+"O Evolution Connector não pôde localizar a réplica do Catálogo Global para o "
 "seu site. Por favor, entre o nome do seu servidor de Catálogo Global. Você "
 "talvez tenha que solicitar o valor correto ao seu administrador de "
 "sistemas.\n"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:26
+#: ../storage/exchange-autoconfig-wizard.glade.h:12
 msgid ""
-"Ximian Connector has encountered a problem configuring your Exchange "
-"account.\n"
+"Evolution Connector for Microsoft Exchange has encountered a problem "
+"configuring your Exchange account.\n"
 msgstr ""
-"O Ximian Connector encontrou um problema ao configurar a sua conta no "
-"Exchange.\n"
+"O Evolution Connector para o Microsoft Exchange encontrou um problema ao "
+"configurar sua conta do Exchange.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:14
+msgid "Exchange Configuration"
+msgstr "Configuração do Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:15
+msgid "Full Name:"
+msgstr "Nome Completo:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:16
+msgid "GC Server:"
+msgstr "Servidor CG:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:17
+msgid "Make this my default account"
+msgstr "Torne esta a minha conta padrão"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:18
+msgid "OWA URL:"
+msgstr "URL OWA:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:19
+msgid "Password:"
+msgstr "Senha:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:20
+msgid "Remember this password"
+msgstr "Lembrar esta senha"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:21
+msgid "Username:"
+msgstr "Nome do usuário:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:22
+msgid "Welcome"
+msgstr "Bem-vindo"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:23
+msgid ""
+"Welcome to Evolution Connector for Microsoft Exchange.\n"
+"The next few screens will help you configure Evolution\n"
+"to connect to your Exchange account.\n"
+"\n"
+"Please click the \"Forward\" button to continue."
+msgstr ""
+"Bem-vindo ao Evolution Connector para o Microsoft Exchange.\n"
+"As próximas poucas telas devem ajudá-lo a configurar o Evolution\n"
+"para que ele possa se conectar a sua conta no Exchange. \n"
+"\n"
+"Por favor, clique o botão \"Avançar\" para continuar."
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -823,7 +832,8 @@ msgid ""
 msgstr ""
 "Alerta: O Evolution não foi capaz de migrar todos os dados da conta Exchange "
 "da versão %d.%d.%d. \n"
-"Os dados não foram apagados, mas não serão visíveis nesta versão do Evolution"
+"Os dados não foram excluídos, mas não serão visíveis nesta versão do "
+"Evolution"
 
 #: ../storage/exchange-migrate.c:130
 #, c-format
@@ -958,13 +968,10 @@ msgstr "Papel: "
 msgid "Connecting..."
 msgstr "Conectando..."
 
-#: ../storage/main.c:183
-msgid "Ximian Connector for Microsoft Exchange"
-msgstr "Ximian Connector para o Microsoft Exchange"
-
 #: ../storage/ximian-connector-setup.c:44
-msgid "Ximian Connector for Microsoft Exchange Setup Tool"
-msgstr "Ferramenta de configuração do Ximian Connector para Microsoft Exchange"
+msgid "Evolution Connector for Microsoft Exchange Setup Tool"
+msgstr ""
+"Evolution Connector para a Ferramenta de Configuração do Microsoft Exchange"
 
 #: ../storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
@@ -1017,6 +1024,12 @@ msgstr "Assistente de _fora do escritório"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Cancelar a Inscrição da Pasta de Outro _Usuário"
+
+#~ msgid "Ximian Connector for Exchange"
+#~ msgstr "Ximian Connector para Exchange"
+
+#~ msgid "Ximian Connector Configuration"
+#~ msgstr "Configuração do Ximian Connector"
 
 #~ msgid "Internal error.\n"
 #~ msgstr "Erro interno.\n"
