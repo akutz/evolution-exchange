@@ -1179,6 +1179,11 @@ build_query (EBookBackendGAL *bl, const char *query, char **ldap_query)
 	e_sexp_parse (sexp);
 
 	r = e_sexp_eval (sexp);
+	if (!r) {
+		/* Bad query or it isn't supported */
+		*ldap_query = NULL;
+		retval = GNOME_Evolution_Addressbook_QueryRefused;
+	}
 
 	if (r->type == ESEXP_RES_STRING) {
 		if (!strcmp (r->value.string, "(mail=*)")) {
