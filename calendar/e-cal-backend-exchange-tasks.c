@@ -132,7 +132,7 @@ set_priority (E2kProperties *props, ECalComponent *comp)
                 else if (*priority == 5)
                         value = 0;
                 else
-                        value = 2;
+                        value = -1;
                 e_cal_component_free_priority (priority);
         }
         e2k_properties_set_int (props, E2K_PR_MAPI_PRIORITY, value);
@@ -665,9 +665,9 @@ get_changed_tasks (ECalBackendExchange *cbex)
 				priority = 5;
 			else
 				priority = 0;
-
-			e_cal_component_set_priority (ecal, &priority);
-		}
+		} else 
+			priority = 5;
+		e_cal_component_set_priority (ecal, &priority);
 
 		/* Set Summary */
 		if ((str = e2k_properties_get_prop (result->props,

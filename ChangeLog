@@ -1,3 +1,12 @@
+2008-01-13  Suman Manjunath  <msuman@novell.com>
+
+	** Fix for bug #404002
+
+	* calendar/e-cal-backend-exchange-tasks.c: (set_priority),
+	(get_changed_tasks): E2K_PR_MAPI_PRIORITY is '-1' for low priority tasks.
+	(get_changed_tasks): Set the default priority of tasks as 'Normal' for
+	Outlook/OWA compatibility.
+
 2008-01-12  Srinivasa Ragavan  <sragavan@novell.com>
 
 	** Fix for bug #501567
