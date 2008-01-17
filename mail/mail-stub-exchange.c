@@ -2422,8 +2422,13 @@ get_message (MailStub *stub, const char *folder_name, const char *uid)
 					 &body, &len);
 		content_type = g_strdup ("message/rfc822");
 	} else {
+		SoupBuffer *response;
+
 		status = e2k_context_get (mse->ctx, NULL, mmsg->href,
-					  &content_type, &body, &len);
+					  &content_type, &response);
+		len = response->length;
+		body = g_strndup (response->data, response->length);
+		soup_buffer_free (response);
 	}
 	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
 		goto error;
@@ -2895,10 +2900,10 @@ send_message (MailStub *stub, const char *from, GPtrArray *recipients,
 
 	msg = e2k_soup_message_new_full (mse->ctx, mse->mail_submission_uri,
 					 SOUP_METHOD_PUT, "message/rfc821",
-					 SOUP_BUFFER_SYSTEM_OWNED,
+					 SOUP_MEMORY_TAKE,
 					 data->str, data->len);
 	g_string_free (data, FALSE);
-	soup_message_add_header (msg->request_headers, "Saveinsent", "f");
+	soup_message_headers_append (msg->request_headers, "Saveinsent", "f");
 
 	status = e2k_context_send_message (mse->ctx, NULL, msg);
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status))

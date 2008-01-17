@@ -315,7 +315,6 @@ get_changed_events (ECalBackendExchange *cbex)
 	E2kResultIter *iter;
 	E2kResult *result;
 	const char *prop, *uid, *modtime, *attach_prop, *receipts;
-	char *body;
 	guint status;
 	E2kContext *ctx;
 	int i, status_tracking = EX_NO_RECEIPTS;
@@ -502,18 +501,19 @@ get_changed_events (ECalBackendExchange *cbex)
 		return SOUP_STATUS_CANT_CONNECT;
 	}
 	for (i = 0; i < hrefs->len; i++) {
-		int length;
+		SoupBuffer *response;
 
 		status = e2k_context_get (ctx, NULL, hrefs->pdata[i],
-					  NULL, &body, &length);
+					  NULL, &response);
 		if (!SOUP_STATUS_IS_SUCCESSFUL (status))
 			continue;
 		modtime = g_hash_table_lookup (modtimes, hrefs->pdata[i]);
 
 		uid = g_hash_table_lookup (attachments, hrefs->pdata[i]);
 
-		add_ical (cbex, hrefs->pdata[i], modtime, uid, body, length, 0);
-		g_free (body);
+		add_ical (cbex, hrefs->pdata[i], modtime, uid,
+			  response->data, response->length, 0);
+		soup_buffer_free (response);
 	}
 
 	for (i = 0; i < hrefs->len; i++)
@@ -2193,8 +2193,7 @@ get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 	char *start_str, *end_str;
 	GList *l;
 	GString *uri;
-	char *body;
-	int len;
+	SoupBuffer *response;
 	E2kHTTPStatus http_status;
 	icaltimezone *utc = icaltimezone_get_utc_timezone ();
 	xmlNode *recipients, *item;
@@ -2229,14 +2228,14 @@ get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 	g_free (end_str);
 
 	http_status = e2k_context_get_owa (exchange_account_get_context (cbex->account),
-					   NULL, uri->str, TRUE, &body, &len);
+					   NULL, uri->str, TRUE, &response);
 	g_string_free (uri, TRUE);
 	if (http_status != E2K_HTTP_OK)
 		return GNOME_Evolution_Calendar_OtherError;
 
 	/* Parse the XML free/busy response */
-	doc = e2k_parse_xml (body, len);
-	g_free (body);
+	doc = e2k_parse_xml (response->data, response->length);
+	soup_buffer_free (response);
 	if (!doc)
 		return GNOME_Evolution_Calendar_OtherError;
 

@@ -573,7 +573,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 	E2kResult *result;
 	E2kContext *ctx;
 	const char *modtime, *str, *prop;
-	char *uid, *body;
+	char *uid;
 	char *tzid;
 	int status, i, priority, percent;
 	float f_percent;
@@ -923,17 +923,17 @@ get_changed_tasks (ECalBackendExchange *cbex)
 	}
 
 	for (i = 0; i < hrefs->len; i++) {
-		int length;
+		SoupBuffer *response;
 
 		status = e2k_context_get (ctx, NULL, hrefs->pdata[i],
-					NULL, &body, &length);
+					  NULL, &response);
 		if (!SOUP_STATUS_IS_SUCCESSFUL (status))
 			continue;
 		uid = g_hash_table_lookup (attachments, hrefs->pdata[i]);
 		e_cal_backend_exchange_cache_lock (cbex);
 		/* Fetch component from cache and update it */
 		ecalbexcomp = get_exchange_comp (cbex, uid);
-		attachment_list = get_attachment (cbex, uid, body, length);
+		attachment_list = get_attachment (cbex, uid, response->data, response->length);
 		if (attachment_list) {
 			ecomp = e_cal_component_new ();
 			e_cal_component_set_icalcomponent (ecomp, icalcomponent_new_clone (ecalbexcomp->icomp));
@@ -945,7 +945,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 			g_slist_free (attachment_list);
 		}
 		e_cal_backend_exchange_cache_unlock (cbex);
-		g_free (body);
+		soup_buffer_free (response);
 	}
 
 	for (i = 0; i < hrefs->len; i++)

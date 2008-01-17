@@ -318,15 +318,16 @@ static EContact *
 e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 {
 	EContact *contact;
-	char *data, *body;
+	char *data;
 	const char *filename;
 	E2kHTTPStatus status;
+	SoupBuffer *response;
 	CamelStream *stream;
 	CamelMimeMessage *msg;
 	CamelDataWrapper *content;
 	CamelMultipart *multipart;
 	CamelMimePart *part;
-	int i, len;
+	int i;
 
 	contact = e_contact_new ();
 
@@ -363,13 +364,14 @@ e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 
 	/* Fetch the body and parse out the photo */
 	status = e2k_context_get (be->priv->ctx, NULL, result->href,
-				  NULL, &body, &len);
+				  NULL, &response);
 	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 		g_warning ("e_contact_from_props: %d", status);
 		return contact;
 	}
 
-	stream = camel_stream_mem_new_with_buffer (body, len);
+	stream = camel_stream_mem_new_with_buffer (response->data, response->length);
+	soup_buffer_free (response);
 	msg = camel_mime_message_new ();
 	camel_data_wrapper_construct_from_stream (CAMEL_DATA_WRAPPER (msg), stream);
 	camel_object_unref (stream);
