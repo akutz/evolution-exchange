@@ -347,17 +347,17 @@ static void
 camel_exchange_get_password (CamelService *service, CamelException *ex)
 {
 	CamelSession *session = camel_service_get_session (service);
-	char *prompt, *account_name;
 
 	if (!service->url->passwd) {
-		/* This is a hack to use the same string being used in
-		   exchange-account.c:get_password */
-		account_name = g_strdup_printf ("%s@%s", service->url->user, service->url->host);
-		prompt = g_strdup_printf (_("%sEnter password for %s"), "", account_name);
+		gchar *prompt;
 
-		service->url->passwd = camel_session_get_password (session,
-					service, "Exchange", prompt, "password", CAMEL_SESSION_PASSWORD_SECRET, ex);
-		g_free (account_name);
+		prompt = camel_session_build_password_prompt (
+			"Exchange", service->url->user, service->url->host);
+
+		service->url->passwd = camel_session_get_password (
+			session, service, "Exchange", prompt,
+			"password", CAMEL_SESSION_PASSWORD_SECRET, ex);
+
 		g_free (prompt);
 	}
 }

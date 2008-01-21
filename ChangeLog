@@ -1,3 +1,13 @@
+2008-01-21  Matthew Barnes  <mbarnes@redhat.com>
+
+	* configure.in:
+	Require camel-1.2 >= 2.21.90 for
+	camel_session_build_password_prompt().
+
+	* camel/camel-exchange-store.c (camel_exchange_get_password):
+	Use camel_session_build_password_prompt() to build a consistently
+	worded prompt message for the password dialog.
+
 2008-01-19  Matthew Barnes  <mbarnes@redhat.com>
 
 	* configure.in:
