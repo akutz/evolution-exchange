@@ -1,3 +1,15 @@
+2008-01-29  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** Fix for bug #501295
+
+	* addressbook/e-book-backend-exchange.c: (build_cache),
+	(update_cache), (e_book_backend_exchange_create_contact),
+	(e_book_backend_exchange_modify_contact),
+	(e_book_backend_exchange_remove_contacts),
+	(e_book_backend_exchange_dispose), (e_book_backend_exchange_init):
+	Create locks around the cache so that the file is protected well not
+	to crash.
+
 2008-01-21  Matthew Barnes  <mbarnes@redhat.com>
 
 	* configure.in:

@@ -84,11 +84,14 @@ struct EBookBackendExchangePrivate {
 	gboolean is_cache_ready;
 	gboolean marked_for_offline;
 
-	GMutex *create_mutex;
+	GMutex *cache_lock;
 
 	EBookBackendSummary *summary;
 	EBookBackendCache *cache;
 };
+
+#define LOCK(x) g_mutex_lock (x->cache_lock)
+#define UNLOCK(x) g_mutex_unlock (x->cache_lock)
 
 typedef struct PropMapping PropMapping;
 
@@ -479,6 +482,7 @@ build_cache (EBookBackendExchange *be)
 				       field_names, n_field_names,
 				       bepriv->base_rn, NULL, TRUE);
 
+	LOCK (bepriv);
 	e_file_cache_freeze_changes (E_FILE_CACHE (bepriv->cache));
 	while ((result = e2k_result_iter_next (iter))) {
 		contact = e_contact_from_props (be, result);
@@ -490,6 +494,7 @@ build_cache (EBookBackendExchange *be)
 	e_book_backend_cache_set_populated (bepriv->cache);
 	bepriv->is_cache_ready=TRUE;
 	e_file_cache_thaw_changes (E_FILE_CACHE (bepriv->cache));
+	UNLOCK (bepriv);
 	return NULL;
 }
 
@@ -522,6 +527,7 @@ update_cache (EBookBackendExchange *be)
 				       field_names, n_field_names,
 				       bepriv->base_rn, NULL, TRUE);
 
+	LOCK (bepriv);
 	e_file_cache_freeze_changes (E_FILE_CACHE (bepriv->cache));
 	while ((result = e2k_result_iter_next (iter))) {
 		contact = e_contact_from_props (be, result);
@@ -533,7 +539,7 @@ update_cache (EBookBackendExchange *be)
 	e_book_backend_cache_set_populated (bepriv->cache);
 	bepriv->is_cache_ready=TRUE;
 	e_file_cache_thaw_changes (E_FILE_CACHE (bepriv->cache));
-
+	UNLOCK (bepriv);
 	return TRUE;
 }
 
@@ -1321,13 +1327,13 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 
 	d(printf("ebbe_create_contact(%p, %p, %s)\n", backend, book, vcard));
 
-	g_mutex_lock (bepriv->create_mutex);
+	LOCK (bepriv);
 
 	switch (bepriv->mode) {
 
 	case GNOME_Evolution_Addressbook_MODE_LOCAL:
 		*contact = NULL;
-		g_mutex_unlock (bepriv->create_mutex);
+		UNLOCK (bepriv);
 		return GNOME_Evolution_Addressbook_RepositoryOffline;
 
 	case GNOME_Evolution_Addressbook_MODE_REMOTE:
@@ -1348,6 +1354,7 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 			state = e_book_backend_exchange_connect (be);
 			if ( state != GNOME_Evolution_Addressbook_Success) {
 				d(printf("Returning status %d while creating contact\n", state));
+				UNLOCK (bepriv);
 				return state;
 			}
 		}
@@ -1377,18 +1384,18 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 			e_book_backend_summary_add_contact (bepriv->summary,
 							    *contact);
 			e_book_backend_cache_add_contact (bepriv->cache, *contact);
-			g_mutex_unlock (bepriv->create_mutex);
+			UNLOCK (bepriv);
 			return GNOME_Evolution_Addressbook_Success;
 		} else {
 			g_object_unref (*contact);
 			*contact = NULL;
-			g_mutex_unlock (bepriv->create_mutex);
+			UNLOCK (bepriv);
 			return http_status_to_pas (status);
 		}
 	default:
 		break;
 	}
-	g_mutex_unlock (bepriv->create_mutex);
+	UNLOCK (bepriv);
 	return GNOME_Evolution_Addressbook_Success;
 }
 
@@ -1503,13 +1510,14 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 			e2k_results_free (results, nresults);
 
 		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+			LOCK (bepriv);
 			e_book_backend_summary_remove_contact (bepriv->summary,
 							       uri);
 			e_book_backend_summary_add_contact (bepriv->summary,
 							    *contact);
 			e_book_backend_cache_remove_contact (bepriv->cache, uri);
 			e_book_backend_cache_add_contact (bepriv->cache, *contact);
-
+			UNLOCK (bepriv);
 			return GNOME_Evolution_Addressbook_Success;
 		} else {
 			g_object_unref (*contact);
@@ -1552,11 +1560,13 @@ e_book_backend_exchange_remove_contacts (EBookBackendSync  *backend,
 			uri = l->data;
 			status = e2k_context_delete (bepriv->ctx, NULL, uri);
 			if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+				LOCK (bepriv);
 				e_book_backend_summary_remove_contact (
 							bepriv->summary, uri);
 				e_book_backend_cache_remove_contact (bepriv->cache, uri);
 				*removed_ids = g_list_append (
 						*removed_ids, g_strdup (uri));
+				UNLOCK (bepriv);
 			} else
 				ret_status = http_status_to_pas (status);
 		}
@@ -2539,8 +2549,8 @@ e_book_backend_exchange_dispose (GObject *object)
 		if (be->priv->cache)
 			g_object_unref (be->priv->cache);
 
-		if (be->priv->create_mutex)
-			g_mutex_free (be->priv->create_mutex);
+		if (be->priv->cache_lock)
+			g_mutex_free (be->priv->cache_lock);
 
 
 		g_free (be->priv);
@@ -2610,7 +2620,7 @@ e_book_backend_exchange_init (EBookBackendExchange *backend)
 	priv->original_uri 	= NULL;
 	priv->is_writable 	= TRUE;
 
-	priv->create_mutex      = g_mutex_new ();
+	priv->cache_lock      = g_mutex_new ();
 
 	backend->priv 		= priv;
 }
