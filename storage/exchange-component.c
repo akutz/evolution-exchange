@@ -466,6 +466,8 @@ static void
 exchange_component_init (ExchangeComponent *component)
 {
 	ExchangeComponentPrivate *priv;
+	GConfClient *client;
+	GConfValue *value;
 
 	priv = component->priv = g_new0 (ExchangeComponentPrivate, 1);
 
@@ -478,6 +480,14 @@ exchange_component_init (ExchangeComponent *component)
 	g_signal_connect (priv->config_listener, "exchange_account_removed",
 			  G_CALLBACK (config_listener_account_removed),
 			  component);
+
+	client = gconf_client_get_default ();
+	value = gconf_client_get (client, "/apps/evolution/shell/start_offline", NULL);
+
+	priv->linestatus = !(value && gconf_value_get_bool (value));
+
+	gconf_value_free (value);
+	g_object_unref (client);
 }
 
 BONOBO_TYPE_FUNC_FULL (ExchangeComponent, GNOME_Evolution_Component, PARENT_TYPE, exchange_component)
