@@ -126,6 +126,9 @@ init (CamelExchangeStore *exch, CamelExchangeStoreClass *klass)
 
 	store->flags |= CAMEL_STORE_SUBSCRIPTIONS;
 	store->flags &= ~(CAMEL_STORE_VTRASH | CAMEL_STORE_VJUNK);
+	/* FIXME: Like the GroupWise provider, Exchange should also 
+	have its own EXCAHNGE_JUNK flags so as to rightly handle
+	the actual Junk & Trash folders */
 
 	exch->connect_lock = g_mutex_new ();
 }
@@ -288,9 +291,6 @@ construct (CamelService *service, CamelSession *session,
 
 	if (!(exch->storage_path = camel_session_get_storage_path (session, service, ex)))
 		return;
-
-	if (camel_url_get_param (url, "filter_junk"))
-		CAMEL_STORE (service)->flags |= CAMEL_STORE_VJUNK;
 
 	exch->stub = NULL;
 }
