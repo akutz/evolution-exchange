@@ -353,6 +353,7 @@ message_remove_at_index (MailStub *stub, MailStubExchangeFolder *mfld, int index
 	MailStubExchangeMessage *mmsg;
 
 	mmsg = mfld->messages->pdata[index];
+	d(printf("Deleting mmsg %p\n", mmsg));
 	g_static_rec_mutex_lock (&g_changed_msgs_mutex);
 	g_ptr_array_remove_index (mfld->messages, index);
 	g_hash_table_remove (mfld->messages_by_uid, mmsg->uid);
@@ -367,14 +368,16 @@ message_remove_at_index (MailStub *stub, MailStubExchangeFolder *mfld, int index
 	if (mmsg->change_mask || mmsg->tag_updates) {
 		int i;
 
+		g_static_rec_mutex_lock (&g_changed_msgs_mutex);
+
 		for (i = 0; i < mfld->changed_messages->len; i++) {
 			if (mfld->changed_messages->pdata[i] == (gpointer)mmsg) {
-				g_static_rec_mutex_lock (&g_changed_msgs_mutex);
 				g_ptr_array_remove_index_fast (mfld->changed_messages, i);
-				g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
 				break;
 			}
 		}
+		g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
+
 		g_datalist_clear (&mmsg->tag_updates);
 	}
 
@@ -1829,7 +1832,7 @@ process_flags (gpointer user_data)
 
 	for (i = 0; i < mfld->changed_messages->len; i++) {
 		mmsg = mfld->changed_messages->pdata[i];
-
+		d(printf("Process flags %p\n", mmsg));
 		if (!mmsg->href) {
 			d(g_print ("%s:%s:%d: mfld = [%s], type=[%d]\n", __FILE__, __GNUC_PRETTY_FUNCTION__,
 				   __LINE__, mfld->name, mfld->type));
@@ -1839,12 +1842,12 @@ process_flags (gpointer user_data)
 			if (mmsg->change_flags & MAIL_STUB_MESSAGE_SEEN) {
 				if (!seen)
 					seen = g_ptr_array_new ();
-				g_ptr_array_add (seen, strrchr (mmsg->href, '/') + 1);
+				g_ptr_array_add (seen, g_strdup (strrchr (mmsg->href, '/') + 1));
 				mmsg->flags |= MAIL_STUB_MESSAGE_SEEN;
 			} else {
 				if (!unseen)
 					unseen = g_ptr_array_new ();
-				g_ptr_array_add (unseen, strrchr (mmsg->href, '/') + 1);
+				g_ptr_array_add (unseen, g_strdup (strrchr (mmsg->href, '/') + 1));
 				mmsg->flags &= ~MAIL_STUB_MESSAGE_SEEN;
 			}
 			mmsg->change_mask &= ~MAIL_STUB_MESSAGE_SEEN;
@@ -1872,10 +1875,12 @@ process_flags (gpointer user_data)
 	if (seen || unseen) {
 		if (seen) {
 			mark_read (mfld->folder, seen, TRUE);
+			g_ptr_array_foreach (seen, (GFunc)g_free, NULL);
 			g_ptr_array_free (seen, TRUE);
 		}
 		if (unseen) {
 			mark_read (mfld->folder, unseen, FALSE);
+			g_ptr_array_foreach (unseen, (GFunc)g_free, NULL);
 			g_ptr_array_free (unseen, TRUE);
 		}
 
@@ -1972,8 +1977,21 @@ static void
 change_message (MailStubExchange *mse, MailStubExchangeFolder *mfld,
 		MailStubExchangeMessage *mmsg)
 {
-	change_pending (mfld);
-	g_ptr_array_add (mfld->changed_messages, mmsg);
+	int i;
+
+	g_static_rec_mutex_lock (&g_changed_msgs_mutex);
+
+	for (i=0; i<mfld->changed_messages->len; i++)  {
+		if (mfld->changed_messages->pdata[i] == mmsg)
+			break;
+	}
+
+	if (i == mfld->changed_messages->len) {
+		change_pending (mfld);
+		g_ptr_array_add (mfld->changed_messages, mmsg);
+	}
+	g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
+
 	if (mfld->flag_timeout)
 		g_source_remove (mfld->flag_timeout);
 	mfld->flag_timeout = g_timeout_add (1000, process_flags, mfld);
