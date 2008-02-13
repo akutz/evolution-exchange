@@ -1575,9 +1575,9 @@ ldap_search_handler (LDAPOp *op, LDAPMessage *res)
 	int msg_type;
 
 	d(printf ("ldap_search_handler (%p)\n", view));
-	printf("%s(%d):%s: search handler \n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION);
+	printf("%s:%s: search handler \n", G_STRLOC, G_STRFUNC);
 	if (!ldap) {
-		printf("%s(%d):%s: other error\n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION);
+		printf("%s:%s: other error\n", G_STRLOC, G_STRFUNC);
 		e_data_book_view_notify_complete (view, GNOME_Evolution_Addressbook_OtherError);
 		ldap_op_finished (op);
 		return;
@@ -1615,7 +1615,7 @@ ldap_search_handler (LDAPOp *op, LDAPMessage *res)
 				   NULL, &ldap_error_msg, NULL, NULL, 0);
 		g_mutex_unlock (bl->priv->ldap_lock);
 		if (ldap_error != LDAP_SUCCESS) {
-			printf("%s(%d):%s: error result\n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION);
+			printf("%s:%s: error result\n", G_STRLOC, G_STRFUNC);
 			g_warning ("ldap_search_handler: %02X (%s), additional info: %s",
 				   ldap_error,
 				   ldap_err2string (ldap_error), ldap_error_msg);
@@ -1630,7 +1630,7 @@ ldap_search_handler (LDAPOp *op, LDAPMessage *res)
 			e_data_book_view_notify_complete (view, GNOME_Evolution_Addressbook_Success);
 		else
 			e_data_book_view_notify_complete (view, GNOME_Evolution_Addressbook_OtherError);
-		printf("%s(%d):%s: o/p %d %d\n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION, ldap_error, LDAP_SUCCESS);
+		printf("%s:%s: o/p %d %d\n", G_STRLOC, G_STRFUNC, ldap_error, LDAP_SUCCESS);
 		ldap_op_finished (op);
 	}
 	else {
@@ -1770,7 +1770,7 @@ start_book_view (EBookBackend  *backend,
 			printf("Not marked for offline or cache not there\n");
 			if (!bl->priv->ldap) {
 				if (!gal_reconnect (bl, view, 0)) {
-					printf("%s(%d):%s: no ldap :(\n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION);
+					printf("%s:%s: no ldap :(\n", G_STRLOC, G_STRFUNC);
 					e_data_book_view_notify_complete (view,
 									  GNOME_Evolution_Addressbook_InvalidQuery);
 					return;
@@ -1790,12 +1790,12 @@ start_book_view (EBookBackend  *backend,
 
 			status = build_query (bl, e_data_book_view_get_card_query (view),
 					      &ldap_query);
-			printf("%s(%d):%s: %s\n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION, ldap_query);
+			printf("%s:%s: %s\n", G_STRLOC, G_STRFUNC, ldap_query);
 			if (status != GNOME_Evolution_Addressbook_Success || !ldap_query) {
 				e_data_book_view_notify_complete (view, status);
 				if (ldap_query)
 					g_free (ldap_query);
-				printf("%s(%d):%s: failure \n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION);
+				printf("%s:%s: failure \n", G_STRLOC, G_STRFUNC);
 				return;
 			}
 
@@ -1804,7 +1804,7 @@ start_book_view (EBookBackend  *backend,
 					book_view_notify_status (view, _("Searching..."));
 
 					g_mutex_lock (bl->priv->ldap_lock);
-					printf("%s(%d):%s: starting \n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION);
+					printf("%s:%s: starting \n", G_STRLOC, G_STRFUNC);
 					ldap_err = ldap_search_ext (bl->priv->ldap, LDAP_ROOT_DSE,
 								    LDAP_SCOPE_SUBTREE,
 								    ldap_query,
@@ -1815,7 +1815,7 @@ start_book_view (EBookBackend  *backend,
 								    view_limit,
 								    &search_msgid);
 					g_mutex_unlock (bl->priv->ldap_lock);
-					printf("%s(%d):%s: %d\n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION, ldap_err);
+					printf("%s:%s: %d\n", G_STRLOC, G_STRFUNC, ldap_err);
 				} else
 					bl->priv->connected = FALSE;
 			} while (gal_reconnect (bl, view, ldap_err));
@@ -1823,12 +1823,12 @@ start_book_view (EBookBackend  *backend,
 			g_free (ldap_query);
 
 			if (ldap_err != LDAP_SUCCESS) {
-				printf("%s(%d):%s: error\n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION);
+				printf("%s:%s: error\n", G_STRLOC, G_STRFUNC);
 				book_view_notify_status (view, ldap_err2string(ldap_err));
 				return;
 			}
 			else if (search_msgid == -1) {
-				printf("%s(%d):%s: error\n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION);
+				printf("%s:%s: error\n", G_STRLOC, G_STRFUNC);
 				book_view_notify_status (view,
 							 _("Error performing search"));
 				return;
@@ -1837,7 +1837,7 @@ start_book_view (EBookBackend  *backend,
 				LDAPSearchOp *op = g_new0 (LDAPSearchOp, 1);
 
 				d(printf ("adding search_op (%p, %d)\n", view, search_msgid));
-				printf("%s(%d):%s: adding search \n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION);
+				printf("%s:%s: adding search \n", G_STRLOC, G_STRFUNC);
 				op->view = view;
 				op->aborted = FALSE;
 
@@ -2208,7 +2208,7 @@ authenticate_user (EBookBackend *backend,
 		if (!exchange_account_get_context (account)) {
 			exchange_account_set_online (account);
 			if(!exchange_account_connect (account, password, &result)) {
-				printf("%s(%d):%s: failed\n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION);
+				printf("%s:%s: failed\n", G_STRLOC, G_STRFUNC);
 				e_data_book_respond_authenticate_user (book, opid, GNOME_Evolution_Addressbook_AuthenticationFailed);
 				return;
 			}
@@ -2378,7 +2378,7 @@ get_supported_auth_methods (EBookBackend *backend,
 			    guint32       opid)
 
 {
-	printf("%s(%d):%s: NONE\n", __FILE__, __LINE__, G_GNUC_PRETTY_FUNCTION);
+	printf("%s:%s: NONE\n", G_STRLOC, G_STRFUNC);
 	e_data_book_respond_get_supported_auth_methods (book,
 							opid,
 							GNOME_Evolution_Addressbook_Success,
