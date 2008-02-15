@@ -1,5 +1,12 @@
 2008-02-16  Srinivasa Ragavan  <sragavan@novell.com>
 
+	** Fix for bug #516250
+
+	* addressbook/e-book-backend-gal.c: (build_contact_from_entry): Allow
+	it to reauth if we are connecting after a offline.
+
+2008-02-16  Srinivasa Ragavan  <sragavan@novell.com>
+
 	** Fix for bug #516252
 
 	* addressbook/e-book-backend-exchange.c:

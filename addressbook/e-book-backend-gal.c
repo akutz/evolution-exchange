@@ -1435,7 +1435,7 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 								/* set base to DN and scope to base */
 								d(printf("value (dn) = %s \n", values [i]));
 								do {
-									if ((ldap_error = ldap_search_ext_s (subldap,
+									if (subldap && (ldap_error = ldap_search_ext_s (subldap,
 												values[i],
 												LDAP_SCOPE_BASE,
 												"(objectclass=User)",
