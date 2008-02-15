@@ -1,5 +1,12 @@
 2008-02-16  Srinivasa Ragavan  <sragavan@novell.com>
 
+	** Fix for bug #516248
+
+	* calendar/e-cal-backend-exchange.c: (open_calendar): Hier wont be
+	available if we are offline. Same as bug #516252
+
+2008-02-16  Srinivasa Ragavan  <sragavan@novell.com>
+
 	** Fix for bug #516250
 
 	* addressbook/e-book-backend-gal.c: (build_contact_from_entry): Allow
