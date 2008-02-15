@@ -573,6 +573,9 @@ e_book_backend_exchange_connect (EBookBackendExchange *be)
 
 		/* Rescan the hierarchy to see if any new addressbooks got added */
 		hier = exchange_account_get_hierarchy_by_type (bepriv->account, EXCHANGE_HIERARCHY_PERSONAL);
+		if (!hier) {
+			return GNOME_Evolution_Addressbook_RepositoryOffline;
+		}
 		g_object_ref (hier->toplevel);
 		e_folder_exchange_set_rescan_tree (hier->toplevel, TRUE);
 		exchange_hierarchy_scan_subtree (hier, hier->toplevel, ONLINE_MODE);

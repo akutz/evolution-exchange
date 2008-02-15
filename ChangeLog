@@ -1,3 +1,11 @@
+2008-02-16  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** Fix for bug #516252
+
+	* addressbook/e-book-backend-exchange.c:
+	(e_book_backend_exchange_connect): Determine that we are in offline if
+	we cant get info from the server.
+
 2008-02-13  Srinivasa Ragavan  <sragavan@novell.com>
 
 	* configure.in: Version bump for 2.21.92
