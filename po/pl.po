@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD.pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-31 16:18+0100\n"
-"PO-Revision-Date: 2007-12-31 16:28+0100\n"
-"Last-Translator: wadim dziedzic <wdziedzi@aviary.pl>\n"
+"POT-Creation-Date: 2008-02-16 15:09+0100\n"
+"PO-Revision-Date: 2008-02-16 15:09+0100\n"
+"Last-Translator: wadim dziedzic <nikdo@aviary.pl>\n"
 "Language-Team: Polish <translators@gnomepl.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,8 +30,8 @@ msgstr "Określa okres czasu pomiędzy odświeżeniami GAL Cache."
 msgid "This key specifies the number of days interval between the GAL cache refresh. Set this value to zero, if you don't want to update GAL and use the current cache forever. This will work only if you have enabled offline caching for GAL."
 msgstr "Ten klucz określa liczbę dni pomiędzy odświeżeniami bufora GAL. Wartość 0 wyłącza odświeżanie i pozostawia bieżącą zawartość bufora na stałe. Ustawienie to działa tylko gdy włączono bufor dla GAL trybie bez podłączenia."
 
-#: ../addressbook/e-book-backend-exchange.c:1917
-#: ../addressbook/e-book-backend-gal.c:1799
+#: ../addressbook/e-book-backend-exchange.c:1932
+#: ../addressbook/e-book-backend-gal.c:1804
 #: ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Wyszukiwanie..."
@@ -41,11 +41,11 @@ msgstr "Wyszukiwanie..."
 msgid "Reconnecting to LDAP server..."
 msgstr "Ponowne nawiązywanie połączenia z serwerem LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1583
+#: ../addressbook/e-book-backend-gal.c:1588
 msgid "Receiving LDAP search results..."
 msgstr "Odbieranie wyników wyszukiwania LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1828
+#: ../addressbook/e-book-backend-gal.c:1833
 msgid "Error performing search"
 msgstr "Błąd wyszukiwania"
 
@@ -68,7 +68,7 @@ msgstr "W ustawionym okresie czasu zasób \"%s\" jest zajęty."
 msgid "Authentication failed"
 msgstr "Uwierzytelnianie nie powiodło się"
 
-#: ../calendar/e-cal-backend-exchange.c:442
+#: ../calendar/e-cal-backend-exchange.c:444
 msgid "Could not find the calendar"
 msgstr "Nie można znaleźć kalendarza"
 
@@ -129,12 +129,12 @@ msgid "No folder name found\n"
 msgstr "Nie znaleziono nazwy folderu\n"
 
 #: ../camel/camel-exchange-journal.c:374
-#: ../mail/mail-stub-exchange.c:2979
-#: ../mail/mail-stub-exchange.c:3023
-#: ../mail/mail-stub-exchange.c:3058
-#: ../mail/mail-stub-exchange.c:3085
-#: ../mail/mail-stub-exchange.c:3138
-#: ../mail/mail-stub-exchange.c:3160
+#: ../mail/mail-stub-exchange.c:3002
+#: ../mail/mail-stub-exchange.c:3046
+#: ../mail/mail-stub-exchange.c:3081
+#: ../mail/mail-stub-exchange.c:3108
+#: ../mail/mail-stub-exchange.c:3161
+#: ../mail/mail-stub-exchange.c:3183
 msgid "Folder doesn't exist"
 msgstr "Folder nie istnieje"
 
@@ -240,11 +240,6 @@ msgstr "Serwer Exchange %s"
 msgid "Exchange account for %s on %s"
 msgstr "Konto Exchange dla %s na %s"
 
-#: ../camel/camel-exchange-store.c:356
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%sWprowadź hasło dla %s"
-
 #: ../camel/camel-exchange-store.c:407
 msgid "Evolution Exchange backend process"
 msgstr "Proces wspierający Evolution Exchange"
@@ -334,87 +329,87 @@ msgid "Error communicating with %s: %s"
 msgstr "Błąd połączenia z %s: %s"
 
 #: ../mail/mail-stub-exchange.c:264
-#: ../mail/mail-stub-exchange.c:946
+#: ../mail/mail-stub-exchange.c:949
 msgid "No such folder"
 msgstr "Nie ma takiego folderu"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:287
-#: ../mail/mail-stub-exchange.c:1595
-#: ../mail/mail-stub-exchange.c:2956
-#: ../mail/mail-stub-exchange.c:2996
-#: ../mail/mail-stub-exchange.c:3062
-#: ../mail/mail-stub-exchange.c:3112
-#: ../mail/mail-stub-exchange.c:3175
+#: ../mail/mail-stub-exchange.c:1598
+#: ../mail/mail-stub-exchange.c:2979
+#: ../mail/mail-stub-exchange.c:3019
+#: ../mail/mail-stub-exchange.c:3085
+#: ../mail/mail-stub-exchange.c:3135
+#: ../mail/mail-stub-exchange.c:3198
 msgid "Permission denied"
 msgstr "Brak uprawnień"
 
-#: ../mail/mail-stub-exchange.c:768
-#: ../mail/mail-stub-exchange.c:860
+#: ../mail/mail-stub-exchange.c:771
+#: ../mail/mail-stub-exchange.c:863
 msgid "Could not open folder"
 msgstr "Nie można otworzyć folderu"
 
-#: ../mail/mail-stub-exchange.c:854
-#: ../mail/mail-stub-exchange.c:876
+#: ../mail/mail-stub-exchange.c:857
+#: ../mail/mail-stub-exchange.c:879
 msgid "Could not open folder: Permission denied"
 msgstr "Nie można otworzyć folderu: Brak uprawnień"
 
-#: ../mail/mail-stub-exchange.c:955
+#: ../mail/mail-stub-exchange.c:958
 msgid "Could not create folder."
 msgstr "Nie można utworzyć folderu."
 
-#: ../mail/mail-stub-exchange.c:1043
+#: ../mail/mail-stub-exchange.c:1046
 msgid "Could not open Deleted Items folder"
 msgstr "Nie można otworzyć folderu elementów usuniętych"
 
-#: ../mail/mail-stub-exchange.c:1374
-#: ../mail/mail-stub-exchange.c:1415
+#: ../mail/mail-stub-exchange.c:1377
+#: ../mail/mail-stub-exchange.c:1418
 msgid "Could not get new messages"
 msgstr "Nie można pobrać nowych wiadomości"
 
-#: ../mail/mail-stub-exchange.c:1591
+#: ../mail/mail-stub-exchange.c:1594
 msgid "Could not empty Deleted Items folder"
 msgstr "Nie można wyczyścić folderu elementów usuniętych"
 
-#: ../mail/mail-stub-exchange.c:1668
+#: ../mail/mail-stub-exchange.c:1671
 msgid "Could not append message; mailbox is over quota"
 msgstr "Nie można dopisać wiadomości; przekroczono pojemność folderu"
 
-#: ../mail/mail-stub-exchange.c:1669
+#: ../mail/mail-stub-exchange.c:1672
 msgid "Could not append message"
 msgstr "Nie można dopisać wiadomości"
 
-#: ../mail/mail-stub-exchange.c:2416
+#: ../mail/mail-stub-exchange.c:2434
 msgid "No such message"
 msgstr "Nie ma takiej wiadomości"
 
-#: ../mail/mail-stub-exchange.c:2490
+#: ../mail/mail-stub-exchange.c:2513
 msgid "Message has been deleted"
 msgstr "Wiadomość została usunięta"
 
-#: ../mail/mail-stub-exchange.c:2492
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Error retrieving message"
 msgstr "Błąd podczas pobierania wiadomości"
 
-#: ../mail/mail-stub-exchange.c:2535
+#: ../mail/mail-stub-exchange.c:2558
 msgid "Mailbox does not support full-text searching"
 msgstr "Skrzynka nie obsługuje wyszukiwania pełnotekstowego"
 
-#: ../mail/mail-stub-exchange.c:2633
+#: ../mail/mail-stub-exchange.c:2656
 msgid "Unable to move/copy messages"
 msgstr "Nie można przenieść/skopiować wiadomości"
 
 # FIXME - nie mam pjęcia jak inaczej
-#: ../mail/mail-stub-exchange.c:2871
+#: ../mail/mail-stub-exchange.c:2894
 msgid "No mail submission URI for this mailbox"
 msgstr "Brak adresu URI podawania poczty dla tej skrzynki"
 
-#: ../mail/mail-stub-exchange.c:2907
+#: ../mail/mail-stub-exchange.c:2930
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Serwer nie będzie przyjmował poczty poprzez transport Exchange"
 
-#: ../mail/mail-stub-exchange.c:2909
+#: ../mail/mail-stub-exchange.c:2932
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -423,7 +418,7 @@ msgstr ""
 "To konto nie posiada uprawnień do używania <%s>\n"
 "jako adresu nadawcy."
 
-#: ../mail/mail-stub-exchange.c:2921
+#: ../mail/mail-stub-exchange.c:2944
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -431,19 +426,19 @@ msgstr ""
 "Nie można wysłać wiadomości.\n"
 "Może to oznaczać, że konto przekroczyło dopuszczalną pojemność."
 
-#: ../mail/mail-stub-exchange.c:2925
+#: ../mail/mail-stub-exchange.c:2948
 msgid "Could not send message"
 msgstr "Nie można wysłać wiadomości"
 
-#: ../mail/mail-stub-exchange.c:2948
-#: ../mail/mail-stub-exchange.c:3001
-#: ../mail/mail-stub-exchange.c:3066
-#: ../mail/mail-stub-exchange.c:3117
-#: ../mail/mail-stub-exchange.c:3181
+#: ../mail/mail-stub-exchange.c:2971
+#: ../mail/mail-stub-exchange.c:3024
+#: ../mail/mail-stub-exchange.c:3089
+#: ../mail/mail-stub-exchange.c:3140
+#: ../mail/mail-stub-exchange.c:3204
 msgid "Generic error"
 msgstr "Błąd ogólny"
 
-#: ../mail/mail-stub-exchange.c:2952
+#: ../mail/mail-stub-exchange.c:2975
 msgid "Folder already exists"
 msgstr "Folder już istnieje"
 
@@ -513,7 +508,7 @@ msgid ""
 msgstr ""
 "Evolution Connector wymaga dostępu do różnych funkcji serwera Exchange, które prawdopodobnie są wyłączone lub zablokowane (zazwyczaj jest to niezamierzone). Aby można było używać Evolution Connector, administrator Exchange powinien udostępnić te funkcje.\n"
 "\n"
-"Aby uzyskać informacje dla administratora Exchange, należy otworzyć poniższy odnośnika:"
+"Aby uzyskać informacje dla administratora Exchange, należy otworzyć poniższy odnośnik:"
 
 #: ../storage/exchange-autoconfig-wizard.c:276
 msgid "The Exchange server URL you provided is for an Exchange 5.5 server. Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 and 2003 only."
@@ -958,6 +953,8 @@ msgstr "Asystent obecności poza _biurem"
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Usuń subskrypcję folderu innego użytkownika"
 
+#~ msgid "%sEnter password for %s"
+#~ msgstr "%sWprowadź hasło dla %s"
 #~ msgid "Ximian Connector for Exchange"
 #~ msgstr "Ximian Connector dla Exchange"
 #~ msgid "Ximian Connector Configuration"
