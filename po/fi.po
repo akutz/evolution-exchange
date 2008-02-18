@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-06 16:38+0300\n"
+"POT-Creation-Date: 2008-02-18 07:55+0300\n"
 "PO-Revision-Date: 2007-02-14 06:08+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -32,25 +32,25 @@ msgstr ""
 "nykyistä välimuistia pysyvästi. Tämä toimii ainoastaan, jos GAL-välimuisti "
 "on käytössä yhteydettömässä tilassa."
 
-#: ../addressbook/e-book-backend-exchange.c:1880
-#: ../addressbook/e-book-backend-gal.c:1796 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:1932
+#: ../addressbook/e-book-backend-gal.c:1804 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Haetaan..."
 
 #: ../addressbook/e-book-backend-gal.c:301
-#: ../addressbook/e-book-backend-gal.c:326
+#: ../addressbook/e-book-backend-gal.c:322
 msgid "Reconnecting to LDAP server..."
 msgstr "Yhdistetään uudestaan LDAP-palvelimelle..."
 
-#: ../addressbook/e-book-backend-gal.c:1585
+#: ../addressbook/e-book-backend-gal.c:1588
 msgid "Receiving LDAP search results..."
 msgstr "Vastaanotetaan LDAP hakutuloksia"
 
-#: ../addressbook/e-book-backend-gal.c:1823
+#: ../addressbook/e-book-backend-gal.c:1833
 msgid "Error performing search"
 msgstr "Virhe suoritettaessa hakua"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2088
+#: ../calendar/e-cal-backend-exchange-calendar.c:2028
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -59,86 +59,90 @@ msgstr ""
 "Resurssia '%s' ei voi varata toistuviin kokouksiin.\n"
 "Jokainen kokous täytyy varata erikseen."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2106
+#: ../calendar/e-cal-backend-exchange-calendar.c:2046
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Resurssi '%s' on varattu valitun aikajakson aikana."
 
-#: ../calendar/e-cal-backend-exchange.c:389
-#: ../calendar/e-cal-backend-exchange.c:398
+#: ../calendar/e-cal-backend-exchange.c:391
+#: ../calendar/e-cal-backend-exchange.c:401
 msgid "Authentication failed"
 msgstr "Tunnistautuminen epäonnistui"
 
-#: ../calendar/e-cal-backend-exchange.c:409
+#: ../calendar/e-cal-backend-exchange.c:444
 msgid "Could not find the calendar"
 msgstr "Kalenteria ei löytynyt"
 
-#: ../camel/camel-exchange-folder.c:222
+#: ../camel/camel-exchange-folder.c:52
+msgid "Always check for new mail in this folder"
+msgstr "Etsi aina uusia viestejä tästä kansiosta"
+
+#: ../camel/camel-exchange-folder.c:238
 msgid "You cannot expunge in offline mode."
 msgstr "Et voi tyhjentää poistettuja yhteydettömässä tilassa."
 
-#: ../camel/camel-exchange-folder.c:253
+#: ../camel/camel-exchange-folder.c:269
 msgid "No Subject"
 msgstr "Aihe puuttuu"
 
-#: ../camel/camel-exchange-folder.c:408
+#: ../camel/camel-exchange-folder.c:424
 msgid "This message is not available in offline mode."
 msgstr "Tämä viesti ei ole saatavilla yhteydettömässä tilassa."
 
-#: ../camel/camel-exchange-folder.c:665
+#: ../camel/camel-exchange-folder.c:681
 msgid "Moving messages"
 msgstr "Siirretään viestejä"
 
-#: ../camel/camel-exchange-folder.c:666
+#: ../camel/camel-exchange-folder.c:682
 msgid "Copying messages"
 msgstr "Kopioidaan viestejä"
 
-#: ../camel/camel-exchange-folder.c:1039
+#: ../camel/camel-exchange-folder.c:1055
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Hakemistoa %s ei voitu luoda: %s"
 
-#: ../camel/camel-exchange-folder.c:1049
+#: ../camel/camel-exchange-folder.c:1065
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Yhteenvetoa kohteesta %s ei voitu ladata"
 
-#: ../camel/camel-exchange-folder.c:1057
+#: ../camel/camel-exchange-folder.c:1073
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Välimuistia ei voitu luoda %s:lle"
 
-#: ../camel/camel-exchange-folder.c:1067
+#: ../camel/camel-exchange-folder.c:1083
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Journalia %s ei voitu luoda"
 
-#: ../camel/camel-exchange-folder.c:1115
+#: ../camel/camel-exchange-folder.c:1131
 msgid "Scanning for changed messages"
 msgstr "Etsitään muuttuneita viestejä"
 
-#: ../camel/camel-exchange-folder.c:1148
+#: ../camel/camel-exchange-folder.c:1164
 msgid "Fetching summary information for new messages"
 msgstr "Haetaan yhteenvetoa muuttuneista viesteistä"
 
-#: ../camel/camel-exchange-journal.c:340
+#: ../camel/camel-exchange-journal.c:341
 msgid "No folder name found\n"
 msgstr "Kansion nimeä ei löytynyt\n"
 
-#: ../camel/camel-exchange-journal.c:373 ../mail/mail-stub-exchange.c:2874
-#: ../mail/mail-stub-exchange.c:2918 ../mail/mail-stub-exchange.c:2953
-#: ../mail/mail-stub-exchange.c:2980 ../mail/mail-stub-exchange.c:3033
-#: ../mail/mail-stub-exchange.c:3055
+#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:3002
+#: ../mail/mail-stub-exchange.c:3046 ../mail/mail-stub-exchange.c:3081
+#: ../mail/mail-stub-exchange.c:3108 ../mail/mail-stub-exchange.c:3161
+#: ../mail/mail-stub-exchange.c:3183
 msgid "Folder doesn't exist"
 msgstr "Kansiota ei ole olemassa"
 
-#: ../camel/camel-exchange-journal.c:437
+#: ../camel/camel-exchange-journal.c:438
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
 "Viestiä ei voi lisätä yhteydettömässä tilassa: välimuisti ei ole "
 "käytettävissä"
 
-#: ../camel/camel-exchange-journal.c:453
+#: ../camel/camel-exchange-journal.c:454
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Viestiä ei voi lisätä yhteydettömässä tilassa: %s"
@@ -147,7 +151,7 @@ msgstr "Viestiä ei voi lisätä yhteydettömässä tilassa: %s"
 msgid "Checking for New Mail"
 msgstr "Tarkistetaan, onko uusia viestejä"
 
-#: ../camel/camel-exchange-provider.c:43 ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:43
 msgid "C_heck for new messages in all folders"
 msgstr "Etsi _uusia viestejä kaikista kansioista"
 
@@ -178,44 +182,44 @@ msgstr "_Rajoita GAL-vastausten määrää: %s"
 msgid "Options"
 msgstr "Asetukset"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:67
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Salasanan vanhenemisen varoitusaika: %s"
 
-#: ../camel/camel-exchange-provider.c:71
+#: ../camel/camel-exchange-provider.c:69
 msgid "Automatically synchroni_ze account locally"
 msgstr "S_ynkronoi tili automaattisesti omalle tietokoneelle"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:74
+#: ../camel/camel-exchange-provider.c:72
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr ""
 "_Käytä suodattimia saapuvien kansion uusille viesteille tällä palvelimella"
 
-#: ../camel/camel-exchange-provider.c:76
+#: ../camel/camel-exchange-provider.c:74
 msgid "Check new messages for _Junk contents"
 msgstr "Etsi _roskapostia uusista viesteistä"
 
-#: ../camel/camel-exchange-provider.c:78
+#: ../camel/camel-exchange-provider.c:76
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Etsi roskapostia vain saapuvi_en viestien kansiosta"
 
-#: ../camel/camel-exchange-provider.c:88
+#: ../camel/camel-exchange-provider.c:86
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:90
+#: ../camel/camel-exchange-provider.c:88
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Sähköpostin ja muun tiedon käsittelyyn Microsoft Exchange-palvelimilla"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:106
+#: ../camel/camel-exchange-provider.c:104
 msgid "Secure Password"
 msgstr "Suojattu salasana"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:109
+#: ../camel/camel-exchange-provider.c:107
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -223,11 +227,11 @@ msgstr ""
 "Tämän ollessa valittu otetaan yhteyttä Exchange-palvelimelle käyttäen "
 "suojattua salasanatunnistusta (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:117
+#: ../camel/camel-exchange-provider.c:115
 msgid "Plaintext Password"
 msgstr "Selväkielinen salasana"
 
-#: ../camel/camel-exchange-provider.c:119
+#: ../camel/camel-exchange-provider.c:117
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -235,26 +239,21 @@ msgstr ""
 "Tämän ollessa valittu otetaan yhteyttä Exchange-palvelimelle käyttäen "
 "tavallista selväkielistä salasanatunnistusta."
 
-#: ../camel/camel-exchange-store.c:310
+#: ../camel/camel-exchange-store.c:312
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange-palvelin %s"
 
-#: ../camel/camel-exchange-store.c:313
+#: ../camel/camel-exchange-store.c:315
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Exchange-tili käyttäjälle %s palvelimella %s"
 
-#: ../camel/camel-exchange-store.c:354
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%sSyötä salasana käyttäjälle %s"
-
-#: ../camel/camel-exchange-store.c:405
+#: ../camel/camel-exchange-store.c:407
 msgid "Evolution Exchange backend process"
 msgstr "Evolutionin Exchange taustaprosessi"
 
-#: ../camel/camel-exchange-store.c:446
+#: ../camel/camel-exchange-store.c:448
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -262,32 +261,32 @@ msgstr ""
 "Palvelimelle ei voitu kirjatua (Virheellinen salasana?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:488
+#: ../camel/camel-exchange-store.c:490
 #, c-format
 msgid "No such folder %s"
 msgstr "Kansiota %s ei ole olemassa"
 
-#: ../camel/camel-exchange-store.c:565
+#: ../camel/camel-exchange-store.c:567
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Kansiota ei voi tilata yhteydettömässä tilassa."
 
-#: ../camel/camel-exchange-store.c:582
+#: ../camel/camel-exchange-store.c:584
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Kansion tilausta ei voi perua yhteydettömässä tilassa."
 
-#: ../camel/camel-exchange-store.c:714
+#: ../camel/camel-exchange-store.c:716
 msgid "Cannot get folder info in offline mode."
 msgstr "Kansion tietoja ei voi hakea yhteydettömässä tilassa"
 
-#: ../camel/camel-exchange-store.c:787
+#: ../camel/camel-exchange-store.c:789
 msgid "Cannot create folder in offline mode."
 msgstr "Kansiota ei voi luoda yhteydettömässä tilassa"
 
-#: ../camel/camel-exchange-store.c:814
+#: ../camel/camel-exchange-store.c:816
 msgid "Cannot delete folder in offline mode."
 msgstr "Kansiota ei voi poistaa yhteydettömässä tilassa"
 
-#: ../camel/camel-exchange-store.c:830
+#: ../camel/camel-exchange-store.c:832
 msgid "Cannot rename folder in offline mode."
 msgstr "Kansiota ei voi nimetä uudelleen yhteydettömässä tilassa"
 
@@ -339,80 +338,80 @@ msgstr "Yhteys kohteeseen %s menetettiin"
 msgid "Error communicating with %s: %s"
 msgstr "Virhe kommunikoitaessa kohteeseen %s: %s"
 
-#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:946
+#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:949
 msgid "No such folder"
 msgstr "Kansiota ei ole olemassa"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1595
-#: ../mail/mail-stub-exchange.c:2851 ../mail/mail-stub-exchange.c:2891
-#: ../mail/mail-stub-exchange.c:2957 ../mail/mail-stub-exchange.c:3007
-#: ../mail/mail-stub-exchange.c:3070
+#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1598
+#: ../mail/mail-stub-exchange.c:2979 ../mail/mail-stub-exchange.c:3019
+#: ../mail/mail-stub-exchange.c:3085 ../mail/mail-stub-exchange.c:3135
+#: ../mail/mail-stub-exchange.c:3198
 msgid "Permission denied"
 msgstr "Lupa evätty"
 
-#: ../mail/mail-stub-exchange.c:768 ../mail/mail-stub-exchange.c:860
+#: ../mail/mail-stub-exchange.c:771 ../mail/mail-stub-exchange.c:863
 msgid "Could not open folder"
 msgstr "Kansiota ei voitu avata"
 
-#: ../mail/mail-stub-exchange.c:854 ../mail/mail-stub-exchange.c:876
+#: ../mail/mail-stub-exchange.c:857 ../mail/mail-stub-exchange.c:879
 msgid "Could not open folder: Permission denied"
 msgstr "Kansiota ei voitu avata: lupa evätty"
 
-#: ../mail/mail-stub-exchange.c:955
+#: ../mail/mail-stub-exchange.c:958
 msgid "Could not create folder."
 msgstr "Kansiota ei voitu luoda."
 
-#: ../mail/mail-stub-exchange.c:1043
+#: ../mail/mail-stub-exchange.c:1046
 msgid "Could not open Deleted Items folder"
 msgstr "Poistettujen viestien kansiota ei voi avata"
 
-#: ../mail/mail-stub-exchange.c:1374 ../mail/mail-stub-exchange.c:1415
+#: ../mail/mail-stub-exchange.c:1377 ../mail/mail-stub-exchange.c:1418
 msgid "Could not get new messages"
 msgstr "Uusia viestejä ei voitu hakea"
 
-#: ../mail/mail-stub-exchange.c:1591
+#: ../mail/mail-stub-exchange.c:1594
 msgid "Could not empty Deleted Items folder"
 msgstr "Poistettujen viestien kansiota ei voitu tyhjentää"
 
-#: ../mail/mail-stub-exchange.c:1668
+#: ../mail/mail-stub-exchange.c:1671
 msgid "Could not append message; mailbox is over quota"
 msgstr "Viestiä ei voitu lisätä; postilaatikolle sallittu tila on käytetty"
 
-#: ../mail/mail-stub-exchange.c:1669
+#: ../mail/mail-stub-exchange.c:1672
 msgid "Could not append message"
 msgstr "Viestiä ei voitu liittää"
 
-#: ../mail/mail-stub-exchange.c:2324
+#: ../mail/mail-stub-exchange.c:2434
 msgid "No such message"
 msgstr "Viestiä ei löydy"
 
-#: ../mail/mail-stub-exchange.c:2386
+#: ../mail/mail-stub-exchange.c:2513
 msgid "Message has been deleted"
 msgstr "Viesti on poistettu"
 
-#: ../mail/mail-stub-exchange.c:2388
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Error retrieving message"
 msgstr "Virhe haettaessa viestiä"
 
-#: ../mail/mail-stub-exchange.c:2430
+#: ../mail/mail-stub-exchange.c:2558
 msgid "Mailbox does not support full-text searching"
 msgstr "Postilaatikko ei tue koko tekstin hakuja"
 
-#: ../mail/mail-stub-exchange.c:2528
+#: ../mail/mail-stub-exchange.c:2656
 msgid "Unable to move/copy messages"
 msgstr "Viestejä ei voi siirtää tai kopioida"
 
-#: ../mail/mail-stub-exchange.c:2766
+#: ../mail/mail-stub-exchange.c:2894
 msgid "No mail submission URI for this mailbox"
 msgstr "Sähköpostin lähetyksen URIa ei ole määritelty tälle postilaatikolle"
 
-#: ../mail/mail-stub-exchange.c:2802
+#: ../mail/mail-stub-exchange.c:2930
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Palvelin ei hyväksy sähköpostia Exchange sähköpostinvälityksen kautta"
 
-#: ../mail/mail-stub-exchange.c:2804
+#: ../mail/mail-stub-exchange.c:2932
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -421,7 +420,7 @@ msgstr ""
 "Tilisi ei saa käyttää osoitetta <%s>\n"
 "lähettäjän osoitteena."
 
-#: ../mail/mail-stub-exchange.c:2816
+#: ../mail/mail-stub-exchange.c:2944
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -429,17 +428,17 @@ msgstr ""
 "Viestiä ei voitu lähettä.\n"
 "Tämä voi tarkoittaa, että sähköpostitilisi levytila on loppu."
 
-#: ../mail/mail-stub-exchange.c:2820
+#: ../mail/mail-stub-exchange.c:2948
 msgid "Could not send message"
 msgstr "Viestiä ei voitu lähettää"
 
-#: ../mail/mail-stub-exchange.c:2843 ../mail/mail-stub-exchange.c:2896
-#: ../mail/mail-stub-exchange.c:2961 ../mail/mail-stub-exchange.c:3012
-#: ../mail/mail-stub-exchange.c:3076
+#: ../mail/mail-stub-exchange.c:2971 ../mail/mail-stub-exchange.c:3024
+#: ../mail/mail-stub-exchange.c:3089 ../mail/mail-stub-exchange.c:3140
+#: ../mail/mail-stub-exchange.c:3204
 msgid "Generic error"
 msgstr "Yleinen virhe"
 
-#: ../mail/mail-stub-exchange.c:2847
+#: ../mail/mail-stub-exchange.c:2975
 msgid "Folder already exists"
 msgstr "Kansio on jo olemassa"
 
@@ -452,8 +451,9 @@ msgid "Evolution Calendar Exchange backend"
 msgstr "Evolutionin kalenterin Exchange-taustaohjelma"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Ximian Connector for Exchange"
-msgstr "Ximian Connector Exchangelle"
+#: ../storage/main.c:183
+msgid "Evolution Connector for Microsoft Exchange"
+msgstr "Evolutinin Microsoft Exchange -yhdyskäytävä"
 
 #: ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
@@ -506,31 +506,33 @@ msgstr ""
 
 #: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
+"Evolution Connector for Microsoft Exchange requires access to certain "
+"functionality on the Exchange server that appears to be disabled or "
+"blocked.  (This is usually unintentional.)  Your Exchange administrator will "
+"need to enable this functionality in order for you to be able to use the "
+"Evolution Connector.\n"
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"Ximian Connector vaatii pääsyä tiettyihin Exchange-palvelimen toimintoihin, "
+"Evolution-yhdyskäytävä vaatii pääsyä tiettyihin Exchange-palvelimen toimintoihin, "
 "jotka näyttävät olevan poissa käytössä tai joihin pääsy on estetty, usein "
 "vahingossa. Exchange-palvelin ylläpitäjäsi täytyy sallia nämä ominaisuudet, "
-"jotta voit käyttää Ximian Connectoria.\n"
+"jotta voit käyttää Evolution-yhdyskäytävää.\n"
 "\n"
 "Seuraa alla olevaa linkkiä, josta saat lisätietoja asiasta toimitettavaksi "
 "Exchange-ylläpidollesi."
 
-#: ../storage/exchange-autoconfig-wizard.c:275
+#: ../storage/exchange-autoconfig-wizard.c:276
 msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
+"The Exchange server URL you provided is for an Exchange 5.5 server. "
+"Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
+"and 2003 only."
 msgstr ""
-"Antamasi Exchange-palvelimen URL on Exchange 5.5 palvelimelle. Ximian "
-"Connector tukee ainoastaan versioita Microsoft Exchange 2000 ja 2003."
+"Antamasi Exchange-palvelimen URL on Exchange 5.5 palvelimelle. Evolution-"
+"yhdyskäytävä tukee ainoastaan versioita Microsoft Exchange 2000 ja 2003."
 
-#: ../storage/exchange-autoconfig-wizard.c:288
+#: ../storage/exchange-autoconfig-wizard.c:290
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -538,7 +540,7 @@ msgstr ""
 "Exchange-tiliä ei voitu määritellä, koska tapahtui tuntematon virhe. "
 "Tarkista URL, käyttäjätunnus ja salasana ja yritä sitten uudestaan."
 
-#: ../storage/exchange-autoconfig-wizard.c:332
+#: ../storage/exchange-autoconfig-wizard.c:334
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -548,7 +550,7 @@ msgstr ""
 "Yhteiselle luettelopalvelimelle ei voitu kirjautua. Kokeile laittaa myös "
 "Windowsin aluenimi mukaan osaksi käyttäjätunnustasi (esim. \"ALUENIMI\\%s\")."
 
-#: ../storage/exchange-autoconfig-wizard.c:339
+#: ../storage/exchange-autoconfig-wizard.c:341
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -556,12 +558,12 @@ msgstr ""
 "Yhteyttä annettuun palvelimeen ei voitu avata.\n"
 "Tarkista palvelimen nimi ja yritä uudestaan."
 
-#: ../storage/exchange-autoconfig-wizard.c:376
-#: ../storage/exchange-autoconfig-wizard.c:380
+#: ../storage/exchange-autoconfig-wizard.c:378
+#: ../storage/exchange-autoconfig-wizard.c:382
 msgid "Unknown"
 msgstr "Tuntematon"
 
-#: ../storage/exchange-autoconfig-wizard.c:445
+#: ../storage/exchange-autoconfig-wizard.c:447
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -569,7 +571,7 @@ msgstr ""
 "Konfiguraatiojärjestelmän virhe.\n"
 "Uutta tiliä ei voitu luoda."
 
-#: ../storage/exchange-autoconfig-wizard.c:459
+#: ../storage/exchange-autoconfig-wizard.c:461
 msgid "You may only configure a single Exchange account"
 msgstr "Voit määritellä vain yhden Exchange-tilin"
 
@@ -591,89 +593,90 @@ msgid "Email Address:"
 msgstr "Sähköpostiosoite:"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:5
+msgid "Evolution Connector for Microsoft Exchange Configuration"
+msgstr "Evolutionin Microsoft Exchange -yhdyskäytävä"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:6
+msgid ""
+"Evolution Connector for Microsoft Exchange can use account information from "
+"your existing Outlook Web Access (OWA) account.\n"
+"\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
+msgstr ""
+"Evolutionin Microsoft Exchange-yhdyskäytävä voi käyttää tilitietoja "
+"olemassaolevalta Outlook Web Access (OWA) tililtäsi.\n"
+"\n"
+"Syötä OWA-palvelun osoite (URL), käyttäjätunnus ja salasana ja napsauta "
+"nappia \"Seuraava\".\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:10
+msgid ""
+"Evolution Connector for Microsoft Exchange could not find the Global Catalog "
+"replica for your site. Please enter the name of your Global Catalog server. "
+"You may need to ask your system administrator for the correct value.\n"
+msgstr ""
+"Evolutionin Microsoft Exchange -yhdyskäytävä ei löytänyt yhteisen "
+"luettelopalvelimen replikaa sijainnillesi. Syötä yhteisen "
+"luettelopalvelimesi nimi. Voit kysyä oikea arvoa ylläpitäjältäsi.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:12
+msgid ""
+"Evolution Connector for Microsoft Exchange has encountered a problem "
+"configuring your Exchange account.\n"
+msgstr ""
+"Evolutionin Microsoft Exchange -yhdyskäytävä havaitsi ongelman "
+"määriteltäessä Exchange-tiliä.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:14
 msgid "Exchange Configuration"
 msgstr "Exchangen asetukset"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:6
+#: ../storage/exchange-autoconfig-wizard.glade.h:15
 msgid "Full Name:"
 msgstr "Koko nimi:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:7
+#: ../storage/exchange-autoconfig-wizard.glade.h:16
 msgid "GC Server:"
 msgstr "GC-palvelin:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:8
+#: ../storage/exchange-autoconfig-wizard.glade.h:17
 msgid "Make this my default account"
 msgstr "Tee tästä oletustilini"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:9
+#: ../storage/exchange-autoconfig-wizard.glade.h:18
 msgid "OWA URL:"
 msgstr "OWA URL:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:10
+#: ../storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Password:"
 msgstr "Salasana:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:11
+#: ../storage/exchange-autoconfig-wizard.glade.h:20
 msgid "Remember this password"
 msgstr "Muista tämä salasana"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:12
+#: ../storage/exchange-autoconfig-wizard.glade.h:21
 msgid "Username:"
 msgstr "Käyttäjätunnus:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:13
+#: ../storage/exchange-autoconfig-wizard.glade.h:22
 msgid "Welcome"
 msgstr "Tervetuloa"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:14
+#: ../storage/exchange-autoconfig-wizard.glade.h:23
 msgid ""
-"Welcome to Ximian Connector for Microsoft Exchange.\n"
+"Welcome to Evolution Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
 "to connect to your Exchange account.\n"
 "\n"
 "Please click the \"Forward\" button to continue."
 msgstr ""
-"Tervetuloa Ximian Connectorin Microsoft Exchangelle käyttäjäksi.\n"
+"Tervetuloa Evolutionin Microsoft Exchange -yhdyskäytävän käyttäjäksi.\n"
 "Seuraavat ruudut auttavat sinua määrittelemään asetukset, joilla\n"
 "Evolution ottaa yhteyttä Exchange-tiliisi.\n"
 "\n"
-"Paina nappia \"Seuraava\" jatkaaksesi."
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:19
-msgid "Ximian Connector Configuration"
-msgstr "Ximian Connectorin asetukset"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:20
-msgid ""
-"Ximian Connector can use account information from your existing Outlook Web "
-"Access (OWA) account.\n"
-"\n"
-"Enter your OWA site address (URL), username, and password, then click "
-"\"Forward\".\n"
-msgstr ""
-"Ximian Connector voi käyttää tilitietoja olemassaolevasta Outlook Web Access "
-"(OWA) tilistäsi.\n"
-"\n"
-"Syötä OWA-palvelusi osoite (URL), käyttäjätunnus ja salasana ja jatka "
-"painamalla \"Jatka\".\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:24
-msgid ""
-"Ximian Connector could not find the Global Catalog replica for your site. "
-"Please enter the name of your Global Catalog server. You may need to ask "
-"your system administrator for the correct value.\n"
-msgstr ""
-"Connector ei löytänyt yhteisen luettelopalvelimen replikaa sijainnillesi. "
-"Syötä yhteisen luettelopalvelimesei nimi. Voit kysyä oikea arvoa "
-"järjestelmäsi ylläpitäjältä.\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:26
-msgid ""
-"Ximian Connector has encountered a problem configuring your Exchange "
-"account.\n"
-msgstr ""
-"Ximian Connectorille törmäsi ongelmiin määriteltäessä Exchange-tiliäsi.\n"
+"Jatka napsauttamalla \"Seuraava\"."
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -690,8 +693,8 @@ msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
 msgstr ""
-"Tilisi tiedot ovat seuraavat. Korjaa mahdolliset virheet ja paina nappia "
-"\"Jatka\".\n"
+"Tilisi tiedot ovat seuraavat. Korjaa mahdolliset virheet ja napsauta "
+"nappia \"Seuraava\".\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
@@ -954,13 +957,9 @@ msgstr "Rooli: "
 msgid "Connecting..."
 msgstr "Yhdistetään..."
 
-#: ../storage/main.c:183
-msgid "Ximian Connector for Microsoft Exchange"
-msgstr "Ximian Connector Microsoft Exchangelle"
-
 #: ../storage/ximian-connector-setup.c:44
-msgid "Ximian Connector for Microsoft Exchange Setup Tool"
-msgstr "Ximian Conncector in asetukset"
+msgid "Evolution Connector for Microsoft Exchange Setup Tool"
+msgstr "Evolutionin Microsoft Exchange-yhdyskäytävän asetukset"
 
 #: ../storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
@@ -1015,6 +1014,15 @@ msgstr "\"_Poissa toimistosta\"-apulainen"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Peru toisen käyttäjän kansion tilaus"
+
+#~ msgid "%sEnter password for %s"
+#~ msgstr "%sSyötä salasana käyttäjälle %s"
+
+#~ msgid "Ximian Connector for Exchange"
+#~ msgstr "Ximian Connector Exchangelle"
+
+#~ msgid "Ximian Connector Configuration"
+#~ msgstr "Ximian Connectorin asetukset"
 
 #~ msgid "%s at %s on behalf of %s"
 #~ msgstr "%s - %s, käyttäjän %s puolesta"
