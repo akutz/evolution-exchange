@@ -50,6 +50,9 @@ static int               message_info_save (CamelFolderSummary *summary,
 					    CamelMessageInfo *info);
 static CamelMessageInfo *message_info_new_from_header  (CamelFolderSummary *summary,
 							struct _camel_header_raw *h);
+
+static void message_info_free (CamelFolderSummary *summary, CamelMessageInfo *info);
+
 static gboolean check_for_trash (CamelFolder *folder);
 static gboolean expunge_mail (CamelFolder *folder, CamelMessageInfo *info);
 
@@ -71,7 +74,8 @@ exchange_summary_class_init (CamelObjectClass *klass)
 	camel_folder_summary_class->message_info_load = message_info_load;
 	camel_folder_summary_class->message_info_save = message_info_save;
 	camel_folder_summary_class->message_info_new_from_header = message_info_new_from_header;
-
+	camel_folder_summary_class->message_info_free = message_info_free;
+	
 	camel_folder_summary_class->info_set_flags = info_set_flags;
 	camel_folder_summary_class->info_set_user_tag = info_set_user_tag;
 }
@@ -261,6 +265,22 @@ message_info_new_from_header (CamelFolderSummary *summary, struct _camel_header_
 		einfo->thread_index = g_strdup (thread_index + 1);
 
 	return info;
+}
+
+static void
+message_info_free (CamelFolderSummary *summary, CamelMessageInfo *info)
+{
+	CamelExchangeMessageInfo *einfo;
+
+	einfo = (CamelExchangeMessageInfo *)info;
+
+	g_free (einfo->href);
+	g_free (einfo->thread_index);
+
+	einfo->href = NULL;
+	einfo->thread_index = NULL;
+
+	CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->message_info_free (summary, info);
 }
 
 static gboolean
