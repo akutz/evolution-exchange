@@ -1,489 +1,495 @@
 # Evolution-exchange italian translation
-# Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the evolution package.
+# Copyright (C) 2004-2008 Free Software Foundation, Inc.
+# This file is distributed under the same license as the evolution-exchange package.
 # Marco Ciampa <ciampix@libero.it>, 2004-2006.
+# Luca Ferretti <elle.uca@liber.it>, 2008.
 #
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Evolution-Exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-31 01:06+0200\n"
-"PO-Revision-Date: 2006-03-31 21:09+0200\n"
-"Last-Translator: Marco Ciampa <ciampix@libero.it>\n"
+"POT-Creation-Date: 2008-02-23 14:16+0100\n"
+"PO-Revision-Date: 2008-02-23 16:58+0100\n"
+"Last-Translator: Luca Ferrette <elle.uca@libero.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-# Novell Translation
-#: ../addressbook/e-book-backend-exchange.c:1867
-#: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr "Specifica l'intervallo di tempo per l'aggiornamento della cache GAL."
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+msgid ""
+"This key specifies the number of days interval between the GAL cache "
+"refresh. Set this value to zero, if you don't want to update GAL and use the "
+"current cache forever. This will work only if you have enabled offline "
+"caching for GAL."
+msgstr ""
+"Questa chiave specifica il numero di giorni di intervallo tra gli "
+"aggiornamenti della cache GAL. Impostare questo valore a zero per non "
+"aggiornare GAL e usare la cache attuale per sempre. Ciò funziona solo se si "
+"è abilitato il caching fuori rete per GAL."
+
+#: ../addressbook/e-book-backend-exchange.c:1932
+#: ../addressbook/e-book-backend-gal.c:1817 ../storage/exchange-storage.c:135
 msgid "Searching..."
-msgstr "Ricerca in corso..."
+msgstr "Ricerca..."
 
-# Novell Translation
-#: ../addressbook/e-book-backend-gal.c:267
+#: ../addressbook/e-book-backend-gal.c:301
+#: ../addressbook/e-book-backend-gal.c:322
 msgid "Reconnecting to LDAP server..."
-msgstr "Riconnessione al server LDAP in corso..."
+msgstr "Riconnessione al server LDAP..."
 
-# Novell Translation
-#: ../addressbook/e-book-backend-gal.c:1363
+#: ../addressbook/e-book-backend-gal.c:1601
 msgid "Receiving LDAP search results..."
-msgstr "Ricezione dei risultati della ricerca di LDAP in corso..."
+msgstr "Ricezione dei risultati della ricerca di LDAP..."
 
-# Novell Translation
-#: ../addressbook/e-book-backend-gal.c:1522
+#: ../addressbook/e-book-backend-gal.c:1846
 msgid "Error performing search"
-msgstr "Errore durante l'esecuzione della ricerca"
+msgstr "Errore nell'eseguire la ricerca"
 
 # Novell Translation
-#: ../calendar/e-cal-backend-exchange-calendar.c:1934
+#: ../calendar/e-cal-backend-exchange-calendar.c:2028
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
-"Impossibile pianificare la risorsa '%s' per riunioni ricorrenti.\n"
+"Impossibile pianificare la risorsa «%s» per riunioni ricorrenti.\n"
 "È necessario prenotare ciascuna riunione separatamente."
 
 # Novell Translation
-#: ../calendar/e-cal-backend-exchange-calendar.c:1952
+#: ../calendar/e-cal-backend-exchange-calendar.c:2046
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
-msgstr "La risorsa '%s' è occupata durante il periodo di tempo selezionato."
+msgstr "La risorsa «%s» è occupata durante il periodo di tempo selezionato."
 
-# Novell Translation
-#: ../camel/camel-exchange-folder.c:222
+#: ../calendar/e-cal-backend-exchange.c:391
+#: ../calendar/e-cal-backend-exchange.c:401
+msgid "Authentication failed"
+msgstr "Autenticazione fallita"
+
+#: ../calendar/e-cal-backend-exchange.c:444
+msgid "Could not find the calendar"
+msgstr "Impossibile trovare il calendario"
+
+#: ../camel/camel-exchange-folder.c:52
+msgid "Always check for new mail in this folder"
+msgstr "Controllare sempre la nuova posta in questa cartella"
+
+# Nota: expunge vuol dire espungere (passi da scritti, ecc), togliere
+# cancellare, omettere.... Non so se è voluto o se è un errore
+# per expurge (presente in evolution). Cmq nel glossario MS non c'è.
+#
+# --Luca
+#: ../camel/camel-exchange-folder.c:238
 msgid "You cannot expunge in offline mode."
-msgstr "Impossibile pulire la cartella in modalità non in linea."
+msgstr "Impossibile togliere in modalità fuori rete."
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:253
+#: ../camel/camel-exchange-folder.c:269
 msgid "No Subject"
 msgstr "Senza oggetto"
 
-# Novell Translation
-#: ../camel/camel-exchange-folder.c:407
+#: ../camel/camel-exchange-folder.c:424
 msgid "This message is not available in offline mode."
-msgstr "Questo messaggio non è disponibile in modalità non in linea."
+msgstr "Questo messaggio non è disponibile in modalità fuori rete."
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:642
+#: ../camel/camel-exchange-folder.c:681
 msgid "Moving messages"
 msgstr "Spostamento dei messaggi"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:643
+#: ../camel/camel-exchange-folder.c:682
 msgid "Copying messages"
 msgstr "Copia dei messaggi"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:1014
+#: ../camel/camel-exchange-folder.c:1055
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Impossibile creare la directory %s: %s"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:1024
+#: ../camel/camel-exchange-folder.c:1065
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Impossibile caricare il riepilogo per %s"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:1032
+#: ../camel/camel-exchange-folder.c:1073
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Impossibile creare la cache per %s"
 
-# Novell Translation
-#: ../camel/camel-exchange-folder.c:1042
+#: ../camel/camel-exchange-folder.c:1083
 #, c-format
 msgid "Could not create journal for %s"
-msgstr "Impossibile creare il journal per %s"
+msgstr "Impossibile creare il diario per %s"
 
-# Novell Translation
-#: ../camel/camel-exchange-folder.c:1087
+#: ../camel/camel-exchange-folder.c:1131
 msgid "Scanning for changed messages"
-msgstr "Ricerca dei messaggi modificati"
+msgstr "Ricerca dei messaggi cambiati"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:1113
+#: ../camel/camel-exchange-folder.c:1164
 msgid "Fetching summary information for new messages"
 msgstr "Recupero delle informazioni di riepilogo per i nuovi messaggi"
 
-#: ../camel/camel-exchange-journal.c:339
+#: ../camel/camel-exchange-journal.c:341
 msgid "No folder name found\n"
-msgstr "Non è stato trovato nessun nome di cartella\n"
+msgstr "Non è stato trovato alcun nome di cartella\n"
 
-# Novell Translation
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
-#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2724
+#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:3002
+#: ../mail/mail-stub-exchange.c:3046 ../mail/mail-stub-exchange.c:3081
+#: ../mail/mail-stub-exchange.c:3108 ../mail/mail-stub-exchange.c:3161
+#: ../mail/mail-stub-exchange.c:3183
 msgid "Folder doesn't exist"
-msgstr "Cartella inesistente"
+msgstr "La cartella non esiste"
 
-# Novell Translation
-#: ../camel/camel-exchange-journal.c:436
+#: ../camel/camel-exchange-journal.c:438
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
-"Impossibile aggiungere messaggi in modalità non in linea: cache non "
-"disponibile"
+"Impossibile accodare messaggi in modalità fuori rete: cache non disponibile"
 
-# Novell Translation
-#: ../camel/camel-exchange-journal.c:452
+#: ../camel/camel-exchange-journal.c:454
 #, c-format
 msgid "Cannot append message in offline mode: %s"
-msgstr "Impossibile aggiungere messaggi in modalità non in linea: %s"
+msgstr "Impossibile accodare messaggi in modalità fuori rete: %s"
 
-# Novell Translation
+#: ../camel/camel-exchange-provider.c:41
+msgid "Checking for New Mail"
+msgstr "Controllo nuova posta"
+
+#: ../camel/camel-exchange-provider.c:43
+msgid "C_heck for new messages in all folders"
+msgstr "C_ontrollare i nuovi messaggi in tutte le cartelle"
+
+# GNOME-2-22
+# SYNC
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:44
+#: ../camel/camel-exchange-provider.c:51
 msgid "Windows User_name:"
 msgstr "_Nome utente di Windows:"
 
 # Novell Translation
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:49
+#: ../camel/camel-exchange-provider.c:56
 msgid "Global Address List / Active Directory"
 msgstr "Elenco indirizzi globale/Active Directory"
 
 # Novell Translation
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:60
 msgid "_Global Catalog server name:"
 msgstr "Nome del server catalogo _globale:"
 
-# Novell Translation
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:62
 #, c-format
 msgid "_Limit number of GAL responses: %s"
-msgstr "_Limita il numero di risposte dell'EIG (Elenco Indirizzi Globale): %s"
+msgstr "_Limitare il numero di risposte GAL: %s"
 
-#: ../camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:65
 msgid "Options"
 msgstr "Opzioni"
 
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:67
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Periodo di avviso scadenza password: %s"
 
-#: ../camel/camel-exchange-provider.c:62
-msgid "Automatically synchroni_ze account locally"
-msgstr "Sincroni_zza automaticamente l'account localmente"
-
-# Novell Translation
-#. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:65
-msgid "_Apply filters to new messages in Inbox on this server"
-msgstr "_Applicare filtri ai nuovi messaggi nella Inbox su questo server"
-
-# Novell Translation
-#: ../camel/camel-exchange-provider.c:67
-msgid "Check new messages for _Junk contents"
-msgstr "Controlla se c'è posta indesiderata nei nuovi messaggi"
-
-# Novell Translation
 #: ../camel/camel-exchange-provider.c:69
+msgid "Automatically synchroni_ze account locally"
+msgstr "Sincroni_zzare automaticamente l'account localmente"
+
+# GNOME-2-22
+# SYNC
+#. i18n: copy from evolution:camel-imap-provider.c
+#: ../camel/camel-exchange-provider.c:72
+msgid "_Apply filters to new messages in Inbox on this server"
+msgstr "A_pplicare filtri ai nuovi messaggi in «In arrivo» su questo server"
+
+# GNOME-2-22
+# SYNC
+#: ../camel/camel-exchange-provider.c:74
+msgid "Check new messages for _Junk contents"
+msgstr "Controllare contenuti in_desiderati nei nuovi messaggi"
+
+# GNOME-2-22
+# SYNC
+#: ../camel/camel-exchange-provider.c:76
 msgid "Only check for Junk messag_es in the Inbox folder"
-msgstr "Controlla solo se c'è posta indesiderata nella cartella Inbox"
+msgstr "Controllare i messa_ggi indesiderati sono nella cartella «In arrivo»"
 
 # Novell Translation
-#: ../camel/camel-exchange-provider.c:79
+#: ../camel/camel-exchange-provider.c:86
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-# Novell Translation
-#: ../camel/camel-exchange-provider.c:81
+#: ../camel/camel-exchange-provider.c:88
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr ""
-"Per la gestione della posta (e altri dati) nei server Microsoft Exchange"
+"Per la gestione della posta (e altri dati) su server Microsoft Exchange"
 
-# Novell Translation
+# cercando su www sembra che si la traduzione italiana
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:104
 msgid "Secure Password"
 msgstr "Password di protezione"
 
-# Novell Translation
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:107
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
-msgstr ""
-"L'opzione consente di connettersi al server Exchange utilizzando "
-"l'autenticazione NTLM(con parola d’ordine sicura)."
+msgstr "Questa opzione consente di connettersi al server Exchange utilizzando l'autenticazione con password di protezione (NTML)."
 
-# Novell Translation
-#: ../camel/camel-exchange-provider.c:108
+# dal glossario MS: plaintext authentication --> aut. senza crittografia
+#: ../camel/camel-exchange-provider.c:115
 msgid "Plaintext Password"
-msgstr "Parola d’ordine non cifrata"
+msgstr "Password senza crittografia"
 
-# Novell Translation
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:117
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
-msgstr ""
-"L'opzione consente di connettersi al server Exchange utilizzando "
-"l'autenticazione con parola d’ordine non cifrata standard."
+msgstr "Questa opzione consente di connettersi al server Exchange utilizzando l'autenticazione con password non cifrata standard."
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:308
+#: ../camel/camel-exchange-store.c:312
 #, c-format
 msgid "Exchange server %s"
 msgstr "Server Exchange %s"
 
-# Novell Translation
-#: ../camel/camel-exchange-store.c:311
+#: ../camel/camel-exchange-store.c:315
 #, c-format
 msgid "Exchange account for %s on %s"
-msgstr "Conto Exchange per %s in %s"
+msgstr "Account Exchange per %s su %s"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:352
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%sInserire la parola d’ordine per %s"
-
-# Novell Translation
-#: ../camel/camel-exchange-store.c:403
+#: ../camel/camel-exchange-store.c:407
 msgid "Evolution Exchange backend process"
 msgstr "Processo di backend di Evolution Exchange"
 
-# Novell Translation
-#: ../camel/camel-exchange-store.c:444
+#: ../camel/camel-exchange-store.c:448
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
 msgstr ""
-"Impossibile autenticarsi al server. (Parola d’ordine non valida?)\n"
+"Impossibile autenticarsi sul server (password non corretta?).\n"
 "\n"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:486
+#: ../camel/camel-exchange-store.c:490
 #, c-format
 msgid "No such folder %s"
 msgstr "La cartella %s non esiste"
 
-# Novell Translation
-#: ../camel/camel-exchange-store.c:563
+#: ../camel/camel-exchange-store.c:567
 msgid "Cannot subscribe folder in offline mode."
-msgstr "Impossibile iscrivere una cartella in modalità non in linea."
+msgstr "Impossibile effettuare la sottoscrizione alla cartella in modalità fuori rete."
 
-# Novell Translation
-#: ../camel/camel-exchange-store.c:580
+#: ../camel/camel-exchange-store.c:584
 msgid "Cannot unsubscribe folder in offline mode."
-msgstr "Impossibile disiscrivere cartella in modalità non in linea."
+msgstr "Impossibile annullare la sottoscrizione alla cartella in modalità fuori rete."
 
-# Novell Translation
-#: ../camel/camel-exchange-store.c:695
+#: ../camel/camel-exchange-store.c:716
 msgid "Cannot get folder info in offline mode."
 msgstr ""
-"Impossibile ottenere informazioni sulla cartella in modalità non in linea."
+"Impossibile ottenere informazioni sulla cartella in modalità fuori rete."
 
-# Novell Translation
-#: ../camel/camel-exchange-store.c:766
+#: ../camel/camel-exchange-store.c:789
 msgid "Cannot create folder in offline mode."
-msgstr "Impossibile creare una cartella in modalità non in linea."
+msgstr "Impossibile creare una cartella in modalità fuori rete."
 
-# Novell Translation
-#: ../camel/camel-exchange-store.c:793
+#: ../camel/camel-exchange-store.c:816
 msgid "Cannot delete folder in offline mode."
-msgstr "Impossibile cancellare la cartella in modalità non in linea."
+msgstr "Impossibile eliminare la cartella in modalità fuori rete."
 
-# Novell Translation
-#: ../camel/camel-exchange-store.c:809
+#: ../camel/camel-exchange-store.c:832
 msgid "Cannot rename folder in offline mode."
-msgstr "Impossibile rinominare la cartella in modalità non in linea."
+msgstr "Impossibile rinominare la cartella in modalità fuori rete."
 
 # Novell Translation
-#: ../camel/camel-exchange-transport.c:110
+#: ../camel/camel-exchange-transport.c:111
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr ""
-"Il trasporto di Exchange può essere utilizzato solo con il sorgente di posta "
-"di Exchange"
+"Il trasporto di Exchange può essere utilizzato solo con sorgente di posta "
+"Exchange"
 
 # Novell Translation
-#: ../camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-transport.c:122
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "Impossibile inviare il messaggio: uno o più destinatari non validi"
 
 # Novell Translation
-#: ../camel/camel-exchange-transport.c:131
+#: ../camel/camel-exchange-transport.c:132
 msgid "Could not find 'From' address in message"
-msgstr "Impossibile trovare l'indirizzo 'Da' nel messaggio"
+msgstr "Impossibile trovare l'indirizzo \"Da\" nel messaggio"
 
 # Novell Translation
-#: ../camel/camel-stub.c:134
+#: ../camel/camel-stub.c:153
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Impossibile creare il socket: %s"
 
+#: ../camel/camel-stub.c:171
+#, c-format
+msgid "Could not connect to %s: Please restart Evolution"
+msgstr "Impossibile connettersi a %s: riavviare Evolution"
+
 # Novell Translation
-#: ../camel/camel-stub.c:149
+#: ../camel/camel-stub.c:176
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Impossibile connettersi a %s: %s"
 
 # Novell Translation
-#: ../camel/camel-stub.c:179
+#: ../camel/camel-stub.c:206
 #, c-format
 msgid "Path too long: %s"
 msgstr "Percorso troppo lungo: %s"
 
 # Novell Translation
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:232
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Impossibile avviare il thread dello stato: %s"
 
-# Novell Translation
-#: ../camel/camel-stub.c:457
+#: ../camel/camel-stub.c:486
 #, c-format
 msgid "Lost connection to %s"
-msgstr "Connessione a %s interrotta"
+msgstr "Connessione a %s persa"
 
-# Novell Translation
-#: ../camel/camel-stub.c:461
+#: ../camel/camel-stub.c:490
 #, c-format
 msgid "Error communicating with %s: %s"
-msgstr "Errore durante la comunicazione con %s: %s"
+msgstr "Errore nel comunicare con %s: %s"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:257
+#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:949
 msgid "No such folder"
 msgstr "Cartella inesistente"
 
 # Novell Translation
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2676
-#: ../mail/mail-stub-exchange.c:2739
+#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1598
+#: ../mail/mail-stub-exchange.c:2979 ../mail/mail-stub-exchange.c:3019
+#: ../mail/mail-stub-exchange.c:3085 ../mail/mail-stub-exchange.c:3135
+#: ../mail/mail-stub-exchange.c:3198
 msgid "Permission denied"
 msgstr "Permesso negato"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
-msgid "Could not open folder: Permission denied"
-msgstr "Impossibile aprire la cartella: permesso negato"
-
-# Novell Translation
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
+#: ../mail/mail-stub-exchange.c:771 ../mail/mail-stub-exchange.c:863
 msgid "Could not open folder"
 msgstr "Impossibile aprire la cartella"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:755
-msgid "No such folder."
-msgstr "Cartella inesistente."
+#: ../mail/mail-stub-exchange.c:857 ../mail/mail-stub-exchange.c:879
+msgid "Could not open folder: Permission denied"
+msgstr "Impossibile aprire la cartella: permesso negato"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:764
+#: ../mail/mail-stub-exchange.c:958
 msgid "Could not create folder."
 msgstr "Impossibile creare la cartella."
 
-# Novell Translation
-#: ../mail/mail-stub-exchange.c:844
+# cfr evolution-data-server
+#: ../mail/mail-stub-exchange.c:1046
 msgid "Could not open Deleted Items folder"
-msgstr "Impossibile aprire la cartella Posta eliminata"
+msgstr "Impossibile aprire la cartella «Posta eliminata»"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
+#: ../mail/mail-stub-exchange.c:1377 ../mail/mail-stub-exchange.c:1418
 msgid "Could not get new messages"
 msgstr "Impossibile ricevere nuovi messaggi"
 
-# Novell Translation
-#: ../mail/mail-stub-exchange.c:1386
+#: ../mail/mail-stub-exchange.c:1594
 msgid "Could not empty Deleted Items folder"
-msgstr "Impossibile svuotare la cartella Posta eliminata"
+msgstr "Impossibile svuotare la cartella «Posta eliminata»"
 
-# Novell Translation
-#: ../mail/mail-stub-exchange.c:1463
+#: ../mail/mail-stub-exchange.c:1671
 msgid "Could not append message; mailbox is over quota"
-msgstr "Impossibile allegare il messaggio; casella postale piena"
+msgstr "Impossibile accodare il messaggio; la casella postale ha superato la quota"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:1464
+#: ../mail/mail-stub-exchange.c:1672
 msgid "Could not append message"
 msgstr "Impossibile accodare il messaggio"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:2016
+#: ../mail/mail-stub-exchange.c:2434
 msgid "No such message"
 msgstr "Messaggio inesistente"
 
-# Novell Translation
-#: ../mail/mail-stub-exchange.c:2069
+#: ../mail/mail-stub-exchange.c:2513
 msgid "Message has been deleted"
-msgstr "Il messaggio è stato cancellato"
+msgstr "Il messaggio è stato eliminato"
 
-# Novell Translation
-#: ../mail/mail-stub-exchange.c:2071
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Error retrieving message"
-msgstr "Errore durante il recupero del messaggio"
+msgstr "Errore nel recuperare il messaggio"
 
-# Novell Translation
-#: ../mail/mail-stub-exchange.c:2113
+#: ../mail/mail-stub-exchange.c:2558
 msgid "Mailbox does not support full-text searching"
-msgstr "La casella postale non supporta la funzione di ricerca full-text"
+msgstr "La casella postale non supporta la ricerca full-text"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:2211
+#: ../mail/mail-stub-exchange.c:2656
 msgid "Unable to move/copy messages"
 msgstr "Impossibile spostare/copiare i messaggi"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:2441
+#: ../mail/mail-stub-exchange.c:2894
 msgid "No mail submission URI for this mailbox"
-msgstr "Nessun URI di invio di posta per la casella postale"
+msgstr "Nessun URI di invio di posta per questa casella postale"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:2477
+#: ../mail/mail-stub-exchange.c:2930
 msgid "Server won't accept mail via Exchange transport"
-msgstr "Il server non accetterà la posta tramite il trasporto di Exchange"
+msgstr "Il server non accetta la posta tramite il trasporto di Exchange"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:2932
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
 msgstr ""
-"Il conto non ha il permesso di utilizzare <%s>\n"
+"Il proprio account non ha il permesso di utilizzare <%s>\n"
 "come indirizzo Da."
 
-# Novell Translation
-#: ../mail/mail-stub-exchange.c:2491
+#: ../mail/mail-stub-exchange.c:2944
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
 "Impossibile inviare il messaggio.\n"
-"Il conto potrebbe essere pieno."
+"L'account potrebbe aver superato la quota consentita."
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:2495
+#: ../mail/mail-stub-exchange.c:2948
 msgid "Could not send message"
 msgstr "Impossibile inviare il messaggio"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2681
-#: ../mail/mail-stub-exchange.c:2745
+#: ../mail/mail-stub-exchange.c:2971 ../mail/mail-stub-exchange.c:3024
+#: ../mail/mail-stub-exchange.c:3089 ../mail/mail-stub-exchange.c:3140
+#: ../mail/mail-stub-exchange.c:3204
 msgid "Generic error"
 msgstr "Errore generico"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:2522
+#: ../mail/mail-stub-exchange.c:2975
 msgid "Folder already exists"
 msgstr "Cartella già esistente"
 
@@ -497,10 +503,10 @@ msgstr "Backend Exchange della rubrica di Evolution"
 msgid "Evolution Calendar Exchange backend"
 msgstr "Backend Exchange del calendario di Evolution"
 
-# Novell Translation
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Ximian Connector for Exchange"
-msgstr "Ximian Connector per Exchange"
+#: ../storage/main.c:183
+msgid "Evolution Connector for Microsoft Exchange"
+msgstr "Evolution Connector per Microsoft Exchange"
 
 # Novell Translation
 #: ../storage/exchange-autoconfig-wizard.c:211
@@ -510,27 +516,24 @@ msgid ""
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
 "Impossibile connettersi al server Exchange.\n"
-"Assicurarsi che l'URL sia corretto (provare, ad esempio, \"%s\" invece di \"%"
-"s\") e riprovare."
+"Assicurarsi che l'URL sia corretto (provare, per esempio, \"%s\" invece di "
+"\"%s\") e riprovare."
 
-# Novell Translation
 #: ../storage/exchange-autoconfig-wizard.c:219
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
 msgstr ""
 "Impossibile individuare il server Exchange.\n"
-"Assicurarsi che l'ortografia del nome del server sia corretta e riprovare."
+"Assicurarsi che server sia scritto in modo corretto e riprovare."
 
-# Novell Translation
 #: ../storage/exchange-autoconfig-wizard.c:228
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
 msgstr ""
 "Impossibile autenticarsi al server Exchange.\n"
-"Assicurarsi che il nome utente e la parola d’ordine siano corretti e "
-"riprovare."
+"Assicurarsi che il nome utente e la password siano corretti e riprovare."
 
 # Novell Translation
 #: ../storage/exchange-autoconfig-wizard.c:235
@@ -543,11 +546,9 @@ msgid ""
 "(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
 "Impossibile autenticarsi al server Exchange.\n"
-"Assicurarsi che il nome utente e la parola d’ordine siano corretti e "
-"riprovare.\n"
+"Assicurarsi che il nome utente e la password siano corretti e riprovare.\n"
 "\n"
-"Potrebbe essere necessario specificare il nome del dominio Windows come "
-"parte del proprio nome utente(ad esempio, \"MIO-DOMINIO\\%s\")."
+"Potrebbe essere necessario specificare il nome del dominio Windows come parte del proprio nome utente(per esempio, \"MIO-DOMINIO\\%s\")."
 
 # Novell Translation
 #: ../storage/exchange-autoconfig-wizard.c:247
@@ -558,84 +559,68 @@ msgstr ""
 "Impossibile trovare i dati OWA nell'URL indicato.\n"
 "Accertarsi che l'URL sia corretto e riprovare."
 
-# Novell Translation
 #: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
+"Evolution Connector for Microsoft Exchange requires access to certain "
+"functionality on the Exchange server that appears to be disabled or "
+"blocked.  (This is usually unintentional.)  Your Exchange administrator will "
+"need to enable this functionality in order for you to be able to use the "
+"Evolution Connector.\n"
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"Ximian Connector richiede l'accesso ad alcune funzionalità in ExchangeServer "
-"che sono disabilitate o bloccate (in generenon è intenzionale). "
-"L'amministratore di Exchange dovrà abilitare questafunzionalità per "
-"consentire all'utente di usare Ximian Connector.\n"
+"Evolution Connector per Microsoft Exchange richiede l'accesso ad alcune funzionalità sul server Exchange che sembra siano disabilitate o bloccate (in genere ciò non è intenzionale). L'amministratore di Exchange dovrà abilitare questa funzionalità per consentire l'uso di Evolution Connector.\n"
 "\n"
-"Per le informazioni da fornire all'amministratore di Exchange, fare clic "
-"sulseguente collegamento:"
+"Per le informazioni da fornire all'amministratore di Exchange, fare clic sul seguente collegamento:"
 
-# Novell Translation
-#: ../storage/exchange-autoconfig-wizard.c:275
+#: ../storage/exchange-autoconfig-wizard.c:276
 msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"L'URL del server Exchange specificato è per un server Exchange 5.5. "
-"XimianConnector supporta solo Microsoft Exchange 2000 e 2003."
+"The Exchange server URL you provided is for an Exchange 5.5 server. "
+"Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
+"and 2003 only."
+msgstr "L'URL del server Exchange specificato è relativa a un server Exchange 5.5. Evolution Connector per Microsoft Exchange supporta solo Microsoft Exchange 2000 e 2003."
 
 # Novell Translation
-#: ../storage/exchange-autoconfig-wizard.c:288
+#: ../storage/exchange-autoconfig-wizard.c:290
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
-msgstr ""
-"Impossibile configurare il conto di Exchange a causa di un errore "
-"sconosciuto.Verificare l'URL, il nome utente e la parola d’ordine, quindi "
-"riprovare."
+msgstr "Impossibile configurare l'account Exchange a causa di un errore sconosciuto. Controllare l'URL, il nome utente e la password, quindi riprovare."
 
-# Novell Translation
-#: ../storage/exchange-autoconfig-wizard.c:332
+#: ../storage/exchange-autoconfig-wizard.c:334
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
 "and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
 "\\%s\")."
-msgstr ""
-"Impossibile autenticarsi al server del catalogo globale. È necessario "
-"tornare indietro e specificare il nome del dominio Windows come parte del "
-"proprio nome utente (ad esempio, \"MIO-DOMINIO\\%s\")."
+msgstr "Impossibile autenticarsi al server del catalogo globale. Potrebbe essere necessario tornare indietro e specificare il nome del dominio Windows come parte del proprio nome utente (ad esempio, \"MIO-DOMINIO\\%s\")."
 
-# Novell Translation
-#: ../storage/exchange-autoconfig-wizard.c:339
+#: ../storage/exchange-autoconfig-wizard.c:341
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
 msgstr ""
 "Impossibile connettersi al server specificato.\n"
-"Verificare il nome del server e riprovare."
+"Controllare il nome del server e riprovare."
 
 # Novell Translation
-#: ../storage/exchange-autoconfig-wizard.c:376
-#: ../storage/exchange-autoconfig-wizard.c:380
+#: ../storage/exchange-autoconfig-wizard.c:378
+#: ../storage/exchange-autoconfig-wizard.c:382
 msgid "Unknown"
 msgstr "Sconosciuto"
 
-# Novell Translation
-#: ../storage/exchange-autoconfig-wizard.c:445
+#: ../storage/exchange-autoconfig-wizard.c:447
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
 msgstr ""
 "Errore di configurazione del sistema.\n"
-"Impossibile creare un nuovo conto."
+"Impossibile creare un nuovo account."
 
-# Novell Translation
-#: ../storage/exchange-autoconfig-wizard.c:459
+#: ../storage/exchange-autoconfig-wizard.c:461
 msgid "You may only configure a single Exchange account"
-msgstr "È possibile configurare un solo conto di Exchange."
+msgstr "È possibile configurare un solo account Exchange."
 
 # Novell Translation
 #: ../storage/exchange-autoconfig-wizard.glade.h:1
@@ -646,7 +631,7 @@ msgstr "*"
 # Novell Translation
 #: ../storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
-msgstr "Configurazione non riuscita"
+msgstr "Configurazione fallita"
 
 # Novell Translation
 #: ../storage/exchange-autoconfig-wizard.glade.h:3
@@ -658,126 +643,108 @@ msgstr "Fatto"
 msgid "Email Address:"
 msgstr "Indirizzo email:"
 
-# Novell Translation
 #: ../storage/exchange-autoconfig-wizard.glade.h:5
+msgid "Evolution Connector for Microsoft Exchange Configuration"
+msgstr "Configurazione di Evolution Connector per Microsoft Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:6
+msgid ""
+"Evolution Connector for Microsoft Exchange can use account information from "
+"your existing Outlook Web Access (OWA) account.\n"
+"\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
+msgstr ""
+"Evolution Connector per Microsoft Exchange è in grado di utilizzare le informazioni di account dal proprio account OWA (Outlook Web Access) esistente.\n"
+"\n"
+"Immettere il proprio indirizzo (URL) del sito OWA, il nome utente e la password, quindi fare clic su \"Avanti\".\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:10
+msgid ""
+"Evolution Connector for Microsoft Exchange could not find the Global Catalog "
+"replica for your site. Please enter the name of your Global Catalog server. "
+"You may need to ask your system administrator for the correct value.\n"
+msgstr "Evolution Connector per Microsoft Exchange non è stato grado di trovare la replica del catalogo globale per il sito dell'utente. Inserire il nome del proprio server del catalogo globale. Potrebbe essere necessario chiedere il valore corretto al proprio amministratore di sistema.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:12
+msgid ""
+"Evolution Connector for Microsoft Exchange has encountered a problem "
+"configuring your Exchange account.\n"
+msgstr "Evolution Connector per Microsoft Exchange ha riscontrato un problema nel configurare l'account Exchange.\n"
+
+# Novell Translation
+#: ../storage/exchange-autoconfig-wizard.glade.h:14
 msgid "Exchange Configuration"
 msgstr "Configurazione di Exchange"
 
 # Novell Translation
-#: ../storage/exchange-autoconfig-wizard.glade.h:6
+#: ../storage/exchange-autoconfig-wizard.glade.h:15
 msgid "Full Name:"
 msgstr "Nome completo:"
 
 # Novell Translation
-#: ../storage/exchange-autoconfig-wizard.glade.h:7
+#: ../storage/exchange-autoconfig-wizard.glade.h:16
 msgid "GC Server:"
 msgstr "Server GC:"
 
-# Novell Translation
-#: ../storage/exchange-autoconfig-wizard.glade.h:8
+#: ../storage/exchange-autoconfig-wizard.glade.h:17
 msgid "Make this my default account"
-msgstr "Imposta come conto di default"
+msgstr "Imposta come proprio accunt predefinito"
 
 # Novell Translation
-#: ../storage/exchange-autoconfig-wizard.glade.h:9
+#: ../storage/exchange-autoconfig-wizard.glade.h:18
 msgid "OWA URL:"
 msgstr "URL OWA:"
 
 # Novell Translation
-#: ../storage/exchange-autoconfig-wizard.glade.h:10
+#: ../storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Password:"
-msgstr "Parola d’ordine:"
+msgstr "Password:"
 
 # Novell Translation
-#: ../storage/exchange-autoconfig-wizard.glade.h:11
+#: ../storage/exchange-autoconfig-wizard.glade.h:20
 msgid "Remember this password"
-msgstr "Ricorda questa parola d’ordine"
+msgstr "Ricordare questa password"
 
 # Novell Translation
-#: ../storage/exchange-autoconfig-wizard.glade.h:12
+#: ../storage/exchange-autoconfig-wizard.glade.h:21
 msgid "Username:"
 msgstr "Nome utente:"
 
 # Novell Translation
-#: ../storage/exchange-autoconfig-wizard.glade.h:13
+#: ../storage/exchange-autoconfig-wizard.glade.h:22
 msgid "Welcome"
 msgstr "Benvenuti"
 
-# Novell Translation
-#: ../storage/exchange-autoconfig-wizard.glade.h:14
+#: ../storage/exchange-autoconfig-wizard.glade.h:23
 msgid ""
-"Welcome to Ximian Connector for Microsoft Exchange.\n"
+"Welcome to Evolution Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
 "to connect to your Exchange account.\n"
 "\n"
 "Please click the \"Forward\" button to continue."
 msgstr ""
-"Ximian Connector per Microsoft Exchange.\n"
+"Benvenuti in Evolution Connector per Microsoft Exchange.\n"
 "Le schermate successive consentono di configurare Evolution\n"
-"per la connessione al conto di Exchange.\n"
+"per poterlo connettere al proprio account Exchange.\n"
 "\n"
 "Fare clic sul pulsante \"Avanti\" per continuare."
 
-# Novell Translation
-#: ../storage/exchange-autoconfig-wizard.glade.h:19
-msgid "Ximian Connector Configuration"
-msgstr "Configurazione di Ximian Connector"
-
-# Novell Translation
-#: ../storage/exchange-autoconfig-wizard.glade.h:20
-msgid ""
-"Ximian Connector can use account information from your existing Outlook Web "
-"Access (OWA) account.\n"
-"\n"
-"Enter your OWA site address (URL), username, and password, then click "
-"\"Forward\".\n"
-msgstr ""
-"Ximian Connector è in grado di utilizzare le informazioni del conto OWA "
-"(Outlook Web Access) esistente.\n"
-"\n"
-"Immettere l'indirizzo del sito OWA (URL), il nome utente e la parola "
-"d’ordine, quindi fare clic su \"Avanti\".\n"
-
-# Novell Translation
-#: ../storage/exchange-autoconfig-wizard.glade.h:24
-msgid ""
-"Ximian Connector could not find the Global Catalog replica for your site. "
-"Please enter the name of your Global Catalog server. You may need to ask "
-"your system administrator for the correct value.\n"
-msgstr ""
-"Ximian Connector non è stato grado di trovare la replica del catalogo "
-"globale per il sito dell'utente. Immettere il nome del server del catalogo "
-"globale. È necessario chiedere il valore corretto all'amministratore di "
-"sistema.\n"
-
-# Novell Translation
-#: ../storage/exchange-autoconfig-wizard.glade.h:26
-msgid ""
-"Ximian Connector has encountered a problem configuring your Exchange "
-"account.\n"
-msgstr ""
-"Ximian Connector ha rilevato un problema durante la configurazione del conto "
-"di Exchange.\n"
-
-# Novell Translation
+# visto che lo \n sta a cazzo, lo metto dove mi pare...
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
 "Your Connector account is now ready to use. Click the \"Apply\" button to "
 "save your\n"
 "settings."
 msgstr ""
-"Il conto Connector è pronto per l'uso. Fare clic sul pulsante \"Applica\" "
-"per salvare le\n"
-" impostazioni."
+"Il proprio account Connector è ora pronto per l'uso.\n"
+"Fare clic sul pulsante \"Applica\" per salvare le proprie impostazioni."
 
-# Novell Translation
 #: ../storage/exchange-autoconfig-wizard.glade.h:30
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
-msgstr ""
-"Di seguito sono riportate le informazioni sul conto. Correggere eventuali "
-"errori, quindi fare clic su \"Avanti\".\n"
+msgstr "Di seguito sono riportate le informazioni del proprio account. Correggere eventuali errori, quindi fare clic su \"Avanti\".\n"
 
 # Novell Translation
 #. User entered a wrong existing
@@ -787,40 +754,37 @@ msgstr ""
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
-msgstr ""
-"La parola d’ordine attuale non corrisponde a quella esistente per il conto. "
-"Immettere la parola d’ordine corretta"
+msgstr "La password attuale non corrisponde a quella esistente per il proprio account. Inserire la password corretta"
 
 # Novell Translation
 #: ../storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
-msgstr ""
-"Le due parole d’ordine non corrispondono. Reimmettere le parole d’ordine."
+msgstr "Le due password non corrispondono. Reimmettere le password."
 
 # Novell Translation
 #: ../storage/exchange-change-password.glade.h:2
 msgid "Change Password"
-msgstr "Cambia parola d’ordine"
+msgstr "Cambia password"
 
 # Novell Translation
 #: ../storage/exchange-change-password.glade.h:3
 msgid "Confirm Password:"
-msgstr "Conferma parola d’ordine:"
+msgstr "Conferma password:"
 
 # Novell Translation
 #: ../storage/exchange-change-password.glade.h:4
 msgid "Current Password:"
-msgstr "Parola d’ordine attuale:"
+msgstr "Password attuale:"
 
 # Novell Translation
 #: ../storage/exchange-change-password.glade.h:5
 msgid "New Password:"
-msgstr "Nuova parola d’ordine:"
+msgstr "Nuova password:"
 
-# Novell Translation
 #: ../storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
-msgstr "La parola d’ordine attuale è scaduta. Cambiare la parola d’ordine ora."
+msgstr ""
+"La password attuale è scaduta. Cambiare la propria password immediatamente."
 
 # Novell Translation
 #: ../storage/exchange-delegates.glade.h:1
@@ -847,10 +811,10 @@ msgstr "Permessi deleghe"
 msgid "Delegates"
 msgstr "Deleghe"
 
-# Novell Translation
+# da glossario MS
 #: ../storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
-msgstr "Editor (lettura, creazione, modifica)"
+msgstr "Supervisore (lettura, creazione, modifica)"
 
 # Novell Translation
 #: ../storage/exchange-delegates.glade.h:7
@@ -886,10 +850,9 @@ msgstr "Il _delegato può accedere a elementi privati"
 msgid "_Edit"
 msgstr "_Modifica"
 
-# Novell Translation
 #: ../storage/exchange-delegates.glade.h:14
 msgid "_Inbox:"
-msgstr "_Inbox:"
+msgstr "_In arrivo:"
 
 # Novell Translation
 #: ../storage/exchange-delegates.glade.h:15
@@ -915,12 +878,10 @@ msgid ""
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
-"Il percorso e la gerarchia delle cartelle del conto Exchange di Evolution "
-"sono cambiati da Evolution %d.%d.%d.\n"
-"”\n"
-"Attendere il completamento della migrazione delle cartelle."
+"Il percorso e la gerarchia delle cartelle del account Exchange di Evolution sono cambiati da Evolution %d.%d.%d.\n"
+"\n"
+"Attendere il completamento della migrazione delle cartelle..."
 
-# Novell Translation
 #: ../storage/exchange-migrate.c:99
 #, c-format
 msgid ""
@@ -929,71 +890,64 @@ msgid ""
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"Avviso: Evolution non può effettuare la migrazione di tutti i dati del conto dalla versione %d.%d.%d. \n"
-"”I dati non sono stati cancellati ma questa versione di Evolution non ne consente l'accesso"
+"Avvertimento: Evolution non può effettuare la migrazione di tutti i dati del dell'account dalla versione %d.%d.%d. \n"
+"I dati non sono stati eliminati, ma non sono visibili in questa versione di Evolution"
 
-# Novell Translation
 #: ../storage/exchange-migrate.c:130
 #, c-format
 msgid "Migrating `%s':"
-msgstr "Migrazione di `%s' in corso:"
+msgstr "Migrazione di \"%s\" in corso:"
 
-# Novell Translation
+# in sede: da glossario MS
 #: ../storage/exchange-oof.glade.h:1
 msgid ""
 "<b>Currently, your status is \"Out of the Office\". </b>\n"
 "\n"
 "Would you like to change your status to \"In the Office\"? "
 msgstr ""
-"“<b>Attualmente, lo stato è \"Fuori ufficio\". </b>\n"
+"<b>Attualmente, il proprio stato è \"Fuori sede\". </b>\n"
 "\n"
-"“Cambiare lo stato in \"In ufficio\"? "
+"Cambiare lo stato in \"In sede\"? "
 
-# Novell Translation
 #: ../storage/exchange-oof.glade.h:4
 msgid "<b>Out of Office Message:</b>"
-msgstr "<b>Messaggio Fuori ufficio:</b>"
+msgstr "<b>Messaggio per fuori sede:</b>"
 
 # Novell Translation
 #: ../storage/exchange-oof.glade.h:5
 msgid "<b>Status:</b>"
 msgstr "<b>Stato:</b>"
 
-# Novell Translation
 #: ../storage/exchange-oof.glade.h:6
 msgid ""
 "<small>The message specified below will be automatically sent to each person "
 "who sends\n"
 "mail to you while you are out of the office.</small>"
 msgstr ""
-"<small>Il messaggio sottostante viene inviato automaticamente a chiunque "
-"invii\n"
-"un messaggio di posta durante la propria assenza dall'ufficio.</small>"
+"<small>Il messaggio sottostante viene inviato automaticamente\n"
+"a chiunque invii un messaggio di posta mentre si è fuori sede.</small>"
 
-# Novell Translation
 #: ../storage/exchange-oof.glade.h:8
 msgid "I am currently in the office"
-msgstr "Al momento sono in ufficio"
+msgstr "Al momento sono in sede"
 
-# Novell Translation
 #: ../storage/exchange-oof.glade.h:9
 msgid "I am currently out of the office"
-msgstr "Al momento non sono in ufficio"
+msgstr "Al momento non sono fuori sede"
 
 # Novell Translation
 #: ../storage/exchange-oof.glade.h:10
 msgid "No, Don't Change Status"
 msgstr "No. Non cambiare lo stato"
 
-# Novell Translation
 #: ../storage/exchange-oof.glade.h:11
 msgid "Out of Office Assistant"
-msgstr "Assistente fuori ufficio"
+msgstr "Assistente per fuori sede"
 
 # Novell Translation
 #: ../storage/exchange-oof.glade.h:12
 msgid "Yes, Change Status"
-msgstr "Si. Cambiare lo stato"
+msgstr "Sì. Cambiare lo stato"
 
 #: ../storage/exchange-passwd-expiry.glade.h:1
 msgid "Password Expiry Warning..."
@@ -1022,10 +976,9 @@ msgstr "    "
 msgid "<b>Permissions</b>"
 msgstr "<b>Permessi</b>"
 
-# Novell Translation
 #: ../storage/exchange-permissions-dialog.glade.h:3
 msgid "Cannot Delete"
-msgstr "Impossibile cancellare"
+msgstr "Impossibile eliminare"
 
 # Novell Translation
 #: ../storage/exchange-permissions-dialog.glade.h:4
@@ -1042,20 +995,17 @@ msgstr "Crea elementi"
 msgid "Create subfolders"
 msgstr "Crea sottocartelle"
 
-# Novell Translation
 #: ../storage/exchange-permissions-dialog.glade.h:7
 msgid "Delete Any Items"
-msgstr "Cancella elementi"
+msgstr "Elimina ogni elemento"
 
-# Novell Translation
 #: ../storage/exchange-permissions-dialog.glade.h:8
 msgid "Delete Own Items"
-msgstr "Cancella elementi personali"
+msgstr "Elimina elementi personali"
 
-# Novell Translation
 #: ../storage/exchange-permissions-dialog.glade.h:9
 msgid "Edit Any Items"
-msgstr "Modifica elementi"
+msgstr "Modifica ogni elemento"
 
 # Novell Translation
 #: ../storage/exchange-permissions-dialog.glade.h:10
@@ -1075,7 +1025,7 @@ msgstr "Proprietario cartella"
 # Novell Translation
 #: ../storage/exchange-permissions-dialog.glade.h:13
 msgid "Folder visible"
-msgstr "Cartella visualizzata"
+msgstr "Cartella visibile"
 
 # Novell Translation
 #: ../storage/exchange-permissions-dialog.glade.h:14
@@ -1090,22 +1040,15 @@ msgstr "Ruolo: "
 # Novell Translation
 #: ../storage/exchange-storage.c:338
 msgid "Connecting..."
-msgstr "Connessione in corso…"
+msgstr "Connessione..."
 
-# Novell Translation
-#: ../storage/main.c:183
-msgid "Ximian Connector for Microsoft Exchange"
-msgstr "Ximian Connector per Microsoft Exchange"
-
-# Novell Translation
 #: ../storage/ximian-connector-setup.c:44
-msgid "Ximian Connector for Microsoft Exchange Setup Tool"
-msgstr "Ximian Connector per Strumento di configurazione di Microsoft Exchange"
+msgid "Evolution Connector for Microsoft Exchange Setup Tool"
+msgstr "Strumento di configurazione di Evolution Connector per Microsoft Exchange"
 
-# Novell Translation
 #: ../storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
-msgstr "Cambia parola d'ordine del server Exchange"
+msgstr "Cambia la propria password per il server Exchange"
 
 # Novell Translation
 #: ../storage/ximian-connector.xml.h:2
@@ -1119,7 +1062,7 @@ msgstr "Ottieni la dimensione delle cartelle personali"
 # Novell Translation
 #: ../storage/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
-msgstr "Attiva sottoscrizione a cartella di _altro utente…"
+msgstr "Attiva sottoscrizione a cartella di _altro utente..."
 
 # Novell Translation
 #: ../storage/ximian-connector.xml.h:5
@@ -1137,30 +1080,25 @@ msgstr ""
 # Novell Translation
 #: ../storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
-msgstr ""
-"Visualizza o cambia le impostazioni di delega del calendario di Exchange"
+msgstr "Visualizza o cambia le proprie impostazioni di delega del calendario di Exchange"
 
-# Novell Translation
 #: ../storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
-msgstr ""
-"Visualizza o cambia lo stato Fuori ufficio e il messaggio di risposta "
-"automatica"
+msgstr "Visualizza o cambia il proprio stato \"Fuori sede\" e il messaggio di risposta automatica"
 
 # Novell Translation
 #: ../storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
-msgstr "_Cambia parola d'ordine di Exchange…"
+msgstr "_Cambia password Exchange..."
 
 # Novell Translation
 #: ../storage/ximian-connector.xml.h:10
 msgid "_Delegation Assistant"
-msgstr "_Assistente delega…"
+msgstr "_Assistente delega"
 
-# Novell Translation
 #: ../storage/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
-msgstr "_Assistente fuori ufficio…"
+msgstr "_Assistente fuori sede"
 
 # Novell Translation
 #: ../storage/ximian-connector.xml.h:12
