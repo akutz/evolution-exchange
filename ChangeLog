@@ -1,3 +1,13 @@
+2008-02-21 Johnny Jacob <jjohnny@novell.com>
+	
+	Committed on behalf of Veerapuram Varadhan <vvaradhan@novell.com>
+
+	** Fix for bug #432885
+
+	* mail/mail-stub-exchange.c: (get_folder_info): Rescan the hierarchy - 
+	as we don't rescan foreign hierarchies anywhere for mailer and only 
+	when we are starting up.
+	
 2008-02-22  Milan Crha  <mcrha@redhat.com>
 
 	** Part of fix for bug #514836

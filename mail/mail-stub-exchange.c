@@ -2823,6 +2823,14 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 					}
 					break;
 				case EXCHANGE_HIERARCHY_FOREIGN:
+					if (folder_flags & CAMEL_STUB_FOLDER_NOSELECT &&
+					    mse->new_folder_id == 0) {
+						/* Rescan the hierarchy - as we don't rescan
+						   foreign hierarchies anywhere for mailer and
+						   only when we are starting up
+						*/
+						exchange_hierarchy_scan_subtree (hier, hier->toplevel, mode);
+					}
 				case EXCHANGE_HIERARCHY_PERSONAL:
 					if (!strcmp (type, "mail")) {
 						unread_count = e_folder_get_unread_count (folder);
