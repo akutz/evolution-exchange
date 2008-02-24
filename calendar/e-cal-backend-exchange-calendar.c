@@ -235,7 +235,7 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 		status = add_vevent (cbex, href, lastmod, icalcomp);
 
 		if (status) {
-			char *object = g_strdup (icalcomponent_as_ical_string (icalcomp));
+			char *object = icalcomponent_as_ical_string (icalcomp);
 			e_cal_backend_notify_object_created (backend, object);
 			g_free (object);
 		}
@@ -270,7 +270,7 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 			status = add_vevent (cbex, href, lastmod, new_comp);
 
 			if (status) {
-				char *object = g_strdup (icalcomponent_as_ical_string (new_comp));
+				char *object = icalcomponent_as_ical_string (new_comp);
 				e_cal_backend_notify_object_created (backend, object);
 				g_free (object);
 			}
@@ -833,6 +833,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 
 	body = icalcomponent_as_ical_string (cbdata->vcal_comp);
 	body_crlf = e_cal_backend_exchange_lf_to_crlf (body);
+	g_free (body);
 
 	date = e_cal_backend_exchange_make_timestamp_rfc822 (time (NULL));
 	if (!g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (cbex->account)))
@@ -1353,13 +1354,14 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	e_cal_backend_exchange_cache_unlock (cbex);
 
 	if (!cached_ecomp && remove)
-		*new_object = g_strdup (icalcomponent_as_ical_string (icalcomp));
+		*new_object = icalcomponent_as_ical_string (icalcomp);
 
 	if (!remove && mod == CALOBJ_MOD_THIS)
 		icalcomponent_add_component (cbdata->vcal_comp, real_icalcomp);
 
 	body = icalcomponent_as_ical_string (cbdata->vcal_comp);
 	body_crlf = e_cal_backend_exchange_lf_to_crlf (body);
+	g_free (body);
 
 	date = e_cal_backend_exchange_make_timestamp_rfc822 (time (NULL));
 	if (!g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (cbex->account)))
@@ -1510,6 +1512,7 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 		e_cal_backend_exchange_cache_unlock (cbex);
 		ebs_status = modify_object_with_href (backend, cal, calobj, mod, &obj, &new_object, NULL, rid);
 		g_object_unref (comp);
+		g_free (calobj);
 		if (ebs_status != GNOME_Evolution_Calendar_Success)
 			goto error;
 		if (obj) {
@@ -1636,6 +1639,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 									      old_object, new_object);
 					g_free (new_object);
 					d(printf ("Notify that the new object after modication is : %s\n", icalobj));
+					g_free (icalobj);
 				}
 
 				g_free (old_object);
@@ -1650,10 +1654,10 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 				if (status != GNOME_Evolution_Calendar_Success)
 					goto error;
 
-				object = g_strdup (icalobj);
+				object = icalobj;
 				e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), icalobj);
-				g_free (object);
 				d(printf ("Notify that the new object is created : %s\n", icalobj));
+				g_free (object);
 			} else {
 				e_cal_backend_exchange_cache_unlock (cbex);
 				status = GNOME_Evolution_Calendar_Success;
@@ -1680,6 +1684,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 				g_free (object);
 				object = NULL;
 			}
+			g_free (icalobj);
 			break;
 		default:
 			status = GNOME_Evolution_Calendar_UnsupportedMethod;
@@ -2284,7 +2289,7 @@ get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 		set_freebusy_info (vfb, content, start);
 
 		calobj = icalcomponent_as_ical_string (vfb);
-		*freebusy = g_list_prepend (*freebusy, g_strdup (calobj));
+		*freebusy = g_list_prepend (*freebusy, calobj);
 		icalcomponent_free (vfb);
 	}
 	xmlFreeDoc (doc);

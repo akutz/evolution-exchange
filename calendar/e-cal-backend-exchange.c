@@ -267,7 +267,7 @@ timeout_save_cache (gpointer user_data)
 {
 	ECalBackendExchange *cbex = user_data;
 	icalcomponent *vcalcomp;
-	char *data, *tmpfile;
+	char *data = NULL, *tmpfile;
 	size_t len, nwrote;
 	FILE *f;
 
@@ -294,6 +294,7 @@ timeout_save_cache (gpointer user_data)
 		unlink (tmpfile);
 error:
 	g_free (tmpfile);
+	g_free (data);
 	return FALSE;
 }
 
@@ -574,10 +575,13 @@ uncache (gpointer key, gpointer value, gpointer data)
 	id->uid = g_strdup (key);
 	id->rid = NULL;
 	if (ecomp->icomp) {
+		char *str = NULL;
 		/* FIXME somehow the query does not match with the component in some cases, so user needs to press a
 		   clear to get rid of the component from the view in that case*/
+		str = icalcomponent_as_ical_string (ecomp->icomp);
 		e_cal_backend_notify_object_removed (backend, id, icalcomponent_as_ical_string (ecomp->icomp)
 				, NULL);
+		g_free (str);
 	}
 	g_hash_table_remove (cbex->priv->objects, key);
 	e_cal_component_free_id (id);
@@ -868,7 +872,7 @@ get_object (ECalBackendSync *backend, EDataCal *cal,
 		}
 
 		if (inst_found) {
-			*object = g_strdup (icalcomponent_as_ical_string (l->data));
+			*object = icalcomponent_as_ical_string (l->data);
 		} else {
 			/* Instance is not found. Send the master object instead */
 			if (ecomp->icomp) {
@@ -882,7 +886,7 @@ get_object (ECalBackendSync *backend, EDataCal *cal,
 					return GNOME_Evolution_Calendar_ObjectNotFound;
 				}
 
-				*object = g_strdup (icalcomponent_as_ical_string (new_inst));
+				*object = icalcomponent_as_ical_string (new_inst);
 				icalcomponent_free (new_inst);
 			} else {
 				/* Oops. No instance and no master as well !! */
@@ -905,11 +909,11 @@ get_object (ECalBackendSync *backend, EDataCal *cal,
 					icalcomponent_new_clone (ecomp->icomp));
 			g_list_foreach (ecomp->instances, (GFunc) add_instances_to_vcal, vcalcomp);
 
-			*object = g_strdup (icalcomponent_as_ical_string (vcalcomp));
+			*object = icalcomponent_as_ical_string (vcalcomp);
 			icalcomponent_free (vcalcomp);
 		} else {
 			/* There are no detached instances. Send only the master object */
-			*object = g_strdup (icalcomponent_as_ical_string (ecomp->icomp));
+			*object = icalcomponent_as_ical_string (ecomp->icomp);
 		}
 	}
 	g_mutex_unlock (cbex->priv->cache_lock);
@@ -1003,7 +1007,7 @@ get_default_object (ECalBackendSync *backend, EDataCal *cal, char **object)
 
 	comp = e_cal_util_new_component (e_cal_backend_get_kind (E_CAL_BACKEND (backend)));
 	ical_obj = icalcomponent_as_ical_string (comp);
-	*object = g_strdup (ical_obj);
+	*object = ical_obj;
 
 	icalcomponent_free (comp);
 
@@ -1132,7 +1136,7 @@ get_timezone (ECalBackendSync *backend, EDataCal *cal,
 		return GNOME_Evolution_Calendar_OtherError;
 
 	ical_obj = icalcomponent_as_ical_string (vtzcomp);
-	*object = g_strdup (ical_obj);
+	*object = ical_obj;
 
 	return  GNOME_Evolution_Calendar_Success;
 }

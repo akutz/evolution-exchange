@@ -321,7 +321,7 @@ mail_util_demangle_meeting_related_message (GString *body,
 	icalcomponent *vcal_comp, *event_comp;
 	icalproperty *prop = NULL;
 	char *vstart, *vend;
-	char *ical_str;
+	char *ical_str, *str;
 	int oldlen, newlen;
 	gboolean modify_prop = FALSE;
 
@@ -425,7 +425,9 @@ mail_util_demangle_meeting_related_message (GString *body,
 	}
 
 	/* Put the updated ical string back into the body */
-	ical_str = e2k_lf_to_crlf (icalcomponent_as_ical_string (vcal_comp));
+	str = icalcomponent_as_ical_string (vcal_comp);
+	ical_str = e2k_lf_to_crlf (str);
+	g_free (str);
 	newlen = strlen (ical_str);
 	if (newlen < oldlen) {
 		memcpy (vstart, ical_str, newlen);

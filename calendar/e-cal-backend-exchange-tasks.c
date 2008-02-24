@@ -830,8 +830,11 @@ get_changed_tasks (ECalBackendExchange *cbex)
 					modtime, icalcomp);
 			e_cal_backend_exchange_cache_unlock (cbex);
 
-			if (status && kind == ICAL_VTODO_COMPONENT)
-				e_cal_backend_notify_object_created (E_CAL_BACKEND (cbex), icalcomponent_as_ical_string (icalcomp));
+			if (status && kind == ICAL_VTODO_COMPONENT) {
+				char *str = icalcomponent_as_ical_string (icalcomp);
+				e_cal_backend_notify_object_created (E_CAL_BACKEND (cbex), str);
+				g_free (str);
+			}
 
 		}
 	} /* End while */
@@ -1362,10 +1365,13 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
 			e_cal_backend_exchange_cache_unlock (cbex);
 			calobj = (char *) icalcomponent_as_ical_string (subcomp);
 			status = create_task_object (backend, cal, &calobj, &returned_uid);
-                        if (status != GNOME_Evolution_Calendar_Success)
+                        if (status != GNOME_Evolution_Calendar_Success) {
+				g_free (calobj);
                                 goto error;
+			}
 
                         e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), calobj);
+			g_free (calobj);
                 }
         }
 
