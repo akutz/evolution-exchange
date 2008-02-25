@@ -1581,8 +1581,8 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 	icalcomponent_free (icalcomp);
 
 	for (l = comps; l; l= l->next) {
-		const char *uid, *rid;
-		char *icalobj;
+		const char *uid;
+		char *icalobj, *rid = NULL;
 		char *object = NULL;
 
 		subcomp = l->data;
@@ -1614,8 +1614,10 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 					status = remove_object (backend, cal, uid, NULL,
 								CALOBJ_MOD_ALL, &old_object,
 								NULL);
-					if (status != GNOME_Evolution_Calendar_Success)
+					if (status != GNOME_Evolution_Calendar_Success) {
+						g_free (rid);
 						goto error;
+					}
 					id = e_cal_component_get_id (comp);
 					e_cal_backend_notify_object_removed (E_CAL_BACKEND (backend), id,
 									     old_object, NULL);
@@ -1633,8 +1635,10 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 									  &old_object, &new_object, NULL, NULL);
 					d(printf ("Modify this particular instance : %s\n", rid));
 					d(printf ("Modify object : %s\n", icalobj));
-					if (status != GNOME_Evolution_Calendar_Success)
+					if (status != GNOME_Evolution_Calendar_Success) {
+						g_free (rid);
 						goto error;
+					}
 					e_cal_backend_notify_object_modified (E_CAL_BACKEND (backend),
 									      old_object, new_object);
 					g_free (new_object);
@@ -1651,8 +1655,10 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 
 				e_cal_backend_exchange_cache_unlock (cbex);
 				status = create_object (backend, cal, &icalobj, &returned_uid);
-				if (status != GNOME_Evolution_Calendar_Success)
+				if (status != GNOME_Evolution_Calendar_Success) {
+					g_free (rid);
 					goto error;
+				}
 
 				object = icalobj;
 				e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), icalobj);
@@ -1688,9 +1694,11 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 			break;
 		default:
 			status = GNOME_Evolution_Calendar_UnsupportedMethod;
+			g_free (rid);
 			goto error;
 		}
 		g_object_unref (comp);
+		g_free (rid);
 	}
 	g_list_free (comps);
 	return status;

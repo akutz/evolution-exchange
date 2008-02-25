@@ -1329,8 +1329,8 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
                 return GNOME_Evolution_Calendar_InvalidObject;
 
 	for (l = comps; l; l = l->next) {
-                const char *uid, *rid;
-                char *calobj;
+                const char *uid;
+                char *calobj, *rid = NULL;
 
                 subcomp = l->data;
 
@@ -1354,8 +1354,10 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
 
 			e_cal_backend_exchange_cache_unlock (cbex);
                         status = modify_task_object (backend, cal, calobj, CALOBJ_MOD_THIS, &old_object, NULL);
-                        if (status != GNOME_Evolution_Calendar_Success)
+                        if (status != GNOME_Evolution_Calendar_Success) {
+				g_free (rid);
                                 goto error;
+			}
 
                         e_cal_backend_notify_object_modified (E_CAL_BACKEND (backend), old_object, calobj);
 			g_free (old_object);
@@ -1367,12 +1369,14 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
 			status = create_task_object (backend, cal, &calobj, &returned_uid);
                         if (status != GNOME_Evolution_Calendar_Success) {
 				g_free (calobj);
+				g_free (rid);
                                 goto error;
 			}
 
                         e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), calobj);
 			g_free (calobj);
                 }
+		g_free (rid);
         }
 
         g_list_free (comps);
