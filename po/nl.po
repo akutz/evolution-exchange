@@ -2,7 +2,7 @@
 # Copyright (C) 2004 The Free Software Foundation
 # This file is distributed under the same license as the
 # evolution-exchange package.
-# Tino Meinen <a.t.meinen@chello.nl>, 2004, 2005, 2006. 2007.
+# Tino Meinen <a.t.meinen@chello.nl>, 2004, 2005, 2006, 2007, 2008.
 # -----------------------------------------------------
 # ** Outlookisms vertalen of niet? **
 # Mailbox - Brievenbus
@@ -10,27 +10,32 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNOME 2.8\n"
+"Project-Id-Version: GNOME HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-01 03:16+0000\n"
-"PO-Revision-Date: 2007-03-08 22:19+0100\n"
+"POT-Creation-Date: 2008-01-21 13:14+0000\n"
+"PO-Revision-Date: 2008-02-27 01:23+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+# GAL=Global Address List (Outlookism)
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
 msgid "Specifies the time interval to refresh the GAL Cache."
-msgstr "Specificeert het tijdsinterval tussen het vernieuwen van de GAL cache."
+msgstr "Specificeert het tijdsinterval tussen het vernieuwen van de GAL-cache."
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
 msgid ""
 "This key specifies the number of days interval between the GAL cache "
 "refresh. Set this value to zero, if you don't want to update GAL and use the "
-"curernt cache forever. This will work only if you have enabled offline "
+"current cache forever. This will work only if you have enabled offline "
 "caching for GAL."
-msgstr "Deze waarde specificeert het aantal dagen tussen het vernieuwen van de GAL cache. Zet de waarde op nul wanneer u GAL niet wilt vernieuwen en de huidige cache voor altijd wilt gebruiken. Het werkt alleen wanneer u off-line caching voor GAL heeft aangezet."
+msgstr ""
+"Deze waarde specificeert het aantal dagen tussen het vernieuwen van de GAL "
+"cache. Zet de waarde op nul wanneer u GAL niet wilt vernieuwen en de huidige "
+"cache voor altijd wilt gebruiken. Het werkt alleen wanneer u off-line "
+"caching voor GAL heeft aangezet."
 
 # Zoekende...
 # Bezig met zoeken...
@@ -41,28 +46,29 @@ msgstr "Deze waarde specificeert het aantal dagen tussen het vernieuwen van de G
 # niets mee hoeft te doen. Het is een indicatie dat het programma bezig is.
 # Het tonen van de status is al een aanduiding dat het programma 'bezig is'
 # Vandaar dat het hier in deze meldingen wordt weggelaten.
-#: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1547 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:1919
+#: ../addressbook/e-book-backend-gal.c:1804 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Zoeken..."
 
 # Opnieuw verbinden met LDPA server...
-#: ../addressbook/e-book-backend-gal.c:265
+#: ../addressbook/e-book-backend-gal.c:301
+#: ../addressbook/e-book-backend-gal.c:322
 msgid "Reconnecting to LDAP server..."
-msgstr "Verbinding met LDAP server wordt opnieuw opgezet..."
+msgstr "Verbinding met LDAP-server wordt opnieuw opgezet..."
 
 # Ontvangen van LDAP zoekresultaten...<
-#: ../addressbook/e-book-backend-gal.c:1384
+#: ../addressbook/e-book-backend-gal.c:1588
 msgid "Receiving LDAP search results..."
-msgstr "LDAP zoekresultaten worden ingelezen..."
+msgstr "LDAP-zoekresultaten worden ingelezen..."
 
-#: ../addressbook/e-book-backend-gal.c:1570
+#: ../addressbook/e-book-backend-gal.c:1833
 msgid "Error performing search"
 msgstr "Fout bij uitvoeren zoekopdracht"
 
 # doelbron?
 # mogelijk weglaten: niet in staat om 's' te plannen voor...
-#: ../calendar/e-cal-backend-exchange-calendar.c:2015
+#: ../calendar/e-cal-backend-exchange-calendar.c:2028
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -73,97 +79,103 @@ msgstr ""
 
 # ... is bezet in de geselecteerde periode
 # ... is bezet tijdens 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2033
+#: ../calendar/e-cal-backend-exchange-calendar.c:2046
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "De bron ‘%s’ is bezet gedurende de geselecteerde periode."
 
 # aanmelding mislukt/aanmeldingscontrole mislukt
-#: ../calendar/e-cal-backend-exchange.c:375
-#: ../calendar/e-cal-backend-exchange.c:384
+#: ../calendar/e-cal-backend-exchange.c:391
+#: ../calendar/e-cal-backend-exchange.c:401
 msgid "Authentication failed"
 msgstr "Aanmeldingcontrole mislukt"
 
-#: ../calendar/e-cal-backend-exchange.c:395
+#: ../calendar/e-cal-backend-exchange.c:442
 msgid "Could not find the calendar"
 msgstr "Kon de agenda niet vinden"
 
-#: ../camel/camel-exchange-folder.c:222
+#: ../camel/camel-exchange-folder.c:52
+msgid "Always check for new mail in this folder"
+msgstr "Deze map altijd controleren op de aanwezigheid van nieuwe mail"
+
+# wissen/leegmaken/verwijderen/versnipperen
+#: ../camel/camel-exchange-folder.c:238
 msgid "You cannot expunge in offline mode."
 msgstr "Wanneer u offline bent, kunt u niet leegmaken."
 
-#: ../camel/camel-exchange-folder.c:253
+#: ../camel/camel-exchange-folder.c:269
 msgid "No Subject"
 msgstr "Geen onderwerp"
 
 # ...wanneer u off-line bent
-#: ../camel/camel-exchange-folder.c:407
+#: ../camel/camel-exchange-folder.c:424
 msgid "This message is not available in offline mode."
 msgstr "Dit bericht is niet beschikbaar in de off-line stand."
 
-#: ../camel/camel-exchange-folder.c:642
+#: ../camel/camel-exchange-folder.c:681
 msgid "Moving messages"
 msgstr "Berichten verplaatsen"
 
-#: ../camel/camel-exchange-folder.c:643
+#: ../camel/camel-exchange-folder.c:682
 msgid "Copying messages"
 msgstr "Berichten kopiëren"
 
-#: ../camel/camel-exchange-folder.c:1014
+#: ../camel/camel-exchange-folder.c:1055
 #, c-format
 msgid "Could not create directory %s: %s"
-msgstr "Kon map %s niet aanmaken: %s"
+msgstr "Kon map ‘%s’ niet aanmaken: %s"
 
-#: ../camel/camel-exchange-folder.c:1024
+#: ../camel/camel-exchange-folder.c:1065
 #, c-format
 msgid "Could not load summary for %s"
-msgstr "Kon samenvatting voor %s niet laden"
+msgstr "Kon samenvatting voor ‘%s’ niet laden"
 
-#: ../camel/camel-exchange-folder.c:1032
+#: ../camel/camel-exchange-folder.c:1073
 #, c-format
 msgid "Could not create cache for %s"
-msgstr "Kon cache-buffer voor %s niet aanmaken"
+msgstr "Kon cache-buffer voor ‘%s’ niet aanmaken"
 
-#: ../camel/camel-exchange-folder.c:1042
+#: ../camel/camel-exchange-folder.c:1083
 #, c-format
 msgid "Could not create journal for %s"
-msgstr "Kon journaal voor %s niet aanmaken"
+msgstr "Kon journaal voor ‘%s’ niet aanmaken"
 
 # aangepaste berichten
-#: ../camel/camel-exchange-folder.c:1087
+#: ../camel/camel-exchange-folder.c:1131
 msgid "Scanning for changed messages"
 msgstr "Scannen voor veranderde berichten"
 
-#: ../camel/camel-exchange-folder.c:1113
+#: ../camel/camel-exchange-folder.c:1164
 msgid "Fetching summary information for new messages"
 msgstr "Samenvatting voor nieuwe berichten ophalen"
 
-#: ../camel/camel-exchange-journal.c:339
+#: ../camel/camel-exchange-journal.c:341
 msgid "No folder name found\n"
-msgstr "Geem mapnaam gevonden\n"
+msgstr "Geen mapnaam gevonden\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2569
-#: ../mail/mail-stub-exchange.c:2613 ../mail/mail-stub-exchange.c:2648
-#: ../mail/mail-stub-exchange.c:2675 ../mail/mail-stub-exchange.c:2728
-#: ../mail/mail-stub-exchange.c:2750
+#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:2984
+#: ../mail/mail-stub-exchange.c:3028 ../mail/mail-stub-exchange.c:3063
+#: ../mail/mail-stub-exchange.c:3090 ../mail/mail-stub-exchange.c:3143
+#: ../mail/mail-stub-exchange.c:3165
 msgid "Folder doesn't exist"
 msgstr "Map bestaat niet"
 
 # achteraan toevoegen/toevoegen
-#: ../camel/camel-exchange-journal.c:436
+#: ../camel/camel-exchange-journal.c:438
 msgid "Cannot append message in offline mode: cache unavailable"
-msgstr "Kan bericht in offline-modus niet toevoegen: cache niet beschikbaar"
+msgstr "Kan bericht in off-linemodus niet toevoegen: cache niet beschikbaar"
 
-#: ../camel/camel-exchange-journal.c:452
+# off-linemodus
+#: ../camel/camel-exchange-journal.c:454
 #, c-format
 msgid "Cannot append message in offline mode: %s"
-msgstr "Kan bericht in offline-modus niet toevoegen: %s"
+msgstr "Kan bericht in off-linemodus niet toevoegen: %s"
 
-#: ../camel/camel-exchange-provider.c:40
+#: ../camel/camel-exchange-provider.c:41
 msgid "Checking for New Mail"
 msgstr "Controleren op nieuwe mail"
 
-#: ../camel/camel-exchange-provider.c:42 ../camel/camel-exchange-provider.c:66
+#: ../camel/camel-exchange-provider.c:43
 msgid "C_heck for new messages in all folders"
 msgstr "_Alle mappen controleren op nieuwe berichten"
 
@@ -172,72 +184,72 @@ msgstr "_Alle mappen controleren op nieuwe berichten"
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:50
+#: ../camel/camel-exchange-provider.c:51
 msgid "Windows User_name:"
 msgstr "Windows gebruikersnaam:"
 
 # hierom niet vertaald
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:56
 msgid "Global Address List / Active Directory"
 msgstr "Global Address List / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:59
+#: ../camel/camel-exchange-provider.c:60
 msgid "_Global Catalog server name:"
 msgstr "_Global Catalog servernaam:"
 
-#: ../camel/camel-exchange-provider.c:61
+#: ../camel/camel-exchange-provider.c:62
 #, c-format
 msgid "_Limit number of GAL responses: %s"
-msgstr "_Aantal GAL reacties beperken: %s"
+msgstr "_Aantal GAL-reacties beperken: %s"
 
-#: ../camel/camel-exchange-provider.c:64
+#: ../camel/camel-exchange-provider.c:65
 msgid "Options"
 msgstr "Opties"
 
-#: ../camel/camel-exchange-provider.c:68
+#: ../camel/camel-exchange-provider.c:67
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "‘_Wachtwoord verloopt’ waarschuwingsperiode: %s"
 
-#: ../camel/camel-exchange-provider.c:70
+#: ../camel/camel-exchange-provider.c:69
 msgid "Automatically synchroni_ze account locally"
-msgstr "_Automatisch account locaal synchroniseren"
+msgstr "_Automatisch account lokaal synchroniseren"
 
 # postvak in of 'inbox'
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:73
+#: ../camel/camel-exchange-provider.c:72
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "_Filters toepassen op nieuwe berichten in Inbox op deze server"
 
 # ik noem het beestje gewoon bij de naam: Spam ipv troep
-#: ../camel/camel-exchange-provider.c:75
+#: ../camel/camel-exchange-provider.c:74
 msgid "Check new messages for _Junk contents"
 msgstr "Nieuwe berichten controleren op _spam"
 
-#: ../camel/camel-exchange-provider.c:77
+#: ../camel/camel-exchange-provider.c:76
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Alleen de I_nbox controleren op nieuwe spamberichten"
 
 # hoofdletters omdat het een programmanaam is van MS
-#: ../camel/camel-exchange-provider.c:87
+#: ../camel/camel-exchange-provider.c:86
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:89
+#: ../camel/camel-exchange-provider.c:88
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr ""
 "Voor het werken met mail (en andere data) op Microsoft Exchange servers"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:105
+#: ../camel/camel-exchange-provider.c:104
 msgid "Secure Password"
 msgstr "Secure Password"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:108
+#: ../camel/camel-exchange-provider.c:107
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -247,11 +259,11 @@ msgstr ""
 
 # bloot wachtwoord
 # platte tekst
-#: ../camel/camel-exchange-provider.c:116
+#: ../camel/camel-exchange-provider.c:115
 msgid "Plaintext Password"
 msgstr "Wachtwoord in gewone tekst"
 
-#: ../camel/camel-exchange-provider.c:118
+#: ../camel/camel-exchange-provider.c:117
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -259,26 +271,21 @@ msgstr ""
 "Met deze optie zal verbinding met de Exchange server worden gemaakt door aan "
 "te melden met een wachtwoord in gewone tekst."
 
-#: ../camel/camel-exchange-store.c:310
+#: ../camel/camel-exchange-store.c:312
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange server %s"
 
-#: ../camel/camel-exchange-store.c:313
+#: ../camel/camel-exchange-store.c:315
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Exchange account voor %s op %s"
 
-#: ../camel/camel-exchange-store.c:354
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%sGeef wachtwoord voor %s"
-
-#: ../camel/camel-exchange-store.c:405
+#: ../camel/camel-exchange-store.c:407
 msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange backend proces"
 
-#: ../camel/camel-exchange-store.c:446
+#: ../camel/camel-exchange-store.c:448
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -287,164 +294,164 @@ msgstr ""
 "\n"
 
 # een dergelijke map bestaat niet
-#: ../camel/camel-exchange-store.c:488
+#: ../camel/camel-exchange-store.c:490
 #, c-format
 msgid "No such folder %s"
 msgstr "Map %s bestaat niet"
 
-#: ../camel/camel-exchange-store.c:565
+#: ../camel/camel-exchange-store.c:567
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Kan map in offline toestand niet abonneren."
 
-#: ../camel/camel-exchange-store.c:582
+#: ../camel/camel-exchange-store.c:584
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Kan abonnement op map in offline toestand niet opzeggen."
 
-#: ../camel/camel-exchange-store.c:714
+#: ../camel/camel-exchange-store.c:716
 msgid "Cannot get folder info in offline mode."
 msgstr "Kan map-info in offline toestand niet verkrijgen."
 
-#: ../camel/camel-exchange-store.c:785
+#: ../camel/camel-exchange-store.c:789
 msgid "Cannot create folder in offline mode."
 msgstr "Kan map in offline toestand niet aanmaken"
 
-#: ../camel/camel-exchange-store.c:812
+#: ../camel/camel-exchange-store.c:816
 msgid "Cannot delete folder in offline mode."
 msgstr "Kan de map in offline toestand niet verwijderen."
 
-#: ../camel/camel-exchange-store.c:828
+#: ../camel/camel-exchange-store.c:832
 msgid "Cannot rename folder in offline mode."
 msgstr "Kan map in offline toestand niet hernoemen."
 
-#: ../camel/camel-exchange-transport.c:110
+#: ../camel/camel-exchange-transport.c:111
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "Exchange-transport kan alleen worden gebruikt met Exchange-mail bron"
 
-#: ../camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-transport.c:122
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "Kan bericht niet versturen: een of meerder ongeldige ontvangers"
 
-#: ../camel/camel-exchange-transport.c:131
+#: ../camel/camel-exchange-transport.c:132
 msgid "Could not find 'From' address in message"
 msgstr "Kon het ‘Van’ adres niet vinden in het bericht"
 
 # socket is een technische term
-#: ../camel/camel-stub.c:152
+#: ../camel/camel-stub.c:153
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Kon socket niet aanmaken: %s"
 
-#: ../camel/camel-stub.c:170
+#: ../camel/camel-stub.c:171
 #, c-format
 msgid "Could not connect to %s: Please restart Evolution"
 msgstr "Kon geen verbinding krijgen met %s: Start Evolution opnieuw op"
 
-#: ../camel/camel-stub.c:175
+#: ../camel/camel-stub.c:176
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Kon geen verbinding krijgen met %s: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:206
 #, c-format
 msgid "Path too long: %s"
 msgstr "Pad is te lang: %s"
 
-#: ../camel/camel-stub.c:231
+#: ../camel/camel-stub.c:232
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Kon status 'thread' niet opstarten: %s"
 
-#: ../camel/camel-stub.c:485
+#: ../camel/camel-stub.c:486
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Verbinding met %s is verbroken"
 
-#: ../camel/camel-stub.c:489
+#: ../camel/camel-stub.c:490
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Fout bij communiceren met %s: %s"
 
 # een dergelijke map bestaat niet
-#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
+#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:946
 msgid "No such folder"
 msgstr "Map bestaat niet"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2546 ../mail/mail-stub-exchange.c:2586
-#: ../mail/mail-stub-exchange.c:2652 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2765
+#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1595
+#: ../mail/mail-stub-exchange.c:2961 ../mail/mail-stub-exchange.c:3001
+#: ../mail/mail-stub-exchange.c:3067 ../mail/mail-stub-exchange.c:3117
+#: ../mail/mail-stub-exchange.c:3180
 msgid "Permission denied"
 msgstr "Toegang geweigerd"
 
-#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
-msgid "Could not open folder: Permission denied"
-msgstr "Kon map niet openen: Toegang geweigerd"
-
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
+#: ../mail/mail-stub-exchange.c:768 ../mail/mail-stub-exchange.c:860
 msgid "Could not open folder"
 msgstr "Kon map niet openen"
 
-#: ../mail/mail-stub-exchange.c:764
+#: ../mail/mail-stub-exchange.c:854 ../mail/mail-stub-exchange.c:876
+msgid "Could not open folder: Permission denied"
+msgstr "Kon map niet openen: Toegang geweigerd"
+
+#: ../mail/mail-stub-exchange.c:955
 msgid "Could not create folder."
 msgstr "Kon map niet aanmaken."
 
-#: ../mail/mail-stub-exchange.c:844
+#: ../mail/mail-stub-exchange.c:1043
 msgid "Could not open Deleted Items folder"
 msgstr "Kon de map Verwijderde items niet openen"
 
 # verkrijgen
 # ophalen is begrijpelijker
-#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
+#: ../mail/mail-stub-exchange.c:1374 ../mail/mail-stub-exchange.c:1415
 msgid "Could not get new messages"
 msgstr "Kon nieuwe berichten niet ophalen"
 
 # legen ipv leegmaken?
-#: ../mail/mail-stub-exchange.c:1386
+#: ../mail/mail-stub-exchange.c:1591
 msgid "Could not empty Deleted Items folder"
 msgstr "Kon de map Verwijderde items niet leegmaken"
 
-#: ../mail/mail-stub-exchange.c:1463
+#: ../mail/mail-stub-exchange.c:1668
 msgid "Could not append message; mailbox is over quota"
 msgstr "Kon bericht niet toevoegen; mailbox heeft quota overschreden"
 
-#: ../mail/mail-stub-exchange.c:1464
+#: ../mail/mail-stub-exchange.c:1669
 msgid "Could not append message"
 msgstr "Kon bericht niet toevoegen"
 
 # Een dergelijk bericht bestaat niet
-#: ../mail/mail-stub-exchange.c:2016
+#: ../mail/mail-stub-exchange.c:2416
 msgid "No such message"
 msgstr "Bericht bestaat niet"
 
-#: ../mail/mail-stub-exchange.c:2069
+#: ../mail/mail-stub-exchange.c:2495
 msgid "Message has been deleted"
 msgstr "Bericht is verwijderd"
 
-#: ../mail/mail-stub-exchange.c:2071
+#: ../mail/mail-stub-exchange.c:2497
 msgid "Error retrieving message"
 msgstr "Fout bij ophalen bericht"
 
-#: ../mail/mail-stub-exchange.c:2113
+#: ../mail/mail-stub-exchange.c:2540
 msgid "Mailbox does not support full-text searching"
 msgstr ""
 "Voor deze mailbox is geen ondersteuning voor het doorzoeken van de volledige "
 "tekst"
 
-#: ../mail/mail-stub-exchange.c:2211
+#: ../mail/mail-stub-exchange.c:2638
 msgid "Unable to move/copy messages"
 msgstr "Kon berichten niet verplaatsen/kopiëren"
 
-#: ../mail/mail-stub-exchange.c:2461
+#: ../mail/mail-stub-exchange.c:2876
 msgid "No mail submission URI for this mailbox"
 msgstr "Geen mail-aanleverings-URI voor deze mailbox"
 
-#: ../mail/mail-stub-exchange.c:2497
+#: ../mail/mail-stub-exchange.c:2912
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Server zal geen berichten accepteren via Exchange transport"
 
-#: ../mail/mail-stub-exchange.c:2499
+#: ../mail/mail-stub-exchange.c:2914
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -453,7 +460,7 @@ msgstr ""
 "Uw account heeft geen rechten om <%s> te gebruiken\n"
 "als een ‘Van’ adres."
 
-#: ../mail/mail-stub-exchange.c:2511
+#: ../mail/mail-stub-exchange.c:2926
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -461,17 +468,17 @@ msgstr ""
 "Kon bericht niet versturen.\n"
 "Dit betekent mogelijk dat uw account over zijn quota is."
 
-#: ../mail/mail-stub-exchange.c:2515
+#: ../mail/mail-stub-exchange.c:2930
 msgid "Could not send message"
 msgstr "Kon bericht niet versturen"
 
-#: ../mail/mail-stub-exchange.c:2538 ../mail/mail-stub-exchange.c:2591
-#: ../mail/mail-stub-exchange.c:2656 ../mail/mail-stub-exchange.c:2707
-#: ../mail/mail-stub-exchange.c:2771
+#: ../mail/mail-stub-exchange.c:2953 ../mail/mail-stub-exchange.c:3006
+#: ../mail/mail-stub-exchange.c:3071 ../mail/mail-stub-exchange.c:3122
+#: ../mail/mail-stub-exchange.c:3186
 msgid "Generic error"
 msgstr "Algemene fout"
 
-#: ../mail/mail-stub-exchange.c:2542
+#: ../mail/mail-stub-exchange.c:2957
 msgid "Folder already exists"
 msgstr "Map bestaat al"
 
@@ -484,8 +491,9 @@ msgid "Evolution Calendar Exchange backend"
 msgstr "Evolution agenda Exchange backend"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Ximian Connector for Exchange"
-msgstr "Ximian Connector voor Exchange"
+#: ../storage/main.c:183
+msgid "Evolution Connector for Microsoft Exchange"
+msgstr "Evolution Connector voor Microsoft Exchange"
 
 #: ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
@@ -525,11 +533,9 @@ msgid ""
 "(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
 "Aanmeldingscontrole bij de Exchange-server mislukt.\n"
-"Controleer of gebruikersnaam en wachtwoord juist zijn en probeer dan "
-"opnieuw.\n"
+"Controleer of gebruikersnaam en wachtwoord juist zijn en probeer dan opnieuw.\n"
 "\n"
-"Mogelijk moet u bij uw gebruikersnaam de Windows domeinnaam opgeven (bijv. "
-"\"MIJN-DOMEIN\\%s\")."
+"Mogelijk moet u bij uw gebruikersnaam de Windows domeinnaam opgeven (bijv. ‘MIJN-DOMEIN\\%s’)."
 
 #: ../storage/exchange-autoconfig-wizard.c:247
 msgid ""
@@ -541,31 +547,27 @@ msgstr ""
 
 #: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
+"Evolution Connector for Microsoft Exchange requires access to certain "
+"functionality on the Exchange server that appears to be disabled or "
+"blocked.  (This is usually unintentional.)  Your Exchange administrator will "
+"need to enable this functionality in order for you to be able to use the "
+"Evolution Connector.\n"
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"Ximian Connector vereist toegang bepaalde functionaliteit op de Exchange-"
-"server die schijnbaar is uitgezet of geblokkeerd.  (Dit is gewoonlijk "
-"onopzettelijk.)  Uw Exchange systeembeheerder moet deze functionaliteit "
-"toegankelijk maken voordat u de Ximian Connector kunt gebruiken.\n"
+"Evolution Connector vereist toegang tot bepaalde functionaliteit op de Exchange-server die schijnbaar is uitgezet of geblokkeerd (meestal onopzettelijk). Uw Exchange-systeembeheerder moet deze functionaliteit toegankelijk maken voordat u de Evolution Connector kunt gebruiken.\n"
 "\n"
-"Voor de informatie die u aan uw Exchange systeembeheerder moet geven, "
-"bekijkt u de link hieronder:"
+"Voor de informatie die u aan uw Exchange-systeembeheerder moet geven, bekijkt u de link hieronder:"
 
-#: ../storage/exchange-autoconfig-wizard.c:275
+#: ../storage/exchange-autoconfig-wizard.c:276
 msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"De door u gegeven Exchange server URL is voor een Exchange 5.5 server. "
-"Ximian connector ondersteund echter alleen Microsoft Exchange 2000 en 2003."
+"The Exchange server URL you provided is for an Exchange 5.5 server. "
+"Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
+"and 2003 only."
+msgstr "De door u gegeven Exchange-server URL is voor een Exchange 5.5 server. Evolution Connector ondersteunt echter alleen Microsoft Exchange 2000 en 2003."
 
-#: ../storage/exchange-autoconfig-wizard.c:288
+#: ../storage/exchange-autoconfig-wizard.c:290
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -573,18 +575,15 @@ msgstr ""
 "Kon Exchange account niet configureren vanwege een onbekende fout. "
 "Controleer de URL, gebruikersnaam en wachtwoord en probeer dan opnieuw."
 
-#: ../storage/exchange-autoconfig-wizard.c:332
+#: ../storage/exchange-autoconfig-wizard.c:334
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
 "and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
 "\\%s\")."
-msgstr ""
-"Aanmeldingscontrole bij de Gloabal Catalog server mislukt. Mogelijk moet een "
-"stap terug doen en bij uw gebruikersnaam de Windows domeinnaam opgeven "
-"(bijv. \"MIJN-DOMEIN\\%s\")."
+msgstr "Aanmeldingscontrole bij de Gloabal Catalog server mislukt. Mogelijk moet een stap terug doen en bij uw gebruikersnaam de Windows domeinnaam opgeven (bijv. ‘MIJN-DOMEIN\\%s’)."
 
-#: ../storage/exchange-autoconfig-wizard.c:339
+#: ../storage/exchange-autoconfig-wizard.c:341
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -592,12 +591,12 @@ msgstr ""
 "Kon met de opgegeven server geen verbinding maken.\n"
 "Controleer de naam van de server en probeer dan opnieuw."
 
-#: ../storage/exchange-autoconfig-wizard.c:376
-#: ../storage/exchange-autoconfig-wizard.c:380
+#: ../storage/exchange-autoconfig-wizard.c:378
+#: ../storage/exchange-autoconfig-wizard.c:382
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: ../storage/exchange-autoconfig-wizard.c:445
+#: ../storage/exchange-autoconfig-wizard.c:447
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -605,7 +604,7 @@ msgstr ""
 "Systeemfout tijdens configuratie:\n"
 "Aanmaken nieuw account mislukt."
 
-#: ../storage/exchange-autoconfig-wizard.c:459
+#: ../storage/exchange-autoconfig-wizard.c:461
 msgid "You may only configure a single Exchange account"
 msgstr "U kunt slechts één Exchange-account configureren"
 
@@ -624,100 +623,91 @@ msgstr "Klaar"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:4
 msgid "Email Address:"
-msgstr "E-mail adres:"
+msgstr "E-mailadres:"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:5
+msgid "Evolution Connector for Microsoft Exchange Configuration"
+msgstr "Evolution Connector voor Microsoft Exchange configuratie"
+
+# uit...halen/van...gebruiken
+#: ../storage/exchange-autoconfig-wizard.glade.h:6
+msgid ""
+"Evolution Connector for Microsoft Exchange can use account information from "
+"your existing Outlook Web Access (OWA) account.\n"
+"\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
+msgstr ""
+"Evolution Connector voor Microsoft Exchange kan informatie uit uw bestaande Outlook Web Access (OWA) account halen.\n"
+"\n"
+"Geef uw OWA-adres (URL), gebruikersnaam en wachtwoord en klik daarna op ‘Volgende’.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:10
+msgid ""
+"Evolution Connector for Microsoft Exchange could not find the Global Catalog "
+"replica for your site. Please enter the name of your Global Catalog server. "
+"You may need to ask your system administrator for the correct value.\n"
+msgstr "Evolution Connector kon de Global Catalog replica voor uw site niet vinden. Geef de naam van uw Global Catalog server. U moet mogelijk daarvan de juiste waarde vragen aan uw systeembeheerder.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:12
+msgid ""
+"Evolution Connector for Microsoft Exchange has encountered a problem "
+"configuring your Exchange account.\n"
+msgstr "Evolution Connector voor Microsoft Exchange is een probleem tegengekomen bij het configureren van uw Exchange-account.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:14
 msgid "Exchange Configuration"
 msgstr "Exchange configuratie"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:6
+#: ../storage/exchange-autoconfig-wizard.glade.h:15
 msgid "Full Name:"
 msgstr "Volledige naam:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:7
+#: ../storage/exchange-autoconfig-wizard.glade.h:16
 msgid "GC Server:"
-msgstr "GC server:"
+msgstr "GC-server:"
 
 # dit wordt mijn standaard account
 # dit mijn standaard account maken
 # maak dit mijn standaard account
-#: ../storage/exchange-autoconfig-wizard.glade.h:8
+#: ../storage/exchange-autoconfig-wizard.glade.h:17
 msgid "Make this my default account"
 msgstr "Dit wordt mijn standaard account"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:9
+#: ../storage/exchange-autoconfig-wizard.glade.h:18
 msgid "OWA URL:"
-msgstr "OWA URL:"
+msgstr "OWA-URL:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:10
+#: ../storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Password:"
-msgstr "Wachtword:"
+msgstr "Wachtwoord:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:11
+#: ../storage/exchange-autoconfig-wizard.glade.h:20
 msgid "Remember this password"
 msgstr "Dit wachtwoord onthouden"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:12
+#: ../storage/exchange-autoconfig-wizard.glade.h:21
 msgid "Username:"
 msgstr "Gebruikersnaam:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:13
+#: ../storage/exchange-autoconfig-wizard.glade.h:22
 msgid "Welcome"
 msgstr "Welkom"
 
-# De knop heet waarschijnlijk 'Vooruit' als vertaling van 'Forward' (dit
-# halen ze uit gtk+ ?)
-#: ../storage/exchange-autoconfig-wizard.glade.h:14
+#: ../storage/exchange-autoconfig-wizard.glade.h:23
 msgid ""
-"Welcome to Ximian Connector for Microsoft Exchange.\n"
+"Welcome to Evolution Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
 "to connect to your Exchange account.\n"
 "\n"
 "Please click the \"Forward\" button to continue."
 msgstr ""
-"Welkom bij Ximian Connector voor Microsoft Exchange.\n"
+"Welkom bij Evolution Connector voor Microsoft Exchange.\n"
 "De volgende pagina's zullen u assisteren Evolution zo te\n"
 "configureren dat verbinding kan worden gemaakt met \n"
 "uw Exchange account.\n"
 "\n"
 "Klik op ‘Volgende’ om verder te gaan."
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:19
-msgid "Ximian Connector Configuration"
-msgstr "Ximian Connector configuratie"
-
-# uit...halen/van...gebruiken
-#: ../storage/exchange-autoconfig-wizard.glade.h:20
-msgid ""
-"Ximian Connector can use account information from your existing Outlook Web "
-"Access (OWA) account.\n"
-"\n"
-"Enter your OWA site address (URL), username, and password, then click "
-"\"Forward\".\n"
-msgstr ""
-"Ximian Connector kan informatie uit uw bestaande Outlook Web Access (OWA) "
-"halen.\n"
-"\n"
-"Geef uw OWA adres (URL), gebruikersnaam en wachtwoord en klik daarna op "
-"‘Volgende’.\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:24
-msgid ""
-"Ximian Connector could not find the Global Catalog replica for your site. "
-"Please enter the name of your Global Catalog server. You may need to ask "
-"your system administrator for the correct value.\n"
-msgstr ""
-"Ximian Connector kon de Global Catalog replica voor uw site vinden. Geef de "
-"naam van uw Global Catalog server. U moet mogelijk de juiste waarde "
-"hiervoor, vragen aan uw systeembeheerder.\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:26
-msgid ""
-"Ximian Connector has encountered a problem configuring your Exchange "
-"account.\n"
-msgstr ""
-"Ximian connector is een probleem tegengekomen bij het configureren van uw "
-"Exchange account.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -778,7 +768,7 @@ msgstr "Auteur (lezen, aanmaken)"
 
 #: ../storage/exchange-delegates.glade.h:2
 msgid "C_alendar:"
-msgstr "K_alender:"
+msgstr "_Agenda"
 
 #: ../storage/exchange-delegates.glade.h:3
 msgid "Co_ntacts:"
@@ -805,8 +795,7 @@ msgstr "Geen"
 msgid "Permissions for"
 msgstr "Rechten voor"
 
-# bespreker
-# recencist
+# bespreker/recencist/toezichthouder
 #: ../storage/exchange-delegates.glade.h:9
 msgid "Reviewer (read-only)"
 msgstr "Reviewer (alleen-lezen)"
@@ -927,7 +916,7 @@ msgstr "Ja, status wijzigen"
 
 #: ../storage/exchange-passwd-expiry.glade.h:1
 msgid "Password Expiry Warning..."
-msgstr "'Wachtwoord verloopt' waarschuwing..."
+msgstr "‘Wachtwoord verloopt’-waarschuwing..."
 
 # zal binnen 7 dagen verlopen
 #: ../storage/exchange-passwd-expiry.glade.h:2
@@ -1008,26 +997,25 @@ msgstr "Items lezen"
 msgid "Role: "
 msgstr "Rol:"
 
+# Verbinden/Verbinding maken
 #: ../storage/exchange-storage.c:338
 msgid "Connecting..."
 msgstr "Verbinding maken..."
 
-#: ../storage/main.c:183
-msgid "Ximian Connector for Microsoft Exchange"
-msgstr "Ximian Connector voor Microsoft Exchange"
-
 # Dit is de titelbalk
+# setup-assistent
 #: ../storage/ximian-connector-setup.c:44
-msgid "Ximian Connector for Microsoft Exchange Setup Tool"
-msgstr "Configuratie van Ximian Connector voor Microsoft Exchange"
+msgid "Evolution Connector for Microsoft Exchange Setup Tool"
+msgstr "Evolution Connector voor Microsoft Exchange configuratieassistent"
 
 #: ../storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
 msgstr "Uw Exchange-server wachtwoord wijzigen"
 
+# Grootte map/mapgrootte
 #: ../storage/ximian-connector.xml.h:2
 msgid "Folder _Size"
-msgstr "_Grootte map"
+msgstr "Map_grootte"
 
 # berekenen/verkrijgen/ophalen/lezen/opvragen
 #: ../storage/ximian-connector.xml.h:3
@@ -1075,6 +1063,15 @@ msgstr "_Afwezigheidsassistent"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Abonnement op andermans map opzeggen"
+
+#~ msgid "%sEnter password for %s"
+#~ msgstr "%sGeef wachtwoord voor %s"
+
+#~ msgid "Ximian Connector for Exchange"
+#~ msgstr "Ximian Connector voor Exchange"
+
+#~ msgid "Ximian Connector Configuration"
+#~ msgstr "Ximian Connector configuratie"
 
 # een dergelijke map bestaat niet
 #~ msgid "No such folder."
@@ -1681,26 +1678,6 @@ msgstr "_Abonnement op andermans map opzeggen"
 #~ "systeembeheerder moet geven:\n"
 #~ "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328."
 #~ "html"
-
-#, fuzzy
-#~ msgid ""
-#~ "Ximian Connector requires access to certain functionality on the Exchange "
-#~ "Server that appears to be disabled or blocked.  (This is usually "
-#~ "unintentional.)  Your Exchange Administrator will need to enable this "
-#~ "functionality in order for you to be able to use Ximian Connector.\n"
-#~ "\n"
-#~ "For information to provide to your Exchange administrator, please follow "
-#~ "the link below:\n"
-#~ "http://www.ximian.com/products/connector/iis-lockdown.html, http://www."
-#~ "ximian.com/products/connector/iis-lockdown.html"
-#~ msgstr ""
-#~ "Ximian Connector vereist toegang bepaalde functionaliteit op de Exchange-"
-#~ "server die schijnbaar is uitgezet of geblokkeerd.  (Dit is gewoonlijk "
-#~ "onopzettelijk.)  Uw Exchange systeembeheerder moet deze functionaliteit "
-#~ "toegankelijk maken voordat u de Ximian Connector kunt gebruiken.\n"
-#~ "\n"
-#~ "Voor de informatie die u aan uw Exchange systeembeheerder moet geven, "
-#~ "bekijkt u de link hieronder:"
 
 #~ msgid ""
 #~ "Could not authenticate to server.\n"
