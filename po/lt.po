@@ -1,24 +1,25 @@
-# translation of lt.po to Lithuanian
+# translation of evolution-exchange.HEAD.po to Lithuanian
 # Lithuanian translation of evolution-exchange.
-# Copyright (C) 2005-2006, 2007 Free Software Foundation, Inc.
+# Copyright (C) 2005-2006, 2007, 2008 Free Software Foundation, Inc.
 # This file is distributed under the same license as the evolution-exchange package.
 #
 #
 # Žygimantas Beručka <zygis@gnome.org>, 2005-2006.
-# Gintautas Miliauskas <gintas@akl.lt>, 2006, 2007.
+# Gintautas Miliauskas <gintas@akl.lt>, 2006, 2007, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: lt\n"
+"Project-Id-Version: evolution-exchange.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-04 18:05+0200\n"
-"PO-Revision-Date: 2007-03-04 18:09+0200\n"
+"POT-Creation-Date: 2008-03-02 01:51+0200\n"
+"PO-Revision-Date: 2008-03-02 01:25+0200\n"
 "Last-Translator: Gintautas Miliauskas <gintas@akl.lt>\n"
 "Language-Team: Lithuanian <gnome-lt@lists.akl.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
 msgid "Specifies the time interval to refresh the GAL Cache."
@@ -28,43 +29,32 @@ msgstr "Nurodo laiko intervalą GAL kaupui atnaujinti."
 msgid ""
 "This key specifies the number of days interval between the GAL cache "
 "refresh. Set this value to zero, if you don't want to update GAL and use the "
-"curernt cache forever. This will work only if you have enabled offline "
+"current cache forever. This will work only if you have enabled offline "
 "caching for GAL."
-msgstr "Šis raktas nurodo intervalą dienomis, kada bus atnaujinamas GAL kaupas. Nustatykite į 0, jei nenorite atnaujinti GAL ir visada naudoti esamą kaupą. Tai galima padaryti tik jei įjungėte GAL atsijungimo veikseną."
+msgstr ""
+"Šis raktas nurodo intervalą dienomis, kada bus atnaujinamas GAL kaupas. "
+"Nustatykite į 0, jei nenorite atnaujinti GAL ir visada naudoti esamą kaupą. "
+"Tai galima padaryti tik jei įjungėte GAL atsijungimo veikseną."
 
-#: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1547 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:1932
+#: ../addressbook/e-book-backend-gal.c:1817 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Ieškoma..."
 
-#: ../addressbook/e-book-backend-gal.c:265
+#: ../addressbook/e-book-backend-gal.c:301
+#: ../addressbook/e-book-backend-gal.c:322
 msgid "Reconnecting to LDAP server..."
 msgstr "Iš naujo jungiamasi prie LDAP serverio..."
 
-#: ../addressbook/e-book-backend-gal.c:1384
+#: ../addressbook/e-book-backend-gal.c:1601
 msgid "Receiving LDAP search results..."
 msgstr "Gaunami LDAP paieškos rezultatai..."
 
-#: ../addressbook/e-book-backend-gal.c:1570
+#: ../addressbook/e-book-backend-gal.c:1846
 msgid "Error performing search"
 msgstr "Klaida atliekant paiešką"
 
-#: ../addressbook/e-book-backend-gal.c:1758
-#, c-format
-msgid "Internal error.\n"
-msgstr "Vidinė klaida.\n"
-
-#: ../addressbook/e-book-backend-gal.c:1769
-#, c-format
-msgid "Paged results response control could not be decoded.\n"
-msgstr "Puslapiuotų rezultatų atsakymo nepavyko dekoduoti.\n"
-
-#: ../addressbook/e-book-backend-gal.c:1775
-#, c-format
-msgid "Invalid entries estimate in paged results response.\n"
-msgstr "Netaisyklingas įrašų įvertis puslapiuotų rezultatų atsakyme.\n"
-
-#: ../calendar/e-cal-backend-exchange-calendar.c:2015
+#: ../calendar/e-cal-backend-exchange-calendar.c:2041
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -73,160 +63,164 @@ msgstr ""
 "Nepavyko suplanuoti resurso „%s“ pasikartojantiems susitikimams.\n"
 "Jūs turite įtraukti kiekvieną susitikimą atskirai."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2033
+#: ../calendar/e-cal-backend-exchange-calendar.c:2059
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Resursas „%s“ yra užimtas, pasirinktu laiko periodu."
 
-#: ../calendar/e-cal-backend-exchange.c:375
-#: ../calendar/e-cal-backend-exchange.c:384
+#: ../calendar/e-cal-backend-exchange.c:392
+#: ../calendar/e-cal-backend-exchange.c:402
 msgid "Authentication failed"
 msgstr "Autentikacija nepavyko"
 
-#: ../calendar/e-cal-backend-exchange.c:395
+#: ../calendar/e-cal-backend-exchange.c:445
 msgid "Could not find the calendar"
 msgstr "Nepavyko rasti kalendoriaus"
 
-#: ../camel/camel-exchange-folder.c:222
+#: ../camel/camel-exchange-folder.c:52
+msgid "Always check for new mail in this folder"
+msgstr "Visada ieškoti naujų laiškų šiame aplanke"
+
+#: ../camel/camel-exchange-folder.c:238
 msgid "You cannot expunge in offline mode."
 msgstr "Negalite atsijungimo režime išvalyti."
 
-#: ../camel/camel-exchange-folder.c:253
+#: ../camel/camel-exchange-folder.c:269
 msgid "No Subject"
 msgstr "Nėra temos"
 
-#: ../camel/camel-exchange-folder.c:407
+#: ../camel/camel-exchange-folder.c:424
 msgid "This message is not available in offline mode."
 msgstr "Ši žinutė esant atsijungimo režime yra neprieinama."
 
-#: ../camel/camel-exchange-folder.c:642
+#: ../camel/camel-exchange-folder.c:681
 msgid "Moving messages"
 msgstr "Žinutės perkeliamos"
 
-#: ../camel/camel-exchange-folder.c:643
+#: ../camel/camel-exchange-folder.c:682
 msgid "Copying messages"
 msgstr "Žinutės kopijuojamos"
 
-#: ../camel/camel-exchange-folder.c:1014
+#: ../camel/camel-exchange-folder.c:1055
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Nepavyko sukurti aplanko %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1024
+#: ../camel/camel-exchange-folder.c:1065
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Nepavyko įkelti %s santraukos"
 
-#: ../camel/camel-exchange-folder.c:1032
+#: ../camel/camel-exchange-folder.c:1073
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Nepavyko sukurti podėlio skirto %s"
 
-#: ../camel/camel-exchange-folder.c:1042
+#: ../camel/camel-exchange-folder.c:1083
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Nepavyko sukurti %s žurnalo"
 
-#: ../camel/camel-exchange-folder.c:1087
+#: ../camel/camel-exchange-folder.c:1131
 msgid "Scanning for changed messages"
 msgstr "Ieškoma pakeistų žinučių"
 
-#: ../camel/camel-exchange-folder.c:1113
+#: ../camel/camel-exchange-folder.c:1164
 msgid "Fetching summary information for new messages"
 msgstr "Gaunama naujų žinučių santrauka"
 
-#: ../camel/camel-exchange-journal.c:339
+#: ../camel/camel-exchange-journal.c:341
 msgid "No folder name found\n"
 msgstr "Nerastas aplanko pavadinimas\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2569
-#: ../mail/mail-stub-exchange.c:2613 ../mail/mail-stub-exchange.c:2648
-#: ../mail/mail-stub-exchange.c:2675 ../mail/mail-stub-exchange.c:2728
-#: ../mail/mail-stub-exchange.c:2750
+#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:3010
+#: ../mail/mail-stub-exchange.c:3054 ../mail/mail-stub-exchange.c:3089
+#: ../mail/mail-stub-exchange.c:3116 ../mail/mail-stub-exchange.c:3169
+#: ../mail/mail-stub-exchange.c:3191
 msgid "Folder doesn't exist"
 msgstr "Aplankas neegzistuoja"
 
-#: ../camel/camel-exchange-journal.c:436
+#: ../camel/camel-exchange-journal.c:438
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "Atsijungimo režime negalima pridurti žinutės: talpykla neprieinama."
 
-#: ../camel/camel-exchange-journal.c:452
+#: ../camel/camel-exchange-journal.c:454
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Atsijungimo režime negalima pridurti žinutės: %s"
 
-#: ../camel/camel-exchange-provider.c:40
+#: ../camel/camel-exchange-provider.c:41
 msgid "Checking for New Mail"
 msgstr "Tikrinama naujo pašto"
 
-#: ../camel/camel-exchange-provider.c:42 ../camel/camel-exchange-provider.c:66
+#: ../camel/camel-exchange-provider.c:43
 msgid "C_heck for new messages in all folders"
 msgstr "I_eškoti naujų žinučių visuose aplankuose"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:50
+#: ../camel/camel-exchange-provider.c:51
 msgid "Windows User_name:"
 msgstr "Windows naudotojo _vardas:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:56
 msgid "Global Address List / Active Directory"
 msgstr "Globalus adresų sąrašas / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:59
+#: ../camel/camel-exchange-provider.c:60
 msgid "_Global Catalog server name:"
 msgstr "_Globalaus katalogo serverio vardas:"
 
-#: ../camel/camel-exchange-provider.c:61
+#: ../camel/camel-exchange-provider.c:62
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "_Apriboti GAL atsakymų kiekį: %s"
 
-#: ../camel/camel-exchange-provider.c:64
+#: ../camel/camel-exchange-provider.c:65
 msgid "Options"
 msgstr "Nustatymai"
 
-#: ../camel/camel-exchange-provider.c:68
+#: ../camel/camel-exchange-provider.c:67
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Perspėjimo apie slaptažodžio galiojimą periodas: %s"
 
-#: ../camel/camel-exchange-provider.c:70
+#: ../camel/camel-exchange-provider.c:69
 msgid "Automatically synchroni_ze account locally"
 msgstr "Automatiškai sinchroni_zuoti vietinius abonementus"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:73
+#: ../camel/camel-exchange-provider.c:72
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "Žin_utėms, esančioms šio serverio Inbox aplanke, pritaikyti filtrus"
 
-#: ../camel/camel-exchange-provider.c:75
+#: ../camel/camel-exchange-provider.c:74
 msgid "Check new messages for _Junk contents"
 msgstr "Naujose žinutėse ieškoti šla_mšto"
 
-#: ../camel/camel-exchange-provider.c:77
+#: ../camel/camel-exchange-provider.c:76
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "I_eškoti šlamšto tik Inbox aplanke"
 
-#: ../camel/camel-exchange-provider.c:87
+#: ../camel/camel-exchange-provider.c:86
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:89
+#: ../camel/camel-exchange-provider.c:88
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Pašto (ir kitų duomenų) valdymui Microsoft Exchange serveriuose"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:105
+#: ../camel/camel-exchange-provider.c:104
 msgid "Secure Password"
 msgstr "Saugus slaptažodis"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:108
+#: ../camel/camel-exchange-provider.c:107
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -234,11 +228,11 @@ msgstr ""
 "Naudojant šį nustatymą, prie Exchange serverio bus jungiamasi naudojantis "
 "saugaus slaptažodžio (NTLM) autentikacija. "
 
-#: ../camel/camel-exchange-provider.c:116
+#: ../camel/camel-exchange-provider.c:115
 msgid "Plaintext Password"
 msgstr "Paprasto teksto slaptažodis"
 
-#: ../camel/camel-exchange-provider.c:118
+#: ../camel/camel-exchange-provider.c:117
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -246,26 +240,21 @@ msgstr ""
 "Naudojant šį nustatymą, prie Exchange serverio bus jungiamasi naudojantis "
 "paprasto teksto slaptažodžio autentikacija."
 
-#: ../camel/camel-exchange-store.c:310
+#: ../camel/camel-exchange-store.c:312
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange serveris %s"
 
-#: ../camel/camel-exchange-store.c:313
+#: ../camel/camel-exchange-store.c:315
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "%s esančio %s Exchange abonementas"
 
-#: ../camel/camel-exchange-store.c:354
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%sĮveskite %s slaptažodį"
-
-#: ../camel/camel-exchange-store.c:405
+#: ../camel/camel-exchange-store.c:407
 msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange posistemės procesas"
 
-#: ../camel/camel-exchange-store.c:446
+#: ../camel/camel-exchange-store.c:448
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -273,156 +262,157 @@ msgstr ""
 "Nepavyko autentikuotis su serveriu. (Neteisingas slaptažodis?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:488
+#: ../camel/camel-exchange-store.c:490
 #, c-format
 msgid "No such folder %s"
 msgstr "Nėra tokio aplanko %s"
 
-#: ../camel/camel-exchange-store.c:565
+#: ../camel/camel-exchange-store.c:567
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Atsijungimo režime negalima užsisakyti aplanko."
 
-#: ../camel/camel-exchange-store.c:582
+#: ../camel/camel-exchange-store.c:584
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Atsijungimo režime negalima atsisakyti aplanko."
 
-#: ../camel/camel-exchange-store.c:714
+#: ../camel/camel-exchange-store.c:716
 msgid "Cannot get folder info in offline mode."
 msgstr "Atsijungimo režime negalima gauti aplanko informacijos."
 
-#: ../camel/camel-exchange-store.c:785
+#: ../camel/camel-exchange-store.c:789
 msgid "Cannot create folder in offline mode."
 msgstr "Atsijungimo režime negalima sukurti aplanko."
 
-#: ../camel/camel-exchange-store.c:812
+#: ../camel/camel-exchange-store.c:816
 msgid "Cannot delete folder in offline mode."
 msgstr "Atsijungimo režime negalima ištrinti aplanko."
 
-#: ../camel/camel-exchange-store.c:828
+#: ../camel/camel-exchange-store.c:832
 msgid "Cannot rename folder in offline mode."
 msgstr "Atsijungimo režime negalima pervadinti aplanko."
 
-#: ../camel/camel-exchange-transport.c:110
+#: ../camel/camel-exchange-transport.c:111
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr "Exchange transportas gali būti naudojamas tik su Exchange pašto šaltiniu"
+msgstr ""
+"Exchange transportas gali būti naudojamas tik su Exchange pašto šaltiniu"
 
-#: ../camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-transport.c:122
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "Negalima išsiųsti žinutės: vienas ar daugiau klaidingų gavėjų"
 
-#: ../camel/camel-exchange-transport.c:131
+#: ../camel/camel-exchange-transport.c:132
 msgid "Could not find 'From' address in message"
 msgstr "Žinutėje nerastas 'Nuo' adresas"
 
-#: ../camel/camel-stub.c:152
+#: ../camel/camel-stub.c:153
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Nepavyko sukurti jungties: %s"
 
-#: ../camel/camel-stub.c:170
+#: ../camel/camel-stub.c:171
 #, c-format
 msgid "Could not connect to %s: Please restart Evolution"
 msgstr "Nepavyko prisijungti prie %s: Paleiskite Evolution iš naujo"
 
-#: ../camel/camel-stub.c:175
+#: ../camel/camel-stub.c:176
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Nepavyko prisijungti prie %s: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:206
 #, c-format
 msgid "Path too long: %s"
 msgstr "Kelias per ilgas: %s"
 
-#: ../camel/camel-stub.c:231
+#: ../camel/camel-stub.c:232
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Nepavyko paleisti būklės gijos: %s"
 
-#: ../camel/camel-stub.c:485
+#: ../camel/camel-stub.c:486
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Ryšys su %s nutrūko"
 
-#: ../camel/camel-stub.c:489
+#: ../camel/camel-stub.c:490
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Klaida bandant susisiekti su %s: %s"
 
-#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
+#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:949
 msgid "No such folder"
 msgstr "Nėra tokio aplanko"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2546 ../mail/mail-stub-exchange.c:2586
-#: ../mail/mail-stub-exchange.c:2652 ../mail/mail-stub-exchange.c:2702
-#: ../mail/mail-stub-exchange.c:2765
+#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1598
+#: ../mail/mail-stub-exchange.c:2987 ../mail/mail-stub-exchange.c:3027
+#: ../mail/mail-stub-exchange.c:3093 ../mail/mail-stub-exchange.c:3143
+#: ../mail/mail-stub-exchange.c:3206
 msgid "Permission denied"
 msgstr "Neduotas leidimas"
 
-#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
-msgid "Could not open folder: Permission denied"
-msgstr "Nepavyko atidaryti aplanko: neduotas leidimas"
-
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
+#: ../mail/mail-stub-exchange.c:771 ../mail/mail-stub-exchange.c:863
 msgid "Could not open folder"
 msgstr "Nepavyko atidaryti aplanko"
 
-#: ../mail/mail-stub-exchange.c:764
+#: ../mail/mail-stub-exchange.c:857 ../mail/mail-stub-exchange.c:879
+msgid "Could not open folder: Permission denied"
+msgstr "Nepavyko atidaryti aplanko: neduotas leidimas"
+
+#: ../mail/mail-stub-exchange.c:958
 msgid "Could not create folder."
 msgstr "Nepavyko sukurti aplanko."
 
-#: ../mail/mail-stub-exchange.c:844
+#: ../mail/mail-stub-exchange.c:1046
 msgid "Could not open Deleted Items folder"
 msgstr "Nepavyko atidaryti Ištrintų elementų aplanko"
 
-#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
+#: ../mail/mail-stub-exchange.c:1377 ../mail/mail-stub-exchange.c:1418
 msgid "Could not get new messages"
 msgstr "Nepavyko gauti naujų žinučių"
 
-#: ../mail/mail-stub-exchange.c:1386
+#: ../mail/mail-stub-exchange.c:1594
 msgid "Could not empty Deleted Items folder"
 msgstr "Nepavyko išvalyti Ištrintų elementų aplanko"
 
-#: ../mail/mail-stub-exchange.c:1463
+#: ../mail/mail-stub-exchange.c:1671
 msgid "Could not append message; mailbox is over quota"
 msgstr "Nepavyko pridurti žinutės; viršyta paštadėžės talpa"
 
-#: ../mail/mail-stub-exchange.c:1464
+#: ../mail/mail-stub-exchange.c:1672
 msgid "Could not append message"
 msgstr "Nepavyko pridurti žinutės"
 
-#: ../mail/mail-stub-exchange.c:2016
+#: ../mail/mail-stub-exchange.c:2434
 msgid "No such message"
 msgstr "Nėra tokios žinutės"
 
-#: ../mail/mail-stub-exchange.c:2069
+#: ../mail/mail-stub-exchange.c:2513
 msgid "Message has been deleted"
 msgstr "Žinutė buvo ištrinta"
 
-#: ../mail/mail-stub-exchange.c:2071
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Error retrieving message"
 msgstr "Gaunant žinutę įvyko klaida"
 
-#: ../mail/mail-stub-exchange.c:2113
+#: ../mail/mail-stub-exchange.c:2558
 msgid "Mailbox does not support full-text searching"
 msgstr "Paštadėžėje nėra galimybės ieškoti viso teksto"
 
-#: ../mail/mail-stub-exchange.c:2211
+#: ../mail/mail-stub-exchange.c:2656
 msgid "Unable to move/copy messages"
 msgstr "Nepavyko perkelti/kopijuoti žinučių"
 
-#: ../mail/mail-stub-exchange.c:2461
+#: ../mail/mail-stub-exchange.c:2902
 msgid "No mail submission URI for this mailbox"
 msgstr "Ši pašto dėžutė neturi pašto pateikimo adreso"
 
-#: ../mail/mail-stub-exchange.c:2497
+#: ../mail/mail-stub-exchange.c:2938
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Serveris nepriims pašto per Exchange transportą"
 
-#: ../mail/mail-stub-exchange.c:2499
+#: ../mail/mail-stub-exchange.c:2940
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -431,7 +421,7 @@ msgstr ""
 "Jūsų abonementui nesuteiktas leidimas naudoti <%s>\n"
 "kaip Nuo adresą."
 
-#: ../mail/mail-stub-exchange.c:2511
+#: ../mail/mail-stub-exchange.c:2952
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -439,17 +429,17 @@ msgstr ""
 "Nepavyko išsiųsti žinutės.\n"
 "Tai gali reikšti, jog Jūsų abonementas viršijo kvotą."
 
-#: ../mail/mail-stub-exchange.c:2515
+#: ../mail/mail-stub-exchange.c:2956
 msgid "Could not send message"
 msgstr "Nepavyko išsiųsti žinutės"
 
-#: ../mail/mail-stub-exchange.c:2538 ../mail/mail-stub-exchange.c:2591
-#: ../mail/mail-stub-exchange.c:2656 ../mail/mail-stub-exchange.c:2707
-#: ../mail/mail-stub-exchange.c:2771
+#: ../mail/mail-stub-exchange.c:2979 ../mail/mail-stub-exchange.c:3032
+#: ../mail/mail-stub-exchange.c:3097 ../mail/mail-stub-exchange.c:3148
+#: ../mail/mail-stub-exchange.c:3212
 msgid "Generic error"
 msgstr "Bendroji klaida"
 
-#: ../mail/mail-stub-exchange.c:2542
+#: ../mail/mail-stub-exchange.c:2983
 msgid "Folder already exists"
 msgstr "Aplankas jau egzistuoja"
 
@@ -462,8 +452,9 @@ msgid "Evolution Calendar Exchange backend"
 msgstr "Evolution kalendoriaus Exchange posistemė"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Ximian Connector for Exchange"
-msgstr "Ximian Connector skirtas Exchange"
+#: ../storage/main.c:183
+msgid "Evolution Connector for Microsoft Exchange"
+msgstr "Evolution Connector, skirtas Microsoft Exchange"
 
 #: ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
@@ -519,31 +510,33 @@ msgstr ""
 
 #: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
+"Evolution Connector for Microsoft Exchange requires access to certain "
+"functionality on the Exchange server that appears to be disabled or "
+"blocked.  (This is usually unintentional.)  Your Exchange administrator will "
+"need to enable this functionality in order for you to be able to use the "
+"Evolution Connector.\n"
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"Ximian Connector reikia priėjimo prie tam tikrų Exchange Serverio funkcijų, "
-"kurios, atrodo, yra atjungtos arba užblokuotos.  (Tai dažniausiai būna "
-"padaryta nesąmoningai.)  Norint naudotis Ximian Connector Jūsų Exchange "
+"Evolution Connector reikia priėjimo prie tam tikrų Exchange Serverio "
+"funkcijų, kurios, atrodo, yra atjungtos arba užblokuotos.  (Tai dažniausiai "
+"būna padaryta ne specialiai.)  Norint naudotis Evolution Connector, Exchange "
 "administratorius turi įjungti šias funkcijas.\n"
 "\n"
 "Norėdami pamatyti informaciją, kurią turite pateikti Exchange "
-"administratoriui, žr. žemiau esančią nuorodą:"
+"administratoriui, žiūrėkite žemiau esančią nuorodą:"
 
-#: ../storage/exchange-autoconfig-wizard.c:275
+#: ../storage/exchange-autoconfig-wizard.c:276
 msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
+"The Exchange server URL you provided is for an Exchange 5.5 server. "
+"Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
+"and 2003 only."
 msgstr ""
-"Jūsų pateiktas serverio adresas yra skirtas Exchange 5.5 serveriui. Ximian "
+"Pateiktas serverio adresas yra skirtas Exchange 5.5 serveriui. Evolution "
 "Connector palaiko tik Microsoft Exchange 2000 ir 2003."
 
-#: ../storage/exchange-autoconfig-wizard.c:288
+#: ../storage/exchange-autoconfig-wizard.c:290
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -551,7 +544,7 @@ msgstr ""
 "Nepavyko sukonfigūruoti Exchange abonemento, nes įvyko nežinoma klaida. "
 "Patikrinkite adresą, naudotojo vardą bei slaptažodį ir bandykite dar kartą."
 
-#: ../storage/exchange-autoconfig-wizard.c:332
+#: ../storage/exchange-autoconfig-wizard.c:334
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -562,7 +555,7 @@ msgstr ""
 "grįžti atgal ir nurodyti Windows srities vardą, kaip dalį Jūsų naudotojo "
 "vardo (pvz. “MANO-SRITIS\\%s“)."
 
-#: ../storage/exchange-autoconfig-wizard.c:339
+#: ../storage/exchange-autoconfig-wizard.c:341
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -570,12 +563,12 @@ msgstr ""
 "Nepavyko prisijungti prie nurodyto serverio.\n"
 "Prašau, patikrinkite serverio vardą ir bandykite dar kartą."
 
-#: ../storage/exchange-autoconfig-wizard.c:376
-#: ../storage/exchange-autoconfig-wizard.c:380
+#: ../storage/exchange-autoconfig-wizard.c:378
+#: ../storage/exchange-autoconfig-wizard.c:382
 msgid "Unknown"
 msgstr "Nežinoma"
 
-#: ../storage/exchange-autoconfig-wizard.c:445
+#: ../storage/exchange-autoconfig-wizard.c:447
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -583,7 +576,7 @@ msgstr ""
 "Konfigūracijos sistemos klaida.\n"
 "Nepavyko sukurti naujo abonemento."
 
-#: ../storage/exchange-autoconfig-wizard.c:459
+#: ../storage/exchange-autoconfig-wizard.c:461
 msgid "You may only configure a single Exchange account"
 msgstr "Jūs galite konfigūruoti tik vieną Exchange abonementą"
 
@@ -605,91 +598,90 @@ msgid "Email Address:"
 msgstr "El. pašto adresas:"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:5
+msgid "Evolution Connector for Microsoft Exchange Configuration"
+msgstr "Evolution Connector, skirtas Microsoft Exchange konfigūracijai"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:6
+msgid ""
+"Evolution Connector for Microsoft Exchange can use account information from "
+"your existing Outlook Web Access (OWA) account.\n"
+"\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
+msgstr ""
+"Evolution Connector gali naudoti Jūsų esamo „Outlook Web Access“ (OWA) "
+"abonemento informaciją.\n"
+"\n"
+"Įveskite savo OWA svetainės adresą (URL), naudotojo vardą bei slaptažodį ir "
+"paspauskite „Pirmyn“.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:10
+msgid ""
+"Evolution Connector for Microsoft Exchange could not find the Global Catalog "
+"replica for your site. Please enter the name of your Global Catalog server. "
+"You may need to ask your system administrator for the correct value.\n"
+msgstr ""
+"Evolution Connecto“ nepavyko aptikti globalaus katalogo kopijos Jūsų "
+"sričiai. Įveskite savo globalaus katalogo serverio vardą. Reikalingos "
+"reikšmės gali reikėti pasiklausti Jūsų sistemos administratoriaus.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:12
+msgid ""
+"Evolution Connector for Microsoft Exchange has encountered a problem "
+"configuring your Exchange account.\n"
+msgstr ""
+"Evolution Connector Jūsų Exchange abonemento konfigūravimo metu aptiko "
+"klaidą.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:14
 msgid "Exchange Configuration"
 msgstr "Exchange konfigūracija"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:6
+#: ../storage/exchange-autoconfig-wizard.glade.h:15
 msgid "Full Name:"
 msgstr "Pilnas vardas:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:7
+#: ../storage/exchange-autoconfig-wizard.glade.h:16
 msgid "GC Server:"
 msgstr "GC serveris:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:8
+#: ../storage/exchange-autoconfig-wizard.glade.h:17
 msgid "Make this my default account"
 msgstr "Padaryti šį abonementą įprastu mano abonementu"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:9
+#: ../storage/exchange-autoconfig-wizard.glade.h:18
 msgid "OWA URL:"
 msgstr "OWA adresas:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:10
+#: ../storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Password:"
 msgstr "Slaptažodis:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:11
+#: ../storage/exchange-autoconfig-wizard.glade.h:20
 msgid "Remember this password"
 msgstr "Atsiminti šį slaptažodį"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:12
+#: ../storage/exchange-autoconfig-wizard.glade.h:21
 msgid "Username:"
 msgstr "Naudotojo vardas:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:13
+#: ../storage/exchange-autoconfig-wizard.glade.h:22
 msgid "Welcome"
 msgstr "Sveiki atvykę"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:14
+#: ../storage/exchange-autoconfig-wizard.glade.h:23
 msgid ""
-"Welcome to Ximian Connector for Microsoft Exchange.\n"
+"Welcome to Evolution Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
 "to connect to your Exchange account.\n"
 "\n"
 "Please click the \"Forward\" button to continue."
 msgstr ""
-"Sveiki paleidę Ximian Connector skirtą Microsoft Exchange.\n"
+"Sveiki paleidę Evolution Connector, skirtą Microsoft Exchange.\n"
 "Keletas sekančių langų padės Jums sukonfigūruoti Evolution,\n"
-"kad Jūs galėtumėte prisijungti prie Jūsų Exchange abonemento.\n"
+"kad galėtumėte prisijungti prie Exchange abonemento.\n"
 "\n"
 "Norėdami tęsti, spauskite mygtuką „Pirmyn“."
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:19
-msgid "Ximian Connector Configuration"
-msgstr "„Ximian Connector“ konfigūracija"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:20
-msgid ""
-"Ximian Connector can use account information from your existing Outlook Web "
-"Access (OWA) account.\n"
-"\n"
-"Enter your OWA site address (URL), username, and password, then click "
-"\"Forward\".\n"
-msgstr ""
-"„Ximian Connector“ gali naudoti egzistuojančio Jūsų „Outlook Web "
-"Access“ (OWA) abonemento informaciją.\n"
-"\n"
-"Įveskite Jūsų OWA svetainės adresą (URL), naudotojo vardą bei slaptažodį, ir "
-"paspauskite „Pirmyn“.\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:24
-msgid ""
-"Ximian Connector could not find the Global Catalog replica for your site. "
-"Please enter the name of your Global Catalog server. You may need to ask "
-"your system administrator for the correct value.\n"
-msgstr ""
-"„Ximian Connector“ nepavyko aptikti Globalaus katalogo kopijos jūsų sričiai. "
-"Prašau įveskite, Jūsų Globalaus katalogo serverio vardą. Norint žinoti "
-"teisingą reikšmę, Jums gali reikėti pasiklausti Jūsų sistemos "
-"administratoriaus.\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:26
-msgid ""
-"Ximian Connector has encountered a problem configuring your Exchange "
-"account.\n"
-msgstr ""
-"„Ximian Connector“ Jūsų Exchange abonemento konfigūravimo metu aptiko "
-"klaidą.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -973,13 +965,9 @@ msgstr "Vaidmuo: "
 msgid "Connecting..."
 msgstr "Jungiamasi..."
 
-#: ../storage/main.c:183
-msgid "Ximian Connector for Microsoft Exchange"
-msgstr "Ximian Connector skirtas Microsoft Exchange"
-
 #: ../storage/ximian-connector-setup.c:44
-msgid "Ximian Connector for Microsoft Exchange Setup Tool"
-msgstr "Ximian Connector skirtas Microsoft Exchange nustatymo įrankiui"
+msgid "Evolution Connector for Microsoft Exchange Setup Tool"
+msgstr "Evolution Connector, skirtas Microsoft Exchange nustatymo įrankiui"
 
 #: ../storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
@@ -1002,7 +990,8 @@ msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Užsisakyti aplanką priklausantį kitam šio serverio naudotojui"
 
 #: ../storage/ximian-connector.xml.h:6
-msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgid ""
+"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr "Atsisakyti aplanko pridėto su „Užsisakyti kito naudotojo aplanką“"
 
 #: ../storage/ximian-connector.xml.h:7
@@ -1011,7 +1000,8 @@ msgstr "Žiūrėti arba keisti Jūsų Exchange kalendoriaus delegavimo nustatymu
 
 #: ../storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
-msgstr "Žiūrėti arba keisti Jūsų nebuvimo darbe būseną ir automatinio atsakymo žinutę"
+msgstr ""
+"Žiūrėti arba keisti Jūsų nebuvimo darbe būseną ir automatinio atsakymo žinutę"
 
 #: ../storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
@@ -1028,4 +1018,3 @@ msgstr "_Nebuvimo darbe asistentas"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Atsisakyti kito naudotojo aplanko"
-
