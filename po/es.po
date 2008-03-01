@@ -1,7 +1,7 @@
 # translation of evolution-exchange.HEAD.po to Español
 # cyphra <cyphra@hal9000.eui.upm.es>, 2004.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004, 2005.
-# Jorge González <jorgegonz@svn.gnome.org>, 2007.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008.
 # Spanish translation of Ximian Conector 1.4
 # Copyright (C) 2004 THE Ximian Conector'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the Ximian Conector package.
@@ -9,10 +9,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-23 08:15+0000\n"
-"PO-Revision-Date: 2007-12-23 13:40+0100\n"
+"POT-Creation-Date: 2008-01-21 13:14+0000\n"
+"PO-Revision-Date: 2008-03-01 21:18+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
-"Language-Team: Español <<gnome-es-list@gnome.org>\n"
+"Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,8 +35,8 @@ msgstr ""
 "y usar la caché actual para siempre. Esto sólo funcionará si la caché de GAL "
 "está activada en modo desconectado."
 
-#: ../addressbook/e-book-backend-exchange.c:1917
-#: ../addressbook/e-book-backend-gal.c:1799 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:1919
+#: ../addressbook/e-book-backend-gal.c:1804 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Buscando..."
 
@@ -45,11 +45,11 @@ msgstr "Buscando..."
 msgid "Reconnecting to LDAP server..."
 msgstr "Conectando con el servidor LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1583
+#: ../addressbook/e-book-backend-gal.c:1588
 msgid "Receiving LDAP search results..."
 msgstr "Recibiendo resultados de la búsqueda LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1828
+#: ../addressbook/e-book-backend-gal.c:1833
 msgid "Error performing search"
 msgstr "Error al efectuar la búsqueda"
 
@@ -132,10 +132,10 @@ msgstr "Obteniendo la información del resumen para los mensajes nuevos"
 msgid "No folder name found\n"
 msgstr "No se encontró ningún nombre de carpeta\n"
 
-#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:2979
-#: ../mail/mail-stub-exchange.c:3023 ../mail/mail-stub-exchange.c:3058
-#: ../mail/mail-stub-exchange.c:3085 ../mail/mail-stub-exchange.c:3138
-#: ../mail/mail-stub-exchange.c:3160
+#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:2984
+#: ../mail/mail-stub-exchange.c:3028 ../mail/mail-stub-exchange.c:3063
+#: ../mail/mail-stub-exchange.c:3090 ../mail/mail-stub-exchange.c:3143
+#: ../mail/mail-stub-exchange.c:3165
 msgid "Folder doesn't exist"
 msgstr "La carpeta no existe"
 
@@ -201,11 +201,11 @@ msgstr "_Aplicar filtros en mensajes nuevos en la Bandeja de entrada en este ser
 
 #: ../camel/camel-exchange-provider.c:74
 msgid "Check new messages for _Junk contents"
-msgstr "Comprobar si los mensajes nuevos son _spam"
+msgstr "Comprobar si los mensajes nuevos son _SPAM"
 
 #: ../camel/camel-exchange-provider.c:76
 msgid "Only check for Junk messag_es in the Inbox folder"
-msgstr "Sólo comprobar _mensajes de spam en la carpeta de entrada"
+msgstr "Sólo comprobar _mensajes de SPAM en la carpeta de entrada"
 
 #: ../camel/camel-exchange-provider.c:86
 msgid "Microsoft Exchange"
@@ -250,11 +250,6 @@ msgstr "Servidor Exchange %s"
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Cuenta Exchange de %s en %s"
-
-#: ../camel/camel-exchange-store.c:356
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%s Introduzca la contraseña para %s"
 
 #: ../camel/camel-exchange-store.c:407
 msgid "Evolution Exchange backend process"
@@ -351,9 +346,9 @@ msgstr "No existe la carpeta"
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1595
-#: ../mail/mail-stub-exchange.c:2956 ../mail/mail-stub-exchange.c:2996
-#: ../mail/mail-stub-exchange.c:3062 ../mail/mail-stub-exchange.c:3112
-#: ../mail/mail-stub-exchange.c:3175
+#: ../mail/mail-stub-exchange.c:2961 ../mail/mail-stub-exchange.c:3001
+#: ../mail/mail-stub-exchange.c:3067 ../mail/mail-stub-exchange.c:3117
+#: ../mail/mail-stub-exchange.c:3180
 msgid "Permission denied"
 msgstr "Permiso denegado"
 
@@ -393,31 +388,31 @@ msgstr "No se pudo anexar el mensaje"
 msgid "No such message"
 msgstr "No existe el mensaje"
 
-#: ../mail/mail-stub-exchange.c:2490
+#: ../mail/mail-stub-exchange.c:2495
 msgid "Message has been deleted"
 msgstr "El mensaje ha sido borrado"
 
-#: ../mail/mail-stub-exchange.c:2492
+#: ../mail/mail-stub-exchange.c:2497
 msgid "Error retrieving message"
 msgstr "Error al obtener el mensaje"
 
-#: ../mail/mail-stub-exchange.c:2535
+#: ../mail/mail-stub-exchange.c:2540
 msgid "Mailbox does not support full-text searching"
 msgstr "El buzón no soporta búsqueda en texto"
 
-#: ../mail/mail-stub-exchange.c:2633
+#: ../mail/mail-stub-exchange.c:2638
 msgid "Unable to move/copy messages"
 msgstr "Imposible mover/copiar mensajes"
 
-#: ../mail/mail-stub-exchange.c:2871
+#: ../mail/mail-stub-exchange.c:2876
 msgid "No mail submission URI for this mailbox"
 msgstr "No hay URI de envío de correo para este buzón"
 
-#: ../mail/mail-stub-exchange.c:2907
+#: ../mail/mail-stub-exchange.c:2912
 msgid "Server won't accept mail via Exchange transport"
 msgstr "El servidor no acepta correo por medio del transporte Exchange"
 
-#: ../mail/mail-stub-exchange.c:2909
+#: ../mail/mail-stub-exchange.c:2914
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -426,7 +421,7 @@ msgstr ""
 "Su cuenta no tiene permiso para usar <%s>\n"
 "como una dirección de remitente."
 
-#: ../mail/mail-stub-exchange.c:2921
+#: ../mail/mail-stub-exchange.c:2926
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -434,17 +429,17 @@ msgstr ""
 "No se pudo enviar el mensaje.\n"
 "Esto quizá signifique que su cuenta sobrepasa la cuota."
 
-#: ../mail/mail-stub-exchange.c:2925
+#: ../mail/mail-stub-exchange.c:2930
 msgid "Could not send message"
 msgstr "No se pudo enviar el mensaje"
 
-#: ../mail/mail-stub-exchange.c:2948 ../mail/mail-stub-exchange.c:3001
-#: ../mail/mail-stub-exchange.c:3066 ../mail/mail-stub-exchange.c:3117
-#: ../mail/mail-stub-exchange.c:3181
+#: ../mail/mail-stub-exchange.c:2953 ../mail/mail-stub-exchange.c:3006
+#: ../mail/mail-stub-exchange.c:3071 ../mail/mail-stub-exchange.c:3122
+#: ../mail/mail-stub-exchange.c:3186
 msgid "Generic error"
 msgstr "Error genérico"
 
-#: ../mail/mail-stub-exchange.c:2952
+#: ../mail/mail-stub-exchange.c:2957
 msgid "Folder already exists"
 msgstr "La carpeta ya existe"
 
@@ -524,12 +519,12 @@ msgid ""
 msgstr ""
 "Conector Evolution para Microsoft Exchange requiere acceso a cierta "
 "funcionalidad del servidor Exchange que parece estar desactivada o "
-"bloqueada. (Esto es normalmente no es intencionado.) Su administrador "
-"de Exchange necesitará activar esta funcionalidad para que pueda usar "
-"Conector Evolution.\n"
+"bloqueada. (Esto es normalmente no es intencionado.) Su administrador de "
+"Exchange necesitará activar esta funcionalidad para que pueda usar Conector "
+"Evolution.\n"
 "\n"
-"Para la información que debe proporcionar a su administrador Exchange, "
-"siga el enlace inferior:"
+"Para la información que debe proporcionar a su administrador Exchange, siga "
+"el enlace inferior:"
 
 #: ../storage/exchange-autoconfig-wizard.c:276
 msgid ""
@@ -626,9 +621,10 @@ msgid ""
 "replica for your site. Please enter the name of your Global Catalog server. "
 "You may need to ask your system administrator for the correct value.\n"
 msgstr ""
-"El Conector Evolution para Microsfot Exchange no pudo encontrar la réplica del "
-"Catálogo global para su sitio. Introduzca el nombre de su servidor de Catálogo "
-"Global. Quizá necesite preguntara su administrador de sistemas por el valor correcto.\n"
+"El Conector Evolution para Microsfot Exchange no pudo encontrar la réplica "
+"del Catálogo global para su sitio. Introduzca el nombre de su servidor de "
+"Catálogo Global. Quizá necesite preguntara su administrador de sistemas por "
+"el valor correcto.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:12
 msgid ""
@@ -962,7 +958,7 @@ msgstr "Elementos leídos"
 
 #: ../storage/exchange-permissions-dialog.glade.h:15
 msgid "Role: "
-msgstr "Rol:"
+msgstr "Rol: "
 
 #: ../storage/exchange-storage.c:338
 msgid "Connecting..."
