@@ -1,221 +1,251 @@
-# translation of evolution-exchange.HEAD.mr.po to Marathi
+# translation of evolution-exchange.HEAD.mr.po to marathi
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+#
 # Sameer N. Ingole <strike@proscrutiny.com>, 2006.
+# Sandeep Shedmake <sandeep.shedmake@gmail.com>, 2008.
 # Rahul Bhalerao <b.rahul.pm@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD.mr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-03 19:41+0200\n"
-"PO-Revision-Date: 2006-09-04 22:01+0530\n"
-"Last-Translator: Sameer N. Ingole <strike@proscrutiny.com>\n"
-"Language-Team: Marathi <MarathiOpenSource@yahoogroups.com>\n"
+"POT-Creation-Date: 2008-01-21 13:14+0000\n"
+"PO-Revision-Date: 2008-03-01 16:44+0530\n"
+"Last-Translator: Sandeep Shedmake <sandeep.shedmake@gmail.com>\n"
+"Language-Team: marathi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr "GAL कॅश पुन्हदाखल करीता वेळ अपवाद निश्चित करा."
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+msgid ""
+"This key specifies the number of days interval between the GAL cache "
+"refresh. Set this value to zero, if you don't want to update GAL and use the "
+"current cache forever. This will work only if you have enabled offline "
+"caching for GAL."
+msgstr "ही किल्ली GAL कॅश पुन्हदाखलन अंतर्गत दिवासांची संख्या निश्चित करतो. GAL अद्ययावत करायचे नसल्यास व सद्याचे कॅश वापरायचे असल्यास, हे मुल्य शून्य करीता निश्चित करा. GAL करीता ऑफलाईन कॅश कार्यान्वीत केल्यावर हे कार्यरत होईल."
+
+#: ../addressbook/e-book-backend-exchange.c:1919
+#: ../addressbook/e-book-backend-gal.c:1804 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "शोधतोय..."
 
-#: ../addressbook/e-book-backend-gal.c:267
+#: ../addressbook/e-book-backend-gal.c:301
+#: ../addressbook/e-book-backend-gal.c:322
 msgid "Reconnecting to LDAP server..."
 msgstr "LDAP सेवकास जोडतोय..."
 
-#: ../addressbook/e-book-backend-gal.c:1363
+#: ../addressbook/e-book-backend-gal.c:1588
 msgid "Receiving LDAP search results..."
 msgstr "शोध परीणाम LDAP सेवकाकडुन घेतोय..."
 
-#: ../addressbook/e-book-backend-gal.c:1522
+#: ../addressbook/e-book-backend-gal.c:1833
 msgid "Error performing search"
 msgstr "शोधताना चुक आढळली"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2004
+#: ../calendar/e-cal-backend-exchange-calendar.c:2028
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
-"You must book each meeting separately.\n"
+"You must book each meeting separately."
 msgstr ""
-"संसाधन '%s' पुनःपुन्हा आढळणाऱ्या बैठकींकरीता निर्धारित करण्यास असमर्थ.\n"
-"प्रत्येक भेट तुम्हाला वेगवेगळी निर्धारित करावी लागेल.\n"
+"स्त्रोत '%s' पुनःपुन्हा आढळणाऱ्या बैठकींकरीता निर्धारित करण्यास असमर्थ.\n"
+"प्रत्येक भेट तुम्ही वगळेरित्या स्थापीत करा."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2022
+#: ../calendar/e-cal-backend-exchange-calendar.c:2046
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "निवडलेल्या वेळी संसाधन '%s' व्यस्त आहे."
 
-#: ../camel/camel-exchange-folder.c:222
+#: ../calendar/e-cal-backend-exchange.c:391
+#: ../calendar/e-cal-backend-exchange.c:401
+msgid "Authentication failed"
+msgstr "अधिप्रमाणन असफल"
+
+#: ../calendar/e-cal-backend-exchange.c:442
+msgid "Could not find the calendar"
+msgstr "दिनदर्शिका शोधू शकले नाही"
+
+#: ../camel/camel-exchange-folder.c:52
+msgid "Always check for new mail in this folder"
+msgstr "संचयीका मधील नविन मेल करीता नेहमी तपास करा"
+
+#: ../camel/camel-exchange-folder.c:238
 msgid "You cannot expunge in offline mode."
 msgstr "न जोडलेल्या स्थितीत तुम्ही काढुन टाकु शकत नाही."
 
-#: ../camel/camel-exchange-folder.c:253
+#: ../camel/camel-exchange-folder.c:269
 msgid "No Subject"
 msgstr "विषय नाही"
 
-#: ../camel/camel-exchange-folder.c:407
+#: ../camel/camel-exchange-folder.c:424
 msgid "This message is not available in offline mode."
 msgstr "हा संदेश न जोडलेल्या स्थितीत उपलब्ध नाही."
 
-#: ../camel/camel-exchange-folder.c:642
+#: ../camel/camel-exchange-folder.c:681
 msgid "Moving messages"
 msgstr "संदेश हलवतोय"
 
-#: ../camel/camel-exchange-folder.c:643
+#: ../camel/camel-exchange-folder.c:682
 msgid "Copying messages"
 msgstr "संदेशांची प्रत तयार करण्यात येतेय"
 
-#: ../camel/camel-exchange-folder.c:1014
+#: ../camel/camel-exchange-folder.c:1055
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "डिरेक्टरी तयार करू शकत नाही %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1024
+#: ../camel/camel-exchange-folder.c:1065
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "%s करीता सारांश वाचु शकलो नाही"
 
-#: ../camel/camel-exchange-folder.c:1032
+#: ../camel/camel-exchange-folder.c:1073
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "%s करीता द्रुतिका तयार करू शकलो नाही"
 
-#: ../camel/camel-exchange-folder.c:1042
+#: ../camel/camel-exchange-folder.c:1083
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "%s करीता वही खाते तयार करू शकलो नाही"
 
-#: ../camel/camel-exchange-folder.c:1087
+#: ../camel/camel-exchange-folder.c:1131
 msgid "Scanning for changed messages"
 msgstr "बदललेले संदेश तपासतोय"
 
-#: ../camel/camel-exchange-folder.c:1113
+#: ../camel/camel-exchange-folder.c:1164
 msgid "Fetching summary information for new messages"
 msgstr "नव्या संदेशांकरीता सारांश आणतोय"
 
-#: ../camel/camel-exchange-journal.c:339
+#: ../camel/camel-exchange-journal.c:341
 msgid "No folder name found\n"
 msgstr "कुठलेही फोल्डर नाव सापडले नाही\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
-#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
-#: ../mail/mail-stub-exchange.c:2730
+#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:2984
+#: ../mail/mail-stub-exchange.c:3028 ../mail/mail-stub-exchange.c:3063
+#: ../mail/mail-stub-exchange.c:3090 ../mail/mail-stub-exchange.c:3143
+#: ../mail/mail-stub-exchange.c:3165
 msgid "Folder doesn't exist"
 msgstr "फोल्डर अस्तित्वात नाही"
 
-#: ../camel/camel-exchange-journal.c:436
+#: ../camel/camel-exchange-journal.c:438
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "न जोडलेल्या स्थितीत संदेश जोडू शकत नाही: द्रुतिका उपलब्ध नाही"
 
-#: ../camel/camel-exchange-journal.c:452
+#: ../camel/camel-exchange-journal.c:454
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "न जोडलेल्या स्थितीत संदेश जोडू शकत नाही: %s"
 
+#: ../camel/camel-exchange-provider.c:41
+msgid "Checking for New Mail"
+msgstr "नविन मेल करीता तपासात आहे"
+
+#: ../camel/camel-exchange-provider.c:43
+msgid "C_heck for new messages in all folders"
+msgstr "सर्व संचयीका मध्ये नविन संदेश करीता तपास करा (_h)"
+
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:44
+#: ../camel/camel-exchange-provider.c:51
 msgid "Windows User_name:"
 msgstr "विंडोज उपभोक्तानाम:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:49
+#: ../camel/camel-exchange-provider.c:56
 msgid "Global Address List / Active Directory"
 msgstr "वैश्वीक पत्ता यादी/अॅक्टीव्ह डिरेक्टरी"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:60
 msgid "_Global Catalog server name:"
 msgstr "वैश्वीक नामसूची सेवक नाव(_G):"
 
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:62
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "GAL उत्तरांची संख्या मर्यादित करा(_L): %s"
 
-#: ../camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:65
 msgid "Options"
 msgstr "पर्याय"
 
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:67
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "परवलीच्या शब्दाचा समापन काळ इशारा(_P): %s"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:69
 msgid "Automatically synchroni_ze account locally"
 msgstr "स्वयंचलीतपणे स्थानियरीत्या खाते समकालीक करा"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:72
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "ह्या सेवकावरील इनबॉक्समधील नव्या संदेशांकरीता निश्पादके लावा(_A)"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:74
 msgid "Check new messages for _Junk contents"
 msgstr "नवे संदेश कचरा समाविष्टांकरीता तपासा(_J)"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:76
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "इनबॉक्स फोल्डरमधील संदेश कचरा समाविष्टांकरीता तपासा(_e)"
 
-#: ../camel/camel-exchange-provider.c:79
+#: ../camel/camel-exchange-provider.c:86
 msgid "Microsoft Exchange"
 msgstr "मायक्रोसॉफ्ट एक्सचेंज"
 
-#: ../camel/camel-exchange-provider.c:81
+#: ../camel/camel-exchange-provider.c:88
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "मायक्रोसॉफ्ट एक्सचेंज सेवकावरील पत्र (आणि इतर माहीती) हाताळण्याकरीता"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:104
 msgid "Secure Password"
 msgstr "सुरक्षीत परवलीचा शब्द"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:107
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
-msgstr ""
-"हा पर्याय एक्सचेंज सेवकाला सुरक्षीत परवलीचा शब्द (NTLM) वापरून प्रमाणित करुन जोडेल."
+msgstr "हा पर्याय एक्सचेंज सेवकाला सुरक्षीत परवलीचा शब्द (NTLM) वापरून प्रमाणित करुन जोडेल."
 
-#: ../camel/camel-exchange-provider.c:108
+#: ../camel/camel-exchange-provider.c:115
 msgid "Plaintext Password"
 msgstr "विशुद्ध परवलीचा शब्द"
 
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:117
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
-msgstr ""
-"हा पर्याय एक्सचेंज सेवकाला मानक विशुद्ध परवलीचा शब्द वापरून प्रमाणित करुन जोडेल."
+msgstr "हा पर्याय एक्सचेंज सेवकाला मानक विशुद्ध परवलीचा शब्द वापरून प्रमाणित करुन जोडेल."
 
-#: ../camel/camel-exchange-store.c:309
+#: ../camel/camel-exchange-store.c:312
 #, c-format
 msgid "Exchange server %s"
 msgstr "एक्सचेंज सेवक %s"
 
-#: ../camel/camel-exchange-store.c:312
+#: ../camel/camel-exchange-store.c:315
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "%s करीता %s वर एक्सचेंज खाते"
 
-#: ../camel/camel-exchange-store.c:353
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%s परवलीचा शब्द %s करीता द्या"
-
-#: ../camel/camel-exchange-store.c:404
+#: ../camel/camel-exchange-store.c:407
 msgid "Evolution Exchange backend process"
 msgstr "इव्हॉलुशन एक्सचेंज मागील प्रक्रीया"
 
-#: ../camel/camel-exchange-store.c:445
+#: ../camel/camel-exchange-store.c:448
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -223,166 +253,163 @@ msgstr ""
 "सेवकावर प्रमाणित करू शकत नाही. (परवलीचा शब्द चुक?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:487
+#: ../camel/camel-exchange-store.c:490
 #, c-format
 msgid "No such folder %s"
 msgstr "असे कुठलेही फोल्डर नाही %s"
 
-#: ../camel/camel-exchange-store.c:564
-#, fuzzy
+#: ../camel/camel-exchange-store.c:567
 msgid "Cannot subscribe folder in offline mode."
-msgstr "न जोडलेल्या स्थितीत फोल्डरचे सदस्यत्व पत्करू शकत नाही."
+msgstr "ऑफलाईन पध्दतीत संचयीका करीता सबस्क्राईब करू शकत नाही."
 
-#: ../camel/camel-exchange-store.c:581
-#, fuzzy
+#: ../camel/camel-exchange-store.c:584
 msgid "Cannot unsubscribe folder in offline mode."
-msgstr "न जोडलेल्या स्थितीत फोल्डरचे सदस्यत्व नाकारु शकत नाही."
+msgstr "ऑफलाईन पध्दतीत संचयीकाची सेवा काढूण टाकू शकत नाही."
 
-#: ../camel/camel-exchange-store.c:696
+#: ../camel/camel-exchange-store.c:716
 msgid "Cannot get folder info in offline mode."
 msgstr "फोल्डरची माहिती न जोडलेल्या स्थितीत आणू शकत नाही."
 
-#: ../camel/camel-exchange-store.c:767
+#: ../camel/camel-exchange-store.c:789
 msgid "Cannot create folder in offline mode."
 msgstr "फोल्डर न जोडलेल्या स्थितीत तयार करु शकत नाही."
 
-#: ../camel/camel-exchange-store.c:794
+#: ../camel/camel-exchange-store.c:816
 msgid "Cannot delete folder in offline mode."
 msgstr "फोल्डर न जोडलेल्या स्थितीत मिटवु शकत नाही."
 
-#: ../camel/camel-exchange-store.c:810
+#: ../camel/camel-exchange-store.c:832
 msgid "Cannot rename folder in offline mode."
 msgstr "फोल्डरचे नाव न जोडलेल्या स्थितीत बदलू शकत नाही."
 
-#: ../camel/camel-exchange-transport.c:110
+#: ../camel/camel-exchange-transport.c:111
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "एक्सचेंज ट्रांसपोर्ट फक्त एक्सचेंज पत्र स्रोतासोबत वापरु शकतो"
 
-#: ../camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-transport.c:122
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "संदेश पाठवु शकत नाही: एक किंवा जास्त अवैध अभिग्राहक"
 
-#: ../camel/camel-exchange-transport.c:131
+#: ../camel/camel-exchange-transport.c:132
 msgid "Could not find 'From' address in message"
 msgstr "संदेशात पाठवणाऱ्याचा पत्ता 'From' सापडला नाही"
 
-#: ../camel/camel-stub.c:152
+#: ../camel/camel-stub.c:153
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "संपर्कस्थान तयार करु शकलो नाही: %s"
 
-#: ../camel/camel-stub.c:170
+#: ../camel/camel-stub.c:171
 #, c-format
 msgid "Could not connect to %s: Please restart Evolution"
 msgstr "%s ला जोडु शकलो नाही: कृपया इव्हॉलुशन पुन्हा सुरु करा"
 
-#: ../camel/camel-stub.c:175
+#: ../camel/camel-stub.c:176
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "%s ला जोडु शकलो नाही: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:206
 #, c-format
 msgid "Path too long: %s"
 msgstr "पथ खुप लांब आहे: %s"
 
-#: ../camel/camel-stub.c:231
+#: ../camel/camel-stub.c:232
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "दशा थ्रेड सुरु करु शकलो नाही: %s"
 
-#: ../camel/camel-stub.c:485
+#: ../camel/camel-stub.c:486
 #, c-format
 msgid "Lost connection to %s"
 msgstr "%s शी संपर्क तुटला"
 
-#: ../camel/camel-stub.c:489
+#: ../camel/camel-stub.c:490
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "%s शी संपर्क साधताना अडथळा आला: %s"
 
-#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
+#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:946
 msgid "No such folder"
 msgstr "असे कुठलेही फोल्डर नाही"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
-#: ../mail/mail-stub-exchange.c:2745
+#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1595
+#: ../mail/mail-stub-exchange.c:2961 ../mail/mail-stub-exchange.c:3001
+#: ../mail/mail-stub-exchange.c:3067 ../mail/mail-stub-exchange.c:3117
+#: ../mail/mail-stub-exchange.c:3180
 msgid "Permission denied"
 msgstr "परवानगी नाकारली"
 
-#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
-msgid "Could not open folder: Permission denied"
-msgstr "फोल्डर उघडु शकत नाही: परवानगी नाकारली"
-
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
+#: ../mail/mail-stub-exchange.c:768 ../mail/mail-stub-exchange.c:860
 msgid "Could not open folder"
 msgstr "फोल्डर उघडु शकत नाही"
 
-#: ../mail/mail-stub-exchange.c:764
+#: ../mail/mail-stub-exchange.c:854 ../mail/mail-stub-exchange.c:876
+msgid "Could not open folder: Permission denied"
+msgstr "फोल्डर उघडु शकत नाही: परवानगी नाकारली"
+
+#: ../mail/mail-stub-exchange.c:955
 msgid "Could not create folder."
 msgstr "फोल्डर तयार करु शकत नाही."
 
-#: ../mail/mail-stub-exchange.c:844
+#: ../mail/mail-stub-exchange.c:1043
 msgid "Could not open Deleted Items folder"
 msgstr "मिटवीलेल्या बाबींचे काढुन टाकलेले फोल्डर उघडु शकत नाही"
 
-#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
+#: ../mail/mail-stub-exchange.c:1374 ../mail/mail-stub-exchange.c:1415
 msgid "Could not get new messages"
 msgstr "नवे संदेश आणु शकत नाहीय"
 
-#: ../mail/mail-stub-exchange.c:1386
+#: ../mail/mail-stub-exchange.c:1591
 msgid "Could not empty Deleted Items folder"
 msgstr "मिटवीलेल्या बाबींचे फोल्डर रिकामा करु शकत नाही"
 
-#: ../mail/mail-stub-exchange.c:1463
+#: ../mail/mail-stub-exchange.c:1668
 msgid "Could not append message; mailbox is over quota"
 msgstr "संदेश जोडु शकत नाही; पत्रपेटी भरलीय"
 
-#: ../mail/mail-stub-exchange.c:1464
+#: ../mail/mail-stub-exchange.c:1669
 msgid "Could not append message"
 msgstr "संदेश जोडु शकत नाही"
 
-#: ../mail/mail-stub-exchange.c:2016
+#: ../mail/mail-stub-exchange.c:2416
 msgid "No such message"
 msgstr "असा कुठलाही संदेश नाही"
 
-#: ../mail/mail-stub-exchange.c:2069
+#: ../mail/mail-stub-exchange.c:2495
 msgid "Message has been deleted"
 msgstr "संदेश मिटवला गेलाय"
 
-#: ../mail/mail-stub-exchange.c:2071
+#: ../mail/mail-stub-exchange.c:2497
 msgid "Error retrieving message"
 msgstr "संदेश परत काढताना चुक आढळली"
 
-#: ../mail/mail-stub-exchange.c:2113
+#: ../mail/mail-stub-exchange.c:2540
 msgid "Mailbox does not support full-text searching"
 msgstr "पत्रपेटी संपूर्ण पाठ्य शोधास साह्य करत नाही"
 
-#: ../mail/mail-stub-exchange.c:2211
+#: ../mail/mail-stub-exchange.c:2638
 msgid "Unable to move/copy messages"
 msgstr "संदेश हलवण्यास किंवा प्रत बनविण्यास असमर्थ"
 
-#: ../mail/mail-stub-exchange.c:2441
+#: ../mail/mail-stub-exchange.c:2876
 msgid "No mail submission URI for this mailbox"
 msgstr "ह्या पत्रपेटीकरीता पत्र अधीनता URI नाही"
 
-#: ../mail/mail-stub-exchange.c:2477
+#: ../mail/mail-stub-exchange.c:2912
 msgid "Server won't accept mail via Exchange transport"
 msgstr "एक्सचेंज ट्रांसपोर्टकडुन सेवक पत्र स्विकार करणार नाही"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:2914
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
-msgstr ""
-"तुमच्या खात्यास <%s> प्रेशक पत्ता वापरण्याची परवानगी नाही."
+msgstr "तुमच्या खात्यास <%s> प्रेशक पत्ता वापरण्याची परवानगी नाही."
 
-#: ../mail/mail-stub-exchange.c:2491
+#: ../mail/mail-stub-exchange.c:2926
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -390,33 +417,32 @@ msgstr ""
 "संदेश पाठवु शकत नाही.\n"
 "तुमचे खाते भरलेय असाही ह्याचा अर्थ असु शकतो."
 
-#: ../mail/mail-stub-exchange.c:2495
+#: ../mail/mail-stub-exchange.c:2930
 msgid "Could not send message"
 msgstr "संदेश पाठवू शकत नाही"
 
-#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2751
+#: ../mail/mail-stub-exchange.c:2953 ../mail/mail-stub-exchange.c:3006
+#: ../mail/mail-stub-exchange.c:3071 ../mail/mail-stub-exchange.c:3122
+#: ../mail/mail-stub-exchange.c:3186
 msgid "Generic error"
 msgstr "साधारण चुक"
 
-#: ../mail/mail-stub-exchange.c:2522
+#: ../mail/mail-stub-exchange.c:2957
 msgid "Folder already exists"
 msgstr "फोल्डर पहीलेपासूनच अस्तित्वात आहे"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-#, fuzzy
 msgid "Evolution Addressbook Exchange backend"
-msgstr "इव्हॉल्युशन पत्तावही एक्सचेंज मागील "
+msgstr "इव्हॉल्युशन पत्तावही एक्सचेंज बॅकऐंड"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
-#, fuzzy
 msgid "Evolution Calendar Exchange backend"
-msgstr "इव्हॉल्युशन कॅलेंडर एक्सचेंज मागील "
+msgstr "इव्हॉल्युशन कॅलेंडर एक्सचेंज बॅकऐंड"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Ximian Connector for Exchange"
-msgstr "एक्सचेंजकरीता झिमीयन संबंधक"
+#: ../storage/main.c:183
+msgid "Evolution Connector for Microsoft Exchange"
+msgstr "मायक्रोसॉफ्ट एक्सचेंज करीता Evolution जुळवणीकर्ता"
 
 #: ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
@@ -424,8 +450,8 @@ msgid ""
 "Could not connect to the Exchange server.\n"
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
-"एक्सचेंज सेवकाला जोडु शकत नाहीय."
-"URL बरोबर आहे हे नक्की करा ( \"%s\" वापरुन पहा \"%s\" च्या ऐवजी!) आणि पुन्हा प्रयत्न करा."
+"एक्सचेंज सेवकाला जोडु शकत नाहीय.URL बरोबर आहे हे नक्की करा ( \"%s\" वापरुन पहा \"%s\" "
+"च्या ऐवजी!) आणि पुन्हा प्रयत्न करा."
 
 #: ../storage/exchange-autoconfig-wizard.c:219
 msgid ""
@@ -468,61 +494,58 @@ msgstr ""
 
 #: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
+"Evolution Connector for Microsoft Exchange requires access to certain "
+"functionality on the Exchange server that appears to be disabled or "
+"blocked.  (This is usually unintentional.)  Your Exchange administrator will "
+"need to enable this functionality in order for you to be able to use the "
+"Evolution Connector.\n"
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"झिमीयन संबंधकास एक्सचेंज सेवकाच्या काही कार्यांना अभिगम असायला हवा जो  "
-"अवरुद्ध आहे किंवा बंद केलाय असे दिसते. (हे सामान्यतः अभावितपणे घडते.) "
-"झिमीयन संबंधकास वापरण्याकरीता तुमच्या प्रशासकास ही कार्यात्मकता शक्य करावी लागेल.\n"
+"मायक्रोसॉफ्ट एक्सचेंज करीता Evolution जुळवणीकर्त्याला एक्सचेंज सर्वरवरील अकार्यान्वीत किंवा प्रतिबंधीत कार्यपध्दती करीता प्रवेश आवश्यक आहे.  (हे सामान्यतः अभावितपणे घडते.)  Evolution जुळवणीकर्ता वापरायचे असल्यास एक्सचेंज प्रशासकाने ही कार्यपध्दती कार्यान्वीत केली पाहीजे.\n"
 "\n"
-"तुमच्या प्रशासकास पुरविण्याकरीताच्या माहितीकरीता खालील दुव्यावर क्लिक करा:"
+"तुमच्या प्रशासकास पुरविण्याकरीताच्या माहितीकरीता, खालील लिंकवर जा:"
 
-#: ../storage/exchange-autoconfig-wizard.c:275
+#: ../storage/exchange-autoconfig-wizard.c:276
 msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"तुम्ही दिलेली URL एक्सचेंज ५.५ सेवकाकरीता आहे. झिमीयन संबंधक फक्त "
-"मायक्रोसॉफ्ट २००० आणि २००३ ला समर्थन करतो."
+"The Exchange server URL you provided is for an Exchange 5.5 server. "
+"Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
+"and 2003 only."
+msgstr "तुम्ही प्रविष्ट केलेला एक्सचेंज सर्वर URL एक्सचेंज 5.5 सर्वर करीता आहे. मायक्रोसॉफ्ट एक्सचेंज 2000 व 2003 करीता  Evolution जुळवणीकर्ता समर्थन देतो."
 
-#: ../storage/exchange-autoconfig-wizard.c:288
+#: ../storage/exchange-autoconfig-wizard.c:290
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
 msgstr ""
-"एक्सचेंज खाते संस्थापीत करु शकत नाहीय कारण एक अपरिचीत चुक आढळली. "
-"URL, उपभोक्तानाम, आणि परवलीचा शब्द तपासा आणि पुन्हा प्रयत्न करा."
+"एक्सचेंज खाते संस्थापीत करु शकत नाहीय कारण एक अपरिचीत चुक आढळली. URL, उपभोक्तानाम, "
+"आणि परवलीचा शब्द तपासा आणि पुन्हा प्रयत्न करा."
 
-#: ../storage/exchange-autoconfig-wizard.c:332
+#: ../storage/exchange-autoconfig-wizard.c:334
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
 "and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
 "\\%s\")."
 msgstr ""
-" तुम्हाला परत मागे जावे लागु "
-"शकते आणि विंडोज डोमेनचे नाव तुमच्या उपभोक्तानामाचा भाग म्हणून सांगावे लागु शकते  "
-"(उदाहरणार्थ, \"MY-DOMAIN\\%s\")."
+" तुम्हाला परत मागे जावे लागु शकते आणि विंडोज डोमेनचे नाव तुमच्या उपभोक्तानामाचा भाग म्हणून "
+"सांगावे लागु शकते  (उदाहरणार्थ, \"MY-DOMAIN\\%s\")."
 
-
-#: ../storage/exchange-autoconfig-wizard.c:339
+#: ../storage/exchange-autoconfig-wizard.c:341
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
 msgstr ""
 "निर्देशित सेवकास जोडु शकत नाहीय.\n"
 "सेवकाचे नाव तपासून पुन्हा प्रयत्न करा."
-#: ../storage/exchange-autoconfig-wizard.c:376
-#: ../storage/exchange-autoconfig-wizard.c:380
+
+#: ../storage/exchange-autoconfig-wizard.c:378
+#: ../storage/exchange-autoconfig-wizard.c:382
 msgid "Unknown"
 msgstr "अपरिचीत"
 
-#: ../storage/exchange-autoconfig-wizard.c:445
+#: ../storage/exchange-autoconfig-wizard.c:447
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -530,7 +553,7 @@ msgstr ""
 "संस्थापन प्रणालीत चुक.\n"
 "नवे खाते तयार करण्यास असमर्थ."
 
-#: ../storage/exchange-autoconfig-wizard.c:459
+#: ../storage/exchange-autoconfig-wizard.c:461
 msgid "You may only configure a single Exchange account"
 msgstr "तुम्ही फक्त एकच एक्सचेंज खाते संस्थापित करु शकता"
 
@@ -552,93 +575,84 @@ msgid "Email Address:"
 msgstr "इमेल पत्ता:"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:5
+msgid "Evolution Connector for Microsoft Exchange Configuration"
+msgstr "मायक्रोसॉफ्ट एक्सचेंजकरीता Evolution जुळवणीकर्ता"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:6
+msgid ""
+"Evolution Connector for Microsoft Exchange can use account information from "
+"your existing Outlook Web Access (OWA) account.\n"
+"\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
+msgstr ""
+"Microsoft Exchange करीता Evolution जुळवणीकर्ता अस्तित्वातील आउटलुक वेब प्रवेश (OWA) खात्या पासून माहिती वापरु शकतो.\n"
+"\n"
+"तुमचे OWA स्थळ पत्ता (URL), वापरकर्ता नाव, व परवलीचा शब्द, प्रविष्ट करा व "
+"\"पुढे चला\" वर क्लिक करा.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:10
+msgid ""
+"Evolution Connector for Microsoft Exchange could not find the Global Catalog "
+"replica for your site. Please enter the name of your Global Catalog server. "
+"You may need to ask your system administrator for the correct value.\n"
+msgstr "Microsoft Exchange करीता Evolution जुळवणीकर्ता तुमच्या संकेतस्थळ साठी वैश्वीक नामसूची प्रतीरुप शोधू शकले नाही. कृपया तुमच्या वैश्वीक नामसूची सेवकाचे नाव द्या. तुम्हाला यथोचित नाव तुमच्या प्रणाली प्रशासकाला विचारावे लागु शकते.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:12
+msgid ""
+"Evolution Connector for Microsoft Exchange has encountered a problem "
+"configuring your Exchange account.\n"
+msgstr "तुमचे एक्सचेंज खाते संयोजीत करतेवेळी मायक्रोसॉफ्ट एक्सचेंज करीता Evolution जुळवणीकर्ताला त्रुटी आढळली.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:14
 msgid "Exchange Configuration"
 msgstr "एक्सचेंज संस्थापन"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:6
+#: ../storage/exchange-autoconfig-wizard.glade.h:15
 msgid "Full Name:"
 msgstr "पूर्ण नाव:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:7
+#: ../storage/exchange-autoconfig-wizard.glade.h:16
 msgid "GC Server:"
 msgstr "GC सेवक:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:8
+#: ../storage/exchange-autoconfig-wizard.glade.h:17
 msgid "Make this my default account"
 msgstr "हे माझे मुलभूत खाते करा"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:9
+#: ../storage/exchange-autoconfig-wizard.glade.h:18
 msgid "OWA URL:"
 msgstr "OWA URL:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:10
+#: ../storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Password:"
 msgstr "परवलीचा शब्द:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:11
+#: ../storage/exchange-autoconfig-wizard.glade.h:20
 msgid "Remember this password"
 msgstr "हा परवलीचा शब्द लक्षात ठेवा"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:12
+#: ../storage/exchange-autoconfig-wizard.glade.h:21
 msgid "Username:"
 msgstr "उपभोक्तानाम:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:13
+#: ../storage/exchange-autoconfig-wizard.glade.h:22
 msgid "Welcome"
 msgstr "सुस्वागतम्"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:14
+#: ../storage/exchange-autoconfig-wizard.glade.h:23
 msgid ""
-"Welcome to Ximian Connector for Microsoft Exchange.\n"
+"Welcome to Evolution Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
 "to connect to your Exchange account.\n"
 "\n"
 "Please click the \"Forward\" button to continue."
 msgstr ""
-"मायक्रोसॉफ्ट एक्सचेंजकरीताच्या झिमीयन संबंधकात तुमचे स्वागत आहे.\n"
+"मायक्रोसॉफ्ट एक्सचेंज करीता Evolution जुळवणीकर्तावर तुमचे स्वागत आहे.\n"
 "पुढिल काही पटलदृश्य तुम्हाला इव्हॉल्युशन तुमच्या एक्सचेंज\n"
 "खात्याशी जोडण्याकरीता समनुरुप करण्यास मदत करतील.\n"
 "\n"
-"कृपया \"पुढे\" बटनवर क्लिक करा."
-
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:19
-msgid "Ximian Connector Configuration"
-msgstr "झिमीयन संबंधक समनुरुपन"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:20
-msgid ""
-"Ximian Connector can use account information from your existing Outlook Web "
-"Access (OWA) account.\n"
-"\n"
-"Enter your OWA site address (URL), username, and password, then click "
-"\"Forward\".\n"
-msgstr ""
-"झिमीयन संबंधक तुमच्या अस्तित्वात असलेल्या आउटलुक वेब अॅक्सेस (OWA) "
-"खात्याची माहिती वापरु शकतो.\n"
-"\n"
-"तुमच्या OWA माहिती संकेतस्थळाचे नाव (URL), उपभोक्तानाम, आणि, परवलीचा शब्द द्या आणि "
-"\"पुढे\" बटनवर क्लिक करा.\n"
-
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:24
-msgid ""
-"Ximian Connector could not find the Global Catalog replica for your site. "
-"Please enter the name of your Global Catalog server. You may need to ask "
-"your system administrator for the correct value.\n"
-msgstr ""
-"झिमीयन संबंधक तुमच्या संकेतस्थळाकरीता वैश्वीक नामसूची प्रतीरुप शोधू शकले नाही. "
-"कृपया तुमच्या वैश्वीक नामसूची सेवकाचे नाव द्या. तुम्हाला यथोचित नाव "
-"तुमच्या प्रणाली प्रशासकाला विचारावे लागु शकते.\n"
-
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:26
-msgid ""
-"Ximian Connector has encountered a problem configuring your Exchange "
-"account.\n"
-msgstr ""
-"झिमीयन संबंधकाला तुमचे एक्सचेंज खाते समनुरुप करताना एका समस्येचा "
-"सामना करावा लागला.\n"
+"कृपया \"पुढे चला\" बटणावर क्लिक करा."
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -646,17 +660,15 @@ msgid ""
 "save your\n"
 "settings."
 msgstr ""
-"तुमचा संबधक खाते आता वापरास तयार आहे. तुमचे समनुरुपन संग्रहीत करण्याकरीता "
-"\"लागु करा\" बटन\n"
+"तुमचा संबधक खाते आता वापरास तयार आहे. तुमचे समनुरुपन संग्रहीत करण्याकरीता \"लागु करा\" "
+"बटन\n"
 "क्लिक करा."
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:30
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
-msgstr ""
-"तुमच्या खात्याची माहिती खालीलप्रमाणे आहे. कृपया चुका सुधारा, आणि "
-"\"पुढे\" वर क्लिक करा.\n"
+msgstr "तुमच्या खात्याची माहिती खालीलप्रमाणे आहे. कृपया चुका सुधारा, आणि \"पुढे\" वर क्लिक करा.\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
@@ -666,8 +678,8 @@ msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
 msgstr ""
-"तुमच्या खात्याकरीता अस्तित्वात असलेला परवलीचा शब्द आणि सध्याचा परवलीचा शब्द जुळत नाहीय. "
-"कृपया बरोबर परवलीचा शब्द द्या"
+"तुमच्या खात्याकरीता अस्तित्वात असलेला परवलीचा शब्द आणि सध्याचा परवलीचा शब्द जुळत "
+"नाहीय. कृपया बरोबर परवलीचा शब्द द्या"
 
 #: ../storage/exchange-change-password.c:121
 msgid "The two passwords do not match. Please re-enter the passwords."
@@ -702,9 +714,8 @@ msgid "C_alendar:"
 msgstr "दिनदर्शिका(_a):"
 
 #: ../storage/exchange-delegates.glade.h:3
-#, fuzzy
 msgid "Co_ntacts:"
-msgstr "पत्ते(_n):"
+msgstr "संपर्क (_n):"
 
 #: ../storage/exchange-delegates.glade.h:4
 msgid "Delegate Permissions"
@@ -723,9 +734,8 @@ msgid "None"
 msgstr "काहिही नाही"
 
 #: ../storage/exchange-delegates.glade.h:8
-#, fuzzy
 msgid "Permissions for"
-msgstr "च्या करीता परवानग्या"
+msgstr "करीता परवानगी"
 
 #: ../storage/exchange-delegates.glade.h:9
 msgid "Reviewer (read-only)"
@@ -771,8 +781,7 @@ msgid ""
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
-"इव्हॉल्युशन एक्सचेंज खाते वहीचा अनुक्रम आणि स्थान "
-"इव्होल्युशन %d.%d.%d बदललेय .\n"
+"इव्हॉल्युशन एक्सचेंज खाते वहीचा अनुक्रम आणि स्थान इव्होल्युशन %d.%d.%d बदललेय .\n"
 "\n"
 "कृपया इव्हॉल्युशन वह्या हलवतोय तोवर धीर धरा..."
 
@@ -784,10 +793,8 @@ msgid ""
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"इशारा: इव्हॉल्युशन सर्व एक्सचेंज खाते माहिती %d.%d.%d आवृत्तीतुन हलवु "
-"शकला नाही.\n"
-"माहिती मिटवण्यात आलेली नाही पण ह्या इव्हाल्युशनच्या "
-"आवृत्तीला दिसणार नाही"
+"इशारा: इव्हॉल्युशन सर्व एक्सचेंज खाते माहिती %d.%d.%d आवृत्तीतुन हलवु शकला नाही.\n"
+"माहिती मिटवण्यात आलेली नाही पण ह्या इव्हाल्युशनच्या आवृत्तीला दिसणार नाही"
 
 #: ../storage/exchange-migrate.c:130
 #, c-format
@@ -802,7 +809,7 @@ msgid ""
 msgstr ""
 "<b>सध्या तुमची स्थिती \"कार्यालयात नाही\" ही आहे. </b>\n"
 "\n"
-"तुम्हाला ती \"कार्यालयात आहे\" अशी करायला आवडेल काय?"
+"तुम्हाला ती \"कार्यालयात आहे\" अशी करायचे आहे का? "
 
 #: ../storage/exchange-oof.glade.h:4
 msgid "<b>Out of Office Message:</b>"
@@ -818,8 +825,7 @@ msgid ""
 "who sends\n"
 "mail to you while you are out of the office.</small>"
 msgstr ""
-"<small>खाली दाखवलेला संदेश त्या सर्व व्यक्तींना पाठवला "
-" जाईल जे तुम्हाला \n"
+"<small>खाली दाखवलेला संदेश त्या सर्व व्यक्तींना पाठवला  जाईल जे तुम्हाला \n"
 "तुम्ही कार्यालयात नसताना संदेश पाठवतील .</small>"
 
 #: ../storage/exchange-oof.glade.h:8
@@ -852,7 +858,7 @@ msgstr "तुमच्या परवलीच्या शब्दाची 
 
 #: ../storage/exchange-passwd-expiry.glade.h:3
 msgid "_Change Password"
-msgstr "परवलीचा शब्द बदला(_C)"
+msgstr "परवलीचा शब्द बदलवा (_C)"
 
 #: ../storage/exchange-passwd-expiry.glade.h:4
 msgid "ok_button"
@@ -864,15 +870,15 @@ msgstr "    "
 
 #: ../storage/exchange-permissions-dialog.glade.h:2
 msgid "<b>Permissions</b>"
-msgstr "<b>परवानग्या</b>"
+msgstr "<b>परवानगी</b>"
 
 #: ../storage/exchange-permissions-dialog.glade.h:3
 msgid "Cannot Delete"
-msgstr "मिटवु शकत नाही"
+msgstr "रद्द करू शकत नाही"
 
 #: ../storage/exchange-permissions-dialog.glade.h:4
 msgid "Cannot Edit"
-msgstr "संपादू शकत नाही"
+msgstr "संपादन करू शकत नाही"
 
 #: ../storage/exchange-permissions-dialog.glade.h:5
 msgid "Create items"
@@ -922,13 +928,9 @@ msgstr "भूमिका: "
 msgid "Connecting..."
 msgstr "जोडतोय..."
 
-#: ../storage/main.c:183
-msgid "Ximian Connector for Microsoft Exchange"
-msgstr "मायक्रोसॉफ्ट एक्सचेंजकरीता झिमीयन जोडक"
-
 #: ../storage/ximian-connector-setup.c:44
-msgid "Ximian Connector for Microsoft Exchange Setup Tool"
-msgstr "मायक्रोसॉफ्ट एक्सचेंज संस्थापन अवजाराकरीता झिमीयन जोडक"
+msgid "Evolution Connector for Microsoft Exchange Setup Tool"
+msgstr "मायक्रोसॉफ्ट एक्सचेंज मांडणी साधन करीता Evolution जुळवणीकर्त"
 
 #: ../storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
@@ -944,7 +946,7 @@ msgstr "व्यक्तिगत वहीचा आकार आणा"
 
 #: ../storage/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
-msgstr "इतर उपयोगकऱ्त्यांच्या वहीचे सदस्यत्व घ्या...(_O)"
+msgstr "इतर उपयोगकऱ्त्यांच्या वहीचे सदस्यत्व घ्या (_O)..."
 
 #: ../storage/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
@@ -959,13 +961,12 @@ msgid "View or change your Exchange calendar delegation settings"
 msgstr "तुमचे दिनदर्शिका प्रतिनिधीत्व संस्थापन पहा किंवा बदला"
 
 #: ../storage/ximian-connector.xml.h:8
-#, fuzzy
 msgid "View or change your Out-of-Office status and autoreply message"
-msgstr "तुमचा कार्यालयात नाही आणि स्वचलीत उत्तर संदेश बदला किंवा पहा"
+msgstr "तुमचा कार्यालयात नाही स्थिती व स्वचलीत प्रतिसाद संदेश पहा किंवा बदलवा"
 
 #: ../storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
-msgstr "एक्सचेंज परवलीचा शब्द बदला...(_C)"
+msgstr "एक्सचेंज परवलीचा शब्द बदला (_C)..."
 
 #: ../storage/ximian-connector.xml.h:10
 msgid "_Delegation Assistant"
@@ -978,5 +979,4 @@ msgstr "कार्यालयात नाही सहाय्यक(_O)"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "इतर उपयोगकर्त्यांच्या वहीतील सदस्यत्व रद्द करा(_U)"
-
 
