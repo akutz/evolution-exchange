@@ -1,13 +1,13 @@
-# Përkthimi i mesazheve të evolution-exchange në shqip
+# Përkthimi i mesazheve të evolution-exchange në shqip.
+# Laurent Dhima <laurenti@alblinux.net>, 2004, 2005, 2006, 2007, 2008.
 # This file is distributed under the same license as the evolution-exchange package.
-# Copyright (C) 2006, 2007 Free Software Foundation, Inc.
-# Laurent Dhima <laurenti@alblinux.net>, 2004, 2005, 2006, 2007.
+# Copyright (C) 2006, 2007, 2008 Free Software Foundation, Inc.
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-13 16:00+0200\n"
-"PO-Revision-Date: 2007-09-13 15:57+0200\n"
+"POT-Creation-Date: 2008-03-07 21:39+0100\n"
+"PO-Revision-Date: 2008-03-08 11:51+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -31,8 +31,8 @@ msgstr ""
 "GAL dhe përdor përgjithmonë cache aktuale. Kjo do të funksionojë vetëm nëse "
 "keni aktivuar magazinimin jashtë linje për GAL."
 
-#: ../addressbook/e-book-backend-exchange.c:1917
-#: ../addressbook/e-book-backend-gal.c:1799 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:1932
+#: ../addressbook/e-book-backend-gal.c:1817 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Duke kërkuar..."
 
@@ -41,15 +41,15 @@ msgstr "Duke kërkuar..."
 msgid "Reconnecting to LDAP server..."
 msgstr "Duke u rilidhur me server-in LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1583
+#: ../addressbook/e-book-backend-gal.c:1601
 msgid "Receiving LDAP search results..."
 msgstr "Duke marrë rezultatet e kërkimit LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1828
+#: ../addressbook/e-book-backend-gal.c:1846
 msgid "Error performing search"
 msgstr "Gabim gjatë kryerjes së kërkimit"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2091
+#: ../calendar/e-cal-backend-exchange-calendar.c:2041
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -58,65 +58,70 @@ msgstr ""
 "I pamundur planifikimi i rezervës '%s' për mbledhjet e ardhshme.\n"
 "Çdo mbledhje do të duhet të prenotohet në veçanti."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2109
+#: ../calendar/e-cal-backend-exchange-calendar.c:2059
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Rezerve '%s' është e zënë gjatë periudhës së zgjedhur të kohës."
 
-#: ../calendar/e-cal-backend-exchange.c:390
-#: ../calendar/e-cal-backend-exchange.c:400
+#: ../calendar/e-cal-backend-exchange.c:392
+#: ../calendar/e-cal-backend-exchange.c:402
 msgid "Authentication failed"
 msgstr "Identifikimi dështoi"
 
-#: ../calendar/e-cal-backend-exchange.c:441
+#: ../calendar/e-cal-backend-exchange.c:445
 msgid "Could not find the calendar"
 msgstr "E pamundur gjetja e kalendarit"
 
-#: ../camel/camel-exchange-folder.c:222
+# (pofilter) accelerators: accelerator _ does not occur in original and should not be in translation
+#: ../camel/camel-exchange-folder.c:52
+msgid "Always check for new mail in this folder"
+msgstr "Kontrollo gjithmonë për mesazhe të rinj në këtë kartelë"
+
+#: ../camel/camel-exchange-folder.c:238
 msgid "You cannot expunge in offline mode."
 msgstr "E pamundur fshirja në modalitet jashtë linje."
 
-#: ../camel/camel-exchange-folder.c:253
+#: ../camel/camel-exchange-folder.c:269
 msgid "No Subject"
 msgstr "Asnjë Subjekt"
 
-#: ../camel/camel-exchange-folder.c:408
+#: ../camel/camel-exchange-folder.c:424
 msgid "This message is not available in offline mode."
 msgstr "Ky mesazh nuk gjendet në dispozicion në modalitetin jashtë linje"
 
-#: ../camel/camel-exchange-folder.c:665
+#: ../camel/camel-exchange-folder.c:681
 msgid "Moving messages"
 msgstr "Duke lëvizur mesazhet"
 
-#: ../camel/camel-exchange-folder.c:666
+#: ../camel/camel-exchange-folder.c:682
 msgid "Copying messages"
 msgstr "Duke kopjuar mesazhet"
 
-#: ../camel/camel-exchange-folder.c:1039
+#: ../camel/camel-exchange-folder.c:1055
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "I pamundur krijimi i directory %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1049
+#: ../camel/camel-exchange-folder.c:1065
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "I pamundur leximi i përmbledhjes për %s"
 
-#: ../camel/camel-exchange-folder.c:1057
+#: ../camel/camel-exchange-folder.c:1073
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "I pamundur krijimi i cache për %s"
 
-#: ../camel/camel-exchange-folder.c:1067
+#: ../camel/camel-exchange-folder.c:1083
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "I pamundur krijimi i ditarit për %s"
 
-#: ../camel/camel-exchange-folder.c:1115
+#: ../camel/camel-exchange-folder.c:1131
 msgid "Scanning for changed messages"
 msgstr "Duke kërkuar për mesazhet e ndryshuara"
 
-#: ../camel/camel-exchange-folder.c:1148
+#: ../camel/camel-exchange-folder.c:1164
 msgid "Fetching summary information for new messages"
 msgstr "Duke marrë përmbledhjen e informacionit për mesazhet e rinj"
 
@@ -124,10 +129,10 @@ msgstr "Duke marrë përmbledhjen e informacionit për mesazhet e rinj"
 msgid "No folder name found\n"
 msgstr "Kartela nuk u gjet\n"
 
-#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:2874
-#: ../mail/mail-stub-exchange.c:2918 ../mail/mail-stub-exchange.c:2953
-#: ../mail/mail-stub-exchange.c:2980 ../mail/mail-stub-exchange.c:3033
-#: ../mail/mail-stub-exchange.c:3055
+#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:3010
+#: ../mail/mail-stub-exchange.c:3054 ../mail/mail-stub-exchange.c:3089
+#: ../mail/mail-stub-exchange.c:3116 ../mail/mail-stub-exchange.c:3169
+#: ../mail/mail-stub-exchange.c:3191
 msgid "Folder doesn't exist"
 msgstr "Kartela nuk ekziston"
 
@@ -184,7 +189,7 @@ msgstr "_Periudha për paralajmërim në lidhje me skadimin e fjalëkalimit: %s"
 
 #: ../camel/camel-exchange-provider.c:69
 msgid "Automatically synchroni_ze account locally"
-msgstr "Sinkroni_zo automatikisht llogarinë në lokale"
+msgstr "Sinkroni_zo automatikisht profilin në lokale"
 
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:72
@@ -235,26 +240,21 @@ msgstr ""
 "Me këtë opcion do të lidheni me serverin Exchange duke përdorur "
 "autentifikimin standart me fjalëkalim si tekst i thjeshtë."
 
-#: ../camel/camel-exchange-store.c:310
+#: ../camel/camel-exchange-store.c:312
 #, c-format
 msgid "Exchange server %s"
 msgstr "Serveri exchange %s"
 
-#: ../camel/camel-exchange-store.c:313
+#: ../camel/camel-exchange-store.c:315
 #, c-format
 msgid "Exchange account for %s on %s"
-msgstr "Llogaria exchange për %s në %s"
+msgstr "Profili Exchange për %s në %s"
 
-#: ../camel/camel-exchange-store.c:354
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%sShkruaj fjalëkalimin për %s"
-
-#: ../camel/camel-exchange-store.c:405
+#: ../camel/camel-exchange-store.c:407
 msgid "Evolution Exchange backend process"
 msgstr "Proçesi backend Evolution Exchange"
 
-#: ../camel/camel-exchange-store.c:446
+#: ../camel/camel-exchange-store.c:448
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -262,41 +262,40 @@ msgstr ""
 "I pamundur autentifikimi në server. (Fjalëkalim i pasaktë?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:488
+#: ../camel/camel-exchange-store.c:490
 #, c-format
 msgid "No such folder %s"
 msgstr "Kartela nuk u gjet: %s"
 
-#: ../camel/camel-exchange-store.c:565
+#: ../camel/camel-exchange-store.c:567
 msgid "Cannot subscribe folder in offline mode."
 msgstr "I pamundur regjistrimi i kartelës në modalitetin jashtë linje."
 
-#: ../camel/camel-exchange-store.c:582
+#: ../camel/camel-exchange-store.c:584
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "I pamundur ç'regjistrimi i kartelës në modalitetin jashtë linje."
 
-#: ../camel/camel-exchange-store.c:714
+#: ../camel/camel-exchange-store.c:716
 msgid "Cannot get folder info in offline mode."
 msgstr ""
 "E pamundur marrja e informacioneve në lidhje me kartelën në modalitet jashtë "
 "linje."
 
-#: ../camel/camel-exchange-store.c:787
+#: ../camel/camel-exchange-store.c:789
 msgid "Cannot create folder in offline mode."
 msgstr "I pamundur krijimi i kartelës në modalitet jashtë linje."
 
-#: ../camel/camel-exchange-store.c:814
+#: ../camel/camel-exchange-store.c:816
 msgid "Cannot delete folder in offline mode."
 msgstr "I pamundur eleminimi i kartelës në modalitet jashtë linje."
 
-#: ../camel/camel-exchange-store.c:830
+#: ../camel/camel-exchange-store.c:832
 msgid "Cannot rename folder in offline mode."
 msgstr "I pamundur riemërtimi i kartelës në modalitet jashtë linje."
 
 #: ../camel/camel-exchange-transport.c:111
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr ""
-"Transporti Exchange mund të përdoret vetëm me mail të buruar nga Exchange"
+msgstr "Transporti Exchange mund të përdoret vetëm me mail të buruar nga Exchange"
 
 #: ../camel/camel-exchange-transport.c:122
 msgid "Cannot send message: one or more invalid recipients"
@@ -341,89 +340,89 @@ msgstr "Humbi lidhja me %s"
 msgid "Error communicating with %s: %s"
 msgstr "Gabim gjatë komunikimit me %s: %s"
 
-#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:946
+#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:949
 msgid "No such folder"
 msgstr "Kartela nuk u gjet"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1595
-#: ../mail/mail-stub-exchange.c:2851 ../mail/mail-stub-exchange.c:2891
-#: ../mail/mail-stub-exchange.c:2957 ../mail/mail-stub-exchange.c:3007
-#: ../mail/mail-stub-exchange.c:3070
+#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1598
+#: ../mail/mail-stub-exchange.c:2987 ../mail/mail-stub-exchange.c:3027
+#: ../mail/mail-stub-exchange.c:3093 ../mail/mail-stub-exchange.c:3143
+#: ../mail/mail-stub-exchange.c:3206
 msgid "Permission denied"
 msgstr "Ndalohet hyrja"
 
-#: ../mail/mail-stub-exchange.c:768 ../mail/mail-stub-exchange.c:860
+#: ../mail/mail-stub-exchange.c:771 ../mail/mail-stub-exchange.c:863
 msgid "Could not open folder"
 msgstr "E pamundur hapja e kartelës"
 
-#: ../mail/mail-stub-exchange.c:854 ../mail/mail-stub-exchange.c:876
+#: ../mail/mail-stub-exchange.c:857 ../mail/mail-stub-exchange.c:879
 msgid "Could not open folder: Permission denied"
 msgstr "E pamundur hapja e kartelës: Ndalohet hyrja"
 
-#: ../mail/mail-stub-exchange.c:955
+#: ../mail/mail-stub-exchange.c:958
 msgid "Could not create folder."
 msgstr "I pamundur krijimi i kartelës."
 
-#: ../mail/mail-stub-exchange.c:1043
+#: ../mail/mail-stub-exchange.c:1046
 msgid "Could not open Deleted Items folder"
 msgstr "E pamundur hapja e kartelës me elementët e fshirë"
 
-#: ../mail/mail-stub-exchange.c:1374 ../mail/mail-stub-exchange.c:1415
+#: ../mail/mail-stub-exchange.c:1377 ../mail/mail-stub-exchange.c:1418
 msgid "Could not get new messages"
 msgstr "E pamundur marrja e mesazheve të rinj"
 
-#: ../mail/mail-stub-exchange.c:1591
+#: ../mail/mail-stub-exchange.c:1594
 msgid "Could not empty Deleted Items folder"
 msgstr "E pamundur zbrazja e kartelës me elementët e fshirë"
 
-#: ../mail/mail-stub-exchange.c:1668
+#: ../mail/mail-stub-exchange.c:1671
 msgid "Could not append message; mailbox is over quota"
 msgstr "I pamundur shtimi (në fund) i mesazhit; mailbox ka tejkaluar kuotën"
 
-#: ../mail/mail-stub-exchange.c:1669
+#: ../mail/mail-stub-exchange.c:1672
 msgid "Could not append message"
 msgstr "I pamundur shtimi i mesazhit"
 
-#: ../mail/mail-stub-exchange.c:2324
+#: ../mail/mail-stub-exchange.c:2434
 msgid "No such message"
 msgstr "Mesazhi nuk u gjet"
 
-#: ../mail/mail-stub-exchange.c:2386
+#: ../mail/mail-stub-exchange.c:2513
 msgid "Message has been deleted"
 msgstr "Mesazhi është fshirë"
 
-#: ../mail/mail-stub-exchange.c:2388
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Error retrieving message"
 msgstr "Gabim gjatë tërheqjes së mesazhit"
 
-#: ../mail/mail-stub-exchange.c:2430
+#: ../mail/mail-stub-exchange.c:2558
 msgid "Mailbox does not support full-text searching"
 msgstr "Mailbox nuk suporton kërkimin tekst i plotë"
 
-#: ../mail/mail-stub-exchange.c:2528
+#: ../mail/mail-stub-exchange.c:2656
 msgid "Unable to move/copy messages"
 msgstr "E pamundur lëvizja/kopja e mesazheve"
 
-#: ../mail/mail-stub-exchange.c:2766
+#: ../mail/mail-stub-exchange.c:2902
 msgid "No mail submission URI for this mailbox"
 msgstr "Kjo kasetë poste nuk ka asnjë URl për mesazhet e dorëzuara"
 
-#: ../mail/mail-stub-exchange.c:2802
+#: ../mail/mail-stub-exchange.c:2938
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Serveri nuk pranon mail via Exchange transport"
 
-#: ../mail/mail-stub-exchange.c:2804
+#: ../mail/mail-stub-exchange.c:2940
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
 msgstr ""
-"Llogaria juaj nuk ka të drejtë të përdorë <%s>\n"
+"Profili juaj nuk ka të drejtë të përdorë <%s>\n"
 "si adresë \"Nga\"."
 
-#: ../mail/mail-stub-exchange.c:2816
+#: ../mail/mail-stub-exchange.c:2952
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -431,17 +430,17 @@ msgstr ""
 "I pamundur dërgimi i mesazhit.\n"
 "Kjo do të thotë që ndoshta keni tejkaluar kuotën."
 
-#: ../mail/mail-stub-exchange.c:2820
+#: ../mail/mail-stub-exchange.c:2956
 msgid "Could not send message"
 msgstr "Dërgimi i mesazhit është i pamundur"
 
-#: ../mail/mail-stub-exchange.c:2843 ../mail/mail-stub-exchange.c:2896
-#: ../mail/mail-stub-exchange.c:2961 ../mail/mail-stub-exchange.c:3012
-#: ../mail/mail-stub-exchange.c:3076
+#: ../mail/mail-stub-exchange.c:2979 ../mail/mail-stub-exchange.c:3032
+#: ../mail/mail-stub-exchange.c:3097 ../mail/mail-stub-exchange.c:3148
+#: ../mail/mail-stub-exchange.c:3212
 msgid "Generic error"
 msgstr "Gabim i përgjithshëm"
 
-#: ../mail/mail-stub-exchange.c:2847
+#: ../mail/mail-stub-exchange.c:2983
 msgid "Folder already exists"
 msgstr "Kartela ekziston"
 
@@ -454,8 +453,9 @@ msgid "Evolution Calendar Exchange backend"
 msgstr "Evolution Calendar Exchange backend"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Ximian Connector for Exchange"
-msgstr "Ximian Connector për Exchange"
+#: ../storage/main.c:183
+msgid "Evolution Connector for Microsoft Exchange"
+msgstr "Evolution Connector për Microsoft Exchange"
 
 #: ../storage/exchange-autoconfig-wizard.c:211
 #, c-format
@@ -508,40 +508,43 @@ msgstr ""
 
 #: ../storage/exchange-autoconfig-wizard.c:254
 msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
+"Evolution Connector for Microsoft Exchange requires access to certain "
+"functionality on the Exchange server that appears to be disabled or "
+"blocked.  (This is usually unintentional.)  Your Exchange administrator will "
+"need to enable this functionality in order for you to be able to use the "
+"Evolution Connector.\n"
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"Ximian Connector ka nevojë të ketë hyrje në disa funksione të Serverit "
-"Exchange që mesa duket nuk janë aktive ose janë të bllokuara.  (Zakonisht "
-"kjo nuk është e qëllimshme)  Administratori juaj i Exchange duhet të "
-"aktivojë këto funksione në menyrë që ju të keni mundësi të përdorni Ximian "
-"Connector.\n"
+"Evolution Connector për Microsoft Exchange ka nevojë të ketë hyrje në "
+"disa funksione të serverit Exchange që mesa duket nuk janë aktive ose "
+"janë të bllokuara.  (Zakonisht kjo nuk është e qëllimshme)  Administratori "
+"juaj i Exchange duhet të aktivojë këto funksione në menyrë që ju të keni "
+"mundësi të përdorni Evolution Connector.\n"
 "\n"
-"Informacionet që duhet t'i jepni Administratorit tuaj të Exchange, mund t'i "
+"Informacionet që duhet t'i jepni administratorit tuaj të Exchange, mund t'i "
 "merrni duke ndjekur lidhjen e mëposhtme:"
 
-#: ../storage/exchange-autoconfig-wizard.c:275
+#: ../storage/exchange-autoconfig-wizard.c:276
 msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
+"The Exchange server URL you provided is for an Exchange 5.5 server. "
+"Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
+"and 2003 only."
 msgstr ""
 "URL e serverit Exchange dhënë nga ju është për një server Exchange 5.5. "
-"Ximian Connector suporton vetëm Microsoft Exchange 2000 dhe 2003."
+"Evolution Connector për Microsoft Exchange suporton vetëm Microsoft "
+"Exchange 2000 dhe 2003."
 
-#: ../storage/exchange-autoconfig-wizard.c:288
+#: ../storage/exchange-autoconfig-wizard.c:290
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
 msgstr ""
-"I pamundur konfigurimi i llogarisë Exchange për shkak të një difekti të "
-"panjohur. Kontrollo URL, përdoruesin, dhe fjalëkalimin, e riprovo."
+"I pamundur konfigurimi i profilit Exchange për shkak të një difekti të "
+"panjohur. Kontrollo URL, përdoruesin dhe fjalëkalimin, e riprovo."
 
-#: ../storage/exchange-autoconfig-wizard.c:332
+#: ../storage/exchange-autoconfig-wizard.c:334
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -552,7 +555,7 @@ msgstr ""
 "ktheheni mbrapsht dhe të specifikoni emrin e domain të Windows si pjesë të "
 "emrit tuaj të përdoruesit (p.sh, \"DOMAIN-IM\\%s\")."
 
-#: ../storage/exchange-autoconfig-wizard.c:339
+#: ../storage/exchange-autoconfig-wizard.c:341
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -560,22 +563,22 @@ msgstr ""
 "E pamundur lidhja me server-in e specifikuar.\n"
 "Kontrollo emrin e tij dhe riprovo."
 
-#: ../storage/exchange-autoconfig-wizard.c:376
-#: ../storage/exchange-autoconfig-wizard.c:380
+#: ../storage/exchange-autoconfig-wizard.c:378
+#: ../storage/exchange-autoconfig-wizard.c:382
 msgid "Unknown"
 msgstr "Nuk njihet"
 
-#: ../storage/exchange-autoconfig-wizard.c:445
+#: ../storage/exchange-autoconfig-wizard.c:447
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
 msgstr ""
 "Gabim i sistemit të konfigurimit.\n"
-"I pamundur krijimi i llogarisë së re."
+"I pamundur krijimi i profilit të ri."
 
-#: ../storage/exchange-autoconfig-wizard.c:459
+#: ../storage/exchange-autoconfig-wizard.c:461
 msgid "You may only configure a single Exchange account"
-msgstr "Ju duhet të konfiguroni vetëm një llogari Exchange"
+msgstr "Mund të konfiguroni vetëm një profil të vetëm Exchange"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:1
 #: ../storage/exchange-change-password.glade.h:1
@@ -595,91 +598,91 @@ msgid "Email Address:"
 msgstr "Adresa email:"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:5
+msgid "Evolution Connector for Microsoft Exchange Configuration"
+msgstr "Konfigurimi i Evolution Connector për Microsoft Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:6
+msgid ""
+"Evolution Connector for Microsoft Exchange can use account information from "
+"your existing Outlook Web Access (OWA) account.\n"
+"\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
+msgstr ""
+"Evolution Connector për Microsoft Exchange mund të shfrytëzojë informacionet "
+"e profilit nga profili juaj ekzistues Outlook Web Access (OWA).\n"
+"\n"
+"Shkruani adresën e sitit (URL) të OWA tuaj, emrin e përdoruesit dhe "
+"fjalëkalimin, e pastaj kliko tek \"Vazhdo\".\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:10
+msgid ""
+"Evolution Connector for Microsoft Exchange could not find the Global Catalog "
+"replica for your site. Please enter the name of your Global Catalog server. "
+"You may need to ask your system administrator for the correct value.\n"
+msgstr ""
+"Evolution Connector për Microsoft Exchange nuk arrin të gjejë replikën e "
+"Katallogut Global për sitin tuaj. Ju lutem shkruani emrin e serverit tuaj të "
+"Katallogut Global. Ndoshta do t'ju duhet të pyesni administratorin tuaj të "
+"sistemit për vlerën korrekte.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:12
+msgid ""
+"Evolution Connector for Microsoft Exchange has encountered a problem "
+"configuring your Exchange account.\n"
+msgstr ""
+"Evolution Connector për Microsoft Exchange ka ndeshur në një problem gjatë "
+"konfigurimit të profilit tuaj Exchange.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:14
 msgid "Exchange Configuration"
 msgstr "Konfigurimi i Exchange"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:6
+#: ../storage/exchange-autoconfig-wizard.glade.h:15
 msgid "Full Name:"
 msgstr "Emri i plotë:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:7
+#: ../storage/exchange-autoconfig-wizard.glade.h:16
 msgid "GC Server:"
 msgstr "Serveri GC:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:8
+#: ../storage/exchange-autoconfig-wizard.glade.h:17
 msgid "Make this my default account"
-msgstr "Le të jetë kjo llogaria ime e prezgjedhur"
+msgstr "Le të jetë ky profili im i paracaktuar"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:9
+#: ../storage/exchange-autoconfig-wizard.glade.h:18
 msgid "OWA URL:"
 msgstr "URL e OWA:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:10
+#: ../storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Password:"
 msgstr "Fjalëkalimi:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:11
+#: ../storage/exchange-autoconfig-wizard.glade.h:20
 msgid "Remember this password"
 msgstr "Kujto këtë fjalëkalim"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:12
+#: ../storage/exchange-autoconfig-wizard.glade.h:21
 msgid "Username:"
 msgstr "Përdoruesi:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:13
+#: ../storage/exchange-autoconfig-wizard.glade.h:22
 msgid "Welcome"
 msgstr "Mirësevini"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:14
+#: ../storage/exchange-autoconfig-wizard.glade.h:23
 msgid ""
-"Welcome to Ximian Connector for Microsoft Exchange.\n"
+"Welcome to Evolution Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
 "to connect to your Exchange account.\n"
 "\n"
 "Please click the \"Forward\" button to continue."
 msgstr ""
-"Mirësevini në Ximian Connector për Microsoft Exchange.\n"
+"Mirësevini në Evolution Connector për Microsoft Exchange.\n"
 "Hapat në vazhdim do t'ju ndihmojnë të konfiguroni Evolution\n"
-"për t'u lidhur me llogarinë tuaj Exchange.\n"
+"për t'u lidhur me profilin tuaj Exchange.\n"
 "\n"
 "Ju lutem kliko tek pulsanti \"Vazhdo\" për të vazhduar."
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:19
-msgid "Ximian Connector Configuration"
-msgstr "Konfigurimi i Ximian Connector"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:20
-msgid ""
-"Ximian Connector can use account information from your existing Outlook Web "
-"Access (OWA) account.\n"
-"\n"
-"Enter your OWA site address (URL), username, and password, then click "
-"\"Forward\".\n"
-msgstr ""
-"Ximian Connector mund të shfrytëzojë informacionet e llogarisë nga llogaria "
-"juaj ekzistuese Outlook Web Access (OWA).\n"
-"\n"
-"Shkruani adresën e sitit (URL) të OWA tuaj, emrin e përdoruesit, dhe "
-"fjalëkalimin, pastaj kliko tek \"Vazhdo\".\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:24
-msgid ""
-"Ximian Connector could not find the Global Catalog replica for your site. "
-"Please enter the name of your Global Catalog server. You may need to ask "
-"your system administrator for the correct value.\n"
-msgstr ""
-"Ximian Connector nuk arrin të gjejë replikën e Katallogut Global për sitin "
-"tuaj. Ju lutem shkruaj emrin e serverit tuaj të Katallogut Global. Ndoshta "
-"do t'ju duhet të pyesni administratorin tuaj të sistemit për vlerën "
-"korrekte.\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:26
-msgid ""
-"Ximian Connector has encountered a problem configuring your Exchange "
-"account.\n"
-msgstr ""
-"Ximian Connector ka ndeshur në një problem gjatë konfigurimit të llogarisë "
-"suaj Exchange.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -696,7 +699,7 @@ msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
 msgstr ""
-"Informacioni i llogarisë suaj është si në vazhdim. Ju lutem korrigjoni "
+"Informacioni i profilit tuaj është si në vazhdim. Ju lutem korrigjoni "
 "gabimet e mundëshme, dhe kliko tek \"Vazhdo\".\n"
 
 #. User entered a wrong existing
@@ -707,7 +710,7 @@ msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
 msgstr ""
-"Fjalëkalimi aktual nuk përputhet me fjalëkalimin ekzistues për llogarinë "
+"Fjalëkalimi aktual nuk përputhet me fjalëkalimin ekzistues për profilin "
 "tuaj. Ju lutem shkruani fjalëkalimin korrekt"
 
 #: ../storage/exchange-change-password.c:121
@@ -810,7 +813,7 @@ msgid ""
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
-"Vendodhja dhe gjerarkia e kartelave të llogarisë së Evolution exchange janë "
+"Vendodhja dhe gjerarkia e kartelave të profilit të Evolution exchange janë "
 "ndryshuar që nga Evolution %d.%d.%d.\n"
 "\n"
 "Durim derisa Evolution të migrojë kartelat tuaja..."
@@ -823,7 +826,7 @@ msgid ""
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"Kujdes: Evolution nuk mund të migrojë të gjitha të dhënat e llogarisë "
+"Kujdes: Evolution nuk mund të migrojë të gjitha të dhënat e profilit "
 "Exchange nga versioni %d.%d.%d. \n"
 "Të dhënat nuk janë eleminuar, por nuk mund të shihen nga ky version i "
 "Evolution"
@@ -961,13 +964,9 @@ msgstr "Roli: "
 msgid "Connecting..."
 msgstr "Duke u lidhur..."
 
-#: ../storage/main.c:183
-msgid "Ximian Connector for Microsoft Exchange"
-msgstr "Ximian Connector për Microsoft Exchange"
-
 #: ../storage/ximian-connector-setup.c:44
-msgid "Ximian Connector for Microsoft Exchange Setup Tool"
-msgstr "Instrumenti konfigurues i Ximian Connector për Microsoft Exchange"
+msgid "Evolution Connector for Microsoft Exchange Setup Tool"
+msgstr "Instrumenti konfigurues i Evolution Connector për Microsoft Exchange"
 
 #: ../storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
@@ -990,8 +989,7 @@ msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Abonohu tek një kartelë që i përket një përdoruesi tjetër në server"
 
 #: ../storage/ximian-connector.xml.h:6
-msgid ""
-"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
 "Ç'regjistrohu nga një kartelë e shtuar me \"Regjistrohu tek Kartela "
 "Përdoruesit Tjetër\""
@@ -1021,3 +1019,4 @@ msgstr "Asistenti i _Jashtë Zyre"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Ç'_regjistrohu nga Kartela e përdoruesit Tjetër"
+
