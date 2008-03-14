@@ -339,7 +339,6 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 
 		d(printf ("ECBE : cal is offline .. load cache\n"));
 
-
 		cbex->priv->read_only = TRUE;
 		source = e_cal_backend_get_source (E_CAL_BACKEND (cbex));
 		display_contents = e_source_get_property (source, "offline_sync");
@@ -352,7 +351,6 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 		cbex->account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
 
 		if (cbex->account) {
-
 			exchange_account_set_offline (cbex->account);
 			if (!exchange_account_connect (cbex->account, NULL, &acresult)) {
 				cbex->folder = exchange_account_get_folder (cbex->account, uristr);
@@ -384,25 +382,23 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 	/* This steals the ExchangeAccount from ExchangeComponent */
 	if (!cbex->account) {
 		cbex->account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
-		if (!cbex->account) {
+		if (!cbex->account)
 			cbex->account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
-			exchange_account_set_online (cbex->account);
-			if (!exchange_account_connect (cbex->account, password, &acresult)) {
-				g_mutex_unlock (cbex->priv->open_lock);
-				e_cal_backend_notify_error (E_CAL_BACKEND (cbex), _("Authentication failed"));
-				return GNOME_Evolution_Calendar_AuthenticationFailed;
-			}
-		}
 	}
 
-	if (exchange_account_get_context (cbex->account)) {
-		exchange_account_set_online (cbex->account);
-		if(!exchange_account_connect (cbex->account, password, &acresult)) {
-			g_mutex_unlock (cbex->priv->open_lock);
-			e_cal_backend_notify_error (E_CAL_BACKEND (cbex), _("Authentication failed"));
-			return GNOME_Evolution_Calendar_AuthenticationFailed;
-		}
+	if (!cbex->account) {
+		g_mutex_unlock (cbex->priv->open_lock);
+		return GNOME_Evolution_Calendar_NoSuchCal;
 	}
+
+	exchange_account_connect (cbex->account, password, &acresult);
+	if (acresult != EXCHANGE_ACCOUNT_CONNECT_SUCCESS) {
+		g_mutex_unlock (cbex->priv->open_lock);
+		e_cal_backend_notify_error (E_CAL_BACKEND (cbex), _("Authentication failed"));
+		return GNOME_Evolution_Calendar_AuthenticationFailed;
+	}		
+
+	exchange_account_set_online (cbex->account);
 
 	cbex->folder = exchange_account_get_folder (cbex->account, uristr);
 	if (!cbex->folder) {
