@@ -662,6 +662,12 @@ make_folder_info (CamelExchangeStore *exch, char *name, char *uri,
 
 	if (flags & CAMEL_STUB_FOLDER_TYPE_INBOX)
 		info->flags |= CAMEL_FOLDER_TYPE_INBOX;
+	
+	if (flags & CAMEL_STUB_FOLDER_TYPE_TRASH)
+		info->flags |= CAMEL_FOLDER_TYPE_TRASH;
+
+	if (flags & CAMEL_STUB_FOLDER_TYPE_SENT)
+		info->flags |= CAMEL_FOLDER_TYPE_SENT;
 
 	if (flags & CAMEL_STUB_FOLDER_SUBSCRIBED) {
 		info->flags |= CAMEL_FOLDER_SUBSCRIBED;

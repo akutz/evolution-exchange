@@ -1,3 +1,16 @@
+2008-03-17  Bharath Acharya  <abharath@novell.com>
+
+	** Fix for bug #520676
+
+	* camel/camel-exchange-store.c (make_folder_info): store the Folder type
+	flags for Sent items and Trash folder
+	* camel/camel-stub-constants.h:
+	* mail/mail-stub-exchange.c (get_folder_info): Get the physical uris 
+	for Sent items and Trash folders
+	(stub_connect): 
+	* mail/mail-stub-exchange.h: Introduced a new item sent_items in 
+	MailStubExchange structure.
+
 2008-03-14  Suman Manjunath  <msuman@novell.com>
 
 	** Fix for bug #268259 (bugzilla.novell.com)

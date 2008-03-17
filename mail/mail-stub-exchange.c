@@ -2727,7 +2727,7 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 	GArray *unread, *flags;
 	ExchangeHierarchy *hier;
 	EFolder *folder;
-	const char *type, *name, *uri, *path, *inbox_uri = NULL;
+	const char *type, *name, *uri, *path, *inbox_uri = NULL, *trash_uri = NULL, *sent_items_uri = NULL;
 	int unread_count, i, toplen = top ? strlen (top) : 0;
 	guint32 folder_flags = 0;
 	gboolean recursive, subscribed, info_fast;
@@ -2771,6 +2771,14 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 	/* Can be NULL if started in offline mode */
 	if (mse->inbox) {
 		inbox_uri = e_folder_get_physical_uri (mse->inbox);
+	}
+
+	if (mse->deleted_items) {
+		trash_uri = e_folder_get_physical_uri (mse->deleted_items);
+	}
+
+	if (mse->sent_items) {
+		sent_items_uri = e_folder_get_physical_uri (mse->sent_items);
 	}
 
 	if (folders) {
@@ -2845,6 +2853,12 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 
 			if (inbox_uri && !strcmp (uri, inbox_uri))
 				folder_flags |= CAMEL_STUB_FOLDER_SYSTEM|CAMEL_STUB_FOLDER_TYPE_INBOX;
+
+			if (trash_uri && !strcmp (uri, trash_uri))
+				folder_flags |= CAMEL_STUB_FOLDER_SYSTEM|CAMEL_STUB_FOLDER_TYPE_TRASH;
+
+			if (sent_items_uri && !strcmp (uri, sent_items_uri))
+				folder_flags |= CAMEL_STUB_FOLDER_SYSTEM|CAMEL_STUB_FOLDER_TYPE_SENT;
 
 			if (!e_folder_exchange_get_has_subfolders (folder)) {
 				d(printf ("%s:%d:%s - %s has no subfolders", __FILE__, __LINE__, __GNUC_PRETTY_FUNCTION__,
@@ -3292,6 +3306,8 @@ stub_connect (MailStub *stub, char *pwd)
 	mse->inbox = exchange_account_get_folder (account, uri);
 	uri = exchange_account_get_standard_uri (account, "deleteditems");
 	mse->deleted_items = exchange_account_get_folder (account, uri);
+	uri = exchange_account_get_standard_uri (account, "sentitems");
+	mse->sent_items = exchange_account_get_folder (account, uri);
 
 	/* Will be used for offline->online transition to initialize things for
 	   the first time */
