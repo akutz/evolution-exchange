@@ -1,3 +1,11 @@
+2008-03-27  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #303067
+
+	* addressbook/e-book-backend-gal.c:
+	Guard access to priv->ldap with its mutex.
+	Also do not use local copy of priv->ldap when reconnect can change it.
+
 2008-03-17  Bharath Acharya  <abharath@novell.com>
 
 	** Fix for bug #520676
