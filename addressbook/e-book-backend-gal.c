@@ -316,8 +316,8 @@ static gboolean
 gal_reconnect (EBookBackendGAL *bl, EDataBookView *book_view, int ldap_status)
 {
 	/* we need to reconnect if we were previously connected */
+	g_mutex_lock (bl->priv->ldap_lock);
 	if ((bl->priv->connected && ldap_status == LDAP_SERVER_DOWN) || (!bl->priv->ldap && !bl->priv->connected)) {
-		g_mutex_lock (bl->priv->ldap_lock);
 		if (book_view)
 			book_view_notify_status (book_view, _("Reconnecting to LDAP server..."));
 		if (bl->priv->ldap)
@@ -336,6 +336,7 @@ gal_reconnect (EBookBackendGAL *bl, EDataBookView *book_view, int ldap_status)
 		}
 	}
 	else {
+		g_mutex_unlock (bl->priv->ldap_lock);
 		printf("Connected and ldap is null sigh\n");
 		return FALSE;
 	}
@@ -465,12 +466,15 @@ get_contact_handler (LDAPOp *op, LDAPMessage *res)
 	EBookBackendGAL *bl = E_BOOK_BACKEND_GAL (op->backend);
 	int msg_type;
 
+	g_mutex_lock (bl->priv->ldap_lock);
 	if (!bl->priv->ldap) {
+		g_mutex_unlock (bl->priv->ldap_lock);
 		e_data_book_respond_get_contact (op->book, op->opid,
 					GNOME_Evolution_Addressbook_OtherError, "");
 		ldap_op_finished (op);
 		return;
 	}
+	g_mutex_unlock (bl->priv->ldap_lock);
 
 	/* the msg_type will be either SEARCH_ENTRY (if we're
 	   successful) or SEARCH_RESULT (if we're not), so we finish
@@ -554,7 +558,6 @@ get_contact (EBookBackend *backend,
 {
 	LDAPGetContactOp *get_contact_op;
 	EBookBackendGAL *bl = E_BOOK_BACKEND_GAL (backend);
-	LDAP *ldap = bl->priv->ldap;
 	int get_contact_msgid;
 	EDataBookView *book_view;
 	int ldap_error;
@@ -609,10 +612,13 @@ get_contact (EBookBackend *backend,
 		}
 		else {
 #endif
-			if (!ldap) {
+			g_mutex_lock (bl->priv->ldap_lock);
+			if (!bl->priv->ldap) {
+				g_mutex_unlock (bl->priv->ldap_lock);
 				e_data_book_respond_get_contact (book, opid, GNOME_Evolution_Addressbook_OtherError, "");
 				return;
 			}
+			g_mutex_unlock (bl->priv->ldap_lock);
 
 			get_contact_op = g_new0 (LDAPGetContactOp, 1);
 
@@ -620,7 +626,7 @@ get_contact (EBookBackend *backend,
 
 			do {
 				g_mutex_lock (bl->priv->ldap_lock);
-				ldap_error = ldap_search_ext (ldap, id,
+				ldap_error = ldap_search_ext (bl->priv->ldap, id,
 							      LDAP_SCOPE_BASE,
 							      "(objectclass=*)",
 							      search_attrs, 0, NULL, NULL,
@@ -657,20 +663,22 @@ contact_list_handler (LDAPOp *op, LDAPMessage *res)
 {
 	LDAPGetContactListOp *contact_list_op = (LDAPGetContactListOp*)op;
 	EBookBackendGAL *bl = E_BOOK_BACKEND_GAL (op->backend);
-	LDAP *ldap = bl->priv->ldap;
 	LDAPMessage *e;
 	int msg_type;
 
-	if (!ldap) {
+	g_mutex_lock (bl->priv->ldap_lock);
+	if (!bl->priv->ldap) {
+		g_mutex_unlock (bl->priv->ldap_lock);
 		e_data_book_respond_get_contact_list (op->book, op->opid, GNOME_Evolution_Addressbook_OtherError, NULL);
 		ldap_op_finished (op);
 		return;
 	}
+	g_mutex_unlock (bl->priv->ldap_lock);
 
 	msg_type = ldap_msgtype (res);
 	if (msg_type == LDAP_RES_SEARCH_ENTRY) {
 		g_mutex_lock (bl->priv->ldap_lock);
-		e = ldap_first_entry(ldap, res);
+		e = ldap_first_entry (bl->priv->ldap, res);
 		g_mutex_unlock (bl->priv->ldap_lock);
 
 		while (NULL != e) {
@@ -684,7 +692,7 @@ contact_list_handler (LDAPOp *op, LDAPMessage *res)
 
 			g_object_unref (contact);
 			g_mutex_lock (bl->priv->ldap_lock);
-			e = ldap_next_entry(ldap, e);
+			e = ldap_next_entry (bl->priv->ldap, e);
 			g_mutex_unlock (bl->priv->ldap_lock);
 		}
 	}
@@ -693,7 +701,7 @@ contact_list_handler (LDAPOp *op, LDAPMessage *res)
 		int ldap_error;
 
 		g_mutex_lock (bl->priv->ldap_lock);
-		ldap_parse_result (ldap, res, &ldap_error,
+		ldap_parse_result (bl->priv->ldap, res, &ldap_error,
 				   NULL, &ldap_error_msg, NULL, NULL, 0);
 		g_mutex_unlock (bl->priv->ldap_lock);
 		if (ldap_error != LDAP_SUCCESS) {
@@ -756,7 +764,6 @@ get_contact_list (EBookBackend *backend,
 {
 	LDAPGetContactListOp *contact_list_op;
 	EBookBackendGAL *bl = E_BOOK_BACKEND_GAL (backend);
-	LDAP *ldap = bl->priv->ldap;
 	GNOME_Evolution_Addressbook_CallStatus status;
 	int contact_list_msgid;
 	EDataBookView *book_view;
@@ -813,10 +820,13 @@ get_contact_list (EBookBackend *backend,
 		}
 		else {
 #endif
-			if (!ldap) {
+			g_mutex_lock (bl->priv->ldap_lock);
+			if (!bl->priv->ldap) {
+				g_mutex_unlock (bl->priv->ldap_lock);
 				e_data_book_respond_get_contact_list (book, opid, GNOME_Evolution_Addressbook_OtherError, NULL);
 				return;
 			}
+			g_mutex_unlock (bl->priv->ldap_lock);
 
 			contact_list_op = g_new0 (LDAPGetContactListOp, 1);
 			book_view = find_book_view (bl);
@@ -1337,7 +1347,6 @@ typedef struct {
 static EContact *
 build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_objectclasses)
 {
-	LDAP *ldap = bl->priv->ldap;
 	LDAP *subldap = NULL;
 	EContact *contact = e_contact_new ();
 	char *dn;
@@ -1345,13 +1354,15 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 	BerElement *ber = NULL, *tber = NULL;
 	gboolean is_group = FALSE;
 
-	dn = ldap_get_dn(ldap, e);
+	g_mutex_lock (bl->priv->ldap_lock);
+	dn = ldap_get_dn (bl->priv->ldap, e);
+	g_mutex_unlock (bl->priv->ldap_lock);
 
 	e_contact_set (contact, E_CONTACT_UID, dn);
 	ldap_memfree (dn);
 
 	g_mutex_lock (bl->priv->ldap_lock);
-	attr = ldap_first_attribute (ldap, e, &tber);
+	attr = ldap_first_attribute (bl->priv->ldap, e, &tber);
 	while (attr) {
 		if (!strcmp(attr, "member")) {
 			printf("It is a DL\n");
@@ -1360,14 +1371,14 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 			break;
 		}
 		ldap_memfree (attr);
-		attr = ldap_next_attribute (ldap, e, tber);
+		attr = ldap_next_attribute (bl->priv->ldap, e, tber);
 	}
 	if (tber)
 		ber_free (tber, 0);
 	g_mutex_unlock (bl->priv->ldap_lock);
 
 	g_mutex_lock (bl->priv->ldap_lock);
-	attr = ldap_first_attribute (ldap, e, &ber);
+	attr = ldap_first_attribute (bl->priv->ldap, e, &ber);
 	g_mutex_unlock (bl->priv->ldap_lock);
 
 	while (attr) {
@@ -1377,7 +1388,7 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 
 		if (existing_objectclasses && !g_ascii_strcasecmp (attr, "objectclass")) {
 			g_mutex_lock (bl->priv->ldap_lock);
-			values = ldap_get_values (ldap, e, attr);
+			values = ldap_get_values (bl->priv->ldap, e, attr);
 			g_mutex_unlock (bl->priv->ldap_lock);
 			for (i = 0; values[i]; i ++) {
 				if (!g_ascii_strcasecmp (values [i], "groupOfNames")) {
@@ -1403,7 +1414,7 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 			if (info) {
 				if (1) {
 					g_mutex_lock (bl->priv->ldap_lock);
-					values = ldap_get_values (ldap, e, attr);
+					values = ldap_get_values (bl->priv->ldap, e, attr);
 					g_mutex_unlock (bl->priv->ldap_lock);
 
 					if (values) {
@@ -1459,8 +1470,8 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 												view_limit,
 												&result)) == LDAP_SUCCESS) {
 										/* find email ids of members */
-										cn_values = ldap_get_values (ldap, result, "cn");
-										email_values = ldap_get_values (ldap, result, "mail");
+										cn_values = ldap_get_values (subldap, result, "cn");
+										email_values = ldap_get_values (subldap, result, "mail");
 
 										if (email_values) {
 											d(printf ("email = %s \n", email_values [0]));
@@ -1503,7 +1514,7 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 
 		ldap_memfree (attr);
 		g_mutex_lock (bl->priv->ldap_lock);
-		attr = ldap_next_attribute (ldap, e, ber);
+		attr = ldap_next_attribute (bl->priv->ldap, e, ber);
 		g_mutex_unlock (bl->priv->ldap_lock);
 	}
 
@@ -1519,15 +1530,17 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 static gboolean
 poll_ldap (EBookBackendGAL *bl)
 {
-	LDAP           *ldap = bl->priv->ldap;
 	int            rc;
 	LDAPMessage    *res;
 	struct timeval timeout;
 
-	if (!ldap) {
+	g_mutex_lock (bl->priv->ldap_lock);
+	if (!bl->priv->ldap) {
+		g_mutex_unlock (bl->priv->ldap_lock);
 		bl->priv->poll_timeout = -1;
 		return FALSE;
 	}
+	g_mutex_unlock (bl->priv->ldap_lock);
 
 	if (!bl->priv->active_ops) {
 		g_warning ("poll_ldap being called for backend with no active operations");
@@ -1539,7 +1552,7 @@ poll_ldap (EBookBackendGAL *bl)
 	timeout.tv_usec = LDAP_RESULT_TIMEOUT_MILLIS * 1000;
 
 	g_mutex_lock (bl->priv->ldap_lock);
-	rc = ldap_result (ldap, LDAP_RES_ANY, 0, &timeout, &res);
+	rc = ldap_result (bl->priv->ldap, LDAP_RES_ANY, 0, &timeout, &res);
 	g_mutex_unlock (bl->priv->ldap_lock);
 	if (rc != 0) {/* rc == 0 means timeout exceeded */
 		if (rc == -1) {
@@ -1583,18 +1596,20 @@ ldap_search_handler (LDAPOp *op, LDAPMessage *res)
 	LDAPSearchOp *search_op = (LDAPSearchOp*)op;
 	EDataBookView *view = search_op->view;
 	EBookBackendGAL *bl = E_BOOK_BACKEND_GAL (op->backend);
-	LDAP *ldap = bl->priv->ldap;
 	LDAPMessage *e;
 	int msg_type;
 
 	d(printf ("ldap_search_handler (%p)\n", view));
 	printf("%s:%s: search handler \n", G_STRLOC, G_STRFUNC);
-	if (!ldap) {
+	g_mutex_lock (bl->priv->ldap_lock);
+	if (!bl->priv->ldap) {
+		g_mutex_unlock (bl->priv->ldap_lock);
 		printf("%s:%s: other error\n", G_STRLOC, G_STRFUNC);
 		e_data_book_view_notify_complete (view, GNOME_Evolution_Addressbook_OtherError);
 		ldap_op_finished (op);
 		return;
 	}
+	g_mutex_unlock (bl->priv->ldap_lock);
 
 	if (!search_op->notified_receiving_results) {
 		search_op->notified_receiving_results = TRUE;
@@ -1604,7 +1619,7 @@ ldap_search_handler (LDAPOp *op, LDAPMessage *res)
 	msg_type = ldap_msgtype (res);
 	if (msg_type == LDAP_RES_SEARCH_ENTRY) {
 		g_mutex_lock (bl->priv->ldap_lock);
-		e = ldap_first_entry(ldap, res);
+		e = ldap_first_entry (bl->priv->ldap, res);
 		g_mutex_unlock (bl->priv->ldap_lock);
 
 		while (NULL != e) {
@@ -1615,7 +1630,7 @@ ldap_search_handler (LDAPOp *op, LDAPMessage *res)
 			g_object_unref (contact);
 
 			g_mutex_lock (bl->priv->ldap_lock);
-			e = ldap_next_entry(ldap, e);
+			e = ldap_next_entry (bl->priv->ldap, e);
 			g_mutex_unlock (bl->priv->ldap_lock);
 		}
 	}
@@ -1624,7 +1639,7 @@ ldap_search_handler (LDAPOp *op, LDAPMessage *res)
 		int ldap_error;
 
 		g_mutex_lock (bl->priv->ldap_lock);
-		ldap_parse_result (ldap, res, &ldap_error,
+		ldap_parse_result (bl->priv->ldap, res, &ldap_error,
 				   NULL, &ldap_error_msg, NULL, NULL, 0);
 		g_mutex_unlock (bl->priv->ldap_lock);
 		if (ldap_error != LDAP_SUCCESS) {
@@ -1781,7 +1796,9 @@ start_book_view (EBookBackend  *backend,
 		else {
 #endif
 			printf("Not marked for offline or cache not there\n");
+			g_mutex_lock (bl->priv->ldap_lock);
 			if (!bl->priv->ldap) {
+				g_mutex_unlock (bl->priv->ldap_lock);
 				if (!gal_reconnect (bl, view, 0)) {
 					printf("%s:%s: no ldap :(\n", G_STRLOC, G_STRFUNC);
 					e_data_book_view_notify_complete (view,
@@ -1789,6 +1806,7 @@ start_book_view (EBookBackend  *backend,
 					return;
 				}
 			}
+			g_mutex_unlock (bl->priv->ldap_lock);
 
 			/* we start at 1 so the user sees stuff as it appears and we
 			   aren't left waiting for more cards to show up, if the
@@ -1813,7 +1831,9 @@ start_book_view (EBookBackend  *backend,
 			}
 
 			do {
+				g_mutex_lock (bl->priv->ldap_lock);
 				if (bl->priv->ldap) {
+					g_mutex_unlock (bl->priv->ldap_lock);
 					book_view_notify_status (view, _("Searching..."));
 
 					g_mutex_lock (bl->priv->ldap_lock);
@@ -1829,8 +1849,10 @@ start_book_view (EBookBackend  *backend,
 								    &search_msgid);
 					g_mutex_unlock (bl->priv->ldap_lock);
 					printf("%s:%s: %d\n", G_STRLOC, G_STRFUNC, ldap_err);
-				} else
+				} else {
+					g_mutex_unlock (bl->priv->ldap_lock);
 					bl->priv->connected = FALSE;
+				}
 			} while (gal_reconnect (bl, view, ldap_err));
 
 			g_free (ldap_query);
@@ -2033,7 +2055,6 @@ parse_page_control(
 #if ENABLE_CACHE
 static int dosearch(
 	EBookBackendGAL *bl,
-	LDAP	*ld,
 	char	*base,
 	int		scope,
 	char	*filtpatt,
@@ -2055,8 +2076,10 @@ static int dosearch(
 	if (ssize && *ssize)
 		size = atoi(ssize);
 
-	rc = ldap_search_ext( ld, base, scope, value, attrs, attrsonly,
+	g_mutex_lock (bl->priv->ldap_lock);
+	rc = ldap_search_ext (bl->priv->ldap, base, scope, value, attrs, attrsonly,
 		sctrls, cctrls, timeout, size /*LDAP_NO_LIMIT*/, &msgid );
+	g_mutex_unlock (bl->priv->ldap_lock);
 
 	if( rc != LDAP_SUCCESS ) {
 		return( rc );
@@ -2064,20 +2087,23 @@ static int dosearch(
 
 	res = NULL;
 
-	while ((rc = ldap_result( ld, LDAP_RES_ANY,
+	g_mutex_lock (bl->priv->ldap_lock);
+	while ((rc = ldap_result (bl->priv->ldap, LDAP_RES_ANY,
 		0,
 		NULL, &res )) > 0 )
 	{
-		for ( msg = ldap_first_message( ld, res );
+		for ( msg = ldap_first_message (bl->priv->ldap, res );
 			msg != NULL;
-			msg = ldap_next_message( ld, msg ) )
+			msg = ldap_next_message (bl->priv->ldap, msg ) )
 		{
 			EContact *contact;
 
 			switch( ldap_msgtype( msg ) ) {
 			case LDAP_RES_SEARCH_ENTRY:
 				count ++;
+				g_mutex_unlock (bl->priv->ldap_lock);
 				contact = build_contact_from_entry (bl, msg, NULL);
+				g_mutex_lock (bl->priv->ldap_lock);
 				e_book_backend_db_cache_add_contact (bl->priv->file_db, contact);
 				e_book_backend_summary_add_contact (bl->priv->summary, contact);
 				g_object_unref (contact);
@@ -2085,7 +2111,8 @@ static int dosearch(
 
 			case LDAP_RES_SEARCH_RESULT:
 				if ( pageSize != 0 ) {
-					rc = parse_page_control( ld, msg, &cookie );
+					/* we hold the lock already */
+					rc = parse_page_control (bl->priv->ldap, msg, &cookie);
 				}
 
 				goto done;
@@ -2095,9 +2122,12 @@ static int dosearch(
 
 		ldap_msgfree( res );
 	}
+	g_mutex_unlock (bl->priv->ldap_lock);
 
 	if ( rc == -1 ) {
-		ldap_perror( ld, "ldap_result" );
+		g_mutex_lock (bl->priv->ldap_lock);
+		ldap_perror (bl->priv->ldap, "ldap_result");
+		g_mutex_unlock (bl->priv->ldap_lock);
 		return( rc );
 	}
 
@@ -2148,15 +2178,20 @@ getNextPage:
 		i++;
 	}
 
+	g_mutex_lock (priv->ldap_lock);
 	tool_server_controls( priv->ldap, c, i );
+	g_mutex_unlock (priv->ldap_lock);
 	ber_free (prber, 1);
 
+	g_mutex_lock (priv->ldap_lock);
 	if (!priv->ldap) {
+		g_mutex_unlock (priv->ldap_lock);
 		g_free (contact_list_op);
 		return;
 	}
+	g_mutex_unlock (priv->ldap_lock);
 
-	rc = dosearch (book_backend_gal, priv->ldap, LDAP_ROOT_DSE, LDAP_SCOPE_SUBTREE, NULL, ldap_query, NULL, 0, NULL, NULL, NULL, -1);
+	rc = dosearch (book_backend_gal, LDAP_ROOT_DSE, LDAP_SCOPE_SUBTREE, NULL, ldap_query, NULL, 0, NULL, NULL, NULL, -1);
 
 
 	/* loop to get the next set of entries */
