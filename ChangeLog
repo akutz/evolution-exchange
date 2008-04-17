@@ -1,3 +1,11 @@
+2008-04-17  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #526740
+
+	* configure.in: Require minimum GLib 2.16.0.
+	* calendar/e-cal-backend-exchange.c: (get_mime_type), (build_msg):
+	Drop dependency on gnome-vfs, use new gio instead.
+
 2008-04-09  Suman Manjunath  <msuman@novell.com>
 
 	* calendar/e-cal-backend-exchange.c: (open_calendar):

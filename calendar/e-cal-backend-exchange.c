@@ -30,7 +30,7 @@
 #include <unistd.h>
 #include <libedataserver/e-time-utils.h>
 
-#include <libgnomevfs/gnome-vfs-mime-utils.h>
+#include <gio/gio.h>
 
 #include <camel/camel-mime-message.h>
 #include <camel/camel-multipart.h>
@@ -1756,6 +1756,33 @@ process_delegated_cal_object (icalcomponent *icalcomp, const char *delegator_nam
 	}
 }
 
+static char *
+get_mime_type (const char *uri)
+{
+	GFile *file;
+	GFileInfo *fi;
+	char *mime_type;
+
+	g_return_val_if_fail (uri != NULL, NULL);
+
+	file = g_file_new_for_uri (uri);
+	if (!file)
+		return NULL;
+
+	fi = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE, G_FILE_QUERY_INFO_NONE, NULL, NULL);
+	if (!fi) {
+		g_object_unref (file);
+		return NULL;
+	}
+
+	mime_type = g_content_type_get_mime_type (g_file_info_get_content_type (fi));
+
+	g_object_unref (fi);
+	g_object_unref (file);
+
+	return mime_type;
+}
+
 char *
 build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const char *subject, char **boundary)
 {
@@ -1834,10 +1861,14 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const char *subject,
 		camel_data_wrapper_construct_from_stream (wrapper, stream);
 		camel_object_unref (stream);
 
-		mime_type = gnome_vfs_get_mime_type (dest_url + strlen ("file://"));
-		type = camel_content_type_decode (mime_type);
-		camel_data_wrapper_set_mime_type_field (wrapper, type);
-		camel_content_type_unref (type);
+		
+		mime_type = get_mime_type (dest_url);
+		if (mime_type) {
+			type = camel_content_type_decode (mime_type);
+			camel_data_wrapper_set_mime_type_field (wrapper, type);
+			camel_content_type_unref (type);
+			g_free (mime_type);
+		}
 
 		mime_part = camel_mime_part_new ();
 
