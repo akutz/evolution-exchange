@@ -376,6 +376,14 @@ camel_exchange_forget_password (CamelService *service, CamelException *ex)
 	}
 }
 
+static void
+update_camel_stub (gpointer folder_name, gpointer folder, gpointer user_data)
+{
+	CamelExchangeFolder *exch_folder = CAMEL_EXCHANGE_FOLDER (folder);
+	if (exch_folder)
+		exch_folder->stub = (CamelStub *)user_data;
+}
+
 static gboolean
 exchange_connect (CamelService *service, CamelException *ex)
 {
@@ -421,6 +429,8 @@ exchange_connect (CamelService *service, CamelException *ex)
 	if (online_mode) {
 		camel_exchange_get_password (service, ex);
 		if (camel_exception_is_set (ex)) {
+			camel_object_unref (exch->stub);
+			exch->stub = NULL;
 			g_mutex_unlock (exch->connect_lock);
 			return FALSE;
 		}
@@ -447,12 +457,16 @@ exchange_connect (CamelService *service, CamelException *ex)
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM,
 				     _("Could not authenticate to server. "
 				       "(Password incorrect?)\n\n"));
+		camel_object_unref (exch->stub);
+		exch->stub = NULL;
 		g_mutex_unlock (exch->connect_lock);
 		return FALSE;
 	} else {
 		exch->stub_connected = TRUE;
 	}
 
+	g_hash_table_foreach (exch->folders, update_camel_stub, exch->stub);
+	
 	g_mutex_unlock (exch->connect_lock);
 
 	return TRUE;
@@ -461,6 +475,13 @@ exchange_connect (CamelService *service, CamelException *ex)
 static gboolean
 exchange_disconnect (CamelService *service, gboolean clean, CamelException *ex)
 {
+
+	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
+	
+	if (exch->stub) {
+		exch->stub = NULL;
+	}
+	
 	return TRUE;
 }
 
