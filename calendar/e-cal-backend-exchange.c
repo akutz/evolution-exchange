@@ -391,14 +391,14 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 		return GNOME_Evolution_Calendar_NoSuchCal;
 	}
 
+	exchange_account_set_online (cbex->account);
+
 	exchange_account_connect (cbex->account, password, &acresult);
 	if (acresult != EXCHANGE_ACCOUNT_CONNECT_SUCCESS) {
 		g_mutex_unlock (cbex->priv->open_lock);
 		e_cal_backend_notify_error (E_CAL_BACKEND (cbex), _("Authentication failed"));
 		return GNOME_Evolution_Calendar_AuthenticationFailed;
 	}		
-
-	exchange_account_set_online (cbex->account);
 
 	cbex->folder = exchange_account_get_folder (cbex->account, uristr);
 	if (!cbex->folder) {
