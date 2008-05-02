@@ -274,7 +274,7 @@ impl_setLineStatus (PortableServer_Servant servant,
 		if (ev->_major == CORBA_NO_EXCEPTION) {
 			exchange_component_update_accounts (component, status);
 			g_signal_emit (component, linestatus_signal_id, 0,
-				       status ? ONLINE_MODE : OFFLINE_MODE);
+				       priv->linestatus ? ONLINE_MODE : OFFLINE_MODE);
 			return;
 		} else {
 			CORBA_exception_free (ev);
@@ -342,7 +342,8 @@ static void
 new_connection (MailStubListener *listener, int cmd_fd, int status_fd,
 		ExchangeComponentAccount *baccount)
 {
-	MailStub *mse;
+	MailStub *stub;
+	MailStubExchange *mse, *mse_prev;
 	ExchangeAccount *account = baccount->account;
 	int mode;
 
@@ -354,7 +355,17 @@ new_connection (MailStubListener *listener, int cmd_fd, int status_fd,
 		goto end;
 	}
 
-	mse = mail_stub_exchange_new (account, cmd_fd, status_fd);
+	stub = mail_stub_exchange_new (account, cmd_fd, status_fd);
+	mse = (MailStubExchange *) stub; 
+	mse_prev = (MailStubExchange *) listener->stub;
+	if (mse_prev) {
+		g_hash_table_destroy (mse->folders_by_name);
+		mse->folders_by_name = mse_prev->folders_by_name;
+		mse_prev->folders_by_name = NULL;
+	}
+
+	g_object_unref (listener->stub);
+	listener->stub = mse;
 	/* FIXME : We need to close these sockets */
 /*
 	if (exchange_account_connect (account, NULL, &result))

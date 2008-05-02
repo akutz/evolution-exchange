@@ -23,6 +23,7 @@ typedef struct _MailStubListenerClass   MailStubListenerClass;
 struct _MailStubListener {
 	GObject parent;
 
+	gpointer *stub;
 	char *socket_path;
 	GIOChannel *channel;
 

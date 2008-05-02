@@ -1,3 +1,17 @@
+2008-05-02  Bharath Acharya  <abharath@novell.com>
+
+	Fixes #358706 (bnc)
+
+	* camel/camel-exchange-store.c: 
+	(update_camel_stub): Updates the camel stub value
+	(exchange_connect): 
+	(exchange_disconnect): Reset the stub so that reconnect happens sanely.
+	* mail/mail-stub-listener.h: Store the stub value in the listener so 
+	that we can use the folders_by_name (hash table) later.
+	* storage/exchange-component.c: 
+	(impl_setLineStatus):
+	(new_connection): Update the hash table for the new stub
+
 2008-04-07  Srinivasa Ragavan <sragavan@novell.com>
 
 	* NEWS, configure.in: Evolution Exchange 2.22.1 release.
