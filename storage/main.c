@@ -40,7 +40,7 @@
 #include <libedataserverui/e-passwords.h>
 #include <libedata-book/e-data-book-factory.h>
 #include <libedata-cal/e-data-cal-factory.h>
-#include <libedataserver/e-data-server-module.h>
+#include <libebackend/e-data-server-module.h>
 
 #include <e2k-utils.h>
 #include <exchange-constants.h>
