@@ -237,7 +237,6 @@ no)
 	esac
 	;;
 esac
-AM_CONDITIONAL(SUNLDAP, test "$with_sunldap" != no)
 
 SAVE_CFLAGS="$CFLAGS"
 SAVE_LIBS="$LIBS"
@@ -255,6 +254,8 @@ AC_SUBST(LDAP_LIBS)
 AC_DEFINE(HAVE_LDAP,1,[Define if you have LDAP support])
 AM_CONDITIONAL(ENABLE_LDAP, true)
 fi # Win32
+
+AM_CONDITIONAL(SUNLDAP, test "$with_sunldap" != no)
 
 AC_MSG_CHECKING(for LDAP Paged Control)
 AC_TRY_RUN([
