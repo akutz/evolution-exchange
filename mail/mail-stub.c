@@ -24,8 +24,6 @@
 #endif
 
 #include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/un.h>
 #include <unistd.h>
 
 #include <e2k-uri.h>
@@ -766,7 +764,11 @@ mail_stub_push_changes (MailStub *stub)
 void
 mail_stub_construct (MailStub *stub, int cmd_fd, int status_fd)
 {
+#ifndef G_OS_WIN32
 	stub->channel = g_io_channel_unix_new (cmd_fd);
+#else
+	stub->channel = g_io_channel_win32_new_socket (cmd_fd);
+#endif
 	g_io_add_watch (stub->channel, G_IO_IN | G_IO_ERR | G_IO_HUP,
 			connection_handler, stub);
 	stub->cmd = camel_stub_marshal_new (cmd_fd);

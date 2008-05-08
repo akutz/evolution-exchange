@@ -21,6 +21,11 @@
 	for sockets on Windows. Use camel_read_socket() and
 	camel_write_socket() instead of camel_read() and camel_write().
 
+	* mail/mail-stub.c No need to include <sys/socket.h> and
+	<sys/un.h> in this file.
+	(mail_stub_construct): Use g_io_channel_win32_new_socket() on
+	Windows as we know that the fd is actually a socket.
+
 	* mail/mail-stub-exchange.c (send_message): Use g_get_host_name()
 	instead of gethostname().
 
