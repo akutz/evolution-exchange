@@ -14,6 +14,9 @@
 	libedataserver/e-data-server-util.h for some Windows-specific
 	functions. Construct the localedir at run-time on Windows.
 
+	* camel/camel-exchange-summary.c: Drop unnecessary inclusion of
+	<sys/uio.h>.
+
 	* camel/camel-stub-marshal.c: Use closesocket() instead of close()
 	for sockets on Windows. Use camel_read_socket() and
 	camel_write_socket() instead of camel_read() and camel_write().
