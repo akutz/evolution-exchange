@@ -25,6 +25,8 @@
 
 #include <string.h>
 
+#include <libedataserver/e-data-server-util.h>
+
 #include <glib/gi18n-lib.h>
 
 #include <camel/camel-provider.h>
@@ -35,6 +37,19 @@
 
 static guint exchange_url_hash (gconstpointer key);
 static gint exchange_url_equal (gconstpointer a, gconstpointer b);
+
+#ifdef G_OS_WIN32
+
+static const char *
+get_localedir (void)
+{
+	return e_util_replace_prefix (PREFIX, e_util_get_cp_prefix (), CONNECTOR_LOCALEDIR);
+}
+
+#undef CONNECTOR_LOCALEDIR
+#define CONNECTOR_LOCALEDIR get_localedir ()
+
+#endif
 
 CamelProviderConfEntry exchange_conf_entries[] = {
 	{ CAMEL_PROVIDER_CONF_SECTION_START, "mailcheck", NULL,
