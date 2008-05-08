@@ -21,6 +21,9 @@
 	for sockets on Windows. Use camel_read_socket() and
 	camel_write_socket() instead of camel_read() and camel_write().
 
+	* mail/mail-stub-exchange.c (send_message): Use g_get_host_name()
+	instead of gethostname().
+
 2008-05-08  Tor Lillqvist  <tml@novell.com>
 
 	* evolution-exchange-zip.in: Minor updates.

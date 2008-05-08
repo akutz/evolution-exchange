@@ -2908,7 +2908,7 @@ send_message (MailStub *stub, const char *from, GPtrArray *recipients,
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	SoupMessage *msg;
 	E2kHTTPStatus status;
-	char *timestamp, hostname[256], *errmsg;
+	char *timestamp, *errmsg;
 	GString *data;
 	int i;
 
@@ -2928,11 +2928,9 @@ send_message (MailStub *stub, const char *from, GPtrArray *recipients,
 	/* Exchange doesn't add a "Received" header to messages
 	 * received via WebDAV.
 	 */
-	if (gethostname (hostname, sizeof (hostname)) != 0)
-		strcpy (hostname, "localhost");
 	timestamp = e2k_make_timestamp_rfc822 (time (NULL));
 	g_string_append_printf (data, "Received: from %s by %s; %s\r\n",
-				hostname, mse->account->exchange_server,
+				g_get_host_name (), mse->account->exchange_server,
 				timestamp);
 	g_free (timestamp);
 
