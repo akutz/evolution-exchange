@@ -41,6 +41,10 @@
 	ldap_abandon_ext(). The extra parameters were NULL anyway, meaning
 	it is equivalent to calling ldap_abandon().
 
+	* storage/exchange-migrate.c: Bypass migration code on Windows as
+	there are no old evolution-exchange 1.x deployments on Windows to
+	migrate from.
+
 2008-05-08  Tor Lillqvist  <tml@novell.com>
 
 	* evolution-exchange-zip.in: Minor updates.

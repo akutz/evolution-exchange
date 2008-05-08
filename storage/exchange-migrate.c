@@ -47,6 +47,14 @@ CORBA_short maj=0;
 CORBA_short min=0;
 CORBA_short rev=0;
 
+#ifndef G_OS_WIN32
+
+/* No need for migration code from evolution-exchange 1.x on Win32.
+ * If and when the same code is partly used for migrating between
+ * future evolution-exchange versions, that code will have to be
+ * revised and ported as necessary.
+ */
+
 gchar *label_string = NULL;
 
 static void
@@ -449,6 +457,8 @@ migrate_common (gchar *src_path, const gchar *dest_path)
 	return ret;
 }
 
+#endif
+
 void
 exchange_migrate (const CORBA_short major,
 		  const CORBA_short minor,
@@ -464,7 +474,7 @@ exchange_migrate (const CORBA_short major,
 
 	/* FIXME: version check */
 	if (maj == 1 && min <= 5) {
-
+#ifndef G_OS_WIN32
 		if (!base_dir)
 			return;
 
@@ -507,5 +517,6 @@ exchange_migrate (const CORBA_short major,
 		if (ret == FALSE)
 			show_error_dialog ();
 
+#endif
 	}
 }
