@@ -7,6 +7,10 @@
 
 	* configure.in: Define Automake conditional OS_WIN32.
 
+	* camel/camel-stub-marshal.c: Use closesocket() instead of close()
+	for sockets on Windows. Use camel_read_socket() and
+	camel_write_socket() instead of camel_read() and camel_write().
+
 2008-05-08  Tor Lillqvist  <tml@novell.com>
 
 	* evolution-exchange-zip.in: Minor updates.

@@ -27,6 +27,20 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+
+#include <glib.h>
+
+#ifndef G_OS_WIN32
+#define CLOSESOCKET(s) close (s)
+#else
+#define CLOSESOCKET(s) closesocket (s)
+#include <winsock2.h>
+/* Note: pthread.h from pthreads-win32 also defines ETIMEDOUT (!), as
+ * this same value.
+ */
+#define ETIMEDOUT WSAETIMEDOUT
+#endif
+
 #include <camel/camel-file-utils.h>
 
 #include "camel-stub-marshal.h"
@@ -77,7 +91,7 @@ camel_stub_marshal_new (int fd)
 void
 camel_stub_marshal_free (CamelStubMarshal *marshal)
 {
-	close (marshal->fd);
+	CLOSESOCKET (marshal->fd);
 	g_byte_array_free (marshal->out, TRUE);
 	g_byte_array_free (marshal->in, TRUE);
 	g_free (marshal);
@@ -90,7 +104,7 @@ do_read (CamelStubMarshal *marshal, char *buf, size_t len)
 	ssize_t n;
 
 	do {
-		if ((n = camel_read (marshal->fd, buf + nread, len - nread)) <= 0) {
+		if ((n = camel_read_socket (marshal->fd, buf + nread, len - nread)) <= 0) {
 			if (errno != ETIMEDOUT)
 				break;
 			else
@@ -100,7 +114,7 @@ do_read (CamelStubMarshal *marshal, char *buf, size_t len)
 	} while (nread < len);
 
 	if (nread < len) {
-		close (marshal->fd);
+		CLOSESOCKET (marshal->fd);
 		marshal->fd = -1;
 		return FALSE;
 	}
@@ -452,8 +466,8 @@ camel_stub_marshal_flush (CamelStubMarshal *marshal)
 	marshal->out->data[2] = (left >> 16) & 0xFF;
 	marshal->out->data[3] = (left >> 24) & 0xFF;
 
-	if (camel_write (marshal->fd, (char *) marshal->out->data, marshal->out->len) == -1) {
-		close (marshal->fd);
+	if (camel_write_socket (marshal->fd, (char *) marshal->out->data, marshal->out->len) == -1) {
+		CLOSESOCKET (marshal->fd);
 		marshal->fd = -1;
 		return -1;
 	}
