@@ -29,6 +29,10 @@
 	* mail/mail-stub-exchange.c (send_message): Use g_get_host_name()
 	instead of gethostname().
 
+	* addressbook/e-book-backend-exchange.c (update_cache): Remove
+	pointless code that constructed a timestamp for the cache file
+	name but didn't use it for anything.
+
 2008-05-08  Tor Lillqvist  <tml@novell.com>
 
 	* evolution-exchange-zip.in: Minor updates.

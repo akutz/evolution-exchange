@@ -505,19 +505,6 @@ update_cache (EBookBackendExchange *be)
 	E2kResultIter *iter;
 	E2kResult *result;
 	EContact *contact;
-	const char *cache_file_name;
-	time_t mod_time;
-	char time_string[50]; /* Donno what could be right. 50 should be safe for sure.*/
-	const struct tm *tm;
-	struct stat buf;
-
-	cache_file_name =
-		e_file_cache_get_filename (E_FILE_CACHE(bepriv->cache));
-
-	stat (cache_file_name, &buf);
-	mod_time = buf.st_mtime;
-	tm = gmtime (&mod_time);
-	strftime (time_string, 50, "%Y-%m-%dT%H:%M:%SZ", tm);
 
 	/* build hash table from storage file */
 
