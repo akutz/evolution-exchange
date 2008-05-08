@@ -9,6 +9,7 @@ INCLUDES =					\
 	$(CAMEL_CFLAGS)				\
 	$(SHELL_CFLAGS)				\
 	$(LIBEXCHANGE_CFLAGS)			\
+	-DPREFIX=\"$(prefix)\"			\
 	-DCONNECTOR_LOCALEDIR=\"$(localedir)\"	\
 	-DG_LOG_DOMAIN=\"camel-exchange-provider\"	
 
@@ -34,11 +35,13 @@ noinst_HEADERS =				\
 	camel-stub-marshal.h			\
 	camel-stub.h
 
-libcamelexchange_la_LDFLAGS = -avoid-version -module
+libcamelexchange_la_LDFLAGS = -avoid-version -module $(NO_UNDEFINED)
 
 libcamelexchange_la_LIBADD = 			\
 	$(LDAP_LIBS)				\
 	$(LIBEXCHANGE_LIBS)			\
-	$(EXCHANGE_STORAGE_LIBS)
+	$(EXCHANGE_STORAGE_LIBS)		\
+	$(SOCKET_LIBS)				\
+	$(PTHREAD_LIB)
 
 EXTRA_DIST = libcamelexchange.urls

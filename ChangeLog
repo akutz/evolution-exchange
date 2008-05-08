@@ -7,6 +7,9 @@
 
 	* configure.in: Define Automake conditional OS_WIN32.
 
+	* camel/Makefile.am: Pass also PREFIX to the compiler. Use
+	-no-undefined on Windows. Link with SOCKET_LIBS and PTHREAD_LIB.
+
 	* camel/camel-stub-marshal.c: Use closesocket() instead of close()
 	for sockets on Windows. Use camel_read_socket() and
 	camel_write_socket() instead of camel_read() and camel_write().
