@@ -14,6 +14,20 @@
 	libedataserver/e-data-server-util.h for some Windows-specific
 	functions. Construct the localedir at run-time on Windows.
 
+	* camel/camel-exchange-store.c (e_filename_make_safe)
+	* storage/exchange-component.c (e_filename_make_safe): Remove
+	these two copies of this function. Just use the one in
+	libedataserver.
+
+	* camel/camel-exchange-store.c (exchange_connect)
+	* storage/exchange-component.c (config_listener_account_created):
+	Construct the path to the socket in the same way in these two
+	functions. Use g_get_tmp_dir() instead of hardcoding /tmp. Use
+	g_build_filename().
+
+	* camel/camel-exchange-store.c (exchange_get_folder): Use
+	g_file_test() instead of access().
+
 	* camel/camel-exchange-summary.c: Drop unnecessary inclusion of
 	<sys/uio.h>.
 
@@ -40,6 +54,9 @@
 	(ldap_op_finished): Use ldap_abandon() instead of the nonstandard
 	ldap_abandon_ext(). The extra parameters were NULL anyway, meaning
 	it is equivalent to calling ldap_abandon().
+
+	* storage/exchange-component.c
+	(default_linestatus_notify_handler): Use guint instead of uint.
 
 	* storage/exchange-migrate.c: Bypass migration code on Windows as
 	there are no old evolution-exchange 1.x deployments on Windows to

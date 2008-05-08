@@ -21,6 +21,8 @@
 #include "config.h"
 #endif
 
+#include <libedataserver/e-data-server-util.h>
+
 #include "exchange-component.h"
 #include "shell/e-component-view.h"
 
@@ -44,7 +46,6 @@
 
 #define PARENT_TYPE bonobo_object_get_type ()
 static BonoboObjectClass *parent_class = NULL;
-static void e_filename_make_safe (gchar *string);
 static void exchange_component_update_accounts (ExchangeComponent *component,
 							gboolean status);
 static void ex_migrate_esources (ExchangeComponent *component,
@@ -314,30 +315,6 @@ exchange_component_update_accounts (ExchangeComponent *component,
 	}
 }
 
-/* SURF : Picked this from gal/util/e-util.c */
-/* This only makes a filename safe for usage as a filename.  It still may have shell meta-characters in it. */
-static void
-e_filename_make_safe (gchar *string)
-{
-	gchar *p, *ts;
-	gunichar c;
-
-	g_return_if_fail (string != NULL);
-	p = string;
-
-	while(p && *p) {
-		c = g_utf8_get_char (p);
-		ts = p;
-		p = g_utf8_next_char (p);
-		if (!g_unichar_isprint(c) || ( c < 0xff && strchr (" /'\"`&();|<>$%{}!", c&0xff ))) {
-			while (ts<p)
-				*ts++ = '_';
-		}
-	}
-}
-
-
-
 static void
 new_connection (MailStubListener *listener, int cmd_fd, int status_fd,
 		ExchangeComponentAccount *baccount)
@@ -387,17 +364,21 @@ config_listener_account_created (ExchangeConfigListener *config_listener,
 	ExchangeComponent *component = user_data;
 	ExchangeComponentPrivate *priv = component->priv;
 	ExchangeComponentAccount *baccount;
-	char *path, *account_filename;
+	char *path, *dot_exchange_username, *account_filename;
 
 	baccount = g_new0 (ExchangeComponentAccount, 1);
 	baccount->account = g_object_ref (account);
 
+	dot_exchange_username = g_strdup_printf (".exchange-%s", g_get_user_name ());
+
 	account_filename = strrchr (account->storage_dir, '/') + 1;
 	e_filename_make_safe (account_filename);
 
-	path = g_strdup_printf ("/tmp/.exchange-%s/%s",
-				g_get_user_name (),
-				account_filename);
+	path = g_build_filename (g_get_tmp_dir (),
+				 dot_exchange_username,
+				 account_filename,
+				 NULL);
+	g_free (dot_exchange_username);
 	baccount->msl = mail_stub_listener_new (path);
 	g_signal_connect (baccount->msl, "new_connection",
 			  G_CALLBACK (new_connection), baccount);
@@ -427,7 +408,7 @@ config_listener_account_removed (ExchangeConfigListener *config_listener,
 }
 
 static void
-default_linestatus_notify_handler (ExchangeComponent *component, uint status)
+default_linestatus_notify_handler (ExchangeComponent *component, guint status)
 {
 	CORBA_Environment ev;
 

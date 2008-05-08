@@ -27,11 +27,13 @@
 
 #include <glib/gi18n-lib.h>
 
+#include <camel/camel-session.h>
+#include <camel/camel-url.h>
+#include <libedataserver/e-data-server-util.h>
+
 #include "camel-exchange-store.h"
 #include "camel-exchange-folder.h"
 #include "camel-exchange-summary.h"
-#include <camel/camel-session.h>
-#include <camel/camel-url.h>
 
 #define SUBFOLDER_DIR_NAME     "subfolders"
 #define SUBFOLDER_DIR_NAME_LEN 10
@@ -320,29 +322,6 @@ get_name (CamelService *service, gboolean brief)
 
 #define EXCHANGE_STOREINFO_VERSION 1
 
-/* SURF : Picked this from gal/util/e-util.c */
-/* This only makes a filename safe for usage as a filename.
-	It still may have shell meta-characters in it. */
-static void
-e_filename_make_safe (gchar *string)
-{
-	gchar *p, *ts;
-	gunichar c;
-
-	g_return_if_fail (string != NULL);
-	p = string;
-
-	while(p && *p) {
-		c = g_utf8_get_char (p);
-		ts = p;
-		p = g_utf8_next_char (p);
-		if (!g_unichar_isprint(c) || ( c < 0xff && strchr (" /'\"`&();|<>$%{}!", c&0xff ))) {
-			while (ts<p)
-				*ts++ = '_';
-		}
-	}
-}
-
 static void
 camel_exchange_get_password (CamelService *service, CamelException *ex)
 {
@@ -388,7 +367,7 @@ static gboolean
 exchange_connect (CamelService *service, CamelException *ex)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
-	char *real_user, *socket_path;
+	char *real_user, *socket_path, *dot_exchange_username, *user_at_host;
 	gchar *password = NULL;
 	guint32 connect_status;
 	gboolean online_mode = FALSE;
@@ -407,10 +386,15 @@ exchange_connect (CamelService *service, CamelException *ex)
 			real_user++;
 		else
 			real_user = service->url->user;
-		socket_path = g_strdup_printf ("/tmp/.exchange-%s/%s@%s",
-					       g_get_user_name (),
-					       real_user, service->url->host);
-		e_filename_make_safe (strchr (socket_path + 5, '/') + 1);
+		dot_exchange_username = g_strdup_printf (".exchange-%s", g_get_user_name ());
+		user_at_host = g_strdup_printf ("%s@%s", real_user, service->url->host);
+		e_filename_make_safe (user_at_host);
+		socket_path = g_build_filename (g_get_tmp_dir (),
+						dot_exchange_username,
+						user_at_host,
+						NULL);
+		g_free (dot_exchange_username);
+		g_free (user_at_host);
 
 		exch->stub = camel_stub_new (socket_path, _("Evolution Exchange backend process"), ex);
 		g_free (socket_path);
@@ -505,7 +489,7 @@ exchange_get_folder (CamelStore *store, const char *folder_name,
 	folder_dir = exchange_path_to_physical (exch->storage_path, folder_name);
 
 	if (!camel_exchange_store_connected (exch, ex)) {
-		if (!folder_dir || access (folder_dir, F_OK) != 0) {
+		if (!folder_dir || !g_file_test (folder_dir, G_FILE_TEST_IS_DIR)) {
 			g_free (folder_dir);
 			camel_exception_setv (ex, CAMEL_EXCEPTION_STORE_NO_FOLDER,
 					      _("No such folder %s"), folder_name);
