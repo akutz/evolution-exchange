@@ -33,6 +33,14 @@
 	pointless code that constructed a timestamp for the cache file
 	name but didn't use it for anything.
 
+	* addressbook/e-book-backend-gal.c: Don't include <ldap.h> here,
+	it or its Windows counterpart <winldap.h> has already been
+	included through <e2k-global-catalog-ldap.h> anyway.
+	(ber_dupbv): Need this on Windows, too.
+	(ldap_op_finished): Use ldap_abandon() instead of the nonstandard
+	ldap_abandon_ext(). The extra parameters were NULL anyway, meaning
+	it is equivalent to calling ldap_abandon().
+
 2008-05-08  Tor Lillqvist  <tml@novell.com>
 
 	* evolution-exchange-zip.in: Minor updates.

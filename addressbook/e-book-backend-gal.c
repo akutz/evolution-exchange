@@ -37,15 +37,6 @@
 #include <exchange-account.h>
 #include "exchange-component.h"
 
-#ifdef DEBUG
-#define LDAP_DEBUG
-#define LDAP_DEBUG_ADD
-#endif
-#include <ldap.h>
-#ifdef DEBUG
-#undef LDAP_DEBUG
-#endif
-
 #define d(x) x
 
 #include <sys/time.h>
@@ -1961,7 +1952,7 @@ tool_server_controls( LDAP *ld, LDAPControl *extra_c, int count )
 	}
 }
 
-#ifdef SUNLDAP
+#if defined (SUNLDAP) || defined (G_OS_WIN32)
 static struct berval *
 ber_dupbv( struct berval *dst, struct berval *src )
 {
@@ -2338,7 +2329,7 @@ ldap_cancel_op(void *key, void *value, void *data)
 	/* ignore errors, its only best effort? */
 	g_mutex_lock (bl->priv->ldap_lock);
 	if (bl->priv->ldap)
-		ldap_abandon_ext (bl->priv->ldap, op->id, NULL, NULL);
+		ldap_abandon (bl->priv->ldap, op->id);
 	g_mutex_unlock (bl->priv->ldap_lock);
 }
 
