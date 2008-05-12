@@ -35,6 +35,7 @@ typedef struct {
 
 	CamelOperation *op;      /* for cancelling */
 	pthread_t status_thread;
+	gboolean have_status_thread;
 } CamelStub;
 
 typedef struct {

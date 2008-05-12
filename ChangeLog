@@ -1,3 +1,23 @@
+2008-05-12  Tor Lillqvist  <tml@novell.com>
+
+	Further outstanding Win32 portability changes.
+
+	* camel/camel-stub.h: Add a separate have_status_thread boolean
+	flag to the CamelStub struct. A pthread_t is not necessarily a
+	scalar type, it can also be a struct.
+
+	* camel/camel-stub.c: Corresponding changes.
+
+	* camel/camel-stub.c: Include <winsock2.h> on Windows.
+	(connect_to_storage): Different implementation on Unix and
+	Windows. On Windows, there are no Unix domain sockets, so instead
+	we just have the sockaddr_in of a TCP socket bound to the loopback
+	interface stored in a plain file. Yes, this is insecure on
+	multiple-user machines. Will have to spend more time on this issue
+	sometime. Presumably Win32 named pipes are what should be used
+	instead.
+	(camel_stub_new): Corresponding ifdefs.
+
 2008-05-08  Tor Lillqvist  <tml@novell.com>
 
 	Win32 portability changes from a long time ago, now finally

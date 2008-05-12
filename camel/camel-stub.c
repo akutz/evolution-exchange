@@ -32,9 +32,14 @@
 
 #include <errno.h>
 #include <string.h>
+
+#ifndef G_OS_WIN32
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <unistd.h>
+#else
+#include <winsock2.h>
+#endif
 
 CamelStub *das_global_camel_stub;
 
@@ -49,6 +54,7 @@ init (CamelStub *stub)
 {
 	stub->read_lock = g_mutex_new ();
 	stub->write_lock = g_mutex_new ();
+	stub->have_status_thread = FALSE;
 }
 
 static void
@@ -57,7 +63,7 @@ finalize (CamelStub *stub)
 	if (stub->cmd)
 		camel_stub_marshal_free (stub->cmd);
 
-	if (stub->status_thread) {
+	if (stub->have_status_thread) {
 		void *unused;
 
 		/* When we close the command channel, the storage will
@@ -116,6 +122,8 @@ status_main (void *data)
 	CamelStubMarshal *status_channel = stub->status;
 	guint32 retval;
 
+	stub->have_status_thread = TRUE;
+
 	stub->op = camel_operation_new (NULL, NULL);
 	camel_operation_register (stub->op);
 
@@ -138,8 +146,12 @@ status_main (void *data)
 
 	camel_operation_unregister (stub->op);
 
+	stub->have_status_thread = FALSE;
+
 	return NULL;
 }
+
+#ifndef G_OS_WIN32
 
 static int
 connect_to_storage (CamelStub *stub, struct sockaddr_un *sa_un,
@@ -182,6 +194,68 @@ connect_to_storage (CamelStub *stub, struct sockaddr_un *sa_un,
 	return fd;
 }
 
+#else
+
+static int
+connect_to_storage (CamelStub *stub, const char *socket_path,
+		    CamelException *ex)
+{
+	SOCKET fd;
+	struct sockaddr_in *sa_in;
+	gsize contents_length;
+	GError *error = NULL;
+	int rc;
+
+	if (!g_file_get_contents (socket_path, (gchar **) &sa_in,
+				  &contents_length, &error)) {
+		camel_exception_setv (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
+				      _("Count not read file '%s': %s"),
+				      socket_path, error->message);
+		g_error_free (error);
+		return -1;
+	}
+
+	if (contents_length != sizeof (*sa_in)) {
+		camel_exception_setv (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
+				      _("Wrong size file '%s'"),
+				      socket_path);
+		g_free (sa_in);
+		return -1;
+	}
+
+	fd = socket (AF_INET, SOCK_STREAM, 0);
+	if (fd == INVALID_SOCKET) {
+		camel_exception_setv (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
+				      _("Could not create socket: %s"),
+				      g_win32_error_message (WSAGetLastError ()));
+		return -1;
+	}
+	rc = connect (fd, (struct sockaddr *)sa_in, sizeof (*sa_in));
+	g_free (sa_in);
+
+	if (rc == SOCKET_ERROR) {
+		closesocket (fd);
+		if (WSAGetLastError () == WSAECONNREFUSED) {
+			/* The user has an account configured but the
+			 * backend isn't listening, which probably means that
+			 * he doesn't have a license.
+			 */
+			camel_exception_set (ex, CAMEL_EXCEPTION_USER_CANCEL,
+					     "Cancelled");
+		} else {
+			camel_exception_setv (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
+					      _("Could not connect to %s: %s"),
+					      stub->backend_name,
+					      g_win32_error_message (WSAGetLastError ()));
+		}
+		return -1;
+	}
+	return fd;
+}
+
+#endif
+
+
 /**
  * camel_stub_new:
  * @socket_path: path to the server's UNIX domain socket
@@ -198,9 +272,12 @@ camel_stub_new (const char *socket_path, const char *backend_name,
 		CamelException *ex)
 {
 	CamelStub *stub;
+#ifndef G_OS_WIN32
 	struct sockaddr_un sa_un;
+#endif
 	int fd;
 
+#ifndef G_OS_WIN32
 	if (strlen (socket_path) > sizeof (sa_un.sun_path) - 1) {
 		camel_exception_setv (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
 				      _("Path too long: %s"), socket_path);
@@ -208,18 +285,27 @@ camel_stub_new (const char *socket_path, const char *backend_name,
 	}
 	sa_un.sun_family = AF_UNIX;
 	strcpy (sa_un.sun_path, socket_path);
+#endif
 
 	stub = (CamelStub *)camel_object_new (CAMEL_STUB_TYPE);
 	stub->backend_name = g_strdup (backend_name);
 
+#ifndef G_OS_WIN32
 	fd = connect_to_storage (stub, &sa_un, ex);
+#else
+	fd = connect_to_storage (stub, socket_path, ex);
+#endif
 	if (fd == -1) {
 		camel_object_unref (CAMEL_OBJECT (stub));
 		return NULL;
 	}
 	stub->cmd = camel_stub_marshal_new (fd);
 
+#ifndef G_OS_WIN32
 	fd = connect_to_storage (stub, &sa_un, ex);
+#else
+	fd = connect_to_storage (stub, socket_path, ex);
+#endif
 	if (fd == -1) {
 		camel_object_unref (CAMEL_OBJECT (stub));
 		return NULL;
