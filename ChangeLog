@@ -18,6 +18,15 @@
 	instead.
 	(camel_stub_new): Corresponding ifdefs.
 
+	* mail/mail-stub-listener.c: Corresponding changes.
+	(finalize): Use g_unlink().
+	(new_connection): Drop unused sa_un and len variables. Just pass
+	NULL as parameters 2 and 3 to accept().
+	(mail_stub_listener_construct): On Windows, instead of creating a
+	Unix domain socket, create a TCP socket bound to the loopback
+	interface and write its sockaddr_in to a regular file from which
+	the client will read the address.
+
 2008-05-08  Tor Lillqvist  <tml@novell.com>
 
 	Win32 portability changes from a long time ago, now finally

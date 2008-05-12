@@ -23,10 +23,17 @@
 #include <config.h>
 #endif
 
+#include <glib.h>
+#include <glib/gstdio.h>
+
+#ifndef G_OS_WIN32
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <unistd.h>
+#else
+#include <winsock2.h>
+#endif
 
 #include "mail-stub-listener.h"
 #include <e2k-marshal.h>
@@ -72,7 +79,7 @@ finalize (GObject *object)
 	if (listener->channel)
 		g_io_channel_unref (listener->channel);
 	if (listener->socket_path) {
-		unlink (listener->socket_path);
+		g_unlink (listener->socket_path);
 		g_free (listener->socket_path);
 	}
 
@@ -86,12 +93,9 @@ static gboolean
 new_connection (GIOChannel *source, GIOCondition condition, gpointer data)
 {
 	MailStubListener *listener = data;
-	struct sockaddr_un sa_un;
-	socklen_t len;
 	int fd;
 
-	len = sizeof (sa_un);
-	fd = accept (g_io_channel_unix_get_fd (source), (struct sockaddr *)&sa_un, &len);
+	fd = accept (g_io_channel_unix_get_fd (source), NULL, NULL);
 	if (fd == -1)
 		return TRUE;
 
@@ -110,9 +114,16 @@ new_connection (GIOChannel *source, GIOCondition condition, gpointer data)
 gboolean
 mail_stub_listener_construct (MailStubListener *listener, const char *socket_path)
 {
+#ifndef G_OS_WIN32
 	struct sockaddr_un sa_un;
+#else
+	struct sockaddr_in sa_in;
+	int addr_len;
+	GError *error = NULL;
+#endif
 	int fd;
 
+#ifndef G_OS_WIN32
 	g_return_val_if_fail (strlen (socket_path) < sizeof (sa_un.sun_path), FALSE);
 
 	fd = socket (AF_UNIX, SOCK_STREAM, 0);
@@ -130,6 +141,52 @@ mail_stub_listener_construct (MailStubListener *listener, const char *socket_pat
 	}
 
 	listener->channel = g_io_channel_unix_new (fd);
+#else
+	fd = socket (AF_INET, SOCK_STREAM, 0);
+	if (fd == SOCKET_ERROR)
+		return FALSE;
+	memset (&sa_in, 0, sizeof (sa_in));
+	sa_in.sin_family = AF_INET;
+	sa_in.sin_port = 0;
+	sa_in.sin_addr.s_addr = htonl (INADDR_LOOPBACK);
+
+	if (bind (fd, (struct sockaddr *) &sa_in, sizeof (sa_in)) == SOCKET_ERROR) {
+		g_warning ("bind() failed: %s",
+			   g_win32_error_message (WSAGetLastError ()));
+		closesocket (fd);
+		return FALSE;
+	}
+
+	if (listen (fd, 1) == SOCKET_ERROR) {
+		g_warning ("listen() failed: %s",
+		g_win32_error_message (WSAGetLastError ()));
+		closesocket (fd);
+		return FALSE;
+	}	   
+
+	addr_len = sizeof (sa_in);
+	if (getsockname (fd, (struct sockaddr *) &sa_in, &addr_len) == SOCKET_ERROR) {
+		g_warning ("getsockname() failed: %s",
+			   g_win32_error_message (WSAGetLastError ()));
+		closesocket (fd);
+		return FALSE;
+	}
+
+	g_unlink (socket_path);
+	listener->socket_path = g_strdup (socket_path);
+
+	printf ("listening on port %d\n", ntohs(sa_in.sin_port));
+
+	if (!g_file_set_contents (socket_path, (char *) &sa_in, addr_len, &error)) {
+		g_warning ("Could not save socket address in '%s': %s",
+			   socket_path, error->message);
+		g_error_free (error);
+		closesocket (fd);
+		return FALSE;
+	}
+
+	listener->channel = g_io_channel_win32_new_socket (fd);
+#endif
 	g_io_add_watch (listener->channel, G_IO_IN, new_connection, listener);
 
 	listener->cmd_fd = -1;
