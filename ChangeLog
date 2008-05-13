@@ -23,6 +23,12 @@
 	* storage/exchange-change-password.c: Construct glade file
 	pathname at run-time. Don't use compile-time gladedir on Windows.
 
+	* storage/exchange-config-listener.c: Reorder includes into a more
+	logical order. To cope with arbitrary Unicode pathnames on
+	Windows, use gstdio wrappers, use GDir instead of dirent API, and
+	use e_xml_parse_file() and e_xml_save_file() instead of libxml2
+	API directly.
+
 	* storage/ximian-connector-setup.c: Define and initialise the
 	datadir, gladedir and imagesdir variables on Windows here,
 	too. Use GETTEXT_PACKAGE instead of PACKAGE.

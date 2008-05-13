@@ -22,34 +22,35 @@
  * default folders are updated as needed.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
-
-#include "exchange-config-listener.h"
-
-#include <exchange-account.h>
-#include <e-folder-exchange.h>
-#include <e2k-marshal.h>
-#include <e2k-uri.h>
-#include "mail-stub-listener.h"
-
-#include <e-util/e-dialog-utils.h>
-
-#include <libedataserver/e-source.h>
-#include <libedataserver/e-source-list.h>
-#include <libedataserver/e-source-group.h>
-#include <libedataserver/e-xml-hash-utils.h>
-
-#include <camel/camel-url.h>
 
 #include <sys/types.h>
-#include <dirent.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
 
+#include <glib.h>
+#include <glib/gstdio.h>
+
+#include <libedataserver/e-source.h>
+#include <libedataserver/e-source-list.h>
+#include <libedataserver/e-source-group.h>
+#include <libedataserver/e-xml-utils.h>
+#include <libedataserver/e-xml-hash-utils.h>
+
+#include <camel/camel-url.h>
+
+#include <e2k-marshal.h>
+#include <e2k-uri.h>
+#include <exchange-account.h>
+#include <e-folder-exchange.h>
+
+#include <e-util/e-dialog-utils.h>
+
+#include "mail-stub-listener.h"
+
+#include "exchange-config-listener.h"
 
 struct _ExchangeConfigListenerPrivate {
 	GConfClient *gconf;
@@ -194,18 +195,17 @@ static void
 update_foreign_uri (const char *path, const char *account_uri)
 {
 	char *file_path, *phy_uri, *foreign_uri, *new_phy_uri;
-	struct stat file_stat;
 	GHashTable *old_props = NULL;
-	xmlDoc *old_doc, *new_doc = NULL;
+	xmlDoc *old_doc = NULL, *new_doc = NULL;
 
 	if (!path)
 		return;
 
 	file_path = g_build_filename (path, "hierarchy.xml", NULL);
-	if (stat (file_path, &file_stat) < 0)
+	if (!g_file_test (file_path, G_FILE_TEST_EXISTS))
 		goto cleanup;
 
-	old_doc = xmlParseFile (file_path);
+	old_doc = e_xml_parse_file (file_path);
 	if (!old_doc)
 		goto cleanup;
 
@@ -231,7 +231,7 @@ update_foreign_uri (const char *path, const char *account_uri)
 	g_hash_table_insert (old_props, (char *)g_strdup ("physical_uri_prefix"), new_phy_uri);
 
 	new_doc = e_xml_from_hash (old_props, E_XML_HASH_TYPE_PROPERTY, "foreign-hierarchy");
-	xmlSaveFile (file_path, new_doc);
+	e_xml_save_file (file_path, new_doc);
 
 	xmlFreeDoc (new_doc);
 	g_free (new_phy_uri);
@@ -244,21 +244,21 @@ cleanup:
 static void
 migrate_foreign_hierarchy (ExchangeAccount *account)
 {
-	DIR *d;
-	struct dirent *dentry;
+	GDir *d;
+	const char *dentry;
 	char *dir;
 
-	d = opendir (account->storage_dir);
+	d = g_dir_open (account->storage_dir, 0, NULL);
 	if (d) {
-		while ((dentry = readdir (d))) {
-			if (!strchr (dentry->d_name, '@'))
+		while ((dentry = g_dir_read_name (d))) {
+			if (!strchr (dentry, '@'))
 				continue;
 			dir = g_strdup_printf ("%s/%s", account->storage_dir,
-							dentry->d_name);
+							dentry);
 			update_foreign_uri (dir, account->account_filename);
 			g_free (dir);
 		}
-		closedir (d);
+		g_dir_close (d);
 	}
 }
 
