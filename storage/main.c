@@ -29,6 +29,9 @@
 #include <string.h>
 #include <unistd.h>
 
+#include <glib.h>
+#include <glib/gstdio.h>
+
 #include <bonobo/bonobo-main.h>
 #include <bonobo/bonobo-generic-factory.h>
 #include <bonobo/bonobo-exception.h>
@@ -41,6 +44,8 @@
 #include <libedata-book/e-data-book-factory.h>
 #include <libedata-cal/e-data-cal-factory.h>
 #include <libebackend/e-data-server-module.h>
+
+#include <libedataserver/e-data-server-util.h>
 
 #include <e2k-utils.h>
 #include <exchange-constants.h>
@@ -60,6 +65,12 @@ static EDataCalFactory *cal_factory = NULL;
 static EDataBookFactory *book_factory = NULL;
 
 ExchangeComponent *global_exchange_component;
+
+#ifdef G_OS_WIN32
+const char *_exchange_storage_datadir;
+const char *_exchange_storage_gladedir;
+const char *_exchange_storage_imagesdir;
+#endif
 
 static BonoboObject *
 exchange_component_factory (BonoboGenericFactory *factory,
@@ -171,10 +182,35 @@ setup_addressbook_factory (void)
 int
 main (int argc, char **argv)
 {
-	char *path;
+	char *userdir, *path;
 	char *config_directory;
 
+#ifdef G_OS_WIN32
+	{
+		char *localedir;
+
+		/* We assume evolution-exchange is installed in the
+		 * same run-time prefix as evolution-data-server.
+		 */
+		_exchange_storage_datadir = e_util_replace_prefix (PREFIX, e_util_get_prefix (), DATADIR);
+		_exchange_storage_gladedir = e_util_replace_prefix (PREFIX, e_util_get_prefix (), CONNECTOR_GLADEDIR);
+		_exchange_storage_imagesdir = e_util_replace_prefix (PREFIX, e_util_get_prefix (), CONNECTOR_IMAGESDIR);
+		
+		localedir = e_util_replace_prefix (CONNECTOR_LOCALEDIR, e_util_get_cp_prefix (), CONNECTOR_LOCALEDIR);
+		bindtextdomain (GETTEXT_PACKAGE, localedir);
+	}
+
+/* PREFIX and DATADIR are part of GNOME_PROGRAM_STANDARD_PROPERTIES */
+
+#undef PREFIX
+#define PREFIX e_util_get_prefix ()
+
+#undef DATADIR
+#define DATADIR _exchange_storage_datadir
+
+#else
 	bindtextdomain (GETTEXT_PACKAGE, CONNECTOR_LOCALEDIR);
+#endif
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 
@@ -188,20 +224,24 @@ main (int argc, char **argv)
 	camel_init (config_directory, FALSE);
 	g_free(config_directory);
 
-	path = g_strdup_printf ("/tmp/.exchange-%s", g_get_user_name ());
-	if (mkdir (path, 0700) == -1) {
+	userdir = g_strdup_printf (".exchange-%s", g_get_user_name ());
+	path = g_build_filename (g_get_tmp_dir (), userdir, NULL);
+	g_free (userdir);
+	if (g_mkdir (path, 0700) == -1) {
 		if (errno == EEXIST) {
 			struct stat st;
 
-			if (stat (path, &st) == -1) {
+			if (g_stat (path, &st) == -1) {
 				g_warning ("Could not stat %s", path);
 				return 1;
 			}
+#ifdef G_OS_UNIX
 			if (st.st_uid != getuid () ||
 			    (st.st_mode & 07777) != 0700) {
 				g_warning ("Bad socket dir %s", path);
 				return 1;
 			}
+#endif
 		} else {
 			g_warning ("Can't create %s", path);
 			return 1;

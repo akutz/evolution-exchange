@@ -2,7 +2,7 @@
 
 <oaf_server iid="OAFIID:GNOME_Evolution_Exchange_Component_Factory:@BASE_VERSION@"
 	    type="exe"
-	    location="@CONNECTOR_PATH@/evolution-exchange-storage">
+	    location="@CONNECTOR_PATH@/evolution-exchange-storage@EXEEXT@">
 
 	<oaf_attribute name="repo_ids" type="stringv">
 		<item value="IDL:GNOME/ObjectFactory:1.0"/>
@@ -40,7 +40,7 @@
 
 <oaf_server iid="OAFIID:GNOME_Evolution_Exchange_Connector_BookFactory:@API_VERSION@"
             type="exe"
-            location="@CONNECTOR_PATH@/evolution-exchange-storage">
+            location="@CONNECTOR_PATH@/evolution-exchange-storage@EXEEXT@">
 
 	<oaf_attribute name="repo_ids" type="stringv">
 		<item value="IDL:GNOME/Evolution/DataServer/BookFactory:@API_VERSION@"/>
@@ -58,7 +58,7 @@
 
 <oaf_server iid="OAFIID:GNOME_Evolution_Exchange_Connector_CalFactory:@API_VERSION@"
             type="exe"
-            location="@CONNECTOR_PATH@/evolution-exchange-storage">
+            location="@CONNECTOR_PATH@/evolution-exchange-storage@EXEEXT@">
 
 	<oaf_attribute name="repo_ids" type="stringv">
 		<item value="IDL:GNOME/Evolution/DataServer/CalFactory:@API_VERSION@"/>

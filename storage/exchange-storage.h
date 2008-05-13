@@ -33,6 +33,14 @@ GType             exchange_storage_get_type (void);
 
 EStorage         *exchange_storage_new      (ExchangeAccount *account);
 
+#ifdef G_OS_WIN32
+
+extern const char *_exchange_storage_datadir;
+extern const char *_exchange_storage_gladedir;
+extern const char *_exchange_storage_imagesdir;
+
+#endif
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

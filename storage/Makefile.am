@@ -45,7 +45,8 @@ evolution_exchange_storage_LDADD =				\
 	$(top_builddir)/camel/camel-stub-marshal.lo		\
 	$(LDAP_LIBS)						\
 	$(EXCHANGE_STORAGE_LIBS)				\
-	$(LIBEXCHANGE_LIBS)
+	$(LIBEXCHANGE_LIBS)					\
+	$(SOCKET_LIBS)
 
 
 exchange_connector_setup_SOURCES =				\
@@ -79,10 +80,17 @@ serverdir = $(libdir)/bonobo/servers
 server_in_files = GNOME_Evolution_Exchange_Storage.server.in.in
 server_DATA = $(server_in_files:.server.in.in=_$(BASE_VERSION).server)
 
+if OS_WIN32
+CONNECTOR_PATH_IN_SERVER_FILE=../../../libexec/evolution/${BASE_VERSION}
+else
+CONNECTOR_PATH_IN_SERVER_FILE=${EVOLUTION_privlibexecdir}
+endif
+
 %_$(BASE_VERSION).server.in: %.server.in.in
-	sed -e "s;\@CONNECTOR_PATH\@;${EVOLUTION_privlibexecdir};g"	\
+	sed -e "s;\@CONNECTOR_PATH\@;${CONNECTOR_PATH_IN_SERVER_FILE};g"	\
 	    -e "s;\@IMAGESDIR\@;${imagesdir};g"				\
 	    -e "s;\@BASE_VERSION\@;${BASE_VERSION};g"			\
+	    -e "s;\@EXEEXT\@;${EXEEXT};g"				\
 	    -e "s;\@API_VERSION\@;${API_VERSION};g"			\
 	    -e "s;\@EDS_BASE_VERSION\@;${EDS_BASE_VERSION};g"		\
 	    < $< > $@
