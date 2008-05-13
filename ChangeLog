@@ -23,6 +23,10 @@
 	* storage/exchange-change-password.c: Construct glade file
 	pathname at run-time. Don't use compile-time gladedir on Windows.
 
+	* storage/ximian-connector-setup.c: Define and initialise the
+	datadir, gladedir and imagesdir variables on Windows here,
+	too. Use GETTEXT_PACKAGE instead of PACKAGE.
+
 	* storage/GNOME_Evolution_Exchange_Storage.server.in.in: Add
 	EXEEXT to the executable name.
 

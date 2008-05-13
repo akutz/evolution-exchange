@@ -25,18 +25,50 @@
 #include <libgnomeui/gnome-ui-init.h>
 
 #include <e-util/e-dialog-utils.h>
+#include <libedataserver/e-data-server-util.h>
 #include <libedataserverui/e-passwords.h>
 
 #include <e2k-utils.h>
 
 #include "exchange-autoconfig-wizard.h"
 
+#ifdef G_OS_WIN32
+const char *_exchange_storage_datadir;
+const char *_exchange_storage_gladedir;
+const char *_exchange_storage_imagesdir;
+#endif
+
 int
 main (int argc, char **argv)
 {
-	bindtextdomain (PACKAGE, CONNECTOR_LOCALEDIR);
-	bind_textdomain_codeset (PACKAGE, "UTF-8");
-	textdomain (PACKAGE);
+#ifdef G_OS_WIN32
+	{
+		char *localedir;
+
+		/* We assume evolution-exchange is installed in the
+		 * same run-time prefix as evolution-data-server.
+		 */
+		_exchange_storage_datadir = e_util_replace_prefix (PREFIX, e_util_get_prefix (), DATADIR);
+		_exchange_storage_gladedir = e_util_replace_prefix (PREFIX, e_util_get_prefix (), CONNECTOR_GLADEDIR);
+		_exchange_storage_imagesdir = e_util_replace_prefix (PREFIX, e_util_get_prefix (), CONNECTOR_IMAGESDIR);
+		
+		localedir = e_util_replace_prefix (CONNECTOR_LOCALEDIR, e_util_get_cp_prefix (), CONNECTOR_LOCALEDIR);
+		bindtextdomain (GETTEXT_PACKAGE, localedir);
+	}
+
+/* PREFIX and DATADIR are part of GNOME_PROGRAM_STANDARD_PROPERTIES */
+
+#undef PREFIX
+#define PREFIX e_util_get_prefix ()
+
+#undef DATADIR
+#define DATADIR _exchange_storage_datadir
+
+#else
+	bindtextdomain (GETTEXT_PACKAGE, CONNECTOR_LOCALEDIR);
+#endif
+	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+	textdomain (GETTEXT_PACKAGE);
 
 	gnome_program_init ("ximian-connector-setup", VERSION,
 			    LIBGNOMEUI_MODULE, argc, argv,
