@@ -32,7 +32,15 @@
 #include <gtk/gtkentry.h>
 #include <gtk/gtklabel.h>
 
-#define FILENAME CONNECTOR_GLADEDIR "/exchange-change-password.glade"
+#include "exchange-storage.h"
+
+#ifdef G_OS_WIN32
+
+#undef CONNECTOR_GLADEDIR
+#define CONNECTOR_GLADEDIR _exchange_storage_gladedir
+
+#endif
+
 #define ROOTNODE "pass_dialog"
 #define STARTNODE "pass_vbox"
 
@@ -80,8 +88,13 @@ exchange_get_new_password (const char *existing_password, gboolean voluntary)
 	GtkResponseType response;
 	GtkLabel *top_label;
 	char *new_pass;
+	gchar *gladefile;
 
-	xml = glade_xml_new (FILENAME, ROOTNODE, NULL);
+	gladefile = g_build_filename (CONNECTOR_GLADEDIR,
+				      "exchange-change-password.glade",
+				      NULL);
+	xml = glade_xml_new (gladefile, ROOTNODE, NULL);
+	g_free (gladefile);
 	top_widget = glade_xml_get_widget (xml, ROOTNODE);
 
         cur_entry = GTK_ENTRY (glade_xml_get_widget (xml, "current_pass_entry"));

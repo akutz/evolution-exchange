@@ -20,6 +20,9 @@
 	with the folder mode checks on Windows, as the stat::st_mode field
 	is mostly meaningless.
 
+	* storage/exchange-change-password.c: Construct glade file
+	pathname at run-time. Don't use compile-time gladedir on Windows.
+
 	* storage/GNOME_Evolution_Exchange_Storage.server.in.in: Add
 	EXEEXT to the executable name.
 
