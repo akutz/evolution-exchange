@@ -1,7 +1,6 @@
 2008-05-13  Tor Lillqvist  <tml@novell.com>
 
-	More outstanding Win32 portability changes from a couple of years
-	ago.
+	Final outstanding Win32 portability changes.
 
 	* storage/Makefile.am: Link with SOCKET_LIBS, too. On Windows, use
 	a relative path for CONNECTOR_PATH in the server file instead of
@@ -37,6 +36,14 @@
 
 	* storage/GNOME_Evolution_Exchange_Storage.server.in.in: Add
 	EXEEXT to the executable name.
+
+	* calendar/e-cal-backend-exchange.c: Avoid more characters in file
+	names on Windows. Use g_path_get_dirname() instead of searching
+	for '/'. Use g_lstat() instead of lstat(). There are no symlinks
+	on Windows, so unclear what to actually do on Windows where the
+	code creates a symlink on Unix. Use gstdio wrappers. Use binary
+	mode when opening files. Use g_filename_to/from_uri() instead of
+	manipulating and constructing URIs manually.
 
 2008-05-12  Srinivasa Ragavan  <sragavan@novell.com>
 
