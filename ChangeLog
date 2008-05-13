@@ -20,8 +20,10 @@
 	with the folder mode checks on Windows, as the stat::st_mode field
 	is mostly meaningless.
 
-	* storage/exchange-change-password.c: Construct glade file
-	pathname at run-time. Don't use compile-time gladedir on Windows.
+	* storage/exchange-autoconfig-wizard.c
+	* storage/exchange-change-password.c: Construct glade and png file
+	pathnames at run-time. Don't use compile-time gladedir and
+	imagesdir on Windows.
 
 	* storage/exchange-config-listener.c: Reorder includes into a more
 	logical order. To cope with arbitrary Unicode pathnames on

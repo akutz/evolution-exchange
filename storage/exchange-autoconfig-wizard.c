@@ -41,6 +41,18 @@
 #include <libgnomeui/gnome-druid.h>
 #include <libgnomeui/gnome-druid-page-standard.h>
 
+#include "exchange-storage.h"
+
+#ifdef G_OS_WIN32
+
+#undef CONNECTOR_GLADEDIR
+#define CONNECTOR_GLADEDIR _exchange_storage_gladedir
+
+#undef CONNECTOR_IMAGESDIR
+#define CONNECTOR_IMAGESDIR _exchange_storage_imagesdir
+
+#endif
+
 typedef struct {
 	GnomeDruid *druid;
 
@@ -109,10 +121,15 @@ static ExchangeAutoconfigGUI *
 autoconfig_gui_new (void)
 {
 	ExchangeAutoconfigGUI *gui;
+	char *gladefile;
 
 	gui = g_new0 (ExchangeAutoconfigGUI, 1);
 
-	gui->xml = glade_xml_new (CONNECTOR_GLADEDIR "/exchange-autoconfig-wizard.glade", NULL, NULL);
+	gladefile = g_build_filename (CONNECTOR_GLADEDIR,
+				      "exchange-autoconfig-wizard.glade",
+				      NULL);
+	gui->xml = glade_xml_new (gladefile, NULL, NULL);
+	g_free (gladefile);
 	if (!gui->xml) {
 		g_warning ("Could not find exchange-autoconfig-wizard.glade");
 		g_free (gui);
@@ -605,6 +622,7 @@ exchange_autoconfig_druid_run (void)
 	GtkWidget *page;
 	GdkPixbuf *icon;
 	int i;
+	gchar *pngfile;
 
 	gui = autoconfig_gui_new ();
 	g_return_if_fail (gui);
@@ -614,7 +632,11 @@ exchange_autoconfig_druid_run (void)
 	gui->window = (GtkWindow *)glade_xml_get_widget (gui->xml, "window");
 	gui->pages = g_ptr_array_new ();
 
-	icon = gdk_pixbuf_new_from_file (CONNECTOR_IMAGESDIR "/connector.png", NULL);
+	pngfile = g_build_filename (CONNECTOR_IMAGESDIR,
+				    "connector.png",
+				    NULL);
+	icon = gdk_pixbuf_new_from_file (pngfile, NULL);
+	g_free (pngfile);
 	for (i = 0; i < num_autoconfig_pages; i++) {
 		page = glade_xml_get_widget (gui->xml, autoconfig_pages[i].page_name);
 		g_ptr_array_add (gui->pages, page);
