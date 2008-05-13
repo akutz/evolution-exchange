@@ -1,3 +1,28 @@
+2008-05-13  Tor Lillqvist  <tml@novell.com>
+
+	More outstanding Win32 portability changes from a couple of years
+	ago.
+
+	* storage/Makefile.am: Link with SOCKET_LIBS, too. On Windows, use
+	a relative path for CONNECTOR_PATH in the server file instead of
+	the absolute compile-time EVOLUTION_privlibexecdir. Replace also
+	EXEEXT in the server file.
+
+	* storage/exchage-storage.h: On Windows, declare three char*
+	variables that will hold the datadir, gladedir and imagesdir
+	constructed at run-time.
+
+	* storage/main.c: Define and initialise the three char* variables
+	mentioned above. Assume that evolution-exchange is installed in
+	the same run-time prefix as evolution-data-server. Use
+	g_get_tmp_dir() instead of hardcoding /tmp. Use gstdio wrappers to
+	cope with arbitrary Unicode pathnames on Windows. Don't bother
+	with the folder mode checks on Windows, as the stat::st_mode field
+	is mostly meaningless.
+
+	* storage/GNOME_Evolution_Exchange_Storage.server.in.in: Add
+	EXEEXT to the executable name.
+
 2008-05-12  Srinivasa Ragavan  <sragavan@novell.com>
 
 	* NEWS, configure.in: Evolution Exchange 2.23.2 release and version bump.
