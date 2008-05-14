@@ -129,7 +129,7 @@ account_new_folder (ExchangeAccount *account, EFolder *folder,
 {
 	const char *path = e_folder_exchange_get_path (folder);
 
-	e_storage_new_folder (storage, path, folder);
+	e_storage_new_folder (storage, path, g_object_ref (folder));
 	if (e_folder_exchange_get_has_subfolders (folder)) {
 		e_storage_declare_has_subfolders (storage, path,
 						  _("Searching..."));
