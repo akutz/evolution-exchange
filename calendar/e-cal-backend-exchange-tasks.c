@@ -1330,7 +1330,7 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
 
 	for (l = comps; l; l = l->next) {
                 const char *uid;
-                char *calobj, *rid = NULL;
+                char *obj, *rid = NULL;
 
                 subcomp = l->data;
 
@@ -1345,6 +1345,7 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
 
 		e_cal_component_get_uid (ecalcomp, &uid);
                 rid = e_cal_component_get_recurid_as_string (ecalcomp);
+		obj = (char *) e_cal_component_get_as_string (ecalcomp);
 
                 /*see if the object is there in the cache. if found, modify object, else create object*/
 
@@ -1353,28 +1354,27 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
                         char *old_object;
 
 			e_cal_backend_exchange_cache_unlock (cbex);
-                        status = modify_task_object (backend, cal, calobj, CALOBJ_MOD_THIS, &old_object, NULL);
+                        status = modify_task_object (backend, cal, obj, CALOBJ_MOD_THIS, &old_object, NULL);
                         if (status != GNOME_Evolution_Calendar_Success) {
 				g_free (rid);
                                 goto error;
 			}
 
-                        e_cal_backend_notify_object_modified (E_CAL_BACKEND (backend), old_object, calobj);
+                        e_cal_backend_notify_object_modified (E_CAL_BACKEND (backend), old_object, obj);
 			g_free (old_object);
                 } else {
                         char *returned_uid;
 
 			e_cal_backend_exchange_cache_unlock (cbex);
-			calobj = (char *) icalcomponent_as_ical_string (subcomp);
-			status = create_task_object (backend, cal, &calobj, &returned_uid);
+			status = create_task_object (backend, cal, &obj, &returned_uid);
                         if (status != GNOME_Evolution_Calendar_Success) {
-				g_free (calobj);
+				g_free (obj);
 				g_free (rid);
                                 goto error;
 			}
 
-                        e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), calobj);
-			g_free (calobj);
+                        e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), obj);
+			g_free (obj);
                 }
 		g_free (rid);
         }
