@@ -1,5 +1,4 @@
 SUBDIRS =			\
-	ietf			\
 	reference
 
 EXTRA_DIST =			\
