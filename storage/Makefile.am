@@ -122,7 +122,6 @@ DISTCLEANFILES = \
 
 EXTRA_DIST =				\
 	$(server_in_files)		\
-	$(server_DATA)			\
 	$(images_DATA)			\
 	$(glade_DATA)			\
 	$(ui_DATA)
