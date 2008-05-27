@@ -1,8 +1,22 @@
-2008-05-20  Chenthill Palanisamy  <pchenthill@novell.com>
+2008-05-26  Johnny Jacob  <jjohnny@novell.com>
+
+	** Fix for Bug #533422
 	
+	* storage/Makefile.am (EXTRA_DIST): server_DATA should not
+	be packed in dist tarballs.
+	
+2008-05-20  Chenthill Palanisamy  <pchenthill@novell.com>
+
 	Downstream fix for bug #203481 (bnc)
 	* calendar/e-cal-backend-exchange-tasks.c: (receive_task_objects): Fix the
 	conflict in local variables.									   
+
+2008-05-23  Øystein Gisnås  <oystein@gisnas.net>
+
+	** Fix for bug #366250
+
+	* configure.in: Don't compile/package semi-free RFCs and other IETF 
+	documents that are easily accessible on the web. 
 
 2008-05-13  Matthew Barnes  <mbarnes@redhat.com>
 
