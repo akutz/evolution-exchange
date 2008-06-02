@@ -1,3 +1,9 @@
+2008-06-02  Tor Lillqvist  <tml@novell.com>
+
+	* addressbook/Makefile.am (install-data-local): Work around
+	annoying MSYS feature on Win32 when installing the schema: Echo
+	the command to a temporary .bat file and run it with cmd.exe...
+
 2008-05-26  Johnny Jacob  <jjohnny@novell.com>
 
 	** Fix for Bug #533422
