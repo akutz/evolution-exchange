@@ -193,7 +193,7 @@ PKG_CHECK_MODULES(EXCHANGE_STORAGE, evolution-shell evolution-plugin libedataser
 AC_SUBST(EXCHANGE_STORAGE_CFLAGS)
 AC_SUBST(EXCHANGE_STORAGE_LIBS)
 
-PKG_CHECK_MODULES(LIBEXCHANGE, libsoup-2.4 evolution-shell libedataserverui-$EDS_API_VERSION libexchange-storage-$EDS_API_VERSION)
+PKG_CHECK_MODULES(LIBEXCHANGE, libsoup-2.4 evolution-shell libedataserverui-$EDS_API_VERSION libebackend-$EDS_API_VERSION libexchange-storage-$EDS_API_VERSION)
 AC_SUBST(LIBEXCHANGE_CFLAGS)
 AC_SUBST(LIBEXCHANGE_LIBS)
 
