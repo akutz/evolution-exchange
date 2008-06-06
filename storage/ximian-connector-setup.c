@@ -21,7 +21,6 @@
 #include <config.h>
 #endif
 
-#include <glib/gtypes.h>
 #include <libgnomeui/gnome-ui-init.h>
 
 #include <e-util/e-dialog-utils.h>

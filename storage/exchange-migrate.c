@@ -26,13 +26,7 @@
 #include <utime.h>
 #include <string.h>
 
-#include <glib.h>
 #include <gtk/gtk.h>
-#include <gtk/gtkwidget.h>
-#include <gtk/gtkvbox.h>
-#include <gtk/gtkmain.h>
-#include <gtk/gtklabel.h>
-#include <gtk/gtkprogressbar.h>
 #include <libedataserver/e-data-server-util.h>
 #include <e-util/e-folder-map.h>
 

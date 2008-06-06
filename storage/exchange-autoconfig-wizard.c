@@ -36,8 +36,7 @@
 
 #include <gconf/gconf-client.h>
 #include <glade/glade-xml.h>
-#include <gtk/gtkentry.h>
-#include <gtk/gtklinkbutton.h>
+#include <gtk/gtk.h>
 #include <libgnomeui/gnome-druid.h>
 #include <libgnomeui/gnome-druid-page-standard.h>
 

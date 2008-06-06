@@ -24,9 +24,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
-#include <glib.h>
 #include <gtk/gtk.h>
-#include <gtk/gtkmain.h>
 #include <libgnomeui/gnome-app.h>
 #include <libgnomeui/gnome-ui-init.h>
 #include <libgnome/libgnome.h>

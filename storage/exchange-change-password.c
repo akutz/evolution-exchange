@@ -27,10 +27,8 @@
 #include "exchange-account.h"
 #include "e2k-utils.h"
 
+#include <gtk/gtk.h>
 #include <glade/glade-xml.h>
-#include <gtk/gtkdialog.h>
-#include <gtk/gtkentry.h>
-#include <gtk/gtklabel.h>
 
 #include "exchange-storage.h"
 
