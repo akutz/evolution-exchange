@@ -1,3 +1,11 @@
+2008-06-07  Paul Smith  <psmith@gnu.org>
+
+	** Fix for bug #532844
+
+	* mail/mail-stub-exchange.c (get_message): If it's a bad case we can 
+	just goto the error handling code instead of trying to process the 
+	response.
+
 2008-06-06  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Allow evolution-exchange to build with G_DISABLE_SINGLE_INCLUDES
