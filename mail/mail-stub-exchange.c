@@ -2438,18 +2438,20 @@ get_message (MailStub *stub, const char *folder_name, const char *uid)
 	if (mfld->type == MAIL_STUB_EXCHANGE_FOLDER_NOTES) {
 		status = get_stickynote (mse->ctx, NULL, mmsg->href,
 					 &body, &len);
+		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+			goto error;
 		content_type = g_strdup ("message/rfc822");
 	} else {
 		SoupBuffer *response;
 
 		status = e2k_context_get (mse->ctx, NULL, mmsg->href,
 					  &content_type, &response);
+		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
+			goto error;
 		len = response->length;
 		body = g_strndup (response->data, response->length);
 		soup_buffer_free (response);
 	}
-	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
-		goto error;
 
 	/* Public folders especially can contain non-email objects.
 	 * In that case, we fake the headers (which in this case
