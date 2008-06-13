@@ -216,6 +216,11 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 	if (!icalcomp)
 		return FALSE;
 
+	if (!icalcomponent_get_uid (icalcomp)) {
+		icalcomponent_free (icalcomp);
+		return FALSE;
+	}
+
 	kind = icalcomponent_isa (icalcomp);
 	if (kind == ICAL_VEVENT_COMPONENT) {
 		if (receipts) {
