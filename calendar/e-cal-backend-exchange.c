@@ -642,6 +642,9 @@ e_cal_backend_exchange_add_object (ECalBackendExchange *cbex,
 	d(printf("ecbe_add_object(%p, %s, %s)\n", cbex, href, lastmod));
 
 	uid = icalcomponent_get_uid (comp);
+	if (!uid)
+		return FALSE;
+
 	ecomp = g_hash_table_lookup (cbex->priv->objects, uid);
 
 	is_instance = (icalcomponent_get_first_property (comp, ICAL_RECURRENCEID_PROPERTY) != NULL);
@@ -742,6 +745,9 @@ e_cal_backend_exchange_modify_object (ECalBackendExchange *cbex,
 			      FALSE);
 
 	uid = icalcomponent_get_uid (comp);
+	if (!uid)
+		return FALSE;
+
 	rid = icalcomponent_get_recurrenceid (comp);
 
 	ecomp = g_hash_table_lookup (cbex->priv->objects, uid);
@@ -828,6 +834,9 @@ ECalBackendExchangeComponent *
 get_exchange_comp (ECalBackendExchange *cbex, const char *uid)
 {
 	ECalBackendExchangeComponent *ecomp;
+
+	if (!uid)
+		return NULL;
 
 	ecomp = g_hash_table_lookup (cbex->priv->objects, uid);
 	if (ecomp)
