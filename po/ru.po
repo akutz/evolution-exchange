@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-16 18:15+0400\n"
-"PO-Revision-Date: 2007-03-10 17:36+0200\n"
+"POT-Creation-Date: 2008-06-15 12:48+0400\n"
+"PO-Revision-Date: 2008-06-15 17:36+0200\n"
 "Last-Translator: Nickolay V. Shmyrev <nshmyrev@yandex.ru>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -34,92 +34,95 @@ msgstr ""
 "использовать текущее состояние кэша всегда. Это будет работать только в том "
 "случае, если вы разрешили автономное кэширование для GAL."
 
-#: ../addressbook/e-book-backend-exchange.c:1917
-#: ../addressbook/e-book-backend-gal.c:1799 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:1919
+#: ../addressbook/e-book-backend-gal.c:1828 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Поиск..."
 
-#: ../addressbook/e-book-backend-gal.c:301
-#: ../addressbook/e-book-backend-gal.c:322
+#: ../addressbook/e-book-backend-gal.c:292
+#: ../addressbook/e-book-backend-gal.c:313
 msgid "Reconnecting to LDAP server..."
 msgstr "Повторное соединение с сервером LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1583
+#: ../addressbook/e-book-backend-gal.c:1607
 msgid "Receiving LDAP search results..."
 msgstr "Получение результатов поиска LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1828
+#: ../addressbook/e-book-backend-gal.c:1859
 msgid "Error performing search"
 msgstr "Ошибка при выполнении поиска"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2091
+#: ../calendar/e-cal-backend-exchange-calendar.c:2046
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
-"Не удается поставить ресурс '%s' в очередь для периодических собраний.\n"
+"Не удалось поставить ресурс «%s» в очередь для периодических собраний.\n"
 "Необходимо резервировать каждое собрание отдельно."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2109
+#: ../calendar/e-cal-backend-exchange-calendar.c:2064
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
-msgstr "Ресурс '%s' занят в течении указанного промежутка времени."
+msgstr "Ресурс «%s» занят в течении указанного промежутка времени."
 
-#: ../calendar/e-cal-backend-exchange.c:390
-#: ../calendar/e-cal-backend-exchange.c:400
+#: ../calendar/e-cal-backend-exchange.c:420
 msgid "Authentication failed"
 msgstr "Сбой аутентификации"
 
-#: ../calendar/e-cal-backend-exchange.c:441
+#: ../calendar/e-cal-backend-exchange.c:462
 msgid "Could not find the calendar"
 msgstr "Не удаётся найти календарь"
 
-#: ../camel/camel-exchange-folder.c:222
+#: ../camel/camel-exchange-folder.c:52
+msgid "Always check for new mail in this folder"
+msgstr "Всегда проверять новую почту в этой папке"
+
+#: ../camel/camel-exchange-folder.c:238
 msgid "You cannot expunge in offline mode."
 msgstr "Невозможно очистить в автономном режиме."
 
-#: ../camel/camel-exchange-folder.c:253
+#: ../camel/camel-exchange-folder.c:269
 msgid "No Subject"
 msgstr "Нет темы"
 
-#: ../camel/camel-exchange-folder.c:408
+#: ../camel/camel-exchange-folder.c:424
 msgid "This message is not available in offline mode."
 msgstr "Это сообщение недоступно в автономном режиме"
 
-#: ../camel/camel-exchange-folder.c:665
+#: ../camel/camel-exchange-folder.c:681
 msgid "Moving messages"
 msgstr "Перемещение сообщений"
 
-#: ../camel/camel-exchange-folder.c:666
+#: ../camel/camel-exchange-folder.c:682
 msgid "Copying messages"
 msgstr "Копирование сообщений"
 
-#: ../camel/camel-exchange-folder.c:1039
+#: ../camel/camel-exchange-folder.c:1055
 #, c-format
 msgid "Could not create directory %s: %s"
-msgstr "Не удается создать каталог %s: %s"
+msgstr "Не удалось создать каталог %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1049
+#: ../camel/camel-exchange-folder.c:1065
 #, c-format
 msgid "Could not load summary for %s"
-msgstr "Не удается загрузить сводку для %s"
+msgstr "Не удалось загрузить сводку для %s"
 
-#: ../camel/camel-exchange-folder.c:1057
+#: ../camel/camel-exchange-folder.c:1073
 #, c-format
 msgid "Could not create cache for %s"
-msgstr "Не удается создать кэш для %s"
+msgstr "Не удалось создать кэш для %s"
 
-#: ../camel/camel-exchange-folder.c:1067
+#: ../camel/camel-exchange-folder.c:1083
 #, c-format
 msgid "Could not create journal for %s"
-msgstr "Не удается создать журнал для %s"
+msgstr "Не удалось создать журнал для %s"
 
-#: ../camel/camel-exchange-folder.c:1115
+#: ../camel/camel-exchange-folder.c:1131
 msgid "Scanning for changed messages"
 msgstr "Поиск изменённых сообщений"
 
-#: ../camel/camel-exchange-folder.c:1148
+#: ../camel/camel-exchange-folder.c:1164
 msgid "Fetching summary information for new messages"
 msgstr "Получение сведений о новых сообщениях"
 
@@ -127,107 +130,107 @@ msgstr "Получение сведений о новых сообщениях"
 msgid "No folder name found\n"
 msgstr "Имя папки не найдено\n"
 
-#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:2874
-#: ../mail/mail-stub-exchange.c:2918 ../mail/mail-stub-exchange.c:2953
-#: ../mail/mail-stub-exchange.c:2980 ../mail/mail-stub-exchange.c:3033
-#: ../mail/mail-stub-exchange.c:3055
+#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:3024
+#: ../mail/mail-stub-exchange.c:3068 ../mail/mail-stub-exchange.c:3103
+#: ../mail/mail-stub-exchange.c:3130 ../mail/mail-stub-exchange.c:3183
+#: ../mail/mail-stub-exchange.c:3205
 msgid "Folder doesn't exist"
 msgstr "Папка не существует"
 
 #: ../camel/camel-exchange-journal.c:438
 msgid "Cannot append message in offline mode: cache unavailable"
-msgstr "Не удается добавить сообщение в автономном режиме: кэш недоступен"
+msgstr "Не удалось добавить сообщение в автономном режиме: кэш недоступен"
 
 #: ../camel/camel-exchange-journal.c:454
 #, c-format
 msgid "Cannot append message in offline mode: %s"
-msgstr "Не удается добавить сообщение в автономном режиме: %s"
+msgstr "Не удалось добавить сообщение в автономном режиме: %s"
 
-#: ../camel/camel-exchange-provider.c:41
+#: ../camel/camel-exchange-provider.c:56
 msgid "Checking for New Mail"
 msgstr "Проверка новой почты"
 
-#: ../camel/camel-exchange-provider.c:43
+#: ../camel/camel-exchange-provider.c:58
 msgid "C_heck for new messages in all folders"
 msgstr "Пров_ерять наличие новых сообщений во всех папках"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:51
+#: ../camel/camel-exchange-provider.c:66
 msgid "Windows User_name:"
 msgstr "_Имя пользователя Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:56
+#: ../camel/camel-exchange-provider.c:71
 msgid "Global Address List / Active Directory"
 msgstr "Глобальный список адресов / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:75
 msgid "_Global Catalog server name:"
 msgstr "Имя сервера _глобального каталога:"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:77
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "О_граничение числа ответов GAL: %s"
 
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:80
 msgid "Options"
 msgstr "Параметры"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:82
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Предупреждать о истечении срока действия пароля за: %s"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:84
 msgid "Automatically synchroni_ze account locally"
 msgstr "Автоматически _синхронизировать учетную запись локально"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:72
+#: ../camel/camel-exchange-provider.c:87
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr ""
-"Применить _фильтр к новым сообщениям в папке \"Входящие\" на этом сервере"
+"Применить _фильтр к новым сообщениям в папке «Входящие» на этом сервере"
 
-#: ../camel/camel-exchange-provider.c:74
+#: ../camel/camel-exchange-provider.c:89
 msgid "Check new messages for _Junk contents"
 msgstr "Про_верять, не являются ли новые сообщения спамом"
 
-#: ../camel/camel-exchange-provider.c:76
+#: ../camel/camel-exchange-provider.c:91
 msgid "Only check for Junk messag_es in the Inbox folder"
-msgstr "Пров_ерять на спам только сообщения в папке \"Входящие\""
+msgstr "Пров_ерять на спам только сообщения в папке «Входящие»"
 
-#: ../camel/camel-exchange-provider.c:86
+#: ../camel/camel-exchange-provider.c:101
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:88
+#: ../camel/camel-exchange-provider.c:103
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Для обработки почты (и других данных) на серверах Microsoft Exchange"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:104
+#: ../camel/camel-exchange-provider.c:119
 msgid "Secure Password"
-msgstr "Защищенный пароль"
+msgstr "Защищённый пароль"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:107
+#: ../camel/camel-exchange-provider.c:122
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
 msgstr ""
-"Этот параметр приведет к подключению к серверу Exchange с использованием "
-"защищенного пароля (NTLM)."
+"Этот параметр приведёт к подключению к серверу Exchange с использованием "
+"защищённого пароля (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:115
+#: ../camel/camel-exchange-provider.c:130
 msgid "Plaintext Password"
-msgstr "Незащищенный пароль"
+msgstr "Незащищённый пароль"
 
-#: ../camel/camel-exchange-provider.c:117
+#: ../camel/camel-exchange-provider.c:132
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -235,59 +238,54 @@ msgstr ""
 "Подключаться к серверу Exchange с использованием пароля, передаваемого "
 "открытым текстом."
 
-#: ../camel/camel-exchange-store.c:310
+#: ../camel/camel-exchange-store.c:314
 #, c-format
 msgid "Exchange server %s"
 msgstr "Сервер Exchange %s"
 
-#: ../camel/camel-exchange-store.c:313
+#: ../camel/camel-exchange-store.c:317
 #, c-format
 msgid "Exchange account for %s on %s"
-msgstr "Учетная запись Exchange для %s на %s"
+msgstr "Учётная запись Exchange для %s на %s"
 
-#: ../camel/camel-exchange-store.c:354
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%sВведите пароль для %s"
-
-#: ../camel/camel-exchange-store.c:405
+#: ../camel/camel-exchange-store.c:399
 msgid "Evolution Exchange backend process"
-msgstr "Процес компонента Evolution Exchange"
+msgstr "Процесс компонента Evolution Exchange"
 
-#: ../camel/camel-exchange-store.c:446
+#: ../camel/camel-exchange-store.c:442
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
 msgstr ""
-"Не удается пройти аутентификацию на сервере. (Неправильный пароль?)\n"
+"Не удалось пройти авторизацию на сервере. (Неправильный пароль?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:488
+#: ../camel/camel-exchange-store.c:495
 #, c-format
 msgid "No such folder %s"
 msgstr "Нет такой папки %s"
 
-#: ../camel/camel-exchange-store.c:565
+#: ../camel/camel-exchange-store.c:572
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Невозможно подписаться на папку в автономном режиме."
 
-#: ../camel/camel-exchange-store.c:582
+#: ../camel/camel-exchange-store.c:589
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Невозможно отменить подписку на папку в автономном режиме."
 
-#: ../camel/camel-exchange-store.c:714
+#: ../camel/camel-exchange-store.c:727
 msgid "Cannot get folder info in offline mode."
 msgstr "Невозможно получить сведения о папке в автономном режиме."
 
-#: ../camel/camel-exchange-store.c:787
+#: ../camel/camel-exchange-store.c:800
 msgid "Cannot create folder in offline mode."
 msgstr "Невозможно создать папку в автономном режиме."
 
-#: ../camel/camel-exchange-store.c:814
+#: ../camel/camel-exchange-store.c:827
 msgid "Cannot delete folder in offline mode."
 msgstr "Невозможно удалить папку в автономном режиме."
 
-#: ../camel/camel-exchange-store.c:830
+#: ../camel/camel-exchange-store.c:843
 msgid "Cannot rename folder in offline mode."
 msgstr "Невозможно переименовать папку в автономном режиме."
 
@@ -303,144 +301,154 @@ msgstr ""
 
 #: ../camel/camel-exchange-transport.c:132
 msgid "Could not find 'From' address in message"
-msgstr "Не удается найти адрес 'From' в сообщении"
+msgstr "Не удалось найти адрес отправителя в сообщении"
 
-#: ../camel/camel-stub.c:153
+#: ../camel/camel-stub.c:165 ../camel/camel-stub.c:229
 #, c-format
 msgid "Could not create socket: %s"
-msgstr "Не удается создать сокет: %s"
+msgstr "Не удалось создать сокет: %s"
 
-#: ../camel/camel-stub.c:171
+#: ../camel/camel-stub.c:183
 #, c-format
 msgid "Could not connect to %s: Please restart Evolution"
-msgstr "Не удается подключиться к %s: пожалуйста, перезапустите Evolution"
+msgstr "Не удалось подключиться к %s: пожалуйста, перезапустите Evolution"
 
-#: ../camel/camel-stub.c:176
+#: ../camel/camel-stub.c:188 ../camel/camel-stub.c:247
 #, c-format
 msgid "Could not connect to %s: %s"
-msgstr "Не удается подключиться к %s: %s"
+msgstr "Не удалось подключиться к %s: %s"
 
-#: ../camel/camel-stub.c:206
+#: ../camel/camel-stub.c:212
+#, c-format
+msgid "Count not read file '%s': %s"
+msgstr "Не удалось прочитать файл «%s»: %s"
+
+#: ../camel/camel-stub.c:220
+#, c-format
+msgid "Wrong size file '%s'"
+msgstr "Файл «%s» имеет некорректный размер"
+
+#: ../camel/camel-stub.c:283
 #, c-format
 msgid "Path too long: %s"
 msgstr "Путь слишком длинный: %s"
 
-#: ../camel/camel-stub.c:232
+#: ../camel/camel-stub.c:318
 #, c-format
 msgid "Could not start status thread: %s"
-msgstr "Не удается запустить поток состояния: %s"
+msgstr "Не удалось запустить поток состояния: %s"
 
-#: ../camel/camel-stub.c:486
+#: ../camel/camel-stub.c:572
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Утрачено соединение с %s"
 
-#: ../camel/camel-stub.c:490
+#: ../camel/camel-stub.c:576
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Ошибка связи с %s: %s"
 
-#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:946
+#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:949
 msgid "No such folder"
 msgstr "Нет такой папки"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1595
-#: ../mail/mail-stub-exchange.c:2851 ../mail/mail-stub-exchange.c:2891
-#: ../mail/mail-stub-exchange.c:2957 ../mail/mail-stub-exchange.c:3007
-#: ../mail/mail-stub-exchange.c:3070
+#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1598
+#: ../mail/mail-stub-exchange.c:3001 ../mail/mail-stub-exchange.c:3041
+#: ../mail/mail-stub-exchange.c:3107 ../mail/mail-stub-exchange.c:3157
+#: ../mail/mail-stub-exchange.c:3220
 msgid "Permission denied"
 msgstr "Доступ запрещен"
 
-#: ../mail/mail-stub-exchange.c:768 ../mail/mail-stub-exchange.c:860
+#: ../mail/mail-stub-exchange.c:771 ../mail/mail-stub-exchange.c:863
 msgid "Could not open folder"
-msgstr "Не удается открыть папку"
+msgstr "Не удалось открыть папку"
 
-#: ../mail/mail-stub-exchange.c:854 ../mail/mail-stub-exchange.c:876
+#: ../mail/mail-stub-exchange.c:857 ../mail/mail-stub-exchange.c:879
 msgid "Could not open folder: Permission denied"
-msgstr "Не удается открыть папку: доступ запрещен"
+msgstr "Не удалось открыть папку: доступ запрещён"
 
-#: ../mail/mail-stub-exchange.c:955
+#: ../mail/mail-stub-exchange.c:958
 msgid "Could not create folder."
-msgstr "Не удается создать папку."
+msgstr "Не удалось создать папку."
 
-#: ../mail/mail-stub-exchange.c:1043
+#: ../mail/mail-stub-exchange.c:1046
 msgid "Could not open Deleted Items folder"
-msgstr "Не удается открыть папку \"Удаленные\""
+msgstr "Не удалось открыть папку «Удалённые»"
 
-#: ../mail/mail-stub-exchange.c:1374 ../mail/mail-stub-exchange.c:1415
+#: ../mail/mail-stub-exchange.c:1377 ../mail/mail-stub-exchange.c:1418
 msgid "Could not get new messages"
-msgstr "Не удается получить новые сообщения"
+msgstr "Не удалось получить новые сообщения"
 
-#: ../mail/mail-stub-exchange.c:1591
+#: ../mail/mail-stub-exchange.c:1594
 msgid "Could not empty Deleted Items folder"
-msgstr "Не удается очистить папку \"Удаленные\""
+msgstr "Не удалось очистить папку «Удалённые»"
 
-#: ../mail/mail-stub-exchange.c:1668
+#: ../mail/mail-stub-exchange.c:1671
 msgid "Could not append message; mailbox is over quota"
-msgstr "Не удается добавить сообщение: превышена квота почтового ящика"
+msgstr "Не удалось добавить сообщение: превышена квота почтового ящика"
 
-#: ../mail/mail-stub-exchange.c:1669
+#: ../mail/mail-stub-exchange.c:1672
 msgid "Could not append message"
-msgstr "Не удается добавить сообщение"
+msgstr "Не удалось добавить сообщение"
 
-#: ../mail/mail-stub-exchange.c:2324
+#: ../mail/mail-stub-exchange.c:2434
 msgid "No such message"
 msgstr "Нет такого сообщения"
 
-#: ../mail/mail-stub-exchange.c:2386
+#: ../mail/mail-stub-exchange.c:2515
 msgid "Message has been deleted"
 msgstr "Сообщение было удалено"
 
-#: ../mail/mail-stub-exchange.c:2388
+#: ../mail/mail-stub-exchange.c:2517
 msgid "Error retrieving message"
 msgstr "Ошибка при получении сообщения"
 
-#: ../mail/mail-stub-exchange.c:2430
+#: ../mail/mail-stub-exchange.c:2560
 msgid "Mailbox does not support full-text searching"
 msgstr "Почтовый ящик не поддерживает полнотекстовый поиск"
 
-#: ../mail/mail-stub-exchange.c:2528
+#: ../mail/mail-stub-exchange.c:2658
 msgid "Unable to move/copy messages"
-msgstr "Не удается скопировать/переместить сообщения"
+msgstr "Не удалось скопировать/переместить сообщения"
 
-#: ../mail/mail-stub-exchange.c:2766
+#: ../mail/mail-stub-exchange.c:2918
 msgid "No mail submission URI for this mailbox"
 msgstr "Отсутствует URI передачи почты для этого ящика"
 
-#: ../mail/mail-stub-exchange.c:2802
+#: ../mail/mail-stub-exchange.c:2952
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Сервер не принимает почту через транспорт Exchange"
 
-#: ../mail/mail-stub-exchange.c:2804
+#: ../mail/mail-stub-exchange.c:2954
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
 msgstr ""
-"Ваша учетная запись не позволяет использовать <%s>\n"
-"в качестве адреса \"От кого:\"."
+"Ваша учётная запись не позволяет использовать <%s>\n"
+"в качестве адреса «От кого:»."
 
-#: ../mail/mail-stub-exchange.c:2816
+#: ../mail/mail-stub-exchange.c:2966
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
-"Не удается отправить сообщение.\n"
+"Не удалось отправить сообщение.\n"
 "Возможно, превышена квота вашей учетной записи."
 
-#: ../mail/mail-stub-exchange.c:2820
+#: ../mail/mail-stub-exchange.c:2970
 msgid "Could not send message"
-msgstr "Не удается отправить сообщение"
+msgstr "Не удалось отправить сообщение"
 
-#: ../mail/mail-stub-exchange.c:2843 ../mail/mail-stub-exchange.c:2896
-#: ../mail/mail-stub-exchange.c:2961 ../mail/mail-stub-exchange.c:3012
-#: ../mail/mail-stub-exchange.c:3076
+#: ../mail/mail-stub-exchange.c:2993 ../mail/mail-stub-exchange.c:3046
+#: ../mail/mail-stub-exchange.c:3111 ../mail/mail-stub-exchange.c:3162
+#: ../mail/mail-stub-exchange.c:3226
 msgid "Generic error"
 msgstr "Общая ошибка"
 
-#: ../mail/mail-stub-exchange.c:2847
+#: ../mail/mail-stub-exchange.c:2997
 msgid "Folder already exists"
 msgstr "Папка уже существует"
 
@@ -453,37 +461,38 @@ msgid "Evolution Calendar Exchange backend"
 msgstr "Компонент Evolution календаря Exchange"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Ximian Connector for Exchange"
-msgstr "Ximian Connector для Exchange"
+#: ../storage/main.c:219
+msgid "Evolution Connector for Microsoft Exchange"
+msgstr "Evolution Connector для Microsoft Exchange"
 
-#: ../storage/exchange-autoconfig-wizard.c:211
+#: ../storage/exchange-autoconfig-wizard.c:227
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
-"Не удается соединиться с сервером Exchange.\n"
-"Убедитесь, что URL правильный (попробуйте \"%s\" вместо \"%s\"?) и повторите "
+"Не удалось соединиться с сервером Exchange.\n"
+"Убедитесь, что URL правильный (попробуйте «%s» вместо «%s»?) и повторите "
 "попытку."
 
-#: ../storage/exchange-autoconfig-wizard.c:219
+#: ../storage/exchange-autoconfig-wizard.c:235
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
 msgstr ""
-"Не удается найти сервер Exchange.\n"
+"Не удалось найти сервер Exchange.\n"
 "Убедитесь, что имя сервера введено правильно, и попробуйте еще раз."
 
-#: ../storage/exchange-autoconfig-wizard.c:228
+#: ../storage/exchange-autoconfig-wizard.c:244
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
 msgstr ""
-"Не удается пройти аутентификацию на сервере.\n"
-"Убедитесь, что имя пользователя и пароль введены правильно, и попробуйте еще "
+"Не удалось пройти аутентификацию на сервере.\n"
+"Убедитесь, что имя пользователя и пароль введены правильно, и попробуйте ещё "
 "раз."
 
-#: ../storage/exchange-autoconfig-wizard.c:235
+#: ../storage/exchange-autoconfig-wizard.c:251
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -492,88 +501,90 @@ msgid ""
 "You may need to specify the Windows domain name as part of your username "
 "(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
-"Не удается пройти аутентификацию на сервере.\n"
-"Убедитесь, что имя пользователя и пароль введены правильно, и попробуйте еще "
+"Не удалось пройти аутентификацию на сервере.\n"
+"Убедитесь, что имя пользователя и пароль введены правильно, и попробуйте ещё "
 "раз.\n"
-"Необходимо указать домен Windows як часть имени вашей учетной записи "
-"(например, \"MY-DOMAIN\\%s\")."
+"Необходимо указать домен Windows как часть имени вашей учётной записи "
+"(например, «MY-DOMAIN\\%s»)."
 
-#: ../storage/exchange-autoconfig-wizard.c:247
+#: ../storage/exchange-autoconfig-wizard.c:263
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 msgstr ""
 "Не удаётся найти данные OWA по указанному URL.\n"
-"Убедитесь, что URL верен, и попробуйте еще раз."
+"Убедитесь, что URL верен, и попробуйте ещё раз."
 
-#: ../storage/exchange-autoconfig-wizard.c:254
+#: ../storage/exchange-autoconfig-wizard.c:270
 msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
+"Evolution Connector for Microsoft Exchange requires access to certain "
+"functionality on the Exchange server that appears to be disabled or "
+"blocked.  (This is usually unintentional.)  Your Exchange administrator will "
+"need to enable this functionality in order for you to be able to use the "
+"Evolution Connector.\n"
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"Ximian Connector требует определенной функциональности сервера Exchange, "
-"которая, похоже, выключена или заблокирована.  (Как правило, не специально.) "
+"Evolution Connector требует определённой функциональности сервера Exchange, "
+"которая, похоже, выключена или заблокирована. (Как правило, не специально.) "
 "Ваш администратор Exchange должен включить эту функциональность, чтобы вы "
-"могли использовать Ximian Connector.\n"
+"могли использовать Evolution Connector.\n"
 "\n"
 "Информация для вашего администратора Exchange:"
 
-#: ../storage/exchange-autoconfig-wizard.c:275
+#: ../storage/exchange-autoconfig-wizard.c:292
 msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
+"The Exchange server URL you provided is for an Exchange 5.5 server. "
+"Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
+"and 2003 only."
 msgstr ""
 "Указанный вами URL сервера Exchange предназначен для Exchange 5.5 Server. "
-"Ximian Connector поддерживает только Microsoft Exchange 2000 и 2003."
+"Evolution Connector поддерживает только Microsoft Exchange 2000 и 2003."
 
-#: ../storage/exchange-autoconfig-wizard.c:288
+#: ../storage/exchange-autoconfig-wizard.c:306
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
 msgstr ""
-"Не удается настроить учетную запись Exchange из-за неизвестной ошибки."
+"Не удалось настроить учетную запись Exchange из-за неизвестной ошибки."
 "Проверьте URL, имя пользователя и пароль, и попробуйте еще раз."
 
-#: ../storage/exchange-autoconfig-wizard.c:332
+#: ../storage/exchange-autoconfig-wizard.c:350
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
 "and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
 "\\%s\")."
 msgstr ""
-"Не удается пройти аутентификацию на сервере глобального каталога. Возможно, "
+"Не удалось пройти аутентификацию на сервере глобального каталога. Возможно, "
 "вам необходимо вернуться назад и указать домен Windows как часть имени вашей "
-"учетной записи (например, \"MY-DOMAIN\\%s\")."
+"учетной записи (например, «MY-DOMAIN\\%s»)."
 
-#: ../storage/exchange-autoconfig-wizard.c:339
+#: ../storage/exchange-autoconfig-wizard.c:357
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
 msgstr ""
-"Не удается подключиться к указанному серверу.\n"
+"Не удалось подключиться к указанному серверу.\n"
 "Проверьте имя сервера и попробуйте еще раз."
 
-#: ../storage/exchange-autoconfig-wizard.c:376
-#: ../storage/exchange-autoconfig-wizard.c:380
+#: ../storage/exchange-autoconfig-wizard.c:394
+#: ../storage/exchange-autoconfig-wizard.c:398
 msgid "Unknown"
 msgstr "Неизв."
 
-#: ../storage/exchange-autoconfig-wizard.c:445
+#: ../storage/exchange-autoconfig-wizard.c:463
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
 msgstr ""
 "Ошибка конфигурационной системы.\n"
-"Не удается создать новую учетную запись."
+"Не удалось создать новую учетную запись."
 
-#: ../storage/exchange-autoconfig-wizard.c:459
+#: ../storage/exchange-autoconfig-wizard.c:477
 msgid "You may only configure a single Exchange account"
-msgstr "Можно настроить только одну учетную запись Exchange"
+msgstr "Можно настроить только одну учётную запись Exchange"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:1
 #: ../storage/exchange-change-password.glade.h:1
@@ -593,90 +604,90 @@ msgid "Email Address:"
 msgstr "Адрес эл. почты:"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:5
+msgid "Evolution Connector for Microsoft Exchange Configuration"
+msgstr "Evolution Connector для Microsoft Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:6
+msgid ""
+"Evolution Connector for Microsoft Exchange can use account information from "
+"your existing Outlook Web Access (OWA) account.\n"
+"\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
+msgstr ""
+"Evolution Connector может использовать информацию вашей существующей учётной "
+"записи Outlook Web Access (OWA).\n"
+"\n"
+"Введите адрес вашего сайта OWA (URL), имя учётной записи и пароль, потом "
+"нажмите «Далее».\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:10
+msgid ""
+"Evolution Connector for Microsoft Exchange could not find the Global Catalog "
+"replica for your site. Please enter the name of your Global Catalog server. "
+"You may need to ask your system administrator for the correct value.\n"
+msgstr ""
+"Evolution Connector не может найти реплику глобального каталога вашего "
+"сайта. Введите имя вашего сервера глобального каталога. Возможно, вам нужно "
+"будет узнать правильное значение у вашего системного администратора.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:12
+msgid ""
+"Evolution Connector for Microsoft Exchange has encountered a problem "
+"configuring your Exchange account.\n"
+msgstr ""
+"Evolution Connector обнаружил проблему с настройкой вашей учетной записи "
+"Exchange.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:14
 msgid "Exchange Configuration"
 msgstr "Настройка Exchange"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:6
+#: ../storage/exchange-autoconfig-wizard.glade.h:15
 msgid "Full Name:"
 msgstr "Полное имя:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:7
+#: ../storage/exchange-autoconfig-wizard.glade.h:16
 msgid "GC Server:"
 msgstr "Сервер GC:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:8
+#: ../storage/exchange-autoconfig-wizard.glade.h:17
 msgid "Make this my default account"
-msgstr "Сделать основной учетной записью"
+msgstr "Сделать основной учётной записью"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:9
+#: ../storage/exchange-autoconfig-wizard.glade.h:18
 msgid "OWA URL:"
 msgstr "OWA URL:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:10
+#: ../storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Password:"
 msgstr "Пароль:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:11
+#: ../storage/exchange-autoconfig-wizard.glade.h:20
 msgid "Remember this password"
 msgstr "Запомнить этот пароль"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:12
+#: ../storage/exchange-autoconfig-wizard.glade.h:21
 msgid "Username:"
 msgstr "Имя пользователя:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:13
+#: ../storage/exchange-autoconfig-wizard.glade.h:22
 msgid "Welcome"
 msgstr "Добро пожаловать"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:14
+#: ../storage/exchange-autoconfig-wizard.glade.h:23
 msgid ""
-"Welcome to Ximian Connector for Microsoft Exchange.\n"
+"Welcome to Evolution Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
 "to connect to your Exchange account.\n"
 "\n"
 "Please click the \"Forward\" button to continue."
 msgstr ""
-"Вас приветствует Ximian Connector для Microsoft Exchange.\n"
-"Следующие несколько экранов помогут вам настроить Evolution\n"
-"для работы с вашей учетной записью Exchange.\n"
+"Вас приветствует Evolution Connector для Microsoft Exchange.\n"
+"Следующие страницы помогут настроить Evolution для работы\n"
+"с вашей учётной записью Exchange.\n"
 "\n"
-"Для продолжения нажмите кнопку \"Далее\"."
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:19
-msgid "Ximian Connector Configuration"
-msgstr "Настройка Ximian Connector"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:20
-msgid ""
-"Ximian Connector can use account information from your existing Outlook Web "
-"Access (OWA) account.\n"
-"\n"
-"Enter your OWA site address (URL), username, and password, then click "
-"\"Forward\".\n"
-msgstr ""
-"Ximian Connector может использовать информацию учетной записи вашей "
-"существующей учетной записи Outlook Web Access (OWA).\n"
-"\n"
-"Введите адрес вашего сайта OWA (URL), имя учетной записи и пароль, потом "
-"нажмите \"Далее\".\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:24
-msgid ""
-"Ximian Connector could not find the Global Catalog replica for your site. "
-"Please enter the name of your Global Catalog server. You may need to ask "
-"your system administrator for the correct value.\n"
-msgstr ""
-"Ximian Connector не может найти реплику глобального каталога вашего сайта. "
-"Введите имя вашего сервера глобального каталога. Возможно, вам нужно будет "
-"узнать правильное значение у вашего системного администратора.\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:26
-msgid ""
-"Ximian Connector has encountered a problem configuring your Exchange "
-"account.\n"
-msgstr ""
-"Ximian Connector обнаружил проблему с настройкой вашей учетной записи "
-"Exchange.\n"
+"Для продолжения нажмите кнопку «Далее»."
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -684,8 +695,7 @@ msgid ""
 "save your\n"
 "settings."
 msgstr ""
-"Ваша учетная запись уже используется. Нажмите \"Применить\", чтобы "
-"сохранить\n"
+"Ваша учетная запись уже используется. Нажмите «Применить», чтобы сохранить\n"
 "параметры."
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:30
@@ -693,13 +703,13 @@ msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
 msgstr ""
-"Ниже перечислены данные вашей учетной записи. Исправьте ошибки, если есть, "
-"и  нажмите \"Далее\".\n"
+"Ниже перечислены данные вашей учетной записи. Исправьте ошибки, если есть, и "
+"нажмите «Далее».\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
-#: ../storage/exchange-change-password.c:114
+#: ../storage/exchange-change-password.c:125
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
@@ -707,7 +717,7 @@ msgstr ""
 "Текущий пароль не соответствует существующему паролю вашей учетной записи. "
 "Введите правильный пароль"
 
-#: ../storage/exchange-change-password.c:121
+#: ../storage/exchange-change-password.c:132
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr "Пароли не совпадают. Введите пароли повторно."
 
@@ -741,7 +751,7 @@ msgstr "К_алендарь:"
 
 #: ../storage/exchange-delegates.glade.h:3
 msgid "Co_ntacts:"
-msgstr "Ко_нтакти:"
+msgstr "Ко_нтакты:"
 
 #: ../storage/exchange-delegates.glade.h:4
 msgid "Delegate Permissions"
@@ -795,11 +805,11 @@ msgstr "_Задачи:"
 msgid "Exchange Folder Tree"
 msgstr "Дерево папок Exchange"
 
-#: ../storage/exchange-migrate.c:58
+#: ../storage/exchange-migrate.c:60
 msgid "Migrating Exchange Folders..."
 msgstr "Миграция папок Exchange..."
 
-#: ../storage/exchange-migrate.c:66
+#: ../storage/exchange-migrate.c:68
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -810,9 +820,9 @@ msgstr ""
 "Размещение и иерархия папок учетных записей Evolution изменились с времен "
 "Evolution %d.%d.%d.\n"
 "\n"
-"Подождите, пока Evolution перенесет ваши папки..."
+"Подождите, пока Evolution перенесёт ваши папки..."
 
-#: ../storage/exchange-migrate.c:99
+#: ../storage/exchange-migrate.c:101
 #, c-format
 msgid ""
 "Warning: Evolution could not migrate all the Exchange account data from the "
@@ -820,14 +830,14 @@ msgid ""
 "The data hasn't been deleted, but will not be seen by this version of "
 "Evolution"
 msgstr ""
-"Предупреждение: Evolution не может перенести все данные учетной записи с "
+"Предупреждение: Evolution не может перенести все данные учётной записи с "
 "версии %d.%d.%d. \n"
 "Данные не будут удалены, но они не будут видимы в этой версии Evolution"
 
-#: ../storage/exchange-migrate.c:130
+#: ../storage/exchange-migrate.c:132
 #, c-format
 msgid "Migrating `%s':"
-msgstr "Перенос`%s':"
+msgstr "Перенос %s:"
 
 #: ../storage/exchange-oof.glade.h:1
 msgid ""
@@ -835,9 +845,9 @@ msgid ""
 "\n"
 "Would you like to change your status to \"In the Office\"? "
 msgstr ""
-"<b>Сейчас ваше состояние \"Нет на работе\". </b>\n"
+"<b>Сейчас ваше состояние «Нет на работе». </b>\n"
 "\n"
-"Установить состояние \"На работе\"? "
+"Установить состояние «На работе»? "
 
 #: ../storage/exchange-oof.glade.h:4
 msgid "<b>Out of Office Message:</b>"
@@ -956,13 +966,9 @@ msgstr "Роль: "
 msgid "Connecting..."
 msgstr "Соединение..."
 
-#: ../storage/main.c:183
-msgid "Ximian Connector for Microsoft Exchange"
-msgstr "Ximian Connector для Microsoft Exchange"
-
-#: ../storage/ximian-connector-setup.c:44
-msgid "Ximian Connector for Microsoft Exchange Setup Tool"
-msgstr "Утилита настройки Ximian Connector для Microsoft Exchange"
+#: ../storage/ximian-connector-setup.c:75
+msgid "Evolution Connector for Microsoft Exchange Setup Tool"
+msgstr "Настройка Evolution Connector для Microsoft Exchange"
 
 #: ../storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
@@ -988,8 +994,8 @@ msgstr "Подписаться на папку, которая принадле�
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
-"Отписаться от папки, добавленной функцией \"Подписаться на папку другого "
-"пользователя\""
+"Отписаться от папки, добавленной функцией «Подписаться на папку другого "
+"пользователя»"
 
 #: ../storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
@@ -999,7 +1005,7 @@ msgstr ""
 #: ../storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr ""
-"Просмотреть или изменить ваш статус \"на работе/не на работе\" или сообщение "
+"Просмотреть или изменить ваш статус «на работе/не на работе» или сообщение "
 "автоответчика"
 
 #: ../storage/ximian-connector.xml.h:9
