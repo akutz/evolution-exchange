@@ -1961,6 +1961,15 @@ internal_get_timezone (ECalBackend *backend, const char *tzid)
 	return g_hash_table_lookup (cbex->priv->timezones, tzid);
 }
 
+icaltimezone *
+e_cal_backend_exchange_lookup_timezone (const char *tzid,
+					const void *custom,
+					GError **error)
+{
+	return internal_get_timezone (E_CAL_BACKEND ((ECalBackendExchange *)custom),
+				      tzid);
+}
+
 
 static void
 free_exchange_comp (gpointer value)
