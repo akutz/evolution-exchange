@@ -80,6 +80,12 @@ char *	  e_cal_backend_exchange_make_timestamp_rfc822 	(time_t when);
 ECalBackendSyncStatus	get_timezone 	(ECalBackendSync *backend,
 							EDataCal *cal, const char *tzid, char **object);
 
+/** lookup function for e_cal_check_timezones() */
+icaltimezone *
+e_cal_backend_exchange_lookup_timezone (const char *tzid,
+					const void *custom,
+					GError **error);
+
 ECalBackendExchangeComponent * get_exchange_comp (ECalBackendExchange *cbex,
 						  const char *uid);
 

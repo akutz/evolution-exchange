@@ -25,6 +25,8 @@
 #include <sys/stat.h>
 #include <sys/fcntl.h>
 
+#include <libecal/e-cal-check-timezones.h>
+
 #include "e-cal-backend-exchange-calendar.h"
 
 #include "e2k-cal-utils.h"
@@ -63,6 +65,8 @@ static gboolean check_owner_partstatus_for_declined (ECalBackendSync *backend,
 
 gboolean check_for_send_options (icalcomponent *icalcomp, E2kProperties *props);
 static void update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp);
+
+
 
 static void
 add_timezones_from_comp (ECalBackendExchange *cbex, icalcomponent *icalcomp)
@@ -196,6 +200,8 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 	GSList *attachment_list = NULL;
 	gboolean status;
 	ECalBackend *backend = E_CAL_BACKEND (cbex);
+	GError *error = NULL;
+	gboolean retval = TRUE;
 
 	/* Check for attachments */
 	if (uid)
@@ -248,12 +254,20 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 		icalcomponent_free (icalcomp);
 		return status;
 	} else if (kind != ICAL_VCALENDAR_COMPONENT) {
-		icalcomponent_free (icalcomp);
-		if (attachment_list) {
-			g_slist_foreach (attachment_list, (GFunc) g_free, NULL);
-			g_slist_free (attachment_list);
-		}
-		return FALSE;
+		retval = FALSE;
+		goto cleanup;
+	}
+
+	/* map time zones against system time zones and handle conflicting definitions */
+	if (!e_cal_check_timezones (icalcomp,
+				    NULL,
+				    e_cal_backend_exchange_lookup_timezone,
+				    cbex,
+				    &error)) {
+		g_warning ("checking timezones failed: %s", error->message);
+		g_clear_error (&error);
+		retval = FALSE;
+		goto cleanup;
 	}
 
 	add_timezones_from_comp (cbex, icalcomp);
@@ -285,13 +299,15 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 		subcomp = icalcomponent_get_next_component (
 				icalcomp, ICAL_VEVENT_COMPONENT);
 	}
+
+ cleanup:
 	icalcomponent_free (icalcomp);
 
 	if (attachment_list) {
 		g_slist_foreach (attachment_list, (GFunc) g_free, NULL);
 		g_slist_free (attachment_list);
 	}
-	return TRUE;
+	return retval;
 }
 
 static const char *event_properties[] = {
@@ -1563,6 +1579,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 	icalproperty_method method;
 	icalcomponent *subcomp, *icalcomp;
 	ECalBackendSyncStatus status = GNOME_Evolution_Calendar_Success;
+	GError *error = NULL;
 
 	d(printf ("ecbexc_modify_object(%p, %p, %s)", backend, cal, calobj ? calobj : NULL));
 	cbexc =	E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
@@ -1582,6 +1599,20 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 		return GNOME_Evolution_Calendar_InvalidObject;
 
 	icalcomp = icalparser_parse_string (calobj);
+
+	/* map time zones against system time zones and handle conflicting definitions */
+	if (icalcomp &&
+	    !e_cal_check_timezones (icalcomp,
+				    comps,
+				    e_cal_backend_exchange_lookup_timezone,
+				    cbex,
+				    &error)) {
+		g_warning ("checking timezones failed: %s", error->message);
+		icalcomponent_free (icalcomp);
+		g_clear_error (&error);
+		return GNOME_Evolution_Calendar_InvalidObject;
+	}
+
 	add_timezones_from_comp (E_CAL_BACKEND_EXCHANGE (backend), icalcomp);
 	icalcomponent_free (icalcomp);
 
@@ -1977,10 +2008,11 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 	ECalBackendExchange *cbex = (ECalBackendExchange *) backend;
 	ECalBackendSyncStatus retval = GNOME_Evolution_Calendar_Success;
 	ECalBackendExchangeBookingResult result;
-	ECalComponent *comp;
-	icalcomponent *top_level, *icalcomp, *tzcomp;
+	ECalComponent *comp = NULL;
+	icalcomponent *top_level = NULL, *icalcomp, *tzcomp;
 	icalproperty *prop;
 	icalproperty_method method;
+	GError *error = NULL;
 
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex),
 				GNOME_Evolution_Calendar_InvalidObject);
@@ -1993,6 +2025,20 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 	*modified_calobj = NULL;
 
 	top_level = icalparser_parse_string (calobj);
+
+	/* map time zones against system time zones and handle conflicting definitions */
+	if (top_level &&
+	    !e_cal_check_timezones (top_level,
+				    NULL,
+				    e_cal_backend_exchange_lookup_timezone,
+				    cbex,
+				    &error)) {
+		g_warning ("checking timezones failed: %s", error->message);
+		g_clear_error (&error);
+		retval = FALSE;
+		goto cleanup;
+	}
+
 	icalcomp = icalcomponent_new_clone (icalcomponent_get_inner (top_level));
 
 	comp = e_cal_component_new ();
@@ -2008,13 +2054,7 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 	}
 
 	/* traverse all timezones to add them to the backend */
-	tzcomp = icalcomponent_get_first_component (top_level,
-						    ICAL_VTIMEZONE_COMPONENT);
-	while (tzcomp) {
-		e_cal_backend_exchange_add_timezone (cbex, tzcomp);
-		tzcomp = icalcomponent_get_next_component (top_level,
-							   ICAL_VTIMEZONE_COMPONENT);
-	}
+	add_timezones_from_comp (cbex, top_level);
 
 	for (prop = icalcomponent_get_first_property (icalcomp, ICAL_ATTENDEE_PROPERTY);
 	     prop != NULL;
@@ -2083,8 +2123,12 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 	*modified_calobj = g_strdup (e_cal_component_get_as_string (comp));
 
  cleanup:
-	icalcomponent_free (top_level);
-	g_object_unref (comp);
+	if (top_level) {
+		icalcomponent_free (top_level);
+	}
+	if (comp) {
+		g_object_unref (comp);
+	}
 
 	return retval;
 }
