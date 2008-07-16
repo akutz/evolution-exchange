@@ -37,6 +37,11 @@
 
 #define CAMEL_EXCHANGE_SUMMARY_VERSION (2)
 
+#define EXTRACT_FIRST_DIGIT(val) val=strtoul (part, &part, 10);
+#define EXTRACT_DIGIT(val) part++; val=strtoul (part, &part, 10);
+#define EXTRACT_FIRST_STRING(val) len=strtoul (part, &part, 10); part++; val=g_strndup (part, len);
+#define EXTRACT_STRING(val) part++; len=strtoul (part, &part, 10); part++; val=g_strndup (part, len);
+
 #define d(x)
 
 static int header_load (CamelFolderSummary *summary, FILE *in);
@@ -47,6 +52,10 @@ static CamelMessageInfo *message_info_load (CamelFolderSummary *summary,
 static int               message_info_save (CamelFolderSummary *summary,
 					    FILE *out,
 					    CamelMessageInfo *info);
+static int summary_header_from_db (CamelFolderSummary *s, CamelFIRecord *mir);
+static CamelFIRecord * summary_header_to_db (CamelFolderSummary *s, CamelException *ex);
+static CamelMIRecord * message_info_to_db (CamelFolderSummary *s, CamelMessageInfo *info);
+static CamelMessageInfo * message_info_from_db (CamelFolderSummary *s, CamelMIRecord *mir);
 static CamelMessageInfo *message_info_new_from_header  (CamelFolderSummary *summary,
 							struct _camel_header_raw *h);
 
@@ -74,6 +83,11 @@ exchange_summary_class_init (CamelObjectClass *klass)
 	camel_folder_summary_class->message_info_save = message_info_save;
 	camel_folder_summary_class->message_info_new_from_header = message_info_new_from_header;
 	camel_folder_summary_class->message_info_free = message_info_free;
+	
+	camel_folder_summary_class->summary_header_to_db = summary_header_to_db;
+	camel_folder_summary_class->summary_header_from_db = summary_header_from_db;
+	camel_folder_summary_class->message_info_to_db = message_info_to_db;
+	camel_folder_summary_class->message_info_from_db = message_info_from_db;
 	
 	camel_folder_summary_class->info_set_flags = info_set_flags;
 	camel_folder_summary_class->info_set_user_tag = info_set_user_tag;
@@ -120,18 +134,47 @@ CamelFolderSummary *
 camel_exchange_summary_new (struct _CamelFolder *folder, const char *filename)
 {
 	CamelFolderSummary *summary;
+	CamelException lex;
 
+	camel_exception_init (&lex);
 	summary = (CamelFolderSummary *)camel_object_new (CAMEL_EXCHANGE_SUMMARY_TYPE);
 	summary->folder = folder;
 	camel_folder_summary_set_filename (summary, filename);
-	if (camel_folder_summary_load (summary) == -1) {
-		camel_folder_summary_clear (summary);
+	if (camel_folder_summary_load_from_db (summary, &lex) == -1) {
+		g_warning ("Unable to load Exchage summary for folder %s: %s\n", folder->full_name, camel_exception_get_description(&lex));
+		camel_folder_summary_clear_db (summary);
 		camel_folder_summary_touch (summary);
 	}
 
+	camel_exception_clear (&lex);
 	return summary;
 }
 
+static int
+summary_header_from_db (CamelFolderSummary *s, CamelFIRecord *mir)
+{
+	CamelExchangeSummary *exchange = (CamelExchangeSummary *) s;
+	char *part;
+
+	if (CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->summary_header_from_db (s, mir) == -1)
+		return -1;
+
+	part = mir->bdata;
+
+	if (part) {
+		EXTRACT_FIRST_DIGIT (exchange->version)
+	}
+	
+	if (part) {
+		EXTRACT_DIGIT (exchange->readonly)
+	}
+
+	if (part) {
+		EXTRACT_DIGIT (exchange->high_article_num)
+	}
+	
+	return 0;
+}
 
 static int
 header_load (CamelFolderSummary *summary, FILE *in)
@@ -169,6 +212,20 @@ header_load (CamelFolderSummary *summary, FILE *in)
 	return 0;
 }
 
+static CamelFIRecord *
+summary_header_to_db (CamelFolderSummary *s, CamelException *ex)
+{
+	CamelExchangeSummary *exchange = (CamelExchangeSummary *) s;
+	struct _CamelFIRecord *fir;
+	
+	fir = CAMEL_FOLDER_SUMMARY_CLASS(parent_class)->summary_header_to_db (s, ex);
+	if (!fir)
+		return NULL;
+	fir->bdata = g_strdup_printf ("%u %u %u", exchange->version, exchange->readonly, exchange->high_article_num);
+
+	return fir;
+}
+
 static int
 header_save (CamelFolderSummary *summary, FILE *out)
 {
@@ -189,6 +246,23 @@ header_save (CamelFolderSummary *summary, FILE *out)
 	d(g_print ("%s:%s: high_article_num = [%d]\n", G_STRLOC, G_STRFUNC, exchange->high_article_num));
 
 	return 0;
+}
+static CamelMessageInfo *
+message_info_from_db (CamelFolderSummary *s, CamelMIRecord *mir)
+{
+	CamelMessageInfo *info;
+	CamelExchangeMessageInfo *einfo;
+
+	info = CAMEL_FOLDER_SUMMARY_CLASS(parent_class)->message_info_from_db (s, mir);
+	if (info) {
+		char *part = g_strdup (mir->bdata);
+		int len;
+		einfo = (CamelExchangeMessageInfo *)info;
+		EXTRACT_FIRST_STRING (einfo->thread_index)
+		EXTRACT_FIRST_STRING (einfo->href)	
+	}
+
+	return info;
 }
 
 static CamelMessageInfo *
@@ -226,6 +300,19 @@ message_info_load (CamelFolderSummary *summary, FILE *in)
 error:
 	camel_message_info_free (info);
 	return NULL;
+}
+
+static CamelMIRecord *
+message_info_to_db (CamelFolderSummary *s, CamelMessageInfo *info)
+{
+	CamelExchangeMessageInfo *einfo = (CamelExchangeMessageInfo *)info;
+	struct _CamelMIRecord *mir;
+
+	mir = CAMEL_FOLDER_SUMMARY_CLASS(parent_class)->message_info_to_db (s, info);
+	if (mir) 
+		mir->bdata = g_strdup_printf ("%d-%s %d-%s", einfo->thread_index ? strlen(einfo->thread_index):0 , einfo->thread_index ? einfo->thread_index : "", einfo->href ? strlen(einfo->href):0, einfo->href ? einfo->href:"");
+
+	return mir;
 }
 
 static int

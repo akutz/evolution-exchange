@@ -55,8 +55,6 @@ static CamelProperty exchange_property_list[] = {
 /* Returns the class for a CamelFolder */
 #define CF_CLASS(so) CAMEL_FOLDER_CLASS (CAMEL_OBJECT_GET_CLASS(so))
 
-static void folder_sync (CamelFolder *folder, gboolean expunge,
-			 CamelException *ex);
 static void exchange_expunge (CamelFolder *folder, CamelException *ex);
 static void append_message (CamelFolder *folder, CamelMimeMessage *message,
 			    const CamelMessageInfo *info, char **appended_uid,
@@ -97,7 +95,6 @@ class_init (CamelFolderClass *camel_folder_class)
 	parent_class = CAMEL_OFFLINE_FOLDER_CLASS (camel_type_get_global_classfuncs (camel_offline_folder_get_type ())) ;
 
 	/* virtual method definition */
-	camel_folder_class->sync = folder_sync;
 	camel_folder_class->expunge = exchange_expunge;
 	camel_folder_class->append_message = append_message;
 	camel_folder_class->get_message = get_message;
@@ -169,45 +166,6 @@ camel_exchange_folder_get_type (void)
 	}
 
 	return camel_exchange_folder_type;
-}
-
-
-static void
-folder_sync (CamelFolder *folder, gboolean expunge, CamelException *ex)
-{
-	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
-	GPtrArray *summary, *uids;
-	CamelMessageInfo *info;
-	CamelFolder *trash;
-	int i;
-
-	/* Give the backend a chance to process queued changes. */
-	camel_stub_send (exch->stub, NULL, CAMEL_STUB_CMD_SYNC_FOLDER,
-			 CAMEL_STUB_ARG_FOLDER, folder->full_name,
-			 CAMEL_STUB_ARG_END);
-
-	/* If there are still deleted messages left, we need to delete
-	 * them the hard way.
-	 */
-	summary = camel_folder_get_summary (folder);
-	uids = g_ptr_array_new ();
-	for (i = 0; i < summary->len; i++) {
-		info = summary->pdata[i];
-		if (!(camel_message_info_flags(info) & CAMEL_MESSAGE_DELETED))
-			continue;
-		g_ptr_array_add (uids, (char *)camel_message_info_uid (info));
-	}
-	if (uids->len) {
-		trash = camel_store_get_trash (folder->parent_store, ex);
-		if (trash) {
-			transfer_messages_the_hard_way (folder, uids, trash,
-							NULL, TRUE, ex);
-		}
-	}
-	g_ptr_array_free (uids, TRUE);
-	camel_folder_free_summary (folder, summary);
-
-	camel_folder_summary_save (folder->summary);
 }
 
 static void
@@ -1120,6 +1078,9 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 		hrefs = g_ptr_array_new ();
 		g_ptr_array_set_size (hrefs, summary->len);
 
+		if (summary->len - camel_folder_summary_cache_size (folder->summary) > 50)
+			camel_folder_summary_reload_from_db (folder->summary, ex);
+		
 		for (i = 0; i < summary->len; i++) {
 			info = summary->pdata[i];
 			uids->pdata[i] = (char *)camel_message_info_uid (info);
@@ -1168,7 +1129,8 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 		camel_operation_end (NULL);
 		if (!ok)
 			return FALSE;
-		camel_folder_summary_save (folder->summary);
+		
+		camel_folder_summary_save_to_db (folder->summary, ex);
 	}
 
 	if (camel_exchange_summary_get_readonly (folder->summary))
@@ -1183,7 +1145,7 @@ exchange_sync (CamelFolder *folder, gboolean expunge, CamelException *ex)
 	if (expunge)
 		exchange_expunge (folder, ex);
 
-	camel_folder_summary_save (folder->summary);
+	camel_folder_summary_save_to_db (folder->summary, ex);
 }
 
 static int
