@@ -26,6 +26,7 @@
 #include <string.h>
 
 #include <camel/camel-offline-store.h>
+#include <camel/camel-folder-summary.h>
 
 #include "camel-exchange-search.h"
 #include "camel-exchange-folder.h"
@@ -99,8 +100,7 @@ exchange_body_contains (struct _ESExp *f, int argc, struct _ESExpResult **argv,
 			r->value.bool = TRUE;
 		else {
 			for (i = 0; i < s->summary->len; i++) {
-				CamelMessageInfo *info = s->summary->pdata[i];
-				g_ptr_array_add (r->value.ptrarray, (char *)camel_message_info_uid (info));
+				g_ptr_array_add (r->value.ptrarray, s->summary->pdata[i]);
 			}
 		}
 		return r;
@@ -140,8 +140,8 @@ exchange_body_contains (struct _ESExp *f, int argc, struct _ESExpResult **argv,
 
 		uid_hash = g_hash_table_new (g_str_hash, g_str_equal);
 		for (i = 0; i < s->summary->len; i++) {
-			info = s->summary->pdata[i];
-			g_hash_table_insert (uid_hash, (char *)camel_message_info_uid (info), info);
+			info = camel_folder_summary_uid (s->folder->summary, s->summary->pdata[i]);
+			g_hash_table_insert (uid_hash, s->summary->pdata[i], info);
 		}
 	}
 

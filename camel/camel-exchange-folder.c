@@ -45,6 +45,7 @@
 #include <camel/camel-session.h>
 #include <camel/camel-stream-filter.h>
 #include <camel/camel-stream-mem.h>
+#include <camel/camel-folder-summary.h>
 
 static CamelOfflineFolderClass *parent_class = NULL;
 
@@ -470,7 +471,7 @@ search_by_expression (CamelFolder *folder, const char *expression,
 	camel_folder_search_set_folder (search, folder);
 	summary = camel_folder_get_summary (folder);
 	camel_folder_search_set_summary (search, summary);
-	matches = camel_folder_search_execute_expression (search, expression, ex);
+	matches = camel_folder_search_search (search, expression, NULL, ex);
 	camel_folder_free_summary (folder, summary);
 
 	if (matches) {
@@ -1082,8 +1083,8 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 			camel_folder_summary_reload_from_db (folder->summary, ex);
 		
 		for (i = 0; i < summary->len; i++) {
-			info = summary->pdata[i];
-			uids->pdata[i] = (char *)camel_message_info_uid (info);
+			uids->pdata[i] = g_strdup(summary->pdata[i]);
+			info = camel_folder_summary_uid (folder->summary, uids->pdata[i]);
 			flags->data[i] = ((CamelMessageInfoBase *)info)->flags & CAMEL_EXCHANGE_SERVER_FLAGS;
 			hrefs->pdata[i] = ((CamelExchangeMessageInfo *)info)->href;
 			//camel_tag_list_free (&((CamelMessageInfoBase *)info)->user_tags);
