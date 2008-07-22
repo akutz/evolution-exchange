@@ -578,6 +578,15 @@ mse_get_folder_online_sync_updates (gpointer key, gpointer value,
 	seq = GPOINTER_TO_UINT (value);
 
 	g_static_rec_mutex_lock (&g_changed_msgs_mutex);
+
+	/* Camel DB Summary changes are not fetching all the messages at start-up. 
+	   Use this else it would crash badly.
+	*/   
+	if (index >= mfld->messages->len) {
+		g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
+		return;
+	}
+
 	mmsg = mfld->messages->pdata[index];
 	if (mmsg->seq != seq) {
 		for (i = 0; i < mfld->messages->len; i++) {

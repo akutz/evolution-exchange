@@ -1,3 +1,10 @@
+2008-07-22  Bharath Acharya  <abharath@novell.com>
+
+	** Fixes part of bug #544115
+
+	* mail/mail-stub-exchange.c: (mse_get_folder_online_sync_updates): 
+	Added a valid check to prevent the crash caused by DB Summary merge.
+
 2008-07-21  Sankar P  <psankar@novell.com>
 
 	Fixes Exchange related crashes due to DB Summary merge
