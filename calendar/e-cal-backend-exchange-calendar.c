@@ -312,6 +312,7 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 
 static const char *event_properties[] = {
 	E2K_PR_CALENDAR_UID,
+	PR_CAL_RECURRING_ID,
 	E2K_PR_DAV_LAST_MODIFIED,
 	E2K_PR_HTTPMAIL_HAS_ATTACHMENT,
 	PR_READ_RECEIPT_REQUESTED,
@@ -335,7 +336,7 @@ get_changed_events (ECalBackendExchange *cbex)
 	E2kRestriction *rn;
 	E2kResultIter *iter;
 	E2kResult *result;
-	const char *prop, *uid, *modtime, *attach_prop, *receipts;
+	const char *prop, *uid, *modtime, *attach_prop, *receipts, *rid;
 	guint status;
 	E2kContext *ctx;
 	int i, status_tracking = EX_NO_RECEIPTS;
@@ -394,6 +395,7 @@ get_changed_events (ECalBackendExchange *cbex)
 			continue;
 		modtime = e2k_properties_get_prop (result->props,
 						   E2K_PR_DAV_LAST_MODIFIED);
+		rid = e2k_properties_get_prop (result->props, PR_CAL_RECURRING_ID);
 
 		attach_prop = e2k_properties_get_prop (result->props,
 						E2K_PR_HTTPMAIL_HAS_ATTACHMENT);
@@ -414,7 +416,7 @@ get_changed_events (ECalBackendExchange *cbex)
 		}
 
 		e_cal_backend_exchange_cache_lock (cbex);
-		if (!e_cal_backend_exchange_in_cache (cbex, uid, modtime, result->href)) {
+		if (!e_cal_backend_exchange_in_cache (cbex, uid, modtime, result->href, rid)) {
 			g_ptr_array_add (hrefs, g_strdup (result->href));
 			g_hash_table_insert (modtimes, g_strdup (result->href),
 					     g_strdup (modtime));
@@ -575,6 +577,8 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal,
 	GError *error = NULL;
 	ECalBackendExchangeCalendar *cbexc = E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 
+
+
 	/* Do the generic part */
 	status = E_CAL_BACKEND_SYNC_CLASS (parent_class)->open_sync (
 		backend, cal, only_if_exists, username, password);
@@ -589,8 +593,8 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal,
 		return GNOME_Evolution_Calendar_Success;
 
 	e_folder_exchange_subscribe (E_CAL_BACKEND_EXCHANGE (backend)->folder,
-                                        E2K_CONTEXT_OBJECT_CHANGED, 30,
-                                        notify_changes, backend);
+			E2K_CONTEXT_OBJECT_CHANGED, 30,
+			notify_changes, backend);
 
 	thread = g_thread_create ((GThreadFunc) get_changed_events, E_CAL_BACKEND_EXCHANGE (backend), FALSE, &error);
 	if (!thread) {

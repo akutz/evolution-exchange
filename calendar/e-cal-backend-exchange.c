@@ -54,6 +54,7 @@
 #include <exchange-hierarchy.h>
 
 #include "exchange-component.h"
+#include <e2k-utils.h>
 
 #ifndef O_BINARY
 #define O_BINARY 0
@@ -83,6 +84,9 @@ struct ECalBackendExchangePrivate {
 static GObjectClass *parent_class = NULL;
 
 #define d(x)
+
+static icaltimezone *
+internal_get_timezone (ECalBackend *backend, const char *tzid);
 
 static ECalBackendSyncStatus
 is_read_only (ECalBackendSync *backend, EDataCal *cal, gboolean *read_only)
@@ -548,11 +552,50 @@ e_cal_backend_exchange_cache_sync_start (ECalBackendExchange *cbex)
 	g_hash_table_foreach (cbex->priv->objects, add_to_unseen, cbex);
 }
 
+static gboolean
+find_instance (ECalBackendExchange *cbex, ECalBackendExchangeComponent *ecomp, const char *rid, const char *lastmod)
+{
+	GList *l;
+	gboolean found = FALSE;
+
+	if (!ecomp->instances)	
+		return FALSE;
+
+	for (l = ecomp->instances; l != NULL; l = l->next) {
+		ECalComponent *comp = e_cal_component_new ();
+		ECalComponentRange recur_id;
+		struct icaltimetype inst_rid, new_rid;
+		time_t rtime;
+		icaltimezone *f_zone;
+
+		e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (l->data));
+		e_cal_component_get_recurid (comp, &recur_id);
+
+		rtime = e2k_parse_timestamp (rid);
+		new_rid = icaltime_from_timet (rtime, FALSE);
+
+		f_zone = internal_get_timezone ((ECalBackend *) cbex, recur_id.datetime.tzid);
+		recur_id.datetime.value->zone = f_zone;
+		inst_rid = icaltime_convert_to_zone (*recur_id.datetime.value, icaltimezone_get_utc_timezone ());
+
+		e_cal_component_free_datetime (&recur_id.datetime);
+		g_object_unref (comp);
+		
+		if (icaltime_compare (inst_rid, new_rid) == 0) {
+			found = TRUE;
+			break;
+		}
+	}
+	return found;
+}
+
 gboolean
 e_cal_backend_exchange_in_cache (ECalBackendExchange *cbex,
 				 const char          *uid,
 				 const char          *lastmod,
-				 const char	     *href)
+				 const char	     *href,
+				 const char	     *rid
+				 )
 {
 	ECalBackendExchangeComponent *ecomp;
 
@@ -562,6 +605,9 @@ e_cal_backend_exchange_in_cache (ECalBackendExchange *cbex,
 	if (!ecomp)
 		return FALSE;
 	g_hash_table_remove (cbex->priv->cache_unseen, ecomp->uid);
+
+	if (rid) 
+		return find_instance (cbex, ecomp, rid, lastmod);
 
 	if (strcmp (ecomp->lastmod, lastmod) < 0) {
 		g_hash_table_remove (cbex->priv->objects, uid);

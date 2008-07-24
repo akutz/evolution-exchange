@@ -54,7 +54,9 @@ void      e_cal_backend_exchange_cache_sync_start (ECalBackendExchange *cbex);
 gboolean  e_cal_backend_exchange_in_cache         (ECalBackendExchange *cbex,
 						   const char          *uid,
 						   const char          *lastmod,
-						   const char	       *href);
+						   const char	       *href,
+						   const char  	       *rid
+						   );
 
 void      e_cal_backend_exchange_cache_sync_end   (ECalBackendExchange *cbex);
 

@@ -641,7 +641,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 						   E2K_PR_DAV_LAST_MODIFIED);
 
 		e_cal_backend_exchange_cache_lock (cbex);
-		if (!e_cal_backend_exchange_in_cache (cbex, uid, modtime, result->href)) {
+		if (!e_cal_backend_exchange_in_cache (cbex, uid, modtime, result->href, NULL)) {
 			g_ptr_array_add (hrefs, g_strdup (result->href));
 			g_hash_table_insert (modtimes, g_strdup (result->href),
 					     g_strdup (modtime));
@@ -1085,7 +1085,7 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 	e_cal_backend_exchange_cache_lock (ecalbex);
 	/* check if the object is already present in our cache */
 	if (e_cal_backend_exchange_in_cache (E_CAL_BACKEND_EXCHANGE (backend),
-					     temp_comp_uid, modtime, NULL)) {
+					     temp_comp_uid, modtime, NULL, NULL)) {
 		e_cal_backend_exchange_cache_unlock (ecalbex);
 		icalcomponent_free (icalcomp);
 		return GNOME_Evolution_Calendar_ObjectIdAlreadyExists;
