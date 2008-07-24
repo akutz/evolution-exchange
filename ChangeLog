@@ -1,3 +1,17 @@
+2008-07-24  Chenthill Palanisamy  <pchenthill@novell.com>
+
+	Fixes #208394 (bnc)
+	* calendar/e-cal-backend-exchange.h: Include rid to check if the event
+	is in the cache.
+	* calendar/e-cal-backend-exchange-calendar.c: (get_changed_events):
+	Use the new function, find_instance to search for the instance
+	(open_calendar): 
+	* calendar/e-cal-backend-exchange-tasks.c: (get_changed_tasks),
+	(create_task_object):
+	* calendar/e-cal-backend-exchange.c: (find_instance),
+	(e_cal_backend_exchange_in_cache): Use rid along with uid while
+	searching for recurring instances.					   
+
 2008-06-22  Patrick Ohly  <patrick.ohly@gmx.de>
 
 	* calendar/e-cal-backend-exchange-calendar.c,
