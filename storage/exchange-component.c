@@ -341,7 +341,8 @@ new_connection (MailStubListener *listener, int cmd_fd, int status_fd,
 		mse_prev->folders_by_name = NULL;
 	}
 
-	g_object_unref (listener->stub);
+	if (listener->stub)
+		g_object_unref (listener->stub);
 	listener->stub = mse;
 	/* FIXME : We need to close these sockets */
 /*

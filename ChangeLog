@@ -1,3 +1,10 @@
+2008-07-25  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #544513
+
+	* storage/exchange-component.c: (new_connection):
+	Do not unref NULL object.
+
 2008-07-24  Chenthill Palanisamy  <pchenthill@novell.com>
 
 	Fixes #208394 (bnc)
