@@ -310,7 +310,7 @@ message_info_to_db (CamelFolderSummary *s, CamelMessageInfo *info)
 
 	mir = CAMEL_FOLDER_SUMMARY_CLASS(parent_class)->message_info_to_db (s, info);
 	if (mir) 
-		mir->bdata = g_strdup_printf ("%d-%s %d-%s", einfo->thread_index ? strlen(einfo->thread_index):0 , einfo->thread_index ? einfo->thread_index : "", einfo->href ? strlen(einfo->href):0, einfo->href ? einfo->href:"");
+		mir->bdata = g_strdup_printf ("%d-%s %d-%s", einfo->thread_index ? (int)strlen(einfo->thread_index):0 , einfo->thread_index ? einfo->thread_index : "", einfo->href ? (int)strlen(einfo->href):0, einfo->href ? einfo->href:"");
 
 	return mir;
 }

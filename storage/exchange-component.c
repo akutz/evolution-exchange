@@ -328,7 +328,7 @@ new_connection (MailStubListener *listener, int cmd_fd, int status_fd,
 
 	exchange_account_is_offline (account, &mode);
 	if (mode != ONLINE_MODE) {
-		mse = mail_stub_exchange_new (account, cmd_fd, status_fd);
+		mse = MAIL_STUB_EXCHANGE (mail_stub_exchange_new (account, cmd_fd, status_fd));
 		goto end;
 	}
 

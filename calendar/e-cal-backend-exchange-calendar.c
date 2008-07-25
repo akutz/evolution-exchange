@@ -2013,7 +2013,7 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 	ECalBackendSyncStatus retval = GNOME_Evolution_Calendar_Success;
 	ECalBackendExchangeBookingResult result;
 	ECalComponent *comp = NULL;
-	icalcomponent *top_level = NULL, *icalcomp, *tzcomp;
+	icalcomponent *top_level = NULL, *icalcomp;
 	icalproperty *prop;
 	icalproperty_method method;
 	GError *error = NULL;

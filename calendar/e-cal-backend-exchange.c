@@ -1876,7 +1876,6 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const char *subject,
 	char *from_name = NULL, *from_email = NULL;
 	GSList *attach_list = NULL, *l, *new_attach_list = NULL;
 	char *fname, *file_contents = NULL, *filename, *dest_url, *mime_filename, *attach_file;
-	char *mime_type;
 	int len = 0;
 
 	if (!g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (E_CAL_BACKEND_SYNC (cbex)), exchange_account_get_email_id (cbex->account)))
