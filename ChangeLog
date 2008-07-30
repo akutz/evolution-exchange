@@ -1,3 +1,13 @@
+2008-07-30  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #500389
+
+	* camel/camel-exchange-provider.c: (auth_types),
+	(exchange_conf_entries), (camel_provider_module_init):
+	Option to set different authentication type for GAL and OWA.
+	* storage/exchange-autoconfig-wizard.c: (gc_page_next):
+	Use default (NTLM, if failed then Plaintext) authentication here.
+
 2008-07-25  Milan Crha  <mcrha@redhat.com>
 
 	** Part of fix for bug #544031

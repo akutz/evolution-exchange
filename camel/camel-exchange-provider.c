@@ -51,6 +51,13 @@ get_localedir (void)
 
 #endif
 
+static const char *auth_types[] = {
+	N_("Secure or Plaintext Password"),
+	N_("Plaintext Password"),
+	N_("Secure Password"),
+	NULL 
+};
+
 CamelProviderConfEntry exchange_conf_entries[] = {
 	{ CAMEL_PROVIDER_CONF_SECTION_START, "mailcheck", NULL,
 	  N_("Checking for New Mail") },
@@ -75,6 +82,8 @@ CamelProviderConfEntry exchange_conf_entries[] = {
 	  N_("_Global Catalog server name:") },
 	{ CAMEL_PROVIDER_CONF_CHECKSPIN, "ad_limit", NULL,
 	  N_("_Limit number of GAL responses: %s"), "y:1:500:10000" },
+	{ CAMEL_PROVIDER_CONF_OPTIONS, "ad_auth", NULL,
+	  N_("Authentication _Type:"), "default:Secure or Plaintext Password:basic:Plaintext Password:ntlm:Secure Password" },
 	{ CAMEL_PROVIDER_CONF_SECTION_END },
 	{ CAMEL_PROVIDER_CONF_SECTION_START, "generals", NULL,
 	  N_("Options") },
@@ -155,6 +164,8 @@ exchange_auto_detect_cb (CamelURL *url, GHashTable **auto_detected,
 void
 camel_provider_module_init (void)
 {
+	int i;
+
 	exchange_provider.object_types[CAMEL_PROVIDER_STORE] = camel_exchange_store_get_type ();
 	exchange_provider.object_types[CAMEL_PROVIDER_TRANSPORT] = camel_exchange_transport_get_type ();
 	exchange_provider.authtypes = g_list_prepend (g_list_prepend (NULL, &camel_exchange_password_authtype), &camel_exchange_ntlm_authtype);
@@ -166,6 +177,11 @@ camel_provider_module_init (void)
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	exchange_provider.translation_domain = GETTEXT_PACKAGE;
 	exchange_provider.translation_domain = GETTEXT_PACKAGE;
+
+	/* 'auth_types' is not used anywhere else, it's there just for localization of the 'al_auth' */
+	for (i = 0; auth_types [i]; i++) {
+		auth_types [i] = _(auth_types [i]);
+	}
 
 	camel_provider_register (&exchange_provider);
 }

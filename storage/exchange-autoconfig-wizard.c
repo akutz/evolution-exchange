@@ -335,7 +335,7 @@ gc_page_next (ExchangeAutoconfigGUI *gui)
 {
 	E2kAutoconfigResult result;
 
-	e2k_autoconfig_set_gc_server (gui->ac, gtk_entry_get_text (gui->gc_server_entry), -1);
+	e2k_autoconfig_set_gc_server (gui->ac, gtk_entry_get_text (gui->gc_server_entry), -1, E2K_AUTOCONFIG_USE_GAL_DEFAULT);
 
 	gtk_widget_set_sensitive (GTK_WIDGET (gui->window), FALSE);
 	e2k_operation_init (&gui->op);
