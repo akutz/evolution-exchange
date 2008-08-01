@@ -39,8 +39,8 @@
 
 #define EXTRACT_FIRST_DIGIT(val) val=strtoul (part, &part, 10);
 #define EXTRACT_DIGIT(val) part++; val=strtoul (part, &part, 10);
-#define EXTRACT_FIRST_STRING(val) len=strtoul (part, &part, 10); part++; val=g_strndup (part, len);
-#define EXTRACT_STRING(val) part++; len=strtoul (part, &part, 10); part++; val=g_strndup (part, len);
+#define EXTRACT_FIRST_STRING(val) len=strtoul (part, &part, 10); if (*part) part++; val=g_strndup (part, len); part+=len;
+#define EXTRACT_STRING(val) if (*part) part++; len=strtoul (part, &part, 10); if (*part) part++; val=g_strndup (part, len); part+=len;
 
 #define d(x)
 
