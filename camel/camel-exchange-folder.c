@@ -489,41 +489,17 @@ search_by_uids (CamelFolder *folder, const char *expression,
 		GPtrArray *uids, CamelException *ex)
 {
 	CamelFolderSearch *search;
-	GPtrArray *matches, *summary, *response;
+	GPtrArray *matches, *response;
 	int i;
-
-	summary = g_ptr_array_new();
-	for (i = 0; i < uids->len; i++) {
-		CamelMessageInfo *info;
-
-		info = camel_folder_get_message_info (folder, uids->pdata[i]);
-		if (info)
-			g_ptr_array_add (summary, info);
-	}
-
-	if (summary->len == 0)
-		return summary;
 
 	search = camel_exchange_search_new ();
 	camel_folder_search_set_folder (search, folder);
-	camel_folder_search_set_summary (search, summary);
+	camel_folder_search_set_summary (search, uids);
 	matches = camel_folder_search_execute_expression (search, expression, ex);
-
-	if (matches) {
-		response = g_ptr_array_new ();
-		for (i = 0; i < matches->len; i++)
-			g_ptr_array_add (response, g_strdup (matches->pdata[i]));
-		camel_folder_search_free_result (search, matches);
-	} else
-		response = NULL;
-
-	for (i = 0; i < summary->len; i++)
-		camel_folder_free_message_info (folder, summary->pdata[i]);
-	g_ptr_array_free (summary, TRUE);
 
 	camel_object_unref (CAMEL_OBJECT (search));
 
-	return response;
+	return matches;
 }
 
 static void
