@@ -489,8 +489,7 @@ search_by_uids (CamelFolder *folder, const char *expression,
 		GPtrArray *uids, CamelException *ex)
 {
 	CamelFolderSearch *search;
-	GPtrArray *matches, *response;
-	int i;
+	GPtrArray *matches;
 
 	search = camel_exchange_search_new ();
 	camel_folder_search_set_folder (search, folder);
