@@ -721,6 +721,9 @@ get_folder_contents_online (MailStubExchangeFolder *mfld, gboolean background)
 
 		if (!mmsg->href) {
 			mmsg->href = g_strdup (result->href);
+			if (mmsg_cpy->href)
+				g_free (mmsg_cpy->href);
+			mmsg_cpy->href = g_strdup (result->href);
 			/* Do not allow duplicates */
 			if (!g_hash_table_lookup (mfld->messages_by_href, mmsg->href))
 				g_hash_table_insert (mfld->messages_by_href, mmsg->href, mmsg);
@@ -2742,7 +2745,7 @@ get_folder_info_data (MailStub *stub, const char *top, guint32 store_flags,
 	GPtrArray *folders = NULL;
 	ExchangeHierarchy *hier;
 	EFolder *folder;
-	const char *type, *name, *uri, *path, *inbox_uri = NULL, *trash_uri = NULL, *sent_items_uri = NULL;
+	const char *type, *name, *uri, *inbox_uri = NULL, *trash_uri = NULL, *sent_items_uri = NULL;
 	int unread_count, i, toplen = top ? strlen (top) : 0;
 	guint32 folder_flags = 0;
 	gboolean recursive, subscribed, info_fast;
@@ -3081,6 +3084,10 @@ rename_folder (MailStub *stub, const char *old_name, const char *new_name)
 	char *old_path, *new_path;
 	GPtrArray *names, *uris;
 	GArray *unread, *flags;
+	int i = 0, j = 0, mode;
+	char **folder_name;
+	const char *uri;
+	char *new_name_mod, *old_name_remove, *uri_unescaped, *old_name_mod = NULL;
 
 	old_path = g_build_filename ("/", old_name, NULL);
 	folder = exchange_account_get_folder (mse->account, old_path);
@@ -3115,6 +3122,92 @@ rename_folder (MailStub *stub, const char *old_name, const char *new_name)
 		get_folder_info_data (stub, new_name, CAMEL_STUB_STORE_FOLDER_INFO_SUBSCRIBED,
 				      &names, &uris, &unread, &flags);
 
+		g_hash_table_remove_all (mfld->messages_by_href);
+	
+		for (i = 0; i < mfld->messages->len; i++) {
+			MailStubExchangeMessage *mmsg;
+			mmsg = mfld->messages->pdata[i];
+			g_free (mmsg->href);
+			mmsg->href = NULL;
+		}	
+
+		exchange_component_is_offline (global_exchange_component, &mode);
+		if (mode == ONLINE_MODE) {
+			if (!get_folder_online (mfld, TRUE)) {
+				return;
+			}
+		}
+			
+		for (i = 0; i < uris->len; i++) {
+			uri = uris->pdata[i];
+			if (uri == NULL) 
+				continue;
+
+			uri_unescaped = g_uri_unescape_string (uri, NULL);
+			new_name_mod = g_strconcat (new_name, "/", NULL);
+			folder_name = g_strsplit (uri_unescaped, new_name_mod, 2);
+
+			if (!folder_name[1]) {
+				g_strfreev (folder_name);
+				old_name_mod = g_strconcat (old_name, "/", NULL);
+				folder_name = g_strsplit (uri_unescaped, old_name_mod, 2);
+				g_free (old_name_mod);
+
+				if (!folder_name[1]) {
+					goto cont_free;
+				}
+			}	
+
+			old_name_remove = g_build_filename (old_name, "/", folder_name[1], NULL);
+
+			mfld = g_hash_table_lookup (mse->folders_by_name, old_name_remove);
+			
+			/* If the lookup for the MailStubExchangeFolder doesn't succeed then do 
+			not modify the corresponding entry in the hash table*/
+			if (!mfld) {
+				g_free (old_name_remove);
+				goto cont_free;
+			}
+
+			new_path = g_build_filename ("/", new_name_mod, folder_name[1], NULL);
+			old_path = g_build_filename ("/", old_name_remove, NULL);
+
+			mse->ignore_removed_folder = old_path;
+			mse->ignore_new_folder = new_path;
+			result = exchange_account_xfer_folder (mse->account, old_path, new_path, TRUE);
+			folder = exchange_account_get_folder (mse->account, new_path);
+			mse->ignore_new_folder = mse->ignore_removed_folder = NULL;
+
+			g_object_unref (mfld->folder);
+			mfld->folder = g_object_ref (folder);
+			mfld->name = e_folder_exchange_get_path (folder) + 1;
+
+			g_hash_table_steal (mse->folders_by_name, old_name_remove);
+			g_hash_table_insert (mse->folders_by_name, (char *)mfld->name, mfld);
+				
+			g_hash_table_remove_all (mfld->messages_by_href);
+	
+			for (j = 0; j < mfld->messages->len; j++) {
+				MailStubExchangeMessage *mmsg;
+				mmsg = mfld->messages->pdata[j];
+				g_free (mmsg->href);
+				mmsg->href = NULL;
+			}	
+
+			exchange_component_is_offline (global_exchange_component, &mode);
+			if (mode == ONLINE_MODE) {
+				if (!get_folder_online (mfld, TRUE)) {
+					return;
+				}
+			}
+			
+			g_free (old_path);
+			g_free (new_path);
+cont_free:		g_free (new_name_mod);
+			g_free (uri_unescaped);
+			g_strfreev (folder_name);
+		}
+	
 		mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
 				       CAMEL_STUB_ARG_STRINGARRAY, names,
 				       CAMEL_STUB_ARG_STRINGARRAY, uris,
