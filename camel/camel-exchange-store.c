@@ -837,17 +837,75 @@ static void
 exchange_rename_folder (CamelStore *store, const char *old_name,
 			const char *new_name, CamelException *ex)
 {
+	GPtrArray *folders = NULL, *folder_names = NULL, *folder_uris = NULL;
+	GArray *unread_counts = NULL;
+	GArray *folder_flags = NULL;
+	CamelFolderInfo *info;
+	int i;
+	CamelRenameInfo reninfo;
+	CamelFolder *folder;
+
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 
 	if (!camel_exchange_store_connected (exch, ex)) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot rename folder in offline mode."));
 		return;
 	}
+	if (!camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_RENAME_FOLDER,
+			      CAMEL_STUB_ARG_STRING, old_name,
+			      CAMEL_STUB_ARG_STRING, new_name,
+			      CAMEL_STUB_ARG_RETURN,
+			      CAMEL_STUB_ARG_STRINGARRAY, &folder_names,
+			      CAMEL_STUB_ARG_STRINGARRAY, &folder_uris,
+			      CAMEL_STUB_ARG_UINT32ARRAY, &unread_counts,
+			      CAMEL_STUB_ARG_UINT32ARRAY, &folder_flags,
+			      CAMEL_STUB_ARG_END)) {
+		return;
+	}
 
-	camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_RENAME_FOLDER,
-			 CAMEL_STUB_ARG_FOLDER, old_name,
-			 CAMEL_STUB_ARG_FOLDER, new_name,
-			 CAMEL_STUB_ARG_END);
+	if (!folder_names) {
+		/* This means the storage hasn't finished scanning yet.
+		 * We return NULL for now and will emit folder_created
+		 * events later.
+		 */
+		return;
+	}
+
+	folders = g_ptr_array_new ();
+	for (i = 0; i < folder_names->len; i++) {
+		info = make_folder_info (exch, folder_names->pdata[i],
+					 folder_uris->pdata[i],
+					 g_array_index (unread_counts, int, i),
+					 g_array_index (folder_flags, int, i));
+		if (info)
+			g_ptr_array_add (folders, info);
+	}
+	g_ptr_array_free (folder_names, TRUE);
+	g_ptr_array_free (folder_uris, TRUE);
+	g_array_free (unread_counts, TRUE);
+	g_array_free (folder_flags, TRUE);
+
+	info = camel_folder_info_build (folders, new_name, '/', TRUE);
+	
+	if (info)
+		info = postprocess_tree (info);
+	g_ptr_array_free (folders, TRUE);
+
+	reninfo.new = info;
+	reninfo.old_base = (char *)old_name;
+
+	g_mutex_lock (exch->folders_lock);
+	folder = g_hash_table_lookup (exch->folders, reninfo.old_base);
+	if (folder) {
+		g_hash_table_remove (exch->folders, reninfo.old_base);
+		camel_object_unref (CAMEL_OBJECT (folder));
+	}
+	g_mutex_unlock (exch->folders_lock);
+		
+	camel_object_trigger_event (CAMEL_OBJECT (exch),
+				    "folder_renamed", &reninfo);
+	camel_folder_info_free (reninfo.new);
+
 }
 
 static void
@@ -1077,34 +1135,6 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 		camel_object_trigger_event (CAMEL_OBJECT (exch),
 					    "folder_unsubscribed", info);
 		camel_folder_info_free (info);
-		break;
-	}
-
-	case CAMEL_STUB_RETVAL_FOLDER_RENAMED:
-	{
-		char *new_name, *new_uri;
-		CamelFolder *folder;
-		CamelRenameInfo reninfo;
-
-		if (camel_stub_marshal_decode_folder (stub->status, &reninfo.old_base) == -1 ||
-		    camel_stub_marshal_decode_folder (stub->status, &new_name) == -1 ||
-		    camel_stub_marshal_decode_string (stub->status, &new_uri) == -1)
-			break;
-
-		reninfo.new = make_folder_info (exch, new_name, new_uri, -1, 0);
-
-		g_mutex_lock (exch->folders_lock);
-		folder = g_hash_table_lookup (exch->folders, reninfo.old_base);
-		if (folder) {
-			g_hash_table_remove (exch->folders, reninfo.old_base);
-			camel_object_unref (CAMEL_OBJECT (folder));
-		}
-		g_mutex_unlock (exch->folders_lock);
-
-		camel_object_trigger_event (CAMEL_OBJECT (exch),
-					    "folder_renamed", &reninfo);
-		camel_folder_info_free (reninfo.new);
-		g_free (reninfo.old_base);
 		break;
 	}
 

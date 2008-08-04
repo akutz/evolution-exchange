@@ -134,6 +134,9 @@ static void storage_folder_changed (EFolder *folder, gpointer user_data);
 static void folder_update_linestatus (gpointer key, gpointer value, gpointer data);
 static void free_folder (gpointer value);
 static gboolean get_folder_online (MailStubExchangeFolder *mfld, gboolean background);
+static void  get_folder_info_data (MailStub *stub, const char *top, guint32 store_flags,
+				   GPtrArray **names, GPtrArray **uris,
+				   GArray **unread, GArray **flags);
 
 static GStaticRecMutex g_changed_msgs_mutex = G_STATIC_REC_MUTEX_INIT;
 
@@ -2730,12 +2733,13 @@ account_removed_folder (ExchangeAccount *account, EFolder *folder, gpointer user
 	mail_stub_push_changes (stub);
 }
 
-static void
-get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
+static void 
+get_folder_info_data (MailStub *stub, const char *top, guint32 store_flags,
+		      GPtrArray **names, GPtrArray **uris,
+		      GArray **unread, GArray **flags)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
-	GPtrArray *folders = NULL, *names, *uris;
-	GArray *unread, *flags;
+	GPtrArray *folders = NULL;
 	ExchangeHierarchy *hier;
 	EFolder *folder;
 	const char *type, *name, *uri, *path, *inbox_uri = NULL, *trash_uri = NULL, *sent_items_uri = NULL;
@@ -2764,7 +2768,8 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 			d(g_print ("%s(%d):%s: NOT SUBSCRIBED - open_folder returned = [%d]\n", __FILE__, __LINE__, __GNUC_PRETTY_FUNCTION__, result));
 	}
 
-	if (!recursive && toplen) {
+	/* No need to check for recursive flag, as I will always be returning a tree, instead of a single folder info object */
+	if (toplen) {
 		d(g_print ("%s(%d):%s: NOT RECURSIVE and toplen top = [%s]\n", __FILE__, __LINE__, __GNUC_PRETTY_FUNCTION__, top));
 		full_path = g_strdup_printf ("/%s", top);
 		folders = exchange_account_get_folder_tree (mse->account, full_path);
@@ -2775,10 +2780,10 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 		folders = exchange_account_get_folders (mse->account);
 	}
 
-	names = g_ptr_array_new ();
-	uris = g_ptr_array_new ();
-	unread = g_array_new (FALSE, FALSE, sizeof (int));
-	flags = g_array_new (FALSE, FALSE, sizeof (int));
+	*names = g_ptr_array_new ();
+	*uris = g_ptr_array_new ();
+	*unread = g_array_new (FALSE, FALSE, sizeof (int));
+	*flags = g_array_new (FALSE, FALSE, sizeof (int));
 	/* Can be NULL if started in offline mode */
 	if (mse->inbox) {
 		inbox_uri = e_folder_get_physical_uri (mse->inbox);
@@ -2805,13 +2810,6 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 					continue;
 			} else if (info_fast) {
 				if (hier->type != EXCHANGE_HIERARCHY_PUBLIC)
-					continue;
-			}
-
-			if (recursive && toplen) {
-				path = e_folder_exchange_get_path (folder);
-				if (strncmp (path + 1, top, toplen) != 0 ||
-				    path[toplen + 1] != '\0')
 					continue;
 			}
 
@@ -2879,14 +2877,25 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 
 			d(g_print ("folder flags is : %d\n", folder_flags));
 
-			g_ptr_array_add (names, (char *)name);
-			g_ptr_array_add (uris, (char *)uri);
-			g_array_append_val (unread, unread_count);
-			g_array_append_val (flags, folder_flags);
+			g_ptr_array_add (*names, (char *)name);
+			g_ptr_array_add (*uris, (char *)uri);
+			g_array_append_val (*unread, unread_count);
+			g_array_append_val (*flags, folder_flags);
 		}
 
 		g_ptr_array_free (folders, TRUE);
 	}
+}
+
+static void
+get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
+{
+	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
+	GPtrArray *names, *uris;
+	GArray *unread, *flags;
+
+	get_folder_info_data (stub, top, store_flags, &names, &uris, 
+			      &unread, &flags);
 
 	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
 			       CAMEL_STUB_ARG_STRINGARRAY, names,
@@ -3070,6 +3079,8 @@ rename_folder (MailStub *stub, const char *old_name, const char *new_name)
 	ExchangeAccountFolderResult result;
 	EFolder *folder;
 	char *old_path, *new_path;
+	GPtrArray *names, *uris;
+	GArray *unread, *flags;
 
 	old_path = g_build_filename ("/", old_name, NULL);
 	folder = exchange_account_get_folder (mse->account, old_path);
@@ -3101,11 +3112,20 @@ rename_folder (MailStub *stub, const char *old_name, const char *new_name)
 		g_hash_table_steal (mse->folders_by_name, old_name);
 		g_hash_table_insert (mse->folders_by_name, (char *)mfld->name, mfld);
 
-		mail_stub_return_data (stub, CAMEL_STUB_RETVAL_FOLDER_RENAMED,
-				       CAMEL_STUB_ARG_FOLDER, old_name,
-				       CAMEL_STUB_ARG_FOLDER, e_folder_get_name (folder),
-				       CAMEL_STUB_ARG_STRING, e_folder_get_physical_uri (folder),
+		get_folder_info_data (stub, new_name, CAMEL_STUB_STORE_FOLDER_INFO_SUBSCRIBED,
+				      &names, &uris, &unread, &flags);
+
+		mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
+				       CAMEL_STUB_ARG_STRINGARRAY, names,
+				       CAMEL_STUB_ARG_STRINGARRAY, uris,
+				       CAMEL_STUB_ARG_UINT32ARRAY, unread,
+				       CAMEL_STUB_ARG_UINT32ARRAY, flags,
 				       CAMEL_STUB_ARG_END);
+
+		g_ptr_array_free (names, TRUE);
+		g_ptr_array_free (uris, TRUE);
+		g_array_free (unread, TRUE);
+		g_array_free (flags, TRUE);
 		break;
 
 	case EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST:
