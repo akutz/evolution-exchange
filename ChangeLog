@@ -1,5 +1,15 @@
 2008-08-04  Bharath Acharya  <abharath@novell.com>
 
+	** Fix for bug #543427
+
+	* camel/camel-exchange-folder.c:
+	(camel_exchange_folder_add_message):
+	* camel/camel-exchange-journal.c: (exchange_entry_play_append),
+	(exchange_entry_play_transfer), (update_cache): 
+	Use camel_pstring_strdup. The free'ing is handled by message_info_free.
+
+2008-08-04  Bharath Acharya  <abharath@novell.com>
+
 	** Fix for bug #543075
 
 	* camel/camel-exchange-folder.c: (append_message_data): The info is 

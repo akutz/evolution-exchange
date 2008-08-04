@@ -38,6 +38,7 @@
 #include <camel/camel-file-utils.h>
 #include <camel/camel-folder-summary.h>
 #include <camel/camel-data-cache.h>
+#include <camel/camel-string-utils.h>
 
 #include "camel-exchange-journal.h"
 #include "camel-exchange-store.h"
@@ -292,7 +293,7 @@ exchange_entry_play_append (CamelOfflineJournal *journal, CamelExchangeJournalEn
 	camel_object_unref (message);
 
 	if (uid != NULL && real) {
-		real->uid = g_strdup (uid);
+		real->uid = camel_pstring_strdup (uid);
 		exchange_message_info_dup_to ((CamelMessageInfoBase *) real, (CamelMessageInfoBase *) info);
 		camel_folder_summary_add (folder->summary, real);
 		/* FIXME: should a folder_changed event be triggered? */
@@ -356,7 +357,7 @@ exchange_entry_play_transfer (CamelOfflineJournal *journal, CamelExchangeJournal
 		if (!camel_exception_is_set (&lex)) {
 			real = camel_folder_summary_info_new_from_message (folder->summary, message);
 			camel_object_unref (message);
-			real->uid = g_strdup ((char *)xuids->pdata[0]);
+			real->uid = camel_pstring_strdup ((char *)xuids->pdata[0]);
 			/* Transfer flags */
 			exchange_message_info_dup_to ((CamelMessageInfoBase *) real, (CamelMessageInfoBase *) info);
 			camel_folder_summary_add (folder->summary, real);
@@ -463,7 +464,7 @@ update_cache (CamelExchangeJournal *exchange_journal, CamelMimeMessage *message,
 	camel_object_unref (cache);
 
 	info = camel_folder_summary_info_new_from_message (folder->summary, message);
-	info->uid = g_strdup (uid);
+	info->uid = camel_pstring_strdup (uid);
 
 	exchange_message_info_dup_to ((CamelMessageInfoBase *) info, (CamelMessageInfoBase *) mi);
 

@@ -46,6 +46,7 @@
 #include <camel/camel-stream-filter.h>
 #include <camel/camel-stream-mem.h>
 #include <camel/camel-folder-summary.h>
+#include <camel/camel-string-utils.h>
 
 static CamelOfflineFolderClass *parent_class = NULL;
 
@@ -759,7 +760,7 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 	}
 	camel_object_unref (CAMEL_OBJECT (msg));
 
-	info->uid = g_strdup (uid);
+	info->uid = camel_pstring_strdup (uid);
 	einfo->info.flags = flags;
 	einfo->info.size = size;
 	einfo->href = g_strdup (href);
