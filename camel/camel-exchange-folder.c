@@ -229,7 +229,7 @@ append_message_data (CamelFolder *folder, GByteArray *message,
 
 	if (camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_APPEND_MESSAGE,
 			     CAMEL_STUB_ARG_FOLDER, folder->full_name,
-			     CAMEL_STUB_ARG_UINT32, camel_message_info_flags(info),
+			     CAMEL_STUB_ARG_UINT32, info? camel_message_info_flags(info): 0,
 			     CAMEL_STUB_ARG_STRING, subject,
 			     CAMEL_STUB_ARG_BYTEARRAY, message,
 			     CAMEL_STUB_ARG_RETURN,

@@ -1,3 +1,11 @@
+2008-08-04  Bharath Acharya  <abharath@novell.com>
+
+	** Fix for bug #543075
+
+	* camel/camel-exchange-folder.c: (append_message_data): The info is 
+	usually NULL when you drag and drop an embedded mail to a folder. This 
+	check should get your message back into the desired folder.
+
 2008-08-03  Matthew Barnes  <mbarnes@redhat.com>
 
 	* camel/camel-exchange-folder.c (search_by_uids):
