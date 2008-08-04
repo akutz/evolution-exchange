@@ -29,6 +29,7 @@
 
 #include <camel/camel-file-utils.h>
 #include <camel/camel-offline-store.h>
+#include <camel/camel-string-utils.h>
 
 #include "camel-stub.h"
 #include "camel-exchange-folder.h"
@@ -584,7 +585,7 @@ camel_exchange_summary_add_offline (CamelFolderSummary *summary,
 	}
 
 	mi->size = camel_message_info_size(info);
-	mi->uid = g_strdup(uid);
+	mi->uid = camel_pstring_strdup (uid);
 	camel_folder_summary_add (summary, (CamelMessageInfo *)mi);
 }
 
@@ -608,6 +609,6 @@ camel_exchange_summary_add_offline_uncached (CamelFolderSummary *summary,
 	mi = camel_message_info_clone(info);
 
 	/* Set uid and add to summary */
-	mi->uid = g_strdup (uid);
+	mi->uid = camel_pstring_strdup (uid);
 	camel_folder_summary_add (summary, mi);
 }

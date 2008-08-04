@@ -1,5 +1,13 @@
 2008-08-04  Bharath Acharya  <abharath@novell.com>
 
+	** Part of fix for bug #543427
+
+	* camel/camel-exchange-summary.c:
+	(camel_exchange_summary_add_offline),
+	(camel_exchange_summary_add_offline_uncached): Use camel_pstring_strdup
+
+2008-08-04  Bharath Acharya  <abharath@novell.com>
+
 	** Fix for bug #543427
 
 	* camel/camel-exchange-folder.c:
