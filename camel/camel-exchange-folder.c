@@ -472,14 +472,6 @@ search_by_expression (CamelFolder *folder, const char *expression,
 	camel_folder_search_set_folder (search, folder);
 	matches = camel_folder_search_search (search, expression, NULL, ex);
 
-	if (matches) {
-		response = g_ptr_array_new ();
-		for (i = 0; i < matches->len; i++)
-			g_ptr_array_add (response, g_strdup (matches->pdata[i]));
-		camel_folder_search_free_result (search, matches);
-	} else
-		response = NULL;
-
 	camel_object_unref (CAMEL_OBJECT (search));
 
 	return response;
