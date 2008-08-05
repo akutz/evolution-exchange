@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-24 15:29+0200\n"
-"PO-Revision-Date: 2008-06-24 15:30+0100\n"
+"POT-Creation-Date: 2008-08-05 10:23+0200\n"
+"PO-Revision-Date: 2008-08-05 10:24+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -54,7 +54,7 @@ msgstr "Mottar LDAP-sökresultat..."
 msgid "Error performing search"
 msgstr "Fel vid sökning"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2086
+#: ../calendar/e-cal-backend-exchange-calendar.c:2090
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -63,176 +63,186 @@ msgstr ""
 "Kan inte schemalägga resursen \"%s\" för återkommande sammanträden.\n"
 "Du måste boka varje sammanträde separat."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2104
+#: ../calendar/e-cal-backend-exchange-calendar.c:2108
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Resursen \"%s\" är upptagen under den valda tidsperioden."
 
-#: ../calendar/e-cal-backend-exchange.c:420
+#: ../calendar/e-cal-backend-exchange.c:424
 msgid "Authentication failed"
 msgstr "Autentisering misslyckades"
 
-#: ../calendar/e-cal-backend-exchange.c:462
+#: ../calendar/e-cal-backend-exchange.c:466
 msgid "Could not find the calendar"
 msgstr "Kunde inte hitta kalendern"
 
-#: ../camel/camel-exchange-folder.c:52
+#: ../camel/camel-exchange-folder.c:54
 msgid "Always check for new mail in this folder"
 msgstr "Kontrollera alltid efter nya meddelanden i denna mapp"
 
-#: ../camel/camel-exchange-folder.c:238
+#: ../camel/camel-exchange-folder.c:198
 msgid "You cannot expunge in offline mode."
 msgstr "Kan inte tömma i frånkopplat läge."
 
-#: ../camel/camel-exchange-folder.c:269
+#: ../camel/camel-exchange-folder.c:229
 msgid "No Subject"
 msgstr "Inget ämne"
 
-#: ../camel/camel-exchange-folder.c:424
+#: ../camel/camel-exchange-folder.c:384
 msgid "This message is not available in offline mode."
 msgstr "Detta meddelande är inte tillgängligt i frånkopplat läge."
 
-#: ../camel/camel-exchange-folder.c:681
+#: ../camel/camel-exchange-folder.c:605
 msgid "Moving messages"
 msgstr "Flyttar meddelanden"
 
-#: ../camel/camel-exchange-folder.c:682
+#: ../camel/camel-exchange-folder.c:606
 msgid "Copying messages"
 msgstr "Kopierar meddelanden"
 
-#: ../camel/camel-exchange-folder.c:1055
+#: ../camel/camel-exchange-folder.c:979
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Kunde inte skapa katalogen %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1065
+#: ../camel/camel-exchange-folder.c:989
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Kunde inte läsa in sammanfattning för %s"
 
-#: ../camel/camel-exchange-folder.c:1073
+#: ../camel/camel-exchange-folder.c:997
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Kunde inte skapa cache för %s"
 
-#: ../camel/camel-exchange-folder.c:1083
+#: ../camel/camel-exchange-folder.c:1007
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Kunde inte skapa journal för %s"
 
-#: ../camel/camel-exchange-folder.c:1131
+#: ../camel/camel-exchange-folder.c:1058
 msgid "Scanning for changed messages"
 msgstr "Letar efter ändrade meddelanden"
 
-#: ../camel/camel-exchange-folder.c:1164
+#: ../camel/camel-exchange-folder.c:1091
 msgid "Fetching summary information for new messages"
 msgstr "Hämtar meddelandeinformation för nya meddelanden"
 
-#: ../camel/camel-exchange-journal.c:341
+#: ../camel/camel-exchange-journal.c:342
 msgid "No folder name found\n"
 msgstr "Inget mappnamn hittat\n"
 
-#: ../camel/camel-exchange-journal.c:374
-#: ../mail/mail-stub-exchange.c:3024
-#: ../mail/mail-stub-exchange.c:3068
-#: ../mail/mail-stub-exchange.c:3103
-#: ../mail/mail-stub-exchange.c:3130
-#: ../mail/mail-stub-exchange.c:3183
-#: ../mail/mail-stub-exchange.c:3205
+#: ../camel/camel-exchange-journal.c:375
+#: ../mail/mail-stub-exchange.c:3045
+#: ../mail/mail-stub-exchange.c:3095
+#: ../mail/mail-stub-exchange.c:3225
+#: ../mail/mail-stub-exchange.c:3252
+#: ../mail/mail-stub-exchange.c:3305
+#: ../mail/mail-stub-exchange.c:3327
 msgid "Folder doesn't exist"
 msgstr "Mappen finns inte"
 
-#: ../camel/camel-exchange-journal.c:438
+#: ../camel/camel-exchange-journal.c:439
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "Kan inte lägga till meddelande i frånkopplat läge: cachen inte tillgänglig"
 
-#: ../camel/camel-exchange-journal.c:454
+#: ../camel/camel-exchange-journal.c:455
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Kan inte lägga till meddelande i frånkopplat läge: %s"
 
+#: ../camel/camel-exchange-provider.c:55
+msgid "Secure or Plaintext Password"
+msgstr "Säkert lösenord eller i klartext"
+
 #: ../camel/camel-exchange-provider.c:56
+#: ../camel/camel-exchange-provider.c:139
+msgid "Plaintext Password"
+msgstr "Klartextlösenord"
+
+#. i18n: "Secure Password Authentication" is an Outlookism
+#: ../camel/camel-exchange-provider.c:57
+#: ../camel/camel-exchange-provider.c:128
+msgid "Secure Password"
+msgstr "Säkert lösenord"
+
+#: ../camel/camel-exchange-provider.c:63
 msgid "Checking for New Mail"
 msgstr "Letar efter ny post"
 
-#: ../camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:65
 msgid "C_heck for new messages in all folders"
 msgstr "Leta _efter nya meddelanden i alla mappar"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:66
+#: ../camel/camel-exchange-provider.c:73
 msgid "Windows User_name:"
 msgstr "Windows-användar_namn:"
 
 # Osäker.
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:71
+#: ../camel/camel-exchange-provider.c:78
 msgid "Global Address List / Active Directory"
 msgstr "Global adresslista / Active Directory"
 
 # Osäker.
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:75
+#: ../camel/camel-exchange-provider.c:82
 msgid "_Global Catalog server name:"
 msgstr "Namn på _global katalogserver:"
 
-#: ../camel/camel-exchange-provider.c:77
+#: ../camel/camel-exchange-provider.c:84
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "Begrä_nsa antalet GAL-svar: %s"
 
-#: ../camel/camel-exchange-provider.c:80
+#: ../camel/camel-exchange-provider.c:86
+msgid "Authentication _Type:"
+msgstr "Autentiserings_typ:"
+
+#: ../camel/camel-exchange-provider.c:89
 msgid "Options"
 msgstr "Alternativ"
 
-#: ../camel/camel-exchange-provider.c:82
+#: ../camel/camel-exchange-provider.c:91
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "Varnings_period för lösenordsutgång: %s"
 
-#: ../camel/camel-exchange-provider.c:84
+#: ../camel/camel-exchange-provider.c:93
 msgid "Automatically synchroni_ze account locally"
 msgstr "Synkronise_ra automatiskt konto lokalt"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:87
+#: ../camel/camel-exchange-provider.c:96
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "Tillämpa _filtren på nya meddelanden i inkorgen på denna server"
 
-#: ../camel/camel-exchange-provider.c:89
+#: ../camel/camel-exchange-provider.c:98
 msgid "Check new messages for _Junk contents"
 msgstr "Kontrollera om _nya meddelanden innehåller skräp"
 
-#: ../camel/camel-exchange-provider.c:91
+#: ../camel/camel-exchange-provider.c:100
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Kontrollera _endast om meddelanden innehåller skräp i inkorgsmappen"
 
-#: ../camel/camel-exchange-provider.c:101
+#: ../camel/camel-exchange-provider.c:110
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:103
+#: ../camel/camel-exchange-provider.c:112
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "För hantering av e-post (och andra data) på Microsoft Exchange-servrar"
 
-#. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:119
-msgid "Secure Password"
-msgstr "Säkert lösenord"
-
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:122
+#: ../camel/camel-exchange-provider.c:131
 msgid "This option will connect to the Exchange server using secure password (NTLM) authentication."
 msgstr "Detta alternativ kommer att ansluta till Exchange-servern med hjälp av säker lösenordsverifiering (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:130
-msgid "Plaintext Password"
-msgstr "Klartextlösenord"
-
-#: ../camel/camel-exchange-provider.c:132
+#: ../camel/camel-exchange-provider.c:141
 msgid "This option will connect to the Exchange server using standard plaintext password authentication."
 msgstr "Detta alternativ kommer att ansluta till Exchange-servern med hjälp av standardautentisering med lösenord i klartext."
 
@@ -283,7 +293,7 @@ msgstr "Kan inte skapa mapp i frånkopplat läge."
 msgid "Cannot delete folder in offline mode."
 msgstr "Kan inte ta bort mapp i frånkopplat läge."
 
-#: ../camel/camel-exchange-store.c:843
+#: ../camel/camel-exchange-store.c:851
 msgid "Cannot rename folder in offline mode."
 msgstr "Kan inte byta namn på mapp i frånkopplat läge."
 
@@ -346,87 +356,87 @@ msgstr "Tappade anslutningen till %s"
 msgid "Error communicating with %s: %s"
 msgstr "Fel vid kommunikation med %s: %s"
 
-#: ../mail/mail-stub-exchange.c:264
-#: ../mail/mail-stub-exchange.c:949
+#: ../mail/mail-stub-exchange.c:267
+#: ../mail/mail-stub-exchange.c:964
 msgid "No such folder"
 msgstr "Det finns ingen sådan mapp"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:287
-#: ../mail/mail-stub-exchange.c:1598
-#: ../mail/mail-stub-exchange.c:3001
-#: ../mail/mail-stub-exchange.c:3041
-#: ../mail/mail-stub-exchange.c:3107
-#: ../mail/mail-stub-exchange.c:3157
-#: ../mail/mail-stub-exchange.c:3220
+#: ../mail/mail-stub-exchange.c:290
+#: ../mail/mail-stub-exchange.c:1613
+#: ../mail/mail-stub-exchange.c:3022
+#: ../mail/mail-stub-exchange.c:3062
+#: ../mail/mail-stub-exchange.c:3229
+#: ../mail/mail-stub-exchange.c:3279
+#: ../mail/mail-stub-exchange.c:3342
 msgid "Permission denied"
 msgstr "Åtkomst nekas"
 
-#: ../mail/mail-stub-exchange.c:771
-#: ../mail/mail-stub-exchange.c:863
+#: ../mail/mail-stub-exchange.c:786
+#: ../mail/mail-stub-exchange.c:878
 msgid "Could not open folder"
 msgstr "Kunde inte öppna mapp"
 
-#: ../mail/mail-stub-exchange.c:857
-#: ../mail/mail-stub-exchange.c:879
+#: ../mail/mail-stub-exchange.c:872
+#: ../mail/mail-stub-exchange.c:894
 msgid "Could not open folder: Permission denied"
 msgstr "Kunde inte öppna mapp: Åtkomst nekas"
 
-#: ../mail/mail-stub-exchange.c:958
+#: ../mail/mail-stub-exchange.c:973
 msgid "Could not create folder."
 msgstr "Kunde inte skapa mapp."
 
-#: ../mail/mail-stub-exchange.c:1046
+#: ../mail/mail-stub-exchange.c:1061
 msgid "Could not open Deleted Items folder"
 msgstr "Kunde inte öppna mappen Borttaget"
 
-#: ../mail/mail-stub-exchange.c:1377
-#: ../mail/mail-stub-exchange.c:1418
+#: ../mail/mail-stub-exchange.c:1392
+#: ../mail/mail-stub-exchange.c:1433
 msgid "Could not get new messages"
 msgstr "Kunde inte hämta nya meddelanden"
 
-#: ../mail/mail-stub-exchange.c:1594
+#: ../mail/mail-stub-exchange.c:1609
 msgid "Could not empty Deleted Items folder"
 msgstr "Kunde inte tömma mappen Borttaget"
 
-#: ../mail/mail-stub-exchange.c:1671
+#: ../mail/mail-stub-exchange.c:1686
 msgid "Could not append message; mailbox is over quota"
 msgstr "Kunde inte lägga till meddelande; postlådan är över kvoten"
 
-#: ../mail/mail-stub-exchange.c:1672
+#: ../mail/mail-stub-exchange.c:1687
 msgid "Could not append message"
 msgstr "Kunde inte lägga till meddelande"
 
-#: ../mail/mail-stub-exchange.c:2434
+#: ../mail/mail-stub-exchange.c:2449
 msgid "No such message"
 msgstr "Det finns inget sådant meddelande"
 
-#: ../mail/mail-stub-exchange.c:2515
+#: ../mail/mail-stub-exchange.c:2530
 msgid "Message has been deleted"
 msgstr "Meddelandet har tagits bort"
 
-#: ../mail/mail-stub-exchange.c:2517
+#: ../mail/mail-stub-exchange.c:2532
 msgid "Error retrieving message"
 msgstr "Fel vid hämtning av meddelande"
 
-#: ../mail/mail-stub-exchange.c:2560
+#: ../mail/mail-stub-exchange.c:2575
 msgid "Mailbox does not support full-text searching"
 msgstr "Postlådan stöder inte fulltextsökning"
 
-#: ../mail/mail-stub-exchange.c:2658
+#: ../mail/mail-stub-exchange.c:2673
 msgid "Unable to move/copy messages"
 msgstr "Kan inte flytta/kopiera meddelanden"
 
-#: ../mail/mail-stub-exchange.c:2918
+#: ../mail/mail-stub-exchange.c:2939
 msgid "No mail submission URI for this mailbox"
 msgstr "Ingen URI för e-postskickande för denna postlåda"
 
-#: ../mail/mail-stub-exchange.c:2952
+#: ../mail/mail-stub-exchange.c:2973
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Servern kommer inte att acceptera e-post via Exchange-transporten"
 
-#: ../mail/mail-stub-exchange.c:2954
+#: ../mail/mail-stub-exchange.c:2975
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -435,7 +445,7 @@ msgstr ""
 "Ditt konto har inte rättigheter att använda <%s>\n"
 "som Från-adress."
 
-#: ../mail/mail-stub-exchange.c:2966
+#: ../mail/mail-stub-exchange.c:2987
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -443,19 +453,19 @@ msgstr ""
 "Kunde inte skicka meddelandet.\n"
 "Detta kan innebära att ditt konto är över kvoten."
 
-#: ../mail/mail-stub-exchange.c:2970
+#: ../mail/mail-stub-exchange.c:2991
 msgid "Could not send message"
 msgstr "Kunde inte skicka meddelandet"
 
-#: ../mail/mail-stub-exchange.c:2993
-#: ../mail/mail-stub-exchange.c:3046
-#: ../mail/mail-stub-exchange.c:3111
-#: ../mail/mail-stub-exchange.c:3162
-#: ../mail/mail-stub-exchange.c:3226
+#: ../mail/mail-stub-exchange.c:3014
+#: ../mail/mail-stub-exchange.c:3067
+#: ../mail/mail-stub-exchange.c:3233
+#: ../mail/mail-stub-exchange.c:3284
+#: ../mail/mail-stub-exchange.c:3348
 msgid "Generic error"
 msgstr "Allmänt fel"
 
-#: ../mail/mail-stub-exchange.c:2997
+#: ../mail/mail-stub-exchange.c:3018
 msgid "Folder already exists"
 msgstr "Mappen finns redan"
 
