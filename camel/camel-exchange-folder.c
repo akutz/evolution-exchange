@@ -465,8 +465,7 @@ search_by_expression (CamelFolder *folder, const char *expression,
 		      CamelException *ex)
 {
 	CamelFolderSearch *search;
-	GPtrArray *matches, *response;
-	int i;
+	GPtrArray *matches;
 
 	search = camel_exchange_search_new ();
 	camel_folder_search_set_folder (search, folder);
@@ -474,7 +473,7 @@ search_by_expression (CamelFolder *folder, const char *expression,
 
 	camel_object_unref (CAMEL_OBJECT (search));
 
-	return response;
+	return matches;
 }
 
 static GPtrArray *

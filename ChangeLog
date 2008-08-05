@@ -1,3 +1,10 @@
+2008-08-05  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #546385
+
+	* camel/camel-exchange-folder.c: (search_by_expression):
+	Return initialized pointer instead of some uninitialized variable.
+
 2008-08-05  Srinivasa Ragavan  <sragavan@novell.com>
 
 	* camel/camel-exchange-folder.c (search_by_expression): Don't mimic.
