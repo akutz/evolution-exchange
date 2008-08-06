@@ -1,5 +1,12 @@
 2008-08-06  Milan Crha  <mcrha@redhat.com>
 
+	** Fix for bug #546257
+
+	* addressbook/e-book-backend-exchange.c: (subscription_notify):
+	Use proper ref/unref functions on EBookBackendExchange object.
+
+2008-08-06  Milan Crha  <mcrha@redhat.com>
+
 	** Fix for bug #329505
 
 	* addressbook/e-book-backend-exchange.c: (get_contact_list_members),

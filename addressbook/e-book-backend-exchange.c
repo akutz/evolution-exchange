@@ -2151,7 +2151,7 @@ subscription_notify (E2kContext *ctx, const char *uri,
 	const char *uid;
 	int i;
 
-	bonobo_object_ref (be);
+	g_object_ref (be);
 
 	unseen_ids = g_hash_table_new (g_str_hash, g_str_equal);
 	ids = e_book_backend_summary_search (bepriv->summary,
@@ -2185,7 +2185,7 @@ subscription_notify (E2kContext *ctx, const char *uri,
 	if (status == E2K_HTTP_MULTI_STATUS)
 		g_hash_table_foreach (unseen_ids, notify_remove, be);
 	g_hash_table_destroy (unseen_ids);
-	bonobo_object_unref (be);
+	g_object_unref (be);
 }
 
 
