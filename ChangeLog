@@ -1,3 +1,17 @@
+2008-08-06  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #329505
+
+	* addressbook/e-book-backend-exchange.c: (get_contact_list_members),
+	(free_contact_list_member), (free_members_list),
+	(e_contact_from_props), (e_book_backend_exchange_connect),
+	(props_from_contact), (cl_post_command), (remove_member),
+	(merge_contact_lists), (e_book_backend_exchange_create_contact),
+	(e_book_backend_exchange_modify_contact),
+	(e_book_backend_exchange_get_static_capabilites),
+	(e_book_backend_exchange_class_init): Recognize Distribution lists
+	stored on the server and work with them as with Contact lists.
+
 2008-08-04  Srinivasa Ragavan  <sragavan@novell.com>
 
 	* NEWS: Evolution Exchange 2.23.6 release and version bump.
@@ -79,6 +93,7 @@
 	* camel/camel-exchange-summary.c: Read href from db properly.
 
 2008-07-30  Milan Crha  <mcrha@redhat.com>
+
 	** Fix for bug #500389
 
 	* camel/camel-exchange-provider.c: (auth_types),
