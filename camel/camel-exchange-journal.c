@@ -52,10 +52,10 @@ static void camel_exchange_journal_class_init (CamelExchangeJournalClass *klass)
 static void camel_exchange_journal_init (CamelExchangeJournal *journal, CamelExchangeJournalClass *klass);
 static void camel_exchange_journal_finalize (CamelObject *object);
 
-static void exchange_entry_free (CamelOfflineJournal *journal, EDListNode *entry);
-static EDListNode *exchange_entry_load (CamelOfflineJournal *journal, FILE *in);
-static int exchange_entry_write (CamelOfflineJournal *journal, EDListNode *entry, FILE *out);
-static int exchange_entry_play (CamelOfflineJournal *journal, EDListNode *entry, CamelException *ex);
+static void exchange_entry_free (CamelOfflineJournal *journal, CamelDListNode *entry);
+static CamelDListNode *exchange_entry_load (CamelOfflineJournal *journal, FILE *in);
+static int exchange_entry_write (CamelOfflineJournal *journal, CamelDListNode *entry, FILE *out);
+static int exchange_entry_play (CamelOfflineJournal *journal, CamelDListNode *entry, CamelException *ex);
 
 
 static CamelOfflineJournalClass *parent_class = NULL;
@@ -106,7 +106,7 @@ camel_exchange_journal_finalize (CamelObject *object)
 }
 
 static void
-exchange_entry_free (CamelOfflineJournal *journal, EDListNode *entry)
+exchange_entry_free (CamelOfflineJournal *journal, CamelDListNode *entry)
 {
 	CamelExchangeJournalEntry *exchange_entry = (CamelExchangeJournalEntry *) entry;
 
@@ -116,7 +116,7 @@ exchange_entry_free (CamelOfflineJournal *journal, EDListNode *entry)
 	g_free (exchange_entry);
 }
 
-static EDListNode *
+static CamelDListNode *
 exchange_entry_load (CamelOfflineJournal *journal, FILE *in)
 {
 	CamelExchangeJournalEntry *entry;
@@ -164,7 +164,7 @@ exchange_entry_load (CamelOfflineJournal *journal, FILE *in)
 		goto exception;
 	}
 
-	return (EDListNode *) entry;
+	return (CamelDListNode *) entry;
 
  exception:
 
@@ -177,7 +177,7 @@ exchange_entry_load (CamelOfflineJournal *journal, FILE *in)
 }
 
 static int
-exchange_entry_write (CamelOfflineJournal *journal, EDListNode *entry, FILE *out)
+exchange_entry_write (CamelOfflineJournal *journal, CamelDListNode *entry, FILE *out)
 {
 	CamelExchangeJournalEntry *exchange_entry = (CamelExchangeJournalEntry *) entry;
 	char *tmp;
@@ -390,7 +390,7 @@ exception:
 }
 
 static int
-exchange_entry_play (CamelOfflineJournal *journal, EDListNode *entry, CamelException *ex)
+exchange_entry_play (CamelOfflineJournal *journal, CamelDListNode *entry, CamelException *ex)
 {
 	CamelExchangeJournalEntry *exchange_entry = (CamelExchangeJournalEntry *) entry;
 
@@ -493,7 +493,7 @@ camel_exchange_journal_append (CamelExchangeJournal *exchange_journal, CamelMime
 	entry->type = CAMEL_EXCHANGE_JOURNAL_ENTRY_APPEND;
 	entry->uid = uid;
 
-	e_dlist_addtail (&journal->queue, (EDListNode *) entry);
+	camel_dlist_addtail (&journal->queue, (CamelDListNode *) entry);
 
 	if (appended_uid)
 		*appended_uid = g_strdup (uid);
@@ -507,7 +507,7 @@ find_real_source_for_message (CamelExchangeFolder *folder,
 			      gboolean delete_original)
 {
 	CamelOfflineJournal *journal = folder->journal;
-	EDListNode *entry, *next;
+	CamelDListNode *entry, *next;
 	CamelExchangeJournalEntry *ex_entry;
 	const char *offline_uid = *uid;
 	int type = -1;
@@ -531,7 +531,7 @@ find_real_source_for_message (CamelExchangeFolder *folder,
 			}
 
 			if (delete_original) {
-				e_dlist_remove (entry);
+				camel_dlist_remove (entry);
 			}
 		}
 
@@ -576,7 +576,7 @@ camel_exchange_journal_transfer (CamelExchangeJournal *exchange_journal, CamelEx
 		entry->delete_original = delete_original;
 	}
 
-	e_dlist_addtail (&journal->queue, (EDListNode *) entry);
+	camel_dlist_addtail (&journal->queue, (CamelDListNode *) entry);
 
 	if (transferred_uid)
 		*transferred_uid = g_strdup (uid);
@@ -600,6 +600,6 @@ camel_exchange_journal_delete (CamelExchangeJournal *exchange_journal,
 	entry->flags = flags;
 	entry->set = set;
 
-	e_dlist_addtail (&journal->queue, (EDListNode *) entry);
+	camel_dlist_addtail (&journal->queue, (CamelDListNode *) entry);
 }
 

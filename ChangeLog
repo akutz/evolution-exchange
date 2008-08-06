@@ -1,3 +1,14 @@
+2008-08-06  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes part of bug #545877
+
+	* configure.in:
+	Bump eds_minimum_version to 2.23.90 for CamelDList.
+
+	* camel/camel-exchange-journal.c:
+	* camel/camel-exchange-journal.h:
+	Use CamelDList instead of EDList.
+
 2008-08-06  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #546397
