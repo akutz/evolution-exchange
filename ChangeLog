@@ -1,5 +1,13 @@
 2008-08-06  Milan Crha  <mcrha@redhat.com>
 
+	** Fix for bug #546397
+
+	* camel/camel-exchange-folder.c: (class_init), (search_free):
+	Remove 'search_free' and use the default function for this, to not
+	free memory held by camel_pstring_....
+
+2008-08-06  Milan Crha  <mcrha@redhat.com>
+
 	** Fix for bug #546257
 
 	* addressbook/e-book-backend-exchange.c: (subscription_notify):

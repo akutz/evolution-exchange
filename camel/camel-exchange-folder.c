@@ -71,8 +71,6 @@ static GPtrArray      *search_by_uids        (CamelFolder *folder,
 					      const char *expression,
 					      GPtrArray *uids,
 					      CamelException *ex);
-static void            search_free           (CamelFolder *folder,
-					      GPtrArray *uids);
 static void            transfer_messages_to  (CamelFolder *source,
 					      GPtrArray *uids,
 					      CamelFolder *dest,
@@ -102,7 +100,8 @@ class_init (CamelFolderClass *camel_folder_class)
 	camel_folder_class->get_message = get_message;
 	camel_folder_class->search_by_expression = search_by_expression;
 	camel_folder_class->search_by_uids = search_by_uids;
-	camel_folder_class->search_free = search_free;
+	/* use the default function for the search_free */
+	/* camel_folder_class->search_free = search_free; */
 	camel_folder_class->transfer_messages_to = transfer_messages_to;
 	camel_folder_class->refresh_info = refresh_info;
 	camel_folder_class->sync = exchange_sync;
@@ -491,16 +490,6 @@ search_by_uids (CamelFolder *folder, const char *expression,
 	camel_object_unref (CAMEL_OBJECT (search));
 
 	return matches;
-}
-
-static void
-search_free (CamelFolder *folder, GPtrArray *uids)
-{
-	int i;
-
-	for (i = 0; i < uids->len; i++)
-		g_free (uids->pdata[i]);
-	g_ptr_array_free (uids, TRUE);
 }
 
 static void
