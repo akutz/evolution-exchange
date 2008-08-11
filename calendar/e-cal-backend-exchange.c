@@ -2064,6 +2064,9 @@ internal_get_timezone (ECalBackend *backend, const char *tzid)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 
+	if (!tzid)
+		return NULL;
+
 	return g_hash_table_lookup (cbex->priv->timezones, tzid);
 }
 
