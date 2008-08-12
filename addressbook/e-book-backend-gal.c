@@ -248,6 +248,7 @@ static GNOME_Evolution_Addressbook_CallStatus
 gal_connect (EBookBackendGAL *bl)
 {
 	EBookBackendGALPrivate *blpriv = bl->priv;
+	int ldap_error = 0;
 
 #ifdef DEBUG
 	{
@@ -268,9 +269,13 @@ gal_connect (EBookBackendGAL *bl)
 
 	g_object_ref (blpriv->gc);
 	g_mutex_lock (blpriv->ldap_lock);
-	blpriv->ldap = e2k_global_catalog_get_ldap (blpriv->gc, NULL);
+	blpriv->ldap = e2k_global_catalog_get_ldap (blpriv->gc, NULL, &ldap_error);
 	if (!blpriv->ldap) {
 		g_mutex_unlock (blpriv->ldap_lock);
+		d(printf ("%s: Cannot get ldap, error 0x%x (%s)\n", G_STRFUNC, ldap_error, ldap_err2string (ldap_error) ? ldap_err2string (ldap_error) : "Unknown error"));
+		if (ldap_error == LDAP_AUTH_METHOD_NOT_SUPPORTED)
+			return GNOME_Evolution_Addressbook_UnsupportedAuthenticationMethod;
+
 		return GNOME_Evolution_Addressbook_RepositoryOffline;
 	}
 	g_mutex_unlock (blpriv->ldap_lock);
@@ -292,7 +297,7 @@ ldap_reconnect (EBookBackendGAL *bl, EDataBookView *book_view, LDAP **ldap, int 
 			book_view_notify_status (book_view, _("Reconnecting to LDAP server..."));
 
 		ldap_unbind (*ldap);
-		*ldap = e2k_global_catalog_get_ldap (bl->priv->gc, NULL);
+		*ldap = e2k_global_catalog_get_ldap (bl->priv->gc, NULL, NULL);
 		if (book_view)
 			book_view_notify_status (book_view, "");
 
@@ -313,7 +318,7 @@ gal_reconnect (EBookBackendGAL *bl, EDataBookView *book_view, int ldap_status)
 			book_view_notify_status (book_view, _("Reconnecting to LDAP server..."));
 		if (bl->priv->ldap)
 			ldap_unbind (bl->priv->ldap);
-		bl->priv->ldap = e2k_global_catalog_get_ldap (bl->priv->gc, NULL);
+		bl->priv->ldap = e2k_global_catalog_get_ldap (bl->priv->gc, NULL, NULL);
 		if (book_view)
 			book_view_notify_status (book_view, "");
 
@@ -1428,7 +1433,7 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 							char **email_values, **cn_values, **member_info;
 
 							if (!subldap) {
-								subldap = e2k_global_catalog_get_ldap (bl->priv->gc, NULL);
+								subldap = e2k_global_catalog_get_ldap (bl->priv->gc, NULL, NULL);
 							}
 							grpattrs[0] = "cn";
 							grpattrs[1] = "mail";
