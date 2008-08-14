@@ -657,7 +657,7 @@ get_folder_contents_online (MailStubExchangeFolder *mfld, gboolean background)
 
 	m = 0;
 	total = e2k_result_iter_get_total (iter);
-	while ((result = e2k_result_iter_next (iter)) && m < msgs_copy->len) {
+	while (m < msgs_copy->len && (result = e2k_result_iter_next (iter))) {
 		prop = e2k_properties_get_prop (result->props,
 						PR_INTERNET_ARTICLE_NUMBER);
 		if (!prop)
@@ -734,7 +734,6 @@ get_folder_contents_online (MailStubExchangeFolder *mfld, gboolean background)
 
 		g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
 
-
 		if (article_num > high_article_num)
 			high_article_num = article_num;
 
@@ -768,7 +767,7 @@ get_folder_contents_online (MailStubExchangeFolder *mfld, gboolean background)
 						PR_INTERNET_ARTICLE_NUMBER);
 		if (prop) {
 			article_num = strtoul (prop, NULL, 10);
-			if (article_num < high_article_num)
+			if (article_num <= high_article_num)
 				high_article_num = article_num - 1;
 		}
 
@@ -788,8 +787,9 @@ get_folder_contents_online (MailStubExchangeFolder *mfld, gboolean background)
 		return FALSE;
 	}
 
-	/* Discard remaining messages that no longer exist. */
-	for (i = 0; i < msgs_copy->len; i++) {
+	/* Discard remaining messages that no longer exist.
+	   Do not increment 'i', because the remove_index is decrementing array length. */
+	for (i = 0; i < msgs_copy->len;) {
 		mmsg_cpy = msgs_copy->pdata[i];
 		if (!mmsg_cpy->href) {
 			/* Put the index/uid as key/value in the rm_idx_uid hashtable.
@@ -808,8 +808,7 @@ get_folder_contents_online (MailStubExchangeFolder *mfld, gboolean background)
 	}
 
 	g_static_rec_mutex_lock (&g_changed_msgs_mutex);
-	if (mfld->high_article_num < high_article_num)
-		mfld->high_article_num = high_article_num;
+	mfld->high_article_num = high_article_num;
 	g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
 
 	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_FOLDER_SET_ARTICLE_NUM,
