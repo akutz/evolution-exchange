@@ -1,3 +1,16 @@
+2008-08-16  Patrick Ohly  <patrick.ohly@gmx.de>
+
+	** Fix for bug #546934
+
+	* addressbook/e-book-backend-exchange.c: The list of collected
+	changes in ctx->changes was never returned to the caller. Instead
+	the list was leaked when freeing the context. For deleted items,
+	an empty vcard with the UID has to be returned. Instead
+	find_deleted_ids() returned the UID. find_deleted_ids() is a
+	callback for g_hash_table_foreach() and modified the hash that is
+	iterated over. The effect is that the iteration was stopped
+	prematurely, leading to incorrect change tracking.
+
 2008-08-14  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #489236

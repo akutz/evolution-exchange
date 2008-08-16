@@ -2386,17 +2386,29 @@ free_change (gpointer change, gpointer user_data)
 	CORBA_free (change);
 }
 
-static void
+static gboolean
 find_deleted_ids (const char *id, const char *vcard, gpointer user_data)
 {
 	EBookBackendExchangeChangeContext *ctx = user_data;
+	gboolean remove = FALSE;
 
 	if (!g_hash_table_lookup (ctx->seen_ids, id)) {
-		ctx->changes = g_list_prepend (
-			ctx->changes,
-			e_book_backend_change_delete_new (id));
-		e_xmlhash_remove (ctx->ehash, id);
+		char *vcard = NULL;
+		EContact *contact = e_contact_new ();
+		if (contact) {
+			e_contact_set (contact, E_CONTACT_UID, id);
+			vcard = e_vcard_to_string (E_VCARD (contact), EVC_FORMAT_VCARD_30);
+			if (vcard) {
+				ctx->changes = g_list_prepend (
+							       ctx->changes,
+							       e_book_backend_change_delete_new (vcard));
+				g_free (vcard);
+			}
+			g_object_unref (contact);
+		}
+		remove = TRUE;
 	}
+	return remove;
 }
 
 static EBookBackendSyncStatus
@@ -2479,9 +2491,14 @@ e_book_backend_exchange_get_changes (EBookBackendSync  *backend,
 			g_list_foreach (ctx->changes, free_change, NULL);
 			ctx->changes = NULL;
 		} else {
-			e_xmlhash_foreach_key (ctx->ehash, find_deleted_ids, ctx);
+			e_xmlhash_foreach_key_remove (ctx->ehash, find_deleted_ids, ctx);
 			e_xmlhash_write (ctx->ehash);
 		}
+
+		/* transfer ownership of result to caller before cleaning up */
+		*changes = ctx->changes;
+		ctx->changes = NULL;
+
   		e_xmlhash_destroy (ctx->ehash);
 		g_hash_table_destroy (ctx->seen_ids);
 		g_free (ctx);
