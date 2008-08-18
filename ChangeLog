@@ -1,3 +1,14 @@
+2008-08-18  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #324203
+
+	* camel/camel-exchange-provider.c: (exchange_conf_entries[]):
+	New entry to select whether allows GAL browsing or not.
+	* addressbook/e-book-backend-gal.c: (build_query): Do not let it crash.
+	* addressbook/e-book-backend-gal.c: (can_browse), (start_book_view),
+	(ldap_search_handler), (get_static_capabilities): Check whether
+	browsing of the GAL is requested or not and act based on that.
+
 2008-08-16  Patrick Ohly  <patrick.ohly@gmx.de>
 
 	** Fix for bug #546934

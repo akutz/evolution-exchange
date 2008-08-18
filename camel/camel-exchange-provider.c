@@ -84,6 +84,8 @@ CamelProviderConfEntry exchange_conf_entries[] = {
 	  N_("_Limit number of GAL responses: %s"), "y:1:500:10000" },
 	{ CAMEL_PROVIDER_CONF_OPTIONS, "ad_auth", NULL,
 	  N_("Authentication _Type:"), "default:Secure or Plaintext Password:basic:Plaintext Password:ntlm:Secure Password" },
+	{ CAMEL_PROVIDER_CONF_CHECKBOX, "ad_browse", NULL,
+	  N_("Allow _browsing of the GAL until download limit is reached"), "0" },
 	{ CAMEL_PROVIDER_CONF_SECTION_END },
 	{ CAMEL_PROVIDER_CONF_SECTION_START, "generals", NULL,
 	  N_("Options") },
