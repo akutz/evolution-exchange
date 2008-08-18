@@ -1,5 +1,12 @@
 2008-08-18  Milan Crha  <mcrha@redhat.com>
 
+	** Fix for bug #462242
+
+	* calendar/e-cal-backend-exchange.c: (remove_calendar): Report success
+	when trying to delete nonexisting calendar on the server.
+
+2008-08-18  Milan Crha  <mcrha@redhat.com>
+
 	** Fix for bug #324203
 
 	* camel/camel-exchange-provider.c: (exchange_conf_entries[]):

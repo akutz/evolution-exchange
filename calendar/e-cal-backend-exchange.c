@@ -519,6 +519,12 @@ remove_calendar (ECalBackendSync *backend, EDataCal *cal)
 	const char *uri;
 
 	d(printf("ecbe_remove_calendar(%p, %p)\n", backend, cal));
+
+	/* If we do not have a folder, then that means there is no corresponding folder on the server,
+	   thus pretend we removed it successfully. It's not there anyway, thus should be fine. */
+	if (!cbex->folder)
+		return GNOME_Evolution_Calendar_Success;
+
 	uri = e_folder_exchange_get_internal_uri (cbex->folder);
 	result = exchange_account_remove_folder (cbex->account, uri);
 	if (result == EXCHANGE_ACCOUNT_FOLDER_OK)
