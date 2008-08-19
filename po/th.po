@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange 2.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-06 16:35+0700\n"
-"PO-Revision-Date: 2008-02-06 16:46+0700\n"
+"POT-Creation-Date: 2008-08-19 17:49+0700\n"
+"PO-Revision-Date: 2008-08-19 17:56+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -31,25 +31,25 @@ msgstr ""
 "กำหนดค่านี้เป็นศูนย์ถ้าคุณไม่ต้องการปรับข้อมูล GAL และใช้แคชปัจจุบันไปตลอด "
 "คีย์นี้จะมีผลก็ต่อเมื่อคุณได้เปิดการทำแคชแบบออฟไลน์สำหรับ GAL ไว้เท่านั้น"
 
-#: addressbook/e-book-backend-exchange.c:1929
-#: addressbook/e-book-backend-gal.c:1804 storage/exchange-storage.c:135
+#: addressbook/e-book-backend-exchange.c:2276
+#: addressbook/e-book-backend-gal.c:1860 storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "กำลังค้นหา..."
 
-#: addressbook/e-book-backend-gal.c:301
-#: addressbook/e-book-backend-gal.c:322
+#: addressbook/e-book-backend-gal.c:306
+#: addressbook/e-book-backend-gal.c:327
 msgid "Reconnecting to LDAP server..."
 msgstr "กำลังเชื่อมต่อใหม่ไปยังเซิร์ฟเวอร์ LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1588
+#: addressbook/e-book-backend-gal.c:1622
 msgid "Receiving LDAP search results..."
 msgstr "กำลังรับผลการค้นหา LDAP..."
 
-#: addressbook/e-book-backend-gal.c:1833
+#: addressbook/e-book-backend-gal.c:1891
 msgid "Error performing search"
 msgstr "เกิดข้อผิดพลาดขณะค้นหา"
 
-#: calendar/e-cal-backend-exchange-calendar.c:2028
+#: calendar/e-cal-backend-exchange-calendar.c:2090
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -58,195 +58,208 @@ msgstr ""
 "ไม่สามารถจัดตารางเวลาสำหรับทรัพยากร '%s' เพื่อใช้ในการประชุมแบบเวียนซ้ำได้\n"
 "คุณจะต้องจองการประชุมแต่ละครั้งแยกจากกัน"
 
-#: calendar/e-cal-backend-exchange-calendar.c:2046
+#: calendar/e-cal-backend-exchange-calendar.c:2108
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "ทรัพยากร '%s'  ไม่ว่างระหว่างช่วงเวลาที่เลือก"
 
-#: calendar/e-cal-backend-exchange.c:391
-#: calendar/e-cal-backend-exchange.c:401
+#: calendar/e-cal-backend-exchange.c:424
 msgid "Authentication failed"
 msgstr "การยืนยันตัวบุคคลไม่ผ่าน"
 
-#: calendar/e-cal-backend-exchange.c:442
+#: calendar/e-cal-backend-exchange.c:466
 msgid "Could not find the calendar"
 msgstr "หาปฏิทินไม่พบ"
 
-#: camel/camel-exchange-folder.c:52
+#: camel/camel-exchange-folder.c:54
 msgid "Always check for new mail in this folder"
 msgstr "ตรวจสอบเมลใหม่เสมอในโฟลเดอร์นี้"
 
-#: camel/camel-exchange-folder.c:238
+#: camel/camel-exchange-folder.c:197
 msgid "You cannot expunge in offline mode."
 msgstr "ไม่สามารถเก็บกวาดโฟลเดอร์ขณะออฟไลน์ได้"
 
-#: camel/camel-exchange-folder.c:269
+#: camel/camel-exchange-folder.c:228
 msgid "No Subject"
 msgstr "ไม่มีชื่อเรื่อง"
 
-#: camel/camel-exchange-folder.c:424
+#: camel/camel-exchange-folder.c:383
 msgid "This message is not available in offline mode."
 msgstr "ข้อความนี้ ไม่สามารถอ่านได้ขณะออฟไลน์"
 
-#: camel/camel-exchange-folder.c:681
+#: camel/camel-exchange-folder.c:593
 msgid "Moving messages"
 msgstr "กำลังย้ายข้อความ"
 
-#: camel/camel-exchange-folder.c:682
+#: camel/camel-exchange-folder.c:594
 msgid "Copying messages"
 msgstr "กำลังคัดลอกข้อความ"
 
-#: camel/camel-exchange-folder.c:1055
+#: camel/camel-exchange-folder.c:967
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "ไม่สามารถสร้างไดเรกทอรี %s: %s"
 
-#: camel/camel-exchange-folder.c:1065
+#: camel/camel-exchange-folder.c:977
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "ไม่สามารถโหลดข้อมูลสรุปสำหรับ %s ได้"
 
-#: camel/camel-exchange-folder.c:1073
+#: camel/camel-exchange-folder.c:985
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "ไม่สามารถสร้างแคชสำหรับ %s"
 
-#: camel/camel-exchange-folder.c:1083
+#: camel/camel-exchange-folder.c:995
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "ไม่สามารถสร้างวารสารสำหรับ %s"
 
-#: camel/camel-exchange-folder.c:1131
+#: camel/camel-exchange-folder.c:1046
 msgid "Scanning for changed messages"
 msgstr "กำลังตรวจหาข้อความที่เปลี่ยนแปลง"
 
-#: camel/camel-exchange-folder.c:1164
+#: camel/camel-exchange-folder.c:1079
 msgid "Fetching summary information for new messages"
 msgstr "กำลังดึงข้อมูลสรุปสำหรับข้อความใหม่"
 
-#: camel/camel-exchange-journal.c:341
+#: camel/camel-exchange-journal.c:342
 msgid "No folder name found\n"
 msgstr "ไม่พบชื่อโฟลเดอร์\n"
 
-#: camel/camel-exchange-journal.c:374 mail/mail-stub-exchange.c:2984
-#: mail/mail-stub-exchange.c:3028 mail/mail-stub-exchange.c:3063
-#: mail/mail-stub-exchange.c:3090 mail/mail-stub-exchange.c:3143
-#: mail/mail-stub-exchange.c:3165
+#: camel/camel-exchange-journal.c:375 mail/mail-stub-exchange.c:3044
+#: mail/mail-stub-exchange.c:3094 mail/mail-stub-exchange.c:3224
+#: mail/mail-stub-exchange.c:3251 mail/mail-stub-exchange.c:3304
+#: mail/mail-stub-exchange.c:3326
 msgid "Folder doesn't exist"
 msgstr "ไม่มีโฟลเดอร์นั้นอยู่"
 
-#: camel/camel-exchange-journal.c:438
+#: camel/camel-exchange-journal.c:439
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "ไม่สามารถเพิ่มข้อความต่อท้ายขณะออฟไลน์: ไม่มีแคชให้ใช้"
 
-#: camel/camel-exchange-journal.c:454
+#: camel/camel-exchange-journal.c:455
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "ไม่สามารถเพิ่มข้อความต่อท้ายขณะออฟไลน์: %s"
 
-#: camel/camel-exchange-provider.c:41
+#: camel/camel-exchange-provider.c:55
+msgid "Secure or Plaintext Password"
+msgstr "รหัสผ่านแบบนิรภัยหรือข้อความเปล่า"
+
+#: camel/camel-exchange-provider.c:56
+#: camel/camel-exchange-provider.c:141
+msgid "Plaintext Password"
+msgstr "รหัสผ่านแบบข้อความเปล่า"
+
+#. i18n: "Secure Password Authentication" is an Outlookism
+#: camel/camel-exchange-provider.c:57
+#: camel/camel-exchange-provider.c:130
+msgid "Secure Password"
+msgstr "รหัสผ่านแบบนิรภัย"
+
+#: camel/camel-exchange-provider.c:63
 msgid "Checking for New Mail"
 msgstr "ตรวจสอบเมลใหม่"
 
-#: camel/camel-exchange-provider.c:43
+#: camel/camel-exchange-provider.c:65
 msgid "C_heck for new messages in all folders"
 msgstr "_ตรวจสอบข้อความใหม่ในทุกโฟลเดอร์"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: camel/camel-exchange-provider.c:51
+#: camel/camel-exchange-provider.c:73
 msgid "Windows User_name:"
 msgstr "_ชื่อผู้ใช้ Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: camel/camel-exchange-provider.c:56
+#: camel/camel-exchange-provider.c:78
 msgid "Global Address List / Active Directory"
 msgstr "Global Address List / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: camel/camel-exchange-provider.c:60
+#: camel/camel-exchange-provider.c:82
 msgid "_Global Catalog server name:"
 msgstr "ชื่อเซิร์ฟเวอร์ _Global Catalog:"
 
-#: camel/camel-exchange-provider.c:62
+#: camel/camel-exchange-provider.c:84
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "_จำกัดจำนวนการตอบรับจาก GAL: %s"
 
-#: camel/camel-exchange-provider.c:65
+#: camel/camel-exchange-provider.c:86
+msgid "Authentication _Type:"
+msgstr "_ชนิดการยืนยันตัวบุคคล:"
+
+#: camel/camel-exchange-provider.c:88
+msgid "Allow _browsing of the GAL until download limit is reached"
+msgstr "อนุญาตให้เ_รียกดู GAL จนกว่าจะถึงขีดจำกัดการดาวน์โหลดที่กำหนดไว้"
+
+#: camel/camel-exchange-provider.c:91
 msgid "Options"
 msgstr "ตัวเลือก"
 
-#: camel/camel-exchange-provider.c:67
+#: camel/camel-exchange-provider.c:93
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "ช่วงเวลาการเตือนรหัสผ่านห_มดอายุ: %s"
 
-#: camel/camel-exchange-provider.c:69
+#: camel/camel-exchange-provider.c:95
 msgid "Automatically synchroni_ze account locally"
 msgstr "_ปรับบัญชีผู้ใช้ให้ตรงกันภายในเครื่องโดยอัตโนมัติ"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: camel/camel-exchange-provider.c:72
+#: camel/camel-exchange-provider.c:98
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "ใช้ตัว_กรองกับข้อความใหม่ในกล่องจดหมายเข้าที่เซิร์ฟเวอร์นี้"
 
-#: camel/camel-exchange-provider.c:74
+#: camel/camel-exchange-provider.c:100
 msgid "Check new messages for _Junk contents"
 msgstr "ตรวจสอบ_ขยะในข้อความใหม่"
 
-#: camel/camel-exchange-provider.c:76
+#: camel/camel-exchange-provider.c:102
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "ตรวจสอบข้อความขยะในโฟลเดอร์กล่อง_จดหมายเข้าเท่านั้น"
 
-#: camel/camel-exchange-provider.c:86
+#: camel/camel-exchange-provider.c:112
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: camel/camel-exchange-provider.c:88
+#: camel/camel-exchange-provider.c:114
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "สำหรับจัดการเมล (และข้อมูลอื่น) ในเซิร์ฟเวอร์ Microsoft Exchange"
 
-#. i18n: "Secure Password Authentication" is an Outlookism
-#: camel/camel-exchange-provider.c:104
-msgid "Secure Password"
-msgstr "รหัสผ่านแบบนิรภัย"
-
 #. i18n: "NTLM" probably doesn't translate
-#: camel/camel-exchange-provider.c:107
+#: camel/camel-exchange-provider.c:133
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
 msgstr "ตัวเลือกนี้จะเชื่อมต่อไปยังเซิร์ฟเวอร์ Exchange โดยยืนยันตัวบุคคลด้วยรหัสผ่านนิรภัย (NTLM)"
 
-#: camel/camel-exchange-provider.c:115
-msgid "Plaintext Password"
-msgstr "รหัสผ่าน ตัวอักษรธรรมดา"
-
-#: camel/camel-exchange-provider.c:117
+#: camel/camel-exchange-provider.c:143
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
 msgstr ""
 "ต้วเลือกนี้จะเชื่อมต่อไปยังเซิร์ฟเวอร์ Exchange โดยยืนยันตัวบุคคลด้วยรหัสผ่านแบบข้อความธรรมดา"
 
-#: camel/camel-exchange-store.c:312
+#: camel/camel-exchange-store.c:314
 #, c-format
 msgid "Exchange server %s"
 msgstr "เซิร์ฟเวอร์ Exchange %s"
 
-#: camel/camel-exchange-store.c:315
+#: camel/camel-exchange-store.c:317
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "บัญชี Exchange สำหรับ %s ที่ %s"
 
-#: camel/camel-exchange-store.c:407
+#: camel/camel-exchange-store.c:399
 msgid "Evolution Exchange backend process"
 msgstr "โพรเซสเบื้องหลัง Evolution Exchange"
 
-#: camel/camel-exchange-store.c:448
+#: camel/camel-exchange-store.c:442
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -254,32 +267,32 @@ msgstr ""
 "ไม่สามารถยืนยันตัวบุคคลกับเซิร์ฟเวอร์ (รหัสผ่านไม่ถูกต้อง?)\n"
 "\n"
 
-#: camel/camel-exchange-store.c:490
+#: camel/camel-exchange-store.c:495
 #, c-format
 msgid "No such folder %s"
 msgstr "ไม่มีโฟลเดอร์ %s ที่อ้าง"
 
-#: camel/camel-exchange-store.c:567
+#: camel/camel-exchange-store.c:572
 msgid "Cannot subscribe folder in offline mode."
 msgstr "ไม่สามารถบอกรับข้อมูลให้กับโฟลเดอร์ขณะออฟไลน์ได้"
 
-#: camel/camel-exchange-store.c:584
+#: camel/camel-exchange-store.c:589
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "ไม่สามารถเลิกบอกรับข้อมูลสำหรับโฟลเดอร์ขณะออฟไลน์ได้"
 
-#: camel/camel-exchange-store.c:716
+#: camel/camel-exchange-store.c:727
 msgid "Cannot get folder info in offline mode."
 msgstr "ไม่สามารถอ่านข้อมูลโฟลเดอร์ขณะออฟไลน์ได้"
 
-#: camel/camel-exchange-store.c:789
+#: camel/camel-exchange-store.c:800
 msgid "Cannot create folder in offline mode."
 msgstr "ไม่สามารถสร้างโฟลเดอร์ขณะออฟไลน์ได้"
 
-#: camel/camel-exchange-store.c:816
+#: camel/camel-exchange-store.c:827
 msgid "Cannot delete folder in offline mode."
 msgstr "ไม่สามารถลบโฟลเดอร์ขณะออฟไลน์ได้"
 
-#: camel/camel-exchange-store.c:832
+#: camel/camel-exchange-store.c:851
 msgid "Cannot rename folder in offline mode."
 msgstr "ไม่สามารถเปลี่ยนชื่อโฟลเดอร์ขณะออฟไลน์ได้"
 
@@ -295,122 +308,132 @@ msgstr "ไม่สามารถส่งข้อความ: มีผู�
 msgid "Could not find 'From' address in message"
 msgstr "หาที่อยู่ 'จาก' ในข้อความไม่พบ"
 
-#: camel/camel-stub.c:153
+#: camel/camel-stub.c:165 camel/camel-stub.c:229
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "ไม่สามารถสร้าง socket: %s"
 
-#: camel/camel-stub.c:171
+#: camel/camel-stub.c:183
 #, c-format
 msgid "Could not connect to %s: Please restart Evolution"
 msgstr "ไม่สามารถเชื่อมต่อไปยัง %s: กรุณาเริ่ม Evolution ใหม่"
 
-#: camel/camel-stub.c:176
+#: camel/camel-stub.c:188 camel/camel-stub.c:247
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "ไม่สามารถเชื่อมต่อไปยัง %s: %s"
 
-#: camel/camel-stub.c:206
+#: camel/camel-stub.c:212
+#, c-format
+msgid "Count not read file '%s': %s"
+msgstr "ไม่สามารถอ่านแฟ้ม '%s': %s"
+
+#: camel/camel-stub.c:220
+#, c-format
+msgid "Wrong size file '%s'"
+msgstr "แฟ้ม '%s' ผิดขนาด"
+
+#: camel/camel-stub.c:283
 #, c-format
 msgid "Path too long: %s"
 msgstr "พาธยาวเกินไป: %s"
 
-#: camel/camel-stub.c:232
+#: camel/camel-stub.c:318
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "ไม่สามารถเริ่มเธรดสถานะ: %s"
 
-#: camel/camel-stub.c:486
+#: camel/camel-stub.c:572
 #, c-format
 msgid "Lost connection to %s"
 msgstr "การเชื่อมต่อไปยัง %s ถูกตัดขาด"
 
-#: camel/camel-stub.c:490
+#: camel/camel-stub.c:576
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "เกิดข้อผิดพลาดขณะสื่อสารกับ %s: %s"
 
-#: mail/mail-stub-exchange.c:264 mail/mail-stub-exchange.c:946
+#: mail/mail-stub-exchange.c:267 mail/mail-stub-exchange.c:963
 msgid "No such folder"
 msgstr "ไม่มีโฟลเดอร์ดังกล่าว"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: mail/mail-stub-exchange.c:287 mail/mail-stub-exchange.c:1595
-#: mail/mail-stub-exchange.c:2961 mail/mail-stub-exchange.c:3001
-#: mail/mail-stub-exchange.c:3067 mail/mail-stub-exchange.c:3117
-#: mail/mail-stub-exchange.c:3180
+#: mail/mail-stub-exchange.c:290 mail/mail-stub-exchange.c:1612
+#: mail/mail-stub-exchange.c:3021 mail/mail-stub-exchange.c:3061
+#: mail/mail-stub-exchange.c:3228 mail/mail-stub-exchange.c:3278
+#: mail/mail-stub-exchange.c:3341
 msgid "Permission denied"
 msgstr "ไม่ได้รับอนุญาต"
 
-#: mail/mail-stub-exchange.c:768 mail/mail-stub-exchange.c:860
+#: mail/mail-stub-exchange.c:785 mail/mail-stub-exchange.c:877
 msgid "Could not open folder"
 msgstr "ไม่สามารถเปิดโฟลเดอร์"
 
-#: mail/mail-stub-exchange.c:854 mail/mail-stub-exchange.c:876
+#: mail/mail-stub-exchange.c:871 mail/mail-stub-exchange.c:893
 msgid "Could not open folder: Permission denied"
 msgstr "ไม่สามารถเปิดโฟลเดอร์: ไม่ได้รับอนุญาต"
 
-#: mail/mail-stub-exchange.c:955
+#: mail/mail-stub-exchange.c:972
 msgid "Could not create folder."
 msgstr "ไม่สามารถสร้างโฟลเดอร์"
 
-#: mail/mail-stub-exchange.c:1043
+#: mail/mail-stub-exchange.c:1060
 msgid "Could not open Deleted Items folder"
 msgstr "ไม่สามารถเปิดโฟลเดอร์ \"รายการที่ลบ\" ได้"
 
-#: mail/mail-stub-exchange.c:1374 mail/mail-stub-exchange.c:1415
+#: mail/mail-stub-exchange.c:1391 mail/mail-stub-exchange.c:1432
 msgid "Could not get new messages"
 msgstr "ไม่สามารถอ่านข้อความใหม่ได้"
 
-#: mail/mail-stub-exchange.c:1591
+#: mail/mail-stub-exchange.c:1608
 msgid "Could not empty Deleted Items folder"
 msgstr "ไม่สามารถเทขยะในโฟลเดอร์ \"รายการที่ลบ\" ทิ้งได้"
 
-#: mail/mail-stub-exchange.c:1668
+#: mail/mail-stub-exchange.c:1685
 msgid "Could not append message; mailbox is over quota"
 msgstr "ไม่สามารถเพิ่มข้อความต่อท้ายได้; กล่องจดหมายโตเกินขนาดที่อนุญาต"
 
-#: mail/mail-stub-exchange.c:1669
+#: mail/mail-stub-exchange.c:1686
 msgid "Could not append message"
 msgstr "ไม่สามารถเพิ่มข้อความต่อท้าย"
 
-#: mail/mail-stub-exchange.c:2416
+#: mail/mail-stub-exchange.c:2448
 msgid "No such message"
 msgstr "ไม่มีข้อความดังกล่าว"
 
-#: mail/mail-stub-exchange.c:2495
+#: mail/mail-stub-exchange.c:2529
 msgid "Message has been deleted"
 msgstr "ข้อความถูกลบไปแล้ว"
 
-#: mail/mail-stub-exchange.c:2497
+#: mail/mail-stub-exchange.c:2531
 msgid "Error retrieving message"
 msgstr "เกิดข้อผิดพลาดขณะรับข้อความ"
 
-#: mail/mail-stub-exchange.c:2540
+#: mail/mail-stub-exchange.c:2574
 msgid "Mailbox does not support full-text searching"
 msgstr "กล่องจดหมายไม่รองรับการค้นหาแบบ full text"
 
-#: mail/mail-stub-exchange.c:2638
+#: mail/mail-stub-exchange.c:2672
 msgid "Unable to move/copy messages"
 msgstr "ไม่สามารถย้ายหรือคัดลอกข้อความ"
 
-#: mail/mail-stub-exchange.c:2876
+#: mail/mail-stub-exchange.c:2938
 msgid "No mail submission URI for this mailbox"
 msgstr "ไม่มี URI ส่งเมลสำหรับกล่องเมลนี้"
 
-#: mail/mail-stub-exchange.c:2912
+#: mail/mail-stub-exchange.c:2972
 msgid "Server won't accept mail via Exchange transport"
 msgstr "เซิร์ฟเวอร์ไม่รับเมลผ่าน Exchange"
 
-#: mail/mail-stub-exchange.c:2914
+#: mail/mail-stub-exchange.c:2974
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
 msgstr "บัญชีของคุณไม่มีสิทธิ์ใช้ <%s> เป็นที่อยู่ส่งเมล"
 
-#: mail/mail-stub-exchange.c:2926
+#: mail/mail-stub-exchange.c:2986
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -418,17 +441,17 @@ msgstr ""
 "ไม่สามารถส่งข้อความ\n"
 "อาจหมายความว่าบัญชีของคุณกำลังเก็บข้อมูลเกินขนาดที่อนุญาต"
 
-#: mail/mail-stub-exchange.c:2930
+#: mail/mail-stub-exchange.c:2990
 msgid "Could not send message"
 msgstr "ไม่สามารถส่งข้อความได้"
 
-#: mail/mail-stub-exchange.c:2953 mail/mail-stub-exchange.c:3006
-#: mail/mail-stub-exchange.c:3071 mail/mail-stub-exchange.c:3122
-#: mail/mail-stub-exchange.c:3186
+#: mail/mail-stub-exchange.c:3013 mail/mail-stub-exchange.c:3066
+#: mail/mail-stub-exchange.c:3232 mail/mail-stub-exchange.c:3283
+#: mail/mail-stub-exchange.c:3347
 msgid "Generic error"
 msgstr "ข้อผิดพลาดทั่วไป"
 
-#: mail/mail-stub-exchange.c:2957
+#: mail/mail-stub-exchange.c:3017
 msgid "Folder already exists"
 msgstr "มีโฟลเดอร์อยู่แล้ว"
 
@@ -441,11 +464,11 @@ msgid "Evolution Calendar Exchange backend"
 msgstr "แบ็กเอนด์ Exchange ของปฏิทิน Evolution"
 
 #: storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-#: storage/main.c:183
+#: storage/main.c:219
 msgid "Evolution Connector for Microsoft Exchange"
 msgstr "ปลั๊กอินเชื่อมต่อของ Evolution สำหรับ Microsoft Exchange"
 
-#: storage/exchange-autoconfig-wizard.c:211
+#: storage/exchange-autoconfig-wizard.c:227
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -454,7 +477,7 @@ msgstr ""
 "ไม่สามารถเชื่อมต่อไปยังเซิร์ฟเวอร์ Exchange\n"
 "กรุณาตรวจสอบแน่ใจว่า URL ถูกต้อง (ลองใช้ \"%s\" แทน \"%s\"?) แล้วลองอีกครั้ง"
 
-#: storage/exchange-autoconfig-wizard.c:219
+#: storage/exchange-autoconfig-wizard.c:235
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -462,7 +485,7 @@ msgstr ""
 "ไม่สามารถระบุที่ตั้งเซิร์ฟเวอร์ Exchange\n"
 "กรุณาตรวจสอบให้แน่ใจว่าสะกดชื่อเซิร์ฟเวอร์ถูกต้อง แล้วลองอีกครั้ง"
 
-#: storage/exchange-autoconfig-wizard.c:228
+#: storage/exchange-autoconfig-wizard.c:244
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -470,7 +493,7 @@ msgstr ""
 "ไม่สามารถยืนยันตัวบุคคลกับเซิร์ฟเวอร์ Exchange\n"
 "กรุณาตรวจสอบให้แน่ใจ ว่าชื่อผู้ใช้และรหัสผ่านถูกต้อง แล้วลองอีกครั้ง"
 
-#: storage/exchange-autoconfig-wizard.c:235
+#: storage/exchange-autoconfig-wizard.c:251
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -484,7 +507,7 @@ msgstr ""
 "\n"
 "คุณอาจต้องกำหนดชื่อโดเมนของ Windows ในชื่อผู้ใช้ของคุณด้วย (เช่น \"MY-DOMAIN\\%s\")"
 
-#: storage/exchange-autoconfig-wizard.c:247
+#: storage/exchange-autoconfig-wizard.c:263
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -492,7 +515,7 @@ msgstr ""
 "ไม่พบข้อมูล OWA ที่ URL ที่ระบุ\n"
 "กรุณาตรวจสอบให้แน่ใจว่า URL ถูกต้อง แล้วลองใหม่"
 
-#: storage/exchange-autoconfig-wizard.c:254
+#: storage/exchange-autoconfig-wizard.c:270
 msgid ""
 "Evolution Connector for Microsoft Exchange requires access to certain "
 "functionality on the Exchange server that appears to be disabled or "
@@ -510,7 +533,7 @@ msgstr ""
 "\n"
 "สำหรับข้อมูลที่จะบอกกับผู้ดูแล Exchange ของคุณ กรุณาดูที่ลิงก์ข้างล่างนี้:"
 
-#: storage/exchange-autoconfig-wizard.c:276
+#: storage/exchange-autoconfig-wizard.c:292
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 server. "
 "Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
@@ -520,7 +543,7 @@ msgstr ""
 "Evolution สำหรับ Microsoft Exchange รองรับ Microsoft Exchange 2000 และ 2003 "
 "เท่านั้น"
 
-#: storage/exchange-autoconfig-wizard.c:290
+#: storage/exchange-autoconfig-wizard.c:306
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -528,7 +551,7 @@ msgstr ""
 "ไม่สามารถตั้งค่าบัญชีผู้ใช้ Exchange ได้ เพราะเกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ กรุณาตรวจสอบ URL "
 "ชื่อผู้ใช้ และรหัสผ่าน แล้วลองอีกครั้ง"
 
-#: storage/exchange-autoconfig-wizard.c:334
+#: storage/exchange-autoconfig-wizard.c:350
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -538,7 +561,7 @@ msgstr ""
 "ไม่สามารถยืนยันตัวบุคคลกับเซิร์ฟเวอร์ Global Catalog ได้ คุณอาจต้องย้อนกลับไป "
 "และกำหนดชื่อโดเมนของ Windows ในชื่อผู้ใช้ของคุณด้วย (เช่น \"MY-DOMAIN\\%s\")"
 
-#: storage/exchange-autoconfig-wizard.c:341
+#: storage/exchange-autoconfig-wizard.c:357
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -546,12 +569,12 @@ msgstr ""
 "ไม่สามารถเชื่อมต่อไปยังเซิร์ฟเวอร์ที่ระบุ\n"
 "กรุณาตรวจสอบชื่อเซิร์ฟเวอร์ และลองอีกครั้ง"
 
-#: storage/exchange-autoconfig-wizard.c:378
-#: storage/exchange-autoconfig-wizard.c:382
+#: storage/exchange-autoconfig-wizard.c:394
+#: storage/exchange-autoconfig-wizard.c:398
 msgid "Unknown"
 msgstr "ไม่ทราบ"
 
-#: storage/exchange-autoconfig-wizard.c:447
+#: storage/exchange-autoconfig-wizard.c:463
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -559,7 +582,7 @@ msgstr ""
 "ระบบการกำหนดค่าเกิดข้อผิดพลาด\n"
 "ไม่สามารถสร้างบัญชีผู้ใช้ใหม่ได้"
 
-#: storage/exchange-autoconfig-wizard.c:461
+#: storage/exchange-autoconfig-wizard.c:477
 msgid "You may only configure a single Exchange account"
 msgstr "คุณสามารถตั้งค่าบัญชี Exchange ได้ทีละบัญชีเท่านั้น"
 
@@ -612,8 +635,8 @@ msgid ""
 "Evolution Connector for Microsoft Exchange has encountered a problem "
 "configuring your Exchange account.\n"
 msgstr ""
-"ปลั๊กอินเชื่อมต่อของ Evolution สำหรับ Microsoft Exchange "
-"พบปัญหาบางอย่างระหว่างตั้งค่าบัญชี Exchange ของคุณ\n"
+"ปลั๊กอินเชื่อมต่อของ Evolution สำหรับ Microsoft Exchange พบปัญหาบางอย่างระหว่างตั้งค่าบัญชี "
+"Exchange ของคุณ\n"
 
 #: storage/exchange-autoconfig-wizard.glade.h:14
 msgid "Exchange Configuration"
@@ -681,13 +704,13 @@ msgstr "ข้อมูลของบัญชีของคุณมีรา
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
-#: storage/exchange-change-password.c:114
+#: storage/exchange-change-password.c:125
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
 msgstr "รหัสผ่านปัจจุบัน ไม่ตรงกับรหัสผ่านที่มีอยู่สำหรับบัญชีรายชื่อของคุณ กรุณาป้อนรหัสผ่านที่ถูกต้อง"
 
-#: storage/exchange-change-password.c:121
+#: storage/exchange-change-password.c:132
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr "รหัสผ่านทั้งสองไม่ตรงกัน กรุณากรอกรหัสผ่านใหม่"
 
@@ -775,11 +798,11 @@ msgstr "_งาน:"
 msgid "Exchange Folder Tree"
 msgstr "โครงสร้างลำดับชั้นโฟลเดอร์ของ Exchange"
 
-#: storage/exchange-migrate.c:58
+#: storage/exchange-migrate.c:60
 msgid "Migrating Exchange Folders..."
 msgstr "กำลังแปลงโฟลเดอร์ Exchange..."
 
-#: storage/exchange-migrate.c:66
+#: storage/exchange-migrate.c:68
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -791,7 +814,7 @@ msgstr ""
 "\n"
 "กรุณาอดใจรอ ขณะที่ Evolution ถ่ายโอนโฟลเดอร์ของคุณ..."
 
-#: storage/exchange-migrate.c:99
+#: storage/exchange-migrate.c:101
 #, c-format
 msgid ""
 "Warning: Evolution could not migrate all the Exchange account data from the "
@@ -802,7 +825,7 @@ msgstr ""
 "คำเตือน: Evolution ไม่สามารถถ่ายโอนข้อมูลทั้งหมดของบัญชี Exchange จากรุ่น %d.%d.%d ได้\n"
 "ข้อมูลยังไม่ถูกลบ แต่ Evolution รุ่นนี้จะมองไม่เห็นข้อมูลดังกล่าว"
 
-#: storage/exchange-migrate.c:130
+#: storage/exchange-migrate.c:132
 #, c-format
 msgid "Migrating `%s':"
 msgstr "กำลังแปลง `%s':"
@@ -934,7 +957,7 @@ msgstr "บทบาท:"
 msgid "Connecting..."
 msgstr "กำลังเชื่อมต่อ..."
 
-#: storage/ximian-connector-setup.c:44
+#: storage/ximian-connector-setup.c:75
 msgid "Evolution Connector for Microsoft Exchange Setup Tool"
 msgstr "เครื่องมือตั้งค่าปลั๊กอินเชื่อมต่อของ Evolution สำหรับ Microsoft Exchange"
 
