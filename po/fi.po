@@ -1,5 +1,5 @@
 # Finnish messages for evolution-exchange.
-# Copyright (C) 2004 Free Software Foundation, Inc.
+# Copyright (C) 2004-2008 Free Software Foundation, Inc.
 # This file is distributed under the same license as the evolution-exchange package.
 # Ilkka Tuohela <hile@iki.fi> 2004-2008.
 #
@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-13 15:03+0300\n"
-"PO-Revision-Date: 2008-08-13 15:00+0300\n"
+"POT-Creation-Date: 2008-08-27 12:24+0300\n"
+"PO-Revision-Date: 2008-08-27 12:00+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -33,20 +33,20 @@ msgstr ""
 "on käytössä yhteydettömässä tilassa."
 
 #: ../addressbook/e-book-backend-exchange.c:2276
-#: ../addressbook/e-book-backend-gal.c:1833 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-gal.c:1860 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Haetaan..."
 
-#: ../addressbook/e-book-backend-gal.c:297
-#: ../addressbook/e-book-backend-gal.c:318
+#: ../addressbook/e-book-backend-gal.c:306
+#: ../addressbook/e-book-backend-gal.c:327
 msgid "Reconnecting to LDAP server..."
 msgstr "Yhdistetään uudestaan LDAP-palvelimelle..."
 
-#: ../addressbook/e-book-backend-gal.c:1612
+#: ../addressbook/e-book-backend-gal.c:1622
 msgid "Receiving LDAP search results..."
 msgstr "Vastaanotetaan LDAP hakutuloksia"
 
-#: ../addressbook/e-book-backend-gal.c:1864
+#: ../addressbook/e-book-backend-gal.c:1891
 msgid "Error performing search"
 msgstr "Virhe suoritettaessa hakua"
 
@@ -128,10 +128,10 @@ msgstr "Haetaan yhteenvetoa muuttuneista viesteistä"
 msgid "No folder name found\n"
 msgstr "Kansion nimeä ei löytynyt\n"
 
-#: ../camel/camel-exchange-journal.c:375 ../mail/mail-stub-exchange.c:3045
-#: ../mail/mail-stub-exchange.c:3095 ../mail/mail-stub-exchange.c:3225
-#: ../mail/mail-stub-exchange.c:3252 ../mail/mail-stub-exchange.c:3305
-#: ../mail/mail-stub-exchange.c:3327
+#: ../camel/camel-exchange-journal.c:375 ../mail/mail-stub-exchange.c:3044
+#: ../mail/mail-stub-exchange.c:3094 ../mail/mail-stub-exchange.c:3224
+#: ../mail/mail-stub-exchange.c:3251 ../mail/mail-stub-exchange.c:3304
+#: ../mail/mail-stub-exchange.c:3326
 msgid "Folder doesn't exist"
 msgstr "Kansiota ei ole olemassa"
 
@@ -151,13 +151,13 @@ msgid "Secure or Plaintext Password"
 msgstr "Turvallinen tai selväkielinen salasana"
 
 #: ../camel/camel-exchange-provider.c:56
-#: ../camel/camel-exchange-provider.c:139
+#: ../camel/camel-exchange-provider.c:141
 msgid "Plaintext Password"
 msgstr "Selväkielinen salasana"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
 #: ../camel/camel-exchange-provider.c:57
-#: ../camel/camel-exchange-provider.c:128
+#: ../camel/camel-exchange-provider.c:130
 msgid "Secure Password"
 msgstr "Suojattu salasana"
 
@@ -196,43 +196,47 @@ msgstr "_Rajoita GAL-vastausten määrää: %s"
 msgid "Authentication _Type:"
 msgstr "Tunnistus_tyyppi:"
 
-#: ../camel/camel-exchange-provider.c:89
+#: ../camel/camel-exchange-provider.c:88
+msgid "Allow _browsing of the GAL until download limit is reached"
+msgstr "Salli _GAL:in selaus, kunnes noutojen raja saavutetaan"
+
+#: ../camel/camel-exchange-provider.c:91
 msgid "Options"
 msgstr "Asetukset"
 
-#: ../camel/camel-exchange-provider.c:91
+#: ../camel/camel-exchange-provider.c:93
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Salasanan vanhenemisen varoitusaika: %s"
 
-#: ../camel/camel-exchange-provider.c:93
+#: ../camel/camel-exchange-provider.c:95
 msgid "Automatically synchroni_ze account locally"
 msgstr "S_ynkronoi tili automaattisesti omalle tietokoneelle"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:96
+#: ../camel/camel-exchange-provider.c:98
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr ""
 "_Käytä suodattimia saapuvien kansion uusille viesteille tällä palvelimella"
 
-#: ../camel/camel-exchange-provider.c:98
+#: ../camel/camel-exchange-provider.c:100
 msgid "Check new messages for _Junk contents"
 msgstr "Etsi _roskapostia uusista viesteistä"
 
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:102
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Etsi roskapostia vain saapuvi_en viestien kansiosta"
 
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:112
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:112
+#: ../camel/camel-exchange-provider.c:114
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Sähköpostin ja muun tiedon käsittelyyn Microsoft Exchange-palvelimilla"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:131
+#: ../camel/camel-exchange-provider.c:133
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -240,7 +244,7 @@ msgstr ""
 "Tämän ollessa valittu otetaan yhteyttä Exchange-palvelimelle käyttäen "
 "suojattua salasanatunnistusta (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:141
+#: ../camel/camel-exchange-provider.c:143
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -357,80 +361,80 @@ msgstr "Yhteys kohteeseen %s menetettiin"
 msgid "Error communicating with %s: %s"
 msgstr "Virhe kommunikoitaessa kohteeseen %s: %s"
 
-#: ../mail/mail-stub-exchange.c:267 ../mail/mail-stub-exchange.c:964
+#: ../mail/mail-stub-exchange.c:267 ../mail/mail-stub-exchange.c:963
 msgid "No such folder"
 msgstr "Kansiota ei ole olemassa"
 
 #. FIXME: should be this, but string freeze freezes me to do so.
 #. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:290 ../mail/mail-stub-exchange.c:1613
-#: ../mail/mail-stub-exchange.c:3022 ../mail/mail-stub-exchange.c:3062
-#: ../mail/mail-stub-exchange.c:3229 ../mail/mail-stub-exchange.c:3279
-#: ../mail/mail-stub-exchange.c:3342
+#: ../mail/mail-stub-exchange.c:290 ../mail/mail-stub-exchange.c:1612
+#: ../mail/mail-stub-exchange.c:3021 ../mail/mail-stub-exchange.c:3061
+#: ../mail/mail-stub-exchange.c:3228 ../mail/mail-stub-exchange.c:3278
+#: ../mail/mail-stub-exchange.c:3341
 msgid "Permission denied"
 msgstr "Lupa evätty"
 
-#: ../mail/mail-stub-exchange.c:786 ../mail/mail-stub-exchange.c:878
+#: ../mail/mail-stub-exchange.c:785 ../mail/mail-stub-exchange.c:877
 msgid "Could not open folder"
 msgstr "Kansiota ei voitu avata"
 
-#: ../mail/mail-stub-exchange.c:872 ../mail/mail-stub-exchange.c:894
+#: ../mail/mail-stub-exchange.c:871 ../mail/mail-stub-exchange.c:893
 msgid "Could not open folder: Permission denied"
 msgstr "Kansiota ei voitu avata: lupa evätty"
 
-#: ../mail/mail-stub-exchange.c:973
+#: ../mail/mail-stub-exchange.c:972
 msgid "Could not create folder."
 msgstr "Kansiota ei voitu luoda."
 
-#: ../mail/mail-stub-exchange.c:1061
+#: ../mail/mail-stub-exchange.c:1060
 msgid "Could not open Deleted Items folder"
 msgstr "Poistettujen viestien kansiota ei voi avata"
 
-#: ../mail/mail-stub-exchange.c:1392 ../mail/mail-stub-exchange.c:1433
+#: ../mail/mail-stub-exchange.c:1391 ../mail/mail-stub-exchange.c:1432
 msgid "Could not get new messages"
 msgstr "Uusia viestejä ei voitu hakea"
 
-#: ../mail/mail-stub-exchange.c:1609
+#: ../mail/mail-stub-exchange.c:1608
 msgid "Could not empty Deleted Items folder"
 msgstr "Poistettujen viestien kansiota ei voitu tyhjentää"
 
-#: ../mail/mail-stub-exchange.c:1686
+#: ../mail/mail-stub-exchange.c:1685
 msgid "Could not append message; mailbox is over quota"
 msgstr "Viestiä ei voitu lisätä; postilaatikolle sallittu tila on käytetty"
 
-#: ../mail/mail-stub-exchange.c:1687
+#: ../mail/mail-stub-exchange.c:1686
 msgid "Could not append message"
 msgstr "Viestiä ei voitu liittää"
 
-#: ../mail/mail-stub-exchange.c:2449
+#: ../mail/mail-stub-exchange.c:2448
 msgid "No such message"
 msgstr "Viestiä ei löydy"
 
-#: ../mail/mail-stub-exchange.c:2530
+#: ../mail/mail-stub-exchange.c:2529
 msgid "Message has been deleted"
 msgstr "Viesti on poistettu"
 
-#: ../mail/mail-stub-exchange.c:2532
+#: ../mail/mail-stub-exchange.c:2531
 msgid "Error retrieving message"
 msgstr "Virhe haettaessa viestiä"
 
-#: ../mail/mail-stub-exchange.c:2575
+#: ../mail/mail-stub-exchange.c:2574
 msgid "Mailbox does not support full-text searching"
 msgstr "Postilaatikko ei tue koko tekstin hakuja"
 
-#: ../mail/mail-stub-exchange.c:2673
+#: ../mail/mail-stub-exchange.c:2672
 msgid "Unable to move/copy messages"
 msgstr "Viestejä ei voi siirtää tai kopioida"
 
-#: ../mail/mail-stub-exchange.c:2939
+#: ../mail/mail-stub-exchange.c:2938
 msgid "No mail submission URI for this mailbox"
 msgstr "Sähköpostin lähetyksen URIa ei ole määritelty tälle postilaatikolle"
 
-#: ../mail/mail-stub-exchange.c:2973
+#: ../mail/mail-stub-exchange.c:2972
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Palvelin ei hyväksy sähköpostia Exchange sähköpostinvälityksen kautta"
 
-#: ../mail/mail-stub-exchange.c:2975
+#: ../mail/mail-stub-exchange.c:2974
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -439,7 +443,7 @@ msgstr ""
 "Tilisi ei saa käyttää osoitetta <%s>\n"
 "lähettäjän osoitteena."
 
-#: ../mail/mail-stub-exchange.c:2987
+#: ../mail/mail-stub-exchange.c:2986
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -447,17 +451,17 @@ msgstr ""
 "Viestiä ei voitu lähettä.\n"
 "Tämä voi tarkoittaa, että sähköpostitilisi levytila on loppu."
 
-#: ../mail/mail-stub-exchange.c:2991
+#: ../mail/mail-stub-exchange.c:2990
 msgid "Could not send message"
 msgstr "Viestiä ei voitu lähettää"
 
-#: ../mail/mail-stub-exchange.c:3014 ../mail/mail-stub-exchange.c:3067
-#: ../mail/mail-stub-exchange.c:3233 ../mail/mail-stub-exchange.c:3284
-#: ../mail/mail-stub-exchange.c:3348
+#: ../mail/mail-stub-exchange.c:3013 ../mail/mail-stub-exchange.c:3066
+#: ../mail/mail-stub-exchange.c:3232 ../mail/mail-stub-exchange.c:3283
+#: ../mail/mail-stub-exchange.c:3347
 msgid "Generic error"
 msgstr "Yleinen virhe"
 
-#: ../mail/mail-stub-exchange.c:3018
+#: ../mail/mail-stub-exchange.c:3017
 msgid "Folder already exists"
 msgstr "Kansio on jo olemassa"
 
@@ -1033,4 +1037,3 @@ msgstr "\"_Poissa toimistosta\"-apulainen"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Peru toisen käyttäjän kansion tilaus"
-
