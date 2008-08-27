@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-15 14:53+0200\n"
-"PO-Revision-Date: 2008-08-15 14:54+0200\n"
+"POT-Creation-Date: 2008-08-27 13:28+0200\n"
+"PO-Revision-Date: 2008-08-27 13:28+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -33,20 +33,20 @@ msgstr ""
 "hvis du har aktivert frakoblet mellomlagring for GAL."
 
 #: ../addressbook/e-book-backend-exchange.c:2275
-#: ../addressbook/e-book-backend-gal.c:1833 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-gal.c:1860 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Søker..."
 
-#: ../addressbook/e-book-backend-gal.c:297
-#: ../addressbook/e-book-backend-gal.c:318
+#: ../addressbook/e-book-backend-gal.c:306
+#: ../addressbook/e-book-backend-gal.c:327
 msgid "Reconnecting to LDAP server..."
 msgstr "Kobler til LDAP-tjener på nytt..."
 
-#: ../addressbook/e-book-backend-gal.c:1612
+#: ../addressbook/e-book-backend-gal.c:1622
 msgid "Receiving LDAP search results..."
 msgstr "Mottar søkeresultater fra LDAP-tjener..."
 
-#: ../addressbook/e-book-backend-gal.c:1864
+#: ../addressbook/e-book-backend-gal.c:1891
 msgid "Error performing search"
 msgstr "Feil under utføring av søk"
 
@@ -149,13 +149,13 @@ msgid "Secure or Plaintext Password"
 msgstr "Sikkert passord eller passord i klartekst"
 
 #: ../camel/camel-exchange-provider.c:56
-#: ../camel/camel-exchange-provider.c:139
+#: ../camel/camel-exchange-provider.c:141
 msgid "Plaintext Password"
 msgstr "Passord i klartekst"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
 #: ../camel/camel-exchange-provider.c:57
-#: ../camel/camel-exchange-provider.c:128
+#: ../camel/camel-exchange-provider.c:130
 msgid "Secure Password"
 msgstr "Sikkert passord"
 
@@ -194,42 +194,46 @@ msgstr "Begrens anta_ll svar fra GAL: %s"
 msgid "Authentication _Type:"
 msgstr "_Type autentisering:"
 
-#: ../camel/camel-exchange-provider.c:89
+#: ../camel/camel-exchange-provider.c:88
+msgid "Allow _browsing of the GAL until download limit is reached"
+msgstr "Tillat brukere å _bla gjennom GAL inntil nedlastingsgrensen nås"
+
+#: ../camel/camel-exchange-provider.c:91
 msgid "Options"
 msgstr "Alternativer"
 
-#: ../camel/camel-exchange-provider.c:91
+#: ../camel/camel-exchange-provider.c:93
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "Varslingstid for utgått _passord: %s"
 
-#: ../camel/camel-exchange-provider.c:93
+#: ../camel/camel-exchange-provider.c:95
 msgid "Automatically synchroni_ze account locally"
 msgstr "S_ynkroniser konto lokalt automatisk"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:96
+#: ../camel/camel-exchange-provider.c:98
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "_Bruk filtre på nye meldinger i Innboks på denne tjeneren"
 
-#: ../camel/camel-exchange-provider.c:98
+#: ../camel/camel-exchange-provider.c:100
 msgid "Check new messages for _Junk contents"
 msgstr "Sjekk _nye meldinger for uønsket innhold"
 
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:102
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Kun sjekk for uønskede meldinger i Innboks-mappen"
 
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:112
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:112
+#: ../camel/camel-exchange-provider.c:114
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "For håndtering av e-post (og andre data) på Microsoft Exchange-tjenere"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:131
+#: ../camel/camel-exchange-provider.c:133
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -237,7 +241,7 @@ msgstr ""
 "Dette alternativet vil la deg koble til Exchange-tjeneren med bruk av "
 "autentisering med sikre passord (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:141
+#: ../camel/camel-exchange-provider.c:143
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
