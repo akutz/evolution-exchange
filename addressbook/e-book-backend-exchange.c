@@ -2396,7 +2396,7 @@ find_deleted_ids (const char *id, const char *vcard, gpointer user_data)
 		char *vcard = NULL;
 		EContact *contact = e_contact_new ();
 		if (contact) {
-			e_contact_set (contact, E_CONTACT_UID, id);
+			e_contact_set (contact, E_CONTACT_UID, (gpointer) id);
 			vcard = e_vcard_to_string (E_VCARD (contact), EVC_FORMAT_VCARD_30);
 			if (vcard) {
 				ctx->changes = g_list_prepend (

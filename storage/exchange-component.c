@@ -144,6 +144,7 @@ finalize (GObject *object)
 static GNOME_Evolution_ComponentView
 impl_createView (PortableServer_Servant servant,
 		 GNOME_Evolution_ShellView parent,
+                 CORBA_boolean select_item,
 		 CORBA_Environment *ev)
 {
 	EComponentView *component_view = e_component_view_new_controls (parent, "exchange",
