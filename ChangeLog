@@ -1,3 +1,13 @@
+2008-09-01  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #473924
+
+	* addressbook/e-book-backend-exchange.c:
+	(e_book_backend_exchange_build_restriction),
+	(e_book_backend_exchange_get_contact_list),
+	(e_book_backend_exchange_start_book_view):
+	Prevent crash on invalid call sequence.
+
 2008-09-01  Bob Mauchin  <zebob.m@pengzone.org>
 
 	** Fix for bug #549228
