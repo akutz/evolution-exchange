@@ -1437,7 +1437,7 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 						}
 						else if (info->prop_type & PROP_TYPE_GROUP) {
 							char *grpattrs[3];
-							int i, view_limit = -1, ldap_error, count;
+							int i, view_limit = -1, ldap_error = LDAP_SUCCESS, count;
 							EDataBookView *book_view;
 							LDAPMessage *result;
 							char **email_values, **cn_values, **member_info;
