@@ -1607,9 +1607,7 @@ expunge_uids (MailStub *stub, const char *folder_name, GPtrArray *uids)
 		g_warning ("expunged: %d", status);
 		mail_stub_return_error (stub, _("Could not empty Deleted Items folder"));
 	} else if (some_error) {
-		/* FIXME: should be this, but string freeze freezes me to do so.
-		mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails.")); */
-		mail_stub_return_error (stub, _("Permission denied"));
+		mail_stub_return_error (stub, _("Permission denied. Could not delete certain messages."));
 	} else {
 		mail_stub_return_ok (stub);
 	}
