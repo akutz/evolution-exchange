@@ -4,16 +4,17 @@
 #
 # Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2005, 2006.
 # Ignacio Casal Quinteiro <icq@svn.gnome.org>, 2007, 2008.
+# Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-19 18:15+0200\n"
-"PO-Revision-Date: 2008-08-19 18:16+0200\n"
-"Last-Translator: Ignacio Casal Quinteiro <icq@svn.gnome.org>\n"
+"POT-Creation-Date: 2008-09-01 09:22+0200\n"
+"PO-Revision-Date: 2008-09-01 09:23+0200\n"
+"Last-Translator: Ignacio Casal Quinteiro <nacho.resa@gmail.com>\n"
 "Language-Team: Galego <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type:  text/plain; charset=UTF-8\n"
+"Content-Type:  text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
@@ -33,7 +34,7 @@ msgstr ""
 "sempre a caché actual. Isto só funcionará se ten activada a caché GAL sen "
 "conexión."
 
-#: ../addressbook/e-book-backend-exchange.c:2276
+#: ../addressbook/e-book-backend-exchange.c:2285
 #: ../addressbook/e-book-backend-gal.c:1860 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Buscando..."
@@ -129,10 +130,10 @@ msgstr "Obtendo a información do resumo para as mensaxes novas"
 msgid "No folder name found\n"
 msgstr "Non se encontrou o nome de cartafol\n"
 
-#: ../camel/camel-exchange-journal.c:375 ../mail/mail-stub-exchange.c:3044
-#: ../mail/mail-stub-exchange.c:3094 ../mail/mail-stub-exchange.c:3224
-#: ../mail/mail-stub-exchange.c:3251 ../mail/mail-stub-exchange.c:3304
-#: ../mail/mail-stub-exchange.c:3326
+#: ../camel/camel-exchange-journal.c:375 ../mail/mail-stub-exchange.c:3042
+#: ../mail/mail-stub-exchange.c:3092 ../mail/mail-stub-exchange.c:3222
+#: ../mail/mail-stub-exchange.c:3249 ../mail/mail-stub-exchange.c:3302
+#: ../mail/mail-stub-exchange.c:3324
 msgid "Folder doesn't exist"
 msgstr "O cartafol non existe"
 
@@ -367,12 +368,9 @@ msgstr "Erro ao comunicarse con %s: %s"
 msgid "No such folder"
 msgstr "Non existe o cartafol"
 
-#. FIXME: should be this, but string freeze freezes me to do so.
-#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:290 ../mail/mail-stub-exchange.c:1612
-#: ../mail/mail-stub-exchange.c:3021 ../mail/mail-stub-exchange.c:3061
-#: ../mail/mail-stub-exchange.c:3228 ../mail/mail-stub-exchange.c:3278
-#: ../mail/mail-stub-exchange.c:3341
+#: ../mail/mail-stub-exchange.c:290 ../mail/mail-stub-exchange.c:3019
+#: ../mail/mail-stub-exchange.c:3059 ../mail/mail-stub-exchange.c:3226
+#: ../mail/mail-stub-exchange.c:3276 ../mail/mail-stub-exchange.c:3339
 msgid "Permission denied"
 msgstr "Permiso denegado"
 
@@ -400,43 +398,47 @@ msgstr "Non se puideron obter as mensaxes novas"
 msgid "Could not empty Deleted Items folder"
 msgstr "Non se puido baleirar o cartafol de elementos eliminados"
 
-#: ../mail/mail-stub-exchange.c:1685
+#: ../mail/mail-stub-exchange.c:1610
+msgid "Permission denied. Could not delete certain messages."
+msgstr "Permiso denegado. Non se puideron eliminar certas mensaxes."
+
+#: ../mail/mail-stub-exchange.c:1683
 msgid "Could not append message; mailbox is over quota"
 msgstr "Non se puido engadir a mensaxe; a caixa de correo excedeu a cota"
 
-#: ../mail/mail-stub-exchange.c:1686
+#: ../mail/mail-stub-exchange.c:1684
 msgid "Could not append message"
 msgstr "Non se puido engadir a mensaxe"
 
-#: ../mail/mail-stub-exchange.c:2448
+#: ../mail/mail-stub-exchange.c:2446
 msgid "No such message"
 msgstr "Non existe a mensaxe"
 
-#: ../mail/mail-stub-exchange.c:2529
+#: ../mail/mail-stub-exchange.c:2527
 msgid "Message has been deleted"
 msgstr "Eliminouse a mensaxe"
 
-#: ../mail/mail-stub-exchange.c:2531
+#: ../mail/mail-stub-exchange.c:2529
 msgid "Error retrieving message"
 msgstr "Erro ao recuperar a mensaxe"
 
-#: ../mail/mail-stub-exchange.c:2574
+#: ../mail/mail-stub-exchange.c:2572
 msgid "Mailbox does not support full-text searching"
 msgstr "A caixa de correo non soporta a busca en texto completo"
 
-#: ../mail/mail-stub-exchange.c:2672
+#: ../mail/mail-stub-exchange.c:2670
 msgid "Unable to move/copy messages"
 msgstr "Non é posible mover/copiar mensaxes"
 
-#: ../mail/mail-stub-exchange.c:2938
+#: ../mail/mail-stub-exchange.c:2936
 msgid "No mail submission URI for this mailbox"
 msgstr "Non hai un URI de envío de correo para esta caixa de correo"
 
-#: ../mail/mail-stub-exchange.c:2972
+#: ../mail/mail-stub-exchange.c:2970
 msgid "Server won't accept mail via Exchange transport"
 msgstr "O servidor non acepta correo por medio do transporte Exchange"
 
-#: ../mail/mail-stub-exchange.c:2974
+#: ../mail/mail-stub-exchange.c:2972
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -445,7 +447,7 @@ msgstr ""
 "A súa conta non ten permiso para usar <%s>\n"
 "como un enderezo de remitente."
 
-#: ../mail/mail-stub-exchange.c:2986
+#: ../mail/mail-stub-exchange.c:2984
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -453,17 +455,17 @@ msgstr ""
 "Non se puido enviar a mensaxe.\n"
 "Pode que a súa conta supere a cota."
 
-#: ../mail/mail-stub-exchange.c:2990
+#: ../mail/mail-stub-exchange.c:2988
 msgid "Could not send message"
 msgstr "Non se puido enviar a mensaxe"
 
-#: ../mail/mail-stub-exchange.c:3013 ../mail/mail-stub-exchange.c:3066
-#: ../mail/mail-stub-exchange.c:3232 ../mail/mail-stub-exchange.c:3283
-#: ../mail/mail-stub-exchange.c:3347
+#: ../mail/mail-stub-exchange.c:3011 ../mail/mail-stub-exchange.c:3064
+#: ../mail/mail-stub-exchange.c:3230 ../mail/mail-stub-exchange.c:3281
+#: ../mail/mail-stub-exchange.c:3345
 msgid "Generic error"
 msgstr "Erro xenérico"
 
-#: ../mail/mail-stub-exchange.c:3017
+#: ../mail/mail-stub-exchange.c:3015
 msgid "Folder already exists"
 msgstr "O cartafol xa existe"
 
