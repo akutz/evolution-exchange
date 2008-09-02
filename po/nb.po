@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-27 13:28+0200\n"
-"PO-Revision-Date: 2008-08-27 13:28+0200\n"
+"POT-Creation-Date: 2008-09-02 07:59+0200\n"
+"PO-Revision-Date: 2008-09-02 07:59+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr ""
 "heller vil bruke nåværende mellomlager for alltid. Dette vil kun fungere "
 "hvis du har aktivert frakoblet mellomlagring for GAL."
 
-#: ../addressbook/e-book-backend-exchange.c:2275
+#: ../addressbook/e-book-backend-exchange.c:2284
 #: ../addressbook/e-book-backend-gal.c:1860 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Søker..."
@@ -128,10 +128,10 @@ msgstr "Henter sammendragsinformasjon for nye meldinger"
 msgid "No folder name found\n"
 msgstr "Fant ingen mappenavn\n"
 
-#: ../camel/camel-exchange-journal.c:375 ../mail/mail-stub-exchange.c:3044
-#: ../mail/mail-stub-exchange.c:3094 ../mail/mail-stub-exchange.c:3224
-#: ../mail/mail-stub-exchange.c:3251 ../mail/mail-stub-exchange.c:3304
-#: ../mail/mail-stub-exchange.c:3326
+#: ../camel/camel-exchange-journal.c:375 ../mail/mail-stub-exchange.c:3042
+#: ../mail/mail-stub-exchange.c:3092 ../mail/mail-stub-exchange.c:3222
+#: ../mail/mail-stub-exchange.c:3249 ../mail/mail-stub-exchange.c:3302
+#: ../mail/mail-stub-exchange.c:3324
 msgid "Folder doesn't exist"
 msgstr "Mappen eksisterer ikke"
 
@@ -361,12 +361,9 @@ msgstr "Feil ved kommunikasjon med %s: %s"
 msgid "No such folder"
 msgstr "Mappen finnes ikke"
 
-#. FIXME: should be this, but string freeze freezes me to do so.
-#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:290 ../mail/mail-stub-exchange.c:1612
-#: ../mail/mail-stub-exchange.c:3021 ../mail/mail-stub-exchange.c:3061
-#: ../mail/mail-stub-exchange.c:3228 ../mail/mail-stub-exchange.c:3278
-#: ../mail/mail-stub-exchange.c:3341
+#: ../mail/mail-stub-exchange.c:290 ../mail/mail-stub-exchange.c:3019
+#: ../mail/mail-stub-exchange.c:3059 ../mail/mail-stub-exchange.c:3226
+#: ../mail/mail-stub-exchange.c:3276 ../mail/mail-stub-exchange.c:3339
 msgid "Permission denied"
 msgstr "Tilgang nektet"
 
@@ -394,43 +391,47 @@ msgstr "Kunne ikke hente nye meldinger"
 msgid "Could not empty Deleted Items folder"
 msgstr "Kunne ikke tømme mappen Slettede elementer"
 
-#: ../mail/mail-stub-exchange.c:1685
+#: ../mail/mail-stub-exchange.c:1610
+msgid "Permission denied. Could not delete certain messages."
+msgstr "Tilgang nektet. Kunne ikke slette enkelte meldinger."
+
+#: ../mail/mail-stub-exchange.c:1683
 msgid "Could not append message; mailbox is over quota"
 msgstr "Kunne ikke legge til melding. Kvoten er oversteget"
 
-#: ../mail/mail-stub-exchange.c:1686
+#: ../mail/mail-stub-exchange.c:1684
 msgid "Could not append message"
 msgstr "Kunne ikke legge til melding"
 
-#: ../mail/mail-stub-exchange.c:2448
+#: ../mail/mail-stub-exchange.c:2446
 msgid "No such message"
 msgstr "Ingen slik melding"
 
-#: ../mail/mail-stub-exchange.c:2529
+#: ../mail/mail-stub-exchange.c:2527
 msgid "Message has been deleted"
 msgstr "Meldingen er slettet"
 
-#: ../mail/mail-stub-exchange.c:2531
+#: ../mail/mail-stub-exchange.c:2529
 msgid "Error retrieving message"
 msgstr "Feil ved henting av melding"
 
-#: ../mail/mail-stub-exchange.c:2574
+#: ../mail/mail-stub-exchange.c:2572
 msgid "Mailbox does not support full-text searching"
 msgstr "Postboksen støtter ikke fulltekstsøk"
 
-#: ../mail/mail-stub-exchange.c:2672
+#: ../mail/mail-stub-exchange.c:2670
 msgid "Unable to move/copy messages"
 msgstr "Kan ikke flytte/kopiere meldinger"
 
-#: ../mail/mail-stub-exchange.c:2938
+#: ../mail/mail-stub-exchange.c:2936
 msgid "No mail submission URI for this mailbox"
 msgstr "Ingen e-post leveranse URI for denne e-postboksen"
 
-#: ../mail/mail-stub-exchange.c:2972
+#: ../mail/mail-stub-exchange.c:2970
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Tjeneren aksepterer ikke e-post via exchange transport"
 
-#: ../mail/mail-stub-exchange.c:2974
+#: ../mail/mail-stub-exchange.c:2972
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -439,7 +440,7 @@ msgstr ""
 "Din konto har ikke rettigheter til å bruke <%s>\n"
 "som Fra adresse."
 
-#: ../mail/mail-stub-exchange.c:2986
+#: ../mail/mail-stub-exchange.c:2984
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -447,17 +448,17 @@ msgstr ""
 "Kunne ikke sende e-posten.\n"
 "Kontoen din har muligens overgått kvoten."
 
-#: ../mail/mail-stub-exchange.c:2990
+#: ../mail/mail-stub-exchange.c:2988
 msgid "Could not send message"
 msgstr "Kunne ikke sende melding"
 
-#: ../mail/mail-stub-exchange.c:3013 ../mail/mail-stub-exchange.c:3066
-#: ../mail/mail-stub-exchange.c:3232 ../mail/mail-stub-exchange.c:3283
-#: ../mail/mail-stub-exchange.c:3347
+#: ../mail/mail-stub-exchange.c:3011 ../mail/mail-stub-exchange.c:3064
+#: ../mail/mail-stub-exchange.c:3230 ../mail/mail-stub-exchange.c:3281
+#: ../mail/mail-stub-exchange.c:3345
 msgid "Generic error"
 msgstr "Generisk feil"
 
-#: ../mail/mail-stub-exchange.c:3017
+#: ../mail/mail-stub-exchange.c:3015
 msgid "Folder already exists"
 msgstr "Mappen eksisterer allerede"
 
