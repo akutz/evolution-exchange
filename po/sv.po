@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-25 21:46+0200\n"
-"PO-Revision-Date: 2008-08-25 21:46+0100\n"
+"POT-Creation-Date: 2008-09-02 14:43+0200\n"
+"PO-Revision-Date: 2008-09-02 14:44+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "Anger tidsintervallet för uppdatering av GAL-cachen."
 msgid "This key specifies the number of days interval between the GAL cache refresh. Set this value to zero, if you don't want to update GAL and use the current cache forever. This will work only if you have enabled offline caching for GAL."
 msgstr "Den här anger antalet dagars intervall mellan uppdatering av GAL-cachen. Ställ in det här värdet till noll om du inte vill uppdatera GAL och använd den aktuella cachen för alltid. Det här kommer endast att fungera om du har aktiverat frånkopplad cachning för GAL."
 
-#: ../addressbook/e-book-backend-exchange.c:2276
+#: ../addressbook/e-book-backend-exchange.c:2285
 #: ../addressbook/e-book-backend-gal.c:1860
 #: ../storage/exchange-storage.c:135
 msgid "Searching..."
@@ -133,12 +133,12 @@ msgid "No folder name found\n"
 msgstr "Inget mappnamn hittat\n"
 
 #: ../camel/camel-exchange-journal.c:375
-#: ../mail/mail-stub-exchange.c:3044
-#: ../mail/mail-stub-exchange.c:3094
-#: ../mail/mail-stub-exchange.c:3224
-#: ../mail/mail-stub-exchange.c:3251
-#: ../mail/mail-stub-exchange.c:3304
-#: ../mail/mail-stub-exchange.c:3326
+#: ../mail/mail-stub-exchange.c:3042
+#: ../mail/mail-stub-exchange.c:3092
+#: ../mail/mail-stub-exchange.c:3222
+#: ../mail/mail-stub-exchange.c:3249
+#: ../mail/mail-stub-exchange.c:3302
+#: ../mail/mail-stub-exchange.c:3324
 msgid "Folder doesn't exist"
 msgstr "Mappen finns inte"
 
@@ -365,15 +365,12 @@ msgstr "Fel vid kommunikation med %s: %s"
 msgid "No such folder"
 msgstr "Det finns ingen sådan mapp"
 
-#. FIXME: should be this, but string freeze freezes me to do so.
-#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
 #: ../mail/mail-stub-exchange.c:290
-#: ../mail/mail-stub-exchange.c:1612
-#: ../mail/mail-stub-exchange.c:3021
-#: ../mail/mail-stub-exchange.c:3061
-#: ../mail/mail-stub-exchange.c:3228
-#: ../mail/mail-stub-exchange.c:3278
-#: ../mail/mail-stub-exchange.c:3341
+#: ../mail/mail-stub-exchange.c:3019
+#: ../mail/mail-stub-exchange.c:3059
+#: ../mail/mail-stub-exchange.c:3226
+#: ../mail/mail-stub-exchange.c:3276
+#: ../mail/mail-stub-exchange.c:3339
 msgid "Permission denied"
 msgstr "Åtkomst nekas"
 
@@ -404,43 +401,47 @@ msgstr "Kunde inte hämta nya meddelanden"
 msgid "Could not empty Deleted Items folder"
 msgstr "Kunde inte tömma mappen Borttaget"
 
-#: ../mail/mail-stub-exchange.c:1685
+#: ../mail/mail-stub-exchange.c:1610
+msgid "Permission denied. Could not delete certain messages."
+msgstr "Åtkomst nekas. Kunde inte ta bort vissa meddelanden."
+
+#: ../mail/mail-stub-exchange.c:1683
 msgid "Could not append message; mailbox is over quota"
 msgstr "Kunde inte lägga till meddelande; postlådan är över kvoten"
 
-#: ../mail/mail-stub-exchange.c:1686
+#: ../mail/mail-stub-exchange.c:1684
 msgid "Could not append message"
 msgstr "Kunde inte lägga till meddelande"
 
-#: ../mail/mail-stub-exchange.c:2448
+#: ../mail/mail-stub-exchange.c:2446
 msgid "No such message"
 msgstr "Det finns inget sådant meddelande"
 
-#: ../mail/mail-stub-exchange.c:2529
+#: ../mail/mail-stub-exchange.c:2527
 msgid "Message has been deleted"
 msgstr "Meddelandet har tagits bort"
 
-#: ../mail/mail-stub-exchange.c:2531
+#: ../mail/mail-stub-exchange.c:2529
 msgid "Error retrieving message"
 msgstr "Fel vid hämtning av meddelande"
 
-#: ../mail/mail-stub-exchange.c:2574
+#: ../mail/mail-stub-exchange.c:2572
 msgid "Mailbox does not support full-text searching"
 msgstr "Postlådan stöder inte fulltextsökning"
 
-#: ../mail/mail-stub-exchange.c:2672
+#: ../mail/mail-stub-exchange.c:2670
 msgid "Unable to move/copy messages"
 msgstr "Kan inte flytta/kopiera meddelanden"
 
-#: ../mail/mail-stub-exchange.c:2938
+#: ../mail/mail-stub-exchange.c:2936
 msgid "No mail submission URI for this mailbox"
 msgstr "Ingen URI för e-postskickande för denna postlåda"
 
-#: ../mail/mail-stub-exchange.c:2972
+#: ../mail/mail-stub-exchange.c:2970
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Servern kommer inte att acceptera e-post via Exchange-transporten"
 
-#: ../mail/mail-stub-exchange.c:2974
+#: ../mail/mail-stub-exchange.c:2972
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -449,7 +450,7 @@ msgstr ""
 "Ditt konto har inte rättigheter att använda <%s>\n"
 "som Från-adress."
 
-#: ../mail/mail-stub-exchange.c:2986
+#: ../mail/mail-stub-exchange.c:2984
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -457,19 +458,19 @@ msgstr ""
 "Kunde inte skicka meddelandet.\n"
 "Detta kan innebära att ditt konto är över kvoten."
 
-#: ../mail/mail-stub-exchange.c:2990
+#: ../mail/mail-stub-exchange.c:2988
 msgid "Could not send message"
 msgstr "Kunde inte skicka meddelandet"
 
-#: ../mail/mail-stub-exchange.c:3013
-#: ../mail/mail-stub-exchange.c:3066
-#: ../mail/mail-stub-exchange.c:3232
-#: ../mail/mail-stub-exchange.c:3283
-#: ../mail/mail-stub-exchange.c:3347
+#: ../mail/mail-stub-exchange.c:3011
+#: ../mail/mail-stub-exchange.c:3064
+#: ../mail/mail-stub-exchange.c:3230
+#: ../mail/mail-stub-exchange.c:3281
+#: ../mail/mail-stub-exchange.c:3345
 msgid "Generic error"
 msgstr "Allmänt fel"
 
-#: ../mail/mail-stub-exchange.c:3017
+#: ../mail/mail-stub-exchange.c:3015
 msgid "Folder already exists"
 msgstr "Mappen finns redan"
 
