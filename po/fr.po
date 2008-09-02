@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-25 00:36+0200\n"
-"PO-Revision-Date: 2008-08-25 00:26+0200\n"
+"POT-Creation-Date: 2008-09-02 11:29+0200\n"
+"PO-Revision-Date: 2008-09-02 11:27+0200\n"
 "Last-Translator: Robert-André Mauchin <zebob.m@pengzone.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr ""
 "option fonctionne uniquement si vous avez activé le cache GAL en mode non "
 "connecté."
 
-#: ../addressbook/e-book-backend-exchange.c:2276
+#: ../addressbook/e-book-backend-exchange.c:2285
 #: ../addressbook/e-book-backend-gal.c:1860 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Recherche..."
@@ -134,10 +134,10 @@ msgstr "Récupération des informations de résumé des nouveaux messages"
 msgid "No folder name found\n"
 msgstr "Aucun nom de dossier trouvé\n"
 
-#: ../camel/camel-exchange-journal.c:375 ../mail/mail-stub-exchange.c:3044
-#: ../mail/mail-stub-exchange.c:3094 ../mail/mail-stub-exchange.c:3224
-#: ../mail/mail-stub-exchange.c:3251 ../mail/mail-stub-exchange.c:3304
-#: ../mail/mail-stub-exchange.c:3326
+#: ../camel/camel-exchange-journal.c:375 ../mail/mail-stub-exchange.c:3042
+#: ../mail/mail-stub-exchange.c:3092 ../mail/mail-stub-exchange.c:3222
+#: ../mail/mail-stub-exchange.c:3249 ../mail/mail-stub-exchange.c:3302
+#: ../mail/mail-stub-exchange.c:3324
 msgid "Folder doesn't exist"
 msgstr "Le dossier n'existe pas"
 
@@ -382,12 +382,9 @@ msgstr "Erreur de communication avec %s : %s"
 msgid "No such folder"
 msgstr "Ce dossier n'existe pas"
 
-#. FIXME: should be this, but string freeze freezes me to do so.
-#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:290 ../mail/mail-stub-exchange.c:1612
-#: ../mail/mail-stub-exchange.c:3021 ../mail/mail-stub-exchange.c:3061
-#: ../mail/mail-stub-exchange.c:3228 ../mail/mail-stub-exchange.c:3278
-#: ../mail/mail-stub-exchange.c:3341
+#: ../mail/mail-stub-exchange.c:290 ../mail/mail-stub-exchange.c:3019
+#: ../mail/mail-stub-exchange.c:3059 ../mail/mail-stub-exchange.c:3226
+#: ../mail/mail-stub-exchange.c:3276 ../mail/mail-stub-exchange.c:3339
 msgid "Permission denied"
 msgstr "Autorisation refusée"
 
@@ -415,46 +412,50 @@ msgstr "Impossible d'obtenir les nouveaux messages"
 msgid "Could not empty Deleted Items folder"
 msgstr "Impossible de vider le dossier Éléments supprimés"
 
-#: ../mail/mail-stub-exchange.c:1685
+#: ../mail/mail-stub-exchange.c:1610
+msgid "Permission denied. Could not delete certain messages."
+msgstr "Autorisation refusée. Impossible de supprimer certains messages."
+
+#: ../mail/mail-stub-exchange.c:1683
 msgid "Could not append message; mailbox is over quota"
 msgstr ""
 "Impossible d'ajouter le message ; la boîte aux lettres a dépassé le quota de "
 "stockage"
 
-#: ../mail/mail-stub-exchange.c:1686
+#: ../mail/mail-stub-exchange.c:1684
 msgid "Could not append message"
 msgstr "Impossible d'ajouter le message"
 
-#: ../mail/mail-stub-exchange.c:2448
+#: ../mail/mail-stub-exchange.c:2446
 msgid "No such message"
 msgstr "Ce message n'existe pas"
 
-#: ../mail/mail-stub-exchange.c:2529
+#: ../mail/mail-stub-exchange.c:2527
 msgid "Message has been deleted"
 msgstr "Le message a été supprimé"
 
-#: ../mail/mail-stub-exchange.c:2531
+#: ../mail/mail-stub-exchange.c:2529
 msgid "Error retrieving message"
 msgstr "Erreur lors de la récupération du message"
 
-#: ../mail/mail-stub-exchange.c:2574
+#: ../mail/mail-stub-exchange.c:2572
 msgid "Mailbox does not support full-text searching"
 msgstr ""
 "La boîte aux lettres ne prend pas en charge la recherche de texte intégral"
 
-#: ../mail/mail-stub-exchange.c:2672
+#: ../mail/mail-stub-exchange.c:2670
 msgid "Unable to move/copy messages"
 msgstr "Impossible de déplacer/copier les messages"
 
-#: ../mail/mail-stub-exchange.c:2938
+#: ../mail/mail-stub-exchange.c:2936
 msgid "No mail submission URI for this mailbox"
 msgstr "Aucun URI de soumission de messages pour cette boîte aux lettres"
 
-#: ../mail/mail-stub-exchange.c:2972
+#: ../mail/mail-stub-exchange.c:2970
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Le serveur n'acceptera pas le message via le transport Exchange"
 
-#: ../mail/mail-stub-exchange.c:2974
+#: ../mail/mail-stub-exchange.c:2972
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -463,7 +464,7 @@ msgstr ""
 "Votre compte n'est pas autorisé à utiliser <%s>\n"
 "comme adresse d'expéditeur."
 
-#: ../mail/mail-stub-exchange.c:2986
+#: ../mail/mail-stub-exchange.c:2984
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -471,17 +472,17 @@ msgstr ""
 "Impossible d'envoyer le message.\n"
 "Il se peut que votre compte ait dépassé le quota de stockage."
 
-#: ../mail/mail-stub-exchange.c:2990
+#: ../mail/mail-stub-exchange.c:2988
 msgid "Could not send message"
 msgstr "Impossible d'envoyer le message"
 
-#: ../mail/mail-stub-exchange.c:3013 ../mail/mail-stub-exchange.c:3066
-#: ../mail/mail-stub-exchange.c:3232 ../mail/mail-stub-exchange.c:3283
-#: ../mail/mail-stub-exchange.c:3347
+#: ../mail/mail-stub-exchange.c:3011 ../mail/mail-stub-exchange.c:3064
+#: ../mail/mail-stub-exchange.c:3230 ../mail/mail-stub-exchange.c:3281
+#: ../mail/mail-stub-exchange.c:3345
 msgid "Generic error"
 msgstr "Erreur générique"
 
-#: ../mail/mail-stub-exchange.c:3017
+#: ../mail/mail-stub-exchange.c:3015
 msgid "Folder already exists"
 msgstr "Le dossier existe déjà"
 
@@ -1063,6 +1064,3 @@ msgstr "G_estionnaire d'absence du bureau"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Annuler l'abonnement à un dossier d'un autre utilisateur"
-
-#~ msgid "Permission denied. Could not delete certain mails."
-#~ msgstr "Autorisation refusée. Impossible de supprimer certains courriels."
