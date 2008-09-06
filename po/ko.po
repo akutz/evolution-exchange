@@ -1,11 +1,14 @@
+# evolution-exchange Korean translation
+# This file is distributed under the same license as the package.
+#
 # Changwoo Ryu <cwryu@debian.org>, 2004-2006, 2007, 2008.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-18 01:31+0900\n"
-"PO-Revision-Date: 2008-02-18 01:35+0900\n"
+"POT-Creation-Date: 2008-09-07 02:08+0900\n"
+"PO-Revision-Date: 2008-09-07 02:11+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
@@ -27,25 +30,25 @@ msgstr ""
 "면, GAL 업데이트를 하지 않고 현재 캐시를 계속해서 쓰게 됩니다. GAL에 오프라"
 "인 캐시를 쓸 경우에만 효과가 있습니다."
 
-#: ../addressbook/e-book-backend-exchange.c:1932
-#: ../addressbook/e-book-backend-gal.c:1804 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:2285
+#: ../addressbook/e-book-backend-gal.c:1863 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "찾는 중입니다..."
 
-#: ../addressbook/e-book-backend-gal.c:301
-#: ../addressbook/e-book-backend-gal.c:322
+#: ../addressbook/e-book-backend-gal.c:306
+#: ../addressbook/e-book-backend-gal.c:327
 msgid "Reconnecting to LDAP server..."
 msgstr "LDAP 서버에 다시 연결하는 중입니다..."
 
-#: ../addressbook/e-book-backend-gal.c:1588
+#: ../addressbook/e-book-backend-gal.c:1625
 msgid "Receiving LDAP search results..."
 msgstr "LDAP 찾기 결과를 받는 중입니다..."
 
-#: ../addressbook/e-book-backend-gal.c:1833
+#: ../addressbook/e-book-backend-gal.c:1894
 msgid "Error performing search"
 msgstr "찾기를 수행하는 데 오류"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2028
+#: ../calendar/e-cal-backend-exchange-calendar.c:2090
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -54,178 +57,191 @@ msgstr ""
 "되풀이되는 회의에 대해 '%s' 자원을 스케줄할 수 없습니다.\n"
 "각 회의를 따로따로 예약해야 합니다."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2046
+#: ../calendar/e-cal-backend-exchange-calendar.c:2108
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "'%s' 자원이 일정 시간동안 계속 사용 중입니다."
 
-#: ../calendar/e-cal-backend-exchange.c:391
-#: ../calendar/e-cal-backend-exchange.c:401
+#: ../calendar/e-cal-backend-exchange.c:424
 msgid "Authentication failed"
 msgstr "인증 실패"
 
-#: ../calendar/e-cal-backend-exchange.c:444
+#: ../calendar/e-cal-backend-exchange.c:466
 msgid "Could not find the calendar"
 msgstr "달력을 찾을 수 없습니다"
 
-#: ../camel/camel-exchange-folder.c:52
+#: ../camel/camel-exchange-folder.c:54
 msgid "Always check for new mail in this folder"
 msgstr "항상 이 폴더에서만 새 메일 확인(_E)"
 
-#: ../camel/camel-exchange-folder.c:238
+#: ../camel/camel-exchange-folder.c:197
 msgid "You cannot expunge in offline mode."
 msgstr "오프라인 모드에서는 비울 수 없습니다."
 
-#: ../camel/camel-exchange-folder.c:269
+#: ../camel/camel-exchange-folder.c:228
 msgid "No Subject"
 msgstr "제목 없음"
 
-#: ../camel/camel-exchange-folder.c:424
+#: ../camel/camel-exchange-folder.c:383
 msgid "This message is not available in offline mode."
 msgstr "이 메세지는 오프라인 모드에서는 볼 수 없습니다."
 
-#: ../camel/camel-exchange-folder.c:681
+#: ../camel/camel-exchange-folder.c:593
 msgid "Moving messages"
 msgstr "메세지를 옮기는 중입니다"
 
-#: ../camel/camel-exchange-folder.c:682
+#: ../camel/camel-exchange-folder.c:594
 msgid "Copying messages"
 msgstr "메세지를 복사하는 중입니다"
 
-#: ../camel/camel-exchange-folder.c:1055
+#: ../camel/camel-exchange-folder.c:967
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "%s 디렉토리를 만들 수 없습니다: %s"
 
-#: ../camel/camel-exchange-folder.c:1065
+#: ../camel/camel-exchange-folder.c:977
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "%s에 요약을 읽어들일 수 없습니다"
 
-#: ../camel/camel-exchange-folder.c:1073
+#: ../camel/camel-exchange-folder.c:985
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "%s에 대한 캐시를 만들 수 없습니다"
 
-#: ../camel/camel-exchange-folder.c:1083
+#: ../camel/camel-exchange-folder.c:995
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "%s에 대한 저널을 만들 수 없습니다"
 
-#: ../camel/camel-exchange-folder.c:1131
+#: ../camel/camel-exchange-folder.c:1046
 msgid "Scanning for changed messages"
 msgstr "바뀐 메세지가 있는 지 검사하는 중입니다"
 
-#: ../camel/camel-exchange-folder.c:1164
+#: ../camel/camel-exchange-folder.c:1079
 msgid "Fetching summary information for new messages"
 msgstr "새 메세지의 요약 정보를 가져오는 중입니다"
 
-#: ../camel/camel-exchange-journal.c:341
+#: ../camel/camel-exchange-journal.c:342
 msgid "No folder name found\n"
 msgstr "폴더 이름이 없습니다\n"
 
-#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:3002
-#: ../mail/mail-stub-exchange.c:3046 ../mail/mail-stub-exchange.c:3081
-#: ../mail/mail-stub-exchange.c:3108 ../mail/mail-stub-exchange.c:3161
-#: ../mail/mail-stub-exchange.c:3183
+#: ../camel/camel-exchange-journal.c:375 ../mail/mail-stub-exchange.c:3042
+#: ../mail/mail-stub-exchange.c:3092 ../mail/mail-stub-exchange.c:3222
+#: ../mail/mail-stub-exchange.c:3249 ../mail/mail-stub-exchange.c:3302
+#: ../mail/mail-stub-exchange.c:3324
 msgid "Folder doesn't exist"
 msgstr "폴더가 없습니다"
 
-#: ../camel/camel-exchange-journal.c:438
+#: ../camel/camel-exchange-journal.c:439
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
 "오프라인 모드에서 메세지를 덧붙일 수 없습니다: 캐시를 사용할 수 없습니다"
 
-#: ../camel/camel-exchange-journal.c:454
+#: ../camel/camel-exchange-journal.c:455
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "오프라인 모드에서 메세지를 덧붙일 수 없습니다: %s"
 
-#: ../camel/camel-exchange-provider.c:41
+#: ../camel/camel-exchange-provider.c:55
+msgid "Secure or Plaintext Password"
+msgstr "보안 또는 일반 텍스트 암호"
+
+#: ../camel/camel-exchange-provider.c:56
+#: ../camel/camel-exchange-provider.c:141
+msgid "Plaintext Password"
+msgstr "일반 텍스트 암호"
+
+#. i18n: "Secure Password Authentication" is an Outlookism
+#: ../camel/camel-exchange-provider.c:57
+#: ../camel/camel-exchange-provider.c:130
+msgid "Secure Password"
+msgstr "보안 암호"
+
+#: ../camel/camel-exchange-provider.c:63
 msgid "Checking for New Mail"
 msgstr "새 메일 검사"
 
-#: ../camel/camel-exchange-provider.c:43
+#: ../camel/camel-exchange-provider.c:65
 msgid "C_heck for new messages in all folders"
 msgstr "모든 폴더에서 새 메세지 확인(_H)"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:51
+#: ../camel/camel-exchange-provider.c:73
 msgid "Windows User_name:"
 msgstr "윈도우즈 사용자 이름(_N):"
 
 # MS에서 "전체 주소 목록"을 쓰고, Active Directory는 영문 그대로 쓰고 있다
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:56
+#: ../camel/camel-exchange-provider.c:78
 msgid "Global Address List / Active Directory"
 msgstr "전체 주소 목록 / Active Directory"
 
 # MS에서 "글로벌 카탈로그"라고 사용한다. 엉터리 번역이지만 따라간다.
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:82
 msgid "_Global Catalog server name:"
 msgstr "글로벌 카탈로그 서버 이름(_G):"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:84
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "전체 주소 목록 응답의 개수 제한(_L): %s"
 
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:86
+msgid "Authentication _Type:"
+msgstr "인증 종류(_T):"
+
+#: ../camel/camel-exchange-provider.c:88
+msgid "Allow _browsing of the GAL until download limit is reached"
+msgstr "다운로드 제한에 걸릴 때까지 GAL 브라우징 허용(_B)"
+
+#: ../camel/camel-exchange-provider.c:91
 msgid "Options"
 msgstr "옵션"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:93
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "암호 만료 경고 기간(_P): %s"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:95
 msgid "Automatically synchroni_ze account locally"
 msgstr "자동으로 로컬에서 계정 동기화(_Z)"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:72
+#: ../camel/camel-exchange-provider.c:98
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "이 서버의 받은 편지함에 있는 새 메세지에 필터 적용(_A)"
 
-#: ../camel/camel-exchange-provider.c:74
+#: ../camel/camel-exchange-provider.c:100
 msgid "Check new messages for _Junk contents"
 msgstr "새 메세지가 정크 메일인지 확인(_J)"
 
-#: ../camel/camel-exchange-provider.c:76
+#: ../camel/camel-exchange-provider.c:102
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "받은 편지함에 있는 정크 메세지만 확인(_E)"
 
-#: ../camel/camel-exchange-provider.c:86
+#: ../camel/camel-exchange-provider.c:112
 msgid "Microsoft Exchange"
 msgstr "마이크로소프트 익스체인지"
 
-#: ../camel/camel-exchange-provider.c:88
+#: ../camel/camel-exchange-provider.c:114
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "마이크로소프트 익스체인지 서버에 있는 메일 (및 기타 데이터) 처리"
 
-#. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:104
-msgid "Secure Password"
-msgstr "보안 암호"
-
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:107
+#: ../camel/camel-exchange-provider.c:133
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
 msgstr ""
 "이 옵션을 켜면 보안 암호 (NTLM) 인증을 통해 익스체인지 서버에 연결합니다."
 
-#: ../camel/camel-exchange-provider.c:115
-msgid "Plaintext Password"
-msgstr "일반 텍스트 암호"
-
-#: ../camel/camel-exchange-provider.c:117
+#: ../camel/camel-exchange-provider.c:143
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -233,21 +249,21 @@ msgstr ""
 "이 옵션을 켜면 보통 일반 텍스트 암호 인증을 통해 익스체인지 서버에 연결합니"
 "다."
 
-#: ../camel/camel-exchange-store.c:312
+#: ../camel/camel-exchange-store.c:314
 #, c-format
 msgid "Exchange server %s"
 msgstr "익스체인지 서버 %s"
 
-#: ../camel/camel-exchange-store.c:315
+#: ../camel/camel-exchange-store.c:317
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "익스체인지 계정 (이름 %s, 서버 %s)"
 
-#: ../camel/camel-exchange-store.c:407
+#: ../camel/camel-exchange-store.c:399
 msgid "Evolution Exchange backend process"
 msgstr "에볼루션 익스체인지 백엔드 프로세스"
 
-#: ../camel/camel-exchange-store.c:448
+#: ../camel/camel-exchange-store.c:442
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -255,32 +271,32 @@ msgstr ""
 "서버에 인증할 수 없습니다. (암호가 틀리지 않았습니까?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:490
+#: ../camel/camel-exchange-store.c:495
 #, c-format
 msgid "No such folder %s"
 msgstr "%s 폴더가 없습니다"
 
-#: ../camel/camel-exchange-store.c:567
+#: ../camel/camel-exchange-store.c:572
 msgid "Cannot subscribe folder in offline mode."
 msgstr "오프라인 모드에서는 폴더를 구독할 수 없습니다."
 
-#: ../camel/camel-exchange-store.c:584
+#: ../camel/camel-exchange-store.c:589
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "오프라인 모드에서는 폴더를 구독 해제할 수 없습니다."
 
-#: ../camel/camel-exchange-store.c:716
+#: ../camel/camel-exchange-store.c:727
 msgid "Cannot get folder info in offline mode."
 msgstr "오프라인 모드에서는 폴더 정보를 가져올 수 없습니다."
 
-#: ../camel/camel-exchange-store.c:789
+#: ../camel/camel-exchange-store.c:800
 msgid "Cannot create folder in offline mode."
 msgstr "오프라인 모드에서는 폴더를 만들 수 없습니다."
 
-#: ../camel/camel-exchange-store.c:816
+#: ../camel/camel-exchange-store.c:827
 msgid "Cannot delete folder in offline mode."
 msgstr "오프라인 모드에서는 폴더를 지울 수 없습니다."
 
-#: ../camel/camel-exchange-store.c:832
+#: ../camel/camel-exchange-store.c:851
 msgid "Cannot rename folder in offline mode."
 msgstr "오프라인 모드에서는 폴더 이름을 바꿀 수 없습니다."
 
@@ -296,115 +312,126 @@ msgstr "메세지를 보낼 수 없습니다: 받는 사람이 잘못되었습�
 msgid "Could not find 'From' address in message"
 msgstr "메세지에서 'From' 주소를 찾을 수 없습니다"
 
-#: ../camel/camel-stub.c:153
+#: ../camel/camel-stub.c:165 ../camel/camel-stub.c:229
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "소켓을 만들 수 없습니다: %s"
 
-#: ../camel/camel-stub.c:171
+#: ../camel/camel-stub.c:183
 #, c-format
 msgid "Could not connect to %s: Please restart Evolution"
 msgstr "%s에 연결할 수 없습니다: 에볼루션을 다시 시작하십시오"
 
-#: ../camel/camel-stub.c:176
+#: ../camel/camel-stub.c:188 ../camel/camel-stub.c:247
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "%s에 연결할 수 없습니다: %s"
 
-#: ../camel/camel-stub.c:206
+#: ../camel/camel-stub.c:212
+#, c-format
+msgid "Count not read file '%s': %s"
+msgstr "'%s' 파일을 읽을 수 없습니다: %s"
+
+#: ../camel/camel-stub.c:220
+#, c-format
+msgid "Wrong size file '%s'"
+msgstr "'%s' 파일의 크기가 잘못되었습니다"
+
+#: ../camel/camel-stub.c:283
 #, c-format
 msgid "Path too long: %s"
 msgstr "경로가 너무 깁니다: %s"
 
-#: ../camel/camel-stub.c:232
+#: ../camel/camel-stub.c:318
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "상태 쓰레드를 시작할 수 없습니다: %s"
 
-#: ../camel/camel-stub.c:486
+#: ../camel/camel-stub.c:572
 #, c-format
 msgid "Lost connection to %s"
 msgstr "%s에 대한 연결을 잃었습니다"
 
-#: ../camel/camel-stub.c:490
+#: ../camel/camel-stub.c:576
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "%s와(과) 통신하는 데 오류가 발생했습니다: %s"
 
-#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:949
+#: ../mail/mail-stub-exchange.c:267 ../mail/mail-stub-exchange.c:963
 msgid "No such folder"
 msgstr "그런 폴더가 없습니다"
 
-#. FIXME: should be this, but string freeze freezes me to do so.
-#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1598
-#: ../mail/mail-stub-exchange.c:2979 ../mail/mail-stub-exchange.c:3019
-#: ../mail/mail-stub-exchange.c:3085 ../mail/mail-stub-exchange.c:3135
-#: ../mail/mail-stub-exchange.c:3198
+#: ../mail/mail-stub-exchange.c:290 ../mail/mail-stub-exchange.c:3019
+#: ../mail/mail-stub-exchange.c:3059 ../mail/mail-stub-exchange.c:3226
+#: ../mail/mail-stub-exchange.c:3276 ../mail/mail-stub-exchange.c:3339
 msgid "Permission denied"
 msgstr "권한이 거부되었습니다"
 
-#: ../mail/mail-stub-exchange.c:771 ../mail/mail-stub-exchange.c:863
+#: ../mail/mail-stub-exchange.c:785 ../mail/mail-stub-exchange.c:877
 msgid "Could not open folder"
 msgstr "폴더를 열 수 없습니다"
 
-#: ../mail/mail-stub-exchange.c:857 ../mail/mail-stub-exchange.c:879
+#: ../mail/mail-stub-exchange.c:871 ../mail/mail-stub-exchange.c:893
 msgid "Could not open folder: Permission denied"
 msgstr "폴더를 열 수 없습니다; 권한이 거부되었습니다"
 
-#: ../mail/mail-stub-exchange.c:958
+#: ../mail/mail-stub-exchange.c:972
 msgid "Could not create folder."
 msgstr "폴더를 만들 수 없습니다."
 
-#: ../mail/mail-stub-exchange.c:1046
+#: ../mail/mail-stub-exchange.c:1060
 msgid "Could not open Deleted Items folder"
 msgstr "지운 항목 폴더를 열 수 없습니다"
 
-#: ../mail/mail-stub-exchange.c:1377 ../mail/mail-stub-exchange.c:1418
+#: ../mail/mail-stub-exchange.c:1391 ../mail/mail-stub-exchange.c:1432
 msgid "Could not get new messages"
 msgstr "새 메세지를 가져올 수 없습니다"
 
-#: ../mail/mail-stub-exchange.c:1594
+#: ../mail/mail-stub-exchange.c:1608
 msgid "Could not empty Deleted Items folder"
 msgstr "지운 항목 폴더를 비울 수 없습니다"
 
-#: ../mail/mail-stub-exchange.c:1671
+#: ../mail/mail-stub-exchange.c:1610
+msgid "Permission denied. Could not delete certain messages."
+msgstr "권한이 거부되었습니다. 지울 수 없는 메세지가 있습니다."
+
+#: ../mail/mail-stub-exchange.c:1683
 msgid "Could not append message; mailbox is over quota"
 msgstr "메세지를 덧붙일 수 없습니다: 메일함 크기가 한계값을 넘어갔습니다"
 
-#: ../mail/mail-stub-exchange.c:1672
+#: ../mail/mail-stub-exchange.c:1684
 msgid "Could not append message"
 msgstr "메세지를 덧붙일 수 없습니다"
 
-#: ../mail/mail-stub-exchange.c:2434
+#: ../mail/mail-stub-exchange.c:2446
 msgid "No such message"
 msgstr "그런 메세지가 없습니다"
 
-#: ../mail/mail-stub-exchange.c:2513
+#: ../mail/mail-stub-exchange.c:2527
 msgid "Message has been deleted"
 msgstr "메세지를 지웠습니다"
 
-#: ../mail/mail-stub-exchange.c:2515
+#: ../mail/mail-stub-exchange.c:2529
 msgid "Error retrieving message"
 msgstr "메세지를 가져오는 데 오류가 발생했습니다"
 
-#: ../mail/mail-stub-exchange.c:2558
+#: ../mail/mail-stub-exchange.c:2572
 msgid "Mailbox does not support full-text searching"
 msgstr "메일함이 전체 텍스트 찾기를 지원하지 않습니다"
 
-#: ../mail/mail-stub-exchange.c:2656
+#: ../mail/mail-stub-exchange.c:2670
 msgid "Unable to move/copy messages"
 msgstr "메세지를 옮길/복사할 수 없습니다"
 
-#: ../mail/mail-stub-exchange.c:2894
+#: ../mail/mail-stub-exchange.c:2936
 msgid "No mail submission URI for this mailbox"
 msgstr "이 메일함에 대한 메일 제출 URI가 없습니다"
 
-#: ../mail/mail-stub-exchange.c:2930
+#: ../mail/mail-stub-exchange.c:2970
 msgid "Server won't accept mail via Exchange transport"
 msgstr "서버가 익스체인지 전송을 통해서 메일을 받지 않습니다"
 
-#: ../mail/mail-stub-exchange.c:2932
+#: ../mail/mail-stub-exchange.c:2972
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -413,7 +440,7 @@ msgstr ""
 "계정에 <%s> 주소를 보낸 사람 주소로 사용할\n"
 "권한이 없습니다"
 
-#: ../mail/mail-stub-exchange.c:2944
+#: ../mail/mail-stub-exchange.c:2984
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -421,17 +448,17 @@ msgstr ""
 "메세지를 보낼 수 없습니다.\n"
 "계정의 한계 용량을 넘어갔을 수도 있습니다."
 
-#: ../mail/mail-stub-exchange.c:2948
+#: ../mail/mail-stub-exchange.c:2988
 msgid "Could not send message"
 msgstr "메세지를 보낼 수 없습니다"
 
-#: ../mail/mail-stub-exchange.c:2971 ../mail/mail-stub-exchange.c:3024
-#: ../mail/mail-stub-exchange.c:3089 ../mail/mail-stub-exchange.c:3140
-#: ../mail/mail-stub-exchange.c:3204
+#: ../mail/mail-stub-exchange.c:3011 ../mail/mail-stub-exchange.c:3064
+#: ../mail/mail-stub-exchange.c:3230 ../mail/mail-stub-exchange.c:3281
+#: ../mail/mail-stub-exchange.c:3345
 msgid "Generic error"
 msgstr "일반 오류"
 
-#: ../mail/mail-stub-exchange.c:2975
+#: ../mail/mail-stub-exchange.c:3015
 msgid "Folder already exists"
 msgstr "폴더가 이미 있습니다"
 
@@ -444,11 +471,11 @@ msgid "Evolution Calendar Exchange backend"
 msgstr "에볼루션 달력 익스체인지 백엔드"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-#: ../storage/main.c:183
+#: ../storage/main.c:219
 msgid "Evolution Connector for Microsoft Exchange"
 msgstr "에볼루션 커넥터, 마이크로소프트 익스체인지용"
 
-#: ../storage/exchange-autoconfig-wizard.c:211
+#: ../storage/exchange-autoconfig-wizard.c:227
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -457,7 +484,7 @@ msgstr ""
 "익스체인지 서버에 연결할 수 없습니다.\n"
 "URL이 올바른지 확인하시고 (\"%2$s\" 대신에 \"%1$s\"?) 다시 시도해 보십시오."
 
-#: ../storage/exchange-autoconfig-wizard.c:219
+#: ../storage/exchange-autoconfig-wizard.c:235
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -465,7 +492,7 @@ msgstr ""
 "익스체인지 서버의 위치를 찾을 수 없습니다.\n"
 "서버 이름을 올바르게 입력했는 지 확인하시고 다시 시도해 보십시오."
 
-#: ../storage/exchange-autoconfig-wizard.c:228
+#: ../storage/exchange-autoconfig-wizard.c:244
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -473,7 +500,7 @@ msgstr ""
 "익스체인지 서버에 인증할 수 없습니다.\n"
 "사용자 이름과 암호가 맞는 지 확인하시고 다시 시도해 보십시오."
 
-#: ../storage/exchange-autoconfig-wizard.c:235
+#: ../storage/exchange-autoconfig-wizard.c:251
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -488,7 +515,7 @@ msgstr ""
 "사용자 이름에 윈도우즈 도메인 이름을 써야 할 수도 있습니다. (예를 들어, \"도"
 "메인\\%s\")"
 
-#: ../storage/exchange-autoconfig-wizard.c:247
+#: ../storage/exchange-autoconfig-wizard.c:263
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -496,7 +523,7 @@ msgstr ""
 "해당 URL에서 Outlook 웹 서비스 데이터를 찾을 수 없습니다.\n"
 "URL이 올바른지 확인하시고 다시 시도해 보십시오."
 
-#: ../storage/exchange-autoconfig-wizard.c:254
+#: ../storage/exchange-autoconfig-wizard.c:270
 msgid ""
 "Evolution Connector for Microsoft Exchange requires access to certain "
 "functionality on the Exchange server that appears to be disabled or "
@@ -507,18 +534,22 @@ msgid ""
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"에볼루션 커넥터는 익스체인지 서버에서 꺼 놓았거나 막은 것처럼 보이는 어떤 기능에 접근해야 합니다.  (보통 의도적으로 꺼 놓거나 막은 건 아닙니다.)  익스체인지 관리자에게 알려서 이 기능을 켜야 에볼루션 커넥터를 사용할 수 있습니다.\n"
+"에볼루션 커넥터는 익스체인지 서버에서 꺼 놓았거나 막은 것처럼 보이는 어떤 기"
+"능에 접근해야 합니다.  (보통 의도적으로 꺼 놓거나 막은 건 아닙니다.)  익스체"
+"인지 관리자에게 알려서 이 기능을 켜야 에볼루션 커넥터를 사용할 수 있습니다.\n"
 "\n"
 "익스체인지 관리자에게 알려줄 정보에 대해서는 다음 링크를 참고하십시오:"
 
-#: ../storage/exchange-autoconfig-wizard.c:276
+#: ../storage/exchange-autoconfig-wizard.c:292
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 server. "
 "Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
 "and 2003 only."
-msgstr "해당 익스체인지 서버 URL에서 익스체인지 5.5 서버를 돌리고 있습니다.  에볼루션 커넥터 마이크로소프트 익스체인지 2000과 2003만 지원합니다."
+msgstr ""
+"해당 익스체인지 서버 URL에서 익스체인지 5.5 서버를 돌리고 있습니다.  에볼루"
+"션 커넥터 마이크로소프트 익스체인지 2000과 2003만 지원합니다."
 
-#: ../storage/exchange-autoconfig-wizard.c:290
+#: ../storage/exchange-autoconfig-wizard.c:306
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -526,7 +557,7 @@ msgstr ""
 "알 수 없는 오류가 발생해서 익스체인지 계정을 설정할 수 없습니다. URL, 사용자 "
 "이름, 암호를 확인하시고 다시 시도해 보십시오."
 
-#: ../storage/exchange-autoconfig-wizard.c:334
+#: ../storage/exchange-autoconfig-wizard.c:350
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -536,7 +567,7 @@ msgstr ""
 "글로벌 카탈로그 서버에 인증할 수 없습니다. 뒤로 돌아가서 사용자 이름에 윈도우"
 "즈 도메인을 지정해야 할 수도 있습니다 (예를 들어, \"내도메인\\%s\")."
 
-#: ../storage/exchange-autoconfig-wizard.c:341
+#: ../storage/exchange-autoconfig-wizard.c:357
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -544,12 +575,12 @@ msgstr ""
 "지정한 서버에 연결할 수 없습니다.\n"
 "서버 이름을 확인하시고 다시 시도하십시오."
 
-#: ../storage/exchange-autoconfig-wizard.c:378
-#: ../storage/exchange-autoconfig-wizard.c:382
+#: ../storage/exchange-autoconfig-wizard.c:394
+#: ../storage/exchange-autoconfig-wizard.c:398
 msgid "Unknown"
 msgstr "알 수 없음"
 
-#: ../storage/exchange-autoconfig-wizard.c:447
+#: ../storage/exchange-autoconfig-wizard.c:463
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -557,7 +588,7 @@ msgstr ""
 "설정 시스템 오류.\n"
 "새 계정을 만들 수 없습니다."
 
-#: ../storage/exchange-autoconfig-wizard.c:461
+#: ../storage/exchange-autoconfig-wizard.c:477
 msgid "You may only configure a single Exchange account"
 msgstr "한 개의 익스체인지 계정만 설정할 수 있습니다"
 
@@ -591,22 +622,28 @@ msgid ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
-"마이크로소프트 익스체인지용 에볼루션 커넥터는 기존의 Outlook 웹 서비스 (OWA) 계정을 통해 계정 정보를 이용할 수 있습니다.\n"
+"마이크로소프트 익스체인지용 에볼루션 커넥터는 기존의 Outlook 웹 서비스 (OWA) "
+"계정을 통해 계정 정보를 이용할 수 있습니다.\n"
 "\n"
-"OWA 사이트 주소 (URL), 사용자 이름, 암호를 입력하시고, \"다음\"을 누르십시오.\n"
+"OWA 사이트 주소 (URL), 사용자 이름, 암호를 입력하시고, \"다음\"을 누르십시"
+"오.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:10
 msgid ""
 "Evolution Connector for Microsoft Exchange could not find the Global Catalog "
 "replica for your site. Please enter the name of your Global Catalog server. "
 "You may need to ask your system administrator for the correct value.\n"
-msgstr "현재 위치에서 에볼루션 커넥터가 글로벌 카탈로그 복사본을 찾을 수 없습니다. 글로벌 카탈로그 서버의 이름을 입력하십시오. 제대로 입력하려면 해당 시스템 관리자에게 문의하셔야 할 수도 있습니다.\n"
+msgstr ""
+"현재 위치에서 에볼루션 커넥터가 글로벌 카탈로그 복사본을 찾을 수 없습니다. 글"
+"로벌 카탈로그 서버의 이름을 입력하십시오. 제대로 입력하려면 해당 시스템 관리"
+"자에게 문의하셔야 할 수도 있습니다.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:12
 msgid ""
 "Evolution Connector for Microsoft Exchange has encountered a problem "
 "configuring your Exchange account.\n"
-msgstr "에볼루션 커넥터에서 익스체인지 계정을 설정하는 데 문제를 발견했습니다.\n"
+msgstr ""
+"에볼루션 커넥터에서 익스체인지 계정을 설정하는 데 문제를 발견했습니다.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:14
 msgid "Exchange Configuration"
@@ -679,14 +716,14 @@ msgstr ""
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
-#: ../storage/exchange-change-password.c:114
+#: ../storage/exchange-change-password.c:125
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
 msgstr ""
 "현재 암호가 계정의 기존 암호와 같지 않습니다. 올바른 암호를 입력하십시오"
 
-#: ../storage/exchange-change-password.c:121
+#: ../storage/exchange-change-password.c:132
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr "두 암호가 같지 않습니다. 암호를 다시 입력하십시오."
 
@@ -774,11 +811,11 @@ msgstr "작업(_T):"
 msgid "Exchange Folder Tree"
 msgstr "익스체인지 폴더 트리"
 
-#: ../storage/exchange-migrate.c:58
+#: ../storage/exchange-migrate.c:60
 msgid "Migrating Exchange Folders..."
 msgstr "익스체인지 폴더를 옮기는 중입니다..."
 
-#: ../storage/exchange-migrate.c:66
+#: ../storage/exchange-migrate.c:68
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -791,7 +828,7 @@ msgstr ""
 "\n"
 "에볼루션에서 폴더를 옮겨오는 동안 기다려 주십시오..."
 
-#: ../storage/exchange-migrate.c:99
+#: ../storage/exchange-migrate.c:101
 #, c-format
 msgid ""
 "Warning: Evolution could not migrate all the Exchange account data from the "
@@ -804,7 +841,7 @@ msgstr ""
 "데이터는 지워지지 않았지만, 이 버전의 에볼루션에서는 그 데이터를 볼 수 없습니"
 "다"
 
-#: ../storage/exchange-migrate.c:130
+#: ../storage/exchange-migrate.c:132
 #, c-format
 msgid "Migrating `%s':"
 msgstr "`%s' 폴더를 옮기는 중입니다:"
@@ -936,7 +973,7 @@ msgstr "역할: "
 msgid "Connecting..."
 msgstr "연결하는 중입니다..."
 
-#: ../storage/ximian-connector-setup.c:44
+#: ../storage/ximian-connector-setup.c:75
 msgid "Evolution Connector for Microsoft Exchange Setup Tool"
 msgstr "에볼루션 커넥터, 마이크로소프트 익스체인지 설정 도구용"
 
