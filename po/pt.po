@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.24\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-11 16:32+0100\n"
-"PO-Revision-Date: 2008-08-11 16:35+0000\n"
+"POT-Creation-Date: 2008-09-07 20:52+0100\n"
+"PO-Revision-Date: 2008-09-07 20:55+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -31,21 +31,21 @@ msgstr ""
 "utilizar a cache actual para sempre. Isto apenas funcionará caso tenha "
 "activado o caching quando desligado para o GAL."
 
-#: ../addressbook/e-book-backend-exchange.c:2276
-#: ../addressbook/e-book-backend-gal.c:1828 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:2285
+#: ../addressbook/e-book-backend-gal.c:1863 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "A procurar..."
 
-#: ../addressbook/e-book-backend-gal.c:292
-#: ../addressbook/e-book-backend-gal.c:313
+#: ../addressbook/e-book-backend-gal.c:306
+#: ../addressbook/e-book-backend-gal.c:327
 msgid "Reconnecting to LDAP server..."
 msgstr "A estabelecer nova ligação ao servidor LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1607
+#: ../addressbook/e-book-backend-gal.c:1625
 msgid "Receiving LDAP search results..."
 msgstr "A receber os resultados da procura no LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1859
+#: ../addressbook/e-book-backend-gal.c:1894
 msgid "Error performing search"
 msgstr "Erro ao efectuar a procura"
 
@@ -128,10 +128,10 @@ msgstr "A obter a informação de resumo para novas mensagens"
 msgid "No folder name found\n"
 msgstr "Nenhum nome de pasta encontrado\n"
 
-#: ../camel/camel-exchange-journal.c:375 ../mail/mail-stub-exchange.c:3045
-#: ../mail/mail-stub-exchange.c:3095 ../mail/mail-stub-exchange.c:3225
-#: ../mail/mail-stub-exchange.c:3252 ../mail/mail-stub-exchange.c:3305
-#: ../mail/mail-stub-exchange.c:3327
+#: ../camel/camel-exchange-journal.c:375 ../mail/mail-stub-exchange.c:3042
+#: ../mail/mail-stub-exchange.c:3092 ../mail/mail-stub-exchange.c:3222
+#: ../mail/mail-stub-exchange.c:3249 ../mail/mail-stub-exchange.c:3302
+#: ../mail/mail-stub-exchange.c:3324
 msgid "Folder doesn't exist"
 msgstr "A pasta não existe"
 
@@ -149,13 +149,13 @@ msgid "Secure or Plaintext Password"
 msgstr "Senha Segura ou em Texto Simples"
 
 #: ../camel/camel-exchange-provider.c:56
-#: ../camel/camel-exchange-provider.c:139
+#: ../camel/camel-exchange-provider.c:141
 msgid "Plaintext Password"
 msgstr "Senha em Texto Simples"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
 #: ../camel/camel-exchange-provider.c:57
-#: ../camel/camel-exchange-provider.c:128
+#: ../camel/camel-exchange-provider.c:130
 msgid "Secure Password"
 msgstr "Senha Segura"
 
@@ -194,42 +194,46 @@ msgstr "Número _limite de respostas da LEG: %s"
 msgid "Authentication _Type:"
 msgstr "_Tipo de Autenticação:"
 
-#: ../camel/camel-exchange-provider.c:89
+#: ../camel/camel-exchange-provider.c:88
+msgid "Allow _browsing of the GAL until download limit is reached"
+msgstr "Permitir _navegar pela LEG até atingir o limite de download"
+
+#: ../camel/camel-exchange-provider.c:91
 msgid "Options"
 msgstr "Opções"
 
-#: ../camel/camel-exchange-provider.c:91
+#: ../camel/camel-exchange-provider.c:93
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Período de Aviso de Expiração de Senha: %s"
 
-#: ../camel/camel-exchange-provider.c:93
+#: ../camel/camel-exchange-provider.c:95
 msgid "Automatically synchroni_ze account locally"
 msgstr "Sincroni_zar automaticamente a conta localmente"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:96
+#: ../camel/camel-exchange-provider.c:98
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "_Aplicar filtros às novas mensagens na pasta A Receber neste servidor"
 
-#: ../camel/camel-exchange-provider.c:98
+#: ../camel/camel-exchange-provider.c:100
 msgid "Check new messages for _Junk contents"
 msgstr "Verificar por correio _Não Solicitado nas novas mensagens"
 
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:102
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Apenas verificar por corr_eio Não Solicitado na pasta A Receber"
 
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:112
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:112
+#: ../camel/camel-exchange-provider.c:114
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Para manipular email (e outros dados) em servidores Microsoft Exchange"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:131
+#: ../camel/camel-exchange-provider.c:133
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -237,7 +241,7 @@ msgstr ""
 "Esta opção irá estabelecer uma ligação ao servidor Exchange utilizando "
 "autenticação de senha segura (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:141
+#: ../camel/camel-exchange-provider.c:143
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -354,80 +358,81 @@ msgstr "A ligação a %s foi perdida"
 msgid "Error communicating with %s: %s"
 msgstr "Erro ao comunicar com %s: %s"
 
-#: ../mail/mail-stub-exchange.c:267 ../mail/mail-stub-exchange.c:964
+#: ../mail/mail-stub-exchange.c:267 ../mail/mail-stub-exchange.c:963
 msgid "No such folder"
 msgstr "Pasta inexistente"
 
-#. FIXME: should be this, but string freeze freezes me to do so.
-#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:290 ../mail/mail-stub-exchange.c:1613
-#: ../mail/mail-stub-exchange.c:3022 ../mail/mail-stub-exchange.c:3062
-#: ../mail/mail-stub-exchange.c:3229 ../mail/mail-stub-exchange.c:3279
-#: ../mail/mail-stub-exchange.c:3342
+#: ../mail/mail-stub-exchange.c:290 ../mail/mail-stub-exchange.c:3019
+#: ../mail/mail-stub-exchange.c:3059 ../mail/mail-stub-exchange.c:3226
+#: ../mail/mail-stub-exchange.c:3276 ../mail/mail-stub-exchange.c:3339
 msgid "Permission denied"
 msgstr "Permissão negada"
 
-#: ../mail/mail-stub-exchange.c:786 ../mail/mail-stub-exchange.c:878
+#: ../mail/mail-stub-exchange.c:785 ../mail/mail-stub-exchange.c:877
 msgid "Could not open folder"
 msgstr "Incapaz de abrir a pasta"
 
-#: ../mail/mail-stub-exchange.c:872 ../mail/mail-stub-exchange.c:894
+#: ../mail/mail-stub-exchange.c:871 ../mail/mail-stub-exchange.c:893
 msgid "Could not open folder: Permission denied"
 msgstr "Incapaz de abrir a pasta: Permissão negada"
 
-#: ../mail/mail-stub-exchange.c:973
+#: ../mail/mail-stub-exchange.c:972
 msgid "Could not create folder."
 msgstr "Incapaz de criar a pasta."
 
-#: ../mail/mail-stub-exchange.c:1061
+#: ../mail/mail-stub-exchange.c:1060
 msgid "Could not open Deleted Items folder"
 msgstr "Incapaz de abrir a pasta de Itens Eliminados"
 
-#: ../mail/mail-stub-exchange.c:1392 ../mail/mail-stub-exchange.c:1433
+#: ../mail/mail-stub-exchange.c:1391 ../mail/mail-stub-exchange.c:1432
 msgid "Could not get new messages"
 msgstr "Incapaz de obter novas mensagens"
 
-#: ../mail/mail-stub-exchange.c:1609
+#: ../mail/mail-stub-exchange.c:1608
 msgid "Could not empty Deleted Items folder"
 msgstr "Incapaz de esvaziar a pasta de Itens Eliminados"
 
-#: ../mail/mail-stub-exchange.c:1686
+#: ../mail/mail-stub-exchange.c:1610
+msgid "Permission denied. Could not delete certain messages."
+msgstr "Permissão negada. Incapaz de apagar determinadas mensagens."
+
+#: ../mail/mail-stub-exchange.c:1683
 msgid "Could not append message; mailbox is over quota"
 msgstr "Incapaz de adicionar a mensagem; a caixa de correio está cheia"
 
-#: ../mail/mail-stub-exchange.c:1687
+#: ../mail/mail-stub-exchange.c:1684
 msgid "Could not append message"
 msgstr "Incapaz de adicionar a mensagem"
 
-#: ../mail/mail-stub-exchange.c:2449
+#: ../mail/mail-stub-exchange.c:2446
 msgid "No such message"
 msgstr "Mensagem inexistente"
 
-#: ../mail/mail-stub-exchange.c:2530
+#: ../mail/mail-stub-exchange.c:2527
 msgid "Message has been deleted"
 msgstr "A mensagem foi apagada"
 
-#: ../mail/mail-stub-exchange.c:2532
+#: ../mail/mail-stub-exchange.c:2529
 msgid "Error retrieving message"
 msgstr "Erro ao obter a mensagem"
 
-#: ../mail/mail-stub-exchange.c:2575
+#: ../mail/mail-stub-exchange.c:2572
 msgid "Mailbox does not support full-text searching"
 msgstr "A caixa de correio não suporta procura de texto completo"
 
-#: ../mail/mail-stub-exchange.c:2673
+#: ../mail/mail-stub-exchange.c:2670
 msgid "Unable to move/copy messages"
 msgstr "Incapaz de mover/copiar as mensagens"
 
-#: ../mail/mail-stub-exchange.c:2939
+#: ../mail/mail-stub-exchange.c:2936
 msgid "No mail submission URI for this mailbox"
 msgstr "Nenhum URI de envio de email para esta caixa de correio"
 
-#: ../mail/mail-stub-exchange.c:2973
+#: ../mail/mail-stub-exchange.c:2970
 msgid "Server won't accept mail via Exchange transport"
 msgstr "O servidor não aceita email através do transporte Exchange"
 
-#: ../mail/mail-stub-exchange.c:2975
+#: ../mail/mail-stub-exchange.c:2972
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -436,7 +441,7 @@ msgstr ""
 "A sua conta não possui permissões para utilizar <%s>\n"
 "como um endereço De."
 
-#: ../mail/mail-stub-exchange.c:2987
+#: ../mail/mail-stub-exchange.c:2984
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -444,17 +449,17 @@ msgstr ""
 "Incapaz de enviar a mensagem.\n"
 "Isto poderá significar que a sua conta excedeu a quota de espaço."
 
-#: ../mail/mail-stub-exchange.c:2991
+#: ../mail/mail-stub-exchange.c:2988
 msgid "Could not send message"
 msgstr "Incapaz de enviar a mensagem"
 
-#: ../mail/mail-stub-exchange.c:3014 ../mail/mail-stub-exchange.c:3067
-#: ../mail/mail-stub-exchange.c:3233 ../mail/mail-stub-exchange.c:3284
-#: ../mail/mail-stub-exchange.c:3348
+#: ../mail/mail-stub-exchange.c:3011 ../mail/mail-stub-exchange.c:3064
+#: ../mail/mail-stub-exchange.c:3230 ../mail/mail-stub-exchange.c:3281
+#: ../mail/mail-stub-exchange.c:3345
 msgid "Generic error"
 msgstr "Erro genérico"
 
-#: ../mail/mail-stub-exchange.c:3018
+#: ../mail/mail-stub-exchange.c:3015
 msgid "Folder already exists"
 msgstr "A pasta já existe"
 
