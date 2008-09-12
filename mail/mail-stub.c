@@ -170,6 +170,21 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 		break;
 	}
 
+	case CAMEL_STUB_CMD_SYNC_COUNT:
+	{
+		char *folder_name;
+
+		if (!mail_stub_read_args (stub,
+					  CAMEL_STUB_ARG_FOLDER, &folder_name,
+					  CAMEL_STUB_ARG_END))
+			goto comm_fail;
+		d(printf("SYNC_COUNT %s\n", folder_name));
+		g_object_ref (stub);
+		MS_CLASS (stub)->sync_count (stub, folder_name);
+		g_free (folder_name);
+		break;
+	}
+
 	case CAMEL_STUB_CMD_EXPUNGE_UIDS:
 	{
 		char *folder_name;

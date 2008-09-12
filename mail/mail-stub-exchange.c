@@ -95,6 +95,7 @@ static void get_folder (MailStub *stub, const char *name, gboolean create,
 static void get_trash_name (MailStub *stub);
 static void sync_folder (MailStub *stub, const char *folder_name);
 static void refresh_folder (MailStub *stub, const char *folder_name);
+static void sync_count (MailStub *stub, const char *folder_name);
 static void refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 				     gboolean background);
 static void sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld);
@@ -155,6 +156,7 @@ class_init (GObjectClass *object_class)
 	stub_class->get_trash_name = get_trash_name;
 	stub_class->sync_folder = sync_folder;
 	stub_class->refresh_folder = refresh_folder;
+	stub_class->sync_count = sync_count;
 	stub_class->expunge_uids = expunge_uids;
 	stub_class->append_message = append_message;
 	stub_class->set_message_flags = set_message_flags;
@@ -1524,6 +1526,33 @@ refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 	g_ptr_array_free (mapi_hrefs, TRUE);
 
 	g_object_unref (stub);
+}
+
+static void
+sync_count (MailStub *stub, const char *folder_name)
+{
+	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
+	MailStubExchangeFolder *mfld;
+	guint32 unread_count = 0, visible_count = 0;
+	
+	mfld = folder_from_name (mse, folder_name, 0, FALSE);
+	if (!mfld) {
+		mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
+				       CAMEL_STUB_ARG_UINT32, unread_count,
+				       CAMEL_STUB_ARG_UINT32, visible_count,
+				       CAMEL_STUB_ARG_END);
+		mail_stub_return_ok (stub);		
+		return;
+	}
+	
+	unread_count = mfld->unread_count;
+	visible_count = mfld->messages->len;
+
+	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
+			       CAMEL_STUB_ARG_UINT32, unread_count,
+			       CAMEL_STUB_ARG_UINT32, visible_count,
+			       CAMEL_STUB_ARG_END);
+	mail_stub_return_ok (stub);
 }
 
 static void

@@ -1,3 +1,19 @@
+2008-09-12  Bharath Acharya  <abharath@novell.com>
+
+	** Fix for bug #546972
+
+	* camel/camel-exchange-folder.c: (refresh_info),
+	(camel_exchange_folder_add_message):
+	* camel/camel-stub-constants.h:
+	* mail/mail-stub-exchange.c: (class_init),
+	(refresh_folder_internal), (sync_count):
+	* mail/mail-stub.c: (connection_handler):
+	* mail/mail-stub.h: 
+	Added SYNC_COUNT to sync up counts on the operations needed. Any 
+	operations that need syncing could just update the counts from mfld-> 
+	counts maintained at the mail side. So Camel could just pick it up from
+	there.
+
 2008-09-08  Srinivasa Ragavan  <sragavan@novell.com>
 
 	* NEWS: Evolution Exchange 2.23.92 release.

@@ -174,14 +174,28 @@ refresh_info (CamelFolder *folder, CamelException *ex)
 {
 	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
 	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (folder->parent_store);
+	guint32 unread_count, visible_count;
 
 	if (camel_exchange_store_connected (store, ex)) {
 		camel_offline_journal_replay (exch->journal, NULL);
 
 		camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_REFRESH_FOLDER,
 				 CAMEL_STUB_ARG_FOLDER, folder->full_name,
-				 CAMEL_STUB_ARG_END);
+			     	 CAMEL_STUB_ARG_END);
 	}
+	
+	/* sync up the counts now */
+	if (!camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_SYNC_COUNT,
+				 CAMEL_STUB_ARG_FOLDER, folder->full_name,
+				 CAMEL_STUB_ARG_RETURN,
+			      	 CAMEL_STUB_ARG_UINT32, &unread_count,
+				 CAMEL_STUB_ARG_UINT32, &visible_count,
+			      	 CAMEL_STUB_ARG_END)){
+		g_print("\n Error syncing up the counts");
+	}
+
+	folder->summary->unread_count = unread_count;
+	folder->summary->visible_count = visible_count;
 }
 
 static void
@@ -708,6 +722,7 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 	CamelFolderChangeInfo *changes;
 	CamelStream *stream;
 	CamelMimeMessage *msg;
+	guint32 unread_count, visible_count;
 
 	info = camel_folder_summary_uid (folder->summary, uid);
 	if (info) {
@@ -747,6 +762,18 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 
 	camel_folder_summary_add (folder->summary, info);
 
+	if (!camel_stub_send (exch->stub, NULL, CAMEL_STUB_CMD_SYNC_COUNT,
+				 CAMEL_STUB_ARG_FOLDER, folder->full_name,
+				 CAMEL_STUB_ARG_RETURN,
+			      	 CAMEL_STUB_ARG_UINT32, &unread_count,
+				 CAMEL_STUB_ARG_UINT32, &visible_count,
+			      	 CAMEL_STUB_ARG_END)){
+		g_print("\n Error syncing up the counts");
+	}
+
+	folder->summary->unread_count = unread_count;
+	folder->summary->visible_count = visible_count;
+	
 	changes = camel_folder_change_info_new ();
 	camel_folder_change_info_add_uid (changes, uid);
 	camel_folder_change_info_recent_uid (changes, uid);
@@ -1034,7 +1061,7 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 
 		if (summary->len - camel_folder_summary_cache_size (folder->summary) > 50)
 			camel_folder_summary_reload_from_db (folder->summary, ex);
-		
+
 		for (i = 0; i < summary->len; i++) {
 			uids->pdata[i] = g_strdup(summary->pdata[i]);
 			info = camel_folder_summary_uid (folder->summary, uids->pdata[i]);
@@ -1083,7 +1110,7 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 		camel_operation_end (NULL);
 		if (!ok)
 			return FALSE;
-		
+
 		camel_folder_summary_save_to_db (folder->summary, ex);
 	}
 
