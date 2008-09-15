@@ -1,3 +1,11 @@
+2008-09-15  Bharath Acharya  <abharath@novell.com>
+
+	** Part of fix for bug #552013
+
+	* camel/camel-exchange-folder.c
+	(camel_exchange_folder_add_message): Just update the count when adding 
+	messages. Also fixes the deadlock reported.
+
 2008-09-12  Bharath Acharya  <abharath@novell.com>
 
 	** Fix for bug #546972

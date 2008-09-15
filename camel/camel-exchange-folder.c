@@ -762,18 +762,11 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 
 	camel_folder_summary_add (folder->summary, info);
 
-	if (!camel_stub_send (exch->stub, NULL, CAMEL_STUB_CMD_SYNC_COUNT,
-				 CAMEL_STUB_ARG_FOLDER, folder->full_name,
-				 CAMEL_STUB_ARG_RETURN,
-			      	 CAMEL_STUB_ARG_UINT32, &unread_count,
-				 CAMEL_STUB_ARG_UINT32, &visible_count,
-			      	 CAMEL_STUB_ARG_END)){
-		g_print("\n Error syncing up the counts");
+	if (!(flags & CAMEL_MESSAGE_SEEN)) {
+		folder->summary->unread_count++;
+		folder->summary->visible_count++;
 	}
 
-	folder->summary->unread_count = unread_count;
-	folder->summary->visible_count = visible_count;
-	
 	changes = camel_folder_change_info_new ();
 	camel_folder_change_info_add_uid (changes, uid);
 	camel_folder_change_info_recent_uid (changes, uid);
