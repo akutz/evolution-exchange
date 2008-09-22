@@ -722,7 +722,6 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 	CamelFolderChangeInfo *changes;
 	CamelStream *stream;
 	CamelMimeMessage *msg;
-	guint32 unread_count, visible_count;
 
 	info = camel_folder_summary_uid (folder->summary, uid);
 	if (info) {
