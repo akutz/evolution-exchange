@@ -67,6 +67,10 @@ static CamelMimeMessage *get_message         (CamelFolder *folder,
 static GPtrArray      *search_by_expression  (CamelFolder *folder,
 					      const char *exp,
 					      CamelException *ex);
+static guint32 	      count_by_expression  (CamelFolder *folder,
+					      const char *exp,
+					      CamelException *ex);
+
 static GPtrArray      *search_by_uids        (CamelFolder *folder,
 					      const char *expression,
 					      GPtrArray *uids,
@@ -99,6 +103,8 @@ class_init (CamelFolderClass *camel_folder_class)
 	camel_folder_class->append_message = append_message;
 	camel_folder_class->get_message = get_message;
 	camel_folder_class->search_by_expression = search_by_expression;
+	camel_folder_class->count_by_expression = count_by_expression;
+
 	camel_folder_class->search_by_uids = search_by_uids;
 	/* use the default function for the search_free */
 	/* camel_folder_class->search_free = search_free; */
@@ -488,6 +494,23 @@ search_by_expression (CamelFolder *folder, const char *expression,
 
 	return matches;
 }
+
+static guint32
+count_by_expression (CamelFolder *folder, const char *expression,
+		      CamelException *ex)
+{
+	CamelFolderSearch *search;
+	guint32 matches;
+
+	search = camel_exchange_search_new ();
+	camel_folder_search_set_folder (search, folder);
+	matches = camel_folder_search_count (search, expression, ex);
+
+	camel_object_unref (CAMEL_OBJECT (search));
+
+	return matches;
+}
+
 
 static GPtrArray *
 search_by_uids (CamelFolder *folder, const char *expression,
