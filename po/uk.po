@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-07 14:03+0200\n"
+"POT-Creation-Date: 2008-10-27 14:04+0000\n"
 "PO-Revision-Date: 2008-03-07 14:03+0300\n"
 "Last-Translator: Maxim Dziumanenko <dziumanenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -31,25 +31,25 @@ msgstr ""
 "встановіть нульове значення. Параметр має дію, лише якщо увімкнено фонове "
 "кешування для GAL."
 
-#: ../addressbook/e-book-backend-exchange.c:1932
-#: ../addressbook/e-book-backend-gal.c:1817 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:2285
+#: ../addressbook/e-book-backend-gal.c:1863 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Пошук..."
 
-#: ../addressbook/e-book-backend-gal.c:301
-#: ../addressbook/e-book-backend-gal.c:322
+#: ../addressbook/e-book-backend-gal.c:306
+#: ../addressbook/e-book-backend-gal.c:327
 msgid "Reconnecting to LDAP server..."
 msgstr "Повторне з'єднання з сервером LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1601
+#: ../addressbook/e-book-backend-gal.c:1625
 msgid "Receiving LDAP search results..."
 msgstr "Отримання результатів пошуку LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1846
+#: ../addressbook/e-book-backend-gal.c:1894
 msgid "Error performing search"
 msgstr "Помилка при виконанні пошуку"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2041
+#: ../calendar/e-cal-backend-exchange-calendar.c:2090
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -58,167 +58,184 @@ msgstr ""
 "Не вдається додати у розклад ресурс '%s' для періодичного засідання.\n"
 "Необхідно резервувати кожне засідання окремо."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2059
+#: ../calendar/e-cal-backend-exchange-calendar.c:2108
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Ресурс '%s' зайнятий протягом вибраного проміжку часу."
 
-#: ../calendar/e-cal-backend-exchange.c:392
-#: ../calendar/e-cal-backend-exchange.c:402
+#: ../calendar/e-cal-backend-exchange.c:424
 msgid "Authentication failed"
 msgstr "Помилка автентифікації"
 
-#: ../calendar/e-cal-backend-exchange.c:445
+#: ../calendar/e-cal-backend-exchange.c:466
 msgid "Could not find the calendar"
 msgstr "Не вдається знайти календар"
 
-#: ../camel/camel-exchange-folder.c:52
+#: ../camel/camel-exchange-folder.c:54
 msgid "Always check for new mail in this folder"
 msgstr "Завжди перевіряти на \"спам\" цю теку"
 
-#: ../camel/camel-exchange-folder.c:238
+#: ../camel/camel-exchange-folder.c:217
 msgid "You cannot expunge in offline mode."
 msgstr "Очищення не можна виконувати автономному режимі."
 
-#: ../camel/camel-exchange-folder.c:269
+#: ../camel/camel-exchange-folder.c:248
 msgid "No Subject"
 msgstr "Немає теми"
 
-#: ../camel/camel-exchange-folder.c:424
+#: ../camel/camel-exchange-folder.c:403
 msgid "This message is not available in offline mode."
 msgstr "Це повідомлення недоступне у автономному режимі."
 
-#: ../camel/camel-exchange-folder.c:681
+#: ../camel/camel-exchange-folder.c:630
 msgid "Moving messages"
 msgstr "Переміщення повідомлень"
 
-#: ../camel/camel-exchange-folder.c:682
+#: ../camel/camel-exchange-folder.c:631
 msgid "Copying messages"
 msgstr "Копіювання повідомлень"
 
-#: ../camel/camel-exchange-folder.c:1055
+#: ../camel/camel-exchange-folder.c:1009
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Не вдається створити каталог %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1065
+#: ../camel/camel-exchange-folder.c:1019
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Не вдається завантажити зведення для %s"
 
-#: ../camel/camel-exchange-folder.c:1073
+#: ../camel/camel-exchange-folder.c:1027
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Не вдається створити кеш для %s"
 
-#: ../camel/camel-exchange-folder.c:1083
+#: ../camel/camel-exchange-folder.c:1037
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Не вдається створити журнал для %s"
 
-#: ../camel/camel-exchange-folder.c:1131
+#: ../camel/camel-exchange-folder.c:1088
 msgid "Scanning for changed messages"
 msgstr "Шукаються змінені повідомлення"
 
-#: ../camel/camel-exchange-folder.c:1164
+#: ../camel/camel-exchange-folder.c:1121
 msgid "Fetching summary information for new messages"
 msgstr "Отримується зведення про нові повідомлення"
 
-#: ../camel/camel-exchange-journal.c:341
+#: ../camel/camel-exchange-journal.c:342
 msgid "No folder name found\n"
 msgstr "Не знайдено назву теки\n"
 
-#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:3010
-#: ../mail/mail-stub-exchange.c:3054 ../mail/mail-stub-exchange.c:3089
-#: ../mail/mail-stub-exchange.c:3116 ../mail/mail-stub-exchange.c:3169
-#: ../mail/mail-stub-exchange.c:3191
+#: ../camel/camel-exchange-journal.c:375 ../mail/mail-stub-exchange.c:3071
+#: ../mail/mail-stub-exchange.c:3121 ../mail/mail-stub-exchange.c:3251
+#: ../mail/mail-stub-exchange.c:3278 ../mail/mail-stub-exchange.c:3331
+#: ../mail/mail-stub-exchange.c:3353
 msgid "Folder doesn't exist"
 msgstr "Тека не існує"
 
-#: ../camel/camel-exchange-journal.c:438
+#: ../camel/camel-exchange-journal.c:439
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
 "Не вдається видалити повідомлення у автономному режимі: кеш недоступний"
 
-#: ../camel/camel-exchange-journal.c:454
+#: ../camel/camel-exchange-journal.c:455
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Не вдається додати повідомлення у автономному режимі: %s"
 
-#: ../camel/camel-exchange-provider.c:41
+#: ../camel/camel-exchange-provider.c:55
+msgid "Secure or Plaintext Password"
+msgstr "Безпечний або розкритий пароль"
+
+#: ../camel/camel-exchange-provider.c:56
+#: ../camel/camel-exchange-provider.c:141
+msgid "Plaintext Password"
+msgstr "Незахищений пароль"
+
+#. i18n: "Secure Password Authentication" is an Outlookism
+#: ../camel/camel-exchange-provider.c:57
+#: ../camel/camel-exchange-provider.c:130
+msgid "Secure Password"
+msgstr "Безпечний пароль"
+
+#: ../camel/camel-exchange-provider.c:63
 msgid "Checking for New Mail"
 msgstr "Перевірка нової пошти"
 
-#: ../camel/camel-exchange-provider.c:43
+#: ../camel/camel-exchange-provider.c:65
 msgid "C_heck for new messages in all folders"
 msgstr "П_еревіряти нові повідомлення в усіх теках"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:51
+#: ../camel/camel-exchange-provider.c:73
 msgid "Windows User_name:"
 msgstr "_Назва рахунку у Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:56
+#: ../camel/camel-exchange-provider.c:78
 msgid "Global Address List / Active Directory"
 msgstr "Глобальний список адрес / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:82
 msgid "_Global Catalog server name:"
 msgstr "Назва сервера г_лобального каталогу:"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:84
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "_Обмеження числа GAL відповідей: %s"
 
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:86
+msgid "Authentication _Type:"
+msgstr "Тип _автентифікації:"
+
+#: ../camel/camel-exchange-provider.c:88
+msgid "Allow _browsing of the GAL until download limit is reached"
+msgstr "Дозволити _перегляд GAL до досягнення обмежень завантаження"
+
+#: ../camel/camel-exchange-provider.c:91
 msgid "Options"
 msgstr "Параметри"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:93
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "Інтервал попередження про закінчення терміну дії _паролю: %s"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:95
 msgid "Automatically synchroni_ze account locally"
 msgstr "Автоматично син_хронізувати обліковий запис локально"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:72
+#: ../camel/camel-exchange-provider.c:98
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr ""
 "Зас_тосовувати фільтри до нових повідомлень у теці \"Вхідні\" на цьому "
 "сервері"
 
-#: ../camel/camel-exchange-provider.c:74
+#: ../camel/camel-exchange-provider.c:100
 msgid "Check new messages for _Junk contents"
 msgstr "Перевіряти нові повідомлення на \"с_пам\""
 
-#: ../camel/camel-exchange-provider.c:76
+#: ../camel/camel-exchange-provider.c:102
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Перевіряти на \"спам\" лише _теку \"Вхідні\""
 
-#: ../camel/camel-exchange-provider.c:86
+#: ../camel/camel-exchange-provider.c:112
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:88
+#: ../camel/camel-exchange-provider.c:114
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Для обробки пошти (та інших даних) на сервері Microsoft Exchange"
 
-#. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:104
-msgid "Secure Password"
-msgstr "Безпечний пароль"
-
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:107
+#: ../camel/camel-exchange-provider.c:133
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -226,11 +243,7 @@ msgstr ""
 "Цей параметр призводить до з'єднання з сервером Exchange використовуючи "
 "автентифікацію з безпечним паролем (NTLM)"
 
-#: ../camel/camel-exchange-provider.c:115
-msgid "Plaintext Password"
-msgstr "Незахищений пароль"
-
-#: ../camel/camel-exchange-provider.c:117
+#: ../camel/camel-exchange-provider.c:143
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -238,21 +251,21 @@ msgstr ""
 "Цей параметр призводить до з'єднання з сервером Exchange використовуючи "
 "автентифікацію зі стандартним паролем"
 
-#: ../camel/camel-exchange-store.c:312
+#: ../camel/camel-exchange-store.c:314
 #, c-format
 msgid "Exchange server %s"
 msgstr "Сервер Exchange %s"
 
-#: ../camel/camel-exchange-store.c:315
+#: ../camel/camel-exchange-store.c:317
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Обліковий рахунок Exchange для %s на %s"
 
-#: ../camel/camel-exchange-store.c:407
+#: ../camel/camel-exchange-store.c:399
 msgid "Evolution Exchange backend process"
 msgstr "Процес компоненту Evolution Exchange"
 
-#: ../camel/camel-exchange-store.c:448
+#: ../camel/camel-exchange-store.c:442
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -260,32 +273,32 @@ msgstr ""
 "Не вдається пройти автентифікацію на сервері. (Неправильний пароль?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:490
+#: ../camel/camel-exchange-store.c:495
 #, c-format
 msgid "No such folder %s"
 msgstr "Немає такої теки %s"
 
-#: ../camel/camel-exchange-store.c:567
+#: ../camel/camel-exchange-store.c:572
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Не можна підписуватись на теку у автономному режимі."
 
-#: ../camel/camel-exchange-store.c:584
+#: ../camel/camel-exchange-store.c:589
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Не можна відписуватись від теки у автономному режимі."
 
-#: ../camel/camel-exchange-store.c:716
+#: ../camel/camel-exchange-store.c:727
 msgid "Cannot get folder info in offline mode."
 msgstr "Не можна отримувати відомості про теку у автономному режимі."
 
-#: ../camel/camel-exchange-store.c:789
+#: ../camel/camel-exchange-store.c:800
 msgid "Cannot create folder in offline mode."
 msgstr "Не можна створювати теку у автономному режимі."
 
-#: ../camel/camel-exchange-store.c:816
+#: ../camel/camel-exchange-store.c:827
 msgid "Cannot delete folder in offline mode."
 msgstr "Не можна видаляти теку у автономному режимі."
 
-#: ../camel/camel-exchange-store.c:832
+#: ../camel/camel-exchange-store.c:851
 msgid "Cannot rename folder in offline mode."
 msgstr "Не можна перейменовувати теку у автономному режимі."
 
@@ -303,115 +316,126 @@ msgstr ""
 msgid "Could not find 'From' address in message"
 msgstr "Не вдається знайти адресу 'From'у повідомленні"
 
-#: ../camel/camel-stub.c:153
+#: ../camel/camel-stub.c:165 ../camel/camel-stub.c:229
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Не вдається створити сокет: %s"
 
-#: ../camel/camel-stub.c:171
+#: ../camel/camel-stub.c:183
 #, c-format
 msgid "Could not connect to %s: Please restart Evolution"
 msgstr "Не вдається підключитись до %s: перезапустіть Evolution"
 
-#: ../camel/camel-stub.c:176
+#: ../camel/camel-stub.c:188 ../camel/camel-stub.c:247
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Не вдається підключитись до %s: %s"
 
-#: ../camel/camel-stub.c:206
+#: ../camel/camel-stub.c:212
+#, c-format
+msgid "Count not read file '%s': %s"
+msgstr "Не вдається прочитати файл «%s»: %s"
+
+#: ../camel/camel-stub.c:220
+#, c-format
+msgid "Wrong size file '%s'"
+msgstr "Файл «%s» має некоректний розмір"
+
+#: ../camel/camel-stub.c:283
 #, c-format
 msgid "Path too long: %s"
 msgstr "Шлях надто довгий: %s"
 
-#: ../camel/camel-stub.c:232
+#: ../camel/camel-stub.c:318
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Не вдається запустити потік статусу: %s"
 
-#: ../camel/camel-stub.c:486
+#: ../camel/camel-stub.c:572
 #, c-format
 msgid "Lost connection to %s"
 msgstr "Втрачено з'єднання з %s"
 
-#: ../camel/camel-stub.c:490
+#: ../camel/camel-stub.c:576
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Помилка зв'язку з %s: %s"
 
-#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:949
+#: ../mail/mail-stub-exchange.c:269 ../mail/mail-stub-exchange.c:965
 msgid "No such folder"
 msgstr "Немає такої теки"
 
-#. FIXME: should be this, but string freeze freezes me to do so.
-#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1598
-#: ../mail/mail-stub-exchange.c:2987 ../mail/mail-stub-exchange.c:3027
-#: ../mail/mail-stub-exchange.c:3093 ../mail/mail-stub-exchange.c:3143
-#: ../mail/mail-stub-exchange.c:3206
+#: ../mail/mail-stub-exchange.c:292 ../mail/mail-stub-exchange.c:3048
+#: ../mail/mail-stub-exchange.c:3088 ../mail/mail-stub-exchange.c:3255
+#: ../mail/mail-stub-exchange.c:3305 ../mail/mail-stub-exchange.c:3368
 msgid "Permission denied"
 msgstr "Доступ заборонено"
 
-#: ../mail/mail-stub-exchange.c:771 ../mail/mail-stub-exchange.c:863
+#: ../mail/mail-stub-exchange.c:787 ../mail/mail-stub-exchange.c:879
 msgid "Could not open folder"
 msgstr "Не вдається відкрити теку"
 
-#: ../mail/mail-stub-exchange.c:857 ../mail/mail-stub-exchange.c:879
+#: ../mail/mail-stub-exchange.c:873 ../mail/mail-stub-exchange.c:895
 msgid "Could not open folder: Permission denied"
 msgstr "Не вдається відкрити теку: доступ заборонено"
 
-#: ../mail/mail-stub-exchange.c:958
+#: ../mail/mail-stub-exchange.c:974
 msgid "Could not create folder."
 msgstr "Не вдається створити теку."
 
-#: ../mail/mail-stub-exchange.c:1046
+#: ../mail/mail-stub-exchange.c:1062
 msgid "Could not open Deleted Items folder"
 msgstr "Не вдається відкрити теку \"Видалене\""
 
-#: ../mail/mail-stub-exchange.c:1377 ../mail/mail-stub-exchange.c:1418
+#: ../mail/mail-stub-exchange.c:1393 ../mail/mail-stub-exchange.c:1434
 msgid "Could not get new messages"
 msgstr "Не вдається отримати нові повідомлення"
 
-#: ../mail/mail-stub-exchange.c:1594
+#: ../mail/mail-stub-exchange.c:1637
 msgid "Could not empty Deleted Items folder"
 msgstr "Не вдається очистити теку \"Видалене\""
 
-#: ../mail/mail-stub-exchange.c:1671
+#: ../mail/mail-stub-exchange.c:1639
+msgid "Permission denied. Could not delete certain messages."
+msgstr "Доступ заборонено. Не вдається видалити деякі повідомлення."
+
+#: ../mail/mail-stub-exchange.c:1712
 msgid "Could not append message; mailbox is over quota"
 msgstr "Не вдається приєднати повідомлення: перевищена квота поштової скриньки"
 
-#: ../mail/mail-stub-exchange.c:1672
+#: ../mail/mail-stub-exchange.c:1713
 msgid "Could not append message"
 msgstr "Не вдається приєднати повідомлення"
 
-#: ../mail/mail-stub-exchange.c:2434
+#: ../mail/mail-stub-exchange.c:2475
 msgid "No such message"
 msgstr "Немає такого повідомлення"
 
-#: ../mail/mail-stub-exchange.c:2513
+#: ../mail/mail-stub-exchange.c:2556
 msgid "Message has been deleted"
 msgstr "Повідомлення було видалено"
 
-#: ../mail/mail-stub-exchange.c:2515
+#: ../mail/mail-stub-exchange.c:2558
 msgid "Error retrieving message"
 msgstr "Помилка при отриманні повідомлення"
 
-#: ../mail/mail-stub-exchange.c:2558
+#: ../mail/mail-stub-exchange.c:2601
 msgid "Mailbox does not support full-text searching"
 msgstr "Поштова скринька не підтримує пошук по усьому вмісту"
 
-#: ../mail/mail-stub-exchange.c:2656
+#: ../mail/mail-stub-exchange.c:2699
 msgid "Unable to move/copy messages"
 msgstr "Не вдається перемістити/копіювати повідомлення"
 
-#: ../mail/mail-stub-exchange.c:2902
+#: ../mail/mail-stub-exchange.c:2965
 msgid "No mail submission URI for this mailbox"
 msgstr "Відсутній URI передавання для цієї поштової скриньки"
 
-#: ../mail/mail-stub-exchange.c:2938
+#: ../mail/mail-stub-exchange.c:2999
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Сервер не приймає пошту через транспорт Exchange"
 
-#: ../mail/mail-stub-exchange.c:2940
+#: ../mail/mail-stub-exchange.c:3001
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -420,7 +444,7 @@ msgstr ""
 "Ваш обліковий рахунок не має прав для використання <%s>\n"
 "у якості адреси \"Від:\"."
 
-#: ../mail/mail-stub-exchange.c:2952
+#: ../mail/mail-stub-exchange.c:3013
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -428,17 +452,17 @@ msgstr ""
 "Не вдається надіслати повідомлення.\n"
 "Це може означати, що ваш обліковий рахунок перевищив квоту."
 
-#: ../mail/mail-stub-exchange.c:2956
+#: ../mail/mail-stub-exchange.c:3017
 msgid "Could not send message"
 msgstr "Не вдається надіслати повідомлення"
 
-#: ../mail/mail-stub-exchange.c:2979 ../mail/mail-stub-exchange.c:3032
-#: ../mail/mail-stub-exchange.c:3097 ../mail/mail-stub-exchange.c:3148
-#: ../mail/mail-stub-exchange.c:3212
+#: ../mail/mail-stub-exchange.c:3040 ../mail/mail-stub-exchange.c:3093
+#: ../mail/mail-stub-exchange.c:3259 ../mail/mail-stub-exchange.c:3310
+#: ../mail/mail-stub-exchange.c:3374
 msgid "Generic error"
 msgstr "Загальна помилка"
 
-#: ../mail/mail-stub-exchange.c:2983
+#: ../mail/mail-stub-exchange.c:3044
 msgid "Folder already exists"
 msgstr "Тека вже існує"
 
@@ -451,11 +475,11 @@ msgid "Evolution Calendar Exchange backend"
 msgstr "Компонент Evolution календаря Exchange"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-#: ../storage/main.c:183
+#: ../storage/main.c:219
 msgid "Evolution Connector for Microsoft Exchange"
 msgstr "Evolution Connector для Microsoft Exchange"
 
-#: ../storage/exchange-autoconfig-wizard.c:211
+#: ../storage/exchange-autoconfig-wizard.c:227
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -465,7 +489,7 @@ msgstr ""
 "Перевірте, що URL є коректним (спробуйте \"%s\" замість \"%s\"?) та "
 "спробуйте знову."
 
-#: ../storage/exchange-autoconfig-wizard.c:219
+#: ../storage/exchange-autoconfig-wizard.c:235
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -473,7 +497,7 @@ msgstr ""
 "Не вдається знайти сервер Exchange.\n"
 "Перевірте, що вказано правильну назву сервера та спробуйте ще раз."
 
-#: ../storage/exchange-autoconfig-wizard.c:228
+#: ../storage/exchange-autoconfig-wizard.c:244
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -481,7 +505,7 @@ msgstr ""
 "Не вдається пройти автентифікацію на сервері Exchange.\n"
 "Перевірте, що вказано правильні назву облікового рахунку та спробуйте ще раз."
 
-#: ../storage/exchange-autoconfig-wizard.c:235
+#: ../storage/exchange-autoconfig-wizard.c:251
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -497,7 +521,7 @@ msgstr ""
 "Необхідно вказати домен Windows як частину назви вашого облікового рахунку "
 "(наприклад, \"MY-DOMAIN\\%s\")."
 
-#: ../storage/exchange-autoconfig-wizard.c:247
+#: ../storage/exchange-autoconfig-wizard.c:263
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -505,7 +529,7 @@ msgstr ""
 "Не вдається знайти дані OWA за зазначеним URL.\n"
 "Перевірте, що URL є коректним та спробуйте знову."
 
-#: ../storage/exchange-autoconfig-wizard.c:254
+#: ../storage/exchange-autoconfig-wizard.c:270
 msgid ""
 "Evolution Connector for Microsoft Exchange requires access to certain "
 "functionality on the Exchange server that appears to be disabled or "
@@ -523,7 +547,7 @@ msgstr ""
 "\n"
 "Інформація для вашого адміністратора Exchange:"
 
-#: ../storage/exchange-autoconfig-wizard.c:276
+#: ../storage/exchange-autoconfig-wizard.c:292
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 server. "
 "Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
@@ -532,7 +556,7 @@ msgstr ""
 "Наданий вами URL сервера Exchange призначений для Exchange 5.5 Server. "
 "Evolution Connector підтримує лише Microsoft Exchange 2000 та 2003."
 
-#: ../storage/exchange-autoconfig-wizard.c:290
+#: ../storage/exchange-autoconfig-wizard.c:306
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -540,7 +564,7 @@ msgstr ""
 "Не вдається налаштувати обліковий рахунок Exchange через невідому помилку. "
 "Перевірте URL, назву рахунку, та пароль, та спробуйте ще раз."
 
-#: ../storage/exchange-autoconfig-wizard.c:334
+#: ../storage/exchange-autoconfig-wizard.c:350
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -551,7 +575,7 @@ msgstr ""
 "повернутись назад та вказати домен Windows як частину назви вашого "
 "облікового рахунку (наприклад, \"MY-DOMAIN\\%s\")."
 
-#: ../storage/exchange-autoconfig-wizard.c:341
+#: ../storage/exchange-autoconfig-wizard.c:357
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -559,12 +583,12 @@ msgstr ""
 "Не вдається з'єднатись із зазначеним сервером.\n"
 "Перевірте назву сервера та спробуйте ще раз."
 
-#: ../storage/exchange-autoconfig-wizard.c:378
-#: ../storage/exchange-autoconfig-wizard.c:382
+#: ../storage/exchange-autoconfig-wizard.c:394
+#: ../storage/exchange-autoconfig-wizard.c:398
 msgid "Unknown"
 msgstr "Невідомо"
 
-#: ../storage/exchange-autoconfig-wizard.c:447
+#: ../storage/exchange-autoconfig-wizard.c:463
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -572,7 +596,7 @@ msgstr ""
 "Помилка конфігураційної системи.\n"
 "Не вдається створити новий обліковий рахунок."
 
-#: ../storage/exchange-autoconfig-wizard.c:461
+#: ../storage/exchange-autoconfig-wizard.c:477
 msgid "You may only configure a single Exchange account"
 msgstr "Можна налаштувати лише один обліковий рахунок Exchange"
 
@@ -605,8 +629,8 @@ msgid ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
-"Evolution Connector для Microsoft Exchange може використовувати інформацію облікового рахунку "
-"існуючого рахунку Outlook Web Access (OWA).\n"
+"Evolution Connector для Microsoft Exchange може використовувати інформацію "
+"облікового рахунку існуючого рахунку Outlook Web Access (OWA).\n"
 "\n"
 "Введіть адресу вашого OWA сайту (URL), назву рахунку, та пароль, потім "
 "натисніть \"Далі\".\n"
@@ -617,17 +641,18 @@ msgid ""
 "replica for your site. Please enter the name of your Global Catalog server. "
 "You may need to ask your system administrator for the correct value.\n"
 msgstr ""
-"Evolution Connector для Microsoft Exchange не може знайти репліку глобального каталогу вашого сайту. "
-"Введіть назву вашого сервера глобального каталогу. Можливо, коректне "
-"значення потрібно спитати у вашого системного адміністратора.\n"
+"Evolution Connector для Microsoft Exchange не може знайти репліку "
+"глобального каталогу вашого сайту. Введіть назву вашого сервера глобального "
+"каталогу. Можливо, коректне значення потрібно спитати у вашого системного "
+"адміністратора.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:12
 msgid ""
 "Evolution Connector for Microsoft Exchange has encountered a problem "
 "configuring your Exchange account.\n"
 msgstr ""
-"Evolution Connector для Microsoft Exchange виявив проблему з конфігурацією вашого облікового рахунку "
-"Exchange.\n"
+"Evolution Connector для Microsoft Exchange виявив проблему з конфігурацією "
+"вашого облікового рахунку Exchange.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:14
 msgid "Exchange Configuration"
@@ -699,14 +724,14 @@ msgstr ""
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
-#: ../storage/exchange-change-password.c:114
+#: ../storage/exchange-change-password.c:125
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
 msgstr ""
 "Поточний пароль не відповідає існуючому паролю цього облікового рахунку."
 
-#: ../storage/exchange-change-password.c:121
+#: ../storage/exchange-change-password.c:132
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr "Два паролі не співпадають. Введіть їх повторно."
 
@@ -794,11 +819,11 @@ msgstr "_Завдання"
 msgid "Exchange Folder Tree"
 msgstr "Дерево тек Exchange"
 
-#: ../storage/exchange-migrate.c:58
+#: ../storage/exchange-migrate.c:60
 msgid "Migrating Exchange Folders..."
 msgstr "Міграція тек Exchange..."
 
-#: ../storage/exchange-migrate.c:66
+#: ../storage/exchange-migrate.c:68
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -811,7 +836,7 @@ msgstr ""
 "\n"
 "Зачекайте, доки Evolution перетворює ваші теки..."
 
-#: ../storage/exchange-migrate.c:99
+#: ../storage/exchange-migrate.c:101
 #, c-format
 msgid ""
 "Warning: Evolution could not migrate all the Exchange account data from the "
@@ -823,7 +848,7 @@ msgstr ""
 "Exchange з версії  %d.%d.%d. \n"
 "Дані не будуть видалені, але й не будуть видимі у цій версії Evolution"
 
-#: ../storage/exchange-migrate.c:130
+#: ../storage/exchange-migrate.c:132
 #, c-format
 msgid "Migrating `%s':"
 msgstr "Міграція `%s':"
@@ -955,7 +980,7 @@ msgstr "Роль: "
 msgid "Connecting..."
 msgstr "З'єднання..."
 
-#: ../storage/ximian-connector-setup.c:44
+#: ../storage/ximian-connector-setup.c:75
 msgid "Evolution Connector for Microsoft Exchange Setup Tool"
 msgstr "Утиліта налаштовування Evolution Connector для Microsoft Exchange"
 
