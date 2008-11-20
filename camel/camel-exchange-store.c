@@ -1194,13 +1194,5 @@ exchange_can_refresh_folder (CamelStore *store, CamelFolderInfo *info, CamelExce
 	res = CAMEL_STORE_CLASS(parent_class)->can_refresh_folder (store, info, ex) ||
 	      (camel_url_get_param (((CamelService *)store)->url, "check_all") != NULL);
 
-	if (!res && !camel_exception_is_set (ex)) {
-		CamelFolder *folder;
-
-		folder = camel_store_get_folder (store, info->full_name, 0, ex);
-		if (folder && CAMEL_IS_EXCHANGE_FOLDER (folder))
-			res = CAMEL_EXCHANGE_FOLDER (folder)->check_folder;
-	}
-
 	return res;
 }
