@@ -1,5 +1,19 @@
 2008-11-20  Milan Crha  <mcrha@redhat.com>
 
+	** Fix for bug #540346
+
+	* addressbook/e-book-backend-gal.c: (start_book_view):
+	Do not try to fetch contacts when not connected.
+
+	* addressbook/e-book-backend-gal.c: (gal_reconnect), (get_contact),
+	(get_contact_list), (build_contact_from_entry), (ldap_search_handler),
+	(ldap_search_dtor), (start_book_view), (stop_book_view),
+	(parse_page_control), (generate_cache), (authenticate_user),
+	(get_supported_auth_methods), (load_source):
+	Turn off debug printf-s.
+
+2008-11-20  Milan Crha  <mcrha@redhat.com>
+
 	** Part of fix for bug #558883
 
 	* camel/camel-exchange-folder.h:
