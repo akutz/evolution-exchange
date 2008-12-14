@@ -27,6 +27,7 @@
 #include <string.h>
 #include <sys/stat.h>
 
+#include <glib/gi18n-lib.h>
 #include <libedataserver/e-data-server-util.h>
 #include <camel/camel-i18n.h>
 

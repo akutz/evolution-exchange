@@ -31,10 +31,8 @@
 #include <libedataserver/e-time-utils.h>
 
 #include <glib.h>
-#include <glib/gstdio.h>
-
-#include <libgnomevfs/gnome-vfs-mime-utils.h>
 #include <gio/gio.h>
+#include <glib/gstdio.h>
 
 #include <camel/camel-mime-message.h>
 #include <camel/camel-multipart.h>
