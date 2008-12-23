@@ -2142,6 +2142,7 @@ static int dosearch(
 					rc = parse_page_control (bl->priv->ldap, msg, &cookie);
 				}
 
+				g_mutex_unlock (bl->priv->ldap_lock);
 				goto done;
 			}
 
