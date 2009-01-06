@@ -29,7 +29,6 @@
 
 #include <glib/gi18n-lib.h>
 #include <libedataserver/e-data-server-util.h>
-#include <camel/camel-i18n.h>
 
 #include "camel-exchange-folder.h"
 #include "camel-exchange-search.h"
