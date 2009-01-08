@@ -85,6 +85,7 @@ static void   transfer_messages_the_hard_way (CamelFolder *source,
 					      CamelException *ex);
 static void refresh_info (CamelFolder *folder, CamelException *ex);
 static void exchange_sync (CamelFolder *folder, gboolean expunge, CamelException *ex);
+static char* get_filename (CamelFolder *folder, const char *uid, CamelException *ex);
 
 static void
 class_init (CamelFolderClass *camel_folder_class)
@@ -104,6 +105,7 @@ class_init (CamelFolderClass *camel_folder_class)
 	camel_folder_class->transfer_messages_to = transfer_messages_to;
 	camel_folder_class->refresh_info = refresh_info;
 	camel_folder_class->sync = exchange_sync;
+	camel_folder_class->get_filename = get_filename;
 }
 
 #define CAMEL_EXCHANGE_SERVER_FLAGS \
@@ -158,6 +160,7 @@ camel_exchange_folder_get_type (void)
 
 	return camel_exchange_folder_type;
 }
+
 
 static void
 refresh_info (CamelFolder *folder, CamelException *ex)
@@ -359,6 +362,14 @@ fix_broken_multipart_related (CamelMimePart *part)
 						 CAMEL_DATA_WRAPPER (new));
 		camel_object_unref (CAMEL_OBJECT (new));
 	}
+}
+
+static char*
+get_filename (CamelFolder *folder, const char *uid, CamelException *ex)
+{
+	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
+
+	return camel_data_cache_get_filename (exch->cache, "cache", uid, NULL);
 }
 
 static GByteArray *
