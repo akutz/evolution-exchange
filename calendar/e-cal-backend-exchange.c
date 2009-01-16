@@ -593,6 +593,29 @@ find_instance (ECalBackendExchange *cbex, ECalBackendExchangeComponent *ecomp, c
 	return found;
 }
 
+/**
+ * e_cal_backend_exchange_ensure_utc_zone:
+ * Makes sure the given icaltimetype is in UTC, because
+ * RFC 2445 says CREATED/DTSTAMP/LAST-MODIFIED always in UTC.
+ * @param cb ECalbackendExchage descendant.
+ * @param itt What to convert to UTC, if required.
+ **/
+void
+e_cal_backend_exchange_ensure_utc_zone (ECalBackend *cb, struct icaltimetype *itt)
+{
+	g_return_if_fail (cb != NULL);
+	g_return_if_fail (itt != NULL);
+
+	/* RFC 2445 - CREATED/DTSTAMP/LAST-MODIFIED always in UTC */
+	if (!icaltime_is_null_time (*itt) && !icaltime_is_utc (*itt)) {
+		if (!itt->zone)
+			icaltime_set_timezone (itt, e_cal_backend_internal_get_default_timezone (cb));
+
+		icaltimezone_convert_time (itt, (icaltimezone*) icaltime_get_timezone (*itt), icaltimezone_get_utc_timezone ());
+		icaltime_set_timezone (itt, icaltimezone_get_utc_timezone ());
+	}
+}
+
 gboolean
 e_cal_backend_exchange_in_cache (ECalBackendExchange *cbex,
 				 const char          *uid,

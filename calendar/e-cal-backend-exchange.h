@@ -112,6 +112,7 @@ gchar *e_cal_backend_exchange_get_owner_email (ECalBackendSync *backend);
 gchar *e_cal_backend_exchange_get_owner_name (ECalBackendSync *backend);
 void e_cal_backend_exchange_cache_lock (ECalBackendExchange *cbex);
 void e_cal_backend_exchange_cache_unlock (ECalBackendExchange *cbex) ;
+void e_cal_backend_exchange_ensure_utc_zone (ECalBackend *cb, struct icaltimetype *itt);
 
 G_END_DECLS
 

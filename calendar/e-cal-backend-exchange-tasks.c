@@ -651,8 +651,10 @@ get_changed_tasks (ECalBackendExchange *cbex)
 		e_cal_backend_exchange_add_timezone (cbex, icalcomp);
 
 		itt = icaltime_from_timet (e2k_parse_timestamp (modtime), 0);
-		if (!icaltime_is_null_time (itt))
+		if (!icaltime_is_null_time (itt)) {
+			e_cal_backend_exchange_ensure_utc_zone (E_CAL_BACKEND (cbex), &itt);
 			e_cal_component_set_last_modified (ecal, &itt);
+		}
 
 		/* Set Priority */
 		if ((str = e2k_properties_get_prop (result->props,
@@ -683,6 +685,8 @@ get_changed_tasks (ECalBackendExchange *cbex)
 				E2K_PR_HTTPMAIL_DATE))) {
 			itt = icaltime_from_timet (e2k_parse_timestamp (str), 0);
 			if (!icaltime_is_null_time (itt)) {
+				e_cal_backend_exchange_ensure_utc_zone (E_CAL_BACKEND (cbex), &itt);
+
 				e_cal_component_set_dtstamp (
 					E_CAL_COMPONENT (ecal), &itt);
 				e_cal_component_set_created (
@@ -790,8 +794,10 @@ get_changed_tasks (ECalBackendExchange *cbex)
 		if ((str = e2k_properties_get_prop (result->props,
 				E2K_PR_CALENDAR_LAST_MODIFIED))) {
 			itt = icaltime_from_timet (e2k_parse_timestamp(str), 0);
-			if (!icaltime_is_null_time (itt))
+			if (!icaltime_is_null_time (itt)) {
+				e_cal_backend_exchange_ensure_utc_zone (E_CAL_BACKEND (cbex), &itt);
 				e_cal_component_set_last_modified (ecal, &itt);
+			}
 		}
 
 		/* Set CATEGORIES */
@@ -1257,7 +1263,7 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
         e_cal_component_set_icalcomponent (new_comp, icalcomp);
 
 	/* Set the last modified time on the component */
-        current = icaltime_from_timet (time (NULL), 0);
+        current = icaltime_current_time_with_zone (icaltimezone_get_utc_timezone ());
         e_cal_component_set_last_modified (new_comp, &current);
 
 	/* Set Attachments */
@@ -1337,7 +1343,7 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
                 ecalcomp = e_cal_component_new ();
                 e_cal_component_set_icalcomponent (ecalcomp, subcomp);
 
-                current = icaltime_from_timet (time (NULL), 0);
+                current = icaltime_current_time_with_zone (icaltimezone_get_utc_timezone ());
                 e_cal_component_set_created (ecalcomp, &current);
                 e_cal_component_set_last_modified (ecalcomp, &current);
 

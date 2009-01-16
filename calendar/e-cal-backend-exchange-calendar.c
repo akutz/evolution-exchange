@@ -1193,7 +1193,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 
 	update_x_properties (E_CAL_BACKEND_EXCHANGE (cbexc), updated_ecomp);
 
-	last_modified = icaltime_from_timet (time (NULL), 0);
+	last_modified = icaltime_current_time_with_zone (icaltimezone_get_utc_timezone ());
 	e_cal_component_set_last_modified (updated_ecomp, &last_modified);
 
 	if (e_cal_component_has_attachments (updated_ecomp)) {
@@ -1631,7 +1631,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 		e_cal_component_set_icalcomponent (comp, subcomp);
 
 		/*create time and last modified*/
-		current = icaltime_from_timet (time (NULL), 0);
+		current = icaltime_current_time_with_zone (icaltimezone_get_utc_timezone ());
 		e_cal_component_set_created (comp, &current);
 		e_cal_component_set_last_modified (comp, &current);
 
