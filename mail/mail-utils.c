@@ -352,7 +352,7 @@ mail_util_demangle_meeting_related_message (GString *body,
 		const char *attendee;
 		char *text = NULL;
 
-		attendee = icalproperty_get_value_as_string (prop);
+		attendee = icalproperty_get_value_as_string_r (prop);
 		if (!attendee)
 			continue;
 
@@ -379,7 +379,7 @@ mail_util_demangle_meeting_related_message (GString *body,
 		const char *organizer;
 		char *text = NULL;
 
-		organizer = icalproperty_get_value_as_string (prop);
+		organizer = icalproperty_get_value_as_string_r (prop);
 		if (organizer) {
 			if (!g_ascii_strncasecmp (organizer, "mailto:", 7))
 				text = g_strdup (organizer+7);
@@ -425,7 +425,7 @@ mail_util_demangle_meeting_related_message (GString *body,
 	}
 
 	/* Put the updated ical string back into the body */
-	str = icalcomponent_as_ical_string (vcal_comp);
+	str = icalcomponent_as_ical_string_r (vcal_comp);
 	ical_str = e2k_lf_to_crlf (str);
 	g_free (str);
 	newlen = strlen (ical_str);

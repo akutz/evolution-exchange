@@ -246,7 +246,7 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 		status = add_vevent (cbex, href, lastmod, icalcomp);
 
 		if (status) {
-			char *object = icalcomponent_as_ical_string (icalcomp);
+			char *object = icalcomponent_as_ical_string_r (icalcomp);
 			e_cal_backend_notify_object_created (backend, object);
 			g_free (object);
 		}
@@ -289,7 +289,7 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 			status = add_vevent (cbex, href, lastmod, new_comp);
 
 			if (status) {
-				char *object = icalcomponent_as_ical_string (new_comp);
+				char *object = icalcomponent_as_ical_string_r (new_comp);
 				e_cal_backend_notify_object_created (backend, object);
 				g_free (object);
 			}
@@ -686,7 +686,7 @@ find_attendee_prop (icalcomponent *ical_comp, const char *address)
 		const char *attendee;
 		char *text = NULL;
 
-		attendee = icalproperty_get_value_as_string (prop);
+		attendee = icalproperty_get_value_as_string_r (prop);
 		if (!attendee)
 			continue;
 
@@ -856,7 +856,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	icalcomponent_foreach_tzid (real_icalcomp, add_timezone_cb, cbdata);
 	icalcomponent_add_component (cbdata->vcal_comp, real_icalcomp);
 
-	body = icalcomponent_as_ical_string (cbdata->vcal_comp);
+	body = icalcomponent_as_ical_string_r (cbdata->vcal_comp);
 	body_crlf = e_cal_backend_exchange_lf_to_crlf (body);
 	g_free (body);
 
@@ -1379,12 +1379,12 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	e_cal_backend_exchange_cache_unlock (cbex);
 
 	if (!cached_ecomp && remove)
-		*new_object = icalcomponent_as_ical_string (icalcomp);
+		*new_object = icalcomponent_as_ical_string_r (icalcomp);
 
 	if (!remove && mod == CALOBJ_MOD_THIS)
 		icalcomponent_add_component (cbdata->vcal_comp, real_icalcomp);
 
-	body = icalcomponent_as_ical_string (cbdata->vcal_comp);
+	body = icalcomponent_as_ical_string_r (cbdata->vcal_comp);
 	body_crlf = e_cal_backend_exchange_lf_to_crlf (body);
 	g_free (body);
 
@@ -1532,7 +1532,7 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 		/*remove a single instance of a recurring event and modify */
 		time_rid = icaltime_from_string (rid);
 		e_cal_util_remove_instances (ecomp->icomp, time_rid, mod);
-		calobj  = (char *) icalcomponent_as_ical_string (ecomp->icomp);
+		calobj  = (char *) icalcomponent_as_ical_string_r (ecomp->icomp);
 
 		e_cal_backend_exchange_cache_unlock (cbex);
 		ebs_status = modify_object_with_href (backend, cal, calobj, mod, &obj, &new_object, NULL, rid);
@@ -1669,7 +1669,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 					if (e_cal_util_component_is_instance (subcomp))
 						mod = CALOBJ_MOD_THIS;
 
-					icalobj = (char *) icalcomponent_as_ical_string (subcomp);
+					icalobj = (char *) icalcomponent_as_ical_string_r (subcomp);
 					status = modify_object_with_href (backend, cal, icalobj,
 									  mod,
 									  &old_object, &new_object, NULL, NULL);
@@ -1690,7 +1690,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 			} else if (!check_owner_partstatus_for_declined (backend, subcomp)) {
 				char *returned_uid, *object;
 				d(printf ("object : %s .. not found in the cache\n", uid));
-				icalobj = (char *) icalcomponent_as_ical_string (subcomp);
+				icalobj = (char *) icalcomponent_as_ical_string_r (subcomp);
 				d(printf ("Create a new object : %s\n", icalobj));
 
 				e_cal_backend_exchange_cache_unlock (cbex);
@@ -1715,7 +1715,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 			break;
 
 		case ICAL_METHOD_CANCEL:
-			icalobj = (char *) icalcomponent_as_ical_string (subcomp);
+			icalobj = (char *) icalcomponent_as_ical_string_r (subcomp);
 			if (rid)
 				status = remove_object (backend, cal, uid, rid, CALOBJ_MOD_THIS, &icalobj, &object);
 			else
@@ -2349,7 +2349,7 @@ get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 		content = (char *) fbdata->children->content;
 		set_freebusy_info (vfb, content, start);
 
-		calobj = icalcomponent_as_ical_string (vfb);
+		calobj = icalcomponent_as_ical_string_r (vfb);
 		*freebusy = g_list_prepend (*freebusy, calobj);
 		icalcomponent_free (vfb);
 	}

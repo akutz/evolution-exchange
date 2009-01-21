@@ -837,7 +837,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 			e_cal_backend_exchange_cache_unlock (cbex);
 
 			if (status && kind == ICAL_VTODO_COMPONENT) {
-				char *str = icalcomponent_as_ical_string (icalcomp);
+				char *str = icalcomponent_as_ical_string_r (icalcomp);
 				e_cal_backend_notify_object_created (E_CAL_BACKEND (cbex), str);
 				g_free (str);
 			}
@@ -1371,7 +1371,7 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
                         char *returned_uid;
 
 			e_cal_backend_exchange_cache_unlock (cbex);
-			calobj = (char *) icalcomponent_as_ical_string (subcomp);
+			calobj = (char *) icalcomponent_as_ical_string_r (subcomp);
 			status = create_task_object (backend, cal, &calobj, &returned_uid);
                         if (status != GNOME_Evolution_Calendar_Success) {
 				g_free (calobj);
