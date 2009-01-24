@@ -1,14 +1,20 @@
 # evolution-exchange Korean translation
-# This file is distributed under the same license as the package.
+# This file is distributed under the same license as the evolution-exchange package.
 #
-# Changwoo Ryu <cwryu@debian.org>, 2004-2006, 2007, 2008.
+# Changwoo Ryu <cwryu@debian.org>, 2004-2006, 2007, 2008, 2009.
+#
+# 참고:
+# - "Evolution"은 "에볼루션"으로 음역.
+# - MS에서 사용하는 이름은 MS의 한글 번역을 따른다. 단 영어로 표기하지는 않는다.
+#   예를 들어 Outlook Web Access를 MS에서는 "Outlook 웹 서비스"라고 하고 있지만
+#   "아웃룩 웹 서비스"라고 번역한다.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-07 02:08+0900\n"
-"PO-Revision-Date: 2008-09-07 02:11+0900\n"
+"POT-Creation-Date: 2009-01-24 15:57+0900\n"
+"PO-Revision-Date: 2009-01-24 16:03+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +37,7 @@ msgstr ""
 "인 캐시를 쓸 경우에만 효과가 있습니다."
 
 #: ../addressbook/e-book-backend-exchange.c:2285
-#: ../addressbook/e-book-backend-gal.c:1863 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-gal.c:1865 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "찾는 중입니다..."
 
@@ -40,11 +46,11 @@ msgstr "찾는 중입니다..."
 msgid "Reconnecting to LDAP server..."
 msgstr "LDAP 서버에 다시 연결하는 중입니다..."
 
-#: ../addressbook/e-book-backend-gal.c:1625
+#: ../addressbook/e-book-backend-gal.c:1624
 msgid "Receiving LDAP search results..."
 msgstr "LDAP 찾기 결과를 받는 중입니다..."
 
-#: ../addressbook/e-book-backend-gal.c:1894
+#: ../addressbook/e-book-backend-gal.c:1896
 msgid "Error performing search"
 msgstr "찾기를 수행하는 데 오류"
 
@@ -62,86 +68,82 @@ msgstr ""
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "'%s' 자원이 일정 시간동안 계속 사용 중입니다."
 
-#: ../calendar/e-cal-backend-exchange.c:424
+#: ../calendar/e-cal-backend-exchange.c:422
 msgid "Authentication failed"
 msgstr "인증 실패"
 
-#: ../calendar/e-cal-backend-exchange.c:466
+#: ../calendar/e-cal-backend-exchange.c:464
 msgid "Could not find the calendar"
 msgstr "달력을 찾을 수 없습니다"
 
-#: ../camel/camel-exchange-folder.c:54
-msgid "Always check for new mail in this folder"
-msgstr "항상 이 폴더에서만 새 메일 확인(_E)"
-
-#: ../camel/camel-exchange-folder.c:197
+#: ../camel/camel-exchange-folder.c:204
 msgid "You cannot expunge in offline mode."
 msgstr "오프라인 모드에서는 비울 수 없습니다."
 
-#: ../camel/camel-exchange-folder.c:228
+#: ../camel/camel-exchange-folder.c:235
 msgid "No Subject"
 msgstr "제목 없음"
 
-#: ../camel/camel-exchange-folder.c:383
+#: ../camel/camel-exchange-folder.c:398
 msgid "This message is not available in offline mode."
-msgstr "이 메세지는 오프라인 모드에서는 볼 수 없습니다."
+msgstr "이 메시지는 오프라인 모드에서는 볼 수 없습니다."
 
-#: ../camel/camel-exchange-folder.c:593
+#: ../camel/camel-exchange-folder.c:625
 msgid "Moving messages"
-msgstr "메세지를 옮기는 중입니다"
+msgstr "메시지를 옮기는 중입니다"
 
-#: ../camel/camel-exchange-folder.c:594
+#: ../camel/camel-exchange-folder.c:626
 msgid "Copying messages"
-msgstr "메세지를 복사하는 중입니다"
+msgstr "메시지를 복사하는 중입니다"
 
-#: ../camel/camel-exchange-folder.c:967
+#: ../camel/camel-exchange-folder.c:1004
 #, c-format
 msgid "Could not create directory %s: %s"
-msgstr "%s 디렉토리를 만들 수 없습니다: %s"
+msgstr "%s 디렉터리를 만들 수 없습니다: %s"
 
-#: ../camel/camel-exchange-folder.c:977
+#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "%s에 요약을 읽어들일 수 없습니다"
 
-#: ../camel/camel-exchange-folder.c:985
+#: ../camel/camel-exchange-folder.c:1022
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "%s에 대한 캐시를 만들 수 없습니다"
 
-#: ../camel/camel-exchange-folder.c:995
+#: ../camel/camel-exchange-folder.c:1032
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "%s에 대한 저널을 만들 수 없습니다"
 
-#: ../camel/camel-exchange-folder.c:1046
+#: ../camel/camel-exchange-folder.c:1083
 msgid "Scanning for changed messages"
-msgstr "바뀐 메세지가 있는 지 검사하는 중입니다"
+msgstr "바뀐 메시지가 있는 지 검사하는 중입니다"
 
-#: ../camel/camel-exchange-folder.c:1079
+#: ../camel/camel-exchange-folder.c:1116
 msgid "Fetching summary information for new messages"
-msgstr "새 메세지의 요약 정보를 가져오는 중입니다"
+msgstr "새 메시지의 요약 정보를 가져오는 중입니다"
 
 #: ../camel/camel-exchange-journal.c:342
 msgid "No folder name found\n"
 msgstr "폴더 이름이 없습니다\n"
 
-#: ../camel/camel-exchange-journal.c:375 ../mail/mail-stub-exchange.c:3042
-#: ../mail/mail-stub-exchange.c:3092 ../mail/mail-stub-exchange.c:3222
-#: ../mail/mail-stub-exchange.c:3249 ../mail/mail-stub-exchange.c:3302
-#: ../mail/mail-stub-exchange.c:3324
+#: ../camel/camel-exchange-journal.c:375 ../mail/mail-stub-exchange.c:3071
+#: ../mail/mail-stub-exchange.c:3121 ../mail/mail-stub-exchange.c:3251
+#: ../mail/mail-stub-exchange.c:3278 ../mail/mail-stub-exchange.c:3331
+#: ../mail/mail-stub-exchange.c:3353
 msgid "Folder doesn't exist"
 msgstr "폴더가 없습니다"
 
 #: ../camel/camel-exchange-journal.c:439
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
-"오프라인 모드에서 메세지를 덧붙일 수 없습니다: 캐시를 사용할 수 없습니다"
+"오프라인 모드에서 메시지를 덧붙일 수 없습니다: 캐시를 사용할 수 없습니다"
 
 #: ../camel/camel-exchange-journal.c:455
 #, c-format
 msgid "Cannot append message in offline mode: %s"
-msgstr "오프라인 모드에서 메세지를 덧붙일 수 없습니다: %s"
+msgstr "오프라인 모드에서 메시지를 덧붙일 수 없습니다: %s"
 
 #: ../camel/camel-exchange-provider.c:55
 msgid "Secure or Plaintext Password"
@@ -164,7 +166,7 @@ msgstr "새 메일 검사"
 
 #: ../camel/camel-exchange-provider.c:65
 msgid "C_heck for new messages in all folders"
-msgstr "모든 폴더에서 새 메세지 확인(_H)"
+msgstr "모든 폴더에서 새 메시지 확인(_H)"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
@@ -177,7 +179,7 @@ msgstr "윈도우즈 사용자 이름(_N):"
 #. i18n: GAL is an Outlookism, AD is a Windowsism
 #: ../camel/camel-exchange-provider.c:78
 msgid "Global Address List / Active Directory"
-msgstr "전체 주소 목록 / Active Directory"
+msgstr "전체 주소 목록 / 액티브 디렉터리"
 
 # MS에서 "글로벌 카탈로그"라고 사용한다. 엉터리 번역이지만 따라간다.
 #. i18n: "Global Catalog" is a Windowsism, but it's a
@@ -215,15 +217,15 @@ msgstr "자동으로 로컬에서 계정 동기화(_Z)"
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:98
 msgid "_Apply filters to new messages in Inbox on this server"
-msgstr "이 서버의 받은 편지함에 있는 새 메세지에 필터 적용(_A)"
+msgstr "이 서버의 받은 편지함에 있는 새 메시지에 필터 적용(_A)"
 
 #: ../camel/camel-exchange-provider.c:100
 msgid "Check new messages for _Junk contents"
-msgstr "새 메세지가 정크 메일인지 확인(_J)"
+msgstr "새 메시지가 정크 메일인지 확인(_J)"
 
 #: ../camel/camel-exchange-provider.c:102
 msgid "Only check for Junk messag_es in the Inbox folder"
-msgstr "받은 편지함에 있는 정크 메세지만 확인(_E)"
+msgstr "받은 편지함에 있는 정크 메시지만 확인(_E)"
 
 #: ../camel/camel-exchange-provider.c:112
 msgid "Microsoft Exchange"
@@ -294,7 +296,7 @@ msgstr "오프라인 모드에서는 폴더를 만들 수 없습니다."
 
 #: ../camel/camel-exchange-store.c:827
 msgid "Cannot delete folder in offline mode."
-msgstr "오프라인 모드에서는 폴더를 지울 수 없습니다."
+msgstr "오프라인 모드에서는 폴더를 삭제할 수 없습니다."
 
 #: ../camel/camel-exchange-store.c:851
 msgid "Cannot rename folder in offline mode."
@@ -306,11 +308,11 @@ msgstr "익스체인지 전송은 익스체인지 메일 소스를 쓸 때만 �
 
 #: ../camel/camel-exchange-transport.c:122
 msgid "Cannot send message: one or more invalid recipients"
-msgstr "메세지를 보낼 수 없습니다: 받는 사람이 잘못되었습니다"
+msgstr "메시지를 보낼 수 없습니다: 받는 사람이 잘못되었습니다"
 
 #: ../camel/camel-exchange-transport.c:132
 msgid "Could not find 'From' address in message"
-msgstr "메세지에서 'From' 주소를 찾을 수 없습니다"
+msgstr "메시지에서 'From' 주소를 찾을 수 없습니다"
 
 #: ../camel/camel-stub.c:165 ../camel/camel-stub.c:229
 #, c-format
@@ -357,81 +359,81 @@ msgstr "%s에 대한 연결을 잃었습니다"
 msgid "Error communicating with %s: %s"
 msgstr "%s와(과) 통신하는 데 오류가 발생했습니다: %s"
 
-#: ../mail/mail-stub-exchange.c:267 ../mail/mail-stub-exchange.c:963
+#: ../mail/mail-stub-exchange.c:269 ../mail/mail-stub-exchange.c:965
 msgid "No such folder"
 msgstr "그런 폴더가 없습니다"
 
-#: ../mail/mail-stub-exchange.c:290 ../mail/mail-stub-exchange.c:3019
-#: ../mail/mail-stub-exchange.c:3059 ../mail/mail-stub-exchange.c:3226
-#: ../mail/mail-stub-exchange.c:3276 ../mail/mail-stub-exchange.c:3339
+#: ../mail/mail-stub-exchange.c:292 ../mail/mail-stub-exchange.c:3048
+#: ../mail/mail-stub-exchange.c:3088 ../mail/mail-stub-exchange.c:3255
+#: ../mail/mail-stub-exchange.c:3305 ../mail/mail-stub-exchange.c:3368
 msgid "Permission denied"
 msgstr "권한이 거부되었습니다"
 
-#: ../mail/mail-stub-exchange.c:785 ../mail/mail-stub-exchange.c:877
+#: ../mail/mail-stub-exchange.c:787 ../mail/mail-stub-exchange.c:879
 msgid "Could not open folder"
 msgstr "폴더를 열 수 없습니다"
 
-#: ../mail/mail-stub-exchange.c:871 ../mail/mail-stub-exchange.c:893
+#: ../mail/mail-stub-exchange.c:873 ../mail/mail-stub-exchange.c:895
 msgid "Could not open folder: Permission denied"
 msgstr "폴더를 열 수 없습니다; 권한이 거부되었습니다"
 
-#: ../mail/mail-stub-exchange.c:972
+#: ../mail/mail-stub-exchange.c:974
 msgid "Could not create folder."
 msgstr "폴더를 만들 수 없습니다."
 
-#: ../mail/mail-stub-exchange.c:1060
+#: ../mail/mail-stub-exchange.c:1062
 msgid "Could not open Deleted Items folder"
-msgstr "지운 항목 폴더를 열 수 없습니다"
+msgstr "삭제한 항목 폴더를 열 수 없습니다"
 
-#: ../mail/mail-stub-exchange.c:1391 ../mail/mail-stub-exchange.c:1432
+#: ../mail/mail-stub-exchange.c:1393 ../mail/mail-stub-exchange.c:1434
 msgid "Could not get new messages"
-msgstr "새 메세지를 가져올 수 없습니다"
+msgstr "새 메시지를 가져올 수 없습니다"
 
-#: ../mail/mail-stub-exchange.c:1608
+#: ../mail/mail-stub-exchange.c:1637
 msgid "Could not empty Deleted Items folder"
-msgstr "지운 항목 폴더를 비울 수 없습니다"
+msgstr "삭제한 항목 폴더를 비울 수 없습니다"
 
-#: ../mail/mail-stub-exchange.c:1610
+#: ../mail/mail-stub-exchange.c:1639
 msgid "Permission denied. Could not delete certain messages."
-msgstr "권한이 거부되었습니다. 지울 수 없는 메세지가 있습니다."
+msgstr "권한이 거부되었습니다. 삭제할 수 없는 메시지가 있습니다."
 
-#: ../mail/mail-stub-exchange.c:1683
+#: ../mail/mail-stub-exchange.c:1712
 msgid "Could not append message; mailbox is over quota"
-msgstr "메세지를 덧붙일 수 없습니다: 메일함 크기가 한계값을 넘어갔습니다"
+msgstr "메시지를 덧붙일 수 없습니다: 메일함 크기가 한계값을 넘어갔습니다"
 
-#: ../mail/mail-stub-exchange.c:1684
+#: ../mail/mail-stub-exchange.c:1713
 msgid "Could not append message"
-msgstr "메세지를 덧붙일 수 없습니다"
+msgstr "메시지를 덧붙일 수 없습니다"
 
-#: ../mail/mail-stub-exchange.c:2446
+#: ../mail/mail-stub-exchange.c:2475
 msgid "No such message"
-msgstr "그런 메세지가 없습니다"
+msgstr "그런 메시지가 없습니다"
 
-#: ../mail/mail-stub-exchange.c:2527
+#: ../mail/mail-stub-exchange.c:2556
 msgid "Message has been deleted"
-msgstr "메세지를 지웠습니다"
+msgstr "메시지를 삭제했습니다"
 
-#: ../mail/mail-stub-exchange.c:2529
+#: ../mail/mail-stub-exchange.c:2558
 msgid "Error retrieving message"
-msgstr "메세지를 가져오는 데 오류가 발생했습니다"
+msgstr "메시지를 가져오는 데 오류가 발생했습니다"
 
-#: ../mail/mail-stub-exchange.c:2572
+#: ../mail/mail-stub-exchange.c:2601
 msgid "Mailbox does not support full-text searching"
 msgstr "메일함이 전체 텍스트 찾기를 지원하지 않습니다"
 
-#: ../mail/mail-stub-exchange.c:2670
+#: ../mail/mail-stub-exchange.c:2699
 msgid "Unable to move/copy messages"
-msgstr "메세지를 옮길/복사할 수 없습니다"
+msgstr "메시지를 옮길/복사할 수 없습니다"
 
-#: ../mail/mail-stub-exchange.c:2936
+#: ../mail/mail-stub-exchange.c:2965
 msgid "No mail submission URI for this mailbox"
 msgstr "이 메일함에 대한 메일 제출 URI가 없습니다"
 
-#: ../mail/mail-stub-exchange.c:2970
+#: ../mail/mail-stub-exchange.c:2999
 msgid "Server won't accept mail via Exchange transport"
 msgstr "서버가 익스체인지 전송을 통해서 메일을 받지 않습니다"
 
-#: ../mail/mail-stub-exchange.c:2972
+#: ../mail/mail-stub-exchange.c:3001
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -440,25 +442,25 @@ msgstr ""
 "계정에 <%s> 주소를 보낸 사람 주소로 사용할\n"
 "권한이 없습니다"
 
-#: ../mail/mail-stub-exchange.c:2984
+#: ../mail/mail-stub-exchange.c:3013
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
-"메세지를 보낼 수 없습니다.\n"
+"메시지를 보낼 수 없습니다.\n"
 "계정의 한계 용량을 넘어갔을 수도 있습니다."
 
-#: ../mail/mail-stub-exchange.c:2988
+#: ../mail/mail-stub-exchange.c:3017
 msgid "Could not send message"
-msgstr "메세지를 보낼 수 없습니다"
+msgstr "메시지를 보낼 수 없습니다"
 
-#: ../mail/mail-stub-exchange.c:3011 ../mail/mail-stub-exchange.c:3064
-#: ../mail/mail-stub-exchange.c:3230 ../mail/mail-stub-exchange.c:3281
-#: ../mail/mail-stub-exchange.c:3345
+#: ../mail/mail-stub-exchange.c:3040 ../mail/mail-stub-exchange.c:3093
+#: ../mail/mail-stub-exchange.c:3259 ../mail/mail-stub-exchange.c:3310
+#: ../mail/mail-stub-exchange.c:3374
 msgid "Generic error"
 msgstr "일반 오류"
 
-#: ../mail/mail-stub-exchange.c:3015
+#: ../mail/mail-stub-exchange.c:3044
 msgid "Folder already exists"
 msgstr "폴더가 이미 있습니다"
 
@@ -520,7 +522,7 @@ msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 msgstr ""
-"해당 URL에서 Outlook 웹 서비스 데이터를 찾을 수 없습니다.\n"
+"해당 URL에서 아웃룩 웹 서비스 데이터를 찾을 수 없습니다.\n"
 "URL이 올바른지 확인하시고 다시 시도해 보십시오."
 
 #: ../storage/exchange-autoconfig-wizard.c:270
@@ -622,11 +624,9 @@ msgid ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
-"마이크로소프트 익스체인지용 에볼루션 커넥터는 기존의 Outlook 웹 서비스 (OWA) "
-"계정을 통해 계정 정보를 이용할 수 있습니다.\n"
+"마이크로소프트 익스체인지용 에볼루션 커넥터는 기존의 아웃룩 웹 서비스 (OWA) 계정을 통해 계정 정보를 이용할 수 있습니다.\n"
 "\n"
-"OWA 사이트 주소 (URL), 사용자 이름, 암호를 입력하시고, \"다음\"을 누르십시"
-"오.\n"
+"OWA 사이트 주소 (URL), 사용자 이름, 암호를 입력하시고, \"다음\"을 누르십시오.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:10
 msgid ""
@@ -663,7 +663,7 @@ msgstr "내 기본 계정으로 하기"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:18
 msgid "OWA URL:"
-msgstr "Outlook 웹 서비스 URL:"
+msgstr "아웃룩 웹 서비스 (OWA) URL:"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Password:"
@@ -838,7 +838,7 @@ msgid ""
 msgstr ""
 "경고: 에볼루션에서 익스체인지 계정의 데이터를 %d.%d.%d 버전에서 모두 옮겨오"
 "지 못했습니다.\n"
-"데이터는 지워지지 않았지만, 이 버전의 에볼루션에서는 그 데이터를 볼 수 없습니"
+"데이터는 삭제하지 않았지만, 이 버전의 에볼루션에서는 그 데이터를 볼 수 없습니"
 "다"
 
 #: ../storage/exchange-migrate.c:132
@@ -858,7 +858,7 @@ msgstr ""
 
 #: ../storage/exchange-oof.glade.h:4
 msgid "<b>Out of Office Message:</b>"
-msgstr "<b>부재 중 메세지:</b>"
+msgstr "<b>부재 중 메시지:</b>"
 
 #: ../storage/exchange-oof.glade.h:5
 msgid "<b>Status:</b>"
@@ -871,7 +871,7 @@ msgid ""
 "mail to you while you are out of the office.</small>"
 msgstr ""
 "<small>부재 중에 메일을 보내는 사람이 있으면 답장으로 아래에 지정하는\n"
-"메세지를 보냅니다.</small>"
+"메시지를 보냅니다.</small>"
 
 #: ../storage/exchange-oof.glade.h:8
 msgid "I am currently in the office"
@@ -919,7 +919,7 @@ msgstr "<b>권한</b>"
 
 #: ../storage/exchange-permissions-dialog.glade.h:3
 msgid "Cannot Delete"
-msgstr "지우지 못 함"
+msgstr "삭제하지 못 함"
 
 #: ../storage/exchange-permissions-dialog.glade.h:4
 msgid "Cannot Edit"
@@ -935,11 +935,11 @@ msgstr "하위 폴더 만들기"
 
 #: ../storage/exchange-permissions-dialog.glade.h:7
 msgid "Delete Any Items"
-msgstr "모든 항목 지우기"
+msgstr "모든 항목 삭제"
 
 #: ../storage/exchange-permissions-dialog.glade.h:8
 msgid "Delete Own Items"
-msgstr "자기 항목 지우기"
+msgstr "자기 항목 삭제"
 
 #: ../storage/exchange-permissions-dialog.glade.h:9
 msgid "Edit Any Items"
@@ -1008,7 +1008,7 @@ msgstr "익스체인지 달력의 대리인 설정을 보거나 바꿉니다"
 
 #: ../storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
-msgstr "부재 중 상태를 및 자동 응답 메세지를 보거나 바꿉니다"
+msgstr "부재 중 상태를 및 자동 응답 메시지를 보거나 바꿉니다"
 
 #: ../storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
@@ -1025,3 +1025,6 @@ msgstr "부재 중 알림(_O)"
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "다른 사용자의 폴더 등록 취소(_U)"
+
+#~ msgid "Always check for new mail in this folder"
+#~ msgstr "항상 이 폴더에서만 새 메일 확인(_E)"
