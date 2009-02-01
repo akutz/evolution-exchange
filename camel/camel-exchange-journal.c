@@ -45,7 +45,7 @@
 #include "camel-exchange-summary.h"
 
 
-#define d(x) x
+#define d(x)
 
 
 static void camel_exchange_journal_class_init (CamelExchangeJournalClass *klass);
