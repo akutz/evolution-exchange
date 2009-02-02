@@ -574,7 +574,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 	E2kContext *ctx;
 	const char *modtime, *str, *prop;
 	char *uid;
-	char *tzid;
+	const char *tzid;
 	int status, i, priority, percent;
 	float f_percent;
 	ECalComponent *ecal, *ecomp;
