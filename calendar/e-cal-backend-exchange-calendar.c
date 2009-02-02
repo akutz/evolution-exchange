@@ -741,7 +741,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	struct icaltimetype current;
 	char *location = NULL, *ru_header = NULL;
 	ECalComponent *comp;
-	char *body, *body_crlf, *msg;
+	char *body_crlf, *msg;
 	char *from, *date;
 	const char *summary;
 	char *attach_body = NULL;
@@ -856,9 +856,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	icalcomponent_foreach_tzid (real_icalcomp, add_timezone_cb, cbdata);
 	icalcomponent_add_component (cbdata->vcal_comp, real_icalcomp);
 
-	body = icalcomponent_as_ical_string_r (cbdata->vcal_comp);
-	body_crlf = e_cal_backend_exchange_lf_to_crlf (body);
-	g_free (body);
+	body_crlf = icalcomponent_as_ical_string_r (cbdata->vcal_comp);
 
 	date = e_cal_backend_exchange_make_timestamp_rfc822 (time (NULL));
 	if (!g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (cbex->account)))
@@ -1080,7 +1078,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	ECalComponent *real_ecomp, *cached_ecomp = NULL, *updated_ecomp;
 	const char *comp_uid;
 	char *updated_ecomp_str, *real_comp_str;
-	char *body, *body_crlf, *msg;
+	char *body_crlf, *msg;
 	char *attach_body = NULL;
 	char *attach_body_crlf = NULL;
 	char *boundary = NULL;
@@ -1384,9 +1382,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	if (!remove && mod == CALOBJ_MOD_THIS)
 		icalcomponent_add_component (cbdata->vcal_comp, real_icalcomp);
 
-	body = icalcomponent_as_ical_string_r (cbdata->vcal_comp);
-	body_crlf = e_cal_backend_exchange_lf_to_crlf (body);
-	g_free (body);
+	body_crlf = icalcomponent_as_ical_string_r (cbdata->vcal_comp);
 
 	date = e_cal_backend_exchange_make_timestamp_rfc822 (time (NULL));
 	if (!g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (cbex->account)))

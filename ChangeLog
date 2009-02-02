@@ -1,5 +1,11 @@
 2009-02-02  Suman Manjunath  <msuman@novell.com>
 
+	* calendar/e-cal-backend-exchange-calendar.c (create_object),
+	(modify_object_with_href): Don't convert the icalcomponent body to
+	CR-LF format, libical does that already.
+
+2009-02-02  Suman Manjunath  <msuman@novell.com>
+
 	** Part of fix for bug #568554
 
 	* calendar/e-cal-backend-exchange-tasks.c (get_changed_tasks): Fix a 
