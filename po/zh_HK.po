@@ -9,10 +9,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Evolution-exchange 2.23.92\n"
+"Project-Id-Version: Evolution-exchange 2.25.91\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-18 13:05+0800\n"
-"PO-Revision-Date: 2008-09-18 13:08+0800\n"
+"POT-Creation-Date: 2009-02-03 20:25+0800\n"
+"PO-Revision-Date: 2009-02-03 20:25+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (Hong Kong) <community@linuxhall.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,13 +24,16 @@ msgid "Specifies the time interval to refresh the GAL Cache."
 msgstr "指定更新 GAL 快取的時間間隔。"
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
-msgid "This key specifies the number of days interval between the GAL cache refresh. Set this value to zero, if you don't want to update GAL and use the current cache forever. This will work only if you have enabled offline caching for GAL."
+msgid ""
+"This key specifies the number of days interval between the GAL cache "
+"refresh. Set this value to zero, if you don't want to update GAL and use the "
+"current cache forever. This will work only if you have enabled offline "
+"caching for GAL."
 msgstr "這個鍵值指定了更新 GAL 快取的間隔日數。如果你不想更新 GAL 而要永遠使用目前的快取，請將此值設為零。這只會在啟用 GAL 離線快取的狀況下生效。"
 
 # Novell Translation
 #: ../addressbook/e-book-backend-exchange.c:2285
-#: ../addressbook/e-book-backend-gal.c:1863
-#: ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-gal.c:1865 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "搜尋中..."
 
@@ -41,17 +44,17 @@ msgid "Reconnecting to LDAP server..."
 msgstr "正在重新連接 LDAP 伺服器..."
 
 # Novell Translation
-#: ../addressbook/e-book-backend-gal.c:1625
+#: ../addressbook/e-book-backend-gal.c:1624
 msgid "Receiving LDAP search results..."
 msgstr "正在接收 LDAP 搜尋結果..."
 
 # Novell Translation
-#: ../addressbook/e-book-backend-gal.c:1894
+#: ../addressbook/e-book-backend-gal.c:1896
 msgid "Error performing search"
-msgstr "執行搜尋錯誤"
+msgstr "進行搜尋時發生錯誤"
 
 # Novell Translation
-#: ../calendar/e-cal-backend-exchange-calendar.c:2090
+#: ../calendar/e-cal-backend-exchange-calendar.c:2086
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -61,78 +64,74 @@ msgstr ""
 "你必須分別預約每個會議。"
 
 # Novell Translation
-#: ../calendar/e-cal-backend-exchange-calendar.c:2108
+#: ../calendar/e-cal-backend-exchange-calendar.c:2104
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "在排定時間內，資源「%s」在忙碌中。"
 
-#: ../calendar/e-cal-backend-exchange.c:424
+#: ../calendar/e-cal-backend-exchange.c:422
 msgid "Authentication failed"
 msgstr "驗證失敗"
 
 # Novell Translation
-#: ../calendar/e-cal-backend-exchange.c:466
+#: ../calendar/e-cal-backend-exchange.c:464
 msgid "Could not find the calendar"
 msgstr "找不到該行事曆"
 
-#: ../camel/camel-exchange-folder.c:54
-msgid "Always check for new mail in this folder"
-msgstr "永遠檢查這個資料夾中是否有新郵件"
-
-#: ../camel/camel-exchange-folder.c:211
+#: ../camel/camel-exchange-folder.c:204
 msgid "You cannot expunge in offline mode."
 msgstr "在離線模式中無法刪除郵件。"
 
-#: ../camel/camel-exchange-folder.c:242
+#: ../camel/camel-exchange-folder.c:235
 msgid "No Subject"
 msgstr "沒有主旨"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:397
+#: ../camel/camel-exchange-folder.c:398
 msgid "This message is not available in offline mode."
-msgstr "此郵件無法在離線模式中使用。"
+msgstr "這封郵件無法在離線模式下使用。"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:607
+#: ../camel/camel-exchange-folder.c:625
 msgid "Moving messages"
 msgstr "正在移動郵件"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:608
+#: ../camel/camel-exchange-folder.c:626
 msgid "Copying messages"
 msgstr "正在複製郵件"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:987
+#: ../camel/camel-exchange-folder.c:1004
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "無法建立目錄 %s：%s"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:997
+#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "無法載入 %s 的摘要"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:1005
+#: ../camel/camel-exchange-folder.c:1022
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "無法建立 %s 的快取"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:1015
+#: ../camel/camel-exchange-folder.c:1032
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "無法建立 %s 的日誌"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:1066
+#: ../camel/camel-exchange-folder.c:1083
 msgid "Scanning for changed messages"
 msgstr "掃描已更改的郵件"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:1099
+#: ../camel/camel-exchange-folder.c:1116
 msgid "Fetching summary information for new messages"
 msgstr "取得新郵件的摘要資訊"
 
@@ -141,12 +140,9 @@ msgid "No folder name found\n"
 msgstr "找不到資料夾名稱\n"
 
 # Novell Translation
-#: ../camel/camel-exchange-journal.c:375
-#: ../mail/mail-stub-exchange.c:3071
-#: ../mail/mail-stub-exchange.c:3121
-#: ../mail/mail-stub-exchange.c:3251
-#: ../mail/mail-stub-exchange.c:3278
-#: ../mail/mail-stub-exchange.c:3331
+#: ../camel/camel-exchange-journal.c:375 ../mail/mail-stub-exchange.c:3071
+#: ../mail/mail-stub-exchange.c:3121 ../mail/mail-stub-exchange.c:3251
+#: ../mail/mail-stub-exchange.c:3278 ../mail/mail-stub-exchange.c:3331
 #: ../mail/mail-stub-exchange.c:3353
 msgid "Folder doesn't exist"
 msgstr "資料夾不存在"
@@ -243,7 +239,7 @@ msgstr "自動同步本地帳號(_Z)"
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:98
 msgid "_Apply filters to new messages in Inbox on this server"
-msgstr "對此伺服器收件匣的新郵件套用過濾器(_A)"
+msgstr "套用過濾條件至此伺服器收件匣的新郵件(_A)"
 
 # Novell Translation
 #: ../camel/camel-exchange-provider.c:100
@@ -268,12 +264,16 @@ msgstr "用於處理 Microsoft Exchange 伺服器中的郵件 (及其他資料)"
 # Novell Translation
 #. i18n: "NTLM" probably doesn't translate
 #: ../camel/camel-exchange-provider.c:133
-msgid "This option will connect to the Exchange server using secure password (NTLM) authentication."
+msgid ""
+"This option will connect to the Exchange server using secure password (NTLM) "
+"authentication."
 msgstr "此選項將會連接到使用安全密碼 (NTLM) 驗證的 Exchange 伺服器。"
 
 # Novell Translation
 #: ../camel/camel-exchange-provider.c:143
-msgid "This option will connect to the Exchange server using standard plaintext password authentication."
+msgid ""
+"This option will connect to the Exchange server using standard plaintext "
+"password authentication."
 msgstr "此選項將會連接到使用標準純文字密碼驗證的 Exchange 伺服器。"
 
 # Novell Translation
@@ -304,7 +304,7 @@ msgstr ""
 #: ../camel/camel-exchange-store.c:495
 #, c-format
 msgid "No such folder %s"
-msgstr "無此資料夾：%s"
+msgstr "沒有這個資料夾 %s"
 
 # Novell Translation
 #: ../camel/camel-exchange-store.c:572
@@ -344,15 +344,14 @@ msgstr "Exchange 傳輸系統只能與 Exchange 郵件來源一起使用"
 # Novell Translation
 #: ../camel/camel-exchange-transport.c:122
 msgid "Cannot send message: one or more invalid recipients"
-msgstr "無法傳送郵件：一個或多個收件者無效"
+msgstr "不能傳送郵件：一或多個無效的收件者"
 
 # Novell Translation
 #: ../camel/camel-exchange-transport.c:132
 msgid "Could not find 'From' address in message"
 msgstr "郵件中找不到「寄件者」地址"
 
-#: ../camel/camel-stub.c:165
-#: ../camel/camel-stub.c:229
+#: ../camel/camel-stub.c:165 ../camel/camel-stub.c:229
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "無法建立 socket：%s"
@@ -364,8 +363,7 @@ msgid "Could not connect to %s: Please restart Evolution"
 msgstr "無法連接到 %s：請重新啟動 Evolution"
 
 # Novell Translation
-#: ../camel/camel-stub.c:188
-#: ../camel/camel-stub.c:247
+#: ../camel/camel-stub.c:188 ../camel/camel-stub.c:247
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "無法連接到 %s：%s"
@@ -406,28 +404,22 @@ msgid "Error communicating with %s: %s"
 msgstr "與 %s 通訊錯誤：%s"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:269
-#: ../mail/mail-stub-exchange.c:965
+#: ../mail/mail-stub-exchange.c:269 ../mail/mail-stub-exchange.c:965
 msgid "No such folder"
 msgstr "無此資料夾"
 
-#: ../mail/mail-stub-exchange.c:292
-#: ../mail/mail-stub-exchange.c:3048
-#: ../mail/mail-stub-exchange.c:3088
-#: ../mail/mail-stub-exchange.c:3255
-#: ../mail/mail-stub-exchange.c:3305
-#: ../mail/mail-stub-exchange.c:3368
+#: ../mail/mail-stub-exchange.c:292 ../mail/mail-stub-exchange.c:3048
+#: ../mail/mail-stub-exchange.c:3088 ../mail/mail-stub-exchange.c:3255
+#: ../mail/mail-stub-exchange.c:3305 ../mail/mail-stub-exchange.c:3368
 msgid "Permission denied"
 msgstr "存取被拒"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:787
-#: ../mail/mail-stub-exchange.c:879
+#: ../mail/mail-stub-exchange.c:787 ../mail/mail-stub-exchange.c:879
 msgid "Could not open folder"
 msgstr "無法開啟資料夾"
 
-#: ../mail/mail-stub-exchange.c:873
-#: ../mail/mail-stub-exchange.c:895
+#: ../mail/mail-stub-exchange.c:873 ../mail/mail-stub-exchange.c:895
 msgid "Could not open folder: Permission denied"
 msgstr "無法開啟資料夾：存取被拒"
 
@@ -442,8 +434,7 @@ msgid "Could not open Deleted Items folder"
 msgstr "無法開啟「已刪除項目」資料夾"
 
 # Novell Translation
-#: ../mail/mail-stub-exchange.c:1393
-#: ../mail/mail-stub-exchange.c:1434
+#: ../mail/mail-stub-exchange.c:1393 ../mail/mail-stub-exchange.c:1434
 msgid "Could not get new messages"
 msgstr "無法取得新郵件"
 
@@ -522,13 +513,11 @@ msgstr ""
 msgid "Could not send message"
 msgstr "無法傳送郵件"
 
-#: ../mail/mail-stub-exchange.c:3040
-#: ../mail/mail-stub-exchange.c:3093
-#: ../mail/mail-stub-exchange.c:3259
-#: ../mail/mail-stub-exchange.c:3310
+#: ../mail/mail-stub-exchange.c:3040 ../mail/mail-stub-exchange.c:3093
+#: ../mail/mail-stub-exchange.c:3259 ../mail/mail-stub-exchange.c:3310
 #: ../mail/mail-stub-exchange.c:3374
 msgid "Generic error"
-msgstr "一般性錯誤"
+msgstr "一般錯誤"
 
 # Novell Translation
 #: ../mail/mail-stub-exchange.c:3044
@@ -583,7 +572,8 @@ msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again.\n"
 "\n"
-"You may need to specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
+"You may need to specify the Windows domain name as part of your username "
+"(eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
 "無法登入 Exchange 伺服器。\n"
 "請確定使用者名稱及密碼是正確的，然後再試一次。\n"
@@ -601,26 +591,39 @@ msgstr ""
 
 #: ../storage/exchange-autoconfig-wizard.c:270
 msgid ""
-"Evolution Connector for Microsoft Exchange requires access to certain functionality on the Exchange server that appears to be disabled or blocked.  (This is usually unintentional.)  Your Exchange administrator will need to enable this functionality in order for you to be able to use the Evolution Connector.\n"
+"Evolution Connector for Microsoft Exchange requires access to certain "
+"functionality on the Exchange server that appears to be disabled or "
+"blocked.  (This is usually unintentional.)  Your Exchange administrator will "
+"need to enable this functionality in order for you to be able to use the "
+"Evolution Connector.\n"
 "\n"
-"For information to provide to your Exchange administrator, please follow the link below:"
+"For information to provide to your Exchange administrator, please follow the "
+"link below:"
 msgstr ""
 "Evolution Connector 需要使用 Exchange 伺服器上某些已關閉或已封鎖的功能。(這通常不是故意的。) 你的 Exchange 管理員將需要開啟此功能，讓你可以使用 Evolution Connector。\n"
 "\n"
 "若需要有資料提供給 Exchange 管理員，請跟隨下列連結："
 
 #: ../storage/exchange-autoconfig-wizard.c:292
-msgid "The Exchange server URL you provided is for an Exchange 5.5 server. Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 and 2003 only."
+msgid ""
+"The Exchange server URL you provided is for an Exchange 5.5 server. "
+"Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
+"and 2003 only."
 msgstr "你所提供的 Exchange 伺服器 URL 是一部 Exchange 5.5 伺服器。Evolution Connector 僅支援 Microsoft Exchange 2000 和 2003。"
 
 # Novell Translation
 #: ../storage/exchange-autoconfig-wizard.c:306
-msgid "Could not configure Exchange account because an unknown error occurred. Check the URL, username, and password, and try again."
+msgid ""
+"Could not configure Exchange account because an unknown error occurred. "
+"Check the URL, username, and password, and try again."
 msgstr "無法設定 Exchange 帳戶，因為發生了未知的錯誤。請檢查 URL、使用者名稱以及密碼，然後再試一次。"
 
 #: ../storage/exchange-autoconfig-wizard.c:350
 #, c-format
-msgid "Could not authenticate to the Global Catalog server. You may need to go back and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
+msgid ""
+"Could not authenticate to the Global Catalog server. You may need to go back "
+"and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
+"\\%s\")."
 msgstr "無法登入「通用類別目錄」(GC)伺服器。你可能需要回到上一步，然後指定 Windows 網域名稱來當作使用者名稱的一部分 (例如「MY-DOMAIN\\%s」)。"
 
 # Novell Translation
@@ -676,20 +679,27 @@ msgstr "Evolution Connector 組態"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:6
 msgid ""
-"Evolution Connector for Microsoft Exchange can use account information from your existing Outlook Web Access (OWA) account.\n"
+"Evolution Connector for Microsoft Exchange can use account information from "
+"your existing Outlook Web Access (OWA) account.\n"
 "\n"
-"Enter your OWA site address (URL), username, and password, then click \"Forward\".\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
 msgstr ""
 "Evolution Connector 可以使用現存 Outlook Web Access (OWA) 帳戶中的資訊。\n"
 "\n"
 "請輸入你的 OWA 網站位址 (URL)、使用者名稱，以及密碼，然後按「下一步」。\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:10
-msgid "Evolution Connector for Microsoft Exchange could not find the Global Catalog replica for your site. Please enter the name of your Global Catalog server. You may need to ask your system administrator for the correct value.\n"
+msgid ""
+"Evolution Connector for Microsoft Exchange could not find the Global Catalog "
+"replica for your site. Please enter the name of your Global Catalog server. "
+"You may need to ask your system administrator for the correct value.\n"
 msgstr "Evolution Connector 找不到網站的「全域類別目錄」複製本。請輸入「全域類別目錄」伺服器名稱。你可能需要詢問系統管理員有關正確的設定值。\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:12
-msgid "Evolution Connector for Microsoft Exchange has encountered a problem configuring your Exchange account.\n"
+msgid ""
+"Evolution Connector for Microsoft Exchange has encountered a problem "
+"configuring your Exchange account.\n"
 msgstr "Evolution Connector 在設定你的 Exchange 帳戶時發生問題。\n"
 
 # Novell Translation
@@ -730,7 +740,7 @@ msgstr "記住此密碼"
 # Novell Translation
 #: ../storage/exchange-autoconfig-wizard.glade.h:21
 msgid "Username:"
-msgstr "使用者名稱："
+msgstr "使用者名稱:"
 
 # Novell Translation
 #: ../storage/exchange-autoconfig-wizard.glade.h:22
@@ -754,13 +764,16 @@ msgstr ""
 # Novell Translation
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
-"Your Connector account is now ready to use. Click the \"Apply\" button to save your\n"
+"Your Connector account is now ready to use. Click the \"Apply\" button to "
+"save your\n"
 "settings."
 msgstr "Connector 帳戶現在已經可以使用。請按「套用」按鈕儲存設定。"
 
 # Novell Translation
 #: ../storage/exchange-autoconfig-wizard.glade.h:30
-msgid "Your account information is as follows. Please correct any errors, then click \"Forward\".\n"
+msgid ""
+"Your account information is as follows. Please correct any errors, then "
+"click \"Forward\".\n"
 msgstr "你的帳戶資訊如下。請修正任何錯誤，然後按「下一頁」。\n"
 
 # Novell Translation
@@ -768,8 +781,10 @@ msgstr "你的帳戶資訊如下。請修正任何錯誤，然後按「下一頁
 #. * password. Prompt him again.
 #.
 #: ../storage/exchange-change-password.c:125
-msgid "The current password does not match the existing password for your account. Please enter the correct password"
-msgstr "目前的密碼不符合帳戶的現存密碼。請輸入正確的密碼"
+msgid ""
+"The current password does not match the existing password for your account. "
+"Please enter the correct password"
+msgstr "目前的密碼不符合帳號的現存密碼。請輸入正確的密碼"
 
 # Novell Translation
 #: ../storage/exchange-change-password.c:132
@@ -829,17 +844,17 @@ msgstr "編輯者 (讀取、建立、編輯)"
 
 #: ../storage/exchange-delegates.glade.h:7
 msgid "None"
-msgstr "無"
+msgstr "沒有"
 
 # FIXME: (Abel) 嘖
 #: ../storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
-msgstr "權限"
+msgstr "權限授予"
 
 # Novell Translation
 #: ../storage/exchange-delegates.glade.h:9
 msgid "Reviewer (read-only)"
-msgstr "校對者 (僅限讀取)"
+msgstr "檢閱者 (僅限讀取)"
 
 # Novell Translation
 #: ../storage/exchange-delegates.glade.h:10
@@ -847,7 +862,7 @@ msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
 msgstr ""
-"透過你給予這些使用者的權限，它們將可以以你的身分傳送郵件，\n"
+"透過你給予這些使用者的權限，他們將可以以你的身分傳送郵件，\n"
 "並存取你的資料夾。"
 
 #: ../storage/exchange-delegates.glade.h:12
@@ -880,7 +895,8 @@ msgstr "正在匯入 Exchange 資料夾..."
 #: ../storage/exchange-migrate.c:68
 #, c-format
 msgid ""
-"The location and hierarchy of the Evolution exchange account folders are changed since Evolution %d.%d.%d.\n"
+"The location and hierarchy of the Evolution exchange account folders are "
+"changed since Evolution %d.%d.%d.\n"
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
@@ -891,8 +907,10 @@ msgstr ""
 #: ../storage/exchange-migrate.c:101
 #, c-format
 msgid ""
-"Warning: Evolution could not migrate all the Exchange account data from the version %d.%d.%d. \n"
-"The data hasn't been deleted, but will not be seen by this version of Evolution"
+"Warning: Evolution could not migrate all the Exchange account data from the "
+"version %d.%d.%d. \n"
+"The data hasn't been deleted, but will not be seen by this version of "
+"Evolution"
 msgstr ""
 "警告：Evolution 無法從版本 %d.%d.%d 中匯入所有 Exchange 帳戶資料。\n"
 "資料尚未刪除，但是將無法在此版本的 Evolution 中查看"
@@ -900,7 +918,7 @@ msgstr ""
 #: ../storage/exchange-migrate.c:132
 #, c-format
 msgid "Migrating `%s':"
-msgstr "正在匯入 ‘%s’："
+msgstr "正在移轉「%s」："
 
 # Novell Translation
 #: ../storage/exchange-oof.glade.h:1
@@ -925,7 +943,8 @@ msgstr "<b>狀態：</b>"
 
 #: ../storage/exchange-oof.glade.h:6
 msgid ""
-"<small>The message specified below will be automatically sent to each person who sends\n"
+"<small>The message specified below will be automatically sent to each person "
+"who sends\n"
 "mail to you while you are out of the office.</small>"
 msgstr "<small>當你不在辦公室時，任何傳送郵件給你的人都會收到以下指定的訊息。</small>"
 
@@ -1045,7 +1064,7 @@ msgstr "讀取項目"
 # Novell Translation
 #: ../storage/exchange-permissions-dialog.glade.h:15
 msgid "Role: "
-msgstr "角色："
+msgstr "角色: "
 
 # Novell Translation
 #: ../storage/exchange-storage.c:338
@@ -1083,7 +1102,8 @@ msgstr "訂閱屬於伺服器上其他使用者的資料夾"
 
 # Novell Translation
 #: ../storage/ximian-connector.xml.h:6
-msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgid ""
+"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr "取消任何以「訂閱其他使用者的資料夾」方式訂閱的資料夾"
 
 # Novell Translation
@@ -1115,3 +1135,5 @@ msgstr "外出助理(_O)"
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "取消訂閱其他使用者的資料夾(_U)"
 
+#~ msgid "Always check for new mail in this folder"
+#~ msgstr "永遠檢查這個資料夾中是否有新郵件"
