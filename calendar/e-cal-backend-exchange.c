@@ -427,6 +427,7 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 	if (!cbex->folder) {
 		ESource *source;
 		const char *foreign;
+		ExchangeHierarchy *hier_to_rescan = NULL;
 		/* FIXME: theoretically we should create it if
 		 * only_if_exists is FALSE.
 		 */
@@ -443,21 +444,30 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 			email = split_path [0];
 
 			exchange_account_scan_foreign_hierarchy (cbex->account, email);
+
 			cbex->folder = exchange_account_get_folder (cbex->account, uristr);
+			if (!cbex->folder) {
+				/* Folder is not known at the moment, thus try to rescan foreign
+				   folder, just in case we didn't scan it fully yet. */
+				hier_to_rescan = exchange_account_get_hierarchy_by_email (cbex->account, email);
+			}
 
 			g_strfreev (split_path);
 		} else {
 			/* Rescan to see if this is any new calendar */
-		        ExchangeHierarchy *hier;
-
-			hier = exchange_account_get_hierarchy_by_type (cbex->account, EXCHANGE_HIERARCHY_PERSONAL);
-			if (!hier)
+			hier_to_rescan = exchange_account_get_hierarchy_by_type (cbex->account, EXCHANGE_HIERARCHY_PERSONAL);
+			if (!hier_to_rescan) {
+				g_mutex_unlock (cbex->priv->open_lock);
 				return GNOME_Evolution_Calendar_RepositoryOffline;
-	       	       	g_object_ref (hier->toplevel);
-	       	       	e_folder_exchange_set_rescan_tree (hier->toplevel, TRUE);
-	               	exchange_hierarchy_scan_subtree (hier, hier->toplevel, ONLINE_MODE);
-	               	e_folder_exchange_set_rescan_tree (hier->toplevel, FALSE);
-	               	g_object_unref (hier->toplevel);
+			}
+		}
+
+		if (hier_to_rescan) {
+	       	       	g_object_ref (hier_to_rescan->toplevel);
+	       	       	e_folder_exchange_set_rescan_tree (hier_to_rescan->toplevel, TRUE);
+	               	exchange_hierarchy_scan_subtree (hier_to_rescan, hier_to_rescan->toplevel, ONLINE_MODE);
+	               	e_folder_exchange_set_rescan_tree (hier_to_rescan->toplevel, FALSE);
+	               	g_object_unref (hier_to_rescan->toplevel);
 
 	               	cbex->folder = exchange_account_get_folder (cbex->account, uristr);
 		 	if (!cbex->folder)

@@ -1,3 +1,11 @@
+2009-02-09  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #432885
+
+	* calendar/e-cal-backend-exchange.c: (open_calendar): Rescan foreign
+	hierarchy same as personal one, to get list of shared calendars before
+	giving up opening of the foreign calendar.
+
 2009-02-03  Srinivasa Ragavan  <sragavan@novell.com>
 
 	* NEWS, configure.in: Evolution Exchange 2.25.90 release
