@@ -2641,6 +2641,11 @@ transfer_messages (MailStub *stub, const char *source_name,
 		if (!mmsg)
 			continue;
 
+		if (!mmsg->href || !strrchr (mmsg->href, '/')) {
+			g_warning ("%s: Message '%s' with invalid href '%s'", G_STRFUNC, (char *)uids->pdata[i], mmsg->href ? mmsg->href : "NULL");
+			continue;
+		}
+
 		g_hash_table_insert (order, mmsg, GINT_TO_POINTER (i));
 		g_ptr_array_add (hrefs, strrchr (mmsg->href, '/') + 1);
 		g_ptr_array_add (new_uids, "");
