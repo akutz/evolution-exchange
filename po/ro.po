@@ -2,17 +2,17 @@
 # Romanian translation for evolution-exchange package.
 # This file is distributed under the same license as the evolution-exchange package.
 #
-# Ruşeţ Zeno <rzeno@cwazy.co.uk>, 2005.
+# Rușeț Zeno <rzeno@cwazy.co.uk>, 2005.
 # Eugen Paiuc (review) <eug_paiuc@bluewin.ch>, 2005.
-# Eddy Petrişor (review) <eddy.petrisor@gmail.com>, 2005.
+# Eddy Petrișor (review) <eddy.petrisor@gmail.com>, 2005.
 # Mugurel Tudor <mugurelu@gnome.ro>, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD.ro\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-31 03:18+0100\n"
-"PO-Revision-Date: 2007-09-15 19:12+0300\n"
-"Last-Translator: Mugurel Tudor <mugurelu@gnome.ro>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=evolution-exchange&amp;component=general\n"
+"POT-Creation-Date: 2008-11-20 10:22+0000\n"
+"PO-Revision-Date: 2009-02-20 23:49+0200\n"
+"Last-Translator: Adi Roiban <adi@roiban.ro>\n"
 "Language-Team: Română <gnomero@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,421 +28,439 @@ msgid "Specifies the time interval to refresh the GAL Cache."
 msgstr "Specifică intervalul de timp pentru reactualizarea cache-ului GAL."
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
-msgid ""
-"This key specifies the number of days interval between the GAL cache "
-"refresh. Set this value to zero, if you don't want to update GAL and use the "
-"current cache forever. This will work only if you have enabled offline "
-"caching for GAL."
-msgstr ""
-"Această cheie specifică intervalul de zile în care cache-ul GAL se reactualizează. "
-"Setaţi această valoare la zero, dacă nu doriţi ca GAL să se reactualizeze, şi să folosiţi "
-"cache-ul actual în mod permanent. Această setare va funcţiona doar dacă aţi activat "
-"caching în mod deconectat pentru GAL."
+msgid "This key specifies the number of days interval between the GAL cache refresh. Set this value to zero, if you don't want to update GAL and use the current cache forever. This will work only if you have enabled offline caching for GAL."
+msgstr "Această cheie specifică intervalul de zile în care cache-ul GAL se reactualizează. Definiți această valoare la zero, dacă nu doriți ca GAL să se reactualizeze și să folosiți cache-ul actual în mod permanent. Această configurare va funcționa doar dacă ați activat caching în mod deconectat pentru GAL."
 
-#: ../addressbook/e-book-backend-exchange.c:1880
-#: ../addressbook/e-book-backend-gal.c:1796 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:2285
+#: ../addressbook/e-book-backend-gal.c:1865
+#: ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Se caută..."
 
-#: ../addressbook/e-book-backend-gal.c:301
-#: ../addressbook/e-book-backend-gal.c:326
+#: ../addressbook/e-book-backend-gal.c:306
+#: ../addressbook/e-book-backend-gal.c:327
 msgid "Reconnecting to LDAP server..."
 msgstr "Reconectare la serverul LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1585
+#: ../addressbook/e-book-backend-gal.c:1624
 msgid "Receiving LDAP search results..."
-msgstr "Se recepţionează rezultatele căutării de la serverul LDAP..."
+msgstr "Se primesc rezultatele căutării LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1823
+#: ../addressbook/e-book-backend-gal.c:1896
 msgid "Error performing search"
 msgstr "Eroare la efectuarea căutării"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2088
+#: ../calendar/e-cal-backend-exchange-calendar.c:2090
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
-"Nu se poate planifica resursa „%s” pentru şedinţe recurente.\n"
-"Trebuie să marcaţi fiecare şedinţă separat."
+"Nu se poate planifica resursa „%s” pentru ședințe recurente.\n"
+"Trebuie să marcați fiecare ședință separat."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2106
+#: ../calendar/e-cal-backend-exchange-calendar.c:2108
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Resursa „%s” e ocupată pe durata perioadei de timp selectate."
 
-#: ../calendar/e-cal-backend-exchange.c:389
-#: ../calendar/e-cal-backend-exchange.c:398
+#: ../calendar/e-cal-backend-exchange.c:424
 msgid "Authentication failed"
-msgstr "Autentificare eşuată"
+msgstr "Autentificare eșuată"
 
-#: ../calendar/e-cal-backend-exchange.c:409
+#: ../calendar/e-cal-backend-exchange.c:466
 msgid "Could not find the calendar"
-msgstr "Nu am putut găsi calendarul"
+msgstr "Nu s-a putut găsi calendarul"
 
-#: ../camel/camel-exchange-folder.c:222
+#: ../camel/camel-exchange-folder.c:201
 msgid "You cannot expunge in offline mode."
-msgstr "Nu se poate şterge permanent în mod deconectat."
+msgstr "Nu se poate șterge permanent în mod deconectat."
 
-#: ../camel/camel-exchange-folder.c:253
+#: ../camel/camel-exchange-folder.c:232
 msgid "No Subject"
-msgstr "Nici un subiect"
+msgstr "Fără subiect"
 
-#: ../camel/camel-exchange-folder.c:408
+#: ../camel/camel-exchange-folder.c:387
 msgid "This message is not available in offline mode."
 msgstr "Acest mesaj nu este disponibil în modul deconectat."
 
-#: ../camel/camel-exchange-folder.c:643
+#: ../camel/camel-exchange-folder.c:614
 msgid "Moving messages"
 msgstr "Se mută mesajele"
 
-#: ../camel/camel-exchange-folder.c:644
+#: ../camel/camel-exchange-folder.c:615
 msgid "Copying messages"
 msgstr "Se copiază mesajele"
 
-#: ../camel/camel-exchange-folder.c:1017
+#: ../camel/camel-exchange-folder.c:993
 #, c-format
 msgid "Could not create directory %s: %s"
-msgstr "Nu se poate crea directorul %s: %s"
+msgstr "Nu se poate crea dosarul %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1027
+#: ../camel/camel-exchange-folder.c:1003
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Nu se poate încărca rezumatul pentru %s"
 
-#: ../camel/camel-exchange-folder.c:1035
+#: ../camel/camel-exchange-folder.c:1011
 #, c-format
 msgid "Could not create cache for %s"
-msgstr "Nu se poate crea zona de tampon (cache) pentru %s"
+msgstr "Nu se poate crea cache pentru %s"
 
-#: ../camel/camel-exchange-folder.c:1045
+#: ../camel/camel-exchange-folder.c:1021
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Nu se poate crea jurnal pentru %s"
 
-#: ../camel/camel-exchange-folder.c:1093
+#: ../camel/camel-exchange-folder.c:1072
 msgid "Scanning for changed messages"
 msgstr "Se examinează pentru a găsi mesajele modificate"
 
-#: ../camel/camel-exchange-folder.c:1126
+#: ../camel/camel-exchange-folder.c:1105
 msgid "Fetching summary information for new messages"
-msgstr "Se preiau informaţile despre mesajele noi"
+msgstr "Se obține informațiile rezumat despre mesajele noi"
 
-#: ../camel/camel-exchange-journal.c:340
+#: ../camel/camel-exchange-journal.c:342
 msgid "No folder name found\n"
 msgstr "Nume de dosar negăsit\n"
 
-#: ../camel/camel-exchange-journal.c:373 ../mail/mail-stub-exchange.c:2874
-#: ../mail/mail-stub-exchange.c:2918 ../mail/mail-stub-exchange.c:2953
-#: ../mail/mail-stub-exchange.c:2980 ../mail/mail-stub-exchange.c:3033
-#: ../mail/mail-stub-exchange.c:3055
+#: ../camel/camel-exchange-journal.c:375
+#: ../mail/mail-stub-exchange.c:3071
+#: ../mail/mail-stub-exchange.c:3121
+#: ../mail/mail-stub-exchange.c:3251
+#: ../mail/mail-stub-exchange.c:3278
+#: ../mail/mail-stub-exchange.c:3331
+#: ../mail/mail-stub-exchange.c:3353
 msgid "Folder doesn't exist"
 msgstr "Dosarul nu există"
 
-#: ../camel/camel-exchange-journal.c:437
+#: ../camel/camel-exchange-journal.c:439
 msgid "Cannot append message in offline mode: cache unavailable"
-msgstr "Nu se pot adăuga mesaje în modul deconectat: cache nedisponibil"
+msgstr "Nu se pot adăuga mesaje în modul deconectat: cache indisponibil"
 
-#: ../camel/camel-exchange-journal.c:453
+#: ../camel/camel-exchange-journal.c:455
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Nu se pot adăuga mesaje în modul deconectat: %s"
 
-#: ../camel/camel-exchange-provider.c:41
-msgid "Checking for New Mail"
-msgstr "Verific pentru mailuri noi"
+#: ../camel/camel-exchange-provider.c:55
+msgid "Secure or Plaintext Password"
+msgstr "Parolă securizată sau în clar"
 
-#: ../camel/camel-exchange-provider.c:43 ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:56
+#: ../camel/camel-exchange-provider.c:141
+msgid "Plaintext Password"
+msgstr "Parolă în clar"
+
+#. i18n: "Secure Password Authentication" is an Outlookism
+#: ../camel/camel-exchange-provider.c:57
+#: ../camel/camel-exchange-provider.c:130
+msgid "Secure Password"
+msgstr "Parola securizată"
+
+#: ../camel/camel-exchange-provider.c:63
+msgid "Checking for New Mail"
+msgstr "Se verifică mesaje noi"
+
+#: ../camel/camel-exchange-provider.c:65
 msgid "C_heck for new messages in all folders"
 msgstr "V_erifică pentru mesaje noi în toate dosarele"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:51
+#: ../camel/camel-exchange-provider.c:73
 msgid "Windows User_name:"
 msgstr "_Nume utilizator Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:56
+#: ../camel/camel-exchange-provider.c:78
 msgid "Global Address List / Active Directory"
 msgstr "Listă globală de adrese / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:82
 msgid "_Global Catalog server name:"
 msgstr "Nume server pentru catalogul _global:"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:84
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "_Limitează numărul de răspunsuri GAL: %s"
 
-#: ../camel/camel-exchange-provider.c:65
-msgid "Options"
-msgstr "Opţiuni"
+#: ../camel/camel-exchange-provider.c:86
+msgid "Authentication _Type:"
+msgstr "_Tip autentificare"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:88
+msgid "Allow _browsing of the GAL until download limit is reached"
+msgstr "Permite _navigarea GAL până ce este atinsă limita de descărcare"
+
+#: ../camel/camel-exchange-provider.c:91
+msgid "Options"
+msgstr "Opțiuni"
+
+#: ../camel/camel-exchange-provider.c:93
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Perioada avertismentului expirării parolei: %s"
 
-#: ../camel/camel-exchange-provider.c:71
+#: ../camel/camel-exchange-provider.c:95
 msgid "Automatically synchroni_ze account locally"
 msgstr "Sincroni_zare automată cu contul local"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:74
+#: ../camel/camel-exchange-provider.c:98
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "_Aplică filtrele pe mesajele noi din Inbox pe acest server"
 
-#: ../camel/camel-exchange-provider.c:76
+#: ../camel/camel-exchange-provider.c:100
 msgid "Check new messages for _Junk contents"
-msgstr "Verifică _spam-ul în mesajele noi"
+msgstr "Verifică _spamul în mesajele noi"
 
-#: ../camel/camel-exchange-provider.c:78
+#: ../camel/camel-exchange-provider.c:102
 msgid "Only check for Junk messag_es in the Inbox folder"
-msgstr "Verifică spam-ul doar în _dosarul Inbox"
+msgstr "Verifică spamul doar în _dosarul Inbox"
 
-#: ../camel/camel-exchange-provider.c:88
+#: ../camel/camel-exchange-provider.c:112
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:90
+#: ../camel/camel-exchange-provider.c:114
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
-msgstr "Pentru procesarea poştei (şi altor date) pe serverele Microsoft Exchange"
-
-#. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:106
-msgid "Secure Password"
-msgstr "Parola securizată"
+msgstr "Pentru procesarea mesajelor (și altor date) pe serverele Microsoft Exchange"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:109
-msgid ""
-"This option will connect to the Exchange server using secure password (NTLM) "
-"authentication."
-msgstr ""
-"Această opţiune va determina conectarea la serverul Exchange folosind "
-"autentificarea printr-o parolă securizată (NTLM)."
+#: ../camel/camel-exchange-provider.c:133
+msgid "This option will connect to the Exchange server using secure password (NTLM) authentication."
+msgstr "Această opțiune va determina conectarea la serverul Exchange folosind autentificarea printr-o parolă securizată (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:117
-msgid "Plaintext Password"
-msgstr "Parolă în clar"
+#: ../camel/camel-exchange-provider.c:143
+msgid "This option will connect to the Exchange server using standard plaintext password authentication."
+msgstr "Această opțiune va determina conectarea la serverul Exchange folosind autentificarea standard printr-o parolă în clar."
 
-#: ../camel/camel-exchange-provider.c:119
-msgid ""
-"This option will connect to the Exchange server using standard plaintext "
-"password authentication."
-msgstr ""
-"Această opţiune va determina conectarea la serverul Exchange folosind "
-"autentificarea standard printr-o parolă în clar"
-
-#: ../camel/camel-exchange-store.c:310
+#: ../camel/camel-exchange-store.c:314
 #, c-format
 msgid "Exchange server %s"
 msgstr "Server Exchange %s"
 
-#: ../camel/camel-exchange-store.c:313
+#: ../camel/camel-exchange-store.c:317
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Cont Exchange pentru %s la %s"
 
-#: ../camel/camel-exchange-store.c:354
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%sIntroduceţi parola pentru %s"
-
-#: ../camel/camel-exchange-store.c:405
+#: ../camel/camel-exchange-store.c:399
 msgid "Evolution Exchange backend process"
-msgstr "Proces de fundal Evolution Exchange"
+msgstr "Proces de suport Evolution Exchange"
 
-#: ../camel/camel-exchange-store.c:446
+#: ../camel/camel-exchange-store.c:442
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
 msgstr ""
-"Serverul nu vă poate autentifica. (Parolă incorectă?)\n"
+"Nu s-a putut autentifica pe server. (Parolă incorectă?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:488
+#: ../camel/camel-exchange-store.c:495
 #, c-format
 msgid "No such folder %s"
 msgstr "Nu există un astfel de dosar %s"
 
-#: ../camel/camel-exchange-store.c:565
+#: ../camel/camel-exchange-store.c:572
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Nu se poate realiza abonarea la dosar în modul deconectat."
 
-#: ../camel/camel-exchange-store.c:582
+#: ../camel/camel-exchange-store.c:589
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Nu se poate realiza dezabonarea la dosar în modul deconectat."
 
-#: ../camel/camel-exchange-store.c:714
+#: ../camel/camel-exchange-store.c:727
 msgid "Cannot get folder info in offline mode."
-msgstr "Nu se pot prelua informaţi despre dosar în mod deconectat."
+msgstr "Nu se pot prelua informați despre dosar în mod deconectat."
 
-#: ../camel/camel-exchange-store.c:787
+#: ../camel/camel-exchange-store.c:800
 msgid "Cannot create folder in offline mode."
 msgstr "Nu se poate crea dosarul în mod deconectat."
 
-#: ../camel/camel-exchange-store.c:814
+#: ../camel/camel-exchange-store.c:827
 msgid "Cannot delete folder in offline mode."
-msgstr "Nu se poate şterge dosarul în mod deconectat."
+msgstr "Nu se poate șterge dosarul în mod deconectat."
 
-#: ../camel/camel-exchange-store.c:830
+#: ../camel/camel-exchange-store.c:851
 msgid "Cannot rename folder in offline mode."
 msgstr "Nu se poate redenumi dosarul în mod deconectat."
 
 #: ../camel/camel-exchange-transport.c:111
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr "Transportul Exchange poate fi folosit doar cu sursa de poştă Exchange"
+msgstr "Transportul Exchange poate fi folosit doar cu sursa de mesaje Exchange"
 
 #: ../camel/camel-exchange-transport.c:122
 msgid "Cannot send message: one or more invalid recipients"
-msgstr "Nu se poate transmite mesajul: unul sau mai mulţi destinatari nevalizi"
+msgstr "Nu se poate transmite mesajul: unul sau mai mulți destinatari nevalizi"
 
 #: ../camel/camel-exchange-transport.c:132
 msgid "Could not find 'From' address in message"
-msgstr "Nu s-a putut găsi adresa 'Expeditor' în mesaj"
+msgstr "Nu s-a putut găsi adresa „Expeditor” în mesaj"
 
-#: ../camel/camel-stub.c:153
+#: ../camel/camel-stub.c:165
+#: ../camel/camel-stub.c:229
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Nu s-a putut crea socketul: %s"
 
-#: ../camel/camel-stub.c:171
+#: ../camel/camel-stub.c:183
 #, c-format
 msgid "Could not connect to %s: Please restart Evolution"
-msgstr "Nu s-a putut realiza conectarea la %s: Vă rugăm restartaţi Evolution"
+msgstr "Nu s-a putut realiza conectarea la %s: Vă rugăm reporniți Evolution"
 
-#: ../camel/camel-stub.c:176
+#: ../camel/camel-stub.c:188
+#: ../camel/camel-stub.c:247
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "Nu s-a putut realiza conectarea la %s: %s"
 
-#: ../camel/camel-stub.c:206
+#: ../camel/camel-stub.c:212
+#, c-format
+msgid "Count not read file '%s': %s"
+msgstr "Nu s-a putut citi fișierul „%s”: %s"
+
+#: ../camel/camel-stub.c:220
+#, c-format
+msgid "Wrong size file '%s'"
+msgstr "Dimensiune greșită fișier „%s”"
+
+#: ../camel/camel-stub.c:283
 #, c-format
 msgid "Path too long: %s"
 msgstr "Cale de acces prea lungă: %s"
 
-#: ../camel/camel-stub.c:232
+#: ../camel/camel-stub.c:318
 #, c-format
 msgid "Could not start status thread: %s"
-msgstr "Nu s-a putut porni firul de execuţie pentru starea: %s"
+msgstr "Nu s-a putut porni firul de execuție pentru starea: %s"
 
-#: ../camel/camel-stub.c:486
+#: ../camel/camel-stub.c:572
 #, c-format
 msgid "Lost connection to %s"
 msgstr "S-a pierdut conexiunea la %s"
 
-#: ../camel/camel-stub.c:490
+#: ../camel/camel-stub.c:576
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Eroare de comunicare cu %s: %s"
 
-#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:946
+#: ../mail/mail-stub-exchange.c:269
+#: ../mail/mail-stub-exchange.c:965
 msgid "No such folder"
 msgstr "Nu există un astfel de dosar"
 
-#. FIXME: should be this, but string freeze freezes me to do so.
-#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1595
-#: ../mail/mail-stub-exchange.c:2851 ../mail/mail-stub-exchange.c:2891
-#: ../mail/mail-stub-exchange.c:2957 ../mail/mail-stub-exchange.c:3007
-#: ../mail/mail-stub-exchange.c:3070
+#: ../mail/mail-stub-exchange.c:292
+#: ../mail/mail-stub-exchange.c:3048
+#: ../mail/mail-stub-exchange.c:3088
+#: ../mail/mail-stub-exchange.c:3255
+#: ../mail/mail-stub-exchange.c:3305
+#: ../mail/mail-stub-exchange.c:3368
 msgid "Permission denied"
 msgstr "Acces interzis"
 
-#: ../mail/mail-stub-exchange.c:768 ../mail/mail-stub-exchange.c:860
+#: ../mail/mail-stub-exchange.c:787
+#: ../mail/mail-stub-exchange.c:879
 msgid "Could not open folder"
 msgstr "Nu s-a putut deschide dosarul"
 
-#: ../mail/mail-stub-exchange.c:854 ../mail/mail-stub-exchange.c:876
+#: ../mail/mail-stub-exchange.c:873
+#: ../mail/mail-stub-exchange.c:895
 msgid "Could not open folder: Permission denied"
 msgstr "Nu s-a putut deschide dosarul: Acces nepermis"
 
-#: ../mail/mail-stub-exchange.c:955
+#: ../mail/mail-stub-exchange.c:974
 msgid "Could not create folder."
 msgstr "Nu s-a putut crea dosarul."
 
-#: ../mail/mail-stub-exchange.c:1043
+#: ../mail/mail-stub-exchange.c:1062
 msgid "Could not open Deleted Items folder"
-msgstr "Nu s-a putut deschide dosarul Elemente şterse"
+msgstr "Nu s-a putut deschide dosarul „Elemente șterse”"
 
-#: ../mail/mail-stub-exchange.c:1374 ../mail/mail-stub-exchange.c:1415
+#: ../mail/mail-stub-exchange.c:1393
+#: ../mail/mail-stub-exchange.c:1434
 msgid "Could not get new messages"
 msgstr "Nu s-au putut prelua mesajele noi"
 
-#: ../mail/mail-stub-exchange.c:1591
+#: ../mail/mail-stub-exchange.c:1637
 msgid "Could not empty Deleted Items folder"
-msgstr "Nu s-a putut goli dosarul Elemente şterse"
+msgstr "Nu s-a putut goli dosarul „Elemente șterse”"
 
-#: ../mail/mail-stub-exchange.c:1668
+#: ../mail/mail-stub-exchange.c:1639
+msgid "Permission denied. Could not delete certain messages."
+msgstr "Acțiune interzisă. Nu s-au putut șterge unele mesaje."
+
+#: ../mail/mail-stub-exchange.c:1712
 msgid "Could not append message; mailbox is over quota"
-msgstr "Nu s-a putut adăuga mesajul; căsuţa poştală este peste capacitate"
+msgstr "Nu s-a putut adăuga mesajul; contul este peste capacitate"
 
-#: ../mail/mail-stub-exchange.c:1669
+#: ../mail/mail-stub-exchange.c:1713
 msgid "Could not append message"
 msgstr "Nu s-a putut adăuga mesajul"
 
-#: ../mail/mail-stub-exchange.c:2324
+#: ../mail/mail-stub-exchange.c:2475
 msgid "No such message"
 msgstr "Nu există un astfel de mesaj"
 
-#: ../mail/mail-stub-exchange.c:2386
+#: ../mail/mail-stub-exchange.c:2556
 msgid "Message has been deleted"
-msgstr "Mesajul a fost şters"
+msgstr "Mesajul a fost șters"
 
-#: ../mail/mail-stub-exchange.c:2388
+#: ../mail/mail-stub-exchange.c:2558
 msgid "Error retrieving message"
 msgstr "Eroare la preluarea mesajelor"
 
-#: ../mail/mail-stub-exchange.c:2430
+#: ../mail/mail-stub-exchange.c:2601
 msgid "Mailbox does not support full-text searching"
-msgstr "Căsuţa poştală nu permite căutarea în text"
+msgstr "Contul nu permite căutarea în text"
 
-#: ../mail/mail-stub-exchange.c:2528
+#: ../mail/mail-stub-exchange.c:2699
 msgid "Unable to move/copy messages"
 msgstr "Nu se pot muta/copia mesajele"
 
-#: ../mail/mail-stub-exchange.c:2766
+#: ../mail/mail-stub-exchange.c:2965
 msgid "No mail submission URI for this mailbox"
-msgstr "Nici un URI alocat pentru această căsuţă poştală"
+msgstr "Nici un URI alocat pentru acest cont"
 
-#: ../mail/mail-stub-exchange.c:2802
+#: ../mail/mail-stub-exchange.c:2999
 msgid "Server won't accept mail via Exchange transport"
-msgstr "Serverul nu acceptă mail prin mecanismul de transport Exchange"
+msgstr "Serverul nu acceptă mesaje prin mecanismul de transport Exchange"
 
-#: ../mail/mail-stub-exchange.c:2804
+#: ../mail/mail-stub-exchange.c:3001
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
 msgstr ""
-"Contul dvs. nu are permisunea de utilizare a <%s>\n"
+"Contul nu are permisunea de utilizare a <%s>\n"
 "ca adresă expeditor."
 
-#: ../mail/mail-stub-exchange.c:2816
+#: ../mail/mail-stub-exchange.c:3013
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
 "Nu s-a putut trimite mesajul.\n"
-"Acest lucru poate indica depăşirea capacităţii contului dvs."
+"Acest lucru poate indica depășirea capacității contului."
 
-#: ../mail/mail-stub-exchange.c:2820
+#: ../mail/mail-stub-exchange.c:3017
 msgid "Could not send message"
 msgstr "Nu s-a putut transmite mesajul"
 
-#: ../mail/mail-stub-exchange.c:2843 ../mail/mail-stub-exchange.c:2896
-#: ../mail/mail-stub-exchange.c:2961 ../mail/mail-stub-exchange.c:3012
-#: ../mail/mail-stub-exchange.c:3076
+#: ../mail/mail-stub-exchange.c:3040
+#: ../mail/mail-stub-exchange.c:3093
+#: ../mail/mail-stub-exchange.c:3259
+#: ../mail/mail-stub-exchange.c:3310
+#: ../mail/mail-stub-exchange.c:3374
 msgid "Generic error"
 msgstr "Eroare generică"
 
-#: ../mail/mail-stub-exchange.c:2847
+#: ../mail/mail-stub-exchange.c:3044
 msgid "Folder already exists"
 msgstr "Dosarul există deja"
 
@@ -455,120 +473,93 @@ msgid "Evolution Calendar Exchange backend"
 msgstr "Suport intern pentru calendarul Evolution Exchange"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Ximian Connector for Exchange"
-msgstr "Ximian Connector pentru Exchange"
+#: ../storage/main.c:219
+msgid "Evolution Connector for Microsoft Exchange"
+msgstr "Evolution Connector pentru Microsoft Exchange"
 
-#: ../storage/exchange-autoconfig-wizard.c:211
+#: ../storage/exchange-autoconfig-wizard.c:227
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
 "Nu s-a putut realiza conectarea la serverul Exchange.\n"
-"Asiguraţivă că URL-ul este corect (încercaţi „%s” în loc de „%s”?) şi "
-"încercaţi din nou."
+"Asigurați-vă că URL-ul este corect (încercați „%s” în loc de „%s”?) și încercați din nou."
 
-#: ../storage/exchange-autoconfig-wizard.c:219
+#: ../storage/exchange-autoconfig-wizard.c:235
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
 msgstr ""
 "Nu s-a putut localiza serverul Exchange.\n"
-"Asiguraţi-vă că numele serverului este scris corect şi încercaţi din nou."
+"Asigurați-vă că numele serverului este scris corect și încercați din nou."
 
-#: ../storage/exchange-autoconfig-wizard.c:228
+#: ../storage/exchange-autoconfig-wizard.c:244
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
 msgstr ""
 "Nu s-a putut realiza autentificarea la serverul Exchange.\n"
-"Asiguraţi-vă că parola şi numele utilizatorului sunt corecte şi încercaţi "
-"din nou."
+"Asigurați-vă că parola și numele utilizatorului sunt corecte și încercați din nou."
 
-#: ../storage/exchange-autoconfig-wizard.c:235
+#: ../storage/exchange-autoconfig-wizard.c:251
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again.\n"
 "\n"
-"You may need to specify the Windows domain name as part of your username "
-"(eg, \"MY-DOMAIN\\%s\")."
+"You may need to specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
 "Nu s-a putut realiza autentificarea la serverul Exchange.\n"
-"Asiguraţi-vă că parola şi numele de utilizator sunt corecte şi încercaţi din "
-"nou.\n"
+"Asigurați-vă că parola și numele de utilizator sunt corecte și încercați din nou.\n"
 "\n"
-"Probabil că va trebui să precizaţi numele de domeniu Windows ca parte a "
-"numelui dvs. de utilizator ( de exemplu „DOMENIUL-MEU\\%s”)."
+"Probabil că va trebui să precizați numele de domeniu Windows ca parte a numelui dvs. de utilizator ( de exemplu „DOMENIUL-MEU\\%s”)."
 
-#: ../storage/exchange-autoconfig-wizard.c:247
+#: ../storage/exchange-autoconfig-wizard.c:263
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 msgstr ""
 "Nu s-au putut găsi datele OWA la URL-ul indicat.\n"
-"Asiguraţi-vă că URL-ul este corect şi încercaţi din nou."
+"Asigurați-vă că URL-ul este corect și încercați din nou."
 
-#: ../storage/exchange-autoconfig-wizard.c:254
+#: ../storage/exchange-autoconfig-wizard.c:270
 msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
+"Evolution Connector for Microsoft Exchange requires access to certain functionality on the Exchange server that appears to be disabled or blocked.  (This is usually unintentional.)  Your Exchange administrator will need to enable this functionality in order for you to be able to use the Evolution Connector.\n"
 "\n"
-"For information to provide to your Exchange administrator, please follow the "
-"link below:"
+"For information to provide to your Exchange administrator, please follow the link below:"
 msgstr ""
-"Ximian Connector necesită accesul la câteva funcţionalităţi ale serverului "
-"Exchange care apar ca dezactivate sau blocate. (Asta e de obicei "
-"neintenţionat.) Administratorul serverului dvs. Exchange trebuie sa activeze "
-"aceste funcţionalităţi pentru ca dvs. să folosiţi Ximian Connector.\n"
+"Evolution Connector pentru Microsoft Exchange necesită accesul la câteva funcționalități ale serverului Exchange care apar ca dezactivate sau blocate. (Asta e de obicei neintenționat.) Administratorul serverului Exchange trebuie sa activeze aceste funcționalități pentru ca să folosiți Evolution Connector.\n"
 "\n"
-"Pentru informaţiile necesare administratorului serverului dvs. Exchange, vă "
-"rugăm să urmaţi legătura de mai jos:"
+"Pentru informațiile necesare administratorului serverului Exchange, vă rugăm să urmați legătura de mai jos:"
 
-#: ../storage/exchange-autoconfig-wizard.c:275
-msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"URL-ul serverului Exchange pe care l-aţi furnizat este pentru un Server "
-"Exchange 5.5. Ximian Connector suportă doar Microsoft Exchange 2000 şi 2003."
+#: ../storage/exchange-autoconfig-wizard.c:292
+msgid "The Exchange server URL you provided is for an Exchange 5.5 server. Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 and 2003 only."
+msgstr "URL-ul serverului Exchange pe care l-ați furnizat este pentru un Server Exchange 5.5. Evolution Connector pentru Microsoft Exchange suportă doar Microsoft Exchange 2000 și 2003."
 
-#: ../storage/exchange-autoconfig-wizard.c:288
-msgid ""
-"Could not configure Exchange account because an unknown error occurred. "
-"Check the URL, username, and password, and try again."
-msgstr ""
-"Nu s-a putut configura contul Exchange datorită apariţiei unei erori "
-"necunoscute. Verificaţi URL-ul, numele de utilizator, parola şi încercaţi "
-"din nou."
+#: ../storage/exchange-autoconfig-wizard.c:306
+msgid "Could not configure Exchange account because an unknown error occurred. Check the URL, username, and password, and try again."
+msgstr "Nu s-a putut configura contul Exchange datorită apariției unei erori necunoscute. Verificați URL-ul, numele de utilizator, parola și încercați din nou."
 
-#: ../storage/exchange-autoconfig-wizard.c:332
+#: ../storage/exchange-autoconfig-wizard.c:350
 #, c-format
-msgid ""
-"Could not authenticate to the Global Catalog server. You may need to go back "
-"and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
-"\\%s\")."
-msgstr ""
-"Serverul de Catalog Global nu poate vă autentifica. Este nevoie să vă "
-"întoarceţi şi să specificaţi numele de domeniu Windows ca parte a numelui "
-"dvs. de utilizator (ex, „DOMENIU-DVS\\%s”)."
+msgid "Could not authenticate to the Global Catalog server. You may need to go back and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
+msgstr "Serverul de Catalog Global nu poate vă autentifica. Este nevoie să vă întoarceți și să specificați numele de domeniu Windows ca parte a numelui dvs. de utilizator (ex, „DOMENIU-DVS\\%s”)."
 
-#: ../storage/exchange-autoconfig-wizard.c:339
+#: ../storage/exchange-autoconfig-wizard.c:357
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
 msgstr ""
 "Nu s-a putut realiza conectarea la serverul precizat.\n"
-"Vă rugăm să verificaţi numele serverului şi să încercaţi din nou."
+"Vă rugăm să verificați numele serverului și să încercați din nou."
 
-#: ../storage/exchange-autoconfig-wizard.c:376
-#: ../storage/exchange-autoconfig-wizard.c:380
+#: ../storage/exchange-autoconfig-wizard.c:394
+#: ../storage/exchange-autoconfig-wizard.c:398
 msgid "Unknown"
 msgstr "Necunoscut"
 
-#: ../storage/exchange-autoconfig-wizard.c:445
+#: ../storage/exchange-autoconfig-wizard.c:463
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -576,9 +567,9 @@ msgstr ""
 "Eroare de configurare a sistemului.\n"
 "Nu se poate crea un cont nou."
 
-#: ../storage/exchange-autoconfig-wizard.c:459
+#: ../storage/exchange-autoconfig-wizard.c:477
 msgid "You may only configure a single Exchange account"
-msgstr "Trebuie să configuraţi doar un singur cont Exchange"
+msgstr "Trebuie să configurați doar un singur cont Exchange"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:1
 #: ../storage/exchange-change-password.glade.h:1
@@ -587,7 +578,7 @@ msgstr "*"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
-msgstr "Configurare eşuată"
+msgstr "Configurare eșuată"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:3
 msgid "Done"
@@ -598,120 +589,97 @@ msgid "Email Address:"
 msgstr "Adresă email:"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:5
-msgid "Exchange Configuration"
-msgstr "Configuraţie Exchange"
+msgid "Evolution Connector for Microsoft Exchange Configuration"
+msgstr "Configurea Evolution Connector pentru Microsoft Exchange"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:6
-msgid "Full Name:"
-msgstr "Nume Complet:"
+msgid ""
+"Evolution Connector for Microsoft Exchange can use account information from your existing Outlook Web Access (OWA) account.\n"
+"\n"
+"Enter your OWA site address (URL), username, and password, then click \"Forward\".\n"
+msgstr ""
+"Evolution Connector pentru Microsoft Exchange poate utiliza informațiile pentru cont din contul dumneavoastră existent Outlook Web Access (OWA).\n"
+"\n"
+"Introduceți adresa sitului OWA (URL), numele de utilizator și parola, după care dați clic pe „Înainte”.\n"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:7
+#: ../storage/exchange-autoconfig-wizard.glade.h:10
+msgid "Evolution Connector for Microsoft Exchange could not find the Global Catalog replica for your site. Please enter the name of your Global Catalog server. You may need to ask your system administrator for the correct value.\n"
+msgstr "Evolution Connector pentru Microsoft Exchange nu poate găsi replica de Catalog Global pentru situl dumneavoastră. Vă rugăm să introduceți numele serverului Catalog Global. S-ar putea să fie nevoie să cereți această valoare administratorului sistemului dumneavoastră.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:12
+msgid "Evolution Connector for Microsoft Exchange has encountered a problem configuring your Exchange account.\n"
+msgstr "Evolution Connector pentru Microsoft Exchange  a întâlnit o problemă configurând contul Exchange.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:14
+msgid "Exchange Configuration"
+msgstr "Configurare Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:15
+msgid "Full Name:"
+msgstr "Nume complet:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:16
 msgid "GC Server:"
 msgstr "Server GC:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:8
+#: ../storage/exchange-autoconfig-wizard.glade.h:17
 msgid "Make this my default account"
-msgstr "Transformă-l în contul meu implicit"
+msgstr "Transformă în contul implicit"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:9
+#: ../storage/exchange-autoconfig-wizard.glade.h:18
 msgid "OWA URL:"
 msgstr "URL OWA:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:10
+#: ../storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Password:"
-msgstr "Parola:"
+msgstr "Parolă:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:11
+#: ../storage/exchange-autoconfig-wizard.glade.h:20
 msgid "Remember this password"
-msgstr "Memoraţi această parolă"
+msgstr "Memorează această parolă"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:12
+#: ../storage/exchange-autoconfig-wizard.glade.h:21
 msgid "Username:"
-msgstr "Nume de utilizator:"
+msgstr "Nume utilizator:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:13
+#: ../storage/exchange-autoconfig-wizard.glade.h:22
 msgid "Welcome"
-msgstr "Bine aţi venit"
+msgstr "Bun venit"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:14
+#: ../storage/exchange-autoconfig-wizard.glade.h:23
 msgid ""
-"Welcome to Ximian Connector for Microsoft Exchange.\n"
+"Welcome to Evolution Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
 "to connect to your Exchange account.\n"
 "\n"
 "Please click the \"Forward\" button to continue."
 msgstr ""
-"Bine aţi venit la Ximian Connector pentru Microsoft Exchange.\n"
-"Următoarele câteva ecrane vă vor ajuta să configuraţi Evolution\n"
-"pentru conectarea la contul dvs. Exchange.\n"
+"Bun venit la Evolution Connector pentru Microsoft Exchange.\n"
+"Următoarele câteva ecrane vă vor ajuta să configurați Evolution\n"
+"pentru conectarea la contul dumneavoastră Exchange.\n"
 "\n"
-"Vă rugăm să daţi clic pe butonul \"Înainte\" pentru a continua."
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:19
-msgid "Ximian Connector Configuration"
-msgstr "Configuraţie Ximian Connector"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:20
-msgid ""
-"Ximian Connector can use account information from your existing Outlook Web "
-"Access (OWA) account.\n"
-"\n"
-"Enter your OWA site address (URL), username, and password, then click "
-"\"Forward\".\n"
-msgstr ""
-"Ximian Connector nu poate utiliza informaţile contului dvs. existente în "
-"contul Outlook Web Access (OWA).\n"
-"\n"
-"Introduceţi adresa sitului OWA (URL), numele de utilizator, şi parola, după "
-"care daţi click pe \"Înainte\".\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:24
-msgid ""
-"Ximian Connector could not find the Global Catalog replica for your site. "
-"Please enter the name of your Global Catalog server. You may need to ask "
-"your system administrator for the correct value.\n"
-msgstr ""
-"Ximian Connector nu poate găsi replica de Catalog Global pentru situl dvs. "
-"Vă rog introduceţi numele serverului Catalog Global. Veţi avea nevoie să "
-"cereţi administratorului sistemului dvs. valoarea corectă.\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:26
-msgid ""
-"Ximian Connector has encountered a problem configuring your Exchange "
-"account.\n"
-msgstr "Ximian Connector a întâlnit o problemă configurând contul dvs. Exchange.\n"
+"Pentru a continua, vă rugăm să dați clic pe butonul „Înainte”."
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
-"Your Connector account is now ready to use. Click the \"Apply\" button to "
-"save your\n"
+"Your Connector account is now ready to use. Click the \"Apply\" button to save your\n"
 "settings."
-msgstr ""
-"Contul dvs. Connector este acum gata de folosit. Apăsaţi butonul „Aplică” "
-"pentru a  salva preferinţele dvs."
+msgstr "Contul Connector este acum gata de folosire. Apăsați butonul „Aplică” pentru a  salva preferințele dumneavoastră."
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:30
-msgid ""
-"Your account information is as follows. Please correct any errors, then "
-"click \"Forward\".\n"
-msgstr ""
-"Informaţiile contului dvs. sunt după cum urmează. Vă rog corectaţi orice "
-"eroare apoi apăsaţi „Înainte”.\n"
+msgid "Your account information is as follows. Please correct any errors, then click \"Forward\".\n"
+msgstr "Informațiile contului sunt următoarele. Vă rugăm să corectați orice eroare apoi apăsați „Înainte”.\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
-#: ../storage/exchange-change-password.c:114
-msgid ""
-"The current password does not match the existing password for your account. "
-"Please enter the correct password"
-msgstr ""
-"Parola curentă nu coincide cu parola existentă pentru contul dvs. Vă rog "
-"introduceţi parola corectă"
+#: ../storage/exchange-change-password.c:125
+msgid "The current password does not match the existing password for your account. Please enter the correct password"
+msgstr "Parola curentă nu coincide cu parola existentă pentru contul dumneavoastră. Vă rugăm să introduceți parola corectă"
 
-#: ../storage/exchange-change-password.c:121
+#: ../storage/exchange-change-password.c:132
 msgid "The two passwords do not match. Please re-enter the passwords."
-msgstr "Cele doua parole nu coincid. Vă rog reintroduceţi parolele."
+msgstr "Cele doua parole nu coincid. Vă rugăm să reintroduceți parolele."
 
 #: ../storage/exchange-change-password.glade.h:2
 msgid "Change Password"
@@ -731,7 +699,7 @@ msgstr "Noua parolă:"
 
 #: ../storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
-msgstr "Parola dvs. curentă a expirat. Vă rog schimbaţi parola acum."
+msgstr "Parola curentă a expirat. Vă rugăm să schimbați parola acum."
 
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
@@ -747,11 +715,11 @@ msgstr "Co_ntacte:"
 
 #: ../storage/exchange-delegates.glade.h:4
 msgid "Delegate Permissions"
-msgstr "Drepturile de acces ale delegaţilor"
+msgstr "Drepturile de acces ale delegaților"
 
 #: ../storage/exchange-delegates.glade.h:5
 msgid "Delegates"
-msgstr "Delegaţi"
+msgstr "Delegați"
 
 #: ../storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
@@ -774,8 +742,8 @@ msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
 msgstr ""
-"Aceşti utilizatori vor putea trimite mesaje în numele dvs.\n"
-"şi vor putea accesa dosarele dvs. cu permisiunile pe care dvs. le acordaţi."
+"Acești utilizatori vor putea trimite mesaje în numele dumneavoastră\n"
+"și vor putea accesa dosarele dumneavoastră cu permisiunile pe care le acordați."
 
 #: ../storage/exchange-delegates.glade.h:12
 msgid "_Delegate can see private items"
@@ -797,37 +765,31 @@ msgstr "Sa_rcini:"
 msgid "Exchange Folder Tree"
 msgstr "Arborele dosarului Exchange"
 
-#: ../storage/exchange-migrate.c:58
+#: ../storage/exchange-migrate.c:60
 msgid "Migrating Exchange Folders..."
 msgstr "Se migrează dosarele Exchange..."
 
-#: ../storage/exchange-migrate.c:66
+#: ../storage/exchange-migrate.c:68
 #, c-format
 msgid ""
-"The location and hierarchy of the Evolution exchange account folders are "
-"changed since Evolution %d.%d.%d.\n"
+"The location and hierarchy of the Evolution exchange account folders are changed since Evolution %d.%d.%d.\n"
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
-"Locaţia şi ierarhia dosarelor contului exhange Evolution s-a modificat de la "
-"Evolution %d.%d.%d.\n"
+"Locația și ierarhia dosarelor contului exhange Evolution s-a modificat de la Evolution %d.%d.%d.\n"
 "\n"
-"Vă rog aveţi răbdare în timp ce Evolution migrează dosarele dvs..."
+"Vă rugăm să aveți răbdare în timp ce Evolution migrează dosarele..."
 
-#: ../storage/exchange-migrate.c:99
+#: ../storage/exchange-migrate.c:101
 #, c-format
 msgid ""
-"Warning: Evolution could not migrate all the Exchange account data from the "
-"version %d.%d.%d. \n"
-"The data hasn't been deleted, but will not be seen by this version of "
-"Evolution"
+"Warning: Evolution could not migrate all the Exchange account data from the version %d.%d.%d. \n"
+"The data hasn't been deleted, but will not be seen by this version of Evolution"
 msgstr ""
-"Atenţie: Evolution nu poate migra toate datele conturilor Exchange de la "
-"versionea %d.%d.%d. \n"
-"Datele nu au fost şterse, dar nu vor fi vizibile de această versiune a lui "
-"Evolution"
+"Atenție: Evolution nu poate migra toate datele conturilor Exchange de la versionea %d.%d.%d. \n"
+"Datele nu au fost șterse, dar nu vor fi vizibile de această versiune a lui Evolution"
 
-#: ../storage/exchange-migrate.c:130
+#: ../storage/exchange-migrate.c:132
 #, c-format
 msgid "Migrating `%s':"
 msgstr "Se migrează „%s”:"
@@ -838,13 +800,13 @@ msgid ""
 "\n"
 "Would you like to change your status to \"In the Office\"? "
 msgstr ""
-"<b>Actualmente, starea dvs. e „Absent de la birou”. </b>\n"
+"<b>Actualmente, starea dumneavoastră e „Absent de la birou”. </b>\n"
 "\n"
-"Doriţi să schimbaţi starea în „Prezent la birou”?"
+"Doriți să schimbați starea în „Prezent la birou”?"
 
 #: ../storage/exchange-oof.glade.h:4
 msgid "<b>Out of Office Message:</b>"
-msgstr "<b>Mesajul absent de la birou:</b>"
+msgstr "<b>Mesaj absent de la birou:</b>"
 
 #: ../storage/exchange-oof.glade.h:5
 msgid "<b>Status:</b>"
@@ -852,12 +814,11 @@ msgstr "<b>Stare:</b>"
 
 #: ../storage/exchange-oof.glade.h:6
 msgid ""
-"<small>The message specified below will be automatically sent to each person "
-"who sends\n"
+"<small>The message specified below will be automatically sent to each person who sends\n"
 "mail to you while you are out of the office.</small>"
 msgstr ""
-"<small>Mesajul specificat în continuare va fi automat trimis la fiecare "
-"persoană care vă trimite mail pe durata cât dvs nu sunteţi la birou</small>"
+"<small>Mesajul specificat în continuare va fi automat trimis la fiecare persoană\n"
+"care vă trimite mesaje pe durata cât nu sunteți la birou.</small>"
 
 #: ../storage/exchange-oof.glade.h:8
 msgid "I am currently in the office"
@@ -873,7 +834,7 @@ msgstr "Nu, nu schimba starea"
 
 #: ../storage/exchange-oof.glade.h:11
 msgid "Out of Office Assistant"
-msgstr "Asistent pentru absenţă de la birou"
+msgstr "Asistent pentru absență de la birou"
 
 #: ../storage/exchange-oof.glade.h:12
 msgid "Yes, Change Status"
@@ -885,7 +846,7 @@ msgstr "Avertisment de expirare a parolei..."
 
 #: ../storage/exchange-passwd-expiry.glade.h:2
 msgid "Your password will expire in 7 days..."
-msgstr "Parola dvs. va expira în 7 zile..."
+msgstr "Parola va expira în 7 zile..."
 
 #: ../storage/exchange-passwd-expiry.glade.h:3
 msgid "_Change Password"
@@ -905,7 +866,7 @@ msgstr "<b>Drepturi de acces</b>"
 
 #: ../storage/exchange-permissions-dialog.glade.h:3
 msgid "Cannot Delete"
-msgstr "Nu se poate şterge"
+msgstr "Nu se poate șterge"
 
 #: ../storage/exchange-permissions-dialog.glade.h:4
 msgid "Cannot Edit"
@@ -913,27 +874,27 @@ msgstr "Nu se poate edita"
 
 #: ../storage/exchange-permissions-dialog.glade.h:5
 msgid "Create items"
-msgstr "Creează elemente"
+msgstr "Creare elemente"
 
 #: ../storage/exchange-permissions-dialog.glade.h:6
 msgid "Create subfolders"
-msgstr "Crează subdosare"
+msgstr "Creare subdosare"
 
 #: ../storage/exchange-permissions-dialog.glade.h:7
 msgid "Delete Any Items"
-msgstr "Şterge orice elemente"
+msgstr "Șterge orice elemente"
 
 #: ../storage/exchange-permissions-dialog.glade.h:8
 msgid "Delete Own Items"
-msgstr "Şterge elementele proprii"
+msgstr "Șterge elementele proprii"
 
 #: ../storage/exchange-permissions-dialog.glade.h:9
 msgid "Edit Any Items"
-msgstr "Editează orice elemente"
+msgstr "Editare orice elemente"
 
 #: ../storage/exchange-permissions-dialog.glade.h:10
 msgid "Edit Own Items"
-msgstr "Editează propriile elemente"
+msgstr "Editare propriile elemente"
 
 #: ../storage/exchange-permissions-dialog.glade.h:11
 msgid "Folder contact"
@@ -959,17 +920,13 @@ msgstr "Rol: "
 msgid "Connecting..."
 msgstr "Se conectează..."
 
-#: ../storage/main.c:183
-msgid "Ximian Connector for Microsoft Exchange"
-msgstr "Ximian Connector pentru Microsoft Exchange"
-
-#: ../storage/ximian-connector-setup.c:44
-msgid "Ximian Connector for Microsoft Exchange Setup Tool"
-msgstr "Unealta de configurare a Ximian Connector pentru Microsoft Exchange"
+#: ../storage/ximian-connector-setup.c:75
+msgid "Evolution Connector for Microsoft Exchange Setup Tool"
+msgstr "Unealta de configurare a Evolution Connector pentru Microsoft Exchange"
 
 #: ../storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
-msgstr "Schimbă parola dvs. pe serverul Exchange"
+msgstr "Schimbă parola pe serverul Exchange"
 
 #: ../storage/ximian-connector.xml.h:2
 msgid "Folder _Size"
@@ -977,7 +934,7 @@ msgstr "Dimeni_sune dosar"
 
 #: ../storage/ximian-connector.xml.h:3
 msgid "Get the size of personal folders"
-msgstr "Preia dimensiunea dosarelor personale"
+msgstr "Obține dimensiunea dosarelor personale"
 
 #: ../storage/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
@@ -985,7 +942,7 @@ msgstr "Ab_onare la dosarul altui uilizator..."
 
 #: ../storage/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
-msgstr "Abonare la un dosar aparţinând altui utilizator de pe server"
+msgstr "Abonare la un dosar aparținând altui utilizator de pe server"
 
 #  crap, trebuie corectat cu numele corectat
 #: ../storage/ximian-connector.xml.h:6
@@ -994,15 +951,11 @@ msgstr "Dezabonare de la un dosar adăugat cu „Abonare la dosarul altui utiliz
 
 #: ../storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
-msgstr ""
-"Vizualizează sau modifică configuraţiile delegărilor calendarului dvs. "
-"Exchange"
+msgstr "Vizualizează sau modifică configurațiile delegărilor calendarului Exchange"
 
 #: ../storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
-msgstr ""
-"Vizualizează sau modifică starea de absenţă de la birou şi mesajul automat "
-"de răspuns"
+msgstr "Vizualizează sau modifică starea de absență de la birou și mesajul automat de răspuns"
 
 #: ../storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
@@ -1014,10 +967,17 @@ msgstr "Asistent de _delegare"
 
 #: ../storage/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
-msgstr "Asistent de absenţă de la bir_ou"
+msgstr "Asistent de absență de la bir_ou"
 
 #  crap
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Dezabonare de la dosarul altui _utilizator"
+
+#~ msgid "%sEnter password for %s"
+#~ msgstr "%sIntroduceți parola pentru %s"
+#~ msgid "Ximian Connector for Exchange"
+#~ msgstr "Ximian Connector pentru Exchange"
+#~ msgid "Ximian Connector Configuration"
+#~ msgstr "Configurație Ximian Connector"
 
