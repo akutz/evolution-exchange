@@ -2,182 +2,233 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 # Ani Peter <apeter@redhat.com>, 2006.
-#
+# Hari Vishnu <harivishnu@gmail.com>, 2008
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-17 08:04+0200\n"
-"PO-Revision-Date: 2006-08-27 23:02+0530\n"
-"Last-Translator: Ani Peter <apeter@redhat.com>\n"
-"Language-Team: Malayalam\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=evolution-exchange&component=general\n"
+"POT-Creation-Date: 2009-02-21 23:58+0000\n"
+"PO-Revision-Date: 2008-10-01 02:58+0530\n"
+"Last-Translator: Hari Vishnu <harivishnu@gmail.com>\n"
+"Language-Team: Swathanthra Malayalam Computing|||സ്വതന്ത്ര മലയാളം കമ്പ്യൂട്ടിങ്ങ് "
+"<smc-discuss@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../addressbook/e-book-backend-exchange.c:1882
-#: ../addressbook/e-book-backend-gal.c:1499 ../storage/exchange-storage.c:135
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr "ജി.എ.എല്‍ കാഷ് പുതുക്കെണ്ട സമയ-ഇടവേള വ്യക്തമാക്കുന്നു."
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+msgid ""
+"This key specifies the number of days interval between the GAL cache "
+"refresh. Set this value to zero, if you don't want to update GAL and use the "
+"current cache forever. This will work only if you have enabled offline "
+"caching for GAL."
+msgstr ""
+
+#: ../addressbook/e-book-backend-exchange.c:2285
+#: ../addressbook/e-book-backend-gal.c:1865 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "തിരയുന്നു..."
 
-#: ../addressbook/e-book-backend-gal.c:267
+#: ../addressbook/e-book-backend-gal.c:306
+#: ../addressbook/e-book-backend-gal.c:327
 msgid "Reconnecting to LDAP server..."
 msgstr "LDAP സര്‍വറിലേക്ക് വീണ്ടും കണക്ട് ചെയ്യുന്നു..."
 
-#: ../addressbook/e-book-backend-gal.c:1363
+#: ../addressbook/e-book-backend-gal.c:1624
 msgid "Receiving LDAP search results..."
 msgstr "LDAP-ന്‍റെ തിരച്ചില്‍ ഫലങ്ങള്‍ ലഭ്യമാകുന്നു..."
 
-#: ../addressbook/e-book-backend-gal.c:1522
+#: ../addressbook/e-book-backend-gal.c:1896
 msgid "Error performing search"
 msgstr "തിരച്ചിലിനിടയില്‍ പിശക്"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2004
+#: ../calendar/e-cal-backend-exchange-calendar.c:2086
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
+" '%s' എന്ന വിഭവം നിരന്തരം നടക്കുന്ന മീറ്റിങ്ങുകള്‍ക്കായ്  നിശ്ചയിക്കാന്‍ കഴിയുന്നില്ല. \n"
+" നിങ്ങള്‍ ഓരോ മീറ്റിങ്ങും ഓരോന്നായ് ബുക് ചെയ്യണം."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2022
+#: ../calendar/e-cal-backend-exchange-calendar.c:2104
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "തിരഞ്ഞെടുത്ത സമയപരിധിയില്‍ '%s' തിരക്കിലാണ്."
 
-#: ../camel/camel-exchange-folder.c:222
-msgid "You cannot expunge in offline mode."
-msgstr ""
+#: ../calendar/e-cal-backend-exchange.c:422
+msgid "Authentication failed"
+msgstr "തിരിച്ചറിയല്‍ പരാജയപ്പെട്ടിരിക്കുന്നു"
 
-#: ../camel/camel-exchange-folder.c:253
+#: ../calendar/e-cal-backend-exchange.c:474
+msgid "Could not find the calendar"
+msgstr "കാലെണ്ടര്‍ കണ്ടെത്താന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-exchange-folder.c:204
+msgid "You cannot expunge in offline mode."
+msgstr "നിങ്ങള്‍ക്കു്‌ ഓഫ്ലൈന്‍ സ്ഥിതിയില്‍ കളയാന്‍ കഴിയില്ല."
+
+#: ../camel/camel-exchange-folder.c:235
 msgid "No Subject"
 msgstr "വിഷയം വ്യക്തമല്ല"
 
-#: ../camel/camel-exchange-folder.c:407
+#: ../camel/camel-exchange-folder.c:398
 msgid "This message is not available in offline mode."
 msgstr "ഓഫ് ലൈന്‍ ആകുന്പോള്‍ സന്ദേശം ലഭ്യമല്ല."
 
-#: ../camel/camel-exchange-folder.c:642
+#: ../camel/camel-exchange-folder.c:625
 msgid "Moving messages"
 msgstr "സന്ദേശങ്ങള്‍ മാറ്റുന്നു"
 
-#: ../camel/camel-exchange-folder.c:643
+#: ../camel/camel-exchange-folder.c:626
 msgid "Copying messages"
 msgstr "സന്ദേശങ്ങള്‍ പകര്‍ത്തുന്നു"
 
-#: ../camel/camel-exchange-folder.c:1014
+#: ../camel/camel-exchange-folder.c:1004
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "ഡയറക്ടറി %s ഉണ്ടാക്കുവാന്‍ സാധ്യമായില്ല: %s"
 
-#: ../camel/camel-exchange-folder.c:1024
+#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "%s-നുളള സമ്മറി ലോഡ് ചെയ്യുവാനായില്ല"
 
-#: ../camel/camel-exchange-folder.c:1032
+#: ../camel/camel-exchange-folder.c:1022
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "%s-നുളള cache ഉണ്ടാക്കുവാന്‍ സാധ്യമായില്ല"
 
-#: ../camel/camel-exchange-folder.c:1042
+#: ../camel/camel-exchange-folder.c:1032
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "%s-നുളള ജേര്‍ണല്‍ ഉണ്ടാക്കുവാന്‍ സാധ്യമായില്ല"
 
-#: ../camel/camel-exchange-folder.c:1087
+#: ../camel/camel-exchange-folder.c:1083
 msgid "Scanning for changed messages"
 msgstr "മാറ്റം വരുത്തിയിരിക്കുന്ന സന്ദേശങ്ങള്‍ക്കായി പരിശോധിക്കുന്നു"
 
-#: ../camel/camel-exchange-folder.c:1113
+#: ../camel/camel-exchange-folder.c:1116
 msgid "Fetching summary information for new messages"
 msgstr "പുതിയ സന്ദേശക്കള്‍ സംബന്ധിച്ചുളള വിവരങ്ങള്‍ ലഭ്യമാകുന്നു"
 
-#: ../camel/camel-exchange-journal.c:339
+#: ../camel/camel-exchange-journal.c:342
 msgid "No folder name found\n"
 msgstr "ഫോള്‍ഡരിന്‍റെ പേര് ലഭ്യമല്ല\n"
 
-#: ../camel/camel-exchange-journal.c:372 ../mail/mail-stub-exchange.c:2549
-#: ../mail/mail-stub-exchange.c:2593 ../mail/mail-stub-exchange.c:2628
-#: ../mail/mail-stub-exchange.c:2655 ../mail/mail-stub-exchange.c:2708
-#: ../mail/mail-stub-exchange.c:2730
+#: ../camel/camel-exchange-journal.c:375 ../mail/mail-stub-exchange.c:3076
+#: ../mail/mail-stub-exchange.c:3126 ../mail/mail-stub-exchange.c:3256
+#: ../mail/mail-stub-exchange.c:3283 ../mail/mail-stub-exchange.c:3336
+#: ../mail/mail-stub-exchange.c:3358
 msgid "Folder doesn't exist"
 msgstr "ഫോള്‍ഡര്‍ നിലവിലില്ല"
 
-#: ../camel/camel-exchange-journal.c:436
+#: ../camel/camel-exchange-journal.c:439
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "ഓഫ് ലൈന്‍ ആകുന്പോള്‍ സന്ദേശത്തില്‍ മാറ്റം വരുത്തുവാന്‍ സാധ്യമല്ല: cache ലഭ്യമല്ല"
 
-#: ../camel/camel-exchange-journal.c:452
+#: ../camel/camel-exchange-journal.c:455
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "ഓഫ് ലൈന്‍ ആകുന്പോള്‍ സന്ദേശത്തില്‍ മാറ്റം വരുത്തുവാന്‍ സാധ്യമല്ല:               %s"
 
+#: ../camel/camel-exchange-provider.c:55
+msgid "Secure or Plaintext Password"
+msgstr "സുരക്ഷിതമായത് അല്ലെങ്കില്‍ വെറും-പദാവലി  പാസ്‍വേര്‍ഡ്"
+
+#: ../camel/camel-exchange-provider.c:56
+#: ../camel/camel-exchange-provider.c:141
+msgid "Plaintext Password"
+msgstr "പ്ളെയിന്‍ടെക്സ്റ്റ് പാസ്‍വേര്‍ഡ്"
+
+#. i18n: "Secure Password Authentication" is an Outlookism
+#: ../camel/camel-exchange-provider.c:57
+#: ../camel/camel-exchange-provider.c:130
+msgid "Secure Password"
+msgstr "പാസ്‍വേര്‍ഡ് സുരക്ഷിതമാക്കുക"
+
+#: ../camel/camel-exchange-provider.c:63
+msgid "Checking for New Mail"
+msgstr "പുതിയ മെയിലിനായ് തിരയുന്നു"
+
+#: ../camel/camel-exchange-provider.c:65
+msgid "C_heck for new messages in all folders"
+msgstr "പുതിയ സന്ദേശങ്ങള്‍ക്കായ് എല്ലാ ഫോള്‍ഡറുകളിലും തിരയുക(_h)"
+
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:44
+#: ../camel/camel-exchange-provider.c:73
 msgid "Windows User_name:"
 msgstr "Windows ഉപയോക്തൃനാമം: (_n)"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:49
+#: ../camel/camel-exchange-provider.c:78
 msgid "Global Address List / Active Directory"
 msgstr "ഗ്ളോബല്‍ അഡ്ഡ്രസ്സ് ലിസ്റ്റ് / സജീവ ഡയറക്ടറി"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:82
 msgid "_Global Catalog server name:"
 msgstr "ഗ്ളോബല്‍ കാറ്റലോഗ് സര്‍വര്‍ നാമം: (_G)"
 
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:84
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "GAL-ല്‍ നിന്നുളള മറുപടികളുടെ എണ്ണം കുറയ്ക്കുക: %s (_L)"
 
-#: ../camel/camel-exchange-provider.c:58
+#: ../camel/camel-exchange-provider.c:86
+msgid "Authentication _Type:"
+msgstr "തിരിച്ചറിയല്‍ (_T)തരം :"
+
+#: ../camel/camel-exchange-provider.c:88
+msgid "Allow _browsing of the GAL until download limit is reached"
+msgstr "ഡൗന്‍ളോഡ് പരിധി എത്തും വരെ ജി.എ.എലിന്റെ (_b)തിരയല്‍ അനുവദിക്കുക."
+
+#: ../camel/camel-exchange-provider.c:91
 msgid "Options"
 msgstr "ഉപാധികള്‍"
 
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:93
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "പാസ്‍വേര്‍ഡിന്‍റെ കാലാവധി അവസാനിക്കുന്നു എന്ന മുന്നറിയിപ്പിനുളള സമയപരിധി: %s (_P)"
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:95
 msgid "Automatically synchroni_ze account locally"
-msgstr ""
+msgstr "തനിയെ അക്കൗണ്ട് പ്രാദേശികമായി പൊരുത്തപ്പെടുത്തുക(_z) "
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:98
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "ഈ സര്‍വറിലെ ഇന്‍ബോക്സിലേക്കുളള പുതിസ സന്ദശങ്ങള്‍ ഫില്‍ട്ടര്‍ ചെയ്യുക (_A)"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:100
 msgid "Check new messages for _Junk contents"
 msgstr "പുതിയ മെയിലുകളില്‍ അനാവശ്യമായവ ഉണ്ടോ എന്ന് പരിശോധിക്കുക (_J)"
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:102
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "അനാവശ്യമായ മെയിലുകള്‍ ഉണ്ടോ എന്ന് മാത്രം വന്ന മെയിലുകളുടെ ഫോള്‍ഡറില്‍ പരിശോധിക്കുക (_e)"
 
-#: ../camel/camel-exchange-provider.c:79
+#: ../camel/camel-exchange-provider.c:112
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:81
+#: ../camel/camel-exchange-provider.c:114
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Microsoft Exchange സര്‍വറുകളിലുളള മെയിലുകള്‍ (മറ്റ് ഡേറ്റാകളും) കൈകാര്യം ചെയ്യുന്നതിന്"
 
-#. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:97
-msgid "Secure Password"
-msgstr "പാസ്‍വേര്‍ഡ് സുരക്ഷിതമാക്കുക"
-
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:133
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -185,11 +236,7 @@ msgstr ""
 "സുരക്ഷിതമായ പാസ്‍വേര്‍ഡ് (NTLM) അധികൃതമാക്കലിലൂടെ ഈ ഉപാധി Exchange സര്‍വറിലേക്ക് കണക്ട് "
 "ചെയ്യുന്നതിന് നിങ്ങളെ സഹായിക്കുന്നു."
 
-#: ../camel/camel-exchange-provider.c:108
-msgid "Plaintext Password"
-msgstr "പ്ളെയിന്‍ടെക്സ്റ്റ് പാസ്‍വേര്‍ഡ്"
-
-#: ../camel/camel-exchange-provider.c:110
+#: ../camel/camel-exchange-provider.c:143
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -197,26 +244,21 @@ msgstr ""
 "സാധാരണയുളള പ്ളെയിന്‍ടെക്സ്റ്റ്  പാസ്‍വേര്‍ഡ് അധികൃതമാക്കലിലൂടെ ഈ ഉപാധി Exchange സര്‍വറിലേക്ക് "
 "കണക്ട് ചെയ്യുന്നതിന് നിങ്ങളെ സഹായിക്കുന്നു."
 
-#: ../camel/camel-exchange-store.c:308
+#: ../camel/camel-exchange-store.c:314
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange സര്‍വര്‍ %s"
 
-#: ../camel/camel-exchange-store.c:311
+#: ../camel/camel-exchange-store.c:317
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "%s-ല്‍ %s-നുളള Exchange അക്കൌണ്ട്"
 
-#: ../camel/camel-exchange-store.c:352
-#, c-format
-msgid "%sEnter password for %s"
-msgstr "%s-നുളള %s പാസ്‍വേര്‍ഡ് എന്‍റര്‍ ചെയ്യുക"
-
-#: ../camel/camel-exchange-store.c:403
+#: ../camel/camel-exchange-store.c:399
 msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange ബാക്കെന്‍ഡ് പ്രക്രിയ"
 
-#: ../camel/camel-exchange-store.c:444
+#: ../camel/camel-exchange-store.c:442
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -224,156 +266,167 @@ msgstr ""
 "സര്‍വറിലേക്ക് കണക്ട് ചെയ്യുവാന്‍ സാധ്യമായില്ല. (പാസ്‍വേര്‍ഡ് ശരിയാണോ?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:486
+#: ../camel/camel-exchange-store.c:495
 #, c-format
 msgid "No such folder %s"
 msgstr "%s ഫോള്‍ഡര്‍ ഇല്ല"
 
-#: ../camel/camel-exchange-store.c:563
+#: ../camel/camel-exchange-store.c:572
 msgid "Cannot subscribe folder in offline mode."
-msgstr ""
+msgstr "ശ്രംഖല ഇല്ലാത്തപ്പോള്‍ തലം സബ്സ്ക്രൈബ് ചെയ്യാന്‍ കഴിയില്ല."
 
-#: ../camel/camel-exchange-store.c:580
+#: ../camel/camel-exchange-store.c:589
 msgid "Cannot unsubscribe folder in offline mode."
-msgstr ""
+msgstr "ശ്രംഖല ഇല്ലാത്തപ്പോള്‍ തലം അണ്‍സബ്സ്ക്രൈബ് ചെയ്യാന്‍ കഴിയില്ല."
 
-#: ../camel/camel-exchange-store.c:695
+#: ../camel/camel-exchange-store.c:727
 msgid "Cannot get folder info in offline mode."
 msgstr "ഓഫ് ലൈന്‍ മോഡില്‍ ഫോള്‍ഡറിന്‍റെ വിവരങ്ങള്‍ ലഭ്യമല്ല."
 
-#: ../camel/camel-exchange-store.c:766
+#: ../camel/camel-exchange-store.c:800
 msgid "Cannot create folder in offline mode."
 msgstr "ഓഫ് ലൈന്‍ മോഡില്‍ ഫോള്‍ഡര്‍ ഉണ്ടാക്കുവാന്‍ സാധ്യമായില്ല."
 
-#: ../camel/camel-exchange-store.c:793
+#: ../camel/camel-exchange-store.c:827
 msgid "Cannot delete folder in offline mode."
 msgstr "ഓഫ് ലൈന്‍ മോഡില്‍ ഫോള്‍ഡര്‍ എടുത്ത് കളയുവാന്‍ സാധ്യമായില്ല."
 
-#: ../camel/camel-exchange-store.c:809
+#: ../camel/camel-exchange-store.c:851
 msgid "Cannot rename folder in offline mode."
 msgstr "ഓഫ് ലൈന്‍ മോഡില്‍ ഫോള്‍ഡറിന്‍റെ പേര് മാറ്റുവാന്‍ സാധ്യമായില്ല."
 
-#: ../camel/camel-exchange-transport.c:110
+#: ../camel/camel-exchange-transport.c:111
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr ""
+msgstr "എക്സ്ചേഞ്ച് (കയ്മാറല്‍) പോക്കുവരവ് എക്സ്ചേഞ്ച് മെയില്‍ സ്രോതസ്സുമായേ ഉപയോഗിക്കാന്‍ സാധിക്കു"
 
-#: ../camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-transport.c:122
 msgid "Cannot send message: one or more invalid recipients"
-msgstr ""
+msgstr "സന്ദേശം അയക്കാന്‍ കഴിയില്ല : ഒന്നോ ഒന്നിലേറെയോ തെറ്റായ മെയില്‍ ലഭിക്കുന്നവര്‍"
 
-#: ../camel/camel-exchange-transport.c:131
+#: ../camel/camel-exchange-transport.c:132
 msgid "Could not find 'From' address in message"
 msgstr "സന്ദേശം ആരില്‍ നിന്നും എന്നത് ലഭ്യമല്ല"
 
-#: ../camel/camel-stub.c:152
+#: ../camel/camel-stub.c:165 ../camel/camel-stub.c:229
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "സോക്കറ്റ് ഉണ്ടാക്കുവാന്‍ സാധ്യമായില്ല: %s"
 
-#: ../camel/camel-stub.c:170
+#: ../camel/camel-stub.c:183
 #, c-format
 msgid "Could not connect to %s: Please restart Evolution"
 msgstr "%s-ലേക്ക് കണക്ട് ചെയ്യുവാന്‍ സാധ്യമല്ല: ദയവായി Evolution വീണ്ടും ആരംഭിക്കുക"
 
-#: ../camel/camel-stub.c:175
+#: ../camel/camel-stub.c:188 ../camel/camel-stub.c:247
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "%s-ലേക്ക് കണക്ട് ചെയ്യുവാന്‍ സാധ്യമല്ല: %s"
 
-#: ../camel/camel-stub.c:205
+#: ../camel/camel-stub.c:212
+#, c-format
+msgid "Count not read file '%s': %s"
+msgstr "ഈ ഫയല്‍ വായിക്കാന്‍ കഴിഞ്ഞില്ല  '%s': %s"
+
+#: ../camel/camel-stub.c:220
+#, c-format
+msgid "Wrong size file '%s'"
+msgstr "തെറ്റായ വലിപ്പമുള്ള ഫയല്‍ '%s'"
+
+#: ../camel/camel-stub.c:283
 #, c-format
 msgid "Path too long: %s"
 msgstr "പാഥ് വളരം വലുതാണ്: %s"
 
-#: ../camel/camel-stub.c:231
+#: ../camel/camel-stub.c:318
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "സ്റ്റേറ്റസ് ത്രെഡ് ആരംഭിക്കുവാന്‍ സാധ്യമായില്ല: %s"
 
-#: ../camel/camel-stub.c:485
+#: ../camel/camel-stub.c:572
 #, c-format
 msgid "Lost connection to %s"
 msgstr "%s-ലേക്കുളള കണക്ഷന്‍ വേര്‍പ്പെട്ടു"
 
-#: ../camel/camel-stub.c:489
+#: ../camel/camel-stub.c:576
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "%s-മായി ബന്ധപ്പെടുന്നതില്‍ പിശക്: %s"
 
-#: ../mail/mail-stub-exchange.c:257 ../mail/mail-stub-exchange.c:755
+#: ../mail/mail-stub-exchange.c:269 ../mail/mail-stub-exchange.c:965
 msgid "No such folder"
 msgstr "ഇങ്ങനെ ഒരു ഫോള്‍ഡര്‍ ഇല്ല"
 
-#. FIXME: should be this, but string freeze freezes me to do so.
-#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:280 ../mail/mail-stub-exchange.c:1390
-#: ../mail/mail-stub-exchange.c:2526 ../mail/mail-stub-exchange.c:2566
-#: ../mail/mail-stub-exchange.c:2632 ../mail/mail-stub-exchange.c:2682
-#: ../mail/mail-stub-exchange.c:2745
+#: ../mail/mail-stub-exchange.c:292 ../mail/mail-stub-exchange.c:3053
+#: ../mail/mail-stub-exchange.c:3093 ../mail/mail-stub-exchange.c:3260
+#: ../mail/mail-stub-exchange.c:3310 ../mail/mail-stub-exchange.c:3373
 msgid "Permission denied"
 msgstr "അനുവാദം നിഷേധിച്ചിരിക്കുന്നു"
 
-#: ../mail/mail-stub-exchange.c:578 ../mail/mail-stub-exchange.c:600
-msgid "Could not open folder: Permission denied"
-msgstr "ഫോള്‍ഡര്‍ തുറക്കുവാന്‍ സാധ്യമായില്ല: അനുവാദം നിഷേധിച്ചിരിക്കുന്നു"
-
-#: ../mail/mail-stub-exchange.c:584 ../mail/mail-stub-exchange.c:707
+#: ../mail/mail-stub-exchange.c:787 ../mail/mail-stub-exchange.c:879
 msgid "Could not open folder"
 msgstr "ഫോള്‍ഡര്‍ തുറക്കുവാന്‍ സാധ്യമായില്ല"
 
-#: ../mail/mail-stub-exchange.c:764
+#: ../mail/mail-stub-exchange.c:873 ../mail/mail-stub-exchange.c:895
+msgid "Could not open folder: Permission denied"
+msgstr "ഫോള്‍ഡര്‍ തുറക്കുവാന്‍ സാധ്യമായില്ല: അനുവാദം നിഷേധിച്ചിരിക്കുന്നു"
+
+#: ../mail/mail-stub-exchange.c:974
 msgid "Could not create folder."
 msgstr "ഫോള്‍ഡര്‍ തുറക്കുവാന്‍ സാധ്യമായില്ല."
 
-#: ../mail/mail-stub-exchange.c:844
+#: ../mail/mail-stub-exchange.c:1062
 msgid "Could not open Deleted Items folder"
 msgstr "എടുത്ത കളഞ്ഞ വസ്തുക്കള്‍ ഉളള ഫോള്‍ഡര്‍ തുറക്കുവാന്‍ സാധ്യമായില്ല"
 
-#: ../mail/mail-stub-exchange.c:1175 ../mail/mail-stub-exchange.c:1216
+#: ../mail/mail-stub-exchange.c:1393 ../mail/mail-stub-exchange.c:1434
 msgid "Could not get new messages"
 msgstr "പുതിയ സന്ദേശങ്ങള്‍ ലഭ്യമായില്ല"
 
-#: ../mail/mail-stub-exchange.c:1386
+#: ../mail/mail-stub-exchange.c:1637
 msgid "Could not empty Deleted Items folder"
 msgstr "എടുത്ത കളഞ്ഞ വസ്തുക്കള്‍ ഉളള ഫോള്‍ഡര്‍ കാലിയാക്കുവാന്‍ സാധ്യമായില്ല"
 
-#: ../mail/mail-stub-exchange.c:1463
+#: ../mail/mail-stub-exchange.c:1639
+msgid "Permission denied. Could not delete certain messages."
+msgstr "അനുവാദം നിശേധിച്ചു. ചില സന്ദേശങ്ങള്‍ കളയാന്‍ കഴിഞ്ഞില്ല."
+
+#: ../mail/mail-stub-exchange.c:1712
 msgid "Could not append message; mailbox is over quota"
 msgstr "സന്ദേശത്തില്‍ മാറ്റങ്ങള്‍ വരുത്തുവാന്‍ സാധ്യമായില്ല; മെയില്‍ബോക്സില്‍ സ്ഥലം ലഭ്യമല്ല."
 
-#: ../mail/mail-stub-exchange.c:1464
+#: ../mail/mail-stub-exchange.c:1713
 msgid "Could not append message"
 msgstr "സന്ദേശങ്ങള്‍ മാറ്റുവാന്‍ സാധ്യമായില്ല"
 
-#: ../mail/mail-stub-exchange.c:2016
+#: ../mail/mail-stub-exchange.c:2475
 msgid "No such message"
 msgstr "സന്ദേശം ലഭ്യമല്ല"
 
-#: ../mail/mail-stub-exchange.c:2069
+#: ../mail/mail-stub-exchange.c:2556
 msgid "Message has been deleted"
 msgstr "സന്ദേശം എടുത്ത് കളയുവാന്‍ സാധ്യമായില്ല"
 
-#: ../mail/mail-stub-exchange.c:2071
+#: ../mail/mail-stub-exchange.c:2558
 msgid "Error retrieving message"
 msgstr "സന്ദേശം ലഭ്യമാകുന്നതില്‍ പിശക്"
 
-#: ../mail/mail-stub-exchange.c:2113
+#: ../mail/mail-stub-exchange.c:2601
 msgid "Mailbox does not support full-text searching"
-msgstr ""
+msgstr "മെയില്‍-പെട്ടി പൂര്‍ണ്ണ-പദാവലി തിരയല്‍ താങ്ങുന്നില്ല."
 
-#: ../mail/mail-stub-exchange.c:2211
+#: ../mail/mail-stub-exchange.c:2704
 msgid "Unable to move/copy messages"
 msgstr "സന്ദേശങ്ങള്‍ മറ്റൊരിടത്തേക്ക് നീക്കുവാന്‍/പകര്‍ത്തുവാന്‍ സാധ്യമല്ല"
 
-#: ../mail/mail-stub-exchange.c:2441
+#: ../mail/mail-stub-exchange.c:2970
 msgid "No mail submission URI for this mailbox"
-msgstr ""
+msgstr "ഈ മെയില്‍-പെട്ടിക്കായ് മെയില്‍ സബ്മിഷന്‍ യു.ആര്‍.എല്‍ ഇല്ല."
 
-#: ../mail/mail-stub-exchange.c:2477
+#: ../mail/mail-stub-exchange.c:3004
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Exchange വഴിയുളള മെയിലുകള്‍ സര്‍വര്‍ അംഗീകരിക്കുന്നതല്ല"
 
-#: ../mail/mail-stub-exchange.c:2479
+#: ../mail/mail-stub-exchange.c:3006
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -382,7 +435,7 @@ msgstr ""
 "എവിടെ നിന്നും വന്നു എന്ന മേല്‍വിലാസത്തില്‍ നിങ്ങള്‍ക്ക് <%s>\n"
 "ഉപയോഗിക്കുവാനുളള അനുവാദമില്ല."
 
-#: ../mail/mail-stub-exchange.c:2491
+#: ../mail/mail-stub-exchange.c:3018
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -390,17 +443,17 @@ msgstr ""
 "സന്ദേശം അയയ്ക്കുവാന്‍ സാധ്യമായില്ല.\n"
 "ഇതിനര്‍ത്ഥം, ഒരു പക്ഷേ നിങ്ങളുടെ അക്കൌണ്ട് കോട്ടയിലധികമായി എന്നാവാം."
 
-#: ../mail/mail-stub-exchange.c:2495
+#: ../mail/mail-stub-exchange.c:3022
 msgid "Could not send message"
 msgstr "സന്ദേശം അയയ്ക്കുവാന്‍ സാധ്യമായില്ല"
 
-#: ../mail/mail-stub-exchange.c:2518 ../mail/mail-stub-exchange.c:2571
-#: ../mail/mail-stub-exchange.c:2636 ../mail/mail-stub-exchange.c:2687
-#: ../mail/mail-stub-exchange.c:2751
+#: ../mail/mail-stub-exchange.c:3045 ../mail/mail-stub-exchange.c:3098
+#: ../mail/mail-stub-exchange.c:3264 ../mail/mail-stub-exchange.c:3315
+#: ../mail/mail-stub-exchange.c:3379
 msgid "Generic error"
 msgstr "സാധാരണ പിശക്"
 
-#: ../mail/mail-stub-exchange.c:2522
+#: ../mail/mail-stub-exchange.c:3049
 msgid "Folder already exists"
 msgstr "ഫോള്‍ഡര്‍ നിലവിലുണ്ട്"
 
@@ -413,10 +466,11 @@ msgid "Evolution Calendar Exchange backend"
 msgstr "Evolution കലണ്ടര്‍ Exchange ബാക്കെന്‍ഡ്"
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-msgid "Ximian Connector for Exchange"
-msgstr "Exchange-നുളള Ximian കണക്ടര്‍"
+#: ../storage/main.c:219
+msgid "Evolution Connector for Microsoft Exchange"
+msgstr "Microsoft Exchange-നുളള Evolution കണക്ടര്‍"
 
-#: ../storage/exchange-autoconfig-wizard.c:211
+#: ../storage/exchange-autoconfig-wizard.c:227
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -425,7 +479,7 @@ msgstr ""
 "Exchange സര്‍വറിലേക്ക് കണക്ട് ചെയ്യുവാന്‍ സാധ്യമായില്ല.\n"
 "URL ശരിയാണ് എന്നുറപ്പ് വരുത്തി (\"%s\"-ന് പകരം \"%s\" ശ്രമിക്കുക?) വീണ്ടും ശ്രമിക്കുക."
 
-#: ../storage/exchange-autoconfig-wizard.c:219
+#: ../storage/exchange-autoconfig-wizard.c:235
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -433,7 +487,7 @@ msgstr ""
 "Exchange സര്‍വര്‍ ലഭ്യമല്ല.\n"
 "സര്‍വറിന്‍റെ പേരില്‍ അക്ഷരത്തെറ്റില്ല എന്നുറപ്പ് വരുത്തി വീണ്ടും ശ്രമിക്കുക."
 
-#: ../storage/exchange-autoconfig-wizard.c:228
+#: ../storage/exchange-autoconfig-wizard.c:244
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -441,7 +495,7 @@ msgstr ""
 "Exchange സര്‍വറിലേക്ക് കണക്ട് ചെയ്യുവാന്‍ സാധ്യമായില്ല.\n"
 "ഉപയോക്തൃനാമവും പാസ്‍വേര്‍ഡും ശരിയാണ് എന്നുറപ്പുവരുത്തിയ ശേഷം വീണ്ടും ശ്രമിക്കുക."
 
-#: ../storage/exchange-autoconfig-wizard.c:235
+#: ../storage/exchange-autoconfig-wizard.c:251
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -453,10 +507,10 @@ msgstr ""
 "Exchange സര്‍വറിലേക്ക് കണക്ട് ചെയ്യുവാന്‍ സാധ്യമായില്ല.\n"
 "ഉപയോക്തൃനാമവും പാസ്‍വേര്‍ഡും ശരിയാണ് എന്നുറപ്പുവരുത്തിയ ശേഷം വീണ്ടും ശ്രമിക്കുക.\n"
 "\n"
-"നിങ്ങളുടെ ഉപയോക്തൃനാമത്തിന്‍റെ ഒരു ഭാഗമായി Windows ഡൊമൈനിന്‍റെ പേരും നല്‍കേണ്ടതുണ്ട് "
-"(ഉദാ, \"MY-DOMAIN\\%s\")"
+"നിങ്ങളുടെ ഉപയോക്തൃനാമത്തിന്‍റെ ഒരു ഭാഗമായി Windows ഡൊമൈനിന്‍റെ പേരും നല്‍കേണ്ടതുണ്ട് (ഉദാ, "
+"\"MY-DOMAIN\\%s\")"
 
-#: ../storage/exchange-autoconfig-wizard.c:247
+#: ../storage/exchange-autoconfig-wizard.c:263
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -464,32 +518,36 @@ msgstr ""
 "നല്‍കിയിരിക്കുന്ന URL-ല്‍ OWA ഡേറ്റാ ലഭ്യമല്ല.\n"
 "URL ശരിയാണ് എന്നുറപ്പുവരുത്തി വീണ്ടും ശ്രമിക്കുക."
 
-#: ../storage/exchange-autoconfig-wizard.c:254
+#: ../storage/exchange-autoconfig-wizard.c:270
 msgid ""
-"Ximian Connector requires access to certain functionality on the Exchange "
-"Server that appears to be disabled or blocked.  (This is usually "
-"unintentional.)  Your Exchange Administrator will need to enable this "
-"functionality in order for you to be able to use Ximian Connector.\n"
+"Evolution Connector for Microsoft Exchange requires access to certain "
+"functionality on the Exchange server that appears to be disabled or "
+"blocked.  (This is usually unintentional.)  Your Exchange administrator will "
+"need to enable this functionality in order for you to be able to use the "
+"Evolution Connector.\n"
 "\n"
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
 
-#: ../storage/exchange-autoconfig-wizard.c:275
+#: ../storage/exchange-autoconfig-wizard.c:292
 msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian "
-"Connector supports Microsoft Exchange 2000 and 2003 only."
-msgstr "നിങ്ങള്‍ നല്‍കിയ Exchange സര്‍വറിന്‍റെ URL Exchange 5.5 സര്‍വറിനുളളതാണ്.  Microsoft Exchange 2000-യും 2003-യും മാത്രമേ Ximian കണക്ടര്‍ പിന്തുണയ്ക്കുന്നുളളൂ."
+"The Exchange server URL you provided is for an Exchange 5.5 server. "
+"Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
+"and 2003 only."
+msgstr ""
+"നിങ്ങള്‍ നല്‍കിയ Exchange സര്‍വറിന്‍റെ URL Exchange 5.5 സര്‍വറിനുളളതാണ്.  Microsoft "
+"Exchange 2000-യും 2003-യും മാത്രമേ Evolution കണക്ടര്‍ പിന്തുണയ്ക്കുന്നുളളൂ."
 
-#: ../storage/exchange-autoconfig-wizard.c:288
+#: ../storage/exchange-autoconfig-wizard.c:306
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
 msgstr ""
-"അപരിചിതമായ ഏതോ ഒരു പിശക് കാരണം Exchange അക്കൌണ്ട് ക്രമീകരിക്കുവാന്‍ സാധ്യമല്ല. "
-"URL, ഉപയോക്തൃനാമം, പാസ്‍വേര്‍ഡ് എന്നിവ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+"അപരിചിതമായ ഏതോ ഒരു പിശക് കാരണം Exchange അക്കൌണ്ട് ക്രമീകരിക്കുവാന്‍ സാധ്യമല്ല. URL, "
+"ഉപയോക്തൃനാമം, പാസ്‍വേര്‍ഡ് എന്നിവ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
 
-#: ../storage/exchange-autoconfig-wizard.c:332
+#: ../storage/exchange-autoconfig-wizard.c:350
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -497,7 +555,7 @@ msgid ""
 "\\%s\")."
 msgstr ""
 
-#: ../storage/exchange-autoconfig-wizard.c:339
+#: ../storage/exchange-autoconfig-wizard.c:357
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -505,12 +563,12 @@ msgstr ""
 "നിങ്ങള്‍ പറഞ്ഞിരിക്കുന്ന സര്‍വറിലേക്ക് കണക്ട് ചെയ്യുവാന്‍ സാധ്യമായില്ല.\n"
 "ദയവായി സര്‍വറിന്‍റെ പേര് ശരിയെന്ന് ഉറപ്പ് വരുത്തിയ ശേഷം വീണ്ടും ശ്രമിക്കുക."
 
-#: ../storage/exchange-autoconfig-wizard.c:376
-#: ../storage/exchange-autoconfig-wizard.c:380
+#: ../storage/exchange-autoconfig-wizard.c:394
+#: ../storage/exchange-autoconfig-wizard.c:398
 msgid "Unknown"
 msgstr "അപരിചിതം"
 
-#: ../storage/exchange-autoconfig-wizard.c:445
+#: ../storage/exchange-autoconfig-wizard.c:463
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -518,7 +576,7 @@ msgstr ""
 "സിസ്റ്റത്തിന്‍റെ കോണ്‍ഫിഗറേഷനില്‍ പിശക്.\n"
 "പുതിയ അക്കൌണ്ട് ഉണ്ടാക്കുവാനായില്ല."
 
-#: ../storage/exchange-autoconfig-wizard.c:459
+#: ../storage/exchange-autoconfig-wizard.c:477
 msgid "You may only configure a single Exchange account"
 msgstr "നിങ്ങള്‍ ഒരു Exchange അക്കൌണ്ട് ക്രമീകരിച്ചാല്‍ മതിയാകും."
 
@@ -540,82 +598,87 @@ msgid "Email Address:"
 msgstr "ഈമെയില്‍ വിലാസം:"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:5
+msgid "Evolution Connector for Microsoft Exchange Configuration"
+msgstr "Microsoft Exchange-നുളള Evolution കണക്ടര്‍"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:6
+msgid ""
+"Evolution Connector for Microsoft Exchange can use account information from "
+"your existing Outlook Web Access (OWA) account.\n"
+"\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
+msgstr ""
+"Microsoft Exchange-നുളള Evolution കണക്ടറിനു നിങ്ങളുടെ നിലവിലുള്ള Outlook Web Access "
+"(OWA) അക്കൗണ്ടിലേ അക്കൗണ്ട് വിവരങ്ങള്‍ ഉപയോഗിക്കാം. \n"
+"\n"
+"നിങ്ങളുടെ OWA സൈറ്റ് വിലാസം (യു.ആര്‍.എല്‍), ഉപയുക്താവ്-പേരു്‌, പാസ്വേഡ് എന്നിവ നല്‍കുക, അതിനു "
+"ശേഷം  \"Forward\" ക്ലിക്ക് ചെയ്യുക.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:10
+msgid ""
+"Evolution Connector for Microsoft Exchange could not find the Global Catalog "
+"replica for your site. Please enter the name of your Global Catalog server. "
+"You may need to ask your system administrator for the correct value.\n"
+msgstr ""
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:12
+msgid ""
+"Evolution Connector for Microsoft Exchange has encountered a problem "
+"configuring your Exchange account.\n"
+msgstr ""
+"നിങ്ങളുടെ Exchange അക്കൌണ്ട് ക്രമീകരണത്തിനിടയില്‍ Evolution കണക്ടര്‍ ഒരു തകരാറ് "
+"നേരിട്ടിരിക്കുന്നു.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:14
 msgid "Exchange Configuration"
 msgstr "Exchange കോണ്‍ഫിഗറേഷന്‍"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:6
+#: ../storage/exchange-autoconfig-wizard.glade.h:15
 msgid "Full Name:"
 msgstr "മുഴുവന്‍ പേര്:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:7
+#: ../storage/exchange-autoconfig-wizard.glade.h:16
 msgid "GC Server:"
 msgstr "GC സര്‍വര്‍:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:8
+#: ../storage/exchange-autoconfig-wizard.glade.h:17
 msgid "Make this my default account"
 msgstr "ഇത് ഡീഫോള്‍ട്ട് അക്കൌണ്ട് ആക്കുക"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:9
+#: ../storage/exchange-autoconfig-wizard.glade.h:18
 msgid "OWA URL:"
 msgstr "OWA URL:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:10
+#: ../storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Password:"
 msgstr "പാസ്‍വേര്‍ഡ്:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:11
+#: ../storage/exchange-autoconfig-wizard.glade.h:20
 msgid "Remember this password"
 msgstr "പാസ്‍വേര്‍ഡ് ഓര്‍ത്തിരിക്കുക"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:12
+#: ../storage/exchange-autoconfig-wizard.glade.h:21
 msgid "Username:"
 msgstr "ഉപയോഗിക്കുന്ന പേര്:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:13
+#: ../storage/exchange-autoconfig-wizard.glade.h:22
 msgid "Welcome"
 msgstr "സ്വാഗതം"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:14
+#: ../storage/exchange-autoconfig-wizard.glade.h:23
 msgid ""
-"Welcome to Ximian Connector for Microsoft Exchange.\n"
+"Welcome to Evolution Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
 "to connect to your Exchange account.\n"
 "\n"
 "Please click the \"Forward\" button to continue."
 msgstr ""
-"Microsoft Exchange-നുളള Ximian കണക്ടറിലേക്ക് സ്വാഗതം.\n"
+"Microsoft Exchange-നുളള Evolution കണക്ടറിലേക്ക് സ്വാഗതം.\n"
 "ഇനിയുളള ചില സ്ക്രീനുകള്‍ Exchange അക്കൌണ്ടിലേക്ക് കണക്ട് ചെയ്യുന്നതിനായി\n"
 "Evolution ക്രമീകരിക്കുന്നതിന് നിങ്ങളെ സഹായിക്കുന്നു.\n"
 "\n"
 "മുന്പോട്ട് പോകുന്നതിനായി \"മുന്പോട്ട്\" ബട്ടണ്‍ ക്ളിക്ക് ചെയ്യുക."
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:19
-msgid "Ximian Connector Configuration"
-msgstr "Ximian കണക്ടര്‍ കോണ്‍ഫിഗറേഷന്‍"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:20
-msgid ""
-"Ximian Connector can use account information from your existing Outlook Web "
-"Access (OWA) account.\n"
-"\n"
-"Enter your OWA site address (URL), username, and password, then click "
-"\"Forward\".\n"
-msgstr ""
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:24
-msgid ""
-"Ximian Connector could not find the Global Catalog replica for your site. "
-"Please enter the name of your Global Catalog server. You may need to ask "
-"your system administrator for the correct value.\n"
-msgstr ""
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:26
-msgid ""
-"Ximian Connector has encountered a problem configuring your Exchange "
-"account.\n"
-msgstr ""
-"നിങ്ങളുടെ Exchange അക്കൌണ്ട് ക്രമീകരണത്തിനിടയില്‍ Ximian കണക്ടര്‍ ഒരു തകരാറ് "
-"നേരിട്ടിരിക്കുന്നു.\n"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
@@ -623,7 +686,8 @@ msgid ""
 "save your\n"
 "settings."
 msgstr ""
-"നിങ്ങളുടെ കണക്ടര്‍ അക്കൌണ്ട് ഇപ്പോള്‍ ഉപയോഗത്തിന് തയ്യാറാണ്. നിങ്ങളുടെ ക്രമീകരണം സംരക്ഷിക്കുന്നത് \"പ്രാവര്‍ത്തിമാക്കുക\" എന്ന ബട്ടണ്‍\n"
+"നിങ്ങളുടെ കണക്ടര്‍ അക്കൌണ്ട് ഇപ്പോള്‍ ഉപയോഗത്തിന് തയ്യാറാണ്. നിങ്ങളുടെ ക്രമീകരണം സംരക്ഷിക്കുന്നത് "
+"\"പ്രാവര്‍ത്തിമാക്കുക\" എന്ന ബട്ടണ്‍\n"
 "ക്ളിക്ക് ചെയ്യുക."
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:30
@@ -631,21 +695,21 @@ msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
 msgstr ""
-"നിങ്ങളുടെ അക്കൌണ്ട് വിവരങ്ങള്‍ താഴെ കാണിച്ചിരിക്കുന്നു. ദയവായി പിശകുകള്‍ "
-"പരിഹരിച്ച്, \"മുന്പോട്ട്\" ക്ളിക്ക് ചെയ്യുക.\n"
+"നിങ്ങളുടെ അക്കൌണ്ട് വിവരങ്ങള്‍ താഴെ കാണിച്ചിരിക്കുന്നു. ദയവായി പിശകുകള്‍ പരിഹരിച്ച്, \"മുന്പോട്ട്"
+"\" ക്ളിക്ക് ചെയ്യുക.\n"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
-#: ../storage/exchange-change-password.c:114
+#: ../storage/exchange-change-password.c:125
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
 msgstr ""
-"നിങ്ങള്‍ നല്‍കിയ പാസ്‍വേര്‍ഡ് അക്കൌണ്ടിന്‍റെ നിലവിലുളള പാസ്‍വേര്‍ഡുമായി പൊരുത്തക്കേടുണ്ട്. "
-"ദയവായി ശരിയായ പാസ്‍വേര്‍ഡ് നല്‍കുക"
+"നിങ്ങള്‍ നല്‍കിയ പാസ്‍വേര്‍ഡ് അക്കൌണ്ടിന്‍റെ നിലവിലുളള പാസ്‍വേര്‍ഡുമായി പൊരുത്തക്കേടുണ്ട്. ദയവായി "
+"ശരിയായ പാസ്‍വേര്‍ഡ് നല്‍കുക"
 
-#: ../storage/exchange-change-password.c:121
+#: ../storage/exchange-change-password.c:132
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr "രണ്ട് പാസ്‍വേര്‍ഡുകള്‍ തമ്മില്‍ ചേരുന്നില്ല. ദയവായി പാസ്‍വേര്‍ഡുകള്‍ വീണ്ടും നല്‍കുക."
 
@@ -671,7 +735,7 @@ msgstr "നിങ്ങളുടെ പാസ്‍വേര്‍ഡിന്�
 
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
-msgstr ""
+msgstr "രചയിതാവു്‌ (വായിക്കുക, ഉണ്ടാക്കുക)"
 
 #: ../storage/exchange-delegates.glade.h:2
 msgid "C_alendar:"
@@ -683,15 +747,15 @@ msgstr "വിലാസങ്ങള്‍: (_n)"
 
 #: ../storage/exchange-delegates.glade.h:4
 msgid "Delegate Permissions"
-msgstr ""
+msgstr "പ്രതനിധി അനുവാദങ്ങള്‍"
 
 #: ../storage/exchange-delegates.glade.h:5
 msgid "Delegates"
-msgstr ""
+msgstr "പ്രതനിധികള്‍"
 
 #: ../storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
-msgstr ""
+msgstr "എഡിറ്റര്‍ (വായിക്കുക, ഉണ്ടാക്കുക, ചിട്ടപെടുത്തുക)"
 
 #: ../storage/exchange-delegates.glade.h:7
 msgid "None"
@@ -703,17 +767,19 @@ msgstr "അനുവാദങ്ങള്‍"
 
 #: ../storage/exchange-delegates.glade.h:9
 msgid "Reviewer (read-only)"
-msgstr ""
+msgstr "പുനഃപരിശോധകന്‍ (വായന-മാത്രം)"
 
 #: ../storage/exchange-delegates.glade.h:10
 msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
 msgstr ""
+"ഐ ഉപയുക്താക്കള്‍ക്കു്‌ നിങ്ങളുടെ ഭാഗത്തു നിന്ന് മെയില്‍ അയക്കാന്‍ കഴിയും\n"
+"കൂടാതെ നിങ്ങളുടെ ഫോള്‍ഡറുകള്‍ തുറക്കാന്‍ കഴിയും നിങ്ങള്‍ അവര്‍ക്കു്‌ നല്‍കുന്ന അനുവാദങ്ങള്‍ ഉപയോഗിച്ച്."
 
 #: ../storage/exchange-delegates.glade.h:12
 msgid "_Delegate can see private items"
-msgstr ""
+msgstr "(_D)പ്രതനിധിക്കു സ്വകാര്യമായ കാര്യങ്ങള്‍ കാണാം"
 
 #: ../storage/exchange-delegates.glade.h:13
 msgid "_Edit"
@@ -725,17 +791,17 @@ msgstr "ഇന്‍ബോക്സ_  (_I)"
 
 #: ../storage/exchange-delegates.glade.h:15
 msgid "_Tasks:"
-msgstr ""
+msgstr "ജോലികള്‍(_T):"
 
 #: ../storage/exchange-folder-tree.glade.h:1
 msgid "Exchange Folder Tree"
-msgstr ""
+msgstr "എക്സ്ചേഞ്ച് ഫോള്‍ഡര്‍ മരം"
 
-#: ../storage/exchange-migrate.c:58
+#: ../storage/exchange-migrate.c:60
 msgid "Migrating Exchange Folders..."
-msgstr ""
+msgstr "എക്സ്ചേഞ്ച് ഫോള്‍ഡറുകള്‍ മാറ്റുന്നു..."
 
-#: ../storage/exchange-migrate.c:66
+#: ../storage/exchange-migrate.c:68
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -744,7 +810,7 @@ msgid ""
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
 
-#: ../storage/exchange-migrate.c:99
+#: ../storage/exchange-migrate.c:101
 #, c-format
 msgid ""
 "Warning: Evolution could not migrate all the Exchange account data from the "
@@ -753,10 +819,10 @@ msgid ""
 "Evolution"
 msgstr ""
 
-#: ../storage/exchange-migrate.c:130
+#: ../storage/exchange-migrate.c:132
 #, c-format
 msgid "Migrating `%s':"
-msgstr ""
+msgstr "മാറ്റുന്നു `%s':"
 
 #: ../storage/exchange-oof.glade.h:1
 msgid ""
@@ -797,7 +863,7 @@ msgstr "വേണ്ട്, സ്റ്റേറ്റസ് മാറ്റേ
 
 #: ../storage/exchange-oof.glade.h:11
 msgid "Out of Office Assistant"
-msgstr ""
+msgstr "ഓഫീസ് സഹായിയില്‍ നിന്നും പുറത്ത്"
 
 #: ../storage/exchange-oof.glade.h:12
 msgid "Yes, Change Status"
@@ -861,11 +927,11 @@ msgstr "സ്വന്തം വസ്തുക്കളില്‍ മാറ�
 
 #: ../storage/exchange-permissions-dialog.glade.h:11
 msgid "Folder contact"
-msgstr ""
+msgstr "ഫോള്‍ഡര്‍ കോണ്‍ടാക്ട്"
 
 #: ../storage/exchange-permissions-dialog.glade.h:12
 msgid "Folder owner"
-msgstr ""
+msgstr "ഫോള്‍ഡര്‍ ഉടമസ്ഥന്‍"
 
 #: ../storage/exchange-permissions-dialog.glade.h:13
 msgid "Folder visible"
@@ -877,19 +943,15 @@ msgstr "വസ്തുക്കള്‍ വായിക്കുക"
 
 #: ../storage/exchange-permissions-dialog.glade.h:15
 msgid "Role: "
-msgstr ""
+msgstr "ഭാഗം :"
 
 #: ../storage/exchange-storage.c:338
 msgid "Connecting..."
 msgstr "കണക്ട് ചെയ്യുന്നു..."
 
-#: ../storage/main.c:183
-msgid "Ximian Connector for Microsoft Exchange"
-msgstr "Microsoft Exchange-നുളള Ximian കണക്ടര്‍"
-
-#: ../storage/ximian-connector-setup.c:44
-msgid "Ximian Connector for Microsoft Exchange Setup Tool"
-msgstr "Microsoft Exchange സെറ്റപ്പ് ടൂളിനുളള Ximian കണക്ടര്‍"
+#: ../storage/ximian-connector-setup.c:75
+msgid "Evolution Connector for Microsoft Exchange Setup Tool"
+msgstr "Microsoft Exchange സെറ്റപ്പ് ടൂളിനുളള Evolution കണക്ടര്‍"
 
 #: ../storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
@@ -905,23 +967,28 @@ msgstr "സ്വകാര്യ ഫോള്‍ഡറുകളുടെ വല�
 
 #: ../storage/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
-msgstr ""
+msgstr "(_O)മറ്റു ഉപയുക്താക്കളുടെ ഫോള്‍ഡറിലേക്കു്‌ സബ്സ്ക്രൈബ് ചെയ്യുക..."
 
 #: ../storage/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
-msgstr ""
+msgstr "സര്‍വറിലുള്ള മറ്റൊരു ഉപയുക്താവിന്റെ ഫോള്‍ഡറിലേക്കു്‌ സബ്സ്ക്രൈബ് ചെയ്യുക."
 
 #: ../storage/ximian-connector.xml.h:6
-msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgid ""
+"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
+"\"Subscribe to Other User's Folder\" ഉപയോഗിച്ച് ചേര്‍ത്ത് ഒരു ഫോള്‍ഡറില്‍ നിന്നും "
+"അണ്‍സബ്സ്ക്രൈബ് ചെയ്യുക"
 
 #: ../storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
-msgstr ""
+msgstr "എക്സ്ചേഞ്ച് (കയ്മാറല്‍) കാലെണ്ടര്‍ ഡെലിഗേഷന്‍ സജ്ജീകരണങ്ങള്‍ കാണുക അല്ലെങ്കില്‍ മാറ്റുക"
 
 #: ../storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr ""
+"നിങ്ങളുടെ ഓഫീസില്‍-നിന്നും-പുറത്ത് സ്ഥിതിയും താനെ-തിരിച്ചയക്കാനുള്ള സന്ദേശവും കാണുകയോ മാറ്റുകയോ "
+"ചെയ്യുക."
 
 #: ../storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
@@ -929,13 +996,24 @@ msgstr "Exchange പാസ്‍വേര്‍ഡ് മാറ്റുക... (
 
 #: ../storage/ximian-connector.xml.h:10
 msgid "_Delegation Assistant"
-msgstr ""
+msgstr "(_D)ഡെലിഗേഷന്‍ സഹായി"
 
 #: ../storage/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
-msgstr ""
+msgstr "ഓഫീസ് സഹായിയില്‍ നിന്നും (_O)പുറത്ത്"
 
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
-msgstr ""
+msgstr "മറ്റു ഉപയുക്താക്കളുടെ ഫോള്‍ഡറില്‍ നിന്നും (_U)അണ്‍സബ്സ്ക്രൈബ് ചെയ്യുക"
 
+#~ msgid "Always check for new mail in this folder"
+#~ msgstr "ഈ ഫോള്‍ഡറില്‍ പുതിയ മെയിലുകള്‍ക്കായ് എപ്പോളും പരിശൊധിക്കുക"
+
+#~ msgid "%sEnter password for %s"
+#~ msgstr "%s-നുളള %s പാസ്‍വേര്‍ഡ് എന്‍റര്‍ ചെയ്യുക"
+
+#~ msgid "Ximian Connector for Exchange"
+#~ msgstr "Exchange-നുളള Ximian കണക്ടര്‍"
+
+#~ msgid "Ximian Connector Configuration"
+#~ msgstr "Ximian കണക്ടര്‍ കോണ്‍ഫിഗറേഷന്‍"
