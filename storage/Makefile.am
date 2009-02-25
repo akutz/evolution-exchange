@@ -64,6 +64,9 @@ install-exec-local: exchange-connector-setup
 	$(mkinstalldirs) $(DESTDIR)$(bindir)
 	$(LIBTOOL) --mode=install $(INSTALL_PROGRAM) exchange-connector-setup $(DESTDIR)$(bindir)/exchange-connector-setup-$(BASE_VERSION)
 
+uninstall-local:
+	rm -f $(DESTDIR)$(bindir)/exchange-connector-setup-$(BASE_VERSION)
+
 migr_test_SOURCES =						\
 	migr-test.c						\
 	exchange-config-listener.c				\
