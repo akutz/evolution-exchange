@@ -237,7 +237,8 @@ update_foreign_uri (const char *path, const char *account_uri)
 	g_free (new_phy_uri);
 cleanup:
 	g_free (file_path);
-	e_xml_destroy_hash (old_props);
+	if (old_props)
+		e_xml_destroy_hash (old_props);
 	return;
 }
 
