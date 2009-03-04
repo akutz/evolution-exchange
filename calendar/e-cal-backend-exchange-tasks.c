@@ -1042,6 +1042,7 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 	ECalComponent *comp;
 	icalcomponent *icalcomp, *real_icalcomp;
 	icalcomponent_kind kind;
+	icalproperty *icalprop;
 	struct icaltimetype current;
 	char *from_name = NULL, *from_addr = NULL;
 	char *boundary = NULL;
@@ -1075,9 +1076,18 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 		return GNOME_Evolution_Calendar_InvalidObject;
         }
 
-	current = icaltime_from_timet (time (NULL), 0);
-	icalcomponent_add_property (icalcomp, icalproperty_new_created (current));
-	icalcomponent_add_property (icalcomp, icalproperty_new_lastmodified (current));
+	current = icaltime_current_time_with_zone (icaltimezone_get_utc_timezone ());
+	icalprop = icalcomponent_get_first_property (icalcomp, ICAL_CREATED_PROPERTY);
+	if (icalprop)
+		icalproperty_set_created (icalprop, current);
+	else
+		icalcomponent_add_property (icalcomp, icalproperty_new_created (current));
+
+	icalprop = icalcomponent_get_first_property (icalcomp, ICAL_LASTMODIFIED_PROPERTY);
+	if (icalprop)
+		icalproperty_set_lastmodified (icalprop, current);
+	else
+		icalcomponent_add_property (icalcomp, icalproperty_new_lastmodified (current));
 
 	modtime = e2k_timestamp_from_icaltime (current);
 

@@ -803,9 +803,18 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	send_options = check_for_send_options (icalcomp, props);
 
 	/*set created and last_modified*/
-	current = icaltime_from_timet (time (NULL), 0);
-	icalcomponent_add_property (icalcomp, icalproperty_new_created (current));
-	icalcomponent_add_property (icalcomp, icalproperty_new_lastmodified (current));
+	current = icaltime_current_time_with_zone (icaltimezone_get_utc_timezone ());
+	icalprop = icalcomponent_get_first_property (icalcomp, ICAL_CREATED_PROPERTY);
+	if (icalprop)
+		icalproperty_set_created (icalprop, current);
+	else
+		icalcomponent_add_property (icalcomp, icalproperty_new_created (current));
+
+	icalprop = icalcomponent_get_first_property (icalcomp, ICAL_LASTMODIFIED_PROPERTY);
+	if (icalprop)
+		icalproperty_set_lastmodified (icalprop, current);
+	else
+		icalcomponent_add_property (icalcomp, icalproperty_new_lastmodified (current));
 
 	/* Fetch summary */
 	summary = icalcomponent_get_summary (icalcomp);
