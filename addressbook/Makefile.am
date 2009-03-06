@@ -1,9 +1,9 @@
 INCLUDES =						\
+	-I$(top_srcdir)					\
+	-I$(top_srcdir)/storage				\
 	-DG_LOG_DOMAIN=\"e-book-backend-exchange\"	\
 	$(ADDRESSBOOK_CFLAGS)				\
 	$(LIBEXCHANGE_CFLAGS)				\
-	-I$(top_srcdir)					\
-	-I$(top_srcdir)/storage				\
 	$(LDAP_CFLAGS)					
 
 if HAVE_LIBDB	

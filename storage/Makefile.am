@@ -1,4 +1,8 @@
 INCLUDES =							\
+	-I$(top_srcdir)						\
+	-I$(top_srcdir)/mail					\
+	-I$(top_srcdir)/camel					\
+	-I$(top_srcdir)/calendar				\
 	-DG_LOG_DOMAIN=\"evolution-exchange-storage\"		\
 	$(LIBEXCHANGE_CFLAGS)				\
 	$(EXCHANGE_STORAGE_CFLAGS)				\
@@ -10,11 +14,7 @@ INCLUDES =							\
 	-DCONNECTOR_GLADEDIR=\""$(gladedir)"\"			\
 	-DCONNECTOR_IMAGESDIR=\""$(imagesdir)"\"		\
 	-DCONNECTOR_UIDIR=\""$(uidir)"\"			\
-	-DCONNECTOR_LOCALEDIR=\""$(localedir)\""		\
-	-I$(top_srcdir)						\
-	-I$(top_srcdir)/mail					\
-	-I$(top_srcdir)/camel					\
-	-I$(top_srcdir)/calendar
+	-DCONNECTOR_LOCALEDIR=\""$(localedir)\""
 
 EVOLUTION_privlibexec_PROGRAMS =				\
 	evolution-exchange-storage

@@ -1,9 +1,9 @@
 INCLUDES =                                                      \
+	-I$(top_srcdir)						\
+        -I$(top_srcdir)/storage					\
 	$(CALENDAR_CFLAGS)					\
 	$(LIBEXCHANGE_CFLAGS)					\
 	$(LDAP_CFLAGS)						\
-	-I$(top_srcdir)						\
-        -I$(top_srcdir)/storage					\
 	-DG_LOG_DOMAIN=\"e-cal-backend-exchange\"
 
 noinst_LTLIBRARIES =						\
