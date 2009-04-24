@@ -1,7 +1,7 @@
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.52)
 
-m4_define([eex_version], [2.26.1])
+m4_define([eex_version], [2.27.1])
 
 AC_INIT(evolution-exchange, [eex_version], http://bugzilla.gnome.org/enter_bug.cgi?product=Evolution%20Exchange)
 AC_CONFIG_SRCDIR(storage)
@@ -31,9 +31,9 @@ esac
 
 dnl Update these for every new development release of evolution. These numbers
 dnl actually correspond to the next stable release number
-EVOLUTION_API_VERSION=2.26
+EVOLUTION_API_VERSION=2.28
 EDS_API_VERSION=1.2
-EDS_BASE_VERSION=2.26
+EDS_BASE_VERSION=2.28
 
 AC_MSG_CHECKING(Evolution version)
 EVOLUTION_VERSION=`pkg-config --modversion evolution-shell 2>/dev/null`
