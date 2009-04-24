@@ -86,6 +86,7 @@ static void   transfer_messages_the_hard_way (CamelFolder *source,
 static void refresh_info (CamelFolder *folder, CamelException *ex);
 static void exchange_sync (CamelFolder *folder, gboolean expunge, CamelException *ex);
 static char* get_filename (CamelFolder *folder, const char *uid, CamelException *ex);
+static gint cmp_uids (CamelFolder *folder, const char *uid1, const char *uid2);
 
 static void
 class_init (CamelFolderClass *camel_folder_class)
@@ -99,6 +100,7 @@ class_init (CamelFolderClass *camel_folder_class)
 	camel_folder_class->search_by_expression = search_by_expression;
 	camel_folder_class->count_by_expression = count_by_expression;
 
+	camel_folder_class->cmp_uids = cmp_uids;
 	camel_folder_class->search_by_uids = search_by_uids;
 	/* use the default function for the search_free */
 	/* camel_folder_class->search_free = search_free; */
@@ -506,6 +508,14 @@ count_by_expression (CamelFolder *folder, const char *expression,
 	return matches;
 }
 
+static gint
+cmp_uids (CamelFolder *folder, const char *uid1, const char *uid2)
+{
+	g_return_val_if_fail (uid1 != NULL, 0);
+	g_return_val_if_fail (uid2 != NULL, 0);
+
+	return strcmp (uid1, uid2);
+}
 
 static GPtrArray *
 search_by_uids (CamelFolder *folder, const char *expression,
