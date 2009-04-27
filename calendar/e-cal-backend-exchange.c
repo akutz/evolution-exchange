@@ -276,12 +276,16 @@ save_object (gpointer key, gpointer value, gpointer vcalcomp)
 	icalcomponent *icalcomp;
 	GList *l;
 
-	icalcomp = icalcomponent_new_clone (ecomp->icomp);
-	icalcomponent_add_component (vcalcomp, icalcomp);
+	if (ecomp->icomp) {
+		icalcomp = icalcomponent_new_clone (ecomp->icomp);
+		icalcomponent_add_component (vcalcomp, icalcomp);
+	}
 
 	for (l = ecomp->instances; l; l = l->next) {
-		icalcomp = icalcomponent_new_clone (l->data);
-		icalcomponent_add_component (vcalcomp, icalcomp);
+		if (l->data) {
+			icalcomp = icalcomponent_new_clone (l->data);
+			icalcomponent_add_component (vcalcomp, icalcomp);
+		}
 	}
 }
 
@@ -838,7 +842,8 @@ e_cal_backend_exchange_modify_object (ECalBackendExchange *cbex,
 		return FALSE;
 
 	if (mod == CALOBJ_MOD_ALL || icaltime_is_null_time (rid) || discard_detached) {
-		icalcomponent_free (ecomp->icomp);
+		if (ecomp->icomp)
+			icalcomponent_free (ecomp->icomp);
 		ecomp->icomp = icalcomponent_new_clone (comp);
 		if (discard_detached && !icaltime_is_null_time (rid))
 			discard_detached_instance (ecomp, rid);
@@ -1020,7 +1025,7 @@ get_object (ECalBackendSync *backend, EDataCal *cal,
 
 			*object = icalcomponent_as_ical_string_r (vcalcomp);
 			icalcomponent_free (vcalcomp);
-		} else {
+		} else if (ecomp->icomp) {
 			/* There are no detached instances. Send only the master object */
 			*object = icalcomponent_as_ical_string_r (ecomp->icomp);
 		}
@@ -1633,7 +1638,6 @@ check_change_type (gpointer key, gpointer value, gpointer data)
 	*/
 	if (!ecomp)
 		return;
-	icomp = ecomp->icomp;
 	l = ecomp->instances;
 	for (icomp = ecomp->icomp; l; icomp = l->data, l = l->next) {
 		if (!icomp)
@@ -2127,7 +2131,8 @@ free_exchange_comp (gpointer value)
 	g_free (ecomp->href);
 	g_free (ecomp->lastmod);
 
-	icalcomponent_free (ecomp->icomp);
+	if (ecomp->icomp)
+		icalcomponent_free (ecomp->icomp);
 
 	for (inst = ecomp->instances; inst; inst = inst->next)
 		icalcomponent_free (inst->data);

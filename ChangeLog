@@ -1,3 +1,11 @@
+2009-04-27  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #577105
+
+	* calendar/e-cal-backend-exchange.c: (save_object),
+	(e_cal_backend_exchange_modify_object),	(get_object),
+	(free_exchange_comp): Prevent using NULL in libical functions.
+
 2009-03-16  Srinivasa Ragavan  <sragavan@novell.com>
 
 	* NEWS: Evolution Exchange 2.26.0 release and version bump
