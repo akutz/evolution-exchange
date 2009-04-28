@@ -1,3 +1,10 @@
+2009-04-28  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #553932
+
+	* calendar/e-cal-backend-exchange.c: (set_mode):
+	Do not notify about readonly state here, we are not asked for that.
+
 2009-04-27  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #577105

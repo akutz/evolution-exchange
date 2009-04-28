@@ -1441,7 +1441,6 @@ set_mode (ECalBackend *backend, CalMode mode)
 			priv->read_only = FALSE;
 			priv->mode = CAL_MODE_REMOTE;
 
-			e_cal_backend_notify_readonly (backend, priv->read_only);
 			if (is_loaded (backend) && re_open)
 				e_cal_backend_notify_auth_required(backend);
 			break;
@@ -1453,7 +1452,6 @@ set_mode (ECalBackend *backend, CalMode mode)
 			e_cal_backend_notify_mode (backend,
 				GNOME_Evolution_Calendar_CalListener_MODE_SET,
 				GNOME_Evolution_Calendar_MODE_LOCAL);
-			e_cal_backend_notify_readonly (backend, priv->read_only);
 			break;
 
 	default :
