@@ -22,3 +22,5 @@ libexchangecalendar_la_SOURCES = 				\
 	e2k-cal-query.h						\
 	e2k-cal-utils.c						\
 	e2k-cal-utils.h
+
+-include $(top_srcdir)/git.mk

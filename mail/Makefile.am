@@ -22,3 +22,5 @@ libexchangemail_la_SOURCES =					\
 	mail-stub-exchange.h					\
 	mail-utils.c						\
 	mail-utils.h
+
+-include $(top_srcdir)/git.mk

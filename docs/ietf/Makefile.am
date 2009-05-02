@@ -5,3 +5,5 @@ EXTRA_DIST =					\
 	draft-goland-http-udp-00.txt		\
 	rfc2518.txt				\
 	rfc2616.txt
+
+-include $(top_srcdir)/git.mk

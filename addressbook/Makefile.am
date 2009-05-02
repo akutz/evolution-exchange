@@ -67,3 +67,5 @@ EXTRA_DIST =				\
  
 CLEANFILES = \
 	apps_exchange_addressbook-$(BASE_VERSION).schemas
+
+-include $(top_srcdir)/git.mk

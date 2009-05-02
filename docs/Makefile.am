@@ -17,3 +17,4 @@ EXTRA_DIST =			\
 	sending-mail		\
 	subscriptions		\
 	voting
+-include $(top_srcdir)/git.mk

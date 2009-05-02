@@ -67,3 +67,5 @@ dist-hook-local:
 	mkdir $(distdir)/features
 	-cp $(srcdir)/features/*.xml $(distdir)/features
 
+
+-include $(top_srcdir)/git.mk

@@ -45,3 +45,5 @@ libcamelexchange_la_LIBADD = 			\
 	$(PTHREAD_LIB)
 
 EXTRA_DIST = libcamelexchange.urls
+
+-include $(top_srcdir)/git.mk

@@ -18,3 +18,5 @@ EXTRA_DIST =				\
 
 DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
 
+
+-include $(top_srcdir)/git.mk
