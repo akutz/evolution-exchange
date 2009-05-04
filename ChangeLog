@@ -1,3 +1,14 @@
+2009-05-04  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** Fix for bug #464053 (bnc)
+
+	GAL Delta fetching support added.
+	* addressbook/e-book-backend-gal.c (get_contact_list),
+	(build_query), (get_time_stamp), (last_mod_time_populate),
+	(start_book_view), (dosearch), (generate_cache), (update_cache),
+	(authenticate_user), (set_mode), (init): Only the changes would be 
+	fetched from now instead of downloading the whole GAL to fetch changes
+
 2009-04-28  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #553932

@@ -40,7 +40,7 @@
 #define d(x)
 
 #include <sys/time.h>
-
+#include <time.h>
 #include <libedataserver/e-sexp.h>
 #include <libebackend/e-db3-utils.h>
 #include <libedataserver/e-data-server-util.h>
@@ -51,6 +51,7 @@
 #include <libedata-book/e-data-book-view.h>
 #include "libedata-book/e-book-backend-summary.h"
 #include "e-book-backend-gal.h"
+#include <libical/ical.h>
 
 #ifndef LDAP_CONTROL_PAGEDRESULTS
 #ifdef ENABLE_CACHE
@@ -73,7 +74,7 @@
 #define TV_TO_MILLIS(timeval) ((timeval).tv_sec * 1000 + (timeval).tv_usec / 1000)
 
 static gchar *query_prop_to_ldap(gchar *query_prop);
-static int build_query (EBookBackendGAL *bl, const char *query, char **ldap_query);
+static int build_query (EBookBackendGAL *bl, const char *query, const char *ldap_filter, char **ldap_query);
 
 #define PARENT_TYPE E_TYPE_BOOK_BACKEND
 static EBookBackendClass *parent_class;
@@ -103,6 +104,8 @@ struct _EBookBackendGALPrivate {
 #if ENABLE_CACHE
 	DB *file_db;
 	DB_ENV *env;
+	time_t last_best_time;
+	time_t cache_time;
 #endif
 	/* Summary */
 	char *summary_file_name;
@@ -836,7 +839,7 @@ get_contact_list (EBookBackend *backend,
 			contact_list_op = g_new0 (LDAPGetContactListOp, 1);
 			book_view = find_book_view (bl);
 
-			status = build_query (bl, query, &ldap_query);
+			status = build_query (bl, query, NULL, &ldap_query);
 			if (status != GNOME_Evolution_Addressbook_Success || !ldap_query) {
 				e_data_book_respond_get_contact_list (book, opid, status, NULL);
 				return;
@@ -1180,7 +1183,7 @@ static struct {
 };
 
 static int
-build_query (EBookBackendGAL *bl, const char *query, char **ldap_query)
+build_query (EBookBackendGAL *bl, const char *query, const char *ldap_filter, char **ldap_query)
 {
 	ESExp *sexp;
 	ESExpResult *r;
@@ -1213,7 +1216,12 @@ build_query (EBookBackendGAL *bl, const char *query, char **ldap_query)
 			retval = GNOME_Evolution_Addressbook_QueryRefused;
 		}
 		else {
-			*ldap_query = g_strdup_printf ("(&(mail=*)(!(msExchHideFromAddressLists=TRUE))%s)", r->value.string);
+			char *addfilter = NULL;
+
+			if (ldap_filter) 
+				addfilter = g_strdup_printf ("(%s)", ldap_filter);
+			
+			*ldap_query = g_strdup_printf ("(&(mail=*)(!(msExchHideFromAddressLists=TRUE))%s%s)", addfilter ? addfilter : "", r->value.string);
 			retval = GNOME_Evolution_Addressbook_Success;
 		}
 	} else if (r->type == ESEXP_RES_BOOL) {
@@ -1293,11 +1301,11 @@ member_populate (EContact *contact, char **values, EBookBackendGAL *bl, E2kOpera
 }
 
 static char *
-get_time_stamp (char *serv_time_str)
+get_time_stamp (char *serv_time_str, time_t *mtime)
 {
 	char *input_str = serv_time_str, *result_str = NULL;
 	char *year, *month, *date, *hour, *minute, *second, *zone;
-
+	struct tm mytime;
 	/* input time string will be of the format 20050419162256.0Z
 	 * out put string shd be of the format 2005-04-19T16:22:56.0Z
 	 * ("%04d-%02d-%02dT%02d:%02d:%02dZ")
@@ -1312,7 +1320,16 @@ get_time_stamp (char *serv_time_str)
 	second = G_STRNDUP(input_str, 2)
 	input_str ++; // parse over the dot
 	zone = G_STRNDUP(input_str, 1)
+	
+	mytime.tm_year = atoi(year)-1900;
+	mytime.tm_mon = atoi(month)-1;
+	mytime.tm_mday = atoi(date);
+	mytime.tm_hour = atoi(hour);
+	mytime.tm_min = atoi(minute);
+	mytime.tm_sec = atoi(second);
+	mytime.tm_isdst = 0;
 
+	*mtime = mktime(&mytime);
 	result_str = g_strdup_printf ("%s-%s-%sT%s:%s:%s.%sZ",
 		year, month, date, hour, minute, second, zone);
 
@@ -1334,11 +1351,18 @@ last_mod_time_populate (EContact *contact, char **values,
 			EBookBackendGAL *bl, E2kOperation *op)
 {
 	char *time_str;
+	time_t mtime = 0;
 
 	/* FIXME: Some better way to do this  */
-	time_str = get_time_stamp (values[0]);
+	time_str = get_time_stamp (values[0], &mtime);
 	if (time_str)
 		e_contact_set (contact, E_CONTACT_REV, time_str);
+
+#if ENABLE_CACHE
+	d(printf("%s: %d %d: %s\n", values[0], bl->priv->last_best_time, mtime, ctime(&mtime)));
+	if (bl->priv->last_best_time < mtime)
+		bl->priv->last_best_time = mtime;
+#endif
 	g_free (time_str);
 }
 
@@ -1768,7 +1792,7 @@ start_book_view (EBookBackend  *backend,
 			GPtrArray *ids = NULL;
 			d(printf("Marked for offline and cache present\n"));
 
-			status = build_query (bl, e_data_book_view_get_card_query (view),
+			status = build_query (bl, e_data_book_view_get_card_query (view), NULL, 
 					      &ldap_query);
 
 			/* search for anything */
@@ -1840,7 +1864,7 @@ start_book_view (EBookBackend  *backend,
 
 			d(printf ("start_book_view (%p)\n", view));
 
-			status = build_query (bl, e_data_book_view_get_card_query (view),
+			status = build_query (bl, e_data_book_view_get_card_query (view), NULL, 
 					      &ldap_query);
 
 			/* search for anything */
@@ -2091,6 +2115,7 @@ static int dosearch(
 	LDAPControl **sctrls,
 	LDAPControl **cctrls,
 	struct timeval *timeout,
+	const char *changed_filter,
 	int sizelimit )
 {
 	int			rc;
@@ -2124,13 +2149,27 @@ static int dosearch(
 			msg = ldap_next_message (bl->priv->ldap, msg ) )
 		{
 			EContact *contact;
+			const char *uid;
 
 			switch( ldap_msgtype( msg ) ) {
 			case LDAP_RES_SEARCH_ENTRY:
 				count ++;
 				g_mutex_unlock (bl->priv->ldap_lock);
 				contact = build_contact_from_entry (bl, msg, NULL);
+				uid = e_contact_get_const (contact, E_CONTACT_UID);	
+
 				g_mutex_lock (bl->priv->ldap_lock);
+				if (changed_filter && e_book_backend_summary_check_contact (bl->priv->summary, uid)) {
+					gboolean status;
+
+					/* This is a delta sync. So, lets delete if we have the same object on the cache,
+					 * so that we can update the new ones. */
+					e_book_backend_summary_remove_contact (bl->priv->summary, uid);
+					status = e_book_backend_db_cache_remove_contact (bl->priv->file_db, uid);
+					if (status)
+						printf("Updating contact with uid %s from the server\n", uid);
+				} else 
+					printf("New contact with uid %s, add to the DB\n", uid);
 				e_book_backend_db_cache_add_contact (bl->priv->file_db, contact);
 				e_book_backend_summary_add_contact (bl->priv->summary, contact);
 				g_object_unref (contact);
@@ -2165,7 +2204,7 @@ done:
 }
 
 static void
-generate_cache (EBookBackendGAL *book_backend_gal)
+generate_cache (EBookBackendGAL *book_backend_gal, const char * changed_filter)
 {
 	LDAPGetContactListOp *contact_list_op = g_new0 (LDAPGetContactListOp, 1);
 	EBookBackendGALPrivate *priv;
@@ -2173,18 +2212,21 @@ generate_cache (EBookBackendGAL *book_backend_gal)
 	int  i = 0, rc ;
 	BerElement *prber = NULL;
 	time_t t1;
-	char t[15];
+	char t[15], *cachetime;
 	LDAPControl c[6];
 
 	d(printf ("Generate Cache\n"));
 	priv = book_backend_gal->priv;
 
+	cachetime = e_book_backend_db_cache_get_time (priv->file_db);
 
+	priv->cache_time = cachetime ? atoi(cachetime) : 0;
+	g_free(cachetime);
 	npagedresponses = npagedentries = npagedreferences =
 		npagedextended = npagedpartial = 0;
 
 	build_query (book_backend_gal,
-		     "(beginswith \"file_as\" \"\")", &ldap_query);
+		     "(beginswith \"file_as\" \"\")", changed_filter, &ldap_query);
 
 
 getNextPage:
@@ -2219,7 +2261,7 @@ getNextPage:
 	}
 	g_mutex_unlock (priv->ldap_lock);
 
-	rc = dosearch (book_backend_gal, LDAP_ROOT_DSE, LDAP_SCOPE_SUBTREE, NULL, ldap_query, NULL, 0, NULL, NULL, NULL, -1);
+	rc = dosearch (book_backend_gal, LDAP_ROOT_DSE, LDAP_SCOPE_SUBTREE, NULL, ldap_query, NULL, 0, NULL, NULL, NULL, changed_filter, -1);
 
 
 	/* loop to get the next set of entries */
@@ -2234,14 +2276,45 @@ getNextPage:
 	/* Set the cache to populated and thaw the changes */
 
 	e_book_backend_db_cache_set_populated (priv->file_db);
-	t1 = time (NULL);
-	g_sprintf (t," %d", (int)t1);
+	if (priv->cache_time != priv->last_best_time)
+		priv->last_best_time++;
+	g_sprintf (t," %d", (int)priv->last_best_time);
+	printf("All done, cached time set to %d, %s(%d)\n", priv->last_best_time, ctime (&priv->last_best_time), priv->cache_time);
 	e_book_backend_db_cache_set_time (priv->file_db, t);
 	priv->is_summary_ready = TRUE;
 	book_backend_gal->priv->file_db->sync (book_backend_gal->priv->file_db, 0);
 
 	g_free (ldap_query);
 
+}
+
+static void
+update_cache (EBookBackendGAL *gal)
+{
+	time_t t1;
+	char *t = e_book_backend_db_cache_get_time (gal->priv->file_db);
+	char *filter, *galtime;
+
+	printf("Cache is populated, Refresh now... \n");
+	if (t && *t)
+		t1 = atoi (t);
+	else
+		t1=0;
+	if (t1 == 0)
+		return generate_cache (gal, NULL);
+	gal->priv->last_best_time = t1;
+	struct tm *tm = localtime (&t1);
+	galtime = g_strdup_printf("%04d%02d%02d%02d%02d%02d.0Z",tm->tm_year+1900, tm->tm_mon+1,tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec);
+
+	filter = g_strdup_printf ("|(whenCreated>=%s)(whenChanged>=%s)", galtime, galtime);
+
+	g_free(galtime);
+	printf("Filter %s: Time %d\n", filter, t1);
+	/* Download New contacts */
+	generate_cache (gal, filter);
+
+	/* TODO: Sync deleted contacts */
+	g_free  (filter);
 }
 #endif
 
@@ -2310,16 +2383,16 @@ authenticate_user (EBookBackend *backend,
 				t2 = time (NULL);
 				diff = interval * 24 * 60 *60;
 				/* We have a day specified, then we cache it. */
-				if (!diff || t2 - t1 > diff) {
-					d(printf ("Cache older than specified period, refreshing \n"));
-					generate_cache (be);
-				}
-				else
-					be->priv->is_summary_ready= TRUE;
+				//if (!diff || t2 - t1 > diff) {
+				//	d(printf ("Cache older than specified period, refreshing \n"));
+					update_cache (be);
+				//}
+				//else
+				//	be->priv->is_summary_ready= TRUE;
 			}
 			else {
 				d(printf("Cache not there, generate cache\n"));
-				generate_cache(be);
+				generate_cache(be, NULL);
 			}
 		}
 #endif
@@ -2412,8 +2485,12 @@ set_mode (EBookBackend *backend, int mode)
 				gal_connect (be);
 				e_book_backend_notify_auth_required (backend);
 #if ENABLE_CACHE
-				if (bepriv->marked_for_offline && bepriv->file_db)
-					generate_cache (be);
+				if (bepriv->marked_for_offline && bepriv->file_db) {
+					if (e_book_backend_db_cache_is_populated (be->priv->file_db))
+						update_cache (be);
+					else
+						generate_cache (be, NULL);
+				}
 #endif
 			}
 		}
@@ -2820,6 +2897,10 @@ init (EBookBackendGAL *backend)
 	g_static_rec_mutex_init (&priv->op_hash_mutex);
 
 	backend->priv = priv;
+#if ENABLE_CACHE
+	priv->last_best_time = 0;
+	priv->cache_time = 0;
+#endif
 }
 
 E2K_MAKE_TYPE (e_book_backend_gal, EBookBackendGAL, class_init, init, PARENT_TYPE)
