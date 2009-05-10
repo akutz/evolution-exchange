@@ -2,18 +2,19 @@
 # Estonian translation of Evolution-Exchange.
 #
 # Copyright (C) 2005, 2006 Free Software Foundation, Inc.
-# Copyright (C) 2007, 2008 The GNOME Project.
+# Copyright (C) 2007-2009 The GNOME Project.
 # This file is distributed under the same license as the evolution-exchange
 # package.
 #
-# Ivar Smolin <okul@linux.ee>, 2005-2008.
+# Ivar Smolin <okul@linux.ee>, 2005-2009.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Evolution-Exchange HEAD\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-30 10:43+0000\n"
-"PO-Revision-Date: 2008-08-15 11:30+0300\n"
+"Project-Id-Version: Evolution-Exchange 2.26\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=evolution-exchange&component=general\n"
+"POT-Creation-Date: 2009-04-24 15:09+0000\n"
+"PO-Revision-Date: 2009-05-07 12:50+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -21,11 +22,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
 msgid "Specifies the time interval to refresh the GAL Cache."
 msgstr "GAL-puhvrite värskendamise sageduse määramine."
 
-#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
 msgid ""
 "This key specifies the number of days interval between the GAL cache "
 "refresh. Set this value to zero, if you don't want to update GAL and use the "
@@ -37,25 +36,18 @@ msgstr ""
 "See võti rakendub ainult juhul, kui sul on GAL-i tarbeks võrguvaba režiimi "
 "puhverdamine lubatud."
 
-#: ../addressbook/e-book-backend-exchange.c:1919
-#: ../addressbook/e-book-backend-gal.c:1828 ../storage/exchange-storage.c:135
 msgid "Searching..."
 msgstr "Otsimine..."
 
-#: ../addressbook/e-book-backend-gal.c:292
-#: ../addressbook/e-book-backend-gal.c:313
 msgid "Reconnecting to LDAP server..."
 msgstr "Taasühendumine LDAP serverisse..."
 
-#: ../addressbook/e-book-backend-gal.c:1607
 msgid "Receiving LDAP search results..."
 msgstr "LDAP otsingutulemuste vastuvõtmine..."
 
-#: ../addressbook/e-book-backend-gal.c:1859
 msgid "Error performing search"
 msgstr "Viga otsingu läbiviimisel"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2090
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
@@ -64,179 +56,136 @@ msgstr ""
 "Ressurssi '%s' pole võimalik korduvale koosolekule ajastada.\n"
 "Sa pead iga koosoleku eraldi kirjeldama."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2108
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Ressurss '%s' on valitud aja vältel hõivatud."
 
-#: ../calendar/e-cal-backend-exchange.c:424
 msgid "Authentication failed"
 msgstr "Tõrge autentimisel"
 
-#: ../calendar/e-cal-backend-exchange.c:466
 msgid "Could not find the calendar"
 msgstr "Kalendrit pole võimalik leida"
 
-#: ../camel/camel-exchange-folder.c:53
-msgid "Always check for new mail in this folder"
-msgstr "Uute sõnumite olemasolu kontrollitakse selles kaustas alati"
-
-#: ../camel/camel-exchange-folder.c:197
 msgid "You cannot expunge in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik puhastada."
 
-#: ../camel/camel-exchange-folder.c:228
 msgid "No Subject"
 msgstr "Teema puudub"
 
-#: ../camel/camel-exchange-folder.c:383
 msgid "This message is not available in offline mode."
 msgstr "See sõnum pole autonoomses režiimis saadaval."
 
-#: ../camel/camel-exchange-folder.c:640
 msgid "Moving messages"
 msgstr "Sõnumite ümbertõstmine"
 
-#: ../camel/camel-exchange-folder.c:641
 msgid "Copying messages"
 msgstr "Sõnumite kopeerimine"
 
-#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Kataloogi %s pole võimalik luua: %s"
 
-#: ../camel/camel-exchange-folder.c:1024
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "%s jaoks pole võimalik kokkuvõtet laadida"
 
-#: ../camel/camel-exchange-folder.c:1032
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "%s jaoks pole võimalik puhvrit luua"
 
-#: ../camel/camel-exchange-folder.c:1042
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "%s jaoks pole võimalik päevikut luua"
 
-#: ../camel/camel-exchange-folder.c:1093
 msgid "Scanning for changed messages"
 msgstr "Sõnumite läbivaatus muudetud sõnumite leidmiseks"
 
-#: ../camel/camel-exchange-folder.c:1126
 msgid "Fetching summary information for new messages"
 msgstr "Uute sõnumite kokkuvõtvate andmete hankimine"
 
-#: ../camel/camel-exchange-journal.c:341
 msgid "No folder name found\n"
 msgstr "Kausta nime ei leitud\n"
 
-#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:3033
-#: ../mail/mail-stub-exchange.c:3077 ../mail/mail-stub-exchange.c:3112
-#: ../mail/mail-stub-exchange.c:3139 ../mail/mail-stub-exchange.c:3192
-#: ../mail/mail-stub-exchange.c:3214
 msgid "Folder doesn't exist"
 msgstr "Kausta pole olemas"
 
-#: ../camel/camel-exchange-journal.c:438
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
 "Kausta pole võimalik autonoomses režiimis lisada: puhver pole saadaval."
 
-#: ../camel/camel-exchange-journal.c:454
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Kausta pole võimalik autonoomses režiimis lisada: %s"
 
-#: ../camel/camel-exchange-provider.c:55
 msgid "Secure or Plaintext Password"
 msgstr "Turvaline või avatekstiline parool"
 
-#: ../camel/camel-exchange-provider.c:56
-#: ../camel/camel-exchange-provider.c:139
 msgid "Plaintext Password"
 msgstr "Avatekstiline parool"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:57
-#: ../camel/camel-exchange-provider.c:128
 msgid "Secure Password"
 msgstr "Turvaline parool"
 
-#: ../camel/camel-exchange-provider.c:63
 msgid "Checking for New Mail"
 msgstr "Uute sõnumite kontroll"
 
-#: ../camel/camel-exchange-provider.c:65
 msgid "C_heck for new messages in all folders"
 msgstr "_Rämpssõnumeid kontrollitakse kõigis kaustades"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:73
 msgid "Windows User_name:"
 msgstr "Windowsi kasutaja_nimi:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:78
 msgid "Global Address List / Active Directory"
 msgstr "Global Address List / Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:82
 msgid "_Global Catalog server name:"
 msgstr "_Globaalse kataloogiserveri nimi:"
 
-#: ../camel/camel-exchange-provider.c:84
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "GA_L vastuste arvu piirang: %s"
 
-#: ../camel/camel-exchange-provider.c:86
 msgid "Authentication _Type:"
 msgstr "Autentimise _liik:"
 
-#: ../camel/camel-exchange-provider.c:89
+msgid "Allow _browsing of the GAL until download limit is reached"
+msgstr ""
+
 msgid "Options"
 msgstr "Valikud"
 
-#: ../camel/camel-exchange-provider.c:91
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Parooli aegumishoiatuse periood: %s"
 
-#: ../camel/camel-exchange-provider.c:93
 msgid "Automatically synchroni_ze account locally"
 msgstr "Ko_nto automaatne kohapeale sünkroniseerimine"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:96
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr ""
 "Filtrite r_akendamine kõigile selle serveri Sisendkasti uutele sõnumitele"
 
-#: ../camel/camel-exchange-provider.c:98
 msgid "Check new messages for _Junk contents"
 msgstr "Uute sõnumite sisule tehakse _rämpspostikontroll"
 
-#: ../camel/camel-exchange-provider.c:100
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Rämpssõnumeid kontrollitakse ainult sis_endkaustas"
 
-#: ../camel/camel-exchange-provider.c:110
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:112
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "E-posti (ja muude andmete) käsitlemiseks Microsoft Exchange serveris"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:131
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -244,7 +193,6 @@ msgstr ""
 "Selle valikuga kasutab Exchange server ühendumisel turvalise parooliga "
 "(NTLM) autentimist."
 
-#: ../camel/camel-exchange-provider.c:141
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -252,21 +200,17 @@ msgstr ""
 "Selle valikuga kasutab Exchange server ühendumisel standardset avatekstilise "
 "parooliga autentimist."
 
-#: ../camel/camel-exchange-store.c:314
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange server %s"
 
-#: ../camel/camel-exchange-store.c:317
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Kasutaja %s Exchange konto hostil %s"
 
-#: ../camel/camel-exchange-store.c:399
 msgid "Evolution Exchange backend process"
 msgstr "Evolution Exchange taustaprotsess"
 
-#: ../camel/camel-exchange-store.c:442
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -274,166 +218,127 @@ msgstr ""
 "Serverisse pole võimalik autentida. (Parool vale?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:495
 #, c-format
 msgid "No such folder %s"
 msgstr "Kausta %s ei ole"
 
-#: ../camel/camel-exchange-store.c:572
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik tellida."
 
-#: ../camel/camel-exchange-store.c:589
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Kaustas tellimusest pole autonoomses režiimis võimalik loobuda."
 
-#: ../camel/camel-exchange-store.c:727
 msgid "Cannot get folder info in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik hankida."
 
-#: ../camel/camel-exchange-store.c:800
 msgid "Cannot create folder in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik luua."
 
-#: ../camel/camel-exchange-store.c:827
 msgid "Cannot delete folder in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik kustutada."
 
-#: ../camel/camel-exchange-store.c:843
 msgid "Cannot rename folder in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik ümber nimetada."
 
-#: ../camel/camel-exchange-transport.c:111
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "Exchange transporti saab kasutada ainult Exchange e-posti allikatega"
 
-#: ../camel/camel-exchange-transport.c:122
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "Sõnumit pole võimalik saata: üks või enam saajaid on vigased"
 
-#: ../camel/camel-exchange-transport.c:132
 msgid "Could not find 'From' address in message"
 msgstr "Sõnumist pole võimalik 'Saatja' aadressi leida"
 
-#: ../camel/camel-stub.c:165 ../camel/camel-stub.c:229
 #, c-format
 msgid "Could not create socket: %s"
 msgstr "Soklit pole võimalik luua: %s"
 
-#: ../camel/camel-stub.c:183
 #, c-format
 msgid "Could not connect to %s: Please restart Evolution"
 msgstr "%s-ga pole võimalik ühenduda: Palun taaskäivita Evolution"
 
-#: ../camel/camel-stub.c:188 ../camel/camel-stub.c:247
 #, c-format
 msgid "Could not connect to %s: %s"
 msgstr "%s-ga pole võimalik ühenduda: %s"
 
-#: ../camel/camel-stub.c:212
 #, c-format
 msgid "Count not read file '%s': %s"
 msgstr "Faili '%s' pole võimalik lugeda: %s"
 
-#: ../camel/camel-stub.c:220
 #, c-format
 msgid "Wrong size file '%s'"
 msgstr "Vale faili suurus '%s'"
 
-#: ../camel/camel-stub.c:283
 #, c-format
 msgid "Path too long: %s"
 msgstr "Rada on liiga pikk: %s"
 
-#: ../camel/camel-stub.c:318
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr "Olekulõime pole võimalik käivitada: %s"
 
-#: ../camel/camel-stub.c:572
 #, c-format
 msgid "Lost connection to %s"
 msgstr "%s'ga kadus ühendus"
 
-#: ../camel/camel-stub.c:576
 #, c-format
 msgid "Error communicating with %s: %s"
 msgstr "Viga %s'ga suhtlemisel: %s"
 
-#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:958
 msgid "No such folder"
 msgstr "Sellist kausta pole"
 
-#. FIXME: should be this, but string freeze freezes me to do so.
-#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1607
-#: ../mail/mail-stub-exchange.c:3010 ../mail/mail-stub-exchange.c:3050
-#: ../mail/mail-stub-exchange.c:3116 ../mail/mail-stub-exchange.c:3166
-#: ../mail/mail-stub-exchange.c:3229
 msgid "Permission denied"
 msgstr "Ligipääs keelatud"
 
-#: ../mail/mail-stub-exchange.c:780 ../mail/mail-stub-exchange.c:872
 msgid "Could not open folder"
 msgstr "Kausta pole võimalik avada"
 
-#: ../mail/mail-stub-exchange.c:866 ../mail/mail-stub-exchange.c:888
 msgid "Could not open folder: Permission denied"
 msgstr "Kausta pole võimalik avada: Ligipääs keelatud"
 
-#: ../mail/mail-stub-exchange.c:967
 msgid "Could not create folder."
 msgstr "Kausta pole võimalik luua."
 
-#: ../mail/mail-stub-exchange.c:1055
 msgid "Could not open Deleted Items folder"
 msgstr "Kustutatud kirjete kausta pole võimalik avada"
 
-#: ../mail/mail-stub-exchange.c:1386 ../mail/mail-stub-exchange.c:1427
 msgid "Could not get new messages"
 msgstr "Uusi sõnumeid pole võimalik hankida"
 
-#: ../mail/mail-stub-exchange.c:1603
 msgid "Could not empty Deleted Items folder"
 msgstr "Kustutatud kirjete kausta pole võimalik tühjendada"
 
-#: ../mail/mail-stub-exchange.c:1680
+msgid "Permission denied. Could not delete certain messages."
+msgstr "Ligipääs keelatud. Mõnda sõnumit pole võimalik kustutada."
+
 msgid "Could not append message; mailbox is over quota"
 msgstr "Sõnumit pole võimalik lisada; postkasti maht ületab kvooti"
 
-#: ../mail/mail-stub-exchange.c:1681
 msgid "Could not append message"
 msgstr "Sõnumit pole võimalik lisada"
 
-#: ../mail/mail-stub-exchange.c:2443
 msgid "No such message"
 msgstr "Sellist sõnumit pole"
 
-#: ../mail/mail-stub-exchange.c:2524
 msgid "Message has been deleted"
 msgstr "Sõnum on kustutatud"
 
-#: ../mail/mail-stub-exchange.c:2526
 msgid "Error retrieving message"
 msgstr "Viga sõnumi vastuvõtmisel"
 
-#: ../mail/mail-stub-exchange.c:2569
 msgid "Mailbox does not support full-text searching"
 msgstr "Postkast ei toeta täistekstiotsingut"
 
-#: ../mail/mail-stub-exchange.c:2667
 msgid "Unable to move/copy messages"
 msgstr "Sõnumeid pole võimalik kopeerida või ümber tõsta"
 
-#: ../mail/mail-stub-exchange.c:2927
 msgid "No mail submission URI for this mailbox"
 msgstr "Sellele postkastile pole posti tellimise URI"
 
-#: ../mail/mail-stub-exchange.c:2961
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Server ei nõustu posti transportimisega läbi Exchange"
 
-#: ../mail/mail-stub-exchange.c:2963
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -442,7 +347,6 @@ msgstr ""
 "Sinu kontol pole õiguset kasutada\n"
 "<%s> saatja aadressiks."
 
-#: ../mail/mail-stub-exchange.c:2975
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -450,34 +354,24 @@ msgstr ""
 "Sõnumit pole võimalik saata.\n"
 "See võib tähendada, et Sinu konto ületab kehtestatud kvooti."
 
-#: ../mail/mail-stub-exchange.c:2979
 msgid "Could not send message"
 msgstr "Sõnumit pole võimalik saata"
 
-#: ../mail/mail-stub-exchange.c:3002 ../mail/mail-stub-exchange.c:3055
-#: ../mail/mail-stub-exchange.c:3120 ../mail/mail-stub-exchange.c:3171
-#: ../mail/mail-stub-exchange.c:3235
 msgid "Generic error"
 msgstr "Üldine viga"
 
-#: ../mail/mail-stub-exchange.c:3006
 msgid "Folder already exists"
 msgstr "Kaust on juba olemas"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
 msgid "Evolution Addressbook Exchange backend"
 msgstr "Evolutioni Aadressiraamatu Exchange taustaprogramm"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
 msgid "Evolution Calendar Exchange backend"
 msgstr "Evolutioni Kalendri Exchange taustaprogramm"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-#: ../storage/main.c:219
 msgid "Evolution Connector for Microsoft Exchange"
 msgstr "Evolution Connector for Microsoft Exchange"
 
-#: ../storage/exchange-autoconfig-wizard.c:227
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -487,7 +381,6 @@ msgstr ""
 "Veendu, et URL on korrektne (proovi \"%s\" kasutuseloleva \"%s\" asemel?) ja "
 "proovi uuesti."
 
-#: ../storage/exchange-autoconfig-wizard.c:235
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -495,7 +388,6 @@ msgstr ""
 "Exchange serveri asukohta pole võimalik määrata.\n"
 "Veendu, et serveri nimi on õigesti sisestatud ja proovi uuesti."
 
-#: ../storage/exchange-autoconfig-wizard.c:244
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -503,7 +395,6 @@ msgstr ""
 "Exchange serverisse pole võimalik autentida.\n"
 "Veendu, et kasutajanimi ja parool on õiged ning proovi uuesti."
 
-#: ../storage/exchange-autoconfig-wizard.c:251
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -517,7 +408,6 @@ msgstr ""
 "Võibolla pead sa oma kasutajanimele lisama ka Windowsi domeeni nime (näiteks "
 "\"MINUDOMEEN\\%s\")."
 
-#: ../storage/exchange-autoconfig-wizard.c:263
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -525,7 +415,6 @@ msgstr ""
 "Määratud URL-ilt pole võimalik OWA andmeid leida.\n"
 "Veendu, et URL on korrektne ja proovi uuesti."
 
-#: ../storage/exchange-autoconfig-wizard.c:270
 msgid ""
 "Evolution Connector for Microsoft Exchange requires access to certain "
 "functionality on the Exchange server that appears to be disabled or "
@@ -544,7 +433,6 @@ msgstr ""
 "Lähema teabe jaoks klõpsa allpool asuvat viita. Selle teabe võiks edastada "
 "ka Exchange haldajale:"
 
-#: ../storage/exchange-autoconfig-wizard.c:292
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 server. "
 "Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
@@ -553,7 +441,6 @@ msgstr ""
 "Sinu poolt määratud Exchange serveri URL on Exchange 5.5 Serverile. "
 "Evolution Connector toetab ainult Microsoft Exchange versioone 2000 ja 2003."
 
-#: ../storage/exchange-autoconfig-wizard.c:306
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -561,7 +448,6 @@ msgstr ""
 "Tundmatu vea tõttu pole Exchange kontot võimalik seadistada. Kontrolli URL-"
 "i, kasutajanime ja parooli ning proovi uuesti."
 
-#: ../storage/exchange-autoconfig-wizard.c:350
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -571,7 +457,6 @@ msgstr ""
 "Global Catalog serverisse pole võimalik autentida. Võibolla pead sa oma "
 "kasutajanimele lisama ka Windowsi domeeni nime (näiteks \"MINUDOMEEN\\%s\")."
 
-#: ../storage/exchange-autoconfig-wizard.c:357
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -579,12 +464,9 @@ msgstr ""
 "Määratud serveriga pole võimalik ühendust võtta.\n"
 "Palun kontrolli serveri nime ja proovi uuesti."
 
-#: ../storage/exchange-autoconfig-wizard.c:394
-#: ../storage/exchange-autoconfig-wizard.c:398
 msgid "Unknown"
 msgstr "Tundmatu"
 
-#: ../storage/exchange-autoconfig-wizard.c:463
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -592,32 +474,24 @@ msgstr ""
 "Seadistamise süsteemne viga.\n"
 "Uut kontot pole võimalik luua."
 
-#: ../storage/exchange-autoconfig-wizard.c:477
 msgid "You may only configure a single Exchange account"
 msgstr "Sa võid seadistada ainult ühe Exchange konto"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:1
-#: ../storage/exchange-change-password.glade.h:1
 msgid "*"
 msgstr "*"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
 msgstr "Tõrge seadistamisel"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:3
 msgid "Done"
 msgstr "Valmis"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:4
 msgid "Email Address:"
 msgstr "E-posti aadress:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:5
 msgid "Evolution Connector for Microsoft Exchange Configuration"
 msgstr "Evolution Connector for Microsoft Exchange seadistused"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:6
 msgid ""
 "Evolution Connector for Microsoft Exchange can use account information from "
 "your existing Outlook Web Access (OWA) account.\n"
@@ -631,57 +505,45 @@ msgstr ""
 "Sisesta oma OWA saidi aadress (URL), kasutajanimi ja parool ning klõpsa "
 "\"Edasi\".\n"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:10
 msgid ""
 "Evolution Connector for Microsoft Exchange could not find the Global Catalog "
 "replica for your site. Please enter the name of your Global Catalog server. "
 "You may need to ask your system administrator for the correct value.\n"
 msgstr ""
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:12
 msgid ""
 "Evolution Connector for Microsoft Exchange has encountered a problem "
 "configuring your Exchange account.\n"
 msgstr ""
 "Evolution Connector'il tekkis Sinu Exchange konto seadistamisel probleem.\n"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:14
 msgid "Exchange Configuration"
 msgstr "Exchange sätted"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:15
 msgid "Full Name:"
 msgstr "Täisnimi:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:16
 msgid "GC Server:"
 msgstr "GC Server:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:17
 msgid "Make this my default account"
 msgstr "Muuda see minu vaikimis kontoks"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:18
 msgid "OWA URL:"
 msgstr "OWA URL:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:19
 msgid "Password:"
 msgstr "Parool:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:20
 msgid "Remember this password"
 msgstr "Parooli meeldejätmine"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:21
 msgid "Username:"
 msgstr "Kasutajanimi:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:22
 msgid "Welcome"
 msgstr "Tere tulemast"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:23
 msgid ""
 "Welcome to Evolution Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
@@ -695,7 +557,6 @@ msgstr ""
 "\n"
 "Jätkamiseks palun vajuta \"Edasi\"."
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
 "Your Connector account is now ready to use. Click the \"Apply\" button to "
 "save your\n"
@@ -704,7 +565,6 @@ msgstr ""
 "Sinu Connector'i konto on kasutamiseks valmis. Sätete salvestamisesk vajuta "
 "\"Rakenda\"."
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:30
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\".\n"
@@ -715,7 +575,6 @@ msgstr ""
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
-#: ../storage/exchange-change-password.c:125
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
@@ -723,68 +582,52 @@ msgstr ""
 "Sisestatud parool ei klapi Sinu konto praeguse parooliga. Palun sisesta õige "
 "parool"
 
-#: ../storage/exchange-change-password.c:132
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr "Paroolid ei klapi omavahel. Palun sisesta paroolid uuesti."
 
-#: ../storage/exchange-change-password.glade.h:2
 msgid "Change Password"
 msgstr "Paroolivahetus"
 
-#: ../storage/exchange-change-password.glade.h:3
 msgid "Confirm Password:"
 msgstr "Parool uuesti:"
 
-#: ../storage/exchange-change-password.glade.h:4
 msgid "Current Password:"
 msgstr "Praegune parool:"
 
-#: ../storage/exchange-change-password.glade.h:5
 msgid "New Password:"
 msgstr "Uus parool:"
 
-#: ../storage/exchange-change-password.glade.h:6
 msgid "Your current password has expired. Please change your password now."
 msgstr ""
 "Sinu praegune parool on aegunud. Palun muuda oma parool viivitamatult ära."
 
-#: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
 msgstr "Autor (lugemine, loomine)"
 
-#: ../storage/exchange-delegates.glade.h:2
 msgid "C_alendar:"
 msgstr "K_alender:"
 
-#: ../storage/exchange-delegates.glade.h:3
 msgid "Co_ntacts:"
 msgstr "Ko_ntaktid:"
 
-#: ../storage/exchange-delegates.glade.h:4
 msgid "Delegate Permissions"
 msgstr "Delegaadi pääsuõigused"
 
-#: ../storage/exchange-delegates.glade.h:5
 msgid "Delegates"
 msgstr "Delegaadid"
 
-#: ../storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
 msgstr "Toimetaja (lugemine, loomine, muutmine)"
 
-#: ../storage/exchange-delegates.glade.h:7
 msgid "None"
 msgstr "Puuduvad"
 
-#: ../storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
 msgstr "Õigused kasutajale"
 
-#: ../storage/exchange-delegates.glade.h:9
 msgid "Reviewer (read-only)"
 msgstr "Ülevaataja (ainult lugemiseks)"
 
-#: ../storage/exchange-delegates.glade.h:10
 msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
@@ -792,31 +635,24 @@ msgstr ""
 "Nendel kasutajatel on õigus sinu nimel e-posti saata ja\n"
 "vastavalt sinu poolt määratud õigustele sinu kaustu kasutada."
 
-#: ../storage/exchange-delegates.glade.h:12
 msgid "_Delegate can see private items"
 msgstr "_Delegaat saab näha isiklikke kirjeid"
 
-#: ../storage/exchange-delegates.glade.h:13
 msgid "_Edit"
 msgstr "_Redigeeri"
 
-#: ../storage/exchange-delegates.glade.h:14
 msgid "_Inbox:"
 msgstr "_Sisendkast:"
 
-#: ../storage/exchange-delegates.glade.h:15
 msgid "_Tasks:"
 msgstr "Ü_lesanded:"
 
-#: ../storage/exchange-folder-tree.glade.h:1
 msgid "Exchange Folder Tree"
 msgstr "Exchange kaustapuu"
 
-#: ../storage/exchange-migrate.c:60
 msgid "Migrating Exchange Folders..."
 msgstr "Exchange kaustade migreerimine..."
 
-#: ../storage/exchange-migrate.c:68
 #, c-format
 msgid ""
 "The location and hierarchy of the Evolution exchange account folders are "
@@ -829,7 +665,6 @@ msgstr ""
 "\n"
 "Palun oota kuni Evolution migreerib sinu kaustu..."
 
-#: ../storage/exchange-migrate.c:101
 #, c-format
 msgid ""
 "Warning: Evolution could not migrate all the Exchange account data from the "
@@ -841,12 +676,10 @@ msgstr ""
 "%d.%d.%d. \n"
 "Andmeid ei kustutatud, kuid need pole selles Evolutioni versioonis nähtaval"
 
-#: ../storage/exchange-migrate.c:132
 #, c-format
 msgid "Migrating `%s':"
 msgstr "`%s' migreerimine:"
 
-#: ../storage/exchange-oof.glade.h:1
 msgid ""
 "<b>Currently, your status is \"Out of the Office\". </b>\n"
 "\n"
@@ -856,15 +689,12 @@ msgstr ""
 "\n"
 "Kas sa soovid määrata uueks olekuks \"kontoris\"?"
 
-#: ../storage/exchange-oof.glade.h:4
 msgid "<b>Out of Office Message:</b>"
 msgstr ""
 
-#: ../storage/exchange-oof.glade.h:5
 msgid "<b>Status:</b>"
 msgstr "<b>Olek:</b>"
 
-#: ../storage/exchange-oof.glade.h:6
 msgid ""
 "<small>The message specified below will be automatically sent to each person "
 "who sends\n"
@@ -873,156 +703,118 @@ msgstr ""
 "<small>Allpool olev sõnum saadetakse automaatselt kõigile isikutele, kes "
 "saadavad sulle e-posti ajal, mil Sind pole kontoris.</small>"
 
-#: ../storage/exchange-oof.glade.h:8
 msgid "I am currently in the office"
 msgstr "Ma olen hetkel kontoris"
 
-#: ../storage/exchange-oof.glade.h:9
 msgid "I am currently out of the office"
 msgstr "Ma pole hetkel kontoris"
 
-#: ../storage/exchange-oof.glade.h:10
 msgid "No, Don't Change Status"
 msgstr "Ei, olekut mitte muuta"
 
-#: ../storage/exchange-oof.glade.h:11
 msgid "Out of Office Assistant"
 msgstr ""
 
-#: ../storage/exchange-oof.glade.h:12
 msgid "Yes, Change Status"
 msgstr "Jah, olekut tuleb muuta"
 
-#: ../storage/exchange-passwd-expiry.glade.h:1
 msgid "Password Expiry Warning..."
 msgstr "Parooli aegumishoiatus..."
 
-#: ../storage/exchange-passwd-expiry.glade.h:2
 msgid "Your password will expire in 7 days..."
 msgstr "Sinu parool aegub 7 päeva pärast..."
 
-#: ../storage/exchange-passwd-expiry.glade.h:3
 msgid "_Change Password"
 msgstr "_Muuda parooli"
 
-#: ../storage/exchange-passwd-expiry.glade.h:4
 msgid "ok_button"
 msgstr "olgu_nupp"
 
-#: ../storage/exchange-permissions-dialog.glade.h:1
 msgid "    "
 msgstr "    "
 
-#: ../storage/exchange-permissions-dialog.glade.h:2
 msgid "<b>Permissions</b>"
 msgstr "<b>Pääsuõigused</b>"
 
-#: ../storage/exchange-permissions-dialog.glade.h:3
 msgid "Cannot Delete"
 msgstr "Kustutamine keelatud"
 
-#: ../storage/exchange-permissions-dialog.glade.h:4
 msgid "Cannot Edit"
 msgstr "Muutmine keelatud"
 
-#: ../storage/exchange-permissions-dialog.glade.h:5
 msgid "Create items"
 msgstr "Kirjete loomine"
 
-#: ../storage/exchange-permissions-dialog.glade.h:6
 msgid "Create subfolders"
 msgstr "Alamkaustade loomine"
 
-#: ../storage/exchange-permissions-dialog.glade.h:7
 msgid "Delete Any Items"
 msgstr "Suvaliste kirjete kustutamine"
 
-#: ../storage/exchange-permissions-dialog.glade.h:8
 msgid "Delete Own Items"
 msgstr "Oma kirjete kustutamine"
 
-#: ../storage/exchange-permissions-dialog.glade.h:9
 msgid "Edit Any Items"
 msgstr "Suvaliste kirjete muutmine"
 
-#: ../storage/exchange-permissions-dialog.glade.h:10
 msgid "Edit Own Items"
 msgstr "Oma kirjete muutmine"
 
-#: ../storage/exchange-permissions-dialog.glade.h:11
 msgid "Folder contact"
 msgstr "Kausta kontakt"
 
-#: ../storage/exchange-permissions-dialog.glade.h:12
 msgid "Folder owner"
 msgstr "Kaustaomanik"
 
-#: ../storage/exchange-permissions-dialog.glade.h:13
 msgid "Folder visible"
 msgstr "Kaust nähtaval"
 
-#: ../storage/exchange-permissions-dialog.glade.h:14
 msgid "Read items"
 msgstr "Kirjete lugemine"
 
-#: ../storage/exchange-permissions-dialog.glade.h:15
 msgid "Role: "
 msgstr "Roll: "
 
-#: ../storage/exchange-storage.c:338
 msgid "Connecting..."
 msgstr "Ühendumine..."
 
-#: ../storage/ximian-connector-setup.c:75
 msgid "Evolution Connector for Microsoft Exchange Setup Tool"
 msgstr "Evolution Connector for Microsoft Exchange seadistusvahend"
 
-#: ../storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
 msgstr "Exchange serveris sinu parooli muutmine"
 
-#: ../storage/ximian-connector.xml.h:2
 msgid "Folder _Size"
 msgstr "Kausta _suurus"
 
-#: ../storage/ximian-connector.xml.h:3
 msgid "Get the size of personal folders"
 msgstr "Isiklike kaustade suuruse hankimine"
 
-#: ../storage/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
 msgstr "_Telli teiste kasutajate kaustu..."
 
-#: ../storage/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Serveris olevate teistele kasutajatele kuuluvate kaustade tellimine"
 
-#: ../storage/ximian-connector.xml.h:6
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
 "Käsuga \"Telli teiste kasutajate kaustu\" tellitud kaustadest loobumine"
 
-#: ../storage/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
 msgstr "Exchange kalendri delegaatide sätete vaatamine või muutmine"
 
-#: ../storage/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr ""
 
-#: ../storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
 msgstr "_Muuda Exchange parooli..."
 
-#: ../storage/ximian-connector.xml.h:10
 msgid "_Delegation Assistant"
 msgstr "_Delegeerimisabiline"
 
-#: ../storage/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
 msgstr ""
 
-#: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Loobu teiste kasutajate kaustade tellimusest"
