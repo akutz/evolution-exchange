@@ -73,7 +73,7 @@
 
 #define TV_TO_MILLIS(timeval) ((timeval).tv_sec * 1000 + (timeval).tv_usec / 1000)
 
-static gchar *query_prop_to_ldap(gchar *query_prop);
+static gchar *query_prop_to_ldap (const gchar *query_prop);
 static int build_query (EBookBackendGAL *bl, const char *query, const char *ldap_filter, char **ldap_query);
 
 #define PARENT_TYPE E_TYPE_BOOK_BACKEND
@@ -151,7 +151,7 @@ static void last_mod_time_populate (EContact *contact, char **values, EBookBacke
 
 struct prop_info {
 	EContactField field_id;
-	char *ldap_attr;
+	const char *ldap_attr;
 #define PROP_TYPE_STRING   0x01
 #define PROP_TYPE_COMPLEX  0x02
 #define PROP_TYPE_GROUP    0x04
@@ -1002,7 +1002,7 @@ func_not(ESExp *f, int argc, ESExpResult **argv, void *data)
 }
 
 static gchar *
-query_prop_to_ldap(gchar *query_prop)
+query_prop_to_ldap (const gchar *query_prop)
 {
 	int i;
 
@@ -1077,7 +1077,8 @@ static ESExpResult *
 func_is_or_begins_with(ESExp *f, int argc, ESExpResult **argv, gboolean exact)
 {
 	ESExpResult *r;
-	char *propname, *str, *ldap_attr, *star, *filter;
+	const char *star;
+	char *propname, *str, *ldap_attr, *filter;
 
 	if (argc != 2
 	    || argv[0]->type != ESEXP_RES_STRING
@@ -1170,7 +1171,7 @@ func_endswith(struct _ESExp *f, int argc, struct _ESExpResult **argv, void *data
 
 /* 'builtin' functions */
 static struct {
-	char *name;
+	const char *name;
 	ESExpFunc *func;
 } symbols[] = {
 	{ "and", func_and },
@@ -1192,7 +1193,7 @@ build_query (EBookBackendGAL *bl, const char *query, const char *ldap_filter, ch
 	sexp = e_sexp_new();
 
 	for(i=0;i<sizeof(symbols)/sizeof(symbols[0]);i++) {
-		e_sexp_add_function(sexp, 0, symbols[i].name,
+		e_sexp_add_function(sexp, 0, (char *) symbols[i].name,
 				    symbols[i].func, NULL);
 	}
 
@@ -1472,8 +1473,8 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 							if (!subldap) {
 								subldap = e2k_global_catalog_get_ldap (bl->priv->gc, NULL, NULL);
 							}
-							grpattrs[0] = "cn";
-							grpattrs[1] = "mail";
+							grpattrs[0] = (char *) "cn";
+							grpattrs[1] = (char *) "mail";
 							grpattrs[2] = NULL;
 							/*search for member attributes*/
 							/*get the e-mail id for each member and add them to the list*/
@@ -2106,12 +2107,12 @@ parse_page_control(
 #if ENABLE_CACHE
 static int dosearch(
 	EBookBackendGAL *bl,
-	char	*base,
-	int		scope,
-	char	*filtpatt,
-	char	*value,
-	char	**attrs,
-	int		attrsonly,
+	const char *base,
+	int scope,
+	char *filtpatt,
+	char *value,
+	char **attrs,
+	int attrsonly,
 	LDAPControl **sctrls,
 	LDAPControl **cctrls,
 	struct timeval *timeout,
@@ -2211,7 +2212,6 @@ generate_cache (EBookBackendGAL *book_backend_gal, const char * changed_filter)
 	gchar *ldap_query;
 	int  i = 0, rc ;
 	BerElement *prber = NULL;
-	time_t t1;
 	char t[15], *cachetime;
 	LDAPControl c[6];
 
@@ -2269,9 +2269,9 @@ getNextPage:
 	if ( (pageSize !=0 ) && (morePagedResults != 0)) {
 		d(printf ("Start next iteration\n"));
 		goto getNextPage;
-	}
-	else
+	} else {
 		d(printf ("All the entries fetched and finished building the cache\n"));
+	}
 
 	/* Set the cache to populated and thaw the changes */
 
@@ -2279,7 +2279,7 @@ getNextPage:
 	if (priv->cache_time != priv->last_best_time)
 		priv->last_best_time++;
 	g_sprintf (t," %d", (int)priv->last_best_time);
-	printf("All done, cached time set to %d, %s(%d)\n", priv->last_best_time, ctime (&priv->last_best_time), priv->cache_time);
+	printf("All done, cached time set to %d, %s(%d)\n", (gint) priv->last_best_time, ctime (&priv->last_best_time), (gint) priv->cache_time);
 	e_book_backend_db_cache_set_time (priv->file_db, t);
 	priv->is_summary_ready = TRUE;
 	book_backend_gal->priv->file_db->sync (book_backend_gal->priv->file_db, 0);
@@ -2294,6 +2294,7 @@ update_cache (EBookBackendGAL *gal)
 	time_t t1;
 	char *t = e_book_backend_db_cache_get_time (gal->priv->file_db);
 	char *filter, *galtime;
+	struct tm *tm;
 
 	printf("Cache is populated, Refresh now... \n");
 	if (t && *t)
@@ -2303,13 +2304,13 @@ update_cache (EBookBackendGAL *gal)
 	if (t1 == 0)
 		return generate_cache (gal, NULL);
 	gal->priv->last_best_time = t1;
-	struct tm *tm = localtime (&t1);
+	tm = localtime (&t1);
 	galtime = g_strdup_printf("%04d%02d%02d%02d%02d%02d.0Z",tm->tm_year+1900, tm->tm_mon+1,tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec);
 
 	filter = g_strdup_printf ("|(whenCreated>=%s)(whenChanged>=%s)", galtime, galtime);
 
 	g_free(galtime);
-	printf("Filter %s: Time %d\n", filter, t1);
+	printf("Filter %s: Time %d\n", filter, (gint) t1);
 	/* Download New contacts */
 	generate_cache (gal, filter);
 
@@ -2875,7 +2876,7 @@ class_init (EBookBackendGALClass *klass)
 		supported_fields = g_list_append (supported_fields,
 						  (char *)e_contact_field_name (prop_info[i].field_id));
 	}
-	supported_fields = g_list_append (supported_fields, "file_as");
+	supported_fields = g_list_append (supported_fields, (gpointer) "file_as");
 
 	search_attrs = g_new (char *, num_prop_infos + 1);
 	for (i = 0; i < num_prop_infos; i++)

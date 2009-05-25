@@ -180,6 +180,7 @@ static int
 exchange_entry_write (CamelOfflineJournal *journal, CamelDListNode *entry, FILE *out)
 {
 	CamelExchangeJournalEntry *exchange_entry = (CamelExchangeJournalEntry *) entry;
+	const char *string;
 	char *tmp;
 
 	if (camel_file_util_encode_uint32 (out, exchange_entry->type) == -1)
@@ -197,8 +198,8 @@ exchange_entry_write (CamelOfflineJournal *journal, CamelDListNode *entry, FILE 
 			return -1;
 		if (camel_file_util_encode_string (out, exchange_entry->folder_name))
 			return -1;
-		tmp = exchange_entry->delete_original ? "True" : "False";
-		if (camel_file_util_encode_string (out, tmp))
+		string = exchange_entry->delete_original ? "True" : "False";
+		if (camel_file_util_encode_string (out, string))
 			return -1;
 		break;
 	case CAMEL_EXCHANGE_JOURNAL_ENTRY_DELETE:

@@ -110,7 +110,7 @@ show_error_dialog()
 					       GTK_DIALOG_DESTROY_WITH_PARENT,
 					       GTK_MESSAGE_ERROR,
 					       GTK_BUTTONS_OK,
-					       err_string);
+					       "%s", err_string);
 	gtk_dialog_run (GTK_DIALOG (error_dialog));
 	gtk_widget_destroy (error_dialog);
 
@@ -288,7 +288,7 @@ cp_r (char *src, const char *dest)
 }
 
 static gchar *
-form_dir_path (char *file_name, char *delim)
+form_dir_path (char *file_name, const char *delim)
 {
 	GString *path = g_string_new (NULL);
 	gchar *dir_path;
@@ -309,7 +309,8 @@ static gchar*
 get_contacts_dir_from_filename(const char *migr_file)
 {
 	char *file_to_be_migrated = g_strdup (migr_file);
-	char *dot, *delim = "_", *file_name;
+	char *dot, *file_name;
+	const char *delim = "_";
 	gchar *dir_path = NULL;
 
 	dot = strchr (file_to_be_migrated, '.');

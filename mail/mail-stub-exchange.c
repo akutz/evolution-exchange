@@ -2648,7 +2648,7 @@ transfer_messages (MailStub *stub, const char *source_name,
 
 		g_hash_table_insert (order, mmsg, GINT_TO_POINTER (i));
 		g_ptr_array_add (hrefs, strrchr (mmsg->href, '/') + 1);
-		g_ptr_array_add (new_uids, "");
+		g_ptr_array_add (new_uids, (gpointer) "");
 	}
 
 	if (delete_originals && hrefs->len > 1) {
@@ -2798,8 +2798,9 @@ get_folder_info_data (MailStub *stub, const char *top, guint32 store_flags,
 			hier = exchange_account_get_hierarchy_by_type (mse->account, EXCHANGE_HIERARCHY_PUBLIC);
 			if (hier)
 				exchange_hierarchy_scan_subtree (hier, hier->toplevel, mode);
-		} else
+		} else {
 			d(g_print ("%s(%d):%s: NOT SUBSCRIBED - open_folder returned = [%d]\n", __FILE__, __LINE__, __GNUC_PRETTY_FUNCTION__, result));
+		}
 	}
 
 	/* No need to check for recursive flag, as I will always be returning a tree, instead of a single folder info object */

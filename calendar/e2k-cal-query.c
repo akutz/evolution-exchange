@@ -362,7 +362,7 @@ func_completed_before (ESExp *esexp, int argc, ESExpResult **argv, void *user_da
 }
 
 static struct {
-	char *name;
+	const char *name;
 	ESExpFunc *func;
 } functions[] = {
 	{ "and", func_and },
@@ -399,7 +399,7 @@ e2k_cal_query_to_restriction (ECalBackendExchange *cbex,
 
 	esexp = e_sexp_new ();
 	for (i = 0; i < (sizeof (functions) / sizeof (functions[0])); i++)
-		e_sexp_add_function (esexp, 0, functions[i].name, functions[i].func, NULL);
+		e_sexp_add_function (esexp, 0, (char *) functions[i].name, functions[i].func, NULL);
 
 	e_sexp_input_text (esexp, sexp, strlen (sexp));
 	if (e_sexp_parse (esexp) == -1) {

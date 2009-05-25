@@ -147,8 +147,8 @@ http_status_to_pas (E2kHTTPStatus status)
 
 struct PropMapping {
 	EContactField field;
-	char *prop_name;
-	char *e_book_field;
+	const char *prop_name;
+	const char *e_book_field;
 	int flags;
 #define FLAG_UNLIKEABLE 0x001  /* can't use LIKE with it */
 #define FLAG_COMPOSITE  0x002  /* read-only fields that can be written
@@ -232,7 +232,7 @@ struct ContactListMember
 };
 
 static const char *
-e_book_backend_exchange_prop_to_exchange (char *propname)
+e_book_backend_exchange_prop_to_exchange (const char *propname)
 {
 	int i;
 
@@ -249,7 +249,7 @@ get_email_field_from_props (ExchangeAccount *account,
 			    EContact *contact, char *data)
 {
 	char *emailtype;
-	char *typeselector;
+	const char *typeselector;
 
 	/* here's where we do the super involved
 	   conversion from local email addresses to
@@ -1043,7 +1043,7 @@ enum addressprop {
 	ADDRPROP_LAST
 };
 
-static char *homeaddrpropnames[] = {
+static const char *homeaddrpropnames[] = {
 	E2K_PR_CONTACTS_HOME_PO_BOX,
 	E2K_PR_CONTACTS_HOME_STREET,
 	E2K_PR_CONTACTS_HOME_CITY,
@@ -1052,7 +1052,7 @@ static char *homeaddrpropnames[] = {
 	E2K_PR_CONTACTS_HOME_COUNTRY,
 };
 
-static char *otheraddrpropnames[] = {
+static const char *otheraddrpropnames[] = {
 	E2K_PR_CONTACTS_OTHER_PO_BOX,
 	E2K_PR_CONTACTS_OTHER_STREET,
 	E2K_PR_CONTACTS_OTHER_CITY,
@@ -1061,7 +1061,7 @@ static char *otheraddrpropnames[] = {
 	E2K_PR_CONTACTS_OTHER_COUNTRY,
 };
 
-static char *workaddrpropnames[] = {
+static const char *workaddrpropnames[] = {
 	E2K_PR_CONTACTS_WORK_PO_BOX,
 	E2K_PR_CONTACTS_WORK_STREET,
 	E2K_PR_CONTACTS_WORK_CITY,
@@ -1077,7 +1077,8 @@ proppatch_address (PropMapping *prop_mapping,
 {
 	EContactAddress *new_address, *cur_address = NULL;
 	char *new_addrprops[ADDRPROP_LAST], *cur_addrprops[ADDRPROP_LAST];
-	char **propnames, *value;
+	const char **propnames;
+	char *value;
 	int i;
 
 	new_address = e_contact_get (new_contact, prop_mapping->field);
@@ -2074,7 +2075,7 @@ func_match (struct _ESExp *f, int argc, struct _ESExpResult **argv, void *data)
 }
 
 static struct {
-	char *name;
+	const char *name;
 	ESExpFunc *func;
 	guint flags;
 } symbols[] = {
@@ -2099,7 +2100,7 @@ e_book_backend_exchange_build_restriction (const char *query,
 	sexp = e_sexp_new ();
 
 	for (i = 0; i < sizeof (symbols) / sizeof (symbols[0]); i++) {
-		e_sexp_add_function (sexp, 0, symbols[i].name,
+		e_sexp_add_function (sexp, 0, (char *) symbols[i].name,
 				     symbols[i].func,
 				     GUINT_TO_POINTER (symbols[i].flags));
 	}
@@ -2948,16 +2949,16 @@ e_book_backend_exchange_class_init (EBookBackendExchangeClass *klass)
 
 	/* Static initialization */
 	field_names_array = g_ptr_array_new ();
-	g_ptr_array_add (field_names_array, E2K_PR_DAV_CONTENT_CLASS);
-	g_ptr_array_add (field_names_array, E2K_PR_DAV_UID);
-	g_ptr_array_add (field_names_array, E2K_PR_DAV_LAST_MODIFIED);
-	g_ptr_array_add (field_names_array, E2K_PR_DAV_CREATION_DATE);
-	g_ptr_array_add (field_names_array, E2K_PR_MAPI_EMAIL_1_ADDRTYPE);
-	g_ptr_array_add (field_names_array, E2K_PR_MAPI_EMAIL_2_ADDRTYPE);
-	g_ptr_array_add (field_names_array, E2K_PR_MAPI_EMAIL_3_ADDRTYPE);
-	g_ptr_array_add (field_names_array, E2K_PR_HTTPMAIL_HAS_ATTACHMENT);
+	g_ptr_array_add (field_names_array, (gpointer) E2K_PR_DAV_CONTENT_CLASS);
+	g_ptr_array_add (field_names_array, (gpointer) E2K_PR_DAV_UID);
+	g_ptr_array_add (field_names_array, (gpointer) E2K_PR_DAV_LAST_MODIFIED);
+	g_ptr_array_add (field_names_array, (gpointer) E2K_PR_DAV_CREATION_DATE);
+	g_ptr_array_add (field_names_array, (gpointer) E2K_PR_MAPI_EMAIL_1_ADDRTYPE);
+	g_ptr_array_add (field_names_array, (gpointer) E2K_PR_MAPI_EMAIL_2_ADDRTYPE);
+	g_ptr_array_add (field_names_array, (gpointer) E2K_PR_MAPI_EMAIL_3_ADDRTYPE);
+	g_ptr_array_add (field_names_array, (gpointer) E2K_PR_HTTPMAIL_HAS_ATTACHMENT);
 	for (i = 0; i < num_prop_mappings; i ++)
-		g_ptr_array_add (field_names_array, prop_mappings[i].prop_name);
+		g_ptr_array_add (field_names_array, (gpointer) prop_mappings[i].prop_name);
 	field_names = (const char **)field_names_array->pdata;
 	n_field_names = field_names_array->len;
 

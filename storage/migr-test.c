@@ -43,8 +43,8 @@ main (int argc, char **argv)
 	CORBA_short major=1;
 	CORBA_short minor=4;
 	CORBA_short revision=0;
-	gchar *source = "~/evolution";
-	gchar *dest= "/tmp/.evolution-test";
+	const gchar *source = "~/evolution";
+	const gchar *dest= "/tmp/.evolution-test";
 	gchar *user = NULL, *server = NULL, *base_dir, *uid = NULL;
 	int opt;
 	char optstr[] = "M:m:r:u:h:s:d:";
