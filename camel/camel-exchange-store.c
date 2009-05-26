@@ -742,8 +742,8 @@ exchange_get_folder_info (CamelStore *store, const char *top, guint32 flags, Cam
 		store_flags |= CAMEL_STUB_STORE_FOLDER_INFO_RECURSIVE;
 	if (flags & CAMEL_STORE_FOLDER_INFO_SUBSCRIBED)
 		store_flags |= CAMEL_STUB_STORE_FOLDER_INFO_SUBSCRIBED;
-	if (flags & CAMEL_STORE_FOLDER_INFO_FAST)
-		store_flags |= CAMEL_STUB_STORE_FOLDER_INFO_FAST;
+	if (flags & CAMEL_STORE_FOLDER_INFO_SUBSCRIPTION_LIST)
+		store_flags |= CAMEL_STUB_STORE_FOLDER_INFO_SUBSCRIPTION_LIST;
 
 	if (!camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_GET_FOLDER_INFO,
 			      CAMEL_STUB_ARG_STRING, top,

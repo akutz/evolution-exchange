@@ -2779,16 +2779,16 @@ get_folder_info_data (MailStub *stub, const char *top, guint32 store_flags,
 	const char *type, *name, *uri, *inbox_uri = NULL, *trash_uri = NULL, *sent_items_uri = NULL;
 	int unread_count, i, toplen = top ? strlen (top) : 0;
 	guint32 folder_flags = 0;
-	gboolean recursive, subscribed, info_fast;
+	gboolean recursive, subscribed, subscription_list;
 	int mode = -1;
 	char *full_path;
 
 	recursive = (store_flags & CAMEL_STUB_STORE_FOLDER_INFO_RECURSIVE);
 	subscribed = (store_flags & CAMEL_STUB_STORE_FOLDER_INFO_SUBSCRIBED);
-	info_fast = (store_flags & CAMEL_STUB_STORE_FOLDER_INFO_FAST);
+	subscription_list = (store_flags & CAMEL_STUB_STORE_FOLDER_INFO_SUBSCRIPTION_LIST);
 
 	exchange_account_is_offline (mse->account, &mode);
-	if (!subscribed && info_fast) {
+	if (!subscribed && subscription_list) {
 		ExchangeAccountResult result = -1;
 
 		d(g_print ("%s(%d):%s: NOT SUBSCRIBED top = [%s]\n", __FILE__, __LINE__, __GNUC_PRETTY_FUNCTION__, top));
@@ -2843,7 +2843,7 @@ get_folder_info_data (MailStub *stub, const char *top, guint32 store_flags,
 				    hier->type != EXCHANGE_HIERARCHY_FAVORITES &&
 				    hier->type != EXCHANGE_HIERARCHY_FOREIGN)
 					continue;
-			} else if (info_fast) {
+			} else if (subscription_list) {
 				if (hier->type != EXCHANGE_HIERARCHY_PUBLIC)
 					continue;
 			}
