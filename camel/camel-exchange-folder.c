@@ -178,7 +178,7 @@ refresh_info (CamelFolder *folder, CamelException *ex)
 				 CAMEL_STUB_ARG_FOLDER, folder->full_name,
 			     	 CAMEL_STUB_ARG_END);
 	}
-	
+
 	/* sync up the counts now */
 	if (!camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_SYNC_COUNT,
 				 CAMEL_STUB_ARG_FOLDER, folder->full_name,
@@ -1119,7 +1119,7 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 
 		if (offline_state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL )
 			return TRUE;
-		
+
 		if (len)
 			return TRUE;
 

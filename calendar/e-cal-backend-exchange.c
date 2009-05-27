@@ -425,7 +425,7 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 		g_mutex_unlock (cbex->priv->open_lock);
 		e_cal_backend_notify_error (E_CAL_BACKEND (cbex), _("Authentication failed"));
 		return GNOME_Evolution_Calendar_AuthenticationFailed;
-	}		
+	}
 
 	cbex->folder = exchange_account_get_folder (cbex->account, uristr);
 	if (!cbex->folder) {
@@ -576,7 +576,7 @@ find_instance (ECalBackendExchange *cbex, ECalBackendExchangeComponent *ecomp, c
 	GList *l;
 	gboolean found = FALSE;
 
-	if (!ecomp->instances)	
+	if (!ecomp->instances)
 		return FALSE;
 
 	for (l = ecomp->instances; l != NULL; l = l->next) {
@@ -598,7 +598,7 @@ find_instance (ECalBackendExchange *cbex, ECalBackendExchangeComponent *ecomp, c
 
 		e_cal_component_free_datetime (&recur_id.datetime);
 		g_object_unref (comp);
-		
+
 		if (icaltime_compare (inst_rid, new_rid) == 0) {
 			found = TRUE;
 			break;
@@ -647,7 +647,7 @@ e_cal_backend_exchange_in_cache (ECalBackendExchange *cbex,
 		return FALSE;
 	g_hash_table_remove (cbex->priv->cache_unseen, ecomp->uid);
 
-	if (rid) 
+	if (rid)
 		return find_instance (cbex, ecomp, rid, lastmod);
 
 	if (strcmp (ecomp->lastmod, lastmod) < 0) {
@@ -1841,7 +1841,7 @@ process_delegated_cal_object (icalcomponent *icalcomp, const char *delegator_nam
 				icalproperty_add_parameter (prop, icalparameter_new_sentby (g_strdup_printf("MAILTO:%s", delegatee_email)));
 			}
 		}
-		if (text) 
+		if (text)
 			g_free (text);
 	}
 	prop = NULL;
@@ -1919,7 +1919,7 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const char *subject,
 
 	if (!g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (E_CAL_BACKEND_SYNC (cbex)), exchange_account_get_email_id (cbex->account)))
 		e_cal_backend_exchange_get_from (E_CAL_BACKEND_SYNC (cbex), comp, &from_name, &from_email);
-	else 
+	else
 		e_cal_backend_exchange_get_sender (E_CAL_BACKEND_SYNC (cbex), comp, &from_name, &from_email);
 
 	msg = camel_mime_message_new ();

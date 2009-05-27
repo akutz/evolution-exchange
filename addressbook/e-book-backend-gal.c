@@ -1219,9 +1219,9 @@ build_query (EBookBackendGAL *bl, const char *query, const char *ldap_filter, ch
 		else {
 			char *addfilter = NULL;
 
-			if (ldap_filter) 
+			if (ldap_filter)
 				addfilter = g_strdup_printf ("(%s)", ldap_filter);
-			
+
 			*ldap_query = g_strdup_printf ("(&(mail=*)(!(msExchHideFromAddressLists=TRUE))%s%s)", addfilter ? addfilter : "", r->value.string);
 			retval = GNOME_Evolution_Addressbook_Success;
 		}
@@ -1321,7 +1321,7 @@ get_time_stamp (char *serv_time_str, time_t *mtime)
 	second = G_STRNDUP(input_str, 2)
 	input_str ++; // parse over the dot
 	zone = G_STRNDUP(input_str, 1)
-	
+
 	mytime.tm_year = atoi(year)-1900;
 	mytime.tm_mon = atoi(month)-1;
 	mytime.tm_mday = atoi(date);
@@ -1793,7 +1793,7 @@ start_book_view (EBookBackend  *backend,
 			GPtrArray *ids = NULL;
 			d(printf("Marked for offline and cache present\n"));
 
-			status = build_query (bl, e_data_book_view_get_card_query (view), NULL, 
+			status = build_query (bl, e_data_book_view_get_card_query (view), NULL,
 					      &ldap_query);
 
 			/* search for anything */
@@ -1865,7 +1865,7 @@ start_book_view (EBookBackend  *backend,
 
 			d(printf ("start_book_view (%p)\n", view));
 
-			status = build_query (bl, e_data_book_view_get_card_query (view), NULL, 
+			status = build_query (bl, e_data_book_view_get_card_query (view), NULL,
 					      &ldap_query);
 
 			/* search for anything */
@@ -2157,7 +2157,7 @@ static int dosearch(
 				count ++;
 				g_mutex_unlock (bl->priv->ldap_lock);
 				contact = build_contact_from_entry (bl, msg, NULL);
-				uid = e_contact_get_const (contact, E_CONTACT_UID);	
+				uid = e_contact_get_const (contact, E_CONTACT_UID);
 
 				g_mutex_lock (bl->priv->ldap_lock);
 				if (changed_filter && e_book_backend_summary_check_contact (bl->priv->summary, uid)) {
@@ -2169,7 +2169,7 @@ static int dosearch(
 					status = e_book_backend_db_cache_remove_contact (bl->priv->file_db, uid);
 					if (status)
 						printf("Updating contact with uid %s from the server\n", uid);
-				} else 
+				} else
 					printf("New contact with uid %s, add to the DB\n", uid);
 				e_book_backend_db_cache_add_contact (bl->priv->file_db, contact);
 				e_book_backend_summary_add_contact (bl->priv->summary, contact);

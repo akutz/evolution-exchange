@@ -75,7 +75,7 @@ get_from (ECalBackendSync *backend, ECalComponent *comp, char **from_name, char 
 {
 	if (!g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (E_CAL_BACKEND_EXCHANGE (backend)->account)))
 		e_cal_backend_exchange_get_from (backend, comp, from_name, from_addr);
-	else 
+	else
 		e_cal_backend_exchange_get_sender (backend, comp, from_name, from_addr);
 
 #if 0
@@ -667,7 +667,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 				priority = 5;
 			else
 				priority = 0;
-		} else 
+		} else
 			priority = 5;
 		e_cal_component_set_priority (ecal, &priority);
 

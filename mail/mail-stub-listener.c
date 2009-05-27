@@ -162,7 +162,7 @@ mail_stub_listener_construct (MailStubListener *listener, const char *socket_pat
 		g_win32_error_message (WSAGetLastError ()));
 		closesocket (fd);
 		return FALSE;
-	}	   
+	}
 
 	addr_len = sizeof (sa_in);
 	if (getsockname (fd, (struct sockaddr *) &sa_in, &addr_len) == SOCKET_ERROR) {

@@ -334,7 +334,7 @@ new_connection (MailStubListener *listener, int cmd_fd, int status_fd,
 	}
 
 	stub = mail_stub_exchange_new (account, cmd_fd, status_fd);
-	mse = (MailStubExchange *) stub; 
+	mse = (MailStubExchange *) stub;
 	mse_prev = (MailStubExchange *) listener->stub;
 	if (mse_prev) {
 		g_hash_table_destroy (mse->folders_by_name);

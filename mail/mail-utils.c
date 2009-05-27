@@ -303,8 +303,8 @@ mail_util_stickynote_to_rfc822 (E2kProperties *props)
  * @owner_cal_uri: the exchange: URI of the delegator's Calendar
  * @subscriber_email: the email address of the delegatee
  *
- * When delegatees have to respond to meeting-related messages, Exchange 
- * mangles the iCalendar, such that we need to demangle it in order to get the 
+ * When delegatees have to respond to meeting-related messages, Exchange
+ * mangles the iCalendar, such that we need to demangle it in order to get the
  * iTIP control to do the right thing with it. That happens here.
  *
  *
@@ -366,7 +366,7 @@ mail_util_demangle_meeting_related_message (GString *body,
 			icalproperty_remove_parameter_by_kind (prop, ICAL_CN_PARAMETER);
 			icalproperty_add_parameter (prop, icalparameter_new_cn (g_strdup(owner_cn)));
 			icalproperty_remove_parameter_by_kind (prop, ICAL_SENTBY_PARAMETER);
-			icalproperty_add_parameter (prop, 
+			icalproperty_add_parameter (prop,
 				icalparameter_new_sentby (g_strdup_printf("MAILTO:%s", subscriber_email)));
 			g_free (text);
 			break;
@@ -387,14 +387,14 @@ mail_util_demangle_meeting_related_message (GString *body,
 			text = g_strstrip (text);
 
 			switch (unmangle_type) {
-				case MAIL_UTIL_DEMANGLE_DELGATED_MEETING: 
+				case MAIL_UTIL_DEMANGLE_DELGATED_MEETING:
 					if (text && !g_ascii_strcasecmp (subscriber_email, text)) {
 						icalproperty_set_organizer (prop, g_strdup_printf ("MAILTO:%s", owner_email));
 						modify_prop = TRUE;
 					}
 					break;
-				case MAIL_UTIL_DEMANGLE_MEETING_IN_SUBSCRIBED_INBOX: 
-				case MAIL_UTIL_DEMANGLE_SENDER_FIELD: 
+				case MAIL_UTIL_DEMANGLE_MEETING_IN_SUBSCRIBED_INBOX:
+				case MAIL_UTIL_DEMANGLE_SENDER_FIELD:
 					if (text && !g_ascii_strcasecmp (owner_email, text))
 						modify_prop = TRUE;
 					break;
@@ -405,7 +405,7 @@ mail_util_demangle_meeting_related_message (GString *body,
 				icalproperty_remove_parameter_by_kind (prop, ICAL_CN_PARAMETER);
 				icalproperty_add_parameter (prop, icalparameter_new_cn (g_strdup(owner_cn)));
 				icalproperty_remove_parameter_by_kind (prop, ICAL_SENTBY_PARAMETER);
-				icalproperty_add_parameter (prop, 
+				icalproperty_add_parameter (prop,
 					icalparameter_new_sentby (g_strdup_printf("MAILTO:%s", subscriber_email)));
 			}
 		}

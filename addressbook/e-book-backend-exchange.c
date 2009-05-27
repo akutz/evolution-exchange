@@ -1263,7 +1263,7 @@ props_from_contact (EBookBackendExchange *be,
 
 		if (is_list) {
 			e2k_properties_set_string (
-				props, E2K_PR_CONTACTS_FILE_AS, 
+				props, E2K_PR_CONTACTS_FILE_AS,
 				g_strdup (subject ? subject : ""));
 
 			return props;

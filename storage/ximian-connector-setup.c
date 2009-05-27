@@ -50,7 +50,7 @@ main (int argc, char **argv)
 		_exchange_storage_datadir = e_util_replace_prefix (PREFIX, e_util_get_prefix (), DATADIR);
 		_exchange_storage_gladedir = e_util_replace_prefix (PREFIX, e_util_get_prefix (), CONNECTOR_GLADEDIR);
 		_exchange_storage_imagesdir = e_util_replace_prefix (PREFIX, e_util_get_prefix (), CONNECTOR_IMAGESDIR);
-		
+
 		localedir = e_util_replace_prefix (CONNECTOR_LOCALEDIR, e_util_get_cp_prefix (), CONNECTOR_LOCALEDIR);
 		bindtextdomain (GETTEXT_PACKAGE, localedir);
 	}

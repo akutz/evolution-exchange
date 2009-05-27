@@ -128,7 +128,7 @@ init (CamelExchangeStore *exch, CamelExchangeStoreClass *klass)
 
 	store->flags |= CAMEL_STORE_SUBSCRIPTIONS;
 	store->flags &= ~(CAMEL_STORE_VTRASH | CAMEL_STORE_VJUNK);
-	/* FIXME: Like the GroupWise provider, Exchange should also 
+	/* FIXME: Like the GroupWise provider, Exchange should also
 	have its own EXCAHNGE_JUNK flags so as to rightly handle
 	the actual Junk & Trash folders */
 
@@ -450,7 +450,7 @@ exchange_connect (CamelService *service, CamelException *ex)
 	}
 
 	g_hash_table_foreach (exch->folders, update_camel_stub, exch->stub);
-	
+
 	g_mutex_unlock (exch->connect_lock);
 
 	return TRUE;
@@ -461,11 +461,11 @@ exchange_disconnect (CamelService *service, gboolean clean, CamelException *ex)
 {
 
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
-	
+
 	if (exch->stub) {
 		exch->stub = NULL;
 	}
-	
+
 	return TRUE;
 }
 
@@ -667,7 +667,7 @@ make_folder_info (CamelExchangeStore *exch, char *name, char *uri,
 
 	if (flags & CAMEL_STUB_FOLDER_TYPE_INBOX)
 		info->flags |= CAMEL_FOLDER_TYPE_INBOX;
-	
+
 	if (flags & CAMEL_STUB_FOLDER_TYPE_TRASH)
 		info->flags |= CAMEL_FOLDER_TYPE_TRASH;
 
@@ -886,7 +886,7 @@ exchange_rename_folder (CamelStore *store, const char *old_name,
 	g_array_free (folder_flags, TRUE);
 
 	info = camel_folder_info_build (folders, new_name, '/', TRUE);
-	
+
 	if (info)
 		info = postprocess_tree (info);
 	g_ptr_array_free (folders, TRUE);
@@ -901,7 +901,7 @@ exchange_rename_folder (CamelStore *store, const char *old_name,
 		camel_object_unref (CAMEL_OBJECT (folder));
 	}
 	g_mutex_unlock (exch->folders_lock);
-		
+
 	camel_object_trigger_event (CAMEL_OBJECT (exch),
 				    "folder_renamed", &reninfo);
 	camel_folder_info_free (reninfo.new);

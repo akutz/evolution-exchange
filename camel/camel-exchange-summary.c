@@ -85,12 +85,12 @@ exchange_summary_class_init (CamelObjectClass *klass)
 	camel_folder_summary_class->message_info_save = message_info_save;
 	camel_folder_summary_class->message_info_new_from_header = message_info_new_from_header;
 	camel_folder_summary_class->message_info_free = message_info_free;
-	
+
 	camel_folder_summary_class->summary_header_to_db = summary_header_to_db;
 	camel_folder_summary_class->summary_header_from_db = summary_header_from_db;
 	camel_folder_summary_class->message_info_to_db = message_info_to_db;
 	camel_folder_summary_class->message_info_from_db = message_info_from_db;
-	
+
 	camel_folder_summary_class->info_set_flags = info_set_flags;
 	camel_folder_summary_class->info_set_user_tag = info_set_user_tag;
 }
@@ -166,7 +166,7 @@ summary_header_from_db (CamelFolderSummary *s, CamelFIRecord *mir)
 	if (part) {
 		EXTRACT_FIRST_DIGIT (exchange->version)
 	}
-	
+
 	if (part) {
 		EXTRACT_DIGIT (exchange->readonly)
 	}
@@ -174,7 +174,7 @@ summary_header_from_db (CamelFolderSummary *s, CamelFIRecord *mir)
 	if (part) {
 		EXTRACT_DIGIT (exchange->high_article_num)
 	}
-	
+
 	return 0;
 }
 
@@ -219,7 +219,7 @@ summary_header_to_db (CamelFolderSummary *s, CamelException *ex)
 {
 	CamelExchangeSummary *exchange = (CamelExchangeSummary *) s;
 	struct _CamelFIRecord *fir;
-	
+
 	fir = CAMEL_FOLDER_SUMMARY_CLASS(parent_class)->summary_header_to_db (s, ex);
 	if (!fir)
 		return NULL;
@@ -261,7 +261,7 @@ message_info_from_db (CamelFolderSummary *s, CamelMIRecord *mir)
 		int len;
 		einfo = (CamelExchangeMessageInfo *)info;
 		EXTRACT_FIRST_STRING (einfo->thread_index)
-		EXTRACT_FIRST_STRING (einfo->href)	
+		EXTRACT_FIRST_STRING (einfo->href)
 	}
 
 	return info;
@@ -311,7 +311,7 @@ message_info_to_db (CamelFolderSummary *s, CamelMessageInfo *info)
 	struct _CamelMIRecord *mir;
 
 	mir = CAMEL_FOLDER_SUMMARY_CLASS(parent_class)->message_info_to_db (s, info);
-	if (mir) 
+	if (mir)
 		mir->bdata = g_strdup_printf ("%d-%s %d-%s", einfo->thread_index ? (int)strlen(einfo->thread_index):0 , einfo->thread_index ? einfo->thread_index : "", einfo->href ? (int)strlen(einfo->href):0, einfo->href ? einfo->href:"");
 
 	return mir;

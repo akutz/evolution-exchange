@@ -55,7 +55,7 @@ static const char *auth_types[] = {
 	N_("Secure or Plaintext Password"),
 	N_("Plaintext Password"),
 	N_("Secure Password"),
-	NULL 
+	NULL
 };
 
 CamelProviderConfEntry exchange_conf_entries[] = {

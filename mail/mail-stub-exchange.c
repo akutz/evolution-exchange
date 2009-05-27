@@ -584,9 +584,9 @@ mse_get_folder_online_sync_updates (gpointer key, gpointer value,
 
 	g_static_rec_mutex_lock (&g_changed_msgs_mutex);
 
-	/* Camel DB Summary changes are not fetching all the messages at start-up. 
+	/* Camel DB Summary changes are not fetching all the messages at start-up.
 	   Use this else it would crash badly.
-	*/   
+	*/
 	if (index >= mfld->messages->len) {
 		g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
 		return;
@@ -1534,17 +1534,17 @@ sync_count (MailStub *stub, const char *folder_name)
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	MailStubExchangeFolder *mfld;
 	guint32 unread_count = 0, visible_count = 0;
-	
+
 	mfld = folder_from_name (mse, folder_name, 0, FALSE);
 	if (!mfld) {
 		mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
 				       CAMEL_STUB_ARG_UINT32, unread_count,
 				       CAMEL_STUB_ARG_UINT32, visible_count,
 				       CAMEL_STUB_ARG_END);
-		mail_stub_return_ok (stub);		
+		mail_stub_return_ok (stub);
 		return;
 	}
-	
+
 	unread_count = mfld->unread_count;
 	visible_count = mfld->messages->len;
 
@@ -2257,9 +2257,9 @@ unmangle_delegated_meeting_request (MailStubExchange *mse, E2kOperation *op,
 	}
 
 	message = g_string_new_len (*body, *len);
-	mail_util_demangle_meeting_related_message (message, entry->display_name, 
+	mail_util_demangle_meeting_related_message (message, entry->display_name,
 						entry->email,
-						delegator_folder_physical_uri, 
+						delegator_folder_physical_uri,
 						exchange_account_get_email_id (account),
 						unmangle_type);
 	g_free (*body);
@@ -2275,7 +2275,7 @@ unmangle_delegated_meeting_request (MailStubExchange *mse, E2kOperation *op,
 }
 
 static E2kHTTPStatus
-unmangle_meeting_request_in_subscribed_inbox (MailStubExchange *mse, 
+unmangle_meeting_request_in_subscribed_inbox (MailStubExchange *mse,
 					      const char *delegator_email,
 					      char **body, int *len)
 {
@@ -2315,10 +2315,10 @@ unmangle_meeting_request_in_subscribed_inbox (MailStubExchange *mse,
 		g_free (delegator_uri);
 	}
 
-	message = g_string_new_len (*body, *len); 
+	message = g_string_new_len (*body, *len);
 	mail_util_demangle_meeting_related_message (message, entry->display_name,
 						entry->email,
-						delegator_folder_physical_uri, 
+						delegator_folder_physical_uri,
 						exchange_account_get_email_id (account),
 						unmangle_type);
 	g_free (*body);
@@ -2406,9 +2406,9 @@ unmangle_sender_field (MailStubExchange *mse, E2kOperation *op,
 
 	message = g_string_new_len (*body, *len);
 	mail_util_demangle_meeting_related_message (message, delegator_entry->display_name,
-						delegator_entry->email, 
-						NULL, 
-						sender_entry->email, 
+						delegator_entry->email,
+						NULL,
+						sender_entry->email,
 						unmangle_type);
 	g_free (*body);
 	*body = message->str;
@@ -2439,7 +2439,7 @@ is_foreign_folder (MailStub *stub, const char *folder_name, char **owner_email)
 	g_free (path);
 	g_object_ref (folder);
 
-	hier = e_folder_exchange_get_hierarchy (folder); 
+	hier = e_folder_exchange_get_hierarchy (folder);
 
 	if (hier->type != EXCHANGE_HIERARCHY_FOREIGN) {
 		g_object_unref (folder);
@@ -2518,19 +2518,19 @@ get_message (MailStub *stub, const char *folder_name, const char *uid)
 			goto error;
 	}
 
-	/* If the message is in a subscribed inbox, 
+	/* If the message is in a subscribed inbox,
 	 * we need to modify the message appropriately.
 	 */
 	if (is_foreign_folder (stub, folder_name, &owner_email)) {
-		
-		status = unmangle_meeting_request_in_subscribed_inbox  (mse, 
+
+		status = unmangle_meeting_request_in_subscribed_inbox  (mse,
 									owner_email,
 									&body, &len);
 		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
 			goto error;
 	}
 
-	/* If there is a sender field in the meeting request/response, 
+	/* If there is a sender field in the meeting request/response,
 	 * we need to know who it is.
 	 */
 	status = unmangle_sender_field (mse, NULL,
@@ -2767,7 +2767,7 @@ account_removed_folder (ExchangeAccount *account, EFolder *folder, gpointer user
 	mail_stub_push_changes (stub);
 }
 
-static void 
+static void
 get_folder_info_data (MailStub *stub, const char *top, guint32 store_flags,
 		      GPtrArray **names, GPtrArray **uris,
 		      GArray **unread, GArray **flags)
@@ -2929,7 +2929,7 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 	GPtrArray *names, *uris;
 	GArray *unread, *flags;
 
-	get_folder_info_data (stub, top, store_flags, &names, &uris, 
+	get_folder_info_data (stub, top, store_flags, &names, &uris,
 			      &unread, &flags);
 
 	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
@@ -3155,13 +3155,13 @@ rename_folder (MailStub *stub, const char *old_name, const char *new_name)
 				      &names, &uris, &unread, &flags);
 
 		g_hash_table_remove_all (mfld->messages_by_href);
-	
+
 		for (i = 0; i < mfld->messages->len; i++) {
 			MailStubExchangeMessage *mmsg;
 			mmsg = mfld->messages->pdata[i];
 			g_free (mmsg->href);
 			mmsg->href = NULL;
-		}	
+		}
 
 		exchange_component_is_offline (global_exchange_component, &mode);
 		if (mode == ONLINE_MODE) {
@@ -3169,10 +3169,10 @@ rename_folder (MailStub *stub, const char *old_name, const char *new_name)
 				return;
 			}
 		}
-			
+
 		for (i = 0; i < uris->len; i++) {
 			uri = uris->pdata[i];
-			if (uri == NULL) 
+			if (uri == NULL)
 				continue;
 
 			uri_unescaped = g_uri_unescape_string (uri, NULL);
@@ -3188,13 +3188,13 @@ rename_folder (MailStub *stub, const char *old_name, const char *new_name)
 				if (!folder_name[1]) {
 					goto cont_free;
 				}
-			}	
+			}
 
 			old_name_remove = g_build_filename (old_name, "/", folder_name[1], NULL);
 
 			mfld = g_hash_table_lookup (mse->folders_by_name, old_name_remove);
-			
-			/* If the lookup for the MailStubExchangeFolder doesn't succeed then do 
+
+			/* If the lookup for the MailStubExchangeFolder doesn't succeed then do
 			not modify the corresponding entry in the hash table*/
 			if (!mfld) {
 				g_free (old_name_remove);
@@ -3216,15 +3216,15 @@ rename_folder (MailStub *stub, const char *old_name, const char *new_name)
 
 			g_hash_table_steal (mse->folders_by_name, old_name_remove);
 			g_hash_table_insert (mse->folders_by_name, (char *)mfld->name, mfld);
-				
+
 			g_hash_table_remove_all (mfld->messages_by_href);
-	
+
 			for (j = 0; j < mfld->messages->len; j++) {
 				MailStubExchangeMessage *mmsg;
 				mmsg = mfld->messages->pdata[j];
 				g_free (mmsg->href);
 				mmsg->href = NULL;
-			}	
+			}
 
 			exchange_component_is_offline (global_exchange_component, &mode);
 			if (mode == ONLINE_MODE) {
@@ -3232,14 +3232,14 @@ rename_folder (MailStub *stub, const char *old_name, const char *new_name)
 					return;
 				}
 			}
-			
+
 			g_free (old_path);
 			g_free (new_path);
 cont_free:		g_free (new_name_mod);
 			g_free (uri_unescaped);
 			g_strfreev (folder_name);
 		}
-	
+
 		mail_stub_return_data (stub, CAMEL_STUB_RETVAL_RESPONSE,
 				       CAMEL_STUB_ARG_STRINGARRAY, names,
 				       CAMEL_STUB_ARG_STRINGARRAY, uris,
