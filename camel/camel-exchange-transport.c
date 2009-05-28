@@ -90,9 +90,9 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 {
 	CamelService *service = CAMEL_SERVICE (transport);
 	CamelStore *store = NULL;
-	char *url_string;
+	gchar *url_string;
 	const CamelInternetAddress *cia;
-	const char *addr;
+	const gchar *addr;
 	GPtrArray *recipients_array;
 	gboolean success;
 	CamelStream *stream;
@@ -100,7 +100,7 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 	CamelMimeFilter *crlffilter;
 	struct _camel_header_raw *header;
 	GSList *h, *bcc = NULL;
-	int len, i;
+	gint len, i;
 
 	url_string = camel_session_get_password (service->session, service, NULL,
 						"ignored", "popb4smtp_uri", 0, ex);
@@ -124,7 +124,7 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 			g_free (url_string);
 			return FALSE;
 		}
-		g_ptr_array_add (recipients_array, (char *)addr);
+		g_ptr_array_add (recipients_array, (gchar *)addr);
 	}
 
 	if (!camel_internet_address_get (CAMEL_INTERNET_ADDRESS (from), 0, NULL, &addr)) {

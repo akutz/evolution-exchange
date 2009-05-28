@@ -33,7 +33,7 @@
  * Return value: the #icaltimetype
  **/
 struct icaltimetype
-e2k_timestamp_to_icaltime (const char *timestamp)
+e2k_timestamp_to_icaltime (const gchar *timestamp)
 {
 	return icaltime_from_timet_with_zone (
 		e2k_parse_timestamp (timestamp), FALSE,
@@ -48,7 +48,7 @@ e2k_timestamp_to_icaltime (const char *timestamp)
  *
  * Return value: the timestamp, which the caller must free.
  **/
-char *
+gchar *
 e2k_timestamp_from_icaltime (struct icaltimetype itt)
 {
 	return e2k_make_timestamp (icaltime_as_timet_with_zone (itt, itt.zone));

@@ -63,12 +63,12 @@ static gboolean debug = 0;
  * Return value: the new #CamelStubMarshal.
  **/
 CamelStubMarshal *
-camel_stub_marshal_new (int fd)
+camel_stub_marshal_new (gint fd)
 {
 	CamelStubMarshal *marshal = g_new0 (CamelStubMarshal, 1);
 
 #ifdef CAMEL_MARSHAL_DEBUG
-	char *e2k_debug = getenv ("E2K_DEBUG");
+	gchar *e2k_debug = getenv ("E2K_DEBUG");
 
 	if (e2k_debug && strchr (e2k_debug, 'm'))
 		debug = TRUE;
@@ -78,7 +78,7 @@ camel_stub_marshal_new (int fd)
 	marshal->out = g_byte_array_new ();
 	g_byte_array_set_size (marshal->out, 4);
 	marshal->in = g_byte_array_new ();
-	marshal->inptr = (char *)marshal->in->data;
+	marshal->inptr = (gchar *)marshal->in->data;
 	return marshal;
 }
 
@@ -98,7 +98,7 @@ camel_stub_marshal_free (CamelStubMarshal *marshal)
 }
 
 static gboolean
-do_read (CamelStubMarshal *marshal, char *buf, size_t len)
+do_read (CamelStubMarshal *marshal, gchar *buf, size_t len)
 {
 	size_t nread = 0;
 	ssize_t n;
@@ -123,25 +123,25 @@ do_read (CamelStubMarshal *marshal, char *buf, size_t len)
 }
 
 static int
-marshal_read (CamelStubMarshal *marshal, char *buf, int len)
+marshal_read (CamelStubMarshal *marshal, gchar *buf, gint len)
 {
-	int avail = marshal->in->len - (marshal->inptr - (char *)marshal->in->data);
-	int nread;
+	gint avail = marshal->in->len - (marshal->inptr - (gchar *)marshal->in->data);
+	gint nread;
 
 	if (avail == 0) {
 		g_byte_array_set_size (marshal->in, 4);
-		marshal->inptr = (char *)marshal->in->data + 4;
-		if (!do_read (marshal, (char *)marshal->in->data, 4))
+		marshal->inptr = (gchar *)marshal->in->data + 4;
+		if (!do_read (marshal, (gchar *)marshal->in->data, 4))
 			return -1;
 		avail =  (int)marshal->in->data[0]        +
 			((int)marshal->in->data[1] <<  8) +
 			((int)marshal->in->data[2] << 16) +
 			((int)marshal->in->data[3] << 24) - 4;
 		g_byte_array_set_size (marshal->in, avail + 4);
-		marshal->inptr = (char *)marshal->in->data + 4;
-		if (!do_read (marshal, ((char *)marshal->in->data) + 4, avail)) {
+		marshal->inptr = (gchar *)marshal->in->data + 4;
+		if (!do_read (marshal, ((gchar *)marshal->in->data) + 4, avail)) {
 			g_byte_array_set_size (marshal->in, 4);
-			marshal->inptr = (char *)marshal->in->data + 4;
+			marshal->inptr = (gchar *)marshal->in->data + 4;
 			return -1;
 		}
 	}
@@ -164,7 +164,7 @@ marshal_read (CamelStubMarshal *marshal, char *buf, int len)
 static int
 marshal_getc (CamelStubMarshal *marshal)
 {
-	char buf;
+	gchar buf;
 
 	if (marshal_read (marshal, &buf, 1) == 1)
 		return (unsigned char)buf;
@@ -174,8 +174,8 @@ marshal_getc (CamelStubMarshal *marshal)
 static void
 encode_uint32 (CamelStubMarshal *marshal, guint32 value)
 {
-	unsigned char c;
-	int i;
+	guchar c;
+	gint i;
 
 	for (i = 28; i > 0; i -= 7) {
 		if (value >= (1 << i)) {
@@ -191,7 +191,7 @@ static int
 decode_uint32 (CamelStubMarshal *marshal, guint32 *dest)
 {
         guint32 value = 0;
-	int v;
+	gint v;
 
         /* until we get the last byte, keep decoding 7 bits at a time */
         while ( ((v = marshal_getc (marshal)) & 0x80) == 0 && v!=-1) {
@@ -208,9 +208,9 @@ decode_uint32 (CamelStubMarshal *marshal, guint32 *dest)
 }
 
 static void
-encode_string (CamelStubMarshal *marshal, const char *str)
+encode_string (CamelStubMarshal *marshal, const gchar *str)
 {
-	int len;
+	gint len;
 
 	if (!str || !*str) {
 		encode_uint32 (marshal, 1);
@@ -223,10 +223,10 @@ encode_string (CamelStubMarshal *marshal, const char *str)
 }
 
 static int
-decode_string (CamelStubMarshal *marshal, char **str)
+decode_string (CamelStubMarshal *marshal, gchar **str)
 {
 	guint32 len;
-	char *ret;
+	gchar *ret;
 
 	if (decode_uint32 (marshal, &len) == -1) {
 		*str = NULL;
@@ -276,7 +276,7 @@ camel_stub_marshal_encode_uint32 (CamelStubMarshal *marshal, guint32 value)
  *
  * Return value: 0 on success, -1 on failure.
  **/
-int
+gint
 camel_stub_marshal_decode_uint32 (CamelStubMarshal *marshal, guint32 *dest)
 {
 	if (decode_uint32 (marshal, dest) == -1)
@@ -295,7 +295,7 @@ camel_stub_marshal_decode_uint32 (CamelStubMarshal *marshal, guint32 *dest)
  * Sends @str across @marshall.
  **/
 void
-camel_stub_marshal_encode_string (CamelStubMarshal *marshal, const char *str)
+camel_stub_marshal_encode_string (CamelStubMarshal *marshal, const gchar *str)
 {
 	if (DEBUGGING)
 		printf (">>> \"%s\"\n", str ? str : "");
@@ -312,8 +312,8 @@ camel_stub_marshal_encode_string (CamelStubMarshal *marshal, const char *str)
  *
  * Return value: 0 on success, -1 on failure.
  **/
-int
-camel_stub_marshal_decode_string (CamelStubMarshal *marshal, char **str)
+gint
+camel_stub_marshal_decode_string (CamelStubMarshal *marshal, gchar **str)
 {
 	if (decode_string (marshal, str) == -1)
 		return -1;
@@ -337,7 +337,7 @@ camel_stub_marshal_decode_string (CamelStubMarshal *marshal, char **str)
  * the folder name only needs to be sent once.
  **/
 void
-camel_stub_marshal_encode_folder (CamelStubMarshal *marshal, const char *name)
+camel_stub_marshal_encode_folder (CamelStubMarshal *marshal, const gchar *name)
 {
 	if (marshal->last_folder) {
 		if (!strcmp (name, marshal->last_folder)) {
@@ -365,8 +365,8 @@ camel_stub_marshal_encode_folder (CamelStubMarshal *marshal, const char *name)
  *
  * Return value: 0 on success, -1 on failure.
  **/
-int
-camel_stub_marshal_decode_folder (CamelStubMarshal *marshal, char **name)
+gint
+camel_stub_marshal_decode_folder (CamelStubMarshal *marshal, gchar **name)
 {
 	if (decode_string (marshal, name) == -1)
 		return -1;
@@ -409,7 +409,7 @@ camel_stub_marshal_encode_bytes (CamelStubMarshal *marshal, GByteArray *ba)
  *
  * Return value: 0 on success, -1 on failure.
  **/
-int
+gint
 camel_stub_marshal_decode_bytes (CamelStubMarshal *marshal, GByteArray **ba)
 {
 	guint32 len;
@@ -421,7 +421,7 @@ camel_stub_marshal_decode_bytes (CamelStubMarshal *marshal, GByteArray **ba)
 
 	*ba = g_byte_array_new ();
 	g_byte_array_set_size (*ba, len);
-	if (len > 0 && marshal_read (marshal, (char *) (*ba)->data, len) != len) {
+	if (len > 0 && marshal_read (marshal, (gchar *) (*ba)->data, len) != len) {
 		g_byte_array_free (*ba, TRUE);
 		*ba = NULL;
 		return -1;
@@ -442,10 +442,10 @@ camel_stub_marshal_decode_bytes (CamelStubMarshal *marshal, GByteArray **ba)
  *
  * Return value: 0 on success, -1 on failure.
  **/
-int
+gint
 camel_stub_marshal_flush (CamelStubMarshal *marshal)
 {
-	int left;
+	gint left;
 
 	if (marshal->out->len == 4)
 		return 0;
@@ -466,7 +466,7 @@ camel_stub_marshal_flush (CamelStubMarshal *marshal)
 	marshal->out->data[2] = (left >> 16) & 0xFF;
 	marshal->out->data[3] = (left >> 24) & 0xFF;
 
-	if (camel_write_socket (marshal->fd, (char *) marshal->out->data, marshal->out->len) == -1) {
+	if (camel_write_socket (marshal->fd, (gchar *) marshal->out->data, marshal->out->len) == -1) {
 		CLOSESOCKET (marshal->fd);
 		marshal->fd = -1;
 		return -1;

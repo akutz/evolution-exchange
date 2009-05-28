@@ -125,9 +125,9 @@ dialog_close ()
 }
 
 static void
-dialog_set_folder_name (const char *folder_name)
+dialog_set_folder_name (const gchar *folder_name)
 {
-	char *text;
+	gchar *text;
 
 	text = g_strdup_printf (_("Migrating `%s':"), folder_name);
 	gtk_label_set_text (label, text);
@@ -142,7 +142,7 @@ dialog_set_folder_name (const char *folder_name)
 static void
 dialog_set_progress (double percent)
 {
-	char text[5];
+	gchar text[5];
 
 	snprintf (text, sizeof (text), "%d%%", (int) (percent * 100.0f));
 
@@ -154,11 +154,11 @@ dialog_set_progress (double percent)
 }
 
 static gboolean
-cp (const char *src, const char *dest, gboolean show_progress)
+cp (const gchar *src, const gchar *dest, gboolean show_progress)
 {
-	unsigned char readbuf[65536];
+	guchar readbuf[65536];
 	ssize_t nread, nwritten;
-	int errnosav, readfd, writefd;
+	gint errnosav, readfd, writefd;
 	size_t total = 0;
 	struct stat st;
 	struct utimbuf ut;
@@ -236,7 +236,7 @@ cp (const char *src, const char *dest, gboolean show_progress)
 }
 
 static gboolean
-cp_r (char *src, const char *dest)
+cp_r (gchar *src, const gchar *dest)
 {
 	GString *srcpath, *destpath;
 	struct dirent *dent;
@@ -288,11 +288,11 @@ cp_r (char *src, const char *dest)
 }
 
 static gchar *
-form_dir_path (char *file_name, const char *delim)
+form_dir_path (gchar *file_name, const gchar *delim)
 {
 	GString *path = g_string_new (NULL);
 	gchar *dir_path;
-	char *token;
+	gchar *token;
 
 	token = strtok (file_name, delim);
 	while (token != NULL) {
@@ -305,12 +305,12 @@ form_dir_path (char *file_name, const char *delim)
 	return dir_path;
 }
 
-static gchar*
-get_contacts_dir_from_filename(const char *migr_file)
+static gchar *
+get_contacts_dir_from_filename(const gchar *migr_file)
 {
-	char *file_to_be_migrated = g_strdup (migr_file);
-	char *dot, *file_name;
-	const char *delim = "_";
+	gchar *file_to_be_migrated = g_strdup (migr_file);
+	gchar *dot, *file_name;
+	const gchar *delim = "_";
 	gchar *dir_path = NULL;
 
 	dot = strchr (file_to_be_migrated, '.');
@@ -459,7 +459,7 @@ exchange_migrate (const CORBA_short major,
 		  const CORBA_short minor,
 		  const CORBA_short revision,
 		  const gchar *base_dir,
-		  char *account_filename)
+		  gchar *account_filename)
 {
 	gboolean ret = TRUE;
         struct stat st;

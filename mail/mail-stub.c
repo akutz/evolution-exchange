@@ -70,7 +70,7 @@ E2K_MAKE_TYPE (mail_stub, MailStub, class_init, NULL, PARENT_TYPE)
 static void
 free_string_array (GPtrArray *strings)
 {
-	int i;
+	gint i;
 
 	for (i = 0; i < strings->len; i++)
 		g_free (strings->pdata[i]);
@@ -92,7 +92,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 	switch (command) {
 	case CAMEL_STUB_CMD_CONNECT:
 	{
-		char *pwd
+		gchar *pwd
 		d(printf("CONNECT\n"));
 		g_object_ref (stub);
 		if (!mail_stub_read_args (stub,
@@ -106,7 +106,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 
 	case CAMEL_STUB_CMD_GET_FOLDER:
 	{
-		char *folder_name;
+		gchar *folder_name;
 		GPtrArray *uids;
 		GByteArray *flags;
 		GPtrArray *hrefs;
@@ -142,7 +142,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 
 	case CAMEL_STUB_CMD_SYNC_FOLDER:
 	{
-		char *folder_name;
+		gchar *folder_name;
 
 		if (!mail_stub_read_args (stub,
 					  CAMEL_STUB_ARG_FOLDER, &folder_name,
@@ -157,7 +157,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 
 	case CAMEL_STUB_CMD_REFRESH_FOLDER:
 	{
-		char *folder_name;
+		gchar *folder_name;
 
 		if (!mail_stub_read_args (stub,
 					  CAMEL_STUB_ARG_FOLDER, &folder_name,
@@ -172,7 +172,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 
 	case CAMEL_STUB_CMD_SYNC_COUNT:
 	{
-		char *folder_name;
+		gchar *folder_name;
 
 		if (!mail_stub_read_args (stub,
 					  CAMEL_STUB_ARG_FOLDER, &folder_name,
@@ -187,7 +187,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 
 	case CAMEL_STUB_CMD_EXPUNGE_UIDS:
 	{
-		char *folder_name;
+		gchar *folder_name;
 		GPtrArray *uids;
 
 		if (!mail_stub_read_args (stub,
@@ -205,7 +205,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 
 	case CAMEL_STUB_CMD_APPEND_MESSAGE:
 	{
-		char *folder_name, *subject;
+		gchar *folder_name, *subject;
 		guint32 flags;
 		GByteArray *body;
 
@@ -219,7 +219,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 		d(printf("APPEND_MESSAGE %s %lu %s\n", folder_name,
 			 (gulong)flags, subject));
 		g_object_ref (stub);
-		MS_CLASS (stub)->append_message (stub, folder_name, flags, subject, (char *) body->data, body->len);
+		MS_CLASS (stub)->append_message (stub, folder_name, flags, subject, (gchar *) body->data, body->len);
 		g_free (folder_name);
 		g_free (subject);
 		g_byte_array_free (body, TRUE);
@@ -228,7 +228,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 
 	case CAMEL_STUB_CMD_SET_MESSAGE_FLAGS:
 	{
-		char *folder_name, *uid;
+		gchar *folder_name, *uid;
 		guint32 flags, mask;
 
 		if (!mail_stub_read_args (stub,
@@ -249,7 +249,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 
 	case CAMEL_STUB_CMD_SET_MESSAGE_TAG:
 	{
-		char *folder_name, *uid, *name, *value;
+		gchar *folder_name, *uid, *name, *value;
 
 		if (!mail_stub_read_args (stub,
 					  CAMEL_STUB_ARG_FOLDER, &folder_name,
@@ -272,7 +272,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 
 	case CAMEL_STUB_CMD_GET_MESSAGE:
 	{
-		char *folder_name, *uid;
+		gchar *folder_name, *uid;
 
 		if (!mail_stub_read_args (stub,
 					  CAMEL_STUB_ARG_FOLDER, &folder_name,
@@ -289,7 +289,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 
 	case CAMEL_STUB_CMD_SEARCH_FOLDER:
 	{
-		char *folder_name, *text;
+		gchar *folder_name, *text;
 
 		if (!mail_stub_read_args (stub,
 					  CAMEL_STUB_ARG_FOLDER, &folder_name,
@@ -306,7 +306,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 
 	case CAMEL_STUB_CMD_TRANSFER_MESSAGES:
 	{
-		char *source_name, *dest_name;
+		gchar *source_name, *dest_name;
 		guint32 delete_originals;
 		GPtrArray *uids;
 
@@ -331,7 +331,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 
 	case CAMEL_STUB_CMD_GET_FOLDER_INFO:
 	{
-		char *top;
+		gchar *top;
 		guint32 store_flags;
 
 		if (!mail_stub_read_args (stub,
@@ -348,7 +348,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 
 	case CAMEL_STUB_CMD_SEND_MESSAGE:
 	{
-		char *from;
+		gchar *from;
 		GPtrArray *recips;
 		GByteArray *body;
 
@@ -362,7 +362,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 			 from, recips->len));
 		g_object_ref (stub);
 		MS_CLASS (stub)->send_message (stub, from, recips,
-					       (char *) body->data, body->len);
+					       (gchar *) body->data, body->len);
 		g_free (from);
 		free_string_array (recips);
 		g_byte_array_free (body, TRUE);
@@ -371,7 +371,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 
 	case CAMEL_STUB_CMD_CREATE_FOLDER:
 	{
-		char *parent_name, *folder_name;
+		gchar *parent_name, *folder_name;
 
 		if (!mail_stub_read_args (stub,
 					  CAMEL_STUB_ARG_FOLDER, &parent_name,
@@ -389,7 +389,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 
 	case CAMEL_STUB_CMD_DELETE_FOLDER:
 	{
-		char *folder_name;
+		gchar *folder_name;
 
 		if (!mail_stub_read_args (stub,
 					  CAMEL_STUB_ARG_FOLDER, &folder_name,
@@ -404,7 +404,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 
 	case CAMEL_STUB_CMD_RENAME_FOLDER:
 	{
-		char *old_name, *new_name;
+		gchar *old_name, *new_name;
 
 		if (!mail_stub_read_args (stub,
 					  CAMEL_STUB_ARG_FOLDER, &old_name,
@@ -421,7 +421,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 
 	case CAMEL_STUB_CMD_SUBSCRIBE_FOLDER:
 	{
-		char *folder_name;
+		gchar *folder_name;
 
 		if (!mail_stub_read_args (stub,
 					  CAMEL_STUB_ARG_FOLDER, &folder_name,
@@ -436,7 +436,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 
 	case CAMEL_STUB_CMD_UNSUBSCRIBE_FOLDER:
 	{
-		char *folder_name;
+		gchar *folder_name;
 
 		if (!mail_stub_read_args (stub,
 					  CAMEL_STUB_ARG_FOLDER, &folder_name,
@@ -451,7 +451,7 @@ connection_handler (GIOChannel *source, GIOCondition condition, gpointer data)
 
 	case CAMEL_STUB_CMD_IS_SUBSCRIBED_FOLDER:
 	{
-		char *folder_name;
+		gchar *folder_name;
 
 		if (!mail_stub_read_args (stub,
 					CAMEL_STUB_ARG_FOLDER, &folder_name,
@@ -494,7 +494,7 @@ mail_stub_read_args (MailStub *stub, ...)
 {
 	va_list ap;
 	CamelStubArgType argtype;
-	int status;
+	gint status;
 
 	va_start (ap, stub);
 
@@ -516,7 +516,7 @@ mail_stub_read_args (MailStub *stub, ...)
 
 		case CAMEL_STUB_ARG_STRING:
 		{
-			char **buf = va_arg (ap, char **);
+			gchar **buf = va_arg (ap, gchar **);
 
 			status = camel_stub_marshal_decode_string (stub->cmd, buf);
 			break;
@@ -524,7 +524,7 @@ mail_stub_read_args (MailStub *stub, ...)
 
 		case CAMEL_STUB_ARG_FOLDER:
 		{
-			char **buf = va_arg (ap, char **);
+			gchar **buf = va_arg (ap, gchar **);
 
 			status = camel_stub_marshal_decode_folder (stub->cmd, buf);
 			break;
@@ -542,8 +542,8 @@ mail_stub_read_args (MailStub *stub, ...)
 		{
 			GPtrArray **arr = va_arg (ap, GPtrArray **);
 			guint32 len;
-			char *string;
-			int i;
+			gchar *string;
+			gint i;
 
 			status = camel_stub_marshal_decode_uint32 (stub->cmd, &len);
 			if (status == -1)
@@ -638,7 +638,7 @@ mail_stub_return_data (MailStub *stub, CamelStubRetval retval, ...)
 
 		case CAMEL_STUB_ARG_STRING:
 		{
-			char *string = va_arg (ap, char *);
+			gchar *string = va_arg (ap, gchar *);
 
 			camel_stub_marshal_encode_string (marshal, string);
 			break;
@@ -646,7 +646,7 @@ mail_stub_return_data (MailStub *stub, CamelStubRetval retval, ...)
 
 		case CAMEL_STUB_ARG_FOLDER:
 		{
-			char *name = va_arg (ap, char *);
+			gchar *name = va_arg (ap, gchar *);
 
 			camel_stub_marshal_encode_folder (marshal, name);
 			break;
@@ -654,8 +654,8 @@ mail_stub_return_data (MailStub *stub, CamelStubRetval retval, ...)
 
 		case CAMEL_STUB_ARG_BYTEARRAY:
 		{
-			char *data = va_arg (ap, char *);
-			int len = va_arg (ap, int);
+			gchar *data = va_arg (ap, gchar *);
+			gint len = va_arg (ap, int);
 			GByteArray ba;
 
 			ba.data = (guint8 *) data;
@@ -667,7 +667,7 @@ mail_stub_return_data (MailStub *stub, CamelStubRetval retval, ...)
 		case CAMEL_STUB_ARG_STRINGARRAY:
 		{
 			GPtrArray *arr = va_arg (ap, GPtrArray *);
-			int i;
+			gint i;
 
 			camel_stub_marshal_encode_uint32 (marshal, arr->len);
 			for (i = 0; i < arr->len; i++)
@@ -678,7 +678,7 @@ mail_stub_return_data (MailStub *stub, CamelStubRetval retval, ...)
 		case CAMEL_STUB_ARG_UINT32ARRAY:
 		{
 			GArray *arr = va_arg (ap, GArray *);
-			int i;
+			gint i;
 
 			camel_stub_marshal_encode_uint32 (marshal, arr->len);
 			for (i = 0; i < arr->len; i++)
@@ -702,7 +702,7 @@ mail_stub_return_data (MailStub *stub, CamelStubRetval retval, ...)
  * Sends progress data on the current operation.
  **/
 void
-mail_stub_return_progress (MailStub *stub, int percent)
+mail_stub_return_progress (MailStub *stub, gint percent)
 {
 	d(printf("  %d%%", percent));
 	camel_stub_marshal_encode_uint32 (stub->cmd, CAMEL_STUB_RETVAL_PROGRESS);
@@ -744,7 +744,7 @@ mail_stub_return_ok (MailStub *stub)
  * callers should not assume it is still valid after the call.
  **/
 void
-mail_stub_return_error (MailStub *stub, const char *message)
+mail_stub_return_error (MailStub *stub, const gchar *message)
 {
 	d(printf("  Error: %s\n", message));
 	camel_stub_marshal_flush (stub->status);
@@ -777,7 +777,7 @@ mail_stub_push_changes (MailStub *stub)
  * Initializes @stub with @cmd_fd and @status_fd.
  **/
 void
-mail_stub_construct (MailStub *stub, int cmd_fd, int status_fd)
+mail_stub_construct (MailStub *stub, gint cmd_fd, gint status_fd)
 {
 #ifndef G_OS_WIN32
 	stub->channel = g_io_channel_unix_new (cmd_fd);

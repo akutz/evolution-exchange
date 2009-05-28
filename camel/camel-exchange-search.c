@@ -32,7 +32,7 @@
 #include "camel-exchange-folder.h"
 
 static ESExpResult *
-exchange_body_contains (struct _ESExp *f, int argc, struct _ESExpResult **argv,
+exchange_body_contains (struct _ESExp *f, gint argc, struct _ESExpResult **argv,
 			CamelFolderSearch *s);
 
 
@@ -70,17 +70,17 @@ camel_exchange_search_get_type (void)
 }
 
 static ESExpResult *
-exchange_body_contains (struct _ESExp *f, int argc, struct _ESExpResult **argv,
+exchange_body_contains (struct _ESExp *f, gint argc, struct _ESExpResult **argv,
 			CamelFolderSearch *s)
 {
 	CamelExchangeFolder *folder = CAMEL_EXCHANGE_FOLDER (s->folder);
-	char *value = argv[0]->value.string, *real_uid;
-	const char *uid;
+	gchar *value = argv[0]->value.string, *real_uid;
+	const gchar *uid;
 	ESExpResult *r;
 	CamelMessageInfo *info;
 	GHashTable *uid_hash = NULL;
 	GPtrArray *found_uids;
-	int i;
+	gint i;
 
 	if (((CamelOfflineStore *) s->folder->parent_store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL)
 		return parent_class->body_contains (f, argc, argv, s);
@@ -136,7 +136,7 @@ exchange_body_contains (struct _ESExp *f, int argc, struct _ESExpResult **argv,
 	   access to the summary memory which is locked for the duration of
 	   the search, and wont vanish on us */
 	if (uid_hash == NULL) {
-		int i;
+		gint i;
 
 		uid_hash = g_hash_table_new (g_str_hash, g_str_equal);
 		for (i = 0; i < s->summary->len; i++) {
@@ -146,7 +146,7 @@ exchange_body_contains (struct _ESExp *f, int argc, struct _ESExpResult **argv,
 	}
 
 	for (i = 0; i < found_uids->len; i++) {
-		if (g_hash_table_lookup_extended (uid_hash, found_uids->pdata[i], (void *)&real_uid, (void *)&info))
+		if (g_hash_table_lookup_extended (uid_hash, found_uids->pdata[i], (gpointer)&real_uid, (gpointer)&info))
 			g_ptr_array_add (r->value.ptrarray, real_uid);
 		g_free (found_uids->pdata[i]);
 	}

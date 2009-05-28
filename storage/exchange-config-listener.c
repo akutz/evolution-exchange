@@ -56,16 +56,16 @@ struct _ExchangeConfigListenerPrivate {
 	GConfClient *gconf;
 	guint idle_id;
 
-	char *configured_uri, *configured_name;
+	gchar *configured_uri, *configured_name;
 	EAccount *configured_account;
 
 	ExchangeAccount *exchange_account;
 };
 
 typedef struct {
-	const char *name;
-	const char *uri;
-	int type;
+	const gchar *name;
+	const gchar *uri;
+	gint type;
 }FolderInfo;
 
 enum {
@@ -192,9 +192,9 @@ is_active_exchange_account (EAccount *account)
 }
 
 static void
-update_foreign_uri (const char *path, const char *account_uri)
+update_foreign_uri (const gchar *path, const gchar *account_uri)
 {
-	char *file_path, *phy_uri, *foreign_uri, *new_phy_uri;
+	gchar *file_path, *phy_uri, *foreign_uri, *new_phy_uri;
 	GHashTable *old_props = NULL;
 	xmlDoc *old_doc = NULL, *new_doc = NULL;
 
@@ -228,7 +228,7 @@ update_foreign_uri (const char *path, const char *account_uri)
 
 	new_phy_uri = g_strdup_printf ("exchange://%s/;%s", account_uri, foreign_uri + 1);
 	g_hash_table_remove (old_props, "physical_uri_prefix");
-	g_hash_table_insert (old_props, (char *)g_strdup ("physical_uri_prefix"), new_phy_uri);
+	g_hash_table_insert (old_props, (gchar *)g_strdup ("physical_uri_prefix"), new_phy_uri);
 
 	new_doc = e_xml_from_hash (old_props, E_XML_HASH_TYPE_PROPERTY, "foreign-hierarchy");
 	e_xml_save_file (file_path, new_doc);
@@ -246,8 +246,8 @@ static void
 migrate_foreign_hierarchy (ExchangeAccount *account)
 {
 	GDir *d;
-	const char *dentry;
-	char *dir;
+	const gchar *dentry;
+	gchar *dir;
 
 	d = g_dir_open (account->storage_dir, 0, NULL);
 	if (d) {
@@ -264,11 +264,11 @@ migrate_foreign_hierarchy (ExchangeAccount *account)
 }
 
 static void
-ex_set_relative_uri (ESource *source, const char *url)
+ex_set_relative_uri (ESource *source, const gchar *url)
 {
-	const char *rel_uri = e_source_peek_relative_uri (source);
-	char *folder_name;
-	char *new_rel_uri;
+	const gchar *rel_uri = e_source_peek_relative_uri (source);
+	gchar *folder_name;
+	gchar *new_rel_uri;
 
 	if (!rel_uri)
 		return;
@@ -294,11 +294,11 @@ migrate_account_esource (EAccount *account,
 	GSList *groups;
 	GSList *sources;
 	gboolean found_group;
-	const char *user_name, *authtype;
+	const gchar *user_name, *authtype;
 	GConfClient *client;
 	ESourceList *source_list = NULL;
 	CamelURL *camel_url;
-	char *url_string;
+	gchar *url_string;
 
 	camel_url = camel_url_new (account->source->url, NULL);
 	if (!camel_url)
@@ -429,13 +429,13 @@ configured_account_destroyed (gpointer user_data, GObject *where_account_was)
 }
 
 static gboolean
-requires_relogin (char *current_url, char *new_url)
+requires_relogin (gchar *current_url, gchar *new_url)
 {
 	E2kUri *current_uri, *new_uri;
-	const char *current_param_val, *new_param_val;
-	const char *params [] = { "owa_url", "ad_server", "use_ssl" };
-	const int n_params = G_N_ELEMENTS (params);
-	int i;
+	const gchar *current_param_val, *new_param_val;
+	const gchar *params [] = { "owa_url", "ad_server", "use_ssl" };
+	const gint n_params = G_N_ELEMENTS (params);
+	gint i;
 	gboolean relogin = FALSE;
 
 	current_uri = e2k_uri_new (current_url);
@@ -665,23 +665,23 @@ static gboolean
 exchange_camel_urls_is_equal (const gchar *url1, const gchar *url2)
 {
 	CamelURL *curl1, *curl2;
-	const char *param1, *param2;
-	const char *params[] = {
+	const gchar *param1, *param2;
+	const gchar *params[] = {
 		"auth",
 		"owa_url",
 		"owa_path",
 		"mailbox",
 		"ad_server",
 	};
-	const int n_params = 5;
-	int i;
+	const gint n_params = 5;
+	gint i;
 
 	curl1 = camel_url_new (url1, NULL);
 	curl2 = camel_url_new (url2, NULL);
 
 	for (i = 0; i < n_params; ++i) {
-		param1 = (gchar*) camel_url_get_param (curl1, params[i]);
-		param2 = (gchar*) camel_url_get_param (curl2, params[i]);
+		param1 = (gchar *) camel_url_get_param (curl1, params[i]);
+		param2 = (gchar *) camel_url_get_param (curl2, params[i]);
 		if ((param1 && !param2) || (!param1 && param2) || /* Missing */
 		    (param1 && param2 && strcmp (param1, param2))) { /* Differing */
 			camel_url_free (curl1);

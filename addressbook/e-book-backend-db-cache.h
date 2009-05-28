@@ -25,22 +25,22 @@
 #include <libebook/e-contact.h>
 #include "db.h"
 
-EContact* e_book_backend_db_cache_get_contact (DB *db, const char *uid);
-void string_to_dbt(const char *str, DBT *dbt);
-char *e_book_backend_db_cache_get_filename(DB *db);
-void e_book_backend_db_cache_set_filename(DB *db, const char *filename);
-char *e_book_backend_db_cache_get_time(DB *db);
-void e_book_backend_db_cache_set_time(DB *db, const char *time);
+EContact* e_book_backend_db_cache_get_contact (DB *db, const gchar *uid);
+void string_to_dbt(const gchar *str, DBT *dbt);
+gchar *e_book_backend_db_cache_get_filename(DB *db);
+void e_book_backend_db_cache_set_filename(DB *db, const gchar *filename);
+gchar *e_book_backend_db_cache_get_time(DB *db);
+void e_book_backend_db_cache_set_time(DB *db, const gchar *time);
 gboolean e_book_backend_db_cache_add_contact (DB *db,
 					   EContact *contact);
 gboolean e_book_backend_db_cache_remove_contact (DB *db,
-					      const char *uid);
-gboolean e_book_backend_db_cache_check_contact (DB *db, const char *uid);
-GList*   e_book_backend_db_cache_get_contacts (DB *db, const char *query);
-gboolean e_book_backend_db_cache_exists (const char *uri);
+					      const gchar *uid);
+gboolean e_book_backend_db_cache_check_contact (DB *db, const gchar *uid);
+GList*   e_book_backend_db_cache_get_contacts (DB *db, const gchar *query);
+gboolean e_book_backend_db_cache_exists (const gchar *uri);
 void     e_book_backend_db_cache_set_populated (DB *db);
 gboolean e_book_backend_db_cache_is_populated (DB *db);
-GPtrArray* e_book_backend_db_cache_search (DB *db, const char *query);
+GPtrArray* e_book_backend_db_cache_search (DB *db, const gchar *query);
 
 
 

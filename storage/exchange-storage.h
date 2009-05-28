@@ -35,9 +35,9 @@ EStorage         *exchange_storage_new      (ExchangeAccount *account);
 
 #ifdef G_OS_WIN32
 
-extern const char *_exchange_storage_datadir;
-extern const char *_exchange_storage_gladedir;
-extern const char *_exchange_storage_imagesdir;
+extern const gchar *_exchange_storage_datadir;
+extern const gchar *_exchange_storage_gladedir;
+extern const gchar *_exchange_storage_imagesdir;
 
 #endif
 

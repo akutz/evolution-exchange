@@ -6,6 +6,6 @@
 
 #include "exchange-component.h"
 
-void exchange_migrate (const CORBA_short major, const CORBA_short minor, const CORBA_short revision, const gchar *base_diri, char *account_filename);
+void exchange_migrate (const CORBA_short major, const CORBA_short minor, const CORBA_short revision, const gchar *base_diri, gchar *account_filename);
 
 #endif /* _EXCHANGE_MIGRATE_H_ */

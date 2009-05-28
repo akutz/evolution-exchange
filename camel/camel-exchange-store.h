@@ -26,8 +26,8 @@ typedef struct {
 	CamelOfflineStore parent_object;
 
 	CamelStub *stub;
-	char *storage_path, *base_url;
-	char *trash_name;
+	gchar *storage_path, *base_url;
+	gchar *trash_name;
 	GHashTable *folders;
 	GMutex *folders_lock;
 

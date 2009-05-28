@@ -50,38 +50,38 @@ static void construct (CamelService *service, CamelSession *session,
 		       CamelException *ex);
 
 static GList *query_auth_types (CamelService *service, CamelException *ex);
-static char  *get_name         (CamelService *service, gboolean brief);
+static gchar  *get_name         (CamelService *service, gboolean brief);
 static CamelFolder     *get_trash       (CamelStore *store,
 					 CamelException *ex);
 
-char * exchange_path_to_physical (const char *prefix, const char *vpath);
+gchar * exchange_path_to_physical (const gchar *prefix, const gchar *vpath);
 static gboolean exchange_connect (CamelService *service, CamelException *ex);
 static gboolean exchange_disconnect (CamelService *service, gboolean clean, CamelException *ex);
 
-static CamelFolder *exchange_get_folder (CamelStore *store, const char *folder_name,
+static CamelFolder *exchange_get_folder (CamelStore *store, const gchar *folder_name,
 					 guint32 flags, CamelException *ex);
 
-static CamelFolderInfo *exchange_get_folder_info (CamelStore *store, const char *top,
+static CamelFolderInfo *exchange_get_folder_info (CamelStore *store, const gchar *top,
 						  guint32 flags, CamelException *ex);
 
 static CamelFolderInfo *exchange_create_folder (CamelStore *store,
-						const char *parent_name,
-						const char *folder_name,
+						const gchar *parent_name,
+						const gchar *folder_name,
 						CamelException *ex);
 static void             exchange_delete_folder (CamelStore *store,
-						const char *folder_name,
+						const gchar *folder_name,
 						CamelException *ex);
 static void             exchange_rename_folder (CamelStore *store,
-						const char *old_name,
-						const char *new_name,
+						const gchar *old_name,
+						const gchar *new_name,
 						CamelException *ex);
 static gboolean		exchange_folder_subscribed (CamelStore *store,
-						const char *folder_name);
+						const gchar *folder_name);
 static void		exchange_subscribe_folder (CamelStore *store,
-						const char *folder_name,
+						const gchar *folder_name,
 						CamelException *ex);
 static void		exchange_unsubscribe_folder (CamelStore *store,
-						const char *folder_name,
+						const gchar *folder_name,
 						CamelException *ex);
 static gboolean exchange_can_refresh_folder (CamelStore *store, CamelFolderInfo *info, CamelException *ex);
 
@@ -198,14 +198,14 @@ camel_exchange_store_connected (CamelExchangeStore *store, CamelException *ex)
  * Also note that this is similar to the call in e2k-path.c. The name of the
  * function has been changed to avoid any conflicts.
  */
-char *
-exchange_path_to_physical (const char *prefix, const char *vpath)
+gchar *
+exchange_path_to_physical (const gchar *prefix, const gchar *vpath)
 {
-	const char *p, *newp;
-	char *dp;
-	char *ppath;
-	int ppath_len;
-	int prefix_len;
+	const gchar *p, *newp;
+	gchar *dp;
+	gchar *ppath;
+	gint ppath_len;
+	gint prefix_len;
 
 	while (*vpath == '/')
 		vpath++;
@@ -278,7 +278,7 @@ construct (CamelService *service, CamelSession *session,
 	   CamelProvider *provider, CamelURL *url, CamelException *ex)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
-	char *p;
+	gchar *p;
 
 	CAMEL_SERVICE_CLASS (parent_class)->construct (service, session, provider, url, ex);
 
@@ -307,7 +307,7 @@ query_auth_types (CamelService *service, CamelException *ex)
 			       &camel_exchange_ntlm_authtype);
 }
 
-static char *
+static gchar *
 get_name (CamelService *service, gboolean brief)
 {
 	if (brief) {
@@ -367,7 +367,7 @@ static gboolean
 exchange_connect (CamelService *service, CamelException *ex)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
-	char *real_user, *socket_path, *dot_exchange_username, *user_at_host;
+	gchar *real_user, *socket_path, *dot_exchange_username, *user_at_host;
 	gchar *password = NULL;
 	guint32 connect_status;
 	gboolean online_mode = FALSE;
@@ -477,12 +477,12 @@ exchange_disconnect (CamelService *service, gboolean clean, CamelException *ex)
 		return val;
 
 static CamelFolder *
-exchange_get_folder (CamelStore *store, const char *folder_name,
+exchange_get_folder (CamelStore *store, const gchar *folder_name,
 		     guint32 flags, CamelException *ex)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	CamelFolder *folder;
-	char *folder_dir;
+	gchar *folder_dir;
 
 	RETURN_VAL_IF_NOT_CONNECTED (exch, ex, NULL);
 
@@ -540,7 +540,7 @@ exchange_get_folder (CamelStore *store, const char *folder_name,
 }
 
 static gboolean
-exchange_folder_subscribed (CamelStore *store, const char *folder_name)
+exchange_folder_subscribed (CamelStore *store, const gchar *folder_name)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	guint32 is_subscribed;
@@ -562,7 +562,7 @@ exchange_folder_subscribed (CamelStore *store, const char *folder_name)
 }
 
 static void
-exchange_subscribe_folder (CamelStore *store, const char *folder_name,
+exchange_subscribe_folder (CamelStore *store, const gchar *folder_name,
 				CamelException *ex)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
@@ -579,7 +579,7 @@ exchange_subscribe_folder (CamelStore *store, const char *folder_name,
 }
 
 static void
-exchange_unsubscribe_folder (CamelStore *store, const char *folder_name,
+exchange_unsubscribe_folder (CamelStore *store, const gchar *folder_name,
 				CamelException *ex)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
@@ -616,14 +616,14 @@ get_trash (CamelStore *store, CamelException *ex)
 
 /* Note: steals @name and @uri */
 static CamelFolderInfo *
-make_folder_info (CamelExchangeStore *exch, char *name, char *uri,
-		  int unread_count, int flags)
+make_folder_info (CamelExchangeStore *exch, gchar *name, gchar *uri,
+		  gint unread_count, gint flags)
 {
 	CamelFolderInfo *info;
-	const char *path;
+	const gchar *path;
 	gchar **components;
-	char *new_uri;
-	char *temp;
+	gchar *new_uri;
+	gchar *temp;
 
 	d(printf ("make folder info : %s flags : %d\n", name, flags));
 	path = strstr (uri, "://");
@@ -713,7 +713,7 @@ postprocess_tree (CamelFolderInfo *info)
 
 
 static CamelFolderInfo *
-exchange_get_folder_info (CamelStore *store, const char *top, guint32 flags, CamelException *ex)
+exchange_get_folder_info (CamelStore *store, const gchar *top, guint32 flags, CamelException *ex)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	GPtrArray *folders, *folder_names, *folder_uris;
@@ -721,7 +721,7 @@ exchange_get_folder_info (CamelStore *store, const char *top, guint32 flags, Cam
 	GArray *folder_flags;
 	CamelFolderInfo *info;
 	guint32 store_flags = 0;
-	int i;
+	gint i;
 #if 0
 	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot get folder info in offline mode."));
@@ -788,11 +788,11 @@ exchange_get_folder_info (CamelStore *store, const char *top, guint32 flags, Cam
 }
 
 static CamelFolderInfo *
-exchange_create_folder (CamelStore *store, const char *parent_name,
-			const char *folder_name, CamelException *ex)
+exchange_create_folder (CamelStore *store, const gchar *parent_name,
+			const gchar *folder_name, CamelException *ex)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
-	char *folder_uri;
+	gchar *folder_uri;
 	guint32 unread_count, flags;
 	CamelFolderInfo *info;
 
@@ -818,7 +818,7 @@ exchange_create_folder (CamelStore *store, const char *parent_name,
 }
 
 static void
-exchange_delete_folder (CamelStore *store, const char *folder_name,
+exchange_delete_folder (CamelStore *store, const gchar *folder_name,
 			CamelException *ex)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
@@ -834,14 +834,14 @@ exchange_delete_folder (CamelStore *store, const char *folder_name,
 }
 
 static void
-exchange_rename_folder (CamelStore *store, const char *old_name,
-			const char *new_name, CamelException *ex)
+exchange_rename_folder (CamelStore *store, const gchar *old_name,
+			const gchar *new_name, CamelException *ex)
 {
 	GPtrArray *folders = NULL, *folder_names = NULL, *folder_uris = NULL;
 	GArray *unread_counts = NULL;
 	GArray *folder_flags = NULL;
 	CamelFolderInfo *info;
-	int i;
+	gint i;
 	CamelRenameInfo reninfo;
 	CamelFolder *folder;
 
@@ -892,7 +892,7 @@ exchange_rename_folder (CamelStore *store, const char *old_name,
 	g_ptr_array_free (folders, TRUE);
 
 	reninfo.new = info;
-	reninfo.old_base = (char *)old_name;
+	reninfo.old_base = (gchar *)old_name;
 
 	g_mutex_lock (exch->folders_lock);
 	folder = g_hash_table_lookup (exch->folders, reninfo.old_base);
@@ -919,7 +919,7 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 	case CAMEL_STUB_RETVAL_NEW_MESSAGE:
 	{
 		CamelExchangeFolder *folder;
-		char *folder_name, *uid, *headers, *href;
+		gchar *folder_name, *uid, *headers, *href;
 		guint32 flags, size;
 
 		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1 ||
@@ -948,7 +948,7 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 	case CAMEL_STUB_RETVAL_REMOVED_MESSAGE:
 	{
 		CamelExchangeFolder *folder;
-		char *folder_name, *uid;
+		gchar *folder_name, *uid;
 		CamelMessageInfo *info;
 
 		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1 ||
@@ -971,7 +971,7 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 	case CAMEL_STUB_RETVAL_CHANGED_MESSAGE:
 	{
 		CamelExchangeFolder *folder;
-		char *folder_name, *uid;
+		gchar *folder_name, *uid;
 
 		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1 ||
 		    camel_stub_marshal_decode_string (stub->status, &uid) == -1)
@@ -991,7 +991,7 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 	case CAMEL_STUB_RETVAL_CHANGED_FLAGS:
 	{
 		CamelExchangeFolder *folder;
-		char *folder_name, *uid;
+		gchar *folder_name, *uid;
 		guint32 flags;
 
 		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1 ||
@@ -1013,7 +1013,7 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 	case CAMEL_STUB_RETVAL_CHANGED_FLAGS_EX:
 	{
 		CamelExchangeFolder *folder;
-		char *folder_name, *uid;
+		gchar *folder_name, *uid;
 		guint32 flags;
 		guint32 mask;
 
@@ -1038,7 +1038,7 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 	case CAMEL_STUB_RETVAL_CHANGED_TAG:
 	{
 		CamelExchangeFolder *folder;
-		char *folder_name, *uid, *name, *value;
+		gchar *folder_name, *uid, *name, *value;
 
 		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1 ||
 		    camel_stub_marshal_decode_string (stub->status, &uid) == -1 ||
@@ -1062,7 +1062,7 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 	case CAMEL_STUB_RETVAL_FREEZE_FOLDER:
 	{
 		CamelFolder *folder;
-		char *folder_name;
+		gchar *folder_name;
 
 		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1)
 			break;
@@ -1080,7 +1080,7 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 	case CAMEL_STUB_RETVAL_THAW_FOLDER:
 	{
 		CamelFolder *folder;
-		char *folder_name;
+		gchar *folder_name;
 
 		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1)
 			break;
@@ -1098,7 +1098,7 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 	case CAMEL_STUB_RETVAL_FOLDER_CREATED:
 	{
 		CamelFolderInfo *info;
-		char *name, *uri;
+		gchar *name, *uri;
 
 		if (camel_stub_marshal_decode_string (stub->status, &name) == -1 ||
 		    camel_stub_marshal_decode_string (stub->status, &uri) == -1)
@@ -1116,7 +1116,7 @@ stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
 	{
 		CamelFolderInfo *info;
 		CamelFolder *folder;
-		char *name, *uri;
+		gchar *name, *uri;
 
 		if (camel_stub_marshal_decode_string (stub->status, &name) == -1 ||
 		    camel_stub_marshal_decode_string (stub->status, &uri) == -1)

@@ -15,33 +15,33 @@ extern "C" {
 
 typedef struct {
 	GByteArray *in, *out;
-	char *inptr;
-	int fd;
+	gchar *inptr;
+	gint fd;
 
-	char *last_folder;
+	gchar *last_folder;
 } CamelStubMarshal;
 
-CamelStubMarshal *camel_stub_marshal_new           (int fd);
+CamelStubMarshal *camel_stub_marshal_new           (gint fd);
 void              camel_stub_marshal_free          (CamelStubMarshal *marshal);
 
 void              camel_stub_marshal_encode_uint32 (CamelStubMarshal *marshal,
 						    guint32 value);
-int               camel_stub_marshal_decode_uint32 (CamelStubMarshal *marshal,
+gint               camel_stub_marshal_decode_uint32 (CamelStubMarshal *marshal,
 						    guint32 *dest);
 void              camel_stub_marshal_encode_string (CamelStubMarshal *marshal,
-						    const char *str);
-int               camel_stub_marshal_decode_string (CamelStubMarshal *marshal,
-						    char **str);
+						    const gchar *str);
+gint               camel_stub_marshal_decode_string (CamelStubMarshal *marshal,
+						    gchar **str);
 void              camel_stub_marshal_encode_folder (CamelStubMarshal *marshal,
-						    const char *name);
-int               camel_stub_marshal_decode_folder (CamelStubMarshal *marshal,
-						    char **name);
+						    const gchar *name);
+gint               camel_stub_marshal_decode_folder (CamelStubMarshal *marshal,
+						    gchar **name);
 void              camel_stub_marshal_encode_bytes  (CamelStubMarshal *marshal,
 						    GByteArray *ba);
-int               camel_stub_marshal_decode_bytes  (CamelStubMarshal *marshal,
+gint               camel_stub_marshal_decode_bytes  (CamelStubMarshal *marshal,
 						    GByteArray **ba);
 
-int               camel_stub_marshal_flush         (CamelStubMarshal *marshal);
+gint               camel_stub_marshal_flush         (CamelStubMarshal *marshal);
 gboolean          camel_stub_marshal_eof           (CamelStubMarshal *marshal);
 
 #ifdef __cplusplus

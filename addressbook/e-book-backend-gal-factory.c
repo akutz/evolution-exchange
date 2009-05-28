@@ -32,7 +32,7 @@ e_book_backend_gal_factory_instance_init (EBookBackendGalFactory *factory)
 {
 }
 
-static const char *
+static const gchar *
 _get_protocol (EBookBackendFactory *factory)
 {
 	return "gal";

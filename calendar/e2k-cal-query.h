@@ -10,7 +10,7 @@
 G_BEGIN_DECLS
 
 E2kRestriction * e2k_cal_query_to_restriction (ECalBackendExchange *cbex,
-					       const char          *sexp);
+					       const gchar          *sexp);
 
 
 G_END_DECLS

@@ -32,7 +32,7 @@ e_book_backend_exchange_factory_instance_init (EBookBackendExchangeFactory *fact
 {
 }
 
-static const char *
+static const gchar *
 _get_protocol (EBookBackendFactory *factory)
 {
 	return "exchange";

@@ -24,10 +24,10 @@ struct _MailStubListener {
 	GObject parent;
 
 	gpointer stub;
-	char *socket_path;
+	gchar *socket_path;
 	GIOChannel *channel;
 
-	int cmd_fd;
+	gint cmd_fd;
 };
 
 struct _MailStubListenerClass {
@@ -39,9 +39,9 @@ struct _MailStubListenerClass {
 
 GType             mail_stub_listener_get_type      (void);
 gboolean          mail_stub_listener_construct     (MailStubListener *stub,
-						    const char *socket_path);
+						    const gchar *socket_path);
 
-MailStubListener *mail_stub_listener_new           (const char *socket_path);
+MailStubListener *mail_stub_listener_new           (const gchar *socket_path);
 
 #ifdef __cplusplus
 }

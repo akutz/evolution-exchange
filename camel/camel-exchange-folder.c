@@ -55,20 +55,20 @@ static CamelOfflineFolderClass *parent_class = NULL;
 
 static void exchange_expunge (CamelFolder *folder, CamelException *ex);
 static void append_message (CamelFolder *folder, CamelMimeMessage *message,
-			    const CamelMessageInfo *info, char **appended_uid,
+			    const CamelMessageInfo *info, gchar **appended_uid,
 			    CamelException *ex);
 static CamelMimeMessage *get_message         (CamelFolder *folder,
 					      const gchar *uid,
 					      CamelException *ex);
 static GPtrArray      *search_by_expression  (CamelFolder *folder,
-					      const char *exp,
+					      const gchar *exp,
 					      CamelException *ex);
 static guint32	      count_by_expression  (CamelFolder *folder,
-					      const char *exp,
+					      const gchar *exp,
 					      CamelException *ex);
 
 static GPtrArray      *search_by_uids        (CamelFolder *folder,
-					      const char *expression,
+					      const gchar *expression,
 					      GPtrArray *uids,
 					      CamelException *ex);
 static void            transfer_messages_to  (CamelFolder *source,
@@ -85,8 +85,8 @@ static void   transfer_messages_the_hard_way (CamelFolder *source,
 					      CamelException *ex);
 static void refresh_info (CamelFolder *folder, CamelException *ex);
 static void exchange_sync (CamelFolder *folder, gboolean expunge, CamelException *ex);
-static char* get_filename (CamelFolder *folder, const char *uid, CamelException *ex);
-static gint cmp_uids (CamelFolder *folder, const char *uid1, const char *uid2);
+static gchar * get_filename (CamelFolder *folder, const gchar *uid, CamelException *ex);
+static gint cmp_uids (CamelFolder *folder, const gchar *uid1, const gchar *uid2);
 
 static void
 class_init (CamelFolderClass *camel_folder_class)
@@ -224,12 +224,12 @@ exchange_expunge (CamelFolder *folder, CamelException *ex)
 
 static void
 append_message_data (CamelFolder *folder, GByteArray *message,
-		     const char *subject, const CamelMessageInfo *info,
-		     char **appended_uid, CamelException *ex)
+		     const gchar *subject, const CamelMessageInfo *info,
+		     gchar **appended_uid, CamelException *ex)
 {
 	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
 	CamelStream *stream_cache;
-	char *new_uid;
+	gchar *new_uid;
 
 	if (!subject)
 		subject = camel_message_info_subject (info);;
@@ -248,7 +248,7 @@ append_message_data (CamelFolder *folder, GByteArray *message,
 						     "cache", new_uid, NULL);
 		if (stream_cache) {
 			camel_stream_write (stream_cache,
-					    (char *) message->data,
+					    (gchar *) message->data,
 					    message->len);
 			camel_stream_flush (stream_cache);
 			camel_object_unref (CAMEL_OBJECT (stream_cache));
@@ -263,15 +263,15 @@ append_message_data (CamelFolder *folder, GByteArray *message,
 
 static void
 append_message (CamelFolder *folder, CamelMimeMessage *message,
-		const CamelMessageInfo *info, char **appended_uid,
+		const CamelMessageInfo *info, gchar **appended_uid,
 		CamelException *ex)
 {
 	CamelStream *stream_mem;
 	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (folder->parent_store);
 
-	char *old_subject = NULL;
+	gchar *old_subject = NULL;
 	GString *new_subject;
-	int i, len;
+	gint i, len;
 
 	/*
 	   FIXME: We should add a top-level camel API camel_mime_message_prune_invalid_chars
@@ -319,7 +319,7 @@ fix_broken_multipart_related (CamelMimePart *part)
 	CamelDataWrapper *content;
 	CamelMultipart *multipart, *new;
 	CamelMimePart *subpart;
-	int i, count, broken_parts;
+	gint i, count, broken_parts;
 
 	content = camel_medium_get_content_object (CAMEL_MEDIUM (part));
 
@@ -366,8 +366,8 @@ fix_broken_multipart_related (CamelMimePart *part)
 	}
 }
 
-static char*
-get_filename (CamelFolder *folder, const char *uid, CamelException *ex)
+static gchar *
+get_filename (CamelFolder *folder, const gchar *uid, CamelException *ex)
 {
 	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
 
@@ -375,7 +375,7 @@ get_filename (CamelFolder *folder, const char *uid, CamelException *ex)
 }
 
 static GByteArray *
-get_message_data (CamelFolder *folder, const char *uid, CamelException *ex)
+get_message_data (CamelFolder *folder, const gchar *uid, CamelException *ex)
 {
 	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
 	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (folder->parent_store);
@@ -415,7 +415,7 @@ get_message_data (CamelFolder *folder, const char *uid, CamelException *ex)
 		return NULL;
 	}
 
-	camel_stream_write (stream, (char *) ba->data, ba->len);
+	camel_stream_write (stream, (gchar *) ba->data, ba->len);
 	camel_stream_flush (stream);
 	camel_object_unref (CAMEL_OBJECT (stream));
 
@@ -425,7 +425,7 @@ get_message_data (CamelFolder *folder, const char *uid, CamelException *ex)
 #define MAILING_LIST_HEADERS "X-MAILING-LIST X-LOOP LIST-ID LIST-POST MAILING-LIST ORIGINATOR X-LIST RETURN-PATH X-BEENTHERE "
 
 static CamelMimeMessage *
-get_message (CamelFolder *folder, const char *uid, CamelException *ex)
+get_message (CamelFolder *folder, const gchar *uid, CamelException *ex)
 {
 	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
 	CamelMimeMessage *msg;
@@ -457,7 +457,7 @@ get_message (CamelFolder *folder, const char *uid, CamelException *ex)
 	if(camel_medium_get_header (CAMEL_MEDIUM (msg), "Sender")) {
 		list_headers = g_strsplit (MAILING_LIST_HEADERS, " ", 0);
 		if (list_headers) {
-			int i = 0;
+			gint i = 0;
 			while (list_headers[i]) {
 				if (camel_medium_get_header (CAMEL_MEDIUM (msg), list_headers[i])) {
 					found_list = TRUE;
@@ -477,7 +477,7 @@ get_message (CamelFolder *folder, const char *uid, CamelException *ex)
 }
 
 static GPtrArray *
-search_by_expression (CamelFolder *folder, const char *expression,
+search_by_expression (CamelFolder *folder, const gchar *expression,
 		      CamelException *ex)
 {
 	CamelFolderSearch *search;
@@ -493,7 +493,7 @@ search_by_expression (CamelFolder *folder, const char *expression,
 }
 
 static guint32
-count_by_expression (CamelFolder *folder, const char *expression,
+count_by_expression (CamelFolder *folder, const gchar *expression,
 		      CamelException *ex)
 {
 	CamelFolderSearch *search;
@@ -509,7 +509,7 @@ count_by_expression (CamelFolder *folder, const char *expression,
 }
 
 static gint
-cmp_uids (CamelFolder *folder, const char *uid1, const char *uid2)
+cmp_uids (CamelFolder *folder, const gchar *uid1, const gchar *uid2)
 {
 	g_return_val_if_fail (uid1 != NULL, 0);
 	g_return_val_if_fail (uid2 != NULL, 0);
@@ -518,7 +518,7 @@ cmp_uids (CamelFolder *folder, const char *uid1, const char *uid2)
 }
 
 static GPtrArray *
-search_by_uids (CamelFolder *folder, const char *expression,
+search_by_uids (CamelFolder *folder, const gchar *expression,
 		GPtrArray *uids, CamelException *ex)
 {
 	CamelFolderSearch *search;
@@ -544,8 +544,8 @@ transfer_messages_the_hard_way (CamelFolder *source, GPtrArray *uids,
 	CamelException local_ex;
 	CamelMessageInfo *info;
 	GByteArray *ba;
-	char *ret_uid;
-	int i;
+	gchar *ret_uid;
+	gint i;
 
 	if (transferred_uids)
 		*transferred_uids = g_ptr_array_new ();
@@ -594,10 +594,10 @@ cache_xfer (CamelExchangeFolder *stub_source, CamelExchangeFolder *stub_dest,
 	    GPtrArray *src_uids, GPtrArray *dest_uids, gboolean delete)
 {
 	CamelStream *src, *dest;
-	int i;
+	gint i;
 
 	for (i = 0; i < src_uids->len; i++) {
-		if (!*(char *)dest_uids->pdata[i])
+		if (!*(gchar *)dest_uids->pdata[i])
 			continue;
 
 		src = camel_data_cache_get (stub_source->cache, "cache",
@@ -630,7 +630,7 @@ transfer_messages_to (CamelFolder *source, GPtrArray *uids,
 	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (source->parent_store);
 	CamelMessageInfo *info;
 	GPtrArray *ret_uids = NULL;
-	int hier_len, i;
+	gint hier_len, i;
 
 	camel_operation_start (NULL, delete_originals ? _("Moving messages") :
 			       _("Copying messages"));
@@ -684,7 +684,7 @@ transfer_messages_to (CamelFolder *source, GPtrArray *uids,
 		if (transferred_uids)
 			*transferred_uids = ret_uids;
 		else {
-			int i;
+			gint i;
 
 			for (i = 0; i < ret_uids->len; i++)
 				g_free (ret_uids->pdata[i]);
@@ -704,7 +704,7 @@ end:
  * base64 representation of this value.
  */
 static CamelSummaryMessageID *
-find_parent (CamelExchangeFolder *exch, const char *thread_index)
+find_parent (CamelExchangeFolder *exch, const gchar *thread_index)
 {
 	CamelSummaryMessageID *msgid;
 	guchar *decoded;
@@ -740,9 +740,9 @@ find_parent (CamelExchangeFolder *exch, const char *thread_index)
  **/
 void
 camel_exchange_folder_add_message (CamelExchangeFolder *exch,
-				   const char *uid, guint32 flags,
-				   guint32 size, const char *headers,
-				   const char *href)
+				   const gchar *uid, guint32 flags,
+				   guint32 size, const gchar *headers,
+				   const gchar *href)
 {
 	CamelFolder *folder = CAMEL_FOLDER (exch);
 	CamelMessageInfo *info;
@@ -812,7 +812,7 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
  **/
 void
 camel_exchange_folder_remove_message (CamelExchangeFolder *exch,
-				      const char *uid)
+				      const gchar *uid)
 {
 	CamelFolderSummary *summary = CAMEL_FOLDER (exch)->summary;
 	CamelFolderChangeInfo *changes;
@@ -857,7 +857,7 @@ camel_exchange_folder_remove_message (CamelExchangeFolder *exch,
  **/
 void
 camel_exchange_folder_uncache_message (CamelExchangeFolder *exch,
-				       const char *uid)
+				       const gchar *uid)
 {
 	camel_data_cache_remove (exch->cache, "cache", uid, NULL);
 }
@@ -873,7 +873,7 @@ camel_exchange_folder_uncache_message (CamelExchangeFolder *exch,
  **/
 void
 camel_exchange_folder_update_message_flags (CamelExchangeFolder *exch,
-					    const char *uid, guint32 flags)
+					    const gchar *uid, guint32 flags)
 {
 	CamelFolder *folder = CAMEL_FOLDER (exch);
 	CamelMessageInfoBase *info;
@@ -909,7 +909,7 @@ camel_exchange_folder_update_message_flags (CamelExchangeFolder *exch,
  **/
 void
 camel_exchange_folder_update_message_flags_ex (CamelExchangeFolder *exch,
-					       const char *uid, guint32 flags,
+					       const gchar *uid, guint32 flags,
 					       guint32 mask)
 {
 	CamelFolder *folder = CAMEL_FOLDER (exch);
@@ -950,9 +950,9 @@ camel_exchange_folder_update_message_flags_ex (CamelExchangeFolder *exch,
  **/
 void
 camel_exchange_folder_update_message_tag (CamelExchangeFolder *exch,
-					  const char *uid,
-					  const char *name,
-					  const char *value)
+					  const gchar *uid,
+					  const gchar *name,
+					  const gchar *value)
 {
 	CamelFolder *folder = CAMEL_FOLDER (exch);
 	CamelMessageInfoBase *info;
@@ -990,19 +990,19 @@ camel_exchange_folder_update_message_tag (CamelExchangeFolder *exch,
  **/
 gboolean
 camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
-				 const char *name, guint32 camel_flags,
-				 const char *folder_dir, int offline_state,
+				 const gchar *name, guint32 camel_flags,
+				 const gchar *folder_dir, gint offline_state,
 				 CamelStub *stub, CamelException *ex)
 {
 	CamelExchangeFolder *exch = (CamelExchangeFolder *)folder;
-	const char *short_name;
-	char *summary_file, *journal_file, *path;
+	const gchar *short_name;
+	gchar *summary_file, *journal_file, *path;
 	GPtrArray *summary, *uids, *hrefs;
 	GByteArray *flags;
 	guint32 folder_flags;
 	CamelMessageInfo *info;
 	CamelExchangeMessageInfo *einfo;
-	int i, len = 0;
+	gint i, len = 0;
 
 	short_name = strrchr (name, '/');
 	if (!short_name++)

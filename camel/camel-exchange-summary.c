@@ -46,15 +46,15 @@
 
 #define d(x)
 
-static int header_load (CamelFolderSummary *summary, FILE *in);
-static int header_save (CamelFolderSummary *summary, FILE *out);
+static gint header_load (CamelFolderSummary *summary, FILE *in);
+static gint header_save (CamelFolderSummary *summary, FILE *out);
 
 static CamelMessageInfo *message_info_load (CamelFolderSummary *summary,
 					    FILE *in);
-static int               message_info_save (CamelFolderSummary *summary,
+static gint               message_info_save (CamelFolderSummary *summary,
 					    FILE *out,
 					    CamelMessageInfo *info);
-static int summary_header_from_db (CamelFolderSummary *s, CamelFIRecord *mir);
+static gint summary_header_from_db (CamelFolderSummary *s, CamelFIRecord *mir);
 static CamelFIRecord * summary_header_to_db (CamelFolderSummary *s, CamelException *ex);
 static CamelMIRecord * message_info_to_db (CamelFolderSummary *s, CamelMessageInfo *info);
 static CamelMessageInfo * message_info_from_db (CamelFolderSummary *s, CamelMIRecord *mir);
@@ -67,7 +67,7 @@ static gboolean check_for_trash (CamelFolder *folder);
 static gboolean expunge_mail (CamelFolder *folder, CamelMessageInfo *info);
 
 static gboolean info_set_flags(CamelMessageInfo *info, guint32 flags, guint32 set);
-static gboolean info_set_user_tag(CamelMessageInfo *info, const char *name, const char *value);
+static gboolean info_set_user_tag(CamelMessageInfo *info, const gchar *name, const gchar *value);
 
 static CamelFolderSummaryClass *parent_class = NULL;
 
@@ -133,7 +133,7 @@ camel_exchange_summary_get_type (void)
  * Return value: the summary object.
  **/
 CamelFolderSummary *
-camel_exchange_summary_new (struct _CamelFolder *folder, const char *filename)
+camel_exchange_summary_new (struct _CamelFolder *folder, const gchar *filename)
 {
 	CamelFolderSummary *summary;
 	CamelException lex;
@@ -156,7 +156,7 @@ static int
 summary_header_from_db (CamelFolderSummary *s, CamelFIRecord *mir)
 {
 	CamelExchangeSummary *exchange = (CamelExchangeSummary *) s;
-	char *part;
+	gchar *part;
 
 	if (CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->summary_header_from_db (s, mir) == -1)
 		return -1;
@@ -257,8 +257,8 @@ message_info_from_db (CamelFolderSummary *s, CamelMIRecord *mir)
 
 	info = CAMEL_FOLDER_SUMMARY_CLASS(parent_class)->message_info_from_db (s, mir);
 	if (info) {
-		char *part = g_strdup (mir->bdata);
-		int len;
+		gchar *part = g_strdup (mir->bdata);
+		gint len;
 		einfo = (CamelExchangeMessageInfo *)info;
 		EXTRACT_FIRST_STRING (einfo->thread_index)
 		EXTRACT_FIRST_STRING (einfo->href)
@@ -272,7 +272,7 @@ message_info_load (CamelFolderSummary *summary, FILE *in)
 {
 	CamelMessageInfo *info;
 	CamelExchangeMessageInfo *einfo;
-	char *thread_index, *href = NULL;
+	gchar *thread_index, *href = NULL;
 
 	info = CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->message_info_load (summary, in);
 	if (info) {
@@ -341,7 +341,7 @@ message_info_new_from_header (CamelFolderSummary *summary, struct _camel_header_
 {
 	CamelMessageInfo *info;
 	CamelExchangeMessageInfo *einfo;
-	const char *thread_index;
+	const gchar *thread_index;
 
 	info = CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->message_info_new_from_header (summary, h);
 	if (!info)
@@ -392,7 +392,7 @@ expunge_mail (CamelFolder *folder, CamelMessageInfo *info)
 {
 	CamelExchangeFolder *exchange_folder = (CamelExchangeFolder *) folder;
 	GPtrArray *uids = g_ptr_array_new ();
-	char *uid = g_strdup (info->uid);
+	gchar *uid = g_strdup (info->uid);
 	CamelException lex;
 
 	g_ptr_array_add (uids, uid);
@@ -451,9 +451,9 @@ info_set_flags(CamelMessageInfo *info, guint32 flags, guint32 set)
 }
 
 static gboolean
-info_set_user_tag(CamelMessageInfo *info, const char *name, const char *value)
+info_set_user_tag(CamelMessageInfo *info, const gchar *name, const gchar *value)
 {
-	int res;
+	gint res;
 
 	if (CAMEL_EXCHANGE_SUMMARY (info->summary)->readonly)
 		return FALSE;
@@ -560,7 +560,7 @@ camel_exchange_summary_set_article_num (CamelFolderSummary *summary,
  **/
 void
 camel_exchange_summary_add_offline (CamelFolderSummary *summary,
-				    const char *uid,
+				    const gchar *uid,
 				    CamelMimeMessage *message,
 				    CamelMessageInfo *info)
 {
@@ -601,7 +601,7 @@ camel_exchange_summary_add_offline (CamelFolderSummary *summary,
  **/
 void
 camel_exchange_summary_add_offline_uncached (CamelFolderSummary *summary,
-					     const char *uid,
+					     const gchar *uid,
 					     CamelMessageInfo *info)
 {
 	CamelMessageInfo *mi;

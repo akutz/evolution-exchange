@@ -17,21 +17,21 @@ typedef enum {
 	MAIL_UTIL_DEMANGLE_SENDER_FIELD
 } MailUtilDemangleType;
 
-char    *mail_util_mapi_to_smtp_headers (E2kProperties *props);
+gchar    *mail_util_mapi_to_smtp_headers (E2kProperties *props);
 
 GString *mail_util_stickynote_to_rfc822 (E2kProperties *props);
 
 guint32  mail_util_props_to_camel_flags (E2kProperties *props,
 					 gboolean       obey_read_flag);
 
-char *   mail_util_extract_transport_headers (E2kProperties *props);
+gchar *   mail_util_extract_transport_headers (E2kProperties *props);
 
 gboolean
 mail_util_demangle_meeting_related_message (GString *body,
-				const char *owner_cn,
-				const char *owner_email,
-				const char *owner_cal_uri,
-				const char *subscriber_email,
+				const gchar *owner_cn,
+				const gchar *owner_email,
+				const gchar *owner_cal_uri,
+				const gchar *subscriber_email,
 				MailUtilDemangleType unmangle_type);
 
 #ifdef __cplusplus

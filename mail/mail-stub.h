@@ -34,52 +34,52 @@ struct _MailStubClass {
 	GObjectClass parent_class;
 
 	/* methods */
-	void (*connect)            (MailStub *, char *pwd);
-	void (*get_folder)         (MailStub *, const char *name,
+	void (*connect)            (MailStub *, gchar *pwd);
+	void (*get_folder)         (MailStub *, const gchar *name,
 				    gboolean create, GPtrArray *uids,
 				    GByteArray *flags, GPtrArray *hrefs,
 				    guint32 high_article_num);
 	void (*get_trash_name)     (MailStub *);
-	void (*sync_folder)        (MailStub *, const char *folder_name);
-	void (*refresh_folder)     (MailStub *, const char *folder_name);
-	void (*sync_count)	   (MailStub *, const char *folder_name);
-	void (*expunge_uids)       (MailStub *, const char *folder_name,
+	void (*sync_folder)        (MailStub *, const gchar *folder_name);
+	void (*refresh_folder)     (MailStub *, const gchar *folder_name);
+	void (*sync_count)	   (MailStub *, const gchar *folder_name);
+	void (*expunge_uids)       (MailStub *, const gchar *folder_name,
 				    GPtrArray *uids);
-	void (*append_message)     (MailStub *, const char *folder_name,
-				    guint32 flags, const char *subject,
-				    const char *data, int length);
-	void (*set_message_flags)  (MailStub *, const char *folder_name,
-				    const char *uid,
+	void (*append_message)     (MailStub *, const gchar *folder_name,
+				    guint32 flags, const gchar *subject,
+				    const gchar *data, gint length);
+	void (*set_message_flags)  (MailStub *, const gchar *folder_name,
+				    const gchar *uid,
 				    guint32 flags, guint32 mask);
-	void (*set_message_tag)    (MailStub *, const char *folder_name,
-				    const char *uid,
-				    const char *name, const char *value);
-	void (*get_message)        (MailStub *, const char *folder_name,
-				    const char *uid);
-	void (*search)             (MailStub *, const char *folder_name,
-				    const char *text);
-	void (*transfer_messages)  (MailStub *, const char *source_name,
-				    const char *dest_name, GPtrArray *uids,
+	void (*set_message_tag)    (MailStub *, const gchar *folder_name,
+				    const gchar *uid,
+				    const gchar *name, const gchar *value);
+	void (*get_message)        (MailStub *, const gchar *folder_name,
+				    const gchar *uid);
+	void (*search)             (MailStub *, const gchar *folder_name,
+				    const gchar *text);
+	void (*transfer_messages)  (MailStub *, const gchar *source_name,
+				    const gchar *dest_name, GPtrArray *uids,
 				    gboolean delete_originals);
-	void (*get_folder_info)    (MailStub *, const char *top,
+	void (*get_folder_info)    (MailStub *, const gchar *top,
 				    guint32 store_flags);
-	void (*send_message)       (MailStub *, const char *from,
+	void (*send_message)       (MailStub *, const gchar *from,
 				    GPtrArray *recipients,
-				    const char *data, int length);
-	void (*create_folder)      (MailStub *, const char *parent_name,
-				    const char *folder_name);
-	void (*delete_folder)      (MailStub *, const char *folder_name);
-	void (*rename_folder)      (MailStub *, const char *old_name,
-				    const char *new_name);
-	void (*subscribe_folder)   (MailStub *, const char *folder_name);
-	void (*unsubscribe_folder)   (MailStub *, const char *folder_name);
-	void (*is_subscribed_folder)   (MailStub *, const char *folder_name);
+				    const gchar *data, gint length);
+	void (*create_folder)      (MailStub *, const gchar *parent_name,
+				    const gchar *folder_name);
+	void (*delete_folder)      (MailStub *, const gchar *folder_name);
+	void (*rename_folder)      (MailStub *, const gchar *old_name,
+				    const gchar *new_name);
+	void (*subscribe_folder)   (MailStub *, const gchar *folder_name);
+	void (*unsubscribe_folder)   (MailStub *, const gchar *folder_name);
+	void (*is_subscribed_folder)   (MailStub *, const gchar *folder_name);
 };
 
 GType             mail_stub_get_type        (void);
 void              mail_stub_construct       (MailStub        *stub,
-					     int              cmd_fd,
-					     int              status_fd);
+					     gint              cmd_fd,
+					     gint              status_fd);
 
 gboolean          mail_stub_read_args       (MailStub        *stub,
 					     ...);
@@ -88,10 +88,10 @@ void              mail_stub_return_data     (MailStub        *stub,
 					     CamelStubRetval  retval,
 					     ...);
 void              mail_stub_return_progress (MailStub        *stub,
-					     int              percent);
+					     gint              percent);
 void              mail_stub_return_ok       (MailStub        *stub);
 void              mail_stub_return_error    (MailStub        *stub,
-					     const char      *message);
+					     const gchar      *message);
 
 void              mail_stub_push_changes    (MailStub        *stub);
 

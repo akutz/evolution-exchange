@@ -33,7 +33,7 @@ e_cal_backend_exchange_factory_instance_init (ECalBackendExchangeFactory *factor
 {
 }
 
-static const char *
+static const gchar *
 _get_protocol (ECalBackendFactory *factory)
 {
 	return "exchange";

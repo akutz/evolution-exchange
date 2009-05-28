@@ -17,8 +17,8 @@ typedef struct _CamelExchangeSummaryClass CamelExchangeSummaryClass;
 typedef struct _CamelExchangeMessageInfo {
 	CamelMessageInfoBase info;
 
-	char *thread_index;
-	char *href;
+	gchar *thread_index;
+	gchar *href;
 } CamelExchangeMessageInfo;
 
 struct _CamelExchangeSummary {
@@ -35,7 +35,7 @@ struct _CamelExchangeSummaryClass {
 };
 
 CamelType           camel_exchange_summary_get_type          (void);
-CamelFolderSummary *camel_exchange_summary_new               (struct _CamelFolder *folder, const char         *filename);
+CamelFolderSummary *camel_exchange_summary_new               (struct _CamelFolder *folder, const gchar         *filename);
 
 gboolean            camel_exchange_summary_get_readonly      (CamelFolderSummary *summary);
 void                camel_exchange_summary_set_readonly      (CamelFolderSummary *summary,
@@ -43,11 +43,11 @@ void                camel_exchange_summary_set_readonly      (CamelFolderSummary
 
 
 void                camel_exchange_summary_add_offline       (CamelFolderSummary *summary,
-							      const char         *uid,
+							      const gchar         *uid,
 							      CamelMimeMessage   *message,
 							      CamelMessageInfo   *info);
 void                camel_exchange_summary_add_offline_uncached (CamelFolderSummary *summary,
-								 const char         *uid,
+								 const gchar         *uid,
 								 CamelMessageInfo   *info);
 
 guint32             camel_exchange_summary_get_article_num      (CamelFolderSummary *summary);

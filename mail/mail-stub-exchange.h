@@ -27,11 +27,11 @@ struct _MailStubExchange {
 	ExchangeAccount *account;
 	E2kContext *ctx;
 	GHashTable *folders_by_name;
-	const char *mail_submission_uri;
+	const gchar *mail_submission_uri;
 	EFolder *inbox, *deleted_items, *sent_items;
 
 	guint new_folder_id, removed_folder_id;
-	const char *ignore_new_folder, *ignore_removed_folder;
+	const gchar *ignore_new_folder, *ignore_removed_folder;
 };
 
 struct _MailStubExchangeClass {
@@ -43,7 +43,7 @@ GType             mail_stub_exchange_get_type   (void);
 gboolean          mail_stub_exchange_construct  (MailStubExchange *exchange);
 
 MailStub         *mail_stub_exchange_new        (ExchangeAccount *account,
-						 int cmd_fd, int status_fd);
+						 gint cmd_fd, gint status_fd);
 
 #ifdef __cplusplus
 }

@@ -40,7 +40,7 @@
 #include <mapi.h>
 
 struct ECalBackendExchangeCalendarPrivate {
-	int dummy;
+	gint dummy;
 	GMutex *mutex;
 	gboolean is_loaded;
 };
@@ -57,9 +57,9 @@ static ECalBackendExchange *parent_class = NULL;
 
 #define d(x)
 
-static ECalBackendSyncStatus modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, const char *calobj, CalObjModType mod, char **old_object, char **new_object, const char *href, const char *rid_to_remove);
+static ECalBackendSyncStatus modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, const gchar *calobj, CalObjModType mod, gchar **old_object, gchar **new_object, const gchar *href, const gchar *rid_to_remove);
 
-static icalproperty *find_attendee_prop (icalcomponent *ical_comp, const char *address);
+static icalproperty *find_attendee_prop (icalcomponent *ical_comp, const gchar *address);
 static gboolean check_owner_partstatus_for_declined (ECalBackendSync *backend,
 						     icalcomponent *icalcomp);
 
@@ -95,7 +95,7 @@ add_timezones_from_comp (ECalBackendExchange *cbex, icalcomponent *icalcomp)
 
 static gboolean
 add_vevent (ECalBackendExchange *cbex,
-	    const char *href, const char *lastmod,
+	    const gchar *href, const gchar *lastmod,
 	    icalcomponent *icalcomp)
 {
 	icalproperty *prop, *transp;
@@ -109,7 +109,7 @@ add_vevent (ECalBackendExchange *cbex,
 	/* Check all X-MICROSOFT-CDO properties to fix any needed stuff */
 	prop = icalcomponent_get_first_property (icalcomp, ICAL_X_PROPERTY);
 	while (prop) {
-		const char *x_name, *x_val;
+		const gchar *x_name, *x_val;
 		struct icaltimetype itt;
 
 		x_name = icalproperty_get_x_name (prop);
@@ -188,11 +188,11 @@ add_vevent (ECalBackendExchange *cbex,
 
 /* Add the event to the cache, Notify the backend if it is sucessfully added */
 static gboolean
-add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
-	  const char *uid, const char *body, int len, int receipts)
+add_ical (ECalBackendExchange *cbex, const gchar *href, const gchar *lastmod,
+	  const gchar *uid, const gchar *body, gint len, gint receipts)
 {
-	const char *start, *end;
-	char *ical_body;
+	const gchar *start, *end;
+	gchar *ical_body;
 	icalcomponent *icalcomp, *subcomp, *new_comp;
 	icalcomponent_kind kind;
 	icalproperty *icalprop;
@@ -246,7 +246,7 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 		status = add_vevent (cbex, href, lastmod, icalcomp);
 
 		if (status) {
-			char *object = icalcomponent_as_ical_string_r (icalcomp);
+			gchar *object = icalcomponent_as_ical_string_r (icalcomp);
 			e_cal_backend_notify_object_created (backend, object);
 			g_free (object);
 		}
@@ -289,7 +289,7 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 			status = add_vevent (cbex, href, lastmod, new_comp);
 
 			if (status) {
-				char *object = icalcomponent_as_ical_string_r (new_comp);
+				gchar *object = icalcomponent_as_ical_string_r (new_comp);
 				e_cal_backend_notify_object_created (backend, object);
 				g_free (object);
 			}
@@ -310,7 +310,7 @@ add_ical (ECalBackendExchange *cbex, const char *href, const char *lastmod,
 	return retval;
 }
 
-static const char *event_properties[] = {
+static const gchar *event_properties[] = {
 	E2K_PR_CALENDAR_UID,
 	PR_CAL_RECURRING_ID,
 	E2K_PR_DAV_LAST_MODIFIED,
@@ -318,14 +318,14 @@ static const char *event_properties[] = {
 	PR_READ_RECEIPT_REQUESTED,
 	PR_ORIGINATOR_DELIVERY_REPORT_REQUESTED
 };
-static const int n_event_properties = G_N_ELEMENTS (event_properties);
+static const gint n_event_properties = G_N_ELEMENTS (event_properties);
 
-static const char *new_event_properties[] = {
+static const gchar *new_event_properties[] = {
 	PR_INTERNET_CONTENT,
 	PR_READ_RECEIPT_REQUESTED,
 	PR_ORIGINATOR_DELIVERY_REPORT_REQUESTED
 };
-static const int n_new_event_properties = G_N_ELEMENTS (new_event_properties);
+static const gint n_new_event_properties = G_N_ELEMENTS (new_event_properties);
 
 static guint
 get_changed_events (ECalBackendExchange *cbex)
@@ -336,11 +336,11 @@ get_changed_events (ECalBackendExchange *cbex)
 	E2kRestriction *rn;
 	E2kResultIter *iter;
 	E2kResult *result;
-	const char *prop, *uid, *modtime, *attach_prop, *receipts, *rid;
+	const gchar *prop, *uid, *modtime, *attach_prop, *receipts, *rid;
 	guint status;
 	E2kContext *ctx;
-	int i, status_tracking = EX_NO_RECEIPTS;
-	const char *since = NULL;
+	gint i, status_tracking = EX_NO_RECEIPTS;
+	const gchar *since = NULL;
 	ECalBackendExchangeCalendar *cbexc = E_CAL_BACKEND_EXCHANGE_CALENDAR (cbex);
 
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex), SOUP_STATUS_CANCELLED);
@@ -458,7 +458,7 @@ get_changed_events (ECalBackendExchange *cbex)
 		PR_INTERNET_CONTENT property. Fetch events created from OWA */
 	prop = PR_INTERNET_CONTENT;
 	iter = e_folder_exchange_bpropfind_start (cbex->folder, NULL,
-						  (const char **)hrefs->pdata,
+						  (const gchar **)hrefs->pdata,
 						  hrefs->len,
 						  new_event_properties, n_new_event_properties);
 	for (i = 0; i < hrefs->len; i++)
@@ -496,7 +496,7 @@ get_changed_events (ECalBackendExchange *cbex)
 		/* The icaldata already has the attachment. So no need to
 			re-fetch it from the server. */
 		add_ical (cbex, result->href, modtime, uid,
-			  (char *) ical_data->data, ical_data->len, status_tracking);
+			  (gchar *) ical_data->data, ical_data->len, status_tracking);
 	}
 	status = e2k_result_iter_free (iter);
 
@@ -554,7 +554,7 @@ get_changed_events (ECalBackendExchange *cbex)
 
 /* folder subscription notify callback */
 static void
-notify_changes (E2kContext *ctx, const char *uri,
+notify_changes (E2kContext *ctx, const gchar *uri,
                      E2kContextChangeType type, gpointer user_data)
 {
 
@@ -570,7 +570,7 @@ notify_changes (E2kContext *ctx, const char *uri,
 static ECalBackendSyncStatus
 open_calendar (ECalBackendSync *backend, EDataCal *cal,
 	       gboolean only_if_exists,
-	       const char *username, const char *password)
+	       const gchar *username, const gchar *password)
 {
 	ECalBackendSyncStatus status;
 	GThread *thread = NULL;
@@ -613,12 +613,12 @@ struct _cb_data {
 };
 
 static void
-add_timezone_cb (icalparameter *param, void *data)
+add_timezone_cb (icalparameter *param, gpointer data)
 {
 	struct _cb_data *cbdata = (struct _cb_data *) data;
 	icalcomponent *vtzcomp;
-	const char *tzid;
-	char *izone = NULL;
+	const gchar *tzid;
+	gchar *izone = NULL;
 
 	g_return_if_fail (cbdata != NULL);
 
@@ -642,7 +642,7 @@ check_for_send_options (icalcomponent *icalcomp, E2kProperties *props)
 {
 	icalproperty *icalprop;
 	gboolean exists = FALSE;
-	const char *x_name, *x_val;
+	const gchar *x_name, *x_val;
 
 	icalprop = icalcomponent_get_first_property (icalcomp, ICAL_X_PROPERTY);
 	while (icalprop && !exists) {
@@ -673,7 +673,7 @@ check_for_send_options (icalcomponent *icalcomp, E2kProperties *props)
 
 /* stolen from e-itip-control.c with some modifications */
 static icalproperty *
-find_attendee_prop (icalcomponent *ical_comp, const char *address)
+find_attendee_prop (icalcomponent *ical_comp, const gchar *address)
 {
 	icalproperty *prop;
 
@@ -683,8 +683,8 @@ find_attendee_prop (icalcomponent *ical_comp, const char *address)
 	for (prop = icalcomponent_get_first_property (ical_comp, ICAL_ATTENDEE_PROPERTY);
 	     prop != NULL;
 	     prop = icalcomponent_get_next_property (ical_comp, ICAL_ATTENDEE_PROPERTY)) {
-		const char *attendee;
-		char *text = NULL;
+		const gchar *attendee;
+		gchar *text = NULL;
 
 		attendee = icalproperty_get_value_as_string_r (prop);
 		if (!attendee)
@@ -728,7 +728,7 @@ check_owner_partstatus_for_declined (ECalBackendSync *backend,
 
 static ECalBackendSyncStatus
 create_object (ECalBackendSync *backend, EDataCal *cal,
-	       char **calobj, char **uid)
+	       gchar **calobj, gchar **uid)
 {
 	/* FIXME : Return some value in uid */
 	ECalBackendExchangeCalendar *cbexc;
@@ -736,17 +736,17 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	icalcomponent *icalcomp, *real_icalcomp;
 	icalcomponent_kind kind;
 	icalproperty *icalprop;
-	const char *temp_comp_uid;
-	char *lastmod;
+	const gchar *temp_comp_uid;
+	gchar *lastmod;
 	struct icaltimetype current;
-	char *location = NULL, *ru_header = NULL;
+	gchar *location = NULL, *ru_header = NULL;
 	ECalComponent *comp;
-	char *body_crlf, *msg;
-	char *from, *date;
-	const char *summary;
-	char *attach_body = NULL;
-	char *attach_body_crlf = NULL;
-	char *boundary = NULL;
+	gchar *body_crlf, *msg;
+	gchar *from, *date;
+	const gchar *summary;
+	gchar *attach_body = NULL;
+	gchar *attach_body_crlf = NULL;
+	gchar *boundary = NULL;
 	E2kHTTPStatus http_status;
 	E2kProperties *props = e2k_properties_new ();
 	E2kContext *e2kctx;
@@ -958,12 +958,12 @@ update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp)
 {
 	icalcomponent *icalcomp;
 	icalproperty *icalprop;
-	const char *x_name, *x_val;
+	const gchar *x_name, *x_val;
 	ECalComponentTransparency transp;
 	ECalComponentDateTime dtstart;
-	int *priority;
-	const char *busystatus, *insttype, *allday, *importance;
-	int prop_set = 0;
+	gint *priority;
+	const gchar *busystatus, *insttype, *allday, *importance;
+	gint prop_set = 0;
 	GSList *props = NULL, *l = NULL;
 
 	e_cal_component_get_transparency (comp, &transp);
@@ -1063,8 +1063,8 @@ update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp)
 
 static ECalBackendSyncStatus
 modify_object (ECalBackendSync *backend, EDataCal *cal,
-	       const char *calobj, CalObjModType mod,
-	       char **old_object, char **new_object)
+	       const gchar *calobj, CalObjModType mod,
+	       gchar **old_object, gchar **new_object)
 {
 	ECalBackendSyncStatus status;
 
@@ -1077,28 +1077,28 @@ modify_object (ECalBackendSync *backend, EDataCal *cal,
 
 static ECalBackendSyncStatus
 modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
-	       const char *calobj, CalObjModType mod,
-	       char **old_object, char **new_object, const char *href, const char *rid_to_remove)
+	       const gchar *calobj, CalObjModType mod,
+	       gchar **old_object, gchar **new_object, const gchar *href, const gchar *rid_to_remove)
 {
 	ECalBackendExchangeCalendar *cbexc;
 	ECalBackendExchangeComponent *ecomp;
 	ECalBackendExchange *cbex;
 	icalcomponent *icalcomp, *real_icalcomp, *updated_icalcomp;
 	ECalComponent *real_ecomp, *cached_ecomp = NULL, *updated_ecomp;
-	const char *comp_uid;
-	char *updated_ecomp_str, *real_comp_str;
-	char *body_crlf, *msg;
-	char *attach_body = NULL;
-	char *attach_body_crlf = NULL;
-	char *boundary = NULL;
+	const gchar *comp_uid;
+	gchar *updated_ecomp_str, *real_comp_str;
+	gchar *body_crlf, *msg;
+	gchar *attach_body = NULL;
+	gchar *attach_body_crlf = NULL;
+	gchar *boundary = NULL;
 	struct icaltimetype last_modified, key_rid;
 	icalcomponent_kind kind;
 	ECalComponentDateTime dt;
 	struct _cb_data *cbdata;
 	icalproperty *icalprop;
 	E2kHTTPStatus http_status;
-	char *from, *date;
-	const char *summary, *new_href;
+	gchar *from, *date;
+	const gchar *summary, *new_href;
 	gboolean send_options;
 	E2kContext *ctx;
 	E2kProperties *props = e2k_properties_new ();
@@ -1262,7 +1262,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		dt.value->hour = dt.value->minute = dt.value->second = 0;
 		dt.value->zone = zone;
 
-		g_free ((char *)dt.tzid);
+		g_free ((gchar *)dt.tzid);
 		dt.tzid = g_strdup (icaltimezone_get_tzid (zone));
 		e_cal_component_set_dtstart (real_ecomp, &dt);
 		e_cal_component_free_datetime (&dt);
@@ -1273,7 +1273,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		dt.value->hour = dt.value->minute = dt.value->second = 0;
 		dt.value->zone = zone;
 
-		g_free ((char *)dt.tzid);
+		g_free ((gchar *)dt.tzid);
 		dt.tzid = g_strdup (icaltimezone_get_tzid (zone));
 		e_cal_component_set_dtend (real_ecomp, &dt);
 	}
@@ -1296,7 +1296,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 			if (dt.tzid == NULL)
 				from_zone = icaltimezone_get_utc_timezone ();
 			else {
-				char *izone = NULL;
+				gchar *izone = NULL;
 				get_timezone (backend, cal, dt.tzid, &izone);
 				from_zone = icalcomponent_get_timezone (icalcomponent_new_from_string (izone),
 											dt.tzid);
@@ -1488,8 +1488,8 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 
 static ECalBackendSyncStatus
 remove_object (ECalBackendSync *backend, EDataCal *cal,
-	       const char *uid, const char *rid, CalObjModType mod,
-	       char **old_object, char **object)
+	       const gchar *uid, const gchar *rid, CalObjModType mod,
+	       gchar **old_object, gchar **object)
 {
 	ECalBackendExchangeCalendar *cbexc;
 	ECalBackendExchange *cbex;
@@ -1497,7 +1497,7 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 	E2kHTTPStatus status;
 	E2kContext *ctx;
 	ECalComponent *comp;
-	char *calobj, *obj = NULL;
+	gchar *calobj, *obj = NULL;
 	struct icaltimetype time_rid;
 	ECalBackendSyncStatus ebs_status;
 
@@ -1532,12 +1532,12 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 
 	/*TODO How handle multiple detached intances with no master object ?*/
 	if (mod == CALOBJ_MOD_THIS && rid && *rid && ecomp->icomp) {
-		char *new_object = NULL;
+		gchar *new_object = NULL;
 
 		/*remove a single instance of a recurring event and modify */
 		time_rid = icaltime_from_string (rid);
 		e_cal_util_remove_instances (ecomp->icomp, time_rid, mod);
-		calobj  = (char *) icalcomponent_as_ical_string_r (ecomp->icomp);
+		calobj  = (gchar *) icalcomponent_as_ical_string_r (ecomp->icomp);
 
 		e_cal_backend_exchange_cache_unlock (cbex);
 		ebs_status = modify_object_with_href (backend, cal, calobj, mod, &obj, &new_object, NULL, rid);
@@ -1577,7 +1577,7 @@ error:
 
 static ECalBackendSyncStatus
 receive_objects (ECalBackendSync *backend, EDataCal *cal,
-		 const char *calobj)
+		 const gchar *calobj)
 {
 	ECalBackendExchangeCalendar *cbexc;
 	ECalBackendExchange *cbex;
@@ -1626,9 +1626,9 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 	icalcomponent_free (icalcomp);
 
 	for (l = comps; l; l= l->next) {
-		const char *uid;
-		char *icalobj, *rid = NULL;
-		char *object = NULL;
+		const gchar *uid;
+		gchar *icalobj, *rid = NULL;
+		gchar *object = NULL;
 
 		subcomp = l->data;
 
@@ -1649,7 +1649,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 		case ICAL_METHOD_REPLY:
 			e_cal_backend_exchange_cache_lock (cbex);
 			if ((ecomp = get_exchange_comp (E_CAL_BACKEND_EXCHANGE (cbexc), uid)) != NULL ) {
-				char *old_object = NULL;
+				gchar *old_object = NULL;
 
 				d(printf ("uid : %s : found in the cache\n", uid));
 
@@ -1668,13 +1668,13 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 									     old_object, NULL);
 					e_cal_component_free_id (id);
 				} else {
-					char *new_object = NULL;
+					gchar *new_object = NULL;
 					CalObjModType mod = CALOBJ_MOD_ALL;
 
 					if (e_cal_util_component_is_instance (subcomp))
 						mod = CALOBJ_MOD_THIS;
 
-					icalobj = (char *) icalcomponent_as_ical_string_r (subcomp);
+					icalobj = (gchar *) icalcomponent_as_ical_string_r (subcomp);
 					status = modify_object_with_href (backend, cal, icalobj,
 									  mod,
 									  &old_object, &new_object, NULL, NULL);
@@ -1693,9 +1693,9 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 
 				g_free (old_object);
 			} else if (!check_owner_partstatus_for_declined (backend, subcomp)) {
-				char *returned_uid, *object;
+				gchar *returned_uid, *object;
 				d(printf ("object : %s .. not found in the cache\n", uid));
-				icalobj = (char *) icalcomponent_as_ical_string_r (subcomp);
+				icalobj = (gchar *) icalcomponent_as_ical_string_r (subcomp);
 				d(printf ("Create a new object : %s\n", icalobj));
 
 				e_cal_backend_exchange_cache_unlock (cbex);
@@ -1720,7 +1720,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 			break;
 
 		case ICAL_METHOD_CANCEL:
-			icalobj = (char *) icalcomponent_as_ical_string_r (subcomp);
+			icalobj = (gchar *) icalcomponent_as_ical_string_r (subcomp);
 			if (rid)
 				status = remove_object (backend, cal, uid, rid, CALOBJ_MOD_THIS, &icalobj, &object);
 			else
@@ -1767,7 +1767,7 @@ typedef enum {
 static ECalBackendExchangeBookingResult
 book_resource (ECalBackendExchange *cbex,
 	       EDataCal *cal,
-	       const char *resource_email,
+	       const gchar *resource_email,
 	       ECalComponent *comp,
 	       icalproperty_method method,
 	       icalparameter *part_param)
@@ -1785,15 +1785,15 @@ book_resource (ECalBackendExchange *cbex,
 	icaltimezone *izone;
 	guint32 access = 0;
 	time_t tt;
-	const char *uid, *prop_name = PR_ACCESS;
-	const char *access_prop = NULL, *meeting_prop = NULL, *cal_uid = NULL;
+	const gchar *uid, *prop_name = PR_ACCESS;
+	const gchar *access_prop = NULL, *meeting_prop = NULL, *cal_uid = NULL;
 	gboolean bookable;
-	char *top_uri = NULL, *cal_uri = NULL, *returned_uid = NULL;
-	char *startz, *endz, *href = NULL, *old_object = NULL, *calobj = NULL, *new_object = NULL;
+	gchar *top_uri = NULL, *cal_uri = NULL, *returned_uid = NULL;
+	gchar *startz, *endz, *href = NULL, *old_object = NULL, *calobj = NULL, *new_object = NULL;
 	E2kRestriction *rn;
-	int nresult;
+	gint nresult;
 	ECalBackendExchangeBookingResult retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
-	const char *localfreebusy_path = "NON_IPM_SUBTREE/Freebusy%20Data/LocalFreebusy.EML";
+	const gchar *localfreebusy_path = "NON_IPM_SUBTREE/Freebusy%20Data/LocalFreebusy.EML";
 
 	g_object_ref (comp);
 
@@ -1872,7 +1872,7 @@ book_resource (ECalBackendExchange *cbex,
 	e_cal_backend_exchange_cache_unlock (cbex);
 
 	if (method == ICAL_METHOD_CANCEL) {
-		char *object = NULL;
+		gchar *object = NULL;
 
 		/* g_object_unref (comp); */
 		/* If there is nothing to cancel, we're good */
@@ -1968,7 +1968,7 @@ book_resource (ECalBackendExchange *cbex,
 	icalparameter_set_partstat (part_param, ICAL_PARTSTAT_ACCEPTED);
 
 	e_cal_component_commit_sequence (comp);
-	calobj = (char *) e_cal_component_get_as_string (comp);
+	calobj = (gchar *) e_cal_component_get_as_string (comp);
 
 	/* status = e_cal_component_update (comp, method, FALSE  ); */
 	if (ecomp) {
@@ -2011,8 +2011,8 @@ book_resource (ECalBackendExchange *cbex,
 
 static ECalBackendSyncStatus
 send_objects (ECalBackendSync *backend, EDataCal *cal,
-	      const char *calobj,
-	      GList **users, char **modified_calobj)
+	      const gchar *calobj,
+	      GList **users, gchar **modified_calobj)
 {
 	ECalBackendExchange *cbex = (ECalBackendExchange *) backend;
 	ECalBackendSyncStatus retval = GNOME_Evolution_Calendar_Success;
@@ -2071,7 +2071,7 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 	{
 		icalvalue *value;
 		icalparameter *param;
-		const char *attendee;
+		const gchar *attendee;
 
 		param = icalproperty_get_first_parameter (prop, ICAL_CUTYPE_PARAMETER);
 		if (!param)
@@ -2179,9 +2179,9 @@ create_freebusy_prop (E2kBusyStatus fbstatus, time_t start, time_t end)
 }
 
 static void
-set_freebusy_info (icalcomponent *vfb, const char *data, time_t start)
+set_freebusy_info (icalcomponent *vfb, const gchar *data, time_t start)
 {
-	const char *span_start, *span_end;
+	const gchar *span_start, *span_end;
 	E2kBusyStatus busy;
 	icalproperty *prop;
 	time_t end;
@@ -2203,13 +2203,13 @@ set_freebusy_info (icalcomponent *vfb, const char *data, time_t start)
 
 static ECalBackendSyncStatus
 discard_alarm (ECalBackendSync *backend, EDataCal *cal,
-		const char *uid, const char *auid)
+		const gchar *uid, const gchar *auid)
 {
 	ECalBackendSyncStatus result = GNOME_Evolution_Calendar_Success;
 	ECalBackendExchange *cbex = NULL;
 	ECalBackendExchangeComponent *ecbexcomp;
 	ECalComponent *ecomp;
-	char *ecomp_str;
+	gchar *ecomp_str;
 	icalcomponent *icalcomp = NULL;
 
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (backend),
@@ -2261,7 +2261,7 @@ get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 	       GList **freebusy)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
-	char *start_str, *end_str;
+	gchar *start_str, *end_str;
 	GList *l;
 	GString *uri;
 	SoupBuffer *response;
@@ -2293,7 +2293,7 @@ get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 	g_string_append (uri, "&interval=30");
 	for (l = users; l; l = l->next) {
 		g_string_append (uri, "&u=SMTP:");
-		g_string_append (uri, (char *) l->data);
+		g_string_append (uri, (gchar *) l->data);
 	}
 	g_free (start_str);
 	g_free (end_str);
@@ -2323,8 +2323,8 @@ get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 		icalcomponent *vfb;
 		icalproperty *organizer;
 		xmlNode *node, *fbdata;
-		char *org_uri, *calobj;
-		char *content;
+		gchar *org_uri, *calobj;
+		gchar *content;
 
 		fbdata = e2k_xml_find_in (item, item, "fbdata");
 		if (!fbdata || !fbdata->children || !fbdata->children->content)
@@ -2341,7 +2341,7 @@ get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 		if (node && node->children && node->children->content) {
 			icalparameter *cn;
 
-			content = (char *) node->children->content;
+			content = (gchar *) node->children->content;
 			cn = icalparameter_new_cn (content);
 			icalproperty_add_parameter (organizer, cn);
 		}
@@ -2351,7 +2351,7 @@ get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 		icalcomponent_set_dtend (vfb, icaltime_from_timet_with_zone (end, 0, utc));
 		icalcomponent_add_property (vfb, organizer);
 
-		content = (char *) fbdata->children->content;
+		content = (gchar *) fbdata->children->content;
 		set_freebusy_info (vfb, content, start);
 
 		calobj = icalcomponent_as_ical_string_r (vfb);

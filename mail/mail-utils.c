@@ -46,11 +46,11 @@
  * Return value: the headers, which must be free when you are done
  * with them.
  **/
-char *
+gchar *
 mail_util_mapi_to_smtp_headers (E2kProperties *props)
 {
 	GString *headers;
-	char *prop, *buf;
+	gchar *prop, *buf;
 	time_t dt;
 
 	headers = g_string_new (NULL);
@@ -115,9 +115,9 @@ mail_util_mapi_to_smtp_headers (E2kProperties *props)
 guint32
 mail_util_props_to_camel_flags (E2kProperties *props, gboolean obey_read_flag)
 {
-	const char *prop;
+	const gchar *prop;
 	guint32 flags;
-	int val;
+	gint val;
 
 	flags = 0;
 
@@ -166,11 +166,11 @@ mail_util_props_to_camel_flags (E2kProperties *props, gboolean obey_read_flag)
  * found or was malformed. You must free the return value when you
  * are done with it.
  **/
-char *
+gchar *
 mail_util_extract_transport_headers (E2kProperties *props)
 {
-	const char *prop, *hstart, *hend, *ctstart, *ctend;
-	char *headers;
+	const gchar *prop, *hstart, *hend, *ctstart, *ctend;
+	gchar *headers;
 
 	prop = e2k_properties_get_prop (props, PR_TRANSPORT_MESSAGE_HEADERS);
 	if (!prop)
@@ -218,10 +218,10 @@ mail_util_extract_transport_headers (E2kProperties *props)
 }
 
 
-static const char *note_colors[] = {
+static const gchar *note_colors[] = {
 	"#CCCCFF", "#CCFFCC", "#FFCCCC", "#FFFFCC", "#FFFFFF"
 };
-static const int ncolors = sizeof (note_colors) / sizeof (note_colors[0]);
+static const gint ncolors = sizeof (note_colors) / sizeof (note_colors[0]);
 #define DEFAULT_NOTE_COLOR 3
 
 /**
@@ -237,10 +237,10 @@ static const int ncolors = sizeof (note_colors) / sizeof (note_colors[0]);
 GString *
 mail_util_stickynote_to_rfc822 (E2kProperties *props)
 {
-	const char *prop;
+	const gchar *prop;
 	GString *message;
-	char *html, *p;
-	int color;
+	gchar *html, *p;
+	gint color;
 
 	message = g_string_new (NULL);
 	prop = e2k_properties_get_prop (props, E2K_PR_MAILHEADER_SUBJECT);
@@ -249,7 +249,7 @@ mail_util_stickynote_to_rfc822 (E2kProperties *props)
 	prop = e2k_properties_get_prop (props, E2K_PR_DAV_LAST_MODIFIED);
 	if (prop) {
 		time_t dt;
-		char *buf;
+		gchar *buf;
 
 		dt = e2k_parse_timestamp (prop);
 		buf = e2k_make_timestamp_rfc822 (dt);
@@ -312,17 +312,17 @@ mail_util_stickynote_to_rfc822 (E2kProperties *props)
  **/
 gboolean
 mail_util_demangle_meeting_related_message (GString *body,
-				const char *owner_cn,
-				const char *owner_email,
-				const char *owner_cal_uri,
-				const char *subscriber_email,
+				const gchar *owner_cn,
+				const gchar *owner_email,
+				const gchar *owner_cal_uri,
+				const gchar *subscriber_email,
 				MailUtilDemangleType unmangle_type)
 {
 	icalcomponent *vcal_comp, *event_comp;
 	icalproperty *prop = NULL;
-	char *vstart, *vend;
-	char *ical_str, *str;
-	int oldlen, newlen;
+	gchar *vstart, *vend;
+	gchar *ical_str, *str;
+	gint oldlen, newlen;
 	gboolean modify_prop = FALSE;
 
 	vstart = strstr (body->str, "BEGIN:VCALENDAR");
@@ -349,8 +349,8 @@ mail_util_demangle_meeting_related_message (GString *body,
 	for (prop = icalcomponent_get_first_property (event_comp, ICAL_ATTENDEE_PROPERTY);
 	     prop != NULL;
 	     prop = icalcomponent_get_next_property (event_comp, ICAL_ATTENDEE_PROPERTY)) {
-		const char *attendee;
-		char *text = NULL;
+		const gchar *attendee;
+		gchar *text = NULL;
 
 		attendee = icalproperty_get_value_as_string_r (prop);
 		if (!attendee)
@@ -376,8 +376,8 @@ mail_util_demangle_meeting_related_message (GString *body,
 
 	prop = icalcomponent_get_first_property (event_comp, ICAL_ORGANIZER_PROPERTY);
 	if (!modify_prop && prop) {
-		const char *organizer;
-		char *text = NULL;
+		const gchar *organizer;
+		gchar *text = NULL;
 
 		organizer = icalproperty_get_value_as_string_r (prop);
 		if (organizer) {

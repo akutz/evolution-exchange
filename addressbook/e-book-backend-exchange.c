@@ -70,7 +70,7 @@
 static EBookBackendClass *parent_class;
 
 struct EBookBackendExchangePrivate {
-	char     *exchange_uri;
+	gchar     *exchange_uri;
 	char	 *original_uri;
 	EFolder  *folder;
 
@@ -80,7 +80,7 @@ struct EBookBackendExchangePrivate {
 	E2kContext *ctx;
 	gboolean connected;
 	GHashTable *ops;
-	int mode;
+	gint mode;
 	gboolean is_writable;
 	gboolean is_cache_ready;
 	gboolean marked_for_offline;
@@ -99,24 +99,24 @@ struct EBookBackendExchangePrivate {
 
 typedef struct PropMapping PropMapping;
 
-static void subscription_notify (E2kContext *ctx, const char *uri, E2kContextChangeType type, gpointer user_data);
+static void subscription_notify (E2kContext *ctx, const gchar *uri, E2kContextChangeType type, gpointer user_data);
 static void proppatch_address(PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
 static void proppatch_email(PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
 static void proppatch_date(PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
-static void populate_address(EContactField field, EContact *new_contact, void *data);
-static void populate_date(EContactField field, EContact *new_contact, void *data);
+static void populate_address(EContactField field, EContact *new_contact, gpointer data);
+static void populate_date(EContactField field, EContact *new_contact, gpointer data);
 static void proppatch_categories (PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
-static void populate_categories (EContactField field, EContact *new_contact, void *data);
-static E2kRestriction *e_book_backend_exchange_build_restriction (const char *sexp,
+static void populate_categories (EContactField field, EContact *new_contact, gpointer data);
+static E2kRestriction *e_book_backend_exchange_build_restriction (const gchar *sexp,
 							       E2kRestriction *base_rn);
 
-static const char *contact_name (EContact *contact);
+static const gchar *contact_name (EContact *contact);
 static void proppatch_im (PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
-static void populate_im (EContactField field, EContact *new_contact, void *data);
+static void populate_im (EContactField field, EContact *new_contact, gpointer data);
 
 static GPtrArray *field_names_array;
-static const char **field_names;
-static int n_field_names;
+static const gchar **field_names;
+static gint n_field_names;
 
 static GNOME_Evolution_Addressbook_CallStatus
 http_status_to_pas (E2kHTTPStatus status)
@@ -147,9 +147,9 @@ http_status_to_pas (E2kHTTPStatus status)
 
 struct PropMapping {
 	EContactField field;
-	const char *prop_name;
-	const char *e_book_field;
-	int flags;
+	const gchar *prop_name;
+	const gchar *e_book_field;
+	gint flags;
 #define FLAG_UNLIKEABLE 0x001  /* can't use LIKE with it */
 #define FLAG_COMPOSITE  0x002  /* read-only fields that can be written
                                  to only by specifying the values of
@@ -157,7 +157,7 @@ struct PropMapping {
 #define FLAG_PUT        0x020  /* requires a PUT request */
 #define FLAG_EMAIL      0x100  /* email field, so we know to invoke our magic email address handling */
 	void (*composite_proppatch_func)(PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
-	void (*composite_populate_func)(EContactField e_book_field, EContact *new_contact, void *data);
+	void (*composite_populate_func)(EContactField e_book_field, EContact *new_contact, gpointer data);
 };
 
 static PropMapping
@@ -222,19 +222,19 @@ prop_mappings[] = {
 
 	EXCHANGE_FIELD (CATEGORIES, KEYWORDS, "categories", proppatch_categories, populate_categories)
 };
-static int num_prop_mappings = sizeof(prop_mappings) / sizeof (prop_mappings[0]);
+static gint num_prop_mappings = sizeof(prop_mappings) / sizeof (prop_mappings[0]);
 
 struct ContactListMember
 {
-	char *memberID;
-	char *name;
-	char *email;
+	gchar *memberID;
+	gchar *name;
+	gchar *email;
 };
 
-static const char *
-e_book_backend_exchange_prop_to_exchange (const char *propname)
+static const gchar *
+e_book_backend_exchange_prop_to_exchange (const gchar *propname)
 {
-	int i;
+	gint i;
 
 	for (i = 0; i < num_prop_mappings; i ++)
 		if (prop_mappings[i].e_book_field && !strcmp (prop_mappings[i].e_book_field, propname))
@@ -246,10 +246,10 @@ e_book_backend_exchange_prop_to_exchange (const char *propname)
 static void
 get_email_field_from_props (ExchangeAccount *account,
 			    PropMapping *prop_mapping, E2kResult *result,
-			    EContact *contact, char *data)
+			    EContact *contact, gchar *data)
 {
-	char *emailtype;
-	const char *typeselector;
+	gchar *emailtype;
+	const gchar *typeselector;
 
 	/* here's where we do the super involved
 	   conversion from local email addresses to
@@ -311,11 +311,11 @@ get_email_field_from_props (ExchangeAccount *account,
 /* Exchange uses \r in some strings and \r\n in others. EContact always
  * wants just \n.
  */
-static char *
-unixify (const char *string)
+static gchar *
+unixify (const gchar *string)
 {
-	char *out = g_malloc (strlen (string) + 1), *d = out;
-	const char *s = string;
+	gchar *out = g_malloc (strlen (string) + 1), *d = out;
+	const gchar *s = string;
 
 	do {
 		if (*s == '\r') {
@@ -335,11 +335,11 @@ unixify (const char *string)
  * If there are no members or any other error, the NULL is returned.
  **/
 static GSList *
-get_contact_list_members (E2kContext *ctx, const char *list_href)
+get_contact_list_members (E2kContext *ctx, const gchar *list_href)
 {
 	GSList *members = NULL;
 
-	char *url;
+	gchar *url;
 	xmlDoc *doc;
 	xmlNode *member;
 	E2kHTTPStatus status;
@@ -372,9 +372,9 @@ get_contact_list_members (E2kContext *ctx, const char *list_href)
 
 			m = g_new0 (struct ContactListMember, 1);
 
-			m->memberID = g_strdup ((const char *)memid->children->content);
-			m->email = g_strdup ((const char *) (email->children->content));
-			m->name = (dn && dn->children && dn->children->content) ? g_strdup ((const char *) dn->children->content) : NULL;
+			m->memberID = g_strdup ((const gchar *)memid->children->content);
+			m->email = g_strdup ((const gchar *) (email->children->content));
+			m->name = (dn && dn->children && dn->children->content) ? g_strdup ((const gchar *) dn->children->content) : NULL;
 
 			/* do not pass both name and email if they are same, use only email member instead */
 			if (m->name && m->email && g_str_equal (m->name, m->email)) {
@@ -415,8 +415,8 @@ static EContact *
 e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 {
 	EContact *contact;
-	char *data;
-	const char *filename;
+	gchar *data;
+	const gchar *filename;
 	E2kHTTPStatus status;
 	SoupBuffer *response;
 	CamelStream *stream;
@@ -424,7 +424,7 @@ e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 	CamelDataWrapper *content;
 	CamelMultipart *multipart;
 	CamelMimePart *part;
-	int i;
+	gint i;
 
 	contact = e_contact_new ();
 
@@ -444,7 +444,7 @@ e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 			prop_mappings[i].composite_populate_func (
 				prop_mappings[i].field, contact, data);
 		} else {
-			char *unix_data;
+			gchar *unix_data;
 
 			unix_data = strchr (data, '\r') ?
 				unixify (data) : data;
@@ -475,7 +475,7 @@ e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 		for (m = members; m; m = m->next) {
 			struct ContactListMember *member = (struct ContactListMember *) m->data;
 			EVCardAttribute *attr;
-			char *value;
+			gchar *value;
 			CamelInternetAddress *addr;
 
 			if (!member || !member->memberID || !member->email)
@@ -563,11 +563,11 @@ e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 	return contact;
 }
 
-static char *
+static gchar *
 vcard_from_props (EBookBackendExchange *be, E2kResult *result)
 {
 	EContact *contact;
-	char *vcard;
+	gchar *vcard;
 
 	contact = e_contact_from_props (be, result);
 	if (!contact)
@@ -612,11 +612,11 @@ build_summary (EBookBackendExchange *be)
 	e_book_backend_summary_save (bepriv->summary);
 }
 
-static const char *folder_props[] = {
+static const gchar *folder_props[] = {
 	PR_ACCESS,
 	E2K_PR_DAV_LAST_MODIFIED
 };
-static const int n_folder_props = sizeof (folder_props) / sizeof (folder_props[0]);
+static const gint n_folder_props = sizeof (folder_props) / sizeof (folder_props[0]);
 
 static gpointer
 build_cache (EBookBackendExchange *be)
@@ -683,11 +683,11 @@ e_book_backend_exchange_connect (EBookBackendExchange *be)
 {
 	EBookBackendExchangePrivate *bepriv = be->priv;
 	ExchangeHierarchy *hier;
-	char *summary_path;
-	char *date_prop, *access_prop;
-	int access;
+	gchar *summary_path;
+	gchar *date_prop, *access_prop;
+	gint access;
 	E2kResult *results;
-	int nresults = 0;
+	gint nresults = 0;
 	E2kHTTPStatus status;
 	time_t folder_mtime;
 
@@ -812,7 +812,7 @@ e_book_backend_exchange_connect (EBookBackendExchange *be)
 }
 
 static gboolean
-value_changed (const char *old, const char *new)
+value_changed (const gchar *old, const gchar *new)
 {
 	if (old == NULL)
 		return new != NULL;
@@ -828,21 +828,21 @@ static const EContactField email_fields[3] = {
 	E_CONTACT_EMAIL_3
 };
 
-static const char *email1_props[] = {
+static const gchar *email1_props[] = {
 	E2K_PR_MAPI_EMAIL_1_ENTRYID,
 	E2K_PR_MAPI_EMAIL_1_ADDRTYPE,
 	E2K_PR_MAPI_EMAIL_1_ADDRESS,
 	E2K_PR_MAPI_EMAIL_1_DISPLAY_NAME,
 	E2K_PR_CONTACTS_EMAIL1,
 };
-static const char *email2_props[] = {
+static const gchar *email2_props[] = {
 	E2K_PR_MAPI_EMAIL_2_ENTRYID,
 	E2K_PR_MAPI_EMAIL_2_ADDRTYPE,
 	E2K_PR_MAPI_EMAIL_2_ADDRESS,
 	E2K_PR_MAPI_EMAIL_2_DISPLAY_NAME,
 	E2K_PR_CONTACTS_EMAIL2,
 };
-static const char *email3_props[] = {
+static const gchar *email3_props[] = {
 	E2K_PR_MAPI_EMAIL_3_ENTRYID,
 	E2K_PR_MAPI_EMAIL_3_ADDRTYPE,
 	E2K_PR_MAPI_EMAIL_3_ADDRESS,
@@ -850,7 +850,7 @@ static const char *email3_props[] = {
 	E2K_PR_CONTACTS_EMAIL3,
 };
 
-static const char **email_props[] = {
+static const gchar **email_props[] = {
 	email1_props, email2_props, email3_props
 };
 
@@ -860,8 +860,8 @@ proppatch_email (PropMapping *prop_mapping,
 		 E2kProperties *props)
 {
 	gboolean changed;
-	char *new_email, *cur_email;
-	int field, prop, emaillisttype = 0;
+	gchar *new_email, *cur_email;
+	gint field, prop, emaillisttype = 0;
 
 	/* We do all three email addresses (plus some additional data)
 	 * when invoked for E_CONTACT_EMAIL_1. So skip EMAIL_2
@@ -955,7 +955,7 @@ proppatch_categories (PropMapping *prop_mapping,
 }
 
 static void
-populate_categories (EContactField field, EContact *new_contact, void *data)
+populate_categories (EContactField field, EContact *new_contact, gpointer data)
 {
 	GList *updated_list = NULL;
 	GPtrArray *categories_list = data;
@@ -963,7 +963,7 @@ populate_categories (EContactField field, EContact *new_contact, void *data)
 
 	for (i = 0; i < categories_list->len; i++) {
 		updated_list = g_list_append (updated_list,
-					      (char *)categories_list->pdata[i]);
+					      (gchar *)categories_list->pdata[i]);
 	}
 
 
@@ -1015,9 +1015,9 @@ proppatch_date (PropMapping *prop_mapping,
 }
 
 static void
-populate_date(EContactField field, EContact *new_contact, void *data)
+populate_date(EContactField field, EContact *new_contact, gpointer data)
 {
-	char *date = (char*)data;
+	gchar *date = (gchar *)data;
 	time_t tt;
 	struct tm *then;
 	EContactDate dt;
@@ -1043,7 +1043,7 @@ enum addressprop {
 	ADDRPROP_LAST
 };
 
-static const char *homeaddrpropnames[] = {
+static const gchar *homeaddrpropnames[] = {
 	E2K_PR_CONTACTS_HOME_PO_BOX,
 	E2K_PR_CONTACTS_HOME_STREET,
 	E2K_PR_CONTACTS_HOME_CITY,
@@ -1052,7 +1052,7 @@ static const char *homeaddrpropnames[] = {
 	E2K_PR_CONTACTS_HOME_COUNTRY,
 };
 
-static const char *otheraddrpropnames[] = {
+static const gchar *otheraddrpropnames[] = {
 	E2K_PR_CONTACTS_OTHER_PO_BOX,
 	E2K_PR_CONTACTS_OTHER_STREET,
 	E2K_PR_CONTACTS_OTHER_CITY,
@@ -1061,7 +1061,7 @@ static const char *otheraddrpropnames[] = {
 	E2K_PR_CONTACTS_OTHER_COUNTRY,
 };
 
-static const char *workaddrpropnames[] = {
+static const gchar *workaddrpropnames[] = {
 	E2K_PR_CONTACTS_WORK_PO_BOX,
 	E2K_PR_CONTACTS_WORK_STREET,
 	E2K_PR_CONTACTS_WORK_CITY,
@@ -1076,10 +1076,10 @@ proppatch_address (PropMapping *prop_mapping,
 		   E2kProperties *props)
 {
 	EContactAddress *new_address, *cur_address = NULL;
-	char *new_addrprops[ADDRPROP_LAST], *cur_addrprops[ADDRPROP_LAST];
-	const char **propnames;
-	char *value;
-	int i;
+	gchar *new_addrprops[ADDRPROP_LAST], *cur_addrprops[ADDRPROP_LAST];
+	const gchar **propnames;
+	gchar *value;
+	gint i;
 
 	new_address = e_contact_get (new_contact, prop_mapping->field);
 	if (cur_contact)
@@ -1172,7 +1172,7 @@ proppatch_im (PropMapping *prop_mapping,
 }
 
 static void
-populate_im (EContactField field, EContact *new_contact, void *data)
+populate_im (EContactField field, EContact *new_contact, gpointer data)
 {
 	GList *im_attr_list = NULL;
 	EVCardAttribute *attr;
@@ -1182,7 +1182,7 @@ populate_im (EContactField field, EContact *new_contact, void *data)
 		e_vcard_attribute_add_param_with_value (attr,
 				e_vcard_attribute_param_new (EVC_TYPE), "WORK");
 
-		e_vcard_attribute_add_value (attr, (const char *)data);
+		e_vcard_attribute_add_value (attr, (const gchar *)data);
 
 		im_attr_list = g_list_append (im_attr_list, attr);
 	}
@@ -1191,12 +1191,12 @@ populate_im (EContactField field, EContact *new_contact, void *data)
 }
 
 static void
-populate_address (EContactField field, EContact *new_contact, void *data)
+populate_address (EContactField field, EContact *new_contact, gpointer data)
 {
 	EAddressWestern *waddr;
 	EContactAddress addr;
 
-	waddr = e_address_western_parse ((const char *)data);
+	waddr = e_address_western_parse ((const gchar *)data);
 	addr.address_format = "us"; /* FIXME? */
 	addr.po = waddr->po_box;
 	addr.ext = waddr->extended;
@@ -1210,10 +1210,10 @@ populate_address (EContactField field, EContact *new_contact, void *data)
 	e_address_western_free (waddr);
 }
 
-static const char *
+static const gchar *
 contact_name (EContact *contact)
 {
-	const char *contact_name;
+	const gchar *contact_name;
 
 	contact_name = e_contact_get_const (contact, E_CONTACT_FULL_NAME);
 	if (contact_name && *contact_name)
@@ -1246,13 +1246,13 @@ props_from_contact (EBookBackendExchange *be,
 		    EContact *old_contact)
 {
 	E2kProperties *props;
-	int i;
+	gint i;
 	gboolean is_list = GPOINTER_TO_INT (e_contact_get (contact, E_CONTACT_IS_LIST));
 
 	props = e2k_properties_new ();
 
 	if (!old_contact) {
-		const char *subject;
+		const gchar *subject;
 
 		subject = contact_name (contact);
 
@@ -1280,7 +1280,7 @@ props_from_contact (EBookBackendExchange *be,
 	}
 
 	if (is_list) {
-		const char *new_value, *current_value;
+		const gchar *new_value, *current_value;
 
 		new_value = e_contact_get_const (contact, E_CONTACT_FILE_AS);
 		if (new_value && !*new_value)
@@ -1309,7 +1309,7 @@ props_from_contact (EBookBackendExchange *be,
 			} else if (prop_mappings[i].flags & FLAG_PUT) {
 				continue; /* FIXME */
 			} else {
-				const char *new_value, *current_value;
+				const gchar *new_value, *current_value;
 
 				new_value = e_contact_get_const (contact, prop_mappings[i].field);
 				if (new_value && !*new_value)
@@ -1343,8 +1343,8 @@ props_from_contact (EBookBackendExchange *be,
 }
 
 static GByteArray *
-build_message (const char *from_name, const char *from_email,
-	       const char *subject, const char *note, EContactPhoto *photo)
+build_message (const gchar *from_name, const gchar *from_email,
+	       const gchar *subject, const gchar *note, EContactPhoto *photo)
 {
 	CamelDataWrapper *wrapper = NULL;
 	CamelContentType *type;
@@ -1393,8 +1393,8 @@ build_message (const char *from_name, const char *from_email,
 		GByteArray *photo_ba;
 		GdkPixbufLoader *loader;
 		GdkPixbufFormat *format;
-		const char *content_type, *extension;
-		char **list, *filename;
+		const gchar *content_type, *extension;
+		gchar **list, *filename;
 
 		/* Determine the MIME type of the photo */
 		loader = gdk_pixbuf_loader_new ();
@@ -1463,8 +1463,8 @@ build_message (const char *from_name, const char *from_email,
 
 static E2kHTTPStatus
 do_put (EBookBackendExchange *be, EDataBook *book,
-	const char *uri, const char *subject,
-	const char *note, EContactPhoto *photo)
+	const gchar *uri, const gchar *subject,
+	const gchar *note, EContactPhoto *photo)
 {
 	ExchangeHierarchy *hier;
 	E2kHTTPStatus status;
@@ -1474,14 +1474,14 @@ do_put (EBookBackendExchange *be, EDataBook *book,
 	body = build_message (hier->owner_name, hier->owner_email,
 			      subject, note, photo);
 	status = e2k_context_put (be->priv->ctx, NULL, uri, "message/rfc822",
-				  (char *) body->data, body->len, NULL);
+				  (gchar *) body->data, body->len, NULL);
 	g_byte_array_free (body, TRUE);
 
 	return status;
 }
 
 static gboolean
-test_name (E2kContext *ctx, const char *name, gpointer summary)
+test_name (E2kContext *ctx, const gchar *name, gpointer summary)
 {
 	return !e_book_backend_summary_check_contact (summary, name);
 }
@@ -1489,7 +1489,7 @@ test_name (E2kContext *ctx, const char *name, gpointer summary)
 /* Posts the command of the contactlist to the backend folder; the backend should be
    already connected in time of the call to this function. */
 static E2kHTTPStatus
-cl_post_command (EBookBackendExchange *be, GString *cmd, const char *uri, char **location)
+cl_post_command (EBookBackendExchange *be, GString *cmd, const gchar *uri, gchar **location)
 {
 	EBookBackendExchangePrivate *bepriv;
 	SoupMessage *msg;
@@ -1508,13 +1508,13 @@ cl_post_command (EBookBackendExchange *be, GString *cmd, const char *uri, char *
 	status = e2k_context_send_message (bepriv->ctx, NULL, msg);
 
 	if (location) {
-		const char *header;
+		const gchar *header;
 
 		header = soup_message_headers_get (msg->response_headers, "Location");
 		*location = g_strdup (header);
 
 		if (*location) {
-			char *p = strrchr (*location, '?');
+			gchar *p = strrchr (*location, '?');
 
 			/* the location can be in the form of http://server/folder/list.EML?Cmd=Edit ,
 			   thus strip the Cmd param from the location */
@@ -1535,7 +1535,7 @@ cl_post_command (EBookBackendExchange *be, GString *cmd, const char *uri, char *
 struct ContactListRemoveInfo
 {
 	EBookBackendExchange *be;
-	const char *list_href;
+	const gchar *list_href;
 };
 
 static void
@@ -1561,7 +1561,7 @@ remove_member (gpointer key, struct ContactListMember *m, struct ContactListRemo
 }
 
 static E2kHTTPStatus
-merge_contact_lists (EBookBackendExchange *be, const char *location, EContact *contact)
+merge_contact_lists (EBookBackendExchange *be, const gchar *location, EContact *contact)
 {
 	E2kHTTPStatus status;
 	GSList *server, *s;
@@ -1587,7 +1587,7 @@ merge_contact_lists (EBookBackendExchange *be, const char *location, EContact *c
 
 	for (l = local; l && status == E2K_HTTP_OK; l = l->next) {
 		EVCardAttribute *attr = (EVCardAttribute *) l->data;
-		char *raw;
+		gchar *raw;
 		CamelInternetAddress *addr;
 
 		if (!attr)
@@ -1599,7 +1599,7 @@ merge_contact_lists (EBookBackendExchange *be, const char *location, EContact *c
 
 		addr = camel_internet_address_new ();
 		if (camel_address_decode (CAMEL_ADDRESS (addr), raw) > 0) {
-			const char *nm = NULL, *eml = NULL;
+			const gchar *nm = NULL, *eml = NULL;
 
 			camel_internet_address_get (addr, 0, &nm, &eml);
 			if (eml) {
@@ -1647,15 +1647,15 @@ static EBookBackendSyncStatus
 e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 					EDataBook         *book,
 					guint32            opid,
-					const char        *vcard,
+					const gchar        *vcard,
 					EContact         **contact)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
 	E2kProperties *props = NULL;
-	const char *name;
+	const gchar *name;
 	E2kHTTPStatus status;
-	char *location = NULL;
+	gchar *location = NULL;
 
 	d(printf("ebbe_create_contact(%p, %p, %s)\n", backend, book, vcard));
 
@@ -1698,7 +1698,7 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 			e_contact_set (*contact, E_CONTACT_LIST_SHOW_ADDRESSES, GINT_TO_POINTER (TRUE));
 			status = merge_contact_lists (be, location, *contact);
 		} else if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-			char *note;
+			gchar *note;
 			EContactPhoto *photo;
 
 			e_contact_set (*contact, E_CONTACT_UID, location);
@@ -1746,16 +1746,16 @@ static EBookBackendSyncStatus
 e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 					EDataBook         *book,
 					guint32	  opid,
-					const char        *vcard,
+					const gchar        *vcard,
 					EContact         **contact)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
 	EContact *old_contact;
-	const char *uri;
+	const gchar *uri;
 	E2kHTTPStatus status;
 	E2kResult *results;
-	int nresults = 0;
+	gint nresults = 0;
 	E2kProperties *props;
 
 	d(printf("ebbe_modify_contact(%p, %p, %s)\n", backend, book, vcard));
@@ -1807,7 +1807,7 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 			status = merge_contact_lists (be, uri, *contact);
 		} else  if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 			/* Do the PUT request if we need to. */
-			char *old_note, *new_note;
+			gchar *old_note, *new_note;
 			EContactPhoto *old_photo, *new_photo;
 			gboolean changed = FALSE;
 
@@ -1888,13 +1888,13 @@ e_book_backend_exchange_remove_contacts (EBookBackendSync  *backend,
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
-	const char *uri;
+	const gchar *uri;
 	E2kHTTPStatus status;
 	GList *l;
 	EBookBackendSyncStatus ret_status = GNOME_Evolution_Addressbook_Success;
 
 	 /* Remove one or more contacts */
-	d(printf("ebbe_remove_contact(%p, %p, %s)\n", backend, book, (char*)id_list->data));
+	d(printf("ebbe_remove_contact(%p, %p, %s)\n", backend, book, (gchar *)id_list->data));
 
 	switch (bepriv->mode) {
 
@@ -1927,7 +1927,7 @@ e_book_backend_exchange_remove_contacts (EBookBackendSync  *backend,
 }
 
 static ESExpResult *
-func_not (ESExp *f, int argc, ESExpResult **argv, void *data)
+func_not (ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 {
 	ESExpResult *r;
 
@@ -1937,19 +1937,19 @@ func_not (ESExp *f, int argc, ESExpResult **argv, void *data)
 	}
 
 	r = e_sexp_result_new (f, ESEXP_RES_UNDEFINED);
-	r->value.string = (char *)
+	r->value.string = (gchar *)
 		e2k_restriction_not ((E2kRestriction *)argv[0]->value.string, TRUE);
 
 	return r;
 }
 
 static ESExpResult *
-func_and_or (ESExp *f, int argc, ESExpResult **argv, void *and)
+func_and_or (ESExp *f, gint argc, ESExpResult **argv, gpointer and)
 {
 	ESExpResult *r;
 	E2kRestriction *rn;
 	GPtrArray *rns;
-	int i;
+	gint i;
 
 	rns = g_ptr_array_new ();
 
@@ -1975,17 +1975,17 @@ func_and_or (ESExp *f, int argc, ESExpResult **argv, void *and)
 	g_ptr_array_free (rns, TRUE);
 
 	r = e_sexp_result_new (f, ESEXP_RES_UNDEFINED);
-	r->value.string = (char *)rn;
+	r->value.string = (gchar *)rn;
 	return r;
 }
 
 static ESExpResult *
-func_match (struct _ESExp *f, int argc, struct _ESExpResult **argv, void *data)
+func_match (struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer data)
 {
 	ESExpResult *r;
 	E2kRestriction *rn;
-	char *propname, *str;
-	const char *exchange_prop;
+	gchar *propname, *str;
+	const gchar *exchange_prop;
 	guint flags = GPOINTER_TO_UINT (data);
 
 	if (argc != 2 ||
@@ -2000,7 +2000,7 @@ func_match (struct _ESExp *f, int argc, struct _ESExpResult **argv, void *data)
 
 	if (!strcmp (propname, "x-evolution-any-field")) {
 		GPtrArray *rns;
-		int i;
+		gint i;
 
 		rns = g_ptr_array_new ();
 		for (i = 0; i < num_prop_mappings; i ++) {
@@ -2070,12 +2070,12 @@ func_match (struct _ESExp *f, int argc, struct _ESExpResult **argv, void *data)
 	}
 
 	r = e_sexp_result_new (f, ESEXP_RES_UNDEFINED);
-	r->value.string = (char *)rn;
+	r->value.string = (gchar *)rn;
 	return r;
 }
 
 static struct {
-	const char *name;
+	const gchar *name;
 	ESExpFunc *func;
 	guint flags;
 } symbols[] = {
@@ -2089,18 +2089,18 @@ static struct {
 };
 
 static E2kRestriction *
-e_book_backend_exchange_build_restriction (const char *query,
+e_book_backend_exchange_build_restriction (const gchar *query,
 					E2kRestriction *base_rn)
 {
 	ESExp *sexp;
 	ESExpResult *r;
 	E2kRestriction *rn;
-	int i;
+	gint i;
 
 	sexp = e_sexp_new ();
 
 	for (i = 0; i < sizeof (symbols) / sizeof (symbols[0]); i++) {
-		e_sexp_add_function (sexp, 0, (char *) symbols[i].name,
+		e_sexp_add_function (sexp, 0, (gchar *) symbols[i].name,
 				     symbols[i].func,
 				     GUINT_TO_POINTER (symbols[i].flags));
 	}
@@ -2141,7 +2141,7 @@ notify_remove (gpointer id, gpointer value, gpointer backend)
 }
 
 static void
-subscription_notify (E2kContext *ctx, const char *uri,
+subscription_notify (E2kContext *ctx, const gchar *uri,
 		     E2kContextChangeType type, gpointer user_data)
 {
 	EBookBackendExchange *be = user_data;
@@ -2153,8 +2153,8 @@ subscription_notify (E2kContext *ctx, const char *uri,
 	E2kResult *result;
 	E2kHTTPStatus status;
 	EContact *contact;
-	const char *uid;
-	int i;
+	const gchar *uid;
+	gint i;
 
 	g_object_ref (be);
 
@@ -2198,7 +2198,7 @@ static EBookBackendSyncStatus
 e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 					  EDataBook         *book,
 					  guint32	     opid,
-					  const char        *query,
+					  const gchar        *query,
 					  GList            **contacts)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
@@ -2207,7 +2207,7 @@ e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 	E2kResultIter *iter;
 	E2kResult *result;
 	E2kHTTPStatus status;
-	char *vcard;
+	gchar *vcard;
 	GList *vcard_list = NULL, *temp, *offline_contacts;
 
 
@@ -2272,7 +2272,7 @@ e_book_backend_exchange_start_book_view (EBookBackend  *backend,
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
-	const char *query = e_data_book_view_get_card_query (book_view);
+	const gchar *query = e_data_book_view_get_card_query (book_view);
 	E2kRestriction *rn;
 	E2kResultIter *iter;
 	E2kResult *result;
@@ -2400,13 +2400,13 @@ free_change (gpointer change, gpointer user_data)
 }
 
 static gboolean
-find_deleted_ids (const char *id, const char *vcard, gpointer user_data)
+find_deleted_ids (const gchar *id, const gchar *vcard, gpointer user_data)
 {
 	EBookBackendExchangeChangeContext *ctx = user_data;
 	gboolean remove = FALSE;
 
 	if (!g_hash_table_lookup (ctx->seen_ids, id)) {
-		char *vcard = NULL;
+		gchar *vcard = NULL;
 		EContact *contact = e_contact_new ();
 		if (contact) {
 			e_contact_set (contact, E_CONTACT_UID, (gpointer) id);
@@ -2428,13 +2428,13 @@ static EBookBackendSyncStatus
 e_book_backend_exchange_get_changes (EBookBackendSync  *backend,
 				     EDataBook         *book,
 				     guint32		opid,
-				     const char        *change_id,
+				     const gchar        *change_id,
 				     GList            **changes)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
 	EBookBackendExchangeChangeContext *ctx;
-	char *filename, *path, *vcard;
+	gchar *filename, *path, *vcard;
 	E2kResultIter *iter;
 	E2kResult *result;
 	E2kHTTPStatus status;
@@ -2528,15 +2528,15 @@ static EBookBackendSyncStatus
 e_book_backend_exchange_get_contact (EBookBackendSync  *backend,
 				     EDataBook         *book,
 				     guint32            opid,
-				     const char        *id,
-				     char             **vcard)
+				     const gchar        *id,
+				     gchar             **vcard)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
 	EContact *contact;
 	E2kResult *results=NULL;
 	E2kHTTPStatus status;
-	int nresults = 0;
+	gint nresults = 0;
 
 	d(printf("ebbe_get_contact(%p, %p, %s)\n", backend, book, id));
 
@@ -2621,9 +2621,9 @@ static void
 e_book_backend_exchange_authenticate_user (EBookBackend *backend,
 					   EDataBook        *book,
 					   guint32	     opid,
-					   const char       *user,
-					   const char       *password,
-					   const char       *auth_method)
+					   const gchar       *user,
+					   const gchar       *password,
+					   const gchar       *auth_method)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
@@ -2678,7 +2678,7 @@ e_book_backend_exchange_get_supported_auth_methods (EBookBackend *backend,
 						    guint32 opid)
 {
 	GList *auth_methods = NULL;
-	char *auth_method;
+	gchar *auth_method;
 
 	d(printf ("ebbe_get_supported_auth_methods (%p, %p)\n", backend, book));
 
@@ -2698,7 +2698,7 @@ e_book_backend_exchange_get_supported_fields (EBookBackendSync  *backend,
 					      guint32		 opid,
 					      GList            **methods)
 {
-	int i;
+	gint i;
 
 	d(printf("ebbe_get_supported_fields(%p, %p)\n", backend, book));
 
@@ -2752,7 +2752,7 @@ e_book_backend_exchange_load_source (EBookBackend *backend,
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
-	const char *offline;
+	const gchar *offline;
 
 	g_return_val_if_fail (bepriv->connected == FALSE, GNOME_Evolution_Addressbook_OtherError);
 
@@ -2800,7 +2800,7 @@ e_book_backend_exchange_remove (EBookBackendSync *backend, EDataBook *book, guin
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
 	ExchangeAccountFolderResult result = EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;
-	const char *int_uri = NULL;
+	const gchar *int_uri = NULL;
 
 	d(printf("ebbe_remove(%p, %p)\n", backend, book));
 	int_uri = e_folder_exchange_get_internal_uri (bepriv->folder);
@@ -2832,7 +2832,7 @@ e_book_backend_exchange_remove (EBookBackendSync *backend, EDataBook *book, guin
 		return GNOME_Evolution_Addressbook_OtherError;
 }
 
-static char *
+static gchar *
 e_book_backend_exchange_get_static_capabilites (EBookBackend *backend)
 {
 	return g_strdup ("net,bulk-removes,do-initial-query,cache-completions,contact-lists");
@@ -2851,7 +2851,7 @@ e_book_backend_exchange_construct (EBookBackendExchange *backend)
 }
 
 static void
-e_book_backend_exchange_set_mode (EBookBackend *backend, int mode)
+e_book_backend_exchange_set_mode (EBookBackend *backend, gint mode)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
@@ -2943,7 +2943,7 @@ e_book_backend_exchange_class_init (EBookBackendExchangeClass *klass)
 	GObjectClass  *object_class = (GObjectClass *) klass;
 	EBookBackendClass *backend_class = E_BOOK_BACKEND_CLASS (klass);
 	EBookBackendSyncClass *sync_class = E_BOOK_BACKEND_SYNC_CLASS (klass);
-	int i;
+	gint i;
 
 	parent_class = g_type_class_ref (e_book_backend_get_type ());
 
@@ -2959,7 +2959,7 @@ e_book_backend_exchange_class_init (EBookBackendExchangeClass *klass)
 	g_ptr_array_add (field_names_array, (gpointer) E2K_PR_HTTPMAIL_HAS_ATTACHMENT);
 	for (i = 0; i < num_prop_mappings; i ++)
 		g_ptr_array_add (field_names_array, (gpointer) prop_mappings[i].prop_name);
-	field_names = (const char **)field_names_array->pdata;
+	field_names = (const gchar **)field_names_array->pdata;
 	n_field_names = field_names_array->len;
 
 	/* Set the virtual methods. */

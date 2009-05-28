@@ -46,7 +46,7 @@ typedef struct {
 /* Private part of the ECalBackendExchangeTasks structure */
 struct _ECalBackendExchangeTasksPrivate {
 	/* URI where the task data is stored */
-	char *uri;
+	gchar *uri;
 
 	/* Top level VTODO component */
 	icalcomponent *icalcomp;
@@ -64,14 +64,14 @@ struct _ECalBackendExchangeTasksPrivate {
 
 	gboolean is_loaded;
 
-	int dummy;
+	gint dummy;
 };
 
 #define PARENT_TYPE E_TYPE_CAL_BACKEND_EXCHANGE
 static ECalBackendExchange *parent_class = NULL;
 
 static void
-get_from (ECalBackendSync *backend, ECalComponent *comp, char **from_name, char **from_addr)
+get_from (ECalBackendSync *backend, ECalComponent *comp, gchar **from_name, gchar **from_addr)
 {
 	if (!g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (E_CAL_BACKEND_EXCHANGE (backend)->account)))
 		e_cal_backend_exchange_get_from (backend, comp, from_name, from_addr);
@@ -99,7 +99,7 @@ get_from (ECalBackendSync *backend, ECalComponent *comp, char **from_name, char 
 static void
 set_uid (E2kProperties *props, ECalComponent *comp)
 {
-        const char *uid;
+        const gchar *uid;
 
 	e_cal_component_get_uid (E_CAL_COMPONENT (comp), &uid);
         e2k_properties_set_string (props, E2K_PR_CALENDAR_UID, g_strdup (uid));
@@ -121,7 +121,7 @@ set_summary (E2kProperties *props, ECalComponent *comp)
 static void
 set_priority (E2kProperties *props, ECalComponent *comp)
 {
-        int *priority, value = 0;
+        gint *priority, value = 0;
 
 	e_cal_component_get_priority (E_CAL_COMPONENT (comp), &priority);
         if (priority) {
@@ -142,7 +142,7 @@ static void
 set_sensitivity (E2kProperties *props, ECalComponent *comp)
 {
         ECalComponentClassification classif;
-        int sensitivity;
+        gint sensitivity;
 
 	e_cal_component_get_classification (E_CAL_COMPONENT (comp), &classif);
         switch (classif) {
@@ -183,7 +183,7 @@ get_default_timezone (void)
 	return local_timezone;
 }
 
-char *
+gchar *
 calcomponentdatetime_to_string (ECalComponentDateTime *dt,
                                 icaltimezone *izone)
 {
@@ -200,7 +200,7 @@ calcomponentdatetime_to_string (ECalComponentDateTime *dt,
 	return e2k_make_timestamp (tt);
 }
 
-static char *
+static gchar *
 convert_to_utc (ECalComponentDateTime *dt)
 {
         icaltimezone *from_zone;
@@ -221,7 +221,7 @@ static void
 set_dtstart (E2kProperties *props, ECalComponent *comp)
 {
         ECalComponentDateTime dt;
-        char *dtstart_str;
+        gchar *dtstart_str;
 
 	e_cal_component_get_dtstart (E_CAL_COMPONENT (comp), &dt);
         if (!dt.value || icaltime_is_null_time (*dt.value)) {
@@ -239,7 +239,7 @@ static void
 set_due_date (E2kProperties *props, ECalComponent *comp)
 {
         ECalComponentDateTime dt;
-        char *due_str;
+        gchar *due_str;
 
 	e_cal_component_get_due (E_CAL_COMPONENT (comp), &dt);
         if (!dt.value || icaltime_is_null_time (*dt.value)) {
@@ -253,7 +253,7 @@ set_due_date (E2kProperties *props, ECalComponent *comp)
         e2k_properties_set_date (props, E2K_PR_MAPI_COMMON_END, due_str);
 }
 
-char *
+gchar *
 icaltime_to_e2k_time (struct icaltimetype *itt)
 {
         time_t tt;
@@ -268,7 +268,7 @@ static void
 set_date_completed (E2kProperties *props, ECalComponent *comp)
 {
         struct icaltimetype *itt;
-        char *tstr;
+        gchar *tstr;
 
 	e_cal_component_get_completed (E_CAL_COMPONENT (comp), &itt);
         if (!itt || icaltime_is_null_time (*itt)) {
@@ -277,7 +277,7 @@ set_date_completed (E2kProperties *props, ECalComponent *comp)
         }
 
 	icaltimezone_convert_time (itt,
-				   icaltimezone_get_builtin_timezone ((const char *)itt->zone),
+				   icaltimezone_get_builtin_timezone ((const gchar *)itt->zone),
 				   icaltimezone_get_utc_timezone ());
         tstr = icaltime_to_e2k_time (itt);
         e_cal_component_free_icaltimetype (itt);
@@ -289,7 +289,7 @@ static void
 set_status (E2kProperties *props, ECalComponent *comp)
 {
         icalproperty_status ical_status;
-        int status;
+        gint status;
 
 	e_cal_component_get_status (E_CAL_COMPONENT (comp), &ical_status);
         switch (ical_status) {
@@ -321,7 +321,7 @@ set_status (E2kProperties *props, ECalComponent *comp)
 static void
 set_percent (E2kProperties *props, ECalComponent *comp)
 {
-        int *percent;
+        gint *percent;
         float res;
 
 	e_cal_component_get_percent (E_CAL_COMPONENT (comp), &percent);
@@ -349,7 +349,7 @@ set_categories (E2kProperties *props, ECalComponent *comp)
 
 	array = g_ptr_array_new ();
         for (sl = categories; sl != NULL; sl = sl->next) {
-                char *cat = (char *) sl->data;
+                gchar *cat = (gchar *) sl->data;
 
 		if (cat)
                         g_ptr_array_add (array, g_strdup (cat));
@@ -362,7 +362,7 @@ set_categories (E2kProperties *props, ECalComponent *comp)
 static void
 set_url (E2kProperties *props, ECalComponent *comp)
 {
-        const char *url;
+        const gchar *url;
 
 	e_cal_component_get_url (E_CAL_COMPONENT (comp), &url);
         if (url)
@@ -392,11 +392,11 @@ update_props (ECalComponent *comp, E2kProperties **properties)
 	set_url (props, E_CAL_COMPONENT (comp));
 }
 
-static const char *
+static const gchar *
 get_priority (ECalComponent *comp)
 {
-	int *priority;
-	const char *result;
+	gint *priority;
+	const gchar *result;
 
 	e_cal_component_get_priority (E_CAL_COMPONENT (comp), &priority);
 
@@ -417,16 +417,16 @@ get_priority (ECalComponent *comp)
 	return result;
 }
 
-static const char *
+static const gchar *
 get_uid (ECalComponent *comp)
 {
-	const char *uid;
+	const gchar *uid;
 
 	e_cal_component_get_uid (E_CAL_COMPONENT(comp), &uid);
 	return uid;
 }
 
-static const char *
+static const gchar *
 get_summary (ECalComponent *comp)
 {
 	ECalComponentText summary;
@@ -438,16 +438,16 @@ get_summary (ECalComponent *comp)
 
 static int
 put_body (ECalComponent *comp, E2kContext *ctx, E2kOperation *op,
-         const char *uri, const char *from_name, const char *from_addr,
-	 const char *attach_body, const char *boundary,
-         char **repl_uid)
+         const gchar *uri, const gchar *from_name, const gchar *from_addr,
+	 const gchar *attach_body, const gchar *boundary,
+         gchar **repl_uid)
 
 {
         GSList *desc_list;
         GString *desc;
-        char *desc_crlf;
-        char *body, *date;
-        int status;
+        gchar *desc_crlf;
+        gchar *body, *date;
+        gint status;
 
         /* get the description */
         e_cal_component_get_description_list (E_CAL_COMPONENT (comp), &desc_list);
@@ -464,7 +464,7 @@ put_body (ECalComponent *comp, E2kContext *ctx, E2kOperation *op,
         }
 
 	/* PUT the component on the server */
-        desc_crlf = e2k_lf_to_crlf ((const char *) desc->str);
+        desc_crlf = e2k_lf_to_crlf ((const gchar *) desc->str);
         date = e2k_make_timestamp_rfc822 (time (NULL));
 
 	if (attach_body) {
@@ -537,7 +537,7 @@ put_body (ECalComponent *comp, E2kContext *ctx, E2kOperation *op,
         return status;
 }
 
-static const char *task_props[] = {
+static const gchar *task_props[] = {
         E2K_PR_EXCHANGE_MESSAGE_CLASS,
         E2K_PR_DAV_UID,
         E2K_PR_CALENDAR_UID,
@@ -559,7 +559,7 @@ static const char *task_props[] = {
         E2K_PR_EXCHANGE_KEYWORDS,
         E2K_PR_CALENDAR_URL
 };
-static const int n_task_props = sizeof (task_props) / sizeof (task_props[0]);
+static const gint n_task_props = sizeof (task_props) / sizeof (task_props[0]);
 
 static guint
 get_changed_tasks (ECalBackendExchange *cbex)
@@ -572,17 +572,17 @@ get_changed_tasks (ECalBackendExchange *cbex)
 	GSList *attachment_list = NULL;
 	E2kResult *result;
 	E2kContext *ctx;
-	const char *modtime, *str, *prop;
-	char *uid;
-	const char *tzid;
-	int status, i, priority, percent;
+	const gchar *modtime, *str, *prop;
+	gchar *uid;
+	const gchar *tzid;
+	gint status, i, priority, percent;
 	float f_percent;
 	ECalComponent *ecal, *ecomp;
 	struct icaltimetype itt;
 	const icaltimezone *itzone;
 	ECalComponentDateTime ecdatetime;
 	icalcomponent *icalcomp;
-	const char *since = NULL;
+	const gchar *since = NULL;
 	ECalBackendExchangeTasks *cbext = E_CAL_BACKEND_EXCHANGE_TASKS (cbex);
 
         g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex), SOUP_STATUS_CANCELLED);
@@ -635,7 +635,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 		ecal = e_cal_component_new ();
 		icalcomp = icalcomponent_new_vtodo ();
 		e_cal_component_set_icalcomponent (ecal, icalcomp);
-		e_cal_component_set_uid (ecal, (const char *)uid);
+		e_cal_component_set_uid (ecal, (const gchar *)uid);
 
 		modtime = e2k_properties_get_prop (result->props,
 						   E2K_PR_DAV_LAST_MODIFIED);
@@ -705,7 +705,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 			sl.data = &text;
 			sl.next = NULL;
 			e_cal_component_set_description_list (E_CAL_COMPONENT (ecal), &sl);
-			g_free ((char *)text.value);
+			g_free ((gchar *)text.value);
 		}
 
 		/* Set DUE */
@@ -804,7 +804,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 		if ((array = e2k_properties_get_prop (result->props,
 				E2K_PR_EXCHANGE_KEYWORDS))) {
 			GSList *list = NULL;
-			int i;
+			gint i;
 
 			for (i = 0; i < array->len; i++)
 				list = g_slist_prepend (list, array->pdata[i]);
@@ -837,7 +837,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 			e_cal_backend_exchange_cache_unlock (cbex);
 
 			if (status && kind == ICAL_VTODO_COMPONENT) {
-				char *str = icalcomponent_as_ical_string_r (icalcomp);
+				gchar *str = icalcomponent_as_ical_string_r (icalcomp);
 				e_cal_backend_notify_object_created (E_CAL_BACKEND (cbex), str);
 				g_free (str);
 			}
@@ -873,7 +873,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 
 	prop = PR_INTERNET_CONTENT;
 	iter = e_folder_exchange_bpropfind_start (cbex->folder, NULL,
-						(const char **)hrefs->pdata,
+						(const gchar **)hrefs->pdata,
 						hrefs->len, &prop, 1);
 	for (i = 0; i < hrefs->len; i++)
 		g_free (hrefs->pdata[i]);
@@ -894,7 +894,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 
 		e_cal_backend_exchange_cache_lock (cbex);
 		ecalbexcomp = get_exchange_comp (cbex, uid);
-		attachment_list = get_attachment (cbex, uid, (char *) ical_data->data, ical_data->len);
+		attachment_list = get_attachment (cbex, uid, (gchar *) ical_data->data, ical_data->len);
 		if (attachment_list) {
 			ecomp = e_cal_component_new ();
 			e_cal_component_set_icalcomponent (ecomp, icalcomponent_new_clone (ecalbexcomp->icomp));
@@ -972,7 +972,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 
 /* folder subscription notify callback */
 static void
-notify_changes (E2kContext *ctx, const char *uri,
+notify_changes (E2kContext *ctx, const gchar *uri,
                      E2kContextChangeType type, gpointer user_data)
 {
 
@@ -988,7 +988,7 @@ notify_changes (E2kContext *ctx, const char *uri,
 static ECalBackendSyncStatus
 open_task (ECalBackendSync *backend, EDataCal *cal,
 	   gboolean only_if_exits,
-	   const char *username, const char *password)
+	   const gchar *username, const gchar *password)
 {
 	ECalBackendSyncStatus status;
 	GThread *thread = NULL;
@@ -1033,7 +1033,7 @@ struct _cb_data {
 
 static ECalBackendSyncStatus
 create_task_object (ECalBackendSync *backend, EDataCal *cal,
-		    char **calobj, char **return_uid)
+		    gchar **calobj, gchar **return_uid)
 {
 	ECalBackendExchangeTasks *ecalbextask;
 	ECalBackendExchange *ecalbex;
@@ -1044,15 +1044,15 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 	icalcomponent_kind kind;
 	icalproperty *icalprop;
 	struct icaltimetype current;
-	char *from_name = NULL, *from_addr = NULL;
-	char *boundary = NULL;
-	char *attach_body = NULL;
-	char *attach_body_crlf = NULL;
-	const char *summary;
-	char * modtime;
-	char *location;
+	gchar *from_name = NULL, *from_addr = NULL;
+	gchar *boundary = NULL;
+	gchar *attach_body = NULL;
+	gchar *attach_body_crlf = NULL;
+	const gchar *summary;
+	gchar * modtime;
+	gchar *location;
 	ECalBackendSyncStatus status;
-	const char *temp_comp_uid;
+	const gchar *temp_comp_uid;
 
 	ecalbextask = E_CAL_BACKEND_EXCHANGE_TASKS (backend);
 	ecalbex = E_CAL_BACKEND_EXCHANGE (backend);
@@ -1195,8 +1195,8 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 
 static ECalBackendSyncStatus
 modify_task_object (ECalBackendSync *backend, EDataCal *cal,
-	       const char *calobj, CalObjModType mod,
-	       char **old_object, char **new_object)
+	       const gchar *calobj, CalObjModType mod,
+	       gchar **old_object, gchar **new_object)
 {
 	ECalBackendExchangeTasks *ecalbextask;
 	ECalBackendExchangeComponent *ecalbexcomp;
@@ -1204,12 +1204,12 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	ECalBackendExchange *ecalbex;
 	E2kProperties *props;
 	icalcomponent *icalcomp;
-	const char* comp_uid, *summary;
-	char *from_name, *from_addr;
-	char *comp_str;
-	char *attach_body = NULL;
-	char *attach_body_crlf = NULL;
-	char *boundary = NULL;
+	const gchar * comp_uid, *summary;
+	gchar *from_name, *from_addr;
+	gchar *comp_str;
+	gchar *attach_body = NULL;
+	gchar *attach_body_crlf = NULL;
+	gchar *boundary = NULL;
 	struct icaltimetype current;
 	ECalBackendSyncStatus status;
 	E2kContext *e2kctx;
@@ -1228,7 +1228,7 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	}
 
 	/* Parse the icalendar text */
-        icalcomp = icalparser_parse_string ((char *) calobj);
+        icalcomp = icalparser_parse_string ((gchar *) calobj);
         if (!icalcomp)
                 return GNOME_Evolution_Calendar_InvalidObject;
 
@@ -1316,7 +1316,7 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 
 static ECalBackendSyncStatus
 receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
-                 const char *calobj)
+                 const gchar *calobj)
 {
 	ECalBackendExchangeTasks *ecalbextask;
 	ECalBackendExchange *cbex;
@@ -1345,8 +1345,8 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
                 return GNOME_Evolution_Calendar_InvalidObject;
 
 	for (l = comps; l; l = l->next) {
-                const char *uid;
-                char *calobj, *rid = NULL;
+                const gchar *uid;
+                gchar *calobj, *rid = NULL;
 
                 subcomp = l->data;
 
@@ -1366,7 +1366,7 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
 
 		e_cal_backend_exchange_cache_lock (cbex);
                 if (get_exchange_comp (E_CAL_BACKEND_EXCHANGE (ecalbextask), uid)) {
-                        char *old_object;
+                        gchar *old_object;
 
 			e_cal_backend_exchange_cache_unlock (cbex);
                         status = modify_task_object (backend, cal, calobj, CALOBJ_MOD_THIS, &old_object, NULL);
@@ -1378,10 +1378,10 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
                         e_cal_backend_notify_object_modified (E_CAL_BACKEND (backend), old_object, calobj);
 			g_free (old_object);
                 } else {
-                        char *returned_uid;
+                        gchar *returned_uid;
 
 			e_cal_backend_exchange_cache_unlock (cbex);
-			calobj = (char *) icalcomponent_as_ical_string_r (subcomp);
+			calobj = (gchar *) icalcomponent_as_ical_string_r (subcomp);
 			status = create_task_object (backend, cal, &calobj, &returned_uid);
                         if (status != GNOME_Evolution_Calendar_Success) {
 				g_free (calobj);
@@ -1402,14 +1402,14 @@ error:
 
 static ECalBackendSyncStatus
 remove_task_object (ECalBackendSync *backend, EDataCal *cal,
-	       const char *uid, const char *rid, CalObjModType mod,
-	       char **old_object, char **object)
+	       const gchar *uid, const gchar *rid, CalObjModType mod,
+	       gchar **old_object, gchar **object)
 {
 	ECalBackendExchange *ecalbex = E_CAL_BACKEND_EXCHANGE (backend);
 	ECalBackendExchangeComponent *ecalbexcomp;
 	ECalComponent *comp;
 	E2kContext *ctx;
-	int status;
+	gint status;
 
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (ecalbex),
 					GNOME_Evolution_Calendar_OtherError);

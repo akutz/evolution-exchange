@@ -33,8 +33,8 @@ struct _ECalBackendExchangeTasksClass {
 
 GType    e_cal_backend_exchange_tasks_get_type         (void);
 icaltimezone * get_default_timezone (void);
-char * calcomponentdatetime_to_string (ECalComponentDateTime *dt, icaltimezone *izone);
-char * icaltime_to_e2k_time (struct icaltimetype *itt);
+gchar * calcomponentdatetime_to_string (ECalComponentDateTime *dt, icaltimezone *izone);
+gchar * icaltime_to_e2k_time (struct icaltimetype *itt);
 
 G_END_DECLS
 

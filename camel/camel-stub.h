@@ -28,7 +28,7 @@ extern "C" {
 typedef struct {
 	CamelObject parent_object;
 
-	char *backend_name;
+	gchar *backend_name;
 
 	GMutex *read_lock, *write_lock;
 	CamelStubMarshal *cmd, *status;
@@ -47,8 +47,8 @@ typedef struct {
 /* Standard Camel function */
 CamelType  camel_stub_get_type    (void);
 
-CamelStub *camel_stub_new         (const char *socket_path,
-				   const char *backend_name,
+CamelStub *camel_stub_new         (const gchar *socket_path,
+				   const gchar *backend_name,
 				   CamelException *ex);
 
 gboolean   camel_stub_send        (CamelStub *stub, CamelException *ex,

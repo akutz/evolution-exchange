@@ -93,7 +93,7 @@ static gboolean
 new_connection (GIOChannel *source, GIOCondition condition, gpointer data)
 {
 	MailStubListener *listener = data;
-	int fd;
+	gint fd;
 
 	fd = accept (g_io_channel_unix_get_fd (source), NULL, NULL);
 	if (fd == -1)
@@ -112,16 +112,16 @@ new_connection (GIOChannel *source, GIOCondition condition, gpointer data)
 }
 
 gboolean
-mail_stub_listener_construct (MailStubListener *listener, const char *socket_path)
+mail_stub_listener_construct (MailStubListener *listener, const gchar *socket_path)
 {
 #ifndef G_OS_WIN32
 	struct sockaddr_un sa_un;
 #else
 	struct sockaddr_in sa_in;
-	int addr_len;
+	gint addr_len;
 	GError *error = NULL;
 #endif
-	int fd;
+	gint fd;
 
 #ifndef G_OS_WIN32
 	g_return_val_if_fail (strlen (socket_path) < sizeof (sa_un.sun_path), FALSE);
@@ -177,7 +177,7 @@ mail_stub_listener_construct (MailStubListener *listener, const char *socket_pat
 
 	printf ("listening on port %d\n", ntohs(sa_in.sin_port));
 
-	if (!g_file_set_contents (socket_path, (char *) &sa_in, addr_len, &error)) {
+	if (!g_file_set_contents (socket_path, (gchar *) &sa_in, addr_len, &error)) {
 		g_warning ("Could not save socket address in '%s': %s",
 			   socket_path, error->message);
 		g_error_free (error);
@@ -204,7 +204,7 @@ mail_stub_listener_construct (MailStubListener *listener, const char *socket_pat
  * Return value: the new #MailStubListener.
  **/
 MailStubListener *
-mail_stub_listener_new (const char *socket_path)
+mail_stub_listener_new (const gchar *socket_path)
 {
 	MailStubListener *listener;
 

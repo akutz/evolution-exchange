@@ -33,10 +33,10 @@
 /* E-Sexp functions */
 
 static E2kRestriction **
-rns_array (ESExp *esexp, int argc, ESExpResult **argv)
+rns_array (ESExp *esexp, gint argc, ESExpResult **argv)
 {
 	E2kRestriction **rns;
-	int i;
+	gint i;
 
 	rns = g_new (E2kRestriction *, argc);
 	for (i = 0; i < argc; i ++) {
@@ -55,7 +55,7 @@ rns_array (ESExp *esexp, int argc, ESExpResult **argv)
 }
 
 static ESExpResult *
-func_and (ESExp *esexp, int argc, ESExpResult **argv, void *data)
+func_and (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
 {
 	ESExpResult *result;
 	E2kRestriction **rns;
@@ -63,7 +63,7 @@ func_and (ESExp *esexp, int argc, ESExpResult **argv, void *data)
 	rns = rns_array (esexp, argc, argv);
 
 	result = e_sexp_result_new (esexp, ESEXP_RES_UNDEFINED);
-	result->value.string = (char *)
+	result->value.string = (gchar *)
 		e2k_restriction_and (argc, rns, TRUE);
 	g_free (rns);
 
@@ -71,7 +71,7 @@ func_and (ESExp *esexp, int argc, ESExpResult **argv, void *data)
 }
 
 static ESExpResult *
-func_or (ESExp *esexp, int argc, ESExpResult **argv, void *data)
+func_or (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
 {
 	ESExpResult *result;
 	E2kRestriction **rns;
@@ -79,7 +79,7 @@ func_or (ESExp *esexp, int argc, ESExpResult **argv, void *data)
 	rns = rns_array (esexp, argc, argv);
 
 	result = e_sexp_result_new (esexp, ESEXP_RES_UNDEFINED);
-	result->value.string = (char *)
+	result->value.string = (gchar *)
 		e2k_restriction_or (argc, rns, TRUE);
 	g_free (rns);
 
@@ -87,7 +87,7 @@ func_or (ESExp *esexp, int argc, ESExpResult **argv, void *data)
 }
 
 static ESExpResult *
-func_not (ESExp *esexp, int argc, ESExpResult **argv, void *data)
+func_not (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
 {
 	ESExpResult *result;
 
@@ -97,7 +97,7 @@ func_not (ESExp *esexp, int argc, ESExpResult **argv, void *data)
 	}
 
 	result = e_sexp_result_new (esexp, ESEXP_RES_UNDEFINED);
-	result->value.string = (char *)
+	result->value.string = (gchar *)
 		e2k_restriction_not ((E2kRestriction *)argv[0]->value.string,
 				     TRUE);
 
@@ -113,10 +113,10 @@ func_not (ESExp *esexp, int argc, ESExpResult **argv, void *data)
  * specified time range.
  */
 static ESExpResult *
-func_occur_in_time_range (ESExp *esexp, int argc, ESExpResult **argv, void *user_data)
+func_occur_in_time_range (ESExp *esexp, gint argc, ESExpResult **argv, gpointer user_data)
 {
 	ECalBackend *backend = user_data;
-	char *start, *end;
+	gchar *start, *end;
 	ESExpResult *result;
 
 	/* check argument types */
@@ -143,7 +143,7 @@ func_occur_in_time_range (ESExp *esexp, int argc, ESExpResult **argv, void *user
 	result = e_sexp_result_new (esexp, ESEXP_RES_UNDEFINED);
 	switch (e_cal_backend_get_kind (backend)) {
 	case ICAL_VEVENT_COMPONENT:
-		result->value.string = (char *)
+		result->value.string = (gchar *)
 			e2k_restriction_andv (
 				e2k_restriction_prop_date (
 					E2K_PR_CALENDAR_DTSTART,
@@ -155,7 +155,7 @@ func_occur_in_time_range (ESExp *esexp, int argc, ESExpResult **argv, void *user
 		break;
 
 	case ICAL_VTODO_COMPONENT:
-		result->value.string = (char *)
+		result->value.string = (gchar *)
 			e2k_restriction_andv (
 				e2k_restriction_prop_date (
 					E2K_PR_MAPI_COMMON_START,
@@ -185,12 +185,12 @@ func_occur_in_time_range (ESExp *esexp, int argc, ESExpResult **argv, void *user
  * specified string.
  */
 static ESExpResult *
-func_contains (ESExp *esexp, int argc, ESExpResult **argv, void *user_data)
+func_contains (ESExp *esexp, gint argc, ESExpResult **argv, gpointer user_data)
 {
 	ESExpResult *result;
 	E2kRestriction *rn;
-	const char *field;
-	const char *str;
+	const gchar *field;
+	const gchar *str;
 
 	/* check argument types */
 	if (argc != 2) {
@@ -238,7 +238,7 @@ func_contains (ESExp *esexp, int argc, ESExpResult **argv, void *user_data)
 	}
 
 	result = e_sexp_result_new (esexp, ESEXP_RES_UNDEFINED);
-	result->value.string = (char *)rn;
+	result->value.string = (gchar *)rn;
 
 	return result;
 }
@@ -250,7 +250,7 @@ func_contains (ESExp *esexp, int argc, ESExpResult **argv, void *user_data)
  * Returns: a boolean indicating whether the component has alarms or not.
  */
 static ESExpResult *
-func_has_alarms (ESExp *esexp, int argc, ESExpResult **argv, void *user_data)
+func_has_alarms (ESExp *esexp, gint argc, ESExpResult **argv, gpointer user_data)
 {
 	ESExpResult *result;
 
@@ -261,7 +261,7 @@ func_has_alarms (ESExp *esexp, int argc, ESExpResult **argv, void *user_data)
 	}
 
 	result = e_sexp_result_new (esexp, ESEXP_RES_UNDEFINED);
-	result->value.string = (char *)
+	result->value.string = (gchar *)
 		e2k_restriction_prop_bool (E2K_PR_MAPI_REMINDER_SET,
 					   E2K_RELOP_EQ, TRUE);
 	return result;
@@ -278,7 +278,7 @@ func_has_alarms (ESExp *esexp, int argc, ESExpResult **argv, void *user_data)
  * categories.
  */
 static ESExpResult *
-func_has_categories (ESExp *esexp, int argc, ESExpResult **argv, void *user_data)
+func_has_categories (ESExp *esexp, gint argc, ESExpResult **argv, gpointer user_data)
 {
 	ESExpResult *result;
 
@@ -295,7 +295,7 @@ func_has_categories (ESExp *esexp, int argc, ESExpResult **argv, void *user_data
  * a COMPLETED property. This is really only useful for TODO components.
  */
 static ESExpResult *
-func_is_completed (ESExp *esexp, int argc, ESExpResult **argv, void *user_data)
+func_is_completed (ESExp *esexp, gint argc, ESExpResult **argv, gpointer user_data)
 {
 	ECalBackend *backend = user_data;
 	ESExpResult *result;
@@ -312,7 +312,7 @@ func_is_completed (ESExp *esexp, int argc, ESExpResult **argv, void *user_data)
 	}
 
 	result = e_sexp_result_new (esexp, ESEXP_RES_UNDEFINED);
-	result->value.string = (char *)
+	result->value.string = (gchar *)
 		e2k_restriction_prop_bool (E2K_PR_OUTLOOK_TASK_IS_DONE,
 					   E2K_RELOP_EQ, TRUE);
 	return result;
@@ -327,11 +327,11 @@ func_is_completed (ESExp *esexp, int argc, ESExpResult **argv, void *user_data)
  * This is really only useful for TODO components.
  */
 static ESExpResult *
-func_completed_before (ESExp *esexp, int argc, ESExpResult **argv, void *user_data)
+func_completed_before (ESExp *esexp, gint argc, ESExpResult **argv, gpointer user_data)
 {
 	ECalBackend *backend = user_data;
 	ESExpResult *result;
-	char *before_time;
+	gchar *before_time;
 
 	if (e_cal_backend_get_kind (backend) != ICAL_VTODO_COMPONENT) {
 		e_sexp_fatal_error (esexp, "completed-before? is only meaningful for task folders");
@@ -353,7 +353,7 @@ func_completed_before (ESExp *esexp, int argc, ESExpResult **argv, void *user_da
 	result = e_sexp_result_new (esexp, ESEXP_RES_UNDEFINED);
 
 	before_time = e2k_make_timestamp (argv[0]->value.time);
-	result->value.string = (char *)
+	result->value.string = (gchar *)
 		e2k_restriction_prop_date (E2K_PR_OUTLOOK_TASK_DONE_DT,
 					   E2K_RELOP_LT, before_time);
 	g_free (before_time);
@@ -362,7 +362,7 @@ func_completed_before (ESExp *esexp, int argc, ESExpResult **argv, void *user_da
 }
 
 static struct {
-	const char *name;
+	const gchar *name;
 	ESExpFunc *func;
 } functions[] = {
 	{ "and", func_and },
@@ -387,19 +387,19 @@ static struct {
 
 E2kRestriction *
 e2k_cal_query_to_restriction (ECalBackendExchange *cbex,
-			      const char *sexp)
+			      const gchar *sexp)
 {
 	E2kRestriction *rn;
 	ESExp *esexp;
 	ESExpResult *result;
-	int i;
+	gint i;
 
 	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex), NULL);
 	g_return_val_if_fail (sexp != NULL, NULL);
 
 	esexp = e_sexp_new ();
 	for (i = 0; i < (sizeof (functions) / sizeof (functions[0])); i++)
-		e_sexp_add_function (esexp, 0, (char *) functions[i].name, functions[i].func, NULL);
+		e_sexp_add_function (esexp, 0, (gchar *) functions[i].name, functions[i].func, NULL);
 
 	e_sexp_input_text (esexp, sexp, strlen (sexp));
 	if (e_sexp_parse (esexp) == -1) {

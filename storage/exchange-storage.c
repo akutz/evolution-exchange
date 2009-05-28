@@ -44,22 +44,22 @@ static EStorageClass *parent_class = NULL;
 static void finalize (GObject *);
 
 static void create_folder (EStorage *storage,
-			   const char *path,
-			   const char *type,
+			   const gchar *path,
+			   const gchar *type,
 			   EStorageResultCallback callback,
 			   gpointer user_data);
 static void remove_folder (EStorage *storage,
-			   const char *path,
+			   const gchar *path,
 			   EStorageResultCallback callback,
 			   gpointer user_data);
 static void xfer_folder   (EStorage *storage,
-			   const char *source_path,
-			   const char *destination_path,
+			   const gchar *source_path,
+			   const gchar *destination_path,
 			   const gboolean remove_source,
 			   EStorageResultCallback callback,
 			   gpointer user_data);
 static void open_folder   (EStorage *storage,
-			   const char *path,
+			   const gchar *path,
 			   EStorageDiscoveryCallback callback,
 			   gpointer user_data);
 static gboolean will_accept_folder (EStorage *storage,
@@ -67,15 +67,15 @@ static gboolean will_accept_folder (EStorage *storage,
 				    EFolder *source);
 
 static void discover_shared_folder        (EStorage *storage,
-					   const char *owner,
-					   const char *folder_name,
+					   const gchar *owner,
+					   const gchar *folder_name,
 					   EStorageDiscoveryCallback callback,
 					   gpointer user_data);
 static void cancel_discover_shared_folder (EStorage *storage,
-					   const char *owner,
-					   const char *folder_name);
+					   const gchar *owner,
+					   const gchar *folder_name);
 static void remove_shared_folder          (EStorage *storage,
-					   const char *path,
+					   const gchar *path,
 					   EStorageResultCallback callback,
 					   gpointer user_data);
 
@@ -127,7 +127,7 @@ static void
 account_new_folder (ExchangeAccount *account, EFolder *folder,
 		    EStorage *storage)
 {
-	const char *path = e_folder_exchange_get_path (folder);
+	const gchar *path = e_folder_exchange_get_path (folder);
 
 	e_storage_new_folder (storage, path, g_object_ref (folder));
 	if (e_folder_exchange_get_has_subfolders (folder)) {
@@ -140,7 +140,7 @@ static void
 account_removed_folder (ExchangeAccount *account, EFolder *folder,
 			EStorage *storage)
 {
-	const char *path = e_folder_exchange_get_path (folder);
+	const gchar *path = e_folder_exchange_get_path (folder);
 
 	e_storage_removed_folder (storage, path);
 }
@@ -168,7 +168,7 @@ account_to_storage_result (ExchangeAccountFolderResult result)
 
 static void
 create_folder (EStorage *storage,
-	       const char *path, const char *type,
+	       const gchar *path, const gchar *type,
 	       EStorageResultCallback callback,
 	       gpointer user_data)
 {
@@ -181,7 +181,7 @@ create_folder (EStorage *storage,
 }
 
 static void
-remove_folder (EStorage *storage, const char *path,
+remove_folder (EStorage *storage, const gchar *path,
 	       EStorageResultCallback callback,
 	       gpointer user_data)
 {
@@ -195,7 +195,7 @@ remove_folder (EStorage *storage, const char *path,
 
 static void
 xfer_folder (EStorage *storage,
-	     const char *source_path, const char *dest_path,
+	     const gchar *source_path, const gchar *dest_path,
 	     const gboolean remove_source,
 	     EStorageResultCallback callback,
 	     gpointer user_data)
@@ -212,7 +212,7 @@ xfer_folder (EStorage *storage,
 
 struct open_folder_data {
 	EStorage *storage;
-	char *path;
+	gchar *path;
 	EStorageDiscoveryCallback callback;
 	gpointer user_data;
 };
@@ -245,7 +245,7 @@ idle_open_folder (gpointer user_data)
 }
 
 static void
-open_folder (EStorage *storage, const char *path,
+open_folder (EStorage *storage, const gchar *path,
 	     EStorageDiscoveryCallback callback, gpointer user_data)
 {
 	struct open_folder_data *ofd;
@@ -280,7 +280,7 @@ will_accept_folder (EStorage *storage,
 
 static void
 discover_shared_folder (EStorage *storage,
-			const char *owner, const char *folder_name,
+			const gchar *owner, const gchar *folder_name,
 			EStorageDiscoveryCallback callback,
 			gpointer user_data)
 {
@@ -300,8 +300,8 @@ discover_shared_folder (EStorage *storage,
 }
 
 static void
-cancel_discover_shared_folder (EStorage *storage, const char *owner,
-			       const char *folder_name)
+cancel_discover_shared_folder (EStorage *storage, const gchar *owner,
+			       const gchar *folder_name)
 {
 	ExchangeStorage *exstorage = EXCHANGE_STORAGE (storage);
 	ExchangeAccount *account = exstorage->priv->account;
@@ -311,7 +311,7 @@ cancel_discover_shared_folder (EStorage *storage, const char *owner,
 }
 
 static void
-remove_shared_folder (EStorage *storage, const char *path,
+remove_shared_folder (EStorage *storage, const gchar *path,
 		      EStorageResultCallback callback, gpointer user_data)
 {
 	ExchangeStorage *exstorage = EXCHANGE_STORAGE (storage);
@@ -329,7 +329,7 @@ idle_fill_storage (gpointer user_data)
 	EStorage *storage = user_data;
 	ExchangeAccount *account = exstorage->priv->account;
 	GPtrArray *folders;
-	int i;
+	gint i;
 
 	exstorage->priv->idle_id = 0;
 

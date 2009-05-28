@@ -29,19 +29,19 @@
 #include <libedata-book/e-book-backend-sexp.h>
 
 void
-string_to_dbt(const char *str, DBT *dbt)
+string_to_dbt(const gchar *str, DBT *dbt)
 {
 	memset(dbt, 0, sizeof(dbt));
-	dbt->data = (void *)str;
+	dbt->data = (gpointer)str;
 	dbt->size = strlen(str) + 1;
 	dbt->flags = DB_DBT_USERMEM;
 }
 
-static char *
-get_filename_from_uri (const char *uri)
+static gchar *
+get_filename_from_uri (const gchar *uri)
 {
-	char *mangled_uri, *filename;
-	int i;
+	gchar *mangled_uri, *filename;
+	gint i;
 
 	/* mangle the URI to not contain invalid characters */
 	mangled_uri = g_strdup (uri);
@@ -72,10 +72,10 @@ get_filename_from_uri (const char *uri)
  **/
 
 void
-e_book_backend_db_cache_set_filename(DB *db, const char *filename)
+e_book_backend_db_cache_set_filename(DB *db, const gchar *filename)
 {
 	DBT uid_dbt, vcard_dbt;
-	int db_error;
+	gint db_error;
 
 	string_to_dbt ("filename", &uid_dbt);
 	string_to_dbt (filename, &vcard_dbt);
@@ -94,12 +94,12 @@ e_book_backend_db_cache_set_filename(DB *db, const char *filename)
  * Get the filename for db cacahe file.
  **/
 
-char *
+gchar *
 e_book_backend_db_cache_get_filename(DB *db)
 {
 	DBT  uid_dbt, vcard_dbt;
-	int db_error;
-	char *filename;
+	gint db_error;
+	gchar *filename;
 
 	string_to_dbt ("filename", &uid_dbt);
 	memset (&vcard_dbt, 0 , sizeof(vcard_dbt));
@@ -118,10 +118,10 @@ e_book_backend_db_cache_get_filename(DB *db)
 }
 
 void
-e_book_backend_db_cache_set_time(DB *db, const char *t)
+e_book_backend_db_cache_set_time(DB *db, const gchar *t)
 {
 	DBT uid_dbt, vcard_dbt ;
-	int db_error ;
+	gint db_error ;
 
 	string_to_dbt ("last_update_time", &uid_dbt);
 	string_to_dbt (t, &vcard_dbt);
@@ -132,12 +132,12 @@ e_book_backend_db_cache_set_time(DB *db, const char *t)
 	}
 }
 
-char *
+gchar *
 e_book_backend_db_cache_get_time (DB *db)
 {
 	DBT uid_dbt, vcard_dbt;
-	int db_error;
-	char *t;
+	gint db_error;
+	gchar *t;
 
 	string_to_dbt ("last_update_time", &uid_dbt);
 	memset (&vcard_dbt, 0, sizeof(vcard_dbt));
@@ -167,11 +167,11 @@ e_book_backend_db_cache_get_time (DB *db)
  * Return value: A cached #EContact, or %NULL if @uid is not cached.
  **/
 EContact *
-e_book_backend_db_cache_get_contact (DB *db, const char *uid)
+e_book_backend_db_cache_get_contact (DB *db, const gchar *uid)
 {
 	DBT        uid_dbt, vcard_dbt;
-	int        db_error;
-	const char *vcard_str;
+	gint        db_error;
+	const gchar *vcard_str;
 
 	g_return_val_if_fail (uid != NULL, NULL);
 
@@ -205,9 +205,9 @@ e_book_backend_db_cache_add_contact (DB *db,
 				   EContact *contact)
 {
 	DBT        uid_dbt, vcard_dbt;
-	int        db_error;
-	char       *vcard_str;
-	const char *uid;
+	gint        db_error;
+	gchar       *vcard_str;
+	const gchar *uid;
 
 	uid = e_contact_get_const (contact, E_CONTACT_UID);
 	if (!uid) {
@@ -249,11 +249,11 @@ e_book_backend_db_cache_add_contact (DB *db,
  **/
 gboolean
 e_book_backend_db_cache_remove_contact (DB *db,
-				    const char *uid)
+				    const gchar *uid)
 
 {
 	DBT        uid_dbt;
-	int        db_error;
+	gint        db_error;
 
 	g_return_val_if_fail (uid != NULL, FALSE);
 
@@ -279,10 +279,10 @@ e_book_backend_db_cache_remove_contact (DB *db,
  * Return value: %TRUE if the cache contains the contact, %FALSE otherwise.
  **/
 gboolean
-e_book_backend_db_cache_check_contact (DB *db, const char *uid)
+e_book_backend_db_cache_check_contact (DB *db, const gchar *uid)
 {
 	DBT        uid_dbt, vcard_dbt;
-	int        db_error;
+	gint        db_error;
 
 	g_return_val_if_fail (uid != NULL, FALSE);
 
@@ -311,11 +311,11 @@ e_book_backend_db_cache_check_contact (DB *db, const char *uid)
  * Return value: A #GList of pointers to #EContact.
  **/
 GList *
-e_book_backend_db_cache_get_contacts (DB *db, const char *query)
+e_book_backend_db_cache_get_contacts (DB *db, const gchar *query)
 {
 	DBC        *dbc;
 	DBT        uid_dbt, vcard_dbt;
-	int        db_error;
+	gint        db_error;
 	GList *list = NULL;
         EBookBackendSExp *sexp = NULL;
 	EContact *contact;
@@ -367,7 +367,7 @@ e_book_backend_db_cache_get_contacts (DB *db, const char *query)
  * Return value: A #GPtrArray of pointers to contact ID strings.
  **/
 GPtrArray *
-e_book_backend_db_cache_search (DB *db, const char *query)
+e_book_backend_db_cache_search (DB *db, const gchar *query)
 {
 	GList *matching_contacts, *temp;
 	GPtrArray *ptr_array;
@@ -394,9 +394,9 @@ e_book_backend_db_cache_search (DB *db, const char *query)
  * Return value: %TRUE if cache exists, %FALSE if not.
  **/
 gboolean
-e_book_backend_db_cache_exists (const char *uri)
+e_book_backend_db_cache_exists (const gchar *uri)
 {
-	char *file_name;
+	gchar *file_name;
 	gboolean exists = FALSE;
 	file_name = get_filename_from_uri (uri);
 
@@ -419,7 +419,7 @@ void
 e_book_backend_db_cache_set_populated (DB *db)
 {
 	DBT        uid_dbt, vcard_dbt;
-	int        db_error;
+	gint        db_error;
 
 	string_to_dbt ("populated", &uid_dbt);
 	string_to_dbt ("TRUE", &vcard_dbt);
@@ -442,7 +442,7 @@ gboolean
 e_book_backend_db_cache_is_populated (DB *db)
 {
 	DBT        uid_dbt, vcard_dbt;
-	int        db_error;
+	gint        db_error;
 
 	string_to_dbt ("populated", &uid_dbt);
 	memset(&vcard_dbt, 0, sizeof(vcard_dbt));

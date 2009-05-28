@@ -95,7 +95,7 @@ static void verify_page_changed (GtkEntry *entry, ExchangeAutoconfigGUI *gui);
 
 
 static void
-autoconfig_gui_set_page (ExchangeAutoconfigGUI *gui, int page)
+autoconfig_gui_set_page (ExchangeAutoconfigGUI *gui, gint page)
 {
 	gnome_druid_set_page (gui->druid, gui->pages->pdata[page]);
 }
@@ -120,7 +120,7 @@ static ExchangeAutoconfigGUI *
 autoconfig_gui_new (void)
 {
 	ExchangeAutoconfigGUI *gui;
-	char *gladefile;
+	gchar *gladefile;
 
 	gui = g_new0 (ExchangeAutoconfigGUI, 1);
 
@@ -186,7 +186,7 @@ static gboolean
 owa_page_next (ExchangeAutoconfigGUI *gui)
 {
 	E2kAutoconfigResult result;
-	const char *old, *new;
+	const gchar *old, *new;
 
 	e2k_autoconfig_set_owa_uri (gui->ac, gtk_entry_get_text (gui->owa_uri_entry));
 	e2k_autoconfig_set_username (gui->ac, gtk_entry_get_text (gui->username_entry));
@@ -421,7 +421,7 @@ verify_page_next (ExchangeAutoconfigGUI *gui)
 static gboolean
 verify_page_check (ExchangeAutoconfigGUI *gui)
 {
-	const char *email;
+	const gchar *email;
 
 	email = gtk_entry_get_text (gui->email_entry);
 
@@ -451,7 +451,7 @@ autoconfig_gui_apply (ExchangeAutoconfigGUI *gui)
 	EAccount *account;
 	EIterator *iter;
 	GConfClient *gconf;
-	char *pw_key;
+	gchar *pw_key;
 	gboolean found = FALSE;
 
 	/* Create the account. */
@@ -527,7 +527,7 @@ autoconfig_gui_free (ExchangeAutoconfigGUI *gui)
 }
 
 static struct {
-	const char *page_name, *body_name;
+	const gchar *page_name, *body_name;
 	void (*prepare_func) (ExchangeAutoconfigGUI *gui);
 	gboolean (*back_func) (ExchangeAutoconfigGUI *gui);
 	gboolean (*next_func) (ExchangeAutoconfigGUI *gui);
@@ -541,14 +541,14 @@ static struct {
 	{ "verify_page", "verify_page_vbox", verify_page_prepare,
 	  verify_page_back, verify_page_next }
 };
-static const int num_autoconfig_pages = sizeof (autoconfig_pages) / sizeof (autoconfig_pages[0]);
+static const gint num_autoconfig_pages = sizeof (autoconfig_pages) / sizeof (autoconfig_pages[0]);
 
 /* Autoconfig druid */
 
 static int
 find_page (ExchangeAutoconfigGUI *gui, gpointer page)
 {
-	int page_num;
+	gint page_num;
 
 	for (page_num = 0; page_num < gui->pages->len; page_num++) {
 		if (gui->pages->pdata[page_num] == (gpointer)page)
@@ -562,7 +562,7 @@ static gboolean
 druid_next_cb (GnomeDruidPage *page, GtkWidget *druid,
 	       ExchangeAutoconfigGUI *gui)
 {
-	int page_num = find_page (gui, page);
+	gint page_num = find_page (gui, page);
 
 	if (page_num == -1 || !autoconfig_pages[page_num].next_func)
 		return FALSE;
@@ -574,7 +574,7 @@ static void
 druid_prepare_cb (GnomeDruidPage *page, GtkWidget *druid,
 		  ExchangeAutoconfigGUI *gui)
 {
-	int page_num = find_page (gui, page);
+	gint page_num = find_page (gui, page);
 
 	if (page_num == -1 || !autoconfig_pages[page_num].prepare_func)
 		return;
@@ -586,7 +586,7 @@ static gboolean
 druid_back_cb (GnomeDruidPage *page, GtkWidget *druid,
 	       ExchangeAutoconfigGUI *gui)
 {
-	int page_num = find_page (gui, page);
+	gint page_num = find_page (gui, page);
 
 	if (page_num == -1 || !autoconfig_pages[page_num].back_func)
 		return FALSE;
@@ -620,7 +620,7 @@ exchange_autoconfig_druid_run (void)
 	ExchangeAutoconfigGUI *gui;
 	GtkWidget *page;
 	GdkPixbuf *icon;
-	int i;
+	gint i;
 	gchar *pngfile;
 
 	gui = autoconfig_gui_new ();

@@ -43,7 +43,7 @@ struct ECalBackendExchangeClass {
 };
 
 struct ECalBackendExchangeComponent {
-	char *uid, *href, *lastmod;
+	gchar *uid, *href, *lastmod;
 	icalcomponent *icomp;
 	GList *instances;
 };
@@ -52,8 +52,8 @@ GType     e_cal_backend_exchange_get_type         (void);
 
 void      e_cal_backend_exchange_cache_sync_start (ECalBackendExchange *cbex);
 gboolean  e_cal_backend_exchange_in_cache         (ECalBackendExchange *cbex,
-						   const char          *uid,
-						   const char          *lastmod,
+						   const gchar          *uid,
+						   const gchar          *lastmod,
 						   const char	       *href,
 						   const char	       *rid
 						   );
@@ -62,52 +62,52 @@ void      e_cal_backend_exchange_cache_sync_end   (ECalBackendExchange *cbex);
 
 
 gboolean  e_cal_backend_exchange_add_object       (ECalBackendExchange *cbex,
-						   const char          *href,
-						   const char          *lastmod,
+						   const gchar          *href,
+						   const gchar          *lastmod,
 						   icalcomponent       *comp);
 gboolean  e_cal_backend_exchange_modify_object    (ECalBackendExchange *cbex,
 						   icalcomponent       *comp,
 						   CalObjModType mod,
 						   gboolean remove_detached);
 gboolean  e_cal_backend_exchange_remove_object    (ECalBackendExchange *cbex,
-						   const char          *uid);
+						   const gchar          *uid);
 
 ECalBackendSyncStatus  e_cal_backend_exchange_add_timezone     (ECalBackendExchange *cbex,
 						   icalcomponent       *vtzcomp);
 
 icaltimezone * e_cal_backend_exchange_get_default_time_zone (ECalBackendSync *backend);
 
-char *	  e_cal_backend_exchange_lf_to_crlf	(const char *in);
-char *	  e_cal_backend_exchange_make_timestamp_rfc822	(time_t when);
+gchar *	  e_cal_backend_exchange_lf_to_crlf	(const gchar *in);
+gchar *	  e_cal_backend_exchange_make_timestamp_rfc822	(time_t when);
 ECalBackendSyncStatus	get_timezone	(ECalBackendSync *backend,
-							EDataCal *cal, const char *tzid, char **object);
+							EDataCal *cal, const gchar *tzid, gchar **object);
 
 /** lookup function for e_cal_check_timezones() */
 icaltimezone *
-e_cal_backend_exchange_lookup_timezone (const char *tzid,
-					const void *custom,
+e_cal_backend_exchange_lookup_timezone (const gchar *tzid,
+					gconstpointer custom,
 					GError **error);
 
 ECalBackendExchangeComponent * get_exchange_comp (ECalBackendExchange *cbex,
-						  const char *uid);
+						  const gchar *uid);
 
-ECalBackendSyncStatus  e_cal_backend_exchange_extract_components (const char *calobj,
+ECalBackendSyncStatus  e_cal_backend_exchange_extract_components (const gchar *calobj,
                                            icalproperty_method *method,
                                            GList **comp_list);
 
 /* Utility functions */
 
 void e_cal_backend_exchange_get_from (ECalBackendSync *backend, ECalComponent *comp,
-					char **from_name, char **from_addr);
-char * e_cal_backend_exchange_get_from_string (ECalBackendSync *backend, ECalComponent *comp);
+					gchar **from_name, gchar **from_addr);
+gchar * e_cal_backend_exchange_get_from_string (ECalBackendSync *backend, ECalComponent *comp);
 void e_cal_backend_exchange_get_sender (ECalBackendSync *backend, ECalComponent *comp,
-					char **from_name, char **from_addr);
-char * e_cal_backend_exchange_get_sender_string (ECalBackendSync *backend, ECalComponent *comp);
+					gchar **from_name, gchar **from_addr);
+gchar * e_cal_backend_exchange_get_sender_string (ECalBackendSync *backend, ECalComponent *comp);
 gboolean e_cal_backend_exchange_is_online (ECalBackendExchange *cbex);
-GSList * get_attachment (ECalBackendExchange *cbex, const char *uid, const char *body, int len);
-void process_delegated_cal_object (icalcomponent *icalcomp, const char *delegator_name,
-					const char *delegator_email, const char *delegatee_email);
-char * build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const char *subject, char **boundary);
+GSList * get_attachment (ECalBackendExchange *cbex, const gchar *uid, const gchar *body, gint len);
+void process_delegated_cal_object (icalcomponent *icalcomp, const gchar *delegator_name,
+					const gchar *delegator_email, const gchar *delegatee_email);
+gchar * build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject, gchar **boundary);
 gchar *e_cal_backend_exchange_get_owner_email (ECalBackendSync *backend);
 gchar *e_cal_backend_exchange_get_owner_name (ECalBackendSync *backend);
 void e_cal_backend_exchange_cache_lock (ECalBackendExchange *cbex);

@@ -40,7 +40,7 @@ static gint exchange_url_equal (gconstpointer a, gconstpointer b);
 
 #ifdef G_OS_WIN32
 
-static const char *
+static const gchar *
 get_localedir (void)
 {
 	return e_util_replace_prefix (PREFIX, e_util_get_cp_prefix (), CONNECTOR_LOCALEDIR);
@@ -51,7 +51,7 @@ get_localedir (void)
 
 #endif
 
-static const char *auth_types[] = {
+static const gchar *auth_types[] = {
 	N_("Secure or Plaintext Password"),
 	N_("Plaintext Password"),
 	N_("Secure Password"),
@@ -166,7 +166,7 @@ exchange_auto_detect_cb (CamelURL *url, GHashTable **auto_detected,
 void
 camel_provider_module_init (void)
 {
-	int i;
+	gint i;
 
 	exchange_provider.object_types[CAMEL_PROVIDER_STORE] = camel_exchange_store_get_type ();
 	exchange_provider.object_types[CAMEL_PROVIDER_TRANSPORT] = camel_exchange_transport_get_type ();
@@ -188,10 +188,10 @@ camel_provider_module_init (void)
 	camel_provider_register (&exchange_provider);
 }
 
-static const char *
-exchange_username (const char *user)
+static const gchar *
+exchange_username (const gchar *user)
 {
-	const char *p;
+	const gchar *p;
 
 	if (user) {
 		p = strpbrk (user, "\\/");
@@ -217,7 +217,7 @@ exchange_url_hash (gconstpointer key)
 }
 
 static gboolean
-check_equal (const char *s1, const char *s2)
+check_equal (const gchar *s1, const gchar *s2)
 {
 	if (!s1)
 		return s2 == NULL;

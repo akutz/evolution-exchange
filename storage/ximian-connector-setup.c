@@ -32,17 +32,17 @@
 #include "exchange-autoconfig-wizard.h"
 
 #ifdef G_OS_WIN32
-const char *_exchange_storage_datadir;
-const char *_exchange_storage_gladedir;
-const char *_exchange_storage_imagesdir;
+const gchar *_exchange_storage_datadir;
+const gchar *_exchange_storage_gladedir;
+const gchar *_exchange_storage_imagesdir;
 #endif
 
-int
-main (int argc, char **argv)
+gint
+main (gint argc, gchar **argv)
 {
 #ifdef G_OS_WIN32
 	{
-		char *localedir;
+		gchar *localedir;
 
 		/* We assume evolution-exchange is installed in the
 		 * same run-time prefix as evolution-data-server.

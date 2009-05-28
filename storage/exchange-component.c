@@ -166,7 +166,7 @@ impl_upgradeFromVersion (PortableServer_Servant servant,
 	ExchangeComponent *component = EXCHANGE_COMPONENT (bonobo_object_from_servant (servant));
 	ExchangeAccount *account;
 	gchar *base_directory=NULL;
-	char *account_filename;
+	gchar *account_filename;
 
 	d(printf("upgradeFromVersion %d %d %d\n", major, minor, revision));
 
@@ -317,13 +317,13 @@ exchange_component_update_accounts (ExchangeComponent *component,
 }
 
 static void
-new_connection (MailStubListener *listener, int cmd_fd, int status_fd,
+new_connection (MailStubListener *listener, gint cmd_fd, gint status_fd,
 		ExchangeComponentAccount *baccount)
 {
 	MailStub *stub;
 	MailStubExchange *mse, *mse_prev;
 	ExchangeAccount *account = baccount->account;
-	int mode;
+	gint mode;
 
 	g_object_ref (account);
 
@@ -366,7 +366,7 @@ config_listener_account_created (ExchangeConfigListener *config_listener,
 	ExchangeComponent *component = user_data;
 	ExchangeComponentPrivate *priv = component->priv;
 	ExchangeComponentAccount *baccount;
-	char *path, *dot_exchange_username, *account_filename;
+	gchar *path, *dot_exchange_username, *account_filename;
 
 	baccount = g_new0 (ExchangeComponentAccount, 1);
 	baccount->account = g_object_ref (account);
@@ -494,7 +494,7 @@ exchange_component_new (void)
 
 ExchangeAccount *
 exchange_component_get_account_for_uri (ExchangeComponent *component,
-					const char *uri)
+					const gchar *uri)
 {
 	ExchangeComponentPrivate *priv = component->priv;
 	ExchangeComponentAccount *baccount;
@@ -522,7 +522,7 @@ exchange_component_get_account_for_uri (ExchangeComponent *component,
 }
 
 void
-exchange_component_is_offline (ExchangeComponent *component, int *state)
+exchange_component_is_offline (ExchangeComponent *component, gint *state)
 {
 	g_return_if_fail (EXCHANGE_IS_COMPONENT (component));
 

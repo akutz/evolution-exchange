@@ -46,9 +46,9 @@ GType              exchange_component_get_type (void);
 ExchangeComponent *exchange_component_new      (void);
 
 ExchangeAccount   *exchange_component_get_account_for_uri (ExchangeComponent *component,
-							   const char        *uri);
+							   const gchar        *uri);
 gboolean           exchange_component_is_interactive      (ExchangeComponent *component);
-void           exchange_component_is_offline      (ExchangeComponent *component, int *state);
+void           exchange_component_is_offline      (ExchangeComponent *component, gint *state);
 
 void exchange_component_set_factories (ExchangeComponent *component,
 				       EDataCalFactory *cal_factory,

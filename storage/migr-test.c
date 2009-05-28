@@ -37,8 +37,8 @@
 #include "exchange-types.h"
 #include "exchange-migrate.h"
 
-int
-main (int argc, char **argv)
+gint
+main (gint argc, gchar **argv)
 {
 	CORBA_short major=1;
 	CORBA_short minor=4;
@@ -46,8 +46,8 @@ main (int argc, char **argv)
 	const gchar *source = "~/evolution";
 	const gchar *dest= "/tmp/.evolution-test";
 	gchar *user = NULL, *server = NULL, *base_dir, *uid = NULL;
-	int opt;
-	char optstr[] = "M:m:r:u:h:s:d:";
+	gint opt;
+	gchar optstr[] = "M:m:r:u:h:s:d:";
 
 	gnome_program_init("migr-test", VERSION, LIBGNOMEUI_MODULE, argc, argv, NULL);
 	gdk_init(&argc, &argv);
@@ -100,7 +100,7 @@ main (int argc, char **argv)
 	base_dir = g_build_filename (dest, uid, NULL);
 	printf("base dir is %s; uid = %s; dest = %s ; source=%s \n", base_dir, uid, dest, source);
 
-	exchange_migrate (major, minor, revision, base_dir, (char *) uid);
+	exchange_migrate (major, minor, revision, base_dir, (gchar *) uid);
 
 	g_free (base_dir);
 	g_free (uid);

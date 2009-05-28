@@ -30,7 +30,7 @@ typedef struct {
 	CamelStub *stub;
 	CamelDataCache *cache;
 	CamelOfflineJournal *journal;
-	char *source;
+	gchar *source;
 
 	GHashTable *thread_index_to_message_id;
 } CamelExchangeFolder;
@@ -47,39 +47,39 @@ CamelType camel_exchange_folder_get_type (void);
 
 gboolean camel_exchange_folder_construct            (CamelFolder *folder,
 						     CamelStore *parent,
-						     const char *name,
+						     const gchar *name,
 						     guint32 camel_flags,
-						     const char *folder_dir,
-						     int offline_state,
+						     const gchar *folder_dir,
+						     gint offline_state,
 						     CamelStub *stub,
 						     CamelException *ex);
 
 void     camel_exchange_folder_add_message          (CamelExchangeFolder *exch,
-						     const char *uid,
+						     const gchar *uid,
 						     guint32 flags,
 						     guint32 size,
-						     const char *headers,
-						     const char *href);
+						     const gchar *headers,
+						     const gchar *href);
 
 void     camel_exchange_folder_remove_message       (CamelExchangeFolder *exch,
-						     const char *uid);
+						     const gchar *uid);
 
 void     camel_exchange_folder_uncache_message      (CamelExchangeFolder *exch,
-						     const char *uid);
+						     const gchar *uid);
 
 void     camel_exchange_folder_update_message_flags (CamelExchangeFolder *exch,
-						     const char *uid,
+						     const gchar *uid,
 						     guint32 flags);
 
 void     camel_exchange_folder_update_message_flags_ex (CamelExchangeFolder *exch,
-							const char *uid,
+							const gchar *uid,
 							guint32 flags,
 							guint32 mask);
 
 void     camel_exchange_folder_update_message_tag   (CamelExchangeFolder *exch,
-						     const char *uid,
-						     const char *name,
-						     const char *value);
+						     const gchar *uid,
+						     const gchar *name,
+						     const gchar *value);
 
 
 #ifdef __cplusplus

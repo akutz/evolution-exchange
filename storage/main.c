@@ -67,14 +67,14 @@ static EDataBookFactory *book_factory = NULL;
 ExchangeComponent *global_exchange_component;
 
 #ifdef G_OS_WIN32
-const char *_exchange_storage_datadir;
-const char *_exchange_storage_gladedir;
-const char *_exchange_storage_imagesdir;
+const gchar *_exchange_storage_datadir;
+const gchar *_exchange_storage_gladedir;
+const gchar *_exchange_storage_imagesdir;
 #endif
 
 static BonoboObject *
 exchange_component_factory (BonoboGenericFactory *factory,
-			    const char *component_id, void *component)
+			    const gchar *component_id, gpointer component)
 {
 	g_return_val_if_fail (strcmp (component_id, EXCHANGE_COMPONENT_IID) == 0, NULL);
 
@@ -103,7 +103,7 @@ last_calendar_gone_cb (EDataCalFactory *factory, gpointer data)
 static gboolean
 setup_calendar_factory (void)
 {
-	int mode;
+	gint mode;
 
 	cal_factory = e_data_cal_factory_new ();
 	if (!cal_factory) {
@@ -147,7 +147,7 @@ last_book_gone_cb (EDataBookFactory *factory, gpointer data)
 static gboolean
 setup_addressbook_factory (void)
 {
-	int mode;
+	gint mode;
 
         book_factory = e_data_book_factory_new ();
         if (!book_factory)
@@ -179,15 +179,15 @@ setup_addressbook_factory (void)
         return TRUE;
 }
 
-int
-main (int argc, char **argv)
+gint
+main (gint argc, gchar **argv)
 {
-	char *userdir, *path;
-	char *config_directory;
+	gchar *userdir, *path;
+	gchar *config_directory;
 
 #ifdef G_OS_WIN32
 	{
-		char *localedir;
+		gchar *localedir;
 
 		/* We assume evolution-exchange is installed in the
 		 * same run-time prefix as evolution-data-server.

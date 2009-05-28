@@ -9,8 +9,8 @@
 
 G_BEGIN_DECLS
 
-char                *e2k_timestamp_from_icaltime (struct icaltimetype itt);
-struct icaltimetype  e2k_timestamp_to_icaltime   (const char *timestamp);
+gchar                *e2k_timestamp_from_icaltime (struct icaltimetype itt);
+struct icaltimetype  e2k_timestamp_to_icaltime   (const gchar *timestamp);
 
 G_END_DECLS
 

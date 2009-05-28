@@ -64,7 +64,7 @@ finalize (CamelStub *stub)
 		camel_stub_marshal_free (stub->cmd);
 
 	if (stub->have_status_thread) {
-		void *unused;
+		gpointer unused;
 
 		/* When we close the command channel, the storage will
 		 * close the status channel, which will in turn cause
@@ -114,8 +114,8 @@ camel_stub_get_type (void)
 }
 
 
-static void *
-status_main (void *data)
+static gpointer
+status_main (gpointer data)
 {
 	CamelObject *stub_object = data;
 	CamelStub *stub = data;
@@ -157,7 +157,7 @@ static int
 connect_to_storage (CamelStub *stub, struct sockaddr_un *sa_un,
 		    CamelException *ex)
 {
-	int fd;
+	gint fd;
 
 	fd = socket (AF_UNIX, SOCK_STREAM, 0);
 	if (fd == -1) {
@@ -197,14 +197,14 @@ connect_to_storage (CamelStub *stub, struct sockaddr_un *sa_un,
 #else
 
 static int
-connect_to_storage (CamelStub *stub, const char *socket_path,
+connect_to_storage (CamelStub *stub, const gchar *socket_path,
 		    CamelException *ex)
 {
 	SOCKET fd;
 	struct sockaddr_in *sa_in;
 	gsize contents_length;
 	GError *error = NULL;
-	int rc;
+	gint rc;
 
 	if (!g_file_get_contents (socket_path, (gchar **) &sa_in,
 				  &contents_length, &error)) {
@@ -268,14 +268,14 @@ connect_to_storage (CamelStub *stub, const char *socket_path,
  * which case @ex will be set.
  **/
 CamelStub *
-camel_stub_new (const char *socket_path, const char *backend_name,
+camel_stub_new (const gchar *socket_path, const gchar *backend_name,
 		CamelException *ex)
 {
 	CamelStub *stub;
 #ifndef G_OS_WIN32
 	struct sockaddr_un sa_un;
 #endif
-	int fd;
+	gint fd;
 
 #ifndef G_OS_WIN32
 	if (strlen (socket_path) > sizeof (sa_un.sun_path) - 1) {
@@ -330,7 +330,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 		    CamelStubCommand command, va_list ap)
 {
 	CamelStubArgType argtype;
-	int status = 0;
+	gint status = 0;
 	guint32 retval;
 
 	g_return_val_if_fail (stub, FALSE);
@@ -359,7 +359,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 
 		case CAMEL_STUB_ARG_STRING:
 		{
-			char *string = va_arg (ap, char *);
+			gchar *string = va_arg (ap, gchar *);
 
 			camel_stub_marshal_encode_string (stub->cmd, string);
 			break;
@@ -367,7 +367,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 
 		case CAMEL_STUB_ARG_FOLDER:
 		{
-			char *name = va_arg (ap, char *);
+			gchar *name = va_arg (ap, gchar *);
 
 			camel_stub_marshal_encode_folder (stub->cmd, name);
 			break;
@@ -384,7 +384,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 		case CAMEL_STUB_ARG_STRINGARRAY:
 		{
 			GPtrArray *arr = va_arg (ap, GPtrArray *);
-			int i;
+			gint i;
 
 			camel_stub_marshal_encode_uint32 (stub->cmd, arr->len);
 			for (i = 0; i < arr->len; i++)
@@ -395,7 +395,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 		case CAMEL_STUB_ARG_UINT32ARRAY:
 		{
 			GArray *arr = va_arg (ap, GArray *);
-			int i;
+			gint i;
 
 			camel_stub_marshal_encode_uint32 (stub->cmd, arr->len);
 			for (i = 0; i < arr->len; i++)
@@ -429,7 +429,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 
 		case CAMEL_STUB_RETVAL_EXCEPTION:
 		{
-			char *desc;
+			gchar *desc;
 
 			/* FIXME: exception id? */
 
@@ -474,7 +474,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 
 				case CAMEL_STUB_ARG_STRING:
 				{
-					char **string = va_arg (ap, char **);
+					gchar **string = va_arg (ap, gchar **);
 
 					status = camel_stub_marshal_decode_string (stub->cmd, string);
 					break;
@@ -482,7 +482,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 
 				case CAMEL_STUB_ARG_FOLDER:
 				{
-					char **name = va_arg (ap, char **);
+					gchar **name = va_arg (ap, gchar **);
 
 					status = camel_stub_marshal_decode_folder (stub->cmd, name);
 					break;
@@ -500,8 +500,8 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 				{
 					GPtrArray **arr = va_arg (ap, GPtrArray **);
 					guint32 len;
-					char *string;
-					int i;
+					gchar *string;
+					gint i;
 
 					status = camel_stub_marshal_decode_uint32 (stub->cmd, &len);
 					if (status == -1)

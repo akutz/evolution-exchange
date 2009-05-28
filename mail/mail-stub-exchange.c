@@ -52,7 +52,7 @@ static MailStubClass *parent_class = NULL;
 /* static gulong offline_listener_handler_id; */
 
 typedef struct {
-	char *uid, *href;
+	gchar *uid, *href;
 	guint32 seq, flags;
 	guint32 change_flags, change_mask;
 	GData *tag_updates;
@@ -69,7 +69,7 @@ typedef struct {
 	MailStubExchange *mse;
 
 	EFolder *folder;
-	const char *name;
+	const gchar *name;
 	MailStubExchangeFolderType type;
 	guint32 access;
 
@@ -89,41 +89,41 @@ typedef struct {
 
 static void dispose (GObject *);
 
-static void stub_connect (MailStub *stub, char *pwd);
-static void get_folder (MailStub *stub, const char *name, gboolean create,
+static void stub_connect (MailStub *stub, gchar *pwd);
+static void get_folder (MailStub *stub, const gchar *name, gboolean create,
 			GPtrArray *uids, GByteArray *flags, GPtrArray *hrefs, guint32 high_article_num);
 static void get_trash_name (MailStub *stub);
-static void sync_folder (MailStub *stub, const char *folder_name);
-static void refresh_folder (MailStub *stub, const char *folder_name);
-static void sync_count (MailStub *stub, const char *folder_name);
+static void sync_folder (MailStub *stub, const gchar *folder_name);
+static void refresh_folder (MailStub *stub, const gchar *folder_name);
+static void sync_count (MailStub *stub, const gchar *folder_name);
 static void refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 				     gboolean background);
 static void sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld);
-static void expunge_uids (MailStub *stub, const char *folder_name, GPtrArray *uids);
-static void append_message (MailStub *stub, const char *folder_name, guint32 flags,
-			    const char *subject, const char *data, int length);
-static void set_message_flags (MailStub *, const char *folder_name,
-			       const char *uid, guint32 flags, guint32 mask);
-static void set_message_tag (MailStub *, const char *folder_name,
-			     const char *uid, const char *name, const char *value);
-static void get_message (MailStub *stub, const char *folder_name, const char *uid);
-static void search (MailStub *stub, const char *folder_name, const char *text);
-static void transfer_messages (MailStub *stub, const char *source_name,
-			       const char *dest_name, GPtrArray *uids,
+static void expunge_uids (MailStub *stub, const gchar *folder_name, GPtrArray *uids);
+static void append_message (MailStub *stub, const gchar *folder_name, guint32 flags,
+			    const gchar *subject, const gchar *data, gint length);
+static void set_message_flags (MailStub *, const gchar *folder_name,
+			       const gchar *uid, guint32 flags, guint32 mask);
+static void set_message_tag (MailStub *, const gchar *folder_name,
+			     const gchar *uid, const gchar *name, const gchar *value);
+static void get_message (MailStub *stub, const gchar *folder_name, const gchar *uid);
+static void search (MailStub *stub, const gchar *folder_name, const gchar *text);
+static void transfer_messages (MailStub *stub, const gchar *source_name,
+			       const gchar *dest_name, GPtrArray *uids,
 			       gboolean delete_originals);
-static void get_folder_info (MailStub *stub, const char *top,
+static void get_folder_info (MailStub *stub, const gchar *top,
 			     guint32 store_flags);
-static void send_message (MailStub *stub, const char *from,
+static void send_message (MailStub *stub, const gchar *from,
 			  GPtrArray *recipients,
-			  const char *data, int length);
-static void create_folder (MailStub *, const char *parent_name,
-			   const char *folder_name);
-static void delete_folder (MailStub *, const char *folder_name);
-static void rename_folder (MailStub *, const char *old_name,
-			   const char *new_name);
-static void subscribe_folder (MailStub *, const char *folder_name);
-static void unsubscribe_folder (MailStub *, const char *folder_name);
-static void is_subscribed_folder (MailStub *, const char *folder_name);
+			  const gchar *data, gint length);
+static void create_folder (MailStub *, const gchar *parent_name,
+			   const gchar *folder_name);
+static void delete_folder (MailStub *, const gchar *folder_name);
+static void rename_folder (MailStub *, const gchar *old_name,
+			   const gchar *new_name);
+static void subscribe_folder (MailStub *, const gchar *folder_name);
+static void unsubscribe_folder (MailStub *, const gchar *folder_name);
+static void is_subscribed_folder (MailStub *, const gchar *folder_name);
 
 static gboolean process_flags (gpointer user_data);
 
@@ -135,7 +135,7 @@ static void storage_folder_changed (EFolder *folder, gpointer user_data);
 static void folder_update_linestatus (gpointer key, gpointer value, gpointer data);
 static void free_folder (gpointer value);
 static gboolean get_folder_online (MailStubExchangeFolder *mfld, gboolean background);
-static void  get_folder_info_data (MailStub *stub, const char *top, guint32 store_flags,
+static void  get_folder_info_data (MailStub *stub, const gchar *top, guint32 store_flags,
 				   GPtrArray **names, GPtrArray **uris,
 				   GArray **unread, GArray **flags);
 
@@ -196,7 +196,7 @@ static void
 free_folder (gpointer value)
 {
 	MailStubExchangeFolder *mfld = value;
-	int i;
+	gint i;
 
 	d(g_print ("%s:%s:%d: freeing mfld: name=[%s]\n", __FILE__, __PRETTY_FUNCTION__, __LINE__,
 		   mfld->name));
@@ -258,7 +258,7 @@ E2K_MAKE_TYPE (mail_stub_exchange, MailStubExchange, class_init, init, PARENT_TY
 
 
 static MailStubExchangeFolder *
-folder_from_name (MailStubExchange *mse, const char *folder_name,
+folder_from_name (MailStubExchange *mse, const gchar *folder_name,
 		  guint32 perms, gboolean background)
 {
 	MailStubExchangeFolder *mfld;
@@ -304,10 +304,10 @@ folder_changed (MailStubExchangeFolder *mfld)
 }
 
 static int
-find_message_index (MailStubExchangeFolder *mfld, int seq)
+find_message_index (MailStubExchangeFolder *mfld, gint seq)
 {
 	MailStubExchangeMessage *mmsg;
-	int low, high, mid;
+	gint low, high, mid;
 
 	low = 0;
 	high = mfld->messages->len - 1;
@@ -327,19 +327,19 @@ find_message_index (MailStubExchangeFolder *mfld, int seq)
 }
 
 static inline MailStubExchangeMessage *
-find_message (MailStubExchangeFolder *mfld, const char *uid)
+find_message (MailStubExchangeFolder *mfld, const gchar *uid)
 {
 	return g_hash_table_lookup (mfld->messages_by_uid, uid);
 }
 
 static inline MailStubExchangeMessage *
-find_message_by_href (MailStubExchangeFolder *mfld, const char *href)
+find_message_by_href (MailStubExchangeFolder *mfld, const gchar *href)
 {
 	return g_hash_table_lookup (mfld->messages_by_href, href);
 }
 
 static MailStubExchangeMessage *
-new_message (const char *uid, const char *uri, guint32 seq, guint32 flags)
+new_message (const gchar *uid, const gchar *uri, guint32 seq, guint32 flags)
 {
 	MailStubExchangeMessage *mmsg;
 
@@ -353,7 +353,7 @@ new_message (const char *uid, const char *uri, guint32 seq, guint32 flags)
 }
 
 static void
-message_remove_at_index (MailStub *stub, MailStubExchangeFolder *mfld, int index)
+message_remove_at_index (MailStub *stub, MailStubExchangeFolder *mfld, gint index)
 {
 	MailStubExchangeMessage *mmsg;
 
@@ -371,7 +371,7 @@ message_remove_at_index (MailStub *stub, MailStubExchangeFolder *mfld, int index
 	g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
 
 	if (mmsg->change_mask || mmsg->tag_updates) {
-		int i;
+		gint i;
 
 		g_static_rec_mutex_lock (&g_changed_msgs_mutex);
 
@@ -397,7 +397,7 @@ message_remove_at_index (MailStub *stub, MailStubExchangeFolder *mfld, int index
 }
 
 static void
-message_removed (MailStub *stub, MailStubExchangeFolder *mfld, const char *href)
+message_removed (MailStub *stub, MailStubExchangeFolder *mfld, const gchar *href)
 {
 	MailStubExchangeMessage *mmsg;
 	guint index;
@@ -412,8 +412,8 @@ message_removed (MailStub *stub, MailStubExchangeFolder *mfld, const char *href)
 }
 
 static void
-return_tag (MailStubExchangeFolder *mfld, const char *uid,
-	    const char *name, const char *value)
+return_tag (MailStubExchangeFolder *mfld, const gchar *uid,
+	    const gchar *name, const gchar *value)
 {
 	mail_stub_return_data (MAIL_STUB (mfld->mse),
 			       CAMEL_STUB_RETVAL_CHANGED_TAG,
@@ -445,8 +445,8 @@ change_flags (MailStubExchangeFolder *mfld, MailStubExchangeMessage *mmsg,
 			       CAMEL_STUB_ARG_END);
 }
 
-static const char *
-uidstrip (const char *repl_uid)
+static const gchar *
+uidstrip (const gchar *repl_uid)
 {
 	/* The first two cases are just to prevent crashes in the face
 	 * of extreme lossage. They shouldn't ever happen, and the
@@ -474,7 +474,7 @@ timeout_sync_deletions (gpointer user_data)
 }
 
 static void
-notify_cb (E2kContext *ctx, const char *uri,
+notify_cb (E2kContext *ctx, const gchar *uri,
 	   E2kContextChangeType type, gpointer user_data)
 {
 	MailStubExchangeFolder *mfld = user_data;
@@ -545,13 +545,13 @@ storage_folder_changed (EFolder *folder, gpointer user_data)
 }
 
 static void
-got_folder_error (MailStubExchangeFolder *mfld, const char *error)
+got_folder_error (MailStubExchangeFolder *mfld, const gchar *error)
 {
 	mail_stub_return_error (MAIL_STUB (mfld->mse), error);
 	free_folder (mfld);
 }
 
-static const char *open_folder_sync_props[] = {
+static const gchar *open_folder_sync_props[] = {
 	E2K_PR_REPL_UID,
 	PR_INTERNET_ARTICLE_NUMBER,
 	PR_ACTION_FLAG,
@@ -562,19 +562,19 @@ static const char *open_folder_sync_props[] = {
 	E2K_PR_MAILHEADER_REPLY_BY,
 	E2K_PR_MAILHEADER_COMPLETED
 };
-static const int n_open_folder_sync_props = sizeof (open_folder_sync_props) / sizeof (open_folder_sync_props[0]);
+static const gint n_open_folder_sync_props = sizeof (open_folder_sync_props) / sizeof (open_folder_sync_props[0]);
 
-static const char *open_folder_props[] = {
+static const gchar *open_folder_props[] = {
 	PR_ACCESS,
 	PR_DELETED_COUNT_TOTAL
 };
-static const int n_open_folder_props = sizeof (open_folder_props) / sizeof (open_folder_props[0]);
+static const gint n_open_folder_props = sizeof (open_folder_props) / sizeof (open_folder_props[0]);
 
 static void
 mse_get_folder_online_sync_updates (gpointer key, gpointer value,
 				    gpointer user_data)
 {
-	unsigned int index, seq, i;
+	guint index, seq, i;
 	MailStubExchangeFolder *mfld = (MailStubExchangeFolder *)user_data;
 	/*MailStub *stub = MAIL_STUB (mfld->mse);*/
 	MailStubExchangeMessage *mmsg = NULL;
@@ -620,10 +620,10 @@ get_folder_contents_online (MailStubExchangeFolder *mfld, gboolean background)
 	E2kRestriction *rn;
 	E2kResultIter *iter;
 	E2kResult *result;
-	const char *prop, *uid;
+	const gchar *prop, *uid;
 	guint32 article_num, camel_flags, high_article_num;
-	int i, total = -1;
-	unsigned int m;
+	gint i, total = -1;
+	guint m;
 
 	GPtrArray *msgs_copy = NULL;
 	GHashTable *rm_idx_uid = NULL;
@@ -858,9 +858,9 @@ get_folder_online (MailStubExchangeFolder *mfld, gboolean background)
 	MailStub *stub = MAIL_STUB (mfld->mse);
 	E2kHTTPStatus status;
 	E2kResult *results;
-	int nresults = 0;
+	gint nresults = 0;
 	gboolean readonly;
-	const char *prop;
+	const gchar *prop;
 
 	mfld->changed_messages = g_ptr_array_new ();
 
@@ -945,7 +945,7 @@ get_folder_online (MailStubExchangeFolder *mfld, gboolean background)
 }
 
 static void
-get_folder (MailStub *stub, const char *name, gboolean create,
+get_folder (MailStub *stub, const gchar *name, gboolean create,
 	    GPtrArray *uids, GByteArray *flags, GPtrArray *hrefs,
 	    guint32 high_article_num)
 {
@@ -953,10 +953,10 @@ get_folder (MailStub *stub, const char *name, gboolean create,
 	MailStubExchangeFolder *mfld;
 	MailStubExchangeMessage *mmsg;
 	EFolder *folder;
-	char *path;
-	const char *outlook_class;
+	gchar *path;
+	const gchar *outlook_class;
 	guint32 camel_flags;
-	int i, mode;
+	gint i, mode;
 	ExchangeHierarchy *hier;
 
 	path = g_strdup_printf ("/%s", name);
@@ -1008,7 +1008,7 @@ get_folder (MailStub *stub, const char *name, gboolean create,
 		g_ptr_array_add (mfld->messages, mmsg);
 		g_hash_table_insert (mfld->messages_by_uid, mmsg->uid, mmsg);
 
-		if (hrefs->pdata[i] && *((char *)hrefs->pdata[i])) {
+		if (hrefs->pdata[i] && *((gchar *)hrefs->pdata[i])) {
 			mmsg->href = g_strdup (hrefs->pdata[i]);
 			g_hash_table_insert (mfld->messages_by_href, mmsg->href, mmsg);
 		}
@@ -1027,7 +1027,7 @@ get_folder (MailStub *stub, const char *name, gboolean create,
 	g_signal_connect (mfld->folder, "changed",
 			  G_CALLBACK (storage_folder_changed), mfld);
 
-	g_hash_table_insert (mse->folders_by_name, (char *)mfld->name, mfld);
+	g_hash_table_insert (mse->folders_by_name, (gchar *)mfld->name, mfld);
 	folder_changed (mfld);
 
 	camel_flags = 0;
@@ -1070,7 +1070,7 @@ get_trash_name (MailStub *stub)
 }
 
 static void
-sync_folder (MailStub *stub, const char *folder_name)
+sync_folder (MailStub *stub, const gchar *folder_name)
 {
 	MailStubExchangeFolder *mfld;
 
@@ -1086,11 +1086,11 @@ sync_folder (MailStub *stub, const char *folder_name)
 	mail_stub_return_ok (stub);
 }
 
-static const char *sync_deleted_props[] = {
+static const gchar *sync_deleted_props[] = {
 	PR_DELETED_COUNT_TOTAL,
 	E2K_PR_DAV_VISIBLE_COUNT
 };
-static const int n_sync_deleted_props = sizeof (sync_deleted_props) / sizeof (sync_deleted_props[0]);
+static const gint n_sync_deleted_props = sizeof (sync_deleted_props) / sizeof (sync_deleted_props[0]);
 
 static void
 sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld)
@@ -1098,13 +1098,13 @@ sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld)
 	MailStub *stub = MAIL_STUB (mse);
 	E2kHTTPStatus status;
 	E2kResult *results;
-	int nresults = 0;
-	const char *prop;
-	int deleted_count = -1, new_deleted_count, visible_count = -1, mode;
+	gint nresults = 0;
+	const gchar *prop;
+	gint deleted_count = -1, new_deleted_count, visible_count = -1, mode;
 	E2kRestriction *rn;
 	E2kResultIter *iter;
 	E2kResult *result;
-	int my_i, read, highest_unverified_index, highest_verified_seq;
+	gint my_i, read, highest_unverified_index, highest_verified_seq;
 	MailStubExchangeMessage *mmsg, *my_mmsg;
 	gboolean changes = FALSE;
 
@@ -1225,19 +1225,19 @@ sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld)
 }
 
 struct refresh_message {
-	char *uid, *href, *headers, *fff, *reply_by, *completed;
+	gchar *uid, *href, *headers, *fff, *reply_by, *completed;
 	guint32 flags, size, article_num;
 };
 
 static int
-refresh_message_compar (const void *a, const void *b)
+refresh_message_compar (gconstpointer a, gconstpointer b)
 {
 	const struct refresh_message *rma = a, *rmb = b;
 
 	return strcmp (rma->uid, rmb->uid);
 }
 
-static const char *mapi_message_props[] = {
+static const gchar *mapi_message_props[] = {
 	E2K_PR_MAILHEADER_SUBJECT,
 	E2K_PR_MAILHEADER_FROM,
 	E2K_PR_MAILHEADER_TO,
@@ -1250,9 +1250,9 @@ static const char *mapi_message_props[] = {
 	E2K_PR_MAILHEADER_THREAD_INDEX,
 	E2K_PR_DAV_CONTENT_TYPE
 };
-static const int n_mapi_message_props = sizeof (mapi_message_props) / sizeof (mapi_message_props[0]);
+static const gint n_mapi_message_props = sizeof (mapi_message_props) / sizeof (mapi_message_props[0]);
 
-static const char *new_message_props[] = {
+static const gchar *new_message_props[] = {
 	E2K_PR_REPL_UID,
 	PR_INTERNET_ARTICLE_NUMBER,
 	PR_TRANSPORT_MESSAGE_HEADERS,
@@ -1266,7 +1266,7 @@ static const char *new_message_props[] = {
 	E2K_PR_MAILHEADER_COMPLETED,
 	E2K_PR_DAV_CONTENT_LENGTH
 };
-static const int num_new_message_props = sizeof (new_message_props) / sizeof (new_message_props[0]);
+static const gint num_new_message_props = sizeof (new_message_props) / sizeof (new_message_props[0]);
 
 static void
 refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
@@ -1279,10 +1279,10 @@ refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 	gboolean has_read_flag = (mfld->access & MAPI_ACCESS_READ);
 	E2kResultIter *iter;
 	E2kResult *result;
-	char *prop, *uid, *href;
+	gchar *prop, *uid, *href;
 	struct refresh_message rm, *rmp;
 	E2kHTTPStatus status;
-	int got, total, i, n, mode;
+	gint got, total, i, n, mode;
 	gpointer key, value;
 	MailStubExchangeMessage *mmsg;
 
@@ -1403,7 +1403,7 @@ refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 	 */
 
 	iter = e_folder_exchange_bpropfind_start (mfld->folder, NULL,
-						  (const char **)mapi_hrefs->pdata,
+						  (const gchar **)mapi_hrefs->pdata,
 						  mapi_hrefs->len,
 						  mapi_message_props,
 						  n_mapi_message_props);
@@ -1529,7 +1529,7 @@ refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 }
 
 static void
-sync_count (MailStub *stub, const char *folder_name)
+sync_count (MailStub *stub, const gchar *folder_name)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	MailStubExchangeFolder *mfld;
@@ -1556,7 +1556,7 @@ sync_count (MailStub *stub, const char *folder_name)
 }
 
 static void
-refresh_folder (MailStub *stub, const char *folder_name)
+refresh_folder (MailStub *stub, const gchar *folder_name)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	MailStubExchangeFolder *mfld;
@@ -1570,7 +1570,7 @@ refresh_folder (MailStub *stub, const char *folder_name)
 }
 
 static void
-expunge_uids (MailStub *stub, const char *folder_name, GPtrArray *uids)
+expunge_uids (MailStub *stub, const gchar *folder_name, GPtrArray *uids)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	MailStubExchangeFolder *mfld;
@@ -1579,7 +1579,7 @@ expunge_uids (MailStub *stub, const char *folder_name, GPtrArray *uids)
 	E2kResultIter *iter;
 	E2kResult *result;
 	E2kHTTPStatus status;
-	int i, ndeleted;
+	gint i, ndeleted;
 	gboolean some_error = FALSE;
 
 	if (!uids->len) {
@@ -1612,7 +1612,7 @@ expunge_uids (MailStub *stub, const char *folder_name, GPtrArray *uids)
 			       CAMEL_STUB_ARG_END);
 
 	iter = e_folder_exchange_bdelete_start (mfld->folder, NULL,
-						(const char **)hrefs->pdata,
+						(const gchar **)hrefs->pdata,
 						hrefs->len);
 	ndeleted = 0;
 	while ((result = e2k_result_iter_next (iter))) {
@@ -1645,7 +1645,7 @@ expunge_uids (MailStub *stub, const char *folder_name, GPtrArray *uids)
 }
 
 static void
-mark_one_read (E2kContext *ctx, const char *uri, gboolean read)
+mark_one_read (E2kContext *ctx, const gchar *uri, gboolean read)
 {
 	E2kProperties *props;
 	E2kHTTPStatus status;
@@ -1670,7 +1670,7 @@ mark_read (EFolder *folder, GPtrArray *hrefs, gboolean read)
 	e2k_properties_set_bool (props, E2K_PR_HTTPMAIL_READ, read);
 
 	iter = e_folder_exchange_bproppatch_start (folder, NULL,
-						   (const char **)hrefs->pdata,
+						   (const gchar **)hrefs->pdata,
 						   hrefs->len, props, FALSE);
 	e2k_properties_free (props);
 
@@ -1683,19 +1683,19 @@ mark_read (EFolder *folder, GPtrArray *hrefs, gboolean read)
 }
 
 static gboolean
-test_uri (E2kContext *ctx, const char *test_name, gpointer messages_by_href)
+test_uri (E2kContext *ctx, const gchar *test_name, gpointer messages_by_href)
 {
 	return g_hash_table_lookup (messages_by_href, test_name) == NULL;
 }
 
 static void
-append_message (MailStub *stub, const char *folder_name, guint32 flags,
-		const char *subject, const char *data, int length)
+append_message (MailStub *stub, const gchar *folder_name, guint32 flags,
+		const gchar *subject, const gchar *data, gint length)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	MailStubExchangeFolder *mfld;
 	E2kHTTPStatus status;
-	char *ru_header = NULL, *repl_uid, *location = NULL;
+	gchar *ru_header = NULL, *repl_uid, *location = NULL;
 
 	mfld = folder_from_name (mse, folder_name, MAPI_ACCESS_CREATE_CONTENTS, FALSE);
 	if (!mfld)
@@ -1804,8 +1804,8 @@ static void
 update_tags (MailStubExchange *mse, MailStubExchangeMessage *mmsg)
 {
 	E2kProperties *props;
-	const char *value;
-	int flag_status;
+	const gchar *value;
+	gint flag_status;
 	E2kHTTPStatus status;
 
 	flag_status = MAPI_FOLLOWUP_UNFLAGGED;
@@ -1866,7 +1866,7 @@ process_flags (gpointer user_data)
 	MailStubExchange *mse = mfld->mse;
 	MailStubExchangeMessage *mmsg;
 	GPtrArray *seen = NULL, *unseen = NULL, *deleted = NULL;
-	int i;
+	gint i;
 	guint32 hier_type = e_folder_exchange_get_hierarchy (mfld->folder)->type;
 
 	g_static_rec_mutex_lock (&g_changed_msgs_mutex);
@@ -1968,7 +1968,7 @@ process_flags (gpointer user_data)
 			   show the mail folder again if the deletion fails in
 			   such public folder */
 			iter = e_folder_exchange_bdelete_start (mfld->folder, NULL,
-								(const char **)deleted->pdata,
+								(const gchar **)deleted->pdata,
 								deleted->len);
 		}
 		g_ptr_array_free (deleted, FALSE);
@@ -2018,7 +2018,7 @@ static void
 change_message (MailStubExchange *mse, MailStubExchangeFolder *mfld,
 		MailStubExchangeMessage *mmsg)
 {
-	int i;
+	gint i;
 
 	g_static_rec_mutex_lock (&g_changed_msgs_mutex);
 
@@ -2039,7 +2039,7 @@ change_message (MailStubExchange *mse, MailStubExchangeFolder *mfld,
 }
 
 static void
-set_message_flags (MailStub *stub, const char *folder_name, const char *uid,
+set_message_flags (MailStub *stub, const gchar *folder_name, const gchar *uid,
 		   guint32 flags, guint32 mask)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
@@ -2107,8 +2107,8 @@ set_message_flags (MailStub *stub, const char *folder_name, const char *uid,
 }
 
 static void
-set_message_tag (MailStub *stub, const char *folder_name, const char *uid,
-		 const char *name, const char *value)
+set_message_tag (MailStub *stub, const gchar *folder_name, const gchar *uid,
+		 const gchar *name, const gchar *value)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	MailStubExchangeFolder *mfld;
@@ -2127,7 +2127,7 @@ set_message_tag (MailStub *stub, const char *folder_name, const char *uid,
 	change_message (mse, mfld, mmsg);
 }
 
-static const char *stickynote_props[] = {
+static const gchar *stickynote_props[] = {
 	E2K_PR_MAILHEADER_SUBJECT,
 	E2K_PR_DAV_LAST_MODIFIED,
 	E2K_PR_OUTLOOK_STICKYNOTE_COLOR,
@@ -2135,15 +2135,15 @@ static const char *stickynote_props[] = {
 	E2K_PR_OUTLOOK_STICKYNOTE_WIDTH,
 	E2K_PR_HTTPMAIL_TEXT_DESCRIPTION,
 };
-static const int n_stickynote_props = sizeof (stickynote_props) / sizeof (stickynote_props[0]);
+static const gint n_stickynote_props = sizeof (stickynote_props) / sizeof (stickynote_props[0]);
 
 static E2kHTTPStatus
-get_stickynote (E2kContext *ctx, E2kOperation *op, const char *uri,
-		char **body, int *len)
+get_stickynote (E2kContext *ctx, E2kOperation *op, const gchar *uri,
+		gchar **body, gint *len)
 {
 	E2kHTTPStatus status;
 	E2kResult *results;
-	int nresults = 0;
+	gint nresults = 0;
 	GString *message;
 
 	status = e2k_context_propfind (ctx, op, uri,
@@ -2163,14 +2163,14 @@ get_stickynote (E2kContext *ctx, E2kOperation *op, const char *uri,
 
 static E2kHTTPStatus
 build_message_from_document (E2kContext *ctx, E2kOperation *op,
-			     const char *uri,
-			     char **body, int *len)
+			     const gchar *uri,
+			     gchar **body, gint *len)
 {
 	E2kHTTPStatus status;
 	E2kResult *results;
-	int nresults = 0;
+	gint nresults = 0;
 	GString *message;
-	char *headers;
+	gchar *headers;
 
 	status = e2k_context_propfind (ctx, op, uri,
 				       mapi_message_props,
@@ -2198,12 +2198,12 @@ build_message_from_document (E2kContext *ctx, E2kOperation *op,
 
 static E2kHTTPStatus
 unmangle_delegated_meeting_request (MailStubExchange *mse, E2kOperation *op,
-				    const char *uri,
-				    char **body, int *len)
+				    const gchar *uri,
+				    gchar **body, gint *len)
 {
-	const char *prop = PR_RCVD_REPRESENTING_EMAIL_ADDRESS;
+	const gchar *prop = PR_RCVD_REPRESENTING_EMAIL_ADDRESS;
 	GString *message;
-	char *delegator_dn, *delegator_uri, *delegator_folder_physical_uri = NULL;
+	gchar *delegator_dn, *delegator_uri, *delegator_folder_physical_uri = NULL;
 	ExchangeAccount *account;
 	E2kGlobalCatalog *gc;
 	E2kGlobalCatalogEntry *entry;
@@ -2211,7 +2211,7 @@ unmangle_delegated_meeting_request (MailStubExchange *mse, E2kOperation *op,
 	EFolder *folder = NULL;
 	E2kHTTPStatus status;
 	E2kResult *results;
-	int nresults = 0;
+	gint nresults = 0;
 	MailUtilDemangleType unmangle_type = MAIL_UTIL_DEMANGLE_DELGATED_MEETING;
 
 	status = e2k_context_propfind (mse->ctx, op, uri, &prop, 1,
@@ -2276,11 +2276,11 @@ unmangle_delegated_meeting_request (MailStubExchange *mse, E2kOperation *op,
 
 static E2kHTTPStatus
 unmangle_meeting_request_in_subscribed_inbox (MailStubExchange *mse,
-					      const char *delegator_email,
-					      char **body, int *len)
+					      const gchar *delegator_email,
+					      gchar **body, gint *len)
 {
 	GString *message;
-	char *delegator_uri, *delegator_folder_physical_uri = NULL;
+	gchar *delegator_uri, *delegator_folder_physical_uri = NULL;
 	ExchangeAccount *account;
 	E2kGlobalCatalog *gc;
 	E2kGlobalCatalogEntry *entry;
@@ -2334,12 +2334,12 @@ unmangle_meeting_request_in_subscribed_inbox (MailStubExchange *mse,
 
 static E2kHTTPStatus
 unmangle_sender_field (MailStubExchange *mse, E2kOperation *op,
-				    const char *uri,
-				    char **body, int *len)
+				    const gchar *uri,
+				    gchar **body, gint *len)
 {
-	const char *props[] = { PR_SENT_REPRESENTING_EMAIL_ADDRESS, PR_SENDER_EMAIL_ADDRESS };
+	const gchar *props[] = { PR_SENT_REPRESENTING_EMAIL_ADDRESS, PR_SENDER_EMAIL_ADDRESS };
 	GString *message;
-	char *delegator_dn, *sender_dn;
+	gchar *delegator_dn, *sender_dn;
 	ExchangeAccount *account;
 	E2kGlobalCatalog *gc;
 	E2kGlobalCatalogEntry *delegator_entry;
@@ -2347,7 +2347,7 @@ unmangle_sender_field (MailStubExchange *mse, E2kOperation *op,
 	E2kGlobalCatalogStatus gcstatus;
 	E2kHTTPStatus status;
 	E2kResult *results;
-	int nresults = 0;
+	gint nresults = 0;
 	MailUtilDemangleType unmangle_type = MAIL_UTIL_DEMANGLE_SENDER_FIELD;
 
 	status = e2k_context_propfind (mse->ctx, op, uri, props, 2,
@@ -2423,12 +2423,12 @@ unmangle_sender_field (MailStubExchange *mse, E2kOperation *op,
 }
 
 static gboolean
-is_foreign_folder (MailStub *stub, const char *folder_name, char **owner_email)
+is_foreign_folder (MailStub *stub, const gchar *folder_name, gchar **owner_email)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	EFolder *folder;
 	ExchangeHierarchy *hier;
-	char *path;
+	gchar *path;
 
 	path = g_build_filename ("/", folder_name, NULL);
 	folder = exchange_account_get_folder (mse->account, path);
@@ -2453,14 +2453,14 @@ is_foreign_folder (MailStub *stub, const char *folder_name, char **owner_email)
 }
 
 static void
-get_message (MailStub *stub, const char *folder_name, const char *uid)
+get_message (MailStub *stub, const gchar *folder_name, const gchar *uid)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	MailStubExchangeFolder *mfld;
 	MailStubExchangeMessage *mmsg;
 	E2kHTTPStatus status;
-	char *body = NULL, *content_type = NULL, *owner_email = NULL;
-	int len = 0;
+	gchar *body = NULL, *content_type = NULL, *owner_email = NULL;
+	gint len = 0;
 
 	mfld = folder_from_name (mse, folder_name, MAPI_ACCESS_READ, FALSE);
 	if (!mfld)
@@ -2565,12 +2565,12 @@ cleanup:
 
 
 static void
-search (MailStub *stub, const char *folder_name, const char *text)
+search (MailStub *stub, const gchar *folder_name, const gchar *text)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	MailStubExchangeFolder *mfld;
 	E2kRestriction *rn;
-	const char *prop, *repl_uid;
+	const gchar *prop, *repl_uid;
 	E2kResultIter *iter;
 	E2kResult *result;
 	E2kHTTPStatus status;
@@ -2593,7 +2593,7 @@ search (MailStub *stub, const char *folder_name, const char *text)
 		repl_uid = e2k_properties_get_prop (result->props,
 						    E2K_PR_REPL_UID);
 		if (repl_uid)
-			g_ptr_array_add (matches, (char *)uidstrip (repl_uid));
+			g_ptr_array_add (matches, (gchar *)uidstrip (repl_uid));
 	}
 	status = e2k_result_iter_free (iter);
 
@@ -2610,8 +2610,8 @@ search (MailStub *stub, const char *folder_name, const char *text)
 }
 
 static void
-transfer_messages (MailStub *stub, const char *source_name,
-		   const char *dest_name, GPtrArray *uids,
+transfer_messages (MailStub *stub, const gchar *source_name,
+		   const gchar *dest_name, GPtrArray *uids,
 		   gboolean delete_originals)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
@@ -2623,8 +2623,8 @@ transfer_messages (MailStub *stub, const char *source_name,
 	E2kResultIter *iter;
 	E2kResult *result;
 	E2kHTTPStatus status;
-	const char *uid;
-	int i, num;
+	const gchar *uid;
+	gint i, num;
 
 	source = folder_from_name (mse, source_name, delete_originals ? MAPI_ACCESS_DELETE : 0, FALSE);
 	if (!source)
@@ -2642,7 +2642,7 @@ transfer_messages (MailStub *stub, const char *source_name,
 			continue;
 
 		if (!mmsg->href || !strrchr (mmsg->href, '/')) {
-			g_warning ("%s: Message '%s' with invalid href '%s'", G_STRFUNC, (char *)uids->pdata[i], mmsg->href ? mmsg->href : "NULL");
+			g_warning ("%s: Message '%s' with invalid href '%s'", G_STRFUNC, (gchar *)uids->pdata[i], mmsg->href ? mmsg->href : "NULL");
 			continue;
 		}
 
@@ -2681,7 +2681,7 @@ transfer_messages (MailStub *stub, const char *source_name,
 		if (num > new_uids->len)
 			continue;
 
-		new_uids->pdata[num] = (char *)uidstrip (uid);
+		new_uids->pdata[num] = (gchar *)uidstrip (uid);
 
 		if (delete_originals)
 			message_removed (stub, source, result->href);
@@ -2768,7 +2768,7 @@ account_removed_folder (ExchangeAccount *account, EFolder *folder, gpointer user
 }
 
 static void
-get_folder_info_data (MailStub *stub, const char *top, guint32 store_flags,
+get_folder_info_data (MailStub *stub, const gchar *top, guint32 store_flags,
 		      GPtrArray **names, GPtrArray **uris,
 		      GArray **unread, GArray **flags)
 {
@@ -2776,12 +2776,12 @@ get_folder_info_data (MailStub *stub, const char *top, guint32 store_flags,
 	GPtrArray *folders = NULL;
 	ExchangeHierarchy *hier;
 	EFolder *folder;
-	const char *type, *name, *uri, *inbox_uri = NULL, *trash_uri = NULL, *sent_items_uri = NULL;
-	int unread_count, i, toplen = top ? strlen (top) : 0;
+	const gchar *type, *name, *uri, *inbox_uri = NULL, *trash_uri = NULL, *sent_items_uri = NULL;
+	gint unread_count, i, toplen = top ? strlen (top) : 0;
 	guint32 folder_flags = 0;
 	gboolean recursive, subscribed, subscription_list;
-	int mode = -1;
-	char *full_path;
+	gint mode = -1;
+	gchar *full_path;
 
 	recursive = (store_flags & CAMEL_STUB_STORE_FOLDER_INFO_RECURSIVE);
 	subscribed = (store_flags & CAMEL_STUB_STORE_FOLDER_INFO_SUBSCRIBED);
@@ -2912,8 +2912,8 @@ get_folder_info_data (MailStub *stub, const char *top, guint32 store_flags,
 
 			d(g_print ("folder flags is : %d\n", folder_flags));
 
-			g_ptr_array_add (*names, (char *)name);
-			g_ptr_array_add (*uris, (char *)uri);
+			g_ptr_array_add (*names, (gchar *)name);
+			g_ptr_array_add (*uris, (gchar *)uri);
 			g_array_append_val (*unread, unread_count);
 			g_array_append_val (*flags, folder_flags);
 		}
@@ -2923,7 +2923,7 @@ get_folder_info_data (MailStub *stub, const char *top, guint32 store_flags,
 }
 
 static void
-get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
+get_folder_info (MailStub *stub, const gchar *top, guint32 store_flags)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	GPtrArray *names, *uris;
@@ -2957,15 +2957,15 @@ get_folder_info (MailStub *stub, const char *top, guint32 store_flags)
 }
 
 static void
-send_message (MailStub *stub, const char *from, GPtrArray *recipients,
-	      const char *body, int length)
+send_message (MailStub *stub, const gchar *from, GPtrArray *recipients,
+	      const gchar *body, gint length)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	SoupMessage *msg;
 	E2kHTTPStatus status;
-	char *timestamp, *errmsg;
+	gchar *timestamp, *errmsg;
 	GString *data;
-	int i;
+	gint i;
 
 	if (!mse->mail_submission_uri) {
 		mail_stub_return_error (stub, _("No mail submission URI for this mailbox"));
@@ -2976,7 +2976,7 @@ send_message (MailStub *stub, const char *from, GPtrArray *recipients,
 	g_string_append_printf (data, "MAIL FROM:<%s>\r\n", from);
 	for (i = 0; i < recipients->len; i++) {
 		g_string_append_printf (data, "RCPT TO:<%s>\r\n",
-					(char *)recipients->pdata[i]);
+					(gchar *)recipients->pdata[i]);
 	}
 	g_string_append (data, "\r\n");
 
@@ -3025,12 +3025,12 @@ send_message (MailStub *stub, const char *from, GPtrArray *recipients,
 }
 
 static void
-create_folder (MailStub *stub, const char *parent_name, const char *folder_name)
+create_folder (MailStub *stub, const gchar *parent_name, const gchar *folder_name)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	ExchangeAccountFolderResult result;
 	EFolder *folder;
-	char *path;
+	gchar *path;
 
 	path = g_build_filename ("/", parent_name, folder_name, NULL);
 	result = exchange_account_create_folder (mse->account, path, "mail");
@@ -3064,12 +3064,12 @@ create_folder (MailStub *stub, const char *parent_name, const char *folder_name)
 }
 
 static void
-delete_folder (MailStub *stub, const char *folder_name)
+delete_folder (MailStub *stub, const gchar *folder_name)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	ExchangeAccountFolderResult result;
 	EFolder *folder;
-	char *path;
+	gchar *path;
 
 	path = g_build_filename ("/", folder_name, NULL);
 	folder = exchange_account_get_folder (mse->account, path);
@@ -3107,19 +3107,19 @@ delete_folder (MailStub *stub, const char *folder_name)
 }
 
 static void
-rename_folder (MailStub *stub, const char *old_name, const char *new_name)
+rename_folder (MailStub *stub, const gchar *old_name, const gchar *new_name)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	MailStubExchangeFolder *mfld;
 	ExchangeAccountFolderResult result;
 	EFolder *folder;
-	char *old_path, *new_path;
+	gchar *old_path, *new_path;
 	GPtrArray *names, *uris;
 	GArray *unread, *flags;
-	int i = 0, j = 0, mode;
-	char **folder_name;
-	const char *uri;
-	char *new_name_mod, *old_name_remove, *uri_unescaped, *old_name_mod = NULL;
+	gint i = 0, j = 0, mode;
+	gchar **folder_name;
+	const gchar *uri;
+	gchar *new_name_mod, *old_name_remove, *uri_unescaped, *old_name_mod = NULL;
 
 	old_path = g_build_filename ("/", old_name, NULL);
 	folder = exchange_account_get_folder (mse->account, old_path);
@@ -3149,7 +3149,7 @@ rename_folder (MailStub *stub, const char *old_name, const char *new_name)
 		mfld->name = e_folder_exchange_get_path (folder) + 1;
 
 		g_hash_table_steal (mse->folders_by_name, old_name);
-		g_hash_table_insert (mse->folders_by_name, (char *)mfld->name, mfld);
+		g_hash_table_insert (mse->folders_by_name, (gchar *)mfld->name, mfld);
 
 		get_folder_info_data (stub, new_name, CAMEL_STUB_STORE_FOLDER_INFO_SUBSCRIBED,
 				      &names, &uris, &unread, &flags);
@@ -3215,7 +3215,7 @@ rename_folder (MailStub *stub, const char *old_name, const char *new_name)
 			mfld->name = e_folder_exchange_get_path (folder) + 1;
 
 			g_hash_table_steal (mse->folders_by_name, old_name_remove);
-			g_hash_table_insert (mse->folders_by_name, (char *)mfld->name, mfld);
+			g_hash_table_insert (mse->folders_by_name, (gchar *)mfld->name, mfld);
 
 			g_hash_table_remove_all (mfld->messages_by_href);
 
@@ -3271,12 +3271,12 @@ cont_free:		g_free (new_name_mod);
 }
 
 static void
-subscribe_folder (MailStub *stub, const char *folder_name)
+subscribe_folder (MailStub *stub, const gchar *folder_name)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	ExchangeAccountFolderResult result;
 	EFolder *folder;
-	char *path;
+	gchar *path;
 
 	path = g_build_filename ("/", folder_name, NULL);
 	folder = exchange_account_get_folder (mse->account, path);
@@ -3323,12 +3323,12 @@ subscribe_folder (MailStub *stub, const char *folder_name)
 }
 
 static void
-unsubscribe_folder (MailStub *stub, const char *folder_name)
+unsubscribe_folder (MailStub *stub, const gchar *folder_name)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	ExchangeAccountFolderResult result;
 	EFolder *folder;
-	char *path, *pub_name;
+	gchar *path, *pub_name;
 
 	d(printf ("unsubscribe folder : %s\n", folder_name));
 	path = g_build_filename ("/", folder_name, NULL);
@@ -3390,11 +3390,11 @@ unsubscribe_folder (MailStub *stub, const char *folder_name)
 }
 
 static void
-is_subscribed_folder (MailStub *stub, const char *folder_name)
+is_subscribed_folder (MailStub *stub, const gchar *folder_name)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	EFolder *folder;
-	char *path;
+	gchar *path;
 	guint32 is_subscribed = 0;
 
 	path = g_build_filename ("/", folder_name, NULL);
@@ -3422,15 +3422,15 @@ is_subscribed_folder (MailStub *stub, const char *folder_name)
 }
 
 static void
-stub_connect (MailStub *stub, char *pwd)
+stub_connect (MailStub *stub, gchar *pwd)
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (stub);
 	ExchangeAccount *account;
 	ExchangeAccountResult result;
 	E2kContext *ctx;
 	guint32 retval = 1;
-	const char *uri;
-	int mode;
+	const gchar *uri;
+	gint mode;
 
 	exchange_component_is_offline (global_exchange_component, &mode);
 
@@ -3485,7 +3485,7 @@ linestatus_listener (ExchangeComponent *component,
 {
 	MailStubExchange *mse = MAIL_STUB_EXCHANGE (data);
 	ExchangeAccount *account = mse->account;
-	const char *uri;
+	const gchar *uri;
 
 	if (linestatus == ONLINE_MODE && mse->ctx == NULL) {
 		mse->ctx = exchange_account_get_context (account);
@@ -3545,7 +3545,7 @@ folder_update_linestatus (gpointer key, gpointer value, gpointer data)
  * Return value: the new stub
  **/
 MailStub *
-mail_stub_exchange_new (ExchangeAccount *account, int cmd_fd, int status_fd)
+mail_stub_exchange_new (ExchangeAccount *account, gint cmd_fd, gint status_fd)
 {
 	MailStubExchange *mse;
 	MailStub *stub;
