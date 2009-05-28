@@ -467,14 +467,14 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 		}
 
 		if (hier_to_rescan) {
-	       	       	g_object_ref (hier_to_rescan->toplevel);
-	       	       	e_folder_exchange_set_rescan_tree (hier_to_rescan->toplevel, TRUE);
-	               	exchange_hierarchy_scan_subtree (hier_to_rescan, hier_to_rescan->toplevel, ONLINE_MODE);
-	               	e_folder_exchange_set_rescan_tree (hier_to_rescan->toplevel, FALSE);
-	               	g_object_unref (hier_to_rescan->toplevel);
+			g_object_ref (hier_to_rescan->toplevel);
+			e_folder_exchange_set_rescan_tree (hier_to_rescan->toplevel, TRUE);
+			exchange_hierarchy_scan_subtree (hier_to_rescan, hier_to_rescan->toplevel, ONLINE_MODE);
+			e_folder_exchange_set_rescan_tree (hier_to_rescan->toplevel, FALSE);
+			g_object_unref (hier_to_rescan->toplevel);
 
-	               	cbex->folder = exchange_account_get_folder (cbex->account, uristr);
-		 	if (!cbex->folder)
+			cbex->folder = exchange_account_get_folder (cbex->account, uristr);
+			if (!cbex->folder)
 				e_cal_backend_notify_error (E_CAL_BACKEND (cbex), _("Could not find the calendar"));
 		}
 
@@ -2231,14 +2231,14 @@ class_init (ECalBackendExchangeClass *klass)
 	sync_class->get_timezone_sync = get_timezone;
 	sync_class->add_timezone_sync = add_timezone;
 	sync_class->set_default_timezone_sync = set_default_timezone;
- 	sync_class->get_freebusy_sync = get_freebusy;
- 	sync_class->get_changes_sync = get_changes;
+	sync_class->get_freebusy_sync = get_freebusy;
+	sync_class->get_changes_sync = get_changes;
 	sync_class->create_object_sync = create_object;
 	sync_class->modify_object_sync = modify_object;
 
- 	backend_class->start_query = start_query;
- 	backend_class->get_mode = get_mode;
- 	backend_class->set_mode = set_mode;
+	backend_class->start_query = start_query;
+	backend_class->get_mode = get_mode;
+	backend_class->set_mode = set_mode;
 	backend_class->is_loaded = is_loaded;
 	backend_class->internal_get_default_timezone = internal_get_default_timezone;
 	backend_class->internal_get_timezone = internal_get_timezone;

@@ -398,8 +398,8 @@ exchange_entry_play (CamelOfflineJournal *journal, CamelDListNode *entry, CamelE
 	switch (exchange_entry->type) {
 	case CAMEL_EXCHANGE_JOURNAL_ENTRY_APPEND:
 		return exchange_entry_play_append (journal, exchange_entry, ex);
- 	case CAMEL_EXCHANGE_JOURNAL_ENTRY_TRANSFER:
- 		return exchange_entry_play_transfer (journal, exchange_entry, ex);
+	case CAMEL_EXCHANGE_JOURNAL_ENTRY_TRANSFER:
+		return exchange_entry_play_transfer (journal, exchange_entry, ex);
 	case CAMEL_EXCHANGE_JOURNAL_ENTRY_DELETE:
 		return exchange_entry_play_delete (journal, exchange_entry, ex);
 	default:
@@ -425,7 +425,7 @@ camel_exchange_journal_new (CamelExchangeFolder *folder, const char *filename)
 
 static gboolean
 update_cache (CamelExchangeJournal *exchange_journal, CamelMimeMessage *message,
-	 	const CamelMessageInfo *mi, char **updated_uid, CamelException *ex)
+		const CamelMessageInfo *mi, char **updated_uid, CamelException *ex)
 {
 	CamelOfflineJournal *journal = (CamelOfflineJournal *) exchange_journal;
 	CamelExchangeFolder *exchange_folder = (CamelExchangeFolder *) journal->folder;

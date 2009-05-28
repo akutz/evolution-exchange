@@ -148,9 +148,9 @@ impl_createView (PortableServer_Servant servant,
 		 CORBA_Environment *ev)
 {
 	EComponentView *component_view = e_component_view_new_controls (parent, "exchange",
-                                                        		NULL,
 									NULL,
-                                                        		NULL);
+									NULL,
+									NULL);
 	d(printf("createView...\n"));
 
         return BONOBO_OBJREF(component_view);
@@ -434,7 +434,7 @@ exchange_component_class_init (ExchangeComponentClass *klass)
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
 
-	epv->createView     	= impl_createView;
+	epv->createView	= impl_createView;
 	epv->upgradeFromVersion = impl_upgradeFromVersion;
 	epv->requestQuit        = impl_requestQuit;
 	epv->quit               = impl_quit;
@@ -465,7 +465,7 @@ exchange_component_init (ExchangeComponent *component)
 
 	priv = component->priv = g_new0 (ExchangeComponentPrivate, 1);
 
-       	priv->config_listener = exchange_config_listener_new ();
+	priv->config_listener = exchange_config_listener_new ();
 	priv->comp_lock = g_mutex_new ();
 
 	g_signal_connect (priv->config_listener, "exchange_account_created",

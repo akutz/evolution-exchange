@@ -2534,7 +2534,7 @@ get_message (MailStub *stub, const char *folder_name, const char *uid)
 	 * we need to know who it is.
 	 */
 	status = unmangle_sender_field (mse, NULL,
-				        mmsg->href,
+					mmsg->href,
 					&body, &len);
 	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
 		goto error;

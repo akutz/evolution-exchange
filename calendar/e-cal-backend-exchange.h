@@ -55,7 +55,7 @@ gboolean  e_cal_backend_exchange_in_cache         (ECalBackendExchange *cbex,
 						   const char          *uid,
 						   const char          *lastmod,
 						   const char	       *href,
-						   const char  	       *rid
+						   const char	       *rid
 						   );
 
 void      e_cal_backend_exchange_cache_sync_end   (ECalBackendExchange *cbex);
@@ -77,9 +77,9 @@ ECalBackendSyncStatus  e_cal_backend_exchange_add_timezone     (ECalBackendExcha
 
 icaltimezone * e_cal_backend_exchange_get_default_time_zone (ECalBackendSync *backend);
 
-char *	  e_cal_backend_exchange_lf_to_crlf 	(const char *in);
-char *	  e_cal_backend_exchange_make_timestamp_rfc822 	(time_t when);
-ECalBackendSyncStatus	get_timezone 	(ECalBackendSync *backend,
+char *	  e_cal_backend_exchange_lf_to_crlf	(const char *in);
+char *	  e_cal_backend_exchange_make_timestamp_rfc822	(time_t when);
+ECalBackendSyncStatus	get_timezone	(ECalBackendSync *backend,
 							EDataCal *cal, const char *tzid, char **object);
 
 /** lookup function for e_cal_check_timezones() */

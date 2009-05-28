@@ -99,11 +99,11 @@ show_error_dialog()
 	gchar *err_string;
 
 	err_string = g_strdup_printf ( _("Warning: Evolution could not migrate "
-		  			"all the Exchange account data from "
-		  			"the version %d.%d.%d. \nThe data "
-		  			"hasn't been deleted, but will not be "
-		  			"seen by this version of Evolution"),
-		  			maj, min, rev);
+					"all the Exchange account data from "
+					"the version %d.%d.%d. \nThe data "
+					"hasn't been deleted, but will not be "
+					"seen by this version of Evolution"),
+					maj, min, rev);
 
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	error_dialog = gtk_message_dialog_new (GTK_WINDOW (window),
@@ -164,7 +164,7 @@ cp (const char *src, const char *dest, gboolean show_progress)
 	struct utimbuf ut;
 
 	/* if the dest file exists and has content, abort - we don't
- 	 * want to corrupt their existing data */
+	 * want to corrupt their existing data */
 
         if (stat (dest, &st) == 0 && st.st_size > 0)
 		goto ret;
@@ -201,7 +201,7 @@ cp (const char *src, const char *dest, gboolean show_progress)
                 total += nwritten;
 
                 if (show_progress)
-                	dialog_set_progress ((((double) total) /
+			dialog_set_progress ((((double) total) /
 					      ((double) st.st_size)));
         } while (total < st.st_size);
 
@@ -262,7 +262,7 @@ cp_r (char *src, const char *dest)
 
 	while ((dent = readdir (dir))) {
 		if (!strcmp (dent->d_name, ".") || !strcmp (dent->d_name, ".."))
-                	continue;
+			continue;
 
 		g_string_truncate (srcpath, slen);
 		g_string_truncate (destpath, dlen);
@@ -377,11 +377,11 @@ migrate_contacts (gchar *src_path, const gchar *dest_path)
 							NULL);
 
 				/* Create destination dir, and copy the files */
-       				if (g_mkdir_with_parents (contacts_dir, 0777) == -1) {
+				if (g_mkdir_with_parents (contacts_dir, 0777) == -1) {
 					ret = FALSE;
 					g_free (dest_file);
 					g_free (contacts_dir);
-                			continue;
+					continue;
 				}
 
 				src_file = g_build_filename ( src_path,
@@ -474,14 +474,14 @@ exchange_migrate (const CORBA_short major,
 			return;
 
 		/* This is not needed if done by cp_r() */
-        	if (stat (base_dir, &st) == -1) {
+		if (stat (base_dir, &st) == -1) {
 			if (errno != ENOENT ||
 			    g_mkdir_with_parents (base_dir, 0777) == -1) {
-                       		printf ("Failed to create directory `%s': %s",
+				printf ("Failed to create directory `%s': %s",
 				base_dir, g_strerror (errno));
-                        	return;
-                	}
-        	}
+				return;
+			}
+		}
 
 		src_path = g_build_filename (g_get_home_dir (),
 					     "evolution",

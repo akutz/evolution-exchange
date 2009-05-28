@@ -948,7 +948,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	return GNOME_Evolution_Calendar_Success;
 }
 
-#define BUSYSTATUS 	0x01
+#define BUSYSTATUS	0x01
 #define INSTTYPE	0x02
 #define ALLDAY		0x04
 #define IMPORTANCE	0x08
@@ -992,7 +992,7 @@ update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp)
 		importance = "1";
 
 	/* Go through the existing X-MICROSOFT-CDO- properties first */
-       	icalcomp = e_cal_component_get_icalcomponent (comp);
+	icalcomp = e_cal_component_get_icalcomponent (comp);
 	icalprop = icalcomponent_get_first_property (icalcomp, ICAL_X_PROPERTY);
 	while (icalprop) {
 		x_name = icalproperty_get_x_name (icalprop);
@@ -1456,7 +1456,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		new_href = ecomp->href;
 
 	http_status = e2k_context_put (ctx, NULL, new_href, "message/rfc822",
-				       		msg, strlen (msg), NULL);
+						msg, strlen (msg), NULL);
 
 	if ((E2K_HTTP_STATUS_IS_SUCCESSFUL (http_status)) && send_options)
 		http_status = e2k_context_proppatch (ctx, NULL, new_href, props, FALSE, NULL);
@@ -1470,7 +1470,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		if (!remove)
 			*new_object = e_cal_component_get_as_string (real_ecomp);
 	} else
-	 	status = GNOME_Evolution_Calendar_OtherError;
+		status = GNOME_Evolution_Calendar_OtherError;
 
 	g_free (msg);
 	g_object_unref (real_ecomp);
@@ -2407,7 +2407,7 @@ class_init (ECalBackendExchangeCalendarClass *klass)
 	sync_class->remove_object_sync = remove_object;
 	sync_class->receive_objects_sync = receive_objects;
 	sync_class->send_objects_sync = send_objects;
- 	sync_class->get_freebusy_sync = get_free_busy;
+	sync_class->get_freebusy_sync = get_free_busy;
 	sync_class->discard_alarm_sync = discard_alarm;
 
 	object_class->dispose = dispose;

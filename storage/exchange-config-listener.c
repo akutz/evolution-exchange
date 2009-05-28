@@ -287,7 +287,7 @@ ex_set_relative_uri (ESource *source, const char *url)
 
 static void
 migrate_account_esource (EAccount *account,
-		        FolderType folder_type)
+			FolderType folder_type)
 {
 	ESourceGroup *group;
 	ESource *source = NULL;
@@ -449,7 +449,7 @@ requires_relogin (char *current_url, char *new_url)
 
 	if (current_uri->authmech || new_uri->authmech) {
 		if (current_uri->authmech && new_uri->authmech) {
-	    		if (strcmp (current_uri->authmech, new_uri->authmech)) {
+			if (strcmp (current_uri->authmech, new_uri->authmech)) {
 				/* Auth mechanism has changed */
 				relogin = TRUE;
 				goto end;

@@ -42,7 +42,7 @@ struct _MailStubClass {
 	void (*get_trash_name)     (MailStub *);
 	void (*sync_folder)        (MailStub *, const char *folder_name);
 	void (*refresh_folder)     (MailStub *, const char *folder_name);
-	void (*sync_count)     	   (MailStub *, const char *folder_name);
+	void (*sync_count)	   (MailStub *, const char *folder_name);
 	void (*expunge_uids)       (MailStub *, const char *folder_name,
 				    GPtrArray *uids);
 	void (*append_message)     (MailStub *, const char *folder_name,

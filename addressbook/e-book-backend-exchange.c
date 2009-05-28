@@ -71,7 +71,7 @@ static EBookBackendClass *parent_class;
 
 struct EBookBackendExchangePrivate {
 	char     *exchange_uri;
-	char 	 *original_uri;
+	char	 *original_uri;
 	EFolder  *folder;
 
 	E2kRestriction *base_rn;
@@ -748,7 +748,7 @@ e_book_backend_exchange_connect (EBookBackendExchange *be)
 
 	bepriv->is_writable = ((access & MAPI_ACCESS_CREATE_CONTENTS) != 0);
 	e_book_backend_set_is_writable (E_BOOK_BACKEND (be),
-			     		bepriv->is_writable);
+					bepriv->is_writable);
 	e_book_backend_notify_writable (E_BOOK_BACKEND (be),
 					bepriv->is_writable);
 
@@ -1745,7 +1745,7 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 static EBookBackendSyncStatus
 e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 					EDataBook         *book,
-					guint32 	  opid,
+					guint32	  opid,
 					const char        *vcard,
 					EContact         **contact)
 {
@@ -1817,9 +1817,9 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 			new_photo = e_contact_get (*contact, E_CONTACT_PHOTO);
 
 			if ((old_note && !new_note) ||
-		   	    (new_note && !old_note) ||
-		    	    (old_note && new_note &&
-		     	     strcmp (old_note, new_note) != 0))
+			    (new_note && !old_note) ||
+			    (old_note && new_note &&
+			     strcmp (old_note, new_note) != 0))
 				changed = TRUE;
 			else if ((old_photo && !new_photo) || (new_photo && !old_photo))
 				changed = TRUE;
@@ -1827,8 +1827,8 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 				if ((old_photo->type == new_photo->type) &&
 				     old_photo->type == E_CONTACT_PHOTO_TYPE_INLINED) {
 					changed = ((old_photo->data.inlined.length == new_photo->data.inlined.length)
-                                	     		    && !memcmp (old_photo->data.inlined.data,
-							 	new_photo->data.inlined.data,
+							    && !memcmp (old_photo->data.inlined.data,
+								new_photo->data.inlined.data,
 								old_photo->data.inlined.length));
 				}
 				else if ((old_photo->type == new_photo->type) &&
@@ -1882,7 +1882,7 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 static EBookBackendSyncStatus
 e_book_backend_exchange_remove_contacts (EBookBackendSync  *backend,
 					 EDataBook         *book,
-					 guint32 	   opid,
+					 guint32	   opid,
 					 GList             *id_list,
 					 GList            **removed_ids)
 {
@@ -2197,7 +2197,7 @@ subscription_notify (E2kContext *ctx, const char *uri,
 static EBookBackendSyncStatus
 e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 					  EDataBook         *book,
-					  guint32 	     opid,
+					  guint32	     opid,
 					  const char        *query,
 					  GList            **contacts)
 {
@@ -2230,7 +2230,7 @@ e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 			g_object_unref (offline_contacts->data);
 		}
 
-	    	*contacts = vcard_list;
+		*contacts = vcard_list;
 		if (temp)
 			g_list_free (temp);
 		return GNOME_Evolution_Addressbook_Success;
@@ -2427,7 +2427,7 @@ find_deleted_ids (const char *id, const char *vcard, gpointer user_data)
 static EBookBackendSyncStatus
 e_book_backend_exchange_get_changes (EBookBackendSync  *backend,
 				     EDataBook         *book,
-				     guint32 		opid,
+				     guint32		opid,
 				     const char        *change_id,
 				     GList            **changes)
 {
@@ -2472,7 +2472,7 @@ e_book_backend_exchange_get_changes (EBookBackendSync  *backend,
 
 			g_hash_table_insert (ctx->seen_ids,
 					     g_strdup (result->href),
-				     	     GINT_TO_POINTER (1));
+					     GINT_TO_POINTER (1));
 
 			/* Check what type of change has occurred, if any. */
 			switch (e_xmlhash_compare (ctx->ehash, result->href,
@@ -2512,7 +2512,7 @@ e_book_backend_exchange_get_changes (EBookBackendSync  *backend,
 		*changes = ctx->changes;
 		ctx->changes = NULL;
 
-  		e_xmlhash_destroy (ctx->ehash);
+		e_xmlhash_destroy (ctx->ehash);
 		g_hash_table_destroy (ctx->seen_ids);
 		g_free (ctx);
 
@@ -2620,7 +2620,7 @@ e_book_backend_exchange_get_contact (EBookBackendSync  *backend,
 static void
 e_book_backend_exchange_authenticate_user (EBookBackend *backend,
 					   EDataBook        *book,
-					   guint32 	     opid,
+					   guint32	     opid,
 					   const char       *user,
 					   const char       *password,
 					   const char       *auth_method)
@@ -2695,7 +2695,7 @@ e_book_backend_exchange_get_supported_auth_methods (EBookBackend *backend,
 static EBookBackendSyncStatus
 e_book_backend_exchange_get_supported_fields (EBookBackendSync  *backend,
 					      EDataBook         *book,
-					      guint32 		 opid,
+					      guint32		 opid,
 					      GList            **methods)
 {
 	int i;
@@ -2990,17 +2990,17 @@ e_book_backend_exchange_init (EBookBackendExchange *backend)
 {
 	EBookBackendExchangePrivate *priv;
 
-	priv            	= g_new0 (EBookBackendExchangePrivate, 1);
-	priv->ops       	= g_hash_table_new (NULL, NULL);
-	priv->is_cache_ready 	= FALSE;
+	priv		= g_new0 (EBookBackendExchangePrivate, 1);
+	priv->ops	= g_hash_table_new (NULL, NULL);
+	priv->is_cache_ready	= FALSE;
 	priv->marked_for_offline= FALSE;
 	priv->cache		= NULL;
-	priv->original_uri 	= NULL;
-	priv->is_writable 	= TRUE;
+	priv->original_uri	= NULL;
+	priv->is_writable	= TRUE;
 
 	priv->cache_lock      = g_mutex_new ();
 
-	backend->priv 		= priv;
+	backend->priv		= priv;
 }
 
 E2K_MAKE_TYPE (e_book_backend_exchange, EBookBackendExchange, e_book_backend_exchange_class_init, e_book_backend_exchange_init, PARENT_TYPE)

@@ -120,11 +120,11 @@ setup_calendar_factory (void)
 
 	e_data_cal_factory_register_backend (cal_factory,
 					     (g_object_new (events_backend_exchange_factory_get_type(),
-						            NULL)));
+							    NULL)));
 
 	e_data_cal_factory_register_backend (cal_factory,
 					     (g_object_new (todos_backend_exchange_factory_get_type(),
-						            NULL)));
+							    NULL)));
 
 	/* register the factory with bonobo */
 	if (!e_data_cal_factory_register_storage (cal_factory, EXCHANGE_CALENDAR_FACTORY_ID)) {

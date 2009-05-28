@@ -77,10 +77,10 @@ static void             exchange_rename_folder (CamelStore *store,
 						CamelException *ex);
 static gboolean		exchange_folder_subscribed (CamelStore *store,
 						const char *folder_name);
-static void 		exchange_subscribe_folder (CamelStore *store,
+static void		exchange_subscribe_folder (CamelStore *store,
 						const char *folder_name,
 						CamelException *ex);
-static void 		exchange_unsubscribe_folder (CamelStore *store,
+static void		exchange_unsubscribe_folder (CamelStore *store,
 						const char *folder_name,
 						CamelException *ex);
 static gboolean exchange_can_refresh_folder (CamelStore *store, CamelFolderInfo *info, CamelException *ex);
@@ -248,7 +248,7 @@ exchange_path_to_physical (const char *prefix, const char *vpath)
 
 	/* Copy the mangled path.  */
 	p = vpath;
- 	while (1) {
+	while (1) {
 		newp = strchr (p, '/');
 		if (newp == NULL) {
 			strcpy (dp, p);

@@ -704,7 +704,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 			text.altrep = result->href;
 			sl.data = &text;
 			sl.next = NULL;
-                	e_cal_component_set_description_list (E_CAL_COMPONENT (ecal), &sl);
+			e_cal_component_set_description_list (E_CAL_COMPONENT (ecal), &sl);
 			g_free ((char *)text.value);
 		}
 

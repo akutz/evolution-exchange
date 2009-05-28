@@ -63,7 +63,7 @@ static CamelMimeMessage *get_message         (CamelFolder *folder,
 static GPtrArray      *search_by_expression  (CamelFolder *folder,
 					      const char *exp,
 					      CamelException *ex);
-static guint32 	      count_by_expression  (CamelFolder *folder,
+static guint32	      count_by_expression  (CamelFolder *folder,
 					      const char *exp,
 					      CamelException *ex);
 
@@ -176,16 +176,16 @@ refresh_info (CamelFolder *folder, CamelException *ex)
 
 		camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_REFRESH_FOLDER,
 				 CAMEL_STUB_ARG_FOLDER, folder->full_name,
-			     	 CAMEL_STUB_ARG_END);
+				 CAMEL_STUB_ARG_END);
 	}
 
 	/* sync up the counts now */
 	if (!camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_SYNC_COUNT,
 				 CAMEL_STUB_ARG_FOLDER, folder->full_name,
 				 CAMEL_STUB_ARG_RETURN,
-			      	 CAMEL_STUB_ARG_UINT32, &unread_count,
+				 CAMEL_STUB_ARG_UINT32, &unread_count,
 				 CAMEL_STUB_ARG_UINT32, &visible_count,
-			      	 CAMEL_STUB_ARG_END)){
+				 CAMEL_STUB_ARG_END)){
 		g_print("\n Error syncing up the counts");
 	}
 
@@ -658,7 +658,7 @@ transfer_messages_to (CamelFolder *source, GPtrArray *uids,
 				break;
 		}
 		goto end;
- 	}
+	}
 
 
 	hier_len = strcspn (source->full_name, "/");

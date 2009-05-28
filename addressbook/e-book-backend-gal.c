@@ -818,7 +818,7 @@ get_contact_list (EBookBackend *backend,
 			for (l = contacts; l ;l = g_list_next (l)) {
 				EContact *contact = l->data;
 				vcard_strings = g_list_prepend (vcard_strings, e_vcard_to_string (E_VCARD (contact),
-							        EVC_FORMAT_VCARD_30));
+								EVC_FORMAT_VCARD_30));
 				g_object_unref (contact);
 			}
 
@@ -1962,7 +1962,7 @@ stop_book_view (EBookBackend  *backend,
 static void
 get_changes (EBookBackend *backend,
 	     EDataBook    *book,
-	     guint32 	   opid,
+	     guint32	   opid,
 	     const char   *change_id)
 {
 	/* FIXME: implement */
@@ -2007,7 +2007,7 @@ tool_server_controls( LDAP *ld, LDAPControl *extra_c, int count )
 			crit ? "critical " : "" );
 	}
 
- 	free( ctrls );
+	free( ctrls );
 	if ( crit ) {
 		exit( EXIT_FAILURE );
 	}
@@ -2336,10 +2336,10 @@ authenticate_user (EBookBackend *backend,
 	int interval = gconf_client_get_int (gc, "/apps/evolution/addressbook/gal_cache_interval", NULL);
 
 	/* We should not be here */
-/* 	e_data_book_respond_authenticate_user (book, */
-/* 					       opid, */
-/* 					       GNOME_Evolution_Addressbook_UnsupportedAuthenticationMethod); */
-/* 	return; */
+/*	e_data_book_respond_authenticate_user (book, */
+/*					       opid, */
+/*					       GNOME_Evolution_Addressbook_UnsupportedAuthenticationMethod); */
+/*	return; */
 
 	d(printf("authenticate_user(%p, %p, %s, %s, %s)\n", backend, book, user, password, auth_method));
 
@@ -2501,7 +2501,7 @@ set_mode (EBookBackend *backend, int mode)
 static void
 get_supported_fields (EBookBackend *backend,
 		      EDataBook    *book,
-		      guint32 	    opid)
+		      guint32	    opid)
 
 {
 	e_data_book_respond_get_supported_fields (book,
@@ -2573,23 +2573,23 @@ load_source (EBookBackend *backend,
 	if (strncmp (uri, "gal://", host - uri))
 		return GNOME_Evolution_Addressbook_OtherError;
 
-  	bl->priv->gal_uri = g_strdup (uri);
-  	tokens = g_strsplit (uri, ";", 2);
-  	g_free (uri);
-  	if (tokens[0])
- 		uri = g_strdup (tokens [0]);
-  	book_name = g_strdup (tokens[1]);
-  	if (book_name == NULL)
-  		return GNOME_Evolution_Addressbook_OtherError;
-  	g_strfreev (tokens);
+	bl->priv->gal_uri = g_strdup (uri);
+	tokens = g_strsplit (uri, ";", 2);
+	g_free (uri);
+	if (tokens[0])
+		uri = g_strdup (tokens [0]);
+	book_name = g_strdup (tokens[1]);
+	if (book_name == NULL)
+		return GNOME_Evolution_Addressbook_OtherError;
+	g_strfreev (tokens);
 
-  	for (i=0; i< strlen (uri); i++) {
-  		switch (uri[i]) {
- 		case ':' :
- 		case '/' :
- 			uri[i] = '_';
-  		}
- 	}
+	for (i=0; i< strlen (uri); i++) {
+		switch (uri[i]) {
+		case ':' :
+		case '/' :
+			uri[i] = '_';
+		}
+	}
 #if ENABLE_CACHE
 	bl->priv->file_db = NULL;
 #endif
@@ -2605,128 +2605,128 @@ load_source (EBookBackend *backend,
 	}
 		d(printf("offlin==============\n"));
 #if ENABLE_CACHE
- 	if (bl->priv->marked_for_offline) {
- 		d(printf("offlin==============\n"));
- 		bl->priv->summary_file_name = g_build_filename (g_get_home_dir(), ".evolution/cache/addressbook" , uri, book_name, NULL);
- 		bl->priv->summary_file_name = g_build_filename (bl->priv->summary_file_name, "cache.summary", NULL);
- 		bl->priv->summary = e_book_backend_summary_new (bl->priv->summary_file_name,
- 							    SUMMARY_FLUSH_TIMEOUT);
- 		e_book_backend_summary_load (bl->priv->summary);
+	if (bl->priv->marked_for_offline) {
+		d(printf("offlin==============\n"));
+		bl->priv->summary_file_name = g_build_filename (g_get_home_dir(), ".evolution/cache/addressbook" , uri, book_name, NULL);
+		bl->priv->summary_file_name = g_build_filename (bl->priv->summary_file_name, "cache.summary", NULL);
+		bl->priv->summary = e_book_backend_summary_new (bl->priv->summary_file_name,
+							    SUMMARY_FLUSH_TIMEOUT);
+		e_book_backend_summary_load (bl->priv->summary);
 
- 		dirname = g_build_filename (g_get_home_dir(), ".evolution/cache/addressbook", uri, book_name, NULL);
- 		filename = g_build_filename (dirname, "cache.db", NULL);
+		dirname = g_build_filename (g_get_home_dir(), ".evolution/cache/addressbook", uri, book_name, NULL);
+		filename = g_build_filename (dirname, "cache.db", NULL);
 
- 		db_error = e_db3_utils_maybe_recover (filename);
- 		if (db_error != 0) {
- 			g_warning ("db recovery failed with %d", db_error);
- 			g_free (dirname);
- 			g_free (filename);
- 			return GNOME_Evolution_Addressbook_OtherError;
- 		}
+		db_error = e_db3_utils_maybe_recover (filename);
+		if (db_error != 0) {
+			g_warning ("db recovery failed with %d", db_error);
+			g_free (dirname);
+			g_free (filename);
+			return GNOME_Evolution_Addressbook_OtherError;
+		}
 
- 		g_static_mutex_lock (&global_env_lock);
- 		if (global_env.ref_count > 0) {
- 			env = global_env.env;
- 			global_env.ref_count ++;
- 		}
- 		else {
- 			db_error = db_env_create (&env, 0);
- 			if (db_error != 0) {
- 				g_warning ("db_env_create failed with %d", db_error);
- 				g_static_mutex_unlock (&global_env_lock);
- 				g_free (dirname);
- 				g_free (filename);
- 				return GNOME_Evolution_Addressbook_OtherError;
- 			}
+		g_static_mutex_lock (&global_env_lock);
+		if (global_env.ref_count > 0) {
+			env = global_env.env;
+			global_env.ref_count ++;
+		}
+		else {
+			db_error = db_env_create (&env, 0);
+			if (db_error != 0) {
+				g_warning ("db_env_create failed with %d", db_error);
+				g_static_mutex_unlock (&global_env_lock);
+				g_free (dirname);
+				g_free (filename);
+				return GNOME_Evolution_Addressbook_OtherError;
+			}
 
- 			db_error = (*env->open) (env, NULL, DB_CREATE | DB_INIT_MPOOL | DB_PRIVATE | DB_THREAD, 0);
- 			if (db_error != 0) {
- 				env->close (env, 0);
- 				g_warning ("db_env_open failed with %d", db_error);
- 				g_static_mutex_unlock (&global_env_lock);
- 				g_free(dirname);
- 				g_free(filename);
- 				return GNOME_Evolution_Addressbook_OtherError;
- 			}
+			db_error = (*env->open) (env, NULL, DB_CREATE | DB_INIT_MPOOL | DB_PRIVATE | DB_THREAD, 0);
+			if (db_error != 0) {
+				env->close (env, 0);
+				g_warning ("db_env_open failed with %d", db_error);
+				g_static_mutex_unlock (&global_env_lock);
+				g_free(dirname);
+				g_free(filename);
+				return GNOME_Evolution_Addressbook_OtherError;
+			}
 
- 			//env->set_errcall (env, file_errcall);
- 			global_env.env = env;
- 			global_env.ref_count = 1;
- 		}
- 		g_static_mutex_unlock(&global_env_lock);
+			//env->set_errcall (env, file_errcall);
+			global_env.env = env;
+			global_env.ref_count = 1;
+		}
+		g_static_mutex_unlock(&global_env_lock);
 
- 		bl->priv->env = env;
- 		db_error = db_create (&db, env, 0);
- 		if (db_error != 0) {
- 			g_warning ("db_create failed with %d", db_error);
- 			g_free (dirname);
- 			g_free (filename);
- 			return GNOME_Evolution_Addressbook_OtherError;
- 		}
+		bl->priv->env = env;
+		db_error = db_create (&db, env, 0);
+		if (db_error != 0) {
+			g_warning ("db_create failed with %d", db_error);
+			g_free (dirname);
+			g_free (filename);
+			return GNOME_Evolution_Addressbook_OtherError;
+		}
 
- 		db_error = (*db->open) (db, NULL, filename, NULL, DB_HASH, DB_THREAD, 0666);
+		db_error = (*db->open) (db, NULL, filename, NULL, DB_HASH, DB_THREAD, 0666);
 
- 		if (db_error == DB_OLD_VERSION) {
- 			db_error = e_db3_utils_upgrade_format (filename);
+		if (db_error == DB_OLD_VERSION) {
+			db_error = e_db3_utils_upgrade_format (filename);
 
- 			if (db_error != 0) {
- 				g_warning ("db format upgrade failed with %d", db_error);
- 				g_free (filename);
- 				g_free (dirname);
- 				return GNOME_Evolution_Addressbook_OtherError;
- 			}
+			if (db_error != 0) {
+				g_warning ("db format upgrade failed with %d", db_error);
+				g_free (filename);
+				g_free (dirname);
+				return GNOME_Evolution_Addressbook_OtherError;
+			}
 
- 			db_error = (*db->open) (db, NULL,filename, NULL, DB_HASH, DB_THREAD, 0666);
- 		}
+			db_error = (*db->open) (db, NULL,filename, NULL, DB_HASH, DB_THREAD, 0666);
+		}
 
- 		bl->priv->file_db = db;
- 		if (db_error != 0) {
- 			int rv;
+		bl->priv->file_db = db;
+		if (db_error != 0) {
+			int rv;
 
- 			/* the database didn't exist, so we create the directory then the .db */
- 			rv= g_mkdir_with_parents (dirname, 0777);
- 			if (rv == -1 && errno != EEXIST) {
- 				g_warning ("failed to make directory %s: %s", dirname, strerror (errno));
- 				g_free (dirname);
- 				g_free (filename);
- 				if (errno == EACCES || errno == EPERM)
- 					return GNOME_Evolution_Addressbook_PermissionDenied;
- 				else
- 					return GNOME_Evolution_Addressbook_OtherError;
- 			}
+			/* the database didn't exist, so we create the directory then the .db */
+			rv= g_mkdir_with_parents (dirname, 0777);
+			if (rv == -1 && errno != EEXIST) {
+				g_warning ("failed to make directory %s: %s", dirname, strerror (errno));
+				g_free (dirname);
+				g_free (filename);
+				if (errno == EACCES || errno == EPERM)
+					return GNOME_Evolution_Addressbook_PermissionDenied;
+				else
+					return GNOME_Evolution_Addressbook_OtherError;
+			}
 
- 			db_error = (*db->open) (db, NULL, filename, NULL, DB_HASH, DB_CREATE | DB_THREAD, 0666);
- 			if (db_error != 0) {
- 				g_warning ("db->open (...DB_CREATE...) failed with %d", db_error);
- 			}
- 		}
+			db_error = (*db->open) (db, NULL, filename, NULL, DB_HASH, DB_CREATE | DB_THREAD, 0666);
+			if (db_error != 0) {
+				g_warning ("db->open (...DB_CREATE...) failed with %d", db_error);
+			}
+		}
 
- 		bl->priv->file_db = db;
+		bl->priv->file_db = db;
 
- 		if (db_error != 0 || bl->priv->file_db == NULL) {
+		if (db_error != 0 || bl->priv->file_db == NULL) {
 
- 			g_free (filename);
- 			g_free (dirname);
- 			return GNOME_Evolution_Addressbook_OtherError;
- 		}
+			g_free (filename);
+			g_free (dirname);
+			return GNOME_Evolution_Addressbook_OtherError;
+		}
 
- 		e_book_backend_db_cache_set_filename (bl->priv->file_db, filename);
- 		g_free (filename);
- 		g_free (dirname);
- 		g_free (uri);
- 	}
+		e_book_backend_db_cache_set_filename (bl->priv->file_db, filename);
+		g_free (filename);
+		g_free (dirname);
+		g_free (uri);
+	}
 #endif
- 	/* Online */
- 	e_book_backend_set_is_writable (E_BOOK_BACKEND(backend), FALSE);
- 	e_book_backend_set_is_loaded (E_BOOK_BACKEND (backend), TRUE);
- 	e_book_backend_notify_writable (backend, FALSE);
+	/* Online */
+	e_book_backend_set_is_writable (E_BOOK_BACKEND(backend), FALSE);
+	e_book_backend_set_is_loaded (E_BOOK_BACKEND (backend), TRUE);
+	e_book_backend_notify_writable (backend, FALSE);
 
-  	if (bl->priv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL)
-  		e_book_backend_notify_connection_status (E_BOOK_BACKEND (backend), FALSE);
-  	else
-  		e_book_backend_notify_connection_status (E_BOOK_BACKEND (backend), TRUE);
+	if (bl->priv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL)
+		e_book_backend_notify_connection_status (E_BOOK_BACKEND (backend), FALSE);
+	else
+		e_book_backend_notify_connection_status (E_BOOK_BACKEND (backend), TRUE);
 
- 	return GNOME_Evolution_Addressbook_Success;
+	return GNOME_Evolution_Addressbook_Success;
 }
 
 static void
@@ -2805,26 +2805,26 @@ dispose (GObject *object)
 		if (bl->priv->gc)
 			g_object_unref (bl->priv->gc);
 
- 		if (bl->priv->summary_file_name) {
- 			g_free (bl->priv->summary_file_name);
- 			bl->priv->summary_file_name = NULL;
- 		}
+		if (bl->priv->summary_file_name) {
+			g_free (bl->priv->summary_file_name);
+			bl->priv->summary_file_name = NULL;
+		}
 
- 		if (bl->priv->summary) {
- 			e_book_backend_summary_save (bl->priv->summary);
- 			g_object_unref (bl->priv->summary);
- 			bl->priv->summary = NULL;
- 		}
+		if (bl->priv->summary) {
+			e_book_backend_summary_save (bl->priv->summary);
+			g_object_unref (bl->priv->summary);
+			bl->priv->summary = NULL;
+		}
 #if ENABLE_CACHE
- 		if (bl->priv->file_db)
- 			bl->priv->file_db->close (bl->priv->file_db, 0);
- 		g_static_mutex_lock (&global_env_lock);
- 		global_env.ref_count--;
- 		if (global_env.ref_count == 0) {
- 			global_env.env->close (global_env.env, 0);
- 			global_env.env = NULL;
- 		}
- 		g_static_mutex_unlock(&global_env_lock);
+		if (bl->priv->file_db)
+			bl->priv->file_db->close (bl->priv->file_db, 0);
+		g_static_mutex_lock (&global_env_lock);
+		global_env.ref_count--;
+		if (global_env.ref_count == 0) {
+			global_env.env->close (global_env.env, 0);
+			global_env.env = NULL;
+		}
+		g_static_mutex_unlock(&global_env_lock);
 
 #endif
 		if (bl->priv->ldap_lock)
@@ -2863,7 +2863,7 @@ class_init (EBookBackendGALClass *klass)
 	backend_class->get_changes                = get_changes;
 	backend_class->authenticate_user          = authenticate_user;
 	backend_class->get_supported_fields       = get_supported_fields;
-	backend_class->set_mode      		  = set_mode;
+	backend_class->set_mode		  = set_mode;
 	backend_class->get_required_fields        = get_required_fields;
 	backend_class->get_supported_auth_methods = get_supported_auth_methods;
 	backend_class->cancel_operation           = cancel_operation;
@@ -2891,8 +2891,8 @@ init (EBookBackendGAL *backend)
 
 	priv                         = g_new0 (EBookBackendGALPrivate, 1);
 
-	priv->id_to_op         	     = g_hash_table_new (g_int_hash, g_int_equal);
-	priv->poll_timeout     	     = -1;
+	priv->id_to_op		     = g_hash_table_new (g_int_hash, g_int_equal);
+	priv->poll_timeout	     = -1;
 	priv->ldap_lock		     = g_mutex_new ();
 
 	g_static_rec_mutex_init (&priv->op_hash_mutex);
