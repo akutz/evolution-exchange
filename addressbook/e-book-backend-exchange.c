@@ -71,7 +71,7 @@ static EBookBackendClass *parent_class;
 
 struct EBookBackendExchangePrivate {
 	gchar     *exchange_uri;
-	char	 *original_uri;
+	gchar	 *original_uri;
 	EFolder  *folder;
 
 	E2kRestriction *base_rn;
@@ -1197,7 +1197,7 @@ populate_address (EContactField field, EContact *new_contact, gpointer data)
 	EContactAddress addr;
 
 	waddr = e_address_western_parse ((const gchar *)data);
-	addr.address_format = "us"; /* FIXME? */
+	addr.address_format = (gchar *) "us"; /* FIXME? */
 	addr.po = waddr->po_box;
 	addr.ext = waddr->extended;
 	addr.street = waddr->street;

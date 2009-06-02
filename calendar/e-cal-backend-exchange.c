@@ -295,7 +295,7 @@ timeout_save_cache (gpointer user_data)
 	ECalBackendExchange *cbex = user_data;
 	icalcomponent *vcalcomp;
 	gchar *data = NULL, *tmpfile;
-	size_t len, nwrote;
+	gsize len, nwrote;
 	FILE *f;
 
 	d(printf("timeout_save_cache\n"));
@@ -634,8 +634,8 @@ gboolean
 e_cal_backend_exchange_in_cache (ECalBackendExchange *cbex,
 				 const gchar          *uid,
 				 const gchar          *lastmod,
-				 const char	     *href,
-				 const char	     *rid
+				 const gchar	     *href,
+				 const gchar	     *rid
 				 )
 {
 	ECalBackendExchangeComponent *ecomp;
@@ -976,7 +976,7 @@ get_object (ECalBackendSync *backend, EDataCal *cal,
 		struct icaltimetype inst_rid, key_rid;
 		gboolean inst_found = FALSE;
 
-		for (l = ecomp->instances; l ; l = l->next) {
+		for (l = ecomp->instances; l; l = l->next) {
 			key_rid = icaltime_from_string (rid);
 			inst_rid = icalcomponent_get_recurrenceid (l->data);
 			if (icaltime_compare (inst_rid, key_rid) == 0) {
@@ -1751,7 +1751,7 @@ get_attachment (ECalBackendExchange *cbex, const gchar *uid,
 	if (msg_content && CAMEL_IS_MULTIPART (msg_content)) {
 		multipart = (CamelMultipart *)msg_content;
 
-		for (i = 0; i < (int)camel_multipart_get_number (multipart); i++) {
+		for (i = 0; i < (gint)camel_multipart_get_number (multipart); i++) {
 			part = camel_multipart_get_part (multipart, i);
 			filename = camel_mime_part_get_filename (part);
 			if (filename) {
@@ -1938,7 +1938,7 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject
 
 	e_cal_component_get_uid (comp, &uid);
 	e_cal_component_get_attachment_list (comp, &attach_list);
-	for (l = attach_list; l ; l = l->next){
+	for (l = attach_list; l; l = l->next){
 		gchar *mime_type;
 
 		if (!strncmp ((gchar *)l->data, "file://", 7)) {

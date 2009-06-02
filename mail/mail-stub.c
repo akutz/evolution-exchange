@@ -499,7 +499,7 @@ mail_stub_read_args (MailStub *stub, ...)
 	va_start (ap, stub);
 
 	do {
-		argtype = va_arg (ap, int);
+		argtype = va_arg (ap, gint);
 		switch (argtype) {
 		case CAMEL_STUB_ARG_END:
 			return TRUE;
@@ -623,7 +623,7 @@ mail_stub_return_data (MailStub *stub, CamelStubRetval retval, ...)
 	va_start (ap, retval);
 
 	while (1) {
-		argtype = va_arg (ap, int);
+		argtype = va_arg (ap, gint);
 		switch (argtype) {
 		case CAMEL_STUB_ARG_END:
 			return;
@@ -655,7 +655,7 @@ mail_stub_return_data (MailStub *stub, CamelStubRetval retval, ...)
 		case CAMEL_STUB_ARG_BYTEARRAY:
 		{
 			gchar *data = va_arg (ap, gchar *);
-			gint len = va_arg (ap, int);
+			gint len = va_arg (ap, gint);
 			GByteArray ba;
 
 			ba.data = (guint8 *) data;

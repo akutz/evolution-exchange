@@ -791,7 +791,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	if (lookup_component (E_CAL_BACKEND_EXCHANGE (cbexc), comp_uid))
 	{
 		icalcomponent_free (icalcomp);
-		return ;
+		return;
 	}
 	#endif
 
@@ -2104,7 +2104,7 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 		result = book_resource (cbex, cal, attendee + 7, comp, method, param);
 		switch (result) {
 		case E_CAL_BACKEND_EXCHANGE_BOOKING_OK:
-			*users = g_list_append (*users, g_strdup (attendee)) ;
+			*users = g_list_append (*users, g_strdup (attendee));
 			break;
 
 		case E_CAL_BACKEND_EXCHANGE_BOOKING_BUSY:

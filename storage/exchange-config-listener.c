@@ -328,7 +328,7 @@ migrate_account_esource (EAccount *account,
 	groups = e_source_list_peek_groups (source_list);
 	found_group = FALSE;
 
-	for ( ; groups != NULL && !found_group; groups = g_slist_next (groups)) {
+	for (; groups != NULL && !found_group; groups = g_slist_next (groups)) {
 		group = E_SOURCE_GROUP (groups->data);
 
 		if (strcmp (e_source_group_peek_name (group), account->name) == 0
@@ -337,7 +337,7 @@ migrate_account_esource (EAccount *account,
 			sources = e_source_group_peek_sources (group);
 
 			found_group = TRUE;
-			for( ; sources != NULL; sources = g_slist_next (sources)) {
+			for(; sources != NULL; sources = g_slist_next (sources)) {
 				source = E_SOURCE (sources->data);
 
 				ex_set_relative_uri (source, url_string + strlen ("exchange://"));

@@ -322,11 +322,11 @@ static void
 set_percent (E2kProperties *props, ECalComponent *comp)
 {
         gint *percent;
-        float res;
+        gfloat res;
 
 	e_cal_component_get_percent (E_CAL_COMPONENT (comp), &percent);
         if (percent) {
-                res = (float) *percent / 100.0;
+                res = (gfloat) *percent / 100.0;
                 e_cal_component_free_percent (percent);
         } else
                 res = 0.;
@@ -436,7 +436,7 @@ get_summary (ECalComponent *comp)
 	return summary.value;
 }
 
-static int
+static gint
 put_body (ECalComponent *comp, E2kContext *ctx, E2kOperation *op,
          const gchar *uri, const gchar *from_name, const gchar *from_addr,
 	 const gchar *attach_body, const gchar *boundary,
@@ -576,7 +576,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 	gchar *uid;
 	const gchar *tzid;
 	gint status, i, priority, percent;
-	float f_percent;
+	gfloat f_percent;
 	ECalComponent *ecal, *ecomp;
 	struct icaltimetype itt;
 	const icaltimezone *itzone;
@@ -752,7 +752,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 				E2K_PR_OUTLOOK_TASK_PERCENT))) {
 
 			f_percent = atof (str);
-			percent = (int) (f_percent * 100);
+			percent = (gint) (f_percent * 100);
 			e_cal_component_set_percent (ecal, &percent);
 		}
 

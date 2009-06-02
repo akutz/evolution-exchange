@@ -34,7 +34,7 @@ struct _MailStubListenerClass {
 	GObjectClass parent_class;
 
 	/* signals */
-	void (*new_connection) (MailStubListener *, int, int);
+	void (*new_connection) (MailStubListener *, int, gint);
 };
 
 GType             mail_stub_listener_get_type      (void);

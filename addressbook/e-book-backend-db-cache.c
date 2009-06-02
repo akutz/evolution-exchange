@@ -120,8 +120,8 @@ e_book_backend_db_cache_get_filename(DB *db)
 void
 e_book_backend_db_cache_set_time(DB *db, const gchar *t)
 {
-	DBT uid_dbt, vcard_dbt ;
-	gint db_error ;
+	DBT uid_dbt, vcard_dbt;
+	gint db_error;
 
 	string_to_dbt ("last_update_time", &uid_dbt);
 	string_to_dbt (t, &vcard_dbt);

@@ -545,7 +545,7 @@ static const gint num_autoconfig_pages = sizeof (autoconfig_pages) / sizeof (aut
 
 /* Autoconfig druid */
 
-static int
+static gint
 find_page (ExchangeAutoconfigGUI *gui, gpointer page)
 {
 	gint page_num;

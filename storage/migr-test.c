@@ -98,7 +98,7 @@ main (gint argc, gchar **argv)
 
 	/* destination path */
 	base_dir = g_build_filename (dest, uid, NULL);
-	printf("base dir is %s; uid = %s; dest = %s ; source=%s \n", base_dir, uid, dest, source);
+	printf("base dir is %s; uid = %s; dest = %s; source=%s \n", base_dir, uid, dest, source);
 
 	exchange_migrate (major, minor, revision, base_dir, (gchar *) uid);
 

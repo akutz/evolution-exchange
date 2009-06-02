@@ -93,7 +93,7 @@ typedef enum {
 	CAMEL_STUB_STORE_FOLDER_INFO_SUBSCRIBED	= (1<<2),
 	CAMEL_STUB_STORE_FOLDER_INFO_NO_VIRTUAL	= (1<<3),
 	CAMEL_STUB_STORE_FOLDER_INFO_SUBSCRIPTION_LIST	= (1<<4)
-} CamelStubStoreFlags ;
+} CamelStubStoreFlags;
 
 #ifdef __cplusplus
 }

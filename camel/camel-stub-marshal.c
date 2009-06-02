@@ -98,10 +98,10 @@ camel_stub_marshal_free (CamelStubMarshal *marshal)
 }
 
 static gboolean
-do_read (CamelStubMarshal *marshal, gchar *buf, size_t len)
+do_read (CamelStubMarshal *marshal, gchar *buf, gsize len)
 {
-	size_t nread = 0;
-	ssize_t n;
+	gsize nread = 0;
+	gssize n;
 
 	do {
 		if ((n = camel_read_socket (marshal->fd, buf + nread, len - nread)) <= 0) {
@@ -122,7 +122,7 @@ do_read (CamelStubMarshal *marshal, gchar *buf, size_t len)
 	return TRUE;
 }
 
-static int
+static gint
 marshal_read (CamelStubMarshal *marshal, gchar *buf, gint len)
 {
 	gint avail = marshal->in->len - (marshal->inptr - (gchar *)marshal->in->data);
@@ -133,10 +133,10 @@ marshal_read (CamelStubMarshal *marshal, gchar *buf, gint len)
 		marshal->inptr = (gchar *)marshal->in->data + 4;
 		if (!do_read (marshal, (gchar *)marshal->in->data, 4))
 			return -1;
-		avail =  (int)marshal->in->data[0]        +
-			((int)marshal->in->data[1] <<  8) +
-			((int)marshal->in->data[2] << 16) +
-			((int)marshal->in->data[3] << 24) - 4;
+		avail =  (gint)marshal->in->data[0]        +
+			((gint)marshal->in->data[1] <<  8) +
+			((gint)marshal->in->data[2] << 16) +
+			((gint)marshal->in->data[3] << 24) - 4;
 		g_byte_array_set_size (marshal->in, avail + 4);
 		marshal->inptr = (gchar *)marshal->in->data + 4;
 		if (!do_read (marshal, ((gchar *)marshal->in->data) + 4, avail)) {
@@ -161,13 +161,13 @@ marshal_read (CamelStubMarshal *marshal, gchar *buf, gint len)
 	return nread;
 }
 
-static int
+static gint
 marshal_getc (CamelStubMarshal *marshal)
 {
 	gchar buf;
 
 	if (marshal_read (marshal, &buf, 1) == 1)
-		return (unsigned char)buf;
+		return (guchar)buf;
 	return -1;
 }
 
@@ -187,7 +187,7 @@ encode_uint32 (CamelStubMarshal *marshal, guint32 value)
 	g_byte_array_append (marshal->out, &c, 1);
 }
 
-static int
+static gint
 decode_uint32 (CamelStubMarshal *marshal, guint32 *dest)
 {
         guint32 value = 0;
@@ -222,7 +222,7 @@ encode_string (CamelStubMarshal *marshal, const gchar *str)
 	g_byte_array_append (marshal->out, (guint8 *) str, len);
 }
 
-static int
+static gint
 decode_string (CamelStubMarshal *marshal, gchar **str)
 {
 	guint32 len;

@@ -54,8 +54,8 @@ void      e_cal_backend_exchange_cache_sync_start (ECalBackendExchange *cbex);
 gboolean  e_cal_backend_exchange_in_cache         (ECalBackendExchange *cbex,
 						   const gchar          *uid,
 						   const gchar          *lastmod,
-						   const char	       *href,
-						   const char	       *rid
+						   const gchar	       *href,
+						   const gchar	       *rid
 						   );
 
 void      e_cal_backend_exchange_cache_sync_end   (ECalBackendExchange *cbex);
@@ -111,7 +111,7 @@ gchar * build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar 
 gchar *e_cal_backend_exchange_get_owner_email (ECalBackendSync *backend);
 gchar *e_cal_backend_exchange_get_owner_name (ECalBackendSync *backend);
 void e_cal_backend_exchange_cache_lock (ECalBackendExchange *cbex);
-void e_cal_backend_exchange_cache_unlock (ECalBackendExchange *cbex) ;
+void e_cal_backend_exchange_cache_unlock (ECalBackendExchange *cbex);
 void e_cal_backend_exchange_ensure_utc_zone (ECalBackend *cb, struct icaltimetype *itt);
 
 G_END_DECLS

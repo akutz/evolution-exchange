@@ -91,7 +91,7 @@ static gint cmp_uids (CamelFolder *folder, const gchar *uid1, const gchar *uid2)
 static void
 class_init (CamelFolderClass *camel_folder_class)
 {
-	parent_class = CAMEL_OFFLINE_FOLDER_CLASS (camel_type_get_global_classfuncs (camel_offline_folder_get_type ())) ;
+	parent_class = CAMEL_OFFLINE_FOLDER_CLASS (camel_type_get_global_classfuncs (camel_offline_folder_get_type ()));
 
 	/* virtual method definition */
 	camel_folder_class->expunge = exchange_expunge;

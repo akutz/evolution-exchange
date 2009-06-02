@@ -176,7 +176,7 @@ exchange_entry_load (CamelOfflineJournal *journal, FILE *in)
 	return NULL;
 }
 
-static int
+static gint
 exchange_entry_write (CamelOfflineJournal *journal, CamelDListNode *entry, FILE *out)
 {
 	CamelExchangeJournalEntry *exchange_entry = (CamelExchangeJournalEntry *) entry;
@@ -233,7 +233,7 @@ exchange_message_info_dup_to (CamelMessageInfoBase *dest, CamelMessageInfoBase *
 	dest->size = src->size;
 }
 
-static int
+static gint
 exchange_entry_play_delete (CamelOfflineJournal *journal, CamelExchangeJournalEntry *entry, CamelException *ex)
 {
 	CamelExchangeFolder *exchange_folder = (CamelExchangeFolder *) journal->folder;
@@ -253,7 +253,7 @@ exchange_entry_play_delete (CamelOfflineJournal *journal, CamelExchangeJournalEn
 	return 0;
 }
 
-static int
+static gint
 exchange_entry_play_append (CamelOfflineJournal *journal, CamelExchangeJournalEntry *entry, CamelException *ex)
 {
 	CamelExchangeFolder *exchange_folder = (CamelExchangeFolder *) journal->folder;
@@ -309,7 +309,7 @@ exchange_entry_play_append (CamelOfflineJournal *journal, CamelExchangeJournalEn
 	return 0;
 }
 
-static int
+static gint
 exchange_entry_play_transfer (CamelOfflineJournal *journal, CamelExchangeJournalEntry *entry, CamelException *ex)
 {
 	CamelExchangeFolder *exchange_folder = (CamelExchangeFolder *) journal->folder;
@@ -390,7 +390,7 @@ exception:
 	return -1;
 }
 
-static int
+static gint
 exchange_entry_play (CamelOfflineJournal *journal, CamelDListNode *entry, CamelException *ex)
 {
 	CamelExchangeJournalEntry *exchange_entry = (CamelExchangeJournalEntry *) entry;
@@ -501,7 +501,7 @@ camel_exchange_journal_append (CamelExchangeJournal *exchange_journal, CamelMime
 
 }
 
-static int
+static gint
 find_real_source_for_message (CamelExchangeFolder *folder,
 			      const gchar **folder_name,
 			      const gchar **uid,

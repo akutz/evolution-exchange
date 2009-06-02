@@ -144,7 +144,7 @@ dialog_set_progress (double percent)
 {
 	gchar text[5];
 
-	snprintf (text, sizeof (text), "%d%%", (int) (percent * 100.0f));
+	snprintf (text, sizeof (text), "%d%%", (gint) (percent * 100.0f));
 
 	gtk_progress_bar_set_fraction (progress, percent);
 	gtk_progress_bar_set_text (progress, text);
@@ -157,9 +157,9 @@ static gboolean
 cp (const gchar *src, const gchar *dest, gboolean show_progress)
 {
 	guchar readbuf[65536];
-	ssize_t nread, nwritten;
+	gssize nread, nwritten;
 	gint errnosav, readfd, writefd;
-	size_t total = 0;
+	gsize total = 0;
 	struct stat st;
 	struct utimbuf ut;
 
@@ -240,7 +240,7 @@ cp_r (gchar *src, const gchar *dest)
 {
 	GString *srcpath, *destpath;
 	struct dirent *dent;
-	size_t slen, dlen;
+	gsize slen, dlen;
 	struct stat st;
 	DIR *dir;
 

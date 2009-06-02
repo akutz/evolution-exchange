@@ -73,7 +73,7 @@
 
 #define TV_TO_MILLIS(timeval) ((timeval).tv_sec * 1000 + (timeval).tv_usec / 1000)
 
-static gchar *query_prop_to_ldap (const gchar *query_prop);
+static const gchar *query_prop_to_ldap (const gchar *query_prop);
 static gint build_query (EBookBackendGAL *bl, const gchar *query, const gchar *ldap_filter, gchar **ldap_query);
 
 #define PARENT_TYPE E_TYPE_BOOK_BACKEND
@@ -82,7 +82,7 @@ static EBookBackendClass *parent_class;
 typedef struct LDAPOp LDAPOp;
 
 static GList *supported_fields;
-static gchar **search_attrs;
+static const gchar **search_attrs;
 
 struct _EBookBackendGALPrivate {
 	gchar             *gal_uri;
@@ -412,7 +412,7 @@ ldap_op_finished (LDAPOp *op)
 	g_static_rec_mutex_unlock (&bl->priv->op_hash_mutex);
 }
 
-static int
+static gint
 ldap_error_to_response (gint ldap_error)
 {
 	if (ldap_error == LDAP_SUCCESS)
@@ -602,7 +602,7 @@ get_contact (EBookBackend *backend,
 		d(printf("Mode:Remote\n"));
 		if (bl->priv->marked_for_offline && bl->priv->file_db) {
 			EContact *contact = e_book_backend_db_cache_get_contact (bl->priv->file_db, id);
-			gchar *vcard_str ;
+			gchar *vcard_str;
 			if (!contact) {
 				e_data_book_respond_get_contact (book, opid, GNOME_Evolution_Addressbook_OtherError, "");
 				return;
@@ -616,7 +616,7 @@ get_contact (EBookBackend *backend,
 							 vcard_str);
 			g_free (vcard_str);
 			g_object_unref (contact);
-			return ;
+			return;
 		}
 		else {
 #endif
@@ -637,7 +637,7 @@ get_contact (EBookBackend *backend,
 				ldap_error = ldap_search_ext (bl->priv->ldap, id,
 							      LDAP_SCOPE_BASE,
 							      "(objectclass=*)",
-							      search_attrs, 0, NULL, NULL,
+							      (gchar **) search_attrs, 0, NULL, NULL,
 							      NULL, /* XXX timeout */
 							      1, &get_contact_msgid);
 				g_mutex_unlock (bl->priv->ldap_lock);
@@ -815,7 +815,7 @@ get_contact_list (EBookBackend *backend,
 
 			contacts = e_book_backend_db_cache_get_contacts (bl->priv->file_db, query);
 
-			for (l = contacts; l ;l = g_list_next (l)) {
+			for (l = contacts; l;l = g_list_next (l)) {
 				EContact *contact = l->data;
 				vcard_strings = g_list_prepend (vcard_strings, e_vcard_to_string (E_VCARD (contact),
 								EVC_FORMAT_VCARD_30));
@@ -824,7 +824,7 @@ get_contact_list (EBookBackend *backend,
 
 			g_list_free (contacts);
 			e_data_book_respond_get_contact_list (book, opid, GNOME_Evolution_Addressbook_Success, vcard_strings);
-			return ;
+			return;
 		}
 		else {
 #endif
@@ -852,7 +852,7 @@ get_contact_list (EBookBackend *backend,
 				ldap_error = ldap_search_ext (bl->priv->ldap, LDAP_ROOT_DSE,
 							      LDAP_SCOPE_SUBTREE,
 							      ldap_query,
-							      search_attrs, 0, NULL, NULL,
+							      (gchar **) search_attrs, 0, NULL, NULL,
 							      NULL, /* XXX timeout */
 							      LDAP_NO_LIMIT, &contact_list_msgid);
 				g_mutex_unlock (bl->priv->ldap_lock);
@@ -1001,7 +1001,7 @@ func_not(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 	return r;
 }
 
-static gchar *
+static const gchar *
 query_prop_to_ldap (const gchar *query_prop)
 {
 	gint i;
@@ -1021,7 +1021,8 @@ static ESExpResult *
 func_contains(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 {
 	ESExpResult *r;
-	gchar *propname, *ldap_attr, *str;
+	const gchar *ldap_attr;
+	gchar *propname, *str;
 
 	if (argc != 2 ||
 	    argv[0]->type != ESEXP_RES_STRING ||
@@ -1078,7 +1079,8 @@ func_is_or_begins_with(ESExp *f, gint argc, ESExpResult **argv, gboolean exact)
 {
 	ESExpResult *r;
 	const gchar *star;
-	gchar *propname, *str, *ldap_attr, *filter;
+	const gchar *ldap_attr;
+	gchar *propname, *str, *filter;
 
 	if (argc != 2
 	    || argv[0]->type != ESEXP_RES_STRING
@@ -1183,7 +1185,7 @@ static struct {
 	{ "endswith", func_endswith },
 };
 
-static int
+static gint
 build_query (EBookBackendGAL *bl, const gchar *query, const gchar *ldap_filter, gchar **ldap_query)
 {
 	ESExp *sexp;
@@ -1528,7 +1530,7 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 								if (ldap_error != LDAP_SUCCESS) {
 									book_view_notify_status (book_view,
 											ldap_err2string(ldap_error));
-									continue ;
+									continue;
 								}
 							}
 							/* call populate function */
@@ -1823,7 +1825,7 @@ start_book_view (EBookBackend  *backend,
 
 			contacts = e_book_backend_db_cache_get_contacts (bl->priv->file_db,
 									 e_data_book_view_get_card_query (view));
-			for (l = contacts; l ;l = g_list_next (l)) {
+			for (l = contacts; l;l = g_list_next (l)) {
 				EContact *contact = l->data;
 				e_data_book_view_notify_update (view, contact);
 				g_object_unref (contact);
@@ -1832,7 +1834,7 @@ start_book_view (EBookBackend  *backend,
 			g_list_free (contacts);
 
 			e_data_book_view_notify_complete (view, GNOME_Evolution_Addressbook_Success);
-			return ;
+			return;
 		}
 		else {
 #endif
@@ -1894,7 +1896,7 @@ start_book_view (EBookBackend  *backend,
 					ldap_err = ldap_search_ext (bl->priv->ldap, LDAP_ROOT_DSE,
 								    LDAP_SCOPE_SUBTREE,
 								    ldap_query,
-								    search_attrs, 0,
+								    (gchar **) search_attrs, 0,
 								    NULL, /* XXX */
 								    NULL, /* XXX */
 								    NULL, /* XXX timeout */
@@ -2033,7 +2035,7 @@ ber_dupbv( struct berval *dst, struct berval *src )
 }
 #endif
 
-static int
+static gint
 parse_page_control(
 	LDAP *ld,
 	LDAPMessage *result,
@@ -2119,7 +2121,7 @@ static gint dosearch(
 	const gchar *changed_filter,
 	gint sizelimit )
 {
-	int			rc;
+	gint			rc;
 	LDAPMessage		*res, *msg;
 	ber_int_t		msgid;
 	static gint count = 0;
@@ -2210,7 +2212,7 @@ generate_cache (EBookBackendGAL *book_backend_gal, const gchar * changed_filter)
 	LDAPGetContactListOp *contact_list_op = g_new0 (LDAPGetContactListOp, 1);
 	EBookBackendGALPrivate *priv;
 	gchar *ldap_query;
-	gint  i = 0, rc ;
+	gint  i = 0, rc;
 	BerElement *prber = NULL;
 	gchar t[15], *cachetime;
 	LDAPControl c[6];
@@ -2243,7 +2245,7 @@ getNextPage:
 			return;
 		}
 		d(printf ("Setting parameters		\n"));
-		c[i].ldctl_oid = LDAP_CONTROL_PAGEDRESULTS;
+		c[i].ldctl_oid = (gchar *) LDAP_CONTROL_PAGEDRESULTS;
 		c[i].ldctl_iscritical = pagedResults > 1;
 		i++;
 	}
@@ -2278,7 +2280,7 @@ getNextPage:
 	e_book_backend_db_cache_set_populated (priv->file_db);
 	if (priv->cache_time != priv->last_best_time)
 		priv->last_best_time++;
-	g_sprintf (t," %d", (int)priv->last_best_time);
+	g_sprintf (t," %d", (gint)priv->last_best_time);
 	printf("All done, cached time set to %d, %s(%d)\n", (gint) priv->last_best_time, ctime (&priv->last_best_time), (gint) priv->cache_time);
 	e_book_backend_db_cache_set_time (priv->file_db, t);
 	priv->is_summary_ready = TRUE;
@@ -2413,7 +2415,7 @@ authenticate_user (EBookBackend *backend,
 }
 
 #ifdef SUNLDAP
-static int
+static gint
 ber_flatten2( BerElement *ber, struct berval *bv, gint alloc )
 {
 	struct berval *tmp;
@@ -2878,7 +2880,7 @@ class_init (EBookBackendGALClass *klass)
 	}
 	supported_fields = g_list_append (supported_fields, (gpointer) "file_as");
 
-	search_attrs = g_new (gchar *, num_prop_infos + 1);
+	search_attrs = g_new (const gchar *, num_prop_infos + 1);
 	for (i = 0; i < num_prop_infos; i++)
 		search_attrs[i] = prop_info[i].ldap_attr;
 	search_attrs[num_prop_infos] = NULL;

@@ -207,11 +207,11 @@ mail_util_extract_transport_headers (E2kProperties *props)
 		ctend = strchr (ctstart, '\n');
 
 		headers = g_strdup_printf ("%.*s\nContent-Type: text/plain; charset=\"UTF-8\"%.*s\n\n",
-					   (int) (ctstart - hstart), hstart,
-					   (int) (hend - ctend), ctend);
+					   (gint) (ctstart - hstart), hstart,
+					   (gint) (hend - ctend), ctend);
 	} else {
 		headers = g_strdup_printf ("%.*s\nContent-Type: text/plain; charset=\"UTF-8\"\n\n\n",
-					   (int) (hend - hstart), hstart);
+					   (gint) (hend - hstart), hstart);
 	}
 
 	return headers;
@@ -332,7 +332,7 @@ mail_util_demangle_meeting_related_message (GString *body,
 	if (!vend)
 		return FALSE;
 	vend += 13;
-	while (isspace ((unsigned char)*vend))
+	while (isspace ((guchar)*vend))
 		vend++;
 	oldlen = vend - vstart;
 

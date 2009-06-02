@@ -303,7 +303,7 @@ folder_changed (MailStubExchangeFolder *mfld)
 	e_folder_set_unread_count (mfld->folder, mfld->unread_count);
 }
 
-static int
+static gint
 find_message_index (MailStubExchangeFolder *mfld, gint seq)
 {
 	MailStubExchangeMessage *mmsg;
@@ -1229,7 +1229,7 @@ struct refresh_message {
 	guint32 flags, size, article_num;
 };
 
-static int
+static gint
 refresh_message_compar (gconstpointer a, gconstpointer b)
 {
 	const struct refresh_message *rma = a, *rmb = b;
@@ -2817,8 +2817,8 @@ get_folder_info_data (MailStub *stub, const gchar *top, guint32 store_flags,
 
 	*names = g_ptr_array_new ();
 	*uris = g_ptr_array_new ();
-	*unread = g_array_new (FALSE, FALSE, sizeof (int));
-	*flags = g_array_new (FALSE, FALSE, sizeof (int));
+	*unread = g_array_new (FALSE, FALSE, sizeof (gint));
+	*flags = g_array_new (FALSE, FALSE, sizeof (gint));
 	/* Can be NULL if started in offline mode */
 	if (mse->inbox) {
 		inbox_uri = e_folder_get_physical_uri (mse->inbox);

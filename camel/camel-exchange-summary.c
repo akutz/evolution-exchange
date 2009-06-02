@@ -152,7 +152,7 @@ camel_exchange_summary_new (struct _CamelFolder *folder, const gchar *filename)
 	return summary;
 }
 
-static int
+static gint
 summary_header_from_db (CamelFolderSummary *s, CamelFIRecord *mir)
 {
 	CamelExchangeSummary *exchange = (CamelExchangeSummary *) s;
@@ -178,7 +178,7 @@ summary_header_from_db (CamelFolderSummary *s, CamelFIRecord *mir)
 	return 0;
 }
 
-static int
+static gint
 header_load (CamelFolderSummary *summary, FILE *in)
 {
 	CamelExchangeSummary *exchange = (CamelExchangeSummary *) summary;
@@ -228,7 +228,7 @@ summary_header_to_db (CamelFolderSummary *s, CamelException *ex)
 	return fir;
 }
 
-static int
+static gint
 header_save (CamelFolderSummary *summary, FILE *out)
 {
 	CamelExchangeSummary *exchange = (CamelExchangeSummary *) summary;
@@ -312,12 +312,12 @@ message_info_to_db (CamelFolderSummary *s, CamelMessageInfo *info)
 
 	mir = CAMEL_FOLDER_SUMMARY_CLASS(parent_class)->message_info_to_db (s, info);
 	if (mir)
-		mir->bdata = g_strdup_printf ("%d-%s %d-%s", einfo->thread_index ? (int)strlen(einfo->thread_index):0 , einfo->thread_index ? einfo->thread_index : "", einfo->href ? (int)strlen(einfo->href):0, einfo->href ? einfo->href:"");
+		mir->bdata = g_strdup_printf ("%d-%s %d-%s", einfo->thread_index ? (gint)strlen(einfo->thread_index):0 , einfo->thread_index ? einfo->thread_index : "", einfo->href ? (gint)strlen(einfo->href):0, einfo->href ? einfo->href:"");
 
 	return mir;
 }
 
-static int
+static gint
 message_info_save (CamelFolderSummary *summary, FILE *out, CamelMessageInfo *info)
 {
 	CamelExchangeMessageInfo *einfo = (CamelExchangeMessageInfo *)info;

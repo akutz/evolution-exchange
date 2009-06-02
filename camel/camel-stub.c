@@ -153,7 +153,7 @@ status_main (gpointer data)
 
 #ifndef G_OS_WIN32
 
-static int
+static gint
 connect_to_storage (CamelStub *stub, struct sockaddr_un *sa_un,
 		    CamelException *ex)
 {
@@ -196,7 +196,7 @@ connect_to_storage (CamelStub *stub, struct sockaddr_un *sa_un,
 
 #else
 
-static int
+static gint
 connect_to_storage (CamelStub *stub, const gchar *socket_path,
 		    CamelException *ex)
 {
@@ -343,7 +343,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 	g_mutex_lock (stub->write_lock);
 	camel_stub_marshal_encode_uint32 (stub->cmd, command);
 	while (1) {
-		argtype = va_arg (ap, int);
+		argtype = va_arg (ap, gint);
 		switch (argtype) {
 		case CAMEL_STUB_ARG_RETURN:
 		case CAMEL_STUB_ARG_END:
@@ -457,7 +457,7 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 				goto comm_fail;
 
 			do {
-				argtype = va_arg (ap, int);
+				argtype = va_arg (ap, gint);
 				switch (argtype) {
 				case CAMEL_STUB_ARG_END:
 					goto done_output;
