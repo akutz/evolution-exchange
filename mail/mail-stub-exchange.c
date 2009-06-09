@@ -98,7 +98,7 @@ static void refresh_folder (MailStub *stub, const gchar *folder_name);
 static void sync_count (MailStub *stub, const gchar *folder_name);
 static void refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 				     gboolean background);
-static void sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld);
+static gboolean sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld);
 static void expunge_uids (MailStub *stub, const gchar *folder_name, GPtrArray *uids);
 static void append_message (MailStub *stub, const gchar *folder_name, guint32 flags,
 			    const gchar *subject, const gchar *data, gint length);
@@ -1092,7 +1092,7 @@ static const gchar *sync_deleted_props[] = {
 };
 static const gint n_sync_deleted_props = sizeof (sync_deleted_props) / sizeof (sync_deleted_props[0]);
 
-static void
+static gboolean
 sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld)
 {
 	MailStub *stub = MAIL_STUB (mse);
@@ -1100,17 +1100,18 @@ sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld)
 	E2kResult *results;
 	gint nresults = 0;
 	const gchar *prop;
-	gint deleted_count = -1, new_deleted_count, visible_count = -1, mode;
+	gint deleted_count = -1, visible_count = -1, mode;
 	E2kRestriction *rn;
 	E2kResultIter *iter;
 	E2kResult *result;
-	gint my_i, read, highest_unverified_index, highest_verified_seq;
-	MailStubExchangeMessage *mmsg, *my_mmsg;
+	gint my_i, read;
+	MailStubExchangeMessage *mmsg;
 	gboolean changes = FALSE;
+	GHashTable *known_messages;
 
 	exchange_component_is_offline (global_exchange_component, &mode);
 	if (mode != ONLINE_MODE)
-		return;
+		return FALSE;
 
 	status = e_folder_exchange_propfind (mfld->folder, NULL,
 					     sync_deleted_props,
@@ -1119,7 +1120,7 @@ sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld)
 
 	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status) || !nresults) {
 		g_warning ("got_sync_deleted_props: %d", status);
-		return;
+		return FALSE;
 	}
 
 	prop = e2k_properties_get_prop (results[0].props,
@@ -1136,17 +1137,13 @@ sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld)
 
 	if (visible_count >= mfld->messages->len) {
 		if (mfld->deleted_count == deleted_count)
-			return;
+			return FALSE;
 
 		if (mfld->deleted_count == 0) {
 			mfld->deleted_count = deleted_count;
-			return;
+			return FALSE;
 		}
 	}
-
-	highest_verified_seq = -1;
-	highest_unverified_index = mfld->messages->len - 1;
-	new_deleted_count = deleted_count;
 
 	prop = E2K_PR_HTTPMAIL_READ;
 	rn = e2k_restriction_andv (
@@ -1162,66 +1159,52 @@ sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld)
 					       FALSE);
 	e2k_restriction_unref (rn);
 
+	known_messages = g_hash_table_new (g_direct_hash, g_direct_equal);
+
 	my_i = mfld->messages->len - 1;
 	while ((result = e2k_result_iter_next (iter))) {
 		mmsg = find_message_by_href (mfld, result->href);
-		if (!mmsg || mmsg->seq >= highest_verified_seq) {
-			/* This is a new message or a message we already
-			 * verified. Skip it.
-			 */
+		if (!mmsg) {
+			/* oops, message from the server not found in our list;
+			   return failure to possibly do full resync again? */
+			g_message ("%s: Oops, message %s not found in %s", G_STRFUNC, result->href, mfld->name);
 			continue;
 		}
+
+		g_hash_table_insert (known_messages, mmsg, mmsg);
 
 		/* See if its read flag changed while we weren't watching */
 		prop = e2k_properties_get_prop (result->props,
 						E2K_PR_HTTPMAIL_READ);
 		read = (prop && atoi (prop)) ? MAIL_STUB_MESSAGE_SEEN : 0;
 		if ((mmsg->flags & MAIL_STUB_MESSAGE_SEEN) != read) {
+			changes = TRUE;
 			change_flags (mfld, mmsg,
 				      mmsg->flags ^ MAIL_STUB_MESSAGE_SEEN);
 		}
 
-		my_mmsg = mfld->messages->pdata[my_i];
-
-		/* If the messages don't match, remove messages from the
-		 * folder until they do. (We know there has to eventually
-		 * be a matching message or the find_message_by_href
-		 * above would have failed.)
-		 */
-		while (my_mmsg->seq != mmsg->seq) {
-			mfld->deleted_count++;
-			message_removed (stub, mfld, my_mmsg->href);
-			changes = TRUE;
-			my_i--;
-			my_mmsg = mfld->messages->pdata[my_i];
-		}
-		highest_verified_seq = mmsg->seq;
-
-		if (my_i == 0 || my_i == e2k_result_iter_get_index (iter)) {
-			/* Nothing left to check, or we've gotten in sync */
-			if (mfld->deleted_count != new_deleted_count)
-				mfld->deleted_count = new_deleted_count;
-			highest_unverified_index = -1;
-			break;
-		}
-
-		my_i--;
 	}
 	status = e2k_result_iter_free (iter);
 
 	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
 		g_warning ("synced_deleted: %d", status);
 
-	/* Clear out the remaining messages in mfld */
-	while (highest_unverified_index > -1) {
-		mfld->deleted_count++;
-		mmsg = mfld->messages->pdata[highest_unverified_index--];
-		message_removed (stub, mfld, mmsg->href);
-		changes = TRUE;
+	/* Clear out removed messages from mfld */
+	for (my_i = mfld->messages->len - 1; my_i >= 0; my_i --) {
+		mmsg = mfld->messages->pdata[my_i];
+		if (!g_hash_table_lookup (known_messages, mmsg)) {
+			mfld->deleted_count++;
+			message_remove_at_index (stub, mfld, my_i);
+			changes = TRUE;
+		}
 	}
+
+	g_hash_table_destroy (known_messages);
 
 	if (changes)
 		mail_stub_push_changes (stub);
+
+	return changes;
 }
 
 struct refresh_message {
@@ -1327,8 +1310,10 @@ refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 	got = 0;
 	total = e2k_result_iter_get_total (iter);
 	while ((result = e2k_result_iter_next (iter))) {
-		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (result->status))
+		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (result->status)) {
+			g_message ("%s: got unsuccessful at %s (%s)", G_STRFUNC, mfld->name, result->href ? result->href : "[null]");
 			continue;
+		}
 
 		uid = e2k_properties_get_prop (result->props, E2K_PR_REPL_UID);
 		if (!uid)
@@ -1460,6 +1445,11 @@ refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 			if (rm.flags != mmsg->flags)
 				change_flags (mfld, mmsg, rm.flags);
 		} else {
+			if (g_hash_table_lookup (mfld->messages_by_href, rm.href)) {
+				mfld->deleted_count++;
+				message_removed (stub, mfld, rm.href);
+			}
+
 			mmsg = new_message (rm.uid, rm.href, mfld->seq++, rm.flags);
 			g_ptr_array_add (mfld->messages, mmsg);
 			g_hash_table_insert (mfld->messages_by_uid,
@@ -1566,7 +1556,10 @@ refresh_folder (MailStub *stub, const gchar *folder_name)
 		return;
 
 	refresh_folder_internal (stub, mfld, FALSE);
-	sync_deletions (mse, mfld);
+	if (!sync_deletions (mse, mfld)) {
+		/* sync_deletions didn't call this, thus call it now */
+		mail_stub_push_changes (stub);
+	}
 }
 
 static void
