@@ -9,10 +9,7 @@
 #include "camel-stub-constants.h"
 #include "camel-stub-marshal.h"
 
-#ifdef __cplusplus
-extern "C" {
-#pragma }
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 #define MAIL_TYPE_STUB            (mail_stub_get_type ())
 #define MAIL_STUB(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), MAIL_TYPE_STUB, MailStub))
@@ -109,8 +106,6 @@ typedef enum {
 	MAIL_STUB_MESSAGE_DELEGATED    = (1 << 16)
 } MailStubMessageFlags;
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* __MAIL_STUB_H__ */

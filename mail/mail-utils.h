@@ -4,12 +4,9 @@
 #ifndef __MAIL_UTILS_H__
 #define __MAIL_UTILS_H__
 
-#ifdef __cplusplus
-extern "C" {
-#pragma }
-#endif /* __cplusplus */
-
 #include "e2k-properties.h"
+
+G_BEGIN_DECLS
 
 typedef enum {
 	MAIL_UTIL_DEMANGLE_DELGATED_MEETING,
@@ -34,8 +31,6 @@ mail_util_demangle_meeting_related_message (GString *body,
 				const gchar *subscriber_email,
 				MailUtilDemangleType unmangle_type);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* __MAIL_UTILS_H__ */

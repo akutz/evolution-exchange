@@ -8,10 +8,7 @@
 #define CAMEL_EXCHANGE_TRANSPORT_H 1
 
 
-#ifdef __cplusplus
-extern "C" {
-#pragma }
-#endif /* __cplusplus }*/
+G_BEGIN_DECLS
 
 #include <camel/camel-transport.h>
 
@@ -36,8 +33,6 @@ typedef struct {
 /* Standard Camel function */
 CamelType camel_exchange_transport_get_type (void);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* CAMEL_EXCHANGE_TRANSPORT_H */

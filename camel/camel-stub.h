@@ -8,10 +8,7 @@
 #define CAMEL_STUB_H 1
 
 
-#ifdef __cplusplus
-extern "C" {
-#pragma }
-#endif /* __cplusplus }*/
+G_BEGIN_DECLS
 
 #include <camel/camel-object.h>
 #include <camel/camel-operation.h>
@@ -57,9 +54,7 @@ gboolean   camel_stub_send_oneway (CamelStub *stub,
 				   CamelStubCommand command, ...);
 
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* CAMEL_STUB_H */
 

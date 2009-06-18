@@ -7,10 +7,7 @@
 #include "mail-stub.h"
 #include <exchange-account.h>
 
-#ifdef __cplusplus
-extern "C" {
-#pragma }
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 #define MAIL_TYPE_STUB_EXCHANGE            (mail_stub_exchange_get_type ())
 #define MAIL_STUB_EXCHANGE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), MAIL_TYPE_STUB_EXCHANGE, MailStubExchange))
@@ -45,8 +42,6 @@ gboolean          mail_stub_exchange_construct  (MailStubExchange *exchange);
 MailStub         *mail_stub_exchange_new        (ExchangeAccount *account,
 						 gint cmd_fd, gint status_fd);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* __MAIL_STUB_EXCHANGE_H__ */

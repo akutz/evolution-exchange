@@ -31,10 +31,7 @@
 #include <camel/camel-mime-message.h>
 #include "camel-exchange-folder.h"
 
-#ifdef __cplusplus
-extern "C" {
-#pragma }
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 #define CAMEL_TYPE_EXCHANGE_JOURNAL            (camel_exchange_journal_get_type ())
 #define CAMEL_EXCHANGE_JOURNAL(obj)            (CAMEL_CHECK_CAST ((obj), CAMEL_TYPE_EXCHANGE_JOURNAL, CamelExchangeJournal))
@@ -95,8 +92,6 @@ void camel_exchange_journal_transfer (CamelExchangeJournal *journal, CamelExchan
 void camel_exchange_journal_delete (CamelExchangeJournal *journal, const gchar *uid,
 				    guint32 flags, guint32 set, CamelException *ex);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* __CAMEL_EXCHANGE_JOURNAL_H__ */

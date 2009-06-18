@@ -6,10 +6,7 @@
 
 #include <glib-object.h>
 
-#ifdef __cplusplus
-extern "C" {
-#pragma }
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 #define MAIL_TYPE_STUB_LISTENER            (mail_stub_listener_get_type ())
 #define MAIL_STUB_LISTENER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), MAIL_TYPE_STUB_LISTENER, MailStubListener))
@@ -43,8 +40,6 @@ gboolean          mail_stub_listener_construct     (MailStubListener *stub,
 
 MailStubListener *mail_stub_listener_new           (const gchar *socket_path);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* __MAIL_STUB_LISTENER_H__ */

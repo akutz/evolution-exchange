@@ -6,10 +6,7 @@
 #ifndef CAMEL_STUB_MARSHAL_H
 #define CAMEL_STUB_MARSHAL_H 1
 
-#ifdef __cplusplus
-extern "C" {
-#pragma }
-#endif /* __cplusplus }*/
+G_BEGIN_DECLS
 
 #include <glib.h>
 
@@ -44,9 +41,7 @@ gint               camel_stub_marshal_decode_bytes  (CamelStubMarshal *marshal,
 gint               camel_stub_marshal_flush         (CamelStubMarshal *marshal);
 gboolean          camel_stub_marshal_eof           (CamelStubMarshal *marshal);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* CAMEL_STUB_MARSHAL_H */
 

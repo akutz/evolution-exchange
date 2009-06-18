@@ -7,10 +7,7 @@
 #ifndef CAMEL_STUB_CONSTANTS_H
 #define CAMEL_STUB_CONSTANTS_H 1
 
-#ifdef __cplusplus
-extern "C" {
-#pragma }
-#endif /* __cplusplus }*/
+G_BEGIN_DECLS
 
 typedef enum {
 	CAMEL_STUB_CMD_CONNECT,
@@ -95,8 +92,6 @@ typedef enum {
 	CAMEL_STUB_STORE_FOLDER_INFO_SUBSCRIPTION_LIST	= (1<<4)
 } CamelStubStoreFlags;
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* CAMEL_STUB_CONSTANTS_H */

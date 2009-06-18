@@ -10,10 +10,7 @@
 #include <shell/Evolution.h>
 #include <exchange-types.h>
 
-#ifdef __cplusplus
-extern "C" {
-#pragma }
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 #define EXCHANGE_TYPE_COMPONENT               (exchange_component_get_type ())
 #define EXCHANGE_COMPONENT(obj)               (G_TYPE_CHECK_INSTANCE_CAST ((obj), EXCHANGE_TYPE_COMPONENT, ExchangeComponent))
@@ -60,8 +57,6 @@ void exchange_component_set_factories (ExchangeComponent *component,
 #define EXCHANGE_ADDRESSBOOK_FACTORY_ID	"OAFIID:GNOME_Evolution_Exchange_Connector_BookFactory:" API_VERSION
 #define EXCHANGE_AUTOCONFIG_WIZARD_ID	"OAFIID:GNOME_Evolution_Exchange_Connector_Startup_Wizard:" BASE_VERSION
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* __EXCHANGE_COMPONENT_H__ */

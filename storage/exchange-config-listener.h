@@ -10,10 +10,7 @@
 #include <libedataserver/e-source-list.h>
 #include <libedataserver/e-source-group.h>
 
-#ifdef __cplusplus
-extern "C" {
-#pragma }
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 #define EXCHANGE_TYPE_CONFIG_LISTENER            (exchange_config_listener_get_type ())
 #define EXCHANGE_CONFIG_LISTENER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EXCHANGE_TYPE_CONFIG_LISTENER, ExchangeConfigListener))
@@ -59,8 +56,6 @@ void			exchange_config_listener_migrate_esources (ExchangeConfigListener *config
 
 void			add_folder_esource (ExchangeAccount *account, FolderType folder_type, const gchar *folder_name, const gchar *physical_uri);
 void			remove_folder_esource (ExchangeAccount *account, FolderType folder_type, const gchar *physical_uri);
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* __EXCHANGE_CONFIG_LISTENER_H__ */

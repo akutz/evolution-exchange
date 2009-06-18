@@ -8,17 +8,12 @@
 
 #include <bonobo/bonobo-object.h>
 
-#ifdef __cplusplus
-extern "C" {
-#pragma }
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 BonoboObject *exchange_autoconfig_wizard_new (void);
 
 void          exchange_autoconfig_druid_run  (void);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* __EXCHANGE_AUTOCONFIG_WIZARD_H__ */

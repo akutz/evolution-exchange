@@ -7,10 +7,7 @@
 #define CAMEL_EXCHANGE_FOLDER_H 1
 
 
-#ifdef __cplusplus
-extern "C" {
-#pragma }
-#endif /* __cplusplus }*/
+G_BEGIN_DECLS
 
 #include <camel/camel-offline-folder.h>
 #include <camel/camel-folder.h>
@@ -82,9 +79,7 @@ void     camel_exchange_folder_update_message_tag   (CamelExchangeFolder *exch,
 						     const gchar *value);
 
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* CAMEL_EXCHANGE_FOLDER_H */
 
