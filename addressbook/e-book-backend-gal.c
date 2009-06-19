@@ -2303,8 +2303,10 @@ update_cache (EBookBackendGAL *gal)
 		t1 = atoi (t);
 	else
 		t1=0;
-	if (t1 == 0)
-		return generate_cache (gal, NULL);
+	if (t1 == 0) {
+		generate_cache (gal, NULL);
+		return;
+	}
 	gal->priv->last_best_time = t1;
 	tm = localtime (&t1);
 	galtime = g_strdup_printf("%04d%02d%02d%02d%02d%02d.0Z",tm->tm_year+1900, tm->tm_mon+1,tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec);
