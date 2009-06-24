@@ -20,6 +20,9 @@ m4_define([libsoup_minimum_version], [2.3.0])
 
 AM_CONFIG_HEADER(config.h)
 
+# Automake 1.11 - Silent Build Rules
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+
 AC_ARG_WITH(e2k-debug,     [  --with-e2k-debug              Allow debugging])
 case $withval in
 no)
