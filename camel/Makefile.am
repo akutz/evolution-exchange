@@ -3,7 +3,7 @@
 CAMEL_provider_LTLIBRARIES = libcamelexchange.la
 CAMEL_provider_DATA = libcamelexchange.urls
 
-INCLUDES =					\
+AM_CPPFLAGS =					\
 	$(WARN_CFLAGS)				\
 	$(GLIB_CFLAGS)				\
 	$(CAMEL_CFLAGS)				\

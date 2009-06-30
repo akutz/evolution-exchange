@@ -1,4 +1,4 @@
-INCLUDES =						\
+AM_CPPFLAGS =						\
 	-I$(top_srcdir)					\
 	-I$(top_srcdir)/storage				\
 	-DG_LOG_DOMAIN=\"e-book-backend-exchange\"	\
@@ -7,7 +7,7 @@ INCLUDES =						\
 	$(LDAP_CFLAGS)					
 
 if HAVE_LIBDB	
-INCLUDES += "-I /usr/include"				\
+AM_CPPFLAGS += "-I /usr/include"				\
 	$(DB_CFLAGS)
 endif
 

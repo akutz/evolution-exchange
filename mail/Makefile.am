@@ -2,7 +2,7 @@
 noinst_LTLIBRARIES =						\
 	libexchangemail.la
 
-INCLUDES =							\
+AM_CPPFLAGS =							\
 	-I$(top_srcdir)						\
 	-I$(top_srcdir)/camel					\
 	-I$(top_srcdir)/storage  				\
