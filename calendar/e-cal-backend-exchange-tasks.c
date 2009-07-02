@@ -26,7 +26,6 @@
 #include <e2k-properties.h>
 #include <e2k-propnames.h>
 #include "libecal/e-cal-component.h"
-#include "e-util/e-config-listener.h"
 #include "e2k-cal-utils.h"
 #include <e2k-context.h>
 #include <exchange-account.h>
@@ -163,22 +162,23 @@ set_sensitivity (E2kProperties *props, ECalComponent *comp)
 icaltimezone *
 get_default_timezone (void)
 {
-        static EConfigListener *cl = NULL;
-        gchar *location;
-        icaltimezone *local_timezone;
+	GConfClient *client;
+	icaltimezone *local_timezone;
+	const gchar *key;
+	gchar *location;
 
-	if (!cl)
-                cl = e_config_listener_new ();
+	client = gconf_client_get_default ();
+	key = "/apps/evolution/calendar/display/timezone";
+	location = gconf_client_get_string (client, key, NULL);
 
-	location = e_config_listener_get_string_with_default (cl, "/apps/evolution/calendar/display/timezone", "UTC", NULL);
-
-        if (location && location[0]) {
-                local_timezone = icaltimezone_get_builtin_timezone (location);
-        } else {
-                local_timezone = icaltimezone_get_utc_timezone ();
-        }
+	if (location != NULL && *location != '\0')
+		local_timezone = icaltimezone_get_builtin_timezone (location);
+	else
+		local_timezone = icaltimezone_get_utc_timezone ();
 
 	g_free (location);
+
+	g_object_unref (client);
 
 	return local_timezone;
 }
