@@ -3,10 +3,8 @@
 
 /* camel-stub.h: class for a stub to talk to the backend */
 
-
 #ifndef CAMEL_STUB_H
 #define CAMEL_STUB_H 1
-
 
 G_BEGIN_DECLS
 
@@ -40,7 +38,6 @@ typedef struct {
 
 } CamelStubClass;
 
-
 /* Standard Camel function */
 CamelType  camel_stub_get_type    (void);
 
@@ -53,9 +50,7 @@ gboolean   camel_stub_send        (CamelStub *stub, CamelException *ex,
 gboolean   camel_stub_send_oneway (CamelStub *stub,
 				   CamelStubCommand command, ...);
 
-
 G_END_DECLS
 
 #endif /* CAMEL_STUB_H */
-
 

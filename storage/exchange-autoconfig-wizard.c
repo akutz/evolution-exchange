@@ -93,7 +93,6 @@ static void owa_page_changed (GtkEntry *entry, ExchangeAutoconfigGUI *gui);
 static void gc_page_changed (GtkEntry *entry, ExchangeAutoconfigGUI *gui);
 static void verify_page_changed (GtkEntry *entry, ExchangeAutoconfigGUI *gui);
 
-
 static void
 autoconfig_gui_set_page (ExchangeAutoconfigGUI *gui, gint page)
 {
@@ -108,7 +107,6 @@ autoconfig_gui_set_next_sensitive (ExchangeAutoconfigGUI *gui,
 					   next_sensitive,
 					   TRUE, FALSE);
 }
-
 
 #define SETUP_ENTRY(name, changed)				\
 	gui->name = (GtkEntry *)				\
@@ -159,13 +157,11 @@ autoconfig_gui_new (void)
 	return gui;
 }
 
-
 static inline gboolean
 check_field (GtkEntry *entry)
 {
 	return (*gtk_entry_get_text (entry) != '\0');
 }
-
 
 static void
 owa_page_prepare (ExchangeAutoconfigGUI *gui)

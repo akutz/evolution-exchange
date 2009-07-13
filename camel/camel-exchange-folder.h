@@ -6,7 +6,6 @@
 #ifndef CAMEL_EXCHANGE_FOLDER_H
 #define CAMEL_EXCHANGE_FOLDER_H 1
 
-
 G_BEGIN_DECLS
 
 #include <camel/camel-offline-folder.h>
@@ -37,10 +36,8 @@ typedef struct {
 
 } CamelExchangeFolderClass;
 
-
 /* Standard Camel function */
 CamelType camel_exchange_folder_get_type (void);
-
 
 gboolean camel_exchange_folder_construct            (CamelFolder *folder,
 						     CamelStore *parent,
@@ -78,9 +75,7 @@ void     camel_exchange_folder_update_message_tag   (CamelExchangeFolder *exch,
 						     const gchar *name,
 						     const gchar *value);
 
-
 G_END_DECLS
 
 #endif /* CAMEL_EXCHANGE_FOLDER_H */
-
 

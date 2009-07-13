@@ -217,7 +217,6 @@ mail_util_extract_transport_headers (E2kProperties *props)
 	return headers;
 }
 
-
 static const gchar *note_colors[] = {
 	"#CCCCFF", "#CCFFCC", "#FFCCCC", "#FFFFCC", "#FFFFFF"
 };

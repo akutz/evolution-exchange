@@ -27,7 +27,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-
 #include <glib.h>
 
 #ifndef G_OS_WIN32
@@ -250,7 +249,6 @@ decode_string (CamelStubMarshal *marshal, gchar **str)
 	return 0;
 }
 
-
 /**
  * camel_stub_marshal_encode_uint32:
  * @marshal: the #CamelStubMarshal
@@ -431,7 +429,6 @@ camel_stub_marshal_decode_bytes (CamelStubMarshal *marshal, GByteArray **ba)
 		printf ("<<< %d bytes\n", (*ba)->len);
 	return 0;
 }
-
 
 /**
  * camel_stub_marshal_flush:

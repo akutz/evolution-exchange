@@ -1426,7 +1426,6 @@ set_mode (ECalBackend *backend, CalMode mode)
 			cal_mode_to_corba (mode));
 	}
 
-
 	g_mutex_lock (priv->set_lock);
 	if ((priv->mode == CAL_MODE_LOCAL) && (mode == CAL_MODE_REMOTE))
 		re_open = TRUE;
@@ -1720,7 +1719,6 @@ save_attach_file (const gchar *dest_file, gchar *file_contents, gint len)
 	}
 	/* FIXME : Add a ATTACH:CID:someidentifier here */
 	dest_url = g_filename_to_uri (dest_file, NULL, NULL);
-
 
 end :
 	close (fd);
@@ -2117,7 +2115,6 @@ e_cal_backend_exchange_lookup_timezone (const gchar *tzid,
 	return internal_get_timezone (E_CAL_BACKEND ((ECalBackendExchange *)custom),
 				      tzid);
 }
-
 
 static void
 free_exchange_comp (gpointer value)

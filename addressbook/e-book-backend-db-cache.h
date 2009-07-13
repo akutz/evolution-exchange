@@ -42,9 +42,6 @@ void     e_book_backend_db_cache_set_populated (DB *db);
 gboolean e_book_backend_db_cache_is_populated (DB *db);
 GPtrArray* e_book_backend_db_cache_search (DB *db, const gchar *query);
 
-
-
-
 G_END_DECLS
 
 #endif

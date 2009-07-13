@@ -96,7 +96,6 @@ static void account_removed (EAccountList *account_listener,
 static gboolean exchange_camel_urls_is_equal (const gchar *url1,
 					      const gchar *url2);
 
-
 static void
 class_init (GObjectClass *object_class)
 {
@@ -176,7 +175,6 @@ finalize (GObject *object)
 }
 
 E2K_MAKE_TYPE (exchange_config_listener, ExchangeConfigListener, class_init, init, PARENT_TYPE)
-
 
 #define EVOLUTION_URI_PREFIX     "evolution:/"
 #define EVOLUTION_URI_PREFIX_LEN (sizeof (EVOLUTION_URI_PREFIX) - 1)
@@ -403,7 +401,6 @@ account_added (EAccountList *account_list, EAccount *account)
 	config_listener->priv->configured_uri = g_strdup (account->source->url);
 	g_free (config_listener->priv->configured_name);
 	config_listener->priv->configured_name = g_strdup (account->name);
-
 
 	g_signal_emit (config_listener, signals[EXCHANGE_ACCOUNT_CREATED], 0,
 		       exchange_account);

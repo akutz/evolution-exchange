@@ -966,7 +966,6 @@ populate_categories (EContactField field, EContact *new_contact, gpointer data)
 					      (gchar *)categories_list->pdata[i]);
 	}
 
-
 	e_contact_set (new_contact, E_CONTACT_CATEGORY_LIST, updated_list);
 
 }
@@ -2193,7 +2192,6 @@ subscription_notify (E2kContext *ctx, const gchar *uri,
 	g_object_unref (be);
 }
 
-
 static EBookBackendSyncStatus
 e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 					  EDataBook         *book,
@@ -2209,7 +2207,6 @@ e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 	E2kHTTPStatus status;
 	gchar *vcard;
 	GList *vcard_list = NULL, *temp, *offline_contacts;
-
 
 	d(printf("ebbe_get_contact_list(%p, %p, %s)\n", backend, book, query));
 
@@ -2616,7 +2613,6 @@ e_book_backend_exchange_get_contact (EBookBackendSync  *backend,
 	return GNOME_Evolution_Addressbook_OtherError;
 }
 
-
 static void
 e_book_backend_exchange_authenticate_user (EBookBackend *backend,
 					   EDataBook        *book,
@@ -2724,7 +2720,6 @@ e_book_backend_exchange_get_required_fields (EBookBackendSync *backend,
 	fields = g_list_append (fields, g_strdup (e_contact_field_name (E_CONTACT_FILE_AS)));
 	*fields_out = fields;
 	return GNOME_Evolution_Addressbook_Success;
-
 
 }
 
@@ -2928,7 +2923,6 @@ e_book_backend_exchange_dispose (GObject *object)
 
 		if (be->priv->cache_lock)
 			g_mutex_free (be->priv->cache_lock);
-
 
 		g_free (be->priv);
 		be->priv = NULL;

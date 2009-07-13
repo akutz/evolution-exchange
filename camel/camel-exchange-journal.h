@@ -18,7 +18,6 @@
  *
  */
 
-
 #ifndef __CAMEL_EXCHANGE_JOURNAL_H__
 #define __CAMEL_EXCHANGE_JOURNAL_H__
 
@@ -74,7 +73,6 @@ struct _CamelExchangeJournalClass {
 	CamelOfflineJournalClass parent_class;
 
 };
-
 
 CamelType camel_exchange_journal_get_type (void);
 

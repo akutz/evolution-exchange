@@ -35,9 +35,7 @@ static ESExpResult *
 exchange_body_contains (struct _ESExp *f, gint argc, struct _ESExpResult **argv,
 			CamelFolderSearch *s);
 
-
 static CamelFolderSearchClass *parent_class = NULL;
-
 
 static void
 camel_exchange_search_class_init (CamelExchangeSearchClass *camel_exchange_search_class)

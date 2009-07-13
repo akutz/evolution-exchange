@@ -3,10 +3,8 @@
 
 /* camel-exchange-transport.h: Exchange-based transport class */
 
-
 #ifndef CAMEL_EXCHANGE_TRANSPORT_H
 #define CAMEL_EXCHANGE_TRANSPORT_H 1
-
 
 G_BEGIN_DECLS
 
@@ -17,18 +15,15 @@ G_BEGIN_DECLS
 #define CAMEL_EXCHANGE_TRANSPORT_CLASS(k) (CAMEL_CHECK_CLASS_CAST ((k), CAMEL_EXCHANGE_TRANSPORT_TYPE, CamelExchangeTransportClass))
 #define CAMEL_IS_EXCHANGE_TRANSPORT(o)    (CAMEL_CHECK_TYPE((o), CAMEL_EXCHANGE_TRANSPORT_TYPE))
 
-
 typedef struct {
 	CamelTransport parent_object;
 
 } CamelExchangeTransport;
 
-
 typedef struct {
 	CamelTransportClass parent_class;
 
 } CamelExchangeTransportClass;
-
 
 /* Standard Camel function */
 CamelType camel_exchange_transport_get_type (void);

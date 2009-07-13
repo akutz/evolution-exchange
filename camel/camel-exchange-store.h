@@ -3,10 +3,8 @@
 
 /* camel-exchange-store.h: class for a exchange store */
 
-
 #ifndef CAMEL_EXCHANGE_STORE_H
 #define CAMEL_EXCHANGE_STORE_H 1
-
 
 G_BEGIN_DECLS
 
@@ -37,7 +35,6 @@ typedef struct {
 	CamelOfflineStoreClass parent_class;
 
 } CamelExchangeStoreClass;
-
 
 /* Standard Camel function */
 CamelType camel_exchange_store_get_type (void);

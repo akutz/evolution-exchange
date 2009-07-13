@@ -216,7 +216,6 @@ convert_to_utc (ECalComponentDateTime *dt)
 	return calcomponentdatetime_to_string (dt, utc_zone);
 }
 
-
 static void
 set_dtstart (E2kProperties *props, ECalComponent *comp)
 {
@@ -1020,7 +1019,6 @@ open_task (ECalBackendSync *backend, EDataCal *cal,
 
 		return GNOME_Evolution_Calendar_OtherError;
 	}
-
 
 	return GNOME_Evolution_Calendar_Success;
 }

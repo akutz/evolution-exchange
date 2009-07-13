@@ -168,7 +168,6 @@ struct prop_info {
 #define STRING_PROP(fid,a) {fid, a, PROP_TYPE_STRING}
 #define GROUP_PROP(fid,a,ctor) {fid, a, PROP_TYPE_GROUP, ctor}
 
-
 	/* name fields */
 	STRING_PROP   (E_CONTACT_FULL_NAME,   "displayName" ),
 	STRING_PROP   (E_CONTACT_GIVEN_NAME,  "givenName" ),
@@ -763,7 +762,6 @@ contact_list_dtor (LDAPOp *op)
 	g_free (contact_list_op);
 }
 
-
 static void
 get_contact_list (EBookBackend *backend,
 		  EDataBook    *book,
@@ -877,7 +875,6 @@ get_contact_list (EBookBackend *backend,
 #endif
 	}
 }
-
 
 #define IS_RFC2254_CHAR(c) ((c) == '*' || (c) =='\\' || (c) == '(' || (c) == ')' || (c) == '\0')
 static gchar *
@@ -1015,7 +1012,6 @@ query_prop_to_ldap (const gchar *query_prop)
 
 	return NULL;
 }
-
 
 static ESExpResult *
 func_contains(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
@@ -1368,7 +1364,6 @@ last_mod_time_populate (EContact *contact, gchar **values,
 #endif
 	g_free (time_str);
 }
-
 
 typedef struct {
 	LDAPOp op;
@@ -1735,7 +1730,6 @@ get_contacts_from_cache (EBookBackendGAL *ebg,
 	for (i = 0; i < ids->len; i ++) {
 		gchar *uid = g_ptr_array_index (ids, i);
 
-
 		EContact *contact =
 			e_book_backend_db_cache_get_contact (ebg->priv->file_db, uid);
 		if (contact) {
@@ -1821,7 +1815,6 @@ start_book_view (EBookBackend  *backend,
 				}
 				return;
 			}
-
 
 			contacts = e_book_backend_db_cache_get_contacts (bl->priv->file_db,
 									 e_data_book_view_get_card_query (view));
@@ -2230,7 +2223,6 @@ generate_cache (EBookBackendGAL *book_backend_gal, const gchar * changed_filter)
 	build_query (book_backend_gal,
 		     "(beginswith \"file_as\" \"\")", changed_filter, &ldap_query);
 
-
 getNextPage:
 
 	/*start iteration*/
@@ -2264,7 +2256,6 @@ getNextPage:
 	g_mutex_unlock (priv->ldap_lock);
 
 	rc = dosearch (book_backend_gal, LDAP_ROOT_DSE, LDAP_SCOPE_SUBTREE, NULL, ldap_query, NULL, 0, NULL, NULL, NULL, changed_filter, -1);
-
 
 	/* loop to get the next set of entries */
 
@@ -2407,7 +2398,6 @@ authenticate_user (EBookBackend *backend,
 	default:
 		break;
 	}
-
 
 	/* We should not be here */
 	e_data_book_respond_authenticate_user (book,
@@ -2833,7 +2823,6 @@ dispose (GObject *object)
 #endif
 		if (bl->priv->ldap_lock)
 			g_mutex_free (bl->priv->ldap_lock);
-
 
 		g_free (bl->priv->gal_uri);
 		g_free (bl->priv);

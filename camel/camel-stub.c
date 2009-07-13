@@ -113,7 +113,6 @@ camel_stub_get_type (void)
 	return camel_stub_type;
 }
 
-
 static gpointer
 status_main (gpointer data)
 {
@@ -254,7 +253,6 @@ connect_to_storage (CamelStub *stub, const gchar *socket_path,
 }
 
 #endif
-
 
 /**
  * camel_stub_new:
@@ -583,7 +581,6 @@ stub_send_internal (CamelStub *stub, CamelException *ex, gboolean oneway,
 	camel_object_unref (CAMEL_OBJECT (stub));
 	return FALSE;
 }
-
 
 /**
  * camel_stub_send:

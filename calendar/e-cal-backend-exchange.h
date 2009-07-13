@@ -60,7 +60,6 @@ gboolean  e_cal_backend_exchange_in_cache         (ECalBackendExchange *cbex,
 
 void      e_cal_backend_exchange_cache_sync_end   (ECalBackendExchange *cbex);
 
-
 gboolean  e_cal_backend_exchange_add_object       (ECalBackendExchange *cbex,
 						   const gchar          *href,
 						   const gchar          *lastmod,

@@ -256,7 +256,6 @@ dispose (GObject *object)
 
 E2K_MAKE_TYPE (mail_stub_exchange, MailStubExchange, class_init, init, PARENT_TYPE)
 
-
 static MailStubExchangeFolder *
 folder_from_name (MailStubExchange *mse, const gchar *folder_name,
 		  guint32 perms, gboolean background)
@@ -1286,7 +1285,6 @@ refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 	mapi_message_hash = g_hash_table_new (g_str_hash, g_str_equal);
 	mapi_hrefs = g_ptr_array_new ();
 
-
 	/*
 	 * STEP 1: Fetch information about new messages, including SMTP
 	 * headers when available.
@@ -1382,7 +1380,6 @@ refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 	if (mapi_hrefs->len == 0)
 		goto return_data;
 
-
 	/*
 	 * STEP 2: Fetch MAPI property data for non-SMTP messages.
 	 */
@@ -1419,7 +1416,6 @@ refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 			mail_stub_return_error (stub, _("Could not get new messages"));
 		goto done;
 	}
-
 
 	/*
 	 * STEP 3: Organize the data, update our records and Camel's
@@ -2556,7 +2552,6 @@ cleanup:
 	g_free (owner_email);
 }
 
-
 static void
 search (MailStub *stub, const gchar *folder_name, const gchar *text)
 {
@@ -3437,7 +3432,6 @@ stub_connect (MailStub *stub, gchar *pwd)
 	if (!ctx) {
 		ctx = exchange_account_connect (account, pwd, &result);
 	}
-
 
 	if (!ctx && mode == ONLINE_MODE) {
 		retval = 0;

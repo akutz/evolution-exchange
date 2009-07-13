@@ -163,7 +163,6 @@ camel_exchange_folder_get_type (void)
 	return camel_exchange_folder_type;
 }
 
-
 static void
 refresh_info (CamelFolder *folder, CamelException *ex)
 {
@@ -659,7 +658,6 @@ transfer_messages_to (CamelFolder *source, GPtrArray *uids,
 		}
 		goto end;
 	}
-
 
 	hier_len = strcspn (source->full_name, "/");
 	if (strncmp (source->full_name, dest->full_name, hier_len) != 0) {

@@ -88,7 +88,6 @@ finalize (GObject *object)
 
 E2K_MAKE_TYPE (mail_stub_listener, MailStubListener, class_init, NULL, PARENT_TYPE)
 
-
 static gboolean
 new_connection (GIOChannel *source, GIOCondition condition, gpointer data)
 {

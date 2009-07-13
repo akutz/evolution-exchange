@@ -120,7 +120,6 @@ finalize (GObject *object)
 	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
-
 E2K_MAKE_TYPE (exchange_storage, ExchangeStorage, class_init, init, PARENT_TYPE)
 
 static void

@@ -41,7 +41,6 @@ gboolean            camel_exchange_summary_get_readonly      (CamelFolderSummary
 void                camel_exchange_summary_set_readonly      (CamelFolderSummary *summary,
 							      gboolean            readonly);
 
-
 void                camel_exchange_summary_add_offline       (CamelFolderSummary *summary,
 							      const gchar         *uid,
 							      CamelMimeMessage   *message,

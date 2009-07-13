@@ -66,8 +66,6 @@ static gboolean check_owner_partstatus_for_declined (ECalBackendSync *backend,
 gboolean check_for_send_options (icalcomponent *icalcomp, E2kProperties *props);
 static void update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp);
 
-
-
 static void
 add_timezones_from_comp (ECalBackendExchange *cbex, icalcomponent *icalcomp)
 {
@@ -576,8 +574,6 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal,
 	GThread *thread = NULL;
 	GError *error = NULL;
 	ECalBackendExchangeCalendar *cbexc = E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
-
-
 
 	/* Do the generic part */
 	status = E_CAL_BACKEND_SYNC_CLASS (parent_class)->open_sync (
@@ -1346,7 +1342,6 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	if (!remove && mod == CALOBJ_MOD_ALL)
 		icalcomponent_add_component (cbdata->vcal_comp, real_icalcomp);
 
-
 	/* We need to add all the instances to the VCalendar component while sending to
 	   the server, so that we don't lose any detached instances */
 	if (ecomp->icomp && mod == CALOBJ_MOD_THIS) {
@@ -1602,7 +1597,6 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
                 return GNOME_Evolution_Calendar_InvalidObject;
         }
 
-
 	status = e_cal_backend_exchange_extract_components (calobj, &method, &comps);
 	if (status != GNOME_Evolution_Calendar_Success)
 		return GNOME_Evolution_Calendar_InvalidObject;
@@ -1761,7 +1755,6 @@ typedef enum {
 	E_CAL_BACKEND_EXCHANGE_BOOKING_PERMISSION_DENIED,
 	E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR
 } ECalBackendExchangeBookingResult;
-
 
 /* start_time and end_time are in e2k_timestamp format. */
 static ECalBackendExchangeBookingResult

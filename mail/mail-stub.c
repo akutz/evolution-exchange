@@ -66,7 +66,6 @@ finalize (GObject *object)
 
 E2K_MAKE_TYPE (mail_stub, MailStub, class_init, NULL, PARENT_TYPE)
 
-
 static void
 free_string_array (GPtrArray *strings)
 {
@@ -580,7 +579,6 @@ mail_stub_read_args (MailStub *stub, ...)
 			break;
 		}
 
-
 		default:
 			g_critical ("%s: Uncaught case (%d)", G_STRLOC, argtype);
 			status = -1;
@@ -686,7 +684,6 @@ mail_stub_return_data (MailStub *stub, CamelStubRetval retval, ...)
 			break;
 		}
 
-
 		default:
 			g_critical ("%s: Uncaught case (%d)", G_STRLOC, argtype);
 			return;
@@ -766,7 +763,6 @@ mail_stub_push_changes (MailStub *stub)
 {
 	camel_stub_marshal_flush (stub->status);
 }
-
 
 /**
  * mail_stub_construct:

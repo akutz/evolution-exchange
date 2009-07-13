@@ -18,7 +18,6 @@
  *
  */
 
-
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -44,9 +43,7 @@
 #include "camel-exchange-store.h"
 #include "camel-exchange-summary.h"
 
-
 #define d(x)
-
 
 static void camel_exchange_journal_class_init (CamelExchangeJournalClass *klass);
 static void camel_exchange_journal_init (CamelExchangeJournal *journal, CamelExchangeJournalClass *klass);
@@ -57,9 +54,7 @@ static CamelDListNode *exchange_entry_load (CamelOfflineJournal *journal, FILE *
 static gint exchange_entry_write (CamelOfflineJournal *journal, CamelDListNode *entry, FILE *out);
 static gint exchange_entry_play (CamelOfflineJournal *journal, CamelDListNode *entry, CamelException *ex);
 
-
 static CamelOfflineJournalClass *parent_class = NULL;
-
 
 CamelType
 camel_exchange_journal_get_type (void)
@@ -407,8 +402,6 @@ exchange_entry_play (CamelOfflineJournal *journal, CamelDListNode *entry, CamelE
 		return -1;
 	}
 }
-
-
 
 CamelOfflineJournal *
 camel_exchange_journal_new (CamelExchangeFolder *folder, const gchar *filename)

@@ -46,7 +46,6 @@ static gboolean exchange_send_to (CamelTransport *transport,
 				  CamelAddress *recipients,
 				  CamelException *ex);
 
-
 static void
 camel_exchange_transport_class_init (CamelExchangeTransportClass *camel_exchange_transport_class)
 {
@@ -81,7 +80,6 @@ camel_exchange_transport_get_type (void)
 
 	return camel_exchange_transport_type;
 }
-
 
 static gboolean
 exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,

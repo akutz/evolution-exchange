@@ -208,7 +208,6 @@ header_load (CamelFolderSummary *summary, FILE *in)
 	exchange->high_article_num = high_article_num;
 	exchange->version = version;
 
-
 	d(g_print ("%s:%s: high_article_num = [%d]\n", G_STRLOC, G_STRFUNC, high_article_num));
 
 	return 0;

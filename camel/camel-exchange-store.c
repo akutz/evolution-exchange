@@ -39,7 +39,6 @@
 #define SUBFOLDER_DIR_NAME_LEN 10
 #define d(x)
 
-
 //static CamelStoreClass *parent_class = NULL;
 static CamelOfflineStoreClass *parent_class = NULL;
 
@@ -595,7 +594,6 @@ exchange_unsubscribe_folder (CamelStore *store, const gchar *folder_name,
 			      CAMEL_STUB_ARG_END);
 }
 
-
 static CamelFolder *
 get_trash (CamelStore *store, CamelException *ex)
 {
@@ -710,7 +708,6 @@ postprocess_tree (CamelFolderInfo *info)
 	camel_folder_info_free (info);
 	return sibling;
 }
-
 
 static CamelFolderInfo *
 exchange_get_folder_info (CamelStore *store, const gchar *top, guint32 flags, CamelException *ex)
