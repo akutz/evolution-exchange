@@ -35,7 +35,7 @@ CFILE_GLOB=$(top_srcdir)/*/*.c
 
 # CFLAGS and LDFLAGS for compiling scan program. Only needed
 # if $(DOC_MODULE).types is non-empty.
-AM_CPPFLAGS =					\
+INCLUDES =					\
 	-I$(top_srcdir)/lib			\
 	-I$(top_builddir)/lib			\
 	$(LIBEXCHANGE_CFLAGS)			\
