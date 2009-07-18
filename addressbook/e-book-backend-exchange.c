@@ -2642,7 +2642,7 @@ e_book_backend_exchange_authenticate_user (EBookBackend *backend,
 		/* FIXME : Check for failures */
 		if (!(bepriv->ctx = exchange_account_get_context (account))) {
 			exchange_account_set_online (account);
-			if(!exchange_account_connect (account, password, &result)) {
+			if (!exchange_account_connect (account, password, &result)) {
 				e_data_book_respond_authenticate_user (book, opid, GNOME_Evolution_Addressbook_AuthenticationFailed);
 				return;
 			}
@@ -2654,7 +2654,7 @@ e_book_backend_exchange_authenticate_user (EBookBackend *backend,
 				g_thread_create ((GThreadFunc) update_cache,
 						  be, FALSE, NULL);
 		}
-		else if (bepriv->is_writable || bepriv->marked_for_offline){
+		else if (bepriv->is_writable || bepriv->marked_for_offline) {
 			/* for personal books we always cache*/
 			g_thread_create ((GThreadFunc) build_cache, be, FALSE, NULL);
 		}

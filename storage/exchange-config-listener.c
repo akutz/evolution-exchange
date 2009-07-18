@@ -335,7 +335,7 @@ migrate_account_esource (EAccount *account,
 			sources = e_source_group_peek_sources (group);
 
 			found_group = TRUE;
-			for(; sources != NULL; sources = g_slist_next (sources)) {
+			for (; sources != NULL; sources = g_slist_next (sources)) {
 				source = E_SOURCE (sources->data);
 
 				ex_set_relative_uri (source, url_string + strlen ("exchange://"));
@@ -470,7 +470,7 @@ requires_relogin (gchar *current_url, gchar *new_url)
 				break;
 			}
 		}
-		else if (current_param_val || new_param_val){
+		else if (current_param_val || new_param_val) {
 			/* check for added or deleted parameter */
 			relogin = TRUE;
 			break;

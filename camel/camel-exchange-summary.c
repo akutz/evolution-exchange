@@ -434,7 +434,7 @@ info_set_flags(CamelMessageInfo *info, guint32 flags, guint32 set)
 		}
 	}
 	else {
-		if(folder && info->uid) {
+		if (folder && info->uid) {
 			if ((flags & set & CAMEL_MESSAGE_DELETED) &&
 			    check_for_trash (folder)) {
 				/* FIXME: should add a separate journal entry for this case. */ ;

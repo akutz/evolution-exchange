@@ -1648,7 +1648,7 @@ check_change_type (gpointer key, gpointer value, gpointer data)
 		e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (icomp));
 
 		calobj = e_cal_component_get_as_string (comp);
-		switch (e_xmlhash_compare (change_data->ehash, uid, calobj)){
+		switch (e_xmlhash_compare (change_data->ehash, uid, calobj)) {
 		case E_XMLHASH_STATUS_SAME:
 			break;
 		case E_XMLHASH_STATUS_NOT_FOUND:
@@ -1936,7 +1936,7 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject
 
 	e_cal_component_get_uid (comp, &uid);
 	e_cal_component_get_attachment_list (comp, &attach_list);
-	for (l = attach_list; l; l = l->next){
+	for (l = attach_list; l; l = l->next) {
 		gchar *mime_type;
 
 		if (!strncmp ((gchar *)l->data, "file://", 7)) {

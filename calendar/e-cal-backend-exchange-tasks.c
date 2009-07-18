@@ -734,7 +734,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 
 		/* Set CLASSIFICATION */
 		if ((str = e2k_properties_get_prop (result->props,
-				E2K_PR_MAPI_SENSITIVITY))){
+				E2K_PR_MAPI_SENSITIVITY))) {
 			if (!strcmp (str, "0"))
 				e_cal_component_set_classification (ecal,
 					E_CAL_COMPONENT_CLASS_PUBLIC);
@@ -1157,7 +1157,7 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 	update_props (comp, &props);
 	e_cal_component_commit_sequence (comp);
 	*calobj = e_cal_component_get_as_string (comp);
-	if (!*calobj){
+	if (!*calobj) {
 		g_object_unref (comp);
 		g_free (from_name);
 		g_free (from_addr);
@@ -1299,7 +1299,7 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	comp_str = e_cal_component_get_as_string (new_comp);
 	icalcomp = icalparser_parse_string (comp_str);
 	g_free (comp_str);
-	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)){
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 		status = put_body(new_comp, e2kctx, NULL, ecalbexcomp->href, from_name, from_addr,
 					attach_body_crlf, boundary, NULL);
 		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {

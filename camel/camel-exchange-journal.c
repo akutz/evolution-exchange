@@ -556,7 +556,7 @@ camel_exchange_journal_transfer (CamelExchangeJournal *exchange_journal, CamelEx
 	type = find_real_source_for_message (source_folder, &real_source_folder,
 					     &real_uid, delete_original);
 
-	if(delete_original) {
+	if (delete_original) {
 		camel_exchange_folder_remove_message (source_folder, original_uid);
 	}
 

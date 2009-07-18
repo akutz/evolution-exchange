@@ -1138,7 +1138,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	e_cal_backend_exchange_cache_lock (cbex);
 	ecomp = get_exchange_comp (cbex, comp_uid);
 
-	if (!ecomp){
+	if (!ecomp) {
 		icalcomponent_free (icalcomp);
 		e_cal_backend_exchange_cache_unlock (cbex);
 		return GNOME_Evolution_Calendar_ObjectNotFound;

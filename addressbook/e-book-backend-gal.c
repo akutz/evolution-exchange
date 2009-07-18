@@ -297,7 +297,7 @@ gal_connect (EBookBackendGAL *bl)
 }
 
 static gboolean
-ldap_reconnect (EBookBackendGAL *bl, EDataBookView *book_view, LDAP **ldap, gint status){
+ldap_reconnect (EBookBackendGAL *bl, EDataBookView *book_view, LDAP **ldap, gint status) {
 
 	if (!ldap || !*ldap)
 		return FALSE;
@@ -1190,7 +1190,7 @@ build_query (EBookBackendGAL *bl, const gchar *query, const gchar *ldap_filter, 
 
 	sexp = e_sexp_new();
 
-	for(i=0;i<sizeof(symbols)/sizeof(symbols[0]);i++) {
+	for (i=0;i<sizeof(symbols)/sizeof(symbols[0]);i++) {
 		e_sexp_add_function(sexp, 0, (gchar *) symbols[i].name,
 				    symbols[i].func, NULL);
 	}
@@ -1531,7 +1531,7 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 							/* call populate function */
 							info->populate_contact_func (contact, member_info, bl, NULL);
 
-							for(i=0; i<count; i++) {
+							for (i=0; i<count; i++) {
 								g_free (*(member_info+i));
 							}
 							g_free (member_info);
@@ -2045,7 +2045,7 @@ parse_page_control(
 	rc = ldap_parse_result( ld, result,
 		&err, NULL, NULL, NULL, &ctrl, 0 );
 
-	if( rc != LDAP_SUCCESS ) {
+	if ( rc != LDAP_SUCCESS ) {
 		ldap_perror(ld, "ldap_parse_result");
 		exit( EXIT_FAILURE );
 	}
@@ -2054,7 +2054,7 @@ parse_page_control(
 		fprintf( stderr, "Error: %s (%d)\n", ldap_err2string(err), err );
 	}
 
-	if( ctrl ) {
+	if ( ctrl ) {
 		/* Parse the control value
 		 * searchResult ::= SEQUENCE {
 		 *		size	INTEGER (0..maxInt),
@@ -2073,13 +2073,13 @@ parse_page_control(
 		ber_dupbv( cookie, &servercookie );
 		(void) ber_free( ber, 1 );
 
-		if( tag == LBER_ERROR ) {
+		if ( tag == LBER_ERROR ) {
 			fprintf( stderr,
 				"Paged results response control could not be decoded.\n");
 			return EXIT_FAILURE;
 		}
 
-		if( entriesLeft < 0 ) {
+		if ( entriesLeft < 0 ) {
 			fprintf( stderr,
 				"Invalid entries estimate in paged results response.\n");
 			return EXIT_FAILURE;
@@ -2129,7 +2129,7 @@ static gint dosearch(
 		sctrls, cctrls, timeout, size /*LDAP_NO_LIMIT*/, &msgid );
 	g_mutex_unlock (bl->priv->ldap_lock);
 
-	if( rc != LDAP_SUCCESS ) {
+	if ( rc != LDAP_SUCCESS ) {
 		return( rc );
 	}
 
@@ -2147,7 +2147,7 @@ static gint dosearch(
 			EContact *contact;
 			const gchar *uid;
 
-			switch( ldap_msgtype( msg ) ) {
+			switch ( ldap_msgtype( msg ) ) {
 			case LDAP_RES_SEARCH_ENTRY:
 				count ++;
 				g_mutex_unlock (bl->priv->ldap_lock);
@@ -2352,7 +2352,7 @@ authenticate_user (EBookBackend *backend,
 		/* FIXME : Check for failures */
 		if (!exchange_account_get_context (account)) {
 			exchange_account_set_online (account);
-			if(!exchange_account_connect (account, password, &result)) {
+			if (!exchange_account_connect (account, password, &result)) {
 				d(printf("%s:%s: failed\n", G_STRLOC, G_STRFUNC));
 				e_data_book_respond_authenticate_user (book, opid, GNOME_Evolution_Addressbook_AuthenticationFailed);
 				return;

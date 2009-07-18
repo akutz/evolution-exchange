@@ -184,7 +184,7 @@ refresh_info (CamelFolder *folder, CamelException *ex)
 				 CAMEL_STUB_ARG_RETURN,
 				 CAMEL_STUB_ARG_UINT32, &unread_count,
 				 CAMEL_STUB_ARG_UINT32, &visible_count,
-				 CAMEL_STUB_ARG_END)){
+				 CAMEL_STUB_ARG_END)) {
 		g_print("\n Error syncing up the counts");
 	}
 
@@ -453,7 +453,7 @@ get_message (CamelFolder *folder, const gchar *uid, CamelException *ex)
 	camel_object_unref (CAMEL_OBJECT (filtered_stream));
 	camel_mime_message_set_source (msg, exch->source);
 
-	if(camel_medium_get_header (CAMEL_MEDIUM (msg), "Sender")) {
+	if (camel_medium_get_header (CAMEL_MEDIUM (msg), "Sender")) {
 		list_headers = g_strsplit (MAILING_LIST_HEADERS, " ", 0);
 		if (list_headers) {
 			gint i = 0;

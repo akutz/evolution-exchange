@@ -2875,7 +2875,7 @@ get_folder_info_data (MailStub *stub, const gchar *top, guint32 store_flags,
 					if (!strcmp (type, "mail")) {
 						unread_count = e_folder_get_unread_count (folder);
 					}
-					else if(!folder_flags) {
+					else if (!folder_flags) {
 						continue;
 					}
 					break;
