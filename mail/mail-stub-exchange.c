@@ -401,13 +401,17 @@ message_removed (MailStub *stub, MailStubExchangeFolder *mfld, const gchar *href
 	MailStubExchangeMessage *mmsg;
 	guint index;
 
+	g_static_rec_mutex_lock (&g_changed_msgs_mutex);
 	mmsg = g_hash_table_lookup (mfld->messages_by_href, href);
-	if (!mmsg)
+	if (!mmsg) {
+		g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
 		return;
+	}
 	index = find_message_index (mfld, mmsg->seq);
 	g_return_if_fail (index != -1);
 
 	message_remove_at_index (stub, mfld, index);
+	g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
 }
 
 static void
@@ -1134,12 +1138,16 @@ sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld)
 
 	e2k_results_free (results, nresults);
 
+	g_static_rec_mutex_lock (&g_changed_msgs_mutex);
 	if (visible_count >= mfld->messages->len) {
-		if (mfld->deleted_count == deleted_count)
+		if (mfld->deleted_count == deleted_count) {
+			g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
 			return FALSE;
+		}
 
 		if (mfld->deleted_count == 0) {
 			mfld->deleted_count = deleted_count;
+			g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
 			return FALSE;
 		}
 	}
@@ -1199,6 +1207,7 @@ sync_deletions (MailStubExchange *mse, MailStubExchangeFolder *mfld)
 	}
 
 	g_hash_table_destroy (known_messages);
+	g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
 
 	if (changes)
 		mail_stub_push_changes (stub);
@@ -1427,6 +1436,7 @@ refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 			       CAMEL_STUB_ARG_FOLDER, mfld->name,
 			       CAMEL_STUB_ARG_END);
 
+	g_static_rec_mutex_lock (&g_changed_msgs_mutex);
 	qsort (messages->data, messages->len,
 	       sizeof (rm), refresh_message_compar);
 	for (i = 0; i < messages->len; i++) {
@@ -1486,6 +1496,7 @@ refresh_folder_internal (MailStub *stub, MailStubExchangeFolder *mfld,
 			       CAMEL_STUB_ARG_END);
 
 	mfld->scanned = TRUE;
+	g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
 	folder_changed (mfld);
 
 	if (background)
@@ -1580,6 +1591,7 @@ expunge_uids (MailStub *stub, const gchar *folder_name, GPtrArray *uids)
 	if (!mfld)
 		return;
 
+	g_static_rec_mutex_lock (&g_changed_msgs_mutex);
 	hrefs = g_ptr_array_new ();
 	for (i = 0; i < uids->len; i++) {
 		mmsg = find_message (mfld, uids->pdata[i]);
@@ -1593,6 +1605,7 @@ expunge_uids (MailStub *stub, const gchar *folder_name, GPtrArray *uids)
 		 */
 		g_ptr_array_free (hrefs, TRUE);
 		mail_stub_return_ok (stub);
+		g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
 		return;
 	}
 
@@ -1616,6 +1629,7 @@ expunge_uids (MailStub *stub, const gchar *folder_name, GPtrArray *uids)
 		mail_stub_return_progress (stub, ndeleted * 100 / hrefs->len);
 	}
 	status = e2k_result_iter_free (iter);
+	g_static_rec_mutex_unlock (&g_changed_msgs_mutex);
 
 	mail_stub_return_data (stub, CAMEL_STUB_RETVAL_THAW_FOLDER,
 			       CAMEL_STUB_ARG_FOLDER, mfld->name,
