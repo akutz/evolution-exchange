@@ -1,0 +1,1057 @@
+# translation of evolution-exchange.gnome-2-26.po to catalan
+# Catalan translation of evolution-exchange package
+# Copyright © 2004, 2005, 2006, 2007, 2009 Free Software Foundation, Inc.
+# This file is distributed under the same license as the evolution-exchange
+#
+# Notes de traducció:
+#
+# Xavier Conde Rueda <xavi.conde@gmail.com>, 2004, 2005, 2006, 2007.
+# David Planella Molas <david.planella@googlemail.com>, 2007, 2008.
+# Carles Ferrando Garcia <carles.ferrando@gmail.com>, 2009.
+# Active Directory - no es tradueix; a vegades s'abrevia com a AD
+# Global Address List - llista global d'adreces; a vegades s'abrevia
+#                       com a GAL. No té res a veure amb el grup
+#                       antiterrorista.
+msgid ""
+msgstr ""
+"Project-Id-Version: evolution-exchange.gnome-2-26\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-08-14 18:37+0200\n"
+"PO-Revision-Date: 2009-08-14 13:01+0200\n"
+"Last-Translator: Carles Ferrando Garcia <carles.ferrando@gmail.com>\n"
+"Language-Team: catalan <tradgnome@softcatala.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
+msgid "Specifies the time interval to refresh the GAL Cache."
+msgstr ""
+"Especifica l'interval de temps per a actualitzar la memòria cau de la GAL"
+
+# FIXME: això s'hauria de formular millor (dpm)
+#: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+msgid ""
+"This key specifies the number of days interval between the GAL cache "
+"refresh. Set this value to zero, if you don't want to update GAL and use the "
+"current cache forever. This will work only if you have enabled offline "
+"caching for GAL."
+msgstr ""
+"Esta clau especifica l'interval de dies entre actualitzacions de la memòria "
+"cau de la GAL. Establiu el seu valor a zero si voleu utilitzar la memòria "
+"cau actual sempre, en lloc d'actualitzar la GAL. Això només funcionarà si "
+"heu habilitat la memòria cau de la GAL per a treballar fora de línia."
+
+# Netscape_4.7->String:RESDLL.DLL
+#: ../addressbook/e-book-backend-exchange.c:2283
+#: ../addressbook/e-book-backend-gal.c:1885 ../storage/exchange-storage.c:134
+msgid "Searching..."
+msgstr "S'està cercant..."
+
+#: ../addressbook/e-book-backend-gal.c:308
+#: ../addressbook/e-book-backend-gal.c:329
+msgid "Reconnecting to LDAP server..."
+msgstr "S'està tornant a connectar amb el servidor LDAP..."
+
+#: ../addressbook/e-book-backend-gal.c:1646
+msgid "Receiving LDAP search results..."
+msgstr "S'estan rebent els resultats de la cerca LDAP..."
+
+#: ../addressbook/e-book-backend-gal.c:1916
+msgid "Error performing search"
+msgstr "S'ha produït un error en cercar"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:2088
+#, c-format
+msgid ""
+"Unable to schedule resource '%s' for recurring meetings.\n"
+"You must book each meeting separately."
+msgstr ""
+"No s'ha pogut planificar el recurs «%s» per a reunions periòdiques.\n"
+"Haureu de reservar cada reunió per separat."
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:2106
+#, c-format
+msgid "The resource '%s' is busy during the selected time period."
+msgstr "Els recurs «%s» està ocupat durant el període de temps seleccionat."
+
+#: ../calendar/e-cal-backend-exchange.c:426
+msgid "Authentication failed"
+msgstr "Ha fallat l'autenticació"
+
+#: ../calendar/e-cal-backend-exchange.c:478
+msgid "Could not find the calendar"
+msgstr "No es pot trobar el calendari"
+
+#: ../camel/camel-exchange-folder.c:205
+msgid "You cannot expunge in offline mode."
+msgstr "No es pot buidar en mode fora de línia."
+
+#: ../camel/camel-exchange-folder.c:236
+msgid "No Subject"
+msgstr "Sense assumpte"
+
+#: ../camel/camel-exchange-folder.c:399
+msgid "This message is not available in offline mode."
+msgstr "Este missatge no està disponible en mode fora de línia."
+
+#: ../camel/camel-exchange-folder.c:634
+msgid "Moving messages"
+msgstr "S'estan movent els missatges"
+
+#: ../camel/camel-exchange-folder.c:635
+msgid "Copying messages"
+msgstr "S'estan copiant els missatges"
+
+#: ../camel/camel-exchange-folder.c:1012
+#, c-format
+msgid "Could not create directory %s: %s"
+msgstr "No s'ha pogut crear el directori %s: %s"
+
+#: ../camel/camel-exchange-folder.c:1022
+#, c-format
+msgid "Could not load summary for %s"
+msgstr "No s'ha pogut carregar el resum per a %s"
+
+#: ../camel/camel-exchange-folder.c:1030
+#, c-format
+msgid "Could not create cache for %s"
+msgstr "No s'ha pogut crear la memòria cau per a %s"
+
+#: ../camel/camel-exchange-folder.c:1040
+#, c-format
+msgid "Could not create journal for %s"
+msgstr "No s'ha pogut crear el diari per a %s"
+
+#: ../camel/camel-exchange-folder.c:1091
+msgid "Scanning for changed messages"
+msgstr "S'estan cercant els missatges canviats"
+
+#: ../camel/camel-exchange-folder.c:1124
+msgid "Fetching summary information for new messages"
+msgstr "S'està recollint la informació de resum per als missatges nous"
+
+#: ../camel/camel-exchange-journal.c:338
+msgid "No folder name found\n"
+msgstr "No s'ha trobat el nom de carpeta\n"
+
+#: ../camel/camel-exchange-journal.c:371 ../mail/mail-stub-exchange.c:3079
+#: ../mail/mail-stub-exchange.c:3129 ../mail/mail-stub-exchange.c:3259
+#: ../mail/mail-stub-exchange.c:3286 ../mail/mail-stub-exchange.c:3339
+#: ../mail/mail-stub-exchange.c:3361
+msgid "Folder doesn't exist"
+msgstr "La carpeta no existeix"
+
+#: ../camel/camel-exchange-journal.c:433
+msgid "Cannot append message in offline mode: cache unavailable"
+msgstr ""
+"No es pot afegir el missatge en mode fora de línia: la memòria cau no està "
+"disponible"
+
+#: ../camel/camel-exchange-journal.c:449
+#, c-format
+msgid "Cannot append message in offline mode: %s"
+msgstr "No es pot afegir el missatge en mode fora de línia: %s"
+
+#: ../camel/camel-exchange-provider.c:55
+msgid "Secure or Plaintext Password"
+msgstr "Contrasenya segura o bé sense xifrar"
+
+#: ../camel/camel-exchange-provider.c:56
+#: ../camel/camel-exchange-provider.c:141
+msgid "Plaintext Password"
+msgstr "Contrasenya sense xifrar"
+
+#. i18n: "Secure Password Authentication" is an Outlookism
+#: ../camel/camel-exchange-provider.c:57
+#: ../camel/camel-exchange-provider.c:130
+msgid "Secure Password"
+msgstr "Contrasenya segura"
+
+#: ../camel/camel-exchange-provider.c:63
+msgid "Checking for New Mail"
+msgstr "Comprovació de correu nou"
+
+#: ../camel/camel-exchange-provider.c:65
+msgid "C_heck for new messages in all folders"
+msgstr "Compro_va els missatges nous a totes les carpetes"
+
+#. i18n: the '_' should appear before the same letter it
+#. does in the evolution:mail-config.glade "User_name"
+#. translation (or not at all)
+#: ../camel/camel-exchange-provider.c:73
+msgid "Windows User_name:"
+msgstr "_Nom d'usuari del Windows:"
+
+# Active Directory (AD) no es tradueix (dpm)
+#. i18n: GAL is an Outlookism, AD is a Windowsism
+#: ../camel/camel-exchange-provider.c:78
+msgid "Global Address List / Active Directory"
+msgstr "Llista d'adreces global / Active Directory"
+
+#. i18n: "Global Catalog" is a Windowsism, but it's a
+#. technical term and may not have translations?
+#: ../camel/camel-exchange-provider.c:82
+msgid "_Global Catalog server name:"
+msgstr "Nom del servidor de catàleg _global:"
+
+#: ../camel/camel-exchange-provider.c:84
+#, c-format
+msgid "_Limit number of GAL responses: %s"
+msgstr "Quantitat _límit de respostes de la GAL: %s"
+
+#: ../camel/camel-exchange-provider.c:86
+msgid "Authentication _Type:"
+msgstr "_Tipus d'autenticació:"
+
+#: ../camel/camel-exchange-provider.c:88
+msgid "Allow _browsing of the GAL until download limit is reached"
+msgstr ""
+"Permet _navegar per la GAL fins que s'assolisca el límit de baixada establit"
+
+#: ../camel/camel-exchange-provider.c:91
+msgid "Options"
+msgstr "Opcions"
+
+#: ../camel/camel-exchange-provider.c:93
+#, c-format
+msgid "_Password Expiry Warning period: %s"
+msgstr "_Període d'avís de venciment de la contrasenya: %s"
+
+#: ../camel/camel-exchange-provider.c:95
+msgid "Automatically synchroni_ze account locally"
+msgstr "Sincronitza localment el compte de manera _automàtica"
+
+#. i18n: copy from evolution:camel-imap-provider.c
+#: ../camel/camel-exchange-provider.c:98
+msgid "_Apply filters to new messages in Inbox on this server"
+msgstr ""
+"_Aplica els filtres als missatges nous de la safata d'entrada en este "
+"servidor"
+
+#: ../camel/camel-exchange-provider.c:100
+msgid "Check new messages for _Junk contents"
+msgstr "_Comprova si hi ha correu brossa al contingut dels missatges nous"
+
+#: ../camel/camel-exchange-provider.c:102
+msgid "Only check for Junk messag_es in the Inbox folder"
+msgstr "Només comprova els missatges _brossa a la safata d'entrada"
+
+#: ../camel/camel-exchange-provider.c:112
+msgid "Microsoft Exchange"
+msgstr "Microsoft Exchange"
+
+#: ../camel/camel-exchange-provider.c:114
+msgid "For handling mail (and other data) on Microsoft Exchange servers"
+msgstr ""
+"Per gestionar el correu (i altres dades) en servidors Microsoft Exchange"
+
+#. i18n: "NTLM" probably doesn't translate
+#: ../camel/camel-exchange-provider.c:133
+msgid ""
+"This option will connect to the Exchange server using secure password (NTLM) "
+"authentication."
+msgstr ""
+"Amb esta opció es connectarà al servidor Exchange emprant autenticació amb "
+"contrasenya segura (NTLM)."
+
+#: ../camel/camel-exchange-provider.c:143
+msgid ""
+"This option will connect to the Exchange server using standard plaintext "
+"password authentication."
+msgstr ""
+"Amb esta opció es connectarà al servidor Exchange utilitzant autenticació "
+"amb contrasenya sense xifrar."
+
+#: ../camel/camel-exchange-store.c:313
+#, c-format
+msgid "Exchange server %s"
+msgstr "Servidor Exchange %s"
+
+#: ../camel/camel-exchange-store.c:316
+#, c-format
+msgid "Exchange account for %s on %s"
+msgstr "Compte Exchange per a %s a %s"
+
+#: ../camel/camel-exchange-store.c:398
+msgid "Evolution Exchange backend process"
+msgstr "Procés de rerefons per a Exchange de l'Evolution"
+
+#: ../camel/camel-exchange-store.c:441
+msgid ""
+"Could not authenticate to server. (Password incorrect?)\n"
+"\n"
+msgstr ""
+"No es pot autenticar al servidor. Potser la contrasenya és incorrecta.\n"
+"\n"
+
+#: ../camel/camel-exchange-store.c:494
+#, c-format
+msgid "No such folder %s"
+msgstr "No existeix la carpeta %s"
+
+#: ../camel/camel-exchange-store.c:571
+msgid "Cannot subscribe folder in offline mode."
+msgstr "No es pot subscriure a una carpeta en mode fora de línia."
+
+#: ../camel/camel-exchange-store.c:588
+msgid "Cannot unsubscribe folder in offline mode."
+msgstr ""
+"No es pot cancel·lar la subscripció a una carpeta en mode fora de línia."
+
+#: ../camel/camel-exchange-store.c:724
+msgid "Cannot get folder info in offline mode."
+msgstr "No es pot obtindre la carpeta estant en mode fora de línia."
+
+#: ../camel/camel-exchange-store.c:797
+msgid "Cannot create folder in offline mode."
+msgstr "No es pot crear una carpeta en mode en mode fora de línia."
+
+#: ../camel/camel-exchange-store.c:824
+msgid "Cannot delete folder in offline mode."
+msgstr "No es pot suprimir la carpeta en mode en mode fora de línia."
+
+#: ../camel/camel-exchange-store.c:848
+msgid "Cannot rename folder in offline mode."
+msgstr "No es pot reanomenar la carpeta en mode en mode fora de línia."
+
+#: ../camel/camel-exchange-transport.c:109
+msgid "Exchange transport can only be used with Exchange mail source"
+msgstr ""
+"El transport Exchange només es pot utilitzar amb una font de correu "
+"d'Exchange"
+
+#: ../camel/camel-exchange-transport.c:120
+msgid "Cannot send message: one or more invalid recipients"
+msgstr "No s'ha pogut enviar el missatge: un o més destinataris són invàlids"
+
+#: ../camel/camel-exchange-transport.c:130
+msgid "Could not find 'From' address in message"
+msgstr "No s'ha pogut trobar l'adreça «De» al missatge"
+
+#: ../camel/camel-stub.c:164 ../camel/camel-stub.c:228
+#, c-format
+msgid "Could not create socket: %s"
+msgstr "No s'ha pogut crear el sòcol: %s"
+
+#: ../camel/camel-stub.c:182
+#, c-format
+msgid "Could not connect to %s: Please restart Evolution"
+msgstr "No s'ha pogut connectar a %s: reinicieu l'Evolution"
+
+#: ../camel/camel-stub.c:187 ../camel/camel-stub.c:246
+#, c-format
+msgid "Could not connect to %s: %s"
+msgstr "No s'ha pogut connectar a %s: %s"
+
+#: ../camel/camel-stub.c:211
+#, c-format
+msgid "Count not read file '%s': %s"
+msgstr "No s'ha pogut llegir el fitxer «%s»: %s"
+
+#: ../camel/camel-stub.c:219
+#, c-format
+msgid "Wrong size file '%s'"
+msgstr "La mida del fitxer «%s» no és correcta"
+
+#: ../camel/camel-stub.c:281
+#, c-format
+msgid "Path too long: %s"
+msgstr "El camí és massa llarg: %s"
+
+#: ../camel/camel-stub.c:316
+#, c-format
+msgid "Could not start status thread: %s"
+msgstr "No s'ha pogut iniciar el fil d'estat: %s"
+
+#: ../camel/camel-stub.c:570
+#, c-format
+msgid "Lost connection to %s"
+msgstr "S'ha perdut la connexió a %s"
+
+#: ../camel/camel-stub.c:574
+#, c-format
+msgid "Error communicating with %s: %s"
+msgstr "S'ha produït un error en comunicar amb %s: %s"
+
+#: ../mail/mail-stub-exchange.c:268 ../mail/mail-stub-exchange.c:968
+msgid "No such folder"
+msgstr "No existeix esta carpeta"
+
+#: ../mail/mail-stub-exchange.c:291 ../mail/mail-stub-exchange.c:3056
+#: ../mail/mail-stub-exchange.c:3096 ../mail/mail-stub-exchange.c:3263
+#: ../mail/mail-stub-exchange.c:3313 ../mail/mail-stub-exchange.c:3376
+msgid "Permission denied"
+msgstr "Permís denegat"
+
+#: ../mail/mail-stub-exchange.c:790 ../mail/mail-stub-exchange.c:882
+msgid "Could not open folder"
+msgstr "No s'ha pogut obrir la carpeta"
+
+#: ../mail/mail-stub-exchange.c:876 ../mail/mail-stub-exchange.c:898
+msgid "Could not open folder: Permission denied"
+msgstr "No s'ha pogut obrir la carpeta: permís denegat"
+
+#: ../mail/mail-stub-exchange.c:977
+msgid "Could not create folder."
+msgstr "No s'ha pogut crear la carpeta."
+
+#: ../mail/mail-stub-exchange.c:1065
+msgid "Could not open Deleted Items folder"
+msgstr "No s'ha pogut obrir la carpeta Elements suprimits"
+
+#: ../mail/mail-stub-exchange.c:1385 ../mail/mail-stub-exchange.c:1425
+msgid "Could not get new messages"
+msgstr "No s'han pogut obtindre els nous missatges"
+
+#: ../mail/mail-stub-exchange.c:1640
+msgid "Could not empty Deleted Items folder"
+msgstr "No s'ha pogut buidar la carpeta Elements suprimits"
+
+#: ../mail/mail-stub-exchange.c:1642
+msgid "Permission denied. Could not delete certain messages."
+msgstr "S'ha denegat el permís. No s'han pogut suprimir determinats missatges."
+
+#: ../mail/mail-stub-exchange.c:1715
+msgid "Could not append message; mailbox is over quota"
+msgstr ""
+"No s'ha pogut afegir el missatge. La bústia de correu ha superat la quota"
+
+#: ../mail/mail-stub-exchange.c:1716
+msgid "Could not append message"
+msgstr "No s'ha pogut afegir el missatge"
+
+#: ../mail/mail-stub-exchange.c:2478
+msgid "No such message"
+msgstr "No existeix el missatge"
+
+#: ../mail/mail-stub-exchange.c:2559
+msgid "Message has been deleted"
+msgstr "S'ha suprimit el missatge"
+
+#: ../mail/mail-stub-exchange.c:2561
+msgid "Error retrieving message"
+msgstr "S'ha produït un error en obtindre el missatge"
+
+#: ../mail/mail-stub-exchange.c:2603
+msgid "Mailbox does not support full-text searching"
+msgstr "La bústia de correu no implementa la cerca de text complet"
+
+#: ../mail/mail-stub-exchange.c:2706
+msgid "Unable to move/copy messages"
+msgstr "No es pot moure ni copiar missatges"
+
+#: ../mail/mail-stub-exchange.c:2973
+msgid "No mail submission URI for this mailbox"
+msgstr "No hi ha cap URI per enviar correu per a esta bústia"
+
+#: ../mail/mail-stub-exchange.c:3007
+msgid "Server won't accept mail via Exchange transport"
+msgstr "El servidor no acceptarà correu mitjançant transport Exchange"
+
+#: ../mail/mail-stub-exchange.c:3009
+#, c-format
+msgid ""
+"Your account does not have permission to use <%s>\n"
+"as a From address."
+msgstr ""
+"El vostre compte no té permís per a emprar <%s>\n"
+"com a adreça del remitent."
+
+#: ../mail/mail-stub-exchange.c:3021
+msgid ""
+"Could not send message.\n"
+"This might mean that your account is over quota."
+msgstr ""
+"No s'ha pogut enviar el missatge.\n"
+"Això podria significar que el vostre compte ha superat la seua quota."
+
+#: ../mail/mail-stub-exchange.c:3025
+msgid "Could not send message"
+msgstr "No s'ha pogut enviar el missatge"
+
+#: ../mail/mail-stub-exchange.c:3048 ../mail/mail-stub-exchange.c:3101
+#: ../mail/mail-stub-exchange.c:3267 ../mail/mail-stub-exchange.c:3318
+#: ../mail/mail-stub-exchange.c:3382
+msgid "Generic error"
+msgstr "Error genèric"
+
+#: ../mail/mail-stub-exchange.c:3052
+msgid "Folder already exists"
+msgstr "La carpeta ja existeix"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
+msgid "Evolution Addressbook Exchange backend"
+msgstr "Rerefons Exchange per a la llibreta d'adreces de l'Evolution"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
+msgid "Evolution Calendar Exchange backend"
+msgstr "Rerefons Exchange per al calendari de l'Evolution"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+#: ../storage/main.c:219
+msgid "Evolution Connector for Microsoft Exchange"
+msgstr "Evolution Connector per al Microsoft Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.c:223
+#, c-format
+msgid ""
+"Could not connect to the Exchange server.\n"
+"Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
+msgstr ""
+"No es pot connectar al servidor Exchange.\n"
+"Assegureu-vos que la URL és correcta. Podeu provar «%s» en comptes de «%s»."
+
+#: ../storage/exchange-autoconfig-wizard.c:231
+msgid ""
+"Could not locate Exchange server.\n"
+"Make sure the server name is spelled correctly and try again."
+msgstr ""
+"No es pot trobar el servidor Exchange.\n"
+"Assegureu-vos que el nom del servidor està ben escrit, i proveu-ho de nou."
+
+#: ../storage/exchange-autoconfig-wizard.c:240
+msgid ""
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again."
+msgstr ""
+"No es pot autenticar al servidor Exchange.\n"
+"Assegureu-vos que el nom d'usuari i la contrasenya són correctes."
+
+#: ../storage/exchange-autoconfig-wizard.c:247
+#, c-format
+msgid ""
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again.\n"
+"\n"
+"You may need to specify the Windows domain name as part of your username "
+"(eg, \"MY-DOMAIN\\%s\")."
+msgstr ""
+"No es pot autenticar al servidor Exchange.\n"
+"Assegureu-vos que el nom d'usuari i la contrasenya són correctes.\n"
+"Potser heu d'especificar el nom de domini de Windows com a part del vostre "
+"nom d'usuari, per exemple «EL-MEU-DOMINI\\%s»."
+
+#: ../storage/exchange-autoconfig-wizard.c:259
+msgid ""
+"Could not find OWA data at the indicated URL.\n"
+"Make sure the URL is correct and try again."
+msgstr ""
+"No s'han trobat dades OWA a la URL indicada.\n"
+"Assegureu-vos que la URL és correcta i proveu-ho de nou."
+
+#: ../storage/exchange-autoconfig-wizard.c:266
+msgid ""
+"Evolution Connector for Microsoft Exchange requires access to certain "
+"functionality on the Exchange server that appears to be disabled or "
+"blocked.  (This is usually unintentional.)  Your Exchange administrator will "
+"need to enable this functionality in order for you to be able to use the "
+"Evolution Connector.\n"
+"\n"
+"For information to provide to your Exchange administrator, please follow the "
+"link below:"
+msgstr ""
+"L'Evolution Connector ha accedir a certa funcionalitat en el servidor "
+"d'Exchange que pareix estar inhabilitada o blocada (normalment no és "
+"intencional). El vostre administrador de l'Exchange haurà d'habilitar-ho "
+"perquè pugueu utilitzar l'Evolution Connector.\n"
+"\n"
+"En l'enllaç següent trobareu la informació que heu de proporcionar al vostre "
+"administrador de l'Exchange:"
+
+#: ../storage/exchange-autoconfig-wizard.c:288
+msgid ""
+"The Exchange server URL you provided is for an Exchange 5.5 server. "
+"Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
+"and 2003 only."
+msgstr ""
+"L'URL del servidor Exchange és per a un servidor Exchange 5.5. L'Evolution "
+"Connector funciona només amb el Microsoft Exchange 2000 i 2003."
+
+#: ../storage/exchange-autoconfig-wizard.c:302
+msgid ""
+"Could not configure Exchange account because an unknown error occurred. "
+"Check the URL, username, and password, and try again."
+msgstr ""
+"No s'ha pogut configurar el compte d'Exchange degut a un error desconegut. "
+"Comproveu la URL, el nom d'usuari i la contrasenya."
+
+#: ../storage/exchange-autoconfig-wizard.c:346
+#, c-format
+msgid ""
+"Could not authenticate to the Global Catalog server. You may need to go back "
+"and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
+"\\%s\")."
+msgstr ""
+"No s'ha pogut autenticar al servidor de catàleg global. Hauríeu de tornar "
+"arrere i especificar el nom de domini de Windows com a part del vostre nom "
+"d'usuari (p.e «EL-MEU-DOMINI\\%s»)."
+
+#: ../storage/exchange-autoconfig-wizard.c:353
+msgid ""
+"Could not connect to specified server.\n"
+"Please check the server name and try again."
+msgstr ""
+"No s'ha pogut connectar amb el servidor especificat.\n"
+"Comproveu el nom del servidor."
+
+#: ../storage/exchange-autoconfig-wizard.c:390
+#: ../storage/exchange-autoconfig-wizard.c:394
+msgid "Unknown"
+msgstr "Desconegut"
+
+#: ../storage/exchange-autoconfig-wizard.c:459
+msgid ""
+"Configuration system error.\n"
+"Unable to create new account."
+msgstr ""
+"Error del sistema de configuració.\n"
+"No es pot crear el nou compte."
+
+#: ../storage/exchange-autoconfig-wizard.c:473
+msgid "You may only configure a single Exchange account"
+msgstr "Només podeu configurar un sol compte d'Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:1
+#: ../storage/exchange-change-password.glade.h:1
+msgid "*"
+msgstr "*"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:2
+msgid "Configuration Failed"
+msgstr "Ha fallat la configuració"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:3
+msgid "Done"
+msgstr "Fet"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:4
+msgid "Email Address:"
+msgstr "Adreça de correu electrònic:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:5
+msgid "Evolution Connector for Microsoft Exchange Configuration"
+msgstr "Evolution Connector per la configuració del Microsoft Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:6
+msgid ""
+"Evolution Connector for Microsoft Exchange can use account information from "
+"your existing Outlook Web Access (OWA) account.\n"
+"\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
+msgstr ""
+"L'Evolution Connector pot utilitzar informació de compte del vostre compte "
+"Outlook Web Access (OWA).\n"
+"\n"
+"Introduïu l'adreça (URL) del vostre lloc OWA, el nom d'usuari, la "
+"contrasenya i feu clic a «Avant».\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:10
+msgid ""
+"Evolution Connector for Microsoft Exchange could not find the Global Catalog "
+"replica for your site. Please enter the name of your Global Catalog server. "
+"You may need to ask your system administrator for the correct value.\n"
+msgstr ""
+"L'Evolution Connector no pot trobar la rèplica del catàleg global per al "
+"vostre lloc web. Introduïu el nom del vostre servidor de catàleg global. "
+"Potser haureu de demanar-ho al vostre administrador del sistema.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:12
+msgid ""
+"Evolution Connector for Microsoft Exchange has encountered a problem "
+"configuring your Exchange account.\n"
+msgstr ""
+"L'Evolution Connector ha trobat un problema en configurar el vostre compte "
+"d'Exchange.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:14
+msgid "Exchange Configuration"
+msgstr "Configuració de l'Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:15
+msgid "Full Name:"
+msgstr "Nom complet:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:16
+msgid "GC Server:"
+msgstr "Servidor GC:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:17
+msgid "Make this my default account"
+msgstr "Estableix com a compte predeterminat"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:18
+msgid "OWA URL:"
+msgstr "OWA URL:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:19
+msgid "Password:"
+msgstr "Contrasenya:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:20
+msgid "Remember this password"
+msgstr "Recorda esta contrasenya"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:21
+msgid "Username:"
+msgstr "Nom d'usuari:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:22
+msgid "Welcome"
+msgstr "Vos donem la benvinguda"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:23
+msgid ""
+"Welcome to Evolution Connector for Microsoft Exchange.\n"
+"The next few screens will help you configure Evolution\n"
+"to connect to your Exchange account.\n"
+"\n"
+"Please click the \"Forward\" button to continue."
+msgstr ""
+"Vos donem la benvinguda a l'Evolution Connector per al\n"
+"Microsoft Exchange. A les pantalles següents configurareu\n"
+"l'Evolution per a connectar-vos al vostre compte d'Exchange.\n"
+"\n"
+"Feu clic a «Avant» per continuar."
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:28
+msgid ""
+"Your Connector account is now ready to use. Click the \"Apply\" button to "
+"save your\n"
+"settings."
+msgstr ""
+"El vostre compte Connector ja està llest. Cliqueu el botó  «Aplica» per alçar "
+"els canvis."
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:30
+msgid ""
+"Your account information is as follows. Please correct any errors, then "
+"click \"Forward\".\n"
+msgstr ""
+"Esta és la informació del vostre compte. Corregiu qualsevol error, i després "
+"premeu «Avant».\n"
+
+#. User entered a wrong existing
+#. * password. Prompt him again.
+#.
+#: ../storage/exchange-change-password.c:125
+msgid ""
+"The current password does not match the existing password for your account. "
+"Please enter the correct password"
+msgstr ""
+"La contrasenya actual és diferent de la contrasenya existent per al vostre "
+"compte. Introduïu la contrasenya correcta"
+
+#: ../storage/exchange-change-password.c:132
+msgid "The two passwords do not match. Please re-enter the passwords."
+msgstr ""
+"Les dues contrasenyes són diferents. Torneu a introduir les contrasenyes."
+
+#: ../storage/exchange-change-password.glade.h:2
+msgid "Change Password"
+msgstr "Canvia la contrasenya"
+
+#: ../storage/exchange-change-password.glade.h:3
+msgid "Confirm Password:"
+msgstr "Confirmeu la contrasenya:"
+
+#: ../storage/exchange-change-password.glade.h:4
+msgid "Current Password:"
+msgstr "Contrasenya actual:"
+
+#: ../storage/exchange-change-password.glade.h:5
+msgid "New Password:"
+msgstr "Contrasenya nova:"
+
+#: ../storage/exchange-change-password.glade.h:6
+msgid "Your current password has expired. Please change your password now."
+msgstr ""
+"La vostra contrasenya actual ha caducat. Canvieu ara mateix la vostra "
+"contrasenya."
+
+#: ../storage/exchange-delegates.glade.h:1
+msgid "Author (read, create)"
+msgstr "Autor (lectura, creació)"
+
+#: ../storage/exchange-delegates.glade.h:2
+msgid "C_alendar:"
+msgstr "C_alendari:"
+
+#: ../storage/exchange-delegates.glade.h:3
+msgid "Co_ntacts:"
+msgstr "Co_ntactes:"
+
+#: ../storage/exchange-delegates.glade.h:4
+msgid "Delegate Permissions"
+msgstr "Permisos del delegat"
+
+#: ../storage/exchange-delegates.glade.h:5
+msgid "Delegates"
+msgstr "Delegats"
+
+#: ../storage/exchange-delegates.glade.h:6
+msgid "Editor (read, create, edit)"
+msgstr "Editor (llegir, crear, editar)"
+
+#: ../storage/exchange-delegates.glade.h:7
+msgid "None"
+msgstr "Cap"
+
+#: ../storage/exchange-delegates.glade.h:8
+msgid "Permissions for"
+msgstr "Permisos per a"
+
+#: ../storage/exchange-delegates.glade.h:9
+msgid "Reviewer (read-only)"
+msgstr "Revisor (només lectura)"
+
+#: ../storage/exchange-delegates.glade.h:10
+msgid ""
+"These users will be able to send mail on your behalf\n"
+"and access your folders with the permissions you give them."
+msgstr ""
+"Els usuaris poden enviar correu electrònic en nom vostre\n"
+"i accedir a les vostres carpetes amb els permisos que els doneu."
+
+#: ../storage/exchange-delegates.glade.h:12
+msgid "_Delegate can see private items"
+msgstr "El _delegat pot veure elements privats"
+
+#: ../storage/exchange-delegates.glade.h:13
+msgid "_Edit"
+msgstr "_Edita"
+
+#: ../storage/exchange-delegates.glade.h:14
+msgid "_Inbox:"
+msgstr "Sa_fata d'entrada:"
+
+#: ../storage/exchange-delegates.glade.h:15
+msgid "_Tasks:"
+msgstr "_Tasques:"
+
+#: ../storage/exchange-folder-tree.glade.h:1
+msgid "Exchange Folder Tree"
+msgstr "Arbre de carpetes d'Exchange"
+
+#: ../storage/exchange-migrate.c:60
+msgid "Migrating Exchange Folders..."
+msgstr "S'està fent la migració de les carpetes d'Exchange..."
+
+#: ../storage/exchange-migrate.c:68
+#, c-format
+msgid ""
+"The location and hierarchy of the Evolution exchange account folders are "
+"changed since Evolution %d.%d.%d.\n"
+"\n"
+"Please be patient while Evolution migrates your folders..."
+msgstr ""
+"La jerarquia d'ubicacions de les carpetes de comptes Exchange d'Evolution "
+"han canviat des d'Evolution %d.%d.%d.\n"
+"\n"
+"Espereu mentre l'Evolution fa la migració de les carpetes..."
+
+#: ../storage/exchange-migrate.c:101
+#, c-format
+msgid ""
+"Warning: Evolution could not migrate all the Exchange account data from the "
+"version %d.%d.%d. \n"
+"The data hasn't been deleted, but will not be seen by this version of "
+"Evolution"
+msgstr ""
+"Avís: L'Evolution no ha pogut migrar totes les dades dels comptes de la "
+"versió %d.%d.%d. \n"
+"Les dades no s'han suprimit, però no es veuran amb esta versió de l'Evolution"
+
+#: ../storage/exchange-migrate.c:132
+#, c-format
+msgid "Migrating `%s':"
+msgstr "S'està migrant «%s»:"
+
+#: ../storage/exchange-oof.glade.h:1
+msgid ""
+"<b>Currently, your status is \"Out of the Office\". </b>\n"
+"\n"
+"Would you like to change your status to \"In the Office\"? "
+msgstr ""
+"<b>En este moment, el vostre estat és «Absent de l'oficina». </b>\n"
+"\n"
+"Voleu canviar el vostre estat a «A l'oficina»? "
+
+#: ../storage/exchange-oof.glade.h:4
+msgid "<b>Out of Office Message:</b>"
+msgstr "<b>Missatge d'absència de l'oficina:</b>"
+
+#: ../storage/exchange-oof.glade.h:5
+msgid "<b>Status:</b>"
+msgstr "<b>Estat:</b>"
+
+#: ../storage/exchange-oof.glade.h:6
+msgid ""
+"<small>The message specified below will be automatically sent to each person "
+"who sends\n"
+"mail to you while you are out of the office.</small>"
+msgstr ""
+"<small>El missatge especificat a sota s'enviarà automàticament a totes les "
+"persones\n"
+"que vos envien un correu quan no sigueu a l'oficina.</small>"
+
+#: ../storage/exchange-oof.glade.h:8
+msgid "I am currently in the office"
+msgstr "En este moment sóc a l'oficina"
+
+#: ../storage/exchange-oof.glade.h:9
+msgid "I am currently out of the office"
+msgstr "En este moment no sóc a l'oficina"
+
+#: ../storage/exchange-oof.glade.h:10
+msgid "No, Don't Change Status"
+msgstr "No, no canvies l'estat"
+
+#: ../storage/exchange-oof.glade.h:11
+msgid "Out of Office Assistant"
+msgstr "Auxiliar per a l'absència de l'oficina"
+
+#: ../storage/exchange-oof.glade.h:12
+msgid "Yes, Change Status"
+msgstr "Sí, canvia l'estat"
+
+#: ../storage/exchange-passwd-expiry.glade.h:1
+msgid "Password Expiry Warning..."
+msgstr "Avís de venciment de contrasenya..."
+
+#: ../storage/exchange-passwd-expiry.glade.h:2
+msgid "Your password will expire in 7 days..."
+msgstr "La vostra contrasenya no serà vàlida d'ací a 7 dies..."
+
+#: ../storage/exchange-passwd-expiry.glade.h:3
+msgid "_Change Password"
+msgstr "_Canvia la contrasenya"
+
+#: ../storage/exchange-passwd-expiry.glade.h:4
+msgid "ok_button"
+msgstr "botó_d_acord"
+
+#: ../storage/exchange-permissions-dialog.glade.h:1
+msgid "    "
+msgstr "    "
+
+#: ../storage/exchange-permissions-dialog.glade.h:2
+msgid "<b>Permissions</b>"
+msgstr "<b>Permisos</b>"
+
+#: ../storage/exchange-permissions-dialog.glade.h:3
+msgid "Cannot Delete"
+msgstr "No es pot suprimir"
+
+#: ../storage/exchange-permissions-dialog.glade.h:4
+msgid "Cannot Edit"
+msgstr "No es pot editar"
+
+#: ../storage/exchange-permissions-dialog.glade.h:5
+msgid "Create items"
+msgstr "Crea elements"
+
+#: ../storage/exchange-permissions-dialog.glade.h:6
+msgid "Create subfolders"
+msgstr "Crea subcarpetes"
+
+#: ../storage/exchange-permissions-dialog.glade.h:7
+msgid "Delete Any Items"
+msgstr "Suprimeix qualsevol element"
+
+#: ../storage/exchange-permissions-dialog.glade.h:8
+msgid "Delete Own Items"
+msgstr "Suprimeix els elements propis"
+
+#: ../storage/exchange-permissions-dialog.glade.h:9
+msgid "Edit Any Items"
+msgstr "Edita qualsevol element"
+
+#: ../storage/exchange-permissions-dialog.glade.h:10
+msgid "Edit Own Items"
+msgstr "Edita els elements propis"
+
+#: ../storage/exchange-permissions-dialog.glade.h:11
+msgid "Folder contact"
+msgstr "Contacte de la carpeta"
+
+#: ../storage/exchange-permissions-dialog.glade.h:12
+msgid "Folder owner"
+msgstr "Propietari de la carpeta"
+
+#: ../storage/exchange-permissions-dialog.glade.h:13
+msgid "Folder visible"
+msgstr "Carpeta visible"
+
+#: ../storage/exchange-permissions-dialog.glade.h:14
+msgid "Read items"
+msgstr "Llig elements"
+
+#: ../storage/exchange-permissions-dialog.glade.h:15
+msgid "Role: "
+msgstr "Rol: "
+
+#: ../storage/exchange-storage.c:337
+msgid "Connecting..."
+msgstr "S'està connectant..."
+
+#: ../storage/ximian-connector-setup.c:75
+msgid "Evolution Connector for Microsoft Exchange Setup Tool"
+msgstr "Eina de configuració de l'Evolution Connector per a Microsoft Exchange"
+
+#: ../storage/ximian-connector.xml.h:1
+msgid "Change your Exchange server password"
+msgstr "Canvieu la vostra contrasenya del servidor Exchange"
+
+#: ../storage/ximian-connector.xml.h:2
+msgid "Folder _Size"
+msgstr "_Mida de la carpeta"
+
+#: ../storage/ximian-connector.xml.h:3
+msgid "Get the size of personal folders"
+msgstr "Aconsegueix la mida de les carpetes personals"
+
+#: ../storage/ximian-connector.xml.h:4
+msgid "Subscribe to _Other User's Folder..."
+msgstr "Su_bscriu a la carpeta d'altres usuaris..."
+
+#: ../storage/ximian-connector.xml.h:5
+msgid "Subscribe to a folder belonging to some other user on the server"
+msgstr ""
+"Subscriviu-vos a una carpeta que pertany a un altre usuari del servidor"
+
+#: ../storage/ximian-connector.xml.h:6
+msgid ""
+"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgstr ""
+"Esborra la subscripció a una carpeta afegida amb «Subscriviu a la carpeta "
+"d'un altre usuari»"
+
+#: ../storage/ximian-connector.xml.h:7
+msgid "View or change your Exchange calendar delegation settings"
+msgstr ""
+"Visualitzeu o canvieu la configuració de delegació del calendari d'Exchange"
+
+#: ../storage/ximian-connector.xml.h:8
+msgid "View or change your Out-of-Office status and autoreply message"
+msgstr ""
+"Visualitzeu o canvieu el vostre estat de fora de l'oficina i els missatge de "
+"resposta automàtica"
+
+#: ../storage/ximian-connector.xml.h:9
+msgid "_Change Exchange Password..."
+msgstr "_Canvia la contrasenya d'Exchange..."
+
+#: ../storage/ximian-connector.xml.h:10
+msgid "_Delegation Assistant"
+msgstr "Auxiliar _de delegació"
+
+#: ../storage/ximian-connector.xml.h:11
+msgid "_Out of Office Assistant"
+msgstr "Auxiliar per a «f_ora de l'oficina»"
+
+#: ../storage/ximian-connector.xml.h:12
+msgid "_Unsubscribe from Other User's Folder"
+msgstr "Esborra la s_ubscripció de carpeta d'altres usuaris"
