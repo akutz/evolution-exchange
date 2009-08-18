@@ -90,12 +90,12 @@ CONNECTOR_PATH_IN_SERVER_FILE=${EVOLUTION_privlibexecdir}
 endif
 
 %_$(BASE_VERSION).server.in: %.server.in.in
-	sed -e "s; \@CONNECTOR_PATH \@;${CONNECTOR_PATH_IN_SERVER_FILE};g" \
-	    -e "s; \@IMAGESDIR \@;${imagesdir};g" \
-	    -e "s; \@BASE_VERSION \@;${BASE_VERSION};g" \
-	    -e "s; \@EXEEXT \@;${EXEEXT};g" \
-	    -e "s; \@API_VERSION \@;${API_VERSION};g" \
-	    -e "s; \@EDS_BASE_VERSION \@;${EDS_BASE_VERSION};g" \
+	sed -e "s;\@CONNECTOR_PATH\@;${CONNECTOR_PATH_IN_SERVER_FILE};g" \
+	    -e "s;\@IMAGESDIR\@;${imagesdir};g" \
+	    -e "s;\@BASE_VERSION\@;${BASE_VERSION};g" \
+	    -e "s;\@EXEEXT\@;${EXEEXT};g" \
+	    -e "s;\@API_VERSION\@;${API_VERSION};g" \
+	    -e "s;\@EDS_BASE_VERSION\@;${EDS_BASE_VERSION};g" \
 	    < $< > $@
 
 @INTLTOOL_SERVER_RULE@
