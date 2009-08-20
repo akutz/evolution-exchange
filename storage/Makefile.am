@@ -109,7 +109,6 @@ images_DATA = \
 
 gladedir   = $(CONNECTOR_DATADIR)/glade
 glade_DATA = \
-	exchange-autoconfig-wizard.glade \
 	exchange-change-password.glade \
 	exchange-delegates.glade \
 	exchange-oof.glade \

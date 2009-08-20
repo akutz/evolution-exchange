@@ -25,7 +25,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <gtk/gtk.h>
-#include <libgnomeui/gnome-ui-init.h>
 
 #include <gdk/gdk.h>
 
@@ -47,8 +46,10 @@ main (gint argc, gchar **argv)
 	gint opt;
 	gchar optstr[] = "M:m:r:u:h:s:d:";
 
-	gnome_program_init("migr-test", VERSION, LIBGNOMEUI_MODULE, argc, argv, NULL);
+	g_type_init ();
+	g_thread_init (NULL);
 	gdk_init(&argc, &argv);
+	gtk_init (&argc, &argv);
 
 	if (argc == 1) {
 		printf("Usage: %s [-M major][ -m minor][ -r revision] <-u user> <-h server> [-s source][ -d destination] \n", argv[0]);

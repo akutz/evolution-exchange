@@ -12,7 +12,7 @@ G_BEGIN_DECLS
 
 BonoboObject *exchange_autoconfig_wizard_new (void);
 
-void          exchange_autoconfig_druid_run  (void);
+void          exchange_autoconfig_assistant_run  (void);
 
 G_END_DECLS
 

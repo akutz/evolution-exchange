@@ -35,7 +35,6 @@
 #include <bonobo/bonobo-main.h>
 #include <bonobo/bonobo-generic-factory.h>
 #include <bonobo/bonobo-exception.h>
-#include <libgnomeui/gnome-ui-init.h>
 #include <gconf/gconf-client.h>
 
 #include <camel/camel.h>
@@ -214,10 +213,14 @@ main (gint argc, gchar **argv)
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 
-	gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE, argc, argv,
-			    GNOME_PROGRAM_STANDARD_PROPERTIES,
-			    GNOME_PARAM_HUMAN_READABLE_NAME, _("Evolution Connector for Microsoft Exchange"),
-			    NULL);
+	g_type_init ();
+	g_thread_init (NULL);
+	gtk_init (&argc, &argv);
+	if (!bonobo_init (&argc, argv)) {
+		g_warning ("Bonobo initialization failed");
+		return 1;
+	}
+
 	e_icon_factory_init ();
 
 	config_directory = g_build_filename (g_get_home_dir(), ".evolution", NULL);

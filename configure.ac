@@ -14,7 +14,6 @@ m4_define([eds_minimum_version], [eex_version])
 m4_define([gconf_minimum_version], [2.0.0])             # XXX Just a Guess
 m4_define([libbonobo_minimum_version], [2.20.3])
 m4_define([libglade_minimum_version], [2.0.0])          # XXX Just a Guess
-m4_define([libgnomeui_minimum_version], [2.0.0])        # XXX Just a Guess
 m4_define([libxml_minimum_version], [2.0.0])            # XXX Just a Guess
 m4_define([libsoup_minimum_version], [2.3.0])
 
@@ -143,7 +142,6 @@ PKG_CHECK_MODULES(GNOME_PLATFORM,
 	 gconf-2.0 >= gconf_minimum_version
 	 libbonobo-2.0 >= libbonobo_minimum_version
 	 libglade-2.0 >= libglade_minimum_version
-	 libgnomeui-2.0 >= libgnomeui_minimum_version
 	 libxml-2.0 >= libxml_minimum_version
 	 libsoup-2.4 >= libsoup_minimum_version])
 

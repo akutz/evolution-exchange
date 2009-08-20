@@ -21,13 +21,8 @@
 #include <config.h>
 #endif
 
-#include <libgnomeui/gnome-ui-init.h>
-
-#include <e-util/e-dialog-utils.h>
-#include <libedataserver/e-data-server-util.h>
+#include <gtk/gtk.h>
 #include <libedataserverui/e-passwords.h>
-
-#include <e2k-utils.h>
 
 #include "exchange-autoconfig-wizard.h"
 
@@ -40,6 +35,8 @@ const gchar *_exchange_storage_imagesdir;
 gint
 main (gint argc, gchar **argv)
 {
+	GError *error = NULL;
+
 #ifdef G_OS_WIN32
 	{
 		gchar *localedir;
@@ -69,13 +66,21 @@ main (gint argc, gchar **argv)
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 
-	gnome_program_init ("ximian-connector-setup", VERSION,
-			    LIBGNOMEUI_MODULE, argc, argv,
-			    GNOME_PROGRAM_STANDARD_PROPERTIES,
-			    GNOME_PARAM_HUMAN_READABLE_NAME, _("Evolution Connector for Microsoft Exchange Setup Tool"),
-			    NULL);
+	g_type_init ();
+	g_thread_init (NULL);
+	gtk_init_with_args (&argc, &argv, NULL, NULL, (char *)GETTEXT_PACKAGE, &error);
 
-	exchange_autoconfig_druid_run ();
+	if (error != NULL) {
+		g_printerr ("Failed initialize application, %s\n", error->message);
+		g_error_free (error);
+		return (1);
+	}
+
+	e_passwords_init ();
+
+	exchange_autoconfig_assistant_run ();
+
 	e_passwords_shutdown ();
+
 	return 0;
 }
