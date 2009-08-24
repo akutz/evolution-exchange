@@ -159,8 +159,9 @@ add_table_row (GtkTable *table, gint row, const gchar *label_text, GtkWidget *ac
 {
 	GtkWidget *w;
 
-	w = gtk_label_new (label_text);
+	w = gtk_label_new_with_mnemonic (label_text);
 	gtk_misc_set_alignment (GTK_MISC (w), 0.0, 0.5);
+	gtk_label_set_mnemonic_widget (GTK_LABEL (w), action_widget);
 	gtk_table_attach (table, w, 0, 1, row, row + 1, GTK_FILL, 0, 0, 0);
 
 	w = action_widget;
@@ -194,20 +195,20 @@ owa_page_create (ExchangeAutoconfigGUI *gui, GdkPixbuf *logo, GtkWidget **page, 
 	gtk_table_set_row_spacings (table, 6);
 	gtk_table_set_col_spacings (table, 6);
 
-	w = add_table_row (table, 0, _("OWA URL:"), gtk_entry_new ());
+	w = add_table_row (table, 0, _("OWA _URL:"), gtk_entry_new ());
 	CONNECT_CHANGE_SIGNAL (w, "changed");
 	gui->owa_uri_entry = GTK_ENTRY (w);
 
-	w = add_table_row (table, 1, _("Username:"), gtk_entry_new ());
+	w = add_table_row (table, 1, _("User_name:"), gtk_entry_new ());
 	CONNECT_CHANGE_SIGNAL (w, "changed");
 	gui->username_entry = GTK_ENTRY (w);
 
-	w = add_table_row (table, 2, _("Password:"), gtk_entry_new ());
+	w = add_table_row (table, 2, _("_Password:"), gtk_entry_new ());
 	CONNECT_CHANGE_SIGNAL (w, "changed");
 	gui->password_entry = GTK_ENTRY (w);
 	gtk_entry_set_visibility (gui->password_entry, FALSE);
 
-	w = gtk_check_button_new_with_label (_("Remember this password"));
+	w = gtk_check_button_new_with_mnemonic (_("_Remember this password"));
 	CONNECT_CHANGE_SIGNAL (w, "toggled");
 	gtk_table_attach (table, w, 0, 2, 3, 4, GTK_FILL, 0, 0, 0);
 
@@ -367,7 +368,7 @@ gc_page_create (ExchangeAutoconfigGUI *gui, GdkPixbuf *logo, GtkWidget **page, g
 	gtk_table_set_row_spacings (table, 6);
 	gtk_table_set_col_spacings (table, 6);
 
-	w = add_table_row (table, 0, _("GC Server:"), gtk_entry_new ());
+	w = add_table_row (table, 0, _("GC _Server:"), gtk_entry_new ());
 	CONNECT_CHANGE_SIGNAL (w, "changed");
 	gui->gc_server_entry = GTK_ENTRY (w);
 
@@ -454,15 +455,15 @@ verify_page_create (ExchangeAutoconfigGUI *gui, GdkPixbuf *logo, GtkWidget **pag
 	gtk_table_set_row_spacings (table, 6);
 	gtk_table_set_col_spacings (table, 6);
 
-	w = add_table_row (table, 0, _("Full Name:"), gtk_entry_new ());
+	w = add_table_row (table, 0, _("Full _Name:"), gtk_entry_new ());
 	CONNECT_CHANGE_SIGNAL (w, "changed");
 	gui->name_entry = GTK_ENTRY (w);
 
-	w = add_table_row (table, 1, _("Email Address:"), gtk_entry_new ());
+	w = add_table_row (table, 1, _("_Email Address:"), gtk_entry_new ());
 	CONNECT_CHANGE_SIGNAL (w, "changed");
 	gui->email_entry = GTK_ENTRY (w);
 
-	w = gtk_check_button_new_with_label (_("Make this my default account"));
+	w = gtk_check_button_new_with_label (_("Make this my _default account"));
 	CONNECT_CHANGE_SIGNAL (w, "toggled");
 	gtk_table_attach (table, w, 0, 2, 2, 3, GTK_FILL, 0, 0, 10);
 
