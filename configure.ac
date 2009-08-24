@@ -1,7 +1,7 @@
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.52)
 
-m4_define([eex_version], [2.27.91])
+m4_define([eex_version], [2.27.92])
 
 AC_INIT(evolution-exchange, [eex_version], http://bugzilla.gnome.org/enter_bug.cgi?product=Evolution%20Exchange)
 AC_CONFIG_SRCDIR(storage)
