@@ -11,7 +11,6 @@ AM_CPPFLAGS = \
 	-DSYSCONFDIR=\""$(sysconfdir)"\"  \
 	-DDATADIR=\""$(datadir)"\"	  \
 	-DLIBDIR=\""$(datadir)"\"	  \
-	-DCONNECTOR_GLADEDIR=\""$(gladedir)"\" \
 	-DCONNECTOR_IMAGESDIR=\""$(imagesdir)"\" \
 	-DCONNECTOR_UIDIR=\""$(uidir)"\" \
 	-DCONNECTOR_LOCALEDIR=\""$(localedir)\""
@@ -30,8 +29,6 @@ evolution_exchange_storage_SOURCES = \
 	exchange-component.h \
 	exchange-config-listener.c \
 	exchange-config-listener.h \
-	exchange-change-password.c \
-	exchange-change-password.h \
 	exchange-migrate.c \
 	exchange-migrate.h \
 	exchange-storage.c \
@@ -107,15 +104,6 @@ images_DATA = \
 	exchange-delegates-48.png \
 	exchange-oof-48.png
 
-gladedir   = $(CONNECTOR_DATADIR)/glade
-glade_DATA = \
-	exchange-change-password.glade \
-	exchange-delegates.glade \
-	exchange-oof.glade \
-	exchange-permissions-dialog.glade \
-	exchange-folder-tree.glade \
-	exchange-passwd-expiry.glade
-
 uidir   = $(CONNECTOR_DATADIR)/ui
 ui_DATA = ximian-connector.xml
 
@@ -125,7 +113,6 @@ DISTCLEANFILES =  \
 EXTRA_DIST = \
 	$(server_in_files) \
 	$(images_DATA) \
-	$(glade_DATA) \
 	$(ui_DATA)
 
 -include $(top_srcdir)/git.mk

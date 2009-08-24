@@ -13,7 +13,6 @@ m4_define([gtk_minimum_version], [2.10.0])
 m4_define([eds_minimum_version], [eex_version])
 m4_define([gconf_minimum_version], [2.0.0])             # XXX Just a Guess
 m4_define([libbonobo_minimum_version], [2.20.3])
-m4_define([libglade_minimum_version], [2.0.0])          # XXX Just a Guess
 m4_define([libxml_minimum_version], [2.0.0])            # XXX Just a Guess
 m4_define([libsoup_minimum_version], [2.3.0])
 
@@ -141,7 +140,6 @@ PKG_CHECK_MODULES(GNOME_PLATFORM,
 	 gtk+-2.0 >= gtk_minimum_version
 	 gconf-2.0 >= gconf_minimum_version
 	 libbonobo-2.0 >= libbonobo_minimum_version
-	 libglade-2.0 >= libglade_minimum_version
 	 libxml-2.0 >= libxml_minimum_version
 	 libsoup-2.4 >= libsoup_minimum_version])
 
@@ -172,7 +170,6 @@ dnl AC_DEFINE(GNOME_DISABLE_DEPRECATED,1,[No deprecated gnome functions])
 dnl AC_DEFINE(BONOBO_DISABLE_DEPRECATED,1,[No deprecated bonobo functions])
 dnl AC_DEFINE(BONOBO_UI_DISABLE_DEPRECATED,1,[No deprecated bonoboui functions])
 dnl AC_DEFINE(GCONF_DISABLE_DEPRECATED,1,[No deprecated gconf functions])
-dnl AC_DEFINE(LIBGLADE_DISABLE_DEPRECATED,1,[No deprecated libglade functions])
 
 AC_EGREP_HEADER(socklen_t, sys/socket.h, :, AC_DEFINE(socklen_t, int, [Define to "int" if socklen_t is not defined]))
 
@@ -230,7 +227,7 @@ AC_SUBST(CAMEL_CFLAGS)
 PKG_CHECK_MODULES(MAIL, libecal-$EDS_API_VERSION)
 AC_SUBST(MAIL_CFLAGS)
 
-PKG_CHECK_MODULES(EXCHANGE_STORAGE, evolution-shell evolution-plugin libedataserverui-$EDS_API_VERSION libedata-book-$EDS_API_VERSION libedata-cal-$EDS_API_VERSION libsoup-2.4 libglade-2.0 camel-provider-$EDS_API_VERSION)
+PKG_CHECK_MODULES(EXCHANGE_STORAGE, evolution-shell evolution-plugin libedataserverui-$EDS_API_VERSION libedata-book-$EDS_API_VERSION libedata-cal-$EDS_API_VERSION libsoup-2.4 libxml-2.0 camel-provider-$EDS_API_VERSION)
 AC_SUBST(EXCHANGE_STORAGE_CFLAGS)
 AC_SUBST(EXCHANGE_STORAGE_LIBS)
 
