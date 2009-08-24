@@ -26,24 +26,41 @@
 #include <glib-object.h>
 #include <libedata-book/e-book-backend-factory.h>
 
+/* Standard GObject macros */
+#define E_TYPE_BOOK_BACKEND_EXCHANGE_FACTORY \
+	(e_book_backend_exchange_factory_get_type ())
+#define E_BOOK_BACKEND_EXCHANGE_FACTORY(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST \
+	((obj), E_TYPE_BOOK_BACKEND_EXCHANGE_FACTORY, EBookBackendExchangeFactory))
+#define E_BOOK_BACKEND_EXCHANGE_FACTORY_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST \
+	((cls), E_TYPE_BOOK_BACKEND_EXCHANGE_FACTORY, EBookBackendExchangeFactoryClass))
+#define E_IS_BOOK_BACKEND_EXCHANGE_FACTORY(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE \
+	((obj), E_TYPE_BOOK_BACKEND_EXCHANGE_FACTORY))
+#define E_IS_BOOK_BACKEND_EXCHANGE_FACTORY_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_TYPE \
+	((cls), E_TYPE_BOOK_BACKEND_EXCHANGE_FACTORY))
+#define E_BOOK_BACKEND_EXCHANGE_FACTORY_GET_CLASS(cls) \
+	(G_TYPE_INSTANCE_GET_CLASS \
+	((obj), E_TYPE_BOOK_BACKEND_EXCHANGE_FACTORY, EBookBackendExchangeFactoryClass))
+
 G_BEGIN_DECLS
 
-#define E_TYPE_BOOK_BACKEND_EXCHANGE_FACTORY        (e_book_backend_exchange_factory_get_type ())
-#define E_BOOK_BACKEND_EXCHANGE_FACTORY(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), E_TYPE_BOOK_BACKEND_EXCHANGE_FACTORY, EBookBackendExchangeFactory))
-#define E_BOOK_BACKEND_EXCHANGE_FACTORY_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), E_TYPE_BOOK_BACKEND_EXCHANGE_FACTORY, EBookBackendExchangeFactoryClass))
-#define E_IS_BOOK_BACKEND_EXCHANGE_FACTORY(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), E_TYPE_BOOK_BACKEND_EXCHANGE_FACTORY))
-#define E_IS_BOOK_BACKEND_EXCHANGE_FACTORY_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), E_TYPE_BOOK_BACKEND_EXCHANGE_FACTORY))
-#define E_BOOK_BACKEND_EXCHANGE_FACTORY_GET_CLASS(k) (G_TYPE_INSTANCE_GET_CLASS ((obj), E_TYPE_BOOK_BACKEND_EXCHANGE_FACTORY, EBookBackendExchangeFactoryClass))
+typedef struct _EBookBackendExchangeFactory EBookBackendExchangeFactory;
+typedef struct _EBookBackendExchangeFactoryClass EBookBackendExchangeFactoryClass;
 
-typedef struct {
-	EBookBackendFactory            parent_object;
-} EBookBackendExchangeFactory;
+struct _EBookBackendExchangeFactory {
+	EBookBackendFactory parent;
+};
 
-typedef struct {
+struct _EBookBackendExchangeFactoryClass {
 	EBookBackendFactoryClass parent_class;
-} EBookBackendExchangeFactoryClass;
+};
 
-GType	e_book_backend_exchange_factory_get_type (void);
+GType		e_book_backend_exchange_factory_get_type (void);
+void		e_book_backend_exchange_factory_register_type
+						(GTypeModule *type_module);
 
 G_END_DECLS
 

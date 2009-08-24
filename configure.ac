@@ -192,6 +192,9 @@ if test "x$EXCHANGE_PACKAGE" != "x"; then
 	exit 1
 fi
 
+extensiondir="`pkg-config --variable=extensiondir evolution-data-server-$EDS_API_VERSION`"
+AC_SUBST(extensiondir)
+
 EVOLUTION_idldir="`pkg-config --variable=idldir evolution-shell`"
 AC_SUBST(EVOLUTION_idldir)
 

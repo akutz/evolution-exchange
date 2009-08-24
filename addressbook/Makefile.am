@@ -38,9 +38,9 @@ else
 	fi
 endif
 
-noinst_LTLIBRARIES = libexchangeaddressbook.la
+extension_LTLIBRARIES = libebookbackendexchange.la
 
-libexchangeaddressbook_la_SOURCES = \
+libebookbackendexchange_la_SOURCES = \
 	e-book-backend-exchange.c \
 	e-book-backend-exchange.h \
 	e-book-backend-exchange-factory.c \
@@ -51,14 +51,14 @@ libexchangeaddressbook_la_SOURCES = \
 	e-book-backend-gal.h
 
 if HAVE_LIBDB
-libexchangeaddressbook_la_SOURCES += \
+libebookbackendexchange_la_SOURCES += \
 	e-book-backend-db-cache.c \
 	e-book-backend-db-cache.h
 
-libexchangeaddressbook_la_LIBADD =  \
+libebookbackendexchange_la_LIBADD =  \
 	$(DB_LIBS)
 
-libexchangeaddressbook_la_LDFLAGS = \
+libebookbackendexchange_la_LDFLAGS = \
 	-module -avoid-version $(NO_UNDEFINED)
 endif
 

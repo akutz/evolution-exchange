@@ -2451,7 +2451,8 @@ cancel_operation (EBookBackend *backend, EDataBook *book)
 }
 
 static void
-set_mode (EBookBackend *backend, gint mode)
+set_mode (EBookBackend *backend,
+          GNOME_Evolution_Addressbook_BookMode mode)
 {
 	EBookBackendGAL *be = E_BOOK_BACKEND_GAL (backend);
 	EBookBackendGALPrivate *bepriv;
@@ -2856,7 +2857,7 @@ class_init (EBookBackendGALClass *klass)
 	backend_class->get_changes                = get_changes;
 	backend_class->authenticate_user          = authenticate_user;
 	backend_class->get_supported_fields       = get_supported_fields;
-	backend_class->set_mode		  = set_mode;
+	backend_class->set_mode                   = set_mode;
 	backend_class->get_required_fields        = get_required_fields;
 	backend_class->get_supported_auth_methods = get_supported_auth_methods;
 	backend_class->cancel_operation           = cancel_operation;

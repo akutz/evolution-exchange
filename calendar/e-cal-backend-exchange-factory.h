@@ -26,25 +26,64 @@
 #include <glib-object.h>
 #include <libedata-cal/e-cal-backend-factory.h>
 
+/* Standard GObject macros */
+#define E_TYPE_CAL_BACKEND_EXCHANGE_EVENTS_FACTORY \
+	(e_cal_backend_exchange_events_factory_get_type ())
+#define E_CAL_BACKEND_EXCHANGE_EVENTS_FACTORY(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST \
+	((obj), E_TYPE_CAL_BACKEND_EXCHANGE_EVENTS_FACTORY, ECalBackendExchangeFactory))
+#define E_CAL_BACKEND_EXCHANGE_EVENTS_FACTORY_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST \
+	((cls), E_TYPE_CAL_BACKEND_EXCHANGE_EVENTS_FACTORY, ECalBackendExchangeFactoryClass))
+#define E_IS_CAL_BACKEND_EXCHANGE_EVENTS_FACTORY(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE \
+	((obj), E_TYPE_CAL_BACKEND_EXCHANGE_EVENTS_FACTORY))
+#define E_IS_CAL_BACKEND_EXCHANGE_EVENTS_FACTORY_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_TYPE \
+	((cls), E_TYPE_CAL_BACKEND_EXCHANGE_EVENTS_FACTORY))
+#define E_CAL_BACKEND_EXCHANGE_EVENTS_FACTORY_GET_CLASS(cls) \
+	(G_TYPE_INSTANCE_GET_CLASS \
+	((obj), E_TYPE_CAL_BACKEND_EXCHANGE_EVENTS_FACTORY, ECalBackendExchangeFactoryClass))
+
+/* Standard GObject macros */
+#define E_TYPE_CAL_BACKEND_EXCHANGE_TODOS_FACTORY \
+	(e_cal_backend_exchange_todos_factory_get_type ())
+#define E_CAL_BACKEND_EXCHANGE_TODOS_FACTORY(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST \
+	((obj), E_TYPE_CAL_BACKEND_EXCHANGE_TODOS_FACTORY, ECalBackendExchangeFactory))
+#define E_CAL_BACKEND_EXCHANGE_TODOS_FACTORY_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST \
+	((cls), E_TYPE_CAL_BACKEND_EXCHANGE_TODOS_FACTORY, ECalBackendExchangeFactoryClass))
+#define E_IS_CAL_BACKEND_EXCHANGE_TODOS_FACTORY(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE \
+	((obj), E_TYPE_CAL_BACKEND_EXCHANGE_TODOS_FACTORY))
+#define E_IS_CAL_BACKEND_EXCHANGE_TODOS_FACTORY_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_TYPE \
+	((cls), E_TYPE_CAL_BACKEND_EXCHANGE_TODOS_FACTORY))
+#define E_CAL_BACKEND_EXCHANGE_TODOS_FACTORY_GET_CLASS(cls) \
+	(G_TYPE_INSTANCE_GET_CLASS \
+	((obj), E_TYPE_CAL_BACKEND_EXCHANGE_TODOS_FACTORY, ECalBackendExchangeFactoryClass))
+
 G_BEGIN_DECLS
 
-#define E_TYPE_CAL_BACKEND_EXCHANGE_FACTORY        (e_cal_backend_exchange_factory_get_type ())
-#define E_CAL_BACKEND_EXCHANGE_FACTORY(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), E_TYPE_CAL_BACKEND_EXCHANGE_FACTORY, ECalBackendExchangeFactory))
-#define E_CAL_BACKEND_EXCHANGE_FACTORY_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), E_TYPE_CAL_BACKEND_EXCHANGE_FACTORY, ECalBackendExchangeFactoryClass))
-#define E_IS_CAL_BACKEND_EXCHANGE_FACTORY(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), E_TYPE_CAL_BACKEND_EXCHANGE_FACTORY))
-#define E_IS_CAL_BACKEND_EXCHANGE_FACTORY_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), E_TYPE_CAL_BACKEND_EXCHANGE_FACTORY))
-#define E_CAL_BACKEND_EXCHANGE_FACTORY_GET_CLASS(k) (G_TYPE_INSTANCE_GET_CLASS ((obj), E_TYPE_CAL_BACKEND_EXCHANGE_FACTORY, ECalBackendExchangeFactoryClass))
+typedef struct _ECalBackendExchangeFactory ECalBackendExchangeFactory;
+typedef struct _ECalBackendExchangeFactoryClass ECalBackendExchangeFactoryClass;
 
-typedef struct {
-	ECalBackendFactory            parent_object;
-} ECalBackendExchangeFactory;
+struct _ECalBackendExchangeFactory {
+	ECalBackendFactory parent;
+};
 
-typedef struct {
+struct _ECalBackendExchangeFactoryClass {
 	ECalBackendFactoryClass parent_class;
-} ECalBackendExchangeFactoryClass;
+};
 
-GType	events_backend_exchange_factory_get_type (void);
-GType	todos_backend_exchange_factory_get_type (void);
+GType		e_cal_backend_exchange_events_factory_get_type (void);
+void		e_cal_backend_exchange_events_factory_register_type
+						(GTypeModule *type_module);
+
+GType		e_cal_backend_exchange_todos_factory_get_type (void);
+void		e_cal_backend_exchange_todos_factory_register_type
+						(GTypeModule *type_module);
 
 G_END_DECLS
 

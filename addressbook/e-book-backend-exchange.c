@@ -33,7 +33,6 @@
 
 #include <libedataserver/e-sexp.h>
 #include <libedataserver/e-uid.h>
-#include <e-util/e-util.h>
 #include <libebook/e-address-western.h>
 #include <libebook/e-contact.h>
 #include <libedata-book/e-data-book.h>
@@ -2846,7 +2845,8 @@ e_book_backend_exchange_construct (EBookBackendExchange *backend)
 }
 
 static void
-e_book_backend_exchange_set_mode (EBookBackend *backend, gint mode)
+e_book_backend_exchange_set_mode (EBookBackend *backend,
+                                  GNOME_Evolution_Addressbook_BookMode mode)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;

@@ -2,15 +2,14 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir) \
 	-I$(top_srcdir)/mail \
 	-I$(top_srcdir)/camel \
-	-I$(top_srcdir)/calendar \
 	-DG_LOG_DOMAIN=\"evolution-exchange-storage\" \
 	$(LIBEXCHANGE_CFLAGS) \
 	$(EXCHANGE_STORAGE_CFLAGS) \
 	$(LDAP_CFLAGS) \
 	-DPREFIX=\"$(prefix)\" \
-	-DSYSCONFDIR=\""$(sysconfdir)"\"  \
-	-DDATADIR=\""$(datadir)"\"	  \
-	-DLIBDIR=\""$(datadir)"\"	  \
+	-DSYSCONFDIR=\""$(sysconfdir)"\" \
+	-DDATADIR=\""$(datadir)"\" \
+	-DLIBDIR=\""$(datadir)"\" \
 	-DCONNECTOR_IMAGESDIR=\""$(imagesdir)"\" \
 	-DCONNECTOR_UIDIR=\""$(uidir)"\" \
 	-DCONNECTOR_LOCALEDIR=\""$(localedir)\""
@@ -37,8 +36,6 @@ evolution_exchange_storage_SOURCES = \
 
 evolution_exchange_storage_LDADD = \
 	$(top_builddir)/mail/libexchangemail.la  \
-	$(top_builddir)/addressbook/libexchangeaddressbook.la \
-	$(top_builddir)/calendar/libexchangecalendar.la \
 	$(top_builddir)/camel/camel-stub-marshal.lo \
 	$(LDAP_LIBS) \
 	$(EXCHANGE_STORAGE_LIBS) \
@@ -71,7 +68,7 @@ migr_test_SOURCES = \
 	exchange-migrate.c \
 	exchange-migrate.h
 
-migr_test_LDADD =  \
+migr_test_LDADD = \
 	$(LDAP_LIBS) \
 	$(EXCHANGE_STORAGE_LIBS) \
 	$(LIBEXCHANGE_LIBS)

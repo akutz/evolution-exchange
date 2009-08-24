@@ -6,10 +6,10 @@ AM_CPPFLAGS = \
 	$(LDAP_CFLAGS) \
 	-DG_LOG_DOMAIN=\"e-cal-backend-exchange\"
 
-noinst_LTLIBRARIES = \
-        libexchangecalendar.la
+extension_LTLIBRARIES = \
+        libecalbackendexchange.la
 
-libexchangecalendar_la_SOURCES =  \
+libecalbackendexchange_la_SOURCES = \
 	e-cal-backend-exchange.c \
 	e-cal-backend-exchange.h \
 	e-cal-backend-exchange-calendar.c \
@@ -22,5 +22,8 @@ libexchangecalendar_la_SOURCES =  \
 	e2k-cal-query.h \
 	e2k-cal-utils.c \
 	e2k-cal-utils.h
+
+libecalbackendexchange_la_LDFLAGS = \
+	-module -avoid-version $(NO_UNDEFINED)
 
 -include $(top_srcdir)/git.mk

@@ -47,14 +47,8 @@ ExchangeAccount   *exchange_component_get_account_for_uri (ExchangeComponent *co
 gboolean           exchange_component_is_interactive      (ExchangeComponent *component);
 void           exchange_component_is_offline      (ExchangeComponent *component, gint *state);
 
-void exchange_component_set_factories (ExchangeComponent *component,
-				       EDataCalFactory *cal_factory,
-				       EDataBookFactory *book_factory);
-
 #define EXCHANGE_COMPONENT_FACTORY_IID  "OAFIID:GNOME_Evolution_Exchange_Component_Factory:" BASE_VERSION
 #define EXCHANGE_COMPONENT_IID		"OAFIID:GNOME_Evolution_Exchange_Component:" BASE_VERSION
-#define EXCHANGE_CALENDAR_FACTORY_ID	"OAFIID:GNOME_Evolution_Exchange_Connector_CalFactory:" API_VERSION
-#define EXCHANGE_ADDRESSBOOK_FACTORY_ID	"OAFIID:GNOME_Evolution_Exchange_Connector_BookFactory:" API_VERSION
 #define EXCHANGE_AUTOCONFIG_WIZARD_ID	"OAFIID:GNOME_Evolution_Exchange_Connector_Startup_Wizard:" BASE_VERSION
 
 G_END_DECLS

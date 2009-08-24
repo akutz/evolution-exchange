@@ -13,7 +13,7 @@ AM_CPPFLAGS = \
 	-DCONNECTOR_LOCALEDIR=\"$(localedir)\" \
 	-DG_LOG_DOMAIN=\"camel-exchange-provider\"
 
-libcamelexchange_la_SOURCES =  \
+libcamelexchange_la_SOURCES = \
 	camel-exchange-folder.c \
 	camel-exchange-provider.c \
 	camel-exchange-journal.c \
@@ -35,9 +35,10 @@ noinst_HEADERS = \
 	camel-stub-marshal.h \
 	camel-stub.h
 
-libcamelexchange_la_LDFLAGS = -avoid-version -module $(NO_UNDEFINED)
+libcamelexchange_la_LDFLAGS = \
+	-avoid-version -module $(NO_UNDEFINED)
 
-libcamelexchange_la_LIBADD =  \
+libcamelexchange_la_LIBADD = \
 	$(LDAP_LIBS) \
 	$(LIBEXCHANGE_LIBS) \
 	$(EXCHANGE_STORAGE_LIBS) \

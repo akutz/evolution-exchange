@@ -48,20 +48,11 @@
 
 #include <e2k-utils.h>
 #include <exchange-constants.h>
-#include "addressbook/e-book-backend-exchange.h"
-#include "addressbook/e-book-backend-exchange-factory.h"
-#include "addressbook/e-book-backend-gal.h"
-#include "addressbook/e-book-backend-gal-factory.h"
-#include "calendar/e-cal-backend-exchange-calendar.h"
-#include "calendar/e-cal-backend-exchange-tasks.h"
-#include "calendar/e-cal-backend-exchange-factory.h"
 
 #include "exchange-autoconfig-wizard.h"
 #include "exchange-component.h"
 
 static BonoboGenericFactory *component_factory = NULL;
-static EDataCalFactory *cal_factory = NULL;
-static EDataBookFactory *book_factory = NULL;
 
 ExchangeComponent *global_exchange_component;
 
@@ -90,92 +81,6 @@ setup_component_factory (void)
 					    exchange_component_factory,
 					    global_exchange_component);
 	return TRUE;
-}
-
-static void
-last_calendar_gone_cb (EDataCalFactory *factory, gpointer data)
-{
-	/* FIXME: what to do? */
-}
-
-/* Creates the calendar factory object and registers it */
-static gboolean
-setup_calendar_factory (void)
-{
-	gint mode;
-
-	cal_factory = e_data_cal_factory_new ();
-	if (!cal_factory) {
-		g_message ("setup_calendar_factory(): Could not create the calendar factory");
-		return FALSE;
-	}
-
-	exchange_component_is_offline (global_exchange_component, &mode);
-
-	if (mode == ONLINE_MODE)
-		e_data_cal_factory_set_backend_mode (cal_factory, ONLINE_MODE);
-	else if (mode == OFFLINE_MODE)
-		e_data_cal_factory_set_backend_mode (cal_factory, OFFLINE_MODE);
-
-	e_data_cal_factory_register_backend (cal_factory,
-					     (g_object_new (events_backend_exchange_factory_get_type(),
-							    NULL)));
-
-	e_data_cal_factory_register_backend (cal_factory,
-					     (g_object_new (todos_backend_exchange_factory_get_type(),
-							    NULL)));
-
-	/* register the factory with bonobo */
-	if (!e_data_cal_factory_register_storage (cal_factory, EXCHANGE_CALENDAR_FACTORY_ID)) {
-		bonobo_object_unref (BONOBO_OBJECT (cal_factory));
-		cal_factory = NULL;
-		return FALSE;
-	}
-
-	g_signal_connect (cal_factory, "last_calendar_gone",
-			  G_CALLBACK (last_calendar_gone_cb), NULL);
-	return TRUE;
-}
-
-static void
-last_book_gone_cb (EDataBookFactory *factory, gpointer data)
-{
-        /* FIXME: what to do? */
-}
-
-static gboolean
-setup_addressbook_factory (void)
-{
-	gint mode;
-
-        book_factory = e_data_book_factory_new ();
-        if (!book_factory)
-                return FALSE;
-
-	exchange_component_is_offline (global_exchange_component, &mode);
-
-	if (mode == ONLINE_MODE)
-		e_data_book_factory_set_backend_mode (book_factory, ONLINE_MODE);
-	else if (mode == OFFLINE_MODE)
-		e_data_book_factory_set_backend_mode (book_factory, OFFLINE_MODE);
-
-	e_data_book_factory_register_backend (book_factory,
-					      (g_object_new (e_book_backend_exchange_factory_get_type(),
-							     NULL)));
-	e_data_book_factory_register_backend (book_factory,
-					      (g_object_new (e_book_backend_gal_factory_get_type(),
-							     NULL)));
-
-        g_signal_connect (book_factory, "last_book_gone",
-			  G_CALLBACK (last_book_gone_cb), NULL);
-
-        if (!e_data_book_factory_activate (book_factory, EXCHANGE_ADDRESSBOOK_FACTORY_ID)) {
-                bonobo_object_unref (BONOBO_OBJECT (book_factory));
-                book_factory = NULL;
-                return FALSE;
-        }
-
-        return TRUE;
 }
 
 gint
@@ -255,14 +160,6 @@ main (gint argc, gchar **argv)
 	/* register factories */
 	if (!setup_component_factory ())
 		goto failed;
-	if (!setup_calendar_factory ())
-		goto failed;
-        if (!setup_addressbook_factory ())
-		goto failed;
-
-	exchange_component_set_factories (global_exchange_component,
-					  cal_factory,
-					  book_factory);
 
 	fprintf (stderr, "Evolution Exchange Storage up and running\n");
 #ifdef E2K_DEBUG

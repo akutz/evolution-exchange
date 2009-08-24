@@ -58,9 +58,6 @@ static guint linestatus_signal_id;
 struct ExchangeComponentPrivate {
 	ExchangeConfigListener *config_listener;
 
-	EDataCalFactory *cal_factory;
-	EDataBookFactory *book_factory;
-
 	gboolean linestatus;
 
 	GSList *accounts;
@@ -108,16 +105,6 @@ dispose (GObject *object)
 			g_object_unref (p->data);
 		g_slist_free (priv->views);
 		priv->views = NULL;
-	}
-
-	if (priv->cal_factory) {
-		g_object_unref (priv->cal_factory);
-		priv->cal_factory = NULL;
-	}
-
-	if (priv->book_factory) {
-		g_object_unref (priv->book_factory);
-		priv->book_factory = NULL;
 	}
 
 	if (priv->evo_listener) {
@@ -259,16 +246,6 @@ impl_setLineStatus (PortableServer_Servant servant,
 			break;
 		default:
 			break;
-	}
-
-	if (priv->cal_factory) {
-		e_data_cal_factory_set_backend_mode (priv->cal_factory,
-						     priv->linestatus ? ONLINE_MODE : OFFLINE_MODE);
-	}
-
-	if (priv->book_factory) {
-		e_data_book_factory_set_backend_mode (priv->book_factory,
-						      priv->linestatus ? ONLINE_MODE : OFFLINE_MODE);
 	}
 
 	if (priv->evo_listener == NULL) {
@@ -536,17 +513,3 @@ exchange_component_is_interactive (ExchangeComponent *component)
 	return component->priv->xid != 0;
 }
 */
-
-void
-exchange_component_set_factories (ExchangeComponent *component,
-				  EDataCalFactory *cal_factory,
-				  EDataBookFactory *book_factory)
-{
-	g_return_if_fail (EXCHANGE_IS_COMPONENT (component));
-	g_return_if_fail (E_IS_DATA_CAL_FACTORY (cal_factory));
-	g_return_if_fail (E_IS_DATA_BOOK_FACTORY (book_factory));
-
-	component->priv->cal_factory = g_object_ref (cal_factory);
-	component->priv->book_factory = g_object_ref (book_factory);
-}
-
