@@ -462,7 +462,7 @@ verify_page_create (ExchangeAutoconfigGUI *gui, GdkPixbuf *logo, GtkWidget **pag
 	CONNECT_CHANGE_SIGNAL (w, "changed");
 	gui->email_entry = GTK_ENTRY (w);
 
-	w = gtk_check_button_new_with_label ("Make this my default account");
+	w = gtk_check_button_new_with_label (_("Make this my default account"));
 	CONNECT_CHANGE_SIGNAL (w, "toggled");
 	gtk_table_attach (table, w, 0, 2, 2, 3, GTK_FILL, 0, 0, 10);
 
