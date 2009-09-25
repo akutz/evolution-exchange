@@ -6,421 +6,453 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-09 09:32+0000\n"
-"PO-Revision-Date: 2008-02-08 03:18+0000\n"
-"Last-Translator: Yair Hershkovitz <yairhr@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=evolution-exchange&component=general\n"
+"POT-Creation-Date: 2009-08-11 14:05+0000\n"
+"PO-Revision-Date: 2009-09-25 12:58+0200\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Hebrew\n"
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
 msgid "Specifies the time interval to refresh the GAL Cache."
 msgstr "Specifies the time interval to refresh the GAL Cache."
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
-msgid ""
-"This key specifies the number of days interval between the GAL cache "
-"refresh. Set this value to zero, if you don't want to update GAL and use the "
-"current cache forever. This will work only if you have enabled offline "
-"caching for GAL."
-msgstr ""
-"This key specifies the number of days interval between the GAL cache "
-"refresh. Set this value to zero, if you don't want to update GAL and use the "
-"current cache forever. This will work only if you have enabled offline "
-"caching for GAL."
+msgid "This key specifies the number of days interval between the GAL cache refresh. Set this value to zero, if you don't want to update GAL and use the current cache forever. This will work only if you have enabled offline caching for GAL."
+msgstr "This key specifies the number of days interval between the GAL cache refresh. Set this value to zero, if you don't want to update GAL and use the current cache forever. This will work only if you have enabled offline caching for GAL."
 
-#: ../addressbook/e-book-backend-exchange.c:1929
-#: ../addressbook/e-book-backend-gal.c:1804 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:2283
+#: ../addressbook/e-book-backend-gal.c:1885
+#: ../storage/exchange-storage.c:134
 msgid "Searching..."
 msgstr "מחפש..."
 
-#: ../addressbook/e-book-backend-gal.c:301
-#: ../addressbook/e-book-backend-gal.c:322
+#: ../addressbook/e-book-backend-gal.c:308
+#: ../addressbook/e-book-backend-gal.c:329
 msgid "Reconnecting to LDAP server..."
 msgstr "מתחבר מחדש לשרת LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1588
+#: ../addressbook/e-book-backend-gal.c:1646
 msgid "Receiving LDAP search results..."
 msgstr "מקבל תוצות חיפוש LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1833
+#: ../addressbook/e-book-backend-gal.c:1916
 msgid "Error performing search"
 msgstr "שגיאה בביצוע החיפוש"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2028
+#: ../calendar/e-cal-backend-exchange-calendar.c:2088
 #, c-format
 msgid ""
 "Unable to schedule resource '%s' for recurring meetings.\n"
 "You must book each meeting separately."
 msgstr ""
+"לא ניתן לקבוע את המשאב '%s' לישיבות חוזרות.\n"
+"יש לתייק כל פגישה בנפרד."
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2046
+#: ../calendar/e-cal-backend-exchange-calendar.c:2106
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
-msgstr ""
+msgstr "המשאב '%s' לא זמין במשך תקופת הזמן שנבחרה."
 
-#: ../calendar/e-cal-backend-exchange.c:391
-#: ../calendar/e-cal-backend-exchange.c:401
+#: ../calendar/e-cal-backend-exchange.c:426
 msgid "Authentication failed"
-msgstr ""
+msgstr "האימות נכשל"
 
-#: ../calendar/e-cal-backend-exchange.c:442
+#: ../calendar/e-cal-backend-exchange.c:478
 msgid "Could not find the calendar"
-msgstr "לא ניתן למצוא ת היומן"
+msgstr "לא ניתן למצוא את היומן"
 
-#: ../camel/camel-exchange-folder.c:52
-msgid "Always check for new mail in this folder"
-msgstr ""
-
-#: ../camel/camel-exchange-folder.c:238
+#: ../camel/camel-exchange-folder.c:205
 msgid "You cannot expunge in offline mode."
-msgstr ""
+msgstr "לא ניתן לבצע השמדה במצב לא מקוון."
 
-#: ../camel/camel-exchange-folder.c:269
+#: ../camel/camel-exchange-folder.c:236
 msgid "No Subject"
 msgstr "אין נושא"
 
-#: ../camel/camel-exchange-folder.c:424
+#: ../camel/camel-exchange-folder.c:399
 msgid "This message is not available in offline mode."
 msgstr "הודעה זו אינה זמינה במצב לא מקוון"
 
-#: ../camel/camel-exchange-folder.c:681
+#: ../camel/camel-exchange-folder.c:634
 msgid "Moving messages"
 msgstr "מעביר הודעות"
 
-#: ../camel/camel-exchange-folder.c:682
+#: ../camel/camel-exchange-folder.c:635
 msgid "Copying messages"
 msgstr "מעתיק הודעות"
 
-#: ../camel/camel-exchange-folder.c:1055
+#: ../camel/camel-exchange-folder.c:1012
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "לא ניתן ליצור את הספרייה %s: ‏%s"
 
-#: ../camel/camel-exchange-folder.c:1065
+#: ../camel/camel-exchange-folder.c:1022
 #, c-format
 msgid "Could not load summary for %s"
-msgstr ""
+msgstr "לא ניתן לטעון סיכום עבור %s"
 
-#: ../camel/camel-exchange-folder.c:1073
+#: ../camel/camel-exchange-folder.c:1030
 #, c-format
 msgid "Could not create cache for %s"
-msgstr ""
+msgstr "לא ניתן ליצור מטמון עבור %s"
 
-#: ../camel/camel-exchange-folder.c:1083
+#: ../camel/camel-exchange-folder.c:1040
 #, c-format
 msgid "Could not create journal for %s"
-msgstr ""
+msgstr "לא ניתן ליצור יומן עבור %s"
 
-#: ../camel/camel-exchange-folder.c:1131
+#: ../camel/camel-exchange-folder.c:1091
 msgid "Scanning for changed messages"
-msgstr ""
+msgstr "סורק אחר הודעות ששונו"
 
-#: ../camel/camel-exchange-folder.c:1164
+#: ../camel/camel-exchange-folder.c:1124
 msgid "Fetching summary information for new messages"
-msgstr ""
+msgstr "מוריד נתוני סיכום עבור הודעות חדשות"
 
-#: ../camel/camel-exchange-journal.c:341
+#: ../camel/camel-exchange-journal.c:338
 msgid "No folder name found\n"
 msgstr "לא נמצא שם תיקייה\n"
 
-#: ../camel/camel-exchange-journal.c:374 ../mail/mail-stub-exchange.c:3002
-#: ../mail/mail-stub-exchange.c:3046 ../mail/mail-stub-exchange.c:3081
-#: ../mail/mail-stub-exchange.c:3108 ../mail/mail-stub-exchange.c:3161
-#: ../mail/mail-stub-exchange.c:3183
+#: ../camel/camel-exchange-journal.c:371
+#: ../mail/mail-stub-exchange.c:3079
+#: ../mail/mail-stub-exchange.c:3129
+#: ../mail/mail-stub-exchange.c:3259
+#: ../mail/mail-stub-exchange.c:3286
+#: ../mail/mail-stub-exchange.c:3339
+#: ../mail/mail-stub-exchange.c:3361
 msgid "Folder doesn't exist"
 msgstr "הספרייה אינה קיימת"
 
-#: ../camel/camel-exchange-journal.c:438
+#: ../camel/camel-exchange-journal.c:433
 msgid "Cannot append message in offline mode: cache unavailable"
-msgstr ""
+msgstr "לא ניתן להוסיף הודעה במצב לא מקוון: המטמון אינו זמין"
 
-#: ../camel/camel-exchange-journal.c:454
+#: ../camel/camel-exchange-journal.c:449
 #, c-format
 msgid "Cannot append message in offline mode: %s"
+msgstr "לא ניתן להוסיף הודעה במצב לא מקוון: %s"
+
+#: ../camel/camel-exchange-provider.c:55
+#, fuzzy
+#| msgid "Secure Password"
+msgid "Secure or Plaintext Password"
+msgstr "סיסמה מאובטחת"
+
+#: ../camel/camel-exchange-provider.c:56
+#: ../camel/camel-exchange-provider.c:141
+msgid "Plaintext Password"
 msgstr ""
 
-#: ../camel/camel-exchange-provider.c:41
+#. i18n: "Secure Password Authentication" is an Outlookism
+#: ../camel/camel-exchange-provider.c:57
+#: ../camel/camel-exchange-provider.c:130
+msgid "Secure Password"
+msgstr "סיסמה מאובטחת"
+
+#: ../camel/camel-exchange-provider.c:63
 msgid "Checking for New Mail"
 msgstr "בודק עבור דואר חדש"
 
-#: ../camel/camel-exchange-provider.c:43
+#: ../camel/camel-exchange-provider.c:65
 msgid "C_heck for new messages in all folders"
 msgstr "_בדוק עבור הודעות חדשות בכל התיקיות"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:51
+#: ../camel/camel-exchange-provider.c:73
 msgid "Windows User_name:"
 msgstr "שם _משתמש Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:56
+#: ../camel/camel-exchange-provider.c:78
 msgid "Global Address List / Active Directory"
 msgstr ""
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:60
+#: ../camel/camel-exchange-provider.c:82
 msgid "_Global Catalog server name:"
 msgstr ""
 
-#: ../camel/camel-exchange-provider.c:62
+#: ../camel/camel-exchange-provider.c:84
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr ""
 
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:86
+msgid "Authentication _Type:"
+msgstr "_סוג האימות:"
+
+#: ../camel/camel-exchange-provider.c:88
+msgid "Allow _browsing of the GAL until download limit is reached"
+msgstr ""
+
+#: ../camel/camel-exchange-provider.c:91
 msgid "Options"
 msgstr "אפשרויות"
 
-#: ../camel/camel-exchange-provider.c:67
+#: ../camel/camel-exchange-provider.c:93
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr ""
 
-#: ../camel/camel-exchange-provider.c:69
+#: ../camel/camel-exchange-provider.c:95
 msgid "Automatically synchroni_ze account locally"
-msgstr ""
+msgstr "סנכ_רן את החשבון מקומית באופן אוטומטי"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:72
+#: ../camel/camel-exchange-provider.c:98
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "החל _מסננים על הודעות חדשות בדואר הנכנס בשרת זה"
 
-#: ../camel/camel-exchange-provider.c:74
+#: ../camel/camel-exchange-provider.c:100
 msgid "Check new messages for _Junk contents"
 msgstr "בדוק הודעות חדשות עבור תכני _זבל"
 
-#: ../camel/camel-exchange-provider.c:76
+#: ../camel/camel-exchange-provider.c:102
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "בדוק עבור הודעות זבל בתיקיית הדואר הנכנס _בלבד"
 
-#: ../camel/camel-exchange-provider.c:86
+#: ../camel/camel-exchange-provider.c:112
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:88
+#: ../camel/camel-exchange-provider.c:114
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr ""
 
-#. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:104
-msgid "Secure Password"
-msgstr "סיסמה מאובטחת"
-
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:107
-msgid ""
-"This option will connect to the Exchange server using secure password (NTLM) "
-"authentication."
+#: ../camel/camel-exchange-provider.c:133
+msgid "This option will connect to the Exchange server using secure password (NTLM) authentication."
 msgstr ""
 
-#: ../camel/camel-exchange-provider.c:115
-msgid "Plaintext Password"
+#: ../camel/camel-exchange-provider.c:143
+msgid "This option will connect to the Exchange server using standard plaintext password authentication."
 msgstr ""
 
-#: ../camel/camel-exchange-provider.c:117
-msgid ""
-"This option will connect to the Exchange server using standard plaintext "
-"password authentication."
-msgstr ""
-
-#: ../camel/camel-exchange-store.c:312
+#: ../camel/camel-exchange-store.c:313
 #, c-format
 msgid "Exchange server %s"
 msgstr "שרת Exchange %s"
 
-#: ../camel/camel-exchange-store.c:315
+#: ../camel/camel-exchange-store.c:316
 #, c-format
 msgid "Exchange account for %s on %s"
-msgstr ""
+msgstr "חשבון ה־Exchange של %s על גבי %s"
 
-#: ../camel/camel-exchange-store.c:407
+#: ../camel/camel-exchange-store.c:398
 msgid "Evolution Exchange backend process"
 msgstr "תהליך מנוע Evolution Exchange"
 
-#: ../camel/camel-exchange-store.c:448
+#: ../camel/camel-exchange-store.c:441
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
 msgstr ""
+"לא ניתן להתאמת עם השרת. (סיסמה שגויה?)\n"
+"\n"
 
-#: ../camel/camel-exchange-store.c:490
+#: ../camel/camel-exchange-store.c:494
 #, c-format
 msgid "No such folder %s"
 msgstr "לא קיימת תיקייה %s"
 
-#: ../camel/camel-exchange-store.c:567
+#: ../camel/camel-exchange-store.c:571
 msgid "Cannot subscribe folder in offline mode."
 msgstr "לא ניתן לרשום תיקייה במצב לא מקוון."
 
-#: ../camel/camel-exchange-store.c:584
+#: ../camel/camel-exchange-store.c:588
 msgid "Cannot unsubscribe folder in offline mode."
-msgstr ""
+msgstr "לא ניתן לבטל הרשמה מתיקייה במצב לא מקוון."
 
-#: ../camel/camel-exchange-store.c:716
+#: ../camel/camel-exchange-store.c:724
 msgid "Cannot get folder info in offline mode."
 msgstr "לא ניתן לקבל מידע תיקייה במצב לא מקוון."
 
-#: ../camel/camel-exchange-store.c:789
+#: ../camel/camel-exchange-store.c:797
 msgid "Cannot create folder in offline mode."
 msgstr "לא ניתן ליצור תיקייה במצב לא מקוון."
 
-#: ../camel/camel-exchange-store.c:816
+#: ../camel/camel-exchange-store.c:824
 msgid "Cannot delete folder in offline mode."
 msgstr "לא ניתן למחוק תיקייה במצב לא מקוון."
 
-#: ../camel/camel-exchange-store.c:832
+#: ../camel/camel-exchange-store.c:848
 msgid "Cannot rename folder in offline mode."
 msgstr "לא ניתן לשנות שם תיקייה במצב לא מקוון."
 
-#: ../camel/camel-exchange-transport.c:111
+#: ../camel/camel-exchange-transport.c:109
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr ""
 
-#: ../camel/camel-exchange-transport.c:122
+#: ../camel/camel-exchange-transport.c:120
 msgid "Cannot send message: one or more invalid recipients"
 msgstr ""
 
-#: ../camel/camel-exchange-transport.c:132
+#: ../camel/camel-exchange-transport.c:130
 msgid "Could not find 'From' address in message"
 msgstr ""
 
-#: ../camel/camel-stub.c:153
+#: ../camel/camel-stub.c:164
+#: ../camel/camel-stub.c:228
 #, c-format
 msgid "Could not create socket: %s"
-msgstr ""
+msgstr "לא ניתן ליצור שקע: %s"
 
-#: ../camel/camel-stub.c:171
+#: ../camel/camel-stub.c:182
 #, c-format
 msgid "Could not connect to %s: Please restart Evolution"
-msgstr ""
+msgstr "לא ניתן להתחבר אל %s: נא להפעיל את Evolution מחדש"
 
-#: ../camel/camel-stub.c:176
+#: ../camel/camel-stub.c:187
+#: ../camel/camel-stub.c:246
 #, c-format
 msgid "Could not connect to %s: %s"
-msgstr ""
+msgstr "לא ניתן להתחבר אל %s: ‏%s"
 
-#: ../camel/camel-stub.c:206
+#: ../camel/camel-stub.c:211
+#, c-format
+#| msgid "Could not create directory %s: %s"
+msgid "Count not read file '%s': %s"
+msgstr "לא ניתן לקרוא את הקובץ '%s': ‏%s"
+
+#: ../camel/camel-stub.c:219
+#, c-format
+msgid "Wrong size file '%s'"
+msgstr "גודל הקובץ שגוי '%s'"
+
+#: ../camel/camel-stub.c:281
 #, c-format
 msgid "Path too long: %s"
 msgstr "נתיב ארוך מדי: %s"
 
-#: ../camel/camel-stub.c:232
+#: ../camel/camel-stub.c:316
 #, c-format
 msgid "Could not start status thread: %s"
 msgstr ""
 
+#: ../camel/camel-stub.c:570
 #, c-format
 msgid "Lost connection to %s"
 msgstr "אבד החיבור ל-%s"
 
-#: ../camel/camel-stub.c:490
+#: ../camel/camel-stub.c:574
 #, c-format
 msgid "Error communicating with %s: %s"
-msgstr ""
+msgstr "שגיאה בעת יצירת הקשר עם %s: ‏%s"
 
-#: ../mail/mail-stub-exchange.c:264 ../mail/mail-stub-exchange.c:949
+#: ../mail/mail-stub-exchange.c:268
+#: ../mail/mail-stub-exchange.c:968
 msgid "No such folder"
 msgstr "לא קיימת תיקייה"
 
-#. FIXME: should be this, but string freeze freezes me to do so.
-#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
-#: ../mail/mail-stub-exchange.c:287 ../mail/mail-stub-exchange.c:1598
-#: ../mail/mail-stub-exchange.c:2979 ../mail/mail-stub-exchange.c:3019
-#: ../mail/mail-stub-exchange.c:3085 ../mail/mail-stub-exchange.c:3135
-#: ../mail/mail-stub-exchange.c:3198
+#: ../mail/mail-stub-exchange.c:291
+#: ../mail/mail-stub-exchange.c:3056
+#: ../mail/mail-stub-exchange.c:3096
+#: ../mail/mail-stub-exchange.c:3263
+#: ../mail/mail-stub-exchange.c:3313
+#: ../mail/mail-stub-exchange.c:3376
 msgid "Permission denied"
-msgstr ""
+msgstr "ההרשאה נדחתה"
 
-#: ../mail/mail-stub-exchange.c:771 ../mail/mail-stub-exchange.c:863
+#: ../mail/mail-stub-exchange.c:790
+#: ../mail/mail-stub-exchange.c:882
 msgid "Could not open folder"
 msgstr "לא ניתן לפתוח תיקייה"
 
-#: ../mail/mail-stub-exchange.c:857 ../mail/mail-stub-exchange.c:879
+#: ../mail/mail-stub-exchange.c:876
+#: ../mail/mail-stub-exchange.c:898
 msgid "Could not open folder: Permission denied"
-msgstr ""
+msgstr "לא ניתן לפתוח את התיקייה: ההרשאה נדחתה"
 
-#: ../mail/mail-stub-exchange.c:958
+#: ../mail/mail-stub-exchange.c:977
 msgid "Could not create folder."
 msgstr "לא ניתן ליצור תיקייה."
 
-#: ../mail/mail-stub-exchange.c:1046
+#: ../mail/mail-stub-exchange.c:1065
 msgid "Could not open Deleted Items folder"
 msgstr "לא ניתן לפתוח את תיקיית הפריטים שנמחקו"
 
-#: ../mail/mail-stub-exchange.c:1377 ../mail/mail-stub-exchange.c:1418
+#: ../mail/mail-stub-exchange.c:1385
+#: ../mail/mail-stub-exchange.c:1425
 msgid "Could not get new messages"
 msgstr "לא ניתן לקבל הודעות חדשות"
 
-#: ../mail/mail-stub-exchange.c:1594
+#: ../mail/mail-stub-exchange.c:1640
 msgid "Could not empty Deleted Items folder"
-msgstr ""
+msgstr "לא ניתן לרוקן את תיקיית הפריטים שנמחקו"
 
-#: ../mail/mail-stub-exchange.c:1671
+#: ../mail/mail-stub-exchange.c:1642
+msgid "Permission denied. Could not delete certain messages."
+msgstr "ההרשאה נדחתה. לא ניתן למחוק הודעות מסוימות."
+
+#: ../mail/mail-stub-exchange.c:1715
 msgid "Could not append message; mailbox is over quota"
-msgstr ""
+msgstr "לא ניתן להוסיף הודעה; תיבת הדואר אלקטרוני חרגה ממכסתה"
 
-#: ../mail/mail-stub-exchange.c:1672
+#: ../mail/mail-stub-exchange.c:1716
 msgid "Could not append message"
-msgstr ""
+msgstr "לא ניתן להוסיף הודעה"
 
-#: ../mail/mail-stub-exchange.c:2434
+#: ../mail/mail-stub-exchange.c:2478
 msgid "No such message"
-msgstr ""
+msgstr "אין הודעה כזו"
 
-#: ../mail/mail-stub-exchange.c:2513
+#: ../mail/mail-stub-exchange.c:2559
 msgid "Message has been deleted"
-msgstr ""
+msgstr "ההודעה נמחקה"
 
-#: ../mail/mail-stub-exchange.c:2515
+#: ../mail/mail-stub-exchange.c:2561
 msgid "Error retrieving message"
-msgstr ""
+msgstr "שגיאה בהורדת הודעה"
 
-#: ../mail/mail-stub-exchange.c:2558
+#: ../mail/mail-stub-exchange.c:2603
 msgid "Mailbox does not support full-text searching"
-msgstr ""
+msgstr "תיבת הדוא\"ל לא תומכת בחיפוש טקסט מלא"
 
-#: ../mail/mail-stub-exchange.c:2656
+#: ../mail/mail-stub-exchange.c:2706
 msgid "Unable to move/copy messages"
 msgstr "לא ניתן להעתיק/להעביר הודעות"
 
-#: ../mail/mail-stub-exchange.c:2894
+#: ../mail/mail-stub-exchange.c:2973
 msgid "No mail submission URI for this mailbox"
 msgstr ""
 
-#: ../mail/mail-stub-exchange.c:2930
+#: ../mail/mail-stub-exchange.c:3007
 msgid "Server won't accept mail via Exchange transport"
 msgstr ""
 
-#: ../mail/mail-stub-exchange.c:2932
+#: ../mail/mail-stub-exchange.c:3009
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
 msgstr ""
 
-#: ../mail/mail-stub-exchange.c:2944
+#: ../mail/mail-stub-exchange.c:3021
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
 
-#: ../mail/mail-stub-exchange.c:2948
+#: ../mail/mail-stub-exchange.c:3025
 msgid "Could not send message"
 msgstr "לא ניתן לשלוח הודעה"
 
-#: ../mail/mail-stub-exchange.c:2971 ../mail/mail-stub-exchange.c:3024
-#: ../mail/mail-stub-exchange.c:3089 ../mail/mail-stub-exchange.c:3140
-#: ../mail/mail-stub-exchange.c:3204
+#: ../mail/mail-stub-exchange.c:3048
+#: ../mail/mail-stub-exchange.c:3101
+#: ../mail/mail-stub-exchange.c:3267
+#: ../mail/mail-stub-exchange.c:3318
+#: ../mail/mail-stub-exchange.c:3382
 msgid "Generic error"
 msgstr "שגיאה כללית"
 
-#: ../mail/mail-stub-exchange.c:2975
+#: ../mail/mail-stub-exchange.c:3052
 msgid "Folder already exists"
 msgstr "התיקייה כבר קיימת"
 
@@ -433,98 +465,88 @@ msgid "Evolution Calendar Exchange backend"
 msgstr ""
 
 #: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-#: ../storage/main.c:183
+#: ../storage/main.c:219
 msgid "Evolution Connector for Microsoft Exchange"
 msgstr ""
 
-#: ../storage/exchange-autoconfig-wizard.c:211
+#: ../storage/exchange-autoconfig-wizard.c:223
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
 
-#: ../storage/exchange-autoconfig-wizard.c:219
+#: ../storage/exchange-autoconfig-wizard.c:231
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
 msgstr ""
 
-#: ../storage/exchange-autoconfig-wizard.c:228
+#: ../storage/exchange-autoconfig-wizard.c:240
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
 msgstr ""
 
-#: ../storage/exchange-autoconfig-wizard.c:235
+#: ../storage/exchange-autoconfig-wizard.c:247
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again.\n"
 "\n"
-"You may need to specify the Windows domain name as part of your username "
-"(eg, \"MY-DOMAIN\\%s\")."
+"You may need to specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
 
-#: ../storage/exchange-autoconfig-wizard.c:247
+#: ../storage/exchange-autoconfig-wizard.c:259
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 msgstr ""
 
-#: ../storage/exchange-autoconfig-wizard.c:254
+#: ../storage/exchange-autoconfig-wizard.c:266
 msgid ""
-"Evolution Connector for Microsoft Exchange requires access to certain "
-"functionality on the Exchange server that appears to be disabled or "
-"blocked.  (This is usually unintentional.)  Your Exchange administrator will "
-"need to enable this functionality in order for you to be able to use the "
-"Evolution Connector.\n"
+"Evolution Connector for Microsoft Exchange requires access to certain functionality on the Exchange server that appears to be disabled or blocked.  (This is usually unintentional.)  Your Exchange administrator will need to enable this functionality in order for you to be able to use the Evolution Connector.\n"
 "\n"
-"For information to provide to your Exchange administrator, please follow the "
-"link below:"
+"For information to provide to your Exchange administrator, please follow the link below:"
 msgstr ""
 
-#: ../storage/exchange-autoconfig-wizard.c:276
-msgid ""
-"The Exchange server URL you provided is for an Exchange 5.5 server. "
-"Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
-"and 2003 only."
+#: ../storage/exchange-autoconfig-wizard.c:288
+msgid "The Exchange server URL you provided is for an Exchange 5.5 server. Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 and 2003 only."
 msgstr ""
 
-#: ../storage/exchange-autoconfig-wizard.c:290
-msgid ""
-"Could not configure Exchange account because an unknown error occurred. "
-"Check the URL, username, and password, and try again."
+#: ../storage/exchange-autoconfig-wizard.c:302
+msgid "Could not configure Exchange account because an unknown error occurred. Check the URL, username, and password, and try again."
 msgstr ""
 
-#: ../storage/exchange-autoconfig-wizard.c:334
+#: ../storage/exchange-autoconfig-wizard.c:346
 #, c-format
-msgid ""
-"Could not authenticate to the Global Catalog server. You may need to go back "
-"and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN"
-"\\%s\")."
+msgid "Could not authenticate to the Global Catalog server. You may need to go back and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
 
-#: ../storage/exchange-autoconfig-wizard.c:341
+#: ../storage/exchange-autoconfig-wizard.c:353
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
 msgstr ""
+"לא ניתן להתחבר לשרת שצוין.\n"
+"נא לבדוק את שם השרת ולנסות שוב."
 
-#: ../storage/exchange-autoconfig-wizard.c:378
-#: ../storage/exchange-autoconfig-wizard.c:382
+#: ../storage/exchange-autoconfig-wizard.c:390
+#: ../storage/exchange-autoconfig-wizard.c:394
 msgid "Unknown"
 msgstr "לא ידוע"
 
-#: ../storage/exchange-autoconfig-wizard.c:447
+#: ../storage/exchange-autoconfig-wizard.c:459
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
 msgstr ""
+"שגיאת מערכת התצורה.\n"
+"לא ניתן ליצור חשבון חדש."
 
-#: ../storage/exchange-autoconfig-wizard.c:461
+#: ../storage/exchange-autoconfig-wizard.c:473
 msgid "You may only configure a single Exchange account"
-msgstr ""
+msgstr "ניתן להגדיר רק חשבון Exchange אחד"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:1
 #: ../storage/exchange-change-password.glade.h:1
@@ -533,11 +555,11 @@ msgstr "*"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:2
 msgid "Configuration Failed"
-msgstr ""
+msgstr "התצורה נכשלה"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:3
 msgid "Done"
-msgstr ""
+msgstr "בוצע"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:4
 msgid "Email Address:"
@@ -549,29 +571,22 @@ msgstr ""
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:6
 msgid ""
-"Evolution Connector for Microsoft Exchange can use account information from "
-"your existing Outlook Web Access (OWA) account.\n"
+"Evolution Connector for Microsoft Exchange can use account information from your existing Outlook Web Access (OWA) account.\n"
 "\n"
-"Enter your OWA site address (URL), username, and password, then click "
-"\"Forward\".\n"
+"Enter your OWA site address (URL), username, and password, then click \"Forward\".\n"
 msgstr ""
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:10
-msgid ""
-"Evolution Connector for Microsoft Exchange could not find the Global Catalog "
-"replica for your site. Please enter the name of your Global Catalog server. "
-"You may need to ask your system administrator for the correct value.\n"
+msgid "Evolution Connector for Microsoft Exchange could not find the Global Catalog replica for your site. Please enter the name of your Global Catalog server. You may need to ask your system administrator for the correct value.\n"
 msgstr ""
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:12
-msgid ""
-"Evolution Connector for Microsoft Exchange has encountered a problem "
-"configuring your Exchange account.\n"
+msgid "Evolution Connector for Microsoft Exchange has encountered a problem configuring your Exchange account.\n"
 msgstr ""
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:14
 msgid "Exchange Configuration"
-msgstr ""
+msgstr "הגדרת Exchange"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:15
 msgid "Full Name:"
@@ -603,7 +618,7 @@ msgstr "שם משתמש:"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:22
 msgid "Welcome"
-msgstr ""
+msgstr "ברוכים הבאים"
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:23
 msgid ""
@@ -616,27 +631,22 @@ msgstr ""
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:28
 msgid ""
-"Your Connector account is now ready to use. Click the \"Apply\" button to "
-"save your\n"
+"Your Connector account is now ready to use. Click the \"Apply\" button to save your\n"
 "settings."
 msgstr ""
 
 #: ../storage/exchange-autoconfig-wizard.glade.h:30
-msgid ""
-"Your account information is as follows. Please correct any errors, then "
-"click \"Forward\".\n"
+msgid "Your account information is as follows. Please correct any errors, then click \"Forward\".\n"
 msgstr ""
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
-#: ../storage/exchange-change-password.c:114
-msgid ""
-"The current password does not match the existing password for your account. "
-"Please enter the correct password"
-msgstr ""
+#: ../storage/exchange-change-password.c:125
+msgid "The current password does not match the existing password for your account. Please enter the correct password"
+msgstr "הסיסמה הנוכחית אינה תואמת את הסיסמה הקיימת עבור החשבון שלך. אנא הזן את הסיסמה הנכונה"
 
-#: ../storage/exchange-change-password.c:121
+#: ../storage/exchange-change-password.c:132
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr "שתי הסיסמאות אינן תואמות. נא להכניס את הסימאות מחדש."
 
@@ -662,7 +672,7 @@ msgstr "פג תוקף הסיסמה הנוכחית שלך. נא להכניס סי
 
 #: ../storage/exchange-delegates.glade.h:1
 msgid "Author (read, create)"
-msgstr ""
+msgstr "יוצר (קריאה, יצירה)"
 
 #: ../storage/exchange-delegates.glade.h:2
 msgid "C_alendar:"
@@ -678,15 +688,15 @@ msgstr ""
 
 #: ../storage/exchange-delegates.glade.h:5
 msgid "Delegates"
-msgstr ""
+msgstr "באי כוח"
 
 #: ../storage/exchange-delegates.glade.h:6
 msgid "Editor (read, create, edit)"
-msgstr ""
+msgstr "עורך (קריאה, יצירה, עריכה)"
 
 #: ../storage/exchange-delegates.glade.h:7
 msgid "None"
-msgstr ""
+msgstr "ללא"
 
 #: ../storage/exchange-delegates.glade.h:8
 msgid "Permissions for"
@@ -694,17 +704,19 @@ msgstr "הרשאות עבור"
 
 #: ../storage/exchange-delegates.glade.h:9
 msgid "Reviewer (read-only)"
-msgstr ""
+msgstr "מבקר (קריאה בלבד)"
 
 #: ../storage/exchange-delegates.glade.h:10
 msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
 msgstr ""
+"משתמשים אלה יוכלו לשלוח דואר בשמך\n"
+"ולגשת לתיקיות שלך בהתאם להרשאות שתיתן להם."
 
 #: ../storage/exchange-delegates.glade.h:12
 msgid "_Delegate can see private items"
-msgstr ""
+msgstr "_באי כוח יכולים לצפות בפריטים אישיים"
 
 #: ../storage/exchange-delegates.glade.h:13
 msgid "_Edit"
@@ -720,34 +732,36 @@ msgstr "_משימות:"
 
 #: ../storage/exchange-folder-tree.glade.h:1
 msgid "Exchange Folder Tree"
-msgstr ""
+msgstr "עץ תיקיות ה־Exchange"
 
-#: ../storage/exchange-migrate.c:58
+#: ../storage/exchange-migrate.c:60
 msgid "Migrating Exchange Folders..."
-msgstr ""
+msgstr "מייבא את תיקיות ה־Exchange..."
 
-#: ../storage/exchange-migrate.c:66
+#: ../storage/exchange-migrate.c:68
 #, c-format
 msgid ""
-"The location and hierarchy of the Evolution exchange account folders are "
-"changed since Evolution %d.%d.%d.\n"
+"The location and hierarchy of the Evolution exchange account folders are changed since Evolution %d.%d.%d.\n"
 "\n"
 "Please be patient while Evolution migrates your folders..."
 msgstr ""
+"המיקום והמבנה של תיקיות החשבונות ה־Exchange של Evolution שונו מגרסה %d.%d.%d של Evolution.\n"
+"\n"
+"נא להמתין בסבלנות בזמן ש־Evolution מייבא את התיקיות שלך..."
 
-#: ../storage/exchange-migrate.c:99
+#: ../storage/exchange-migrate.c:101
 #, c-format
 msgid ""
-"Warning: Evolution could not migrate all the Exchange account data from the "
-"version %d.%d.%d. \n"
-"The data hasn't been deleted, but will not be seen by this version of "
-"Evolution"
+"Warning: Evolution could not migrate all the Exchange account data from the version %d.%d.%d. \n"
+"The data hasn't been deleted, but will not be seen by this version of Evolution"
 msgstr ""
+"אזהרה: Evolution לא הצליח לייבא את כל נתוני חשבון ה־Exchange מגרסה %d.%d.%d. \n"
+" המידע לא נמחק, אבל הוא לא יהיה זמין מגרסה זו של Evolution"
 
-#: ../storage/exchange-migrate.c:130
+#: ../storage/exchange-migrate.c:132
 #, c-format
 msgid "Migrating `%s':"
-msgstr ""
+msgstr "מייבא את `%s':"
 
 #: ../storage/exchange-oof.glade.h:1
 msgid ""
@@ -755,49 +769,51 @@ msgid ""
 "\n"
 "Would you like to change your status to \"In the Office\"? "
 msgstr ""
+"<b>נכון לעכשיו מצבך מוגדר כ־\"מחוץ למשרד\". </b>\n"
+"\n"
+"האם ברצונך לשנות את מצבך ל־\"נמצא במשרד\"? "
 
 #: ../storage/exchange-oof.glade.h:4
 msgid "<b>Out of Office Message:</b>"
-msgstr ""
+msgstr "<b>הודעת מחוץ למשרד:</b>"
 
 #: ../storage/exchange-oof.glade.h:5
 msgid "<b>Status:</b>"
-msgstr ""
+msgstr "<b>מצב:</b>"
 
 #: ../storage/exchange-oof.glade.h:6
 msgid ""
-"<small>The message specified below will be automatically sent to each person "
-"who sends\n"
+"<small>The message specified below will be automatically sent to each person who sends\n"
 "mail to you while you are out of the office.</small>"
-msgstr ""
+msgstr "<small>ההודעה המפורטת למטה תשלח אוטומטית לכל מי שישלח לך דואר בזמן שאתה מחוץ למשרד</small>"
 
 #: ../storage/exchange-oof.glade.h:8
 msgid "I am currently in the office"
-msgstr ""
+msgstr "כרגע אני נמצא במשרד"
 
 #: ../storage/exchange-oof.glade.h:9
 msgid "I am currently out of the office"
-msgstr ""
+msgstr "כרגע אני מחוץ למשרד"
 
 #: ../storage/exchange-oof.glade.h:10
 msgid "No, Don't Change Status"
-msgstr ""
+msgstr "לא, אל תשנה את המצב"
 
 #: ../storage/exchange-oof.glade.h:11
 msgid "Out of Office Assistant"
-msgstr ""
+msgstr "מסייע המחוץ למשרד"
 
 #: ../storage/exchange-oof.glade.h:12
 msgid "Yes, Change Status"
-msgstr ""
+msgstr "כן, שנה את המצב"
 
 #: ../storage/exchange-passwd-expiry.glade.h:1
 msgid "Password Expiry Warning..."
-msgstr ""
+msgstr "אזהרת תפוגת הסיסמה..."
 
 #: ../storage/exchange-passwd-expiry.glade.h:2
 msgid "Your password will expire in 7 days..."
-msgstr ""
+msgstr "סיסמתך תפוג בעוד 7 ימים..."
 
 #: ../storage/exchange-passwd-expiry.glade.h:3
 msgid "_Change Password"
@@ -829,55 +845,55 @@ msgstr "צור פריטים"
 
 #: ../storage/exchange-permissions-dialog.glade.h:6
 msgid "Create subfolders"
-msgstr ""
+msgstr "צור תת־תיקיות"
 
 #: ../storage/exchange-permissions-dialog.glade.h:7
 msgid "Delete Any Items"
-msgstr ""
+msgstr "מחיקת כל הפריטים"
 
 #: ../storage/exchange-permissions-dialog.glade.h:8
 msgid "Delete Own Items"
-msgstr ""
+msgstr "מחיקת פריטים עצמיים"
 
 #: ../storage/exchange-permissions-dialog.glade.h:9
 msgid "Edit Any Items"
-msgstr ""
+msgstr "עריכת כל הפריטים"
 
 #: ../storage/exchange-permissions-dialog.glade.h:10
 msgid "Edit Own Items"
-msgstr ""
+msgstr "עריכת פריטים עצמיים"
 
 #: ../storage/exchange-permissions-dialog.glade.h:11
 msgid "Folder contact"
-msgstr ""
+msgstr "איש הקשר של התיקייה"
 
 #: ../storage/exchange-permissions-dialog.glade.h:12
 msgid "Folder owner"
-msgstr ""
+msgstr "בעל התיקייה"
 
 #: ../storage/exchange-permissions-dialog.glade.h:13
 msgid "Folder visible"
-msgstr ""
+msgstr "התיקייה גלויה"
 
 #: ../storage/exchange-permissions-dialog.glade.h:14
 msgid "Read items"
-msgstr ""
+msgstr "פריטים שנקראו"
 
 #: ../storage/exchange-permissions-dialog.glade.h:15
 msgid "Role: "
-msgstr ""
+msgstr "תפקיד: "
 
-#: ../storage/exchange-storage.c:338
+#: ../storage/exchange-storage.c:337
 msgid "Connecting..."
 msgstr "מתחבר..."
 
-#: ../storage/ximian-connector-setup.c:44
+#: ../storage/ximian-connector-setup.c:75
 msgid "Evolution Connector for Microsoft Exchange Setup Tool"
 msgstr ""
 
 #: ../storage/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
-msgstr ""
+msgstr "שנה את סיסמת שרת ה־Exchange שלך"
 
 #: ../storage/ximian-connector.xml.h:2
 msgid "Folder _Size"
@@ -885,19 +901,18 @@ msgstr "גו_דל תיקייה"
 
 #: ../storage/ximian-connector.xml.h:3
 msgid "Get the size of personal folders"
-msgstr ""
+msgstr "הורד את הגודל של התיקיות האישיות"
 
 #: ../storage/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
-msgstr ""
+msgstr "הרשם לתיקיות של משתמשים _אחרים..."
 
 #: ../storage/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
-msgstr ""
+msgstr "הרשם לתיקייה השייכת למשתמש אחר בשרת"
 
 #: ../storage/ximian-connector.xml.h:6
-msgid ""
-"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
 
 #: ../storage/ximian-connector.xml.h:7
@@ -910,17 +925,17 @@ msgstr ""
 
 #: ../storage/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
-msgstr ""
-"_שנה את סיסמת Exchange‏..."
+msgstr "_שנה את סיסמת Exchange‏..."
 
 #: ../storage/ximian-connector.xml.h:10
 msgid "_Delegation Assistant"
-msgstr ""
+msgstr "מסייע י_פוי הכוח"
 
 #: ../storage/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
-msgstr ""
+msgstr "מסייע המ_חוץ למשרד"
 
 #: ../storage/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
-msgstr ""
+msgstr "_ביטול ההרשמה מתיקייה של משתמש אחר..."
+
