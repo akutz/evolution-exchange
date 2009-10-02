@@ -1,4 +1,5 @@
 SUBDIRS = \
+	eplugin \
 	tools \
 	camel \
 	addressbook \

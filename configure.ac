@@ -11,6 +11,7 @@ AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 m4_define([glib_minimum_version], [2.16.0])
 m4_define([gtk_minimum_version], [2.10.0])
 m4_define([eds_minimum_version], [eex_version])
+m4_define([evo_minimum_version], [eex_version])
 m4_define([gconf_minimum_version], [2.0.0])             # XXX Just a Guess
 m4_define([libbonobo_minimum_version], [2.20.3])
 m4_define([libxml_minimum_version], [2.0.0])            # XXX Just a Guess
@@ -192,6 +193,12 @@ if test "x$EXCHANGE_PACKAGE" != "x"; then
 	exit 1
 fi
 
+plugindir=`$PKG_CONFIG --variable=plugindir evolution-plugin`
+AC_SUBST(plugindir)
+
+EVOLUTION_PLUGIN_errordir="`pkg-config --variable=errordir evolution-plugin`"
+AC_SUBST(EVOLUTION_PLUGIN_errordir)
+
 extensiondir="`pkg-config --variable=extensiondir evolution-data-server-$EDS_API_VERSION`"
 AC_SUBST(extensiondir)
 
@@ -206,9 +213,6 @@ AC_SUBST(EVOLUTION_privlibdir)
 
 EVOLUTION_privlibexecdir="`pkg-config --variable=privlibexecdir evolution-shell`"
 AC_SUBST(EVOLUTION_privlibexecdir)
-
-EVOLUTION_privdatadir="`pkg-config --variable=privdatadir evolution-shell`"
-AC_SUBST(EVOLUTION_privdatadir)
 
 EVOLUTION_imagesdir="`pkg-config --variable=imagesdir evolution-shell`"
 AC_SUBST(EVOLUTION_imagesdir)
@@ -230,13 +234,20 @@ AC_SUBST(CAMEL_CFLAGS)
 PKG_CHECK_MODULES(MAIL, libecal-$EDS_API_VERSION)
 AC_SUBST(MAIL_CFLAGS)
 
-PKG_CHECK_MODULES(EXCHANGE_STORAGE, evolution-shell evolution-plugin libedataserverui-$EDS_API_VERSION libedata-book-$EDS_API_VERSION libedata-cal-$EDS_API_VERSION libsoup-2.4 libxml-2.0 camel-provider-$EDS_API_VERSION)
+PKG_CHECK_MODULES(EXCHANGE_STORAGE, libedataserverui-$EDS_API_VERSION libedata-book-$EDS_API_VERSION libedata-cal-$EDS_API_VERSION libsoup-2.4 libxml-2.0 camel-provider-$EDS_API_VERSION)
 AC_SUBST(EXCHANGE_STORAGE_CFLAGS)
 AC_SUBST(EXCHANGE_STORAGE_LIBS)
 
 PKG_CHECK_MODULES(LIBEXCHANGE, libsoup-2.4 evolution-shell libedataserverui-$EDS_API_VERSION libebackend-$EDS_API_VERSION libexchange-storage-$EDS_API_VERSION)
 AC_SUBST(LIBEXCHANGE_CFLAGS)
 AC_SUBST(LIBEXCHANGE_LIBS)
+
+dnl ****************************
+dnl Check for evolution plugins 
+dnl ****************************
+PKG_CHECK_MODULES(EVOLUTION_PLUGIN, evolution-plugin >= evo_minimum_version)
+AC_SUBST(EVOLUTION_PLUGIN_CFLAGS)
+AC_SUBST(EVOLUTION_PLUGIN_LIBS)
 
 dnl *********************
 dnl Pilot license support
@@ -374,6 +385,7 @@ dnl ******************************
 AC_OUTPUT([
 Makefile
 evolution-exchange-zip
+eplugin/Makefile
 camel/Makefile
 addressbook/Makefile
 calendar/Makefile
