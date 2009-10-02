@@ -26,7 +26,7 @@
 #include <glib/gi18n-lib.h>
 
 #include "camel-exchange-transport.h"
-#include "camel-stub.h"
+#include "camel-exchange-utils.h"
 
 #include <camel/camel-data-wrapper.h>
 #include <camel/camel-exception.h>
@@ -37,8 +37,6 @@
 #include <camel/camel-stream-mem.h>
 
 #include <string.h>
-
-extern CamelStub *das_global_camel_stub;
 
 static gboolean exchange_send_to (CamelTransport *transport,
 				  CamelMimeMessage *message,
@@ -111,6 +109,8 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 		return FALSE;
 	}
 
+	g_free (url_string);
+
 	recipients_array = g_ptr_array_new ();
 	len = camel_address_length (recipients);
 	cia = CAMEL_INTERNET_ADDRESS (recipients);
@@ -119,7 +119,6 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 			camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM,
 					     _("Cannot send message: one or more invalid recipients"));
 			g_ptr_array_free (recipients_array, TRUE);
-			g_free (url_string);
 			return FALSE;
 		}
 		g_ptr_array_add (recipients_array, (gchar *)addr);
@@ -129,20 +128,8 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 		camel_exception_set (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
 				     _("Could not find 'From' address in message"));
 		g_ptr_array_free (recipients_array, TRUE);
-		g_free (url_string);
 		return FALSE;
 	}
-
-	if (!das_global_camel_stub) {
-		store = camel_session_get_store (service->session, url_string, ex);
-		if (!store) {
-			g_ptr_array_free (recipients_array, TRUE);
-			g_free (url_string);
-			return FALSE;
-		}
-		g_return_val_if_fail (das_global_camel_stub, FALSE);
-	}
-	g_free (url_string);
 
 	stream = camel_stream_mem_new ();
 	crlffilter = camel_mime_filter_crlf_new (CAMEL_MIME_FILTER_CRLF_ENCODE, CAMEL_MIME_FILTER_CRLF_MODE_CRLF_ONLY);
@@ -177,12 +164,7 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 		g_slist_free (bcc);
 	}
 
-	success = camel_stub_send (das_global_camel_stub, ex,
-				   CAMEL_STUB_CMD_SEND_MESSAGE,
-				   CAMEL_STUB_ARG_STRING, addr,
-				   CAMEL_STUB_ARG_STRINGARRAY, recipients_array,
-				   CAMEL_STUB_ARG_BYTEARRAY, CAMEL_STREAM_MEM (stream)->buffer,
-				   CAMEL_STUB_ARG_END);
+	success = camel_exchange_utils_send_message (CAMEL_SERVICE (transport), addr, recipients_array, CAMEL_STREAM_MEM (stream)->buffer, ex);
 
 	g_ptr_array_free (recipients_array, TRUE);
 	camel_object_unref (CAMEL_OBJECT (stream));

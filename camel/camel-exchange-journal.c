@@ -42,6 +42,7 @@
 #include "camel-exchange-journal.h"
 #include "camel-exchange-store.h"
 #include "camel-exchange-summary.h"
+#include "camel-exchange-utils.h"
 
 #define d(x)
 
@@ -231,20 +232,14 @@ exchange_message_info_dup_to (CamelMessageInfoBase *dest, CamelMessageInfoBase *
 static gint
 exchange_entry_play_delete (CamelOfflineJournal *journal, CamelExchangeJournalEntry *entry, CamelException *ex)
 {
-	CamelExchangeFolder *exchange_folder = (CamelExchangeFolder *) journal->folder;
+	CamelFolder *folder = (CamelFolder *) journal->folder;
 
-	camel_stub_send_oneway (exchange_folder->stub,
-				CAMEL_STUB_CMD_SET_MESSAGE_FLAGS,
-				CAMEL_STUB_ARG_FOLDER,
-				((CamelFolder *)exchange_folder)->full_name,
-				CAMEL_STUB_ARG_STRING,
-				entry->uid,
-				CAMEL_STUB_ARG_UINT32,
-				entry->set,
-				CAMEL_STUB_ARG_UINT32,
-				entry->flags,
-				CAMEL_STUB_ARG_END);
-
+	camel_exchange_utils_set_message_flags (CAMEL_SERVICE (folder->parent_store),
+					folder->full_name,
+					entry->uid,
+					entry->set,
+					entry->flags,
+					ex);
 	return 0;
 }
 
@@ -285,7 +280,7 @@ exchange_entry_play_append (CamelOfflineJournal *journal, CamelExchangeJournalEn
 		return -1;
 	}
 
-	real = camel_folder_summary_info_new_from_message (folder->summary, message);
+	real = camel_folder_summary_info_new_from_message (folder->summary, message, NULL);
 	camel_object_unref (message);
 
 	if (uid != NULL && real) {
@@ -351,7 +346,7 @@ exchange_entry_play_transfer (CamelOfflineJournal *journal, CamelExchangeJournal
 		camel_exception_init (&lex);
 		camel_folder_transfer_messages_to (src, uids, folder, &xuids, entry->delete_original, &lex);
 		if (!camel_exception_is_set (&lex)) {
-			real = camel_folder_summary_info_new_from_message (folder->summary, message);
+			real = camel_folder_summary_info_new_from_message (folder->summary, message, NULL);
 			camel_object_unref (message);
 			real->uid = camel_pstring_strdup ((gchar *)xuids->pdata[0]);
 			/* Transfer flags */
@@ -457,7 +452,7 @@ update_cache (CamelExchangeJournal *exchange_journal, CamelMimeMessage *message,
 
 	camel_object_unref (cache);
 
-	info = camel_folder_summary_info_new_from_message (folder->summary, message);
+	info = camel_folder_summary_info_new_from_message (folder->summary, message, NULL);
 	info->uid = camel_pstring_strdup (uid);
 
 	exchange_message_info_dup_to ((CamelMessageInfoBase *) info, (CamelMessageInfoBase *) mi);

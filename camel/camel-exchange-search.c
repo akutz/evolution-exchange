@@ -30,6 +30,7 @@
 
 #include "camel-exchange-search.h"
 #include "camel-exchange-folder.h"
+#include "camel-exchange-utils.h"
 
 static ESExpResult *
 exchange_body_contains (struct _ESExp *f, gint argc, struct _ESExpResult **argv,
@@ -71,7 +72,6 @@ static ESExpResult *
 exchange_body_contains (struct _ESExp *f, gint argc, struct _ESExpResult **argv,
 			CamelFolderSearch *s)
 {
-	CamelExchangeFolder *folder = CAMEL_EXCHANGE_FOLDER (s->folder);
 	gchar *value = argv[0]->value.string, *real_uid;
 	const gchar *uid;
 	ESExpResult *r;
@@ -105,13 +105,7 @@ exchange_body_contains (struct _ESExp *f, gint argc, struct _ESExpResult **argv,
 	}
 
 	/* FIXME: what if we have multiple string args? */
-	if (!camel_stub_send (folder->stub, NULL,
-			      CAMEL_STUB_CMD_SEARCH_FOLDER,
-			      CAMEL_STUB_ARG_FOLDER, s->folder->full_name,
-			      CAMEL_STUB_ARG_STRING, value,
-			      CAMEL_STUB_ARG_RETURN,
-			      CAMEL_STUB_ARG_STRINGARRAY, &found_uids,
-			      CAMEL_STUB_ARG_END))
+	if (!camel_exchange_utils_search (CAMEL_SERVICE (s->folder->parent_store), s->folder->full_name, value, &found_uids, NULL))
 		return r;
 
 	if (!found_uids->len) {

@@ -32,10 +32,10 @@
 #include <camel/camel-offline-store.h>
 #include <camel/camel-string-utils.h>
 
-#include "camel-stub.h"
 #include "camel-exchange-folder.h"
 #include "camel-exchange-journal.h"
 #include "camel-exchange-summary.h"
+#include "camel-exchange-utils.h"
 
 #define CAMEL_EXCHANGE_SUMMARY_VERSION (2)
 
@@ -389,7 +389,6 @@ check_for_trash (CamelFolder *folder)
 static gboolean
 expunge_mail (CamelFolder *folder, CamelMessageInfo *info)
 {
-	CamelExchangeFolder *exchange_folder = (CamelExchangeFolder *) folder;
 	GPtrArray *uids = g_ptr_array_new ();
 	gchar *uid = g_strdup (info->uid);
 	CamelException lex;
@@ -397,11 +396,7 @@ expunge_mail (CamelFolder *folder, CamelMessageInfo *info)
 	g_ptr_array_add (uids, uid);
 
 	camel_exception_init (&lex);
-	camel_stub_send (exchange_folder->stub, &lex,
-			 CAMEL_STUB_CMD_EXPUNGE_UIDS,
-			 CAMEL_STUB_ARG_FOLDER, folder->full_name,
-			 CAMEL_STUB_ARG_STRINGARRAY, uids,
-			 CAMEL_STUB_ARG_END);
+	camel_exchange_utils_expunge_uids (CAMEL_SERVICE (folder->parent_store), folder->full_name, uids, &lex);
 
 	g_ptr_array_free (uids, TRUE);
 	return camel_exception_is_set (&lex);
@@ -422,13 +417,7 @@ info_set_flags(CamelMessageInfo *info, guint32 flags, guint32 set)
 			    check_for_trash (folder)) {
 				return expunge_mail (folder, info);
 			} else {
-				camel_stub_send_oneway (((CamelExchangeFolder *)folder)->stub,
-							CAMEL_STUB_CMD_SET_MESSAGE_FLAGS,
-							CAMEL_STUB_ARG_FOLDER, folder->full_name,
-							CAMEL_STUB_ARG_STRING, info->uid,
-							CAMEL_STUB_ARG_UINT32, set,
-							CAMEL_STUB_ARG_UINT32, flags,
-							CAMEL_STUB_ARG_END);
+				camel_exchange_utils_set_message_flags (CAMEL_SERVICE (folder->parent_store), folder->full_name, info->uid, set, flags, NULL);
 				return CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->info_set_flags(info, flags, set);
 			}
 		}
@@ -459,13 +448,8 @@ info_set_user_tag(CamelMessageInfo *info, const gchar *name, const gchar *value)
 
 	res = CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->info_set_user_tag(info, name, value);
 	if (res && info->summary->folder && info->uid) {
-		camel_stub_send_oneway (((CamelExchangeFolder *)info->summary->folder)->stub,
-					CAMEL_STUB_CMD_SET_MESSAGE_TAG,
-					CAMEL_STUB_ARG_FOLDER, info->summary->folder->full_name,
-					CAMEL_STUB_ARG_STRING, info->uid,
-					CAMEL_STUB_ARG_STRING, name,
-					CAMEL_STUB_ARG_STRING, value,
-					CAMEL_STUB_ARG_END);
+		CamelFolder *folder = info->summary->folder;
+		camel_exchange_utils_set_message_tag (CAMEL_SERVICE (folder->parent_store), folder->full_name, info->uid, name, value, NULL);
 	}
 
 	return res;
@@ -568,7 +552,7 @@ camel_exchange_summary_add_offline (CamelFolderSummary *summary,
 	const CamelTag *tag;
 
 	/* Create summary entry */
-	mi = (CamelMessageInfoBase *)camel_folder_summary_info_new_from_message (summary, message);
+	mi = (CamelMessageInfoBase *)camel_folder_summary_info_new_from_message (summary, message, NULL);
 
 	/* Copy flags 'n' tags */
 	mi->flags = camel_message_info_flags(info);

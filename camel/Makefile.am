@@ -21,8 +21,8 @@ libcamelexchange_la_SOURCES = \
 	camel-exchange-store.c \
 	camel-exchange-summary.c \
 	camel-exchange-transport.c \
-	camel-stub-marshal.c \
-	camel-stub.c
+	camel-exchange-utils.c \
+	mail-utils.c
 
 noinst_HEADERS = \
 	camel-exchange-folder.h \
@@ -31,18 +31,18 @@ noinst_HEADERS = \
 	camel-exchange-store.h \
 	camel-exchange-summary.h \
 	camel-exchange-transport.h \
-	camel-stub-constants.h \
-	camel-stub-marshal.h \
-	camel-stub.h
+	camel-exchange-utils.h \
+	mail-utils.h
 
 libcamelexchange_la_LDFLAGS = \
 	-avoid-version -module $(NO_UNDEFINED)
 
-libcamelexchange_la_LIBADD = \
-	$(LDAP_LIBS) \
-	$(LIBEXCHANGE_LIBS) \
-	$(EXCHANGE_STORAGE_LIBS) \
-	$(SOCKET_LIBS) \
+libcamelexchange_la_LIBADD =		\
+	$(top_builddir)/tools/libevolution-exchange-shared.la \
+	$(LDAP_LIBS)			\
+	$(LIBEXCHANGE_LIBS)		\
+	$(EXCHANGE_STORAGE_LIBS)	\
+	$(SOCKET_LIBS)			\
 	$(PTHREAD_LIB)
 
 EXTRA_DIST = libcamelexchange.urls

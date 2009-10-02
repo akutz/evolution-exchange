@@ -34,6 +34,7 @@
 #include "camel-exchange-store.h"
 #include "camel-exchange-folder.h"
 #include "camel-exchange-summary.h"
+#include "camel-exchange-utils.h"
 
 #define SUBFOLDER_DIR_NAME     "subfolders"
 #define SUBFOLDER_DIR_NAME_LEN 10
@@ -83,8 +84,6 @@ static void		exchange_unsubscribe_folder (CamelStore *store,
 						const gchar *folder_name,
 						CamelException *ex);
 static gboolean exchange_can_refresh_folder (CamelStore *store, CamelFolderInfo *info, CamelException *ex);
-
-static void stub_notification (CamelObject *object, gpointer event_data, gpointer user_data);
 
 static void
 class_init (CamelExchangeStoreClass *camel_exchange_store_class)
@@ -137,11 +136,6 @@ init (CamelExchangeStore *exch, CamelExchangeStoreClass *klass)
 static void
 finalize (CamelExchangeStore *exch)
 {
-	if (exch->stub) {
-		camel_object_unref (CAMEL_OBJECT (exch->stub));
-		exch->stub = NULL;
-	}
-
 	g_free (exch->trash_name);
 
 	if (exch->folders_lock)
@@ -292,8 +286,6 @@ construct (CamelService *service, CamelSession *session,
 
 	if (!(exch->storage_path = camel_session_get_storage_path (session, service, ex)))
 		return;
-
-	exch->stub = NULL;
 }
 
 extern CamelServiceAuthType camel_exchange_password_authtype;
@@ -354,57 +346,21 @@ camel_exchange_forget_password (CamelService *service, CamelException *ex)
 	}
 }
 
-static void
-update_camel_stub (gpointer folder_name, gpointer folder, gpointer user_data)
-{
-	CamelExchangeFolder *exch_folder = CAMEL_EXCHANGE_FOLDER (folder);
-	if (exch_folder)
-		exch_folder->stub = (CamelStub *)user_data;
-}
-
 static gboolean
 exchange_connect (CamelService *service, CamelException *ex)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
-	gchar *real_user, *socket_path, *dot_exchange_username, *user_at_host;
 	gchar *password = NULL;
 	guint32 connect_status;
 	gboolean online_mode = FALSE;
 
 	/* This lock is only needed for offline operation. exchange_connect
-	   is called many times in offline to ensure we are connected atleast
-	   to the mail stub. Think twice before changing anything here.*/
+	   is called many times in offline. */
 
 	g_mutex_lock (exch->connect_lock);
 
 	online_mode = camel_session_is_online (service->session);
-
-	if (exch->stub == NULL) {
-		real_user = strpbrk (service->url->user, "\\/");
-		if (real_user)
-			real_user++;
-		else
-			real_user = service->url->user;
-		dot_exchange_username = g_strdup_printf (".exchange-%s", g_get_user_name ());
-		user_at_host = g_strdup_printf ("%s@%s", real_user, service->url->host);
-		e_filename_make_safe (user_at_host);
-		socket_path = g_build_filename (g_get_tmp_dir (),
-						dot_exchange_username,
-						user_at_host,
-						NULL);
-		g_free (dot_exchange_username);
-		g_free (user_at_host);
-
-		exch->stub = camel_stub_new (socket_path, _("Evolution Exchange backend process"), ex);
-		g_free (socket_path);
-		if (!exch->stub) {
-			g_mutex_unlock (exch->connect_lock);
-			return FALSE;
-		}
-
-		camel_object_hook_event (CAMEL_OBJECT (exch->stub), "notification",
-					 stub_notification, exch);
-	} else if (!online_mode && exch->stub_connected) {
+	if (!online_mode) {
 		g_mutex_unlock (exch->connect_lock);
 		return TRUE;
 	}
@@ -412,8 +368,6 @@ exchange_connect (CamelService *service, CamelException *ex)
 	if (online_mode) {
 		camel_exchange_get_password (service, ex);
 		if (camel_exception_is_set (ex)) {
-			camel_object_unref (exch->stub);
-			exch->stub = NULL;
 			g_mutex_unlock (exch->connect_lock);
 			return FALSE;
 		}
@@ -421,16 +375,10 @@ exchange_connect (CamelService *service, CamelException *ex)
 	}
 
 	/* Initialize the stub connection */
-	if (!camel_stub_send (exch->stub, NULL, CAMEL_STUB_CMD_CONNECT,
-			      CAMEL_STUB_ARG_STRING, password,
-			      CAMEL_STUB_ARG_RETURN,
-			      CAMEL_STUB_ARG_UINT32, &connect_status,
-			      CAMEL_STUB_ARG_END)) {
+	if (!camel_exchange_utils_connect (service, password, &connect_status, ex)) {
 		/* The user cancelled the connection attempt. */
-		camel_exception_set (ex, CAMEL_EXCEPTION_USER_CANCEL,
-				     "Cancelled");
-		camel_object_unref (exch->stub);
-		exch->stub = NULL;
+		if (!camel_exception_is_set (ex))
+			camel_exception_set (ex, CAMEL_EXCEPTION_USER_CANCEL, "Cancelled");
 		g_mutex_unlock (exch->connect_lock);
 		return FALSE;
 	}
@@ -440,15 +388,9 @@ exchange_connect (CamelService *service, CamelException *ex)
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM,
 				     _("Could not authenticate to server. "
 				       "(Password incorrect?)\n\n"));
-		camel_object_unref (exch->stub);
-		exch->stub = NULL;
 		g_mutex_unlock (exch->connect_lock);
 		return FALSE;
-	} else {
-		exch->stub_connected = TRUE;
 	}
-
-	g_hash_table_foreach (exch->folders, update_camel_stub, exch->stub);
 
 	g_mutex_unlock (exch->connect_lock);
 
@@ -458,13 +400,8 @@ exchange_connect (CamelService *service, CamelException *ex)
 static gboolean
 exchange_disconnect (CamelService *service, gboolean clean, CamelException *ex)
 {
-
-	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
-
-	if (exch->stub) {
-		exch->stub = NULL;
-	}
-
+	/* CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service); */
+	/* keep account connect as it can be used for other parts like cal, gal or addressbook? */
 	return TRUE;
 }
 
@@ -514,7 +451,7 @@ exchange_get_folder (CamelStore *store, const gchar *folder_name,
 
 	if (!camel_exchange_folder_construct (folder, store, folder_name,
 					      flags, folder_dir, ((CamelOfflineStore *) store)->state,
-					      exch->stub, ex)) {
+					      ex)) {
 		gchar *key;
 		g_mutex_lock (exch->folders_lock);
 		if (g_hash_table_lookup_extended (exch->folders, folder_name,
@@ -541,23 +478,18 @@ exchange_get_folder (CamelStore *store, const gchar *folder_name,
 static gboolean
 exchange_folder_subscribed (CamelStore *store, const gchar *folder_name)
 {
-	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
-	guint32 is_subscribed;
+	gboolean is_subscribed = FALSE;
 
 	d(printf ("is subscribed folder : %s\n", folder_name));
 	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
 		return FALSE;
 	}
 
-	if (!camel_stub_send (exch->stub, NULL, CAMEL_STUB_CMD_IS_SUBSCRIBED_FOLDER,
-			      CAMEL_STUB_ARG_FOLDER, folder_name,
-			      CAMEL_STUB_ARG_RETURN,
-			      CAMEL_STUB_ARG_UINT32, &is_subscribed,
-			      CAMEL_STUB_ARG_END)) {
+	if (!camel_exchange_utils_is_subscribed_folder (CAMEL_SERVICE (store), folder_name, &is_subscribed, NULL)) {
 		return FALSE;
 	}
 
-	return is_subscribed ? TRUE : FALSE;
+	return is_subscribed;
 }
 
 static void
@@ -572,9 +504,7 @@ exchange_subscribe_folder (CamelStore *store, const gchar *folder_name,
 		return;
 	}
 
-	camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_SUBSCRIBE_FOLDER,
-			      CAMEL_STUB_ARG_FOLDER, folder_name,
-			      CAMEL_STUB_ARG_END);
+	camel_exchange_utils_subscribe_folder (CAMEL_SERVICE (store), folder_name, ex);
 }
 
 static void
@@ -589,9 +519,7 @@ exchange_unsubscribe_folder (CamelStore *store, const gchar *folder_name,
 		return;
 	}
 
-	camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_UNSUBSCRIBE_FOLDER,
-			      CAMEL_STUB_ARG_FOLDER, folder_name,
-			      CAMEL_STUB_ARG_END);
+	camel_exchange_utils_unsubscribe_folder (CAMEL_SERVICE (store), folder_name, ex);
 }
 
 static CamelFolder *
@@ -602,10 +530,7 @@ get_trash (CamelStore *store, CamelException *ex)
 	RETURN_VAL_IF_NOT_CONNECTED (exch, ex, NULL);
 
 	if (!exch->trash_name) {
-		if (!camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_GET_TRASH_NAME,
-				      CAMEL_STUB_ARG_RETURN,
-				      CAMEL_STUB_ARG_STRING, &exch->trash_name,
-				      CAMEL_STUB_ARG_END))
+		if (!camel_exchange_utils_get_trash_name (CAMEL_SERVICE (store), &exch->trash_name, ex))
 			return NULL;
 	}
 
@@ -614,7 +539,7 @@ get_trash (CamelStore *store, CamelException *ex)
 
 /* Note: steals @name and @uri */
 static CamelFolderInfo *
-make_folder_info (CamelExchangeStore *exch, gchar *name, gchar *uri,
+make_folder_info (CamelExchangeStore *exch, gchar *name, const gchar *uri,
 		  gint unread_count, gint flags)
 {
 	CamelFolderInfo *info;
@@ -657,27 +582,27 @@ make_folder_info (CamelExchangeStore *exch, gchar *name, gchar *uri,
 	}
 	info->unread = unread_count;
 
-	if (flags & CAMEL_STUB_FOLDER_NOSELECT)
+	if (flags & CAMEL_FOLDER_NOSELECT)
 		info->flags = CAMEL_FOLDER_NOSELECT;
 
-	if (flags & CAMEL_STUB_FOLDER_SYSTEM)
+	if (flags & CAMEL_FOLDER_SYSTEM)
 		info->flags |= CAMEL_FOLDER_SYSTEM;
 
-	if (flags & CAMEL_STUB_FOLDER_TYPE_INBOX)
+	if (flags & CAMEL_FOLDER_TYPE_INBOX)
 		info->flags |= CAMEL_FOLDER_TYPE_INBOX;
 
-	if (flags & CAMEL_STUB_FOLDER_TYPE_TRASH)
+	if (flags & CAMEL_FOLDER_TYPE_TRASH)
 		info->flags |= CAMEL_FOLDER_TYPE_TRASH;
 
-	if (flags & CAMEL_STUB_FOLDER_TYPE_SENT)
+	if (flags & CAMEL_FOLDER_TYPE_SENT)
 		info->flags |= CAMEL_FOLDER_TYPE_SENT;
 
-	if (flags & CAMEL_STUB_FOLDER_SUBSCRIBED) {
+	if (flags & CAMEL_FOLDER_SUBSCRIBED) {
 		info->flags |= CAMEL_FOLDER_SUBSCRIBED;
 		d(printf ("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMmark as subscribed\n"));
 	}
 
-	if (flags & CAMEL_STUB_FOLDER_NOCHILDREN)
+	if (flags & CAMEL_FOLDER_NOCHILDREN)
 		info->flags |= CAMEL_FOLDER_NOCHILDREN;
 	return info;
 }
@@ -713,9 +638,9 @@ static CamelFolderInfo *
 exchange_get_folder_info (CamelStore *store, const gchar *top, guint32 flags, CamelException *ex)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
-	GPtrArray *folders, *folder_names, *folder_uris;
-	GArray *unread_counts;
-	GArray *folder_flags;
+	GPtrArray *folders, *folder_names = NULL, *folder_uris = NULL;
+	GArray *unread_counts = NULL;
+	GArray *folder_flags = NULL;
 	CamelFolderInfo *info;
 	guint32 store_flags = 0;
 	gint i;
@@ -732,25 +657,14 @@ exchange_get_folder_info (CamelStore *store, const gchar *top, guint32 flags, Ca
 
 	RETURN_VAL_IF_NOT_CONNECTED (exch, ex, NULL);
 
-	if (camel_stub_marshal_eof (exch->stub->cmd))
-		return NULL;
-
 	if (flags & CAMEL_STORE_FOLDER_INFO_RECURSIVE)
-		store_flags |= CAMEL_STUB_STORE_FOLDER_INFO_RECURSIVE;
+		store_flags |= CAMEL_STORE_FOLDER_INFO_RECURSIVE;
 	if (flags & CAMEL_STORE_FOLDER_INFO_SUBSCRIBED)
-		store_flags |= CAMEL_STUB_STORE_FOLDER_INFO_SUBSCRIBED;
+		store_flags |= CAMEL_STORE_FOLDER_INFO_SUBSCRIBED;
 	if (flags & CAMEL_STORE_FOLDER_INFO_SUBSCRIPTION_LIST)
-		store_flags |= CAMEL_STUB_STORE_FOLDER_INFO_SUBSCRIPTION_LIST;
+		store_flags |= CAMEL_STORE_FOLDER_INFO_SUBSCRIPTION_LIST;
 
-	if (!camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_GET_FOLDER_INFO,
-			      CAMEL_STUB_ARG_STRING, top,
-			      CAMEL_STUB_ARG_UINT32, store_flags,
-			      CAMEL_STUB_ARG_RETURN,
-			      CAMEL_STUB_ARG_STRINGARRAY, &folder_names,
-			      CAMEL_STUB_ARG_STRINGARRAY, &folder_uris,
-			      CAMEL_STUB_ARG_UINT32ARRAY, &unread_counts,
-			      CAMEL_STUB_ARG_UINT32ARRAY, &folder_flags,
-			      CAMEL_STUB_ARG_END)) {
+	if (!camel_exchange_utils_get_folder_info (CAMEL_SERVICE (store), top, store_flags, &folder_names, &folder_uris, &unread_counts, &folder_flags, ex)) {
 		return NULL;
 	}
 	if (!folder_names) {
@@ -771,6 +685,7 @@ exchange_get_folder_info (CamelStore *store, const gchar *top, guint32 flags, Ca
 			g_ptr_array_add (folders, info);
 	}
 	g_ptr_array_free (folder_names, TRUE);
+	g_ptr_array_foreach (folder_uris, (GFunc) g_free, NULL);
 	g_ptr_array_free (folder_uris, TRUE);
 	g_array_free (unread_counts, TRUE);
 	g_array_free (folder_flags, TRUE);
@@ -798,19 +713,15 @@ exchange_create_folder (CamelStore *store, const gchar *parent_name,
 		return NULL;
 	}
 
-	if (!camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_CREATE_FOLDER,
-			      CAMEL_STUB_ARG_FOLDER, parent_name,
-			      CAMEL_STUB_ARG_STRING, folder_name,
-			      CAMEL_STUB_ARG_RETURN,
-			      CAMEL_STUB_ARG_STRING, &folder_uri,
-			      CAMEL_STUB_ARG_UINT32, &unread_count,
-			      CAMEL_STUB_ARG_UINT32, &flags,
-			      CAMEL_STUB_ARG_END))
+	if (!camel_exchange_utils_create_folder (CAMEL_SERVICE (store), parent_name, folder_name, &folder_uri, &unread_count, &flags, ex))
 		return NULL;
 
 	info = make_folder_info (exch, g_strdup (folder_name),
 				 folder_uri, unread_count, flags);
 	info->flags |= CAMEL_FOLDER_NOCHILDREN;
+
+	g_free (folder_uri);
+
 	return info;
 }
 
@@ -825,9 +736,7 @@ exchange_delete_folder (CamelStore *store, const gchar *folder_name,
 		return;
 	}
 
-	camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_DELETE_FOLDER,
-			 CAMEL_STUB_ARG_FOLDER, folder_name,
-			 CAMEL_STUB_ARG_END);
+	camel_exchange_utils_delete_folder (CAMEL_SERVICE (store), folder_name, ex);
 }
 
 static void
@@ -848,15 +757,7 @@ exchange_rename_folder (CamelStore *store, const gchar *old_name,
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot rename folder in offline mode."));
 		return;
 	}
-	if (!camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_RENAME_FOLDER,
-			      CAMEL_STUB_ARG_STRING, old_name,
-			      CAMEL_STUB_ARG_STRING, new_name,
-			      CAMEL_STUB_ARG_RETURN,
-			      CAMEL_STUB_ARG_STRINGARRAY, &folder_names,
-			      CAMEL_STUB_ARG_STRINGARRAY, &folder_uris,
-			      CAMEL_STUB_ARG_UINT32ARRAY, &unread_counts,
-			      CAMEL_STUB_ARG_UINT32ARRAY, &folder_flags,
-			      CAMEL_STUB_ARG_END)) {
+	if (!camel_exchange_utils_rename_folder (CAMEL_SERVICE (store), old_name, new_name, &folder_names, &folder_uris, &unread_counts, &folder_flags, ex)) {
 		return;
 	}
 
@@ -878,6 +779,7 @@ exchange_rename_folder (CamelStore *store, const gchar *old_name,
 			g_ptr_array_add (folders, info);
 	}
 	g_ptr_array_free (folder_names, TRUE);
+	g_ptr_array_foreach (folder_uris, (GFunc) g_free, NULL);
 	g_ptr_array_free (folder_uris, TRUE);
 	g_array_free (unread_counts, TRUE);
 	g_array_free (folder_flags, TRUE);
@@ -905,284 +807,6 @@ exchange_rename_folder (CamelStore *store, const gchar *old_name,
 
 }
 
-static void
-stub_notification (CamelObject *object, gpointer event_data, gpointer user_data)
-{
-	CamelStub *stub = CAMEL_STUB (object);
-	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (user_data);
-	guint32 retval = GPOINTER_TO_UINT (event_data);
-
-	switch (retval) {
-	case CAMEL_STUB_RETVAL_NEW_MESSAGE:
-	{
-		CamelExchangeFolder *folder;
-		gchar *folder_name, *uid, *headers, *href;
-		guint32 flags, size;
-
-		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1 ||
-		    camel_stub_marshal_decode_string (stub->status, &uid) == -1 ||
-		    camel_stub_marshal_decode_uint32 (stub->status, &flags) == -1 ||
-		    camel_stub_marshal_decode_uint32 (stub->status, &size) == -1 ||
-		    camel_stub_marshal_decode_string (stub->status, &headers) == -1 ||
-		    camel_stub_marshal_decode_string (stub->status, &href) == -1)
-			return;
-
-		g_mutex_lock (exch->folders_lock);
-		folder = g_hash_table_lookup (exch->folders, folder_name);
-		g_mutex_unlock (exch->folders_lock);
-		if (folder) {
-			camel_exchange_folder_add_message (folder, uid, flags,
-							   size, headers, href);
-		}
-
-		g_free (folder_name);
-		g_free (uid);
-		g_free (headers);
-		g_free (href);
-		break;
-	}
-
-	case CAMEL_STUB_RETVAL_REMOVED_MESSAGE:
-	{
-		CamelExchangeFolder *folder;
-		gchar *folder_name, *uid;
-		CamelMessageInfo *info;
-
-		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1 ||
-		    camel_stub_marshal_decode_string (stub->status, &uid) == -1)
-			return;
-
-		g_mutex_lock (exch->folders_lock);
-		folder = g_hash_table_lookup (exch->folders, folder_name);
-		g_mutex_unlock (exch->folders_lock);
-		if (folder && (info = camel_folder_summary_uid (((CamelFolder *)folder)->summary, uid))) {
-			camel_message_info_free (info);
-			camel_exchange_folder_remove_message (folder, uid);
-		}
-
-		g_free (folder_name);
-		g_free (uid);
-		break;
-	}
-
-	case CAMEL_STUB_RETVAL_CHANGED_MESSAGE:
-	{
-		CamelExchangeFolder *folder;
-		gchar *folder_name, *uid;
-
-		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1 ||
-		    camel_stub_marshal_decode_string (stub->status, &uid) == -1)
-			break;
-
-		g_mutex_lock (exch->folders_lock);
-		folder = g_hash_table_lookup (exch->folders, folder_name);
-		g_mutex_unlock (exch->folders_lock);
-		if (folder)
-			camel_exchange_folder_uncache_message (folder, uid);
-
-		g_free (folder_name);
-		g_free (uid);
-		break;
-	}
-
-	case CAMEL_STUB_RETVAL_CHANGED_FLAGS:
-	{
-		CamelExchangeFolder *folder;
-		gchar *folder_name, *uid;
-		guint32 flags;
-
-		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1 ||
-		    camel_stub_marshal_decode_string (stub->status, &uid) == -1 ||
-		    camel_stub_marshal_decode_uint32 (stub->status, &flags) == -1)
-			break;
-
-		g_mutex_lock (exch->folders_lock);
-		folder = g_hash_table_lookup (exch->folders, folder_name);
-		g_mutex_unlock (exch->folders_lock);
-		if (folder)
-			camel_exchange_folder_update_message_flags (folder, uid, flags);
-
-		g_free (folder_name);
-		g_free (uid);
-		break;
-	}
-
-	case CAMEL_STUB_RETVAL_CHANGED_FLAGS_EX:
-	{
-		CamelExchangeFolder *folder;
-		gchar *folder_name, *uid;
-		guint32 flags;
-		guint32 mask;
-
-		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1 ||
-		    camel_stub_marshal_decode_string (stub->status, &uid) == -1 ||
-		    camel_stub_marshal_decode_uint32 (stub->status, &flags) == -1 ||
-		    camel_stub_marshal_decode_uint32 (stub->status, &mask) == -1)
-			break;
-
-		g_mutex_lock (exch->folders_lock);
-		folder = g_hash_table_lookup (exch->folders, folder_name);
-		g_mutex_unlock (exch->folders_lock);
-		if (folder)
-			camel_exchange_folder_update_message_flags_ex (folder, uid,
-								       flags, mask);
-
-		g_free (folder_name);
-		g_free (uid);
-		break;
-	}
-
-	case CAMEL_STUB_RETVAL_CHANGED_TAG:
-	{
-		CamelExchangeFolder *folder;
-		gchar *folder_name, *uid, *name, *value;
-
-		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1 ||
-		    camel_stub_marshal_decode_string (stub->status, &uid) == -1 ||
-		    camel_stub_marshal_decode_string (stub->status, &name) == -1 ||
-		    camel_stub_marshal_decode_string (stub->status, &value) == -1)
-			break;
-
-		g_mutex_lock (exch->folders_lock);
-		folder = g_hash_table_lookup (exch->folders, folder_name);
-		g_mutex_unlock (exch->folders_lock);
-		if (folder)
-			camel_exchange_folder_update_message_tag (folder, uid, name, value);
-
-		g_free (folder_name);
-		g_free (uid);
-		g_free (name);
-		g_free (value);
-		break;
-	}
-
-	case CAMEL_STUB_RETVAL_FREEZE_FOLDER:
-	{
-		CamelFolder *folder;
-		gchar *folder_name;
-
-		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1)
-			break;
-
-		g_mutex_lock (exch->folders_lock);
-		folder = g_hash_table_lookup (exch->folders, folder_name);
-		g_mutex_unlock (exch->folders_lock);
-		if (folder)
-			camel_folder_freeze (folder);
-
-		g_free (folder_name);
-		break;
-	}
-
-	case CAMEL_STUB_RETVAL_THAW_FOLDER:
-	{
-		CamelFolder *folder;
-		gchar *folder_name;
-
-		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1)
-			break;
-
-		g_mutex_lock (exch->folders_lock);
-		folder = g_hash_table_lookup (exch->folders, folder_name);
-		g_mutex_unlock (exch->folders_lock);
-		if (folder)
-			camel_folder_thaw (folder);
-
-		g_free (folder_name);
-		break;
-	}
-
-	case CAMEL_STUB_RETVAL_FOLDER_CREATED:
-	{
-		CamelFolderInfo *info;
-		gchar *name, *uri;
-
-		if (camel_stub_marshal_decode_string (stub->status, &name) == -1 ||
-		    camel_stub_marshal_decode_string (stub->status, &uri) == -1)
-			break;
-
-		info = make_folder_info (exch, name, uri, -1, 0);
-		info->flags |= CAMEL_FOLDER_NOCHILDREN;
-		camel_object_trigger_event (CAMEL_OBJECT (exch),
-					    "folder_subscribed", info);
-		camel_folder_info_free (info);
-		break;
-	}
-
-	case CAMEL_STUB_RETVAL_FOLDER_DELETED:
-	{
-		CamelFolderInfo *info;
-		CamelFolder *folder;
-		gchar *name, *uri;
-
-		if (camel_stub_marshal_decode_string (stub->status, &name) == -1 ||
-		    camel_stub_marshal_decode_string (stub->status, &uri) == -1)
-			break;
-
-		info = make_folder_info (exch, name, uri, -1, 0);
-
-		g_mutex_lock (exch->folders_lock);
-		folder = g_hash_table_lookup (exch->folders, info->full_name);
-		if (folder) {
-			g_hash_table_remove (exch->folders, info->full_name);
-			camel_object_unref (CAMEL_OBJECT (folder));
-		}
-		g_mutex_unlock (exch->folders_lock);
-
-		camel_object_trigger_event (CAMEL_OBJECT (exch),
-					    "folder_unsubscribed", info);
-		camel_folder_info_free (info);
-		break;
-	}
-
-	case CAMEL_STUB_RETVAL_FOLDER_SET_READONLY:
-	{
-		CamelFolder *folder;
-		gchar *folder_name;
-		guint32 readonly;
-
-		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1 ||
-		    camel_stub_marshal_decode_uint32 (stub->status, &readonly) == -1)
-			break;
-
-		g_mutex_lock (exch->folders_lock);
-		folder = g_hash_table_lookup (exch->folders, folder_name);
-		g_mutex_unlock (exch->folders_lock);
-		if (folder) {
-			camel_exchange_summary_set_readonly (folder->summary, readonly ? TRUE : FALSE);
-		}
-
-		g_free (folder_name);
-		break;
-	}
-
-	case CAMEL_STUB_RETVAL_FOLDER_SET_ARTICLE_NUM:
-	{
-		CamelFolder *folder;
-		gchar *folder_name;
-		guint32 high_article_num;
-
-		if (camel_stub_marshal_decode_folder (stub->status, &folder_name) == -1 ||
-		    camel_stub_marshal_decode_uint32 (stub->status, &high_article_num) == -1)
-			break;
-
-		g_mutex_lock (exch->folders_lock);
-		folder = g_hash_table_lookup (exch->folders, folder_name);
-		g_mutex_unlock (exch->folders_lock);
-		if (folder) {
-			camel_exchange_summary_set_article_num (folder->summary, high_article_num);
-		}
-
-		g_free (folder_name);
-		break;
-	}
-
-	default:
-		g_critical ("%s: Uncaught case (%d)", G_STRLOC, retval);
-		break;
-	}
-}
-
 static gboolean
 exchange_can_refresh_folder (CamelStore *store, CamelFolderInfo *info, CamelException *ex)
 {
@@ -1192,4 +816,44 @@ exchange_can_refresh_folder (CamelStore *store, CamelFolderInfo *info, CamelExce
 	      (camel_url_get_param (((CamelService *)store)->url, "check_all") != NULL);
 
 	return res;
+}
+
+void
+camel_exchange_store_folder_created (CamelExchangeStore *estore, const gchar *name, const gchar *uri)
+{
+	CamelFolderInfo *info;
+
+	g_return_if_fail (estore != NULL);
+	g_return_if_fail (CAMEL_IS_EXCHANGE_STORE (estore));
+
+	info = make_folder_info (estore, g_strdup (name), uri, -1, 0);
+	info->flags |= CAMEL_FOLDER_NOCHILDREN;
+
+	camel_object_trigger_event (CAMEL_OBJECT (estore), "folder_subscribed", info);
+
+	camel_folder_info_free (info);
+}
+
+void
+camel_exchange_store_folder_deleted (CamelExchangeStore *estore, const gchar *name, const gchar *uri)
+{
+	CamelFolderInfo *info;
+	CamelFolder *folder;
+
+	g_return_if_fail (estore != NULL);
+	g_return_if_fail (CAMEL_IS_EXCHANGE_STORE (estore));
+
+	info = make_folder_info (estore, g_strdup (name), uri, -1, 0);
+
+	g_mutex_lock (estore->folders_lock);
+	folder = g_hash_table_lookup (estore->folders, info->full_name);
+	if (folder) {
+		g_hash_table_remove (estore->folders, info->full_name);
+		camel_object_unref (CAMEL_OBJECT (folder));
+	}
+	g_mutex_unlock (estore->folders_lock);
+
+	camel_object_trigger_event (CAMEL_OBJECT (estore), "folder_unsubscribed", info);
+
+	camel_folder_info_free (info);
 }

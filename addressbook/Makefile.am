@@ -1,6 +1,5 @@
 AM_CPPFLAGS = \
 	-I$(top_srcdir) \
-	-I$(top_srcdir)/storage \
 	-DG_LOG_DOMAIN=\"e-book-backend-exchange\" \
 	$(ADDRESSBOOK_CFLAGS) \
 	$(LIBEXCHANGE_CFLAGS) \
@@ -44,9 +43,6 @@ libebookbackendexchange_la_SOURCES = \
 	e-book-backend-exchange.c \
 	e-book-backend-exchange.h \
 	e-book-backend-exchange-factory.c \
-	e-book-backend-exchange-factory.h \
-	e-book-backend-gal-factory.c \
-	e-book-backend-gal-factory.h \
 	e-book-backend-gal.c \
 	e-book-backend-gal.h
 
@@ -55,7 +51,8 @@ libebookbackendexchange_la_SOURCES += \
 	e-book-backend-db-cache.c \
 	e-book-backend-db-cache.h
 
-libebookbackendexchange_la_LIBADD =  \
+libebookbackendexchange_la_LIBADD =  				\
+	$(top_builddir)/tools/libevolution-exchange-shared.la	\
 	$(DB_LIBS)
 
 libebookbackendexchange_la_LDFLAGS = \

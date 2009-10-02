@@ -35,7 +35,6 @@
 #include <e2k-utils.h>
 #include <e2k-global-catalog-ldap.h>
 #include <exchange-account.h>
-#include "exchange-component.h"
 
 #define d(x)
 
@@ -50,6 +49,7 @@
 #include <libedata-book/e-data-book.h>
 #include <libedata-book/e-data-book-view.h>
 #include "libedata-book/e-book-backend-summary.h"
+#include "tools/exchange-share-config-listener.h"
 #include "e-book-backend-gal.h"
 #include <libical/ical.h>
 
@@ -271,7 +271,7 @@ gal_connect (EBookBackendGAL *bl)
 	blpriv->gc = NULL;
 	blpriv->connected = FALSE;
 
-	blpriv->account = exchange_component_get_account_for_uri (global_exchange_component, blpriv->gal_uri);
+	blpriv->account = exchange_share_config_listener_get_account_for_uri (NULL, blpriv->gal_uri);
 	if (!blpriv->account)
 		return GNOME_Evolution_Addressbook_RepositoryOffline;
 	blpriv->gc = exchange_account_get_global_catalog (blpriv->account);
@@ -1711,7 +1711,7 @@ ldap_search_dtor (LDAPOp *op)
 	d(printf ("ldap_search_dtor: Setting null inplace of %p in view %p\n", op, search_op->view));
 	g_object_set_data (G_OBJECT (search_op->view), "EBookBackendGAL.BookView::search_op", NULL);
 
-	bonobo_object_unref (search_op->view);
+	e_data_book_view_unref (search_op->view);
 
 	if (!search_op->aborted)
 		g_free (search_op);
@@ -1923,7 +1923,7 @@ start_book_view (EBookBackend  *backend,
 				op->view = view;
 				op->aborted = FALSE;
 
-				bonobo_object_ref (view);
+				e_data_book_view_ref (view);
 
 				ldap_op_add ((LDAPOp*)op, E_BOOK_BACKEND (bl), NULL, view,
 					     0, search_msgid,
@@ -2325,7 +2325,7 @@ authenticate_user (EBookBackend *backend,
 	EBookBackendGAL *be = E_BOOK_BACKEND_GAL (backend);
 	EBookBackendGALPrivate *bepriv = be->priv;
 	ExchangeAccountResult result;
-	ExchangeAccount *account;
+	ExchangeAccount *account = NULL;
 	GNOME_Evolution_Addressbook_CallStatus res;
 	GConfClient *gc = gconf_client_get_default();
 	gint interval = gconf_client_get_int (gc, "/apps/evolution/addressbook/gal_cache_interval", NULL);
@@ -2348,7 +2348,7 @@ authenticate_user (EBookBackend *backend,
 
 	case GNOME_Evolution_Addressbook_MODE_REMOTE:
 
-		account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
+		account = exchange_share_config_listener_get_account_for_uri (NULL, bepriv->gal_uri);
 		/* FIXME : Check for failures */
 		if (!exchange_account_get_context (account)) {
 			exchange_account_set_online (account);

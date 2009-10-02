@@ -4,7 +4,11 @@
 #ifndef __MAIL_UTILS_H__
 #define __MAIL_UTILS_H__
 
+#include <camel/camel-folder-summary.h>
+
 #include "e2k-properties.h"
+
+#define EXMAIL_DELEGATED CAMEL_MESSAGE_FOLDER_FLAGGED
 
 G_BEGIN_DECLS
 

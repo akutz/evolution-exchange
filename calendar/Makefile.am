@@ -1,6 +1,5 @@
 AM_CPPFLAGS = \
 	-I$(top_srcdir) \
-	-I$(top_srcdir)/storage \
 	$(CALENDAR_CFLAGS) \
 	$(LIBEXCHANGE_CFLAGS) \
 	$(LDAP_CFLAGS) \
@@ -25,5 +24,11 @@ libecalbackendexchange_la_SOURCES = \
 
 libecalbackendexchange_la_LDFLAGS = \
 	-module -avoid-version $(NO_UNDEFINED)
+
+libecalbackendexchange_la_LIBADD =  				\
+	$(top_builddir)/tools/libevolution-exchange-shared.la	\
+	$(CALENDAR_LIBS)					\
+	$(LIBEXCHANGE_LIBS)					\
+	$(LDAP_LIBS)
 
 -include $(top_srcdir)/git.mk

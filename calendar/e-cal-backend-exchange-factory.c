@@ -25,6 +25,7 @@
 #include <string.h>
 
 #include <libebackend/e-data-server-module.h>
+#include <camel/camel-object.h>
 #include "e-cal-backend-exchange-factory.h"
 #include "e-cal-backend-exchange-calendar.h"
 #include "e-cal-backend-exchange-tasks.h"
@@ -98,7 +99,7 @@ e_cal_backend_exchange_events_factory_register_type (GTypeModule *type_module)
 		(GClassInitFunc) events_backend_exchange_factory_class_init,
 		(GClassFinalizeFunc) NULL,
 		NULL,  /* class_data */
-		sizeof (ECalBackendExchangeFactory),
+		sizeof (ECalBackend),
 		0,     /* n_preallocs */
 		(GInstanceInitFunc) NULL,
 		NULL   /* value_table */
@@ -125,7 +126,7 @@ e_cal_backend_exchange_todos_factory_register_type (GTypeModule *type_module)
 		(GClassInitFunc)  todos_backend_exchange_factory_class_init,
 		(GClassFinalizeFunc) NULL,
 		NULL,  /* class_data */
-		sizeof (ECalBackendExchangeFactory),
+		sizeof (ECalBackend),
 		0,     /* n_preallocs */
 		(GInstanceInitFunc) NULL,
 		NULL   /* value_table */
@@ -139,6 +140,10 @@ e_cal_backend_exchange_todos_factory_register_type (GTypeModule *type_module)
 void
 eds_module_initialize (GTypeModule *type_module)
 {
+	/* to have a camel type initialized properly */
+	camel_type_init ();
+	camel_object_get_type ();
+
 	e_cal_backend_exchange_events_factory_register_type (type_module);
 	e_cal_backend_exchange_todos_factory_register_type (type_module);
 }

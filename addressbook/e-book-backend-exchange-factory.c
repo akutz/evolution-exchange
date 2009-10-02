@@ -25,64 +25,26 @@
 #include <string.h>
 
 #include <libebackend/e-data-server-module.h>
-#include "e-book-backend-exchange-factory.h"
+#include <libedata-book/e-book-backend-factory.h>
+#include <camel/camel-object.h>
+
 #include "e-book-backend-exchange.h"
+#include "e-book-backend-gal.h"
 
-static GType exchange_type;
+E_BOOK_BACKEND_FACTORY_SIMPLE (exchange, Exchange, e_book_backend_exchange_new)
+E_BOOK_BACKEND_FACTORY_SIMPLE (gal, Gal, e_book_backend_gal_new)
 
-static const gchar *
-book_backend_exchange_factory_get_protocol (EBookBackendFactory *factory)
-{
-	return "exchange";
-}
-
-static EBookBackend*
-book_backend_exchange_factory_new_backend (EBookBackendFactory *factory)
-{
-	return e_book_backend_exchange_new ();
-}
-
-static void
-book_backend_exchange_factory_class_init (EBookBackendExchangeFactoryClass *class)
-{
-	EBookBackendFactoryClass *factory_class;
-
-	factory_class = E_BOOK_BACKEND_FACTORY_CLASS (class);
-	factory_class->get_protocol = book_backend_exchange_factory_get_protocol;
-	factory_class->new_backend = book_backend_exchange_factory_new_backend;
-}
-
-GType
-e_book_backend_exchange_factory_get_type (void)
-{
-	return exchange_type;
-}
-
-void
-e_book_backend_exchange_factory_register_type (GTypeModule *type_module)
-{
-	static const GTypeInfo type_info = {
-		sizeof (EBookBackendExchangeFactoryClass),
-		(GBaseInitFunc) NULL,
-		(GBaseFinalizeFunc) NULL,
-		(GClassInitFunc)  book_backend_exchange_factory_class_init,
-		(GClassFinalizeFunc) NULL,
-		NULL,  /* class_data */
-		sizeof (EBookBackend),
-		0,     /* n_preallocs */
-		(GInstanceInitFunc) NULL,
-		NULL   /* value_table */
-	};
-
-	exchange_type = g_type_module_register_type (
-		type_module, E_TYPE_BOOK_BACKEND_FACTORY,
-		"EBookBackendExchangeFactory", &type_info, 0);
-}
+static GType exchange_types[2];
 
 void
 eds_module_initialize (GTypeModule *type_module)
 {
-	e_book_backend_exchange_factory_register_type (type_module);
+	/* to have a camel type initialized properly */
+	camel_type_init ();
+	camel_object_get_type ();
+
+	exchange_types[0] = _exchange_factory_get_type (type_module);
+	exchange_types[1] = _gal_factory_get_type (type_module);
 }
 
 void
@@ -93,10 +55,6 @@ eds_module_shutdown (void)
 void
 eds_module_list_types (const GType **types, gint *num_types)
 {
-	static GType module_types[1];
-
-	module_types[0] = E_TYPE_BOOK_BACKEND_EXCHANGE_FACTORY;
-
-	*types = module_types;
-	*num_types = G_N_ELEMENTS (module_types);
+	*types = exchange_types;
+	*num_types = G_N_ELEMENTS (exchange_types);
 }

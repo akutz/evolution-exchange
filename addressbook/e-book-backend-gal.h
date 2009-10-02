@@ -5,7 +5,6 @@
 #define __E_BOOK_BACKEND_GAL_H__
 
 #include "libedata-book/e-book-backend.h"
-#include "exchange-component.h"
 
 #ifdef SUNLDAP
 /*   copy from openldap ldap.h   */

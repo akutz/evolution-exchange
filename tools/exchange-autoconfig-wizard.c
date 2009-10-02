@@ -37,8 +37,6 @@
 #include <gconf/gconf-client.h>
 #include <gtk/gtk.h>
 
-#include "exchange-storage.h"
-
 #ifdef G_OS_WIN32
 
 #undef CONNECTOR_IMAGESDIR

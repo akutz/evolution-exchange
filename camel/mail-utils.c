@@ -22,7 +22,6 @@
 #endif
 
 #include "mail-utils.h"
-#include "mail-stub.h"
 #include <e2k-propnames.h>
 #include <e2k-utils.h>
 #include <mapi.h>
@@ -31,6 +30,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <camel/camel-folder-summary.h>
 #include <libedataserver/e-data-server-util.h>
 #include <e-util/e-html-utils.h>
 #include <e-util/e-util.h>
@@ -123,32 +123,32 @@ mail_util_props_to_camel_flags (E2kProperties *props, gboolean obey_read_flag)
 
 	prop = e2k_properties_get_prop (props, E2K_PR_HTTPMAIL_READ);
 	if ((prop && atoi (prop)) || !obey_read_flag)
-		flags |= MAIL_STUB_MESSAGE_SEEN;
+		flags |= CAMEL_MESSAGE_SEEN;
 
 	prop = e2k_properties_get_prop (props, E2K_PR_HTTPMAIL_HAS_ATTACHMENT);
 	if (prop && atoi (prop))
-		flags |= MAIL_STUB_MESSAGE_ATTACHMENTS;
+		flags |= CAMEL_MESSAGE_ATTACHMENTS;
 
 	prop = e2k_properties_get_prop (props, PR_ACTION_FLAG);
 	if (prop) {
 		val = atoi (prop);
 		if (val == MAPI_ACTION_FLAG_REPLIED_TO_SENDER)
-			flags |= MAIL_STUB_MESSAGE_ANSWERED;
+			flags |= CAMEL_MESSAGE_ANSWERED;
 		else if (val == MAPI_ACTION_FLAG_REPLIED_TO_ALL) {
-			flags |= (MAIL_STUB_MESSAGE_ANSWERED |
-				  MAIL_STUB_MESSAGE_ANSWERED_ALL);
+			flags |= (CAMEL_MESSAGE_ANSWERED |
+				  CAMEL_MESSAGE_ANSWERED_ALL);
 		}
 	}
 
 	prop = e2k_properties_get_prop (props, PR_DELEGATED_BY_RULE);
 	if (prop && atoi (prop))
-		flags |= MAIL_STUB_MESSAGE_DELEGATED;
+		flags |= EXMAIL_DELEGATED;
 
 	prop = e2k_properties_get_prop (props, PR_IMPORTANCE);
 	if (prop) {
 		val = atoi (prop);
 		if (val == MAPI_IMPORTANCE_HIGH)
-			flags |= MAIL_STUB_MESSAGE_FLAGGED;
+			flags |= CAMEL_MESSAGE_FLAGGED;
 	}
 
 	return flags;

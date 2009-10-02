@@ -10,7 +10,6 @@ G_BEGIN_DECLS
 
 #include <camel/camel-store.h>
 #include <camel/camel-offline-store.h>
-#include "camel-stub.h"
 
 #define CAMEL_EXCHANGE_STORE_TYPE     (camel_exchange_store_get_type ())
 #define CAMEL_EXCHANGE_STORE(obj)     (CAMEL_CHECK_CAST((obj), CAMEL_EXCHANGE_STORE_TYPE, CamelExchangeStore))
@@ -20,13 +19,11 @@ G_BEGIN_DECLS
 typedef struct {
 	CamelOfflineStore parent_object;
 
-	CamelStub *stub;
 	gchar *storage_path, *base_url;
 	gchar *trash_name;
 	GHashTable *folders;
 	GMutex *folders_lock;
 
-	gboolean stub_connected;
 	GMutex *connect_lock;
 
 } CamelExchangeStore;
@@ -40,6 +37,9 @@ typedef struct {
 CamelType camel_exchange_store_get_type (void);
 
 gboolean camel_exchange_store_connected (CamelExchangeStore *store, CamelException *ex);
+
+void camel_exchange_store_folder_created (CamelExchangeStore *estore, const gchar *name, const gchar *uri);
+void camel_exchange_store_folder_deleted (CamelExchangeStore *estore, const gchar *name, const gchar *uri);
 
 G_END_DECLS
 

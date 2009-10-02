@@ -4,7 +4,7 @@ AC_PREREQ(2.52)
 m4_define([eex_version], [2.29.1])
 
 AC_INIT(evolution-exchange, [eex_version], http://bugzilla.gnome.org/enter_bug.cgi?product=Evolution%20Exchange)
-AC_CONFIG_SRCDIR(storage)
+AC_CONFIG_SRCDIR(camel)
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 
 # Required Package Versions
@@ -375,10 +375,9 @@ AC_OUTPUT([
 Makefile
 evolution-exchange-zip
 camel/Makefile
-mail/Makefile
 addressbook/Makefile
 calendar/Makefile
-storage/Makefile
+tools/Makefile
 docs/Makefile
 docs/reference/Makefile
 po/Makefile.in

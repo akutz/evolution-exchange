@@ -57,8 +57,9 @@
 #include <exchange-hierarchy.h>
 #include <exchange-esource.h>
 #include <e-folder-exchange.h>
+
+#include "tools/exchange-share-config-listener.h"
 #include "e-book-backend-exchange.h"
-#include "exchange-component.h"
 
 #define DEBUG
 #define d(x)
@@ -691,7 +692,7 @@ e_book_backend_exchange_connect (EBookBackendExchange *be)
 	time_t folder_mtime;
 
 	if (!bepriv->account) {
-		bepriv->account = exchange_component_get_account_for_uri (global_exchange_component, bepriv->exchange_uri);
+		bepriv->account = exchange_share_config_listener_get_account_for_uri (NULL, bepriv->exchange_uri);
 		if (!bepriv->account)
 			return GNOME_Evolution_Addressbook_RepositoryOffline;
 	}
@@ -2278,7 +2279,7 @@ e_book_backend_exchange_start_book_view (EBookBackend  *backend,
 
 	d(printf("ebbe_start_book_view(%p, %p)\n", backend, book_view));
 
-	bonobo_object_ref (book_view);
+	e_data_book_view_ref (book_view);
 	e_data_book_view_notify_status_message (book_view, _("Searching..."));
 
 	switch (bepriv->mode) {
@@ -2319,16 +2320,15 @@ e_book_backend_exchange_start_book_view (EBookBackend  *backend,
 					GNOME_Evolution_Addressbook_Success);
 		if (temp_list)
 			 g_list_free (temp_list);
-		bonobo_object_unref (book_view);
+		e_data_book_view_unref (book_view);
 		return;
 
 	case GNOME_Evolution_Addressbook_MODE_REMOTE:
 
 		if (!be->priv->ctx) {
 			e_book_backend_notify_auth_required (backend);
-			e_data_book_view_notify_complete (book_view,
-						GNOME_Evolution_Addressbook_AuthenticationRequired);
-			bonobo_object_unref (book_view);
+			e_data_book_view_notify_complete (book_view, GNOME_Evolution_Addressbook_AuthenticationRequired);
+			e_data_book_view_unref (book_view);
 			return;
 		}
 
@@ -2354,9 +2354,8 @@ e_book_backend_exchange_start_book_view (EBookBackend  *backend,
 		}
 		status = e2k_result_iter_free (iter);
 
-		e_data_book_view_notify_complete (book_view,
-						  http_status_to_pas (status));
-		bonobo_object_unref (book_view);
+		e_data_book_view_notify_complete (book_view, http_status_to_pas (status));
+		e_data_book_view_unref (book_view);
 
 		/* also update the folder list */
 		exchange_account_rescan_tree (bepriv->account);
@@ -2390,9 +2389,14 @@ typedef struct {
 } EBookBackendExchangeChangeContext;
 
 static void
-free_change (gpointer change, gpointer user_data)
+free_change (gpointer data, gpointer user_data)
 {
-	CORBA_free (change);
+	EDataBookChange *change = data;
+
+	if (change) {
+		g_free (change->vcard);
+		g_free (change);
+	}
 }
 
 static gboolean
@@ -2623,7 +2627,7 @@ e_book_backend_exchange_authenticate_user (EBookBackend *backend,
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
 	ExchangeAccountResult result;
-	ExchangeAccount *account;
+	ExchangeAccount *account = NULL;
 
 	d(printf("ebbe_authenticate_user(%p, %p, %s, %s, %s)\n", backend, book, user, password, auth_method));
 
@@ -2637,7 +2641,7 @@ e_book_backend_exchange_authenticate_user (EBookBackend *backend,
 
 	case GNOME_Evolution_Addressbook_MODE_REMOTE:
 
-		bepriv->account = account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
+		bepriv->account = account = exchange_share_config_listener_get_account_for_uri (NULL, bepriv->exchange_uri);
 		/* FIXME : Check for failures */
 		if (!(bepriv->ctx = exchange_account_get_context (account))) {
 			exchange_account_set_online (account);
@@ -2801,12 +2805,12 @@ e_book_backend_exchange_remove (EBookBackendSync *backend, EDataBook *book, guin
 	if (int_uri)
 		result = exchange_account_remove_folder (bepriv->account, int_uri);
 	else {
-		ExchangeAccount *account;
+		ExchangeAccount *account = NULL;
 
 		/* internal URI is NULL, mostly the case where folder doesn't exists anymore
 		 * in the server, update the gconf sources.
 		 */
-		account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
+		account = exchange_share_config_listener_get_account_for_uri (NULL, bepriv->exchange_uri);
 		if (exchange_account_get_context (account)) {
 			remove_folder_esource (account, EXCHANGE_CONTACTS_FOLDER, bepriv->exchange_uri);
 			result = EXCHANGE_ACCOUNT_FOLDER_OK;
@@ -2850,7 +2854,7 @@ e_book_backend_exchange_set_mode (EBookBackend *backend,
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
-	ExchangeAccount *account;
+	ExchangeAccount *account = NULL;
 
 	bepriv->mode = mode;
 	/* if (e_book_backend_is_loaded (backend)) { */
@@ -2863,7 +2867,7 @@ e_book_backend_exchange_set_mode (EBookBackend *backend,
 		e_book_backend_set_is_writable (backend, bepriv->is_writable);
 		e_book_backend_notify_writable (backend, bepriv->is_writable);
 		e_book_backend_notify_connection_status (backend, TRUE);
-		account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
+		account = exchange_share_config_listener_get_account_for_uri (NULL, bepriv->exchange_uri);
 		if (!exchange_account_get_context (account))
 			e_book_backend_notify_auth_required (backend);
 	}
@@ -2881,6 +2885,8 @@ EBookBackend *
 e_book_backend_exchange_new (void)
 {
 	EBookBackendExchange *backend;
+
+	exchange_share_config_listener_get_account_for_uri (NULL, NULL);
 
 	backend = g_object_new (e_book_backend_exchange_get_type (), NULL);
 

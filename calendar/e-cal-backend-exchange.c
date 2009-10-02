@@ -51,8 +51,9 @@
 #include <exchange-account.h>
 #include <exchange-hierarchy.h>
 
-#include "exchange-component.h"
 #include <e2k-utils.h>
+
+#include "tools/exchange-share-config-listener.h"
 
 #ifndef O_BINARY
 #define O_BINARY 0
@@ -375,7 +376,7 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 			return GNOME_Evolution_Calendar_RepositoryOffline;
 		}
 
-		cbex->account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
+		cbex->account = exchange_share_config_listener_get_account_for_uri (NULL, uristr);
 
 		if (cbex->account) {
 			exchange_account_set_offline (cbex->account);
@@ -408,9 +409,7 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 	/* Make sure we have an open connection */
 	/* This steals the ExchangeAccount from ExchangeComponent */
 	if (!cbex->account) {
-		cbex->account = exchange_component_get_account_for_uri (global_exchange_component, uristr);
-		if (!cbex->account)
-			cbex->account = exchange_component_get_account_for_uri (global_exchange_component, NULL);
+		cbex->account = exchange_share_config_listener_get_account_for_uri (NULL, uristr);
 	}
 
 	if (!cbex->account) {

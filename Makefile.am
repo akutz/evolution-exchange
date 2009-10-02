@@ -1,8 +1,10 @@
 SUBDIRS = \
-	camel mail \
-	addressbook calendar \
-	storage \
-	po docs
+	tools \
+	camel \
+	addressbook \
+	calendar \
+	po \
+	docs
 
 DISTCLEANFILES = \
 	intltool-extract \

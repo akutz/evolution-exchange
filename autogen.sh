@@ -9,14 +9,14 @@ REQUIRED_AUTOMAKE_VERSION=1.6
 
 (test -f $srcdir/configure.ac \
   && test -f $srcdir/ChangeLog \
-  && test -d $srcdir/storage) || {
-    echo -n "**Error**: Directory "\`$srcdir\'" does not look like the"
-    echo " top-level $PKG_NAME directory"
+  && test -d $srcdir/camel) || {
+    echo -n "**Error**: Directory "\`$srcdir\'" does not look like the" >&2
+    echo " top-level $PKG_NAME directory" >&2
     exit 1
 }
 
 which gnome-autogen.sh || {
-    echo "You need to install gnome-common from the GNOME CVS"
+    echo "You need to install gnome-common from the GNOME git" >&2
     exit 1
 }
 USE_GNOME2_MACROS=1 . gnome-autogen.sh

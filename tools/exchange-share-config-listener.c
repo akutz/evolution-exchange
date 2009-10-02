@@ -17,7 +17,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* ExchangeConfigListener: a class that listens to the config database
+/* ExchangeShareConfigListener: a class that listens to the config database
  * and handles creating the ExchangeAccount object and making sure that
  * default folders are updated as needed.
  */
@@ -48,13 +48,10 @@
 
 #include <e-util/e-dialog-utils.h>
 
-#include "mail-stub-listener.h"
+#include "exchange-share-config-listener.h"
 
-#include "exchange-config-listener.h"
-
-struct _ExchangeConfigListenerPrivate {
+struct _ExchangeShareConfigListenerPrivate {
 	GConfClient *gconf;
-	guint idle_id;
 
 	gchar *configured_uri, *configured_name;
 	EAccount *configured_account;
@@ -80,6 +77,8 @@ static guint signals [LAST_SIGNAL] = { 0 };
 
 #define CONF_KEY_SELECTED_CAL_SOURCES "/apps/evolution/calendar/display/selected_calendars"
 #define CONF_KEY_SELECTED_TASKS_SOURCES "/apps/evolution/calendar/tasks/selected_tasks"
+
+static GStaticMutex ecl_mutex = G_STATIC_MUTEX_INIT;
 
 static EAccountListClass *parent_class = NULL;
 
@@ -117,7 +116,7 @@ class_init (GObjectClass *object_class)
 		g_signal_new ("exchange_account_created",
 			      G_OBJECT_CLASS_TYPE (object_class),
 			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (ExchangeConfigListenerClass, exchange_account_created),
+			      G_STRUCT_OFFSET (ExchangeShareConfigListenerClass, exchange_account_created),
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__POINTER,
 			      G_TYPE_NONE, 1,
@@ -126,7 +125,7 @@ class_init (GObjectClass *object_class)
 		g_signal_new ("exchange_account_removed",
 			      G_OBJECT_CLASS_TYPE (object_class),
 			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (ExchangeConfigListenerClass, exchange_account_removed),
+			      G_STRUCT_OFFSET (ExchangeShareConfigListenerClass, exchange_account_removed),
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__POINTER,
 			      G_TYPE_NONE, 1,
@@ -136,22 +135,17 @@ class_init (GObjectClass *object_class)
 static void
 init (GObject *object)
 {
-	ExchangeConfigListener *config_listener =
-		EXCHANGE_CONFIG_LISTENER (object);
+	ExchangeShareConfigListener *config_listener =
+		EXCHANGE_SHARE_CONFIG_LISTENER (object);
 
-	config_listener->priv = g_new0 (ExchangeConfigListenerPrivate, 1);
+	config_listener->priv = g_new0 (ExchangeShareConfigListenerPrivate, 1);
 }
 
 static void
 dispose (GObject *object)
 {
-	ExchangeConfigListener *config_listener =
-		EXCHANGE_CONFIG_LISTENER (object);
-
-	if (config_listener->priv->idle_id) {
-		g_source_remove (config_listener->priv->idle_id);
-		config_listener->priv->idle_id = 0;
-	}
+	ExchangeShareConfigListener *config_listener =
+		EXCHANGE_SHARE_CONFIG_LISTENER (object);
 
 	if (config_listener->priv->gconf) {
 		g_object_unref (config_listener->priv->gconf);
@@ -164,8 +158,8 @@ dispose (GObject *object)
 static void
 finalize (GObject *object)
 {
-	ExchangeConfigListener *config_listener =
-		EXCHANGE_CONFIG_LISTENER (object);
+	ExchangeShareConfigListener *config_listener =
+		EXCHANGE_SHARE_CONFIG_LISTENER (object);
 
 	g_free (config_listener->priv->configured_name);
 	g_free (config_listener->priv->configured_uri);
@@ -174,7 +168,7 @@ finalize (GObject *object)
 	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
-E2K_MAKE_TYPE (exchange_config_listener, ExchangeConfigListener, class_init, init, PARENT_TYPE)
+E2K_MAKE_TYPE (exchange_share_config_listener, ExchangeShareConfigListener, class_init, init, PARENT_TYPE)
 
 #define EVOLUTION_URI_PREFIX     "evolution:/"
 #define EVOLUTION_URI_PREFIX_LEN (sizeof (EVOLUTION_URI_PREFIX) - 1)
@@ -358,7 +352,7 @@ migrate_account_esource (EAccount *account,
 }
 
 void
-exchange_config_listener_migrate_esources (ExchangeConfigListener *config_listener)
+exchange_share_config_listener_migrate_esources (ExchangeShareConfigListener *config_listener)
 {
 	EAccount *account;
 
@@ -374,13 +368,13 @@ exchange_config_listener_migrate_esources (ExchangeConfigListener *config_listen
 static void
 account_added (EAccountList *account_list, EAccount *account)
 {
-	ExchangeConfigListener *config_listener;
+	ExchangeShareConfigListener *config_listener;
 	ExchangeAccount *exchange_account;
 
 	if (!is_active_exchange_account (account))
 		return;
 
-	config_listener = EXCHANGE_CONFIG_LISTENER (account_list);
+	config_listener = EXCHANGE_SHARE_CONFIG_LISTENER (account_list);
 	if (config_listener->priv->configured_account) {
 		/* Multiple accounts configured. */
 		return;
@@ -404,7 +398,7 @@ account_added (EAccountList *account_list, EAccount *account)
 
 	g_signal_emit (config_listener, signals[EXCHANGE_ACCOUNT_CREATED], 0,
 		       exchange_account);
-	exchange_config_listener_migrate_esources (config_listener);
+	exchange_share_config_listener_migrate_esources (config_listener);
 }
 
 struct account_update_data {
@@ -417,7 +411,7 @@ configured_account_destroyed (gpointer user_data, GObject *where_account_was)
 {
 	struct account_update_data *aud = user_data;
 
-	if (!EXCHANGE_CONFIG_LISTENER (aud->account_list)->priv->configured_account)
+	if (!EXCHANGE_SHARE_CONFIG_LISTENER (aud->account_list)->priv->configured_account)
 		account_added (aud->account_list, aud->account);
 
 	g_object_unref (aud->account_list);
@@ -485,9 +479,9 @@ end:
 static void
 account_changed (EAccountList *account_list, EAccount *account)
 {
-	ExchangeConfigListener *config_listener =
-		EXCHANGE_CONFIG_LISTENER (account_list);
-	ExchangeConfigListenerPrivate *priv = config_listener->priv;
+	ExchangeShareConfigListener *config_listener =
+		EXCHANGE_SHARE_CONFIG_LISTENER (account_list);
+	ExchangeShareConfigListenerPrivate *priv = config_listener->priv;
 
 	if (account != config_listener->priv->configured_account) {
 		if (!is_active_exchange_account (account))
@@ -569,9 +563,9 @@ account_changed (EAccountList *account_list, EAccount *account)
 static void
 account_removed (EAccountList *account_list, EAccount *account)
 {
-	ExchangeConfigListener *config_listener =
-		EXCHANGE_CONFIG_LISTENER (account_list);
-	ExchangeConfigListenerPrivate *priv = config_listener->priv;
+	ExchangeShareConfigListener *config_listener =
+		EXCHANGE_SHARE_CONFIG_LISTENER (account_list);
+	ExchangeShareConfigListenerPrivate *priv = config_listener->priv;
 
 	if (account != priv->configured_account)
 		return;
@@ -594,21 +588,10 @@ account_removed (EAccountList *account_list, EAccount *account)
 	}
 }
 
-static gboolean
-idle_construct (gpointer data)
-{
-	ExchangeConfigListener *config_listener = data;
-
-	config_listener->priv->idle_id = 0;
-	e_account_list_construct (E_ACCOUNT_LIST (config_listener),
-				  config_listener->priv->gconf);
-	return FALSE;
-}
-
 /**
- * exchange_config_listener_new:
+ * exchange_share_config_listener_new:
  *
- * This creates and returns a new #ExchangeConfigListener, which
+ * This creates and returns a new #ExchangeShareConfigListener, which
  * monitors GConf and creates and (theoretically) destroys accounts
  * accordingly. It will emit an %account_created signal when a new
  * account is created (or shortly after the listener itself is created
@@ -621,24 +604,24 @@ idle_construct (gpointer data)
  *
  * Return value: the new config listener.
  **/
-ExchangeConfigListener *
-exchange_config_listener_new (void)
+ExchangeShareConfigListener *
+exchange_share_config_listener_new (void)
 {
-	ExchangeConfigListener *config_listener;
+	ExchangeShareConfigListener *config_listener;
 
-	config_listener = g_object_new (EXCHANGE_TYPE_CONFIG_LISTENER, NULL);
+	config_listener = g_object_new (EXCHANGE_TYPE_SHARE_CONFIG_LISTENER, NULL);
 	config_listener->priv->gconf = gconf_client_get_default ();
 
-	config_listener->priv->idle_id =
-		g_idle_add (idle_construct, config_listener);
+	e_account_list_construct (E_ACCOUNT_LIST (config_listener),
+				  config_listener->priv->gconf);
 
 	return config_listener;
 }
 
 GSList *
-exchange_config_listener_get_accounts (ExchangeConfigListener *config_listener)
+exchange_share_config_listener_get_accounts (ExchangeShareConfigListener *config_listener)
 {
-	g_return_val_if_fail (EXCHANGE_IS_CONFIG_LISTENER (config_listener), NULL);
+	g_return_val_if_fail (EXCHANGE_IS_SHARE_CONFIG_LISTENER (config_listener), NULL);
 
 	if (config_listener->priv->exchange_account)
 		return g_slist_append (NULL, config_listener->priv->exchange_account);
@@ -689,4 +672,112 @@ exchange_camel_urls_is_equal (const gchar *url1, const gchar *url2)
 	camel_url_free (curl1);
 	camel_url_free (curl2);
 	return TRUE;
+}
+
+struct create_excl_struct
+{
+	ExchangeShareConfigListener **excl;
+	GMutex *mutex;
+	GCond *done;
+};
+
+static gboolean
+create_excl_in_main_thread (gpointer data)
+{
+	struct create_excl_struct *ces = (struct create_excl_struct *) data;
+
+	g_return_val_if_fail (data != NULL, FALSE);
+
+	g_mutex_lock (ces->mutex);
+
+	*ces->excl = exchange_share_config_listener_new ();
+	g_cond_signal (ces->done);
+
+	g_mutex_unlock (ces->mutex);
+
+	return FALSE;
+}
+
+ExchangeShareConfigListener *
+exchange_share_config_listener_get_global (void)
+{
+	static ExchangeShareConfigListener *excl = NULL;
+
+	g_static_mutex_lock (&ecl_mutex);
+	if (!excl) {
+		if (!g_main_context_is_owner (g_main_context_default ())) {
+			/* it is called from a thread, do the creation in a main thread;
+			   every other call will wait until it is done */
+			struct create_excl_struct ces;
+
+			ces.excl = &excl;
+			ces.mutex = g_mutex_new ();
+			ces.done = g_cond_new ();
+
+			g_mutex_lock (ces.mutex);
+			g_timeout_add (1, create_excl_in_main_thread, &ces);
+			g_cond_wait (ces.done, ces.mutex);
+			g_mutex_unlock (ces.mutex);
+
+			g_mutex_free (ces.mutex);
+			g_cond_free (ces.done);
+		} else {
+			excl = exchange_share_config_listener_new ();
+		}
+	}
+	g_static_mutex_unlock (&ecl_mutex);
+
+	return excl;
+}
+
+ExchangeAccount *
+exchange_share_config_listener_get_account_for_uri (ExchangeShareConfigListener *excl, const gchar *uri)
+{
+	GSList *accounts, *a;
+	ExchangeAccount *res = NULL;
+
+	g_return_val_if_fail (uri != NULL, NULL);
+
+	if (!excl)
+		excl = exchange_share_config_listener_get_global ();
+
+	g_return_val_if_fail (excl != NULL, NULL);
+
+	accounts = exchange_share_config_listener_get_accounts (excl);
+
+	/* FIXME the hack to return at least something */
+	if (g_slist_length (accounts) == 1) {
+		res = accounts->data;
+		g_slist_free (accounts);
+		return res;
+	}
+
+	for (a = accounts; a; a = a->next) {
+		ExchangeAccount *account = a->data;
+	
+		g_return_val_if_fail (account != NULL, NULL);
+
+		/* Kludge for while we don't support multiple accounts */
+		if (!uri) {
+			res = account;
+			break;
+		}
+
+		if (exchange_account_get_folder (account, uri)) {
+			res = account;
+			break;
+		} else {
+			g_static_mutex_lock (&ecl_mutex);
+			exchange_account_rescan_tree (account);
+			g_static_mutex_unlock (&ecl_mutex);
+			if (exchange_account_get_folder (account, uri)) {
+				res = account;
+				break;
+			}
+		}
+	}
+
+	g_slist_free (accounts);
+
+	return res;
 }

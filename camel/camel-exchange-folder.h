@@ -13,7 +13,6 @@ G_BEGIN_DECLS
 #include <camel/camel-data-cache.h>
 #include <camel/camel-offline-folder.h>
 #include <camel/camel-offline-journal.h>
-#include "camel-stub.h"
 
 #define CAMEL_EXCHANGE_FOLDER_TYPE     (camel_exchange_folder_get_type ())
 #define CAMEL_EXCHANGE_FOLDER(obj)     (CAMEL_CHECK_CAST((obj), CAMEL_EXCHANGE_FOLDER_TYPE, CamelExchangeFolder))
@@ -23,7 +22,6 @@ G_BEGIN_DECLS
 typedef struct {
 	CamelOfflineFolder parent_object;
 
-	CamelStub *stub;
 	CamelDataCache *cache;
 	CamelOfflineJournal *journal;
 	gchar *source;
@@ -45,7 +43,6 @@ gboolean camel_exchange_folder_construct            (CamelFolder *folder,
 						     guint32 camel_flags,
 						     const gchar *folder_dir,
 						     gint offline_state,
-						     CamelStub *stub,
 						     CamelException *ex);
 
 void     camel_exchange_folder_add_message          (CamelExchangeFolder *exch,

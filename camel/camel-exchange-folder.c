@@ -30,12 +30,6 @@
 #include <glib/gi18n-lib.h>
 #include <libedataserver/e-data-server-util.h>
 
-#include "camel-exchange-folder.h"
-#include "camel-exchange-search.h"
-#include "camel-exchange-store.h"
-#include "camel-exchange-summary.h"
-#include "camel-exchange-journal.h"
-
 #include <camel/camel-data-wrapper.h>
 #include <camel/camel-exception.h>
 #include <camel/camel-file-utils.h>
@@ -47,6 +41,13 @@
 #include <camel/camel-stream-mem.h>
 #include <camel/camel-folder-summary.h>
 #include <camel/camel-string-utils.h>
+
+#include "camel-exchange-folder.h"
+#include "camel-exchange-search.h"
+#include "camel-exchange-store.h"
+#include "camel-exchange-summary.h"
+#include "camel-exchange-journal.h"
+#include "camel-exchange-utils.h"
 
 static CamelOfflineFolderClass *parent_class = NULL;
 
@@ -173,18 +174,11 @@ refresh_info (CamelFolder *folder, CamelException *ex)
 	if (camel_exchange_store_connected (store, ex)) {
 		camel_offline_journal_replay (exch->journal, NULL);
 
-		camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_REFRESH_FOLDER,
-				 CAMEL_STUB_ARG_FOLDER, folder->full_name,
-				 CAMEL_STUB_ARG_END);
+		camel_exchange_utils_refresh_folder (CAMEL_SERVICE (folder->parent_store), folder->full_name, ex);
 	}
 
 	/* sync up the counts now */
-	if (!camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_SYNC_COUNT,
-				 CAMEL_STUB_ARG_FOLDER, folder->full_name,
-				 CAMEL_STUB_ARG_RETURN,
-				 CAMEL_STUB_ARG_UINT32, &unread_count,
-				 CAMEL_STUB_ARG_UINT32, &visible_count,
-				 CAMEL_STUB_ARG_END)) {
+	if (!camel_exchange_utils_sync_count (CAMEL_SERVICE (folder->parent_store), folder->full_name, &unread_count, &visible_count, ex)) {
 		g_print("\n Error syncing up the counts");
 	}
 
@@ -195,7 +189,6 @@ refresh_info (CamelFolder *folder, CamelException *ex)
 static void
 exchange_expunge (CamelFolder *folder, CamelException *ex)
 {
-	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
 	CamelFolder *trash;
 	GPtrArray *uids;
 	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (folder->parent_store);
@@ -213,10 +206,7 @@ exchange_expunge (CamelFolder *folder, CamelException *ex)
 	}
 
 	uids = camel_folder_get_uids (trash);
-	camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_EXPUNGE_UIDS,
-			 CAMEL_STUB_ARG_FOLDER, trash->full_name,
-			 CAMEL_STUB_ARG_STRINGARRAY, uids,
-			 CAMEL_STUB_ARG_END);
+	camel_exchange_utils_expunge_uids (CAMEL_SERVICE (trash->parent_store), trash->full_name, uids, ex);
 	camel_folder_free_uids (trash, uids);
 	camel_object_unref (CAMEL_OBJECT (trash));
 }
@@ -235,14 +225,13 @@ append_message_data (CamelFolder *folder, GByteArray *message,
 	if (!subject)
 		subject = _("No Subject");
 
-	if (camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_APPEND_MESSAGE,
-			     CAMEL_STUB_ARG_FOLDER, folder->full_name,
-			     CAMEL_STUB_ARG_UINT32, info? camel_message_info_flags(info): 0,
-			     CAMEL_STUB_ARG_STRING, subject,
-			     CAMEL_STUB_ARG_BYTEARRAY, message,
-			     CAMEL_STUB_ARG_RETURN,
-			     CAMEL_STUB_ARG_STRING, &new_uid,
-			     CAMEL_STUB_ARG_END)) {
+	if (camel_exchange_utils_append_message (CAMEL_SERVICE (folder->parent_store),
+				folder->full_name,
+				info ? camel_message_info_flags (info) : 0,
+				subject,
+				message,
+				&new_uid,
+				ex)) {
 		stream_cache = camel_data_cache_add (exch->cache,
 						     "cache", new_uid, NULL);
 		if (stream_cache) {
@@ -400,12 +389,7 @@ get_message_data (CamelFolder *folder, const gchar *uid, CamelException *ex)
 		return NULL;
 	}
 
-	if (!camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_GET_MESSAGE,
-			      CAMEL_STUB_ARG_FOLDER, folder->full_name,
-			      CAMEL_STUB_ARG_STRING, uid,
-			      CAMEL_STUB_ARG_RETURN,
-			      CAMEL_STUB_ARG_BYTEARRAY, &ba,
-			      CAMEL_STUB_ARG_END))
+	if (!camel_exchange_utils_get_message (CAMEL_SERVICE (folder->parent_store), folder->full_name, uid, &ba, ex))
 		return NULL;
 
 	stream = camel_data_cache_add (exch->cache, "cache", uid, ex);
@@ -539,7 +523,6 @@ transfer_messages_the_hard_way (CamelFolder *source, GPtrArray *uids,
 				GPtrArray **transferred_uids,
 				gboolean delete_originals, CamelException *ex)
 {
-	CamelExchangeFolder *exch_source = CAMEL_EXCHANGE_FOLDER (source);
 	CamelException local_ex;
 	CamelMessageInfo *info;
 	GByteArray *ba;
@@ -580,16 +563,12 @@ transfer_messages_the_hard_way (CamelFolder *source, GPtrArray *uids,
 	}
 
 	if (delete_originals) {
-		camel_stub_send (exch_source->stub, ex,
-				 CAMEL_STUB_CMD_EXPUNGE_UIDS,
-				 CAMEL_STUB_ARG_FOLDER, source->full_name,
-				 CAMEL_STUB_ARG_STRINGARRAY, uids,
-				 CAMEL_STUB_ARG_END);
+		camel_exchange_utils_expunge_uids (CAMEL_SERVICE (source->parent_store), source->full_name, uids, ex);
 	}
 }
 
 static void
-cache_xfer (CamelExchangeFolder *stub_source, CamelExchangeFolder *stub_dest,
+cache_xfer (CamelExchangeFolder *folder_source, CamelExchangeFolder *folder_dest,
 	    GPtrArray *src_uids, GPtrArray *dest_uids, gboolean delete)
 {
 	CamelStream *src, *dest;
@@ -599,12 +578,12 @@ cache_xfer (CamelExchangeFolder *stub_source, CamelExchangeFolder *stub_dest,
 		if (!*(gchar *)dest_uids->pdata[i])
 			continue;
 
-		src = camel_data_cache_get (stub_source->cache, "cache",
+		src = camel_data_cache_get (folder_source->cache, "cache",
 					    src_uids->pdata[i], NULL);
 		if (!src)
 			continue;
 
-		dest = camel_data_cache_add (stub_dest->cache, "cache",
+		dest = camel_data_cache_add (folder_dest->cache, "cache",
 					     dest_uids->pdata[i], NULL);
 		if (dest) {
 			camel_stream_write_to_stream (src, dest);
@@ -613,7 +592,7 @@ cache_xfer (CamelExchangeFolder *stub_source, CamelExchangeFolder *stub_dest,
 		camel_object_unref (CAMEL_OBJECT (src));
 
 		if (delete) {
-			camel_data_cache_remove (stub_source->cache, "cache",
+			camel_data_cache_remove (folder_source->cache, "cache",
 						 src_uids->pdata[i], NULL);
 		}
 	}
@@ -667,25 +646,20 @@ transfer_messages_to (CamelFolder *source, GPtrArray *uids,
 		return;
 	}
 
-	if (camel_stub_send (exch_source->stub, ex,
-			     CAMEL_STUB_CMD_TRANSFER_MESSAGES,
-			     CAMEL_STUB_ARG_FOLDER, source->full_name,
-			     CAMEL_STUB_ARG_FOLDER, dest->full_name,
-			     CAMEL_STUB_ARG_STRINGARRAY, uids,
-			     CAMEL_STUB_ARG_UINT32, (guint32)delete_originals,
-			     CAMEL_STUB_ARG_RETURN,
-			     CAMEL_STUB_ARG_STRINGARRAY, &ret_uids,
-			     CAMEL_STUB_ARG_END)) {
+	if (camel_exchange_utils_transfer_messages (CAMEL_SERVICE (store),
+				source->full_name,
+				dest->full_name,
+				uids,
+				delete_originals,
+				&ret_uids,
+				ex)) {
 		if (ret_uids->len != 0)
 			cache_xfer (exch_source, exch_dest, uids, ret_uids, FALSE);
 
 		if (transferred_uids)
 			*transferred_uids = ret_uids;
 		else {
-			gint i;
-
-			for (i = 0; i < ret_uids->len; i++)
-				g_free (ret_uids->pdata[i]);
+			g_ptr_array_foreach (ret_uids, (GFunc) g_free, NULL);
 			g_ptr_array_free (ret_uids, TRUE);
 		}
 	} else if (transferred_uids)
@@ -760,7 +734,7 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 	camel_data_wrapper_construct_from_stream (CAMEL_DATA_WRAPPER (msg), stream);
 	camel_object_unref (CAMEL_OBJECT (stream));
 
-	info = camel_folder_summary_info_new_from_message (folder->summary, msg);
+	info = camel_folder_summary_info_new_from_message (folder->summary, msg, NULL);
 	einfo = (CamelExchangeMessageInfo *)info;
 
 	if (einfo->thread_index) {
@@ -978,11 +952,7 @@ camel_exchange_folder_update_message_tag (CamelExchangeFolder *exch,
  * @camel_flags: the folder flags passed to camel_store_get_folder().
  * @folder_dir: local directory this folder can cache data into
  * @offline_state : offline status
- * @stub: the #CamelStub.
  * @ex: a #CamelException
- *
- * Constructs @folder by requesting the necessary data from the server
- * via @stub.
  *
  * Return value: success or failure.
  **/
@@ -990,7 +960,7 @@ gboolean
 camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 				 const gchar *name, guint32 camel_flags,
 				 const gchar *folder_dir, gint offline_state,
-				 CamelStub *stub, CamelException *ex)
+				 CamelException *ex)
 {
 	CamelExchangeFolder *exch = (CamelExchangeFolder *)folder;
 	const gchar *short_name;
@@ -1064,10 +1034,8 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 		camel_message_info_free(info);
 	}
 
-	if (stub) {
-		gboolean ok, create = camel_flags & CAMEL_STORE_FOLDER_CREATE;
-
-		exch->stub = stub;
+	if (parent) {
+		gboolean ok, create = camel_flags & CAMEL_STORE_FOLDER_CREATE, readonly = FALSE;
 
 		summary = camel_folder_get_summary (folder);
 		uids = g_ptr_array_new ();
@@ -1089,17 +1057,9 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 		}
 
 		camel_operation_start (NULL, _("Scanning for changed messages"));
-		ok = camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_GET_FOLDER,
-				      CAMEL_STUB_ARG_FOLDER, name,
-				      CAMEL_STUB_ARG_UINT32, create,
-				      CAMEL_STUB_ARG_STRINGARRAY, uids,
-				      CAMEL_STUB_ARG_BYTEARRAY, flags,
-				      CAMEL_STUB_ARG_STRINGARRAY, hrefs,
-				      CAMEL_STUB_ARG_UINT32, CAMEL_EXCHANGE_SUMMARY(folder->summary)->high_article_num,
-				      CAMEL_STUB_ARG_RETURN,
-				      CAMEL_STUB_ARG_UINT32, &folder_flags,
-				      CAMEL_STUB_ARG_STRING, &exch->source,
-				      CAMEL_STUB_ARG_END);
+		ok = camel_exchange_utils_get_folder (CAMEL_SERVICE (parent),
+				      name, create, uids, flags, hrefs, CAMEL_EXCHANGE_SUMMARY (folder->summary)->high_article_num,
+				      &folder_flags, &exch->source, &readonly, ex);
 		camel_operation_end (NULL);
 		g_ptr_array_free (uids, TRUE);
 		g_byte_array_free (flags, TRUE);
@@ -1108,23 +1068,21 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 		if (!ok)
 			return FALSE;
 
-		if (folder_flags & CAMEL_STUB_FOLDER_FILTER)
+		if (folder_flags & CAMEL_FOLDER_FILTER_RECENT)
 			folder->folder_flags |= CAMEL_FOLDER_FILTER_RECENT;
-		if (folder_flags & CAMEL_STUB_FOLDER_FILTER_JUNK)
+		if (folder_flags & CAMEL_FOLDER_FILTER_JUNK)
 			folder->folder_flags |= CAMEL_FOLDER_FILTER_JUNK;
 
-		camel_exchange_summary_set_readonly (folder->summary, folder_flags & CAMEL_STUB_FOLDER_READONLY);
+		camel_exchange_summary_set_readonly (folder->summary, readonly);
 
-		if (offline_state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL )
+		if (offline_state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL)
 			return TRUE;
 
 		if (len)
 			return TRUE;
 
 		camel_operation_start (NULL, _("Fetching summary information for new messages"));
-		ok = camel_stub_send (exch->stub, ex, CAMEL_STUB_CMD_REFRESH_FOLDER,
-				      CAMEL_STUB_ARG_FOLDER, folder->full_name,
-				      CAMEL_STUB_ARG_END);
+		ok = camel_exchange_utils_refresh_folder (CAMEL_SERVICE (parent), folder->full_name, ex);
 		camel_operation_end (NULL);
 		if (!ok)
 			return FALSE;
