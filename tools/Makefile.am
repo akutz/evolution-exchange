@@ -15,7 +15,6 @@ AM_CPPFLAGS = \
 
 noinst_PROGRAMS = \
 	exchange-connector-setup
-#	migr-test
 
 noinst_LTLIBRARIES = libevolution-exchange-shared.la
 
@@ -45,19 +44,6 @@ install-exec-local: exchange-connector-setup
 
 uninstall-local:
 	rm -rf $(DESTDIR)$(bindir)/exchange-connector-setup-$(BASE_VERSION)
-
-#migr_test_SOURCES = \
-#	migr-test.c \
-#	exchange-config-listener.c \
-#	exchange-config-listener.h \
-#	exchange-migrate.c \
-#	exchange-migrate.h
-#
-#migr_test_LDADD = \
-#	$(LDAP_LIBS) \
-#	$(EXCHANGE_STORAGE_LIBS) \
-#	$(LIBEXCHANGE_LIBS)
-#
 
 imagesdir = $(CONNECTOR_DATADIR)/images
 images_DATA = \

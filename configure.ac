@@ -13,7 +13,6 @@ m4_define([gtk_minimum_version], [2.10.0])
 m4_define([eds_minimum_version], [eex_version])
 m4_define([evo_minimum_version], [eex_version])
 m4_define([gconf_minimum_version], [2.0.0])             # XXX Just a Guess
-m4_define([libbonobo_minimum_version], [2.20.3])
 m4_define([libxml_minimum_version], [2.0.0])            # XXX Just a Guess
 m4_define([libsoup_minimum_version], [2.3.0])
 
@@ -140,7 +139,6 @@ PKG_CHECK_MODULES(GNOME_PLATFORM,
 	[glib-2.0 >= glib_minimum_version
 	 gtk+-2.0 >= gtk_minimum_version
 	 gconf-2.0 >= gconf_minimum_version
-	 libbonobo-2.0 >= libbonobo_minimum_version
 	 libxml-2.0 >= libxml_minimum_version
 	 libsoup-2.4 >= libsoup_minimum_version])
 
@@ -168,8 +166,6 @@ dnl AC_DEFINE(G_DISABLE_DEPRECATED,1,[No deprecated glib functions])
 dnl AC_DEFINE(GDK_DISABLE_DEPRECATED,1,[No deprecated gdk functions])
 dnl AC_DEFINE(GTK_DISABLE_DEPRECATED,1,[No deprecated gtk functions])
 dnl AC_DEFINE(GNOME_DISABLE_DEPRECATED,1,[No deprecated gnome functions])
-dnl AC_DEFINE(BONOBO_DISABLE_DEPRECATED,1,[No deprecated bonobo functions])
-dnl AC_DEFINE(BONOBO_UI_DISABLE_DEPRECATED,1,[No deprecated bonoboui functions])
 dnl AC_DEFINE(GCONF_DISABLE_DEPRECATED,1,[No deprecated gconf functions])
 
 AC_EGREP_HEADER(socklen_t, sys/socket.h, :, AC_DEFINE(socklen_t, int, [Define to "int" if socklen_t is not defined]))

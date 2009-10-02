@@ -6,11 +6,7 @@
 
 #include <exchange-types.h>
 
-#include <bonobo/bonobo-object.h>
-
 G_BEGIN_DECLS
-
-BonoboObject *exchange_autoconfig_wizard_new (void);
 
 void          exchange_autoconfig_assistant_run  (void);
 
