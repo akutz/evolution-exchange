@@ -98,24 +98,15 @@ static gboolean
 is_eex_folder_selected (EShellView *shell_view, gchar **puri)
 {
 	ExchangeAccount *account = NULL;
-	gint mode;
 	EShellSidebar *shell_sidebar;
 	EMFolderTree *folder_tree = NULL;
 	GtkTreeSelection *selection;
 	GtkTreeModel *model = NULL;
 	GtkTreeIter iter;
-	gboolean is_store = FALSE, res;
+	gboolean is_store = FALSE, res = FALSE;
 	gchar *uri = NULL;
 
 	g_return_val_if_fail (shell_view != NULL, FALSE);
-
-	account = exchange_operations_get_exchange_account ();
-	if (!account)
-		return FALSE;
-
-	exchange_account_is_offline (account, &mode);
-	if (mode == OFFLINE_MODE)
-		return FALSE;
 
 	shell_sidebar = e_shell_view_get_shell_sidebar (shell_view);
 	g_object_get (shell_sidebar, "folder-tree", &folder_tree, NULL);
@@ -133,6 +124,20 @@ is_eex_folder_selected (EShellView *shell_view, gchar **puri)
 		-1);
 
 	res = !is_store && uri && g_ascii_strncasecmp (uri, "exchange://", 11) == 0;
+
+	if (res) {
+		gint mode;
+
+		/* check for the account later, as it is connecting to the server for the first time */
+		account = exchange_operations_get_exchange_account ();
+		if (!account) {
+			res = FALSE;
+		} else {
+			exchange_account_is_offline (account, &mode);
+			if (mode == OFFLINE_MODE)
+				res = FALSE;
+		}
+	}
 
 	if (res) {
 		const gchar *path;

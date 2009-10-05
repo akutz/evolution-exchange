@@ -588,13 +588,13 @@ make_folder_info (CamelExchangeStore *exch, gchar *name, const gchar *uri,
 	if (flags & CAMEL_FOLDER_SYSTEM)
 		info->flags |= CAMEL_FOLDER_SYSTEM;
 
-	if (flags & CAMEL_FOLDER_TYPE_INBOX)
+	if ((flags & CAMEL_FOLDER_TYPE_MASK) == CAMEL_FOLDER_TYPE_INBOX)
 		info->flags |= CAMEL_FOLDER_TYPE_INBOX;
 
-	if (flags & CAMEL_FOLDER_TYPE_TRASH)
+	if ((flags & CAMEL_FOLDER_TYPE_MASK) == CAMEL_FOLDER_TYPE_TRASH)
 		info->flags |= CAMEL_FOLDER_TYPE_TRASH;
 
-	if (flags & CAMEL_FOLDER_TYPE_SENT)
+	if ((flags & CAMEL_FOLDER_TYPE_MASK) == CAMEL_FOLDER_TYPE_SENT)
 		info->flags |= CAMEL_FOLDER_TYPE_SENT;
 
 	if (flags & CAMEL_FOLDER_SUBSCRIBED) {
@@ -679,8 +679,8 @@ exchange_get_folder_info (CamelStore *store, const gchar *top, guint32 flags, Ca
 	for (i = 0; i < folder_names->len; i++) {
 		info = make_folder_info (exch, folder_names->pdata[i],
 					 folder_uris->pdata[i],
-					 g_array_index (unread_counts, int, i),
-					 g_array_index (folder_flags, int, i));
+					 g_array_index (unread_counts, gint, i),
+					 g_array_index (folder_flags, gint, i));
 		if (info)
 			g_ptr_array_add (folders, info);
 	}
