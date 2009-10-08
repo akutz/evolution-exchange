@@ -1357,7 +1357,7 @@ process_flags (gpointer user_data)
 		mmsg = mfld->changed_messages->pdata[i];
 		d(printf("Process flags %p\n", mmsg));
 		if (!mmsg->href) {
-			d(g_print ("%s:%s:%d: mfld = [%s], type=[%d]\n", __FILE__, __GNUC_PRETTY_FUNCTION__,
+			d(g_print ("%s:%s:%d: mfld = [%s], type=[%d]\n", __FILE__, G_STRFUNC,
 				   __LINE__, mfld->name, mfld->type));
 		}
 
@@ -1907,7 +1907,7 @@ get_folder_info_data (ExchangeData *ed, const gchar *top, guint32 store_flags, G
 	if (!subscribed && subscription_list) {
 		ExchangeAccountResult result = -1;
 
-		d(g_print ("%s(%d):%s: NOT SUBSCRIBED top = [%s]\n", __FILE__, __LINE__, __GNUC_PRETTY_FUNCTION__, top));
+		d(g_print ("%s(%d):%s: NOT SUBSCRIBED top = [%s]\n", __FILE__, __LINE__, G_STRFUNC, top));
 		if (!toplen)
 			result = exchange_account_open_folder (ed->account, "/public");
 		if (result ==  EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST) {
@@ -1915,19 +1915,18 @@ get_folder_info_data (ExchangeData *ed, const gchar *top, guint32 store_flags, G
 			if (hier)
 				exchange_hierarchy_scan_subtree (hier, hier->toplevel, mode);
 		} else {
-			d(g_print ("%s(%d):%s: NOT SUBSCRIBED - open_folder returned = [%d]\n", __FILE__, __LINE__, __GNUC_PRETTY_FUNCTION__, result));
+			d(g_print ("%s(%d):%s: NOT SUBSCRIBED - open_folder returned = [%d]\n", __FILE__, __LINE__, G_STRFUNC, result));
 		}
 	}
 
 	/* No need to check for recursive flag, as I will always be returning a tree, instead of a single folder info object */
 	if (toplen) {
-		d(g_print ("%s(%d):%s: NOT RECURSIVE and toplen top = [%s]\n", __FILE__, __LINE__, __GNUC_PRETTY_FUNCTION__, top));
+		d(g_print ("%s(%d):%s: NOT RECURSIVE and toplen top = [%s]\n", __FILE__, __LINE__, G_STRFUNC, top));
 		full_path = g_strdup_printf ("/%s", top);
 		folders = exchange_account_get_folder_tree (ed->account, full_path);
 		g_free (full_path);
 	} else {
-		d(g_print ("%s(%d):%s calling exchange_account_get_folders \n", __FILE__, __LINE__,
-					   __GNUC_PRETTY_FUNCTION__));
+		d(g_print ("%s(%d):%s calling exchange_account_get_folders \n", __FILE__, __LINE__, G_STRFUNC));
 		folders = exchange_account_get_folders (ed->account);
 	}
 
@@ -2020,8 +2019,7 @@ get_folder_info_data (ExchangeData *ed, const gchar *top, guint32 store_flags, G
 				folder_flags |= CAMEL_FOLDER_SYSTEM | CAMEL_FOLDER_TYPE_SENT;
 
 			if (!e_folder_exchange_get_has_subfolders (folder)) {
-				d(printf ("%s:%d:%s - %s has no subfolders", __FILE__, __LINE__, __GNUC_PRETTY_FUNCTION__,
-					  name));
+				d(printf ("%s:%d:%s - %s has no subfolders", __FILE__, __LINE__, G_STRFUNC, name));
 				folder_flags |= CAMEL_FOLDER_NOCHILDREN;
 			}
 

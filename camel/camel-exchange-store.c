@@ -360,10 +360,6 @@ exchange_connect (CamelService *service, CamelException *ex)
 	g_mutex_lock (exch->connect_lock);
 
 	online_mode = camel_session_is_online (service->session);
-	if (!online_mode) {
-		g_mutex_unlock (exch->connect_lock);
-		return TRUE;
-	}
 
 	if (online_mode) {
 		camel_exchange_get_password (service, ex);
