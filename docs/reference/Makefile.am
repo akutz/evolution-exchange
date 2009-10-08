@@ -36,13 +36,14 @@ CFILE_GLOB=$(top_srcdir)/*/*.c
 # CFLAGS and LDFLAGS for compiling scan program. Only needed
 # if $(DOC_MODULE).types is non-empty.
 INCLUDES = \
-	-I$(top_srcdir)/lib \
-	-I$(top_builddir)/lib \
-	$(LIBEXCHANGE_CFLAGS) \
+	-I$(top_srcdir)/server/lib \
+	-I$(top_srcdir)/server/storage \
+	$(GNOME_PLATFORM_CFLAGS) \
 	$(LDAP_CFLAGS)
 
 GTKDOC_LIBS = \
-	$(LIBEXCHANGE_LIBS) \
+	$(top_builddir)/server/storage/libexchange-storage.la \
+	$(GNOME_PLATFORM_LIBS) \
 	$(LDAP_LIBS)
 
 # Extra options to supply to gtkdoc-mkdb

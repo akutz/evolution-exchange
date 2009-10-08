@@ -32,3 +32,125 @@ e2k_global_catalog_lookup(), #E2kSecurityDescriptor
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### STRUCT E2kSid ##### -->
+<para>
+
+</para>
+
+@parent: 
+@priv: 
+
+<!-- ##### ENUM E2kSidType ##### -->
+<para>
+
+</para>
+
+@E2K_SID_TYPE_INVALID: 
+@E2K_SID_TYPE_USER: 
+@E2K_SID_TYPE_ALIAS: 
+@E2K_SID_TYPE_GROUP: 
+@E2K_SID_TYPE_WELL_KNOWN_GROUP: 
+@E2K_SID_TYPE_DOMAIN: 
+@E2K_SID_TYPE_DELETED_ACCOUNT: 
+@E2K_SID_TYPE_UNKNOWN: 
+@E2K_SID_TYPE_COMPUTER: 
+
+<!-- ##### FUNCTION e2k_sid_new_from_string_sid ##### -->
+<para>
+
+</para>
+
+@type: 
+@string_sid: 
+@display_name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_sid_new_from_binary_sid ##### -->
+<para>
+
+</para>
+
+@type: 
+@binary_sid: 
+@display_name: 
+@Returns: 
+
+
+<!-- ##### MACRO E2K_SID_WKS_EVERYONE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO E2K_SID_WKS_ANONYMOUS ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION e2k_sid_get_sid_type ##### -->
+<para>
+
+</para>
+
+@sid: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_sid_get_string_sid ##### -->
+<para>
+
+</para>
+
+@sid: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_sid_get_binary_sid ##### -->
+<para>
+
+</para>
+
+@sid: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_sid_get_display_name ##### -->
+<para>
+
+</para>
+
+@sid: 
+@Returns: 
+
+
+<!-- ##### MACRO E2K_SID_BINARY_SID_LEN ##### -->
+<para>
+
+</para>
+
+@bsid: 
+
+
+<!-- ##### FUNCTION e2k_sid_binary_sid_hash ##### -->
+<para>
+
+</para>
+
+@key: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e2k_sid_binary_sid_equal ##### -->
+<para>
+
+</para>
+
+@a: 
+@b: 
+@Returns: 
+
+

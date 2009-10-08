@@ -1,9 +1,11 @@
 AM_CPPFLAGS = \
 	-I$(top_srcdir) \
-	$(CALENDAR_CFLAGS) \
-	$(LIBEXCHANGE_CFLAGS) \
-	$(LDAP_CFLAGS) \
-	-DG_LOG_DOMAIN=\"e-cal-backend-exchange\"
+	-I$(top_srcdir)/server/lib \
+	-I$(top_srcdir)/server/storage \
+	-I$(top_builddir)/server/lib \
+	-DG_LOG_DOMAIN=\"e-cal-backend-exchange\" \
+	$(EVOLUTION_DATA_SERVER_CFLAGS) \
+	$(LDAP_CFLAGS)
 
 extension_LTLIBRARIES = \
         libecalbackendexchange.la
@@ -25,10 +27,8 @@ libecalbackendexchange_la_SOURCES = \
 libecalbackendexchange_la_LDFLAGS = \
 	-module -avoid-version $(NO_UNDEFINED)
 
-libecalbackendexchange_la_LIBADD =  				\
-	$(top_builddir)/tools/libevolution-exchange-shared.la	\
-	$(CALENDAR_LIBS)					\
-	$(LIBEXCHANGE_LIBS)					\
+libecalbackendexchange_la_LIBADD = \
+	$(EVOLUTION_DATA_SERVER_LIBS) \
 	$(LDAP_LIBS)
 
 -include $(top_srcdir)/git.mk

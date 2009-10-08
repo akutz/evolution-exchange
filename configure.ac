@@ -33,8 +33,15 @@ esac
 dnl Update these for every new development release of evolution. These numbers
 dnl actually correspond to the next stable release number
 EVOLUTION_API_VERSION=2.30
-EDS_API_VERSION=1.2
 EDS_BASE_VERSION=2.30
+
+LIBEXCHANGE_STORAGE_CURRENT=3
+LIBEXCHANGE_STORAGE_REVISION=0
+LIBEXCHANGE_STORAGE_AGE=0
+
+AC_SUBST(LIBEXCHANGE_STORAGE_CURRENT)
+AC_SUBST(LIBEXCHANGE_STORAGE_REVISION)
+AC_SUBST(LIBEXCHANGE_STORAGE_AGE)
 
 AC_MSG_CHECKING(Evolution version)
 EVOLUTION_VERSION=`pkg-config --modversion evolution-shell 2>/dev/null`
@@ -51,9 +58,6 @@ BASE_VERSION=$EVOLUTION_API_VERSION
 AC_DEFINE_UNQUOTED(BASE_VERSION, "$BASE_VERSION", Connector base version)
 AC_SUBST(BASE_VERSION)
 
-API_VERSION=$EDS_API_VERSION
-AC_DEFINE_UNQUOTED(API_VERSION, "$API_VERSION", Eds api version)
-AC_SUBST(API_VERSION)
 AC_SUBST(EDS_BASE_VERSION)
 
 dnl Initialize maintainer mode
@@ -85,7 +89,7 @@ AS_COMPILER_FLAGS(WARNING_FLAGS,
 	-Wno-unused-parameter
 	-Wdeclaration-after-statement
 	-Werror-implicit-function-declaration
-	-Wformat-nonliteral -Wformat-security -Winit-self
+	-Wformat-security -Winit-self
 	-Wmissing-declarations -Wmissing-include-dirs
 	-Wmissing-noreturn -Wnested-externs -Wpointer-arith
 	-Wredundant-decls -Wundef -Wwrite-strings")
@@ -94,6 +98,7 @@ AC_SUBST(WARNING_FLAGS)
 # Other useful compiler warnings for test builds only.
 # These may produce warnings we have no control over.
 #
+#	-Wformat-nonliteral
 #	-Wmissing-format-attribute
 #	-Wshadow
 
@@ -143,13 +148,12 @@ PKG_CHECK_MODULES(GNOME_PLATFORM,
 	 libsoup-2.4 >= libsoup_minimum_version])
 
 PKG_CHECK_MODULES(EVOLUTION_DATA_SERVER,
-	[libebook-$EDS_API_VERSION >= eds_minimum_version
-	 libecal-$EDS_API_VERSION >= eds_minimum_version
-	 libedataserver-$EDS_API_VERSION >= eds_minimum_version
-	 libedataserverui-$EDS_API_VERSION >= eds_minimum_version
-	 libegroupwise-$EDS_API_VERSION >= eds_minimum_version
-	 libebackend-$EDS_API_VERSION >= eds_minimum_version
-	 libexchange-storage-$EDS_API_VERSION >= eds_minimum_version])
+	[libebook-1.2 >= eds_minimum_version
+	 libecal-1.2 >= eds_minimum_version
+	 libedataserver-1.2 >= eds_minimum_version
+	 libedataserverui-1.2 >= eds_minimum_version
+	 libegroupwise-1.2 >= eds_minimum_version
+	 libebackend-1.2 >= eds_minimum_version])
 
 dnl *************************
 dnl CFLAGS and LIBS and stuff
@@ -162,11 +166,6 @@ case $CFLAGS in
 	CFLAGS="$CFLAGS -Wno-sign-compare"
 	;;
 esac
-dnl AC_DEFINE(G_DISABLE_DEPRECATED,1,[No deprecated glib functions])
-dnl AC_DEFINE(GDK_DISABLE_DEPRECATED,1,[No deprecated gdk functions])
-dnl AC_DEFINE(GTK_DISABLE_DEPRECATED,1,[No deprecated gtk functions])
-dnl AC_DEFINE(GNOME_DISABLE_DEPRECATED,1,[No deprecated gnome functions])
-dnl AC_DEFINE(GCONF_DISABLE_DEPRECATED,1,[No deprecated gconf functions])
 
 AC_EGREP_HEADER(socklen_t, sys/socket.h, :, AC_DEFINE(socklen_t, int, [Define to "int" if socklen_t is not defined]))
 
@@ -178,69 +177,24 @@ AM_GCONF_SOURCE_2
 CONNECTOR_DATADIR='$(datadir)/evolution-exchange/$(BASE_VERSION)'
 AC_SUBST(CONNECTOR_DATADIR)
 
-dnl Check that e-d-s was built with Exchange support.
-EXCHANGE_PACKAGE="`pkg-config --exists libexchange-storage-$EDS_API_VERSION`"
-if test "x$EXCHANGE_PACKAGE" != "x"; then
-	echo "
-		You probably have not built evolution-data-server with 
-		Exchange support or fix your PKG_CONFIG_PATH to point 
-		it to the proper location.
-		"
-	exit 1
-fi
-
 plugindir=`$PKG_CONFIG --variable=plugindir evolution-plugin`
 AC_SUBST(plugindir)
 
 EVOLUTION_PLUGIN_errordir="`pkg-config --variable=errordir evolution-plugin`"
 AC_SUBST(EVOLUTION_PLUGIN_errordir)
 
-extensiondir="`pkg-config --variable=extensiondir evolution-data-server-$EDS_API_VERSION`"
+extensiondir="`pkg-config --variable=extensiondir evolution-data-server-1.2`"
 AC_SUBST(extensiondir)
-
-EVOLUTION_idldir="`pkg-config --variable=idldir evolution-shell`"
-AC_SUBST(EVOLUTION_idldir)
-
-EVOLUTION_IDL_INCLUDES="`pkg-config --variable=IDL_INCLUDES evolution-shell`"
-AC_SUBST(EVOLUTION_IDL_INCLUDES)
-
-EVOLUTION_privlibdir="`pkg-config --variable=privlibdir evolution-shell`"
-AC_SUBST(EVOLUTION_privlibdir)
-
-EVOLUTION_privlibexecdir="`pkg-config --variable=privlibexecdir evolution-shell`"
-AC_SUBST(EVOLUTION_privlibexecdir)
 
 EVOLUTION_imagesdir="`pkg-config --variable=imagesdir evolution-shell`"
 AC_SUBST(EVOLUTION_imagesdir)
 
-CAMEL_providerdir="`pkg-config --variable=camel_providerdir camel-provider-$EDS_API_VERSION`"
+CAMEL_providerdir="`pkg-config --variable=camel_providerdir camel-provider-1.2`"
 AC_SUBST(CAMEL_providerdir)
 
-
-PKG_CHECK_MODULES(ADDRESSBOOK, libedata-book-$EDS_API_VERSION camel-provider-$EDS_API_VERSION)
-AC_SUBST(ADDRESSBOOK_CFLAGS)
-
-PKG_CHECK_MODULES(CALENDAR, libedata-cal-$EDS_API_VERSION)
-AC_SUBST(CALENDAR_CFLAGS)
-AC_SUBST(CALENDAR_LIBS)
-
-PKG_CHECK_MODULES(CAMEL, camel-provider-$EDS_API_VERSION)
-AC_SUBST(CAMEL_CFLAGS)
-
-PKG_CHECK_MODULES(MAIL, libecal-$EDS_API_VERSION)
-AC_SUBST(MAIL_CFLAGS)
-
-PKG_CHECK_MODULES(EXCHANGE_STORAGE, libedataserverui-$EDS_API_VERSION libedata-book-$EDS_API_VERSION libedata-cal-$EDS_API_VERSION libsoup-2.4 libxml-2.0 camel-provider-$EDS_API_VERSION)
-AC_SUBST(EXCHANGE_STORAGE_CFLAGS)
-AC_SUBST(EXCHANGE_STORAGE_LIBS)
-
-PKG_CHECK_MODULES(LIBEXCHANGE, libsoup-2.4 evolution-shell libedataserverui-$EDS_API_VERSION libebackend-$EDS_API_VERSION libexchange-storage-$EDS_API_VERSION)
-AC_SUBST(LIBEXCHANGE_CFLAGS)
-AC_SUBST(LIBEXCHANGE_LIBS)
-
-dnl ****************************
-dnl Check for evolution plugins 
-dnl ****************************
+dnl ***************************
+dnl Check for evolution plugins
+dnl ***************************
 PKG_CHECK_MODULES(EVOLUTION_PLUGIN, evolution-plugin >= evo_minimum_version)
 AC_SUBST(EVOLUTION_PLUGIN_CFLAGS)
 AC_SUBST(EVOLUTION_PLUGIN_LIBS)
@@ -282,9 +236,27 @@ no)
 	case $with_openldap in
 	no)
 		AC_ERROR(LDAP support is required for Connector)
-	;;
+		;;
+	*)
+		case $with_static_ldap in
+		yes)
+			msg_ldap="$with_openldap (static)"
+			;;
+		*)
+			msg_ldap="$with_openldap (dynamic)"
+			;;
+		esac
 	esac
 	;;
+*)
+	case $with_static_sunldap in
+	yes)
+		msg_ldap="$with_sunldap (static)"
+		;;
+	*)
+		msg_ldap="$with_sunldap (dynamic)"
+		;;
+	esac
 esac
 
 SAVE_CFLAGS="$CFLAGS"
@@ -347,7 +319,7 @@ else
 	DB_CFLAGS="$CFLAGS -I /usr/include"
 	DB_LIBS="$LIBS -ldb"
 fi
-	
+
 AC_MSG_CHECKING([Berkeley DB])
 save_cflags=$CFLAGS; CFLAGS=$DB_CFLAGS
 save_libs=$LIBS; LIBS="$DB_LIBS"
@@ -373,6 +345,87 @@ LIBS=$save_libs
 AC_SUBST(DB_CFLAGS)
 AC_SUBST(DB_LIBS)
 
+dnl ****************
+dnl Kerberos Support
+dnl ****************
+
+AC_ARG_WITH(krb5,
+  AC_HELP_STRING( [--with-krb5=DIR],
+		  [Location of Kerberos 5 install dir]),
+  with_krb5="$withval", with_krb5="no")
+
+AC_ARG_WITH(krb5-libs,
+  AC_HELP_STRING( [--with-krb5-libs=DIR],
+		  [Location of Kerberos 5 libraries]),
+  with_krb5_libs="$withval", with_krb5_libs="$with_krb5/lib")
+
+AC_ARG_WITH(krb5-includes,
+  AC_HELP_STRING( [--with-krb5-includes=DIR],
+		  [Location of Kerberos 5 headers]),
+  with_krb5_includes="$withval", with_krb5_includes="")
+
+msg_krb5="no"
+if test "x${with_krb5}" != "xno"; then
+	LIBS_save="$LIBS"
+
+	mitlibs="-lkrb5 -lk5crypto -lcom_err -lgssapi_krb5"
+	heimlibs="-lkrb5 -lcrypto -lasn1 -lcom_err -lroken -lgssapi"
+	sunlibs="-lkrb5 -lgss"
+	AC_CACHE_CHECK([for Kerberos 5], ac_cv_lib_kerberos5,
+	[
+		LIBS="$LIBS -L$with_krb5_libs $mitlibs"
+		AC_TRY_LINK([#include <krb5.h>],krb5_init_context, ac_cv_lib_kerberos5="$mitlibs",
+		[
+			LIBS="$LIBS_save -L$with_krb5_libs $heimlibs"
+			AC_TRY_LINK_FUNC(krb5_init_context, ac_cv_lib_kerberos5="$heimlibs",
+			[
+				LIBS="$LIBS_save -L$with_krb5_libs $sunlibs"
+				AC_TRY_LINK_FUNC(krb5_init_context, ac_cv_lib_kerberos5="$sunlibs", ac_cv_lib_kerberos5="no")
+			])
+		])
+		LIBS="$LIBS_save"
+	])
+	if test "$ac_cv_lib_kerberos5" != "no"; then
+		AC_DEFINE(HAVE_KRB5,1,[Define if you have Krb5])
+		if test "$ac_cv_lib_kerberos5" = "$mitlibs"; then
+			AC_DEFINE(HAVE_MIT_KRB5,1,[Define if you have MIT Krb5])
+			if test -z "$with_krb5_includes"; then
+				KRB5_CFLAGS="-I$with_krb5/include"
+			else
+				KRB5_CFLAGS="-I$with_krb5_includes"
+			fi
+			msg_krb5="yes (MIT)"
+		else
+			if test "$ac_cv_lib_kerberos5" = "$heimlibs"; then
+				AC_DEFINE(HAVE_HEIMDAL_KRB5,1,[Define if you have Heimdal])
+				if test -z "$with_krb5_includes"; then
+					KRB5_CFLAGS="-I$with_krb5/include/heimdal"
+				else
+					KRB5_CFLAGS="-I$with_krb5_includes"
+				fi
+				msg_krb5="yes (Heimdal)"
+			else
+				AC_DEFINE(HAVE_SUN_KRB5,1,[Define if you have Sun Kerberosv5])
+				if test -z "$with_krb5_includes"; then
+					KRB5_CFLAGS="-I$with_krb5/include/kerberosv5"
+				else
+					KRB5_CFLAGS="-I$with_krb5_includes"
+				fi
+				msg_krb5="yes (Sun)"
+			fi
+		fi
+		KRB5_LDFLAGS="-L$with_krb5_libs $ac_cv_lib_kerberos5"
+		AC_MSG_RESULT(msg_krb5)
+	else
+		dnl AC_MSG_CHECKING([for Kerberos 5])
+		AC_MSG_RESULT([no])
+		AC_MSG_ERROR([You specified with krb5, but it was not found.])
+	fi
+else
+	AC_MSG_WARN([krb5 support disabled])
+fi
+
+AM_CONDITIONAL(ENABLE_KRB5, test x$with_krb5 != xno)
 
 dnl ******************************
 dnl Makefiles
@@ -389,7 +442,17 @@ tools/Makefile
 docs/Makefile
 docs/reference/Makefile
 po/Makefile.in
+server/Makefile
+server/lib/Makefile
+server/storage/Makefile
+server/xntlm/Makefile
 ])
+
+echo "
+	evolution-exchange has been configured as follows:
+	Kerberos 5:       $msg_krb5
+	LDAP support:     $msg_ldap
+"
 
 case $ac_cv_func_ldap_ntlm_bind in
 no)

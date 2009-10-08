@@ -5,10 +5,11 @@ CAMEL_provider_DATA = libcamelexchange.urls
 
 AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
-	$(GLIB_CFLAGS) \
-	$(CAMEL_CFLAGS) \
-	$(SHELL_CFLAGS) \
-	$(LIBEXCHANGE_CFLAGS) \
+	$(EVOLUTION_PLUGIN_CFLAGS) \
+	-I$(top_srcdir) \
+	-I$(top_srcdir)/server/lib \
+	-I$(top_srcdir)/server/storage \
+	-I$(top_builddir)/server/lib \
 	-DPREFIX=\"$(prefix)\" \
 	-DCONNECTOR_LOCALEDIR=\"$(localedir)\" \
 	-DG_LOG_DOMAIN=\"camel-exchange-provider\"
@@ -37,12 +38,11 @@ noinst_HEADERS = \
 libcamelexchange_la_LDFLAGS = \
 	-avoid-version -module $(NO_UNDEFINED)
 
-libcamelexchange_la_LIBADD =		\
-	$(top_builddir)/tools/libevolution-exchange-shared.la \
-	$(LDAP_LIBS)			\
-	$(LIBEXCHANGE_LIBS)		\
-	$(EXCHANGE_STORAGE_LIBS)	\
-	$(SOCKET_LIBS)			\
+libcamelexchange_la_LIBADD = \
+	$(top_builddir)/server/storage/libexchange-storage.la \
+	$(EVOLUTION_PLUGIN_LIBS) \
+	$(LDAP_LIBS) \
+	$(SOCKET_LIBS) \
 	$(PTHREAD_LIB)
 
 EXTRA_DIST = libcamelexchange.urls
