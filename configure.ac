@@ -356,6 +356,12 @@ server/xntlm/Makefile
 ])
 AC_OUTPUT
 
+AC_MSG_NOTICE([
+	Debugging	: $enable_e2kdebug
+	GTK-Doc		: $enable_gtk_doc
+	Kerberos 5	: $msg_krb5
+])
+
 if test "x$ac_cv_func_ldap_ntlm_bind" = "xno"; then
 	AC_MSG_WARN([
 No NTLM support in OpenLDAP; Plaintext password authentication will be
