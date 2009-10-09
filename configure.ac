@@ -240,6 +240,40 @@ dnl pthread check
 dnl *************
 EVO_PTHREAD_CHECK
 
+dnl **************
+dnl libdb checking
+dnl **************
+AC_ARG_WITH([libdb],
+	AC_HELP_STRING([--with-libdb=PREFIX],
+	[Prefix where libdb is installed]),
+	[libdb_prefix="$withval"], [libdb_prefix='${prefix}'])
+
+DB_CFLAGS="-I$libdb_prefix/include"
+DB_LIBS="-L$libdb_prefix/lib -ldb"
+
+AC_MSG_CHECKING([Berkeley DB])
+save_cflags=$CFLAGS
+save_libs=$LIBS
+CFLAGS=$DB_CFLAGS
+LIBS="$DB_LIBS"
+AC_LINK_IFELSE([AC_LANG_PROGRAM(
+	[[#include <db.h>]],
+	[db_create(NULL, NULL, 0)])],
+	[check_db=yes],
+	[check_db=no])
+
+if test "x$check_db" = "xyes"; then
+	AC_MSG_RESULT([$check_db])
+else
+	AC_MSG_FAILURE([Cannot find libdb / Berkeley DB. Use --with-libdb to specify an PREFIX .])
+fi
+AM_CONDITIONAL(HAVE_LIBDB, [test "x$check_db" = "xyes"])
+
+CFLAGS=$save_cflags
+LIBS=$save_libs
+AC_SUBST(DB_CFLAGS)
+AC_SUBST(DB_LIBS)
+
 dnl *********************
 dnl OpenLDAP NTLM support
 dnl *********************
@@ -289,41 +323,10 @@ AC_CACHE_CHECK([for LDAP Paged Control], [ac_cv_ldappaged],
 
 if test "x$ac_cv_ldappaged" = "xyes"; then
 	AC_DEFINE([HAVE_LDAP_PAGED], 1, [Supports Paged results])
+	if test "x$check_db" = "xyes"; then
+		AC_DEFINE([ENABLE_CACHE],[1],[Enabling GAL Caching])
+	fi
 fi
-
-dnl **************
-dnl libdb checking
-dnl **************
-AC_ARG_WITH([libdb],
-	AC_HELP_STRING([--with-libdb=PREFIX],
-	[Prefix where libdb is installed]),
-	[libdb_prefix="$withval"], [libdb_prefix='${prefix}'])
-
-DB_CFLAGS="-I$libdb_prefix/include"
-DB_LIBS="-L$libdb_prefix/lib -ldb"
-
-AC_MSG_CHECKING([Berkeley DB])
-save_cflags=$CFLAGS
-save_libs=$LIBS
-CFLAGS=$DB_CFLAGS
-LIBS="$DB_LIBS"
-AC_LINK_IFELSE([AC_LANG_PROGRAM(
-	[[#include <db.h>]],
-	[db_create(NULL, NULL, 0)])],
-	[check_db=yes],
-	[check_db=no])
-
-if test "x$check_db" = "xyes"; then
-	AC_MSG_RESULT([$check_db])
-else
-	AC_MSG_FAILURE([Cannot find libdb / Berkeley DB. Use --with-libdb to specify an PREFIX .])
-fi
-AM_CONDITIONAL(HAVE_LIBDB, [test "x$check_db" = "xyes"])
-
-CFLAGS=$save_cflags
-LIBS=$save_libs
-AC_SUBST(DB_CFLAGS)
-AC_SUBST(DB_LIBS)
 
 dnl ******************************
 dnl Kerberos
@@ -347,13 +350,14 @@ dnl ******************************
 dnl Kerberos 5
 dnl ******************************
 msg_krb5="no"
+AC_MSG_CHECKING([for Kerberos 5])
 if test "x${with_krb5}" != "xno"; then
 	LIBS_save="$LIBS"
 
 	mitlibs="-lkrb5 -lk5crypto -lcom_err -lgssapi_krb5"
 	heimlibs="-lkrb5 -lcrypto -lasn1 -lcom_err -lroken -lgssapi"
 	sunlibs="-lkrb5 -lgss"
-	AC_CACHE_CHECK([for Kerberos 5], [ac_cv_lib_kerberos5],
+	AC_CACHE_VAL([ac_cv_lib_kerberos5],
 	[
 		LIBS="$LIBS -L$with_krb5_libs $mitlibs"
 		AC_LINK_IFELSE([AC_LANG_CALL([], [krb5_init_context])],
@@ -400,9 +404,8 @@ if test "x${with_krb5}" != "xno"; then
 			fi
 		fi
 		KRB5_LIBS="-L$with_krb5_libs $ac_cv_lib_kerberos5"
-		AC_MSG_RESULT([msg_krb5])
+		AC_MSG_RESULT([$msg_krb5])
 	else
-		dnl AC_MSG_CHECKING([for Kerberos 5])
 		AC_MSG_RESULT([no])
 		AC_MSG_ERROR([You specified with krb5, but it was not found.])
 	fi
