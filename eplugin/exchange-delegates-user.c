@@ -35,8 +35,6 @@
 #include <camel/camel-mime-utils.h>
 #include <camel/camel-stream-mem.h>
 #include <exchange-account.h>
-#include "exchange-delegates.h"
-#include <exchange/exchange-account.h>
 #include <e2k-global-catalog.h>
 #include <e2k-marshal.h>
 #include <e2k-sid.h>
