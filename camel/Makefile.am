@@ -39,7 +39,7 @@ libcamelexchange_la_LDFLAGS = \
 	-avoid-version -module $(NO_UNDEFINED)
 
 libcamelexchange_la_LIBADD = \
-	$(top_builddir)/server/storage/libexchange-storage.la \
+	$(top_builddir)/tools/libevolution-exchange-shared.la \
 	$(EVOLUTION_PLUGIN_LIBS) \
 	$(LDAP_LIBS) \
 	$(SOCKET_LIBS) \

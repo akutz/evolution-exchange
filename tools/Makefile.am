@@ -27,14 +27,12 @@ libevolution_exchange_shared_la_SOURCES = \
 	exchange-share-config-listener.c
 
 libevolution_exchange_shared_la_LIBADD = \
-	$(top_builddir)/server/xntlm/libxntlm.la \
-	$(top_builddir)/server/lib/libexchange.la \
 	$(top_builddir)/server/storage/libexchange-storage.la \
 	$(GNOME_PLATFORM_LIBS) \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
 	$(EVOLUTION_PLUGIN_LIBS)
 
-libevolution_exchange_shared_la_LDFLAGS = $(NO_UNDEFINED)
+libevolution_exchange_shared_la_LDFLAGS = -avoid-version $(NO_UNDEFINED)
 
 exchange_connector_setup_SOURCES = \
 	ximian-connector-setup.c \

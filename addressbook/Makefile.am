@@ -49,11 +49,11 @@ libebookbackendexchange_la_SOURCES = \
 	e-book-backend-gal.h
 
 libebookbackendexchange_la_LIBADD = \
-	$(top_builddir)/server/storage/libexchange-storage.la \
+	$(top_builddir)/tools/libevolution-exchange-shared.la \
 	$(EVOLUTION_DATA_SERVER_LIBS)
 
 if HAVE_LIBDB
-libebookbackendexchange_la_SOURCES = \
+libebookbackendexchange_la_SOURCES += \
 	e-book-backend-db-cache.c \
 	e-book-backend-db-cache.h
 

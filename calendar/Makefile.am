@@ -28,6 +28,7 @@ libecalbackendexchange_la_LDFLAGS = \
 	-module -avoid-version $(NO_UNDEFINED)
 
 libecalbackendexchange_la_LIBADD = \
+	$(top_builddir)/tools/libevolution-exchange-shared.la \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
 	$(LDAP_LIBS)
 

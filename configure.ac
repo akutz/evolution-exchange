@@ -130,7 +130,7 @@ case "$host" in
     SOCKET_LIBS='-lws2_32'
     ;;
 *)  os_win32=no
-    NO_UNDEFINED=''
+    NO_UNDEFINED='-no-undefined'
     SOCKET_LIBS=''
     ;;
 esac
