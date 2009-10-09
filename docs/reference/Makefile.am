@@ -1,13 +1,8 @@
-## Process this file with automake to produce Makefile.in
-
 # The name of the module.
 DOC_MODULE=evolution-exchange
 
 # The top-level SGML file.
 DOC_MAIN_SGML_FILE=$(DOC_MODULE)-docs.sgml
-
-# Extra options to supply to gtkdoc-scan
-SCAN_OPTIONS=
 
 # Files/directories to ignore when scanning.
 IGNORE_HFILES= \
@@ -30,12 +25,14 @@ IGNORE_HFILES= \
 # The directory containing the source code. Relative to $(srcdir)
 DOC_SOURCE_DIR=../../
 
+# Used for dependencies. The docs will be rebuilt if any of these change.
 HFILE_GLOB=$(top_srcdir)/*/*.h
 CFILE_GLOB=$(top_srcdir)/*/*.c
 
-# CFLAGS and LDFLAGS for compiling scan program. Only needed
-# if $(DOC_MODULE).types is non-empty.
-INCLUDES = \
+# CFLAGS and LDFLAGS for compiling gtkdoc-scangobj with your library.
+# Only needed if you are using gtkdoc-scangobj to dynamically query widget
+# signals and properties.
+GTKDOC_CFLAGS = \
 	-I$(top_srcdir)/server/lib \
 	-I$(top_srcdir)/server/storage \
 	$(GNOME_PLATFORM_CFLAGS) \
@@ -46,23 +43,8 @@ GTKDOC_LIBS = \
 	$(GNOME_PLATFORM_LIBS) \
 	$(LDAP_LIBS)
 
-# Extra options to supply to gtkdoc-mkdb
-MKDB_OPTIONS=--ignore-files="$(IGNORE_HFILES)"
-
-# Images to copy into HTML directory
-HTML_IMAGES =
-
-# Extra SGML files that are included by $(DOC_MAIN_SGML_FILE)
-content_files =
-
-# Extra options to supply to gtkdoc-fixref
-FIXXREF_OPTIONS=
-
-include gtk-doc.make
-
-# Other files to distribute
-EXTRA_DIST += \
-	gtk-doc.make
+# This includes the standard gtk-doc make rules, copied by gtkdocize.
+include $(top_srcdir)/gtk-doc.make
 
 dist-hook-local:
 	mkdir $(distdir)/features

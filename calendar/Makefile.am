@@ -1,4 +1,7 @@
-AM_CPPFLAGS = \
+extension_LTLIBRARIES = libecalbackendexchange.la
+
+libecalbackendexchange_la_CPPFLAGS = \
+	$(AM_CPPFLAGS) \
 	-I$(top_srcdir) \
 	-I$(top_srcdir)/server/lib \
 	-I$(top_srcdir)/server/storage \
@@ -6,9 +9,6 @@ AM_CPPFLAGS = \
 	-DG_LOG_DOMAIN=\"e-cal-backend-exchange\" \
 	$(EVOLUTION_DATA_SERVER_CFLAGS) \
 	$(LDAP_CFLAGS)
-
-extension_LTLIBRARIES = \
-        libecalbackendexchange.la
 
 libecalbackendexchange_la_SOURCES = \
 	e-cal-backend-exchange.c \

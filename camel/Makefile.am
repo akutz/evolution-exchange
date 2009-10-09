@@ -3,10 +3,11 @@
 CAMEL_provider_LTLIBRARIES = libcamelexchange.la
 CAMEL_provider_DATA = libcamelexchange.urls
 
-AM_CPPFLAGS = \
-	$(WARN_CFLAGS) \
+libcamelexchange_la_CPPFLAGS = \
+	$(AM_CPPFLAGS) \
 	$(EVOLUTION_PLUGIN_CFLAGS) \
 	-I$(top_srcdir) \
+	-I$(top_srcdir)/tools \
 	-I$(top_srcdir)/server/lib \
 	-I$(top_srcdir)/server/storage \
 	-I$(top_builddir)/server/lib \

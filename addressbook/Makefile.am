@@ -1,16 +1,3 @@
-AM_CPPFLAGS = \
-	-I$(top_srcdir) \
-	-I$(top_srcdir)/server/lib \
-	-I$(top_srcdir)/server/storage \
-	-I$(top_builddir)/server/lib \
-	-DG_LOG_DOMAIN=\"e-book-backend-exchange\" \
-	$(EVOLUTION_DATA_SERVER_CFLAGS) \
-	$(LDAP_CFLAGS)
-
-if HAVE_LIBDB
-AM_CPPFLAGS += $(DB_CFLAGS)
-endif
-
 # GConf schemas
 
 schemadir = $(GCONF_SCHEMA_FILE_DIR)
@@ -41,30 +28,36 @@ endif
 
 extension_LTLIBRARIES = libebookbackendexchange.la
 
+libebookbackendexchange_la_CPPFLAGS = \
+	$(AM_CPPFLAGS) \
+	-I$(top_srcdir) \
+	-I$(top_srcdir)/server/lib \
+	-I$(top_srcdir)/server/storage \
+	-I$(top_builddir)/server/lib \
+	-DG_LOG_DOMAIN=\"e-book-backend-exchange\" \
+	$(EVOLUTION_DATA_SERVER_CFLAGS) \
+	$(LDAP_CFLAGS) \
+	$(DB_CFLAGS)
+
 libebookbackendexchange_la_SOURCES = \
 	e-book-backend-exchange.c \
 	e-book-backend-exchange.h \
 	e-book-backend-exchange-factory.c \
 	e-book-backend-gal.c \
-	e-book-backend-gal.h
-
-libebookbackendexchange_la_LIBADD = \
-	$(top_builddir)/tools/libevolution-exchange-shared.la \
-	$(EVOLUTION_DATA_SERVER_LIBS)
-
-if HAVE_LIBDB
-libebookbackendexchange_la_SOURCES += \
+	e-book-backend-gal.h \
 	e-book-backend-db-cache.c \
 	e-book-backend-db-cache.h
 
 libebookbackendexchange_la_LDFLAGS = \
 	-module -avoid-version $(NO_UNDEFINED)
-endif
 
-EXTRA_DIST = \
-	$(schema_in_files)
+libebookbackendexchange_la_LIBADD = \
+	$(EVOLUTION_DATA_SERVER_LIBS) \
+	$(DB_LIBS) \
+	$(top_builddir)/tools/libevolution-exchange-shared.la
 
-CLEANFILES = \
-	apps_exchange_addressbook-$(BASE_VERSION).schemas
+EXTRA_DIST = $(schema_in_files)
+
+CLEANFILES = apps_exchange_addressbook-$(BASE_VERSION).schemas
 
 -include $(top_srcdir)/git.mk

@@ -1,4 +1,9 @@
-AM_CPPFLAGS = \
+noinst_PROGRAMS = exchange-connector-setup
+
+noinst_LTLIBRARIES = libevolution-exchange-shared.la
+
+libevolution_exchange_shared_la_CPPFLAGS = \
+	$(AM_CPPFLAGS) \
 	-I$(top_srcdir) \
 	-I$(top_srcdir)/camel \
 	-I$(top_srcdir)/server/lib \
@@ -17,11 +22,6 @@ AM_CPPFLAGS = \
 	-DCONNECTOR_UIDIR=\""$(uidir)"\" \
 	-DCONNECTOR_LOCALEDIR=\""$(localedir)"\"
 
-noinst_PROGRAMS = \
-	exchange-connector-setup
-
-noinst_LTLIBRARIES = libevolution-exchange-shared.la
-
 libevolution_exchange_shared_la_SOURCES = \
 	exchange-share-config-listener.h \
 	exchange-share-config-listener.c
@@ -30,9 +30,30 @@ libevolution_exchange_shared_la_LIBADD = \
 	$(top_builddir)/server/storage/libexchange-storage.la \
 	$(GNOME_PLATFORM_LIBS) \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
-	$(EVOLUTION_PLUGIN_LIBS)
+	$(EVOLUTION_PLUGIN_LIBS) \
+	$(LDAP_LIBS)
 
 libevolution_exchange_shared_la_LDFLAGS = -avoid-version $(NO_UNDEFINED)
+
+exchange_connector_setup_CPPFLAGS = \
+	$(AM_CPPFLAGS) \
+	-I$(top_srcdir) \
+	-I$(top_srcdir)/camel \
+	-I$(top_srcdir)/server/lib \
+	-I$(top_srcdir)/server/storage \
+	-I$(top_builddir)/server/lib \
+	-DG_LOG_DOMAIN="\"evolution-exchange-storage\"" \
+	$(GNOME_PLATFORM_CFLAGS) \
+	$(EVOLUTION_DATA_SERVER_CFLAGS) \
+	$(EVOLUTION_PLUGIN_CFLAGS) \
+	$(LDAP_CFLAGS) \
+	-DPREFIX=\""$(prefix)"\" \
+	-DSYSCONFDIR=\""$(sysconfdir)"\" \
+	-DDATADIR=\""$(datadir)"\" \
+	-DLIBDIR=\""$(datadir)"\" \
+	-DCONNECTOR_IMAGESDIR=\""$(imagesdir)"\" \
+	-DCONNECTOR_UIDIR=\""$(uidir)"\" \
+	-DCONNECTOR_LOCALEDIR=\""$(localedir)"\"
 
 exchange_connector_setup_SOURCES = \
 	ximian-connector-setup.c \
@@ -64,8 +85,6 @@ images_DATA = \
 
 uidir   = $(CONNECTOR_DATADIR)/ui
 ui_DATA = ximian-connector.xml
-
-#DISTCLEANFILES =
 
 EXTRA_DIST = \
 	$(images_DATA) \

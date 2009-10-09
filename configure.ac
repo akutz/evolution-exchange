@@ -1,80 +1,36 @@
-# Process this file with autoconf to produce a configure script.
-AC_PREREQ(2.52)
-
+dnl Sets the evolution exchange version.
 m4_define([eex_version], [2.29.1])
 
-AC_INIT(evolution-exchange, [eex_version], http://bugzilla.gnome.org/enter_bug.cgi?product=Evolution%20Exchange)
+dnl Initializes automake/autoconf
+AC_PREREQ(2.58)
+AC_INIT([evolution-exchange], [eex_version], [http://bugzilla.gnome.org/enter_bug.cgi?product=Evolution%20Exchange])
+AM_INIT_AUTOMAKE([gnu 1.9])
+AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR(camel)
-AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
+AC_CONFIG_HEADERS(config.h)
 
-# Required Package Versions
+dnl Automake 1.11 - Silent Build Rules
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+
+dnl Required Package Versions
 m4_define([glib_minimum_version], [2.16.0])
 m4_define([gtk_minimum_version], [2.10.0])
 m4_define([eds_minimum_version], [eex_version])
 m4_define([evo_minimum_version], [eex_version])
-m4_define([gconf_minimum_version], [2.0.0])             # XXX Just a Guess
-m4_define([libxml_minimum_version], [2.0.0])            # XXX Just a Guess
+m4_define([gconf_minimum_version], [2.0.0])		dnl XXX Just a Guess
+m4_define([libxml_minimum_version], [2.0.0])		dnl XXX Just a Guess
 m4_define([libsoup_minimum_version], [2.3.0])
 
-AM_CONFIG_HEADER(config.h)
-
-# Automake 1.11 - Silent Build Rules
-m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
-
-AC_ARG_WITH(e2k-debug,     [  --with-e2k-debug              Allow debugging])
-case $withval in
-no)
-	;;
-*)
-	AC_DEFINE(E2K_DEBUG, 1, [Define if you want E2K_DEBUG to be available])
-	;;
-esac
-
-dnl Update these for every new development release of evolution. These numbers
-dnl actually correspond to the next stable release number
+dnl ******************************************************************
+dnl Update these for every new development release of evolution. These
+dnl numbers actually correspond to the next stable release number.
+dnl ******************************************************************
 EVOLUTION_API_VERSION=2.30
 EDS_BASE_VERSION=2.30
 
-LIBEXCHANGE_STORAGE_CURRENT=3
-LIBEXCHANGE_STORAGE_REVISION=0
-LIBEXCHANGE_STORAGE_AGE=0
-
-AC_SUBST(LIBEXCHANGE_STORAGE_CURRENT)
-AC_SUBST(LIBEXCHANGE_STORAGE_REVISION)
-AC_SUBST(LIBEXCHANGE_STORAGE_AGE)
-
-AC_MSG_CHECKING(Evolution version)
-EVOLUTION_VERSION=`pkg-config --modversion evolution-shell 2>/dev/null`
-if test -z "$EVOLUTION_VERSION"; then
-	AC_MSG_ERROR(Evolution development libraries not installed)
-fi
-AC_SUBST(EVOLUTION_VERSION)
-AC_MSG_RESULT($EVOLUTION_VERSION)
-
-EVOLUTION_BASE_VERSION=$EVOLUTION_API_VERSION
-AC_DEFINE_UNQUOTED(EVOLUTION_BASE_VERSION,"$EVOLUTION_BASE_VERSION",Evolution version)
-
-BASE_VERSION=$EVOLUTION_API_VERSION
-AC_DEFINE_UNQUOTED(BASE_VERSION, "$BASE_VERSION", Connector base version)
-AC_SUBST(BASE_VERSION)
-
-AC_SUBST(EDS_BASE_VERSION)
-
-dnl Initialize maintainer mode
-AM_MAINTAINER_MODE
-
-AC_ISC_POSIX
-AC_PROG_CC
-AC_STDC_HEADERS
-AC_PROG_INSTALL
-AC_PROG_LN_S
-AC_PROG_MAKE_SET
-
-dnl Initialize libtool
-AM_PROG_LIBTOOL
-
-# Compiler Warning Flags
-
+dnl **********************
+dnl Compiler Warning Flags
+dnl **********************
 AS_COMPILER_FLAGS(WARNING_FLAGS,
 	"-DG_DISABLE_DEPRECATED
 	-DPANGO_DISABLE_DEPRECATED
@@ -95,28 +51,29 @@ AS_COMPILER_FLAGS(WARNING_FLAGS,
 	-Wredundant-decls -Wundef -Wwrite-strings")
 AC_SUBST(WARNING_FLAGS)
 
-# Other useful compiler warnings for test builds only.
-# These may produce warnings we have no control over.
-#
-#	-Wformat-nonliteral
-#	-Wmissing-format-attribute
-#	-Wshadow
+dnl Other useful compiler warnings for test builds only.
+dnl These may produce warnings we have no control over.
+dnl
+dnl	-Wformat-nonliteral
+dnl	-Wmissing-format-attribute
+dnl	-Wshadow
 
-CFLAGS="$CFLAGS $WARNING_FLAGS"
+dnl ***************
+dnl Set AM_CPPFLAGS
+dnl ***************
+AM_CPPFLAGS="$WARNING_FLAGS"
+AC_SUBST(AM_CPPFLAGS)
 
-dnl ****
-dnl i18n
-dnl ****
+dnl **************************
+dnl Initialize maintainer mode
+dnl **************************
+AM_MAINTAINER_MODE
 
-IT_PROG_INTLTOOL([0.35.5])
-AM_GLIB_GNU_GETTEXT
-
-GETTEXT_PACKAGE=evolution-exchange-${BASE_VERSION}
-AC_SUBST(GETTEXT_PACKAGE)
-AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Package name for gettext])
-
-localedir='$(prefix)/$(DATADIRNAME)/locale'
-AC_SUBST(localedir)
+AC_PROG_CC
+AM_PROG_CC_C_O
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_MAKE_SET
 
 dnl ******************************
 dnl Check for Win32
@@ -125,71 +82,130 @@ dnl ******************************
 AC_MSG_CHECKING([for Win32])
 case "$host" in
 *-mingw*)
-    os_win32=yes
-    NO_UNDEFINED='-no-undefined'
-    SOCKET_LIBS='-lws2_32'
-    ;;
-*)  os_win32=no
-    NO_UNDEFINED='-no-undefined'
-    SOCKET_LIBS=''
-    ;;
-esac
-AC_MSG_RESULT([$os_win32])
-AM_CONDITIONAL(OS_WIN32, [test $os_win32 = yes])
-AC_SUBST(NO_UNDEFINED)
-AC_SUBST(SOCKET_LIBS)
-
-# Check for base dependencies early.
-PKG_CHECK_MODULES(GNOME_PLATFORM,
-	[glib-2.0 >= glib_minimum_version
-	 gtk+-2.0 >= gtk_minimum_version
-	 gconf-2.0 >= gconf_minimum_version
-	 libxml-2.0 >= libxml_minimum_version
-	 libsoup-2.4 >= libsoup_minimum_version])
-
-PKG_CHECK_MODULES(EVOLUTION_DATA_SERVER,
-	[libebook-1.2 >= eds_minimum_version
-	 libecal-1.2 >= eds_minimum_version
-	 libedataserver-1.2 >= eds_minimum_version
-	 libedataserverui-1.2 >= eds_minimum_version
-	 libegroupwise-1.2 >= eds_minimum_version
-	 libebackend-1.2 >= eds_minimum_version])
-
-dnl *************************
-dnl CFLAGS and LIBS and stuff
-dnl *************************
-
-GNOME_COMPILE_WARNINGS(maximum)
-CFLAGS="$CFLAGS $WARN_CFLAGS"
-case $CFLAGS in
-*-Wall*)
-	CFLAGS="$CFLAGS -Wno-sign-compare"
+	os_win32=yes
+	NO_UNDEFINED='-no-undefined'
+	SOCKET_LIBS='-lws2_32'
+	;;
+*)
+	os_win32=no
+	NO_UNDEFINED='-no-undefined'
+	SOCKET_LIBS=''
 	;;
 esac
 
-AC_EGREP_HEADER(socklen_t, sys/socket.h, :, AC_DEFINE(socklen_t, int, [Define to "int" if socklen_t is not defined]))
+AC_MSG_RESULT([$os_win32])
+AM_CONDITIONAL(OS_WIN32, [test "x$os_win32" = "xyes"])
+AC_SUBST(NO_UNDEFINED)
+AC_SUBST(SOCKET_LIBS)
 
+dnl ******************
+dnl Initialize libtool
+dnl ******************
+LT_PREREQ(2.2)
+LT_INIT(disable-static win32-dll)
+
+PKG_PROG_PKG_CONFIG
+
+dnl ***************
+dnl Initialize i18n
+dnl ***************
+IT_PROG_INTLTOOL([0.35.5])
+AM_GLIB_GNU_GETTEXT
+
+GETTEXT_PACKAGE=evolution-exchange-${BASE_VERSION}
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Package name for gettext])
+
+localedir='$(prefix)/$(DATADIRNAME)/local'
+AC_SUBST(localedir)
+
+dnl **********************************
+dnl Check for base dependencies early.
+dnl **********************************
+
+PKG_CHECK_MODULES(GNOME_PLATFORM,
+	[glib-2.0 >= glib_minimum_version
+	gtk+-2.0 >= gtk_minimum_version
+	gconf-2.0 >= gconf_minimum_version
+	libxml-2.0 >= libxml_minimum_version
+	libsoup-2.4 >= libsoup_minimum_version])
+
+PKG_CHECK_MODULES(EVOLUTION_DATA_SERVER,
+	[libebook-1.2 >= eds_minimum_version
+	libecal-1.2 >= eds_minimum_version
+	libedataserver-1.2 >= eds_minimum_version
+	libedataserverui-1.2 >= eds_minimum_version
+	libegroupwise-1.2 >= eds_minimum_version
+	libebackend-1.2 >= eds_minimum_version])
+
+dnl ************************
+dnl Check for socklen_t type
+dnl ************************
+AC_EGREP_HEADER([socklen_t], [sys/socket.h], [:], [AC_DEFINE(socklen_t, int, [Define to "int" if socklen_t is not defined])])
+
+dnl *******************
+dnl GObject marshalling
+dnl *******************
 AM_PATH_GLIB_2_0
-AM_PATH_ORBIT2
-AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
+
+dnl ***********
+dnl GConf stuff
+dnl ***********
+AC_PATH_PROG([GCONFTOOL],[gconftool-2],[no])
 AM_GCONF_SOURCE_2
 
+dnl *************
+dnl Gtk-Doc stuff
+dnl *************
+GTK_DOC_CHECK(1.9)
+
+dnl **************
+dnl Exchange debug
+dnl **************
+AC_ARG_ENABLE([e2k-debug],
+	AS_HELP_STRING([--enable-e2kdebug],
+	[Allow debugging]),
+	[enable_e2kdebug=$enableval],[enable_e2kdebug="no"])
+
+if test "x$enable_e2kdebug" = "xyes"; then
+	AC_DEFINE([E2K_DEBUG],[1],[Define if you want E2K_DEBUG to be available])
+fi
+
+dnl *************************
+dnl Set the connector datadir
+dnl *************************
 CONNECTOR_DATADIR='$(datadir)/evolution-exchange/$(BASE_VERSION)'
 AC_SUBST(CONNECTOR_DATADIR)
 
-plugindir=`$PKG_CONFIG --variable=plugindir evolution-plugin`
+dnl *************************************
+dnl Check for evo/eds and version setting
+dnl *************************************
+AC_MSG_CHECKING(Evolution version)
+EVOLUTION_VERSION="`$PKG_CONFIG --modversion evolution-shell 2>/dev/null`"
+if test -z "$EVOLUTION_VERSION"; then
+	AC_MSG_ERROR(Evolution development libraries not installed)
+fi
+AC_SUBST(EVOLUTION_VERSION)
+
+EVOLUTION_BASE_VERSION=$EVOLUTION_API_VERSION
+AC_DEFINE_UNQUOTED(EVOLUTION_BASE_VERSION, "$EVOLUTION_BASE_VERSION", Evolution version)
+
+BASE_VERSION=$EVOLUTION_API_VERSION
+AC_DEFINE_UNQUOTED(BASE_VERSION, "$BASE_VERSION", Connector base version)
+
+plugindir="`$PKG_CONFIG --variable=plugindir evolution-plugin`"
 AC_SUBST(plugindir)
 
-EVOLUTION_PLUGIN_errordir="`pkg-config --variable=errordir evolution-plugin`"
+EVOLUTION_PLUGIN_errordir="`$PKG_CONFIG --variable=errordir evolution-plugin`"
 AC_SUBST(EVOLUTION_PLUGIN_errordir)
 
-extensiondir="`pkg-config --variable=extensiondir evolution-data-server-1.2`"
+extensiondir="`$PKG_CONFIG --variable=extensiondir evolution-data-server-1.2`"
 AC_SUBST(extensiondir)
 
-EVOLUTION_imagesdir="`pkg-config --variable=imagesdir evolution-shell`"
+EVOLUTION_imagesdir="`$PKG_CONFIG --variable=imagesdir evolution-shell`"
 AC_SUBST(EVOLUTION_imagesdir)
 
-CAMEL_providerdir="`pkg-config --variable=camel_providerdir camel-provider-1.2`"
+CAMEL_providerdir="`$PKG_CONFIG --variable=camel_providerdir camel-provider-1.2`"
 AC_SUBST(CAMEL_providerdir)
 
 dnl ***************************
@@ -202,11 +218,11 @@ AC_SUBST(EVOLUTION_PLUGIN_LIBS)
 dnl *********************
 dnl Pilot license support
 dnl *********************
-# This does not take leap years into account, but that's not
-# important: having the build time be slightly too early is good
-# to support slight clock skew anyway.
-# 946684800 is 2000-01-01T00:00:00Z.
-# Don't change this without testing under /bin/sh on Solaris.
+dnl This does not take leap years into account, but that's not
+dnl important: having the build time be slightly too early is good
+dnl to support slight clock skew anyway.
+dnl 946684800 is 2000-01-01T00:00:00Z.
+dnl Don't change this without testing under /bin/sh on Solaris.
 abt=`eval expr \`date '+\( \( %y \* 365 \) + %j - 1 \) \* 24 \* 60 \* 60 + 946684800'\``
 case $abt in
 "")
@@ -215,10 +231,9 @@ case $abt in
 	abt="0"
 	;;
 esac
-AC_DEFINE_UNQUOTED(E2K_APPROX_BUILD_TIME, $abt, [Used to prevent clock-setting attacks against pilot licenses])
+AC_DEFINE_UNQUOTED([E2K_APPROX_BUILD_TIME],[$abt],[Used to prevent clock-setting attacks against pilot licenses])
 
-
-AC_DEFINE(HANDLE_LIBICAL_MEMORY, 1, [Define it once memory returned by libical is free'ed properly])
+AC_DEFINE([HANDLE_LIBICAL_MEMORY],[1],[Define it once memory returned by libical is free'ed properly])
 
 dnl *************
 dnl pthread check
@@ -228,142 +243,109 @@ EVO_PTHREAD_CHECK
 dnl *********************
 dnl OpenLDAP NTLM support
 dnl *********************
-if test "$os_win32" != yes; then
-EVO_SUNLDAP_CHECK(no)
-case $with_sunldap in
-no)
-	EVO_LDAP_CHECK(yes)
-	case $with_openldap in
-	no)
-		AC_ERROR(LDAP support is required for Connector)
-		;;
-	*)
-		case $with_static_ldap in
-		yes)
-			msg_ldap="$with_openldap (static)"
-			;;
-		*)
-			msg_ldap="$with_openldap (dynamic)"
-			;;
-		esac
-	esac
-	;;
-*)
-	case $with_static_sunldap in
-	yes)
-		msg_ldap="$with_sunldap (static)"
-		;;
-	*)
-		msg_ldap="$with_sunldap (dynamic)"
-		;;
-	esac
-esac
+if test "x$os_win32" != "xyes"; then
+	EVO_SUNLDAP_CHECK(no)
+	if test "x$with_sunldap" = "xno"; then
+		EVO_LDAP_CHECK(yes)
+		if test "x$with_openldap" = "xno"; then
+			AC_MSG_ERROR([LDAP support is required for Connector])
+		fi
+	fi
 
-SAVE_CFLAGS="$CFLAGS"
-SAVE_LIBS="$LIBS"
-LDAP_CFLAGS="$LDAP_CFLAGS -DLDAP_DEPRECATED"
-CFLAGS="$CFLAGS $LDAP_CFLAGS"
-LIBS="$LIBS $LDAP_LIBS"
-AC_CHECK_FUNCS(ldap_ntlm_bind)
-CFLAGS="$SAVE_CFLAGS"
-LIBS="$SAVE_LIBS"
-else # Win32
-LDAP_CFLAGS="$LDAP_CFLAGS -DLDAP_DEPRECATED"
-LDAP_LIBS="-lwldap32"
-AC_SUBST(LDAP_CFLAGS)
-AC_SUBST(LDAP_LIBS)
-AC_DEFINE(HAVE_LDAP,1,[Define if you have LDAP support])
-AM_CONDITIONAL(ENABLE_LDAP, true)
-fi # Win32
-
-AM_CONDITIONAL(SUNLDAP, test "$with_sunldap" != no)
-
-AC_MSG_CHECKING(for LDAP Paged Control)
-AC_TRY_RUN([
-#include <ldap.h>
-#include <stdlib.h>
-
-int main(int argc, char **argv)
-{
-#ifdef LDAP_CONTROL_PAGEDRESULTS	
-		exit(0);
-#else		
-		exit(1);
-#endif		
-}],[
-AC_DEFINE(HAVE_LDAP_PAGED, 1, [Supports Paged results])
-ac_cv_ldappaged=yes
-],ac_cv_ldappaged="no (GAL Caching disabled)",ac_cv_ldappaged="no (GAL Caching disabled)",[
-AC_DEFINE(HAVE_LDAP_PAGED, 1, [Supports Paged results])
-ac_cv_ldappaged=yes
-])
-AC_MSG_RESULT($ac_cv_ldappaged)
-
-dnl *******
-dnl gtk-doc
-dnl *******
-dnl Putting a space before the macro call here makes gnome-autogen not
-dnl notice it, which makes it not run gtkdocize and copy gtk-doc.make
-dnl into the top level where I don't want it.
- GTK_DOC_CHECK([1.0])
-
-dnl **************************************************
-dnl * libdb checking - taken from EDS
-dnl **************************************************
-
-AC_ARG_WITH(libdb, AC_HELP_STRING([--with-libdb],[Prefix where libdb is installed]), dynamic_libdb=yes, dynamic_libdb=no)
-if test "x${dynamic_libdb}" = "xyes"; then
-        DB_CFLAGS="-I$withval/include"
-        DB_LIBS="-L$withval/lib -ldb"
+	SAVE_CFLAGS="$CFLAGS"
+	SAVE_LIBS="$LIBS"
+	LDAP_CFLAGS="$LDAP_CFLAGS -DLDAP_DEPRECATED"
+	CFLAGS="$CFLAGS $LDAP_CFLAGS"
+	LIBS="$LIBS $LDAP_LIBS"
+	AC_CHECK_FUNCS(ldap_ntlm_bind)
+	CFLAGS="$SAVE_CFLAGS"
+	LIBS="$SAVE_LIBS"
+dnl Win32 support
 else
-	DB_CFLAGS="$CFLAGS -I /usr/include"
-	DB_LIBS="$LIBS -ldb"
+	LDAP_CFLAGS="$LDAP_CFLAGS -DLDAP_DEPRECATED"
+	LDAP_LIBS="-lwldap32"
+	AC_SUBST(LDAP_CFLAGS)
+	AC_SUBST(LDAP_LIBS)
+	AC_DEFINE(HAVE_LDAP,1,[Define if you have LDAP support])
+	AM_CONDITIONAL(ENABLE_LDAP, true)
 fi
+
+AM_CONDITIONAL(SUNLDAP, test "x$with_sunldap" != "xno")
+
+AC_CACHE_CHECK([for LDAP Paged Control], [ac_cv_ldappaged],
+	AC_RUN_IFELSE([AC_LANG_PROGRAM(
+	[[	#include <ldap.h>
+		#include <stdlib.h>
+	]],
+	[[	int main(int argc, char **argv) {
+		#ifdef LDAP_CONTROL_PAGEDRESULTS
+			exit(0);
+		#else
+			exit(1);
+		#endif
+		}
+	]],
+	)], [ac_cv_ldappaged="yes"], [ac_cv_ladppaged="no"], [ac_cv_ldappaged="yes"]))
+
+if test "x$ac_cv_ldappaged" = "xyes"; then
+	AC_DEFINE([HAVE_LDAP_PAGED], 1, [Supports Paged results])
+fi
+
+dnl **************
+dnl libdb checking
+dnl **************
+AC_ARG_WITH([libdb],
+	AC_HELP_STRING([--with-libdb=PREFIX],
+	[Prefix where libdb is installed]),
+	[libdb_prefix="$withval"], [libdb_prefix='${prefix}'])
+
+DB_CFLAGS="-I$libdb_prefix/include"
+DB_LIBS="-L$libdb_prefix/lib -ldb"
 
 AC_MSG_CHECKING([Berkeley DB])
-save_cflags=$CFLAGS; CFLAGS=$DB_CFLAGS
-save_libs=$LIBS; LIBS="$DB_LIBS"
-AC_LINK_IFELSE(
-        [AC_LANG_PROGRAM([[#include <db.h>]],
-                         [db_create(NULL, NULL, 0)])],
-        check_db=yes,
-        check_db=no)
-AC_MSG_RESULT($check_db)
-AM_CONDITIONAL(HAVE_LIBDB, [test $check_db = yes])
+save_cflags=$CFLAGS
+save_libs=$LIBS
+CFLAGS=$DB_CFLAGS
+LIBS="$DB_LIBS"
+AC_LINK_IFELSE([AC_LANG_PROGRAM(
+	[[#include <db.h>]],
+	[db_create(NULL, NULL, 0)])],
+	[check_db=yes],
+	[check_db=no])
 
-if test "$check_db" = "yes"; then
-  AC_DEFINE(ENABLE_CACHE, 1,
-	    [Enabling GAL Caching])
+if test "x$check_db" = "xyes"; then
+	AC_MSG_RESULT([$check_db])
 else
-  AC_DEFINE(ENABLE_CACHE, 0,
-	    [Disabling GAL Caching])
-  DB_CFLAGS=""
-  DB_LIBS=""
+	AC_MSG_FAILURE([Cannot find libdb / Berkeley DB. Use --with-libdb to specify an PREFIX .])
 fi
+AM_CONDITIONAL(HAVE_LIBDB, [test "x$check_db" = "xyes"])
+
 CFLAGS=$save_cflags
 LIBS=$save_libs
 AC_SUBST(DB_CFLAGS)
 AC_SUBST(DB_LIBS)
 
-dnl ****************
-dnl Kerberos Support
-dnl ****************
+dnl ******************************
+dnl Kerberos
+dnl ******************************
+AC_ARG_WITH([krb5],
+	AS_HELP_STRING([--with-krb5=PATH],
+	[Location of Kerberos 5 install dir]),
+	[with_krb5="$withval"], [with_krb5="no"])
 
-AC_ARG_WITH(krb5,
-  AC_HELP_STRING( [--with-krb5=DIR],
-		  [Location of Kerberos 5 install dir]),
-  with_krb5="$withval", with_krb5="no")
+AC_ARG_WITH([krb5-libs],
+	AS_HELP_STRING([--with-krb5-libs=PATH],
+	[Location of Kerberos 5 libraries]),
+	[with_krb5_libs="$withval"], [with_krb5_libs="$with_krb5/lib"])
 
-AC_ARG_WITH(krb5-libs,
-  AC_HELP_STRING( [--with-krb5-libs=DIR],
-		  [Location of Kerberos 5 libraries]),
-  with_krb5_libs="$withval", with_krb5_libs="$with_krb5/lib")
+AC_ARG_WITH([krb5-includes],
+	AS_HELP_STRING([--with-krb5-includes=PATH],
+	[Location of Kerberos 5 headers]),
+	[with_krb5_includes="$withval"], [with_krb5_includes="$with_krb5/include"])
 
-AC_ARG_WITH(krb5-includes,
-  AC_HELP_STRING( [--with-krb5-includes=DIR],
-		  [Location of Kerberos 5 headers]),
-  with_krb5_includes="$withval", with_krb5_includes="")
-
+dnl ******************************
+dnl Kerberos 5
+dnl ******************************
 msg_krb5="no"
 if test "x${with_krb5}" != "xno"; then
 	LIBS_save="$LIBS"
@@ -371,16 +353,19 @@ if test "x${with_krb5}" != "xno"; then
 	mitlibs="-lkrb5 -lk5crypto -lcom_err -lgssapi_krb5"
 	heimlibs="-lkrb5 -lcrypto -lasn1 -lcom_err -lroken -lgssapi"
 	sunlibs="-lkrb5 -lgss"
-	AC_CACHE_CHECK([for Kerberos 5], ac_cv_lib_kerberos5,
+	AC_CACHE_CHECK([for Kerberos 5], [ac_cv_lib_kerberos5],
 	[
 		LIBS="$LIBS -L$with_krb5_libs $mitlibs"
-		AC_TRY_LINK([#include <krb5.h>],krb5_init_context, ac_cv_lib_kerberos5="$mitlibs",
+		AC_LINK_IFELSE([AC_LANG_CALL([], [krb5_init_context])],
+		[ac_cv_lib_kerberos5="$mitlibs"],
 		[
 			LIBS="$LIBS_save -L$with_krb5_libs $heimlibs"
-			AC_TRY_LINK_FUNC(krb5_init_context, ac_cv_lib_kerberos5="$heimlibs",
+			AC_LINK_IFELSE([AC_LANG_CALL([], [krb5_init_context])],
+			[ac_cv_lib_kerberos5="$heimlibs"],
 			[
 				LIBS="$LIBS_save -L$with_krb5_libs $sunlibs"
-				AC_TRY_LINK_FUNC(krb5_init_context, ac_cv_lib_kerberos5="$sunlibs", ac_cv_lib_kerberos5="no")
+				AC_LINK_IFELSE([AC_LANG_CALL([], [krb5_init_context])],
+				[ac_cv_lib_kerberos5="$sunlibs"], [ac_cv_lib_kerberos5="no"])
 			])
 		])
 		LIBS="$LIBS_save"
@@ -414,8 +399,8 @@ if test "x${with_krb5}" != "xno"; then
 				msg_krb5="yes (Sun)"
 			fi
 		fi
-		KRB5_LDFLAGS="-L$with_krb5_libs $ac_cv_lib_kerberos5"
-		AC_MSG_RESULT(msg_krb5)
+		KRB5_LIBS="-L$with_krb5_libs $ac_cv_lib_kerberos5"
+		AC_MSG_RESULT([msg_krb5])
 	else
 		dnl AC_MSG_CHECKING([for Kerberos 5])
 		AC_MSG_RESULT([no])
@@ -425,13 +410,29 @@ else
 	AC_MSG_WARN([krb5 support disabled])
 fi
 
-AM_CONDITIONAL(ENABLE_KRB5, test x$with_krb5 != xno)
+AM_CONDITIONAL(ENABLE_KRB5, [test "x$with_krb5" != "xno"])
+
+AC_CHECK_HEADER([et/com_err.h],
+	[AC_DEFINE([HAVE_ET_COM_ERR_H], 1, [Have <et/comm_err.h>])],,
+	[[	#if HAVE_ET_COM_ERR_H
+		#include <com_err.h>
+		#endif
+	]])
+AC_CHECK_HEADER([com_err.h],
+	[AC_DEFINE([HAVE_COM_ERR_H], 1, [Have <comm_err.h>])],,
+	[[	#if HAVE_COM_ERR_H
+		#include <com_err.h>
+		#endif
+	]])
+
+AC_SUBST(KRB5_CFLAGS)
+AC_SUBST(KRB5_LIBS)
 
 dnl ******************************
 dnl Makefiles
 dnl ******************************
 
-AC_OUTPUT([
+AC_CONFIG_FILES([
 Makefile
 evolution-exchange-zip
 eplugin/Makefile
@@ -447,21 +448,13 @@ server/lib/Makefile
 server/storage/Makefile
 server/xntlm/Makefile
 ])
+AC_OUTPUT
 
-echo "
-	evolution-exchange has been configured as follows:
-	Kerberos 5:       $msg_krb5
-	LDAP support:     $msg_ldap
-"
-
-case $ac_cv_func_ldap_ntlm_bind in
-no)
-	echo ""
+if test "x$ac_cv_func_ldap_ntlm_bind" = "xno"; then
 	AC_MSG_WARN([
 No NTLM support in OpenLDAP; Plaintext password authentication will be
 used when connecting to the Global Catalog server. Consider installing
 the evo-openldap package, or building OpenLDAP with the patch in
 docs/openldap-ntlm.diff
 ])
-	;;
-esac
+fi

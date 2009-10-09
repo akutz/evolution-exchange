@@ -59,7 +59,8 @@ liborg_gnome_exchange_operations_la_SOURCES = \
 liborg_gnome_exchange_operations_la_LIBADD = \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
 	$(EVOLUTION_PLUGIN_LIBS) \
-	$(CAMEL_EXCHANGE_LIBS)
+	$(CAMEL_EXCHANGE_LIBS) \
+	$(top_builddir)/server/storage/libexchange-storage.la
 
 liborg_gnome_exchange_operations_la_LDFLAGS = \
 	-module -avoid-version $(NO_UNDEFINED)

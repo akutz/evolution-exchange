@@ -43,7 +43,7 @@
 #include "camel-exchange-utils.h"
 #include "mail-utils.h"
 
-#include "tools/exchange-share-config-listener.h"
+#include "exchange-share-config-listener.h"
 
 #define d(x)
 

@@ -355,8 +355,9 @@ connect_ldap (E2kGlobalCatalog *gc, E2kOperation *op, LDAP *ldap)
 
 	if (ldap_error != LDAP_SUCCESS)
 		g_warning ("LDAP authentication failed (0x%02x (%s))", ldap_error, ldap_err2string (ldap_error) ? ldap_err2string (ldap_error) : "Unknown error");
-	else
+	else {
 		E2K_GC_DEBUG_MSG(("GC: connected\n\n"));
+	}
 
 	return ldap_error;
 }
