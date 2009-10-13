@@ -418,6 +418,7 @@ e_exchange_contacts_commit (EPlugin *epl, EConfigTarget *target)
 	ExchangeAccountFolderResult result;
 	gint offline_status;
 	gboolean rename = FALSE;
+	const gchar *err_msg = NULL;
 
 	uri_text = e_source_get_uri (source);
 	if (uri_text && strncmp (uri_text, "exchange", 8)) {
@@ -512,30 +513,33 @@ e_exchange_contacts_commit (EPlugin *epl, EConfigTarget *target)
 		}
 		break;
 	case EXCHANGE_ACCOUNT_FOLDER_ALREADY_EXISTS:
-		e_error_run (NULL, ERROR_DOMAIN ":folder-exists-error", NULL);
+		err_msg = ERROR_DOMAIN ":folder-exists-error";
 		break;
 	case EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST:
-		e_error_run (NULL, ERROR_DOMAIN ":folder-doesnt-exist-error", NULL);
+		err_msg = ERROR_DOMAIN ":folder-doesnt-exist-error";
 		break;
 	case EXCHANGE_ACCOUNT_FOLDER_UNKNOWN_TYPE:
-		e_error_run (NULL, ERROR_DOMAIN ":folder-unknown-type", NULL);
+		err_msg = ERROR_DOMAIN ":folder-unknown-type";
 		break;
 	case EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED:
-		e_error_run (NULL, ERROR_DOMAIN ":folder-perm-error", NULL);
+		err_msg = ERROR_DOMAIN ":folder-perm-error";
 		break;
 	case EXCHANGE_ACCOUNT_FOLDER_OFFLINE:
-		e_error_run (NULL, ERROR_DOMAIN ":folder-offline-error", NULL);
+		err_msg = ERROR_DOMAIN ":folder-offline-error";
 		break;
 	case EXCHANGE_ACCOUNT_FOLDER_UNSUPPORTED_OPERATION:
-		e_error_run (NULL, ERROR_DOMAIN ":folder-unsupported-error", NULL);
+		err_msg = ERROR_DOMAIN ":folder-unsupported-error";
 		break;
 	case EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR:
-		e_error_run (NULL, ERROR_DOMAIN ":folder-generic-error", NULL);
+		err_msg = ERROR_DOMAIN ":folder-generic-error";
 		break;
 	default:
 		break;
 	}
-done:
+
+	if (err_msg)
+		e_error_run (GTK_WINDOW (target->widget), err_msg, NULL);
+ done:
 	g_free (ruri);
 	g_free (username);
 	if (authtype)

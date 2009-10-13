@@ -236,7 +236,7 @@ org_gnome_exchange_settings(EPlugin *epl, EConfigHookItemFactoryData *data)
 	exchange_config_listener_get_offline_status (exchange_global_config_listener,
 								    &offline_status);
 	if (offline_status == OFFLINE_MODE) {
-		e_error_run (NULL, ERROR_DOMAIN ":exchange-settings-offline", NULL);
+		e_error_run (GTK_WINDOW (data->config->target->widget), ERROR_DOMAIN ":exchange-settings-offline", NULL);
 
 		return NULL;
 	}
@@ -251,7 +251,7 @@ org_gnome_exchange_settings(EPlugin *epl, EConfigHookItemFactoryData *data)
 
 	if (account && !exchange_oof_get (account, &oof_state, &message)) {
 
-		e_error_run (NULL, ERROR_DOMAIN ":state-read-error", NULL);
+		e_error_run (GTK_WINDOW (data->config->target->widget), ERROR_DOMAIN ":state-read-error", NULL);
 
                 return NULL;
         }
@@ -382,48 +382,53 @@ org_gnome_exchange_settings(EPlugin *epl, EConfigHookItemFactoryData *data)
 }
 
 static void
-print_error (const gchar *owa_url, E2kAutoconfigResult result)
+print_error (GtkWidget *parent, const gchar *owa_url, E2kAutoconfigResult result)
 {
+	const gchar *err_msg = NULL;
+
 	switch (result) {
 
 		case E2K_AUTOCONFIG_CANT_CONNECT:
-			e_error_run (NULL, ERROR_DOMAIN ":account-connect-error", "", NULL);
+			e_error_run (GTK_WINDOW (parent), ERROR_DOMAIN ":account-connect-error", "", NULL);
 			break;
 
 		case E2K_AUTOCONFIG_CANT_RESOLVE:
-			e_error_run (NULL, ERROR_DOMAIN ":account-resolve-error", "", NULL);
+			e_error_run (GTK_WINDOW (parent), ERROR_DOMAIN ":account-resolve-error", "", NULL);
 			break;
 
 		case E2K_AUTOCONFIG_AUTH_ERROR:
 		case E2K_AUTOCONFIG_AUTH_ERROR_TRY_NTLM:
 		case E2K_AUTOCONFIG_AUTH_ERROR_TRY_BASIC:
-			e_error_run (NULL, ERROR_DOMAIN ":password-incorrect", NULL);
+			err_msg = ERROR_DOMAIN ":password-incorrect";
 			break;
 
 		case E2K_AUTOCONFIG_AUTH_ERROR_TRY_DOMAIN:
-			e_error_run (NULL, ERROR_DOMAIN ":account-domain-error", NULL);
+			err_msg = ERROR_DOMAIN ":account-domain-error";
 			break;
 
 		case E2K_AUTOCONFIG_NO_OWA:
 		case E2K_AUTOCONFIG_NOT_EXCHANGE:
-			e_error_run (NULL, ERROR_DOMAIN ":account-wss-error", NULL);
+			err_msg = ERROR_DOMAIN ":account-wss-error";
 			break;
 
 		case E2K_AUTOCONFIG_CANT_BPROPFIND:
-			e_error_run (NULL, ERROR_DOMAIN ":connect-exchange-error",
+			e_error_run (GTK_WINDOW (parent), ERROR_DOMAIN ":connect-exchange-error",
 				     "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328.html",
 				     NULL);
 			break;
 
 		case E2K_AUTOCONFIG_EXCHANGE_5_5:
-			e_error_run (NULL, ERROR_DOMAIN ":account-version-error", NULL);
+			err_msg = ERROR_DOMAIN ":account-version-error";
 			break;
 
 		default:
-			e_error_run (NULL, ERROR_DOMAIN ":configure-error", NULL);
+			err_msg = ERROR_DOMAIN ":configure-error";
 			break;
 
 	}
+
+	if (err_msg)
+		e_error_run (GTK_WINDOW (parent), err_msg, NULL);
 }
 
 static const gchar *
@@ -502,7 +507,7 @@ owa_authenticate_user(GtkWidget *button, EConfig *config)
 	g_free (key);
 
 	if (!valid && result != E2K_AUTOCONFIG_CANCELLED)
-		print_error (owa_url, result);
+		print_error (config->target->widget, owa_url, result);
 
 	camel_url_set_host (url, valid ? exchange_params->host : "");
 
@@ -845,7 +850,7 @@ org_gnome_exchange_check_options(EPlugin *epl, EConfigHookPageCheckData *data)
 }
 
 static void
-set_oof_info (void)
+set_oof_info (GtkWidget *parent)
 {
 	ExchangeAccount *account;
 
@@ -853,7 +858,7 @@ set_oof_info (void)
 
 	if (account && !exchange_oof_set (account, oof_data->state, oof_data->message)) {
 
-		e_error_run (NULL, ERROR_DOMAIN ":state-update-error", NULL);
+		e_error_run (GTK_WINDOW (parent), ERROR_DOMAIN ":state-update-error", NULL);
 	}
 }
 
@@ -902,7 +907,7 @@ org_gnome_exchange_commit (EPlugin *epl, EConfigHookItemFactoryData *data)
 	}
 
 	/* Set oof data in exchange account */
-	set_oof_info ();
+	set_oof_info (data->config->target->widget);
 	destroy_oof_data ();
 	return;
 }

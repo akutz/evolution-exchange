@@ -35,6 +35,7 @@
 #include <camel/camel-folder.h>
 #include <mail/mail-mt.h>
 #include <mail/mail-ops.h>
+#include <shell/e-shell.h>
 
 #include "exchange-operations.h"
 #include "exchange-folder-subscription.h"
@@ -105,6 +106,7 @@ eex_folder_inbox_unsubscribe (const gchar *uri)
 	gchar *stored_path = NULL;
 	const gchar *inbox_uri = NULL;
 	const gchar *inbox_physical_uri = NULL;
+	const gchar *err_msg = NULL;
 	gchar *target_uri = NULL;
 	EFolder *inbox;
 	ExchangeAccountFolderResult result;
@@ -132,32 +134,37 @@ eex_folder_inbox_unsubscribe (const gchar *uri)
 		case EXCHANGE_ACCOUNT_FOLDER_OK:
 			break;
 		case EXCHANGE_ACCOUNT_FOLDER_ALREADY_EXISTS:
-			e_error_run (NULL, ERROR_DOMAIN ":folder-exists-error", NULL);
-			return;
+			err_msg = ERROR_DOMAIN ":folder-exists-error";
+			break;
 		case EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST:
-			e_error_run (NULL, ERROR_DOMAIN ":folder-doesnt-exist-error", NULL);
-			return;
+			err_msg = ERROR_DOMAIN ":folder-doesnt-exist-error";
+			break;
 		case EXCHANGE_ACCOUNT_FOLDER_UNKNOWN_TYPE:
-			e_error_run (NULL, ERROR_DOMAIN ":folder-unknown-type", NULL);
-			return;
+			err_msg = ERROR_DOMAIN ":folder-unknown-type";
+			break;
 		case EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED:
-			e_error_run (NULL, ERROR_DOMAIN ":folder-perm-error", NULL);
-			return;
+			err_msg = ERROR_DOMAIN ":folder-perm-error";
+			break;
 		case EXCHANGE_ACCOUNT_FOLDER_OFFLINE:
-			e_error_run (NULL, ERROR_DOMAIN ":folder-offline-error", NULL);
-			return;
+			err_msg = ERROR_DOMAIN ":folder-offline-error";
+			break;
 		case EXCHANGE_ACCOUNT_FOLDER_UNSUPPORTED_OPERATION:
-			e_error_run (NULL, ERROR_DOMAIN ":folder-unsupported-error", NULL);
-			return;
+			err_msg = ERROR_DOMAIN ":folder-unsupported-error";
+			break;
 		case EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR:
-			e_error_run (NULL, ERROR_DOMAIN ":folder-generic-error", NULL);
-			return;
+			err_msg = ERROR_DOMAIN ":folder-generic-error";
+			break;
 		case EXCHANGE_ACCOUNT_FOLDER_GC_NOTREACHABLE:
-			e_error_run (NULL, ERROR_DOMAIN ":folder-no-gc-error", NULL);
-			return;
+			err_msg = ERROR_DOMAIN ":folder-no-gc-error";
+			break;
 		case EXCHANGE_ACCOUNT_FOLDER_NO_SUCH_USER:
-			e_error_run (NULL, ERROR_DOMAIN ":no-user-error", NULL);
-			return;
+			err_msg = ERROR_DOMAIN ":no-user-error";
+			break;
+	}
+
+	if (err_msg) {
+		e_error_run (e_shell_get_active_window (NULL), err_msg, NULL);
+		return;
 	}
 
 	/* We need to get the physical uri for the Inbox */
@@ -284,7 +291,7 @@ eex_addresssbook_unsubscribe (ESource *source)
 		g_warning ("Config listener not found");
 		return;
 	} else if (mode == OFFLINE_MODE) {
-		e_error_run (NULL, ERROR_DOMAIN ":account-offline-generic", NULL);
+		e_error_run (e_shell_get_active_window (NULL), ERROR_DOMAIN ":account-offline-generic", NULL);
 		return;
 	}
 
@@ -338,7 +345,7 @@ eex_calendar_unsubscribe (ESource *source)
 		g_warning ("Config listener not found");
 		return;
 	} else if (mode == OFFLINE_MODE) {
-		e_error_run (NULL, ERROR_DOMAIN ":account-offline-generic", NULL);
+		e_error_run (e_shell_get_active_window (NULL), ERROR_DOMAIN ":account-offline-generic", NULL);
 		return;
 	}
 
@@ -390,7 +397,7 @@ call_folder_subscribe (const gchar *folder_name)
 		 * (like subscribing to other user's folders, unsubscribing
 		 * etc,) which can not be performed in offline mode
 		 */
-		e_error_run (NULL, ERROR_DOMAIN ":account-offline-generic", NULL);
+		e_error_run (e_shell_get_active_window (NULL), ERROR_DOMAIN ":account-offline-generic", NULL);
 		return;
 	}
 

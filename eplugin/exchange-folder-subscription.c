@@ -200,7 +200,7 @@ subscribe_to_folder (GtkWidget *dialog, gint response, gpointer data)
 			subscriber_email = exchange_account_get_email_id (subscription_info->account);
 			if (subscriber_email != NULL && *subscriber_email != '\0') {
 				if (g_str_equal (subscriber_email, user_email_address)) {
-					e_error_run (NULL, ERROR_DOMAIN ":folder-exists-error", NULL);
+					e_error_run (GTK_WINDOW (dialog), ERROR_DOMAIN ":folder-exists-error", NULL);
 					g_free (user_email_address);
 					gtk_widget_destroy (dialog);
 					destroy_subscription_info (subscription_info);
@@ -216,6 +216,7 @@ subscribe_to_folder (GtkWidget *dialog, gint response, gpointer data)
 
 		folder_name = g_strdup (gtk_entry_get_text (GTK_ENTRY (subscription_info->folder_name_entry)));
 		if (user_email_address && folder_name) {
+			const gchar *err_msg = NULL;
 			result = exchange_account_discover_shared_folder (subscription_info->account,
 									  user_email_address,
 									  folder_name, &folder);
@@ -225,38 +226,41 @@ subscribe_to_folder (GtkWidget *dialog, gint response, gpointer data)
 				case EXCHANGE_ACCOUNT_FOLDER_OK:
 					exchange_account_rescan_tree (subscription_info->account);
 					if (!g_ascii_strcasecmp (e_folder_get_type_string (folder), "mail"))
-						e_error_run (NULL, ERROR_DOMAIN ":folder-restart-evo", NULL);
+						err_msg = ERROR_DOMAIN ":folder-restart-evo";
 					break;
 				case EXCHANGE_ACCOUNT_FOLDER_ALREADY_EXISTS:
-					e_error_run (NULL, ERROR_DOMAIN ":folder-exists-error", NULL);
+					err_msg = ERROR_DOMAIN ":folder-exists-error";
 					break;
 				case EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST:
-					e_error_run (NULL, ERROR_DOMAIN ":folder-doesnt-exist-error", NULL);
+					err_msg = ERROR_DOMAIN ":folder-doesnt-exist-error";
 					break;
 				case EXCHANGE_ACCOUNT_FOLDER_UNKNOWN_TYPE:
-					e_error_run (NULL, ERROR_DOMAIN ":folder-unknown-type", NULL);
+					err_msg = ERROR_DOMAIN ":folder-unknown-type";
 					break;
 				case EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED:
-					e_error_run (NULL, ERROR_DOMAIN ":folder-perm-error", NULL);
+					err_msg = ERROR_DOMAIN ":folder-perm-error";
 					break;
 				case EXCHANGE_ACCOUNT_FOLDER_OFFLINE:
-					e_error_run (NULL, ERROR_DOMAIN ":folder-offline-error", NULL);
+					err_msg = ERROR_DOMAIN ":folder-offline-error";
 					break;
 				case EXCHANGE_ACCOUNT_FOLDER_UNSUPPORTED_OPERATION:
-					e_error_run (NULL, ERROR_DOMAIN ":folder-unsupported-error", NULL);
+					err_msg = ERROR_DOMAIN ":folder-unsupported-error";
 					break;
 				case EXCHANGE_ACCOUNT_FOLDER_GC_NOTREACHABLE:
-					e_error_run (NULL, ERROR_DOMAIN ":folder-no-gc-error", NULL);
+					err_msg = ERROR_DOMAIN ":folder-no-gc-error";
 					break;
 				case EXCHANGE_ACCOUNT_FOLDER_NO_SUCH_USER:
-					e_error_run (NULL, ERROR_DOMAIN ":no-user-error", user_email_address, NULL);
+					e_error_run (GTK_WINDOW (dialog), ERROR_DOMAIN ":no-user-error", user_email_address, NULL);
 					break;
 				case EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR:
-					e_error_run (NULL, ERROR_DOMAIN ":folder-generic-error", NULL);
+					err_msg = ERROR_DOMAIN ":folder-generic-error";
 					break;
 				default:
 					break;
 			}
+
+			if (err_msg)
+				e_error_run (GTK_WINDOW (dialog), err_msg, NULL);
 		}
 
 		if (!folder) {
