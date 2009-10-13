@@ -31,11 +31,12 @@
 #include "mail/em-event.h"
 
 #include "composer/e-msg-composer.h"
+#include "composer/e-composer-from-header.h"
 #include "libedataserver/e-account.h"
 
 #include "exchange-send-options.h"
 
-void org_gnome_exchange_send_options (EPlugin *ep, EMEventTargetComposer *t);
+gboolean eex_ui_composer_actions (GtkUIManager *manager, EMsgComposer *composer);
 
 static ExchangeSendOptionsDialog *dialog=NULL;
 
@@ -164,33 +165,82 @@ send_options_commit (EMsgComposer *comp, gpointer user_data)
 	}
 }
 
-void
-org_gnome_exchange_send_options (EPlugin *ep, EMEventTargetComposer *target)
+static gboolean
+account_is_exchange (EAccount *account)
 {
-	EMsgComposer *composer = target->composer;
-	EComposerHeaderTable *table;
-	EAccount *account = NULL;
-	gchar *temp = NULL;
+	const gchar *url;
 
-	table = e_msg_composer_get_header_table (composer);
-	account = e_composer_header_table_get_account (table);
 	if (!account)
-		return;
+		return FALSE;
 
-	temp = strstr (account->transport->url, "exchange");
-	if (!temp) {
-		return;
-	}
-	e_msg_composer_set_send_options (composer, TRUE);
+	url = e_account_get_string (account, E_ACCOUNT_TRANSPORT_URL);
+	return url && g_str_has_prefix (url, "exchange://");
+}
+
+static void
+from_changed_cb (EComposerFromHeader *header, EMsgComposer *composer)
+{
+	GtkActionGroup *group;
+	GtkAction *action;
+
+	g_return_if_fail (header != NULL);
+	g_return_if_fail (composer != NULL);
+
+	group = gtkhtml_editor_get_action_group (GTKHTML_EDITOR (composer), "composer");
+	g_return_if_fail (group != NULL);
+
+	action = gtk_action_group_get_action (group, "eex-send-options");
+	g_return_if_fail (action != NULL);
+
+	gtk_action_set_visible (action, account_is_exchange (e_composer_from_header_get_active (header)));
+}
+
+static void
+action_send_options_cb (GtkAction *action, EMsgComposer *composer)
+{
+	g_return_if_fail (action != NULL);
+	g_return_if_fail (composer != NULL);
+
 	/*disply the send options dialog*/
 	if (!dialog) {
-		g_print ("New dialog\n\n");
 		dialog = exchange_sendoptions_dialog_new ();
 	}
+
 	exchange_sendoptions_dialog_run (dialog, GTK_WIDGET (composer));
 	g_signal_connect (dialog, "sod_response", G_CALLBACK (append_to_header), GTK_WIDGET (composer));
 
 	g_signal_connect (GTK_WIDGET (composer), "destroy",
 				  G_CALLBACK (send_options_commit), dialog);
+}
 
+gboolean
+eex_ui_composer_actions (GtkUIManager *manager, EMsgComposer *composer)
+{
+	static GtkActionEntry entries[] = {
+		{ "eex-send-options",
+		  NULL,
+		  N_("_Send Options"),
+		  NULL,
+		  N_("Insert Send options"),
+		  G_CALLBACK (action_send_options_cb) }
+	};
+
+	GtkhtmlEditor *editor;
+	EComposerHeaderTable *headers;
+	EComposerHeader *header;
+
+	editor = GTKHTML_EDITOR (composer);
+
+	/* Add actions to the "composer" action group. */
+	gtk_action_group_add_actions (
+		gtkhtml_editor_get_action_group (editor, "composer"),
+		entries, G_N_ELEMENTS (entries), composer);
+
+	headers = e_msg_composer_get_header_table (composer);
+	header = e_composer_header_table_get_header (headers, E_COMPOSER_HEADER_FROM);
+
+	from_changed_cb (E_COMPOSER_FROM_HEADER (header), composer);
+	g_signal_connect (G_OBJECT (header), "changed", G_CALLBACK (from_changed_cb), composer);
+
+	return TRUE;
 }

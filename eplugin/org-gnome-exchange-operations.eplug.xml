@@ -46,8 +46,18 @@
 		</group>
 	</hook>
 
-	<hook class="org.gnome.evolution.mail.events:1.0">
-		<event id="composer.selectsendoption" handle="org_gnome_exchange_send_options" target="composer" enable="sendoption"/>
+	<hook class="org.gnome.evolution.ui:1.0">
+		<ui-manager id="org.gnome.evolution.composer" callback="eex_ui_composer_actions">
+			<menubar name="main-menu">
+				<menu action="insert-menu">
+					<placeholder name="insert-menu-top">
+						<placeholder name="send-options">
+							<menuitem action="eex-send-options"/>
+						</placeholder>
+					</placeholder>
+				</menu>
+			</menubar>
+		</ui-manager>
 	</hook>
 
 	<hook class="org.gnome.evolution.ui:1.0">
