@@ -1061,10 +1061,10 @@ func_contains(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 		r->value.string = g_strdup_printf ("(%s=*)", ldap_attr);
 	} else if (!strcmp(propname, "file_as")) {
 		r = e_sexp_result_new(f, ESEXP_RES_STRING);
-		r->value.string = g_strdup_printf ("(|(displayName=%s*)(sn=%s*)(%s=%s*))", str, str, ldap_attr, str);
+		r->value.string = g_strdup_printf ("(|(displayName=*%s*)(sn=*%s*)(%s=*%s*))", str, str, ldap_attr, str);
 	} else if (g_str_equal (ldap_attr, "displayName")) {
 		r = e_sexp_result_new(f, ESEXP_RES_STRING);
-		r->value.string = g_strdup_printf("(|(displayName=%s*)(sn=%s*)(givenName=%s*))", str, str, str);
+		r->value.string = g_strdup_printf("(|(displayName=*%s*)(sn=*%s*)(givenName=*%s*))", str, str, str);
 	} else
 		r = e_sexp_result_new(f, ESEXP_RES_UNDEFINED);
 	return r;
@@ -1493,7 +1493,7 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 									if (subldap && (ldap_error = ldap_search_ext_s (subldap,
 												values[i],
 												LDAP_SCOPE_BASE,
-												"(objectclass=User)",
+												"(objectclass=*)",
 												grpattrs, 0,
 												NULL,
 												NULL,
