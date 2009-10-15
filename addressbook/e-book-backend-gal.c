@@ -227,6 +227,15 @@ can_browse (EBookBackend *backend)
 		strcmp (e_source_get_property (e_book_backend_get_source (backend), "can-browse"), "1") == 0;
 }
 
+static gboolean
+can_expand_groups (EBookBackend *backend)
+{
+	return backend &&
+		e_book_backend_get_source (backend) &&
+		e_source_get_property (e_book_backend_get_source (backend), "expand-groups") &&
+		strcmp (e_source_get_property (e_book_backend_get_source (backend), "expand-groups"), "1") == 0;
+}
+
 static void
 book_view_notify_status (EDataBookView *view, const gchar *status)
 {
@@ -1061,10 +1070,10 @@ func_contains(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 		r->value.string = g_strdup_printf ("(%s=*)", ldap_attr);
 	} else if (!strcmp(propname, "file_as")) {
 		r = e_sexp_result_new(f, ESEXP_RES_STRING);
-		r->value.string = g_strdup_printf ("(|(displayName=%s*)(sn=%s*)(%s=%s*))", str, str, ldap_attr, str);
+		r->value.string = g_strdup_printf ("(|(displayName=*%s*)(sn=*%s*)(%s=*%s*))", str, str, ldap_attr, str);
 	} else if (g_str_equal (ldap_attr, "displayName")) {
 		r = e_sexp_result_new(f, ESEXP_RES_STRING);
-		r->value.string = g_strdup_printf("(|(displayName=%s*)(sn=%s*)(givenName=%s*))", str, str, str);
+		r->value.string = g_strdup_printf("(|(displayName=*%s*)(sn=*%s*)(givenName=*%s*))", str, str, str);
 	} else
 		r = e_sexp_result_new(f, ESEXP_RES_UNDEFINED);
 	return r;
@@ -1382,7 +1391,7 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 	EContact *contact = e_contact_new ();
 	gchar *dn;
 	gchar *attr;
-	BerElement *ber = NULL, *tber = NULL;
+	BerElement *ber = NULL;
 	gboolean is_group = FALSE;
 
 	g_mutex_lock (bl->priv->ldap_lock);
@@ -1392,21 +1401,25 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 	e_contact_set (contact, E_CONTACT_UID, dn);
 	ldap_memfree (dn);
 
-	g_mutex_lock (bl->priv->ldap_lock);
-	attr = ldap_first_attribute (bl->priv->ldap, e, &tber);
-	while (attr) {
-		if (!strcmp(attr, "member")) {
-			d(printf("It is a DL\n"));
-			is_group = TRUE;
+	if (can_expand_groups (E_BOOK_BACKEND (bl))) {
+		BerElement *tber = NULL;
+
+		g_mutex_lock (bl->priv->ldap_lock);
+		attr = ldap_first_attribute (bl->priv->ldap, e, &tber);
+		while (attr) {
+			if (!strcmp(attr, "member")) {
+				d(printf("It is a DL\n"));
+				is_group = TRUE;
+				ldap_memfree (attr);
+				break;
+			}
 			ldap_memfree (attr);
-			break;
+			attr = ldap_next_attribute (bl->priv->ldap, e, tber);
 		}
-		ldap_memfree (attr);
-		attr = ldap_next_attribute (bl->priv->ldap, e, tber);
+		if (tber)
+			ber_free (tber, 0);
+		g_mutex_unlock (bl->priv->ldap_lock);
 	}
-	if (tber)
-		ber_free (tber, 0);
-	g_mutex_unlock (bl->priv->ldap_lock);
 
 	g_mutex_lock (bl->priv->ldap_lock);
 	attr = ldap_first_attribute (bl->priv->ldap, e, &ber);
@@ -1460,7 +1473,7 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 							   which calls g_object_set to set the property */
 							info->populate_contact_func(contact, values, bl, NULL);
 						}
-						else if (info->prop_type & PROP_TYPE_GROUP) {
+						else if (is_group && (info->prop_type & PROP_TYPE_GROUP)) {
 							gchar *grpattrs[3];
 							gint i, view_limit = -1, ldap_error = LDAP_SUCCESS, count;
 							EDataBookView *book_view;
@@ -1493,7 +1506,7 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 									if (subldap && (ldap_error = ldap_search_ext_s (subldap,
 												values[i],
 												LDAP_SCOPE_BASE,
-												"(objectclass=User)",
+												"(objectclass=*)",
 												grpattrs, 0,
 												NULL,
 												NULL,

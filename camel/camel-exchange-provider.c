@@ -86,6 +86,8 @@ CamelProviderConfEntry exchange_conf_entries[] = {
 	  N_("Authentication _Type:"), "default:Secure or Plaintext Password:basic:Plaintext Password:ntlm:Secure Password" },
 	{ CAMEL_PROVIDER_CONF_CHECKBOX, "ad_browse", NULL,
 	  N_("Allow _browsing of the GAL until download limit is reached"), "0" },
+	{ CAMEL_PROVIDER_CONF_CHECKBOX, "ad_expand_groups", NULL,
+	  N_("_Expand groups of contacts in GAL to contact lists"), "0" },
 	{ CAMEL_PROVIDER_CONF_SECTION_END },
 	{ CAMEL_PROVIDER_CONF_SECTION_START, "generals", NULL,
 	  N_("Options") },
