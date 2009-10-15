@@ -1344,9 +1344,10 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 
 	/* We need to add all the instances to the VCalendar component while sending to
 	   the server, so that we don't lose any detached instances */
-	if (ecomp->icomp && mod == CALOBJ_MOD_THIS) {
+	if (ecomp->icomp && mod == CALOBJ_MOD_THIS && remove) {
 		icalcomponent_add_component (cbdata->vcal_comp, icalcomponent_new_clone (ecomp->icomp));
-	}
+	} else if (!remove && mod == CALOBJ_MOD_THIS)
+		icalcomponent_add_component (cbdata->vcal_comp, real_icalcomp);
 
 	for (l = ecomp->instances; l != NULL; l = l->next) {
 		icalcomponent *icomp = l->data;
@@ -1382,9 +1383,6 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 
 	if (!cached_ecomp && remove)
 		*new_object = icalcomponent_as_ical_string_r (icalcomp);
-
-	if (!remove && mod == CALOBJ_MOD_THIS)
-		icalcomponent_add_component (cbdata->vcal_comp, real_icalcomp);
 
 	body_crlf = icalcomponent_as_ical_string_r (cbdata->vcal_comp);
 
@@ -1763,7 +1761,8 @@ book_resource (ECalBackendExchange *cbex,
 	       const gchar *resource_email,
 	       ECalComponent *comp,
 	       icalproperty_method method,
-	       icalparameter *part_param)
+	       icalparameter *part_param,
+	       gboolean book_all)
 {
 	E2kGlobalCatalog *gc;
 	E2kGlobalCatalogEntry *entry;
@@ -1781,7 +1780,7 @@ book_resource (ECalBackendExchange *cbex,
 	const gchar *uid, *prop_name = PR_ACCESS;
 	const gchar *access_prop = NULL, *meeting_prop = NULL, *cal_uid = NULL;
 	gboolean bookable;
-	gchar *top_uri = NULL, *cal_uri = NULL, *returned_uid = NULL;
+	gchar *top_uri = NULL, *cal_uri = NULL, *returned_uid = NULL, *sanitized_uid;
 	gchar *startz, *endz, *href = NULL, *old_object = NULL, *calobj = NULL, *new_object = NULL;
 	E2kRestriction *rn;
 	gint nresult;
@@ -1817,7 +1816,7 @@ book_resource (ECalBackendExchange *cbex,
 	cal_uri = exchange_account_get_foreign_uri (cbex->account, entry,
 						    E2K_PR_STD_FOLDER_CALENDAR);
 	e2k_global_catalog_entry_free (gc, entry);
-	if (!top_uri || !cal_uri) {
+	if (!top_uri || !cal_uri || !*cal_uri) {
 		retval = E_CAL_BACKEND_EXCHANGE_BOOKING_PERMISSION_DENIED;
 		goto cleanup;
 	}
@@ -1858,7 +1857,10 @@ book_resource (ECalBackendExchange *cbex,
 	}
 
 	e_cal_component_get_uid (E_CAL_COMPONENT (comp), &uid);
-	href = g_strdup_printf ("%s/%s.EML", cal_uri, uid);
+	sanitized_uid = g_strdup (uid);
+	g_strdelimit (sanitized_uid, " /'\"`&();|<>$%{}!\\:*?#@", '_');
+	href = g_strdup_printf ("%s%s%s.EML", cal_uri [strlen (cal_uri) - 1] == '/' ? "" : "/", cal_uri, sanitized_uid);
+	g_free (sanitized_uid);
 
 	e_cal_backend_exchange_cache_lock (cbex);
 	ecomp = get_exchange_comp (E_CAL_BACKEND_EXCHANGE (cbex), uid);
@@ -1966,11 +1968,11 @@ book_resource (ECalBackendExchange *cbex,
 	/* status = e_cal_component_update (comp, method, FALSE  ); */
 	if (ecomp) {
 		/* Use the PUT method to create the meeting item in the resource's calendar. */
-		status = modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, calobj, CALOBJ_MOD_THIS, &old_object, &new_object, href, NULL);
+		status = modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, calobj, book_all ? CALOBJ_MOD_ALL : CALOBJ_MOD_THIS, &old_object, &new_object, href, NULL);
 		if (status == GNOME_Evolution_Calendar_Success) {
 			/* Need this to update the participation status of the resource
 			   in the organizer's calendar. */
-			status = modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, calobj, CALOBJ_MOD_THIS, &old_object, &new_object, NULL, NULL);
+			status = modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, calobj, book_all ? CALOBJ_MOD_ALL : CALOBJ_MOD_THIS, &old_object, &new_object, NULL, NULL);
 		} else {
 			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
 			goto cleanup;
@@ -2080,21 +2082,9 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 		if (g_ascii_strncasecmp ("mailto:", attendee, 7))
 			continue;
 
-		/* See if it recurs */
-		if (icalcomponent_get_first_property (icalcomp, ICAL_RRULE_PROPERTY)
-		    || icalcomponent_get_first_property (icalcomp, ICAL_RDATE_PROPERTY)) {
-#if 0
-			g_snprintf (error_msg, 256,
-				_("Unable to schedule resource '%s' for recurring meetings.\n"
-				      "You must book each meeting separately."),
-				    attendee + 7);
-#endif
-			retval = GNOME_Evolution_Calendar_ObjectIdAlreadyExists;
-			goto cleanup;
-		}
-
 		param = icalproperty_get_first_parameter (prop, ICAL_PARTSTAT_PARAMETER);
-		result = book_resource (cbex, cal, attendee + 7, comp, method, param);
+		/* modify all instances for the recurring event */
+		result = book_resource (cbex, cal, attendee + 7, comp, method, param, icalcomponent_get_first_property (icalcomp, ICAL_RRULE_PROPERTY) || icalcomponent_get_first_property (icalcomp, ICAL_RDATE_PROPERTY));
 		switch (result) {
 		case E_CAL_BACKEND_EXCHANGE_BOOKING_OK:
 			*users = g_list_append (*users, g_strdup (attendee));
