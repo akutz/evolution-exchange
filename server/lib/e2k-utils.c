@@ -514,7 +514,7 @@ e2k_restriction_folders_only (E2kRestriction *rn)
 		return TRUE;
 
 	case E2K_RESTRICTION_NOT:
-		return !e2k_restriction_folders_only (rn->res.not.rn);
+		return e2k_restriction_folders_only (rn->res.not.rn);
 
 	case E2K_RESTRICTION_COMMENT:
 		return e2k_restriction_folders_only (rn->res.comment.rn);
