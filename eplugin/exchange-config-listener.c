@@ -660,7 +660,6 @@ display_passwd_expiry_message (gint max_passwd_age, ExchangeAccount *account)
 	gchar *passwd_expiry_msg =
 		g_strdup_printf (_("Your password will expire in the next %d days"), max_passwd_age);
 
-
 	passwd_exp_dialog = gtk_dialog_new ();
 	gtk_window_set_title (GTK_WINDOW (passwd_exp_dialog), _("Password Expiry Warning..."));
 	gtk_window_set_position (GTK_WINDOW (passwd_exp_dialog), GTK_WIN_POS_CENTER_ON_PARENT);

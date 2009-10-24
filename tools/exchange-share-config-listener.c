@@ -754,7 +754,7 @@ exchange_share_config_listener_get_account_for_uri (ExchangeShareConfigListener 
 
 	for (a = accounts; a; a = a->next) {
 		ExchangeAccount *account = a->data;
-	
+
 		g_return_val_if_fail (account != NULL, NULL);
 
 		/* Kludge for while we don't support multiple accounts */
