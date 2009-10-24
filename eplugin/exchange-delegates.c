@@ -188,7 +188,6 @@ static const gchar *sd_props[] = {
 	E2K_PR_EXCHANGE_SD_BINARY,
 	E2K_PR_EXCHANGE_SD_XML
 };
-static const gint n_sd_props = sizeof (sd_props) / sizeof (sd_props[0]);
 
 /* Read the folder security descriptors and match them up with the
  * list of delegates.
@@ -236,7 +235,7 @@ get_folder_security (ExchangeDelegates *delegates)
 	iter = e2k_context_bpropfind_start (
 		ctx, NULL, delegates->account->home_uri,
 		(const gchar **)hrefs->pdata, hrefs->len,
-		sd_props, n_sd_props);
+		sd_props, G_N_ELEMENTS (sd_props));
 	g_ptr_array_free (hrefs, TRUE);
 
 	while ((result = e2k_result_iter_next (iter))) {
@@ -284,7 +283,6 @@ static const gchar *delegation_props[] = {
 	PR_DELEGATES_SEE_PRIVATE,
 	PR_CREATOR_ENTRYID
 };
-static const gint n_delegation_props = sizeof (delegation_props) / sizeof (delegation_props[0]);
 
 /* Fetch the list of delegates from the freebusy message. */
 static gboolean
@@ -302,7 +300,8 @@ get_user_list (ExchangeDelegates *delegates)
 	iter = e2k_context_bpropfind_start (ctx, NULL,
 					    delegates->account->home_uri,
 					    &exchange_localfreebusy_path, 1,
-					    delegation_props, n_delegation_props);
+					    delegation_props,
+					    G_N_ELEMENTS (delegation_props));
 	result = e2k_result_iter_next (iter);
 	if (!result || !E2K_HTTP_STATUS_IS_SUCCESSFUL (result->status)) {
 		e2k_result_iter_free (iter);

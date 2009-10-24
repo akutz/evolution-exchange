@@ -116,7 +116,6 @@ static const gchar *privacy_props[] = {
 	PR_DELEGATES_ENTRYIDS,
 	PR_DELEGATES_SEE_PRIVATE,
 };
-static const gint n_privacy_props = sizeof (privacy_props) / sizeof (privacy_props[0]);
 
 static void
 check_hide_private (ExchangeHierarchy *hier)
@@ -143,7 +142,8 @@ check_hide_private (ExchangeHierarchy *hier)
 	ctx = exchange_account_get_context (hier->account);
 
 	status = e2k_context_propfind (ctx, NULL, uri,
-				       privacy_props, n_privacy_props,
+				       privacy_props,
+				       G_N_ELEMENTS (privacy_props),
 				       &results, &nresults);
 	g_free (uri);
 
@@ -210,7 +210,6 @@ static const gchar *folder_props[] = {
 	E2K_PR_DAV_DISPLAY_NAME,
 	PR_ACCESS
 };
-static const gint n_folder_props = sizeof (folder_props) / sizeof (folder_props[0]);
 
 static ExchangeAccountFolderResult
 find_folder (ExchangeHierarchy *hier, const gchar *uri, EFolder **folder_out)
@@ -224,7 +223,8 @@ find_folder (ExchangeHierarchy *hier, const gchar *uri, EFolder **folder_out)
 	const gchar *access;
 
 	status = e2k_context_propfind (ctx, NULL, uri,
-				       folder_props, n_folder_props,
+				       folder_props,
+				       G_N_ELEMENTS (folder_props),
 				       &results, &nresults);
 	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
 		return exchange_hierarchy_webdav_status_to_folder_result (status);

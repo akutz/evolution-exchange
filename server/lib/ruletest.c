@@ -37,7 +37,6 @@ const gchar *test_program_name = "ruletest";
 static const gchar *rules_props[] = {
 	PR_RULES_DATA,
 };
-static const gint n_rules_props = sizeof (rules_props) / sizeof (rules_props[0]);
 
 void
 test_main (gint argc, gchar **argv)
@@ -59,7 +58,8 @@ test_main (gint argc, gchar **argv)
 
 	ctx = test_get_context (url);
 	status = e2k_context_propfind (ctx, NULL, url,
-				       rules_props, n_rules_props,
+				       rules_props,
+				       G_N_ELEMENTS (rules_props),
 				       &results, &nresults);
 	test_abort_if_http_error (status);
 

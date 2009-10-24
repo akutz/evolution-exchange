@@ -398,7 +398,7 @@ e2k_cal_query_to_restriction (ECalBackendExchange *cbex,
 	g_return_val_if_fail (sexp != NULL, NULL);
 
 	esexp = e_sexp_new ();
-	for (i = 0; i < (sizeof (functions) / sizeof (functions[0])); i++)
+	for (i = 0; i < G_N_ELEMENTS (functions); i++)
 		e_sexp_add_function (esexp, 0, (gchar *) functions[i].name, functions[i].func, NULL);
 
 	e_sexp_input_text (esexp, sexp, strlen (sexp));

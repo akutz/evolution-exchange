@@ -558,7 +558,6 @@ static const gchar *task_props[] = {
         E2K_PR_EXCHANGE_KEYWORDS,
         E2K_PR_CALENDAR_URL
 };
-static const gint n_task_props = sizeof (task_props) / sizeof (task_props[0]);
 
 static guint
 get_changed_tasks (ECalBackendExchange *cbex)
@@ -611,7 +610,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 
         iter = e_folder_exchange_search_start (cbex->folder, NULL,
 					       task_props,
-					       n_task_props,
+					       G_N_ELEMENTS (task_props),
 					       rn, NULL, TRUE);
         e2k_restriction_unref (rn);
 

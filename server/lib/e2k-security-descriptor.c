@@ -115,8 +115,6 @@ static E2kPermissionsMap permissions_map[] = {
 	{ E2K_PERMISSION_FOLDER_VISIBLE,
 	  LE(0x1208a9), LE(0x1200a9), LE(0x000000), LE(0x000000) }
 };
-static const gint permissions_map_size =
-	sizeof (permissions_map) / sizeof (permissions_map[0]);
 
 static const guint32 container_permissions_all = LE(0x1fc9bf);
 static const guint32 object_permissions_all    = LE(0x1f0fbf);
@@ -709,7 +707,7 @@ e2k_security_descriptor_get_permissions (E2kSecurityDescriptor *sd,
 		if (aces[ace].Header.AceType == E2K_ACCESS_DENIED_ACE_TYPE)
 			continue;
 
-		for (map = 0; map < permissions_map_size; map++) {
+		for (map = 0; map < G_N_ELEMENTS (permissions_map); map++) {
 			if (aces[ace].Header.AceFlags & E2K_OBJECT_INHERIT_ACE)
 				checkperm = permissions_map[map].object_allowed;
 			else
@@ -797,7 +795,7 @@ e2k_security_descriptor_set_permissions (E2kSecurityDescriptor *sd,
 	container_allowed = 0;
 	container_denied  = container_permissions_all;
 
-	for (map = 0; map < permissions_map_size; map++) {
+	for (map = 0; map < G_N_ELEMENTS (permissions_map); map++) {
 		if (!(permissions_map[map].mapi_permission & perms))
 			continue;
 

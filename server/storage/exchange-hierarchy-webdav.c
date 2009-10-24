@@ -498,7 +498,6 @@ static const gchar *rescan_props[] = {
 	E2K_PR_EXCHANGE_FOLDER_SIZE,
 	E2K_PR_HTTPMAIL_UNREAD_COUNT
 };
-static const gint n_rescan_props = sizeof (rescan_props) / sizeof (rescan_props[0]);
 
 static void
 rescan (ExchangeHierarchy *hier)
@@ -531,7 +530,8 @@ rescan (ExchangeHierarchy *hier)
 	iter = e_folder_exchange_bpropfind_start (hier->toplevel, NULL,
 						  (const gchar **)hrefs->pdata,
 						  hrefs->len,
-						  rescan_props, n_rescan_props);
+						  rescan_props,
+						  G_N_ELEMENTS (rescan_props));
 	g_ptr_array_free (hrefs, TRUE);
 
 	while ((result = e2k_result_iter_next (iter))) {
@@ -681,7 +681,6 @@ static const gchar *folder_props[] = {
 	E2K_PR_EXCHANGE_FOLDER_SIZE,
 	E2K_PR_DAV_HAS_SUBS
 };
-static const gint n_folder_props = sizeof (folder_props) / sizeof (folder_props[0]);
 
 static const gchar *pub_folder_props[] = {
 	E2K_PR_EXCHANGE_FOLDER_CLASS,
@@ -689,7 +688,6 @@ static const gchar *pub_folder_props[] = {
 	E2K_PR_EXCHANGE_PERMANENTURL,
 	E2K_PR_DAV_HAS_SUBS
 };
-static const gint n_pub_folder_props = sizeof (pub_folder_props) / sizeof (pub_folder_props[0]);
 
 static ExchangeAccountFolderResult
 scan_subtree (ExchangeHierarchy *hier, EFolder *parent, gint mode)
@@ -738,11 +736,12 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *parent, gint mode)
 	if (hier->type == EXCHANGE_HIERARCHY_PUBLIC)
 		iter = e_folder_exchange_search_start (parent, NULL,
 						       pub_folder_props,
-						       n_pub_folder_props,
+						       G_N_ELEMENTS (pub_folder_props),
 						       folders_rn, NULL, TRUE);
 	else
 		iter = e_folder_exchange_search_start (parent, NULL,
-						       folder_props, n_folder_props,
+						       folder_props,
+						       G_N_ELEMENTS (folder_props),
 						       folders_rn, NULL, TRUE);
 
 	while ((result = e2k_result_iter_next (iter))) {

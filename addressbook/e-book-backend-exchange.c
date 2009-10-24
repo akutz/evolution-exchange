@@ -222,7 +222,6 @@ prop_mappings[] = {
 
 	EXCHANGE_FIELD (CATEGORIES, KEYWORDS, "categories", proppatch_categories, populate_categories)
 };
-static gint num_prop_mappings = sizeof(prop_mappings) / sizeof (prop_mappings[0]);
 
 struct ContactListMember
 {
@@ -236,7 +235,7 @@ e_book_backend_exchange_prop_to_exchange (const gchar *propname)
 {
 	gint i;
 
-	for (i = 0; i < num_prop_mappings; i ++)
+	for (i = 0; i < G_N_ELEMENTS (prop_mappings); i ++)
 		if (prop_mappings[i].e_book_field && !strcmp (prop_mappings[i].e_book_field, propname))
 			return prop_mappings[i].prop_name;
 
@@ -430,7 +429,7 @@ e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 
 	e_contact_set (contact, E_CONTACT_UID, result->href);
 
-	for (i = 0; i < num_prop_mappings; i ++) {
+	for (i = 0; i < G_N_ELEMENTS (prop_mappings); i ++) {
 		data = e2k_properties_get_prop (result->props,
 						prop_mappings[i].prop_name);
 		if (!data)
@@ -616,7 +615,6 @@ static const gchar *folder_props[] = {
 	PR_ACCESS,
 	E2K_PR_DAV_LAST_MODIFIED
 };
-static const gint n_folder_props = sizeof (folder_props) / sizeof (folder_props[0]);
 
 static gpointer
 build_cache (EBookBackendExchange *be)
@@ -725,7 +723,7 @@ e_book_backend_exchange_connect (EBookBackendExchange *be)
 
 	/* check permissions on the folder */
 	status = e_folder_exchange_propfind (bepriv->folder, NULL,
-					     folder_props, n_folder_props,
+					     folder_props, G_N_ELEMENTS (folder_props),
 					     &results, &nresults);
 
 	if (status != E2K_HTTP_MULTI_STATUS) {
@@ -1301,7 +1299,7 @@ props_from_contact (EBookBackendExchange *be,
 			}
 		}
 	} else {
-		for (i = 0; i < num_prop_mappings; i ++) {
+		for (i = 0; i < G_N_ELEMENTS (prop_mappings); i ++) {
 			/* handle composite attributes here (like addresses) */
 			if (prop_mappings[i].flags & FLAG_COMPOSITE) {
 				prop_mappings[i].composite_proppatch_func (&prop_mappings[i], contact, old_contact, props);
@@ -2002,7 +2000,7 @@ func_match (struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer da
 		gint i;
 
 		rns = g_ptr_array_new ();
-		for (i = 0; i < num_prop_mappings; i ++) {
+		for (i = 0; i < G_N_ELEMENTS (prop_mappings); i ++) {
 			if (prop_mappings[i].flags & FLAG_UNLIKEABLE)
 				continue;
 
@@ -2098,7 +2096,7 @@ e_book_backend_exchange_build_restriction (const gchar *query,
 
 	sexp = e_sexp_new ();
 
-	for (i = 0; i < sizeof (symbols) / sizeof (symbols[0]); i++) {
+	for (i = 0; i < G_N_ELEMENTS (symbols); i++) {
 		e_sexp_add_function (sexp, 0, (gchar *) symbols[i].name,
 				     symbols[i].func,
 				     GUINT_TO_POINTER (symbols[i].flags));
@@ -2728,7 +2726,7 @@ e_book_backend_exchange_get_supported_fields (EBookBackendSync  *backend,
 	d(printf("ebbe_get_supported_fields(%p, %p)\n", backend, book));
 
 	*methods = NULL;
-	for (i = 0; i < num_prop_mappings; i ++) {
+	for (i = 0; i < G_N_ELEMENTS (prop_mappings); i ++) {
 		if (prop_mappings[i].e_book_field) {
 			*methods = g_list_prepend (*methods,
 					g_strdup (e_contact_field_name(prop_mappings[i].field)));
@@ -2983,7 +2981,7 @@ e_book_backend_exchange_class_init (EBookBackendExchangeClass *klass)
 	g_ptr_array_add (field_names_array, (gpointer) E2K_PR_MAPI_EMAIL_2_ADDRTYPE);
 	g_ptr_array_add (field_names_array, (gpointer) E2K_PR_MAPI_EMAIL_3_ADDRTYPE);
 	g_ptr_array_add (field_names_array, (gpointer) E2K_PR_HTTPMAIL_HAS_ATTACHMENT);
-	for (i = 0; i < num_prop_mappings; i ++)
+	for (i = 0; i < G_N_ELEMENTS (prop_mappings); i ++)
 		g_ptr_array_add (field_names_array, (gpointer) prop_mappings[i].prop_name);
 	field_names = (const gchar **)field_names_array->pdata;
 	n_field_names = field_names_array->len;

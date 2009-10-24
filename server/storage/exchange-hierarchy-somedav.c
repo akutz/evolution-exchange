@@ -117,7 +117,6 @@ static const gchar *folder_props[] = {
 	E2K_PR_DAV_DISPLAY_NAME,
 	PR_ACCESS
 };
-static const gint n_folder_props = sizeof (folder_props) / sizeof (folder_props[0]);
 
 static ExchangeAccountFolderResult
 scan_subtree (ExchangeHierarchy *hier, EFolder *folder, gint mode)
@@ -154,7 +153,7 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *folder, gint mode)
 						  (const gchar **)hrefs->pdata,
 						  hrefs->len,
 						  folder_props,
-						  n_folder_props);
+						  G_N_ELEMENTS (folder_props));
 
 	while ((result = e2k_result_iter_next (iter))) {
 		folders_returned++;
@@ -233,7 +232,8 @@ exchange_hierarchy_somedav_add_folder (ExchangeHierarchySomeDAV *hsd,
 	ctx = exchange_account_get_context (hier->account);
 
 	status = e2k_context_propfind (ctx, NULL, uri,
-				       folder_props, n_folder_props,
+				       folder_props,
+				       G_N_ELEMENTS (folder_props),
 				       &results, &nresults);
 	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status))
 		return exchange_hierarchy_webdav_status_to_folder_result (status);

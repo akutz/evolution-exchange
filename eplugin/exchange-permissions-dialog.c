@@ -131,7 +131,6 @@ static const gchar *sd_props[] = {
 	E2K_PR_EXCHANGE_SD_BINARY,
 	E2K_PR_EXCHANGE_SD_XML
 };
-static const gint n_sd_props = sizeof (sd_props) / sizeof (sd_props[0]);
 
 /**
  * exchange_permissions_dialog_new:
@@ -197,7 +196,7 @@ exchange_permissions_dialog_new (ExchangeAccount *account,
 
 	/* And fetch the security descriptor */
 	status = e2k_context_propfind (ctx, NULL, folder_uri,
-				       sd_props, n_sd_props,
+				       sd_props, G_N_ELEMENTS (sd_props),
 				       &results, &nresults);
 	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status) || nresults < 1) {
 	lose:

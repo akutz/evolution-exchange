@@ -151,7 +151,6 @@ static const gchar *public_freebusy_props[] = {
 	PR_FREEBUSY_OOF_MONTHS,
 	PR_FREEBUSY_OOF_EVENTS
 };
-static const gint n_public_freebusy_props = sizeof (public_freebusy_props) / sizeof (public_freebusy_props[0]);
 
 /**
  * e2k_freebusy_new:
@@ -184,7 +183,7 @@ e2k_freebusy_new (E2kContext *ctx, const gchar *public_uri, const gchar *dn)
 
 	status = e2k_context_propfind (ctx, NULL, uri,
 				       public_freebusy_props,
-				       n_public_freebusy_props,
+				       G_N_ELEMENTS (public_freebusy_props),
 				       &results, &nresults);
 	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status) || nresults == 0) {
 		/* FIXME: create it */
@@ -367,7 +366,6 @@ static const gchar *freebusy_props[] = {
 	E2K_PR_CALENDAR_DTEND,
 	E2K_PR_CALENDAR_BUSY_STATUS
 };
-static const gint n_freebusy_props = sizeof (freebusy_props) / sizeof (freebusy_props[0]);
 
 /**
  * e2k_freebusy_add_from_calendar_uri:
@@ -411,7 +409,8 @@ e2k_freebusy_add_from_calendar_uri (E2kFreebusy *fb, const gchar *uri,
 		NULL);
 
 	iter = e2k_context_search_start (fb->ctx, NULL, uri,
-					 freebusy_props, n_freebusy_props,
+					 freebusy_props,
+					 G_N_ELEMENTS (freebusy_props),
 					 rn, NULL, TRUE);
 	e2k_restriction_unref (rn);
 	g_free (start);

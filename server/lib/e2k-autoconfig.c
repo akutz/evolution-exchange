@@ -618,7 +618,6 @@ static const gchar *home_properties[] = {
 	PR_STORE_ENTRYID,
 	E2K_PR_EXCHANGE_TIMEZONE
 };
-static const gint n_home_properties = sizeof (home_properties) / sizeof (home_properties[0]);
 
 /*
  * e2k_autoconfig_check_exchange:
@@ -753,7 +752,7 @@ e2k_autoconfig_check_exchange (E2kAutoconfig *ac, E2kOperation *op)
 	iter = e2k_context_bpropfind_start (ctx, op,
 					    ac->home_uri, hrefs, 1,
 					    home_properties,
-					    n_home_properties);
+					    G_N_ELEMENTS (home_properties));
 	results = e2k_result_iter_next (iter);
 	if (results) {
 		timezone = e2k_properties_get_prop (results->props,
@@ -1319,7 +1318,6 @@ static struct {
 	/* (GMT+13:00) Nuku'alofa */
 	{ "Tonga", NULL, NULL, "Pacific/Tongatapu" }
 };
-static const gint n_zone_mappings = sizeof (zonemap) / sizeof (zonemap[0]);
 
 static gchar *
 find_olson_timezone (const gchar *windows_timezone)
@@ -1337,13 +1335,13 @@ find_olson_timezone (const gchar *windows_timezone)
 	tzlen = p - windows_timezone + 1;
 
 	/* Find the first entry in zonemap with a matching name */
-	for (i = 0; i < n_zone_mappings; i++) {
+	for (i = 0; i < G_N_ELEMENTS (zonemap); i++) {
 		if (!g_ascii_strncasecmp (windows_timezone,
 					  zonemap[i].windows_name,
 					  tzlen))
 			break;
 	}
-	if (i == n_zone_mappings)
+	if (i == G_N_ELEMENTS (zonemap))
 		return NULL; /* Shouldn't happen... */
 
 	/* If there's only one choice, go with it */
@@ -1373,7 +1371,7 @@ find_olson_timezone (const gchar *windows_timezone)
 		if ((zonemap[i].lang && !strcmp (zonemap[i].lang, lang)) ||
 		    (zonemap[i].country && !strcmp (zonemap[i].country, country)))
 			return g_strdup (zonemap[i].olson_name);
-	} while (++i < n_zone_mappings &&
+	} while (++i < G_N_ELEMENTS (zonemap) &&
 		 !g_ascii_strncasecmp (windows_timezone,
 				       zonemap[i].windows_name,
 				       tzlen));

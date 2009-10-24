@@ -618,8 +618,6 @@ static struct {
 	{ NULL, -1, finish_page_create, NULL, NULL, NULL }
 };
 
-static const gint num_autoconfig_pages = sizeof (autoconfig_pages) / sizeof (autoconfig_pages[0]);
-
 /* Autoconfig assistant */
 
 static gint
@@ -627,7 +625,7 @@ find_page (ExchangeAutoconfigGUI *gui, GtkWidget *page)
 {
 	gint page_num;
 
-	for (page_num = 0; page_num < num_autoconfig_pages; page_num++) {
+	for (page_num = 0; page_num < G_N_ELEMENTS (autoconfig_pages); page_num++) {
 		if (autoconfig_pages[page_num].assistant_page == page)
 			return page_num;
 	}
@@ -665,7 +663,7 @@ assistant_page_content_changed (GtkWidget *sender, ExchangeAutoconfigGUI *gui)
 	if (page_num == -1)
 		return;
 
-	g_return_if_fail (page_num >= 0 && page_num < num_autoconfig_pages);
+	g_return_if_fail (page_num >= 0 && page_num < G_N_ELEMENTS (autoconfig_pages));
 
 	gui->changing = TRUE;
 
@@ -704,7 +702,7 @@ assistant_forward_func (gint current_page, gpointer user_data)
 	if (!gui->changing && gui->active_page == current_page) {
 		gint page_num;
 
-		for (page_num = 0; page_num < num_autoconfig_pages; page_num++) {
+		for (page_num = 0; page_num < G_N_ELEMENTS (autoconfig_pages); page_num++) {
 			if (autoconfig_pages[page_num].assistant_page_index == current_page) {
 				if (autoconfig_pages[page_num].get_next_page_func)
 					next_page = autoconfig_pages[page_num].get_next_page_func (gui);
@@ -745,7 +743,7 @@ exchange_autoconfig_assistant_run (void)
 	icon = gdk_pixbuf_new_from_file (pngfile, NULL);
 	g_free (pngfile);
 
-	for (i = 0; i < num_autoconfig_pages; i++) {
+	for (i = 0; i < G_N_ELEMENTS (autoconfig_pages); i++) {
 		autoconfig_pages[i].create_func (gui, icon, &autoconfig_pages[i].assistant_page, &autoconfig_pages[i].assistant_page_index);
 	}
 

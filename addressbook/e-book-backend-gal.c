@@ -216,8 +216,6 @@ struct prop_info {
 #undef GROUP_PROP
 };
 
-static gint num_prop_infos = sizeof(prop_info) / sizeof(prop_info[0]);
-
 static gboolean
 can_browse (EBookBackend *backend)
 {
@@ -1015,7 +1013,7 @@ query_prop_to_ldap (const gchar *query_prop)
 	if (!strcmp (query_prop, "email"))
 		query_prop = "email_1";
 
-	for (i = 0; i < num_prop_infos; i ++)
+	for (i = 0; i < G_N_ELEMENTS (prop_info); i ++)
 		if (!strcmp (query_prop, e_contact_field_name (prop_info[i].field_id)))
 			return prop_info[i].ldap_attr;
 
@@ -1199,7 +1197,7 @@ build_query (EBookBackendGAL *bl, const gchar *query, const gchar *ldap_filter, 
 
 	sexp = e_sexp_new();
 
-	for (i=0;i<sizeof(symbols)/sizeof(symbols[0]);i++) {
+	for (i = 0; i < G_N_ELEMENTS (symbols); i++) {
 		e_sexp_add_function(sexp, 0, (gchar *) symbols[i].name,
 				    symbols[i].func, NULL);
 	}
@@ -1446,7 +1444,7 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 			ldap_value_free (values);
 		}
 		else {
-			for (i = 0; i < num_prop_infos; i ++)
+			for (i = 0; i < G_N_ELEMENTS (prop_info); i ++)
 				if (!g_ascii_strcasecmp (attr, prop_info[i].ldap_attr)) {
 					info = &prop_info[i];
 					break;
@@ -2879,16 +2877,16 @@ class_init (EBookBackendGALClass *klass)
 
 	/* Set up static data */
 	supported_fields = NULL;
-	for (i = 0; i < num_prop_infos; i++) {
+	for (i = 0; i < G_N_ELEMENTS (prop_info); i++) {
 		supported_fields = g_list_append (supported_fields,
 						  (gchar *)e_contact_field_name (prop_info[i].field_id));
 	}
 	supported_fields = g_list_append (supported_fields, (gpointer) "file_as");
 
-	search_attrs = g_new (const gchar *, num_prop_infos + 1);
-	for (i = 0; i < num_prop_infos; i++)
+	search_attrs = g_new (const gchar *, G_N_ELEMENTS (prop_info) + 1);
+	for (i = 0; i < G_N_ELEMENTS (prop_info); i++)
 		search_attrs[i] = prop_info[i].ldap_attr;
-	search_attrs[num_prop_infos] = NULL;
+	search_attrs[G_N_ELEMENTS (prop_info)] = NULL;
 }
 
 static void

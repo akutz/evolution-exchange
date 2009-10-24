@@ -54,7 +54,6 @@ static const gchar *folder_tree_props[] = {
 	E2K_PR_DAV_DISPLAY_NAME,
 	E2K_PR_EXCHANGE_FOLDER_CLASS
 };
-static const gint n_folder_tree_props = sizeof (folder_tree_props) / sizeof (folder_tree_props[0]);
 
 static void
 display_folder_tree (E2kContext *ctx, gchar *top)
@@ -70,7 +69,7 @@ display_folder_tree (E2kContext *ctx, gchar *top)
 					E2K_RELOP_EQ, TRUE);
 	iter = e2k_context_search_start (ctx, &op, top,
 					 folder_tree_props,
-					 n_folder_tree_props,
+					 G_N_ELEMENTS (folder_tree_props),
 					 rn, NULL, TRUE);
 	e2k_restriction_unref (rn);
 

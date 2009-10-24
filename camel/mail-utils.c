@@ -220,7 +220,6 @@ mail_util_extract_transport_headers (E2kProperties *props)
 static const gchar *note_colors[] = {
 	"#CCCCFF", "#CCFFCC", "#FFCCCC", "#FFFFCC", "#FFFFFF"
 };
-static const gint ncolors = sizeof (note_colors) / sizeof (note_colors[0]);
 #define DEFAULT_NOTE_COLOR 3
 
 /**
@@ -272,7 +271,7 @@ mail_util_stickynote_to_rfc822 (E2kProperties *props)
 	prop = e2k_properties_get_prop (props, E2K_PR_OUTLOOK_STICKYNOTE_COLOR);
 	if (prop) {
 		color = atoi (prop);
-		if (color < 0 || color >= ncolors)
+		if (color < 0 || color >= G_N_ELEMENTS (note_colors))
 			color = DEFAULT_NOTE_COLOR;
 	} else
 		color = DEFAULT_NOTE_COLOR;
