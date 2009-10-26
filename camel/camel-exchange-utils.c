@@ -2079,17 +2079,17 @@ camel_exchange_utils_connect (CamelService *service,
 	E2kContext *ctx;
 	guint32 retval = 1;
 	const gchar *uri;
-	gint mode;
+	struct update_linestatus ul;
 
 	g_return_val_if_fail (ed != NULL, FALSE);
 	g_return_val_if_fail (status != NULL, FALSE);
 
-	mode = is_online (ed);
+	ul.linestatus = is_online (ed);
 
 	account = ed->account;
-	if (mode == ONLINE_MODE)
+	if (ul.linestatus == ONLINE_MODE)
 		exchange_account_set_online (account);
-	else if (mode == OFFLINE_MODE)
+	else if (ul.linestatus == OFFLINE_MODE)
 		exchange_account_set_offline (account);
 
 	ctx = exchange_account_get_context (account);
@@ -2097,10 +2097,10 @@ camel_exchange_utils_connect (CamelService *service,
 		ctx = exchange_account_connect (account, pwd, &result);
 	}
 
-	if (!ctx && mode == ONLINE_MODE) {
+	if (!ctx && ul.linestatus == ONLINE_MODE) {
 		retval = 0;
 		goto end;
-	} else if (mode == OFFLINE_MODE) {
+	} else if (ul.linestatus == OFFLINE_MODE) {
 		goto end;
 	}
 
@@ -2117,9 +2117,11 @@ camel_exchange_utils_connect (CamelService *service,
 	/* Will be used for offline->online transition to initialize things for
 	   the first time */
 
+	ul.estore = ed->estore;
+	ul.ex = ex;
 	g_hash_table_foreach (ed->folders_by_name,
 			      (GHFunc) folder_update_linestatus,
-			      GINT_TO_POINTER (mode));
+			      &ul);
  end:
 	*status = retval;
 
