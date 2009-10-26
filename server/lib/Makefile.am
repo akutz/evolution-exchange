@@ -11,7 +11,7 @@ e2k_proptags_h_in  = $(srcdir)/e2k-proptags.h.in
 e2k-propnames.h: $(e2k_propnames_h_in) $(mapi_properties)
 	@echo Building $@
 	@( awk '/^@AUTOGENERATE@/ {exit;} {print;}' $(e2k_propnames_h_in); \
-	  awk '/^x/ { printf "#define %-39s E2K_NS_MAPI_PROPTAG  \"%s \" \n", $$2, $$1; }' $(mapi_properties); \
+	  awk '/^x/ { printf "#define %-39s E2K_NS_MAPI_PROPTAG  \"%s\" \n", $$2, $$1; }' $(mapi_properties); \
 	  awk '{if (tail) { print; }} /^@AUTOGENERATE@/ {tail=1;}' $(e2k_propnames_h_in) ) \
 	> $@
 
