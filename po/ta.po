@@ -10,15 +10,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-10 14:14+0530\n"
-"PO-Revision-Date: 2009-10-10 14:10+0530\n"
+"POT-Creation-Date: 2009-10-27 13:02+0530\n"
+"PO-Revision-Date: 2009-10-27 13:03+0530\n"
 "Last-Translator: Dr.T.Vasudevan <agnihot3@gmail.com>\n"
 "Language-Team: Tamil <Ubuntu-l10n-tam@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 0.3\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\\n\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\\n"
+"\n"
 "\n"
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
@@ -36,34 +37,25 @@ msgstr ""
 "இடைமாற்றை புதுப்பிக்காமல் இப்போதைய இடைமாற்றையே பயன்படுத்த இந்த மதிப்பை 0 என அமைக்கவும். "
 "நீங்கள் வலை அகன்ற இடைமாற்றை இயலுமை படுத்தி இருந்தால் மட்டுமே இது வேலை செய்யும். "
 
-#: ../addressbook/e-book-backend-exchange.c:2283
-#: ../addressbook/e-book-backend-gal.c:1885
+#: ../addressbook/e-book-backend-exchange.c:2305
+#: ../addressbook/e-book-backend-gal.c:1896
 msgid "Searching..."
 msgstr "தேடுகிறது..."
 
-#: ../addressbook/e-book-backend-gal.c:308
-#: ../addressbook/e-book-backend-gal.c:329
+#: ../addressbook/e-book-backend-gal.c:315
+#: ../addressbook/e-book-backend-gal.c:336
 msgid "Reconnecting to LDAP server..."
 msgstr "எல்டிஏபி(LDAP) சேவகனுடன் மீண்டும் இணைகிறது"
 
-#: ../addressbook/e-book-backend-gal.c:1646
+#: ../addressbook/e-book-backend-gal.c:1657
 msgid "Receiving LDAP search results..."
 msgstr "எல்டிஏபி(LDAP) தேடல் முடிவுகளை பெறுகிறது..."
 
-#: ../addressbook/e-book-backend-gal.c:1916
+#: ../addressbook/e-book-backend-gal.c:1927
 msgid "Error performing search"
 msgstr "தேடுவதில் பிழை"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2088
-#, c-format
-msgid ""
-"Unable to schedule resource '%s' for recurring meetings.\n"
-"You must book each meeting separately."
-msgstr ""
-"'%s' திரும்ப நிகழும் கூட்டங்களுக்காக வளங்களை ஒதுக்க முடியவில்லை \n"
-"ஒவ்வொரு கூட்டத்தையும் தனியாக பதிவு செய்யவேண்டும."
-
-#: ../calendar/e-cal-backend-exchange-calendar.c:2106
+#: ../calendar/e-cal-backend-exchange-calendar.c:2096
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "தேர்வு செய்யப்பட்ட கால அளவில் வளம் '%s' வேலையாக உள்ளது."
@@ -128,10 +120,10 @@ msgstr "புதிய செய்திக்கான சுருக்க�
 msgid "No folder name found\n"
 msgstr "அடைவின் பெயர் ஏதும் காணவில்லை\n"
 
-#: ../camel/camel-exchange-journal.c:366 ../camel/camel-exchange-utils.c:3081
-#: ../camel/camel-exchange-utils.c:3145 ../camel/camel-exchange-utils.c:3265
-#: ../camel/camel-exchange-utils.c:3296 ../camel/camel-exchange-utils.c:3348
-#: ../camel/camel-exchange-utils.c:3369
+#: ../camel/camel-exchange-journal.c:366 ../camel/camel-exchange-utils.c:3083
+#: ../camel/camel-exchange-utils.c:3147 ../camel/camel-exchange-utils.c:3267
+#: ../camel/camel-exchange-utils.c:3298 ../camel/camel-exchange-utils.c:3350
+#: ../camel/camel-exchange-utils.c:3371
 msgid "Folder doesn't exist"
 msgstr "அடைவு இருப்பில் இல்லை"
 
@@ -149,14 +141,14 @@ msgid "Secure or Plaintext Password"
 msgstr "பாதுகாப்பான அல்லது வெற்று உரை கடவுச்சொல்"
 
 #: ../camel/camel-exchange-provider.c:56
-#: ../camel/camel-exchange-provider.c:141
+#: ../camel/camel-exchange-provider.c:143
 #: ../eplugin/exchange-account-setup.c:73
 msgid "Plaintext Password"
 msgstr "வெற்று உரை கடவுச்சொல்"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
 #: ../camel/camel-exchange-provider.c:57
-#: ../camel/camel-exchange-provider.c:130
+#: ../camel/camel-exchange-provider.c:132
 #: ../eplugin/exchange-account-setup.c:62
 msgid "Secure Password"
 msgstr "பாதுகாப்பான கடவுச்சொல்"
@@ -200,42 +192,46 @@ msgstr "அங்கீகார வகை (_T)"
 msgid "Allow _browsing of the GAL until download limit is reached"
 msgstr "பதிவிறக்க வரம்பை எட்டும் வரை GAL இல் உலாவ அனுமதிக்கவும் (_b)"
 
-#: ../camel/camel-exchange-provider.c:91
+#: ../camel/camel-exchange-provider.c:90
+msgid "_Expand groups of contacts in GAL to contact lists"
+msgstr "_E கேல்(GAL) இல் உள்ள தொடர்பு குழுக்களை தொடர்பு பட்டியலுக்கு விரிவாக்கு"
+
+#: ../camel/camel-exchange-provider.c:93
 msgid "Options"
 msgstr "தேர்வுகள்"
 
-#: ../camel/camel-exchange-provider.c:93
+#: ../camel/camel-exchange-provider.c:95
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "(_P)கடவுச்சொல் காலாவதியாகும் எச்சரிக்கை காலஅளவு: %s"
 
-#: ../camel/camel-exchange-provider.c:95
+#: ../camel/camel-exchange-provider.c:97
 msgid "Automatically synchroni_ze account locally"
 msgstr "(_z)உள்ளமை கணக்குகளை தானாக ஒத்திசை"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:98
+#: ../camel/camel-exchange-provider.c:100
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "(_A)இந்த சேவையகத்தில் உள்ள புதிய செய்திகளுக்கான வடிகட்டியை செயல்படுத்து"
 
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:102
 msgid "Check new messages for _Junk contents"
 msgstr "(_J)புதிய  குப்பை செய்திகளை கவனி"
 
-#: ../camel/camel-exchange-provider.c:102
+#: ../camel/camel-exchange-provider.c:104
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "(_e) குப்பை செய்திகள் உங்கள் உள்பெட்டி அடைவில் உள்ளதா என்பதை மட்டும் சோதி"
 
-#: ../camel/camel-exchange-provider.c:112
+#: ../camel/camel-exchange-provider.c:114
 msgid "Microsoft Exchange"
 msgstr "மைக்ரோசாஃப்ட் மாற்று சேவையகம் "
 
-#: ../camel/camel-exchange-provider.c:114
+#: ../camel/camel-exchange-provider.c:116
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "மைக்ரோசாஃப்ட் மாற்று சேவையகத்தில் மின்னஞ்சல்களை கையாள (மேலும் மற்ற தகவல்கள்)"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:133
+#: ../camel/camel-exchange-provider.c:135
 #: ../eplugin/exchange-account-setup.c:65
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
@@ -244,13 +240,12 @@ msgstr ""
 "இந்த தேர்வு மாற்று சேவையகத்துடன் பாதுகாப்பான கடவுச்சொல்லை பயன்படுத்தி இணைக்க பயன்படும்"
 "(NTLM)"
 
-#: ../camel/camel-exchange-provider.c:143
+#: ../camel/camel-exchange-provider.c:145
 #: ../eplugin/exchange-account-setup.c:75
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
-msgstr ""
-"இந்த தேர்வு மாற்று சேவையகத்துடன் வெற்று உரை கடவுச்சொல்லை பயன்படுத்தி இணைக்க பயன்படும்"
+msgstr "இந்த தேர்வு மாற்று சேவையகத்துடன் வெற்று உரை கடவுச்சொல்லை பயன்படுத்தி இணைக்க பயன்படும்"
 
 #: ../camel/camel-exchange-store.c:305
 #, c-format
@@ -323,71 +318,71 @@ msgstr "அடைவை திறக்க முடியவில்லை"
 msgid "Could not open folder: Permission denied"
 msgstr "அடைவை உருவாக்க முடியவில்லை: அனுமதி மறுக்கப்பட்டது"
 
-#: ../camel/camel-exchange-utils.c:1276 ../camel/camel-exchange-utils.c:2160
+#: ../camel/camel-exchange-utils.c:1276 ../camel/camel-exchange-utils.c:2162
 msgid "No such folder"
 msgstr "இப்படி ஒரு அடைவு இல்லை"
 
-#: ../camel/camel-exchange-utils.c:1298 ../camel/camel-exchange-utils.c:3055
-#: ../camel/camel-exchange-utils.c:3098 ../camel/camel-exchange-utils.c:3269
-#: ../camel/camel-exchange-utils.c:3322 ../camel/camel-exchange-utils.c:3384
+#: ../camel/camel-exchange-utils.c:1298 ../camel/camel-exchange-utils.c:3057
+#: ../camel/camel-exchange-utils.c:3100 ../camel/camel-exchange-utils.c:3271
+#: ../camel/camel-exchange-utils.c:3324 ../camel/camel-exchange-utils.c:3386
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
 #: ../server/storage/e-storage.c:573
 msgid "Permission denied"
 msgstr "அனுமதி மறுக்கப்பட்டது"
 
-#: ../camel/camel-exchange-utils.c:2169
+#: ../camel/camel-exchange-utils.c:2171
 msgid "Could not create folder."
 msgstr "அடைவை உருவாக்க முடியவில்லை"
 
-#: ../camel/camel-exchange-utils.c:2258
+#: ../camel/camel-exchange-utils.c:2260
 msgid "Could not open Deleted Items folder"
 msgstr "நீக்கப்பட்ட உருப்படிகள் உள்ள அடைவை திறக்க முடியலில்லை"
 
-#: ../camel/camel-exchange-utils.c:2385
+#: ../camel/camel-exchange-utils.c:2387
 msgid "Could not empty Deleted Items folder"
 msgstr "நீக்கப்பட்ட உருப்படிகள் உள்ள அடைவை காலி செய்ய முடியவில்லை"
 
-#: ../camel/camel-exchange-utils.c:2387
+#: ../camel/camel-exchange-utils.c:2389
 msgid "Permission denied. Could not delete certain messages."
 msgstr "அனுமதி மறுக்கப்பட்டது. சில செய்திகளை அழிக்க முடியவில்லை"
 
-#: ../camel/camel-exchange-utils.c:2430
+#: ../camel/camel-exchange-utils.c:2432
 msgid "Could not append message; mailbox is over quota"
 msgstr "செய்திகளை சேர்க்க முடியவில்லை; மின்னஞ்சல் பெட்டியில்  இடமில்லை"
 
-#: ../camel/camel-exchange-utils.c:2431
+#: ../camel/camel-exchange-utils.c:2433
 msgid "Could not append message"
 msgstr "செய்தியை சேர்க்க முடியவில்லை"
 
-#: ../camel/camel-exchange-utils.c:2617
+#: ../camel/camel-exchange-utils.c:2619
 msgid "No such message"
 msgstr "இப்படி ஒரு செய்தி இல்லை"
 
-#: ../camel/camel-exchange-utils.c:2689
+#: ../camel/camel-exchange-utils.c:2691
 msgid "Message has been deleted"
 msgstr "செய்தி நீக்கப்பட்டது"
 
-#: ../camel/camel-exchange-utils.c:2691
+#: ../camel/camel-exchange-utils.c:2693
 msgid "Error retrieving message"
 msgstr "செய்தியை பெறுவதில் பிழை"
 
-#: ../camel/camel-exchange-utils.c:2740
+#: ../camel/camel-exchange-utils.c:2742
 msgid "Mailbox does not support full-text searching"
 msgstr "முழு-உரை தேடலுக்கு மின்னஞ்சல் பெட்டியில் ஆதரவு இல்லை"
 
-#: ../camel/camel-exchange-utils.c:2848
+#: ../camel/camel-exchange-utils.c:2850
 msgid "Unable to move/copy messages"
 msgstr "செய்தியை நகர்த்த/நகலெடுக்க முடியவில்லை"
 
-#: ../camel/camel-exchange-utils.c:2960
+#: ../camel/camel-exchange-utils.c:2962
 msgid "No mail submission URI for this mailbox"
 msgstr "இந்த பெட்டிக்கான மின்னஞ்சல் சமர்பிக்கும் URI இல்லை"
 
-#: ../camel/camel-exchange-utils.c:2993
+#: ../camel/camel-exchange-utils.c:2995
 msgid "Server won't accept mail via Exchange transport"
 msgstr "மாற்று தகவல் பரிமாற்றத்தை சேவகனால் ஏற்க முடியாது"
 
-#: ../camel/camel-exchange-utils.c:2995
+#: ../camel/camel-exchange-utils.c:2997
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -396,7 +391,7 @@ msgstr ""
 "<%s> ஐ பெறுநர் முகவரியாக பயன்படுத்த\n"
 "உங்கள் கணக்கிற்கு ஆதரவு இல்லை"
 
-#: ../camel/camel-exchange-utils.c:3007
+#: ../camel/camel-exchange-utils.c:3009
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -404,19 +399,19 @@ msgstr ""
 "செய்தியை அனுப்ப முடியவில்லை \n"
 "இதற்கு காரணம் உங்கள் கணக்கில் இடம் இல்லை"
 
-#: ../camel/camel-exchange-utils.c:3011
+#: ../camel/camel-exchange-utils.c:3013
 msgid "Could not send message"
 msgstr "செய்தியை அனுப்ப முடியவில்லை"
 
-#: ../camel/camel-exchange-utils.c:3047 ../camel/camel-exchange-utils.c:3103
-#: ../camel/camel-exchange-utils.c:3273 ../camel/camel-exchange-utils.c:3326
-#: ../camel/camel-exchange-utils.c:3390
+#: ../camel/camel-exchange-utils.c:3049 ../camel/camel-exchange-utils.c:3105
+#: ../camel/camel-exchange-utils.c:3275 ../camel/camel-exchange-utils.c:3328
+#: ../camel/camel-exchange-utils.c:3392
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
 #: ../server/storage/e-storage.c:557
 msgid "Generic error"
 msgstr "பொதுவான பிழை"
 
-#: ../camel/camel-exchange-utils.c:3051
+#: ../camel/camel-exchange-utils.c:3053
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
 msgid "Folder already exists"
 msgstr "அடைவு ஏற்கெனவே உள்ளது"
@@ -490,42 +485,42 @@ msgstr "அடைவின் அளவு:"
 msgid "Exchange Settings"
 msgstr "சேவையகம் அமைப்பு "
 
-#: ../eplugin/exchange-account-setup.c:725
+#: ../eplugin/exchange-account-setup.c:730
 msgid "_OWA URL:"
 msgstr "_O ஓடபிள்யூஏ URL:"
 
-#: ../eplugin/exchange-account-setup.c:751
+#: ../eplugin/exchange-account-setup.c:756
 msgid "A_uthenticate"
 msgstr "_u உறுதி படுத்தல் தோல்வியுற்றது"
 
-#: ../eplugin/exchange-account-setup.c:773
+#: ../eplugin/exchange-account-setup.c:778
 msgid "Mailbox name is _different than user name"
 msgstr "(_d) அஞ்சல் பெட்டி பெயர் பயனர் பெயரை விட வேறானது"
 
-#: ../eplugin/exchange-account-setup.c:786
+#: ../eplugin/exchange-account-setup.c:791
 msgid "_Mailbox:"
 msgstr "(_I) அஞ்சல் பெட்டி:"
 
-#: ../eplugin/exchange-account-setup.c:1000
+#: ../eplugin/exchange-account-setup.c:1005
 msgid "_Authentication Type"
 msgstr "அங்கீகார வகை (_A)"
 
-#: ../eplugin/exchange-account-setup.c:1014
+#: ../eplugin/exchange-account-setup.c:1019
 msgid "Ch_eck for Supported Types"
 msgstr "_e ஆதரவுள்ள உள்ள வகைகளுக்கு சோதி"
 
-#: ../eplugin/exchange-account-setup.c:1129 ../eplugin/exchange-contacts.c:217
+#: ../eplugin/exchange-account-setup.c:1134 ../eplugin/exchange-contacts.c:217
 #, c-format
 msgid "%s KB"
 msgstr "%s KB"
 
-#: ../eplugin/exchange-account-setup.c:1131 ../eplugin/exchange-contacts.c:219
+#: ../eplugin/exchange-account-setup.c:1136 ../eplugin/exchange-contacts.c:219
 #, c-format
 msgid "0 KB"
 msgstr "0 KB"
 
 #. FIXME: Take care of i18n
-#: ../eplugin/exchange-account-setup.c:1136 ../eplugin/exchange-calendar.c:236
+#: ../eplugin/exchange-account-setup.c:1141 ../eplugin/exchange-calendar.c:236
 #: ../eplugin/exchange-contacts.c:222
 msgid "Size:"
 msgstr "அளவு:"
@@ -572,7 +567,7 @@ msgstr ""
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr "இரு கடவுச்சொற்களும் பொருந்த வில்லை, கடவுச்சொற்களை மீண்டும் உள்ளிடவும்"
 
-#: ../eplugin/exchange-config-listener.c:660
+#: ../eplugin/exchange-config-listener.c:661
 #, c-format
 msgid "Your password will expire in the next %d days"
 msgstr "அடுத்த %d நாட்களில் கடவுச்சொல் காலாவதியாகிவிடும்."
@@ -610,29 +605,29 @@ msgstr "_Y ஆம், நிலையை மாற்றுகிறது"
 msgid "Enter Password for %s"
 msgstr "%s க்கு கடவுச்சொல் உள்ளிடுக "
 
-#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:408
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:415
 #: ../server/storage/exchange-hierarchy-foreign.c:260
 msgid "Calendar"
 msgstr "நாள்காட்டி:"
 
-#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:411
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:418
 #: ../server/storage/exchange-hierarchy-foreign.c:269
 msgid "Tasks"
 msgstr "பணிகள்:"
 
-#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:406
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:413
 #: ../server/storage/exchange-hierarchy-foreign.c:264
 msgid "Inbox"
 msgstr "உள்பெட்டி:"
 
-#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:414
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:421
 #: ../server/storage/exchange-hierarchy-foreign.c:261
 msgid "Contacts"
 msgstr "தொடர்புகள்:"
 
 #: ../eplugin/exchange-delegates-user.c:135
-#: ../eplugin/exchange-permissions-dialog.c:546
-#: ../server/lib/e2k-security-descriptor.c:903
+#: ../eplugin/exchange-permissions-dialog.c:545
+#: ../server/lib/e2k-security-descriptor.c:901
 msgid "Custom"
 msgstr "தனிப்பயன்"
 
@@ -665,7 +660,7 @@ msgstr "ஆய்வாளர் (படிக்க-மட்டும்)"
 #: ../eplugin/exchange-delegates-user.c:307
 #: ../eplugin/exchange-delegates-user.c:317
 #: ../eplugin/exchange-delegates-user.c:327
-#: ../server/lib/e2k-security-descriptor.c:888
+#: ../server/lib/e2k-security-descriptor.c:886
 msgid "None"
 msgstr "எதுவுமில்லை"
 
@@ -706,7 +701,7 @@ msgid "_Delegate can see private items"
 msgstr "(_D)பிரதிநிதி தனி உருப்படிகளை பார்க்கலாம்"
 
 #: ../eplugin/exchange-delegates-user.c:342
-#: ../eplugin/exchange-permissions-dialog.c:169
+#: ../eplugin/exchange-permissions-dialog.c:168
 #, c-format
 msgid "Permissions for %s"
 msgstr " %sக்கு அனுமதிகள்"
@@ -747,51 +742,51 @@ msgstr "ஆனால் என் அந்தரங்க விஷயங்க
 msgid "You have been designated as a delegate for %s"
 msgstr "நீங்கள் %s க்கு பிரதிநிதியாக நியமிக்கப்படுள்ளீர்கள்."
 
-#: ../eplugin/exchange-delegates.c:414
+#: ../eplugin/exchange-delegates.c:413
 msgid "Delegate To:"
 msgstr "இவருக்கு நியமி:"
 
-#: ../eplugin/exchange-delegates.c:414
+#: ../eplugin/exchange-delegates.c:413
 msgid "Delegate To"
 msgstr "இவருக்கு நியமி:"
 
-#: ../eplugin/exchange-delegates.c:579
+#: ../eplugin/exchange-delegates.c:578
 #, c-format
 msgid "Remove the delegate %s?"
 msgstr "பிரதிநிதி %s ஐ நீக்க வேண்டுமா?"
 
-#: ../eplugin/exchange-delegates.c:696
+#: ../eplugin/exchange-delegates.c:695
 msgid "Could not access Active Directory"
 msgstr "செயலில் உள்ள அடைவை அணுக முடியவில்லை"
 
-#: ../eplugin/exchange-delegates.c:708
+#: ../eplugin/exchange-delegates.c:707
 msgid "Could not find self in Active Directory"
 msgstr "செயலில் உள்ள அடைவில் தன்னை காண முடியவில்லை"
 
-#: ../eplugin/exchange-delegates.c:721
+#: ../eplugin/exchange-delegates.c:720
 #, c-format
 msgid "Could not find delegate %s in Active Directory"
 msgstr "செயலில் உள்ள அடைவில் பிரதிநிதி %s ஐ காண முடியவில்லை"
 
-#: ../eplugin/exchange-delegates.c:733
+#: ../eplugin/exchange-delegates.c:732
 #, c-format
 msgid "Could not remove delegate %s"
 msgstr "பிரதிநிதி %s ஐ  நீக்க முடியவில்லை "
 
-#: ../eplugin/exchange-delegates.c:793
+#: ../eplugin/exchange-delegates.c:792
 msgid "Could not update list of delegates."
 msgstr "பிரதிநிதிகள் பட்டியலை உருவாக்க முடியவில்லை"
 
-#: ../eplugin/exchange-delegates.c:811
+#: ../eplugin/exchange-delegates.c:810
 #, c-format
 msgid "Could not add delegate %s"
 msgstr "பிரதிநிதி %s ஐ  சேர்க்க முடியவில்லை "
 
-#: ../eplugin/exchange-delegates.c:927
+#: ../eplugin/exchange-delegates.c:926
 msgid "Delegates"
 msgstr "பிரதிநிதிகள்"
 
-#: ../eplugin/exchange-delegates.c:942
+#: ../eplugin/exchange-delegates.c:941
 msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
@@ -799,16 +794,16 @@ msgstr ""
 "நீங்கள் கொடுத்துள்ள அனுமதிகளின் படி இந்த பயனர்கள் உங்கள் பெயரில் மின்னஞ்சல் அனுப்ப\n"
 "மற்றும் உங்கள் அடைவுகளை அணுக முடியும்."
 
-#: ../eplugin/exchange-delegates.c:966
+#: ../eplugin/exchange-delegates.c:965
 msgid "_Edit"
 msgstr "(_E)திருத்து"
 
-#: ../eplugin/exchange-delegates.c:996
-#: ../eplugin/exchange-permissions-dialog.c:917
+#: ../eplugin/exchange-delegates.c:995
+#: ../eplugin/exchange-permissions-dialog.c:916
 msgid "Name"
 msgstr "பெயர்"
 
-#: ../eplugin/exchange-delegates.c:1022
+#: ../eplugin/exchange-delegates.c:1021
 msgid "Error reading delegates list."
 msgstr "பிரதிநிதிகள் பட்டியலை படிக்கும் போது பிழை."
 
@@ -834,7 +829,7 @@ msgstr "(_O)மற்ற பயனீட்டாளர் அடைவிற்
 #: ../eplugin/exchange-folder-permission.c:445
 #: ../eplugin/exchange-folder-permission.c:479
 #: ../eplugin/exchange-folder-permission.c:513
-#: ../eplugin/exchange-folder-subscription.c:302
+#: ../eplugin/exchange-folder-subscription.c:306
 msgid "Subscribe to Other User's Folder"
 msgstr "(_O)மற்ற பயனீட்டாளர் அடைவிற்கு உறுப்பினராகு..."
 
@@ -874,104 +869,112 @@ msgstr "அடைவின் அளவு:"
 msgid "User"
 msgstr "பயனீட்டாளர் "
 
-#: ../eplugin/exchange-folder-subscription.c:318
+#: ../eplugin/exchange-folder-subscription.c:322
 msgid "_Account:"
 msgstr "கணக்கு: (_A)"
 
-#: ../eplugin/exchange-folder-subscription.c:325
+#: ../eplugin/exchange-folder-subscription.c:329
 msgid "_Folder Name:"
 msgstr "_F அடைவின் பெயர்:"
 
-#: ../eplugin/exchange-folder-subscription.c:338
+#: ../eplugin/exchange-folder-subscription.c:342
 msgid "_User:"
 msgstr "_U பயனீட்டாளர்:"
 
-#: ../eplugin/exchange-folder.c:296 ../eplugin/exchange-folder.c:350
+#: ../eplugin/exchange-folder.c:303 ../eplugin/exchange-folder.c:357
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "அடைவு \"%s\" இலிருந்து நிச்சயம் சந்தா நீக்கம் செய்ய வேண்டுமா?"
 
-#: ../eplugin/exchange-folder.c:308 ../eplugin/exchange-folder.c:362
+#: ../eplugin/exchange-folder.c:315 ../eplugin/exchange-folder.c:369
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "\"%s\" அடைவிலிருந்து சந்தா நீக்கம் செய்"
 
+#: ../eplugin/exchange-mail-send-options.c:222
+msgid "_Send Options"
+msgstr "அனுப்பும் விருப்பங்கள் (_S) "
+
+#: ../eplugin/exchange-mail-send-options.c:224
+msgid "Insert Send options"
+msgstr "அனுப்பும் விருப்பங்களை நுழை"
+
 #. FIXME: Don't hardcode this
-#: ../eplugin/exchange-operations.c:121 ../eplugin/exchange-operations.c:166
+#: ../eplugin/exchange-operations.c:122 ../eplugin/exchange-operations.c:167
 #: ../server/storage/exchange-account.c:1259
 msgid "Personal Folders"
 msgstr "தனிப்பட்ட அடைவுகள்"
 
-#: ../eplugin/exchange-permissions-dialog.c:279
+#: ../eplugin/exchange-permissions-dialog.c:278
 msgid "(Permission denied.)"
 msgstr "(அனுமதி மறுக்கப்பட்டது)"
 
-#: ../eplugin/exchange-permissions-dialog.c:385
+#: ../eplugin/exchange-permissions-dialog.c:384
 msgid "Add User:"
 msgstr "பயனரை சேர்:"
 
-#: ../eplugin/exchange-permissions-dialog.c:385
+#: ../eplugin/exchange-permissions-dialog.c:384
 #: ../eplugin/exchange-send-options.c:490
 msgid "Add User"
 msgstr "பயனரை சேர்"
 
-#: ../eplugin/exchange-permissions-dialog.c:793
+#: ../eplugin/exchange-permissions-dialog.c:792
 msgid "Permissions"
 msgstr "அனுமதிகள்"
 
-#: ../eplugin/exchange-permissions-dialog.c:810
+#: ../eplugin/exchange-permissions-dialog.c:809
 msgid "Role: "
 msgstr "பங்களிப்பு:"
 
-#: ../eplugin/exchange-permissions-dialog.c:836
+#: ../eplugin/exchange-permissions-dialog.c:835
 msgid "Create items"
 msgstr "உருப்படிகளை உருவாக்கு"
 
-#: ../eplugin/exchange-permissions-dialog.c:840
+#: ../eplugin/exchange-permissions-dialog.c:839
 msgid "Read items"
 msgstr "உருப்படியை படி"
 
-#: ../eplugin/exchange-permissions-dialog.c:844
+#: ../eplugin/exchange-permissions-dialog.c:843
 msgid "Create subfolders"
 msgstr "உப அடைவுகளை உருவாக்கு"
 
-#: ../eplugin/exchange-permissions-dialog.c:852
+#: ../eplugin/exchange-permissions-dialog.c:851
 msgid "Cannot Edit"
 msgstr "திருத்த முடியாது"
 
-#: ../eplugin/exchange-permissions-dialog.c:858
+#: ../eplugin/exchange-permissions-dialog.c:857
 msgid "Edit Own Items"
 msgstr "உங்கள் உருப்படியை திருத்து"
 
-#: ../eplugin/exchange-permissions-dialog.c:864
+#: ../eplugin/exchange-permissions-dialog.c:863
 msgid "Edit Any Items"
 msgstr "ஏதாவது உருப்படியை திருத்து"
 
-#: ../eplugin/exchange-permissions-dialog.c:878
+#: ../eplugin/exchange-permissions-dialog.c:877
 msgid "Folder owner"
 msgstr "அடைவு உரிமையாளர்"
 
-#: ../eplugin/exchange-permissions-dialog.c:882
+#: ../eplugin/exchange-permissions-dialog.c:881
 msgid "Folder contact"
 msgstr "அடைவு தொடர்புகள்"
 
-#: ../eplugin/exchange-permissions-dialog.c:886
+#: ../eplugin/exchange-permissions-dialog.c:885
 msgid "Folder visible"
 msgstr "அடைவு  காணக்கூடியது"
 
-#: ../eplugin/exchange-permissions-dialog.c:894
+#: ../eplugin/exchange-permissions-dialog.c:893
 msgid "Cannot Delete"
 msgstr "நீக்க முடியாது"
 
-#: ../eplugin/exchange-permissions-dialog.c:901
+#: ../eplugin/exchange-permissions-dialog.c:900
 msgid "Delete Own Items"
 msgstr "சொந்த உருப்படிகளை நீக்க"
 
-#: ../eplugin/exchange-permissions-dialog.c:907
+#: ../eplugin/exchange-permissions-dialog.c:906
 msgid "Delete Any Items"
 msgstr "எந்த உருப்படிகளையும் நீக்க"
 
-#: ../eplugin/exchange-permissions-dialog.c:921
+#: ../eplugin/exchange-permissions-dialog.c:920
 msgid "Role"
 msgstr "பங்களிப்பு"
 
@@ -1381,48 +1384,48 @@ msgstr "{0} ஏற்கனவே ஒரு பிரதிநிதி"
 msgid "{0} is already in the list"
 msgstr "{0} ஏற்கனவே பட்டியலில் உள்ளது"
 
-#: ../server/lib/e2k-autoconfig.c:1694
+#: ../server/lib/e2k-autoconfig.c:1692
 #: ../server/storage/exchange-account.c:954
 #, c-format
 msgid "Enter password for %s"
 msgstr "%s க்கு கடவுச்சொல் உள்ளிடவும்  "
 
-#: ../server/lib/e2k-autoconfig.c:1695
+#: ../server/lib/e2k-autoconfig.c:1693
 #: ../server/storage/exchange-account.c:959
 msgid "Enter password"
 msgstr "கடவுச்சொல் உள்ளிடவும்"
 
 #. i18n: These are Outlook's words for the default roles in
 #. the folder permissions dialog.
-#: ../server/lib/e2k-security-descriptor.c:844
+#: ../server/lib/e2k-security-descriptor.c:842
 msgid "Owner"
 msgstr "உரிமையாளர்"
 
-#: ../server/lib/e2k-security-descriptor.c:854
+#: ../server/lib/e2k-security-descriptor.c:852
 msgid "Publishing Editor"
 msgstr "வெளியிடும் திருத்தர்"
 
-#: ../server/lib/e2k-security-descriptor.c:862
+#: ../server/lib/e2k-security-descriptor.c:860
 msgid "Editor"
 msgstr "திருத்தர்"
 
-#: ../server/lib/e2k-security-descriptor.c:869
+#: ../server/lib/e2k-security-descriptor.c:867
 msgid "Publishing Author"
 msgstr "நூல்களை வெளியிடுபவர்"
 
-#: ../server/lib/e2k-security-descriptor.c:875
+#: ../server/lib/e2k-security-descriptor.c:873
 msgid "Author"
 msgstr "நூலாசிரியர்"
 
-#: ../server/lib/e2k-security-descriptor.c:880
+#: ../server/lib/e2k-security-descriptor.c:878
 msgid "Non-editing Author"
 msgstr "திருத்தம் செய்யாத ஆசிரியர்"
 
-#: ../server/lib/e2k-security-descriptor.c:884
+#: ../server/lib/e2k-security-descriptor.c:882
 msgid "Reviewer"
 msgstr "விமரிசகர்"
 
-#: ../server/lib/e2k-security-descriptor.c:886
+#: ../server/lib/e2k-security-descriptor.c:884
 msgid "Contributor"
 msgstr "பங்கு வழங்குபவர்"
 
@@ -1763,7 +1766,7 @@ msgstr ""
 msgid "You may only configure a single Exchange account"
 msgstr "ஒரு எக்ஸேஞ் கணக்கை மட்டும் அமைக்கவும்"
 
-#: ../tools/exchange-autoconfig-wizard.c:733
+#: ../tools/exchange-autoconfig-wizard.c:731
 msgid "Evolution Connector for Microsoft Exchange Configuration"
 msgstr "Microsoft Exchange கட்டமைப்புக்கான Evolution இணைப்பி"
 
@@ -1788,8 +1791,7 @@ msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "சேவையகத்துடன்  உள்ள மற்ற பயனீட்டாளரின் அடைவிற்கு சந்தாதாரராகு"
 
 #: ../tools/ximian-connector.xml.h:6
-msgid ""
-"Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr "\"மற்ற பயனீட்டாளரில் சந்தாதாரராகு\" அடைவின் சந்தாவை நீக்கு"
 
 #: ../tools/ximian-connector.xml.h:7
@@ -1815,3 +1817,10 @@ msgstr "(_O)அலுவலத்தில் இல்லை உதவி"
 #: ../tools/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "(_U)மற்ற அடைவிலிருந்து சந்தா நீக்கம் செய்"
+
+#~ msgid ""
+#~ "Unable to schedule resource '%s' for recurring meetings.\n"
+#~ "You must book each meeting separately."
+#~ msgstr ""
+#~ "'%s' திரும்ப நிகழும் கூட்டங்களுக்காக வளங்களை ஒதுக்க முடியவில்லை \n"
+#~ "ஒவ்வொரு கூட்டத்தையும் தனியாக பதிவு செய்யவேண்டும."
