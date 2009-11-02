@@ -1,20 +1,21 @@
 # translation of evolution-exchange.HEAD.po to Español
 # cyphra <cyphra@hal9000.eui.upm.es>, 2004.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004, 2005.
-# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008.
 # Spanish translation of Ximian Conector 1.4
 # Copyright (C) 2004 THE Ximian Conector'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the Ximian Conector package.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 200, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-01 03:37+0000\n"
-"PO-Revision-Date: 2008-09-01 06:27+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=evolution-exchange&component=general\n"
+"POT-Creation-Date: 2009-10-24 04:40+0000\n"
+"PO-Revision-Date: 2009-11-02 14:16+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type:  text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
@@ -35,116 +36,103 @@ msgstr ""
 "y usar la caché actual para siempre. Esto sólo funcionará si la caché de GAL "
 "está activada en modo desconectado."
 
-#: ../addressbook/e-book-backend-exchange.c:2276
-#: ../addressbook/e-book-backend-gal.c:1860 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:2307
+#: ../addressbook/e-book-backend-gal.c:1898
 msgid "Searching..."
 msgstr "Buscando..."
 
-#: ../addressbook/e-book-backend-gal.c:306
-#: ../addressbook/e-book-backend-gal.c:327
+#: ../addressbook/e-book-backend-gal.c:317
+#: ../addressbook/e-book-backend-gal.c:338
 msgid "Reconnecting to LDAP server..."
 msgstr "Conectando con el servidor LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1622
+#: ../addressbook/e-book-backend-gal.c:1659
 msgid "Receiving LDAP search results..."
 msgstr "Recibiendo resultados de la búsqueda LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1891
+#: ../addressbook/e-book-backend-gal.c:1929
 msgid "Error performing search"
 msgstr "Error al efectuar la búsqueda"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2090
-#, c-format
-msgid ""
-"Unable to schedule resource '%s' for recurring meetings.\n"
-"You must book each meeting separately."
-msgstr ""
-"No es posible programar el recurso «%s» para reuniones repetidas.\n"
-"Debe reservar cada reunión separadamente."
-
-#: ../calendar/e-cal-backend-exchange-calendar.c:2108
+#: ../calendar/e-cal-backend-exchange-calendar.c:2096
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "El recurso «%s» está ocupado durante el periodo de tiempo seleccionado."
 
-#: ../calendar/e-cal-backend-exchange.c:424
+#: ../calendar/e-cal-backend-exchange.c:425
 msgid "Authentication failed"
 msgstr "La autenticación ha fallado"
 
-#: ../calendar/e-cal-backend-exchange.c:466
+#: ../calendar/e-cal-backend-exchange.c:477
 msgid "Could not find the calendar"
 msgstr "No se pudo encontrar el calendario"
 
-#: ../camel/camel-exchange-folder.c:54
-msgid "Always check for new mail in this folder"
-msgstr "Comprobar siempre si hay correo nuevo en esta carpeta"
-
-#: ../camel/camel-exchange-folder.c:197
+#: ../camel/camel-exchange-folder.c:198
 msgid "You cannot expunge in offline mode."
 msgstr "No se puede compactar en modo desconectado."
 
-#: ../camel/camel-exchange-folder.c:228
+#: ../camel/camel-exchange-folder.c:226
 msgid "No Subject"
 msgstr "Sin asunto"
 
-#: ../camel/camel-exchange-folder.c:383
+#: ../camel/camel-exchange-folder.c:388
 msgid "This message is not available in offline mode."
 msgstr "Este mensaje no está disponible en modo «Desconectado»."
 
-#: ../camel/camel-exchange-folder.c:593
+#: ../camel/camel-exchange-folder.c:613
 msgid "Moving messages"
 msgstr "Moviendo mensajes"
 
-#: ../camel/camel-exchange-folder.c:594
+#: ../camel/camel-exchange-folder.c:614
 msgid "Copying messages"
 msgstr "Copiando mensajes"
 
-#: ../camel/camel-exchange-folder.c:967
+#: ../camel/camel-exchange-folder.c:982
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "No se puede crear el directorio %s: %s"
 
-#: ../camel/camel-exchange-folder.c:977
+#: ../camel/camel-exchange-folder.c:992
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "No se pudo cargar el resumen para %s"
 
-#: ../camel/camel-exchange-folder.c:985
+#: ../camel/camel-exchange-folder.c:1000
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "No se pudo crear el cache para %s"
 
-#: ../camel/camel-exchange-folder.c:995
+#: ../camel/camel-exchange-folder.c:1010
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "No se pudo crear el diario para %s"
 
-#: ../camel/camel-exchange-folder.c:1046
+#: ../camel/camel-exchange-folder.c:1059
 msgid "Scanning for changed messages"
 msgstr "Buscando mensajes cambiados"
 
-#: ../camel/camel-exchange-folder.c:1079
+#: ../camel/camel-exchange-folder.c:1084
 msgid "Fetching summary information for new messages"
 msgstr "Obteniendo la información del resumen para los mensajes nuevos"
 
-#: ../camel/camel-exchange-journal.c:342
+#: ../camel/camel-exchange-journal.c:333
 msgid "No folder name found\n"
 msgstr "No se encontró ningún nombre de carpeta\n"
 
-#: ../camel/camel-exchange-journal.c:375 ../mail/mail-stub-exchange.c:3042
-#: ../mail/mail-stub-exchange.c:3092 ../mail/mail-stub-exchange.c:3222
-#: ../mail/mail-stub-exchange.c:3249 ../mail/mail-stub-exchange.c:3302
-#: ../mail/mail-stub-exchange.c:3324
+#: ../camel/camel-exchange-journal.c:366 ../camel/camel-exchange-utils.c:3081
+#: ../camel/camel-exchange-utils.c:3145 ../camel/camel-exchange-utils.c:3265
+#: ../camel/camel-exchange-utils.c:3296 ../camel/camel-exchange-utils.c:3348
+#: ../camel/camel-exchange-utils.c:3369
 msgid "Folder doesn't exist"
 msgstr "La carpeta no existe"
 
-#: ../camel/camel-exchange-journal.c:439
+#: ../camel/camel-exchange-journal.c:428
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
 "No se puede agregar el mensaje en modo desconectado: la caché no está "
 "disponible"
 
-#: ../camel/camel-exchange-journal.c:455
+#: ../camel/camel-exchange-journal.c:444
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "No se puede agregar el mensaje en modo desconectado: %s"
@@ -154,13 +142,15 @@ msgid "Secure or Plaintext Password"
 msgstr "Contraseña segura o en texto plano"
 
 #: ../camel/camel-exchange-provider.c:56
-#: ../camel/camel-exchange-provider.c:141
+#: ../camel/camel-exchange-provider.c:143
+#: ../eplugin/exchange-account-setup.c:73
 msgid "Plaintext Password"
 msgstr "Contraseña en texto plano"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
 #: ../camel/camel-exchange-provider.c:57
-#: ../camel/camel-exchange-provider.c:130
+#: ../camel/camel-exchange-provider.c:132
+#: ../eplugin/exchange-account-setup.c:62
 msgid "Secure Password"
 msgstr "Contraseña segura"
 
@@ -203,43 +193,48 @@ msgstr "_Tipo de autenticación:"
 msgid "Allow _browsing of the GAL until download limit is reached"
 msgstr "Permitir e_xaminar el GAL hasta que se alcance el límite de descarga"
 
-#: ../camel/camel-exchange-provider.c:91
+#: ../camel/camel-exchange-provider.c:90
+msgid "_Expand groups of contacts in GAL to contact lists"
+msgstr "_Expandir los grupos de contactos en GAL a las listas de contactos"
+
+#: ../camel/camel-exchange-provider.c:93
 msgid "Options"
 msgstr "Opciones"
 
-#: ../camel/camel-exchange-provider.c:93
+#: ../camel/camel-exchange-provider.c:95
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "Período de _caducidad de la contraseña: %s"
 
-#: ../camel/camel-exchange-provider.c:95
+#: ../camel/camel-exchange-provider.c:97
 msgid "Automatically synchroni_ze account locally"
 msgstr "_Sincronizar automáticamente la cuenta localmente"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:98
+#: ../camel/camel-exchange-provider.c:100
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr ""
 "_Aplicar filtros en mensajes nuevos en la Bandeja de entrada en este servidor"
 
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:102
 msgid "Check new messages for _Junk contents"
 msgstr "Comprobar si los mensajes nuevos son _SPAM"
 
-#: ../camel/camel-exchange-provider.c:102
+#: ../camel/camel-exchange-provider.c:104
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Sólo comprobar _mensajes de SPAM en la carpeta de entrada"
 
-#: ../camel/camel-exchange-provider.c:112
+#: ../camel/camel-exchange-provider.c:114
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:114
+#: ../camel/camel-exchange-provider.c:116
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Para manipular correo (y otros datos) en servidores Microsoft Exchange"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:133
+#: ../camel/camel-exchange-provider.c:135
+#: ../eplugin/exchange-account-setup.c:65
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -247,7 +242,8 @@ msgstr ""
 "Esta opción conectará con el servidor Exchange usando autenticación con "
 "contraseña segura (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:143
+#: ../camel/camel-exchange-provider.c:145
+#: ../eplugin/exchange-account-setup.c:75
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -255,21 +251,17 @@ msgstr ""
 "Esta opción conectará con el servidor Exchange usando autenticación estándar "
 "en texto plano."
 
-#: ../camel/camel-exchange-store.c:314
+#: ../camel/camel-exchange-store.c:305
 #, c-format
 msgid "Exchange server %s"
 msgstr "Servidor Exchange %s"
 
-#: ../camel/camel-exchange-store.c:317
+#: ../camel/camel-exchange-store.c:308
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Cuenta Exchange de %s en %s"
 
-#: ../camel/camel-exchange-store.c:399
-msgid "Evolution Exchange backend process"
-msgstr "Proceso de backend de Evolution Exchange"
-
-#: ../camel/camel-exchange-store.c:442
+#: ../camel/camel-exchange-store.c:385
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -277,168 +269,125 @@ msgstr ""
 "No se pudo autenticar con el servidor. (¿Contraseña incorrecta?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:495
+#: ../camel/camel-exchange-store.c:427
 #, c-format
 msgid "No such folder %s"
 msgstr "No existe la carpeta %s"
 
-#: ../camel/camel-exchange-store.c:572
+#: ../camel/camel-exchange-store.c:499
 msgid "Cannot subscribe folder in offline mode."
 msgstr "No se puede crear suscribirse a una carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-store.c:589
+#: ../camel/camel-exchange-store.c:514
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "No se puede desuscribirse de una carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-store.c:727
+#: ../camel/camel-exchange-store.c:645
 msgid "Cannot get folder info in offline mode."
 msgstr "No se puede obtener la info de la carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-store.c:800
+#: ../camel/camel-exchange-store.c:708
 msgid "Cannot create folder in offline mode."
 msgstr "No se puede crear una carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-store.c:827
+#: ../camel/camel-exchange-store.c:731
 msgid "Cannot delete folder in offline mode."
 msgstr "No se puede borrar la carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-store.c:851
+#: ../camel/camel-exchange-store.c:753
 msgid "Cannot rename folder in offline mode."
 msgstr "No se puede renombrar la carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-transport.c:111
+#: ../camel/camel-exchange-transport.c:107
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr ""
 "El transporte Exchange sólo puede ser usado con una fuente de correo Exchange"
 
-#: ../camel/camel-exchange-transport.c:122
+#: ../camel/camel-exchange-transport.c:120
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "No se puede enviar el mensaje: uno o más destinatarios inválidos"
 
-#: ../camel/camel-exchange-transport.c:132
+#: ../camel/camel-exchange-transport.c:129
 msgid "Could not find 'From' address in message"
 msgstr "No se pudo encontrar la dirección de remite en el mensaje"
 
-#: ../camel/camel-stub.c:165 ../camel/camel-stub.c:229
-#, c-format
-msgid "Could not create socket: %s"
-msgstr "No se pudo crear socket : %s"
-
-#: ../camel/camel-stub.c:183
-#, c-format
-msgid "Could not connect to %s: Please restart Evolution"
-msgstr "No se pudo conectar a %s: Reinicie Evolution"
-
-#: ../camel/camel-stub.c:188 ../camel/camel-stub.c:247
-#, c-format
-msgid "Could not connect to %s: %s"
-msgstr "No se pudo conectar a %s: %s"
-
-#: ../camel/camel-stub.c:212
-#, c-format
-msgid "Count not read file '%s': %s"
-msgstr "No se pudo leer el archivo «%s»: %s"
-
-#: ../camel/camel-stub.c:220
-#, c-format
-msgid "Wrong size file '%s'"
-msgstr "Tamaño de archivo incorrecto «%s»"
-
-#: ../camel/camel-stub.c:283
-#, c-format
-msgid "Path too long: %s"
-msgstr "Ruta demasiado larga: %s"
-
-#: ../camel/camel-stub.c:318
-#, c-format
-msgid "Could not start status thread: %s"
-msgstr "No se pudo iniciar el hilo de estado: %s"
-
-#: ../camel/camel-stub.c:572
-#, c-format
-msgid "Lost connection to %s"
-msgstr "Se perdió la conexión con %s"
-
-#: ../camel/camel-stub.c:576
-#, c-format
-msgid "Error communicating with %s: %s"
-msgstr "Error al comunicarse con %s: %s"
-
-#: ../mail/mail-stub-exchange.c:267 ../mail/mail-stub-exchange.c:963
-msgid "No such folder"
-msgstr "No existe la carpeta"
-
-#: ../mail/mail-stub-exchange.c:290 ../mail/mail-stub-exchange.c:3019
-#: ../mail/mail-stub-exchange.c:3059 ../mail/mail-stub-exchange.c:3226
-#: ../mail/mail-stub-exchange.c:3276 ../mail/mail-stub-exchange.c:3339
-msgid "Permission denied"
-msgstr "Permiso denegado"
-
-#: ../mail/mail-stub-exchange.c:785 ../mail/mail-stub-exchange.c:877
-msgid "Could not open folder"
-msgstr "No se pudo abrir la carpeta"
-
-#: ../mail/mail-stub-exchange.c:871 ../mail/mail-stub-exchange.c:893
-msgid "Could not open folder: Permission denied"
-msgstr "No se pudo abrir carpeta: Permiso denegado"
-
-#: ../mail/mail-stub-exchange.c:972
-msgid "Could not create folder."
-msgstr "No se pudo crear la carpeta."
-
-#: ../mail/mail-stub-exchange.c:1060
-msgid "Could not open Deleted Items folder"
-msgstr "No se pudo abrir la carpeta de elementos borrados"
-
-#: ../mail/mail-stub-exchange.c:1391 ../mail/mail-stub-exchange.c:1432
+#: ../camel/camel-exchange-utils.c:535 ../camel/camel-exchange-utils.c:574
 msgid "Could not get new messages"
 msgstr "No se pudieron obtener los mensajes nuevos"
 
-#: ../mail/mail-stub-exchange.c:1608
+#: ../camel/camel-exchange-utils.c:1062 ../camel/camel-exchange-utils.c:1213
+msgid "Could not open folder"
+msgstr "No se pudo abrir la carpeta"
+
+#: ../camel/camel-exchange-utils.c:1209 ../camel/camel-exchange-utils.c:1227
+msgid "Could not open folder: Permission denied"
+msgstr "No se pudo abrir carpeta: Permiso denegado"
+
+#: ../camel/camel-exchange-utils.c:1276 ../camel/camel-exchange-utils.c:2160
+msgid "No such folder"
+msgstr "No existe la carpeta"
+
+#: ../camel/camel-exchange-utils.c:1298 ../camel/camel-exchange-utils.c:3055
+#: ../camel/camel-exchange-utils.c:3098 ../camel/camel-exchange-utils.c:3269
+#: ../camel/camel-exchange-utils.c:3322 ../camel/camel-exchange-utils.c:3384
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
+#: ../server/storage/e-storage.c:573
+msgid "Permission denied"
+msgstr "Permiso denegado"
+
+#: ../camel/camel-exchange-utils.c:2169
+msgid "Could not create folder."
+msgstr "No se pudo crear la carpeta."
+
+#: ../camel/camel-exchange-utils.c:2258
+msgid "Could not open Deleted Items folder"
+msgstr "No se pudo abrir la carpeta de elementos borrados"
+
+#: ../camel/camel-exchange-utils.c:2385
 msgid "Could not empty Deleted Items folder"
 msgstr "No se pudo vaciar la carpeta de elementos borrados"
 
-#: ../mail/mail-stub-exchange.c:1610
+#: ../camel/camel-exchange-utils.c:2387
 msgid "Permission denied. Could not delete certain messages."
 msgstr "Permiso denegado. No se pudieron borrar ciertos mensajes."
 
-#: ../mail/mail-stub-exchange.c:1683
+#: ../camel/camel-exchange-utils.c:2430
 msgid "Could not append message; mailbox is over quota"
 msgstr "No se pudo anexar el mensaje; el buzón excede la cuota"
 
-#: ../mail/mail-stub-exchange.c:1684
+#: ../camel/camel-exchange-utils.c:2431
 msgid "Could not append message"
 msgstr "No se pudo anexar el mensaje"
 
-#: ../mail/mail-stub-exchange.c:2446
+#: ../camel/camel-exchange-utils.c:2617
 msgid "No such message"
 msgstr "No existe el mensaje"
 
-#: ../mail/mail-stub-exchange.c:2527
+#: ../camel/camel-exchange-utils.c:2689
 msgid "Message has been deleted"
 msgstr "El mensaje ha sido borrado"
 
-#: ../mail/mail-stub-exchange.c:2529
+#: ../camel/camel-exchange-utils.c:2691
 msgid "Error retrieving message"
 msgstr "Error al obtener el mensaje"
 
-#: ../mail/mail-stub-exchange.c:2572
+#: ../camel/camel-exchange-utils.c:2740
 msgid "Mailbox does not support full-text searching"
 msgstr "El buzón no soporta búsqueda en texto"
 
-#: ../mail/mail-stub-exchange.c:2670
+#: ../camel/camel-exchange-utils.c:2848
 msgid "Unable to move/copy messages"
 msgstr "Imposible mover/copiar mensajes"
 
-#: ../mail/mail-stub-exchange.c:2936
+#: ../camel/camel-exchange-utils.c:2960
 msgid "No mail submission URI for this mailbox"
 msgstr "No hay URI de envío de correo para este buzón"
 
-#: ../mail/mail-stub-exchange.c:2970
+#: ../camel/camel-exchange-utils.c:2993
 msgid "Server won't accept mail via Exchange transport"
 msgstr "El servidor no acepta correo por medio del transporte Exchange"
 
-#: ../mail/mail-stub-exchange.c:2972
+#: ../camel/camel-exchange-utils.c:2995
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -447,7 +396,7 @@ msgstr ""
 "Su cuenta no tiene permiso para usar <%s>\n"
 "como una dirección de remitente."
 
-#: ../mail/mail-stub-exchange.c:2984
+#: ../camel/camel-exchange-utils.c:3007
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -455,34 +404,1340 @@ msgstr ""
 "No se pudo enviar el mensaje.\n"
 "Esto quizá signifique que su cuenta sobrepasa la cuota."
 
-#: ../mail/mail-stub-exchange.c:2988
+#: ../camel/camel-exchange-utils.c:3011
 msgid "Could not send message"
 msgstr "No se pudo enviar el mensaje"
 
-#: ../mail/mail-stub-exchange.c:3011 ../mail/mail-stub-exchange.c:3064
-#: ../mail/mail-stub-exchange.c:3230 ../mail/mail-stub-exchange.c:3281
-#: ../mail/mail-stub-exchange.c:3345
+#: ../camel/camel-exchange-utils.c:3047 ../camel/camel-exchange-utils.c:3103
+#: ../camel/camel-exchange-utils.c:3273 ../camel/camel-exchange-utils.c:3326
+#: ../camel/camel-exchange-utils.c:3390
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
+#: ../server/storage/e-storage.c:557
 msgid "Generic error"
 msgstr "Error genérico"
 
-#: ../mail/mail-stub-exchange.c:3015
+#: ../camel/camel-exchange-utils.c:3051
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
 msgid "Folder already exists"
 msgstr "La carpeta ya existe"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-msgid "Evolution Addressbook Exchange backend"
-msgstr "Backend de libreta de direcciones de Exchange de Evolution"
+#: ../eplugin/exchange-account-setup.c:270
+#| msgid "Out of Office Assistant"
+msgid "Out Of Office"
+msgstr "Fuera de oficina"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
-msgid "Evolution Calendar Exchange backend"
-msgstr "Backend de Calendario de Exchange"
+#: ../eplugin/exchange-account-setup.c:277
+#| msgid ""
+#| "<small>The message specified below will be automatically sent to each "
+#| "person who sends\n"
+#| "mail to you while you are out of the office.</small>"
+msgid ""
+"The message specified below will be automatically sent to \n"
+"each person who sends mail to you while you are out of the office."
+msgstr ""
+"El mensaje especificado abajo será enviado automáticamente a cada \n"
+"persona que le envíe correo usted mientras está fuera de la oficina."
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-#: ../storage/main.c:219
-msgid "Evolution Connector for Microsoft Exchange"
-msgstr "Conector Evolution para Microsoft Exchange"
+#: ../eplugin/exchange-account-setup.c:282
+#| msgid "<b>Status:</b>"
+msgid "Status:"
+msgstr "Estado:"
 
-#: ../storage/exchange-autoconfig-wizard.c:227
+#: ../eplugin/exchange-account-setup.c:289
+#: ../eplugin/exchange-account-setup.c:294
+#| msgid "I am currently out of the office"
+msgid "I am out of the office"
+msgstr "Estoy fuera de la oficina"
+
+#: ../eplugin/exchange-account-setup.c:290
+#: ../eplugin/exchange-account-setup.c:293
+#| msgid "I am currently in the office"
+msgid "I am in the office"
+msgstr "Estoy en la oficina"
+
+#. Security settings
+#: ../eplugin/exchange-account-setup.c:328
+msgid "Security"
+msgstr "Seguridad"
+
+#. Change Password
+#: ../eplugin/exchange-account-setup.c:339
+msgid "Change the password for Exchange account"
+msgstr "Cambiar la contraseña para la cuenta Exchange"
+
+#: ../eplugin/exchange-account-setup.c:341
+#: ../eplugin/exchange-change-password.c:85
+msgid "Change Password"
+msgstr "Cambiar contraseña"
+
+#. Delegation Assistant
+#: ../eplugin/exchange-account-setup.c:346
+msgid "Manage the delegate settings for Exchange account"
+msgstr "Gestionar los ajustes de delegados para la cuenta Exchange"
+
+#: ../eplugin/exchange-account-setup.c:348
+#| msgid "_Delegation Assistant"
+msgid "Delegation Assistant"
+msgstr "Asistente de delegaciones"
+
+#. Miscelleneous settings
+#: ../eplugin/exchange-account-setup.c:360
+msgid "Miscelleneous"
+msgstr "Miscelánea"
+
+#. Folder Size
+#: ../eplugin/exchange-account-setup.c:370
+#| msgid "Get the size of personal folders"
+msgid "View the size of all Exchange folders"
+msgstr "Ver el tamaño de todas las carpetas Exchange"
+
+#: ../eplugin/exchange-account-setup.c:372
+#| msgid "Folder _Size"
+msgid "Folders Size"
+msgstr "Tamaño de las carpetas"
+
+#: ../eplugin/exchange-account-setup.c:379
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:3
+#| msgid "Exchange server %s"
+msgid "Exchange Settings"
+msgstr "Ajustes de Exchange"
+
+#: ../eplugin/exchange-account-setup.c:730
+#| msgid "OWA URL:"
+msgid "_OWA URL:"
+msgstr "URL del _OWA:"
+
+#: ../eplugin/exchange-account-setup.c:756
+#| msgid "Authentication failed"
+msgid "A_uthenticate"
+msgstr "A_utenticar"
+
+#: ../eplugin/exchange-account-setup.c:778
+msgid "Mailbox name is _different than user name"
+msgstr "El nombre del buzón es _diferente del nombre de usuario"
+
+#: ../eplugin/exchange-account-setup.c:791
+#| msgid "_Inbox:"
+msgid "_Mailbox:"
+msgstr "_Buzón:"
+
+#: ../eplugin/exchange-account-setup.c:1005
+#| msgid "Authentication _Type:"
+msgid "_Authentication Type"
+msgstr "Tipo de _autenticación"
+
+#: ../eplugin/exchange-account-setup.c:1019
+msgid "Ch_eck for Supported Types"
+msgstr "_Comprobar tipos soportados"
+
+#: ../eplugin/exchange-account-setup.c:1134 ../eplugin/exchange-contacts.c:217
+#, c-format
+msgid "%s KB"
+msgstr "%s KB"
+
+#: ../eplugin/exchange-account-setup.c:1136 ../eplugin/exchange-contacts.c:219
+#, c-format
+msgid "0 KB"
+msgstr "0 KB"
+
+#. FIXME: Take care of i18n
+#: ../eplugin/exchange-account-setup.c:1141 ../eplugin/exchange-calendar.c:236
+#: ../eplugin/exchange-contacts.c:222
+msgid "Size:"
+msgstr "Tamaño:"
+
+#: ../eplugin/exchange-calendar.c:196 ../eplugin/exchange-contacts.c:170
+msgid ""
+"Evolution is in offline mode. You cannot create or modify folders now.\n"
+"Please switch to online mode for such operations."
+msgstr ""
+"Evolution está en modo desconectado. No puede crear o modificar carpetas "
+"ahora.\n"
+"Cambie a modo conectado para dichas operaciones."
+
+#: ../eplugin/exchange-calendar.c:247 ../eplugin/exchange-contacts.c:239
+msgid "_Location:"
+msgstr "_Ubicación:"
+
+#: ../eplugin/exchange-change-password.c:95
+msgid "Your current password has expired. Please change your password now."
+msgstr ""
+"Su contraseña actual ha caducado. Por favor, cambie su contraseña ahora."
+
+#: ../eplugin/exchange-change-password.c:110
+#| msgid "Current Password:"
+msgid "Current _Password:"
+msgstr "Contraseña act_ual:"
+
+#: ../eplugin/exchange-change-password.c:117
+#| msgid "New Password:"
+msgid "_New Password:"
+msgstr "Contraseña _nueva:"
+
+#: ../eplugin/exchange-change-password.c:124
+#| msgid "Confirm Password:"
+msgid "_Confirm Password:"
+msgstr "_Confirmar contraseña:"
+
+#. User entered a wrong existing
+#. * password. Prompt him again.
+#.
+#: ../eplugin/exchange-change-password.c:175
+msgid ""
+"The current password does not match the existing password for your account. "
+"Please enter the correct password"
+msgstr ""
+"La contraseña actual no coincide con la contraseña existente para su cuenta. "
+"Introduzca la contraseña correcta"
+
+#: ../eplugin/exchange-change-password.c:182
+msgid "The two passwords do not match. Please re-enter the passwords."
+msgstr "Las sos contraseñas no coinciden. Vuelva a introducirlas."
+
+#: ../eplugin/exchange-config-listener.c:661
+#, c-format
+#| msgid "Your password will expire in 7 days..."
+msgid "Your password will expire in the next %d days"
+msgstr "Su contraseña caducará en los próximos %d días"
+
+#: ../eplugin/exchange-config-listener.c:664
+msgid "Password Expiry Warning..."
+msgstr "Advertencia de caducidad de la contraseña..."
+
+#: ../eplugin/exchange-config-listener.c:681
+msgid "_Change Password"
+msgstr "_Cambiar contraseña"
+
+#: ../eplugin/exchange-config-listener.c:734
+msgid "Out of Office Assistant"
+msgstr "Asistente para fuera de oficina"
+
+#: ../eplugin/exchange-config-listener.c:751
+#| msgid "I am currently out of the office"
+msgid "Currently, your status is \"Out of the Office\"."
+msgstr "Actualmente su estado es «Estoy fuera de la oficina»."
+
+#: ../eplugin/exchange-config-listener.c:751
+#| msgid ""
+#| "<b>Currently, your status is \"Out of the Office\". </b>\n"
+#| "\n"
+#| "Would you like to change your status to \"In the Office\"? "
+msgid "Would you like to change your status to \"In the Office\"?"
+msgstr "¿Quiere cambiar su estado a «En la oficina»?"
+
+#: ../eplugin/exchange-config-listener.c:780
+#| msgid "No, Don't Change Status"
+msgid "_No, Don't Change Status"
+msgstr "No, no cambiar el estado"
+
+#: ../eplugin/exchange-config-listener.c:801
+#| msgid "Yes, Change Status"
+msgid "_Yes, Change Status"
+msgstr "Sí, cambiar el estado"
+
+#: ../eplugin/exchange-config-listener.c:833
+#, c-format
+#| msgid "Plaintext Password"
+msgid "Enter Password for %s"
+msgstr "Introduzca su contraseña para %s"
+
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:415
+#: ../server/storage/exchange-hierarchy-foreign.c:260
+#| msgid "C_alendar:"
+msgid "Calendar"
+msgstr "Calendario"
+
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:418
+#: ../server/storage/exchange-hierarchy-foreign.c:269
+#| msgid "_Tasks:"
+msgid "Tasks"
+msgstr "Tareas"
+
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:413
+#: ../server/storage/exchange-hierarchy-foreign.c:264
+#| msgid "_Inbox:"
+msgid "Inbox"
+msgstr "Bandeja de entrada"
+
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:421
+#: ../server/storage/exchange-hierarchy-foreign.c:261
+#| msgid "Co_ntacts:"
+msgid "Contacts"
+msgstr "Contactos"
+
+#: ../eplugin/exchange-delegates-user.c:135
+#: ../eplugin/exchange-permissions-dialog.c:546
+#: ../server/lib/e2k-security-descriptor.c:903
+msgid "Custom"
+msgstr "Personalizar"
+
+#: ../eplugin/exchange-delegates-user.c:161
+#: ../eplugin/exchange-delegates-user.c:300
+#: ../eplugin/exchange-delegates-user.c:310
+#: ../eplugin/exchange-delegates-user.c:320
+#: ../eplugin/exchange-delegates-user.c:330
+msgid "Editor (read, create, edit)"
+msgstr "Editor (leer, crear, editar)"
+
+#: ../eplugin/exchange-delegates-user.c:165
+#: ../eplugin/exchange-delegates-user.c:299
+#: ../eplugin/exchange-delegates-user.c:309
+#: ../eplugin/exchange-delegates-user.c:319
+#: ../eplugin/exchange-delegates-user.c:329
+msgid "Author (read, create)"
+msgstr "Autor (leer, crear)"
+
+#: ../eplugin/exchange-delegates-user.c:169
+#: ../eplugin/exchange-delegates-user.c:298
+#: ../eplugin/exchange-delegates-user.c:308
+#: ../eplugin/exchange-delegates-user.c:318
+#: ../eplugin/exchange-delegates-user.c:328
+msgid "Reviewer (read-only)"
+msgstr "Revisor (sólo lectura)"
+
+#: ../eplugin/exchange-delegates-user.c:172
+#: ../eplugin/exchange-delegates-user.c:297
+#: ../eplugin/exchange-delegates-user.c:307
+#: ../eplugin/exchange-delegates-user.c:317
+#: ../eplugin/exchange-delegates-user.c:327
+#: ../server/lib/e2k-security-descriptor.c:888
+msgid "None"
+msgstr "Ninguno"
+
+#: ../eplugin/exchange-delegates-user.c:227
+msgid "Delegate Permissions"
+msgstr "Permisos delegados"
+
+#: ../eplugin/exchange-delegates-user.c:245
+msgid "Permissions for"
+msgstr "Permisos para"
+
+#. Translators: This is used for permissions for <user> for the folder Calendar.
+#: ../eplugin/exchange-delegates-user.c:257
+msgid "C_alendar:"
+msgstr "_Agenda:"
+
+#. Translators: This is used for permissions for <user> for the folder Tasks.
+#: ../eplugin/exchange-delegates-user.c:266
+msgid "_Tasks:"
+msgstr "_Tareas:"
+
+#. Translators: This is used for permissions for <user> for the folder Inbox.
+#: ../eplugin/exchange-delegates-user.c:275
+msgid "_Inbox:"
+msgstr "_Entrada:"
+
+#. Translators: This is used for permissions for <user> for the folder Contacts.
+#: ../eplugin/exchange-delegates-user.c:284
+msgid "Co_ntacts:"
+msgstr "Con_tactos:"
+
+#: ../eplugin/exchange-delegates-user.c:332
+#| msgid "Delegate Permissions"
+msgid "_Summarize permissions"
+msgstr "_Resumir permisos"
+
+#: ../eplugin/exchange-delegates-user.c:336
+msgid "_Delegate can see private items"
+msgstr "El _delegado puede ver elementos privados"
+
+#: ../eplugin/exchange-delegates-user.c:342
+#: ../eplugin/exchange-permissions-dialog.c:169
+#, c-format
+#| msgid "Permissions for"
+msgid "Permissions for %s"
+msgstr "Permisos para %s"
+
+#. To translators: This is a part of the message to be sent to the delegatee
+#. summarizing the permissions assigned to him.
+#.
+#: ../eplugin/exchange-delegates-user.c:435
+msgid ""
+"This message was sent automatically by Evolution to inform you that you have "
+"been designated as a delegate. You can now send messages on my behalf."
+msgstr ""
+"Este mensaje se envió automáticamente por Evolution para informarle de que "
+"ha sido designado como delegado. Ahora puede enviar mensajes en mi nombre."
+
+#. To translators: Another chunk of the same message.
+#.
+#: ../eplugin/exchange-delegates-user.c:440
+msgid "You have been given the following permissions on my folders:"
+msgstr "Se le han otorgado los siguientes permisos sobre mis carpetas:"
+
+#. To translators: This message is included if the delegatee has been given access
+#. to the private items.
+#.
+#: ../eplugin/exchange-delegates-user.c:460
+#| msgid "_Delegate can see private items"
+msgid "You are also permitted to see my private items."
+msgstr "También se le permite ver mis elementos privados."
+
+#. To translators: This message is included if the delegatee has not been given access
+#. to the private items.
+#.
+#: ../eplugin/exchange-delegates-user.c:467
+msgid "However you are not permitted to see my private items."
+msgstr "No obstante no se le permite ver mis elementos privados."
+
+#: ../eplugin/exchange-delegates-user.c:499
+#, c-format
+msgid "You have been designated as a delegate for %s"
+msgstr "Ha sido designado como delegado para %s"
+
+#: ../eplugin/exchange-delegates.c:414
+#| msgid "Delegates"
+msgid "Delegate To:"
+msgstr "Delegar en:"
+
+#: ../eplugin/exchange-delegates.c:414
+#| msgid "Delegates"
+msgid "Delegate To"
+msgstr "Delegar en"
+
+#: ../eplugin/exchange-delegates.c:579
+#, c-format
+msgid "Remove the delegate %s?"
+msgstr "¿Desea quitar el delegado %s?"
+
+#: ../eplugin/exchange-delegates.c:696
+#| msgid "Could not create directory %s: %s"
+msgid "Could not access Active Directory"
+msgstr "No es posible acceder al Directorio Activo"
+
+#: ../eplugin/exchange-delegates.c:708
+#| msgid "Global Address List / Active Directory"
+msgid "Could not find self in Active Directory"
+msgstr "No es posible encontrarse a sí mismo en el Directorio Activo"
+
+#: ../eplugin/exchange-delegates.c:721
+#, c-format
+#| msgid "Global Address List / Active Directory"
+msgid "Could not find delegate %s in Active Directory"
+msgstr "No es posible encontrar al delegado %s en el Directorio Activo"
+
+#: ../eplugin/exchange-delegates.c:733
+#, c-format
+#| msgid "Could not create socket: %s"
+msgid "Could not remove delegate %s"
+msgstr "No es posible quitar al delegado %s"
+
+#: ../eplugin/exchange-delegates.c:793
+#| msgid "Could not create socket: %s"
+msgid "Could not update list of delegates."
+msgstr "No es posible actualizar la lista de delegados."
+
+#: ../eplugin/exchange-delegates.c:811
+#, c-format
+#| msgid "Could not create socket: %s"
+msgid "Could not add delegate %s"
+msgstr "No es posible añadir el delegado %s"
+
+#: ../eplugin/exchange-delegates.c:927
+msgid "Delegates"
+msgstr "Delegar en"
+
+#: ../eplugin/exchange-delegates.c:942
+msgid ""
+"These users will be able to send mail on your behalf\n"
+"and access your folders with the permissions you give them."
+msgstr ""
+"Estos usuarios serán capaces de enviar correo \n"
+"y acceder a tus carpetas con los permisos que les dé."
+
+#: ../eplugin/exchange-delegates.c:966
+msgid "_Edit"
+msgstr "_Editar"
+
+#: ../eplugin/exchange-delegates.c:996
+#: ../eplugin/exchange-permissions-dialog.c:917
+msgid "Name"
+msgstr "Nombre"
+
+#: ../eplugin/exchange-delegates.c:1022
+msgid "Error reading delegates list."
+msgstr "Error al leer la lista de delegados."
+
+#: ../eplugin/exchange-folder-permission.c:199
+#: ../eplugin/exchange-folder-permission.c:436
+#: ../eplugin/exchange-folder-permission.c:470
+#: ../eplugin/exchange-folder-permission.c:504
+#| msgid "Permissions for"
+msgid "Permissions..."
+msgstr "Permisos…"
+
+#: ../eplugin/exchange-folder-permission.c:201
+#| msgid "Delegate Permissions"
+msgid "Check folder permissions"
+msgstr "Compruebe los permisos de la carpeta"
+
+#: ../eplugin/exchange-folder-permission.c:206
+#: ../eplugin/exchange-folder-permission.c:443
+#: ../eplugin/exchange-folder-permission.c:477
+#: ../eplugin/exchange-folder-permission.c:511
+#| msgid "Subscribe to _Other User's Folder..."
+msgid "Subscribe to Other User's Folder..."
+msgstr "Suscribirse a una carpeta de otro usuario..."
+
+#: ../eplugin/exchange-folder-permission.c:208
+#: ../eplugin/exchange-folder-permission.c:445
+#: ../eplugin/exchange-folder-permission.c:479
+#: ../eplugin/exchange-folder-permission.c:513
+#: ../eplugin/exchange-folder-subscription.c:306
+#| msgid "Subscribe to _Other User's Folder..."
+msgid "Subscribe to Other User's Folder"
+msgstr "Subscribirse a la carpeta de otro usuario"
+
+#: ../eplugin/exchange-folder-permission.c:213
+#: ../eplugin/exchange-folder-permission.c:450
+#: ../eplugin/exchange-folder-permission.c:484
+#: ../eplugin/exchange-folder-permission.c:518
+#| msgid "Subscribe to _Other User's Folder..."
+msgid "Unsubscribe Folder..."
+msgstr "Desuscribirse de la carpeta…"
+
+#: ../eplugin/exchange-folder-permission.c:438
+#| msgid "Delegate Permissions"
+msgid "Check calendar permissions"
+msgstr "Compruebe los permisos del calendario"
+
+#: ../eplugin/exchange-folder-permission.c:472
+#| msgid "Delegate Permissions"
+msgid "Check tasks permissions"
+msgstr "Compruebe los permisos de las tareas"
+
+#: ../eplugin/exchange-folder-permission.c:506
+msgid "Check addressbook permissions"
+msgstr "Compruebe los permisos de la libreta de direcciones"
+
+#: ../eplugin/exchange-folder-size-display.c:118
+msgid "Exchange Folder Tree"
+msgstr "Árbol de carpetas de Exchange"
+
+#: ../eplugin/exchange-folder-size-display.c:150
+#| msgid "Folder owner"
+msgid "Folder Name"
+msgstr "Nombre de la carpeta"
+
+#: ../eplugin/exchange-folder-size-display.c:154
+#| msgid "Folder _Size"
+msgid "Folder Size"
+msgstr "Tamaño de la carpeta"
+
+#. FIXME Limit to one user
+#: ../eplugin/exchange-folder-subscription.c:72
+#| msgid "Username:"
+msgid "User"
+msgstr "Usuario"
+
+#: ../eplugin/exchange-folder-subscription.c:322
+msgid "_Account:"
+msgstr "_Cuenta:"
+
+#: ../eplugin/exchange-folder-subscription.c:329
+#| msgid "Full Name:"
+msgid "_Folder Name:"
+msgstr "Nombre de la _carpeta:"
+
+#: ../eplugin/exchange-folder-subscription.c:342
+#| msgid "Username:"
+msgid "_User:"
+msgstr "_Usuario:"
+
+#: ../eplugin/exchange-folder.c:303 ../eplugin/exchange-folder.c:357
+#, c-format
+msgid "Really unsubscribe from folder \"%s\"?"
+msgstr "¿Seguro que desea desuscribirse de la carpeta «%s»?"
+
+#: ../eplugin/exchange-folder.c:315 ../eplugin/exchange-folder.c:369
+#, c-format
+#| msgid "_Unsubscribe from Other User's Folder"
+msgid "Unsubscribe from \"%s\""
+msgstr "Desuscribirse de «%s»"
+
+#: ../eplugin/exchange-mail-send-options.c:222
+#| msgid "Options"
+msgid "_Send Options"
+msgstr "Opciones de _envío"
+
+#: ../eplugin/exchange-mail-send-options.c:224
+msgid "Insert Send options"
+msgstr "Insertar opciones de envío"
+
+#. FIXME: Don't hardcode this
+#: ../eplugin/exchange-operations.c:122 ../eplugin/exchange-operations.c:167
+#: ../server/storage/exchange-account.c:1259
+msgid "Personal Folders"
+msgstr "Carpetas personales"
+
+#: ../eplugin/exchange-permissions-dialog.c:279
+#| msgid "Permission denied"
+msgid "(Permission denied.)"
+msgstr "(Permiso denegado.)"
+
+#: ../eplugin/exchange-permissions-dialog.c:385
+msgid "Add User:"
+msgstr "Añadir usuario:"
+
+#: ../eplugin/exchange-permissions-dialog.c:385
+#: ../eplugin/exchange-send-options.c:490
+msgid "Add User"
+msgstr "Añadir un usuario"
+
+#: ../eplugin/exchange-permissions-dialog.c:793
+#| msgid "Permissions for"
+msgid "Permissions"
+msgstr "Permisos"
+
+#: ../eplugin/exchange-permissions-dialog.c:810
+msgid "Role: "
+msgstr "Rol: "
+
+#: ../eplugin/exchange-permissions-dialog.c:836
+msgid "Create items"
+msgstr "Crear elementos"
+
+#: ../eplugin/exchange-permissions-dialog.c:840
+msgid "Read items"
+msgstr "Elementos leídos"
+
+#: ../eplugin/exchange-permissions-dialog.c:844
+msgid "Create subfolders"
+msgstr "Crear subcarpetas"
+
+#: ../eplugin/exchange-permissions-dialog.c:852
+msgid "Cannot Edit"
+msgstr "No se puede editar"
+
+#: ../eplugin/exchange-permissions-dialog.c:858
+msgid "Edit Own Items"
+msgstr "Editar los elementos propios"
+
+#: ../eplugin/exchange-permissions-dialog.c:864
+msgid "Edit Any Items"
+msgstr "Editar cualquier elemento"
+
+#: ../eplugin/exchange-permissions-dialog.c:878
+msgid "Folder owner"
+msgstr "Propietario de la carpeta"
+
+#: ../eplugin/exchange-permissions-dialog.c:882
+msgid "Folder contact"
+msgstr "Carpeta de contacto"
+
+#: ../eplugin/exchange-permissions-dialog.c:886
+msgid "Folder visible"
+msgstr "Carpeta visible"
+
+#: ../eplugin/exchange-permissions-dialog.c:894
+msgid "Cannot Delete"
+msgstr "No se puede borrar"
+
+#: ../eplugin/exchange-permissions-dialog.c:901
+msgid "Delete Own Items"
+msgstr "Borrar los elementos propios"
+
+#: ../eplugin/exchange-permissions-dialog.c:907
+msgid "Delete Any Items"
+msgstr "Borrar cualquier elemento"
+
+#: ../eplugin/exchange-permissions-dialog.c:921
+#| msgid "Role: "
+msgid "Role"
+msgstr "Rol"
+
+#: ../eplugin/exchange-send-options.c:360
+#| msgid "Exchange Configuration"
+msgid "Exchange - Send Options"
+msgstr "Exchange - Opciones de envío"
+
+#: ../eplugin/exchange-send-options.c:381
+msgid "Message Settings"
+msgstr "Configuración del mensaje"
+
+#: ../eplugin/exchange-send-options.c:395
+msgid "I_mportance: "
+msgstr "_Importacia: "
+
+#: ../eplugin/exchange-send-options.c:402
+msgid "_Sensitivity: "
+msgstr "_Sensibilidad: "
+
+#: ../eplugin/exchange-send-options.c:414
+#: ../eplugin/exchange-send-options.c:424
+msgid "Normal"
+msgstr "Normal"
+
+#: ../eplugin/exchange-send-options.c:415
+msgid "Personal"
+msgstr "Personal"
+
+#: ../eplugin/exchange-send-options.c:416
+msgid "Private"
+msgstr "Privado"
+
+#: ../eplugin/exchange-send-options.c:417
+msgid "Confidential"
+msgstr "Confidencial"
+
+#: ../eplugin/exchange-send-options.c:425
+msgid "High"
+msgstr "Alta"
+
+#: ../eplugin/exchange-send-options.c:426
+msgid "Low"
+msgstr "Baja"
+
+#: ../eplugin/exchange-send-options.c:428
+#| msgid "Delegates"
+msgid "Send as Delegate"
+msgstr "Enviar como delegado"
+
+#: ../eplugin/exchange-send-options.c:445
+msgid "_User"
+msgstr "_Usuario"
+
+#: ../eplugin/exchange-send-options.c:453
+#| msgid "Options"
+msgid "Tracking Options"
+msgstr "Opciones de seguimiento"
+
+#: ../eplugin/exchange-send-options.c:461
+msgid "Request a _delivery receipt for this message"
+msgstr "Pedir una confirmación de _entrega para este mensaje"
+
+#: ../eplugin/exchange-send-options.c:466
+msgid "Request a _read receipt for this message"
+msgstr "Pedir una confirmación de _lectura para este mensaje"
+
+#: ../eplugin/exchange-user-dialog.c:131
+msgid "Select User"
+msgstr "Seleccionar usuario"
+
+#: ../eplugin/exchange-user-dialog.c:170
+msgid "Address Book..."
+msgstr "Libreta de direcciones…"
+
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:1
+msgid "Activates the Evolution-Exchange extension package."
+msgstr "Activa el paquete de extensión de Evolution Exchange."
+
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:2
+#| msgid "Exchange Configuration"
+msgid "Exchange Operations"
+msgstr "Operaciones de Exchange"
+
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:4
+msgid "Size"
+msgstr "Tamaño"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:1
+#| msgid "Cannot get folder info in offline mode."
+msgid "Cannot access the \"Exchange settings\" tab in offline mode."
+msgstr ""
+"No se puede acceder a la solapa «Configuración de Exchange» en modo "
+"desconectado."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:2
+msgid "Cannot change password due to configuration problems."
+msgstr ""
+"No es posible cambiar la contraseña debido a problemas de configuración."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:3
+#| msgid "Create subfolders"
+msgid "Cannot display folders."
+msgstr "No se pueden mostrar las carpetas."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:4
+msgid "Cannot perform the operation."
+msgstr "No se puede realizar la operación."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:5
+msgid ""
+"Changes to options for Exchange account \"{0}\" will only take effect after "
+"restarting Evolution."
+msgstr ""
+"Los cambios a las opciones de la cuenta Exchange «{0}» sólo tendrán lugar "
+"después de reiniciar Evolution."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:6
+#| msgid ""
+#| "Could not authenticate to server. (Password incorrect?)\n"
+#| "\n"
+msgid "Could not authenticate to server."
+msgstr "No se puede autenticar contra el servidor."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:7
+#| msgid "Change Password"
+msgid "Could not change password."
+msgstr "No se puede cambiar la contraseña."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:8
+#| msgid ""
+#| "Could not configure Exchange account because an unknown error occurred. "
+#| "Check the URL, username, and password, and try again."
+msgid ""
+"Could not configure Exchange account because \n"
+"an unknown error occurred. Check the URL, \n"
+"username, and password, and try again."
+msgstr ""
+"No es posible configurar la cuenta de Exchange porque\n"
+"ocurrió un error desconocido. Compruebe el URL,\n"
+"usuario y contraseña e inténtelo otra vez."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:11
+#| msgid "Could not connect to %s: %s"
+msgid "Could not connect to Exchange server."
+msgstr "No se puede conectar con el servidor Exchange."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:12
+#| msgid "Could not connect to %s: %s"
+msgid "Could not connect to server {0}."
+msgstr "No se puede conectar con el servidor {0}."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:13
+#| msgid "Could not open folder: Permission denied"
+msgid "Could not determine folder permissions for delegates."
+msgstr "No se pudieron determinar los permisos de la carpeta para delegados."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:14
+msgid "Could not find Exchange Web Storage System."
+msgstr "No se puede encontrar el sistema de almacenamiento Web de Exchange."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:15
+#| msgid "Could not create folder."
+msgid "Could not locate server {0}."
+msgstr "No se puede localizar el servidor {0}."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:16
+#| msgid "Could not append message"
+msgid "Could not make {0} a delegate"
+msgstr "No se puede hacer de {0} un delegado"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:17
+#| msgid "Could not open folder: Permission denied"
+msgid "Could not read folder permissions"
+msgstr "No se pudieron leer los permisos de la carpeta"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:18
+#| msgid "Could not open folder: Permission denied"
+msgid "Could not read folder permissions."
+msgstr "No se pudieron leer los permisos de la carpeta."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:19
+#| msgid "Could not create socket: %s"
+msgid "Could not read out-of-office state"
+msgstr "No se puede leer el estado de disponibilidad"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:20
+#| msgid "Could not open folder: Permission denied"
+msgid "Could not update folder permissions."
+msgstr "No se pueden actualizar los permisos de la carpeta."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:21
+#| msgid "Could not create socket: %s"
+msgid "Could not update out-of-office state"
+msgstr "No se puede actualizar el estado de disponibilidad"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:22
+msgid "Evolution requires a restart to load the subscribed user's mailbox"
+msgstr ""
+"Evolution requiere reiniciarse para cargar el buzón de correo del usuario "
+"suscrito"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:23
+#| msgid "Exchange account for %s on %s"
+msgid "Exchange Account is offline."
+msgstr "La cuenta de Exchange está desconectada."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:24
+#| msgid ""
+#| "Evolution Connector for Microsoft Exchange requires access to certain "
+#| "functionality on the Exchange server that appears to be disabled or "
+#| "blocked.  (This is usually unintentional.)  Your Exchange administrator "
+#| "will need to enable this functionality in order for you to be able to use "
+#| "the Evolution Connector.\n"
+#| "\n"
+#| "For information to provide to your Exchange administrator, please follow "
+#| "the link below:"
+msgid ""
+"Exchange Connector requires access to certain\n"
+"functionality on the Exchange Server that appears\n"
+"to be disabled or blocked. (This is usually \n"
+"unintentional.) Your Exchange Administrator will \n"
+"need to enable this functionality in order for \n"
+"you to be able to use Evolution Exchange Connector.\n"
+"\n"
+"For information to provide to your Exchange \n"
+"administrator, please follow the link below:\n"
+"\n"
+"{0}\n"
+"  "
+msgstr ""
+"Exchange Connector requiere acceso a cierta funcionalidad\n"
+"en el servidor de Exchange que parece estar desactivada\n"
+"o bloqueada. (Esto normalmente no es intencional). Su \n"
+"administrador de Exchange tendrá que activar esta\n"
+"funcionalidad para que usted pueda usar Ximian Connector.\n"
+"\n"
+"La información que puede proporcionar a su administrador\n"
+"de Exchange, puede obtenerla del enlace de abajo:\n"
+"\n"
+"{0}\n"
+"  "
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:36
+msgid "Failed to update delegates:"
+msgstr "Falló al actualizar delegados:"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:38
+#| msgid "Folder doesn't exist"
+msgid "Folder does not exist"
+msgstr "La carpeta no existe"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:39
+#| msgid "Folder owner"
+msgid "Folder offline"
+msgstr "Carpeta desconectada"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:41
+#| msgid "_Global Catalog server name:"
+msgid "Global Catalog Server is not reachable"
+msgstr "No es posible llegar al Servidor de Catálogo Global"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:42
+msgid ""
+"If OWA is running on a different path, you must specify that in the account "
+"configuration dialog."
+msgstr ""
+"Si el OWA se está ejecutando en una ruta diferente, debe especificarla en el "
+"diálogo de configuración de cuenta."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:43
+msgid "Mailbox for {0} is not on this server."
+msgstr "El buzón de {0} no está en este servidor."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:44
+#| msgid ""
+#| "Could not find OWA data at the indicated URL.\n"
+#| "Make sure the URL is correct and try again."
+msgid "Make sure the URL is correct and try again."
+msgstr "Asegúrese de que la URL es correcta e intente de nuevo."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:45
+#| msgid ""
+#| "Could not locate Exchange server.\n"
+#| "Make sure the server name is spelled correctly and try again."
+msgid "Make sure the server name is spelled correctly and try again."
+msgstr ""
+"Asegúrese de que el nombre del servidor esté escrito correctamente e "
+"inténtelo de nuevo."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:46
+#| msgid ""
+#| "Could not authenticate to the Exchange server.\n"
+#| "Make sure the username and password are correct and try again."
+msgid "Make sure the username and password are correct and try again."
+msgstr ""
+"Asegúrese de que el usuario y contraseña son correctos e intente de nuevo."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:47
+msgid "No Global Catalog server configured for this account."
+msgstr "No hay un servidor de Catálogo Global configurado para esta cuenta."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:48
+msgid "No mailbox for user {0} on {1}."
+msgstr "No hay buzón para el usuario {0} en {1}."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:49
+#| msgid "No such folder %s"
+msgid "No such user {0}"
+msgstr "No existe el usuario {0}"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:50
+msgid "Password successfully changed."
+msgstr "Contraseña cambiada correctamente."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:52
+msgid "Please enter a Delegate's ID or deselect the Send as a Delegate option."
+msgstr ""
+"Introduzca la ID del delegado o deseleccione la opción Enviar como delegado."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:53
+msgid "Please make sure the Global Catalog Server name is correct."
+msgstr ""
+"Asegúrese de que el nombre del Servidor de Catálogo Global es correcto."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:54
+msgid "Please restart Evolution for changes to take effect"
+msgstr "Reinicie Evolution para que los cambios tengan efecto"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:55
+msgid "Please select a user."
+msgstr "Seleccione un usuario."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:56
+msgid "Server rejected password because it is too weak."
+msgstr "El servidor rechazó la contraseña porque es demasiado débil."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:57
+msgid "The Exchange account will be disabled when you quit Evolution"
+msgstr "La cuenta de Exchange se desactivará cuando salga de Evolution"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:58
+msgid "The Exchange account will be removed when you quit Evolution"
+msgstr "La cuenta de Exchange se eliminará cuando salga de Evolution"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:59
+msgid "The Exchange server is not compatible with Exchange Connector."
+msgstr "El servidor Exchange no es compatible con Exchange Connector."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:60
+#| msgid ""
+#| "The Exchange server URL you provided is for an Exchange 5.5 server. "
+#| "Evolution Connector for Microsoft Exchange supports Microsoft Exchange "
+#| "2000 and 2003 only."
+msgid ""
+"The server is running Exchange 5.5. Exchange Connector \n"
+"supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"El servidor está funcionando con Exchange 5.5. Exchange Connector\n"
+"sólo soporta Microsoft Exchange 2000 y 2003."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:62
+msgid ""
+"This probably means that your server requires \n"
+"you to specify the Windows domain name \n"
+"as part of your username (eg, &quot;DOMAIN\\user&quot;).\n"
+"\n"
+"Or you might have just typed your password wrong."
+msgstr ""
+"Esto probablemente significa que su servidor requiere \n"
+"que le especifique el nombre de dominio de Windows \n"
+"como parte del nombre de usuario (ej, «DOMINIO\\usuario»).\n"
+"\n"
+"O quizá tan sólo ha escrito mal la contraseña."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:67
+msgid "Try again with a different password."
+msgstr "Inténtelo con una contraseña diferente."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:68
+msgid "Unable to add user to access control list:"
+msgstr "No puede añadirse el usuario a la lista de control de acceso:"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:69
+#| msgid "Unable to move/copy messages"
+msgid "Unable to edit delegates."
+msgstr "Imposible editar delegados."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:70
+msgid "Unknown error looking up {0}"
+msgstr "Error desconocido al buscar {0}"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:71
+#| msgid "Unknown"
+msgid "Unknown error."
+msgstr "Error desconocido."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:72
+#| msgid "Unknown"
+msgid "Unknown type"
+msgstr "Tipo desconocido"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:73
+msgid "Unsupported operation"
+msgstr "La operación no está soportada"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:74
+msgid "You are nearing your quota available for storing mail on this server."
+msgstr ""
+"Está cerca de su cuota disponible para almacenar correo en este servidor."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:75
+msgid ""
+"You are permitted to send a message on behalf of only one delegator at a "
+"time."
+msgstr ""
+"Le está permitido mandar un mensaje en nombre de a un solo delegado cada vez."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:76
+msgid "You cannot make yourself your own delegate"
+msgstr "No puede hacerse así mismo su propio delegado"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:77
+msgid "You have exceeded your quota for storing mail on this server."
+msgstr "Ha excedido su cuota para almacenar correo en este servidor."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:78
+#| msgid "You may only configure a single Exchange account"
+msgid "You may only configure a single Exchange account."
+msgstr "Sólo puede configurar una sola cuenta de Exchange."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:79
+msgid ""
+"Your current usage is: {0} KB. Try to clear up some space by deleting some "
+"mail."
+msgstr ""
+"Su uso actual es: {0} KiB. Intente hacer algo de espacio borrando algunos "
+"mensajes."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:80
+msgid ""
+"Your current usage is: {0} KB. You will not be able to either send or "
+"receive mail now."
+msgstr "Su uso actual es: {0} KiB. No podrá ni enviar ni recibir correo ahora."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:81
+msgid ""
+"Your current usage is: {0} KB. You will not be able to send mail until you "
+"clear up some space by deleting some mail."
+msgstr ""
+"Su uso actual es: {0} KiB. No podrá enviar correo hasta que haga algo de "
+"espacio borrando algunos mensajes."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:82
+#| msgid "Your password will expire in 7 days..."
+msgid "Your password has expired."
+msgstr "Su contraseña ha caducado."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:83
+msgid "{0}"
+msgstr "{0}"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:84
+msgid "{0} cannot be added to an access control list"
+msgstr "{0} no puede añadirse a la lista de control de acceso"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:85
+msgid "{0} is already a delegate"
+msgstr "{0} ya es un delegado"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:86
+msgid "{0} is already in the list"
+msgstr "{0} ya está en la lista"
+
+#: ../server/lib/e2k-autoconfig.c:1694
+#: ../server/storage/exchange-account.c:954
+#, c-format
+msgid "Enter password for %s"
+msgstr "Introduzca la contraseña para %s"
+
+#: ../server/lib/e2k-autoconfig.c:1695
+#: ../server/storage/exchange-account.c:959
+#| msgid "Secure Password"
+msgid "Enter password"
+msgstr "Introduzca la contraseña"
+
+#. i18n: These are Outlook's words for the default roles in
+#. the folder permissions dialog.
+#: ../server/lib/e2k-security-descriptor.c:844
+msgid "Owner"
+msgstr "Propietario"
+
+#: ../server/lib/e2k-security-descriptor.c:854
+msgid "Publishing Editor"
+msgstr "Editor publicador"
+
+#: ../server/lib/e2k-security-descriptor.c:862
+#| msgid "_Edit"
+msgid "Editor"
+msgstr "Editor"
+
+#: ../server/lib/e2k-security-descriptor.c:869
+msgid "Publishing Author"
+msgstr "Autor publicador"
+
+#: ../server/lib/e2k-security-descriptor.c:875
+msgid "Author"
+msgstr "Autor"
+
+#: ../server/lib/e2k-security-descriptor.c:880
+msgid "Non-editing Author"
+msgstr "Autor no editor"
+
+#: ../server/lib/e2k-security-descriptor.c:884
+msgid "Reviewer"
+msgstr "Revisor"
+
+#: ../server/lib/e2k-security-descriptor.c:886
+msgid "Contributor"
+msgstr "Contribuidor"
+
+#: ../server/storage/e-storage.c:555
+msgid "No error"
+msgstr "Sin error"
+
+#: ../server/storage/e-storage.c:559
+#| msgid "Folder already exists"
+msgid "A folder with the same name already exists"
+msgstr "Ya existe una carpeta con el mismo nombre"
+
+#: ../server/storage/e-storage.c:561
+msgid "The specified folder type is not valid"
+msgstr "El tipo de carpeta especificado no es válido"
+
+#: ../server/storage/e-storage.c:563
+msgid "I/O error"
+msgstr "Error de E/S"
+
+#: ../server/storage/e-storage.c:565
+#| msgid "Could not create folder."
+msgid "Not enough space to create the folder"
+msgstr "No existe suficiente espacio para crear la carpeta"
+
+#: ../server/storage/e-storage.c:567
+msgid "The folder is not empty"
+msgstr "La carpeta no está vacía"
+
+#: ../server/storage/e-storage.c:569
+msgid "The specified folder was not found"
+msgstr "No se encontró la carpeta especificada"
+
+#: ../server/storage/e-storage.c:571
+msgid "Function not implemented in this storage"
+msgstr "La función no está implementada en este almacén"
+
+#: ../server/storage/e-storage.c:575
+msgid "Operation not supported"
+msgstr "La operación no está soportada"
+
+#: ../server/storage/e-storage.c:577
+msgid "The specified type is not supported in this storage"
+msgstr "El tipo especificado no está soportado en este almacenamiento"
+
+#: ../server/storage/e-storage.c:579
+msgid "The specified folder cannot be modified or removed"
+msgstr "La carpeta especificada no puede ser modificada o eliminada"
+
+#: ../server/storage/e-storage.c:581
+msgid "Cannot make a folder a child of one of its descendants"
+msgstr "No se puede hacer una carpeta una hija de uno de sus descendientes"
+
+#: ../server/storage/e-storage.c:583
+#| msgid "Cannot create folder in offline mode."
+msgid "Cannot create a folder with that name"
+msgstr "No se pudo crear una carpeta con ese nombre"
+
+#: ../server/storage/e-storage.c:585
+#| msgid "You cannot expunge in offline mode."
+msgid "This operation cannot be performed in off-line mode"
+msgstr "Esta operación no se puede realizar en modo desconectado"
+
+#: ../server/storage/e-storage.c:587
+#| msgid "Unknown"
+msgid "Unknown error"
+msgstr "Error desconocido"
+
+#. i18n: This is the title of an "other user's folders"
+#. hierarchy. Eg, "John Doe's Folders".
+#: ../server/storage/exchange-account.c:639
+#, c-format
+msgid "%s's Folders"
+msgstr "Carpetas de %s"
+
+#: ../server/storage/exchange-account.c:1274
+#| msgid "Create subfolders"
+msgid "Favorite Public Folders"
+msgstr "Carpetas públicas favoritas"
+
+#. i18n: Outlookism
+#: ../server/storage/exchange-account.c:1291
+msgid "All Public Folders"
+msgstr "Todas las carpetas públicas"
+
+#. i18n: Outlookism
+#: ../server/storage/exchange-account.c:1305
+#| msgid "Global Address List / Active Directory"
+msgid "Global Address List"
+msgstr "Lista de direcciones global"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:262
+#| msgid "Delete Any Items"
+msgid "Deleted Items"
+msgstr "Elementos borrados"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:263
+msgid "Drafts"
+msgstr "Borradores"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:265
+msgid "Journal"
+msgstr "Diario"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:266
+#| msgid "None"
+msgid "Notes"
+msgstr "Notas"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:267
+msgid "Outbox"
+msgstr "Bandeja de salida"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:268
+#| msgid "Create items"
+msgid "Sent Items"
+msgstr "Elementos enviados"
+
+#: ../tools/exchange-autoconfig-wizard.c:176
+msgid "Welcome"
+msgstr "Bienvenido"
+
+#: ../tools/exchange-autoconfig-wizard.c:176
+msgid ""
+"Welcome to Evolution Connector for Microsoft Exchange.\n"
+"The next few screens will help you configure Evolution\n"
+"to connect to your Exchange account.\n"
+"\n"
+"Please click the \"Forward\" button to continue."
+msgstr ""
+"Bienvenido al Conector Evolution para Microsoft Exchange.\n"
+"Las siguientes pantallas le ayudarán a configurar Evolution\n"
+"para conectarse a su cuenta Exchange.\n"
+"\n"
+"Por favor, pulse el botón «Adelante» para continuar."
+
+#: ../tools/exchange-autoconfig-wizard.c:188
+#: ../tools/exchange-autoconfig-wizard.c:361
+#: ../tools/exchange-autoconfig-wizard.c:448
+msgid "Exchange Configuration"
+msgstr "Configuración de Exchange"
+
+#: ../tools/exchange-autoconfig-wizard.c:188
+msgid ""
+"Evolution Connector for Microsoft Exchange can use account information from "
+"your existing Outlook Web Access (OWA) account.\n"
+"\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
+msgstr ""
+"El Conector Evolution para Microsoft Exchange puede usar la información de "
+"su cuenta Outlook Web Access (OWA) existente.\n"
+"\n"
+"Introduzca su dirección de sitio OWA (URL), usuario y contraseña, y después "
+"pulse «Adelante».\n"
+
+#: ../tools/exchange-autoconfig-wizard.c:196
+#| msgid "OWA URL:"
+msgid "OWA _URL:"
+msgstr "_URL del OWA:"
+
+#: ../tools/exchange-autoconfig-wizard.c:200
+#| msgid "Username:"
+msgid "User_name:"
+msgstr "_Usuario:"
+
+#: ../tools/exchange-autoconfig-wizard.c:204
+#| msgid "Password:"
+msgid "_Password:"
+msgstr "Con_traseña:"
+
+#: ../tools/exchange-autoconfig-wizard.c:209
+#| msgid "Remember this password"
+msgid "_Remember this password"
+msgstr "_Recordar esta contraseña"
+
+#: ../tools/exchange-autoconfig-wizard.c:282
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -491,7 +1746,7 @@ msgstr ""
 "No se pudo conectar con el servidor Exchange. Asegúrese de que la URL es "
 "correcta (intente «%s» en vez de |%s») y pruebe de nuevo."
 
-#: ../storage/exchange-autoconfig-wizard.c:235
+#: ../tools/exchange-autoconfig-wizard.c:290
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -500,7 +1755,7 @@ msgstr ""
 "Asegúrese de que el nombre del servidor está escrito correctamente y pruebe "
 "de nuevo."
 
-#: ../storage/exchange-autoconfig-wizard.c:244
+#: ../tools/exchange-autoconfig-wizard.c:299
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -508,7 +1763,7 @@ msgstr ""
 "No se pudo autenticar en el servidor Exchange.\n"
 "Asegúrese de que el usuario y contraseña son correctos y pruebe de nuevo."
 
-#: ../storage/exchange-autoconfig-wizard.c:251
+#: ../tools/exchange-autoconfig-wizard.c:306
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -524,7 +1779,7 @@ msgstr ""
 "Quizá necesite especificar el nombre del dominio Windows como parte de su "
 "nombre de usuario(ej: \"MIDOMINIO\\%s\")."
 
-#: ../storage/exchange-autoconfig-wizard.c:263
+#: ../tools/exchange-autoconfig-wizard.c:318
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -532,7 +1787,7 @@ msgstr ""
 "No se pudo encontrar los daros OWA en la URL indicada.\n"
 "Asegúrese de que la URL es correcta e inténtelo de nuevo."
 
-#: ../storage/exchange-autoconfig-wizard.c:270
+#: ../tools/exchange-autoconfig-wizard.c:324
 msgid ""
 "Evolution Connector for Microsoft Exchange requires access to certain "
 "functionality on the Exchange server that appears to be disabled or "
@@ -552,7 +1807,7 @@ msgstr ""
 "Para la información que debe proporcionar a su administrador Exchange, siga "
 "el enlace inferior:"
 
-#: ../storage/exchange-autoconfig-wizard.c:292
+#: ../tools/exchange-autoconfig-wizard.c:337
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 server. "
 "Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
@@ -562,7 +1817,7 @@ msgstr ""
 "Exchange Server 5.5. El Conector Evolution soporta únicamente Microsoft "
 "Exchange 2000 y 2003."
 
-#: ../storage/exchange-autoconfig-wizard.c:306
+#: ../tools/exchange-autoconfig-wizard.c:345
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -570,7 +1825,28 @@ msgstr ""
 "No se pudo configurar la cuenta de Exchange porque ha ocurrido un error "
 "desconocido.Compruebe la URL, usuario y contraseña e inténtelo de nuevo."
 
-#: ../storage/exchange-autoconfig-wizard.c:350
+#: ../tools/exchange-autoconfig-wizard.c:361
+#| msgid ""
+#| "Evolution Connector for Microsoft Exchange could not find the Global "
+#| "Catalog replica for your site. Please enter the name of your Global "
+#| "Catalog server. You may need to ask your system administrator for the "
+#| "correct value.\n"
+msgid ""
+"Evolution Connector for Microsoft Exchange could not find the Global Catalog "
+"replica for your site. Please enter the name of your Global Catalog server. "
+"You may need to ask your system administrator for the correct value."
+msgstr ""
+"El Conector Evolution para Microsfot Exchange no pudo encontrar la réplica "
+"del Catálogo global para su sitio. Introduzca el nombre de su servidor de "
+"Catálogo Global. Quizá necesite preguntar a su administrador de sistemas por "
+"el valor correcto."
+
+#: ../tools/exchange-autoconfig-wizard.c:369
+#| msgid "GC Server:"
+msgid "GC _Server:"
+msgstr "_Servidor GC:"
+
+#: ../tools/exchange-autoconfig-wizard.c:402
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -581,7 +1857,7 @@ msgstr ""
 "Quizá necesita retroceder y especificar el nombre de dominio de Windows como "
 "parte de su nombre de usuario (ej: \"MIDOMINIO\\%s\")."
 
-#: ../storage/exchange-autoconfig-wizard.c:357
+#: ../tools/exchange-autoconfig-wizard.c:409
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -589,12 +1865,69 @@ msgstr ""
 "No se pudo conectar con el servidor especificado.\n"
 "Por favor, compruebe el nombre del servidor e inténtelo de nuevo."
 
-#: ../storage/exchange-autoconfig-wizard.c:394
-#: ../storage/exchange-autoconfig-wizard.c:398
+#: ../tools/exchange-autoconfig-wizard.c:421
+msgid "Configuration Failed"
+msgstr "La configuración ha fallado"
+
+#: ../tools/exchange-autoconfig-wizard.c:421
+#| msgid ""
+#| "Evolution Connector for Microsoft Exchange has encountered a problem "
+#| "configuring your Exchange account.\n"
+msgid ""
+"Evolution Connector for Microsoft Exchange has encountered a problem "
+"configuring your Exchange account."
+msgstr ""
+"El Conector Evolution para Microsoft Exchange ha encontrado un problema "
+"configurando su cuenta Exchange."
+
+#: ../tools/exchange-autoconfig-wizard.c:448
+#| msgid ""
+#| "Your account information is as follows. Please correct any errors, then "
+#| "click \"Forward\".\n"
+msgid ""
+"Your account information is as follows. Please correct any errors, then "
+"click \"Forward\"."
+msgstr ""
+"La información de su cuenta es la siguiente. Ccorrija cualquier error, "
+"después pulse «Adelante»."
+
+#: ../tools/exchange-autoconfig-wizard.c:456
+#| msgid "Full Name:"
+msgid "Full _Name:"
+msgstr "_Nombre completo:"
+
+#: ../tools/exchange-autoconfig-wizard.c:460
+#| msgid "Email Address:"
+msgid "_Email Address:"
+msgstr "Dirección de correo-_e:"
+
+#: ../tools/exchange-autoconfig-wizard.c:464
+#| msgid "Make this my default account"
+msgid "Make this my _default account"
+msgstr "_Hacer que ésta sea mi cuenta predeterminada"
+
+#: ../tools/exchange-autoconfig-wizard.c:481
+#: ../tools/exchange-autoconfig-wizard.c:485
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: ../storage/exchange-autoconfig-wizard.c:463
+#: ../tools/exchange-autoconfig-wizard.c:508
+msgid "Done"
+msgstr "Hecho"
+
+#: ../tools/exchange-autoconfig-wizard.c:508
+#| msgid ""
+#| "Your Connector account is now ready to use. Click the \"Apply\" button to "
+#| "save your\n"
+#| "settings."
+msgid ""
+"Your Connector account is now ready to use. Click the \"Apply\" button to "
+"save your settings."
+msgstr ""
+"Su cuenta de Connector ahora está preparada para usarse. Pulse en el botón "
+"«Aplicar» para guardar su configuración."
+
+#: ../tools/exchange-autoconfig-wizard.c:542
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -602,451 +1935,159 @@ msgstr ""
 "Error del sistema de configuración.\n"
 "No es posible crear una cuenta nueva."
 
-#: ../storage/exchange-autoconfig-wizard.c:477
+#: ../tools/exchange-autoconfig-wizard.c:556
 msgid "You may only configure a single Exchange account"
 msgstr "Sólo puede configurar una cuenta de Exchange individual"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:1
-#: ../storage/exchange-change-password.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:2
-msgid "Configuration Failed"
-msgstr "La configuración ha fallado"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:3
-msgid "Done"
-msgstr "Hecho"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:4
-msgid "Email Address:"
-msgstr "Dirección de correo:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:5
+#: ../tools/exchange-autoconfig-wizard.c:733
 msgid "Evolution Connector for Microsoft Exchange Configuration"
 msgstr "Conector Evolution para la configuración de Microsoft Exchange"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:6
-msgid ""
-"Evolution Connector for Microsoft Exchange can use account information from "
-"your existing Outlook Web Access (OWA) account.\n"
-"\n"
-"Enter your OWA site address (URL), username, and password, then click "
-"\"Forward\".\n"
-msgstr ""
-"El Conector Evolution para Microsoft Exchange puede usar la información de "
-"su cuenta Outlook Web Access (OWA) existente.\n"
-"\n"
-"Introduzca su dirección de sitio OWA (URL), usuario y contraseña, y después "
-"pulse «Adelante».\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:10
-msgid ""
-"Evolution Connector for Microsoft Exchange could not find the Global Catalog "
-"replica for your site. Please enter the name of your Global Catalog server. "
-"You may need to ask your system administrator for the correct value.\n"
-msgstr ""
-"El Conector Evolution para Microsfot Exchange no pudo encontrar la réplica "
-"del Catálogo global para su sitio. Introduzca el nombre de su servidor de "
-"Catálogo Global. Quizá necesite preguntara su administrador de sistemas por "
-"el valor correcto.\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:12
-msgid ""
-"Evolution Connector for Microsoft Exchange has encountered a problem "
-"configuring your Exchange account.\n"
-msgstr ""
-"El Conector Evolution para Microsoft Exchange ha encontrado un problema "
-"configurando su cuenta Exchange.\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:14
-msgid "Exchange Configuration"
-msgstr "Configuración de Exchange"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:15
-msgid "Full Name:"
-msgstr "Nombre completo:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:16
-msgid "GC Server:"
-msgstr "Servidor GC:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:17
-msgid "Make this my default account"
-msgstr "Hacer que esta sea mi cuenta predeterminada"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:18
-msgid "OWA URL:"
-msgstr "URL OWA:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:19
-msgid "Password:"
-msgstr "Contraseña:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:20
-msgid "Remember this password"
-msgstr "Recordar la contraseña"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:21
-msgid "Username:"
-msgstr "Usuario:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:22
-msgid "Welcome"
-msgstr "Bienvenido"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:23
-msgid ""
-"Welcome to Evolution Connector for Microsoft Exchange.\n"
-"The next few screens will help you configure Evolution\n"
-"to connect to your Exchange account.\n"
-"\n"
-"Please click the \"Forward\" button to continue."
-msgstr ""
-"Bienvenido al Conector Evolution para Microsoft Exchange.\n"
-"Las siguientes pantallas le ayudarán a configurar Evolution\n"
-"para conectarse a su cuenta Exchange.\n"
-"\n"
-"Por favor, pulse el botón «Adelante» para continuar."
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:28
-msgid ""
-"Your Connector account is now ready to use. Click the \"Apply\" button to "
-"save your\n"
-"settings."
-msgstr ""
-"Su cuenta de Connector está ahora preparada para usarse. Pulse en el "
-"botón«Aplicar» para guardar su\n"
-"configuración."
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:30
-msgid ""
-"Your account information is as follows. Please correct any errors, then "
-"click \"Forward\".\n"
-msgstr ""
-"La información de su cuenta es la siguiente. Por favor, corrija cualquier "
-"error.después pulse «Adelante».\n"
-
-#. User entered a wrong existing
-#. * password. Prompt him again.
-#.
-#: ../storage/exchange-change-password.c:125
-msgid ""
-"The current password does not match the existing password for your account. "
-"Please enter the correct password"
-msgstr ""
-"La contraseña actual no coincide con la contraseña existente para su cuenta. "
-"Introduzca la contraseña correcta"
-
-#: ../storage/exchange-change-password.c:132
-msgid "The two passwords do not match. Please re-enter the passwords."
-msgstr "Las sos contraseñas no coinciden. Vuelva a introducirlas."
-
-#: ../storage/exchange-change-password.glade.h:2
-msgid "Change Password"
-msgstr "Cambiar contraseña"
-
-#: ../storage/exchange-change-password.glade.h:3
-msgid "Confirm Password:"
-msgstr "Confirmar contraseña:"
-
-#: ../storage/exchange-change-password.glade.h:4
-msgid "Current Password:"
-msgstr "Contraseña actual:"
-
-#: ../storage/exchange-change-password.glade.h:5
-msgid "New Password:"
-msgstr "Contraseña nueva:"
-
-#: ../storage/exchange-change-password.glade.h:6
-msgid "Your current password has expired. Please change your password now."
-msgstr ""
-"Su contraseña actual ha caducado. Por favor, cambie su contraseña ahora."
-
-#: ../storage/exchange-delegates.glade.h:1
-msgid "Author (read, create)"
-msgstr "Autor (leer, crear)"
-
-#: ../storage/exchange-delegates.glade.h:2
-msgid "C_alendar:"
-msgstr "_Agenda:"
-
-#: ../storage/exchange-delegates.glade.h:3
-msgid "Co_ntacts:"
-msgstr "Con_tactos:"
-
-#: ../storage/exchange-delegates.glade.h:4
-msgid "Delegate Permissions"
-msgstr "Permisos delegados"
-
-#: ../storage/exchange-delegates.glade.h:5
-msgid "Delegates"
-msgstr "Delegar en"
-
-#: ../storage/exchange-delegates.glade.h:6
-msgid "Editor (read, create, edit)"
-msgstr "Editor (leer, crear, editar)"
-
-#: ../storage/exchange-delegates.glade.h:7
-msgid "None"
-msgstr "Ninguno"
-
-#: ../storage/exchange-delegates.glade.h:8
-msgid "Permissions for"
-msgstr "Permisos para"
-
-#: ../storage/exchange-delegates.glade.h:9
-msgid "Reviewer (read-only)"
-msgstr "Revisor (sólo lectura)"
-
-#: ../storage/exchange-delegates.glade.h:10
-msgid ""
-"These users will be able to send mail on your behalf\n"
-"and access your folders with the permissions you give them."
-msgstr ""
-"Estos usuarios serán capaces de enviar correo \n"
-"y acceder a tus carpetas con los permisos que les dé."
-
-#: ../storage/exchange-delegates.glade.h:12
-msgid "_Delegate can see private items"
-msgstr "El _delegado puede ver elementos privados"
-
-#: ../storage/exchange-delegates.glade.h:13
-msgid "_Edit"
-msgstr "_Editar"
-
-#: ../storage/exchange-delegates.glade.h:14
-msgid "_Inbox:"
-msgstr "_Entrada:"
-
-#: ../storage/exchange-delegates.glade.h:15
-msgid "_Tasks:"
-msgstr "_Tareas:"
-
-#: ../storage/exchange-folder-tree.glade.h:1
-msgid "Exchange Folder Tree"
-msgstr "Árbol de carpetas de Exchange"
-
-#: ../storage/exchange-migrate.c:60
-msgid "Migrating Exchange Folders..."
-msgstr "Migrando carpetas de Exchange..."
-
-#: ../storage/exchange-migrate.c:68
-#, c-format
-msgid ""
-"The location and hierarchy of the Evolution exchange account folders are "
-"changed since Evolution %d.%d.%d.\n"
-"\n"
-"Please be patient while Evolution migrates your folders..."
-msgstr ""
-"La ubicación y jerarquía de las carpetas de Exchange de Evolution ha "
-"cambiado desde Evolution %d.%d.%d.\n"
-"\n"
-"Tenga paciencia mientras Evolution migra sus carpetas..."
-
-#: ../storage/exchange-migrate.c:101
-#, c-format
-msgid ""
-"Warning: Evolution could not migrate all the Exchange account data from the "
-"version %d.%d.%d. \n"
-"The data hasn't been deleted, but will not be seen by this version of "
-"Evolution"
-msgstr ""
-"Advertencia: Evolution no pudo migrar todos los datos de la cuenta Exchange "
-"desde la versión %d.%d.%d. \n"
-"Los datos no han sido borrados, pero no se verán con esta versión de "
-"Evolution."
-
-#: ../storage/exchange-migrate.c:132
-#, c-format
-msgid "Migrating `%s':"
-msgstr "Migrando «%s»:"
-
-#: ../storage/exchange-oof.glade.h:1
-msgid ""
-"<b>Currently, your status is \"Out of the Office\". </b>\n"
-"\n"
-"Would you like to change your status to \"In the Office\"? "
-msgstr ""
-"<b> Actualmente su estado es «Fuera de la oficina». </b>\n"
-"\n"
-"¿Quiere cambiar su estado a «En la oficina»?"
-
-#: ../storage/exchange-oof.glade.h:4
-msgid "<b>Out of Office Message:</b>"
-msgstr "<b>Mensaje de fuera de la oficina:</b>"
-
-#: ../storage/exchange-oof.glade.h:5
-msgid "<b>Status:</b>"
-msgstr "<b>Estado:</b>"
-
-#: ../storage/exchange-oof.glade.h:6
-msgid ""
-"<small>The message specified below will be automatically sent to each person "
-"who sends\n"
-"mail to you while you are out of the office.</small>"
-msgstr ""
-"<small>El mensaje especificado abajo será enviado automáticamente a cada "
-"persona que le envíe\n"
-"correo usted mientras está fuera de la oficina.</small>"
-
-#: ../storage/exchange-oof.glade.h:8
-msgid "I am currently in the office"
-msgstr "Estoy en la oficina"
-
-#: ../storage/exchange-oof.glade.h:9
-msgid "I am currently out of the office"
-msgstr "Estoy fuera de la oficina"
-
-#: ../storage/exchange-oof.glade.h:10
-msgid "No, Don't Change Status"
-msgstr "No, cambiar el estado"
-
-#: ../storage/exchange-oof.glade.h:11
-msgid "Out of Office Assistant"
-msgstr "Asistente para fuera de oficina"
-
-#: ../storage/exchange-oof.glade.h:12
-msgid "Yes, Change Status"
-msgstr "Sí, cambiar el estado"
-
-#: ../storage/exchange-passwd-expiry.glade.h:1
-msgid "Password Expiry Warning..."
-msgstr "Advertencia de caducidad de la contraseña..."
-
-#: ../storage/exchange-passwd-expiry.glade.h:2
-msgid "Your password will expire in 7 days..."
-msgstr "Su contraseña caducará en 7 días..."
-
-#: ../storage/exchange-passwd-expiry.glade.h:3
-msgid "_Change Password"
-msgstr "_Cambiar contraseña"
-
-#: ../storage/exchange-passwd-expiry.glade.h:4
-msgid "ok_button"
-msgstr "_Aceptar"
-
-#: ../storage/exchange-permissions-dialog.glade.h:1
-msgid "    "
-msgstr "    "
-
-#: ../storage/exchange-permissions-dialog.glade.h:2
-msgid "<b>Permissions</b>"
-msgstr "<b>Permisos</b>"
-
-#: ../storage/exchange-permissions-dialog.glade.h:3
-msgid "Cannot Delete"
-msgstr "No se puede borrar"
-
-#: ../storage/exchange-permissions-dialog.glade.h:4
-msgid "Cannot Edit"
-msgstr "No se puede editar"
-
-#: ../storage/exchange-permissions-dialog.glade.h:5
-msgid "Create items"
-msgstr "Crear elementos"
-
-#: ../storage/exchange-permissions-dialog.glade.h:6
-msgid "Create subfolders"
-msgstr "Crear subcarpetas"
-
-#: ../storage/exchange-permissions-dialog.glade.h:7
-msgid "Delete Any Items"
-msgstr "Borrar cualquier elemento"
-
-#: ../storage/exchange-permissions-dialog.glade.h:8
-msgid "Delete Own Items"
-msgstr "Borrar los elementos propios"
-
-#: ../storage/exchange-permissions-dialog.glade.h:9
-msgid "Edit Any Items"
-msgstr "Editar cualquier elemento"
-
-#: ../storage/exchange-permissions-dialog.glade.h:10
-msgid "Edit Own Items"
-msgstr "Editar los elementos propios"
-
-#: ../storage/exchange-permissions-dialog.glade.h:11
-msgid "Folder contact"
-msgstr "Carpeta de contacto"
-
-#: ../storage/exchange-permissions-dialog.glade.h:12
-msgid "Folder owner"
-msgstr "Propietario de la carpeta"
-
-#: ../storage/exchange-permissions-dialog.glade.h:13
-msgid "Folder visible"
-msgstr "Carpeta visible"
-
-#: ../storage/exchange-permissions-dialog.glade.h:14
-msgid "Read items"
-msgstr "Elementos leídos"
-
-#: ../storage/exchange-permissions-dialog.glade.h:15
-msgid "Role: "
-msgstr "Rol: "
-
-#: ../storage/exchange-storage.c:338
-msgid "Connecting..."
-msgstr "Conectando..."
-
-#: ../storage/ximian-connector-setup.c:75
-msgid "Evolution Connector for Microsoft Exchange Setup Tool"
-msgstr ""
-"Conector Evolution para la Herramienta de configuración de Microsoft Exchange"
-
-#: ../storage/ximian-connector.xml.h:1
+#: ../tools/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
 msgstr "Cambie su contraseña de servidor Exchange"
 
-#: ../storage/ximian-connector.xml.h:2
+#: ../tools/ximian-connector.xml.h:2
 msgid "Folder _Size"
 msgstr "_Tamaño de la carpeta"
 
-#: ../storage/ximian-connector.xml.h:3
+#: ../tools/ximian-connector.xml.h:3
 msgid "Get the size of personal folders"
 msgstr "Obtener el tamaño de las carpetas personales"
 
-#: ../storage/ximian-connector.xml.h:4
+#: ../tools/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
 msgstr "Suscribirse a una carpeta de _otro usuario..."
 
-#: ../storage/ximian-connector.xml.h:5
+#: ../tools/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr ""
 "Suscribirse a una carpeta perteneciente a algún otro usuario en el servidor"
 
-#: ../storage/ximian-connector.xml.h:6
+#: ../tools/ximian-connector.xml.h:6
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
 "Desuscríbase de una carpeta añadida con «Subscribirse a una carpeta de otro "
 "usuario»"
 
-#: ../storage/ximian-connector.xml.h:7
+#: ../tools/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
 msgstr ""
 "Vea o cambie la configuración de delegaciones de su calendario de Exchange"
 
-#: ../storage/ximian-connector.xml.h:8
+#: ../tools/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr ""
 "Vea o cambie su estado de Fuera de Oficina y el mensaje de respuesta "
 "automática"
 
-#: ../storage/ximian-connector.xml.h:9
+#: ../tools/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
 msgstr "_Cambiar la contraseña de Exchange..."
 
-#: ../storage/ximian-connector.xml.h:10
+#: ../tools/ximian-connector.xml.h:10
 msgid "_Delegation Assistant"
 msgstr "Asistente de _delegaciones"
 
-#: ../storage/ximian-connector.xml.h:11
+#: ../tools/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
 msgstr "Asistente para _fuera de oficina"
 
-#: ../storage/ximian-connector.xml.h:12
+#: ../tools/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Desuscribirse de una carpeta de otro usuario"
+
+#~ msgid ""
+#~ "Unable to schedule resource '%s' for recurring meetings.\n"
+#~ "You must book each meeting separately."
+#~ msgstr ""
+#~ "No es posible programar el recurso «%s» para reuniones repetidas.\n"
+#~ "Debe reservar cada reunión separadamente."
+
+#~ msgid "Always check for new mail in this folder"
+#~ msgstr "Comprobar siempre si hay correo nuevo en esta carpeta"
+
+#~ msgid "Evolution Exchange backend process"
+#~ msgstr "Proceso de backend de Evolution Exchange"
+
+#~ msgid "Could not connect to %s: Please restart Evolution"
+#~ msgstr "No se pudo conectar a %s: Reinicie Evolution"
+
+#~ msgid "Count not read file '%s': %s"
+#~ msgstr "No se pudo leer el archivo «%s»: %s"
+
+#~ msgid "Wrong size file '%s'"
+#~ msgstr "Tamaño de archivo incorrecto «%s»"
+
+#~ msgid "Path too long: %s"
+#~ msgstr "Ruta demasiado larga: %s"
+
+#~ msgid "Could not start status thread: %s"
+#~ msgstr "No se pudo iniciar el hilo de estado: %s"
+
+#~ msgid "Lost connection to %s"
+#~ msgstr "Se perdió la conexión con %s"
+
+#~ msgid "Error communicating with %s: %s"
+#~ msgstr "Error al comunicarse con %s: %s"
+
+#~ msgid "Evolution Addressbook Exchange backend"
+#~ msgstr "Backend de libreta de direcciones de Exchange de Evolution"
+
+#~ msgid "Evolution Calendar Exchange backend"
+#~ msgstr "Backend de Calendario de Exchange"
+
+#~ msgid "Evolution Connector for Microsoft Exchange"
+#~ msgstr "Conector Evolution para Microsoft Exchange"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "Migrating Exchange Folders..."
+#~ msgstr "Migrando carpetas de Exchange..."
+
+#~ msgid ""
+#~ "The location and hierarchy of the Evolution exchange account folders are "
+#~ "changed since Evolution %d.%d.%d.\n"
+#~ "\n"
+#~ "Please be patient while Evolution migrates your folders..."
+#~ msgstr ""
+#~ "La ubicación y jerarquía de las carpetas de Exchange de Evolution ha "
+#~ "cambiado desde Evolution %d.%d.%d.\n"
+#~ "\n"
+#~ "Tenga paciencia mientras Evolution migra sus carpetas..."
+
+#~ msgid ""
+#~ "Warning: Evolution could not migrate all the Exchange account data from "
+#~ "the version %d.%d.%d. \n"
+#~ "The data hasn't been deleted, but will not be seen by this version of "
+#~ "Evolution"
+#~ msgstr ""
+#~ "Advertencia: Evolution no pudo migrar todos los datos de la cuenta "
+#~ "Exchange desde la versión %d.%d.%d. \n"
+#~ "Los datos no han sido borrados, pero no se verán con esta versión de "
+#~ "Evolution."
+
+#~ msgid "Migrating `%s':"
+#~ msgstr "Migrando «%s»:"
+
+#~ msgid "<b>Out of Office Message:</b>"
+#~ msgstr "<b>Mensaje de fuera de la oficina:</b>"
+
+#~ msgid "ok_button"
+#~ msgstr "_Aceptar"
+
+#~ msgid "    "
+#~ msgstr "    "
+
+#~ msgid "<b>Permissions</b>"
+#~ msgstr "<b>Permisos</b>"
+
+#~ msgid "Connecting..."
+#~ msgstr "Conectando..."
+
+#~ msgid "Evolution Connector for Microsoft Exchange Setup Tool"
+#~ msgstr ""
+#~ "Conector Evolution para la Herramienta de configuración de Microsoft "
+#~ "Exchange"
