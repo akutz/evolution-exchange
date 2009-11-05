@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.gnome 2-12.\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=evolution-exchange&component=general\n"
-"POT-Creation-Date: 2009-10-13 16:53+0000\n"
-"PO-Revision-Date: 2009-10-15 13:43+0100\n"
+"POT-Creation-Date: 2009-11-02 13:19+0000\n"
+"PO-Revision-Date: 2009-11-04 08:36+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -27,34 +27,25 @@ msgstr "Določa časovni zamik osveževanja GAL predpomnilnika"
 msgid "This key specifies the number of days interval between the GAL cache refresh. Set this value to zero, if you don't want to update GAL and use the current cache forever. This will work only if you have enabled offline caching for GAL."
 msgstr "Ključ določa časovni zamik v dneh za osveževanje GAL predpomnilnika. Vrednost 0 onemogoči osvežitev predpomnilnika. Nastavitev deluje le, če ste omogočili predpomnjenje pomnilnika GAL brez povezave."
 
-#: ../addressbook/e-book-backend-exchange.c:2283
-#: ../addressbook/e-book-backend-gal.c:1885
+#: ../addressbook/e-book-backend-exchange.c:2305
+#: ../addressbook/e-book-backend-gal.c:1896
 msgid "Searching..."
 msgstr "Iskanje ..."
 
-#: ../addressbook/e-book-backend-gal.c:308
-#: ../addressbook/e-book-backend-gal.c:329
+#: ../addressbook/e-book-backend-gal.c:315
+#: ../addressbook/e-book-backend-gal.c:336
 msgid "Reconnecting to LDAP server..."
 msgstr "Ponovno se povezujem z LDAP strežnikom ..."
 
-#: ../addressbook/e-book-backend-gal.c:1646
+#: ../addressbook/e-book-backend-gal.c:1657
 msgid "Receiving LDAP search results..."
 msgstr "Sprejemanje LDAP rezultate iskanja ..."
 
-#: ../addressbook/e-book-backend-gal.c:1916
+#: ../addressbook/e-book-backend-gal.c:1927
 msgid "Error performing search"
 msgstr "Napaka med iskanjem"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2088
-#, c-format
-msgid ""
-"Unable to schedule resource '%s' for recurring meetings.\n"
-"You must book each meeting separately."
-msgstr ""
-"Ni mogoče razporediti vira '%s' za ponavljajoče sestanke.\n"
-"Vsak sestanek morate rezervirati posebej."
-
-#: ../calendar/e-cal-backend-exchange-calendar.c:2106
+#: ../calendar/e-cal-backend-exchange-calendar.c:2096
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Vir '%s' je med izbranim časovnim obdobjem zaseden."
@@ -120,12 +111,12 @@ msgid "No folder name found\n"
 msgstr "Nobeno ime mape ni bilo najdeno\n"
 
 #: ../camel/camel-exchange-journal.c:366
-#: ../camel/camel-exchange-utils.c:3081
-#: ../camel/camel-exchange-utils.c:3145
-#: ../camel/camel-exchange-utils.c:3265
-#: ../camel/camel-exchange-utils.c:3296
-#: ../camel/camel-exchange-utils.c:3348
-#: ../camel/camel-exchange-utils.c:3369
+#: ../camel/camel-exchange-utils.c:3083
+#: ../camel/camel-exchange-utils.c:3147
+#: ../camel/camel-exchange-utils.c:3267
+#: ../camel/camel-exchange-utils.c:3298
+#: ../camel/camel-exchange-utils.c:3350
+#: ../camel/camel-exchange-utils.c:3371
 msgid "Folder doesn't exist"
 msgstr "Mapa ne obstaja"
 
@@ -143,14 +134,14 @@ msgid "Secure or Plaintext Password"
 msgstr "Besedilno ali varno geslo"
 
 #: ../camel/camel-exchange-provider.c:56
-#: ../camel/camel-exchange-provider.c:141
+#: ../camel/camel-exchange-provider.c:143
 #: ../eplugin/exchange-account-setup.c:73
 msgid "Plaintext Password"
 msgstr "Besedilno geslo"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
 #: ../camel/camel-exchange-provider.c:57
-#: ../camel/camel-exchange-provider.c:130
+#: ../camel/camel-exchange-provider.c:132
 #: ../eplugin/exchange-account-setup.c:62
 msgid "Secure Password"
 msgstr "Varno geslo"
@@ -194,47 +185,51 @@ msgstr "Vrsta _overitve:"
 msgid "Allow _browsing of the GAL until download limit is reached"
 msgstr "Dovoli _brskanje GAL dokler ni dosežen limit prenosa"
 
-#: ../camel/camel-exchange-provider.c:91
+#: ../camel/camel-exchange-provider.c:90
+msgid "_Expand groups of contacts in GAL to contact lists"
+msgstr "_Razširi skupine stikov iz GAL v seznam stikov"
+
+#: ../camel/camel-exchange-provider.c:93
 msgid "Options"
 msgstr "Možnosti"
 
-#: ../camel/camel-exchange-provider.c:93
+#: ../camel/camel-exchange-provider.c:95
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "Doba opozarjanja na potek _gesla: %s"
 
-#: ../camel/camel-exchange-provider.c:95
+#: ../camel/camel-exchange-provider.c:97
 msgid "Automatically synchroni_ze account locally"
 msgstr "Samodejno sinhroni_ziraj račun krajevno"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:98
+#: ../camel/camel-exchange-provider.c:100
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "Uvelj_avi filtre na novih sporočilih v mapi prejete pošte na tem strežniku"
 
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:102
 msgid "Check new messages for _Junk contents"
 msgstr "Preveri neželeno pošto v novih sporočilih"
 
-#: ../camel/camel-exchange-provider.c:102
+#: ../camel/camel-exchange-provider.c:104
 msgid "Only check for Junk messag_es in the Inbox folder"
-msgstr "Neželeno pošto preveri samo v mapi prejete pošte"
+msgstr "Neželeno pošto preveri le v mapi prejete pošte"
 
-#: ../camel/camel-exchange-provider.c:112
+#: ../camel/camel-exchange-provider.c:114
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:114
+#: ../camel/camel-exchange-provider.c:116
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Za upravljanje pošte (in drugih podatkov) na strežnikih Microsoft Exchange"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:133
+#: ../camel/camel-exchange-provider.c:135
 #: ../eplugin/exchange-account-setup.c:65
 msgid "This option will connect to the Exchange server using secure password (NTLM) authentication."
 msgstr "Ta možnost bo vzpostavila povezavo s strežnikom Exchange ob uporabi varne overitve z geslom (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:143
+#: ../camel/camel-exchange-provider.c:145
 #: ../eplugin/exchange-account-setup.c:75
 msgid "This option will connect to the Exchange server using standard plaintext password authentication."
 msgstr "Ta možnost bo vzpostavila povezavo s strežnikom Exchange ob uporabi običajne overitve z geslom kot navadnim besedilom."
@@ -314,74 +309,74 @@ msgid "Could not open folder: Permission denied"
 msgstr "Ni bilo mogoče odprti mape: nimate dovoljenja"
 
 #: ../camel/camel-exchange-utils.c:1276
-#: ../camel/camel-exchange-utils.c:2160
+#: ../camel/camel-exchange-utils.c:2162
 msgid "No such folder"
 msgstr "Ta imenik ne obstaja"
 
 #: ../camel/camel-exchange-utils.c:1298
-#: ../camel/camel-exchange-utils.c:3055
-#: ../camel/camel-exchange-utils.c:3098
-#: ../camel/camel-exchange-utils.c:3269
-#: ../camel/camel-exchange-utils.c:3322
-#: ../camel/camel-exchange-utils.c:3384
+#: ../camel/camel-exchange-utils.c:3057
+#: ../camel/camel-exchange-utils.c:3100
+#: ../camel/camel-exchange-utils.c:3271
+#: ../camel/camel-exchange-utils.c:3324
+#: ../camel/camel-exchange-utils.c:3386
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
 #: ../server/storage/e-storage.c:573
 msgid "Permission denied"
 msgstr "Nimate dovoljenja. Nekaterih sporočil ni bilo mogoče izbrisati."
 
-#: ../camel/camel-exchange-utils.c:2169
+#: ../camel/camel-exchange-utils.c:2171
 msgid "Could not create folder."
 msgstr "Ni bilo mogoče ustvariti mape"
 
-#: ../camel/camel-exchange-utils.c:2258
+#: ../camel/camel-exchange-utils.c:2260
 msgid "Could not open Deleted Items folder"
 msgstr "Ni bilo mogoče odprti mape izbrisanih predmetov"
 
-#: ../camel/camel-exchange-utils.c:2385
+#: ../camel/camel-exchange-utils.c:2387
 msgid "Could not empty Deleted Items folder"
 msgstr "Ni bilo mogoče sprazniti mape izbrisanih predmetov"
 
-#: ../camel/camel-exchange-utils.c:2387
+#: ../camel/camel-exchange-utils.c:2389
 msgid "Permission denied. Could not delete certain messages."
 msgstr "Neustrezno dovoljenje. Nekaterih sporočil ni mogoče izbristati."
 
-#: ../camel/camel-exchange-utils.c:2430
+#: ../camel/camel-exchange-utils.c:2432
 msgid "Could not append message; mailbox is over quota"
 msgstr "Ni bilo mogoče dodati sporočila; poštni predal poln"
 
-#: ../camel/camel-exchange-utils.c:2431
+#: ../camel/camel-exchange-utils.c:2433
 msgid "Could not append message"
 msgstr "Ni bilo mogoče dodati sporočila"
 
-#: ../camel/camel-exchange-utils.c:2617
+#: ../camel/camel-exchange-utils.c:2619
 msgid "No such message"
 msgstr "Ni takega sporočila"
 
-#: ../camel/camel-exchange-utils.c:2689
+#: ../camel/camel-exchange-utils.c:2691
 msgid "Message has been deleted"
 msgstr "Sporočilo je bilo izbrisano"
 
-#: ../camel/camel-exchange-utils.c:2691
+#: ../camel/camel-exchange-utils.c:2693
 msgid "Error retrieving message"
 msgstr "Napaka med pridobivanjem sporočila"
 
-#: ../camel/camel-exchange-utils.c:2740
+#: ../camel/camel-exchange-utils.c:2742
 msgid "Mailbox does not support full-text searching"
 msgstr "Poštni predal ne podpira iskanja po celotnem besedilu"
 
-#: ../camel/camel-exchange-utils.c:2848
+#: ../camel/camel-exchange-utils.c:2850
 msgid "Unable to move/copy messages"
 msgstr "Ni bilo mogoče premakniti/kopirati sporočil"
 
-#: ../camel/camel-exchange-utils.c:2960
+#: ../camel/camel-exchange-utils.c:2962
 msgid "No mail submission URI for this mailbox"
 msgstr "V poštnem predalu ni URI za potrditev pošte"
 
-#: ../camel/camel-exchange-utils.c:2993
+#: ../camel/camel-exchange-utils.c:2995
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Strežnik ne bo sprejel pošte preko transporta Exchange"
 
-#: ../camel/camel-exchange-utils.c:2995
+#: ../camel/camel-exchange-utils.c:2997
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -390,7 +385,7 @@ msgstr ""
 "Vaš račun nima dovoljenj za uporabo <%s>\n"
 "kot naslov Od."
 
-#: ../camel/camel-exchange-utils.c:3007
+#: ../camel/camel-exchange-utils.c:3009
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -398,21 +393,21 @@ msgstr ""
 "Ni bilo mogoče poslati sporočila.\n"
 "Vaš poštni predal utegne biti poln."
 
-#: ../camel/camel-exchange-utils.c:3011
+#: ../camel/camel-exchange-utils.c:3013
 msgid "Could not send message"
 msgstr "Ni bilo mogoče poslati sporočila"
 
-#: ../camel/camel-exchange-utils.c:3047
-#: ../camel/camel-exchange-utils.c:3103
-#: ../camel/camel-exchange-utils.c:3273
-#: ../camel/camel-exchange-utils.c:3326
-#: ../camel/camel-exchange-utils.c:3390
+#: ../camel/camel-exchange-utils.c:3049
+#: ../camel/camel-exchange-utils.c:3105
+#: ../camel/camel-exchange-utils.c:3275
+#: ../camel/camel-exchange-utils.c:3328
+#: ../camel/camel-exchange-utils.c:3392
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
 #: ../server/storage/e-storage.c:557
 msgid "Generic error"
 msgstr "Splošna napaka"
 
-#: ../camel/camel-exchange-utils.c:3051
+#: ../camel/camel-exchange-utils.c:3053
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
 msgid "Folder already exists"
 msgstr "Mapa že obstaja"
@@ -575,35 +570,35 @@ msgstr "Gesli se ne skladata. Vnesite ju ponovno."
 msgid "Your password will expire in the next %d days"
 msgstr "Vaše geslo bo poteklo v naslednjih %d dneh"
 
-#: ../eplugin/exchange-config-listener.c:665
+#: ../eplugin/exchange-config-listener.c:664
 msgid "Password Expiry Warning..."
 msgstr "Opozorilo za veljavnost gesla ..."
 
-#: ../eplugin/exchange-config-listener.c:682
+#: ../eplugin/exchange-config-listener.c:681
 msgid "_Change Password"
 msgstr "_Spremeni geslo"
 
-#: ../eplugin/exchange-config-listener.c:735
+#: ../eplugin/exchange-config-listener.c:734
 msgid "Out of Office Assistant"
 msgstr "Pomočnik za nedostopnost"
 
-#: ../eplugin/exchange-config-listener.c:752
+#: ../eplugin/exchange-config-listener.c:751
 msgid "Currently, your status is \"Out of the Office\"."
 msgstr "Trenutno je vaše stanje \"Izven pisarne\""
 
-#: ../eplugin/exchange-config-listener.c:752
+#: ../eplugin/exchange-config-listener.c:751
 msgid "Would you like to change your status to \"In the Office\"?"
 msgstr "Ali želite spremeniti vaše stanje na \"V pisarni\"? "
 
-#: ../eplugin/exchange-config-listener.c:781
+#: ../eplugin/exchange-config-listener.c:780
 msgid "_No, Don't Change Status"
 msgstr "_Ne, ne spreminjaj stanja"
 
-#: ../eplugin/exchange-config-listener.c:802
+#: ../eplugin/exchange-config-listener.c:801
 msgid "_Yes, Change Status"
 msgstr "_Da, spremeni stanje"
 
-#: ../eplugin/exchange-config-listener.c:834
+#: ../eplugin/exchange-config-listener.c:833
 #, c-format
 msgid "Enter Password for %s"
 msgstr "Vpišite geslo za %s"
@@ -633,8 +628,8 @@ msgid "Contacts"
 msgstr "Stiki"
 
 #: ../eplugin/exchange-delegates-user.c:135
-#: ../eplugin/exchange-permissions-dialog.c:546
-#: ../server/lib/e2k-security-descriptor.c:903
+#: ../eplugin/exchange-permissions-dialog.c:545
+#: ../server/lib/e2k-security-descriptor.c:901
 msgid "Custom"
 msgstr "Po meri"
 
@@ -667,7 +662,7 @@ msgstr "Ocenjevalec (samo branje)"
 #: ../eplugin/exchange-delegates-user.c:307
 #: ../eplugin/exchange-delegates-user.c:317
 #: ../eplugin/exchange-delegates-user.c:327
-#: ../server/lib/e2k-security-descriptor.c:888
+#: ../server/lib/e2k-security-descriptor.c:886
 msgid "None"
 msgstr "Noben"
 
@@ -708,7 +703,7 @@ msgid "_Delegate can see private items"
 msgstr "Pooblaščenec lahko vidi zasebne pre_dmete"
 
 #: ../eplugin/exchange-delegates-user.c:342
-#: ../eplugin/exchange-permissions-dialog.c:169
+#: ../eplugin/exchange-permissions-dialog.c:168
 #, c-format
 msgid "Permissions for %s"
 msgstr "Dovoljenja za %s"
@@ -745,51 +740,51 @@ msgstr "Kljub vsemu pa ni ustreznega dovoljenja za pregled osebnih predmetov."
 msgid "You have been designated as a delegate for %s"
 msgstr "Predlagani ste bili za pooblaščenca %s"
 
-#: ../eplugin/exchange-delegates.c:414
+#: ../eplugin/exchange-delegates.c:413
 msgid "Delegate To:"
 msgstr "Pooblasti Za:"
 
-#: ../eplugin/exchange-delegates.c:414
+#: ../eplugin/exchange-delegates.c:413
 msgid "Delegate To"
 msgstr "Pooblasti Za"
 
-#: ../eplugin/exchange-delegates.c:579
+#: ../eplugin/exchange-delegates.c:578
 #, c-format
 msgid "Remove the delegate %s?"
 msgstr "Odstranim pooblaščenca %s?"
 
-#: ../eplugin/exchange-delegates.c:696
+#: ../eplugin/exchange-delegates.c:695
 msgid "Could not access Active Directory"
 msgstr "Ni mogoč dostop do dejavnega imenika"
 
-#: ../eplugin/exchange-delegates.c:708
+#: ../eplugin/exchange-delegates.c:707
 msgid "Could not find self in Active Directory"
 msgstr "Ni mogoče najti sebe v dejavnem imeniku"
 
-#: ../eplugin/exchange-delegates.c:721
+#: ../eplugin/exchange-delegates.c:720
 #, c-format
 msgid "Could not find delegate %s in Active Directory"
 msgstr "Ni mogoče najti pooblaščenca %s v dejavnem imeniku"
 
-#: ../eplugin/exchange-delegates.c:733
+#: ../eplugin/exchange-delegates.c:732
 #, c-format
 msgid "Could not remove delegate %s"
 msgstr "Ni mogoče odstraniti pooblaščenca %s"
 
-#: ../eplugin/exchange-delegates.c:793
+#: ../eplugin/exchange-delegates.c:792
 msgid "Could not update list of delegates."
 msgstr "Ni mogoče posodobiti seznama pooblaščencev."
 
-#: ../eplugin/exchange-delegates.c:811
+#: ../eplugin/exchange-delegates.c:810
 #, c-format
 msgid "Could not add delegate %s"
 msgstr "Ni mogoče dodati pooblaščenca %s"
 
-#: ../eplugin/exchange-delegates.c:927
+#: ../eplugin/exchange-delegates.c:926
 msgid "Delegates"
 msgstr "Pooblaščenci"
 
-#: ../eplugin/exchange-delegates.c:942
+#: ../eplugin/exchange-delegates.c:941
 msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
@@ -797,16 +792,16 @@ msgstr ""
 "Ti uporabniki bodo lahko v vašem imenu pošiljali pošto\n"
 "in bodo imeli dostop do map z dovoljenji, ki jim jih dodelite."
 
-#: ../eplugin/exchange-delegates.c:966
+#: ../eplugin/exchange-delegates.c:965
 msgid "_Edit"
 msgstr "_Uredi"
 
-#: ../eplugin/exchange-delegates.c:996
-#: ../eplugin/exchange-permissions-dialog.c:917
+#: ../eplugin/exchange-delegates.c:995
+#: ../eplugin/exchange-permissions-dialog.c:916
 msgid "Name"
 msgstr "Ime"
 
-#: ../eplugin/exchange-delegates.c:1022
+#: ../eplugin/exchange-delegates.c:1021
 msgid "Error reading delegates list."
 msgstr "Napaka pri branju seznama pooblaščencev."
 
@@ -896,6 +891,14 @@ msgstr "Ali res želite preklicati naročnino na mapo \"%s\"?"
 msgid "Unsubscribe from \"%s\""
 msgstr "Prekliči naročnino na \"%s\""
 
+#: ../eplugin/exchange-mail-send-options.c:222
+msgid "_Send Options"
+msgstr "Možnosti _pošiljanja"
+
+#: ../eplugin/exchange-mail-send-options.c:224
+msgid "Insert Send options"
+msgstr "Vstavi možnosti pošiljanja"
+
 #. FIXME: Don't hardcode this
 #: ../eplugin/exchange-operations.c:122
 #: ../eplugin/exchange-operations.c:167
@@ -903,76 +906,76 @@ msgstr "Prekliči naročnino na \"%s\""
 msgid "Personal Folders"
 msgstr "Osebne mape"
 
-#: ../eplugin/exchange-permissions-dialog.c:279
+#: ../eplugin/exchange-permissions-dialog.c:278
 msgid "(Permission denied.)"
 msgstr "(Ni ustreznih dovoljenj.)"
 
-#: ../eplugin/exchange-permissions-dialog.c:385
+#: ../eplugin/exchange-permissions-dialog.c:384
 msgid "Add User:"
 msgstr "Dodaj uporabnika:"
 
-#: ../eplugin/exchange-permissions-dialog.c:385
+#: ../eplugin/exchange-permissions-dialog.c:384
 #: ../eplugin/exchange-send-options.c:490
 msgid "Add User"
 msgstr "Dodaj uporabnika"
 
-#: ../eplugin/exchange-permissions-dialog.c:793
+#: ../eplugin/exchange-permissions-dialog.c:792
 msgid "Permissions"
 msgstr "Dovoljenja"
 
-#: ../eplugin/exchange-permissions-dialog.c:810
+#: ../eplugin/exchange-permissions-dialog.c:809
 msgid "Role: "
 msgstr "Vloga:"
 
-#: ../eplugin/exchange-permissions-dialog.c:836
+#: ../eplugin/exchange-permissions-dialog.c:835
 msgid "Create items"
 msgstr "Ustvari vnos"
 
-#: ../eplugin/exchange-permissions-dialog.c:840
+#: ../eplugin/exchange-permissions-dialog.c:839
 msgid "Read items"
 msgstr "Preberi vnose"
 
-#: ../eplugin/exchange-permissions-dialog.c:844
+#: ../eplugin/exchange-permissions-dialog.c:843
 msgid "Create subfolders"
 msgstr "Ustvari podmape"
 
-#: ../eplugin/exchange-permissions-dialog.c:852
+#: ../eplugin/exchange-permissions-dialog.c:851
 msgid "Cannot Edit"
 msgstr "Ni mogoče urediti"
 
-#: ../eplugin/exchange-permissions-dialog.c:858
+#: ../eplugin/exchange-permissions-dialog.c:857
 msgid "Edit Own Items"
 msgstr "Uredi lastne vnose"
 
-#: ../eplugin/exchange-permissions-dialog.c:864
+#: ../eplugin/exchange-permissions-dialog.c:863
 msgid "Edit Any Items"
 msgstr "Uredi katerikoli vnos"
 
-#: ../eplugin/exchange-permissions-dialog.c:878
+#: ../eplugin/exchange-permissions-dialog.c:877
 msgid "Folder owner"
 msgstr "Lastnik mape"
 
-#: ../eplugin/exchange-permissions-dialog.c:882
+#: ../eplugin/exchange-permissions-dialog.c:881
 msgid "Folder contact"
 msgstr "Stik mape"
 
-#: ../eplugin/exchange-permissions-dialog.c:886
+#: ../eplugin/exchange-permissions-dialog.c:885
 msgid "Folder visible"
 msgstr "Mapa vidna"
 
-#: ../eplugin/exchange-permissions-dialog.c:894
+#: ../eplugin/exchange-permissions-dialog.c:893
 msgid "Cannot Delete"
 msgstr "Ni mogoče izbrisati"
 
-#: ../eplugin/exchange-permissions-dialog.c:901
+#: ../eplugin/exchange-permissions-dialog.c:900
 msgid "Delete Own Items"
 msgstr "Izbriši lastne vnose"
 
-#: ../eplugin/exchange-permissions-dialog.c:907
+#: ../eplugin/exchange-permissions-dialog.c:906
 msgid "Delete Any Items"
 msgstr "Izbriši katerikoli vnos"
 
-#: ../eplugin/exchange-permissions-dialog.c:921
+#: ../eplugin/exchange-permissions-dialog.c:920
 msgid "Role"
 msgstr "Vloga"
 
@@ -1229,7 +1232,7 @@ msgstr "Geslo je uspešno spremenjeno."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:52
 msgid "Please enter a Delegate's ID or deselect the Send as a Delegate option."
-msgstr "Prosim, vnesite vaš ID pooblaščenca ali pa odstranite oznako pošiljanja kot pooblaščenec."
+msgstr "Vnesite vaš ID pooblaščenca ali pa odstranite oznako pošiljanja kot pooblaščenec."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:53
 msgid "Please make sure the Global Catalog Server name is correct."
@@ -1241,7 +1244,7 @@ msgstr "Za uveljavitev sprememb ponovno zaženite Evolution"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:55
 msgid "Please select a user."
-msgstr "Prosim, izberite uporabnika."
+msgstr "Izberite uporabnika."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:56
 msgid "Server rejected password because it is too weak."
@@ -1249,11 +1252,11 @@ msgstr "Strežnik je zavrnil geslo, ker je prešibko."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:57
 msgid "The Exchange account will be disabled when you quit Evolution"
-msgstr "Račun Exchange bo onemogočen, ko zaustavite program Evolution"
+msgstr "Račun Exchange bo onemogočen, ko končate program Evolution"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:58
 msgid "The Exchange account will be removed when you quit Evolution"
-msgstr "Račun Exchange bo izbrisan, ko zapustite program Evolution."
+msgstr "Račun Exchange bo izbrisan, ko končate program Evolution."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:59
 msgid "The Exchange server is not compatible with Exchange Connector."
@@ -1265,7 +1268,7 @@ msgid ""
 "supports Microsoft Exchange 2000 and 2003 only."
 msgstr ""
 "Strežnik poganja Exchange 5.5. Exchange Connector \n"
-"podpira samo Microsoft Exchange 2000 in 2003."
+"podpira le Microsoft Exchange 2000 in 2003."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:62
 msgid ""
@@ -1315,7 +1318,7 @@ msgstr "Približujete se prostorski omejitvi za shranjevanje pošte na tem stre�
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:75
 msgid "You are permitted to send a message on behalf of only one delegator at a time."
-msgstr "Imate dovoljenje, da pošljete sporočilo sočasno v imenu samo ene osebe katere pooblaščenec ste."
+msgstr "Imate dovoljenje, da pošljete sporočilo sočasno v imenu le ene osebe katere pooblaščenec ste."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:76
 msgid "You cannot make yourself your own delegate"
@@ -1361,48 +1364,48 @@ msgstr "{0} je že pooblaščen"
 msgid "{0} is already in the list"
 msgstr "{0} je že na seznamu"
 
-#: ../server/lib/e2k-autoconfig.c:1694
+#: ../server/lib/e2k-autoconfig.c:1692
 #: ../server/storage/exchange-account.c:954
 #, c-format
 msgid "Enter password for %s"
 msgstr "Vnesite geslo za %s"
 
-#: ../server/lib/e2k-autoconfig.c:1695
+#: ../server/lib/e2k-autoconfig.c:1693
 #: ../server/storage/exchange-account.c:959
 msgid "Enter password"
 msgstr "Vpis gesla"
 
 #. i18n: These are Outlook's words for the default roles in
 #. the folder permissions dialog.
-#: ../server/lib/e2k-security-descriptor.c:844
+#: ../server/lib/e2k-security-descriptor.c:842
 msgid "Owner"
 msgstr "Lastnik"
 
-#: ../server/lib/e2k-security-descriptor.c:854
+#: ../server/lib/e2k-security-descriptor.c:852
 msgid "Publishing Editor"
 msgstr "Zasložniški urednik"
 
-#: ../server/lib/e2k-security-descriptor.c:862
+#: ../server/lib/e2k-security-descriptor.c:860
 msgid "Editor"
 msgstr "Urednik"
 
-#: ../server/lib/e2k-security-descriptor.c:869
+#: ../server/lib/e2k-security-descriptor.c:867
 msgid "Publishing Author"
 msgstr "Založniški avtor"
 
-#: ../server/lib/e2k-security-descriptor.c:875
+#: ../server/lib/e2k-security-descriptor.c:873
 msgid "Author"
 msgstr "Avtor"
 
-#: ../server/lib/e2k-security-descriptor.c:880
+#: ../server/lib/e2k-security-descriptor.c:878
 msgid "Non-editing Author"
 msgstr "Avtor, ki ne ureja"
 
-#: ../server/lib/e2k-security-descriptor.c:884
+#: ../server/lib/e2k-security-descriptor.c:882
 msgid "Reviewer"
 msgstr "Pregledovalec"
 
-#: ../server/lib/e2k-security-descriptor.c:886
+#: ../server/lib/e2k-security-descriptor.c:884
 msgid "Contributor"
 msgstr "Sodelavec"
 
@@ -1619,7 +1622,7 @@ msgstr ""
 
 #: ../tools/exchange-autoconfig-wizard.c:337
 msgid "The Exchange server URL you provided is for an Exchange 5.5 server. Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 and 2003 only."
-msgstr "URL strežnika Exchange, ki ste ga navedli, je za različico 5.5. Evolution Connector podpira samo Microsoft Exchange 2000 in 2003."
+msgstr "URL strežnika Exchange, ki ste ga navedli, je za različico 5.5. Evolution Connector podpira le Microsoft Exchange 2000 in 2003."
 
 #: ../tools/exchange-autoconfig-wizard.c:345
 msgid "Could not configure Exchange account because an unknown error occurred. Check the URL, username, and password, and try again."
@@ -1695,7 +1698,7 @@ msgstr ""
 msgid "You may only configure a single Exchange account"
 msgstr "Nastavite lahko le eden račun Exchange"
 
-#: ../tools/exchange-autoconfig-wizard.c:733
+#: ../tools/exchange-autoconfig-wizard.c:731
 msgid "Evolution Connector for Microsoft Exchange Configuration"
 msgstr "Nastavitev Evolution Connector za Microsoft Exchange"
 
@@ -1747,6 +1750,12 @@ msgstr "P_omočnik za stanje Iz pisarne"
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Prekliči naročnino na mape drugih uporabnikov"
 
+#~ msgid ""
+#~ "Unable to schedule resource '%s' for recurring meetings.\n"
+#~ "You must book each meeting separately."
+#~ msgstr ""
+#~ "Ni mogoče razporediti vira '%s' za ponavljajoče sestanke.\n"
+#~ "Vsak sestanek morate rezervirati posebej."
 #~ msgid "Always check for new mail in this folder"
 #~ msgstr "Vedno preveri novo pošto v tej mapi"
 #~ msgid "Evolution Exchange backend process"
@@ -1810,7 +1819,7 @@ msgstr "Prekliči naročnino na mape drugih uporabnikov"
 #~ msgid "Evolution Connector for Microsoft Exchange Setup Tool"
 #~ msgstr "Namestitveno orodje Evolution Connector za Microsoft Exchange"
 #~ msgid "Ximian Connector for Exchange"
-#~ msgstr "Ximian povezovalec za Exchange"
+#~ msgstr "Ximian povezovalnik za Exchange"
 #~ msgid "Ximian Connector Configuration"
 #~ msgstr "Nastavitev Ximian Connector"
 
