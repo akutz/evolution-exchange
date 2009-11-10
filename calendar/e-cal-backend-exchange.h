@@ -104,6 +104,7 @@ void e_cal_backend_exchange_get_sender (ECalBackendSync *backend, ECalComponent 
 gchar * e_cal_backend_exchange_get_sender_string (ECalBackendSync *backend, ECalComponent *comp);
 gboolean e_cal_backend_exchange_is_online (ECalBackendExchange *cbex);
 GSList * get_attachment (ECalBackendExchange *cbex, const gchar *uid, const gchar *body, gint len);
+GSList *receive_attachments (ECalBackendExchange *cbex, ECalComponent *comp);
 void process_delegated_cal_object (icalcomponent *icalcomp, const gchar *delegator_name,
 					const gchar *delegator_email, const gchar *delegatee_email);
 gchar * build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject, gchar **boundary);

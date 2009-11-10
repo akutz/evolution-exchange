@@ -1662,6 +1662,14 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 				} else {
 					gchar *new_object = NULL;
 					CalObjModType mod = CALOBJ_MOD_ALL;
+					GSList *attachment_list;
+
+					attachment_list = receive_attachments (cbex, comp);
+					if (attachment_list) {
+						e_cal_component_set_attachment_list (comp, attachment_list);
+						g_slist_foreach (attachment_list, (GFunc) g_free, NULL);
+						g_slist_free (attachment_list);
+					}
 
 					if (e_cal_util_component_is_instance (subcomp))
 						mod = CALOBJ_MOD_THIS;
@@ -1686,6 +1694,15 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 				g_free (old_object);
 			} else if (!check_owner_partstatus_for_declined (backend, subcomp)) {
 				gchar *returned_uid, *object;
+				GSList *attachment_list;
+
+				attachment_list = receive_attachments (cbex, comp);
+				if (attachment_list) {
+					e_cal_component_set_attachment_list (comp, attachment_list);
+					g_slist_foreach (attachment_list, (GFunc) g_free, NULL);
+					g_slist_free (attachment_list);
+				}
+
 				d(printf ("object : %s .. not found in the cache\n", uid));
 				icalobj = (gchar *) icalcomponent_as_ical_string_r (subcomp);
 				d(printf ("Create a new object : %s\n", icalobj));
