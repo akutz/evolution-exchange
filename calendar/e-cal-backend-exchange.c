@@ -1897,6 +1897,66 @@ get_mime_type (const gchar *uri)
 	return mime_type;
 }
 
+/* copies attachments to the backend's attachment store and returns new list of attachment URLs */
+GSList *
+receive_attachments (ECalBackendExchange *cbex, ECalComponent *comp)
+{
+	GSList *attach_urls = NULL;
+	GSList *l, *attach_list = NULL;
+	const gchar *uid = NULL;
+
+	g_return_val_if_fail (cbex != NULL, NULL);
+	g_return_val_if_fail (comp != NULL, NULL);
+
+	if (!e_cal_component_has_attachments (comp))
+		return NULL;
+
+	e_cal_component_get_uid (comp, &uid);
+	g_return_val_if_fail (uid != NULL, NULL);
+
+	e_cal_component_get_attachment_list (comp, &attach_list);
+	for (l = attach_list; l; l = l->next) {
+		gchar *fname, *dest_url, *attach_file = NULL, *file_contents;
+		gint len = 0;
+
+		if (!strncmp ((gchar *)l->data, "file://", 7)) {
+			fname = g_filename_from_uri ((gchar *)l->data, NULL, NULL);
+			attach_file = fname;
+		} else {
+			const gchar *filename;
+
+			fname = (gchar *)(l->data);
+			filename = g_strrstr (fname, "/");
+			if (!filename) {
+				/*
+				 * some vcards contain e.g. ATTACH:CID:0fd601c67efb$ef66760d$_CDOEX
+				 * -> ignore instead of crashing
+				 */
+				continue;
+			}
+			attach_file = g_strdup_printf ("%s/%s-%s", cbex->priv->local_attachment_store, uid, filename + 1);
+		}
+
+		/* attach_file should be g_freed */
+		file_contents = get_attach_file_contents (fname, &len);
+		if (!file_contents) {
+			g_free (attach_file);
+			continue;
+		}
+
+		dest_url = save_attach_file (attach_file, file_contents, len);
+		g_free (attach_file);
+		g_free (file_contents);
+		if (!dest_url) {
+			continue;
+		}
+
+		attach_urls = g_slist_append (attach_urls, dest_url);
+	}
+
+	return attach_urls;
+}
+
 gchar *
 build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject, gchar **boundary)
 {
