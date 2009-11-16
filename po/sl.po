@@ -1,0 +1,928 @@
+# translation of evolution-exchange.gnome-2-12.po to Slovenian
+# -*- mode:po; coding:utf-8; -*- Slovenian message catalogue for evolution-exchange.gnome-2-12.
+# Copyright (C) 2005 Free Software Foundation, Inc.
+# Matej Urbančič <matej.urban@gmail.com>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: evolution-exchange.gnome 2-12.\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=evolution-exchange&component=general\n"
+"POT-Creation-Date: 2009-04-17 12:31+0000\n"
+"PO-Revision-Date: 2009-11-14 08:51+0100\n"
+"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
+"Language-Team: Slovenian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"X-Poedit-Country: SLOVENIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../addressbook/e-book-backend-exchange.c:1869
+#: ../addressbook/e-book-backend-gal.c:1499
+#: ../storage/exchange-storage.c:135
+msgid "Searching..."
+msgstr "Iskanje ..."
+
+#: ../addressbook/e-book-backend-gal.c:267
+msgid "Reconnecting to LDAP server..."
+msgstr "Ponovno se povezujem z LDAP strežnikom ..."
+
+#: ../addressbook/e-book-backend-gal.c:1363
+msgid "Receiving LDAP search results..."
+msgstr "Sprejemanje LDAP rezultate iskanja ..."
+
+#: ../addressbook/e-book-backend-gal.c:1522
+msgid "Error performing search"
+msgstr "Napaka med iskanjem"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:2004
+#, c-format
+msgid ""
+"Unable to schedule resource '%s' for recurring meetings.\n"
+"You must book each meeting separately."
+msgstr ""
+"Ni mogoče razporediti vira '%s' za ponavljajoče sestanke.\n"
+"Vsak sestanek morate rezervirati posebej."
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:2022
+#, c-format
+msgid "The resource '%s' is busy during the selected time period."
+msgstr "Vir '%s' je med izbranim časovnim obdobjem zaseden."
+
+#: ../camel/camel-exchange-folder.c:222
+msgid "You cannot expunge in offline mode."
+msgstr "Uničenje v načinu brez povezave ni možno."
+
+#: ../camel/camel-exchange-folder.c:253
+msgid "No Subject"
+msgstr "Ni naslova"
+
+#: ../camel/camel-exchange-folder.c:407
+msgid "This message is not available in offline mode."
+msgstr "Sporočilo ni na voljo v načinu brez povezave."
+
+#: ../camel/camel-exchange-folder.c:642
+msgid "Moving messages"
+msgstr "Premikam sporočila"
+
+#: ../camel/camel-exchange-folder.c:643
+msgid "Copying messages"
+msgstr "Kopiram sporočila"
+
+#: ../camel/camel-exchange-folder.c:1014
+#, c-format
+msgid "Could not create directory %s: %s"
+msgstr "Ni mogoče ustvariti mape %s: %s"
+
+#: ../camel/camel-exchange-folder.c:1024
+#, c-format
+msgid "Could not load summary for %s"
+msgstr "Ni bilo mogoče naložiti povzetka za %s"
+
+#: ../camel/camel-exchange-folder.c:1032
+#, c-format
+msgid "Could not create cache for %s"
+msgstr "Ni bilo mogoče ustvariti predpomnilnika za %s"
+
+#: ../camel/camel-exchange-folder.c:1042
+#, c-format
+msgid "Could not create journal for %s"
+msgstr "Ni bilo mogoče ustvariti dnevnika za %s"
+
+#: ../camel/camel-exchange-folder.c:1087
+msgid "Scanning for changed messages"
+msgstr "Iskanje spremenjenih sporočil"
+
+#: ../camel/camel-exchange-folder.c:1113
+msgid "Fetching summary information for new messages"
+msgstr "Prenašanje povzetkov novih sporočil"
+
+#: ../camel/camel-exchange-journal.c:339
+msgid "No folder name found\n"
+msgstr "Nobeno ime mape ni bilo najdeno\n"
+
+#: ../camel/camel-exchange-journal.c:372
+#: ../mail/mail-stub-exchange.c:2549
+#: ../mail/mail-stub-exchange.c:2593
+#: ../mail/mail-stub-exchange.c:2628
+#: ../mail/mail-stub-exchange.c:2655
+#: ../mail/mail-stub-exchange.c:2708
+#: ../mail/mail-stub-exchange.c:2730
+msgid "Folder doesn't exist"
+msgstr "Mapa ne obstaja"
+
+#: ../camel/camel-exchange-journal.c:436
+msgid "Cannot append message in offline mode: cache unavailable"
+msgstr "Sporočila ni mogoče dodati v načinu brez povezave: predpomnilnik ni na voljo"
+
+#: ../camel/camel-exchange-journal.c:452
+#, c-format
+msgid "Cannot append message in offline mode: %s"
+msgstr "Sporočila ni mogoče dodati v načinu brez povezave: %s"
+
+#. i18n: the '_' should appear before the same letter it
+#. does in the evolution:mail-config.glade "User_name"
+#. translation (or not at all)
+#: ../camel/camel-exchange-provider.c:44
+msgid "Windows User_name:"
+msgstr "_Uporabniško ime v Windows"
+
+#. i18n: GAL is an Outlookism, AD is a Windowsism
+#: ../camel/camel-exchange-provider.c:49
+msgid "Global Address List / Active Directory"
+msgstr "Splošni seznam naslovov (GAL) / Aktivni imenik (AD)"
+
+#. i18n: "Global Catalog" is a Windowsism, but it's a
+#. technical term and may not have translations?
+#: ../camel/camel-exchange-provider.c:53
+msgid "_Global Catalog server name:"
+msgstr "Ime strežnika s _Splošnim katalogom"
+
+#: ../camel/camel-exchange-provider.c:55
+#, c-format
+msgid "_Limit number of GAL responses: %s"
+msgstr "Omejitev števi_la odgovorov GAL: %s"
+
+#: ../camel/camel-exchange-provider.c:58
+msgid "Options"
+msgstr "Možnosti"
+
+#: ../camel/camel-exchange-provider.c:60
+#, c-format
+msgid "_Password Expiry Warning period: %s"
+msgstr "Doba opozarjanja na potek _gesla: %s"
+
+#: ../camel/camel-exchange-provider.c:62
+msgid "Automatically synchroni_ze account locally"
+msgstr "Samodejno sinhroni_ziraj račun lokalno"
+
+#. i18n: copy from evolution:camel-imap-provider.c
+#: ../camel/camel-exchange-provider.c:65
+msgid "_Apply filters to new messages in Inbox on this server"
+msgstr "Uvelj_avi filtre na novih sporočilih v mapi Dohodna pošta na tem strežniku"
+
+#: ../camel/camel-exchange-provider.c:67
+msgid "Check new messages for _Junk contents"
+msgstr "Preveri neželeno pošto v novih sporočilih"
+
+#: ../camel/camel-exchange-provider.c:69
+msgid "Only check for Junk messag_es in the Inbox folder"
+msgstr "Neželeno pošto preveri samo v mapi Dohodna pošta"
+
+#: ../camel/camel-exchange-provider.c:79
+msgid "Microsoft Exchange"
+msgstr "Microsoft Exchange"
+
+#: ../camel/camel-exchange-provider.c:81
+msgid "For handling mail (and other data) on Microsoft Exchange servers"
+msgstr "Za upravljanje pošte (in drugih podatkov) na strežnikih Microsoft Exchange"
+
+#. i18n: "Secure Password Authentication" is an Outlookism
+#: ../camel/camel-exchange-provider.c:97
+msgid "Secure Password"
+msgstr "Varno geslo"
+
+#. i18n: "NTLM" probably doesn't translate
+#: ../camel/camel-exchange-provider.c:100
+msgid "This option will connect to the Exchange server using secure password (NTLM) authentication."
+msgstr "Ta možnost bo vzpostavila povezavo s strežnikom Exchange ob uporabi varne overitve z geslom (NTLM)."
+
+#: ../camel/camel-exchange-provider.c:108
+msgid "Plaintext Password"
+msgstr "Besedilno geslo"
+
+#: ../camel/camel-exchange-provider.c:110
+msgid "This option will connect to the Exchange server using standard plaintext password authentication."
+msgstr "Ta možnost bo vzpostavila povezavo s strežnikom Exchange ob uporabi običajne overitve z geslom kot navadnim besedilom."
+
+#: ../camel/camel-exchange-store.c:308
+#, c-format
+msgid "Exchange server %s"
+msgstr "Exchange strežnik %s"
+
+#: ../camel/camel-exchange-store.c:311
+#, c-format
+msgid "Exchange account for %s on %s"
+msgstr "Exchange račun za %s na %s"
+
+#: ../camel/camel-exchange-store.c:352
+#, c-format
+msgid "%sEnter password for %s"
+msgstr "%s Vnesi geslo za %s"
+
+#: ../camel/camel-exchange-store.c:403
+msgid "Evolution Exchange backend process"
+msgstr "Hrbtni del procesa Evolution Exchange"
+
+#: ../camel/camel-exchange-store.c:444
+msgid ""
+"Could not authenticate to server. (Password incorrect?)\n"
+"\n"
+msgstr ""
+"Overitev na strežniku ni uspela. (Napačno geslo?)\n"
+"\n"
+
+#: ../camel/camel-exchange-store.c:486
+#, c-format
+msgid "No such folder %s"
+msgstr "Mapa %s ne obstaja"
+
+#: ../camel/camel-exchange-store.c:563
+msgid "Cannot subscribe folder in offline mode."
+msgstr "Ni se mogoče naročiti na mapo v načinu brez povezave."
+
+#: ../camel/camel-exchange-store.c:580
+msgid "Cannot unsubscribe folder in offline mode."
+msgstr "Ni mogoče preklicati naročnine na mapo v načinu brez povezave."
+
+#: ../camel/camel-exchange-store.c:695
+msgid "Cannot get folder info in offline mode."
+msgstr "Ni mogoče pridobiti podatkov o mapi v načinu brez povezave."
+
+#: ../camel/camel-exchange-store.c:766
+msgid "Cannot create folder in offline mode."
+msgstr "Ni mogoče ustvariti mape v načinu brez povezave."
+
+#: ../camel/camel-exchange-store.c:793
+msgid "Cannot delete folder in offline mode."
+msgstr "Ni mogoče zbrisati mape v načinu brez povezave."
+
+#: ../camel/camel-exchange-store.c:809
+msgid "Cannot rename folder in offline mode."
+msgstr "Ni mogoče preimenovati mape v načinu brez povezave."
+
+#: ../camel/camel-exchange-transport.c:110
+msgid "Exchange transport can only be used with Exchange mail source"
+msgstr "Transport Exchange lahko uporabite le s poštnim virom Exchange"
+
+#: ../camel/camel-exchange-transport.c:121
+msgid "Cannot send message: one or more invalid recipients"
+msgstr "Ni mogoče poslati sporočila: vsaj en neveljaven prejemnik"
+
+#: ../camel/camel-exchange-transport.c:131
+msgid "Could not find 'From' address in message"
+msgstr "Ni bilo mogoče najti naslova 'Od' v sporočilu"
+
+#: ../camel/camel-stub.c:152
+#, c-format
+msgid "Could not create socket: %s"
+msgstr "Ni bilo mogoče ustvariti vtičnice: %s"
+
+#: ../camel/camel-stub.c:167
+#, c-format
+msgid "Could not connect to %s: %s"
+msgstr "Ni se mogoče povezati s %s: %s"
+
+#: ../camel/camel-stub.c:197
+#, c-format
+msgid "Path too long: %s"
+msgstr "Pot predolga: %s"
+
+#: ../camel/camel-stub.c:223
+#, c-format
+msgid "Could not start status thread: %s"
+msgstr "Ni bilo mogoče začeti niti stanja: %s"
+
+#: ../camel/camel-stub.c:477
+#, c-format
+msgid "Lost connection to %s"
+msgstr "Povezava z %s je prekinjena"
+
+#: ../camel/camel-stub.c:481
+#, c-format
+msgid "Error communicating with %s: %s"
+msgstr "Napaka pri povezovanju z %s: %s"
+
+#: ../mail/mail-stub-exchange.c:257
+msgid "No such folder"
+msgstr "Ta imenik ne obstaja"
+
+#. FIXME: should be this, but string freeze freezes me to do so.
+#. mail_stub_return_error (stub, _("Permission denied. Could not delete certain mails."));
+#: ../mail/mail-stub-exchange.c:280
+#: ../mail/mail-stub-exchange.c:1390
+#: ../mail/mail-stub-exchange.c:2526
+#: ../mail/mail-stub-exchange.c:2566
+#: ../mail/mail-stub-exchange.c:2632
+#: ../mail/mail-stub-exchange.c:2682
+#: ../mail/mail-stub-exchange.c:2745
+msgid "Permission denied"
+msgstr "Nimate dovoljenja. Nekaterih sporočil ni bilo mogoče zbrisati."
+
+#: ../mail/mail-stub-exchange.c:578
+#: ../mail/mail-stub-exchange.c:600
+msgid "Could not open folder: Permission denied"
+msgstr "Ni bilo mogoče odprti mape: nimate dovoljenja"
+
+#: ../mail/mail-stub-exchange.c:584
+#: ../mail/mail-stub-exchange.c:707
+msgid "Could not open folder"
+msgstr "Ni bilo mogoče odprti mape"
+
+#: ../mail/mail-stub-exchange.c:755
+msgid "No such folder."
+msgstr "Ta imenik ne obstaja"
+
+#: ../mail/mail-stub-exchange.c:764
+msgid "Could not create folder."
+msgstr "Ni bilo mogoče ustvariti mape"
+
+#: ../mail/mail-stub-exchange.c:844
+msgid "Could not open Deleted Items folder"
+msgstr "Ni bilo mogoče odprti mape Zbrisani predmeti"
+
+#: ../mail/mail-stub-exchange.c:1175
+#: ../mail/mail-stub-exchange.c:1216
+msgid "Could not get new messages"
+msgstr "Ni bilo mogoče dobiti novih sporočil"
+
+#: ../mail/mail-stub-exchange.c:1386
+msgid "Could not empty Deleted Items folder"
+msgstr "Ni bilo mogoče sprazniti mape Zbrisani predmeti"
+
+#: ../mail/mail-stub-exchange.c:1463
+msgid "Could not append message; mailbox is over quota"
+msgstr "Ni bilo mogoče dodati sporočila; poštni predal poln"
+
+#: ../mail/mail-stub-exchange.c:1464
+msgid "Could not append message"
+msgstr "Ni bilo mogoče dodati sporočila"
+
+#: ../mail/mail-stub-exchange.c:2016
+msgid "No such message"
+msgstr "Ni takega sporočila"
+
+#: ../mail/mail-stub-exchange.c:2069
+msgid "Message has been deleted"
+msgstr "Sporočilo je bilo izbrisano"
+
+#: ../mail/mail-stub-exchange.c:2071
+msgid "Error retrieving message"
+msgstr "Napaka pri pridobivanju sporočila"
+
+#: ../mail/mail-stub-exchange.c:2113
+msgid "Mailbox does not support full-text searching"
+msgstr "Poštni predal ne podpira iskanja po celotnem besedilu"
+
+#: ../mail/mail-stub-exchange.c:2211
+msgid "Unable to move/copy messages"
+msgstr "Ni bilo mogoče premakniti/kopirati sporočil"
+
+#: ../mail/mail-stub-exchange.c:2441
+msgid "No mail submission URI for this mailbox"
+msgstr "V poštnem predalu ni URI za potrditev pošte"
+
+#: ../mail/mail-stub-exchange.c:2477
+msgid "Server won't accept mail via Exchange transport"
+msgstr "Strežnik ne bo sprejel pošte preko transporta Exchange"
+
+#: ../mail/mail-stub-exchange.c:2479
+#, c-format
+msgid ""
+"Your account does not have permission to use <%s>\n"
+"as a From address."
+msgstr ""
+"Vaš račun nima dovoljenj za uporabo <%s>\n"
+"kot naslov Od."
+
+#: ../mail/mail-stub-exchange.c:2491
+msgid ""
+"Could not send message.\n"
+"This might mean that your account is over quota."
+msgstr ""
+"Ni bilo mogoče poslati sporočila.\n"
+"Vaš poštni predal utegne biti poln."
+
+#: ../mail/mail-stub-exchange.c:2495
+msgid "Could not send message"
+msgstr "Ni bilo mogoče poslati sporočila"
+
+#: ../mail/mail-stub-exchange.c:2518
+#: ../mail/mail-stub-exchange.c:2571
+#: ../mail/mail-stub-exchange.c:2636
+#: ../mail/mail-stub-exchange.c:2687
+#: ../mail/mail-stub-exchange.c:2751
+msgid "Generic error"
+msgstr "Splošna napaka"
+
+#: ../mail/mail-stub-exchange.c:2522
+msgid "Folder already exists"
+msgstr "Mapa že obstaja"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
+msgid "Evolution Addressbook Exchange backend"
+msgstr "Hrbtni del Evolution Addressbook Exchange"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
+msgid "Evolution Calendar Exchange backend"
+msgstr "Hrbtni del Evolution Calendar Exchange"
+
+#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
+msgid "Ximian Connector for Exchange"
+msgstr "Ximian povezovalec za Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.c:211
+#, c-format
+msgid ""
+"Could not connect to the Exchange server.\n"
+"Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
+msgstr ""
+"Povezava s strežnikom Exchange ni uspela.\n"
+"Prepričajte se, da je URL pravilen (poskusite \"%s\" namesto \"%s\"?), in poskusite znova."
+
+#: ../storage/exchange-autoconfig-wizard.c:219
+msgid ""
+"Could not locate Exchange server.\n"
+"Make sure the server name is spelled correctly and try again."
+msgstr ""
+"Ni bilo mogoče najti strežnika Exchange.\n"
+"Prepričajte se, da je ime strežnika pravilno, in poskusite znova."
+
+#: ../storage/exchange-autoconfig-wizard.c:228
+msgid ""
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again."
+msgstr ""
+"Overovitev na strežniku Exchange ni uspela.\n"
+"Prepričajte se, da sta uporabniško ime in geslo pravilna, in poskusite znova."
+
+#: ../storage/exchange-autoconfig-wizard.c:235
+#, c-format
+msgid ""
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again.\n"
+"\n"
+"You may need to specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
+msgstr ""
+"Overovitev na strežniku Exchange ni uspela.\n"
+"Prepričajte se, da sta uporabniško ime in geslo pravilna, in poskusite znova.\n"
+"\n"
+"Morda boste morali vnesti tudi ime domene v Windows kot del vašega uporabniškega imena (npr. \"MOJA-DOMENA\\%s\")."
+
+#: ../storage/exchange-autoconfig-wizard.c:247
+msgid ""
+"Could not find OWA data at the indicated URL.\n"
+"Make sure the URL is correct and try again."
+msgstr ""
+"Ni bilo mogoče najti podatkov OWA na navedenem URL.\n"
+"Prepričajte se, da je URL pravilen, in poskusite znova."
+
+#: ../storage/exchange-autoconfig-wizard.c:254
+msgid ""
+"Ximian Connector requires access to certain functionality on the Exchange Server that appears to be disabled or blocked.  (This is usually unintentional.)  Your Exchange Administrator will need to enable this functionality in order for you to be able to use Ximian Connector.\n"
+"\n"
+"For information to provide to your Exchange administrator, please follow the link below:"
+msgstr ""
+"Ximian Connector zahteva dostop do zmogljivosti strežnika Exchange, ki je onemogočena ali zavrnjena. (Ponavadi nenamenoma.) Če želite uporabljati Ximian Connector, bo moral vaš skrbnik Exchange omogočiti omenjeno zmogljivost.\n"
+"\n"
+"Če potrebujete več podatkov za vašega skrbnika, se obrnite na spodnjo povezavo:"
+
+#: ../storage/exchange-autoconfig-wizard.c:275
+msgid "The Exchange server URL you provided is for an Exchange 5.5 Server. Ximian Connector supports Microsoft Exchange 2000 and 2003 only."
+msgstr "URL strežnika Exchange, ki ste ga navedli, je za različico 5.5. Ximian Connector podpira samo Microsoft Exchange 2000 in 2003."
+
+#: ../storage/exchange-autoconfig-wizard.c:288
+msgid "Could not configure Exchange account because an unknown error occurred. Check the URL, username, and password, and try again."
+msgstr "Ni bilo mogoče nastaviti računa Exchange, ker je prišlo do neznane napake. Preverite URL, uporabniško ime in geslo in poskusite znova."
+
+#: ../storage/exchange-autoconfig-wizard.c:332
+#, c-format
+msgid "Could not authenticate to the Global Catalog server. You may need to go back and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
+msgstr "Overovitev na strežniku Global Catalog ni uspela. Morda se boste morali vrniti nazaj in vnesti ime domene v Windows kot del vašega uporabniškega imena (npr. \"MOJA-DOMENA\\%s\")."
+
+#: ../storage/exchange-autoconfig-wizard.c:339
+msgid ""
+"Could not connect to specified server.\n"
+"Please check the server name and try again."
+msgstr ""
+"Povezava z navedenim strežnikom ni uspela.\n"
+"Preverite ime strežnika in poskusite znova."
+
+#: ../storage/exchange-autoconfig-wizard.c:376
+#: ../storage/exchange-autoconfig-wizard.c:380
+msgid "Unknown"
+msgstr "Neznano"
+
+#: ../storage/exchange-autoconfig-wizard.c:445
+msgid ""
+"Configuration system error.\n"
+"Unable to create new account."
+msgstr ""
+"Napaka pri nastavitvi sistema.\n"
+"Ni bilo mogoče ustvariti novega računa."
+
+#: ../storage/exchange-autoconfig-wizard.c:459
+msgid "You may only configure a single Exchange account"
+msgstr "Nastavite lahko le eden račun Exchange"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:1
+#: ../storage/exchange-change-password.glade.h:1
+msgid "*"
+msgstr "*"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:2
+msgid "Configuration Failed"
+msgstr "Nastavitev spodletela"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:3
+msgid "Done"
+msgstr "Končano"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:4
+msgid "Email Address:"
+msgstr "Elektronski naslov:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:5
+msgid "Exchange Configuration"
+msgstr "Nastavitve Exchangea"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:6
+msgid "Full Name:"
+msgstr "Polno Ime:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:7
+msgid "GC Server:"
+msgstr "GC Strežnik:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:8
+msgid "Make this my default account"
+msgstr "To naj bo privzet račun"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:9
+msgid "OWA URL:"
+msgstr "OWA URL:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:10
+msgid "Password:"
+msgstr "Geslo:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:11
+msgid "Remember this password"
+msgstr "Zapomnite si geslo"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:12
+msgid "Username:"
+msgstr "Uporabniško ime:"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:13
+msgid "Welcome"
+msgstr "Dobrodošli"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:14
+msgid ""
+"Welcome to Ximian Connector for Microsoft Exchange.\n"
+"The next few screens will help you configure Evolution\n"
+"to connect to your Exchange account.\n"
+"\n"
+"Please click the \"Forward\" button to continue."
+msgstr ""
+"Pozdravljeni v orodju Ximian Connector za Microsoft Exchange.\n"
+"Naslednja pogovorna okna vam bodo pomagala nastaviti povezavo\n"
+"Evolutiona z vašim računom Exchange.\n"
+"\n"
+"Za nadaljevanje kliknite gumb \"Naprej\"."
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:19
+msgid "Ximian Connector Configuration"
+msgstr "Nastavitev Ximian Connector"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:20
+msgid ""
+"Ximian Connector can use account information from your existing Outlook Web Access (OWA) account.\n"
+"\n"
+"Enter your OWA site address (URL), username, and password, then click \"Forward\".\n"
+msgstr ""
+"Ximian Connector lahko uporabi podatke vašega obstoječega računa Outlook Web Access (OWA).\n"
+"\n"
+"Vnesite vaš naslov strani OWA (URL), uporabniško ime in geslo in kliknite \"Naprej\".\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:24
+msgid "Ximian Connector could not find the Global Catalog replica for your site. Please enter the name of your Global Catalog server. You may need to ask your system administrator for the correct value.\n"
+msgstr "Ximian Connector ni uspel najti kopije Global Cataloga za vašo stran. Vnesite ime vašega strežnika Global Catalog. Za pravilno ime se boste morda morali obrniti na skrbnika vašega sistema.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:26
+msgid "Ximian Connector has encountered a problem configuring your Exchange account.\n"
+msgstr "Ximian Connector je naletel na težavo pri nastavljanju vašega računa Exchange.\n"
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:28
+msgid ""
+"Your Connector account is now ready to use. Click the \"Apply\" button to save your\n"
+"settings."
+msgstr ""
+"Vaš račun za Connector je zdaj pripravljen za uporabo. Če želite shraniti vaše nastavitve,\n"
+"kliknite gumb \"Uporabi\"."
+
+#: ../storage/exchange-autoconfig-wizard.glade.h:30
+msgid "Your account information is as follows. Please correct any errors, then click \"Forward\".\n"
+msgstr "Navedeni so podatki o vašem računu. Popravite morebitne napake in kliknite \"Naprej\".\n"
+
+#. User entered a wrong existing
+#. * password. Prompt him again.
+#.
+#: ../storage/exchange-change-password.c:114
+msgid "The current password does not match the existing password for your account. Please enter the correct password"
+msgstr "Trenutno geslo se ne ujema z obstoječim geslom vašega računa. Vnesite pravilno geslo"
+
+#: ../storage/exchange-change-password.c:121
+msgid "The two passwords do not match. Please re-enter the passwords."
+msgstr "Gesli se ne ujemata. Vnesite ju ponovno."
+
+#: ../storage/exchange-change-password.glade.h:2
+msgid "Change Password"
+msgstr "Spremeni geslo"
+
+#: ../storage/exchange-change-password.glade.h:3
+msgid "Confirm Password:"
+msgstr "Potrdi geslo:"
+
+#: ../storage/exchange-change-password.glade.h:4
+msgid "Current Password:"
+msgstr "Trenutno geslo:"
+
+#: ../storage/exchange-change-password.glade.h:5
+msgid "New Password:"
+msgstr "Novo geslo:"
+
+#: ../storage/exchange-change-password.glade.h:6
+msgid "Your current password has expired. Please change your password now."
+msgstr "Vaše trenutno geslo je poteklo. Spremenite ga zdaj."
+
+#: ../storage/exchange-delegates.glade.h:1
+msgid "Author (read, create)"
+msgstr "Avtor (branje, ustvarjanje)"
+
+#: ../storage/exchange-delegates.glade.h:2
+msgid "C_alendar:"
+msgstr "Koled_ar"
+
+#: ../storage/exchange-delegates.glade.h:3
+msgid "Co_ntacts:"
+msgstr "_Stiki:"
+
+#: ../storage/exchange-delegates.glade.h:4
+msgid "Delegate Permissions"
+msgstr "Dovoljenja pooblaščencev"
+
+#: ../storage/exchange-delegates.glade.h:5
+msgid "Delegates"
+msgstr "Pooblaščenci"
+
+#: ../storage/exchange-delegates.glade.h:6
+msgid "Editor (read, create, edit)"
+msgstr "Urednik (branje, ustvarjanje, urejanje)"
+
+#: ../storage/exchange-delegates.glade.h:7
+msgid "None"
+msgstr "Noben"
+
+#: ../storage/exchange-delegates.glade.h:8
+msgid "Permissions for"
+msgstr "Dovoljenja za"
+
+#: ../storage/exchange-delegates.glade.h:9
+msgid "Reviewer (read-only)"
+msgstr "Ocenjevalec (samo branje)"
+
+#: ../storage/exchange-delegates.glade.h:10
+msgid ""
+"These users will be able to send mail on your behalf\n"
+"and access your folders with the permissions you give them."
+msgstr ""
+"Ti uporabniki bodo lahko v vašem imenu pošiljali pošto\n"
+"in dostopali do map z dovoljenji, ki jim jih dodelite."
+
+#: ../storage/exchange-delegates.glade.h:12
+msgid "_Delegate can see private items"
+msgstr "Pooblaščenec lahko vidi zasebne pre_dmete"
+
+#: ../storage/exchange-delegates.glade.h:13
+msgid "_Edit"
+msgstr "_Uredi"
+
+#: ../storage/exchange-delegates.glade.h:14
+msgid "_Inbox:"
+msgstr "_Prejeto:"
+
+#: ../storage/exchange-delegates.glade.h:15
+msgid "_Tasks:"
+msgstr "_Naloge"
+
+#: ../storage/exchange-folder-tree.glade.h:1
+msgid "Exchange Folder Tree"
+msgstr "Drevo map Exchange"
+
+#: ../storage/exchange-migrate.c:58
+msgid "Migrating Exchange Folders..."
+msgstr "Selitev map Exchange ..."
+
+#: ../storage/exchange-migrate.c:66
+#, c-format
+msgid ""
+"The location and hierarchy of the Evolution exchange account folders are changed since Evolution %d.%d.%d.\n"
+"\n"
+"Please be patient while Evolution migrates your folders..."
+msgstr ""
+"Lokacija in hierarhija map računov na strežniku Exchange sta spremenjeni od različice Evolution %d.%d.%d naprej.\n"
+"\n"
+"Bodite potrpežljivi medtem ko Evolution prenaša vaše mape ..."
+
+#: ../storage/exchange-migrate.c:99
+#, c-format
+msgid ""
+"Warning: Evolution could not migrate all the Exchange account data from the version %d.%d.%d. \n"
+"The data hasn't been deleted, but will not be seen by this version of Evolution"
+msgstr ""
+"Opozorilo: Evolution ni uspel prenesti vseh podatkov računa Exchange iz različice %d.%d.%d. \n"
+"Podatki niso bili zbrisani, vendar v tej različici Evolution ne bodo vidni"
+
+#: ../storage/exchange-migrate.c:130
+#, c-format
+msgid "Migrating `%s':"
+msgstr "Prenašanje `%s':"
+
+#: ../storage/exchange-oof.glade.h:1
+msgid ""
+"<b>Currently, your status is \"Out of the Office\". </b>\n"
+"\n"
+"Would you like to change your status to \"In the Office\"? "
+msgstr ""
+"<b>Trenutno je vaše stanje \"Iz pisarne\". </b>\n"
+"\n"
+"Ga želite spremeniti na \"V pisarni\"? "
+
+#: ../storage/exchange-oof.glade.h:4
+msgid "<b>Out of Office Message:</b>"
+msgstr "<b>Sporočilo stanje Iz pisarne:</b>"
+
+#: ../storage/exchange-oof.glade.h:5
+msgid "<b>Status:</b>"
+msgstr "<b>Status</b>"
+
+#: ../storage/exchange-oof.glade.h:6
+msgid ""
+"<small>The message specified below will be automatically sent to each person who sends\n"
+"mail to you while you are out of the office.</small>"
+msgstr ""
+"<small>Spodnje sporočilo bo samodejno poslano vsem osebam, ki vam bodo pisale\n"
+"v času vaše odsotnosti iz pisarne.</small>"
+
+#: ../storage/exchange-oof.glade.h:8
+msgid "I am currently in the office"
+msgstr "Trenutno sem v pisarni"
+
+#: ../storage/exchange-oof.glade.h:9
+msgid "I am currently out of the office"
+msgstr "Trenutno me ni v pisarni"
+
+#: ../storage/exchange-oof.glade.h:10
+msgid "No, Don't Change Status"
+msgstr "Ne, ne spremeni statusa"
+
+#: ../storage/exchange-oof.glade.h:11
+msgid "Out of Office Assistant"
+msgstr "Pomočnik za nedostopnost"
+
+#: ../storage/exchange-oof.glade.h:12
+msgid "Yes, Change Status"
+msgstr "Da, spremeni status"
+
+#: ../storage/exchange-passwd-expiry.glade.h:1
+msgid "Password Expiry Warning..."
+msgstr "Opozorilo za veljavnost gesla ..."
+
+#: ../storage/exchange-passwd-expiry.glade.h:2
+msgid "Your password will expire in 7 days..."
+msgstr "Vaše geslo bo poteklo čez 7 dni ..."
+
+#: ../storage/exchange-passwd-expiry.glade.h:3
+msgid "_Change Password"
+msgstr "_Spremeni geslo"
+
+#: ../storage/exchange-passwd-expiry.glade.h:4
+msgid "ok_button"
+msgstr "ok_gumb"
+
+#: ../storage/exchange-permissions-dialog.glade.h:1
+msgid "    "
+msgstr "    "
+
+#: ../storage/exchange-permissions-dialog.glade.h:2
+msgid "<b>Permissions</b>"
+msgstr "<b>Dovoljenja</b>"
+
+#: ../storage/exchange-permissions-dialog.glade.h:3
+msgid "Cannot Delete"
+msgstr "Ni mogoče izbrisati"
+
+#: ../storage/exchange-permissions-dialog.glade.h:4
+msgid "Cannot Edit"
+msgstr "Ni mogoče urediti"
+
+#: ../storage/exchange-permissions-dialog.glade.h:5
+msgid "Create items"
+msgstr "Ustvari vnos"
+
+#: ../storage/exchange-permissions-dialog.glade.h:6
+msgid "Create subfolders"
+msgstr "Ustvari podmape"
+
+#: ../storage/exchange-permissions-dialog.glade.h:7
+msgid "Delete Any Items"
+msgstr "Izbriši katerikoli vnos"
+
+#: ../storage/exchange-permissions-dialog.glade.h:8
+msgid "Delete Own Items"
+msgstr "Izbriši lastne vnose"
+
+#: ../storage/exchange-permissions-dialog.glade.h:9
+msgid "Edit Any Items"
+msgstr "Uredi katerikoli vnos"
+
+#: ../storage/exchange-permissions-dialog.glade.h:10
+msgid "Edit Own Items"
+msgstr "Uredi lastne vnose"
+
+#: ../storage/exchange-permissions-dialog.glade.h:11
+msgid "Folder contact"
+msgstr "Stik mape"
+
+#: ../storage/exchange-permissions-dialog.glade.h:12
+msgid "Folder owner"
+msgstr "Lastnik mape"
+
+#: ../storage/exchange-permissions-dialog.glade.h:13
+msgid "Folder visible"
+msgstr "Mapa vidna"
+
+#: ../storage/exchange-permissions-dialog.glade.h:14
+msgid "Read items"
+msgstr "Preberi vnose"
+
+#: ../storage/exchange-permissions-dialog.glade.h:15
+msgid "Role: "
+msgstr "Vloga:"
+
+#: ../storage/exchange-storage.c:338
+msgid "Connecting..."
+msgstr "Povezovanje ..."
+
+#: ../storage/main.c:183
+msgid "Ximian Connector for Microsoft Exchange"
+msgstr "Ximian Connector za Microsoft Exchange"
+
+#: ../storage/ximian-connector-setup.c:44
+msgid "Ximian Connector for Microsoft Exchange Setup Tool"
+msgstr "Namestitveno orodje Ximian Connector za Microsoft Exchange"
+
+#: ../storage/ximian-connector.xml.h:1
+msgid "Change your Exchange server password"
+msgstr "Spremenite vaše geslo za strežnik Exchange"
+
+#: ../storage/ximian-connector.xml.h:2
+msgid "Folder _Size"
+msgstr "Veliko_st mape"
+
+#: ../storage/ximian-connector.xml.h:3
+msgid "Get the size of personal folders"
+msgstr "Pridobi velikost zasebnih map"
+
+#: ../storage/ximian-connector.xml.h:4
+msgid "Subscribe to _Other User's Folder..."
+msgstr "Naročilo na mapo drugih up_orabnikov ..."
+
+#: ../storage/ximian-connector.xml.h:5
+msgid "Subscribe to a folder belonging to some other user on the server"
+msgstr "Naročilo na mapo, ki pripada nekemu drugemu uporabniku na strežniku"
+
+#: ../storage/ximian-connector.xml.h:6
+msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
+msgstr "Prekliči naročnino na mapo, dodano preko \"Naročilo na mapo drugih up_orabnikov\""
+
+#: ../storage/ximian-connector.xml.h:7
+msgid "View or change your Exchange calendar delegation settings"
+msgstr "Ogled in spreminjanje vaših nastavitev pooblaščencev v koledarju Exchange"
+
+#: ../storage/ximian-connector.xml.h:8
+msgid "View or change your Out-of-Office status and autoreply message"
+msgstr "Ogled in spreminjanje vašega stanja Iz pisarne in samodejnega sporočila"
+
+#: ../storage/ximian-connector.xml.h:9
+msgid "_Change Exchange Password..."
+msgstr "Spremeni geslo za Ex_change ..."
+
+#: ../storage/ximian-connector.xml.h:10
+msgid "_Delegation Assistant"
+msgstr "_Pomočnik za pooblaščence"
+
+#: ../storage/ximian-connector.xml.h:11
+msgid "_Out of Office Assistant"
+msgstr "P_omočnik za stanje Iz pisarne"
+
+#: ../storage/ximian-connector.xml.h:12
+msgid "_Unsubscribe from Other User's Folder"
+msgstr "Prekliči naročnino na mape drugih uporabnikov"
+
+#~ msgid "Could not connect to %s: Please restart Evolution"
+#~ msgstr "Ni se bilo mogoče povezati z %s: Ponovno zaženiti Evolution"
+
