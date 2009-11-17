@@ -21,12 +21,14 @@ m4_define([gconf_minimum_version], [2.0.0])		dnl XXX Just a Guess
 m4_define([libxml_minimum_version], [2.0.0])		dnl XXX Just a Guess
 m4_define([libsoup_minimum_version], [2.3.0])
 
+dnl *********************************************************************
+dnl Update these for every new development release of Evolution-Exchange.
+dnl These numbers actually correspond to the next stable release number.
+dnl Note, this is set the way it is so that GETTEXT_PACKAGE will be
+dnl parsed correctly.
 dnl ******************************************************************
-dnl Update these for every new development release of evolution. These
-dnl numbers actually correspond to the next stable release number.
-dnl ******************************************************************
-EVOLUTION_API_VERSION=2.30
-EDS_BASE_VERSION=2.30
+BASE_VERSION=2.30
+m4_define([base_version], [2.30])
 
 dnl **********************
 dnl Compiler Warning Flags
@@ -112,7 +114,7 @@ dnl ***************
 IT_PROG_INTLTOOL([0.35.5])
 AM_GLIB_GNU_GETTEXT
 
-GETTEXT_PACKAGE=evolution-exchange-${BASE_VERSION}
+GETTEXT_PACKAGE=evolution-exchange-$BASE_VERSION
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Package name for gettext])
 
@@ -187,10 +189,7 @@ if test -z "$EVOLUTION_VERSION"; then
 fi
 AC_SUBST(EVOLUTION_VERSION)
 
-EVOLUTION_BASE_VERSION=$EVOLUTION_API_VERSION
-AC_DEFINE_UNQUOTED(EVOLUTION_BASE_VERSION, "$EVOLUTION_BASE_VERSION", Evolution version)
-
-BASE_VERSION=$EVOLUTION_API_VERSION
+AC_SUBST([BASE_VERSION], [base_version])
 AC_DEFINE_UNQUOTED(BASE_VERSION, "$BASE_VERSION", Connector base version)
 
 plugindir="`$PKG_CONFIG --variable=plugindir evolution-plugin`"
