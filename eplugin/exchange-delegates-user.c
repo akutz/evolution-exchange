@@ -31,9 +31,7 @@
 #include <mail/mail-ops.h>
 #include <mail/mail-send-recv.h>
 #include <mail/e-mail-local.h>
-#include <camel/camel-multipart.h>
-#include <camel/camel-mime-utils.h>
-#include <camel/camel-stream-mem.h>
+#include <camel/camel.h>
 #include <exchange-account.h>
 #include <e2k-global-catalog.h>
 #include <e2k-marshal.h>

@@ -8,11 +8,7 @@
 
 G_BEGIN_DECLS
 
-#include <camel/camel-offline-folder.h>
-#include <camel/camel-folder.h>
-#include <camel/camel-data-cache.h>
-#include <camel/camel-offline-folder.h>
-#include <camel/camel-offline-journal.h>
+#include <camel/camel.h>
 
 #define CAMEL_EXCHANGE_FOLDER_TYPE     (camel_exchange_folder_get_type ())
 #define CAMEL_EXCHANGE_FOLDER(obj)     (CAMEL_CHECK_CAST((obj), CAMEL_EXCHANGE_FOLDER_TYPE, CamelExchangeFolder))

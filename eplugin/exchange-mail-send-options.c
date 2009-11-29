@@ -26,8 +26,7 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 
-#include <camel/camel-mime-message.h>
-#include <camel/camel-address.h>
+#include <camel/camel.h>
 #include "mail/em-event.h"
 
 #include "composer/e-msg-composer.h"

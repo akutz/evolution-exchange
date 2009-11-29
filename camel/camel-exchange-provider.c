@@ -29,9 +29,7 @@
 
 #include <glib/gi18n-lib.h>
 
-#include <camel/camel-provider.h>
-#include <camel/camel-session.h>
-#include <camel/camel-url.h>
+#include <camel/camel.h>
 #include "camel-exchange-store.h"
 #include "camel-exchange-transport.h"
 

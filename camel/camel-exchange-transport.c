@@ -28,13 +28,7 @@
 #include "camel-exchange-transport.h"
 #include "camel-exchange-utils.h"
 
-#include <camel/camel-data-wrapper.h>
-#include <camel/camel-exception.h>
-#include <camel/camel-mime-filter-crlf.h>
-#include <camel/camel-mime-message.h>
-#include <camel/camel-session.h>
-#include <camel/camel-stream-filter.h>
-#include <camel/camel-stream-mem.h>
+#include <camel/camel.h>
 
 #include <string.h>
 

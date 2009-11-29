@@ -30,17 +30,7 @@
 #include <glib/gi18n-lib.h>
 #include <libedataserver/e-data-server-util.h>
 
-#include <camel/camel-data-wrapper.h>
-#include <camel/camel-exception.h>
-#include <camel/camel-file-utils.h>
-#include <camel/camel-mime-filter-crlf.h>
-#include <camel/camel-mime-message.h>
-#include <camel/camel-multipart.h>
-#include <camel/camel-session.h>
-#include <camel/camel-stream-filter.h>
-#include <camel/camel-stream-mem.h>
-#include <camel/camel-folder-summary.h>
-#include <camel/camel-string-utils.h>
+#include <camel/camel.h>
 
 #include "camel-exchange-folder.h"
 #include "camel-exchange-search.h"

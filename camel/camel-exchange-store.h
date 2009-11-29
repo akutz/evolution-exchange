@@ -8,8 +8,7 @@
 
 G_BEGIN_DECLS
 
-#include <camel/camel-store.h>
-#include <camel/camel-offline-store.h>
+#include <camel/camel.h>
 
 #define CAMEL_EXCHANGE_STORE_TYPE     (camel_exchange_store_get_type ())
 #define CAMEL_EXCHANGE_STORE(obj)     (CAMEL_CHECK_CAST((obj), CAMEL_EXCHANGE_STORE_TYPE, CamelExchangeStore))

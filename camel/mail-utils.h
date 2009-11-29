@@ -4,7 +4,7 @@
 #ifndef __MAIL_UTILS_H__
 #define __MAIL_UTILS_H__
 
-#include <camel/camel-folder-summary.h>
+#include <camel/camel.h>
 
 #include "e2k-properties.h"
 

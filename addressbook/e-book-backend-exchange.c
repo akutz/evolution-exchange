@@ -42,9 +42,7 @@
 #include <libedata-book/e-book-backend-cache.h>
 #include <libedataserver/e-xml-hash-utils.h>
 
-#include <camel/camel-mime-message.h>
-#include <camel/camel-multipart.h>
-#include <camel/camel-stream-mem.h>
+#include <camel/camel.h>
 
 #include <e2k-context.h>
 #include <e2k-propnames.h>

@@ -39,7 +39,7 @@
 #include <libedataserver/e-xml-utils.h>
 #include <libedataserver/e-xml-hash-utils.h>
 
-#include <camel/camel-url.h>
+#include <camel/camel.h>
 
 #include <e2k-marshal.h>
 #include <e2k-uri.h>

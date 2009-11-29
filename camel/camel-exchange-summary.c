@@ -27,10 +27,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include <camel/camel-db.h>
-#include <camel/camel-file-utils.h>
-#include <camel/camel-offline-store.h>
-#include <camel/camel-string-utils.h>
+#include <camel/camel.h>
 
 #include "camel-exchange-folder.h"
 #include "camel-exchange-journal.h"

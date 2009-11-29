@@ -4,8 +4,7 @@
 #ifndef CAMEL_EXCHANGE_UTILS_H
 #define CAMEL_EXCHANGE_UTILS_H
 
-#include <camel/camel-service.h>
-#include <camel/camel-exception.h>
+#include <camel/camel.h>
 
 G_BEGIN_DECLS
 

@@ -8,7 +8,7 @@
 
 G_BEGIN_DECLS
 
-#include <camel/camel-transport.h>
+#include <camel/camel.h>
 
 #define CAMEL_EXCHANGE_TRANSPORT_TYPE     (camel_exchange_transport_get_type ())
 #define CAMEL_EXCHANGE_TRANSPORT(obj)     (CAMEL_CHECK_CAST((obj), CAMEL_EXCHANGE_TRANSPORT_TYPE, CamelExchangeTransport))

@@ -36,7 +36,7 @@
 #include <e-folder-exchange.h>
 #include <e2k-marshal.h>
 #include <e2k-uri.h>
-#include <camel/camel-url.h>
+#include <camel/camel.h>
 
 #include <e-util/e-error.h>
 #include <shell/e-shell.h>
