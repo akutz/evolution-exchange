@@ -435,7 +435,7 @@ exchange_get_folder (CamelStore *store, const gchar *folder_name,
 		 * by the store-level cache...
 		 */
 		g_mutex_unlock (exch->folders_lock);
-		camel_object_ref (CAMEL_OBJECT (folder));
+		g_object_ref (CAMEL_OBJECT (folder));
 		g_free (folder_dir);
 		return folder;
 	}
@@ -465,7 +465,7 @@ exchange_get_folder (CamelStore *store, const gchar *folder_name,
 	 * may create and then unref the folder. That's a waste. So don't
 	 * let that happen. Probably not the best fix...
 	 */
-	camel_object_ref (CAMEL_OBJECT (folder));
+	g_object_ref (CAMEL_OBJECT (folder));
 
 	return folder;
 }
