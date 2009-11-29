@@ -52,7 +52,7 @@ static gint               message_info_save (CamelFolderSummary *summary,
 					    FILE *out,
 					    CamelMessageInfo *info);
 static gint summary_header_from_db (CamelFolderSummary *s, CamelFIRecord *mir);
-static CamelFIRecord * summary_header_to_db (CamelFolderSummary *s, CamelException *ex);
+static CamelFIRecord * summary_header_to_db (CamelFolderSummary *s, GError **error);
 static CamelMIRecord * message_info_to_db (CamelFolderSummary *s, CamelMessageInfo *info);
 static CamelMessageInfo * message_info_from_db (CamelFolderSummary *s, CamelMIRecord *mir);
 static CamelMessageInfo *message_info_new_from_header  (CamelFolderSummary *summary,
@@ -211,7 +211,7 @@ header_load (CamelFolderSummary *summary, FILE *in)
 }
 
 static CamelFIRecord *
-summary_header_to_db (CamelFolderSummary *s, CamelException *ex)
+summary_header_to_db (CamelFolderSummary *s, GError **error)
 {
 	CamelExchangeSummary *exchange = (CamelExchangeSummary *) s;
 	struct _CamelFIRecord *fir;

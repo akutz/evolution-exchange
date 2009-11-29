@@ -36,7 +36,7 @@ static gboolean exchange_send_to (CamelTransport *transport,
 				  CamelMimeMessage *message,
 				  CamelAddress *from,
 				  CamelAddress *recipients,
-				  CamelException *ex);
+				  GError **error);
 
 static void
 camel_exchange_transport_class_init (CamelExchangeTransportClass *camel_exchange_transport_class)
@@ -76,7 +76,7 @@ camel_exchange_transport_get_type (void)
 static gboolean
 exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 		  CamelAddress *from, CamelAddress *recipients,
-		  CamelException *ex)
+		  GError **error)
 {
 	CamelService *service = CAMEL_SERVICE (transport);
 	CamelStore *store = NULL;

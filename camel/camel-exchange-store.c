@@ -46,43 +46,43 @@ static CamelOfflineStoreClass *parent_class = NULL;
 
 static void construct (CamelService *service, CamelSession *session,
 		       CamelProvider *provider, CamelURL *url,
-		       CamelException *ex);
+		       GError **error);
 
-static GList *query_auth_types (CamelService *service, CamelException *ex);
+static GList *query_auth_types (CamelService *service, GError **error);
 static gchar  *get_name         (CamelService *service, gboolean brief);
 static CamelFolder     *get_trash       (CamelStore *store,
-					 CamelException *ex);
+					 GError **error);
 
 gchar * exchange_path_to_physical (const gchar *prefix, const gchar *vpath);
-static gboolean exchange_connect (CamelService *service, CamelException *ex);
-static gboolean exchange_disconnect (CamelService *service, gboolean clean, CamelException *ex);
+static gboolean exchange_connect (CamelService *service, GError **error);
+static gboolean exchange_disconnect (CamelService *service, gboolean clean, GError **error);
 
 static CamelFolder *exchange_get_folder (CamelStore *store, const gchar *folder_name,
-					 guint32 flags, CamelException *ex);
+					 guint32 flags, GError **error);
 
 static CamelFolderInfo *exchange_get_folder_info (CamelStore *store, const gchar *top,
-						  guint32 flags, CamelException *ex);
+						  guint32 flags, GError **error);
 
 static CamelFolderInfo *exchange_create_folder (CamelStore *store,
 						const gchar *parent_name,
 						const gchar *folder_name,
-						CamelException *ex);
+						GError **error);
 static void             exchange_delete_folder (CamelStore *store,
 						const gchar *folder_name,
-						CamelException *ex);
+						GError **error);
 static void             exchange_rename_folder (CamelStore *store,
 						const gchar *old_name,
 						const gchar *new_name,
-						CamelException *ex);
+						GError **error);
 static gboolean		exchange_folder_subscribed (CamelStore *store,
 						const gchar *folder_name);
 static void		exchange_subscribe_folder (CamelStore *store,
 						const gchar *folder_name,
-						CamelException *ex);
+						GError **error);
 static void		exchange_unsubscribe_folder (CamelStore *store,
 						const gchar *folder_name,
-						CamelException *ex);
-static gboolean exchange_can_refresh_folder (CamelStore *store, CamelFolderInfo *info, CamelException *ex);
+						GError **error);
+static gboolean exchange_can_refresh_folder (CamelStore *store, CamelFolderInfo *info, GError **error);
 
 static void
 class_init (CamelExchangeStoreClass *camel_exchange_store_class)
@@ -167,7 +167,7 @@ camel_exchange_store_get_type (void)
 /* Use this to ensure that the camel session is online and we are connected
    too. Also returns the current status of the store */
 gboolean
-camel_exchange_store_connected (CamelExchangeStore *store, CamelException *ex)
+camel_exchange_store_connected (CamelExchangeStore *store, GError **error)
 {
 	CamelService *service;
 	CamelSession *session;
@@ -267,7 +267,7 @@ exchange_path_to_physical (const gchar *prefix, const gchar *vpath)
 
 static void
 construct (CamelService *service, CamelSession *session,
-	   CamelProvider *provider, CamelURL *url, CamelException *ex)
+	   CamelProvider *provider, CamelURL *url, GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
 	gchar *p;
@@ -291,7 +291,7 @@ extern CamelServiceAuthType camel_exchange_password_authtype;
 extern CamelServiceAuthType camel_exchange_ntlm_authtype;
 
 static GList *
-query_auth_types (CamelService *service, CamelException *ex)
+query_auth_types (CamelService *service, GError **error)
 {
 	return g_list_prepend (g_list_prepend (NULL, &camel_exchange_password_authtype),
 			       &camel_exchange_ntlm_authtype);
@@ -313,7 +313,7 @@ get_name (CamelService *service, gboolean brief)
 #define EXCHANGE_STOREINFO_VERSION 1
 
 static void
-camel_exchange_get_password (CamelService *service, CamelException *ex)
+camel_exchange_get_password (CamelService *service, GError **error)
 {
 	CamelSession *session = camel_service_get_session (service);
 
@@ -332,7 +332,7 @@ camel_exchange_get_password (CamelService *service, CamelException *ex)
 }
 
 static void
-camel_exchange_forget_password (CamelService *service, CamelException *ex)
+camel_exchange_forget_password (CamelService *service, GError **error)
 {
 	CamelSession *session = camel_service_get_session (service);
 
@@ -346,7 +346,7 @@ camel_exchange_forget_password (CamelService *service, CamelException *ex)
 }
 
 static gboolean
-exchange_connect (CamelService *service, CamelException *ex)
+exchange_connect (CamelService *service, GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
 	gchar *password = NULL;
@@ -393,7 +393,7 @@ exchange_connect (CamelService *service, CamelException *ex)
 }
 
 static gboolean
-exchange_disconnect (CamelService *service, gboolean clean, CamelException *ex)
+exchange_disconnect (CamelService *service, gboolean clean, GError **error)
 {
 	/* CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service); */
 	/* keep account connect as it can be used for other parts like cal, gal or addressbook? */
@@ -409,7 +409,7 @@ exchange_disconnect (CamelService *service, gboolean clean, CamelException *ex)
 
 static CamelFolder *
 exchange_get_folder (CamelStore *store, const gchar *folder_name,
-		     guint32 flags, CamelException *ex)
+		     guint32 flags, GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	CamelFolder *folder;
@@ -489,7 +489,7 @@ exchange_folder_subscribed (CamelStore *store, const gchar *folder_name)
 
 static void
 exchange_subscribe_folder (CamelStore *store, const gchar *folder_name,
-				CamelException *ex)
+				GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 
@@ -504,7 +504,7 @@ exchange_subscribe_folder (CamelStore *store, const gchar *folder_name,
 
 static void
 exchange_unsubscribe_folder (CamelStore *store, const gchar *folder_name,
-				CamelException *ex)
+				GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 
@@ -518,7 +518,7 @@ exchange_unsubscribe_folder (CamelStore *store, const gchar *folder_name,
 }
 
 static CamelFolder *
-get_trash (CamelStore *store, CamelException *ex)
+get_trash (CamelStore *store, GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 
@@ -630,7 +630,7 @@ postprocess_tree (CamelFolderInfo *info)
 }
 
 static CamelFolderInfo *
-exchange_get_folder_info (CamelStore *store, const gchar *top, guint32 flags, CamelException *ex)
+exchange_get_folder_info (CamelStore *store, const gchar *top, guint32 flags, GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	GPtrArray *folders, *folder_names = NULL, *folder_uris = NULL;
@@ -696,7 +696,7 @@ exchange_get_folder_info (CamelStore *store, const gchar *top, guint32 flags, Ca
 
 static CamelFolderInfo *
 exchange_create_folder (CamelStore *store, const gchar *parent_name,
-			const gchar *folder_name, CamelException *ex)
+			const gchar *folder_name, GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	gchar *folder_uri;
@@ -722,7 +722,7 @@ exchange_create_folder (CamelStore *store, const gchar *parent_name,
 
 static void
 exchange_delete_folder (CamelStore *store, const gchar *folder_name,
-			CamelException *ex)
+			GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 
@@ -736,7 +736,7 @@ exchange_delete_folder (CamelStore *store, const gchar *folder_name,
 
 static void
 exchange_rename_folder (CamelStore *store, const gchar *old_name,
-			const gchar *new_name, CamelException *ex)
+			const gchar *new_name, GError **error)
 {
 	GPtrArray *folders = NULL, *folder_names = NULL, *folder_uris = NULL;
 	GArray *unread_counts = NULL;
@@ -803,7 +803,7 @@ exchange_rename_folder (CamelStore *store, const gchar *old_name,
 }
 
 static gboolean
-exchange_can_refresh_folder (CamelStore *store, CamelFolderInfo *info, CamelException *ex)
+exchange_can_refresh_folder (CamelStore *store, CamelFolderInfo *info, GError **error)
 {
 	gboolean res;
 

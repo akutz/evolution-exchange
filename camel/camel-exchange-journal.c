@@ -49,7 +49,7 @@ static void camel_exchange_journal_finalize (CamelObject *object);
 static void exchange_entry_free (CamelOfflineJournal *journal, CamelDListNode *entry);
 static CamelDListNode *exchange_entry_load (CamelOfflineJournal *journal, FILE *in);
 static gint exchange_entry_write (CamelOfflineJournal *journal, CamelDListNode *entry, FILE *out);
-static gint exchange_entry_play (CamelOfflineJournal *journal, CamelDListNode *entry, CamelException *ex);
+static gint exchange_entry_play (CamelOfflineJournal *journal, CamelDListNode *entry, GError **error);
 
 static CamelOfflineJournalClass *parent_class = NULL;
 
@@ -226,7 +226,7 @@ exchange_message_info_dup_to (CamelMessageInfoBase *dest, CamelMessageInfoBase *
 }
 
 static gint
-exchange_entry_play_delete (CamelOfflineJournal *journal, CamelExchangeJournalEntry *entry, CamelException *ex)
+exchange_entry_play_delete (CamelOfflineJournal *journal, CamelExchangeJournalEntry *entry, GError **error)
 {
 	CamelFolder *folder = (CamelFolder *) journal->folder;
 
@@ -240,7 +240,7 @@ exchange_entry_play_delete (CamelOfflineJournal *journal, CamelExchangeJournalEn
 }
 
 static gint
-exchange_entry_play_append (CamelOfflineJournal *journal, CamelExchangeJournalEntry *entry, CamelException *ex)
+exchange_entry_play_append (CamelOfflineJournal *journal, CamelExchangeJournalEntry *entry, GError **error)
 {
 	CamelExchangeFolder *exchange_folder = (CamelExchangeFolder *) journal->folder;
 	CamelFolder *folder = journal->folder;
@@ -296,7 +296,7 @@ exchange_entry_play_append (CamelOfflineJournal *journal, CamelExchangeJournalEn
 }
 
 static gint
-exchange_entry_play_transfer (CamelOfflineJournal *journal, CamelExchangeJournalEntry *entry, CamelException *ex)
+exchange_entry_play_transfer (CamelOfflineJournal *journal, CamelExchangeJournalEntry *entry, GError **error)
 {
 	CamelExchangeFolder *exchange_folder = (CamelExchangeFolder *) journal->folder;
 	CamelFolder *folder = journal->folder;
@@ -377,7 +377,7 @@ exception:
 }
 
 static gint
-exchange_entry_play (CamelOfflineJournal *journal, CamelDListNode *entry, CamelException *ex)
+exchange_entry_play (CamelOfflineJournal *journal, CamelDListNode *entry, GError **error)
 {
 	CamelExchangeJournalEntry *exchange_entry = (CamelExchangeJournalEntry *) entry;
 
@@ -409,7 +409,7 @@ camel_exchange_journal_new (CamelExchangeFolder *folder, const gchar *filename)
 
 static gboolean
 update_cache (CamelExchangeJournal *exchange_journal, CamelMimeMessage *message,
-		const CamelMessageInfo *mi, gchar **updated_uid, CamelException *ex)
+		const CamelMessageInfo *mi, gchar **updated_uid, GError **error)
 {
 	CamelOfflineJournal *journal = (CamelOfflineJournal *) exchange_journal;
 	CamelExchangeFolder *exchange_folder = (CamelExchangeFolder *) journal->folder;
@@ -465,7 +465,7 @@ update_cache (CamelExchangeJournal *exchange_journal, CamelMimeMessage *message,
 
 void
 camel_exchange_journal_append (CamelExchangeJournal *exchange_journal, CamelMimeMessage *message,
-			       const CamelMessageInfo *mi, gchar **appended_uid, CamelException *ex)
+			       const CamelMessageInfo *mi, gchar **appended_uid, GError **error)
 {
 	CamelOfflineJournal *journal = (CamelOfflineJournal *) exchange_journal;
 	CamelExchangeJournalEntry *entry;
@@ -530,7 +530,7 @@ void
 camel_exchange_journal_transfer (CamelExchangeJournal *exchange_journal, CamelExchangeFolder *source_folder,
 				CamelMimeMessage *message, const CamelMessageInfo *mi,
 				const gchar *original_uid, gchar **transferred_uid, gboolean delete_original,
-				CamelException *ex)
+				GError **error)
 {
 	CamelOfflineJournal *journal = (CamelOfflineJournal *) exchange_journal;
 	CamelExchangeJournalEntry *entry;
@@ -570,7 +570,7 @@ camel_exchange_journal_transfer (CamelExchangeJournal *exchange_journal, CamelEx
 void
 camel_exchange_journal_delete (CamelExchangeJournal *exchange_journal,
 			       const gchar *uid, guint32 flags, guint32 set,
-			       CamelException *ex)
+			       GError **error)
 {
 	CamelOfflineJournal *journal = (CamelOfflineJournal *) exchange_journal;
 	CamelExchangeFolder *exchange_folder = (CamelExchangeFolder *) journal->folder;

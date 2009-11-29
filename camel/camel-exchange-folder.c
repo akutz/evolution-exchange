@@ -44,39 +44,39 @@ static CamelOfflineFolderClass *parent_class = NULL;
 /* Returns the class for a CamelFolder */
 #define CF_CLASS(so) CAMEL_FOLDER_CLASS (CAMEL_OBJECT_GET_CLASS(so))
 
-static void exchange_expunge (CamelFolder *folder, CamelException *ex);
+static void exchange_expunge (CamelFolder *folder, GError **error);
 static void append_message (CamelFolder *folder, CamelMimeMessage *message,
 			    const CamelMessageInfo *info, gchar **appended_uid,
-			    CamelException *ex);
+			    GError **error);
 static CamelMimeMessage *get_message         (CamelFolder *folder,
 					      const gchar *uid,
-					      CamelException *ex);
+					      GError **error);
 static GPtrArray      *search_by_expression  (CamelFolder *folder,
 					      const gchar *exp,
-					      CamelException *ex);
+					      GError **error);
 static guint32	      count_by_expression  (CamelFolder *folder,
 					      const gchar *exp,
-					      CamelException *ex);
+					      GError **error);
 
 static GPtrArray      *search_by_uids        (CamelFolder *folder,
 					      const gchar *expression,
 					      GPtrArray *uids,
-					      CamelException *ex);
+					      GError **error);
 static void            transfer_messages_to  (CamelFolder *source,
 					      GPtrArray *uids,
 					      CamelFolder *dest,
 					      GPtrArray **transferred_uids,
 					      gboolean delete_originals,
-					      CamelException *ex);
+					      GError **error);
 static void   transfer_messages_the_hard_way (CamelFolder *source,
 					      GPtrArray *uids,
 					      CamelFolder *dest,
 					      GPtrArray **transferred_uids,
 					      gboolean delete_originals,
-					      CamelException *ex);
-static void refresh_info (CamelFolder *folder, CamelException *ex);
-static void exchange_sync (CamelFolder *folder, gboolean expunge, CamelException *ex);
-static gchar * get_filename (CamelFolder *folder, const gchar *uid, CamelException *ex);
+					      GError **error);
+static void refresh_info (CamelFolder *folder, GError **error);
+static void exchange_sync (CamelFolder *folder, gboolean expunge, GError **error);
+static gchar * get_filename (CamelFolder *folder, const gchar *uid, GError **error);
 static gint cmp_uids (CamelFolder *folder, const gchar *uid1, const gchar *uid2);
 
 static void
@@ -155,7 +155,7 @@ camel_exchange_folder_get_type (void)
 }
 
 static void
-refresh_info (CamelFolder *folder, CamelException *ex)
+refresh_info (CamelFolder *folder, GError **error)
 {
 	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
 	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (folder->parent_store);
@@ -177,7 +177,7 @@ refresh_info (CamelFolder *folder, CamelException *ex)
 }
 
 static void
-exchange_expunge (CamelFolder *folder, CamelException *ex)
+exchange_expunge (CamelFolder *folder, GError **error)
 {
 	CamelFolder *trash;
 	GPtrArray *uids;
@@ -204,7 +204,7 @@ exchange_expunge (CamelFolder *folder, CamelException *ex)
 static void
 append_message_data (CamelFolder *folder, GByteArray *message,
 		     const gchar *subject, const CamelMessageInfo *info,
-		     gchar **appended_uid, CamelException *ex)
+		     gchar **appended_uid, GError **error)
 {
 	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
 	CamelStream *stream_cache;
@@ -242,7 +242,7 @@ append_message_data (CamelFolder *folder, GByteArray *message,
 static void
 append_message (CamelFolder *folder, CamelMimeMessage *message,
 		const CamelMessageInfo *info, gchar **appended_uid,
-		CamelException *ex)
+		GError **error)
 {
 	CamelStream *stream_mem;
 	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (folder->parent_store);
@@ -345,7 +345,7 @@ fix_broken_multipart_related (CamelMimePart *part)
 }
 
 static gchar *
-get_filename (CamelFolder *folder, const gchar *uid, CamelException *ex)
+get_filename (CamelFolder *folder, const gchar *uid, GError **error)
 {
 	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
 
@@ -353,7 +353,7 @@ get_filename (CamelFolder *folder, const gchar *uid, CamelException *ex)
 }
 
 static GByteArray *
-get_message_data (CamelFolder *folder, const gchar *uid, CamelException *ex)
+get_message_data (CamelFolder *folder, const gchar *uid, GError **error)
 {
 	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
 	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (folder->parent_store);
@@ -398,7 +398,7 @@ get_message_data (CamelFolder *folder, const gchar *uid, CamelException *ex)
 #define MAILING_LIST_HEADERS "X-MAILING-LIST X-LOOP LIST-ID LIST-POST MAILING-LIST ORIGINATOR X-LIST RETURN-PATH X-BEENTHERE "
 
 static CamelMimeMessage *
-get_message (CamelFolder *folder, const gchar *uid, CamelException *ex)
+get_message (CamelFolder *folder, const gchar *uid, GError **error)
 {
 	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
 	CamelMimeMessage *msg;
@@ -451,7 +451,7 @@ get_message (CamelFolder *folder, const gchar *uid, CamelException *ex)
 
 static GPtrArray *
 search_by_expression (CamelFolder *folder, const gchar *expression,
-		      CamelException *ex)
+		      GError **error)
 {
 	CamelFolderSearch *search;
 	GPtrArray *matches;
@@ -467,7 +467,7 @@ search_by_expression (CamelFolder *folder, const gchar *expression,
 
 static guint32
 count_by_expression (CamelFolder *folder, const gchar *expression,
-		      CamelException *ex)
+		      GError **error)
 {
 	CamelFolderSearch *search;
 	guint32 matches;
@@ -492,7 +492,7 @@ cmp_uids (CamelFolder *folder, const gchar *uid1, const gchar *uid2)
 
 static GPtrArray *
 search_by_uids (CamelFolder *folder, const gchar *expression,
-		GPtrArray *uids, CamelException *ex)
+		GPtrArray *uids, GError **error)
 {
 	CamelFolderSearch *search;
 	GPtrArray *matches;
@@ -511,7 +511,7 @@ static void
 transfer_messages_the_hard_way (CamelFolder *source, GPtrArray *uids,
 				CamelFolder *dest,
 				GPtrArray **transferred_uids,
-				gboolean delete_originals, CamelException *ex)
+				gboolean delete_originals, GError **error)
 {
 	CamelException local_ex;
 	CamelMessageInfo *info;
@@ -591,7 +591,7 @@ cache_xfer (CamelExchangeFolder *folder_source, CamelExchangeFolder *folder_dest
 static void
 transfer_messages_to (CamelFolder *source, GPtrArray *uids,
 		      CamelFolder *dest, GPtrArray **transferred_uids,
-		      gboolean delete_originals, CamelException *ex)
+		      gboolean delete_originals, GError **error)
 {
 	CamelExchangeFolder *exch_source = CAMEL_EXCHANGE_FOLDER (source);
 	CamelExchangeFolder *exch_dest = CAMEL_EXCHANGE_FOLDER (dest);
@@ -950,7 +950,7 @@ gboolean
 camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 				 const gchar *name, guint32 camel_flags,
 				 const gchar *folder_dir, gint offline_state,
-				 CamelException *ex)
+				 GError **error)
 {
 	CamelExchangeFolder *exch = (CamelExchangeFolder *)folder;
 	const gchar *short_name;
@@ -1087,7 +1087,7 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 }
 
 static void
-exchange_sync (CamelFolder *folder, gboolean expunge, CamelException *ex)
+exchange_sync (CamelFolder *folder, gboolean expunge, GError **error)
 {
 	if (expunge)
 		exchange_expunge (folder, ex);

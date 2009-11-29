@@ -39,7 +39,7 @@ gboolean camel_exchange_folder_construct            (CamelFolder *folder,
 						     guint32 camel_flags,
 						     const gchar *folder_dir,
 						     gint offline_state,
-						     CamelException *ex);
+						     GError **error);
 
 void     camel_exchange_folder_add_message          (CamelExchangeFolder *exch,
 						     const gchar *uid,

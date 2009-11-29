@@ -35,7 +35,7 @@ typedef struct {
 /* Standard Camel function */
 CamelType camel_exchange_store_get_type (void);
 
-gboolean camel_exchange_store_connected (CamelExchangeStore *store, CamelException *ex);
+gboolean camel_exchange_store_connected (CamelExchangeStore *store, GError **error);
 
 void camel_exchange_store_folder_created (CamelExchangeStore *estore, const gchar *name, const gchar *uri);
 void camel_exchange_store_folder_deleted (CamelExchangeStore *estore, const gchar *name, const gchar *uri);
