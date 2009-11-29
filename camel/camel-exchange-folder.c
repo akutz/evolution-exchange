@@ -124,7 +124,7 @@ free_index_and_mid (gpointer thread_index, gpointer message_id, gpointer d)
 static void
 finalize (CamelExchangeFolder *exch)
 {
-	camel_object_unref (CAMEL_OBJECT (exch->cache));
+	g_object_unref (CAMEL_OBJECT (exch->cache));
 
 	if (exch->thread_index_to_message_id) {
 		g_hash_table_foreach (exch->thread_index_to_message_id,
@@ -198,7 +198,7 @@ exchange_expunge (CamelFolder *folder, CamelException *ex)
 	uids = camel_folder_get_uids (trash);
 	camel_exchange_utils_expunge_uids (CAMEL_SERVICE (trash->parent_store), trash->full_name, uids, ex);
 	camel_folder_free_uids (trash, uids);
-	camel_object_unref (CAMEL_OBJECT (trash));
+	g_object_unref (CAMEL_OBJECT (trash));
 }
 
 static void
@@ -229,7 +229,7 @@ append_message_data (CamelFolder *folder, GByteArray *message,
 					    (gchar *) message->data,
 					    message->len);
 			camel_stream_flush (stream_cache);
-			camel_object_unref (CAMEL_OBJECT (stream_cache));
+			g_object_unref (CAMEL_OBJECT (stream_cache));
 		}
 		if (appended_uid)
 			*appended_uid = new_uid;
@@ -287,7 +287,7 @@ append_message (CamelFolder *folder, CamelMimeMessage *message,
 			     camel_mime_message_get_subject (message),
 			     info, appended_uid, ex);
 
-	camel_object_unref (CAMEL_OBJECT (stream_mem));
+	g_object_unref (CAMEL_OBJECT (stream_mem));
 }
 
 static void
@@ -340,7 +340,7 @@ fix_broken_multipart_related (CamelMimePart *part)
 
 		camel_medium_set_content_object (CAMEL_MEDIUM (part),
 						 CAMEL_DATA_WRAPPER (new));
-		camel_object_unref (CAMEL_OBJECT (new));
+		g_object_unref (CAMEL_OBJECT (new));
 	}
 }
 
@@ -367,8 +367,8 @@ get_message_data (CamelFolder *folder, const gchar *uid, CamelException *ex)
 		camel_stream_mem_set_byte_array (CAMEL_STREAM_MEM (stream_mem), ba);
 		camel_stream_reset (stream);
 		camel_stream_write_to_stream (stream, stream_mem);
-		camel_object_unref (CAMEL_OBJECT (stream_mem));
-		camel_object_unref (CAMEL_OBJECT (stream));
+		g_object_unref (CAMEL_OBJECT (stream_mem));
+		g_object_unref (CAMEL_OBJECT (stream));
 
 		return ba;
 	}
@@ -390,7 +390,7 @@ get_message_data (CamelFolder *folder, const gchar *uid, CamelException *ex)
 
 	camel_stream_write (stream, (gchar *) ba->data, ba->len);
 	camel_stream_flush (stream);
-	camel_object_unref (CAMEL_OBJECT (stream));
+	g_object_unref (CAMEL_OBJECT (stream));
 
 	return ba;
 }
@@ -418,13 +418,13 @@ get_message (CamelFolder *folder, const gchar *uid, CamelException *ex)
 	crlffilter = camel_mime_filter_crlf_new (CAMEL_MIME_FILTER_CRLF_DECODE, CAMEL_MIME_FILTER_CRLF_MODE_CRLF_ONLY);
 	filtered_stream = camel_stream_filter_new_with_stream (stream);
 	camel_stream_filter_add (filtered_stream, crlffilter);
-	camel_object_unref (CAMEL_OBJECT (crlffilter));
-	camel_object_unref (CAMEL_OBJECT (stream));
+	g_object_unref (CAMEL_OBJECT (crlffilter));
+	g_object_unref (CAMEL_OBJECT (stream));
 
 	msg = camel_mime_message_new ();
 	camel_data_wrapper_construct_from_stream (CAMEL_DATA_WRAPPER (msg),
 						  CAMEL_STREAM (filtered_stream));
-	camel_object_unref (CAMEL_OBJECT (filtered_stream));
+	g_object_unref (CAMEL_OBJECT (filtered_stream));
 	camel_mime_message_set_source (msg, exch->source);
 
 	if (camel_medium_get_header (CAMEL_MEDIUM (msg), "Sender")) {
@@ -460,7 +460,7 @@ search_by_expression (CamelFolder *folder, const gchar *expression,
 	camel_folder_search_set_folder (search, folder);
 	matches = camel_folder_search_search (search, expression, NULL, ex);
 
-	camel_object_unref (CAMEL_OBJECT (search));
+	g_object_unref (CAMEL_OBJECT (search));
 
 	return matches;
 }
@@ -476,7 +476,7 @@ count_by_expression (CamelFolder *folder, const gchar *expression,
 	camel_folder_search_set_folder (search, folder);
 	matches = camel_folder_search_count (search, expression, ex);
 
-	camel_object_unref (CAMEL_OBJECT (search));
+	g_object_unref (CAMEL_OBJECT (search));
 
 	return matches;
 }
@@ -502,7 +502,7 @@ search_by_uids (CamelFolder *folder, const gchar *expression,
 	camel_folder_search_set_summary (search, uids);
 	matches = camel_folder_search_execute_expression (search, expression, ex);
 
-	camel_object_unref (CAMEL_OBJECT (search));
+	g_object_unref (CAMEL_OBJECT (search));
 
 	return matches;
 }
@@ -577,9 +577,9 @@ cache_xfer (CamelExchangeFolder *folder_source, CamelExchangeFolder *folder_dest
 					     dest_uids->pdata[i], NULL);
 		if (dest) {
 			camel_stream_write_to_stream (src, dest);
-			camel_object_unref (CAMEL_OBJECT (dest));
+			g_object_unref (CAMEL_OBJECT (dest));
 		}
-		camel_object_unref (CAMEL_OBJECT (src));
+		g_object_unref (CAMEL_OBJECT (src));
 
 		if (delete) {
 			camel_data_cache_remove (folder_source->cache, "cache",
@@ -620,7 +620,7 @@ transfer_messages_to (CamelFolder *source, GPtrArray *uids,
 							 info, uids->pdata[i], NULL,
 							 delete_originals, ex);
 
-			camel_object_unref (message);
+			g_object_unref (message);
 
 			if (camel_exception_is_set (ex))
 				break;
@@ -722,7 +722,7 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 	stream = camel_stream_mem_new_with_buffer (headers, strlen (headers));
 	msg = camel_mime_message_new ();
 	camel_data_wrapper_construct_from_stream (CAMEL_DATA_WRAPPER (msg), stream);
-	camel_object_unref (CAMEL_OBJECT (stream));
+	g_object_unref (CAMEL_OBJECT (stream));
 
 	info = camel_folder_summary_info_new_from_message (folder->summary, msg, NULL);
 	einfo = (CamelExchangeMessageInfo *)info;
@@ -742,7 +742,7 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 			einfo->info.references->size = 1;
 		}
 	}
-	camel_object_unref (CAMEL_OBJECT (msg));
+	g_object_unref (CAMEL_OBJECT (msg));
 
 	info->uid = camel_pstring_strdup (uid);
 	einfo->info.flags = flags;

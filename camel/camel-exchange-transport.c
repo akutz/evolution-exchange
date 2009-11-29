@@ -129,7 +129,7 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 	crlffilter = camel_mime_filter_crlf_new (CAMEL_MIME_FILTER_CRLF_ENCODE, CAMEL_MIME_FILTER_CRLF_MODE_CRLF_ONLY);
 	filtered_stream = camel_stream_filter_new_with_stream (stream);
 	camel_stream_filter_add (filtered_stream, CAMEL_MIME_FILTER (crlffilter));
-	camel_object_unref (CAMEL_OBJECT (crlffilter));
+	g_object_unref (CAMEL_OBJECT (crlffilter));
 
 	/* Gross hack copied from camel-smtp-transport. ugh. FIXME */
 	/* copy and remove the bcc headers */
@@ -145,7 +145,7 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 	camel_data_wrapper_write_to_stream (CAMEL_DATA_WRAPPER (message),
 					    CAMEL_STREAM (filtered_stream));
 	camel_stream_flush (CAMEL_STREAM (filtered_stream));
-	camel_object_unref (CAMEL_OBJECT (filtered_stream));
+	g_object_unref (CAMEL_OBJECT (filtered_stream));
 
 	/* add the bcc headers back */
 	if (bcc) {
@@ -161,9 +161,9 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 	success = camel_exchange_utils_send_message (CAMEL_SERVICE (transport), addr, recipients_array, CAMEL_STREAM_MEM (stream)->buffer, ex);
 
 	g_ptr_array_free (recipients_array, TRUE);
-	camel_object_unref (CAMEL_OBJECT (stream));
+	g_object_unref (CAMEL_OBJECT (stream));
 
 	if (store)
-		camel_object_unref (CAMEL_OBJECT (store));
+		g_object_unref (CAMEL_OBJECT (store));
 	return success;
 }

@@ -456,7 +456,7 @@ exchange_get_folder (CamelStore *store, const gchar *folder_name,
 		}
 		g_mutex_unlock (exch->folders_lock);
 		g_free (folder_dir);
-		camel_object_unref (CAMEL_OBJECT (folder));
+		g_object_unref (CAMEL_OBJECT (folder));
 		return NULL;
 	}
 	g_free (folder_dir);
@@ -792,7 +792,7 @@ exchange_rename_folder (CamelStore *store, const gchar *old_name,
 	folder = g_hash_table_lookup (exch->folders, reninfo.old_base);
 	if (folder) {
 		g_hash_table_remove (exch->folders, reninfo.old_base);
-		camel_object_unref (CAMEL_OBJECT (folder));
+		g_object_unref (CAMEL_OBJECT (folder));
 	}
 	g_mutex_unlock (exch->folders_lock);
 
@@ -844,7 +844,7 @@ camel_exchange_store_folder_deleted (CamelExchangeStore *estore, const gchar *na
 	folder = g_hash_table_lookup (estore->folders, info->full_name);
 	if (folder) {
 		g_hash_table_remove (estore->folders, info->full_name);
-		camel_object_unref (CAMEL_OBJECT (folder));
+		g_object_unref (CAMEL_OBJECT (folder));
 	}
 	g_mutex_unlock (estore->folders_lock);
 

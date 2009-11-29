@@ -490,7 +490,7 @@ e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 				e_vcard_attribute_add_value (attr, value);
 
 			g_free (value);
-			camel_object_unref (addr);
+			g_object_unref (addr);
 
 			e_vcard_attribute_add_param_with_value (attr,
 					e_vcard_attribute_param_new (EEX_X_MEMBERID),
@@ -522,7 +522,7 @@ e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 	soup_buffer_free (response);
 	msg = camel_mime_message_new ();
 	camel_data_wrapper_construct_from_stream (CAMEL_DATA_WRAPPER (msg), stream);
-	camel_object_unref (stream);
+	g_object_unref (stream);
 
 	content = camel_medium_get_content_object (CAMEL_MEDIUM (msg));
 	if (CAMEL_IS_MULTIPART (content)) {
@@ -552,11 +552,11 @@ e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 			photo.data.inlined.length = stream_mem->buffer->len;
 			e_contact_set (contact, E_CONTACT_PHOTO, &photo);
 
-			camel_object_unref (stream);
+			g_object_unref (stream);
 		}
 	}
 
-	camel_object_unref (msg);
+	g_object_unref (msg);
 	return contact;
 }
 
@@ -1358,14 +1358,14 @@ build_message (const gchar *from_name, const gchar *from_email,
 	from = camel_internet_address_new ();
 	camel_internet_address_add (from, from_name, from_email);
 	camel_mime_message_set_from (msg, from);
-	camel_object_unref (from);
+	g_object_unref (from);
 
 	/* Create the body */
 	if (note) {
 		stream = camel_stream_mem_new_with_buffer (note, strlen (note));
 		wrapper = camel_data_wrapper_new ();
 		camel_data_wrapper_construct_from_stream (wrapper, stream);
-		camel_object_unref (stream);
+		g_object_unref (stream);
 
 		type = camel_content_type_new ("text", "plain");
 		camel_content_type_set_param (type, "charset", "UTF-8");
@@ -1419,7 +1419,7 @@ build_message (const gchar *from_name, const gchar *from_email,
 
 		wrapper = camel_data_wrapper_new ();
 		camel_data_wrapper_construct_from_stream (wrapper, stream);
-		camel_object_unref (stream);
+		g_object_unref (stream);
 		camel_data_wrapper_set_mime_type (wrapper, content_type);
 
 		photo_part = camel_mime_part_new ();
@@ -1436,22 +1436,22 @@ build_message (const gchar *from_name, const gchar *from_email,
 		camel_multipart_set_boundary (multipart, NULL);
 		if (text_part) {
 			camel_multipart_add_part (multipart, text_part);
-			camel_object_unref (text_part);
+			g_object_unref (text_part);
 		}
 		camel_multipart_add_part (multipart, photo_part);
-		camel_object_unref (photo_part);
+		g_object_unref (photo_part);
 
 		camel_medium_set_content_object (CAMEL_MEDIUM (msg),
 						 CAMEL_DATA_WRAPPER (multipart));
-		camel_object_unref (multipart);
+		g_object_unref (multipart);
 	}
 
 	buffer = g_byte_array_new();
 	stream = camel_stream_mem_new ();
 	camel_stream_mem_set_byte_array (CAMEL_STREAM_MEM (stream), buffer);
 	camel_data_wrapper_write_to_stream (CAMEL_DATA_WRAPPER (msg), stream);
-	camel_object_unref (stream);
-	camel_object_unref (msg);
+	g_object_unref (stream);
+	g_object_unref (msg);
 
 	return buffer;
 }
@@ -1622,7 +1622,7 @@ merge_contact_lists (EBookBackendExchange *be, const gchar *location, EContact *
 				}
 			}
 		}
-		camel_object_unref (addr);
+		g_object_unref (addr);
 	}
 
 	/* remove all the members from the server which left - they has been removed during editing probably */

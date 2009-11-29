@@ -256,12 +256,12 @@ exchange_entry_play_append (CamelOfflineJournal *journal, CamelExchangeJournalEn
 
 	message = camel_mime_message_new ();
 	if (camel_data_wrapper_construct_from_stream ((CamelDataWrapper *) message, stream) == -1) {
-		camel_object_unref (message);
-		camel_object_unref (stream);
+		g_object_unref (message);
+		g_object_unref (stream);
 		goto done;
 	}
 
-	camel_object_unref (stream);
+	g_object_unref (stream);
 
 	if (!(info = camel_folder_summary_uid (folder->summary, entry->uid))) {
 		/* Should have never happened, but create a new info to avoid further crashes */
@@ -277,7 +277,7 @@ exchange_entry_play_append (CamelOfflineJournal *journal, CamelExchangeJournalEn
 	}
 
 	real = camel_folder_summary_info_new_from_message (folder->summary, message, NULL);
-	camel_object_unref (message);
+	g_object_unref (message);
 
 	if (uid != NULL && real) {
 		real->uid = camel_pstring_strdup (uid);
@@ -313,12 +313,12 @@ exchange_entry_play_transfer (CamelOfflineJournal *journal, CamelExchangeJournal
 
 	message = camel_mime_message_new ();
 	if (camel_data_wrapper_construct_from_stream ((CamelDataWrapper *) message, stream) == -1) {
-		camel_object_unref (message);
-		camel_object_unref (stream);
+		g_object_unref (message);
+		g_object_unref (stream);
 		goto done;
 	}
 
-	camel_object_unref (stream);
+	g_object_unref (stream);
 
 	if (!(info = camel_folder_summary_uid (folder->summary, entry->uid))) {
 		/* Note: this should never happen, but rather than crash lets make a new info */
@@ -343,7 +343,7 @@ exchange_entry_play_transfer (CamelOfflineJournal *journal, CamelExchangeJournal
 		camel_folder_transfer_messages_to (src, uids, folder, &xuids, entry->delete_original, &lex);
 		if (!camel_exception_is_set (&lex)) {
 			real = camel_folder_summary_info_new_from_message (folder->summary, message, NULL);
-			camel_object_unref (message);
+			g_object_unref (message);
 			real->uid = camel_pstring_strdup ((gchar *)xuids->pdata[0]);
 			/* Transfer flags */
 			exchange_message_info_dup_to ((CamelMessageInfoBase *) real, (CamelMessageInfoBase *) info);
@@ -356,7 +356,7 @@ exchange_entry_play_transfer (CamelOfflineJournal *journal, CamelExchangeJournal
 
 		g_ptr_array_free (xuids, TRUE);
 		g_ptr_array_free (uids, TRUE);
-		/* camel_object_unref (src); FIXME: should we? */
+		/* g_object_unref (src); FIXME: should we? */
 	}
 	else {
 		camel_exception_setv (ex, CAMEL_EXCEPTION_SYSTEM, _("Folder doesn't exist"));
@@ -441,12 +441,12 @@ update_cache (CamelExchangeJournal *exchange_journal, CamelMimeMessage *message,
 				      g_strerror (errno));
 		camel_data_cache_remove (exchange_folder->cache, "cache", uid, NULL);
 		folder->summary->nextuid--;
-		camel_object_unref (cache);
+		g_object_unref (cache);
 		g_free (uid);
 		return FALSE;
 	}
 
-	camel_object_unref (cache);
+	g_object_unref (cache);
 
 	info = camel_folder_summary_info_new_from_message (folder->summary, message, NULL);
 	info->uid = camel_pstring_strdup (uid);
