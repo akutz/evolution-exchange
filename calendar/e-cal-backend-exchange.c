@@ -1749,18 +1749,18 @@ get_attachment (ECalBackendExchange *cbex, const gchar *uid,
 			part = camel_multipart_get_part (multipart, i);
 			filename = camel_mime_part_get_filename (part);
 			if (filename) {
-				CamelStreamMem *stream_mem;
+				GByteArray *byte_array;
 
 				content = camel_medium_get_content (CAMEL_MEDIUM (part));
 
-				stream = camel_stream_mem_new ();
-				stream_mem = (CamelStreamMem *)stream;
+				byte_array = g_byte_array_new ();
+				stream = camel_stream_mem_new_with_byte_array (byte_array);
 
 				camel_data_wrapper_decode_to_stream (content, stream);
-				attach_data = g_memdup (stream_mem->buffer->data, stream_mem->buffer->len);
+				attach_data = g_memdup (byte_array->data, byte_array->len);
 				attach_file = g_strdup_printf ("%s/%s-%s", cbex->priv->local_attachment_store, uid, filename);
 				// Attach
-				attach_file_url = save_attach_file (attach_file, (gchar *) attach_data, stream_mem->buffer->len);
+				attach_file_url = save_attach_file (attach_file, (gchar *) attach_data, byte_array->len);
 				g_free (attach_data);
 				g_free (attach_file);
 				d(printf ("attach file name : %s\n", attach_file_url));
@@ -1957,13 +1957,13 @@ gchar *
 build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject, gchar **boundary)
 {
 	CamelMimeMessage *msg;
-	CamelStreamMem *content;
 	CamelMimePart *mime_part;
 	CamelDataWrapper *dw, *wrapper;
 	CamelMultipart *multipart;
 	CamelInternetAddress *from;
 	CamelStream *stream;
 	CamelContentType *type;
+	GByteArray *byte_array;
 	const gchar *uid;
 	gchar *buffer = NULL, *cid;
 	gchar *from_name = NULL, *from_email = NULL;
@@ -2072,13 +2072,14 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject
 	camel_medium_set_content (CAMEL_MEDIUM (msg), CAMEL_DATA_WRAPPER (multipart));
 	g_object_unref (multipart);
 
-	content = (CamelStreamMem *)camel_stream_mem_new();
+	byte_array = g_byte_array_new ();
+	stream = camel_stream_mem_new_with_byte_array (byte_array);
 	dw = camel_medium_get_content (CAMEL_MEDIUM (msg));
-	camel_data_wrapper_decode_to_stream(dw, (CamelStream *)content);
-	buffer = g_memdup (content->buffer->data, content->buffer->len);
-	buffer[content->buffer->len] = '\0';
+	camel_data_wrapper_decode_to_stream(dw, stream);
+	buffer = g_memdup (byte_array->data, byte_array->len);
+	buffer[byte_array->len] = '\0';
 	d(printf ("|| Buffer: \n%s\n", buffer));
-	g_object_unref (content);
+	g_object_unref (stream);
 	g_object_unref (msg);
 
 	return buffer;

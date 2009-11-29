@@ -168,8 +168,8 @@ camel_provider_module_init (void)
 {
 	gint i;
 
-	exchange_provider.object_types[CAMEL_PROVIDER_STORE] = camel_exchange_store_get_type ();
-	exchange_provider.object_types[CAMEL_PROVIDER_TRANSPORT] = camel_exchange_transport_get_type ();
+	exchange_provider.object_types[CAMEL_PROVIDER_STORE] = CAMEL_TYPE_EXCHANGE_STORE;
+	exchange_provider.object_types[CAMEL_PROVIDER_TRANSPORT] = CAMEL_TYPE_EXCHANGE_TRANSPORT;
 	exchange_provider.authtypes = g_list_prepend (g_list_prepend (NULL, &camel_exchange_password_authtype), &camel_exchange_ntlm_authtype);
 	exchange_provider.url_hash = exchange_url_hash;
 	exchange_provider.url_equal = exchange_url_equal;

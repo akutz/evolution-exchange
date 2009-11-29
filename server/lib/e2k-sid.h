@@ -11,9 +11,9 @@
 
 #define E2K_TYPE_SID            (e2k_sid_get_type ())
 #define E2K_SID(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), E2K_TYPE_SID, E2kSid))
-#define E2K_SID_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), E2K_TYPE_SID, E2kSidClass))
+#define E2K_SID_CLASS(cls)    (G_TYPE_CHECK_CLASS_CAST ((cls), E2K_TYPE_SID, E2kSidClass))
 #define E2K_IS_SID(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), E2K_TYPE_SID))
-#define E2K_IS_SID_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((obj), E2K_TYPE_SID))
+#define E2K_IS_SID_CLASS(cls) (G_TYPE_CHECK_CLASS_TYPE ((obj), E2K_TYPE_SID))
 
 typedef enum {
 	E2K_SID_TYPE_INVALID,

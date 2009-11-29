@@ -26,10 +26,10 @@
 
 #define E2K_TYPE_USER_DIALOG		(e2k_user_dialog_get_type ())
 #define E2K_USER_DIALOG(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), E2K_TYPE_USER_DIALOG, E2kUserDialog))
-#define E2K_USER_DIALOG_CLASS(klass)	(G_TYPE_CHECK_CLASS_CAST ((klass), E2K_TYPE_USER_DIALOG,	\
+#define E2K_USER_DIALOG_CLASS(cls)	(G_TYPE_CHECK_CLASS_CAST ((cls), E2K_TYPE_USER_DIALOG,	\
 					 E2kUserDialogClass))
 #define E2K_IS_USER_DIALOG(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), E2K_TYPE_USER_DIALOG))
-#define E2K_IS_USER_DIALOG_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((klass), E2K_TYPE_USER_DIALOG))
+#define E2K_IS_USER_DIALOG_CLASS(cls)	(G_TYPE_CHECK_CLASS_TYPE ((cls), E2K_TYPE_USER_DIALOG))
 
 typedef struct _E2kUserDialog		E2kUserDialog;
 typedef struct _E2kUserDialogClass	E2kUserDialogClass;

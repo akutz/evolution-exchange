@@ -211,15 +211,6 @@ is_online (ExchangeData *ed)
 	return camel_session_is_online (session) ? ONLINE_MODE : OFFLINE_MODE;
 }
 
-static void
-set_exception (GError **error, const gchar *err)
-{
-	g_return_if_fail (err != NULL);
-
-	if (ex && !camel_exception_is_set (ex))
-		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, err);
-}
-
 static CamelFolder *
 get_camel_folder (ExchangeFolder *mfld)
 {
@@ -529,7 +520,9 @@ refresh_folder_internal (ExchangeFolder *mfld, GError **error)
 
 	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 		g_warning ("got_new_smtp_messages: %d", status);
-		set_exception (ex, _("Could not get new messages"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Could not get new messages"));
 		goto done;
 	}
 
@@ -568,7 +561,9 @@ refresh_folder_internal (ExchangeFolder *mfld, GError **error)
 
 	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 		g_warning ("got_new_mapi_messages: %d", status);
-		set_exception (ex, _("Could not get new messages"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Could not get new messages"));
 		goto done;
 	}
 
@@ -825,7 +820,7 @@ free_folder (gpointer value)
 static void
 got_folder_error (ExchangeFolder *mfld, GError **error, const gchar *err)
 {
-	set_exception (ex, err);
+	g_set_error (error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM, "%s", err);
 
 	free_folder (mfld);
 }
@@ -1056,7 +1051,7 @@ get_folder_contents_online (ExchangeFolder *mfld, GError **error)
 	status = e2k_result_iter_free (iter);
 	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 		g_warning ("got_folder: %d", status);
-		got_folder_error (mfld, ex, _("Could not open folder"));
+		got_folder_error (mfld, error, _("Could not open folder"));
 		return FALSE;
 	}
 
@@ -1203,11 +1198,11 @@ get_folder_online (ExchangeFolder *mfld, GError **error)
 					     G_N_ELEMENTS (open_folder_props),
 					     &results, &nresults);
 	if (status == E2K_HTTP_UNAUTHORIZED) {
-		got_folder_error (mfld, ex, _("Could not open folder: Permission denied"));
+		got_folder_error (mfld, error, _("Could not open folder: Permission denied"));
 		return FALSE;
 	} else if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 		g_warning ("got_folder_props: %d", status);
-		got_folder_error (mfld, ex, _("Could not open folder"));
+		got_folder_error (mfld, error, _("Could not open folder"));
 		return FALSE;
 	}
 
@@ -1221,7 +1216,7 @@ get_folder_online (ExchangeFolder *mfld, GError **error)
 		mfld->access = ~0;
 
 	if (!(mfld->access & MAPI_ACCESS_READ)) {
-		got_folder_error (mfld, ex, _("Could not open folder: Permission denied"));
+		got_folder_error (mfld, error, _("Could not open folder: Permission denied"));
 		if (nresults)
 			e2k_results_free (results, nresults);
 		return FALSE;
@@ -1240,7 +1235,7 @@ get_folder_online (ExchangeFolder *mfld, GError **error)
 	   change the PR_LAST_MODIFICATION_TIME property of a message.
 	*/
 	if (g_hash_table_size (mfld->messages_by_href) < 1) {
-		if (!get_folder_contents_online (mfld, ex))
+		if (!get_folder_contents_online (mfld, error))
 			return FALSE;
 	} else {
 		/* FIXME: Pass a GError and handle the error */
@@ -1270,7 +1265,9 @@ folder_from_name (ExchangeData *ed, const gchar *folder_name, guint32 perms, GEr
 
 	mfld = g_hash_table_lookup (ed->folders_by_name, folder_name);
 	if (!mfld) {
-		set_exception (ex, _("No such folder"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("No such folder"));
 		return NULL;
 	}
 
@@ -1292,7 +1289,9 @@ folder_from_name (ExchangeData *ed, const gchar *folder_name, guint32 perms, GEr
 	}
 
 	if (perms && !(mfld->access & perms)) {
-		set_exception (ex, _("Permission denied"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Permission denied"));
 		return NULL;
 	}
 
@@ -2036,7 +2035,7 @@ struct update_linestatus
 {
 	CamelExchangeStore *estore;
 	gint linestatus;
-	GError **error;
+	GError *error;
 };
 
 static void
@@ -2051,7 +2050,7 @@ folder_update_linestatus (gpointer key, gpointer value, gpointer data)
 	if (ul->linestatus == ONLINE_MODE) {
 		CamelFolder *folder;
 
-		get_folder_online (mfld, ul->ex);
+		get_folder_online (mfld, &ul->error);
 
 		readonly = (mfld->access & (MAPI_ACCESS_MODIFY | MAPI_ACCESS_CREATE_CONTENTS)) ? 0 : 1;
 
@@ -2115,7 +2114,7 @@ camel_exchange_utils_connect (CamelService *service,
 	   the first time */
 
 	ul.estore = ed->estore;
-	ul.ex = ex;
+	ul.error = NULL;
 	g_hash_table_foreach (ed->folders_by_name,
 			      (GHFunc) folder_update_linestatus,
 			      &ul);
@@ -2156,7 +2155,9 @@ camel_exchange_utils_get_folder (CamelService *service,
 	path = g_strdup_printf ("/%s", name);
 	folder = exchange_account_get_folder (ed->account, path);
 	if (!folder && !create) {
-		set_exception (ex, _("No such folder"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("No such folder"));
 		g_free (path);
 		return FALSE;
 	} else if (!folder) {
@@ -2165,7 +2166,9 @@ camel_exchange_utils_get_folder (CamelService *service,
 		result = exchange_account_create_folder (ed->account, path, "mail");
 		folder = exchange_account_get_folder (ed->account, path);
 		if (result != EXCHANGE_ACCOUNT_FOLDER_OK || !folder) {
-			set_exception (ex, _("Could not create folder."));
+			g_set_error (
+				error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+				_("Could not create folder"));
 			g_free (path);
 			return FALSE;
 		}
@@ -2213,7 +2216,7 @@ camel_exchange_utils_get_folder (CamelService *service,
 	mfld->high_article_num = high_article_num;
 
 	if (is_online (ed) == ONLINE_MODE) {
-		if (!get_folder_online (mfld, ex)) {
+		if (!get_folder_online (mfld, error)) {
 			return FALSE;
 		}
 	}
@@ -2254,7 +2257,9 @@ camel_exchange_utils_get_trash_name (CamelService *service,
 	g_return_val_if_fail (trash_name != NULL, FALSE);
 
 	if (!ed->deleted_items) {
-		set_exception (ex, _("Could not open Deleted Items folder"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Could not open Deleted Items folder"));
 		return FALSE;
 	}
 
@@ -2273,12 +2278,12 @@ camel_exchange_utils_refresh_folder (CamelService *service,
 
 	g_return_val_if_fail (ed != NULL, FALSE);
 
-	mfld = folder_from_name (ed, folder_name, 0, ex);
+	mfld = folder_from_name (ed, folder_name, 0, error);
 	if (!mfld) {
 		return FALSE;
 	}
 
-	refresh_folder_internal (mfld, ex);
+	refresh_folder_internal (mfld, error);
 	sync_deletions (mfld);
 
 	return TRUE;
@@ -2298,7 +2303,7 @@ camel_exchange_utils_sync_count (CamelService *service,
 	g_return_val_if_fail (unread_count != NULL, FALSE);
 	g_return_val_if_fail (visible_count != NULL, FALSE);
 
-	mfld = folder_from_name (ed, folder_name, 0, ex);
+	mfld = folder_from_name (ed, folder_name, 0, error);
 	if (mfld) {
 		*unread_count = mfld->unread_count;
 		*visible_count = mfld->messages->len;
@@ -2332,7 +2337,7 @@ camel_exchange_utils_expunge_uids (CamelService *service,
 	if (!uids->len)
 		return TRUE;
 
-	mfld = folder_from_name (ed, folder_name, MAPI_ACCESS_DELETE, ex);
+	mfld = folder_from_name (ed, folder_name, MAPI_ACCESS_DELETE, error);
 	if (!mfld)
 		return FALSE;
 
@@ -2381,9 +2386,13 @@ camel_exchange_utils_expunge_uids (CamelService *service,
 	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 		g_warning ("expunged: %d", status);
 		some_error = TRUE;
-		set_exception (ex, _("Could not empty Deleted Items folder"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Could not empty Deleted Items folder"));
 	} else if (some_error) {
-		set_exception (ex, _("Permission denied. Could not delete certain messages."));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Permission denied. Could not delete certain messages."));
 	}
 
 	g_ptr_array_free (hrefs, TRUE);
@@ -2415,7 +2424,7 @@ camel_exchange_utils_append_message (CamelService *service,
 	g_return_val_if_fail (new_uid != NULL, FALSE);
 	g_return_val_if_fail (message != NULL, FALSE);
 
-	mfld = folder_from_name (ed, folder_name, MAPI_ACCESS_CREATE_CONTENTS, ex);
+	mfld = folder_from_name (ed, folder_name, MAPI_ACCESS_CREATE_CONTENTS, error);
 	if (!mfld)
 		return FALSE;
 
@@ -2425,9 +2434,14 @@ camel_exchange_utils_append_message (CamelService *service,
 					    &location, &ru_header);
 	if (status != E2K_HTTP_CREATED) {
 		g_warning ("appended_message: %d", status);
-		set_exception (ex, status == E2K_HTTP_INSUFFICIENT_SPACE_ON_RESOURCE ?
-				   _("Could not append message; mailbox is over quota") :
-				   _("Could not append message"));
+		if (status == E2K_HTTP_INSUFFICIENT_SPACE_ON_RESOURCE)
+			g_set_error (
+				error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+				_("Could not append message; mailbox is over quota"));
+		else
+			g_set_error (
+				error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+				_("Could not append message"));
 		return FALSE;
 	}
 
@@ -2489,7 +2503,7 @@ camel_exchange_utils_set_message_flags (CamelService *service,
 
 	g_return_val_if_fail (ed != NULL, FALSE);
 
-	mfld = folder_from_name (ed, folder_name, MAPI_ACCESS_MODIFY, ex);
+	mfld = folder_from_name (ed, folder_name, MAPI_ACCESS_MODIFY, error);
 	if (!mfld)
 		return FALSE;
 
@@ -2565,7 +2579,7 @@ camel_exchange_utils_set_message_tag (CamelService *service,
 
 	g_return_val_if_fail (ed != NULL, FALSE);
 
-	mfld = folder_from_name (ed, folder_name, MAPI_ACCESS_MODIFY, ex);
+	mfld = folder_from_name (ed, folder_name, MAPI_ACCESS_MODIFY, error);
 	if (!mfld)
 		return FALSE;
 
@@ -2600,7 +2614,7 @@ camel_exchange_utils_get_message (CamelService *service,
 	g_return_val_if_fail (ed != NULL, FALSE);
 	g_return_val_if_fail (message_bytes != NULL, FALSE);
 
-	mfld = folder_from_name (ed, folder_name, MAPI_ACCESS_READ, ex);
+	mfld = folder_from_name (ed, folder_name, MAPI_ACCESS_READ, error);
 	if (!mfld)
 		return FALSE;
 
@@ -2613,7 +2627,9 @@ camel_exchange_utils_get_message (CamelService *service,
 			camel_exchange_folder_remove_message (CAMEL_EXCHANGE_FOLDER (folder), uid);
 		}
 
-		set_exception (ex, _("No such message"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("No such message"));
 		return FALSE;
 	}
 
@@ -2685,9 +2701,13 @@ camel_exchange_utils_get_message (CamelService *service,
 		 * time we recorded that.
 		 */
 		message_removed (mfld, folder, mmsg->href);
-		set_exception (ex, _("Message has been deleted"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Message has been deleted"));
 	} else
-		set_exception (ex, _("Error retrieving message"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Error retrieving message"));
 
  cleanup:
 	g_free (body);
@@ -2716,7 +2736,7 @@ camel_exchange_utils_search (CamelService *service,
 	g_return_val_if_fail (ed != NULL, FALSE);
 	g_return_val_if_fail (found_uids != NULL, FALSE);
 
-	mfld = folder_from_name (ed, folder_name, 0, ex);
+	mfld = folder_from_name (ed, folder_name, 0, error);
 	if (!mfld)
 		return FALSE;
 
@@ -2736,7 +2756,9 @@ camel_exchange_utils_search (CamelService *service,
 	status = e2k_result_iter_free (iter);
 
 	if (status == E2K_HTTP_UNPROCESSABLE_ENTITY) {
-		set_exception (ex, _("Mailbox does not support full-text searching"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Mailbox does not support full-text searching"));
 
 		g_ptr_array_foreach (matches, (GFunc) g_free, NULL);
 		g_ptr_array_free (matches, TRUE);
@@ -2773,10 +2795,10 @@ camel_exchange_utils_transfer_messages (CamelService *service,
 	g_return_val_if_fail (ed != NULL, FALSE);
 	g_return_val_if_fail (ret_uids != NULL, FALSE);
 
-	source = folder_from_name (ed, source_name, delete_originals ? MAPI_ACCESS_DELETE : 0, ex);
+	source = folder_from_name (ed, source_name, delete_originals ? MAPI_ACCESS_DELETE : 0, error);
 	if (!source)
 		return FALSE;
-	dest = folder_from_name (ed, dest_name, MAPI_ACCESS_CREATE_CONTENTS, ex);
+	dest = folder_from_name (ed, dest_name, MAPI_ACCESS_CREATE_CONTENTS, error);
 	if (!dest)
 		return FALSE;
 
@@ -2844,7 +2866,9 @@ camel_exchange_utils_transfer_messages (CamelService *service,
 		*ret_uids = new_uids;
 	} else {
 		g_warning ("transferred_messages: %d", status);
-		set_exception (ex, _("Unable to move/copy messages"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Unable to move/copy messages"));
 		g_ptr_array_free (new_uids, TRUE);
 		new_uids = NULL;
 	}
@@ -2956,7 +2980,9 @@ camel_exchange_utils_send_message (CamelService *service,
 	g_return_val_if_fail (ed->estore != NULL, FALSE);
 
 	if (!ed->mail_submission_uri) {
-		set_exception (ex, _("No mail submission URI for this mailbox"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("No mail submission URI for this mailbox"));
 		return FALSE;
 	}
 
@@ -2989,12 +3015,15 @@ camel_exchange_utils_send_message (CamelService *service,
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 		res = TRUE;
 	} else if (status == E2K_HTTP_NOT_FOUND) {
-		set_exception (ex, _("Server won't accept mail via Exchange transport"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Server won't accept mail via Exchange transport"));
 	} else if (status == E2K_HTTP_FORBIDDEN) {
 		errmsg = g_strdup_printf (_("Your account does not have permission "
 					    "to use <%s>\nas a From address."),
 					  from);
-		set_exception (ex, errmsg);
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM, "%s", errmsg);
 		g_free (errmsg);
 	} else if (status == E2K_HTTP_INSUFFICIENT_SPACE_ON_RESOURCE ||
 		   status == E2K_HTTP_INTERNAL_SERVER_ERROR) {
@@ -3003,11 +3032,15 @@ camel_exchange_utils_send_message (CamelService *service,
 		 * changes in the future.)
 		 */
 		E2K_KEEP_PRECEDING_COMMENT_OUT_OF_PO_FILES;
-		set_exception (ex, _("Could not send message.\n"
-				     "This might mean that your account is over quota."));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Could not send message.\n"
+			  "This might mean that your account is over quota."));
 	} else {
 		g_warning ("sent_message: %d", status);
-		set_exception (ex, _("Could not send message"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Could not send message"));
 	}
 
 	return res;
@@ -3043,15 +3076,21 @@ camel_exchange_utils_create_folder (CamelService *service,
 			break;
 		/* fall through */
 	default:
-		set_exception (ex, _("Generic error"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Generic error"));
 		return FALSE;
 
 	case EXCHANGE_ACCOUNT_FOLDER_ALREADY_EXISTS:
-		set_exception (ex, _("Folder already exists"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Folder already exists"));
 		return FALSE;
 
 	case EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED:
-		set_exception (ex, _("Permission denied"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Permission denied"));
 		return FALSE;
 	}
 
@@ -3077,7 +3116,9 @@ camel_exchange_utils_delete_folder (CamelService *service,
 	path = g_build_filename ("/", folder_name, NULL);
 	folder = exchange_account_get_folder (ed->account, path);
 	if (!folder) {
-		set_exception (ex, _("Folder doesn't exist"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Folder doesn't exist"));
 		g_free (path);
 		return FALSE;
 	}
@@ -3094,12 +3135,16 @@ camel_exchange_utils_delete_folder (CamelService *service,
 
 	case EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED: /* Fall through */
 	case EXCHANGE_ACCOUNT_FOLDER_UNSUPPORTED_OPERATION:
-		set_exception (ex, _("Permission denied"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Permission denied"));
 		g_object_unref (folder);
 		return FALSE;
 
 	default:
-		set_exception (ex, _("Generic error"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Generic error"));
 		g_object_unref (folder);
 		return FALSE;
 
@@ -3141,7 +3186,9 @@ camel_exchange_utils_rename_folder (CamelService *service,
 	old_path = g_build_filename ("/", old_name, NULL);
 	folder = exchange_account_get_folder (ed->account, old_path);
 	if (!folder) {
-		set_exception (ex, _("Folder doesn't exist"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Folder doesn't exist"));
 		g_free (old_path);
 		return FALSE;
 	}
@@ -3180,7 +3227,7 @@ camel_exchange_utils_rename_folder (CamelService *service,
 		}
 
 		if (is_online (ed) == ONLINE_MODE) {
-			if (!get_folder_online (mfld, ex)) {
+			if (!get_folder_online (mfld, error)) {
 				return FALSE;
 			}
 		}
@@ -3242,7 +3289,7 @@ camel_exchange_utils_rename_folder (CamelService *service,
 			}
 
 			if (is_online (ed) == ONLINE_MODE) {
-				if (!get_folder_online (mfld, ex)) {
+				if (!get_folder_online (mfld, error)) {
 					return FALSE;
 				}
 			}
@@ -3261,15 +3308,21 @@ camel_exchange_utils_rename_folder (CamelService *service,
 		break;
 
 	case EXCHANGE_ACCOUNT_FOLDER_DOES_NOT_EXIST:
-		set_exception (ex, _("Folder doesn't exist"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Folder doesn't exist"));
 		return FALSE;
 
 	case EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED:
-		set_exception (ex, _("Permission denied"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Permission denied"));
 		return FALSE;
 
 	default:
-		set_exception (ex, _("Generic error"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Generic error"));
 		return FALSE;
 
 	}
@@ -3292,7 +3345,9 @@ camel_exchange_utils_subscribe_folder (CamelService *service,
 	path = g_build_filename ("/", folder_name, NULL);
 	folder = exchange_account_get_folder (ed->account, path);
 	if (!folder) {
-		set_exception (ex, _("Folder doesn't exist"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Folder doesn't exist"));
 		g_free (path);
 		return FALSE;
 	}
@@ -3318,11 +3373,15 @@ camel_exchange_utils_subscribe_folder (CamelService *service,
 		break;
 
 	case EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED:
-		set_exception (ex, _("Permission denied"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Permission denied"));
 		return FALSE;
 
 	default:
-		set_exception (ex, _("Generic error"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Generic error"));
 		return FALSE;
 	}
 
@@ -3344,7 +3403,9 @@ camel_exchange_utils_unsubscribe_folder (CamelService *service,
 	path = g_build_filename ("/", folder_name, NULL);
 	folder = exchange_account_get_folder (ed->account, path);
 	if (!folder) {
-		set_exception (ex, _("Folder doesn't exist"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Folder doesn't exist"));
 		g_free (path);
 		return FALSE;
 	}
@@ -3365,7 +3426,9 @@ camel_exchange_utils_unsubscribe_folder (CamelService *service,
 	path = g_build_filename ("/favorites", pub_name, NULL);
 	folder = exchange_account_get_folder (ed->account, path);
 	if (!folder) {
-		set_exception (ex, _("Folder doesn't exist"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Folder doesn't exist"));
 		g_free (path);
 		return FALSE;
 	}
@@ -3380,13 +3443,17 @@ camel_exchange_utils_unsubscribe_folder (CamelService *service,
 		break;
 
 	case EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED:
-		set_exception (ex, _("Permission denied"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Permission denied"));
 		g_object_unref (folder);
 		g_free (path);
 		return FALSE;
 
 	default:
-		set_exception (ex, _("Generic error"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+			_("Generic error"));
 		g_object_unref (folder);
 		g_free (path);
 		return FALSE;

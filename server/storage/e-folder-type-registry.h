@@ -30,9 +30,9 @@ G_BEGIN_DECLS
 
 #define E_TYPE_FOLDER_TYPE_REGISTRY		(e_folder_type_registry_get_type ())
 #define E_FOLDER_TYPE_REGISTRY(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), E_TYPE_FOLDER_TYPE_REGISTRY, EFolderTypeRegistry))
-#define E_FOLDER_TYPE_REGISTRY_CLASS(klass)	(G_TYPE_CHECK_CLASS_CAST ((klass), E_TYPE_FOLDER_TYPE_REGISTRY, EFolderTypeRegistryClass))
+#define E_FOLDER_TYPE_REGISTRY_CLASS(cls)	(G_TYPE_CHECK_CLASS_CAST ((cls), E_TYPE_FOLDER_TYPE_REGISTRY, EFolderTypeRegistryClass))
 #define E_IS_FOLDER_TYPE_REGISTRY(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), E_TYPE_FOLDER_TYPE_REGISTRY))
-#define E_IS_FOLDER_TYPE_REGISTRY_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((obj), E_TYPE_FOLDER_TYPE_REGISTRY))
+#define E_IS_FOLDER_TYPE_REGISTRY_CLASS(cls)	(G_TYPE_CHECK_CLASS_TYPE ((obj), E_TYPE_FOLDER_TYPE_REGISTRY))
 
 typedef struct EFolderTypeRegistry        EFolderTypeRegistry;
 typedef struct EFolderTypeRegistryPrivate EFolderTypeRegistryPrivate;

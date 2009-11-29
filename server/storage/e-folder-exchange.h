@@ -12,9 +12,9 @@ G_BEGIN_DECLS
 
 #define E_TYPE_FOLDER_EXCHANGE            (e_folder_exchange_get_type ())
 #define E_FOLDER_EXCHANGE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), E_TYPE_FOLDER_EXCHANGE, EFolderExchange))
-#define E_FOLDER_EXCHANGE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), E_TYPE_FOLDER_EXCHANGE, EFolderExchangeClass))
+#define E_FOLDER_EXCHANGE_CLASS(cls)    (G_TYPE_CHECK_CLASS_CAST ((cls), E_TYPE_FOLDER_EXCHANGE, EFolderExchangeClass))
 #define E_IS_FOLDER_EXCHANGE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), E_TYPE_FOLDER_EXCHANGE))
-#define E_IS_FOLDER_EXCHANGE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((obj), E_TYPE_FOLDER_EXCHANGE))
+#define E_IS_FOLDER_EXCHANGE_CLASS(cls) (G_TYPE_CHECK_CLASS_TYPE ((obj), E_TYPE_FOLDER_EXCHANGE))
 
 struct _EFolderExchange {
 	EFolder parent;

@@ -14,9 +14,9 @@ G_BEGIN_DECLS
 
 #define EXCHANGE_TYPE_SHARE_CONFIG_LISTENER            (exchange_share_config_listener_get_type ())
 #define EXCHANGE_SHARE_CONFIG_LISTENER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EXCHANGE_TYPE_SHARE_CONFIG_LISTENER, ExchangeShareConfigListener))
-#define EXCHANGE_SHARE_CONFIG_LISTENER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), EXCHANGE_TYPE_SHARE_CONFIG_LISTENER, ExchangeShareConfigListenerClass))
+#define EXCHANGE_SHARE_CONFIG_LISTENER_CLASS(cls)    (G_TYPE_CHECK_CLASS_CAST ((cls), EXCHANGE_TYPE_SHARE_CONFIG_LISTENER, ExchangeShareConfigListenerClass))
 #define EXCHANGE_IS_SHARE_CONFIG_LISTENER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), EXCHANGE_TYPE_SHARE_CONFIG_LISTENER))
-#define EXCHANGE_IS_SHARE_CONFIG_LISTENER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((obj), EXCHANGE_TYPE_SHARE_CONFIG_LISTENER))
+#define EXCHANGE_IS_SHARE_CONFIG_LISTENER_CLASS(cls) (G_TYPE_CHECK_CLASS_TYPE ((obj), EXCHANGE_TYPE_SHARE_CONFIG_LISTENER))
 
 typedef struct _ExchangeShareConfigListener           ExchangeShareConfigListener;
 typedef struct _ExchangeShareConfigListenerPrivate    ExchangeShareConfigListenerPrivate;

@@ -19,9 +19,9 @@ G_BEGIN_DECLS
 
 #define E2K_TYPE_CONTEXT            (e2k_context_get_type ())
 #define E2K_CONTEXT(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), E2K_TYPE_CONTEXT, E2kContext))
-#define E2K_CONTEXT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), E2K_TYPE_CONTEXT, E2kContextClass))
+#define E2K_CONTEXT_CLASS(cls)    (G_TYPE_CHECK_CLASS_CAST ((cls), E2K_TYPE_CONTEXT, E2kContextClass))
 #define E2K_IS_CONTEXT(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), E2K_TYPE_CONTEXT))
-#define E2K_IS_CONTEXT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((obj), E2K_TYPE_CONTEXT))
+#define E2K_IS_CONTEXT_CLASS(cls) (G_TYPE_CHECK_CLASS_TYPE ((obj), E2K_TYPE_CONTEXT))
 
 struct _E2kContext {
 	GObject parent;

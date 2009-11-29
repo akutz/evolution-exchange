@@ -12,9 +12,9 @@ G_BEGIN_DECLS
 
 #define EXCHANGE_TYPE_HIERARCHY            (exchange_hierarchy_get_type ())
 #define EXCHANGE_HIERARCHY(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EXCHANGE_TYPE_HIERARCHY, ExchangeHierarchy))
-#define EXCHANGE_HIERARCHY_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), EXCHANGE_TYPE_HIERARCHY, ExchangeHierarchyClass))
+#define EXCHANGE_HIERARCHY_CLASS(cls)    (G_TYPE_CHECK_CLASS_CAST ((cls), EXCHANGE_TYPE_HIERARCHY, ExchangeHierarchyClass))
 #define EXCHANGE_IS_HIERARCHY(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), EXCHANGE_TYPE_HIERARCHY))
-#define EXCHANGE_IS_HIERARCHY_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((obj), EXCHANGE_TYPE_HIERARCHY))
+#define EXCHANGE_IS_HIERARCHY_CLASS(cls) (G_TYPE_CHECK_CLASS_TYPE ((obj), EXCHANGE_TYPE_HIERARCHY))
 
 struct _ExchangeHierarchy {
 	GObject parent;

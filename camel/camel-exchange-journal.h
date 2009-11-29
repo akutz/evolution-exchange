@@ -18,8 +18,8 @@
  *
  */
 
-#ifndef __CAMEL_EXCHANGE_JOURNAL_H__
-#define __CAMEL_EXCHANGE_JOURNAL_H__
+#ifndef CAMEL_EXCHANGE_JOURNAL_H
+#define CAMEL_EXCHANGE_JOURNAL_H
 
 #include <stdarg.h>
 
@@ -28,20 +28,30 @@
 #include <camel/camel.h>
 #include "camel-exchange-folder.h"
 
-G_BEGIN_DECLS
+/* Standard GObject macros */
+#define CAMEL_TYPE_EXCHANGE_JOURNAL \
+	(camel_exchange_journal_get_type ())
+#define CAMEL_EXCHANGE_JOURNAL(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST \
+	((obj), CAMEL_TYPE_EXCHANGE_JOURNAL, CamelExchangeJournal))
+#define CAMEL_EXCHANGE_JOURNAL_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST \
+	((cls), CAMEL_TYPE_EXCHANGE_JOURNAL, CamelExchangeJournalClass))
+#define CAMEL_IS_EXCHANGE_JOURNAL(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE \
+	((obj), CAMEL_TYPE_EXCHANGE_JOURNAL))
+#define CAMEL_IS_EXCHANGE_JOURNAL_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_TYPE \
+	((cls), CAMEL_TYPE_EXCHANGE_JOURNAL))
+#define CAMEL_EXCHANGE_JOURNAL_GET_CLASS(obj) \
+	(G_TYPE_INSTANCE_GET_CLASS \
+	((obj), CAMEL_TYPE_EXCHANGE_JOURNAL, CamelExchangeJournalClass))
 
-#define CAMEL_TYPE_EXCHANGE_JOURNAL            (camel_exchange_journal_get_type ())
-#define CAMEL_EXCHANGE_JOURNAL(obj)            (CAMEL_CHECK_CAST ((obj), CAMEL_TYPE_EXCHANGE_JOURNAL, CamelExchangeJournal))
-#define CAMEL_EXCHANGE_JOURNAL_CLASS(klass)    (CAMEL_CHECK_CLASS_CAST ((klass), CAMEL_TYPE_EXCHANGE_JOURNAL, CamelExchangeJournalClass))
-#define CAMEL_IS_EXCHANGE_JOURNAL(obj)         (CAMEL_CHECK_TYPE ((obj), CAMEL_TYPE_EXCHANGE_JOURNAL))
-#define CAMEL_IS_EXCHANGE_JOURNAL_CLASS(klass) (CAMEL_CHECK_CLASS_TYPE ((klass), CAMEL_TYPE_EXCHANGE_JOURNAL))
-#define CAMEL_EXCHANGE_JOURNAL_GET_CLASS(obj)  (CAMEL_CHECK_GET_CLASS ((obj), CAMEL_TYPE_EXCHANGE_JOURNAL, CamelExchangeJournalClass))
+G_BEGIN_DECLS
 
 typedef struct _CamelExchangeJournal CamelExchangeJournal;
 typedef struct _CamelExchangeJournalClass CamelExchangeJournalClass;
 typedef struct _CamelExchangeJournalEntry CamelExchangeJournalEntry;
-
-//struct CamelExchangeFolder;
 
 enum {
 	CAMEL_EXCHANGE_JOURNAL_ENTRY_APPEND,
@@ -63,31 +73,36 @@ struct _CamelExchangeJournalEntry {
 };
 
 struct _CamelExchangeJournal {
-	CamelOfflineJournal parent_object;
-
+	CamelOfflineJournal parent;
 };
 
 struct _CamelExchangeJournalClass {
 	CamelOfflineJournalClass parent_class;
-
 };
 
-CamelType camel_exchange_journal_get_type (void);
-
-CamelOfflineJournal *camel_exchange_journal_new (CamelExchangeFolder *folder, const gchar *filename);
-
-/* interfaces for adding a journal entry */
-void camel_exchange_journal_append (CamelExchangeJournal *journal, CamelMimeMessage *message,
-				    const CamelMessageInfo *mi, gchar **appended_uid, GError **error);
-
-void camel_exchange_journal_transfer (CamelExchangeJournal *journal, CamelExchangeFolder *source_folder,
-				      CamelMimeMessage *message, const CamelMessageInfo *mi,
-				      const gchar *original_uid, gchar **transferred_uid,
-				      gboolean delete_original, GError **error);
-
-void camel_exchange_journal_delete (CamelExchangeJournal *journal, const gchar *uid,
-				    guint32 flags, guint32 set, GError **error);
+GType		camel_exchange_journal_get_type	(void);
+CamelOfflineJournal *
+		camel_exchange_journal_new	(CamelExchangeFolder *folder,
+						 const gchar *filename);
+gboolean	camel_exchange_journal_append	(CamelExchangeJournal *journal,
+						 CamelMimeMessage *message,
+						 const CamelMessageInfo *mi,
+						 gchar **appended_uid,
+						 GError **error);
+gboolean	camel_exchange_journal_transfer	(CamelExchangeJournal *journal,
+						 CamelExchangeFolder *source_folder,
+						 CamelMimeMessage *message,
+						 const CamelMessageInfo *mi,
+						 const gchar *original_uid,
+						 gchar **transferred_uid,
+						 gboolean delete_original,
+						 GError **error);
+void		camel_exchange_journal_delete	(CamelExchangeJournal *journal,
+						 const gchar *uid,
+						 guint32 flags,
+						 guint32 set,
+						 GError **error);
 
 G_END_DECLS
 
-#endif /* __CAMEL_EXCHANGE_JOURNAL_H__ */
+#endif /* CAMEL_EXCHANGE_JOURNAL_H */

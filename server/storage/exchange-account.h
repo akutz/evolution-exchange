@@ -18,9 +18,9 @@ G_BEGIN_DECLS
 
 #define EXCHANGE_TYPE_ACCOUNT            (exchange_account_get_type ())
 #define EXCHANGE_ACCOUNT(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EXCHANGE_TYPE_ACCOUNT, ExchangeAccount))
-#define EXCHANGE_ACCOUNT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), EXCHANGE_TYPE_ACCOUNT, ExchangeAccountClass))
+#define EXCHANGE_ACCOUNT_CLASS(cls)    (G_TYPE_CHECK_CLASS_CAST ((cls), EXCHANGE_TYPE_ACCOUNT, ExchangeAccountClass))
 #define EXCHANGE_IS_ACCOUNT(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), EXCHANGE_TYPE_ACCOUNT))
-#define EXCHANGE_IS_ACCOUNT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((obj), EXCHANGE_TYPE_ACCOUNT))
+#define EXCHANGE_IS_ACCOUNT_CLASS(cls) (G_TYPE_CHECK_CLASS_TYPE ((obj), EXCHANGE_TYPE_ACCOUNT))
 
 struct _ExchangeAccount {
 	GObject parent;

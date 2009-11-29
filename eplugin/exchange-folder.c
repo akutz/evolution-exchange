@@ -68,7 +68,6 @@ static void
 exchange_get_folder (gchar *uri, CamelFolder *folder, gpointer data)
 {
 	CamelStore *store;
-	CamelException ex;
 	CamelFolderInfo *info;
 	gchar *name = NULL;
 	gchar *stored_name = NULL;
@@ -87,7 +86,6 @@ exchange_get_folder (gchar *uri, CamelFolder *folder, gpointer data)
 	if (stored_name)
 		name[stored_name - name] = '\0';
 
-	camel_exception_init (&ex);
 	store = camel_folder_get_parent_store (folder);
 
 	/* Construct the CamelFolderInfo */

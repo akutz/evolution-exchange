@@ -32,51 +32,14 @@
 
 #include <string.h>
 
-static gboolean exchange_send_to (CamelTransport *transport,
-				  CamelMimeMessage *message,
-				  CamelAddress *from,
-				  CamelAddress *recipients,
-				  GError **error);
-
-static void
-camel_exchange_transport_class_init (CamelExchangeTransportClass *camel_exchange_transport_class)
-{
-	CamelTransportClass *camel_transport_class =
-		CAMEL_TRANSPORT_CLASS (camel_exchange_transport_class);
-
-	/* virtual method overload */
-	camel_transport_class->send_to = exchange_send_to;
-}
-
-static void
-camel_exchange_transport_init (CamelTransport *transport)
-{
-}
-
-CamelType
-camel_exchange_transport_get_type (void)
-{
-	static CamelType camel_exchange_transport_type = CAMEL_INVALID_TYPE;
-
-	if (camel_exchange_transport_type == CAMEL_INVALID_TYPE) {
-		camel_exchange_transport_type =
-			camel_type_register (CAMEL_TRANSPORT_TYPE,
-					     "CamelExchangeTransport",
-					     sizeof (CamelExchangeTransport),
-					     sizeof (CamelExchangeTransportClass),
-					     (CamelObjectClassInitFunc) camel_exchange_transport_class_init,
-					     NULL,
-					     (CamelObjectInitFunc) camel_exchange_transport_init,
-					     NULL);
-	}
-
-	return camel_exchange_transport_type;
-}
+static gpointer parent_class;
 
 static gboolean
-exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
-		  CamelAddress *from, CamelAddress *recipients,
-		  GError **error)
+exchange_transport_send_to (CamelTransport *transport,
+                            CamelMimeMessage *message,
+                            CamelAddress *from,
+                            CamelAddress *recipients,
+                            GError **error)
 {
 	CamelService *service = CAMEL_SERVICE (transport);
 	CamelStore *store = NULL;
@@ -86,19 +49,24 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 	GPtrArray *recipients_array;
 	gboolean success;
 	CamelStream *stream;
-	CamelStreamFilter *filtered_stream;
+	CamelStream *filtered_stream;
 	CamelMimeFilter *crlffilter;
-	struct _camel_header_raw *header;
+	GByteArray *byte_array;
+	GQueue *queue;
+	GList *link;
 	GSList *h, *bcc = NULL;
 	gint len, i;
 
-	url_string = camel_session_get_password (service->session, service, NULL,
-						"ignored", "popb4smtp_uri", 0, ex);
+	url_string = camel_session_get_password (
+		service->session, service, NULL,
+		"ignored", "popb4smtp_uri", 0, error);
 	if (!url_string)
 		return FALSE;
 	if (strncmp (url_string, "exchange:", 9) != 0) {
-		camel_exception_set (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
-				     _("Exchange transport can only be used with Exchange mail source"));
+		g_set_error (
+			error, CAMEL_SERVICE_ERROR,
+			CAMEL_SERVICE_ERROR_UNAVAILABLE,
+			_("Exchange transport can only be used with Exchange mail source"));
 		g_free (url_string);
 		return FALSE;
 	}
@@ -110,8 +78,9 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 	cia = CAMEL_INTERNET_ADDRESS (recipients);
 	for (i = 0; i < len; i++) {
 		if (!camel_internet_address_get (cia, i, NULL, &addr)) {
-			camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM,
-					     _("Cannot send message: one or more invalid recipients"));
+			g_set_error (
+				error, CAMEL_ERROR, CAMEL_ERROR_SYSTEM,
+				_("Cannot send message: one or more invalid recipients"));
 			g_ptr_array_free (recipients_array, TRUE);
 			return FALSE;
 		}
@@ -119,25 +88,37 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 	}
 
 	if (!camel_internet_address_get (CAMEL_INTERNET_ADDRESS (from), 0, NULL, &addr)) {
-		camel_exception_set (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
-				     _("Could not find 'From' address in message"));
+		g_set_error (
+			error, CAMEL_SERVICE_ERROR,
+			CAMEL_SERVICE_ERROR_UNAVAILABLE,
+			_("Could not find 'From' address in message"));
 		g_ptr_array_free (recipients_array, TRUE);
 		return FALSE;
 	}
 
-	stream = camel_stream_mem_new ();
+	byte_array = g_byte_array_new ();
+	stream = camel_stream_mem_new_with_byte_array (byte_array);
 	crlffilter = camel_mime_filter_crlf_new (CAMEL_MIME_FILTER_CRLF_ENCODE, CAMEL_MIME_FILTER_CRLF_MODE_CRLF_ONLY);
-	filtered_stream = camel_stream_filter_new_with_stream (stream);
-	camel_stream_filter_add (filtered_stream, CAMEL_MIME_FILTER (crlffilter));
+	filtered_stream = camel_stream_filter_new (stream);
+	camel_stream_filter_add (
+		CAMEL_STREAM_FILTER (filtered_stream),
+		CAMEL_MIME_FILTER (crlffilter));
 	g_object_unref (CAMEL_OBJECT (crlffilter));
 
 	/* Gross hack copied from camel-smtp-transport. ugh. FIXME */
 	/* copy and remove the bcc headers */
-	header = CAMEL_MIME_PART (message)->headers;
-	while (header) {
-		if (!g_ascii_strcasecmp (header->name, "Bcc"))
-			bcc = g_slist_append (bcc, g_strdup (header->value));
-		header = header->next;
+	queue = camel_mime_part_get_raw_headers (CAMEL_MIME_PART (message));
+	link = g_queue_peek_head_link (queue);
+	while (link != NULL) {
+		CamelHeaderRaw *raw_header = link->data;
+		const gchar *name, *value;
+
+		name = camel_header_raw_get_name (raw_header);
+		value = camel_header_raw_get_value (raw_header);
+
+		if (!g_ascii_strcasecmp (name, "Bcc"))
+			bcc = g_slist_append (bcc, g_strdup (value));
+		link = g_list_next (link);
 	}
 
 	camel_medium_remove_header (CAMEL_MEDIUM (message), "Bcc");
@@ -158,12 +139,43 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 		g_slist_free (bcc);
 	}
 
-	success = camel_exchange_utils_send_message (CAMEL_SERVICE (transport), addr, recipients_array, CAMEL_STREAM_MEM (stream)->buffer, ex);
+	success = camel_exchange_utils_send_message (
+		CAMEL_SERVICE (transport), addr,
+		recipients_array, byte_array, error);
 
 	g_ptr_array_free (recipients_array, TRUE);
 	g_object_unref (CAMEL_OBJECT (stream));
 
 	if (store)
 		g_object_unref (CAMEL_OBJECT (store));
+
 	return success;
+}
+static void
+exchange_transport_class_init (CamelExchangeTransportClass *class)
+{
+	CamelTransportClass *transport_class;
+
+	parent_class = g_type_class_peek_parent (class);
+
+	transport_class = CAMEL_TRANSPORT_CLASS (class);
+	transport_class->send_to = exchange_transport_send_to;
+}
+
+GType
+camel_exchange_transport_get_type (void)
+{
+	static GType type = G_TYPE_INVALID;
+
+	if (G_UNLIKELY (type == G_TYPE_INVALID))
+		type = g_type_register_static_simple (
+			CAMEL_TYPE_TRANSPORT,
+			"CamelExchangeTransport",
+			sizeof (CamelExchangeTransportClass),
+			(GClassInitFunc) exchange_transport_class_init,
+			sizeof (CamelExchangeTransport),
+			(GInstanceInitFunc) NULL,
+			0);
+
+	return type;
 }

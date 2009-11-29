@@ -30,9 +30,9 @@ G_BEGIN_DECLS
 
 #define E_TYPE_FOLDER			(e_folder_get_type ())
 #define E_FOLDER(obj)			(G_TYPE_CHECK_INSTANCE_CAST ((obj), E_TYPE_FOLDER, EFolder))
-#define E_FOLDER_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST ((klass), E_TYPE_FOLDER, EFolderClass))
+#define E_FOLDER_CLASS(cls)		(G_TYPE_CHECK_CLASS_CAST ((cls), E_TYPE_FOLDER, EFolderClass))
 #define E_IS_FOLDER(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), E_TYPE_FOLDER))
-#define E_IS_FOLDER_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((obj), E_TYPE_FOLDER))
+#define E_IS_FOLDER_CLASS(cls)	(G_TYPE_CHECK_CLASS_TYPE ((obj), E_TYPE_FOLDER))
 #define E_FOLDER_GET_CLASS(obj)         (G_TYPE_INSTANCE_GET_CLASS ((obj), E_TYPE_FOLDER, EFolderClass))
 
 typedef struct EFolder        EFolder;

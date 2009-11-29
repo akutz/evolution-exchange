@@ -30,9 +30,9 @@ G_BEGIN_DECLS
 
 #define E_TYPE_STORAGE			(e_storage_get_type ())
 #define E_STORAGE(obj)			(G_TYPE_CHECK_INSTANCE_CAST ((obj), E_TYPE_STORAGE, EStorage))
-#define E_STORAGE_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST ((klass), E_TYPE_STORAGE, EStorageClass))
+#define E_STORAGE_CLASS(cls)		(G_TYPE_CHECK_CLASS_CAST ((cls), E_TYPE_STORAGE, EStorageClass))
 #define E_IS_STORAGE(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), E_TYPE_STORAGE))
-#define E_IS_STORAGE_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((obj), E_TYPE_STORAGE))
+#define E_IS_STORAGE_CLASS(cls)	(G_TYPE_CHECK_CLASS_TYPE ((obj), E_TYPE_STORAGE))
 #define E_STORAGE_GET_CLASS(obj)        (G_TYPE_INSTANCE_GET_CLASS ((obj), E_TYPE_STORAGE, EStorageClass))
 
 typedef struct EStorage        EStorage;
