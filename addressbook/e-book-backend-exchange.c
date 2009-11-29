@@ -524,7 +524,7 @@ e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 	camel_data_wrapper_construct_from_stream (CAMEL_DATA_WRAPPER (msg), stream);
 	g_object_unref (stream);
 
-	content = camel_medium_get_content_object (CAMEL_MEDIUM (msg));
+	content = camel_medium_get_content (CAMEL_MEDIUM (msg));
 	if (CAMEL_IS_MULTIPART (content)) {
 		multipart = (CamelMultipart *)content;
 		content = NULL;
@@ -533,7 +533,7 @@ e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 			part = camel_multipart_get_part (multipart, i);
 			filename = camel_mime_part_get_filename (part);
 			if (filename && !strncmp (filename, "ContactPicture.", 15)) {
-				content = camel_medium_get_content_object (CAMEL_MEDIUM (part));
+				content = camel_medium_get_content (CAMEL_MEDIUM (part));
 				break;
 			}
 		}
@@ -1380,7 +1380,7 @@ build_message (const gchar *from_name, const gchar *from_email,
 		text_part = CAMEL_MIME_PART (msg);
 
 	if (text_part) {
-		camel_medium_set_content_object (CAMEL_MEDIUM (text_part), wrapper);
+		camel_medium_set_content (CAMEL_MEDIUM (text_part), wrapper);
 		camel_mime_part_set_encoding (text_part, CAMEL_TRANSFER_ENCODING_8BIT);
 	}
 	if (photo) {
@@ -1423,7 +1423,7 @@ build_message (const gchar *from_name, const gchar *from_email,
 		camel_data_wrapper_set_mime_type (wrapper, content_type);
 
 		photo_part = camel_mime_part_new ();
-		camel_medium_set_content_object (CAMEL_MEDIUM (photo_part),
+		camel_medium_set_content (CAMEL_MEDIUM (photo_part),
 						 wrapper);
 		camel_mime_part_set_encoding (photo_part, CAMEL_TRANSFER_ENCODING_BASE64);
 		camel_mime_part_set_description (photo_part, filename);
@@ -1441,7 +1441,7 @@ build_message (const gchar *from_name, const gchar *from_email,
 		camel_multipart_add_part (multipart, photo_part);
 		g_object_unref (photo_part);
 
-		camel_medium_set_content_object (CAMEL_MEDIUM (msg),
+		camel_medium_set_content (CAMEL_MEDIUM (msg),
 						 CAMEL_DATA_WRAPPER (multipart));
 		g_object_unref (multipart);
 	}

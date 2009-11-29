@@ -470,7 +470,7 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 			g_object_unref (stream);
 
 			part = camel_mime_part_new ();
-			camel_medium_set_content_object (CAMEL_MEDIUM (part), delegate_mail_text);
+			camel_medium_set_content (CAMEL_MEDIUM (part), delegate_mail_text);
 			g_object_unref (delegate_mail_text);
 			camel_multipart_add_part (body, part);
 			g_object_unref (part);
@@ -485,13 +485,13 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 
 			camel_data_wrapper_construct_from_stream (delegate_mail_data, stream);
 			g_object_unref (stream);
-			camel_medium_set_content_object (CAMEL_MEDIUM (part), delegate_mail_data);
+			camel_medium_set_content (CAMEL_MEDIUM (part), delegate_mail_data);
 			g_object_unref (delegate_mail_data);
 			camel_multipart_add_part (body, part);
 			g_object_unref (part);
 
 			/* Finish creating the message */
-			camel_medium_set_content_object (CAMEL_MEDIUM (delegate_mail), CAMEL_DATA_WRAPPER (body));
+			camel_medium_set_content (CAMEL_MEDIUM (delegate_mail), CAMEL_DATA_WRAPPER (body));
 			g_object_unref (body);
 
 			delegate_mail_subject = g_strdup_printf (_("You have been designated "

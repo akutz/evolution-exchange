@@ -299,7 +299,7 @@ fix_broken_multipart_related (CamelMimePart *part)
 	CamelMimePart *subpart;
 	gint i, count, broken_parts;
 
-	content = camel_medium_get_content_object (CAMEL_MEDIUM (part));
+	content = camel_medium_get_content (CAMEL_MEDIUM (part));
 
 	content_type = content->mime_type;
 	if (camel_content_type_is (content_type, "message", "rfc822")) {
@@ -338,7 +338,7 @@ fix_broken_multipart_related (CamelMimePart *part)
 			camel_multipart_add_part (new, subpart);
 		}
 
-		camel_medium_set_content_object (CAMEL_MEDIUM (part),
+		camel_medium_set_content (CAMEL_MEDIUM (part),
 						 CAMEL_DATA_WRAPPER (new));
 		g_object_unref (CAMEL_OBJECT (new));
 	}
