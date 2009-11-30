@@ -1229,31 +1229,6 @@ get_object_list (ECalBackendSync *backend, EDataCal *cal,
 	return GNOME_Evolution_Calendar_Success;
 }
 
-ECalBackendSyncStatus
-get_timezone (ECalBackendSync *backend, EDataCal *cal,
-	      const gchar *tzid, gchar **object)
-{
-	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
-	icaltimezone *zone;
-	icalcomponent *vtzcomp;
-	gchar *ical_obj;
-
-	d(printf("ecbe_get_timezone(%p, %p, %s)\n", backend, cal, tzid));
-
-	zone = g_hash_table_lookup (cbex->priv->timezones, tzid);
-	if (!zone)
-		return GNOME_Evolution_Calendar_ObjectNotFound;
-
-	vtzcomp = icaltimezone_get_component (zone);
-	if (!vtzcomp)
-		return GNOME_Evolution_Calendar_OtherError;
-
-	ical_obj = icalcomponent_as_ical_string_r (vtzcomp);
-	*object = ical_obj;
-
-	return  GNOME_Evolution_Calendar_Success;
-}
-
 icaltimezone *
 e_cal_backend_exchange_get_default_time_zone (ECalBackendSync *backend)
 {
@@ -2159,11 +2134,19 @@ static icaltimezone *
 internal_get_timezone (ECalBackend *backend, const gchar *tzid)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
+	icaltimezone *zone;
 
-	if (!tzid)
-		return NULL;
+	g_return_val_if_fail (cbex != NULL, NULL);
+	g_return_val_if_fail (tzid != NULL, NULL);
 
-	return g_hash_table_lookup (cbex->priv->timezones, tzid);
+	/* search in backend's time zone cache */
+	zone = g_hash_table_lookup (cbex->priv->timezones, tzid);
+
+	/* if not found, chain up */
+	if (!zone && E_CAL_BACKEND_CLASS (parent_class)->internal_get_timezone)
+		zone = E_CAL_BACKEND_CLASS (parent_class)->internal_get_timezone (backend, tzid);
+
+	return zone;
 }
 
 icaltimezone *
@@ -2284,7 +2267,6 @@ class_init (ECalBackendExchangeClass *klass)
 	sync_class->get_default_object_sync = get_default_object;
 	sync_class->get_object_sync = get_object;
 	sync_class->get_object_list_sync = get_object_list;
-	sync_class->get_timezone_sync = get_timezone;
 	sync_class->add_timezone_sync = add_timezone;
 	sync_class->set_default_timezone_sync = set_default_timezone;
 	sync_class->get_freebusy_sync = get_freebusy;
