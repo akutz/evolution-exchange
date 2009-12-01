@@ -34,7 +34,7 @@
 #include "mail/em-account-editor.h"
 #include "mail/em-config.h"
 #include "libedataserver/e-account.h"
-#include "e-util/e-error.h"
+#include "e-util/e-alert.h"
 
 #include "exchange-operations.h"
 #include "exchange-folder-size-display.h"
@@ -527,7 +527,7 @@ e_exchange_calendar_commit (EPlugin *epl, EConfigTarget *target)
 	}
 
 	if (err_msg)
-		e_error_run (GTK_WINDOW (target->widget), err_msg, NULL);
+		e_alert_run_dialog_for_args (GTK_WINDOW (target->widget), err_msg, NULL);
  done:
 	g_free (uri_text);
 	g_free (username);

@@ -26,7 +26,7 @@
 #include "exchange-operations.h"
 #include <e-folder-exchange.h>
 #include <exchange-hierarchy.h>
-#include <e-util/e-error.h>
+#include <e-util/e-alert.h>
 #include <shell/e-shell.h>
 
 ExchangeConfigListener *exchange_global_config_listener=NULL;
@@ -240,26 +240,26 @@ exchange_operations_report_error (ExchangeAccount *account, ExchangeAccountResul
 
 	switch (result) {
 		case EXCHANGE_ACCOUNT_MAILBOX_NA:
-			widget = e_error_new (e_shell_get_active_window (NULL), error_string, exchange_account_get_username (account), NULL);
+			widget = e_alert_new_dialog_for_args (e_shell_get_active_window (NULL), error_string, exchange_account_get_username (account), NULL);
 			break;
 		case EXCHANGE_ACCOUNT_NO_MAILBOX:
-			widget = e_error_new (e_shell_get_active_window (NULL), error_string, exchange_account_get_username (account),
-					      account->exchange_server, NULL);
+			widget = e_alert_new_dialog_for_args (e_shell_get_active_window (NULL), error_string, exchange_account_get_username (account),
+							      account->exchange_server, NULL);
 			break;
 		case EXCHANGE_ACCOUNT_RESOLVE_ERROR:
 		case EXCHANGE_ACCOUNT_CONNECT_ERROR:
 		case EXCHANGE_ACCOUNT_UNKNOWN_ERROR:
-			widget = e_error_new (e_shell_get_active_window (NULL), error_string, account->exchange_server, NULL);
+			widget = e_alert_new_dialog_for_args (e_shell_get_active_window (NULL), error_string, account->exchange_server, NULL);
 			break;
 		case EXCHANGE_ACCOUNT_QUOTA_RECIEVE_ERROR:
 		case EXCHANGE_ACCOUNT_QUOTA_SEND_ERROR:
 		case EXCHANGE_ACCOUNT_QUOTA_WARN:
 			quota_value = g_strdup_printf ("%.2f", account->mbox_size);
-			widget = e_error_new (e_shell_get_active_window (NULL), error_string, quota_value, NULL);
+			widget = e_alert_new_dialog_for_args (e_shell_get_active_window (NULL), error_string, quota_value, NULL);
 			g_free (quota_value);
 			break;
 		default:
-			widget = e_error_new (e_shell_get_active_window (NULL), error_string, NULL);
+			widget = e_alert_new_dialog_for_args (e_shell_get_active_window (NULL), error_string, NULL);
 	}
 	g_signal_connect ((GtkDialog *)widget, "response", G_CALLBACK (gtk_widget_destroy), widget);
 	gtk_widget_show (widget);

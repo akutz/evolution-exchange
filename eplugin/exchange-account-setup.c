@@ -25,7 +25,7 @@
 #endif
 
 #include "libedataserver/e-account.h"
-#include "e-util/e-error.h"
+#include "e-util/e-alert.h"
 
 #include <string.h>
 #include <unistd.h>
@@ -236,7 +236,7 @@ org_gnome_exchange_settings(EPlugin *epl, EConfigHookItemFactoryData *data)
 	exchange_config_listener_get_offline_status (exchange_global_config_listener,
 								    &offline_status);
 	if (offline_status == OFFLINE_MODE) {
-		e_error_run (GTK_WINDOW (data->config->target->widget), ERROR_DOMAIN ":exchange-settings-offline", NULL);
+		e_alert_run_dialog_for_args (GTK_WINDOW (data->config->target->widget), ERROR_DOMAIN ":exchange-settings-offline", NULL);
 
 		return NULL;
 	}
@@ -251,7 +251,7 @@ org_gnome_exchange_settings(EPlugin *epl, EConfigHookItemFactoryData *data)
 
 	if (account && !exchange_oof_get (account, &oof_state, &message)) {
 
-		e_error_run (GTK_WINDOW (data->config->target->widget), ERROR_DOMAIN ":state-read-error", NULL);
+		e_alert_run_dialog_for_args (GTK_WINDOW (data->config->target->widget), ERROR_DOMAIN ":state-read-error", NULL);
 
                 return NULL;
         }
@@ -389,11 +389,11 @@ print_error (GtkWidget *parent, const gchar *owa_url, E2kAutoconfigResult result
 	switch (result) {
 
 		case E2K_AUTOCONFIG_CANT_CONNECT:
-			e_error_run (GTK_WINDOW (parent), ERROR_DOMAIN ":account-connect-error", "", NULL);
+			e_alert_run_dialog_for_args (GTK_WINDOW (parent), ERROR_DOMAIN ":account-connect-error", "", NULL);
 			break;
 
 		case E2K_AUTOCONFIG_CANT_RESOLVE:
-			e_error_run (GTK_WINDOW (parent), ERROR_DOMAIN ":account-resolve-error", "", NULL);
+			e_alert_run_dialog_for_args (GTK_WINDOW (parent), ERROR_DOMAIN ":account-resolve-error", "", NULL);
 			break;
 
 		case E2K_AUTOCONFIG_AUTH_ERROR:
@@ -412,7 +412,7 @@ print_error (GtkWidget *parent, const gchar *owa_url, E2kAutoconfigResult result
 			break;
 
 		case E2K_AUTOCONFIG_CANT_BPROPFIND:
-			e_error_run (GTK_WINDOW (parent), ERROR_DOMAIN ":connect-exchange-error",
+			e_alert_run_dialog_for_args (GTK_WINDOW (parent), ERROR_DOMAIN ":connect-exchange-error",
 				     "http://support.novell.com/cgi-bin/search/searchtid.cgi?/ximian/ximian328.html",
 				     NULL);
 			break;
@@ -428,7 +428,7 @@ print_error (GtkWidget *parent, const gchar *owa_url, E2kAutoconfigResult result
 	}
 
 	if (err_msg)
-		e_error_run (GTK_WINDOW (parent), err_msg, NULL);
+		e_alert_run_dialog_for_args (GTK_WINDOW (parent), err_msg, NULL);
 }
 
 static const gchar *
@@ -485,7 +485,7 @@ owa_authenticate_user(GtkWidget *button, EConfig *config)
 	   THIS IS TOTALLY UNNACCEPTABLE!!!!!!!!
 
 	   It must use camel_session_ask_password, and it should return an exception for any problem,
-	   which should then be shown using e-error */
+	   which should then be shown using e-alert */
 
 	owa_url = camel_url_get_param (url, "owa_url");
 	if (camel_url_get_param (url, "authmech"))
@@ -858,7 +858,7 @@ set_oof_info (GtkWidget *parent)
 
 	if (account && !exchange_oof_set (account, oof_data->state, oof_data->message)) {
 
-		e_error_run (GTK_WINDOW (parent), ERROR_DOMAIN ":state-update-error", NULL);
+		e_alert_run_dialog_for_args (GTK_WINDOW (parent), ERROR_DOMAIN ":state-update-error", NULL);
 	}
 }
 

@@ -38,7 +38,7 @@
 #include <e2k-uri.h>
 #include <camel/camel-url.h>
 
-#include <e-util/e-error.h>
+#include <e-util/e-alert.h>
 #include <shell/e-shell.h>
 
 #include <libedataserver/e-source.h>
@@ -901,7 +901,7 @@ exchange_config_listener_authenticate (ExchangeConfigListener *ex_conf_listener,
 		}
 
 		if (current_quota_usage) {
-			widget = e_error_new (e_shell_get_active_window (NULL), error_code, current_quota_usage, NULL);
+			widget = e_alert_new_dialog_for_args (e_shell_get_active_window (NULL), error_code, current_quota_usage, NULL);
 			g_signal_connect ((GtkDialog *)widget, "response",
 					  G_CALLBACK (gtk_widget_destroy), widget);
 			gtk_widget_show (widget);
@@ -929,7 +929,7 @@ exchange_config_listener_authenticate (ExchangeConfigListener *ex_conf_listener,
 				/* OOF state is set, check if user wants to set it back to in-office */
 				if (run_oof_dialog () == GTK_RESPONSE_YES)
 					if (!exchange_oof_set (account, FALSE, NULL))
-						e_error_run (e_shell_get_active_window (NULL), "org-gnome-exchange-operations:state-update-error", NULL);
+						e_alert_run_dialog_for_args (e_shell_get_active_window (NULL), "org-gnome-exchange-operations:state-update-error", NULL);
 			}
 		}
 	}
@@ -949,7 +949,7 @@ account_added (EAccountList *account_list, EAccount *account)
 	config_listener = EXCHANGE_CONFIG_LISTENER (account_list);
 	if (config_listener->priv->configured_account) {
 		/* Multiple accounts configured. */
-		e_error_run (e_shell_get_active_window (NULL), "org-gnome-exchange-operations:single-account-error", NULL);
+		e_alert_run_dialog_for_args (e_shell_get_active_window (NULL), "org-gnome-exchange-operations:single-account-error", NULL);
 		return;
 	}
 
@@ -1148,7 +1148,7 @@ account_changed (EAccountList *account_list, EAccount *account)
 	}
 
 	/* Nope. Let the user know we're ignoring him. */
-	e_error_run (e_shell_get_active_window (NULL), "org-gnome-exchange-operations:apply-restart",
+	e_alert_run_dialog_for_args (e_shell_get_active_window (NULL), "org-gnome-exchange-operations:apply-restart",
 		     priv->configured_name, NULL);
 
 	/* But note the new URI so if he changes something else, we

@@ -26,7 +26,7 @@
 #endif
 
 #include <gtk/gtk.h>
-#include <e-util/e-error.h>
+#include <e-util/e-alert.h>
 #include <e-folder.h>
 #include <exchange-account.h>
 #include <exchange-hierarchy.h>
@@ -200,7 +200,7 @@ subscribe_to_folder (GtkWidget *dialog, gint response, gpointer data)
 			subscriber_email = exchange_account_get_email_id (subscription_info->account);
 			if (subscriber_email != NULL && *subscriber_email != '\0') {
 				if (g_str_equal (subscriber_email, user_email_address)) {
-					e_error_run (GTK_WINDOW (dialog), ERROR_DOMAIN ":folder-exists-error", NULL);
+					e_alert_run_dialog_for_args (GTK_WINDOW (dialog), ERROR_DOMAIN ":folder-exists-error", NULL);
 					g_free (user_email_address);
 					gtk_widget_destroy (dialog);
 					destroy_subscription_info (subscription_info);
@@ -211,7 +211,7 @@ subscribe_to_folder (GtkWidget *dialog, gint response, gpointer data)
 			/* It would be nice to insensitivize the OK button appropriately
 			instead of doing this, but unfortunately we can't do this for the
 			control.  */
-			e_error_run (GTK_WINDOW (dialog), ERROR_DOMAIN ":select-user", NULL);
+			e_alert_run_dialog_for_args (GTK_WINDOW (dialog), ERROR_DOMAIN ":select-user", NULL);
 		}
 
 		folder_name = g_strdup (gtk_entry_get_text (GTK_ENTRY (subscription_info->folder_name_entry)));
@@ -250,7 +250,7 @@ subscribe_to_folder (GtkWidget *dialog, gint response, gpointer data)
 					err_msg = ERROR_DOMAIN ":folder-no-gc-error";
 					break;
 				case EXCHANGE_ACCOUNT_FOLDER_NO_SUCH_USER:
-					e_error_run (GTK_WINDOW (dialog), ERROR_DOMAIN ":no-user-error", user_email_address, NULL);
+					e_alert_run_dialog_for_args (GTK_WINDOW (dialog), ERROR_DOMAIN ":no-user-error", user_email_address, NULL);
 					break;
 				case EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR:
 					err_msg = ERROR_DOMAIN ":folder-generic-error";
@@ -260,7 +260,7 @@ subscribe_to_folder (GtkWidget *dialog, gint response, gpointer data)
 			}
 
 			if (err_msg)
-				e_error_run (GTK_WINDOW (dialog), err_msg, NULL);
+				e_alert_run_dialog_for_args (GTK_WINDOW (dialog), err_msg, NULL);
 		}
 
 		if (!folder) {

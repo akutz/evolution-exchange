@@ -40,7 +40,7 @@
 #include "exchange-operations.h"
 
 #include <e-util/e-dialog-utils.h>
-#include <e-util/e-error.h>
+#include <e-util/e-alert.h>
 
 struct _ExchangePermissionsDialogPrivate {
 	ExchangeAccount *account;
@@ -200,7 +200,7 @@ exchange_permissions_dialog_new (ExchangeAccount *account,
 				       &results, &nresults);
 	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status) || nresults < 1) {
 	lose:
-		e_error_run (GTK_WINDOW (parent), ERROR_DOMAIN ":perm-read-error", NULL);
+		e_alert_run_dialog_for_args (GTK_WINDOW (parent), ERROR_DOMAIN ":perm-read-error", NULL);
 		gtk_widget_destroy (GTK_WIDGET (dialog));
 		if (nresults)
 			e2k_results_free (results, nresults);
@@ -245,7 +245,7 @@ dialog_response (ExchangePermissionsDialog *dialog, gint response,
 
 	binsd = e2k_security_descriptor_to_binary (dialog->priv->sd);
 	if (!binsd) {
-		e_error_run (GTK_WINDOW (dialog), ERROR_DOMAIN ":perm-update-error", "", NULL);
+		e_alert_run_dialog_for_args (GTK_WINDOW (dialog), ERROR_DOMAIN ":perm-update-error", "", NULL);
 		return;
 	}
 
@@ -273,9 +273,9 @@ dialog_response (ExchangePermissionsDialog *dialog, gint response,
 	gtk_widget_set_sensitive (GTK_WIDGET (dialog), TRUE);
 
 	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-		e_error_run (GTK_WINDOW (dialog), ERROR_DOMAIN ":perm-update-error",
-			     status == E2K_HTTP_UNAUTHORIZED ?
-			     _("(Permission denied.)") : "", NULL);
+		e_alert_run_dialog_for_args (GTK_WINDOW (dialog), ERROR_DOMAIN ":perm-update-error",
+					     status == E2K_HTTP_UNAUTHORIZED ?
+					     _("(Permission denied.)") : "", NULL);
 		return;
 	}
 
@@ -376,8 +376,8 @@ add_clicked (GtkButton *button, gpointer user_data)
 	gc = exchange_account_get_global_catalog (dialog->priv->account);
 
 	if (!gc) {
-		e_error_run (GTK_WINDOW (dialog), ERROR_DOMAIN ":acl-no-gcs-error",
-			     NULL);
+		e_alert_run_dialog_for_args (GTK_WINDOW (dialog), ERROR_DOMAIN ":acl-no-gcs-error",
+					     NULL);
 		return;
 	}
 
@@ -401,13 +401,13 @@ add_clicked (GtkButton *button, gpointer user_data)
 			case E2K_GLOBAL_CATALOG_OK:
 				break;
 			case E2K_GLOBAL_CATALOG_NO_SUCH_USER:
-				e_error_run (GTK_WINDOW (dialog), ERROR_DOMAIN ":no-user-error", email, NULL);
+				e_alert_run_dialog_for_args (GTK_WINDOW (dialog), ERROR_DOMAIN ":no-user-error", email, NULL);
 				break;
 			case E2K_GLOBAL_CATALOG_NO_DATA:
-				e_error_run (GTK_WINDOW (dialog), ERROR_DOMAIN ":acl-add-error", email, NULL);
+				e_alert_run_dialog_for_args (GTK_WINDOW (dialog), ERROR_DOMAIN ":acl-add-error", email, NULL);
 				break;
 			default:
-				e_error_run (GTK_WINDOW (dialog), ERROR_DOMAIN ":perm-unknown-error", email, NULL);
+				e_alert_run_dialog_for_args (GTK_WINDOW (dialog), ERROR_DOMAIN ":perm-unknown-error", email, NULL);
 				break;
 		}
 		if (status != E2K_GLOBAL_CATALOG_OK)
@@ -422,8 +422,8 @@ add_clicked (GtkButton *button, gpointer user_data)
 					    -1);
 			bsid2 = e2k_sid_get_binary_sid (sid2);
 			if (e2k_sid_binary_sid_equal (bsid, bsid2)) {
-				e_error_run (GTK_WINDOW (dialog), ERROR_DOMAIN ":perm-existing-error",
-					     entry->display_name, NULL);
+				e_alert_run_dialog_for_args (GTK_WINDOW (dialog), ERROR_DOMAIN ":perm-existing-error",
+							     entry->display_name, NULL);
 				e2k_global_catalog_entry_free (gc, entry);
 				gtk_tree_selection_select_iter (dialog->priv->list_selection, &iter);
 				return;

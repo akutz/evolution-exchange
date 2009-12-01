@@ -29,7 +29,7 @@
 #include <libedataserverui/e-contact-store.h>
 #include "exchange-operations.h"
 #include <e-util/e-util.h>
-#include <e-util/e-error.h>
+#include <e-util/e-alert.h>
 
 #include "exchange-send-options.h"
 
@@ -126,7 +126,7 @@ exchange_send_options_get_widgets_data (ExchangeSendOptionsDialog *sod)
 		}
 
 		if (count == 0) {
-			e_error_run ((GtkWindow *) priv->main,
+			e_alert_run_dialog_for_args ((GtkWindow *) priv->main,
 				"org-gnome-exchange-operations:no-delegate-selected", NULL, NULL);
 			gtk_widget_grab_focus ((GtkWidget *) name_selector_entry);
 			options->delegate_address = NULL;
@@ -136,7 +136,7 @@ exchange_send_options_get_widgets_data (ExchangeSendOptionsDialog *sod)
 		}
 
 		if (count > 1) {
-			e_error_run ((GtkWindow *)priv->main,
+			e_alert_run_dialog_for_args ((GtkWindow *)priv->main,
 				"org-gnome-exchange-operations:more-delegates-selected", NULL, NULL);
 			gtk_widget_grab_focus ((GtkWidget *) name_selector_entry);
 			options->delegate_address = NULL;

@@ -30,7 +30,7 @@
 #include <e-folder-exchange.h>
 #include <exchange-hierarchy.h>
 #include <libedataserverui/e-source-selector.h>
-#include <e-util/e-error.h>
+#include <e-util/e-alert.h>
 #include <camel/camel-store.h>
 #include <camel/camel-folder.h>
 #include <mail/mail-mt.h>
@@ -163,7 +163,7 @@ eex_folder_inbox_unsubscribe (const gchar *uri)
 	}
 
 	if (err_msg) {
-		e_error_run (e_shell_get_active_window (NULL), err_msg, NULL);
+		e_alert_run_dialog_for_args (e_shell_get_active_window (NULL), err_msg, NULL);
 		return;
 	}
 
@@ -291,7 +291,7 @@ eex_addresssbook_unsubscribe (ESource *source)
 		g_warning ("Config listener not found");
 		return;
 	} else if (mode == OFFLINE_MODE) {
-		e_error_run (e_shell_get_active_window (NULL), ERROR_DOMAIN ":account-offline-generic", NULL);
+		e_alert_run_dialog_for_args (e_shell_get_active_window (NULL), ERROR_DOMAIN ":account-offline-generic", NULL);
 		return;
 	}
 
@@ -345,7 +345,7 @@ eex_calendar_unsubscribe (ESource *source)
 		g_warning ("Config listener not found");
 		return;
 	} else if (mode == OFFLINE_MODE) {
-		e_error_run (e_shell_get_active_window (NULL), ERROR_DOMAIN ":account-offline-generic", NULL);
+		e_alert_run_dialog_for_args (e_shell_get_active_window (NULL), ERROR_DOMAIN ":account-offline-generic", NULL);
 		return;
 	}
 
@@ -397,7 +397,7 @@ call_folder_subscribe (const gchar *folder_name)
 		 * (like subscribing to other user's folders, unsubscribing
 		 * etc,) which can not be performed in offline mode
 		 */
-		e_error_run (e_shell_get_active_window (NULL), ERROR_DOMAIN ":account-offline-generic", NULL);
+		e_alert_run_dialog_for_args (e_shell_get_active_window (NULL), ERROR_DOMAIN ":account-offline-generic", NULL);
 		return;
 	}
 
