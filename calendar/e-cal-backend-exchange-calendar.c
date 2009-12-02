@@ -614,7 +614,7 @@ add_timezone_cb (icalparameter *param, gpointer data)
 	struct _cb_data *cbdata = (struct _cb_data *) data;
 	icalcomponent *vtzcomp;
 	const gchar *tzid;
-	gchar *izone = NULL;
+	icaltimezone *zone = NULL;
 
 	g_return_if_fail (cbdata != NULL);
 
@@ -624,11 +624,11 @@ add_timezone_cb (icalparameter *param, gpointer data)
 	if (icalcomponent_get_timezone (cbdata->vcal_comp, tzid))
 		return;
 
-	get_timezone (cbdata->be, cbdata->cal, tzid, &izone);
-	if (izone == NULL)
+	zone = e_cal_backend_internal_get_timezone ((ECalBackend *) cbdata->be, tzid);
+	if (zone == NULL)
 		return;
 
-	vtzcomp = icalcomponent_new_from_string (izone);
+	vtzcomp = icalcomponent_new_clone (icaltimezone_get_component (zone));
 	if (vtzcomp)
 		icalcomponent_add_component (cbdata->vcal_comp, vtzcomp);
 }
@@ -1292,11 +1292,9 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 			if (dt.tzid == NULL)
 				from_zone = icaltimezone_get_utc_timezone ();
 			else {
-				gchar *izone = NULL;
-				get_timezone (backend, cal, dt.tzid, &izone);
-				from_zone = icalcomponent_get_timezone (icalcomponent_new_from_string (izone),
-											dt.tzid);
+				from_zone = e_cal_backend_internal_get_timezone ((ECalBackend *) backend, dt.tzid);
 			}
+
 			to_zone = icaltimezone_get_utc_timezone ();
 
 			r->until.hour = dt.value->hour;

@@ -78,8 +78,6 @@ icaltimezone * e_cal_backend_exchange_get_default_time_zone (ECalBackendSync *ba
 
 gchar *	  e_cal_backend_exchange_lf_to_crlf	(const gchar *in);
 gchar *	  e_cal_backend_exchange_make_timestamp_rfc822	(time_t when);
-ECalBackendSyncStatus	get_timezone	(ECalBackendSync *backend,
-							EDataCal *cal, const gchar *tzid, gchar **object);
 
 /** lookup function for e_cal_check_timezones() */
 icaltimezone *
