@@ -38,7 +38,7 @@
 #include <e2k-uri.h>
 #include <camel/camel-url.h>
 
-#include <e-util/e-alert.h>
+#include <e-util/e-alert-dialog.h>
 #include <shell/e-shell.h>
 
 #include <libedataserver/e-source.h>
@@ -901,7 +901,7 @@ exchange_config_listener_authenticate (ExchangeConfigListener *ex_conf_listener,
 		}
 
 		if (current_quota_usage) {
-			widget = e_alert_new_dialog_for_args (e_shell_get_active_window (NULL), error_code, current_quota_usage, NULL);
+			widget = e_alert_dialog_new_for_args (e_shell_get_active_window (NULL), error_code, current_quota_usage, NULL);
 			g_signal_connect ((GtkDialog *)widget, "response",
 					  G_CALLBACK (gtk_widget_destroy), widget);
 			gtk_widget_show (widget);

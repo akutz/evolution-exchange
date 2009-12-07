@@ -40,7 +40,7 @@
 #include "exchange-operations.h"
 
 #include <e-util/e-dialog-utils.h>
-#include <e-util/e-alert.h>
+#include <e-util/e-alert-dialog.h>
 
 struct _ExchangePermissionsDialogPrivate {
 	ExchangeAccount *account;

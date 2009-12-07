@@ -26,7 +26,7 @@
 #endif
 
 #include <gtk/gtk.h>
-#include <e-util/e-alert.h>
+#include <e-util/e-alert-dialog.h>
 #include <e-folder.h>
 #include <exchange-account.h>
 #include <exchange-hierarchy.h>

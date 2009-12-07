@@ -43,7 +43,7 @@
 #include <e2k-utils.h>
 
 #include <e-util/e-dialog-utils.h>
-#include <e-util/e-alert.h>
+#include <e-util/e-alert-dialog.h>
 
 typedef struct {
 	const gchar *uri;

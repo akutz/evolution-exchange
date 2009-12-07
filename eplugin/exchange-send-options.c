@@ -29,7 +29,7 @@
 #include <libedataserverui/e-contact-store.h>
 #include "exchange-operations.h"
 #include <e-util/e-util.h>
-#include <e-util/e-alert.h>
+#include <e-util/e-alert-dialog.h>
 
 #include "exchange-send-options.h"
 

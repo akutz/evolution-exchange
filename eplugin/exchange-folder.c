@@ -30,7 +30,7 @@
 #include <e-folder-exchange.h>
 #include <exchange-hierarchy.h>
 #include <libedataserverui/e-source-selector.h>
-#include <e-util/e-alert.h>
+#include <e-util/e-alert-dialog.h>
 #include <camel/camel-store.h>
 #include <camel/camel-folder.h>
 #include <mail/mail-mt.h>
