@@ -152,22 +152,21 @@ map_to_full_role_name (E2kPermissionsRole role_nam)
 {
 	const gchar *role_name;
 
-	switch (role_nam)
-	{
-	/* To translators: The following are the various types of permissions that can
-	   assigned by an user to his folders.
-	*/
-		case E2K_PERMISSIONS_ROLE_EDITOR: role_name = g_strdup (
-							_("Editor (read, create, edit)"));
-						  break;
+	switch (role_nam) {
+		case E2K_PERMISSIONS_ROLE_EDITOR:
+			/* To Translators: The following is a type of permissions that can be assigned by a user to his/her folders. */
+			role_name = g_strdup (_("Editor (read, create, edit)"));
+			break;
 
-		case E2K_PERMISSIONS_ROLE_AUTHOR: role_name = g_strdup (
-							_("Author (read, create)"));
-						  break;
+		case E2K_PERMISSIONS_ROLE_AUTHOR:
+			/* To Translators: The following is a type of permissions that can be assigned by a user to his/her folders. */
+			role_name = g_strdup (_("Author (read, create)"));
+			break;
 
-		case E2K_PERMISSIONS_ROLE_REVIEWER: role_name = g_strdup (
-							_("Reviewer (read-only)"));
-						    break;
+		case E2K_PERMISSIONS_ROLE_REVIEWER:
+			/* To Translators: The following is a type of permissions that can be assigned by a user to his/her folders. */
+			role_name = g_strdup (_("Reviewer (read-only)"));
+			break;
 
 		default: role_name = g_strdup (_("None"));
 			 break;
