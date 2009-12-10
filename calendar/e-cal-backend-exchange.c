@@ -2154,8 +2154,14 @@ e_cal_backend_exchange_lookup_timezone (const gchar *tzid,
 					gconstpointer custom,
 					GError **error)
 {
-	return internal_get_timezone (E_CAL_BACKEND ((ECalBackendExchange *)custom),
-				      tzid);
+	icaltimezone *zone = internal_get_timezone (E_CAL_BACKEND ((ECalBackendExchange *)custom), tzid);
+
+	/* The UTC timezone is a fallback, which is not supposed
+	   to be returned in call of e_cal_check_timezones, thus skip it */
+	if (zone && zone == icaltimezone_get_utc_timezone ())
+		zone = NULL;
+
+	return zone;
 }
 
 static void
