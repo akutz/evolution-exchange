@@ -842,6 +842,8 @@ get_changed_tasks (ECalBackendExchange *cbex)
 			}
 
 		}
+
+		g_object_unref (ecal);
 	} /* End while */
 	status = e2k_result_iter_free (iter);
 
