@@ -2016,7 +2016,7 @@ func_match (struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer da
 
 		rn = e2k_restriction_or (rns->len, (E2kRestriction **)rns->pdata, TRUE);
 		g_ptr_array_free (rns, TRUE);
-	} else if (!strcmp (propname, "full_name") && flags == E2K_FL_PREFIX) {
+	} else if (!strcmp (propname, "full_name")) {
 		if (!*str) {
 			rn = e2k_restriction_orv (
 				e2k_restriction_exist (
@@ -2207,6 +2207,7 @@ e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 	E2kHTTPStatus status;
 	gchar *vcard;
 	GList *vcard_list = NULL, *temp, *offline_contacts;
+	EBookBackendSExp *sexp = NULL;
 
 	d(printf("ebbe_get_contact_list(%p, %p, %s)\n", backend, book, query));
 
@@ -2246,14 +2247,37 @@ e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 
 		e2k_restriction_unref (rn);
 
+		if (query)
+			sexp = e_book_backend_sexp_new (query);
+
 		*contacts = NULL;
 		while ((result = e2k_result_iter_next (iter))) {
-			vcard = vcard_from_props (be, result);
+			if (sexp) {
+				EContact *contact;
+
+				vcard = NULL;
+				contact = e_contact_from_props (be, result);
+				if (contact) {
+					/* there is no suffix restriction, thus it's done by contains,
+					   thus check for contact validity against the query is required */
+					if (e_book_backend_sexp_match_contact (sexp, contact))
+						vcard = e_vcard_to_string (E_VCARD (contact), EVC_FORMAT_VCARD_30);
+
+					g_object_unref (contact);
+				}
+			} else {
+				vcard = vcard_from_props (be, result);
+			}
+
 			if (!vcard)
 				continue;
+
 			*contacts = g_list_prepend (*contacts, vcard);
 		}
 		status = e2k_result_iter_free (iter);
+
+		if (sexp)
+			g_object_unref (sexp);
 
 		return http_status_to_pas (status);
 
@@ -2348,6 +2372,8 @@ e_book_backend_exchange_start_book_view (EBookBackend  *backend,
 		while ((result = e2k_result_iter_next (iter))) {
 			contact = e_contact_from_props (be, result);
 			if (contact) {
+				/* the function itself checks for validity of the contact against the query,
+				   thus no need to do it here too (because of no suffix restriction) */
 				e_data_book_view_notify_update (book_view,
 								contact);
 				g_object_unref (contact);
