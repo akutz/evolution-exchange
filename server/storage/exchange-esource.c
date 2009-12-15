@@ -84,6 +84,7 @@ add_folder_esource (ExchangeAccount *account,
 	gint mode;
 	ESourceList *source_list = NULL;
 	gboolean offline_flag, update_selection = TRUE, foriegn_folder;
+	gboolean can_delete = TRUE;
 
 	client = gconf_client_get_default ();
 
@@ -99,19 +100,25 @@ add_folder_esource (ExchangeAccount *account,
 		/* Modify the URI handling of Contacts to the same way as calendar and tasks */
 		if (!g_str_has_prefix (physical_uri, "gal://")) {
 			relative_uri = g_strdup (physical_uri + strlen (EXCHANGE_URI_PREFIX));
+			can_delete = !relative_uri || !strstr (relative_uri, ";personal/Contacts");
+		} else {
+			can_delete = FALSE;
 		}
+
 	}
 	else if (folder_type == EXCHANGE_CALENDAR_FOLDER) {
 		source_list = e_source_list_new_for_gconf ( client,
 							CONF_KEY_CAL);
 		relative_uri = g_strdup (physical_uri + strlen (EXCHANGE_URI_PREFIX));
 		is_contacts_folder = FALSE;
+		can_delete = !relative_uri || !strstr (relative_uri, ";personal/Calendar");
 	}
 	else if (folder_type == EXCHANGE_TASKS_FOLDER) {
 		source_list = e_source_list_new_for_gconf ( client,
 							CONF_KEY_TASKS);
 		relative_uri = g_strdup (physical_uri + strlen (EXCHANGE_URI_PREFIX));
 		is_contacts_folder = FALSE;
+		can_delete = !relative_uri || !strstr (relative_uri, ";personal/Tasks");
 	}
 
 	exchange_account_is_offline_sync_set (account, &mode);
@@ -155,6 +162,10 @@ add_folder_esource (ExchangeAccount *account,
 		}
 		else {
 			source = e_source_new (folder_name, relative_uri);
+		}
+
+		if (!can_delete) {
+			e_source_set_property (source, "delete", "no");
 		}
 
 		if (mode == OFFLINE_MODE) {
@@ -202,6 +213,10 @@ add_folder_esource (ExchangeAccount *account,
 				source = e_source_new (folder_name, relative_uri);
 			}
 
+			if (!can_delete) {
+				e_source_set_property (source, "delete", "no");
+			}
+
 			if (mode == OFFLINE_MODE)
 				e_source_set_property (source, "offline_sync", "1");
 
@@ -224,6 +239,8 @@ add_folder_esource (ExchangeAccount *account,
 			source_new = TRUE;
 			e_source_list_sync (source_list, NULL);
 		} else {
+			const gchar *old_delete = e_source_get_property (source, "delete");
+
 			update_selection = FALSE;
 			/* source group and source both already exist */
 			offline = e_source_get_property (source, "offline_sync");
@@ -251,6 +268,10 @@ add_folder_esource (ExchangeAccount *account,
 
 				g_free (expand_groups);
 				g_free (browse);
+			}
+
+			if ((!old_delete && !can_delete) || (old_delete && ((g_str_equal (old_delete, "no") && can_delete) || (!g_str_equal (old_delete, "no") && !can_delete)))) {
+				e_source_set_property (source, "delete", can_delete ? NULL : "no");
 			}
 		}
 	}
