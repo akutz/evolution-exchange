@@ -455,6 +455,9 @@ e2k_context_set_auth (E2kContext *ctx, const gchar *username,
 			  G_CALLBACK (setup_message), ctx);
 
 #ifdef E2K_DEBUG
+	if (e2k_debug_level <= 0)
+		return;
+
 	if (e2k_debug_level < 4)
 		level = (SoupLoggerLogLevel)e2k_debug_level;
 	else
