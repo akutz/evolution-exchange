@@ -1,15 +1,15 @@
 # Norwegian (bokmål) translation of evolution-exchange.
 # Copyright (C) 2004 Novell
 # This file is distributed under the same license as the evolution-exchange package.
-# Kjartan Maraas <kmaraas@gnome.org, 2004-2008.
+# Kjartan Maraas <kmaraas@gnome.org, 2004-2009.
 # Terance Edward Sola <terance@lyse.net>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: evolution-exchange\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-05 12:21+0100\n"
-"PO-Revision-Date: 2009-12-05 12:33+0100\n"
+"Project-Id-Version: evolution-exchange 2.29.x\n"
+"Report-Msgid-Bugs-To:\n"
+"POT-Creation-Date: 2009-12-15 20:15+0100\n"
+"PO-Revision-Date: 2009-12-15 21:33+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -418,14 +418,12 @@ msgid "Out Of Office"
 msgstr "Borte fra kontoret"
 
 #: ../eplugin/exchange-account-setup.c:277
-#, fuzzy
 msgid ""
 "The message specified below will be automatically sent to \n"
 "each person who sends mail to you while you are out of the office."
 msgstr ""
-"<small>Når du er borte fra kontoret vil beskjeden nedenfor bli sendt "
-"automatisk\n"
-"til alle som sender e-post til deg.</small>"
+"Beskjeden nedenfor vil bli sendt automatisk til alle \n"
+"som sender e-post til deg når du er borte fra kontoret."
 
 #: ../eplugin/exchange-account-setup.c:282
 msgid "Status:"
@@ -532,7 +530,7 @@ msgstr ""
 
 #: ../eplugin/exchange-calendar.c:247 ../eplugin/exchange-contacts.c:239
 msgid "_Location:"
-msgstr ""
+msgstr "_Lokasjon:"
 
 #: ../eplugin/exchange-change-password.c:95
 msgid "Your current password has expired. Please change your password now."
@@ -583,17 +581,12 @@ msgid "Out of Office Assistant"
 msgstr "Fraværsmeldinger"
 
 #: ../eplugin/exchange-config-listener.c:751
-#, fuzzy
 msgid "Currently, your status is \"Out of the Office\"."
-msgstr "Jeg er ute av kontoret"
+msgstr "Din status er nå «Borte fra kontoret»."
 
 #: ../eplugin/exchange-config-listener.c:751
-#, fuzzy
 msgid "Would you like to change your status to \"In the Office\"?"
-msgstr ""
-"<b>Statusen din er satt til \"Ute av kontoret\".</b>\n"
-"\n"
-"Vil du forandre statusen din til \"På kontoret\"?"
+msgstr "Vil du forandre statusen din til «På kontoret»?"
 
 #: ../eplugin/exchange-config-listener.c:780
 msgid "_No, Don't Change Status"
@@ -634,76 +627,79 @@ msgstr "Kontakter"
 msgid "Custom"
 msgstr "Egendefinert"
 
-#: ../eplugin/exchange-delegates-user.c:161
-#: ../eplugin/exchange-delegates-user.c:300
-#: ../eplugin/exchange-delegates-user.c:310
-#: ../eplugin/exchange-delegates-user.c:320
-#: ../eplugin/exchange-delegates-user.c:330
-msgid "Editor (read, create, edit)"
-msgstr "Redaktør (les, opprett, rediger)"
-
-#: ../eplugin/exchange-delegates-user.c:165
+#. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
+#: ../eplugin/exchange-delegates-user.c:158
 #: ../eplugin/exchange-delegates-user.c:299
 #: ../eplugin/exchange-delegates-user.c:309
 #: ../eplugin/exchange-delegates-user.c:319
 #: ../eplugin/exchange-delegates-user.c:329
-msgid "Author (read, create)"
-msgstr "Forfatter (les, opprett)"
+msgid "Editor (read, create, edit)"
+msgstr "Redaktør (les, opprett, rediger)"
 
-#: ../eplugin/exchange-delegates-user.c:169
+#. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
+#: ../eplugin/exchange-delegates-user.c:163
 #: ../eplugin/exchange-delegates-user.c:298
 #: ../eplugin/exchange-delegates-user.c:308
 #: ../eplugin/exchange-delegates-user.c:318
 #: ../eplugin/exchange-delegates-user.c:328
-msgid "Reviewer (read-only)"
-msgstr "Korrekturleser (skrivebeskyttet)"
+msgid "Author (read, create)"
+msgstr "Forfatter (les, opprett)"
 
-#: ../eplugin/exchange-delegates-user.c:172
+#. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
+#: ../eplugin/exchange-delegates-user.c:168
 #: ../eplugin/exchange-delegates-user.c:297
 #: ../eplugin/exchange-delegates-user.c:307
 #: ../eplugin/exchange-delegates-user.c:317
 #: ../eplugin/exchange-delegates-user.c:327
+msgid "Reviewer (read-only)"
+msgstr "Korrekturleser (skrivebeskyttet)"
+
+#: ../eplugin/exchange-delegates-user.c:171
+#: ../eplugin/exchange-delegates-user.c:296
+#: ../eplugin/exchange-delegates-user.c:306
+#: ../eplugin/exchange-delegates-user.c:316
+#: ../eplugin/exchange-delegates-user.c:326
 #: ../server/lib/e2k-security-descriptor.c:886
 msgid "None"
 msgstr "Ingen"
 
-#: ../eplugin/exchange-delegates-user.c:227
+#: ../eplugin/exchange-delegates-user.c:226
 msgid "Delegate Permissions"
 msgstr "Rettigheter for delegat"
 
-#: ../eplugin/exchange-delegates-user.c:245
+#: ../eplugin/exchange-delegates-user.c:244
 msgid "Permissions for"
 msgstr "Rettigheter for"
 
 #. Translators: This is used for permissions for <user> for the folder Calendar.
-#: ../eplugin/exchange-delegates-user.c:257
+#: ../eplugin/exchange-delegates-user.c:256
 msgid "C_alendar:"
 msgstr "K_alender:"
 
 #. Translators: This is used for permissions for <user> for the folder Tasks.
-#: ../eplugin/exchange-delegates-user.c:266
+#: ../eplugin/exchange-delegates-user.c:265
 msgid "_Tasks:"
 msgstr "_Oppgaver:"
 
 #. Translators: This is used for permissions for <user> for the folder Inbox.
-#: ../eplugin/exchange-delegates-user.c:275
+#: ../eplugin/exchange-delegates-user.c:274
 msgid "_Inbox:"
 msgstr "_Innboks:"
 
 #. Translators: This is used for permissions for <user> for the folder Contacts.
-#: ../eplugin/exchange-delegates-user.c:284
+#: ../eplugin/exchange-delegates-user.c:283
 msgid "Co_ntacts:"
 msgstr "Ko_ntakter:"
 
-#: ../eplugin/exchange-delegates-user.c:332
+#: ../eplugin/exchange-delegates-user.c:331
 msgid "_Summarize permissions"
 msgstr "_Sammendrag for rettigheter"
 
-#: ../eplugin/exchange-delegates-user.c:336
+#: ../eplugin/exchange-delegates-user.c:335
 msgid "_Delegate can see private items"
 msgstr "_Delegat kan se private oppføringer"
 
-#: ../eplugin/exchange-delegates-user.c:342
+#: ../eplugin/exchange-delegates-user.c:341
 #: ../eplugin/exchange-permissions-dialog.c:168
 #, c-format
 msgid "Permissions for %s"
@@ -712,7 +708,7 @@ msgstr "Rettigheter for %s"
 #. To translators: This is a part of the message to be sent to the delegatee
 #. summarizing the permissions assigned to him.
 #.
-#: ../eplugin/exchange-delegates-user.c:435
+#: ../eplugin/exchange-delegates-user.c:434
 msgid ""
 "This message was sent automatically by Evolution to inform you that you have "
 "been designated as a delegate. You can now send messages on my behalf."
@@ -720,29 +716,28 @@ msgstr ""
 
 #. To translators: Another chunk of the same message.
 #.
-#: ../eplugin/exchange-delegates-user.c:440
+#: ../eplugin/exchange-delegates-user.c:439
 msgid "You have been given the following permissions on my folders:"
 msgstr ""
 
 #. To translators: This message is included if the delegatee has been given access
 #. to the private items.
 #.
-#: ../eplugin/exchange-delegates-user.c:460
-#, fuzzy
+#: ../eplugin/exchange-delegates-user.c:459
 msgid "You are also permitted to see my private items."
-msgstr "_Delegat kan se private oppføringer"
+msgstr "Du kan også se mine private oppføringer."
 
 #. To translators: This message is included if the delegatee has not been given access
 #. to the private items.
 #.
-#: ../eplugin/exchange-delegates-user.c:467
+#: ../eplugin/exchange-delegates-user.c:466
 msgid "However you are not permitted to see my private items."
-msgstr ""
+msgstr "Men du kan ikke se mine private oppføringer."
 
-#: ../eplugin/exchange-delegates-user.c:499
+#: ../eplugin/exchange-delegates-user.c:498
 #, c-format
 msgid "You have been designated as a delegate for %s"
-msgstr ""
+msgstr "Du er tildelt rollen som delegat for %s"
 
 #: ../eplugin/exchange-delegates.c:413
 msgid "Delegate To:"
@@ -762,19 +757,18 @@ msgid "Could not access Active Directory"
 msgstr "Kunne ikke aksessere Active Directory"
 
 #: ../eplugin/exchange-delegates.c:707
-#, fuzzy
 msgid "Could not find self in Active Directory"
-msgstr "Global adresseliste / Active Directory"
+msgstr "Kunne ikke finne meg selv i Active Directory"
 
 #: ../eplugin/exchange-delegates.c:720
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find delegate %s in Active Directory"
-msgstr "Global adresseliste / Active Directory"
+msgstr "Kunne ikke finne delegat %s i Active Directory"
 
 #: ../eplugin/exchange-delegates.c:732
-#, fuzzy, c-format
+#, c-format
 msgid "Could not remove delegate %s"
-msgstr "Kunne ikke opprette plugg: %s"
+msgstr "Kunne ikke fjerne delegat %s"
 
 #: ../eplugin/exchange-delegates.c:792
 msgid "Could not update list of delegates."
@@ -804,7 +798,7 @@ msgstr "R_ediger"
 #: ../eplugin/exchange-delegates.c:995
 #: ../eplugin/exchange-permissions-dialog.c:916
 msgid "Name"
-msgstr ""
+msgstr "Navn"
 
 #: ../eplugin/exchange-delegates.c:1021
 msgid "Error reading delegates list."
@@ -818,26 +812,23 @@ msgid "Permissions..."
 msgstr "Rettigheter..."
 
 #: ../eplugin/exchange-folder-permission.c:201
-#, fuzzy
 msgid "Check folder permissions"
-msgstr "Rettigheter for delegat"
+msgstr "Sjekk rettigheter på mappe"
 
 #: ../eplugin/exchange-folder-permission.c:206
 #: ../eplugin/exchange-folder-permission.c:443
 #: ../eplugin/exchange-folder-permission.c:477
 #: ../eplugin/exchange-folder-permission.c:511
-#, fuzzy
 msgid "Subscribe to Other User's Folder..."
-msgstr "Abonner på _annen brukers mappe..."
+msgstr "Abonner på  en annen brukers mappe..."
 
 #: ../eplugin/exchange-folder-permission.c:208
 #: ../eplugin/exchange-folder-permission.c:445
 #: ../eplugin/exchange-folder-permission.c:479
 #: ../eplugin/exchange-folder-permission.c:513
 #: ../eplugin/exchange-folder-subscription.c:306
-#, fuzzy
 msgid "Subscribe to Other User's Folder"
-msgstr "Abonner på _annen brukers mappe..."
+msgstr "Abonner på en annen brukers mappe"
 
 #: ../eplugin/exchange-folder-permission.c:213
 #: ../eplugin/exchange-folder-permission.c:450
@@ -848,18 +839,16 @@ msgid "Unsubscribe Folder..."
 msgstr "Abonner på _annen brukers mappe..."
 
 #: ../eplugin/exchange-folder-permission.c:438
-#, fuzzy
 msgid "Check calendar permissions"
-msgstr "Rettigheter for delegat"
+msgstr "Sjekk rettigheter på kalender"
 
 #: ../eplugin/exchange-folder-permission.c:472
-#, fuzzy
 msgid "Check tasks permissions"
-msgstr "Rettigheter for delegat"
+msgstr "Sjekk rettigheter på oppgaver"
 
 #: ../eplugin/exchange-folder-permission.c:506
 msgid "Check addressbook permissions"
-msgstr ""
+msgstr "Sjekk rettigheter på adressebok"
 
 #: ../eplugin/exchange-folder-size-display.c:118
 msgid "Exchange Folder Tree"
@@ -896,9 +885,9 @@ msgid "Really unsubscribe from folder \"%s\"?"
 msgstr ""
 
 #: ../eplugin/exchange-folder.c:315 ../eplugin/exchange-folder.c:369
-#, fuzzy, c-format
+#, c-format
 msgid "Unsubscribe from \"%s\""
-msgstr "_Fjern abonnement på annen brukers mappe "
+msgstr "Fjern abonnement på «%s» "
 
 #: ../eplugin/exchange-mail-send-options.c:222
 msgid "_Send Options"
@@ -906,7 +895,7 @@ msgstr "Alternativer for _sending"
 
 #: ../eplugin/exchange-mail-send-options.c:224
 msgid "Insert Send options"
-msgstr ""
+msgstr "Sett inn alternativer for sending"
 
 #. FIXME: Don't hardcode this
 #: ../eplugin/exchange-operations.c:122 ../eplugin/exchange-operations.c:167
@@ -915,9 +904,8 @@ msgid "Personal Folders"
 msgstr "Personlige mapper"
 
 #: ../eplugin/exchange-permissions-dialog.c:278
-#, fuzzy
 msgid "(Permission denied.)"
-msgstr "Tilgang nektet"
+msgstr "(Tilgang nektet.)"
 
 #: ../eplugin/exchange-permissions-dialog.c:384
 msgid "Add User:"
@@ -934,7 +922,7 @@ msgstr "Rettigheter"
 
 #: ../eplugin/exchange-permissions-dialog.c:809
 msgid "Role: "
-msgstr "Rolle:"
+msgstr "Rolle: "
 
 #: ../eplugin/exchange-permissions-dialog.c:835
 msgid "Create items"
@@ -989,13 +977,12 @@ msgid "Role"
 msgstr "Rolle"
 
 #: ../eplugin/exchange-send-options.c:360
-#, fuzzy
 msgid "Exchange - Send Options"
-msgstr "Konfigurasjon av Exchange"
+msgstr "Exchange - alternativer for sending"
 
 #: ../eplugin/exchange-send-options.c:381
 msgid "Message Settings"
-msgstr ""
+msgstr "Innstillinger for melding"
 
 #: ../eplugin/exchange-send-options.c:395
 msgid "I_mportance: "
@@ -1003,7 +990,7 @@ msgstr "Viktig_het: "
 
 #: ../eplugin/exchange-send-options.c:402
 msgid "_Sensitivity: "
-msgstr ""
+msgstr "_Sensitivitet: "
 
 #: ../eplugin/exchange-send-options.c:414
 #: ../eplugin/exchange-send-options.c:424
@@ -1063,9 +1050,8 @@ msgid "Activates the Evolution-Exchange extension package."
 msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:2
-#, fuzzy
 msgid "Exchange Operations"
-msgstr "Konfigurasjon av Exchange"
+msgstr "Exchange-operasjoner"
 
 #: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:4
 msgid "Size"
@@ -1078,7 +1064,7 @@ msgstr "Kan ikke hente mappeinformasjon i frakoblet modus."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:2
 msgid "Cannot change password due to configuration problems."
-msgstr ""
+msgstr "Kan ikke bytte passord på grunn av konfigurasjonsproblemer."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:3
 msgid "Cannot display folders."
@@ -1134,19 +1120,16 @@ msgid "Could not locate server {0}."
 msgstr "Kunne ikke finne tjener {0}."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:16
-#, fuzzy
 msgid "Could not make {0} a delegate"
-msgstr "Kunne ikke legge til melding"
+msgstr "Kunne ikke gjøre {0} til en delegat"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:17
-#, fuzzy
 msgid "Could not read folder permissions"
-msgstr "Kunne ikke åpne mappe: tilgang nektet"
+msgstr "Kunne ikke lese tilganger på mappe"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:18
-#, fuzzy
 msgid "Could not read folder permissions."
-msgstr "Kunne ikke åpne mappe: tilgang nektet"
+msgstr "Kunne ikke lese mappetilganger."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:19
 #, fuzzy
@@ -1154,9 +1137,8 @@ msgid "Could not read out-of-office state"
 msgstr "Kunne ikke opprette plugg: %s"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:20
-#, fuzzy
 msgid "Could not update folder permissions."
-msgstr "Kunne ikke åpne mappe: tilgang nektet"
+msgstr "Kunne ikke oppdatere mappetilganger."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:21
 #, fuzzy
@@ -1168,9 +1150,8 @@ msgid "Evolution requires a restart to load the subscribed user's mailbox"
 msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:23
-#, fuzzy
 msgid "Exchange Account is offline."
-msgstr "Exchange-konto for %s på %s"
+msgstr "Exchange-konto er frakoblet."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:24
 #, fuzzy
@@ -1199,22 +1180,19 @@ msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:36
 msgid "Failed to update delegates:"
-msgstr ""
+msgstr "Klarte ikke å oppdatere delegater:"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:38
-#, fuzzy
 msgid "Folder does not exist"
 msgstr "Mappen eksisterer ikke"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:39
-#, fuzzy
 msgid "Folder offline"
-msgstr "Mappeeier"
+msgstr "Mappen er frakoblet"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:41
-#, fuzzy
 msgid "Global Catalog Server is not reachable"
-msgstr "Navn på _global katalogtjener:"
+msgstr "Kan ikke nå global katalogtjener"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:42
 msgid ""
@@ -1224,28 +1202,19 @@ msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:43
 msgid "Mailbox for {0} is not on this server."
-msgstr ""
+msgstr "Postboks for {0} finnes ikke på denne tjeneren."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:44
-#, fuzzy
 msgid "Make sure the URL is correct and try again."
-msgstr ""
-"Fant ikke OWA-data på den angitte adressen.\n"
-"Sjekk at adressen er korrekt og prøv igjen."
+msgstr "Sjekk at adressen er korrekt og prøv igjen."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:45
-#, fuzzy
 msgid "Make sure the server name is spelled correctly and try again."
-msgstr ""
-"Kunne ikke finne Exchange-tjener.\n"
-"Sjekk at navnet på tjeneren er stavet korrekt og prøv igjen."
+msgstr "Sjekk at navnet på tjeneren er stavet korrekt og prøv igjen."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:46
-#, fuzzy
 msgid "Make sure the username and password are correct and try again."
-msgstr ""
-"Kunne ikke autentisere med exchange-tjeneren.\n"
-"Sjekk at brukernavnet og passordet er riktig og prøv igjen."
+msgstr "Sjekk at brukernavnet og passordet er riktig og prøv igjen."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:47
 msgid "No Global Catalog server configured for this account."
@@ -1253,16 +1222,15 @@ msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:48
 msgid "No mailbox for user {0} on {1}."
-msgstr ""
+msgstr "Ingen postboks for bruker {0} på {1}."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:49
-#, fuzzy
 msgid "No such user {0}"
-msgstr "Mappen %s finnes ikke"
+msgstr "Bruker {0} finnes ikke"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:50
 msgid "Password successfully changed."
-msgstr ""
+msgstr "Bytte av passord fullført."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:52
 msgid "Please enter a Delegate's ID or deselect the Send as a Delegate option."
@@ -1297,14 +1265,12 @@ msgid "The Exchange server is not compatible with Exchange Connector."
 msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:60
-#, fuzzy
 msgid ""
 "The server is running Exchange 5.5. Exchange Connector \n"
 "supports Microsoft Exchange 2000 and 2003 only."
 msgstr ""
-"Exchange-tjener lenken som du brukte tilhører en Exchange 5.5 tjener. "
-"Evolution Connector for Microsoft Exchange støtter bare Microsoft Exchange "
-"2000 og 2003."
+"Tjener kjører Exchange 5.5. Exchange Connector \n"
+"støtter kun Microsoft Exchange 2000 og 2003."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:62
 msgid ""
@@ -1317,20 +1283,19 @@ msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:67
 msgid "Try again with a different password."
-msgstr ""
+msgstr "Prøv igjen med et annet passord."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:68
 msgid "Unable to add user to access control list:"
 msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:69
-#, fuzzy
 msgid "Unable to edit delegates."
-msgstr "Kan ikke flytte/kopiere meldinger"
+msgstr "Kan ikke redigere delegater."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:70
 msgid "Unknown error looking up {0}"
-msgstr ""
+msgstr "Ukjent feil ved oppslag av {0}"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:71
 msgid "Unknown error."
@@ -1342,7 +1307,7 @@ msgstr "Ukjent type"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:73
 msgid "Unsupported operation"
-msgstr ""
+msgstr "Ikke støttet operasjon"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:74
 msgid "You are nearing your quota available for storing mail on this server."
@@ -1356,16 +1321,15 @@ msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:76
 msgid "You cannot make yourself your own delegate"
-msgstr ""
+msgstr "Du kan ikke gjøre deg selv til din egen delegat"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:77
 msgid "You have exceeded your quota for storing mail on this server."
 msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:78
-#, fuzzy
 msgid "You may only configure a single Exchange account."
-msgstr "Du kan bare konfigurere en exchange konto"
+msgstr "Du kan bare konfigurere en enkelt Exchange-konto."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:79
 msgid ""
@@ -1386,9 +1350,8 @@ msgid ""
 msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:82
-#, fuzzy
 msgid "Your password has expired."
-msgstr "Passordet ditt vil løpe ut om 7 dager..."
+msgstr "Passordet ditt har utløpt."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:83
 msgid "{0}"
@@ -1425,16 +1388,15 @@ msgstr "Eier"
 
 #: ../server/lib/e2k-security-descriptor.c:852
 msgid "Publishing Editor"
-msgstr ""
+msgstr "Utgivende redaktør"
 
 #: ../server/lib/e2k-security-descriptor.c:860
-#, fuzzy
 msgid "Editor"
-msgstr "R_ediger"
+msgstr "Redaktør"
 
 #: ../server/lib/e2k-security-descriptor.c:867
 msgid "Publishing Author"
-msgstr ""
+msgstr "Utgivende forfatter"
 
 #: ../server/lib/e2k-security-descriptor.c:873
 msgid "Author"
@@ -1450,20 +1412,19 @@ msgstr ""
 
 #: ../server/lib/e2k-security-descriptor.c:884
 msgid "Contributor"
-msgstr ""
+msgstr "Bidragsyter"
 
 #: ../server/storage/e-storage.c:555
 msgid "No error"
 msgstr "Ingen feil"
 
 #: ../server/storage/e-storage.c:559
-#, fuzzy
 msgid "A folder with the same name already exists"
-msgstr "Mappen eksisterer allerede"
+msgstr "En mappe med samme navn eksisterer allerede"
 
 #: ../server/storage/e-storage.c:561
 msgid "The specified folder type is not valid"
-msgstr ""
+msgstr "Oppgitt mappetype er ikke gyldig"
 
 #: ../server/storage/e-storage.c:563
 msgid "I/O error"
@@ -1704,7 +1665,10 @@ msgid ""
 "Evolution Connector for Microsoft Exchange could not find the Global Catalog "
 "replica for your site. Please enter the name of your Global Catalog server. "
 "You may need to ask your system administrator for the correct value."
-msgstr "Evolution Connector for Microsoft Exchange kunne ikke finne kopi av Global Catalog for denne løsningen. Skriv navnet på din Global Catalog tjener. Du må kanskje spørre din administrator for den rette verdien."
+msgstr ""
+"Evolution Connector for Microsoft Exchange kunne ikke finne kopi av Global "
+"Catalog for denne løsningen. Skriv navnet på din Global Catalog tjener. Du "
+"må kanskje spørre din administrator for den rette verdien."
 
 #: ../tools/exchange-autoconfig-wizard.c:369
 msgid "GC _Server:"
@@ -1737,13 +1701,17 @@ msgstr "Konfigurasjonen feilet"
 msgid ""
 "Evolution Connector for Microsoft Exchange has encountered a problem "
 "configuring your Exchange account."
-msgstr "Evolution Connector for Microsoft Exchange har støtt på et problem under oppsettet av din Exchange-konto."
+msgstr ""
+"Evolution Connector for Microsoft Exchange har støtt på et problem under "
+"oppsettet av din Exchange-konto."
 
 #: ../tools/exchange-autoconfig-wizard.c:448
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\"."
-msgstr "Din kontoinformasjon er som følger. Vennligst rett opp mulige feil og trykk på \"Framover\"."
+msgstr ""
+"Din kontoinformasjon er som følger. Vennligst rett opp mulige feil og trykk "
+"på \"Framover\"."
 
 #: ../tools/exchange-autoconfig-wizard.c:456
 msgid "Full _Name:"
