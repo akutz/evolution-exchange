@@ -165,7 +165,7 @@ dnl **************
 dnl Exchange debug
 dnl **************
 AC_ARG_ENABLE([e2k-debug],
-	AS_HELP_STRING([--enable-e2kdebug],
+	AS_HELP_STRING([--enable-e2k-debug],
 	[Allow debugging]),
 	[enable_e2kdebug=$enableval],[enable_e2kdebug="no"])
 
