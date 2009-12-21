@@ -14,6 +14,7 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 dnl Required Package Versions
 m4_define([glib_minimum_version], [2.16.0])
+m4_define([gthread_minimum_version], [2.16.0])
 m4_define([gtk_minimum_version], [2.10.0])
 m4_define([eds_minimum_version], [eex_version])
 m4_define([evo_minimum_version], [eex_version])
@@ -127,6 +128,7 @@ dnl **********************************
 
 PKG_CHECK_MODULES(GNOME_PLATFORM,
 	[glib-2.0 >= glib_minimum_version
+	gthread-2.0 >= gthread_minimum_version
 	gtk+-2.0 >= gtk_minimum_version
 	gconf-2.0 >= gconf_minimum_version
 	libxml-2.0 >= libxml_minimum_version
@@ -137,6 +139,8 @@ PKG_CHECK_MODULES(EVOLUTION_DATA_SERVER,
 	libecal-1.2 >= eds_minimum_version
 	libedataserver-1.2 >= eds_minimum_version
 	libedataserverui-1.2 >= eds_minimum_version
+	libedata-book-1.2 >= eds_minimum_version
+	libedata-cal-1.2 >= eds_minimum_version
 	libegroupwise-1.2 >= eds_minimum_version
 	libebackend-1.2 >= eds_minimum_version])
 
