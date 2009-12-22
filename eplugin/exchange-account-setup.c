@@ -544,9 +544,9 @@ owa_authenticate_user(GtkWidget *button, EConfig *config)
 static void
 owa_editor_entry_changed(GtkWidget *entry, EConfig *config)
 {
-	const gchar *uri, *ssl = NULL;
+	const gchar *ssl = NULL;
 	CamelURL *url, *owaurl = NULL;
-	gchar *url_string;
+	gchar *url_string, *uri;
 	EMConfigTargetAccount *target = (EMConfigTargetAccount *)config->target;
 	GtkWidget *button = g_object_get_data((GObject *)entry, "authenticate-button");
 	gint active = FALSE;
@@ -557,7 +557,10 @@ owa_editor_entry_changed(GtkWidget *entry, EConfig *config)
 	if (target_url && target_url[0] != '\0')
 		url = camel_url_new(target_url, NULL);
 	else url = NULL;
-	uri = gtk_entry_get_text((GtkEntry *)entry);
+	uri = g_strdup (gtk_entry_get_text((GtkEntry *)entry));
+
+	g_strstrip (uri);
+
 	if (uri && uri[0]) {
 		camel_url_set_param(url, "owa_url", uri);
 		owaurl = camel_url_new(uri, NULL);
@@ -580,6 +583,7 @@ owa_editor_entry_changed(GtkWidget *entry, EConfig *config)
 	e_account_set_string(target->account, E_ACCOUNT_SOURCE_URL, url_string);
 	g_free(url_string);
 	camel_url_free (url);
+	g_free (uri);
 }
 
 static void
@@ -613,13 +617,17 @@ static void
 mailbox_editor_entry_changed (GtkWidget *entry, EConfig *config)
 {
 	EMConfigTargetAccount *target;
-	const gchar *mailbox;
+	gchar *mailbox;
 
 	target = (EMConfigTargetAccount *)config->target;
-	mailbox = gtk_entry_get_text (GTK_ENTRY (entry));
+	mailbox = g_strdup (gtk_entry_get_text (GTK_ENTRY (entry)));
+
+	g_strstrip (mailbox);
 
 	update_mailbox_param_in_url (target->account, E_ACCOUNT_SOURCE_URL, mailbox);
 	update_mailbox_param_in_url (target->account, E_ACCOUNT_TRANSPORT_URL, mailbox);
+
+	g_free (mailbox);
 }
 
 static void
