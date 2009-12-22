@@ -44,17 +44,23 @@ libebookbackendexchange_la_SOURCES = \
 	e-book-backend-exchange.h \
 	e-book-backend-exchange-factory.c \
 	e-book-backend-gal.c \
-	e-book-backend-gal.h \
-	e-book-backend-db-cache.c \
-	e-book-backend-db-cache.h
+	e-book-backend-gal.h
 
 libebookbackendexchange_la_LDFLAGS = \
 	-module -avoid-version $(NO_UNDEFINED)
 
 libebookbackendexchange_la_LIBADD = \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
-	$(DB_LIBS) \
 	$(top_builddir)/tools/libevolution-exchange-shared.la
+
+if HAVE_LIBDB
+libebookbackendexchange_la_SOURCES += \
+	e-book-backend-db-cache.c \
+	e-book-backend-db-cache.h
+
+libebookbackendexchange_la_LIBADD +=  \
+	$(DB_LIBS)
+endif
 
 EXTRA_DIST = $(schema_in_files)
 

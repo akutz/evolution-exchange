@@ -268,7 +268,9 @@ AC_LINK_IFELSE([AC_LANG_PROGRAM(
 if test "x$check_db" = "xyes"; then
 	AC_MSG_RESULT([$check_db])
 else
-	AC_MSG_FAILURE([Cannot find libdb / Berkeley DB. Use --with-libdb to specify an PREFIX .])
+	AC_DEFINE(ENABLE_CACHE, 0, [Disabling GAL Caching])
+	DB_CFLAGS=""
+	DB_LIBS=""
 fi
 AM_CONDITIONAL(HAVE_LIBDB, [test "x$check_db" = "xyes"])
 
