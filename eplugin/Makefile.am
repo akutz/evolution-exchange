@@ -26,7 +26,9 @@ liborg_gnome_exchange_operations_la_CPPFLAGS = \
 	-I$(top_builddir)/server/lib \
 	$(EVOLUTION_DATA_SERVER_CFLAGS) \
 	$(EVOLUTION_PLUGIN_CFLAGS) \
-	$(CAMEL_EXCHANGE_CFLAGS)
+	$(EVOLUTION_SHELL_CFLAGS) \
+	$(EVOLUTION_MAIL_CFLAGS)
+
 
 liborg_gnome_exchange_operations_la_SOURCES = \
 	exchange-operations.c \
@@ -59,7 +61,8 @@ liborg_gnome_exchange_operations_la_SOURCES = \
 liborg_gnome_exchange_operations_la_LIBADD = \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
 	$(EVOLUTION_PLUGIN_LIBS) \
-	$(CAMEL_EXCHANGE_LIBS) \
+	$(EVOLUTION_SHELL_LIBS) \
+	$(EVOLUTION_MAIL_LIBS) \
 	$(top_builddir)/server/storage/libexchange-storage.la
 
 liborg_gnome_exchange_operations_la_LDFLAGS = \

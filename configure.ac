@@ -218,6 +218,20 @@ PKG_CHECK_MODULES(EVOLUTION_PLUGIN, evolution-plugin >= evo_minimum_version)
 AC_SUBST(EVOLUTION_PLUGIN_CFLAGS)
 AC_SUBST(EVOLUTION_PLUGIN_LIBS)
 
+dnl ***************************
+dnl Check for evolution mail
+dnl ***************************
+PKG_CHECK_MODULES(EVOLUTION_MAIL, evolution-mail >= evo_minimum_version)
+AC_SUBST(EVOLUTION_MAIL_CFLAGS)
+AC_SUBST(EVOLUTION_MAIL_LIBS)
+
+dnl ***************************
+dnl Check for evolution shell
+dnl ***************************
+PKG_CHECK_MODULES(EVOLUTION_SHELL, evolution-shell >= evo_minimum_version)
+AC_SUBST(EVOLUTION_SHELL_CFLAGS)
+AC_SUBST(EVOLUTION_SHELL_LIBS)
+
 dnl *********************
 dnl Pilot license support
 dnl *********************
