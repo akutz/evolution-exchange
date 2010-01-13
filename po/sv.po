@@ -1,7 +1,7 @@
 # Swedish messages for evolution-exchange.
-# Copyright (C) 2004-2008 Free Software Foundation, Inc.
-# Daniel Nylander <po@danielnylander.se>, 2006, 2007, 2008.
+# Copyright (C) 2004-2010 Free Software Foundation, Inc.
 # Christian Rose <menthos@menthos.com>, 2004, 2005.
+# Daniel Nylander <po@danielnylander.se>, 2006, 2007, 2008, 2010.
 #
 # $Id: sv.po,v 1.23 2006/11/19 16:03:32 dnylande Exp $
 #
@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-02 14:43+0200\n"
-"PO-Revision-Date: 2008-09-02 14:44+0100\n"
+"POT-Creation-Date: 2010-01-13 20:41+0100\n"
+"PO-Revision-Date: 2010-01-13 21:18+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -35,118 +35,104 @@ msgstr "Anger tidsintervallet för uppdatering av GAL-cachen."
 msgid "This key specifies the number of days interval between the GAL cache refresh. Set this value to zero, if you don't want to update GAL and use the current cache forever. This will work only if you have enabled offline caching for GAL."
 msgstr "Den här anger antalet dagars intervall mellan uppdatering av GAL-cachen. Ställ in det här värdet till noll om du inte vill uppdatera GAL och använd den aktuella cachen för alltid. Det här kommer endast att fungera om du har aktiverat frånkopplad cachning för GAL."
 
-#: ../addressbook/e-book-backend-exchange.c:2285
-#: ../addressbook/e-book-backend-gal.c:1860
-#: ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:2305
+#: ../addressbook/e-book-backend-gal.c:1896
 msgid "Searching..."
 msgstr "Söker..."
 
-#: ../addressbook/e-book-backend-gal.c:306
-#: ../addressbook/e-book-backend-gal.c:327
+#: ../addressbook/e-book-backend-gal.c:315
+#: ../addressbook/e-book-backend-gal.c:336
 msgid "Reconnecting to LDAP server..."
 msgstr "Återansluter till LDAP-servern..."
 
-#: ../addressbook/e-book-backend-gal.c:1622
+#: ../addressbook/e-book-backend-gal.c:1657
 msgid "Receiving LDAP search results..."
 msgstr "Mottar LDAP-sökresultat..."
 
-#: ../addressbook/e-book-backend-gal.c:1891
+#: ../addressbook/e-book-backend-gal.c:1927
 msgid "Error performing search"
 msgstr "Fel vid sökning"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2090
-#, c-format
-msgid ""
-"Unable to schedule resource '%s' for recurring meetings.\n"
-"You must book each meeting separately."
-msgstr ""
-"Kan inte schemalägga resursen \"%s\" för återkommande sammanträden.\n"
-"Du måste boka varje sammanträde separat."
-
-#: ../calendar/e-cal-backend-exchange-calendar.c:2108
+#: ../calendar/e-cal-backend-exchange-calendar.c:2111
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Resursen \"%s\" är upptagen under den valda tidsperioden."
 
-#: ../calendar/e-cal-backend-exchange.c:424
+#: ../calendar/e-cal-backend-exchange.c:425
 msgid "Authentication failed"
 msgstr "Autentisering misslyckades"
 
-#: ../calendar/e-cal-backend-exchange.c:466
+#: ../calendar/e-cal-backend-exchange.c:477
 msgid "Could not find the calendar"
 msgstr "Kunde inte hitta kalendern"
 
-#: ../camel/camel-exchange-folder.c:54
-msgid "Always check for new mail in this folder"
-msgstr "Kontrollera alltid efter nya meddelanden i denna mapp"
-
-#: ../camel/camel-exchange-folder.c:197
+#: ../camel/camel-exchange-folder.c:198
 msgid "You cannot expunge in offline mode."
 msgstr "Kan inte tömma i frånkopplat läge."
 
-#: ../camel/camel-exchange-folder.c:228
+#: ../camel/camel-exchange-folder.c:226
 msgid "No Subject"
 msgstr "Inget ämne"
 
-#: ../camel/camel-exchange-folder.c:383
+#: ../camel/camel-exchange-folder.c:388
 msgid "This message is not available in offline mode."
 msgstr "Detta meddelande är inte tillgängligt i frånkopplat läge."
 
-#: ../camel/camel-exchange-folder.c:593
+#: ../camel/camel-exchange-folder.c:613
 msgid "Moving messages"
 msgstr "Flyttar meddelanden"
 
-#: ../camel/camel-exchange-folder.c:594
+#: ../camel/camel-exchange-folder.c:614
 msgid "Copying messages"
 msgstr "Kopierar meddelanden"
 
-#: ../camel/camel-exchange-folder.c:967
+#: ../camel/camel-exchange-folder.c:982
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Kunde inte skapa katalogen %s: %s"
 
-#: ../camel/camel-exchange-folder.c:977
+#: ../camel/camel-exchange-folder.c:992
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Kunde inte läsa in sammanfattning för %s"
 
-#: ../camel/camel-exchange-folder.c:985
+#: ../camel/camel-exchange-folder.c:1000
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Kunde inte skapa cache för %s"
 
-#: ../camel/camel-exchange-folder.c:995
+#: ../camel/camel-exchange-folder.c:1010
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Kunde inte skapa journal för %s"
 
-#: ../camel/camel-exchange-folder.c:1046
+#: ../camel/camel-exchange-folder.c:1059
 msgid "Scanning for changed messages"
 msgstr "Letar efter ändrade meddelanden"
 
-#: ../camel/camel-exchange-folder.c:1079
+#: ../camel/camel-exchange-folder.c:1084
 msgid "Fetching summary information for new messages"
 msgstr "Hämtar meddelandeinformation för nya meddelanden"
 
-#: ../camel/camel-exchange-journal.c:342
+#: ../camel/camel-exchange-journal.c:333
 msgid "No folder name found\n"
 msgstr "Inget mappnamn hittat\n"
 
-#: ../camel/camel-exchange-journal.c:375
-#: ../mail/mail-stub-exchange.c:3042
-#: ../mail/mail-stub-exchange.c:3092
-#: ../mail/mail-stub-exchange.c:3222
-#: ../mail/mail-stub-exchange.c:3249
-#: ../mail/mail-stub-exchange.c:3302
-#: ../mail/mail-stub-exchange.c:3324
+#: ../camel/camel-exchange-journal.c:366
+#: ../camel/camel-exchange-utils.c:3083
+#: ../camel/camel-exchange-utils.c:3147
+#: ../camel/camel-exchange-utils.c:3267
+#: ../camel/camel-exchange-utils.c:3298
+#: ../camel/camel-exchange-utils.c:3350
+#: ../camel/camel-exchange-utils.c:3371
 msgid "Folder doesn't exist"
 msgstr "Mappen finns inte"
 
-#: ../camel/camel-exchange-journal.c:439
+#: ../camel/camel-exchange-journal.c:428
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "Kan inte lägga till meddelande i frånkopplat läge: cachen inte tillgänglig"
 
-#: ../camel/camel-exchange-journal.c:455
+#: ../camel/camel-exchange-journal.c:444
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Kan inte lägga till meddelande i frånkopplat läge: %s"
@@ -156,13 +142,15 @@ msgid "Secure or Plaintext Password"
 msgstr "Säkert lösenord eller i klartext"
 
 #: ../camel/camel-exchange-provider.c:56
-#: ../camel/camel-exchange-provider.c:141
+#: ../camel/camel-exchange-provider.c:143
+#: ../eplugin/exchange-account-setup.c:73
 msgid "Plaintext Password"
 msgstr "Klartextlösenord"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
 #: ../camel/camel-exchange-provider.c:57
-#: ../camel/camel-exchange-provider.c:130
+#: ../camel/camel-exchange-provider.c:132
+#: ../eplugin/exchange-account-setup.c:62
 msgid "Secure Password"
 msgstr "Säkert lösenord"
 
@@ -207,64 +195,66 @@ msgstr "Autentiserings_typ:"
 msgid "Allow _browsing of the GAL until download limit is reached"
 msgstr "Tillåt _bläddring i GAL tills hämtningsgränsen har nåtts"
 
-#: ../camel/camel-exchange-provider.c:91
+#: ../camel/camel-exchange-provider.c:90
+msgid "_Expand groups of contacts in GAL to contact lists"
+msgstr ""
+
+#: ../camel/camel-exchange-provider.c:93
 msgid "Options"
 msgstr "Alternativ"
 
-#: ../camel/camel-exchange-provider.c:93
+#: ../camel/camel-exchange-provider.c:95
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "Varnings_period för lösenordsutgång: %s"
 
-#: ../camel/camel-exchange-provider.c:95
+#: ../camel/camel-exchange-provider.c:97
 msgid "Automatically synchroni_ze account locally"
 msgstr "Synkronise_ra automatiskt konto lokalt"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:98
+#: ../camel/camel-exchange-provider.c:100
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "Tillämpa _filtren på nya meddelanden i inkorgen på denna server"
 
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:102
 msgid "Check new messages for _Junk contents"
 msgstr "Kontrollera om _nya meddelanden innehåller skräp"
 
-#: ../camel/camel-exchange-provider.c:102
+#: ../camel/camel-exchange-provider.c:104
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Kontrollera _endast om meddelanden innehåller skräp i inkorgsmappen"
 
-#: ../camel/camel-exchange-provider.c:112
+#: ../camel/camel-exchange-provider.c:114
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:114
+#: ../camel/camel-exchange-provider.c:116
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "För hantering av e-post (och andra data) på Microsoft Exchange-servrar"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:133
+#: ../camel/camel-exchange-provider.c:135
+#: ../eplugin/exchange-account-setup.c:65
 msgid "This option will connect to the Exchange server using secure password (NTLM) authentication."
 msgstr "Detta alternativ kommer att ansluta till Exchange-servern med hjälp av säker lösenordsverifiering (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:143
+#: ../camel/camel-exchange-provider.c:145
+#: ../eplugin/exchange-account-setup.c:75
 msgid "This option will connect to the Exchange server using standard plaintext password authentication."
 msgstr "Detta alternativ kommer att ansluta till Exchange-servern med hjälp av standardautentisering med lösenord i klartext."
 
-#: ../camel/camel-exchange-store.c:314
+#: ../camel/camel-exchange-store.c:305
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange-server %s"
 
-#: ../camel/camel-exchange-store.c:317
+#: ../camel/camel-exchange-store.c:308
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Exchange-konto för %s på %s"
 
-#: ../camel/camel-exchange-store.c:399
-msgid "Evolution Exchange backend process"
-msgstr "Bakändesprocess för Evolution Exchange"
-
-#: ../camel/camel-exchange-store.c:442
+#: ../camel/camel-exchange-store.c:385
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -272,176 +262,131 @@ msgstr ""
 "Kunde inte autentisera till servern. (Är lösenordet felaktigt?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:495
+#: ../camel/camel-exchange-store.c:427
 #, c-format
 msgid "No such folder %s"
 msgstr "Det finns ingen sådan mapp %s"
 
-#: ../camel/camel-exchange-store.c:572
+#: ../camel/camel-exchange-store.c:499
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Kan inte prenumerera på mapp i frånkopplat läge."
 
-#: ../camel/camel-exchange-store.c:589
+#: ../camel/camel-exchange-store.c:514
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Kan inte säga upp prenumeration på mapp i frånkopplat läge."
 
-#: ../camel/camel-exchange-store.c:727
+#: ../camel/camel-exchange-store.c:645
 msgid "Cannot get folder info in offline mode."
 msgstr "Kan inte få tag i mappinformation i frånkopplat läge."
 
-#: ../camel/camel-exchange-store.c:800
+#: ../camel/camel-exchange-store.c:708
 msgid "Cannot create folder in offline mode."
 msgstr "Kan inte skapa mapp i frånkopplat läge."
 
-#: ../camel/camel-exchange-store.c:827
+#: ../camel/camel-exchange-store.c:731
 msgid "Cannot delete folder in offline mode."
 msgstr "Kan inte ta bort mapp i frånkopplat läge."
 
-#: ../camel/camel-exchange-store.c:851
+#: ../camel/camel-exchange-store.c:753
 msgid "Cannot rename folder in offline mode."
 msgstr "Kan inte byta namn på mapp i frånkopplat läge."
 
-#: ../camel/camel-exchange-transport.c:111
+#: ../camel/camel-exchange-transport.c:107
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "Exchange-transporten kan endast användas tillsammans med en Exchange-epostkälla"
 
-#: ../camel/camel-exchange-transport.c:122
+#: ../camel/camel-exchange-transport.c:120
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "Kan inte skicka meddelande: en eller flera ogiltiga mottagare"
 
-#: ../camel/camel-exchange-transport.c:132
+#: ../camel/camel-exchange-transport.c:129
 msgid "Could not find 'From' address in message"
 msgstr "Kunde inte hitta \"Från\"-adress i meddelandet"
 
-#: ../camel/camel-stub.c:165
-#: ../camel/camel-stub.c:229
-#, c-format
-msgid "Could not create socket: %s"
-msgstr "Kunde inte skapa uttag: %s"
-
-#: ../camel/camel-stub.c:183
-#, c-format
-msgid "Could not connect to %s: Please restart Evolution"
-msgstr "Kunde inte ansluta till %s: Starta om Evolution"
-
-#: ../camel/camel-stub.c:188
-#: ../camel/camel-stub.c:247
-#, c-format
-msgid "Could not connect to %s: %s"
-msgstr "Kunde inte ansluta till %s: %s"
-
-#: ../camel/camel-stub.c:212
-#, c-format
-msgid "Count not read file '%s': %s"
-msgstr "Kunde inte läsa filen \"%s\": %s"
-
-#: ../camel/camel-stub.c:220
-#, c-format
-msgid "Wrong size file '%s'"
-msgstr "Fel storlek på filen \"%s\""
-
-#: ../camel/camel-stub.c:283
-#, c-format
-msgid "Path too long: %s"
-msgstr "Sökvägen för lång: %s"
-
-#: ../camel/camel-stub.c:318
-#, c-format
-msgid "Could not start status thread: %s"
-msgstr "Kunde inte starta statustråd: %s"
-
-#: ../camel/camel-stub.c:572
-#, c-format
-msgid "Lost connection to %s"
-msgstr "Tappade anslutningen till %s"
-
-#: ../camel/camel-stub.c:576
-#, c-format
-msgid "Error communicating with %s: %s"
-msgstr "Fel vid kommunikation med %s: %s"
-
-#: ../mail/mail-stub-exchange.c:267
-#: ../mail/mail-stub-exchange.c:963
-msgid "No such folder"
-msgstr "Det finns ingen sådan mapp"
-
-#: ../mail/mail-stub-exchange.c:290
-#: ../mail/mail-stub-exchange.c:3019
-#: ../mail/mail-stub-exchange.c:3059
-#: ../mail/mail-stub-exchange.c:3226
-#: ../mail/mail-stub-exchange.c:3276
-#: ../mail/mail-stub-exchange.c:3339
-msgid "Permission denied"
-msgstr "Åtkomst nekas"
-
-#: ../mail/mail-stub-exchange.c:785
-#: ../mail/mail-stub-exchange.c:877
-msgid "Could not open folder"
-msgstr "Kunde inte öppna mapp"
-
-#: ../mail/mail-stub-exchange.c:871
-#: ../mail/mail-stub-exchange.c:893
-msgid "Could not open folder: Permission denied"
-msgstr "Kunde inte öppna mapp: Åtkomst nekas"
-
-#: ../mail/mail-stub-exchange.c:972
-msgid "Could not create folder."
-msgstr "Kunde inte skapa mapp."
-
-#: ../mail/mail-stub-exchange.c:1060
-msgid "Could not open Deleted Items folder"
-msgstr "Kunde inte öppna mappen Borttaget"
-
-#: ../mail/mail-stub-exchange.c:1391
-#: ../mail/mail-stub-exchange.c:1432
+#: ../camel/camel-exchange-utils.c:535
+#: ../camel/camel-exchange-utils.c:574
 msgid "Could not get new messages"
 msgstr "Kunde inte hämta nya meddelanden"
 
-#: ../mail/mail-stub-exchange.c:1608
+#: ../camel/camel-exchange-utils.c:1062
+#: ../camel/camel-exchange-utils.c:1213
+msgid "Could not open folder"
+msgstr "Kunde inte öppna mapp"
+
+#: ../camel/camel-exchange-utils.c:1209
+#: ../camel/camel-exchange-utils.c:1227
+msgid "Could not open folder: Permission denied"
+msgstr "Kunde inte öppna mapp: Åtkomst nekas"
+
+#: ../camel/camel-exchange-utils.c:1276
+#: ../camel/camel-exchange-utils.c:2162
+msgid "No such folder"
+msgstr "Det finns ingen sådan mapp"
+
+#: ../camel/camel-exchange-utils.c:1298
+#: ../camel/camel-exchange-utils.c:3057
+#: ../camel/camel-exchange-utils.c:3100
+#: ../camel/camel-exchange-utils.c:3271
+#: ../camel/camel-exchange-utils.c:3324
+#: ../camel/camel-exchange-utils.c:3386
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
+#: ../server/storage/e-storage.c:573
+msgid "Permission denied"
+msgstr "Åtkomst nekas"
+
+#: ../camel/camel-exchange-utils.c:2171
+msgid "Could not create folder."
+msgstr "Kunde inte skapa mapp."
+
+#: ../camel/camel-exchange-utils.c:2260
+msgid "Could not open Deleted Items folder"
+msgstr "Kunde inte öppna mappen Borttaget"
+
+#: ../camel/camel-exchange-utils.c:2387
 msgid "Could not empty Deleted Items folder"
 msgstr "Kunde inte tömma mappen Borttaget"
 
-#: ../mail/mail-stub-exchange.c:1610
+#: ../camel/camel-exchange-utils.c:2389
 msgid "Permission denied. Could not delete certain messages."
 msgstr "Åtkomst nekas. Kunde inte ta bort vissa meddelanden."
 
-#: ../mail/mail-stub-exchange.c:1683
+#: ../camel/camel-exchange-utils.c:2432
 msgid "Could not append message; mailbox is over quota"
 msgstr "Kunde inte lägga till meddelande; postlådan är över kvoten"
 
-#: ../mail/mail-stub-exchange.c:1684
+#: ../camel/camel-exchange-utils.c:2433
 msgid "Could not append message"
 msgstr "Kunde inte lägga till meddelande"
 
-#: ../mail/mail-stub-exchange.c:2446
+#: ../camel/camel-exchange-utils.c:2619
 msgid "No such message"
 msgstr "Det finns inget sådant meddelande"
 
-#: ../mail/mail-stub-exchange.c:2527
+#: ../camel/camel-exchange-utils.c:2691
 msgid "Message has been deleted"
 msgstr "Meddelandet har tagits bort"
 
-#: ../mail/mail-stub-exchange.c:2529
+#: ../camel/camel-exchange-utils.c:2693
 msgid "Error retrieving message"
 msgstr "Fel vid hämtning av meddelande"
 
-#: ../mail/mail-stub-exchange.c:2572
+#: ../camel/camel-exchange-utils.c:2742
 msgid "Mailbox does not support full-text searching"
 msgstr "Postlådan stöder inte fulltextsökning"
 
-#: ../mail/mail-stub-exchange.c:2670
+#: ../camel/camel-exchange-utils.c:2850
 msgid "Unable to move/copy messages"
 msgstr "Kan inte flytta/kopiera meddelanden"
 
-#: ../mail/mail-stub-exchange.c:2936
+#: ../camel/camel-exchange-utils.c:2962
 msgid "No mail submission URI for this mailbox"
 msgstr "Ingen URI för e-postskickande för denna postlåda"
 
-#: ../mail/mail-stub-exchange.c:2970
+#: ../camel/camel-exchange-utils.c:2995
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Servern kommer inte att acceptera e-post via Exchange-transporten"
 
-#: ../mail/mail-stub-exchange.c:2972
+#: ../camel/camel-exchange-utils.c:2997
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -450,7 +395,7 @@ msgstr ""
 "Ditt konto har inte rättigheter att använda <%s>\n"
 "som Från-adress."
 
-#: ../mail/mail-stub-exchange.c:2984
+#: ../camel/camel-exchange-utils.c:3009
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -458,204 +403,1140 @@ msgstr ""
 "Kunde inte skicka meddelandet.\n"
 "Detta kan innebära att ditt konto är över kvoten."
 
-#: ../mail/mail-stub-exchange.c:2988
+#: ../camel/camel-exchange-utils.c:3013
 msgid "Could not send message"
 msgstr "Kunde inte skicka meddelandet"
 
-#: ../mail/mail-stub-exchange.c:3011
-#: ../mail/mail-stub-exchange.c:3064
-#: ../mail/mail-stub-exchange.c:3230
-#: ../mail/mail-stub-exchange.c:3281
-#: ../mail/mail-stub-exchange.c:3345
+#: ../camel/camel-exchange-utils.c:3049
+#: ../camel/camel-exchange-utils.c:3105
+#: ../camel/camel-exchange-utils.c:3275
+#: ../camel/camel-exchange-utils.c:3328
+#: ../camel/camel-exchange-utils.c:3392
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
+#: ../server/storage/e-storage.c:557
 msgid "Generic error"
 msgstr "Allmänt fel"
 
-#: ../mail/mail-stub-exchange.c:3015
+#: ../camel/camel-exchange-utils.c:3053
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
 msgid "Folder already exists"
 msgstr "Mappen finns redan"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-msgid "Evolution Addressbook Exchange backend"
-msgstr "Evolutions adressboksbakände för Exchange"
+#: ../eplugin/exchange-account-setup.c:270
+msgid "Out Of Office"
+msgstr "Inte på kontoret"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
-msgid "Evolution Calendar Exchange backend"
-msgstr "Evolutions kalenderbakände för Exchange"
+#: ../eplugin/exchange-account-setup.c:277
+msgid ""
+"The message specified below will be automatically sent to \n"
+"each person who sends mail to you while you are out of the office."
+msgstr ""
+"Meddelandet nedan kommer automatiskt att skickas till varje person som\n"
+"som skickar e-post till dig när du inte är inne på kontoret."
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-#: ../storage/main.c:219
-msgid "Evolution Connector for Microsoft Exchange"
-msgstr "Evolution Connector för Microsoft Exchange"
+#: ../eplugin/exchange-account-setup.c:282
+msgid "Status:"
+msgstr "Status:"
 
-#: ../storage/exchange-autoconfig-wizard.c:227
+#: ../eplugin/exchange-account-setup.c:289
+#: ../eplugin/exchange-account-setup.c:294
+msgid "I am out of the office"
+msgstr "Jag är inte på kontoret"
+
+#: ../eplugin/exchange-account-setup.c:290
+#: ../eplugin/exchange-account-setup.c:293
+msgid "I am in the office"
+msgstr "Jag är på kontoret"
+
+#. Security settings
+#: ../eplugin/exchange-account-setup.c:328
+msgid "Security"
+msgstr "Säkerhet"
+
+#. Change Password
+#: ../eplugin/exchange-account-setup.c:339
+msgid "Change the password for Exchange account"
+msgstr "Ändra lösenordet för Exchange-kontot"
+
+#: ../eplugin/exchange-account-setup.c:341
+#: ../eplugin/exchange-change-password.c:85
+msgid "Change Password"
+msgstr "Byt lösenord"
+
+#. Delegation Assistant
+#: ../eplugin/exchange-account-setup.c:346
+msgid "Manage the delegate settings for Exchange account"
+msgstr "Hantera delegatinställningarna för Exchange-konto"
+
+# Osäker / unsure
+#: ../eplugin/exchange-account-setup.c:348
+msgid "Delegation Assistant"
+msgstr "Delegeringsassistent"
+
+#. Miscelleneous settings
+#: ../eplugin/exchange-account-setup.c:360
+msgid "Miscelleneous"
+msgstr "Diverse"
+
+#. Folder Size
+#: ../eplugin/exchange-account-setup.c:370
+msgid "View the size of all Exchange folders"
+msgstr "Visa storleken för alla Exchange-mappar"
+
+#: ../eplugin/exchange-account-setup.c:372
+msgid "Folders Size"
+msgstr "Mappstorlek"
+
+#: ../eplugin/exchange-account-setup.c:379
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:3
+msgid "Exchange Settings"
+msgstr "Inställningar för Exchange"
+
+#: ../eplugin/exchange-account-setup.c:738
+msgid "_OWA URL:"
+msgstr "URL till _OWA:"
+
+#: ../eplugin/exchange-account-setup.c:764
+msgid "A_uthenticate"
+msgstr "A_utentisera"
+
+#: ../eplugin/exchange-account-setup.c:786
+msgid "Mailbox name is _different than user name"
+msgstr "Brevlådans namn är _inte samma som användarnamnet"
+
+#: ../eplugin/exchange-account-setup.c:799
+msgid "_Mailbox:"
+msgstr "_Brevlåda:"
+
+#: ../eplugin/exchange-account-setup.c:1013
+msgid "_Authentication Type"
+msgstr "Autentiserings_typ"
+
+#: ../eplugin/exchange-account-setup.c:1027
+msgid "Ch_eck for Supported Types"
+msgstr "_Leta efter typer som stöds"
+
+#: ../eplugin/exchange-account-setup.c:1142
+#: ../eplugin/exchange-contacts.c:217
 #, c-format
-msgid ""
-"Could not connect to the Exchange server.\n"
-"Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
-msgstr ""
-"Kunde inte ansluta till Exchange-servern.\n"
-"Försäkra dig om att URL:en är korrekt (försök med \"%s\" istället för \"%s\"?) och försök igen."
+msgid "%s KB"
+msgstr "%s KB"
 
-#: ../storage/exchange-autoconfig-wizard.c:235
-msgid ""
-"Could not locate Exchange server.\n"
-"Make sure the server name is spelled correctly and try again."
-msgstr ""
-"Kunde inte lokalisera Exchange-servern.\n"
-"Försäkra dig om att servernamnet är korrekt stavat och försök igen."
-
-#: ../storage/exchange-autoconfig-wizard.c:244
-msgid ""
-"Could not authenticate to the Exchange server.\n"
-"Make sure the username and password are correct and try again."
-msgstr ""
-"Kunde inte autentisera till Exchange-servern.\n"
-"Försäkra dig om att användarnamnet och lösenordet är korrekta och försök igen."
-
-#: ../storage/exchange-autoconfig-wizard.c:251
+#: ../eplugin/exchange-account-setup.c:1144
+#: ../eplugin/exchange-contacts.c:219
 #, c-format
+msgid "0 KB"
+msgstr "0 KB"
+
+#. FIXME: Take care of i18n
+#: ../eplugin/exchange-account-setup.c:1149
+#: ../eplugin/exchange-calendar.c:236
+#: ../eplugin/exchange-contacts.c:222
+msgid "Size:"
+msgstr "Storlek:"
+
+#: ../eplugin/exchange-calendar.c:196
+#: ../eplugin/exchange-contacts.c:170
 msgid ""
-"Could not authenticate to the Exchange server.\n"
-"Make sure the username and password are correct and try again.\n"
-"\n"
-"You may need to specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
+"Evolution is in offline mode. You cannot create or modify folders now.\n"
+"Please switch to online mode for such operations."
 msgstr ""
-"Kunde inte autentisera till Exchange-servern.\n"
-"Försäkra dig om att användarnamnet och lösenordet är korrekta och försök igen.\n"
-"Du kan kanske behöva ange Windows-domännamnet som en del av ditt användarnamn (t.ex. \"MIN-DOMÄN\\%s\")."
+"Evolution är i frånkopplat läge. Du kan inte skapa eller ändra mappar nu.\n"
+"Växla till anslutet läge för sådana åtgärder."
 
-#: ../storage/exchange-autoconfig-wizard.c:263
-msgid ""
-"Could not find OWA data at the indicated URL.\n"
-"Make sure the URL is correct and try again."
-msgstr ""
-"Kunde inte hitta OWA-data på den angivna URL:en.\n"
-"Försäkra dig om att URL:en är korrekt och försök igen."
+#: ../eplugin/exchange-calendar.c:247
+#: ../eplugin/exchange-contacts.c:239
+msgid "_Location:"
+msgstr "_Plats:"
 
-#: ../storage/exchange-autoconfig-wizard.c:270
-msgid ""
-"Evolution Connector for Microsoft Exchange requires access to certain functionality on the Exchange server that appears to be disabled or blocked.  (This is usually unintentional.)  Your Exchange administrator will need to enable this functionality in order for you to be able to use the Evolution Connector.\n"
-"\n"
-"For information to provide to your Exchange administrator, please follow the link below:"
-msgstr ""
-"Evolution Connector för Microsoft Exchange kräver åtkomst till en del funktionalitet på Exchange-servern som verkar vara inaktiverad eller blockerad (detta är vanligtvis oavsiktligt). Din Exchange-administratör måste aktivera denna funktionalitet för att du ska kunna använda Evolution Connector.\n"
-"\n"
-"Följ länken nedan för information som du kan ge till din Exchange-administratör:"
+#: ../eplugin/exchange-change-password.c:95
+msgid "Your current password has expired. Please change your password now."
+msgstr "Ditt nuvarande lösenord har gått ut. Byt ditt lösenord nu."
 
-#: ../storage/exchange-autoconfig-wizard.c:292
-msgid "The Exchange server URL you provided is for an Exchange 5.5 server. Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 and 2003 only."
-msgstr "URL:en till Exchange-servern som du angav är för en Exchange 5.5-server. Evolution Connector för Microsoft Exchange stöder endast Microsoft Exchange 2000 och 2003."
+#: ../eplugin/exchange-change-password.c:110
+msgid "Current _Password:"
+msgstr "Nuvarande _lösenord:"
 
-#: ../storage/exchange-autoconfig-wizard.c:306
-msgid "Could not configure Exchange account because an unknown error occurred. Check the URL, username, and password, and try again."
-msgstr "Kunde inte konfigurera Exchange-kontot eftersom ett okänt fel inträffade.Kontrollera URL:en, användarnamnet och lösenordet och försök igen."
+#: ../eplugin/exchange-change-password.c:117
+msgid "_New Password:"
+msgstr "_Nytt lösenord:"
 
-#: ../storage/exchange-autoconfig-wizard.c:350
+#: ../eplugin/exchange-change-password.c:124
+msgid "_Confirm Password:"
+msgstr "_Bekräfta lösenord:"
+
+#. User entered a wrong existing
+#. * password. Prompt him again.
+#.
+#: ../eplugin/exchange-change-password.c:175
+msgid "The current password does not match the existing password for your account. Please enter the correct password"
+msgstr "Det aktuella lösenordet stämmer inte överens med det befintliga lösenordet för ditt konto. Ange det korrekta lösenordet"
+
+#: ../eplugin/exchange-change-password.c:182
+msgid "The two passwords do not match. Please re-enter the passwords."
+msgstr "De två lösenorden stämmer inte överens. Ange lösenorden igen."
+
+#: ../eplugin/exchange-config-listener.c:661
 #, c-format
-msgid "Could not authenticate to the Global Catalog server. You may need to go back and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
-msgstr "Kunde inte autentisera till den globala katalogservern. Du kan behöva gå tillbaka och ange Windows-domännamnet som del av ditt användarnamn (t.ex. \"MIN-DOMÄN\\%s\")."
+msgid "Your password will expire in the next %d days"
+msgstr "Ditt lösenord kommer att gå ut om %d dagar"
 
-#: ../storage/exchange-autoconfig-wizard.c:357
+#: ../eplugin/exchange-config-listener.c:664
+msgid "Password Expiry Warning..."
+msgstr "Varning om att lösenordet går ut..."
+
+#: ../eplugin/exchange-config-listener.c:681
+msgid "_Change Password"
+msgstr "_Byt lösenord"
+
+#: ../eplugin/exchange-config-listener.c:734
+msgid "Out of Office Assistant"
+msgstr "Inte inne-assistent"
+
+#: ../eplugin/exchange-config-listener.c:751
+msgid "Currently, your status is \"Out of the Office\"."
+msgstr "Din status är för närvarande \"Jag är inte på kontoret\"."
+
+#: ../eplugin/exchange-config-listener.c:751
+msgid "Would you like to change your status to \"In the Office\"?"
+msgstr "Vill du ändra din status till \"Inne på kontoret\"?"
+
+#: ../eplugin/exchange-config-listener.c:780
+msgid "_No, Don't Change Status"
+msgstr "_Nej, ändra inte status"
+
+#: ../eplugin/exchange-config-listener.c:801
+msgid "_Yes, Change Status"
+msgstr "_Ja, ändra status"
+
+#: ../eplugin/exchange-config-listener.c:833
+#, c-format
+msgid "Enter Password for %s"
+msgstr "Ange lösenordet för %s"
+
+#: ../eplugin/exchange-delegates-user.c:72
+#: ../eplugin/exchange-folder.c:415
+#: ../server/storage/exchange-hierarchy-foreign.c:260
+msgid "Calendar"
+msgstr "Kalender"
+
+#: ../eplugin/exchange-delegates-user.c:72
+#: ../eplugin/exchange-folder.c:418
+#: ../server/storage/exchange-hierarchy-foreign.c:269
+msgid "Tasks"
+msgstr "Uppgifter"
+
+#: ../eplugin/exchange-delegates-user.c:72
+#: ../eplugin/exchange-folder.c:413
+#: ../server/storage/exchange-hierarchy-foreign.c:264
+msgid "Inbox"
+msgstr "Inkorgen"
+
+#: ../eplugin/exchange-delegates-user.c:72
+#: ../eplugin/exchange-folder.c:421
+#: ../server/storage/exchange-hierarchy-foreign.c:261
+msgid "Contacts"
+msgstr "Kontakter"
+
+#: ../eplugin/exchange-delegates-user.c:135
+#: ../eplugin/exchange-permissions-dialog.c:545
+#: ../server/lib/e2k-security-descriptor.c:901
+msgid "Custom"
+msgstr "Anpassad"
+
+#. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
+#: ../eplugin/exchange-delegates-user.c:158
+#: ../eplugin/exchange-delegates-user.c:299
+#: ../eplugin/exchange-delegates-user.c:309
+#: ../eplugin/exchange-delegates-user.c:319
+#: ../eplugin/exchange-delegates-user.c:329
+msgid "Editor (read, create, edit)"
+msgstr "Redaktör (läs, skapa, redigera)"
+
+#. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
+#: ../eplugin/exchange-delegates-user.c:163
+#: ../eplugin/exchange-delegates-user.c:298
+#: ../eplugin/exchange-delegates-user.c:308
+#: ../eplugin/exchange-delegates-user.c:318
+#: ../eplugin/exchange-delegates-user.c:328
+msgid "Author (read, create)"
+msgstr "Författare (läs, skapa)"
+
+#. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
+#: ../eplugin/exchange-delegates-user.c:168
+#: ../eplugin/exchange-delegates-user.c:297
+#: ../eplugin/exchange-delegates-user.c:307
+#: ../eplugin/exchange-delegates-user.c:317
+#: ../eplugin/exchange-delegates-user.c:327
+msgid "Reviewer (read-only)"
+msgstr "Granskare (endast läsning)"
+
+#: ../eplugin/exchange-delegates-user.c:171
+#: ../eplugin/exchange-delegates-user.c:296
+#: ../eplugin/exchange-delegates-user.c:306
+#: ../eplugin/exchange-delegates-user.c:316
+#: ../eplugin/exchange-delegates-user.c:326
+#: ../server/lib/e2k-security-descriptor.c:886
+msgid "None"
+msgstr "Ingen"
+
+#: ../eplugin/exchange-delegates-user.c:226
+msgid "Delegate Permissions"
+msgstr "Delegera rättigheter"
+
+#: ../eplugin/exchange-delegates-user.c:244
+msgid "Permissions for"
+msgstr "Rättigheter för"
+
+#. Translators: This is used for permissions for <user> for the folder Calendar.
+#: ../eplugin/exchange-delegates-user.c:256
+msgid "C_alendar:"
+msgstr "K_alender:"
+
+#. Translators: This is used for permissions for <user> for the folder Tasks.
+#: ../eplugin/exchange-delegates-user.c:265
+msgid "_Tasks:"
+msgstr "_Uppgifter:"
+
+#. Translators: This is used for permissions for <user> for the folder Inbox.
+#: ../eplugin/exchange-delegates-user.c:274
+msgid "_Inbox:"
+msgstr "_Inkorgen:"
+
+#. Translators: This is used for permissions for <user> for the folder Contacts.
+#: ../eplugin/exchange-delegates-user.c:283
+msgid "Co_ntacts:"
+msgstr "Ko_ntakter:"
+
+#: ../eplugin/exchange-delegates-user.c:331
+msgid "_Summarize permissions"
+msgstr "_Sammandrag av rättigheter"
+
+#: ../eplugin/exchange-delegates-user.c:335
+msgid "_Delegate can see private items"
+msgstr "_Delegat kan se privata objekt"
+
+#: ../eplugin/exchange-delegates-user.c:341
+#: ../eplugin/exchange-permissions-dialog.c:168
+#, c-format
+msgid "Permissions for %s"
+msgstr "Rättigheter för %s"
+
+#. To translators: This is a part of the message to be sent to the delegatee
+#. summarizing the permissions assigned to him.
+#.
+#: ../eplugin/exchange-delegates-user.c:434
+msgid "This message was sent automatically by Evolution to inform you that you have been designated as a delegate. You can now send messages on my behalf."
+msgstr "Detta meddelande skickades automatiskt av Evolution för att informera dig om att du har utsetts till en delegat. Du kan nu skicka meddelanden i mitt namn."
+
+#. To translators: Another chunk of the same message.
+#.
+#: ../eplugin/exchange-delegates-user.c:439
+msgid "You have been given the following permissions on my folders:"
+msgstr "Du har tilldelats följande rättigheter på mina mappar:"
+
+#. To translators: This message is included if the delegatee has been given access
+#. to the private items.
+#.
+#: ../eplugin/exchange-delegates-user.c:459
+msgid "You are also permitted to see my private items."
+msgstr "Du tillåts även att se mina privata objekt."
+
+#. To translators: This message is included if the delegatee has not been given access
+#. to the private items.
+#.
+#: ../eplugin/exchange-delegates-user.c:466
+msgid "However you are not permitted to see my private items."
+msgstr "Dock tillåts du inte att se mina privata objekt."
+
+#: ../eplugin/exchange-delegates-user.c:498
+#, c-format
+msgid "You have been designated as a delegate for %s"
+msgstr "Du har utsetts till en delegat för %s"
+
+#: ../eplugin/exchange-delegates.c:413
+msgid "Delegate To:"
+msgstr "Delegera till:"
+
+#: ../eplugin/exchange-delegates.c:413
+msgid "Delegate To"
+msgstr "Delegera till"
+
+#: ../eplugin/exchange-delegates.c:578
+#, c-format
+msgid "Remove the delegate %s?"
+msgstr "Ta bort delegaten %s?"
+
+#: ../eplugin/exchange-delegates.c:695
+msgid "Could not access Active Directory"
+msgstr "Kunde inte komma åt Active Directory"
+
+# Osäker.
+#: ../eplugin/exchange-delegates.c:707
+msgid "Could not find self in Active Directory"
+msgstr "Kunde inte hitta mig själv i Active Directory"
+
+# Osäker.
+#: ../eplugin/exchange-delegates.c:720
+#, c-format
+msgid "Could not find delegate %s in Active Directory"
+msgstr "Kunde inte hitta delegaten %s i Active Directory"
+
+#: ../eplugin/exchange-delegates.c:732
+#, c-format
+msgid "Could not remove delegate %s"
+msgstr "Kunde inte ta bort delegaten %s"
+
+#: ../eplugin/exchange-delegates.c:792
+msgid "Could not update list of delegates."
+msgstr "Kunde inte uppdatera listan över delegater."
+
+#: ../eplugin/exchange-delegates.c:810
+#, c-format
+msgid "Could not add delegate %s"
+msgstr "Kunde inte lägga till delegaten %s"
+
+#: ../eplugin/exchange-delegates.c:926
+msgid "Delegates"
+msgstr "Delegater"
+
+#: ../eplugin/exchange-delegates.c:941
 msgid ""
-"Could not connect to specified server.\n"
-"Please check the server name and try again."
+"These users will be able to send mail on your behalf\n"
+"and access your folders with the permissions you give them."
 msgstr ""
-"Kunde inte ansluta till den angivna servern.\n"
-"Kontrollera servernamnet och försök igen."
+"Dessa användare kommer att kunna skicka e-post för din\n"
+"räkning och komma åt dina mappar med de rättigheter du ger dem."
 
-#: ../storage/exchange-autoconfig-wizard.c:394
-#: ../storage/exchange-autoconfig-wizard.c:398
-msgid "Unknown"
-msgstr "Okänd"
+#: ../eplugin/exchange-delegates.c:965
+msgid "_Edit"
+msgstr "_Redigera"
 
-#: ../storage/exchange-autoconfig-wizard.c:463
-msgid ""
-"Configuration system error.\n"
-"Unable to create new account."
+#: ../eplugin/exchange-delegates.c:995
+#: ../eplugin/exchange-permissions-dialog.c:916
+msgid "Name"
+msgstr "Namn"
+
+#: ../eplugin/exchange-delegates.c:1021
+msgid "Error reading delegates list."
+msgstr "Fel vid läsning av delegatlista."
+
+#: ../eplugin/exchange-folder-permission.c:199
+#: ../eplugin/exchange-folder-permission.c:436
+#: ../eplugin/exchange-folder-permission.c:470
+#: ../eplugin/exchange-folder-permission.c:504
+msgid "Permissions..."
+msgstr "Rättigheter..."
+
+#: ../eplugin/exchange-folder-permission.c:201
+msgid "Check folder permissions"
+msgstr "Kontrollera mapprättigheter"
+
+#: ../eplugin/exchange-folder-permission.c:206
+#: ../eplugin/exchange-folder-permission.c:443
+#: ../eplugin/exchange-folder-permission.c:477
+#: ../eplugin/exchange-folder-permission.c:511
+msgid "Subscribe to Other User's Folder..."
+msgstr "Prenumerera på annan användares mapp..."
+
+#: ../eplugin/exchange-folder-permission.c:208
+#: ../eplugin/exchange-folder-permission.c:445
+#: ../eplugin/exchange-folder-permission.c:479
+#: ../eplugin/exchange-folder-permission.c:513
+#: ../eplugin/exchange-folder-subscription.c:306
+msgid "Subscribe to Other User's Folder"
+msgstr "Prenumerera på annan användares mapp"
+
+#: ../eplugin/exchange-folder-permission.c:213
+#: ../eplugin/exchange-folder-permission.c:450
+#: ../eplugin/exchange-folder-permission.c:484
+#: ../eplugin/exchange-folder-permission.c:518
+msgid "Unsubscribe Folder..."
+msgstr "Avsluta prenumeration på mapp..."
+
+#: ../eplugin/exchange-folder-permission.c:438
+msgid "Check calendar permissions"
+msgstr "Kontrollera kalenderrättigheter"
+
+#: ../eplugin/exchange-folder-permission.c:472
+msgid "Check tasks permissions"
+msgstr "Kontrollera uppgiftsrättigheter"
+
+#: ../eplugin/exchange-folder-permission.c:506
+msgid "Check addressbook permissions"
+msgstr "Kontrollera rättigheter för adressboken"
+
+#: ../eplugin/exchange-folder-size-display.c:118
+msgid "Exchange Folder Tree"
+msgstr "Exchange-mappträd"
+
+#: ../eplugin/exchange-folder-size-display.c:150
+msgid "Folder Name"
+msgstr "Mappnamn"
+
+#: ../eplugin/exchange-folder-size-display.c:154
+msgid "Folder Size"
+msgstr "Mappstorlek"
+
+#. FIXME Limit to one user
+#: ../eplugin/exchange-folder-subscription.c:72
+msgid "User"
+msgstr "Användare"
+
+#: ../eplugin/exchange-folder-subscription.c:322
+msgid "_Account:"
+msgstr "_Konto:"
+
+#: ../eplugin/exchange-folder-subscription.c:329
+msgid "_Folder Name:"
+msgstr "_Mappnamn:"
+
+#: ../eplugin/exchange-folder-subscription.c:342
+msgid "_User:"
+msgstr "A_nvändare:"
+
+#: ../eplugin/exchange-folder.c:303
+#: ../eplugin/exchange-folder.c:357
+#, c-format
+msgid "Really unsubscribe from folder \"%s\"?"
+msgstr "Verkligen avsluta prenumerationen av mappen \"%s\"?"
+
+#: ../eplugin/exchange-folder.c:315
+#: ../eplugin/exchange-folder.c:369
+#, c-format
+msgid "Unsubscribe from \"%s\""
+msgstr "Avsluta prenumeration på \"%s\""
+
+#: ../eplugin/exchange-mail-send-options.c:222
+msgid "_Send Options"
+msgstr "_Sändningsalternativ"
+
+#: ../eplugin/exchange-mail-send-options.c:224
+msgid "Insert Send options"
 msgstr ""
-"Konfigurationssystemfel.\n"
-"Kan inte skapa nytt konto."
 
-#: ../storage/exchange-autoconfig-wizard.c:477
-msgid "You may only configure a single Exchange account"
-msgstr "Du kan endast konfigurera ett ensamt Exchange-konto"
+#. FIXME: Don't hardcode this
+#: ../eplugin/exchange-operations.c:122
+#: ../eplugin/exchange-operations.c:167
+#: ../server/storage/exchange-account.c:1259
+msgid "Personal Folders"
+msgstr "Personliga mappar"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:1
-#: ../storage/exchange-change-password.glade.h:1
-msgid "*"
-msgstr "*"
+#: ../eplugin/exchange-permissions-dialog.c:278
+msgid "(Permission denied.)"
+msgstr "(Åtkomst nekas.)"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:2
-msgid "Configuration Failed"
-msgstr "Konfigurering misslyckades"
+#: ../eplugin/exchange-permissions-dialog.c:384
+msgid "Add User:"
+msgstr "Lägg till användare:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:3
-msgid "Done"
-msgstr "Klar"
+#: ../eplugin/exchange-permissions-dialog.c:384
+#: ../eplugin/exchange-send-options.c:490
+msgid "Add User"
+msgstr "Lägg till användare"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:4
-msgid "Email Address:"
-msgstr "E-postadress:"
+#: ../eplugin/exchange-permissions-dialog.c:792
+msgid "Permissions"
+msgstr "Rättigheter"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:5
-msgid "Evolution Connector for Microsoft Exchange Configuration"
-msgstr "Konfiguration av Evolution Connector för Microsoft Exchange"
+#: ../eplugin/exchange-permissions-dialog.c:809
+msgid "Role: "
+msgstr "Roll: "
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:6
+#: ../eplugin/exchange-permissions-dialog.c:835
+msgid "Create items"
+msgstr "Skapa objekt"
+
+#: ../eplugin/exchange-permissions-dialog.c:839
+msgid "Read items"
+msgstr "Lästa objekt"
+
+#: ../eplugin/exchange-permissions-dialog.c:843
+msgid "Create subfolders"
+msgstr "Skapa undermappar"
+
+#: ../eplugin/exchange-permissions-dialog.c:851
+msgid "Cannot Edit"
+msgstr "Kan inte redigera"
+
+#: ../eplugin/exchange-permissions-dialog.c:857
+msgid "Edit Own Items"
+msgstr "Redigera egna objekt"
+
+#: ../eplugin/exchange-permissions-dialog.c:863
+msgid "Edit Any Items"
+msgstr "Redigera alla objekt"
+
+#: ../eplugin/exchange-permissions-dialog.c:877
+msgid "Folder owner"
+msgstr "Mappägare"
+
+#: ../eplugin/exchange-permissions-dialog.c:881
+msgid "Folder contact"
+msgstr "Mappkontakt"
+
+#: ../eplugin/exchange-permissions-dialog.c:885
+msgid "Folder visible"
+msgstr "Mapp synlig"
+
+#: ../eplugin/exchange-permissions-dialog.c:893
+msgid "Cannot Delete"
+msgstr "Kan inte ta bort"
+
+#: ../eplugin/exchange-permissions-dialog.c:900
+msgid "Delete Own Items"
+msgstr "Ta bort egna objekt"
+
+#: ../eplugin/exchange-permissions-dialog.c:906
+msgid "Delete Any Items"
+msgstr "Ta bort alla objekt"
+
+#: ../eplugin/exchange-permissions-dialog.c:920
+msgid "Role"
+msgstr "Roll "
+
+#: ../eplugin/exchange-send-options.c:360
+msgid "Exchange - Send Options"
+msgstr "Exchange - Sändningsalternativ"
+
+#: ../eplugin/exchange-send-options.c:381
+msgid "Message Settings"
+msgstr "Meddelandeinställningar"
+
+#: ../eplugin/exchange-send-options.c:395
+msgid "I_mportance: "
+msgstr "V_iktigt: "
+
+#: ../eplugin/exchange-send-options.c:402
+msgid "_Sensitivity: "
+msgstr "_Känslighet: "
+
+#: ../eplugin/exchange-send-options.c:414
+#: ../eplugin/exchange-send-options.c:424
+msgid "Normal"
+msgstr "Normal"
+
+#: ../eplugin/exchange-send-options.c:415
+msgid "Personal"
+msgstr "Personligt"
+
+#: ../eplugin/exchange-send-options.c:416
+msgid "Private"
+msgstr "Privat"
+
+#: ../eplugin/exchange-send-options.c:417
+msgid "Confidential"
+msgstr "Hemligt"
+
+#: ../eplugin/exchange-send-options.c:425
+msgid "High"
+msgstr "Hög"
+
+#: ../eplugin/exchange-send-options.c:426
+msgid "Low"
+msgstr "Låg"
+
+#: ../eplugin/exchange-send-options.c:428
+msgid "Send as Delegate"
+msgstr "Skicka som delegat"
+
+#: ../eplugin/exchange-send-options.c:445
+msgid "_User"
+msgstr "_Användare"
+
+#: ../eplugin/exchange-send-options.c:453
+msgid "Tracking Options"
+msgstr "Spårningsalternativ"
+
+#: ../eplugin/exchange-send-options.c:461
+msgid "Request a _delivery receipt for this message"
+msgstr "Begär en _leveransrapport för detta meddelande"
+
+#: ../eplugin/exchange-send-options.c:466
+msgid "Request a _read receipt for this message"
+msgstr "Begär ett _läskvitto för detta meddelande"
+
+#: ../eplugin/exchange-user-dialog.c:131
+msgid "Select User"
+msgstr "Välj användare"
+
+#: ../eplugin/exchange-user-dialog.c:170
+msgid "Address Book..."
+msgstr "Adressbok..."
+
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:1
+msgid "Activates the Evolution-Exchange extension package."
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:2
+msgid "Exchange Operations"
+msgstr "Exchange-åtgärder"
+
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:4
+msgid "Size"
+msgstr "Storlek"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:1
+msgid "Cannot access the \"Exchange settings\" tab in offline mode."
+msgstr "Kan inte kommta åt fliken \"Inställningar för Exchange\" i frånkopplat läge."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:2
+msgid "Cannot change password due to configuration problems."
+msgstr "Kan inte ändra lösenordet på grund av konfigurationsproblem."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:3
+msgid "Cannot display folders."
+msgstr "Kan inte visa mappar."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:4
+msgid "Cannot perform the operation."
+msgstr "Kan inte genomföra åtgärden."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:5
+msgid "Changes to options for Exchange account \"{0}\" will only take effect after restarting Evolution."
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:6
+msgid "Could not authenticate to server."
+msgstr "Kunde inte autentisera till servern."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:7
+msgid "Could not change password."
+msgstr "Kunde inte ändra lösenordet."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:8
 msgid ""
-"Evolution Connector for Microsoft Exchange can use account information from your existing Outlook Web Access (OWA) account.\n"
+"Could not configure Exchange account because \n"
+"an unknown error occurred. Check the URL, \n"
+"username, and password, and try again."
+msgstr ""
+"Kunde inte konfigurera Exchange-kontot eftersom\n"
+"ett okänt fel inträffade. Kontrollera URL:en, \n"
+"användarnamn samt lösenord, och försök igen."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:11
+msgid "Could not connect to Exchange server."
+msgstr "Kunde inte ansluta till Exchange-servern."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:12
+msgid "Could not connect to server {0}."
+msgstr "Kunde inte ansluta till servern {0}."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:13
+msgid "Could not determine folder permissions for delegates."
+msgstr "Kunde inte fastställa mapprättigheter för delegater."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:14
+msgid "Could not find Exchange Web Storage System."
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:15
+msgid "Could not locate server {0}."
+msgstr "Kunde inte hitta servern {0}."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:16
+msgid "Could not make {0} a delegate"
+msgstr "Kunde inte göra {0} till en delegat"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:17
+msgid "Could not read folder permissions"
+msgstr "Kunde inte läsa mapprättigheter"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:18
+msgid "Could not read folder permissions."
+msgstr "Kunde inte läsa mapprättigheter."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:19
+msgid "Could not read out-of-office state"
+msgstr "Kunde inte läsa tillstånd för out-of-office"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:20
+msgid "Could not update folder permissions."
+msgstr "Kunde inte uppdatera mapprättigheter."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:21
+msgid "Could not update out-of-office state"
+msgstr "Kunde inte uppdatera tillstånd för out-of-office"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:22
+msgid "Evolution requires a restart to load the subscribed user's mailbox"
+msgstr "Evolution kräver en omstart för att läsa in användarbrevlådan att prenumerera på"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:23
+msgid "Exchange Account is offline."
+msgstr "Exchange-konto är frånkopplat."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:24
+msgid ""
+"Exchange Connector requires access to certain\n"
+"functionality on the Exchange Server that appears\n"
+"to be disabled or blocked. (This is usually \n"
+"unintentional.) Your Exchange Administrator will \n"
+"need to enable this functionality in order for \n"
+"you to be able to use Evolution Exchange Connector.\n"
 "\n"
-"Enter your OWA site address (URL), username, and password, then click \"Forward\".\n"
-msgstr ""
-"Evolution Connector för Microsoft Exchange kan använda kontoinformation från ditt befintliga Outlook Web Access (OWA)-konto.\n"
+"For information to provide to your Exchange \n"
+"administrator, please follow the link below:\n"
 "\n"
-"Ange adressen till din OWA-webbplats (URL), användarnamn och lösenord. Klicka sedan på \"Framåt\".\n"
+"{0}\n"
+"  "
+msgstr ""
+"Evolution Connector för Microsoft Exchange kräver\n"
+"åtkomst till en del funktionalitet på Exchange-servern\n"
+"som verkar vara inaktiverad eller blockerad (detta är\n"
+"vanligtvis oavsiktligt). Din Exchange-administratör\n"
+"måste aktivera denna funktionalitet för att du ska\n"
+"kunna använda Evolution Exchange Connector.\n"
+"\n"
+"Följ länken nedan för information som du kan ge\n"
+"till din Exchange-administratör:\n"
+"\n"
+"{0}\n"
+"  "
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:10
-msgid "Evolution Connector for Microsoft Exchange could not find the Global Catalog replica for your site. Please enter the name of your Global Catalog server. You may need to ask your system administrator for the correct value.\n"
-msgstr "Evolution Connector för Microsoft Exchange kunde inte hitta kopian av den globala katalogen för din webbplats. Ange namnet på servern för din globala katalog. Du kan behöva fråga din systemadministratör om det korrekta värdet.\n"
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:36
+msgid "Failed to update delegates:"
+msgstr "Misslyckades med att uppdatera delegater:"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:12
-msgid "Evolution Connector for Microsoft Exchange has encountered a problem configuring your Exchange account.\n"
-msgstr "Evolution Connector för Microsoft Exchange har stött på ett problem vid konfiguration av ditt Exchange-konto.\n"
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:38
+msgid "Folder does not exist"
+msgstr "Mappen finns inte"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:14
-msgid "Exchange Configuration"
-msgstr "Exchange-konfiguration"
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:39
+msgid "Folder offline"
+msgstr "Mappen är frånkopplad"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:15
-msgid "Full Name:"
-msgstr "Fullständigt namn:"
+# Osäker.
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:41
+msgid "Global Catalog Server is not reachable"
+msgstr "Global katalogserver är inte nåbar"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:16
-msgid "GC Server:"
-msgstr "GC-server:"
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:42
+msgid "If OWA is running on a different path, you must specify that in the account configuration dialog."
+msgstr ""
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:17
-msgid "Make this my default account"
-msgstr "Gör detta till mitt standardkonto"
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:43
+msgid "Mailbox for {0} is not on this server."
+msgstr "Brevlådan för {0} finns inte på denna server."
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:18
-msgid "OWA URL:"
-msgstr "OWA-URL:"
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:44
+msgid "Make sure the URL is correct and try again."
+msgstr "Försäkra dig om att URL:en är korrekt och försök igen."
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:19
-msgid "Password:"
-msgstr "Lösenord:"
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:45
+msgid "Make sure the server name is spelled correctly and try again."
+msgstr "Försäkra dig om att servernamnet är korrekt stavat och försök igen."
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:20
-msgid "Remember this password"
-msgstr "Kom ihåg detta lösenord"
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:46
+msgid "Make sure the username and password are correct and try again."
+msgstr "Försäkra dig om att användarnamnet och lösenordet är korrekta och försök igen."
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:21
-msgid "Username:"
-msgstr "Användarnamn:"
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:47
+msgid "No Global Catalog server configured for this account."
+msgstr "Ingen global katalogserver har konfigurerats för detta konto."
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:22
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:48
+msgid "No mailbox for user {0} on {1}."
+msgstr "Det finns ingen brevlåda för användaren {0} på {1}."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:49
+msgid "No such user {0}"
+msgstr "Det finns ingen sådan användare {0}"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:50
+msgid "Password successfully changed."
+msgstr "Lösenordet har ändrats."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:52
+msgid "Please enter a Delegate's ID or deselect the Send as a Delegate option."
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:53
+msgid "Please make sure the Global Catalog Server name is correct."
+msgstr "Försäkra dig om att namnet på den globala katalogservern är korrekt."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:54
+msgid "Please restart Evolution for changes to take effect"
+msgstr "Starta om Evolution för att ändringarna ska bli aktiva"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:55
+msgid "Please select a user."
+msgstr "Välj en användare."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:56
+msgid "Server rejected password because it is too weak."
+msgstr "Servern tog inte emot lösenordet därför att det är för svagt."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:57
+msgid "The Exchange account will be disabled when you quit Evolution"
+msgstr "Exchange-kontot kommer att inaktiveras när du avslutar Evolution"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:58
+msgid "The Exchange account will be removed when you quit Evolution"
+msgstr "Exchange-kontot kommer att tas bort när du avslutar Evolution"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:59
+msgid "The Exchange server is not compatible with Exchange Connector."
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:60
+msgid ""
+"The server is running Exchange 5.5. Exchange Connector \n"
+"supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"Servern kör Exchange 5.5. Exchange Connector har\n"
+"endast stöd för Microsoft Exchange 2000 och 2003."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:62
+msgid ""
+"This probably means that your server requires \n"
+"you to specify the Windows domain name \n"
+"as part of your username (eg, &quot;DOMAIN\\user&quot;).\n"
+"\n"
+"Or you might have just typed your password wrong."
+msgstr ""
+"Detta betyder antagligen att din server kräver att du \n"
+"anger Windows-domännamnet som en del av ditt\n"
+"användarnamn (t.ex. &quot;DOMÄN\\användare&quot;).\n"
+"\n"
+"Eller så har du bara matat in fel lösenord."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:67
+msgid "Try again with a different password."
+msgstr "Försök igen med ett annat lösenord."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:68
+msgid "Unable to add user to access control list:"
+msgstr "Kunde inte lägga till användaren till åtkomstkontrollistan:"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:69
+msgid "Unable to edit delegates."
+msgstr "Kan inte redigera delegater."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:70
+msgid "Unknown error looking up {0}"
+msgstr "Okänt fel vid uppslag av {0}"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:71
+msgid "Unknown error."
+msgstr "Okänt fel."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:72
+msgid "Unknown type"
+msgstr "Okänd typ"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:73
+msgid "Unsupported operation"
+msgstr "Åtgärden stöds inte"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:74
+msgid "You are nearing your quota available for storing mail on this server."
+msgstr "Du närmar dig din tillgängliga kvot för lagring av e-post på denna server."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:75
+msgid "You are permitted to send a message on behalf of only one delegator at a time."
+msgstr "Du tillåts endast att skicka ett meddelande i mitt namn för en delegat åt gången."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:76
+msgid "You cannot make yourself your own delegate"
+msgstr "Du kan inte göra dig själv till din egna delegat"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:77
+msgid "You have exceeded your quota for storing mail on this server."
+msgstr "Du har överstigit din kvot för lagring av e-post på denna server."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:78
+msgid "You may only configure a single Exchange account."
+msgstr "Du kan endast konfigurera ett Exchange-konto."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:79
+msgid "Your current usage is: {0} KB. Try to clear up some space by deleting some mail."
+msgstr "Din aktuella användning är: {0} KB. Försök att frigöra utrymme genom att ta bort e-post."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:80
+msgid "Your current usage is: {0} KB. You will not be able to either send or receive mail now."
+msgstr "Din aktuella användning är: {0} KB. Du kommer inte att kunna skicka eller ta emot e-post nu."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:81
+msgid "Your current usage is: {0} KB. You will not be able to send mail until you clear up some space by deleting some mail."
+msgstr "Din aktuella användning är: {0} KB. Du kommer inte att kunna skicka e-post förräns du har frigjort utrymme genom att ta bort e-post."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:82
+msgid "Your password has expired."
+msgstr "Ditt lösenord har gått ut."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:83
+msgid "{0}"
+msgstr "{0}"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:84
+msgid "{0} cannot be added to an access control list"
+msgstr "{0} kan inte läggas till i en åtkomstkontrollista"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:85
+msgid "{0} is already a delegate"
+msgstr "{0} är redan en delegat"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:86
+msgid "{0} is already in the list"
+msgstr "{0} finns redan i listan"
+
+#: ../server/lib/e2k-autoconfig.c:1692
+#: ../server/storage/exchange-account.c:954
+#, c-format
+msgid "Enter password for %s"
+msgstr "Ange lösenordet för %s"
+
+#: ../server/lib/e2k-autoconfig.c:1693
+#: ../server/storage/exchange-account.c:959
+msgid "Enter password"
+msgstr "Ange lösenord"
+
+#. i18n: These are Outlook's words for the default roles in
+#. the folder permissions dialog.
+#: ../server/lib/e2k-security-descriptor.c:842
+msgid "Owner"
+msgstr "Ägare"
+
+#: ../server/lib/e2k-security-descriptor.c:852
+msgid "Publishing Editor"
+msgstr "Publicerande redigerare"
+
+#: ../server/lib/e2k-security-descriptor.c:860
+msgid "Editor"
+msgstr "Redigerare"
+
+#: ../server/lib/e2k-security-descriptor.c:867
+msgid "Publishing Author"
+msgstr "Publicerande upphovsman"
+
+#: ../server/lib/e2k-security-descriptor.c:873
+msgid "Author"
+msgstr "Upphovsman"
+
+#: ../server/lib/e2k-security-descriptor.c:878
+msgid "Non-editing Author"
+msgstr "Upphovsman utan redigeringsmöjlighet"
+
+#: ../server/lib/e2k-security-descriptor.c:882
+msgid "Reviewer"
+msgstr "Granskare"
+
+#: ../server/lib/e2k-security-descriptor.c:884
+msgid "Contributor"
+msgstr "Bidragsgivare"
+
+#: ../server/storage/e-storage.c:555
+msgid "No error"
+msgstr "Inget fel"
+
+#: ../server/storage/e-storage.c:559
+msgid "A folder with the same name already exists"
+msgstr "En mapp med samma namn finns redan"
+
+#: ../server/storage/e-storage.c:561
+msgid "The specified folder type is not valid"
+msgstr "Den angivna mapptypen är inte giltig"
+
+#: ../server/storage/e-storage.c:563
+msgid "I/O error"
+msgstr "In-/ut-fel"
+
+#: ../server/storage/e-storage.c:565
+msgid "Not enough space to create the folder"
+msgstr "Det finns inte tillräckligt utrymme för att skapa mappen"
+
+#: ../server/storage/e-storage.c:567
+msgid "The folder is not empty"
+msgstr "Mappen är inte tom"
+
+#: ../server/storage/e-storage.c:569
+msgid "The specified folder was not found"
+msgstr "Angiven mapp hittades inte"
+
+#: ../server/storage/e-storage.c:571
+msgid "Function not implemented in this storage"
+msgstr "Funktionen är inte implementerad i detta lagringsutrymme"
+
+#: ../server/storage/e-storage.c:575
+msgid "Operation not supported"
+msgstr "Åtgärden stöds inte"
+
+#: ../server/storage/e-storage.c:577
+msgid "The specified type is not supported in this storage"
+msgstr "Den angivna typen stöds inte i detta lagringsutrymme"
+
+#: ../server/storage/e-storage.c:579
+msgid "The specified folder cannot be modified or removed"
+msgstr "Den angivna mappen kan inte ändras eller tas bort"
+
+#: ../server/storage/e-storage.c:581
+msgid "Cannot make a folder a child of one of its descendants"
+msgstr "Kan inte göra en mapp till ett barn till en av dess ättlingar"
+
+#: ../server/storage/e-storage.c:583
+msgid "Cannot create a folder with that name"
+msgstr "Kan inte skapa en mapp med det namnet"
+
+#: ../server/storage/e-storage.c:585
+msgid "This operation cannot be performed in off-line mode"
+msgstr "Denna åtgärd kan inte genomföras i frånkopplat läge"
+
+#: ../server/storage/e-storage.c:587
+msgid "Unknown error"
+msgstr "Okänt fel"
+
+#. i18n: This is the title of an "other user's folders"
+#. hierarchy. Eg, "John Doe's Folders".
+#: ../server/storage/exchange-account.c:639
+#, c-format
+msgid "%s's Folders"
+msgstr "Mappar för %s"
+
+#: ../server/storage/exchange-account.c:1274
+msgid "Favorite Public Folders"
+msgstr "Publika favoritmappar"
+
+#. i18n: Outlookism
+#: ../server/storage/exchange-account.c:1291
+msgid "All Public Folders"
+msgstr "Alla publika mappar"
+
+# Osäker.
+#. i18n: Outlookism
+#: ../server/storage/exchange-account.c:1305
+msgid "Global Address List"
+msgstr "Global adresslista"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:262
+msgid "Deleted Items"
+msgstr "Borttagna objekt"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:263
+msgid "Drafts"
+msgstr "Utkast"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:265
+msgid "Journal"
+msgstr "Dagbok"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:266
+msgid "Notes"
+msgstr "Anteckningar"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:267
+msgid "Outbox"
+msgstr "Utkorgen"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:268
+msgid "Sent Items"
+msgstr "Skickade objekt"
+
+#: ../tools/exchange-autoconfig-wizard.c:176
 msgid "Welcome"
 msgstr "Välkommen"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:23
+#: ../tools/exchange-autoconfig-wizard.c:176
 msgid ""
 "Welcome to Evolution Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
@@ -669,324 +1550,294 @@ msgstr ""
 "\n"
 "Klicka på knappen \"Framåt\" för att fortsätta. "
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:28
+#: ../tools/exchange-autoconfig-wizard.c:188
+#: ../tools/exchange-autoconfig-wizard.c:361
+#: ../tools/exchange-autoconfig-wizard.c:448
+msgid "Exchange Configuration"
+msgstr "Exchange-konfiguration"
+
+#: ../tools/exchange-autoconfig-wizard.c:188
 msgid ""
-"Your Connector account is now ready to use. Click the \"Apply\" button to save your\n"
-"settings."
+"Evolution Connector for Microsoft Exchange can use account information from your existing Outlook Web Access (OWA) account.\n"
+"\n"
+"Enter your OWA site address (URL), username, and password, then click \"Forward\".\n"
 msgstr ""
-"Ditt Connector-konto är nu redo att användas. Klicka på knappen \"Verkställ\" för att\n"
-"spara dina inställningar."
+"Evolution Connector för Microsoft Exchange kan använda kontoinformation från ditt befintliga Outlook Web Access (OWA)-konto.\n"
+"\n"
+"Ange adressen till din OWA-webbplats (URL), användarnamn och lösenord. Klicka sedan på \"Framåt\".\n"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:30
-msgid "Your account information is as follows. Please correct any errors, then click \"Forward\".\n"
-msgstr "Din kontoinformation är som följer. Korrigera eventuella fel och klicka sedan på \"Framåt\".\n"
+#: ../tools/exchange-autoconfig-wizard.c:196
+msgid "OWA _URL:"
+msgstr "_URL för OWA:"
 
-#. User entered a wrong existing
-#. * password. Prompt him again.
-#.
-#: ../storage/exchange-change-password.c:125
-msgid "The current password does not match the existing password for your account. Please enter the correct password"
-msgstr "Det aktuella lösenordet stämmer inte överens med det befintliga lösenordet för ditt konto. Ange det korrekta lösenordet"
+#: ../tools/exchange-autoconfig-wizard.c:200
+msgid "User_name:"
+msgstr "A_nvändarnamn:"
 
-#: ../storage/exchange-change-password.c:132
-msgid "The two passwords do not match. Please re-enter the passwords."
-msgstr "De två lösenorden stämmer inte överens. Ange lösenorden igen."
+#: ../tools/exchange-autoconfig-wizard.c:204
+msgid "_Password:"
+msgstr "_Lösenord:"
 
-#: ../storage/exchange-change-password.glade.h:2
-msgid "Change Password"
-msgstr "Byt lösenord"
+#: ../tools/exchange-autoconfig-wizard.c:209
+msgid "_Remember this password"
+msgstr "_Kom ihåg detta lösenord"
 
-#: ../storage/exchange-change-password.glade.h:3
-msgid "Confirm Password:"
-msgstr "Bekräfta lösenord:"
-
-#: ../storage/exchange-change-password.glade.h:4
-msgid "Current Password:"
-msgstr "Nuvarande lösenord:"
-
-#: ../storage/exchange-change-password.glade.h:5
-msgid "New Password:"
-msgstr "Nytt lösenord:"
-
-#: ../storage/exchange-change-password.glade.h:6
-msgid "Your current password has expired. Please change your password now."
-msgstr "Ditt nuvarande lösenord har gått ut. Byt ditt lösenord nu."
-
-#: ../storage/exchange-delegates.glade.h:1
-msgid "Author (read, create)"
-msgstr "Författare (läs, skapa)"
-
-#: ../storage/exchange-delegates.glade.h:2
-msgid "C_alendar:"
-msgstr "K_alender:"
-
-#: ../storage/exchange-delegates.glade.h:3
-msgid "Co_ntacts:"
-msgstr "Ko_ntakter:"
-
-#: ../storage/exchange-delegates.glade.h:4
-msgid "Delegate Permissions"
-msgstr "Delegera rättigheter"
-
-#: ../storage/exchange-delegates.glade.h:5
-msgid "Delegates"
-msgstr "Delegater"
-
-#: ../storage/exchange-delegates.glade.h:6
-msgid "Editor (read, create, edit)"
-msgstr "Redaktör (läs, skapa, redigera)"
-
-#: ../storage/exchange-delegates.glade.h:7
-msgid "None"
-msgstr "Ingen"
-
-#: ../storage/exchange-delegates.glade.h:8
-msgid "Permissions for"
-msgstr "Rättigheter för"
-
-#: ../storage/exchange-delegates.glade.h:9
-msgid "Reviewer (read-only)"
-msgstr "Granskare (endast läsning)"
-
-#: ../storage/exchange-delegates.glade.h:10
-msgid ""
-"These users will be able to send mail on your behalf\n"
-"and access your folders with the permissions you give them."
-msgstr ""
-"Dessa användare kommer att kunna skicka e-post för din\n"
-"räkning och komma åt dina mappar med de rättigheter du ger dem."
-
-#: ../storage/exchange-delegates.glade.h:12
-msgid "_Delegate can see private items"
-msgstr "_Delegat kan se privata objekt"
-
-#: ../storage/exchange-delegates.glade.h:13
-msgid "_Edit"
-msgstr "_Redigera"
-
-#: ../storage/exchange-delegates.glade.h:14
-msgid "_Inbox:"
-msgstr "_Inkorgen:"
-
-#: ../storage/exchange-delegates.glade.h:15
-msgid "_Tasks:"
-msgstr "_Uppgifter:"
-
-#: ../storage/exchange-folder-tree.glade.h:1
-msgid "Exchange Folder Tree"
-msgstr "Exchange-mappträd"
-
-#: ../storage/exchange-migrate.c:60
-msgid "Migrating Exchange Folders..."
-msgstr "Migrerar Exchange-mappar..."
-
-#: ../storage/exchange-migrate.c:68
+#: ../tools/exchange-autoconfig-wizard.c:282
 #, c-format
 msgid ""
-"The location and hierarchy of the Evolution exchange account folders are changed since Evolution %d.%d.%d.\n"
-"\n"
-"Please be patient while Evolution migrates your folders..."
+"Could not connect to the Exchange server.\n"
+"Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
-"Platsen och hierarkin för Evolution-exchangekontomapparna har ändrats sedan Evolution %d.%d.%d.\n"
-"\n"
-"Var vänlig vänta medan Evolution migrerar dina mappar..."
+"Kunde inte ansluta till Exchange-servern.\n"
+"Försäkra dig om att URL:en är korrekt (försök med \"%s\" istället för \"%s\"?) och försök igen."
 
-#: ../storage/exchange-migrate.c:101
+#: ../tools/exchange-autoconfig-wizard.c:290
+msgid ""
+"Could not locate Exchange server.\n"
+"Make sure the server name is spelled correctly and try again."
+msgstr ""
+"Kunde inte lokalisera Exchange-servern.\n"
+"Försäkra dig om att servernamnet är korrekt stavat och försök igen."
+
+#: ../tools/exchange-autoconfig-wizard.c:299
+msgid ""
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again."
+msgstr ""
+"Kunde inte autentisera till Exchange-servern.\n"
+"Försäkra dig om att användarnamnet och lösenordet är korrekta och försök igen."
+
+#: ../tools/exchange-autoconfig-wizard.c:306
 #, c-format
 msgid ""
-"Warning: Evolution could not migrate all the Exchange account data from the version %d.%d.%d. \n"
-"The data hasn't been deleted, but will not be seen by this version of Evolution"
+"Could not authenticate to the Exchange server.\n"
+"Make sure the username and password are correct and try again.\n"
+"\n"
+"You may need to specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
 msgstr ""
-"Varning: Evolution kunde inte migrera all Exchange-kontodata från version %d.%d.%d. \n"
-"Dessa data har inte tagits bort, men de kommer inte att kunna ses av denna version av Evolution"
+"Kunde inte autentisera till Exchange-servern.\n"
+"Försäkra dig om att användarnamnet och lösenordet är korrekta och försök igen.\n"
+"Du kan kanske behöva ange Windows-domännamnet som en del av ditt användarnamn (t.ex. \"MIN-DOMÄN\\%s\")."
 
-#: ../storage/exchange-migrate.c:132
+#: ../tools/exchange-autoconfig-wizard.c:318
+msgid ""
+"Could not find OWA data at the indicated URL.\n"
+"Make sure the URL is correct and try again."
+msgstr ""
+"Kunde inte hitta OWA-data på den angivna URL:en.\n"
+"Försäkra dig om att URL:en är korrekt och försök igen."
+
+#: ../tools/exchange-autoconfig-wizard.c:324
+msgid ""
+"Evolution Connector for Microsoft Exchange requires access to certain functionality on the Exchange server that appears to be disabled or blocked.  (This is usually unintentional.)  Your Exchange administrator will need to enable this functionality in order for you to be able to use the Evolution Connector.\n"
+"\n"
+"For information to provide to your Exchange administrator, please follow the link below:"
+msgstr ""
+"Evolution Connector för Microsoft Exchange kräver åtkomst till en del funktionalitet på Exchange-servern som verkar vara inaktiverad eller blockerad (detta är vanligtvis oavsiktligt). Din Exchange-administratör måste aktivera denna funktionalitet för att du ska kunna använda Evolution Connector.\n"
+"\n"
+"Följ länken nedan för information som du kan ge till din Exchange-administratör:"
+
+#: ../tools/exchange-autoconfig-wizard.c:337
+msgid "The Exchange server URL you provided is for an Exchange 5.5 server. Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 and 2003 only."
+msgstr "URL:en till Exchange-servern som du angav är för en Exchange 5.5-server. Evolution Connector för Microsoft Exchange stöder endast Microsoft Exchange 2000 och 2003."
+
+#: ../tools/exchange-autoconfig-wizard.c:345
+msgid "Could not configure Exchange account because an unknown error occurred. Check the URL, username, and password, and try again."
+msgstr "Kunde inte konfigurera Exchange-kontot eftersom ett okänt fel inträffade.Kontrollera URL:en, användarnamnet och lösenordet och försök igen."
+
+#: ../tools/exchange-autoconfig-wizard.c:361
+msgid "Evolution Connector for Microsoft Exchange could not find the Global Catalog replica for your site. Please enter the name of your Global Catalog server. You may need to ask your system administrator for the correct value."
+msgstr "Evolution Connector för Microsoft Exchange kunde inte hitta kopian av den globala katalogen för din webbplats. Ange namnet på servern för din globala katalog. Du kan behöva fråga din systemadministratör om det korrekta värdet."
+
+#: ../tools/exchange-autoconfig-wizard.c:369
+msgid "GC _Server:"
+msgstr "GC-_server:"
+
+#: ../tools/exchange-autoconfig-wizard.c:402
 #, c-format
-msgid "Migrating `%s':"
-msgstr "Migrerar \"%s\":"
+msgid "Could not authenticate to the Global Catalog server. You may need to go back and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
+msgstr "Kunde inte autentisera till den globala katalogservern. Du kan behöva gå tillbaka och ange Windows-domännamnet som del av ditt användarnamn (t.ex. \"MIN-DOMÄN\\%s\")."
 
-#: ../storage/exchange-oof.glade.h:1
+#: ../tools/exchange-autoconfig-wizard.c:409
 msgid ""
-"<b>Currently, your status is \"Out of the Office\". </b>\n"
-"\n"
-"Would you like to change your status to \"In the Office\"? "
+"Could not connect to specified server.\n"
+"Please check the server name and try again."
 msgstr ""
-"<b>För tillfället är din status \"Inte inne\".</b>\n"
-"\n"
-"Vill du ändra din status till \"Inne\"? "
+"Kunde inte ansluta till den angivna servern.\n"
+"Kontrollera servernamnet och försök igen."
 
-#: ../storage/exchange-oof.glade.h:4
-msgid "<b>Out of Office Message:</b>"
-msgstr "<b>Inte inne-meddelande:</b>"
+#: ../tools/exchange-autoconfig-wizard.c:421
+msgid "Configuration Failed"
+msgstr "Konfigurering misslyckades"
 
-#: ../storage/exchange-oof.glade.h:5
-msgid "<b>Status:</b>"
-msgstr "<b>Status:</b>"
+#: ../tools/exchange-autoconfig-wizard.c:421
+msgid "Evolution Connector for Microsoft Exchange has encountered a problem configuring your Exchange account."
+msgstr "Evolution Connector för Microsoft Exchange har påträffat ett problem vid konfiguration av ditt Exchange-konto."
 
-#: ../storage/exchange-oof.glade.h:6
+#: ../tools/exchange-autoconfig-wizard.c:448
+msgid "Your account information is as follows. Please correct any errors, then click \"Forward\"."
+msgstr "Din kontoinformation är som följer. Korrigera eventuella fel och klicka sedan på \"Framåt\"."
+
+#: ../tools/exchange-autoconfig-wizard.c:456
+msgid "Full _Name:"
+msgstr "Fullständigt _namn:"
+
+#: ../tools/exchange-autoconfig-wizard.c:460
+msgid "_Email Address:"
+msgstr "_E-postadress:"
+
+#: ../tools/exchange-autoconfig-wizard.c:464
+msgid "Make this my _default account"
+msgstr "Gör _detta till mitt standardkonto"
+
+#: ../tools/exchange-autoconfig-wizard.c:481
+#: ../tools/exchange-autoconfig-wizard.c:485
+msgid "Unknown"
+msgstr "Okänd"
+
+#: ../tools/exchange-autoconfig-wizard.c:508
+msgid "Done"
+msgstr "Klar"
+
+#: ../tools/exchange-autoconfig-wizard.c:508
+msgid "Your Connector account is now ready to use. Click the \"Apply\" button to save your settings."
+msgstr "Ditt Connector-konto är nu redo att användas. Klicka på knappen \"Verkställ\" för att spara dina inställningar."
+
+#: ../tools/exchange-autoconfig-wizard.c:542
 msgid ""
-"<small>The message specified below will be automatically sent to each person who sends\n"
-"mail to you while you are out of the office.</small>"
+"Configuration system error.\n"
+"Unable to create new account."
 msgstr ""
-"<small>Meddelandet nedan kommer automatiskt att skickas till varje person som\n"
-"som skickar e-post till dig när du inte är inne på kontoret.</small>"
+"Konfigurationssystemfel.\n"
+"Kan inte skapa nytt konto."
 
-#: ../storage/exchange-oof.glade.h:8
-msgid "I am currently in the office"
-msgstr "Jag är på kontoret för tillfället"
+#: ../tools/exchange-autoconfig-wizard.c:556
+msgid "You may only configure a single Exchange account"
+msgstr "Du kan endast konfigurera ett Exchange-konto"
 
-#: ../storage/exchange-oof.glade.h:9
-msgid "I am currently out of the office"
-msgstr "Jag är inte på kontoret för tillfället"
+#: ../tools/exchange-autoconfig-wizard.c:731
+msgid "Evolution Connector for Microsoft Exchange Configuration"
+msgstr "Konfiguration av Evolution Connector för Microsoft Exchange"
 
-#: ../storage/exchange-oof.glade.h:10
-msgid "No, Don't Change Status"
-msgstr "Nje, ändra inte status"
-
-#: ../storage/exchange-oof.glade.h:11
-msgid "Out of Office Assistant"
-msgstr "Inte inne-assistent"
-
-#: ../storage/exchange-oof.glade.h:12
-msgid "Yes, Change Status"
-msgstr "Ja, ändra status"
-
-#: ../storage/exchange-passwd-expiry.glade.h:1
-msgid "Password Expiry Warning..."
-msgstr "Varning om att lösenordet går ut..."
-
-#: ../storage/exchange-passwd-expiry.glade.h:2
-msgid "Your password will expire in 7 days..."
-msgstr "Ditt lösenord kommer att gå ut om 7 dagar..."
-
-#: ../storage/exchange-passwd-expiry.glade.h:3
-msgid "_Change Password"
-msgstr "_Byt lösenord"
-
-#: ../storage/exchange-passwd-expiry.glade.h:4
-msgid "ok_button"
-msgstr "ok-knapp"
-
-#: ../storage/exchange-permissions-dialog.glade.h:1
-msgid "    "
-msgstr "    "
-
-#: ../storage/exchange-permissions-dialog.glade.h:2
-msgid "<b>Permissions</b>"
-msgstr "<b>Rättigheter</b>"
-
-#: ../storage/exchange-permissions-dialog.glade.h:3
-msgid "Cannot Delete"
-msgstr "Kan inte ta bort"
-
-#: ../storage/exchange-permissions-dialog.glade.h:4
-msgid "Cannot Edit"
-msgstr "Kan inte redigera"
-
-#: ../storage/exchange-permissions-dialog.glade.h:5
-msgid "Create items"
-msgstr "Skapa objekt"
-
-#: ../storage/exchange-permissions-dialog.glade.h:6
-msgid "Create subfolders"
-msgstr "Skapa undermappar"
-
-#: ../storage/exchange-permissions-dialog.glade.h:7
-msgid "Delete Any Items"
-msgstr "Ta bort alla objekt"
-
-#: ../storage/exchange-permissions-dialog.glade.h:8
-msgid "Delete Own Items"
-msgstr "Ta bort egna objekt"
-
-#: ../storage/exchange-permissions-dialog.glade.h:9
-msgid "Edit Any Items"
-msgstr "Redigera alla objekt"
-
-#: ../storage/exchange-permissions-dialog.glade.h:10
-msgid "Edit Own Items"
-msgstr "Redigera egna objekt"
-
-#: ../storage/exchange-permissions-dialog.glade.h:11
-msgid "Folder contact"
-msgstr "Mappkontakt"
-
-#: ../storage/exchange-permissions-dialog.glade.h:12
-msgid "Folder owner"
-msgstr "Mappägare"
-
-#: ../storage/exchange-permissions-dialog.glade.h:13
-msgid "Folder visible"
-msgstr "Mapp synlig"
-
-#: ../storage/exchange-permissions-dialog.glade.h:14
-msgid "Read items"
-msgstr "Lästa objekt"
-
-#: ../storage/exchange-permissions-dialog.glade.h:15
-msgid "Role: "
-msgstr "Roll: "
-
-#: ../storage/exchange-storage.c:338
-msgid "Connecting..."
-msgstr "Ansluter..."
-
-#: ../storage/ximian-connector-setup.c:75
-msgid "Evolution Connector for Microsoft Exchange Setup Tool"
-msgstr "Konfigurationsverktyg för Evolution Connector för Microsoft Exchange"
-
-#: ../storage/ximian-connector.xml.h:1
+#: ../tools/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
 msgstr "Byt ditt Exchange-serverlösenord"
 
-#: ../storage/ximian-connector.xml.h:2
+#: ../tools/ximian-connector.xml.h:2
 msgid "Folder _Size"
 msgstr "Mapp_storlek"
 
-#: ../storage/ximian-connector.xml.h:3
+#: ../tools/ximian-connector.xml.h:3
 msgid "Get the size of personal folders"
 msgstr "Hämta storleken på personliga mappar"
 
-#: ../storage/ximian-connector.xml.h:4
+#: ../tools/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
 msgstr "Prenumerera på annan _användares mapp..."
 
-#: ../storage/ximian-connector.xml.h:5
+#: ../tools/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Prenumerera på en mapp som tillhör någon annan användare på servern"
 
-#: ../storage/ximian-connector.xml.h:6
+#: ../tools/ximian-connector.xml.h:6
 msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr "Säg upp prenumerationen på en mapp som lagts till med \"Prenumerera på annan användares mapp\""
 
 # Osäker / unsure
-#: ../storage/ximian-connector.xml.h:7
+#: ../tools/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
-msgstr "Visa eller ändra dina inställningar för delegation av Exchange-kalendern"
+msgstr "Visa eller ändra dina inställningar för delegering av Exchange-kalendern"
 
-#: ../storage/ximian-connector.xml.h:8
+#: ../tools/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr "Visa eller ändra din inte inne-status och ditt autosvarsmeddelande"
 
-#: ../storage/ximian-connector.xml.h:9
+#: ../tools/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
 msgstr "_Byt Exchange-lösenord..."
 
 # Osäker / unsure
-#: ../storage/ximian-connector.xml.h:10
+#: ../tools/ximian-connector.xml.h:10
 msgid "_Delegation Assistant"
-msgstr "_Delegationsassistent"
+msgstr "_Delegeringsassistent"
 
-#: ../storage/ximian-connector.xml.h:11
+#: ../tools/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
 msgstr "_Inte inne-assistent"
 
-#: ../storage/ximian-connector.xml.h:12
+#: ../tools/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Säg upp prenumeration på annan användares mapp"
 
-#~ msgid "%sEnter password for %s"
-#~ msgstr "%sAnge lösenord för %s"
+#~ msgid ""
+#~ "Unable to schedule resource '%s' for recurring meetings.\n"
+#~ "You must book each meeting separately."
+#~ msgstr ""
+#~ "Kan inte schemalägga resursen \"%s\" för återkommande sammanträden.\n"
+#~ "Du måste boka varje sammanträde separat."
+#~ msgid "Evolution Exchange backend process"
+#~ msgstr "Bakändesprocess för Evolution Exchange"
+#~ msgid "Could not connect to %s: Please restart Evolution"
+#~ msgstr "Kunde inte ansluta till %s: Starta om Evolution"
+#~ msgid "Count not read file '%s': %s"
+#~ msgstr "Kunde inte läsa filen \"%s\": %s"
+#~ msgid "Wrong size file '%s'"
+#~ msgstr "Fel storlek på filen \"%s\""
+#~ msgid "Path too long: %s"
+#~ msgstr "Sökvägen för lång: %s"
+#~ msgid "Could not start status thread: %s"
+#~ msgstr "Kunde inte starta statustråd: %s"
+#~ msgid "Lost connection to %s"
+#~ msgstr "Tappade anslutningen till %s"
+#~ msgid "Error communicating with %s: %s"
+#~ msgstr "Fel vid kommunikation med %s: %s"
+#~ msgid "Evolution Addressbook Exchange backend"
+#~ msgstr "Evolutions adressboksbakände för Exchange"
+#~ msgid "Evolution Calendar Exchange backend"
+#~ msgstr "Evolutions kalenderbakände för Exchange"
+#~ msgid "Evolution Connector for Microsoft Exchange"
+#~ msgstr "Evolution Connector för Microsoft Exchange"
+#~ msgid "*"
+#~ msgstr "*"
+#~ msgid "Migrating Exchange Folders..."
+#~ msgstr "Migrerar Exchange-mappar..."
+#~ msgid ""
+#~ "The location and hierarchy of the Evolution exchange account folders are "
+#~ "changed since Evolution %d.%d.%d.\n"
+#~ "\n"
+#~ "Please be patient while Evolution migrates your folders..."
+#~ msgstr ""
+#~ "Platsen och hierarkin för Evolution-exchangekontomapparna har ändrats "
+#~ "sedan Evolution %d.%d.%d.\n"
+#~ "\n"
+#~ "Var vänlig vänta medan Evolution migrerar dina mappar..."
+#~ msgid ""
+#~ "Warning: Evolution could not migrate all the Exchange account data from "
+#~ "the version %d.%d.%d. \n"
+#~ "The data hasn't been deleted, but will not be seen by this version of "
+#~ "Evolution"
+#~ msgstr ""
+#~ "Varning: Evolution kunde inte migrera all Exchange-kontodata från version "
+#~ "%d.%d.%d. \n"
+#~ "Dessa data har inte tagits bort, men de kommer inte att kunna ses av "
+#~ "denna version av Evolution"
+#~ msgid "Migrating `%s':"
+#~ msgstr "Migrerar \"%s\":"
+#~ msgid "<b>Out of Office Message:</b>"
+#~ msgstr "<b>Inte inne-meddelande:</b>"
+#~ msgid "ok_button"
+#~ msgstr "ok-knapp"
+#~ msgid "    "
+#~ msgstr "    "
+#~ msgid "<b>Permissions</b>"
+#~ msgstr "<b>Rättigheter</b>"
+#~ msgid "Connecting..."
+#~ msgstr "Ansluter..."
+#~ msgid "Evolution Connector for Microsoft Exchange Setup Tool"
+#~ msgstr ""
+#~ "Konfigurationsverktyg för Evolution Connector för Microsoft Exchange"
+#~ msgid "Always check for new mail in this folder"
+#~ msgstr "Kontrollera alltid efter nya meddelanden i denna mapp"
 #~ msgid "%s at %s on behalf of %s"
 #~ msgstr "%s klockan %s på uppdrag av %s"
 
