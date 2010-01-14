@@ -732,6 +732,15 @@ exchange_get_folder_info (CamelStore *store, const gchar *top, guint32 flags, Ca
 
 	RETURN_VAL_IF_NOT_CONNECTED (exch, ex, NULL);
 
+	if (!exch->stub || !exch->stub->cmd) {
+		/* it means the stub process stopped/crashed meanwhile,
+		   which is quite unlikely, but can happen. */
+		camel_exception_setv (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
+				      _("Could not connect to %s: Please restart Evolution"),
+				      _("Evolution Exchange backend process"));
+		return NULL;
+	}
+
 	if (camel_stub_marshal_eof (exch->stub->cmd))
 		return NULL;
 
