@@ -53,5 +53,5 @@ guint32             camel_exchange_summary_get_article_num      (CamelFolderSumm
 void                camel_exchange_summary_set_article_num      (CamelFolderSummary *summary,
 								 guint32            high_article_num);
 
-#endif /* ! _CAMEL_EXCHANGE_SUMMARY_H */
+#endif /* _CAMEL_EXCHANGE_SUMMARY_H */
 

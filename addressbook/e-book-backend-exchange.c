@@ -2866,7 +2866,7 @@ e_book_backend_exchange_construct (EBookBackendExchange *backend)
 	g_return_val_if_fail (backend != NULL, FALSE);
 	g_return_val_if_fail (E_IS_BOOK_BACKEND_EXCHANGE (backend), FALSE);
 
-	if (! e_book_backend_construct (E_BOOK_BACKEND (backend)))
+	if (!e_book_backend_construct (E_BOOK_BACKEND (backend)))
 		return FALSE;
 
 	return TRUE;
@@ -2914,7 +2914,7 @@ e_book_backend_exchange_new (void)
 
 	backend = g_object_new (e_book_backend_exchange_get_type (), NULL);
 
-	if (! e_book_backend_exchange_construct (backend)) {
+	if (!e_book_backend_exchange_construct (backend)) {
 		g_object_unref (backend);
 
 		return NULL;

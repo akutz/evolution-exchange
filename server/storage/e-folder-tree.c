@@ -232,7 +232,7 @@ e_folder_tree_add (EFolderTree *folder_tree,
 	g_return_val_if_fail (g_path_is_absolute (path), FALSE);
 
 	/* Can only "add" a new root folder if the tree is empty */
-	if (! strcmp (path, "/")) {
+	if (!strcmp (path, "/")) {
 		folder = g_hash_table_lookup (folder_tree->path_to_folder, path);
 		if (folder) {
 			if (folder->subfolders) {

@@ -486,7 +486,7 @@ e_storage_async_open_folder (EStorage *storage,
 		return;
 	}
 
-	if (! e_folder_get_has_subfolders (folder)) {
+	if (!e_folder_get_has_subfolders (folder)) {
 		(* callback) (storage, E_STORAGE_OK, path, data);
 		return;
 	}
@@ -694,7 +694,7 @@ e_storage_new_folder (EStorage *storage,
 
 	priv = storage->priv;
 
-	if (! e_folder_tree_add (priv->folder_tree, path, e_folder))
+	if (!e_folder_tree_add (priv->folder_tree, path, e_folder))
 		return FALSE;
 
 	/* If this is the child of a folder that has a pseudo child,

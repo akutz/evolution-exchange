@@ -29,4 +29,4 @@ struct _CamelExchangeSearchClass {
 CamelType          camel_exchange_search_get_type (void);
 CamelFolderSearch *camel_exchange_search_new      (void);
 
-#endif /* ! _CAMEL_EXCHANGE_SEARCH_H */
+#endif /* _CAMEL_EXCHANGE_SEARCH_H */

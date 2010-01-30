@@ -34,5 +34,5 @@ GType       e_book_backend_gal_get_type (void);
 #define E_IS_BOOK_BACKEND_GAL(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), E_TYPE_BOOK_BACKEND_GAL))
 #define E_IS_BOOK_BACKEND_GAL_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), E_TYPE_BOOK_BACKEND_GAL))
 
-#endif /* ! __E_BOOK_BACKEND_GAL_H__ */
+#endif /* __E_BOOK_BACKEND_GAL_H__ */
 

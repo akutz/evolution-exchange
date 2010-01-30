@@ -1993,28 +1993,28 @@ tool_server_controls( LDAP *ld, LDAPControl *extra_c, gint count )
 	LDAPControl c[3], **ctrls;
 
 	ctrls = (LDAPControl**) malloc(sizeof(c) + (count+1)*sizeof(LDAPControl*));
-	if ( ctrls == NULL ) {
+	if (ctrls == NULL) {
 		fprintf( stderr, "No memory\n" );
 		exit( EXIT_FAILURE );
 	}
 
-	while ( count-- ) {
+	while (count--) {
 		ctrls[i++] = extra_c++;
 	}
 	ctrls[i] = NULL;
 
 	err = ldap_set_option( ld, LDAP_OPT_SERVER_CONTROLS, ctrls );
 
-	if ( err != LDAP_SUCCESS ) {
+	if (err != LDAP_SUCCESS) {
 		for ( j = 0; j < i; j++ ) {
-			if ( ctrls[j]->ldctl_iscritical ) crit = 1;
+			if (ctrls[j]->ldctl_iscritical) crit = 1;
 		}
 		fprintf( stderr, "Could not set %scontrols\n",
 			crit ? "critical " : "" );
 	}
 
 	free( ctrls );
-	if ( crit ) {
+	if (crit) {
 		exit( EXIT_FAILURE );
 	}
 }
@@ -2056,16 +2056,16 @@ parse_page_control(
 	rc = ldap_parse_result( ld, result,
 		&err, NULL, NULL, NULL, &ctrl, 0 );
 
-	if ( rc != LDAP_SUCCESS ) {
+	if (rc != LDAP_SUCCESS) {
 		ldap_perror(ld, "ldap_parse_result");
 		exit( EXIT_FAILURE );
 	}
 
-	if ( err != LDAP_SUCCESS ) {
+	if (err != LDAP_SUCCESS) {
 		fprintf( stderr, "Error: %s (%d)\n", ldap_err2string(err), err );
 	}
 
-	if ( ctrl ) {
+	if (ctrl) {
 		/* Parse the control value
 		 * searchResult ::= SEQUENCE {
 		 *		size	INTEGER (0..maxInt),
@@ -2075,7 +2075,7 @@ parse_page_control(
 		 */
 		ctrlp = *ctrl;
 		ber = ber_init( &ctrlp->ldctl_value );
-		if ( ber == NULL ) {
+		if (ber == NULL) {
 			fprintf( stderr, "Internal error.\n");
 			return EXIT_FAILURE;
 		}
@@ -2084,13 +2084,13 @@ parse_page_control(
 		ber_dupbv( cookie, &servercookie );
 		(void) ber_free( ber, 1 );
 
-		if ( tag == LBER_ERROR ) {
+		if (tag == LBER_ERROR) {
 			fprintf( stderr,
 				"Paged results response control could not be decoded.\n");
 			return EXIT_FAILURE;
 		}
 
-		if ( entriesLeft < 0 ) {
+		if (entriesLeft < 0) {
 			fprintf( stderr,
 				"Invalid entries estimate in paged results response.\n");
 			return EXIT_FAILURE;
@@ -2140,7 +2140,7 @@ static gint dosearch(
 		sctrls, cctrls, timeout, size /*LDAP_NO_LIMIT*/, &msgid );
 	g_mutex_unlock (bl->priv->ldap_lock);
 
-	if ( rc != LDAP_SUCCESS ) {
+	if (rc != LDAP_SUCCESS) {
 		return( rc );
 	}
 
@@ -2158,7 +2158,7 @@ static gint dosearch(
 			EContact *contact;
 			const gchar *uid;
 
-			switch ( ldap_msgtype( msg ) ) {
+			switch (ldap_msgtype( msg )) {
 			case LDAP_RES_SEARCH_ENTRY:
 				count ++;
 				g_mutex_unlock (bl->priv->ldap_lock);
@@ -2183,7 +2183,7 @@ static gint dosearch(
 				break;
 
 			case LDAP_RES_SEARCH_RESULT:
-				if ( pageSize != 0 ) {
+				if (pageSize != 0) {
 					/* we hold the lock already */
 					rc = parse_page_control (bl->priv->ldap, msg, &cookie);
 				}
@@ -2198,7 +2198,7 @@ static gint dosearch(
 	}
 	g_mutex_unlock (bl->priv->ldap_lock);
 
-	if ( rc == -1 ) {
+	if (rc == -1) {
 		g_mutex_lock (bl->priv->ldap_lock);
 		ldap_perror (bl->priv->ldap, "ldap_result");
 		g_mutex_unlock (bl->priv->ldap_lock);
@@ -2239,12 +2239,12 @@ getNextPage:
 	/*start iteration*/
 
 	i = 0;
-	if ( pagedResults ) {
+	if (pagedResults) {
 		if (( prber = ber_alloc_t(LBER_USE_DER)) == NULL ) {
 			return;
 		}
 		ber_printf( prber, "{iO}", pageSize, &cookie );
-		if ( ber_flatten2( prber, &c[i].ldctl_value, 0 ) == -1 ) {
+		if (ber_flatten2( prber, &c[i].ldctl_value, 0 ) == -1) {
 			return;
 		}
 		d(printf ("Setting parameters		\n"));
@@ -2270,7 +2270,7 @@ getNextPage:
 
 	/* loop to get the next set of entries */
 
-	if ( (pageSize !=0 ) && (morePagedResults != 0)) {
+	if ((pageSize !=0) && (morePagedResults != 0)) {
 		d(printf ("Start next iteration\n"));
 		goto getNextPage;
 	} else {
@@ -2423,7 +2423,7 @@ ber_flatten2( BerElement *ber, struct berval *bv, gint alloc )
 {
 	struct berval *tmp;
 
-	if ( ber_flatten( ber, &tmp) == -1 ) {
+	if (ber_flatten( ber, &tmp) == -1) {
 		return;
 	}
 	bv->bv_len = tmp->bv_len;
