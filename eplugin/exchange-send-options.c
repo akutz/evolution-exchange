@@ -33,6 +33,8 @@
 
 #include "exchange-send-options.h"
 
+G_DEFINE_TYPE (ExchangeSendOptionsDialog, exchange_sendoptions_dialog, G_TYPE_OBJECT)
+
 struct _ExchangeSendOptionsDialogPrivate {
 	/*Widgets*/
 	GtkWidget *main;
@@ -64,9 +66,7 @@ struct _ExchangeSendOptionsDialogPrivate {
 	gchar *help_section;
 };
 
-static void exchange_sendoptions_dialog_class_init (GObjectClass *object_class);
 static void exchange_sendoptions_dialog_finalize (GObject *object);
-static void exchange_sendoptions_dialog_init (GObject *object);
 static void exchange_sendoptions_dialog_dispose (GObject *object);
 
 static GObjectClass *parent_class = NULL;
@@ -211,29 +211,6 @@ exchange_sendoptions_dialog_new (void) {
 	sod = g_object_new (EXCHANGE_TYPE_SENDOPTIONS_DIALOG, NULL);
 
 	return sod;
-}
-
-GType exchange_sendoptions_dialog_get_type (void)
-{
-  static GType type = 0;
-  if (type == 0) {
-    static const GTypeInfo info = {
-      sizeof (ExchangeSendOptionsDialogClass),
-      NULL,   /* base_init */
-      NULL,   /* base_finalize */
-      (GClassInitFunc) exchange_sendoptions_dialog_class_init,   /* class_init */
-      NULL,   /* class_finalize */
-      NULL,   /* class_data */
-      sizeof (ExchangeSendOptionsDialog),
-     0,      /* n_preallocs */
-     (GInstanceInitFunc) exchange_sendoptions_dialog_init,
-	NULL    /* instance_init */
-    };
-    type = g_type_register_static (G_TYPE_OBJECT,
-                                   "ExchangeSendOptionsDialogType",
-                                   &info, 0);
-  }
-  return type;
 }
 
 static void exchange_send_options_cb (GtkDialog *dialog, gint state, gpointer func_data)
@@ -526,12 +503,10 @@ exchange_sendoptions_dialog_run (ExchangeSendOptionsDialog *sod, GtkWidget *pare
 }
 
 static void
-exchange_sendoptions_dialog_class_init (GObjectClass *object)
+exchange_sendoptions_dialog_class_init (ExchangeSendOptionsDialogClass *klass)
 {
-	ExchangeSendOptionsDialogClass *klass;
 	GObjectClass *object_class;
 
-	klass = EXCHANGE_SENDOPTIONS_DIALOG_CLASS (object);
 	parent_class = g_type_class_peek_parent (klass);
 	object_class = G_OBJECT_CLASS (klass);
 
@@ -549,20 +524,17 @@ exchange_sendoptions_dialog_class_init (GObjectClass *object)
 }
 
 static void
-exchange_sendoptions_dialog_init (GObject *object)
+exchange_sendoptions_dialog_init (ExchangeSendOptionsDialog *sod)
 {
-
-	ExchangeSendOptionsDialog *sod;
 	ExchangeSendOptionsDialogPrivate *priv;
-	ExchangeSendOptions *new;
+	ExchangeSendOptions *options;
 
-	sod = EXCHANGE_SENDOPTIONS_DIALOG (object);
-	new = g_new0 (ExchangeSendOptions, 1);
+	options = g_new0 (ExchangeSendOptions, 1);
 
 	priv = g_new0 (ExchangeSendOptionsDialogPrivate, 1);
 
 	sod->priv = priv;
-	sod->options = new;
+	sod->options = options;
 	sod->options->send_as_del_enabled = FALSE;
 	sod->options->delivery_enabled = FALSE;
 	sod->options->read_enabled = FALSE;
@@ -578,7 +550,6 @@ exchange_sendoptions_dialog_init (GObject *object)
 	priv->proxy_name_selector = NULL;
 	priv->read_receipt = NULL;
 	priv->delivery_receipt = NULL;
-
 }
 
 static void

@@ -34,8 +34,8 @@ typedef struct _E2kSidClass                   E2kSidClass;
 #define E2K_MAKE_TYPE(type_name,TypeName,class_init,init,parent) \
 GType type_name##_get_type(void)			\
 {							\
-	static GType type = 0;				\
-	if (!type){					\
+	static volatile gsize type_id__volatile = 0;	\
+	if (g_once_init_enter (&type_id__volatile)) {	\
 		static GTypeInfo const object_info = {	\
 			sizeof (TypeName##Class),	\
 							\
@@ -50,16 +50,17 @@ GType type_name##_get_type(void)			\
 			0,	/* n_preallocs */	\
 			(GInstanceInitFunc) init,	\
 		};					\
-		type = g_type_register_static (parent, #TypeName, &object_info, 0); \
+		GType type = g_type_register_static (parent, #TypeName, &object_info, 0); \
+		g_once_init_leave (&type_id__volatile, type);	\
 	}						\
-	return type;					\
+	return type_id__volatile;			\
 }
 
 #define E2K_MAKE_TYPE_WITH_IFACE(type_name,TypeName,class_init,init,parent,iface_init,iparent) \
 GType type_name##_get_type(void)			\
 {							\
-	static GType type = 0;				\
-	if (!type){					\
+	static volatile gsize type_id__volatile = 0;	\
+	if (g_once_init_enter (&type_id__volatile)) {	\
 		static GTypeInfo const object_info = {	\
 			sizeof (TypeName##Class),	\
 							\
@@ -79,10 +80,11 @@ GType type_name##_get_type(void)			\
 			NULL,					\
 			NULL					\
 		};						\
-		type = g_type_register_static (parent, #TypeName, &object_info, 0);	\
+		GType type = g_type_register_static (parent, #TypeName, &object_info, 0);	\
 		g_type_add_interface_static (type, iparent, &iface_info);		\
+		g_once_init_leave (&type_id__volatile, type);	\
 	}						\
-	return type;					\
+	return type_id__volatile;					\
 }
 
 /* Put "E2K_KEEP_PRECEDING_COMMENT_OUT_OF_PO_FILES;" on a line to
