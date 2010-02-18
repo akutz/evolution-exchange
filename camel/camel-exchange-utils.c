@@ -2926,12 +2926,19 @@ camel_exchange_utils_get_folder_info (CamelService *service,
 	g_return_val_if_fail (unread_counts != NULL, FALSE);
 	g_return_val_if_fail (folder_flags != NULL, FALSE);
 
+	/* use lock here to have done scanning of foreign hierarchy
+	   only once, and to not call get_folder_info_data simultaneously
+	   from more than one thread */
+	g_static_rec_mutex_lock (&ed->changed_msgs_mutex);
+
 	get_folder_info_data (ed, top, store_flags, folder_names, folder_uris, unread_counts, folder_flags);
 
 	if (ed->new_folder_id == 0) {
 		ed->new_folder_id = g_signal_connect (ed->account, "new_folder", G_CALLBACK (account_new_folder), ed);
 		ed->removed_folder_id = g_signal_connect (ed->account, "removed_folder", G_CALLBACK (account_removed_folder), ed);
 	}
+
+	g_static_rec_mutex_unlock (&ed->changed_msgs_mutex);
 
 	return TRUE;
 }
