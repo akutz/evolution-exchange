@@ -1887,6 +1887,15 @@ unmangle_sender_field (ExchangeData *ed, E2kOperation *op, const gchar *uri, gch
 }
 
 static void
+foreign_new_folder_cb (ExchangeAccount *account, EFolder *folder, GPtrArray *folders)
+{
+	g_return_if_fail (folder != NULL);
+	g_return_if_fail (folders != NULL);
+
+	g_ptr_array_add (folders, folder);
+}
+
+static void
 get_folder_info_data (ExchangeData *ed, const gchar *top, guint32 store_flags, GPtrArray **names, GPtrArray **uris, GArray **unread, GArray **flags)
 {
 	GPtrArray *folders = NULL;
@@ -1948,6 +1957,11 @@ get_folder_info_data (ExchangeData *ed, const gchar *top, guint32 store_flags, G
 	}
 
 	if (folders) {
+		guint new_folder_handler_id = 0;
+
+		if (ed->new_folder_id == 0)
+			new_folder_handler_id = g_signal_connect (ed->account, "new_folder", G_CALLBACK (foreign_new_folder_cb), folders);
+
 		for (i = 0; i < folders->len; i++) {
 			folder = folders->pdata[i];
 			hier = e_folder_exchange_get_hierarchy (folder);
@@ -1990,7 +2004,7 @@ get_folder_info_data (ExchangeData *ed, const gchar *top, guint32 store_flags, G
 					}
 					break;
 				case EXCHANGE_HIERARCHY_FOREIGN:
-					if (folder_flags & CAMEL_FOLDER_NOSELECT && ed->new_folder_id == 0) {
+					if ((folder_flags & CAMEL_FOLDER_NOSELECT) != 0 && ed->new_folder_id == 0) {
 						/* Rescan the hierarchy - as we don't rescan
 						   foreign hierarchies anywhere for mailer and
 						   only when we are starting up
@@ -2031,6 +2045,8 @@ get_folder_info_data (ExchangeData *ed, const gchar *top, guint32 store_flags, G
 			g_array_append_val (*flags, folder_flags);
 		}
 
+		if (new_folder_handler_id)
+			g_signal_handler_disconnect (ed->account, new_folder_handler_id);
 		g_ptr_array_free (folders, TRUE);
 	}
 }
