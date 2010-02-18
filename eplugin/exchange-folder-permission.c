@@ -82,7 +82,7 @@ call_folder_permissions (const gchar *uri)
 {
 	ExchangeAccount *account = NULL;
 	EFolder *folder = NULL;
-	gchar *path;
+	const gchar *path;
 
 	g_return_if_fail (uri != NULL);
 
@@ -285,11 +285,11 @@ is_eex_source_selected (EShellView *shell_view, gchar **puri)
 	g_return_val_if_fail (selector != NULL, FALSE);
 
 	source = e_source_selector_peek_primary_selection (selector);
-	uri = e_source_get_uri (source);
+	uri = source ? e_source_get_uri (source) : NULL;
 
 	g_object_unref (selector);
 
-	if (uri && !g_strrstr (uri, "exchange://")) {
+	if (!uri || !g_strrstr (uri, "exchange://")) {
 		g_free (uri);
 		return FALSE;
 	}
@@ -319,6 +319,39 @@ is_eex_source_selected (EShellView *shell_view, gchar **puri)
 	return TRUE;
 }
 
+static gboolean
+is_eex_source_available (EShellView *shell_view)
+{
+	EShellSidebar *shell_sidebar;
+	ESourceSelector *selector = NULL;
+	ESourceList *source_list;
+	ESourceGroup *group;
+	gint sources_count;
+
+	shell_sidebar = e_shell_view_get_shell_sidebar (shell_view);
+	g_return_val_if_fail (shell_sidebar != NULL, FALSE);
+
+	g_object_get (shell_sidebar, "selector", &selector, NULL);
+	g_return_val_if_fail (selector != NULL, FALSE);
+
+	source_list = e_source_selector_get_source_list (selector);
+	if (!source_list) {
+		g_object_unref (selector);
+		return FALSE;
+	}
+
+	group = e_source_list_peek_group_by_base_uri (source_list, "exchange://");
+	if (!group) {
+		g_object_unref (selector);
+		return FALSE;
+	}
+
+	sources_count = g_slist_length (e_source_group_peek_sources (group));
+	g_object_unref (selector);
+
+	return sources_count > 0;
+}
+
 #define NUM_ENTRIES 3
 
 static void
@@ -329,7 +362,7 @@ update_source_entries_cb (EShellView *shell_view, GtkActionEntry *entries)
 	GtkAction *action;
 	const gchar *group;
 	gchar *uri = NULL;
-	gboolean is_eex;
+	gboolean is_eex_source, is_eex_avail;
 	gint i;
 
 	g_return_if_fail (E_IS_SHELL_VIEW (shell_view));
@@ -340,16 +373,20 @@ update_source_entries_cb (EShellView *shell_view, GtkActionEntry *entries)
 	else if (strstr (entries->name, "tasks"))
 		group = "tasks";
 	else
-		group = "addressbook";
+		group = "contacts";
 
-	is_eex = is_eex_source_selected (shell_view, &uri);
+	is_eex_source = is_eex_source_selected (shell_view, &uri);
+	is_eex_avail = is_eex_source || is_eex_source_available (shell_view);
 	shell_window = e_shell_view_get_shell_window (shell_view);
 	action_group = e_shell_window_get_action_group (shell_window, group);
 
+	/* index 0 ... Permissions
+	   index 1 ... Subscribe to
+	   index 2 ... Unsubscribe */
 	for (i = 0; i < NUM_ENTRIES; i++) {
-		gboolean visible = is_eex;
+		gboolean visible = is_eex_avail;
 
-		action = gtk_action_group_get_action (action_group, entries->name);
+		action = gtk_action_group_get_action (action_group, entries[i].name);
 		g_return_if_fail (action != NULL);
 
 		if (visible && i == 2) {
@@ -358,7 +395,7 @@ update_source_entries_cb (EShellView *shell_view, GtkActionEntry *entries)
 		}
 
 		gtk_action_set_visible (action, visible);
-
+		gtk_action_set_sensitive (action, i == 1 || (visible && is_eex_source));
 	}
 
 	g_free (uri);
@@ -378,7 +415,7 @@ setup_source_actions (EShellView *shell_view, GtkActionEntry *entries)
 	else if (strstr (entries->name, "tasks"))
 		group = "tasks";
 	else
-		group = "addressbook";
+		group = "contacts";
 
 	shell_window = e_shell_view_get_shell_window (shell_view);
 
@@ -459,7 +496,7 @@ static GtkActionEntry calendar_entries[] = {
 gboolean
 eex_ui_calendar_permissions (GtkUIManager *ui_manager, EShellView *shell_view)
 {
-	g_return_val_if_fail (G_N_ELEMENTS (calendar_entries) != NUM_ENTRIES, FALSE);
+	g_return_val_if_fail (G_N_ELEMENTS (calendar_entries) == NUM_ENTRIES, FALSE);
 
 	setup_source_actions (shell_view, calendar_entries);
 
@@ -493,7 +530,7 @@ static GtkActionEntry tasks_entries[] = {
 gboolean
 eex_ui_tasks_permissions (GtkUIManager *ui_manager, EShellView *shell_view)
 {
-	g_return_val_if_fail (G_N_ELEMENTS (tasks_entries) != NUM_ENTRIES, FALSE);
+	g_return_val_if_fail (G_N_ELEMENTS (tasks_entries) == NUM_ENTRIES, FALSE);
 
 	setup_source_actions (shell_view, tasks_entries);
 
@@ -527,7 +564,7 @@ static GtkActionEntry addressbook_entries[] = {
 gboolean
 eex_ui_addressbook_permissions (GtkUIManager *ui_manager, EShellView *shell_view)
 {
-	g_return_val_if_fail (G_N_ELEMENTS (addressbook_entries) != NUM_ENTRIES, FALSE);
+	g_return_val_if_fail (G_N_ELEMENTS (addressbook_entries) == NUM_ENTRIES, FALSE);
 
 	setup_source_actions (shell_view, addressbook_entries);
 
