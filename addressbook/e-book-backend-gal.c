@@ -2556,7 +2556,7 @@ load_source (EBookBackend *backend,
 	gchar **tokens;
 	const gchar *offline;
 	gchar *uri;
-	gchar *book_name;
+	gchar *book_name = NULL;
 	gchar *dirname, *filename;
 	gint i, db_error;
 #if ENABLE_CACHE
@@ -2581,12 +2581,11 @@ load_source (EBookBackend *backend,
 
 	bl->priv->gal_uri = g_strdup (uri);
 	tokens = g_strsplit (uri, ";", 2);
-	g_free (uri);
-	if (tokens[0])
+	if (tokens[0]) {
+		g_free (uri);
 		uri = g_strdup (tokens [0]);
-	book_name = g_strdup (tokens[1]);
-	if (book_name == NULL)
-		return GNOME_Evolution_Addressbook_OtherError;
+		book_name = g_strdup (tokens[1]);
+	}
 	g_strfreev (tokens);
 
 	for (i=0; i< strlen (uri); i++) {
@@ -2607,6 +2606,9 @@ load_source (EBookBackend *backend,
 		e_book_backend_notify_writable (backend, FALSE);
 		e_book_backend_notify_connection_status (backend, FALSE);
 
+		g_free (book_name);
+		g_free (uri);
+
 		return GNOME_Evolution_Addressbook_RepositoryOffline;
 	}
 		d(printf("offlin==============\n"));
@@ -2621,6 +2623,9 @@ load_source (EBookBackend *backend,
 
 		dirname = g_build_filename (g_get_home_dir(), ".evolution/cache/addressbook", uri, book_name, NULL);
 		filename = g_build_filename (dirname, "cache.db", NULL);
+
+		g_free (book_name);
+		g_free (uri);
 
 		db_error = e_db3_utils_maybe_recover (filename);
 		if (db_error != 0) {
@@ -2719,6 +2724,8 @@ load_source (EBookBackend *backend,
 		e_book_backend_db_cache_set_filename (bl->priv->file_db, filename);
 		g_free (filename);
 		g_free (dirname);
+	} else {
+		g_free (book_name);
 		g_free (uri);
 	}
 #endif
