@@ -89,7 +89,7 @@ call_folder_permissions (const gchar *uri)
 	account = exchange_operations_get_exchange_account ();
 	if (!account)
 		return;
-	
+
 	sanitized_path = exchange_account_get_sanitized_path (uri);
 
 	folder = exchange_account_get_folder (account, sanitized_path);
