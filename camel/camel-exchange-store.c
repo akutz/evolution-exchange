@@ -418,6 +418,9 @@ exchange_get_folder (CamelStore *store, const gchar *folder_name,
 
 	RETURN_VAL_IF_NOT_CONNECTED (exch, ex, NULL);
 
+	if (!folder_name || !*folder_name || g_ascii_strcasecmp (folder_name, "inbox") == 0)
+		folder_name = "personal/Inbox";
+
 	folder_dir = exchange_path_to_physical (exch->storage_path, folder_name);
 
 	if (!camel_exchange_store_connected (exch, ex)) {

@@ -82,7 +82,7 @@ call_folder_permissions (const gchar *uri)
 {
 	ExchangeAccount *account = NULL;
 	EFolder *folder = NULL;
-	const gchar *sanitized_path;
+	gchar *sanitized_path;
 
 	g_return_if_fail (uri != NULL);
 
@@ -95,6 +95,8 @@ call_folder_permissions (const gchar *uri)
 	folder = exchange_account_get_folder (account, sanitized_path);
 	if (folder)
 		exchange_permissions_dialog_new (account, folder, NULL);
+
+	g_free (sanitized_path);
 }
 
 static gboolean

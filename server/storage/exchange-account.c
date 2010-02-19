@@ -1916,7 +1916,7 @@ sanitize_path (const gchar *path)
 		return g_strdup("");	/* ??? or NULL? */
 
 	comps = g_strsplit (path, ";", 2);
-	if (comps[1])
+	if (comps[0] && comps[1])
 		new_path = g_strdup_printf ("%s%s", comps[0], comps[1]);
 	else if (comps[0])
 		new_path = g_strdup (comps[0]);
@@ -1925,7 +1925,7 @@ sanitize_path (const gchar *path)
 	return new_path;
 }
 
-const gchar *
+gchar *
 exchange_account_get_sanitized_path (const gchar *uri)
 {
 	gchar *sanitized_path;
