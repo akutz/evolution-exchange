@@ -1906,6 +1906,35 @@ exchange_account_get_hierarchy_by_email (ExchangeAccount *account, const gchar *
 	return hier;
  }
 
+static gchar *
+sanitize_path (const gchar *path)
+{
+	gchar **comps;
+	gchar *new_path = NULL;
+
+	if (!path)
+		return g_strdup("");	/* ??? or NULL? */
+
+	comps = g_strsplit (path, ";", 2);
+	if (comps[1])
+		new_path = g_strdup_printf ("%s%s", comps[0], comps[1]);
+	else if (comps[0])
+		new_path = g_strdup (comps[0]);
+
+	g_strfreev (comps);
+	return new_path;
+}
+
+const gchar *
+exchange_account_get_sanitized_path (const gchar *uri)
+{
+	gchar *sanitized_path;
+
+	sanitized_path = sanitize_path (e2k_uri_path (uri));
+	e2k_uri_decode (sanitized_path);
+	return sanitized_path;
+}
+
 /**
  * exchange_account_get_folder:
  * @account: an #ExchangeAccount

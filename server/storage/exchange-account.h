@@ -83,6 +83,8 @@ gchar                  *exchange_account_get_account_uri_param (ExchangeAccount 
 const gchar            *exchange_account_get_standard_uri     (ExchangeAccount  *acct,
 							      const gchar       *item);
 
+const gchar	       *exchange_account_get_sanitized_path    (const gchar *uri);
+
 gchar                  *exchange_account_get_standard_uri_for (ExchangeAccount  *acct,
 							      const gchar       *home_uri,
 							      const gchar       *std_uri_prop);
