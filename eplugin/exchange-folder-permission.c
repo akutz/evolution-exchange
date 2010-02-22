@@ -145,9 +145,11 @@ is_eex_folder_selected (EShellView *shell_view, gchar **puri)
 	}
 
 	if (res) {
-		const gchar *path;
+		const gchar *path = NULL;
 
-		path = uri + strlen ("exchange://") + strlen (account->account_filename);
+		if (strlen (uri) > strlen ("exchange://") + strlen (account->account_filename))
+			path = uri + strlen ("exchange://") + strlen (account->account_filename);
+
 		res = path && *path;
 
 		if (res) {

@@ -80,8 +80,15 @@ exchange_get_folder (gchar *uri, CamelFolder *folder, gpointer data)
 
 	account = exchange_operations_get_exchange_account ();
 
-	if (!account)
+	if (!account) {
+		g_free (target_uri);
 		return;
+	}
+
+	if (strlen (target_uri) <= strlen ("exchange://") + strlen (account->account_filename)) {
+		g_free (target_uri);
+		return;
+	}
 
 	/* Get the subscribed folder name. */
 	name = target_uri + strlen ("exchange://") + strlen (account->account_filename);
@@ -116,6 +123,9 @@ eex_folder_inbox_unsubscribe (const gchar *uri)
 	account = exchange_operations_get_exchange_account ();
 
 	if (!account)
+		return;
+
+	if (strlen (uri) <= strlen ("exchange://") + strlen (account->account_filename))
 		return;
 
 	target_uri = g_strdup (uri);
@@ -197,6 +207,11 @@ unsubscribe_dialog_ab_response (GtkDialog *dialog, gint response, ESource *sourc
 			return;
 
 		uri = e_source_get_uri (source);
+		if (!uri || strlen (uri) <= strlen ("exchange://") + strlen (account->account_filename)) {
+			g_free (uri);
+			return;
+		}
+
 		path = g_strdup (uri + strlen ("exchange://") + strlen (account->account_filename));
 		source_uid = e_source_peek_uid (source);
 
@@ -205,6 +220,7 @@ unsubscribe_dialog_ab_response (GtkDialog *dialog, gint response, ESource *sourc
 		source_group = e_source_peek_group (source);
 		e_source_group_remove_source_by_uid (source_group, source_uid);
 		g_free (path);
+		g_free (uri);
 		gtk_widget_destroy (GTK_WIDGET (dialog));
 	}
 	if (response == GTK_RESPONSE_CANCEL)
@@ -237,6 +253,9 @@ unsubscribe_dialog_response (GtkDialog *dialog, gint response, ESource *source)
 
 		ruri = (gchar *) e_source_peek_relative_uri (source);
 		source_uid = e_source_peek_uid (source);
+
+		if (!ruri || strlen (ruri) <= strlen (account->account_filename))
+			return;
 
 		path = g_strdup (ruri + strlen (account->account_filename));
 		exchange_account_remove_shared_folder (account, path);
