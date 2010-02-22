@@ -357,7 +357,7 @@ org_gnome_exchange_settings(EPlugin *epl, EConfigHookItemFactoryData *data)
 	gtk_box_pack_start (GTK_BOX (vbox_auth), GTK_WIDGET (tbl_auth), FALSE, FALSE, 0);
 
 	/* Miscelleneous settings */
-	frm_misc = (GtkFrame*) g_object_new (GTK_TYPE_FRAME, "label", _("Miscelleneous"), NULL);
+	frm_misc = (GtkFrame*) g_object_new (GTK_TYPE_FRAME, "label", _("Miscellaneous"), NULL);
 	gtk_box_pack_start (GTK_BOX (vbox_settings), GTK_WIDGET (frm_misc), FALSE, FALSE, 0);
 
 	vbox_misc = (GtkVBox*) g_object_new (GTK_TYPE_VBOX, "homogeneous", FALSE, "spacing", 6, NULL);
@@ -783,7 +783,7 @@ org_gnome_exchange_owa_url(EPlugin *epl, EConfigHookItemFactoryData *data)
 
 	row++;
 	want_mailbox_check = gtk_check_button_new_with_mnemonic (
-		_("Mailbox name is _different than user name"));
+		_("Mailbox name is _different from user name"));
 	gtk_widget_show (want_mailbox_check);
 	gtk_table_attach (GTK_TABLE (data->parent), want_mailbox_check, 1, 2, row, row+1, GTK_FILL, GTK_FILL, 0, 0);
 	if (!username || !*username || !mailbox_name || !*mailbox_name ||
