@@ -163,6 +163,42 @@ is_eex_folder_selected (EShellView *shell_view, gchar **puri)
 	return res;
 }
 
+static gboolean
+is_eex_store_available (EShellView *shell_view)
+{
+	EShellSidebar *shell_sidebar;
+	EMFolderTree *folder_tree = NULL;
+	GtkTreeModel *model = NULL;
+	GtkTreeIter iter;
+	gboolean is_store = FALSE, res = FALSE;
+	gchar *uri = NULL;
+
+	g_return_val_if_fail (shell_view != NULL, FALSE);
+
+	shell_sidebar = e_shell_view_get_shell_sidebar (shell_view);
+	g_object_get (shell_sidebar, "folder-tree", &folder_tree, NULL);
+	g_return_val_if_fail (folder_tree != NULL, FALSE);
+
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (folder_tree));
+	g_return_val_if_fail (model != NULL, FALSE);
+
+	if (!gtk_tree_model_get_iter_first (model, &iter))
+		return FALSE;
+
+	do {
+		gtk_tree_model_get (model, &iter,
+			COL_STRING_URI, &uri,
+			COL_BOOL_IS_STORE, &is_store,
+			-1);
+
+		res = is_store && uri && g_ascii_strncasecmp (uri, "exchange://", 11) == 0;
+
+		g_free (uri);
+	} while (!res && gtk_tree_model_iter_next (model, &iter));
+
+	return res;
+}
+
 static void
 eex_mail_folder_permissions_cb (GtkAction *action, EShellView *shell_view)
 {
@@ -229,18 +265,22 @@ update_mail_entries_cb (EShellView *shell_view, gpointer user_data)
 	GtkActionGroup *action_group;
 	EShellWindow *shell_window;
 	GtkAction *action;
-	gboolean is_eex;
+	gboolean is_eex, is_eex_avail;
 	gchar *uri = NULL;
 	gint i;
 
 	g_return_if_fail (E_IS_SHELL_VIEW (shell_view));
 
 	is_eex = is_eex_folder_selected (shell_view, &uri);
+	is_eex_avail = is_eex || is_eex_store_available (shell_view);
 	shell_window = e_shell_view_get_shell_window (shell_view);
 	action_group = e_shell_window_get_action_group (shell_window, "mail");
 
+	/* index 0 ... Permissions
+	   index 1 ... Subscribe to
+	   index 2 ... Unsubscribe */
 	for (i = 0; i < G_N_ELEMENTS (mail_entries); i++) {
-		gboolean visible = is_eex;
+		gboolean visible = is_eex_avail;
 
 		action = gtk_action_group_get_action (action_group, mail_entries[i].name);
 		g_return_if_fail (action != NULL);
@@ -251,6 +291,7 @@ update_mail_entries_cb (EShellView *shell_view, gpointer user_data)
 		}
 
 		gtk_action_set_visible (action, visible);
+		gtk_action_set_sensitive (action, i == 1 || (visible && is_eex));
 	}
 
 	g_free (uri);
