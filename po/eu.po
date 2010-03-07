@@ -3,25 +3,25 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
-# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2005, 2006,2007, 2008.
+# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2005, 2006,2007, 2008, 2010.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-09 12:31+0200\n"
-"PO-Revision-Date: 2008-09-09 12:32+0200\n"
+"POT-Creation-Date: 2010-03-06 13:58+0100\n"
+"PO-Revision-Date: 2010-03-06 17:44+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.4\n"
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
 msgid "Specifies the time interval to refresh the GAL Cache."
-msgstr "HZG cachea freskatzeko bitartea zehazten du."
+msgstr "GAL cachea freskatzeko bitartea zehazten du."
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
 msgid ""
@@ -35,114 +35,101 @@ msgstr ""
 "betirako erabiltzea nahi baduzu. HZGren lineaz kanpoko cachea gaituta egonez "
 "gero bakarrik funtzionatuko du."
 
-#: ../addressbook/e-book-backend-exchange.c:2285
-#: ../addressbook/e-book-backend-gal.c:1863 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:2305
+#: ../addressbook/e-book-backend-gal.c:1896
 msgid "Searching..."
 msgstr "Bilatzen..."
 
-#: ../addressbook/e-book-backend-gal.c:306
-#: ../addressbook/e-book-backend-gal.c:327
+#: ../addressbook/e-book-backend-gal.c:315
+#: ../addressbook/e-book-backend-gal.c:336
 msgid "Reconnecting to LDAP server..."
 msgstr "LDAP zerbitzarira berriro konektatzen..."
 
-#: ../addressbook/e-book-backend-gal.c:1625
+#: ../addressbook/e-book-backend-gal.c:1657
 msgid "Receiving LDAP search results..."
 msgstr "LDAPren bilaketaren emaitzak jasotzen..."
 
-#: ../addressbook/e-book-backend-gal.c:1894
+#: ../addressbook/e-book-backend-gal.c:1927
 msgid "Error performing search"
 msgstr "Errorea bilaketa lantzean"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2090
-#, c-format
-msgid ""
-"Unable to schedule resource '%s' for recurring meetings.\n"
-"You must book each meeting separately."
-msgstr ""
-"Ezin da '%s' baliabidea antolatu errepikatutako bilerentzako.\n"
-"Bilera bakoitza bereiztuta erreserbatu behar duzu."
-
-#: ../calendar/e-cal-backend-exchange-calendar.c:2108
+#: ../calendar/e-cal-backend-exchange-calendar.c:2111
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "'%s' baliabidea lanpetuta dago hautatutako denbora aldian"
 
-#: ../calendar/e-cal-backend-exchange.c:424
+#: ../calendar/e-cal-backend-exchange.c:425
 msgid "Authentication failed"
 msgstr "Autentifikazioak huts egin du"
 
-#: ../calendar/e-cal-backend-exchange.c:466
+#: ../calendar/e-cal-backend-exchange.c:477
 msgid "Could not find the calendar"
 msgstr "Ezin izan da egutegia aurkitu"
 
-#: ../camel/camel-exchange-folder.c:54
-msgid "Always check for new mail in this folder"
-msgstr "Begiratu beti mezu berriak honako karpetan"
-
-#: ../camel/camel-exchange-folder.c:197
+#: ../camel/camel-exchange-folder.c:198
 msgid "You cannot expunge in offline mode."
 msgstr "Ezin da ezabatu lineaz kanpo moduan."
 
-#: ../camel/camel-exchange-folder.c:228
+#: ../camel/camel-exchange-folder.c:226
 msgid "No Subject"
 msgstr "Gairik ez"
 
-#: ../camel/camel-exchange-folder.c:383
+#: ../camel/camel-exchange-folder.c:388
 msgid "This message is not available in offline mode."
 msgstr "Mezu hau ez dago lineaz kanpo moduan eskuragarri."
 
-#: ../camel/camel-exchange-folder.c:593
+#: ../camel/camel-exchange-folder.c:613
 msgid "Moving messages"
 msgstr "Mezuak lekuz aldatzea"
 
-#: ../camel/camel-exchange-folder.c:594
+#: ../camel/camel-exchange-folder.c:614
 msgid "Copying messages"
 msgstr "Mezuak kopiatzea"
 
-#: ../camel/camel-exchange-folder.c:967
+#: ../camel/camel-exchange-folder.c:982
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Ezin izan da %s direktorioa sortu: %s"
 
-#: ../camel/camel-exchange-folder.c:977
+#: ../camel/camel-exchange-folder.c:992
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Ezin izan da %s(r)en laburpena kargatu"
 
-#: ../camel/camel-exchange-folder.c:985
+#: ../camel/camel-exchange-folder.c:1000
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Ezin izan da %s(r)en cache-a sortu"
 
-#: ../camel/camel-exchange-folder.c:995
+#: ../camel/camel-exchange-folder.c:1010
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Ezin izan da %s(r)en egunkaria sortu"
 
-#: ../camel/camel-exchange-folder.c:1046
+#: ../camel/camel-exchange-folder.c:1059
 msgid "Scanning for changed messages"
 msgstr "Aldatutako mezuak eskaneatzen"
 
-#: ../camel/camel-exchange-folder.c:1079
+#: ../camel/camel-exchange-folder.c:1084
 msgid "Fetching summary information for new messages"
 msgstr "Mezu berrien laburpeneko datuak eskuratzea"
 
-#: ../camel/camel-exchange-journal.c:342
+#: ../camel/camel-exchange-journal.c:333
 msgid "No folder name found\n"
 msgstr "Ez da karpeta-izenik aurkitu\n"
 
-#: ../camel/camel-exchange-journal.c:375 ../mail/mail-stub-exchange.c:3042
-#: ../mail/mail-stub-exchange.c:3092 ../mail/mail-stub-exchange.c:3222
-#: ../mail/mail-stub-exchange.c:3249 ../mail/mail-stub-exchange.c:3302
-#: ../mail/mail-stub-exchange.c:3324
+#: ../camel/camel-exchange-journal.c:366 ../camel/camel-exchange-utils.c:3106
+#: ../camel/camel-exchange-utils.c:3170 ../camel/camel-exchange-utils.c:3290
+#: ../camel/camel-exchange-utils.c:3321 ../camel/camel-exchange-utils.c:3373
+#: ../camel/camel-exchange-utils.c:3394
 msgid "Folder doesn't exist"
 msgstr "Karpeta ez dago"
 
-#: ../camel/camel-exchange-journal.c:439
+#: ../camel/camel-exchange-journal.c:428
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "Ezin da mezua erantsi lineaz kanpo moduan: cache-a ez dago eskuragarri"
 
-#: ../camel/camel-exchange-journal.c:455
+#: ../camel/camel-exchange-journal.c:444
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Ezin izan da mezua erantsi lineaz kanpo moduan: %s"
@@ -152,13 +139,15 @@ msgid "Secure or Plaintext Password"
 msgstr "Pasahitz segurua edo testu arruntekoa"
 
 #: ../camel/camel-exchange-provider.c:56
-#: ../camel/camel-exchange-provider.c:141
+#: ../camel/camel-exchange-provider.c:143
+#: ../eplugin/exchange-account-setup.c:73
 msgid "Plaintext Password"
 msgstr "Testu arrunteko pasahitza"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
 #: ../camel/camel-exchange-provider.c:57
-#: ../camel/camel-exchange-provider.c:130
+#: ../camel/camel-exchange-provider.c:132
+#: ../eplugin/exchange-account-setup.c:62
 msgid "Secure Password"
 msgstr "Pasahitz segurua"
 
@@ -201,42 +190,47 @@ msgstr "Autentifikazio _mota:"
 msgid "Allow _browsing of the GAL until download limit is reached"
 msgstr "Baimendu GAL _arakatzea (deskargaren muga gainditu arte)"
 
-#: ../camel/camel-exchange-provider.c:91
+#: ../camel/camel-exchange-provider.c:90
+msgid "_Expand groups of contacts in GAL to contact lists"
+msgstr "Kontaktuen taldeak hedatzen ditu Galen kontaktuen zerrendetara"
+
+#: ../camel/camel-exchange-provider.c:93
 msgid "Options"
 msgstr "Aukerak"
 
-#: ../camel/camel-exchange-provider.c:93
+#: ../camel/camel-exchange-provider.c:95
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Pasahitza iraungitzeko abisu-aldia: %s"
 
-#: ../camel/camel-exchange-provider.c:95
+#: ../camel/camel-exchange-provider.c:97
 msgid "Automatically synchroni_ze account locally"
 msgstr "_Sinkronizatu automatikoki kontua lokalki"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:98
+#: ../camel/camel-exchange-provider.c:100
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "_Aplikatu iragazkiak zerbitzariko sarrerako ontziko mezu berriei"
 
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:102
 msgid "Check new messages for _Junk contents"
 msgstr "Begiratu mezu berriak eduki _baztergarriak dituzten"
 
-#: ../camel/camel-exchange-provider.c:102
+#: ../camel/camel-exchange-provider.c:104
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Begiratu mezu ba_ztergarriak sarrerako karpetan soilik"
 
-#: ../camel/camel-exchange-provider.c:112
+#: ../camel/camel-exchange-provider.c:114
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:114
+#: ../camel/camel-exchange-provider.c:116
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Microsoft Exchange zerbitzarian posta (eta bestelako datuak) kudeatzeko"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:133
+#: ../camel/camel-exchange-provider.c:135
+#: ../eplugin/exchange-account-setup.c:65
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -244,7 +238,8 @@ msgstr ""
 "Aukera honek Exchange zerbitzariarekin konektatuko zaitu NTLM pasahitz "
 "seguruaren autentifikazioaren bidez."
 
-#: ../camel/camel-exchange-provider.c:143
+#: ../camel/camel-exchange-provider.c:145
+#: ../eplugin/exchange-account-setup.c:75
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -252,21 +247,17 @@ msgstr ""
 "Aukera honek Exchange zerbitzariarekin konektatuko zaitu testu arrunteko "
 "pasahitzaren bidez."
 
-#: ../camel/camel-exchange-store.c:314
+#: ../camel/camel-exchange-store.c:305
 #, c-format
 msgid "Exchange server %s"
 msgstr "%s Exchange zerbitzaria"
 
-#: ../camel/camel-exchange-store.c:317
+#: ../camel/camel-exchange-store.c:308
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "%s Exchange kontua %s(e)n"
 
-#: ../camel/camel-exchange-store.c:399
-msgid "Evolution Exchange backend process"
-msgstr "Evolution Exchange motorraren prozesua"
-
-#: ../camel/camel-exchange-store.c:442
+#: ../camel/camel-exchange-store.c:385
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -274,167 +265,124 @@ msgstr ""
 "Ezin izan da zerbitzarian autentifikatu. (Pasahitz okerra?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:495
+#: ../camel/camel-exchange-store.c:430
 #, c-format
 msgid "No such folder %s"
 msgstr "Ez dago %s bezalako karpetarik"
 
-#: ../camel/camel-exchange-store.c:572
+#: ../camel/camel-exchange-store.c:502
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Ezin da karpetaren harpidetza egin lineaz kanpo moduan."
 
-#: ../camel/camel-exchange-store.c:589
+#: ../camel/camel-exchange-store.c:517
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Ezin da karpetatik harpidetza kendu lineaz kanpo moduan."
 
-#: ../camel/camel-exchange-store.c:727
+#: ../camel/camel-exchange-store.c:648
 msgid "Cannot get folder info in offline mode."
 msgstr "Ezin da karpetaren datuak jaso lineaz kanpo moduan."
 
-#: ../camel/camel-exchange-store.c:800
+#: ../camel/camel-exchange-store.c:711
 msgid "Cannot create folder in offline mode."
 msgstr "Ezin da karpeta sortu lineaz kanpo moduan."
 
-#: ../camel/camel-exchange-store.c:827
+#: ../camel/camel-exchange-store.c:734
 msgid "Cannot delete folder in offline mode."
 msgstr "Ezin da karpeta ezabatu lineaz kanpo moduan."
 
-#: ../camel/camel-exchange-store.c:851
+#: ../camel/camel-exchange-store.c:756
 msgid "Cannot rename folder in offline mode."
 msgstr "Ezin da karpeta izenez aldatu lineaz kanpo moduan."
 
-#: ../camel/camel-exchange-transport.c:111
+#: ../camel/camel-exchange-transport.c:107
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "Exchange garraioa Exchange posta-iturburuarekin soilik erabil daiteke"
 
-#: ../camel/camel-exchange-transport.c:122
+#: ../camel/camel-exchange-transport.c:120
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "Ezin da mezua bidali: hartzaile (bat edo gehiago) baliogabea"
 
-#: ../camel/camel-exchange-transport.c:132
+#: ../camel/camel-exchange-transport.c:129
 msgid "Could not find 'From' address in message"
 msgstr "Ezin izan da 'Nork' eremuko helbidea mezuan aurkitu"
 
-#: ../camel/camel-stub.c:165 ../camel/camel-stub.c:229
-#, c-format
-msgid "Could not create socket: %s"
-msgstr "Ezin izan da socket-a sortu: %s"
-
-#: ../camel/camel-stub.c:183
-#, c-format
-msgid "Could not connect to %s: Please restart Evolution"
-msgstr "Ezin izan da %s(e)kin konektatu: berrabiarazi Evolution"
-
-#: ../camel/camel-stub.c:188 ../camel/camel-stub.c:247
-#, c-format
-msgid "Could not connect to %s: %s"
-msgstr "Ezin izan da %s(e)kin konektatu: %s"
-
-#: ../camel/camel-stub.c:212
-#, c-format
-msgid "Count not read file '%s': %s"
-msgstr "Ezin izan da '%s' fitxategia irakurri: %s"
-
-#: ../camel/camel-stub.c:220
-#, c-format
-msgid "Wrong size file '%s'"
-msgstr "Okerreko '%s' fitxategi-tamaina"
-
-#: ../camel/camel-stub.c:283
-#, c-format
-msgid "Path too long: %s"
-msgstr "Bide-izena luzeegia: %s"
-
-#: ../camel/camel-stub.c:318
-#, c-format
-msgid "Could not start status thread: %s"
-msgstr "Ezin izan da hariaren egoera abiarazi: %s"
-
-#: ../camel/camel-stub.c:572
-#, c-format
-msgid "Lost connection to %s"
-msgstr "%s(r)ekin konexioa galdu da"
-
-#: ../camel/camel-stub.c:576
-#, c-format
-msgid "Error communicating with %s: %s"
-msgstr "Errorea %s(r)ekin komunikatzean: %s"
-
-#: ../mail/mail-stub-exchange.c:267 ../mail/mail-stub-exchange.c:963
-msgid "No such folder"
-msgstr "Ez dago horrelako karpetarik"
-
-#: ../mail/mail-stub-exchange.c:290 ../mail/mail-stub-exchange.c:3019
-#: ../mail/mail-stub-exchange.c:3059 ../mail/mail-stub-exchange.c:3226
-#: ../mail/mail-stub-exchange.c:3276 ../mail/mail-stub-exchange.c:3339
-msgid "Permission denied"
-msgstr "Baimena ukatua"
-
-#: ../mail/mail-stub-exchange.c:785 ../mail/mail-stub-exchange.c:877
-msgid "Could not open folder"
-msgstr "Ezin izan da karpeta ireki"
-
-#: ../mail/mail-stub-exchange.c:871 ../mail/mail-stub-exchange.c:893
-msgid "Could not open folder: Permission denied"
-msgstr "Ezin izan da karpeta ireki: baimena ukatua"
-
-#: ../mail/mail-stub-exchange.c:972
-msgid "Could not create folder."
-msgstr "Ezin izan da karpeta sortu."
-
-#: ../mail/mail-stub-exchange.c:1060
-msgid "Could not open Deleted Items folder"
-msgstr "Ezin izan da ezabatutako elementuen karpeta ireki"
-
-#: ../mail/mail-stub-exchange.c:1391 ../mail/mail-stub-exchange.c:1432
+#: ../camel/camel-exchange-utils.c:535 ../camel/camel-exchange-utils.c:574
 msgid "Could not get new messages"
 msgstr "Ezin izan da mezu berriak eskuratu"
 
-#: ../mail/mail-stub-exchange.c:1608
+#: ../camel/camel-exchange-utils.c:1062 ../camel/camel-exchange-utils.c:1213
+msgid "Could not open folder"
+msgstr "Ezin izan da karpeta ireki"
+
+#: ../camel/camel-exchange-utils.c:1209 ../camel/camel-exchange-utils.c:1227
+msgid "Could not open folder: Permission denied"
+msgstr "Ezin izan da karpeta ireki: baimena ukatua"
+
+#: ../camel/camel-exchange-utils.c:1276 ../camel/camel-exchange-utils.c:2178
+msgid "No such folder"
+msgstr "Ez dago horrelako karpetarik"
+
+#: ../camel/camel-exchange-utils.c:1298 ../camel/camel-exchange-utils.c:3080
+#: ../camel/camel-exchange-utils.c:3123 ../camel/camel-exchange-utils.c:3294
+#: ../camel/camel-exchange-utils.c:3347 ../camel/camel-exchange-utils.c:3409
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
+#: ../server/storage/e-storage.c:573
+msgid "Permission denied"
+msgstr "Baimena ukatua"
+
+#: ../camel/camel-exchange-utils.c:2187
+msgid "Could not create folder."
+msgstr "Ezin izan da karpeta sortu."
+
+#: ../camel/camel-exchange-utils.c:2276
+msgid "Could not open Deleted Items folder"
+msgstr "Ezin izan da ezabatutako elementuen karpeta ireki"
+
+#: ../camel/camel-exchange-utils.c:2403
 msgid "Could not empty Deleted Items folder"
 msgstr "Ezin izan da ezabatutako elementuen karpeta hustu"
 
-#: ../mail/mail-stub-exchange.c:1610
+#: ../camel/camel-exchange-utils.c:2405
 msgid "Permission denied. Could not delete certain messages."
 msgstr "Baimena ukatuta. Ezin izan dira zenbait mezu ezabatu."
 
-#: ../mail/mail-stub-exchange.c:1683
+#: ../camel/camel-exchange-utils.c:2448
 msgid "Could not append message; mailbox is over quota"
 msgstr "Ezin izan da mezua erantsi: postontziak kuota gainditu du"
 
-#: ../mail/mail-stub-exchange.c:1684
+#: ../camel/camel-exchange-utils.c:2449
 msgid "Could not append message"
 msgstr "Ezin izan da mezua erantsi"
 
-#: ../mail/mail-stub-exchange.c:2446
+#: ../camel/camel-exchange-utils.c:2635
 msgid "No such message"
 msgstr "Ez dago horrelako mezurik"
 
-#: ../mail/mail-stub-exchange.c:2527
+#: ../camel/camel-exchange-utils.c:2707
 msgid "Message has been deleted"
 msgstr "Mezua ezabatu da"
 
-#: ../mail/mail-stub-exchange.c:2529
+#: ../camel/camel-exchange-utils.c:2709
 msgid "Error retrieving message"
 msgstr "Errorea mezua berreskuratzean"
 
-#: ../mail/mail-stub-exchange.c:2572
+#: ../camel/camel-exchange-utils.c:2758
 msgid "Mailbox does not support full-text searching"
 msgstr "Postontziak ez du testu-osoko bilaketa onartzen"
 
-#: ../mail/mail-stub-exchange.c:2670
+#: ../camel/camel-exchange-utils.c:2866
 msgid "Unable to move/copy messages"
 msgstr "Ezin izan da mezuak lekuz aldatu edo kopiatu"
 
-#: ../mail/mail-stub-exchange.c:2936
+#: ../camel/camel-exchange-utils.c:2985
 msgid "No mail submission URI for this mailbox"
 msgstr "Ez dago posta bidaltzeko URIrik postontziarentzako"
 
-#: ../mail/mail-stub-exchange.c:2970
+#: ../camel/camel-exchange-utils.c:3018
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Zerbitzariak ez du Exchange garraio bidezko posta onartzen"
 
-#: ../mail/mail-stub-exchange.c:2972
+#: ../camel/camel-exchange-utils.c:3020
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -443,7 +391,7 @@ msgstr ""
 "Zure kontuak ez du baimenik <%s> \n"
 "'Nork' helbide gisa erabiltzeko."
 
-#: ../mail/mail-stub-exchange.c:2984
+#: ../camel/camel-exchange-utils.c:3032
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -451,34 +399,1204 @@ msgstr ""
 "Ezin izan da mezua bidali.\n"
 "Zure kontuak kuota gainditu duela adierazten du."
 
-#: ../mail/mail-stub-exchange.c:2988
+#: ../camel/camel-exchange-utils.c:3036
 msgid "Could not send message"
 msgstr "Ezin izan da mezua bidali"
 
-#: ../mail/mail-stub-exchange.c:3011 ../mail/mail-stub-exchange.c:3064
-#: ../mail/mail-stub-exchange.c:3230 ../mail/mail-stub-exchange.c:3281
-#: ../mail/mail-stub-exchange.c:3345
+#: ../camel/camel-exchange-utils.c:3072 ../camel/camel-exchange-utils.c:3128
+#: ../camel/camel-exchange-utils.c:3298 ../camel/camel-exchange-utils.c:3351
+#: ../camel/camel-exchange-utils.c:3415
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
+#: ../server/storage/e-storage.c:557
 msgid "Generic error"
 msgstr "Errore orokorra"
 
-#: ../mail/mail-stub-exchange.c:3015
+#: ../camel/camel-exchange-utils.c:3076
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
 msgid "Folder already exists"
 msgstr "Karpeta badago lehendik"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-msgid "Evolution Addressbook Exchange backend"
-msgstr "Evolution-en helbide-liburuen 'Exchange' motorra"
+#: ../eplugin/exchange-account-setup.c:270
+msgid "Out Of Office"
+msgstr "Bulegotik kanpo"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
-msgid "Evolution Calendar Exchange backend"
-msgstr "Evolution-en egutegiaren 'Exchange' motorra"
+#: ../eplugin/exchange-account-setup.c:277
+msgid ""
+"The message specified below will be automatically sent to \n"
+"each person who sends mail to you while you are out of the office."
+msgstr ""
+"Behean adierazitako mezua automatikoki bidaliko zaie \n"
+"zu bulegotik kanpo zauden bitartean mezuak bidaltzen \n"
+"dizkizuten pertsona guztiei."
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-#: ../storage/main.c:219
-msgid "Evolution Connector for Microsoft Exchange"
-msgstr "Evolution Konektatzailea Microsoft Exchange-rako"
+#: ../eplugin/exchange-account-setup.c:282
+msgid "Status:"
+msgstr "Egoera:"
 
-#: ../storage/exchange-autoconfig-wizard.c:227
+#: ../eplugin/exchange-account-setup.c:289
+#: ../eplugin/exchange-account-setup.c:294
+msgid "I am out of the office"
+msgstr "Bulegotik kanpo nago"
+
+#: ../eplugin/exchange-account-setup.c:290
+#: ../eplugin/exchange-account-setup.c:293
+msgid "I am in the office"
+msgstr "Bulegoan nago"
+
+#. Security settings
+#: ../eplugin/exchange-account-setup.c:329
+msgid "Security"
+msgstr "Segurtasuna"
+
+#. Change Password
+#: ../eplugin/exchange-account-setup.c:340
+msgid "Change the password for Exchange account"
+msgstr "Aldatu Exchange kontuaren pasahitza"
+
+#: ../eplugin/exchange-account-setup.c:342
+#: ../eplugin/exchange-change-password.c:85
+msgid "Change Password"
+msgstr "Aldatu pasahitza"
+
+#. Delegation Assistant
+#: ../eplugin/exchange-account-setup.c:347
+msgid "Manage the delegate settings for Exchange account"
+msgstr "Kudeatu Exchange kontuaren delegatze-ezarpenak"
+
+#: ../eplugin/exchange-account-setup.c:349
+msgid "Delegation Assistant"
+msgstr "Delegatzeko laguntzailea"
+
+#. Miscelleneous settings
+#: ../eplugin/exchange-account-setup.c:361
+msgid "Miscellaneous"
+msgstr "Hainbat"
+
+#. Folder Size
+#: ../eplugin/exchange-account-setup.c:371
+msgid "View the size of all Exchange folders"
+msgstr "Ikusi Exchange-ko karpeta guztien tamaina"
+
+#: ../eplugin/exchange-account-setup.c:373
+msgid "Folders Size"
+msgstr "Karpetaren tamaina"
+
+#: ../eplugin/exchange-account-setup.c:380
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:3
+msgid "Exchange Settings"
+msgstr "Exchange-ren ezarpenak"
+
+#: ../eplugin/exchange-account-setup.c:739
+msgid "_OWA URL:"
+msgstr "_OWAren URLa:"
+
+#: ../eplugin/exchange-account-setup.c:765
+msgid "A_uthenticate"
+msgstr "A_utentifikatu"
+
+#: ../eplugin/exchange-account-setup.c:787
+msgid "Mailbox name is _different from user name"
+msgstr "Postontziaren izena erabiltzaile-izenaren _desberdina da"
+
+#: ../eplugin/exchange-account-setup.c:800
+msgid "_Mailbox:"
+msgstr "_Postontzia:"
+
+#: ../eplugin/exchange-account-setup.c:1015
+msgid "_Authentication Type"
+msgstr "_Autentifikazio mota"
+
+#: ../eplugin/exchange-account-setup.c:1029
+msgid "Ch_eck for Supported Types"
+msgstr "_Begiratu zein mota onartzen diren"
+
+#: ../eplugin/exchange-account-setup.c:1144 ../eplugin/exchange-contacts.c:217
+#, c-format
+msgid "%s KB"
+msgstr "%s KB"
+
+#: ../eplugin/exchange-account-setup.c:1146 ../eplugin/exchange-contacts.c:219
+#, c-format
+msgid "0 KB"
+msgstr "0 KB"
+
+#. FIXME: Take care of i18n
+#: ../eplugin/exchange-account-setup.c:1151 ../eplugin/exchange-calendar.c:236
+#: ../eplugin/exchange-contacts.c:222
+msgid "Size:"
+msgstr "Tamaina:"
+
+#: ../eplugin/exchange-calendar.c:196 ../eplugin/exchange-contacts.c:170
+msgid ""
+"Evolution is in offline mode. You cannot create or modify folders now.\n"
+"Please switch to online mode for such operations."
+msgstr ""
+"Evolution lineaz kanpo dago. Ezin dituzu karpetak orain sortu edo aldatu.\n"
+"Konektatu honelako eragiketak egiteko."
+
+#: ../eplugin/exchange-calendar.c:247 ../eplugin/exchange-contacts.c:239
+msgid "_Location:"
+msgstr "_Kokalekua:"
+
+#: ../eplugin/exchange-change-password.c:95
+msgid "Your current password has expired. Please change your password now."
+msgstr "Uneko pasahitza iraungitu da. Aldatu pasahitza orain."
+
+#: ../eplugin/exchange-change-password.c:110
+msgid "Current _Password:"
+msgstr "Uneko _pasahitza:"
+
+#: ../eplugin/exchange-change-password.c:117
+msgid "_New Password:"
+msgstr "Pasahitz _berria:"
+
+#: ../eplugin/exchange-change-password.c:124
+msgid "_Confirm Password:"
+msgstr "_Berretsi pasahitza:"
+
+#. User entered a wrong existing
+#. * password. Prompt him again.
+#.
+#: ../eplugin/exchange-change-password.c:175
+msgid ""
+"The current password does not match the existing password for your account. "
+"Please enter the correct password"
+msgstr ""
+"Uneko pasahitza ez dator bat existitzen den kontuaren pasahitzarekin. Idatzi "
+"pasahitz zuzena"
+
+#: ../eplugin/exchange-change-password.c:182
+msgid "The two passwords do not match. Please re-enter the passwords."
+msgstr "Bi pasahitzak ez datoz bat. Idatzi berriro pasahitzak."
+
+#: ../eplugin/exchange-config-listener.c:661
+#, c-format
+msgid "Your password will expire in the next %d days"
+msgstr "Zure pasahitza %d egunetan iraungituko da"
+
+#: ../eplugin/exchange-config-listener.c:664
+msgid "Password Expiry Warning..."
+msgstr "Pasahitzaren iraungitze-abisua..."
+
+#: ../eplugin/exchange-config-listener.c:681
+msgid "_Change Password"
+msgstr "_Aldatu pasahitza"
+
+#: ../eplugin/exchange-config-listener.c:734
+msgid "Out of Office Assistant"
+msgstr "'Bulegotik kanpo' morroia"
+
+#: ../eplugin/exchange-config-listener.c:751
+msgid "Currently, your status is \"Out of the Office\"."
+msgstr "Unean, zure egoera \"Bulegotik kanpo\" da"
+
+#: ../eplugin/exchange-config-listener.c:751
+msgid "Would you like to change your status to \"In the Office\"?"
+msgstr "Nahi duzu \"Bulegoan\" egoerara aldatzea?"
+
+#: ../eplugin/exchange-config-listener.c:780
+msgid "_No, Don't Change Status"
+msgstr "_Ez, ez aldatu egoera"
+
+#: ../eplugin/exchange-config-listener.c:801
+msgid "_Yes, Change Status"
+msgstr "_Bai, aldatu egoera"
+
+#: ../eplugin/exchange-config-listener.c:833
+#, c-format
+msgid "Enter Password for %s"
+msgstr "Idatzi %s(r)en pasahitza"
+
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:436
+#: ../server/storage/exchange-hierarchy-foreign.c:260
+msgid "Calendar"
+msgstr "Egutegia"
+
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:439
+#: ../server/storage/exchange-hierarchy-foreign.c:269
+msgid "Tasks"
+msgstr "Zereginak"
+
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:434
+#: ../server/storage/exchange-hierarchy-foreign.c:264
+msgid "Inbox"
+msgstr "Sarrera"
+
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:442
+#: ../server/storage/exchange-hierarchy-foreign.c:261
+msgid "Contacts"
+msgstr "Kontaktuak"
+
+#: ../eplugin/exchange-delegates-user.c:135
+#: ../eplugin/exchange-permissions-dialog.c:545
+#: ../server/lib/e2k-security-descriptor.c:901
+msgid "Custom"
+msgstr "Pertsonalizatuta"
+
+#. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
+#: ../eplugin/exchange-delegates-user.c:158
+#: ../eplugin/exchange-delegates-user.c:299
+#: ../eplugin/exchange-delegates-user.c:309
+#: ../eplugin/exchange-delegates-user.c:319
+#: ../eplugin/exchange-delegates-user.c:329
+msgid "Editor (read, create, edit)"
+msgstr "Editorea (irakurri, sortu, editatu)"
+
+#. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
+#: ../eplugin/exchange-delegates-user.c:163
+#: ../eplugin/exchange-delegates-user.c:298
+#: ../eplugin/exchange-delegates-user.c:308
+#: ../eplugin/exchange-delegates-user.c:318
+#: ../eplugin/exchange-delegates-user.c:328
+msgid "Author (read, create)"
+msgstr "Egilea (irakurri, sortu)"
+
+#. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
+#: ../eplugin/exchange-delegates-user.c:168
+#: ../eplugin/exchange-delegates-user.c:297
+#: ../eplugin/exchange-delegates-user.c:307
+#: ../eplugin/exchange-delegates-user.c:317
+#: ../eplugin/exchange-delegates-user.c:327
+msgid "Reviewer (read-only)"
+msgstr "Begiratzailea (irakurtzeko soilik)"
+
+#: ../eplugin/exchange-delegates-user.c:171
+#: ../eplugin/exchange-delegates-user.c:296
+#: ../eplugin/exchange-delegates-user.c:306
+#: ../eplugin/exchange-delegates-user.c:316
+#: ../eplugin/exchange-delegates-user.c:326
+#: ../server/lib/e2k-security-descriptor.c:886
+msgid "None"
+msgstr "Ezer ere ez"
+
+#: ../eplugin/exchange-delegates-user.c:226
+msgid "Delegate Permissions"
+msgstr "Delegatuen baimenak"
+
+#: ../eplugin/exchange-delegates-user.c:244
+msgid "Permissions for"
+msgstr "Baimenak:"
+
+#. Translators: This is used for permissions for <user> for the folder Calendar.
+#: ../eplugin/exchange-delegates-user.c:256
+msgid "C_alendar:"
+msgstr "_Egutegia:"
+
+#. Translators: This is used for permissions for <user> for the folder Tasks.
+#: ../eplugin/exchange-delegates-user.c:265
+msgid "_Tasks:"
+msgstr "_Zereginak:"
+
+#. Translators: This is used for permissions for <user> for the folder Inbox.
+#: ../eplugin/exchange-delegates-user.c:274
+msgid "_Inbox:"
+msgstr "_Sarrera:"
+
+#. Translators: This is used for permissions for <user> for the folder Contacts.
+#: ../eplugin/exchange-delegates-user.c:283
+msgid "Co_ntacts:"
+msgstr "_Kontaktuak:"
+
+#: ../eplugin/exchange-delegates-user.c:331
+msgid "_Summarize permissions"
+msgstr "_Laburtu baimenak"
+
+#: ../eplugin/exchange-delegates-user.c:335
+msgid "_Delegate can see private items"
+msgstr "_Delegatuak elementu pribatuak ikus ditzake"
+
+#: ../eplugin/exchange-delegates-user.c:341
+#: ../eplugin/exchange-permissions-dialog.c:168
+#, c-format
+msgid "Permissions for %s"
+msgstr "%s(r)en baimenak"
+
+#. To translators: This is a part of the message to be sent to the delegatee
+#. summarizing the permissions assigned to him.
+#.
+#: ../eplugin/exchange-delegates-user.c:434
+msgid ""
+"This message was sent automatically by Evolution to inform you that you have "
+"been designated as a delegate. You can now send messages on my behalf."
+msgstr ""
+"Evolution-ek bidali dizu automatikoki mezu hau delegatu gisa izendatu "
+"zaituztela jakinarazteko. Nire izenean bidal ditzakezu mezuak hemendik "
+"aurrera."
+
+#. To translators: Another chunk of the same message.
+#.
+#: ../eplugin/exchange-delegates-user.c:439
+msgid "You have been given the following permissions on my folders:"
+msgstr "Nire karpeten gainean honako baimenak dituzu:"
+
+#. To translators: This message is included if the delegatee has been given access
+#. to the private items.
+#.
+#: ../eplugin/exchange-delegates-user.c:459
+msgid "You are also permitted to see my private items."
+msgstr "Gainera nire elementu pribatuak ikusteko baimena duzu."
+
+#. To translators: This message is included if the delegatee has not been given access
+#. to the private items.
+#.
+#: ../eplugin/exchange-delegates-user.c:466
+msgid "However you are not permitted to see my private items."
+msgstr "Hala ere ez duzu baimenik nire elementu pribatuak ikusteko."
+
+#: ../eplugin/exchange-delegates-user.c:498
+#, c-format
+msgid "You have been designated as a delegate for %s"
+msgstr "%s(r)en delegatu gisa izendatu zaituzte"
+
+#: ../eplugin/exchange-delegates.c:413
+msgid "Delegate To:"
+msgstr "Delegatu:"
+
+#: ../eplugin/exchange-delegates.c:413
+msgid "Delegate To"
+msgstr "Delegatu"
+
+#: ../eplugin/exchange-delegates.c:578
+#, c-format
+msgid "Remove the delegate %s?"
+msgstr "Kendu %s delegatua?"
+
+#: ../eplugin/exchange-delegates.c:695
+msgid "Could not access Active Directory"
+msgstr "Ezin izan da Direktorio Aktiboarekin konektatu"
+
+#: ../eplugin/exchange-delegates.c:707
+msgid "Could not find self in Active Directory"
+msgstr "Ezin izan da Direktorio Aktiboan norbere burua aurkitu"
+
+#: ../eplugin/exchange-delegates.c:720
+#, c-format
+msgid "Could not find delegate %s in Active Directory"
+msgstr "Ezin izan da %s ordezkaria Direktorio Aktiboan aurkitu"
+
+#: ../eplugin/exchange-delegates.c:732
+#, c-format
+msgid "Could not remove delegate %s"
+msgstr "Ezin izan da %s delegatua kendu"
+
+#: ../eplugin/exchange-delegates.c:792
+msgid "Could not update list of delegates."
+msgstr "Ezin izan da delegatuen zerrenda eguneratu."
+
+#: ../eplugin/exchange-delegates.c:810
+#, c-format
+msgid "Could not add delegate %s"
+msgstr "Ezin izan da %s delegatua gehitu"
+
+#: ../eplugin/exchange-delegates.c:926
+msgid "Delegates"
+msgstr "Ordezkariak"
+
+#: ../eplugin/exchange-delegates.c:941
+msgid ""
+"These users will be able to send mail on your behalf\n"
+"and access your folders with the permissions you give them."
+msgstr ""
+"Erabiltzaile hauek zure izenean posta bidaltzeko gai izango dira\n"
+"eta zure karpetetan sartzeko aukera izango dute ematen diezun baimenekin."
+
+#: ../eplugin/exchange-delegates.c:965
+msgid "_Edit"
+msgstr "_Editatu"
+
+#: ../eplugin/exchange-delegates.c:995
+#: ../eplugin/exchange-permissions-dialog.c:920
+msgid "Name"
+msgstr "Izena"
+
+#: ../eplugin/exchange-delegates.c:1021
+msgid "Error reading delegates list."
+msgstr "Errorea delegatuen zerrenda irakurtzean."
+
+#: ../eplugin/exchange-folder-permission.c:242
+#: ../eplugin/exchange-folder-permission.c:521
+#: ../eplugin/exchange-folder-permission.c:555
+#: ../eplugin/exchange-folder-permission.c:589
+msgid "Permissions..."
+msgstr "Baimenak..."
+
+#: ../eplugin/exchange-folder-permission.c:244
+msgid "Check folder permissions"
+msgstr "Begiratu karpetaren baimenak"
+
+#: ../eplugin/exchange-folder-permission.c:249
+#: ../eplugin/exchange-folder-permission.c:528
+#: ../eplugin/exchange-folder-permission.c:562
+#: ../eplugin/exchange-folder-permission.c:596
+msgid "Subscribe to Other User's Folder..."
+msgstr "Harpidetu _beste erabiltzailearen karpetara..."
+
+#: ../eplugin/exchange-folder-permission.c:251
+#: ../eplugin/exchange-folder-permission.c:530
+#: ../eplugin/exchange-folder-permission.c:564
+#: ../eplugin/exchange-folder-permission.c:598
+#: ../eplugin/exchange-folder-subscription.c:306
+msgid "Subscribe to Other User's Folder"
+msgstr "Harpidetu _beste erabiltzailearen karpetara"
+
+#: ../eplugin/exchange-folder-permission.c:256
+#: ../eplugin/exchange-folder-permission.c:535
+#: ../eplugin/exchange-folder-permission.c:569
+#: ../eplugin/exchange-folder-permission.c:603
+msgid "Unsubscribe Folder..."
+msgstr "Kendu karpetaren harpidetza..."
+
+#: ../eplugin/exchange-folder-permission.c:523
+msgid "Check calendar permissions"
+msgstr "Begiratu egutegiaren baimenak"
+
+#: ../eplugin/exchange-folder-permission.c:557
+msgid "Check tasks permissions"
+msgstr "Begiratu zereginen baimenak"
+
+#: ../eplugin/exchange-folder-permission.c:591
+msgid "Check addressbook permissions"
+msgstr "Begiratu helbide-liburuaren baimenak"
+
+#: ../eplugin/exchange-folder-size-display.c:118
+msgid "Exchange Folder Tree"
+msgstr "Exchange karpetaren zuhaitza"
+
+#: ../eplugin/exchange-folder-size-display.c:150
+msgid "Folder Name"
+msgstr "Karpetaren izena"
+
+#: ../eplugin/exchange-folder-size-display.c:154
+msgid "Folder Size"
+msgstr "Karpetaren tamaina"
+
+#. FIXME Limit to one user
+#: ../eplugin/exchange-folder-subscription.c:72
+msgid "User"
+msgstr "Erabiltzailea"
+
+#: ../eplugin/exchange-folder-subscription.c:322
+msgid "_Account:"
+msgstr "_Kontua:"
+
+#: ../eplugin/exchange-folder-subscription.c:329
+msgid "_Folder Name:"
+msgstr "_Karpetaren izena:"
+
+#: ../eplugin/exchange-folder-subscription.c:342
+msgid "_User:"
+msgstr "_Erabiltzailea:"
+
+#: ../eplugin/exchange-folder.c:324 ../eplugin/exchange-folder.c:378
+#, c-format
+msgid "Really unsubscribe from folder \"%s\"?"
+msgstr "\"%s\" karpetaren harpidetza kentzea nahi duzu?"
+
+#: ../eplugin/exchange-folder.c:336 ../eplugin/exchange-folder.c:390
+#, c-format
+msgid "Unsubscribe from \"%s\""
+msgstr "Kendu harpidetza \"%s\"(e)tik"
+
+#: ../eplugin/exchange-mail-send-options.c:222
+msgid "_Send Options"
+msgstr "_Bidaltzeko aukerak"
+
+#: ../eplugin/exchange-mail-send-options.c:224
+msgid "Insert Send options"
+msgstr "Txertatu bidaltzeko aukerak"
+
+#. FIXME: Don't hardcode this
+#: ../eplugin/exchange-operations.c:122 ../eplugin/exchange-operations.c:167
+#: ../server/storage/exchange-account.c:1259
+msgid "Personal Folders"
+msgstr "Karpeta pertsonalak"
+
+#: ../eplugin/exchange-permissions-dialog.c:278
+msgid "(Permission denied.)"
+msgstr "(Baimena ukatuta)"
+
+#: ../eplugin/exchange-permissions-dialog.c:384
+msgid "Add User:"
+msgstr "Gehitu erabiltzailea:"
+
+#: ../eplugin/exchange-permissions-dialog.c:384
+#: ../eplugin/exchange-send-options.c:467
+msgid "Add User"
+msgstr "Gehitu erabiltzailea"
+
+#: ../eplugin/exchange-permissions-dialog.c:796
+msgid "Permissions"
+msgstr "Baimenak"
+
+#: ../eplugin/exchange-permissions-dialog.c:813
+msgid "Role: "
+msgstr "Funtzioa:"
+
+#: ../eplugin/exchange-permissions-dialog.c:839
+msgid "Create items"
+msgstr "Sortu elementuak"
+
+#: ../eplugin/exchange-permissions-dialog.c:843
+msgid "Read items"
+msgstr "Irakurri elementuak"
+
+#: ../eplugin/exchange-permissions-dialog.c:847
+msgid "Create subfolders"
+msgstr "Sortu azpi-karpetak"
+
+#: ../eplugin/exchange-permissions-dialog.c:855
+msgid "Cannot Edit"
+msgstr "Ezin da editatu"
+
+#: ../eplugin/exchange-permissions-dialog.c:861
+msgid "Edit Own Items"
+msgstr "Editatu elementu pertsonalak"
+
+#: ../eplugin/exchange-permissions-dialog.c:867
+msgid "Edit Any Items"
+msgstr "Editatu edozein elementu"
+
+#: ../eplugin/exchange-permissions-dialog.c:881
+msgid "Folder owner"
+msgstr "Karpetaren jabea"
+
+#: ../eplugin/exchange-permissions-dialog.c:885
+msgid "Folder contact"
+msgstr "Karpetaren kontaktua"
+
+#: ../eplugin/exchange-permissions-dialog.c:889
+msgid "Folder visible"
+msgstr "Karpeta ikusgaia"
+
+#: ../eplugin/exchange-permissions-dialog.c:897
+msgid "Cannot Delete"
+msgstr "Ezin da ezabatu"
+
+#: ../eplugin/exchange-permissions-dialog.c:904
+msgid "Delete Own Items"
+msgstr "Ezabatu elementu pertsonalak"
+
+#: ../eplugin/exchange-permissions-dialog.c:910
+msgid "Delete Any Items"
+msgstr "Ezabatu edozein elementu"
+
+#: ../eplugin/exchange-permissions-dialog.c:924
+msgid "Role"
+msgstr "Funtzioa"
+
+#: ../eplugin/exchange-send-options.c:337
+msgid "Exchange - Send Options"
+msgstr "Exchange - Bidaltzeko aukerak"
+
+#: ../eplugin/exchange-send-options.c:358
+msgid "Message Settings"
+msgstr "Mezuaren ezarpenak"
+
+#: ../eplugin/exchange-send-options.c:372
+msgid "I_mportance: "
+msgstr "_Garrantzia: "
+
+#: ../eplugin/exchange-send-options.c:379
+msgid "_Sensitivity: "
+msgstr "_Sentikortasuna:"
+
+#: ../eplugin/exchange-send-options.c:391
+#: ../eplugin/exchange-send-options.c:401
+msgid "Normal"
+msgstr "Arrunta"
+
+#: ../eplugin/exchange-send-options.c:392
+msgid "Personal"
+msgstr "Pertsonala"
+
+#: ../eplugin/exchange-send-options.c:393
+msgid "Private"
+msgstr "Pribatua"
+
+#: ../eplugin/exchange-send-options.c:394
+msgid "Confidential"
+msgstr "Konfidentziala"
+
+#: ../eplugin/exchange-send-options.c:402
+msgid "High"
+msgstr "Handia"
+
+#: ../eplugin/exchange-send-options.c:403
+msgid "Low"
+msgstr "Gutxi"
+
+#: ../eplugin/exchange-send-options.c:405
+msgid "Send as Delegate"
+msgstr "Bidali delegatu gisa"
+
+#: ../eplugin/exchange-send-options.c:422
+msgid "_User"
+msgstr "_Erabiltzailea"
+
+#: ../eplugin/exchange-send-options.c:430
+msgid "Tracking Options"
+msgstr "Segimenduaren aukerak"
+
+#: ../eplugin/exchange-send-options.c:438
+msgid "Request a _delivery receipt for this message"
+msgstr "Eskatu mezu honen _bidalagiria"
+
+#: ../eplugin/exchange-send-options.c:443
+msgid "Request a _read receipt for this message"
+msgstr "Eskatu mezu honen _irakurragiria"
+
+#: ../eplugin/exchange-user-dialog.c:131
+msgid "Select User"
+msgstr "Hautatu erabiltzailea"
+
+#: ../eplugin/exchange-user-dialog.c:170
+msgid "Address Book..."
+msgstr "Helbide-liburua..."
+
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:1
+msgid "Activates the Evolution-Exchange extension package."
+msgstr "Evolution-Exchange hedapenaren paketea aktibatzen du."
+
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:2
+msgid "Exchange Operations"
+msgstr "Exchange-ren eragiketak"
+
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:4
+msgid "Size"
+msgstr "Tamaina"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:1
+msgid "Cannot access the \"Exchange settings\" tab in offline mode."
+msgstr "Ezin da \"Exchange-ren ezarpenak\" fitxa atzitu lineaz kanpoko moduan."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:2
+msgid "Cannot change password due to configuration problems."
+msgstr "Ezin da pasahitza aldatu konfigurazio arazoak daudelako."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:3
+msgid "Cannot display folders."
+msgstr "Ezin da karpeta bistaratu."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:4
+msgid "Cannot perform the operation."
+msgstr "Ezin da eragiketa egin."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:5
+msgid ""
+"Changes to options for Exchange account \"{0}\" will only take effect after "
+"restarting Evolution."
+msgstr ""
+"\"{0}\" Exchange kontuaren konfigurazioaren aldaketak Evolution-etik irten "
+"eta berriro abiatzean eragingo dira"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:6
+msgid "Could not authenticate to server."
+msgstr "Ezin izan da zerbitzarian autentifikatu."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:7
+msgid "Could not change password."
+msgstr "Ezin izan da pasahitza aldatu."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:8
+msgid ""
+"Could not configure Exchange account because \n"
+"an unknown error occurred. Check the URL, \n"
+"username, and password, and try again."
+msgstr ""
+"Ezin da Exchange-ko kontua konfiguratu errore\n"
+"ezezaguna gertatu delako. Egiaztatu URLa, \n"
+"erabiltzaile-izena eta pasahitza, eta saiatu berriro."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:11
+msgid "Could not connect to Exchange server."
+msgstr "Ezin izan da Exchange zerbitzariarekin konektatu."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:12
+msgid "Could not connect to server {0}."
+msgstr "Ezin izan da {0} zerbitzariarekin konektatu."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:13
+msgid "Could not determine folder permissions for delegates."
+msgstr "Ezin izan da delegatuen karpeten baimenak zehaztu."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:14
+msgid "Could not find Exchange Web Storage System."
+msgstr "Ezin izan da Exchange-ren web biltegiratze-sistema aurkitu."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:15
+msgid "Could not locate server {0}."
+msgstr "Ezin izan da {0} zerbitzaria kokatu."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:16
+msgid "Could not make {0} a delegate"
+msgstr "Ezin izan da {0} delegatu egin"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:17
+msgid "Could not read folder permissions"
+msgstr "Ezin izan da karpetaren baimenak irakurri."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:18
+msgid "Could not read folder permissions."
+msgstr "Ezin izan da karpetaren baimenak irakurri."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:19
+msgid "Could not read out-of-office state"
+msgstr "Ezin izan da 'bulegotik kanpo' egoera irakurri"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:20
+msgid "Could not update folder permissions."
+msgstr "Ezin izan da karpetaren baimenak eguneratu."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:21
+msgid "Could not update out-of-office state"
+msgstr "Ezin izan da 'bulegotik kanpo' egoera eguneratu"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:22
+msgid "Evolution requires a restart to load the subscribed user's mailbox"
+msgstr ""
+"Evolution berrabiarazi egin behar da harpidetutako erabiltzailearen "
+"postontziak kargatzeko"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:23
+msgid "Exchange Account is offline."
+msgstr "Exchange kontua lineaz kanpo dago."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:24
+msgid ""
+"Exchange Connector requires access to certain\n"
+"functionality on the Exchange Server that appears\n"
+"to be disabled or blocked. (This is usually \n"
+"unintentional.) Your Exchange Administrator will \n"
+"need to enable this functionality in order for \n"
+"you to be able to use Evolution Exchange Connector.\n"
+"\n"
+"For information to provide to your Exchange \n"
+"administrator, please follow the link below:\n"
+"\n"
+"{0}\n"
+"  "
+msgstr ""
+"Exchange Konektatzaileak zenbait funtzionalitate \n"
+"erabiltzea behar du Exchange zerbitzarian, baina \n"
+"desgaituta edo blokeatuta daudela dirudi (arruntena \n"
+"nahigabe gertatzea izaten da). Exchange-ko \n"
+"administratzaileak funtzionalitate hau gaitu beharko \n"
+"du zuk Evolution Konektatzailea erabiltzeko.\n"
+"\n"
+"Exchange-ko administratzaileari xehetasunak \n"
+"emateko jarraitu azpiko esteka:\n"
+"\n"
+"{0}\n"
+"  "
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:36
+msgid "Failed to update delegates:"
+msgstr "Huts egin du delegatuak eguneratzean:"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:38
+msgid "Folder does not exist"
+msgstr "Karpeta ez dago"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:39
+msgid "Folder offline"
+msgstr "Karpeta lineaz kanpo"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:41
+msgid "Global Catalog Server is not reachable"
+msgstr "Ezin da Katalogo Globalaren zerbitzariraino iritsi"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:42
+msgid ""
+"If OWA is running on a different path, you must specify that in the account "
+"configuration dialog."
+msgstr ""
+"OWA beste helbide batean exekutatzen ari bada, zehaztu kontuaren "
+"konfigurazioko elkarrizketa-koadroan."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:43
+msgid "Mailbox for {0} is not on this server."
+msgstr "{0}(r)en postontzia ez dago zerbitzari honetan."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:44
+msgid "Make sure the URL is correct and try again."
+msgstr "Ziurtatu URLa zuzena dela eta saiatu berriro."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:45
+msgid "Make sure the server name is spelled correctly and try again."
+msgstr "Ziurtatu zerbitzari-izena ongi idatzita dagoela eta saiatu berriro."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:46
+msgid "Make sure the username and password are correct and try again."
+msgstr "Ziurtatu erabiltzaile-izena eta pasahitza zuzenak direla eta saiatu berriro."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:47
+msgid "No Global Catalog server configured for this account."
+msgstr "Ez da Katalogo Globalaren zerbitzaririk konfiguratu kontuan."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:48
+msgid "No mailbox for user {0} on {1}."
+msgstr "Ez dago {0}(r)en postontzirik {1}(e)n."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:49
+msgid "No such user {0}"
+msgstr "Ez dago {0} bezalako erabiltzailerik"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:50
+msgid "Password successfully changed."
+msgstr "Pasahitza ongi aldatu da."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:52
+msgid "Please enter a Delegate's ID or deselect the Send as a Delegate option."
+msgstr "Sartu delegatuaren IDa edo desautatu 'Bidali delegatu gisa' aukera."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:53
+msgid "Please make sure the Global Catalog Server name is correct."
+msgstr "Ziurtatu Katalogo Globalaren zerbitzariaren izena ongi dagoela."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:54
+msgid "Please restart Evolution for changes to take effect"
+msgstr "Berrabiatu Evolution aldaketek eragina izateko"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:55
+msgid "Please select a user."
+msgstr "Hautatu erabiltzaile bat."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:56
+msgid "Server rejected password because it is too weak."
+msgstr "Zerbitzariak pasahitza ezetsi du ahulegia delako."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:57
+msgid "The Exchange account will be disabled when you quit Evolution"
+msgstr "Exchange kontua desgaitu egingo da Evolution-etik irtetzean"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:58
+msgid "The Exchange account will be removed when you quit Evolution"
+msgstr "Exchange kontua kendu egingo da Evolution-etik irtetzean"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:59
+msgid "The Exchange server is not compatible with Exchange Connector."
+msgstr "Exchange zerbitzaria ez da Exchange Konektatzailearekin bateragarria."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:60
+msgid ""
+"The server is running Exchange 5.5. Exchange Connector \n"
+"supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"Zerbitzariak Exchange 5.5. exekutatzen ari da. \n"
+"Exchange Konektatzaileak Microsoft Exchange 2000 \n"
+"eta 2003 soilik onartzen ditu."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:62
+msgid ""
+"This probably means that your server requires \n"
+"you to specify the Windows domain name \n"
+"as part of your username (eg, &quot;DOMAIN\\user&quot;).\n"
+"\n"
+"Also, you may have typed your password wrongly."
+msgstr ""
+"Badirudi Windows-en domeinu-izena zehaztea eskatzen\n"
+"dizula zerbitzariak erabiltzaile-izenaren zati gisa\n"
+"(adib. &quot;DOMEINUA\\erabiltzailea&quot;).\n"
+"\n"
+"Gainera, pasahitza gaizki idatzi duzula dirudi."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:67
+msgid "Try again with a different password."
+msgstr "Saiatu berriro beste pasahitz batekin."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:68
+msgid "Unable to add user to access control list:"
+msgstr "Ezin da erabiltzailea sarbide-kontrol zerrendan gehitu:"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:69
+msgid "Unable to edit delegates."
+msgstr "Ezin dira ordezkariak editatu."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:70
+msgid "Unknown error looking up {0}"
+msgstr "Errore ezezaguna {0} bilatzean"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:71
+msgid "Unknown error."
+msgstr "Errore ezezaguna"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:72
+msgid "Unknown type"
+msgstr "Mota ezezaguna"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:73
+msgid "Unsupported operation"
+msgstr "Onartzen ez den eragiketa"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:74
+msgid "You are nearing your quota available for storing mail on this server."
+msgstr "Zerbitzariko kuotaren mugara (posta gordetzeko) iristen ari zara."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:75
+msgid ""
+"You are permitted to send a message on behalf of only one delegator at a "
+"time."
+msgstr ""
+"Delegatu baten izenean mezu bat bakarrik bidaltzeko baimena duzu aldi "
+"bakoitzeko."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:76
+msgid "You cannot make yourself your own delegate"
+msgstr "Ezin duzu zure burua ordezkari gisa jarri"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:77
+msgid "You have exceeded your quota for storing mail on this server."
+msgstr "Zerbitzariko zure (posta gordetzeko) kuota gainditu duzu."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:78
+msgid "You may only configure a single Exchange account."
+msgstr "Exchange kontu bakuna konfigura dezakezu soilik"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:79
+msgid ""
+"Your current usage is: {0} KB. Try to clear up some space by deleting some "
+"mail."
+msgstr "Erabilitakoa: {0}KB. Saiatu lekua egiten zenbait posta ezabatuz."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:80
+msgid ""
+"Your current usage is: {0} KB. You will not be able to either send or "
+"receive mail now."
+msgstr "Erabilitakoa: {0}KB. Orain ezin izango duzu posta jaso edo bidali."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:81
+msgid ""
+"Your current usage is: {0} KB. You will not be able to send mail until you "
+"clear up some space by deleting some mail."
+msgstr ""
+"Erabilitakoa: {0}KB. Ezin izango duzu posta jaso edo bidali lekua egin arte "
+"(zenbait posta ezabatuz)."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:82
+msgid "Your password has expired."
+msgstr "Pasahitza iraungitu da."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:83
+msgid "{0}"
+msgstr "{0}"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:84
+msgid "{0} cannot be added to an access control list"
+msgstr "{0} ezin da gehitu sarbide-kontrol zerrendan"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:85
+msgid "{0} is already a delegate"
+msgstr "{0} jadanik delegatua da"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:86
+msgid "{0} is already in the list"
+msgstr "{0} jadanik zerrendan dago"
+
+#: ../server/lib/e2k-autoconfig.c:1692
+#: ../server/storage/exchange-account.c:954
+#, c-format
+msgid "Enter password for %s"
+msgstr "Sartu %s(r)en pasahitza"
+
+#: ../server/lib/e2k-autoconfig.c:1693
+#: ../server/storage/exchange-account.c:959
+msgid "Enter password"
+msgstr "Sartu pasahitza"
+
+#. i18n: These are Outlook's words for the default roles in
+#. the folder permissions dialog.
+#: ../server/lib/e2k-security-descriptor.c:842
+msgid "Owner"
+msgstr "Jabea"
+
+#: ../server/lib/e2k-security-descriptor.c:852
+msgid "Publishing Editor"
+msgstr "Argitaratze-editorea"
+
+#: ../server/lib/e2k-security-descriptor.c:860
+msgid "Editor"
+msgstr "Editorea"
+
+#: ../server/lib/e2k-security-descriptor.c:867
+msgid "Publishing Author"
+msgstr "Argitaratze-egilea"
+
+#: ../server/lib/e2k-security-descriptor.c:873
+msgid "Author"
+msgstr "Egilea"
+
+#: ../server/lib/e2k-security-descriptor.c:878
+msgid "Non-editing Author"
+msgstr "Ez-editatze egilea"
+
+#: ../server/lib/e2k-security-descriptor.c:882
+msgid "Reviewer"
+msgstr "Gainbegiratzailea"
+
+#: ../server/lib/e2k-security-descriptor.c:884
+msgid "Contributor"
+msgstr "Laguntzailea"
+
+#: ../server/storage/e-storage.c:555
+msgid "No error"
+msgstr "Errorerik ez"
+
+#: ../server/storage/e-storage.c:559
+msgid "A folder with the same name already exists"
+msgstr "Izen berdineko karpeta badago lehendik"
+
+#: ../server/storage/e-storage.c:561
+msgid "The specified folder type is not valid"
+msgstr "Zehaztutako karpeta mota ez da baliozkoa"
+
+#: ../server/storage/e-storage.c:563
+msgid "I/O error"
+msgstr "S/Iko errorea"
+
+#: ../server/storage/e-storage.c:565
+msgid "Not enough space to create the folder"
+msgstr "Ez dago nahikoa leku karpeta sortzeko"
+
+#: ../server/storage/e-storage.c:567
+msgid "The folder is not empty"
+msgstr "Karpeta ez dago hutsik"
+
+#: ../server/storage/e-storage.c:569
+msgid "The specified folder was not found"
+msgstr "Adierazitako karpeta ez da aurkitu"
+
+#: ../server/storage/e-storage.c:571
+msgid "Function not implemented in this storage"
+msgstr "Funtzioa ez dago inplementatuta biltegi honetan"
+
+#: ../server/storage/e-storage.c:575
+msgid "Operation not supported"
+msgstr "Eragiketa ez dago onartuta"
+
+#: ../server/storage/e-storage.c:577
+msgid "The specified type is not supported in this storage"
+msgstr "Biltegi honek ez du zehaztutako mota onartzen"
+
+#: ../server/storage/e-storage.c:579
+msgid "The specified folder cannot be modified or removed"
+msgstr "Adierazitako karpeta ezin da aldatu edo kendu"
+
+#: ../server/storage/e-storage.c:581
+msgid "Cannot make a folder a child of one of its descendants"
+msgstr "Karpeta bat ezin da bere azpikoen ume bihurtu."
+
+#: ../server/storage/e-storage.c:583
+msgid "Cannot create a folder with that name"
+msgstr "Ezin da izen horretako karpetarik sortu"
+
+#: ../server/storage/e-storage.c:585
+msgid "This operation cannot be performed in off-line mode"
+msgstr "Eragiketa hau ezin da lineaz kanpo moduan landu"
+
+#: ../server/storage/e-storage.c:587
+msgid "Unknown error"
+msgstr "Errore ezezaguna"
+
+#. i18n: This is the title of an "other user's folders"
+#. hierarchy. Eg, "John Doe's Folders".
+#: ../server/storage/exchange-account.c:639
+#, c-format
+msgid "%s's Folders"
+msgstr "%s(r)en karpetak"
+
+#: ../server/storage/exchange-account.c:1274
+msgid "Favorite Public Folders"
+msgstr "Gogoko karpeta publikoak"
+
+#. i18n: Outlookism
+#: ../server/storage/exchange-account.c:1291
+msgid "All Public Folders"
+msgstr "Karpeta publiko guztiak"
+
+#. i18n: Outlookism
+#: ../server/storage/exchange-account.c:1305
+msgid "Global Address List"
+msgstr "Helbide-zerrenda orokorra"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:262
+msgid "Deleted Items"
+msgstr "Ezabatu elementuak"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:263
+msgid "Drafts"
+msgstr "Zirriborroak"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:265
+msgid "Journal"
+msgstr "Egunkaria"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:266
+msgid "Notes"
+msgstr "Oharrak"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:267
+msgid "Outbox"
+msgstr "Irteerako ontzia"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:268
+msgid "Sent Items"
+msgstr "Bidalitako elementuak"
+
+#: ../tools/exchange-autoconfig-wizard.c:176
+msgid "Welcome"
+msgstr "Ongi etorri"
+
+#: ../tools/exchange-autoconfig-wizard.c:176
+msgid ""
+"Welcome to Evolution Connector for Microsoft Exchange.\n"
+"The next few screens will help you configure Evolution\n"
+"to connect to your Exchange account.\n"
+"\n"
+"Please click the \"Forward\" button to continue."
+msgstr ""
+"Ongi etorri Evolution Konektatzailera Microsoft Exchange-rentzako.\n"
+"Hurrengo pantailek Evolution konfiguratzen lagunduko dizute\n"
+"Exchange kontuarekin konektatzeko.\n"
+"\n"
+"Egin klik \"Aurrera\" botoian jarraitzeko."
+
+#: ../tools/exchange-autoconfig-wizard.c:188
+#: ../tools/exchange-autoconfig-wizard.c:361
+#: ../tools/exchange-autoconfig-wizard.c:448
+msgid "Exchange Configuration"
+msgstr "Exchange-ren konfigurazioa"
+
+#: ../tools/exchange-autoconfig-wizard.c:188
+msgid ""
+"Evolution Connector for Microsoft Exchange can use account information from "
+"your existing Outlook Web Access (OWA) account.\n"
+"\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
+msgstr ""
+"Evolution Konektatzaileak zure Outlook Web Access (OWA) kontutik kontuaren "
+"informazioa erabil dezake.\n"
+"\n"
+"Sartu OWA gunearen helbidea (URLa), erabiltzaile-izena eta pasahitza, eta "
+"egin klik \"Aurrera\".\n"
+
+#: ../tools/exchange-autoconfig-wizard.c:196
+msgid "OWA _URL:"
+msgstr "OWAren _URLa:"
+
+#: ../tools/exchange-autoconfig-wizard.c:200
+msgid "User_name:"
+msgstr "Erabiltzaile-_izena:"
+
+#: ../tools/exchange-autoconfig-wizard.c:204
+msgid "_Password:"
+msgstr "_Pasahitza:"
+
+#: ../tools/exchange-autoconfig-wizard.c:209
+msgid "_Remember this password"
+msgstr "_Gogoratu pasahitza"
+
+#: ../tools/exchange-autoconfig-wizard.c:282
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -488,7 +1606,7 @@ msgstr ""
 "Ziurtatu URLa zuzena dela  (saiatu \"%s\"(r)ekin  \"%s\"(r)en ordez?) eta "
 "saiatu berriro."
 
-#: ../storage/exchange-autoconfig-wizard.c:235
+#: ../tools/exchange-autoconfig-wizard.c:290
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -496,7 +1614,7 @@ msgstr ""
 "Ezin izan da Exchange zerbitzaria kokatu.\n"
 "Ziurtatu zerbitzari-izena ongi idatzita dagoela eta saiatu berriro."
 
-#: ../storage/exchange-autoconfig-wizard.c:244
+#: ../tools/exchange-autoconfig-wizard.c:299
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -504,7 +1622,7 @@ msgstr ""
 "Ezin izan da Exchange zerbitzarian autentifikatu.\n"
 "Ziurtatu erabiltzaile-izena eta pasahitza zuzenak direla eta saiatu berriro."
 
-#: ../storage/exchange-autoconfig-wizard.c:251
+#: ../tools/exchange-autoconfig-wizard.c:306
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -520,7 +1638,7 @@ msgstr ""
 "Agian Windows-eko domeinu-izena zure erabiltzaile-izenaren zati adierazi "
 "beharko duzu (adib. \"NIRE_DOMEINUA\\%s\")."
 
-#: ../storage/exchange-autoconfig-wizard.c:263
+#: ../tools/exchange-autoconfig-wizard.c:318
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -528,7 +1646,7 @@ msgstr ""
 "Ezin izan da OWA datuak adierazitako URLan aurkitu.\n"
 "Ziurtatu URLa zuzena dela eta saiatu berriro."
 
-#: ../storage/exchange-autoconfig-wizard.c:270
+#: ../tools/exchange-autoconfig-wizard.c:324
 msgid ""
 "Evolution Connector for Microsoft Exchange requires access to certain "
 "functionality on the Exchange server that appears to be disabled or "
@@ -547,7 +1665,7 @@ msgstr ""
 "\n"
 "Exchange-ko administratzaileari xehetasunak emateko jarraitu azpiko esteka:"
 
-#: ../storage/exchange-autoconfig-wizard.c:292
+#: ../tools/exchange-autoconfig-wizard.c:337
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 server. "
 "Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
@@ -557,7 +1675,7 @@ msgstr ""
 "Evolution Konektatzaileak Microsoft Exchange 2000 eta 2003 bakarrik onartzen "
 "ditu."
 
-#: ../storage/exchange-autoconfig-wizard.c:306
+#: ../tools/exchange-autoconfig-wizard.c:345
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -565,7 +1683,22 @@ msgstr ""
 "Ezin izan da Exchange-ko kontua konfiguratu errore ezezaguna gertatu delako."
 "Egiaztatu URLa, erabiltzaile-izena eta pasahitza, eta saiatu berriro."
 
-#: ../storage/exchange-autoconfig-wizard.c:350
+#: ../tools/exchange-autoconfig-wizard.c:361
+msgid ""
+"Evolution Connector for Microsoft Exchange could not find the Global Catalog "
+"replica for your site. Please enter the name of your Global Catalog server. "
+"You may need to ask your system administrator for the correct value."
+msgstr ""
+"Microsoft Exchange-rentzako Evolution Konektatzaileak ezin izan "
+"du Katalogo Globalaren erreplika aurkitu gunean. Sartu Katalogo "
+"Globalaren zerbitzariaren izena. Sistemako administratzaileari galdetu "
+"balio egokiei buruz."
+
+#: ../tools/exchange-autoconfig-wizard.c:369
+msgid "GC _Server:"
+msgstr "KG _zerbitzaria:"
+
+#: ../tools/exchange-autoconfig-wizard.c:402
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -576,7 +1709,7 @@ msgstr ""
 "zehaztu Windows-eko domeinua zure erabiltzaile-izenaren zati gisa (adib. "
 "\"NIRE-DOMEINUA\\%s\")."
 
-#: ../storage/exchange-autoconfig-wizard.c:357
+#: ../tools/exchange-autoconfig-wizard.c:409
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -584,12 +1717,56 @@ msgstr ""
 "Ezin izan da adierazitako zerbitzariarekin konektatu.\n"
 "Egiaztatu zerbitzari-izena eta saiatu berriro."
 
-#: ../storage/exchange-autoconfig-wizard.c:394
-#: ../storage/exchange-autoconfig-wizard.c:398
+#: ../tools/exchange-autoconfig-wizard.c:421
+msgid "Configuration Failed"
+msgstr "Konfigurazioak huts egin du"
+
+#: ../tools/exchange-autoconfig-wizard.c:421
+msgid ""
+"Evolution Connector for Microsoft Exchange has encountered a problem "
+"configuring your Exchange account."
+msgstr ""
+"Microsoft Exchange-rentzako Evolution Konektatzaileak arazoak izan "
+"ditu Exchange kontua konfiguratzean."
+
+#: ../tools/exchange-autoconfig-wizard.c:448
+msgid ""
+"Your account information is as follows. Please correct any errors, then "
+"click \"Forward\"."
+msgstr ""
+"Zure kontuaren datuak honakoak dira. Zuzendu edozein errore, gero egin klik "
+"\"Aurrera\" botoian."
+
+#: ../tools/exchange-autoconfig-wizard.c:456
+msgid "Full _Name:"
+msgstr "Izen _osoa:"
+
+#: ../tools/exchange-autoconfig-wizard.c:460
+msgid "_Email Address:"
+msgstr "_Helbide el.:"
+
+#: ../tools/exchange-autoconfig-wizard.c:464
+msgid "Make this my _default account"
+msgstr "Bihurtu hau kontu _lehenetsia"
+
+#: ../tools/exchange-autoconfig-wizard.c:481
+#: ../tools/exchange-autoconfig-wizard.c:485
 msgid "Unknown"
 msgstr "Ezezaguna"
 
-#: ../storage/exchange-autoconfig-wizard.c:463
+#: ../tools/exchange-autoconfig-wizard.c:508
+msgid "Done"
+msgstr "Eginda"
+
+#: ../tools/exchange-autoconfig-wizard.c:508
+msgid ""
+"Your Connector account is now ready to use. Click the \"Apply\" button to "
+"save your settings."
+msgstr ""
+"Konektatzaile-kontua prest dago erabiltzeko. Egin klik \"Aplikatu\" botoian "
+"ezarpenak gordetzeko."
+
+#: ../tools/exchange-autoconfig-wizard.c:542
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -597,441 +1774,61 @@ msgstr ""
 "Konfigurazio-sistemaren errorea.\n"
 "Ezin da kontu berria sortu."
 
-#: ../storage/exchange-autoconfig-wizard.c:477
+#: ../tools/exchange-autoconfig-wizard.c:556
 msgid "You may only configure a single Exchange account"
 msgstr "Exchange kontu bakuna soilik konfigura dezakezu"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:1
-#: ../storage/exchange-change-password.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:2
-msgid "Configuration Failed"
-msgstr "Konfigurazioak huts egin du"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:3
-msgid "Done"
-msgstr "Eginda"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:4
-msgid "Email Address:"
-msgstr "Helbide el.:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:5
+#: ../tools/exchange-autoconfig-wizard.c:731
 msgid "Evolution Connector for Microsoft Exchange Configuration"
 msgstr "Evolution Konektatzailea Microsoft Exchange konfiguratzeko"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:6
-msgid ""
-"Evolution Connector for Microsoft Exchange can use account information from "
-"your existing Outlook Web Access (OWA) account.\n"
-"\n"
-"Enter your OWA site address (URL), username, and password, then click "
-"\"Forward\".\n"
-msgstr ""
-"Evolution Konektatzaileak zure Outlook Web Access (OWA) kontutik kontuaren "
-"informazioa erabil dezake.\n"
-"\n"
-"Sartu OWA gunearen helbidea (URLa), erabiltzaile-izena eta pasahitza, eta "
-"egin klik \"Aurrera\".\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:10
-msgid ""
-"Evolution Connector for Microsoft Exchange could not find the Global Catalog "
-"replica for your site. Please enter the name of your Global Catalog server. "
-"You may need to ask your system administrator for the correct value.\n"
-msgstr ""
-"Evolution Konektatzaileak ezin izan du Katalogo Globalaren erreplika aurkitu "
-"gunean. Sartu Katalogo Globalaren zerbitzariaren izena. Sistemako "
-"administratzaileari galdetu balio egokiei buruz.\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:12
-msgid ""
-"Evolution Connector for Microsoft Exchange has encountered a problem "
-"configuring your Exchange account.\n"
-msgstr "Evolution Konektatzaileak arazoak izan ditu Exchange kontua konfiguratzean.\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:14
-msgid "Exchange Configuration"
-msgstr "Exchange-ren konfigurazioa"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:15
-msgid "Full Name:"
-msgstr "Izen osoa:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:16
-msgid "GC Server:"
-msgstr "KG zerbitzaria:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:17
-msgid "Make this my default account"
-msgstr "Bihurtu hau kontu lehenetsia"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:18
-msgid "OWA URL:"
-msgstr "OWAren URLa:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:19
-msgid "Password:"
-msgstr "Pasahitza:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:20
-msgid "Remember this password"
-msgstr "Gogoratu pasahitza"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:21
-msgid "Username:"
-msgstr "Erabiltzaile-izena:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:22
-msgid "Welcome"
-msgstr "Ongi etorri"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:23
-msgid ""
-"Welcome to Evolution Connector for Microsoft Exchange.\n"
-"The next few screens will help you configure Evolution\n"
-"to connect to your Exchange account.\n"
-"\n"
-"Please click the \"Forward\" button to continue."
-msgstr ""
-"Ongi etorri Evolution Konektatzailera Microsoft Exchange-rentzako.\n"
-"Hurrengo pantailek Evolution konfiguratzen lagunduko dizute\n"
-"Exchange kontuarekin konektatzeko.\n"
-"\n"
-"Egin klik \"Aurrera\" botoian jarraitzeko."
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:28
-msgid ""
-"Your Connector account is now ready to use. Click the \"Apply\" button to "
-"save your\n"
-"settings."
-msgstr ""
-"Konektatzaile-kontua prest dago erabiltzeko. Egin klik \"Aplikatu\" botoian\n"
-"ezarpenak gordetzeko."
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:30
-msgid ""
-"Your account information is as follows. Please correct any errors, then "
-"click \"Forward\".\n"
-msgstr ""
-"Kontuaren datuak honakoak dira. Zuzendu edozein errore, gero egin klik "
-"\"Aurrera\" botoian.\n"
-
-#. User entered a wrong existing
-#. * password. Prompt him again.
-#.
-#: ../storage/exchange-change-password.c:125
-msgid ""
-"The current password does not match the existing password for your account. "
-"Please enter the correct password"
-msgstr ""
-"Uneko pasahitza ez dator bat existitzen den kontuaren pasahitzarekin. Idatzi "
-"pasahitz zuzena"
-
-#: ../storage/exchange-change-password.c:132
-msgid "The two passwords do not match. Please re-enter the passwords."
-msgstr "Bi pasahitzak ez datoz bat. Idatzi berriro pasahitzak."
-
-#: ../storage/exchange-change-password.glade.h:2
-msgid "Change Password"
-msgstr "Aldatu pasahitza"
-
-#: ../storage/exchange-change-password.glade.h:3
-msgid "Confirm Password:"
-msgstr "Berretsi pasahitza:"
-
-#: ../storage/exchange-change-password.glade.h:4
-msgid "Current Password:"
-msgstr "Uneko pasahitza:"
-
-#: ../storage/exchange-change-password.glade.h:5
-msgid "New Password:"
-msgstr "Pasahitz berria:"
-
-#: ../storage/exchange-change-password.glade.h:6
-msgid "Your current password has expired. Please change your password now."
-msgstr "Uneko pasahitza iraungitu da. Aldatu pasahitza orain."
-
-#: ../storage/exchange-delegates.glade.h:1
-msgid "Author (read, create)"
-msgstr "Egilea (irakurri, sortu)"
-
-#: ../storage/exchange-delegates.glade.h:2
-msgid "C_alendar:"
-msgstr "_Egutegia:"
-
-#: ../storage/exchange-delegates.glade.h:3
-msgid "Co_ntacts:"
-msgstr "_Kontaktuak:"
-
-#: ../storage/exchange-delegates.glade.h:4
-msgid "Delegate Permissions"
-msgstr "Ordezkariaren baimenak"
-
-#: ../storage/exchange-delegates.glade.h:5
-msgid "Delegates"
-msgstr "Ordezkariak"
-
-#: ../storage/exchange-delegates.glade.h:6
-msgid "Editor (read, create, edit)"
-msgstr "Editorea (irakurri, sortu, editatu)"
-
-#: ../storage/exchange-delegates.glade.h:7
-msgid "None"
-msgstr "Ezer ere ez"
-
-#: ../storage/exchange-delegates.glade.h:8
-msgid "Permissions for"
-msgstr "Baimenak:"
-
-#: ../storage/exchange-delegates.glade.h:9
-msgid "Reviewer (read-only)"
-msgstr "Begiratzailea (irakurtzeko soilik)"
-
-#: ../storage/exchange-delegates.glade.h:10
-msgid ""
-"These users will be able to send mail on your behalf\n"
-"and access your folders with the permissions you give them."
-msgstr ""
-"Erabiltzaile hauek zure izenean posta bidaltzeko gai izango dira\n"
-"eta zure karpetetan sartzeko aukera izango dute ematen diezun baimenekin."
-
-#: ../storage/exchange-delegates.glade.h:12
-msgid "_Delegate can see private items"
-msgstr "_Ordezkariak elementu pribatuak ikus ditzake"
-
-#: ../storage/exchange-delegates.glade.h:13
-msgid "_Edit"
-msgstr "_Editatu"
-
-#: ../storage/exchange-delegates.glade.h:14
-msgid "_Inbox:"
-msgstr "_Sarrera:"
-
-#: ../storage/exchange-delegates.glade.h:15
-msgid "_Tasks:"
-msgstr "_Zereginak:"
-
-#: ../storage/exchange-folder-tree.glade.h:1
-msgid "Exchange Folder Tree"
-msgstr "Exchange karpetaren zuhaitza"
-
-#: ../storage/exchange-migrate.c:60
-msgid "Migrating Exchange Folders..."
-msgstr "Exchange karpetak migratzea..."
-
-#: ../storage/exchange-migrate.c:68
-#, c-format
-msgid ""
-"The location and hierarchy of the Evolution exchange account folders are "
-"changed since Evolution %d.%d.%d.\n"
-"\n"
-"Please be patient while Evolution migrates your folders..."
-msgstr ""
-"Aldatu egin da Evolution-eko exchange karpeten hierarkia Evolution %d.%d.%d "
-"bertsioaz geroztik.\n"
-"\n"
-"Itxaron Evolution-ek karpetak migratzen dituen bitartean..."
-
-#: ../storage/exchange-migrate.c:101
-#, c-format
-msgid ""
-"Warning: Evolution could not migrate all the Exchange account data from the "
-"version %d.%d.%d. \n"
-"The data hasn't been deleted, but will not be seen by this version of "
-"Evolution"
-msgstr ""
-"Abisua: Evolution-ek ezin du Exchange kontuko datu guztiak %d.%d.%d "
-"bertsiotik migratu.\n"
-"Datuak ez dira ezabatu, baina ezin izango dira Evolution-en bertsio honetan "
-"ikusi"
-
-#: ../storage/exchange-migrate.c:132
-#, c-format
-msgid "Migrating `%s':"
-msgstr "'%s' migratzen:"
-
-#: ../storage/exchange-oof.glade.h:1
-msgid ""
-"<b>Currently, your status is \"Out of the Office\". </b>\n"
-"\n"
-"Would you like to change your status to \"In the Office\"? "
-msgstr ""
-"<b>Unean, zure egoera  \"Bulegotik kanpo\" da.</b>\n"
-"\n"
-"Nahi duzu \"Bulegoan\" egoerara aldatzea? "
-
-#: ../storage/exchange-oof.glade.h:4
-msgid "<b>Out of Office Message:</b>"
-msgstr "<b>'Bulegotik kanpo'ren mezua:</b>"
-
-#: ../storage/exchange-oof.glade.h:5
-msgid "<b>Status:</b>"
-msgstr "<b>Egoera:</b>"
-
-#: ../storage/exchange-oof.glade.h:6
-msgid ""
-"<small>The message specified below will be automatically sent to each person "
-"who sends\n"
-"mail to you while you are out of the office.</small>"
-msgstr ""
-"<small>Behean adierazitako mezua automatikoki bidaliko zaie \n"
-"zu bulegotik kanpo zauden bitartean mezuak bidaltzen dizkizuten pertsona "
-"guztiei.</small>"
-
-#: ../storage/exchange-oof.glade.h:8
-msgid "I am currently in the office"
-msgstr "Unean bulegoan nago"
-
-#: ../storage/exchange-oof.glade.h:9
-msgid "I am currently out of the office"
-msgstr "Unean bulegotik kanpo nago"
-
-#: ../storage/exchange-oof.glade.h:10
-msgid "No, Don't Change Status"
-msgstr "Ez, ez aldatu egoera"
-
-#: ../storage/exchange-oof.glade.h:11
-msgid "Out of Office Assistant"
-msgstr "'Bulegotik kanpo' morroia"
-
-#: ../storage/exchange-oof.glade.h:12
-msgid "Yes, Change Status"
-msgstr "Bai, aldatu egoera"
-
-#: ../storage/exchange-passwd-expiry.glade.h:1
-msgid "Password Expiry Warning..."
-msgstr "Pasahitzaren iraungitze-abisua..."
-
-#: ../storage/exchange-passwd-expiry.glade.h:2
-msgid "Your password will expire in 7 days..."
-msgstr "Zure pasahitza 7 egunetan iraungituko da..."
-
-#: ../storage/exchange-passwd-expiry.glade.h:3
-msgid "_Change Password"
-msgstr "_Aldatu pasahitza"
-
-#: ../storage/exchange-passwd-expiry.glade.h:4
-msgid "ok_button"
-msgstr "ados_botoia"
-
-#: ../storage/exchange-permissions-dialog.glade.h:1
-msgid "    "
-msgstr "    "
-
-#: ../storage/exchange-permissions-dialog.glade.h:2
-msgid "<b>Permissions</b>"
-msgstr "<b>Baimenak</b>"
-
-#: ../storage/exchange-permissions-dialog.glade.h:3
-msgid "Cannot Delete"
-msgstr "Ezin da ezabatu"
-
-#: ../storage/exchange-permissions-dialog.glade.h:4
-msgid "Cannot Edit"
-msgstr "Ezin da editatu"
-
-#: ../storage/exchange-permissions-dialog.glade.h:5
-msgid "Create items"
-msgstr "Sortu elementuak"
-
-#: ../storage/exchange-permissions-dialog.glade.h:6
-msgid "Create subfolders"
-msgstr "Sortu azpi-karpetak"
-
-#: ../storage/exchange-permissions-dialog.glade.h:7
-msgid "Delete Any Items"
-msgstr "Ezabatu edozein elementu"
-
-#: ../storage/exchange-permissions-dialog.glade.h:8
-msgid "Delete Own Items"
-msgstr "Ezabatu elementu pertsonalak"
-
-#: ../storage/exchange-permissions-dialog.glade.h:9
-msgid "Edit Any Items"
-msgstr "Editatu edozein elementu"
-
-#: ../storage/exchange-permissions-dialog.glade.h:10
-msgid "Edit Own Items"
-msgstr "Editatu elementu pertsonalak"
-
-#: ../storage/exchange-permissions-dialog.glade.h:11
-msgid "Folder contact"
-msgstr "Karpetaren kontaktua"
-
-#: ../storage/exchange-permissions-dialog.glade.h:12
-msgid "Folder owner"
-msgstr "Karpetaren jabea"
-
-#: ../storage/exchange-permissions-dialog.glade.h:13
-msgid "Folder visible"
-msgstr "Karpeta ikusgaia"
-
-#: ../storage/exchange-permissions-dialog.glade.h:14
-msgid "Read items"
-msgstr "Irakurri elementuak"
-
-#: ../storage/exchange-permissions-dialog.glade.h:15
-msgid "Role: "
-msgstr "Funtzioa:"
-
-#: ../storage/exchange-storage.c:338
-msgid "Connecting..."
-msgstr "Konektatzen..."
-
-#: ../storage/ximian-connector-setup.c:75
-msgid "Evolution Connector for Microsoft Exchange Setup Tool"
-msgstr "Evolution Konektatzailea Microsoft Exchange konfigurazio-tresnarentzat"
-
-#: ../storage/ximian-connector.xml.h:1
+#: ../tools/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
 msgstr "Aldatu Exchange zerbitzariko pasahitza"
 
-#: ../storage/ximian-connector.xml.h:2
+#: ../tools/ximian-connector.xml.h:2
 msgid "Folder _Size"
 msgstr "Karpeta-tamaina"
 
-#: ../storage/ximian-connector.xml.h:3
+#: ../tools/ximian-connector.xml.h:3
 msgid "Get the size of personal folders"
 msgstr "Lortu karpeta pertsonalen tamaina"
 
-#: ../storage/ximian-connector.xml.h:4
+#: ../tools/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
 msgstr "Harpidetu _beste erabiltzaileen karpetara..."
 
-#: ../storage/ximian-connector.xml.h:5
+#: ../tools/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Harpidetu zerbitzariko beste erabiltzaile baten karpetara"
 
-#: ../storage/ximian-connector.xml.h:6
+#: ../tools/ximian-connector.xml.h:6
 msgid "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
 "Kendu harpidetza karpetatik (\"Harpidetu beste erabiltzaileen karpetara"
 "\"rekin gehitutakoa)"
 
-#: ../storage/ximian-connector.xml.h:7
+#: ../tools/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
 msgstr "Ikusi edo aldatu Exchange egutegiaren ordezkatze-ezarpenak"
 
-#: ../storage/ximian-connector.xml.h:8
+#: ../tools/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr "Ikusi edo aldatu 'Bulegotik kanpo' egoera eta mezuen erantzun-automatikoa"
 
-#: ../storage/ximian-connector.xml.h:9
+#: ../tools/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
 msgstr "_Aldatu Exchange-ko pasahitza..."
 
-#: ../storage/ximian-connector.xml.h:10
+#: ../tools/ximian-connector.xml.h:10
 msgid "_Delegation Assistant"
 msgstr "_Ordezkatze-morroia"
 
-#: ../storage/ximian-connector.xml.h:11
+#: ../tools/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
 msgstr "'_Bulegotik kanpo' morroia"
 
-#: ../storage/ximian-connector.xml.h:12
+#: ../tools/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Kendu harpidetza beste erabiltzaileen karpetatik"
 
