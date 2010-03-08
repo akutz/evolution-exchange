@@ -48,6 +48,10 @@ evolution_exchange_storage_LDADD = \
 	$(LIBEXCHANGE_LIBS) \
 	$(SOCKET_LIBS)
 
+if OS_WIN32
+evolution_exchange_storage_LDFLAGS = -mwindows
+endif
+
 
 exchange_connector_setup_SOURCES = \
 	ximian-connector-setup.c \
@@ -59,6 +63,10 @@ exchange_connector_setup_LDADD = \
 	$(LDAP_LIBS) \
 	$(EXCHANGE_STORAGE_LIBS) \
 	$(LIBEXCHANGE_LIBS)
+
+if OS_WIN32
+exchange_connector_setup_LDFLAGS = -mwindows
+endif
 
 install-exec-local: exchange-connector-setup@EXEEXT@
 	$(mkinstalldirs) $(DESTDIR)$(bindir)
