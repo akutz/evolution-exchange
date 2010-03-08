@@ -93,11 +93,13 @@ case "$host" in
 	os_win32=yes
 	NO_UNDEFINED='-no-undefined'
 	SOCKET_LIBS='-lws2_32'
+	DNS_LIBS='-ldnsapi'
 	;;
 *)
 	os_win32=no
 	NO_UNDEFINED='-no-undefined'
 	SOCKET_LIBS=''
+	DNS_LIBS=''
 	;;
 esac
 
@@ -105,6 +107,7 @@ AC_MSG_RESULT([$os_win32])
 AM_CONDITIONAL(OS_WIN32, [test "x$os_win32" = "xyes"])
 AC_SUBST(NO_UNDEFINED)
 AC_SUBST(SOCKET_LIBS)
+AC_SUBST(DNS_LIBS)
 
 dnl ******************
 dnl Initialize libtool

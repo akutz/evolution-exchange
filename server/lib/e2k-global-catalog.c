@@ -1182,9 +1182,11 @@ do_delegate_op (E2kGlobalCatalog *gc, E2kOperation *op, gint deleg_op,
 		E2K_GC_DEBUG_MSG(("GC: bad delegate\n\n"));
 		return E2K_GLOBAL_CATALOG_BAD_DATA;
 
+#ifndef G_OS_WIN32
 	case LDAP_TYPE_OR_VALUE_EXISTS:
 		E2K_GC_DEBUG_MSG(("GC: delegate already exists\n\n"));
 		return E2K_GLOBAL_CATALOG_EXISTS;
+#endif
 
 	case LDAP_USER_CANCELLED:
 		E2K_GC_DEBUG_MSG(("GC: cancelled\n\n"));

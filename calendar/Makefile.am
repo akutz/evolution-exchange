@@ -30,6 +30,8 @@ libecalbackendexchange_la_LDFLAGS = \
 libecalbackendexchange_la_LIBADD = \
 	$(top_builddir)/tools/libevolution-exchange-shared.la \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
-	$(LDAP_LIBS)
+	$(LDAP_LIBS) \
+	$(DNS_LIBS) \
+	$(PTHREAD_LIB)
 
 -include $(top_srcdir)/git.mk

@@ -59,11 +59,13 @@ liborg_gnome_exchange_operations_la_SOURCES = \
 	exchange-send-options.h
 
 liborg_gnome_exchange_operations_la_LIBADD = \
+	$(top_builddir)/server/storage/libexchange-storage.la \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
 	$(EVOLUTION_PLUGIN_LIBS) \
 	$(EVOLUTION_SHELL_LIBS) \
 	$(EVOLUTION_MAIL_LIBS) \
-	$(top_builddir)/server/storage/libexchange-storage.la
+	$(PTHREAD_LIB) \
+	$(DNS_LIBS)
 
 liborg_gnome_exchange_operations_la_LDFLAGS = \
 	-module -avoid-version $(NO_UNDEFINED)

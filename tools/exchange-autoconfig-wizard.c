@@ -39,8 +39,9 @@
 
 #ifdef G_OS_WIN32
 
-#undef CONNECTOR_IMAGESDIR
-#define CONNECTOR_IMAGESDIR _exchange_storage_imagesdir
+#ifdef G_OS_WIN32
+#include <libedataserver/e-data-server-util.h>
+#endif
 
 #endif
 

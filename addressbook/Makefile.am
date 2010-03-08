@@ -50,8 +50,10 @@ libebookbackendexchange_la_LDFLAGS = \
 	-module -avoid-version $(NO_UNDEFINED)
 
 libebookbackendexchange_la_LIBADD = \
+	$(top_builddir)/tools/libevolution-exchange-shared.la \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
-	$(top_builddir)/tools/libevolution-exchange-shared.la
+	$(PTHREAD_LIB) \
+	$(DNS_LIBS)
 
 if HAVE_LIBDB
 libebookbackendexchange_la_SOURCES += \

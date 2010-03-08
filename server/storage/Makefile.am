@@ -1,8 +1,3 @@
-if OS_WIN32
-WIN32_BOOTSTRAP_LIBS = \
-	$(top_builddir)/win32/libedataserverui-1.2.la
-endif
-
 noinst_LTLIBRARIES = \
 	libexchange-storage.la
 
@@ -60,7 +55,6 @@ libexchange_storage_la_SOURCES = \
 	exchange-types.h
 
 libexchange_storage_la_LIBADD = \
-	$(WIN32_BOOTSTRAP_LIBS) \
 	$(top_builddir)/server/lib/libexchange.la \
 	$(top_builddir)/server/xntlm/libxntlm.la \
 	$(GNOME_PLATFORM_LIBS) \

@@ -27,8 +27,8 @@
 #include "exchange-autoconfig-wizard.h"
 
 #ifdef G_OS_WIN32
+#include <libedataserver/e-data-server-util.h>
 const gchar *_exchange_storage_datadir;
-const gchar *_exchange_storage_gladedir;
 const gchar *_exchange_storage_imagesdir;
 #endif
 
@@ -45,7 +45,6 @@ main (gint argc, gchar **argv)
 		 * same run-time prefix as evolution-data-server.
 		 */
 		_exchange_storage_datadir = e_util_replace_prefix (PREFIX, e_util_get_prefix (), DATADIR);
-		_exchange_storage_gladedir = e_util_replace_prefix (PREFIX, e_util_get_prefix (), CONNECTOR_GLADEDIR);
 		_exchange_storage_imagesdir = e_util_replace_prefix (PREFIX, e_util_get_prefix (), CONNECTOR_IMAGESDIR);
 
 		localedir = e_util_replace_prefix (CONNECTOR_LOCALEDIR, e_util_get_cp_prefix (), CONNECTOR_LOCALEDIR);

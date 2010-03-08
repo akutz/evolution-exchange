@@ -44,6 +44,7 @@ libcamelexchange_la_LIBADD = \
 	$(EVOLUTION_PLUGIN_LIBS) \
 	$(LDAP_LIBS) \
 	$(SOCKET_LIBS) \
+	$(DNS_LIBS) \
 	$(PTHREAD_LIB)
 
 EXTRA_DIST = libcamelexchange.urls

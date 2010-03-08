@@ -67,14 +67,20 @@ exchange_connector_setup_LDADD = \
 	$(GNOME_PLATFORM_LIBS) \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
 	$(EVOLUTION_PLUGIN_LIBS) \
-	$(LDAP_LIBS)
+	$(PTHREAD_LIB) \
+	$(LDAP_LIBS)\
+	$(DNS_LIBS)
 
-install-exec-local: exchange-connector-setup
+if OS_WIN32
+exchange_connector_setup_LDFLAGS = -mwindows
+endif
+
+install-exec-local: exchange-connector-setup@EXEEXT@
 	$(mkinstalldirs) $(DESTDIR)$(bindir)
-	$(LIBTOOL) --mode=install $(INSTALL_PROGRAM) exchange-connector-setup $(DESTDIR)$(bindir)/exchange-connector-setup-$(BASE_VERSION)
+	$(LIBTOOL) --mode=install $(INSTALL_PROGRAM) exchange-connector-setup@EXEEXT@ $(DESTDIR)$(bindir)/exchange-connector-setup-$(BASE_VERSION)@EXEEXT@
 
 uninstall-local:
-	rm -rf $(DESTDIR)$(bindir)/exchange-connector-setup-$(BASE_VERSION)
+	rm -rf $(DESTDIR)$(bindir)/exchange-connector-setup-$(BASE_VERSION)@EXEEXT@
 
 imagesdir = $(CONNECTOR_DATADIR)/images
 images_DATA = \
