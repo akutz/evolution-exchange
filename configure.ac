@@ -176,7 +176,9 @@ dnl AC_DEFINE(BONOBO_UI_DISABLE_DEPRECATED,1,[No deprecated bonoboui functions])
 dnl AC_DEFINE(GCONF_DISABLE_DEPRECATED,1,[No deprecated gconf functions])
 dnl AC_DEFINE(LIBGLADE_DISABLE_DEPRECATED,1,[No deprecated libglade functions])
 
-AC_EGREP_HEADER(socklen_t, sys/socket.h, :, AC_DEFINE(socklen_t, int, [Define to "int" if socklen_t is not defined]))
+if test x$os_win32 != xyes; then
+   AC_EGREP_HEADER(socklen_t, sys/socket.h, :, AC_DEFINE(socklen_t, int, [Define to "int" if socklen_t is not defined]))
+fi
 
 AM_PATH_GLIB_2_0
 AM_PATH_ORBIT2
@@ -316,10 +318,14 @@ int main(int argc, char **argv)
 }],[
 AC_DEFINE(HAVE_LDAP_PAGED, 1, [Supports Paged results])
 ac_cv_ldappaged=yes
-],ac_cv_ldappaged="no (GAL Caching disabled)",ac_cv_ldappaged="no (GAL Caching disabled)",[
-AC_DEFINE(HAVE_LDAP_PAGED, 1, [Supports Paged results])
-ac_cv_ldappaged=yes
-])
+],ac_cv_ldappaged="no (GAL Caching disabled)",ac_cv_ldappaged="no (GAL Caching disabled)")
+
+# hardcode this for win32 because winldap.h supports the paged results
+# although with a tad different API
+if test x$os_win32 = xyes; then
+   AC_DEFINE(HAVE_LDAP_PAGED, 1, [Supports Paged results])
+   ac_cv_ldappaged=yes
+fi
 AC_MSG_RESULT($ac_cv_ldappaged)
 
 dnl *******

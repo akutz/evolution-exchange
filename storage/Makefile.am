@@ -60,9 +60,9 @@ exchange_connector_setup_LDADD = \
 	$(EXCHANGE_STORAGE_LIBS) \
 	$(LIBEXCHANGE_LIBS)
 
-install-exec-local: exchange-connector-setup
+install-exec-local: exchange-connector-setup@EXEEXT@
 	$(mkinstalldirs) $(DESTDIR)$(bindir)
-	$(LIBTOOL) --mode=install $(INSTALL_PROGRAM) exchange-connector-setup $(DESTDIR)$(bindir)/exchange-connector-setup-$(BASE_VERSION)
+	$(LIBTOOL) --mode=install $(INSTALL_PROGRAM) exchange-connector-setup@EXEEXT@ $(DESTDIR)$(bindir)/exchange-connector-setup-$(BASE_VERSION)@EXEEXT@
 
 uninstall-local:
 	rm -rf $(DESTDIR)$(bindir)/exchange-connector-setup-$(BASE_VERSION)
