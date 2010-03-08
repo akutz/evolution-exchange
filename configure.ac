@@ -152,7 +152,9 @@ PKG_CHECK_MODULES(EVOLUTION_DATA_SERVER,
 dnl ************************
 dnl Check for socklen_t type
 dnl ************************
-AC_EGREP_HEADER([socklen_t], [sys/socket.h], [:], [AC_DEFINE(socklen_t, int, [Define to "int" if socklen_t is not defined])])
+if test x$os_win32 != xyes; then
+   AC_EGREP_HEADER(socklen_t, sys/socket.h, :, AC_DEFINE(socklen_t, int, [Define to "int" if socklen_t is not defined]))
+fi
 
 dnl *******************
 dnl GObject marshalling
@@ -344,6 +346,12 @@ AC_CACHE_CHECK([for LDAP Paged Control], [ac_cv_ldappaged],
 		}
 	]],
 	)], [ac_cv_ldappaged="yes"], [ac_cv_ladppaged="no"], [ac_cv_ldappaged="yes"]))
+
+# hardcode this for win32 because winldap.h supports the paged results
+# although with a tad different API
+if test x$os_win32 = xyes; then
+   ac_cv_ldappaged=yes
+fi
 
 if test "x$ac_cv_ldappaged" = "xyes"; then
 	AC_DEFINE([HAVE_LDAP_PAGED], 1, [Supports Paged results])

@@ -53,6 +53,10 @@
 #include "e-book-backend-gal.h"
 #include <libical/ical.h>
 
+#ifdef _WIN32
+#include <winber.h>
+#endif
+
 #ifndef LDAP_CONTROL_PAGEDRESULTS
 #ifdef ENABLE_CACHE
 #undef ENABLE_CACHE
@@ -2244,9 +2248,17 @@ getNextPage:
 			return;
 		}
 		ber_printf( prber, "{iO}", pageSize, &cookie );
-		if (ber_flatten2( prber, &c[i].ldctl_value, 0 ) == -1) {
+#ifdef G_OS_WIN32
+		if ( ber_flatten( prber, &c[i].ldctl_value ) == -1 ) {
+			ber_free( prber, 1 );
 			return;
 		}
+		ber_free( prber, 1 );
+#else
+		if ( ber_flatten2( prber, &c[i].ldctl_value, 0 ) == -1 ) {
+			return;
+		}
+#endif
 		d(printf ("Setting parameters		\n"));
 		c[i].ldctl_oid = (gchar *) LDAP_CONTROL_PAGEDRESULTS;
 		c[i].ldctl_iscritical = pagedResults > 1;
