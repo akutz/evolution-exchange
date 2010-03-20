@@ -2,23 +2,24 @@
 # Lithuanian translation of evolution-exchange.
 # Copyright (C) 2005-2009 Free Software Foundation, Inc.
 # This file is distributed under the same license as the evolution-exchange package.
-#
-#
-# Žygimantas Beručka <zygis@gnome.org>, 2005-2006, 2009.
+# Žygimantas Beručka <zygis@gnome.org>, 2005-2006, 2009, 2010.
 # Gintautas Miliauskas <gintas@akl.lt>, 2006, 2007, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-14 21:11+0200\n"
-"PO-Revision-Date: 2009-03-14 21:29+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product"
+"=evolution-exchange&component=general\n"
+"POT-Creation-Date: 2010-03-17 15:36+0000\n"
+"PO-Revision-Date: 2010-03-21 01:26+0300\n"
 "Last-Translator: Žygimantas Beručka <zygis@gnome.org>\n"
 "Language-Team: Lithuanian <gnome-lt@lists.akl.lt>\n"
+"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
 "100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Virtaal 0.5.2\n"
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
 msgid "Specifies the time interval to refresh the GAL Cache."
@@ -35,110 +36,101 @@ msgstr ""
 "Nustatykite į 0, jei nenorite atnaujinti GAL ir visada naudoti esamą kaupą. "
 "Tai galima padaryti tik jei įjungėte GAL atsijungimo veikseną."
 
-#: ../addressbook/e-book-backend-exchange.c:2285
-#: ../addressbook/e-book-backend-gal.c:1865 ../storage/exchange-storage.c:135
+#: ../addressbook/e-book-backend-exchange.c:2305
+#: ../addressbook/e-book-backend-gal.c:1900
 msgid "Searching..."
 msgstr "Ieškoma..."
 
-#: ../addressbook/e-book-backend-gal.c:306
-#: ../addressbook/e-book-backend-gal.c:327
+#: ../addressbook/e-book-backend-gal.c:319
+#: ../addressbook/e-book-backend-gal.c:340
 msgid "Reconnecting to LDAP server..."
 msgstr "Iš naujo jungiamasi prie LDAP serverio..."
 
-#: ../addressbook/e-book-backend-gal.c:1624
+#: ../addressbook/e-book-backend-gal.c:1661
 msgid "Receiving LDAP search results..."
 msgstr "Gaunami LDAP paieškos rezultatai..."
 
-#: ../addressbook/e-book-backend-gal.c:1896
+#: ../addressbook/e-book-backend-gal.c:1931
 msgid "Error performing search"
 msgstr "Klaida atliekant paiešką"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2095
-#, c-format
-msgid ""
-"Unable to schedule resource '%s' for recurring meetings.\n"
-"You must book each meeting separately."
-msgstr ""
-"Nepavyko suplanuoti ištekliaus „%s“ pasikartojantiems susitikimams.\n"
-"Turite įtraukti kiekvieną susitikimą atskirai."
-
-#: ../calendar/e-cal-backend-exchange-calendar.c:2113
+#: ../calendar/e-cal-backend-exchange-calendar.c:2111
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Išteklius „%s“ yra užimtas pasirinktu laiko periodu."
 
-#: ../calendar/e-cal-backend-exchange.c:422
+#: ../calendar/e-cal-backend-exchange.c:425
 msgid "Authentication failed"
 msgstr "Nepavyko nustatyti tapatybės"
 
-#: ../calendar/e-cal-backend-exchange.c:474
+#: ../calendar/e-cal-backend-exchange.c:477
 msgid "Could not find the calendar"
 msgstr "Nepavyko rasti kalendoriaus"
 
-#: ../camel/camel-exchange-folder.c:204
+#: ../camel/camel-exchange-folder.c:198
 msgid "You cannot expunge in offline mode."
 msgstr "Atsijungimo veiksenoje negalima išvalyti"
 
-#: ../camel/camel-exchange-folder.c:235
+#: ../camel/camel-exchange-folder.c:226
 msgid "No Subject"
 msgstr "Nėra temos"
 
-#: ../camel/camel-exchange-folder.c:398
+#: ../camel/camel-exchange-folder.c:388
 msgid "This message is not available in offline mode."
 msgstr "Šis laiškas neprieinamas atsijungimo veiksenoje."
 
-#: ../camel/camel-exchange-folder.c:625
+#: ../camel/camel-exchange-folder.c:613
 msgid "Moving messages"
 msgstr "Perkeliami laiškai"
 
-#: ../camel/camel-exchange-folder.c:626
+#: ../camel/camel-exchange-folder.c:614
 msgid "Copying messages"
 msgstr "Kopijuojami laiškai"
 
-#: ../camel/camel-exchange-folder.c:1004
+#: ../camel/camel-exchange-folder.c:982
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Nepavyko sukurti aplanko %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1014
+#: ../camel/camel-exchange-folder.c:992
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Nepavyko įkelti %s santraukos"
 
-#: ../camel/camel-exchange-folder.c:1022
+#: ../camel/camel-exchange-folder.c:1000
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Nepavyko sukurti podėlio, skirto %s"
 
-#: ../camel/camel-exchange-folder.c:1032
+#: ../camel/camel-exchange-folder.c:1010
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Nepavyko sukurti %s žurnalo"
 
-#: ../camel/camel-exchange-folder.c:1083
+#: ../camel/camel-exchange-folder.c:1059
 msgid "Scanning for changed messages"
 msgstr "Ieškoma pakeistų laiškų"
 
-#: ../camel/camel-exchange-folder.c:1116
+#: ../camel/camel-exchange-folder.c:1084
 msgid "Fetching summary information for new messages"
 msgstr "Gaunama naujų laiškų santrauka"
 
-#: ../camel/camel-exchange-journal.c:342
+#: ../camel/camel-exchange-journal.c:333
 msgid "No folder name found\n"
 msgstr "Nerastas aplanko pavadinimas\n"
 
-#: ../camel/camel-exchange-journal.c:375 ../mail/mail-stub-exchange.c:3076
-#: ../mail/mail-stub-exchange.c:3126 ../mail/mail-stub-exchange.c:3256
-#: ../mail/mail-stub-exchange.c:3283 ../mail/mail-stub-exchange.c:3336
-#: ../mail/mail-stub-exchange.c:3358
+#: ../camel/camel-exchange-journal.c:366 ../camel/camel-exchange-utils.c:3106
+#: ../camel/camel-exchange-utils.c:3170 ../camel/camel-exchange-utils.c:3290
+#: ../camel/camel-exchange-utils.c:3321 ../camel/camel-exchange-utils.c:3373
+#: ../camel/camel-exchange-utils.c:3394
 msgid "Folder doesn't exist"
 msgstr "Aplankas neegzistuoja"
 
-#: ../camel/camel-exchange-journal.c:439
+#: ../camel/camel-exchange-journal.c:428
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "Atsijungimo veiksenoje negalima pridurti laiško: talpykla neprieinama."
 
-#: ../camel/camel-exchange-journal.c:455
+#: ../camel/camel-exchange-journal.c:444
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Atsijungimo veiksenoje negalima pridurti laiško: %s"
@@ -148,13 +140,15 @@ msgid "Secure or Plaintext Password"
 msgstr "Saugus arba grynojo teksto slaptažodis"
 
 #: ../camel/camel-exchange-provider.c:56
-#: ../camel/camel-exchange-provider.c:141
+#: ../camel/camel-exchange-provider.c:143
+#: ../eplugin/exchange-account-setup.c:73
 msgid "Plaintext Password"
 msgstr "Grynojo teksto slaptažodis"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
 #: ../camel/camel-exchange-provider.c:57
-#: ../camel/camel-exchange-provider.c:130
+#: ../camel/camel-exchange-provider.c:132
+#: ../eplugin/exchange-account-setup.c:62
 msgid "Secure Password"
 msgstr "Saugus slaptažodis"
 
@@ -197,43 +191,48 @@ msgstr "Tapatybės nustatymo _tipas:"
 msgid "Allow _browsing of the GAL until download limit is reached"
 msgstr "Leisti GAL _naršymą, kol bus pasiektas atsiuntimo limitas"
 
-#: ../camel/camel-exchange-provider.c:91
+#: ../camel/camel-exchange-provider.c:90
+msgid "_Expand groups of contacts in GAL to contact lists"
+msgstr "_Išplėsti kontaktų grupes GAL iki kontaktų sąrašų"
+
+#: ../camel/camel-exchange-provider.c:93
 msgid "Options"
 msgstr "Parinktys"
 
-#: ../camel/camel-exchange-provider.c:93
+#: ../camel/camel-exchange-provider.c:95
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Perspėjimo apie slaptažodžio nebegaliojimą periodas: %s"
 
-#: ../camel/camel-exchange-provider.c:95
+#: ../camel/camel-exchange-provider.c:97
 msgid "Automatically synchroni_ze account locally"
 msgstr "Automatiškai sinchroni_zuoti vietines paskyras"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:98
+#: ../camel/camel-exchange-provider.c:100
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr ""
 "_Naujiems laiškams gautų laiškų aplanke šiame serveryje pritaikti filtrus"
 
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:102
 msgid "Check new messages for _Junk contents"
 msgstr "Naujuose laiškuose ieškoti _šlamšto"
 
-#: ../camel/camel-exchange-provider.c:102
+#: ../camel/camel-exchange-provider.c:104
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "I_eškoti šlamšto tik Inbox aplanke"
 
-#: ../camel/camel-exchange-provider.c:112
+#: ../camel/camel-exchange-provider.c:114
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:114
+#: ../camel/camel-exchange-provider.c:116
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Pašto (ir kitų duomenų) valdymui Microsoft Exchange serveriuose"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:133
+#: ../camel/camel-exchange-provider.c:135
+#: ../eplugin/exchange-account-setup.c:65
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -241,7 +240,8 @@ msgstr ""
 "Naudojant šią parinktį prie Exchange serverio bus jungiamasi naudojant "
 "tapatybės nustatymui saugų slaptažodį (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:143
+#: ../camel/camel-exchange-provider.c:145
+#: ../eplugin/exchange-account-setup.c:75
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -249,21 +249,17 @@ msgstr ""
 "Naudojant šią parinktį prie Exchange serverio bus jungiamasi naudojant "
 "tapatybės nustatymui grynojo teksto slaptažodį."
 
-#: ../camel/camel-exchange-store.c:314
+#: ../camel/camel-exchange-store.c:305
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange serveris %s"
 
-#: ../camel/camel-exchange-store.c:317
+#: ../camel/camel-exchange-store.c:308
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "%s esančio %s Exchange paskyra"
 
-#: ../camel/camel-exchange-store.c:399
-msgid "Evolution Exchange backend process"
-msgstr "Evolution Exchange posistemės procesas"
-
-#: ../camel/camel-exchange-store.c:442
+#: ../camel/camel-exchange-store.c:385
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -271,168 +267,125 @@ msgstr ""
 "Nepavyko nustatyti tapatybės serveryje. (Neteisingas slaptažodis?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:495
+#: ../camel/camel-exchange-store.c:430
 #, c-format
 msgid "No such folder %s"
 msgstr "Nėra tokio aplanko %s"
 
-#: ../camel/camel-exchange-store.c:572
+#: ../camel/camel-exchange-store.c:502
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Atsijungimo veiksenoje negalima užsisakyti aplanko."
 
-#: ../camel/camel-exchange-store.c:589
+#: ../camel/camel-exchange-store.c:517
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Atsijungimo veiksenoje negalima atsisakyti aplanko."
 
-#: ../camel/camel-exchange-store.c:727
+#: ../camel/camel-exchange-store.c:648
 msgid "Cannot get folder info in offline mode."
 msgstr "Atsijungimo veiksenoje negalima gauti aplanko informacijos."
 
-#: ../camel/camel-exchange-store.c:800
+#: ../camel/camel-exchange-store.c:711
 msgid "Cannot create folder in offline mode."
 msgstr "Atsijungimo veiksenoje negalima sukurti aplanko."
 
-#: ../camel/camel-exchange-store.c:827
+#: ../camel/camel-exchange-store.c:734
 msgid "Cannot delete folder in offline mode."
 msgstr "Atsijungimo veiksenoje negalima ištrinti aplanko."
 
-#: ../camel/camel-exchange-store.c:851
+#: ../camel/camel-exchange-store.c:756
 msgid "Cannot rename folder in offline mode."
 msgstr "Atsijungimo veiksenoje negalima pervadinti aplanko."
 
-#: ../camel/camel-exchange-transport.c:111
+#: ../camel/camel-exchange-transport.c:107
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr ""
 "Exchange transportas gali būti naudojamas tik su Exchange pašto šaltiniu"
 
-#: ../camel/camel-exchange-transport.c:122
+#: ../camel/camel-exchange-transport.c:120
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "Negalima išsiųsti laiško: vienas ar daugiau klaidingų gavėjų"
 
-#: ../camel/camel-exchange-transport.c:132
+#: ../camel/camel-exchange-transport.c:129
 msgid "Could not find 'From' address in message"
 msgstr "Laiške nerastas siuntėjo adresas"
 
-#: ../camel/camel-stub.c:165 ../camel/camel-stub.c:229
-#, c-format
-msgid "Could not create socket: %s"
-msgstr "Nepavyko sukurti lizdo: %s"
-
-#: ../camel/camel-stub.c:183
-#, c-format
-msgid "Could not connect to %s: Please restart Evolution"
-msgstr "Nepavyko prisijungti prie %s: paleiskite Evolution iš naujo"
-
-#: ../camel/camel-stub.c:188 ../camel/camel-stub.c:247
-#, c-format
-msgid "Could not connect to %s: %s"
-msgstr "Nepavyko prisijungti prie %s: %s"
-
-#: ../camel/camel-stub.c:212
-#, c-format
-msgid "Count not read file '%s': %s"
-msgstr "Nepavyko perskaityti failo „%s“: %s"
-
-#: ../camel/camel-stub.c:220
-#, c-format
-msgid "Wrong size file '%s'"
-msgstr "Klaidingas failo dydis „%s“"
-
-#: ../camel/camel-stub.c:283
-#, c-format
-msgid "Path too long: %s"
-msgstr "Kelias per ilgas: %s"
-
-#: ../camel/camel-stub.c:318
-#, c-format
-msgid "Could not start status thread: %s"
-msgstr "Nepavyko paleisti būklės gijos: %s"
-
-#: ../camel/camel-stub.c:572
-#, c-format
-msgid "Lost connection to %s"
-msgstr "Ryšys su %s nutrūko"
-
-#: ../camel/camel-stub.c:576
-#, c-format
-msgid "Error communicating with %s: %s"
-msgstr "Klaida bandant susisiekti su %s: %s"
-
-#: ../mail/mail-stub-exchange.c:269 ../mail/mail-stub-exchange.c:965
-msgid "No such folder"
-msgstr "Nėra tokio aplanko"
-
-#: ../mail/mail-stub-exchange.c:292 ../mail/mail-stub-exchange.c:3053
-#: ../mail/mail-stub-exchange.c:3093 ../mail/mail-stub-exchange.c:3260
-#: ../mail/mail-stub-exchange.c:3310 ../mail/mail-stub-exchange.c:3373
-msgid "Permission denied"
-msgstr "Neduotas leidimas"
-
-#: ../mail/mail-stub-exchange.c:787 ../mail/mail-stub-exchange.c:879
-msgid "Could not open folder"
-msgstr "Nepavyko atidaryti aplanko"
-
-#: ../mail/mail-stub-exchange.c:873 ../mail/mail-stub-exchange.c:895
-msgid "Could not open folder: Permission denied"
-msgstr "Nepavyko atidaryti aplanko: neduotas leidimas"
-
-#: ../mail/mail-stub-exchange.c:974
-msgid "Could not create folder."
-msgstr "Nepavyko sukurti aplanko."
-
-#: ../mail/mail-stub-exchange.c:1062
-msgid "Could not open Deleted Items folder"
-msgstr "Nepavyko atidaryti ištrintų elementų aplanko"
-
-#: ../mail/mail-stub-exchange.c:1393 ../mail/mail-stub-exchange.c:1434
+#: ../camel/camel-exchange-utils.c:535 ../camel/camel-exchange-utils.c:574
 msgid "Could not get new messages"
 msgstr "Nepavyko gauti naujų laiškų"
 
-#: ../mail/mail-stub-exchange.c:1637
+#: ../camel/camel-exchange-utils.c:1062 ../camel/camel-exchange-utils.c:1213
+msgid "Could not open folder"
+msgstr "Nepavyko atidaryti aplanko"
+
+#: ../camel/camel-exchange-utils.c:1209 ../camel/camel-exchange-utils.c:1227
+msgid "Could not open folder: Permission denied"
+msgstr "Nepavyko atidaryti aplanko: neduotas leidimas"
+
+#: ../camel/camel-exchange-utils.c:1276 ../camel/camel-exchange-utils.c:2178
+msgid "No such folder"
+msgstr "Nėra tokio aplanko"
+
+#: ../camel/camel-exchange-utils.c:1298 ../camel/camel-exchange-utils.c:3080
+#: ../camel/camel-exchange-utils.c:3123 ../camel/camel-exchange-utils.c:3294
+#: ../camel/camel-exchange-utils.c:3347 ../camel/camel-exchange-utils.c:3409
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
+#: ../server/storage/e-storage.c:573
+msgid "Permission denied"
+msgstr "Neduotas leidimas"
+
+#: ../camel/camel-exchange-utils.c:2187
+msgid "Could not create folder."
+msgstr "Nepavyko sukurti aplanko."
+
+#: ../camel/camel-exchange-utils.c:2276
+msgid "Could not open Deleted Items folder"
+msgstr "Nepavyko atidaryti ištrintų elementų aplanko"
+
+#: ../camel/camel-exchange-utils.c:2403
 msgid "Could not empty Deleted Items folder"
 msgstr "Nepavyko išvalyti ištrintų elementų aplanko"
 
-#: ../mail/mail-stub-exchange.c:1639
+#: ../camel/camel-exchange-utils.c:2405
 msgid "Permission denied. Could not delete certain messages."
 msgstr "Priėjimas uždraustas. Nepavyko ištrinti kai kurių laiškų."
 
-#: ../mail/mail-stub-exchange.c:1712
+#: ../camel/camel-exchange-utils.c:2448
 msgid "Could not append message; mailbox is over quota"
 msgstr "Nepavyko pridurti laiško; viršyta paštadėžės talpa"
 
-#: ../mail/mail-stub-exchange.c:1713
+#: ../camel/camel-exchange-utils.c:2449
 msgid "Could not append message"
 msgstr "Nepavyko pridurti laiško"
 
-#: ../mail/mail-stub-exchange.c:2475
+#: ../camel/camel-exchange-utils.c:2635
 msgid "No such message"
 msgstr "Nėra tokio laiško"
 
-#: ../mail/mail-stub-exchange.c:2556
+#: ../camel/camel-exchange-utils.c:2707
 msgid "Message has been deleted"
 msgstr "Žinutė buvo ištrinta"
 
-#: ../mail/mail-stub-exchange.c:2558
+#: ../camel/camel-exchange-utils.c:2709
 msgid "Error retrieving message"
 msgstr "Gaunant laišką įvyko klaida"
 
-#: ../mail/mail-stub-exchange.c:2601
+#: ../camel/camel-exchange-utils.c:2758
 msgid "Mailbox does not support full-text searching"
 msgstr "Paštadėžėje nėra galimybės ieškoti viso teksto"
 
-#: ../mail/mail-stub-exchange.c:2704
+#: ../camel/camel-exchange-utils.c:2866
 msgid "Unable to move/copy messages"
 msgstr "Nepavyko perkelti / kopijuoti laiško"
 
-#: ../mail/mail-stub-exchange.c:2970
+#: ../camel/camel-exchange-utils.c:2985
 msgid "No mail submission URI for this mailbox"
 msgstr "Ši pašto dėžutė neturi pašto pateikimo adreso"
 
-#: ../mail/mail-stub-exchange.c:3004
+#: ../camel/camel-exchange-utils.c:3018
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Serveris nepriims pašto per Exchange transportą"
 
-#: ../mail/mail-stub-exchange.c:3006
+#: ../camel/camel-exchange-utils.c:3020
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -441,7 +394,7 @@ msgstr ""
 "Jūsų paskyrai nesuteiktas leidimas naudoti <%s>,\n"
 "kaip siuntėjo adresą."
 
-#: ../mail/mail-stub-exchange.c:3018
+#: ../camel/camel-exchange-utils.c:3032
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -449,34 +402,1341 @@ msgstr ""
 "Nepavyko išsiųsti laiško.\n"
 "Tai gali reikšti, jog jūsų paskyra viršija kvotą."
 
-#: ../mail/mail-stub-exchange.c:3022
+#: ../camel/camel-exchange-utils.c:3036
 msgid "Could not send message"
 msgstr "Nepavyko išsiųsti laiško"
 
-#: ../mail/mail-stub-exchange.c:3045 ../mail/mail-stub-exchange.c:3098
-#: ../mail/mail-stub-exchange.c:3264 ../mail/mail-stub-exchange.c:3315
-#: ../mail/mail-stub-exchange.c:3379
+#: ../camel/camel-exchange-utils.c:3072 ../camel/camel-exchange-utils.c:3128
+#: ../camel/camel-exchange-utils.c:3298 ../camel/camel-exchange-utils.c:3351
+#: ../camel/camel-exchange-utils.c:3415
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
+#: ../server/storage/e-storage.c:557
 msgid "Generic error"
 msgstr "Bendroji klaida"
 
-#: ../mail/mail-stub-exchange.c:3049
+#: ../camel/camel-exchange-utils.c:3076
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
 msgid "Folder already exists"
 msgstr "Aplankas jau egzistuoja"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:1
-msgid "Evolution Addressbook Exchange backend"
-msgstr "Evolution adresų knygos Exchange posistemė"
+#: ../eplugin/exchange-account-setup.c:270
+#| msgid "Out of Office Assistant"
+msgid "Out Of Office"
+msgstr "Esu ne biure"
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:2
-msgid "Evolution Calendar Exchange backend"
-msgstr "Evolution kalendoriaus Exchange posistemė"
+#: ../eplugin/exchange-account-setup.c:277
+#| msgid ""
+#| "<small>The message specified below will be automatically sent to each "
+#| "person who sends\n"
+#| "mail to you while you are out of the office.</small>"
+msgid ""
+"The message specified below will be automatically sent to \n"
+"each person who sends mail to you while you are out of the office."
+msgstr ""
+"Žemiau nurodytas pranešimas bus perduotas visiems asmenims,\n"
+"atsiuntusiems jums laišką tuo metu, kai jūsų nebus darbe."
 
-#: ../storage/GNOME_Evolution_Exchange_Storage.server.in.in.h:3
-#: ../storage/main.c:219
-msgid "Evolution Connector for Microsoft Exchange"
-msgstr "Evolution Connector, skirtas Microsoft Exchange"
+#: ../eplugin/exchange-account-setup.c:282
+#| msgid "<b>Status:</b>"
+msgid "Status:"
+msgstr "Būsena:"
 
-#: ../storage/exchange-autoconfig-wizard.c:227
+#: ../eplugin/exchange-account-setup.c:289
+#: ../eplugin/exchange-account-setup.c:294
+#| msgid "I am currently out of the office"
+msgid "I am out of the office"
+msgstr "Manęs šiuo metu darbe nėra"
+
+#: ../eplugin/exchange-account-setup.c:290
+#: ../eplugin/exchange-account-setup.c:293
+#| msgid "I am currently in the office"
+msgid "I am in the office"
+msgstr "Šiuo metu esu darbe"
+
+#. Security settings
+#: ../eplugin/exchange-account-setup.c:329
+msgid "Security"
+msgstr "Saugumas"
+
+#. Change Password
+#: ../eplugin/exchange-account-setup.c:340
+msgid "Change the password for Exchange account"
+msgstr "Pakeisti Exchange paskyros slaptažodį"
+
+#: ../eplugin/exchange-account-setup.c:342
+#: ../eplugin/exchange-change-password.c:85
+msgid "Change Password"
+msgstr "Pakeisti slaptažodį"
+
+#. Delegation Assistant
+#: ../eplugin/exchange-account-setup.c:347
+msgid "Manage the delegate settings for Exchange account"
+msgstr "Tvarkyti Exchange paskyros delegavimo parametrus"
+
+#: ../eplugin/exchange-account-setup.c:349
+#| msgid "_Delegation Assistant"
+msgid "Delegation Assistant"
+msgstr "Paskyrimo pagelbiklis"
+
+#. Miscelleneous settings
+#: ../eplugin/exchange-account-setup.c:361
+msgid "Miscellaneous"
+msgstr "Įvairūs"
+
+#. Folder Size
+#: ../eplugin/exchange-account-setup.c:371
+#| msgid "Get the size of personal folders"
+msgid "View the size of all Exchange folders"
+msgstr "Žiūrėti visų Exchange aplankų dydį"
+
+#: ../eplugin/exchange-account-setup.c:373
+#| msgid "Folder _Size"
+msgid "Folders Size"
+msgstr "Aplankų dydis"
+
+#: ../eplugin/exchange-account-setup.c:380
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:3
+#| msgid "Exchange server %s"
+msgid "Exchange Settings"
+msgstr "Exchange parametrai"
+
+#: ../eplugin/exchange-account-setup.c:739
+#| msgid "OWA URL:"
+msgid "_OWA URL:"
+msgstr "_OWA URL:"
+
+#: ../eplugin/exchange-account-setup.c:765
+#| msgid "Authentication failed"
+msgid "A_uthenticate"
+msgstr "_Nustatyti tapatybę"
+
+#: ../eplugin/exchange-account-setup.c:787
+msgid "Mailbox name is _different from user name"
+msgstr "Pašto dėžutės vardas _skiriasi nuo naudotojo vardo"
+
+#: ../eplugin/exchange-account-setup.c:800
+#| msgid "_Inbox:"
+msgid "_Mailbox:"
+msgstr "_Pašto dėžutė:"
+
+#: ../eplugin/exchange-account-setup.c:1015
+#| msgid "Authentication _Type:"
+msgid "_Authentication Type"
+msgstr "_Tapatybės nustatymo tipas"
+
+#: ../eplugin/exchange-account-setup.c:1029
+msgid "Ch_eck for Supported Types"
+msgstr "Pati_krinti, kokie tipai palaikomi"
+
+#: ../eplugin/exchange-account-setup.c:1144 ../eplugin/exchange-contacts.c:217
+#, c-format
+msgid "%s KB"
+msgstr "%s KB"
+
+#: ../eplugin/exchange-account-setup.c:1146 ../eplugin/exchange-contacts.c:219
+#, c-format
+msgid "0 KB"
+msgstr "0 KB"
+
+#. FIXME: Take care of i18n
+#: ../eplugin/exchange-account-setup.c:1151 ../eplugin/exchange-calendar.c:236
+#: ../eplugin/exchange-contacts.c:222
+msgid "Size:"
+msgstr "Dydis:"
+
+#: ../eplugin/exchange-calendar.c:196 ../eplugin/exchange-contacts.c:170
+msgid ""
+"Evolution is in offline mode. You cannot create or modify folders now.\n"
+"Please switch to online mode for such operations."
+msgstr ""
+"Evolution yra atsijungimo veiksenoje. Šiuo metu negalite kurti ar keisti\n"
+"aplankų. Norėdami atlikti šias operacijas, persijunkite į prisijungimo "
+"veikseną."
+
+#: ../eplugin/exchange-calendar.c:247 ../eplugin/exchange-contacts.c:239
+msgid "_Location:"
+msgstr "_Vieta:"
+
+#: ../eplugin/exchange-change-password.c:95
+msgid "Your current password has expired. Please change your password now."
+msgstr ""
+"Baigėsi jūsų slaptažodžio galiojimo laikas. Pasikeiskite savo slaptažodį."
+
+#: ../eplugin/exchange-change-password.c:110
+#| msgid "Current Password:"
+msgid "Current _Password:"
+msgstr "_Dabartinis slaptažodis:"
+
+#: ../eplugin/exchange-change-password.c:117
+#| msgid "New Password:"
+msgid "_New Password:"
+msgstr "_Naujas slaptažodis:"
+
+#: ../eplugin/exchange-change-password.c:124
+#| msgid "Confirm Password:"
+msgid "_Confirm Password:"
+msgstr "_Patvirtinkite slaptažodį:"
+
+#. User entered a wrong existing
+#. * password. Prompt him again.
+#.
+#: ../eplugin/exchange-change-password.c:175
+msgid ""
+"The current password does not match the existing password for your account. "
+"Please enter the correct password"
+msgstr ""
+"Šis slaptažodis neatitinka dabartinio jūsų paskyros slaptažodžio. Įveskite "
+"teisingą slaptažodį"
+
+#: ../eplugin/exchange-change-password.c:182
+msgid "The two passwords do not match. Please re-enter the passwords."
+msgstr ""
+"Du slaptažodžiai neatitinka vienas kito. Įveskite slaptažodžius iš naujo."
+
+#: ../eplugin/exchange-config-listener.c:661
+#, c-format
+#| msgid "Your password will expire in 7 days..."
+msgid "Your password will expire in the next %d days"
+msgstr "Jūsų slaptažodis nustos galioti po %d dienų"
+
+#: ../eplugin/exchange-config-listener.c:664
+msgid "Password Expiry Warning..."
+msgstr "Slaptažodžio nebegaliojimo perspėjimas..."
+
+#: ../eplugin/exchange-config-listener.c:681
+msgid "_Change Password"
+msgstr "_Pakeisti slaptažodį"
+
+#: ../eplugin/exchange-config-listener.c:734
+msgid "Out of Office Assistant"
+msgstr "Nebuvimo darbe pagelbiklis"
+
+#: ../eplugin/exchange-config-listener.c:751
+#| msgid "I am currently out of the office"
+msgid "Currently, your status is \"Out of the Office\"."
+msgstr "Šiuo metu jūsų būsena yra „Manęs darbe nėra“."
+
+#: ../eplugin/exchange-config-listener.c:751
+#| msgid ""
+#| "<b>Currently, your status is \"Out of the Office\". </b>\n"
+#| "\n"
+#| "Would you like to change your status to \"In the Office\"? "
+msgid "Would you like to change your status to \"In the Office\"?"
+msgstr "Ar norėtumėte pakeisti savo būseną į „Esu darbe“?"
+
+#: ../eplugin/exchange-config-listener.c:780
+#| msgid "No, Don't Change Status"
+msgid "_No, Don't Change Status"
+msgstr "_Ne, nekeisti būsenos"
+
+#: ../eplugin/exchange-config-listener.c:801
+#| msgid "Yes, Change Status"
+msgid "_Yes, Change Status"
+msgstr "_Taip, pakeisti būseną"
+
+#: ../eplugin/exchange-config-listener.c:833
+#, c-format
+#| msgid "Plaintext Password"
+msgid "Enter Password for %s"
+msgstr "Įveskite %s slaptažodį"
+
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:436
+#: ../server/storage/exchange-hierarchy-foreign.c:260
+#| msgid "C_alendar:"
+msgid "Calendar"
+msgstr "Kalendorius"
+
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:439
+#: ../server/storage/exchange-hierarchy-foreign.c:269
+#| msgid "_Tasks:"
+msgid "Tasks"
+msgstr "Užduotys"
+
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:434
+#: ../server/storage/exchange-hierarchy-foreign.c:264
+#| msgid "_Inbox:"
+msgid "Inbox"
+msgstr "Gauti laiškai"
+
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:442
+#: ../server/storage/exchange-hierarchy-foreign.c:261
+#| msgid "Co_ntacts:"
+msgid "Contacts"
+msgstr "Kontaktai"
+
+#: ../eplugin/exchange-delegates-user.c:135
+#: ../eplugin/exchange-permissions-dialog.c:545
+#: ../server/lib/e2k-security-descriptor.c:901
+msgid "Custom"
+msgstr "Pasirinktinis"
+
+#. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
+#: ../eplugin/exchange-delegates-user.c:158
+#: ../eplugin/exchange-delegates-user.c:299
+#: ../eplugin/exchange-delegates-user.c:309
+#: ../eplugin/exchange-delegates-user.c:319
+#: ../eplugin/exchange-delegates-user.c:329
+msgid "Editor (read, create, edit)"
+msgstr "Redaktorius (skaityti, kurti, redaguoti)"
+
+#. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
+#: ../eplugin/exchange-delegates-user.c:163
+#: ../eplugin/exchange-delegates-user.c:298
+#: ../eplugin/exchange-delegates-user.c:308
+#: ../eplugin/exchange-delegates-user.c:318
+#: ../eplugin/exchange-delegates-user.c:328
+msgid "Author (read, create)"
+msgstr "Autorius (skaityti, kurti)"
+
+#. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
+#: ../eplugin/exchange-delegates-user.c:168
+#: ../eplugin/exchange-delegates-user.c:297
+#: ../eplugin/exchange-delegates-user.c:307
+#: ../eplugin/exchange-delegates-user.c:317
+#: ../eplugin/exchange-delegates-user.c:327
+msgid "Reviewer (read-only)"
+msgstr "Apžvalgininkas (tik skaityti)"
+
+#: ../eplugin/exchange-delegates-user.c:171
+#: ../eplugin/exchange-delegates-user.c:296
+#: ../eplugin/exchange-delegates-user.c:306
+#: ../eplugin/exchange-delegates-user.c:316
+#: ../eplugin/exchange-delegates-user.c:326
+#: ../server/lib/e2k-security-descriptor.c:886
+msgid "None"
+msgstr "Nėra"
+
+#: ../eplugin/exchange-delegates-user.c:226
+msgid "Delegate Permissions"
+msgstr "Delegatų leidimai"
+
+#: ../eplugin/exchange-delegates-user.c:244
+msgid "Permissions for"
+msgstr "Leidimai skirti"
+
+#. Translators: This is used for permissions for <user> for the folder Calendar.
+#: ../eplugin/exchange-delegates-user.c:256
+msgid "C_alendar:"
+msgstr "K_alendorius:"
+
+#. Translators: This is used for permissions for <user> for the folder Tasks.
+#: ../eplugin/exchange-delegates-user.c:265
+msgid "_Tasks:"
+msgstr "_Užduotys:"
+
+#. Translators: This is used for permissions for <user> for the folder Inbox.
+#: ../eplugin/exchange-delegates-user.c:274
+msgid "_Inbox:"
+msgstr "_Gauti"
+
+#. Translators: This is used for permissions for <user> for the folder Contacts.
+#: ../eplugin/exchange-delegates-user.c:283
+msgid "Co_ntacts:"
+msgstr "Ko_ntaktai:"
+
+#: ../eplugin/exchange-delegates-user.c:331
+#| msgid "Delegate Permissions"
+msgid "_Summarize permissions"
+msgstr "_Apžvelgti teises"
+
+#: ../eplugin/exchange-delegates-user.c:335
+msgid "_Delegate can see private items"
+msgstr "_Delegatai gali matyti privačius elementus"
+
+#: ../eplugin/exchange-delegates-user.c:341
+#: ../eplugin/exchange-permissions-dialog.c:168
+#, c-format
+#| msgid "Permissions for"
+msgid "Permissions for %s"
+msgstr "%s teisės"
+
+#. To translators: This is a part of the message to be sent to the delegatee
+#. summarizing the permissions assigned to him.
+#.
+#: ../eplugin/exchange-delegates-user.c:434
+msgid ""
+"This message was sent automatically by Evolution to inform you that you have "
+"been designated as a delegate. You can now send messages on my behalf."
+msgstr ""
+"Šis laiškas buvo išsiųstas automatiškai Evolution norint jus informuoti, kad "
+"buvote paskirtas atstovu. Dabar galite siųsti laiškus mano vardu."
+
+#. To translators: Another chunk of the same message.
+#.
+#: ../eplugin/exchange-delegates-user.c:439
+msgid "You have been given the following permissions on my folders:"
+msgstr "Jums buvo suteiktos šios teisės į mano aplankus:"
+
+#. To translators: This message is included if the delegatee has been given access
+#. to the private items.
+#.
+#: ../eplugin/exchange-delegates-user.c:459
+#| msgid "_Delegate can see private items"
+msgid "You are also permitted to see my private items."
+msgstr "Taip pat galite matyti mano asmeninius elementus."
+
+#. To translators: This message is included if the delegatee has not been given access
+#. to the private items.
+#.
+#: ../eplugin/exchange-delegates-user.c:466
+msgid "However you are not permitted to see my private items."
+msgstr "Tačiau Jums neleidžiama matyti mano asmeninių elementų."
+
+#: ../eplugin/exchange-delegates-user.c:498
+#, c-format
+msgid "You have been designated as a delegate for %s"
+msgstr "Buvote paskirtas %s atstovu"
+
+#: ../eplugin/exchange-delegates.c:413
+#| msgid "Delegates"
+msgid "Delegate To:"
+msgstr "Pavesti kam:"
+
+#: ../eplugin/exchange-delegates.c:413
+#| msgid "Delegates"
+msgid "Delegate To"
+msgstr "Pavesti kam"
+
+#: ../eplugin/exchange-delegates.c:578
+#, c-format
+msgid "Remove the delegate %s?"
+msgstr "Pašalinti atstovą %s?"
+
+#: ../eplugin/exchange-delegates.c:695
+#| msgid "Could not create directory %s: %s"
+msgid "Could not access Active Directory"
+msgstr "Nepavyko pasiekti Active Directory"
+
+#: ../eplugin/exchange-delegates.c:707
+#| msgid "Global Address List / Active Directory"
+msgid "Could not find self in Active Directory"
+msgstr "Nepavyko rasti savęs Active Directory"
+
+#: ../eplugin/exchange-delegates.c:720
+#, c-format
+#| msgid "Global Address List / Active Directory"
+msgid "Could not find delegate %s in Active Directory"
+msgstr "Nepavyko rasti atstovo %s Active Directory"
+
+#: ../eplugin/exchange-delegates.c:732
+#, c-format
+#| msgid "Could not create socket: %s"
+msgid "Could not remove delegate %s"
+msgstr "Nepavyko pašalinti atstovo %s"
+
+#: ../eplugin/exchange-delegates.c:792
+#| msgid "Could not create socket: %s"
+msgid "Could not update list of delegates."
+msgstr "Nepavyko atnaujinti atstovų sąrašo."
+
+#: ../eplugin/exchange-delegates.c:810
+#, c-format
+#| msgid "Could not create socket: %s"
+msgid "Could not add delegate %s"
+msgstr "Nepavyko pridėti atstovo %s"
+
+#: ../eplugin/exchange-delegates.c:926
+msgid "Delegates"
+msgstr "Delegatai"
+
+#: ../eplugin/exchange-delegates.c:941
+msgid ""
+"These users will be able to send mail on your behalf\n"
+"and access your folders with the permissions you give them."
+msgstr ""
+"Šie naudotojai galės siųsti laiškus jūsų vardu ir prieiti\n"
+"prie jūsų aplankų jiems suteiktomis teisėmis."
+
+#: ../eplugin/exchange-delegates.c:965
+msgid "_Edit"
+msgstr "_Keisti"
+
+#: ../eplugin/exchange-delegates.c:995
+#: ../eplugin/exchange-permissions-dialog.c:920
+msgid "Name"
+msgstr "Vardas"
+
+#: ../eplugin/exchange-delegates.c:1021
+msgid "Error reading delegates list."
+msgstr "Klaida skaitant atstovų sąrašą."
+
+#: ../eplugin/exchange-folder-permission.c:242
+#: ../eplugin/exchange-folder-permission.c:521
+#: ../eplugin/exchange-folder-permission.c:555
+#: ../eplugin/exchange-folder-permission.c:589
+#| msgid "Permissions for"
+msgid "Permissions..."
+msgstr "Teisės..."
+
+#: ../eplugin/exchange-folder-permission.c:244
+#| msgid "Delegate Permissions"
+msgid "Check folder permissions"
+msgstr "Peržiūrėti aplanko teises"
+
+#: ../eplugin/exchange-folder-permission.c:249
+#: ../eplugin/exchange-folder-permission.c:528
+#: ../eplugin/exchange-folder-permission.c:562
+#: ../eplugin/exchange-folder-permission.c:596
+#| msgid "Subscribe to _Other User's Folder..."
+msgid "Subscribe to Other User's Folder..."
+msgstr "Užsisakyti kito naudotojo aplanką..."
+
+#: ../eplugin/exchange-folder-permission.c:251
+#: ../eplugin/exchange-folder-permission.c:530
+#: ../eplugin/exchange-folder-permission.c:564
+#: ../eplugin/exchange-folder-permission.c:598
+#: ../eplugin/exchange-folder-subscription.c:306
+#| msgid "Subscribe to _Other User's Folder..."
+msgid "Subscribe to Other User's Folder"
+msgstr "Užsisakyti kito naudotojo aplanką"
+
+#: ../eplugin/exchange-folder-permission.c:256
+#: ../eplugin/exchange-folder-permission.c:535
+#: ../eplugin/exchange-folder-permission.c:569
+#: ../eplugin/exchange-folder-permission.c:603
+#| msgid "Subscribe to _Other User's Folder..."
+msgid "Unsubscribe Folder..."
+msgstr "Atsisakyti aplanko..."
+
+#: ../eplugin/exchange-folder-permission.c:523
+#| msgid "Delegate Permissions"
+msgid "Check calendar permissions"
+msgstr "Peržiūrėti kalendoriaus teises"
+
+#: ../eplugin/exchange-folder-permission.c:557
+#| msgid "Delegate Permissions"
+msgid "Check tasks permissions"
+msgstr "Peržiūrėti užduočių teises"
+
+#: ../eplugin/exchange-folder-permission.c:591
+msgid "Check addressbook permissions"
+msgstr "Peržiūrėti adresų knygos teises"
+
+#: ../eplugin/exchange-folder-size-display.c:118
+msgid "Exchange Folder Tree"
+msgstr "Exchange aplankų medis"
+
+#: ../eplugin/exchange-folder-size-display.c:150
+#| msgid "Folder owner"
+msgid "Folder Name"
+msgstr "Aplanko vardas"
+
+#: ../eplugin/exchange-folder-size-display.c:154
+#| msgid "Folder _Size"
+msgid "Folder Size"
+msgstr "Aplanko dydis"
+
+#. FIXME Limit to one user
+#: ../eplugin/exchange-folder-subscription.c:72
+#| msgid "Username:"
+msgid "User"
+msgstr "Naudotojas"
+
+#: ../eplugin/exchange-folder-subscription.c:322
+msgid "_Account:"
+msgstr "_Paskyra:"
+
+#: ../eplugin/exchange-folder-subscription.c:329
+#| msgid "Full Name:"
+msgid "_Folder Name:"
+msgstr "_Aplanko vardas:"
+
+#: ../eplugin/exchange-folder-subscription.c:342
+#| msgid "Username:"
+msgid "_User:"
+msgstr "_Naudotojas:"
+
+#: ../eplugin/exchange-folder.c:324 ../eplugin/exchange-folder.c:378
+#, c-format
+msgid "Really unsubscribe from folder \"%s\"?"
+msgstr "Tikrai atsisakyti aplanko „%s“?"
+
+#: ../eplugin/exchange-folder.c:336 ../eplugin/exchange-folder.c:390
+#, c-format
+#| msgid "_Unsubscribe from Other User's Folder"
+msgid "Unsubscribe from \"%s\""
+msgstr "Atsisakyti „%s“"
+
+#: ../eplugin/exchange-mail-send-options.c:222
+#| msgid "Options"
+msgid "_Send Options"
+msgstr "_Siuntimo parinktys"
+
+#: ../eplugin/exchange-mail-send-options.c:224
+msgid "Insert Send options"
+msgstr "Įterpti siuntimo parinktis"
+
+#. FIXME: Don't hardcode this
+#: ../eplugin/exchange-operations.c:122 ../eplugin/exchange-operations.c:167
+#: ../server/storage/exchange-account.c:1259
+msgid "Personal Folders"
+msgstr "Asmeniniai aplankai"
+
+#: ../eplugin/exchange-permissions-dialog.c:278
+#| msgid "Permission denied"
+msgid "(Permission denied.)"
+msgstr "(Leidimas neduotas.)"
+
+#: ../eplugin/exchange-permissions-dialog.c:384
+msgid "Add User:"
+msgstr "Pridėti naudotoją:"
+
+#: ../eplugin/exchange-permissions-dialog.c:384
+#: ../eplugin/exchange-send-options.c:467
+msgid "Add User"
+msgstr "Pridėti naudotoją"
+
+#: ../eplugin/exchange-permissions-dialog.c:796
+#| msgid "Permissions for"
+msgid "Permissions"
+msgstr "Teisės"
+
+#: ../eplugin/exchange-permissions-dialog.c:813
+msgid "Role: "
+msgstr "Vaidmuo: "
+
+#: ../eplugin/exchange-permissions-dialog.c:839
+msgid "Create items"
+msgstr "Kurti elementus"
+
+#: ../eplugin/exchange-permissions-dialog.c:843
+msgid "Read items"
+msgstr "Skaityti elementus"
+
+#: ../eplugin/exchange-permissions-dialog.c:847
+msgid "Create subfolders"
+msgstr "Kurti poaplankius"
+
+#: ../eplugin/exchange-permissions-dialog.c:855
+msgid "Cannot Edit"
+msgstr "Negali taisyti"
+
+#: ../eplugin/exchange-permissions-dialog.c:861
+msgid "Edit Own Items"
+msgstr "Keisti savo elementus"
+
+#: ../eplugin/exchange-permissions-dialog.c:867
+msgid "Edit Any Items"
+msgstr "Keisti bet kokius elementus"
+
+#: ../eplugin/exchange-permissions-dialog.c:881
+msgid "Folder owner"
+msgstr "Aplanko savininkas"
+
+#: ../eplugin/exchange-permissions-dialog.c:885
+msgid "Folder contact"
+msgstr "Aplanko kontaktas"
+
+#: ../eplugin/exchange-permissions-dialog.c:889
+msgid "Folder visible"
+msgstr "Aplankas matomas"
+
+#: ../eplugin/exchange-permissions-dialog.c:897
+msgid "Cannot Delete"
+msgstr "Negali trinti"
+
+#: ../eplugin/exchange-permissions-dialog.c:904
+msgid "Delete Own Items"
+msgstr "Trinti savo elementus"
+
+#: ../eplugin/exchange-permissions-dialog.c:910
+msgid "Delete Any Items"
+msgstr "Trinti bet kokius elementus"
+
+#: ../eplugin/exchange-permissions-dialog.c:924
+#| msgid "Role: "
+msgid "Role"
+msgstr "Vaidmuo"
+
+#: ../eplugin/exchange-send-options.c:337
+#| msgid "Exchange Configuration"
+msgid "Exchange - Send Options"
+msgstr "Exchange – Siuntimo parinktys"
+
+#: ../eplugin/exchange-send-options.c:358
+msgid "Message Settings"
+msgstr "Laiško parametrai"
+
+#: ../eplugin/exchange-send-options.c:372
+msgid "I_mportance: "
+msgstr "_Svarba: "
+
+#: ../eplugin/exchange-send-options.c:379
+msgid "_Sensitivity: "
+msgstr "_Jautrumas: "
+
+#: ../eplugin/exchange-send-options.c:391
+#: ../eplugin/exchange-send-options.c:401
+msgid "Normal"
+msgstr "Normalus"
+
+#: ../eplugin/exchange-send-options.c:392
+msgid "Personal"
+msgstr "Asmeninis"
+
+#: ../eplugin/exchange-send-options.c:393
+msgid "Private"
+msgstr "Privatus"
+
+#: ../eplugin/exchange-send-options.c:394
+msgid "Confidential"
+msgstr "Konfidencialus"
+
+#: ../eplugin/exchange-send-options.c:402
+msgid "High"
+msgstr "Aukštas"
+
+#: ../eplugin/exchange-send-options.c:403
+msgid "Low"
+msgstr "Žemas"
+
+#: ../eplugin/exchange-send-options.c:405
+#| msgid "Delegates"
+msgid "Send as Delegate"
+msgstr "Siųsti kaip atstovą"
+
+#: ../eplugin/exchange-send-options.c:422
+msgid "_User"
+msgstr "_Naudotojas"
+
+#: ../eplugin/exchange-send-options.c:430
+#| msgid "Options"
+msgid "Tracking Options"
+msgstr "Sekimo parinktys"
+
+#: ../eplugin/exchange-send-options.c:438
+msgid "Request a _delivery receipt for this message"
+msgstr "Prašyti pri_statymo patvirtinimo šiam laiškui"
+
+#: ../eplugin/exchange-send-options.c:443
+msgid "Request a _read receipt for this message"
+msgstr "Prašyti pe_rskaitymo patvirtinimo šiam laiškui"
+
+#: ../eplugin/exchange-user-dialog.c:131
+msgid "Select User"
+msgstr "Pasirinkite naudotoją"
+
+#: ../eplugin/exchange-user-dialog.c:170
+msgid "Address Book..."
+msgstr "Adresų knyga..."
+
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:1
+msgid "Activates the Evolution-Exchange extension package."
+msgstr "Įjungia Evolution-Exchange papildinį."
+
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:2
+#| msgid "Exchange Configuration"
+msgid "Exchange Operations"
+msgstr "Exchange operacijos"
+
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:4
+msgid "Size"
+msgstr "Dydis"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:1
+#| msgid "Cannot get folder info in offline mode."
+msgid "Cannot access the \"Exchange settings\" tab in offline mode."
+msgstr ""
+"Negalima gauti prieigos prie kortelės „Exchange parametrai“, kai esate "
+"atsijungimo veiksenoje."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:2
+msgid "Cannot change password due to configuration problems."
+msgstr "Dėl konfigūracijos problemų negalima pakeisti slaptažodžio."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:3
+#| msgid "Create subfolders"
+msgid "Cannot display folders."
+msgstr "Nepavyko parodyti aplankų."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:4
+msgid "Cannot perform the operation."
+msgstr "Nepavyko atlikti operacijos."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:5
+msgid ""
+"Changes to options for Exchange account \"{0}\" will only take effect after "
+"restarting Evolution."
+msgstr ""
+"Exchange paskyros „{0}“ parinkčių pakeitimai įsigalios tik po to, kai "
+"užversite ir iš naujo paleisite Evolution."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:6
+#| msgid ""
+#| "Could not authenticate to server. (Password incorrect?)\n"
+#| "\n"
+msgid "Could not authenticate to server."
+msgstr "Nepavyko serveryje nustatyti tapatybės."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:7
+#| msgid "Change Password"
+msgid "Could not change password."
+msgstr "Nepavyko pakeisti slaptažodžio."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:8
+#| msgid ""
+#| "Could not configure Exchange account because an unknown error occurred. "
+#| "Check the URL, username, and password, and try again."
+msgid ""
+"Could not configure Exchange account because \n"
+"an unknown error occurred. Check the URL, \n"
+"username, and password, and try again."
+msgstr ""
+"Nepavyko sukonfigūruoti Exchange paskyros, nes\n"
+"įvyko nežinoma klaida. Patikrinkite URL, naudotojo\n"
+"vardą ir slaptažodį ir bandykite dar kartą."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:11
+#| msgid "Could not connect to %s: %s"
+msgid "Could not connect to Exchange server."
+msgstr "Nepavyko prisijungti prie Exchange serverio."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:12
+#| msgid "Could not connect to %s: %s"
+msgid "Could not connect to server {0}."
+msgstr "Nepavyko prisijungti prie serverio {0}."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:13
+#| msgid "Could not open folder: Permission denied"
+msgid "Could not determine folder permissions for delegates."
+msgstr "Nepavyko nustatyti atstovų teisių į aplanką."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:14
+msgid "Could not find Exchange Web Storage System."
+msgstr "Nepavyko surasti Exchange Web Storage System."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:15
+#| msgid "Could not create folder."
+msgid "Could not locate server {0}."
+msgstr "Nepavyko aptikti serverio {0}."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:16
+#| msgid "Could not append message"
+msgid "Could not make {0} a delegate"
+msgstr "Nepavyko padaryti {0} atstovu"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:17
+#| msgid "Could not open folder: Permission denied"
+msgid "Could not read folder permissions"
+msgstr "Nepavyko perskaityti aplanko teisių"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:18
+#| msgid "Could not open folder: Permission denied"
+msgid "Could not read folder permissions."
+msgstr "Nepavyko perskaityti aplanko teisių."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:19
+#| msgid "Could not create socket: %s"
+msgid "Could not read out-of-office state"
+msgstr "Nepavyko perskaityti „manęs darbe nėra“ būsenos"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:20
+#| msgid "Could not open folder: Permission denied"
+msgid "Could not update folder permissions."
+msgstr "Nepavyko atnaujinti aplanko teisių."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:21
+#| msgid "Could not create socket: %s"
+msgid "Could not update out-of-office state"
+msgstr "Nepavyko atnaujinti „manęs darbe nėra“ būsenos"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:22
+msgid "Evolution requires a restart to load the subscribed user's mailbox"
+msgstr ""
+"Norint įkelti užsakyto naudotojo pašto dėžutę reikia paleisti Evolution iš "
+"naujo"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:23
+#| msgid "Exchange account for %s on %s"
+msgid "Exchange Account is offline."
+msgstr "Exchange paskyra atsijungimo veiksenoje."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:24
+#| msgid ""
+#| "Evolution Connector for Microsoft Exchange requires access to certain "
+#| "functionality on the Exchange server that appears to be disabled or "
+#| "blocked.  (This is usually unintentional.)  Your Exchange administrator "
+#| "will need to enable this functionality in order for you to be able to use "
+#| "the Evolution Connector.\n"
+#| "\n"
+#| "For information to provide to your Exchange administrator, please follow "
+#| "the link below:"
+msgid ""
+"Exchange Connector requires access to certain\n"
+"functionality on the Exchange Server that appears\n"
+"to be disabled or blocked. (This is usually \n"
+"unintentional.) Your Exchange Administrator will \n"
+"need to enable this functionality in order for \n"
+"you to be able to use Evolution Exchange Connector.\n"
+"\n"
+"For information to provide to your Exchange \n"
+"administrator, please follow the link below:\n"
+"\n"
+"{0}\n"
+"  "
+msgstr ""
+"Exchange Connector reikia priėjimo prie tam\n"
+"tikrų Exchange serverio funkcijų, kurios šiuo\n"
+"metu yra išjungtos ar užblokuotos (dažniausiai\n"
+"tai būna padaryta netyčia). Exchange\n"
+"administratorius turi jas įjungti, jeigu norite\n"
+"naudotis Evolution Exchange Connector.\n"
+"\n"
+"Norėdami sužinoti kokią informaciją turite nurodyti\n"
+"Exchange administratoriui, žiūrėkite žemiau esančią\n"
+"nuorodą:\n"
+"\n"
+"{0}\n"
+"  "
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:36
+msgid "Failed to update delegates:"
+msgstr "Nepavyko atnaujinti atstovų:"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:38
+#| msgid "Folder doesn't exist"
+msgid "Folder does not exist"
+msgstr "Aplankas neegzistuoja"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:39
+#| msgid "Folder owner"
+msgid "Folder offline"
+msgstr "Aplankas atsijungimo veiksenoje"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:41
+#| msgid "_Global Catalog server name:"
+msgid "Global Catalog Server is not reachable"
+msgstr "Visuotinio katalogo serveris nepasiekiamas"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:42
+msgid ""
+"If OWA is running on a different path, you must specify that in the account "
+"configuration dialog."
+msgstr ""
+"Jeigu OWA paleista kitame kelyje, turite tai nurodyti paskyros konfigūravimo "
+"lange."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:43
+msgid "Mailbox for {0} is not on this server."
+msgstr "{0} pašto dėžutės šiame serveryje nėra."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:44
+#| msgid ""
+#| "Could not find OWA data at the indicated URL.\n"
+#| "Make sure the URL is correct and try again."
+msgid "Make sure the URL is correct and try again."
+msgstr "Įsitikinkite, kad URL teisingas ir bandykite dar kartą."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:45
+#| msgid ""
+#| "Could not locate Exchange server.\n"
+#| "Make sure the server name is spelled correctly and try again."
+msgid "Make sure the server name is spelled correctly and try again."
+msgstr "Įsitikinkite, kad serverio vardas parašytas teisingai ir bandykite vėl."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:46
+#| msgid ""
+#| "Could not authenticate to the Exchange server.\n"
+#| "Make sure the username and password are correct and try again."
+msgid "Make sure the username and password are correct and try again."
+msgstr ""
+"Įsitikinkite, kad naudotojo vardas ir slaptažodis yra teisingi ir bandykite "
+"vėl."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:47
+msgid "No Global Catalog server configured for this account."
+msgstr "Šiai paskyrai nėra sukonfigūruoto Global Catalog serverio."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:48
+msgid "No mailbox for user {0} on {1}."
+msgstr "Naudotojui {0} esančiam {1}, pašto dėžutės nėra."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:49
+#| msgid "No such folder %s"
+msgid "No such user {0}"
+msgstr "Naudotojo {0} nėra"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:50
+msgid "Password successfully changed."
+msgstr "Slaptažodis sėkmingai pakeistas."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:52
+msgid "Please enter a Delegate's ID or deselect the Send as a Delegate option."
+msgstr "Įveskite atstovo ID, arba atžymėkite parinktį „Siųsti atstovo vardu“."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:53
+msgid "Please make sure the Global Catalog Server name is correct."
+msgstr "Patikrinkite ar visuotinio katalogo serverio pavadinimas teisingas."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:54
+msgid "Please restart Evolution for changes to take effect"
+msgstr "Paleiskite Evolution iš naujo norėdami, kad įsigaliotų pakeitimai"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:55
+msgid "Please select a user."
+msgstr "Pasirinkite naudotoją."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:56
+msgid "Server rejected password because it is too weak."
+msgstr "Serveris atmetė slaptažodį, nes jis per silpnas."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:57
+msgid "The Exchange account will be disabled when you quit Evolution"
+msgstr "Exchange paskyra bus išjungta, kai užversite Evolution"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:58
+msgid "The Exchange account will be removed when you quit Evolution"
+msgstr "Exchange paskyra bus pašalinta, kai užversite Evolution"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:59
+msgid "The Exchange server is not compatible with Exchange Connector."
+msgstr "Exchange serveris yra nesuderinamas su Exchange Connector."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:60
+#| msgid ""
+#| "The Exchange server URL you provided is for an Exchange 5.5 server. "
+#| "Evolution Connector for Microsoft Exchange supports Microsoft Exchange "
+#| "2000 and 2003 only."
+msgid ""
+"The server is running Exchange 5.5. Exchange Connector \n"
+"supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"Serveryje veikia Exchange 5.5, bet Exchange Connector\n"
+"palaiko tik Microsoft Exchange 2000 ir 2003."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:62
+msgid ""
+"This probably means that your server requires \n"
+"you to specify the Windows domain name \n"
+"as part of your username (eg, &quot;DOMAIN\\user&quot;).\n"
+"\n"
+"Also, you may have typed your password wrongly."
+msgstr ""
+"Tai tikriausiai reiškia, kad serveriui reikia\n"
+"kaip dalį naudotojo vardo nurodyti Windows\n"
+"srities pavadinimą (pvz., „SRITIS\\naudotojas“).\n"
+"\n"
+"Arba tiesiog įvedėte slaptažodį neteisingai."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:67
+msgid "Try again with a different password."
+msgstr "Bandykite dar kartą naudodami kitą slaptažodį."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:68
+msgid "Unable to add user to access control list:"
+msgstr "Nepavyko įtraukti naudotojo į priėjimo kontrolės sąrašą:"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:69
+#| msgid "Unable to move/copy messages"
+msgid "Unable to edit delegates."
+msgstr "Nepavyko pakeisti atstovų."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:70
+msgid "Unknown error looking up {0}"
+msgstr "Nežinoma klaida peržiūrint {0}"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:71
+#| msgid "Unknown"
+msgid "Unknown error."
+msgstr "Nežinoma klaida."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:72
+#| msgid "Unknown"
+msgid "Unknown type"
+msgstr "Nežinomas tipas"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:73
+msgid "Unsupported operation"
+msgstr "Nepalaikoma operacija"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:74
+msgid "You are nearing your quota available for storing mail on this server."
+msgstr ""
+"Artėjate prie kvotos, skirtos saugoti paštui šiame serveryje, išnaudojimo."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:75
+msgid ""
+"You are permitted to send a message on behalf of only one delegator at a "
+"time."
+msgstr "Galite siųsti laišką tik vieno atstovaujamojo vardu."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:76
+msgid "You cannot make yourself your own delegate"
+msgstr "Negalite pavesti savęs savo paties atstovu."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:77
+msgid "You have exceeded your quota for storing mail on this server."
+msgstr "Viršijote savo kvotą, skirtą saugoti paštui šiame serveryje."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:78
+#| msgid "You may only configure a single Exchange account"
+msgid "You may only configure a single Exchange account."
+msgstr "Galite konfigūruoti tik vieną Exchange paskyrą."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:79
+msgid ""
+"Your current usage is: {0} KB. Try to clear up some space by deleting some "
+"mail."
+msgstr ""
+"Dabar naudojate {0} KB. Atlaisvinkite šiek tiek vietos ištrindami keletą "
+"laiškų."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:80
+msgid ""
+"Your current usage is: {0} KB. You will not be able to either send or "
+"receive mail now."
+msgstr "Dabar naudojate {0} KB. Nebegalėsite siųsti arba gauti laiškų."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:81
+msgid ""
+"Your current usage is: {0} KB. You will not be able to send mail until you "
+"clear up some space by deleting some mail."
+msgstr ""
+"Dabar naudojate: {0} KB. Nebegalėsite siųsti laiškų, kol neatlaisvinsite "
+"šiek tiek vietos ištrindami keletą laiškų."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:82
+#| msgid "Your password will expire in 7 days..."
+msgid "Your password has expired."
+msgstr "Slaptažodis nebegalioja."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:83
+msgid "{0}"
+msgstr "{0}"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:84
+msgid "{0} cannot be added to an access control list"
+msgstr "{0} negali būti pridėtas į priėjimo kontrolės sąrašą"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:85
+msgid "{0} is already a delegate"
+msgstr "{0} jau yra atstovas"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:86
+msgid "{0} is already in the list"
+msgstr "{0} jau yra sąraše"
+
+#: ../server/lib/e2k-autoconfig.c:1692
+#: ../server/storage/exchange-account.c:954
+#, c-format
+msgid "Enter password for %s"
+msgstr "Įveskite %s slaptažodį"
+
+#: ../server/lib/e2k-autoconfig.c:1693
+#: ../server/storage/exchange-account.c:959
+#| msgid "Secure Password"
+msgid "Enter password"
+msgstr "Įveskite slaptažodį"
+
+#. i18n: These are Outlook's words for the default roles in
+#. the folder permissions dialog.
+#: ../server/lib/e2k-security-descriptor.c:842
+msgid "Owner"
+msgstr "Savininkas"
+
+#: ../server/lib/e2k-security-descriptor.c:852
+msgid "Publishing Editor"
+msgstr "Leidybos redaktorius"
+
+#: ../server/lib/e2k-security-descriptor.c:860
+#| msgid "_Edit"
+msgid "Editor"
+msgstr "Redaktorius"
+
+#: ../server/lib/e2k-security-descriptor.c:867
+msgid "Publishing Author"
+msgstr "Leidybos autorius"
+
+#: ../server/lib/e2k-security-descriptor.c:873
+msgid "Author"
+msgstr "Autorius"
+
+#: ../server/lib/e2k-security-descriptor.c:878
+msgid "Non-editing Author"
+msgstr "Neredaguojantis autorius"
+
+#: ../server/lib/e2k-security-descriptor.c:882
+msgid "Reviewer"
+msgstr "Apžvalgininkas"
+
+#: ../server/lib/e2k-security-descriptor.c:884
+msgid "Contributor"
+msgstr "Bendraautorius"
+
+#: ../server/storage/e-storage.c:555
+msgid "No error"
+msgstr "Nėra klaidų"
+
+#: ../server/storage/e-storage.c:559
+#| msgid "Folder already exists"
+msgid "A folder with the same name already exists"
+msgstr "Toks aplankas jau yra"
+
+#: ../server/storage/e-storage.c:561
+msgid "The specified folder type is not valid"
+msgstr "Pasirinktas aplanko tipas netinkamas"
+
+#: ../server/storage/e-storage.c:563
+msgid "I/O error"
+msgstr "﻿Įvesties/išvesties klaida"
+
+#: ../server/storage/e-storage.c:565
+#| msgid "Could not create folder."
+msgid "Not enough space to create the folder"
+msgstr "Nepakanka vietos aplanko sukurimui"
+
+#: ../server/storage/e-storage.c:567
+msgid "The folder is not empty"
+msgstr "Aplankas netuščias"
+
+#: ../server/storage/e-storage.c:569
+msgid "The specified folder was not found"
+msgstr "Nurodytas aplankas nerastas"
+
+#: ../server/storage/e-storage.c:571
+msgid "Function not implemented in this storage"
+msgstr "Funkcija neįgyvendinta šioje saugykloje"
+
+#: ../server/storage/e-storage.c:575
+msgid "Operation not supported"
+msgstr "Operacija nepalaikoma"
+
+#: ../server/storage/e-storage.c:577
+msgid "The specified type is not supported in this storage"
+msgstr "Nurodytas tipas nepalaikomas šioje saugykloje"
+
+#: ../server/storage/e-storage.c:579
+msgid "The specified folder cannot be modified or removed"
+msgstr "Nurodytas aplankas negali būti pakeistas ar pašalintas"
+
+#: ../server/storage/e-storage.c:581
+msgid "Cannot make a folder a child of one of its descendants"
+msgstr "Negalima padaryti aplanko vienu iš jo poaplankių"
+
+#: ../server/storage/e-storage.c:583
+#| msgid "Cannot create folder in offline mode."
+msgid "Cannot create a folder with that name"
+msgstr "Nepavyko sukurti aplanko su tokiu vardu"
+
+#: ../server/storage/e-storage.c:585
+#| msgid "You cannot expunge in offline mode."
+msgid "This operation cannot be performed in off-line mode"
+msgstr "Esant atsijungimo veiksenoje šios operacijos atlikti negalima"
+
+#: ../server/storage/e-storage.c:587
+#| msgid "Unknown"
+msgid "Unknown error"
+msgstr "Nežinoma klaida"
+
+#. i18n: This is the title of an "other user's folders"
+#. hierarchy. Eg, "John Doe's Folders".
+#: ../server/storage/exchange-account.c:639
+#, c-format
+msgid "%s's Folders"
+msgstr "%s aplankai"
+
+#: ../server/storage/exchange-account.c:1274
+#| msgid "Create subfolders"
+msgid "Favorite Public Folders"
+msgstr "Mėgstami viešieji aplankai"
+
+#. i18n: Outlookism
+#: ../server/storage/exchange-account.c:1291
+msgid "All Public Folders"
+msgstr "Visi viešieji aplankai"
+
+#. i18n: Outlookism
+#: ../server/storage/exchange-account.c:1305
+#| msgid "Global Address List / Active Directory"
+msgid "Global Address List"
+msgstr "Globalus adresų sąrašas"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:262
+#| msgid "Delete Any Items"
+msgid "Deleted Items"
+msgstr "Ištrinti elementai"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:263
+msgid "Drafts"
+msgstr "Juodraščiai"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:265
+msgid "Journal"
+msgstr "Žurnalas"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:266
+#| msgid "None"
+msgid "Notes"
+msgstr "Pastabos"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:267
+msgid "Outbox"
+msgstr "Paruošti siųsti"
+
+#: ../server/storage/exchange-hierarchy-foreign.c:268
+#| msgid "Create items"
+msgid "Sent Items"
+msgstr "Išsiųsti elementai"
+
+#: ../tools/exchange-autoconfig-wizard.c:177
+msgid "Welcome"
+msgstr "Sveiki atvykę"
+
+#: ../tools/exchange-autoconfig-wizard.c:177
+msgid ""
+"Welcome to Evolution Connector for Microsoft Exchange.\n"
+"The next few screens will help you configure Evolution\n"
+"to connect to your Exchange account.\n"
+"\n"
+"Please click the \"Forward\" button to continue."
+msgstr ""
+"Sveiki paleidę Evolution Connector, skirtą Microsoft Exchange.\n"
+"Keletas sekančių langų padės Jums sukonfigūruoti Evolution,\n"
+"kad galėtumėte prisijungti prie Exchange paskyros.\n"
+"\n"
+"Norėdami tęsti spustelėkite mygtuką „Pirmyn“."
+
+#: ../tools/exchange-autoconfig-wizard.c:189
+#: ../tools/exchange-autoconfig-wizard.c:362
+#: ../tools/exchange-autoconfig-wizard.c:449
+msgid "Exchange Configuration"
+msgstr "Exchange konfigūracija"
+
+#: ../tools/exchange-autoconfig-wizard.c:189
+msgid ""
+"Evolution Connector for Microsoft Exchange can use account information from "
+"your existing Outlook Web Access (OWA) account.\n"
+"\n"
+"Enter your OWA site address (URL), username, and password, then click "
+"\"Forward\".\n"
+msgstr ""
+"Evolution Connector gali naudoti jūsų esamos „Outlook Web Access“ (OWA) "
+"paskyros informaciją.\n"
+"\n"
+"Įveskite savo OWA svetainės adresą (URL), naudotojo vardą bei slaptažodį ir "
+"spustelėkite „Pirmyn“.\n"
+
+#: ../tools/exchange-autoconfig-wizard.c:197
+#| msgid "OWA URL:"
+msgid "OWA _URL:"
+msgstr "OWA _URL:"
+
+#: ../tools/exchange-autoconfig-wizard.c:201
+#| msgid "Username:"
+msgid "User_name:"
+msgstr "Naudotojo _vardas:"
+
+#: ../tools/exchange-autoconfig-wizard.c:205
+#| msgid "Password:"
+msgid "_Password:"
+msgstr "_Slaptažodis:"
+
+#: ../tools/exchange-autoconfig-wizard.c:210
+#| msgid "Remember this password"
+msgid "_Remember this password"
+msgstr "_Atsiminti šį slaptaždį"
+
+#: ../tools/exchange-autoconfig-wizard.c:283
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -486,7 +1746,7 @@ msgstr ""
 "Įsitikinkite, jog adresas yra teisingas (vietoje „%s“ pabandykite „%s“?)\n"
 "ir bandykite dar kartą."
 
-#: ../storage/exchange-autoconfig-wizard.c:235
+#: ../tools/exchange-autoconfig-wizard.c:291
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -495,7 +1755,7 @@ msgstr ""
 "Įsitikinkite, jog serverio vardas parašytas teisingai ir bandykite\n"
 "dar kartą."
 
-#: ../storage/exchange-autoconfig-wizard.c:244
+#: ../tools/exchange-autoconfig-wizard.c:300
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -504,7 +1764,7 @@ msgstr ""
 "Įsitikinkite, jog naudotojo vardas ir slaptažodis yra teisingi ir\n"
 "bandykite dar kartą."
 
-#: ../storage/exchange-autoconfig-wizard.c:251
+#: ../tools/exchange-autoconfig-wizard.c:307
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -520,7 +1780,7 @@ msgstr ""
 "Jums gali reikėti nurodyti Windows srities vardą kaip dalį Jūsų naudotojo "
 "vardo (pvz., „MANO-SRITIS\\%s)."
 
-#: ../storage/exchange-autoconfig-wizard.c:263
+#: ../tools/exchange-autoconfig-wizard.c:319
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -528,7 +1788,7 @@ msgstr ""
 "Nurodytu adresu nepavyko rasti OWA duomenų.\n"
 "Įsitikinkite, kad adresas teisingas ir bandykite dar kartą."
 
-#: ../storage/exchange-autoconfig-wizard.c:270
+#: ../tools/exchange-autoconfig-wizard.c:325
 msgid ""
 "Evolution Connector for Microsoft Exchange requires access to certain "
 "functionality on the Exchange server that appears to be disabled or "
@@ -547,7 +1807,7 @@ msgstr ""
 "Norėdami pamatyti informaciją, kurią turite pateikti Exchange "
 "administratoriui, žiūrėkite žemiau esančią nuorodą:"
 
-#: ../storage/exchange-autoconfig-wizard.c:292
+#: ../tools/exchange-autoconfig-wizard.c:338
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 server. "
 "Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
@@ -556,7 +1816,7 @@ msgstr ""
 "Pateiktas serverio adresas yra skirtas Exchange 5.5 serveriui. Evolution "
 "Connector palaiko tik Microsoft Exchange 2000 ir 2003."
 
-#: ../storage/exchange-autoconfig-wizard.c:306
+#: ../tools/exchange-autoconfig-wizard.c:346
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -564,7 +1824,27 @@ msgstr ""
 "Nepavyko sukonfigūruoti Exchange paskyros, nes įvyko nežinoma klaida. "
 "Patikrinkite adresą, naudotojo vardą bei slaptažodį ir bandykite dar kartą."
 
-#: ../storage/exchange-autoconfig-wizard.c:350
+#: ../tools/exchange-autoconfig-wizard.c:362
+#| msgid ""
+#| "Evolution Connector for Microsoft Exchange could not find the Global "
+#| "Catalog replica for your site. Please enter the name of your Global "
+#| "Catalog server. You may need to ask your system administrator for the "
+#| "correct value.\n"
+msgid ""
+"Evolution Connector for Microsoft Exchange could not find the Global Catalog "
+"replica for your site. Please enter the name of your Global Catalog server. "
+"You may need to ask your system administrator for the correct value."
+msgstr ""
+"Evolution Connector nepavyko aptikti globalaus katalogo kopijos jūsų "
+"sričiai. Įveskite savo globalaus katalogo serverio vardą. Jums gali reikėti "
+"pasiklausti jūsų sistemos administratoriaus."
+
+#: ../tools/exchange-autoconfig-wizard.c:370
+#| msgid "GC Server:"
+msgid "GC _Server:"
+msgstr "GC _serveris:"
+
+#: ../tools/exchange-autoconfig-wizard.c:403
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -575,7 +1855,7 @@ msgstr ""
 "grįžti atgal ir nurodyti Windows srities vardą, kaip dalį Jūsų naudotojo "
 "vardo (pvz. “MANO-SRITIS\\%s“)."
 
-#: ../storage/exchange-autoconfig-wizard.c:357
+#: ../tools/exchange-autoconfig-wizard.c:410
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -583,12 +1863,68 @@ msgstr ""
 "Nepavyko prisijungti prie nurodytojo serverio.\n"
 "Patikrinkite serverio vardą ir bandykite dar kartą."
 
-#: ../storage/exchange-autoconfig-wizard.c:394
-#: ../storage/exchange-autoconfig-wizard.c:398
+#: ../tools/exchange-autoconfig-wizard.c:422
+msgid "Configuration Failed"
+msgstr "Konfigūravimas nepavyko"
+
+#: ../tools/exchange-autoconfig-wizard.c:422
+#| msgid ""
+#| "Evolution Connector for Microsoft Exchange has encountered a problem "
+#| "configuring your Exchange account.\n"
+msgid ""
+"Evolution Connector for Microsoft Exchange has encountered a problem "
+"configuring your Exchange account."
+msgstr ""
+"Evolution Connector jūsų Exchange paskyros konfigūravimo metu aptiko klaidą."
+
+#: ../tools/exchange-autoconfig-wizard.c:449
+#| msgid ""
+#| "Your account information is as follows. Please correct any errors, then "
+#| "click \"Forward\".\n"
+msgid ""
+"Your account information is as follows. Please correct any errors, then "
+"click \"Forward\"."
+msgstr ""
+"Jūsų paskyros informacija yra tokia. Ištaisykite visas klaidas, tada "
+"spustelėkite „Pirmyn“."
+
+#: ../tools/exchange-autoconfig-wizard.c:457
+#| msgid "Full Name:"
+msgid "Full _Name:"
+msgstr "_Vardas, pavardė:"
+
+#: ../tools/exchange-autoconfig-wizard.c:461
+#| msgid "Email Address:"
+msgid "_Email Address:"
+msgstr "_El. pašto adresas:"
+
+#: ../tools/exchange-autoconfig-wizard.c:465
+#| msgid "Make this my default account"
+msgid "Make this my _default account"
+msgstr "Padaryti šią paskyrą mano _numatytąja"
+
+#: ../tools/exchange-autoconfig-wizard.c:482
+#: ../tools/exchange-autoconfig-wizard.c:486
 msgid "Unknown"
 msgstr "Nežinoma"
 
-#: ../storage/exchange-autoconfig-wizard.c:463
+#: ../tools/exchange-autoconfig-wizard.c:509
+msgid "Done"
+msgstr "Atlikta"
+
+#: ../tools/exchange-autoconfig-wizard.c:509
+#| msgid ""
+#| "Your Connector account is now ready to use. Click the \"Apply\" button to "
+#| "save your\n"
+#| "settings."
+msgid ""
+"Your Connector account is now ready to use. Click the \"Apply\" button to save "
+"your settings."
+msgstr ""
+"Jūsų Connector paskyra paruošta naudojimui. Norėdami išsaugoti savo "
+"pakeitimus, spustelėkite „Pritaikyti“."
+
+#: ../tools/exchange-autoconfig-wizard.c:543
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -596,443 +1932,149 @@ msgstr ""
 "Konfigūracijos sistemos klaida.\n"
 "Nepavyko sukurti naujos paskyros."
 
-#: ../storage/exchange-autoconfig-wizard.c:477
+#: ../tools/exchange-autoconfig-wizard.c:557
 msgid "You may only configure a single Exchange account"
 msgstr "Jūs galite konfigūruoti tik vieną Exchange paskyrą"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:1
-#: ../storage/exchange-change-password.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:2
-msgid "Configuration Failed"
-msgstr "Konfigūravimas nepavyko"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:3
-msgid "Done"
-msgstr "Atlikta"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:4
-msgid "Email Address:"
-msgstr "El. pašto adresas:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:5
+#: ../tools/exchange-autoconfig-wizard.c:732
 msgid "Evolution Connector for Microsoft Exchange Configuration"
 msgstr "Evolution Connector, skirtas Microsoft Exchange konfigūracijai"
 
-#: ../storage/exchange-autoconfig-wizard.glade.h:6
-msgid ""
-"Evolution Connector for Microsoft Exchange can use account information from "
-"your existing Outlook Web Access (OWA) account.\n"
-"\n"
-"Enter your OWA site address (URL), username, and password, then click "
-"\"Forward\".\n"
-msgstr ""
-"Evolution Connector gali naudoti jūsų esamos „Outlook Web Access“ (OWA) "
-"paskyros informaciją.\n"
-"\n"
-"Įveskite savo OWA svetainės adresą (URL), naudotojo vardą bei slaptažodį ir "
-"spustelėkite „Pirmyn“.\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:10
-msgid ""
-"Evolution Connector for Microsoft Exchange could not find the Global Catalog "
-"replica for your site. Please enter the name of your Global Catalog server. "
-"You may need to ask your system administrator for the correct value.\n"
-msgstr ""
-"Evolution Connecto“ nepavyko aptikti globalaus katalogo kopijos Jūsų "
-"sričiai. Įveskite savo globalaus katalogo serverio vardą. Reikalingos "
-"reikšmės gali reikėti pasiklausti Jūsų sistemos administratoriaus.\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:12
-msgid ""
-"Evolution Connector for Microsoft Exchange has encountered a problem "
-"configuring your Exchange account.\n"
-msgstr ""
-"Evolution Connector jūsų Exchange paskyros konfigūravimo metu aptiko "
-"klaidą.\n"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:14
-msgid "Exchange Configuration"
-msgstr "Exchange konfigūracija"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:15
-msgid "Full Name:"
-msgstr "Visas vardas:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:16
-msgid "GC Server:"
-msgstr "GC serveris:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:17
-msgid "Make this my default account"
-msgstr "Padaryti šią paskyrą numatytąja"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:18
-msgid "OWA URL:"
-msgstr "OWA adresas:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:19
-msgid "Password:"
-msgstr "Slaptažodis:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:20
-msgid "Remember this password"
-msgstr "Atsiminti šį slaptažodį"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:21
-msgid "Username:"
-msgstr "Naudotojo vardas:"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:22
-msgid "Welcome"
-msgstr "Sveiki atvykę"
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:23
-msgid ""
-"Welcome to Evolution Connector for Microsoft Exchange.\n"
-"The next few screens will help you configure Evolution\n"
-"to connect to your Exchange account.\n"
-"\n"
-"Please click the \"Forward\" button to continue."
-msgstr ""
-"Sveiki paleidę Evolution Connector, skirtą Microsoft Exchange.\n"
-"Keletas sekančių langų padės Jums sukonfigūruoti Evolution,\n"
-"kad galėtumėte prisijungti prie Exchange paskyros.\n"
-"\n"
-"Norėdami tęsti spustelėkite mygtuką „Pirmyn“."
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:28
-msgid ""
-"Your Connector account is now ready to use. Click the \"Apply\" button to "
-"save your\n"
-"settings."
-msgstr ""
-"Jūsų Connector paskyra paruošta naudojimui. Norėdami išsaugoti\n"
-"savo pakeitimus spustelėkite „Pritaikyti“."
-
-#: ../storage/exchange-autoconfig-wizard.glade.h:30
-msgid ""
-"Your account information is as follows. Please correct any errors, then "
-"click \"Forward\".\n"
-msgstr ""
-"Jūsų paskyros informacija yra tokia. Ištaisykite visas klaidas, tada "
-"spustelėkite „Pirmyn“.\n"
-
-#. User entered a wrong existing
-#. * password. Prompt him again.
-#.
-#: ../storage/exchange-change-password.c:125
-msgid ""
-"The current password does not match the existing password for your account. "
-"Please enter the correct password"
-msgstr ""
-"Šis slaptažodis neatitinka dabartinio jūsų paskyros slaptažodžio. Įveskite "
-"teisingą slaptažodį"
-
-#: ../storage/exchange-change-password.c:132
-msgid "The two passwords do not match. Please re-enter the passwords."
-msgstr ""
-"Du slaptažodžiai neatitinka vienas kito. Įveskite slaptažodžius iš naujo."
-
-#: ../storage/exchange-change-password.glade.h:2
-msgid "Change Password"
-msgstr "Pakeisti slaptažodį"
-
-#: ../storage/exchange-change-password.glade.h:3
-msgid "Confirm Password:"
-msgstr "Patvirtinkite slaptažodį:"
-
-#: ../storage/exchange-change-password.glade.h:4
-msgid "Current Password:"
-msgstr "Dabartinis slaptažodis:"
-
-#: ../storage/exchange-change-password.glade.h:5
-msgid "New Password:"
-msgstr "Naujas slaptažodis:"
-
-#: ../storage/exchange-change-password.glade.h:6
-msgid "Your current password has expired. Please change your password now."
-msgstr ""
-"Baigėsi jūsų slaptažodžio galiojimo laikas. Pasikeiskite savo "
-"slaptažodį."
-
-#: ../storage/exchange-delegates.glade.h:1
-msgid "Author (read, create)"
-msgstr "Autorius (skaityti, kurti)"
-
-#: ../storage/exchange-delegates.glade.h:2
-msgid "C_alendar:"
-msgstr "K_alendorius:"
-
-#: ../storage/exchange-delegates.glade.h:3
-msgid "Co_ntacts:"
-msgstr "Ko_ntaktai:"
-
-#: ../storage/exchange-delegates.glade.h:4
-msgid "Delegate Permissions"
-msgstr "Delegatų leidimai"
-
-#: ../storage/exchange-delegates.glade.h:5
-msgid "Delegates"
-msgstr "Delegatai"
-
-#: ../storage/exchange-delegates.glade.h:6
-msgid "Editor (read, create, edit)"
-msgstr "Redaktorius (skaityti, kurti, redaguoti)"
-
-#: ../storage/exchange-delegates.glade.h:7
-msgid "None"
-msgstr "Nėra"
-
-#: ../storage/exchange-delegates.glade.h:8
-msgid "Permissions for"
-msgstr "Leidimai skirti"
-
-#: ../storage/exchange-delegates.glade.h:9
-msgid "Reviewer (read-only)"
-msgstr "Apžvalgininkas (tik skaityti)"
-
-#: ../storage/exchange-delegates.glade.h:10
-msgid ""
-"These users will be able to send mail on your behalf\n"
-"and access your folders with the permissions you give them."
-msgstr ""
-"Šie naudotojai galės siųsti laiškus jūsų vardu ir prieiti\n"
-"prie jūsų aplankų jiems suteiktomis teisėmis."
-
-#: ../storage/exchange-delegates.glade.h:12
-msgid "_Delegate can see private items"
-msgstr "_Delegatai gali matyti privačius elementus"
-
-#: ../storage/exchange-delegates.glade.h:13
-msgid "_Edit"
-msgstr "_Keisti"
-
-#: ../storage/exchange-delegates.glade.h:14
-msgid "_Inbox:"
-msgstr "_Gauti"
-
-#: ../storage/exchange-delegates.glade.h:15
-msgid "_Tasks:"
-msgstr "_Užduotys:"
-
-#: ../storage/exchange-folder-tree.glade.h:1
-msgid "Exchange Folder Tree"
-msgstr "Exchange aplankų medis"
-
-#: ../storage/exchange-migrate.c:60
-msgid "Migrating Exchange Folders..."
-msgstr "Perkeliami Exchange aplankai..."
-
-#: ../storage/exchange-migrate.c:68
-#, c-format
-msgid ""
-"The location and hierarchy of the Evolution exchange account folders are "
-"changed since Evolution %d.%d.%d.\n"
-"\n"
-"Please be patient while Evolution migrates your folders..."
-msgstr ""
-"Evolution Exchange paskyrų aplankų hierarchija ir vieta pasikeitė nuo "
-"Evolution %d.%d.%d.\n"
-"\n"
-"Luktelėkite, kol Evolution perkels jūsų aplankus..."
-
-#: ../storage/exchange-migrate.c:101
-#, c-format
-msgid ""
-"Warning: Evolution could not migrate all the Exchange account data from the "
-"version %d.%d.%d. \n"
-"The data hasn't been deleted, but will not be seen by this version of "
-"Evolution"
-msgstr ""
-"Dėmesio: Evolution nepavyko perkelti visų Exchange paskyros duomenų iš "
-"versijos %d.%d.%d.\n"
-"Duomenys ištrinti nebuvo, tačiau šioje Evolution versijoje jie bus nematomi"
-
-#: ../storage/exchange-migrate.c:132
-#, c-format
-msgid "Migrating `%s':"
-msgstr "Perkeliama „%s“:"
-
-#: ../storage/exchange-oof.glade.h:1
-msgid ""
-"<b>Currently, your status is \"Out of the Office\". </b>\n"
-"\n"
-"Would you like to change your status to \"In the Office\"? "
-msgstr ""
-"<b>Šiuo metu jūsų busena yra „Manęs darbe nėra“.</b>\n"
-"\n"
-"Ar norite pakeisti savo būseną į „Esu darbe“?"
-
-#: ../storage/exchange-oof.glade.h:4
-msgid "<b>Out of Office Message:</b>"
-msgstr "<b>Nebuvimo darbe žinutė:</b>"
-
-#: ../storage/exchange-oof.glade.h:5
-msgid "<b>Status:</b>"
-msgstr "<b>Būsena:</b>"
-
-#: ../storage/exchange-oof.glade.h:6
-msgid ""
-"<small>The message specified below will be automatically sent to each person "
-"who sends\n"
-"mail to you while you are out of the office.</small>"
-msgstr ""
-"<small>Žemiau nurodyta žinutė bus automatiškai nusiųsta visiems,\n"
-"atsiuntusiems jums laiškus tuo metu, kai jūsų nebus darbe.</small>"
-
-#: ../storage/exchange-oof.glade.h:8
-msgid "I am currently in the office"
-msgstr "Šiuo metu esu darbe"
-
-#: ../storage/exchange-oof.glade.h:9
-msgid "I am currently out of the office"
-msgstr "Šiuo metu manęs darbe nėra"
-
-#: ../storage/exchange-oof.glade.h:10
-msgid "No, Don't Change Status"
-msgstr "Ne, nekeisti būsenos"
-
-#: ../storage/exchange-oof.glade.h:11
-msgid "Out of Office Assistant"
-msgstr "Nebuvimo darbe pagelbiklis"
-
-#: ../storage/exchange-oof.glade.h:12
-msgid "Yes, Change Status"
-msgstr "Taip, pakeisti būseną"
-
-#: ../storage/exchange-passwd-expiry.glade.h:1
-msgid "Password Expiry Warning..."
-msgstr "Slaptažodžio nebegaliojimo perspėjimas..."
-
-#: ../storage/exchange-passwd-expiry.glade.h:2
-msgid "Your password will expire in 7 days..."
-msgstr "Jūsų slaptažodis po 7 dienų nustos galioti..."
-
-#: ../storage/exchange-passwd-expiry.glade.h:3
-msgid "_Change Password"
-msgstr "_Pakeisti slaptažodį"
-
-#: ../storage/exchange-passwd-expiry.glade.h:4
-msgid "ok_button"
-msgstr "ok_button"
-
-#: ../storage/exchange-permissions-dialog.glade.h:1
-msgid "    "
-msgstr "    "
-
-#: ../storage/exchange-permissions-dialog.glade.h:2
-msgid "<b>Permissions</b>"
-msgstr "<b>Leidimai</b>"
-
-#: ../storage/exchange-permissions-dialog.glade.h:3
-msgid "Cannot Delete"
-msgstr "Negali trinti"
-
-#: ../storage/exchange-permissions-dialog.glade.h:4
-msgid "Cannot Edit"
-msgstr "Negali taisyti"
-
-#: ../storage/exchange-permissions-dialog.glade.h:5
-msgid "Create items"
-msgstr "Kurti elementus"
-
-#: ../storage/exchange-permissions-dialog.glade.h:6
-msgid "Create subfolders"
-msgstr "Kurti poaplankius"
-
-#: ../storage/exchange-permissions-dialog.glade.h:7
-msgid "Delete Any Items"
-msgstr "Trinti bet kokius elementus"
-
-#: ../storage/exchange-permissions-dialog.glade.h:8
-msgid "Delete Own Items"
-msgstr "Trinti savo elementus"
-
-#: ../storage/exchange-permissions-dialog.glade.h:9
-msgid "Edit Any Items"
-msgstr "Keisti bet kokius elementus"
-
-#: ../storage/exchange-permissions-dialog.glade.h:10
-msgid "Edit Own Items"
-msgstr "Keisti savo elementus"
-
-#: ../storage/exchange-permissions-dialog.glade.h:11
-msgid "Folder contact"
-msgstr "Aplanko kontaktas"
-
-#: ../storage/exchange-permissions-dialog.glade.h:12
-msgid "Folder owner"
-msgstr "Aplanko savininkas"
-
-#: ../storage/exchange-permissions-dialog.glade.h:13
-msgid "Folder visible"
-msgstr "Aplankas matomas"
-
-#: ../storage/exchange-permissions-dialog.glade.h:14
-msgid "Read items"
-msgstr "Skaityti elementus"
-
-#: ../storage/exchange-permissions-dialog.glade.h:15
-msgid "Role: "
-msgstr "Vaidmuo: "
-
-#: ../storage/exchange-storage.c:338
-msgid "Connecting..."
-msgstr "Jungiamasi..."
-
-#: ../storage/ximian-connector-setup.c:75
-msgid "Evolution Connector for Microsoft Exchange Setup Tool"
-msgstr "Evolution Connector, skirtas Microsoft Exchange sąrankos įrankiui"
-
-#: ../storage/ximian-connector.xml.h:1
+#: ../tools/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
 msgstr "Pakeiskite savo Exchange serverio slaptažodį"
 
-#: ../storage/ximian-connector.xml.h:2
+#: ../tools/ximian-connector.xml.h:2
 msgid "Folder _Size"
 msgstr "Aplanko _dydis"
 
-#: ../storage/ximian-connector.xml.h:3
+#: ../tools/ximian-connector.xml.h:3
 msgid "Get the size of personal folders"
 msgstr "Gauti asmeninių aplankų dydį"
 
-#: ../storage/ximian-connector.xml.h:4
+#: ../tools/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
 msgstr "Užsisakyti _kito naudotojo aplanką..."
 
-#: ../storage/ximian-connector.xml.h:5
+#: ../tools/ximian-connector.xml.h:5
 msgid "Subscribe to a folder belonging to some other user on the server"
 msgstr "Užsisakyti aplanką priklausantį kitam šio serverio naudotojui"
 
-#: ../storage/ximian-connector.xml.h:6
+#: ../tools/ximian-connector.xml.h:6
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr "Atsisakyti aplanko, pridėto su „Užsisakyti kito naudotojo aplanką“"
 
-#: ../storage/ximian-connector.xml.h:7
+#: ../tools/ximian-connector.xml.h:7
 msgid "View or change your Exchange calendar delegation settings"
 msgstr "Žiūrėti arba keisti savo Exchange kalendoriaus paskyrimo parametrus"
 
-#: ../storage/ximian-connector.xml.h:8
+#: ../tools/ximian-connector.xml.h:8
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr ""
 "Žiūrėti arba keisti savo nebuvimo darbe būseną ir automatinio atsakymo žinutę"
 
-#: ../storage/ximian-connector.xml.h:9
+#: ../tools/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
 msgstr "_Pakeisti Exchange slaptažodį..."
 
-#: ../storage/ximian-connector.xml.h:10
+#: ../tools/ximian-connector.xml.h:10
 msgid "_Delegation Assistant"
 msgstr "_Paskyrimo pagelbiklis"
 
-#: ../storage/ximian-connector.xml.h:11
+#: ../tools/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
 msgstr "_Nebuvimo darbe pagelbiklis"
 
-#: ../storage/ximian-connector.xml.h:12
+#: ../tools/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Atsisakyti kito naudotojo aplanko"
+
+#~ msgid ""
+#~ "Unable to schedule resource '%s' for recurring meetings.\n"
+#~ "You must book each meeting separately."
+#~ msgstr ""
+#~ "Nepavyko suplanuoti ištekliaus „%s“ pasikartojantiems susitikimams.\n"
+#~ "Turite įtraukti kiekvieną susitikimą atskirai."
+
+#~ msgid "Evolution Exchange backend process"
+#~ msgstr "Evolution Exchange posistemės procesas"
+
+#~ msgid "Could not connect to %s: Please restart Evolution"
+#~ msgstr "Nepavyko prisijungti prie %s: paleiskite Evolution iš naujo"
+
+#~ msgid "Count not read file '%s': %s"
+#~ msgstr "Nepavyko perskaityti failo „%s“: %s"
+
+#~ msgid "Wrong size file '%s'"
+#~ msgstr "Klaidingas failo dydis „%s“"
+
+#~ msgid "Path too long: %s"
+#~ msgstr "Kelias per ilgas: %s"
+
+#~ msgid "Could not start status thread: %s"
+#~ msgstr "Nepavyko paleisti būklės gijos: %s"
+
+#~ msgid "Lost connection to %s"
+#~ msgstr "Ryšys su %s nutrūko"
+
+#~ msgid "Error communicating with %s: %s"
+#~ msgstr "Klaida bandant susisiekti su %s: %s"
+
+#~ msgid "Evolution Addressbook Exchange backend"
+#~ msgstr "Evolution adresų knygos Exchange posistemė"
+
+#~ msgid "Evolution Calendar Exchange backend"
+#~ msgstr "Evolution kalendoriaus Exchange posistemė"
+
+#~ msgid "Evolution Connector for Microsoft Exchange"
+#~ msgstr "Evolution Connector, skirtas Microsoft Exchange"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "Migrating Exchange Folders..."
+#~ msgstr "Perkeliami Exchange aplankai..."
+
+#~ msgid ""
+#~ "The location and hierarchy of the Evolution exchange account folders are "
+#~ "changed since Evolution %d.%d.%d.\n"
+#~ "\n"
+#~ "Please be patient while Evolution migrates your folders..."
+#~ msgstr ""
+#~ "Evolution Exchange paskyrų aplankų hierarchija ir vieta pasikeitė nuo "
+#~ "Evolution %d.%d.%d.\n"
+#~ "\n"
+#~ "Luktelėkite, kol Evolution perkels jūsų aplankus..."
+
+#~ msgid ""
+#~ "Warning: Evolution could not migrate all the Exchange account data from "
+#~ "the version %d.%d.%d. \n"
+#~ "The data hasn't been deleted, but will not be seen by this version of "
+#~ "Evolution"
+#~ msgstr ""
+#~ "Dėmesio: Evolution nepavyko perkelti visų Exchange paskyros duomenų iš "
+#~ "versijos %d.%d.%d.\n"
+#~ "Duomenys ištrinti nebuvo, tačiau šioje Evolution versijoje jie bus "
+#~ "nematomi"
+
+#~ msgid "Migrating `%s':"
+#~ msgstr "Perkeliama „%s“:"
+
+#~ msgid "<b>Out of Office Message:</b>"
+#~ msgstr "<b>Nebuvimo darbe žinutė:</b>"
+
+#~ msgid "ok_button"
+#~ msgstr "ok_button"
+
+#~ msgid "    "
+#~ msgstr "    "
+
+#~ msgid "<b>Permissions</b>"
+#~ msgstr "<b>Leidimai</b>"
+
+#~ msgid "Connecting..."
+#~ msgstr "Jungiamasi..."
+
+#~ msgid "Evolution Connector for Microsoft Exchange Setup Tool"
+#~ msgstr "Evolution Connector, skirtas Microsoft Exchange sąrankos įrankiui"
