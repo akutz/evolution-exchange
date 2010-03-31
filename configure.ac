@@ -1,5 +1,5 @@
 dnl Sets the evolution exchange version.
-m4_define([eex_version], [2.30.0])
+m4_define([eex_version], [2.31.1])
 
 dnl Initializes automake/autoconf
 AC_PREREQ(2.58)
@@ -28,8 +28,8 @@ dnl These numbers actually correspond to the next stable release number.
 dnl Note, this is set the way it is so that GETTEXT_PACKAGE will be
 dnl parsed correctly.
 dnl ******************************************************************
-BASE_VERSION=2.30
-m4_define([base_version], [2.30])
+BASE_VERSION=3.0
+m4_define([base_version], [3.0])
 
 dnl **********************
 dnl Compiler Warning Flags
