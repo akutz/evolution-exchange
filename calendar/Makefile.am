@@ -8,6 +8,7 @@ libecalbackendexchange_la_CPPFLAGS = \
 	-I$(top_builddir)/server/lib \
 	-DG_LOG_DOMAIN=\"e-cal-backend-exchange\" \
 	$(EVOLUTION_DATA_SERVER_CFLAGS) \
+	$(EVOLUTION_PLUGIN_CFLAGS) \
 	$(LDAP_CFLAGS)
 
 libecalbackendexchange_la_SOURCES = \
@@ -30,6 +31,7 @@ libecalbackendexchange_la_LDFLAGS = \
 libecalbackendexchange_la_LIBADD = \
 	$(top_builddir)/tools/libevolution-exchange-shared.la \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
+	$(EVOLUTION_PLUGIN_LIBS) \
 	$(LDAP_LIBS) \
 	$(DNS_LIBS) \
 	$(PTHREAD_LIB)

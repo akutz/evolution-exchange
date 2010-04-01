@@ -42,6 +42,7 @@ libebookbackendexchange_la_CPPFLAGS = \
 	-I$(top_builddir)/server/lib \
 	-DG_LOG_DOMAIN=\"e-book-backend-exchange\" \
 	$(EVOLUTION_DATA_SERVER_CFLAGS) \
+	$(EVOLUTION_PLUGIN_CFLAGS) \
 	$(LDAP_CFLAGS) \
 	$(DB_CFLAGS)
 
@@ -58,6 +59,7 @@ libebookbackendexchange_la_LDFLAGS = \
 libebookbackendexchange_la_LIBADD = \
 	$(top_builddir)/tools/libevolution-exchange-shared.la \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
+	$(EVOLUTION_PLUGIN_LIBS) \
 	$(PTHREAD_LIB) \
 	$(DNS_LIBS)
 
