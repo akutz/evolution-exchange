@@ -931,9 +931,9 @@ func_and(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 	/* Check for short circuit */
 	for (i = 0; i < argc; i++) {
 		if (argv[i]->type == ESEXP_RES_BOOL &&
-		    argv[i]->value.bool == FALSE) {
+		    argv[i]->value.boolean == FALSE) {
 			r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-			r->value.bool = FALSE;
+			r->value.boolean = FALSE;
 			return r;
 		} else if (argv[i]->type == ESEXP_RES_UNDEFINED)
 			return e_sexp_result_new(f, ESEXP_RES_UNDEFINED);
@@ -964,9 +964,9 @@ func_or(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 	/* Check for short circuit */
 	for (i = 0; i < argc; i++) {
 		if (argv[i]->type == ESEXP_RES_BOOL &&
-		    argv[i]->value.bool == TRUE) {
+		    argv[i]->value.boolean == TRUE) {
 			r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-			r->value.bool = TRUE;
+			r->value.boolean = TRUE;
 			return r;
 		} else if (argv[i]->type == ESEXP_RES_UNDEFINED)
 			return e_sexp_result_new(f, ESEXP_RES_UNDEFINED);
@@ -1003,7 +1003,7 @@ func_not(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 						   argv[0]->value.string);
 	} else {
 		r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-		r->value.bool = !argv[0]->value.bool;
+		r->value.boolean = !argv[0]->value.boolean;
 	}
 
 	return r;
@@ -1047,7 +1047,7 @@ func_contains(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 		 */
 		if (strlen(str) == 0) {
 			r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-			r->value.bool = FALSE;
+			r->value.boolean = FALSE;
 		} else {
 			r = e_sexp_result_new(f, ESEXP_RES_STRING);
 			r->value.string = g_strdup_printf ("(mailNickname=%s)", str);
@@ -1060,7 +1060,7 @@ func_contains(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 	if (!ldap_attr) {
 		/* Attribute doesn't exist, so it can't possibly match */
 		r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-		r->value.bool = FALSE;
+		r->value.boolean = FALSE;
 		return r;
 	}
 
@@ -1121,7 +1121,7 @@ func_is_or_begins_with(ESExp *f, gint argc, ESExpResult **argv, gboolean exact)
 
 		/* Property doesn't exist, so it can't ever match */
 		r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-		r->value.bool = FALSE;
+		r->value.boolean = FALSE;
 		return r;
 	}
 
