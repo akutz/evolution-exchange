@@ -223,6 +223,8 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 	g_return_val_if_fail (E2K_IS_SID (user->sid), FALSE);
 
 	delegate_permissions = gtk_dialog_new_with_buttons (
+		/* Translators: "Delegate Permissions" refers to the permissions on the delegator's folders
+		   that the delegatee would receive */
 		_("Delegate Permissions"),
 		NULL,
 		GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_NO_SEPARATOR,
