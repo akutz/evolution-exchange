@@ -31,7 +31,6 @@
 
 #include <libedataserverui/e-source-selector.h>
 #include <libebook/e-book.h>
-#include <camel/camel-url.h>
 
 #include <exchange-account.h>
 

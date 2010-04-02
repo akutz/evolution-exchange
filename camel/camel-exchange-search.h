@@ -6,7 +6,7 @@
 #ifndef _CAMEL_EXCHANGE_SEARCH_H
 #define _CAMEL_EXCHANGE_SEARCH_H
 
-#include <camel/camel-folder-search.h>
+#include <camel/camel.h>
 
 #define CAMEL_EXCHANGE_SEARCH_TYPE         (camel_exchange_search_get_type ())
 #define CAMEL_EXCHANGE_SEARCH(obj)         CAMEL_CHECK_CAST (obj, camel_exchange_search_get_type (), CamelExchangeSearch)

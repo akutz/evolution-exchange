@@ -27,8 +27,6 @@
 
 #include <glib/gi18n-lib.h>
 
-#include <camel/camel-session.h>
-#include <camel/camel-url.h>
 #include <libedataserver/e-data-server-util.h>
 
 #include "camel-exchange-store.h"

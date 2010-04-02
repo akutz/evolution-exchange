@@ -24,8 +24,8 @@
 #include <pthread.h>
 #include <string.h>
 
+#include <camel/camel.h>
 #include <libebackend/e-data-server-module.h>
-#include <camel/camel-object.h>
 #include "e-cal-backend-exchange-factory.h"
 #include "e-cal-backend-exchange-calendar.h"
 #include "e-cal-backend-exchange-tasks.h"

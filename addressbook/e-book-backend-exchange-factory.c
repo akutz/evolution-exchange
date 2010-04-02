@@ -24,9 +24,9 @@
 #include <pthread.h>
 #include <string.h>
 
+#include <camel/camel.h>
 #include <libebackend/e-data-server-module.h>
 #include <libedata-book/e-book-backend-factory.h>
-#include <camel/camel-object.h>
 
 #include "e-book-backend-exchange.h"
 #include "e-book-backend-gal.h"

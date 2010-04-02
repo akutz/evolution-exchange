@@ -6,14 +6,14 @@
 #ifndef CAMEL_EXCHANGE_TRANSPORT_H
 #define CAMEL_EXCHANGE_TRANSPORT_H 1
 
-G_BEGIN_DECLS
-
-#include <camel/camel-transport.h>
+#include <camel/camel.h>
 
 #define CAMEL_EXCHANGE_TRANSPORT_TYPE     (camel_exchange_transport_get_type ())
 #define CAMEL_EXCHANGE_TRANSPORT(obj)     (CAMEL_CHECK_CAST((obj), CAMEL_EXCHANGE_TRANSPORT_TYPE, CamelExchangeTransport))
 #define CAMEL_EXCHANGE_TRANSPORT_CLASS(k) (CAMEL_CHECK_CLASS_CAST ((k), CAMEL_EXCHANGE_TRANSPORT_TYPE, CamelExchangeTransportClass))
 #define CAMEL_IS_EXCHANGE_TRANSPORT(o)    (CAMEL_CHECK_TYPE((o), CAMEL_EXCHANGE_TRANSPORT_TYPE))
+
+G_BEGIN_DECLS
 
 typedef struct {
 	CamelTransport parent_object;

@@ -36,11 +36,11 @@
 #include <e-folder-exchange.h>
 #include <e2k-marshal.h>
 #include <e2k-uri.h>
-#include <camel/camel-url.h>
 
 #include <e-util/e-alert-dialog.h>
 #include <shell/e-shell.h>
 
+#include <camel/camel.h>
 #include <libedataserver/e-source.h>
 #include <libedataserver/e-source-list.h>
 #include <libedataserver/e-source-group.h>

@@ -34,10 +34,7 @@
 #include <gio/gio.h>
 #include <glib/gstdio.h>
 
-#include <camel/camel-mime-message.h>
-#include <camel/camel-multipart.h>
-#include <camel/camel-stream-mem.h>
-#include <camel/camel-file-utils.h>
+#include <camel/camel.h>
 
 #include "e-cal-backend-exchange.h"
 #include "e2k-cal-utils.h"

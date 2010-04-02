@@ -25,9 +25,6 @@
 
 #include <string.h>
 
-#include <camel/camel-offline-store.h>
-#include <camel/camel-folder-summary.h>
-
 #include "camel-exchange-search.h"
 #include "camel-exchange-folder.h"
 #include "camel-exchange-utils.h"

@@ -6,15 +6,14 @@
 #ifndef CAMEL_EXCHANGE_STORE_H
 #define CAMEL_EXCHANGE_STORE_H 1
 
-G_BEGIN_DECLS
-
-#include <camel/camel-store.h>
-#include <camel/camel-offline-store.h>
+#include <camel/camel.h>
 
 #define CAMEL_EXCHANGE_STORE_TYPE     (camel_exchange_store_get_type ())
 #define CAMEL_EXCHANGE_STORE(obj)     (CAMEL_CHECK_CAST((obj), CAMEL_EXCHANGE_STORE_TYPE, CamelExchangeStore))
 #define CAMEL_EXCHANGE_STORE_CLASS(k) (CAMEL_CHECK_CLASS_CAST ((k), CAMEL_EXCHANGE_STORE_TYPE, CamelExchangeStoreClass))
 #define CAMEL_IS_EXCHANGE_STORE(o)    (CAMEL_CHECK_TYPE((o), CAMEL_EXCHANGE_STORE_TYPE))
+
+G_BEGIN_DECLS
 
 typedef struct {
 	CamelOfflineStore parent_object;

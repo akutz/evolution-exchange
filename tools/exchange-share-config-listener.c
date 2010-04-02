@@ -33,13 +33,12 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 
+#include <camel/camel.h>
 #include <libedataserver/e-source.h>
 #include <libedataserver/e-source-list.h>
 #include <libedataserver/e-source-group.h>
 #include <libedataserver/e-xml-utils.h>
 #include <libedataserver/e-xml-hash-utils.h>
-
-#include <camel/camel-url.h>
 
 #include <e2k-marshal.h>
 #include <e2k-uri.h>

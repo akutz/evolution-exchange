@@ -33,12 +33,6 @@
 
 #include <glib/gi18n-lib.h>
 
-#include <camel/camel-folder.h>
-#include <camel/camel-file-utils.h>
-#include <camel/camel-folder-summary.h>
-#include <camel/camel-data-cache.h>
-#include <camel/camel-string-utils.h>
-
 #include "camel-exchange-journal.h"
 #include "camel-exchange-store.h"
 #include "camel-exchange-summary.h"

@@ -31,8 +31,6 @@
 #include <exchange-hierarchy.h>
 #include <libedataserverui/e-source-selector.h>
 #include <e-util/e-alert-dialog.h>
-#include <camel/camel-store.h>
-#include <camel/camel-folder.h>
 #include <mail/mail-mt.h>
 #include <mail/mail-ops.h>
 #include <shell/e-shell.h>

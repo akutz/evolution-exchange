@@ -31,6 +31,7 @@
 #include <unistd.h>
 #include <time.h>
 
+#include <camel/camel.h>
 #include <libedataserver/e-sexp.h>
 #include <libedataserver/e-uid.h>
 #include <libebook/e-address-western.h>
@@ -41,10 +42,6 @@
 #include <libedata-book/e-book-backend-summary.h>
 #include <libedata-book/e-book-backend-cache.h>
 #include <libedataserver/e-xml-hash-utils.h>
-
-#include <camel/camel-mime-message.h>
-#include <camel/camel-multipart.h>
-#include <camel/camel-stream-mem.h>
 
 #include <e2k-context.h>
 #include <e2k-propnames.h>

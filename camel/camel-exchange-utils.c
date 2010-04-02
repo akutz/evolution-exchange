@@ -32,11 +32,6 @@
 #include <exchange-hierarchy.h>
 #include <mapi.h>
 
-#include <camel/camel-folder.h>
-#include <camel/camel-service.h>
-#include <camel/camel-session.h>
-#include <camel/camel-store.h>
-
 #include "camel-exchange-folder.h"
 #include "camel-exchange-store.h"
 #include "camel-exchange-summary.h"

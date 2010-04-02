@@ -30,7 +30,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <camel/camel-folder-summary.h>
 #include <libedataserver/e-data-server-util.h>
 #include <e-util/e-html-utils.h>
 #include <e-util/e-util.h>

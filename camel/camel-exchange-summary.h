@@ -4,7 +4,7 @@
 #ifndef _CAMEL_EXCHANGE_SUMMARY_H
 #define _CAMEL_EXCHANGE_SUMMARY_H
 
-#include <camel/camel-folder-summary.h>
+#include <camel/camel.h>
 
 #define CAMEL_EXCHANGE_SUMMARY_TYPE         (camel_exchange_summary_get_type ())
 #define CAMEL_EXCHANGE_SUMMARY(obj)         CAMEL_CHECK_CAST (obj, camel_exchange_summary_get_type (), CamelExchangeSummary)
