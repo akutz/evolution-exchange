@@ -376,6 +376,8 @@ exchange_sendoptions_dialog_run (ExchangeSendOptionsDialog *sod, GtkWidget *pare
 			  (GtkAttachOptions) (0), 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (importance_label), 0, 0.49);
 
+	/* Translators: Here's set a message sensitivity, which means for exchange
+	   one of Normal, Personal, Private, Confidential. */
 	sensitivity_label = gtk_label_new_with_mnemonic (_("_Sensitivity: "));
 	gtk_widget_show (sensitivity_label);
 	gtk_table_attach (GTK_TABLE (msg_settings_table), sensitivity_label, 0, 1, 1, 2,
