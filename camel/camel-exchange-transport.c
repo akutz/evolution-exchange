@@ -78,12 +78,12 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 	CamelService *service = CAMEL_SERVICE (transport);
 	CamelStore *store = NULL;
 	gchar *url_string;
-	const CamelInternetAddress *cia;
+	CamelInternetAddress *cia;
 	const gchar *addr;
 	GPtrArray *recipients_array;
 	gboolean success;
 	CamelStream *stream;
-	CamelStreamFilter *filtered_stream;
+	CamelStream *filtered_stream;
 	CamelMimeFilter *crlffilter;
 	struct _camel_header_raw *header;
 	GSList *h, *bcc = NULL;
@@ -124,8 +124,10 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 
 	stream = camel_stream_mem_new ();
 	crlffilter = camel_mime_filter_crlf_new (CAMEL_MIME_FILTER_CRLF_ENCODE, CAMEL_MIME_FILTER_CRLF_MODE_CRLF_ONLY);
-	filtered_stream = camel_stream_filter_new_with_stream (stream);
-	camel_stream_filter_add (filtered_stream, CAMEL_MIME_FILTER (crlffilter));
+	filtered_stream = camel_stream_filter_new (stream);
+	camel_stream_filter_add (
+		CAMEL_STREAM_FILTER (filtered_stream),
+		CAMEL_MIME_FILTER (crlffilter));
 	camel_object_unref (CAMEL_OBJECT (crlffilter));
 
 	/* Gross hack copied from camel-smtp-transport. ugh. FIXME */

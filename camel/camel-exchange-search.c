@@ -82,7 +82,7 @@ exchange_body_contains (struct _ESExp *f, gint argc, struct _ESExpResult **argv,
 
 	if (s->current) {
 		r = e_sexp_result_new (f, ESEXP_RES_BOOL);
-		r->value.bool = FALSE;
+		r->value.boolean = FALSE;
 	} else {
 		r = e_sexp_result_new (f, ESEXP_RES_ARRAY_PTR);
 		r->value.ptrarray = g_ptr_array_new ();
@@ -92,7 +92,7 @@ exchange_body_contains (struct _ESExp *f, gint argc, struct _ESExpResult **argv,
 		/* optimise the match "" case - match everything */
 
 		if (s->current)
-			r->value.bool = TRUE;
+			r->value.boolean = TRUE;
 		else {
 			for (i = 0; i < s->summary->len; i++) {
 				g_ptr_array_add (r->value.ptrarray, s->summary->pdata[i]);
@@ -114,7 +114,7 @@ exchange_body_contains (struct _ESExp *f, gint argc, struct _ESExpResult **argv,
 		uid = camel_message_info_uid (s->current);
 		for (i = 0; i < found_uids->len; i++) {
 			if (!strcmp (uid, found_uids->pdata[i]))
-				r->value.bool = TRUE;
+				r->value.boolean = TRUE;
 			g_free (found_uids->pdata[i]);
 		}
 		g_ptr_array_free (found_uids, TRUE);

@@ -297,7 +297,7 @@ fix_broken_multipart_related (CamelMimePart *part)
 	CamelMimePart *subpart;
 	gint i, count, broken_parts;
 
-	content = camel_medium_get_content_object (CAMEL_MEDIUM (part));
+	content = camel_medium_get_content (CAMEL_MEDIUM (part));
 
 	content_type = content->mime_type;
 	if (camel_content_type_is (content_type, "message", "rfc822")) {
@@ -336,7 +336,7 @@ fix_broken_multipart_related (CamelMimePart *part)
 			camel_multipart_add_part (new, subpart);
 		}
 
-		camel_medium_set_content_object (CAMEL_MEDIUM (part),
+		camel_medium_set_content (CAMEL_MEDIUM (part),
 						 CAMEL_DATA_WRAPPER (new));
 		camel_object_unref (CAMEL_OBJECT (new));
 	}
@@ -401,7 +401,7 @@ get_message (CamelFolder *folder, const gchar *uid, CamelException *ex)
 	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
 	CamelMimeMessage *msg;
 	CamelStream *stream;
-	CamelStreamFilter *filtered_stream;
+	CamelStream *filtered_stream;
 	CamelMimeFilter *crlffilter;
 	GByteArray *ba;
 	gchar **list_headers = NULL;
@@ -414,8 +414,9 @@ get_message (CamelFolder *folder, const gchar *uid, CamelException *ex)
 	stream = camel_stream_mem_new_with_byte_array (ba);
 
 	crlffilter = camel_mime_filter_crlf_new (CAMEL_MIME_FILTER_CRLF_DECODE, CAMEL_MIME_FILTER_CRLF_MODE_CRLF_ONLY);
-	filtered_stream = camel_stream_filter_new_with_stream (stream);
-	camel_stream_filter_add (filtered_stream, crlffilter);
+	filtered_stream = camel_stream_filter_new (stream);
+	camel_stream_filter_add (
+		CAMEL_STREAM_FILTER (filtered_stream), crlffilter);
 	camel_object_unref (CAMEL_OBJECT (crlffilter));
 	camel_object_unref (CAMEL_OBJECT (stream));
 
@@ -982,7 +983,7 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 		return FALSE;
 	}
 
-	exch->cache = camel_data_cache_new (folder_dir, 0, ex);
+	exch->cache = camel_data_cache_new (folder_dir, ex);
 	if (!exch->cache) {
 		camel_exception_setv (ex, CAMEL_EXCEPTION_SYSTEM,
 				      _("Could not create cache for %s"),
