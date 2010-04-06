@@ -658,7 +658,8 @@ display_passwd_expiry_message (gint max_passwd_age, ExchangeAccount *account)
 	GtkWidget *ok_button;
 	AtkObject *atko;
 	gchar *passwd_expiry_msg =
-		g_strdup_printf (_("Your password will expire in the next %d days"), max_passwd_age);
+		/* Translators: The %d is replaced with the actual number of days */
+		g_strdup_printf (ngettext ("Your password will expire in the next %d day", "Your password will expire in the next %d days", max_passwd_age), max_passwd_age);
 
 	passwd_exp_dialog = gtk_dialog_new ();
 	gtk_window_set_title (GTK_WINDOW (passwd_exp_dialog), _("Password Expiry Warning..."));
