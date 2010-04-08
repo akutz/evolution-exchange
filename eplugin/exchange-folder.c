@@ -292,6 +292,7 @@ static void
 eex_addresssbook_unsubscribe (ESource *source)
 {
 	GtkWidget *dialog = NULL;
+	GtkWidget *content_area;
 	ExchangeAccount *account = NULL;
 	gchar *title = NULL;
 	gchar *displayed_folder_name = NULL;
@@ -329,7 +330,8 @@ eex_addresssbook_unsubscribe (ESource *source)
 
 	gtk_container_set_border_width (GTK_CONTAINER (dialog), 6);
 
-	gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 6);
+	content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+	gtk_box_set_spacing (GTK_BOX (content_area), 6);
 
 	title = g_strdup_printf (_("Unsubscribe from \"%s\""), displayed_folder_name);
 	gtk_window_set_title (GTK_WINDOW (dialog), title);
@@ -345,6 +347,7 @@ static void
 eex_calendar_unsubscribe (ESource *source)
 {
 	GtkWidget *dialog = NULL;
+	GtkWidget *content_area;
 	ExchangeAccount *account = NULL;
 	gchar *title = NULL;
 	const gchar *displayed_folder_name;
@@ -383,7 +386,8 @@ eex_calendar_unsubscribe (ESource *source)
 
 	gtk_container_set_border_width (GTK_CONTAINER (dialog), 6);
 
-	gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 6);
+	content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+	gtk_box_set_spacing (GTK_BOX (content_area), 6);
 
 	title = g_strdup_printf (_("Unsubscribe from \"%s\""), displayed_folder_name);
 	gtk_window_set_title (GTK_WINDOW (dialog), title);

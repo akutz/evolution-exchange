@@ -748,7 +748,7 @@ create_permissions_vbox (ExchangePermissionsDialog *dialog)
 	scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
 	gtk_widget_show (scrolledwindow1);
 	gtk_box_pack_start (GTK_BOX (hbox1), scrolledwindow1, TRUE, TRUE, 0);
-	GTK_WIDGET_UNSET_FLAGS (scrolledwindow1, GTK_CAN_FOCUS);
+	gtk_widget_set_can_focus (scrolledwindow1, FALSE);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_SHADOW_IN);
 
@@ -766,12 +766,12 @@ create_permissions_vbox (ExchangePermissionsDialog *dialog)
 	add_button = gtk_button_new_from_stock ("gtk-add");
 	gtk_widget_show (add_button);
 	gtk_container_add (GTK_CONTAINER (vbuttonbox1), add_button);
-	GTK_WIDGET_SET_FLAGS (add_button, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_focus (add_button, TRUE);
 
 	remove_button = gtk_button_new_from_stock ("gtk-remove");
 	gtk_widget_show (remove_button);
 	gtk_container_add (GTK_CONTAINER (vbuttonbox1), remove_button);
-	GTK_WIDGET_SET_FLAGS (remove_button, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_focus (remove_button, TRUE);
 
 	table2 = gtk_table_new (3, 2, FALSE);
 	gtk_widget_show (table2);
@@ -818,8 +818,8 @@ create_permissions_vbox (ExchangePermissionsDialog *dialog)
 	role_optionmenu = exchange_permissions_role_optionmenu_new ();
 	gtk_widget_show (role_optionmenu);
 	gtk_box_pack_start (GTK_BOX (hbox3), role_optionmenu, TRUE, TRUE, 0);
-	GTK_WIDGET_UNSET_FLAGS (role_optionmenu, GTK_CAN_FOCUS);
-	GTK_WIDGET_UNSET_FLAGS (role_optionmenu, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_focus (role_optionmenu, FALSE);
+	gtk_widget_set_can_default (role_optionmenu, FALSE);
 
 	hbox2 = gtk_hbox_new (TRUE, 6);
 	gtk_widget_show (hbox2);

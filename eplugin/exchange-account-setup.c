@@ -729,7 +729,7 @@ org_gnome_exchange_owa_url(EPlugin *epl, EConfigHookItemFactoryData *data)
 		g_free(uri);
 	}
 
-	row = ((GtkTable *)data->parent)->nrows;
+	g_object_get (data->parent, "n-rows", &row, NULL);
 
 	hbox = gtk_hbox_new (FALSE, 6);
 	label = gtk_label_new_with_mnemonic(_("_OWA URL:"));

@@ -960,17 +960,17 @@ exchange_delegates (ExchangeAccount *account, GtkWidget *parent)
 	add_button = gtk_button_new_from_stock ("gtk-add");
 	gtk_widget_show (add_button);
 	gtk_container_add (GTK_CONTAINER (vbuttonbox1), add_button);
-	GTK_WIDGET_SET_FLAGS (add_button, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_default (add_button, TRUE);
 
 	edit_button = gtk_button_new_with_mnemonic (_("_Edit"));
 	gtk_widget_show (edit_button);
 	gtk_container_add (GTK_CONTAINER (vbuttonbox1), edit_button);
-	GTK_WIDGET_SET_FLAGS (edit_button, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_default (edit_button, TRUE);
 
 	remove_button = gtk_button_new_from_stock ("gtk-remove");
 	gtk_widget_show (remove_button);
 	gtk_container_add (GTK_CONTAINER (vbuttonbox1), remove_button);
-	GTK_WIDGET_SET_FLAGS (remove_button, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_default (remove_button, TRUE);
 
 	g_signal_connect (delegates->dialog, "response",
 			  G_CALLBACK (dialog_response), delegates);

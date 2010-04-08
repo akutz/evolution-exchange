@@ -185,7 +185,7 @@ e_exchange_calendar_pcalendar (EPlugin *epl, EConfigHookItemFactoryData *data)
 	e_uri_free (uri);
 
 	parent = data->parent;
-	row = ((GtkTable*)parent)->nrows;
+	g_object_get (parent, "n-rows", &row, NULL);
 
 	exchange_config_listener_get_offline_status (exchange_global_config_listener,
 								    &offline_status);

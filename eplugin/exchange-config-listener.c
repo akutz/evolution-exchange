@@ -682,12 +682,12 @@ display_passwd_expiry_message (gint max_passwd_age, ExchangeAccount *account)
 	change_passwd_button = gtk_button_new_with_mnemonic (_("_Change Password"));
 	gtk_widget_show (change_passwd_button);
 	gtk_dialog_add_action_widget (GTK_DIALOG (passwd_exp_dialog), change_passwd_button, 0);
-	GTK_WIDGET_SET_FLAGS (change_passwd_button, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_default (change_passwd_button, TRUE);
 
 	ok_button = gtk_button_new_from_stock ("gtk-ok");
 	gtk_widget_show (ok_button);
 	gtk_dialog_add_action_widget (GTK_DIALOG (passwd_exp_dialog), ok_button, GTK_RESPONSE_OK);
-	GTK_WIDGET_SET_FLAGS (ok_button, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_default (ok_button, TRUE);
 
 	atko = gtk_widget_get_accessible (ok_button);
 	atk_object_set_name (atko, "ok_button");
@@ -764,7 +764,7 @@ run_oof_dialog (void)
 	button3 = gtk_button_new ();
 	gtk_widget_show (button3);
 	gtk_dialog_add_action_widget (GTK_DIALOG (oof_dialog), button3, GTK_RESPONSE_NO);
-	GTK_WIDGET_SET_FLAGS (button3, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_default (button3, TRUE);
 
 	alignment3 = gtk_alignment_new (0.5, 0.5, 0, 0);
 	gtk_widget_show (alignment3);
@@ -785,7 +785,7 @@ run_oof_dialog (void)
 	button4 = gtk_button_new ();
 	gtk_widget_show (button4);
 	gtk_dialog_add_action_widget (GTK_DIALOG (oof_dialog), button4, GTK_RESPONSE_YES);
-	GTK_WIDGET_SET_FLAGS (button4, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_default (button4, TRUE);
 
 	alignment4 = gtk_alignment_new (0.5, 0.5, 0, 0);
 	gtk_widget_show (alignment4);

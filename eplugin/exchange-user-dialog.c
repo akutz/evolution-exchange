@@ -81,9 +81,12 @@ class_init (E2kUserDialogClass *class)
 static void
 init (E2kUserDialog *dialog)
 {
+	GtkWidget *content_area;
+
 	dialog->priv = g_new0 (E2kUserDialogPrivate, 1);
 
-	gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 6);
+	content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+	gtk_box_set_spacing (GTK_BOX (content_area), 6);
 }
 
 E2K_MAKE_TYPE (e2k_user_dialog, E2kUserDialog, class_init, init, PARENT_TYPE)
@@ -127,6 +130,7 @@ e2k_user_dialog_construct (E2kUserDialog *dialog,
 	GtkWidget *hbox, *vbox, *label, *button;
 	ENameSelectorModel *name_selector_model;
 	ENameSelectorDialog *name_selector_dialog;
+	GtkWidget *content_area;
 
 	gtk_window_set_title (GTK_WINDOW (dialog), _("Select User"));
 	gtk_dialog_add_buttons (GTK_DIALOG (dialog),
@@ -173,8 +177,8 @@ e2k_user_dialog_construct (E2kUserDialog *dialog,
 			  dialog);
 	gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 6);
 
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), hbox,
-			    TRUE, TRUE, 6);
+	content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+	gtk_box_pack_start (GTK_BOX (content_area), hbox, TRUE, TRUE, 6);
 	gtk_widget_show_all (hbox);
 
 	return TRUE;
