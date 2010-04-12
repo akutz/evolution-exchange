@@ -85,6 +85,7 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 	CamelStream *stream;
 	CamelStream *filtered_stream;
 	CamelMimeFilter *crlffilter;
+	GByteArray *byte_array;
 	struct _camel_header_raw *header;
 	GSList *h, *bcc = NULL;
 	gint len, i;
@@ -122,7 +123,8 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 		return FALSE;
 	}
 
-	stream = camel_stream_mem_new ();
+	byte_array = g_byte_array_new ();
+	stream = camel_stream_mem_new_with_byte_array (byte_array);
 	crlffilter = camel_mime_filter_crlf_new (CAMEL_MIME_FILTER_CRLF_ENCODE, CAMEL_MIME_FILTER_CRLF_MODE_CRLF_ONLY);
 	filtered_stream = camel_stream_filter_new (stream);
 	camel_stream_filter_add (
@@ -157,10 +159,10 @@ exchange_send_to (CamelTransport *transport, CamelMimeMessage *message,
 		g_slist_free (bcc);
 	}
 
-	success = camel_exchange_utils_send_message (CAMEL_SERVICE (transport), addr, recipients_array, CAMEL_STREAM_MEM (stream)->buffer, ex);
+	success = camel_exchange_utils_send_message (CAMEL_SERVICE (transport), addr, recipients_array, byte_array, ex);
 
 	g_ptr_array_free (recipients_array, TRUE);
-	camel_object_unref (CAMEL_OBJECT (stream));
+	camel_object_unref (stream);
 
 	if (store)
 		camel_object_unref (CAMEL_OBJECT (store));

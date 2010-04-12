@@ -242,9 +242,9 @@ append_message (CamelFolder *folder, CamelMimeMessage *message,
 		const CamelMessageInfo *info, gchar **appended_uid,
 		CamelException *ex)
 {
-	CamelStream *stream_mem;
+	CamelStream *stream;
 	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (folder->parent_store);
-
+	GByteArray *byte_array;
 	gchar *old_subject = NULL;
 	GString *new_subject;
 	gint i, len;
@@ -276,16 +276,17 @@ append_message (CamelFolder *folder, CamelMimeMessage *message,
 		camel_exchange_journal_append ((CamelExchangeJournal *) ((CamelExchangeFolder *)folder)->journal, message, info, appended_uid, ex);
 		return;
 	}
-	stream_mem = camel_stream_mem_new ();
-	camel_data_wrapper_write_to_stream (CAMEL_DATA_WRAPPER (message),
-					    stream_mem);
-	camel_stream_flush (stream_mem);
 
-	append_message_data (folder, CAMEL_STREAM_MEM (stream_mem)->buffer,
+	byte_array = g_byte_array_new ();
+	stream = camel_stream_mem_new_with_byte_array (byte_array);
+	camel_data_wrapper_write_to_stream (CAMEL_DATA_WRAPPER (message), stream);
+	camel_stream_flush (stream);
+
+	append_message_data (folder, byte_array,
 			     camel_mime_message_get_subject (message),
 			     info, appended_uid, ex);
 
-	camel_object_unref (CAMEL_OBJECT (stream_mem));
+	camel_object_unref (stream);
 }
 
 static void
