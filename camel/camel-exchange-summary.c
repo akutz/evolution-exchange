@@ -74,6 +74,8 @@ exchange_summary_class_init (CamelObjectClass *klass)
 
 	parent_class = CAMEL_FOLDER_SUMMARY_CLASS (camel_type_get_global_classfuncs (camel_folder_summary_get_type()));
 
+	camel_folder_summary_class->message_info_size = sizeof (CamelExchangeMessageInfo);
+	camel_folder_summary_class->content_info_size = sizeof (CamelMessageContentInfo);
 	camel_folder_summary_class->summary_header_load = header_load;
 	camel_folder_summary_class->summary_header_save = header_save;
 	camel_folder_summary_class->message_info_load = message_info_load;
@@ -91,12 +93,8 @@ exchange_summary_class_init (CamelObjectClass *klass)
 }
 
 static void
-exchange_summary_init (CamelObject *obj, CamelObjectClass *klass)
+exchange_summary_init (CamelFolderSummary *summary)
 {
-	CamelFolderSummary *summary = (CamelFolderSummary *)obj;
-
-	summary->message_info_size = sizeof (CamelExchangeMessageInfo);
-	summary->content_info_size = sizeof (CamelMessageContentInfo);
 }
 
 CamelType
@@ -112,7 +110,7 @@ camel_exchange_summary_get_type (void)
 			sizeof (CamelExchangeSummaryClass),
 			exchange_summary_class_init,
 			NULL,
-			exchange_summary_init,
+			(CamelObjectInitFunc) exchange_summary_init,
 			NULL);
 	}
 
