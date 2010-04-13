@@ -72,7 +72,7 @@ CamelProviderConfEntry exchange_conf_entries[] = {
 	/* extra Exchange configuration settings */
 	{ CAMEL_PROVIDER_CONF_SECTION_START, "activedirectory", NULL,
 	  /* i18n: GAL is an Outlookism, AD is a Windowsism */
-	  N_("Global Address List / Active Directory") },
+	  N_("Global Address List/Active Directory") },
 	{ CAMEL_PROVIDER_CONF_ENTRY, "ad_server", NULL,
 	  /* i18n: "Global Catalog" is a Windowsism, but it's a
 	     technical term and may not have translations? */

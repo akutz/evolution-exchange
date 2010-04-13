@@ -587,7 +587,7 @@ static GtkActionEntry addressbook_entries[] = {
 	  "folder-new",
 	  N_("Permissions..."),
 	  NULL,
-	  N_("Check addressbook permissions"),
+	  N_("Check address book permissions"),
 	  G_CALLBACK (source_permissions_cb) },
 
 	{ "eex-folder-subscribe-Contacts",

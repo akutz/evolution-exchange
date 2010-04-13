@@ -263,7 +263,7 @@ org_gnome_exchange_settings(EPlugin *epl, EConfigHookItemFactoryData *data)
 	vbox_settings = (GtkVBox*) g_object_new (GTK_TYPE_VBOX, "homogeneous", FALSE, "spacing", 6, NULL);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox_settings), 12);
 
-	frm_oof = (GtkFrame*) g_object_new (GTK_TYPE_FRAME, "label", _("Out Of Office"), NULL);
+	frm_oof = (GtkFrame*) g_object_new (GTK_TYPE_FRAME, "label", _("Out of Office"), NULL);
 	gtk_box_pack_start (GTK_BOX (vbox_settings), GTK_WIDGET (frm_oof), FALSE, FALSE, 0);
 
 	vbox_oof = (GtkVBox*) g_object_new (GTK_TYPE_VBOX, NULL, "homogeneous", FALSE, "spacing", 12, NULL);
@@ -366,7 +366,7 @@ org_gnome_exchange_settings(EPlugin *epl, EConfigHookItemFactoryData *data)
 	/* Folder Size */
 	lbl_fsize = (GtkLabel*) g_object_new (GTK_TYPE_LABEL, "label", _("View the size of all Exchange folders"), NULL);
 	gtk_misc_set_alignment (GTK_MISC (lbl_fsize), 0, 0.5);
-	btn_fsize = (GtkButton*) g_object_new (GTK_TYPE_BUTTON, "label", _("Folders Size"), NULL);
+	btn_fsize = (GtkButton*) g_object_new (GTK_TYPE_BUTTON, "label", _("Folder Size"), NULL);
 	g_signal_connect (btn_fsize, "clicked", G_CALLBACK (btn_fsize_clicked), NULL);
 	gtk_table_attach_defaults (tbl_misc, GTK_WIDGET (lbl_fsize), 0, 1, 0, 1);
 	gtk_table_attach (tbl_misc, GTK_WIDGET (btn_fsize), 1, 2, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
@@ -780,7 +780,7 @@ org_gnome_exchange_owa_url(EPlugin *epl, EConfigHookItemFactoryData *data)
 
 	row++;
 	want_mailbox_check = gtk_check_button_new_with_mnemonic (
-		_("Mailbox name is _different from user name"));
+		_("Mailbox name is _different from username"));
 	gtk_widget_show (want_mailbox_check);
 	gtk_table_attach (GTK_TABLE (data->parent), want_mailbox_check, 1, 2, row, row+1, GTK_FILL, GTK_FILL, 0, 0);
 	if (!username || !*username || !mailbox_name || !*mailbox_name ||

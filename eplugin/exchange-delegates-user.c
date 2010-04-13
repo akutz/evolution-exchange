@@ -462,7 +462,7 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 				/* To translators: This message is included if the delegatee has not been given access
 				   to the private items.
 				*/
-				camel_stream_printf (stream, "<br>%s", _("However you are not permitted "
+				camel_stream_printf (stream, "<br>%s", _("However, you are not permitted "
 							 "to see my private items."));
 			camel_data_wrapper_construct_from_stream (delegate_mail_text, stream);
 			g_free (role_name);

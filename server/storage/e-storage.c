@@ -582,7 +582,7 @@ e_storage_result_to_string (EStorageResult result)
 	case E_STORAGE_INVALIDNAME:
 		return _("Cannot create a folder with that name");
 	case E_STORAGE_NOTONLINE:
-		return _("This operation cannot be performed in off-line mode");
+		return _("This operation cannot be performed in offline mode");
 	default:
 		return _("Unknown error");
 	}
