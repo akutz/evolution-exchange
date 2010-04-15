@@ -26,7 +26,6 @@
 #include <ctype.h>
 #include <errno.h>
 #include <fcntl.h>
-#include <pthread.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -35,6 +34,8 @@
 #include <unistd.h>
 
 #include <libsoup/soup-misc.h>
+
+#include <glib.h>
 
 #include "e2k-context.h"
 #include "e2k-restriction.h"
@@ -612,13 +613,13 @@ cancel (gpointer op)
 static void
 quit (gint sig)
 {
-	static pthread_t cancel_thread;
+	static GThread *cancel_thread = NULL;
 
 	/* Can't cancel from here because we might be
 	 * inside a malloc.
 	 */
 	if (!cancel_thread) {
-		pthread_create (&cancel_thread, NULL, cancel, &op);
+		cancel_thread = g_thread_create (cancel, &op, FALSE, NULL);
 	} else
 		exit (0);
 }

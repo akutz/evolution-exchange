@@ -64,7 +64,6 @@ liborg_gnome_exchange_operations_la_LIBADD = \
 	$(EVOLUTION_PLUGIN_LIBS) \
 	$(EVOLUTION_SHELL_LIBS) \
 	$(EVOLUTION_MAIL_LIBS) \
-	$(PTHREAD_LIB) \
 	$(DNS_LIBS)
 
 liborg_gnome_exchange_operations_la_LDFLAGS = \

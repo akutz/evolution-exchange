@@ -25,10 +25,11 @@
 #include "e2k-sid.h"
 #include "e2k-utils.h"
 
-#include <pthread.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/time.h>
+
+#include <glib.h>
 
 #ifdef HAVE_LDAP_NTLM_BIND
 #include "xntlm.h"
@@ -936,7 +937,8 @@ e2k_global_catalog_async_lookup (E2kGlobalCatalog *gc,
 				 gpointer user_data)
 {
 	struct async_lookup_data *ald;
-	pthread_t pth;
+	GThread *thread;
+	GError *error = NULL;
 
 	ald = g_new0 (struct async_lookup_data, 1);
 	ald->gc = g_object_ref (gc);
@@ -947,8 +949,10 @@ e2k_global_catalog_async_lookup (E2kGlobalCatalog *gc,
 	ald->callback = callback;
 	ald->user_data = user_data;
 
-	if (pthread_create (&pth, NULL, do_lookup_thread, ald) == -1) {
-		g_warning ("Could not create lookup thread\n");
+	if ((thread = g_thread_create (do_lookup_thread, ald, FALSE, &error)) == NULL) {
+		g_warning ("%s: Could not create lookup thread: %s", G_STRFUNC, error ? error->message : "Unknown error");
+		if (error)
+			g_error_free (error);
 		ald->status = E2K_GLOBAL_CATALOG_ERROR;
 		g_idle_add (idle_lookup_result, ald);
 	}

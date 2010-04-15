@@ -23,7 +23,6 @@
 #include <config.h>
 #endif
 
-#include <pthread.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -45,10 +44,10 @@ cancel (gpointer data)
 static void
 quit (gint sig)
 {
-	static pthread_t cancel_thread;
+	static GThread *cancel_thread = NULL;
 
 	if (!cancel_thread) {
-		pthread_create (&cancel_thread, NULL, cancel, NULL);
+		cancel_thread = g_thread_create (cancel, NULL, FALSE, NULL);
 	} else
 		exit (0);
 }

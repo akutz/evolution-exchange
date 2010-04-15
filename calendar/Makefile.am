@@ -33,7 +33,6 @@ libecalbackendexchange_la_LIBADD = \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
 	$(EVOLUTION_PLUGIN_LIBS) \
 	$(LDAP_LIBS) \
-	$(DNS_LIBS) \
-	$(PTHREAD_LIB)
+	$(DNS_LIBS)
 
 -include $(top_srcdir)/git.mk

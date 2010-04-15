@@ -263,11 +263,6 @@ AC_DEFINE_UNQUOTED([E2K_APPROX_BUILD_TIME],[$abt],[Used to prevent clock-setting
 
 AC_DEFINE([HANDLE_LIBICAL_MEMORY],[1],[Define it once memory returned by libical is free'ed properly])
 
-dnl *************
-dnl pthread check
-dnl *************
-EVO_PTHREAD_CHECK
-
 dnl **************
 dnl libdb checking
 dnl **************

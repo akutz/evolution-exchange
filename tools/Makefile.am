@@ -67,7 +67,6 @@ exchange_connector_setup_LDADD = \
 	$(GNOME_PLATFORM_LIBS) \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
 	$(EVOLUTION_PLUGIN_LIBS) \
-	$(PTHREAD_LIB) \
 	$(LDAP_LIBS)\
 	$(DNS_LIBS)
 
