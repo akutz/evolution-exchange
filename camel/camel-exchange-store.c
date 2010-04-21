@@ -43,9 +43,9 @@ static CamelOfflineStoreClass *parent_class = NULL;
 
 #define CS_CLASS(so) ((CamelStoreClass *)((CamelObject *)(so))->klass)
 
-static void construct (CamelService *service, CamelSession *session,
-		       CamelProvider *provider, CamelURL *url,
-		       CamelException *ex);
+static gboolean construct (CamelService *service, CamelSession *session,
+			   CamelProvider *provider, CamelURL *url,
+			   CamelException *ex);
 
 static GList *query_auth_types (CamelService *service, CamelException *ex);
 static gchar  *get_name         (CamelService *service, gboolean brief);
@@ -66,19 +66,19 @@ static CamelFolderInfo *exchange_create_folder (CamelStore *store,
 						const gchar *parent_name,
 						const gchar *folder_name,
 						CamelException *ex);
-static void             exchange_delete_folder (CamelStore *store,
+static gboolean         exchange_delete_folder (CamelStore *store,
 						const gchar *folder_name,
 						CamelException *ex);
-static void             exchange_rename_folder (CamelStore *store,
+static gboolean         exchange_rename_folder (CamelStore *store,
 						const gchar *old_name,
 						const gchar *new_name,
 						CamelException *ex);
 static gboolean		exchange_folder_subscribed (CamelStore *store,
 						const gchar *folder_name);
-static void		exchange_subscribe_folder (CamelStore *store,
+static gboolean		exchange_subscribe_folder (CamelStore *store,
 						const gchar *folder_name,
 						CamelException *ex);
-static void		exchange_unsubscribe_folder (CamelStore *store,
+static gboolean		exchange_unsubscribe_folder (CamelStore *store,
 						const gchar *folder_name,
 						CamelException *ex);
 static gboolean exchange_can_refresh_folder (CamelStore *store, CamelFolderInfo *info, CamelException *ex);
@@ -264,14 +264,15 @@ exchange_path_to_physical (const gchar *prefix, const gchar *vpath)
 	return ppath;
 }
 
-static void
+static gboolean
 construct (CamelService *service, CamelSession *session,
 	   CamelProvider *provider, CamelURL *url, CamelException *ex)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
 	gchar *p;
 
-	CAMEL_SERVICE_CLASS (parent_class)->construct (service, session, provider, url, ex);
+	if (!CAMEL_SERVICE_CLASS (parent_class)->construct (service, session, provider, url, ex))
+		return FALSE;
 
 	exch->base_url = camel_url_to_string (url, CAMEL_URL_HIDE_ALL);
 	/* Strip path */
@@ -283,7 +284,9 @@ construct (CamelService *service, CamelSession *session,
 	}
 
 	if (!(exch->storage_path = camel_session_get_storage_path (session, service, ex)))
-		return;
+		return FALSE;
+
+	return TRUE;
 }
 
 extern CamelServiceAuthType camel_exchange_password_authtype;
@@ -489,7 +492,7 @@ exchange_folder_subscribed (CamelStore *store, const gchar *folder_name)
 	return is_subscribed;
 }
 
-static void
+static gboolean
 exchange_subscribe_folder (CamelStore *store, const gchar *folder_name,
 				CamelException *ex)
 {
@@ -498,13 +501,15 @@ exchange_subscribe_folder (CamelStore *store, const gchar *folder_name,
 	d(printf ("subscribe folder : %s\n", folder_name));
 	if (!camel_exchange_store_connected (exch, ex)) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot subscribe folder in offline mode."));
-		return;
+		return FALSE;
 	}
 
 	camel_exchange_utils_subscribe_folder (CAMEL_SERVICE (store), folder_name, ex);
+
+	return !camel_exception_is_set (ex);
 }
 
-static void
+static gboolean
 exchange_unsubscribe_folder (CamelStore *store, const gchar *folder_name,
 				CamelException *ex)
 {
@@ -513,10 +518,12 @@ exchange_unsubscribe_folder (CamelStore *store, const gchar *folder_name,
 	d(printf ("unsubscribe folder : %s\n", folder_name));
 	if (!camel_exchange_store_connected (exch, ex)) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot unsubscribe folder in offline mode."));
-		return;
+		return FALSE;
 	}
 
 	camel_exchange_utils_unsubscribe_folder (CAMEL_SERVICE (store), folder_name, ex);
+
+	return !camel_exception_is_set (ex);
 }
 
 static CamelFolder *
@@ -722,7 +729,7 @@ exchange_create_folder (CamelStore *store, const gchar *parent_name,
 	return info;
 }
 
-static void
+static gboolean
 exchange_delete_folder (CamelStore *store, const gchar *folder_name,
 			CamelException *ex)
 {
@@ -730,13 +737,15 @@ exchange_delete_folder (CamelStore *store, const gchar *folder_name,
 
 	if (!camel_exchange_store_connected (exch, ex)) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot delete folder in offline mode."));
-		return;
+		return FALSE;
 	}
 
 	camel_exchange_utils_delete_folder (CAMEL_SERVICE (store), folder_name, ex);
+
+	return !camel_exception_is_set (ex);
 }
 
-static void
+static gboolean
 exchange_rename_folder (CamelStore *store, const gchar *old_name,
 			const gchar *new_name, CamelException *ex)
 {
@@ -752,10 +761,10 @@ exchange_rename_folder (CamelStore *store, const gchar *old_name,
 
 	if (!camel_exchange_store_connected (exch, ex)) {
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot rename folder in offline mode."));
-		return;
+		return FALSE;
 	}
 	if (!camel_exchange_utils_rename_folder (CAMEL_SERVICE (store), old_name, new_name, &folder_names, &folder_uris, &unread_counts, &folder_flags, ex)) {
-		return;
+		return FALSE;
 	}
 
 	if (!folder_names) {
@@ -763,7 +772,7 @@ exchange_rename_folder (CamelStore *store, const gchar *old_name,
 		 * We return NULL for now and will emit folder_created
 		 * events later.
 		 */
-		return;
+		return TRUE;
 	}
 
 	folders = g_ptr_array_new ();
@@ -802,6 +811,7 @@ exchange_rename_folder (CamelStore *store, const gchar *old_name,
 				    "folder_renamed", &reninfo);
 	camel_folder_info_free (reninfo.new);
 
+	return TRUE;
 }
 
 static gboolean
