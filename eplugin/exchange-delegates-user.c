@@ -467,13 +467,13 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 			camel_data_wrapper_construct_from_stream (delegate_mail_text, stream);
 			g_free (role_name);
 			g_string_free (role_name_final, TRUE);
-			camel_object_unref (stream);
+			g_object_unref (stream);
 
 			part = camel_mime_part_new ();
 			camel_medium_set_content (CAMEL_MEDIUM (part), delegate_mail_text);
-			camel_object_unref (delegate_mail_text);
+			g_object_unref (delegate_mail_text);
 			camel_multipart_add_part (body, part);
-			camel_object_unref (part);
+			g_object_unref (part);
 
 			/* Create the machine-readable receipt */
 			delegate_mail_data = camel_data_wrapper_new ();
@@ -484,15 +484,15 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 			part = camel_mime_part_new ();
 
 			camel_data_wrapper_construct_from_stream (delegate_mail_data, stream);
-			camel_object_unref (stream);
+			g_object_unref (stream);
 			camel_medium_set_content (CAMEL_MEDIUM (part), delegate_mail_data);
-			camel_object_unref (delegate_mail_data);
+			g_object_unref (delegate_mail_data);
 			camel_multipart_add_part (body, part);
-			camel_object_unref (part);
+			g_object_unref (part);
 
 			/* Finish creating the message */
 			camel_medium_set_content (CAMEL_MEDIUM (delegate_mail), CAMEL_DATA_WRAPPER (body));
-			camel_object_unref (body);
+			g_object_unref (body);
 
 			delegate_mail_subject = g_strdup_printf (_("You have been designated "
 						"as a delegate for %s"), exchange_account_get_username (account));
@@ -503,7 +503,7 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 			camel_address_decode (CAMEL_ADDRESS (addr), self_address);
 			camel_mime_message_set_from (delegate_mail, addr);
 			g_free (self_address);
-			camel_object_unref (addr);
+			g_object_unref (addr);
 
 			delegate_exchange_dn = e2k_entryid_to_dn (user->entryid);
 			recipient_address = email_look_up (delegate_exchange_dn,account);
@@ -512,7 +512,7 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 				addr = camel_internet_address_new ();
 				camel_address_decode (CAMEL_ADDRESS (addr), recipient_address);
 				camel_mime_message_set_recipients (delegate_mail, CAMEL_RECIPIENT_TYPE_TO, addr);
-				camel_object_unref (addr);
+				g_object_unref (addr);
 			}
 
 			eaccount = exchange_account_fetch (account);

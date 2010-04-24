@@ -1714,7 +1714,7 @@ get_attachment (ECalBackendExchange *cbex, const gchar *uid,
 	stream = camel_stream_mem_new_with_buffer (body, len);
 	msg = camel_mime_message_new ();
 	camel_data_wrapper_construct_from_stream (CAMEL_DATA_WRAPPER (msg), stream);
-	camel_object_unref (stream);
+	g_object_unref (stream);
 
 	msg_content = camel_medium_get_content (CAMEL_MEDIUM (msg));
 	if (msg_content && CAMEL_IS_MULTIPART (msg_content)) {
@@ -1740,12 +1740,12 @@ get_attachment (ECalBackendExchange *cbex, const gchar *uid,
 				d(printf ("attach file name : %s\n", attach_file_url));
 				list = g_slist_append (list, attach_file_url);
 
-				camel_object_unref (stream);
+				g_object_unref (stream);
 			}
 		} /* Loop through each multipart */
 	}
 
-	camel_object_unref (msg);
+	g_object_unref (msg);
 	return list;
 }
 
@@ -1962,7 +1962,7 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject
 	camel_mime_message_set_from (msg, from);
 	g_free (from_name);
 	g_free (from_email);
-	camel_object_unref (from);
+	g_object_unref (from);
 
 	e_cal_component_get_uid (comp, &uid);
 	e_cal_component_get_attachment_list (comp, &attach_list);
@@ -2010,7 +2010,7 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject
 		stream = camel_stream_mem_new_with_buffer (file_contents, len);
 		wrapper = camel_data_wrapper_new ();
 		camel_data_wrapper_construct_from_stream (wrapper, stream);
-		camel_object_unref (stream);
+		g_object_unref (stream);
 
 		mime_type = get_mime_type (dest_url);
 		if (mime_type) {
@@ -2033,18 +2033,18 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject
 		camel_multipart_set_boundary (multipart, NULL);
 		*boundary = g_strdup (camel_multipart_get_boundary (multipart));
 		camel_multipart_add_part (multipart, mime_part);
-		camel_object_unref (mime_part);
+		g_object_unref (mime_part);
 		g_free (cid);
 	}
 	if (!new_attach_list) {
-		camel_object_unref (multipart);
-		camel_object_unref (msg);
+		g_object_unref (multipart);
+		g_object_unref (msg);
 		return NULL;
 	}
 	e_cal_component_set_attachment_list (comp, new_attach_list);
 
 	camel_medium_set_content (CAMEL_MEDIUM (msg), CAMEL_DATA_WRAPPER (multipart));
-	camel_object_unref (multipart);
+	g_object_unref (multipart);
 
 	byte_array = g_byte_array_new ();
 	stream = camel_stream_mem_new_with_byte_array (byte_array);
@@ -2053,8 +2053,8 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject
 	buffer = g_memdup (byte_array->data, byte_array->len);
 	buffer[byte_array->len] = '\0';
 	d(printf ("|| Buffer: \n%s\n", buffer));
-	camel_object_unref (stream);
-	camel_object_unref (msg);
+	g_object_unref (stream);
+	g_object_unref (msg);
 
 	return buffer;
 }

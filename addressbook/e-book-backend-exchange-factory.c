@@ -38,10 +38,6 @@ static GType exchange_types[2];
 void
 eds_module_initialize (GTypeModule *type_module)
 {
-	/* to have a camel type initialized properly */
-	camel_type_init ();
-	camel_object_get_type ();
-
 	exchange_types[0] = _exchange_factory_get_type (type_module);
 	exchange_types[1] = _gal_factory_get_type (type_module);
 }

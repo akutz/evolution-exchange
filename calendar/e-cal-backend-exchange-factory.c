@@ -139,10 +139,6 @@ e_cal_backend_exchange_todos_factory_register_type (GTypeModule *type_module)
 void
 eds_module_initialize (GTypeModule *type_module)
 {
-	/* to have a camel type initialized properly */
-	camel_type_init ();
-	camel_object_get_type ();
-
 	e_cal_backend_exchange_events_factory_register_type (type_module);
 	e_cal_backend_exchange_todos_factory_register_type (type_module);
 }

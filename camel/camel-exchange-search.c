@@ -29,46 +29,15 @@
 #include "camel-exchange-folder.h"
 #include "camel-exchange-utils.h"
 
-static ESExpResult *
-exchange_body_contains (struct _ESExp *f, gint argc, struct _ESExpResult **argv,
-			CamelFolderSearch *s);
-
-static CamelFolderSearchClass *parent_class = NULL;
-
-static void
-camel_exchange_search_class_init (CamelExchangeSearchClass *camel_exchange_search_class)
-{
-	/* virtual method overload */
-	CamelFolderSearchClass *camel_folder_search_class =
-		CAMEL_FOLDER_SEARCH_CLASS (camel_exchange_search_class);
-
-	parent_class = (CamelFolderSearchClass *) camel_folder_search_get_type ();
-
-	/* virtual method overload */
-	camel_folder_search_class->body_contains = exchange_body_contains;
-}
-
-CamelType
-camel_exchange_search_get_type (void)
-{
-	static CamelType camel_exchange_search_type = CAMEL_INVALID_TYPE;
-
-	if (camel_exchange_search_type == CAMEL_INVALID_TYPE) {
-		camel_exchange_search_type = camel_type_register (
-			CAMEL_FOLDER_SEARCH_TYPE, "CamelExchangeSearch",
-			sizeof (CamelExchangeSearch),
-			sizeof (CamelExchangeSearchClass),
-			(CamelObjectClassInitFunc) camel_exchange_search_class_init,
-			NULL, NULL, NULL);
-	}
-
-	return camel_exchange_search_type;
-}
+G_DEFINE_TYPE (CamelExchangeSearch, camel_exchange_search, CAMEL_TYPE_FOLDER_SEARCH)
 
 static ESExpResult *
-exchange_body_contains (struct _ESExp *f, gint argc, struct _ESExpResult **argv,
-			CamelFolderSearch *s)
+exchange_search_body_contains (struct _ESExp *f,
+                               gint argc,
+                               struct _ESExpResult **argv,
+                               CamelFolderSearch *s)
 {
+	CamelFolderSearchClass *folder_search_class;
 	gchar *value = argv[0]->value.string, *real_uid;
 	const gchar *uid;
 	ESExpResult *r;
@@ -77,8 +46,11 @@ exchange_body_contains (struct _ESExp *f, gint argc, struct _ESExpResult **argv,
 	GPtrArray *found_uids;
 	gint i;
 
+	folder_search_class = CAMEL_FOLDER_SEARCH_CLASS (
+		camel_exchange_search_parent_class);
+
 	if (((CamelOfflineStore *) s->folder->parent_store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL)
-		return parent_class->body_contains (f, argc, argv, s);
+		return folder_search_class->body_contains (f, argc, argv, s);
 
 	if (s->current) {
 		r = e_sexp_result_new (f, ESEXP_RES_BOOL);
@@ -148,6 +120,20 @@ exchange_body_contains (struct _ESExp *f, gint argc, struct _ESExpResult **argv,
 	return r;
 }
 
+static void
+camel_exchange_search_class_init (CamelExchangeSearchClass *class)
+{
+	CamelFolderSearchClass *folder_search_class;
+
+	folder_search_class = CAMEL_FOLDER_SEARCH_CLASS (class);
+	folder_search_class->body_contains = exchange_search_body_contains;
+}
+
+static void
+camel_exchange_search_init (CamelExchangeSearch *exchange_search)
+{
+}
+
 /**
  * camel_exchange_search_new:
  *
@@ -158,8 +144,10 @@ exchange_body_contains (struct _ESExp *f, gint argc, struct _ESExpResult **argv,
 CamelFolderSearch *
 camel_exchange_search_new (void)
 {
-	CamelFolderSearch *new = CAMEL_FOLDER_SEARCH (camel_object_new (camel_exchange_search_get_type ()));
+	CamelFolderSearch *folder_search;
 
-	camel_folder_search_construct (new);
-	return new;
+	folder_search = g_object_new (CAMEL_TYPE_EXCHANGE_SEARCH, NULL);
+	camel_folder_search_construct (folder_search);
+
+	return folder_search;
 }

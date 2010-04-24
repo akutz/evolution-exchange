@@ -27,12 +27,24 @@
 
 #include "camel-exchange-folder.h"
 
-#define CAMEL_TYPE_EXCHANGE_JOURNAL            (camel_exchange_journal_get_type ())
-#define CAMEL_EXCHANGE_JOURNAL(obj)            (CAMEL_CHECK_CAST ((obj), CAMEL_TYPE_EXCHANGE_JOURNAL, CamelExchangeJournal))
-#define CAMEL_EXCHANGE_JOURNAL_CLASS(klass)    (CAMEL_CHECK_CLASS_CAST ((klass), CAMEL_TYPE_EXCHANGE_JOURNAL, CamelExchangeJournalClass))
-#define CAMEL_IS_EXCHANGE_JOURNAL(obj)         (CAMEL_CHECK_TYPE ((obj), CAMEL_TYPE_EXCHANGE_JOURNAL))
-#define CAMEL_IS_EXCHANGE_JOURNAL_CLASS(klass) (CAMEL_CHECK_CLASS_TYPE ((klass), CAMEL_TYPE_EXCHANGE_JOURNAL))
-#define CAMEL_EXCHANGE_JOURNAL_GET_CLASS(obj)  (CAMEL_CHECK_GET_CLASS ((obj), CAMEL_TYPE_EXCHANGE_JOURNAL, CamelExchangeJournalClass))
+/* Standard GObject class */
+#define CAMEL_TYPE_EXCHANGE_JOURNAL \
+	(camel_exchange_journal_get_type ())
+#define CAMEL_EXCHANGE_JOURNAL(obj) \
+	(CAMEL_CHECK_CAST \
+	((obj), CAMEL_TYPE_EXCHANGE_JOURNAL, CamelExchangeJournal))
+#define CAMEL_EXCHANGE_JOURNAL_CLASS(cls) \
+	(CAMEL_CHECK_CLASS_CAST \
+	((cls), CAMEL_TYPE_EXCHANGE_JOURNAL, CamelExchangeJournalClass))
+#define CAMEL_IS_EXCHANGE_JOURNAL(obj) \
+	(CAMEL_CHECK_TYPE \
+	((obj), CAMEL_TYPE_EXCHANGE_JOURNAL))
+#define CAMEL_IS_EXCHANGE_JOURNAL_CLASS(cls) \
+	(CAMEL_CHECK_CLASS_TYPE \
+	((cls), CAMEL_TYPE_EXCHANGE_JOURNAL))
+#define CAMEL_EXCHANGE_JOURNAL_GET_CLASS(obj) \
+	(CAMEL_CHECK_GET_CLASS \
+	((obj), CAMEL_TYPE_EXCHANGE_JOURNAL, CamelExchangeJournalClass))
 
 G_BEGIN_DECLS
 
@@ -62,16 +74,14 @@ struct _CamelExchangeJournalEntry {
 };
 
 struct _CamelExchangeJournal {
-	CamelOfflineJournal parent_object;
-
+	CamelOfflineJournal parent;
 };
 
 struct _CamelExchangeJournalClass {
 	CamelOfflineJournalClass parent_class;
-
 };
 
-CamelType camel_exchange_journal_get_type (void);
+GType camel_exchange_journal_get_type (void);
 
 CamelOfflineJournal *camel_exchange_journal_new (CamelExchangeFolder *folder, const gchar *filename);
 

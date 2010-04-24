@@ -4,29 +4,43 @@
 /* camel-exchange-transport.h: Exchange-based transport class */
 
 #ifndef CAMEL_EXCHANGE_TRANSPORT_H
-#define CAMEL_EXCHANGE_TRANSPORT_H 1
+#define CAMEL_EXCHANGE_TRANSPORT_H
 
 #include <camel/camel.h>
 
-#define CAMEL_EXCHANGE_TRANSPORT_TYPE     (camel_exchange_transport_get_type ())
-#define CAMEL_EXCHANGE_TRANSPORT(obj)     (CAMEL_CHECK_CAST((obj), CAMEL_EXCHANGE_TRANSPORT_TYPE, CamelExchangeTransport))
-#define CAMEL_EXCHANGE_TRANSPORT_CLASS(k) (CAMEL_CHECK_CLASS_CAST ((k), CAMEL_EXCHANGE_TRANSPORT_TYPE, CamelExchangeTransportClass))
-#define CAMEL_IS_EXCHANGE_TRANSPORT(o)    (CAMEL_CHECK_TYPE((o), CAMEL_EXCHANGE_TRANSPORT_TYPE))
+/* Standard GObject macros */
+#define CAMEL_TYPE_EXCHANGE_TRANSPORT \
+	(camel_exchange_transport_get_type ())
+#define CAMEL_EXCHANGE_TRANSPORT(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST \
+	((obj), CAMEL_TYPE_EXCHANGE_TRANSPORT, CamelExchangeTransport))
+#define CAMEL_EXCHANGE_TRANSPORT_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST \
+	((cls), CAMEL_TYPE_EXCHANGE_TRANSPORT, CamelExchangeTransportClass))
+#define CAMEL_IS_EXCHANGE_TRANSPORT(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE \
+	((obj), CAMEL_TYPE_EXCHANGE_TRANSPORT))
+#define CAMEL_IS_EXCHANGE_TRANSPORT_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_TYPE \
+	((cls), CAMEL_TYPE_EXCHANGE_TRANSPORT))
+#define CAMEL_EXCHANGE_TRANSPORT_GET_CLASS(obj) \
+	(G_TYPE_INSTANCE_GET_CLASS \
+	((obj), CAMEL_TYPE_EXCHANGE_TRANSPORT, CamelExchangeTransportClass))
 
 G_BEGIN_DECLS
 
-typedef struct {
-	CamelTransport parent_object;
+typedef struct _CamelExchangeTransport CamelExchangeTransport;
+typedef struct _CamelExchangeTransportClass CamelExchangeTransportClass;
 
-} CamelExchangeTransport;
+struct _CamelExchangeTransport {
+	CamelTransport parent;
+};
 
-typedef struct {
+struct _CamelExchangeTransportClass {
 	CamelTransportClass parent_class;
+};
 
-} CamelExchangeTransportClass;
-
-/* Standard Camel function */
-CamelType camel_exchange_transport_get_type (void);
+GType		camel_exchange_transport_get_type (void);
 
 G_END_DECLS
 

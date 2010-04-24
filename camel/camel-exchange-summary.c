@@ -41,143 +41,53 @@
 
 #define d(x)
 
-static gint header_load (CamelFolderSummary *summary, FILE *in);
-static gint header_save (CamelFolderSummary *summary, FILE *out);
+G_DEFINE_TYPE (CamelExchangeSummary, camel_exchange_summary, CAMEL_TYPE_FOLDER_SUMMARY)
 
-static CamelMessageInfo *message_info_load (CamelFolderSummary *summary,
-					    FILE *in);
-static gint               message_info_save (CamelFolderSummary *summary,
-					    FILE *out,
-					    CamelMessageInfo *info);
-static gint summary_header_from_db (CamelFolderSummary *s, CamelFIRecord *mir);
-static CamelFIRecord * summary_header_to_db (CamelFolderSummary *s, CamelException *ex);
-static CamelMIRecord * message_info_to_db (CamelFolderSummary *s, CamelMessageInfo *info);
-static CamelMessageInfo * message_info_from_db (CamelFolderSummary *s, CamelMIRecord *mir);
-static CamelMessageInfo *message_info_new_from_header  (CamelFolderSummary *summary,
-							struct _camel_header_raw *h);
-
-static void message_info_free (CamelFolderSummary *summary, CamelMessageInfo *info);
-
-static gboolean check_for_trash (CamelFolder *folder);
-static gboolean expunge_mail (CamelFolder *folder, CamelMessageInfo *info);
-
-static gboolean info_set_flags(CamelMessageInfo *info, guint32 flags, guint32 set);
-static gboolean info_set_user_tag(CamelMessageInfo *info, const gchar *name, const gchar *value);
-
-static CamelFolderSummaryClass *parent_class = NULL;
-
-static void
-exchange_summary_class_init (CamelObjectClass *klass)
+static gboolean
+exchange_summary_check_for_trash (CamelFolder *folder)
 {
-	CamelFolderSummaryClass *camel_folder_summary_class =
-		(CamelFolderSummaryClass *) klass;
-
-	parent_class = CAMEL_FOLDER_SUMMARY_CLASS (camel_type_get_global_classfuncs (camel_folder_summary_get_type()));
-
-	camel_folder_summary_class->message_info_size = sizeof (CamelExchangeMessageInfo);
-	camel_folder_summary_class->content_info_size = sizeof (CamelMessageContentInfo);
-	camel_folder_summary_class->summary_header_load = header_load;
-	camel_folder_summary_class->summary_header_save = header_save;
-	camel_folder_summary_class->message_info_load = message_info_load;
-	camel_folder_summary_class->message_info_save = message_info_save;
-	camel_folder_summary_class->message_info_new_from_header = message_info_new_from_header;
-	camel_folder_summary_class->message_info_free = message_info_free;
-
-	camel_folder_summary_class->summary_header_to_db = summary_header_to_db;
-	camel_folder_summary_class->summary_header_from_db = summary_header_from_db;
-	camel_folder_summary_class->message_info_to_db = message_info_to_db;
-	camel_folder_summary_class->message_info_from_db = message_info_from_db;
-
-	camel_folder_summary_class->info_set_flags = info_set_flags;
-	camel_folder_summary_class->info_set_user_tag = info_set_user_tag;
-}
-
-static void
-exchange_summary_init (CamelFolderSummary *summary)
-{
-}
-
-CamelType
-camel_exchange_summary_get_type (void)
-{
-	static CamelType type = CAMEL_INVALID_TYPE;
-
-	if (type == CAMEL_INVALID_TYPE) {
-		type = camel_type_register(
-			camel_folder_summary_get_type (),
-			"CamelExchangeSummary",
-			sizeof (CamelExchangeSummary),
-			sizeof (CamelExchangeSummaryClass),
-			exchange_summary_class_init,
-			NULL,
-			(CamelObjectInitFunc) exchange_summary_init,
-			NULL);
-	}
-
-	return type;
-}
-
-/**
- * camel_exchange_summary_new:
- * @filename: filename to use for the summary
- *
- * Creates a new #CamelExchangeSummary based on @filename.
- *
- * Return value: the summary object.
- **/
-CamelFolderSummary *
-camel_exchange_summary_new (struct _CamelFolder *folder, const gchar *filename)
-{
-	CamelFolderSummary *summary;
+	CamelStore *store = (CamelStore *) folder->parent_store;
 	CamelException lex;
+	CamelFolder *trash;
 
 	camel_exception_init (&lex);
-	summary = (CamelFolderSummary *)camel_object_new (CAMEL_EXCHANGE_SUMMARY_TYPE);
-	summary->folder = folder;
-	camel_folder_summary_set_filename (summary, filename);
-	if (camel_folder_summary_load_from_db (summary, &lex) == -1) {
-		g_warning ("Unable to load Exchage summary for folder %s: %s\n", folder->full_name, camel_exception_get_description(&lex));
-		camel_folder_summary_clear_db (summary);
-		camel_folder_summary_touch (summary);
-	}
+	trash = camel_store_get_trash (store, &lex);
 
-	camel_exception_clear (&lex);
-	return summary;
+	if (camel_exception_is_set (&lex) || !trash)
+		return FALSE;
+
+	return folder == trash;
 }
 
-static gint
-summary_header_from_db (CamelFolderSummary *s, CamelFIRecord *mir)
+static gboolean
+exchange_summary_expunge_mail (CamelFolder *folder,
+                               CamelMessageInfo *info)
 {
-	CamelExchangeSummary *exchange = (CamelExchangeSummary *) s;
-	gchar *part;
+	GPtrArray *uids = g_ptr_array_new ();
+	gchar *uid = g_strdup (info->uid);
+	CamelException lex;
 
-	if (CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->summary_header_from_db (s, mir) == -1)
-		return -1;
+	g_ptr_array_add (uids, uid);
 
-	part = mir->bdata;
+	camel_exception_init (&lex);
+	camel_exchange_utils_expunge_uids (CAMEL_SERVICE (folder->parent_store), folder->full_name, uids, &lex);
 
-	if (part) {
-		EXTRACT_FIRST_DIGIT (exchange->version)
-	}
-
-	if (part) {
-		EXTRACT_DIGIT (exchange->readonly)
-	}
-
-	if (part) {
-		EXTRACT_DIGIT (exchange->high_article_num)
-	}
-
-	return 0;
+	g_ptr_array_free (uids, TRUE);
+	return camel_exception_is_set (&lex);
 }
 
 static gint
-header_load (CamelFolderSummary *summary, FILE *in)
+exchange_summary_header_load (CamelFolderSummary *summary,
+                              FILE *in)
 {
 	CamelExchangeSummary *exchange = (CamelExchangeSummary *) summary;
+	CamelFolderSummaryClass *folder_summary_class;
 	guint32 version, readonly, high_article_num = 0;
 
-	if (CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->summary_header_load (summary, in) == -1)
+	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
+		camel_exchange_summary_parent_class);
+
+	if (folder_summary_class->summary_header_load (summary, in) == -1)
 		return -1;
 
 	if (camel_file_util_decode_uint32 (in, &version) == -1)
@@ -206,26 +116,17 @@ header_load (CamelFolderSummary *summary, FILE *in)
 	return 0;
 }
 
-static CamelFIRecord *
-summary_header_to_db (CamelFolderSummary *s, CamelException *ex)
-{
-	CamelExchangeSummary *exchange = (CamelExchangeSummary *) s;
-	struct _CamelFIRecord *fir;
-
-	fir = CAMEL_FOLDER_SUMMARY_CLASS(parent_class)->summary_header_to_db (s, ex);
-	if (!fir)
-		return NULL;
-	fir->bdata = g_strdup_printf ("%u %u %u", exchange->version, exchange->readonly, exchange->high_article_num);
-
-	return fir;
-}
-
 static gint
-header_save (CamelFolderSummary *summary, FILE *out)
+exchange_summary_header_save (CamelFolderSummary *summary,
+                              FILE *out)
 {
 	CamelExchangeSummary *exchange = (CamelExchangeSummary *) summary;
+	CamelFolderSummaryClass *folder_summary_class;
 
-	if (CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->summary_header_save (summary, out) == -1)
+	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
+		camel_exchange_summary_parent_class);
+
+	if (folder_summary_class->summary_header_save (summary, out) == -1)
 		return -1;
 
 	if (camel_file_util_encode_uint32 (out, exchange->version) == -1)
@@ -241,32 +142,20 @@ header_save (CamelFolderSummary *summary, FILE *out)
 
 	return 0;
 }
+
 static CamelMessageInfo *
-message_info_from_db (CamelFolderSummary *s, CamelMIRecord *mir)
+exchange_summary_message_info_load (CamelFolderSummary *summary,
+                                    FILE *in)
 {
 	CamelMessageInfo *info;
 	CamelExchangeMessageInfo *einfo;
-
-	info = CAMEL_FOLDER_SUMMARY_CLASS(parent_class)->message_info_from_db (s, mir);
-	if (info) {
-		gchar *part = g_strdup (mir->bdata);
-		gint len;
-		einfo = (CamelExchangeMessageInfo *)info;
-		EXTRACT_FIRST_STRING (einfo->thread_index)
-		EXTRACT_FIRST_STRING (einfo->href)
-	}
-
-	return info;
-}
-
-static CamelMessageInfo *
-message_info_load (CamelFolderSummary *summary, FILE *in)
-{
-	CamelMessageInfo *info;
-	CamelExchangeMessageInfo *einfo;
+	CamelFolderSummaryClass *folder_summary_class;
 	gchar *thread_index, *href = NULL;
 
-	info = CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->message_info_load (summary, in);
+	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
+		camel_exchange_summary_parent_class);
+
+	info = folder_summary_class->message_info_load (summary, in);
 	if (info) {
 		einfo = (CamelExchangeMessageInfo *)info;
 
@@ -296,25 +185,18 @@ error:
 	return NULL;
 }
 
-static CamelMIRecord *
-message_info_to_db (CamelFolderSummary *s, CamelMessageInfo *info)
-{
-	CamelExchangeMessageInfo *einfo = (CamelExchangeMessageInfo *)info;
-	struct _CamelMIRecord *mir;
-
-	mir = CAMEL_FOLDER_SUMMARY_CLASS(parent_class)->message_info_to_db (s, info);
-	if (mir)
-		mir->bdata = g_strdup_printf ("%d-%s %d-%s", einfo->thread_index ? (gint)strlen(einfo->thread_index):0 , einfo->thread_index ? einfo->thread_index : "", einfo->href ? (gint)strlen(einfo->href):0, einfo->href ? einfo->href:"");
-
-	return mir;
-}
-
 static gint
-message_info_save (CamelFolderSummary *summary, FILE *out, CamelMessageInfo *info)
+exchange_summary_message_info_save (CamelFolderSummary *summary,
+                                    FILE *out,
+                                    CamelMessageInfo *info)
 {
 	CamelExchangeMessageInfo *einfo = (CamelExchangeMessageInfo *)info;
+	CamelFolderSummaryClass *folder_summary_class;
 
-	if (CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->message_info_save (summary, out, info) == -1)
+	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
+		camel_exchange_summary_parent_class);
+
+	if (folder_summary_class->message_info_save (summary, out, info) == -1)
 		return -1;
 
 	if (camel_file_util_encode_string (out, einfo->thread_index ? einfo->thread_index : "") == -1)
@@ -329,13 +211,18 @@ message_info_save (CamelFolderSummary *summary, FILE *out, CamelMessageInfo *inf
 }
 
 static CamelMessageInfo *
-message_info_new_from_header (CamelFolderSummary *summary, struct _camel_header_raw *h)
+exchange_summary_message_info_new_from_header (CamelFolderSummary *summary,
+                                               struct _camel_header_raw *h)
 {
 	CamelMessageInfo *info;
 	CamelExchangeMessageInfo *einfo;
+	CamelFolderSummaryClass *folder_summary_class;
 	const gchar *thread_index;
 
-	info = CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->message_info_new_from_header (summary, h);
+	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
+		camel_exchange_summary_parent_class);
+
+	info = folder_summary_class->message_info_new_from_header (summary, h);
 	if (!info)
 		return info;
 
@@ -348,9 +235,14 @@ message_info_new_from_header (CamelFolderSummary *summary, struct _camel_header_
 }
 
 static void
-message_info_free (CamelFolderSummary *summary, CamelMessageInfo *info)
+exchange_summary_message_info_free (CamelFolderSummary *summary,
+                                    CamelMessageInfo *info)
 {
 	CamelExchangeMessageInfo *einfo;
+	CamelFolderSummaryClass *folder_summary_class;
+
+	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
+		camel_exchange_summary_parent_class);
 
 	einfo = (CamelExchangeMessageInfo *)info;
 
@@ -360,71 +252,136 @@ message_info_free (CamelFolderSummary *summary, CamelMessageInfo *info)
 	einfo->href = NULL;
 	einfo->thread_index = NULL;
 
-	CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->message_info_free (summary, info);
+	folder_summary_class->message_info_free (summary, info);
 }
 
-static gboolean
-check_for_trash (CamelFolder *folder)
+static CamelFIRecord *
+exchange_summary_summary_header_to_db (CamelFolderSummary *s,
+                                       CamelException *ex)
 {
-	CamelStore *store = (CamelStore *) folder->parent_store;
-	CamelException lex;
-	CamelFolder *trash;
+	CamelExchangeSummary *exchange = (CamelExchangeSummary *) s;
+	CamelFolderSummaryClass *folder_summary_class;
+	struct _CamelFIRecord *fir;
 
-	camel_exception_init (&lex);
-	trash = camel_store_get_trash (store, &lex);
+	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
+		camel_exchange_summary_parent_class);
 
-	if (camel_exception_is_set (&lex) || !trash)
-		return FALSE;
+	fir = folder_summary_class->summary_header_to_db (s, ex);
+	if (!fir)
+		return NULL;
+	fir->bdata = g_strdup_printf ("%u %u %u", exchange->version, exchange->readonly, exchange->high_article_num);
 
-	return folder == trash;
+	return fir;
 }
 
-static gboolean
-expunge_mail (CamelFolder *folder, CamelMessageInfo *info)
+static gint
+exchange_summary_summary_header_from_db (CamelFolderSummary *s,
+                                         CamelFIRecord *mir)
 {
-	GPtrArray *uids = g_ptr_array_new ();
-	gchar *uid = g_strdup (info->uid);
-	CamelException lex;
+	CamelExchangeSummary *exchange = (CamelExchangeSummary *) s;
+	CamelFolderSummaryClass *folder_summary_class;
+	gchar *part;
 
-	g_ptr_array_add (uids, uid);
+	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
+		camel_exchange_summary_parent_class);
 
-	camel_exception_init (&lex);
-	camel_exchange_utils_expunge_uids (CAMEL_SERVICE (folder->parent_store), folder->full_name, uids, &lex);
+	if (folder_summary_class->summary_header_from_db (s, mir) == -1)
+		return -1;
 
-	g_ptr_array_free (uids, TRUE);
-	return camel_exception_is_set (&lex);
+	part = mir->bdata;
+
+	if (part) {
+		EXTRACT_FIRST_DIGIT (exchange->version)
+	}
+
+	if (part) {
+		EXTRACT_DIGIT (exchange->readonly)
+	}
+
+	if (part) {
+		EXTRACT_DIGIT (exchange->high_article_num)
+	}
+
+	return 0;
+}
+
+static CamelMIRecord *
+exchange_summary_message_info_to_db (CamelFolderSummary *s,
+                                     CamelMessageInfo *info)
+{
+	CamelExchangeMessageInfo *einfo = (CamelExchangeMessageInfo *)info;
+	CamelFolderSummaryClass *folder_summary_class;
+	struct _CamelMIRecord *mir;
+
+	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
+		camel_exchange_summary_parent_class);
+
+	mir = folder_summary_class->message_info_to_db (s, info);
+	if (mir)
+		mir->bdata = g_strdup_printf ("%d-%s %d-%s", einfo->thread_index ? (gint)strlen(einfo->thread_index):0 , einfo->thread_index ? einfo->thread_index : "", einfo->href ? (gint)strlen(einfo->href):0, einfo->href ? einfo->href:"");
+
+	return mir;
+}
+
+static CamelMessageInfo *
+exchange_summary_message_info_from_db (CamelFolderSummary *s,
+                                       CamelMIRecord *mir)
+{
+	CamelMessageInfo *info;
+	CamelExchangeMessageInfo *einfo;
+	CamelFolderSummaryClass *folder_summary_class;
+
+	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
+		camel_exchange_summary_parent_class);
+
+	info = folder_summary_class->message_info_from_db (s, mir);
+	if (info) {
+		gchar *part = g_strdup (mir->bdata);
+		gint len;
+		einfo = (CamelExchangeMessageInfo *)info;
+		EXTRACT_FIRST_STRING (einfo->thread_index)
+		EXTRACT_FIRST_STRING (einfo->href)
+	}
+
+	return info;
 }
 
 static gboolean
-info_set_flags(CamelMessageInfo *info, guint32 flags, guint32 set)
+exchange_summary_info_set_flags (CamelMessageInfo *info,
+                                 guint32 flags,
+                                 guint32 set)
 {
 	CamelFolder *folder = (CamelFolder *) info->summary->folder;
 	CamelOfflineStore *store = (CamelOfflineStore *) folder->parent_store;
+	CamelFolderSummaryClass *folder_summary_class;
 
 	if (CAMEL_EXCHANGE_SUMMARY (info->summary)->readonly)
 		return FALSE;
 
+	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
+		camel_exchange_summary_parent_class);
+
 	if (store->state != CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
 		if (folder && info->uid) {
 			if ((flags & set & CAMEL_MESSAGE_DELETED) &&
-			    check_for_trash (folder)) {
-				return expunge_mail (folder, info);
+			    exchange_summary_check_for_trash (folder)) {
+				return exchange_summary_expunge_mail (folder, info);
 			} else {
 				camel_exchange_utils_set_message_flags (CAMEL_SERVICE (folder->parent_store), folder->full_name, info->uid, set, flags, NULL);
-				return CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->info_set_flags(info, flags, set);
+				return folder_summary_class->info_set_flags(info, flags, set);
 			}
 		}
 	}
 	else {
 		if (folder && info->uid) {
 			if ((flags & set & CAMEL_MESSAGE_DELETED) &&
-			    check_for_trash (folder)) {
+			    exchange_summary_check_for_trash (folder)) {
 				/* FIXME: should add a separate journal entry for this case. */ ;
 			} else {
 				CamelExchangeFolder *exchange_folder = (CamelExchangeFolder *) folder;
 				CamelExchangeJournal *journal = (CamelExchangeJournal *) exchange_folder->journal;
 				camel_exchange_journal_delete (journal, info->uid, flags, set, NULL);
-				return CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->info_set_flags(info, flags, set);
+				return folder_summary_class->info_set_flags(info, flags, set);
 			}
 		}
 	}
@@ -432,20 +389,81 @@ info_set_flags(CamelMessageInfo *info, guint32 flags, guint32 set)
 }
 
 static gboolean
-info_set_user_tag(CamelMessageInfo *info, const gchar *name, const gchar *value)
+exchange_summary_info_set_user_tag (CamelMessageInfo *info,
+                                    const gchar *name,
+                                    const gchar *value)
 {
+	CamelFolderSummaryClass *folder_summary_class;
 	gint res;
 
 	if (CAMEL_EXCHANGE_SUMMARY (info->summary)->readonly)
 		return FALSE;
 
-	res = CAMEL_FOLDER_SUMMARY_CLASS (parent_class)->info_set_user_tag(info, name, value);
+	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
+		camel_exchange_summary_parent_class);
+
+	res = folder_summary_class->info_set_user_tag(info, name, value);
 	if (res && info->summary->folder && info->uid) {
 		CamelFolder *folder = info->summary->folder;
 		camel_exchange_utils_set_message_tag (CAMEL_SERVICE (folder->parent_store), folder->full_name, info->uid, name, value, NULL);
 	}
 
 	return res;
+}
+
+static void
+camel_exchange_summary_class_init (CamelExchangeSummaryClass *class)
+{
+	CamelFolderSummaryClass *folder_summary_class;
+
+	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (class);
+	folder_summary_class->message_info_size = sizeof (CamelExchangeMessageInfo);
+	folder_summary_class->content_info_size = sizeof (CamelMessageContentInfo);
+	folder_summary_class->summary_header_load = exchange_summary_header_load;
+	folder_summary_class->summary_header_save = exchange_summary_header_save;
+	folder_summary_class->message_info_load = exchange_summary_message_info_load;
+	folder_summary_class->message_info_save = exchange_summary_message_info_save;
+	folder_summary_class->message_info_new_from_header = exchange_summary_message_info_new_from_header;
+	folder_summary_class->message_info_free = exchange_summary_message_info_free;
+	folder_summary_class->summary_header_to_db = exchange_summary_summary_header_to_db;
+	folder_summary_class->summary_header_from_db = exchange_summary_summary_header_from_db;
+	folder_summary_class->message_info_to_db = exchange_summary_message_info_to_db;
+	folder_summary_class->message_info_from_db = exchange_summary_message_info_from_db;
+	folder_summary_class->info_set_flags = exchange_summary_info_set_flags;
+	folder_summary_class->info_set_user_tag = exchange_summary_info_set_user_tag;
+}
+
+static void
+camel_exchange_summary_init (CamelExchangeSummary *summary)
+{
+}
+
+/**
+ * camel_exchange_summary_new:
+ * @filename: filename to use for the summary
+ *
+ * Creates a new #CamelExchangeSummary based on @filename.
+ *
+ * Return value: the summary object.
+ **/
+CamelFolderSummary *
+camel_exchange_summary_new (struct _CamelFolder *folder, const gchar *filename)
+{
+	CamelFolderSummary *summary;
+	CamelException lex;
+
+	camel_exception_init (&lex);
+	summary = g_object_new (CAMEL_TYPE_EXCHANGE_SUMMARY, NULL);
+	summary->folder = folder;
+	camel_folder_summary_set_filename (summary, filename);
+	if (camel_folder_summary_load_from_db (summary, &lex) == -1) {
+		g_warning ("Unable to load Exchage summary for folder %s: %s\n", folder->full_name, camel_exception_get_description(&lex));
+		camel_folder_summary_clear_db (summary);
+		camel_folder_summary_touch (summary);
+	}
+
+	camel_exception_clear (&lex);
+	return summary;
 }
 
 /**

@@ -37,176 +37,27 @@
 #include "camel-exchange-journal.h"
 #include "camel-exchange-utils.h"
 
-static CamelOfflineFolderClass *parent_class = NULL;
-
-/* Returns the class for a CamelFolder */
-#define CF_CLASS(so) CAMEL_FOLDER_CLASS (CAMEL_OBJECT_GET_CLASS(so))
-
-static gboolean exchange_expunge (CamelFolder *folder, CamelException *ex);
-static gboolean append_message (CamelFolder *folder, CamelMimeMessage *message,
-				const CamelMessageInfo *info,
-				gchar **appended_uid, CamelException *ex);
-static CamelMimeMessage *get_message         (CamelFolder *folder,
-					      const gchar *uid,
-					      CamelException *ex);
-static GPtrArray      *search_by_expression  (CamelFolder *folder,
-					      const gchar *exp,
-					      CamelException *ex);
-static guint32	      count_by_expression  (CamelFolder *folder,
-					      const gchar *exp,
-					      CamelException *ex);
-
-static GPtrArray      *search_by_uids        (CamelFolder *folder,
-					      const gchar *expression,
-					      GPtrArray *uids,
-					      CamelException *ex);
-static gboolean        transfer_messages_to  (CamelFolder *source,
-					      GPtrArray *uids,
-					      CamelFolder *dest,
-					      GPtrArray **transferred_uids,
-					      gboolean delete_originals,
-					      CamelException *ex);
-static void   transfer_messages_the_hard_way (CamelFolder *source,
-					      GPtrArray *uids,
-					      CamelFolder *dest,
-					      GPtrArray **transferred_uids,
-					      gboolean delete_originals,
-					      CamelException *ex);
-static gboolean refresh_info (CamelFolder *folder, CamelException *ex);
-static gboolean exchange_sync (CamelFolder *folder, gboolean expunge, CamelException *ex);
-static gchar * get_filename (CamelFolder *folder, const gchar *uid, CamelException *ex);
-static gint cmp_uids (CamelFolder *folder, const gchar *uid1, const gchar *uid2);
-
-static void
-class_init (CamelFolderClass *camel_folder_class)
-{
-	parent_class = CAMEL_OFFLINE_FOLDER_CLASS (camel_type_get_global_classfuncs (camel_offline_folder_get_type ()));
-
-	/* virtual method definition */
-	camel_folder_class->expunge = exchange_expunge;
-	camel_folder_class->append_message = append_message;
-	camel_folder_class->get_message = get_message;
-	camel_folder_class->search_by_expression = search_by_expression;
-	camel_folder_class->count_by_expression = count_by_expression;
-
-	camel_folder_class->cmp_uids = cmp_uids;
-	camel_folder_class->search_by_uids = search_by_uids;
-	/* use the default function for the search_free */
-	/* camel_folder_class->search_free = search_free; */
-	camel_folder_class->transfer_messages_to = transfer_messages_to;
-	camel_folder_class->refresh_info = refresh_info;
-	camel_folder_class->sync = exchange_sync;
-	camel_folder_class->get_filename = get_filename;
-}
-
 #define CAMEL_EXCHANGE_SERVER_FLAGS \
 	(CAMEL_MESSAGE_ANSWERED | CAMEL_MESSAGE_ANSWERED_ALL | \
 	 CAMEL_MESSAGE_DELETED | CAMEL_MESSAGE_DRAFT | CAMEL_MESSAGE_SEEN)
 
-static void
-init (CamelFolder *folder)
-{
-	folder->folder_flags = CAMEL_FOLDER_HAS_SUMMARY_CAPABILITY | CAMEL_FOLDER_HAS_SEARCH_CAPABILITY;
-	folder->permanent_flags =
-		CAMEL_EXCHANGE_SERVER_FLAGS | CAMEL_MESSAGE_FLAGGED |
-		CAMEL_MESSAGE_JUNK | CAMEL_MESSAGE_USER;
-}
+static const gchar *mailing_list_headers =
+	"X-MAILING-LIST "
+	"X-LOOP LIST-ID "
+	"LIST-POST "
+	"MAILING-LIST "
+	"ORIGINATOR X-LIST "
+	"RETURN-PATH X-BEENTHERE ";
+
+G_DEFINE_TYPE (CamelExchangeFolder, camel_exchange_folder, CAMEL_TYPE_OFFLINE_FOLDER)
 
 static void
-free_index_and_mid (gpointer thread_index, gpointer message_id, gpointer d)
-{
-	g_free (thread_index);
-	g_free (message_id);
-}
-
-static void
-finalize (CamelExchangeFolder *exch)
-{
-	camel_object_unref (CAMEL_OBJECT (exch->cache));
-
-	if (exch->thread_index_to_message_id) {
-		g_hash_table_foreach (exch->thread_index_to_message_id,
-				      free_index_and_mid, NULL);
-		g_hash_table_destroy (exch->thread_index_to_message_id);
-	}
-	g_free (exch->source);
-}
-
-CamelType
-camel_exchange_folder_get_type (void)
-{
-	static CamelType camel_exchange_folder_type = CAMEL_INVALID_TYPE;
-
-	if (camel_exchange_folder_type == CAMEL_INVALID_TYPE) {
-		camel_exchange_folder_type = camel_type_register (
-			camel_offline_folder_get_type (),
-			"CamelExchangeFolder",
-			sizeof (CamelExchangeFolder),
-			sizeof (CamelExchangeFolderClass),
-			(CamelObjectClassInitFunc) class_init,
-			NULL,
-			(CamelObjectInitFunc) init,
-			(CamelObjectFinalizeFunc) finalize );
-	}
-
-	return camel_exchange_folder_type;
-}
-
-static gboolean
-refresh_info (CamelFolder *folder, CamelException *ex)
-{
-	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
-	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (folder->parent_store);
-	guint32 unread_count, visible_count;
-
-	if (camel_exchange_store_connected (store, ex)) {
-		camel_offline_journal_replay (exch->journal, NULL);
-
-		camel_exchange_utils_refresh_folder (CAMEL_SERVICE (folder->parent_store), folder->full_name, ex);
-	}
-
-	/* sync up the counts now */
-	if (!camel_exchange_utils_sync_count (CAMEL_SERVICE (folder->parent_store), folder->full_name, &unread_count, &visible_count, ex)) {
-		g_print("\n Error syncing up the counts");
-	}
-
-	folder->summary->unread_count = unread_count;
-	folder->summary->visible_count = visible_count;
-
-	return !camel_exception_is_set (ex);
-}
-
-static gboolean
-exchange_expunge (CamelFolder *folder, CamelException *ex)
-{
-	CamelFolder *trash;
-	GPtrArray *uids;
-	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (folder->parent_store);
-
-	if (!camel_exchange_store_connected (store, ex)) {
-		camel_exception_set (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
-				     _("You cannot expunge in offline mode."));
-		return FALSE;
-	}
-
-	trash = camel_store_get_trash (folder->parent_store, NULL);
-	if (!trash) {
-		printf ("Expunge failed, could not read trash folder\n");
-		return TRUE;  /* XXX exception not set */
-	}
-
-	uids = camel_folder_get_uids (trash);
-	camel_exchange_utils_expunge_uids (CAMEL_SERVICE (trash->parent_store), trash->full_name, uids, ex);
-	camel_folder_free_uids (trash, uids);
-	camel_object_unref (CAMEL_OBJECT (trash));
-
-	return TRUE;
-}
-
-static void
-append_message_data (CamelFolder *folder, GByteArray *message,
-		     const gchar *subject, const CamelMessageInfo *info,
-		     gchar **appended_uid, CamelException *ex)
+exchange_folder_append_message_data (CamelFolder *folder,
+                                     GByteArray *message,
+                                     const gchar *subject,
+                                     const CamelMessageInfo *info,
+                                     gchar **appended_uid,
+                                     CamelException *ex)
 {
 	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
 	CamelStream *stream_cache;
@@ -231,7 +82,7 @@ append_message_data (CamelFolder *folder, GByteArray *message,
 					    (gchar *) message->data,
 					    message->len);
 			camel_stream_flush (stream_cache);
-			camel_object_unref (CAMEL_OBJECT (stream_cache));
+			g_object_unref (CAMEL_OBJECT (stream_cache));
 		}
 		if (appended_uid)
 			*appended_uid = new_uid;
@@ -241,58 +92,49 @@ append_message_data (CamelFolder *folder, GByteArray *message,
 		*appended_uid = NULL;
 }
 
-static gboolean
-append_message (CamelFolder *folder, CamelMimeMessage *message,
-		const CamelMessageInfo *info, gchar **appended_uid,
-		CamelException *ex)
+static GByteArray *
+exchange_folder_get_message_data (CamelFolder *folder,
+                                  const gchar *uid,
+                                  CamelException *ex)
 {
-	CamelStream *stream;
+	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
 	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (folder->parent_store);
-	GByteArray *byte_array;
-	gchar *old_subject = NULL;
-	GString *new_subject;
-	gint i, len;
+	CamelStream *stream, *stream_mem;
+	GByteArray *ba;
 
-	/*
-	   FIXME: We should add a top-level camel API camel_mime_message_prune_invalid_chars
-	   which each of the provider will have to implement to remove things
-	   that are invalid for their Transport mechanism. This will help in
-	   avoiding  duplication of work. Now Sending and Importing both requires
-	   substitution of \t and \n with blank.
-	*/
+	stream = camel_data_cache_get (exch->cache, "cache", uid, NULL);
+	if (stream) {
+		ba = g_byte_array_new ();
+		stream_mem = camel_stream_mem_new ();
+		camel_stream_mem_set_byte_array (CAMEL_STREAM_MEM (stream_mem), ba);
+		camel_stream_reset (stream);
+		camel_stream_write_to_stream (stream, stream_mem);
+		g_object_unref (CAMEL_OBJECT (stream_mem));
+		g_object_unref (CAMEL_OBJECT (stream));
 
-	old_subject = g_strdup(camel_mime_message_get_subject (message));
-
-	if (old_subject) {
-		len = strlen (old_subject);
-		new_subject = g_string_new("");
-		for (i = 0; i < len; i++)
-			if ((old_subject[i] != '\t') && (old_subject[i] != '\n'))
-				new_subject = g_string_append_c (new_subject, old_subject[i]);
-			else
-				new_subject = g_string_append_c (new_subject, ' ');
-		camel_mime_message_set_subject (message, new_subject->str);
-		g_free (old_subject);
-		g_string_free (new_subject, TRUE);
+		return ba;
 	}
 
 	if (!camel_exchange_store_connected (store, ex)) {
-		camel_exchange_journal_append ((CamelExchangeJournal *) ((CamelExchangeFolder *)folder)->journal, message, info, appended_uid, ex);
-		return !camel_exception_is_set (ex);
+		camel_exception_set (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
+                                     _("This message is not available in offline mode."));
+		return NULL;
 	}
 
-	byte_array = g_byte_array_new ();
-	stream = camel_stream_mem_new_with_byte_array (byte_array);
-	camel_data_wrapper_write_to_stream (CAMEL_DATA_WRAPPER (message), stream);
+	if (!camel_exchange_utils_get_message (CAMEL_SERVICE (folder->parent_store), folder->full_name, uid, &ba, ex))
+		return NULL;
+
+	stream = camel_data_cache_add (exch->cache, "cache", uid, ex);
+	if (!stream) {
+		g_byte_array_free (ba, TRUE);
+		return NULL;
+	}
+
+	camel_stream_write (stream, (gchar *) ba->data, ba->len);
 	camel_stream_flush (stream);
+	g_object_unref (CAMEL_OBJECT (stream));
 
-	append_message_data (folder, byte_array,
-			     camel_mime_message_get_subject (message),
-			     info, appended_uid, ex);
-
-	camel_object_unref (stream);
-
-	return !camel_exception_is_set (ex);
+	return ba;
 }
 
 static void
@@ -345,179 +187,17 @@ fix_broken_multipart_related (CamelMimePart *part)
 
 		camel_medium_set_content (CAMEL_MEDIUM (part),
 						 CAMEL_DATA_WRAPPER (new));
-		camel_object_unref (CAMEL_OBJECT (new));
+		g_object_unref (CAMEL_OBJECT (new));
 	}
-}
-
-static gchar *
-get_filename (CamelFolder *folder, const gchar *uid, CamelException *ex)
-{
-	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
-
-	return camel_data_cache_get_filename (exch->cache, "cache", uid, NULL);
-}
-
-static GByteArray *
-get_message_data (CamelFolder *folder, const gchar *uid, CamelException *ex)
-{
-	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
-	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (folder->parent_store);
-	CamelStream *stream, *stream_mem;
-	GByteArray *ba;
-
-	stream = camel_data_cache_get (exch->cache, "cache", uid, NULL);
-	if (stream) {
-		ba = g_byte_array_new ();
-		stream_mem = camel_stream_mem_new ();
-		camel_stream_mem_set_byte_array (CAMEL_STREAM_MEM (stream_mem), ba);
-		camel_stream_reset (stream);
-		camel_stream_write_to_stream (stream, stream_mem);
-		camel_object_unref (CAMEL_OBJECT (stream_mem));
-		camel_object_unref (CAMEL_OBJECT (stream));
-
-		return ba;
-	}
-
-	if (!camel_exchange_store_connected (store, ex)) {
-		camel_exception_set (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
-                                     _("This message is not available in offline mode."));
-		return NULL;
-	}
-
-	if (!camel_exchange_utils_get_message (CAMEL_SERVICE (folder->parent_store), folder->full_name, uid, &ba, ex))
-		return NULL;
-
-	stream = camel_data_cache_add (exch->cache, "cache", uid, ex);
-	if (!stream) {
-		g_byte_array_free (ba, TRUE);
-		return NULL;
-	}
-
-	camel_stream_write (stream, (gchar *) ba->data, ba->len);
-	camel_stream_flush (stream);
-	camel_object_unref (CAMEL_OBJECT (stream));
-
-	return ba;
-}
-
-#define MAILING_LIST_HEADERS "X-MAILING-LIST X-LOOP LIST-ID LIST-POST MAILING-LIST ORIGINATOR X-LIST RETURN-PATH X-BEENTHERE "
-
-static CamelMimeMessage *
-get_message (CamelFolder *folder, const gchar *uid, CamelException *ex)
-{
-	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
-	CamelMimeMessage *msg;
-	CamelStream *stream;
-	CamelStream *filtered_stream;
-	CamelMimeFilter *crlffilter;
-	GByteArray *ba;
-	gchar **list_headers = NULL;
-	gboolean found_list = FALSE;
-
-	ba = get_message_data (folder, uid, ex);
-	if (!ba)
-		return NULL;
-
-	stream = camel_stream_mem_new_with_byte_array (ba);
-
-	crlffilter = camel_mime_filter_crlf_new (CAMEL_MIME_FILTER_CRLF_DECODE, CAMEL_MIME_FILTER_CRLF_MODE_CRLF_ONLY);
-	filtered_stream = camel_stream_filter_new (stream);
-	camel_stream_filter_add (
-		CAMEL_STREAM_FILTER (filtered_stream), crlffilter);
-	camel_object_unref (CAMEL_OBJECT (crlffilter));
-	camel_object_unref (CAMEL_OBJECT (stream));
-
-	msg = camel_mime_message_new ();
-	camel_data_wrapper_construct_from_stream (CAMEL_DATA_WRAPPER (msg),
-						  CAMEL_STREAM (filtered_stream));
-	camel_object_unref (CAMEL_OBJECT (filtered_stream));
-	camel_mime_message_set_source (msg, exch->source);
-
-	if (camel_medium_get_header (CAMEL_MEDIUM (msg), "Sender")) {
-		list_headers = g_strsplit (MAILING_LIST_HEADERS, " ", 0);
-		if (list_headers) {
-			gint i = 0;
-			while (list_headers[i]) {
-				if (camel_medium_get_header (CAMEL_MEDIUM (msg), list_headers[i])) {
-					found_list = TRUE;
-					break;
-				}
-				i++;
-			}
-			g_strfreev (list_headers);
-		}
-
-		if (!found_list)
-			camel_medium_set_header (CAMEL_MEDIUM (msg), "X-Evolution-Mail-From-Delegate", "yes");
-	}
-
-	fix_broken_multipart_related (CAMEL_MIME_PART (msg));
-	return msg;
-}
-
-static GPtrArray *
-search_by_expression (CamelFolder *folder, const gchar *expression,
-		      CamelException *ex)
-{
-	CamelFolderSearch *search;
-	GPtrArray *matches;
-
-	search = camel_exchange_search_new ();
-	camel_folder_search_set_folder (search, folder);
-	matches = camel_folder_search_search (search, expression, NULL, ex);
-
-	camel_object_unref (CAMEL_OBJECT (search));
-
-	return matches;
-}
-
-static guint32
-count_by_expression (CamelFolder *folder, const gchar *expression,
-		      CamelException *ex)
-{
-	CamelFolderSearch *search;
-	guint32 matches;
-
-	search = camel_exchange_search_new ();
-	camel_folder_search_set_folder (search, folder);
-	matches = camel_folder_search_count (search, expression, ex);
-
-	camel_object_unref (CAMEL_OBJECT (search));
-
-	return matches;
-}
-
-static gint
-cmp_uids (CamelFolder *folder, const gchar *uid1, const gchar *uid2)
-{
-	g_return_val_if_fail (uid1 != NULL, 0);
-	g_return_val_if_fail (uid2 != NULL, 0);
-
-	return strcmp (uid1, uid2);
-}
-
-static GPtrArray *
-search_by_uids (CamelFolder *folder, const gchar *expression,
-		GPtrArray *uids, CamelException *ex)
-{
-	CamelFolderSearch *search;
-	GPtrArray *matches;
-
-	search = camel_exchange_search_new ();
-	camel_folder_search_set_folder (search, folder);
-	camel_folder_search_set_summary (search, uids);
-	matches = camel_folder_search_execute_expression (search, expression, ex);
-
-	camel_object_unref (CAMEL_OBJECT (search));
-
-	return matches;
 }
 
 static void
-transfer_messages_the_hard_way (CamelFolder *source, GPtrArray *uids,
-				CamelFolder *dest,
-				GPtrArray **transferred_uids,
-				gboolean delete_originals, CamelException *ex)
+exchange_folder_transfer_messages_the_hard_way (CamelFolder *source,
+                                                GPtrArray *uids,
+                                                CamelFolder *dest,
+                                                GPtrArray **transferred_uids,
+                                                gboolean delete_originals,
+                                                CamelException *ex)
 {
 	CamelException local_ex;
 	CamelMessageInfo *info;
@@ -534,13 +214,15 @@ transfer_messages_the_hard_way (CamelFolder *source, GPtrArray *uids,
 		if (!info)
 			continue;
 
-		ba = get_message_data (source, uids->pdata[i], &local_ex);
+		ba = exchange_folder_get_message_data (
+			source, uids->pdata[i], &local_ex);
 		if (!ba) {
 			camel_message_info_free(info);
 			break;
 		}
 
-		append_message_data (dest, ba, NULL, info, &ret_uid, &local_ex);
+		exchange_folder_append_message_data (
+			dest, ba, NULL, info, &ret_uid, &local_ex);
 		camel_message_info_free(info);
 		g_byte_array_free (ba, TRUE);
 
@@ -564,8 +246,11 @@ transfer_messages_the_hard_way (CamelFolder *source, GPtrArray *uids,
 }
 
 static void
-cache_xfer (CamelExchangeFolder *folder_source, CamelExchangeFolder *folder_dest,
-	    GPtrArray *src_uids, GPtrArray *dest_uids, gboolean delete)
+exchange_folder_cache_xfer (CamelExchangeFolder *folder_source,
+                            CamelExchangeFolder *folder_dest,
+                            GPtrArray *src_uids,
+                            GPtrArray *dest_uids,
+                            gboolean delete)
 {
 	CamelStream *src, *dest;
 	gint i;
@@ -583,9 +268,9 @@ cache_xfer (CamelExchangeFolder *folder_source, CamelExchangeFolder *folder_dest
 					     dest_uids->pdata[i], NULL);
 		if (dest) {
 			camel_stream_write_to_stream (src, dest);
-			camel_object_unref (CAMEL_OBJECT (dest));
+			g_object_unref (CAMEL_OBJECT (dest));
 		}
-		camel_object_unref (CAMEL_OBJECT (src));
+		g_object_unref (CAMEL_OBJECT (src));
 
 		if (delete) {
 			camel_data_cache_remove (folder_source->cache, "cache",
@@ -594,10 +279,277 @@ cache_xfer (CamelExchangeFolder *folder_source, CamelExchangeFolder *folder_dest
 	}
 }
 
+static void
+free_index_and_mid (gpointer thread_index, gpointer message_id, gpointer d)
+{
+	g_free (thread_index);
+	g_free (message_id);
+}
+
+static void
+exchange_folder_dispose (GObject *object)
+{
+	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (object);
+
+	if (exch->cache != NULL) {
+		g_object_unref (exch->cache);
+		exch->cache = NULL;
+	}
+
+	/* Chain up to parent's dispose() method. */
+	G_OBJECT_CLASS (camel_exchange_folder_parent_class)->dispose (object);
+}
+
+static void
+exchange_folder_finalize (GObject *object)
+{
+	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (object);
+
+	if (exch->thread_index_to_message_id) {
+		g_hash_table_foreach (
+			exch->thread_index_to_message_id,
+			free_index_and_mid, NULL);
+		g_hash_table_destroy (exch->thread_index_to_message_id);
+	}
+
+	g_free (exch->source);
+
+	/* Chain up to parent's finalize() method. */
+	G_OBJECT_CLASS (camel_exchange_folder_parent_class)->finalize (object);
+}
+
 static gboolean
-transfer_messages_to (CamelFolder *source, GPtrArray *uids,
-		      CamelFolder *dest, GPtrArray **transferred_uids,
-		      gboolean delete_originals, CamelException *ex)
+exchange_folder_refresh_info (CamelFolder *folder,
+                              CamelException *ex)
+{
+	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
+	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (folder->parent_store);
+	guint32 unread_count, visible_count;
+
+	if (camel_exchange_store_connected (store, ex)) {
+		camel_offline_journal_replay (exch->journal, NULL);
+
+		camel_exchange_utils_refresh_folder (CAMEL_SERVICE (folder->parent_store), folder->full_name, ex);
+	}
+
+	/* sync up the counts now */
+	if (!camel_exchange_utils_sync_count (CAMEL_SERVICE (folder->parent_store), folder->full_name, &unread_count, &visible_count, ex)) {
+		g_print("\n Error syncing up the counts");
+	}
+
+	folder->summary->unread_count = unread_count;
+	folder->summary->visible_count = visible_count;
+
+	return !camel_exception_is_set (ex);
+}
+
+static gboolean
+exchange_folder_expunge (CamelFolder *folder,
+                         CamelException *ex)
+{
+	CamelFolder *trash;
+	GPtrArray *uids;
+	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (folder->parent_store);
+
+	if (!camel_exchange_store_connected (store, ex)) {
+		camel_exception_set (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
+				     _("You cannot expunge in offline mode."));
+		return FALSE;
+	}
+
+	trash = camel_store_get_trash (folder->parent_store, NULL);
+	if (!trash) {
+		printf ("Expunge failed, could not read trash folder\n");
+		return TRUE;  /* XXX exception not set */
+	}
+
+	uids = camel_folder_get_uids (trash);
+	camel_exchange_utils_expunge_uids (CAMEL_SERVICE (trash->parent_store), trash->full_name, uids, ex);
+	camel_folder_free_uids (trash, uids);
+	g_object_unref (CAMEL_OBJECT (trash));
+
+	return TRUE;
+}
+
+static gboolean
+exchange_folder_sync (CamelFolder *folder,
+                      gboolean expunge,
+                      CamelException *ex)
+{
+	if (expunge)
+		exchange_folder_expunge (folder, ex);
+
+	camel_folder_summary_save_to_db (folder->summary, ex);
+
+	return !camel_exception_is_set (ex);
+}
+
+static gboolean
+exchange_folder_append_message (CamelFolder *folder,
+                                CamelMimeMessage *message,
+                                const CamelMessageInfo *info,
+                                gchar **appended_uid,
+                                CamelException *ex)
+{
+	CamelStream *stream;
+	CamelExchangeStore *store = CAMEL_EXCHANGE_STORE (folder->parent_store);
+	GByteArray *byte_array;
+	gchar *old_subject = NULL;
+	GString *new_subject;
+	gint i, len;
+
+	/*
+	   FIXME: We should add a top-level camel API camel_mime_message_prune_invalid_chars
+	   which each of the provider will have to implement to remove things
+	   that are invalid for their Transport mechanism. This will help in
+	   avoiding  duplication of work. Now Sending and Importing both requires
+	   substitution of \t and \n with blank.
+	*/
+
+	old_subject = g_strdup(camel_mime_message_get_subject (message));
+
+	if (old_subject) {
+		len = strlen (old_subject);
+		new_subject = g_string_new("");
+		for (i = 0; i < len; i++)
+			if ((old_subject[i] != '\t') && (old_subject[i] != '\n'))
+				new_subject = g_string_append_c (new_subject, old_subject[i]);
+			else
+				new_subject = g_string_append_c (new_subject, ' ');
+		camel_mime_message_set_subject (message, new_subject->str);
+		g_free (old_subject);
+		g_string_free (new_subject, TRUE);
+	}
+
+	if (!camel_exchange_store_connected (store, ex)) {
+		camel_exchange_journal_append ((CamelExchangeJournal *) ((CamelExchangeFolder *)folder)->journal, message, info, appended_uid, ex);
+		return !camel_exception_is_set (ex);
+	}
+
+	byte_array = g_byte_array_new ();
+	stream = camel_stream_mem_new_with_byte_array (byte_array);
+	camel_data_wrapper_write_to_stream (CAMEL_DATA_WRAPPER (message), stream);
+	camel_stream_flush (stream);
+
+	exchange_folder_append_message_data (
+		folder, byte_array,
+		camel_mime_message_get_subject (message),
+		info, appended_uid, ex);
+
+	g_object_unref (stream);
+
+	return !camel_exception_is_set (ex);
+}
+
+static CamelMimeMessage *
+exchange_folder_get_message (CamelFolder *folder,
+                             const gchar *uid,
+                             CamelException *ex)
+{
+	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
+	CamelMimeMessage *msg;
+	CamelStream *stream;
+	CamelStream *filtered_stream;
+	CamelMimeFilter *crlffilter;
+	GByteArray *ba;
+	gchar **list_headers = NULL;
+	gboolean found_list = FALSE;
+
+	ba = exchange_folder_get_message_data (folder, uid, ex);
+	if (!ba)
+		return NULL;
+
+	stream = camel_stream_mem_new_with_byte_array (ba);
+
+	crlffilter = camel_mime_filter_crlf_new (CAMEL_MIME_FILTER_CRLF_DECODE, CAMEL_MIME_FILTER_CRLF_MODE_CRLF_ONLY);
+	filtered_stream = camel_stream_filter_new (stream);
+	camel_stream_filter_add (
+		CAMEL_STREAM_FILTER (filtered_stream), crlffilter);
+	g_object_unref (CAMEL_OBJECT (crlffilter));
+	g_object_unref (CAMEL_OBJECT (stream));
+
+	msg = camel_mime_message_new ();
+	camel_data_wrapper_construct_from_stream (CAMEL_DATA_WRAPPER (msg),
+						  CAMEL_STREAM (filtered_stream));
+	g_object_unref (CAMEL_OBJECT (filtered_stream));
+	camel_mime_message_set_source (msg, exch->source);
+
+	if (camel_medium_get_header (CAMEL_MEDIUM (msg), "Sender")) {
+		list_headers = g_strsplit (mailing_list_headers, " ", 0);
+		if (list_headers) {
+			gint i = 0;
+			while (list_headers[i]) {
+				if (camel_medium_get_header (CAMEL_MEDIUM (msg), list_headers[i])) {
+					found_list = TRUE;
+					break;
+				}
+				i++;
+			}
+			g_strfreev (list_headers);
+		}
+
+		if (!found_list)
+			camel_medium_set_header (CAMEL_MEDIUM (msg), "X-Evolution-Mail-From-Delegate", "yes");
+	}
+
+	fix_broken_multipart_related (CAMEL_MIME_PART (msg));
+	return msg;
+}
+
+static gint
+exchange_folder_cmp_uids (CamelFolder *folder,
+                          const gchar *uid1,
+                          const gchar *uid2)
+{
+	g_return_val_if_fail (uid1 != NULL, 0);
+	g_return_val_if_fail (uid2 != NULL, 0);
+
+	return strcmp (uid1, uid2);
+}
+
+static GPtrArray *
+exchange_folder_search_by_expression (CamelFolder *folder,
+                                      const gchar *expression,
+                                      CamelException *ex)
+{
+	CamelFolderSearch *search;
+	GPtrArray *matches;
+
+	search = camel_exchange_search_new ();
+	camel_folder_search_set_folder (search, folder);
+	matches = camel_folder_search_search (search, expression, NULL, ex);
+
+	g_object_unref (CAMEL_OBJECT (search));
+
+	return matches;
+}
+
+static GPtrArray *
+exchange_folder_search_by_uids (CamelFolder *folder,
+                                const gchar *expression,
+                                GPtrArray *uids,
+                                CamelException *ex)
+{
+	CamelFolderSearch *search;
+	GPtrArray *matches;
+
+	search = camel_exchange_search_new ();
+	camel_folder_search_set_folder (search, folder);
+	camel_folder_search_set_summary (search, uids);
+	matches = camel_folder_search_execute_expression (search, expression, ex);
+
+	g_object_unref (CAMEL_OBJECT (search));
+
+	return matches;
+}
+
+static gboolean
+exchange_folder_transfer_messages_to (CamelFolder *source,
+                                      GPtrArray *uids,
+                                      CamelFolder *dest,
+                                      GPtrArray **transferred_uids,
+                                      gboolean delete_originals,
+                                      CamelException *ex)
 {
 	CamelExchangeFolder *exch_source = CAMEL_EXCHANGE_FOLDER (source);
 	CamelExchangeFolder *exch_dest = CAMEL_EXCHANGE_FOLDER (dest);
@@ -619,14 +571,15 @@ transfer_messages_to (CamelFolder *source, GPtrArray *uids,
 			if (!info)
 				continue;
 
-			if (!(message = get_message (source, camel_message_info_uid (info), ex)))
+			if (!(message = exchange_folder_get_message (
+				source, camel_message_info_uid (info), ex)))
 				break;
 
 			camel_exchange_journal_transfer (journal, exch_source, message,
 							 info, uids->pdata[i], NULL,
 							 delete_originals, ex);
 
-			camel_object_unref (message);
+			g_object_unref (message);
 
 			if (camel_exception_is_set (ex))
 				break;
@@ -636,9 +589,9 @@ transfer_messages_to (CamelFolder *source, GPtrArray *uids,
 
 	hier_len = strcspn (source->full_name, "/");
 	if (strncmp (source->full_name, dest->full_name, hier_len) != 0) {
-		transfer_messages_the_hard_way (source, uids, dest,
-						transferred_uids,
-						delete_originals, ex);
+		exchange_folder_transfer_messages_the_hard_way (
+			source, uids, dest, transferred_uids,
+			delete_originals, ex);
 		return !camel_exception_is_set (ex);
 	}
 
@@ -650,7 +603,8 @@ transfer_messages_to (CamelFolder *source, GPtrArray *uids,
 				&ret_uids,
 				ex)) {
 		if (ret_uids->len != 0)
-			cache_xfer (exch_source, exch_dest, uids, ret_uids, FALSE);
+			exchange_folder_cache_xfer (
+				exch_source, exch_dest, uids, ret_uids, FALSE);
 
 		if (transferred_uids)
 			*transferred_uids = ret_uids;
@@ -664,6 +618,70 @@ end:
 	camel_operation_end (NULL);
 
 	return !camel_exception_is_set (ex);
+}
+
+static guint32
+exchange_folder_count_by_expression (CamelFolder *folder,
+                                     const gchar *expression,
+                                     CamelException *ex)
+{
+	CamelFolderSearch *search;
+	guint32 matches;
+
+	search = camel_exchange_search_new ();
+	camel_folder_search_set_folder (search, folder);
+	matches = camel_folder_search_count (search, expression, ex);
+
+	g_object_unref (CAMEL_OBJECT (search));
+
+	return matches;
+}
+
+static gchar *
+exchange_folder_get_filename (CamelFolder *folder,
+                              const gchar *uid,
+                              CamelException *ex)
+{
+	CamelExchangeFolder *exch = CAMEL_EXCHANGE_FOLDER (folder);
+
+	return camel_data_cache_get_filename (exch->cache, "cache", uid, NULL);
+}
+
+static void
+camel_exchange_folder_class_init (CamelExchangeFolderClass *class)
+{
+	GObjectClass *object_class;
+	CamelFolderClass *folder_class;
+
+	object_class = G_OBJECT_CLASS (class);
+	object_class->dispose = exchange_folder_dispose;
+	object_class->finalize = exchange_folder_finalize;
+
+	folder_class = CAMEL_FOLDER_CLASS (class);
+	folder_class->refresh_info = exchange_folder_refresh_info;
+	folder_class->sync = exchange_folder_sync;
+	folder_class->expunge = exchange_folder_expunge;
+	folder_class->append_message = exchange_folder_append_message;
+	folder_class->get_message = exchange_folder_get_message;
+	folder_class->cmp_uids = exchange_folder_cmp_uids;
+	folder_class->search_by_expression = exchange_folder_search_by_expression;
+	folder_class->search_by_uids = exchange_folder_search_by_uids;
+	folder_class->transfer_messages_to = exchange_folder_transfer_messages_to;
+	folder_class->count_by_expression = exchange_folder_count_by_expression;
+	folder_class->get_filename = exchange_folder_get_filename;
+}
+
+static void
+camel_exchange_folder_init (CamelExchangeFolder *exchange_folder)
+{
+	CamelFolder *folder = CAMEL_FOLDER (exchange_folder);
+
+	folder->folder_flags =
+		CAMEL_FOLDER_HAS_SUMMARY_CAPABILITY |
+		CAMEL_FOLDER_HAS_SEARCH_CAPABILITY;
+	folder->permanent_flags =
+		CAMEL_EXCHANGE_SERVER_FLAGS | CAMEL_MESSAGE_FLAGGED |
+		CAMEL_MESSAGE_JUNK | CAMEL_MESSAGE_USER;
 }
 
 /* A new post to a folder gets a 27-byte-long thread index. (The value
@@ -730,7 +748,7 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 	stream = camel_stream_mem_new_with_buffer (headers, strlen (headers));
 	msg = camel_mime_message_new ();
 	camel_data_wrapper_construct_from_stream (CAMEL_DATA_WRAPPER (msg), stream);
-	camel_object_unref (CAMEL_OBJECT (stream));
+	g_object_unref (CAMEL_OBJECT (stream));
 
 	info = camel_folder_summary_info_new_from_message (folder->summary, msg, NULL);
 	einfo = (CamelExchangeMessageInfo *)info;
@@ -750,7 +768,7 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 			einfo->info.references->size = 1;
 		}
 	}
-	camel_object_unref (CAMEL_OBJECT (msg));
+	g_object_unref (CAMEL_OBJECT (msg));
 
 	info->uid = camel_pstring_strdup (uid);
 	einfo->info.flags = flags;
@@ -1094,13 +1112,3 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 	return TRUE;
 }
 
-static gboolean
-exchange_sync (CamelFolder *folder, gboolean expunge, CamelException *ex)
-{
-	if (expunge)
-		exchange_expunge (folder, ex);
-
-	camel_folder_summary_save_to_db (folder->summary, ex);
-
-	return !camel_exception_is_set (ex);
-}

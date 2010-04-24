@@ -8,14 +8,31 @@
 
 #include <camel/camel.h>
 
-#define CAMEL_EXCHANGE_FOLDER_TYPE     (camel_exchange_folder_get_type ())
-#define CAMEL_EXCHANGE_FOLDER(obj)     (CAMEL_CHECK_CAST((obj), CAMEL_EXCHANGE_FOLDER_TYPE, CamelExchangeFolder))
-#define CAMEL_EXCHANGE_FOLDER_CLASS(k) (CAMEL_CHECK_CLASS_CAST ((k), CAMEL_EXCHANGE_FOLDER_TYPE, CamelExchangeFolderClass))
-#define CAMEL_IS_EXCHANGE_FOLDER(o)    (CAMEL_CHECK_TYPE((o), CAMEL_EXCHANGE_FOLDER_TYPE))
+/* Standard GObject macros */
+#define CAMEL_TYPE_EXCHANGE_FOLDER \
+	(camel_exchange_folder_get_type ())
+#define CAMEL_EXCHANGE_FOLDER(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST \
+	((obj), CAMEL_TYPE_EXCHANGE_FOLDER, CamelExchangeFolder))
+#define CAMEL_EXCHANGE_FOLDER_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST \
+	((cls), CAMEL_TYPE_EXCHANGE_FOLDER, CamelExchangeFolderClass))
+#define CAMEL_IS_EXCHANGE_FOLDER(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE \
+	((obj), CAMEL_TYPE_EXCHANGE_FOLDER))
+#define CAMEL_IS_EXCHANGE_FOLDER_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_TYPE \
+	((cls), CAMEL_TYPE_EXCHANGE_FOLDER))
+#define CAMEL_EXCHANGE_FOLDER_GET_CLASS(obj) \
+	(G_TYPE_INSTANCE_GET_CLASS \
+	((obj), CAMEL_TYPE_EXCHANGE_FOLDER, CamelExchangeFolderClass))
 
 G_BEGIN_DECLS
 
-typedef struct {
+typedef struct _CamelExchangeFolder CamelExchangeFolder;
+typedef struct _CamelExchangeFolderClass CamelExchangeFolderClass;
+
+struct _CamelExchangeFolder {
 	CamelOfflineFolder parent_object;
 
 	CamelDataCache *cache;
@@ -23,15 +40,13 @@ typedef struct {
 	gchar *source;
 
 	GHashTable *thread_index_to_message_id;
-} CamelExchangeFolder;
+};
 
-typedef struct {
+struct _CamelExchangeFolderClass {
 	CamelOfflineFolderClass parent_class;
+};
 
-} CamelExchangeFolderClass;
-
-/* Standard Camel function */
-CamelType camel_exchange_folder_get_type (void);
+GType    camel_exchange_folder_get_type (void);
 
 gboolean camel_exchange_folder_construct            (CamelFolder *folder,
 						     CamelStore *parent,

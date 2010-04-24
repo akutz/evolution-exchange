@@ -3,30 +3,47 @@
 
 /* camel-exchange-search.h: exchange folder search */
 
-#ifndef _CAMEL_EXCHANGE_SEARCH_H
-#define _CAMEL_EXCHANGE_SEARCH_H
+#ifndef CAMEL_EXCHANGE_SEARCH_H
+#define CAMEL_EXCHANGE_SEARCH_H
 
 #include <camel/camel.h>
 
-#define CAMEL_EXCHANGE_SEARCH_TYPE         (camel_exchange_search_get_type ())
-#define CAMEL_EXCHANGE_SEARCH(obj)         CAMEL_CHECK_CAST (obj, camel_exchange_search_get_type (), CamelExchangeSearch)
-#define CAMEL_EXCHANGE_SEARCH_CLASS(klass) CAMEL_CHECK_CLASS_CAST (klass, camel_exchange_search_get_type (), CamelExchangeSearchClass)
-#define CAMEL_IS_EXCHANGE_SEARCH(obj)      CAMEL_CHECK_TYPE (obj, camel_exchange_search_get_type ())
+/* Standard GObject macros */
+#define CAMEL_TYPE_EXCHANGE_SEARCH \
+	(camel_exchange_search_get_type ())
+#define CAMEL_EXCHANGE_SEARCH(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST \
+	((obj), CAMEL_TYPE_EXCHANGE_SEARCH, CamelExchangeSearch))
+#define CAMEL_EXCHANGE_SEARCH_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST \
+	((cls), CAMEL_TYPE_EXCHANGE_SEARCH, CamelExchangeSearchClass))
+#define CAMEL_IS_EXCHANGE_SEARCH(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE \
+	((obj), CAMEL_TYPE_EXCHANGE_SEARCH))
+#define CAMEL_IS_EXCHANGE_SEARCH_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_TYPE \
+	((cls), CAMEL_TYPE_EXCHANGE_SEARCH))
+#define CAMEL_IS_EXCHANGE_SEARCH_GET_CLASS(obj) \
+	(G_TYPE_INSTANCE_GET_CLASS \
+	((obj), CAMEL_TYPE_EXCHANGE_SEARCH, CamelExchangeSearchClass))
 
-typedef struct _CamelExchangeSearchClass CamelExchangeSearchClass;
+G_BEGIN_DECLS
+
 typedef struct _CamelExchangeSearch CamelExchangeSearch;
+typedef struct _CamelExchangeSearchClass CamelExchangeSearchClass;
 
 struct _CamelExchangeSearch {
 	CamelFolderSearch parent;
-
 };
 
 struct _CamelExchangeSearchClass {
 	CamelFolderSearchClass parent_class;
-
 };
 
-CamelType          camel_exchange_search_get_type (void);
-CamelFolderSearch *camel_exchange_search_new      (void);
+GType		camel_exchange_search_get_type	(void);
+CamelFolderSearch *
+		camel_exchange_search_new	(void);
 
-#endif /* _CAMEL_EXCHANGE_SEARCH_H */
+G_END_DECLS
+
+#endif /* CAMEL_EXCHANGE_SEARCH_H */
