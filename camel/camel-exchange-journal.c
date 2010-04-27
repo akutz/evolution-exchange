@@ -126,6 +126,7 @@ exchange_entry_play_transfer (CamelOfflineJournal *journal,
 	CamelExchangeStore *store;
 	CamelStream *stream;
 	CamelMimeMessage *message;
+	CamelStore *parent_store;
 
 	if (!exchange_folder->cache || !(stream = camel_data_cache_get (exchange_folder->cache, "cache", entry->uid, ex)))
 		goto done;
@@ -149,7 +150,9 @@ exchange_entry_play_transfer (CamelOfflineJournal *journal,
 		goto exception;
 	}
 
-	store = (CamelExchangeStore *) folder->parent_store;
+	parent_store = camel_folder_get_parent_store (folder);
+	store = CAMEL_EXCHANGE_STORE (parent_store);
+
 	g_mutex_lock (store->folders_lock);
 	src = (CamelFolder *) g_hash_table_lookup (store->folders, entry->folder_name);
 	g_mutex_unlock (store->folders_lock);
@@ -200,14 +203,18 @@ exchange_entry_play_delete (CamelOfflineJournal *journal,
                             CamelExchangeJournalEntry *entry,
                             CamelException *ex)
 {
-	CamelFolder *folder = (CamelFolder *) journal->folder;
+	CamelFolder *folder;
+	CamelStore *parent_store;
+	const gchar *full_name;
 
-	camel_exchange_utils_set_message_flags (CAMEL_SERVICE (folder->parent_store),
-					folder->full_name,
-					entry->uid,
-					entry->set,
-					entry->flags,
-					ex);
+	folder = CAMEL_FOLDER (journal->folder);
+	full_name = camel_folder_get_full_name (folder);
+	parent_store = camel_folder_get_parent_store (folder);
+
+	camel_exchange_utils_set_message_flags (
+		CAMEL_SERVICE (parent_store), full_name,
+		entry->uid, entry->set, entry->flags, ex);
+
 	return 0;
 }
 
@@ -519,7 +526,8 @@ camel_exchange_journal_transfer (CamelExchangeJournal *exchange_journal, CamelEx
 		return;
 
 	real_uid = original_uid;
-	real_source_folder = ((CamelFolder *)source_folder)->full_name;
+	real_source_folder = camel_folder_get_full_name (
+		CAMEL_FOLDER (source_folder));
 
 	type = find_real_source_for_message (source_folder, &real_source_folder,
 					     &real_uid, delete_original);

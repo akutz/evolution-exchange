@@ -49,8 +49,6 @@ struct _CamelExchangeFolderClass {
 GType    camel_exchange_folder_get_type (void);
 
 gboolean camel_exchange_folder_construct            (CamelFolder *folder,
-						     CamelStore *parent,
-						     const gchar *name,
 						     guint32 camel_flags,
 						     const gchar *folder_dir,
 						     gint offline_state,

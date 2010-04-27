@@ -46,12 +46,14 @@ G_DEFINE_TYPE (CamelExchangeSummary, camel_exchange_summary, CAMEL_TYPE_FOLDER_S
 static gboolean
 exchange_summary_check_for_trash (CamelFolder *folder)
 {
-	CamelStore *store = (CamelStore *) folder->parent_store;
-	CamelException lex;
+	CamelStore *parent_store;
 	CamelFolder *trash;
+	CamelException lex;
 
 	camel_exception_init (&lex);
-	trash = camel_store_get_trash (store, &lex);
+
+	parent_store = camel_folder_get_parent_store (folder);
+	trash = camel_store_get_trash (parent_store, &lex);
 
 	if (camel_exception_is_set (&lex) || !trash)
 		return FALSE;
@@ -64,15 +66,23 @@ exchange_summary_expunge_mail (CamelFolder *folder,
                                CamelMessageInfo *info)
 {
 	GPtrArray *uids = g_ptr_array_new ();
+	CamelStore *parent_store;
 	gchar *uid = g_strdup (info->uid);
 	CamelException lex;
+	const gchar *full_name;
+
+	camel_exception_init (&lex);
+
+	full_name = camel_folder_get_full_name (folder);
+	parent_store = camel_folder_get_parent_store (folder);
 
 	g_ptr_array_add (uids, uid);
 
-	camel_exception_init (&lex);
-	camel_exchange_utils_expunge_uids (CAMEL_SERVICE (folder->parent_store), folder->full_name, uids, &lex);
+	camel_exchange_utils_expunge_uids (
+		CAMEL_SERVICE (parent_store), full_name, uids, &lex);
 
 	g_ptr_array_free (uids, TRUE);
+
 	return camel_exception_is_set (&lex);
 }
 
@@ -351,23 +361,33 @@ exchange_summary_info_set_flags (CamelMessageInfo *info,
                                  guint32 flags,
                                  guint32 set)
 {
-	CamelFolder *folder = (CamelFolder *) info->summary->folder;
-	CamelOfflineStore *store = (CamelOfflineStore *) folder->parent_store;
+	CamelFolder *folder;
+	CamelStore *parent_store;
+	CamelOfflineStore *offline_store;
 	CamelFolderSummaryClass *folder_summary_class;
+	const gchar *full_name;
 
 	if (CAMEL_EXCHANGE_SUMMARY (info->summary)->readonly)
 		return FALSE;
 
+	folder = info->summary->folder;
+	full_name = camel_folder_get_full_name (folder);
+	parent_store = camel_folder_get_parent_store (folder);
+
+	offline_store = CAMEL_OFFLINE_STORE (parent_store);
+
 	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
 		camel_exchange_summary_parent_class);
 
-	if (store->state != CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
+	if (offline_store->state != CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
 		if (folder && info->uid) {
 			if ((flags & set & CAMEL_MESSAGE_DELETED) &&
 			    exchange_summary_check_for_trash (folder)) {
 				return exchange_summary_expunge_mail (folder, info);
 			} else {
-				camel_exchange_utils_set_message_flags (CAMEL_SERVICE (folder->parent_store), folder->full_name, info->uid, set, flags, NULL);
+				camel_exchange_utils_set_message_flags (
+					CAMEL_SERVICE (parent_store),
+					full_name, info->uid, set, flags, NULL);
 				return folder_summary_class->info_set_flags(info, flags, set);
 			}
 		}
@@ -405,7 +425,16 @@ exchange_summary_info_set_user_tag (CamelMessageInfo *info,
 	res = folder_summary_class->info_set_user_tag(info, name, value);
 	if (res && info->summary->folder && info->uid) {
 		CamelFolder *folder = info->summary->folder;
-		camel_exchange_utils_set_message_tag (CAMEL_SERVICE (folder->parent_store), folder->full_name, info->uid, name, value, NULL);
+		CamelStore *parent_store;
+		const gchar *full_name;
+
+		folder = info->summary->folder;
+		full_name = camel_folder_get_full_name (folder);
+		parent_store = camel_folder_get_parent_store (folder);
+
+		camel_exchange_utils_set_message_tag (
+			CAMEL_SERVICE (parent_store),
+			full_name, info->uid, name, value, NULL);
 	}
 
 	return res;
@@ -457,7 +486,10 @@ camel_exchange_summary_new (struct _CamelFolder *folder, const gchar *filename)
 	summary->folder = folder;
 	camel_folder_summary_set_filename (summary, filename);
 	if (camel_folder_summary_load_from_db (summary, &lex) == -1) {
-		g_warning ("Unable to load Exchage summary for folder %s: %s\n", folder->full_name, camel_exception_get_description(&lex));
+		g_warning (
+			"Unable to load Exchage summary for folder %s: %s\n",
+			camel_folder_get_full_name (folder),
+			camel_exception_get_description(&lex));
 		camel_folder_summary_clear_db (summary);
 		camel_folder_summary_touch (summary);
 	}

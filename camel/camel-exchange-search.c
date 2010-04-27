@@ -42,14 +42,22 @@ exchange_search_body_contains (struct _ESExp *f,
 	const gchar *uid;
 	ESExpResult *r;
 	CamelMessageInfo *info;
+	CamelOfflineStore *offline_store;
+	CamelStore *parent_store;
 	GHashTable *uid_hash = NULL;
 	GPtrArray *found_uids;
+	const gchar *full_name;
 	gint i;
 
 	folder_search_class = CAMEL_FOLDER_SEARCH_CLASS (
 		camel_exchange_search_parent_class);
 
-	if (((CamelOfflineStore *) s->folder->parent_store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL)
+	full_name = camel_folder_get_full_name (s->folder);
+	parent_store = camel_folder_get_parent_store (s->folder);
+
+	offline_store = CAMEL_OFFLINE_STORE (parent_store);
+
+	if (offline_store->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL)
 		return folder_search_class->body_contains (f, argc, argv, s);
 
 	if (s->current) {
@@ -74,7 +82,9 @@ exchange_search_body_contains (struct _ESExp *f,
 	}
 
 	/* FIXME: what if we have multiple string args? */
-	if (!camel_exchange_utils_search (CAMEL_SERVICE (s->folder->parent_store), s->folder->full_name, value, &found_uids, NULL))
+	if (!camel_exchange_utils_search (
+		CAMEL_SERVICE (parent_store),
+		full_name, value, &found_uids, NULL))
 		return r;
 
 	if (!found_uids->len) {

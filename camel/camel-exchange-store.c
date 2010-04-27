@@ -423,6 +423,7 @@ exchange_store_get_folder (CamelStore *store,
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	CamelFolder *folder;
+	const gchar *short_name;
 	gchar *folder_dir;
 
 	RETURN_VAL_IF_NOT_CONNECTED (exch, ex, NULL);
@@ -449,18 +450,25 @@ exchange_store_get_folder (CamelStore *store,
 		 * by the store-level cache...
 		 */
 		g_mutex_unlock (exch->folders_lock);
-		g_object_ref (CAMEL_OBJECT (folder));
+		g_object_ref (folder);
 		g_free (folder_dir);
 		return folder;
 	}
 
-	folder = g_object_new (CAMEL_TYPE_EXCHANGE_FOLDER, NULL);
+	short_name = strrchr (folder_name, '/');
+	if (!short_name++)
+		short_name = folder_name;
+
+	folder = g_object_new (
+		CAMEL_TYPE_EXCHANGE_FOLDER,
+		"name", short_name, "full-name", folder_name,
+		"parent-store", store, NULL);
 	g_hash_table_insert (exch->folders, g_strdup (folder_name), folder);
 	g_mutex_unlock (exch->folders_lock);
 
-	if (!camel_exchange_folder_construct (folder, store, folder_name,
-					      flags, folder_dir, ((CamelOfflineStore *) store)->state,
-					      ex)) {
+	if (!camel_exchange_folder_construct (
+			folder, flags, folder_dir,
+			((CamelOfflineStore *) store)->state, ex)) {
 		gchar *key;
 		g_mutex_lock (exch->folders_lock);
 		if (g_hash_table_lookup_extended (exch->folders, folder_name,
@@ -470,7 +478,7 @@ exchange_store_get_folder (CamelStore *store,
 		}
 		g_mutex_unlock (exch->folders_lock);
 		g_free (folder_dir);
-		g_object_unref (CAMEL_OBJECT (folder));
+		g_object_unref (folder);
 		return NULL;
 	}
 	g_free (folder_dir);
@@ -479,7 +487,7 @@ exchange_store_get_folder (CamelStore *store,
 	 * may create and then unref the folder. That's a waste. So don't
 	 * let that happen. Probably not the best fix...
 	 */
-	g_object_ref (CAMEL_OBJECT (folder));
+	g_object_ref (folder);
 
 	return folder;
 }
@@ -657,7 +665,7 @@ exchange_store_rename_folder (CamelStore *store,
 	folder = g_hash_table_lookup (exch->folders, reninfo.old_base);
 	if (folder) {
 		g_hash_table_remove (exch->folders, reninfo.old_base);
-		g_object_unref (CAMEL_OBJECT (folder));
+		g_object_unref (folder);
 	}
 	g_mutex_unlock (exch->folders_lock);
 
@@ -839,7 +847,7 @@ camel_exchange_store_folder_deleted (CamelExchangeStore *estore, const gchar *na
 	folder = g_hash_table_lookup (estore->folders, info->full_name);
 	if (folder) {
 		g_hash_table_remove (estore->folders, info->full_name);
-		g_object_unref (CAMEL_OBJECT (folder));
+		g_object_unref (folder);
 	}
 	g_mutex_unlock (estore->folders_lock);
 
