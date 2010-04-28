@@ -2244,16 +2244,20 @@ getNextPage:
 
 	i = 0;
 	if (pagedResults) {
+		struct berval **tmpBVPtr = NULL;
 		if (( prber = ber_alloc_t(LBER_USE_DER)) == NULL ) {
 			return;
 		}
 		ber_printf( prber, "{iO}", pageSize, &cookie );
 #ifdef G_OS_WIN32
-		if ( ber_flatten( prber, &c[i].ldctl_value ) == -1 ) {
+		if ( ber_flatten( prber, tmpBVPtr) == -1 ) {
 			ber_free( prber, 1 );
+			ber_bvfree(*tmpBVPtr);
 			return;
 		}
+		c[i].ldctl_value = **tmpBVPtr;
 		ber_free( prber, 1 );
+		ber_bvfree(*tmpBVPtr);
 #else
 		if ( ber_flatten2( prber, &c[i].ldctl_value, 0 ) == -1 ) {
 			return;
