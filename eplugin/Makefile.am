@@ -27,7 +27,8 @@ liborg_gnome_exchange_operations_la_CPPFLAGS = \
 	$(EVOLUTION_DATA_SERVER_CFLAGS) \
 	$(EVOLUTION_PLUGIN_CFLAGS) \
 	$(EVOLUTION_SHELL_CFLAGS) \
-	$(EVOLUTION_MAIL_CFLAGS)
+	$(EVOLUTION_MAIL_CFLAGS) \
+	$(LDAP_CFLAGS)
 
 
 liborg_gnome_exchange_operations_la_SOURCES = \
@@ -65,6 +66,7 @@ liborg_gnome_exchange_operations_la_LIBADD = \
 	$(EVOLUTION_SHELL_LIBS) \
 	$(EVOLUTION_MAIL_LIBS) \
 	$(PTHREAD_LIB) \
+	$(LDAP_LIBS) \
 	$(DNS_LIBS)
 
 liborg_gnome_exchange_operations_la_LDFLAGS = \
