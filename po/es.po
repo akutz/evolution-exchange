@@ -5,13 +5,14 @@
 # Copyright (C) 2004 THE Ximian Conector'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the Ximian Conector package.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=evolution-exchange&component=general\n"
-"POT-Creation-Date: 2010-04-06 18:11+0000\n"
-"PO-Revision-Date: 2010-04-15 08:39+0200\n"
+"POT-Creation-Date: 2010-04-27 11:29+0000\n"
+"PO-Revision-Date: 2010-04-28 07:41+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,16 +26,21 @@ msgid "Specifies the time interval to refresh the GAL Cache."
 msgstr "Especifica el intervalo de tiempo para refrescar la caché GAL."
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
+#| msgid ""
+#| "This key specifies the number of days interval between the GAL cache "
+#| "refresh. Set this value to zero, if you don't want to update GAL and use "
+#| "the current cache forever. This will work only if you have enabled "
+#| "offline caching for GAL."
 msgid ""
-"This key specifies the number of days interval between the GAL cache "
-"refresh. Set this value to zero, if you don't want to update GAL and use the "
-"current cache forever. This will work only if you have enabled offline "
-"caching for GAL."
+"This key specifies the number of days' interval between GAL cache refreshes. "
+"Set this value to zero if you don't want to update GAL and use the current "
+"cache forever. This will work only if you have enabled offline caching for "
+"GAL."
 msgstr ""
 "Esta clave especifica el número de días del intervalo entre los que la caché "
-"GAL se refrescará. Establezca este valor a cero si no quiere actualizar GAL "
-"y usar la caché actual para siempre. Esto sólo funcionará si la caché de GAL "
-"está activada en modo desconectado."
+"GAL se refresca Establezca este valor a cero si no quiere actualizar GAL y "
+"usar la caché actual para siempre. Sólo funcionará si la caché de GAL está "
+"activada en modo desconectado."
 
 #: ../addressbook/e-book-backend-exchange.c:2302
 #: ../addressbook/e-book-backend-gal.c:1900
@@ -67,72 +73,72 @@ msgstr "La autenticación ha fallado"
 msgid "Could not find the calendar"
 msgstr "No se pudo encontrar el calendario"
 
-#: ../camel/camel-exchange-folder.c:186
-msgid "You cannot expunge in offline mode."
-msgstr "No se puede compactar en modo desconectado."
-
-#: ../camel/camel-exchange-folder.c:214
+#: ../camel/camel-exchange-folder.c:69
 msgid "No Subject"
 msgstr "Sin asunto"
 
-#: ../camel/camel-exchange-folder.c:376
+#: ../camel/camel-exchange-folder.c:120
 msgid "This message is not available in offline mode."
 msgstr "Este mensaje no está disponible en modo «Desconectado»."
 
-#: ../camel/camel-exchange-folder.c:602
+#: ../camel/camel-exchange-folder.c:356
+msgid "You cannot expunge in offline mode."
+msgstr "No se puede compactar en modo desconectado."
+
+#: ../camel/camel-exchange-folder.c:561
 msgid "Moving messages"
 msgstr "Moviendo mensajes"
 
-#: ../camel/camel-exchange-folder.c:603
+#: ../camel/camel-exchange-folder.c:562
 msgid "Copying messages"
 msgstr "Copiando mensajes"
 
-#: ../camel/camel-exchange-folder.c:971
+#: ../camel/camel-exchange-folder.c:998
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "No se puede crear el directorio %s: %s"
 
-#: ../camel/camel-exchange-folder.c:981
+#: ../camel/camel-exchange-folder.c:1008
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "No se pudo cargar el resumen para %s"
 
-#: ../camel/camel-exchange-folder.c:989
+#: ../camel/camel-exchange-folder.c:1016
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "No se pudo crear el cache para %s"
 
-#: ../camel/camel-exchange-folder.c:999
+#: ../camel/camel-exchange-folder.c:1026
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "No se pudo crear el diario para %s"
 
-#: ../camel/camel-exchange-folder.c:1048
+#: ../camel/camel-exchange-folder.c:1075
 msgid "Scanning for changed messages"
 msgstr "Buscando mensajes cambiados"
 
-#: ../camel/camel-exchange-folder.c:1073
+#: ../camel/camel-exchange-folder.c:1100
 msgid "Fetching summary information for new messages"
 msgstr "Obteniendo la información del resumen para los mensajes nuevos"
 
-#: ../camel/camel-exchange-journal.c:327
+#: ../camel/camel-exchange-journal.c:148
 msgid "No folder name found\n"
 msgstr "No se encontró ningún nombre de carpeta\n"
 
-#: ../camel/camel-exchange-journal.c:360 ../camel/camel-exchange-utils.c:3101
+#: ../camel/camel-exchange-journal.c:181 ../camel/camel-exchange-utils.c:3101
 #: ../camel/camel-exchange-utils.c:3165 ../camel/camel-exchange-utils.c:3285
 #: ../camel/camel-exchange-utils.c:3316 ../camel/camel-exchange-utils.c:3368
 #: ../camel/camel-exchange-utils.c:3389
 msgid "Folder doesn't exist"
 msgstr "La carpeta no existe"
 
-#: ../camel/camel-exchange-journal.c:422
+#: ../camel/camel-exchange-journal.c:401
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
 "No se puede agregar el mensaje en modo desconectado: la caché no está "
 "disponible"
 
-#: ../camel/camel-exchange-journal.c:438
+#: ../camel/camel-exchange-journal.c:417
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "No se puede agregar el mensaje en modo desconectado: %s"
@@ -171,8 +177,9 @@ msgstr "_Nombre de usuario de Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
 #: ../camel/camel-exchange-provider.c:75
-msgid "Global Address List / Active Directory"
-msgstr "Lista de acceso global /Directorio Activo"
+#| msgid "Global Address List / Active Directory"
+msgid "Global Address List/Active Directory"
+msgstr "Lista de acceso global/Directorio Activo"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
@@ -251,17 +258,17 @@ msgstr ""
 "Esta opción conectará con el servidor Exchange usando autenticación estándar "
 "en texto plano."
 
-#: ../camel/camel-exchange-store.c:303
+#: ../camel/camel-exchange-store.c:335
 #, c-format
 msgid "Exchange server %s"
 msgstr "Servidor Exchange %s"
 
-#: ../camel/camel-exchange-store.c:306
+#: ../camel/camel-exchange-store.c:339
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Cuenta Exchange de %s en %s"
 
-#: ../camel/camel-exchange-store.c:383
+#: ../camel/camel-exchange-store.c:381
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -269,45 +276,45 @@ msgstr ""
 "No se pudo autenticar con el servidor. (¿Contraseña incorrecta?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:428
+#: ../camel/camel-exchange-store.c:440
 #, c-format
 msgid "No such folder %s"
 msgstr "No existe la carpeta %s"
 
-#: ../camel/camel-exchange-store.c:500
-msgid "Cannot subscribe folder in offline mode."
-msgstr "No se puede crear suscribirse a una carpeta en modo desconectado."
-
-#: ../camel/camel-exchange-store.c:515
-msgid "Cannot unsubscribe folder in offline mode."
-msgstr "No se puede desuscribirse de una carpeta en modo desconectado."
-
-#: ../camel/camel-exchange-store.c:646
+#: ../camel/camel-exchange-store.c:502
 msgid "Cannot get folder info in offline mode."
 msgstr "No se puede obtener la info de la carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-store.c:709
+#: ../camel/camel-exchange-store.c:567
 msgid "Cannot create folder in offline mode."
 msgstr "No se puede crear una carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-store.c:732
+#: ../camel/camel-exchange-store.c:591
 msgid "Cannot delete folder in offline mode."
 msgstr "No se puede borrar la carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-store.c:754
+#: ../camel/camel-exchange-store.c:617
 msgid "Cannot rename folder in offline mode."
 msgstr "No se puede renombrar la carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-transport.c:98
+#: ../camel/camel-exchange-store.c:698
+msgid "Cannot subscribe folder in offline mode."
+msgstr "No se puede crear suscribirse a una carpeta en modo desconectado."
+
+#: ../camel/camel-exchange-store.c:716
+msgid "Cannot unsubscribe folder in offline mode."
+msgstr "No se puede desuscribirse de una carpeta en modo desconectado."
+
+#: ../camel/camel-exchange-transport.c:62
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr ""
 "El transporte Exchange sólo puede ser usado con una fuente de correo Exchange"
 
-#: ../camel/camel-exchange-transport.c:111
+#: ../camel/camel-exchange-transport.c:75
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "No se puede enviar el mensaje: uno o más destinatarios inválidos"
 
-#: ../camel/camel-exchange-transport.c:120
+#: ../camel/camel-exchange-transport.c:84
 msgid "Could not find 'From' address in message"
 msgstr "No se pudo encontrar la dirección de remite en el mensaje"
 
@@ -422,8 +429,9 @@ msgid "Folder already exists"
 msgstr "La carpeta ya existe"
 
 #: ../eplugin/exchange-account-setup.c:266
-msgid "Out Of Office"
-msgstr "Fuera de oficina"
+#| msgid "Out Of Office"
+msgid "Out of Office"
+msgstr "Fuera de la oficina"
 
 #: ../eplugin/exchange-account-setup.c:273
 msgid ""
@@ -482,8 +490,9 @@ msgid "View the size of all Exchange folders"
 msgstr "Ver el tamaño de todas las carpetas Exchange"
 
 #: ../eplugin/exchange-account-setup.c:369
-msgid "Folders Size"
-msgstr "Tamaño de las carpetas"
+#: ../eplugin/exchange-folder-size-display.c:154
+msgid "Folder Size"
+msgstr "Tamaño de la carpeta"
 
 #: ../eplugin/exchange-account-setup.c:376
 #: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:3
@@ -499,7 +508,8 @@ msgid "A_uthenticate"
 msgstr "A_utenticar"
 
 #: ../eplugin/exchange-account-setup.c:783
-msgid "Mailbox name is _different from user name"
+#| msgid "Mailbox name is _different from user name"
+msgid "Mailbox name is _different from username"
 msgstr "El nombre del buzón es _diferente del nombre de usuario"
 
 #: ../eplugin/exchange-account-setup.c:796
@@ -578,7 +588,6 @@ msgstr "Las sos contraseñas no coinciden. Vuelva a introducirlas."
 #. Translators: The %d is replaced with the actual number of days
 #: ../eplugin/exchange-config-listener.c:662
 #, c-format
-#| msgid "Your password will expire in the next %d days"
 msgid "Your password will expire in the next %d day"
 msgid_plural "Your password will expire in the next %d days"
 msgstr[0] "Su contraseña caducará en el próximos día"
@@ -617,22 +626,22 @@ msgstr "Sí, cambiar el estado"
 msgid "Enter Password for %s"
 msgstr "Introduzca su contraseña para %s"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:434
+#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:438
 #: ../server/storage/exchange-hierarchy-foreign.c:260
 msgid "Calendar"
 msgstr "Calendario"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:437
+#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:441
 #: ../server/storage/exchange-hierarchy-foreign.c:269
 msgid "Tasks"
 msgstr "Tareas"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:432
+#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:436
 #: ../server/storage/exchange-hierarchy-foreign.c:264
 msgid "Inbox"
 msgstr "Bandeja de entrada"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:440
+#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:444
 #: ../server/storage/exchange-hierarchy-foreign.c:261
 msgid "Contacts"
 msgstr "Contactos"
@@ -751,7 +760,8 @@ msgstr "También se le permite ver mis elementos privados."
 #. to the private items.
 #.
 #: ../eplugin/exchange-delegates-user.c:465
-msgid "However you are not permitted to see my private items."
+#| msgid "However you are not permitted to see my private items."
+msgid "However, you are not permitted to see my private items."
 msgstr "No obstante no se le permite ver mis elementos privados."
 
 #: ../eplugin/exchange-delegates-user.c:497
@@ -866,7 +876,8 @@ msgid "Check tasks permissions"
 msgstr "Compruebe los permisos de las tareas"
 
 #: ../eplugin/exchange-folder-permission.c:590
-msgid "Check addressbook permissions"
+#| msgid "Check addressbook permissions"
+msgid "Check address book permissions"
 msgstr "Compruebe los permisos de la libreta de direcciones"
 
 #: ../eplugin/exchange-folder-size-display.c:118
@@ -876,10 +887,6 @@ msgstr "Árbol de carpetas de Exchange"
 #: ../eplugin/exchange-folder-size-display.c:150
 msgid "Folder Name"
 msgstr "Nombre de la carpeta"
-
-#: ../eplugin/exchange-folder-size-display.c:154
-msgid "Folder Size"
-msgstr "Tamaño de la carpeta"
 
 #. FIXME Limit to one user
 #: ../eplugin/exchange-folder-subscription.c:72
@@ -898,12 +905,12 @@ msgstr "Nombre de la _carpeta:"
 msgid "_User:"
 msgstr "_Usuario:"
 
-#: ../eplugin/exchange-folder.c:322 ../eplugin/exchange-folder.c:376
+#: ../eplugin/exchange-folder.c:323 ../eplugin/exchange-folder.c:379
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "¿Seguro que desea desuscribirse de la carpeta «%s»?"
 
-#: ../eplugin/exchange-folder.c:334 ../eplugin/exchange-folder.c:388
+#: ../eplugin/exchange-folder.c:336 ../eplugin/exchange-folder.c:392
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "Desuscribirse de «%s»"
@@ -1058,11 +1065,11 @@ msgstr "Pedir una confirmación de _entrega para este mensaje"
 msgid "Request a _read receipt for this message"
 msgstr "Pedir una confirmación de _lectura para este mensaje"
 
-#: ../eplugin/exchange-user-dialog.c:131
+#: ../eplugin/exchange-user-dialog.c:135
 msgid "Select User"
 msgstr "Seleccionar usuario"
 
-#: ../eplugin/exchange-user-dialog.c:170
+#: ../eplugin/exchange-user-dialog.c:174
 msgid "Address Book..."
 msgstr "Libreta de direcciones…"
 
@@ -1114,12 +1121,16 @@ msgid "Could not change password."
 msgstr "No se puede cambiar la contraseña."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:8
+#| msgid ""
+#| "Could not configure Exchange account because \n"
+#| "an unknown error occurred. Check the URL, \n"
+#| "username, and password, and try again."
 msgid ""
 "Could not configure Exchange account because \n"
 "an unknown error occurred. Check the URL, \n"
-"username, and password, and try again."
+"username and password, and try again."
 msgstr ""
-"No es posible configurar la cuenta de Exchange porque\n"
+"No se puede configurar la cuenta de Exchange porque\n"
 "ocurrió un error desconocido. Compruebe el URL,\n"
 "usuario y contraseña e inténtelo otra vez."
 
@@ -1306,12 +1317,18 @@ msgstr ""
 "sólo soporta Microsoft Exchange 2000 y 2003."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:62
+#| msgid ""
+#| "This probably means that your server requires \n"
+#| "you to specify the Windows domain name \n"
+#| "as part of your username (eg, &quot;DOMAIN\\user&quot;).\n"
+#| "\n"
+#| "Also, you may have typed your password wrongly."
 msgid ""
 "This probably means that your server requires \n"
 "you to specify the Windows domain name \n"
 "as part of your username (eg, &quot;DOMAIN\\user&quot;).\n"
 "\n"
-"Also, you may have typed your password wrongly."
+"Also, you may have typed your password incorrectly."
 msgstr ""
 "Esto probablemente significa que su servidor requiere \n"
 "que le especifique el nombre de dominio de Windows \n"
@@ -1511,7 +1528,8 @@ msgid "Cannot create a folder with that name"
 msgstr "No se pudo crear una carpeta con ese nombre"
 
 #: ../server/storage/e-storage.c:585
-msgid "This operation cannot be performed in off-line mode"
+#| msgid "This operation cannot be performed in off-line mode"
+msgid "This operation cannot be performed in offline mode"
 msgstr "Esta operación no se puede realizar en modo desconectado"
 
 #: ../server/storage/e-storage.c:587
@@ -1858,6 +1876,9 @@ msgstr "Asistente para _fuera de oficina"
 #: ../tools/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Desuscribirse de una carpeta de otro usuario"
+
+#~ msgid "Folders Size"
+#~ msgstr "Tamaño de las carpetas"
 
 #~ msgid ""
 #~ "Unable to schedule resource '%s' for recurring meetings.\n"
