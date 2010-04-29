@@ -748,6 +748,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	E2kContext *e2kctx;
 	struct _cb_data *cbdata;
 	gboolean send_options;
+	ECalComponentClassification classif;
 
 	d(printf ("ecbexc_create_object(%p, %p, %s, %s)", backend, cal, *calobj ? *calobj : NULL, *uid ? *uid : NULL));
 
@@ -835,6 +836,17 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	cbdata->be = backend;
 	cbdata->vcal_comp = e_cal_util_new_top_level ();
 	cbdata->cal = cal;
+
+	/* Though OWA produces "CLASS:" (which we map to
+	 * "CLASS:PUBLIC" above), it will accept "CLASS:PUBLIC".
+	 * However, some other exchange clients, notably Windows
+	 * Mobile Outlook, don't work unless we map "CLASS:PUBLIC"
+	 * back to "CLASS:". For details, see
+	 * https://bugzilla.gnome.org/show_bug.cgi?id=403903#c23
+	 */
+	e_cal_component_get_classification (comp, &classif);
+	if (classif == E_CAL_COMPONENT_CLASS_PUBLIC)
+		e_cal_component_set_classification (comp, E_CAL_COMPONENT_CLASS_NONE);
 
 	/* Remove X parameters from properties */
 	/* This is specifically for X-EVOLUTION-END-DATE,
