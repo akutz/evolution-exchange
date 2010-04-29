@@ -1100,6 +1100,8 @@ camel_exchange_folder_construct (CamelFolder *folder,
 	if (parent_store != NULL) {
 		gboolean ok, create = camel_flags & CAMEL_STORE_FOLDER_CREATE, readonly = FALSE;
 
+		camel_folder_summary_prepare_fetch_all (folder->summary, ex);
+
 		summary = camel_folder_get_summary (folder);
 		uids = g_ptr_array_new ();
 		g_ptr_array_set_size (uids, summary->len);
@@ -1107,9 +1109,6 @@ camel_exchange_folder_construct (CamelFolder *folder,
 		g_byte_array_set_size (flags, summary->len);
 		hrefs = g_ptr_array_new ();
 		g_ptr_array_set_size (hrefs, summary->len);
-
-		if (summary->len - camel_folder_summary_cache_size (folder->summary) > 50)
-			camel_folder_summary_reload_from_db (folder->summary, ex);
 
 		for (i = 0; i < summary->len; i++) {
 			uids->pdata[i] = g_strdup(summary->pdata[i]);
