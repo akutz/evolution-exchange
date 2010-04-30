@@ -736,8 +736,6 @@ exchange_share_config_listener_get_account_for_uri (ExchangeShareConfigListener 
 	GSList *accounts, *a;
 	ExchangeAccount *res = NULL;
 
-	g_return_val_if_fail (uri != NULL, NULL);
-
 	if (!excl)
 		excl = exchange_share_config_listener_get_global ();
 
