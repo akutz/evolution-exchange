@@ -423,6 +423,7 @@ exchange_store_get_folder (CamelStore *store,
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	CamelFolder *folder;
+	const gchar *short_name;
 	gchar *folder_dir;
 
 	RETURN_VAL_IF_NOT_CONNECTED (exch, ex, NULL);
@@ -454,12 +455,21 @@ exchange_store_get_folder (CamelStore *store,
 		return folder;
 	}
 
-	folder = g_object_new (CAMEL_TYPE_EXCHANGE_FOLDER, NULL);
+	short_name = strrchr (folder_name, '/');
+	if (!short_name++)
+		short_name = folder_name;
+
+	folder = g_object_new (
+		CAMEL_TYPE_EXCHANGE_FOLDER,
+		"name", short_name, "full-name", folder_name,
+		"parent-store", store, NULL);
 	g_hash_table_insert (exch->folders, g_strdup (folder_name), folder);
 	g_mutex_unlock (exch->folders_lock);
 
-	if (!camel_exchange_folder_construct (folder, store, folder_name,
-			flags, folder_dir, ((CamelOfflineStore *) store)->state, ex)) {
+	if (!camel_exchange_folder_construct (
+		folder, flags, folder_dir,
+		((CamelOfflineStore *) store)->state, ex)) {
+
 		gchar *key;
 		g_mutex_lock (exch->folders_lock);
 		if (g_hash_table_lookup_extended (exch->folders, folder_name,
