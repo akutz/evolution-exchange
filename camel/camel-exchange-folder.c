@@ -1020,25 +1020,26 @@ camel_exchange_folder_update_message_tag (CamelExchangeFolder *exch,
  * Return value: success or failure.
  **/
 gboolean
-camel_exchange_folder_construct (CamelFolder *folder,
-                                 guint32 camel_flags,
+camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
+				 const gchar *name, guint32 camel_flags,
                                  const gchar *folder_dir,
                                  gint offline_state,
                                  CamelException *ex)
 {
 	CamelExchangeFolder *exch = (CamelExchangeFolder *)folder;
+	const gchar *short_name;
 	gchar *summary_file, *journal_file, *path;
 	GPtrArray *summary, *uids, *hrefs;
 	GByteArray *flags;
 	guint32 folder_flags;
 	CamelMessageInfo *info;
 	CamelExchangeMessageInfo *einfo;
-	CamelStore *parent_store;
-	const gchar *full_name;
 	gint i, len = 0;
 
-	full_name = camel_folder_get_full_name (folder);
-	parent_store = camel_folder_get_parent_store (folder);
+	short_name = strrchr (name, '/');
+	if (!short_name++)
+		short_name = name;
+	camel_folder_construct (folder, parent, name, short_name);
 
 	if (g_mkdir_with_parents (folder_dir, S_IRWXU) != 0) {
 		camel_exception_setv (ex, CAMEL_EXCEPTION_SYSTEM,
@@ -1053,7 +1054,7 @@ camel_exchange_folder_construct (CamelFolder *folder,
 	if (!folder->summary) {
 		camel_exception_setv (
 			ex, CAMEL_EXCEPTION_SYSTEM,
-			_("Could not load summary for %s"), full_name);
+			_("Could not load summary for %s"), name);
 		return FALSE;
 	}
 
@@ -1061,7 +1062,7 @@ camel_exchange_folder_construct (CamelFolder *folder,
 	if (!exch->cache) {
 		camel_exception_setv (
 			ex, CAMEL_EXCEPTION_SYSTEM,
-			_("Could not create cache for %s"), full_name);
+			_("Could not create cache for %s"), name);
 		return FALSE;
 	}
 
@@ -1071,7 +1072,7 @@ camel_exchange_folder_construct (CamelFolder *folder,
 	if (!exch->journal) {
 		camel_exception_setv (
 			ex, CAMEL_EXCEPTION_SYSTEM,
-			_("Could not create journal for %s"), full_name);
+			_("Could not create journal for %s"), name);
 		return FALSE;
 	}
 
@@ -1097,7 +1098,7 @@ camel_exchange_folder_construct (CamelFolder *folder,
 		camel_message_info_free(info);
 	}
 
-	if (parent_store != NULL) {
+	if (parent != NULL) {
 		gboolean ok, create = camel_flags & CAMEL_STORE_FOLDER_CREATE, readonly = FALSE;
 
 		camel_folder_summary_prepare_fetch_all (folder->summary, ex);
@@ -1120,8 +1121,8 @@ camel_exchange_folder_construct (CamelFolder *folder,
 
 		camel_operation_start (NULL, _("Scanning for changed messages"));
 		ok = camel_exchange_utils_get_folder (
-			CAMEL_SERVICE (parent_store),
-			full_name, create, uids, flags, hrefs,
+			CAMEL_SERVICE (parent),
+			name, create, uids, flags, hrefs,
 			CAMEL_EXCHANGE_SUMMARY (folder->summary)->high_article_num,
 			&folder_flags, &exch->source, &readonly, ex);
 		camel_operation_end (NULL);
@@ -1147,7 +1148,7 @@ camel_exchange_folder_construct (CamelFolder *folder,
 
 		camel_operation_start (NULL, _("Fetching summary information for new messages"));
 		ok = camel_exchange_utils_refresh_folder (
-			CAMEL_SERVICE (parent_store), full_name, ex);
+			CAMEL_SERVICE (parent), name, ex);
 		camel_operation_end (NULL);
 		if (!ok)
 			return FALSE;
