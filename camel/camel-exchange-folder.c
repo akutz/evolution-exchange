@@ -1076,7 +1076,7 @@ camel_exchange_folder_construct (CamelFolder *folder,
 	}
 
 	path = g_build_filename (folder_dir, "cmeta", NULL);
-	camel_object_set_state_filename (CAMEL_OBJECT (folder), path);
+	camel_object_set (folder, NULL, CAMEL_OBJECT_STATE_FILE, path, NULL);
 	g_free (path);
 	camel_object_state_read (CAMEL_OBJECT (folder));
 
