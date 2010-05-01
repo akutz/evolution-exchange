@@ -2250,7 +2250,7 @@ getNextPage:
 		}
 		ber_printf( prber, "{iO}", pageSize, &cookie );
 #ifdef G_OS_WIN32
-		if ( ber_flatten( prber, tmpBVPtr) == -1 ) {
+		if (ber_flatten( prber, tmpBVPtr) == -1) {
 			ber_free( prber, 1 );
 			ber_bvfree(*tmpBVPtr);
 			return;
@@ -2259,7 +2259,7 @@ getNextPage:
 		ber_free( prber, 1 );
 		ber_bvfree(*tmpBVPtr);
 #else
-		if ( ber_flatten2( prber, &c[i].ldctl_value, 0 ) == -1 ) {
+		if (ber_flatten2( prber, &c[i].ldctl_value, 0 ) == -1) {
 			return;
 		}
 #endif
