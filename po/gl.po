@@ -7,14 +7,15 @@
 # Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2008, 2009.
 # Antón Méixome <meixome@certima.net>, 2010.
 # Fran Diéguez <frandieguez@ubuntu.com>, 2009, 2010.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange-master-po-gl-53547\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-17 22:36+0200\n"
-"PO-Revision-Date: 2010-04-17 22:36+0200\n"
+"POT-Creation-Date: 2010-05-01 23:06+0200\n"
+"PO-Revision-Date: 2010-05-01 23:10+0200\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
-"Language-Team: Galician <proxecto@trasno.net>\n"
+"Language-Team: Galician <gnome@g11n.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,10 +28,10 @@ msgstr "Especifica o intervalo de tempo para actualizar a caché da GAL."
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
 msgid ""
-"This key specifies the number of days interval between the GAL cache "
-"refresh. Set this value to zero, if you don't want to update GAL and use the "
-"current cache forever. This will work only if you have enabled offline "
-"caching for GAL."
+"This key specifies the number of days' interval between GAL cache refreshes. "
+"Set this value to zero if you don't want to update GAL and use the current "
+"cache forever. This will work only if you have enabled offline caching for "
+"GAL."
 msgstr ""
 "Esta chave especifica o intervalo en número de días entre a actualización da "
 "caché da GAL. Defina este valor como cero se non quere actualizar a GAL e "
@@ -55,7 +56,7 @@ msgstr "Recibindo os resultados da busca no LDAP..."
 msgid "Error performing search"
 msgstr "Produciuse un erro ao realizar a busca"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2111
+#: ../calendar/e-cal-backend-exchange-calendar.c:2123
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "O recurso '%s' está ocupado durante o período de tempo seleccionado."
@@ -68,72 +69,72 @@ msgstr "A autenticación fallou"
 msgid "Could not find the calendar"
 msgstr "Non foi posíbel localizar o calendario"
 
-#: ../camel/camel-exchange-folder.c:186
-msgid "You cannot expunge in offline mode."
-msgstr "Non é posíbel compactar en modo sen conexión."
-
-#: ../camel/camel-exchange-folder.c:214
+#: ../camel/camel-exchange-folder.c:74
 msgid "No Subject"
 msgstr "Sen asunto"
 
-#: ../camel/camel-exchange-folder.c:377
+#: ../camel/camel-exchange-folder.c:130
 msgid "This message is not available in offline mode."
 msgstr "Esta mensaxe non está dispoñíbel no modo desconectado."
 
-#: ../camel/camel-exchange-folder.c:603
+#: ../camel/camel-exchange-folder.c:388
+msgid "You cannot expunge in offline mode."
+msgstr "Non é posíbel compactar en modo sen conexión."
+
+#: ../camel/camel-exchange-folder.c:605
 msgid "Moving messages"
 msgstr "Movendo as mensaxes"
 
-#: ../camel/camel-exchange-folder.c:604
+#: ../camel/camel-exchange-folder.c:606
 msgid "Copying messages"
 msgstr "Copiando as mensaxes"
 
-#: ../camel/camel-exchange-folder.c:972
+#: ../camel/camel-exchange-folder.c:1045
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Non foi posíbel crear o cartafol %s: %s"
 
-#: ../camel/camel-exchange-folder.c:982
+#: ../camel/camel-exchange-folder.c:1056
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Non foi posíbel cargar o resumo de %s"
 
-#: ../camel/camel-exchange-folder.c:990
+#: ../camel/camel-exchange-folder.c:1064
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "Non foi posíbel crear a caché para %s"
 
-#: ../camel/camel-exchange-folder.c:1000
+#: ../camel/camel-exchange-folder.c:1074
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Non foi posíbel crear o diario para %s"
 
-#: ../camel/camel-exchange-folder.c:1049
+#: ../camel/camel-exchange-folder.c:1121
 msgid "Scanning for changed messages"
 msgstr "Examinando mensaxes cambiadas"
 
-#: ../camel/camel-exchange-folder.c:1074
+#: ../camel/camel-exchange-folder.c:1148
 msgid "Fetching summary information for new messages"
 msgstr "Obtendo a información do resumo para as mensaxes novas"
 
-#: ../camel/camel-exchange-journal.c:327
+#: ../camel/camel-exchange-journal.c:149
 msgid "No folder name found\n"
 msgstr "Non se encontrou o nome do cartafol\n"
 
-#: ../camel/camel-exchange-journal.c:360 ../camel/camel-exchange-utils.c:3101
+#: ../camel/camel-exchange-journal.c:184 ../camel/camel-exchange-utils.c:3101
 #: ../camel/camel-exchange-utils.c:3165 ../camel/camel-exchange-utils.c:3285
 #: ../camel/camel-exchange-utils.c:3316 ../camel/camel-exchange-utils.c:3368
 #: ../camel/camel-exchange-utils.c:3389
 msgid "Folder doesn't exist"
 msgstr "O cartafol non existe"
 
-#: ../camel/camel-exchange-journal.c:422
+#: ../camel/camel-exchange-journal.c:408
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
 "Non é posíbel engadir a mensaxe no modo desconectado: a caché non está "
 "dispoñíbel"
 
-#: ../camel/camel-exchange-journal.c:438
+#: ../camel/camel-exchange-journal.c:424
 #, c-format
 msgid "Cannot append message in offline mode: %s"
 msgstr "Non é posíbel engadir a mensaxe en modo desconectado: %s"
@@ -172,8 +173,8 @@ msgstr "_Nome de usuario de Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
 #: ../camel/camel-exchange-provider.c:75
-msgid "Global Address List / Active Directory"
-msgstr "Lista de enderezos global (GAL)/Directorio activo"
+msgid "Global Address List/Active Directory"
+msgstr "Lista de enderezos global (GAL)/Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
@@ -255,17 +256,17 @@ msgstr ""
 "Esta opción conectará co servidor Exchange usando unha autenticación "
 "estándar de texto plano."
 
-#: ../camel/camel-exchange-store.c:303
+#: ../camel/camel-exchange-store.c:335
 #, c-format
 msgid "Exchange server %s"
 msgstr "Servidor Exchange %s"
 
-#: ../camel/camel-exchange-store.c:306
+#: ../camel/camel-exchange-store.c:339
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Conta Exchange de %s en %s"
 
-#: ../camel/camel-exchange-store.c:383
+#: ../camel/camel-exchange-store.c:381
 msgid ""
 "Could not authenticate to server. (Password incorrect?)\n"
 "\n"
@@ -273,46 +274,46 @@ msgstr ""
 "Non foi posíbel autenticar co servidor. (Contrasinal incorrecto?)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:428
+#: ../camel/camel-exchange-store.c:441
 #, c-format
 msgid "No such folder %s"
 msgstr "Non existe o cartafol %s"
 
-#: ../camel/camel-exchange-store.c:500
-msgid "Cannot subscribe folder in offline mode."
-msgstr "Non é posíbel subscribir un cartafol en modo sen conexión."
-
-#: ../camel/camel-exchange-store.c:515
-msgid "Cannot unsubscribe folder in offline mode."
-msgstr "Non é posíbel desubscribir un cartafol en modo sen conexión."
-
-#: ../camel/camel-exchange-store.c:646
+#: ../camel/camel-exchange-store.c:511
 msgid "Cannot get folder info in offline mode."
 msgstr "Non é posíbel obter a información do cartafol en modo sen conexión."
 
-#: ../camel/camel-exchange-store.c:709
+#: ../camel/camel-exchange-store.c:576
 msgid "Cannot create folder in offline mode."
 msgstr "Non é posíbel crear un cartafol en modo sen conexión."
 
-#: ../camel/camel-exchange-store.c:732
+#: ../camel/camel-exchange-store.c:600
 msgid "Cannot delete folder in offline mode."
 msgstr "Non é posíbel eliminar un cartafol en modo sen conexión."
 
-#: ../camel/camel-exchange-store.c:754
+#: ../camel/camel-exchange-store.c:626
 msgid "Cannot rename folder in offline mode."
 msgstr "Non é posíbel renomear un cartafol en modo sen conexión."
 
-#: ../camel/camel-exchange-transport.c:99
+#: ../camel/camel-exchange-store.c:707
+msgid "Cannot subscribe folder in offline mode."
+msgstr "Non é posíbel subscribir un cartafol en modo sen conexión."
+
+#: ../camel/camel-exchange-store.c:725
+msgid "Cannot unsubscribe folder in offline mode."
+msgstr "Non é posíbel desubscribir un cartafol en modo sen conexión."
+
+#: ../camel/camel-exchange-transport.c:62
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr ""
 "O transporte Exchange só se pode utilizar cunha fonte de correo Exchange"
 
-#: ../camel/camel-exchange-transport.c:112
+#: ../camel/camel-exchange-transport.c:75
 msgid "Cannot send message: one or more invalid recipients"
 msgstr ""
 "Non é posíbel enviar a mensaxe: hai un ou máis destinatarios incorrectos"
 
-#: ../camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-transport.c:84
 msgid "Could not find 'From' address in message"
 msgstr "Non foi posíbel encontrar o enderezo do remitente na mensaxe"
 
@@ -427,7 +428,7 @@ msgid "Folder already exists"
 msgstr "O cartafol xa existe"
 
 #: ../eplugin/exchange-account-setup.c:266
-msgid "Out Of Office"
+msgid "Out of Office"
 msgstr "Fóra da oficina"
 
 #: ../eplugin/exchange-account-setup.c:273
@@ -488,7 +489,8 @@ msgid "View the size of all Exchange folders"
 msgstr "Obter o tamaño dos cartafoles de Exchange"
 
 #: ../eplugin/exchange-account-setup.c:369
-msgid "Folders Size"
+#: ../eplugin/exchange-folder-size-display.c:154
+msgid "Folder Size"
 msgstr "Tamaño do cartafol"
 
 #: ../eplugin/exchange-account-setup.c:376
@@ -505,7 +507,7 @@ msgid "A_uthenticate"
 msgstr "A_utenticar"
 
 #: ../eplugin/exchange-account-setup.c:783
-msgid "Mailbox name is _different from user name"
+msgid "Mailbox name is _different from username"
 msgstr "O nome da caixa de correo é _diferente do nome de usuario"
 
 #: ../eplugin/exchange-account-setup.c:796
@@ -755,7 +757,7 @@ msgstr "Vostede tamén ten permitido ver os meus elementos privados."
 #. to the private items.
 #.
 #: ../eplugin/exchange-delegates-user.c:465
-msgid "However you are not permitted to see my private items."
+msgid "However, you are not permitted to see my private items."
 msgstr "Sen embargo vostede non pode ver os meus elementos privados."
 
 #: ../eplugin/exchange-delegates-user.c:497
@@ -870,7 +872,7 @@ msgid "Check tasks permissions"
 msgstr "Comprobar permisos das tarefas"
 
 #: ../eplugin/exchange-folder-permission.c:590
-msgid "Check addressbook permissions"
+msgid "Check address book permissions"
 msgstr "Comprobar permisos da axenda de enderezos"
 
 #: ../eplugin/exchange-folder-size-display.c:118
@@ -880,10 +882,6 @@ msgstr "Árbore de cartafol do Exchange"
 #: ../eplugin/exchange-folder-size-display.c:150
 msgid "Folder Name"
 msgstr "Nome do cartafol"
-
-#: ../eplugin/exchange-folder-size-display.c:154
-msgid "Folder Size"
-msgstr "Tamaño do cartafol"
 
 #. FIXME Limit to one user
 #: ../eplugin/exchange-folder-subscription.c:72
@@ -1121,7 +1119,7 @@ msgstr "Non foi posíbel cambiar o contrasinal."
 msgid ""
 "Could not configure Exchange account because \n"
 "an unknown error occurred. Check the URL, \n"
-"username, and password, and try again."
+"username and password, and try again."
 msgstr ""
 "Non foi posíbel configurar a conta de Exchange\n"
 "porque se produciu un erro descoñecido. Verifique\n"
@@ -1314,7 +1312,7 @@ msgid ""
 "you to specify the Windows domain name \n"
 "as part of your username (eg, &quot;DOMAIN\\user&quot;).\n"
 "\n"
-"Also, you may have typed your password wrongly."
+"Also, you may have typed your password incorrectly."
 msgstr ""
 "Isto probabelmente signifique que o servidor require\n"
 "que vostede especifique o nome de dominio de Windows\n"
@@ -1518,7 +1516,7 @@ msgid "Cannot create a folder with that name"
 msgstr "Non é posíbel crear un cartafol con ese nome"
 
 #: ../server/storage/e-storage.c:585
-msgid "This operation cannot be performed in off-line mode"
+msgid "This operation cannot be performed in offline mode"
 msgstr "Non é posíbel levar a cabo esta operación no modo de desconexión"
 
 #: ../server/storage/e-storage.c:587
@@ -1864,3 +1862,6 @@ msgstr "Asistente para _Fóra da oficina"
 #: ../tools/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "E_liminar a subscrición dun cartafol doutro usuario"
+
+#~ msgid "Folders Size"
+#~ msgstr "Tamaño do cartafol"
