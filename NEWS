@@ -2,6 +2,45 @@ Evolution Exchange 2.29.92 2010-03-08
 -------------------------------------
 
 Bug Fixes:
+	Bug #616913 - Unnecessary check producing false critical warnings (Milan Crha)
+	Bug #617248 - Crash after folder list fetch (Milan Crha)
+	Bug #403903 - Appointments don't display in Windows Mobile 5 (Peter)
+	Bug #545505 - Properly free unused message infos periodically (Milan Crha)
+	Bug #615714 — Miscellaneous string fixes (Philip Withnall)
+	Bug #608766 - Replace pthread with GLib's GThread (Milan Crha)
+	Bug #611188 - Doesn't support plural forms properly (needs ngettext) (Milan Crha)
+	Bug #458615 - Not possible to translate "Delegate Permissions" properly (Suman Manjunath)
+	Bug #417413 - "Sensitivity" needs translator-comment (Milan Crha)
+	Bug #613409 - Missing rpath for calendar and address book plugins (Josselin Mouette)
+
+Miscellaneous Fixes:
+	Adapt to Camel API changes. (Matthew Barnes)
+	[win32] Pass the correct pointer to ber_flatten (Fridrich Štrba)
+	Add LDAP build flags to the EPlugin. (Matthew Barnes)
+	Adapt to Camel API changes. (Matthew Barnes)
+	Bump gtk+ version requirement to 2.20.0 (Milan Crha)
+	Fix GSEAL compliance issues. (Matthew Barnes)
+	Add GSEAL_ENABLE to AS_COMPILER_FLAGS. (Matthew Barnes)
+	Adapt to ESexp header changes. (Matthew Barnes)
+	Only #include Camel's top-level header. (Matthew Barnes)
+
+Translations:
+	Mario Blättermann (de)
+	Valencian translation  (ca)
+	Francisco Diéguez (gl)
+	Jorge González (es)
+	Bruno Brouard (fr)
+	Philip Withnall (en_GB)
+	Wadim Dziedzic (pl)
+	Fran Diéguez (gl)
+	Kjartan Maraas (nn)
+	Maxim V. Dziumanenko (uk)
+	Jordi Serratosa (ca)
+
+Evolution Exchange 2.29.92 2010-03-08
+-------------------------------------
+
+Bug Fixes:
 	#601787 - Double free in destroy_oof_data (Milan Crha)
 	#602800 - Missing menu entries (mailer part) (Milan Crha)
 
