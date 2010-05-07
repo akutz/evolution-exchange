@@ -355,7 +355,7 @@ exchange_store_connect (CamelService *service,
 
 	g_mutex_lock (exch->connect_lock);
 
-	online_mode = camel_session_is_online (service->session);
+	online_mode = camel_session_get_online (service->session);
 
 	if (online_mode) {
 		camel_exchange_get_password (service, ex);
@@ -617,7 +617,6 @@ exchange_store_rename_folder (CamelStore *store,
 	GArray *folder_flags = NULL;
 	CamelFolderInfo *info;
 	gint i;
-	CamelRenameInfo reninfo;
 	CamelFolder *folder;
 
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
@@ -659,27 +658,23 @@ exchange_store_rename_folder (CamelStore *store,
 		info = postprocess_tree (info);
 	g_ptr_array_free (folders, TRUE);
 
-	reninfo.new = info;
-	reninfo.old_base = (gchar *)old_name;
-
 	g_mutex_lock (exch->folders_lock);
-	folder = g_hash_table_lookup (exch->folders, reninfo.old_base);
+	folder = g_hash_table_lookup (exch->folders, old_name);
 	if (folder) {
-		g_hash_table_remove (exch->folders, reninfo.old_base);
+		g_hash_table_remove (exch->folders, old_name);
 		g_object_unref (folder);
 	}
 	g_mutex_unlock (exch->folders_lock);
 
-	camel_object_trigger_event (CAMEL_OBJECT (exch),
-				    "folder_renamed", &reninfo);
-	camel_folder_info_free (reninfo.new);
+	camel_store_folder_renamed (CAMEL_STORE (exch), old_name, info);
+	camel_folder_info_free (info);
 
 	return TRUE;
 }
 
 static gboolean
-exchange_store_folder_subscribed (CamelStore *store,
-                                  const gchar *folder_name)
+exchange_store_folder_is_subscribed (CamelStore *store,
+                                     const gchar *folder_name)
 {
 	gboolean is_subscribed = FALSE;
 
@@ -772,7 +767,7 @@ camel_exchange_store_class_init (CamelExchangeStoreClass *class)
 	store_class->create_folder = exchange_store_create_folder;
 	store_class->delete_folder = exchange_store_delete_folder;
 	store_class->rename_folder = exchange_store_rename_folder;
-	store_class->folder_subscribed = exchange_store_folder_subscribed;
+	store_class->folder_is_subscribed = exchange_store_folder_is_subscribed;
 	store_class->subscribe_folder = exchange_store_subscribe_folder;
 	store_class->unsubscribe_folder = exchange_store_unsubscribe_folder;
 	store_class->can_refresh_folder = exchange_store_can_refresh_folder;
@@ -809,7 +804,7 @@ camel_exchange_store_connected (CamelExchangeStore *store, CamelException *ex)
 	session = service->session;
 
 	if (service->status != CAMEL_SERVICE_CONNECTED &&
-	    camel_session_is_online (session) &&
+	    camel_session_get_online (session) &&
 	    !camel_service_connect (service, ex)) {
 		return FALSE;
 	}
@@ -828,7 +823,7 @@ camel_exchange_store_folder_created (CamelExchangeStore *estore, const gchar *na
 	info = make_folder_info (estore, g_strdup (name), uri, -1, 0);
 	info->flags |= CAMEL_FOLDER_NOCHILDREN;
 
-	camel_object_trigger_event (CAMEL_OBJECT (estore), "folder_subscribed", info);
+	camel_store_folder_subscribed (CAMEL_STORE (estore), info);
 
 	camel_folder_info_free (info);
 }
@@ -852,7 +847,7 @@ camel_exchange_store_folder_deleted (CamelExchangeStore *estore, const gchar *na
 	}
 	g_mutex_unlock (estore->folders_lock);
 
-	camel_object_trigger_event (CAMEL_OBJECT (estore), "folder_unsubscribed", info);
+	camel_store_folder_unsubscribed (CAMEL_STORE (estore), info);
 
 	camel_folder_info_free (info);
 }

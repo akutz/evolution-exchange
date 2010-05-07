@@ -832,8 +832,7 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 	changes = camel_folder_change_info_new ();
 	camel_folder_change_info_add_uid (changes, uid);
 	camel_folder_change_info_recent_uid (changes, uid);
-	camel_object_trigger_event (CAMEL_OBJECT (exch),
-				    "folder_changed", changes);
+	camel_folder_changed (CAMEL_FOLDER (exch), changes);
 	camel_folder_change_info_free (changes);
 	return;
 }
@@ -877,8 +876,7 @@ camel_exchange_folder_remove_message (CamelExchangeFolder *exch,
 
 	changes = camel_folder_change_info_new ();
 	camel_folder_change_info_remove_uid (changes, uid);
-	camel_object_trigger_event (CAMEL_OBJECT (exch), "folder_changed",
-				    changes);
+	camel_folder_changed (CAMEL_FOLDER (exch), changes);
 	camel_folder_change_info_free (changes);
 }
 
@@ -926,8 +924,7 @@ camel_exchange_folder_update_message_flags (CamelExchangeFolder *exch,
 
 		changes = camel_folder_change_info_new ();
 		camel_folder_change_info_change_uid (changes, uid);
-		camel_object_trigger_event (CAMEL_OBJECT (exch),
-					    "folder_changed", changes);
+		camel_folder_changed (CAMEL_FOLDER (exch), changes);
 		camel_folder_change_info_free (changes);
 	}
 }
@@ -967,8 +964,7 @@ camel_exchange_folder_update_message_flags_ex (CamelExchangeFolder *exch,
 
 		changes = camel_folder_change_info_new ();
 		camel_folder_change_info_change_uid (changes, uid);
-		camel_object_trigger_event (CAMEL_OBJECT (exch),
-					    "folder_changed", changes);
+		camel_folder_changed (CAMEL_FOLDER (exch), changes);
 		camel_folder_change_info_free (changes);
 	}
 }
@@ -1002,8 +998,7 @@ camel_exchange_folder_update_message_tag (CamelExchangeFolder *exch,
 	camel_folder_summary_touch (folder->summary);
 	changes = camel_folder_change_info_new ();
 	camel_folder_change_info_change_uid (changes, uid);
-	camel_object_trigger_event (CAMEL_OBJECT (exch),
-				    "folder_changed", changes);
+	camel_folder_changed (CAMEL_FOLDER (exch), changes);
 	camel_folder_change_info_free (changes);
 }
 

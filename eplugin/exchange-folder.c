@@ -100,8 +100,7 @@ exchange_get_folder (gchar *uri, CamelFolder *folder, gpointer data)
 
 	/* Construct the CamelFolderInfo */
 	info = ex_create_folder_info (store, name, target_uri, -1, 0);
-	camel_object_trigger_event (CAMEL_OBJECT (store),
-				    "folder_unsubscribed", info);
+	camel_store_folder_unsubscribed (store, info);
 	g_free (target_uri);
 }
 

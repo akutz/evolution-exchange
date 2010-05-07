@@ -206,7 +206,7 @@ is_online (ExchangeData *ed)
 	session = camel_service_get_session (CAMEL_SERVICE (ed->estore));
 	g_return_val_if_fail (session != NULL, OFFLINE_MODE);
 
-	return camel_session_is_online (session) ? ONLINE_MODE : OFFLINE_MODE;
+	return camel_session_get_online (session) ? ONLINE_MODE : OFFLINE_MODE;
 }
 
 static void
