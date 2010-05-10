@@ -52,41 +52,6 @@ extern CamelServiceAuthType camel_exchange_ntlm_authtype;
 
 G_DEFINE_TYPE (CamelExchangeStore, camel_exchange_store, CAMEL_TYPE_OFFLINE_STORE)
 
-static void
-camel_exchange_get_password (CamelService *service,
-                             CamelException *ex)
-{
-	CamelSession *session = camel_service_get_session (service);
-
-	if (!service->url->passwd) {
-		gchar *prompt;
-
-		prompt = camel_session_build_password_prompt (
-			"Exchange", service->url->user, service->url->host);
-
-		service->url->passwd = camel_session_get_password (
-			session, service, "Exchange", prompt,
-			"password", CAMEL_SESSION_PASSWORD_SECRET, ex);
-
-		g_free (prompt);
-	}
-}
-
-static void
-camel_exchange_forget_password (CamelService *service,
-                                CamelException *ex)
-{
-	CamelSession *session = camel_service_get_session (service);
-
-	if (service->url->passwd) {
-		camel_session_forget_password (session,
-					       service, "Exchange",
-					       "password", ex);
-		g_free (service->url->passwd);
-		service->url->passwd = NULL;
-	}
-}
-
 /* Note: steals @name and @uri */
 static CamelFolderInfo *
 make_folder_info (CamelExchangeStore *exch,
@@ -349,16 +314,35 @@ exchange_store_connect (CamelService *service,
 	gchar *password = NULL;
 	guint32 connect_status;
 	gboolean online_mode = FALSE;
+	CamelSession *session = camel_service_get_session (service);
 
 	/* This lock is only needed for offline operation.
 	 * exchange_store_connect() is called many times in offline. */
 
 	g_mutex_lock (exch->connect_lock);
 
-	online_mode = camel_session_get_online (service->session);
+	online_mode = camel_session_get_online (session);
 
 	if (online_mode) {
-		camel_exchange_get_password (service, ex);
+		if (!service->url->passwd) {
+			gchar *prompt;
+			guint32 prompt_flags = CAMEL_SESSION_PASSWORD_SECRET;
+
+			if (exch->reprompt_password)
+				prompt_flags |= CAMEL_SESSION_PASSWORD_REPROMPT;
+
+			prompt = camel_session_build_password_prompt (
+				"Exchange", service->url->user, service->url->host);
+
+			service->url->passwd = camel_session_get_password (
+				session, service, "Exchange", prompt,
+				"password", prompt_flags, ex);
+
+			g_free (prompt);
+
+			exch->reprompt_password = service->url->passwd == NULL;
+		}
+
 		if (camel_exception_is_set (ex)) {
 			g_mutex_unlock (exch->connect_lock);
 			return FALSE;
@@ -376,7 +360,13 @@ exchange_store_connect (CamelService *service,
 	}
 
 	if (!connect_status) {
-		camel_exchange_forget_password (service, ex);
+		exch->reprompt_password = TRUE;
+
+		if (service->url->passwd) {
+			g_free (service->url->passwd);
+			service->url->passwd = NULL;
+		}
+
 		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM,
 				     _("Could not authenticate to server. "
 				       "(Password incorrect?)\n\n"));

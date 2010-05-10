@@ -39,6 +39,7 @@ struct _CamelExchangeStore {
 	gchar *trash_name;
 	GHashTable *folders;
 	GMutex *folders_lock;
+	gboolean reprompt_password;
 
 	GMutex *connect_lock;
 };
