@@ -497,6 +497,22 @@ exchange_folder_get_message (CamelFolder *folder,
 	if (!ba)
 		return NULL;
 
+	while ((ba->len > 10 && g_str_has_prefix ((const gchar *)ba->data, "MAIL FROM:")) ||
+	       (ba->len >  8 && g_str_has_prefix ((const gchar *)ba->data, "RCPT TO:")) ||
+	       (ba->len >  2 && (ba->data[0] == '\n' || ba->data[1] == '\n'))) {
+		guint i;
+
+		i = 0;
+		while (i < ba->len && ba->data[i] != '\n')
+			i++;
+
+		if (i < ba->len)
+			g_byte_array_remove_range (ba, 0, i + 1);
+		else
+			break;
+	}
+
+
 	stream = camel_stream_mem_new_with_byte_array (ba);
 
 	crlffilter = camel_mime_filter_crlf_new (CAMEL_MIME_FILTER_CRLF_DECODE, CAMEL_MIME_FILTER_CRLF_MODE_CRLF_ONLY);
