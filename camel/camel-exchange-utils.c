@@ -1891,7 +1891,7 @@ foreign_new_folder_cb (ExchangeAccount *account, EFolder *folder, GPtrArray *fol
 }
 
 static void
-get_folder_info_data (ExchangeData *ed, const gchar *top, guint32 store_flags, GPtrArray **names, GPtrArray **uris, GArray **unread, GArray **flags)
+get_folder_info_data (ExchangeData *ed, const gchar *top, guint32 store_flags, GHashTable *known_uris, GPtrArray **names, GPtrArray **uris, GArray **unread, GArray **flags)
 {
 	GPtrArray *folders = NULL;
 	ExchangeHierarchy *hier;
@@ -1902,6 +1902,7 @@ get_folder_info_data (ExchangeData *ed, const gchar *top, guint32 store_flags, G
 	gboolean recursive, subscribed, subscription_list;
 	gint mode = -1;
 	gchar *full_path;
+	GSList *check_children = NULL;
 
 	recursive = (store_flags & CAMEL_STORE_FOLDER_INFO_RECURSIVE);
 	subscribed = (store_flags & CAMEL_STORE_FOLDER_INFO_SUBSCRIBED);
@@ -1934,10 +1935,14 @@ get_folder_info_data (ExchangeData *ed, const gchar *top, guint32 store_flags, G
 		folders = exchange_account_get_folders (ed->account);
 	}
 
-	*names = g_ptr_array_new ();
-	*uris = g_ptr_array_new ();
-	*unread = g_array_new (FALSE, FALSE, sizeof (gint));
-	*flags = g_array_new (FALSE, FALSE, sizeof (gint));
+	if (!*names)
+		*names = g_ptr_array_new ();
+	if (!*uris)
+		*uris = g_ptr_array_new ();
+	if (!*unread)
+		*unread = g_array_new (FALSE, FALSE, sizeof (gint));
+	if (!*flags)
+		*flags = g_array_new (FALSE, FALSE, sizeof (gint));
 	/* Can be NULL if started in offline mode */
 	if (ed->inbox) {
 		inbox_uri = e_folder_get_physical_uri (ed->inbox);
@@ -2030,12 +2035,22 @@ get_folder_info_data (ExchangeData *ed, const gchar *top, guint32 store_flags, G
 			if (!e_folder_exchange_get_has_subfolders (folder)) {
 				d(printf ("%s:%d:%s - %s has no subfolders", __FILE__, __LINE__, G_STRFUNC, name));
 				folder_flags |= CAMEL_FOLDER_NOCHILDREN;
+			} else if (recursive && !subscribed && subscription_list && known_uris && g_hash_table_lookup (known_uris, uri) == NULL) {
+				gchar *path = strrchr (uri, ';');
+				if (path && g_ascii_strcasecmp (path + 1, "public") != 0) {
+					path = g_uri_unescape_string (path + 1, NULL);
+					check_children = g_slist_prepend (check_children, path);
+				}
 			}
 
 			d(g_print ("folder flags is : %d\n", folder_flags));
 
+			uri = g_strdup (uri);
+			if (known_uris)
+				g_hash_table_insert (known_uris, (gchar *) uri, GINT_TO_POINTER (1));
+
 			g_ptr_array_add (*names, g_strdup (name));
-			g_ptr_array_add (*uris, g_strdup (uri));
+			g_ptr_array_add (*uris, (gchar *)uri);
 			g_array_append_val (*unread, unread_count);
 			g_array_append_val (*flags, folder_flags);
 		}
@@ -2043,6 +2058,18 @@ get_folder_info_data (ExchangeData *ed, const gchar *top, guint32 store_flags, G
 		if (new_folder_handler_id)
 			g_signal_handler_disconnect (ed->account, new_folder_handler_id);
 		g_ptr_array_free (folders, TRUE);
+	}
+
+	if (check_children) {
+		GSList *l;
+
+		check_children = g_slist_reverse (check_children);
+		for (l = check_children; l; l = l->next) {
+			get_folder_info_data (ed, l->data, store_flags, known_uris, names, uris, unread, flags);
+		}
+
+		g_slist_foreach (check_children, (GFunc) g_free, NULL);
+		g_slist_free (check_children);
 	}
 }
 
@@ -2930,6 +2957,7 @@ camel_exchange_utils_get_folder_info (CamelService *service,
 					CamelException *ex)
 {
 	ExchangeData *ed = get_data_for_service (service);
+	GHashTable *known_uris;
 
 	g_return_val_if_fail (ed != NULL, FALSE);
 	g_return_val_if_fail (folder_names != NULL, FALSE);
@@ -2942,7 +2970,15 @@ camel_exchange_utils_get_folder_info (CamelService *service,
 	   from more than one thread */
 	g_static_rec_mutex_lock (&ed->changed_msgs_mutex);
 
-	get_folder_info_data (ed, top, store_flags, folder_names, folder_uris, unread_counts, folder_flags);
+	*folder_names = NULL;
+	*folder_uris = NULL;
+	*unread_counts = NULL;
+	*folder_flags = NULL;
+
+	/* hash table of known uris. The uri key is shared with folder_uris, thus no need to free it */
+	known_uris = g_hash_table_new (g_str_hash, g_str_equal);
+	get_folder_info_data (ed, top, store_flags, known_uris, folder_names, folder_uris, unread_counts, folder_flags);
+	g_hash_table_destroy (known_uris);
 
 	if (ed->new_folder_id == 0) {
 		ed->new_folder_id = g_signal_connect (ed->account, "new_folder", G_CALLBACK (account_new_folder), ed);
@@ -3146,8 +3182,8 @@ camel_exchange_utils_rename_folder (CamelService *service,
 	ExchangeAccountFolderResult result;
 	EFolder *folder;
 	gchar *old_path, *new_path;
-	GPtrArray *names, *uris;
-	GArray *unread, *flags;
+	GPtrArray *names = NULL, *uris = NULL;
+	GArray *unread = NULL, *flags = NULL;
 	gint i = 0, j = 0;
 	gchar **folder_name;
 	const gchar *uri;
@@ -3189,7 +3225,7 @@ camel_exchange_utils_rename_folder (CamelService *service,
 		g_hash_table_steal (ed->folders_by_name, old_name);
 		g_hash_table_insert (ed->folders_by_name, (gchar *)mfld->name, mfld);
 
-		get_folder_info_data (ed, new_name, CAMEL_STORE_FOLDER_INFO_SUBSCRIBED, &names, &uris, &unread, &flags);
+		get_folder_info_data (ed, new_name, CAMEL_STORE_FOLDER_INFO_SUBSCRIBED, NULL, &names, &uris, &unread, &flags);
 
 		g_hash_table_remove_all (mfld->messages_by_href);
 
