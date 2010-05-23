@@ -12,7 +12,6 @@ libevolution_exchange_shared_la_CPPFLAGS = \
 	-DG_LOG_DOMAIN="\"evolution-exchange-storage\"" \
 	$(GNOME_PLATFORM_CFLAGS) \
 	$(EVOLUTION_DATA_SERVER_CFLAGS) \
-	$(EVOLUTION_PLUGIN_CFLAGS) \
 	$(LDAP_CFLAGS) \
 	-DPREFIX=\""$(prefix)"\" \
 	-DSYSCONFDIR=\""$(sysconfdir)"\" \
@@ -30,7 +29,6 @@ libevolution_exchange_shared_la_LIBADD = \
 	$(top_builddir)/server/storage/libexchange-storage.la \
 	$(GNOME_PLATFORM_LIBS) \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
-	$(EVOLUTION_PLUGIN_LIBS) \
 	$(LDAP_LIBS)
 
 libevolution_exchange_shared_la_LDFLAGS = -avoid-version $(NO_UNDEFINED)
@@ -45,7 +43,6 @@ exchange_connector_setup_CPPFLAGS = \
 	-DG_LOG_DOMAIN="\"evolution-exchange-storage\"" \
 	$(GNOME_PLATFORM_CFLAGS) \
 	$(EVOLUTION_DATA_SERVER_CFLAGS) \
-	$(EVOLUTION_PLUGIN_CFLAGS) \
 	$(LDAP_CFLAGS) \
 	-DPREFIX=\""$(prefix)"\" \
 	-DSYSCONFDIR=\""$(sysconfdir)"\" \
@@ -66,7 +63,6 @@ exchange_connector_setup_LDADD = \
 	$(top_builddir)/server/storage/libexchange-storage.la \
 	$(GNOME_PLATFORM_LIBS) \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
-	$(EVOLUTION_PLUGIN_LIBS) \
 	$(LDAP_LIBS)\
 	$(DNS_LIBS)
 

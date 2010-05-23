@@ -45,8 +45,6 @@
 #include <exchange-account.h>
 #include <e-folder-exchange.h>
 
-#include <e-util/e-dialog-utils.h>
-
 #include "exchange-share-config-listener.h"
 
 struct _ExchangeShareConfigListenerPrivate {

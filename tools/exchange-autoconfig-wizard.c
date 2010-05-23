@@ -31,7 +31,6 @@
 
 #include <libedataserver/e-account.h>
 #include <libedataserver/e-account-list.h>
-#include <e-util/e-dialog-utils.h>
 #include <libedataserverui/e-passwords.h>
 
 #include <gconf/gconf-client.h>
@@ -525,6 +524,20 @@ is_active_exchange_account (EAccount *account)
 }
 
 static void
+autoconfig_notice (gpointer parent,
+                   GtkMessageType type,
+                   const gchar *string)
+{
+	GtkWidget *dialog;
+
+	dialog = gtk_message_dialog_new (
+		parent, GTK_DIALOG_DESTROY_WITH_PARENT, type,
+		GTK_BUTTONS_OK, "%s", string);
+	gtk_dialog_run (GTK_DIALOG (dialog));
+	gtk_widget_destroy (dialog);
+}
+
+static void
 autoconfig_gui_apply (ExchangeAutoconfigGUI *gui)
 {
 	EAccountList *list;
@@ -539,9 +552,10 @@ autoconfig_gui_apply (ExchangeAutoconfigGUI *gui)
 	list = e_account_list_new (gconf);
 	g_object_unref (gconf);
 	if (!list) {
-		e_notice (gui->assistant, GTK_MESSAGE_ERROR,
-			  _("Configuration system error.\n"
-			    "Unable to create new account."));
+		autoconfig_notice (
+			gui->assistant, GTK_MESSAGE_ERROR,
+			_("Configuration system error.\n"
+			  "Unable to create new account."));
 		return;
 	}
 
@@ -553,8 +567,9 @@ autoconfig_gui_apply (ExchangeAutoconfigGUI *gui)
 	     e_iterator_next (iter)) {
 		account = (EAccount *)e_iterator_get (iter);
 		if (account && (found = is_active_exchange_account (account))) {
-			e_notice (gui->assistant, GTK_MESSAGE_ERROR,
-			_("You may only configure a single Exchange account"));
+			autoconfig_notice (
+				gui->assistant, GTK_MESSAGE_ERROR,
+				_("You may only configure a single Exchange account"));
 			break;
 		}
 		account = NULL;
