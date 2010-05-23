@@ -2244,7 +2244,9 @@ getNextPage:
 
 	i = 0;
 	if (pagedResults) {
+#ifdef G_OS_WIN32
 		struct berval **tmpBVPtr = NULL;
+#endif
 		if (( prber = ber_alloc_t(LBER_USE_DER)) == NULL ) {
 			return;
 		}
