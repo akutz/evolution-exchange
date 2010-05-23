@@ -154,8 +154,8 @@ exchange_summary_header_save (CamelFolderSummary *summary,
 }
 
 static CamelMessageInfo *
-exchange_summary_message_info_load (CamelFolderSummary *summary,
-                                    FILE *in)
+exchange_summary_message_info_migrate (CamelFolderSummary *summary,
+                                       FILE *in)
 {
 	CamelMessageInfo *info;
 	CamelExchangeMessageInfo *einfo;
@@ -165,7 +165,7 @@ exchange_summary_message_info_load (CamelFolderSummary *summary,
 	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
 		camel_exchange_summary_parent_class);
 
-	info = folder_summary_class->message_info_load (summary, in);
+	info = folder_summary_class->message_info_migrate (summary, in);
 	if (info) {
 		einfo = (CamelExchangeMessageInfo *)info;
 
@@ -193,31 +193,6 @@ exchange_summary_message_info_load (CamelFolderSummary *summary,
 error:
 	camel_message_info_free (info);
 	return NULL;
-}
-
-static gint
-exchange_summary_message_info_save (CamelFolderSummary *summary,
-                                    FILE *out,
-                                    CamelMessageInfo *info)
-{
-	CamelExchangeMessageInfo *einfo = (CamelExchangeMessageInfo *)info;
-	CamelFolderSummaryClass *folder_summary_class;
-
-	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
-		camel_exchange_summary_parent_class);
-
-	if (folder_summary_class->message_info_save (summary, out, info) == -1)
-		return -1;
-
-	if (camel_file_util_encode_string (out, einfo->thread_index ? einfo->thread_index : "") == -1)
-		return -1;
-
-	if (camel_file_util_encode_string (out, einfo->href ? einfo->href : "") == -1)
-		return -1;
-
-	d(g_print ("%s:%s: einfo->href = [%s]\n", G_STRLOC, G_STRFUNC, einfo->href));
-
-	return 0;
 }
 
 static CamelMessageInfo *
@@ -450,8 +425,7 @@ camel_exchange_summary_class_init (CamelExchangeSummaryClass *class)
 	folder_summary_class->content_info_size = sizeof (CamelMessageContentInfo);
 	folder_summary_class->summary_header_load = exchange_summary_header_load;
 	folder_summary_class->summary_header_save = exchange_summary_header_save;
-	folder_summary_class->message_info_load = exchange_summary_message_info_load;
-	folder_summary_class->message_info_save = exchange_summary_message_info_save;
+	folder_summary_class->message_info_migrate = exchange_summary_message_info_migrate;
 	folder_summary_class->message_info_new_from_header = exchange_summary_message_info_new_from_header;
 	folder_summary_class->message_info_free = exchange_summary_message_info_free;
 	folder_summary_class->summary_header_to_db = exchange_summary_summary_header_to_db;
