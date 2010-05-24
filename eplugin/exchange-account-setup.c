@@ -162,7 +162,7 @@ btn_fsize_clicked (GtkButton *button, gpointer data)
 
 	model = exchange_account_folder_size_get_model (account);
 	if (model)
-		exchange_folder_size_display (model, GTK_WIDGET (button));
+		exchange_folder_size_display (model, gtk_widget_get_toplevel (GTK_WIDGET (button)));
 }
 
 /* only used in editor */

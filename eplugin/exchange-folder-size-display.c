@@ -98,6 +98,22 @@ format_size_func (GtkTreeViewColumn *col,
 	g_free (new_text);
 }
 
+static gboolean
+calc_folder_size_func (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer user_data)
+{
+	gdouble *total_size = user_data;
+	gdouble folder_size;
+
+	g_return_val_if_fail (total_size != NULL, TRUE);
+
+	gtk_tree_model_get (model, iter, COLUMN_SIZE, &folder_size, -1);
+
+	if (folder_size)
+		*total_size = (*total_size) + folder_size;
+
+	return FALSE;
+}
+
 void
 exchange_folder_size_display (GtkListStore *model, GtkWidget *parent)
 {
@@ -109,8 +125,10 @@ exchange_folder_size_display (GtkListStore *model, GtkWidget *parent)
 	GtkWidget *folder_tree_hbox;
 	GtkWidget *scrolledwindow1;
 	GtkWidget *folder_treeview;
+	GtkWidget *total_size_label;
 	GList *l;
-	gchar *col_name;
+	gchar *col_name, *total_size_str;
+	gdouble total_size;
 
         g_return_if_fail (GTK_IS_WIDGET (parent));
 
@@ -128,11 +146,22 @@ exchange_folder_size_display (GtkListStore *model, GtkWidget *parent)
 	dialog_vbox1 = gtk_dialog_get_content_area (GTK_DIALOG (folder_tree));
 	gtk_widget_show (dialog_vbox1);
 
+	total_size = 0.0;
+	gtk_tree_model_foreach (GTK_TREE_MODEL (model), calc_folder_size_func, &total_size);
+	total_size_str = g_strdup_printf (_("Total size: %.2f KB"), total_size);
+	total_size_label = gtk_label_new (total_size_str);
+	gtk_widget_show (total_size_label);
+	gtk_misc_set_alignment (GTK_MISC (total_size_label), 0.0, 0.5);
+	gtk_misc_set_padding (GTK_MISC (total_size_label), 6, 6);
+	gtk_box_pack_start (GTK_BOX (dialog_vbox1), total_size_label, FALSE, TRUE, 0);
+	g_free (total_size_str);
+
 	folder_tree_hbox = gtk_hbox_new (FALSE, 0);
 	gtk_widget_show (folder_tree_hbox);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox1), folder_tree_hbox, TRUE, TRUE, 0);
 
 	scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_widget_show (scrolledwindow1);
 	gtk_box_pack_start (GTK_BOX (folder_tree_hbox), scrolledwindow1, TRUE, TRUE, 0);
 
