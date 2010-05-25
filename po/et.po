@@ -2,11 +2,11 @@
 # Estonian translation of Evolution-Exchange.
 #
 # Copyright (C) 2005, 2006 Free Software Foundation, Inc.
-# Copyright (C) 2007-2009 The GNOME Project.
+# Copyright (C) 2007–2010 The GNOME Project.
 # This file is distributed under the same license as the evolution-exchange
 # package.
 #
-# Ivar Smolin <okul linux ee>, 2005-2009.
+# Ivar Smolin <okul linux ee>, 2005–2010.
 # Mattias Põldaru <mahfiaz gmail com>, 2010.
 #
 msgid ""
@@ -14,9 +14,9 @@ msgstr ""
 "Project-Id-Version: Evolution-Exchange MASTER\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=evolution-exchange&component=general\n"
-"POT-Creation-Date: 2010-02-12 23:14+0000\n"
-"PO-Revision-Date: 2010-03-03 16:08+0300\n"
-"Last-Translator: Mattias Põldaru <mahfiaz gmail com>\n"
+"POT-Creation-Date: 2010-05-24 18:21+0000\n"
+"PO-Revision-Date: 2010-05-25 10:20+0300\n"
+"Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,10 +27,10 @@ msgid "Specifies the time interval to refresh the GAL Cache."
 msgstr "GAL-puhvrite värskendamise sageduse määramine."
 
 msgid ""
-"This key specifies the number of days interval between the GAL cache "
-"refresh. Set this value to zero, if you don't want to update GAL and use the "
-"current cache forever. This will work only if you have enabled offline "
-"caching for GAL."
+"This key specifies the number of days' interval between GAL cache refreshes. "
+"Set this value to zero if you don't want to update GAL and use the current "
+"cache forever. This will work only if you have enabled offline caching for "
+"GAL."
 msgstr ""
 "Selle võtmega määratakse päevade arv, mille möödudes tuleb GAL-puhvreid "
 "värskendada. Kui sul pole vaja GAL-puhvreid värskendada, määra väärtuseks 0. "
@@ -59,14 +59,14 @@ msgstr "Tõrge autentimisel"
 msgid "Could not find the calendar"
 msgstr "Kalendrit pole võimalik leida"
 
-msgid "You cannot expunge in offline mode."
-msgstr "Kausta pole autonoomses režiimis võimalik puhastada."
-
 msgid "No Subject"
 msgstr "Teema puudub"
 
 msgid "This message is not available in offline mode."
 msgstr "See sõnum pole autonoomses režiimis saadaval."
+
+msgid "You cannot expunge in offline mode."
+msgstr "Kausta pole autonoomses režiimis võimalik puhastada."
 
 msgid "Moving messages"
 msgstr "Sõnumite ümbertõstmine"
@@ -133,8 +133,8 @@ msgid "Windows User_name:"
 msgstr "Windowsi kasutaja_nimi:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-msgid "Global Address List / Active Directory"
-msgstr "Global Address List / Active Directory"
+msgid "Global Address List/Active Directory"
+msgstr "Global Address List/Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
@@ -215,12 +215,6 @@ msgstr ""
 msgid "No such folder %s"
 msgstr "Kausta %s ei ole"
 
-msgid "Cannot subscribe folder in offline mode."
-msgstr "Kausta pole autonoomses režiimis võimalik tellida."
-
-msgid "Cannot unsubscribe folder in offline mode."
-msgstr "Kaustas tellimusest pole autonoomses režiimis võimalik loobuda."
-
 msgid "Cannot get folder info in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik hankida."
 
@@ -232,6 +226,12 @@ msgstr "Kausta pole autonoomses režiimis võimalik kustutada."
 
 msgid "Cannot rename folder in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik ümber nimetada."
+
+msgid "Cannot subscribe folder in offline mode."
+msgstr "Kausta pole autonoomses režiimis võimalik tellida."
+
+msgid "Cannot unsubscribe folder in offline mode."
+msgstr "Kaustas tellimusest pole autonoomses režiimis võimalik loobuda."
 
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "Exchange transporti saab kasutada ainult Exchange e-posti allikatega"
@@ -320,7 +320,7 @@ msgstr "Üldine viga"
 msgid "Folder already exists"
 msgstr "Kaust on juba olemas"
 
-msgid "Out Of Office"
+msgid "Out of Office"
 msgstr "Kontorist väljas"
 
 msgid ""
@@ -358,15 +358,15 @@ msgid "Delegation Assistant"
 msgstr "Delegeerimisabiline"
 
 #. Miscelleneous settings
-msgid "Miscelleneous"
+msgid "Miscellaneous"
 msgstr "Muu"
 
 #. Folder Size
 msgid "View the size of all Exchange folders"
 msgstr "Exchange kaustade suuruse kuvamine"
 
-msgid "Folders Size"
-msgstr "Kaustade suurus"
+msgid "Folder Size"
+msgstr "Kausta suurus"
 
 msgid "Exchange Settings"
 msgstr "Exchange sätted"
@@ -377,11 +377,11 @@ msgstr "_OWA URL:"
 msgid "A_uthenticate"
 msgstr "_Autendi"
 
-msgid "Mailbox name is _different than user name"
-msgstr "Kirjakasti nimi ei _kattu kasutajanimega"
+msgid "Mailbox name is _different from username"
+msgstr "Postkasti nimi ei _kattu kasutajanimega"
 
 msgid "_Mailbox:"
-msgstr "_Kirjakast:"
+msgstr "_Postkast:"
 
 msgid "_Authentication Type"
 msgstr "_Autentimise liik"
@@ -437,9 +437,12 @@ msgstr ""
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr "Paroolid ei klapi omavahel. Palun sisesta paroolid uuesti."
 
+#. Translators: The %d is replaced with the actual number of days
 #, c-format
-msgid "Your password will expire in the next %d days"
-msgstr "Sinu parool aegub %d päeva pärast"
+msgid "Your password will expire in the next %d day"
+msgid_plural "Your password will expire in the next %d days"
+msgstr[0] "Sinu parool aegub %d päeva pärast"
+msgstr[1] "Sinu parool aegub %d päeva pärast"
 
 msgid "Password Expiry Warning..."
 msgstr "Parooli aegumishoiatus..."
@@ -450,11 +453,9 @@ msgstr "_Muuda parooli"
 msgid "Out of Office Assistant"
 msgstr ""
 
-#, fuzzy
 msgid "Currently, your status is \"Out of the Office\"."
 msgstr "Praegu on su olek \"Ma pole hetkel kontoris\"."
 
-#, fuzzy
 msgid "Would you like to change your status to \"In the Office\"?"
 msgstr "Kas sa soovid määrata uueks olekuks \"Kontoris\"?"
 
@@ -498,6 +499,8 @@ msgstr "Ülevaataja (ainult lugemiseks)"
 msgid "None"
 msgstr "Puuduvad"
 
+#. Translators: "Delegate Permissions" refers to the permissions on the delegator's folders
+#. that the delegatee would receive
 msgid "Delegate Permissions"
 msgstr "Delegaadi pääsuõigused"
 
@@ -554,7 +557,7 @@ msgstr "Sul on luba vaadata minu isiklikke kirjeid."
 #. To translators: This message is included if the delegatee has not been given access
 #. to the private items.
 #.
-msgid "However you are not permitted to see my private items."
+msgid "However, you are not permitted to see my private items."
 msgstr "Kuid sul pole luba näha minu isiklikke kirjeid."
 
 #, c-format
@@ -632,17 +635,18 @@ msgstr "Kalendri pääsuõiguste kontroll"
 msgid "Check tasks permissions"
 msgstr "Ülesannete pääsuõiguste kontroll"
 
-msgid "Check addressbook permissions"
+msgid "Check address book permissions"
 msgstr "Aadressiraamatu pääsuõiguste kontroll"
 
 msgid "Exchange Folder Tree"
 msgstr "Exchange kaustapuu"
 
+#, c-format
+msgid "Total size: %.2f KB"
+msgstr "Kogusuurus: %.2f KB"
+
 msgid "Folder Name"
 msgstr "Kausta nimi"
-
-msgid "Folder Size"
-msgstr "Kausta suurus"
 
 #. FIXME Limit to one user
 msgid "User"
@@ -669,7 +673,7 @@ msgid "_Send Options"
 msgstr "_Saatmise valikud"
 
 msgid "Insert Send options"
-msgstr ""
+msgstr "Saatmisvalikute lisamine"
 
 #. FIXME: Don't hardcode this
 msgid "Personal Folders"
@@ -738,6 +742,8 @@ msgstr "Sõnumite sätted"
 msgid "I_mportance: "
 msgstr "_Tähtsus:"
 
+#. Translators: Here's set a message sensitivity, which means for exchange
+#. one of Normal, Personal, Private, Confidential.
 msgid "_Sensitivity: "
 msgstr "T_undlikkus:"
 
@@ -748,16 +754,16 @@ msgid "Personal"
 msgstr "Isiklik"
 
 msgid "Private"
-msgstr ""
+msgstr "Privaatne"
 
 msgid "Confidential"
 msgstr "Salajane"
 
 msgid "High"
-msgstr ""
+msgstr "Kõrge"
 
 msgid "Low"
-msgstr ""
+msgstr "Madal"
 
 msgid "Send as Delegate"
 msgstr "Saada delegaadina"
@@ -817,7 +823,7 @@ msgstr "Parooli pole võimalik muuta."
 msgid ""
 "Could not configure Exchange account because \n"
 "an unknown error occurred. Check the URL, \n"
-"username, and password, and try again."
+"username and password, and try again."
 msgstr ""
 "Tundmatu vea tõttu pole Exchange kontot \n"
 "võimalik seadistada. Kontrolli URL-i, \n"
@@ -968,7 +974,7 @@ msgid ""
 "you to specify the Windows domain name \n"
 "as part of your username (eg, &quot;DOMAIN\\user&quot;).\n"
 "\n"
-"Or you might have just typed your password wrong."
+"Also, you may have typed your password incorrectly."
 msgstr ""
 "See võib tähendada, et server nõuab, et sa määraksid\n"
 "Windowsi domeeninime oma kasutajanime osana\n"
@@ -1120,8 +1126,8 @@ msgstr "Kausta ei saa enda alamkataloogide alla tõsta"
 msgid "Cannot create a folder with that name"
 msgstr "Sellenimelist kausta pole võimalik luua"
 
-msgid "This operation cannot be performed in off-line mode"
-msgstr "Seda toimingut pole võimalik sooritada ilma võrguühenduseta"
+msgid "This operation cannot be performed in offline mode"
+msgstr "Seda toimingut pole võimalik ilma võrguühenduseta sooritada"
 
 msgid "Unknown error"
 msgstr "Tundmatu viga"
@@ -1394,4 +1400,3 @@ msgstr ""
 
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Loobu teiste kasutajate kaustade tellimusest"
-
