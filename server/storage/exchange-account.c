@@ -42,6 +42,7 @@
 /* Added for get_authtype */
 #include "exchange-esource.h"
 #include <libedataserverui/e-passwords.h>
+#include <libedataserver/e-data-server-util.h>
 
 #include <gtk/gtk.h>
 
@@ -2260,6 +2261,8 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 	gchar *enc_user, *mailbox;
 	const gchar *param, *proto="http", *owa_path, *pf_server, *owa_url;
 	const gchar *passwd_exp_warn_period, *offline_sync;
+	const gchar *user_data_dir;
+	gchar *user_at_host;
 	E2kUri *uri;
 
 	uri = e2k_uri_new (adata->source->url);
@@ -2279,9 +2282,11 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 
 	account->account_name = g_strdup (adata->name);
 
-	account->storage_dir = g_strdup_printf ("%s/.evolution/exchange/%s@%s",
-						g_get_home_dir (),
-						uri->user, uri->host);
+	user_data_dir = e_get_user_data_dir ();
+	user_at_host = g_strdup_printf ("%s@%s", uri->user, uri->host);
+	account->storage_dir = g_build_filename (
+		user_data_dir, "exchange", user_at_host, NULL);
+	g_free (user_at_host);
 	/*account->account_filename = strrchr (account->storage_dir, '/') + 1;
 	e_filename_make_safe (account->account_filename); */
 

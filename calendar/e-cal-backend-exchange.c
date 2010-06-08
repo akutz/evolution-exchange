@@ -165,6 +165,7 @@ load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri, GError **perror)
 	icalcomponent_kind kind;
 	icalproperty *prop;
 	gchar *lastmod, *mangled_uri, *storage_dir;
+	const gchar *user_cache_dir;
 	const gchar *uristr;
 	gint i;
 	struct stat buf;
@@ -193,7 +194,10 @@ load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri, GError **perror)
 			mangled_uri[i] = '_';
 		}
 	}
-	cbex->priv->local_attachment_store = g_strdup_printf ("%s/.evolution/exchange/%s", g_get_home_dir (), mangled_uri);
+
+	user_cache_dir = e_get_user_cache_dir ();
+	cbex->priv->local_attachment_store = g_build_filename (
+		user_cache_dir, "calendar", mangled_uri, NULL);
 	storage_dir = g_path_get_dirname (cbex->priv->object_cache_file);
 
 	if (g_lstat(cbex->priv->local_attachment_store , &buf) < 0) {
@@ -1712,7 +1716,7 @@ save_attach_file (const gchar *dest_file, gchar *file_contents, gint len)
 
 	d(printf ("dest_file is :%s\n", dest_file));
 
-	/* Write it to our local exchange store in .evolution */
+	/* Write it to our local exchange store. */
 	fd = g_open (dest_file, O_RDWR | O_CREAT | O_TRUNC | O_BINARY, 0600);
 	if (fd < 0) {
 		d(printf ("open of destination file for attachments failed\n"));

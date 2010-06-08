@@ -41,28 +41,18 @@ string_to_dbt(const gchar *str, DBT *dbt)
 static gchar *
 get_filename_from_uri (const gchar *uri)
 {
-	const gchar *cache_dir;
+	const gchar *user_cache_dir;
 	gchar *mangled_uri, *filename;
-	gint i;
 
-	cache_dir = e_get_user_cache_dir ();
+	user_cache_dir = e_get_user_cache_dir ();
 
-	/* mangle the URI to not contain invalid characters */
-	mangled_uri = g_strdup (uri);
-	for (i = 0; i < strlen (mangled_uri); i++) {
-		switch (mangled_uri[i]) {
-		case ':' :
-		case '/' :
-			mangled_uri[i] = '_';
-		}
-	}
+	/* Mangle the URI to not contain invalid characters. */
+	mangled_uri = g_strdelimit (g_strdup (uri), ":/", '_');
 
-	/* generate the file name */
 	filename = g_build_filename (
-		cache_dir, "addressbook",
+		user_cache_dir, "addresbook",
 		mangled_uri, "cache.db", NULL);
 
-	/* free memory */
 	g_free (mangled_uri);
 
 	return filename;
