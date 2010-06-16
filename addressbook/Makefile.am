@@ -60,6 +60,7 @@ libebookbackendexchange_la_LIBADD = \
 	$(top_builddir)/tools/libevolution-exchange-shared.la \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
 	$(EVOLUTION_PLUGIN_LIBS) \
+	$(LDAP_LIBS) \
 	$(DNS_LIBS)
 
 if HAVE_LIBDB
