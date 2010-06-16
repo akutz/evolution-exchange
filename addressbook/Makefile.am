@@ -61,6 +61,7 @@ libebookbackendexchange_la_LIBADD = \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
 	$(EVOLUTION_PLUGIN_LIBS) \
 	$(PTHREAD_LIB) \
+	$(LDAP_LIBS) \
 	$(DNS_LIBS)
 
 if HAVE_LIBDB

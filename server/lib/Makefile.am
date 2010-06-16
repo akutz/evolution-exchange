@@ -70,6 +70,13 @@ libexchange_la_CPPFLAGS = \
 	$(GNOME_PLATFORM_CFLAGS) \
 	$(EVOLUTION_DATA_SERVER_CFLAGS)
 
+libexchange_la_LIBADD = \
+	$(LDAP_LIBS) \
+	$(KRB5_LIBS) \
+	$(SOUP_LIBS) \
+	$(GNOME_PLATFORM_LIBS) \
+	$(EVOLUTION_DATA_SERVER_LIBS)
+
 libexchange_la_SOURCES = \
 	$(MARSHAL_GENERATED) \
 	e2k-propnames.h \
