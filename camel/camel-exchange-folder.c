@@ -438,7 +438,6 @@ get_message (CamelFolder *folder, const gchar *uid, CamelException *ex)
 			break;
 	}
 
-
 	stream = camel_stream_mem_new_with_byte_array (ba);
 
 	crlffilter = camel_mime_filter_crlf_new (CAMEL_MIME_FILTER_CRLF_DECODE, CAMEL_MIME_FILTER_CRLF_MODE_CRLF_ONLY);
