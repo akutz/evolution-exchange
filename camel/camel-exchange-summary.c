@@ -321,7 +321,7 @@ exchange_summary_message_info_from_db (CamelFolderSummary *s,
 
 	info = folder_summary_class->message_info_from_db (s, mir);
 	if (info) {
-		gchar *part = g_strdup (mir->bdata);
+		gchar *part = mir->bdata;
 		gint len;
 		einfo = (CamelExchangeMessageInfo *)info;
 		EXTRACT_FIRST_STRING (einfo->thread_index)
