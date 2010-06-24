@@ -125,22 +125,12 @@ init (CamelFolder *folder)
 }
 
 static void
-free_index_and_mid (gpointer thread_index, gpointer message_id, gpointer d)
-{
-	g_free (thread_index);
-	g_free (message_id);
-}
-
-static void
 finalize (CamelExchangeFolder *exch)
 {
 	camel_object_unref (CAMEL_OBJECT (exch->cache));
 
-	if (exch->thread_index_to_message_id) {
-		g_hash_table_foreach (exch->thread_index_to_message_id,
-				      free_index_and_mid, NULL);
+	if (exch->thread_index_to_message_id)
 		g_hash_table_destroy (exch->thread_index_to_message_id);
-	}
 	g_free (exch->source);
 }
 
@@ -818,8 +808,6 @@ camel_exchange_folder_remove_message (CamelExchangeFolder *exch,
 						  einfo->thread_index,
 						  &key, &value)) {
 			g_hash_table_remove (exch->thread_index_to_message_id, key);
-			g_free (key);
-			g_free (value);
 		}
 	}
 
@@ -1033,7 +1021,7 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 	camel_object_state_read (folder);
 
 	exch->thread_index_to_message_id =
-		g_hash_table_new (g_str_hash, g_str_equal);
+		g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
 	len = camel_folder_summary_count (folder->summary);
 	for (i = 0; i < len; i++) {
@@ -1064,7 +1052,7 @@ camel_exchange_folder_construct (CamelFolder *folder, CamelStore *parent,
 			camel_folder_summary_reload_from_db (folder->summary, ex);
 
 		for (i = 0; i < summary->len; i++) {
-			uids->pdata[i] = g_strdup(summary->pdata[i]);
+			uids->pdata[i] = summary->pdata[i];
 			info = camel_folder_summary_uid (folder->summary, uids->pdata[i]);
 			flags->data[i] = ((CamelMessageInfoBase *)info)->flags & CAMEL_EXCHANGE_SERVER_FLAGS;
 			hrefs->pdata[i] = ((CamelExchangeMessageInfo *)info)->href;
