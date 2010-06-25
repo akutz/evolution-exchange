@@ -588,7 +588,7 @@ find_instance (ECalBackendExchange *cbex, ECalBackendExchangeComponent *ecomp, c
 		rtime = e2k_parse_timestamp (rid);
 		new_rid = icaltime_from_timet (rtime, FALSE);
 
-		f_zone = internal_get_timezone ((ECalBackend *) cbex, recur_id.datetime.tzid);
+		f_zone = (recur_id.datetime.tzid && *recur_id.datetime.tzid) ? internal_get_timezone ((ECalBackend *) cbex, recur_id.datetime.tzid) : icaltimezone_get_utc_timezone ();
 		recur_id.datetime.value->zone = f_zone;
 		inst_rid = icaltime_convert_to_zone (*recur_id.datetime.value, icaltimezone_get_utc_timezone ());
 
