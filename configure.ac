@@ -414,6 +414,7 @@ server/xntlm/Makefile
 AC_OUTPUT
 
 AC_MSG_NOTICE([
+	GTK package	: $GTK
 	Debugging	: $enable_e2kdebug
 	GTK-Doc		: $enable_gtk_doc
 	Kerberos 5	: $msg_krb5
