@@ -25,7 +25,7 @@ m4_define([libsoup_minimum_version], [2.3.0])
 dnl **********************************
 dnl Gtk-3 compatibility
 dnl **********************************
-AC_ARG_ENABLE([gtk+-3],
+AC_ARG_ENABLE([gtk3],
 	AS_HELP_STRING([--enable-gtk3],
 	[Attempt to use gtk+-3]),
 	[enable_gtk3=$enableval],[enable_gtk3=no])
