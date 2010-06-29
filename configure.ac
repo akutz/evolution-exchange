@@ -32,7 +32,7 @@ AC_ARG_ENABLE([gtk+-3],
 
 if test "x${enable_gtk3}" = "xyes"; then
 	GTK="gtk+-3.0"
-	gtk_minimum_version="2.90.5"
+	gtk_minimum_version="2.90.4"
 
 	EVOLUTION_PLUGIN_PK="evolution-plugin-3.0"
 	EVOLUTION_MAIL_PK="evolution-mail-3.0"
