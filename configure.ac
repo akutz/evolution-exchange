@@ -37,6 +37,7 @@ if test "x${enable_gtk3}" = "xyes"; then
 	EVOLUTION_PLUGIN_PK="evolution-plugin-3.0"
 	EVOLUTION_MAIL_PK="evolution-mail-3.0"
 	EVOLUTION_SHELL_PK="evolution-shell-3.0"
+	LIBEDATASERVERUI_PK="libedataserverui-3.0"
 else	
 	GTK="gtk+-2.0"
 	gtk_minimum_version="2.20.0"
@@ -44,6 +45,7 @@ else
 	EVOLUTION_PLUGIN_PK="evolution-plugin"
 	EVOLUTION_MAIL_PK="evolution-mail"
 	EVOLUTION_SHELL_PK="evolution-shell"
+	LIBEDATASERVERUI_PK="libedataserverui-1.2"
 fi
 
 dnl *********************************************************************
@@ -171,7 +173,7 @@ PKG_CHECK_MODULES(EVOLUTION_DATA_SERVER,
 	[libebook-1.2 >= eds_minimum_version
 	libecal-1.2 >= eds_minimum_version
 	libedataserver-1.2 >= eds_minimum_version
-	libedataserverui-1.2 >= eds_minimum_version
+	$LIBEDATASERVERUI_PK >= eds_minimum_version
 	libedata-book-1.2 >= eds_minimum_version
 	libedata-cal-1.2 >= eds_minimum_version
 	libegroupwise-1.2 >= eds_minimum_version
