@@ -34,16 +34,16 @@ if test "x${enable_gtk3}" = "xyes"; then
 	GTK="gtk+-3.0"
 	gtk_minimum_version="2.90.5"
 
-	EVOLUTION_PLUGIN="evolution-plugin-3.0"
-	EVOLUTION_MAIL="evolution-mail-3.0"
-	EVOLUTION_SHELL="evolution-shell-3.0"
+	EVOLUTION_PLUGIN_PK="evolution-plugin-3.0"
+	EVOLUTION_MAIL_PK="evolution-mail-3.0"
+	EVOLUTION_SHELL_PK="evolution-shell-3.0"
 else	
 	GTK="gtk+-2.0"
 	gtk_minimum_version="2.20.0"
 
-	EVOLUTION_PLUGIN="evolution-plugin"
-	EVOLUTION_MAIL="evolution-mail"
-	EVOLUTION_SHELL="evolution-shell"
+	EVOLUTION_PLUGIN_PK="evolution-plugin"
+	EVOLUTION_MAIL_PK="evolution-mail"
+	EVOLUTION_SHELL_PK="evolution-shell"
 fi
 
 dnl *********************************************************************
@@ -222,7 +222,7 @@ dnl *************************************
 dnl Check for evo/eds and version setting
 dnl *************************************
 AC_MSG_CHECKING(Evolution version)
-EVOLUTION_VERSION="`$PKG_CONFIG --modversion $EVOLUTION-SHELL 2>/dev/null`"
+EVOLUTION_VERSION="`$PKG_CONFIG --modversion $EVOLUTION_SHELL_PK 2>/dev/null`"
 if test -z "$EVOLUTION_VERSION"; then
 	AC_MSG_ERROR(Evolution development libraries not installed)
 fi
@@ -231,16 +231,16 @@ AC_SUBST(EVOLUTION_VERSION)
 AC_SUBST([BASE_VERSION], [base_version])
 AC_DEFINE_UNQUOTED(BASE_VERSION, "$BASE_VERSION", Connector base version)
 
-plugindir="`$PKG_CONFIG --variable=plugindir $EVOLUTION_PLUGIN`"
+plugindir="`$PKG_CONFIG --variable=plugindir $EVOLUTION_PLUGIN_PK`"
 AC_SUBST(plugindir)
 
-EVOLUTION_PLUGIN_errordir="`$PKG_CONFIG --variable=errordir $EVOLUTION_PLUGIN`"
+EVOLUTION_PLUGIN_errordir="`$PKG_CONFIG --variable=errordir $EVOLUTION_PLUGIN_PK`"
 AC_SUBST(EVOLUTION_PLUGIN_errordir)
 
 extensiondir="`$PKG_CONFIG --variable=extensiondir evolution-data-server-1.2`"
 AC_SUBST(extensiondir)
 
-EVOLUTION_imagesdir="`$PKG_CONFIG --variable=imagesdir $EVOLUTION-SHELL`"
+EVOLUTION_imagesdir="`$PKG_CONFIG --variable=imagesdir $EVOLUTION_SHELL_PK`"
 AC_SUBST(EVOLUTION_imagesdir)
 
 CAMEL_providerdir="`$PKG_CONFIG --variable=camel_providerdir camel-provider-1.2`"
@@ -249,21 +249,21 @@ AC_SUBST(CAMEL_providerdir)
 dnl ***************************
 dnl Check for evolution plugins
 dnl ***************************
-PKG_CHECK_MODULES(EVOLUTION_PLUGIN, $EVOLUTION_PLUGIN >= evo_minimum_version)
+PKG_CHECK_MODULES(EVOLUTION_PLUGIN, $EVOLUTION_PLUGIN_PK >= evo_minimum_version)
 AC_SUBST(EVOLUTION_PLUGIN_CFLAGS)
 AC_SUBST(EVOLUTION_PLUGIN_LIBS)
 
 dnl ***************************
 dnl Check for evolution mail
 dnl ***************************
-PKG_CHECK_MODULES(EVOLUTION_MAIL, $EVOLUTION-MAIL >= evo_minimum_version)
+PKG_CHECK_MODULES(EVOLUTION_MAIL, $EVOLUTION_MAIL_PK >= evo_minimum_version)
 AC_SUBST(EVOLUTION_MAIL_CFLAGS)
 AC_SUBST(EVOLUTION_MAIL_LIBS)
 
 dnl ***************************
 dnl Check for evolution shell
 dnl ***************************
-PKG_CHECK_MODULES(EVOLUTION_SHELL, $EVOLUTION-SHELL >= evo_minimum_version)
+PKG_CHECK_MODULES(EVOLUTION_SHELL, $EVOLUTION_SHELL_PK >= evo_minimum_version)
 AC_SUBST(EVOLUTION_SHELL_CFLAGS)
 AC_SUBST(EVOLUTION_SHELL_LIBS)
 
