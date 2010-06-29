@@ -15,12 +15,36 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 dnl Required Package Versions
 m4_define([glib_minimum_version], [2.16.0])
 m4_define([gthread_minimum_version], [2.16.0])
-m4_define([gtk_minimum_version], [2.20.0])
 m4_define([eds_minimum_version], [eex_version])
 m4_define([evo_minimum_version], [eex_version])
 m4_define([gconf_minimum_version], [2.0.0])		dnl XXX Just a Guess
 m4_define([libxml_minimum_version], [2.0.0])		dnl XXX Just a Guess
 m4_define([libsoup_minimum_version], [2.3.0])
+
+
+dnl **********************************
+dnl Gtk-3 compatibility
+dnl **********************************
+AC_ARG_ENABLE([gtk+-3],
+	AS_HELP_STRING([--enable-gtk3],
+	[Attempt to use gtk+-3]),
+	[enable_gtk3=$enableval],[enable_gtk3=no])
+
+if test "x${enable_gtk3}" = "xyes"; then
+	GTK="gtk+-3.0"
+	gtk_minimum_version="2.90.5"
+
+	EVOLUTION_PLUGIN="evolution-plugin-3.0"
+	EVOLUTION_MAIL="evolution-mail-3.0"
+	EVOLUTION_SHELL="evolution-shell-3.0"
+else	
+	GTK="gtk+-2.0"
+	gtk_minimum_version="2.20.0"
+
+	EVOLUTION_PLUGIN="evolution-plugin"
+	EVOLUTION_MAIL="evolution-mail"
+	EVOLUTION_SHELL="evolution-shell"
+fi
 
 dnl *********************************************************************
 dnl Update these for every new development release of Evolution-Exchange.
@@ -138,7 +162,7 @@ dnl **********************************
 PKG_CHECK_MODULES(GNOME_PLATFORM,
 	[glib-2.0 >= glib_minimum_version
 	gthread-2.0 >= gthread_minimum_version
-	gtk+-2.0 >= gtk_minimum_version
+	$GTK >= $gtk_minimum_version
 	gconf-2.0 >= gconf_minimum_version
 	libxml-2.0 >= libxml_minimum_version
 	libsoup-2.4 >= libsoup_minimum_version])
@@ -198,7 +222,7 @@ dnl *************************************
 dnl Check for evo/eds and version setting
 dnl *************************************
 AC_MSG_CHECKING(Evolution version)
-EVOLUTION_VERSION="`$PKG_CONFIG --modversion evolution-shell 2>/dev/null`"
+EVOLUTION_VERSION="`$PKG_CONFIG --modversion $EVOLUTION-SHELL 2>/dev/null`"
 if test -z "$EVOLUTION_VERSION"; then
 	AC_MSG_ERROR(Evolution development libraries not installed)
 fi
@@ -207,16 +231,16 @@ AC_SUBST(EVOLUTION_VERSION)
 AC_SUBST([BASE_VERSION], [base_version])
 AC_DEFINE_UNQUOTED(BASE_VERSION, "$BASE_VERSION", Connector base version)
 
-plugindir="`$PKG_CONFIG --variable=plugindir evolution-plugin`"
+plugindir="`$PKG_CONFIG --variable=plugindir $EVOLUTION_PLUGIN`"
 AC_SUBST(plugindir)
 
-EVOLUTION_PLUGIN_errordir="`$PKG_CONFIG --variable=errordir evolution-plugin`"
+EVOLUTION_PLUGIN_errordir="`$PKG_CONFIG --variable=errordir $EVOLUTION_PLUGIN`"
 AC_SUBST(EVOLUTION_PLUGIN_errordir)
 
 extensiondir="`$PKG_CONFIG --variable=extensiondir evolution-data-server-1.2`"
 AC_SUBST(extensiondir)
 
-EVOLUTION_imagesdir="`$PKG_CONFIG --variable=imagesdir evolution-shell`"
+EVOLUTION_imagesdir="`$PKG_CONFIG --variable=imagesdir $EVOLUTION-SHELL`"
 AC_SUBST(EVOLUTION_imagesdir)
 
 CAMEL_providerdir="`$PKG_CONFIG --variable=camel_providerdir camel-provider-1.2`"
@@ -225,21 +249,21 @@ AC_SUBST(CAMEL_providerdir)
 dnl ***************************
 dnl Check for evolution plugins
 dnl ***************************
-PKG_CHECK_MODULES(EVOLUTION_PLUGIN, evolution-plugin >= evo_minimum_version)
+PKG_CHECK_MODULES(EVOLUTION_PLUGIN, $EVOLUTION_PLUGIN >= evo_minimum_version)
 AC_SUBST(EVOLUTION_PLUGIN_CFLAGS)
 AC_SUBST(EVOLUTION_PLUGIN_LIBS)
 
 dnl ***************************
 dnl Check for evolution mail
 dnl ***************************
-PKG_CHECK_MODULES(EVOLUTION_MAIL, evolution-mail >= evo_minimum_version)
+PKG_CHECK_MODULES(EVOLUTION_MAIL, $EVOLUTION-MAIL >= evo_minimum_version)
 AC_SUBST(EVOLUTION_MAIL_CFLAGS)
 AC_SUBST(EVOLUTION_MAIL_LIBS)
 
 dnl ***************************
 dnl Check for evolution shell
 dnl ***************************
-PKG_CHECK_MODULES(EVOLUTION_SHELL, evolution-shell >= evo_minimum_version)
+PKG_CHECK_MODULES(EVOLUTION_SHELL, $EVOLUTION-SHELL >= evo_minimum_version)
 AC_SUBST(EVOLUTION_SHELL_CFLAGS)
 AC_SUBST(EVOLUTION_SHELL_LIBS)
 
