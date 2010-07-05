@@ -48,14 +48,11 @@ exchange_summary_check_for_trash (CamelFolder *folder)
 {
 	CamelStore *parent_store;
 	CamelFolder *trash;
-	CamelException lex;
-
-	camel_exception_init (&lex);
 
 	parent_store = camel_folder_get_parent_store (folder);
-	trash = camel_store_get_trash (parent_store, &lex);
+	trash = camel_store_get_trash (parent_store, NULL);
 
-	if (camel_exception_is_set (&lex) || !trash)
+	if (trash == NULL)
 		return FALSE;
 
 	return folder == trash;
@@ -63,27 +60,26 @@ exchange_summary_check_for_trash (CamelFolder *folder)
 
 static gboolean
 exchange_summary_expunge_mail (CamelFolder *folder,
-                               CamelMessageInfo *info)
+                               CamelMessageInfo *info,
+                               GError **error)
 {
 	GPtrArray *uids = g_ptr_array_new ();
 	CamelStore *parent_store;
 	gchar *uid = g_strdup (info->uid);
-	CamelException lex;
 	const gchar *full_name;
-
-	camel_exception_init (&lex);
+	gboolean success;
 
 	full_name = camel_folder_get_full_name (folder);
 	parent_store = camel_folder_get_parent_store (folder);
 
 	g_ptr_array_add (uids, uid);
 
-	camel_exchange_utils_expunge_uids (
-		CAMEL_SERVICE (parent_store), full_name, uids, &lex);
+	success = camel_exchange_utils_expunge_uids (
+		CAMEL_SERVICE (parent_store), full_name, uids, error);
 
 	g_ptr_array_free (uids, TRUE);
 
-	return camel_exception_is_set (&lex);
+	return success;
 }
 
 static gint
@@ -242,7 +238,7 @@ exchange_summary_message_info_free (CamelFolderSummary *summary,
 
 static CamelFIRecord *
 exchange_summary_summary_header_to_db (CamelFolderSummary *s,
-                                       CamelException *ex)
+                                       GError **error)
 {
 	CamelExchangeSummary *exchange = (CamelExchangeSummary *) s;
 	CamelFolderSummaryClass *folder_summary_class;
@@ -251,7 +247,7 @@ exchange_summary_summary_header_to_db (CamelFolderSummary *s,
 	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
 		camel_exchange_summary_parent_class);
 
-	fir = folder_summary_class->summary_header_to_db (s, ex);
+	fir = folder_summary_class->summary_header_to_db (s, error);
 	if (!fir)
 		return NULL;
 	fir->bdata = g_strdup_printf ("%u %u %u", exchange->version, exchange->readonly, exchange->high_article_num);
@@ -358,7 +354,7 @@ exchange_summary_info_set_flags (CamelMessageInfo *info,
 		if (folder && info->uid) {
 			if ((flags & set & CAMEL_MESSAGE_DELETED) &&
 			    exchange_summary_check_for_trash (folder)) {
-				return exchange_summary_expunge_mail (folder, info);
+				return exchange_summary_expunge_mail (folder, info, NULL);
 			} else {
 				camel_exchange_utils_set_message_flags (
 					CAMEL_SERVICE (parent_store),
@@ -453,22 +449,21 @@ CamelFolderSummary *
 camel_exchange_summary_new (struct _CamelFolder *folder, const gchar *filename)
 {
 	CamelFolderSummary *summary;
-	CamelException lex;
+	GError *local_error = NULL;
 
-	camel_exception_init (&lex);
 	summary = g_object_new (CAMEL_TYPE_EXCHANGE_SUMMARY, NULL);
 	summary->folder = folder;
 	camel_folder_summary_set_filename (summary, filename);
-	if (camel_folder_summary_load_from_db (summary, &lex) == -1) {
+	if (camel_folder_summary_load_from_db (summary, &local_error) == -1) {
 		g_warning (
 			"Unable to load Exchage summary for folder %s: %s\n",
 			camel_folder_get_full_name (folder),
-			camel_exception_get_description(&lex));
+			local_error->message);
 		camel_folder_summary_clear_db (summary);
 		camel_folder_summary_touch (summary);
+		g_error_free (local_error);
 	}
 
-	camel_exception_clear (&lex);
 	return summary;
 }
 

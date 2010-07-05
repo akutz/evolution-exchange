@@ -252,7 +252,7 @@ exchange_store_construct (CamelService *service,
                           CamelSession *session,
                           CamelProvider *provider,
                           CamelURL *url,
-                          CamelException *ex)
+                          GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
 	CamelServiceClass *service_class;
@@ -261,7 +261,7 @@ exchange_store_construct (CamelService *service,
 	service_class = CAMEL_SERVICE_CLASS (
 		camel_exchange_store_parent_class);
 
-	if (!service_class->construct (service, session, provider, url, ex))
+	if (!service_class->construct (service, session, provider, url, error))
 		return FALSE;
 
 	exch->base_url = camel_url_to_string (url, CAMEL_URL_HIDE_ALL);
@@ -273,15 +273,15 @@ exchange_store_construct (CamelService *service,
 			*p = '\0';
 	}
 
-	if (!(exch->storage_path = camel_session_get_storage_path (session, service, ex)))
-		return FALSE;
+	exch->storage_path = camel_session_get_storage_path (
+		session, service, error);
 
-	return TRUE;
+	return (exch->storage_path != NULL);
 }
 
 static GList *
 exchange_store_query_auth_types (CamelService *service,
-                                 CamelException *ex)
+                                 GError **error)
 {
 	GList *list = NULL;
 
@@ -308,13 +308,14 @@ exchange_store_get_name (CamelService *service,
 
 static gboolean
 exchange_store_connect (CamelService *service,
-                        CamelException *ex)
+                        GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
 	gchar *password = NULL;
 	guint32 connect_status;
 	gboolean online_mode = FALSE;
 	CamelSession *session = camel_service_get_session (service);
+	GError *local_error = NULL;
 
 	/* This lock is only needed for offline operation.
 	 * exchange_store_connect() is called many times in offline. */
@@ -336,25 +337,30 @@ exchange_store_connect (CamelService *service,
 
 			service->url->passwd = camel_session_get_password (
 				session, service, "Exchange", prompt,
-				"password", prompt_flags, ex);
+				"password", prompt_flags, error);
 
 			g_free (prompt);
 
 			exch->reprompt_password = service->url->passwd == NULL;
 		}
 
-		if (camel_exception_is_set (ex)) {
+		if (service->url->passwd == NULL) {
 			g_mutex_unlock (exch->connect_lock);
 			return FALSE;
 		}
+
 		password = service->url->passwd;
 	}
 
 	/* Initialize the stub connection */
-	if (!camel_exchange_utils_connect (service, password, &connect_status, ex)) {
+	if (!camel_exchange_utils_connect (service, password, &connect_status, &local_error)) {
 		/* The user cancelled the connection attempt. */
-		if (!camel_exception_is_set (ex))
-			camel_exception_set (ex, CAMEL_EXCEPTION_USER_CANCEL, "Cancelled");
+		if (local_error == NULL)
+			g_set_error (
+				error, G_IO_ERROR,
+				G_IO_ERROR_CANCELLED,
+				"Cancelled");
+		g_propagate_error (error, local_error);
 		g_mutex_unlock (exch->connect_lock);
 		return FALSE;
 	}
@@ -367,9 +373,10 @@ exchange_store_connect (CamelService *service,
 			service->url->passwd = NULL;
 		}
 
-		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM,
-				     _("Could not authenticate to server. "
-				       "(Password incorrect?)\n\n"));
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,
+			_("Could not authenticate to server. "
+			  "(Password incorrect?)"));
 		g_mutex_unlock (exch->connect_lock);
 		return FALSE;
 	}
@@ -382,7 +389,7 @@ exchange_store_connect (CamelService *service,
 static gboolean
 exchange_store_disconnect (CamelService *service,
                            gboolean clean,
-                           CamelException *ex)
+                           GError **error)
 {
 	/* CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service); */
 	/* keep account connect as it can be used for other parts like cal, gal or addressbook? */
@@ -391,32 +398,33 @@ exchange_store_disconnect (CamelService *service,
 
 static CamelFolder *
 exchange_store_get_trash (CamelStore *store,
-                          CamelException *ex)
+                          GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 
-	RETURN_VAL_IF_NOT_CONNECTED (exch, ex, NULL);
+	RETURN_VAL_IF_NOT_CONNECTED (exch, error, NULL);
 
 	if (!exch->trash_name) {
-		if (!camel_exchange_utils_get_trash_name (CAMEL_SERVICE (store), &exch->trash_name, ex))
+		if (!camel_exchange_utils_get_trash_name (
+			CAMEL_SERVICE (store), &exch->trash_name, error))
 			return NULL;
 	}
 
-	return camel_store_get_folder (store, exch->trash_name, 0, ex);
+	return camel_store_get_folder (store, exch->trash_name, 0, error);
 }
 
 static CamelFolder *
 exchange_store_get_folder (CamelStore *store,
                            const gchar *folder_name,
                            guint32 flags,
-                           CamelException *ex)
+                           GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	CamelFolder *folder;
 	const gchar *short_name;
 	gchar *folder_dir;
 
-	RETURN_VAL_IF_NOT_CONNECTED (exch, ex, NULL);
+	RETURN_VAL_IF_NOT_CONNECTED (exch, error, NULL);
 
 	if (!folder_name || !*folder_name || g_ascii_strcasecmp (folder_name, "inbox") == 0)
 		folder_name = "personal/Inbox";
@@ -424,11 +432,13 @@ exchange_store_get_folder (CamelStore *store,
 	folder_dir = exchange_store_path_to_physical (
 		exch->storage_path, folder_name);
 
-	if (!camel_exchange_store_connected (exch, ex)) {
+	if (!camel_exchange_store_connected (exch, NULL)) {
 		if (!folder_dir || !g_file_test (folder_dir, G_FILE_TEST_IS_DIR)) {
 			g_free (folder_dir);
-			camel_exception_setv (ex, CAMEL_EXCEPTION_STORE_NO_FOLDER,
-					      _("No such folder %s"), folder_name);
+			g_set_error (
+				error, CAMEL_STORE_ERROR,
+				CAMEL_STORE_ERROR_NO_FOLDER,
+				_("No such folder %s"), folder_name);
 			return NULL;
 		}
 	}
@@ -458,7 +468,7 @@ exchange_store_get_folder (CamelStore *store,
 
 	if (!camel_exchange_folder_construct (
 		folder, flags, folder_dir,
-		((CamelOfflineStore *) store)->state, ex)) {
+		((CamelOfflineStore *) store)->state, error)) {
 
 		gchar *key;
 		g_mutex_lock (exch->folders_lock);
@@ -487,7 +497,7 @@ static CamelFolderInfo *
 exchange_store_get_folder_info (CamelStore *store,
                                 const gchar *top,
                                 guint32 flags,
-                                CamelException *ex)
+                                GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	GPtrArray *folders, *folder_names = NULL, *folder_uris = NULL;
@@ -496,18 +506,12 @@ exchange_store_get_folder_info (CamelStore *store,
 	CamelFolderInfo *info;
 	guint32 store_flags = 0;
 	gint i;
-#if 0
-	if (((CamelOfflineStore *) store)->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
-		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot get folder info in offline mode."));
-		return NULL;
-	}
-#endif
 
 	/* If the backend crashed, don't keep returning an error
 	 * each time auto-send/recv runs.
 	 */
 
-	RETURN_VAL_IF_NOT_CONNECTED (exch, ex, NULL);
+	RETURN_VAL_IF_NOT_CONNECTED (exch, error, NULL);
 
 	if (flags & CAMEL_STORE_FOLDER_INFO_RECURSIVE)
 		store_flags |= CAMEL_STORE_FOLDER_INFO_RECURSIVE;
@@ -516,9 +520,11 @@ exchange_store_get_folder_info (CamelStore *store,
 	if (flags & CAMEL_STORE_FOLDER_INFO_SUBSCRIPTION_LIST)
 		store_flags |= CAMEL_STORE_FOLDER_INFO_SUBSCRIPTION_LIST;
 
-	if (!camel_exchange_utils_get_folder_info (CAMEL_SERVICE (store), top, store_flags, &folder_names, &folder_uris, &unread_counts, &folder_flags, ex)) {
+	if (!camel_exchange_utils_get_folder_info (
+		CAMEL_SERVICE (store), top, store_flags, &folder_names,
+		&folder_uris, &unread_counts, &folder_flags, error))
 		return NULL;
-	}
+
 	if (!folder_names) {
 		/* This means the storage hasn't finished scanning yet.
 		 * We return NULL for now and will emit folder_created
@@ -555,23 +561,29 @@ static CamelFolderInfo *
 exchange_store_create_folder (CamelStore *store,
                               const gchar *parent_name,
                               const gchar *folder_name,
-                              CamelException *ex)
+                              GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	gchar *folder_uri;
 	guint32 unread_count, flags;
 	CamelFolderInfo *info;
 
-	if (!camel_exchange_store_connected (exch, ex)) {
-		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot create folder in offline mode."));
+	if (!camel_exchange_store_connected (exch, NULL)) {
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,
+			_("Cannot create folder in offline mode."));
 		return NULL;
 	}
 
-	if (!camel_exchange_utils_create_folder (CAMEL_SERVICE (store), parent_name, folder_name, &folder_uri, &unread_count, &flags, ex))
+	if (!camel_exchange_utils_create_folder (
+		CAMEL_SERVICE (store), parent_name, folder_name,
+		&folder_uri, &unread_count, &flags, error))
 		return NULL;
 
-	info = make_folder_info (exch, g_strdup (folder_name),
-				 folder_uri, unread_count, flags);
+	info = make_folder_info (
+		exch, g_strdup (folder_name),
+		folder_uri, unread_count, flags);
+
 	info->flags |= CAMEL_FOLDER_NOCHILDREN;
 
 	g_free (folder_uri);
@@ -582,25 +594,26 @@ exchange_store_create_folder (CamelStore *store,
 static gboolean
 exchange_store_delete_folder (CamelStore *store,
                               const gchar *folder_name,
-                              CamelException *ex)
+                              GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 
-	if (!camel_exchange_store_connected (exch, ex)) {
-		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot delete folder in offline mode."));
+	if (!camel_exchange_store_connected (exch, NULL)) {
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,
+			_("Cannot delete folder in offline mode."));
 		return FALSE;
 	}
 
-	camel_exchange_utils_delete_folder (CAMEL_SERVICE (store), folder_name, ex);
-
-	return !camel_exception_is_set (ex);
+	return camel_exchange_utils_delete_folder (
+		CAMEL_SERVICE (store), folder_name, error);
 }
 
 static gboolean
 exchange_store_rename_folder (CamelStore *store,
                               const gchar *old_name,
                               const gchar *new_name,
-                              CamelException *ex)
+                              GError **error)
 {
 	GPtrArray *folders = NULL, *folder_names = NULL, *folder_uris = NULL;
 	GArray *unread_counts = NULL;
@@ -611,13 +624,17 @@ exchange_store_rename_folder (CamelStore *store,
 
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 
-	if (!camel_exchange_store_connected (exch, ex)) {
-		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot rename folder in offline mode."));
+	if (!camel_exchange_store_connected (exch, NULL))
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,
+			_("Cannot rename folder in offline mode."));
 		return FALSE;
-	}
-	if (!camel_exchange_utils_rename_folder (CAMEL_SERVICE (store), old_name, new_name, &folder_names, &folder_uris, &unread_counts, &folder_flags, ex)) {
+
+	if (!camel_exchange_utils_rename_folder (
+		CAMEL_SERVICE (store), old_name, new_name,
+		&folder_names, &folder_uris, &unread_counts,
+		&folder_flags, error))
 		return FALSE;
-	}
 
 	if (!folder_names) {
 		/* This means the storage hasn't finished scanning yet.
@@ -683,50 +700,52 @@ exchange_store_folder_is_subscribed (CamelStore *store,
 static gboolean
 exchange_store_subscribe_folder (CamelStore *store,
                                  const gchar *folder_name,
-                                 CamelException *ex)
+                                 GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 
 	d(printf ("subscribe folder : %s\n", folder_name));
-	if (!camel_exchange_store_connected (exch, ex)) {
-		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot subscribe folder in offline mode."));
+	if (!camel_exchange_store_connected (exch, NULL)) {
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,
+			_("Cannot subscribe folder in offline mode."));
 		return FALSE;
 	}
 
-	camel_exchange_utils_subscribe_folder (CAMEL_SERVICE (store), folder_name, ex);
-
-	return !camel_exception_is_set (ex);
+	return camel_exchange_utils_subscribe_folder (
+		CAMEL_SERVICE (store), folder_name, error);
 }
 
 static gboolean
 exchange_store_unsubscribe_folder (CamelStore *store,
                                    const gchar *folder_name,
-                                   CamelException *ex)
+                                   GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 
 	d(printf ("unsubscribe folder : %s\n", folder_name));
-	if (!camel_exchange_store_connected (exch, ex)) {
-		camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM, _("Cannot unsubscribe folder in offline mode."));
+	if (!camel_exchange_store_connected (exch, NULL)) {
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,
+			_("Cannot unsubscribe folder in offline mode."));
 		return FALSE;
 	}
 
-	camel_exchange_utils_unsubscribe_folder (CAMEL_SERVICE (store), folder_name, ex);
-
-	return !camel_exception_is_set (ex);
+	return camel_exchange_utils_unsubscribe_folder (
+		CAMEL_SERVICE (store), folder_name, error);
 }
 
 static gboolean
 exchange_store_can_refresh_folder (CamelStore *store,
                                    CamelFolderInfo *info,
-                                   CamelException *ex)
+                                   GError **error)
 {
 	CamelStoreClass *store_class;
 	gboolean res;
 
 	store_class = CAMEL_STORE_CLASS (camel_exchange_store_parent_class);
 
-	res = store_class->can_refresh_folder (store, info, ex) ||
+	res = store_class->can_refresh_folder (store, info, error) ||
 	      (camel_url_get_param (((CamelService *)store)->url, "check_all") != NULL);
 
 	return res;
@@ -783,7 +802,7 @@ camel_exchange_store_init (CamelExchangeStore *exch)
 /* Use this to ensure that the camel session is online and we are connected
    too. Also returns the current status of the store */
 gboolean
-camel_exchange_store_connected (CamelExchangeStore *store, CamelException *ex)
+camel_exchange_store_connected (CamelExchangeStore *store, GError **error)
 {
 	CamelService *service;
 	CamelSession *session;
@@ -795,7 +814,7 @@ camel_exchange_store_connected (CamelExchangeStore *store, CamelException *ex)
 
 	if (service->status != CAMEL_SERVICE_CONNECTED &&
 	    camel_session_get_online (session) &&
-	    !camel_service_connect (service, ex)) {
+	    !camel_service_connect (service, error)) {
 		return FALSE;
 	}
 

@@ -83,19 +83,30 @@ struct _CamelExchangeJournalClass {
 
 GType camel_exchange_journal_get_type (void);
 
-CamelOfflineJournal *camel_exchange_journal_new (CamelExchangeFolder *folder, const gchar *filename);
+CamelOfflineJournal *
+		camel_exchange_journal_new	(CamelExchangeFolder *folder,
+						 const gchar *filename);
 
 /* interfaces for adding a journal entry */
-void camel_exchange_journal_append (CamelExchangeJournal *journal, CamelMimeMessage *message,
-				    const CamelMessageInfo *mi, gchar **appended_uid, CamelException *ex);
+gboolean	camel_exchange_journal_append	(CamelExchangeJournal *journal,
+						 CamelMimeMessage *message,
+						 const CamelMessageInfo *mi,
+						 gchar **appended_uid,
+						 GError **error);
 
-void camel_exchange_journal_transfer (CamelExchangeJournal *journal, CamelExchangeFolder *source_folder,
-				      CamelMimeMessage *message, const CamelMessageInfo *mi,
-				      const gchar *original_uid, gchar **transferred_uid,
-				      gboolean delete_original, CamelException *ex);
-
-void camel_exchange_journal_delete (CamelExchangeJournal *journal, const gchar *uid,
-				    guint32 flags, guint32 set, CamelException *ex);
+gboolean	camel_exchange_journal_transfer	(CamelExchangeJournal *journal,
+						 CamelExchangeFolder *source_folder,
+						 CamelMimeMessage *message,
+						 const CamelMessageInfo *mi,
+						 const gchar *original_uid,
+						 gchar **transferred_uid,
+						 gboolean delete_original,
+						 GError **error);
+gboolean	camel_exchange_journal_delete	(CamelExchangeJournal *journal,
+						 const gchar *uid,
+						 guint32 flags,
+						 guint32 set,
+						 GError **error);
 
 G_END_DECLS
 

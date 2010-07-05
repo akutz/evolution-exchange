@@ -148,7 +148,7 @@ CamelServiceAuthType camel_exchange_password_authtype = {
 
 static gint
 exchange_auto_detect_cb (CamelURL *url, GHashTable **auto_detected,
-			 CamelException *ex)
+			 GError **error)
 {
 	*auto_detected = g_hash_table_new (g_str_hash, g_str_equal);
 

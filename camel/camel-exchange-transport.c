@@ -36,7 +36,7 @@ exchange_transport_send_to (CamelTransport *transport,
                             CamelMimeMessage *message,
                             CamelAddress *from,
                             CamelAddress *recipients,
-                            CamelException *ex)
+                            GError **error)
 {
 	CamelService *service = CAMEL_SERVICE (transport);
 	CamelStore *store = NULL;
@@ -53,13 +53,16 @@ exchange_transport_send_to (CamelTransport *transport,
 	GSList *h, *bcc = NULL;
 	gint len, i;
 
-	url_string = camel_session_get_password (service->session, service, NULL,
-						"ignored", "popb4smtp_uri", 0, ex);
+	url_string = camel_session_get_password (
+		service->session, service, NULL,
+		"ignored", "popb4smtp_uri", 0, error);
 	if (!url_string)
 		return FALSE;
 	if (strncmp (url_string, "exchange:", 9) != 0) {
-		camel_exception_set (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
-				     _("Exchange transport can only be used with Exchange mail source"));
+		g_set_error (
+			error, CAMEL_SERVICE_ERROR,
+			CAMEL_SERVICE_ERROR_UNAVAILABLE,
+			_("Exchange transport can only be used with Exchange mail source"));
 		g_free (url_string);
 		return FALSE;
 	}
@@ -71,8 +74,9 @@ exchange_transport_send_to (CamelTransport *transport,
 	cia = CAMEL_INTERNET_ADDRESS (recipients);
 	for (i = 0; i < len; i++) {
 		if (!camel_internet_address_get (cia, i, NULL, &addr)) {
-			camel_exception_set (ex, CAMEL_EXCEPTION_SYSTEM,
-					     _("Cannot send message: one or more invalid recipients"));
+			g_set_error (
+				error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,
+				_("Cannot send message: one or more invalid recipients"));
 			g_ptr_array_free (recipients_array, TRUE);
 			return FALSE;
 		}
@@ -80,8 +84,10 @@ exchange_transport_send_to (CamelTransport *transport,
 	}
 
 	if (!camel_internet_address_get (CAMEL_INTERNET_ADDRESS (from), 0, NULL, &addr)) {
-		camel_exception_set (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,
-				     _("Could not find 'From' address in message"));
+		g_set_error (
+			error, CAMEL_SERVICE_ERROR,
+			CAMEL_SERVICE_ERROR_UNAVAILABLE,
+			_("Could not find 'From' address in message"));
 		g_ptr_array_free (recipients_array, TRUE);
 		return FALSE;
 	}
@@ -106,9 +112,10 @@ exchange_transport_send_to (CamelTransport *transport,
 
 	camel_medium_remove_header (CAMEL_MEDIUM (message), "Bcc");
 
-	camel_data_wrapper_write_to_stream (CAMEL_DATA_WRAPPER (message),
-					    CAMEL_STREAM (filtered_stream));
-	camel_stream_flush (CAMEL_STREAM (filtered_stream));
+	camel_data_wrapper_write_to_stream (
+		CAMEL_DATA_WRAPPER (message),
+		CAMEL_STREAM (filtered_stream), NULL);
+	camel_stream_flush (CAMEL_STREAM (filtered_stream), NULL);
 	g_object_unref (CAMEL_OBJECT (filtered_stream));
 
 	/* add the bcc headers back */
@@ -122,13 +129,16 @@ exchange_transport_send_to (CamelTransport *transport,
 		g_slist_free (bcc);
 	}
 
-	success = camel_exchange_utils_send_message (CAMEL_SERVICE (transport), addr, recipients_array, byte_array, ex);
+	success = camel_exchange_utils_send_message (
+		CAMEL_SERVICE (transport), addr,
+		recipients_array, byte_array, error);
 
 	g_ptr_array_free (recipients_array, TRUE);
 	g_object_unref (stream);
 
 	if (store)
 		g_object_unref (CAMEL_OBJECT (store));
+
 	return success;
 }
 
