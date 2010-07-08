@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=evolution-exchange&component=general\n"
-"POT-Creation-Date: 2010-05-24 18:21+0000\n"
-"PO-Revision-Date: 2010-05-25 08:45+0200\n"
+"POT-Creation-Date: 2010-07-08 18:37+0000\n"
+"PO-Revision-Date: 2010-07-08 22:51+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -68,75 +68,82 @@ msgstr "La autenticación ha fallado"
 msgid "Could not find the calendar"
 msgstr "No se pudo encontrar el calendario"
 
-#: ../camel/camel-exchange-folder.c:74
+#: ../camel/camel-exchange-folder.c:75
 msgid "No Subject"
 msgstr "Sin asunto"
 
-#: ../camel/camel-exchange-folder.c:130
+#: ../camel/camel-exchange-folder.c:137
+#, c-format
 msgid "This message is not available in offline mode."
 msgstr "Este mensaje no está disponible en modo «Desconectado»."
 
-#: ../camel/camel-exchange-folder.c:388
+#: ../camel/camel-exchange-folder.c:386
+#, c-format
 msgid "You cannot expunge in offline mode."
 msgstr "No se puede purgar en modo desconectado."
 
-#: ../camel/camel-exchange-folder.c:621
+#: ../camel/camel-exchange-folder.c:626
 msgid "Moving messages"
 msgstr "Moviendo mensajes"
 
-#: ../camel/camel-exchange-folder.c:622
+#: ../camel/camel-exchange-folder.c:627
 msgid "Copying messages"
 msgstr "Copiando mensajes"
 
-#: ../camel/camel-exchange-folder.c:1056
+#: ../camel/camel-exchange-folder.c:1070
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "No se puede crear el directorio %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1067
+#: ../camel/camel-exchange-folder.c:1081
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "No se pudo cargar el resumen para %s"
 
-#: ../camel/camel-exchange-folder.c:1075
+#: ../camel/camel-exchange-folder.c:1088
 #, c-format
-msgid "Could not create cache for %s"
-msgstr "No se pudo crear el cache para %s"
+#| msgid "Could not create cache for %s"
+msgid "Could not create cache for %s: "
+msgstr "No se pudo crear la caché para %s: "
 
-#: ../camel/camel-exchange-folder.c:1085
+#: ../camel/camel-exchange-folder.c:1099
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "No se pudo crear el diario para %s"
 
-#: ../camel/camel-exchange-folder.c:1132
+#: ../camel/camel-exchange-folder.c:1146
 msgid "Scanning for changed messages"
 msgstr "Buscando mensajes cambiados"
 
-#: ../camel/camel-exchange-folder.c:1159
+#: ../camel/camel-exchange-folder.c:1173
 msgid "Fetching summary information for new messages"
 msgstr "Obteniendo la información del resumen para los mensajes nuevos"
 
-#: ../camel/camel-exchange-journal.c:149
-msgid "No folder name found\n"
-msgstr "No se encontró ningún nombre de carpeta\n"
+#: ../camel/camel-exchange-journal.c:144
+#, c-format
+#| msgid "No folder name found\n"
+msgid "No folder name found"
+msgstr "No se encontró ningún nombre de carpeta"
 
-#: ../camel/camel-exchange-journal.c:184 ../camel/camel-exchange-utils.c:3137
-#: ../camel/camel-exchange-utils.c:3201 ../camel/camel-exchange-utils.c:3321
+#: ../camel/camel-exchange-journal.c:185 ../camel/camel-exchange-utils.c:3139
+#: ../camel/camel-exchange-utils.c:3203 ../camel/camel-exchange-utils.c:3321
 #: ../camel/camel-exchange-utils.c:3352 ../camel/camel-exchange-utils.c:3404
 #: ../camel/camel-exchange-utils.c:3425
+#, c-format
 msgid "Folder doesn't exist"
 msgstr "La carpeta no existe"
 
-#: ../camel/camel-exchange-journal.c:408
+#: ../camel/camel-exchange-journal.c:417
+#, c-format
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
 "No se puede agregar el mensaje en modo desconectado: la caché no está "
 "disponible"
 
-#: ../camel/camel-exchange-journal.c:424
-#, c-format
-msgid "Cannot append message in offline mode: %s"
-msgstr "No se puede agregar el mensaje en modo desconectado: %s"
+#: ../camel/camel-exchange-journal.c:437
+#| msgid "Cannot append message in offline mode: %s"
+msgid "Cannot append message in offline mode: "
+msgstr "No se puede agregar el mensaje en modo desconectado: "
 
 #: ../camel/camel-exchange-provider.c:52
 msgid "Secure or Plaintext Password"
@@ -262,133 +269,137 @@ msgstr "Servidor Exchange %s"
 msgid "Exchange account for %s on %s"
 msgstr "Cuenta Exchange de %s en %s"
 
-#: ../camel/camel-exchange-store.c:371
-msgid ""
-"Could not authenticate to server. (Password incorrect?)\n"
-"\n"
-msgstr ""
-"No se pudo autenticar con el servidor. (¿Contraseña incorrecta?)\n"
-"\n"
+#: ../camel/camel-exchange-store.c:378
+#, c-format
+#| msgid ""
+#| "Could not authenticate to server. (Password incorrect?)\n"
+#| "\n"
+msgid "Could not authenticate to server. (Password incorrect?)"
+msgstr "No se pudo autenticar con el servidor. (¿Contraseña incorrecta?)"
 
-#: ../camel/camel-exchange-store.c:431
+#: ../camel/camel-exchange-store.c:441
 #, c-format
 msgid "No such folder %s"
 msgstr "No existe la carpeta %s"
 
-#: ../camel/camel-exchange-store.c:501
-msgid "Cannot get folder info in offline mode."
-msgstr "No se puede obtener la info de la carpeta en modo desconectado."
-
-#: ../camel/camel-exchange-store.c:566
+#: ../camel/camel-exchange-store.c:574
+#, c-format
 msgid "Cannot create folder in offline mode."
 msgstr "No se puede crear una carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-store.c:590
+#: ../camel/camel-exchange-store.c:604
+#, c-format
 msgid "Cannot delete folder in offline mode."
 msgstr "No se puede borrar la carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-store.c:615
+#: ../camel/camel-exchange-store.c:630
+#, c-format
 msgid "Cannot rename folder in offline mode."
 msgstr "No se puede renombrar la carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-store.c:692
+#: ../camel/camel-exchange-store.c:711
+#, c-format
 msgid "Cannot subscribe folder in offline mode."
 msgstr "No se puede crear suscribirse a una carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-store.c:710
+#: ../camel/camel-exchange-store.c:730
+#, c-format
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "No se puede desuscribirse de una carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-transport.c:62
+#: ../camel/camel-exchange-transport.c:65
+#, c-format
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr ""
 "El transporte Exchange sólo puede ser usado con una fuente de correo Exchange"
 
-#: ../camel/camel-exchange-transport.c:75
+#: ../camel/camel-exchange-transport.c:79
+#, c-format
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "No se puede enviar el mensaje: uno o más destinatarios inválidos"
 
-#: ../camel/camel-exchange-transport.c:84
+#: ../camel/camel-exchange-transport.c:90
+#, c-format
 msgid "Could not find 'From' address in message"
 msgstr "No se pudo encontrar la dirección de remite en el mensaje"
 
-#: ../camel/camel-exchange-utils.c:530 ../camel/camel-exchange-utils.c:569
+#: ../camel/camel-exchange-utils.c:529 ../camel/camel-exchange-utils.c:568
 msgid "Could not get new messages"
 msgstr "No se pudieron obtener los mensajes nuevos"
 
-#: ../camel/camel-exchange-utils.c:1057 ../camel/camel-exchange-utils.c:1208
+#: ../camel/camel-exchange-utils.c:1056 ../camel/camel-exchange-utils.c:1207
 msgid "Could not open folder"
 msgstr "No se pudo abrir la carpeta"
 
-#: ../camel/camel-exchange-utils.c:1204 ../camel/camel-exchange-utils.c:1222
+#: ../camel/camel-exchange-utils.c:1203 ../camel/camel-exchange-utils.c:1221
 msgid "Could not open folder: Permission denied"
 msgstr "No se pudo abrir carpeta: Permiso denegado"
 
-#: ../camel/camel-exchange-utils.c:1271 ../camel/camel-exchange-utils.c:2200
+#: ../camel/camel-exchange-utils.c:1270 ../camel/camel-exchange-utils.c:2199
 msgid "No such folder"
 msgstr "No existe la carpeta"
 
-#: ../camel/camel-exchange-utils.c:1293 ../camel/camel-exchange-utils.c:3111
-#: ../camel/camel-exchange-utils.c:3154 ../camel/camel-exchange-utils.c:3325
+#: ../camel/camel-exchange-utils.c:1292 ../camel/camel-exchange-utils.c:3113
+#: ../camel/camel-exchange-utils.c:3156 ../camel/camel-exchange-utils.c:3325
 #: ../camel/camel-exchange-utils.c:3378 ../camel/camel-exchange-utils.c:3440
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
 #: ../server/storage/e-storage.c:573
 msgid "Permission denied"
 msgstr "Permiso denegado"
 
-#: ../camel/camel-exchange-utils.c:2209
+#: ../camel/camel-exchange-utils.c:2208
 msgid "Could not create folder."
 msgstr "No se pudo crear la carpeta."
 
-#: ../camel/camel-exchange-utils.c:2298
+#: ../camel/camel-exchange-utils.c:2296
 msgid "Could not open Deleted Items folder"
 msgstr "No se pudo abrir la carpeta de elementos borrados"
 
-#: ../camel/camel-exchange-utils.c:2425
+#: ../camel/camel-exchange-utils.c:2422
 msgid "Could not empty Deleted Items folder"
 msgstr "No se pudo vaciar la carpeta de elementos borrados"
 
-#: ../camel/camel-exchange-utils.c:2427
+#: ../camel/camel-exchange-utils.c:2424
 msgid "Permission denied. Could not delete certain messages."
 msgstr "Permiso denegado. No se pudieron borrar ciertos mensajes."
 
-#: ../camel/camel-exchange-utils.c:2470
+#: ../camel/camel-exchange-utils.c:2468
 msgid "Could not append message; mailbox is over quota"
 msgstr "No se pudo anexar el mensaje; el buzón excede la cuota"
 
-#: ../camel/camel-exchange-utils.c:2471
+#: ../camel/camel-exchange-utils.c:2469
 msgid "Could not append message"
 msgstr "No se pudo anexar el mensaje"
 
-#: ../camel/camel-exchange-utils.c:2657
+#: ../camel/camel-exchange-utils.c:2655
 msgid "No such message"
 msgstr "No existe el mensaje"
 
-#: ../camel/camel-exchange-utils.c:2729
+#: ../camel/camel-exchange-utils.c:2727
 msgid "Message has been deleted"
 msgstr "El mensaje ha sido borrado"
 
-#: ../camel/camel-exchange-utils.c:2731
+#: ../camel/camel-exchange-utils.c:2729
 msgid "Error retrieving message"
 msgstr "Error al obtener el mensaje"
 
-#: ../camel/camel-exchange-utils.c:2780
+#: ../camel/camel-exchange-utils.c:2778
 msgid "Mailbox does not support full-text searching"
 msgstr "El buzón no soporta búsqueda en texto"
 
-#: ../camel/camel-exchange-utils.c:2888
+#: ../camel/camel-exchange-utils.c:2890
 msgid "Unable to move/copy messages"
 msgstr "Imposible mover/copiar mensajes"
 
-#: ../camel/camel-exchange-utils.c:3016
+#: ../camel/camel-exchange-utils.c:3018
 msgid "No mail submission URI for this mailbox"
 msgstr "No hay URI de envío de correo para este buzón"
 
-#: ../camel/camel-exchange-utils.c:3049
+#: ../camel/camel-exchange-utils.c:3051
 msgid "Server won't accept mail via Exchange transport"
 msgstr "El servidor no acepta correo por medio del transporte Exchange"
 
-#: ../camel/camel-exchange-utils.c:3051
+#: ../camel/camel-exchange-utils.c:3053
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -397,7 +408,7 @@ msgstr ""
 "Su cuenta no tiene permiso para usar <%s>\n"
 "como una dirección de remitente."
 
-#: ../camel/camel-exchange-utils.c:3063
+#: ../camel/camel-exchange-utils.c:3065
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -405,11 +416,11 @@ msgstr ""
 "No se pudo enviar el mensaje.\n"
 "Esto quizá signifique que su cuenta sobrepasa la cuota."
 
-#: ../camel/camel-exchange-utils.c:3067
+#: ../camel/camel-exchange-utils.c:3069
 msgid "Could not send message"
 msgstr "No se pudo enviar el mensaje"
 
-#: ../camel/camel-exchange-utils.c:3103 ../camel/camel-exchange-utils.c:3159
+#: ../camel/camel-exchange-utils.c:3105 ../camel/camel-exchange-utils.c:3161
 #: ../camel/camel-exchange-utils.c:3329 ../camel/camel-exchange-utils.c:3382
 #: ../camel/camel-exchange-utils.c:3446
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
@@ -417,7 +428,7 @@ msgstr "No se pudo enviar el mensaje"
 msgid "Generic error"
 msgstr "Error genérico"
 
-#: ../camel/camel-exchange-utils.c:3107
+#: ../camel/camel-exchange-utils.c:3109
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
 msgid "Folder already exists"
 msgstr "La carpeta ya existe"
@@ -618,22 +629,22 @@ msgstr "Sí, cambiar el estado"
 msgid "Enter Password for %s"
 msgstr "Introduzca su contraseña para %s"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:437
+#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:435
 #: ../server/storage/exchange-hierarchy-foreign.c:260
 msgid "Calendar"
 msgstr "Calendario"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:440
+#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:438
 #: ../server/storage/exchange-hierarchy-foreign.c:269
 msgid "Tasks"
 msgstr "Tareas"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:435
+#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:433
 #: ../server/storage/exchange-hierarchy-foreign.c:264
 msgid "Inbox"
 msgstr "Bandeja de entrada"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:443
+#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:441
 #: ../server/storage/exchange-hierarchy-foreign.c:261
 msgid "Contacts"
 msgstr "Contactos"
@@ -900,12 +911,12 @@ msgstr "Nombre de la _carpeta:"
 msgid "_User:"
 msgstr "_Usuario:"
 
-#: ../eplugin/exchange-folder.c:322 ../eplugin/exchange-folder.c:378
+#: ../eplugin/exchange-folder.c:320 ../eplugin/exchange-folder.c:376
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "¿Seguro que desea desuscribirse de la carpeta «%s»?"
 
-#: ../eplugin/exchange-folder.c:335 ../eplugin/exchange-folder.c:391
+#: ../eplugin/exchange-folder.c:333 ../eplugin/exchange-folder.c:389
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "Desuscribirse de «%s»"
@@ -1860,6 +1871,9 @@ msgstr "Asistente para _fuera de oficina"
 #: ../tools/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Desuscribirse de una carpeta de otro usuario"
+
+#~ msgid "Cannot get folder info in offline mode."
+#~ msgstr "No se puede obtener la info de la carpeta en modo desconectado."
 
 #~ msgid "Folders Size"
 #~ msgstr "Tamaño de las carpetas"
