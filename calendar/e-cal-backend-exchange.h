@@ -12,6 +12,10 @@
 
 G_BEGIN_DECLS
 
+#define EDC_ERROR(_code) e_data_cal_create_error (_code, NULL)
+#define EDC_ERROR_EX(_code, _msg) e_data_cal_create_error (_code, _msg)
+#define EDC_ERROR_HTTP_STATUS(_status) e_data_cal_create_error_fmt (OtherError, _("Failed with E2K HTTP status %d"), _status)
+
 #define E_TYPE_CAL_BACKEND_EXCHANGE            (e_cal_backend_exchange_get_type ())
 #define E_CAL_BACKEND_EXCHANGE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), E_TYPE_CAL_BACKEND_EXCHANGE, ECalBackendExchange))
 #define E_CAL_BACKEND_EXCHANGE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), E_TYPE_CAL_BACKEND_EXCHANGE, ECalBackendExchangeClass))
@@ -71,8 +75,9 @@ gboolean  e_cal_backend_exchange_modify_object    (ECalBackendExchange *cbex,
 gboolean  e_cal_backend_exchange_remove_object    (ECalBackendExchange *cbex,
 						   const gchar          *uid);
 
-ECalBackendSyncStatus  e_cal_backend_exchange_add_timezone     (ECalBackendExchange *cbex,
-						   icalcomponent       *vtzcomp);
+void  e_cal_backend_exchange_add_timezone     (ECalBackendExchange *cbex,
+						   icalcomponent       *vtzcomp,
+						   GError **perror);
 
 icaltimezone * e_cal_backend_exchange_get_default_time_zone (ECalBackendSync *backend);
 
@@ -88,9 +93,9 @@ e_cal_backend_exchange_lookup_timezone (const gchar *tzid,
 ECalBackendExchangeComponent * get_exchange_comp (ECalBackendExchange *cbex,
 						  const gchar *uid);
 
-ECalBackendSyncStatus  e_cal_backend_exchange_extract_components (const gchar *calobj,
+gboolean  e_cal_backend_exchange_extract_components (const gchar *calobj,
                                            icalproperty_method *method,
-                                           GList **comp_list);
+                                           GList **comp_list, GError **perror);
 
 /* Utility functions */
 

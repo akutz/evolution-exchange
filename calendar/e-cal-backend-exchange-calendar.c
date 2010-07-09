@@ -57,7 +57,7 @@ static ECalBackendExchange *parent_class = NULL;
 
 #define d(x)
 
-static ECalBackendSyncStatus modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, const gchar *calobj, CalObjModType mod, gchar **old_object, gchar **new_object, const gchar *href, const gchar *rid_to_remove);
+static gboolean modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, const gchar *calobj, CalObjModType mod, gchar **old_object, gchar **new_object, const gchar *href, const gchar *rid_to_remove, GError **error);
 
 static icalproperty *find_attendee_prop (icalcomponent *ical_comp, const gchar *address);
 static gboolean check_owner_partstatus_for_declined (ECalBackendSync *backend,
@@ -73,14 +73,14 @@ add_timezones_from_comp (ECalBackendExchange *cbex, icalcomponent *icalcomp)
 
 	switch (icalcomponent_isa (icalcomp)) {
 	case ICAL_VTIMEZONE_COMPONENT:
-		e_cal_backend_exchange_add_timezone (cbex, icalcomp);
+		e_cal_backend_exchange_add_timezone (cbex, icalcomp, NULL);
 		break;
 
 	case ICAL_VCALENDAR_COMPONENT:
 		subcomp = icalcomponent_get_first_component (
 			icalcomp, ICAL_VTIMEZONE_COMPONENT);
 		while (subcomp) {
-			e_cal_backend_exchange_add_timezone (cbex, subcomp);
+			e_cal_backend_exchange_add_timezone (cbex, subcomp, NULL);
 			subcomp = icalcomponent_get_next_component (
 				icalcomp, ICAL_VTIMEZONE_COMPONENT);
 		}
@@ -97,7 +97,7 @@ add_vevent (ECalBackendExchange *cbex,
 	    icalcomponent *icalcomp)
 {
 	icalproperty *prop, *transp;
-	ECalBackendSyncStatus status;
+	gboolean res;
 
 	/* We have to do this here, since if we do it inside the loop
 	 * it will mess up the ICAL_X_PROPERTY iterator.
@@ -178,10 +178,10 @@ add_vevent (ECalBackendExchange *cbex,
 
 	e_cal_backend_exchange_cache_lock (cbex);
 	/* Now add to the cache */
-	status = e_cal_backend_exchange_add_object (cbex, href, lastmod, icalcomp);
+	res = e_cal_backend_exchange_add_object (cbex, href, lastmod, icalcomp);
 	e_cal_backend_exchange_cache_unlock (cbex);
 
-	return status;
+	return res;
 }
 
 /* Add the event to the cache, Notify the backend if it is sucessfully added */
@@ -565,28 +565,30 @@ notify_changes (E2kContext *ctx, const gchar *uri,
 
 }
 
-static ECalBackendSyncStatus
+static void
 open_calendar (ECalBackendSync *backend, EDataCal *cal,
 	       gboolean only_if_exists,
-	       const gchar *username, const gchar *password)
+	       const gchar *username, const gchar *password, GError **perror)
 {
-	ECalBackendSyncStatus status;
 	GThread *thread = NULL;
 	GError *error = NULL;
 	ECalBackendExchangeCalendar *cbexc = E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 
 	/* Do the generic part */
-	status = E_CAL_BACKEND_SYNC_CLASS (parent_class)->open_sync (
-		backend, cal, only_if_exists, username, password);
-	if (status != GNOME_Evolution_Calendar_Success)
-		return status;
-
-	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
-		return GNOME_Evolution_Calendar_Success;
+	E_CAL_BACKEND_SYNC_CLASS (parent_class)->open_sync (
+		backend, cal, only_if_exists, username, password, &error);
+	if (error) {
+		g_propagate_error (perror, error);
+		return;
 	}
 
-	if (cbexc->priv->is_loaded)
-		return GNOME_Evolution_Calendar_Success;
+	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
+		return; /* Success */
+	}
+
+	if (cbexc->priv->is_loaded) {
+		return; /*Success */
+	}
 
 	e_folder_exchange_subscribe (E_CAL_BACKEND_EXCHANGE (backend)->folder,
 			E2K_CONTEXT_OBJECT_CHANGED, 30,
@@ -595,11 +597,9 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal,
 	thread = g_thread_create ((GThreadFunc) get_changed_events, E_CAL_BACKEND_EXCHANGE (backend), FALSE, &error);
 	if (!thread) {
 		g_warning (G_STRLOC ": %s", error->message);
+		g_propagate_error (perror, EDC_ERROR_EX (OtherError, error->message));
 		g_error_free (error);
-
-		return GNOME_Evolution_Calendar_OtherError;
 	}
-	return GNOME_Evolution_Calendar_Success;
 }
 
 struct _cb_data {
@@ -722,9 +722,9 @@ check_owner_partstatus_for_declined (ECalBackendSync *backend,
 	return FALSE;
 }
 
-static ECalBackendSyncStatus
+static void
 create_object (ECalBackendSync *backend, EDataCal *cal,
-	       gchar **calobj, gchar **uid)
+	       gchar **calobj, gchar **uid, GError **error)
 {
 	/* FIXME : Return some value in uid */
 	ECalBackendExchangeCalendar *cbexc;
@@ -755,12 +755,12 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	cbexc =	E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 	cbex = E_CAL_BACKEND_EXCHANGE (backend);
 
-	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), GNOME_Evolution_Calendar_InvalidObject);
-	g_return_val_if_fail (calobj != NULL, GNOME_Evolution_Calendar_InvalidObject);
+	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), InvalidArg);
+	e_return_data_cal_error_if_fail (calobj != NULL, InvalidArg);
 
 	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
-		/* FIXME */
-		return GNOME_Evolution_Calendar_InvalidObject;
+		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
+		return;
 	}
 
 	/* check for permission denied:: priv->writable??
@@ -768,26 +768,30 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	 */
 
 	icalcomp = icalparser_parse_string (*calobj);
-	if (!icalcomp)
-		return GNOME_Evolution_Calendar_InvalidObject;
+	if (!icalcomp) {
+		g_propagate_error (error, EDC_ERROR (InvalidObject));
+		return;
+	}
 
 	kind = icalcomponent_isa (icalcomp);
 
 	if (kind != e_cal_backend_get_kind (E_CAL_BACKEND (backend))) {
-
 		icalcomponent_free (icalcomp);
-		return GNOME_Evolution_Calendar_InvalidObject;
+		g_propagate_error (error, EDC_ERROR (InvalidObject));
+		return;
 	}
 
 	temp_comp_uid = icalcomponent_get_uid (icalcomp);
 	if (!temp_comp_uid) {
 		icalcomponent_free (icalcomp);
-		return GNOME_Evolution_Calendar_InvalidObject;
+		g_propagate_error (error, EDC_ERROR (InvalidObject));
+		return;
 	}
 	#if 0
 	if (lookup_component (E_CAL_BACKEND_EXCHANGE (cbexc), comp_uid))
 	{
 		icalcomponent_free (icalcomp);
+		g_propagate_error (error, EDC_ERROR (OtherError));
 		return;
 	}
 	#endif
@@ -866,7 +870,8 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 		g_object_unref (comp);
 		icalcomponent_free (cbdata->vcal_comp);
 		g_free (cbdata);
-		return GNOME_Evolution_Calendar_OtherError;
+		g_propagate_error (error, EDC_ERROR_EX (OtherError, "Cannot get comp as string"));
+		return;
 	}
 	real_icalcomp = icalparser_parse_string (*calobj);
 
@@ -939,7 +944,8 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 		g_object_unref (comp);
 		g_free (location);
 		g_free (lastmod);
-		return GNOME_Evolution_Calendar_OtherError;
+		g_propagate_error (error, EDC_ERROR_HTTP_STATUS (http_status));
+		return;
 	}
 
 	e_cal_backend_exchange_cache_lock (cbex);
@@ -952,8 +958,6 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	g_free (lastmod);
 	g_free (location);
 	e2k_properties_free (props);
-
-	return GNOME_Evolution_Calendar_Success;
 }
 
 #define BUSYSTATUS	0x01
@@ -1069,24 +1073,35 @@ update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp)
 	}
 }
 
-static ECalBackendSyncStatus
+static void
 modify_object (ECalBackendSync *backend, EDataCal *cal,
 	       const gchar *calobj, CalObjModType mod,
-	       gchar **old_object, gchar **new_object)
+	       gchar **old_object, gchar **new_object, GError **perror)
 {
-	ECalBackendSyncStatus status;
-
 	d(printf ("ecbexc_modify_object(%p, %p, %d, %s)", backend, cal, mod, *old_object ? *old_object : NULL));
 
-	status = modify_object_with_href (backend, cal, calobj, mod, old_object, new_object, NULL, NULL);
-
-	return status;
+	modify_object_with_href (backend, cal, calobj, mod, old_object, new_object, NULL, NULL, perror);
 }
 
-static ECalBackendSyncStatus
+#define e_return_data_cal_error_and_val_if_fail(expr, _code, _val)		\
+	G_STMT_START {								\
+		if (G_LIKELY(expr)) {						\
+		} else {							\
+			g_log (G_LOG_DOMAIN,					\
+				G_LOG_LEVEL_CRITICAL,				\
+				"file %s: line %d (%s): assertion `%s' failed",	\
+				__FILE__, __LINE__, G_STRFUNC, #expr);		\
+			g_set_error (error, E_DATA_CAL_ERROR, (_code),		\
+				"file %s: line %d (%s): assertion `%s' failed",	\
+				__FILE__, __LINE__, G_STRFUNC, #expr);		\
+			return _val;						\
+		}								\
+	} G_STMT_END
+
+static gboolean
 modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	       const gchar *calobj, CalObjModType mod,
-	       gchar **old_object, gchar **new_object, const gchar *href, const gchar *rid_to_remove)
+	       gchar **old_object, gchar **new_object, const gchar *href, const gchar *rid_to_remove, GError **error)
 {
 	ECalBackendExchangeCalendar *cbexc;
 	ECalBackendExchangeComponent *ecomp;
@@ -1113,32 +1128,34 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	GList *l = NULL;
 	struct icaltimetype inst_rid;
 	gboolean remove = FALSE;
-	ECalBackendSyncStatus status = GNOME_Evolution_Calendar_Success;
 	GList *to_remove = NULL;
 
 	cbexc =	E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 	cbex = E_CAL_BACKEND_EXCHANGE (backend);
 
-	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), GNOME_Evolution_Calendar_InvalidObject);
-	g_return_val_if_fail (calobj != NULL, GNOME_Evolution_Calendar_InvalidObject);
+	e_return_data_cal_error_and_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), InvalidArg, FALSE);
+	e_return_data_cal_error_and_val_if_fail (calobj != NULL, InvalidArg, FALSE);
 
 	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
-                /* FIXME */
-                return GNOME_Evolution_Calendar_InvalidObject;
+                g_propagate_error (error, EDC_ERROR (RepositoryOffline));
+		return FALSE;
         }
 
 	if (rid_to_remove)
 		remove = TRUE;
 
 	icalcomp = icalparser_parse_string (calobj);
-	if (!icalcomp)
-		return GNOME_Evolution_Calendar_InvalidObject;
+	if (!icalcomp) {
+		g_propagate_error (error, EDC_ERROR (InvalidObject));
+		return FALSE;
+	}
 
 	kind = icalcomponent_isa (icalcomp);
 
 	if (kind != e_cal_backend_get_kind (E_CAL_BACKEND (backend))) {
 		icalcomponent_free (icalcomp);
-		return GNOME_Evolution_Calendar_InvalidObject;
+		g_propagate_error (error, EDC_ERROR (InvalidObject));
+		return FALSE;
 	}
 	comp_uid = icalcomponent_get_uid (icalcomp);
 
@@ -1153,7 +1170,8 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	if (!ecomp) {
 		icalcomponent_free (icalcomp);
 		e_cal_backend_exchange_cache_unlock (cbex);
-		return GNOME_Evolution_Calendar_ObjectNotFound;
+		g_propagate_error (error, EDC_ERROR (ObjectNotFound));
+		return FALSE;
 	}
 
 	/* Fetch summary */
@@ -1224,7 +1242,8 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	if (!updated_icalcomp) {
 		g_object_unref (updated_ecomp);
 		e_cal_backend_exchange_cache_unlock (cbex);
-		return GNOME_Evolution_Calendar_OtherError;
+		g_propagate_error (error, EDC_ERROR_EX (OtherError, "Faild to parse updated ecomp string"));
+		return FALSE;
 	}
 
 	/* Delegated calendar */
@@ -1249,7 +1268,8 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		g_object_unref (real_ecomp);
 		g_object_unref (updated_ecomp);
 		e_cal_backend_exchange_cache_unlock (cbex);
-		return GNOME_Evolution_Calendar_OtherError;
+		g_propagate_error (error, EDC_ERROR_EX (OtherError, "Failed to set icalcomp to ECalComp"));
+		return FALSE;
 	}
 
 	cbdata = g_new0 (struct _cb_data, 1);
@@ -1341,7 +1361,8 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		icalcomponent_free (cbdata->vcal_comp);
 		g_free (cbdata);
 		e_cal_backend_exchange_cache_unlock (cbex);
-		return GNOME_Evolution_Calendar_OtherError;
+		g_propagate_error (error, EDC_ERROR_EX (OtherError, "Failed to get real ECalComp as string"));
+		return FALSE;
 	}
 	real_icalcomp = icalparser_parse_string (real_comp_str);
 	g_free (real_comp_str);
@@ -1472,8 +1493,9 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 
 		if (!remove)
 			*new_object = e_cal_component_get_as_string (real_ecomp);
-	} else
-		status = GNOME_Evolution_Calendar_OtherError;
+	} else {
+		g_propagate_error (error, EDC_ERROR_HTTP_STATUS (http_status));
+	}
 
 	g_free (msg);
 	g_object_unref (real_ecomp);
@@ -1486,13 +1508,13 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	g_free (cbdata);
 	e2k_properties_free (props);
 
-	return status;
+	return !error || !*error;
 }
 
-static ECalBackendSyncStatus
+static void
 remove_object (ECalBackendSync *backend, EDataCal *cal,
 	       const gchar *uid, const gchar *rid, CalObjModType mod,
-	       gchar **old_object, gchar **object)
+	       gchar **old_object, gchar **object, GError **error)
 {
 	ECalBackendExchangeCalendar *cbexc;
 	ECalBackendExchange *cbex;
@@ -1502,7 +1524,6 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 	ECalComponent *comp;
 	gchar *calobj, *obj = NULL;
 	struct icaltimetype time_rid;
-	ECalBackendSyncStatus ebs_status;
 
 	/* Will handle only CALOBJ_MOD_THIS and CALOBJ_MOD_ALL for mod.
 	   CALOBJ_MOD_THISANDPRIOR and CALOBJ_MOD_THISANDFUTURE are not
@@ -1511,11 +1532,11 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 	cbexc = E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 	cbex = E_CAL_BACKEND_EXCHANGE (backend);
 
-	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), GNOME_Evolution_Calendar_InvalidObject);
+	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), InvalidArg);
 
 	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
-                /* FIXME */
-                return GNOME_Evolution_Calendar_InvalidObject;
+		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
+                return;
         }
 
 	e_cal_backend_exchange_cache_lock (cbex);
@@ -1523,7 +1544,8 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 
 	if (!ecomp) {
 		e_cal_backend_exchange_cache_unlock (cbex);
-		return GNOME_Evolution_Calendar_ObjectNotFound;
+		g_propagate_error (error, EDC_ERROR (ObjectNotFound));
+		return;
 	}
 
 	comp = e_cal_component_new ();
@@ -1536,6 +1558,7 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 	/*TODO How handle multiple detached intances with no master object ?*/
 	if (mod == CALOBJ_MOD_THIS && rid && *rid && ecomp->icomp) {
 		gchar *new_object = NULL;
+		gboolean res;
 
 		/*remove a single instance of a recurring event and modify */
 		time_rid = icaltime_from_string (rid);
@@ -1543,11 +1566,11 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 		calobj  = (gchar *) icalcomponent_as_ical_string_r (ecomp->icomp);
 
 		e_cal_backend_exchange_cache_unlock (cbex);
-		ebs_status = modify_object_with_href (backend, cal, calobj, mod, &obj, &new_object, NULL, rid);
+		res = modify_object_with_href (backend, cal, calobj, mod, &obj, &new_object, NULL, rid, error);
 		g_object_unref (comp);
 		g_free (calobj);
-		if (ebs_status != GNOME_Evolution_Calendar_Success)
-			goto error;
+		if (!res)
+			return;
 		if (obj) {
 			g_free (*old_object);
 			*old_object = obj;
@@ -1555,7 +1578,7 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 
 		g_free (new_object);
 
-		return ebs_status;
+		return;
 	} else
 		e_cal_backend_exchange_cache_unlock (cbex);
 
@@ -1568,19 +1591,18 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 		e_cal_backend_exchange_cache_lock (cbex);
 		if (e_cal_backend_exchange_remove_object (E_CAL_BACKEND_EXCHANGE (cbexc), uid)) {
 			e_cal_backend_exchange_cache_unlock (cbex);
-			return GNOME_Evolution_Calendar_Success;
+			return;
 		}
 		e_cal_backend_exchange_cache_unlock (cbex);
 	}
 	*object = NULL;
 
-error:
-	return GNOME_Evolution_Calendar_OtherError;
+	g_propagate_error (error, EDC_ERROR_HTTP_STATUS (status));
 }
 
-static ECalBackendSyncStatus
+static void
 receive_objects (ECalBackendSync *backend, EDataCal *cal,
-		 const gchar *calobj)
+		 const gchar *calobj, GError **error)
 {
 	ECalBackendExchangeCalendar *cbexc;
 	ECalBackendExchange *cbex;
@@ -1590,24 +1612,22 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 	struct icaltimetype current;
 	icalproperty_method method;
 	icalcomponent *subcomp, *icalcomp;
-	ECalBackendSyncStatus status = GNOME_Evolution_Calendar_Success;
-	GError *error = NULL;
+	GError *err = NULL;
 
 	d(printf ("ecbexc_modify_object(%p, %p, %s)", backend, cal, calobj ? calobj : NULL));
 	cbexc =	E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 	cbex =	E_CAL_BACKEND_EXCHANGE (backend);
 
-	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), GNOME_Evolution_Calendar_InvalidObject);
-	g_return_val_if_fail (calobj != NULL, GNOME_Evolution_Calendar_InvalidObject);
+	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), InvalidArg);
+	e_return_data_cal_error_if_fail (calobj != NULL, InvalidArg);
 
 	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
-                /* FIXME */
-                return GNOME_Evolution_Calendar_InvalidObject;
+		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
+                return;
         }
 
-	status = e_cal_backend_exchange_extract_components (calobj, &method, &comps);
-	if (status != GNOME_Evolution_Calendar_Success)
-		return GNOME_Evolution_Calendar_InvalidObject;
+	if (!e_cal_backend_exchange_extract_components (calobj, &method, &comps, error))
+		return;
 
 	icalcomp = icalparser_parse_string (calobj);
 
@@ -1617,11 +1637,12 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 				    comps,
 				    e_cal_backend_exchange_lookup_timezone,
 				    cbex,
-				    &error)) {
-		g_warning ("checking timezones failed: %s", error->message);
+				    &err)) {
+		g_propagate_error (error, EDC_ERROR_EX (InvalidObject, err->message));
+		g_warning ("checking timezones failed: %s", err->message);
 		icalcomponent_free (icalcomp);
-		g_clear_error (&error);
-		return GNOME_Evolution_Calendar_InvalidObject;
+		g_clear_error (&err);
+		return;
 	}
 
 	add_timezones_from_comp (E_CAL_BACKEND_EXCHANGE (backend), icalcomp);
@@ -1658,11 +1679,12 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 				e_cal_backend_exchange_cache_unlock (cbex);
 				if (check_owner_partstatus_for_declined (backend, subcomp)) {
 					ECalComponentId *id = NULL;
-					status = remove_object (backend, cal, uid, NULL,
+					remove_object (backend, cal, uid, NULL,
 								CALOBJ_MOD_ALL, &old_object,
-								NULL);
-					if (status != GNOME_Evolution_Calendar_Success) {
+								NULL, &err);
+					if (err) {
 						g_free (rid);
+						g_propagate_error (error, err);
 						goto error;
 					}
 					id = e_cal_component_get_id (comp);
@@ -1685,12 +1707,9 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 						mod = CALOBJ_MOD_THIS;
 
 					icalobj = (gchar *) icalcomponent_as_ical_string_r (subcomp);
-					status = modify_object_with_href (backend, cal, icalobj,
+					if (!modify_object_with_href (backend, cal, icalobj,
 									  mod,
-									  &old_object, &new_object, NULL, NULL);
-					d(printf ("Modify this particular instance : %s\n", rid));
-					d(printf ("Modify object : %s\n", icalobj));
-					if (status != GNOME_Evolution_Calendar_Success) {
+									  &old_object, &new_object, NULL, NULL, error)) {
 						g_free (rid);
 						goto error;
 					}
@@ -1718,8 +1737,9 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 				d(printf ("Create a new object : %s\n", icalobj));
 
 				e_cal_backend_exchange_cache_unlock (cbex);
-				status = create_object (backend, cal, &icalobj, &returned_uid);
-				if (status != GNOME_Evolution_Calendar_Success) {
+				create_object (backend, cal, &icalobj, &returned_uid, &err);
+				if (err) {
+					g_propagate_error (error, err);
 					g_free (rid);
 					goto error;
 				}
@@ -1730,7 +1750,6 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 				g_free (object);
 			} else {
 				e_cal_backend_exchange_cache_unlock (cbex);
-				status = GNOME_Evolution_Calendar_Success;
 			}
 
 			break;
@@ -1741,14 +1760,16 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 		case ICAL_METHOD_CANCEL:
 			icalobj = (gchar *) icalcomponent_as_ical_string_r (subcomp);
 			if (rid)
-				status = remove_object (backend, cal, uid, rid, CALOBJ_MOD_THIS, &icalobj, &object);
+				remove_object (backend, cal, uid, rid, CALOBJ_MOD_THIS, &icalobj, &object, &err);
 			else
-				status = remove_object (backend, cal, uid, NULL, CALOBJ_MOD_ALL, &icalobj, &object);
-			if (status == GNOME_Evolution_Calendar_Success) {
+				remove_object (backend, cal, uid, NULL, CALOBJ_MOD_ALL, &icalobj, &object, &err);
+			if (!err) {
 				ECalComponentId *id = e_cal_component_get_id (comp);
 				e_cal_backend_notify_object_removed (E_CAL_BACKEND (backend), id, icalobj, NULL);
 				e_cal_component_free_id (id);
 
+			} else {
+				g_propagate_error (error, err);
 			}
 			if (object) {
 				g_free (object);
@@ -1757,7 +1778,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 			g_free (icalobj);
 			break;
 		default:
-			status = GNOME_Evolution_Calendar_UnsupportedMethod;
+			g_propagate_error (error, EDC_ERROR (UnsupportedMethod));
 			g_free (rid);
 			goto error;
 		}
@@ -1765,12 +1786,11 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 		g_free (rid);
 	}
 	g_list_free (comps);
-	return status;
+	return;
 
  error:
 	if (comp)
 		g_object_unref (comp);
-	return status;
 }
 
 typedef enum {
@@ -1796,7 +1816,7 @@ book_resource (ECalBackendExchange *cbex,
 	E2kGlobalCatalogStatus gcstatus;
 	ECalBackendExchangeComponent *ecomp;
 	ECalComponentText old_text, new_text;
-	E2kHTTPStatus status = GNOME_Evolution_Calendar_Success;
+	E2kHTTPStatus status = 0;
 	E2kResult *result;
 	E2kResultIter *iter;
 	ECalComponentDateTime dt;
@@ -1994,27 +2014,31 @@ book_resource (ECalBackendExchange *cbex,
 
 	/* status = e_cal_component_update (comp, method, FALSE  ); */
 	if (ecomp) {
+		gboolean modify_ok = FALSE;
 		/* Use the PUT method to create the meeting item in the resource's calendar. */
-		status = modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, calobj, book_all ? CALOBJ_MOD_ALL : CALOBJ_MOD_THIS, &old_object, &new_object, href, NULL);
-		if (status == GNOME_Evolution_Calendar_Success) {
+		if (modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, calobj, book_all ? CALOBJ_MOD_ALL : CALOBJ_MOD_THIS, &old_object, &new_object, href, NULL, NULL)) {
 			/* Need this to update the participation status of the resource
 			   in the organizer's calendar. */
-			status = modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, calobj, book_all ? CALOBJ_MOD_ALL : CALOBJ_MOD_THIS, &old_object, &new_object, NULL, NULL);
+			modify_ok = modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, calobj, book_all ? CALOBJ_MOD_ALL : CALOBJ_MOD_THIS, &old_object, &new_object, NULL, NULL, NULL);
 		} else {
 			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
 			goto cleanup;
 		}
-		if (status == GNOME_Evolution_Calendar_Success) {
+		if (modify_ok) {
 			e_cal_backend_notify_object_modified (E_CAL_BACKEND (cbex), old_object, calobj);
 			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_OK;
 		}
 		g_free (old_object);
 		g_free (new_object);
 	} else {
-		status = create_object (E_CAL_BACKEND_SYNC (cbex), cal, &calobj, &returned_uid);
-		if (status == GNOME_Evolution_Calendar_Success) {
+		GError *err = NULL;
+
+		create_object (E_CAL_BACKEND_SYNC (cbex), cal, &calobj, &returned_uid, &err);
+		if (!err) {
 			e_cal_backend_notify_object_created (E_CAL_BACKEND (cbex), calobj);
 			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_OK;
+		} else {
+			g_error_free (err);
 		}
 	}
 
@@ -2031,25 +2055,24 @@ book_resource (ECalBackendExchange *cbex,
 	return retval;
 }
 
-static ECalBackendSyncStatus
+static void
 send_objects (ECalBackendSync *backend, EDataCal *cal,
 	      const gchar *calobj,
-	      GList **users, gchar **modified_calobj)
+	      GList **users, gchar **modified_calobj, GError **error)
 {
 	ECalBackendExchange *cbex = (ECalBackendExchange *) backend;
-	ECalBackendSyncStatus retval = GNOME_Evolution_Calendar_Success;
 	ECalBackendExchangeBookingResult result;
 	ECalComponent *comp = NULL;
 	icalcomponent *top_level = NULL, *icalcomp;
 	icalproperty *prop;
 	icalproperty_method method;
-	GError *error = NULL;
+	GError *err = NULL;
 
-	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex),
-				GNOME_Evolution_Calendar_InvalidObject);
+	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex), InvalidArg);
 
 	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (cbex))) {
-		return GNOME_Evolution_Calendar_InvalidObject;
+		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
+		return;
 	}
 
 	*users = NULL;
@@ -2063,10 +2086,10 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 				    NULL,
 				    e_cal_backend_exchange_lookup_timezone,
 				    cbex,
-				    &error)) {
-		g_warning ("checking timezones failed: %s", error->message);
-		g_clear_error (&error);
-		retval = FALSE;
+				    &err)) {
+		g_warning ("checking timezones failed: %s", err->message);
+		g_propagate_error (error, EDC_ERROR_EX (OtherError, err->message));
+		g_clear_error (&err);
 		goto cleanup;
 	}
 
@@ -2080,7 +2103,6 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 	if (icalcomponent_isa (icalcomp) != ICAL_VEVENT_COMPONENT
 	    || (method != ICAL_METHOD_REQUEST && method != ICAL_METHOD_CANCEL)) {
 		*modified_calobj = g_strdup (calobj);
-		retval = GNOME_Evolution_Calendar_Success;
 		goto cleanup;
 	}
 
@@ -2123,7 +2145,7 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 				    _("The resource '%s' is busy during the selected time period."),
 				    attendee + 7);
 #endif
-			retval = GNOME_Evolution_Calendar_ObjectIdAlreadyExists;
+			g_propagate_error (error, EDC_ERROR (ObjectIdAlreadyExists));
 			goto cleanup;
 
 		case E_CAL_BACKEND_EXCHANGE_BOOKING_PERMISSION_DENIED:
@@ -2132,12 +2154,11 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 			break;
 		case E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR:
 			/* What should we do here? */
-			retval = GNOME_Evolution_Calendar_PermissionDenied;
+			g_propagate_error (error, EDC_ERROR (PermissionDenied));
 			goto cleanup;
 		}
 	}
 
-	retval = GNOME_Evolution_Calendar_Success;
 	e_cal_component_commit_sequence (comp);
 	*modified_calobj = g_strdup (e_cal_component_get_as_string (comp));
 
@@ -2148,8 +2169,6 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 	if (comp) {
 		g_object_unref (comp);
 	}
-
-	return retval;
 }
 
 #define THIRTY_MINUTES (30 * 60)
@@ -2211,29 +2230,26 @@ set_freebusy_info (icalcomponent *vfb, const gchar *data, time_t start)
 	}
 }
 
-static ECalBackendSyncStatus
+static void
 discard_alarm (ECalBackendSync *backend, EDataCal *cal,
-		const gchar *uid, const gchar *auid)
+		const gchar *uid, const gchar *auid, GError **error)
 {
-	ECalBackendSyncStatus result = GNOME_Evolution_Calendar_Success;
 	ECalBackendExchange *cbex = NULL;
 	ECalBackendExchangeComponent *ecbexcomp;
 	ECalComponent *ecomp;
 	gchar *ecomp_str;
 	icalcomponent *icalcomp = NULL;
 
-	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (backend),
-					GNOME_Evolution_Calendar_InvalidObject);
-	g_return_val_if_fail (E_IS_DATA_CAL (cal),
-					GNOME_Evolution_Calendar_InvalidObject);
-	g_return_val_if_fail (uid != NULL, GNOME_Evolution_Calendar_OtherError);
-	g_return_val_if_fail (auid != NULL, GNOME_Evolution_Calendar_OtherError);
+	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (backend), InvalidArg);
+	e_return_data_cal_error_if_fail (E_IS_DATA_CAL (cal), InvalidArg);
+	e_return_data_cal_error_if_fail (uid != NULL, InvalidArg);
+	e_return_data_cal_error_if_fail (auid != NULL, InvalidArg);
 
 	d(printf("ecbe_discard_alarm(%p, %p, uid=%s, auid=%s)\n", backend, cal, uid, auid));
 
 	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
-                /* FIXME */
-                return GNOME_Evolution_Calendar_InvalidObject;
+		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
+                return;
         }
 
 	cbex = E_CAL_BACKEND_EXCHANGE (backend);
@@ -2243,7 +2259,8 @@ discard_alarm (ECalBackendSync *backend, EDataCal *cal,
 
 	if (!ecbexcomp) {
 		e_cal_backend_exchange_cache_unlock (cbex);
-		return GNOME_Evolution_Calendar_ObjectNotFound;
+		g_propagate_error (error, EDC_ERROR (ObjectNotFound));
+		return;
 	}
 
 	ecomp = e_cal_component_new ();
@@ -2254,7 +2271,7 @@ discard_alarm (ECalBackendSync *backend, EDataCal *cal,
 		icalcomp = icalparser_parse_string (ecomp_str);
 		if (!e_cal_backend_exchange_modify_object ( cbex,
 					icalcomp, CALOBJ_MOD_ALL, FALSE)) {
-			result = GNOME_Evolution_Calendar_OtherError;
+			g_propagate_error (error, EDC_ERROR (OtherError));
 		}
 		icalcomponent_free (icalcomp);
 		g_free (ecomp_str);
@@ -2262,13 +2279,12 @@ discard_alarm (ECalBackendSync *backend, EDataCal *cal,
 	g_object_unref (ecomp);
 
 	e_cal_backend_exchange_cache_unlock (cbex);
-	return result;
 }
 
-static ECalBackendSyncStatus
+static void
 get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 	       GList *users, time_t start, time_t end,
-	       GList **freebusy)
+	       GList **freebusy, GError **perror)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	gchar *start_str, *end_str;
@@ -2281,8 +2297,8 @@ get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 	xmlDoc *doc;
 
 	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
-                /* FIXME */
-                return GNOME_Evolution_Calendar_InvalidObject;
+		g_propagate_error (perror, EDC_ERROR (RepositoryOffline));
+                return;
         }
 
 	/* The calendar component sets start to "exactly 24 hours
@@ -2311,19 +2327,23 @@ get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 	http_status = e2k_context_get_owa (exchange_account_get_context (cbex->account),
 					   NULL, uri->str, TRUE, &response);
 	g_string_free (uri, TRUE);
-	if (http_status != E2K_HTTP_OK)
-		return GNOME_Evolution_Calendar_OtherError;
+	if (http_status != E2K_HTTP_OK) {
+		g_propagate_error (perror, EDC_ERROR_HTTP_STATUS (http_status));
+		return;
+	}
 
 	/* Parse the XML free/busy response */
 	doc = e2k_parse_xml (response->data, response->length);
 	soup_buffer_free (response);
-	if (!doc)
-		return GNOME_Evolution_Calendar_OtherError;
+	if (!doc) {
+		g_propagate_error (perror, EDC_ERROR_EX (OtherError, "Failed to parse server response"));
+		return;
+	}
 
 	recipients = e2k_xml_find (doc->children, "recipients");
 	if (!recipients) {
 		xmlFreeDoc (doc);
-		return GNOME_Evolution_Calendar_OtherError;
+		g_propagate_error (perror, EDC_ERROR_EX (OtherError, "No 'recipients' in returned XML"));
 	}
 
 	*freebusy = NULL;
@@ -2369,8 +2389,6 @@ get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 		icalcomponent_free (vfb);
 	}
 	xmlFreeDoc (doc);
-
-	return GNOME_Evolution_Calendar_Success;
 }
 
 static void
