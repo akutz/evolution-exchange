@@ -2255,6 +2255,7 @@ generate_cache (EBookBackendGAL *book_backend_gal, const gchar * changed_filter)
 	BerElement *prber = NULL;
 	gchar t[15], *cachetime;
 	LDAPControl c[6];
+	GError *error = NULL;
 
 	d(printf ("Generate Cache\n"));
 	priv = book_backend_gal->priv;
@@ -2267,7 +2268,7 @@ generate_cache (EBookBackendGAL *book_backend_gal, const gchar * changed_filter)
 		npagedextended = npagedpartial = 0;
 
 	build_query (book_backend_gal,
-		     "(beginswith \"file_as\" \"\")", changed_filter, &ldap_query);
+		     "(beginswith \"file_as\" \"\")", changed_filter, &ldap_query, &error);
 
 getNextPage:
 
