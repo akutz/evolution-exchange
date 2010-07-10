@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=evolution-exchange&component=general\n"
-"POT-Creation-Date: 2010-07-08 18:37+0000\n"
-"PO-Revision-Date: 2010-07-08 22:51+0200\n"
+"POT-Creation-Date: 2010-07-09 12:32+0000\n"
+"PO-Revision-Date: 2010-07-10 10:21+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -37,36 +37,38 @@ msgstr ""
 "usar la caché actual para siempre. Sólo funcionará si la caché de GAL está "
 "activada en modo desconectado."
 
-#: ../addressbook/e-book-backend-exchange.c:2302
-#: ../addressbook/e-book-backend-gal.c:1900
+#: ../addressbook/e-book-backend-exchange.c:135
+#, c-format
+msgid "Operation failed with status %d"
+msgstr "Falló la operación con el estado %d"
+
+#: ../addressbook/e-book-backend-exchange.c:1797
+#: ../addressbook/e-book-backend-exchange.c:2642
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#: ../addressbook/e-book-backend-exchange.c:2319
+#: ../addressbook/e-book-backend-gal.c:1931
 msgid "Searching..."
 msgstr "Buscando..."
 
-#: ../addressbook/e-book-backend-gal.c:319
-#: ../addressbook/e-book-backend-gal.c:340
+#: ../addressbook/e-book-backend-gal.c:330
+#: ../addressbook/e-book-backend-gal.c:351
 msgid "Reconnecting to LDAP server..."
 msgstr "Conectando con el servidor LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1661
+#: ../addressbook/e-book-backend-gal.c:1671
 msgid "Receiving LDAP search results..."
 msgstr "Recibiendo resultados de la búsqueda LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1931
+#: ../addressbook/e-book-backend-gal.c:1962
 msgid "Error performing search"
 msgstr "Error al efectuar la búsqueda"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2123
+#: ../calendar/e-cal-backend-exchange-calendar.c:2145
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "El recurso «%s» está ocupado durante el periodo de tiempo seleccionado."
-
-#: ../calendar/e-cal-backend-exchange.c:422
-msgid "Authentication failed"
-msgstr "La autenticación ha fallado"
-
-#: ../calendar/e-cal-backend-exchange.c:474
-msgid "Could not find the calendar"
-msgstr "No se pudo encontrar el calendario"
 
 #: ../camel/camel-exchange-folder.c:75
 msgid "No Subject"
@@ -102,7 +104,6 @@ msgstr "No se pudo cargar el resumen para %s"
 
 #: ../camel/camel-exchange-folder.c:1088
 #, c-format
-#| msgid "Could not create cache for %s"
 msgid "Could not create cache for %s: "
 msgstr "No se pudo crear la caché para %s: "
 
@@ -121,7 +122,6 @@ msgstr "Obteniendo la información del resumen para los mensajes nuevos"
 
 #: ../camel/camel-exchange-journal.c:144
 #, c-format
-#| msgid "No folder name found\n"
 msgid "No folder name found"
 msgstr "No se encontró ningún nombre de carpeta"
 
@@ -141,7 +141,6 @@ msgstr ""
 "disponible"
 
 #: ../camel/camel-exchange-journal.c:437
-#| msgid "Cannot append message in offline mode: %s"
 msgid "Cannot append message in offline mode: "
 msgstr "No se puede agregar el mensaje en modo desconectado: "
 
@@ -271,9 +270,6 @@ msgstr "Cuenta Exchange de %s en %s"
 
 #: ../camel/camel-exchange-store.c:378
 #, c-format
-#| msgid ""
-#| "Could not authenticate to server. (Password incorrect?)\n"
-#| "\n"
 msgid "Could not authenticate to server. (Password incorrect?)"
 msgstr "No se pudo autenticar con el servidor. (¿Contraseña incorrecta?)"
 
@@ -1871,6 +1867,12 @@ msgstr "Asistente para _fuera de oficina"
 #: ../tools/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Desuscribirse de una carpeta de otro usuario"
+
+#~ msgid "Authentication failed"
+#~ msgstr "La autenticación ha fallado"
+
+#~ msgid "Could not find the calendar"
+#~ msgstr "No se pudo encontrar el calendario"
 
 #~ msgid "Cannot get folder info in offline mode."
 #~ msgstr "No se puede obtener la info de la carpeta en modo desconectado."
