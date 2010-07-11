@@ -39,7 +39,7 @@ rns_array (ESExp *esexp, gint argc, ESExpResult **argv)
 	gint i;
 
 	rns = g_new (E2kRestriction *, argc);
-	for (i = 0; i < argc; i ++) {
+	for (i = 0; i < argc; i++) {
 		if (argv[i]->type != ESEXP_RES_UNDEFINED) {
 			while (i--)
 				e2k_restriction_unref (rns[i]);

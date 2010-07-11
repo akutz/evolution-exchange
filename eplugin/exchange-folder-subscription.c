@@ -105,7 +105,7 @@ setup_folder_name_combo (GtkWidget *widget, const gchar *fname)
 
 	gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (combo)));
 
-	for (i = 0; strings[i] != NULL; i ++)
+	for (i = 0; strings[i] != NULL; i++)
 		gtk_combo_box_append_text (combo, strings[i]);
 
 	gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (combo))), fname);

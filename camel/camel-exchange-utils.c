@@ -759,7 +759,7 @@ sync_deletions (ExchangeFolder *mfld)
 		g_warning ("synced_deleted: %d", status);
 
 	/* Clear out removed messages from mfld */
-	for (my_i = mfld->messages->len - 1; my_i >= 0; my_i --) {
+	for (my_i = mfld->messages->len - 1; my_i >= 0; my_i--) {
 		mmsg = mfld->messages->pdata[my_i];
 		if (!g_hash_table_lookup (known_messages, mmsg)) {
 			mfld->deleted_count++;

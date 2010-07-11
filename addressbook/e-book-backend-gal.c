@@ -396,7 +396,7 @@ ldap_op_add (LDAPOp *op, EBookBackend *backend,
 	g_hash_table_insert (bl->priv->id_to_op,
 			     &op->id, op);
 
-	bl->priv->active_ops ++;
+	bl->priv->active_ops++;
 
 	if (bl->priv->poll_timeout == -1)
 		bl->priv->poll_timeout = g_timeout_add (LDAP_POLL_INTERVAL,
@@ -905,11 +905,11 @@ rfc2254_escape(gchar *str)
 	gint len = strlen(str);
 	gint newlen = 0;
 
-	for (i = 0; i < len; i ++) {
+	for (i = 0; i < len; i++) {
 		if (IS_RFC2254_CHAR(str[i]))
 			newlen += 3;
 		else
-			newlen ++;
+			newlen++;
 	}
 
 	if (len == newlen) {
@@ -918,7 +918,7 @@ rfc2254_escape(gchar *str)
 	else {
 		gchar *newstr = g_malloc0 (newlen + 1);
 		gint j = 0;
-		for (i = 0; i < len; i ++) {
+		for (i = 0; i < len; i++) {
 			if (IS_RFC2254_CHAR(str[i])) {
 				sprintf (newstr + j, "\\%02x", str[i]);
 				j+= 3;
@@ -950,7 +950,7 @@ func_and(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 	}
 
 	string = g_string_new("(&");
-	for (i = 0; i < argc; i ++) {
+	for (i = 0; i < argc; i++) {
 		if (argv[i]->type != ESEXP_RES_STRING)
 			continue;
 		g_string_append(string, argv[i]->value.string);
@@ -983,7 +983,7 @@ func_or(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 	}
 
 	string = g_string_new("(|");
-	for (i = 0; i < argc; i ++) {
+	for (i = 0; i < argc; i++) {
 		if (argv[i]->type != ESEXP_RES_STRING)
 			continue;
 		g_string_append(string, argv[i]->value.string);
@@ -1027,7 +1027,7 @@ query_prop_to_ldap (const gchar *query_prop)
 	if (!strcmp (query_prop, "email"))
 		query_prop = "email_1";
 
-	for (i = 0; i < G_N_ELEMENTS (prop_info); i ++)
+	for (i = 0; i < G_N_ELEMENTS (prop_info); i++)
 		if (!strcmp (query_prop, e_contact_field_name (prop_info[i].field_id)))
 			return prop_info[i].ldap_attr;
 
@@ -1335,7 +1335,7 @@ get_time_stamp (gchar *serv_time_str, time_t *mtime)
 	hour = G_STRNDUP(input_str, 2)
 	minute = G_STRNDUP(input_str, 2)
 	second = G_STRNDUP(input_str, 2)
-	input_str ++; // parse over the dot
+	input_str++; // parse over the dot
 	zone = G_STRNDUP(input_str, 1)
 
 	mytime.tm_year = atoi(year)-1900;
@@ -1443,7 +1443,7 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 			g_mutex_lock (bl->priv->ldap_lock);
 			values = ldap_get_values (bl->priv->ldap, e, attr);
 			g_mutex_unlock (bl->priv->ldap_lock);
-			for (i = 0; values[i]; i ++) {
+			for (i = 0; values[i]; i++) {
 				if (!g_ascii_strcasecmp (values [i], "groupOfNames")) {
 					d(printf ("groupOfNames\n"));
 					e_contact_set (contact, E_CONTACT_IS_LIST, GINT_TO_POINTER (TRUE));
@@ -1455,7 +1455,7 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 			ldap_value_free (values);
 		}
 		else {
-			for (i = 0; i < G_N_ELEMENTS (prop_info); i ++)
+			for (i = 0; i < G_N_ELEMENTS (prop_info); i++)
 				if (!g_ascii_strcasecmp (attr, prop_info[i].ldap_attr)) {
 					info = &prop_info[i];
 					break;
@@ -1758,7 +1758,7 @@ get_contacts_from_cache (EBookBackendGAL *ebg,
 {
 	gint i;
 
-	for (i = 0; i < ids->len; i ++) {
+	for (i = 0; i < ids->len; i++) {
 		gchar *uid = g_ptr_array_index (ids, i);
 
 		EContact *contact =
@@ -2042,7 +2042,7 @@ tool_server_controls( LDAP *ld, LDAPControl *extra_c, gint count )
 	err = ldap_set_option( ld, LDAP_OPT_SERVER_CONTROLS, ctrls );
 
 	if (err != LDAP_SUCCESS) {
-		for ( j = 0; j < i; j++ ) {
+		for (j = 0; j < i; j++) {
 			if (ctrls[j]->ldctl_iscritical) crit = 1;
 		}
 		fprintf( stderr, "Could not set %scontrols\n",
@@ -2186,7 +2186,7 @@ static gint dosearch(
 		0,
 		NULL, &res )) > 0 )
 	{
-		for ( msg = ldap_first_message (bl->priv->ldap, res );
+		for (msg = ldap_first_message (bl->priv->ldap, res);
 			msg != NULL;
 			msg = ldap_next_message (bl->priv->ldap, msg ) )
 		{
@@ -2195,7 +2195,7 @@ static gint dosearch(
 
 			switch (ldap_msgtype( msg )) {
 			case LDAP_RES_SEARCH_ENTRY:
-				count ++;
+				count++;
 				g_mutex_unlock (bl->priv->ldap_lock);
 				contact = build_contact_from_entry (bl, msg, NULL);
 				uid = e_contact_get_const (contact, E_CONTACT_UID);
@@ -2694,7 +2694,7 @@ load_source (EBookBackend *backend,
 		g_static_mutex_lock (&global_env_lock);
 		if (global_env.ref_count > 0) {
 			env = global_env.env;
-			global_env.ref_count ++;
+			global_env.ref_count++;
 		}
 		else {
 			db_error = db_env_create (&env, 0);
