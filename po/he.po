@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-21 09:56+0300\n"
-"PO-Revision-Date: 2010-06-21 10:27+0200\n"
+"POT-Creation-Date: 2010-07-13 11:25+0300\n"
+"PO-Revision-Date: 2010-07-13 11:26+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Gezer <sh.yaron@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -36,104 +36,110 @@ msgstr ""
 "cache forever. This will work only if you have enabled offline caching for "
 "GAL."
 
-#: ../addressbook/e-book-backend-exchange.c:2302
-#: ../addressbook/e-book-backend-gal.c:1900
+#: ../addressbook/e-book-backend-exchange.c:135
+#, c-format
+msgid "Operation failed with status %d"
+msgstr "הפעולה כשלה במצב %d"
+
+#: ../addressbook/e-book-backend-exchange.c:1797
+#: ../addressbook/e-book-backend-exchange.c:2642
+msgid "Cancelled"
+msgstr "בוטלה"
+
+#: ../addressbook/e-book-backend-exchange.c:2319
+#: ../addressbook/e-book-backend-gal.c:1931
 msgid "Searching..."
 msgstr "מחפש..."
 
-#: ../addressbook/e-book-backend-gal.c:319
-#: ../addressbook/e-book-backend-gal.c:340
+#: ../addressbook/e-book-backend-gal.c:330
+#: ../addressbook/e-book-backend-gal.c:351
 msgid "Reconnecting to LDAP server..."
 msgstr "מתחבר מחדש לשרת LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1661
+#: ../addressbook/e-book-backend-gal.c:1671
 msgid "Receiving LDAP search results..."
 msgstr "מקבל תוצאות חיפוש LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1931
+#: ../addressbook/e-book-backend-gal.c:1962
 msgid "Error performing search"
 msgstr "שגיאה בביצוע החיפוש"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2123
+#: ../calendar/e-cal-backend-exchange-calendar.c:2145
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "המשאב '%s' לא זמין במשך תקופת הזמן שנבחרה."
 
-#: ../calendar/e-cal-backend-exchange.c:422
-msgid "Authentication failed"
-msgstr "האימות נכשל"
-
-#: ../calendar/e-cal-backend-exchange.c:474
-msgid "Could not find the calendar"
-msgstr "לא ניתן למצוא את לוח השנה"
-
-#: ../camel/camel-exchange-folder.c:74
+#: ../camel/camel-exchange-folder.c:75
 msgid "No Subject"
 msgstr "אין נושא"
 
-#: ../camel/camel-exchange-folder.c:130
+#: ../camel/camel-exchange-folder.c:137
+#, c-format
 msgid "This message is not available in offline mode."
 msgstr "הודעה זו אינה זמינה במצב לא מקוון"
 
-#: ../camel/camel-exchange-folder.c:388
+#: ../camel/camel-exchange-folder.c:386
+#, c-format
 msgid "You cannot expunge in offline mode."
 msgstr "לא ניתן לבצע השמדה במצב לא מקוון."
 
-#: ../camel/camel-exchange-folder.c:620
+#: ../camel/camel-exchange-folder.c:626
 msgid "Moving messages"
 msgstr "מעביר הודעות"
 
-#: ../camel/camel-exchange-folder.c:621
+#: ../camel/camel-exchange-folder.c:627
 msgid "Copying messages"
 msgstr "מעתיק הודעות"
 
-#: ../camel/camel-exchange-folder.c:1055
+#: ../camel/camel-exchange-folder.c:1070
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "לא ניתן ליצור את הספרייה %s: ‏%s"
 
-#: ../camel/camel-exchange-folder.c:1066
+#: ../camel/camel-exchange-folder.c:1081
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "לא ניתן לטעון סיכום עבור %s"
 
-#: ../camel/camel-exchange-folder.c:1074
+#: ../camel/camel-exchange-folder.c:1088
 #, c-format
-msgid "Could not create cache for %s"
-msgstr "לא ניתן ליצור מטמון עבור %s"
+msgid "Could not create cache for %s: "
+msgstr "לא ניתן ליצור מטמון עבור %s:"
 
-#: ../camel/camel-exchange-folder.c:1084
+#: ../camel/camel-exchange-folder.c:1099
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "לא ניתן ליצור יומן עבור %s"
 
-#: ../camel/camel-exchange-folder.c:1131
+#: ../camel/camel-exchange-folder.c:1146
 msgid "Scanning for changed messages"
 msgstr "סורק אחר הודעות ששונו"
 
-#: ../camel/camel-exchange-folder.c:1158
+#: ../camel/camel-exchange-folder.c:1173
 msgid "Fetching summary information for new messages"
 msgstr "מוריד נתוני סיכום עבור הודעות חדשות"
 
-#: ../camel/camel-exchange-journal.c:149
-msgid "No folder name found\n"
-msgstr "לא נמצא שם תיקייה\n"
+#: ../camel/camel-exchange-journal.c:144
+#, c-format
+msgid "No folder name found"
+msgstr "לא נמצא שם תיקייה"
 
-#: ../camel/camel-exchange-journal.c:184 ../camel/camel-exchange-utils.c:3137
-#: ../camel/camel-exchange-utils.c:3201 ../camel/camel-exchange-utils.c:3321
+#: ../camel/camel-exchange-journal.c:185 ../camel/camel-exchange-utils.c:3139
+#: ../camel/camel-exchange-utils.c:3203 ../camel/camel-exchange-utils.c:3321
 #: ../camel/camel-exchange-utils.c:3352 ../camel/camel-exchange-utils.c:3404
 #: ../camel/camel-exchange-utils.c:3425
+#, c-format
 msgid "Folder doesn't exist"
 msgstr "התיקייה אינה קיימת"
 
-#: ../camel/camel-exchange-journal.c:408
+#: ../camel/camel-exchange-journal.c:417
+#, c-format
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "לא ניתן להוסיף הודעה במצב לא מקוון: המטמון אינו זמין"
 
-#: ../camel/camel-exchange-journal.c:424
-#, c-format
-msgid "Cannot append message in offline mode: %s"
-msgstr "לא ניתן להוסיף הודעה במצב לא מקוון: %s"
+#: ../camel/camel-exchange-journal.c:437
+msgid "Cannot append message in offline mode: "
+msgstr "לא ניתן להוסיף הודעה במצב לא מקוון:"
 
 #: ../camel/camel-exchange-provider.c:52
 msgid "Secure or Plaintext Password"
@@ -254,132 +260,133 @@ msgstr "שרת Exchange %s"
 msgid "Exchange account for %s on %s"
 msgstr "חשבון ה־Exchange של %s על גבי %s"
 
-#: ../camel/camel-exchange-store.c:371
-msgid ""
-"Could not authenticate to server. (Password incorrect?)\n"
-"\n"
-msgstr ""
-"לא ניתן להתאמת עם השרת. (ססמה שגויה?)\n"
-"\n"
+#: ../camel/camel-exchange-store.c:378
+#, c-format
+msgid "Could not authenticate to server. (Password incorrect?)"
+msgstr "לא ניתן להתאמת מול השרת. (ססמה שגויה?)"
 
-#: ../camel/camel-exchange-store.c:431
+#: ../camel/camel-exchange-store.c:441
 #, c-format
 msgid "No such folder %s"
 msgstr "לא קיימת תיקייה %s"
 
-#: ../camel/camel-exchange-store.c:501
-msgid "Cannot get folder info in offline mode."
-msgstr "לא ניתן לקבל מידע תיקייה במצב לא מקוון."
-
-#: ../camel/camel-exchange-store.c:566
+#: ../camel/camel-exchange-store.c:574
+#, c-format
 msgid "Cannot create folder in offline mode."
 msgstr "לא ניתן ליצור תיקייה במצב לא מקוון."
 
-#: ../camel/camel-exchange-store.c:590
+#: ../camel/camel-exchange-store.c:604
+#, c-format
 msgid "Cannot delete folder in offline mode."
 msgstr "לא ניתן למחוק תיקייה במצב לא מקוון."
 
-#: ../camel/camel-exchange-store.c:615
+#: ../camel/camel-exchange-store.c:630
+#, c-format
 msgid "Cannot rename folder in offline mode."
 msgstr "לא ניתן לשנות שם תיקייה במצב לא מקוון."
 
-#: ../camel/camel-exchange-store.c:692
+#: ../camel/camel-exchange-store.c:711
+#, c-format
 msgid "Cannot subscribe folder in offline mode."
 msgstr "לא ניתן לרשום תיקייה במצב לא מקוון."
 
-#: ../camel/camel-exchange-store.c:710
+#: ../camel/camel-exchange-store.c:730
+#, c-format
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "לא ניתן לבטל הרשמה מתיקייה במצב לא מקוון."
 
-#: ../camel/camel-exchange-transport.c:62
+#: ../camel/camel-exchange-transport.c:65
+#, c-format
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "ניתן להשתמש בתעבורת Exchange רק עבור מקור דואר של Exchange"
 
-#: ../camel/camel-exchange-transport.c:75
+#: ../camel/camel-exchange-transport.c:79
+#, c-format
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "לא ניתן לשלוח הודעה: נמען אחד או יותר שגוי"
 
-#: ../camel/camel-exchange-transport.c:84
+#: ../camel/camel-exchange-transport.c:90
+#, c-format
 msgid "Could not find 'From' address in message"
 msgstr "לא ניתן למצוא את השדה 'מאת' בהודעה"
 
-#: ../camel/camel-exchange-utils.c:530 ../camel/camel-exchange-utils.c:569
+#: ../camel/camel-exchange-utils.c:529 ../camel/camel-exchange-utils.c:568
 msgid "Could not get new messages"
 msgstr "לא ניתן לקבל הודעות חדשות"
 
-#: ../camel/camel-exchange-utils.c:1057 ../camel/camel-exchange-utils.c:1208
+#: ../camel/camel-exchange-utils.c:1056 ../camel/camel-exchange-utils.c:1207
 msgid "Could not open folder"
 msgstr "לא ניתן לפתוח תיקייה"
 
-#: ../camel/camel-exchange-utils.c:1204 ../camel/camel-exchange-utils.c:1222
+#: ../camel/camel-exchange-utils.c:1203 ../camel/camel-exchange-utils.c:1221
 msgid "Could not open folder: Permission denied"
 msgstr "לא ניתן לפתוח את התיקייה: ההרשאה נדחתה"
 
-#: ../camel/camel-exchange-utils.c:1271 ../camel/camel-exchange-utils.c:2200
+#: ../camel/camel-exchange-utils.c:1270 ../camel/camel-exchange-utils.c:2199
 msgid "No such folder"
 msgstr "לא קיימת תיקייה"
 
-#: ../camel/camel-exchange-utils.c:1293 ../camel/camel-exchange-utils.c:3111
-#: ../camel/camel-exchange-utils.c:3154 ../camel/camel-exchange-utils.c:3325
+#: ../camel/camel-exchange-utils.c:1292 ../camel/camel-exchange-utils.c:3113
+#: ../camel/camel-exchange-utils.c:3156 ../camel/camel-exchange-utils.c:3325
 #: ../camel/camel-exchange-utils.c:3378 ../camel/camel-exchange-utils.c:3440
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
 #: ../server/storage/e-storage.c:573
 msgid "Permission denied"
 msgstr "ההרשאה נדחתה"
 
-#: ../camel/camel-exchange-utils.c:2209
+#: ../camel/camel-exchange-utils.c:2208
 msgid "Could not create folder."
 msgstr "לא ניתן ליצור תיקייה."
 
-#: ../camel/camel-exchange-utils.c:2298
+#: ../camel/camel-exchange-utils.c:2296
 msgid "Could not open Deleted Items folder"
 msgstr "לא ניתן לפתוח את תיקיית הפריטים שנמחקו"
 
-#: ../camel/camel-exchange-utils.c:2425
+#: ../camel/camel-exchange-utils.c:2422
 msgid "Could not empty Deleted Items folder"
 msgstr "לא ניתן לרוקן את תיקיית הפריטים שנמחקו"
 
-#: ../camel/camel-exchange-utils.c:2427
+#: ../camel/camel-exchange-utils.c:2424
 msgid "Permission denied. Could not delete certain messages."
 msgstr "ההרשאה נדחתה. לא ניתן למחוק הודעות מסוימות."
 
-#: ../camel/camel-exchange-utils.c:2470
+#: ../camel/camel-exchange-utils.c:2468
 msgid "Could not append message; mailbox is over quota"
 msgstr "לא ניתן להוסיף הודעה; תיבת הדואר אלקטרוני חרגה ממכסתה"
 
-#: ../camel/camel-exchange-utils.c:2471
+#: ../camel/camel-exchange-utils.c:2469
 msgid "Could not append message"
 msgstr "לא ניתן להוסיף הודעה"
 
-#: ../camel/camel-exchange-utils.c:2657
+#: ../camel/camel-exchange-utils.c:2655
 msgid "No such message"
 msgstr "אין הודעה כזו"
 
-#: ../camel/camel-exchange-utils.c:2729
+#: ../camel/camel-exchange-utils.c:2727
 msgid "Message has been deleted"
 msgstr "ההודעה נמחקה"
 
-#: ../camel/camel-exchange-utils.c:2731
+#: ../camel/camel-exchange-utils.c:2729
 msgid "Error retrieving message"
 msgstr "שגיאה בהורדת הודעה"
 
-#: ../camel/camel-exchange-utils.c:2780
+#: ../camel/camel-exchange-utils.c:2778
 msgid "Mailbox does not support full-text searching"
 msgstr "תיבת הדוא\"ל לא תומכת בחיפוש טקסט מלא"
 
-#: ../camel/camel-exchange-utils.c:2888
+#: ../camel/camel-exchange-utils.c:2890
 msgid "Unable to move/copy messages"
 msgstr "לא ניתן להעתיק/להעביר הודעות"
 
-#: ../camel/camel-exchange-utils.c:3016
+#: ../camel/camel-exchange-utils.c:3018
 msgid "No mail submission URI for this mailbox"
 msgstr "אין כתובת למשלוח דואר לתיבת דואר זו"
 
-#: ../camel/camel-exchange-utils.c:3049
+#: ../camel/camel-exchange-utils.c:3051
 msgid "Server won't accept mail via Exchange transport"
 msgstr "השרת לא יקבל דואר באמצעות תעבורה של Exchange"
 
-#: ../camel/camel-exchange-utils.c:3051
+#: ../camel/camel-exchange-utils.c:3053
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -388,7 +395,7 @@ msgstr ""
 "לחשבון שלך אין הרשאה להשתמש ב־<%s>\n"
 "ככתובת 'מאת'."
 
-#: ../camel/camel-exchange-utils.c:3063
+#: ../camel/camel-exchange-utils.c:3065
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -396,11 +403,11 @@ msgstr ""
 "לא ניתן לשלוח את ההודעה.\n"
 "יתכן שמשמעות הדבר היא שחשבונך התמלא עד למכסתו."
 
-#: ../camel/camel-exchange-utils.c:3067
+#: ../camel/camel-exchange-utils.c:3069
 msgid "Could not send message"
 msgstr "לא ניתן לשלוח הודעה"
 
-#: ../camel/camel-exchange-utils.c:3103 ../camel/camel-exchange-utils.c:3159
+#: ../camel/camel-exchange-utils.c:3105 ../camel/camel-exchange-utils.c:3161
 #: ../camel/camel-exchange-utils.c:3329 ../camel/camel-exchange-utils.c:3382
 #: ../camel/camel-exchange-utils.c:3446
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
@@ -408,7 +415,7 @@ msgstr "לא ניתן לשלוח הודעה"
 msgid "Generic error"
 msgstr "שגיאה כללית"
 
-#: ../camel/camel-exchange-utils.c:3107
+#: ../camel/camel-exchange-utils.c:3109
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
 msgid "Folder already exists"
 msgstr "התיקייה כבר קיימת"
@@ -607,22 +614,22 @@ msgstr "_כן, לשנות את המצב"
 msgid "Enter Password for %s"
 msgstr "יש להזין ססמה עבור %s"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:437
+#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:435
 #: ../server/storage/exchange-hierarchy-foreign.c:260
 msgid "Calendar"
 msgstr "לוח שנה"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:440
+#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:438
 #: ../server/storage/exchange-hierarchy-foreign.c:269
 msgid "Tasks"
 msgstr "משימות"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:435
+#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:433
 #: ../server/storage/exchange-hierarchy-foreign.c:264
 msgid "Inbox"
 msgstr "דואר נכנס"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:443
+#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:441
 #: ../server/storage/exchange-hierarchy-foreign.c:261
 msgid "Contacts"
 msgstr "אנשי קשר"
@@ -889,12 +896,12 @@ msgstr "שם ה_תיקייה:"
 msgid "_User:"
 msgstr "_משתמש:"
 
-#: ../eplugin/exchange-folder.c:322 ../eplugin/exchange-folder.c:378
+#: ../eplugin/exchange-folder.c:320 ../eplugin/exchange-folder.c:376
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "האם באמת לבטל את המינוי לתיקייה \"%s\"?"
 
-#: ../eplugin/exchange-folder.c:335 ../eplugin/exchange-folder.c:391
+#: ../eplugin/exchange-folder.c:333 ../eplugin/exchange-folder.c:389
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "ביטול המינוי אל \"%s\""
@@ -1821,6 +1828,15 @@ msgstr "מסייע המ_חוץ למשרד"
 #: ../tools/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_ביטול ההרשמה מתיקייה של משתמש אחר..."
+
+#~ msgid "Authentication failed"
+#~ msgstr "האימות נכשל"
+
+#~ msgid "Could not find the calendar"
+#~ msgstr "לא ניתן למצוא את לוח השנה"
+
+#~ msgid "Cannot get folder info in offline mode."
+#~ msgstr "לא ניתן לקבל מידע תיקייה במצב לא מקוון."
 
 #~ msgid ""
 #~ "Unable to schedule resource '%s' for recurring meetings.\n"
