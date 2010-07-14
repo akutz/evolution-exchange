@@ -542,16 +542,16 @@ e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 
 		if (content) {
 			EContactPhoto photo;
-			CamelStreamMem *stream_mem;
+			GByteArray *mem_bytes;
 
-			stream = camel_stream_mem_new ();
-			stream_mem = (CamelStreamMem *)stream;
+			mem_bytes = g_byte_array_new ();
+			stream = camel_stream_mem_new_with_byte_array (mem_bytes);
 			camel_data_wrapper_decode_to_stream (content, stream);
 
 			photo.type = E_CONTACT_PHOTO_TYPE_INLINED;
 			photo.data.inlined.mime_type = NULL;
-			photo.data.inlined.data = stream_mem->buffer->data;
-			photo.data.inlined.length = stream_mem->buffer->len;
+			photo.data.inlined.data = mem_bytes->data;
+			photo.data.inlined.length = mem_bytes->len;
 			e_contact_set (contact, E_CONTACT_PHOTO, &photo);
 
 			camel_object_unref (stream);
