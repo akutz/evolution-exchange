@@ -1304,19 +1304,47 @@ add_timezone (ECalBackendSync *backend, EDataCal *cal,
 }
 
 static void
-set_default_timezone (ECalBackendSync *backend, EDataCal *cal,
-		      const gchar *tzid, GError **perror)
+set_default_zone (ECalBackendSync *backend, EDataCal *cal, const gchar *tz, GError **perror)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
+	icalcomponent *icalcomp = icalparser_parse_string (tz);
+	icaltimezone *zone = NULL;
 
-	d(printf("ecbe_set_default_timezone(%p, %p, %s)\n", backend, cal, tzid));
+	d(printf("ecbe_set_default_zone(%p, %p, %s)\n", backend, cal, tz));
 	/*
 	   We call this function before calling e_cal_open in client and
 	   hence we set the timezone directly.  In the implementation of
 	   e_cal_open, we set this timezone to every-objects that we create.
 	*/
 
-	cbex->priv->default_timezone = icaltimezone_get_builtin_timezone_from_tzid (tzid);
+	if (icalcomp) {
+		const gchar *tzid;
+
+		zone = icaltimezone_new ();
+		icaltimezone_set_component (zone, icalcomp);
+
+		tzid = icaltimezone_get_tzid (zone);
+
+		if (tzid) {
+			icaltimezone *known_zone;
+
+			known_zone = icaltimezone_get_builtin_timezone_from_tzid (tzid);
+			if (!known_zone)
+				known_zone = g_hash_table_lookup (cbex->priv->timezones, tzid);
+
+			if (known_zone) {
+				icaltimezone_free (zone, 1);
+				zone = known_zone;
+			} else {
+				g_hash_table_insert (cbex->priv->timezones, g_strdup (tzid), zone);
+			}
+		} else {
+			icaltimezone_free (zone, 1);
+			zone = NULL;
+		}
+	}
+
+	cbex->priv->default_timezone = zone;
 }
 
 static void
@@ -2276,7 +2304,7 @@ class_init (ECalBackendExchangeClass *klass)
 	sync_class->get_object_sync = get_object;
 	sync_class->get_object_list_sync = get_object_list;
 	sync_class->add_timezone_sync = add_timezone;
-	sync_class->set_default_timezone_sync = set_default_timezone;
+	sync_class->set_default_zone_sync = set_default_zone;
 	sync_class->get_freebusy_sync = get_freebusy;
 	sync_class->get_changes_sync = get_changes;
 	sync_class->create_object_sync = create_object;
