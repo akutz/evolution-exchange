@@ -2609,6 +2609,7 @@ load_source (EBookBackend *backend,
 	gchar *book_name = NULL;
 	gint i;
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
+	const gchar *cache_dir;
 	gchar *dirname, *filename;
 	gint db_error;
 	DB *db;
@@ -2670,13 +2671,14 @@ load_source (EBookBackend *backend,
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
 	if (bl->priv->marked_for_offline) {
 		d(printf("offlin==============\n"));
-		bl->priv->summary_file_name = g_build_filename (g_get_home_dir(), ".evolution/cache/addressbook" , uri, book_name, NULL);
+		cache_dir = e_book_backend_get_cache_dir (backend);
+		bl->priv->summary_file_name = g_build_filename (cache_dir, book_name, NULL);
 		bl->priv->summary_file_name = g_build_filename (bl->priv->summary_file_name, "cache.summary", NULL);
 		bl->priv->summary = e_book_backend_summary_new (bl->priv->summary_file_name,
 							    SUMMARY_FLUSH_TIMEOUT);
 		e_book_backend_summary_load (bl->priv->summary);
 
-		dirname = g_build_filename (g_get_home_dir(), ".evolution/cache/addressbook", uri, book_name, NULL);
+		dirname = g_build_filename (cache_dir, book_name, NULL);
 		filename = g_build_filename (dirname, "cache.db", NULL);
 
 		g_free (book_name);
@@ -2829,16 +2831,7 @@ get_static_capabilities (EBookBackend *backend)
 EBookBackend *
 e_book_backend_gal_new (void)
 {
-	EBookBackendGAL *backend;
-
-	backend = g_object_new (E_TYPE_BOOK_BACKEND_GAL, NULL);
-	if (!e_book_backend_construct (E_BOOK_BACKEND (backend))) {
-		g_object_unref (backend);
-
-		return NULL;
-	}
-
-	return E_BOOK_BACKEND (backend);
+	return g_object_new (E_TYPE_BOOK_BACKEND_GAL, NULL);
 }
 
 static gboolean

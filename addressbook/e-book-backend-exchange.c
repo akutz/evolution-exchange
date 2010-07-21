@@ -2800,11 +2800,15 @@ e_book_backend_exchange_load_source (EBookBackend *backend,
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
+	const gchar *cache_dir;
 	const gchar *offline;
+	gchar *filename;
 
 	e_return_data_book_error_if_fail (bepriv->connected == FALSE, E_DATA_BOOK_STATUS_OTHER_ERROR);
 
 	d(printf("ebbe_load_source(%p, %p[%s])\n", backend, source, e_source_peek_name (source)));
+
+	cache_dir = e_book_backend_get_cache_dir (backend);
 
 	offline = e_source_get_property (source, "offline_sync");
 	if (offline  && g_str_equal (offline, "1"))
@@ -2823,16 +2827,22 @@ e_book_backend_exchange_load_source (EBookBackend *backend,
 	}
 	bepriv->original_uri = g_strdup (bepriv->exchange_uri);
 
+	filename = g_build_filename (cache_dir, "cache.xml", NULL);
+
 	if (bepriv->mode == E_DATA_BOOK_MODE_LOCAL) {
 		e_book_backend_set_is_writable (backend, FALSE);
 		e_book_backend_notify_writable (backend, FALSE);
 		e_book_backend_notify_connection_status (backend, FALSE);
-		if (!e_book_backend_cache_exists (bepriv->original_uri)) {
+		if (!g_file_test (filename, G_FILE_TEST_IS_REGULAR)) {
 			g_propagate_error (error, EDB_ERROR (OFFLINE_UNAVAILABLE));
+			g_free (filename);
 			return;
 		}
 	}
-	bepriv->cache = e_book_backend_cache_new (bepriv->original_uri);
+
+	bepriv->cache = e_book_backend_cache_new (filename);
+
+	g_free (filename);
 
 	/* Once aunthentication in address book works this can be removed */
 	if (bepriv->mode == E_DATA_BOOK_MODE_LOCAL) {
@@ -2889,18 +2899,6 @@ e_book_backend_exchange_get_static_capabilites (EBookBackend *backend)
 	return g_strdup ("net,bulk-removes,do-initial-query,cache-completions,contact-lists");
 }
 
-static gboolean
-e_book_backend_exchange_construct (EBookBackendExchange *backend)
-{
-	g_return_val_if_fail (backend != NULL, FALSE);
-	g_return_val_if_fail (E_IS_BOOK_BACKEND_EXCHANGE (backend), FALSE);
-
-	if (!e_book_backend_construct (E_BOOK_BACKEND (backend)))
-		return FALSE;
-
-	return TRUE;
-}
-
 static void
 e_book_backend_exchange_set_mode (EBookBackend *backend,
                                   EDataBookMode mode)
@@ -2937,19 +2935,9 @@ e_book_backend_exchange_set_mode (EBookBackend *backend,
 EBookBackend *
 e_book_backend_exchange_new (void)
 {
-	EBookBackendExchange *backend;
-
 	exchange_share_config_listener_get_account_for_uri (NULL, NULL);
 
-	backend = g_object_new (e_book_backend_exchange_get_type (), NULL);
-
-	if (!e_book_backend_exchange_construct (backend)) {
-		g_object_unref (backend);
-
-		return NULL;
-	}
-
-	return E_BOOK_BACKEND (backend);
+	return g_object_new (E_TYPE_BOOK_BACKEND_EXCHANGE, NULL);
 }
 
 static void

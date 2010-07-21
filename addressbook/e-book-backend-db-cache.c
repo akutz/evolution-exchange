@@ -27,6 +27,7 @@
 #include "e-book-backend-db-cache.h"
 #include <libedata-book/e-book-backend.h>
 #include <libedata-book/e-book-backend-sexp.h>
+#include <libedataserver/e-data-server-util.h>
 
 void
 string_to_dbt(const gchar *str, DBT *dbt)
@@ -40,8 +41,11 @@ string_to_dbt(const gchar *str, DBT *dbt)
 static gchar *
 get_filename_from_uri (const gchar *uri)
 {
+	const gchar *cache_dir;
 	gchar *mangled_uri, *filename;
 	gint i;
+
+	cache_dir = e_get_user_cache_dir ();
 
 	/* mangle the URI to not contain invalid characters */
 	mangled_uri = g_strdup (uri);
@@ -54,8 +58,9 @@ get_filename_from_uri (const gchar *uri)
 	}
 
 	/* generate the file name */
-	filename = g_build_filename (g_get_home_dir (), ".evolution/cache/addressbook",
-				     mangled_uri, "cache.db", NULL);
+	filename = g_build_filename (
+		cache_dir, "addressbook",
+		mangled_uri, "cache.db", NULL);
 
 	/* free memory */
 	g_free (mangled_uri);
