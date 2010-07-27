@@ -29,6 +29,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <libedataserver/e-time-utils.h>
+#include <libedataserver/e-data-server-util.h>
 
 #include <glib.h>
 #include <gio/gio.h>
