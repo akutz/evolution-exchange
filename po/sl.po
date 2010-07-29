@@ -1,4 +1,4 @@
-# Slovenian translation for evolution-exchange.
+# Slovenian translations for evolution-exchange.
 # Copyright (C) 2005 Free Software Foundation, Inc.
 # This file is distributed under the same license as the evolution-exchange package.
 #
@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: evolution-exchange\n"
+"Project-Id-Version: evolution-exchange master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=evolution-exchange&component=general\n"
 "POT-Creation-Date: 2010-07-22 01:23+0000\n"
-"PO-Revision-Date: 2010-07-22 11:06+0100\n"
+"PO-Revision-Date: 2010-07-29 14:59+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -22,16 +22,16 @@ msgstr ""
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
 msgid "Specifies the time interval to refresh the GAL Cache."
-msgstr "Določa časovni zamik osveževanja GAL predpomnilnika"
+msgstr "Določa časovni zamik osveževanja GAL predpomnilnika."
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
 msgid "This key specifies the number of days' interval between GAL cache refreshes. Set this value to zero if you don't want to update GAL and use the current cache forever. This will work only if you have enabled offline caching for GAL."
-msgstr "Ključ določa časovni zamik (v dneh) za osveževanje GAL predpomnilnika. Vrednost 0 onemogoči osvežitev predpomnilnika. Nastavitev deluje le, če ste omogočili predpomnjenje pomnilnika GAL."
+msgstr "Ključ določa dnevni časovni zamik za osveževanje GAL predpomnilnika. Vrednost 0 onemogoči osvežitev predpomnilnika. Nastavitev deluje le, če ste omogočili predpomnjenje pomnilnika GAL."
 
 #: ../addressbook/e-book-backend-exchange.c:135
 #, c-format
 msgid "Operation failed with status %d"
-msgstr "Opravilo n uspelo s stanjem %d"
+msgstr "Opravilo ni uspelo s stanjem %d"
 
 #: ../addressbook/e-book-backend-exchange.c:1797
 #: ../addressbook/e-book-backend-exchange.c:2642
@@ -101,7 +101,7 @@ msgstr "Ni mogoče ustvariti predpomnilnika za %s:"
 #: ../camel/camel-exchange-folder.c:1099
 #, c-format
 msgid "Could not create journal for %s"
-msgstr "Ni bilo mogoče ustvariti dnevnika za %s"
+msgstr "Ni mogoče ustvariti dnevnika za %s"
 
 #: ../camel/camel-exchange-folder.c:1146
 msgid "Scanning for changed messages"
@@ -109,7 +109,7 @@ msgstr "Preiskovanje spremenjenih sporočil"
 
 #: ../camel/camel-exchange-folder.c:1173
 msgid "Fetching summary information for new messages"
-msgstr "Prenašanje povzetkov novih sporočil"
+msgstr "Pridobivanje podrobnosti povzetkov novih sporočil"
 
 #: ../camel/camel-exchange-journal.c:144
 #, c-format
@@ -177,12 +177,12 @@ msgstr "Splošni seznam naslovov (GAL) / Dejavni imenik (AD)"
 #. technical term and may not have translations?
 #: ../camel/camel-exchange-provider.c:79
 msgid "_Global Catalog server name:"
-msgstr "Ime strežnika s _Splošnim katalogom"
+msgstr "Ime splošnega _kataloškega strežnika:"
 
 #: ../camel/camel-exchange-provider.c:81
 #, c-format
 msgid "_Limit number of GAL responses: %s"
-msgstr "Omejitev števi_la odgovorov GAL: %s"
+msgstr "Omeji števi_lo odgovorov GAL: %s"
 
 #: ../camel/camel-exchange-provider.c:83
 msgid "Authentication _Type:"
@@ -190,7 +190,7 @@ msgstr "Vrsta _overitve:"
 
 #: ../camel/camel-exchange-provider.c:85
 msgid "Allow _browsing of the GAL until download limit is reached"
-msgstr "Dovoli _brskanje GAL dokler ni dosežen limit prenosa"
+msgstr "Dovoli _brskanje GAL, dokler ni dosežena mejna vrednost prejemanja"
 
 #: ../camel/camel-exchange-provider.c:87
 msgid "_Expand groups of contacts in GAL to contact lists"
@@ -203,7 +203,7 @@ msgstr "Možnosti"
 #: ../camel/camel-exchange-provider.c:92
 #, c-format
 msgid "_Password Expiry Warning period: %s"
-msgstr "Doba opozarjanja na potek _gesla: %s"
+msgstr "Doba opozarjanja na pretečenost _gesla: %s"
 
 #: ../camel/camel-exchange-provider.c:94
 msgid "Automatically synchroni_ze account locally"
@@ -244,12 +244,12 @@ msgstr "Ta možnost bo vzpostavila povezavo s strežnikom Exchange ob uporabi ob
 #: ../camel/camel-exchange-store.c:300
 #, c-format
 msgid "Exchange server %s"
-msgstr "Exchange strežnik %s"
+msgstr "Strežnik Exchange %s"
 
 #: ../camel/camel-exchange-store.c:304
 #, c-format
 msgid "Exchange account for %s on %s"
-msgstr "Exchange račun za %s na %s"
+msgstr "Račun Exchange za %s na %s"
 
 #: ../camel/camel-exchange-store.c:378
 #, c-format
@@ -289,7 +289,7 @@ msgstr "Ni mogoče preklicati naročnine na mapo v načinu brez povezave."
 #: ../camel/camel-exchange-transport.c:65
 #, c-format
 msgid "Exchange transport can only be used with Exchange mail source"
-msgstr "Transport Exchange lahko uporabite le s poštnim virom Exchange"
+msgstr "Prenos Exchange je mogoče uporabiti le s poštnim virom Exchange"
 
 #: ../camel/camel-exchange-transport.c:79
 #, c-format
@@ -304,22 +304,22 @@ msgstr "Ni bilo mogoče najti naslova 'Od' v sporočilu"
 #: ../camel/camel-exchange-utils.c:529
 #: ../camel/camel-exchange-utils.c:568
 msgid "Could not get new messages"
-msgstr "Ni bilo mogoče pridobiti novih sporočil"
+msgstr "Ni mogoče pridobiti novih sporočil"
 
 #: ../camel/camel-exchange-utils.c:1056
 #: ../camel/camel-exchange-utils.c:1207
 msgid "Could not open folder"
-msgstr "Ni bilo mogoče odprti mape"
+msgstr "Ni mogoče odprti mape"
 
 #: ../camel/camel-exchange-utils.c:1203
 #: ../camel/camel-exchange-utils.c:1221
 msgid "Could not open folder: Permission denied"
-msgstr "Ni bilo mogoče odprti mape: nimate dovoljenja"
+msgstr "Ni mogoče odprti mape: ni ustreznih dovoljenj"
 
 #: ../camel/camel-exchange-utils.c:1270
 #: ../camel/camel-exchange-utils.c:2199
 msgid "No such folder"
-msgstr "Ta imenik ne obstaja"
+msgstr "Imenik ne obstaja"
 
 #: ../camel/camel-exchange-utils.c:1292
 #: ../camel/camel-exchange-utils.c:3113
@@ -334,27 +334,27 @@ msgstr "Ni ustreznih dovoljenj"
 
 #: ../camel/camel-exchange-utils.c:2208
 msgid "Could not create folder."
-msgstr "Ni bilo mogoče ustvariti mape"
+msgstr "Ni mogoče ustvariti mape."
 
 #: ../camel/camel-exchange-utils.c:2296
 msgid "Could not open Deleted Items folder"
-msgstr "Ni bilo mogoče odprti mape izbrisanih predmetov"
+msgstr "Ni mogoče odprti mape izbrisanih predmetov"
 
 #: ../camel/camel-exchange-utils.c:2422
 msgid "Could not empty Deleted Items folder"
-msgstr "Ni bilo mogoče sprazniti mape izbrisanih predmetov"
+msgstr "Ni mogoče izprazniti mape izbrisanih predmetov"
 
 #: ../camel/camel-exchange-utils.c:2424
 msgid "Permission denied. Could not delete certain messages."
-msgstr "Neustrezno dovoljenje. Nekaterih sporočil ni mogoče izbristati."
+msgstr "Neustrezna dovoljenja. Nekaterih sporočil ni mogoče izbrisati."
 
 #: ../camel/camel-exchange-utils.c:2468
 msgid "Could not append message; mailbox is over quota"
-msgstr "Ni bilo mogoče dodati sporočila; poštni predal poln"
+msgstr "Ni mogoče dodati sporočila; poštni predal je poln."
 
 #: ../camel/camel-exchange-utils.c:2469
 msgid "Could not append message"
-msgstr "Ni bilo mogoče dodati sporočila"
+msgstr "Ni mogoče dodati sporočila"
 
 #: ../camel/camel-exchange-utils.c:2655
 msgid "No such message"
@@ -362,7 +362,7 @@ msgstr "Ni takega sporočila"
 
 #: ../camel/camel-exchange-utils.c:2727
 msgid "Message has been deleted"
-msgstr "Sporočilo je bilo izbrisano"
+msgstr "Sporočilo je izbrisano"
 
 #: ../camel/camel-exchange-utils.c:2729
 msgid "Error retrieving message"
@@ -374,15 +374,15 @@ msgstr "Poštni predal ne podpira iskanja po celotnem besedilu"
 
 #: ../camel/camel-exchange-utils.c:2890
 msgid "Unable to move/copy messages"
-msgstr "Ni bilo mogoče premakniti/kopirati sporočil"
+msgstr "Ni mogoče premakniti ali kopirati sporočil"
 
 #: ../camel/camel-exchange-utils.c:3018
 msgid "No mail submission URI for this mailbox"
-msgstr "V poštnem predalu ni URI za potrditev pošte"
+msgstr "V poštnem predalu ni naslova URI za potrditev pošte"
 
 #: ../camel/camel-exchange-utils.c:3051
 msgid "Server won't accept mail via Exchange transport"
-msgstr "Strežnik ne bo sprejel pošte preko transporta Exchange"
+msgstr "Strežnik ne sprejme pošte preko prenosa Exchange"
 
 #: ../camel/camel-exchange-utils.c:3053
 #, c-format
@@ -390,7 +390,7 @@ msgid ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
 msgstr ""
-"Vaš račun nima dovoljenj za uporabo <%s>\n"
+"Uporabljen račun nima dovoljenj za uporabo <%s>\n"
 "kot naslov Od."
 
 #: ../camel/camel-exchange-utils.c:3065
@@ -398,8 +398,8 @@ msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr ""
-"Ni bilo mogoče poslati sporočila.\n"
-"Vaš poštni predal utegne biti poln."
+"Ni mogoče poslati sporočila.\n"
+"Poštni predal je verjetno poln."
 
 #: ../camel/camel-exchange-utils.c:3069
 msgid "Could not send message"
@@ -429,7 +429,7 @@ msgid ""
 "The message specified below will be automatically sent to \n"
 "each person who sends mail to you while you are out of the office."
 msgstr ""
-"Spodnje sporočilo bo samodejno poslano vsaki osebi, \n"
+"Spodnje sporočilo bo samodejno poslano vsaki osebi,\n"
 "ki vam pošlje sporočilo v času vaše odsotnosti."
 
 #: ../eplugin/exchange-account-setup.c:278
@@ -492,7 +492,7 @@ msgstr "Nastavitve Exchange"
 
 #: ../eplugin/exchange-account-setup.c:735
 msgid "_OWA URL:"
-msgstr "URL _OWA:"
+msgstr "Naslov URL _spletišča Outlook:"
 
 #: ../eplugin/exchange-account-setup.c:761
 msgid "A_uthenticate"
@@ -539,8 +539,8 @@ msgid ""
 "Evolution is in offline mode. You cannot create or modify folders now.\n"
 "Please switch to online mode for such operations."
 msgstr ""
-"Evolution ni povezan v omrežje, zato ni mogoče ustvarjati in spreminjati map.\n"
-"V primeru, da to želite storiti takoj, se povežite."
+"Program Evolution ni povezan v omrežje, zato ni mogoče ustvarjati in spreminjati map.\n"
+"V primeru, da to želite storiti takoj, vzpostavite povezavo."
 
 #: ../eplugin/exchange-calendar.c:247
 #: ../eplugin/exchange-contacts.c:239
@@ -549,7 +549,7 @@ msgstr "_Mesto:"
 
 #: ../eplugin/exchange-change-password.c:95
 msgid "Your current password has expired. Please change your password now."
-msgstr "Vaše trenutno geslo je poteklo. Spremenite ga zdaj."
+msgstr "Vaše trenutno geslo je preteklo. Spremenite ga takoj."
 
 #: ../eplugin/exchange-change-password.c:110
 msgid "Current _Password:"
@@ -568,7 +568,7 @@ msgstr "_Potrdi geslo:"
 #.
 #: ../eplugin/exchange-change-password.c:175
 msgid "The current password does not match the existing password for your account. Please enter the correct password"
-msgstr "Trenutno geslo se ne sklada z obstoječim geslom vašega računa. Vnesite pravilno geslo"
+msgstr "Trenutno geslo se ne sklada z obstoječim geslom vašega računa. Vnesite pravilno geslo."
 
 #: ../eplugin/exchange-change-password.c:182
 msgid "The two passwords do not match. Please re-enter the passwords."
@@ -579,10 +579,10 @@ msgstr "Gesli se ne skladata. Vnesite ju ponovno."
 #, c-format
 msgid "Your password will expire in the next %d day"
 msgid_plural "Your password will expire in the next %d days"
-msgstr[0] "Vaše geslo bo poteklo v naslednjih %d dneh"
-msgstr[1] "Vaše geslo bo poteklo v naslednjem %d dnevu"
-msgstr[2] "Vaše geslo bo poteklo v naslednjih %d dneh"
-msgstr[3] "Vaše geslo bo poteklo v naslednjih %d dneh"
+msgstr[0] "Vaše geslo bo preteklo v naslednjih %d dneh"
+msgstr[1] "Vaše geslo bo preteklo v naslednjem %d dnevu"
+msgstr[2] "Vaše geslo bo preteklo v naslednjih %d dneh"
+msgstr[3] "Vaše geslo bo preteklo v naslednjih %d dneh"
 
 #: ../eplugin/exchange-config-listener.c:665
 msgid "Password Expiry Warning..."
@@ -770,7 +770,7 @@ msgstr "Pooblasti Za"
 #: ../eplugin/exchange-delegates.c:578
 #, c-format
 msgid "Remove the delegate %s?"
-msgstr "Odstranim pooblaščenca %s?"
+msgstr "Ali naj se odstrani pooblaščenec %s?"
 
 #: ../eplugin/exchange-delegates.c:695
 msgid "Could not access Active Directory"
@@ -822,7 +822,7 @@ msgstr "Ime"
 
 #: ../eplugin/exchange-delegates.c:1021
 msgid "Error reading delegates list."
-msgstr "Napaka pri branju seznama pooblaščencev."
+msgstr "Napaka med branjem seznama pooblaščencev."
 
 #: ../eplugin/exchange-folder-permission.c:241
 #: ../eplugin/exchange-folder-permission.c:520
@@ -863,7 +863,7 @@ msgstr "Preveri dovoljenja koledarja"
 
 #: ../eplugin/exchange-folder-permission.c:556
 msgid "Check tasks permissions"
-msgstr "Preveri dovoljenja opravil"
+msgstr "Preveri dovoljenja nalog"
 
 #: ../eplugin/exchange-folder-permission.c:590
 msgid "Check address book permissions"
@@ -903,7 +903,7 @@ msgstr "_Uporabnik:"
 #: ../eplugin/exchange-folder.c:376
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "Ali res želite preklicati naročnino na mapo \"%s\"?"
+msgstr "Ali zares želite preklicati naročnino na mapo \"%s\"?"
 
 #: ../eplugin/exchange-folder.c:333
 #: ../eplugin/exchange-folder.c:389
@@ -981,7 +981,7 @@ msgstr "Stik mape"
 
 #: ../eplugin/exchange-permissions-dialog.c:889
 msgid "Folder visible"
-msgstr "Mapa vidna"
+msgstr "Mapa je vidna"
 
 #: ../eplugin/exchange-permissions-dialog.c:897
 msgid "Cannot Delete"
@@ -989,11 +989,11 @@ msgstr "Ni mogoče izbrisati"
 
 #: ../eplugin/exchange-permissions-dialog.c:904
 msgid "Delete Own Items"
-msgstr "Izbriši lastne vnose"
+msgstr "Izbriši lastne predmete"
 
 #: ../eplugin/exchange-permissions-dialog.c:910
 msgid "Delete Any Items"
-msgstr "Izbriši katerikoli vnos"
+msgstr "Izbriši katerikoli predmete"
 
 #: ../eplugin/exchange-permissions-dialog.c:924
 msgid "Role"
@@ -1084,7 +1084,7 @@ msgstr "Velikost"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:1
 msgid "Cannot access the \"Exchange settings\" tab in offline mode."
-msgstr "Ni mogoče dostopiti do  \"Nastavitev Exchange\" zavihka v načinu brez povezave."
+msgstr "Ni mogoč dostop do  \"Nastavitev Exchange\" zavihka v načinu brez povezave."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:2
 msgid "Cannot change password due to configuration problems."
@@ -1100,11 +1100,11 @@ msgstr "Ni mogoče izvesti opravila."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:5
 msgid "Changes to options for Exchange account \"{0}\" will only take effect after restarting Evolution."
-msgstr "Spremembe nastavitev računa Exchange \"{0}\" bodo uveljavljene po ponovnem zagonu Evolutiona."
+msgstr "Spremembe nastavitev računa Exchange \"{0}\" bodo uveljavljene po ponovnem zagonu programa."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:6
 msgid "Could not authenticate to server."
-msgstr "Overitev na strežniku ni bila mogoča."
+msgstr "Ni se mogoče overiti na strežniku."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:7
 msgid "Could not change password."
@@ -1126,7 +1126,7 @@ msgstr "Ni se mogoče povezati na strežnik Exchange."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:12
 msgid "Could not connect to server {0}."
-msgstr "Ni se mogoče povezati s srežnikom {0}."
+msgstr "Ni se mogoče povezati s strežnikom {0}."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:13
 msgid "Could not determine folder permissions for delegates."
@@ -1188,13 +1188,13 @@ msgid ""
 "  "
 msgstr ""
 "Exchange Connector zahteva dostop do zmogljivosti\n"
-"strežnika Exchange, ki je onemogočena ali zavrnjena.\n"
-"(Ponavadi nenamenoma.)\n"
+"strežnika Exchange, ki je onemogočena ali zavrnjena\n"
+"(običajno nenamenoma).\n"
 "V primeru, da želite uporabljati Evolution Exchange Connector \n"
-"bo moral vaš skrbnik Exchanga \n"
+"bo moral vaš skrbnik sistema Exchange \n"
 "omogočiti omenjeno zmogljivost.\n"
 "\n"
-"V primeru, da potrebujete več skrbniških podatkov, \n"
+"V primeru, da potrebujete več skrbniških podatkov,\n"
 "se obrnite na spodnjo povezavo:\n"
 "\n"
 "{0}\n"
@@ -1202,7 +1202,7 @@ msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:36
 msgid "Failed to update delegates:"
-msgstr "Posodabljanje delegatov ni uspelo:"
+msgstr "Posodabljanje pooblaščencev ni uspelo:"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:38
 msgid "Folder does not exist"
@@ -1238,7 +1238,7 @@ msgstr "Prepričajte se, da sta uporabniško ime in geslo pravilna, in poskusite
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:47
 msgid "No Global Catalog server configured for this account."
-msgstr "Noben splošen kataloški strežnik ni nastavljen za ta račun."
+msgstr "Ni določenega splošnega kataloškega strežnika."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:48
 msgid "No mailbox for user {0} on {1}."
@@ -1258,11 +1258,11 @@ msgstr "Vnesite vaš ID pooblaščenca ali pa odstranite oznako pošiljanja kot 
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:53
 msgid "Please make sure the Global Catalog Server name is correct."
-msgstr "Prepričajte se, da je ime strežnika splošnega kataloga pravilno."
+msgstr "Prepričajte se, da je ime splošnega kataloškega strežnika pravilno."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:54
 msgid "Please restart Evolution for changes to take effect"
-msgstr "Za uveljavitev sprememb ponovno zaženite Evolution"
+msgstr "Za uveljavitev sprememb ponovno zaženite program Evolution"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:55
 msgid "Please select a user."
@@ -1301,7 +1301,7 @@ msgid ""
 "Also, you may have typed your password incorrectly."
 msgstr ""
 "To običajno pomeni, da vaš strežnik zahteva navedbo\n"
-"imena domene v okolju WIndows kot del vašega\n"
+"imena domene v okolju Windows kot del vašega\n"
 "uporabniškega imena (npr. &quot;DOMENA\\user&quot;).\n"
 "\n"
 "Morda pa je le vpisano napačno geslo."
@@ -1320,7 +1320,7 @@ msgstr "Ni mogoče urediti pooblaščencev."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:70
 msgid "Unknown error looking up {0}"
-msgstr "Neznana napaka pri iskanju {0}"
+msgstr "Neznana napaka med iskanjem {0}"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:71
 msgid "Unknown error."
@@ -1336,7 +1336,7 @@ msgstr "Nepodprto opravilo"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:74
 msgid "You are nearing your quota available for storing mail on this server."
-msgstr "Približujete se prostorski omejitvi za shranjevanje pošte na tem strežniku."
+msgstr "Približujete se omejitvi prostora za shranjevanje pošte na tem strežniku."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:75
 msgid "You are permitted to send a message on behalf of only one delegator at a time."
@@ -1344,7 +1344,7 @@ msgstr "Imate dovoljenje, da pošljete sporočilo sočasno v imenu le ene osebe 
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:76
 msgid "You cannot make yourself your own delegate"
-msgstr "Sami sebe ne morete pooblastiti"
+msgstr "Samega sebe ni mogoče pooblastiti"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:77
 msgid "You have exceeded your quota for storing mail on this server."
@@ -1360,15 +1360,15 @@ msgstr "Vaša trenutna uporaba je: {0} KB. Poskusite sprostiti nekaj prostora, t
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:80
 msgid "Your current usage is: {0} KB. You will not be able to either send or receive mail now."
-msgstr "Vaša trenutna uporaba je: {0} KB. Trenutno ni mogoče pošiljati ali prejemati e-pošte."
+msgstr "Vaša trenutna uporaba je: {0} KB. Trenutno ni mogoče pošiljati ali prejemati elektronske pošte."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:81
 msgid "Your current usage is: {0} KB. You will not be able to send mail until you clear up some space by deleting some mail."
-msgstr "Vaša trenutna uporaba je: {0} KB. Dokler ne sprostite nekaj prostora, tako da zbrišete nekaj sporočil, ne boste mogli pošiljati e-pošte."
+msgstr "Vaša trenutna uporaba je: {0} KB. Dokler ne sprostite nekaj prostora, tako da zbrišete nekaj sporočil, ne bo mogoče pošiljati elektronske pošte."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:82
 msgid "Your password has expired."
-msgstr "Vaše geslo je poteklo."
+msgstr "Vaše geslo je preteklo."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:83
 msgid "{0}"
@@ -1405,7 +1405,7 @@ msgstr "Lastnik"
 
 #: ../server/lib/e2k-security-descriptor.c:852
 msgid "Publishing Editor"
-msgstr "Zasložniški urednik"
+msgstr "Založniški urednik"
 
 #: ../server/lib/e2k-security-descriptor.c:860
 msgid "Editor"
@@ -1461,7 +1461,7 @@ msgstr "Izbrane mape ni mogoče najti"
 
 #: ../server/storage/e-storage.c:571
 msgid "Function not implemented in this storage"
-msgstr "Funkcija ni vstavljena v tem hranilniku"
+msgstr "Funkcija ni vstavljena na tem shranjevalnem nosilcu"
 
 #: ../server/storage/e-storage.c:575
 msgid "Operation not supported"
@@ -1549,8 +1549,8 @@ msgid ""
 "Please click the \"Forward\" button to continue."
 msgstr ""
 "Pozdravljeni v orodju Evolution Connector za Microsoft Exchange.\n"
-"Naslednja pogovorna okna vam bodo pomagala nastaviti povezavo\n"
-"Evolutiona z vašim računom Exchange.\n"
+"Naslednjih nekaj vprašanj pomaga pri nastavljanju povezave\n"
+"programa Evolution z vašim računom Exchange.\n"
 "\n"
 "Za nadaljevanje kliknite gumb \"Naprej\"."
 
@@ -1558,7 +1558,7 @@ msgstr ""
 #: ../tools/exchange-autoconfig-wizard.c:361
 #: ../tools/exchange-autoconfig-wizard.c:448
 msgid "Exchange Configuration"
-msgstr "Nastavitve Exchangea"
+msgstr "Nastavitve Exchange"
 
 #: ../tools/exchange-autoconfig-wizard.c:188
 msgid ""
@@ -1566,13 +1566,13 @@ msgid ""
 "\n"
 "Enter your OWA site address (URL), username, and password, then click \"Forward\".\n"
 msgstr ""
-"Evolution Connector za Microsoft Windows lahko uporabi podatke vašega obstoječega računa Outlook Web Access (OWA).\n"
+"Evolution Connector za Microsoft Windows lahko uporabi podatke vašega obstoječega računa za spletni dostop Outlook (OWA).\n"
 "\n"
-"Vnesite vaš naslov strani OWA (URL), uporabniško ime in geslo in kliknite \"Naprej\".\n"
+"Vnesite naslov spletišča Outlook (URL), uporabniško ime in geslo in kliknite \"Naprej\".\n"
 
 #: ../tools/exchange-autoconfig-wizard.c:196
 msgid "OWA _URL:"
-msgstr "URL _OWA:"
+msgstr "Naslov URL spletišča _Outlook:"
 
 #: ../tools/exchange-autoconfig-wizard.c:200
 msgid "User_name:"
@@ -1593,14 +1593,14 @@ msgid ""
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 msgstr ""
 "Povezava s strežnikom Exchange ni uspela.\n"
-"Prepričajte se, da je URL pravilen (poskusite \"%s\" namesto \"%s\"?), in poskusite znova."
+"Prepričajte se, da je naslov URL zapisan pravilno (poskusite \"%s\" namesto \"%s\"), in poskusite znova."
 
 #: ../tools/exchange-autoconfig-wizard.c:290
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
 msgstr ""
-"Ni bilo mogoče najti strežnika Exchange.\n"
+"Ni mogoče najti strežnika Exchange.\n"
 "Prepričajte se, da je ime strežnika pravilno, in poskusite znova."
 
 #: ../tools/exchange-autoconfig-wizard.c:299
@@ -1622,15 +1622,15 @@ msgstr ""
 "Overitev na strežniku Exchange ni uspela.\n"
 "Prepričajte se, da sta uporabniško ime in geslo pravilna, in poskusite znova.\n"
 "\n"
-"Morda boste morali vnesti tudi ime domene v Windows kot del vašega uporabniškega imena (npr. \"MOJA-DOMENA\\%s\")."
+"Morda bo teba vnesti tudi ime domene v Windows kot del vašega uporabniškega imena (npr. \"MOJA-DOMENA\\%s\")."
 
 #: ../tools/exchange-autoconfig-wizard.c:318
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 msgstr ""
-"Ni bilo mogoče najti podatkov OWA na navedenem URL.\n"
-"Prepričajte se, da je URL pravilen, in poskusite znova."
+"Ni mogoče najti podatkov spletišča Outlook na navedenem\n"
+"naslovu URL. Prepričajte se, da je naslov pravilen, in poskusite znova."
 
 #: ../tools/exchange-autoconfig-wizard.c:324
 msgid ""
@@ -1638,30 +1638,30 @@ msgid ""
 "\n"
 "For information to provide to your Exchange administrator, please follow the link below:"
 msgstr ""
-"Evolution Connector za Microsoft Windows zahteva dostop do zmogljivosti strežnika Exchange, ki je onemogočena ali zavrnjena. (Običajno po naključju) Vaš skrbnik bo moral omogočiti omenjeno zmogljivost.\n"
+"Evolution Connector za Microsoft Windows zahteva dostop do zmogljivosti strežnika Exchange, ki je onemogočena ali zavrnjena (običajno po naključju). Vaš skrbnik bo moral omogočiti omenjeno zmogljivost.\n"
 "\n"
-"Če potrebujete več podatkov za vašega skrbnika, se obrnite na spodnjo povezavo:"
+"V kolikor potrebujete več podatkov, si oglejte spodnjo povezavo:"
 
 #: ../tools/exchange-autoconfig-wizard.c:337
 msgid "The Exchange server URL you provided is for an Exchange 5.5 server. Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 and 2003 only."
-msgstr "URL strežnika Exchange, ki ste ga navedli, je za različico 5.5. Evolution Connector podpira le Microsoft Exchange 2000 in 2003."
+msgstr "Naslov URL strežnika Exchange, ki ste ga navedli, je za različico 5.5. Evolution Connector podpira le Microsoft Exchange 2000 in 2003."
 
 #: ../tools/exchange-autoconfig-wizard.c:345
 msgid "Could not configure Exchange account because an unknown error occurred. Check the URL, username, and password, and try again."
-msgstr "Ni bilo mogoče nastaviti računa Exchange, ker je prišlo do neznane napake. Preverite URL, uporabniško ime in geslo in poskusite znova."
+msgstr "Ni mogoče nastaviti računa Exchange, ker je prišlo do neznane napake. Preverite naslov URL, uporabniško ime in geslo in poskusite znova."
 
 #: ../tools/exchange-autoconfig-wizard.c:361
 msgid "Evolution Connector for Microsoft Exchange could not find the Global Catalog replica for your site. Please enter the name of your Global Catalog server. You may need to ask your system administrator for the correct value."
-msgstr "Evolution Connector za Microsoftova Okna ni uspel najti kopije splošnega kataloga za vašo stran. Vnesite ime vašega strežnika. Za pravilno ime se boste morda morali obrniti na skrbnika vašega sistema."
+msgstr "Evolution Connector za Microsoftova Okna ni uspel najti kopije splošnega kataloškega strežnika za vašo stran. Vnesite ime vašega strežnika. Za pravilno ime se boste morda morali obrniti na skrbnika vašega sistema."
 
 #: ../tools/exchange-autoconfig-wizard.c:369
 msgid "GC _Server:"
-msgstr "GC _Strežnik:"
+msgstr "_Kataloški strežnik:"
 
 #: ../tools/exchange-autoconfig-wizard.c:402
 #, c-format
 msgid "Could not authenticate to the Global Catalog server. You may need to go back and specify the Windows domain name as part of your username (eg, \"MY-DOMAIN\\%s\")."
-msgstr "Overitev na strežniku Global Catalog ni uspela. Morda se boste morali vrniti nazaj in vnesti ime domene v Windows kot del vašega uporabniškega imena (npr. \"MOJA-DOMENA\\%s\")."
+msgstr "Overitev na splošnem kataloškem strežniku ni uspela. Morda se bo treba vrniti nazaj in vnesti ime domene v Windows kot del vašega uporabniškega imena (npr. \"MOJA-DOMENA\\%s\")."
 
 #: ../tools/exchange-autoconfig-wizard.c:409
 msgid ""
@@ -1677,7 +1677,7 @@ msgstr "Nastavitev spodletela"
 
 #: ../tools/exchange-autoconfig-wizard.c:421
 msgid "Evolution Connector for Microsoft Exchange has encountered a problem configuring your Exchange account."
-msgstr "Evolution Connector za Microsoft Windows je naletel na težavo pri nastavljanju vašega računa Exchange."
+msgstr "Evolution Connector za Microsoft Windows je naletel na težavo med nastavljanjem vašega računa Exchange."
 
 #: ../tools/exchange-autoconfig-wizard.c:448
 msgid "Your account information is as follows. Please correct any errors, then click \"Forward\"."
@@ -1714,7 +1714,7 @@ msgid ""
 "Unable to create new account."
 msgstr ""
 "Napaka med nastavljanjem sistema.\n"
-"Ni bilo mogoče ustvariti novega računa."
+"Ni mogoče ustvariti novega računa."
 
 #: ../tools/exchange-autoconfig-wizard.c:572
 msgid "You may only configure a single Exchange account"
@@ -1772,112 +1772,3 @@ msgstr "P_omočnik za stanje Iz pisarne"
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "Prekliči naročnino na mape drugih uporabnikov"
 
-#~ msgid "Authentication failed"
-#~ msgstr "Overitev ni uspela"
-
-#~ msgid "Could not find the calendar"
-#~ msgstr "Ni mogoče najti koledarja"
-
-#~ msgid "Cannot get folder info in offline mode."
-#~ msgstr "Ni mogoče pridobiti podatkov o mapi v načinu brez povezave."
-
-#~ msgid "Folders Size"
-#~ msgstr "Velikost map"
-
-#~ msgid ""
-#~ "Unable to schedule resource '%s' for recurring meetings.\n"
-#~ "You must book each meeting separately."
-#~ msgstr ""
-#~ "Ni mogoče razporediti vira '%s' za ponavljajoča se srečanja.\n"
-#~ "Vsak sestanek morate rezervirati posebej."
-
-#~ msgid "Always check for new mail in this folder"
-#~ msgstr "Vedno preveri novo pošto v tej mapi"
-
-#~ msgid "Evolution Exchange backend process"
-#~ msgstr "Hrbtni del procesa Evolution Exchange"
-
-#~ msgid "Could not connect to %s: Please restart Evolution"
-#~ msgstr "Ni se bilo mogoče povezati z %s: Ponovno zaženiti Evolution"
-
-#~ msgid "Count not read file '%s': %s"
-#~ msgstr "Ni mogoče prebrati datoteke '%s': %s"
-
-#~ msgid "Wrong size file '%s'"
-#~ msgstr "Napačna velikost datoteke '%s'"
-
-#~ msgid "Path too long: %s"
-#~ msgstr "Pot predolga: %s"
-
-#~ msgid "Could not start status thread: %s"
-#~ msgstr "Ni bilo mogoče začeti niti stanja: %s"
-
-#~ msgid "Lost connection to %s"
-#~ msgstr "Povezava z %s je prekinjena"
-
-#~ msgid "Error communicating with %s: %s"
-#~ msgstr "Napaka med povezovanjem z %s: %s"
-
-#~ msgid "Evolution Addressbook Exchange backend"
-#~ msgstr "Hrbtni del Evolution Addressbook Exchange"
-
-#~ msgid "Evolution Calendar Exchange backend"
-#~ msgstr "Hrbtni del Evolution Calendar Exchange"
-
-#~ msgid "Evolution Connector for Microsoft Exchange"
-#~ msgstr "Evolution Connector za Microsoft Exchange"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "Migrating Exchange Folders..."
-#~ msgstr "Selitev map Exchange ..."
-
-#~ msgid ""
-#~ "The location and hierarchy of the Evolution exchange account folders are "
-#~ "changed since Evolution %d.%d.%d.\n"
-#~ "\n"
-#~ "Please be patient while Evolution migrates your folders..."
-#~ msgstr ""
-#~ "Mesto in hierarhija map računov na strežniku Exchange sta spremenjeni od "
-#~ "različice Evolution %d.%d.%d naprej.\n"
-#~ "\n"
-#~ "Bodite potrpežljivi medtem ko Evolution prenaša vaše mape ..."
-
-#~ msgid ""
-#~ "Warning: Evolution could not migrate all the Exchange account data from "
-#~ "the version %d.%d.%d. \n"
-#~ "The data hasn't been deleted, but will not be seen by this version of "
-#~ "Evolution"
-#~ msgstr ""
-#~ "Opozorilo: Evolution ni uspel prenesti vseh podatkov računa Exchange iz "
-#~ "različice %d.%d.%d. \n"
-#~ "Podatki niso bili izbrisani, vendar v tej različici programa Evolution ne "
-#~ "bodo vidni"
-
-#~ msgid "Migrating `%s':"
-#~ msgstr "Prenašanje `%s':"
-
-#~ msgid "<b>Out of Office Message:</b>"
-#~ msgstr "<b>Sporočilo stanje Iz pisarne:</b>"
-
-#~ msgid "ok_button"
-#~ msgstr "ok_gumb"
-
-#~ msgid "    "
-#~ msgstr "    "
-
-#~ msgid "<b>Permissions</b>"
-#~ msgstr "<b>Dovoljenja</b>"
-
-#~ msgid "Connecting..."
-#~ msgstr "Povezovanje ..."
-
-#~ msgid "Evolution Connector for Microsoft Exchange Setup Tool"
-#~ msgstr "Namestitveno orodje Evolution Connector za Microsoft Exchange"
-
-#~ msgid "Ximian Connector for Exchange"
-#~ msgstr "Ximian povezovalnik za Exchange"
-
-#~ msgid "Ximian Connector Configuration"
-#~ msgstr "Nastavitev Ximian Connector"
