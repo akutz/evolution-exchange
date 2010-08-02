@@ -701,7 +701,7 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *parent, gint mode)
 	EFolder *folder, *tmp;
 	GPtrArray *folders;
 	gint i;
-	gdouble fsize_d;
+	gdouble fsize_d = 0.0;
 	const gchar *name, *folder_size, *deleted_items_uri, *int_uri;
 	gboolean personal = ( EXCHANGE_HIERARCHY (hwd)->type == EXCHANGE_HIERARCHY_PERSONAL );
 

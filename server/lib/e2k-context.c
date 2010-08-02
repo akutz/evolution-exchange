@@ -552,7 +552,7 @@ e2k_context_fba (E2kContext *ctx, SoupMessage *failed_msg)
 	static gboolean in_fba_auth = FALSE;
 	gint status, len;
 	SoupBuffer *response = NULL;
-	gchar *action;
+	gchar *action = NULL;
 	xmlChar *method, *name, *value;
 	xmlDoc *doc = NULL;
 	xmlNode *node;
@@ -642,7 +642,8 @@ e2k_context_fba (E2kContext *ctx, SoupMessage *failed_msg)
 				soup_uri_free (suri);
 			}
 		}
-	} else
+	}
+	if (action == NULL)
 		action = g_strdup ((gchar *) value);
 	xmlFree (value);
 
