@@ -39,8 +39,8 @@ GTKDOC_CFLAGS = \
 	$(LDAP_CFLAGS)
 
 GTKDOC_LIBS = \
-	$(top_builddir)/server/storage/libexchange-storage.la \
 	$(GNOME_PLATFORM_LIBS) \
+	$(top_builddir)/server/storage/libexchange-storage.la \
 	$(LDAP_LIBS)
 
 # This includes the standard gtk-doc make rules, copied by gtkdocize.
