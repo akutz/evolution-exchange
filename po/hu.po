@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-17 01:31+0100\n"
-"PO-Revision-Date: 2010-03-17 01:30+0100\n"
+"POT-Creation-Date: 2010-08-28 07:42+0200\n"
+"PO-Revision-Date: 2010-08-28 07:41+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome at fsf dot hu>\n"
 "MIME-Version: 1.0\n"
@@ -23,216 +23,222 @@ msgstr "Megadja a GAL gyorsítótár frissítési gyakoriságát."
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
 msgid ""
-"This key specifies the number of days interval between the GAL cache "
-"refresh. Set this value to zero, if you don't want to update GAL and use the "
-"current cache forever. This will work only if you have enabled offline "
-"caching for GAL."
+"This key specifies the number of days' interval between GAL cache refreshes. "
+"Set this value to zero if you don't want to update GAL and use the current "
+"cache forever. This will work only if you have enabled offline caching for "
+"GAL."
 msgstr ""
 "A kulcs megadja a GAL gyorsítótár frissítései közötti napok számát. Állítsa "
 "nullára a GAL frissítésének letiltásához és a jelenlegi gyorsítótár "
 "használatához. Ez csak akkor működik, ha engedélyezte a GAL kapcsolat "
 "nélküli gyorsítótárazását."
 
-#: ../addressbook/e-book-backend-exchange.c:2305
-#: ../addressbook/e-book-backend-gal.c:1900
+#: ../addressbook/e-book-backend-exchange.c:135
+#, c-format
+msgid "Operation failed with status %d"
+msgstr "A művelet %d állapottal meghiúsult"
+
+#: ../addressbook/e-book-backend-exchange.c:1797
+#: ../addressbook/e-book-backend-exchange.c:2642
+msgid "Cancelled"
+msgstr "Megszakítva"
+
+#: ../addressbook/e-book-backend-exchange.c:2319
+#: ../addressbook/e-book-backend-gal.c:1931
 msgid "Searching..."
 msgstr "Keresés…"
 
-#: ../addressbook/e-book-backend-gal.c:319
-#: ../addressbook/e-book-backend-gal.c:340
+#: ../addressbook/e-book-backend-gal.c:330
+#: ../addressbook/e-book-backend-gal.c:351
 msgid "Reconnecting to LDAP server..."
 msgstr "Újrakapcsolódás az LDAP-kiszolgálóhoz…"
 
-#: ../addressbook/e-book-backend-gal.c:1661
+#: ../addressbook/e-book-backend-gal.c:1671
 msgid "Receiving LDAP search results..."
 msgstr "LDAP keresés eredményeinek letöltése…"
 
-#: ../addressbook/e-book-backend-gal.c:1931
+#: ../addressbook/e-book-backend-gal.c:1962
 msgid "Error performing search"
 msgstr "Hiba a keresés közben"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2111
+#: ../calendar/e-cal-backend-exchange-calendar.c:2145
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "„%s” erőforrás foglalt a kiválasztott időtartamban."
 
-#: ../calendar/e-cal-backend-exchange.c:425
-msgid "Authentication failed"
-msgstr "Hitelesítés sikertelen"
-
-#: ../calendar/e-cal-backend-exchange.c:477
-msgid "Could not find the calendar"
-msgstr "A naptár nem található"
-
-#: ../camel/camel-exchange-folder.c:198
-msgid "You cannot expunge in offline mode."
-msgstr "Nem tisztíthat kapcsolat nélküli módban."
-
-#: ../camel/camel-exchange-folder.c:226
+#: ../camel/camel-exchange-folder.c:75
 msgid "No Subject"
 msgstr "Nincs Tárgy"
 
-#: ../camel/camel-exchange-folder.c:388
+#: ../camel/camel-exchange-folder.c:137
+#, c-format
 msgid "This message is not available in offline mode."
 msgstr "Ez az üzenet nem érhető el kapcsolat nélküli módban."
 
-#: ../camel/camel-exchange-folder.c:613
+#: ../camel/camel-exchange-folder.c:386
+#, c-format
+msgid "You cannot expunge in offline mode."
+msgstr "Nem tisztíthat kapcsolat nélküli módban."
+
+#: ../camel/camel-exchange-folder.c:626
 msgid "Moving messages"
 msgstr "Levelek áthelyezése"
 
-#: ../camel/camel-exchange-folder.c:614
+#: ../camel/camel-exchange-folder.c:627
 msgid "Copying messages"
 msgstr "Levelek másolása"
 
-#: ../camel/camel-exchange-folder.c:982
+#: ../camel/camel-exchange-folder.c:1070
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Nem lehet létrehozni a(z) %s könyvtárat: %s"
 
-#: ../camel/camel-exchange-folder.c:992
+#: ../camel/camel-exchange-folder.c:1081
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "%s összefoglalója nem tölthető be"
 
-#: ../camel/camel-exchange-folder.c:1000
+#: ../camel/camel-exchange-folder.c:1088
 #, c-format
-msgid "Could not create cache for %s"
-msgstr "Nem hozható létre gyorsítótár a következőhöz: %s"
+msgid "Could not create cache for %s: "
+msgstr "Nem hozható létre gyorsítótár a következőhöz: %s: "
 
-#: ../camel/camel-exchange-folder.c:1010
+#: ../camel/camel-exchange-folder.c:1099
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Nem hozható létre napló a következőhöz: %s"
 
-#: ../camel/camel-exchange-folder.c:1059
+#: ../camel/camel-exchange-folder.c:1146
 msgid "Scanning for changed messages"
 msgstr "Megváltozott levelek keresése"
 
-#: ../camel/camel-exchange-folder.c:1084
+#: ../camel/camel-exchange-folder.c:1173
 msgid "Fetching summary information for new messages"
 msgstr "Összefoglaló adatok letöltése az új levelekhez"
 
-#: ../camel/camel-exchange-journal.c:333
-msgid "No folder name found\n"
-msgstr "Nem található mappanév\n"
+#: ../camel/camel-exchange-journal.c:144
+#, c-format
+msgid "No folder name found"
+msgstr "Nem található mappanév"
 
-#: ../camel/camel-exchange-journal.c:366 ../camel/camel-exchange-utils.c:3106
-#: ../camel/camel-exchange-utils.c:3170 ../camel/camel-exchange-utils.c:3290
-#: ../camel/camel-exchange-utils.c:3321 ../camel/camel-exchange-utils.c:3373
-#: ../camel/camel-exchange-utils.c:3394
+#: ../camel/camel-exchange-journal.c:185 ../camel/camel-exchange-utils.c:3139
+#: ../camel/camel-exchange-utils.c:3203 ../camel/camel-exchange-utils.c:3321
+#: ../camel/camel-exchange-utils.c:3352 ../camel/camel-exchange-utils.c:3404
+#: ../camel/camel-exchange-utils.c:3425
+#, c-format
 msgid "Folder doesn't exist"
 msgstr "A mappa nem létezik"
 
-#: ../camel/camel-exchange-journal.c:428
+#: ../camel/camel-exchange-journal.c:417
+#, c-format
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
 "A levél kapcsolat nélküli módban nem fűzhető össze: a gyorsítótár nem áll "
 "rendelkezésre"
 
-#: ../camel/camel-exchange-journal.c:444
-#, c-format
-msgid "Cannot append message in offline mode: %s"
-msgstr "A levél kapcsolat nélküli módban nem fűzhető össze: %s"
+#: ../camel/camel-exchange-journal.c:437
+msgid "Cannot append message in offline mode: "
+msgstr "A levél kapcsolat nélküli módban nem fűzhető össze: "
 
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:52
 msgid "Secure or Plaintext Password"
 msgstr "Biztonságos vagy egyszerű szöveges jelszó"
 
-#: ../camel/camel-exchange-provider.c:56
-#: ../camel/camel-exchange-provider.c:143
-#: ../eplugin/exchange-account-setup.c:73
+#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:140
+#: ../eplugin/exchange-account-setup.c:69
 msgid "Plaintext Password"
 msgstr "Egyszerű szöveges jelszó"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:57
-#: ../camel/camel-exchange-provider.c:132
-#: ../eplugin/exchange-account-setup.c:62
+#: ../camel/camel-exchange-provider.c:54
+#: ../camel/camel-exchange-provider.c:129
+#: ../eplugin/exchange-account-setup.c:58
 msgid "Secure Password"
 msgstr "Biztonságos jelszó"
 
-#: ../camel/camel-exchange-provider.c:63
+#: ../camel/camel-exchange-provider.c:60
 msgid "Checking for New Mail"
 msgstr "Új levelek keresése"
 
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:62
 msgid "C_heck for new messages in all folders"
 msgstr "Új levelek _keresése az összes mappában"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:73
+#: ../camel/camel-exchange-provider.c:70
 msgid "Windows User_name:"
 msgstr "Windowsos _felhasználónév:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:78
-msgid "Global Address List / Active Directory"
-msgstr "Globális címlista / Active Directory"
+#: ../camel/camel-exchange-provider.c:75
+msgid "Global Address List/Active Directory"
+msgstr "Globális címlista/Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:82
+#: ../camel/camel-exchange-provider.c:79
 msgid "_Global Catalog server name:"
 msgstr "_Globális katalógus kiszolgáló neve:"
 
-#: ../camel/camel-exchange-provider.c:84
+#: ../camel/camel-exchange-provider.c:81
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "_Globális címlistaválaszok számának korlátozása: %s"
 
-#: ../camel/camel-exchange-provider.c:86
+#: ../camel/camel-exchange-provider.c:83
 msgid "Authentication _Type:"
 msgstr "_Hitelesítési típus:"
 
-#: ../camel/camel-exchange-provider.c:88
+#: ../camel/camel-exchange-provider.c:85
 msgid "Allow _browsing of the GAL until download limit is reached"
 msgstr "A _GAL böngészésének engedélyezése a letöltési korlát eléréséig"
 
-#: ../camel/camel-exchange-provider.c:90
+#: ../camel/camel-exchange-provider.c:87
 msgid "_Expand groups of contacts in GAL to contact lists"
 msgstr "_Partnercsoportok kibontása a GAL-ban partnerlistákká"
 
-#: ../camel/camel-exchange-provider.c:93
+#: ../camel/camel-exchange-provider.c:90
 msgid "Options"
 msgstr "Beállítások"
 
-#: ../camel/camel-exchange-provider.c:95
+#: ../camel/camel-exchange-provider.c:92
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Jelszó lejáratára figyelmeztetés periódusa: %s"
 
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:94
 msgid "Automatically synchroni_ze account locally"
 msgstr "_A felhasználói fiók automatikus szinkronizálása helyileg"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:97
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr ""
 "_Szűrők alkalmazása az új levelekre ezen kiszolgáló Beérkezett üzenetek "
 "mappájában"
 
-#: ../camel/camel-exchange-provider.c:102
+#: ../camel/camel-exchange-provider.c:99
 msgid "Check new messages for _Junk contents"
 msgstr "_Levélszemét keresése az új levelek között"
 
-#: ../camel/camel-exchange-provider.c:104
+#: ../camel/camel-exchange-provider.c:101
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Levélszemét keresése _csak a Beérkezett üzenetek mappában"
 
-#: ../camel/camel-exchange-provider.c:114
+#: ../camel/camel-exchange-provider.c:111
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:116
+#: ../camel/camel-exchange-provider.c:113
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Levelek (és egyéb adatok) kezelésére Microsoft Exchange kiszolgálókon"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:135
-#: ../eplugin/exchange-account-setup.c:65
+#: ../camel/camel-exchange-provider.c:132
+#: ../eplugin/exchange-account-setup.c:61
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -240,8 +246,8 @@ msgstr ""
 "Ezen opció hatására biztonságos jelszó-hitelesítéssel (NTLM) fog kapcsolódni "
 "az Exchange kiszolgálóhoz."
 
-#: ../camel/camel-exchange-provider.c:145
-#: ../eplugin/exchange-account-setup.c:75
+#: ../camel/camel-exchange-provider.c:142
+#: ../eplugin/exchange-account-setup.c:71
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -249,142 +255,143 @@ msgstr ""
 "Ezen opció hatására szabvány egyszerű szöveges jelszó-hitelesítéssel fog "
 "kapcsolódni az Exchange kiszolgálóhoz."
 
-#: ../camel/camel-exchange-store.c:305
+#: ../camel/camel-exchange-store.c:300
 #, c-format
 msgid "Exchange server %s"
 msgstr "%s Exchange kiszolgáló"
 
-#: ../camel/camel-exchange-store.c:308
+#: ../camel/camel-exchange-store.c:304
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "%s Exchange fiókja %s kiszolgálón"
 
-#: ../camel/camel-exchange-store.c:385
-msgid ""
-"Could not authenticate to server. (Password incorrect?)\n"
-"\n"
-msgstr ""
-"Nem sikerült a hitelesítés a kiszolgálón. (Talán hibás a jelszó?)\n"
-"\n"
+#: ../camel/camel-exchange-store.c:378
+#, c-format
+msgid "Could not authenticate to server. (Password incorrect?)"
+msgstr "Nem sikerült a hitelesítés a kiszolgálón. (Talán hibás a jelszó?)"
 
-#: ../camel/camel-exchange-store.c:430
+#: ../camel/camel-exchange-store.c:441
 #, c-format
 msgid "No such folder %s"
 msgstr "Nincs %s mappa"
 
-#: ../camel/camel-exchange-store.c:502
-msgid "Cannot subscribe folder in offline mode."
-msgstr "Nem lehet feliratkozni a mappára kapcsolat nélküli módban."
-
-#: ../camel/camel-exchange-store.c:517
-msgid "Cannot unsubscribe folder in offline mode."
-msgstr "Nem lehet leiratkozni a mappáról kapcsolat nélküli módban."
-
-#: ../camel/camel-exchange-store.c:648
-msgid "Cannot get folder info in offline mode."
-msgstr "A mappainformációk nem kérhetők le kapcsolat nélküli módban."
-
-#: ../camel/camel-exchange-store.c:711
+#: ../camel/camel-exchange-store.c:574
+#, c-format
 msgid "Cannot create folder in offline mode."
 msgstr "Nem hozható létre mappa kapcsolat nélküli módban."
 
-#: ../camel/camel-exchange-store.c:734
+#: ../camel/camel-exchange-store.c:604
+#, c-format
 msgid "Cannot delete folder in offline mode."
 msgstr "A mappa nem törölhető kapcsolat nélküli módban."
 
-#: ../camel/camel-exchange-store.c:756
+#: ../camel/camel-exchange-store.c:630
+#, c-format
 msgid "Cannot rename folder in offline mode."
 msgstr "A mappa nem nevezhető át kapcsolat nélküli módban."
 
-#: ../camel/camel-exchange-transport.c:107
+#: ../camel/camel-exchange-store.c:711
+#, c-format
+msgid "Cannot subscribe folder in offline mode."
+msgstr "Nem lehet feliratkozni a mappára kapcsolat nélküli módban."
+
+#: ../camel/camel-exchange-store.c:730
+#, c-format
+msgid "Cannot unsubscribe folder in offline mode."
+msgstr "Nem lehet leiratkozni a mappáról kapcsolat nélküli módban."
+
+#: ../camel/camel-exchange-transport.c:65
+#, c-format
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "Az Exchange továbbítás csak Exchange levélforrással használható együtt"
 
-#: ../camel/camel-exchange-transport.c:120
+#: ../camel/camel-exchange-transport.c:79
+#, c-format
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "Nem lehet elküldeni a levelet: egy vagy több címzett érvénytelen"
 
-#: ../camel/camel-exchange-transport.c:129
+#: ../camel/camel-exchange-transport.c:90
+#, c-format
 msgid "Could not find 'From' address in message"
 msgstr "Nincs megadva a feladó címe az üzenetben"
 
-#: ../camel/camel-exchange-utils.c:535 ../camel/camel-exchange-utils.c:574
+#: ../camel/camel-exchange-utils.c:529 ../camel/camel-exchange-utils.c:568
 msgid "Could not get new messages"
 msgstr "Az új üzenetek nem tölthetők le"
 
-#: ../camel/camel-exchange-utils.c:1062 ../camel/camel-exchange-utils.c:1213
+#: ../camel/camel-exchange-utils.c:1056 ../camel/camel-exchange-utils.c:1207
 msgid "Could not open folder"
 msgstr "A mappa nem nyitható meg"
 
-#: ../camel/camel-exchange-utils.c:1209 ../camel/camel-exchange-utils.c:1227
+#: ../camel/camel-exchange-utils.c:1203 ../camel/camel-exchange-utils.c:1221
 msgid "Could not open folder: Permission denied"
 msgstr "A mappa nem nyitható meg: Hozzáférés megtagadva"
 
-#: ../camel/camel-exchange-utils.c:1276 ../camel/camel-exchange-utils.c:2178
+#: ../camel/camel-exchange-utils.c:1270 ../camel/camel-exchange-utils.c:2199
 msgid "No such folder"
 msgstr "Nincs ilyen mappa"
 
-#: ../camel/camel-exchange-utils.c:1298 ../camel/camel-exchange-utils.c:3080
-#: ../camel/camel-exchange-utils.c:3123 ../camel/camel-exchange-utils.c:3294
-#: ../camel/camel-exchange-utils.c:3347 ../camel/camel-exchange-utils.c:3409
+#: ../camel/camel-exchange-utils.c:1292 ../camel/camel-exchange-utils.c:3113
+#: ../camel/camel-exchange-utils.c:3156 ../camel/camel-exchange-utils.c:3325
+#: ../camel/camel-exchange-utils.c:3378 ../camel/camel-exchange-utils.c:3440
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
 #: ../server/storage/e-storage.c:573
 msgid "Permission denied"
 msgstr "Hozzáférés megtagadva"
 
-#: ../camel/camel-exchange-utils.c:2187
+#: ../camel/camel-exchange-utils.c:2208
 msgid "Could not create folder."
 msgstr "A mappa nem hozható létre."
 
-#: ../camel/camel-exchange-utils.c:2276
+#: ../camel/camel-exchange-utils.c:2296
 msgid "Could not open Deleted Items folder"
 msgstr "A „Törölt elemek” mappa nem nyitható meg"
 
-#: ../camel/camel-exchange-utils.c:2403
+#: ../camel/camel-exchange-utils.c:2422
 msgid "Could not empty Deleted Items folder"
 msgstr "A „Törölt elemek” mappa nem üríthető"
 
-#: ../camel/camel-exchange-utils.c:2405
+#: ../camel/camel-exchange-utils.c:2424
 msgid "Permission denied. Could not delete certain messages."
 msgstr "Hozzáférés megtagadva. Egyes üzenetek nem törölhetők."
 
-#: ../camel/camel-exchange-utils.c:2448
+#: ../camel/camel-exchange-utils.c:2468
 msgid "Could not append message; mailbox is over quota"
 msgstr "Az üzenet nem fűzhető hozzá, a postafiók betelt"
 
-#: ../camel/camel-exchange-utils.c:2449
+#: ../camel/camel-exchange-utils.c:2469
 msgid "Could not append message"
 msgstr "Az üzenet nem fűzhető hozzá"
 
-#: ../camel/camel-exchange-utils.c:2635
+#: ../camel/camel-exchange-utils.c:2655
 msgid "No such message"
 msgstr "Nincs ilyen üzenet"
 
-#: ../camel/camel-exchange-utils.c:2707
+#: ../camel/camel-exchange-utils.c:2727
 msgid "Message has been deleted"
 msgstr "Az üzenet törölve lett"
 
-#: ../camel/camel-exchange-utils.c:2709
+#: ../camel/camel-exchange-utils.c:2729
 msgid "Error retrieving message"
 msgstr "Hiba a levél letöltése közben"
 
-#: ../camel/camel-exchange-utils.c:2758
+#: ../camel/camel-exchange-utils.c:2778
 msgid "Mailbox does not support full-text searching"
 msgstr "A postafiók nem támogatja a teljes szövegben keresést"
 
-#: ../camel/camel-exchange-utils.c:2866
+#: ../camel/camel-exchange-utils.c:2890
 msgid "Unable to move/copy messages"
 msgstr "Nem lehet mozgatni/másolni az üzeneteket"
 
-#: ../camel/camel-exchange-utils.c:2985
+#: ../camel/camel-exchange-utils.c:3018
 msgid "No mail submission URI for this mailbox"
 msgstr "Nincs megadva levélküldési URI ehhez a postafiókhoz"
 
-#: ../camel/camel-exchange-utils.c:3018
+#: ../camel/camel-exchange-utils.c:3051
 msgid "Server won't accept mail via Exchange transport"
 msgstr "A kiszolgáló nem fogad el leveleket Exchange továbbítással"
 
-#: ../camel/camel-exchange-utils.c:3020
+#: ../camel/camel-exchange-utils.c:3053
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -393,7 +400,7 @@ msgstr ""
 "A fiókjának nincs felhatalmazása <%s> feladó\n"
 "címeként való használatára."
 
-#: ../camel/camel-exchange-utils.c:3032
+#: ../camel/camel-exchange-utils.c:3065
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -401,28 +408,28 @@ msgstr ""
 "Az üzenet nem küldhető el\n"
 "Ez azt jelentheti, hogy betelt a fiókja."
 
-#: ../camel/camel-exchange-utils.c:3036
+#: ../camel/camel-exchange-utils.c:3069
 msgid "Could not send message"
 msgstr "Az üzenet nem küldhető el"
 
-#: ../camel/camel-exchange-utils.c:3072 ../camel/camel-exchange-utils.c:3128
-#: ../camel/camel-exchange-utils.c:3298 ../camel/camel-exchange-utils.c:3351
-#: ../camel/camel-exchange-utils.c:3415
+#: ../camel/camel-exchange-utils.c:3105 ../camel/camel-exchange-utils.c:3161
+#: ../camel/camel-exchange-utils.c:3329 ../camel/camel-exchange-utils.c:3382
+#: ../camel/camel-exchange-utils.c:3446
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
 #: ../server/storage/e-storage.c:557
 msgid "Generic error"
 msgstr "Általános hiba"
 
-#: ../camel/camel-exchange-utils.c:3076
+#: ../camel/camel-exchange-utils.c:3109
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
 msgid "Folder already exists"
 msgstr "A mappa már létezik"
 
-#: ../eplugin/exchange-account-setup.c:270
-msgid "Out Of Office"
+#: ../eplugin/exchange-account-setup.c:266
+msgid "Out of Office"
 msgstr "Nincs bent"
 
-#: ../eplugin/exchange-account-setup.c:277
+#: ../eplugin/exchange-account-setup.c:273
 msgid ""
 "The message specified below will be automatically sent to \n"
 "each person who sends mail to you while you are out of the office."
@@ -430,99 +437,100 @@ msgstr ""
 "A lent megadott üzenetet mindenki automatikusan megkapja, aki akkor küld\n"
 "levelet Önnek, amikor házon kívül van."
 
-#: ../eplugin/exchange-account-setup.c:282
+#: ../eplugin/exchange-account-setup.c:278
 msgid "Status:"
 msgstr "Állapot:"
 
-#: ../eplugin/exchange-account-setup.c:289
-#: ../eplugin/exchange-account-setup.c:294
+#: ../eplugin/exchange-account-setup.c:285
+#: ../eplugin/exchange-account-setup.c:290
 msgid "I am out of the office"
 msgstr "Jelenleg házon kívül vagyok"
 
-#: ../eplugin/exchange-account-setup.c:290
-#: ../eplugin/exchange-account-setup.c:293
+#: ../eplugin/exchange-account-setup.c:286
+#: ../eplugin/exchange-account-setup.c:289
 msgid "I am in the office"
 msgstr "Jelenleg a munkahelyemen vagyok"
 
 #. Security settings
-#: ../eplugin/exchange-account-setup.c:329
+#: ../eplugin/exchange-account-setup.c:325
 msgid "Security"
 msgstr "Biztonság"
 
 #. Change Password
-#: ../eplugin/exchange-account-setup.c:340
+#: ../eplugin/exchange-account-setup.c:336
 msgid "Change the password for Exchange account"
 msgstr "Az Exchange fiók jelszavának megváltoztatása"
 
-#: ../eplugin/exchange-account-setup.c:342
+#: ../eplugin/exchange-account-setup.c:338
 #: ../eplugin/exchange-change-password.c:85
 msgid "Change Password"
 msgstr "Jelszó megváltoztatása"
 
 #. Delegation Assistant
-#: ../eplugin/exchange-account-setup.c:347
+#: ../eplugin/exchange-account-setup.c:343
 msgid "Manage the delegate settings for Exchange account"
 msgstr "Az Exchange fiók meghatalmazottbeállításainak kezelése"
 
-#: ../eplugin/exchange-account-setup.c:349
+#: ../eplugin/exchange-account-setup.c:345
 msgid "Delegation Assistant"
 msgstr "Meghatalmazási asszisztens"
 
 #. Miscelleneous settings
-#: ../eplugin/exchange-account-setup.c:361
+#: ../eplugin/exchange-account-setup.c:357
 msgid "Miscellaneous"
 msgstr "Egyebek"
 
 #. Folder Size
-#: ../eplugin/exchange-account-setup.c:371
+#: ../eplugin/exchange-account-setup.c:367
 msgid "View the size of all Exchange folders"
 msgstr "Az összes Exchange mappa méretének megjelenítése"
 
-#: ../eplugin/exchange-account-setup.c:373
-msgid "Folders Size"
-msgstr "Mappák mérete"
+#: ../eplugin/exchange-account-setup.c:369
+#: ../eplugin/exchange-folder-size-display.c:183
+msgid "Folder Size"
+msgstr "Mappa mérete"
 
-#: ../eplugin/exchange-account-setup.c:380
+#: ../eplugin/exchange-account-setup.c:376
 #: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:3
 msgid "Exchange Settings"
 msgstr "Exchange beállításai"
 
-#: ../eplugin/exchange-account-setup.c:739
+#: ../eplugin/exchange-account-setup.c:735
 msgid "_OWA URL:"
 msgstr "_OWA URL:"
 
-#: ../eplugin/exchange-account-setup.c:765
+#: ../eplugin/exchange-account-setup.c:761
 msgid "A_uthenticate"
 msgstr "_Hitelesítés"
 
-#: ../eplugin/exchange-account-setup.c:787
-msgid "Mailbox name is _different from user name"
+#: ../eplugin/exchange-account-setup.c:783
+msgid "Mailbox name is _different from username"
 msgstr "A _postafiók neve eltér a felhasználó nevétől"
 
-#: ../eplugin/exchange-account-setup.c:800
+#: ../eplugin/exchange-account-setup.c:796
 msgid "_Mailbox:"
 msgstr "P_ostafiók:"
 
-#: ../eplugin/exchange-account-setup.c:1015
+#: ../eplugin/exchange-account-setup.c:1011
 msgid "_Authentication Type"
 msgstr "_Hitelesítési típus"
 
-#: ../eplugin/exchange-account-setup.c:1029
+#: ../eplugin/exchange-account-setup.c:1025
 msgid "Ch_eck for Supported Types"
 msgstr "_Támogatott típusok lekérdezése"
 
-#: ../eplugin/exchange-account-setup.c:1144 ../eplugin/exchange-contacts.c:217
+#: ../eplugin/exchange-account-setup.c:1140 ../eplugin/exchange-contacts.c:217
 #, c-format
 msgid "%s KB"
 msgstr "%s KB"
 
-#: ../eplugin/exchange-account-setup.c:1146 ../eplugin/exchange-contacts.c:219
+#: ../eplugin/exchange-account-setup.c:1142 ../eplugin/exchange-contacts.c:219
 #, c-format
 msgid "0 KB"
 msgstr "0 KB"
 
 #. FIXME: Take care of i18n
-#: ../eplugin/exchange-account-setup.c:1151 ../eplugin/exchange-calendar.c:236
+#: ../eplugin/exchange-account-setup.c:1147 ../eplugin/exchange-calendar.c:236
 #: ../eplugin/exchange-contacts.c:222
 msgid "Size:"
 msgstr "Méret:"
@@ -571,143 +579,148 @@ msgstr ""
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr "A két jelszó nem egyezik. Kérem adja meg őket újra."
 
-#: ../eplugin/exchange-config-listener.c:661
+#. Translators: The %d is replaced with the actual number of days
+#: ../eplugin/exchange-config-listener.c:662
 #, c-format
-msgid "Your password will expire in the next %d days"
-msgstr "A jelszava le fog járni a következő %d napban"
+msgid "Your password will expire in the next %d day"
+msgid_plural "Your password will expire in the next %d days"
+msgstr[0] "A jelszava le fog járni a következő %d napban"
+msgstr[1] "A jelszava le fog járni a következő %d napban"
 
-#: ../eplugin/exchange-config-listener.c:664
+#: ../eplugin/exchange-config-listener.c:665
 msgid "Password Expiry Warning..."
 msgstr "Jelszó lejáratára figyelmeztetés…"
 
-#: ../eplugin/exchange-config-listener.c:681
+#: ../eplugin/exchange-config-listener.c:682
 msgid "_Change Password"
 msgstr "Jelszó me_gváltoztatása"
 
-#: ../eplugin/exchange-config-listener.c:734
+#: ../eplugin/exchange-config-listener.c:735
 msgid "Out of Office Assistant"
 msgstr "„Házon kívül” asszisztens"
 
-#: ../eplugin/exchange-config-listener.c:751
+#: ../eplugin/exchange-config-listener.c:752
 msgid "Currently, your status is \"Out of the Office\"."
 msgstr "Jelenleg „Házon kívül” állapotban van."
 
-#: ../eplugin/exchange-config-listener.c:751
+#: ../eplugin/exchange-config-listener.c:752
 msgid "Would you like to change your status to \"In the Office\"?"
 msgstr "Megváltoztatja ezt „Házon belül” állapotra?"
 
-#: ../eplugin/exchange-config-listener.c:780
+#: ../eplugin/exchange-config-listener.c:781
 msgid "_No, Don't Change Status"
 msgstr "_Nem változtatom meg az állapotot"
 
-#: ../eplugin/exchange-config-listener.c:801
+#: ../eplugin/exchange-config-listener.c:802
 msgid "_Yes, Change Status"
 msgstr "Áll_apotváltoztatás"
 
-#: ../eplugin/exchange-config-listener.c:833
+#: ../eplugin/exchange-config-listener.c:834
 #, c-format
 msgid "Enter Password for %s"
 msgstr "Adja meg %s jelszavát"
 
-#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:436
+#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:435
 #: ../server/storage/exchange-hierarchy-foreign.c:260
 msgid "Calendar"
 msgstr "Naptár"
 
-#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:439
+#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:438
 #: ../server/storage/exchange-hierarchy-foreign.c:269
 msgid "Tasks"
 msgstr "Feladatok"
 
-#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:434
+#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:433
 #: ../server/storage/exchange-hierarchy-foreign.c:264
 msgid "Inbox"
 msgstr "Beérkezett üzenetek"
 
-#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:442
+#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:441
 #: ../server/storage/exchange-hierarchy-foreign.c:261
 msgid "Contacts"
 msgstr "Névjegyek"
 
-#: ../eplugin/exchange-delegates-user.c:135
+#: ../eplugin/exchange-delegates-user.c:132
 #: ../eplugin/exchange-permissions-dialog.c:545
 #: ../server/lib/e2k-security-descriptor.c:901
 msgid "Custom"
 msgstr "Egyéni"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:158
-#: ../eplugin/exchange-delegates-user.c:299
-#: ../eplugin/exchange-delegates-user.c:309
-#: ../eplugin/exchange-delegates-user.c:319
-#: ../eplugin/exchange-delegates-user.c:329
-msgid "Editor (read, create, edit)"
-msgstr "Szerkesztő (olvas, létrehoz, szerkeszt)"
-
-#. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:163
+#: ../eplugin/exchange-delegates-user.c:155
 #: ../eplugin/exchange-delegates-user.c:298
 #: ../eplugin/exchange-delegates-user.c:308
 #: ../eplugin/exchange-delegates-user.c:318
 #: ../eplugin/exchange-delegates-user.c:328
-msgid "Author (read, create)"
-msgstr "Szerző (olvas, létrehoz)"
+msgid "Editor (read, create, edit)"
+msgstr "Szerkesztő (olvas, létrehoz, szerkeszt)"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:168
+#: ../eplugin/exchange-delegates-user.c:160
 #: ../eplugin/exchange-delegates-user.c:297
 #: ../eplugin/exchange-delegates-user.c:307
 #: ../eplugin/exchange-delegates-user.c:317
 #: ../eplugin/exchange-delegates-user.c:327
-msgid "Reviewer (read-only)"
-msgstr "Véleményező (csak olvas)"
+msgid "Author (read, create)"
+msgstr "Szerző (olvas, létrehoz)"
 
-#: ../eplugin/exchange-delegates-user.c:171
+#. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
+#: ../eplugin/exchange-delegates-user.c:165
 #: ../eplugin/exchange-delegates-user.c:296
 #: ../eplugin/exchange-delegates-user.c:306
 #: ../eplugin/exchange-delegates-user.c:316
 #: ../eplugin/exchange-delegates-user.c:326
+msgid "Reviewer (read-only)"
+msgstr "Véleményező (csak olvas)"
+
+#: ../eplugin/exchange-delegates-user.c:168
+#: ../eplugin/exchange-delegates-user.c:295
+#: ../eplugin/exchange-delegates-user.c:305
+#: ../eplugin/exchange-delegates-user.c:315
+#: ../eplugin/exchange-delegates-user.c:325
 #: ../server/lib/e2k-security-descriptor.c:886
 msgid "None"
 msgstr "Nincs"
 
-#: ../eplugin/exchange-delegates-user.c:226
+#. Translators: "Delegate Permissions" refers to the permissions on the delegator's folders
+#. that the delegatee would receive
+#: ../eplugin/exchange-delegates-user.c:225
 msgid "Delegate Permissions"
 msgstr "Meghatalmazottak jogosultságai"
 
-#: ../eplugin/exchange-delegates-user.c:244
+#: ../eplugin/exchange-delegates-user.c:243
 msgid "Permissions for"
 msgstr "Jogosultságok"
 
 #. Translators: This is used for permissions for <user> for the folder Calendar.
-#: ../eplugin/exchange-delegates-user.c:256
+#: ../eplugin/exchange-delegates-user.c:255
 msgid "C_alendar:"
 msgstr "_Naptár:"
 
 #. Translators: This is used for permissions for <user> for the folder Tasks.
-#: ../eplugin/exchange-delegates-user.c:265
+#: ../eplugin/exchange-delegates-user.c:264
 msgid "_Tasks:"
 msgstr "Felada_tok:"
 
 #. Translators: This is used for permissions for <user> for the folder Inbox.
-#: ../eplugin/exchange-delegates-user.c:274
+#: ../eplugin/exchange-delegates-user.c:273
 msgid "_Inbox:"
 msgstr "Beérkezett ü_zenetek:"
 
 #. Translators: This is used for permissions for <user> for the folder Contacts.
-#: ../eplugin/exchange-delegates-user.c:283
+#: ../eplugin/exchange-delegates-user.c:282
 msgid "Co_ntacts:"
 msgstr "_Névjegyek:"
 
-#: ../eplugin/exchange-delegates-user.c:331
+#: ../eplugin/exchange-delegates-user.c:330
 msgid "_Summarize permissions"
 msgstr "_Jogosultságok összegzése"
 
-#: ../eplugin/exchange-delegates-user.c:335
+#: ../eplugin/exchange-delegates-user.c:334
 msgid "_Delegate can see private items"
 msgstr "A _meghatalmazott láthatja a privát elemeket"
 
-#: ../eplugin/exchange-delegates-user.c:341
+#: ../eplugin/exchange-delegates-user.c:340
 #: ../eplugin/exchange-permissions-dialog.c:168
 #, c-format
 msgid "Permissions for %s"
@@ -716,7 +729,7 @@ msgstr "%s jogosultságai"
 #. To translators: This is a part of the message to be sent to the delegatee
 #. summarizing the permissions assigned to him.
 #.
-#: ../eplugin/exchange-delegates-user.c:434
+#: ../eplugin/exchange-delegates-user.c:433
 msgid ""
 "This message was sent automatically by Evolution to inform you that you have "
 "been designated as a delegate. You can now send messages on my behalf."
@@ -726,25 +739,25 @@ msgstr ""
 
 #. To translators: Another chunk of the same message.
 #.
-#: ../eplugin/exchange-delegates-user.c:439
+#: ../eplugin/exchange-delegates-user.c:438
 msgid "You have been given the following permissions on my folders:"
 msgstr "A következő jogosultságokat kapta a mappáimra:"
 
 #. To translators: This message is included if the delegatee has been given access
 #. to the private items.
 #.
-#: ../eplugin/exchange-delegates-user.c:459
+#: ../eplugin/exchange-delegates-user.c:458
 msgid "You are also permitted to see my private items."
 msgstr "Láthatja a magánjellegű elemeket."
 
 #. To translators: This message is included if the delegatee has not been given access
 #. to the private items.
 #.
-#: ../eplugin/exchange-delegates-user.c:466
-msgid "However you are not permitted to see my private items."
+#: ../eplugin/exchange-delegates-user.c:465
+msgid "However, you are not permitted to see my private items."
 msgstr "Azonban nem láthatja a magánjellegű elemeket."
 
-#: ../eplugin/exchange-delegates-user.c:498
+#: ../eplugin/exchange-delegates-user.c:497
 #, c-format
 msgid "You have been designated as a delegate for %s"
 msgstr "Kijelölték %s megbízottjaként"
@@ -814,62 +827,63 @@ msgstr "Név"
 msgid "Error reading delegates list."
 msgstr "Hiba a meghatalmazottak listájának olvasása közben."
 
-#: ../eplugin/exchange-folder-permission.c:242
-#: ../eplugin/exchange-folder-permission.c:521
-#: ../eplugin/exchange-folder-permission.c:555
-#: ../eplugin/exchange-folder-permission.c:589
+#: ../eplugin/exchange-folder-permission.c:241
+#: ../eplugin/exchange-folder-permission.c:520
+#: ../eplugin/exchange-folder-permission.c:554
+#: ../eplugin/exchange-folder-permission.c:588
 msgid "Permissions..."
 msgstr "Jogosultságok…"
 
-#: ../eplugin/exchange-folder-permission.c:244
+#: ../eplugin/exchange-folder-permission.c:243
 msgid "Check folder permissions"
 msgstr "Ellenőrizze a mappa jogosultságait"
 
-#: ../eplugin/exchange-folder-permission.c:249
-#: ../eplugin/exchange-folder-permission.c:528
-#: ../eplugin/exchange-folder-permission.c:562
-#: ../eplugin/exchange-folder-permission.c:596
+#: ../eplugin/exchange-folder-permission.c:248
+#: ../eplugin/exchange-folder-permission.c:527
+#: ../eplugin/exchange-folder-permission.c:561
+#: ../eplugin/exchange-folder-permission.c:595
 msgid "Subscribe to Other User's Folder..."
 msgstr "Feliratkozás más felhasználó mappájára…"
 
-#: ../eplugin/exchange-folder-permission.c:251
-#: ../eplugin/exchange-folder-permission.c:530
-#: ../eplugin/exchange-folder-permission.c:564
-#: ../eplugin/exchange-folder-permission.c:598
+#: ../eplugin/exchange-folder-permission.c:250
+#: ../eplugin/exchange-folder-permission.c:529
+#: ../eplugin/exchange-folder-permission.c:563
+#: ../eplugin/exchange-folder-permission.c:597
 #: ../eplugin/exchange-folder-subscription.c:306
 msgid "Subscribe to Other User's Folder"
 msgstr "Feliratkozás más felhasználó mappájára"
 
-#: ../eplugin/exchange-folder-permission.c:256
-#: ../eplugin/exchange-folder-permission.c:535
-#: ../eplugin/exchange-folder-permission.c:569
-#: ../eplugin/exchange-folder-permission.c:603
+#: ../eplugin/exchange-folder-permission.c:255
+#: ../eplugin/exchange-folder-permission.c:534
+#: ../eplugin/exchange-folder-permission.c:568
+#: ../eplugin/exchange-folder-permission.c:602
 msgid "Unsubscribe Folder..."
 msgstr "Leiratkozás mappáról…"
 
-#: ../eplugin/exchange-folder-permission.c:523
+#: ../eplugin/exchange-folder-permission.c:522
 msgid "Check calendar permissions"
 msgstr "Naptár jogosultságainak ellenőrzése"
 
-#: ../eplugin/exchange-folder-permission.c:557
+#: ../eplugin/exchange-folder-permission.c:556
 msgid "Check tasks permissions"
 msgstr "Feladat jogosultságainak ellenőrzése"
 
-#: ../eplugin/exchange-folder-permission.c:591
-msgid "Check addressbook permissions"
+#: ../eplugin/exchange-folder-permission.c:590
+msgid "Check address book permissions"
 msgstr "Címjegyzék jogosultságainak ellenőrzése"
 
-#: ../eplugin/exchange-folder-size-display.c:118
+#: ../eplugin/exchange-folder-size-display.c:136
 msgid "Exchange Folder Tree"
 msgstr "Exchange mappafa"
 
-#: ../eplugin/exchange-folder-size-display.c:150
+#: ../eplugin/exchange-folder-size-display.c:151
+#, c-format
+msgid "Total size: %.2f KB"
+msgstr "Teljes méret: %.2f KB"
+
+#: ../eplugin/exchange-folder-size-display.c:179
 msgid "Folder Name"
 msgstr "Mappa neve"
-
-#: ../eplugin/exchange-folder-size-display.c:154
-msgid "Folder Size"
-msgstr "Mappa mérete"
 
 #. FIXME Limit to one user
 #: ../eplugin/exchange-folder-subscription.c:72
@@ -888,27 +902,27 @@ msgstr "Mappa _neve:"
 msgid "_User:"
 msgstr "_Felhasználó:"
 
-#: ../eplugin/exchange-folder.c:324 ../eplugin/exchange-folder.c:378
+#: ../eplugin/exchange-folder.c:320 ../eplugin/exchange-folder.c:376
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "Valóban leiratkozik a(z) „%s” mappáról?"
 
-#: ../eplugin/exchange-folder.c:336 ../eplugin/exchange-folder.c:390
+#: ../eplugin/exchange-folder.c:333 ../eplugin/exchange-folder.c:389
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "Leiratkozás a következőről: „%s”"
 
-#: ../eplugin/exchange-mail-send-options.c:222
+#: ../eplugin/exchange-mail-send-options.c:220
 msgid "_Send Options"
 msgstr "Kül_dési beállítások"
 
-#: ../eplugin/exchange-mail-send-options.c:224
+#: ../eplugin/exchange-mail-send-options.c:222
 msgid "Insert Send options"
 msgstr "Küldési beállítások beszúrása"
 
 #. FIXME: Don't hardcode this
 #: ../eplugin/exchange-operations.c:122 ../eplugin/exchange-operations.c:167
-#: ../server/storage/exchange-account.c:1259
+#: ../server/storage/exchange-account.c:1260
 msgid "Personal Folders"
 msgstr "Személyes mappák"
 
@@ -921,7 +935,7 @@ msgid "Add User:"
 msgstr "Felhasználó hozzáadása:"
 
 #: ../eplugin/exchange-permissions-dialog.c:384
-#: ../eplugin/exchange-send-options.c:467
+#: ../eplugin/exchange-send-options.c:469
 msgid "Add User"
 msgstr "Felhasználó hozzáadása"
 
@@ -997,60 +1011,62 @@ msgstr "Üzenetbeállítások"
 msgid "I_mportance: "
 msgstr "F_ontosság: "
 
-#: ../eplugin/exchange-send-options.c:379
+#. Translators: Here's set a message sensitivity, which means for exchange
+#. one of Normal, Personal, Private, Confidential.
+#: ../eplugin/exchange-send-options.c:381
 msgid "_Sensitivity: "
 msgstr "Ér_zékenység: "
 
-#: ../eplugin/exchange-send-options.c:391
-#: ../eplugin/exchange-send-options.c:401
+#: ../eplugin/exchange-send-options.c:393
+#: ../eplugin/exchange-send-options.c:403
 msgid "Normal"
 msgstr "Normál"
 
-#: ../eplugin/exchange-send-options.c:392
+#: ../eplugin/exchange-send-options.c:394
 msgid "Personal"
 msgstr "Személyes"
 
-#: ../eplugin/exchange-send-options.c:393
+#: ../eplugin/exchange-send-options.c:395
 msgid "Private"
 msgstr "Magánjellegű"
 
-#: ../eplugin/exchange-send-options.c:394
+#: ../eplugin/exchange-send-options.c:396
 msgid "Confidential"
 msgstr "Bizalmas"
 
-#: ../eplugin/exchange-send-options.c:402
+#: ../eplugin/exchange-send-options.c:404
 msgid "High"
 msgstr "Magas"
 
-#: ../eplugin/exchange-send-options.c:403
+#: ../eplugin/exchange-send-options.c:405
 msgid "Low"
 msgstr "Alacsony"
 
-#: ../eplugin/exchange-send-options.c:405
+#: ../eplugin/exchange-send-options.c:407
 msgid "Send as Delegate"
 msgstr "Küldés meghatalmazottként"
 
-#: ../eplugin/exchange-send-options.c:422
+#: ../eplugin/exchange-send-options.c:424
 msgid "_User"
 msgstr "_Felhasználó"
 
-#: ../eplugin/exchange-send-options.c:430
+#: ../eplugin/exchange-send-options.c:432
 msgid "Tracking Options"
 msgstr "Követési beállítások"
 
-#: ../eplugin/exchange-send-options.c:438
+#: ../eplugin/exchange-send-options.c:440
 msgid "Request a _delivery receipt for this message"
 msgstr "Tértivevény kérése _ehhez az üzenethez"
 
-#: ../eplugin/exchange-send-options.c:443
+#: ../eplugin/exchange-send-options.c:445
 msgid "Request a _read receipt for this message"
 msgstr "_Olvasási tértivevény kérése ehhez az üzenethez"
 
-#: ../eplugin/exchange-user-dialog.c:131
+#: ../eplugin/exchange-user-dialog.c:135
 msgid "Select User"
 msgstr "Válasszon felhasználót"
 
-#: ../eplugin/exchange-user-dialog.c:170
+#: ../eplugin/exchange-user-dialog.c:174
 msgid "Address Book..."
 msgstr "Címjegyzék…"
 
@@ -1102,7 +1118,7 @@ msgstr "Nem változtatható meg a jelszó."
 msgid ""
 "Could not configure Exchange account because \n"
 "an unknown error occurred. Check the URL, \n"
-"username, and password, and try again."
+"username and password, and try again."
 msgstr ""
 "Az Exchange felhasználói fiókot ismeretlen hiba miatt \n"
 "nem lehet beállítani. Ellenőrizze az URL-címet, \n"
@@ -1299,7 +1315,7 @@ msgid ""
 "you to specify the Windows domain name \n"
 "as part of your username (eg, &quot;DOMAIN\\user&quot;).\n"
 "\n"
-"Also, you may have typed your password wrongly."
+"Also, you may have typed your password incorrectly."
 msgstr ""
 "Ez valószínűleg azt jelenti, hogy meg kell\n"
 "adnia a Windows tartománynevet a felhasználóneve\n"
@@ -1405,13 +1421,13 @@ msgid "{0} is already in the list"
 msgstr "{0} már szerepel a listában"
 
 #: ../server/lib/e2k-autoconfig.c:1692
-#: ../server/storage/exchange-account.c:954
+#: ../server/storage/exchange-account.c:955
 #, c-format
 msgid "Enter password for %s"
 msgstr "Adja meg %s jelszavát"
 
 #: ../server/lib/e2k-autoconfig.c:1693
-#: ../server/storage/exchange-account.c:959
+#: ../server/storage/exchange-account.c:960
 msgid "Enter password"
 msgstr "Adja meg a jelszót"
 
@@ -1502,7 +1518,7 @@ msgid "Cannot create a folder with that name"
 msgstr "Nem hozható létre ilyen nevű mappa"
 
 #: ../server/storage/e-storage.c:585
-msgid "This operation cannot be performed in off-line mode"
+msgid "This operation cannot be performed in offline mode"
 msgstr "Ez a művelet nem végezhető el kapcsolat nélküli módban"
 
 #: ../server/storage/e-storage.c:587
@@ -1511,22 +1527,22 @@ msgstr "Ismeretlen hiba"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: ../server/storage/exchange-account.c:639
+#: ../server/storage/exchange-account.c:640
 #, c-format
 msgid "%s's Folders"
 msgstr "%s mappái"
 
-#: ../server/storage/exchange-account.c:1274
+#: ../server/storage/exchange-account.c:1275
 msgid "Favorite Public Folders"
 msgstr "Kedvenc nyilvános mappák"
 
 #. i18n: Outlookism
-#: ../server/storage/exchange-account.c:1291
+#: ../server/storage/exchange-account.c:1292
 msgid "All Public Folders"
 msgstr "Minden nyilvános mappa"
 
 #. i18n: Outlookism
-#: ../server/storage/exchange-account.c:1305
+#: ../server/storage/exchange-account.c:1306
 msgid "Global Address List"
 msgstr "Globális címlista"
 
@@ -1554,11 +1570,11 @@ msgstr "Postázandó"
 msgid "Sent Items"
 msgstr "Elküldött elemek"
 
-#: ../tools/exchange-autoconfig-wizard.c:177
+#: ../tools/exchange-autoconfig-wizard.c:176
 msgid "Welcome"
 msgstr "Üdvözlet"
 
-#: ../tools/exchange-autoconfig-wizard.c:177
+#: ../tools/exchange-autoconfig-wizard.c:176
 msgid ""
 "Welcome to Evolution Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
@@ -1572,13 +1588,13 @@ msgstr ""
 "\n"
 "A folytatáshoz kattintson a „Tovább” gombra."
 
-#: ../tools/exchange-autoconfig-wizard.c:189
-#: ../tools/exchange-autoconfig-wizard.c:362
-#: ../tools/exchange-autoconfig-wizard.c:449
+#: ../tools/exchange-autoconfig-wizard.c:188
+#: ../tools/exchange-autoconfig-wizard.c:361
+#: ../tools/exchange-autoconfig-wizard.c:448
 msgid "Exchange Configuration"
 msgstr "Exchange beállítása"
 
-#: ../tools/exchange-autoconfig-wizard.c:189
+#: ../tools/exchange-autoconfig-wizard.c:188
 msgid ""
 "Evolution Connector for Microsoft Exchange can use account information from "
 "your existing Outlook Web Access (OWA) account.\n"
@@ -1592,23 +1608,23 @@ msgstr ""
 "Adja meg az OWA hely címét (URL), a felhasználónevet és jelszót, majd "
 "kattintson a „Tovább” gombra.\n"
 
-#: ../tools/exchange-autoconfig-wizard.c:197
+#: ../tools/exchange-autoconfig-wizard.c:196
 msgid "OWA _URL:"
 msgstr "OWA _URL:"
 
-#: ../tools/exchange-autoconfig-wizard.c:201
+#: ../tools/exchange-autoconfig-wizard.c:200
 msgid "User_name:"
 msgstr "_Felhasználónév:"
 
-#: ../tools/exchange-autoconfig-wizard.c:205
+#: ../tools/exchange-autoconfig-wizard.c:204
 msgid "_Password:"
 msgstr "_Jelszó:"
 
-#: ../tools/exchange-autoconfig-wizard.c:210
+#: ../tools/exchange-autoconfig-wizard.c:209
 msgid "_Remember this password"
 msgstr "_Emlékezzen erre a jelszóra"
 
-#: ../tools/exchange-autoconfig-wizard.c:283
+#: ../tools/exchange-autoconfig-wizard.c:282
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -1618,7 +1634,7 @@ msgstr ""
 "Győződjön meg róla, hogy az URL helyes (talán „%s” kell „%s” helyett?) és "
 "próbálja újra."
 
-#: ../tools/exchange-autoconfig-wizard.c:291
+#: ../tools/exchange-autoconfig-wizard.c:290
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -1626,7 +1642,7 @@ msgstr ""
 "Nem található az Exchange kiszolgáló.\n"
 "Győződjön meg, hogy a kiszolgáló neve nincs elgépelve és próbálja újra."
 
-#: ../tools/exchange-autoconfig-wizard.c:300
+#: ../tools/exchange-autoconfig-wizard.c:299
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -1635,7 +1651,7 @@ msgstr ""
 "Győződjön meg, róla hogy felhasználóneve és jelszava helyes, majd próbálja "
 "újra."
 
-#: ../tools/exchange-autoconfig-wizard.c:307
+#: ../tools/exchange-autoconfig-wizard.c:306
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -1651,7 +1667,7 @@ msgstr ""
 "Lehet, hogy meg kell adnia a Windows tartománynevet a felhasználóneve "
 "részeként (például: „TARTOMÁNY\\%s”)."
 
-#: ../tools/exchange-autoconfig-wizard.c:319
+#: ../tools/exchange-autoconfig-wizard.c:318
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -1659,7 +1675,7 @@ msgstr ""
 "A megadott URL címen nem található Outlook Web Access adat.\n"
 "Győződjön meg, hogy az URL helyes és próbálja újra."
 
-#: ../tools/exchange-autoconfig-wizard.c:325
+#: ../tools/exchange-autoconfig-wizard.c:324
 msgid ""
 "Evolution Connector for Microsoft Exchange requires access to certain "
 "functionality on the Exchange server that appears to be disabled or "
@@ -1679,7 +1695,7 @@ msgstr ""
 "Ennek érdekében közölje a következő linken található információkat az "
 "Exchange adminisztrátorral:"
 
-#: ../tools/exchange-autoconfig-wizard.c:338
+#: ../tools/exchange-autoconfig-wizard.c:337
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 server. "
 "Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
@@ -1689,7 +1705,7 @@ msgstr ""
 "A Evolution Connector for Microsoft Exchange csak a Microsoft Exchange 2000 "
 "és 2003 verziókat támogatja."
 
-#: ../tools/exchange-autoconfig-wizard.c:346
+#: ../tools/exchange-autoconfig-wizard.c:345
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -1697,7 +1713,7 @@ msgstr ""
 "Ismeretlen hiba miatt az Exchange fiók nem állítható be. Ellenőrizze az URL "
 "címet, a felhasználónevet és a jelszót, majd próbálja újra."
 
-#: ../tools/exchange-autoconfig-wizard.c:362
+#: ../tools/exchange-autoconfig-wizard.c:361
 msgid ""
 "Evolution Connector for Microsoft Exchange could not find the Global Catalog "
 "replica for your site. Please enter the name of your Global Catalog server. "
@@ -1707,11 +1723,11 @@ msgstr ""
 "tartozó Globális katalógus másolatát. Adja meg a Globális katalógus "
 "kiszolgálójának nevét. Kérdezze meg a rendszeradminisztrátort, ha nem tudja."
 
-#: ../tools/exchange-autoconfig-wizard.c:370
+#: ../tools/exchange-autoconfig-wizard.c:369
 msgid "GC _Server:"
 msgstr "_Globális katalógus kiszolgáló:"
 
-#: ../tools/exchange-autoconfig-wizard.c:403
+#: ../tools/exchange-autoconfig-wizard.c:402
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -1722,7 +1738,7 @@ msgstr ""
 "kell adnia a Windows tartománynevet a felhasználóneve részeként (például: "
 "„TARTOMÁNY\\%s”)."
 
-#: ../tools/exchange-autoconfig-wizard.c:410
+#: ../tools/exchange-autoconfig-wizard.c:409
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -1730,11 +1746,11 @@ msgstr ""
 "Nem lehet csatlakozni a megadott kiszolgálóhoz.\n"
 "Ellenőrizze a kiszolgáló nevét és próbálja újra."
 
-#: ../tools/exchange-autoconfig-wizard.c:422
+#: ../tools/exchange-autoconfig-wizard.c:421
 msgid "Configuration Failed"
 msgstr "A beállítás sikertelen"
 
-#: ../tools/exchange-autoconfig-wizard.c:422
+#: ../tools/exchange-autoconfig-wizard.c:421
 msgid ""
 "Evolution Connector for Microsoft Exchange has encountered a problem "
 "configuring your Exchange account."
@@ -1742,7 +1758,7 @@ msgstr ""
 "Az Evolution Connector for Microsoft Exchange problémát észlelt az Exchange "
 "fiókjának beállítása közben."
 
-#: ../tools/exchange-autoconfig-wizard.c:449
+#: ../tools/exchange-autoconfig-wizard.c:448
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\"."
@@ -1750,28 +1766,28 @@ msgstr ""
 "A következő fiókinformációkat adta meg. Javítsa az esetleges hibákat, majd "
 "kattintson a „Tovább” gombra."
 
-#: ../tools/exchange-autoconfig-wizard.c:457
+#: ../tools/exchange-autoconfig-wizard.c:456
 msgid "Full _Name:"
 msgstr "Teljes _név:"
 
-#: ../tools/exchange-autoconfig-wizard.c:461
+#: ../tools/exchange-autoconfig-wizard.c:460
 msgid "_Email Address:"
 msgstr "_E-mail cím:"
 
-#: ../tools/exchange-autoconfig-wizard.c:465
+#: ../tools/exchange-autoconfig-wizard.c:464
 msgid "Make this my _default account"
 msgstr "_Legyen ez az alapértelmezett fiók"
 
-#: ../tools/exchange-autoconfig-wizard.c:482
-#: ../tools/exchange-autoconfig-wizard.c:486
+#: ../tools/exchange-autoconfig-wizard.c:481
+#: ../tools/exchange-autoconfig-wizard.c:485
 msgid "Unknown"
 msgstr "Ismeretlen"
 
-#: ../tools/exchange-autoconfig-wizard.c:509
+#: ../tools/exchange-autoconfig-wizard.c:508
 msgid "Done"
 msgstr "Kész"
 
-#: ../tools/exchange-autoconfig-wizard.c:509
+#: ../tools/exchange-autoconfig-wizard.c:508
 msgid ""
 "Your Connector account is now ready to use. Click the \"Apply\" button to "
 "save your settings."
@@ -1779,7 +1795,7 @@ msgstr ""
 "A Connector fiókja készen áll a használatra. Kattintson az „Alkalmaz” gombra "
 "a beállítások mentéséhez."
 
-#: ../tools/exchange-autoconfig-wizard.c:543
+#: ../tools/exchange-autoconfig-wizard.c:557
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -1787,11 +1803,11 @@ msgstr ""
 "Hiba a beállítórendszerben.\n"
 "Nem hozható létre új fiók."
 
-#: ../tools/exchange-autoconfig-wizard.c:557
+#: ../tools/exchange-autoconfig-wizard.c:572
 msgid "You may only configure a single Exchange account"
 msgstr "Csak egyetlen Exchange fiókot állíthat be"
 
-#: ../tools/exchange-autoconfig-wizard.c:732
+#: ../tools/exchange-autoconfig-wizard.c:747
 msgid "Evolution Connector for Microsoft Exchange Configuration"
 msgstr "Evolution Connector for Microsoft Exchange beállítása"
 
