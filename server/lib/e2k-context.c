@@ -271,7 +271,7 @@ got_connection (SoupSocket *sock, guint status, gpointer user_data)
 	SoupAddress *addr;
 	struct sockaddr_in sin;
 	const gchar *local_ipaddr;
-	unsigned short port;
+	gushort port;
 	gint s, ret;
 
 	ctx->priv->get_local_address_sock = NULL;
@@ -289,7 +289,7 @@ got_connection (SoupSocket *sock, guint status, gpointer user_data)
 	memset (&sin, 0, sizeof (sin));
 	sin.sin_family = AF_INET;
 
-	port = (short)getpid ();
+	port = (gshort)getpid ();
 	do {
 		port++;
 		if (port < 1024)
