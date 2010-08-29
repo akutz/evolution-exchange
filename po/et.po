@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Evolution-Exchange MASTER\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=evolution-exchange&component=general\n"
-"POT-Creation-Date: 2010-05-24 18:21+0000\n"
-"PO-Revision-Date: 2010-05-31 16:42+0300\n"
+"POT-Creation-Date: 2010-08-16 12:26+0000\n"
+"PO-Revision-Date: 2010-08-28 17:49+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -37,6 +37,13 @@ msgstr ""
 "See võti rakendub ainult juhul, kui sul on GAL-i tarbeks võrguvaba režiimi "
 "puhverdamine lubatud."
 
+#, c-format
+msgid "Operation failed with status %d"
+msgstr ""
+
+msgid "Cancelled"
+msgstr "Tühistatud"
+
 msgid "Searching..."
 msgstr "Otsimine..."
 
@@ -53,18 +60,14 @@ msgstr "Viga otsingu läbiviimisel"
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Ressurss '%s' on valitud aja vältel hõivatud."
 
-msgid "Authentication failed"
-msgstr "Tõrge autentimisel"
-
-msgid "Could not find the calendar"
-msgstr "Kalendrit pole võimalik leida"
-
 msgid "No Subject"
 msgstr "Teema puudub"
 
+#, c-format
 msgid "This message is not available in offline mode."
 msgstr "See sõnum pole autonoomses režiimis saadaval."
 
+#, c-format
 msgid "You cannot expunge in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik puhastada."
 
@@ -83,8 +86,8 @@ msgid "Could not load summary for %s"
 msgstr "%s jaoks pole võimalik kokkuvõtet laadida"
 
 #, c-format
-msgid "Could not create cache for %s"
-msgstr "%s jaoks pole võimalik puhvrit luua"
+msgid "Could not create cache for %s: "
+msgstr "%s jaoks pole võimalik puhvrit luua: "
 
 #, c-format
 msgid "Could not create journal for %s"
@@ -96,19 +99,20 @@ msgstr "Sõnumite läbivaatus muudetud sõnumite leidmiseks"
 msgid "Fetching summary information for new messages"
 msgstr "Uute sõnumite kokkuvõtvate andmete hankimine"
 
-msgid "No folder name found\n"
-msgstr "Kausta nime ei leitud\n"
+#, c-format
+msgid "No folder name found"
+msgstr "Kausta nime ei leitud"
 
+#, c-format
 msgid "Folder doesn't exist"
 msgstr "Kausta pole olemas"
 
-msgid "Cannot append message in offline mode: cache unavailable"
-msgstr ""
-"Kausta pole võimalik autonoomses režiimis lisada: puhver pole saadaval"
-
 #, c-format
-msgid "Cannot append message in offline mode: %s"
-msgstr "Kausta pole võimalik autonoomses režiimis lisada: %s"
+msgid "Cannot append message in offline mode: cache unavailable"
+msgstr "Kausta pole võimalik autonoomses režiimis lisada: puhver pole saadaval"
+
+msgid "Cannot append message in offline mode: "
+msgstr "Kausta pole võimalik autonoomses režiimis lisada: "
 
 msgid "Secure or Plaintext Password"
 msgstr "Turvaline või avatekstiline parool"
@@ -204,41 +208,43 @@ msgstr "Exchange server %s"
 msgid "Exchange account for %s on %s"
 msgstr "Kasutaja %s Exchange konto hostil %s"
 
-msgid ""
-"Could not authenticate to server. (Password incorrect?)\n"
-"\n"
-msgstr ""
-"Serverisse pole võimalik autentida. (Parool vale?)\n"
-"\n"
+#, c-format
+msgid "Could not authenticate to server. (Password incorrect?)"
+msgstr "Serverisse pole võimalik autentida. (Vale parool?)"
 
 #, c-format
 msgid "No such folder %s"
 msgstr "Kausta %s ei ole"
 
-msgid "Cannot get folder info in offline mode."
-msgstr "Kausta pole autonoomses režiimis võimalik hankida."
-
+#, c-format
 msgid "Cannot create folder in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik luua."
 
+#, c-format
 msgid "Cannot delete folder in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik kustutada."
 
+#, c-format
 msgid "Cannot rename folder in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik ümber nimetada."
 
+#, c-format
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Kausta pole autonoomses režiimis võimalik tellida."
 
+#, c-format
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Kaustas tellimusest pole autonoomses režiimis võimalik loobuda."
 
+#, c-format
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "Exchange transporti saab kasutada ainult Exchange e-posti allikatega"
 
+#, c-format
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "Sõnumit pole võimalik saata: üks või enam saajaid on vigased"
 
+#, c-format
 msgid "Could not find 'From' address in message"
 msgstr "Sõnumist pole võimalik 'Saatja' aadressi leida"
 
@@ -1400,3 +1406,12 @@ msgstr ""
 
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Loobu teiste kasutajate kaustade tellimusest"
+
+#~ msgid "Authentication failed"
+#~ msgstr "Tõrge autentimisel"
+
+#~ msgid "Could not find the calendar"
+#~ msgstr "Kalendrit pole võimalik leida"
+
+#~ msgid "Cannot get folder info in offline mode."
+#~ msgstr "Kausta pole autonoomses režiimis võimalik hankida."
