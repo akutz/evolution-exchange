@@ -1,23 +1,23 @@
 # English (British) translation.
-# Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER
+# Copyright (C) 2004 evolution-exchanges'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the evolution-exchange package.
 # Gareth Owen <gowen72@yahoo.com>, 2004.
-# Bruce Cowan <bcowan@fastmail.co.uk>, 2010.
+# Bruce Cowan <bcowan@bcowan.me.uk>, 2010.
 # Philip Withnall <philip@tecnocode.co.uk>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-13 11:31+0100\n"
-"PO-Revision-Date: 2010-02-23 22:38+0100\n"
-"Last-Translator: Philip Withnall <philip@tecnocode.co.uk>\n"
+"POT-Creation-Date: 2010-08-31 18:01+0100\n"
+"PO-Revision-Date: 2010-08-31 18:05+0100\n"
+"Last-Translator: Bruce Cowan <bruce@bcowan.me.uk>\n"
 "Language-Team: British English <en@li.org>\n"
+"Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.5.2\n"
+"X-Generator: Virtaal 0.6.1\n"
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
 msgid "Specifies the time interval to refresh the GAL Cache."
@@ -25,114 +25,120 @@ msgstr "Specifies the time interval to refresh the GAL Cache."
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
 msgid ""
-"This key specifies the number of days interval between the GAL cache "
-"refresh. Set this value to zero, if you don't want to update GAL and use the "
-"current cache forever. This will work only if you have enabled offline "
-"caching for GAL."
+"This key specifies the number of days' interval between GAL cache refreshes. "
+"Set this value to zero if you don't want to update GAL and use the current "
+"cache forever. This will work only if you have enabled offline caching for "
+"GAL."
 msgstr ""
-"This key specifies the number of days' interval between GAL cache "
-"refreshes. Set this value to zero if you don't want to update GAL and use the "
-"current cache forever. This will only work if you have enabled offline "
-"caching for GAL."
+"This key specifies the number of days' interval between GAL cache refreshes. "
+"Set this value to zero if you don't want to update GAL and use the current "
+"cache forever. This will work only if you have enabled offline caching for "
+"GAL."
 
-#: ../addressbook/e-book-backend-exchange.c:2302
-#: ../addressbook/e-book-backend-gal.c:1900
+#: ../addressbook/e-book-backend-exchange.c:135
+#, c-format
+msgid "Operation failed with status %d"
+msgstr "Operation failed with status %d"
+
+#: ../addressbook/e-book-backend-exchange.c:1797
+#: ../addressbook/e-book-backend-exchange.c:2642
+msgid "Cancelled"
+msgstr "Cancelled"
+
+#: ../addressbook/e-book-backend-exchange.c:2319
+#: ../addressbook/e-book-backend-gal.c:1931
 msgid "Searching..."
 msgstr "Searching…"
 
-#: ../addressbook/e-book-backend-gal.c:319
-#: ../addressbook/e-book-backend-gal.c:340
+#: ../addressbook/e-book-backend-gal.c:330
+#: ../addressbook/e-book-backend-gal.c:351
 msgid "Reconnecting to LDAP server..."
 msgstr "Reconnecting to LDAP server…"
 
-#: ../addressbook/e-book-backend-gal.c:1661
+#: ../addressbook/e-book-backend-gal.c:1671
 msgid "Receiving LDAP search results..."
 msgstr "Receiving LDAP search results…"
 
-#: ../addressbook/e-book-backend-gal.c:1931
+#: ../addressbook/e-book-backend-gal.c:1962
 msgid "Error performing search"
 msgstr "Error performing search"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2111
+#: ../calendar/e-cal-backend-exchange-calendar.c:2145
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "The resource '%s' is busy during the selected time period."
 
-#: ../calendar/e-cal-backend-exchange.c:422
-msgid "Authentication failed"
-msgstr "Authentication failed"
-
-#: ../calendar/e-cal-backend-exchange.c:474
-msgid "Could not find the calendar"
-msgstr "Could not find the calendar"
-
-#: ../camel/camel-exchange-folder.c:186
-msgid "You cannot expunge in offline mode."
-msgstr "You cannot expunge in offline mode."
-
-#: ../camel/camel-exchange-folder.c:214
+#: ../camel/camel-exchange-folder.c:75
 msgid "No Subject"
 msgstr "No Subject"
 
-#: ../camel/camel-exchange-folder.c:377
+#: ../camel/camel-exchange-folder.c:137
+#, c-format
 msgid "This message is not available in offline mode."
 msgstr "This message is not available in offline mode."
 
-#: ../camel/camel-exchange-folder.c:603
+#: ../camel/camel-exchange-folder.c:386
+#, c-format
+msgid "You cannot expunge in offline mode."
+msgstr "You cannot expunge in offline mode."
+
+#: ../camel/camel-exchange-folder.c:626
 msgid "Moving messages"
 msgstr "Moving messages"
 
-#: ../camel/camel-exchange-folder.c:604
+#: ../camel/camel-exchange-folder.c:627
 msgid "Copying messages"
 msgstr "Copying messages"
 
-#: ../camel/camel-exchange-folder.c:972
+#: ../camel/camel-exchange-folder.c:1070
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Could not create directory %s: %s"
 
-#: ../camel/camel-exchange-folder.c:982
+#: ../camel/camel-exchange-folder.c:1081
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Could not load summary for %s"
 
-#: ../camel/camel-exchange-folder.c:990
+#: ../camel/camel-exchange-folder.c:1088
 #, c-format
-msgid "Could not create cache for %s"
-msgstr "Could not create cache for %s"
+msgid "Could not create cache for %s: "
+msgstr "Could not create cache for %s: "
 
-#: ../camel/camel-exchange-folder.c:1000
+#: ../camel/camel-exchange-folder.c:1099
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Could not create journal for %s"
 
-#: ../camel/camel-exchange-folder.c:1049
+#: ../camel/camel-exchange-folder.c:1146
 msgid "Scanning for changed messages"
 msgstr "Scanning for changed messages"
 
-#: ../camel/camel-exchange-folder.c:1074
+#: ../camel/camel-exchange-folder.c:1173
 msgid "Fetching summary information for new messages"
 msgstr "Fetching summary information for new messages"
 
-#: ../camel/camel-exchange-journal.c:327
-msgid "No folder name found\n"
-msgstr "No folder name found\n"
+#: ../camel/camel-exchange-journal.c:144
+#, c-format
+msgid "No folder name found"
+msgstr "No folder name found"
 
-#: ../camel/camel-exchange-journal.c:360 ../camel/camel-exchange-utils.c:3101
-#: ../camel/camel-exchange-utils.c:3165 ../camel/camel-exchange-utils.c:3285
-#: ../camel/camel-exchange-utils.c:3316 ../camel/camel-exchange-utils.c:3368
-#: ../camel/camel-exchange-utils.c:3389
+#: ../camel/camel-exchange-journal.c:185 ../camel/camel-exchange-utils.c:3139
+#: ../camel/camel-exchange-utils.c:3203 ../camel/camel-exchange-utils.c:3321
+#: ../camel/camel-exchange-utils.c:3352 ../camel/camel-exchange-utils.c:3404
+#: ../camel/camel-exchange-utils.c:3425
+#, c-format
 msgid "Folder doesn't exist"
 msgstr "Folder doesn't exist"
 
-#: ../camel/camel-exchange-journal.c:422
+#: ../camel/camel-exchange-journal.c:417
+#, c-format
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "Cannot append message in offline mode: cache unavailable"
 
-#: ../camel/camel-exchange-journal.c:438
-#, c-format
-msgid "Cannot append message in offline mode: %s"
-msgstr "Cannot append message in offline mode: %s"
+#: ../camel/camel-exchange-journal.c:437
+msgid "Cannot append message in offline mode: "
+msgstr "Cannot append message in offline mode: "
 
 #: ../camel/camel-exchange-provider.c:52
 msgid "Secure or Plaintext Password"
@@ -168,7 +174,7 @@ msgstr "Windows User_name:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
 #: ../camel/camel-exchange-provider.c:75
-msgid "Global Address List / Active Directory"
+msgid "Global Address List/Active Directory"
 msgstr "Global Address List/Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
@@ -247,142 +253,143 @@ msgstr ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
 
-#: ../camel/camel-exchange-store.c:303
+#: ../camel/camel-exchange-store.c:300
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange server %s"
 
-#: ../camel/camel-exchange-store.c:306
+#: ../camel/camel-exchange-store.c:304
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Exchange account for %s on %s"
 
-#: ../camel/camel-exchange-store.c:383
-msgid ""
-"Could not authenticate to server. (Password incorrect?)\n"
-"\n"
-msgstr ""
-"Could not authenticate to server. (Password incorrect?)\n"
-"\n"
+#: ../camel/camel-exchange-store.c:378
+#, c-format
+msgid "Could not authenticate to server. (Password incorrect?)"
+msgstr "Could not authenticate to server. (Password incorrect?)"
 
-#: ../camel/camel-exchange-store.c:428
+#: ../camel/camel-exchange-store.c:441
 #, c-format
 msgid "No such folder %s"
 msgstr "No such folder %s"
 
-#: ../camel/camel-exchange-store.c:500
-msgid "Cannot subscribe folder in offline mode."
-msgstr "Cannot subscribe folder in offline mode."
-
-#: ../camel/camel-exchange-store.c:515
-msgid "Cannot unsubscribe folder in offline mode."
-msgstr "Cannot unsubscribe folder in offline mode."
-
-#: ../camel/camel-exchange-store.c:646
-msgid "Cannot get folder info in offline mode."
-msgstr "Cannot get folder info in offline mode."
-
-#: ../camel/camel-exchange-store.c:709
+#: ../camel/camel-exchange-store.c:574
+#, c-format
 msgid "Cannot create folder in offline mode."
 msgstr "Cannot create folder in offline mode."
 
-#: ../camel/camel-exchange-store.c:732
+#: ../camel/camel-exchange-store.c:604
+#, c-format
 msgid "Cannot delete folder in offline mode."
 msgstr "Cannot delete folder in offline mode."
 
-#: ../camel/camel-exchange-store.c:754
+#: ../camel/camel-exchange-store.c:630
+#, c-format
 msgid "Cannot rename folder in offline mode."
 msgstr "Cannot rename folder in offline mode."
 
-#: ../camel/camel-exchange-transport.c:99
+#: ../camel/camel-exchange-store.c:711
+#, c-format
+msgid "Cannot subscribe folder in offline mode."
+msgstr "Cannot subscribe folder in offline mode."
+
+#: ../camel/camel-exchange-store.c:730
+#, c-format
+msgid "Cannot unsubscribe folder in offline mode."
+msgstr "Cannot unsubscribe folder in offline mode."
+
+#: ../camel/camel-exchange-transport.c:65
+#, c-format
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "Exchange transport can only be used with Exchange mail source"
 
-#: ../camel/camel-exchange-transport.c:112
+#: ../camel/camel-exchange-transport.c:79
+#, c-format
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "Cannot send message: one or more invalid recipients"
 
-#: ../camel/camel-exchange-transport.c:121
+#: ../camel/camel-exchange-transport.c:90
+#, c-format
 msgid "Could not find 'From' address in message"
 msgstr "Could not find 'From' address in message"
 
-#: ../camel/camel-exchange-utils.c:530 ../camel/camel-exchange-utils.c:569
+#: ../camel/camel-exchange-utils.c:529 ../camel/camel-exchange-utils.c:568
 msgid "Could not get new messages"
 msgstr "Could not get new messages"
 
-#: ../camel/camel-exchange-utils.c:1057 ../camel/camel-exchange-utils.c:1208
+#: ../camel/camel-exchange-utils.c:1056 ../camel/camel-exchange-utils.c:1207
 msgid "Could not open folder"
 msgstr "Could not open folder"
 
-#: ../camel/camel-exchange-utils.c:1204 ../camel/camel-exchange-utils.c:1222
+#: ../camel/camel-exchange-utils.c:1203 ../camel/camel-exchange-utils.c:1221
 msgid "Could not open folder: Permission denied"
 msgstr "Could not open folder: Permission denied"
 
-#: ../camel/camel-exchange-utils.c:1271 ../camel/camel-exchange-utils.c:2173
+#: ../camel/camel-exchange-utils.c:1270 ../camel/camel-exchange-utils.c:2199
 msgid "No such folder"
 msgstr "No such folder"
 
-#: ../camel/camel-exchange-utils.c:1293 ../camel/camel-exchange-utils.c:3075
-#: ../camel/camel-exchange-utils.c:3118 ../camel/camel-exchange-utils.c:3289
-#: ../camel/camel-exchange-utils.c:3342 ../camel/camel-exchange-utils.c:3404
+#: ../camel/camel-exchange-utils.c:1292 ../camel/camel-exchange-utils.c:3113
+#: ../camel/camel-exchange-utils.c:3156 ../camel/camel-exchange-utils.c:3325
+#: ../camel/camel-exchange-utils.c:3378 ../camel/camel-exchange-utils.c:3440
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
 #: ../server/storage/e-storage.c:573
 msgid "Permission denied"
 msgstr "Permission denied"
 
-#: ../camel/camel-exchange-utils.c:2182
+#: ../camel/camel-exchange-utils.c:2208
 msgid "Could not create folder."
 msgstr "Could not create folder."
 
-#: ../camel/camel-exchange-utils.c:2271
+#: ../camel/camel-exchange-utils.c:2296
 msgid "Could not open Deleted Items folder"
 msgstr "Could not open Deleted Items folder"
 
-#: ../camel/camel-exchange-utils.c:2398
+#: ../camel/camel-exchange-utils.c:2422
 msgid "Could not empty Deleted Items folder"
 msgstr "Could not empty Deleted Items folder"
 
-#: ../camel/camel-exchange-utils.c:2400
+#: ../camel/camel-exchange-utils.c:2424
 msgid "Permission denied. Could not delete certain messages."
 msgstr "Permission denied. Could not delete certain messages."
 
-#: ../camel/camel-exchange-utils.c:2443
+#: ../camel/camel-exchange-utils.c:2468
 msgid "Could not append message; mailbox is over quota"
 msgstr "Could not append message; mailbox is over quota"
 
-#: ../camel/camel-exchange-utils.c:2444
+#: ../camel/camel-exchange-utils.c:2469
 msgid "Could not append message"
 msgstr "Could not append message"
 
-#: ../camel/camel-exchange-utils.c:2630
+#: ../camel/camel-exchange-utils.c:2655
 msgid "No such message"
 msgstr "No such message"
 
-#: ../camel/camel-exchange-utils.c:2702
+#: ../camel/camel-exchange-utils.c:2727
 msgid "Message has been deleted"
 msgstr "Message has been deleted"
 
-#: ../camel/camel-exchange-utils.c:2704
+#: ../camel/camel-exchange-utils.c:2729
 msgid "Error retrieving message"
 msgstr "Error retrieving message"
 
-#: ../camel/camel-exchange-utils.c:2753
+#: ../camel/camel-exchange-utils.c:2778
 msgid "Mailbox does not support full-text searching"
 msgstr "Mailbox does not support full-text searching"
 
-#: ../camel/camel-exchange-utils.c:2861
+#: ../camel/camel-exchange-utils.c:2890
 msgid "Unable to move/copy messages"
 msgstr "Unable to move/copy messages"
 
-#: ../camel/camel-exchange-utils.c:2980
+#: ../camel/camel-exchange-utils.c:3018
 msgid "No mail submission URI for this mailbox"
 msgstr "No mail submission URI for this mailbox"
 
-#: ../camel/camel-exchange-utils.c:3013
+#: ../camel/camel-exchange-utils.c:3051
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Server won't accept mail via Exchange transport"
 
-#: ../camel/camel-exchange-utils.c:3015
+#: ../camel/camel-exchange-utils.c:3053
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -391,7 +398,7 @@ msgstr ""
 "Your account does not have permission to use <%s>\n"
 "as a From address."
 
-#: ../camel/camel-exchange-utils.c:3027
+#: ../camel/camel-exchange-utils.c:3065
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -399,25 +406,25 @@ msgstr ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 
-#: ../camel/camel-exchange-utils.c:3031
+#: ../camel/camel-exchange-utils.c:3069
 msgid "Could not send message"
 msgstr "Could not send message"
 
-#: ../camel/camel-exchange-utils.c:3067 ../camel/camel-exchange-utils.c:3123
-#: ../camel/camel-exchange-utils.c:3293 ../camel/camel-exchange-utils.c:3346
-#: ../camel/camel-exchange-utils.c:3410
+#: ../camel/camel-exchange-utils.c:3105 ../camel/camel-exchange-utils.c:3161
+#: ../camel/camel-exchange-utils.c:3329 ../camel/camel-exchange-utils.c:3382
+#: ../camel/camel-exchange-utils.c:3446
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
 #: ../server/storage/e-storage.c:557
 msgid "Generic error"
 msgstr "Generic error"
 
-#: ../camel/camel-exchange-utils.c:3071
+#: ../camel/camel-exchange-utils.c:3109
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
 msgid "Folder already exists"
 msgstr "Folder already exists"
 
 #: ../eplugin/exchange-account-setup.c:266
-msgid "Out Of Office"
+msgid "Out of Office"
 msgstr "Out of Office"
 
 #: ../eplugin/exchange-account-setup.c:273
@@ -477,7 +484,8 @@ msgid "View the size of all Exchange folders"
 msgstr "View the size of all Exchange folders"
 
 #: ../eplugin/exchange-account-setup.c:369
-msgid "Folders Size"
+#: ../eplugin/exchange-folder-size-display.c:183
+msgid "Folder Size"
 msgstr "Folder Size"
 
 #: ../eplugin/exchange-account-setup.c:376
@@ -494,7 +502,7 @@ msgid "A_uthenticate"
 msgstr "A_uthenticate"
 
 #: ../eplugin/exchange-account-setup.c:783
-msgid "Mailbox name is _different from user name"
+msgid "Mailbox name is _different from username"
 msgstr "Mailbox name is _different from username"
 
 #: ../eplugin/exchange-account-setup.c:796
@@ -609,22 +617,22 @@ msgstr "_Yes, Change Status"
 msgid "Enter Password for %s"
 msgstr "Enter Password for %s"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:438
+#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:435
 #: ../server/storage/exchange-hierarchy-foreign.c:260
 msgid "Calendar"
 msgstr "Calendar"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:441
+#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:438
 #: ../server/storage/exchange-hierarchy-foreign.c:269
 msgid "Tasks"
 msgstr "Tasks"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:436
+#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:433
 #: ../server/storage/exchange-hierarchy-foreign.c:264
 msgid "Inbox"
 msgstr "Inbox"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:444
+#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:441
 #: ../server/storage/exchange-hierarchy-foreign.c:261
 msgid "Contacts"
 msgstr "Contacts"
@@ -743,7 +751,7 @@ msgstr "You are also permitted to see my private items."
 #. to the private items.
 #.
 #: ../eplugin/exchange-delegates-user.c:465
-msgid "However you are not permitted to see my private items."
+msgid "However, you are not permitted to see my private items."
 msgstr "However, you are not permitted to see my private items."
 
 #: ../eplugin/exchange-delegates-user.c:497
@@ -858,20 +866,21 @@ msgid "Check tasks permissions"
 msgstr "Check tasks permissions"
 
 #: ../eplugin/exchange-folder-permission.c:590
-msgid "Check addressbook permissions"
+msgid "Check address book permissions"
 msgstr "Check address book permissions"
 
-#: ../eplugin/exchange-folder-size-display.c:118
+#: ../eplugin/exchange-folder-size-display.c:136
 msgid "Exchange Folder Tree"
 msgstr "Exchange Folder Tree"
 
-#: ../eplugin/exchange-folder-size-display.c:150
+#: ../eplugin/exchange-folder-size-display.c:151
+#, c-format
+msgid "Total size: %.2f KB"
+msgstr "Total size: %.2f KB"
+
+#: ../eplugin/exchange-folder-size-display.c:179
 msgid "Folder Name"
 msgstr "Folder Name"
-
-#: ../eplugin/exchange-folder-size-display.c:154
-msgid "Folder Size"
-msgstr "Folder Size"
 
 #. FIXME Limit to one user
 #: ../eplugin/exchange-folder-subscription.c:72
@@ -890,12 +899,12 @@ msgstr "_Folder Name:"
 msgid "_User:"
 msgstr "_User:"
 
-#: ../eplugin/exchange-folder.c:323 ../eplugin/exchange-folder.c:379
+#: ../eplugin/exchange-folder.c:320 ../eplugin/exchange-folder.c:376
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "Really unsubscribe from folder \"%s\"?"
 
-#: ../eplugin/exchange-folder.c:336 ../eplugin/exchange-folder.c:392
+#: ../eplugin/exchange-folder.c:333 ../eplugin/exchange-folder.c:389
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "Unsubscribe from \"%s\""
@@ -910,7 +919,7 @@ msgstr "Insert Send options"
 
 #. FIXME: Don't hardcode this
 #: ../eplugin/exchange-operations.c:122 ../eplugin/exchange-operations.c:167
-#: ../server/storage/exchange-account.c:1259
+#: ../server/storage/exchange-account.c:1260
 msgid "Personal Folders"
 msgstr "Personal Folders"
 
@@ -1106,7 +1115,7 @@ msgstr "Could not change password."
 msgid ""
 "Could not configure Exchange account because \n"
 "an unknown error occurred. Check the URL, \n"
-"username, and password, and try again."
+"username and password, and try again."
 msgstr ""
 "Could not configure Exchange account because \n"
 "an unknown error occurred. Check the URL, \n"
@@ -1295,7 +1304,7 @@ msgid ""
 "you to specify the Windows domain name \n"
 "as part of your username (eg, &quot;DOMAIN\\user&quot;).\n"
 "\n"
-"Also, you may have typed your password wrongly."
+"Also, you may have typed your password incorrectly."
 msgstr ""
 "This probably means that your server requires \n"
 "you to specify the Windows domain name \n"
@@ -1400,13 +1409,13 @@ msgid "{0} is already in the list"
 msgstr "{0} is already in the list"
 
 #: ../server/lib/e2k-autoconfig.c:1692
-#: ../server/storage/exchange-account.c:954
+#: ../server/storage/exchange-account.c:955
 #, c-format
 msgid "Enter password for %s"
 msgstr "Enter password for %s"
 
 #: ../server/lib/e2k-autoconfig.c:1693
-#: ../server/storage/exchange-account.c:959
+#: ../server/storage/exchange-account.c:960
 msgid "Enter password"
 msgstr "Enter password"
 
@@ -1497,7 +1506,7 @@ msgid "Cannot create a folder with that name"
 msgstr "Cannot create a folder with that name"
 
 #: ../server/storage/e-storage.c:585
-msgid "This operation cannot be performed in off-line mode"
+msgid "This operation cannot be performed in offline mode"
 msgstr "This operation cannot be performed in offline mode"
 
 #: ../server/storage/e-storage.c:587
@@ -1506,22 +1515,22 @@ msgstr "Unknown error"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: ../server/storage/exchange-account.c:639
+#: ../server/storage/exchange-account.c:640
 #, c-format
 msgid "%s's Folders"
 msgstr "%s's Folders"
 
-#: ../server/storage/exchange-account.c:1274
+#: ../server/storage/exchange-account.c:1275
 msgid "Favorite Public Folders"
 msgstr "Favourite Public Folders"
 
 #. i18n: Outlookism
-#: ../server/storage/exchange-account.c:1291
+#: ../server/storage/exchange-account.c:1292
 msgid "All Public Folders"
 msgstr "All Public Folders"
 
 #. i18n: Outlookism
-#: ../server/storage/exchange-account.c:1305
+#: ../server/storage/exchange-account.c:1306
 msgid "Global Address List"
 msgstr "Global Address List"
 
@@ -1549,11 +1558,11 @@ msgstr "Outbox"
 msgid "Sent Items"
 msgstr "Sent Items"
 
-#: ../tools/exchange-autoconfig-wizard.c:177
+#: ../tools/exchange-autoconfig-wizard.c:176
 msgid "Welcome"
 msgstr "Welcome"
 
-#: ../tools/exchange-autoconfig-wizard.c:177
+#: ../tools/exchange-autoconfig-wizard.c:176
 msgid ""
 "Welcome to Evolution Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
@@ -1567,13 +1576,13 @@ msgstr ""
 "\n"
 "Please click the \"Forward\" button to continue."
 
-#: ../tools/exchange-autoconfig-wizard.c:189
-#: ../tools/exchange-autoconfig-wizard.c:362
-#: ../tools/exchange-autoconfig-wizard.c:449
+#: ../tools/exchange-autoconfig-wizard.c:188
+#: ../tools/exchange-autoconfig-wizard.c:361
+#: ../tools/exchange-autoconfig-wizard.c:448
 msgid "Exchange Configuration"
 msgstr "Exchange Configuration"
 
-#: ../tools/exchange-autoconfig-wizard.c:189
+#: ../tools/exchange-autoconfig-wizard.c:188
 msgid ""
 "Evolution Connector for Microsoft Exchange can use account information from "
 "your existing Outlook Web Access (OWA) account.\n"
@@ -1587,23 +1596,23 @@ msgstr ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 
-#: ../tools/exchange-autoconfig-wizard.c:197
+#: ../tools/exchange-autoconfig-wizard.c:196
 msgid "OWA _URL:"
 msgstr "OWA _URL:"
 
-#: ../tools/exchange-autoconfig-wizard.c:201
+#: ../tools/exchange-autoconfig-wizard.c:200
 msgid "User_name:"
 msgstr "User_name:"
 
-#: ../tools/exchange-autoconfig-wizard.c:205
+#: ../tools/exchange-autoconfig-wizard.c:204
 msgid "_Password:"
 msgstr "_Password:"
 
-#: ../tools/exchange-autoconfig-wizard.c:210
+#: ../tools/exchange-autoconfig-wizard.c:209
 msgid "_Remember this password"
 msgstr "_Remember this password"
 
-#: ../tools/exchange-autoconfig-wizard.c:283
+#: ../tools/exchange-autoconfig-wizard.c:282
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -1612,7 +1621,7 @@ msgstr ""
 "Could not connect to the Exchange server.\n"
 "Make sure the URL is correct (try \"%s\" instead of \"%s\"?) and try again."
 
-#: ../tools/exchange-autoconfig-wizard.c:291
+#: ../tools/exchange-autoconfig-wizard.c:290
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -1620,7 +1629,7 @@ msgstr ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelt correctly and try again."
 
-#: ../tools/exchange-autoconfig-wizard.c:300
+#: ../tools/exchange-autoconfig-wizard.c:299
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -1628,7 +1637,7 @@ msgstr ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
 
-#: ../tools/exchange-autoconfig-wizard.c:307
+#: ../tools/exchange-autoconfig-wizard.c:306
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -1643,7 +1652,7 @@ msgstr ""
 "You may need to specify the Windows domain name as part of your username "
 "(eg, \"MY-DOMAIN\\%s\")."
 
-#: ../tools/exchange-autoconfig-wizard.c:319
+#: ../tools/exchange-autoconfig-wizard.c:318
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -1651,7 +1660,7 @@ msgstr ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
 
-#: ../tools/exchange-autoconfig-wizard.c:325
+#: ../tools/exchange-autoconfig-wizard.c:324
 msgid ""
 "Evolution Connector for Microsoft Exchange requires access to certain "
 "functionality on the Exchange server that appears to be disabled or "
@@ -1671,7 +1680,7 @@ msgstr ""
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 
-#: ../tools/exchange-autoconfig-wizard.c:338
+#: ../tools/exchange-autoconfig-wizard.c:337
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 server. "
 "Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
@@ -1681,7 +1690,7 @@ msgstr ""
 "Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
 "and 2003 only."
 
-#: ../tools/exchange-autoconfig-wizard.c:346
+#: ../tools/exchange-autoconfig-wizard.c:345
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -1689,7 +1698,7 @@ msgstr ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
 
-#: ../tools/exchange-autoconfig-wizard.c:362
+#: ../tools/exchange-autoconfig-wizard.c:361
 msgid ""
 "Evolution Connector for Microsoft Exchange could not find the Global Catalog "
 "replica for your site. Please enter the name of your Global Catalog server. "
@@ -1700,11 +1709,11 @@ msgstr ""
 "Catalogue server. You may need to ask your system administrator for the "
 "correct value."
 
-#: ../tools/exchange-autoconfig-wizard.c:370
+#: ../tools/exchange-autoconfig-wizard.c:369
 msgid "GC _Server:"
 msgstr "GC _Server:"
 
-#: ../tools/exchange-autoconfig-wizard.c:403
+#: ../tools/exchange-autoconfig-wizard.c:402
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -1715,7 +1724,7 @@ msgstr ""
 "back and specify the Windows domain name as part of your username (eg, \"MY-"
 "DOMAIN\\%s\")."
 
-#: ../tools/exchange-autoconfig-wizard.c:410
+#: ../tools/exchange-autoconfig-wizard.c:409
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -1723,11 +1732,11 @@ msgstr ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
 
-#: ../tools/exchange-autoconfig-wizard.c:422
+#: ../tools/exchange-autoconfig-wizard.c:421
 msgid "Configuration Failed"
 msgstr "Configuration Failed"
 
-#: ../tools/exchange-autoconfig-wizard.c:422
+#: ../tools/exchange-autoconfig-wizard.c:421
 msgid ""
 "Evolution Connector for Microsoft Exchange has encountered a problem "
 "configuring your Exchange account."
@@ -1735,7 +1744,7 @@ msgstr ""
 "Evolution Connector for Microsoft Exchange has encountered a problem "
 "configuring your Exchange account."
 
-#: ../tools/exchange-autoconfig-wizard.c:449
+#: ../tools/exchange-autoconfig-wizard.c:448
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\"."
@@ -1743,48 +1752,48 @@ msgstr ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\"."
 
-#: ../tools/exchange-autoconfig-wizard.c:457
+#: ../tools/exchange-autoconfig-wizard.c:456
 msgid "Full _Name:"
 msgstr "Full _Name:"
 
-#: ../tools/exchange-autoconfig-wizard.c:461
+#: ../tools/exchange-autoconfig-wizard.c:460
 msgid "_Email Address:"
 msgstr "_E-mail Address:"
 
-#: ../tools/exchange-autoconfig-wizard.c:465
+#: ../tools/exchange-autoconfig-wizard.c:464
 msgid "Make this my _default account"
 msgstr "Make this my _default account"
 
-#: ../tools/exchange-autoconfig-wizard.c:482
-#: ../tools/exchange-autoconfig-wizard.c:486
+#: ../tools/exchange-autoconfig-wizard.c:481
+#: ../tools/exchange-autoconfig-wizard.c:485
 msgid "Unknown"
 msgstr "Unknown"
 
-#: ../tools/exchange-autoconfig-wizard.c:509
+#: ../tools/exchange-autoconfig-wizard.c:508
 msgid "Done"
 msgstr "Done"
 
-#: ../tools/exchange-autoconfig-wizard.c:509
+#: ../tools/exchange-autoconfig-wizard.c:508
 msgid ""
 "Your Connector account is now ready to use. Click the \"Apply\" button to "
 "save your settings."
 msgstr ""
 "Your Connector account is now ready to use. Click the \"Apply\" button to "
 "save your settings."
-
-#: ../tools/exchange-autoconfig-wizard.c:543
-msgid ""
-"Configuration system error.\n"
-"Unable to create new account."
-msgstr ""
-"Configuration system error.\n"
-"Unable to create new account."
 
 #: ../tools/exchange-autoconfig-wizard.c:557
+msgid ""
+"Configuration system error.\n"
+"Unable to create new account."
+msgstr ""
+"Configuration system error.\n"
+"Unable to create new account."
+
+#: ../tools/exchange-autoconfig-wizard.c:572
 msgid "You may only configure a single Exchange account"
 msgstr "You may only configure a single Exchange account"
 
-#: ../tools/exchange-autoconfig-wizard.c:732
+#: ../tools/exchange-autoconfig-wizard.c:747
 msgid "Evolution Connector for Microsoft Exchange Configuration"
 msgstr "Evolution Connector for Microsoft Exchange Configuration"
 
@@ -1837,6 +1846,18 @@ msgstr "_Out of Office Assistant"
 #: ../tools/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Unsubscribe from Other User's Folder"
+
+#~ msgid "Authentication failed"
+#~ msgstr "Authentication failed"
+
+#~ msgid "Could not find the calendar"
+#~ msgstr "Could not find the calendar"
+
+#~ msgid "Cannot get folder info in offline mode."
+#~ msgstr "Cannot get folder info in offline mode."
+
+#~ msgid "Folders Size"
+#~ msgstr "Folder Size"
 
 #~ msgid ""
 #~ "Unable to schedule resource '%s' for recurring meetings.\n"
