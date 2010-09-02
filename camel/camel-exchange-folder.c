@@ -411,7 +411,7 @@ exchange_folder_sync (CamelFolder *folder,
 	if (expunge)
 		exchange_folder_expunge (folder, NULL);
 
-	return camel_folder_summary_save_to_db (folder->summary, error);
+	return camel_folder_summary_save_to_db (folder->summary, error) == 0;
 }
 
 static gboolean
