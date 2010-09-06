@@ -354,13 +354,16 @@ exchange_store_connect (CamelService *service,
 
 	/* Initialize the stub connection */
 	if (!camel_exchange_utils_connect (service, password, &connect_status, &local_error)) {
+		g_clear_error (error);
+
 		/* The user cancelled the connection attempt. */
 		if (local_error == NULL)
 			g_set_error (
 				error, G_IO_ERROR,
 				G_IO_ERROR_CANCELLED,
 				"Cancelled");
-		g_propagate_error (error, local_error);
+		else
+			g_propagate_error (error, local_error);
 		g_mutex_unlock (exch->connect_lock);
 		return FALSE;
 	}
@@ -373,6 +376,7 @@ exchange_store_connect (CamelService *service,
 			service->url->passwd = NULL;
 		}
 
+		g_clear_error (error);
 		g_set_error (
 			error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,
 			_("Could not authenticate to server. "

@@ -2118,6 +2118,12 @@ camel_exchange_utils_connect (CamelService *service,
 	const gchar *uri;
 	struct update_linestatus ul;
 
+	if (ed == NULL) {
+		g_set_error (error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,
+			"Could not find Exchange account. Make sure you've only one Exchange account configured.");
+		return FALSE;
+	}
+
 	g_return_val_if_fail (ed != NULL, FALSE);
 	g_return_val_if_fail (status != NULL, FALSE);
 
