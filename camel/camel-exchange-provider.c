@@ -167,6 +167,7 @@ camel_provider_module_init (void)
 {
 	gint i;
 
+	exchange_provider.translation_domain = (gchar *) GETTEXT_PACKAGE;
 	exchange_provider.object_types[CAMEL_PROVIDER_STORE] = camel_exchange_store_get_type ();
 	exchange_provider.object_types[CAMEL_PROVIDER_TRANSPORT] = camel_exchange_transport_get_type ();
 	exchange_provider.authtypes = g_list_prepend (g_list_prepend (NULL, &camel_exchange_password_authtype), &camel_exchange_ntlm_authtype);
@@ -176,8 +177,6 @@ camel_provider_module_init (void)
 
 	bindtextdomain (GETTEXT_PACKAGE, CONNECTOR_LOCALEDIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-	exchange_provider.translation_domain = (gchar *) GETTEXT_PACKAGE;
-	exchange_provider.translation_domain = (gchar *) GETTEXT_PACKAGE;
 
 	/* 'auth_types' is not used anywhere else, it's there just for localization of the 'al_auth' */
 	for (i = 0; auth_types [i]; i++) {
