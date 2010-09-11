@@ -179,8 +179,8 @@ camel_provider_module_init (void)
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 
 	/* 'auth_types' is not used anywhere else, it's there just for localization of the 'al_auth' */
-	for (i = 0; auth_types [i]; i++) {
-		auth_types [i] = _(auth_types [i]);
+	for (i = 0; auth_types[i]; i++) {
+		auth_types[i] = _(auth_types[i]);
 	}
 
 	camel_provider_register (&exchange_provider);

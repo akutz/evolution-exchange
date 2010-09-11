@@ -449,7 +449,7 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
 
 			path = strrchr (uristr, ';');
 			split_path = g_strsplit (++path, "/", -1);
-			email = split_path [0];
+			email = split_path[0];
 
 			exchange_account_scan_foreign_hierarchy (cbex->account, email);
 
@@ -1548,7 +1548,7 @@ e_cal_backend_exchange_get_sender (ECalBackendSync *backend, ECalComponent *comp
 }
 
 /* Do not internationalize */
-static const gchar *e2k_rfc822_months [] = {
+static const gchar *e2k_rfc822_months[] = {
 	"Jan", "Feb", "Mar", "Apr", "May", "Jun",
 	"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 };
@@ -1816,7 +1816,7 @@ get_attach_file_contents (const gchar *filename, gint *length)
 			file_contents = NULL;
 			goto end;
 		}
-		file_contents [len] = '\0';
+		file_contents[len] = '\0';
 	}
 
 end :

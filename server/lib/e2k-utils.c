@@ -33,7 +33,7 @@
 #include <string.h>
 
 /* Do not internationalize */
-const gchar *e2k_rfc822_months [] = {
+const gchar *e2k_rfc822_months[] = {
 	"Jan", "Feb", "Mar", "Apr", "May", "Jun",
 	"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 };

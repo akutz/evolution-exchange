@@ -187,7 +187,7 @@ hierarchy_new_folder (ExchangeHierarchy *hier, EFolder *folder,
 	internal_uri = e_folder_exchange_get_internal_uri (folder);
 
 	/* This should ideally not be needed. But, this causes a problem when the
-	server has identical folder names [ internal_uri ] for folders. Very much
+	server has identical folder names[ internal_uri ] for folders. Very much
 	possible in the case of favorite folders */
 	if (g_hash_table_lookup (EXCHANGE_HIERARCHY_WEBDAV (hier)->priv->folders_by_internal_path,
 				(gchar *)e2k_uri_path (internal_uri)))

@@ -493,7 +493,7 @@ owa_authenticate_user(GtkWidget *button, EConfig *config)
 
 	key = camel_url_to_string (url, CAMEL_URL_HIDE_PASSWORD | CAMEL_URL_HIDE_PARAMS);
 	/* Supress the trailing slash */
-	key [strlen(key) -1] = 0;
+	key[strlen(key) -1] = 0;
 
 	/* set the mailbox before function call to let it use our, not create one */
 	exchange_params->mailbox = g_strdup (camel_url_get_param (url, "mailbox"));

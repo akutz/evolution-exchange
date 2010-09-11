@@ -1295,10 +1295,10 @@ member_populate (EContact *contact, gchar **values, EBookBackendGAL *bl, E2kOper
 
 		member_info = g_strsplit (values [i], ";", -1);
 		attr = e_vcard_attribute_new (NULL, EVC_EMAIL);
-		e_vcard_attribute_add_param_with_value (attr, e_vcard_attribute_param_new (EVC_X_DEST_CONTACT_UID), member_info [1]);
+		e_vcard_attribute_add_param_with_value (attr, e_vcard_attribute_param_new (EVC_X_DEST_CONTACT_UID), member_info[1]);
 
-		if (member_info [2]) {
-			gint len = strlen (member_info [2]);
+		if (member_info[2]) {
+			gint len = strlen (member_info[2]);
 			gchar *value;
 
 			if (member_info [2][0] == '\"' && member_info [2][len - 1] == '\"')
@@ -1309,7 +1309,7 @@ member_populate (EContact *contact, gchar **values, EBookBackendGAL *bl, E2kOper
 			e_vcard_attribute_add_value (attr, value);
 			g_free (value);
 		} else {
-			e_vcard_attribute_add_value (attr, member_info [0]);
+			e_vcard_attribute_add_value (attr, member_info[0]);
 		}
 
 		e_vcard_add_attribute (E_VCARD (contact), attr);
@@ -2638,7 +2638,7 @@ load_source (EBookBackend *backend,
 	tokens = g_strsplit (uri, ";", 2);
 	if (tokens[0]) {
 		g_free (uri);
-		uri = g_strdup (tokens [0]);
+		uri = g_strdup (tokens[0]);
 		book_name = g_strdup (tokens[1]);
 	}
 	g_strfreev (tokens);

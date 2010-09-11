@@ -81,7 +81,7 @@ enum {
 	LAST_SIGNAL
 };
 
-static guint signals [LAST_SIGNAL] = { 0 };
+static guint signals[LAST_SIGNAL] = { 0 };
 
 struct _E2kContextPrivate {
 	SoupSession *session, *async_session;

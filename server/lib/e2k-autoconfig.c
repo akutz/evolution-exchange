@@ -1523,8 +1523,8 @@ validate (const gchar *owa_url, gchar *user, gchar *password, ExchangeParams *ex
 
 		/* no slash at the end of path */
 		len = strlen (path);
-		while (len && path [len - 1] == '/') {
-			path [len - 1] = '\0';
+		while (len && path[len - 1] == '/') {
+			path[len - 1] = '\0';
 			len--;
 		}
 

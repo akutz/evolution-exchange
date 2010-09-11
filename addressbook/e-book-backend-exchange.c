@@ -1119,19 +1119,19 @@ proppatch_address (PropMapping *prop_mapping,
 		return;
 	}
 
-	new_addrprops [ADDRPROP_POSTOFFICEBOX]		= new_address->po;
-	new_addrprops [ADDRPROP_STREET]			= new_address->street;
-	new_addrprops [ADDRPROP_CITY]			= new_address->locality;
-	new_addrprops [ADDRPROP_STATE]			= new_address->region;
-	new_addrprops [ADDRPROP_POSTALCODE]		= new_address->code;
-	new_addrprops [ADDRPROP_COUNTRY]		= new_address->country;
+	new_addrprops[ADDRPROP_POSTOFFICEBOX]		= new_address->po;
+	new_addrprops[ADDRPROP_STREET]			= new_address->street;
+	new_addrprops[ADDRPROP_CITY]			= new_address->locality;
+	new_addrprops[ADDRPROP_STATE]			= new_address->region;
+	new_addrprops[ADDRPROP_POSTALCODE]		= new_address->code;
+	new_addrprops[ADDRPROP_COUNTRY]		= new_address->country;
 	if (cur_address) {
-		cur_addrprops [ADDRPROP_POSTOFFICEBOX]	= cur_address->po;
-		cur_addrprops [ADDRPROP_STREET]		= cur_address->street;
-		cur_addrprops [ADDRPROP_CITY]		= cur_address->locality;
-		cur_addrprops [ADDRPROP_STATE]		= cur_address->region;
-		cur_addrprops [ADDRPROP_POSTALCODE]	= cur_address->code;
-		cur_addrprops [ADDRPROP_COUNTRY]	= cur_address->country;
+		cur_addrprops[ADDRPROP_POSTOFFICEBOX]	= cur_address->po;
+		cur_addrprops[ADDRPROP_STREET]		= cur_address->street;
+		cur_addrprops[ADDRPROP_CITY]		= cur_address->locality;
+		cur_addrprops[ADDRPROP_STATE]		= cur_address->region;
+		cur_addrprops[ADDRPROP_POSTALCODE]	= cur_address->code;
+		cur_addrprops[ADDRPROP_COUNTRY]	= cur_address->country;
 	}
 
 	for (i = 0; i < ADDRPROP_LAST; i++) {

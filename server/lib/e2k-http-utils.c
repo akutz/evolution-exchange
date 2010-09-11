@@ -29,7 +29,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-extern const gchar *e2k_rfc822_months [];
+extern const gchar *e2k_rfc822_months[];
 
 /**
  * e2k_http_parse_date:

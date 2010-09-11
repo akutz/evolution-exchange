@@ -246,10 +246,10 @@ setup_schedule (const guchar *key_56, XNTLM_DES_KS ks)
 	/* Fix parity */
 	for (i = 0; i < 8; i++) {
 		for (c = bit = 0; bit < 8; bit++)
-			if (key [i] & (1 << bit))
+			if (key[i] & (1 << bit))
 				c++;
 		if (!(c & 1))
-			key [i] ^= 0x01;
+			key[i] ^= 0x01;
 	}
 
         xntlm_deskey (ks, key, XNTLM_DES_ENCRYPT);
@@ -264,15 +264,15 @@ static guchar LM_PASSWORD_MAGIC[] = {
 static void
 ntlm_lanmanager_hash (const gchar *password, gchar hash[21])
 {
-	guchar lm_password [15];
+	guchar lm_password[15];
 	XNTLM_DES_KS ks;
 	guint i;
 
-	for (i = 0; i < 14 && password [i]; i++)
-		lm_password [i] = toupper ((guchar) password [i]);
+	for (i = 0; i < 14 && password[i]; i++)
+		lm_password[i] = toupper ((guchar) password[i]);
 
 	for (; i < sizeof (lm_password); i++)
-		lm_password [i] = '\0';
+		lm_password[i] = '\0';
 
 	memcpy (hash, LM_PASSWORD_MAGIC, sizeof (LM_PASSWORD_MAGIC));
 
