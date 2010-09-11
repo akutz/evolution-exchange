@@ -45,7 +45,7 @@ EXTRA_DIST = \
 	intltool-update.in \
 	evolution-exchange-zip.in
 
-DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc --enable-gtk3
+DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc --disable-gtk3
 
 # Generate a ChangeLog file from 'git log'
 dist-hook:
