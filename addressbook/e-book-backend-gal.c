@@ -259,7 +259,7 @@ find_book_view (EBookBackendGAL *bl)
 
 	if (e_iterator_is_valid (iter)) {
 		/* just always use the first book view */
-		EDataBookView *v = (EDataBookView*)e_iterator_get(iter);
+		EDataBookView *v = (EDataBookView*)e_iterator_get (iter);
 		if (v)
 			rv = v;
 	}
@@ -515,7 +515,7 @@ get_contact_handler (LDAPOp *op, LDAPMessage *res)
 		gchar *vcard;
 
 		g_mutex_lock (bl->priv->ldap_lock);
-		e = ldap_first_entry(bl->priv->ldap, res);
+		e = ldap_first_entry (bl->priv->ldap, res);
 		g_mutex_unlock (bl->priv->ldap_lock);
 
 		if (!e) {
@@ -899,14 +899,14 @@ get_contact_list (EBookBackend *backend,
 
 #define IS_RFC2254_CHAR(c) ((c) == '*' || (c) =='\\' || (c) == '(' || (c) == ')' || (c) == '\0')
 static gchar *
-rfc2254_escape(gchar *str)
+rfc2254_escape (gchar *str)
 {
 	gint i;
-	gint len = strlen(str);
+	gint len = strlen (str);
 	gint newlen = 0;
 
 	for (i = 0; i < len; i++) {
-		if (IS_RFC2254_CHAR(str[i]))
+		if (IS_RFC2254_CHAR (str[i]))
 			newlen += 3;
 		else
 			newlen++;
@@ -919,7 +919,7 @@ rfc2254_escape(gchar *str)
 		gchar *newstr = g_malloc0 (newlen + 1);
 		gint j = 0;
 		for (i = 0; i < len; i++) {
-			if (IS_RFC2254_CHAR(str[i])) {
+			if (IS_RFC2254_CHAR (str[i])) {
 				sprintf (newstr + j, "\\%02x", str[i]);
 				j+= 3;
 			}
@@ -932,7 +932,7 @@ rfc2254_escape(gchar *str)
 }
 
 static ESExpResult *
-func_and(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
+func_and (ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 {
 	ESExpResult *r;
 	GString *string;
@@ -942,30 +942,30 @@ func_and(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 	for (i = 0; i < argc; i++) {
 		if (argv[i]->type == ESEXP_RES_BOOL &&
 		    argv[i]->value.boolean == FALSE) {
-			r = e_sexp_result_new(f, ESEXP_RES_BOOL);
+			r = e_sexp_result_new (f, ESEXP_RES_BOOL);
 			r->value.boolean = FALSE;
 			return r;
 		} else if (argv[i]->type == ESEXP_RES_UNDEFINED)
-			return e_sexp_result_new(f, ESEXP_RES_UNDEFINED);
+			return e_sexp_result_new (f, ESEXP_RES_UNDEFINED);
 	}
 
 	string = g_string_new("(&");
 	for (i = 0; i < argc; i++) {
 		if (argv[i]->type != ESEXP_RES_STRING)
 			continue;
-		g_string_append(string, argv[i]->value.string);
+		g_string_append (string, argv[i]->value.string);
 	}
 	g_string_append(string, ")");
 
-	r = e_sexp_result_new(f, ESEXP_RES_STRING);
+	r = e_sexp_result_new (f, ESEXP_RES_STRING);
 	r->value.string = string->str;
-	g_string_free(string, FALSE);
+	g_string_free (string, FALSE);
 
 	return r;
 }
 
 static ESExpResult *
-func_or(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
+func_or (ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 {
 	ESExpResult *r;
 	GString *string;
@@ -975,44 +975,44 @@ func_or(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 	for (i = 0; i < argc; i++) {
 		if (argv[i]->type == ESEXP_RES_BOOL &&
 		    argv[i]->value.boolean == TRUE) {
-			r = e_sexp_result_new(f, ESEXP_RES_BOOL);
+			r = e_sexp_result_new (f, ESEXP_RES_BOOL);
 			r->value.boolean = TRUE;
 			return r;
 		} else if (argv[i]->type == ESEXP_RES_UNDEFINED)
-			return e_sexp_result_new(f, ESEXP_RES_UNDEFINED);
+			return e_sexp_result_new (f, ESEXP_RES_UNDEFINED);
 	}
 
 	string = g_string_new("(|");
 	for (i = 0; i < argc; i++) {
 		if (argv[i]->type != ESEXP_RES_STRING)
 			continue;
-		g_string_append(string, argv[i]->value.string);
+		g_string_append (string, argv[i]->value.string);
 	}
 	g_string_append(string, ")");
 
-	r = e_sexp_result_new(f, ESEXP_RES_STRING);
+	r = e_sexp_result_new (f, ESEXP_RES_STRING);
 	r->value.string = string->str;
-	g_string_free(string, FALSE);
+	g_string_free (string, FALSE);
 
 	return r;
 }
 
 static ESExpResult *
-func_not(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
+func_not (ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 {
 	ESExpResult *r;
 
 	if (argc != 1 ||
 	    (argv[0]->type != ESEXP_RES_STRING &&
 	     argv[0]->type != ESEXP_RES_BOOL))
-		return e_sexp_result_new(f, ESEXP_RES_UNDEFINED);
+		return e_sexp_result_new (f, ESEXP_RES_UNDEFINED);
 
 	if (argv[0]->type == ESEXP_RES_STRING) {
-		r = e_sexp_result_new(f, ESEXP_RES_STRING);
+		r = e_sexp_result_new (f, ESEXP_RES_STRING);
 		r->value.string = g_strdup_printf ("(!%s)",
 						   argv[0]->value.string);
 	} else {
-		r = e_sexp_result_new(f, ESEXP_RES_BOOL);
+		r = e_sexp_result_new (f, ESEXP_RES_BOOL);
 		r->value.boolean = !argv[0]->value.boolean;
 	}
 
@@ -1035,7 +1035,7 @@ query_prop_to_ldap (const gchar *query_prop)
 }
 
 static ESExpResult *
-func_contains(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
+func_contains (ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 {
 	ESExpResult *r;
 	const gchar *ldap_attr;
@@ -1044,7 +1044,7 @@ func_contains(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 	if (argc != 2 ||
 	    argv[0]->type != ESEXP_RES_STRING ||
 	    argv[1]->type != ESEXP_RES_STRING)
-		return e_sexp_result_new(f, ESEXP_RES_UNDEFINED);
+		return e_sexp_result_new (f, ESEXP_RES_UNDEFINED);
 
 	propname = argv[0]->value.string;
 	str = argv[1]->value.string;
@@ -1055,21 +1055,21 @@ func_contains(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 		 * other "any field contains" searches should give an
 		 * error.
 		 */
-		if (strlen(str) == 0) {
-			r = e_sexp_result_new(f, ESEXP_RES_BOOL);
+		if (strlen (str) == 0) {
+			r = e_sexp_result_new (f, ESEXP_RES_BOOL);
 			r->value.boolean = FALSE;
 		} else {
-			r = e_sexp_result_new(f, ESEXP_RES_STRING);
+			r = e_sexp_result_new (f, ESEXP_RES_STRING);
 			r->value.string = g_strdup_printf ("(mailNickname=%s)", str);
 		}
 
 		return r;
 	}
 
-	ldap_attr = query_prop_to_ldap(argv[0]->value.string);
+	ldap_attr = query_prop_to_ldap (argv[0]->value.string);
 	if (!ldap_attr) {
 		/* Attribute doesn't exist, so it can't possibly match */
-		r = e_sexp_result_new(f, ESEXP_RES_BOOL);
+		r = e_sexp_result_new (f, ESEXP_RES_BOOL);
 		r->value.boolean = FALSE;
 		return r;
 	}
@@ -1077,22 +1077,22 @@ func_contains(ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 	/* AD doesn't do substring indexes, so we only allow
 	 * (contains FIELD ""), meaning "FIELD exists".
 	 */
-	if (strlen(str) == 0) {
-		r = e_sexp_result_new(f, ESEXP_RES_STRING);
+	if (strlen (str) == 0) {
+		r = e_sexp_result_new (f, ESEXP_RES_STRING);
 		r->value.string = g_strdup_printf ("(%s=*)", ldap_attr);
 	} else if (!strcmp(propname, "file_as")) {
-		r = e_sexp_result_new(f, ESEXP_RES_STRING);
+		r = e_sexp_result_new (f, ESEXP_RES_STRING);
 		r->value.string = g_strdup_printf ("(|(displayName=*%s*)(sn=*%s*)(%s=*%s*))", str, str, ldap_attr, str);
 	} else if (g_str_equal (ldap_attr, "displayName")) {
-		r = e_sexp_result_new(f, ESEXP_RES_STRING);
+		r = e_sexp_result_new (f, ESEXP_RES_STRING);
 		r->value.string = g_strdup_printf("(|(displayName=*%s*)(sn=*%s*)(givenName=*%s*))", str, str, str);
 	} else
-		r = e_sexp_result_new(f, ESEXP_RES_UNDEFINED);
+		r = e_sexp_result_new (f, ESEXP_RES_UNDEFINED);
 	return r;
 }
 
 static ESExpResult *
-func_is_or_begins_with(ESExp *f, gint argc, ESExpResult **argv, gboolean exact)
+func_is_or_begins_with (ESExp *f, gint argc, ESExpResult **argv, gboolean exact)
 {
 	ESExpResult *r;
 	const gchar *star;
@@ -1102,15 +1102,15 @@ func_is_or_begins_with(ESExp *f, gint argc, ESExpResult **argv, gboolean exact)
 	if (argc != 2
 	    || argv[0]->type != ESEXP_RES_STRING
 	    || argv[1]->type != ESEXP_RES_STRING)
-		return e_sexp_result_new(f, ESEXP_RES_UNDEFINED);
+		return e_sexp_result_new (f, ESEXP_RES_UNDEFINED);
 
 	propname = argv[0]->value.string;
-	str = rfc2254_escape(argv[1]->value.string);
+	str = rfc2254_escape (argv[1]->value.string);
 	star = exact ? "" : "*";
 
 	if (!exact && strlen (str) == 0 && strcmp(propname, "file_as")) {
 		/* Can't do (beginswith FIELD "") */
-		return e_sexp_result_new(f, ESEXP_RES_UNDEFINED);
+		return e_sexp_result_new (f, ESEXP_RES_UNDEFINED);
 	}
 
 	/* We use the query "(beginswith fileas "")" while building cache for
@@ -1125,12 +1125,12 @@ func_is_or_begins_with(ESExp *f, gint argc, ESExpResult **argv, gboolean exact)
 		goto done;
 	}
 
-	ldap_attr = query_prop_to_ldap(propname);
+	ldap_attr = query_prop_to_ldap (propname);
 	if (!ldap_attr) {
 		g_free (str);
 
 		/* Property doesn't exist, so it can't ever match */
-		r = e_sexp_result_new(f, ESEXP_RES_BOOL);
+		r = e_sexp_result_new (f, ESEXP_RES_BOOL);
 		r->value.boolean = FALSE;
 		return r;
 	}
@@ -1164,28 +1164,28 @@ func_is_or_begins_with(ESExp *f, gint argc, ESExpResult **argv, gboolean exact)
  done:
 	g_free (str);
 
-	r = e_sexp_result_new(f, ESEXP_RES_STRING);
+	r = e_sexp_result_new (f, ESEXP_RES_STRING);
 	r->value.string = filter;
 	return r;
 }
 
 static ESExpResult *
-func_is(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer data)
+func_is (struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer data)
 {
-	return func_is_or_begins_with(f, argc, argv, TRUE);
+	return func_is_or_begins_with (f, argc, argv, TRUE);
 }
 
 static ESExpResult *
-func_beginswith(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer data)
+func_beginswith (struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer data)
 {
-	return func_is_or_begins_with(f, argc, argv, FALSE);
+	return func_is_or_begins_with (f, argc, argv, FALSE);
 }
 
 static ESExpResult *
-func_endswith(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer data)
+func_endswith (struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer data)
 {
 	/* We don't allow endswith searches */
-	return e_sexp_result_new(f, ESEXP_RES_UNDEFINED);
+	return e_sexp_result_new (f, ESEXP_RES_UNDEFINED);
 }
 
 /* 'builtin' functions */
@@ -1209,10 +1209,10 @@ build_query (EBookBackendGAL *bl, const gchar *query, const gchar *ldap_filter, 
 	ESExpResult *r;
 	gint i;
 
-	sexp = e_sexp_new();
+	sexp = e_sexp_new ();
 
 	for (i = 0; i < G_N_ELEMENTS (symbols); i++) {
-		e_sexp_add_function(sexp, 0, (gchar *) symbols[i].name,
+		e_sexp_add_function (sexp, 0, (gchar *) symbols[i].name,
 				    symbols[i].func, NULL);
 	}
 
@@ -1256,12 +1256,12 @@ build_query (EBookBackendGAL *bl, const gchar *query, const gchar *ldap_filter, 
 		g_propagate_error (perror, EDB_ERROR (QUERY_REFUSED));
 	}
 
-	e_sexp_result_free(sexp, r);
+	e_sexp_result_free (sexp, r);
 	e_sexp_unref (sexp);
 }
 
 static void
-manager_populate(EContact *contact, gchar **values, EBookBackendGAL *bl, E2kOperation *op)
+manager_populate (EContact *contact, gchar **values, EBookBackendGAL *bl, E2kOperation *op)
 {
 	E2kGlobalCatalogEntry *entry;
 	E2kGlobalCatalogStatus status;
@@ -1329,21 +1329,21 @@ get_time_stamp (gchar *serv_time_str, time_t *mtime)
 	 */
 
 	/* FIXME : Add a check for proper input string */
-	year = G_STRNDUP(input_str, 4)
-	month = G_STRNDUP(input_str, 2)
-	date = G_STRNDUP(input_str, 2)
-	hour = G_STRNDUP(input_str, 2)
-	minute = G_STRNDUP(input_str, 2)
-	second = G_STRNDUP(input_str, 2)
+	year = G_STRNDUP (input_str, 4)
+	month = G_STRNDUP (input_str, 2)
+	date = G_STRNDUP (input_str, 2)
+	hour = G_STRNDUP (input_str, 2)
+	minute = G_STRNDUP (input_str, 2)
+	second = G_STRNDUP (input_str, 2)
 	input_str++; // parse over the dot
-	zone = G_STRNDUP(input_str, 1)
+	zone = G_STRNDUP (input_str, 1)
 
-	mytime.tm_year = atoi(year)-1900;
-	mytime.tm_mon = atoi(month)-1;
-	mytime.tm_mday = atoi(date);
-	mytime.tm_hour = atoi(hour);
-	mytime.tm_min = atoi(minute);
-	mytime.tm_sec = atoi(second);
+	mytime.tm_year = atoi (year)-1900;
+	mytime.tm_mon = atoi (month)-1;
+	mytime.tm_mday = atoi (date);
+	mytime.tm_hour = atoi (hour);
+	mytime.tm_min = atoi (minute);
+	mytime.tm_sec = atoi (second);
 	mytime.tm_isdst = 0;
 
 	*mtime = mktime(&mytime);
@@ -1480,7 +1480,7 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 						else if (info->prop_type & PROP_TYPE_COMPLEX) {
 							/* if it's a list call the contact-populate function,
 							   which calls g_object_set to set the property */
-							info->populate_contact_func(contact, values, bl, NULL);
+							info->populate_contact_func (contact, values, bl, NULL);
 						}
 						else if (is_group && (info->prop_type & PROP_TYPE_GROUP)) {
 							gchar *grpattrs[3];
@@ -1546,7 +1546,7 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 
 								if (ldap_error != LDAP_SUCCESS) {
 									book_view_notify_status (book_view,
-											ldap_err2string(ldap_error));
+											ldap_err2string (ldap_error));
 									continue;
 								}
 							}
@@ -1636,7 +1636,7 @@ poll_ldap (EBookBackendGAL *bl)
 			   protected by the lock? */
 			g_static_rec_mutex_unlock (&bl->priv->op_hash_mutex);
 
-			ldap_msgfree(res);
+			ldap_msgfree (res);
 		}
 	}
 
@@ -1953,7 +1953,7 @@ start_book_view (EBookBackend  *backend,
 
 			if (ldap_err != LDAP_SUCCESS) {
 				d(printf("%s:%s: error\n", G_STRLOC, G_STRFUNC));
-				book_view_notify_status (view, ldap_err2string(ldap_err));
+				book_view_notify_status (view, ldap_err2string (ldap_err));
 				return;
 			}
 			else if (search_msgid == -1) {
@@ -2023,15 +2023,15 @@ static gint npagedpartial;
 
 /* Set server controls.  Add controls extra_c[0..count-1], if set. */
 static void
-tool_server_controls( LDAP *ld, LDAPControl *extra_c, gint count )
+tool_server_controls ( LDAP *ld, LDAPControl *extra_c, gint count )
 {
 	gint i = 0, j, crit = 0, err;
 	LDAPControl c[3], **ctrls;
 
-	ctrls = (LDAPControl**) malloc(sizeof(c) + (count+1)*sizeof(LDAPControl*));
+	ctrls = (LDAPControl**) malloc (sizeof (c) + (count+1)*sizeof (LDAPControl*));
 	if (ctrls == NULL) {
 		fprintf( stderr, "No memory\n" );
-		exit( EXIT_FAILURE );
+		exit ( EXIT_FAILURE );
 	}
 
 	while (count--) {
@@ -2039,7 +2039,7 @@ tool_server_controls( LDAP *ld, LDAPControl *extra_c, gint count )
 	}
 	ctrls[i] = NULL;
 
-	err = ldap_set_option( ld, LDAP_OPT_SERVER_CONTROLS, ctrls );
+	err = ldap_set_option ( ld, LDAP_OPT_SERVER_CONTROLS, ctrls );
 
 	if (err != LDAP_SUCCESS) {
 		for (j = 0; j < i; j++) {
@@ -2049,19 +2049,19 @@ tool_server_controls( LDAP *ld, LDAPControl *extra_c, gint count )
 			crit ? "critical " : "" );
 	}
 
-	free( ctrls );
+	free ( ctrls );
 	if (crit) {
-		exit( EXIT_FAILURE );
+		exit ( EXIT_FAILURE );
 	}
 }
 
 #if defined (SUNLDAP) || defined (G_OS_WIN32)
 static struct berval *
-ber_dupbv( struct berval *dst, struct berval *src )
+ber_dupbv ( struct berval *dst, struct berval *src )
 {
 	struct berval *tmp;
 
-	tmp = ber_bvdup(src);
+	tmp = ber_bvdup (src);
 	if (!tmp)
 		return NULL;
 
@@ -2076,7 +2076,7 @@ ber_dupbv( struct berval *dst, struct berval *src )
 #endif
 
 static gint
-parse_page_control(
+parse_page_control (
 	LDAP *ld,
 	LDAPMessage *result,
 	struct berval *cookie )
@@ -2089,12 +2089,12 @@ parse_page_control(
 	ber_tag_t tag;
 	struct berval servercookie = { 0, NULL };
 
-	rc = ldap_parse_result( ld, result,
+	rc = ldap_parse_result ( ld, result,
 		&err, NULL, NULL, NULL, &ctrl, 0 );
 
 	if (rc != LDAP_SUCCESS) {
 		ldap_perror(ld, "ldap_parse_result");
-		exit( EXIT_FAILURE );
+		exit ( EXIT_FAILURE );
 	}
 
 	if (err != LDAP_SUCCESS) {
@@ -2110,28 +2110,28 @@ parse_page_control(
 		 * }
 		 */
 		ctrlp = *ctrl;
-		ber = ber_init( &ctrlp->ldctl_value );
+		ber = ber_init ( &ctrlp->ldctl_value );
 		if (ber == NULL) {
 			fprintf( stderr, "Internal error.\n");
 			return EXIT_FAILURE;
 		}
 
 		tag = ber_scanf( ber, "{im}", &entriesLeft, &servercookie );
-		ber_dupbv( cookie, &servercookie );
-		(void) ber_free( ber, 1 );
+		ber_dupbv ( cookie, &servercookie );
+		(void) ber_free ( ber, 1 );
 
 		if (tag == LBER_ERROR) {
-			fprintf( stderr,
+			fprintf ( stderr,
 				"Paged results response control could not be decoded.\n");
 			return EXIT_FAILURE;
 		}
 
 		if (entriesLeft < 0) {
-			fprintf( stderr,
+			fprintf ( stderr,
 				"Invalid entries estimate in paged results response.\n");
 			return EXIT_FAILURE;
 		}
-		ldap_controls_free( ctrl );
+		ldap_controls_free ( ctrl );
 
 	} else {
 		morePagedResults = 0;
@@ -2146,7 +2146,7 @@ parse_page_control(
 	return err;
 }
 
-static gint dosearch(
+static gint dosearch (
 	EBookBackendGAL *bl,
 	const gchar *base,
 	gint scope,
@@ -2168,7 +2168,7 @@ static gint dosearch(
 	gint size = 0;
 
 	if (ssize && *ssize)
-		size = atoi(ssize);
+		size = atoi (ssize);
 
 	g_mutex_lock (bl->priv->ldap_lock);
 	rc = ldap_search_ext (bl->priv->ldap, base, scope, value, attrs, attrsonly,
@@ -2176,7 +2176,7 @@ static gint dosearch(
 	g_mutex_unlock (bl->priv->ldap_lock);
 
 	if (rc != LDAP_SUCCESS) {
-		return( rc );
+		return ( rc );
 	}
 
 	res = NULL;
@@ -2193,7 +2193,7 @@ static gint dosearch(
 			EContact *contact;
 			const gchar *uid;
 
-			switch (ldap_msgtype( msg )) {
+			switch (ldap_msgtype ( msg )) {
 			case LDAP_RES_SEARCH_ENTRY:
 				count++;
 				g_mutex_unlock (bl->priv->ldap_lock);
@@ -2229,7 +2229,7 @@ static gint dosearch(
 
 		}
 
-		ldap_msgfree( res );
+		ldap_msgfree ( res );
 	}
 	g_mutex_unlock (bl->priv->ldap_lock);
 
@@ -2237,12 +2237,12 @@ static gint dosearch(
 		g_mutex_lock (bl->priv->ldap_lock);
 		ldap_perror (bl->priv->ldap, "ldap_result");
 		g_mutex_unlock (bl->priv->ldap_lock);
-		return( rc );
+		return ( rc );
 	}
 
 done:
-	ldap_msgfree( res );
-	return( rc );
+	ldap_msgfree ( res );
+	return ( rc );
 }
 
 static void
@@ -2262,8 +2262,8 @@ generate_cache (EBookBackendGAL *book_backend_gal, const gchar * changed_filter)
 
 	cachetime = e_book_backend_db_cache_get_time (priv->file_db);
 
-	priv->cache_time = cachetime ? atoi(cachetime) : 0;
-	g_free(cachetime);
+	priv->cache_time = cachetime ? atoi (cachetime) : 0;
+	g_free (cachetime);
 	npagedresponses = npagedentries = npagedreferences =
 		npagedextended = npagedpartial = 0;
 
@@ -2279,21 +2279,21 @@ getNextPage:
 #ifdef G_OS_WIN32
 		struct berval **tmpBVPtr = NULL;
 #endif
-		if (( prber = ber_alloc_t(LBER_USE_DER)) == NULL ) {
+		if (( prber = ber_alloc_t (LBER_USE_DER)) == NULL ) {
 			return;
 		}
 		ber_printf( prber, "{iO}", pageSize, &cookie );
 #ifdef G_OS_WIN32
-		if (ber_flatten( prber, tmpBVPtr) == -1) {
-			ber_free( prber, 1 );
-			ber_bvfree(*tmpBVPtr);
+		if (ber_flatten ( prber, tmpBVPtr) == -1) {
+			ber_free ( prber, 1 );
+			ber_bvfree (*tmpBVPtr);
 			return;
 		}
 		c[i].ldctl_value = **tmpBVPtr;
-		ber_free( prber, 1 );
-		ber_bvfree(*tmpBVPtr);
+		ber_free ( prber, 1 );
+		ber_bvfree (*tmpBVPtr);
 #else
-		if (ber_flatten2( prber, &c[i].ldctl_value, 0 ) == -1) {
+		if (ber_flatten2 ( prber, &c[i].ldctl_value, 0 ) == -1) {
 			return;
 		}
 #endif
@@ -2304,7 +2304,7 @@ getNextPage:
 	}
 
 	g_mutex_lock (priv->ldap_lock);
-	tool_server_controls( priv->ldap, c, i );
+	tool_server_controls ( priv->ldap, c, i );
 	g_mutex_unlock (priv->ldap_lock);
 	ber_free (prber, 1);
 
@@ -2365,7 +2365,7 @@ update_cache (EBookBackendGAL *gal)
 
 	filter = g_strdup_printf ("|(whenCreated>=%s)(whenChanged>=%s)", galtime, galtime);
 
-	g_free(galtime);
+	g_free (galtime);
 	printf("Filter %s: Time %d\n", filter, (gint) t1);
 	/* Download New contacts */
 	generate_cache (gal, filter);
@@ -2389,7 +2389,7 @@ authenticate_user (EBookBackend *backend,
 	ExchangeAccount *account = NULL;
 	GError *err = NULL;
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
-	GConfClient *gc = gconf_client_get_default();
+	GConfClient *gc = gconf_client_get_default ();
 	gint interval = gconf_client_get_int (gc, "/apps/evolution/addressbook/gal_cache_interval", NULL);
 
 	g_object_unref (gc);
@@ -2452,7 +2452,7 @@ authenticate_user (EBookBackend *backend,
 			}
 			else {
 				d(printf("Cache not there, generate cache\n"));
-				generate_cache(be, NULL);
+				generate_cache (be, NULL);
 			}
 		}
 #endif
@@ -2472,11 +2472,11 @@ authenticate_user (EBookBackend *backend,
 
 #ifdef SUNLDAP
 static gint
-ber_flatten2( BerElement *ber, struct berval *bv, gint alloc )
+ber_flatten2 ( BerElement *ber, struct berval *bv, gint alloc )
 {
 	struct berval *tmp;
 
-	if (ber_flatten( ber, &tmp) == -1) {
+	if (ber_flatten ( ber, &tmp) == -1) {
 		return;
 	}
 	bv->bv_len = tmp->bv_len;
@@ -2490,7 +2490,7 @@ ber_flatten2( BerElement *ber, struct berval *bv, gint alloc )
 #endif
 
 static void
-ldap_cancel_op(gpointer key, gpointer value, gpointer data)
+ldap_cancel_op (gpointer key, gpointer value, gpointer data)
 {
 	EBookBackendGAL *bl = data;
 	LDAPOp *op = value;
@@ -2714,8 +2714,8 @@ load_source (EBookBackend *backend,
 				env->close (env, 0);
 				g_warning ("db_env_open failed with %d", db_error);
 				g_static_mutex_unlock (&global_env_lock);
-				g_free(dirname);
-				g_free(filename);
+				g_free (dirname);
+				g_free (filename);
 				g_propagate_error (error, EDB_ERROR (OTHER_ERROR));
 				return;
 			}
@@ -2724,7 +2724,7 @@ load_source (EBookBackend *backend,
 			global_env.env = env;
 			global_env.ref_count = 1;
 		}
-		g_static_mutex_unlock(&global_env_lock);
+		g_static_mutex_unlock (&global_env_lock);
 
 		bl->priv->env = env;
 		db_error = db_create (&db, env, 0);
@@ -2796,7 +2796,7 @@ load_source (EBookBackend *backend,
 	}
 #endif
 	/* Online */
-	e_book_backend_set_is_writable (E_BOOK_BACKEND(backend), FALSE);
+	e_book_backend_set_is_writable (E_BOOK_BACKEND (backend), FALSE);
 	e_book_backend_set_is_loaded (E_BOOK_BACKEND (backend), TRUE);
 	e_book_backend_notify_writable (backend, FALSE);
 
@@ -2892,7 +2892,7 @@ dispose (GObject *object)
 			global_env.env->close (global_env.env, 0);
 			global_env.env = NULL;
 		}
-		g_static_mutex_unlock(&global_env_lock);
+		g_static_mutex_unlock (&global_env_lock);
 
 #endif
 		if (bl->priv->ldap_lock)

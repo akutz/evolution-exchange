@@ -86,7 +86,7 @@ e2k_uri_new (const gchar *uri_string)
 				colon = at;
 			}
 
-			semi = strchr(uri_string, ';');
+			semi = strchr (uri_string, ';');
 			if (semi && semi < colon &&
 			    !g_ascii_strncasecmp (semi, ";auth=", 6)) {
 				uri->authmech = g_strndup (semi + 6,

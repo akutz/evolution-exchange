@@ -172,7 +172,7 @@ static guint32 Spbox[8][64] = {
 }
 /* Encrypt or decrypt a block of data in ECB mode */
 void
-xntlm_des(XNTLM_DES_KS ks, guchar block[8])
+xntlm_des (XNTLM_DES_KS ks, guchar block[8])
 {
 	guint32 left,right,work;
 
@@ -215,22 +215,22 @@ xntlm_des(XNTLM_DES_KS ks, guchar block[8])
 	left = (left << 1) | (left >> 31);
 
 	/* Now do the 16 rounds */
-	F(left,right,ks[0]);
-	F(right,left,ks[1]);
-	F(left,right,ks[2]);
-	F(right,left,ks[3]);
-	F(left,right,ks[4]);
-	F(right,left,ks[5]);
-	F(left,right,ks[6]);
-	F(right,left,ks[7]);
-	F(left,right,ks[8]);
-	F(right,left,ks[9]);
-	F(left,right,ks[10]);
-	F(right,left,ks[11]);
-	F(left,right,ks[12]);
-	F(right,left,ks[13]);
-	F(left,right,ks[14]);
-	F(right,left,ks[15]);
+	F (left,right,ks[0]);
+	F (right,left,ks[1]);
+	F (left,right,ks[2]);
+	F (right,left,ks[3]);
+	F (left,right,ks[4]);
+	F (right,left,ks[5]);
+	F (left,right,ks[6]);
+	F (right,left,ks[7]);
+	F (left,right,ks[8]);
+	F (right,left,ks[9]);
+	F (left,right,ks[10]);
+	F (right,left,ks[11]);
+	F (left,right,ks[12]);
+	F (right,left,ks[13]);
+	F (left,right,ks[14]);
+	F (right,left,ks[15]);
 
 	/* Inverse permutation, also from Hoey via Outerbridge and Schneier */
 	right = (right << 31) | (right >> 1);
@@ -305,7 +305,7 @@ static gint bytebit[] = {
  * depending on the value of "decrypt"
  */
 void
-xntlm_deskey(XNTLM_DES_KS k, const guchar *key, gint decrypt)
+xntlm_deskey (XNTLM_DES_KS k, const guchar *key, gint decrypt)
 {
 	guchar pc1m[56];		/* place to modify pc1 into */
 	guchar pcr[56];		/* place to rotate pc1 into */
@@ -321,7 +321,7 @@ xntlm_deskey(XNTLM_DES_KS k, const guchar *key, gint decrypt)
 			? 1 : 0;	/* and store 1-bit result */
 	}
 	for (i=0; i<16; i++) {		/* key chunk for each iteration */
-		memset(ks,0,sizeof(ks));	/* Clear key schedule */
+		memset (ks,0,sizeof (ks));	/* Clear key schedule */
 		for (j=0; j<56; j++)	/* rotate pc1 the right amount */
 			pcr[j] = pc1m[(l=j+totrot[decrypt? 15-i : i])<(j<28? 28 : 56) ? l: l-28];
 			/* rotate left and right halves independently */

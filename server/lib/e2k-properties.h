@@ -90,7 +90,7 @@ void           e2k_properties_foreach_removed   (E2kProperties *props,
 						 E2kPropertiesForeachFunc callback,
 						 gpointer       user_data);
 
-typedef void(*E2kPropertiesForeachNamespaceFunc)(const gchar    *namespace,
+typedef void (*E2kPropertiesForeachNamespaceFunc)(const gchar    *namespace,
 						 gchar           abbrev,
 						 gpointer       user_data);
 void           e2k_properties_foreach_namespace (E2kProperties *props,

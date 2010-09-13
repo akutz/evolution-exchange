@@ -100,11 +100,11 @@ struct EBookBackendExchangePrivate {
 typedef struct PropMapping PropMapping;
 
 static void subscription_notify (E2kContext *ctx, const gchar *uri, E2kContextChangeType type, gpointer user_data);
-static void proppatch_address(PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
-static void proppatch_email(PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
-static void proppatch_date(PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
-static void populate_address(EContactField field, EContact *new_contact, gpointer data);
-static void populate_date(EContactField field, EContact *new_contact, gpointer data);
+static void proppatch_address (PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
+static void proppatch_email (PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
+static void proppatch_date (PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
+static void populate_address (EContactField field, EContact *new_contact, gpointer data);
+static void populate_date (EContactField field, EContact *new_contact, gpointer data);
 static void proppatch_categories (PropMapping *prop_mapping, EContact *new_contact, EContact *cur_contact, E2kProperties *props);
 static void populate_categories (EContactField field, EContact *new_contact, gpointer data);
 static E2kRestriction *e_book_backend_exchange_build_restriction (const gchar *sexp,
@@ -512,7 +512,7 @@ e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 	}
 
 	data = e2k_properties_get_prop (result->props, E2K_PR_HTTPMAIL_HAS_ATTACHMENT);
-	if (!data || !atoi(data))
+	if (!data || !atoi (data))
 		return contact;
 
 	/* Fetch the body and parse out the photo */
@@ -638,7 +638,7 @@ build_cache (EBookBackendExchange *be)
 		if (!contact)
 			continue;
 		e_book_backend_cache_add_contact (bepriv->cache, contact);
-		g_object_unref(contact);
+		g_object_unref (contact);
 	}
 	e_book_backend_cache_set_populated (bepriv->cache);
 	bepriv->is_cache_ready=TRUE;
@@ -670,7 +670,7 @@ update_cache (EBookBackendExchange *be)
 		if (!contact)
 			continue;
 		e_book_backend_cache_add_contact (bepriv->cache, contact);
-		g_object_unref(contact);
+		g_object_unref (contact);
 	}
 	e_book_backend_cache_set_populated (bepriv->cache);
 	bepriv->is_cache_ready=TRUE;
@@ -1006,7 +1006,7 @@ proppatch_date (PropMapping *prop_mapping,
 	}
 
 	if (new_dt) {
-		memset (&then, 0, sizeof(then));
+		memset (&then, 0, sizeof (then));
 		then.tm_year = new_dt->year - 1900;
 		then.tm_mon  = new_dt->month - 1;
 		then.tm_mday = new_dt->day;
@@ -1025,7 +1025,7 @@ proppatch_date (PropMapping *prop_mapping,
 }
 
 static void
-populate_date(EContactField field, EContact *new_contact, gpointer data)
+populate_date (EContactField field, EContact *new_contact, gpointer data)
 {
 	gchar *date = (gchar *)data;
 	time_t tt;
@@ -1461,7 +1461,7 @@ build_message (const gchar *from_name, const gchar *from_email,
 		g_object_unref (multipart);
 	}
 
-	buffer = g_byte_array_new();
+	buffer = g_byte_array_new ();
 	stream = camel_stream_mem_new ();
 	camel_stream_mem_set_byte_array (CAMEL_STREAM_MEM (stream), buffer);
 	camel_data_wrapper_write_to_stream (CAMEL_DATA_WRAPPER (msg), stream, NULL);
@@ -2228,7 +2228,7 @@ e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 							      query);
 		temp = offline_contacts;
 		for (; offline_contacts != NULL;
-		       offline_contacts = g_list_next(offline_contacts)) {
+		       offline_contacts = g_list_next (offline_contacts)) {
 			vcard_list = g_list_append (
 					vcard_list,
 					e_vcard_to_string (
@@ -2334,7 +2334,7 @@ e_book_backend_exchange_start_book_view (EBookBackend  *backend,
 		contacts = e_book_backend_cache_get_contacts (bepriv->cache,
 							      query);
 		temp_list = contacts;
-		for (; contacts != NULL; contacts = g_list_next(contacts)) {
+		for (; contacts != NULL; contacts = g_list_next (contacts)) {
 			/* FIXME: Need muex here?
 			g_mutex_lock (closure->mutex);
 			stopped = closure->stopped;
@@ -2348,7 +2348,7 @@ e_book_backend_exchange_start_book_view (EBookBackend  *backend,
 			}
 			*/
 			e_data_book_view_notify_update (book_view,
-							E_CONTACT(contacts->data));
+							E_CONTACT (contacts->data));
 			g_object_unref (contacts->data);
 		}
 		//if (!stopped)
@@ -2756,7 +2756,7 @@ e_book_backend_exchange_get_supported_fields (EBookBackendSync  *backend,
 	for (i = 0; i < G_N_ELEMENTS (prop_mappings); i++) {
 		if (prop_mappings[i].e_book_field) {
 			*methods = g_list_prepend (*methods,
-					g_strdup (e_contact_field_name(prop_mappings[i].field)));
+					g_strdup (e_contact_field_name (prop_mappings[i].field)));
 		}
 	}
 }
@@ -2850,7 +2850,7 @@ e_book_backend_exchange_load_source (EBookBackend *backend,
 	}
 
 	// writable property will be set in authenticate_user callback
-	e_book_backend_set_is_writable (E_BOOK_BACKEND(backend), FALSE);
+	e_book_backend_set_is_writable (E_BOOK_BACKEND (backend), FALSE);
 	e_book_backend_set_is_loaded (E_BOOK_BACKEND (be), TRUE);
 	e_book_backend_notify_connection_status (E_BOOK_BACKEND (be), TRUE);
 }

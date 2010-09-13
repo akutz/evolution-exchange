@@ -32,7 +32,7 @@ typedef struct _E2kSidPrivate                 E2kSidPrivate;
 typedef struct _E2kSidClass                   E2kSidClass;
 
 #define E2K_MAKE_TYPE(type_name,TypeName,class_init,init,parent) \
-GType type_name##_get_type(void)			\
+GType type_name##_get_type (void)			\
 {							\
 	static volatile gsize type_id__volatile = 0;	\
 	if (g_once_init_enter (&type_id__volatile)) {	\
@@ -57,7 +57,7 @@ GType type_name##_get_type(void)			\
 }
 
 #define E2K_MAKE_TYPE_WITH_IFACE(type_name,TypeName,class_init,init,parent,iface_init,iparent) \
-GType type_name##_get_type(void)			\
+GType type_name##_get_type (void)			\
 {							\
 	static volatile gsize type_id__volatile = 0;	\
 	if (g_once_init_enter (&type_id__volatile)) {	\

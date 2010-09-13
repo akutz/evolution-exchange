@@ -30,11 +30,11 @@
 #include <libedataserver/e-data-server-util.h>
 
 void
-string_to_dbt(const gchar *str, DBT *dbt)
+string_to_dbt (const gchar *str, DBT *dbt)
 {
-	memset(dbt, 0, sizeof(dbt));
+	memset (dbt, 0, sizeof (dbt));
 	dbt->data = (gpointer)str;
-	dbt->size = strlen(str) + 1;
+	dbt->size = strlen (str) + 1;
 	dbt->flags = DB_DBT_USERMEM;
 }
 
@@ -67,7 +67,7 @@ get_filename_from_uri (const gchar *uri)
  **/
 
 void
-e_book_backend_db_cache_set_filename(DB *db, const gchar *filename)
+e_book_backend_db_cache_set_filename (DB *db, const gchar *filename)
 {
 	DBT uid_dbt, vcard_dbt;
 	gint db_error;
@@ -90,14 +90,14 @@ e_book_backend_db_cache_set_filename(DB *db, const gchar *filename)
  **/
 
 gchar *
-e_book_backend_db_cache_get_filename(DB *db)
+e_book_backend_db_cache_get_filename (DB *db)
 {
 	DBT  uid_dbt, vcard_dbt;
 	gint db_error;
 	gchar *filename;
 
 	string_to_dbt ("filename", &uid_dbt);
-	memset (&vcard_dbt, 0 , sizeof(vcard_dbt));
+	memset (&vcard_dbt, 0 , sizeof (vcard_dbt));
 	vcard_dbt.flags = DB_DBT_MALLOC;
 
 	db_error = db->get (db, NULL, &uid_dbt, &vcard_dbt, 0);
@@ -113,7 +113,7 @@ e_book_backend_db_cache_get_filename(DB *db)
 }
 
 void
-e_book_backend_db_cache_set_time(DB *db, const gchar *t)
+e_book_backend_db_cache_set_time (DB *db, const gchar *t)
 {
 	DBT uid_dbt, vcard_dbt;
 	gint db_error;
@@ -135,7 +135,7 @@ e_book_backend_db_cache_get_time (DB *db)
 	gchar *t;
 
 	string_to_dbt ("last_update_time", &uid_dbt);
-	memset (&vcard_dbt, 0, sizeof(vcard_dbt));
+	memset (&vcard_dbt, 0, sizeof (vcard_dbt));
 	vcard_dbt.flags = DB_DBT_MALLOC;
 
 	db_error = db->get (db, NULL, &uid_dbt, &vcard_dbt, 0);
@@ -171,7 +171,7 @@ e_book_backend_db_cache_get_contact (DB *db, const gchar *uid)
 	g_return_val_if_fail (uid != NULL, NULL);
 
 	string_to_dbt (uid, &uid_dbt);
-	memset (&vcard_dbt, 0 , sizeof(vcard_dbt));
+	memset (&vcard_dbt, 0 , sizeof (vcard_dbt));
 	vcard_dbt.flags = DB_DBT_MALLOC;
 
 	db_error = db->get (db, NULL, &uid_dbt, &vcard_dbt,0);
@@ -217,7 +217,7 @@ e_book_backend_db_cache_add_contact (DB *db,
 	}
 	string_to_dbt (uid, &uid_dbt);
 
-	vcard_str = e_vcard_to_string (E_VCARD(contact), EVC_FORMAT_VCARD_30);
+	vcard_str = e_vcard_to_string (E_VCARD (contact), EVC_FORMAT_VCARD_30);
 	string_to_dbt (vcard_str, &vcard_dbt);
 
 	//db_error = db->del (db, NULL, &uid_dbt, 0);
@@ -282,7 +282,7 @@ e_book_backend_db_cache_check_contact (DB *db, const gchar *uid)
 	g_return_val_if_fail (uid != NULL, FALSE);
 
 	string_to_dbt (uid, &uid_dbt);
-	memset (&vcard_dbt, 0 , sizeof(vcard_dbt));
+	memset (&vcard_dbt, 0 , sizeof (vcard_dbt));
 	vcard_dbt.flags = DB_DBT_MALLOC;
 
 	db_error = db->get (db, NULL, &uid_dbt, &vcard_dbt,0);
@@ -327,13 +327,13 @@ e_book_backend_db_cache_get_contacts (DB *db, const gchar *query)
 		return NULL;
 	}
 
-	memset(&vcard_dbt, 0 , sizeof(vcard_dbt));
-	memset(&uid_dbt, 0, sizeof(uid_dbt));
-	db_error = dbc->c_get(dbc, &uid_dbt, &vcard_dbt, DB_FIRST);
+	memset (&vcard_dbt, 0 , sizeof (vcard_dbt));
+	memset (&uid_dbt, 0, sizeof (uid_dbt));
+	db_error = dbc->c_get (dbc, &uid_dbt, &vcard_dbt, DB_FIRST);
 
 	while (db_error == 0) {
 		if (vcard_dbt.data && !strncmp (vcard_dbt.data, "BEGIN:VCARD", 11))
-		if (e_book_backend_sexp_match_vcard(sexp, vcard_dbt.data)) {
+		if (e_book_backend_sexp_match_vcard (sexp, vcard_dbt.data)) {
 			contact = e_contact_new_from_vcard (vcard_dbt.data);
 			list = g_list_prepend (list, contact);
 		}
@@ -440,7 +440,7 @@ e_book_backend_db_cache_is_populated (DB *db)
 	gint        db_error;
 
 	string_to_dbt ("populated", &uid_dbt);
-	memset(&vcard_dbt, 0, sizeof(vcard_dbt));
+	memset (&vcard_dbt, 0, sizeof (vcard_dbt));
 	vcard_dbt.flags = DB_DBT_MALLOC;
 
 	db_error = db->get (db, NULL, &uid_dbt, &vcard_dbt, 0);
@@ -448,7 +448,7 @@ e_book_backend_db_cache_is_populated (DB *db)
 		return FALSE;
 	}
 	else {
-		free(vcard_dbt.data);
+		free (vcard_dbt.data);
 		return TRUE;
 	}
 }

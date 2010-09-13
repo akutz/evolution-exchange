@@ -168,7 +168,7 @@ exchange_folder_size_update (ExchangeFolderSize *fsize,
 			return;
 		}
 	} else {
-		f_info = g_new0(folder_info, 1);
+		f_info = g_new0 (folder_info, 1);
 		f_info->folder_name = g_strdup (folder_name);
 		f_info->folder_size = folder_size;
 		g_hash_table_insert (folder_gsizeable, f_info->folder_name, f_info);

@@ -109,7 +109,7 @@ exchange_send_options_get_widgets_data (ExchangeSendOptionsDialog *sod)
 
 		/* The temporary variables address, email, and name are needed to fetch the list items.
 		   Only the valid one is then copied into the storage variables. The "count" variable
-		   helps us keep a count of the exact number of items in the list. The g_list_length(GList *)
+		   helps us keep a count of the exact number of items in the list. The g_list_length (GList *)
 		   produced ambiguous results. Hence count is used :)
 		*/
 		for (; tmp != NULL; tmp = g_list_next (tmp)) {
@@ -484,9 +484,9 @@ exchange_sendoptions_dialog_run (ExchangeSendOptionsDialog *sod, GtkWidget *pare
 	g_signal_connect (name_selector_dialog, "response",
 				G_CALLBACK (addressbook_dialog_response), sod);
 	g_signal_connect (GTK_DIALOG (priv->main), "response",
-				G_CALLBACK(exchange_send_options_cb), sod);
+				G_CALLBACK (exchange_send_options_cb), sod);
 	g_signal_connect ((GtkCheckButton *) priv->delegate_enabled, "toggled",
-				G_CALLBACK(delegate_option_toggled), sod);
+				G_CALLBACK (delegate_option_toggled), sod);
 
 	name_selector_entry = e_name_selector_peek_section_entry (priv->proxy_name_selector,
 									"Add User");

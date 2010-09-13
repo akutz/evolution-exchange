@@ -52,7 +52,7 @@ e2k_parse_xml (const gchar *buf, gint len)
 	g_return_val_if_fail (buf != NULL, NULL);
 
 	if (!sax) {
-		xmlInitParser();
+		xmlInitParser ();
 		sax = xmlMalloc (sizeof (xmlSAXHandler));
 #if LIBXML_VERSION > 20600
 		xmlSAXVersion (sax, 2);
@@ -115,7 +115,7 @@ e2k_parse_html (const gchar *buf, gint len)
 	g_return_val_if_fail (buf != NULL, NULL);
 
 	if (!sax) {
-		xmlInitParser();
+		xmlInitParser ();
 		sax = xmlMalloc (sizeof (htmlSAXHandler));
 		memcpy (sax, &htmlDefaultSAXHandler, sizeof (xmlSAXHandlerV1));
 		sax->warning = my_xml_parser_error_handler;

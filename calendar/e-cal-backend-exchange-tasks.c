@@ -72,7 +72,7 @@ static ECalBackendExchange *parent_class = NULL;
 static void
 get_from (ECalBackendSync *backend, ECalComponent *comp, gchar **from_name, gchar **from_addr)
 {
-	if (!g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (E_CAL_BACKEND_EXCHANGE (backend)->account)))
+	if (!g_ascii_strcasecmp (e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (E_CAL_BACKEND_EXCHANGE (backend)->account)))
 		e_cal_backend_exchange_get_from (backend, comp, from_name, from_addr);
 	else
 		e_cal_backend_exchange_get_sender (backend, comp, from_name, from_addr);
@@ -421,7 +421,7 @@ get_uid (ECalComponent *comp)
 {
 	const gchar *uid;
 
-	e_cal_component_get_uid (E_CAL_COMPONENT(comp), &uid);
+	e_cal_component_get_uid (E_CAL_COMPONENT (comp), &uid);
 	return uid;
 }
 
@@ -430,7 +430,7 @@ get_summary (ECalComponent *comp)
 {
 	ECalComponentText summary;
 
-	e_cal_component_get_summary(E_CAL_COMPONENT (comp), &summary);
+	e_cal_component_get_summary (E_CAL_COMPONENT (comp), &summary);
 
 	return summary.value;
 }
@@ -791,7 +791,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 		/* Set LAST MODIFIED */
 		if ((str = e2k_properties_get_prop (result->props,
 				E2K_PR_CALENDAR_LAST_MODIFIED))) {
-			itt = icaltime_from_timet (e2k_parse_timestamp(str), 0);
+			itt = icaltime_from_timet (e2k_parse_timestamp (str), 0);
 			if (!icaltime_is_null_time (itt)) {
 				e_cal_backend_exchange_ensure_utc_zone (E_CAL_BACKEND (cbex), &itt);
 				e_cal_component_set_last_modified (ecal, &itt);
@@ -1111,7 +1111,7 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 	e_cal_backend_exchange_cache_unlock (ecalbex);
 
 	/* Delegated calendar */
-	if (g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (ecalbex->account)))
+	if (g_ascii_strcasecmp (e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (ecalbex->account)))
 		process_delegated_cal_object (icalcomp, e_cal_backend_exchange_get_owner_name (backend), e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (ecalbex->account));
 
 	summary = icalcomponent_get_summary (icalcomp);
@@ -1177,7 +1177,7 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 						  props, &location, NULL );
 
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-		status = put_body(comp, e2kctx, NULL, location, from_name, from_addr,
+		status = put_body (comp, e2kctx, NULL, location, from_name, from_addr,
 						attach_body_crlf, boundary, NULL);
 		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 			e_cal_backend_exchange_cache_lock (ecalbex);
@@ -1269,7 +1269,7 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	e_cal_backend_exchange_cache_unlock (ecalbex);
 
 	/* Delegated calendar */
-	if (g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (ecalbex->account)))
+	if (g_ascii_strcasecmp (e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (ecalbex->account)))
 		process_delegated_cal_object (icalcomp, e_cal_backend_exchange_get_owner_name (backend), e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (ecalbex->account));
 
 	summary = icalcomponent_get_summary (icalcomp);
@@ -1312,7 +1312,7 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	icalcomp = icalparser_parse_string (comp_str);
 	g_free (comp_str);
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-		status = put_body(new_comp, e2kctx, NULL, ecalbexcomp->href, from_name, from_addr,
+		status = put_body (new_comp, e2kctx, NULL, ecalbexcomp->href, from_name, from_addr,
 					attach_body_crlf, boundary, NULL);
 		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
 			e_cal_backend_exchange_cache_lock (ecalbex);

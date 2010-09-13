@@ -92,7 +92,7 @@ append_to_header (ExchangeSendOptionsDialog *dialog, gint state, gpointer data)
 
 		if (dialog->options->send_as_del_enabled &&
 			dialog->options->delegate_address &&
-				g_ascii_strcasecmp(addr->v.addr, sender_addr->v.addr)) {
+				g_ascii_strcasecmp (addr->v.addr, sender_addr->v.addr)) {
 
 			e_msg_composer_modify_header (composer, "Sender" , sender_id);
 

@@ -670,21 +670,21 @@ get_quota_values (E2kGlobalCatalog *gc, E2kOperation *op,
 
 	quota_limit_values = ldap_get_values (gc->priv->ldap, msg, "mDBStorageQuota");
 	if (quota_limit_values) {
-		entry->quota_warn = atoi(quota_limit_values[0]);
+		entry->quota_warn = atoi (quota_limit_values[0]);
 		E2K_GC_DEBUG_MSG(("GC: mDBStorageQuota %s\n", quota_limit_values[0]));
 		ldap_value_free (quota_limit_values);
 	}
 
 	quota_limit_values = ldap_get_values (gc->priv->ldap, msg, "mDBOverQuotaLimit");
 	if (quota_limit_values) {
-		entry->quota_nosend = atoi(quota_limit_values[0]);
+		entry->quota_nosend = atoi (quota_limit_values[0]);
 		E2K_GC_DEBUG_MSG(("GC: mDBOverQuotaLimit %s\n", quota_limit_values[0]));
 		ldap_value_free (quota_limit_values);
 	}
 
 	quota_limit_values = ldap_get_values (gc->priv->ldap, msg, "mDBOverHardQuotaLimit");
 	if (quota_limit_values) {
-		entry->quota_norecv = atoi(quota_limit_values[0]);
+		entry->quota_norecv = atoi (quota_limit_values[0]);
 		E2K_GC_DEBUG_MSG(("GC: mDBHardQuotaLimit %s\n", quota_limit_values[0]));
 		ldap_value_free (quota_limit_values);
 	}
@@ -698,7 +698,7 @@ get_account_control_values (E2kGlobalCatalog *gc, E2kOperation *op,
 
 	values = ldap_get_values (gc->priv->ldap, msg, "userAccountControl");
 	if (values) {
-		entry->user_account_control = atoi(values[0]);
+		entry->user_account_control = atoi (values[0]);
 		E2K_GC_DEBUG_MSG(("GC: userAccountControl %s\n", values[0]));
 		entry->mask |= E2K_GLOBAL_CATALOG_LOOKUP_ACCOUNT_CONTROL;
 		ldap_value_free (values);
@@ -1047,7 +1047,7 @@ find_domain_dn (gchar *domain)
 		sub_domain = strtok (NULL, ".");
 	}
 	if (dn_value->str[0])
-		dn = g_strndup (dn_value->str, strlen(dn_value->str) - 1);
+		dn = g_strndup (dn_value->str, strlen (dn_value->str) - 1);
 	else
 		dn = NULL;
 	g_string_free (dn_value, TRUE);

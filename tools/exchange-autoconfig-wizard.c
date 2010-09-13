@@ -574,7 +574,7 @@ autoconfig_gui_apply (ExchangeAutoconfigGUI *gui)
 		}
 		account = NULL;
 	}
-	g_object_unref(iter);
+	g_object_unref (iter);
 	if (found)
 		return;
 

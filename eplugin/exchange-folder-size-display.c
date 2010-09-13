@@ -47,7 +47,7 @@ get_folder_size_func (GtkTreeModel *model,
 	gdouble folder_size;
 	gchar *folder_name;
 
-	gtk_tree_model_get(model, iter, COLUMN_SIZE, &folder_size, COLUMN_NAME, &folder_name, -1);
+	gtk_tree_model_get (model, iter, COLUMN_SIZE, &folder_size, COLUMN_NAME, &folder_name, -1);
 
 	g_hash_table_insert (info, g_strdup (folder_name), g_strdup_printf ("%.2f", folder_size));
 	return FALSE;
@@ -87,7 +87,7 @@ format_size_func (GtkTreeViewColumn *col,
 	gdouble folder_size;
 	gchar * new_text;
 
-	gtk_tree_model_get(model, iter, COLUMN_SIZE, &folder_size, -1);
+	gtk_tree_model_get (model, iter, COLUMN_SIZE, &folder_size, -1);
 
 	if (folder_size)
 		new_text = g_strdup_printf ("%.2f", folder_size);

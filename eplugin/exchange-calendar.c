@@ -126,8 +126,8 @@ e_exchange_calendar_pcalendar_on_change (GtkTreeView *treeview, ESource *source)
 	if (!account)
 		return;
 
-	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
-	gtk_tree_selection_get_selected(selection, &model, &iter);
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview));
+	gtk_tree_selection_get_selected (selection, &model, &iter);
 
 	gtk_tree_model_get (model, &iter, CALENDARRURI_COL, &ruri, -1);
 	es_ruri = g_strconcat (account->account_filename, "/;", ruri, NULL);

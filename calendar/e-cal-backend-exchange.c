@@ -201,7 +201,7 @@ load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri, GError **perror)
 		user_cache_dir, "calendar", mangled_uri, NULL);
 	storage_dir = g_path_get_dirname (cbex->priv->object_cache_file);
 
-	if (g_lstat(cbex->priv->local_attachment_store , &buf) < 0) {
+	if (g_lstat (cbex->priv->local_attachment_store , &buf) < 0) {
 #ifdef G_OS_UNIX
 		if (symlink (storage_dir, cbex->priv->local_attachment_store) < 0)
 			g_warning ("%s: symlink() failed: %s", G_STRFUNC, g_strerror (errno));
@@ -1454,7 +1454,7 @@ set_mode (ECalBackend *backend, CalMode mode)
 			priv->mode = CAL_MODE_REMOTE;
 
 			if (is_loaded (backend) && re_open)
-				e_cal_backend_notify_auth_required(backend);
+				e_cal_backend_notify_auth_required (backend);
 			break;
 
 	case CAL_MODE_LOCAL:
@@ -1844,7 +1844,7 @@ process_delegated_cal_object (icalcomponent *icalcomp, const gchar *delegator_na
 			if (text && (!g_ascii_strcasecmp (delegatee_email, text) || !g_ascii_strcasecmp (delegator_email, text))) {
 				icalproperty_set_organizer (prop, g_strdup_printf ("MAILTO:%s", delegator_email));
 				icalproperty_remove_parameter_by_kind (prop, ICAL_CN_PARAMETER);
-				icalproperty_add_parameter (prop, icalparameter_new_cn (g_strdup(delegator_name)));
+				icalproperty_add_parameter (prop, icalparameter_new_cn (g_strdup (delegator_name)));
 				icalproperty_remove_parameter_by_kind (prop, ICAL_SENTBY_PARAMETER);
 				icalproperty_add_parameter (prop, icalparameter_new_sentby (g_strdup_printf("MAILTO:%s", delegatee_email)));
 			}
@@ -1870,7 +1870,7 @@ process_delegated_cal_object (icalcomponent *icalcomp, const gchar *delegator_na
 		text = g_strstrip (text);
 		if (text && !g_ascii_strcasecmp (delegator_email, text)) {
 			icalproperty_remove_parameter_by_kind (prop, ICAL_CN_PARAMETER);
-			icalproperty_add_parameter (prop, icalparameter_new_cn (g_strdup(delegator_name)));
+			icalproperty_add_parameter (prop, icalparameter_new_cn (g_strdup (delegator_name)));
 			icalproperty_remove_parameter_by_kind (prop, ICAL_SENTBY_PARAMETER);
 			icalproperty_add_parameter (prop, icalparameter_new_sentby (g_strdup_printf("MAILTO:%s", delegatee_email)));
 			g_free (text);
@@ -1985,7 +1985,7 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject
 	gchar *fname, *file_contents = NULL, *filename, *dest_url, *mime_filename, *attach_file;
 	gint len = 0;
 
-	if (!g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (E_CAL_BACKEND_SYNC (cbex)), exchange_account_get_email_id (cbex->account)))
+	if (!g_ascii_strcasecmp (e_cal_backend_exchange_get_owner_email (E_CAL_BACKEND_SYNC (cbex)), exchange_account_get_email_id (cbex->account)))
 		e_cal_backend_exchange_get_from (E_CAL_BACKEND_SYNC (cbex), comp, &from_name, &from_email);
 	else
 		e_cal_backend_exchange_get_sender (E_CAL_BACKEND_SYNC (cbex), comp, &from_name, &from_email);
@@ -2012,7 +2012,7 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject
 		if (!strncmp ((gchar *)l->data, "file://", 7)) {
 			fname = g_filename_from_uri ((gchar *)l->data, NULL, NULL);
 			filename = g_path_get_basename (fname);
-			mime_filename = g_strdup (filename + strlen(uid) + 1);
+			mime_filename = g_strdup (filename + strlen (uid) + 1);
 			g_free (filename);
 			attach_file = fname;
 		} else {

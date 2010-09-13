@@ -239,14 +239,14 @@ exchange_folder_transfer_messages_the_hard_way (CamelFolder *source,
 		ba = exchange_folder_get_message_data (
 			source, uids->pdata[i], error);
 		if (!ba) {
-			camel_message_info_free(info);
+			camel_message_info_free (info);
 			success = FALSE;
 			break;
 		}
 
 		success = exchange_folder_append_message_data (
 			dest, ba, NULL, info, &ret_uid, error);
-		camel_message_info_free(info);
+		camel_message_info_free (info);
 		g_byte_array_free (ba, TRUE);
 
 		if (!success)
@@ -441,7 +441,7 @@ exchange_folder_append_message (CamelFolder *folder,
 	   substitution of \t and \n with blank.
 	*/
 
-	old_subject = g_strdup(camel_mime_message_get_subject (message));
+	old_subject = g_strdup (camel_mime_message_get_subject (message));
 
 	if (old_subject) {
 		len = strlen (old_subject);
@@ -818,7 +818,7 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 
 	info = camel_folder_summary_uid (folder->summary, uid);
 	if (info) {
-		camel_message_info_free(info);
+		camel_message_info_free (info);
 		return;
 	}
 
@@ -840,8 +840,8 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 
 		parent = find_parent (exch, einfo->thread_index);
 		if (parent && einfo->info.references == NULL) {
-			einfo->info.references = g_malloc(sizeof(CamelSummaryReferences));
-			memcpy(&einfo->info.references->references[0], parent, sizeof(*parent));
+			einfo->info.references = g_malloc (sizeof (CamelSummaryReferences));
+			memcpy (&einfo->info.references->references[0], parent, sizeof (*parent));
 			einfo->info.references->size = 1;
 		}
 	}
@@ -1119,7 +1119,7 @@ camel_exchange_folder_construct (CamelFolder *folder,
 					     g_memdup (&einfo->info.message_id, sizeof (CamelSummaryMessageID)));
 		}
 
-		camel_message_info_free(info);
+		camel_message_info_free (info);
 	}
 
 	if (parent_store != NULL) {

@@ -1730,7 +1730,7 @@ try_auth_again:
 				username = g_strdup (usernames[0]);
 				g_strfreev (usernames);
 				try++;
-				memset(*user, 0, strlen(*user));
+				memset (*user, 0, strlen (*user));
 				g_free (*user);
 				*user = g_strdup (username);
 				g_free (username);

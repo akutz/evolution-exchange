@@ -442,7 +442,7 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 			for (i = 0; i < EXCHANGE_DELEGATES_LAST; i++) {
 				combobox = comboboxes[i];
 				role = e_dialog_combo_box_get (combobox, exchange_perm_map);
-				role_name = g_strdup (map_to_full_role_name(role));
+				role_name = g_strdup (map_to_full_role_name (role));
 				g_string_append_printf (
 					role_name_final,
 					"<tr><td>%s:</td><td>%s</td></tr>",

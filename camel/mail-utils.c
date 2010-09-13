@@ -361,7 +361,7 @@ mail_util_demangle_meeting_related_message (GString *body,
 			modify_prop = TRUE;
 		/* We do not really need to set the CN parameter. However, setting it might improve usability. */
 			icalproperty_remove_parameter_by_kind (prop, ICAL_CN_PARAMETER);
-			icalproperty_add_parameter (prop, icalparameter_new_cn (g_strdup(owner_cn)));
+			icalproperty_add_parameter (prop, icalparameter_new_cn (g_strdup (owner_cn)));
 			icalproperty_remove_parameter_by_kind (prop, ICAL_SENTBY_PARAMETER);
 			icalproperty_add_parameter (prop,
 				icalparameter_new_sentby (g_strdup_printf("MAILTO:%s", subscriber_email)));
@@ -400,7 +400,7 @@ mail_util_demangle_meeting_related_message (GString *body,
 			if (modify_prop) {
 			/* We do not really need to set the CN parameter. However, setting it might improve usability. */
 				icalproperty_remove_parameter_by_kind (prop, ICAL_CN_PARAMETER);
-				icalproperty_add_parameter (prop, icalparameter_new_cn (g_strdup(owner_cn)));
+				icalproperty_add_parameter (prop, icalparameter_new_cn (g_strdup (owner_cn)));
 				icalproperty_remove_parameter_by_kind (prop, ICAL_SENTBY_PARAMETER);
 				icalproperty_add_parameter (prop,
 					icalparameter_new_sentby (g_strdup_printf("MAILTO:%s", subscriber_email)));

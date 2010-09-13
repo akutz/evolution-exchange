@@ -26,11 +26,11 @@
 #include "db.h"
 
 EContact* e_book_backend_db_cache_get_contact (DB *db, const gchar *uid);
-void string_to_dbt(const gchar *str, DBT *dbt);
-gchar *e_book_backend_db_cache_get_filename(DB *db);
-void e_book_backend_db_cache_set_filename(DB *db, const gchar *filename);
-gchar *e_book_backend_db_cache_get_time(DB *db);
-void e_book_backend_db_cache_set_time(DB *db, const gchar *time);
+void string_to_dbt (const gchar *str, DBT *dbt);
+gchar *e_book_backend_db_cache_get_filename (DB *db);
+void e_book_backend_db_cache_set_filename (DB *db, const gchar *filename);
+gchar *e_book_backend_db_cache_get_time (DB *db);
+void e_book_backend_db_cache_set_time (DB *db, const gchar *time);
 gboolean e_book_backend_db_cache_add_contact (DB *db,
 					   EContact *contact);
 gboolean e_book_backend_db_cache_remove_contact (DB *db,

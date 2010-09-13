@@ -43,7 +43,7 @@
 /* Even if we are disconnected, we need to exchange_store_connect()
    to get the offline data */
 #define RETURN_VAL_IF_NOT_CONNECTED(store, ex, val)\
-	if (!camel_exchange_store_connected(store, ex) && \
+	if (!camel_exchange_store_connected (store, ex) && \
 	    !exchange_store_connect (CAMEL_SERVICE (store), ex)) \
 		return val;
 

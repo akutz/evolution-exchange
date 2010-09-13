@@ -953,8 +953,8 @@ get_folder_contents_online (ExchangeFolder *mfld, GError **error)
 			/* Put the index/uid as key/value in the rm_idx_uid hashtable.
 			   This hashtable will be used to sync with mfld->messages.
 			 */
-			g_hash_table_insert (rm_idx_uid, GUINT_TO_POINTER(m),
-					     GUINT_TO_POINTER(mmsg_cpy->seq));
+			g_hash_table_insert (rm_idx_uid, GUINT_TO_POINTER (m),
+					     GUINT_TO_POINTER (mmsg_cpy->seq));
 			g_free (mmsg_cpy->uid);
 			g_free (mmsg_cpy->href);
 			g_free (mmsg_cpy);
@@ -1065,8 +1065,8 @@ get_folder_contents_online (ExchangeFolder *mfld, GError **error)
 			/* Put the index/uid as key/value in the rm_idx_uid hashtable.
 			   This hashtable will be used to sync with mfld->messages.
 			 */
-			g_hash_table_insert (rm_idx_uid, GUINT_TO_POINTER(m),
-					     GUINT_TO_POINTER(mmsg_cpy->seq));
+			g_hash_table_insert (rm_idx_uid, GUINT_TO_POINTER (m),
+					     GUINT_TO_POINTER (mmsg_cpy->seq));
 		}
 
 		/* Remove mmsg from our msgs_copy array */

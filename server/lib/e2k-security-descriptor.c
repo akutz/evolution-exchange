@@ -95,29 +95,29 @@ typedef struct {
 #define LE(x) (GUINT32_TO_LE (x))
 static E2kPermissionsMap permissions_map[] = {
 	{ E2K_PERMISSION_READ_ANY,
-	  LE(0x000000), LE(0x000000), LE(0x1208a9), LE(0x0008a9) },
+	  LE (0x000000), LE (0x000000), LE (0x1208a9), LE (0x0008a9) },
 	{ E2K_PERMISSION_CREATE,
-	  LE(0x000002), LE(0x000002), LE(0x000000), LE(0x000000) },
+	  LE (0x000002), LE (0x000002), LE (0x000000), LE (0x000000) },
 	{ E2K_PERMISSION_CREATE_SUBFOLDER,
-	  LE(0x000004), LE(0x000004), LE(0x000000), LE(0x000000) },
+	  LE (0x000004), LE (0x000004), LE (0x000000), LE (0x000000) },
 	{ E2K_PERMISSION_EDIT_OWNED,
-	  LE(0x000000), LE(0x000000), LE(0x000200), LE(0x000000) },
+	  LE (0x000000), LE (0x000000), LE (0x000200), LE (0x000000) },
 	{ E2K_PERMISSION_DELETE_OWNED,
-	  LE(0x000000), LE(0x000000), LE(0x000400), LE(0x000000) },
+	  LE (0x000000), LE (0x000000), LE (0x000400), LE (0x000000) },
 	{ E2K_PERMISSION_EDIT_ANY,
-	  LE(0x000000), LE(0x000000), LE(0x0c0116), LE(0x1e0316) },
+	  LE (0x000000), LE (0x000000), LE (0x0c0116), LE (0x1e0316) },
 	{ E2K_PERMISSION_DELETE_ANY,
-	  LE(0x000000), LE(0x000000), LE(0x010000), LE(0x010400) },
+	  LE (0x000000), LE (0x000000), LE (0x010000), LE (0x010400) },
 	{ E2K_PERMISSION_OWNER,
-	  LE(0x0d4110), LE(0x0d4110), LE(0x000000), LE(0x000000) },
+	  LE (0x0d4110), LE (0x0d4110), LE (0x000000), LE (0x000000) },
 	{ E2K_PERMISSION_CONTACT,
-	  LE(0x008000), LE(0x008000), LE(0x000000), LE(0x000000) },
+	  LE (0x008000), LE (0x008000), LE (0x000000), LE (0x000000) },
 	{ E2K_PERMISSION_FOLDER_VISIBLE,
-	  LE(0x1208a9), LE(0x1200a9), LE(0x000000), LE(0x000000) }
+	  LE (0x1208a9), LE (0x1200a9), LE (0x000000), LE (0x000000) }
 };
 
-static const guint32 container_permissions_all = LE(0x1fc9bf);
-static const guint32 object_permissions_all    = LE(0x1f0fbf);
+static const guint32 container_permissions_all = LE (0x1fc9bf);
+static const guint32 object_permissions_all    = LE (0x1f0fbf);
 #undef LE
 
 #define PARENT_TYPE G_TYPE_OBJECT

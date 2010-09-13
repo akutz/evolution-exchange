@@ -637,7 +637,7 @@ change_passwd_cb (GtkWidget *button, ExchangeAccount *account)
 {
 	gchar *current_passwd, *new_passwd;
 
-	gtk_widget_hide (gtk_widget_get_toplevel(button));
+	gtk_widget_hide (gtk_widget_get_toplevel (button));
 	current_passwd = exchange_account_get_password (account);
 	new_passwd = exchange_get_new_password (current_passwd, TRUE);
 	exchange_account_set_password (account, current_passwd, new_passwd);

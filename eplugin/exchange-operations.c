@@ -101,7 +101,7 @@ exchange_operations_cta_add_node_to_tree (GtkTreeStore *store, GtkTreeIter *pare
 	gchar *uri;
 	gboolean status, found;
 
-	exchange_operations_tokenize_string (&luri, nodename, '/', sizeof(nodename));
+	exchange_operations_tokenize_string (&luri, nodename, '/', sizeof (nodename));
 
 	if (!nodename[0]) {
 		return TRUE;
@@ -157,7 +157,7 @@ exchange_operations_cta_select_node_from_tree (GtkTreeStore *store, GtkTreeIter 
 	if (!luri)
 		return;
 
-	exchange_operations_tokenize_string (&luri, nodename, '/', sizeof(nodename));
+	exchange_operations_tokenize_string (&luri, nodename, '/', sizeof (nodename));
 	if (!nodename[0]) {
 		return;
 	}
@@ -211,7 +211,7 @@ exchange_operations_get_exchange_account (void)
 			return account;
 		} else {
 			/* Try authenticating */
-			result = exchange_config_listener_authenticate(exchange_global_config_listener, account);
+			result = exchange_config_listener_authenticate (exchange_global_config_listener, account);
 			if (result != EXCHANGE_ACCOUNT_CONNECT_SUCCESS) {
 				exchange_operations_report_error (account, result);
 				return NULL;

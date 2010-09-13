@@ -66,18 +66,18 @@
 
 #  ifdef UNICODE
 #    define ldap_compare_ext(ld,dn,a,v,sc,cc,msg) \
-        ldap_compare_extW(ld,dn,a,0,v,sc,cc,msg)
+        ldap_compare_extW (ld,dn,a,0,v,sc,cc,msg)
 #    define ldap_search_ext(ld,base,scope,f,a,o,sc,cc,(t),s,msg) \
-        ldap_search_extW(ld,base,scope,f,a,o,sc,cc,((PLDAP_TIMEVAL)t)?((PLDAP_TIMEVAL)t)->tv_sec:0,s,msg)
+        ldap_search_extW (ld,base,scope,f,a,o,sc,cc,((PLDAP_TIMEVAL)t)?((PLDAP_TIMEVAL)t)->tv_sec:0,s,msg)
 #    define ldap_start_tls_s(ld,sc,cc) \
-        ldap_start_tls_sW(ld,0,0,sc,cc)
+        ldap_start_tls_sW (ld,0,0,sc,cc)
 #  else /* !UNICODE */
 #    define ldap_compare_ext(ld,dn,a,v,sc,cc,msg) \
-        ldap_compare_extA(ld,dn,a,0,v,sc,cc,msg)
+        ldap_compare_extA (ld,dn,a,0,v,sc,cc,msg)
 #    define ldap_search_ext(ld,base,scope,f,a,o,sc,cc,t,s,msg) \
-        ldap_search_extA(ld,base,scope,f,a,o,sc,cc,((PLDAP_TIMEVAL)t)?((PLDAP_TIMEVAL)t)->tv_sec:0,s,msg)
+        ldap_search_extA (ld,base,scope,f,a,o,sc,cc,((PLDAP_TIMEVAL)t)?((PLDAP_TIMEVAL)t)->tv_sec:0,s,msg)
 #    define ldap_start_tls_s(ld,sc,cc) \
-        ldap_start_tls_sA(ld,0,0,sc,cc)
+        ldap_start_tls_sA (ld,0,0,sc,cc)
 #  endif /* UNICODE */
 #endif /* G_OS_WIN32 */
 

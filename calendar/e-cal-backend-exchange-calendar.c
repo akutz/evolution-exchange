@@ -797,7 +797,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	#endif
 
 	/* Delegated calendar */
-	if (g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (cbex->account)))
+	if (g_ascii_strcasecmp (e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (cbex->account)))
 		process_delegated_cal_object (icalcomp, e_cal_backend_exchange_get_owner_name (backend), e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (cbex->account));
 
 	/* Send options */
@@ -881,7 +881,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	body_crlf = icalcomponent_as_ical_string_r (cbdata->vcal_comp);
 
 	date = e_cal_backend_exchange_make_timestamp_rfc822 (time (NULL));
-	if (!g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (cbex->account)))
+	if (!g_ascii_strcasecmp (e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (cbex->account)))
 		from = e_cal_backend_exchange_get_from_string (backend, comp);
 	else
 		from = e_cal_backend_exchange_get_sender_string (backend, comp);
@@ -926,7 +926,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 
 	http_status = e_folder_exchange_put_new (E_CAL_BACKEND_EXCHANGE (cbexc)->folder, NULL, summary,
 						NULL, NULL, "message/rfc822",
-						msg, strlen(msg), &location, &ru_header);
+						msg, strlen (msg), &location, &ru_header);
 
 	if ((http_status == E2K_HTTP_CREATED) && send_options) {
 		e2kctx = exchange_account_get_context (E_CAL_BACKEND_EXCHANGE (cbexc)->account);
@@ -1085,7 +1085,7 @@ modify_object (ECalBackendSync *backend, EDataCal *cal,
 
 #define e_return_data_cal_error_and_val_if_fail(expr, _code, _val)		\
 	G_STMT_START {								\
-		if (G_LIKELY(expr)) {						\
+		if (G_LIKELY (expr)) {						\
 		} else {							\
 			g_log (G_LOG_DOMAIN,					\
 				G_LOG_LEVEL_CRITICAL,				\
@@ -1247,7 +1247,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	}
 
 	/* Delegated calendar */
-	if (g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (cbex->account)))
+	if (g_ascii_strcasecmp (e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (cbex->account)))
 		process_delegated_cal_object (updated_icalcomp, e_cal_backend_exchange_get_owner_name (backend), e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (cbex->account));
 
 	/* send options */
@@ -1418,7 +1418,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	body_crlf = icalcomponent_as_ical_string_r (cbdata->vcal_comp);
 
 	date = e_cal_backend_exchange_make_timestamp_rfc822 (time (NULL));
-	if (!g_ascii_strcasecmp(e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (cbex->account)))
+	if (!g_ascii_strcasecmp (e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (cbex->account)))
 		from = e_cal_backend_exchange_get_from_string (backend, updated_ecomp);
 	else
 		from = e_cal_backend_exchange_get_sender_string (backend, updated_ecomp);

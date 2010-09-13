@@ -46,9 +46,9 @@
 #include "exchange-change-password.h"
 #include "exchange-folder-size-display.h"
 
-GtkWidget* org_gnome_exchange_settings(EPlugin *epl, EConfigHookItemFactoryData *data);
-GtkWidget *org_gnome_exchange_owa_url(EPlugin *epl, EConfigHookItemFactoryData *data);
-gboolean org_gnome_exchange_check_options(EPlugin *epl, EConfigHookPageCheckData *data);
+GtkWidget* org_gnome_exchange_settings (EPlugin *epl, EConfigHookItemFactoryData *data);
+GtkWidget *org_gnome_exchange_owa_url (EPlugin *epl, EConfigHookItemFactoryData *data);
+gboolean org_gnome_exchange_check_options (EPlugin *epl, EConfigHookPageCheckData *data);
 GtkWidget *org_gnome_exchange_auth_section (EPlugin *epl, EConfigHookItemFactoryData *data);
 void org_gnome_exchange_commit (EPlugin *epl, EMConfigTargetAccount *target_account);
 GtkWidget* org_gnome_exchange_show_folder_size_factory (EPlugin *epl, EConfigHookItemFactoryData *data);
@@ -167,7 +167,7 @@ btn_fsize_clicked (GtkButton *button, gpointer data)
 
 /* only used in editor */
 GtkWidget *
-org_gnome_exchange_settings(EPlugin *epl, EConfigHookItemFactoryData *data)
+org_gnome_exchange_settings (EPlugin *epl, EConfigHookItemFactoryData *data)
 {
 	EMConfigTargetAccount *target_account;
 	ExchangeAccount *account = NULL;
@@ -212,16 +212,16 @@ org_gnome_exchange_settings(EPlugin *epl, EConfigHookItemFactoryData *data)
 
 	target_account = (EMConfigTargetAccount *)data->config->target;
 	source_url = e_account_get_string (target_account->account,  E_ACCOUNT_SOURCE_URL);
-	url = camel_url_new(source_url, NULL);
+	url = camel_url_new (source_url, NULL);
 	if (url == NULL
 	    || strcmp(url->protocol, "exchange") != 0) {
 		if (url)
-			camel_url_free(url);
+			camel_url_free (url);
 		return NULL;
 	}
 
 	if (data->old) {
-		camel_url_free(url);
+		camel_url_free (url);
 		return data->old;
 	}
 	if (url)
@@ -441,7 +441,7 @@ gal_auth_to_string (E2kAutoconfigGalAuthPref ad_auth)
 }
 
 static void
-owa_authenticate_user(GtkWidget *button, EConfig *config)
+owa_authenticate_user (GtkWidget *button, EConfig *config)
 {
 	EMConfigTargetAccount *target_account = (EMConfigTargetAccount *)config->target;
 	E2kAutoconfigResult result;
@@ -465,13 +465,13 @@ owa_authenticate_user(GtkWidget *button, EConfig *config)
 	source_url = e_account_get_string (target_account->account, E_ACCOUNT_SOURCE_URL);
 
 	if (source_url && source_url[0] != '\0')
-		url = camel_url_new(source_url, NULL);
+		url = camel_url_new (source_url, NULL);
 	if (url && url->user == NULL) {
 		id_name = e_account_get_string (target_account->account, E_ACCOUNT_ID_ADDRESS);
 		if (id_name) {
-			at = strchr(id_name, '@');
-			user = g_alloca(at-id_name+1);
-			memcpy(user, id_name, at-id_name);
+			at = strchr (id_name, '@');
+			user = g_alloca (at-id_name+1);
+			memcpy (user, id_name, at-id_name);
 			user[at-id_name] = 0;
 			camel_url_set_user (url, user);
 		}
@@ -493,7 +493,7 @@ owa_authenticate_user(GtkWidget *button, EConfig *config)
 
 	key = camel_url_to_string (url, CAMEL_URL_HIDE_PASSWORD | CAMEL_URL_HIDE_PARAMS);
 	/* Supress the trailing slash */
-	key[strlen(key) -1] = 0;
+	key[strlen (key) -1] = 0;
 
 	/* set the mailbox before function call to let it use our, not create one */
 	exchange_params->mailbox = g_strdup (camel_url_get_param (url, "mailbox"));
@@ -539,7 +539,7 @@ owa_authenticate_user(GtkWidget *button, EConfig *config)
 }
 
 static void
-owa_editor_entry_changed(GtkWidget *entry, EConfig *config)
+owa_editor_entry_changed (GtkWidget *entry, EConfig *config)
 {
 	const gchar *ssl = NULL;
 	CamelURL *url, *owaurl = NULL;
@@ -550,35 +550,35 @@ owa_editor_entry_changed(GtkWidget *entry, EConfig *config)
 
 	/* NB: we set the button active only if we have a parsable uri entered */
 
-	const gchar * target_url = e_account_get_string(target->account, E_ACCOUNT_SOURCE_URL);
+	const gchar * target_url = e_account_get_string (target->account, E_ACCOUNT_SOURCE_URL);
 	if (target_url && target_url[0] != '\0')
-		url = camel_url_new(target_url, NULL);
+		url = camel_url_new (target_url, NULL);
 	else url = NULL;
-	uri = g_strdup (gtk_entry_get_text((GtkEntry *)entry));
+	uri = g_strdup (gtk_entry_get_text ((GtkEntry *)entry));
 
 	g_strstrip (uri);
 
 	if (uri && uri[0]) {
 		camel_url_set_param(url, "owa_url", uri);
-		owaurl = camel_url_new(uri, NULL);
+		owaurl = camel_url_new (uri, NULL);
 		if (owaurl) {
 			active = TRUE;
 
 			/* Reading the owa url and setting use_ssl paramemter */
 			if (!strcmp(owaurl->protocol, "https"))
 				ssl = "always";
-			camel_url_free(owaurl);
+			camel_url_free (owaurl);
 		}
 	} else {
 		camel_url_set_param(url, "owa_url", NULL);
 	}
 
 	camel_url_set_param(url, "use_ssl", ssl);
-	gtk_widget_set_sensitive(button, active);
+	gtk_widget_set_sensitive (button, active);
 
-	url_string = camel_url_to_string(url, 0);
-	e_account_set_string(target->account, E_ACCOUNT_SOURCE_URL, url_string);
-	g_free(url_string);
+	url_string = camel_url_to_string (url, 0);
+	e_account_set_string (target->account, E_ACCOUNT_SOURCE_URL, url_string);
+	g_free (url_string);
 	camel_url_free (url);
 	g_free (uri);
 }
@@ -679,7 +679,7 @@ construct_owa_url (CamelURL *url)
 
 /* used by editor and assistant - same code */
 GtkWidget *
-org_gnome_exchange_owa_url(EPlugin *epl, EConfigHookItemFactoryData *data)
+org_gnome_exchange_owa_url (EPlugin *epl, EConfigHookItemFactoryData *data)
 {
 	EMConfigTargetAccount *target_account;
 	const gchar *source_url;
@@ -692,17 +692,17 @@ org_gnome_exchange_owa_url(EPlugin *epl, EConfigHookItemFactoryData *data)
 	target_account = (EMConfigTargetAccount *)data->config->target;
 	source_url = e_account_get_string (target_account->account,  E_ACCOUNT_SOURCE_URL);
 	if (source_url && source_url[0] != '\0')
-		url = camel_url_new(source_url, NULL);
+		url = camel_url_new (source_url, NULL);
 	else
 		url = NULL;
 	if (url == NULL
 	    || strcmp(url->protocol, "exchange") != 0) {
 		if (url)
-			camel_url_free(url);
+			camel_url_free (url);
 
 		if (data->old
 		    && (label = g_object_get_data((GObject *)data->old, "authenticate-label")))
-			gtk_widget_destroy(label);
+			gtk_widget_destroy (label);
 
 		/* TODO: we could remove 'owa-url' from the url,
 		   but that will lose it if we come back.  Maybe a commit callback could do it */
@@ -711,7 +711,7 @@ org_gnome_exchange_owa_url(EPlugin *epl, EConfigHookItemFactoryData *data)
 	}
 
 	if (data->old) {
-		camel_url_free(url);
+		camel_url_free (url);
 		return data->old;
 	}
 
@@ -724,18 +724,18 @@ org_gnome_exchange_owa_url(EPlugin *epl, EConfigHookItemFactoryData *data)
 		gchar *uri;
 
 		camel_url_set_host(url, "");
-		uri = camel_url_to_string(url, 0);
-		e_account_set_string(target_account->account,  E_ACCOUNT_SOURCE_URL, uri);
-		g_free(uri);
+		uri = camel_url_to_string (url, 0);
+		e_account_set_string (target_account->account,  E_ACCOUNT_SOURCE_URL, uri);
+		g_free (uri);
 	}
 
 	g_object_get (data->parent, "n-rows", &row, NULL);
 
 	hbox = gtk_hbox_new (FALSE, 6);
 	label = gtk_label_new_with_mnemonic(_("_OWA URL:"));
-	gtk_widget_show(label);
+	gtk_widget_show (label);
 
-	owa_entry = gtk_entry_new();
+	owa_entry = gtk_entry_new ();
 
 	if (!owa_url) {
 		if (url->host[0] != 0) {
@@ -748,22 +748,22 @@ org_gnome_exchange_owa_url(EPlugin *epl, EConfigHookItemFactoryData *data)
 			 */
 			owa_url = construct_owa_url (url);
 			camel_url_set_param (url, "owa_url", owa_url);
-			uri = camel_url_to_string(url, 0);
-			e_account_set_string(target_account->account,  E_ACCOUNT_SOURCE_URL, uri);
-			g_free(uri);
+			uri = camel_url_to_string (url, 0);
+			e_account_set_string (target_account->account,  E_ACCOUNT_SOURCE_URL, uri);
+			g_free (uri);
 		}
 	}
 	camel_url_free (url);
 	if (owa_url)
-		gtk_entry_set_text(GTK_ENTRY (owa_entry), owa_url);
-	gtk_label_set_mnemonic_widget((GtkLabel *)label, owa_entry);
+		gtk_entry_set_text (GTK_ENTRY (owa_entry), owa_url);
+	gtk_label_set_mnemonic_widget ((GtkLabel *)label, owa_entry);
 
 	button = gtk_button_new_with_mnemonic (_("A_uthenticate"));
 	gtk_widget_set_sensitive (button, owa_url && owa_url[0]);
 
 	gtk_box_pack_start (GTK_BOX (hbox), owa_entry, TRUE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
-	gtk_widget_show_all(hbox);
+	gtk_widget_show_all (hbox);
 
 	gtk_table_attach (GTK_TABLE (data->parent), label, 0, 1, row, row+1, 0, 0, 0, 0);
 	gtk_table_attach (GTK_TABLE (data->parent), hbox, 1, 2, row, row+1, GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
@@ -820,13 +820,13 @@ org_gnome_exchange_owa_url(EPlugin *epl, EConfigHookItemFactoryData *data)
 }
 
 gboolean
-org_gnome_exchange_check_options(EPlugin *epl, EConfigHookPageCheckData *data)
+org_gnome_exchange_check_options (EPlugin *epl, EConfigHookPageCheckData *data)
 {
 	EMConfigTargetAccount *target = (EMConfigTargetAccount *)data->config->target;
 	gint status = TRUE;
 
 	/* We assume that if the host is set, then the setting is valid.
-	   The host gets set when the provider validate() call is made */
+	   The host gets set when the provider validate () call is made */
 	/* We do this check for receive page also, so that user can
 	 * proceed with the account set up only after user is validated,
 	 * and host name is reset by validate() call
@@ -836,9 +836,9 @@ org_gnome_exchange_check_options(EPlugin *epl, EConfigHookPageCheckData *data)
 	    strcmp (data->pageid, "20.receive_options") == 0) {
 		CamelURL *url;
 
-		const gchar * target_url = e_account_get_string(target->account,  E_ACCOUNT_SOURCE_URL);
+		const gchar * target_url = e_account_get_string (target->account,  E_ACCOUNT_SOURCE_URL);
 		if (target_url && target_url[0] != '\0')
-			url = camel_url_new(target_url, NULL);
+			url = camel_url_new (target_url, NULL);
 		else
 			url = NULL;
 		/* Note: we only care about exchange url's, we WILL get called on all other url's too. */
@@ -848,7 +848,7 @@ org_gnome_exchange_check_options(EPlugin *epl, EConfigHookPageCheckData *data)
 			status = FALSE;
 
 		if (url)
-			camel_url_free(url);
+			camel_url_free (url);
 	}
 
 	return status;
@@ -928,7 +928,7 @@ static void
 exchange_authtype_changed (GtkComboBox *dropdown, EConfig *config)
 {
 	EMConfigTargetAccount *target = (EMConfigTargetAccount *)config->target;
-	gint id = gtk_combo_box_get_active(dropdown);
+	gint id = gtk_combo_box_get_active (dropdown);
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	CamelServiceAuthType *authtype;
@@ -947,27 +947,27 @@ exchange_authtype_changed (GtkComboBox *dropdown, EConfig *config)
 					      E_ACCOUNT_TRANSPORT_URL);
 	url_transport = camel_url_new (transport_url, NULL);
 
-	model = gtk_combo_box_get_model(dropdown);
-	if (gtk_tree_model_iter_nth_child(model, &iter, NULL, id)) {
-		gtk_tree_model_get(model, &iter, 1, &authtype, -1);
+	model = gtk_combo_box_get_model (dropdown);
+	if (gtk_tree_model_iter_nth_child (model, &iter, NULL, id)) {
+		gtk_tree_model_get (model, &iter, 1, &authtype, -1);
 		if (authtype) {
-			camel_url_set_authmech(url_source, authtype->authproto);
-			camel_url_set_authmech(url_transport, authtype->authproto);
+			camel_url_set_authmech (url_source, authtype->authproto);
+			camel_url_set_authmech (url_transport, authtype->authproto);
 		}
 		else {
-			camel_url_set_authmech(url_source, NULL);
-			camel_url_set_authmech(url_transport, NULL);
+			camel_url_set_authmech (url_source, NULL);
+			camel_url_set_authmech (url_transport, NULL);
 		}
 
-		source_url_string = camel_url_to_string(url_source, 0);
-		transport_url_string = camel_url_to_string(url_transport, 0);
-		e_account_set_string(target->account, E_ACCOUNT_SOURCE_URL, source_url_string);
-		e_account_set_string(target->account, E_ACCOUNT_TRANSPORT_URL, transport_url_string);
-		g_free(source_url_string);
-		g_free(transport_url_string);
+		source_url_string = camel_url_to_string (url_source, 0);
+		transport_url_string = camel_url_to_string (url_transport, 0);
+		e_account_set_string (target->account, E_ACCOUNT_SOURCE_URL, source_url_string);
+		e_account_set_string (target->account, E_ACCOUNT_TRANSPORT_URL, transport_url_string);
+		g_free (source_url_string);
+		g_free (transport_url_string);
 	}
-	camel_url_free(url_source);
-	camel_url_free(url_transport);
+	camel_url_free (url_source);
+	camel_url_free (url_transport);
 }
 
 GtkWidget *
@@ -998,7 +998,7 @@ org_gnome_exchange_auth_section (EPlugin *epl, EConfigHookItemFactoryData *data)
 	}
 
 	if (data->old) {
-		camel_url_free(url);
+		camel_url_free (url);
 		return data->old;
 	}
 
@@ -1026,15 +1026,15 @@ org_gnome_exchange_auth_section (EPlugin *epl, EConfigHookItemFactoryData *data)
 
 	authtypes = g_list_prepend (g_list_prepend (NULL, &camel_exchange_password_authtype),
 				    &camel_exchange_ntlm_authtype);
-	store = gtk_list_store_new(3, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_BOOLEAN);
+	store = gtk_list_store_new (3, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_BOOLEAN);
 
 	for (i=0, l=authtypes; l; l=l->next, i++) {
 		CamelServiceAuthType *authtype = l->data;
 		gint avail = TRUE;
 
 		if (authtypes) {
-			for (ll = authtypes; ll; ll = g_list_next(ll))
-				if (!strcmp(authtype->authproto,
+			for (ll = authtypes; ll; ll = g_list_next (ll))
+				if (!strcmp (authtype->authproto,
 					((CamelServiceAuthType *)ll->data)->authproto))
 					break;
 			avail = ll != NULL;
@@ -1043,7 +1043,7 @@ org_gnome_exchange_auth_section (EPlugin *epl, EConfigHookItemFactoryData *data)
 		gtk_list_store_set (store, &iter, 0, authtype->name, 1,
 				    authtype, 2, !avail, -1);
 
-		if (url && url->authmech && !strcmp(url->authmech, authtype->authproto)) {
+		if (url && url->authmech && !strcmp (url->authmech, authtype->authproto)) {
 			active = i;
 		}
 		else if (url && exchange_account_authtype &&
@@ -1061,7 +1061,7 @@ org_gnome_exchange_auth_section (EPlugin *epl, EConfigHookItemFactoryData *data)
 	gtk_combo_box_set_active (dropdown, -1);
 
 	if (auth_changed_id == 0) {
-		GtkCellRenderer *cell = gtk_cell_renderer_text_new();
+		GtkCellRenderer *cell = gtk_cell_renderer_text_new ();
 
 		gtk_cell_layout_pack_start ((GtkCellLayout *)dropdown, cell, TRUE);
 		gtk_cell_layout_set_attributes ((GtkCellLayout *)dropdown, cell,
@@ -1073,11 +1073,11 @@ org_gnome_exchange_auth_section (EPlugin *epl, EConfigHookItemFactoryData *data)
 						    data->config);
 		g_signal_connect (button,
 				  "clicked",
-				  G_CALLBACK(exchange_check_authtype),
+				  G_CALLBACK (exchange_check_authtype),
 				  data->config);
 	}
 
-	gtk_combo_box_set_active(dropdown, active);
+	gtk_combo_box_set_active (dropdown, active);
 
 	gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET (dropdown), FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
@@ -1090,7 +1090,7 @@ org_gnome_exchange_auth_section (EPlugin *epl, EConfigHookItemFactoryData *data)
 	gtk_box_pack_start (GTK_BOX (data->parent), vbox, TRUE, TRUE, 0);
 
 	if (url)
-		camel_url_free(url);
+		camel_url_free (url);
 	g_list_free (authtypes);
 	g_free (exchange_account_authtype);
 

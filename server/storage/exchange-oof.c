@@ -42,8 +42,8 @@ find_str_case (const gchar *haystack, const gchar *needle, const gchar *end)
 	g_return_val_if_fail (haystack != NULL, NULL);
 	g_return_val_if_fail (needle != NULL, NULL);
 
-	len = strlen(needle);
-	if (len > strlen(haystack))
+	len = strlen (needle);
+	if (len > strlen (haystack))
 		return NULL;
 
 	if (len == 0)

@@ -375,7 +375,7 @@ remove_folder (ExchangeHierarchy *hier, EFolder *folder)
 
 		/* update the folder size info */
 		exchange_account_folder_size_remove (hier->account,
-					e_folder_get_name(folder));
+					e_folder_get_name (folder));
 		return EXCHANGE_ACCOUNT_FOLDER_OK;
 	} else
 		return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;

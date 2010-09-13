@@ -323,7 +323,7 @@ get_property (E2kContext *ctx, gchar *uri, gchar *prop)
 }
 
 static void
-get_fav_properties(E2kContext *ctx, gchar *uri)
+get_fav_properties (E2kContext *ctx, gchar *uri)
 {
 	E2kRestriction *rn;
 	E2kResultIter *iter;
@@ -342,11 +342,11 @@ get_fav_properties(E2kContext *ctx, gchar *uri)
 	e2k_restriction_unref (rn);
 
 	while ((result = e2k_result_iter_next (iter))) {
-		strcpy(fav_uri, uri);
+		strcpy (fav_uri, uri);
 		eml_str = strstr(result->href, "Shortcuts");
 		eml_str = eml_str + strlen("Shortcuts");
 
-		strcat(fav_uri, eml_str);
+		strcat (fav_uri, eml_str);
 
 		printf("\nNAME:\n");
 		get_property (ctx, fav_uri, PR_FAV_DISPLAY_NAME);
@@ -366,7 +366,7 @@ get_fav_properties(E2kContext *ctx, gchar *uri)
 		get_property (ctx, fav_uri, PR_FAV_DEL_SUBS);
 		printf("\n\t\t=================================================\n");
 
-		memset(fav_uri, 0, 1024);
+		memset (fav_uri, 0, 1024);
 	}
 	status = e2k_result_iter_free (iter);
 	e2k_operation_free (&op);
@@ -704,7 +704,7 @@ test_main (gint argc, gchar **argv)
 		break;
 
 	case 'f':
-		get_fav_properties(ctx, uri);
+		get_fav_properties (ctx, uri);
 		break;
 
 	default:

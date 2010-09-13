@@ -359,7 +359,7 @@ exchange_summary_info_set_flags (CamelMessageInfo *info,
 				camel_exchange_utils_set_message_flags (
 					CAMEL_SERVICE (parent_store),
 					full_name, info->uid, set, flags, NULL);
-				return folder_summary_class->info_set_flags(info, flags, set);
+				return folder_summary_class->info_set_flags (info, flags, set);
 			}
 		}
 	}
@@ -372,7 +372,7 @@ exchange_summary_info_set_flags (CamelMessageInfo *info,
 				CamelExchangeFolder *exchange_folder = (CamelExchangeFolder *) folder;
 				CamelExchangeJournal *journal = (CamelExchangeJournal *) exchange_folder->journal;
 				camel_exchange_journal_delete (journal, info->uid, flags, set, NULL);
-				return folder_summary_class->info_set_flags(info, flags, set);
+				return folder_summary_class->info_set_flags (info, flags, set);
 			}
 		}
 	}
@@ -393,7 +393,7 @@ exchange_summary_info_set_user_tag (CamelMessageInfo *info,
 	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
 		camel_exchange_summary_parent_class);
 
-	res = folder_summary_class->info_set_user_tag(info, name, value);
+	res = folder_summary_class->info_set_user_tag (info, name, value);
 	if (res && info->summary->folder && info->uid) {
 		CamelFolder *folder = info->summary->folder;
 		CamelStore *parent_store;
@@ -567,20 +567,20 @@ camel_exchange_summary_add_offline (CamelFolderSummary *summary,
 	mi = (CamelMessageInfoBase *)camel_folder_summary_info_new_from_message (summary, message, NULL);
 
 	/* Copy flags 'n' tags */
-	mi->flags = camel_message_info_flags(info);
+	mi->flags = camel_message_info_flags (info);
 
-	flag = camel_message_info_user_flags(info);
+	flag = camel_message_info_user_flags (info);
 	while (flag) {
-		camel_message_info_set_user_flag((CamelMessageInfo *)mi, flag->name, TRUE);
+		camel_message_info_set_user_flag ((CamelMessageInfo *)mi, flag->name, TRUE);
 		flag = flag->next;
 	}
-	tag = camel_message_info_user_tags(info);
+	tag = camel_message_info_user_tags (info);
 	while (tag) {
-		camel_message_info_set_user_tag((CamelMessageInfo *)mi, tag->name, tag->value);
+		camel_message_info_set_user_tag ((CamelMessageInfo *)mi, tag->name, tag->value);
 		tag = tag->next;
 	}
 
-	mi->size = camel_message_info_size(info);
+	mi->size = camel_message_info_size (info);
 	mi->uid = camel_pstring_strdup (uid);
 	camel_folder_summary_add (summary, (CamelMessageInfo *)mi);
 }
@@ -602,7 +602,7 @@ camel_exchange_summary_add_offline_uncached (CamelFolderSummary *summary,
 	CamelMessageInfo *mi;
 
 	/* Create summary entry */
-	mi = camel_message_info_clone(info);
+	mi = camel_message_info_clone (info);
 
 	/* Set uid and add to summary */
 	mi->uid = camel_pstring_strdup (uid);
