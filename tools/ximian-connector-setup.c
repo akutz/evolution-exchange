@@ -28,9 +28,25 @@
 
 #ifdef G_OS_WIN32
 #include <libedataserver/e-data-server-util.h>
-const gchar *_exchange_storage_datadir;
-const gchar *_exchange_storage_imagesdir;
+# define WIN32_LEAN_AND_MEAN
+# ifdef DATADIR
+#  undef DATADIR
+# endif
+# ifdef _WIN32_WINNT
+#  undef _WIN32_WINNT
+# endif
+# define _WIN32_WINNT 0x0601
+# include <windows.h>
+# include <conio.h>
+# include <io.h>
+# ifndef PROCESS_DEP_ENABLE
+#  define PROCESS_DEP_ENABLE 0x00000001
+# endif
+# ifndef PROCESS_DEP_DISABLE_ATL_THUNK_EMULATION
+#  define PROCESS_DEP_DISABLE_ATL_THUNK_EMULATION 0x00000002
+# endif
 #endif
+
 
 gint
 main (gint argc, gchar **argv)
@@ -38,27 +54,34 @@ main (gint argc, gchar **argv)
 	GError *error = NULL;
 
 #ifdef G_OS_WIN32
+	/* Reduce risks */
+	{
+		typedef BOOL (WINAPI *t_SetDllDirectoryA) (LPCSTR lpPathName);
+		t_SetDllDirectoryA p_SetDllDirectoryA;
+
+		p_SetDllDirectoryA = GetProcAddress (GetModuleHandle ("kernel32.dll"), "SetDllDirectoryA");
+		if (p_SetDllDirectoryA)
+			(*p_SetDllDirectoryA) ("");
+	}
+#ifndef _WIN64
+	{
+		typedef BOOL (WINAPI *t_SetProcessDEPPolicy) (DWORD dwFlags);
+		t_SetProcessDEPPolicy p_SetProcessDEPPolicy;
+
+		p_SetProcessDEPPolicy = GetProcAddress (GetModuleHandle ("kernel32.dll"), "SetProcessDEPPolicy");
+		if (p_SetProcessDEPPolicy)
+			(*p_SetProcessDEPPolicy) (PROCESS_DEP_ENABLE|PROCESS_DEP_DISABLE_ATL_THUNK_EMULATION);
+	}
+#endif
 	{
 		gchar *localedir;
 
 		/* We assume evolution-exchange is installed in the
 		 * same run-time prefix as evolution-data-server.
 		 */
-		_exchange_storage_datadir = e_util_replace_prefix (PREFIX, e_util_get_prefix (), DATADIR);
-		_exchange_storage_imagesdir = e_util_replace_prefix (PREFIX, e_util_get_prefix (), CONNECTOR_IMAGESDIR);
-
-		localedir = e_util_replace_prefix (CONNECTOR_LOCALEDIR, e_util_get_cp_prefix (), CONNECTOR_LOCALEDIR);
+		localedir = e_util_replace_prefix (PREFIX, e_util_get_cp_prefix (), CONNECTOR_LOCALEDIR);
 		bindtextdomain (GETTEXT_PACKAGE, localedir);
 	}
-
-/* PREFIX and DATADIR are part of GNOME_PROGRAM_STANDARD_PROPERTIES */
-
-#undef PREFIX
-#define PREFIX e_util_get_prefix ()
-
-#undef DATADIR
-#define DATADIR _exchange_storage_datadir
-
 #else
 	bindtextdomain (GETTEXT_PACKAGE, CONNECTOR_LOCALEDIR);
 #endif
