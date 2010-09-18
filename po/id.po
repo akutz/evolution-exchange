@@ -1,4 +1,3 @@
-# translation of evolution-exchange.master.po to Indonesian
 # Indonesian translation of evolution-exchange.
 # Copyright (C) 2005 THE evolution-exchange's COPYRIGHT HOLDER
 # This file is distributed under the same license as the evolution-exchange package.
@@ -6,15 +5,16 @@
 #
 # Ahmad Riza H Nst <ari@160c.afraid.org>, 2005.
 # Dirgita <dirgitadevina@yahoo.co.id>, 2010.
+# Andika Triwidada <andika@gmail.com>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: evolution-exchange.master\n"
+"Project-Id-Version: evolution-exchange master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=evolution-exchange&component=general\n"
-"POT-Creation-Date: 2010-08-30 00:35+0000\n"
-"PO-Revision-Date: 2010-08-31 09:56+0700\n"
-"Last-Translator: Dirgita <dirgitadevina@yahoo.co.id>\n"
-"Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
+"POT-Creation-Date: 2010-09-17 15:42+0000\n"
+"PO-Revision-Date: 2010-09-18 19:00+0700\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"Language-Team: GNOME Indonesian Translation Team <gnome@i15n.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
 msgid "Specifies the time interval to refresh the GAL Cache."
-msgstr ""
+msgstr "Menyatakan selang waktu untuk menyegarkan Singgahan GAL."
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
 msgid ""
@@ -32,11 +32,15 @@ msgid ""
 "cache forever. This will work only if you have enabled offline caching for "
 "GAL."
 msgstr ""
+"Kunci ini menyatakan selang waktu dalam hari antara penyegaran singgahan "
+"GAL. Isi dengan nol bila Anda tidak ingin memutakhirkan GAL dan memakai "
+"singgahan kini selamanya. Ini hanya bekerja bila Anda telah mengaktifkan "
+"penyinggahan luring bagi GAL."
 
 #: ../addressbook/e-book-backend-exchange.c:135
 #, c-format
 msgid "Operation failed with status %d"
-msgstr ""
+msgstr "Operasi gagal dengan status %d"
 
 #: ../addressbook/e-book-backend-exchange.c:1797
 #: ../addressbook/e-book-backend-exchange.c:2642
@@ -76,10 +80,10 @@ msgid "This message is not available in offline mode."
 msgstr "Pesan ini tidak tersedia dalam model offline."
 
 #: ../camel/camel-exchange-folder.c:386
-#, fuzzy, c-format
+#, c-format
 #| msgid "Cannot rename folder in offline mode."
 msgid "You cannot expunge in offline mode."
-msgstr "Tidak dapat merubah nama folder dalam mode offline."
+msgstr "Anda tidak dapat menghapus dalam mode luring."
 
 #: ../camel/camel-exchange-folder.c:626
 msgid "Moving messages"
@@ -118,14 +122,14 @@ msgid "Fetching summary information for new messages"
 msgstr "Mengambil ringkasan informasi tentang pesan baru"
 
 #: ../camel/camel-exchange-journal.c:144
-#, fuzzy, c-format
+#, c-format
 msgid "No folder name found"
-msgstr "_Nama folder:"
+msgstr "Nama folder tak ditemukan"
 
-#: ../camel/camel-exchange-journal.c:185 ../camel/camel-exchange-utils.c:3139
-#: ../camel/camel-exchange-utils.c:3203 ../camel/camel-exchange-utils.c:3321
-#: ../camel/camel-exchange-utils.c:3352 ../camel/camel-exchange-utils.c:3404
-#: ../camel/camel-exchange-utils.c:3425
+#: ../camel/camel-exchange-journal.c:185 ../camel/camel-exchange-utils.c:3145
+#: ../camel/camel-exchange-utils.c:3209 ../camel/camel-exchange-utils.c:3327
+#: ../camel/camel-exchange-utils.c:3358 ../camel/camel-exchange-utils.c:3410
+#: ../camel/camel-exchange-utils.c:3431
 #, c-format
 msgid "Folder doesn't exist"
 msgstr "Folder tidak ada"
@@ -133,18 +137,16 @@ msgstr "Folder tidak ada"
 #: ../camel/camel-exchange-journal.c:417
 #, c-format
 msgid "Cannot append message in offline mode: cache unavailable"
-msgstr "Tidak dapat menambahkan pesan pada mode offline: cache tidak tersedia"
+msgstr "Tidak dapat menambahkan pesan pada mode luring: cache tidak tersedia"
 
 #: ../camel/camel-exchange-journal.c:437
-#, fuzzy
 #| msgid "Cannot append message in offline mode: cache unavailable"
 msgid "Cannot append message in offline mode: "
-msgstr "Tidak dapat menambahkan pesan pada mode offline: cache tidak tersedia"
+msgstr "Tidak dapat menambahkan pesan pada mode luring:"
 
 #: ../camel/camel-exchange-provider.c:52
-#, fuzzy
 msgid "Secure or Plaintext Password"
-msgstr "Pasword Teks biasa"
+msgstr "Sandi Teks Biasa atau Aman"
 
 #: ../camel/camel-exchange-provider.c:53
 #: ../camel/camel-exchange-provider.c:140
@@ -164,9 +166,8 @@ msgid "Checking for New Mail"
 msgstr "Memeriksa Surat Baru"
 
 #: ../camel/camel-exchange-provider.c:62
-#, fuzzy
 msgid "C_heck for new messages in all folders"
-msgstr "Hanya periksa untuk pesan Sampah dalam folder Kotak"
+msgstr "_Hanya periksa pesan baru dalam semua folder"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
@@ -177,17 +178,15 @@ msgstr "Nama pengguna Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
 #: ../camel/camel-exchange-provider.c:75
-#, fuzzy
 #| msgid "Global Address List"
 msgid "Global Address List/Active Directory"
-msgstr "Daftar Alamat Global"
+msgstr "Daftar Alamat Global/Active Directory"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
 #: ../camel/camel-exchange-provider.c:79
-#, fuzzy
 msgid "_Global Catalog server name:"
-msgstr "Nama server Katalog Global:"
+msgstr "Nama server Katalog _Global:"
 
 #: ../camel/camel-exchange-provider.c:81
 #, c-format
@@ -200,21 +199,21 @@ msgstr "Jenis O_tentikasi:"
 
 #: ../camel/camel-exchange-provider.c:85
 msgid "Allow _browsing of the GAL until download limit is reached"
-msgstr ""
+msgstr "Ijinkan meram_ban GAL sampai batas pengunduhan tercapai"
 
 #: ../camel/camel-exchange-provider.c:87
 msgid "_Expand groups of contacts in GAL to contact lists"
-msgstr ""
+msgstr "K_embangkan grup kontak di GAL ke daftar kontak"
 
 #: ../camel/camel-exchange-provider.c:90
 msgid "Options"
 msgstr "Opsi"
 
 #: ../camel/camel-exchange-provider.c:92
-#, fuzzy, c-format
+#, c-format
 #| msgid "Password Expiry Warning..."
 msgid "_Password Expiry Warning period: %s"
-msgstr "Peringatan Kadaluarsa Password..."
+msgstr "_Perioda Peringatan Sandi Kadaluarsa: %s"
 
 #: ../camel/camel-exchange-provider.c:94
 msgid "Automatically synchroni_ze account locally"
@@ -222,18 +221,16 @@ msgstr "_Otomatis penyelarasan akun secara lokal"
 
 #. i18n: copy from evolution:camel-imap-provider.c
 #: ../camel/camel-exchange-provider.c:97
-#, fuzzy
 msgid "_Apply filters to new messages in Inbox on this server"
-msgstr "Terapkan saringan ke pesan baru yang berada dalam kota pada server ini"
+msgstr "Ter_apkan saringan ke pesan baru dalam Inbox pada server ini"
 
 #: ../camel/camel-exchange-provider.c:99
 msgid "Check new messages for _Junk contents"
 msgstr "_Periksa pesan baru dari pesan sampah"
 
 #: ../camel/camel-exchange-provider.c:101
-#, fuzzy
 msgid "Only check for Junk messag_es in the Inbox folder"
-msgstr "Hanya periksa untuk pesan Sampah dalam folder Kotak"
+msgstr "Hanya periksa p_esan Sampah dalam folder Inbox"
 
 #: ../camel/camel-exchange-provider.c:111
 msgid "Microsoft Exchange"
@@ -272,44 +269,42 @@ msgstr "Server Exchange %s"
 msgid "Exchange account for %s on %s"
 msgstr "Akun Exchange untuk %s pada %s"
 
-#: ../camel/camel-exchange-store.c:378
-#, fuzzy, c-format
+#: ../camel/camel-exchange-store.c:382
+#, c-format
 msgid "Could not authenticate to server. (Password incorrect?)"
-msgstr ""
-"Tidak dapat masuk ke server. (Password salah?)\n"
-"\n"
+msgstr "Tidak bisa mengotentikasi ke server. (Sandi salah?)"
 
-#: ../camel/camel-exchange-store.c:441
+#: ../camel/camel-exchange-store.c:445
 #, c-format
 msgid "No such folder %s"
 msgstr "Tidak ada folder %s"
 
-#: ../camel/camel-exchange-store.c:574
+#: ../camel/camel-exchange-store.c:578
 #, c-format
 msgid "Cannot create folder in offline mode."
 msgstr "Tidak dapat membuat folder dalam mode offline."
 
-#: ../camel/camel-exchange-store.c:604
+#: ../camel/camel-exchange-store.c:608
 #, c-format
 msgid "Cannot delete folder in offline mode."
 msgstr "Tidak dapat menghapus folder dalam mode offline."
 
-#: ../camel/camel-exchange-store.c:630
+#: ../camel/camel-exchange-store.c:634
 #, c-format
 msgid "Cannot rename folder in offline mode."
 msgstr "Tidak dapat merubah nama folder dalam mode offline."
 
-#: ../camel/camel-exchange-store.c:711
-#, fuzzy, c-format
+#: ../camel/camel-exchange-store.c:715
+#, c-format
 #| msgid "Cannot create folder in offline mode."
 msgid "Cannot subscribe folder in offline mode."
-msgstr "Tidak dapat membuat folder dalam mode offline."
+msgstr "Tidak bisa berlangganan folder dalam mode luring."
 
-#: ../camel/camel-exchange-store.c:730
-#, fuzzy, c-format
+#: ../camel/camel-exchange-store.c:734
+#, c-format
 #| msgid "Cannot create folder in offline mode."
 msgid "Cannot unsubscribe folder in offline mode."
-msgstr "Tidak dapat membuat folder dalam mode offline."
+msgstr "Tidak bisa berhenti berlangganan folder dalam mode luring."
 
 #: ../camel/camel-exchange-transport.c:65
 #, c-format
@@ -338,71 +333,71 @@ msgstr "Tidak dapat membuka folder"
 msgid "Could not open folder: Permission denied"
 msgstr "Tidak dapat membuka folder. Permisi ditolak"
 
-#: ../camel/camel-exchange-utils.c:1270 ../camel/camel-exchange-utils.c:2199
+#: ../camel/camel-exchange-utils.c:1270 ../camel/camel-exchange-utils.c:2205
 msgid "No such folder"
 msgstr "Tidak ada folder"
 
-#: ../camel/camel-exchange-utils.c:1292 ../camel/camel-exchange-utils.c:3113
-#: ../camel/camel-exchange-utils.c:3156 ../camel/camel-exchange-utils.c:3325
-#: ../camel/camel-exchange-utils.c:3378 ../camel/camel-exchange-utils.c:3440
+#: ../camel/camel-exchange-utils.c:1292 ../camel/camel-exchange-utils.c:3119
+#: ../camel/camel-exchange-utils.c:3162 ../camel/camel-exchange-utils.c:3331
+#: ../camel/camel-exchange-utils.c:3384 ../camel/camel-exchange-utils.c:3446
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
 #: ../server/storage/e-storage.c:573
 msgid "Permission denied"
 msgstr "Akses ditolak"
 
-#: ../camel/camel-exchange-utils.c:2208
+#: ../camel/camel-exchange-utils.c:2214
 msgid "Could not create folder."
 msgstr "Tidak dapat membuat folder."
 
-#: ../camel/camel-exchange-utils.c:2296
+#: ../camel/camel-exchange-utils.c:2302
 msgid "Could not open Deleted Items folder"
 msgstr "Tidak dapat membuka folder benda yang telah Dihapus"
 
-#: ../camel/camel-exchange-utils.c:2422
+#: ../camel/camel-exchange-utils.c:2428
 msgid "Could not empty Deleted Items folder"
 msgstr "Tidak dapat mengosongkan folder benda yang telah Dihapus"
 
-#: ../camel/camel-exchange-utils.c:2424
+#: ../camel/camel-exchange-utils.c:2430
 msgid "Permission denied. Could not delete certain messages."
 msgstr "Akses ditolak. Tidak dapat menghapus pesan."
 
-#: ../camel/camel-exchange-utils.c:2468
+#: ../camel/camel-exchange-utils.c:2474
 msgid "Could not append message; mailbox is over quota"
 msgstr "Tidak dapat menambahkan pesan; kotak surat kelebihan quota"
 
-#: ../camel/camel-exchange-utils.c:2469
+#: ../camel/camel-exchange-utils.c:2475
 msgid "Could not append message"
 msgstr "Tidak dapat menambahkan pesan"
 
-#: ../camel/camel-exchange-utils.c:2655
+#: ../camel/camel-exchange-utils.c:2661
 msgid "No such message"
 msgstr "Tidak ada pesan"
 
-#: ../camel/camel-exchange-utils.c:2727
+#: ../camel/camel-exchange-utils.c:2733
 msgid "Message has been deleted"
 msgstr "Pesan telah dihapus"
 
-#: ../camel/camel-exchange-utils.c:2729
+#: ../camel/camel-exchange-utils.c:2735
 msgid "Error retrieving message"
 msgstr "Kesalahan menerima pesan"
 
-#: ../camel/camel-exchange-utils.c:2778
+#: ../camel/camel-exchange-utils.c:2784
 msgid "Mailbox does not support full-text searching"
 msgstr "Kotak surat tidak mendukung pencarian dengan teks penuh"
 
-#: ../camel/camel-exchange-utils.c:2890
+#: ../camel/camel-exchange-utils.c:2896
 msgid "Unable to move/copy messages"
 msgstr "Tidak dapat memindah/menyalin pesan"
 
-#: ../camel/camel-exchange-utils.c:3018
+#: ../camel/camel-exchange-utils.c:3024
 msgid "No mail submission URI for this mailbox"
 msgstr "Tidak ada URI untuk kotak surat ini"
 
-#: ../camel/camel-exchange-utils.c:3051
+#: ../camel/camel-exchange-utils.c:3057
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Server tidak menerima surat melalui transport Exchange"
 
-#: ../camel/camel-exchange-utils.c:3053
+#: ../camel/camel-exchange-utils.c:3059
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -411,7 +406,7 @@ msgstr ""
 "Akun Anda tidak memiliki hak untuk menggunakan <%s>\n"
 "sebagai alamat Dari."
 
-#: ../camel/camel-exchange-utils.c:3065
+#: ../camel/camel-exchange-utils.c:3071
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -419,19 +414,19 @@ msgstr ""
 "Tidak dapat mengirim pesan.\n"
 "Ini bisa berarti akun Anda telah kelebihan kuota."
 
-#: ../camel/camel-exchange-utils.c:3069
+#: ../camel/camel-exchange-utils.c:3075
 msgid "Could not send message"
 msgstr "Tidak dapat mengirim pesan"
 
-#: ../camel/camel-exchange-utils.c:3105 ../camel/camel-exchange-utils.c:3161
-#: ../camel/camel-exchange-utils.c:3329 ../camel/camel-exchange-utils.c:3382
-#: ../camel/camel-exchange-utils.c:3446
+#: ../camel/camel-exchange-utils.c:3111 ../camel/camel-exchange-utils.c:3167
+#: ../camel/camel-exchange-utils.c:3335 ../camel/camel-exchange-utils.c:3388
+#: ../camel/camel-exchange-utils.c:3452
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
 #: ../server/storage/e-storage.c:557
 msgid "Generic error"
 msgstr "Kesalahan Umum"
 
-#: ../camel/camel-exchange-utils.c:3109
+#: ../camel/camel-exchange-utils.c:3115
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
 msgid "Folder already exists"
 msgstr "Folder sudah ada"
@@ -441,14 +436,13 @@ msgid "Out of Office"
 msgstr "Di Luar Kantor"
 
 #: ../eplugin/exchange-account-setup.c:273
-#, fuzzy
 msgid ""
 "The message specified below will be automatically sent to \n"
 "each person who sends mail to you while you are out of the office."
 msgstr ""
-"<small>Pesan yang ditentukan di bawah ini secara automatis akan dikirimkan "
-"ke setiap orang yang mengirim\n"
-"pesan ke pada anda ketika anda berada di luar kantor.</small>"
+"Pesan yang dinyatakan di bawah ini secara otomatis akan dikirimkan ke \n"
+"setiap orang yang mengirim pesan kepada Anda ketika Anda berada di luar "
+"kantor."
 
 #: ../eplugin/exchange-account-setup.c:278
 msgid "Status:"
@@ -472,7 +466,7 @@ msgstr "Keamanan"
 #. Change Password
 #: ../eplugin/exchange-account-setup.c:336
 msgid "Change the password for Exchange account"
-msgstr ""
+msgstr "Ubah sandi bagi akun Exchange"
 
 #: ../eplugin/exchange-account-setup.c:338
 #: ../eplugin/exchange-change-password.c:85
@@ -482,13 +476,12 @@ msgstr "Ubah Sandi"
 #. Delegation Assistant
 #: ../eplugin/exchange-account-setup.c:343
 msgid "Manage the delegate settings for Exchange account"
-msgstr ""
+msgstr "Kelola tatanan delegasi bagi akun Exchange"
 
 #: ../eplugin/exchange-account-setup.c:345
-#, fuzzy
 #| msgid "_Delegation Assistant"
 msgid "Delegation Assistant"
-msgstr "Asisten _Delegasi"
+msgstr "Asisten Delegasi"
 
 #. Miscelleneous settings
 #: ../eplugin/exchange-account-setup.c:357
@@ -497,10 +490,9 @@ msgstr "Lain-lain"
 
 #. Folder Size
 #: ../eplugin/exchange-account-setup.c:367
-#, fuzzy
 #| msgid "Get the size of personal folders"
 msgid "View the size of all Exchange folders"
-msgstr "Dapatkan ukuran dari folder pribadi"
+msgstr "Tilik ukuran semua folder Exchange"
 
 #: ../eplugin/exchange-account-setup.c:369
 #: ../eplugin/exchange-folder-size-display.c:183
@@ -522,7 +514,7 @@ msgstr "_Otentikasi"
 
 #: ../eplugin/exchange-account-setup.c:783
 msgid "Mailbox name is _different from username"
-msgstr ""
+msgstr "Nama mailbox berbe_da dengan nama pengguna"
 
 #: ../eplugin/exchange-account-setup.c:796
 msgid "_Mailbox:"
@@ -557,6 +549,9 @@ msgid ""
 "Evolution is in offline mode. You cannot create or modify folders now.\n"
 "Please switch to online mode for such operations."
 msgstr ""
+"Evolution sedang dalam mode luring. Anda kini tak dapat membuat atau "
+"mengubah folder.\n"
+"Silakan berpindah ke mode daring untuk operasi itu."
 
 #: ../eplugin/exchange-calendar.c:247 ../eplugin/exchange-contacts.c:239
 msgid "_Location:"
@@ -726,10 +721,9 @@ msgid "Co_ntacts:"
 msgstr "Kontak:"
 
 #: ../eplugin/exchange-delegates-user.c:330
-#, fuzzy
 #| msgid "Delegate Permissions"
 msgid "_Summarize permissions"
-msgstr "Permisi Delegasi"
+msgstr "Ringka_skan permisi"
 
 #: ../eplugin/exchange-delegates-user.c:334
 msgid "_Delegate can see private items"
@@ -749,6 +743,9 @@ msgid ""
 "This message was sent automatically by Evolution to inform you that you have "
 "been designated as a delegate. You can now send messages on my behalf."
 msgstr ""
+"Pesan ini dikirim secara otomatis oleh Evolution untuk memberitahu Anda "
+"bahwa Anda telah ditunjuk sebagai delegasi. Anda kini dapat mengirim pesan "
+"atas nama saya,"
 
 #. To translators: Another chunk of the same message.
 #.
@@ -773,7 +770,7 @@ msgstr "Bagaimana pun, Anda tidak diizinkan melihat data pribadi saya."
 #: ../eplugin/exchange-delegates-user.c:497
 #, c-format
 msgid "You have been designated as a delegate for %s"
-msgstr ""
+msgstr "Anda telah ditunjuk sebagai delegasi bagi %s"
 
 #: ../eplugin/exchange-delegates.c:413
 msgid "Delegate To:"
@@ -848,54 +845,48 @@ msgid "Permissions..."
 msgstr "Izin..."
 
 #: ../eplugin/exchange-folder-permission.c:243
-#, fuzzy
 #| msgid "Could not read folder permissions"
 msgid "Check folder permissions"
-msgstr "Tidak dapat membaca permisi folder"
+msgstr "Periksa permisi folder"
 
 #: ../eplugin/exchange-folder-permission.c:248
 #: ../eplugin/exchange-folder-permission.c:527
 #: ../eplugin/exchange-folder-permission.c:561
 #: ../eplugin/exchange-folder-permission.c:595
-#, fuzzy
 #| msgid "Subscribe to _Other User's Folder..."
 msgid "Subscribe to Other User's Folder..."
-msgstr "Gabung ke Folder Pengguna _lain..."
+msgstr "Langganan ke Folder Pengguna Lain..."
 
 #: ../eplugin/exchange-folder-permission.c:250
 #: ../eplugin/exchange-folder-permission.c:529
 #: ../eplugin/exchange-folder-permission.c:563
 #: ../eplugin/exchange-folder-permission.c:597
 #: ../eplugin/exchange-folder-subscription.c:306
-#, fuzzy
 #| msgid "Subscribe to _Other User's Folder..."
 msgid "Subscribe to Other User's Folder"
-msgstr "Gabung ke Folder Pengguna _lain..."
+msgstr "Langganan ke Folder Pengguna Lain"
 
 #: ../eplugin/exchange-folder-permission.c:255
 #: ../eplugin/exchange-folder-permission.c:534
 #: ../eplugin/exchange-folder-permission.c:568
 #: ../eplugin/exchange-folder-permission.c:602
-#, fuzzy
 #| msgid "Subscribe to _Other User's Folder..."
 msgid "Unsubscribe Folder..."
-msgstr "Gabung ke Folder Pengguna _lain..."
+msgstr "Berhenti Langganan Folder..."
 
 #: ../eplugin/exchange-folder-permission.c:522
-#, fuzzy
 #| msgid "Delegate Permissions"
 msgid "Check calendar permissions"
-msgstr "Permisi Delegasi"
+msgstr "Periksa permisi kalender"
 
 #: ../eplugin/exchange-folder-permission.c:556
-#, fuzzy
 #| msgid "Delegate Permissions"
 msgid "Check tasks permissions"
-msgstr "Permisi Delegasi"
+msgstr "Periksa permisi tugas"
 
 #: ../eplugin/exchange-folder-permission.c:590
 msgid "Check address book permissions"
-msgstr ""
+msgstr "Periksa permisi buku alamat"
 
 #: ../eplugin/exchange-folder-size-display.c:136
 msgid "Exchange Folder Tree"
@@ -938,14 +929,13 @@ msgid "Unsubscribe from \"%s\""
 msgstr "Keluar dari \"%s\""
 
 #: ../eplugin/exchange-mail-send-options.c:220
-#, fuzzy
 #| msgid "Options"
 msgid "_Send Options"
-msgstr "Opsi"
+msgstr "Op_si Kirim"
 
 #: ../eplugin/exchange-mail-send-options.c:222
 msgid "Insert Send options"
-msgstr ""
+msgstr "Sisipkan opsi Kirim"
 
 #. FIXME: Don't hardcode this
 #: ../eplugin/exchange-operations.c:122 ../eplugin/exchange-operations.c:167
@@ -1027,10 +1017,9 @@ msgid "Role"
 msgstr "Tugas"
 
 #: ../eplugin/exchange-send-options.c:337
-#, fuzzy
 #| msgid "Exchange Configuration"
 msgid "Exchange - Send Options"
-msgstr "Konfigurasi Exchange"
+msgstr "Exchange - Opsi Kirim"
 
 #: ../eplugin/exchange-send-options.c:358
 msgid "Message Settings"
@@ -1072,10 +1061,9 @@ msgid "Low"
 msgstr "Rendah"
 
 #: ../eplugin/exchange-send-options.c:407
-#, fuzzy
 #| msgid "Delegates"
 msgid "Send as Delegate"
-msgstr "Delegasi"
+msgstr "Kirim sebagai Delegasi"
 
 #: ../eplugin/exchange-send-options.c:424
 msgid "_User"
@@ -1087,11 +1075,11 @@ msgstr "Opsi Pelacakan"
 
 #: ../eplugin/exchange-send-options.c:440
 msgid "Request a _delivery receipt for this message"
-msgstr ""
+msgstr "Minta pemberitahuan telah-_dikirim bagi pesan ini"
 
 #: ../eplugin/exchange-send-options.c:445
 msgid "Request a _read receipt for this message"
-msgstr ""
+msgstr "Minta pembe_ritahuan telah-dibaca bagi pesan ini"
 
 #: ../eplugin/exchange-user-dialog.c:135
 msgid "Select User"
@@ -1103,7 +1091,7 @@ msgstr "Buku Alamat..."
 
 #: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:1
 msgid "Activates the Evolution-Exchange extension package."
-msgstr ""
+msgstr "Mengaktifkan paket perluasan Evolution-Exchange."
 
 #: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:2
 msgid "Exchange Operations"
@@ -1130,26 +1118,23 @@ msgid "Cannot perform the operation."
 msgstr "Tidak dapat melaksanakan operasi."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:5
-#, fuzzy
 msgid ""
 "Changes to options for Exchange account \"{0}\" will only take effect after "
 "restarting Evolution."
 msgstr ""
-"Perubahan pada konfigurasi account Exchange akan terjadi\n"
-"setelah anda keluar dan menjalankan ulang Evolution."
+"Perubahan pada konfigurasi akun Exchange \"{0}\" hanya akan terjadi setelah "
+"Anda menjalankan ulang Evolution."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:6
-#, fuzzy
 #| msgid "Could not create folder."
 msgid "Could not authenticate to server."
-msgstr "Tidak dapat membuat folder."
+msgstr "Tidak dapat mengotentikasi ke server."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:7
 msgid "Could not change password."
 msgstr "Tidak dapat mengubah sandi."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:8
-#, fuzzy
 #| msgid ""
 #| "Could not configure Exchange account because an unknown error occurred. "
 #| "Check the URL, username, and password, and try again."
@@ -1158,9 +1143,9 @@ msgid ""
 "an unknown error occurred. Check the URL, \n"
 "username and password, and try again."
 msgstr ""
-"Tidak dapat mengkonfigurasikan account Exchange karena telah terjadi "
-"kesalahan yang tidak diketahui. Periksa URL, nama pengguna dan password, "
-"kemudian coba lagi."
+"Tidak dapat mengkonfigurasikan account Exchange \n"
+"karena telah terjadi kesalahan yang tidak diketahui. \n"
+"Periksa URL, nama pengguna, dan sandi, lalu coba lagi."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:11
 msgid "Could not connect to Exchange server."
@@ -1171,40 +1156,36 @@ msgid "Could not connect to server {0}."
 msgstr "Tidak dapat terhubung pada server {0}."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:13
-#, fuzzy
 #| msgid "Could not update folder permissions."
 msgid "Could not determine folder permissions for delegates."
-msgstr "Tidak dapat memperbarui permisi folder."
+msgstr "Tidak dapat menentukan permisi folder bagi delegasi."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:14
 msgid "Could not find Exchange Web Storage System."
 msgstr "Tidak menemukan \"Exchange Web Storage System\"."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:15
-#, fuzzy
 #| msgid "Could not create folder."
 msgid "Could not locate server {0}."
-msgstr "Tidak dapat membuat folder."
+msgstr "Tidak dapat menemukan server {0}."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:16
-#, fuzzy
 #| msgid "Could not add delegate %s"
 msgid "Could not make {0} a delegate"
-msgstr "Tidak dapat menambahkan delegasi %s"
+msgstr "Tidak dapat membuat {0} menjadi delegasi"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:17
 msgid "Could not read folder permissions"
 msgstr "Tidak dapat membaca permisi folder"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:18
-#, fuzzy
 #| msgid "Could not read folder permissions"
 msgid "Could not read folder permissions."
-msgstr "Tidak dapat membaca permisi folder"
+msgstr "Tidak dapat membaca permisi folder."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:19
 msgid "Could not read out-of-office state"
-msgstr "Tidak dapat membaca bagian keluar kantor"
+msgstr "Tidak dapat membaca keadaan keluar kantor"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:20
 msgid "Could not update folder permissions."
@@ -1217,15 +1198,14 @@ msgstr "Tidak dapat memperbarui bagian keluar kantor"
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:22
 msgid "Evolution requires a restart to load the subscribed user's mailbox"
 msgstr ""
+"Evolution memerlukan start ulang untuk memuat mailbox langganan pengguna"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:23
-#, fuzzy
 #| msgid "Exchange account for %s on %s"
 msgid "Exchange Account is offline."
-msgstr "Account Exchange untuk %s pada %s"
+msgstr "Akun Exchange luring."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:24
-#, fuzzy
 msgid ""
 "Exchange Connector requires access to certain\n"
 "functionality on the Exchange Server that appears\n"
@@ -1240,7 +1220,7 @@ msgid ""
 "{0}\n"
 "  "
 msgstr ""
-"Penyambung Ximian membutuhkan akses ke fungsionalitas tertentu pada Server "
+"Penyambung Exchange membutuhkan akses ke fungsionalitas tertentu pada Server "
 "Exchange yang kelihatannya dinonaktifkan ataupun ditutup.  (Hal ini biasanya "
 "jarang terjadi).  Administrator Exchange anda perlu untuk mengaktifkan "
 "fungsionalitas agar anda dapat menggunakan penyambung Ximian.\n"
@@ -1249,77 +1229,59 @@ msgstr ""
 "sambungan di bawah:"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:36
-#, fuzzy
 #| msgid "Could not update list of delegates."
 msgid "Failed to update delegates:"
-msgstr "Tidak dapat memperbarui daftar delegasi"
+msgstr "Gagal memperbarui delegasi:"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:38
 msgid "Folder does not exist"
 msgstr "Folder tidak ada"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:39
-#, fuzzy
 #| msgid "Folder Size"
 msgid "Folder offline"
-msgstr "Ukuran Folder"
+msgstr "Folder luring"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:41
-#, fuzzy
 msgid "Global Catalog Server is not reachable"
-msgstr "Nama server Katalog Global:"
+msgstr "Server Katalog Global tak bisa dihubungi"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:42
-#, fuzzy
 msgid ""
 "If OWA is running on a different path, you must specify that in the account "
 "configuration dialog."
 msgstr ""
-"Tidak dapat menemukan System Penyimpanan Web Exchange pada %s.\n"
-"Jika OWA sedang berjalan pada lokasi yang berbeda, anda harus "
-"menjelaskannya\n"
-"pada dialog konfigurasi account."
+"Jika OWA sedang berjalan pada lokasi yang berbeda, Anda harus menyatakannya "
+"pada dialog konfigurasi akun."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:43
 msgid "Mailbox for {0} is not on this server."
 msgstr "Kotak surat untuk {0} tidak berada di server ini."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:44
-#, fuzzy
 #| msgid ""
 #| "Could not find OWA data at the indicated URL.\n"
 #| "Make sure the URL is correct and try again."
 msgid "Make sure the URL is correct and try again."
-msgstr ""
-"Tidak dapat menemukan data OWA pada URL yang diduga.\n"
-"Pastikan URL nya benar dan coba lagi."
+msgstr "Pastikan URL benar dan coba lagi."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:45
-#, fuzzy
 #| msgid ""
 #| "Could not locate Exchange server.\n"
 #| "Make sure the server name is spelled correctly and try again."
 msgid "Make sure the server name is spelled correctly and try again."
-msgstr ""
-"Tidak dapat menemukan server Exchange.\n"
-"Pastikan nama server nya benar dan coba lagi."
+msgstr "Pastikan nama server dieja dengan benar dan coba lagi."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:46
-#, fuzzy
 #| msgid ""
 #| "Could not authenticate to the Exchange server.\n"
 #| "Make sure the username and password are correct and try again."
 msgid "Make sure the username and password are correct and try again."
-msgstr ""
-"Tidak dapat masuk ke server Exchange.\n"
-"Pastikan nama pengguna dan passwordnya telah benar dan coba lagi."
+msgstr "Pastikan nama pengguna dan sandinya benar dan coba lagi."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:47
-#, fuzzy
 msgid "No Global Catalog server configured for this account."
-msgstr ""
-"Tidak ada server Katalog Global yang dikonfigurasi untuk account ini.\n"
-"Tidak dapat menyunting delegasi."
+msgstr "Tidak ada server Katalog Global yang dikonfigurasi untuk akun ini."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:48
 msgid "No mailbox for user {0} on {1}."
@@ -1335,55 +1297,46 @@ msgstr "Sandi berhasil diubah."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:52
 msgid "Please enter a Delegate's ID or deselect the Send as a Delegate option."
-msgstr ""
+msgstr "Silakan masukkan ID Delegasi atau matikan opsi Kirim sebagai Delegasi."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:53
 msgid "Please make sure the Global Catalog Server name is correct."
-msgstr ""
+msgstr "Silakan pastikan bahwa nama Server Katalog Global benar."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:54
 msgid "Please restart Evolution for changes to take effect"
-msgstr ""
+msgstr "Silakan start ulang Evolution agar perubahan berdampak"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:55
 msgid "Please select a user."
 msgstr "Silahkan pilih sebuah pengguna."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:56
-#, fuzzy
 msgid "Server rejected password because it is too weak."
-msgstr ""
-"Server menolak password karena passwordnya terlalu lemah.\n"
-"Coba lagi dengan password yang berbeda."
+msgstr "Server menolak sandi karena terlalu lemah."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:57
-#, fuzzy
 #| msgid "The Exchange account will be removed when you quit Evolution"
 msgid "The Exchange account will be disabled when you quit Evolution"
-msgstr "Account Exchange akan dihapus ketika Anda keluarkan Evolution"
+msgstr "Akun Exchange akan dimatikan ketika Anda keluar dari Evolution"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:58
 msgid "The Exchange account will be removed when you quit Evolution"
 msgstr "Akun Exchange akan dihapus ketika Anda keluar dari Evolution"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:59
-#, fuzzy
 msgid "The Exchange server is not compatible with Exchange Connector."
-msgstr ""
-"Server '%s' menjalankan Exchange 5.5 dan\n"
-"tidak cocok dengan Penyambung Ximian"
+msgstr "Server Exchange tidak cocok dengan Penyambung Exchange."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:60
-#, fuzzy
 msgid ""
 "The server is running Exchange 5.5. Exchange Connector \n"
 "supports Microsoft Exchange 2000 and 2003 only."
 msgstr ""
-"URL server Exchange yang anda sediakan adalah untuk server Exchange 5.5. "
-"Penyambung Ximian hanya mendukung Microsoft Exchange 2000 dan 2003."
+"Server menjalankan Exchange 5.5. Penyambung Exchange\n"
+"hanya mendukung Microsoft Exchange 2000 dan 2003."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:62
-#, fuzzy
 msgid ""
 "This probably means that your server requires \n"
 "you to specify the Windows domain name \n"
@@ -1391,35 +1344,29 @@ msgid ""
 "\n"
 "Also, you may have typed your password incorrectly."
 msgstr ""
-"Tidak dapat masuk ke server.\n"
-"\n"
-"Hal ini mungkin berarti bahwa server anda memerlukan\n"
+"Hal ini mungkin berarti bahwa server Anda memerlukan\n"
 "untuk memberikan nama domain Windows sebagai bagian\n"
-"dari nama pengguna anda (cth: \"DOMAIN\\user\").\n"
+"dari nama pengguna Anda (mis. &quot;DOMAIN\\user&quot;).\n"
 "\n"
-"Atau anda telah mengetikkan password anda salah.\n"
-"\n"
+"Mungkin juga Anda salah mengetikkan sandi."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:67
 msgid "Try again with a different password."
 msgstr "Coba lagi dengan sandi yang lain."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:68
-#, fuzzy
 msgid "Unable to add user to access control list:"
-msgstr "%s tidak dapat ditambahkan ke sebuah daftar kendali akses"
+msgstr "Tidak dapat menambah pengguna ke daftar kendali akses:"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:69
-#, fuzzy
 #| msgid "Unable to move/copy messages"
 msgid "Unable to edit delegates."
-msgstr "Tidak dapat memindah/menyalin pesan"
+msgstr "Tidak dapat menyunting delegasi."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:70
-#, fuzzy
 #| msgid "Unknown error"
 msgid "Unknown error looking up {0}"
-msgstr "Kesalahan tidak dikenal"
+msgstr "Kesalahan tidak dikenal mencari {0}"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:71
 msgid "Unknown error."
@@ -1442,6 +1389,8 @@ msgid ""
 "You are permitted to send a message on behalf of only one delegator at a "
 "time."
 msgstr ""
+"Anda diijinkan untuk mengirim pesan atas nama hanya satu delegator pada satu "
+"waktu."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:76
 msgid "You cannot make yourself your own delegate"
@@ -1476,6 +1425,8 @@ msgid ""
 "Your current usage is: {0} KB. You will not be able to send mail until you "
 "clear up some space by deleting some mail."
 msgstr ""
+"Kini Anda memakai: {0} KB. Anda tak akan bisa mengirim surel sampai Anda "
+"membebaskan sebagian ruang dengan menghapus beberapa surel."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:82
 msgid "Your password has expired."
@@ -1595,10 +1546,9 @@ msgid "Cannot create a folder with that name"
 msgstr "Tidak dapat membuat folder dengan nama itu"
 
 #: ../server/storage/e-storage.c:585
-#, fuzzy
 #| msgid "This message is not available in offline mode."
 msgid "This operation cannot be performed in offline mode"
-msgstr "Pesan ini tidak tersedia dalam model offline."
+msgstr "Operasi ini tidak dapat dilakukan dalam mode luring"
 
 #: ../server/storage/e-storage.c:587
 msgid "Unknown error"
@@ -1654,7 +1604,6 @@ msgid "Welcome"
 msgstr "Selamat datang"
 
 #: ../tools/exchange-autoconfig-wizard.c:176
-#, fuzzy
 msgid ""
 "Welcome to Evolution Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
@@ -1662,9 +1611,9 @@ msgid ""
 "\n"
 "Please click the \"Forward\" button to continue."
 msgstr ""
-"Selamat datang ke Penyambung Ximian untuk Microsoft Exchange.\n"
-"Layar-layar selanjutnya akan membantu anda untuk mengkonfigurasi Evolution\n"
-"agar menyambung ke account Exchange anda.\n"
+"Selamat datang ke Penyambung Evolution untuk Microsoft Exchange.\n"
+"Layar-layar selanjutnya akan membantu Anda untuk mengkonfigurasi Evolution\n"
+"agar menyambung ke akun Exchange Anda.\n"
 "\n"
 "Silahkan klik tombol \"Maju\" untuk lanjut."
 
@@ -1675,7 +1624,6 @@ msgid "Exchange Configuration"
 msgstr "Konfigurasi Exchange"
 
 #: ../tools/exchange-autoconfig-wizard.c:188
-#, fuzzy
 msgid ""
 "Evolution Connector for Microsoft Exchange can use account information from "
 "your existing Outlook Web Access (OWA) account.\n"
@@ -1683,10 +1631,11 @@ msgid ""
 "Enter your OWA site address (URL), username, and password, then click "
 "\"Forward\".\n"
 msgstr ""
-"Penyambung Ximian dapat menggunakan informasi account dari account\n"
-"Akses Web Outlook (OWA) anda.\n"
+"Penyambung Evolution bagi Microsoft Exchange dapat menggunakan informasi "
+"akun dari akun\n"
+"Akses Web Outlook (OWA) Anda.\n"
 "\n"
-"Masukkan alamat (URL) situs OWA anda, nama pengguna dan password, kemudian "
+"Masukkan alamat (URL) situs OWA, nama pengguna, dan sandi Anda, kemudian "
 "klik \"Maju\".\n"
 
 #: ../tools/exchange-autoconfig-wizard.c:196
@@ -1694,10 +1643,9 @@ msgid "OWA _URL:"
 msgstr "_URL OWA:"
 
 #: ../tools/exchange-autoconfig-wizard.c:200
-#, fuzzy
 #| msgid "Windows User_name:"
 msgid "User_name:"
-msgstr "Nama pengguna Windows:"
+msgstr "_Nama pengguna:"
 
 #: ../tools/exchange-autoconfig-wizard.c:204
 msgid "_Password:"
@@ -1756,7 +1704,6 @@ msgstr ""
 "Pastikan URL nya benar dan coba lagi."
 
 #: ../tools/exchange-autoconfig-wizard.c:324
-#, fuzzy
 msgid ""
 "Evolution Connector for Microsoft Exchange requires access to certain "
 "functionality on the Exchange server that appears to be disabled or "
@@ -1767,23 +1714,24 @@ msgid ""
 "For information to provide to your Exchange administrator, please follow the "
 "link below:"
 msgstr ""
-"Penyambung Ximian membutuhkan akses ke fungsionalitas tertentu pada Server "
-"Exchange yang kelihatannya dinonaktifkan ataupun ditutup.  (Hal ini biasanya "
-"jarang terjadi).  Administrator Exchange anda perlu untuk mengaktifkan "
-"fungsionalitas agar anda dapat menggunakan penyambung Ximian.\n"
+"Penyambung Evolution bagi Microsoft Exchange membutuhkan akses ke "
+"fungsionalitas tertentu pada Server Exchange yang kelihatannya dinonaktifkan "
+"ataupun ditutup.  (Hal ini biasanya tidak disengaja).  Administrator "
+"Exchange Anda perlu mengaktifkan fungsionalitas ini agar Anda dapat "
+"menggunakan Penyambung Evolution.\n"
 "\n"
-"Sebagai informasi untuk administrator Exchange anda, silahkan ikuti "
-"sambungan di bawah:"
+"Sebagai informasi untuk administrator Exchange Anda, silakan ikuti tautan di "
+"bawah:"
 
 #: ../tools/exchange-autoconfig-wizard.c:337
-#, fuzzy
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 server. "
 "Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
 "and 2003 only."
 msgstr ""
-"URL server Exchange yang anda sediakan adalah untuk server Exchange 5.5. "
-"Penyambung Ximian hanya mendukung Microsoft Exchange 2000 dan 2003."
+"URL server Exchange yang Anda sediakan adalah untuk server Exchange 5.5. "
+"Penyambung Evolution bagi Microsoft Exchange hanya mendukung Microsoft "
+"Exchange 2000 dan 2003."
 
 #: ../tools/exchange-autoconfig-wizard.c:345
 msgid ""
@@ -1794,15 +1742,15 @@ msgstr ""
 "dikenal. Periksa URL, nama pengguna, dan sandi, kemudian coba lagi."
 
 #: ../tools/exchange-autoconfig-wizard.c:361
-#, fuzzy
 msgid ""
 "Evolution Connector for Microsoft Exchange could not find the Global Catalog "
 "replica for your site. Please enter the name of your Global Catalog server. "
 "You may need to ask your system administrator for the correct value."
 msgstr ""
-"Penyambung Ximian tidak dapat menemukan tiruan Katalog Global untuk situs "
-"anda. Silahkan masukkan nama dari server Katalog Global anda. Anda mungkin "
-"perlu meminta nilai yang benar kepada sistem administrator anda.\n"
+"Penyambung Evolution bagi Microsoft Exchange tidak dapat menemukan tiruan "
+"Katalog Global untuk situs Anda. Silahkan masukkan nama dari server Katalog "
+"Global Anda. Anda mungkin perlu meminta nilai yang benar kepada sistem "
+"administrator Anda."
 
 #: ../tools/exchange-autoconfig-wizard.c:369
 msgid "GC _Server:"
@@ -1832,22 +1780,20 @@ msgid "Configuration Failed"
 msgstr "Konfigurasi Gagal"
 
 #: ../tools/exchange-autoconfig-wizard.c:421
-#, fuzzy
 msgid ""
 "Evolution Connector for Microsoft Exchange has encountered a problem "
 "configuring your Exchange account."
 msgstr ""
-"Penyambung Ximian telah menemukan suatu masalah ketika mengkonfigurasi "
-"account Exchange anda.\n"
+"Penyambung Evolution bagi Microsoft Exchange telah menemui suatu masalah "
+"ketika mengkonfigurasi akun Exchange Anda."
 
 #: ../tools/exchange-autoconfig-wizard.c:448
-#, fuzzy
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\"."
 msgstr ""
-"Informasi account anda sebagai berikut. Silahkan betulkan kesalahan yang "
-"ada, kemudian klik \"Maju\".\n"
+"Informasi account Anda sebagai berikut. Silakan perbaiki kesalahan, kemudian "
+"klik \"Maju\""
 
 #: ../tools/exchange-autoconfig-wizard.c:456
 msgid "Full _Name:"
@@ -1871,13 +1817,12 @@ msgid "Done"
 msgstr "Selesai"
 
 #: ../tools/exchange-autoconfig-wizard.c:508
-#, fuzzy
 msgid ""
 "Your Connector account is now ready to use. Click the \"Apply\" button to "
 "save your settings."
 msgstr ""
-"Account Penyambung anda telah siap untuk dipergunakan. Klik tombol \"Terapkan"
-"\" untuk menyimpan setingan anda."
+"Account Penyambung Anda telah siap untuk digunakan. Klik tombol \"Terapkan\" "
+"untuk menyimpan pengaturan Anda."
 
 #: ../tools/exchange-autoconfig-wizard.c:557
 msgid ""
@@ -1892,9 +1837,8 @@ msgid "You may only configure a single Exchange account"
 msgstr "Anda hanya dapat mengonfigurasi satu akun Exchange"
 
 #: ../tools/exchange-autoconfig-wizard.c:747
-#, fuzzy
 msgid "Evolution Connector for Microsoft Exchange Configuration"
-msgstr "Penyambung Ximian untuk Microsoft Exchange"
+msgstr "Penyambung Evolution untuk Konfigurasi Microsoft Exchange"
 
 #: ../tools/ximian-connector.xml.h:1
 msgid "Change your Exchange server password"
@@ -1945,4 +1889,4 @@ msgstr "_Asisten Keluar Kantor"
 
 #: ../tools/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
-msgstr "Keluar dari Folder Pengguna lain"
+msgstr "Berhenti Berlangganan dari Folder Pengg_una lain"
