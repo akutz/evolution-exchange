@@ -57,7 +57,7 @@ exchange_search_body_contains (struct _ESExp *f,
 
 	offline_store = CAMEL_OFFLINE_STORE (parent_store);
 
-	if (offline_store->state == CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL)
+	if (!camel_offline_store_get_online (offline_store))
 		return folder_search_class->body_contains (f, argc, argv, s);
 
 	if (s->current) {

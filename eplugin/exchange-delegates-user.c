@@ -464,7 +464,8 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 				*/
 				camel_stream_printf (stream, "<br>%s", _("However, you are not permitted "
 							 "to see my private items."));
-			camel_data_wrapper_construct_from_stream (delegate_mail_text, stream, NULL);
+			camel_data_wrapper_construct_from_stream_sync (
+				delegate_mail_text, stream, NULL, NULL);
 			g_free (role_name);
 			g_string_free (role_name_final, TRUE);
 			g_object_unref (stream);
@@ -483,7 +484,8 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 			stream = camel_stream_mem_new ();
 			part = camel_mime_part_new ();
 
-			camel_data_wrapper_construct_from_stream (delegate_mail_data, stream, NULL);
+			camel_data_wrapper_construct_from_stream_sync (
+				delegate_mail_data, stream, NULL, NULL);
 			g_object_unref (stream);
 			camel_medium_set_content (CAMEL_MEDIUM (part), delegate_mail_data);
 			g_object_unref (delegate_mail_data);

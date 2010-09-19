@@ -50,6 +50,7 @@ struct _CamelExchangeStoreClass {
 
 GType		camel_exchange_store_get_type	(void);
 gboolean	camel_exchange_store_connected	(CamelExchangeStore *store,
+						 GCancellable *cancellable,
 						 GError **error);
 void		camel_exchange_store_folder_created
 						(CamelExchangeStore *estore,

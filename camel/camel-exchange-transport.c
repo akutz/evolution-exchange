@@ -32,11 +32,12 @@
 G_DEFINE_TYPE (CamelExchangeTransport, camel_exchange_transport, CAMEL_TYPE_TRANSPORT)
 
 static gboolean
-exchange_transport_send_to (CamelTransport *transport,
-                            CamelMimeMessage *message,
-                            CamelAddress *from,
-                            CamelAddress *recipients,
-                            GError **error)
+exchange_transport_send_to_sync (CamelTransport *transport,
+                                 CamelMimeMessage *message,
+                                 CamelAddress *from,
+                                 CamelAddress *recipients,
+                                 GCancellable *cancellable,
+                                 GError **error)
 {
 	CamelService *service = CAMEL_SERVICE (transport);
 	CamelStore *store = NULL;
@@ -112,10 +113,10 @@ exchange_transport_send_to (CamelTransport *transport,
 
 	camel_medium_remove_header (CAMEL_MEDIUM (message), "Bcc");
 
-	camel_data_wrapper_write_to_stream (
+	camel_data_wrapper_write_to_stream_sync (
 		CAMEL_DATA_WRAPPER (message),
-		CAMEL_STREAM (filtered_stream), NULL);
-	camel_stream_flush (CAMEL_STREAM (filtered_stream), NULL);
+		CAMEL_STREAM (filtered_stream), cancellable, NULL);
+	camel_stream_flush (CAMEL_STREAM (filtered_stream), cancellable, NULL);
 	g_object_unref (CAMEL_OBJECT (filtered_stream));
 
 	/* add the bcc headers back */
@@ -148,7 +149,7 @@ camel_exchange_transport_class_init (CamelExchangeTransportClass *class)
 	CamelTransportClass *transport_class;
 
 	transport_class = CAMEL_TRANSPORT_CLASS (class);
-	transport_class->send_to = exchange_transport_send_to;
+	transport_class->send_to_sync = exchange_transport_send_to_sync;
 }
 
 static void

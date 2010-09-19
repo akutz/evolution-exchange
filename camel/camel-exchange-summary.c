@@ -44,13 +44,16 @@
 G_DEFINE_TYPE (CamelExchangeSummary, camel_exchange_summary, CAMEL_TYPE_FOLDER_SUMMARY)
 
 static gboolean
-exchange_summary_check_for_trash (CamelFolder *folder)
+exchange_summary_check_for_trash (CamelFolder *folder,
+                                  GCancellable *cancellable)
 {
 	CamelStore *parent_store;
 	CamelFolder *trash;
 
 	parent_store = camel_folder_get_parent_store (folder);
-	trash = camel_store_get_trash (parent_store, NULL);
+
+	trash = camel_store_get_trash_folder_sync (
+		parent_store, cancellable, NULL);
 
 	if (trash == NULL)
 		return FALSE;
@@ -61,6 +64,7 @@ exchange_summary_check_for_trash (CamelFolder *folder)
 static gboolean
 exchange_summary_expunge_mail (CamelFolder *folder,
                                CamelMessageInfo *info,
+                               GCancellable *cancellable,
                                GError **error)
 {
 	GPtrArray *uids = g_ptr_array_new ();
@@ -75,7 +79,8 @@ exchange_summary_expunge_mail (CamelFolder *folder,
 	g_ptr_array_add (uids, uid);
 
 	success = camel_exchange_utils_expunge_uids (
-		CAMEL_SERVICE (parent_store), full_name, uids, error);
+		CAMEL_SERVICE (parent_store),
+		full_name, uids, cancellable, error);
 
 	g_ptr_array_free (uids, TRUE);
 
@@ -350,11 +355,11 @@ exchange_summary_info_set_flags (CamelMessageInfo *info,
 	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
 		camel_exchange_summary_parent_class);
 
-	if (offline_store->state != CAMEL_OFFLINE_STORE_NETWORK_UNAVAIL) {
+	if (!camel_offline_store_get_online (offline_store)) {
 		if (folder && info->uid) {
 			if ((flags & set & CAMEL_MESSAGE_DELETED) &&
-			    exchange_summary_check_for_trash (folder)) {
-				return exchange_summary_expunge_mail (folder, info, NULL);
+			    exchange_summary_check_for_trash (folder, NULL)) {
+				return exchange_summary_expunge_mail (folder, info, NULL, NULL);
 			} else {
 				camel_exchange_utils_set_message_flags (
 					CAMEL_SERVICE (parent_store),
@@ -366,7 +371,7 @@ exchange_summary_info_set_flags (CamelMessageInfo *info,
 	else {
 		if (folder && info->uid) {
 			if ((flags & set & CAMEL_MESSAGE_DELETED) &&
-			    exchange_summary_check_for_trash (folder)) {
+			    exchange_summary_check_for_trash (folder, NULL)) {
 				/* FIXME: should add a separate journal entry for this case. */ ;
 			} else {
 				CamelExchangeFolder *exchange_folder = (CamelExchangeFolder *) folder;

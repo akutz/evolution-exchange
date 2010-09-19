@@ -92,6 +92,7 @@ gboolean	camel_exchange_journal_append	(CamelExchangeJournal *journal,
 						 CamelMimeMessage *message,
 						 const CamelMessageInfo *mi,
 						 gchar **appended_uid,
+						 GCancellable *cancellable,
 						 GError **error);
 
 gboolean	camel_exchange_journal_transfer	(CamelExchangeJournal *journal,
@@ -101,6 +102,7 @@ gboolean	camel_exchange_journal_transfer	(CamelExchangeJournal *journal,
 						 const gchar *original_uid,
 						 gchar **transferred_uid,
 						 gboolean delete_original,
+						 GCancellable *cancellable,
 						 GError **error);
 gboolean	camel_exchange_journal_delete	(CamelExchangeJournal *journal,
 						 const gchar *uid,

@@ -57,6 +57,7 @@ exchange_message_info_dup_to (CamelMessageInfoBase *dest,
 static gint
 exchange_entry_play_append (CamelOfflineJournal *journal,
                             CamelExchangeJournalEntry *entry,
+                            GCancellable *cancellable,
                             GError **error)
 {
 	CamelExchangeFolder *exchange_folder = (CamelExchangeFolder *) journal->folder;
@@ -71,7 +72,8 @@ exchange_entry_play_append (CamelOfflineJournal *journal,
 		goto done;
 
 	message = camel_mime_message_new ();
-	if (camel_data_wrapper_construct_from_stream ((CamelDataWrapper *) message, stream, NULL) == -1) {
+	if (!camel_data_wrapper_construct_from_stream_sync (
+		(CamelDataWrapper *) message, stream, cancellable, NULL)) {
 		g_object_unref (message);
 		g_object_unref (stream);
 		goto done;
@@ -84,7 +86,8 @@ exchange_entry_play_append (CamelOfflineJournal *journal,
 		info = camel_message_info_new (NULL);
 	}
 
-	if (!camel_folder_append_message (folder, message, info, &uid, error))
+	if (!camel_folder_append_message_sync (
+		folder, message, info, &uid, cancellable, error))
 		return -1;
 
 	real = camel_folder_summary_info_new_from_message (folder->summary, message, NULL);
@@ -109,6 +112,7 @@ exchange_entry_play_append (CamelOfflineJournal *journal,
 static gint
 exchange_entry_play_transfer (CamelOfflineJournal *journal,
                               CamelExchangeJournalEntry *entry,
+                              GCancellable *cancellable,
                               GError **error)
 {
 	CamelExchangeFolder *exchange_folder = (CamelExchangeFolder *) journal->folder;
@@ -125,7 +129,8 @@ exchange_entry_play_transfer (CamelOfflineJournal *journal,
 		goto done;
 
 	message = camel_mime_message_new ();
-	if (camel_data_wrapper_construct_from_stream ((CamelDataWrapper *) message, stream, NULL) == -1) {
+	if (!camel_data_wrapper_construct_from_stream_sync (
+		(CamelDataWrapper *) message, stream, cancellable, NULL)) {
 		g_object_unref (message);
 		g_object_unref (stream);
 		goto done;
@@ -157,9 +162,9 @@ exchange_entry_play_transfer (CamelOfflineJournal *journal,
 		uids = g_ptr_array_sized_new (1);
 		g_ptr_array_add (uids, entry->original_uid);
 
-		success = camel_folder_transfer_messages_to (
-			src, uids, folder, &xuids,
-			entry->delete_original, error);
+		success = camel_folder_transfer_messages_to_sync (
+			src, uids, folder, entry->delete_original,
+			&xuids, cancellable, error);
 		if (!success)
 			goto exception;
 
@@ -202,6 +207,7 @@ exception:
 static gint
 exchange_entry_play_delete (CamelOfflineJournal *journal,
                             CamelExchangeJournalEntry *entry,
+                            GCancellable *cancellable,
                             GError **error)
 {
 	CamelFolder *folder;
@@ -346,6 +352,7 @@ exchange_journal_entry_write (CamelOfflineJournal *journal,
 static gint
 exchange_journal_entry_play (CamelOfflineJournal *journal,
                              CamelDListNode *entry,
+                             GCancellable *cancellable,
                              GError **error)
 {
 	CamelExchangeJournalEntry *exchange_entry = (CamelExchangeJournalEntry *) entry;
@@ -353,13 +360,13 @@ exchange_journal_entry_play (CamelOfflineJournal *journal,
 	switch (exchange_entry->type) {
 	case CAMEL_EXCHANGE_JOURNAL_ENTRY_APPEND:
 		return exchange_entry_play_append (
-			journal, exchange_entry, error);
+			journal, exchange_entry, cancellable, error);
 	case CAMEL_EXCHANGE_JOURNAL_ENTRY_TRANSFER:
 		return exchange_entry_play_transfer (
-			journal, exchange_entry, error);
+			journal, exchange_entry, cancellable, error);
 	case CAMEL_EXCHANGE_JOURNAL_ENTRY_DELETE:
 		return exchange_entry_play_delete (
-			journal, exchange_entry, error);
+			journal, exchange_entry, cancellable, error);
 	default:
 		g_critical ("%s: Uncaught case (%d)", G_STRLOC, exchange_entry->type);
 		return -1;
@@ -401,6 +408,7 @@ update_cache (CamelExchangeJournal *exchange_journal,
               CamelMimeMessage *message,
               const CamelMessageInfo *mi,
               gchar **updated_uid,
+              GCancellable *cancellable,
               GError **error)
 {
 	CamelOfflineJournal *journal = (CamelOfflineJournal *) exchange_journal;
@@ -430,9 +438,9 @@ update_cache (CamelExchangeJournal *exchange_journal,
 		return FALSE;
 	}
 
-	if (camel_data_wrapper_write_to_stream (
-		(CamelDataWrapper *) message, cache, error) == -1
-	    || camel_stream_flush (cache, error) == -1) {
+	if (camel_data_wrapper_write_to_stream_sync (
+		(CamelDataWrapper *) message, cache, cancellable, error) == -1
+	    || camel_stream_flush (cache, cancellable, error) == -1) {
 		g_prefix_error (
 			error, _("Cannot append message in offline mode: "));
 		camel_data_cache_remove (
@@ -468,13 +476,15 @@ camel_exchange_journal_append (CamelExchangeJournal *exchange_journal,
                                CamelMimeMessage *message,
                                const CamelMessageInfo *mi,
                                gchar **appended_uid,
+                               GCancellable *cancellable,
                                GError **error)
 {
 	CamelOfflineJournal *journal = (CamelOfflineJournal *) exchange_journal;
 	CamelExchangeJournalEntry *entry;
 	gchar *uid;
 
-	if (!update_cache (exchange_journal, message, mi, &uid, error))
+	if (!update_cache (
+		exchange_journal, message, mi, &uid, cancellable, error))
 		return FALSE;
 
 	entry = g_new (CamelExchangeJournalEntry, 1);
@@ -538,6 +548,7 @@ camel_exchange_journal_transfer (CamelExchangeJournal *exchange_journal,
                                  const gchar *original_uid,
                                  gchar **transferred_uid,
                                  gboolean delete_original,
+                                 GCancellable *cancellable,
                                  GError **error)
 {
 	CamelOfflineJournal *journal = (CamelOfflineJournal *) exchange_journal;
@@ -546,7 +557,8 @@ camel_exchange_journal_transfer (CamelExchangeJournal *exchange_journal,
 	const gchar *real_source_folder = NULL, *real_uid = NULL;
 	gint type;
 
-	if (!update_cache (exchange_journal, message, mi, &uid, error))
+	if (!update_cache (
+		exchange_journal, message, mi, &uid, cancellable, error))
 		return FALSE;
 
 	real_uid = original_uid;

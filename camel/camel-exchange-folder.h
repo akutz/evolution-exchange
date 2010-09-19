@@ -48,38 +48,45 @@ struct _CamelExchangeFolderClass {
 
 GType    camel_exchange_folder_get_type (void);
 
-gboolean camel_exchange_folder_construct            (CamelFolder *folder,
-						     guint32 camel_flags,
-						     const gchar *folder_dir,
-						     gint offline_state,
-						     GError **error);
+gboolean	camel_exchange_folder_construct	(CamelFolder *folder,
+						 guint32 camel_flags,
+						 const gchar *folder_dir,
+						 gboolean online,
+						 GCancellable *cancellable,
+						 GError **error);
 
-void     camel_exchange_folder_add_message          (CamelExchangeFolder *exch,
-						     const gchar *uid,
-						     guint32 flags,
-						     guint32 size,
-						     const gchar *headers,
-						     const gchar *href);
+void		camel_exchange_folder_add_message
+						(CamelExchangeFolder *exch,
+						 const gchar *uid,
+						 guint32 flags,
+						 guint32 size,
+						 const gchar *headers,
+						 const gchar *href);
 
-void     camel_exchange_folder_remove_message       (CamelExchangeFolder *exch,
-						     const gchar *uid);
+void		camel_exchange_folder_remove_message
+						(CamelExchangeFolder *exch,
+						 const gchar *uid);
 
-void     camel_exchange_folder_uncache_message      (CamelExchangeFolder *exch,
-						     const gchar *uid);
+void		camel_exchange_folder_uncache_message
+						(CamelExchangeFolder *exch,
+						 const gchar *uid);
 
-void     camel_exchange_folder_update_message_flags (CamelExchangeFolder *exch,
-						     const gchar *uid,
-						     guint32 flags);
+void		camel_exchange_folder_update_message_flags
+						(CamelExchangeFolder *exch,
+						 const gchar *uid,
+						 guint32 flags);
 
-void     camel_exchange_folder_update_message_flags_ex (CamelExchangeFolder *exch,
-							const gchar *uid,
-							guint32 flags,
-							guint32 mask);
+void		camel_exchange_folder_update_message_flags_ex
+						(CamelExchangeFolder *exch,
+						 const gchar *uid,
+						 guint32 flags,
+						 guint32 mask);
 
-void     camel_exchange_folder_update_message_tag   (CamelExchangeFolder *exch,
-						     const gchar *uid,
-						     const gchar *name,
-						     const gchar *value);
+void		camel_exchange_folder_update_message_tag
+						(CamelExchangeFolder *exch,
+						 const gchar *uid,
+						 const gchar *name,
+						 const gchar *value);
 
 G_END_DECLS
 

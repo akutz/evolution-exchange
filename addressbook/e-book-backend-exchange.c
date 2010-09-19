@@ -526,7 +526,8 @@ e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 	stream = camel_stream_mem_new_with_buffer (response->data, response->length);
 	soup_buffer_free (response);
 	msg = camel_mime_message_new ();
-	camel_data_wrapper_construct_from_stream (CAMEL_DATA_WRAPPER (msg), stream, NULL);
+	camel_data_wrapper_construct_from_stream_sync (
+		CAMEL_DATA_WRAPPER (msg), stream, NULL, NULL);
 	g_object_unref (stream);
 
 	content = camel_medium_get_content (CAMEL_MEDIUM (msg));
@@ -549,7 +550,8 @@ e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 
 			byte_array = g_byte_array_new ();
 			stream = camel_stream_mem_new_with_byte_array (byte_array);
-			camel_data_wrapper_decode_to_stream (content, stream, NULL);
+			camel_data_wrapper_decode_to_stream_sync (
+				content, stream, NULL, NULL);
 
 			photo.type = E_CONTACT_PHOTO_TYPE_INLINED;
 			photo.data.inlined.mime_type = NULL;
@@ -1379,7 +1381,8 @@ build_message (const gchar *from_name, const gchar *from_email,
 	if (note) {
 		stream = camel_stream_mem_new_with_buffer (note, strlen (note));
 		wrapper = camel_data_wrapper_new ();
-		camel_data_wrapper_construct_from_stream (wrapper, stream, NULL);
+		camel_data_wrapper_construct_from_stream_sync (
+			wrapper, stream, NULL, NULL);
 		g_object_unref (stream);
 
 		type = camel_content_type_new ("text", "plain");
@@ -1433,7 +1436,8 @@ build_message (const gchar *from_name, const gchar *from_email,
 		stream = camel_stream_mem_new_with_byte_array (photo_ba);
 
 		wrapper = camel_data_wrapper_new ();
-		camel_data_wrapper_construct_from_stream (wrapper, stream, NULL);
+		camel_data_wrapper_construct_from_stream_sync (
+			wrapper, stream, NULL, NULL);
 		g_object_unref (stream);
 		camel_data_wrapper_set_mime_type (wrapper, content_type);
 
@@ -1464,7 +1468,8 @@ build_message (const gchar *from_name, const gchar *from_email,
 	buffer = g_byte_array_new ();
 	stream = camel_stream_mem_new ();
 	camel_stream_mem_set_byte_array (CAMEL_STREAM_MEM (stream), buffer);
-	camel_data_wrapper_write_to_stream (CAMEL_DATA_WRAPPER (msg), stream, NULL);
+	camel_data_wrapper_write_to_stream_sync (
+		CAMEL_DATA_WRAPPER (msg), stream, NULL, NULL);
 	g_object_unref (stream);
 	g_object_unref (msg);
 

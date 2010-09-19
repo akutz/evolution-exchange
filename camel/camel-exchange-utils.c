@@ -399,7 +399,9 @@ change_flags (ExchangeFolder *mfld, CamelFolder *folder, ExchangeMessage *mmsg, 
 }
 
 static void
-refresh_folder_internal (ExchangeFolder *mfld, GError **error)
+refresh_folder_internal (ExchangeFolder *mfld,
+                         GCancellable *cancellable,
+                         GError **error)
 {
 	static const gchar *new_message_props[] = {
 		E2K_PR_REPL_UID,
@@ -511,7 +513,8 @@ refresh_folder_internal (ExchangeFolder *mfld, GError **error)
 
 		if (rm.headers) {
 			got++;
-			camel_operation_progress (NULL, (got * 100) / total);
+			camel_operation_progress (
+				cancellable, (got * 100) / total);
 		} else {
 			href = strrchr (rm.href, '/');
 			if (!href++)
@@ -559,7 +562,7 @@ refresh_folder_internal (ExchangeFolder *mfld, GError **error)
 		rmp->headers = mail_util_mapi_to_smtp_headers (result->props);
 
 		got++;
-		camel_operation_progress (NULL, (got * 100) / total);
+		camel_operation_progress (cancellable, (got * 100) / total);
 	}
 	status = e2k_result_iter_free (iter);
 
@@ -574,7 +577,7 @@ refresh_folder_internal (ExchangeFolder *mfld, GError **error)
 	 */
 
  return_data:
-	camel_operation_progress (NULL, 100);
+	camel_operation_progress (cancellable, 100);
 	folder = get_camel_folder (mfld);
 	if (folder)
 		camel_folder_freeze (folder);
@@ -777,7 +780,7 @@ storage_folder_changed (EFolder *folder, gpointer user_data)
 	ExchangeFolder *mfld = user_data;
 
 	if (e_folder_get_unread_count (folder) > mfld->unread_count)
-		refresh_folder_internal (mfld, NULL);
+		refresh_folder_internal (mfld, NULL, NULL);
 }
 
 static void
@@ -1020,11 +1023,6 @@ get_folder_contents_online (ExchangeFolder *mfld, GError **error)
 			camel_exchange_folder_update_message_tag (CAMEL_EXCHANGE_FOLDER (folder), mmsg->uid, "completed-on", prop);
 
 		m++;
-#if 0
-		if (ex) {
-			camel_operation_progress (NULL, (m * 100) / total);
-		}
-#endif
 	}
 
 	/* If there are further messages beyond mfld->messages->len,
@@ -1044,11 +1042,6 @@ get_folder_contents_online (ExchangeFolder *mfld, GError **error)
 		}
 
 		m++;
-#if 0
-		if (ex) {
-			camel_operation_progress (NULL, (m * 100) / total);
-		}
-#endif
 	}
 	status = e2k_result_iter_free (iter);
 	if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
@@ -1125,7 +1118,7 @@ notify_cb (E2kContext *ctx, const gchar *uri, E2kContextChangeType type, gpointe
 	time_t now;
 
 	if (type == E2K_CONTEXT_OBJECT_ADDED)
-		refresh_folder_internal (mfld, NULL);
+		refresh_folder_internal (mfld, NULL, NULL);
 	else {
 		now = time (NULL);
 
@@ -2310,8 +2303,9 @@ camel_exchange_utils_get_trash_name (CamelService *service,
 
 gboolean
 camel_exchange_utils_refresh_folder (CamelService *service,
-				const gchar *folder_name,
-				GError **error)
+                                     const gchar *folder_name,
+                                     GCancellable *cancellable,
+                                     GError **error)
 {
 	ExchangeData *ed = get_data_for_service (service);
 	ExchangeFolder *mfld;
@@ -2322,7 +2316,7 @@ camel_exchange_utils_refresh_folder (CamelService *service,
 	if (!mfld)
 		return FALSE;
 
-	refresh_folder_internal (mfld, NULL);
+	refresh_folder_internal (mfld, cancellable, NULL);
 	sync_deletions (mfld);
 
 	return TRUE;
@@ -2356,9 +2350,10 @@ camel_exchange_utils_sync_count (CamelService *service,
 
 gboolean
 camel_exchange_utils_expunge_uids (CamelService *service,
-				const gchar *folder_name,
-				GPtrArray *uids,
-				GError **error)
+                                   const gchar *folder_name,
+                                   GPtrArray *uids,
+                                   GCancellable *cancellable,
+                                   GError **error)
 {
 	ExchangeData *ed = get_data_for_service (service);
 	ExchangeFolder *mfld;
@@ -2414,7 +2409,8 @@ camel_exchange_utils_expunge_uids (CamelService *service,
 		mfld->deleted_count++;
 		ndeleted++;
 
-		camel_operation_progress (NULL, ndeleted * 100 / hrefs->len);
+		camel_operation_progress (
+			cancellable, ndeleted * 100 / hrefs->len);
 	}
 	status = e2k_result_iter_free (iter);
 	g_static_rec_mutex_unlock (&ed->changed_msgs_mutex);

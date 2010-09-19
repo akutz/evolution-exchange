@@ -1724,7 +1724,7 @@ save_attach_file (const gchar *dest_file, gchar *file_contents, gint len)
 		goto end;
 	}
 
-	if (camel_write (fd, file_contents, len, NULL) < 0) {
+	if (camel_write (fd, file_contents, len, NULL, NULL) < 0) {
 		d(printf ("camel write to attach file failed\n"));
 		goto end;
 	}
@@ -1753,7 +1753,8 @@ get_attachment (ECalBackendExchange *cbex, const gchar *uid,
 
 	stream = camel_stream_mem_new_with_buffer (body, len);
 	msg = camel_mime_message_new ();
-	camel_data_wrapper_construct_from_stream (CAMEL_DATA_WRAPPER (msg), stream, NULL);
+	camel_data_wrapper_construct_from_stream_sync (
+		CAMEL_DATA_WRAPPER (msg), stream, NULL, NULL);
 	g_object_unref (stream);
 
 	msg_content = camel_medium_get_content (CAMEL_MEDIUM (msg));
@@ -1770,7 +1771,7 @@ get_attachment (ECalBackendExchange *cbex, const gchar *uid,
 
 				byte_array = g_byte_array_new ();
 				stream = camel_stream_mem_new_with_byte_array (byte_array);
-				camel_data_wrapper_decode_to_stream (content, stream, NULL);
+				camel_data_wrapper_decode_to_stream_sync (content, stream, NULL, NULL);
 				attach_data = g_memdup (byte_array->data, byte_array->len);
 				attach_file = g_strdup_printf ("%s/%s-%s", cbex->priv->local_attachment_store, uid, filename);
 				// Attach
@@ -1810,7 +1811,7 @@ get_attach_file_contents (const gchar *filename, gint *length)
 	if (len > 0) {
 		file_contents = g_malloc0 (len + 1);
 
-		if (camel_read (fd, file_contents, len, NULL) < 0) {
+		if (camel_read (fd, file_contents, len, NULL, NULL) < 0) {
 			d(printf ("reading from the attachment file failed\n"));
 			g_free (file_contents);
 			file_contents = NULL;
@@ -2049,7 +2050,8 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject
 		/* Content */
 		stream = camel_stream_mem_new_with_buffer (file_contents, len);
 		wrapper = camel_data_wrapper_new ();
-		camel_data_wrapper_construct_from_stream (wrapper, stream, NULL);
+		camel_data_wrapper_construct_from_stream_sync (
+			wrapper, stream, NULL, NULL);
 		g_object_unref (stream);
 
 		mime_type = get_mime_type (dest_url);
@@ -2089,7 +2091,7 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject
 	byte_array = g_byte_array_new ();
 	stream = camel_stream_mem_new_with_byte_array (byte_array);
 	dw = camel_medium_get_content (CAMEL_MEDIUM (msg));
-	camel_data_wrapper_decode_to_stream (dw, stream, NULL);
+	camel_data_wrapper_decode_to_stream_sync (dw, stream, NULL, NULL);
 	buffer = g_memdup (byte_array->data, byte_array->len);
 	buffer[byte_array->len] = '\0';
 	d(printf ("|| Buffer: \n%s\n", buffer));
