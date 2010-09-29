@@ -1013,12 +1013,26 @@ open_task (ECalBackendSync *backend, EDataCal *cal,
         e_folder_exchange_subscribe (E_CAL_BACKEND_EXCHANGE (backend)->folder,
                                         E2K_CONTEXT_OBJECT_CHANGED, 30,
                                         notify_changes, backend);
+        e_folder_exchange_subscribe (E_CAL_BACKEND_EXCHANGE (backend)->folder,
+                                        E2K_CONTEXT_OBJECT_ADDED, 30,
+                                        notify_changes, backend);
+        e_folder_exchange_subscribe (E_CAL_BACKEND_EXCHANGE (backend)->folder,
+                                        E2K_CONTEXT_OBJECT_REMOVED, 30,
+                                        notify_changes, backend);
 
 	thread = g_thread_create ((GThreadFunc) get_changed_tasks, E_CAL_BACKEND_EXCHANGE (backend), FALSE, &error);
 	if (!thread) {
 		g_propagate_error (perror, EDC_ERROR_EX (OtherError, error->message));
 		g_error_free (error);
 	}
+}
+
+static void
+refresh_task (ECalBackendSync *backend, EDataCal *cal, GError **perror)
+{
+	g_return_if_fail (E_IS_CAL_BACKEND_EXCHANGE (backend));
+
+	get_changed_tasks (E_CAL_BACKEND_EXCHANGE (backend));
 }
 
 struct _cb_data {
@@ -1496,6 +1510,7 @@ class_init (ECalBackendExchangeTasksClass *klass)
 	parent_class = g_type_class_peek_parent (klass);
 
 	sync_class->open_sync = open_task;
+	sync_class->refresh_sync = refresh_task;
 	sync_class->create_object_sync = create_task_object;
 	sync_class->modify_object_sync = modify_task_object;
 	sync_class->remove_object_sync = remove_task_object;
