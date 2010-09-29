@@ -815,6 +815,12 @@ e_book_backend_exchange_connect (EBookBackendExchange *be, GError **perror)
 	e_folder_exchange_subscribe (bepriv->folder,
 				     E2K_CONTEXT_OBJECT_CHANGED, 30,
 				     subscription_notify, be);
+	e_folder_exchange_subscribe (bepriv->folder,
+				     E2K_CONTEXT_OBJECT_ADDED, 30,
+				     subscription_notify, be);
+	e_folder_exchange_subscribe (bepriv->folder,
+				     E2K_CONTEXT_OBJECT_REMOVED, 30,
+				     subscription_notify, be);
 
 	bepriv->connected = TRUE;
 	e_book_backend_set_is_loaded (E_BOOK_BACKEND (be), TRUE);
