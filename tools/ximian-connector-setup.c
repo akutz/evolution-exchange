@@ -47,7 +47,6 @@
 # endif
 #endif
 
-
 gint
 main (gint argc, gchar **argv)
 {
