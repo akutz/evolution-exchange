@@ -83,10 +83,9 @@ exchange_folder_append_message_data (CamelFolder *folder,
 		stream_cache = camel_data_cache_add (
 			exch->cache, "cache", new_uid, NULL);
 		if (stream_cache) {
-			camel_stream_write (stream_cache,
-					    (gchar *) message->data,
-					    message->len, NULL);
-			camel_stream_flush (stream_cache, NULL);
+			if (camel_stream_write (stream_cache, (gchar *) message->data, message->len, NULL) <= 0 ||
+			    camel_stream_flush (stream_cache, NULL) == -1)
+				camel_data_cache_remove (exch->cache, "cache", new_uid, NULL);
 			g_object_unref (stream_cache);
 		}
 		if (appended_uid)
@@ -119,6 +118,17 @@ exchange_folder_get_message_data (CamelFolder *folder,
 
 	stream = camel_data_cache_get (exch->cache, "cache", uid, NULL);
 	if (stream) {
+		CamelStream *null_stream = camel_stream_null_new ();
+
+		camel_stream_reset (stream, NULL);
+		if (camel_stream_write_to_stream (stream, null_stream, NULL) <= 0) {
+			stream = NULL;
+		}
+
+		g_object_unref (null_stream);
+	}
+
+	if (stream) {
 		ba = g_byte_array_new ();
 		stream_mem = camel_stream_mem_new ();
 		camel_stream_mem_set_byte_array (CAMEL_STREAM_MEM (stream_mem), ba);
@@ -148,8 +158,9 @@ exchange_folder_get_message_data (CamelFolder *folder,
 		return NULL;
 	}
 
-	camel_stream_write (stream, (gchar *) ba->data, ba->len, NULL);
-	camel_stream_flush (stream, NULL);
+	if (camel_stream_write (stream, (gchar *) ba->data, ba->len, NULL) <= 0 ||
+	    camel_stream_flush (stream, NULL) == -1)
+		camel_data_cache_remove (exch->cache, "cache", uid, NULL);
 	g_object_unref (stream);
 
 	return ba;
