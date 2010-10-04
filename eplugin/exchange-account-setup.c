@@ -336,7 +336,7 @@ org_gnome_exchange_settings (EPlugin *epl, EConfigHookItemFactoryData *data)
 	lbl_chpass = (GtkLabel*) g_object_new (GTK_TYPE_LABEL, "label", _("Change the password for Exchange account"), NULL);
 	gtk_misc_set_alignment (GTK_MISC (lbl_chpass), 0, 0.5);
 	btn_chpass = (GtkButton*) g_object_new (GTK_TYPE_BUTTON, "label", _("Change Password"), NULL);
-	g_signal_connect (GTK_OBJECT (btn_chpass), "clicked", G_CALLBACK (btn_chpass_clicked), NULL);
+	g_signal_connect (btn_chpass, "clicked", G_CALLBACK (btn_chpass_clicked), NULL);
 #endif
 
 	/* Delegation Assistant */
