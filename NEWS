@@ -1,3 +1,31 @@
+Evolution Exchange 2.91.0 2010-10-04
+------------------------------------
+
+Bug Fixes:
+	Bug 629603 - Allow calendar refresh on demand (Milan Crha)
+	Bug 631034 - Message cache keeps zero-sized mails on cancel
+	             (Milan Crha)
+
+Other Changes:
+	* Increase safety on Windows + remove unused code and variables.
+	  Call SetDllDirectory() to reduce risk of DLL hijacking, and call
+	  SetProcessDEPPolicy() to reduce risk of rogue code execution.
+	  Remove unnecessary relocations from ximian-connector-setup.c
+	  because they are not needed anymore in this file. (Fridrich Štrba)
+	* Adapt to Camel API changes. (Matthew Barnes)
+	* GtkObject is gone in GTK3 (Milan Crha)
+
+Translations:
+	Gil Forcada (ca)
+	Mattias Põldaru (et)
+	Jussi Aalto (fi)
+	Jiri Grönroos (fi)
+	Timo Jyrinki (fi)
+	Takayuki KUSANO (ja)
+	Žygimantas Beručka (lt)
+	Wouter Bolsterlee (nl)
+	Piotr Drąg (pl)
+
 Evolution Exchange 2.31.92 2010-09-13
 -------------------------------------
 
