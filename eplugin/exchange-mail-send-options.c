@@ -52,10 +52,10 @@ append_to_header (ExchangeSendOptionsDialog *dialog, gint state, gpointer data)
 		if (dialog->options->importance) {
 			switch (dialog->options->importance) {
 				case E_IMP_HIGH :
-					e_msg_composer_modify_header (composer, "Importance", "high");
+					e_msg_composer_set_header (composer, "Importance", "high");
 					break;
 				case E_IMP_LOW :
-					e_msg_composer_modify_header (composer, "Importance", "low");
+					e_msg_composer_set_header (composer, "Importance", "low");
 					break;
 				default :
 					g_print ("\nNo importance set");
@@ -68,13 +68,13 @@ append_to_header (ExchangeSendOptionsDialog *dialog, gint state, gpointer data)
 		if (dialog->options->sensitivity) {
 			switch (dialog->options->sensitivity) {
 				case E_SENSITIVITY_CONFIDENTIAL :
-					e_msg_composer_modify_header (composer, "Sensitivity", "Company-Confidential");
+					e_msg_composer_set_header (composer, "Sensitivity", "Company-Confidential");
 					break;
 				case E_SENSITIVITY_PERSONAL :
-					e_msg_composer_modify_header (composer, "Sensitivity", "Personal");
+					e_msg_composer_set_header (composer, "Sensitivity", "Personal");
 					break;
 				case E_SENSITIVITY_PRIVATE :
-					e_msg_composer_modify_header (composer, "Sensitivity", "Private");
+					e_msg_composer_set_header (composer, "Sensitivity", "Private");
 					break;
 				default :
 					g_print ("\nNo importance set");
@@ -94,7 +94,7 @@ append_to_header (ExchangeSendOptionsDialog *dialog, gint state, gpointer data)
 			dialog->options->delegate_address &&
 				g_ascii_strcasecmp (addr->v.addr, sender_addr->v.addr)) {
 
-			e_msg_composer_modify_header (composer, "Sender" , sender_id);
+			e_msg_composer_set_header (composer, "Sender" , sender_id);
 
 			/* This block handles the case wherein the address to be added
 			 * in the "From" field has no name associated with it.
@@ -127,7 +127,7 @@ append_to_header (ExchangeSendOptionsDialog *dialog, gint state, gpointer data)
 			mdn_address = account->id->reply_to;
 			if (!mdn_address || !*mdn_address)
 				mdn_address = account->id->address;
-			e_msg_composer_modify_header (composer, "Return-Receipt-To", mdn_address);
+			e_msg_composer_set_header (composer, "Return-Receipt-To", mdn_address);
 		}
 		else
 			e_msg_composer_remove_header (composer, "Return-Receipt-To");
@@ -143,7 +143,7 @@ append_to_header (ExchangeSendOptionsDialog *dialog, gint state, gpointer data)
 			if (!mdn_address || !*mdn_address)
 				mdn_address = account->id->address;
 
-			e_msg_composer_modify_header (composer, "Disposition-Notification-To", mdn_address);
+			e_msg_composer_set_header (composer, "Disposition-Notification-To", mdn_address);
 		}
 		else
 			e_msg_composer_remove_header (composer, "Disposition-Notification-To");

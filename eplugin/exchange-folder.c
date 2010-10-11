@@ -31,6 +31,7 @@
 #include <exchange-hierarchy.h>
 #include <libedataserverui/e-source-selector.h>
 #include <e-util/e-alert-dialog.h>
+#include <mail/e-mail-backend.h>
 #include <mail/mail-mt.h>
 #include <mail/mail-ops.h>
 #include <shell/e-shell.h>
@@ -105,6 +106,9 @@ exchange_get_folder (gchar *uri, CamelFolder *folder, gpointer data)
 static void
 eex_folder_inbox_unsubscribe (const gchar *uri)
 {
+	EShell *shell;
+	EShellBackend *shell_backend;
+	EMailSession *session;
 	ExchangeAccount *account = NULL;
 	gchar *path = NULL;
 	gchar *stored_path = NULL;
@@ -179,8 +183,15 @@ eex_folder_inbox_unsubscribe (const gchar *uri)
 	inbox = exchange_account_get_folder (account, inbox_uri);
 	inbox_physical_uri = e_folder_get_physical_uri (inbox);
 
+	/* XXX Dig up the EMailSession from the default EShell. */
+	shell = e_shell_get_default ();
+	shell_backend = e_shell_get_backend_by_name (shell, "mail");
+	session = e_mail_backend_get_session (E_MAIL_BACKEND (shell_backend));
+
 	/* To get the CamelStore/Folder */
-	mail_get_folder (inbox_physical_uri, 0, exchange_get_folder, target_uri, mail_msg_unordered_push);
+	mail_get_folder (
+		session, inbox_physical_uri, 0,
+		exchange_get_folder, target_uri, mail_msg_unordered_push);
 }
 
 static void

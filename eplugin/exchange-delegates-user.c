@@ -28,6 +28,7 @@
 #include "exchange-delegates.h"
 #include "exchange-delegates-user.h"
 
+#include <shell/e-shell.h>
 #include <mail/mail-ops.h>
 #include <mail/mail-send-recv.h>
 #include <mail/e-mail-local.h>
@@ -176,8 +177,17 @@ static void
 em_utils_delegates_done (CamelFolder *folder, CamelMimeMessage *msg, CamelMessageInfo *info,
 		       gint queued, const gchar *appended_uid, gpointer data)
 {
+	EShell *shell;
+	EShellBackend *shell_backend;
+	EMailSession *session;
+
+	/* XXX Dig up the EMailSession from the default EShell. */
+	shell = e_shell_get_default ();
+	shell_backend = e_shell_get_backend_by_name (shell, "mail");
+	session = e_mail_backend_get_session (E_MAIL_BACKEND (shell_backend));
+
 	camel_message_info_free (info);
-	mail_send ();
+	mail_send (session);
 }
 
 /**
