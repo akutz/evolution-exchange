@@ -538,7 +538,7 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 			}
 
 			/* Send the permissions summarizing mail */
-			out_folder = e_mail_local_get_folder (E_MAIL_FOLDER_OUTBOX);
+			out_folder = e_mail_local_get_folder (E_MAIL_LOCAL_FOLDER_OUTBOX);
 			info = camel_message_info_new (NULL);
 			camel_message_info_set_flags (info, CAMEL_MESSAGE_SEEN, CAMEL_MESSAGE_SEEN);
 			mail_append_mail (out_folder, delegate_mail, info, em_utils_delegates_done, NULL);
