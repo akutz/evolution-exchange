@@ -42,6 +42,8 @@
 #include <e-util/e-dialog-utils.h>
 #include <e-util/e-alert-dialog.h>
 
+#include "gtk-compat.h"
+
 struct _ExchangePermissionsDialogPrivate {
 	ExchangeAccount *account;
 	gchar *base_uri, *folder_path;
@@ -542,14 +544,14 @@ display_role (ExchangePermissionsDialog *dialog)
 
 	if (role == E2K_PERMISSIONS_ROLE_CUSTOM) {
 		if (dialog->priv->custom_added == FALSE) {
-			gtk_combo_box_append_text (GTK_COMBO_BOX (dialog->priv->role_optionmenu), _("Custom"));
+			gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (dialog->priv->role_optionmenu), _("Custom"));
 			dialog->priv->custom_added = TRUE;
 		}
 		role = E2K_PERMISSIONS_ROLE_NUM_ROLES;
 	}
 	else	{
 		if (dialog->priv->custom_added) {
-			gtk_combo_box_remove_text (GTK_COMBO_BOX (dialog->priv->role_optionmenu), E2K_PERMISSIONS_ROLE_NUM_ROLES);
+			gtk_combo_box_text_remove (GTK_COMBO_BOX_TEXT (dialog->priv->role_optionmenu), E2K_PERMISSIONS_ROLE_NUM_ROLES);
 			dialog->priv->custom_added = FALSE;
 		}
 	}
@@ -680,11 +682,11 @@ exchange_permissions_role_optionmenu_new (void)
 	const gchar **roles;
 	gint role;
 
-	menu = gtk_combo_box_new_text ();
+	menu = gtk_combo_box_text_new ();
 	roles = g_new (const gchar *, E2K_PERMISSIONS_ROLE_NUM_ROLES + 1);
 	for (role = 0; role < E2K_PERMISSIONS_ROLE_NUM_ROLES; role++) {
 		roles[role] = e2k_permissions_role_get_name (role);
-		gtk_combo_box_append_text (GTK_COMBO_BOX (menu), roles[role]);
+		gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (menu), roles[role]);
 	}
 
 	roles[role] = NULL;

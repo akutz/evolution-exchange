@@ -38,6 +38,7 @@
 #include "exchange-config-listener.h"
 #include "exchange-folder-subscription.h"
 #include "exchange-operations.h"
+#include "gtk-compat.h"
 
 static void
 user_response (ENameSelectorDialog *name_selector_dialog, gint response, gpointer data)
@@ -63,7 +64,7 @@ setup_name_selector (GtkWidget *placeholder, GtkWidget *button_user, ENameSelect
 	ENameSelectorDialog *name_selector_dialog;
 	GtkWidget *widget;
 
-	g_assert (GTK_IS_CONTAINER (placeholder));
+	g_return_val_if_fail (GTK_IS_CONTAINER (placeholder), NULL);
 
 	name_selector = e_name_selector_new ();
 
@@ -89,7 +90,7 @@ setup_name_selector (GtkWidget *placeholder, GtkWidget *button_user, ENameSelect
 static void
 setup_folder_name_combo (GtkWidget *widget, const gchar *fname)
 {
-	GtkComboBox *combo;
+	GtkComboBoxText *combo;
 	const gchar *strings[] = {
 		"Calendar",
 		"Inbox",
@@ -100,13 +101,13 @@ setup_folder_name_combo (GtkWidget *widget, const gchar *fname)
 	};
 	gint i;
 
-	combo = GTK_COMBO_BOX (widget);
-	g_assert (GTK_IS_COMBO_BOX_ENTRY (combo));
+	combo = GTK_COMBO_BOX_TEXT (widget);
+	g_return_if_fail (GTK_IS_COMBO_BOX_TEXT (combo));
 
-	gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (combo)));
+	gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (combo))));
 
 	for (i = 0; strings[i] != NULL; i++)
-		gtk_combo_box_append_text (combo, strings[i]);
+		gtk_combo_box_text_append_text (combo, strings[i]);
 
 	gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (combo))), fname);
 }
@@ -139,11 +140,11 @@ user_name_entry_changed_callback (GtkEditable *editable, gpointer data)
 static void
 setup_server_combobox (GtkWidget *widget, gchar *mail_account)
 {
-	g_return_if_fail (GTK_IS_COMBO_BOX (widget));
+	g_return_if_fail (GTK_IS_COMBO_BOX_TEXT (widget));
 
 	gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (widget))));
 
-	gtk_combo_box_append_text (GTK_COMBO_BOX (widget), mail_account);
+	gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (widget), mail_account);
 	gtk_combo_box_set_active (GTK_COMBO_BOX (widget), 0);
 
 	/* FIXME: Default to the current storage in the shell view.  */
@@ -345,13 +346,29 @@ create_folder_subscription_dialog (ExchangeAccount *account, const gchar *fname)
 			  (GtkAttachOptions) (GTK_FILL),
 			  (GtkAttachOptions) (0), 0, 0);
 
+#if GTK_CHECK_VERSION(2,23,0)
+	/* FIXME Rewrite this when removing the version check. */
+	{
+		GtkListStore *store;
+
+		store = gtk_list_store_new (1, G_TYPE_STRING);
+		folder_name_combo = g_object_new (
+			GTK_TYPE_COMBO_BOX,
+			"model", store,
+			"has-entry", TRUE,
+			"entry-text-column", 0,
+			NULL);
+		g_object_unref (store);
+	}
+#else
 	folder_name_combo = gtk_combo_box_entry_new_text ();
+#endif
 	gtk_widget_show (folder_name_combo);
 	gtk_table_attach (GTK_TABLE (table1), folder_name_combo, 1, 2, 2, 3,
 			  (GtkAttachOptions) (GTK_FILL),
 			  (GtkAttachOptions) (GTK_FILL), 0, 0);
 
-	server_combobox = gtk_combo_box_new_text ();
+	server_combobox = gtk_combo_box_text_new ();
 	gtk_widget_show (server_combobox);
 	gtk_table_attach (GTK_TABLE (table1), server_combobox, 1, 2, 0, 1,
 			  (GtkAttachOptions) (GTK_FILL),
