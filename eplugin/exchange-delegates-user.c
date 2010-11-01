@@ -32,6 +32,7 @@
 #include <mail/mail-ops.h>
 #include <mail/mail-send-recv.h>
 #include <mail/e-mail-local.h>
+#include <mail/e-mail-folder-utils.h>
 #include <exchange-account.h>
 #include <e2k-global-catalog.h>
 #include <e2k-marshal.h>
@@ -176,8 +177,7 @@ map_to_full_role_name (E2kPermissionsRole role_nam)
 }
 
 static void
-em_utils_delegates_done (CamelFolder *folder, CamelMimeMessage *msg, CamelMessageInfo *info,
-		       gint queued, const gchar *appended_uid, gpointer data)
+em_utils_delegates_done (GObject *source_object, GAsyncResult *res, gpointer user_data)
 {
 	EShell *shell;
 	EShellBackend *shell_backend;
@@ -188,8 +188,8 @@ em_utils_delegates_done (CamelFolder *folder, CamelMimeMessage *msg, CamelMessag
 	shell_backend = e_shell_get_backend_by_name (shell, "mail");
 	session = e_mail_backend_get_session (E_MAIL_BACKEND (shell_backend));
 
-	camel_message_info_free (info);
-	mail_send (session);
+	if (e_mail_folder_append_message_finish (CAMEL_FOLDER (source_object), res, NULL, NULL))
+		mail_send (session);
 }
 
 /**
@@ -543,8 +543,9 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 			out_folder = e_mail_local_get_folder (E_MAIL_LOCAL_FOLDER_OUTBOX);
 			info = camel_message_info_new (NULL);
 			camel_message_info_set_flags (info, CAMEL_MESSAGE_SEEN, CAMEL_MESSAGE_SEEN);
-			mail_append_mail (out_folder, delegate_mail, info, em_utils_delegates_done, NULL);
-
+			e_mail_folder_append_message (out_folder, delegate_mail, info, 0, NULL, em_utils_delegates_done, NULL);
+			camel_message_info_free (info);
+			g_object_unref (delegate_mail);
 		}
 
 	}
