@@ -204,12 +204,33 @@ load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri, GError **perror)
 
 	if (g_lstat (cbex->priv->local_attachment_store , &buf) < 0) {
 #ifdef G_OS_UNIX
+		gint failed = TRUE;
+
+ again:
 		if (symlink (storage_dir, cbex->priv->local_attachment_store) < 0)
 			g_warning ("%s: symlink() failed: %s", G_STRFUNC, g_strerror (errno));
+		else
+			failed = FALSE;
+
+		if (failed) {
+			gchar *parent_dir = g_build_filename (user_cache_dir, "calendar", NULL);
+
+			if (!g_file_test (parent_dir, G_FILE_TEST_IS_DIR)) {
+				g_mkdir_with_parents (parent_dir, 0700);
+				g_free (parent_dir);
+
+				failed = FALSE;
+				goto again;
+			}
+
+			g_free (parent_dir);
+		}
 #else
 		g_warning ("should symlink %s->%s, huh?",
 			   cbex->priv->local_attachment_store,
 			   storage_dir);
+
+		g_mkdir_with_parents (cbex->priv->local_attachment_store, 0700);
 #endif
 	}
 	g_free (storage_dir);
@@ -1734,6 +1755,10 @@ save_attach_file (const gchar *dest_file, gchar *file_contents, gint len)
 
 end :
 	close (fd);
+
+	if (!dest_url)
+		g_warning ("Failed to save attachment to file '%s', directory does not exist/disk full?", dest_file);
+
 	return dest_url;
 }
 
@@ -1779,8 +1804,11 @@ get_attachment (ECalBackendExchange *cbex, const gchar *uid,
 				attach_file_url = save_attach_file (attach_file, (gchar *) attach_data, byte_array->len);
 				g_free (attach_data);
 				g_free (attach_file);
-				d(printf ("attach file name : %s\n", attach_file_url));
-				list = g_slist_append (list, attach_file_url);
+
+				if (attach_file_url) {
+					d(printf ("attach file name : %s\n", attach_file_url));
+					list = g_slist_append (list, attach_file_url);
+				}
 
 				g_object_unref (stream);
 			}
