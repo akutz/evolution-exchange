@@ -57,7 +57,8 @@ liborg_gnome_exchange_operations_la_SOURCES = \
 	exchange-folder.c \
 	exchange-mail-send-options.c \
 	exchange-send-options.c \
-	exchange-send-options.h
+	exchange-send-options.h \
+	gtk-compat.h
 
 liborg_gnome_exchange_operations_la_LIBADD = \
 	$(top_builddir)/server/storage/libexchange-storage.la \
