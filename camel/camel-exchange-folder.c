@@ -507,6 +507,8 @@ exchange_folder_get_message (CamelFolder *folder,
 	if (!ba)
 		return NULL;
 
+	g_byte_array_append (ba, (guint8 *) "", 1);
+
 	while ((ba->len > 10 && g_str_has_prefix ((const gchar *)ba->data, "MAIL FROM:")) ||
 	       (ba->len >  8 && g_str_has_prefix ((const gchar *)ba->data, "RCPT TO:")) ||
 	       (ba->len >  2 && (ba->data[0] == '\n' || ba->data[1] == '\n'))) {
@@ -521,6 +523,9 @@ exchange_folder_get_message (CamelFolder *folder,
 		else
 			break;
 	}
+
+	if (ba->len > 0 && ba->data[ba->len - 1] == 0)
+		g_byte_array_remove_index (ba, ba->len - 1);
 
 	stream = camel_stream_mem_new_with_byte_array (ba);
 
