@@ -225,6 +225,21 @@ dnl *************************
 CONNECTOR_DATADIR='$(datadir)/evolution-exchange/$(BASE_VERSION)'
 AC_SUBST(CONNECTOR_DATADIR)
 
+privlibdir='${libdir}'/evolution-exchange/$BASE_VERSION
+AC_SUBST(privlibdir)
+
+if test "$os_win32" = yes; then
+	dnl On Win32 there is no "rpath" mechanism. We install the private
+	dnl shared libraries in $libdir, meaning the DLLs will actually be in
+	dnl $bindir. This means just having $bindir in PATH will be enough. This
+	dnl also means gnome_win32_get_prefixes() will be able to deduce the
+	dnl installation folder correctly.
+	privsolibdir=$libdir
+else
+	privsolibdir=$privlibdir
+fi
+AC_SUBST(privsolibdir)
+
 dnl *************************************
 dnl Check for evo/eds and version setting
 dnl *************************************

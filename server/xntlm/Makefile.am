@@ -1,4 +1,4 @@
-noinst_LTLIBRARIES = libxntlm.la
+privsolib_LTLIBRARIES = libxntlm.la
 
 libxntlm_la_SOURCES = \
 	xntlm.c \

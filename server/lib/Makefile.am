@@ -1,4 +1,4 @@
-noinst_LTLIBRARIES = \
+privsolib_LTLIBRARIES = \
 	libexchange.la
 
 PROP_GENERATED = e2k-propnames.h e2k-propnames.c e2k-proptags.h

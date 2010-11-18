@@ -1,4 +1,4 @@
-noinst_LTLIBRARIES = \
+privsolib_LTLIBRARIES = \
 	libexchange-storage.la
 
 libexchange_storage_la_CPPFLAGS = \

@@ -1,6 +1,6 @@
 noinst_PROGRAMS = exchange-connector-setup
 
-noinst_LTLIBRARIES = libevolution-exchange-shared.la
+privsolib_LTLIBRARIES = libevolution-exchange-shared.la
 
 libevolution_exchange_shared_la_CPPFLAGS = \
 	$(AM_CPPFLAGS) \
