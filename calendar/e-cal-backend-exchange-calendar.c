@@ -1720,7 +1720,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 					if (e_cal_util_component_is_instance (subcomp))
 						mod = CALOBJ_MOD_THIS;
 
-					icalobj = (gchar *) icalcomponent_as_ical_string_r (subcomp);
+					icalobj = e_cal_component_get_as_string (comp);
 					if (!modify_object_with_href (backend, cal, icalobj,
 									  mod,
 									  &old_object, &new_object, NULL, NULL, error)) {
@@ -1747,7 +1747,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 				}
 
 				d(printf ("object : %s .. not found in the cache\n", uid));
-				icalobj = (gchar *) icalcomponent_as_ical_string_r (subcomp);
+				icalobj = e_cal_component_get_as_string (comp);
 				d(printf ("Create a new object : %s\n", icalobj));
 
 				e_cal_backend_exchange_cache_unlock (cbex);
