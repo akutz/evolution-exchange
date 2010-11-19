@@ -1742,6 +1742,16 @@ save_attach_file (const gchar *dest_file, gchar *file_contents, gint len)
 	/* Write it to our local exchange store. */
 	fd = g_open (dest_file, O_RDWR | O_CREAT | O_TRUNC | O_BINARY, 0600);
 	if (fd < 0) {
+		gchar *dir = g_path_get_dirname (dest_file);
+
+		if (dir && (dir[0] != '.' || !dir[1]) &&
+		    g_mkdir_with_parents (dir, 0700) >= 0)
+			fd = g_open (dest_file, O_RDWR | O_CREAT | O_TRUNC | O_BINARY, 0600);
+
+		g_free (dir);
+	}
+
+	if (fd < 0) {
 		d(printf ("open of destination file for attachments failed\n"));
 		goto end;
 	}
@@ -1956,12 +1966,22 @@ receive_attachments (ECalBackendExchange *cbex, ECalComponent *comp)
 
 	e_cal_component_get_attachment_list (comp, &attach_list);
 	for (l = attach_list; l; l = l->next) {
-		gchar *fname, *dest_url, *attach_file = NULL, *file_contents;
+		const gchar *fname;
+		gchar *dest_url, *attach_file = NULL, *file_contents, *old_file = NULL;
 		gint len = 0;
 
 		if (!strncmp ((gchar *)l->data, "file://", 7)) {
-			fname = g_filename_from_uri ((gchar *)l->data, NULL, NULL);
-			attach_file = fname;
+			attach_file = g_filename_from_uri ((gchar *)l->data, NULL, NULL);
+			fname = attach_file;
+
+			if (fname && cbex->priv->local_attachment_store && !g_str_has_prefix (fname, cbex->priv->local_attachment_store)) {
+				/* it's not in our store, thus save it there */
+				gchar *base_name = g_path_get_basename (attach_file);
+
+				old_file = attach_file;
+				attach_file = g_build_filename (cbex->priv->local_attachment_store, uid, base_name, NULL);
+				g_free (base_name);
+			}
 		} else {
 			const gchar *filename;
 
@@ -1979,6 +1999,7 @@ receive_attachments (ECalBackendExchange *cbex, ECalComponent *comp)
 
 		/* attach_file should be g_freed */
 		file_contents = get_attach_file_contents (fname, &len);
+		g_free (old_file);
 		if (!file_contents) {
 			g_free (attach_file);
 			continue;
@@ -2121,8 +2142,8 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject
 	stream = camel_stream_mem_new_with_byte_array (byte_array);
 	dw = camel_medium_get_content (CAMEL_MEDIUM (msg));
 	camel_data_wrapper_decode_to_stream_sync (dw, stream, NULL, NULL);
+	g_byte_array_append (byte_array, (guint8 *) "", 1);
 	buffer = g_memdup (byte_array->data, byte_array->len);
-	buffer[byte_array->len] = '\0';
 	d(printf ("|| Buffer: \n%s\n", buffer));
 	g_object_unref (stream);
 	g_object_unref (msg);
