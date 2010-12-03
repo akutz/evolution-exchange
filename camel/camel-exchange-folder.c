@@ -345,7 +345,7 @@ exchange_folder_refresh_info (CamelFolder *folder,
 	CamelExchangeFolder *exch;
 	CamelExchangeStore *store;
 	CamelStore *parent_store;
-	guint32 unread_count, visible_count;
+	guint32 unread_count = -1, visible_count = -1;
 	const gchar *full_name;
 	gboolean success = TRUE;
 
@@ -358,20 +358,23 @@ exchange_folder_refresh_info (CamelFolder *folder,
 	if (camel_exchange_store_connected (store, NULL)) {
 		camel_offline_journal_replay (exch->journal, NULL);
 
-		camel_exchange_utils_refresh_folder (
-			CAMEL_SERVICE (parent_store), full_name, NULL);
+		success = camel_exchange_utils_refresh_folder (
+			CAMEL_SERVICE (parent_store), full_name, error);
 	}
 
 	/* sync up the counts now */
-	if (!camel_exchange_utils_sync_count (
+	success = success && camel_exchange_utils_sync_count (
 		CAMEL_SERVICE (parent_store), full_name,
-		&unread_count, &visible_count, error)) {
-		g_print("\n Error syncing up the counts");
-		success = FALSE;
-	}
+		&unread_count, &visible_count, error);
 
-	folder->summary->unread_count = unread_count;
-	folder->summary->visible_count = visible_count;
+	success = success && (!error || !*error);
+
+	if (success) {
+		folder->summary->unread_count = unread_count;
+		folder->summary->visible_count = visible_count;
+	} else if (error && !*error) {
+		g_set_error (error, CAMEL_ERROR, CAMEL_ERROR_GENERIC, "%s", _("Could not get new messages"));
+	}
 
 	return success;
 }
