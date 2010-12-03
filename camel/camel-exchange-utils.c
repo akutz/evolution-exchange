@@ -827,7 +827,13 @@ got_folder_error (ExchangeFolder *mfld, GError **error, const gchar *err)
 {
 	set_exception (error, err);
 
-	free_folder (mfld);
+	g_return_if_fail (mfld != NULL);
+	g_return_if_fail (mfld->ed != NULL);
+
+	/* DO NOT remove folder here, it is pretty confused when gets back online */
+
+	/* this also calls free_folder() */
+	/* g_hash_table_remove (mfld->ed->folders_by_name, mfld->name); */
 }
 
 static void
@@ -1902,7 +1908,7 @@ get_folder_info_data (ExchangeData *ed, const gchar *top, guint32 store_flags, G
 
 	mode = is_online (ed);
 	if (!subscribed && subscription_list) {
-		ExchangeAccountResult result = -1;
+		ExchangeAccountFolderResult result = -1;
 
 		d(g_print ("%s(%d):%s: NOT SUBSCRIBED top = [%s]\n", __FILE__, __LINE__, G_STRFUNC, top));
 		if (!toplen)
@@ -2084,7 +2090,8 @@ folder_update_linestatus (gpointer key, gpointer value, gpointer data)
 	if (ul->linestatus == ONLINE_MODE) {
 		CamelFolder *folder;
 
-		get_folder_online (mfld, ul->error);
+		if (!get_folder_online (mfld, ul->error))
+			return;
 
 		readonly = (mfld->access & (MAPI_ACCESS_MODIFY | MAPI_ACCESS_CREATE_CONTENTS)) ? 0 : 1;
 
@@ -2316,7 +2323,7 @@ camel_exchange_utils_refresh_folder (CamelService *service,
 	if (!mfld)
 		return FALSE;
 
-	refresh_folder_internal (mfld, cancellable, NULL);
+	refresh_folder_internal (mfld, cancellable, error);
 	sync_deletions (mfld);
 
 	return TRUE;
