@@ -34,11 +34,6 @@
 
 #define CAMEL_EXCHANGE_SUMMARY_VERSION (2)
 
-#define EXTRACT_FIRST_DIGIT(val) val=strtoul (part, &part, 10);
-#define EXTRACT_DIGIT(val) part++; val=strtoul (part, &part, 10);
-#define EXTRACT_FIRST_STRING(val) len=strtoul (part, &part, 10); if (*part) part++; val=g_strndup (part, len); part+=len;
-#define EXTRACT_STRING(val) if (*part) part++; len=strtoul (part, &part, 10); if (*part) part++; val=g_strndup (part, len); part+=len;
-
 #define d(x)
 
 G_DEFINE_TYPE (CamelExchangeSummary, camel_exchange_summary, CAMEL_TYPE_FOLDER_SUMMARY)
@@ -276,17 +271,9 @@ exchange_summary_summary_header_from_db (CamelFolderSummary *s,
 
 	part = mir->bdata;
 
-	if (part) {
-		EXTRACT_FIRST_DIGIT (exchange->version)
-	}
-
-	if (part) {
-		EXTRACT_DIGIT (exchange->readonly)
-	}
-
-	if (part) {
-		EXTRACT_DIGIT (exchange->high_article_num)
-	}
+	exchange->version = bdata_extract_digit (&part);
+	exchange->readonly = bdata_extract_digit (&part);
+	exchange->high_article_num = bdata_extract_digit (&part);
 
 	return 0;
 }
@@ -323,10 +310,9 @@ exchange_summary_message_info_from_db (CamelFolderSummary *s,
 	info = folder_summary_class->message_info_from_db (s, mir);
 	if (info) {
 		gchar *part = mir->bdata;
-		gint len;
 		einfo = (CamelExchangeMessageInfo *)info;
-		EXTRACT_FIRST_STRING (einfo->thread_index)
-		EXTRACT_FIRST_STRING (einfo->href)
+		einfo->thread_index = bdata_extract_string (&part);
+		einfo->href = bdata_extract_string (&part);
 	}
 
 	return info;
