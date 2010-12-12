@@ -3,18 +3,19 @@
 # Joe Man <trmetal@yahoo.com.hk>, 2001.
 # Chao-Hsiung Liao <pesder.liao@msa.hinet.net>, 2003.
 # Craig Jeffares <cjeffares@novell.com>,2004.
-# Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>, 2005.
+# Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>, 2005, 2010.
 # Abel Cheung <abel@oaka.org>, 2005.
-#
+# Wei-Lun Chao <chaoweilun@gmail.com>, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Evolution-exchange 2.31.6\n"
+"Project-Id-Version: Evolution-exchange 2.91.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-20 15:00+0800\n"
-"PO-Revision-Date: 2010-07-15 20:23+0800\n"
-"Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
+"POT-Creation-Date: 2010-12-12 19:33+0800\n"
+"PO-Revision-Date: 2010-10-16 12:00+0800\n"
+"Last-Translator: Wei-Lun Chao <chaoweilun@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <zh-l10n@lists.linux.org.tw>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -39,27 +40,27 @@ msgstr ""
 msgid "Operation failed with status %d"
 msgstr "操作以狀態 %d 失敗"
 
-#: ../addressbook/e-book-backend-exchange.c:1797
-#: ../addressbook/e-book-backend-exchange.c:2642
+#: ../addressbook/e-book-backend-exchange.c:1808
+#: ../addressbook/e-book-backend-exchange.c:2653
 msgid "Cancelled"
 msgstr "已取消"
 
 # Novell Translation
-#: ../addressbook/e-book-backend-exchange.c:2319
+#: ../addressbook/e-book-backend-exchange.c:2330
 #: ../addressbook/e-book-backend-gal.c:1931
 msgid "Searching..."
-msgstr "搜尋中..."
+msgstr "搜尋中…"
 
 # Novell Translation
 #: ../addressbook/e-book-backend-gal.c:330
 #: ../addressbook/e-book-backend-gal.c:351
 msgid "Reconnecting to LDAP server..."
-msgstr "正在重新連接 LDAP 伺服器..."
+msgstr "正在重新連接 LDAP 伺服器…"
 
 # Novell Translation
 #: ../addressbook/e-book-backend-gal.c:1671
 msgid "Receiving LDAP search results..."
-msgstr "正在接收 LDAP 搜尋結果..."
+msgstr "正在接收 LDAP 搜尋結果…"
 
 # Novell Translation
 #: ../addressbook/e-book-backend-gal.c:1962
@@ -67,92 +68,98 @@ msgid "Error performing search"
 msgstr "進行搜尋時發生錯誤"
 
 # Novell Translation
-#: ../calendar/e-cal-backend-exchange-calendar.c:2145
+#: ../calendar/e-cal-backend-exchange-calendar.c:2159
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "在排定時間內，資源「%s」在忙碌中。"
 
-#: ../camel/camel-exchange-folder.c:75
+#: ../camel/camel-exchange-folder.c:76
 msgid "No Subject"
 msgstr "沒有主旨"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:137
+#: ../camel/camel-exchange-folder.c:149
 #, c-format
 msgid "This message is not available in offline mode."
 msgstr "這封郵件無法在離線模式下使用。"
 
-#: ../camel/camel-exchange-folder.c:386
+#: ../camel/camel-exchange-folder.c:507
 #, c-format
 msgid "You cannot expunge in offline mode."
 msgstr "在離線模式中無法刪除郵件。"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:626
+#: ../camel/camel-exchange-folder.c:644 ../camel/camel-exchange-utils.c:532
+#: ../camel/camel-exchange-utils.c:571
+msgid "Could not get new messages"
+msgstr "無法取得新郵件"
+
+# Novell Translation
+#: ../camel/camel-exchange-folder.c:688
 msgid "Moving messages"
 msgstr "正在移動郵件"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:627
+#: ../camel/camel-exchange-folder.c:688
 msgid "Copying messages"
 msgstr "正在複製郵件"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:1070
+#: ../camel/camel-exchange-folder.c:1108
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "無法建構目錄 %s：%s"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:1081
+#: ../camel/camel-exchange-folder.c:1119
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "無法載入 %s 的摘要"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:1088
+#: ../camel/camel-exchange-folder.c:1126
 #, c-format
 msgid "Could not create cache for %s: "
 msgstr "無法建立 %s 的快取："
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:1099
+#: ../camel/camel-exchange-folder.c:1137
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "無法建構 %s 的日誌"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:1146
+#: ../camel/camel-exchange-folder.c:1185
 msgid "Scanning for changed messages"
 msgstr "掃描已變更的郵件"
 
 # Novell Translation
-#: ../camel/camel-exchange-folder.c:1173
+#: ../camel/camel-exchange-folder.c:1213
 msgid "Fetching summary information for new messages"
 msgstr "取得新郵件的摘要資訊"
 
-#: ../camel/camel-exchange-journal.c:144
+#: ../camel/camel-exchange-journal.c:149
 #, c-format
 msgid "No folder name found"
 msgstr "找不到資料夾名稱"
 
 # Novell Translation
-#: ../camel/camel-exchange-journal.c:185 ../camel/camel-exchange-utils.c:3139
-#: ../camel/camel-exchange-utils.c:3203 ../camel/camel-exchange-utils.c:3321
-#: ../camel/camel-exchange-utils.c:3352 ../camel/camel-exchange-utils.c:3404
-#: ../camel/camel-exchange-utils.c:3425
+#: ../camel/camel-exchange-journal.c:190 ../camel/camel-exchange-utils.c:3148
+#: ../camel/camel-exchange-utils.c:3212 ../camel/camel-exchange-utils.c:3330
+#: ../camel/camel-exchange-utils.c:3361 ../camel/camel-exchange-utils.c:3413
+#: ../camel/camel-exchange-utils.c:3434
 #, c-format
 msgid "Folder doesn't exist"
 msgstr "資料夾不存在"
 
 # Novell Translation
-#: ../camel/camel-exchange-journal.c:417
+#: ../camel/camel-exchange-journal.c:425
 #, c-format
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "不能在離線模式中加入郵件：無法使用快取"
 
 # Novell Translation
-#: ../camel/camel-exchange-journal.c:437
+#: ../camel/camel-exchange-journal.c:445
 msgid "Cannot append message in offline mode: "
 msgstr "不能在離線模式中加入郵件："
 
@@ -283,166 +290,161 @@ msgid ""
 msgstr "此選項將會連接到使用標準純文字密碼驗證的 Exchange 伺服器。"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:300
+#: ../camel/camel-exchange-store.c:288
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange 伺服器 %s"
 
-#: ../camel/camel-exchange-store.c:304
+#: ../camel/camel-exchange-store.c:292
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "於 %2$s 上，屬於 %1$s 的 Exchange 帳戶"
 
-#: ../camel/camel-exchange-store.c:378
+#: ../camel/camel-exchange-store.c:371
 #, c-format
 msgid "Could not authenticate to server. (Password incorrect?)"
 msgstr "無法登入伺服器。（密碼不正確嗎？）"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:441
+#: ../camel/camel-exchange-store.c:465
 #, c-format
 msgid "No such folder %s"
 msgstr "沒有這個資料夾 %s"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:574
+#: ../camel/camel-exchange-store.c:620
 #, c-format
 msgid "Cannot create folder in offline mode."
 msgstr "在離線模式中無法建構資料夾。"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:604
+#: ../camel/camel-exchange-store.c:651
 #, c-format
 msgid "Cannot delete folder in offline mode."
 msgstr "在離線模式中無法刪除資料夾。"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:630
+#: ../camel/camel-exchange-store.c:678
 #, c-format
 msgid "Cannot rename folder in offline mode."
 msgstr "在離線模式中無法重新命名資料夾。"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:711
+#: ../camel/camel-exchange-store.c:742
 #, c-format
 msgid "Cannot subscribe folder in offline mode."
 msgstr "在離線模式中無法訂閱資料夾。"
 
 # Novell Translation
-#: ../camel/camel-exchange-store.c:730
+#: ../camel/camel-exchange-store.c:762
 #, c-format
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "在離線模式中無法取消訂閱資料夾。"
 
 # (Abel) Transport 是大寫的，有些譯為「Exchange 傳輸系統」
-#: ../camel/camel-exchange-transport.c:65
+#: ../camel/camel-exchange-transport.c:66
 #, c-format
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "Exchange 傳輸系統只能與 Exchange 郵件來源一起使用"
 
 # Novell Translation
-#: ../camel/camel-exchange-transport.c:79
+#: ../camel/camel-exchange-transport.c:80
 #, c-format
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "不能傳送郵件：一或多個無效的收件者"
 
 # Novell Translation
-#: ../camel/camel-exchange-transport.c:90
+#: ../camel/camel-exchange-transport.c:91
 #, c-format
 msgid "Could not find 'From' address in message"
 msgstr "郵件中找不到「寄件者」地址"
 
 # Novell Translation
-#: ../camel/camel-exchange-utils.c:529 ../camel/camel-exchange-utils.c:568
-msgid "Could not get new messages"
-msgstr "無法取得新郵件"
-
-# Novell Translation
-#: ../camel/camel-exchange-utils.c:1056 ../camel/camel-exchange-utils.c:1207
+#: ../camel/camel-exchange-utils.c:1055 ../camel/camel-exchange-utils.c:1206
 msgid "Could not open folder"
 msgstr "無法開啟資料夾"
 
-#: ../camel/camel-exchange-utils.c:1203 ../camel/camel-exchange-utils.c:1221
+#: ../camel/camel-exchange-utils.c:1202 ../camel/camel-exchange-utils.c:1220
 msgid "Could not open folder: Permission denied"
 msgstr "無法開啟資料夾：存取被拒"
 
 # Novell Translation
-#: ../camel/camel-exchange-utils.c:1270 ../camel/camel-exchange-utils.c:2199
+#: ../camel/camel-exchange-utils.c:1269 ../camel/camel-exchange-utils.c:2205
 msgid "No such folder"
 msgstr "無此資料夾"
 
-#: ../camel/camel-exchange-utils.c:1292 ../camel/camel-exchange-utils.c:3113
-#: ../camel/camel-exchange-utils.c:3156 ../camel/camel-exchange-utils.c:3325
-#: ../camel/camel-exchange-utils.c:3378 ../camel/camel-exchange-utils.c:3440
+#: ../camel/camel-exchange-utils.c:1291 ../camel/camel-exchange-utils.c:3122
+#: ../camel/camel-exchange-utils.c:3165 ../camel/camel-exchange-utils.c:3334
+#: ../camel/camel-exchange-utils.c:3387 ../camel/camel-exchange-utils.c:3449
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
 #: ../server/storage/e-storage.c:573
 msgid "Permission denied"
 msgstr "存取被拒"
 
 # Novell Translation
-#: ../camel/camel-exchange-utils.c:2208
+#: ../camel/camel-exchange-utils.c:2214
 msgid "Could not create folder."
 msgstr "無法建構資料夾。"
 
 # Novell Translation
-#: ../camel/camel-exchange-utils.c:2296
+#: ../camel/camel-exchange-utils.c:2302
 msgid "Could not open Deleted Items folder"
 msgstr "無法開啟「已刪除項目」資料夾"
 
 # Novell Translation
-#: ../camel/camel-exchange-utils.c:2422
+#: ../camel/camel-exchange-utils.c:2431
 msgid "Could not empty Deleted Items folder"
 msgstr "無法清空「已刪除項目」資料夾"
 
-#: ../camel/camel-exchange-utils.c:2424
+#: ../camel/camel-exchange-utils.c:2433
 msgid "Permission denied. Could not delete certain messages."
 msgstr "權限被拒絕。無法刪除某些郵件。"
 
 # Novell Translation
-#: ../camel/camel-exchange-utils.c:2468
+#: ../camel/camel-exchange-utils.c:2477
 msgid "Could not append message; mailbox is over quota"
 msgstr "無法附加郵件；信箱超過限定容量"
 
 # Novell Translation
-#: ../camel/camel-exchange-utils.c:2469
+#: ../camel/camel-exchange-utils.c:2478
 msgid "Could not append message"
 msgstr "無法附加郵件"
 
 # Novell Translation
-#: ../camel/camel-exchange-utils.c:2655
+#: ../camel/camel-exchange-utils.c:2664
 msgid "No such message"
 msgstr "無此郵件"
 
 # Novell Translation
-#: ../camel/camel-exchange-utils.c:2727
+#: ../camel/camel-exchange-utils.c:2736
 msgid "Message has been deleted"
 msgstr "郵件已刪除"
 
 # Novell Translation
-#: ../camel/camel-exchange-utils.c:2729
+#: ../camel/camel-exchange-utils.c:2738
 msgid "Error retrieving message"
 msgstr "取回郵件發生錯誤"
 
 # Novell Translation
-#: ../camel/camel-exchange-utils.c:2778
+#: ../camel/camel-exchange-utils.c:2787
 msgid "Mailbox does not support full-text searching"
 msgstr "信箱不支援全文搜尋"
 
 # Novell Translation
-#: ../camel/camel-exchange-utils.c:2890
+#: ../camel/camel-exchange-utils.c:2899
 msgid "Unable to move/copy messages"
 msgstr "無法移動/複製郵件"
 
 # Novell Translation
-#: ../camel/camel-exchange-utils.c:3018
+#: ../camel/camel-exchange-utils.c:3027
 msgid "No mail submission URI for this mailbox"
 msgstr "沒有郵件提出此信箱的 URI"
 
-#: ../camel/camel-exchange-utils.c:3051
+#: ../camel/camel-exchange-utils.c:3060
 msgid "Server won't accept mail via Exchange transport"
 msgstr "伺服器不接受來自 Exchange 傳輸系統的郵件"
 
-#: ../camel/camel-exchange-utils.c:3053
+#: ../camel/camel-exchange-utils.c:3062
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -451,7 +453,7 @@ msgstr ""
 "您的帳戶不允許使用 <%s>\n"
 "來當作寄件者地址。"
 
-#: ../camel/camel-exchange-utils.c:3065
+#: ../camel/camel-exchange-utils.c:3074
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -460,20 +462,20 @@ msgstr ""
 "這表示您的帳戶可能已經超過限定容量。"
 
 # Novell Translation
-#: ../camel/camel-exchange-utils.c:3069
+#: ../camel/camel-exchange-utils.c:3078
 msgid "Could not send message"
 msgstr "無法傳送郵件"
 
-#: ../camel/camel-exchange-utils.c:3105 ../camel/camel-exchange-utils.c:3161
-#: ../camel/camel-exchange-utils.c:3329 ../camel/camel-exchange-utils.c:3382
-#: ../camel/camel-exchange-utils.c:3446
+#: ../camel/camel-exchange-utils.c:3114 ../camel/camel-exchange-utils.c:3170
+#: ../camel/camel-exchange-utils.c:3338 ../camel/camel-exchange-utils.c:3391
+#: ../camel/camel-exchange-utils.c:3455
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
 #: ../server/storage/e-storage.c:557
 msgid "Generic error"
 msgstr "一般錯誤"
 
 # Novell Translation
-#: ../camel/camel-exchange-utils.c:3109
+#: ../camel/camel-exchange-utils.c:3118
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
 msgid "Folder already exists"
 msgstr "資料夾已存在"
@@ -652,7 +654,7 @@ msgstr[0] "您的密碼將在 %d 天後到期"
 
 #: ../eplugin/exchange-config-listener.c:665
 msgid "Password Expiry Warning..."
-msgstr "密碼到期警示..."
+msgstr "密碼到期警示…"
 
 # Novell Translation
 #: ../eplugin/exchange-config-listener.c:682
@@ -690,117 +692,117 @@ msgstr "是，請變更狀態(_Y)"
 msgid "Enter Password for %s"
 msgstr "請輸入 %s 所需的密碼"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:435
+#: ../eplugin/exchange-delegates-user.c:73 ../eplugin/exchange-folder.c:446
 #: ../server/storage/exchange-hierarchy-foreign.c:260
 msgid "Calendar"
 msgstr "行事曆"
 
 # Novell Translation
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:438
+#: ../eplugin/exchange-delegates-user.c:73 ../eplugin/exchange-folder.c:449
 #: ../server/storage/exchange-hierarchy-foreign.c:269
 msgid "Tasks"
 msgstr "工作"
 
 # Novell Translation
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:433
+#: ../eplugin/exchange-delegates-user.c:73 ../eplugin/exchange-folder.c:444
 #: ../server/storage/exchange-hierarchy-foreign.c:264
 msgid "Inbox"
 msgstr "收件匣"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:441
+#: ../eplugin/exchange-delegates-user.c:73 ../eplugin/exchange-folder.c:452
 #: ../server/storage/exchange-hierarchy-foreign.c:261
 msgid "Contacts"
 msgstr "連絡人"
 
-#: ../eplugin/exchange-delegates-user.c:132
-#: ../eplugin/exchange-permissions-dialog.c:545
+#: ../eplugin/exchange-delegates-user.c:136
+#: ../eplugin/exchange-permissions-dialog.c:547
 #: ../server/lib/e2k-security-descriptor.c:901
 msgid "Custom"
 msgstr "自訂"
 
 # Novell Translation
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:155
-#: ../eplugin/exchange-delegates-user.c:298
-#: ../eplugin/exchange-delegates-user.c:308
-#: ../eplugin/exchange-delegates-user.c:318
-#: ../eplugin/exchange-delegates-user.c:328
+#: ../eplugin/exchange-delegates-user.c:159
+#: ../eplugin/exchange-delegates-user.c:310
+#: ../eplugin/exchange-delegates-user.c:320
+#: ../eplugin/exchange-delegates-user.c:330
+#: ../eplugin/exchange-delegates-user.c:340
 msgid "Editor (read, create, edit)"
 msgstr "編輯者 (讀取、建立、編輯)"
 
 # Novell Translation
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:160
-#: ../eplugin/exchange-delegates-user.c:297
-#: ../eplugin/exchange-delegates-user.c:307
-#: ../eplugin/exchange-delegates-user.c:317
-#: ../eplugin/exchange-delegates-user.c:327
+#: ../eplugin/exchange-delegates-user.c:164
+#: ../eplugin/exchange-delegates-user.c:309
+#: ../eplugin/exchange-delegates-user.c:319
+#: ../eplugin/exchange-delegates-user.c:329
+#: ../eplugin/exchange-delegates-user.c:339
 msgid "Author (read, create)"
 msgstr "原著者 (讀取，建立)"
 
 # Novell Translation
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:165
-#: ../eplugin/exchange-delegates-user.c:296
-#: ../eplugin/exchange-delegates-user.c:306
-#: ../eplugin/exchange-delegates-user.c:316
-#: ../eplugin/exchange-delegates-user.c:326
+#: ../eplugin/exchange-delegates-user.c:169
+#: ../eplugin/exchange-delegates-user.c:308
+#: ../eplugin/exchange-delegates-user.c:318
+#: ../eplugin/exchange-delegates-user.c:328
+#: ../eplugin/exchange-delegates-user.c:338
 msgid "Reviewer (read-only)"
 msgstr "檢閱者 (僅限讀取)"
 
-#: ../eplugin/exchange-delegates-user.c:168
-#: ../eplugin/exchange-delegates-user.c:295
-#: ../eplugin/exchange-delegates-user.c:305
-#: ../eplugin/exchange-delegates-user.c:315
-#: ../eplugin/exchange-delegates-user.c:325
+#: ../eplugin/exchange-delegates-user.c:172
+#: ../eplugin/exchange-delegates-user.c:307
+#: ../eplugin/exchange-delegates-user.c:317
+#: ../eplugin/exchange-delegates-user.c:327
+#: ../eplugin/exchange-delegates-user.c:337
 #: ../server/lib/e2k-security-descriptor.c:886
 msgid "None"
 msgstr "沒有"
 
 #. Translators: "Delegate Permissions" refers to the permissions on the delegator's folders
 #. that the delegatee would receive
-#: ../eplugin/exchange-delegates-user.c:225
+#: ../eplugin/exchange-delegates-user.c:237
 msgid "Delegate Permissions"
 msgstr "代理人權限"
 
 # FIXME: (Abel) 嘖
-#: ../eplugin/exchange-delegates-user.c:243
+#: ../eplugin/exchange-delegates-user.c:255
 msgid "Permissions for"
 msgstr "權限授予"
 
 #. Translators: This is used for permissions for <user> for the folder Calendar.
-#: ../eplugin/exchange-delegates-user.c:255
+#: ../eplugin/exchange-delegates-user.c:267
 msgid "C_alendar:"
 msgstr "行事曆(_A):"
 
 # Novell Translation
 #. Translators: This is used for permissions for <user> for the folder Tasks.
-#: ../eplugin/exchange-delegates-user.c:264
+#: ../eplugin/exchange-delegates-user.c:276
 msgid "_Tasks:"
 msgstr "工作(_T):"
 
 # Novell Translation
 #. Translators: This is used for permissions for <user> for the folder Inbox.
-#: ../eplugin/exchange-delegates-user.c:273
+#: ../eplugin/exchange-delegates-user.c:285
 msgid "_Inbox:"
 msgstr "收件匣(_I):"
 
 #. Translators: This is used for permissions for <user> for the folder Contacts.
-#: ../eplugin/exchange-delegates-user.c:282
+#: ../eplugin/exchange-delegates-user.c:294
 msgid "Co_ntacts:"
 msgstr "連絡人(_N):"
 
-#: ../eplugin/exchange-delegates-user.c:330
+#: ../eplugin/exchange-delegates-user.c:342
 msgid "_Summarize permissions"
 msgstr "權限摘要(_S)"
 
-#: ../eplugin/exchange-delegates-user.c:334
+#: ../eplugin/exchange-delegates-user.c:346
 msgid "_Delegate can see private items"
 msgstr "代理人可以查看私人的項目(_D)"
 
 # FIXME: (Abel) 嘖
-#: ../eplugin/exchange-delegates-user.c:340
-#: ../eplugin/exchange-permissions-dialog.c:168
+#: ../eplugin/exchange-delegates-user.c:352
+#: ../eplugin/exchange-permissions-dialog.c:170
 #, c-format
 msgid "Permissions for %s"
 msgstr "%s 的權限"
@@ -808,7 +810,7 @@ msgstr "%s 的權限"
 #. To translators: This is a part of the message to be sent to the delegatee
 #. summarizing the permissions assigned to him.
 #.
-#: ../eplugin/exchange-delegates-user.c:433
+#: ../eplugin/exchange-delegates-user.c:445
 msgid ""
 "This message was sent automatically by Evolution to inform you that you have "
 "been designated as a delegate. You can now send messages on my behalf."
@@ -818,25 +820,25 @@ msgstr ""
 
 #. To translators: Another chunk of the same message.
 #.
-#: ../eplugin/exchange-delegates-user.c:438
+#: ../eplugin/exchange-delegates-user.c:450
 msgid "You have been given the following permissions on my folders:"
 msgstr "您已經得到我的資料夾的權限有："
 
 #. To translators: This message is included if the delegatee has been given access
 #. to the private items.
 #.
-#: ../eplugin/exchange-delegates-user.c:458
+#: ../eplugin/exchange-delegates-user.c:470
 msgid "You are also permitted to see my private items."
 msgstr "您也被允許查看我的私人項目。"
 
 #. To translators: This message is included if the delegatee has not been given access
 #. to the private items.
 #.
-#: ../eplugin/exchange-delegates-user.c:465
+#: ../eplugin/exchange-delegates-user.c:477
 msgid "However, you are not permitted to see my private items."
 msgstr "然而，您並未得到允許觀看我的私人項目。"
 
-#: ../eplugin/exchange-delegates-user.c:497
+#: ../eplugin/exchange-delegates-user.c:511
 #, c-format
 msgid "You have been designated as a delegate for %s"
 msgstr "您已經被指派為 %s 的代理人"
@@ -906,7 +908,7 @@ msgid "_Edit"
 msgstr "編輯(_E)"
 
 #: ../eplugin/exchange-delegates.c:995
-#: ../eplugin/exchange-permissions-dialog.c:920
+#: ../eplugin/exchange-permissions-dialog.c:922
 msgid "Name"
 msgstr "名稱"
 
@@ -920,7 +922,7 @@ msgstr "讀取代理人清單時發生錯誤。"
 #: ../eplugin/exchange-folder-permission.c:554
 #: ../eplugin/exchange-folder-permission.c:588
 msgid "Permissions..."
-msgstr "權限..."
+msgstr "權限…"
 
 #: ../eplugin/exchange-folder-permission.c:243
 msgid "Check folder permissions"
@@ -932,14 +934,14 @@ msgstr "檢查資料夾權限"
 #: ../eplugin/exchange-folder-permission.c:561
 #: ../eplugin/exchange-folder-permission.c:595
 msgid "Subscribe to Other User's Folder..."
-msgstr "訂閱其他使用者的資料夾...."
+msgstr "訂閱其他使用者的資料夾…."
 
 # Novell Translation
 #: ../eplugin/exchange-folder-permission.c:250
 #: ../eplugin/exchange-folder-permission.c:529
 #: ../eplugin/exchange-folder-permission.c:563
 #: ../eplugin/exchange-folder-permission.c:597
-#: ../eplugin/exchange-folder-subscription.c:306
+#: ../eplugin/exchange-folder-subscription.c:307
 msgid "Subscribe to Other User's Folder"
 msgstr "訂閱其他使用者的資料夾"
 
@@ -949,7 +951,7 @@ msgstr "訂閱其他使用者的資料夾"
 #: ../eplugin/exchange-folder-permission.c:568
 #: ../eplugin/exchange-folder-permission.c:602
 msgid "Unsubscribe Folder..."
-msgstr "取消訂閱資料夾..."
+msgstr "取消訂閱資料夾…"
 
 #: ../eplugin/exchange-folder-permission.c:522
 msgid "Check calendar permissions"
@@ -980,31 +982,31 @@ msgstr "資料夾名稱"
 
 # Novell Translation
 #. FIXME Limit to one user
-#: ../eplugin/exchange-folder-subscription.c:72
+#: ../eplugin/exchange-folder-subscription.c:73
 msgid "User"
 msgstr "使用者"
 
-#: ../eplugin/exchange-folder-subscription.c:322
+#: ../eplugin/exchange-folder-subscription.c:323
 msgid "_Account:"
 msgstr "帳號(_A):"
 
 # Novell Translation
-#: ../eplugin/exchange-folder-subscription.c:329
+#: ../eplugin/exchange-folder-subscription.c:330
 msgid "_Folder Name:"
 msgstr "資料夾名稱(_F):"
 
 # Novell Translation
-#: ../eplugin/exchange-folder-subscription.c:342
+#: ../eplugin/exchange-folder-subscription.c:343
 msgid "_User:"
 msgstr "使用者(_U):"
 
-#: ../eplugin/exchange-folder.c:320 ../eplugin/exchange-folder.c:376
+#: ../eplugin/exchange-folder.c:331 ../eplugin/exchange-folder.c:387
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "確定要取消訂閱資料夾「%s」？"
 
 # Novell Translation
-#: ../eplugin/exchange-folder.c:333 ../eplugin/exchange-folder.c:389
+#: ../eplugin/exchange-folder.c:344 ../eplugin/exchange-folder.c:400
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "取消訂閱「%s」"
@@ -1019,159 +1021,159 @@ msgstr "插入傳送選項"
 
 #. FIXME: Don't hardcode this
 #: ../eplugin/exchange-operations.c:122 ../eplugin/exchange-operations.c:167
-#: ../server/storage/exchange-account.c:1259
+#: ../server/storage/exchange-account.c:1260
 msgid "Personal Folders"
 msgstr "個人資料夾"
 
-#: ../eplugin/exchange-permissions-dialog.c:278
+#: ../eplugin/exchange-permissions-dialog.c:280
 msgid "(Permission denied.)"
 msgstr "(權限不足。)"
 
-#: ../eplugin/exchange-permissions-dialog.c:384
+#: ../eplugin/exchange-permissions-dialog.c:386
 msgid "Add User:"
 msgstr "加入使用者："
 
-#: ../eplugin/exchange-permissions-dialog.c:384
-#: ../eplugin/exchange-send-options.c:469
+#: ../eplugin/exchange-permissions-dialog.c:386
+#: ../eplugin/exchange-send-options.c:470
 msgid "Add User"
 msgstr "加入使用者"
 
 # FIXME: (Abel) 嘖
-#: ../eplugin/exchange-permissions-dialog.c:796
+#: ../eplugin/exchange-permissions-dialog.c:798
 msgid "Permissions"
 msgstr "權限"
 
 # Novell Translation
-#: ../eplugin/exchange-permissions-dialog.c:813
+#: ../eplugin/exchange-permissions-dialog.c:815
 msgid "Role: "
 msgstr "角色: "
 
 # Novell Translation
-#: ../eplugin/exchange-permissions-dialog.c:839
+#: ../eplugin/exchange-permissions-dialog.c:841
 msgid "Create items"
 msgstr "建立項目"
 
 # Novell Translation
-#: ../eplugin/exchange-permissions-dialog.c:843
+#: ../eplugin/exchange-permissions-dialog.c:845
 msgid "Read items"
 msgstr "讀取項目"
 
 # Novell Translation
-#: ../eplugin/exchange-permissions-dialog.c:847
+#: ../eplugin/exchange-permissions-dialog.c:849
 msgid "Create subfolders"
 msgstr "建立子資料夾"
 
 # Novell Translation
-#: ../eplugin/exchange-permissions-dialog.c:855
+#: ../eplugin/exchange-permissions-dialog.c:857
 msgid "Cannot Edit"
 msgstr "無法編輯"
 
 # Novell Translation
-#: ../eplugin/exchange-permissions-dialog.c:861
+#: ../eplugin/exchange-permissions-dialog.c:863
 msgid "Edit Own Items"
 msgstr "編輯自己的項目"
 
 # Novell Translation
-#: ../eplugin/exchange-permissions-dialog.c:867
+#: ../eplugin/exchange-permissions-dialog.c:869
 msgid "Edit Any Items"
 msgstr "編輯任何項目"
 
 # Novell Translation
-#: ../eplugin/exchange-permissions-dialog.c:881
+#: ../eplugin/exchange-permissions-dialog.c:883
 msgid "Folder owner"
 msgstr "資料夾擁有者"
 
 # Novell Translation
-#: ../eplugin/exchange-permissions-dialog.c:885
+#: ../eplugin/exchange-permissions-dialog.c:887
 msgid "Folder contact"
 msgstr "資料夾連絡人"
 
 # Novell Translation
-#: ../eplugin/exchange-permissions-dialog.c:889
+#: ../eplugin/exchange-permissions-dialog.c:891
 msgid "Folder visible"
 msgstr "資料夾顯示"
 
 # Novell Translation
-#: ../eplugin/exchange-permissions-dialog.c:897
+#: ../eplugin/exchange-permissions-dialog.c:899
 msgid "Cannot Delete"
 msgstr "無法刪除"
 
 # Novell Translation
-#: ../eplugin/exchange-permissions-dialog.c:904
+#: ../eplugin/exchange-permissions-dialog.c:906
 msgid "Delete Own Items"
 msgstr "刪除自己的項目"
 
 # Novell Translation
-#: ../eplugin/exchange-permissions-dialog.c:910
+#: ../eplugin/exchange-permissions-dialog.c:912
 msgid "Delete Any Items"
 msgstr "刪除任何項目"
 
 # Novell Translation
-#: ../eplugin/exchange-permissions-dialog.c:924
+#: ../eplugin/exchange-permissions-dialog.c:926
 msgid "Role"
 msgstr "角色"
 
 # Novell Translation
-#: ../eplugin/exchange-send-options.c:337
+#: ../eplugin/exchange-send-options.c:338
 msgid "Exchange - Send Options"
 msgstr "Exchange - 傳送選項"
 
-#: ../eplugin/exchange-send-options.c:358
+#: ../eplugin/exchange-send-options.c:359
 msgid "Message Settings"
 msgstr "郵件設定值"
 
-#: ../eplugin/exchange-send-options.c:372
+#: ../eplugin/exchange-send-options.c:373
 msgid "I_mportance: "
 msgstr "重要性(_M):"
 
 #. Translators: Here's set a message sensitivity, which means for exchange
 #. one of Normal, Personal, Private, Confidential.
-#: ../eplugin/exchange-send-options.c:381
+#: ../eplugin/exchange-send-options.c:382
 msgid "_Sensitivity: "
 msgstr "敏感度(_S):"
 
-#: ../eplugin/exchange-send-options.c:393
-#: ../eplugin/exchange-send-options.c:403
+#: ../eplugin/exchange-send-options.c:394
+#: ../eplugin/exchange-send-options.c:404
 msgid "Normal"
 msgstr "一般"
 
-#: ../eplugin/exchange-send-options.c:394
+#: ../eplugin/exchange-send-options.c:395
 msgid "Personal"
 msgstr "個人"
 
-#: ../eplugin/exchange-send-options.c:395
+#: ../eplugin/exchange-send-options.c:396
 msgid "Private"
 msgstr "私人"
 
-#: ../eplugin/exchange-send-options.c:396
+#: ../eplugin/exchange-send-options.c:397
 msgid "Confidential"
 msgstr "機密"
 
-#: ../eplugin/exchange-send-options.c:404
+#: ../eplugin/exchange-send-options.c:405
 msgid "High"
 msgstr "高"
 
-#: ../eplugin/exchange-send-options.c:405
+#: ../eplugin/exchange-send-options.c:406
 msgid "Low"
 msgstr "低"
 
-#: ../eplugin/exchange-send-options.c:407
+#: ../eplugin/exchange-send-options.c:408
 msgid "Send as Delegate"
 msgstr "以代理人身分傳送"
 
-#: ../eplugin/exchange-send-options.c:424
+#: ../eplugin/exchange-send-options.c:425
 msgid "_User"
 msgstr "使用者(_U)"
 
-#: ../eplugin/exchange-send-options.c:432
+#: ../eplugin/exchange-send-options.c:433
 msgid "Tracking Options"
 msgstr "追蹤選項"
 
-#: ../eplugin/exchange-send-options.c:440
+#: ../eplugin/exchange-send-options.c:441
 msgid "Request a _delivery receipt for this message"
 msgstr "要求這封郵件索取遞送回條(_D)"
 
-#: ../eplugin/exchange-send-options.c:445
+#: ../eplugin/exchange-send-options.c:446
 msgid "Request a _read receipt for this message"
 msgstr "要求這封郵件索取讀信回條(_R)"
 
@@ -1181,7 +1183,7 @@ msgstr "選擇使用者"
 
 #: ../eplugin/exchange-user-dialog.c:174
 msgid "Address Book..."
-msgstr "通訊錄..."
+msgstr "通訊錄…"
 
 #: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:1
 msgid "Activates the Evolution-Exchange extension package."
@@ -1529,14 +1531,14 @@ msgid "{0} is already in the list"
 msgstr "{0} 已經在清單中"
 
 #: ../server/lib/e2k-autoconfig.c:1692
-#: ../server/storage/exchange-account.c:954
+#: ../server/storage/exchange-account.c:955
 #, c-format
 msgid "Enter password for %s"
 msgstr "輸入 %s 的密碼 "
 
 # Novell Translation
 #: ../server/lib/e2k-autoconfig.c:1693
-#: ../server/storage/exchange-account.c:959
+#: ../server/storage/exchange-account.c:960
 msgid "Enter password"
 msgstr "輸入密碼"
 
@@ -1548,7 +1550,7 @@ msgstr "擁有者"
 
 #: ../server/lib/e2k-security-descriptor.c:852
 msgid "Publishing Editor"
-msgstr "發佈編輯者"
+msgstr "發布編輯者"
 
 #: ../server/lib/e2k-security-descriptor.c:860
 msgid "Editor"
@@ -1556,7 +1558,7 @@ msgstr "編輯器"
 
 #: ../server/lib/e2k-security-descriptor.c:867
 msgid "Publishing Author"
-msgstr "發佈作者"
+msgstr "發布作者"
 
 #: ../server/lib/e2k-security-descriptor.c:873
 msgid "Author"
@@ -1572,7 +1574,7 @@ msgstr "檢閱者"
 
 #: ../server/lib/e2k-security-descriptor.c:884
 msgid "Contributor"
-msgstr "散佈者"
+msgstr "散布者"
 
 #: ../server/storage/e-storage.c:555
 msgid "No error"
@@ -1639,18 +1641,18 @@ msgstr "不明的錯誤"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: ../server/storage/exchange-account.c:639
+#: ../server/storage/exchange-account.c:640
 #, c-format
 msgid "%s's Folders"
 msgstr "%s 的資料夾"
 
 # Novell Translation
-#: ../server/storage/exchange-account.c:1274
+#: ../server/storage/exchange-account.c:1275
 msgid "Favorite Public Folders"
 msgstr "喜好的公開資料夾"
 
 #. i18n: Outlookism
-#: ../server/storage/exchange-account.c:1291
+#: ../server/storage/exchange-account.c:1292
 msgid "All Public Folders"
 msgstr "所有的公開資料夾"
 
@@ -1658,7 +1660,7 @@ msgstr "所有的公開資料夾"
 # 取前者因為較容易配合 evolution 現有翻譯
 # Active Directory 絕對不可以譯！
 #. i18n: Outlookism
-#: ../server/storage/exchange-account.c:1305
+#: ../server/storage/exchange-account.c:1306
 msgid "Global Address List"
 msgstr "全域通訊清單"
 
@@ -1785,8 +1787,8 @@ msgstr ""
 "無法登入 Exchange 伺服器。\n"
 "請確定使用者名稱及密碼是正確的，然後再試一次。\n"
 "\n"
-"您可能需要指定 Windows 網域名稱來當作使用者名稱的一部分 (例如「MY-DOMAIN\\%"
-"s」)。"
+"您可能需要指定 Windows 網域名稱來當作使用者名稱的一部分 (例如「MY-DOMAIN\\"
+"%s」)。"
 
 # Novell Translation
 #: ../tools/exchange-autoconfig-wizard.c:318
@@ -1950,7 +1952,7 @@ msgstr "取得個人資料夾的大小"
 # Novell Translation
 #: ../tools/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
-msgstr "訂閱其他使用者的資料夾(_O)..."
+msgstr "訂閱其他使用者的資料夾(_O)…"
 
 # Novell Translation
 #: ../tools/ximian-connector.xml.h:5
@@ -1976,7 +1978,7 @@ msgstr "檢視或變更您的「不在辦公室」狀態與自動回覆郵件"
 # Novell Translation
 #: ../tools/ximian-connector.xml.h:9
 msgid "_Change Exchange Password..."
-msgstr "變更 E_xchange 密碼..."
+msgstr "變更 E_xchange 密碼…"
 
 #: ../tools/ximian-connector.xml.h:10
 msgid "_Delegation Assistant"
