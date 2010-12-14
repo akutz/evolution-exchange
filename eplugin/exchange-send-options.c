@@ -337,11 +337,14 @@ exchange_sendoptions_dialog_run (ExchangeSendOptionsDialog *sod, GtkWidget *pare
 	send_options = gtk_dialog_new_with_buttons (
 		_("Exchange - Send Options"),
 		NULL,
-		GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_NO_SEPARATOR,
+		GTK_DIALOG_DESTROY_WITH_PARENT,
 		GTK_STOCK_HELP, GTK_RESPONSE_HELP,
 		GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 		GTK_STOCK_OK, GTK_RESPONSE_OK,
 		NULL);
+#if !GTK_CHECK_VERSION(2,90,7)
+	g_object_set (send_options, "has-separator", FALSE, NULL);
+#endif
 	gtk_window_set_type_hint (GTK_WINDOW (send_options), GDK_WINDOW_TYPE_HINT_DIALOG);
 
 	send_options_vbox = gtk_dialog_get_content_area (GTK_DIALOG (send_options));

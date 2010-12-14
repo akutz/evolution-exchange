@@ -236,10 +236,13 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 		   that the delegatee would receive */
 		_("Delegate Permissions"),
 		NULL,
-		GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_NO_SEPARATOR,
+		GTK_DIALOG_DESTROY_WITH_PARENT,
 		GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 		GTK_STOCK_OK, GTK_RESPONSE_OK,
 		NULL);
+#if !GTK_CHECK_VERSION(2,90,7)
+	g_object_set (delegate_permissions, "has-separator", FALSE, NULL);
+#endif
 
 	if (parent_window)
 		gtk_window_set_transient_for (GTK_WINDOW (delegate_permissions), GTK_WINDOW (parent_window));

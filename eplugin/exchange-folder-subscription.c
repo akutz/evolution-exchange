@@ -306,10 +306,13 @@ create_folder_subscription_dialog (ExchangeAccount *account, const gchar *fname)
 	dialog = gtk_dialog_new_with_buttons (
 		_("Subscribe to Other User's Folder"),
 		NULL,
-		GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_NO_SEPARATOR,
+		GTK_DIALOG_DESTROY_WITH_PARENT,
 		GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 		GTK_STOCK_OK, GTK_RESPONSE_OK,
 		NULL);
+#if !GTK_CHECK_VERSION(2,90,7)
+	g_object_set (dialog, "has-separator", FALSE, NULL);
+#endif
 
 	dialog_vbox1 = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 	gtk_widget_show (dialog_vbox1);
