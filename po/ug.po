@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=evolution-exchange&component=general\n"
-"POT-Creation-Date: 2010-11-18 09:17+0000\n"
+"POT-Creation-Date: 2010-12-09 12:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Gheyret Kenji<gheyret@yahoo.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -33,17 +33,17 @@ msgstr ""
 #: ../addressbook/e-book-backend-exchange.c:135
 #, c-format
 msgid "Operation failed with status %d"
-msgstr ""
+msgstr "مەشغۇلات مەغلۇپ بولدى. ھالىتى %d"
 
 #: ../addressbook/e-book-backend-exchange.c:1808
 #: ../addressbook/e-book-backend-exchange.c:2653
 msgid "Cancelled"
-msgstr "ۋاز كەچتى"
+msgstr "ئەمەلدىن قالدۇرۇلدى"
 
 #: ../addressbook/e-book-backend-exchange.c:2330
 #: ../addressbook/e-book-backend-gal.c:1931
 msgid "Searching..."
-msgstr "ئىزدەۋاتىدۇ…"
+msgstr "ئىزدەۋاتىدۇ..."
 
 #: ../addressbook/e-book-backend-gal.c:330
 #: ../addressbook/e-book-backend-gal.c:351
@@ -77,39 +77,44 @@ msgstr "بۇ ئۇچۇرنى تورسىز ھالەتتە ئىشلەتكىلى ب�
 msgid "You cannot expunge in offline mode."
 msgstr "يېپىق ھالەتتە تازىلىغىلى بولمايدۇ."
 
-#: ../camel/camel-exchange-folder.c:685
+#: ../camel/camel-exchange-folder.c:644 ../camel/camel-exchange-utils.c:532
+#: ../camel/camel-exchange-utils.c:571
+msgid "Could not get new messages"
+msgstr "يېڭى ئۇچۇرلارنى چاقىرغىلى بولمىدى"
+
+#: ../camel/camel-exchange-folder.c:688
 msgid "Moving messages"
 msgstr "ئۇچۇرلار يۆتكىلىۋاتىدۇ."
 
-#: ../camel/camel-exchange-folder.c:685
+#: ../camel/camel-exchange-folder.c:688
 msgid "Copying messages"
 msgstr "ئۇچۇرلار كۆچۈرۈلۈۋاتىدۇ"
 
-#: ../camel/camel-exchange-folder.c:1105
+#: ../camel/camel-exchange-folder.c:1108
 #, c-format
 msgid "Could not create directory %s: %s"
-msgstr "ھۆججەت قىسقۇچ %s قۇرۇغىلى بولمىدى: %s"
+msgstr "مۇندەرىجە %s قۇرۇغىلى بولمىدى: %s"
 
-#: ../camel/camel-exchange-folder.c:1116
+#: ../camel/camel-exchange-folder.c:1119
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "%s نىڭ ئۈزۈندىسىنى يۈكلىيەلمىدى"
 
-#: ../camel/camel-exchange-folder.c:1123
+#: ../camel/camel-exchange-folder.c:1126
 #, c-format
 msgid "Could not create cache for %s: "
 msgstr "%s غەملىكىنى قۇرغىلى بولمىدى: "
 
-#: ../camel/camel-exchange-folder.c:1134
+#: ../camel/camel-exchange-folder.c:1137
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "%s ئۈچۈن كۈندىلىك خاتىرە قورۇغىلى بولمىدى"
 
-#: ../camel/camel-exchange-folder.c:1182
+#: ../camel/camel-exchange-folder.c:1185
 msgid "Scanning for changed messages"
 msgstr "ئۆزگەرگەن ئۇچۇرلار ئىزدىلىۋاتىدۇ"
 
-#: ../camel/camel-exchange-folder.c:1210
+#: ../camel/camel-exchange-folder.c:1213
 msgid "Fetching summary information for new messages"
 msgstr "يېڭى ئۇچۇرلار ئۈچۈن قىسقىچە مەلۇمات چاقىرىلىۋاتىدۇ"
 
@@ -118,10 +123,10 @@ msgstr "يېڭى ئۇچۇرلار ئۈچۈن قىسقىچە مەلۇمات چا�
 msgid "No folder name found"
 msgstr "ھۆججەت قىسقۇچ نامى تېپىلمىدى"
 
-#: ../camel/camel-exchange-journal.c:190 ../camel/camel-exchange-utils.c:3141
-#: ../camel/camel-exchange-utils.c:3205 ../camel/camel-exchange-utils.c:3323
-#: ../camel/camel-exchange-utils.c:3354 ../camel/camel-exchange-utils.c:3406
-#: ../camel/camel-exchange-utils.c:3427
+#: ../camel/camel-exchange-journal.c:190 ../camel/camel-exchange-utils.c:3148
+#: ../camel/camel-exchange-utils.c:3212 ../camel/camel-exchange-utils.c:3330
+#: ../camel/camel-exchange-utils.c:3361 ../camel/camel-exchange-utils.c:3413
+#: ../camel/camel-exchange-utils.c:3434
 #, c-format
 msgid "Folder doesn't exist"
 msgstr "ھۆججەت قىسقۇچ مەۋجۇت ئەمەس"
@@ -304,83 +309,79 @@ msgstr "ئۇچۇرنى يوللىغىلى بولمىدى: كەم دېگەندە 
 msgid "Could not find 'From' address in message"
 msgstr "ئۇچۇردا \" دىن \" ئادرېسىنى تاپقىلى بولمىدى"
 
-#: ../camel/camel-exchange-utils.c:532 ../camel/camel-exchange-utils.c:571
-msgid "Could not get new messages"
-msgstr "يېڭى ئۇچۇرلارنى چاقىرغىلى بولمىدى"
-
-#: ../camel/camel-exchange-utils.c:1049 ../camel/camel-exchange-utils.c:1200
+#: ../camel/camel-exchange-utils.c:1055 ../camel/camel-exchange-utils.c:1206
 msgid "Could not open folder"
 msgstr "ھۆججەت قىسقۇچنى ئاچقىلى بولمىدى"
 
-#: ../camel/camel-exchange-utils.c:1196 ../camel/camel-exchange-utils.c:1214
+#: ../camel/camel-exchange-utils.c:1202 ../camel/camel-exchange-utils.c:1220
 msgid "Could not open folder: Permission denied"
 msgstr "ھۆججەت قىسقۇچنى ئاچقىلى بولمىدى: ھوقۇقىڭىز يەتمىدى"
 
-#: ../camel/camel-exchange-utils.c:1263 ../camel/camel-exchange-utils.c:2198
+#: ../camel/camel-exchange-utils.c:1269 ../camel/camel-exchange-utils.c:2205
 msgid "No such folder"
 msgstr "ھۆججەت قىسقۇچ مەۋجۇت ئەمەس"
 
-#: ../camel/camel-exchange-utils.c:1285 ../camel/camel-exchange-utils.c:3115
-#: ../camel/camel-exchange-utils.c:3158 ../camel/camel-exchange-utils.c:3327
-#: ../camel/camel-exchange-utils.c:3380 ../camel/camel-exchange-utils.c:3442
+#: ../camel/camel-exchange-utils.c:1291 ../camel/camel-exchange-utils.c:3122
+#: ../camel/camel-exchange-utils.c:3165 ../camel/camel-exchange-utils.c:3334
+#: ../camel/camel-exchange-utils.c:3387 ../camel/camel-exchange-utils.c:3449
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
 #: ../server/storage/e-storage.c:573
 msgid "Permission denied"
 msgstr "ھوقۇقىڭىز يەتمىدى"
 
-#: ../camel/camel-exchange-utils.c:2207
+#: ../camel/camel-exchange-utils.c:2214
 msgid "Could not create folder."
 msgstr "ھۆججەت قىسقۇچنى قۇرۇغىلى بولمىدى."
 
-#: ../camel/camel-exchange-utils.c:2295
+#: ../camel/camel-exchange-utils.c:2302
 msgid "Could not open Deleted Items folder"
 msgstr "ئۆچۈرۈلمە ھۆججەت قىسقۇچنى ئاچقىلى بولمىدى"
 
-#: ../camel/camel-exchange-utils.c:2424
+#: ../camel/camel-exchange-utils.c:2431
 msgid "Could not empty Deleted Items folder"
 msgstr "ئۆچۈرۈلمە ھۆججەت قىسقۇچنى قۇرۇقدىغىلى بولمىدى"
 
-#: ../camel/camel-exchange-utils.c:2426
+#: ../camel/camel-exchange-utils.c:2433
 msgid "Permission denied. Could not delete certain messages."
 msgstr "ھوقۇقىڭىز يەتمىدى. بىر قىسىم ئۇچۇرلارنى ئۆچۈرگىلى بولمىدى."
 
-#: ../camel/camel-exchange-utils.c:2470
+#: ../camel/camel-exchange-utils.c:2477
 msgid "Could not append message; mailbox is over quota"
 msgstr "ئۇچۇرنى قوشقىلى بولمىدى؛ ئېلخەت ساندۇقى توشۇپ كەتتى"
 
-#: ../camel/camel-exchange-utils.c:2471
+#: ../camel/camel-exchange-utils.c:2478
 msgid "Could not append message"
 msgstr "ئۇچۇرنى قوشقىلى بولمىدى"
 
-#: ../camel/camel-exchange-utils.c:2657
+#: ../camel/camel-exchange-utils.c:2664
 msgid "No such message"
 msgstr "ئۇچۇر مەۋجۇت ئەمەس"
 
-#: ../camel/camel-exchange-utils.c:2729
+#: ../camel/camel-exchange-utils.c:2736
 msgid "Message has been deleted"
 msgstr "ئۇچۇر ئۆچۈرۈۋېتىلدى"
 
-#: ../camel/camel-exchange-utils.c:2731
+#: ../camel/camel-exchange-utils.c:2738
 msgid "Error retrieving message"
 msgstr "ئۇچۇرنى چاقىرىشتا خاتالىق يۈز بەردى"
 
-#: ../camel/camel-exchange-utils.c:2780
+#: ../camel/camel-exchange-utils.c:2787
 msgid "Mailbox does not support full-text searching"
 msgstr "ئېلخەت ساندۇقى پۈتۈن تېكىست ئىزدەشنى قوللىمايدۇ"
 
-#: ../camel/camel-exchange-utils.c:2892
+#: ../camel/camel-exchange-utils.c:2899
 msgid "Unable to move/copy messages"
 msgstr "ئۇچۇرلارنى يۆتكىگىلى ياكى كۆچۈرگىلى بولمىدى"
 
-#: ../camel/camel-exchange-utils.c:3020
+#: ../camel/camel-exchange-utils.c:3027
 msgid "No mail submission URI for this mailbox"
 msgstr "بۇ ئېلخەت ساندۇقىنىڭ ئېلخەت تاپشۇرۇش URI سى يوق"
 
-#: ../camel/camel-exchange-utils.c:3053
+#: ../camel/camel-exchange-utils.c:3060
 msgid "Server won't accept mail via Exchange transport"
 msgstr "مۇلازىمەتچى Exchange ترانسپورتتىن ئېلخەتلەرنى قوبۇل قىلمايدۇ"
 
-#: ../camel/camel-exchange-utils.c:3055
+#: ../camel/camel-exchange-utils.c:3062
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -388,26 +389,26 @@ msgid ""
 msgstr "سىزنىڭ ھېساباتىڭىزنىڭ <%s> نى\n"
 " دىن كەلگەن ئادرېستەك ئىشلىتىش ھوقۇقى يۇق"
 
-#: ../camel/camel-exchange-utils.c:3067
+#: ../camel/camel-exchange-utils.c:3074
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
 msgstr "ئۇچۇرنى يوللىغىلى بولمىدى.\n"
 "بۇ سىزنىڭ ھېساباتىڭىزنىڭ چېكىنىڭ توشقىنىنى بىلدۈرىدۇ."
 
-#: ../camel/camel-exchange-utils.c:3071
+#: ../camel/camel-exchange-utils.c:3078
 msgid "Could not send message"
 msgstr "ئۇچۇر يوللىيالمىدى"
 
-#: ../camel/camel-exchange-utils.c:3107 ../camel/camel-exchange-utils.c:3163
-#: ../camel/camel-exchange-utils.c:3331 ../camel/camel-exchange-utils.c:3384
-#: ../camel/camel-exchange-utils.c:3448
+#: ../camel/camel-exchange-utils.c:3114 ../camel/camel-exchange-utils.c:3170
+#: ../camel/camel-exchange-utils.c:3338 ../camel/camel-exchange-utils.c:3391
+#: ../camel/camel-exchange-utils.c:3455
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
 #: ../server/storage/e-storage.c:557
 msgid "Generic error"
 msgstr "ئادەتتىكى خاتالىق"
 
-#: ../camel/camel-exchange-utils.c:3111
+#: ../camel/camel-exchange-utils.c:3118
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
 msgid "Folder already exists"
 msgstr "قىسقۇچ ئاللىقاچان مەۋجۇت"
@@ -429,12 +430,12 @@ msgstr "ھالەت:"
 #: ../eplugin/exchange-account-setup.c:285
 #: ../eplugin/exchange-account-setup.c:290
 msgid "I am out of the office"
-msgstr ""
+msgstr "مەن ئىشخانىدا ئەمەس"
 
 #: ../eplugin/exchange-account-setup.c:286
 #: ../eplugin/exchange-account-setup.c:289
 msgid "I am in the office"
-msgstr ""
+msgstr "مەن ئىشخانىدا"
 
 #. Security settings
 #: ../eplugin/exchange-account-setup.c:325
@@ -536,7 +537,7 @@ msgstr ""
 
 #: ../eplugin/exchange-change-password.c:110
 msgid "Current _Password:"
-msgstr ""
+msgstr "ھازىرقى ئىم(_P):"
 
 #: ../eplugin/exchange-change-password.c:117
 msgid "_New Password:"
@@ -580,7 +581,7 @@ msgstr ""
 
 #: ../eplugin/exchange-config-listener.c:752
 msgid "Currently, your status is \"Out of the Office\"."
-msgstr ""
+msgstr "ھازىرقى سىزنىڭ ھالىتىڭىز «ئىشخانىدا يوق»"
 
 #: ../eplugin/exchange-config-listener.c:752
 msgid "Would you like to change your status to \"In the Office\"?"
@@ -632,7 +633,7 @@ msgstr "ئىختىيارى"
 #: ../eplugin/exchange-delegates-user.c:330
 #: ../eplugin/exchange-delegates-user.c:340
 msgid "Editor (read, create, edit)"
-msgstr ""
+msgstr "تەھرىرلىگۈچ(ئوقۇش، قۇرۇش، تەھرىرلەش)"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
 #: ../eplugin/exchange-delegates-user.c:164
@@ -754,21 +755,21 @@ msgstr ""
 
 #: ../eplugin/exchange-delegates.c:695
 msgid "Could not access Active Directory"
-msgstr ""
+msgstr "Active Directory زىيارەت قىلالمىدى"
 
 #: ../eplugin/exchange-delegates.c:707
 msgid "Could not find self in Active Directory"
-msgstr ""
+msgstr "Active Directory دىن ئۆزىنى تاپالمىدى"
 
 #: ../eplugin/exchange-delegates.c:720
 #, c-format
 msgid "Could not find delegate %s in Active Directory"
-msgstr ""
+msgstr "Active Directory دىن delegate(ۋەكىل) %s نى تاپالمىدى"
 
 #: ../eplugin/exchange-delegates.c:732
 #, c-format
 msgid "Could not remove delegate %s"
-msgstr ""
+msgstr "delegate(ۋەكىل) %s چىقىرىۋېتەلمىدى"
 
 #: ../eplugin/exchange-delegates.c:792
 msgid "Could not update list of delegates."
@@ -777,7 +778,7 @@ msgstr ""
 #: ../eplugin/exchange-delegates.c:810
 #, c-format
 msgid "Could not add delegate %s"
-msgstr ""
+msgstr "delegate(ۋەكىل) %s نى قوشالمىدى."
 
 #: ../eplugin/exchange-delegates.c:926
 msgid "Delegates"
@@ -858,7 +859,7 @@ msgstr ""
 
 #: ../eplugin/exchange-folder-size-display.c:179
 msgid "Folder Name"
-msgstr ""
+msgstr "قىسقۇچ ئاتى"
 
 #. FIXME Limit to one user
 #: ../eplugin/exchange-folder-subscription.c:73
@@ -920,7 +921,7 @@ msgstr "ھوقۇقلار"
 
 #: ../eplugin/exchange-permissions-dialog.c:815
 msgid "Role: "
-msgstr ""
+msgstr "دەرىجە: "
 
 #: ../eplugin/exchange-permissions-dialog.c:841
 msgid "Create items"
@@ -928,7 +929,7 @@ msgstr ""
 
 #: ../eplugin/exchange-permissions-dialog.c:845
 msgid "Read items"
-msgstr ""
+msgstr "تۈرلەرنى ئوقۇش"
 
 #: ../eplugin/exchange-permissions-dialog.c:849
 msgid "Create subfolders"
@@ -940,11 +941,11 @@ msgstr "تەھرىرلىگىلى بولمىدى"
 
 #: ../eplugin/exchange-permissions-dialog.c:863
 msgid "Edit Own Items"
-msgstr ""
+msgstr "ئۆزىنىڭ تۈرلىرىنى تەھرىرلەش"
 
 #: ../eplugin/exchange-permissions-dialog.c:869
 msgid "Edit Any Items"
-msgstr ""
+msgstr "خالىغان تۇرنى تەھرىرلەش"
 
 #: ../eplugin/exchange-permissions-dialog.c:883
 msgid "Folder owner"
@@ -956,7 +957,7 @@ msgstr ""
 
 #: ../eplugin/exchange-permissions-dialog.c:891
 msgid "Folder visible"
-msgstr ""
+msgstr "قىسقۇچ كۆرۈنىدۇ"
 
 #: ../eplugin/exchange-permissions-dialog.c:899
 msgid "Cannot Delete"
@@ -964,11 +965,11 @@ msgstr "ئۆچۈرگىلى بولمىدى"
 
 #: ../eplugin/exchange-permissions-dialog.c:906
 msgid "Delete Own Items"
-msgstr ""
+msgstr "ئۆزىنىڭ تۈرلىرىنى ئۆچۈرۈش"
 
 #: ../eplugin/exchange-permissions-dialog.c:912
 msgid "Delete Any Items"
-msgstr ""
+msgstr "خالىغان تۇرنى ئۆچۈرۈش"
 
 #: ../eplugin/exchange-permissions-dialog.c:926
 msgid "Role"
@@ -976,15 +977,15 @@ msgstr "رول"
 
 #: ../eplugin/exchange-send-options.c:338
 msgid "Exchange - Send Options"
-msgstr ""
+msgstr "Exchange - يوللاش تاللانمىلىرى"
 
 #: ../eplugin/exchange-send-options.c:359
 msgid "Message Settings"
-msgstr ""
+msgstr "ئۇچۇر تەڭشەكلىرى"
 
 #: ../eplugin/exchange-send-options.c:373
 msgid "I_mportance: "
-msgstr ""
+msgstr "مۇھىملىق(_M): "
 
 #. Translators: Here's set a message sensitivity, which means for exchange
 #. one of Normal, Personal, Private, Confidential.
@@ -1011,7 +1012,7 @@ msgstr "مەخپىي"
 
 #: ../eplugin/exchange-send-options.c:405
 msgid "High"
-msgstr "ئېگىز"
+msgstr "يۇقىرى"
 
 #: ../eplugin/exchange-send-options.c:406
 msgid "Low"
@@ -1085,7 +1086,7 @@ msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:7
 msgid "Could not change password."
-msgstr ""
+msgstr "ئىنى ئۆزگەرتكىلى بولمىدى."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:8
 msgid ""
@@ -1096,11 +1097,11 @@ msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:11
 msgid "Could not connect to Exchange server."
-msgstr ""
+msgstr "Exchange مۇلازىمېتىرىغا باغلىنالمىدى."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:12
 msgid "Could not connect to server {0}."
-msgstr ""
+msgstr "مۇلازىمېتىرى {0} غا باغلىنالمىدى."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:13
 msgid "Could not determine folder permissions for delegates."
@@ -1108,7 +1109,7 @@ msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:14
 msgid "Could not find Exchange Web Storage System."
-msgstr ""
+msgstr "Exchange Web Storage System نى تاپالمىدى."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:15
 msgid "Could not locate server {0}."
@@ -1120,11 +1121,11 @@ msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:17
 msgid "Could not read folder permissions"
-msgstr ""
+msgstr "قىسقۇچ ھوقۇقلىرىنى ئوقۇيالمىدى"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:18
 msgid "Could not read folder permissions."
-msgstr ""
+msgstr "قىسقۇچ ھوقۇقلىرىنى ئوقۇيالمىدى."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:19
 msgid "Could not read out-of-office state"
@@ -1132,7 +1133,7 @@ msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:20
 msgid "Could not update folder permissions."
-msgstr ""
+msgstr "قىسقۇچ ھوقۇقلىرىنى يېڭىلىيالمىدى."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:21
 msgid "Could not update out-of-office state"
@@ -1164,7 +1165,7 @@ msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:36
 msgid "Failed to update delegates:"
-msgstr ""
+msgstr "ۋەكىللەرنى يېڭىلاش مەغلۇپ بولدى:"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:38
 msgid "Folder does not exist"
@@ -1210,7 +1211,7 @@ msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:49
 msgid "No such user {0}"
-msgstr ""
+msgstr "{0} بۇنداق ئىشلەتكۈچى يوق"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:50
 msgid "Password successfully changed."
@@ -1337,7 +1338,7 @@ msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:83
 msgid "{0}"
-msgstr ""
+msgstr "{0}"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:84
 msgid "{0} cannot be added to an access control list"
@@ -1414,7 +1415,7 @@ msgstr "I/O خاتالىقى"
 
 #: ../server/storage/e-storage.c:565
 msgid "Not enough space to create the folder"
-msgstr ""
+msgstr "قىسقۇچ قۇرىدىغان يېتەرلىك بوشلۇق يوق"
 
 #: ../server/storage/e-storage.c:567
 msgid "The folder is not empty"
@@ -1479,7 +1480,7 @@ msgstr "ئومۇمىيەت ئادرېس تىزىملىكى"
 
 #: ../server/storage/exchange-hierarchy-foreign.c:262
 msgid "Deleted Items"
-msgstr ""
+msgstr "ئۆچۈرۈلگەن تۈرلەر"
 
 #: ../server/storage/exchange-hierarchy-foreign.c:263
 msgid "Drafts"
@@ -1518,7 +1519,7 @@ msgstr ""
 #: ../tools/exchange-autoconfig-wizard.c:361
 #: ../tools/exchange-autoconfig-wizard.c:448
 msgid "Exchange Configuration"
-msgstr ""
+msgstr "Exchange سەپلىمىسى"
 
 #: ../tools/exchange-autoconfig-wizard.c:188
 msgid ""
@@ -1621,7 +1622,7 @@ msgstr ""
 
 #: ../tools/exchange-autoconfig-wizard.c:369
 msgid "GC _Server:"
-msgstr ""
+msgstr "GC مۇلازىمېتىر(_S):"
 
 #: ../tools/exchange-autoconfig-wizard.c:402
 #, c-format
@@ -1635,7 +1636,7 @@ msgstr ""
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
-msgstr ""
+msgstr "بەلگىلەنگەن مۇلازىمېتىرغا باغلىنالمىدى. ئات مۇلازىمېتىرىنى تەكشۈرۈپ قايتا سىناڭ."
 
 #: ../tools/exchange-autoconfig-wizard.c:421
 msgid "Configuration Failed"
@@ -1701,7 +1702,7 @@ msgstr ""
 
 #: ../tools/ximian-connector.xml.h:2
 msgid "Folder _Size"
-msgstr ""
+msgstr "قىسقۇچ چوڭلۇقى(_S)"
 
 #: ../tools/ximian-connector.xml.h:3
 msgid "Get the size of personal folders"
