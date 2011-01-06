@@ -32,7 +32,7 @@ endif
 
 endif
 
-extension_LTLIBRARIES = libebookbackendexchange.la
+ebook_backend_LTLIBRARIES = libebookbackendexchange.la
 
 libebookbackendexchange_la_CPPFLAGS = \
 	$(AM_CPPFLAGS) \

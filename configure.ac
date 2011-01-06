@@ -259,8 +259,11 @@ AC_SUBST(plugindir)
 EVOLUTION_PLUGIN_errordir="`$PKG_CONFIG --variable=errordir $EVOLUTION_PLUGIN_PK`"
 AC_SUBST(EVOLUTION_PLUGIN_errordir)
 
-extensiondir="`$PKG_CONFIG --variable=extensiondir evolution-data-server-1.2`"
-AC_SUBST(extensiondir)
+ebook_backenddir=`$PKG_CONFIG --variable=backenddir libedata-book-1.2`
+AC_SUBST(ebook_backenddir)
+
+ecal_backenddir=`$PKG_CONFIG --variable=backenddir libedata-cal-1.2`
+AC_SUBST(ecal_backenddir)
 
 EVOLUTION_imagesdir="`$PKG_CONFIG --variable=imagesdir $EVOLUTION_SHELL_PK`"
 AC_SUBST(EVOLUTION_imagesdir)
