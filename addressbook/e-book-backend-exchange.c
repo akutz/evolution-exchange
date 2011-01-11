@@ -2971,7 +2971,7 @@ e_book_backend_exchange_dispose (GObject *object)
 			g_free (be->priv->original_uri);
 
 		if (be->priv->account)
-			g_object_unref (be->priv->account);
+			be->priv->account = NULL;
 
 		if (be->priv->ops)
 			g_hash_table_destroy (be->priv->ops);
