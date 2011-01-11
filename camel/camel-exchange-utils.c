@@ -2041,6 +2041,10 @@ get_folder_info_data (ExchangeData *ed, const gchar *top, guint32 store_flags, G
 				}
 			}
 
+			/* folder is in the list already */
+			if (known_uris && g_hash_table_lookup (known_uris, uri) != NULL)
+				continue;
+
 			d(g_print ("folder flags is : %d\n", folder_flags));
 
 			uri = g_strdup (uri);
