@@ -1,19 +1,21 @@
 # Bulgarian translation of evolution-exchange po-file.
 # Copyright (C) 2004, 2005, 2006, 2007, 2008 Free Software Foundation, Inc.
+# Copyright (C) 2011 Free Software Foundation, Inc.
 # This file is distributed under the same license as the evolution-exchange package.
 # Vladimir Petkov <kaladan@gmail.com>, 2004, 2005.
 # Rostislav "zbrox" Raykov <zbrox@i-space.org>, 2005.
-# Alexander Shopov <ash@kambanaria.org>, 2005, 2006, 2007, 2008, 2010
+# Alexander Shopov <ash@kambanaria.org>, 2005, 2006, 2007, 2008, 2010, 2011
 # Krasimir Chonov <mk2616@abv.bg>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-23 08:04+0200\n"
-"PO-Revision-Date: 2010-02-23 08:04+0200\n"
-"Last-Translator: Krasimir Chonov <mk2616@abv.bg>\n"
+"POT-Creation-Date: 2011-01-14 07:40+0200\n"
+"PO-Revision-Date: 2011-01-14 07:40+0200\n"
+"Last-Translator: Alexander Shopov <ash@kambanaria.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
+"Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,219 +28,230 @@ msgstr "Време за обновяване на кеша за глобални
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
 msgid ""
-"This key specifies the number of days interval between the GAL cache "
-"refresh. Set this value to zero, if you don't want to update GAL and use the "
-"current cache forever. This will work only if you have enabled offline "
-"caching for GAL."
+"This key specifies the number of days' interval between GAL cache refreshes. "
+"Set this value to zero if you don't want to update GAL and use the current "
+"cache forever. This will work only if you have enabled offline caching for "
+"GAL."
 msgstr ""
 "Този ключ указва броя на дните между обновяванията на кеша с глобалния "
 "списък с адреси. Ако е 0, списъкът няма да се обновява и винаги ще ползвате "
 "само текущия кеш. Настройката работи, само ако сте позволили кеширането на "
 "глобалния списък с адреси."
 
-#: ../addressbook/e-book-backend-exchange.c:2305
-#: ../addressbook/e-book-backend-gal.c:1896
+#: ../addressbook/e-book-backend-exchange.c:135
+#, c-format
+msgid "Operation failed with status %d"
+msgstr "Неуспешно действие, код: %d"
+
+#: ../addressbook/e-book-backend-exchange.c:1808
+#: ../addressbook/e-book-backend-exchange.c:2653
+msgid "Cancelled"
+msgstr "Отменено"
+
+#: ../addressbook/e-book-backend-exchange.c:2330
+#: ../addressbook/e-book-backend-gal.c:1931
 msgid "Searching..."
 msgstr "Търсене…"
 
-#: ../addressbook/e-book-backend-gal.c:315
-#: ../addressbook/e-book-backend-gal.c:336
+#: ../addressbook/e-book-backend-gal.c:330
+#: ../addressbook/e-book-backend-gal.c:351
 msgid "Reconnecting to LDAP server..."
 msgstr "Повторно свързване със сървъра за LDAP…"
 
-#: ../addressbook/e-book-backend-gal.c:1657
+#: ../addressbook/e-book-backend-gal.c:1671
 msgid "Receiving LDAP search results..."
 msgstr "Получаване на резултатите от търсенето чрез LDAP…"
 
-#: ../addressbook/e-book-backend-gal.c:1927
+#: ../addressbook/e-book-backend-gal.c:1962
 msgid "Error performing search"
 msgstr "Грешка при изпълнението на търсенето"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2111
+#: ../calendar/e-cal-backend-exchange-calendar.c:2159
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Ресурсът „%s“ е зает през избрания период."
 
-#: ../calendar/e-cal-backend-exchange.c:425
-msgid "Authentication failed"
-msgstr "Неуспешна идентификация"
-
-#: ../calendar/e-cal-backend-exchange.c:477
-msgid "Could not find the calendar"
-msgstr "Календарът не може да бъде открит"
-
-#: ../camel/camel-exchange-folder.c:198
-msgid "You cannot expunge in offline mode."
-msgstr "Папката не може да бъде изчистена, когато сте в режим „Изключен“."
-
-#: ../camel/camel-exchange-folder.c:226
+#: ../camel/camel-exchange-folder.c:76
 msgid "No Subject"
 msgstr "Няма тема"
 
-#: ../camel/camel-exchange-folder.c:388
+#: ../camel/camel-exchange-folder.c:149
+#, c-format
 msgid "This message is not available in offline mode."
 msgstr "Това писмо не е налично в режим „Изключен“."
 
-#: ../camel/camel-exchange-folder.c:613
+#: ../camel/camel-exchange-folder.c:507
+#, c-format
+msgid "You cannot expunge in offline mode."
+msgstr "Папката не може да бъде изчистена, когато сте в режим „Изключен“."
+
+#: ../camel/camel-exchange-folder.c:644 ../camel/camel-exchange-utils.c:532
+#: ../camel/camel-exchange-utils.c:571
+msgid "Could not get new messages"
+msgstr "Новите писма не могат да бъдат получени"
+
+#: ../camel/camel-exchange-folder.c:688
 msgid "Moving messages"
 msgstr "Преместване на писма"
 
-#: ../camel/camel-exchange-folder.c:614
+#: ../camel/camel-exchange-folder.c:688
 msgid "Copying messages"
 msgstr "Копиране на писма"
 
-#: ../camel/camel-exchange-folder.c:982
+#: ../camel/camel-exchange-folder.c:1108
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Неуспех при създаването на папката %s: %s"
 
-#: ../camel/camel-exchange-folder.c:992
+#: ../camel/camel-exchange-folder.c:1119
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Неуспех при зареждането на обобщението за %s"
 
-#: ../camel/camel-exchange-folder.c:1000
+#: ../camel/camel-exchange-folder.c:1126
 #, c-format
-msgid "Could not create cache for %s"
-msgstr "Неуспех при създаването на кеш за %s"
+msgid "Could not create cache for %s: "
+msgstr "Неуспех при създаването на кеш за %s: "
 
-#: ../camel/camel-exchange-folder.c:1010
+#: ../camel/camel-exchange-folder.c:1137
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Неуспех при създаването дневник за %s"
 
-#: ../camel/camel-exchange-folder.c:1059
+#: ../camel/camel-exchange-folder.c:1185
 msgid "Scanning for changed messages"
 msgstr "Проверка за променени писма"
 
-#: ../camel/camel-exchange-folder.c:1084
+#: ../camel/camel-exchange-folder.c:1213
 msgid "Fetching summary information for new messages"
 msgstr "Доставяне на обобщение за новите писма"
 
-#: ../camel/camel-exchange-journal.c:333
-msgid "No folder name found\n"
-msgstr "Не е намерено име на папка\n"
+#: ../camel/camel-exchange-journal.c:149
+#, c-format
+msgid "No folder name found"
+msgstr "Не е намерено име на папка"
 
-#: ../camel/camel-exchange-journal.c:366 ../camel/camel-exchange-utils.c:3106
-#: ../camel/camel-exchange-utils.c:3170 ../camel/camel-exchange-utils.c:3290
-#: ../camel/camel-exchange-utils.c:3321 ../camel/camel-exchange-utils.c:3373
-#: ../camel/camel-exchange-utils.c:3394
+#: ../camel/camel-exchange-journal.c:190 ../camel/camel-exchange-utils.c:3152
+#: ../camel/camel-exchange-utils.c:3216 ../camel/camel-exchange-utils.c:3334
+#: ../camel/camel-exchange-utils.c:3365 ../camel/camel-exchange-utils.c:3417
+#: ../camel/camel-exchange-utils.c:3438
+#, c-format
 msgid "Folder doesn't exist"
 msgstr "Папката не съществува"
 
-#: ../camel/camel-exchange-journal.c:428
+#: ../camel/camel-exchange-journal.c:425
+#, c-format
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
 "Не можете да добавяте писма, когато сте в режим „Изключен“: кешът не е "
 "наличен"
 
-#: ../camel/camel-exchange-journal.c:444
-#, c-format
-msgid "Cannot append message in offline mode: %s"
-msgstr "Не може да добавяте писма, когато сте в режим „Изключен“: %s"
+#: ../camel/camel-exchange-journal.c:445
+msgid "Cannot append message in offline mode: "
+msgstr "Не може да добавяте писма, когато сте в режим „Изключен“: "
 
-#: ../camel/camel-exchange-provider.c:55
+#: ../camel/camel-exchange-provider.c:52
 msgid "Secure or Plaintext Password"
 msgstr "Сигурна парола или в прав текст"
 
-#: ../camel/camel-exchange-provider.c:56
-#: ../camel/camel-exchange-provider.c:143
-#: ../eplugin/exchange-account-setup.c:73
+#: ../camel/camel-exchange-provider.c:53
+#: ../camel/camel-exchange-provider.c:140
+#: ../eplugin/exchange-account-setup.c:69
 msgid "Plaintext Password"
 msgstr "Парола в прав текст"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
-#: ../camel/camel-exchange-provider.c:57
-#: ../camel/camel-exchange-provider.c:132
-#: ../eplugin/exchange-account-setup.c:62
+#: ../camel/camel-exchange-provider.c:54
+#: ../camel/camel-exchange-provider.c:129
+#: ../eplugin/exchange-account-setup.c:58
 msgid "Secure Password"
 msgstr "Сигурна парола"
 
-#: ../camel/camel-exchange-provider.c:63
+#: ../camel/camel-exchange-provider.c:60
 msgid "Checking for New Mail"
 msgstr "Проверка за нови писма"
 
-#: ../camel/camel-exchange-provider.c:65
+#: ../camel/camel-exchange-provider.c:62
 msgid "C_heck for new messages in all folders"
 msgstr "_Проверка за нови писма във всички папки"
 
 #. i18n: the '_' should appear before the same letter it
 #. does in the evolution:mail-config.glade "User_name"
 #. translation (or not at all)
-#: ../camel/camel-exchange-provider.c:73
+#: ../camel/camel-exchange-provider.c:70
 msgid "Windows User_name:"
 msgstr "Потребителско _име за Windows:"
 
 #. i18n: GAL is an Outlookism, AD is a Windowsism
-#: ../camel/camel-exchange-provider.c:78
-msgid "Global Address List / Active Directory"
+#: ../camel/camel-exchange-provider.c:75
+msgid "Global Address List/Active Directory"
 msgstr "Глобален списък с адреси/активна директория"
 
 #. i18n: "Global Catalog" is a Windowsism, but it's a
 #. technical term and may not have translations?
-#: ../camel/camel-exchange-provider.c:82
+#: ../camel/camel-exchange-provider.c:79
 msgid "_Global Catalog server name:"
 msgstr "_Име на сървъра за глобалния каталог:"
 
-#: ../camel/camel-exchange-provider.c:84
+#: ../camel/camel-exchange-provider.c:81
 #, c-format
 msgid "_Limit number of GAL responses: %s"
 msgstr "_Ограничаване на отговорите на глобалния списък с адреси: %s"
 
-#: ../camel/camel-exchange-provider.c:86
+#: ../camel/camel-exchange-provider.c:83
 msgid "Authentication _Type:"
 msgstr "_Вид идентификация:"
 
-#: ../camel/camel-exchange-provider.c:88
+#: ../camel/camel-exchange-provider.c:85
 msgid "Allow _browsing of the GAL until download limit is reached"
 msgstr ""
 "_Разрешаване на разглеждане на глобалния списък с адреси докато не се "
 "достигне ограничението за сваляне"
 
-#: ../camel/camel-exchange-provider.c:90
+#: ../camel/camel-exchange-provider.c:87
 msgid "_Expand groups of contacts in GAL to contact lists"
 msgstr ""
 "_Заместване на групите от контакти в глобалния списък с адреси със списъци с "
 "контактите"
 
-#: ../camel/camel-exchange-provider.c:93
+#: ../camel/camel-exchange-provider.c:90
 msgid "Options"
 msgstr "Настройки"
 
-#: ../camel/camel-exchange-provider.c:95
+#: ../camel/camel-exchange-provider.c:92
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Период за изтичане валидността на паролата: %s"
 
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:94
 msgid "Automatically synchroni_ze account locally"
 msgstr "Автоматично локално _синхронизиране на регистрация"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:100
+#: ../camel/camel-exchange-provider.c:97
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr ""
 "Прилагане на _филтри спрямо новите писма за входящата кутия на този сървър."
 
-#: ../camel/camel-exchange-provider.c:102
+#: ../camel/camel-exchange-provider.c:99
 msgid "Check new messages for _Junk contents"
 msgstr "Проверка на новите писма за _нежелана поща"
 
-#: ../camel/camel-exchange-provider.c:104
+#: ../camel/camel-exchange-provider.c:101
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Да се проверява за спам само във _входящата кутия."
 
-#: ../camel/camel-exchange-provider.c:114
+#: ../camel/camel-exchange-provider.c:111
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:116
+#: ../camel/camel-exchange-provider.c:113
 msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "За обработване на поща (и други данни) на сървъри с Microsoft Exchange"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:135
-#: ../eplugin/exchange-account-setup.c:65
+#: ../camel/camel-exchange-provider.c:132
+#: ../eplugin/exchange-account-setup.c:61
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
 "authentication."
@@ -246,8 +259,8 @@ msgstr ""
 "Тази настройка осигурява връзка чрез сигурна парола (NTLM) към сървъра с "
 "Exchange."
 
-#: ../camel/camel-exchange-provider.c:145
-#: ../eplugin/exchange-account-setup.c:75
+#: ../camel/camel-exchange-provider.c:142
+#: ../eplugin/exchange-account-setup.c:71
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
@@ -255,146 +268,143 @@ msgstr ""
 "Тази настройка позволява връзка чрез парола в прав текст към сървъра с "
 "Exchange."
 
-#: ../camel/camel-exchange-store.c:305
+#: ../camel/camel-exchange-store.c:288
 #, c-format
 msgid "Exchange server %s"
 msgstr "Сървър с Exchange %s"
 
-#: ../camel/camel-exchange-store.c:308
+#: ../camel/camel-exchange-store.c:292
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Регистрация към Exchange за %s на %s"
 
-#: ../camel/camel-exchange-store.c:385
-msgid ""
-"Could not authenticate to server. (Password incorrect?)\n"
-"\n"
-msgstr ""
-"Неуспех при идентификацията пред сървъра. (Проверете паролата!)\n"
-"\n"
+#: ../camel/camel-exchange-store.c:371
+#, c-format
+msgid "Could not authenticate to server. (Password incorrect?)"
+msgstr "Неуспех при идентификацията пред сървъра. (Проверете паролата!)"
 
-#: ../camel/camel-exchange-store.c:430
+#: ../camel/camel-exchange-store.c:465
 #, c-format
 msgid "No such folder %s"
 msgstr "Папката „%s“ не съществува"
 
-#: ../camel/camel-exchange-store.c:502
+#: ../camel/camel-exchange-store.c:620
+#, c-format
+msgid "Cannot create folder in offline mode."
+msgstr "Не може да създавате папки, когато сте в режим „Изключен“."
+
+#: ../camel/camel-exchange-store.c:651
+#, c-format
+msgid "Cannot delete folder in offline mode."
+msgstr "Не може да изтриете папка, когато сте в режим „Изключен“."
+
+#: ../camel/camel-exchange-store.c:678
+#, c-format
+msgid "Cannot rename folder in offline mode."
+msgstr "Не може да преименувате папка, когато сте в режим „Изключен“."
+
+#: ../camel/camel-exchange-store.c:742
+#, c-format
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Не може да се абонирате към папка, когато сте в режим „Изключен“."
 
-#: ../camel/camel-exchange-store.c:517
+#: ../camel/camel-exchange-store.c:762
+#, c-format
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr ""
 "Не може да преустановите абонамент към папка, когато сте в режим „Изключен“."
 
-#: ../camel/camel-exchange-store.c:648
-msgid "Cannot get folder info in offline mode."
-msgstr "Не може да получавате информация за папката в режим „Изключен“."
-
-#: ../camel/camel-exchange-store.c:711
-msgid "Cannot create folder in offline mode."
-msgstr "Не може да създавате папки, когато сте в режим „Изключен“."
-
-#: ../camel/camel-exchange-store.c:734
-msgid "Cannot delete folder in offline mode."
-msgstr "Не може да изтриете папка, когато сте в режим „Изключен“."
-
-#: ../camel/camel-exchange-store.c:756
-msgid "Cannot rename folder in offline mode."
-msgstr "Не може да преименувате папка, когато сте в режим „Изключен“."
-
-#: ../camel/camel-exchange-transport.c:107
+#: ../camel/camel-exchange-transport.c:66
+#, c-format
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr ""
 "Транспортът на Exchange може да се използва само с Exchange като източник на "
 "поща."
 
-#: ../camel/camel-exchange-transport.c:120
+#: ../camel/camel-exchange-transport.c:80
+#, c-format
 msgid "Cannot send message: one or more invalid recipients"
 msgstr ""
 "Писмото не може да бъде изпратено: един или повече получатели са неправилни"
 
-#: ../camel/camel-exchange-transport.c:129
+#: ../camel/camel-exchange-transport.c:91
+#, c-format
 msgid "Could not find 'From' address in message"
 msgstr "Неуспех при намирането на адреса на подателя на писмото"
 
-#: ../camel/camel-exchange-utils.c:535 ../camel/camel-exchange-utils.c:574
-msgid "Could not get new messages"
-msgstr "Новите писма не могат да бъдат получени"
-
-#: ../camel/camel-exchange-utils.c:1062 ../camel/camel-exchange-utils.c:1213
+#: ../camel/camel-exchange-utils.c:1055 ../camel/camel-exchange-utils.c:1206
 msgid "Could not open folder"
 msgstr "Папката не може да бъде отворена"
 
-#: ../camel/camel-exchange-utils.c:1209 ../camel/camel-exchange-utils.c:1227
+#: ../camel/camel-exchange-utils.c:1202 ../camel/camel-exchange-utils.c:1220
 msgid "Could not open folder: Permission denied"
 msgstr "Папката не може да бъде отворена: достъпът е отказан"
 
-#: ../camel/camel-exchange-utils.c:1276 ../camel/camel-exchange-utils.c:2178
+#: ../camel/camel-exchange-utils.c:1269 ../camel/camel-exchange-utils.c:2209
 msgid "No such folder"
 msgstr "Няма такава папка"
 
-#: ../camel/camel-exchange-utils.c:1298 ../camel/camel-exchange-utils.c:3080
-#: ../camel/camel-exchange-utils.c:3123 ../camel/camel-exchange-utils.c:3294
-#: ../camel/camel-exchange-utils.c:3347 ../camel/camel-exchange-utils.c:3409
+#: ../camel/camel-exchange-utils.c:1291 ../camel/camel-exchange-utils.c:3126
+#: ../camel/camel-exchange-utils.c:3169 ../camel/camel-exchange-utils.c:3338
+#: ../camel/camel-exchange-utils.c:3391 ../camel/camel-exchange-utils.c:3453
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
 #: ../server/storage/e-storage.c:573
 msgid "Permission denied"
 msgstr "Достъпът е отказан. Някои писма не могат да бъдат изтрити."
 
-#: ../camel/camel-exchange-utils.c:2187
+#: ../camel/camel-exchange-utils.c:2218
 msgid "Could not create folder."
 msgstr "Папката не може да бъде създадена."
 
-#: ../camel/camel-exchange-utils.c:2276
+#: ../camel/camel-exchange-utils.c:2306
 msgid "Could not open Deleted Items folder"
 msgstr "Папката за изтритите обекти не може да бъде отворена"
 
-#: ../camel/camel-exchange-utils.c:2403
+#: ../camel/camel-exchange-utils.c:2435
 msgid "Could not empty Deleted Items folder"
 msgstr "Папката с изтритите обекти не може да бъде изчистена"
 
-#: ../camel/camel-exchange-utils.c:2405
+#: ../camel/camel-exchange-utils.c:2437
 msgid "Permission denied. Could not delete certain messages."
 msgstr "Нямате права. Някои писма не бяха изтрити."
 
-#: ../camel/camel-exchange-utils.c:2448
+#: ../camel/camel-exchange-utils.c:2481
 msgid "Could not append message; mailbox is over quota"
 msgstr "Неуспех при добавянето на писмото: пощенската кутия е пълна"
 
-#: ../camel/camel-exchange-utils.c:2449
+#: ../camel/camel-exchange-utils.c:2482
 msgid "Could not append message"
 msgstr "Писмото не може да бъде добавено"
 
-#: ../camel/camel-exchange-utils.c:2635
+#: ../camel/camel-exchange-utils.c:2668
 msgid "No such message"
 msgstr "Такова писмо не съществува"
 
-#: ../camel/camel-exchange-utils.c:2707
+#: ../camel/camel-exchange-utils.c:2740
 msgid "Message has been deleted"
 msgstr "Писмото беше изтрито"
 
-#: ../camel/camel-exchange-utils.c:2709
+#: ../camel/camel-exchange-utils.c:2742
 msgid "Error retrieving message"
 msgstr "Грешка при получаването на писмо"
 
-#: ../camel/camel-exchange-utils.c:2758
+#: ../camel/camel-exchange-utils.c:2791
 msgid "Mailbox does not support full-text searching"
 msgstr "Пощенската кутия не поддържа пълнотекстово търсене"
 
-#: ../camel/camel-exchange-utils.c:2866
+#: ../camel/camel-exchange-utils.c:2903
 msgid "Unable to move/copy messages"
 msgstr "Копирането/преместването на писма е неуспешно"
 
-#: ../camel/camel-exchange-utils.c:2985
+#: ../camel/camel-exchange-utils.c:3031
 msgid "No mail submission URI for this mailbox"
 msgstr "Липсва адрес за изпращане на писма за тази пощенска кутия"
 
-#: ../camel/camel-exchange-utils.c:3018
+#: ../camel/camel-exchange-utils.c:3064
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Сървърът няма да приема поща през транспорта на Exchange"
 
-#: ../camel/camel-exchange-utils.c:3020
+#: ../camel/camel-exchange-utils.c:3066
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -403,7 +413,7 @@ msgstr ""
 "Вашата регистрация няма право да използва <%s>\n"
 "като подател."
 
-#: ../camel/camel-exchange-utils.c:3032
+#: ../camel/camel-exchange-utils.c:3078
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -411,28 +421,28 @@ msgstr ""
 "Неуспех при изпращането на писмото.\n"
 "Това може да означава, че вашата регистрация е надхвърлила квотата си."
 
-#: ../camel/camel-exchange-utils.c:3036
+#: ../camel/camel-exchange-utils.c:3082
 msgid "Could not send message"
 msgstr "Писмото не може да бъде изпратено"
 
-#: ../camel/camel-exchange-utils.c:3072 ../camel/camel-exchange-utils.c:3128
-#: ../camel/camel-exchange-utils.c:3298 ../camel/camel-exchange-utils.c:3351
-#: ../camel/camel-exchange-utils.c:3415
+#: ../camel/camel-exchange-utils.c:3118 ../camel/camel-exchange-utils.c:3174
+#: ../camel/camel-exchange-utils.c:3342 ../camel/camel-exchange-utils.c:3395
+#: ../camel/camel-exchange-utils.c:3459
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
 #: ../server/storage/e-storage.c:557
 msgid "Generic error"
 msgstr "Обща грешка"
 
-#: ../camel/camel-exchange-utils.c:3076
+#: ../camel/camel-exchange-utils.c:3122
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
 msgid "Folder already exists"
 msgstr "Папката вече съществува"
 
-#: ../eplugin/exchange-account-setup.c:270
-msgid "Out Of Office"
+#: ../eplugin/exchange-account-setup.c:266
+msgid "Out of Office"
 msgstr "Извън офиса"
 
-#: ../eplugin/exchange-account-setup.c:277
+#: ../eplugin/exchange-account-setup.c:273
 msgid ""
 "The message specified below will be automatically sent to \n"
 "each person who sends mail to you while you are out of the office."
@@ -440,99 +450,100 @@ msgstr ""
 "Текстът, написан по-долу, ще бъде изпращан автоматично до всеки,\n"
 "който ви изпраща писмо, когато сте извън офиса."
 
-#: ../eplugin/exchange-account-setup.c:282
+#: ../eplugin/exchange-account-setup.c:278
 msgid "Status:"
 msgstr "Състояние:"
 
-#: ../eplugin/exchange-account-setup.c:289
-#: ../eplugin/exchange-account-setup.c:294
+#: ../eplugin/exchange-account-setup.c:285
+#: ../eplugin/exchange-account-setup.c:290
 msgid "I am out of the office"
 msgstr "В момента не съм в офиса"
 
-#: ../eplugin/exchange-account-setup.c:290
-#: ../eplugin/exchange-account-setup.c:293
+#: ../eplugin/exchange-account-setup.c:286
+#: ../eplugin/exchange-account-setup.c:289
 msgid "I am in the office"
 msgstr "В момента съм в офиса"
 
 #. Security settings
-#: ../eplugin/exchange-account-setup.c:329
+#: ../eplugin/exchange-account-setup.c:325
 msgid "Security"
 msgstr "Защита"
 
 #. Change Password
-#: ../eplugin/exchange-account-setup.c:340
+#: ../eplugin/exchange-account-setup.c:336
 msgid "Change the password for Exchange account"
 msgstr "Смяна на паролата за регистрация в Exchange"
 
-#: ../eplugin/exchange-account-setup.c:342
+#: ../eplugin/exchange-account-setup.c:338
 #: ../eplugin/exchange-change-password.c:85
 msgid "Change Password"
 msgstr "Промяна на парола"
 
 #. Delegation Assistant
-#: ../eplugin/exchange-account-setup.c:347
+#: ../eplugin/exchange-account-setup.c:343
 msgid "Manage the delegate settings for Exchange account"
 msgstr "Управление на настройки за делегиране на регистрация в Exchange"
 
-#: ../eplugin/exchange-account-setup.c:349
+#: ../eplugin/exchange-account-setup.c:345
 msgid "Delegation Assistant"
 msgstr "Помощник за делегиране"
 
 #. Miscelleneous settings
-#: ../eplugin/exchange-account-setup.c:361
+#: ../eplugin/exchange-account-setup.c:357
 msgid "Miscellaneous"
 msgstr "Други"
 
 #. Folder Size
-#: ../eplugin/exchange-account-setup.c:371
+#: ../eplugin/exchange-account-setup.c:367
 msgid "View the size of all Exchange folders"
 msgstr "Получаване на размера на папките в Exchange"
 
-#: ../eplugin/exchange-account-setup.c:373
-msgid "Folders Size"
+#: ../eplugin/exchange-account-setup.c:369
+#: ../eplugin/exchange-folder-size-display.c:186
+msgid "Folder Size"
 msgstr "Размер на папката"
 
-#: ../eplugin/exchange-account-setup.c:380
+#: ../eplugin/exchange-account-setup.c:376
 #: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:3
 msgid "Exchange Settings"
 msgstr "Настройки на Exchange"
 
-#: ../eplugin/exchange-account-setup.c:739
+#: ../eplugin/exchange-account-setup.c:735
 msgid "_OWA URL:"
 msgstr "_Адрес за ДАУ:"
 
-#: ../eplugin/exchange-account-setup.c:765
+#: ../eplugin/exchange-account-setup.c:761
 msgid "A_uthenticate"
 msgstr "И_дентифициране"
 
-#: ../eplugin/exchange-account-setup.c:787
-msgid "Mailbox name is _different from user name"
+#: ../eplugin/exchange-account-setup.c:783
+msgid "Mailbox name is _different from username"
 msgstr "Името на пощенската кутия е _различно от потребителското име"
 
-#: ../eplugin/exchange-account-setup.c:800
+#: ../eplugin/exchange-account-setup.c:796
 msgid "_Mailbox:"
 msgstr "_Кутия:"
 
-#: ../eplugin/exchange-account-setup.c:1015
+#: ../eplugin/exchange-account-setup.c:1011
 msgid "_Authentication Type"
 msgstr "_Вид идентификация:"
 
-#: ../eplugin/exchange-account-setup.c:1029
+#: ../eplugin/exchange-account-setup.c:1025
 msgid "Ch_eck for Supported Types"
 msgstr "_Проверка да поддържаните видове"
 
-#: ../eplugin/exchange-account-setup.c:1144 ../eplugin/exchange-contacts.c:217
+#: ../eplugin/exchange-account-setup.c:1140 ../eplugin/exchange-contacts.c:217
 #, c-format
 msgid "%s KB"
 msgstr "%s KB"
 
-#: ../eplugin/exchange-account-setup.c:1146 ../eplugin/exchange-contacts.c:219
+#: ../eplugin/exchange-account-setup.c:1142 ../eplugin/exchange-contacts.c:219
 #, c-format
 msgid "0 KB"
 msgstr "0 KB"
 
 #. FIXME: Take care of i18n
-#: ../eplugin/exchange-account-setup.c:1151 ../eplugin/exchange-calendar.c:236
+#: ../eplugin/exchange-account-setup.c:1147 ../eplugin/exchange-calendar.c:236
 #: ../eplugin/exchange-contacts.c:222
 msgid "Size:"
 msgstr "Размер:"
@@ -578,144 +589,149 @@ msgstr "Въведената парола е неправилна. Въведе�
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr "Двете пароли не съвпадат. Въведете паролите наново."
 
-#: ../eplugin/exchange-config-listener.c:661
+#. Translators: The %d is replaced with the actual number of days
+#: ../eplugin/exchange-config-listener.c:662
 #, c-format
-msgid "Your password will expire in the next %d days"
-msgstr "Вашата парола ще изтече след %d дни"
+msgid "Your password will expire in the next %d day"
+msgid_plural "Your password will expire in the next %d days"
+msgstr[0] "Вашата парола ще изтече след %d ден"
+msgstr[1] "Вашата парола ще изтече след %d дни"
 
-#: ../eplugin/exchange-config-listener.c:664
+#: ../eplugin/exchange-config-listener.c:665
 msgid "Password Expiry Warning..."
 msgstr "Предупреждение за изтичане на парола…"
 
-#: ../eplugin/exchange-config-listener.c:681
+#: ../eplugin/exchange-config-listener.c:682
 msgid "_Change Password"
 msgstr "_Промяна на парола"
 
-#: ../eplugin/exchange-config-listener.c:734
+#: ../eplugin/exchange-config-listener.c:735
 msgid "Out of Office Assistant"
 msgstr "Помощник за „Извън офиса“"
 
-#: ../eplugin/exchange-config-listener.c:751
+#: ../eplugin/exchange-config-listener.c:752
 msgid "Currently, your status is \"Out of the Office\"."
 msgstr "Вашето състояние е „Извън офиса“."
 
-#: ../eplugin/exchange-config-listener.c:751
+#: ../eplugin/exchange-config-listener.c:752
 msgid "Would you like to change your status to \"In the Office\"?"
 msgstr "Искате ли да промените състоянието си „В офиса“?"
 
-#: ../eplugin/exchange-config-listener.c:780
+#: ../eplugin/exchange-config-listener.c:781
 msgid "_No, Don't Change Status"
 msgstr "_Не, състоянието да не се променя"
 
-#: ../eplugin/exchange-config-listener.c:801
+#: ../eplugin/exchange-config-listener.c:802
 msgid "_Yes, Change Status"
 msgstr "_Да, промяна на състоянието"
 
-#: ../eplugin/exchange-config-listener.c:833
+#: ../eplugin/exchange-config-listener.c:834
 #, c-format
 msgid "Enter Password for %s"
 msgstr "Въведете парола за %s"
 
-#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:436
+#: ../eplugin/exchange-delegates-user.c:73 ../eplugin/exchange-folder.c:446
 #: ../server/storage/exchange-hierarchy-foreign.c:260
 msgid "Calendar"
 msgstr "Календар"
 
-#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:439
+#: ../eplugin/exchange-delegates-user.c:73 ../eplugin/exchange-folder.c:449
 #: ../server/storage/exchange-hierarchy-foreign.c:269
 msgid "Tasks"
 msgstr "Задачи"
 
-#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:434
+#: ../eplugin/exchange-delegates-user.c:73 ../eplugin/exchange-folder.c:444
 #: ../server/storage/exchange-hierarchy-foreign.c:264
 msgid "Inbox"
 msgstr "Кутия"
 
-#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:442
+#: ../eplugin/exchange-delegates-user.c:73 ../eplugin/exchange-folder.c:452
 #: ../server/storage/exchange-hierarchy-foreign.c:261
 msgid "Contacts"
 msgstr "Контакти"
 
-#: ../eplugin/exchange-delegates-user.c:135
-#: ../eplugin/exchange-permissions-dialog.c:545
+#: ../eplugin/exchange-delegates-user.c:136
+#: ../eplugin/exchange-permissions-dialog.c:547
 #: ../server/lib/e2k-security-descriptor.c:901
 msgid "Custom"
 msgstr "Потребителски"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:158
-#: ../eplugin/exchange-delegates-user.c:299
-#: ../eplugin/exchange-delegates-user.c:309
-#: ../eplugin/exchange-delegates-user.c:319
-#: ../eplugin/exchange-delegates-user.c:329
+#: ../eplugin/exchange-delegates-user.c:159
+#: ../eplugin/exchange-delegates-user.c:313
+#: ../eplugin/exchange-delegates-user.c:323
+#: ../eplugin/exchange-delegates-user.c:333
+#: ../eplugin/exchange-delegates-user.c:343
 msgid "Editor (read, create, edit)"
 msgstr "Редактор (четене, писане, редактиране)"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:163
-#: ../eplugin/exchange-delegates-user.c:298
-#: ../eplugin/exchange-delegates-user.c:308
-#: ../eplugin/exchange-delegates-user.c:318
-#: ../eplugin/exchange-delegates-user.c:328
+#: ../eplugin/exchange-delegates-user.c:164
+#: ../eplugin/exchange-delegates-user.c:312
+#: ../eplugin/exchange-delegates-user.c:322
+#: ../eplugin/exchange-delegates-user.c:332
+#: ../eplugin/exchange-delegates-user.c:342
 msgid "Author (read, create)"
 msgstr "Автор (четене, писане)"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:168
-#: ../eplugin/exchange-delegates-user.c:297
-#: ../eplugin/exchange-delegates-user.c:307
-#: ../eplugin/exchange-delegates-user.c:317
-#: ../eplugin/exchange-delegates-user.c:327
+#: ../eplugin/exchange-delegates-user.c:169
+#: ../eplugin/exchange-delegates-user.c:311
+#: ../eplugin/exchange-delegates-user.c:321
+#: ../eplugin/exchange-delegates-user.c:331
+#: ../eplugin/exchange-delegates-user.c:341
 msgid "Reviewer (read-only)"
 msgstr "Читател (само за четене)"
 
-#: ../eplugin/exchange-delegates-user.c:171
-#: ../eplugin/exchange-delegates-user.c:296
-#: ../eplugin/exchange-delegates-user.c:306
-#: ../eplugin/exchange-delegates-user.c:316
-#: ../eplugin/exchange-delegates-user.c:326
+#: ../eplugin/exchange-delegates-user.c:172
+#: ../eplugin/exchange-delegates-user.c:310
+#: ../eplugin/exchange-delegates-user.c:320
+#: ../eplugin/exchange-delegates-user.c:330
+#: ../eplugin/exchange-delegates-user.c:340
 #: ../server/lib/e2k-security-descriptor.c:886
 msgid "None"
 msgstr "Без"
 
-#: ../eplugin/exchange-delegates-user.c:226
+#. Translators: "Delegate Permissions" refers to the permissions on the delegator's folders
+#. that the delegatee would receive
+#: ../eplugin/exchange-delegates-user.c:237
 msgid "Delegate Permissions"
 msgstr "Права на делегатите"
 
-#: ../eplugin/exchange-delegates-user.c:244
+#: ../eplugin/exchange-delegates-user.c:258
 msgid "Permissions for"
 msgstr "Права за"
 
 #. Translators: This is used for permissions for <user> for the folder Calendar.
-#: ../eplugin/exchange-delegates-user.c:256
+#: ../eplugin/exchange-delegates-user.c:270
 msgid "C_alendar:"
 msgstr "К_алендар:"
 
 #. Translators: This is used for permissions for <user> for the folder Tasks.
-#: ../eplugin/exchange-delegates-user.c:265
+#: ../eplugin/exchange-delegates-user.c:279
 msgid "_Tasks:"
 msgstr "_Задачи:"
 
 #. Translators: This is used for permissions for <user> for the folder Inbox.
-#: ../eplugin/exchange-delegates-user.c:274
+#: ../eplugin/exchange-delegates-user.c:288
 msgid "_Inbox:"
 msgstr "_Кутия:"
 
 #. Translators: This is used for permissions for <user> for the folder Contacts.
-#: ../eplugin/exchange-delegates-user.c:283
+#: ../eplugin/exchange-delegates-user.c:297
 msgid "Co_ntacts:"
 msgstr "Ко_нтакти:"
 
-#: ../eplugin/exchange-delegates-user.c:331
+#: ../eplugin/exchange-delegates-user.c:345
 msgid "_Summarize permissions"
 msgstr "_Обобщение на правата"
 
-#: ../eplugin/exchange-delegates-user.c:335
+#: ../eplugin/exchange-delegates-user.c:349
 msgid "_Delegate can see private items"
 msgstr "_Делегатът може да вижда личните обекти"
 
-#: ../eplugin/exchange-delegates-user.c:341
-#: ../eplugin/exchange-permissions-dialog.c:168
+#: ../eplugin/exchange-delegates-user.c:355
+#: ../eplugin/exchange-permissions-dialog.c:170
 #, c-format
 msgid "Permissions for %s"
 msgstr "Права за %s"
@@ -723,7 +739,7 @@ msgstr "Права за %s"
 #. To translators: This is a part of the message to be sent to the delegatee
 #. summarizing the permissions assigned to him.
 #.
-#: ../eplugin/exchange-delegates-user.c:434
+#: ../eplugin/exchange-delegates-user.c:448
 msgid ""
 "This message was sent automatically by Evolution to inform you that you have "
 "been designated as a delegate. You can now send messages on my behalf."
@@ -733,25 +749,25 @@ msgstr ""
 
 #. To translators: Another chunk of the same message.
 #.
-#: ../eplugin/exchange-delegates-user.c:439
+#: ../eplugin/exchange-delegates-user.c:453
 msgid "You have been given the following permissions on my folders:"
 msgstr "Вече имате следните права за моите папки:"
 
 #. To translators: This message is included if the delegatee has been given access
 #. to the private items.
 #.
-#: ../eplugin/exchange-delegates-user.c:459
+#: ../eplugin/exchange-delegates-user.c:473
 msgid "You are also permitted to see my private items."
 msgstr "Можете да виждате и личните ми обекти."
 
 #. To translators: This message is included if the delegatee has not been given access
 #. to the private items.
 #.
-#: ../eplugin/exchange-delegates-user.c:466
-msgid "However you are not permitted to see my private items."
+#: ../eplugin/exchange-delegates-user.c:480
+msgid "However, you are not permitted to see my private items."
 msgstr "Въпреки това нямате права да разглеждате моите лични обекти."
 
-#: ../eplugin/exchange-delegates-user.c:498
+#: ../eplugin/exchange-delegates-user.c:514
 #, c-format
 msgid "You have been designated as a delegate for %s"
 msgstr "Бяхте отписан като делегат за %s"
@@ -800,7 +816,7 @@ msgstr "Делегатът %s не може да се добави"
 msgid "Delegates"
 msgstr "Делегати"
 
-#: ../eplugin/exchange-delegates.c:941
+#: ../eplugin/exchange-delegates.c:945
 msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
@@ -808,256 +824,259 @@ msgstr ""
 "Тези потребители ще могат да изпращат писма от ваше име и ще\n"
 "имат достъп до папките ви с правата, които им предоставите."
 
-#: ../eplugin/exchange-delegates.c:965
+#: ../eplugin/exchange-delegates.c:969
 msgid "_Edit"
 msgstr "_Редактиране"
 
-#: ../eplugin/exchange-delegates.c:995
-#: ../eplugin/exchange-permissions-dialog.c:916
+#: ../eplugin/exchange-delegates.c:999
+#: ../eplugin/exchange-permissions-dialog.c:922
 msgid "Name"
 msgstr "Име"
 
-#: ../eplugin/exchange-delegates.c:1021
+#: ../eplugin/exchange-delegates.c:1025
 msgid "Error reading delegates list."
 msgstr "Грешка при четене на списъка с делегати."
 
-#: ../eplugin/exchange-folder-permission.c:206
-#: ../eplugin/exchange-folder-permission.c:480
-#: ../eplugin/exchange-folder-permission.c:514
-#: ../eplugin/exchange-folder-permission.c:548
+#: ../eplugin/exchange-folder-permission.c:241
+#: ../eplugin/exchange-folder-permission.c:520
+#: ../eplugin/exchange-folder-permission.c:554
+#: ../eplugin/exchange-folder-permission.c:588
 msgid "Permissions..."
 msgstr "Права…"
 
-#: ../eplugin/exchange-folder-permission.c:208
+#: ../eplugin/exchange-folder-permission.c:243
 msgid "Check folder permissions"
 msgstr "Проверка на правата на папката"
 
-#: ../eplugin/exchange-folder-permission.c:213
-#: ../eplugin/exchange-folder-permission.c:487
-#: ../eplugin/exchange-folder-permission.c:521
-#: ../eplugin/exchange-folder-permission.c:555
+#: ../eplugin/exchange-folder-permission.c:248
+#: ../eplugin/exchange-folder-permission.c:527
+#: ../eplugin/exchange-folder-permission.c:561
+#: ../eplugin/exchange-folder-permission.c:595
 msgid "Subscribe to Other User's Folder..."
 msgstr "Записване към папка на друг потребител…"
 
-#: ../eplugin/exchange-folder-permission.c:215
-#: ../eplugin/exchange-folder-permission.c:489
-#: ../eplugin/exchange-folder-permission.c:523
-#: ../eplugin/exchange-folder-permission.c:557
-#: ../eplugin/exchange-folder-subscription.c:306
+#: ../eplugin/exchange-folder-permission.c:250
+#: ../eplugin/exchange-folder-permission.c:529
+#: ../eplugin/exchange-folder-permission.c:563
+#: ../eplugin/exchange-folder-permission.c:597
+#: ../eplugin/exchange-folder-subscription.c:307
 msgid "Subscribe to Other User's Folder"
 msgstr "Записване към папка на друг потребител"
 
-#: ../eplugin/exchange-folder-permission.c:220
-#: ../eplugin/exchange-folder-permission.c:494
-#: ../eplugin/exchange-folder-permission.c:528
-#: ../eplugin/exchange-folder-permission.c:562
+#: ../eplugin/exchange-folder-permission.c:255
+#: ../eplugin/exchange-folder-permission.c:534
+#: ../eplugin/exchange-folder-permission.c:568
+#: ../eplugin/exchange-folder-permission.c:602
 msgid "Unsubscribe Folder..."
 msgstr "Отписване от папка…"
 
-#: ../eplugin/exchange-folder-permission.c:482
+#: ../eplugin/exchange-folder-permission.c:522
 msgid "Check calendar permissions"
 msgstr "Проверка на правата на календара"
 
-#: ../eplugin/exchange-folder-permission.c:516
+#: ../eplugin/exchange-folder-permission.c:556
 msgid "Check tasks permissions"
 msgstr "Проверка на правата на задачите"
 
-#: ../eplugin/exchange-folder-permission.c:550
-msgid "Check addressbook permissions"
-msgstr "Проверка на правата за адресника"
+#: ../eplugin/exchange-folder-permission.c:590
+msgid "Check address book permissions"
+msgstr "Проверете правата за адресника"
 
-#: ../eplugin/exchange-folder-size-display.c:118
+#: ../eplugin/exchange-folder-size-display.c:136
 msgid "Exchange Folder Tree"
 msgstr "Дърво на папките към Exchange"
 
-#: ../eplugin/exchange-folder-size-display.c:150
+#: ../eplugin/exchange-folder-size-display.c:154
+#, c-format
+msgid "Total size: %.2f KB"
+msgstr "Общ размер: %.2f KB"
+
+#: ../eplugin/exchange-folder-size-display.c:182
 msgid "Folder Name"
 msgstr "Име на папка"
 
-#: ../eplugin/exchange-folder-size-display.c:154
-msgid "Folder Size"
-msgstr "Размер на папката"
-
 #. FIXME Limit to one user
-#: ../eplugin/exchange-folder-subscription.c:72
+#: ../eplugin/exchange-folder-subscription.c:73
 msgid "User"
 msgstr "Потребител"
 
-#: ../eplugin/exchange-folder-subscription.c:322
+#: ../eplugin/exchange-folder-subscription.c:326
 msgid "_Account:"
 msgstr "_Абонамент:"
 
-#: ../eplugin/exchange-folder-subscription.c:329
+#: ../eplugin/exchange-folder-subscription.c:333
 msgid "_Folder Name:"
 msgstr "_Папка:"
 
-#: ../eplugin/exchange-folder-subscription.c:342
+#: ../eplugin/exchange-folder-subscription.c:346
 msgid "_User:"
 msgstr "_Потребител:"
 
-#: ../eplugin/exchange-folder.c:324 ../eplugin/exchange-folder.c:378
+#: ../eplugin/exchange-folder.c:331 ../eplugin/exchange-folder.c:387
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "Отписване от папката „%s“?"
 
-#: ../eplugin/exchange-folder.c:336 ../eplugin/exchange-folder.c:390
+#: ../eplugin/exchange-folder.c:344 ../eplugin/exchange-folder.c:400
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "Отписване от „%s“"
 
-#: ../eplugin/exchange-mail-send-options.c:222
+#: ../eplugin/exchange-mail-send-options.c:220
 msgid "_Send Options"
 msgstr "_Настройки на изпращане"
 
-#: ../eplugin/exchange-mail-send-options.c:224
+#: ../eplugin/exchange-mail-send-options.c:222
 msgid "Insert Send options"
 msgstr "Вмъкване на настройки за изпращане"
 
 #. FIXME: Don't hardcode this
 #: ../eplugin/exchange-operations.c:122 ../eplugin/exchange-operations.c:167
-#: ../server/storage/exchange-account.c:1259
+#: ../server/storage/exchange-account.c:1260
 msgid "Personal Folders"
 msgstr "Лични папки"
 
-#: ../eplugin/exchange-permissions-dialog.c:278
+#: ../eplugin/exchange-permissions-dialog.c:280
 msgid "(Permission denied.)"
 msgstr "(Достъпът е отказан.)"
 
-#: ../eplugin/exchange-permissions-dialog.c:384
+#: ../eplugin/exchange-permissions-dialog.c:386
 msgid "Add User:"
 msgstr "Добавяне на потребител:"
 
-#: ../eplugin/exchange-permissions-dialog.c:384
-#: ../eplugin/exchange-send-options.c:467
+#: ../eplugin/exchange-permissions-dialog.c:386
+#: ../eplugin/exchange-send-options.c:473
 msgid "Add User"
 msgstr "Добавяне"
 
-#: ../eplugin/exchange-permissions-dialog.c:792
+#: ../eplugin/exchange-permissions-dialog.c:798
 msgid "Permissions"
 msgstr "Права"
 
-#: ../eplugin/exchange-permissions-dialog.c:809
+#: ../eplugin/exchange-permissions-dialog.c:815
 msgid "Role: "
 msgstr "Роля:"
 
-#: ../eplugin/exchange-permissions-dialog.c:835
+#: ../eplugin/exchange-permissions-dialog.c:841
 msgid "Create items"
 msgstr "Създаване на обекти"
 
-#: ../eplugin/exchange-permissions-dialog.c:839
+#: ../eplugin/exchange-permissions-dialog.c:845
 msgid "Read items"
 msgstr "Прочитане на обекти"
 
-#: ../eplugin/exchange-permissions-dialog.c:843
+#: ../eplugin/exchange-permissions-dialog.c:849
 msgid "Create subfolders"
 msgstr "Създаване на подпапки"
 
-#: ../eplugin/exchange-permissions-dialog.c:851
+#: ../eplugin/exchange-permissions-dialog.c:857
 msgid "Cannot Edit"
 msgstr "Не можете да редактирате"
 
-#: ../eplugin/exchange-permissions-dialog.c:857
+#: ../eplugin/exchange-permissions-dialog.c:863
 msgid "Edit Own Items"
 msgstr "Редактиране на собствените обекти"
 
-#: ../eplugin/exchange-permissions-dialog.c:863
+#: ../eplugin/exchange-permissions-dialog.c:869
 msgid "Edit Any Items"
 msgstr "Редактиране на всеки обект"
 
-#: ../eplugin/exchange-permissions-dialog.c:877
+#: ../eplugin/exchange-permissions-dialog.c:883
 msgid "Folder owner"
 msgstr "Собственик на папката"
 
-#: ../eplugin/exchange-permissions-dialog.c:881
+#: ../eplugin/exchange-permissions-dialog.c:887
 msgid "Folder contact"
 msgstr "Контакт на папката"
 
-#: ../eplugin/exchange-permissions-dialog.c:885
+#: ../eplugin/exchange-permissions-dialog.c:891
 msgid "Folder visible"
 msgstr "Папката е видима"
 
-#: ../eplugin/exchange-permissions-dialog.c:893
+#: ../eplugin/exchange-permissions-dialog.c:899
 msgid "Cannot Delete"
 msgstr "Не можете да триете"
 
-#: ../eplugin/exchange-permissions-dialog.c:900
+#: ../eplugin/exchange-permissions-dialog.c:906
 msgid "Delete Own Items"
 msgstr "Изтриване на собствените обекти"
 
-#: ../eplugin/exchange-permissions-dialog.c:906
+#: ../eplugin/exchange-permissions-dialog.c:912
 msgid "Delete Any Items"
 msgstr "Изтриване на всеки обект"
 
-#: ../eplugin/exchange-permissions-dialog.c:920
+#: ../eplugin/exchange-permissions-dialog.c:926
 msgid "Role"
 msgstr "Роля"
 
-#: ../eplugin/exchange-send-options.c:337
+#: ../eplugin/exchange-send-options.c:338
 msgid "Exchange - Send Options"
 msgstr "Exchange — настройки на изпращане"
 
-#: ../eplugin/exchange-send-options.c:358
+#: ../eplugin/exchange-send-options.c:362
 msgid "Message Settings"
 msgstr "Настройки на писмо"
 
-#: ../eplugin/exchange-send-options.c:372
+#: ../eplugin/exchange-send-options.c:376
 msgid "I_mportance: "
 msgstr "В_ажност:"
 
-#: ../eplugin/exchange-send-options.c:379
+#. Translators: Here's set a message sensitivity, which means for exchange
+#. one of Normal, Personal, Private, Confidential.
+#: ../eplugin/exchange-send-options.c:385
 msgid "_Sensitivity: "
 msgstr "_Чувствителност:"
 
-#: ../eplugin/exchange-send-options.c:391
-#: ../eplugin/exchange-send-options.c:401
+#: ../eplugin/exchange-send-options.c:397
+#: ../eplugin/exchange-send-options.c:407
 msgid "Normal"
 msgstr "Нормално"
 
-#: ../eplugin/exchange-send-options.c:392
+#: ../eplugin/exchange-send-options.c:398
 msgid "Personal"
 msgstr "Лично"
 
-#: ../eplugin/exchange-send-options.c:393
+#: ../eplugin/exchange-send-options.c:399
 msgid "Private"
 msgstr "Частно"
 
-#: ../eplugin/exchange-send-options.c:394
+#: ../eplugin/exchange-send-options.c:400
 msgid "Confidential"
 msgstr "Поверително"
 
-#: ../eplugin/exchange-send-options.c:402
+#: ../eplugin/exchange-send-options.c:408
 msgid "High"
 msgstr "Много"
 
-#: ../eplugin/exchange-send-options.c:403
+#: ../eplugin/exchange-send-options.c:409
 msgid "Low"
 msgstr "Малко"
 
-#: ../eplugin/exchange-send-options.c:405
+#: ../eplugin/exchange-send-options.c:411
 msgid "Send as Delegate"
 msgstr "Изпращане като делегат"
 
-#: ../eplugin/exchange-send-options.c:422
+#: ../eplugin/exchange-send-options.c:428
 msgid "_User"
 msgstr "_Потребител"
 
-#: ../eplugin/exchange-send-options.c:430
+#: ../eplugin/exchange-send-options.c:436
 msgid "Tracking Options"
 msgstr "Настройки на проследяване"
 
-#: ../eplugin/exchange-send-options.c:438
+#: ../eplugin/exchange-send-options.c:444
 msgid "Request a _delivery receipt for this message"
 msgstr "Заявка на разписка за _доставено писмо"
 
-#: ../eplugin/exchange-send-options.c:443
+#: ../eplugin/exchange-send-options.c:449
 msgid "Request a _read receipt for this message"
 msgstr "Заявка на разписка за _прочетено писмо"
 
-#: ../eplugin/exchange-user-dialog.c:131
+#: ../eplugin/exchange-user-dialog.c:135
 msgid "Select User"
 msgstr "Избор на потребител"
 
-#: ../eplugin/exchange-user-dialog.c:170
+#: ../eplugin/exchange-user-dialog.c:174
 msgid "Address Book..."
 msgstr "Адресник…"
 
@@ -1111,7 +1130,7 @@ msgstr "Паролата не може да се смени."
 msgid ""
 "Could not configure Exchange account because \n"
 "an unknown error occurred. Check the URL, \n"
-"username, and password, and try again."
+"username and password, and try again."
 msgstr ""
 "Не може да се настрои регистрацията към Exchange, \n"
 "защото се появи непозната грешка. Проверете адреса, \n"
@@ -1303,7 +1322,7 @@ msgid ""
 "you to specify the Windows domain name \n"
 "as part of your username (eg, &quot;DOMAIN\\user&quot;).\n"
 "\n"
-"Also, you may have typed your password wrongly."
+"Also, you may have typed your password incorrectly."
 msgstr ""
 "Това вероятно означава, че сървърът изисква \n"
 "да въведете име на домейн на Windows\n"
@@ -1407,13 +1426,13 @@ msgid "{0} is already in the list"
 msgstr "{0} вече е в списъка"
 
 #: ../server/lib/e2k-autoconfig.c:1692
-#: ../server/storage/exchange-account.c:954
+#: ../server/storage/exchange-account.c:955
 #, c-format
 msgid "Enter password for %s"
 msgstr "Въведете парола за %s"
 
 #: ../server/lib/e2k-autoconfig.c:1693
-#: ../server/storage/exchange-account.c:959
+#: ../server/storage/exchange-account.c:960
 msgid "Enter password"
 msgstr "Въведете парола"
 
@@ -1504,7 +1523,7 @@ msgid "Cannot create a folder with that name"
 msgstr "Не може да се създаде папка с това име"
 
 #: ../server/storage/e-storage.c:585
-msgid "This operation cannot be performed in off-line mode"
+msgid "This operation cannot be performed in offline mode"
 msgstr "Операцията не може да се извърши в режим „Изключен“"
 
 #: ../server/storage/e-storage.c:587
@@ -1513,22 +1532,22 @@ msgstr "Неизвестна грешка"
 
 #. i18n: This is the title of an "other user's folders"
 #. hierarchy. Eg, "John Doe's Folders".
-#: ../server/storage/exchange-account.c:639
+#: ../server/storage/exchange-account.c:640
 #, c-format
 msgid "%s's Folders"
 msgstr "Папките на %s"
 
-#: ../server/storage/exchange-account.c:1274
+#: ../server/storage/exchange-account.c:1275
 msgid "Favorite Public Folders"
 msgstr "Предпочитани публични папки"
 
 #. i18n: Outlookism
-#: ../server/storage/exchange-account.c:1291
+#: ../server/storage/exchange-account.c:1292
 msgid "All Public Folders"
 msgstr "Всички публични папки"
 
 #. i18n: Outlookism
-#: ../server/storage/exchange-account.c:1305
+#: ../server/storage/exchange-account.c:1306
 msgid "Global Address List"
 msgstr "Глобален списък с адреси"
 
@@ -1780,7 +1799,7 @@ msgstr ""
 "Вашата регистрация за Connector е готова за употреба. Натиснете бутона "
 "„Прилагане“, за да запазите настройките."
 
-#: ../tools/exchange-autoconfig-wizard.c:542
+#: ../tools/exchange-autoconfig-wizard.c:557
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -1788,11 +1807,11 @@ msgstr ""
 "Грешка в настройките на системата.\n"
 "Неуспех при създаването на нова регистрация."
 
-#: ../tools/exchange-autoconfig-wizard.c:556
+#: ../tools/exchange-autoconfig-wizard.c:572
 msgid "You may only configure a single Exchange account"
 msgstr "Можете за настройвате само една регистрация към Exchange"
 
-#: ../tools/exchange-autoconfig-wizard.c:731
+#: ../tools/exchange-autoconfig-wizard.c:747
 msgid "Evolution Connector for Microsoft Exchange Configuration"
 msgstr "Evolution Connector за инсталация с Microsoft Exchange"
 
