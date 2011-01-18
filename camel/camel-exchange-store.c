@@ -628,11 +628,12 @@ exchange_store_rename_folder (CamelStore *store,
 
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 
-	if (!camel_exchange_store_connected (exch, NULL))
+	if (!camel_exchange_store_connected (exch, NULL)) {
 		g_set_error (
 			error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,
 			_("Cannot rename folder in offline mode."));
 		return FALSE;
+	}
 
 	if (!camel_exchange_utils_rename_folder (
 		CAMEL_SERVICE (store), old_name, new_name,
