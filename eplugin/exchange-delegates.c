@@ -930,10 +930,6 @@ exchange_delegates (ExchangeAccount *account, GtkWidget *parent)
 		GTK_STOCK_OK, GTK_RESPONSE_OK,
 		NULL);
 
-#if !GTK_CHECK_VERSION(2,90,7)
-	g_object_set (delegates->dialog, "has-separator", FALSE, NULL);
-#endif
-
 	dialog_vbox1 = gtk_dialog_get_content_area (GTK_DIALOG (delegates->dialog));
 	gtk_widget_show (dialog_vbox1);
 

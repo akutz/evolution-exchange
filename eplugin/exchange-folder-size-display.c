@@ -138,9 +138,6 @@ exchange_folder_size_display (GtkListStore *model, GtkWidget *parent)
 		GTK_DIALOG_DESTROY_WITH_PARENT,
 		GTK_STOCK_OK, GTK_RESPONSE_OK,
 		NULL);
-#if !GTK_CHECK_VERSION(2,90,7)
-	g_object_set (folder_tree, "has-separator", FALSE, NULL);
-#endif
 	gtk_window_set_position (GTK_WINDOW (folder_tree), GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_window_set_default_size (GTK_WINDOW (folder_tree), 250, 300);
 	if (parent)

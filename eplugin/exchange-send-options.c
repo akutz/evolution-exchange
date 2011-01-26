@@ -32,7 +32,6 @@
 #include <e-util/e-alert-dialog.h>
 
 #include "exchange-send-options.h"
-#include "gtk-compat.h"
 
 G_DEFINE_TYPE (ExchangeSendOptionsDialog, exchange_sendoptions_dialog, G_TYPE_OBJECT)
 
@@ -342,9 +341,6 @@ exchange_sendoptions_dialog_run (ExchangeSendOptionsDialog *sod, GtkWidget *pare
 		GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 		GTK_STOCK_OK, GTK_RESPONSE_OK,
 		NULL);
-#if !GTK_CHECK_VERSION(2,90,7)
-	g_object_set (send_options, "has-separator", FALSE, NULL);
-#endif
 	gtk_window_set_type_hint (GTK_WINDOW (send_options), GDK_WINDOW_TYPE_HINT_DIALOG);
 
 	send_options_vbox = gtk_dialog_get_content_area (GTK_DIALOG (send_options));

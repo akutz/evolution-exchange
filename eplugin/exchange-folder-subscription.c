@@ -38,7 +38,6 @@
 #include "exchange-config-listener.h"
 #include "exchange-folder-subscription.h"
 #include "exchange-operations.h"
-#include "gtk-compat.h"
 
 static void
 user_response (ENameSelectorDialog *name_selector_dialog, gint response, gpointer data)
@@ -310,9 +309,6 @@ create_folder_subscription_dialog (ExchangeAccount *account, const gchar *fname)
 		GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 		GTK_STOCK_OK, GTK_RESPONSE_OK,
 		NULL);
-#if !GTK_CHECK_VERSION(2,90,7)
-	g_object_set (dialog, "has-separator", FALSE, NULL);
-#endif
 
 	dialog_vbox1 = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 	gtk_widget_show (dialog_vbox1);
@@ -349,23 +345,7 @@ create_folder_subscription_dialog (ExchangeAccount *account, const gchar *fname)
 			  (GtkAttachOptions) (GTK_FILL),
 			  (GtkAttachOptions) (0), 0, 0);
 
-#if GTK_CHECK_VERSION(2,23,0)
-	/* FIXME Rewrite this when removing the version check. */
-	{
-		GtkListStore *store;
-
-		store = gtk_list_store_new (1, G_TYPE_STRING);
-		folder_name_combo = g_object_new (
-			GTK_TYPE_COMBO_BOX,
-			"model", store,
-			"has-entry", TRUE,
-			"entry-text-column", 0,
-			NULL);
-		g_object_unref (store);
-	}
-#else
-	folder_name_combo = gtk_combo_box_entry_new_text ();
-#endif
+	folder_name_combo = gtk_combo_box_text_new_with_entry ();
 	gtk_widget_show (folder_name_combo);
 	gtk_table_attach (GTK_TABLE (table1), folder_name_combo, 1, 2, 2, 3,
 			  (GtkAttachOptions) (GTK_FILL),

@@ -42,8 +42,6 @@
 #include <e-util/e-dialog-utils.h>
 #include <e-util/e-alert-dialog.h>
 
-#include "gtk-compat.h"
-
 struct _ExchangePermissionsDialogPrivate {
 	ExchangeAccount *account;
 	gchar *base_uri, *folder_path;
@@ -644,11 +642,7 @@ display_permissions (ExchangePermissionsDialog *dialog)
 				      perms & E2K_PERMISSION_OWNER);
 	gtk_toggle_button_set_active (dialog->priv->folder_contact_check,
 				      (perms & E2K_PERMISSION_CONTACT) &&
-#if GTK_CHECK_VERSION(2,19,7)
 				      gtk_widget_get_sensitive (GTK_WIDGET (dialog->priv->folder_contact_check)));
-#else
-				      GTK_WIDGET_SENSITIVE (dialog->priv->folder_contact_check));
-#endif
 	gtk_toggle_button_set_active (dialog->priv->folder_visible_check,
 				      perms & E2K_PERMISSION_FOLDER_VISIBLE);
 

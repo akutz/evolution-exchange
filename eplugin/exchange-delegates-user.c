@@ -44,8 +44,6 @@
 
 #include <string.h>
 
-#include "gtk-compat.h"
-
 #define EXCHANGE_DELEGATES_USER_CUSTOM    -3
 /* Can't use E2K_PERMISSIONS_ROLE_CUSTOM, because it's -1, which
  * means "end of list" to e_dialog_combo_box_get/set
@@ -240,9 +238,6 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 		GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 		GTK_STOCK_OK, GTK_RESPONSE_OK,
 		NULL);
-#if !GTK_CHECK_VERSION(2,90,7)
-	g_object_set (delegate_permissions, "has-separator", FALSE, NULL);
-#endif
 
 	if (parent_window)
 		gtk_window_set_transient_for (GTK_WINDOW (delegate_permissions), GTK_WINDOW (parent_window));
