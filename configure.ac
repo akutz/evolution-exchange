@@ -14,38 +14,12 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 dnl Required Package Versions
 m4_define([glib_minimum_version], [2.16.0])
+m4_define([gtk_minimum_version], [2.99.2])
 m4_define([eds_minimum_version], [eex_version])
 m4_define([evo_minimum_version], [eex_version])
 m4_define([gconf_minimum_version], [2.0.0])		dnl XXX Just a Guess
 m4_define([libxml_minimum_version], [2.0.0])		dnl XXX Just a Guess
 m4_define([libsoup_minimum_version], [2.3.0])
-
-
-dnl **********************************
-dnl Gtk-3 compatibility
-dnl **********************************
-AC_ARG_ENABLE([gtk3],
-	AS_HELP_STRING([--enable-gtk3],
-	[Attempt to use gtk+-3]),
-	[enable_gtk3=$enableval],[enable_gtk3=no])
-
-if test "x${enable_gtk3}" = "xyes"; then
-	GTK="gtk+-3.0"
-	gtk_minimum_version="2.90.4"
-
-	EVOLUTION_PLUGIN_PK="evolution-plugin-3.0"
-	EVOLUTION_MAIL_PK="evolution-mail-3.0"
-	EVOLUTION_SHELL_PK="evolution-shell-3.0"
-	LIBEDATASERVERUI_PK="libedataserverui-3.0"
-else	
-	GTK="gtk+-2.0"
-	gtk_minimum_version="2.20.0"
-
-	EVOLUTION_PLUGIN_PK="evolution-plugin"
-	EVOLUTION_MAIL_PK="evolution-mail"
-	EVOLUTION_SHELL_PK="evolution-shell"
-	LIBEDATASERVERUI_PK="libedataserverui-1.2"
-fi
 
 dnl *********************************************************************
 dnl Update these for every new development release of Evolution-Exchange.
@@ -169,7 +143,7 @@ dnl **********************************
 
 PKG_CHECK_MODULES(GNOME_PLATFORM,
 	[gio-2.0 >= glib_minimum_version
-	$GTK >= $gtk_minimum_version
+	gtk+-3.0 >= gtk_minimum_version
 	gconf-2.0 >= gconf_minimum_version
 	libxml-2.0 >= libxml_minimum_version
 	libsoup-2.4 >= libsoup_minimum_version])
@@ -178,7 +152,7 @@ PKG_CHECK_MODULES(EVOLUTION_DATA_SERVER,
 	[libebook-1.2 >= eds_minimum_version
 	libecal-1.2 >= eds_minimum_version
 	libedataserver-1.2 >= eds_minimum_version
-	$LIBEDATASERVERUI_PK >= eds_minimum_version
+	libedataserverui-3.0 >= eds_minimum_version
 	libedata-book-1.2 >= eds_minimum_version
 	libedata-cal-1.2 >= eds_minimum_version
 	libegroupwise-1.2 >= eds_minimum_version
@@ -244,7 +218,7 @@ dnl *************************************
 dnl Check for evo/eds and version setting
 dnl *************************************
 AC_MSG_CHECKING(Evolution version)
-EVOLUTION_VERSION="`$PKG_CONFIG --modversion $EVOLUTION_SHELL_PK 2>/dev/null`"
+EVOLUTION_VERSION="`$PKG_CONFIG --modversion evolution-shell-3.0 2>/dev/null`"
 if test -z "$EVOLUTION_VERSION"; then
 	AC_MSG_ERROR(Evolution development libraries not installed)
 fi
@@ -253,10 +227,10 @@ AC_SUBST(EVOLUTION_VERSION)
 AC_SUBST([BASE_VERSION], [base_version])
 AC_DEFINE_UNQUOTED(BASE_VERSION, "$BASE_VERSION", Connector base version)
 
-plugindir="`$PKG_CONFIG --variable=plugindir $EVOLUTION_PLUGIN_PK`"
+plugindir="`$PKG_CONFIG --variable=plugindir evolution-plugin-3.0`"
 AC_SUBST(plugindir)
 
-EVOLUTION_PLUGIN_errordir="`$PKG_CONFIG --variable=errordir $EVOLUTION_PLUGIN_PK`"
+EVOLUTION_PLUGIN_errordir="`$PKG_CONFIG --variable=errordir evolution-plugin-3.0`"
 AC_SUBST(EVOLUTION_PLUGIN_errordir)
 
 ebook_backenddir=`$PKG_CONFIG --variable=backenddir libedata-book-1.2`
@@ -265,7 +239,7 @@ AC_SUBST(ebook_backenddir)
 ecal_backenddir=`$PKG_CONFIG --variable=backenddir libedata-cal-1.2`
 AC_SUBST(ecal_backenddir)
 
-EVOLUTION_imagesdir="`$PKG_CONFIG --variable=imagesdir $EVOLUTION_SHELL_PK`"
+EVOLUTION_imagesdir="`$PKG_CONFIG --variable=imagesdir evolution-shell-3.0`"
 AC_SUBST(EVOLUTION_imagesdir)
 
 CAMEL_providerdir="`$PKG_CONFIG --variable=camel_providerdir camel-provider-1.2`"
@@ -274,21 +248,21 @@ AC_SUBST(CAMEL_providerdir)
 dnl ***************************
 dnl Check for evolution plugins
 dnl ***************************
-PKG_CHECK_MODULES(EVOLUTION_PLUGIN, $EVOLUTION_PLUGIN_PK >= evo_minimum_version)
+PKG_CHECK_MODULES(EVOLUTION_PLUGIN, evolution-plugin-3.0 >= evo_minimum_version)
 AC_SUBST(EVOLUTION_PLUGIN_CFLAGS)
 AC_SUBST(EVOLUTION_PLUGIN_LIBS)
 
 dnl ***************************
 dnl Check for evolution mail
 dnl ***************************
-PKG_CHECK_MODULES(EVOLUTION_MAIL, $EVOLUTION_MAIL_PK >= evo_minimum_version)
+PKG_CHECK_MODULES(EVOLUTION_MAIL, evolution-mail-3.0 >= evo_minimum_version)
 AC_SUBST(EVOLUTION_MAIL_CFLAGS)
 AC_SUBST(EVOLUTION_MAIL_LIBS)
 
 dnl ***************************
 dnl Check for evolution shell
 dnl ***************************
-PKG_CHECK_MODULES(EVOLUTION_SHELL, $EVOLUTION_SHELL_PK >= evo_minimum_version)
+PKG_CHECK_MODULES(EVOLUTION_SHELL, evolution-shell-3.0 >= evo_minimum_version)
 AC_SUBST(EVOLUTION_SHELL_CFLAGS)
 AC_SUBST(EVOLUTION_SHELL_LIBS)
 
@@ -437,7 +411,6 @@ server/xntlm/Makefile
 AC_OUTPUT
 
 AC_MSG_NOTICE([
-	GTK package	: $GTK
 	Debugging	: $enable_e2kdebug
 	GTK-Doc		: $enable_gtk_doc
 	Kerberos 5	: $msg_krb5
