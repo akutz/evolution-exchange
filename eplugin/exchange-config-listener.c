@@ -512,7 +512,6 @@ remove_account_esource (ExchangeAccount *account,
 	GSList *groups;
 	GSList *sources;
 	GSList *ids, *node_to_be_deleted;
-	gboolean found_group;
 	const gchar *source_uid;
 	GConfClient *client;
 	ESourceList *source_list = NULL;
@@ -532,9 +531,8 @@ remove_account_esource (ExchangeAccount *account,
 							CONF_KEY_TASKS);
 
 	groups = e_source_list_peek_groups (source_list);
-	found_group = FALSE;
 
-	for (; groups != NULL && !found_group; groups = g_slist_next (groups)) {
+	for (; groups != NULL; groups = g_slist_next (groups)) {
 		group = E_SOURCE_GROUP (groups->data);
 
 		if (strcmp (e_source_group_peek_name (group), account->account_name) == 0
@@ -593,7 +591,7 @@ remove_account_esource (ExchangeAccount *account,
 			}
 			e_source_list_remove_group (source_list, group);
 			e_source_list_sync (source_list, NULL);
-			found_group = TRUE;
+			break;
 		}
 	}
 	g_object_unref (source_list);
@@ -1352,12 +1350,11 @@ exchange_add_autocompletion_folders (GConfClient *gc_client, ExchangeAccount *ac
 	ESourceList *sl=NULL;
 	ESource *source;
 	GSList *groups;
-	gboolean found_group=FALSE;
 
 	sl = e_source_list_new_for_gconf (gc_client, CONF_KEY_CONTACTS);
 	groups = e_source_list_peek_groups (sl);
 
-	for (; groups != NULL && !found_group; groups = g_slist_next (groups)) {
+	for (; groups != NULL; groups = g_slist_next (groups)) {
 		ESourceGroup *group = E_SOURCE_GROUP (groups->data);
 
 		if (strcmp (e_source_group_peek_name (group), account->account_name) == 0
@@ -1378,7 +1375,7 @@ exchange_add_autocompletion_folders (GConfClient *gc_client, ExchangeAccount *ac
 					break;
 				}
 			}
-			found_group = TRUE;
+			break;
 		}
 	}
 
@@ -1452,7 +1449,6 @@ remove_selected_non_offline_esources (ExchangeAccount *account, const gchar *gco
 	GSList *groups;
 	GSList *sources;
 	GSList *ids, *node_to_be_deleted;
-	gboolean found_group;
 	const gchar *source_uid;
 	GConfClient *client;
 	ESourceList *source_list = NULL;
@@ -1472,9 +1468,8 @@ remove_selected_non_offline_esources (ExchangeAccount *account, const gchar *gco
 	source_list = e_source_list_new_for_gconf ( client, gconf_key);
 
 	groups = e_source_list_peek_groups (source_list);
-	found_group = FALSE;
 
-	for (; groups != NULL && !found_group; groups = g_slist_next (groups)) {
+	for (; groups != NULL; groups = g_slist_next (groups)) {
 		group = E_SOURCE_GROUP (groups->data);
 
 		if (strcmp (e_source_group_peek_name (group), account->account_name) == 0
@@ -1510,8 +1505,8 @@ remove_selected_non_offline_esources (ExchangeAccount *account, const gchar *gco
 					g_slist_free (ids);
 				}
 			}
-			found_group = TRUE;
 			e_source_list_sync (source_list, NULL);
+			break;
 		}
 	}
 
