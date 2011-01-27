@@ -148,12 +148,38 @@ is_same_ed (CamelExchangeStore *estore, ExchangeAccount *eaccount, CamelService 
 }
 
 static void free_folder (gpointer value);
+G_LOCK_DEFINE_STATIC (edies);
+
+static void
+estore_gone_cb (gpointer edies_ptr, GObject *gone_eservice)
+{
+	GSList **edies_lst_ptr = edies_ptr, *l;
+
+	g_return_if_fail (edies_ptr != NULL);
+
+	G_LOCK (edies);
+
+	for (l = *edies_lst_ptr; l; l = l->next) {
+		ExchangeData *ed = l->data;
+
+		if (ed && ed->estore == (CamelExchangeStore *) gone_eservice) {
+			g_hash_table_destroy (ed->folders_by_name);
+			g_static_rec_mutex_free (&ed->changed_msgs_mutex);
+			g_free (ed);
+
+			*edies_lst_ptr = g_slist_remove (*edies_lst_ptr, ed);
+
+			break;
+		}
+	}
+
+	G_UNLOCK (edies);
+}
 
 static ExchangeData *
 get_data_for_service (CamelService *service)
 {
 	static GSList *edies = NULL;
-	G_LOCK_DEFINE_STATIC (edies);
 
 	GSList *p, *accounts;
 	ExchangeData *res = NULL;
@@ -178,8 +204,10 @@ get_data_for_service (CamelService *service)
 		if (a && is_same_ed (NULL, a, service)) {
 			res = g_new0 (ExchangeData, 1);
 			res->account = a;
-			if (CAMEL_IS_EXCHANGE_STORE (service))
+			if (CAMEL_IS_EXCHANGE_STORE (service)) {
 				res->estore = CAMEL_EXCHANGE_STORE (service);
+				g_object_weak_ref (G_OBJECT (service), estore_gone_cb, &edies);
+			}
 			res->folders_by_name = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, free_folder);
 			g_static_rec_mutex_init (&res->changed_msgs_mutex);
 
