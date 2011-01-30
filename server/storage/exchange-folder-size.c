@@ -114,7 +114,7 @@ exchange_folder_size_init (ExchangeFolderSize *fsize)
 {
 	fsize->priv = g_new0 (ExchangeFolderSizePrivate, 1);
 	fsize->priv->table = g_hash_table_new (g_str_hash, g_str_equal);
-        fsize->priv->model = gtk_list_store_new (NUM_COLUMNS, G_TYPE_STRING, G_TYPE_DOUBLE);
+	fsize->priv->model = gtk_list_store_new (NUM_COLUMNS, G_TYPE_STRING, G_TYPE_DOUBLE);
 	fsize->priv->row_refs = g_hash_table_new (g_str_hash, g_str_equal);
 }
 
@@ -240,7 +240,7 @@ exchange_folder_size_get (ExchangeFolderSize *fsize,
 GtkListStore *
 exchange_folder_size_get_model (ExchangeFolderSize *fsize)
 {
-        ExchangeFolderSizePrivate *priv;
+	ExchangeFolderSizePrivate *priv;
 
 	priv = fsize->priv;
 

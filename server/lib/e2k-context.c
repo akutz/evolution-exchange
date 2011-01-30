@@ -433,8 +433,8 @@ e2k_context_set_auth (E2kContext *ctx, const gchar *username,
 		timeout = atoi (g_getenv ("SOUP_SESSION_TIMEOUT"));
 
 	/* Check do we need a proxy to contact the server? */
-        if (e_proxy_require_proxy_for_uri (ctx->priv->proxy, ctx->priv->owa_uri))
-                uri = e_proxy_peek_uri_for (ctx->priv->proxy, ctx->priv->owa_uri);
+	if (e_proxy_require_proxy_for_uri (ctx->priv->proxy, ctx->priv->owa_uri))
+		uri = e_proxy_peek_uri_for (ctx->priv->proxy, ctx->priv->owa_uri);
 
 	ctx->priv->session = soup_session_sync_new_with_options (
 		SOUP_SESSION_USE_NTLM, !authmech || !strcmp (authmech, "NTLM"),

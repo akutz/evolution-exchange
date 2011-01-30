@@ -249,8 +249,8 @@ org_gnome_exchange_settings (EPlugin *epl, EConfigHookItemFactoryData *data)
 
 		e_alert_run_dialog_for_args (GTK_WINDOW (data->config->target->widget), ERROR_DOMAIN ":state-read-error", NULL);
 
-                return NULL;
-        }
+		return NULL;
+	}
 
 	if (message && *message)
 		oof_data->message = g_strdup (message);
@@ -909,7 +909,7 @@ org_gnome_exchange_commit (EPlugin *epl, EMConfigTargetAccount *target_account)
 								    &offline_status);
 
 	if (offline_status == OFFLINE_MODE) {
-                return;
+		return;
 	}
 
 	/* Set oof data in exchange account */

@@ -133,7 +133,7 @@ add_folder_esource (ExchangeAccount *account,
 	useremail = exchange_account_get_email_id (account);
 	authtype = exchange_account_get_authtype (account);
 
-        if ((source_group = find_account_group (source_list, account)) == NULL) {
+	if ((source_group = find_account_group (source_list, account)) == NULL) {
 		source_group = e_source_group_new (account->account_name,
 						   EXCHANGE_URI_PREFIX);
 		if (!e_source_list_add_group (source_list, source_group, -1)) {
@@ -361,8 +361,8 @@ remove_folder_esource (ExchangeAccount *account,
 		group = E_SOURCE_GROUP (groups->data);
 
 		if (strcmp (e_source_group_peek_name (group), account->account_name) == 0
-                    &&
-                   strcmp (e_source_group_peek_base_uri (group), EXCHANGE_URI_PREFIX) == 0) {
+		    &&
+		   strcmp (e_source_group_peek_base_uri (group), EXCHANGE_URI_PREFIX) == 0) {
 
 			sources = e_source_group_peek_sources (group);
 
@@ -426,13 +426,13 @@ remove_folder_esource (ExchangeAccount *account,
 							g_slist_free (ids);
 						}
 					}
-                                        found_group = TRUE;
-                                        break;
-                                }
+					found_group = TRUE;
+					break;
+				}
 				g_free (read_uri);
-                        }
-                }
-        }
+			}
+		}
+	}
 	g_object_unref (source_list);
 	g_object_unref (client);
 }

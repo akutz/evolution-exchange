@@ -70,7 +70,7 @@ e2k_parse_xml (const gchar *buf, gint len)
 		return NULL;
 
 	xmlFree (ctxt->sax);
-        ctxt->sax = sax;
+	ctxt->sax = sax;
 #if LIBXML_VERSION > 20600
 	ctxt->sax2 = 1;
 	ctxt->str_xml = xmlDictLookup (ctxt->dict, BAD_CAST "xml", 3);
@@ -128,8 +128,8 @@ e2k_parse_html (const gchar *buf, gint len)
 	if (!ctxt)
 		return NULL;
 
-        xmlFree (ctxt->sax);
-        ctxt->sax = sax;
+	xmlFree (ctxt->sax);
+	ctxt->sax = sax;
 	ctxt->vctxt.error = my_xml_parser_error_handler;
 	ctxt->vctxt.warning = my_xml_parser_error_handler;
 

@@ -38,8 +38,8 @@ entry_changed (GtkEntry *entry, gpointer user_data)
 	GtkDialog *pass_dialog;
 	const gchar *text;
 
-        new_entry = GTK_ENTRY (entry);
-        confirm_entry = GTK_ENTRY (user_data);
+	new_entry = GTK_ENTRY (entry);
+	confirm_entry = GTK_ENTRY (user_data);
 	pass_dialog = GTK_DIALOG (g_object_get_data (G_OBJECT (new_entry), "pass_dialog"));
 
 	text = gtk_entry_get_text (new_entry);

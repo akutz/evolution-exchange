@@ -338,7 +338,7 @@ get_fav_properties (E2kContext *ctx, gchar *uri)
 	rn = e2k_restriction_prop_bool (E2K_PR_DAV_IS_COLLECTION,
 					E2K_RELOP_EQ, FALSE);
 	iter = e2k_context_search_start (ctx, &op, top, &prop, 1,
-                                         rn, NULL, FALSE);
+					 rn, NULL, FALSE);
 	e2k_restriction_unref (rn);
 
 	while ((result = e2k_result_iter_next (iter))) {

@@ -593,10 +593,10 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal,
 	e_folder_exchange_subscribe (E_CAL_BACKEND_EXCHANGE (backend)->folder,
 			E2K_CONTEXT_OBJECT_CHANGED, 30,
 			notify_changes, backend);
-        e_folder_exchange_subscribe (E_CAL_BACKEND_EXCHANGE (backend)->folder,
+	e_folder_exchange_subscribe (E_CAL_BACKEND_EXCHANGE (backend)->folder,
 			E2K_CONTEXT_OBJECT_ADDED, 30,
 			notify_changes, backend);
-        e_folder_exchange_subscribe (E_CAL_BACKEND_EXCHANGE (backend)->folder,
+	e_folder_exchange_subscribe (E_CAL_BACKEND_EXCHANGE (backend)->folder,
 			E2K_CONTEXT_OBJECT_REMOVED, 30,
 			notify_changes, backend);
 
@@ -1151,9 +1151,9 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	e_return_data_cal_error_and_val_if_fail (calobj != NULL, InvalidArg, FALSE);
 
 	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
-                g_propagate_error (error, EDC_ERROR (RepositoryOffline));
+		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return FALSE;
-        }
+	}
 
 	if (rid_to_remove)
 		remove = TRUE;
@@ -1550,8 +1550,8 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 
 	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
-                return;
-        }
+		return;
+	}
 
 	e_cal_backend_exchange_cache_lock (cbex);
 	ecomp = get_exchange_comp (E_CAL_BACKEND_EXCHANGE (cbexc), uid);
@@ -1637,8 +1637,8 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 
 	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
-                return;
-        }
+		return;
+	}
 
 	if (!e_cal_backend_exchange_extract_components (calobj, &method, &comps, error))
 		return;
@@ -2263,8 +2263,8 @@ discard_alarm (ECalBackendSync *backend, EDataCal *cal,
 
 	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
-                return;
-        }
+		return;
+	}
 
 	cbex = E_CAL_BACKEND_EXCHANGE (backend);
 
@@ -2312,8 +2312,8 @@ get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 
 	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
 		g_propagate_error (perror, EDC_ERROR (RepositoryOffline));
-                return;
-        }
+		return;
+	}
 
 	/* The calendar component sets start to "exactly 24 hours
 	 * ago". But since we're going to get the information in

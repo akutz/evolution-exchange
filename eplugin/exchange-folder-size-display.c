@@ -117,7 +117,7 @@ calc_folder_size_func (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter
 void
 exchange_folder_size_display (GtkListStore *model, GtkWidget *parent)
 {
-        GtkTreeViewColumn *column;
+	GtkTreeViewColumn *column;
 	GtkTreeSortable *sortable;
 	GtkCellRenderer *cell;
 	GtkWidget *folder_tree;
@@ -130,7 +130,7 @@ exchange_folder_size_display (GtkListStore *model, GtkWidget *parent)
 	gchar *col_name, *total_size_str;
 	gdouble total_size;
 
-        g_return_if_fail (GTK_IS_WIDGET (parent));
+	g_return_if_fail (GTK_IS_WIDGET (parent));
 
 	folder_tree = gtk_dialog_new_with_buttons (
 		_("Exchange Folder Tree"),
@@ -175,13 +175,13 @@ exchange_folder_size_display (GtkListStore *model, GtkWidget *parent)
 	sortable = GTK_TREE_SORTABLE (model);
 	gtk_tree_sortable_set_sort_column_id (sortable, COLUMN_SIZE, GTK_SORT_DESCENDING);
 
-        column = gtk_tree_view_column_new_with_attributes (
+	column = gtk_tree_view_column_new_with_attributes (
                 _("Folder Name"), gtk_cell_renderer_text_new (), "text", COLUMN_NAME, NULL);
-        gtk_tree_view_append_column (GTK_TREE_VIEW (folder_treeview),
-                                     column);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (folder_treeview),
+				     column);
 
 	col_name = g_strdup_printf ("%s (KB)", _("Folder Size"));
-        column = gtk_tree_view_column_new_with_attributes (
+	column = gtk_tree_view_column_new_with_attributes (
                 col_name, gtk_cell_renderer_text_new (), "text", COLUMN_SIZE, NULL);
 	g_free (col_name);
 
@@ -190,10 +190,10 @@ exchange_folder_size_display (GtkListStore *model, GtkWidget *parent)
 	gtk_tree_view_column_set_cell_data_func (column, cell, format_size_func, NULL, NULL );
 	g_list_free (l);
 
-        gtk_tree_view_append_column (GTK_TREE_VIEW (folder_treeview),
-                                     column);
-        gtk_tree_view_set_model (GTK_TREE_VIEW (folder_treeview),
-                                 GTK_TREE_MODEL (model));
+	gtk_tree_view_append_column (GTK_TREE_VIEW (folder_treeview),
+				     column);
+	gtk_tree_view_set_model (GTK_TREE_VIEW (folder_treeview),
+				 GTK_TREE_MODEL (model));
 	gtk_dialog_run (GTK_DIALOG (folder_tree));
-        gtk_widget_destroy (folder_tree);
+	gtk_widget_destroy (folder_tree);
 }

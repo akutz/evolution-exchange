@@ -160,7 +160,7 @@ exchange_hierarchy_removed_folder (ExchangeHierarchy *hier,
 				   EFolder *folder)
 {
 	g_return_if_fail (EXCHANGE_IS_HIERARCHY (hier));
-        g_return_if_fail (E_IS_FOLDER (folder));
+	g_return_if_fail (E_IS_FOLDER (folder));
 
 	g_signal_emit (hier, signals[REMOVED_FOLDER], 0, folder);
 }

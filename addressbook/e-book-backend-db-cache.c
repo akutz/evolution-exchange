@@ -312,7 +312,7 @@ e_book_backend_db_cache_get_contacts (DB *db, const gchar *query)
 	DBT        uid_dbt, vcard_dbt;
 	gint        db_error;
 	GList *list = NULL;
-        EBookBackendSExp *sexp = NULL;
+	EBookBackendSExp *sexp = NULL;
 	EContact *contact;
 
 	if (query) {
@@ -347,7 +347,7 @@ e_book_backend_db_cache_get_contacts (DB *db, const gchar *query)
 	if (sexp)
 		g_object_unref (sexp);
 
-        return list;
+	return list;
 }
 
 /**

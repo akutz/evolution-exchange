@@ -153,7 +153,7 @@ e_exchange_calendar_pcalendar (EPlugin *epl, EConfigHookItemFactoryData *data)
 	ExchangeAccount *account;
 	gchar *ruri;
 	gchar *account_name;
-        gchar *uri_text;
+	gchar *uri_text;
 	gchar *cal_name;
 	gchar *folder_size;
 	const gchar *rel_uri;
@@ -178,7 +178,7 @@ e_exchange_calendar_pcalendar (EPlugin *epl, EConfigHookItemFactoryData *data)
 
 	if (uri && strcmp (uri->protocol, "exchange")) {
 		e_uri_free (uri);
-                g_free (uri_text);
+		g_free (uri_text);
 		return hidden;
 	}
 
@@ -339,8 +339,8 @@ e_exchange_calendar_check (EPlugin *epl, EConfigHookPageCheckData *data)
 
 	if (!calendar_src_exists) {
 		/* new folder */
-                return TRUE;
-        }
+		return TRUE;
+	}
 
 	account = exchange_operations_get_exchange_account ();
 	if (!account)

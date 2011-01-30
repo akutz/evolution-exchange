@@ -348,21 +348,21 @@ remove_folder (ExchangeHierarchy *hier, EFolder *folder)
 
 	/* Temp Fix for remove fav folders. see #59168 */
         /* remove ESources */
-        folder_type = e_folder_get_type_string (folder);
-        physical_uri = e_folder_get_physical_uri (folder);
+	folder_type = e_folder_get_type_string (folder);
+	physical_uri = e_folder_get_physical_uri (folder);
 
         if (strcmp (folder_type, "calendar") == 0) {
-                remove_folder_esource (hier->account,
+		remove_folder_esource (hier->account,
 				       EXCHANGE_CALENDAR_FOLDER,
 				       physical_uri);
-        }
+	}
         else if (strcmp (folder_type, "tasks") == 0) {
-                remove_folder_esource (hier->account,
+		remove_folder_esource (hier->account,
 				       EXCHANGE_TASKS_FOLDER,
 				       physical_uri);
-        }
+	}
         else if (strcmp (folder_type, "contacts") == 0) {
-                remove_folder_esource (hier->account,
+		remove_folder_esource (hier->account,
 				       EXCHANGE_CONTACTS_FOLDER,
 				       physical_uri);
 	}

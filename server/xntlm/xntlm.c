@@ -252,7 +252,7 @@ setup_schedule (const guchar *key_56, XNTLM_DES_KS ks)
 			key[i] ^= 0x01;
 	}
 
-        xntlm_deskey (ks, key, XNTLM_DES_ENCRYPT);
+	xntlm_deskey (ks, key, XNTLM_DES_ENCRYPT);
 }
 
 static guchar LM_PASSWORD_MAGIC[] = {
@@ -305,19 +305,19 @@ static void
 ntlm_calc_response (const guchar key[21], const guchar plaintext[8],
 		    guchar results[24])
 {
-        XNTLM_DES_KS ks;
+	XNTLM_DES_KS ks;
 
 	memcpy (results, plaintext, 8);
 	memcpy (results + 8, plaintext, 8);
 	memcpy (results + 16, plaintext, 8);
 
-        setup_schedule (key, ks);
+	setup_schedule (key, ks);
 	xntlm_des (ks, results);
 
-        setup_schedule (key + 7, ks);
+	setup_schedule (key + 7, ks);
 	xntlm_des (ks, results + 8);
 
-        setup_schedule (key + 14, ks);
-        xntlm_des (ks, results + 16);
+	setup_schedule (key + 14, ks);
+	xntlm_des (ks, results + 16);
 }
 

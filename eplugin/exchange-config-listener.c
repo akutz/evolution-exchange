@@ -405,7 +405,7 @@ add_new_sources (ExchangeAccount *account)
 	GPtrArray *exchange_folders;
 
 	exchange_folders = exchange_account_get_folders (account);
-        if (exchange_folders && exchange_folders->len > 0) {
+	if (exchange_folders && exchange_folders->len > 0) {
 		gint i;
 		const gchar *folder_type;
 		const gchar *folder_name;
@@ -449,7 +449,7 @@ add_new_sources (ExchangeAccount *account)
 							folder_name, folder_uri);
 			} /* End hierarchy type check */
 		} /* End for loop */
-        } /* End check for a list of folders */
+	} /* End check for a list of folders */
 }
 
 static void
@@ -458,7 +458,7 @@ add_sources (ExchangeAccount *account)
 	GPtrArray *exchange_folders;
 
 	exchange_folders = exchange_account_get_folders (account);
-        if (exchange_folders && exchange_folders->len > 0) {
+	if (exchange_folders && exchange_folders->len > 0) {
 		gint i;
 		const gchar *folder_type;
 		EFolder *folder;
@@ -499,7 +499,7 @@ add_sources (ExchangeAccount *account)
 		add_account_esources (account, folders);
 		g_slist_foreach (folders, (GFunc) g_free, NULL);
 		g_slist_free (folders);
-        }
+	}
 }
 #endif
 
@@ -536,8 +536,8 @@ remove_account_esource (ExchangeAccount *account,
 		group = E_SOURCE_GROUP (groups->data);
 
 		if (strcmp (e_source_group_peek_name (group), account->account_name) == 0
-                    &&
-                    strcmp (e_source_group_peek_base_uri (group), EXCHANGE_URI_PREFIX) == 0) {
+		    &&
+		    strcmp (e_source_group_peek_base_uri (group), EXCHANGE_URI_PREFIX) == 0) {
 			sources = e_source_group_peek_sources (group);
 
 			for (; sources != NULL; sources = g_slist_next (sources)) {
@@ -1358,7 +1358,7 @@ exchange_add_autocompletion_folders (GConfClient *gc_client, ExchangeAccount *ac
 		ESourceGroup *group = E_SOURCE_GROUP (groups->data);
 
 		if (strcmp (e_source_group_peek_name (group), account->account_name) == 0
-                    &&
+		    &&
 		    strcmp (e_source_group_peek_base_uri (group), EXCHANGE_URI_PREFIX) == 0) {
 			GSList *sources = e_source_group_peek_sources (group);
 
@@ -1473,8 +1473,8 @@ remove_selected_non_offline_esources (ExchangeAccount *account, const gchar *gco
 		group = E_SOURCE_GROUP (groups->data);
 
 		if (strcmp (e_source_group_peek_name (group), account->account_name) == 0
-                    &&
-                    strcmp (e_source_group_peek_base_uri (group), EXCHANGE_URI_PREFIX) == 0) {
+		    &&
+		    strcmp (e_source_group_peek_base_uri (group), EXCHANGE_URI_PREFIX) == 0) {
 			sources = e_source_group_peek_sources (group);
 
 			for (; sources != NULL; sources = g_slist_next (sources)) {

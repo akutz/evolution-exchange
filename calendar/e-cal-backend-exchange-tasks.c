@@ -86,75 +86,75 @@ get_from (ECalBackendSync *backend, ECalComponent *comp, gchar **from_name, gcha
                 *from_name = org.cn;
                 if (!g_ascii_strncasecmp (org.value, "mailto:", 7))
                         *from_addr = org.value + 7;
-                else
+		else
                         *from_addr = org.value;
-        } else {
+	} else {
                 *from_name = e_cal_backend_exchange_get_cal_owner (E_CAL_BACKEND_SYNC (backend));
                 *from_addr = e_cal_backend_exchange_get_cal_address (E_CAL_BACKEND_SYNC (backend));
-        }
+	}
 #endif
 }
 
 static void
 set_uid (E2kProperties *props, ECalComponent *comp)
 {
-        const gchar *uid;
+	const gchar *uid;
 
 	e_cal_component_get_uid (E_CAL_COMPONENT (comp), &uid);
-        e2k_properties_set_string (props, E2K_PR_CALENDAR_UID, g_strdup (uid));
+	e2k_properties_set_string (props, E2K_PR_CALENDAR_UID, g_strdup (uid));
 }
 
 static void
 set_summary (E2kProperties *props, ECalComponent *comp)
 {
-        static ECalComponentText summary;
+	static ECalComponentText summary;
 
 	e_cal_component_get_summary (E_CAL_COMPONENT (comp), &summary);
-        if (summary.value) {
-                e2k_properties_set_string (props, E2K_PR_HTTPMAIL_THREAD_TOPIC,
-                                           g_strdup (summary.value));
-        } else
-                e2k_properties_remove (props, E2K_PR_HTTPMAIL_THREAD_TOPIC);
+	if (summary.value) {
+		e2k_properties_set_string (props, E2K_PR_HTTPMAIL_THREAD_TOPIC,
+					   g_strdup (summary.value));
+	} else
+		e2k_properties_remove (props, E2K_PR_HTTPMAIL_THREAD_TOPIC);
 }
 
 static void
 set_priority (E2kProperties *props, ECalComponent *comp)
 {
-        gint *priority, value = 0;
+	gint *priority, value = 0;
 
 	e_cal_component_get_priority (E_CAL_COMPONENT (comp), &priority);
-        if (priority) {
-                if (*priority == 0)
-                        value = 0;
-                else if (*priority <= 4)
-                        value = 1;
-                else if (*priority == 5)
-                        value = 0;
-                else
-                        value = -1;
-                e_cal_component_free_priority (priority);
-        }
-        e2k_properties_set_int (props, E2K_PR_MAPI_PRIORITY, value);
+	if (priority) {
+		if (*priority == 0)
+			value = 0;
+		else if (*priority <= 4)
+			value = 1;
+		else if (*priority == 5)
+			value = 0;
+		else
+			value = -1;
+		e_cal_component_free_priority (priority);
+	}
+	e2k_properties_set_int (props, E2K_PR_MAPI_PRIORITY, value);
 }
 
 static void
 set_sensitivity (E2kProperties *props, ECalComponent *comp)
 {
-        ECalComponentClassification classif;
-        gint sensitivity;
+	ECalComponentClassification classif;
+	gint sensitivity;
 
 	e_cal_component_get_classification (E_CAL_COMPONENT (comp), &classif);
-        switch (classif) {
-        case E_CAL_COMPONENT_CLASS_PRIVATE:
-                sensitivity = 2;
-                break;
-        case E_CAL_COMPONENT_CLASS_CONFIDENTIAL:
-                sensitivity = 1;
-                break;
-        default:
-                sensitivity = 0;
-                break;
-        }
+	switch (classif) {
+	case E_CAL_COMPONENT_CLASS_PRIVATE:
+		sensitivity = 2;
+		break;
+	case E_CAL_COMPONENT_CLASS_CONFIDENTIAL:
+		sensitivity = 1;
+		break;
+	default:
+		sensitivity = 0;
+		break;
+	}
 
 	e2k_properties_set_int (props, E2K_PR_MAPI_SENSITIVITY, sensitivity);
 }
@@ -187,15 +187,15 @@ gchar *
 calcomponentdatetime_to_string (ECalComponentDateTime *dt,
                                 icaltimezone *izone)
 {
-        time_t tt;
+	time_t tt;
 
 	g_return_val_if_fail (dt != NULL, NULL);
-        g_return_val_if_fail (dt->value != NULL, NULL);
+	g_return_val_if_fail (dt->value != NULL, NULL);
 
 	if (izone != NULL)
-                tt = icaltime_as_timet_with_zone (*dt->value, izone);
-        else
-                tt = icaltime_as_timet (*dt->value);
+		tt = icaltime_as_timet_with_zone (*dt->value, izone);
+	else
+		tt = icaltime_as_timet (*dt->value);
 
 	return e2k_make_timestamp (tt);
 }
@@ -203,15 +203,15 @@ calcomponentdatetime_to_string (ECalComponentDateTime *dt,
 static gchar *
 convert_to_utc (ECalComponentDateTime *dt)
 {
-        icaltimezone *from_zone;
-        icaltimezone *utc_zone;
+	icaltimezone *from_zone;
+	icaltimezone *utc_zone;
 
 	from_zone = icaltimezone_get_builtin_timezone_from_tzid (dt->tzid);
-        utc_zone = icaltimezone_get_utc_timezone ();
-        if (!from_zone)
-                from_zone = get_default_timezone ();
-        dt->value->is_date = 0;
-        icaltimezone_convert_time (dt->value, from_zone, utc_zone);
+	utc_zone = icaltimezone_get_utc_timezone ();
+	if (!from_zone)
+		from_zone = get_default_timezone ();
+	dt->value->is_date = 0;
+	icaltimezone_convert_time (dt->value, from_zone, utc_zone);
 
 	return calcomponentdatetime_to_string (dt, utc_zone);
 }
@@ -219,67 +219,67 @@ convert_to_utc (ECalComponentDateTime *dt)
 static void
 set_dtstart (E2kProperties *props, ECalComponent *comp)
 {
-        ECalComponentDateTime dt;
-        gchar *dtstart_str;
+	ECalComponentDateTime dt;
+	gchar *dtstart_str;
 
 	e_cal_component_get_dtstart (E_CAL_COMPONENT (comp), &dt);
-        if (!dt.value || icaltime_is_null_time (*dt.value)) {
-                e_cal_component_free_datetime (&dt);
-                e2k_properties_remove (props, E2K_PR_MAPI_COMMON_START);
-                return;
-        }
+	if (!dt.value || icaltime_is_null_time (*dt.value)) {
+		e_cal_component_free_datetime (&dt);
+		e2k_properties_remove (props, E2K_PR_MAPI_COMMON_START);
+		return;
+	}
 
 	dtstart_str = convert_to_utc (&dt);
-        e_cal_component_free_datetime (&dt);
-        e2k_properties_set_date (props, E2K_PR_MAPI_COMMON_START, dtstart_str);
+	e_cal_component_free_datetime (&dt);
+	e2k_properties_set_date (props, E2K_PR_MAPI_COMMON_START, dtstart_str);
 }
 
 static void
 set_due_date (E2kProperties *props, ECalComponent *comp)
 {
-        ECalComponentDateTime dt;
-        gchar *due_str;
+	ECalComponentDateTime dt;
+	gchar *due_str;
 
 	e_cal_component_get_due (E_CAL_COMPONENT (comp), &dt);
-        if (!dt.value || icaltime_is_null_time (*dt.value)) {
-                e_cal_component_free_datetime (&dt);
-                e2k_properties_remove (props, E2K_PR_MAPI_COMMON_END);
-                return;
-        }
+	if (!dt.value || icaltime_is_null_time (*dt.value)) {
+		e_cal_component_free_datetime (&dt);
+		e2k_properties_remove (props, E2K_PR_MAPI_COMMON_END);
+		return;
+	}
 
 	due_str = convert_to_utc (&dt);
-        e_cal_component_free_datetime (&dt);
-        e2k_properties_set_date (props, E2K_PR_MAPI_COMMON_END, due_str);
+	e_cal_component_free_datetime (&dt);
+	e2k_properties_set_date (props, E2K_PR_MAPI_COMMON_END, due_str);
 }
 
 gchar *
 icaltime_to_e2k_time (struct icaltimetype *itt)
 {
-        time_t tt;
+	time_t tt;
 
 	g_return_val_if_fail (itt != NULL, NULL);
 
 	tt = icaltime_as_timet_with_zone (*itt, icaltimezone_get_utc_timezone ());
-        return e2k_make_timestamp (tt);
+	return e2k_make_timestamp (tt);
 }
 
 static void
 set_date_completed (E2kProperties *props, ECalComponent *comp)
 {
-        struct icaltimetype *itt;
-        gchar *tstr;
+	struct icaltimetype *itt;
+	gchar *tstr;
 
 	e_cal_component_get_completed (E_CAL_COMPONENT (comp), &itt);
-        if (!itt || icaltime_is_null_time (*itt)) {
-                e2k_properties_remove (props, E2K_PR_OUTLOOK_TASK_DONE_DT);
-                return;
-        }
+	if (!itt || icaltime_is_null_time (*itt)) {
+		e2k_properties_remove (props, E2K_PR_OUTLOOK_TASK_DONE_DT);
+		return;
+	}
 
 	icaltimezone_convert_time (itt,
 				   icaltimezone_get_builtin_timezone ((const gchar *)itt->zone),
 				   icaltimezone_get_utc_timezone ());
-        tstr = icaltime_to_e2k_time (itt);
-        e_cal_component_free_icaltimetype (itt);
+	tstr = icaltime_to_e2k_time (itt);
+	e_cal_component_free_icaltimetype (itt);
 
 	e2k_properties_set_date (props, E2K_PR_OUTLOOK_TASK_DONE_DT, tstr);
 }
@@ -287,48 +287,48 @@ set_date_completed (E2kProperties *props, ECalComponent *comp)
 static void
 set_status (E2kProperties *props, ECalComponent *comp)
 {
-        icalproperty_status ical_status;
-        gint status;
+	icalproperty_status ical_status;
+	gint status;
 
 	e_cal_component_get_status (E_CAL_COMPONENT (comp), &ical_status);
-        switch (ical_status) {
-        case ICAL_STATUS_NONE :
-        case ICAL_STATUS_NEEDSACTION :
+	switch (ical_status) {
+	case ICAL_STATUS_NONE :
+	case ICAL_STATUS_NEEDSACTION :
                 /* Not Started */
-                status = 0;
-                break;
-        case ICAL_STATUS_INPROCESS :
+		status = 0;
+		break;
+	case ICAL_STATUS_INPROCESS :
                 /* In Progress */
-                status = 1;
-                break;
-        case ICAL_STATUS_COMPLETED :
+		status = 1;
+		break;
+	case ICAL_STATUS_COMPLETED :
                 /* Completed */
-                status = 2;
-                break;
-        case ICAL_STATUS_CANCELLED :
+		status = 2;
+		break;
+	case ICAL_STATUS_CANCELLED :
                 /* Deferred */
-                status = 4;
-                break;
-        default :
-                status = 0;
-        }
+		status = 4;
+		break;
+	default :
+		status = 0;
+	}
 
 	e2k_properties_set_int (props, E2K_PR_OUTLOOK_TASK_STATUS, status);
-        e2k_properties_set_bool (props, E2K_PR_OUTLOOK_TASK_IS_DONE, status == 2);
+	e2k_properties_set_bool (props, E2K_PR_OUTLOOK_TASK_IS_DONE, status == 2);
 }
 
 static void
 set_percent (E2kProperties *props, ECalComponent *comp)
 {
-        gint *percent;
-        gfloat res;
+	gint *percent;
+	gfloat res;
 
 	e_cal_component_get_percent (E_CAL_COMPONENT (comp), &percent);
-        if (percent) {
-                res = (gfloat) *percent / 100.0;
-                e_cal_component_free_percent (percent);
-        } else
-                res = 0.;
+	if (percent) {
+		res = (gfloat) *percent / 100.0;
+		e_cal_component_free_percent (percent);
+	} else
+		res = 0.;
 
 	e2k_properties_set_float (props, E2K_PR_OUTLOOK_TASK_PERCENT, res);
 }
@@ -336,24 +336,24 @@ set_percent (E2kProperties *props, ECalComponent *comp)
 static void
 set_categories (E2kProperties *props, ECalComponent *comp)
 {
-        GSList *categories;
-        GSList *sl;
-        GPtrArray *array;
+	GSList *categories;
+	GSList *sl;
+	GPtrArray *array;
 
 	e_cal_component_get_categories_list (E_CAL_COMPONENT (comp), &categories);
-        if (!categories) {
-                e2k_properties_remove (props, E2K_PR_EXCHANGE_KEYWORDS);
-                return;
-        }
+	if (!categories) {
+		e2k_properties_remove (props, E2K_PR_EXCHANGE_KEYWORDS);
+		return;
+	}
 
 	array = g_ptr_array_new ();
-        for (sl = categories; sl != NULL; sl = sl->next) {
-                gchar *cat = (gchar *) sl->data;
+	for (sl = categories; sl != NULL; sl = sl->next) {
+		gchar *cat = (gchar *) sl->data;
 
 		if (cat)
-                        g_ptr_array_add (array, g_strdup (cat));
-        }
-        e_cal_component_free_categories_list (categories);
+			g_ptr_array_add (array, g_strdup (cat));
+	}
+	e_cal_component_free_categories_list (categories);
 
 	e2k_properties_set_string_array (props, E2K_PR_EXCHANGE_KEYWORDS, array);
 }
@@ -361,13 +361,13 @@ set_categories (E2kProperties *props, ECalComponent *comp)
 static void
 set_url (E2kProperties *props, ECalComponent *comp)
 {
-        const gchar *url;
+	const gchar *url;
 
 	e_cal_component_get_url (E_CAL_COMPONENT (comp), &url);
-        if (url)
-                e2k_properties_set_string (props, E2K_PR_CALENDAR_URL, g_strdup (url));
-        else
-                e2k_properties_remove (props, E2K_PR_CALENDAR_URL);
+	if (url)
+		e2k_properties_set_string (props, E2K_PR_CALENDAR_URL, g_strdup (url));
+	else
+		e2k_properties_remove (props, E2K_PR_CALENDAR_URL);
 }
 
 static void
@@ -442,29 +442,29 @@ put_body (ECalComponent *comp, E2kContext *ctx, E2kOperation *op,
          gchar **repl_uid)
 
 {
-        GSList *desc_list;
-        GString *desc;
-        gchar *desc_crlf;
-        gchar *body, *date;
-        gint status;
+	GSList *desc_list;
+	GString *desc;
+	gchar *desc_crlf;
+	gchar *body, *date;
+	gint status;
 
         /* get the description */
-        e_cal_component_get_description_list (E_CAL_COMPONENT (comp), &desc_list);
+	e_cal_component_get_description_list (E_CAL_COMPONENT (comp), &desc_list);
         desc = g_string_new ("");
-        if (desc_list != NULL) {
-                GSList *sl;
+	if (desc_list != NULL) {
+		GSList *sl;
 
-                for (sl = desc_list; sl; sl = sl->next) {
-                        ECalComponentText *text = (ECalComponentText *) sl->data;
+		for (sl = desc_list; sl; sl = sl->next) {
+			ECalComponentText *text = (ECalComponentText *) sl->data;
 
-                        if (text)
-                                desc = g_string_append (desc, text->value);
-                }
-        }
+			if (text)
+				desc = g_string_append (desc, text->value);
+		}
+	}
 
 	/* PUT the component on the server */
-        desc_crlf = e2k_lf_to_crlf ((const gchar *) desc->str);
-        date = e2k_make_timestamp_rfc822 (time (NULL));
+	desc_crlf = e2k_lf_to_crlf ((const gchar *) desc->str);
+	date = e2k_make_timestamp_rfc822 (time (NULL));
 
 	if (attach_body) {
 		body = g_strdup_printf ("content-class: urn:content-classes:task\r\n"
@@ -485,17 +485,17 @@ put_body (ECalComponent *comp, E2kContext *ctx, E2kOperation *op,
                                 "Priority: %s\r\n"
                                 "Importance: %s\r\n"
                                 "\r\n%s\r\n%s",
-                                get_summary (comp),
-                                date,
-                                get_uid (comp),
+				get_summary (comp),
+				date,
+				get_uid (comp),
 				boundary,
 				from_name ? from_name : "Evolution",
 				from_addr ? from_addr : "",
 				boundary,
-                                get_summary (comp),
-                                get_priority (comp),
-                                get_priority (comp),
-                                desc_crlf,
+				get_summary (comp),
+				get_priority (comp),
+				get_priority (comp),
+				desc_crlf,
 				attach_body);
 
 	} else {
@@ -512,28 +512,28 @@ put_body (ECalComponent *comp, E2kContext *ctx, E2kOperation *op,
                                 "Importance: %s\r\n"
                                 "From: \"%s\" <%s>\r\n"
                                 "\r\n%s",
-                                get_summary (comp),
-                                date,
-                                get_uid (comp),
-                                get_summary (comp),
-                                get_priority (comp),
-                                get_priority (comp),
+				get_summary (comp),
+				date,
+				get_uid (comp),
+				get_summary (comp),
+				get_priority (comp),
+				get_priority (comp),
                                 from_name ? from_name : "Evolution",
 				from_addr ? from_addr : "",
-                                desc_crlf);
+				desc_crlf);
 	}
 
         status = e2k_context_put (ctx, NULL, uri, "message/rfc822",
 				  body, strlen (body), NULL);
 
         /* free memory */
-        g_free (body);
-        g_free (desc_crlf);
-        g_free (date);
-        e_cal_component_free_text_list (desc_list);
-        g_string_free (desc, TRUE);
+	g_free (body);
+	g_free (desc_crlf);
+	g_free (date);
+	e_cal_component_free_text_list (desc_list);
+	g_string_free (desc, TRUE);
 
-        return status;
+	return status;
 }
 
 static const gchar *task_props[] = {
@@ -583,7 +583,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 	const gchar *since = NULL;
 	ECalBackendExchangeTasks *cbext = E_CAL_BACKEND_EXCHANGE_TASKS (cbex);
 
-        g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex), SOUP_STATUS_CANCELLED);
+	g_return_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex), SOUP_STATUS_CANCELLED);
 
 	g_mutex_lock (cbext->priv->mutex);
 
@@ -603,16 +603,16 @@ get_changed_tasks (ECalBackendExchange *cbex)
 		e_cal_backend_exchange_cache_sync_start (cbex);
 	e_cal_backend_exchange_cache_unlock (cbex);
 
-        if (cbex->private_item_restriction) {
-                e2k_restriction_ref (cbex->private_item_restriction);
-                rn = e2k_restriction_andv (rn, cbex->private_item_restriction, NULL);
-        }
+	if (cbex->private_item_restriction) {
+		e2k_restriction_ref (cbex->private_item_restriction);
+		rn = e2k_restriction_andv (rn, cbex->private_item_restriction, NULL);
+	}
 
-        iter = e_folder_exchange_search_start (cbex->folder, NULL,
+	iter = e_folder_exchange_search_start (cbex->folder, NULL,
 					       task_props,
 					       G_N_ELEMENTS (task_props),
 					       rn, NULL, TRUE);
-        e2k_restriction_unref (rn);
+	e2k_restriction_unref (rn);
 
 	hrefs = g_ptr_array_new ();
 	modtimes = g_hash_table_new_full (g_str_hash, g_str_equal,
@@ -1010,15 +1010,15 @@ open_task (ECalBackendSync *backend, EDataCal *cal,
 		return;
 
 	/* Subscribe to the folder to notice changes */
-        e_folder_exchange_subscribe (E_CAL_BACKEND_EXCHANGE (backend)->folder,
-                                        E2K_CONTEXT_OBJECT_CHANGED, 30,
-                                        notify_changes, backend);
-        e_folder_exchange_subscribe (E_CAL_BACKEND_EXCHANGE (backend)->folder,
-                                        E2K_CONTEXT_OBJECT_ADDED, 30,
-                                        notify_changes, backend);
-        e_folder_exchange_subscribe (E_CAL_BACKEND_EXCHANGE (backend)->folder,
-                                        E2K_CONTEXT_OBJECT_REMOVED, 30,
-                                        notify_changes, backend);
+	e_folder_exchange_subscribe (E_CAL_BACKEND_EXCHANGE (backend)->folder,
+					E2K_CONTEXT_OBJECT_CHANGED, 30,
+					notify_changes, backend);
+	e_folder_exchange_subscribe (E_CAL_BACKEND_EXCHANGE (backend)->folder,
+					E2K_CONTEXT_OBJECT_ADDED, 30,
+					notify_changes, backend);
+	e_folder_exchange_subscribe (E_CAL_BACKEND_EXCHANGE (backend)->folder,
+					E2K_CONTEXT_OBJECT_REMOVED, 30,
+					notify_changes, backend);
 
 	thread = g_thread_create ((GThreadFunc) get_changed_tasks, E_CAL_BACKEND_EXCHANGE (backend), FALSE, &error);
 	if (!thread) {
@@ -1084,11 +1084,11 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 
 	/* Check kind with the parent */
 	kind = e_cal_backend_get_kind (E_CAL_BACKEND (ecalbex));
-        if (icalcomponent_isa (icalcomp) != kind) {
+	if (icalcomponent_isa (icalcomp) != kind) {
 		icalcomponent_free (icalcomp);
 		g_propagate_error (error, EDC_ERROR (InvalidObject));
 		return;
-        }
+	}
 
 	current = icaltime_current_time_with_zone (icaltimezone_get_utc_timezone ());
 	icalprop = icalcomponent_get_first_property (icalcomp, ICAL_CREATED_PROPERTY);
@@ -1133,8 +1133,8 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 		summary = "";
 
 	/* Create the cal component */
-        comp = e_cal_component_new ();
-        e_cal_component_set_icalcomponent (comp, icalcomp);
+	comp = e_cal_component_new ();
+	e_cal_component_set_icalcomponent (comp, icalcomp);
 
 	get_from (backend, comp, &from_name, &from_addr);
 
@@ -1246,22 +1246,22 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	}
 
 	/* Parse the icalendar text */
-        icalcomp = icalparser_parse_string ((gchar *) calobj);
-        if (!icalcomp) {
-                g_propagate_error (error, EDC_ERROR (InvalidObject));
+	icalcomp = icalparser_parse_string ((gchar *) calobj);
+	if (!icalcomp) {
+		g_propagate_error (error, EDC_ERROR (InvalidObject));
 		return;
 	}
 
 	/* Check kind with the parent */
-        if (icalcomponent_isa (icalcomp) !=
+	if (icalcomponent_isa (icalcomp) !=
 			e_cal_backend_get_kind (E_CAL_BACKEND (backend))) {
-                icalcomponent_free (icalcomp);
+		icalcomponent_free (icalcomp);
 		g_propagate_error (error, EDC_ERROR (InvalidObject));
 		return;
-        }
+	}
 
 	/* Get the uid */
-        comp_uid = icalcomponent_get_uid (icalcomp);
+	comp_uid = icalcomponent_get_uid (icalcomp);
 
 	e_cal_backend_exchange_cache_lock (ecalbex);
 	/* Get the object from our cache */
@@ -1275,8 +1275,8 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 		return;
 	}
 
-        cache_comp = e_cal_component_new ();
-        e_cal_component_set_icalcomponent (cache_comp, icalcomponent_new_clone (ecalbexcomp->icomp));
+	cache_comp = e_cal_component_new ();
+	e_cal_component_set_icalcomponent (cache_comp, icalcomponent_new_clone (ecalbexcomp->icomp));
 	*old_object = e_cal_component_get_as_string (cache_comp);
 	g_object_unref (cache_comp);
 
@@ -1291,12 +1291,12 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 		summary = "";
 
 	/* Create the cal component */
-        new_comp = e_cal_component_new ();
-        e_cal_component_set_icalcomponent (new_comp, icalcomp);
+	new_comp = e_cal_component_new ();
+	e_cal_component_set_icalcomponent (new_comp, icalcomp);
 
 	/* Set the last modified time on the component */
-        current = icaltime_current_time_with_zone (icaltimezone_get_utc_timezone ());
-        e_cal_component_set_last_modified (new_comp, &current);
+	current = icaltime_current_time_with_zone (icaltimezone_get_utc_timezone ());
+	e_cal_component_set_last_modified (new_comp, &current);
 
 	/* Set Attachments */
 	if (e_cal_component_has_attachments (new_comp)) {
@@ -1315,12 +1315,12 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 
 	get_from (backend, new_comp, &from_name, &from_addr);
 
-        props = e2k_properties_new ();
+	props = e2k_properties_new ();
 
 	update_props (new_comp, &props);
 	e_cal_component_commit_sequence (new_comp);
 
-        e2kctx = exchange_account_get_context (ecalbex->account);
+	e2kctx = exchange_account_get_context (ecalbex->account);
 	status = e2k_context_proppatch (e2kctx, NULL, ecalbexcomp->href, props, FALSE, NULL);
 	comp_str = e_cal_component_get_as_string (new_comp);
 	icalcomp = icalparser_parse_string (comp_str);
@@ -1346,18 +1346,18 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
 {
 	ECalBackendExchangeTasks *ecalbextask;
 	ECalBackendExchange *cbex;
-        ECalComponent *ecalcomp;
-        GList *comps, *l;
-        struct icaltimetype current;
-        icalproperty_method method;
-        icalcomponent *subcomp;
+	ECalComponent *ecalcomp;
+	GList *comps, *l;
+	struct icaltimetype current;
+	icalproperty_method method;
+	icalcomponent *subcomp;
 	GError *err = NULL;
 
 	ecalbextask = E_CAL_BACKEND_EXCHANGE_TASKS (backend);
 	cbex = E_CAL_BACKEND_EXCHANGE (backend);
 
 	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE_TASKS (ecalbextask), InvalidArg);
-        e_return_data_cal_error_if_fail (calobj != NULL, InvalidArg);
+	e_return_data_cal_error_if_fail (calobj != NULL, InvalidArg);
 
 	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
 		d(printf ("tasks are offline\n"));
@@ -1369,59 +1369,59 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
 		return;
 
 	for (l = comps; l; l = l->next) {
-                const gchar *uid;
-                gchar *calobj, *rid = NULL;
+		const gchar *uid;
+		gchar *calobj, *rid = NULL;
 
-                subcomp = l->data;
+		subcomp = l->data;
 
-                ecalcomp = e_cal_component_new ();
-                e_cal_component_set_icalcomponent (ecalcomp, subcomp);
+		ecalcomp = e_cal_component_new ();
+		e_cal_component_set_icalcomponent (ecalcomp, subcomp);
 
-                current = icaltime_current_time_with_zone (icaltimezone_get_utc_timezone ());
-                e_cal_component_set_created (ecalcomp, &current);
-                e_cal_component_set_last_modified (ecalcomp, &current);
+		current = icaltime_current_time_with_zone (icaltimezone_get_utc_timezone ());
+		e_cal_component_set_created (ecalcomp, &current);
+		e_cal_component_set_last_modified (ecalcomp, &current);
 
                 /*sanitize?*/
 
 		e_cal_component_get_uid (ecalcomp, &uid);
-                rid = e_cal_component_get_recurid_as_string (ecalcomp);
+		rid = e_cal_component_get_recurid_as_string (ecalcomp);
 
                 /*see if the object is there in the cache. if found, modify object, else create object*/
 
 		e_cal_backend_exchange_cache_lock (cbex);
-                if (get_exchange_comp (E_CAL_BACKEND_EXCHANGE (ecalbextask), uid)) {
-                        gchar *old_object;
+		if (get_exchange_comp (E_CAL_BACKEND_EXCHANGE (ecalbextask), uid)) {
+			gchar *old_object;
 
 			e_cal_backend_exchange_cache_unlock (cbex);
-                        modify_task_object (backend, cal, calobj, CALOBJ_MOD_THIS, &old_object, NULL, &err);
-                        if (err) {
+			modify_task_object (backend, cal, calobj, CALOBJ_MOD_THIS, &old_object, NULL, &err);
+			if (err) {
 				g_free (rid);
 				g_propagate_error (error, err);
-                                return;
+				return;
 			}
 
-                        e_cal_backend_notify_object_modified (E_CAL_BACKEND (backend), old_object, calobj);
+			e_cal_backend_notify_object_modified (E_CAL_BACKEND (backend), old_object, calobj);
 			g_free (old_object);
-                } else {
-                        gchar *returned_uid;
+		} else {
+			gchar *returned_uid;
 
 			e_cal_backend_exchange_cache_unlock (cbex);
 			calobj = (gchar *) icalcomponent_as_ical_string_r (subcomp);
 			create_task_object (backend, cal, &calobj, &returned_uid, &err);
-                        if (err) {
+			if (err) {
 				g_free (calobj);
 				g_free (rid);
 				g_propagate_error (error, err);
-                                return;
+				return;
 			}
 
-                        e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), calobj);
+			e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), calobj);
 			g_free (calobj);
-                }
+		}
 		g_free (rid);
-        }
+	}
 
-        g_list_free (comps);
+	g_list_free (comps);
 }
 
 static void
@@ -1452,7 +1452,7 @@ remove_task_object (ECalBackendSync *backend, EDataCal *cal,
 		return;
 	}
 
-        comp = e_cal_component_new ();
+	comp = e_cal_component_new ();
 	e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (ecalbexcomp->icomp));
 	*old_object = e_cal_component_get_as_string (comp);
 	g_object_unref (comp);

@@ -321,8 +321,8 @@ migrate_account_esource (EAccount *account,
 		group = E_SOURCE_GROUP (groups->data);
 
 		if (strcmp (e_source_group_peek_name (group), account->name) == 0
-                    &&
-                    strcmp (e_source_group_peek_base_uri (group), EXCHANGE_URI_PREFIX) == 0) {
+		    &&
+		    strcmp (e_source_group_peek_base_uri (group), EXCHANGE_URI_PREFIX) == 0) {
 			sources = e_source_group_peek_sources (group);
 
 			found_group = TRUE;

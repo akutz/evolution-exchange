@@ -237,9 +237,9 @@ load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri, GError **perror)
 	g_free (mangled_uri);
 
        /* Check if the cache file is present. If it is not present the account might
-          be newly created one. It will be created while save the cache */
+	  be newly created one. It will be created while save the cache */
        if (!g_file_test (cbex->priv->object_cache_file, G_FILE_TEST_EXISTS))
-               return TRUE;
+	       return TRUE;
 
 	vcalcomp = e_cal_util_parse_ics_file (cbex->priv->object_cache_file);
 	if (!vcalcomp) {

@@ -311,8 +311,8 @@ create_folder (ExchangeHierarchy *hier, EFolder *parent,
 	gint i, mode;
 
 	exchange_account_is_offline (hier->account, &mode);
-        if (mode != ONLINE_MODE)
-                return EXCHANGE_ACCOUNT_FOLDER_OFFLINE;
+	if (mode != ONLINE_MODE)
+		return EXCHANGE_ACCOUNT_FOLDER_OFFLINE;
 
 	for (i = 0; folder_types[i].component; i++) {
 		if (!strcmp (folder_types[i].component, type))
@@ -361,10 +361,10 @@ remove_folder (ExchangeHierarchy *hier, EFolder *folder)
 	E2kHTTPStatus status;
 	gint mode;
 
-        exchange_account_is_offline (hier->account, &mode);
+	exchange_account_is_offline (hier->account, &mode);
 
-        if (mode != ONLINE_MODE)
-                return EXCHANGE_ACCOUNT_FOLDER_OFFLINE;
+	if (mode != ONLINE_MODE)
+		return EXCHANGE_ACCOUNT_FOLDER_OFFLINE;
 
 	if (folder == hier->toplevel)
 		return EXCHANGE_ACCOUNT_FOLDER_PERMISSION_DENIED;
@@ -394,8 +394,8 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 	gint mode;
 
 	exchange_account_is_offline (hier->account, &mode);
-        if (mode != ONLINE_MODE)
-                return EXCHANGE_ACCOUNT_FOLDER_OFFLINE;
+	if (mode != ONLINE_MODE)
+		return EXCHANGE_ACCOUNT_FOLDER_OFFLINE;
 
 	if (source == hier->toplevel)
 		return EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR;

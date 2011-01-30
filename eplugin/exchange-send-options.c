@@ -219,7 +219,7 @@ static void exchange_send_options_cb (GtkDialog *dialog, gint state, gpointer fu
 	ExchangeSendOptionsDialog *sod;
 
 	sod = func_data;
-        priv = sod->priv;
+	priv = sod->priv;
 
 	switch (state) {
 		case GTK_RESPONSE_OK:

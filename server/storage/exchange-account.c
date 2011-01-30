@@ -1598,10 +1598,10 @@ exchange_account_connect (ExchangeAccount *account, const gchar *pword,
 	/* Check for quota usage */
 	e2k_operation_init (&gcop);
 	gcstatus = e2k_global_catalog_lookup (account->priv->gc, &gcop,
-                                            E2K_GLOBAL_CATALOG_LOOKUP_BY_EMAIL,
-                                            account->priv->identity_email,
+					    E2K_GLOBAL_CATALOG_LOOKUP_BY_EMAIL,
+					    account->priv->identity_email,
 					    E2K_GLOBAL_CATALOG_LOOKUP_QUOTA,
-                                            &entry);
+					    &entry);
 	e2k_operation_free (&gcop);
 
 	/* FIXME: warning message should have quota limit value
