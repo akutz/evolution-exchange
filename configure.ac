@@ -98,13 +98,13 @@ AC_MSG_CHECKING([for Win32])
 case "$host" in
 *-mingw*)
 	os_win32=yes
-	NO_UNDEFINED='-no-undefined'
+	NO_UNDEFINED='-Wl,--no-undefined'
 	SOCKET_LIBS='-lws2_32'
 	DNS_LIBS='-ldnsapi'
 	;;
 *)
 	os_win32=no
-	NO_UNDEFINED='-no-undefined'
+	NO_UNDEFINED='-Wl,--no-undefined'
 	SOCKET_LIBS=''
 	DNS_LIBS=''
 	;;

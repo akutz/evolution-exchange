@@ -67,7 +67,9 @@ exchange_connector_setup_LDADD = \
 	$(DNS_LIBS)
 
 if OS_WIN32
-exchange_connector_setup_LDFLAGS = -mwindows
+exchange_connector_setup_LDFLAGS = -mwindows $(NO_UNDEFINED)
+else
+exchange_connector_setup_LDFLAGS = $(NO_UNDEFINED)
 endif
 
 install-exec-local: exchange-connector-setup@EXEEXT@

@@ -13,4 +13,7 @@ libxntlm_la_CPPFLAGS = \
 	-I$(top_srcdir) \
 	$(GLIB_CFLAGS)
 
+libxntlm_la_LIBADD = \
+	$(GLIB_LIBS)
+
 -include $(top_srcdir)/git.mk

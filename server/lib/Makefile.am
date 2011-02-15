@@ -71,6 +71,7 @@ libexchange_la_CPPFLAGS = \
 	$(EVOLUTION_DATA_SERVER_CFLAGS)
 
 libexchange_la_LIBADD = \
+	$(top_builddir)/server/xntlm/libxntlm.la \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
 	$(GNOME_PLATFORM_LIBS) \
 	$(SOUP_LIBS) \
