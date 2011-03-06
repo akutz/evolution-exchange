@@ -698,7 +698,7 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *parent, gint mode)
 	E2kResultIter *iter;
 	E2kResult *result;
 	E2kHTTPStatus status;
-	EFolder *folder, *tmp;
+	EFolder *folder;
 	GPtrArray *folders;
 	gint i;
 	gdouble fsize_d = 0.0;
@@ -717,7 +717,6 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *parent, gint mode)
 		folders = g_ptr_array_new ();
 		exchange_hierarchy_webdav_offline_scan_subtree (EXCHANGE_HIERARCHY (hier), add_folders, folders);
 		for (i = 0; i <folders->len; i++) {
-			tmp = (EFolder *)folders->pdata[i];
 			exchange_hierarchy_new_folder (hier, (EFolder *)folders->pdata[i]);
 		}
 		return EXCHANGE_ACCOUNT_FOLDER_OK;

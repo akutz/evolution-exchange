@@ -926,7 +926,7 @@ get_folder_contents_online (ExchangeFolder *mfld, GError **error)
 	E2kResult *result;
 	const gchar *prop, *uid;
 	guint32 article_num, camel_flags, high_article_num;
-	gint i, total = -1;
+	gint i;
 	guint m;
 	CamelFolder *folder;
 
@@ -965,7 +965,6 @@ get_folder_contents_online (ExchangeFolder *mfld, GError **error)
 	folder = get_camel_folder (mfld);
 
 	m = 0;
-	total = e2k_result_iter_get_total (iter);
 	while (m < msgs_copy->len && (result = e2k_result_iter_next (iter))) {
 		prop = e2k_properties_get_prop (result->props,
 						PR_INTERNET_ARTICLE_NUMBER);
@@ -1217,7 +1216,6 @@ get_folder_online (ExchangeFolder *mfld, GError **error)
 	E2kHTTPStatus status;
 	E2kResult *results;
 	gint nresults = 0;
-	gboolean readonly;
 	const gchar *prop;
 
 	mfld->changed_messages = g_ptr_array_new ();
@@ -1250,7 +1248,6 @@ get_folder_online (ExchangeFolder *mfld, GError **error)
 			e2k_results_free (results, nresults);
 		return FALSE;
 	}
-	readonly = (mfld->access & (MAPI_ACCESS_MODIFY | MAPI_ACCESS_CREATE_CONTENTS)) == 0;
 
 	prop = e2k_properties_get_prop (results[0].props, PR_DELETED_COUNT_TOTAL);
 	if (prop)

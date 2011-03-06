@@ -334,7 +334,7 @@ get_changed_events (ECalBackendExchange *cbex)
 	E2kRestriction *rn;
 	E2kResultIter *iter;
 	E2kResult *result;
-	const gchar *prop, *uid, *modtime, *attach_prop, *receipts, *rid;
+	const gchar *uid, *modtime, *attach_prop, *receipts, *rid;
 	guint status;
 	E2kContext *ctx;
 	gint i, status_tracking = EX_NO_RECEIPTS;
@@ -454,7 +454,6 @@ get_changed_events (ECalBackendExchange *cbex)
 	/* Now get the full text of any that weren't already cached. */
 	/* OWA usually sends the attachment and whole event body as part of
 		PR_INTERNET_CONTENT property. Fetch events created from OWA */
-	prop = PR_INTERNET_CONTENT;
 	iter = e_folder_exchange_bpropfind_start (cbex->folder, NULL,
 						  (const gchar **)hrefs->pdata,
 						  hrefs->len,

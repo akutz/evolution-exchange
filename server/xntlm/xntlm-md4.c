@@ -124,10 +124,9 @@ xntlm_md4sum (const guchar *in, gint nbytes, guchar digest[16])
 	guchar M[128];
 	guint32 A, B, C, D;
 	gint pbytes, nbits = nbytes * 8, remaining_bytes;
-	gint total_len, offset;
+	gint offset;
 
 	pbytes = (120 - (nbytes % 64)) % 64;
-	total_len = nbytes + pbytes + 8;
 
 	A = 0x67452301;
 	B = 0xEFCDAB89;

@@ -1045,7 +1045,6 @@ static void
 create_task_object (ECalBackendSync *backend, EDataCal *cal,
 		    gchar **calobj, gchar **return_uid, GError **error)
 {
-	ECalBackendExchangeTasks *ecalbextask;
 	ECalBackendExchange *ecalbex;
 	E2kProperties *props;
 	E2kContext *e2kctx;
@@ -1064,7 +1063,6 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 	gchar *location;
 	const gchar *temp_comp_uid;
 
-	ecalbextask = E_CAL_BACKEND_EXCHANGE_TASKS (backend);
 	ecalbex = E_CAL_BACKEND_EXCHANGE (backend);
 
 	e_return_data_cal_error_if_fail (calobj != NULL, InvalidArg);

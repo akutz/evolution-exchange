@@ -2251,7 +2251,7 @@ generate_cache (EBookBackendGAL *book_backend_gal, const gchar * changed_filter)
 	LDAPGetContactListOp *contact_list_op = g_new0 (LDAPGetContactListOp, 1);
 	EBookBackendGALPrivate *priv;
 	gchar *ldap_query;
-	gint  i = 0, rc;
+	gint  i = 0;
 	BerElement *prber = NULL;
 	gchar t[15], *cachetime;
 	LDAPControl c[6];
@@ -2316,7 +2316,7 @@ getNextPage:
 	}
 	g_mutex_unlock (priv->ldap_lock);
 
-	rc = dosearch (book_backend_gal, LDAP_ROOT_DSE, LDAP_SCOPE_SUBTREE, NULL, ldap_query, NULL, 0, NULL, NULL, NULL, changed_filter, -1);
+	dosearch (book_backend_gal, LDAP_ROOT_DSE, LDAP_SCOPE_SUBTREE, NULL, ldap_query, NULL, 0, NULL, NULL, NULL, changed_filter, -1);
 
 	/* loop to get the next set of entries */
 
@@ -2389,10 +2389,10 @@ authenticate_user (EBookBackend *backend,
 	ExchangeAccount *account = NULL;
 	GError *err = NULL;
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
-	GConfClient *gc = gconf_client_get_default ();
-	gint interval = gconf_client_get_int (gc, "/apps/evolution/addressbook/gal_cache_interval", NULL);
+	//GConfClient *gc = gconf_client_get_default ();
+	//gint interval = gconf_client_get_int (gc, "/apps/evolution/addressbook/gal_cache_interval", NULL);
 
-	g_object_unref (gc);
+	//g_object_unref (gc);
 #endif
 
 	/* We should not be here */
@@ -2431,17 +2431,17 @@ authenticate_user (EBookBackend *backend,
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
 		if (be->priv->marked_for_offline) {
 			if (e_book_backend_db_cache_is_populated (be->priv->file_db) ) {
-				time_t t1, t2;
-				gint diff;
+				//time_t t1, t2;
+				//gint diff;
 
-				gchar *t = e_book_backend_db_cache_get_time (be->priv->file_db);
+				//gchar *t = e_book_backend_db_cache_get_time (be->priv->file_db);
 				d(printf("Cache is populated, check if refresh is required \n"));
-				if (t && *t)
-					t1 = atoi (t);
-				else
-					t1=0;
-				t2 = time (NULL);
-				diff = interval * 24 * 60 *60;
+				//if (t && *t)
+				//	t1 = atoi (t);
+				//else
+				//	t1=0;
+				//t2 = time (NULL);
+				//diff = interval * 24 * 60 *60;
 				/* We have a day specified, then we cache it. */
 				//if (!diff || t2 - t1 > diff) {
 				//	d(printf ("Cache older than specified period, refreshing \n"));

@@ -248,11 +248,9 @@ delegate_option_toggled (GtkCheckButton *button, gpointer func_data)
 	ExchangeSendOptionsDialogPrivate *priv;
 	ExchangeSendOptionsDialog *sod;
 	ENameSelectorEntry *name_selector_entry;
-	ExchangeSendOptions *options;
 
 	sod=func_data;
 	priv=sod->priv;
-	options=sod->options;
 
 	name_selector_entry = e_name_selector_peek_section_entry (priv->proxy_name_selector, "Add User");
 

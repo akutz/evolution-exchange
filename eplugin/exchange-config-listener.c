@@ -647,7 +647,6 @@ change_passwd_cb (GtkWidget *button, ExchangeAccount *account)
 static void
 display_passwd_expiry_message (gint max_passwd_age, ExchangeAccount *account)
 {
-	GtkResponseType response;
 	GtkWidget *passwd_exp_dialog;
 	GtkWidget *dialog_vbox1;
 	GtkWidget *dialog_action_area1;
@@ -700,7 +699,7 @@ display_passwd_expiry_message (gint max_passwd_age, ExchangeAccount *account)
 			  G_CALLBACK (change_passwd_cb),
 			  account);
 #endif
-	response = gtk_dialog_run (GTK_DIALOG (passwd_exp_dialog));
+	gtk_dialog_run (GTK_DIALOG (passwd_exp_dialog));
 
 	gtk_widget_destroy (passwd_exp_dialog);
 	g_free (passwd_expiry_msg);

@@ -513,7 +513,6 @@ email_look_up (const gchar *delegate_legacy, ExchangeAccount *account)
 {
 	E2kGlobalCatalog *gc;
 	E2kGlobalCatalogEntry *entry;
-	E2kGlobalCatalogStatus status;
 
 	const gchar *email_id;
 
@@ -522,9 +521,9 @@ email_look_up (const gchar *delegate_legacy, ExchangeAccount *account)
 	if (!gc)
 		return NULL;
 
-	status = e2k_global_catalog_lookup (
-			gc, NULL, E2K_GLOBAL_CATALOG_LOOKUP_BY_LEGACY_EXCHANGE_DN,
-			delegate_legacy, 0, &entry);
+	e2k_global_catalog_lookup (
+		gc, NULL, E2K_GLOBAL_CATALOG_LOOKUP_BY_LEGACY_EXCHANGE_DN,
+		delegate_legacy, 0, &entry);
 
 	email_id = g_strdup (entry->email);
 	e2k_global_catalog_entry_free (gc, entry);

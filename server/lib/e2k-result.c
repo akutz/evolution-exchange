@@ -223,7 +223,7 @@ sanitize_bad_multistatus (const gchar *buf, gint len)
 {
 	GString *body;
 	const gchar *p;
-	gint start, end;
+	gint start;
 	gchar ns, badprop[7], *ret;
 
 	/* If there are no "mapi/id/{...}" namespace declarations, then
@@ -241,7 +241,6 @@ sanitize_bad_multistatus (const gchar *buf, gint len)
 
 	p = strchr (p, '>');
 	g_return_val_if_fail (p != NULL, NULL);
-	end = p - body->str;
 
 	while (1) {
 		if (strncmp (body->str + start, "xmlns:", 6) != 0)

@@ -1479,7 +1479,7 @@ validate (const gchar *owa_url, gchar *user, gchar *password, ExchangeParams *ex
 	E2kOperation op;        /* FIXME */
 	E2kUri *euri;
 	gboolean valid = FALSE;
-	const gchar *old, *new;
+	/* const gchar *old, *new; */
 	gchar *path, *mailbox;
 
 	ac = e2k_autoconfig_new (owa_url, user, password,
@@ -1561,13 +1561,13 @@ validate (const gchar *owa_url, gchar *user, gchar *password, ExchangeParams *ex
 		switch (*result) {
 
 		case E2K_AUTOCONFIG_CANT_CONNECT:
-			if (!strncmp (ac->owa_uri, "http:", 5)) {
+			/* if (!strncmp (ac->owa_uri, "http:", 5)) {
 				old = "http";
 				new = "https";
 			} else {
 				old = "https";
 				new = "http";
-			}
+			} */
 
 			/* SURF : e_notice (NULL, GTK_MESSAGE_ERROR,
 				  _("Could not connect to the Exchange "

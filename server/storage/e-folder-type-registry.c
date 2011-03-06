@@ -142,10 +142,7 @@ set_handler (EFolderTypeRegistry *folder_type_registry,
 	     const gchar *name,
 	     GObject *handler)
 {
-	EFolderTypeRegistryPrivate *priv;
 	FolderType *folder_type;
-
-	priv = folder_type_registry->priv;
 
 	folder_type = get_folder_type (folder_type_registry, name);
 	if (folder_type == NULL)
@@ -251,12 +248,8 @@ gboolean
 e_folder_type_registry_type_registered  (EFolderTypeRegistry *folder_type_registry,
 					 const gchar *type_name)
 {
-	EFolderTypeRegistryPrivate *priv;
-
 	g_return_val_if_fail (E_IS_FOLDER_TYPE_REGISTRY (folder_type_registry), FALSE);
 	g_return_val_if_fail (type_name != NULL, FALSE);
-
-	priv = folder_type_registry->priv;
 
 	if (get_folder_type (folder_type_registry, type_name) == NULL)
 		return FALSE;

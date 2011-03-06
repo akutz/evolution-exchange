@@ -342,7 +342,6 @@ e_exchange_contacts_check (EPlugin *epl, EConfigHookPageCheckData *data)
 		GConfClient *client;
 		ESourceList *source_list = NULL;
 		ESourceGroup *source_group = NULL;
-		ESource *source;
 		EAccount *eaccount;
 
 		/* GAL folder */
@@ -355,7 +354,6 @@ e_exchange_contacts_check (EPlugin *epl, EConfigHookPageCheckData *data)
 		g_return_val_if_fail (eaccount->uid != NULL, FALSE);
 
 		if ((source_group = e_source_list_peek_group_by_properties (source_list, "account-uid", eaccount->uid, NULL))) {
-			source =  e_source_group_peek_source_by_name (source_group, e_source_peek_name (t->source));
 			if (e_source_group_peek_source_by_name (source_group,
 							e_source_peek_name (t->source))) {
 				/* not a rename of GAL */
