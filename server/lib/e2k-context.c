@@ -85,6 +85,11 @@ static guint signals[LAST_SIGNAL] = { 0 };
 
 struct _E2kContextPrivate {
 	SoupSession *session, *async_session;
+
+	GThread *soup_thread;
+	GMainLoop *soup_loop;
+	GMainContext *soup_context;
+
 	gchar *owa_uri, *username, *password;
 	time_t last_timestamp;
 
@@ -180,6 +185,7 @@ static void
 dispose (GObject *object)
 {
 	E2kContext *ctx = E2K_CONTEXT (object);
+	E2kContextPrivate *priv = ctx->priv;
 
 	if (ctx->priv) {
 		if (ctx->priv->owa_uri)
@@ -208,8 +214,19 @@ dispose (GObject *object)
 
 		if (ctx->priv->session)
 			g_object_unref (ctx->priv->session);
-		if (ctx->priv->async_session)
+		if (ctx->priv->async_session) {
 			g_object_unref (ctx->priv->async_session);
+			priv->async_session = NULL;
+
+			g_main_loop_quit (priv->soup_loop);
+			g_thread_join (priv->soup_thread);
+			priv->soup_thread = NULL;
+
+			g_main_loop_unref (priv->soup_loop);
+			priv->soup_loop = NULL;
+			g_main_context_unref (priv->soup_context);
+			priv->soup_context = NULL;
+		}
 
 		g_free (ctx->priv->cookie);
 		g_free (ctx->priv->notification_uri);
@@ -380,6 +397,18 @@ session_authenticate (SoupSession *session, SoupMessage *msg,
 	}
 }
 
+static gpointer 
+e2k_context_soup_thread (gpointer user_data)
+{
+	E2kContextPrivate *priv = user_data;
+
+	g_main_context_push_thread_default (priv->soup_context);
+	g_main_loop_run (priv->soup_loop);
+	g_main_context_pop_thread_default (priv->soup_context);
+	return NULL;
+}
+
+
 /**
  * e2k_context_set_auth:
  * @ctx: the context
@@ -398,6 +427,7 @@ e2k_context_set_auth (E2kContext *ctx, const gchar *username,
 {
 	guint timeout = E2K_SOUP_SESSION_TIMEOUT;
 	SoupURI* uri = NULL;
+	E2kContextPrivate *priv = ctx->priv;
 #ifdef E2K_DEBUG
 	SoupLogger *logger;
 	SoupLoggerLogLevel level;
@@ -446,8 +476,13 @@ e2k_context_set_auth (E2kContext *ctx, const gchar *username,
 	g_signal_connect (ctx->priv->session, "request_started",
 			  G_CALLBACK (setup_message), ctx);
 
+	priv->soup_context = g_main_context_new ();
+	priv->soup_loop = g_main_loop_new (priv->soup_context, FALSE);
+	ctx->priv->soup_thread = g_thread_create (e2k_context_soup_thread, priv, TRUE, NULL);
+
 	ctx->priv->async_session = soup_session_async_new_with_options (
 		SOUP_SESSION_USE_NTLM, !authmech || !strcmp (authmech, "NTLM"),
+		SOUP_SESSION_ASYNC_CONTEXT, priv->soup_context,
 		SOUP_SESSION_PROXY_URI, uri, NULL);
 	g_signal_connect (ctx->priv->async_session, "authenticate",
 			  G_CALLBACK (session_authenticate), ctx);
@@ -874,6 +909,37 @@ e2k_soup_message_new_full (E2kContext *ctx, const gchar *uri,
 	return msg;
 }
 
+
+struct _e2k_queue_data {
+	E2kContext *ctx;
+	SoupMessage *msg;
+	SoupSessionCallback callback;
+	gpointer user_data;
+};
+
+static gboolean
+e2k_queue_request (gpointer data)
+{
+	struct _e2k_queue_data *queue_data = data;
+
+	soup_session_queue_message (queue_data->ctx->priv->async_session, queue_data->msg,
+				    queue_data->callback, queue_data->user_data);
+
+	g_free (queue_data);
+	return FALSE;
+}
+
+static void 
+e2k_trigger_queue_request (struct _e2k_queue_data *data)
+{
+	GSource *source;
+
+	source = g_idle_source_new ();
+	g_source_set_priority (source, G_PRIORITY_DEFAULT);
+	g_source_set_callback (source, e2k_queue_request, data, NULL);
+	g_source_attach (source, data->ctx->priv->soup_context);
+}
+
 /**
  * e2k_context_queue_message:
  * @ctx: the context
@@ -888,10 +954,17 @@ e2k_context_queue_message (E2kContext *ctx, SoupMessage *msg,
 			   SoupSessionCallback callback,
 			   gpointer user_data)
 {
+	struct _e2k_queue_data *queue_data;
+
 	g_return_if_fail (E2K_IS_CONTEXT (ctx));
 
-	soup_session_queue_message (ctx->priv->async_session, msg,
-				    callback, user_data);
+	queue_data = g_new0 (struct _e2k_queue_data, 1);
+	queue_data->ctx = ctx;
+	queue_data->msg = msg;
+	queue_data->callback = callback;
+	queue_data->user_data = user_data;
+
+	e2k_trigger_queue_request (queue_data);
 }
 
 static void
