@@ -907,6 +907,17 @@ mfld_get_folder_online_sync_updates (gpointer key, gpointer value, gpointer user
 
 }
 
+static gint
+exchange_message_uid_cmp (gconstpointer a, gconstpointer b)
+{
+	ExchangeMessage **mmsg1, **mmsg2;
+
+	mmsg1 = (ExchangeMessage **)a;
+	mmsg2 = (ExchangeMessage **)b;
+
+	return strcmp ((*mmsg1)->uid, (*mmsg2)->uid);
+}
+
 static gboolean
 get_folder_contents_online (ExchangeFolder *mfld, GError **error)
 {
@@ -933,6 +944,7 @@ get_folder_contents_online (ExchangeFolder *mfld, GError **error)
 	gint i;
 	guint m;
 	CamelFolder *folder;
+	CamelFolderChangeInfo *ci;
 
 	GPtrArray *msgs_copy = NULL;
 	GHashTable *rm_idx_uid = NULL;
@@ -944,6 +956,8 @@ get_folder_contents_online (ExchangeFolder *mfld, GError **error)
 	rm_idx_uid = g_hash_table_new (g_direct_hash, g_direct_equal);
 
 	g_static_rec_mutex_lock (&mfld->ed->changed_msgs_mutex);
+	
+	g_ptr_array_sort (mfld->messages, (GCompareFunc) exchange_message_uid_cmp);
 	for (i = 0; i < mfld->messages->len; i++) {
 		mmsg = mfld->messages->pdata[i];
 		mmsg_cpy = new_message (mmsg->uid, mmsg->href, mmsg->seq, mmsg->flags);
@@ -967,9 +981,12 @@ get_folder_contents_online (ExchangeFolder *mfld, GError **error)
 	e2k_restriction_unref (rn);
 
 	folder = get_camel_folder (mfld);
+	ci = camel_folder_change_info_new ();
 
 	m = 0;
 	while (m < msgs_copy->len && (result = e2k_result_iter_next (iter))) {
+		gboolean changed = FALSE;
+		
 		prop = e2k_properties_get_prop (result->props,
 						PR_INTERNET_ARTICLE_NUMBER);
 		if (!prop)
@@ -1041,8 +1058,10 @@ get_folder_contents_online (ExchangeFolder *mfld, GError **error)
 				g_hash_table_insert (mfld->messages_by_href, mmsg->href, mmsg);
 		}
 
-		if (mmsg->flags != camel_flags)
+		if (mmsg->flags != camel_flags) {
+			changed = TRUE;
 			change_flags (mfld, folder, mmsg, camel_flags);
+		}
 
 		g_static_rec_mutex_unlock (&mfld->ed->changed_msgs_mutex);
 
@@ -1059,8 +1078,13 @@ get_folder_contents_online (ExchangeFolder *mfld, GError **error)
 		if (prop && folder)
 			camel_exchange_folder_update_message_tag (CAMEL_EXCHANGE_FOLDER (folder), mmsg->uid, "completed-on", prop);
 
+		if (changed)
+			camel_folder_change_info_change_uid (ci, mmsg->uid);
 		m++;
 	}
+	
+	camel_folder_changed (CAMEL_FOLDER (folder), ci);
+	camel_folder_change_info_free (ci);
 
 	/* If there are further messages beyond mfld->messages->len,
 	 * then that means camel doesn't know about them yet, and so
@@ -1156,6 +1180,8 @@ notify_cb (E2kContext *ctx, const gchar *uri, E2kContextChangeType type, gpointe
 
 	if (type == E2K_CONTEXT_OBJECT_ADDED)
 		refresh_folder_internal (mfld, NULL, NULL);
+	else if (type == E2K_CONTEXT_OBJECT_CHANGED)
+		get_folder_contents_online (mfld, NULL);			
 	else {
 		now = time (NULL);
 
@@ -1281,6 +1307,9 @@ get_folder_online (ExchangeFolder *mfld, GError **error)
 				     notify_cb, mfld);
 	e_folder_exchange_subscribe (mfld->folder,
 				     E2K_CONTEXT_OBJECT_MOVED, 30,
+				     notify_cb, mfld);
+	e_folder_exchange_subscribe (mfld->folder,
+				     E2K_CONTEXT_OBJECT_CHANGED, 30,
 				     notify_cb, mfld);
 	if (nresults)
 		e2k_results_free (results, nresults);
