@@ -1025,6 +1025,7 @@ camel_exchange_folder_update_message_flags_ex (CamelExchangeFolder *exch,
 	if ((info->flags & mask) != (flags & mask)) {
 		info->flags &= ~mask;
 		info->flags |= (flags & mask);
+		info->dirty = 1;
 		camel_folder_summary_touch (folder->summary);
 
 		changes = camel_folder_change_info_new ();
@@ -1058,13 +1059,14 @@ camel_exchange_folder_update_message_tag (CamelExchangeFolder *exch,
 	if (!info)
 		return;
 
-	camel_tag_set (&info->user_tags, name, value);
-
-	camel_folder_summary_touch (folder->summary);
-	changes = camel_folder_change_info_new ();
-	camel_folder_change_info_change_uid (changes, uid);
-	camel_folder_changed (CAMEL_FOLDER (exch), changes);
-	camel_folder_change_info_free (changes);
+	if (camel_tag_set (&info->user_tags, name, value)) {
+		info->dirty = 1;
+		camel_folder_summary_touch (folder->summary);
+		changes = camel_folder_change_info_new ();
+		camel_folder_change_info_change_uid (changes, uid);
+		camel_folder_changed (CAMEL_FOLDER (exch), changes);
+		camel_folder_change_info_free (changes);
+	}
 }
 
 /**
