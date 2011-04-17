@@ -283,14 +283,18 @@ static gchar *
 exchange_store_get_name (CamelService *service,
                          gboolean brief)
 {
+	CamelURL *url;
+
+	url = camel_service_get_camel_url (service);
+
 	if (brief) {
 		return g_strdup_printf (
 			_("Exchange server %s"),
-			service->url->host);
+			url->host);
 	} else {
 		return g_strdup_printf (
 			_("Exchange account for %s on %s"),
-			service->url->user, service->url->host);
+			url->user, url->host);
 	}
 }
 
@@ -303,7 +307,8 @@ exchange_store_connect_sync (CamelService *service,
 	gchar *password = NULL;
 	guint32 connect_status;
 	gboolean online_mode = FALSE;
-	CamelSession *session = camel_service_get_session (service);
+	CamelSession *session;
+	CamelURL *url;
 	GError *local_error = NULL;
 
 	/* This lock is only needed for offline operation.
@@ -311,10 +316,13 @@ exchange_store_connect_sync (CamelService *service,
 
 	g_mutex_lock (exch->connect_lock);
 
+	url = camel_service_get_camel_url (service);
+	session = camel_service_get_session (service);
+
 	online_mode = camel_session_get_online (session);
 
 	if (online_mode) {
-		if (!service->url->passwd) {
+		if (!url->passwd) {
 			gchar *prompt;
 			guint32 prompt_flags = CAMEL_SESSION_PASSWORD_SECRET;
 
@@ -322,23 +330,23 @@ exchange_store_connect_sync (CamelService *service,
 				prompt_flags |= CAMEL_SESSION_PASSWORD_REPROMPT;
 
 			prompt = camel_session_build_password_prompt (
-				"Exchange", service->url->user, service->url->host);
+				"Exchange", url->user, url->host);
 
-			service->url->passwd = camel_session_get_password (
+			url->passwd = camel_session_get_password (
 				session, service, "Exchange", prompt,
 				"password", prompt_flags, error);
 
 			g_free (prompt);
 
-			exch->reprompt_password = service->url->passwd == NULL;
+			exch->reprompt_password = url->passwd == NULL;
 		}
 
-		if (service->url->passwd == NULL) {
+		if (url->passwd == NULL) {
 			g_mutex_unlock (exch->connect_lock);
 			return FALSE;
 		}
 
-		password = service->url->passwd;
+		password = url->passwd;
 	}
 
 	/* Initialize the stub connection */
@@ -360,9 +368,9 @@ exchange_store_connect_sync (CamelService *service,
 	if (!connect_status) {
 		exch->reprompt_password = TRUE;
 
-		if (service->url->passwd) {
-			g_free (service->url->passwd);
-			service->url->passwd = NULL;
+		if (url->passwd) {
+			g_free (url->passwd);
+			url->passwd = NULL;
 		}
 
 		g_clear_error (error);
@@ -409,12 +417,15 @@ exchange_store_can_refresh_folder (CamelStore *store,
                                    GError **error)
 {
 	CamelStoreClass *store_class;
+	CamelURL *url;
 	gboolean res;
 
 	store_class = CAMEL_STORE_CLASS (camel_exchange_store_parent_class);
 
+	url = camel_service_get_camel_url (CAMEL_SERVICE (store));
+
 	res = store_class->can_refresh_folder (store, info, error) ||
-	      (camel_url_get_param (((CamelService *)store)->url, "check_all") != NULL);
+	      (camel_url_get_param (url, "check_all") != NULL);
 
 	return res;
 }
@@ -823,15 +834,17 @@ camel_exchange_store_connected (CamelExchangeStore *store,
                                 GCancellable *cancellable,
                                 GError **error)
 {
+	CamelServiceConnectionStatus status;
 	CamelService *service;
 	CamelSession *session;
 
 	g_return_val_if_fail (CAMEL_IS_EXCHANGE_STORE (store), FALSE);
 
 	service = CAMEL_SERVICE (store);
-	session = service->session;
+	session = camel_service_get_session (service);
+	status = camel_service_get_connection_status (service);
 
-	if (service->status != CAMEL_SERVICE_CONNECTED &&
+	if (status != CAMEL_SERVICE_CONNECTED &&
 	    camel_session_get_online (session) &&
 	    !camel_service_connect_sync (service, error)) {
 		return FALSE;

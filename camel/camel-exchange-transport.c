@@ -39,7 +39,8 @@ exchange_transport_send_to_sync (CamelTransport *transport,
                                  GCancellable *cancellable,
                                  GError **error)
 {
-	CamelService *service = CAMEL_SERVICE (transport);
+	CamelService *service;
+	CamelSession *session;
 	CamelStore *store = NULL;
 	gchar *url_string;
 	CamelInternetAddress *cia;
@@ -54,8 +55,11 @@ exchange_transport_send_to_sync (CamelTransport *transport,
 	GSList *h, *bcc = NULL;
 	gint len, i;
 
+	service = CAMEL_SERVICE (transport);
+	session = camel_service_get_session (service);
+
 	url_string = camel_session_get_password (
-		service->session, service, NULL,
+		session, service, NULL,
 		"ignored", "popb4smtp_uri", 0, error);
 	if (!url_string)
 		return FALSE;

@@ -109,8 +109,12 @@ static const gchar *mapi_message_props[] = {
 };
 
 static gboolean
-is_same_ed (CamelExchangeStore *estore, ExchangeAccount *eaccount, CamelService *service)
+is_same_ed (CamelExchangeStore *estore,
+            ExchangeAccount *eaccount,
+            CamelService *service)
 {
+	CamelURL *service_url;
+
 	g_return_val_if_fail (eaccount != NULL, FALSE);
 	g_return_val_if_fail (service != NULL, FALSE);
 	g_return_val_if_fail (CAMEL_IS_SERVICE (service), FALSE);
@@ -118,8 +122,16 @@ is_same_ed (CamelExchangeStore *estore, ExchangeAccount *eaccount, CamelService 
 	if (CAMEL_IS_EXCHANGE_STORE (service) && estore && estore == CAMEL_EXCHANGE_STORE (service))
 		return TRUE;
 
-	if (service->url) {
-		if (estore && camel_url_equal (CAMEL_SERVICE (estore)->url, service->url))
+	service_url = camel_service_get_camel_url (service);
+
+	if (service_url) {
+		CamelURL *estore_url = NULL;
+
+		if (estore != NULL)
+			estore_url = camel_service_get_camel_url (
+				CAMEL_SERVICE (estore));
+
+		if (estore_url != NULL && camel_url_equal (estore_url, service_url))
 			return TRUE;
 
 		if (eaccount) {
@@ -132,8 +144,8 @@ is_same_ed (CamelExchangeStore *estore, ExchangeAccount *eaccount, CamelService 
 				if (url) {
 					CamelProvider *provider = camel_service_get_provider (service);
 
-					if ((provider && provider->url_equal && provider->url_equal (url, service->url))
-					    || camel_url_equal (url, service->url)) {
+					if ((provider && provider->url_equal && provider->url_equal (url, service_url))
+					    || camel_url_equal (url, service_url)) {
 						camel_url_free (url);
 						return TRUE;
 					}
