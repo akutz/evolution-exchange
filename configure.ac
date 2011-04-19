@@ -386,7 +386,7 @@ dnl ****************
 dnl Kerberos check
 dnl ****************
 
-EVO_KRB5_SUPPORT
+EVO_KRB5_SUPPORT(no)
 
 dnl ******************************
 dnl Makefiles
