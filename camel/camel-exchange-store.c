@@ -247,22 +247,22 @@ exchange_store_finalize (GObject *object)
 	G_OBJECT_CLASS (camel_exchange_store_parent_class)->finalize (object);
 }
 
-static gboolean
-exchange_store_construct (CamelService *service,
-                          CamelSession *session,
-                          CamelProvider *provider,
-                          CamelURL *url,
-                          GError **error)
+static void
+exchange_store_constructed (GObject *object)
 {
-	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
-	CamelServiceClass *service_class;
+	CamelExchangeStore *exch;
+	CamelService *service;
+	CamelURL *url;
 	gchar *p;
 
-	service_class = CAMEL_SERVICE_CLASS (
-		camel_exchange_store_parent_class);
+	exch = CAMEL_EXCHANGE_STORE (object);
 
-	if (!service_class->construct (service, session, provider, url, error))
-		return FALSE;
+	/* Chain up to parent's constructed() method. */
+	G_OBJECT_CLASS (camel_exchange_store_parent_class)->
+		constructed (object);
+
+	service = CAMEL_SERVICE (object);
+	url = camel_service_get_camel_url (service);
 
 	exch->base_url = camel_url_to_string (url, CAMEL_URL_HIDE_ALL);
 	/* Strip path */
@@ -272,11 +272,6 @@ exchange_store_construct (CamelService *service,
 		if (p)
 			*p = '\0';
 	}
-
-	exch->storage_path = camel_session_get_storage_path (
-		session, service, error);
-
-	return (exch->storage_path != NULL);
 }
 
 static gchar *
@@ -455,17 +450,22 @@ exchange_store_get_folder_sync (CamelStore *store,
                                 GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
+	CamelService *service;
 	CamelFolder *folder;
+	const gchar *user_data_dir;
 	const gchar *short_name;
 	gchar *folder_dir;
 
 	RETURN_VAL_IF_NOT_CONNECTED (exch, cancellable, error, NULL);
 
+	service = CAMEL_SERVICE (store);
+	user_data_dir = camel_service_get_user_data_dir (service);
+
 	if (!folder_name || !*folder_name || g_ascii_strcasecmp (folder_name, "inbox") == 0)
 		folder_name = "personal/Inbox";
 
 	folder_dir = exchange_store_path_to_physical (
-		exch->storage_path, folder_name);
+		user_data_dir, folder_name);
 
 	if (!camel_exchange_store_connected (exch, cancellable, NULL)) {
 		if (!folder_dir || !g_file_test (folder_dir, G_FILE_TEST_IS_DIR)) {
@@ -788,9 +788,9 @@ camel_exchange_store_class_init (CamelExchangeStoreClass *class)
 
 	object_class = G_OBJECT_CLASS (class);
 	object_class->finalize = exchange_store_finalize;
+	object_class->constructed = exchange_store_constructed;
 
 	service_class = CAMEL_SERVICE_CLASS (class);
-	service_class->construct = exchange_store_construct;
 	service_class->get_name = exchange_store_get_name;
 	service_class->connect_sync = exchange_store_connect_sync;
 	service_class->disconnect_sync = exchange_store_disconnect_sync;

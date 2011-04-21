@@ -35,7 +35,7 @@ typedef struct _CamelExchangeStoreClass CamelExchangeStoreClass;
 struct _CamelExchangeStore {
 	CamelOfflineStore parent;
 
-	gchar *storage_path, *base_url;
+	gchar *base_url;
 	gchar *trash_name;
 	GHashTable *folders;
 	GMutex *folders_lock;
