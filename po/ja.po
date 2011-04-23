@@ -1,21 +1,23 @@
 # The Japanese message catalogue for evolution-exchange
-# Copyright (C) 2004-2010 THE evolution-exchange'S COPYRIGHT HOLDER
+# Copyright (C) 2004-2011 THE evolution-exchange'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the evolution-exchange package.
 # SATOH, Satoru <ss@gnome.gr.jp>, 2004, 2005.
 # Takeshi AIHANA <takeshi.aihana@gmail.com>, 2007-2009.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2010.
+# OKANO Takayoshi <kano@na.rim.or.jp>, 2011.
 #
 # 訳注: 訳語や日本語表記のルールは Microsoft の文書表記に準拠します
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: evolution-exchange trunk\n"
+"Project-Id-Version: evolution-exchange master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=evolution-exchange&component=general\n"
-"POT-Creation-Date: 2010-09-18 12:02+0000\n"
-"PO-Revision-Date: 2010-09-19 17:47+0900\n"
-"Last-Translator: Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>\n"
+"product=evolution-exchange&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-04-21 16:38+0000\n"
+"PO-Revision-Date: 2011-04-23 18:19+0900\n"
+"Last-Translator: OKANO Takayoshi <kano@na.rim.or.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -41,12 +43,12 @@ msgstr ""
 msgid "Operation failed with status %d"
 msgstr "操作に失敗しました。ステータス %d"
 
-#: ../addressbook/e-book-backend-exchange.c:1797
-#: ../addressbook/e-book-backend-exchange.c:2642
+#: ../addressbook/e-book-backend-exchange.c:1808
+#: ../addressbook/e-book-backend-exchange.c:2653
 msgid "Cancelled"
 msgstr "中止しました"
 
-#: ../addressbook/e-book-backend-exchange.c:2319
+#: ../addressbook/e-book-backend-exchange.c:2330
 #: ../addressbook/e-book-backend-gal.c:1931
 msgid "Searching..."
 msgstr "検索中..."
@@ -64,80 +66,85 @@ msgstr "LDAP 検索結果を受信中..."
 msgid "Error performing search"
 msgstr "検索実行に失敗"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2145
+#: ../calendar/e-cal-backend-exchange-calendar.c:2158
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "リソース '%s' は選択された時間周期の間ビュジーです"
 
-#: ../camel/camel-exchange-folder.c:75
+#: ../camel/camel-exchange-folder.c:76
 msgid "No Subject"
 msgstr "無題"
 
-#: ../camel/camel-exchange-folder.c:137
+#: ../camel/camel-exchange-folder.c:149
 #, c-format
 msgid "This message is not available in offline mode."
 msgstr "このメッセージはオフラインモードでは見れません"
 
-#: ../camel/camel-exchange-folder.c:386
+#: ../camel/camel-exchange-folder.c:507
 #, c-format
 msgid "You cannot expunge in offline mode."
 msgstr "オフラインモードでは削除はできません"
 
-#: ../camel/camel-exchange-folder.c:626
+#: ../camel/camel-exchange-folder.c:644 ../camel/camel-exchange-utils.c:572
+#: ../camel/camel-exchange-utils.c:611
+msgid "Could not get new messages"
+msgstr "新しいメッセージを取得できませんでした"
+
+#: ../camel/camel-exchange-folder.c:688
 msgid "Moving messages"
 msgstr "メッセージを移動中"
 
-#: ../camel/camel-exchange-folder.c:627
+#: ../camel/camel-exchange-folder.c:688
 msgid "Copying messages"
 msgstr "メッセージをコピー中"
 
-#: ../camel/camel-exchange-folder.c:1070
+#: ../camel/camel-exchange-folder.c:1111
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "ディレクトリ %s を作成できませんでした: %s"
 
-#: ../camel/camel-exchange-folder.c:1081
+#: ../camel/camel-exchange-folder.c:1122
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "%s のサマリを読み込めませんでした"
 
-#: ../camel/camel-exchange-folder.c:1088
+#: ../camel/camel-exchange-folder.c:1129
 #, c-format
 msgid "Could not create cache for %s: "
 msgstr "%s のキャッシュを作成できませんでした: "
 
-#: ../camel/camel-exchange-folder.c:1099
+#: ../camel/camel-exchange-folder.c:1140
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "%s のジャーナルを作成できませんでした"
 
-#: ../camel/camel-exchange-folder.c:1146
+#: ../camel/camel-exchange-folder.c:1188
 msgid "Scanning for changed messages"
 msgstr "変更されたメッセージを走査中"
 
-#: ../camel/camel-exchange-folder.c:1173
+#: ../camel/camel-exchange-folder.c:1216
 msgid "Fetching summary information for new messages"
 msgstr "新しいメッセージのサマリ情報を取得中"
 
-#: ../camel/camel-exchange-journal.c:144
+#: ../camel/camel-exchange-journal.c:149
 #, c-format
 msgid "No folder name found"
 msgstr "フォルダー名がみつかりません"
 
-#: ../camel/camel-exchange-journal.c:185 ../camel/camel-exchange-utils.c:3145
-#: ../camel/camel-exchange-utils.c:3209 ../camel/camel-exchange-utils.c:3327
-#: ../camel/camel-exchange-utils.c:3358 ../camel/camel-exchange-utils.c:3410
-#: ../camel/camel-exchange-utils.c:3431
+#: ../camel/camel-exchange-journal.c:190 ../camel/camel-exchange-utils.c:3218
+#: ../camel/camel-exchange-utils.c:3282 ../camel/camel-exchange-utils.c:3400
+#: ../camel/camel-exchange-utils.c:3431 ../camel/camel-exchange-utils.c:3483
+#: ../camel/camel-exchange-utils.c:3504
 #, c-format
 msgid "Folder doesn't exist"
 msgstr "フォルダーはありません"
 
-#: ../camel/camel-exchange-journal.c:417
+#: ../camel/camel-exchange-journal.c:425
 #, c-format
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "オフラインモードではメッセージを追加できません"
 
-#: ../camel/camel-exchange-journal.c:437
+#: ../camel/camel-exchange-journal.c:445
 msgid "Cannot append message in offline mode: "
 msgstr "オフラインモードではメッセージを追加できません: "
 
@@ -146,14 +153,14 @@ msgid "Secure or Plaintext Password"
 msgstr "暗号化または平文のパスワード"
 
 #: ../camel/camel-exchange-provider.c:53
-#: ../camel/camel-exchange-provider.c:140
+#: ../camel/camel-exchange-provider.c:141
 #: ../eplugin/exchange-account-setup.c:69
 msgid "Plaintext Password"
 msgstr "平文のパスワード"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
 #: ../camel/camel-exchange-provider.c:54
-#: ../camel/camel-exchange-provider.c:129
+#: ../camel/camel-exchange-provider.c:130
 #: ../eplugin/exchange-account-setup.c:58
 msgid "Secure Password"
 msgstr "暗号化されたパスワード"
@@ -236,7 +243,7 @@ msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgstr "Microsoft Exchange サーバー上のメール(と他のデータ)の処理"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:132
+#: ../camel/camel-exchange-provider.c:133
 #: ../eplugin/exchange-account-setup.c:61
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
@@ -245,154 +252,150 @@ msgstr ""
 "このオプションで Exchange サーバーへの接続時にセキュアパスワード(NTLM) 認証が"
 "使われるようになります"
 
-#: ../camel/camel-exchange-provider.c:142
+#: ../camel/camel-exchange-provider.c:143
 #: ../eplugin/exchange-account-setup.c:71
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
 "password authentication."
 msgstr ""
-"このオプションで Exchange サーバーへの接続時に標準の平文テキストパスワード"
-"(NTLM) 認証が使われるようになります"
+"このオプションで Exchange サーバーへの接続時に標準の平文テキストパスワード認"
+"証が使われるようになります"
 
-#: ../camel/camel-exchange-store.c:300
+#: ../camel/camel-exchange-store.c:287
 #, c-format
 msgid "Exchange server %s"
 msgstr "Exchange サーバー %s"
 
-#: ../camel/camel-exchange-store.c:304
+#: ../camel/camel-exchange-store.c:291
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "%s の Exchange アカウント(%s 上)"
 
-#: ../camel/camel-exchange-store.c:382
+#: ../camel/camel-exchange-store.c:374
 #, c-format
 msgid "Could not authenticate to server. (Password incorrect?)"
 msgstr "サーバーで認証できませんでした (パスワードが違う?)"
 
-#: ../camel/camel-exchange-store.c:445
+#: ../camel/camel-exchange-store.c:476
 #, c-format
 msgid "No such folder %s"
 msgstr "%s というフォルダーはありません"
 
-#: ../camel/camel-exchange-store.c:578
+#: ../camel/camel-exchange-store.c:631
 #, c-format
 msgid "Cannot create folder in offline mode."
 msgstr "オフラインモードではフォルダーは作成できません"
 
-#: ../camel/camel-exchange-store.c:608
+#: ../camel/camel-exchange-store.c:662
 #, c-format
 msgid "Cannot delete folder in offline mode."
 msgstr "オフラインモードではフォルダーを削除できません。"
 
-#: ../camel/camel-exchange-store.c:634
+#: ../camel/camel-exchange-store.c:689
 #, c-format
 msgid "Cannot rename folder in offline mode."
 msgstr "オフラインモードではフォルダーの名称変更はできません"
 
-#: ../camel/camel-exchange-store.c:715
+#: ../camel/camel-exchange-store.c:754
 #, c-format
 msgid "Cannot subscribe folder in offline mode."
 msgstr "オフラインモードではフォルダーを購読できません"
 
-#: ../camel/camel-exchange-store.c:734
+#: ../camel/camel-exchange-store.c:774
 #, c-format
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "その名前のフォルダーは作成できません"
 
-#: ../camel/camel-exchange-transport.c:65
+#: ../camel/camel-exchange-transport.c:70
 #, c-format
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr ""
 "Exchange トランスポートと一緒に使えるのは Exchange メールソースだけです"
 
-#: ../camel/camel-exchange-transport.c:79
+#: ../camel/camel-exchange-transport.c:84
 #, c-format
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "メッセージを送れません: 一人以上の不適切な受信者"
 
-#: ../camel/camel-exchange-transport.c:90
+#: ../camel/camel-exchange-transport.c:95
 #, c-format
 msgid "Could not find 'From' address in message"
 msgstr "メッセージ内に 'From' アドレスがみつかりませんでした"
 
-#: ../camel/camel-exchange-utils.c:529 ../camel/camel-exchange-utils.c:568
-msgid "Could not get new messages"
-msgstr "新しいメッセージを取得できませんでした"
-
-#: ../camel/camel-exchange-utils.c:1056 ../camel/camel-exchange-utils.c:1207
+#: ../camel/camel-exchange-utils.c:1118 ../camel/camel-exchange-utils.c:1270
 msgid "Could not open folder"
 msgstr "フォルダーを開けませんでした"
 
-#: ../camel/camel-exchange-utils.c:1203 ../camel/camel-exchange-utils.c:1221
+#: ../camel/camel-exchange-utils.c:1266 ../camel/camel-exchange-utils.c:1284
 msgid "Could not open folder: Permission denied"
 msgstr "フォルダーを開けませんでした: 権限がありません"
 
-#: ../camel/camel-exchange-utils.c:1270 ../camel/camel-exchange-utils.c:2205
+#: ../camel/camel-exchange-utils.c:1335 ../camel/camel-exchange-utils.c:2275
 msgid "No such folder"
 msgstr "そのようなフォルダーはありません"
 
-#: ../camel/camel-exchange-utils.c:1292 ../camel/camel-exchange-utils.c:3119
-#: ../camel/camel-exchange-utils.c:3162 ../camel/camel-exchange-utils.c:3331
-#: ../camel/camel-exchange-utils.c:3384 ../camel/camel-exchange-utils.c:3446
+#: ../camel/camel-exchange-utils.c:1357 ../camel/camel-exchange-utils.c:3192
+#: ../camel/camel-exchange-utils.c:3235 ../camel/camel-exchange-utils.c:3404
+#: ../camel/camel-exchange-utils.c:3457 ../camel/camel-exchange-utils.c:3519
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
 #: ../server/storage/e-storage.c:573
 msgid "Permission denied"
 msgstr "権限がありません"
 
-#: ../camel/camel-exchange-utils.c:2214
+#: ../camel/camel-exchange-utils.c:2284
 msgid "Could not create folder."
 msgstr "フォルダーを作成できませんでした"
 
-#: ../camel/camel-exchange-utils.c:2302
+#: ../camel/camel-exchange-utils.c:2372
 msgid "Could not open Deleted Items folder"
 msgstr "削除アイテムフォルダーを開けませんでした"
 
-#: ../camel/camel-exchange-utils.c:2428
+#: ../camel/camel-exchange-utils.c:2501
 msgid "Could not empty Deleted Items folder"
 msgstr "削除アイテムフォルダーを空にできませんでした"
 
-#: ../camel/camel-exchange-utils.c:2430
+#: ../camel/camel-exchange-utils.c:2503
 msgid "Permission denied. Could not delete certain messages."
 msgstr "アクセス拒否です (メッセージを削除できませんでした)"
 
-#: ../camel/camel-exchange-utils.c:2474
+#: ../camel/camel-exchange-utils.c:2547
 msgid "Could not append message; mailbox is over quota"
 msgstr ""
 "メッセージを追加できませんでした: メールボックスが容量制限を越えています"
 
-#: ../camel/camel-exchange-utils.c:2475
+#: ../camel/camel-exchange-utils.c:2548
 msgid "Could not append message"
 msgstr "メッセージを追加できませんでした"
 
-#: ../camel/camel-exchange-utils.c:2661
+#: ../camel/camel-exchange-utils.c:2734
 msgid "No such message"
 msgstr "そのようなメッセージはありません"
 
-#: ../camel/camel-exchange-utils.c:2733
+#: ../camel/camel-exchange-utils.c:2806
 msgid "Message has been deleted"
 msgstr "メッセージは削除されました"
 
-#: ../camel/camel-exchange-utils.c:2735
+#: ../camel/camel-exchange-utils.c:2808
 msgid "Error retrieving message"
 msgstr "メッセージ取得中にエラー"
 
-#: ../camel/camel-exchange-utils.c:2784
+#: ../camel/camel-exchange-utils.c:2857
 msgid "Mailbox does not support full-text searching"
 msgstr "メールボックスは全文検索をサポートしていません"
 
-#: ../camel/camel-exchange-utils.c:2896
+#: ../camel/camel-exchange-utils.c:2969
 msgid "Unable to move/copy messages"
 msgstr "メッセージを移動/コピーできません"
 
-#: ../camel/camel-exchange-utils.c:3024
+#: ../camel/camel-exchange-utils.c:3097
 msgid "No mail submission URI for this mailbox"
 msgstr "このメールボックスについてメール投稿 URI がありません"
 
-#: ../camel/camel-exchange-utils.c:3057
+#: ../camel/camel-exchange-utils.c:3130
 msgid "Server won't accept mail via Exchange transport"
 msgstr "サーバーは Exchange トランスポートを介したメールを拒否するでしょう"
 
-#: ../camel/camel-exchange-utils.c:3059
+#: ../camel/camel-exchange-utils.c:3132
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -401,7 +404,7 @@ msgstr ""
 "あなたのアカウントには送信者アドレスとして <%s> を\n"
 "使う権限がありません"
 
-#: ../camel/camel-exchange-utils.c:3071
+#: ../camel/camel-exchange-utils.c:3144
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -409,19 +412,19 @@ msgstr ""
 "メッセージを送信できませんでした\n"
 "あなたのアカウントは容量制限を越えてしまっているかもしれません"
 
-#: ../camel/camel-exchange-utils.c:3075
+#: ../camel/camel-exchange-utils.c:3148
 msgid "Could not send message"
 msgstr "メッセージを送信できませんでした"
 
-#: ../camel/camel-exchange-utils.c:3111 ../camel/camel-exchange-utils.c:3167
-#: ../camel/camel-exchange-utils.c:3335 ../camel/camel-exchange-utils.c:3388
-#: ../camel/camel-exchange-utils.c:3452
+#: ../camel/camel-exchange-utils.c:3184 ../camel/camel-exchange-utils.c:3240
+#: ../camel/camel-exchange-utils.c:3408 ../camel/camel-exchange-utils.c:3461
+#: ../camel/camel-exchange-utils.c:3525
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
 #: ../server/storage/e-storage.c:557
 msgid "Generic error"
 msgstr "一般エラー"
 
-#: ../camel/camel-exchange-utils.c:3115
+#: ../camel/camel-exchange-utils.c:3188
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
 msgid "Folder already exists"
 msgstr "フォルダーは既にあります"
@@ -460,7 +463,7 @@ msgstr "セキュリティ"
 #. Change Password
 #: ../eplugin/exchange-account-setup.c:336
 msgid "Change the password for Exchange account"
-msgstr "Exchage アカウントのパスワードを変更します"
+msgstr "Exchange アカウントのパスワードを変更します"
 
 #: ../eplugin/exchange-account-setup.c:338
 #: ../eplugin/exchange-change-password.c:85
@@ -496,42 +499,42 @@ msgstr "フォルダーサイズ"
 msgid "Exchange Settings"
 msgstr "Exchange 設定"
 
-#: ../eplugin/exchange-account-setup.c:735
+#: ../eplugin/exchange-account-setup.c:740
 msgid "_OWA URL:"
 msgstr "OWA URL(_O):"
 
-#: ../eplugin/exchange-account-setup.c:761
+#: ../eplugin/exchange-account-setup.c:766
 msgid "A_uthenticate"
 msgstr "認証(_U)"
 
-#: ../eplugin/exchange-account-setup.c:783
+#: ../eplugin/exchange-account-setup.c:788
 msgid "Mailbox name is _different from username"
 msgstr "メールボックスの名前がユーザー名と異なっています(_D)"
 
-#: ../eplugin/exchange-account-setup.c:796
+#: ../eplugin/exchange-account-setup.c:801
 msgid "_Mailbox:"
 msgstr "メールボックス(_M):"
 
-#: ../eplugin/exchange-account-setup.c:1011
+#: ../eplugin/exchange-account-setup.c:1016
 msgid "_Authentication Type"
 msgstr "認証の種類(_A):"
 
-#: ../eplugin/exchange-account-setup.c:1025
+#: ../eplugin/exchange-account-setup.c:1030
 msgid "Ch_eck for Supported Types"
 msgstr "サポートしている種類をチェック(_E)"
 
-#: ../eplugin/exchange-account-setup.c:1140 ../eplugin/exchange-contacts.c:217
+#: ../eplugin/exchange-account-setup.c:1145 ../eplugin/exchange-contacts.c:217
 #, c-format
 msgid "%s KB"
 msgstr "%s KB"
 
-#: ../eplugin/exchange-account-setup.c:1142 ../eplugin/exchange-contacts.c:219
+#: ../eplugin/exchange-account-setup.c:1147 ../eplugin/exchange-contacts.c:219
 #, c-format
 msgid "0 KB"
 msgstr "0 KB"
 
 #. FIXME: Take care of i18n
-#: ../eplugin/exchange-account-setup.c:1147 ../eplugin/exchange-calendar.c:236
+#: ../eplugin/exchange-account-setup.c:1152 ../eplugin/exchange-calendar.c:236
 #: ../eplugin/exchange-contacts.c:222
 msgid "Size:"
 msgstr "大きさ:"
@@ -581,146 +584,146 @@ msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr "二つのパスワードが一致しません。再度パスワードを入力し直してください"
 
 #. Translators: The %d is replaced with the actual number of days
-#: ../eplugin/exchange-config-listener.c:662
+#: ../eplugin/exchange-config-listener.c:659
 #, c-format
 msgid "Your password will expire in the next %d day"
 msgid_plural "Your password will expire in the next %d days"
 msgstr[0] "あなたのパスワードの有効期限は %d 日後です..."
 
-#: ../eplugin/exchange-config-listener.c:665
+#: ../eplugin/exchange-config-listener.c:662
 msgid "Password Expiry Warning..."
 msgstr "パスワード有効期限切れの警告..."
 
-#: ../eplugin/exchange-config-listener.c:682
+#: ../eplugin/exchange-config-listener.c:679
 msgid "_Change Password"
 msgstr "パスワード変更(_C)"
 
-#: ../eplugin/exchange-config-listener.c:735
+#: ../eplugin/exchange-config-listener.c:732
 msgid "Out of Office Assistant"
 msgstr "不在時のアシスタント"
 
-#: ../eplugin/exchange-config-listener.c:752
+#: ../eplugin/exchange-config-listener.c:749
 msgid "Currently, your status is \"Out of the Office\"."
 msgstr "現在あなたの状態は\"不在\"となっています。"
 
-#: ../eplugin/exchange-config-listener.c:752
+#: ../eplugin/exchange-config-listener.c:749
 msgid "Would you like to change your status to \"In the Office\"?"
 msgstr "状態を\"在席\"に変更しますか?"
 
-#: ../eplugin/exchange-config-listener.c:781
+#: ../eplugin/exchange-config-listener.c:778
 msgid "_No, Don't Change Status"
 msgstr "いいえ。状態を変更しません(_N)"
 
-#: ../eplugin/exchange-config-listener.c:802
+#: ../eplugin/exchange-config-listener.c:799
 msgid "_Yes, Change Status"
 msgstr "はい、状態を変更します(_Y)"
 
-#: ../eplugin/exchange-config-listener.c:834
+#: ../eplugin/exchange-config-listener.c:829
 #, c-format
 msgid "Enter Password for %s"
 msgstr "%s のパスワードを入力してください"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:435
+#: ../eplugin/exchange-delegates-user.c:71 ../eplugin/exchange-folder.c:446
 #: ../server/storage/exchange-hierarchy-foreign.c:260
 msgid "Calendar"
 msgstr "カレンダ"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:438
+#: ../eplugin/exchange-delegates-user.c:71 ../eplugin/exchange-folder.c:449
 #: ../server/storage/exchange-hierarchy-foreign.c:269
 msgid "Tasks"
 msgstr "タスク"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:433
+#: ../eplugin/exchange-delegates-user.c:71 ../eplugin/exchange-folder.c:444
 #: ../server/storage/exchange-hierarchy-foreign.c:264
 msgid "Inbox"
 msgstr "Inbox"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:441
+#: ../eplugin/exchange-delegates-user.c:71 ../eplugin/exchange-folder.c:452
 #: ../server/storage/exchange-hierarchy-foreign.c:261
 msgid "Contacts"
 msgstr "コンタクト"
 
-#: ../eplugin/exchange-delegates-user.c:132
+#: ../eplugin/exchange-delegates-user.c:134
 #: ../eplugin/exchange-permissions-dialog.c:545
 #: ../server/lib/e2k-security-descriptor.c:901
 msgid "Custom"
 msgstr "カスタム"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:155
-#: ../eplugin/exchange-delegates-user.c:298
+#: ../eplugin/exchange-delegates-user.c:157
 #: ../eplugin/exchange-delegates-user.c:308
 #: ../eplugin/exchange-delegates-user.c:318
 #: ../eplugin/exchange-delegates-user.c:328
+#: ../eplugin/exchange-delegates-user.c:338
 msgid "Editor (read, create, edit)"
 msgstr "編集者 (読み、作成、編集)"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:160
-#: ../eplugin/exchange-delegates-user.c:297
+#: ../eplugin/exchange-delegates-user.c:162
 #: ../eplugin/exchange-delegates-user.c:307
 #: ../eplugin/exchange-delegates-user.c:317
 #: ../eplugin/exchange-delegates-user.c:327
+#: ../eplugin/exchange-delegates-user.c:337
 msgid "Author (read, create)"
 msgstr "作者 (読み、作成)"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:165
-#: ../eplugin/exchange-delegates-user.c:296
+#: ../eplugin/exchange-delegates-user.c:167
 #: ../eplugin/exchange-delegates-user.c:306
 #: ../eplugin/exchange-delegates-user.c:316
 #: ../eplugin/exchange-delegates-user.c:326
+#: ../eplugin/exchange-delegates-user.c:336
 msgid "Reviewer (read-only)"
 msgstr "レビューア (読み込みのみ)"
 
-#: ../eplugin/exchange-delegates-user.c:168
-#: ../eplugin/exchange-delegates-user.c:295
+#: ../eplugin/exchange-delegates-user.c:170
 #: ../eplugin/exchange-delegates-user.c:305
 #: ../eplugin/exchange-delegates-user.c:315
 #: ../eplugin/exchange-delegates-user.c:325
+#: ../eplugin/exchange-delegates-user.c:335
 #: ../server/lib/e2k-security-descriptor.c:886
 msgid "None"
 msgstr "なし"
 
 #. Translators: "Delegate Permissions" refers to the permissions on the delegator's folders
 #. that the delegatee would receive
-#: ../eplugin/exchange-delegates-user.c:225
+#: ../eplugin/exchange-delegates-user.c:235
 msgid "Delegate Permissions"
 msgstr "委任先の権限"
 
-#: ../eplugin/exchange-delegates-user.c:243
+#: ../eplugin/exchange-delegates-user.c:253
 msgid "Permissions for"
 msgstr "権限"
 
 #. Translators: This is used for permissions for <user> for the folder Calendar.
-#: ../eplugin/exchange-delegates-user.c:255
+#: ../eplugin/exchange-delegates-user.c:265
 msgid "C_alendar:"
 msgstr "カレンダ(_A):"
 
 #. Translators: This is used for permissions for <user> for the folder Tasks.
-#: ../eplugin/exchange-delegates-user.c:264
+#: ../eplugin/exchange-delegates-user.c:274
 msgid "_Tasks:"
 msgstr "タスク(_T):"
 
 #. Translators: This is used for permissions for <user> for the folder Inbox.
-#: ../eplugin/exchange-delegates-user.c:273
+#: ../eplugin/exchange-delegates-user.c:283
 msgid "_Inbox:"
 msgstr "Inbox(_I):"
 
 #. Translators: This is used for permissions for <user> for the folder Contacts.
-#: ../eplugin/exchange-delegates-user.c:282
+#: ../eplugin/exchange-delegates-user.c:292
 msgid "Co_ntacts:"
 msgstr "コンタクト(_N):"
 
-#: ../eplugin/exchange-delegates-user.c:330
+#: ../eplugin/exchange-delegates-user.c:340
 msgid "_Summarize permissions"
 msgstr "権限の要約(_S)"
 
-#: ../eplugin/exchange-delegates-user.c:334
+#: ../eplugin/exchange-delegates-user.c:344
 msgid "_Delegate can see private items"
 msgstr "委任先はプライベートアイテムを見ることができます(_D)"
 
-#: ../eplugin/exchange-delegates-user.c:340
+#: ../eplugin/exchange-delegates-user.c:350
 #: ../eplugin/exchange-permissions-dialog.c:168
 #, c-format
 msgid "Permissions for %s"
@@ -729,7 +732,7 @@ msgstr "%s の権限"
 #. To translators: This is a part of the message to be sent to the delegatee
 #. summarizing the permissions assigned to him.
 #.
-#: ../eplugin/exchange-delegates-user.c:433
+#: ../eplugin/exchange-delegates-user.c:443
 msgid ""
 "This message was sent automatically by Evolution to inform you that you have "
 "been designated as a delegate. You can now send messages on my behalf."
@@ -740,27 +743,27 @@ msgstr ""
 
 #. To translators: Another chunk of the same message.
 #.
-#: ../eplugin/exchange-delegates-user.c:438
+#: ../eplugin/exchange-delegates-user.c:448
 msgid "You have been given the following permissions on my folders:"
 msgstr "あなたは私のフォルダーの次の権限を与えられました"
 
 #. To translators: This message is included if the delegatee has been given access
 #. to the private items.
 #.
-#: ../eplugin/exchange-delegates-user.c:458
+#: ../eplugin/exchange-delegates-user.c:468
 msgid "You are also permitted to see my private items."
 msgstr "あなたは私のプライベートアイテムを見ることができます。"
 
 #. To translators: This message is included if the delegatee has not been given access
 #. to the private items.
 #.
-#: ../eplugin/exchange-delegates-user.c:465
+#: ../eplugin/exchange-delegates-user.c:475
 msgid "However, you are not permitted to see my private items."
 msgstr ""
 "しかしながら、あなたは私のプライベートなアイテムを見ることは許可されていませ"
 "ん。"
 
-#: ../eplugin/exchange-delegates-user.c:497
+#: ../eplugin/exchange-delegates-user.c:509
 #, c-format
 msgid "You have been designated as a delegate for %s"
 msgstr "あなたは %s の委任先として割り当てられました。"
@@ -773,43 +776,43 @@ msgstr "委任先:"
 msgid "Delegate To"
 msgstr "委任先"
 
-#: ../eplugin/exchange-delegates.c:578
+#: ../eplugin/exchange-delegates.c:577
 #, c-format
 msgid "Remove the delegate %s?"
 msgstr "委任 %s を削除しますか?"
 
-#: ../eplugin/exchange-delegates.c:695
+#: ../eplugin/exchange-delegates.c:694
 msgid "Could not access Active Directory"
 msgstr "Active Directory へアクセスできませんでした"
 
-#: ../eplugin/exchange-delegates.c:707
+#: ../eplugin/exchange-delegates.c:706
 msgid "Could not find self in Active Directory"
 msgstr "Active Directory で自分自身を発見できませんでした"
 
-#: ../eplugin/exchange-delegates.c:720
+#: ../eplugin/exchange-delegates.c:719
 #, c-format
 msgid "Could not find delegate %s in Active Directory"
 msgstr "Active Directory で委任 %s を発見できませんでした"
 
-#: ../eplugin/exchange-delegates.c:732
+#: ../eplugin/exchange-delegates.c:731
 #, c-format
 msgid "Could not remove delegate %s"
 msgstr "委任 %s を削除できませんでした"
 
-#: ../eplugin/exchange-delegates.c:792
+#: ../eplugin/exchange-delegates.c:791
 msgid "Could not update list of delegates."
 msgstr "委任の一覧を更新できませんでした。"
 
-#: ../eplugin/exchange-delegates.c:810
+#: ../eplugin/exchange-delegates.c:809
 #, c-format
 msgid "Could not add delegate %s"
 msgstr "委任 %s を追加できませんでした"
 
-#: ../eplugin/exchange-delegates.c:926
+#: ../eplugin/exchange-delegates.c:925
 msgid "Delegates"
 msgstr "委任"
 
-#: ../eplugin/exchange-delegates.c:941
+#: ../eplugin/exchange-delegates.c:940
 msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
@@ -817,16 +820,16 @@ msgstr ""
 "これらのユーザーはあなたに代ってメールを送信したり、\n"
 "あなたのフォルダーにあなたの指定した権限内でアクセスできます"
 
-#: ../eplugin/exchange-delegates.c:965
+#: ../eplugin/exchange-delegates.c:964
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: ../eplugin/exchange-delegates.c:995
-#: ../eplugin/exchange-permissions-dialog.c:920
+#: ../eplugin/exchange-delegates.c:994
+#: ../eplugin/exchange-permissions-dialog.c:916
 msgid "Name"
 msgstr "名前"
 
-#: ../eplugin/exchange-delegates.c:1021
+#: ../eplugin/exchange-delegates.c:1020
 msgid "Error reading delegates list."
 msgstr "委任一覧の読み込み中にエラー。"
 
@@ -905,12 +908,12 @@ msgstr "フォルダー名(_F):"
 msgid "_User:"
 msgstr "ユーザー(_U):"
 
-#: ../eplugin/exchange-folder.c:320 ../eplugin/exchange-folder.c:376
+#: ../eplugin/exchange-folder.c:331 ../eplugin/exchange-folder.c:387
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "本当に \"%s\" の購読をやめますか?"
 
-#: ../eplugin/exchange-folder.c:333 ../eplugin/exchange-folder.c:389
+#: ../eplugin/exchange-folder.c:344 ../eplugin/exchange-folder.c:400
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "\"%s\" の購読をやめる"
@@ -938,79 +941,79 @@ msgid "Add User:"
 msgstr "ユーザーの追加:"
 
 #: ../eplugin/exchange-permissions-dialog.c:384
-#: ../eplugin/exchange-send-options.c:469
+#: ../eplugin/exchange-send-options.c:467
 msgid "Add User"
 msgstr "ユーザーの追加"
 
-#: ../eplugin/exchange-permissions-dialog.c:796
+#: ../eplugin/exchange-permissions-dialog.c:792
 msgid "Permissions"
 msgstr "権限"
 
-#: ../eplugin/exchange-permissions-dialog.c:813
+#: ../eplugin/exchange-permissions-dialog.c:809
 msgid "Role: "
 msgstr "役割: "
 
-#: ../eplugin/exchange-permissions-dialog.c:839
+#: ../eplugin/exchange-permissions-dialog.c:835
 msgid "Create items"
 msgstr "アイテム作成"
 
-#: ../eplugin/exchange-permissions-dialog.c:843
+#: ../eplugin/exchange-permissions-dialog.c:839
 msgid "Read items"
 msgstr "アイテム読み込み"
 
-#: ../eplugin/exchange-permissions-dialog.c:847
+#: ../eplugin/exchange-permissions-dialog.c:843
 msgid "Create subfolders"
 msgstr "サブフォルダー作成"
 
-#: ../eplugin/exchange-permissions-dialog.c:855
+#: ../eplugin/exchange-permissions-dialog.c:851
 msgid "Cannot Edit"
 msgstr "編集不可"
 
-#: ../eplugin/exchange-permissions-dialog.c:861
+#: ../eplugin/exchange-permissions-dialog.c:857
 msgid "Edit Own Items"
 msgstr "自分のアイテムを編集"
 
-#: ../eplugin/exchange-permissions-dialog.c:867
+#: ../eplugin/exchange-permissions-dialog.c:863
 msgid "Edit Any Items"
 msgstr "任意のアイテムを編集"
 
-#: ../eplugin/exchange-permissions-dialog.c:881
+#: ../eplugin/exchange-permissions-dialog.c:877
 msgid "Folder owner"
 msgstr "フォルダー所有"
 
-#: ../eplugin/exchange-permissions-dialog.c:885
+#: ../eplugin/exchange-permissions-dialog.c:881
 msgid "Folder contact"
 msgstr "フォルダーコンタクト"
 
-#: ../eplugin/exchange-permissions-dialog.c:889
+#: ../eplugin/exchange-permissions-dialog.c:885
 msgid "Folder visible"
 msgstr "フォルダー可視"
 
-#: ../eplugin/exchange-permissions-dialog.c:897
+#: ../eplugin/exchange-permissions-dialog.c:893
 msgid "Cannot Delete"
 msgstr "削除不可"
 
-#: ../eplugin/exchange-permissions-dialog.c:904
+#: ../eplugin/exchange-permissions-dialog.c:900
 msgid "Delete Own Items"
 msgstr "自分のアイテムを削除"
 
-#: ../eplugin/exchange-permissions-dialog.c:910
+#: ../eplugin/exchange-permissions-dialog.c:906
 msgid "Delete Any Items"
 msgstr "任意のアイテムを削除"
 
-#: ../eplugin/exchange-permissions-dialog.c:924
+#: ../eplugin/exchange-permissions-dialog.c:920
 msgid "Role"
 msgstr "役割"
 
-#: ../eplugin/exchange-send-options.c:337
+#: ../eplugin/exchange-send-options.c:335
 msgid "Exchange - Send Options"
 msgstr "Exchange - 送信オプション"
 
-#: ../eplugin/exchange-send-options.c:358
+#: ../eplugin/exchange-send-options.c:356
 msgid "Message Settings"
 msgstr "メッセージの設定"
 
-#: ../eplugin/exchange-send-options.c:372
+#: ../eplugin/exchange-send-options.c:370
 msgid "I_mportance: "
 msgstr "重要度(_M): "
 
@@ -1019,52 +1022,52 @@ msgstr "重要度(_M): "
 #   http://help.outlook.com/en-us/140/bb899516.aspx
 #. Translators: Here's set a message sensitivity, which means for exchange
 #. one of Normal, Personal, Private, Confidential.
-#: ../eplugin/exchange-send-options.c:381
+#: ../eplugin/exchange-send-options.c:379
 msgid "_Sensitivity: "
 msgstr "秘密度(_S)"
 
-#: ../eplugin/exchange-send-options.c:393
-#: ../eplugin/exchange-send-options.c:403
+#: ../eplugin/exchange-send-options.c:391
+#: ../eplugin/exchange-send-options.c:401
 msgid "Normal"
 msgstr "標準"
 
-#: ../eplugin/exchange-send-options.c:394
+#: ../eplugin/exchange-send-options.c:392
 msgid "Personal"
 msgstr "個人用"
 
-#: ../eplugin/exchange-send-options.c:395
+#: ../eplugin/exchange-send-options.c:393
 msgid "Private"
 msgstr "親展"
 
-#: ../eplugin/exchange-send-options.c:396
+#: ../eplugin/exchange-send-options.c:394
 msgid "Confidential"
 msgstr "社外秘"
 
-#: ../eplugin/exchange-send-options.c:404
+#: ../eplugin/exchange-send-options.c:402
 msgid "High"
 msgstr "高"
 
-#: ../eplugin/exchange-send-options.c:405
+#: ../eplugin/exchange-send-options.c:403
 msgid "Low"
 msgstr "低"
 
-#: ../eplugin/exchange-send-options.c:407
+#: ../eplugin/exchange-send-options.c:405
 msgid "Send as Delegate"
 msgstr "委任者として送信"
 
-#: ../eplugin/exchange-send-options.c:424
+#: ../eplugin/exchange-send-options.c:422
 msgid "_User"
 msgstr "ユーザー(_U)"
 
-#: ../eplugin/exchange-send-options.c:432
+#: ../eplugin/exchange-send-options.c:430
 msgid "Tracking Options"
 msgstr "追跡オプション"
 
-#: ../eplugin/exchange-send-options.c:440
+#: ../eplugin/exchange-send-options.c:438
 msgid "Request a _delivery receipt for this message"
 msgstr ""
 
-#: ../eplugin/exchange-send-options.c:445
+#: ../eplugin/exchange-send-options.c:443
 msgid "Request a _read receipt for this message"
 msgstr ""
 
