@@ -376,7 +376,11 @@ message_removed (ExchangeFolder *mfld, CamelFolder *folder, const gchar *href)
 		return;
 	}
 	index = find_message_index (mfld, mmsg->seq);
-	g_return_if_fail (index != -1);
+
+	if (index == -1) {
+		g_static_rec_mutex_unlock (&mfld->ed->changed_msgs_mutex);
+		return;
+	}
 
 	message_remove_at_index (mfld, folder, index);
 	g_static_rec_mutex_unlock (&mfld->ed->changed_msgs_mutex);
