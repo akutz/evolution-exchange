@@ -1,3 +1,21 @@
+Evolution Exchange 3.0.1 2011-04-25
+-----------------------------------
+
+Bug Fixes:
+	Bug #687605(BNC) - Evolution hangs on moving email (Bharath Acharya)
+
+Miscellaneous Fixes:
+	Mark the message_info dirty when there in a change. Updated in couple of more places. (Chenthill Palanisamy)
+	Add the ESource if we get folder-already-exists error. Since it might just exist in e-calendar-factory process and evolution would just 
+	 depend on esource. (Chenthill Palanisamy)
+	Look for changed event and sync the unread flags. Make sure the messages array is sorted. Ideally we want to remove the messages array 
+	 duplicating the db summary. (Chenthill Palanisamy)
+	Mark the dirty flag in message_info when the flags are changed to sync the changes to db. (Chenthill Palanisamy)
+
+Translations:
+	OKANO Takayoshi (ja)
+
+
 Evolution Exchange 3.0.0 2011-04-04
 -----------------------------------
 
