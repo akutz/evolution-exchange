@@ -52,18 +52,16 @@ extern CamelServiceAuthType camel_exchange_ntlm_authtype;
 
 G_DEFINE_TYPE (CamelExchangeStore, camel_exchange_store, CAMEL_TYPE_OFFLINE_STORE)
 
-/* Note: steals @name and @uri */
+/* Note: steals @display_name. */
 static CamelFolderInfo *
 make_folder_info (CamelExchangeStore *exch,
-                  gchar *name,
+                  gchar *display_name,
                   const gchar *uri,
                   gint unread_count,
                   gint flags)
 {
 	CamelFolderInfo *info;
 	const gchar *path;
-	gchar **components;
-	gchar *new_uri;
 	gchar *temp;
 
 	d(printf ("make folder info : %s flags : %d\n", name, flags));
@@ -74,17 +72,8 @@ make_folder_info (CamelExchangeStore *exch,
 	if (!path)
 		return NULL;
 
-	components = g_strsplit (uri, "/;", 2);
-	if (components[0] && components[1])
-		new_uri = g_strdup_printf ("%s/%s", components[0], components[1]);
-	else
-		new_uri = g_strdup (uri);
-	g_strfreev (components);
-
-	d(printf ("new_uri is : %s\n", new_uri));
 	info = camel_folder_info_new ();
-	info->name = name;
-	info->uri = new_uri;
+	info->display_name = display_name;
 
 	/* Process the full-path and decode if required */
 	temp = strrchr (path+2, '/');

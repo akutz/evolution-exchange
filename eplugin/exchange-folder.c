@@ -42,8 +42,11 @@
 #define CONF_KEY_SELECTED_CAL_SOURCES "/apps/evolution/calendar/display/selected_calendars"
 
 static CamelFolderInfo *
-ex_create_folder_info (CamelStore *store, gchar *name, gchar *uri,
-                  gint unread_count, gint flags)
+ex_create_folder_info (CamelStore *store,
+                       gchar *display_name,
+                       gchar *uri,
+                       gint unread_count,
+                       gint flags)
 {
 	CamelFolderInfo *info;
 	const gchar *path;
@@ -56,9 +59,8 @@ ex_create_folder_info (CamelStore *store, gchar *name, gchar *uri,
 		return NULL;
 
 	info = camel_folder_info_new ();
-	info->name = name;
-	info->uri = uri;
 	info->full_name = g_strdup (path + 1);
+	info->display_name = display_name;
 	info->unread = unread_count;
 
 	return info;
