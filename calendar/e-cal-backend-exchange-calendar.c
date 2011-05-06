@@ -427,8 +427,11 @@ get_changed_events (ECalBackendExchange *cbex)
 	status = e2k_result_iter_free (iter);
 
 	if (!SOUP_STATUS_IS_SUCCESSFUL (status)) {
-		if (!since)
+		if (!since) {
+			e_cal_backend_exchange_cache_lock (cbex);
 			e_cal_backend_exchange_cache_sync_end (cbex);
+			e_cal_backend_exchange_cache_unlock (cbex);
+		}
 
 		g_ptr_array_free (hrefs, TRUE);
 		g_hash_table_destroy (modtimes);
@@ -437,10 +440,11 @@ get_changed_events (ECalBackendExchange *cbex)
 		return status;
 	}
 
-	e_cal_backend_exchange_cache_lock (cbex);
-	if (!since)
+	if (!since) {
+		e_cal_backend_exchange_cache_lock (cbex);
 		e_cal_backend_exchange_cache_sync_end (cbex);
-	e_cal_backend_exchange_cache_unlock (cbex);
+		e_cal_backend_exchange_cache_unlock (cbex);
+	}
 
 	if (!hrefs->len) {
 		g_ptr_array_free (hrefs, TRUE);
