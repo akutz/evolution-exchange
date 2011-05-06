@@ -1923,7 +1923,7 @@ book_resource (ECalBackendExchange *cbex,
 	e_cal_component_get_uid (E_CAL_COMPONENT (comp), &uid);
 	sanitized_uid = g_strdup (uid);
 	g_strdelimit (sanitized_uid, " /'\"`&();|<>$%{}!\\:*?#@", '_');
-	href = g_strdup_printf ("%s%s%s.EML", cal_uri [strlen (cal_uri) - 1] == '/' ? "" : "/", cal_uri, sanitized_uid);
+	href = g_strdup_printf ("%s%s%s.EML", cal_uri, cal_uri [strlen (cal_uri) - 1] == '/' ? "" : "/", sanitized_uid);
 	g_free (sanitized_uid);
 
 	e_cal_backend_exchange_cache_lock (cbex);
