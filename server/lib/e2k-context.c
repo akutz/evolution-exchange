@@ -397,7 +397,7 @@ session_authenticate (SoupSession *session, SoupMessage *msg,
 	}
 }
 
-static gpointer 
+static gpointer
 e2k_context_soup_thread (gpointer user_data)
 {
 	E2kContextPrivate *priv = user_data;
@@ -407,7 +407,6 @@ e2k_context_soup_thread (gpointer user_data)
 	g_main_context_pop_thread_default (priv->soup_context);
 	return NULL;
 }
-
 
 /**
  * e2k_context_set_auth:
@@ -909,7 +908,6 @@ e2k_soup_message_new_full (E2kContext *ctx, const gchar *uri,
 	return msg;
 }
 
-
 struct _e2k_queue_data {
 	E2kContext *ctx;
 	SoupMessage *msg;
@@ -929,7 +927,7 @@ e2k_queue_request (gpointer data)
 	return FALSE;
 }
 
-static void 
+static void
 e2k_trigger_queue_request (struct _e2k_queue_data *data)
 {
 	GSource *source;

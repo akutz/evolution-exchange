@@ -968,7 +968,7 @@ get_folder_contents_online (ExchangeFolder *mfld, GError **error)
 	rm_idx_uid = g_hash_table_new (g_direct_hash, g_direct_equal);
 
 	g_static_rec_mutex_lock (&mfld->ed->changed_msgs_mutex);
-	
+
 	g_ptr_array_sort (mfld->messages, (GCompareFunc) exchange_message_uid_cmp);
 	for (i = 0; i < mfld->messages->len; i++) {
 		mmsg = mfld->messages->pdata[i];
@@ -998,7 +998,7 @@ get_folder_contents_online (ExchangeFolder *mfld, GError **error)
 	m = 0;
 	while (m < msgs_copy->len && (result = e2k_result_iter_next (iter))) {
 		gboolean changed = FALSE;
-		
+
 		prop = e2k_properties_get_prop (result->props,
 						PR_INTERNET_ARTICLE_NUMBER);
 		if (!prop)
@@ -1094,7 +1094,7 @@ get_folder_contents_online (ExchangeFolder *mfld, GError **error)
 			camel_folder_change_info_change_uid (ci, mmsg->uid);
 		m++;
 	}
-	
+
 	camel_folder_changed (CAMEL_FOLDER (folder), ci);
 	camel_folder_change_info_free (ci);
 
@@ -1193,7 +1193,7 @@ notify_cb (E2kContext *ctx, const gchar *uri, E2kContextChangeType type, gpointe
 	if (type == E2K_CONTEXT_OBJECT_ADDED)
 		refresh_folder_internal (mfld, NULL, NULL);
 	else if (type == E2K_CONTEXT_OBJECT_CHANGED)
-		get_folder_contents_online (mfld, NULL);			
+		get_folder_contents_online (mfld, NULL);
 	else {
 		now = time (NULL);
 
