@@ -1162,7 +1162,7 @@ org_gnome_exchange_show_folder_size_factory (EPlugin *epl, EConfigHookItemFactor
 	if (mode == OFFLINE_MODE)
 		return NULL;
 
-	folder_name = (gchar *) camel_folder_get_name (cml_folder);
+	folder_name = (gchar *) camel_folder_get_display_name (cml_folder);
 	if (!folder_name)
 		folder_name = g_strdup ("name");
 
