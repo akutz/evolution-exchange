@@ -485,7 +485,7 @@ exchange_store_get_folder_sync (CamelStore *store,
 
 	folder = g_object_new (
 		CAMEL_TYPE_EXCHANGE_FOLDER,
-		"name", short_name, "full-name", folder_name,
+		"display-name", short_name, "full-name", folder_name,
 		"parent-store", store, NULL);
 	g_hash_table_insert (exch->folders, g_strdup (folder_name), folder);
 	g_mutex_unlock (exch->folders_lock);
