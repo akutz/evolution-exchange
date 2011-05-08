@@ -1,3 +1,40 @@
+Evolution Exchange 3.1.1 2011-05-09
+-----------------------------------
+
+Bug Fixes:
+	Bug 339827 - EDS crashes on startup (Punit Jain)
+	Bug 436619 - fix a small error (Punit Jain)
+	Bug 645721 - Fix build error when enabling kerberos without specifying
+	             path (Niki Guldbrand)
+
+Other Changes:
+	* Initialize the port entries to NULL. (Chenthill Palanisamy)
+	* Mark the dirty flag in message_info when the flags are changed to
+	  sync the changes to db. (Chenthill Palanisamy)
+	* Look for changed event and sync the unread flags. Make sure the
+	  messages array is sorted. Ideally we want to remove the messages
+	  array duplicating the db summary. (Chenthill Palanisamy)
+	* Add the ESource if we get folder-already-exists error. Since it
+	  might just exist in e-calendar-factory process and evolution would
+	  just depend on esource. (Chenthill Palanisamy)
+	* Mark the message_info dirty when there in a change. Updated in
+	  couple of more places. (Chenthill Palanisamy)
+	* Adapt to sealed up CamelService. (Matthew Barnes)
+	* Adapt to CamelService changes. (Matthew Barnes)
+	* Adapt to EMConfigTargetAccount changes. (Matthew Barnes)
+	* Adapt to CamelFolderInfo changes. (Matthew Barnes)
+	* Adapt to CamelFolder:name -> display-name. (Matthew Barnes)
+
+Translations:
+	OKANO Takayoshi (ja)
+
+
+Evolution Exchange 3.0.0 2011-04-04
+-----------------------------------
+
+No changes.
+
+
 Evolution Exchange 2.91.92 2011-03-21
 -------------------------------------
 
