@@ -154,7 +154,6 @@ PKG_CHECK_MODULES(EVOLUTION_DATA_SERVER,
 	libedataserverui-3.0 >= eds_minimum_version
 	libedata-book-1.2 >= eds_minimum_version
 	libedata-cal-1.2 >= eds_minimum_version
-	libegroupwise-1.2 >= eds_minimum_version
 	libebackend-1.2 >= eds_minimum_version])
 
 dnl ************************
