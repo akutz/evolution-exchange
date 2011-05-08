@@ -363,7 +363,7 @@ void
 e2k_results_array_free (GArray *results_array, gboolean free_results)
 {
 	if (free_results) {
-		e2k_results_free ((E2kResult *)results_array->data,
+		e2k_results_free ((E2kResult *) results_array->data,
 				  results_array->len);
 	}
 	g_array_free (results_array, FALSE);

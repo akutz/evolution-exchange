@@ -225,16 +225,16 @@ get_folder_security (ExchangeDelegates *delegates)
 		delegates->folder[i].uri = exchange_account_get_standard_uri (
 			delegates->account, exchange_delegates_user_folder_names[i]);
 		if (delegates->folder[i].uri) {
-			g_ptr_array_add (hrefs, (gchar *)e2k_uri_relative (
+			g_ptr_array_add (hrefs, (gchar *) e2k_uri_relative (
 						 delegates->account->home_uri,
 						 delegates->folder[i].uri));
 		}
 	}
-	g_ptr_array_add (hrefs, (gchar *)exchange_localfreebusy_path);
+	g_ptr_array_add (hrefs, (gchar *) exchange_localfreebusy_path);
 
 	iter = e2k_context_bpropfind_start (
 		ctx, NULL, delegates->account->home_uri,
-		(const gchar **)hrefs->pdata, hrefs->len,
+		(const gchar **) hrefs->pdata, hrefs->len,
 		sd_props, G_N_ELEMENTS (sd_props));
 	g_ptr_array_free (hrefs, TRUE);
 
@@ -873,7 +873,7 @@ delegates_destroy (ExchangeDelegates *delegates)
 	if (delegates->freebusy_folder.sd)
 		g_object_unref (delegates->freebusy_folder.sd);
 	if (delegates->freebusy_folder.uri)
-		g_free ((gchar *)delegates->freebusy_folder.uri);
+		g_free ((gchar *) delegates->freebusy_folder.uri);
 
 	g_free (delegates);
 }

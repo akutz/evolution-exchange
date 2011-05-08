@@ -140,7 +140,7 @@ static void
 proxy_settings_changed (EProxy *proxy, gpointer user_data)
 {
 	SoupURI *proxy_uri = NULL;
-	E2kContext* ctx = (E2kContext *)user_data;
+	E2kContext* ctx = (E2kContext *) user_data;
 	if (!ctx || !ctx->priv ||
 	    (!ctx->priv->session && !ctx->priv->async_session) ||
 	    (!ctx->priv->owa_uri))
@@ -306,7 +306,7 @@ got_connection (SoupSocket *sock, guint status, gpointer user_data)
 	memset (&sin, 0, sizeof (sin));
 	sin.sin_family = AF_INET;
 
-	port = (gshort)getpid ();
+	port = (gshort) getpid ();
 	do {
 		port++;
 		if (port < 1024)
@@ -493,7 +493,7 @@ e2k_context_set_auth (E2kContext *ctx, const gchar *username,
 		return;
 
 	if (e2k_debug_level < 4)
-		level = (SoupLoggerLogLevel)e2k_debug_level;
+		level = (SoupLoggerLogLevel) e2k_debug_level;
 	else
 		level = SOUP_LOGGER_LOG_BODY;
 	logger = soup_logger_new (level, -1);
@@ -2363,7 +2363,7 @@ e2k_context_transfer_start (E2kContext *ctx, E2kOperation *op,
 	dest_uri = e2k_strdup_with_trailing_slash (dest_folder);
 	if (!dest_uri)
 		return NULL;
-	hrefs = (const gchar **)source_hrefs->pdata;
+	hrefs = (const gchar **) source_hrefs->pdata;
 
 	msgs = g_new0 (GSList *, 1);
 	for (i = 0; i < source_hrefs->len; i += E2K_CONTEXT_MAX_BATCH_SIZE) {

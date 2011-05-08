@@ -83,7 +83,7 @@ format_size_func (GtkTreeViewColumn *col,
                   GtkTreeIter       *iter,
                  gpointer           user_data)
 {
-	GtkCellRendererText *cell = (GtkCellRendererText *)renderer;
+	GtkCellRendererText *cell = (GtkCellRendererText *) renderer;
 	gdouble folder_size;
 	gchar * new_text;
 
@@ -186,7 +186,7 @@ exchange_folder_size_display (GtkListStore *model, GtkWidget *parent)
 	g_free (col_name);
 
 	l = gtk_cell_layout_get_cells (GTK_CELL_LAYOUT (column));
-	cell = (GtkCellRenderer *)l->data;
+	cell = (GtkCellRenderer *) l->data;
 	gtk_tree_view_column_set_cell_data_func (column, cell, format_size_func, NULL, NULL );
 	g_list_free (l);
 

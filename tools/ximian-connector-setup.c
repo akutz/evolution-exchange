@@ -89,7 +89,7 @@ main (gint argc, gchar **argv)
 
 	g_type_init ();
 	g_thread_init (NULL);
-	gtk_init_with_args (&argc, &argv, NULL, NULL, (gchar *)GETTEXT_PACKAGE, &error);
+	gtk_init_with_args (&argc, &argv, NULL, NULL, (gchar *) GETTEXT_PACKAGE, &error);
 
 	if (error != NULL) {
 		g_printerr ("Failed initialize application, %s\n", error->message);

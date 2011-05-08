@@ -73,7 +73,7 @@ exchange_get_folder (gchar *uri, CamelFolder *folder, gpointer data)
 	CamelFolderInfo *info;
 	gchar *name = NULL;
 	gchar *stored_name = NULL;
-	gchar *target_uri = (gchar *)data;
+	gchar *target_uri = (gchar *) data;
 	ExchangeAccount *account = NULL;
 
 	g_return_if_fail (folder != NULL);

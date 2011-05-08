@@ -150,7 +150,7 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *folder, gint mode)
 	}
 
 	iter = e_folder_exchange_bpropfind_start (hier->toplevel, NULL,
-						  (const gchar **)hrefs->pdata,
+						  (const gchar **) hrefs->pdata,
 						  hrefs->len,
 						  folder_props,
 						  G_N_ELEMENTS (folder_props));

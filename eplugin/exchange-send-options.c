@@ -136,7 +136,7 @@ exchange_send_options_get_widgets_data (ExchangeSendOptionsDialog *sod)
 		}
 
 		if (count > 1) {
-			e_alert_run_dialog_for_args ((GtkWindow *)priv->main,
+			e_alert_run_dialog_for_args ((GtkWindow *) priv->main,
 				"org-gnome-exchange-operations:more-delegates-selected", NULL, NULL);
 			gtk_widget_grab_focus ((GtkWidget *) name_selector_entry);
 			options->delegate_address = NULL;
@@ -146,8 +146,8 @@ exchange_send_options_get_widgets_data (ExchangeSendOptionsDialog *sod)
 		}
 	}
 
-	options->importance = gtk_combo_box_get_active ((GtkComboBox *)priv->importance);
-	options->sensitivity = gtk_combo_box_get_active ((GtkComboBox *)priv->sensitivity);
+	options->importance = gtk_combo_box_get_active ((GtkComboBox *) priv->importance);
+	options->sensitivity = gtk_combo_box_get_active ((GtkComboBox *) priv->sensitivity);
 
 	options->send_as_del_enabled = gtk_toggle_button_get_active (
 					GTK_TOGGLE_BUTTON (priv->delegate_enabled));
@@ -183,14 +183,14 @@ exchange_send_options_fill_widgets_with_data (ExchangeSendOptionsDialog *sod)
 
 	if (options->send_as_del_enabled) {
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->delegate_enabled), TRUE);
-		gtk_widget_set_sensitive ((GtkWidget *)name_selector_entry, TRUE);
-		gtk_widget_set_sensitive ((GtkWidget *)priv->button_user, TRUE);
+		gtk_widget_set_sensitive ((GtkWidget *) name_selector_entry, TRUE);
+		gtk_widget_set_sensitive ((GtkWidget *) priv->button_user, TRUE);
 	}
 
 	else {
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->delegate_enabled), FALSE);
-		gtk_widget_set_sensitive ((GtkWidget *)name_selector_entry, FALSE);
-		gtk_widget_set_sensitive ((GtkWidget *)priv->button_user, FALSE);
+		gtk_widget_set_sensitive ((GtkWidget *) name_selector_entry, FALSE);
+		gtk_widget_set_sensitive ((GtkWidget *) priv->button_user, FALSE);
 	}
 
 	if (options->read_enabled)
@@ -555,7 +555,7 @@ exchange_sendoptions_dialog_init (ExchangeSendOptionsDialog *sod)
 static void
 exchange_sendoptions_dialog_finalize (GObject *object)
 {
-	ExchangeSendOptionsDialog *sod = (ExchangeSendOptionsDialog *)object;
+	ExchangeSendOptionsDialog *sod = (ExchangeSendOptionsDialog *) object;
 	ExchangeSendOptionsDialogPrivate *priv;
 
 	g_return_if_fail (EXCHANGE_IS_SENDOPTIONS_DIALOG (sod));

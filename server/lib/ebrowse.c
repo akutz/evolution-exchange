@@ -110,7 +110,7 @@ list_contents (E2kContext *ctx, gchar *top, gboolean reverse)
 	while ((result = e2k_result_iter_next (iter))) {
 		printf ("%3d %s (%s)\n", e2k_result_iter_get_index (iter),
 			result->href,
-			(gchar *)e2k_properties_get_prop (result->props,
+			(gchar *) e2k_properties_get_prop (result->props,
 							 E2K_PR_DAV_DISPLAY_NAME));
 	}
 	status = e2k_result_iter_free (iter);
@@ -124,7 +124,7 @@ static gint
 mp_compar (gconstpointer k, gconstpointer m)
 {
 	const gchar *key = k;
-	struct mapi_proptag *mp = (gpointer)m;
+	struct mapi_proptag *mp = (gpointer) m;
 
 	return strncmp (key, mp->proptag, 5);
 }
@@ -174,8 +174,8 @@ typedef struct {
 static gint
 prop_compar (gconstpointer a, gconstpointer b)
 {
-	EBrowseProp **pa = (gpointer)a;
-	EBrowseProp **pb = (gpointer)b;
+	EBrowseProp **pa = (gpointer) a;
+	EBrowseProp **pb = (gpointer) b;
 
 	return strcmp ((*pa)->propname, (*pb)->propname);
 }
@@ -429,7 +429,7 @@ get_sd (E2kContext *ctx, gchar *uri)
 		printf ("%s: %s (0x%lx)\n",
 			e2k_sid_get_display_name (sid),
 			e2k_permissions_role_get_name (role),
-			(gulong)perms);
+			(gulong) perms);
 	}
 	g_list_free (sids);
 
@@ -528,7 +528,7 @@ move (E2kContext *ctx, gchar *from, gchar *to, gboolean delete)
 			printf ("Failed: %d\n", result->status);
 		else {
 			printf ("moved to %s\n",
-				(gchar *)e2k_properties_get_prop (result->props,
+				(gchar *) e2k_properties_get_prop (result->props,
 								 E2K_PR_DAV_LOCATION));
 		}
 	}

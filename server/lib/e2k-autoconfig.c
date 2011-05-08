@@ -810,7 +810,7 @@ find_global_catalog (E2kAutoconfig *ac)
 	if (len == -1)
 		return;
 
-	header = (HEADER *)answer;
+	header = (HEADER *) answer;
 	p = answer + sizeof (HEADER);
 	end = answer + len;
 

@@ -288,11 +288,11 @@ address_is (E2kRestriction *comment_rn, gboolean recipients, gboolean negated)
 
 	/* Extract the address part */
 	ba = pv->value;
-	p = strchr ((gchar *)ba->data, ':');
+	p = strchr ((gchar *) ba->data, ':');
 	if (p)
 		addr = g_ascii_strdown (p + 1, -1);
 	else
-		addr = g_ascii_strdown ((gchar *)ba->data, -1);
+		addr = g_ascii_strdown ((gchar *) ba->data, -1);
 
 	/* Find the display name in the comment */
 	display_name = NULL;

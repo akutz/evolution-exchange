@@ -47,7 +47,7 @@ append_to_header (ExchangeSendOptionsDialog *dialog, gint state, gpointer data)
 	struct _camel_header_address *addr;
 	struct _camel_header_address *sender_addr;
 
-	composer = (EMsgComposer *)data;
+	composer = (EMsgComposer *) data;
 	if (state == GTK_RESPONSE_OK) {
 		if (dialog->options->importance) {
 			switch (dialog->options->importance) {

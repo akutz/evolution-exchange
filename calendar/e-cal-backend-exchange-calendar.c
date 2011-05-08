@@ -459,7 +459,7 @@ get_changed_events (ECalBackendExchange *cbex)
 	/* OWA usually sends the attachment and whole event body as part of
 		PR_INTERNET_CONTENT property. Fetch events created from OWA */
 	iter = e_folder_exchange_bpropfind_start (cbex->folder, NULL,
-						  (const gchar **)hrefs->pdata,
+						  (const gchar **) hrefs->pdata,
 						  hrefs->len,
 						  new_event_properties, n_new_event_properties);
 	for (i = 0; i < hrefs->len; i++)
@@ -1307,7 +1307,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		dt.value->hour = dt.value->minute = dt.value->second = 0;
 		dt.value->zone = zone;
 
-		g_free ((gchar *)dt.tzid);
+		g_free ((gchar *) dt.tzid);
 		dt.tzid = g_strdup (icaltimezone_get_tzid (zone));
 		e_cal_component_set_dtstart (real_ecomp, &dt);
 		e_cal_component_free_datetime (&dt);
@@ -1318,7 +1318,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 		dt.value->hour = dt.value->minute = dt.value->second = 0;
 		dt.value->zone = zone;
 
-		g_free ((gchar *)dt.tzid);
+		g_free ((gchar *) dt.tzid);
 		dt.tzid = g_strdup (icaltimezone_get_tzid (zone));
 		e_cal_component_set_dtend (real_ecomp, &dt);
 	}

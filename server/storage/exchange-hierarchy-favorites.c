@@ -96,7 +96,7 @@ E2K_MAKE_TYPE (exchange_hierarchy_favorites, ExchangeHierarchyFavorites, class_i
 static void
 add_hrefs (ExchangeHierarchy *hier, EFolder *folder, gpointer hrefs)
 {
-	g_ptr_array_add (hrefs, (gchar *)e2k_uri_path (e_folder_exchange_get_internal_uri (folder)));
+	g_ptr_array_add (hrefs, (gchar *) e2k_uri_path (e_folder_exchange_get_internal_uri (folder)));
 }
 
 static const gchar *shortcuts_props[] = {
@@ -324,7 +324,7 @@ exchange_hierarchy_favorites_new (ExchangeAccount *account,
 
 	hier = g_object_new (EXCHANGE_TYPE_HIERARCHY_FAVORITES, NULL);
 
-	hfav = (ExchangeHierarchyFavorites *)hier;
+	hfav = (ExchangeHierarchyFavorites *) hier;
 	hfav->priv->public_uri = g_strdup (public_uri);
 	hfav->priv->shortcuts_uri = e2k_uri_concat (home_uri, "NON_IPM_SUBTREE/Shortcuts");
 

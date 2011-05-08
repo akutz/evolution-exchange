@@ -33,7 +33,7 @@ void
 string_to_dbt (const gchar *str, DBT *dbt)
 {
 	memset (dbt, 0, sizeof (dbt));
-	dbt->data = (gpointer)str;
+	dbt->data = (gpointer) str;
 	dbt->size = strlen (str) + 1;
 	dbt->flags = DB_DBT_USERMEM;
 }

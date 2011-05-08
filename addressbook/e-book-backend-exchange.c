@@ -374,7 +374,7 @@ get_contact_list_members (E2kContext *ctx, const gchar *list_href)
 
 			m = g_new0 (struct ContactListMember, 1);
 
-			m->memberID = g_strdup ((const gchar *)memid->children->content);
+			m->memberID = g_strdup ((const gchar *) memid->children->content);
 			m->email = g_strdup ((const gchar *) (email->children->content));
 			m->name = (dn && dn->children && dn->children->content) ? g_strdup ((const gchar *) dn->children->content) : NULL;
 
@@ -409,7 +409,7 @@ free_members_list (GSList *list)
 	if (!list)
 		return;
 
-	g_slist_foreach (list, (GFunc)free_contact_list_member, NULL);
+	g_slist_foreach (list, (GFunc) free_contact_list_member, NULL);
 	g_slist_free (list);
 }
 
@@ -532,7 +532,7 @@ e_contact_from_props (EBookBackendExchange *be, E2kResult *result)
 
 	content = camel_medium_get_content (CAMEL_MEDIUM (msg));
 	if (CAMEL_IS_MULTIPART (content)) {
-		multipart = (CamelMultipart *)content;
+		multipart = (CamelMultipart *) content;
 		content = NULL;
 
 		for (i = 0; i < camel_multipart_get_number (multipart); i++) {
@@ -982,7 +982,7 @@ populate_categories (EContactField field, EContact *new_contact, gpointer data)
 
 	for (i = 0; i < categories_list->len; i++) {
 		updated_list = g_list_append (updated_list,
-					      (gchar *)categories_list->pdata[i]);
+					      (gchar *) categories_list->pdata[i]);
 	}
 
 	e_contact_set (new_contact, E_CONTACT_CATEGORY_LIST, updated_list);
@@ -1035,7 +1035,7 @@ proppatch_date (PropMapping *prop_mapping,
 static void
 populate_date (EContactField field, EContact *new_contact, gpointer data)
 {
-	gchar *date = (gchar *)data;
+	gchar *date = (gchar *) data;
 	time_t tt;
 	struct tm *then;
 	EContactDate dt;
@@ -1200,7 +1200,7 @@ populate_im (EContactField field, EContact *new_contact, gpointer data)
 		e_vcard_attribute_add_param_with_value (attr,
 				e_vcard_attribute_param_new (EVC_TYPE), "WORK");
 
-		e_vcard_attribute_add_value (attr, (const gchar *)data);
+		e_vcard_attribute_add_value (attr, (const gchar *) data);
 
 		im_attr_list = g_list_append (im_attr_list, attr);
 	}
@@ -1214,7 +1214,7 @@ populate_address (EContactField field, EContact *new_contact, gpointer data)
 	EAddressWestern *waddr;
 	EContactAddress addr;
 
-	waddr = e_address_western_parse ((const gchar *)data);
+	waddr = e_address_western_parse ((const gchar *) data);
 	addr.address_format = (gchar *) "us"; /* FIXME? */
 	addr.po = waddr->po_box;
 	addr.ext = waddr->extended;
@@ -1654,10 +1654,10 @@ merge_contact_lists (EBookBackendExchange *be, const gchar *location, EContact *
 	/* remove all the members from the server which left - they has been removed during editing probably */
 	rm.be = be;
 	rm.list_href = location;
-	g_hash_table_foreach (sh, (GHFunc)remove_member, &rm);
+	g_hash_table_foreach (sh, (GHFunc) remove_member, &rm);
 
 	g_hash_table_destroy (sh);
-	g_list_foreach (local, (GFunc)e_vcard_attribute_free, NULL);
+	g_list_foreach (local, (GFunc) e_vcard_attribute_free, NULL);
 	g_list_free (local);
 	free_members_list (server);
 
@@ -1956,7 +1956,7 @@ func_not (ESExp *f, gint argc, ESExpResult **argv, gpointer data)
 
 	r = e_sexp_result_new (f, ESEXP_RES_UNDEFINED);
 	r->value.string = (gchar *)
-		e2k_restriction_not ((E2kRestriction *)argv[0]->value.string, TRUE);
+		e2k_restriction_not ((E2kRestriction *) argv[0]->value.string, TRUE);
 
 	return r;
 }
@@ -1987,13 +1987,13 @@ func_and_or (ESExp *f, gint argc, ESExpResult **argv, gpointer and)
 	}
 
 	if (and)
-		rn = e2k_restriction_and (rns->len, (E2kRestriction **)rns->pdata, TRUE);
+		rn = e2k_restriction_and (rns->len, (E2kRestriction **) rns->pdata, TRUE);
 	else
-		rn = e2k_restriction_or (rns->len, (E2kRestriction **)rns->pdata, TRUE);
+		rn = e2k_restriction_or (rns->len, (E2kRestriction **) rns->pdata, TRUE);
 	g_ptr_array_free (rns, TRUE);
 
 	r = e_sexp_result_new (f, ESEXP_RES_UNDEFINED);
-	r->value.string = (gchar *)rn;
+	r->value.string = (gchar *) rn;
 	return r;
 }
 
@@ -2033,7 +2033,7 @@ func_match (struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer da
 			g_ptr_array_add (rns, rn);
 		}
 
-		rn = e2k_restriction_or (rns->len, (E2kRestriction **)rns->pdata, TRUE);
+		rn = e2k_restriction_or (rns->len, (E2kRestriction **) rns->pdata, TRUE);
 		g_ptr_array_free (rns, TRUE);
 	} else if (!strcmp (propname, "full_name")) {
 		if (!*str) {
@@ -2088,7 +2088,7 @@ func_match (struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer da
 	}
 
 	r = e_sexp_result_new (f, ESEXP_RES_UNDEFINED);
-	r->value.string = (gchar *)rn;
+	r->value.string = (gchar *) rn;
 	return r;
 }
 
@@ -2128,7 +2128,7 @@ e_book_backend_exchange_build_restriction (const gchar *query,
 
 	r = e_sexp_eval (sexp);
 	if (r && r->type == ESEXP_RES_UNDEFINED)
-		rn = (E2kRestriction *)r->value.string;
+		rn = (E2kRestriction *) r->value.string;
 	else
 		rn = NULL;
 
@@ -3011,7 +3011,7 @@ e_book_backend_exchange_class_init (EBookBackendExchangeClass *klass)
 	g_ptr_array_add (field_names_array, (gpointer) E2K_PR_HTTPMAIL_HAS_ATTACHMENT);
 	for (i = 0; i < G_N_ELEMENTS (prop_mappings); i++)
 		g_ptr_array_add (field_names_array, (gpointer) prop_mappings[i].prop_name);
-	field_names = (const gchar **)field_names_array->pdata;
+	field_names = (const gchar **) field_names_array->pdata;
 	n_field_names = field_names_array->len;
 
 	/* Set the virtual methods. */

@@ -85,7 +85,7 @@ exchange_transport_send_to_sync (CamelTransport *transport,
 			g_ptr_array_free (recipients_array, TRUE);
 			return FALSE;
 		}
-		g_ptr_array_add (recipients_array, (gchar *)addr);
+		g_ptr_array_add (recipients_array, (gchar *) addr);
 	}
 
 	if (!camel_internet_address_get (CAMEL_INTERNET_ADDRESS (from), 0, NULL, &addr)) {

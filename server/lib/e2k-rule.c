@@ -503,7 +503,7 @@ e2k_rule_extract_propvalue (guint8 **ptr, gint *len, E2kPropValue *pv)
 		if (!e2k_rule_extract_byte (ptr, len, &temp))
 			return FALSE;
 		pv->type = E2K_PROP_TYPE_BOOL;
-		pv->value = GUINT_TO_POINTER ((guint)temp);
+		pv->value = GUINT_TO_POINTER ((guint) temp);
 		return TRUE;
 	}
 

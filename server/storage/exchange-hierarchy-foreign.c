@@ -538,9 +538,9 @@ exchange_hierarchy_foreign_new (ExchangeAccount *account,
 	props = g_hash_table_new (g_str_hash, g_str_equal);
 	g_hash_table_insert (props, (gpointer) "name", (gchar *)hierarchy_name);
 	g_hash_table_insert (props, (gpointer) "physical_uri_prefix",
-			     (gchar *)physical_uri_prefix);
+			     (gchar *) physical_uri_prefix);
 	g_hash_table_insert (props, (gpointer) "internal_uri_prefix",
-			     (gchar *)internal_uri_prefix);
+			     (gchar *) internal_uri_prefix);
 	g_hash_table_insert (props, (gpointer) "owner_name", (gchar *)owner_name);
 	g_hash_table_insert (props, (gpointer) "owner_email", (gchar *)owner_email);
 	g_hash_table_insert (props, (gpointer) "source_uri", (gchar *)source_uri);

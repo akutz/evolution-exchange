@@ -386,7 +386,7 @@ hierarchy_new_folder (ExchangeHierarchy *hier, EFolder *folder,
 					permanent_uri))) {
 		g_object_ref (folder);
 		g_hash_table_insert (account->priv->folders,
-				     (gchar *)permanent_uri,
+				     (gchar *) permanent_uri,
 				     folder);
 		table_updated = 1;
 	}
@@ -511,8 +511,8 @@ exchange_account_create_folder (ExchangeAccount *account,
 static gboolean
 check_if_sf (gpointer key, gpointer value, gpointer user_data)
 {
-	gchar *sf_href = (gchar *)value;
-	gchar *int_uri = (gchar *)user_data;
+	gchar *sf_href = (gchar *) value;
+	gchar *int_uri = (gchar *) user_data;
 
 	if (!strcmp (sf_href, int_uri))
 		return TRUE; /* Quit calling the callback */
@@ -538,7 +538,7 @@ exchange_account_remove_folder (ExchangeAccount *account, const gchar *path)
 	int_uri = e_folder_exchange_get_internal_uri (folder);
 
 	if (g_hash_table_find (account->priv->standard_uris,
-					check_if_sf, (gchar *)int_uri)) {
+					check_if_sf, (gchar *) int_uri)) {
 		return EXCHANGE_ACCOUNT_FOLDER_UNSUPPORTED_OPERATION;
 	}
 
@@ -614,7 +614,7 @@ static void
 setup_hierarchy_foreign (ExchangeAccount *account, ExchangeHierarchy *hier)
 {
 	g_hash_table_insert (account->priv->foreign_hierarchies,
-			     (gchar *)hier->owner_email, hier);
+			     (gchar *) hier->owner_email, hier);
 	setup_hierarchy (account, hier);
 }
 
@@ -795,7 +795,7 @@ exchange_account_open_folder (ExchangeAccount *account, const gchar *path)
 
 	exchange_account_is_offline (account, &mode);
 	if (mode == ONLINE_MODE && !account->priv->connected &&
-	    hier == (ExchangeHierarchy *)account->priv->hierarchies->pdata[0] &&
+	    hier == (ExchangeHierarchy *) account->priv->hierarchies->pdata[0] &&
 	    folder == hier->toplevel) {
 		/* The shell is asking us to open the personal folders
 		 * hierarchy, but we're already planning to do that
@@ -860,7 +860,7 @@ context_redirect (E2kContext *ctx, E2kHTTPStatus status,
 	g_hash_table_remove (account->priv->folders, old_uri);
 	e_folder_exchange_set_internal_uri (folder, new_uri);
 	g_hash_table_insert (account->priv->folders,
-			     (gchar *)e_folder_exchange_get_internal_uri (folder),
+			     (gchar *) e_folder_exchange_get_internal_uri (folder),
 			     folder);
 
 	g_static_rec_mutex_unlock (&account->priv->folders_lock);
@@ -871,7 +871,7 @@ set_sf_prop (const gchar *propname, E2kPropType type,
 	     gpointer phref, gpointer user_data)
 {
 	ExchangeAccount *account = user_data;
-	const gchar *href = (const gchar *)phref;
+	const gchar *href = (const gchar *) phref;
 	gchar *tmp;
 
 	propname = strrchr (propname, ':');
@@ -1964,8 +1964,8 @@ exchange_account_get_folder (ExchangeAccount *account,
 static gint
 folder_comparator (gconstpointer a, gconstpointer b)
 {
-	EFolder **fa = (EFolder **)a;
-	EFolder **fb = (EFolder **)b;
+	EFolder **fa = (EFolder **) a;
+	EFolder **fb = (EFolder **) b;
 
 	return strcmp (e_folder_exchange_get_path (*fa),
 		       e_folder_exchange_get_path (*fb));

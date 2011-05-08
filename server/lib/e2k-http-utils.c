@@ -52,7 +52,7 @@ e2k_http_parse_date (const gchar *date)
 		return -1;
 
 	memset (&tm, 0, sizeof (tm));
-	p = (gchar *)date + 5;
+	p = (gchar *) date + 5;
 
 	tm.tm_mday = strtol (p, &p, 10);
 	p++;
@@ -164,7 +164,7 @@ maybe_append_header (const gchar *header_name, const gchar *value, gpointer data
 	GetHeadersData *ghd = data;
 
 	if (!g_ascii_strcasecmp (header_name, ghd->wanted_header))
-		ghd->matches = g_slist_append (ghd->matches, (gchar *)value);
+		ghd->matches = g_slist_append (ghd->matches, (gchar *) value);
 }
 
 /* This is a cheat to recreate the behavior of libsoup 2.2's

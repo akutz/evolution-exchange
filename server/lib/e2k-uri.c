@@ -227,7 +227,7 @@ e2k_uri_decode (gchar *part)
 {
 	guchar *s, *d;
 
-	s = d = (guchar *)part;
+	s = d = (guchar *) part;
 	while (*s) {
 		if (*s == '%') {
 			if (isxdigit (s[1]) && isxdigit (s[2])) {
@@ -279,7 +279,7 @@ void
 e2k_uri_append_encoded (GString *str, const gchar *in,
 			gboolean wss_encode, const gchar *extra_enc_chars)
 {
-	const guchar *s = (const guchar *)in;
+	const guchar *s = (const guchar *) in;
 
 	while (*s) {
 		if (extra_enc_chars && strchr (extra_enc_chars, *s))

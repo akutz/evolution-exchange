@@ -95,10 +95,10 @@ e_exchange_calendar_get_calendars (ECalSourceType ftype)
 
 	for (i=0; i<folder_array->len; ++i) {
 		folder = g_ptr_array_index (folder_array, i);
-		type = (gchar *)e_folder_get_type_string (folder);
+		type = (gchar *) e_folder_get_type_string (folder);
 
 		if (!strcmp (type, tstring)) {
-			tmp = (gchar *)e_folder_get_physical_uri (folder);
+			tmp = (gchar *) e_folder_get_physical_uri (folder);
 			if (g_str_has_prefix (tmp, uri_prefix)) {
 				ruri = g_strdup (tmp+prefix_len);
 				g_ptr_array_add (calendar_list, ruri);

@@ -137,7 +137,7 @@ e2k_kerberos_change_password (const gchar *user, const gchar *domain,
 		return result;
 	}
 
-	result = krb5_change_password (ctx, &creds, (gchar *)new_password,
+	result = krb5_change_password (ctx, &creds, (gchar *) new_password,
 				       &res_code, &res_code_string, &res_string);
 	krb5_free_cred_contents (ctx, &creds);
 	krb5_free_data_contents (ctx, &res_code_string);

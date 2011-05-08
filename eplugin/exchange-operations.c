@@ -96,7 +96,7 @@ gboolean
 exchange_operations_cta_add_node_to_tree (GtkTreeStore *store, GtkTreeIter *parent, const gchar *ruri)
 {
 	GtkTreeIter iter;
-	gchar *luri=(gchar *)ruri;
+	gchar *luri=(gchar *) ruri;
 	gchar nodename[80];
 	gchar *uri;
 	gboolean status, found;
@@ -149,7 +149,7 @@ exchange_operations_cta_add_node_to_tree (GtkTreeStore *store, GtkTreeIter *pare
 void
 exchange_operations_cta_select_node_from_tree (GtkTreeStore *store, GtkTreeIter *parent, const gchar *nuri, const gchar *ruri, GtkTreeSelection *selection)
 {
-	gchar *luri=(gchar *)nuri;
+	gchar *luri=(gchar *) nuri;
 	gchar nodename[80];
 	GtkTreeIter iter;
 	gboolean status;

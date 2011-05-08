@@ -166,7 +166,7 @@ e_folder_exchange_new (ExchangeHierarchy *hier, const gchar *name,
 		   name, type, internal_uri, physical_uri));
 
 	efe = g_object_new (E_TYPE_FOLDER_EXCHANGE, NULL);
-	ef = (EFolder *)efe;
+	ef = (EFolder *) efe;
 
 	e_folder_construct (ef, name, type, "");
 
@@ -445,7 +445,7 @@ e_folder_exchange_get_storage_file (EFolder *folder, const gchar *filename)
 
 	g_return_val_if_fail (E_IS_FOLDER_EXCHANGE (folder), NULL);
 
-	efe = (EFolderExchange *)folder;
+	efe = (EFolderExchange *) folder;
 
 	if (!efe->priv->storage_dir) {
 		efe->priv->storage_dir = e_path_to_physical (

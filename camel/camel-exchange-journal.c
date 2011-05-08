@@ -172,7 +172,7 @@ exchange_entry_play_transfer (CamelOfflineJournal *journal,
 			folder->summary, message, NULL);
 		g_object_unref (message);
 		real->uid = camel_pstring_strdup (
-			(gchar *)xuids->pdata[0]);
+			(gchar *) xuids->pdata[0]);
 		/* Transfer flags */
 		exchange_message_info_dup_to (
 			(CamelMessageInfoBase *) real,

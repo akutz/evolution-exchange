@@ -276,7 +276,7 @@ set_date_completed (E2kProperties *props, ECalComponent *comp)
 	}
 
 	icaltimezone_convert_time (itt,
-				   icaltimezone_get_builtin_timezone ((const gchar *)itt->zone),
+				   icaltimezone_get_builtin_timezone ((const gchar *) itt->zone),
 				   icaltimezone_get_utc_timezone ());
 	tstr = icaltime_to_e2k_time (itt);
 	e_cal_component_free_icaltimetype (itt);
@@ -633,7 +633,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 		ecal = e_cal_component_new ();
 		icalcomp = icalcomponent_new_vtodo ();
 		e_cal_component_set_icalcomponent (ecal, icalcomp);
-		e_cal_component_set_uid (ecal, (const gchar *)uid);
+		e_cal_component_set_uid (ecal, (const gchar *) uid);
 
 		modtime = e2k_properties_get_prop (result->props,
 						   E2K_PR_DAV_LAST_MODIFIED);
@@ -703,7 +703,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 			sl.data = &text;
 			sl.next = NULL;
 			e_cal_component_set_description_list (E_CAL_COMPONENT (ecal), &sl);
-			g_free ((gchar *)text.value);
+			g_free ((gchar *) text.value);
 		}
 
 		/* Set DUE */
@@ -711,7 +711,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 			itzone = get_default_timezone ();
 			itt = icaltime_from_timet_with_zone (e2k_parse_timestamp (str), 0, itzone);
 			if (!icaltime_is_null_time (itt)) {
-				tzid = icaltimezone_get_tzid ((icaltimezone *)itzone);
+				tzid = icaltimezone_get_tzid ((icaltimezone *) itzone);
 				ecdatetime.value = &itt;
 				ecdatetime.tzid = tzid;
 				e_cal_component_set_due (ecal, &ecdatetime);
@@ -724,7 +724,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 			itzone = get_default_timezone ();
 			itt = icaltime_from_timet_with_zone (e2k_parse_timestamp (str), 0, itzone);
 			if (!icaltime_is_null_time (itt)) {
-				tzid = icaltimezone_get_tzid ((icaltimezone *)itzone);
+				tzid = icaltimezone_get_tzid ((icaltimezone *) itzone);
 				ecdatetime.value = &itt;
 				ecdatetime.tzid = tzid;
 				e_cal_component_set_dtstart (ecal, &ecdatetime);
@@ -873,7 +873,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 
 	prop = PR_INTERNET_CONTENT;
 	iter = e_folder_exchange_bpropfind_start (cbex->folder, NULL,
-						(const gchar **)hrefs->pdata,
+						(const gchar **) hrefs->pdata,
 						hrefs->len, &prop, 1);
 	for (i = 0; i < hrefs->len; i++)
 		g_free (hrefs->pdata[i]);

@@ -254,7 +254,7 @@ e2k_sid_get_binary_sid (E2kSid *sid)
 		}
 	}
 
-	return (guint8 *)sid->priv->binary_sid;
+	return (guint8 *) sid->priv->binary_sid;
 }
 
 /**
@@ -286,8 +286,8 @@ e2k_sid_get_display_name (E2kSid *sid)
 gint
 e2k_sid_binary_sid_equal (gconstpointer a, gconstpointer b)
 {
-	const guint8 *bsida = (const guint8 *)a;
-	const guint8 *bsidb = (const guint8 *)b;
+	const guint8 *bsida = (const guint8 *) a;
+	const guint8 *bsidb = (const guint8 *) b;
 
 	if (E2K_SID_BINARY_SID_LEN (bsida) !=
 	    E2K_SID_BINARY_SID_LEN (bsidb))
@@ -306,7 +306,7 @@ e2k_sid_binary_sid_equal (gconstpointer a, gconstpointer b)
 guint
 e2k_sid_binary_sid_hash (gconstpointer key)
 {
-	const guint8 *bsid = (const guint8 *)key;
+	const guint8 *bsid = (const guint8 *) key;
 	guint32 final_sa;
 
 	/* The majority of SIDs will differ only in the last

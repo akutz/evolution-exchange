@@ -446,7 +446,7 @@ static void
 add_events (GArray *events_array, E2kProperties *props,
 	    const gchar *month_list_prop, const gchar *data_list_prop)
 {
-	E2kFreebusyEvent *events = (E2kFreebusyEvent *)events_array->data;
+	E2kFreebusyEvent *events = (E2kFreebusyEvent *) events_array->data;
 	gint i, evt_start, evt_end, monthyear;
 	struct tm start_tm, end_tm;
 	time_t start, end;

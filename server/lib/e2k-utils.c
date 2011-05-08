@@ -191,7 +191,7 @@ e2k_filetime_to_time_t (guint64 filetime)
 guint64
 e2k_filetime_from_time_t (time_t tt)
 {
-	return (((guint64)tt) + ((guint64)SYSTIME_OFFSET) * 60) * 10000000;
+	return (((guint64) tt) + ((guint64) SYSTIME_OFFSET) * 60) * 10000000;
 }
 
 /**
@@ -295,9 +295,9 @@ e2k_entryid_to_dn (GByteArray *entryid)
 {
 	gchar *p;
 
-	p = ((gchar *)entryid->data) + entryid->len - 1;
+	p = ((gchar *) entryid->data) + entryid->len - 1;
 	if (*p == 0) {
-		while (*(p - 1) && p > (gchar *)entryid->data)
+		while (*(p - 1) && p > (gchar *) entryid->data)
 			p--;
 		if (*p == '/')
 			return p;

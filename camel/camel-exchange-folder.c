@@ -291,7 +291,7 @@ exchange_folder_cache_xfer (CamelExchangeFolder *folder_source,
 	gint i;
 
 	for (i = 0; i < src_uids->len; i++) {
-		if (!*(gchar *)dest_uids->pdata[i])
+		if (!*(gchar *) dest_uids->pdata[i])
 			continue;
 
 		src = camel_data_cache_get (folder_source->cache, "cache",
@@ -466,7 +466,7 @@ exchange_folder_append_message_sync (CamelFolder *folder,
 	if (!camel_exchange_store_connected (store, cancellable, NULL))
 		return camel_exchange_journal_append (
 			(CamelExchangeJournal *)
-			((CamelExchangeFolder *)folder)->journal,
+			((CamelExchangeFolder *) folder)->journal,
 			message, info, appended_uid, cancellable, error);
 
 	byte_array = g_byte_array_new ();
@@ -864,7 +864,7 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
 	g_object_unref (stream);
 
 	info = camel_folder_summary_info_new_from_message (folder->summary, msg, NULL);
-	einfo = (CamelExchangeMessageInfo *)info;
+	einfo = (CamelExchangeMessageInfo *) info;
 
 	if (einfo->thread_index) {
 		CamelSummaryMessageID *parent;
@@ -923,7 +923,7 @@ camel_exchange_folder_remove_message (CamelExchangeFolder *exch,
 	if (!info)
 		return;
 
-	einfo = (CamelExchangeMessageInfo *)info;
+	einfo = (CamelExchangeMessageInfo *) info;
 	if (einfo->thread_index) {
 		gpointer key, value;
 
@@ -976,7 +976,7 @@ camel_exchange_folder_update_message_flags (CamelExchangeFolder *exch,
 	CamelMessageInfoBase *info;
 	CamelFolderChangeInfo *changes;
 
-	info = (CamelMessageInfoBase *)camel_folder_summary_uid (folder->summary, uid);
+	info = (CamelMessageInfoBase *) camel_folder_summary_uid (folder->summary, uid);
 	if (!info)
 		return;
 
@@ -1013,7 +1013,7 @@ camel_exchange_folder_update_message_flags_ex (CamelExchangeFolder *exch,
 	CamelMessageInfoBase *info;
 	CamelFolderChangeInfo *changes;
 
-	info = (CamelMessageInfoBase *)camel_folder_summary_uid (folder->summary, uid);
+	info = (CamelMessageInfoBase *) camel_folder_summary_uid (folder->summary, uid);
 	if (!info)
 		return;
 
@@ -1055,7 +1055,7 @@ camel_exchange_folder_update_message_tag (CamelExchangeFolder *exch,
 	CamelMessageInfoBase *info;
 	CamelFolderChangeInfo *changes;
 
-	info = (CamelMessageInfoBase *)camel_folder_summary_uid (folder->summary, uid);
+	info = (CamelMessageInfoBase *) camel_folder_summary_uid (folder->summary, uid);
 	if (!info)
 		return;
 
@@ -1090,7 +1090,7 @@ camel_exchange_folder_construct (CamelFolder *folder,
                                  GCancellable *cancellable,
                                  GError **error)
 {
-	CamelExchangeFolder *exch = (CamelExchangeFolder *)folder;
+	CamelExchangeFolder *exch = (CamelExchangeFolder *) folder;
 	gchar *summary_file, *journal_file, *path;
 	GPtrArray *summary, *uids, *hrefs;
 	GByteArray *flags;
@@ -1152,7 +1152,7 @@ camel_exchange_folder_construct (CamelFolder *folder,
 	len = camel_folder_summary_count (folder->summary);
 	for (i = 0; i < len; i++) {
 		info = camel_folder_summary_index (folder->summary, i);
-		einfo = (CamelExchangeMessageInfo *)info;
+		einfo = (CamelExchangeMessageInfo *) info;
 
 		if (einfo->thread_index && einfo->info.message_id.id.id) {
 			g_hash_table_insert (exch->thread_index_to_message_id,
@@ -1179,9 +1179,9 @@ camel_exchange_folder_construct (CamelFolder *folder,
 		for (i = 0; i < summary->len; i++) {
 			uids->pdata[i] = summary->pdata[i];
 			info = camel_folder_summary_uid (folder->summary, uids->pdata[i]);
-			flags->data[i] = ((CamelMessageInfoBase *)info)->flags & CAMEL_EXCHANGE_SERVER_FLAGS;
-			hrefs->pdata[i] = ((CamelExchangeMessageInfo *)info)->href;
-			//camel_tag_list_free (&((CamelMessageInfoBase *)info)->user_tags);
+			flags->data[i] = ((CamelMessageInfoBase *) info)->flags & CAMEL_EXCHANGE_SERVER_FLAGS;
+			hrefs->pdata[i] = ((CamelExchangeMessageInfo *) info)->href;
+			//camel_tag_list_free (&((CamelMessageInfoBase *) info)->user_tags);
 		}
 
 		camel_operation_push_message (

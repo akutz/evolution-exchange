@@ -562,10 +562,10 @@ autoconfig_gui_apply (ExchangeAutoconfigGUI *gui)
 	/* Check if any account is already configured, and throw an error if so */
 	/* NOTE: This condition check needs to be removed when we start
 	   supporting multiple accounts */
-	for (iter = e_list_get_iterator ((EList *)list);
+	for (iter = e_list_get_iterator ((EList *) list);
 	     e_iterator_is_valid (iter);
 	     e_iterator_next (iter)) {
-		account = (EAccount *)e_iterator_get (iter);
+		account = (EAccount *) e_iterator_get (iter);
 		if (account && (found = is_active_exchange_account (account))) {
 			autoconfig_notice (
 				gui->assistant, GTK_MESSAGE_ERROR,

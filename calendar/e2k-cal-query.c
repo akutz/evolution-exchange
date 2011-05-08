@@ -48,7 +48,7 @@ rns_array (ESExp *esexp, gint argc, ESExpResult **argv)
 			return NULL;
 		}
 
-		rns[i] = (E2kRestriction *)argv[i]->value.string;
+		rns[i] = (E2kRestriction *) argv[i]->value.string;
 	}
 
 	return rns;
@@ -98,7 +98,7 @@ func_not (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
 
 	result = e_sexp_result_new (esexp, ESEXP_RES_UNDEFINED);
 	result->value.string = (gchar *)
-		e2k_restriction_not ((E2kRestriction *)argv[0]->value.string,
+		e2k_restriction_not ((E2kRestriction *) argv[0]->value.string,
 				     TRUE);
 
 	return result;
@@ -238,7 +238,7 @@ func_contains (ESExp *esexp, gint argc, ESExpResult **argv, gpointer user_data)
 	}
 
 	result = e_sexp_result_new (esexp, ESEXP_RES_UNDEFINED);
-	result->value.string = (gchar *)rn;
+	result->value.string = (gchar *) rn;
 
 	return result;
 }
@@ -409,7 +409,7 @@ e2k_cal_query_to_restriction (ECalBackendExchange *cbex,
 
 	result = e_sexp_eval (esexp);
 	if (result && result->type == ESEXP_RES_UNDEFINED)
-		rn = (E2kRestriction *)result->value.string;
+		rn = (E2kRestriction *) result->value.string;
 	else
 		rn = NULL;
 

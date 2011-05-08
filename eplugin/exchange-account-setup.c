@@ -211,7 +211,7 @@ org_gnome_exchange_settings (EPlugin *epl, EConfigHookItemFactoryData *data)
 	GtkTextBuffer *buffer;
 	GtkTextIter start, end;
 
-	target_account = (EMConfigTargetAccount *)data->config->target;
+	target_account = (EMConfigTargetAccount *) data->config->target;
 	account = target_account->modified_account;
 
 	source_url = e_account_get_string (account,  E_ACCOUNT_SOURCE_URL);
@@ -446,7 +446,7 @@ gal_auth_to_string (E2kAutoconfigGalAuthPref ad_auth)
 static void
 owa_authenticate_user (GtkWidget *button, EConfig *config)
 {
-	EMConfigTargetAccount *target_account = (EMConfigTargetAccount *)config->target;
+	EMConfigTargetAccount *target_account = (EMConfigTargetAccount *) config->target;
 	E2kAutoconfigResult result;
 	CamelURL *url=NULL;
 	gboolean remember_password;
@@ -555,7 +555,7 @@ owa_editor_entry_changed (GtkWidget *entry, EConfig *config)
 	const gchar *ssl = NULL;
 	CamelURL *url, *owaurl = NULL;
 	gchar *url_string, *uri;
-	EMConfigTargetAccount *target = (EMConfigTargetAccount *)config->target;
+	EMConfigTargetAccount *target = (EMConfigTargetAccount *) config->target;
 	GtkWidget *button = g_object_get_data((GObject *)entry, "authenticate-button");
 	EAccount *account;
 	gint active = FALSE;
@@ -569,7 +569,7 @@ owa_editor_entry_changed (GtkWidget *entry, EConfig *config)
 	if (target_url && target_url[0] != '\0')
 		url = camel_url_new (target_url, NULL);
 	else url = NULL;
-	uri = g_strdup (gtk_entry_get_text ((GtkEntry *)entry));
+	uri = g_strdup (gtk_entry_get_text ((GtkEntry *) entry));
 
 	g_strstrip (uri);
 
@@ -632,7 +632,7 @@ mailbox_editor_entry_changed (GtkWidget *entry, EConfig *config)
 	EAccount *account;
 	gchar *mailbox;
 
-	target = (EMConfigTargetAccount *)config->target;
+	target = (EMConfigTargetAccount *) config->target;
 	mailbox = g_strdup (gtk_entry_get_text (GTK_ENTRY (entry)));
 
 	g_strstrip (mailbox);
@@ -661,7 +661,7 @@ want_mailbox_toggled (GtkWidget *toggle, EConfig *config)
 
 		gtk_widget_set_sensitive (entry, is_active);
 
-		target = (EMConfigTargetAccount *)config->target;
+		target = (EMConfigTargetAccount *) config->target;
 		mailbox = gtk_entry_get_text (GTK_ENTRY (entry));
 
 		account = target->modified_account;
@@ -709,7 +709,7 @@ org_gnome_exchange_owa_url (EPlugin *epl, EConfigHookItemFactoryData *data)
 	gint row;
 	GtkWidget *hbox, *label, *button;
 
-	target_account = (EMConfigTargetAccount *)data->config->target;
+	target_account = (EMConfigTargetAccount *) data->config->target;
 	account = target_account->modified_account;
 
 	source_url = e_account_get_string (account,  E_ACCOUNT_SOURCE_URL);
@@ -778,7 +778,7 @@ org_gnome_exchange_owa_url (EPlugin *epl, EConfigHookItemFactoryData *data)
 	camel_url_free (url);
 	if (owa_url)
 		gtk_entry_set_text (GTK_ENTRY (owa_entry), owa_url);
-	gtk_label_set_mnemonic_widget ((GtkLabel *)label, owa_entry);
+	gtk_label_set_mnemonic_widget ((GtkLabel *) label, owa_entry);
 
 	button = gtk_button_new_with_mnemonic (_("A_uthenticate"));
 	gtk_widget_set_sensitive (button, owa_url && owa_url[0]);
@@ -844,7 +844,7 @@ org_gnome_exchange_owa_url (EPlugin *epl, EConfigHookItemFactoryData *data)
 gboolean
 org_gnome_exchange_check_options (EPlugin *epl, EConfigHookPageCheckData *data)
 {
-	EMConfigTargetAccount *target = (EMConfigTargetAccount *)data->config->target;
+	EMConfigTargetAccount *target = (EMConfigTargetAccount *) data->config->target;
 	gint status = TRUE;
 
 	/* We assume that if the host is set, then the setting is valid.
@@ -955,7 +955,7 @@ exchange_check_authtype (GtkWidget *w, EConfig *config)
 static void
 exchange_authtype_changed (GtkComboBox *dropdown, EConfig *config)
 {
-	EMConfigTargetAccount *target = (EMConfigTargetAccount *)config->target;
+	EMConfigTargetAccount *target = (EMConfigTargetAccount *) config->target;
 	gint id = gtk_combo_box_get_active (dropdown);
 	GtkTreeModel *model;
 	GtkTreeIter iter;
@@ -1015,7 +1015,7 @@ org_gnome_exchange_auth_section (EPlugin *epl, EConfigHookItemFactoryData *data)
 	GList *authtypes, *l, *ll;
 	ExchangeAccount *ex_account;
 
-	target_account = (EMConfigTargetAccount *)data->config->target;
+	target_account = (EMConfigTargetAccount *) data->config->target;
 	account = target_account->modified_account;
 
 	source_url = e_account_get_string (account, E_ACCOUNT_SOURCE_URL);
@@ -1050,7 +1050,7 @@ org_gnome_exchange_auth_section (EPlugin *epl, EConfigHookItemFactoryData *data)
 	label_hide = gtk_label_new("\n");
 
 	hbox = gtk_hbox_new (FALSE, 6);
-	dropdown = (GtkComboBox * )gtk_combo_box_new ();
+	dropdown = (GtkComboBox * ) gtk_combo_box_new ();
 	gtk_label_set_mnemonic_widget (GTK_LABEL (auth_label), GTK_WIDGET (dropdown));
 
 	button = gtk_button_new_with_mnemonic (_("Ch_eck for Supported Types"));
@@ -1066,7 +1066,7 @@ org_gnome_exchange_auth_section (EPlugin *epl, EConfigHookItemFactoryData *data)
 		if (authtypes) {
 			for (ll = authtypes; ll; ll = g_list_next (ll))
 				if (!strcmp (authtype->authproto,
-					((CamelServiceAuthType *)ll->data)->authproto))
+					((CamelServiceAuthType *) ll->data)->authproto))
 					break;
 			avail = ll != NULL;
 		}
@@ -1088,14 +1088,14 @@ org_gnome_exchange_auth_section (EPlugin *epl, EConfigHookItemFactoryData *data)
 		}
 	}
 
-	gtk_combo_box_set_model (dropdown, (GtkTreeModel *)store);
+	gtk_combo_box_set_model (dropdown, (GtkTreeModel *) store);
 	gtk_combo_box_set_active (dropdown, -1);
 
 	if (auth_changed_id == 0) {
 		GtkCellRenderer *cell = gtk_cell_renderer_text_new ();
 
-		gtk_cell_layout_pack_start ((GtkCellLayout *)dropdown, cell, TRUE);
-		gtk_cell_layout_set_attributes ((GtkCellLayout *)dropdown, cell,
+		gtk_cell_layout_pack_start ((GtkCellLayout *) dropdown, cell, TRUE);
+		gtk_cell_layout_set_attributes ((GtkCellLayout *) dropdown, cell,
 						"text", 0, "strikethrough", 2, NULL);
 
 		auth_changed_id = g_signal_connect (dropdown,
@@ -1131,7 +1131,7 @@ org_gnome_exchange_auth_section (EPlugin *epl, EConfigHookItemFactoryData *data)
 GtkWidget *
 org_gnome_exchange_show_folder_size_factory (EPlugin *epl, EConfigHookItemFactoryData *data)
 {
-	EMConfigTargetFolder *target=  (EMConfigTargetFolder *)data->config->target;
+	EMConfigTargetFolder *target=  (EMConfigTargetFolder *) data->config->target;
 	CamelFolder *cml_folder = target->folder;
 	CamelService *service;
 	CamelProvider *provider;
@@ -1173,7 +1173,7 @@ org_gnome_exchange_show_folder_size_factory (EPlugin *epl, EConfigHookItemFactor
 		folder_size = g_strdup (_("0 KB"));
 
 	hbx_size = (GtkHBox*) gtk_hbox_new (FALSE, 0);
-	vbx = (GtkVBox *)gtk_notebook_get_nth_page (GTK_NOTEBOOK (data->parent), 0);
+	vbx = (GtkVBox *) gtk_notebook_get_nth_page (GTK_NOTEBOOK (data->parent), 0);
 
 	lbl_size = gtk_label_new_with_mnemonic (_("Size:"));
 	lbl_size_val = gtk_label_new_with_mnemonic (_(folder_size));

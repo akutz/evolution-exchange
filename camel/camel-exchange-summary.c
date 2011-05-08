@@ -163,7 +163,7 @@ exchange_summary_message_info_migrate (CamelFolderSummary *summary,
 
 	info = folder_summary_class->message_info_migrate (summary, in);
 	if (info) {
-		einfo = (CamelExchangeMessageInfo *)info;
+		einfo = (CamelExchangeMessageInfo *) info;
 
 		if (camel_file_util_decode_string (in, &thread_index) == -1)
 			goto error;
@@ -207,7 +207,7 @@ exchange_summary_message_info_new_from_header (CamelFolderSummary *summary,
 	if (!info)
 		return info;
 
-	einfo = (CamelExchangeMessageInfo *)info;
+	einfo = (CamelExchangeMessageInfo *) info;
 	thread_index = camel_header_raw_find (&h, "Thread-Index", NULL);
 	if (thread_index)
 		einfo->thread_index = g_strdup (thread_index + 1);
@@ -225,7 +225,7 @@ exchange_summary_message_info_free (CamelFolderSummary *summary,
 	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
 		camel_exchange_summary_parent_class);
 
-	einfo = (CamelExchangeMessageInfo *)info;
+	einfo = (CamelExchangeMessageInfo *) info;
 
 	g_free (einfo->href);
 	g_free (einfo->thread_index);
@@ -282,7 +282,7 @@ static CamelMIRecord *
 exchange_summary_message_info_to_db (CamelFolderSummary *s,
                                      CamelMessageInfo *info)
 {
-	CamelExchangeMessageInfo *einfo = (CamelExchangeMessageInfo *)info;
+	CamelExchangeMessageInfo *einfo = (CamelExchangeMessageInfo *) info;
 	CamelFolderSummaryClass *folder_summary_class;
 	struct _CamelMIRecord *mir;
 
@@ -310,7 +310,7 @@ exchange_summary_message_info_from_db (CamelFolderSummary *s,
 	info = folder_summary_class->message_info_from_db (s, mir);
 	if (info) {
 		gchar *part = mir->bdata;
-		einfo = (CamelExchangeMessageInfo *)info;
+		einfo = (CamelExchangeMessageInfo *) info;
 		einfo->thread_index = bdata_extract_string (&part);
 		einfo->href = bdata_extract_string (&part);
 	}
@@ -555,25 +555,25 @@ camel_exchange_summary_add_offline (CamelFolderSummary *summary,
 	const CamelTag *tag;
 
 	/* Create summary entry */
-	mi = (CamelMessageInfoBase *)camel_folder_summary_info_new_from_message (summary, message, NULL);
+	mi = (CamelMessageInfoBase *) camel_folder_summary_info_new_from_message (summary, message, NULL);
 
 	/* Copy flags 'n' tags */
 	mi->flags = camel_message_info_flags (info);
 
 	flag = camel_message_info_user_flags (info);
 	while (flag) {
-		camel_message_info_set_user_flag ((CamelMessageInfo *)mi, flag->name, TRUE);
+		camel_message_info_set_user_flag ((CamelMessageInfo *) mi, flag->name, TRUE);
 		flag = flag->next;
 	}
 	tag = camel_message_info_user_tags (info);
 	while (tag) {
-		camel_message_info_set_user_tag ((CamelMessageInfo *)mi, tag->name, tag->value);
+		camel_message_info_set_user_tag ((CamelMessageInfo *) mi, tag->name, tag->value);
 		tag = tag->next;
 	}
 
 	mi->size = camel_message_info_size (info);
 	mi->uid = camel_pstring_strdup (uid);
-	camel_folder_summary_add (summary, (CamelMessageInfo *)mi);
+	camel_folder_summary_add (summary, (CamelMessageInfo *) mi);
 }
 
 /**

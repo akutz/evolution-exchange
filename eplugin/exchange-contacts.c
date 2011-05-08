@@ -211,7 +211,7 @@ e_exchange_contacts_pcontacts (EPlugin *epl, EConfigHookItemFactoryData *data)
 	g_free (uri_text);
 
 	if (contacts_src_exists && is_personal ) {
-		abook_name = (gchar *)e_source_peek_name (source);
+		abook_name = (gchar *) e_source_peek_name (source);
 		model = exchange_account_folder_size_get_model (account);
 		if (model)
 			folder_size = g_strdup_printf (_("%s KB"), exchange_folder_size_get_val (model, abook_name));

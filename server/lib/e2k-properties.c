@@ -574,7 +574,7 @@ foreach_namespace_callback (gpointer key, gpointer value, gpointer data)
 	name = e2k_prop_namespace_name (pi->name);
 	if (!g_hash_table_lookup (fnd->seen_namespaces, name)) {
 		g_hash_table_insert (fnd->seen_namespaces,
-				     (gchar *)name, (gchar *)name);
+				     (gchar *) name, (gchar *) name);
 		fnd->callback (name, e2k_prop_namespace_abbrev (pi->name),
 			       fnd->user_data);
 	}
@@ -653,7 +653,7 @@ get_div (const gchar *propname)
 static gint
 prop_equal (gconstpointer v1, gconstpointer v2)
 {
-	const gchar *s1 = (const gchar *)v1, *s2 = (const gchar *)v2;
+	const gchar *s1 = (const gchar *) v1, *s2 = (const gchar *) v2;
 	const gchar *d1 = get_div (s1), *d2 = get_div (s2);
 
 	return (d1 - s1 == d2 - s2) && !g_ascii_strncasecmp (s1, s2, d1 - s1);
@@ -790,7 +790,7 @@ e2k_proptag_prop (guint32 proptag)
 	gchar *tmpname;
 
 	tmpname = g_strdup_printf (E2K_NS_MAPI_PROPTAG "x%08x",
-				   (unsigned)proptag);
+				   (unsigned) proptag);
 
 	pi = get_propinfo (tmpname, E2K_PROP_TYPE_UNKNOWN);
 	g_free (tmpname);

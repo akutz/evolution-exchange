@@ -355,7 +355,7 @@ message_remove_at_index (ExchangeFolder *mfld, CamelFolder *folder, gint index)
 		g_static_rec_mutex_lock (&mfld->ed->changed_msgs_mutex);
 
 		for (i = 0; i < mfld->changed_messages->len; i++) {
-			if (mfld->changed_messages->pdata[i] == (gpointer)mmsg) {
+			if (mfld->changed_messages->pdata[i] == (gpointer) mmsg) {
 				g_ptr_array_remove_index_fast (mfld->changed_messages, i);
 				break;
 			}
@@ -585,7 +585,7 @@ refresh_folder_internal (ExchangeFolder *mfld,
 	 */
 
 	iter = e_folder_exchange_bpropfind_start (mfld->folder, NULL,
-						  (const gchar **)mapi_hrefs->pdata,
+						  (const gchar **) mapi_hrefs->pdata,
 						  mapi_hrefs->len,
 						  mapi_message_props,
 						  G_N_ELEMENTS (mapi_message_props));
@@ -602,7 +602,7 @@ refresh_folder_internal (ExchangeFolder *mfld,
 			continue;
 		n = GPOINTER_TO_INT (value);
 
-		rmp = &((struct refresh_message *)messages->data)[n];
+		rmp = &((struct refresh_message *) messages->data)[n];
 		rmp->headers = mail_util_mapi_to_smtp_headers (result->props);
 
 		got++;
@@ -683,7 +683,7 @@ refresh_folder_internal (ExchangeFolder *mfld,
 	/*
 	 * CLEANUP
 	 */
-	rmp = (struct refresh_message *)messages->data;
+	rmp = (struct refresh_message *) messages->data;
 	for (i = 0; i < messages->len; i++) {
 		g_free (rmp[i].uid);
 		g_free (rmp[i].href);
@@ -924,8 +924,8 @@ exchange_message_uid_cmp (gconstpointer a, gconstpointer b)
 {
 	ExchangeMessage **mmsg1, **mmsg2;
 
-	mmsg1 = (ExchangeMessage **)a;
-	mmsg2 = (ExchangeMessage **)b;
+	mmsg1 = (ExchangeMessage **) a;
+	mmsg2 = (ExchangeMessage **) b;
 
 	return strcmp ((*mmsg1)->uid, (*mmsg2)->uid);
 }
@@ -1392,7 +1392,7 @@ mark_read (EFolder *folder, GPtrArray *hrefs, gboolean read)
 	e2k_properties_set_bool (props, E2K_PR_HTTPMAIL_READ, read);
 
 	iter = e_folder_exchange_bproppatch_start (folder, NULL,
-						   (const gchar **)hrefs->pdata,
+						   (const gchar **) hrefs->pdata,
 						   hrefs->len, props, FALSE);
 	e2k_properties_free (props);
 
@@ -1548,12 +1548,12 @@ process_flags (gpointer user_data)
 	if (seen || unseen) {
 		if (seen) {
 			mark_read (mfld->folder, seen, TRUE);
-			g_ptr_array_foreach (seen, (GFunc)g_free, NULL);
+			g_ptr_array_foreach (seen, (GFunc) g_free, NULL);
 			g_ptr_array_free (seen, TRUE);
 		}
 		if (unseen) {
 			mark_read (mfld->folder, unseen, FALSE);
-			g_ptr_array_foreach (unseen, (GFunc)g_free, NULL);
+			g_ptr_array_foreach (unseen, (GFunc) g_free, NULL);
 			g_ptr_array_free (unseen, TRUE);
 		}
 
@@ -1599,7 +1599,7 @@ process_flags (gpointer user_data)
 			   show the mail folder again if the deletion fails in
 			   such public folder */
 			iter = e_folder_exchange_bdelete_start (mfld->folder, NULL,
-								(const gchar **)deleted->pdata,
+								(const gchar **) deleted->pdata,
 								deleted->len);
 		}
 		g_ptr_array_free (deleted, FALSE);
@@ -2122,7 +2122,7 @@ get_folder_info_data (ExchangeData *ed, const gchar *top, guint32 store_flags, G
 				g_hash_table_insert (known_uris, (gchar *) uri, GINT_TO_POINTER (1));
 
 			g_ptr_array_add (*names, g_strdup (name));
-			g_ptr_array_add (*uris, (gchar *)uri);
+			g_ptr_array_add (*uris, (gchar *) uri);
 			g_array_append_val (*unread, unread_count);
 			g_array_append_val (*flags, folder_flags);
 		}
@@ -2322,7 +2322,7 @@ camel_exchange_utils_get_folder (CamelService *service,
 		g_ptr_array_add (mfld->messages, mmsg);
 		g_hash_table_insert (mfld->messages_by_uid, mmsg->uid, mmsg);
 
-		if (hrefs->pdata[i] && *((gchar *)hrefs->pdata[i])) {
+		if (hrefs->pdata[i] && *((gchar *) hrefs->pdata[i])) {
 			mmsg->href = g_strdup (hrefs->pdata[i]);
 			g_hash_table_insert (mfld->messages_by_href, mmsg->href, mmsg);
 		}
@@ -2339,7 +2339,7 @@ camel_exchange_utils_get_folder (CamelService *service,
 	g_signal_connect (mfld->folder, "changed",
 			  G_CALLBACK (storage_folder_changed), mfld);
 
-	g_hash_table_insert (ed->folders_by_name, (gchar *)mfld->name, mfld);
+	g_hash_table_insert (ed->folders_by_name, (gchar *) mfld->name, mfld);
 	folder_changed (mfld);
 
 	*readonly = ((mfld->access & (MAPI_ACCESS_MODIFY | MAPI_ACCESS_CREATE_CONTENTS)) == 0);
@@ -2478,7 +2478,7 @@ camel_exchange_utils_expunge_uids (CamelService *service,
 		camel_folder_freeze (folder);
 
 	iter = e_folder_exchange_bdelete_start (mfld->folder, NULL,
-						(const gchar **)hrefs->pdata,
+						(const gchar **) hrefs->pdata,
 						hrefs->len);
 	ndeleted = 0;
 	while ((result = e2k_result_iter_next (iter))) {
@@ -2793,7 +2793,7 @@ camel_exchange_utils_get_message (CamelService *service,
 		goto error;
 
 	*message_bytes = g_byte_array_sized_new (len);
-	g_byte_array_append (*message_bytes, (const guint8 *)body, len);
+	g_byte_array_append (*message_bytes, (const guint8 *) body, len);
 
 	res = TRUE;
 
@@ -3118,7 +3118,7 @@ camel_exchange_utils_send_message (CamelService *service,
 				timestamp);
 	g_free (timestamp);
 
-	g_string_append_len (data, (const gchar *)message->data, message->len);
+	g_string_append_len (data, (const gchar *) message->data, message->len);
 
 	msg = e2k_soup_message_new_full (ed->ctx, ed->mail_submission_uri,
 					 SOUP_METHOD_PUT, "message/rfc821",
@@ -3308,7 +3308,7 @@ camel_exchange_utils_rename_folder (CamelService *service,
 		mfld->name = e_folder_exchange_get_path (folder) + 1;
 
 		g_hash_table_steal (ed->folders_by_name, old_name);
-		g_hash_table_insert (ed->folders_by_name, (gchar *)mfld->name, mfld);
+		g_hash_table_insert (ed->folders_by_name, (gchar *) mfld->name, mfld);
 
 		get_folder_info_data (ed, new_name, CAMEL_STORE_FOLDER_INFO_SUBSCRIBED, NULL, &names, &uris, &unread, &flags);
 
@@ -3371,7 +3371,7 @@ camel_exchange_utils_rename_folder (CamelService *service,
 			mfld->name = e_folder_exchange_get_path (folder) + 1;
 
 			g_hash_table_steal (ed->folders_by_name, old_name_remove);
-			g_hash_table_insert (ed->folders_by_name, (gchar *)mfld->name, mfld);
+			g_hash_table_insert (ed->folders_by_name, (gchar *) mfld->name, mfld);
 
 			g_hash_table_remove_all (mfld->messages_by_href);
 

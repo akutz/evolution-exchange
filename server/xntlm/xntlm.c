@@ -105,7 +105,7 @@ gboolean
 xntlm_parse_challenge (gpointer challenge, gint len, gchar **nonce,
 		       gchar **nt_domain, gchar **w2k_domain)
 {
-	guchar *chall = (guchar *)challenge;
+	guchar *chall = (guchar *) challenge;
 	gint off, dlen, doff, type;
 
 	if (len < NTLM_CHALLENGE_BASE_SIZE)

@@ -102,7 +102,7 @@ conjoinv (E2kRestrictionType type, E2kRestriction *rn, va_list ap)
 
 	ret->type = type;
 	ret->res.and.nrns = rns->len;
-	ret->res.and.rns = (E2kRestriction **)rns->pdata;
+	ret->res.and.rns = (E2kRestriction **) rns->pdata;
 	g_ptr_array_free (rns, FALSE);
 
 	return ret;
@@ -658,7 +658,7 @@ rn_to_sql (E2kRestriction *rn, GString *sql, E2kRestrictionType inside)
 		case E2K_PROP_TYPE_DATE:
 			g_string_append_printf (sql,
 						"cast (\"%s\" as 'dateTime.tz')",
-						(gchar *)pv->value);
+						(gchar *) pv->value);
 			break;
 
 		default:

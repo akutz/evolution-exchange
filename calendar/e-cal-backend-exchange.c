@@ -697,7 +697,7 @@ uncache (gpointer key, gpointer value, gpointer data)
 	ECalComponentId *id = g_new0 (ECalComponentId, 1);
 	ECalBackendExchangeComponent *ecomp;
 
-	ecomp = (ECalBackendExchangeComponent *)value;
+	ecomp = (ECalBackendExchangeComponent *) value;
 
 	/* FIXME Need get the recurrence id here */
 	id->uid = g_strdup (key);
@@ -1310,7 +1310,7 @@ add_timezone (ECalBackendSync *backend, EDataCal *cal,
 		return;
 	}
 
-	vtzcomp = icalcomponent_new_from_string ((gchar *)tzobj);
+	vtzcomp = icalcomponent_new_from_string ((gchar *) tzobj);
 	if (!vtzcomp) {
 		g_propagate_error (perror, EDC_ERROR (InvalidObject));
 		return;
@@ -1795,9 +1795,9 @@ get_attachment (ECalBackendExchange *cbex, const gchar *uid,
 
 	msg_content = camel_medium_get_content (CAMEL_MEDIUM (msg));
 	if (msg_content && CAMEL_IS_MULTIPART (msg_content)) {
-		multipart = (CamelMultipart *)msg_content;
+		multipart = (CamelMultipart *) msg_content;
 
-		for (i = 0; i < (gint)camel_multipart_get_number (multipart); i++) {
+		for (i = 0; i < (gint) camel_multipart_get_number (multipart); i++) {
 			part = camel_multipart_get_part (multipart, i);
 			filename = camel_mime_part_get_filename (part);
 			if (filename) {
@@ -1971,7 +1971,7 @@ receive_attachments (ECalBackendExchange *cbex, ECalComponent *comp)
 		gint len = 0;
 
 		if (!strncmp ((gchar *)l->data, "file://", 7)) {
-			attach_file = g_filename_from_uri ((gchar *)l->data, NULL, NULL);
+			attach_file = g_filename_from_uri ((gchar *) l->data, NULL, NULL);
 			fname = attach_file;
 
 			if (fname && cbex->priv->local_attachment_store && !g_str_has_prefix (fname, cbex->priv->local_attachment_store)) {
@@ -2061,7 +2061,7 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject
 		gchar *mime_type;
 
 		if (!strncmp ((gchar *)l->data, "file://", 7)) {
-			fname = g_filename_from_uri ((gchar *)l->data, NULL, NULL);
+			fname = g_filename_from_uri ((gchar *) l->data, NULL, NULL);
 			filename = g_path_get_basename (fname);
 			mime_filename = g_strdup (filename + strlen (uid) + 1);
 			g_free (filename);
@@ -2189,7 +2189,7 @@ get_changes (ECalBackendSync *backend, EDataCal *cal,
 	cbedata.kind = e_cal_backend_get_kind (E_CAL_BACKEND (cbex));
 	cbedata.deletes = NULL;
 	cbedata.ehash = ehash;
-	e_xmlhash_foreach_key_remove (ehash, (EXmlHashRemoveFunc)e_cal_backend_exchange_compute_changes_foreach_key, &cbedata);
+	e_xmlhash_foreach_key_remove (ehash, (EXmlHashRemoveFunc) e_cal_backend_exchange_compute_changes_foreach_key, &cbedata);
 
 	*deletes = cbedata.deletes;
 
@@ -2241,7 +2241,7 @@ e_cal_backend_exchange_lookup_timezone (const gchar *tzid,
 					gconstpointer custom,
 					GError **error)
 {
-	icaltimezone *zone = internal_get_timezone (E_CAL_BACKEND ((ECalBackendExchange *)custom), tzid);
+	icaltimezone *zone = internal_get_timezone (E_CAL_BACKEND ((ECalBackendExchange *) custom), tzid);
 
 	/* The UTC timezone is a fallback, which is not supposed
 	   to be returned in call of e_cal_check_timezones, thus skip it */
@@ -2282,7 +2282,7 @@ init (ECalBackendExchange *cbex)
 
 	cbex->priv->timezones = g_hash_table_new_full (
 		g_str_hash, g_str_equal,
-		g_free, (GDestroyNotify)icaltimezone_free);
+		g_free, (GDestroyNotify) icaltimezone_free);
 
 	cbex->priv->set_lock = g_mutex_new ();
 	cbex->priv->open_lock = g_mutex_new ();

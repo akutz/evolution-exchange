@@ -259,7 +259,7 @@ find_book_view (EBookBackendGAL *bl)
 
 	if (e_iterator_is_valid (iter)) {
 		/* just always use the first book view */
-		EDataBookView *v = (EDataBookView*)e_iterator_get (iter);
+		EDataBookView *v = (EDataBookView*) e_iterator_get (iter);
 		if (v)
 			rv = v;
 	}
@@ -574,7 +574,7 @@ get_contact_handler (LDAPOp *op, LDAPMessage *res)
 static void
 get_contact_dtor (LDAPOp *op)
 {
-	LDAPGetContactOp *get_contact_op = (LDAPGetContactOp*)op;
+	LDAPGetContactOp *get_contact_op = (LDAPGetContactOp*) op;
 
 	g_free (get_contact_op);
 }
@@ -665,7 +665,7 @@ get_contact (EBookBackend *backend,
 			} while (gal_reconnect (bl, book_view, ldap_error));
 
 			if (ldap_error == LDAP_SUCCESS) {
-				ldap_op_add ((LDAPOp*)get_contact_op, backend, book,
+				ldap_op_add ((LDAPOp*) get_contact_op, backend, book,
 					     book_view, opid, get_contact_msgid,
 					     get_contact_handler, get_contact_dtor);
 			}
@@ -674,7 +674,7 @@ get_contact (EBookBackend *backend,
 								 opid,
 								 ldap_error_to_response (ldap_error),
 								 "");
-				get_contact_dtor ((LDAPOp*)get_contact_op);
+				get_contact_dtor ((LDAPOp*) get_contact_op);
 			}
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
 		}
@@ -690,7 +690,7 @@ typedef struct {
 static void
 contact_list_handler (LDAPOp *op, LDAPMessage *res)
 {
-	LDAPGetContactListOp *contact_list_op = (LDAPGetContactListOp*)op;
+	LDAPGetContactListOp *contact_list_op = (LDAPGetContactListOp*) op;
 	EBookBackendGAL *bl = E_BOOK_BACKEND_GAL (op->backend);
 	LDAPMessage *e;
 	gint msg_type;
@@ -779,7 +779,7 @@ contact_list_handler (LDAPOp *op, LDAPMessage *res)
 static void
 contact_list_dtor (LDAPOp *op)
 {
-	LDAPGetContactListOp *contact_list_op = (LDAPGetContactListOp*)op;
+	LDAPGetContactListOp *contact_list_op = (LDAPGetContactListOp*) op;
 
 	g_free (contact_list_op);
 }
@@ -880,7 +880,7 @@ get_contact_list (EBookBackend *backend,
 			g_free (ldap_query);
 
 			if (ldap_error == LDAP_SUCCESS) {
-				ldap_op_add ((LDAPOp*)contact_list_op, backend, book,
+				ldap_op_add ((LDAPOp*) contact_list_op, backend, book,
 					     book_view, opid, contact_list_msgid,
 					     contact_list_handler, contact_list_dtor);
 			}
@@ -889,7 +889,7 @@ get_contact_list (EBookBackend *backend,
 								      opid,
 								      ldap_error_to_response (ldap_error),
 								      NULL);
-				contact_list_dtor ((LDAPOp*)contact_list_op);
+				contact_list_dtor ((LDAPOp*) contact_list_op);
 			}
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
 		}
@@ -1646,7 +1646,7 @@ poll_ldap (EBookBackendGAL *bl)
 static void
 ldap_search_handler (LDAPOp *op, LDAPMessage *res)
 {
-	LDAPSearchOp *search_op = (LDAPSearchOp*)op;
+	LDAPSearchOp *search_op = (LDAPSearchOp*) op;
 	EDataBookView *view = search_op->view;
 	EBookBackendGAL *bl = E_BOOK_BACKEND_GAL (op->backend);
 	LDAPMessage *e;
@@ -1704,7 +1704,7 @@ ldap_search_handler (LDAPOp *op, LDAPMessage *res)
 		}
 		ldap_memfree (ldap_error_msg);
 
-		if ((ldap_error == LDAP_TIMELIMIT_EXCEEDED || ldap_error == LDAP_SIZELIMIT_EXCEEDED) && can_browse ((EBookBackend *)bl))
+		if ((ldap_error == LDAP_TIMELIMIT_EXCEEDED || ldap_error == LDAP_SIZELIMIT_EXCEEDED) && can_browse ((EBookBackend *) bl))
 			/* do not complain when search limit exceeded for browsable LDAPs */
 			error = NULL;
 		else if (ldap_error == LDAP_TIMELIMIT_EXCEEDED)
@@ -1828,7 +1828,7 @@ start_book_view (EBookBackend  *backend,
 			build_query (bl, e_data_book_view_get_card_query (view), NULL, &ldap_query, &err);
 
 			/* search for anything */
-			if (!ldap_query && (!err || err->code == E_DATA_BOOK_STATUS_QUERY_REFUSED) && can_browse ((EBookBackend *)bl)) {
+			if (!ldap_query && (!err || err->code == E_DATA_BOOK_STATUS_QUERY_REFUSED) && can_browse ((EBookBackend *) bl)) {
 				ldap_query = g_strdup ("(mail=*)");
 
 				if (err)
@@ -1906,7 +1906,7 @@ start_book_view (EBookBackend  *backend,
 			build_query (bl, e_data_book_view_get_card_query (view), NULL, &ldap_query, &err);
 
 			/* search for anything */
-			if (!ldap_query &&  (!err || err->code == E_DATA_BOOK_STATUS_QUERY_REFUSED) && can_browse ((EBookBackend *)bl)) {
+			if (!ldap_query &&  (!err || err->code == E_DATA_BOOK_STATUS_QUERY_REFUSED) && can_browse ((EBookBackend *) bl)) {
 				ldap_query = g_strdup ("(mail=*)");
 				if (err)
 					g_error_free (err);
@@ -1971,7 +1971,7 @@ start_book_view (EBookBackend  *backend,
 
 				e_data_book_view_ref (view);
 
-				ldap_op_add ((LDAPOp*)op, E_BOOK_BACKEND (bl), NULL, view,
+				ldap_op_add ((LDAPOp*) op, E_BOOK_BACKEND (bl), NULL, view,
 					     0, search_msgid,
 					     ldap_search_handler, ldap_search_dtor);
 				d(printf("start_book_view: Setting op %p in book %p\n", op, view));
@@ -1995,7 +1995,7 @@ stop_book_view (EBookBackend  *backend,
 	d(printf("STOP BOOK VIEW: Getting op %p from view %p\n", op, view));
 	if (op) {
 		op->aborted = TRUE;
-		ldap_op_finished ((LDAPOp*)op);
+		ldap_op_finished ((LDAPOp*) op);
 		g_free (op);
 	}
 }
@@ -2855,7 +2855,7 @@ dispose (GObject *object)
 
 	if (bl->priv) {
 		g_static_rec_mutex_lock (&bl->priv->op_hash_mutex);
-		g_hash_table_foreach_remove (bl->priv->id_to_op, (GHRFunc)call_dtor, NULL);
+		g_hash_table_foreach_remove (bl->priv->id_to_op, (GHRFunc) call_dtor, NULL);
 		g_hash_table_destroy (bl->priv->id_to_op);
 		g_static_rec_mutex_unlock (&bl->priv->op_hash_mutex);
 		g_static_rec_mutex_free (&bl->priv->op_hash_mutex);
@@ -2941,7 +2941,7 @@ class_init (EBookBackendGALClass *klass)
 	supported_fields = NULL;
 	for (i = 0; i < G_N_ELEMENTS (prop_info); i++) {
 		supported_fields = g_list_append (supported_fields,
-						  (gchar *)e_contact_field_name (prop_info[i].field_id));
+						  (gchar *) e_contact_field_name (prop_info[i].field_id));
 	}
 	supported_fields = g_list_append (supported_fields, (gpointer) "file_as");
 

@@ -190,11 +190,11 @@ hierarchy_new_folder (ExchangeHierarchy *hier, EFolder *folder,
 	server has identical folder names[ internal_uri ] for folders. Very much
 	possible in the case of favorite folders */
 	if (g_hash_table_lookup (EXCHANGE_HIERARCHY_WEBDAV (hier)->priv->folders_by_internal_path,
-				(gchar *)e2k_uri_path (internal_uri)))
+				(gchar *) e2k_uri_path (internal_uri)))
 		return;
 
 	g_hash_table_insert (EXCHANGE_HIERARCHY_WEBDAV (hier)->priv->folders_by_internal_path,
-			     (gchar *)e2k_uri_path (internal_uri), g_object_ref (folder));
+			     (gchar *) e2k_uri_path (internal_uri), g_object_ref (folder));
 
 	mf_path = e_folder_exchange_get_storage_file (folder, "connector-metadata.xml");
 	e_folder_exchange_save_to_file (folder, mf_path);
@@ -209,7 +209,7 @@ hierarchy_removed_folder (ExchangeHierarchy *hier, EFolder *folder,
 	gchar *mf_path;
 
 	g_hash_table_remove (EXCHANGE_HIERARCHY_WEBDAV (hier)->priv->folders_by_internal_path,
-			     (gchar *)e2k_uri_path (internal_uri));
+			     (gchar *) e2k_uri_path (internal_uri));
 
 	mf_path = e_folder_exchange_get_storage_file (folder, "connector-metadata.xml");
 	g_unlink (mf_path);
@@ -528,7 +528,7 @@ rescan (ExchangeHierarchy *hier)
 
 	g_object_ref (hier);
 	iter = e_folder_exchange_bpropfind_start (hier->toplevel, NULL,
-						  (const gchar **)hrefs->pdata,
+						  (const gchar **) hrefs->pdata,
 						  hrefs->len,
 						  rescan_props,
 						  G_N_ELEMENTS (rescan_props));
@@ -717,7 +717,7 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *parent, gint mode)
 		folders = g_ptr_array_new ();
 		exchange_hierarchy_webdav_offline_scan_subtree (EXCHANGE_HIERARCHY (hier), add_folders, folders);
 		for (i = 0; i <folders->len; i++) {
-			exchange_hierarchy_new_folder (hier, (EFolder *)folders->pdata[i]);
+			exchange_hierarchy_new_folder (hier, (EFolder *) folders->pdata[i]);
 		}
 		return EXCHANGE_ACCOUNT_FOLDER_OK;
 	}

@@ -206,7 +206,7 @@ gc_search (E2kGlobalCatalog *gc, E2kOperation *op,
 		if (ldap_error != LDAP_SUCCESS)
 			return ldap_error;
 		ldap_error = ldap_search_ext (gc->priv->ldap, base, scope,
-					      filter, (gchar **)attrs,
+					      filter, (gchar **) attrs,
 					      FALSE, NULL, NULL, NULL, 0,
 					      &msgid);
 		if (ldap_error == LDAP_SERVER_DOWN)
@@ -593,7 +593,7 @@ get_mail_values (E2kGlobalCatalog *gc, E2kOperation *op,
 	if (values && mtavalues) {
 		E2K_GC_DEBUG_MSG(("GC: mailNickname %s\n", values[0]));
 		E2K_GC_DEBUG_MSG(("GC: homeMTA %s\n", mtavalues[0]));
-		entry->exchange_server = (gchar *)lookup_mta (gc, op, mtavalues[0]);
+		entry->exchange_server = (gchar *) lookup_mta (gc, op, mtavalues[0]);
 		ldap_value_free (mtavalues);
 		if (entry->exchange_server)
 			entry->mailbox = g_strdup (values[0]);
@@ -815,7 +815,7 @@ e2k_global_catalog_lookup (E2kGlobalCatalog *gc,
 	}
 
 	ldap_error = gc_search (gc, op, base, scope, filter,
-				(const gchar **)attrs->pdata, &msg);
+				(const gchar **) attrs->pdata, &msg);
 	if (ldap_error == LDAP_USER_CANCELLED) {
 		E2K_GC_DEBUG_MSG(("GC: ldap_search cancelled"));
 		status = E2K_GLOBAL_CATALOG_CANCELLED;
@@ -1079,7 +1079,7 @@ lookup_passwd_max_age (E2kGlobalCatalog *gc, E2kOperation *op)
 		return -1;
 	}
 
-	ldap_error = ldap_search_ext (ldap, dn, LDAP_SCOPE_BASE, filter, (gchar **)attrs,
+	ldap_error = ldap_search_ext (ldap, dn, LDAP_SCOPE_BASE, filter, (gchar **) attrs,
 				      FALSE, NULL, NULL, NULL, 0, &msgid);
 	if (!ldap_error) {
 		ldap_error = gc_ldap_result (ldap, op, msgid, &msg);
@@ -1151,7 +1151,7 @@ do_delegate_op (E2kGlobalCatalog *gc, E2kOperation *op, gint deleg_op,
 	mod.mod_op = deleg_op;
 	mod.mod_type = (gchar *) "publicDelegates";
 	mod.mod_values = values;
-	values[0] = (gchar *)delegate_dn;
+	values[0] = (gchar *) delegate_dn;
 	values[1] = NULL;
 
 	mods[0] = &mod;

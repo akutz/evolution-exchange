@@ -629,7 +629,7 @@ exchange_delegates_user_new_from_gc (E2kGlobalCatalog *gc,
 		p--;
 	g_byte_array_append (user->entryid, creator_entryid->data,
 			     p - creator_entryid->data + 1);
-	g_byte_array_append (user->entryid, (guint8*)entry->legacy_exchange_dn,
+	g_byte_array_append (user->entryid, (guint8*) entry->legacy_exchange_dn,
 			     strlen (entry->legacy_exchange_dn));
 	g_byte_array_append (user->entryid, (guint8*)"", 1);
 

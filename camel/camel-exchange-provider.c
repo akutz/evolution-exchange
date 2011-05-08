@@ -204,7 +204,7 @@ exchange_username (const gchar *user)
 static guint
 exchange_url_hash (gconstpointer key)
 {
-	const CamelURL *u = (CamelURL *)key;
+	const CamelURL *u = (CamelURL *) key;
 	guint hash = 0;
 
 	if (u->user)

@@ -336,7 +336,7 @@ extract_sids (E2kSecurityDescriptor *sd, xmlNodePtr node)
 			continue;
 		}
 
-		g_hash_table_insert (sd->priv->sids, (gchar *)bsid, sid);
+		g_hash_table_insert (sd->priv->sids, (gchar *) bsid, sid);
 	}
 }
 
@@ -465,7 +465,7 @@ e2k_security_descriptor_new (xmlNodePtr xml_form, GByteArray *binary_form)
 		e2k_sid_new_from_string_sid (E2K_SID_TYPE_WELL_KNOWN_GROUP,
 					     E2K_SID_WKS_EVERYONE, NULL);
 	g_hash_table_insert (sd->priv->sids,
-			     (gchar *)e2k_sid_get_binary_sid (sd->priv->default_sid),
+			     (gchar *) e2k_sid_get_binary_sid (sd->priv->default_sid),
 			     sd->priv->default_sid);
 	extract_sids (sd, xml_form);
 
@@ -508,7 +508,7 @@ e2k_security_descriptor_to_binary (E2kSecurityDescriptor *sd)
 
 	g_return_val_if_fail (E2K_IS_SECURITY_DESCRIPTOR (sd), NULL);
 
-	aces = (E2k_ACE *)sd->priv->aces->data;
+	aces = (E2k_ACE *) sd->priv->aces->data;
 
 	/* Compute the length of the ACL first */
 	acl_size = sizeof (E2k_ACL);
@@ -618,7 +618,7 @@ e2k_security_descriptor_get_sids (E2kSecurityDescriptor *sd)
 	g_return_val_if_fail (E2K_IS_SECURITY_DESCRIPTOR (sd), NULL);
 
 	added_sids = g_hash_table_new (NULL, NULL);
-	aces = (E2k_ACE *)sd->priv->aces->data;
+	aces = (E2k_ACE *) sd->priv->aces->data;
 	for (ace = 0; ace < sd->priv->aces->len; ace++) {
 		if (!g_hash_table_lookup (added_sids, aces[ace].Sid)) {
 			g_hash_table_insert (added_sids, aces[ace].Sid,
@@ -664,7 +664,7 @@ e2k_security_descriptor_remove_sid (E2kSecurityDescriptor *sd,
 	 * when sd is saved.
 	 */
 
-	aces = (E2k_ACE *)sd->priv->aces->data;
+	aces = (E2k_ACE *) sd->priv->aces->data;
 	for (ace = 0; ace < sd->priv->aces->len; ace++) {
 		if (aces[ace].Sid == sid)
 			aces[ace].Mask = 0;
@@ -700,7 +700,7 @@ e2k_security_descriptor_get_permissions (E2kSecurityDescriptor *sd,
 		return 0;
 
 	mapi_perms = 0;
-	aces = (E2k_ACE *)sd->priv->aces->data;
+	aces = (E2k_ACE *) sd->priv->aces->data;
 	for (ace = 0; ace < sd->priv->aces->len; ace++) {
 		if (aces[ace].Sid != sid)
 			continue;
@@ -731,7 +731,7 @@ e2k_security_descriptor_get_permissions (E2kSecurityDescriptor *sd,
 static void
 set_ace (E2kSecurityDescriptor *sd, E2k_ACE *ace)
 {
-	E2k_ACE *aces = (E2k_ACE *)sd->priv->aces->data;
+	E2k_ACE *aces = (E2k_ACE *) sd->priv->aces->data;
 	gint low, mid = 0, high, cmp = -1;
 
 	low = 0;
@@ -782,7 +782,7 @@ e2k_security_descriptor_set_permissions (E2kSecurityDescriptor *sd,
 	if (!sid2) {
 		gint size = g_hash_table_size (sd->priv->sid_order);
 
-		g_hash_table_insert (sd->priv->sids, (gchar *)bsid, sid);
+		g_hash_table_insert (sd->priv->sids, (gchar *) bsid, sid);
 		g_object_ref (sid);
 
 		g_hash_table_insert (sd->priv->sid_order, sid,
