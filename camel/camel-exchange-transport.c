@@ -39,10 +39,7 @@ exchange_transport_send_to_sync (CamelTransport *transport,
                                  GCancellable *cancellable,
                                  GError **error)
 {
-	CamelService *service;
-	CamelSession *session;
 	CamelStore *store = NULL;
-	gchar *url_string;
 	CamelInternetAddress *cia;
 	const gchar *addr;
 	GPtrArray *recipients_array;
@@ -54,25 +51,6 @@ exchange_transport_send_to_sync (CamelTransport *transport,
 	struct _camel_header_raw *header;
 	GSList *h, *bcc = NULL;
 	gint len, i;
-
-	service = CAMEL_SERVICE (transport);
-	session = camel_service_get_session (service);
-
-	url_string = camel_session_get_password (
-		session, service, NULL,
-		"ignored", "popb4smtp_uri", 0, error);
-	if (!url_string)
-		return FALSE;
-	if (strncmp (url_string, "exchange:", 9) != 0) {
-		g_set_error (
-			error, CAMEL_SERVICE_ERROR,
-			CAMEL_SERVICE_ERROR_UNAVAILABLE,
-			_("Exchange transport can only be used with Exchange mail source"));
-		g_free (url_string);
-		return FALSE;
-	}
-
-	g_free (url_string);
 
 	recipients_array = g_ptr_array_new ();
 	len = camel_address_length (recipients);
