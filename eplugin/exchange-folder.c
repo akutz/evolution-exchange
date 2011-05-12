@@ -67,14 +67,27 @@ ex_create_folder_info (CamelStore *store,
 }
 
 static void
-exchange_get_folder (gchar *uri, CamelFolder *folder, gpointer data)
+exchange_get_folder (GObject *source_object, GAsyncResult *result, gpointer data)
 {
 	CamelStore *store;
 	CamelFolderInfo *info;
 	gchar *name = NULL;
 	gchar *stored_name = NULL;
 	gchar *target_uri = (gchar *) data;
+	CamelFolder *folder = NULL;
 	ExchangeAccount *account = NULL;
+	GError *error = NULL;
+
+	folder = e_mail_session_uri_to_folder_finish (E_MAIL_SESSION (source_object), result, &error);
+	if (!folder) {
+		if (error) {
+			g_debug ("%s: Failed to get folder: %s", G_STRFUNC, error->message);
+			g_error_free (error);
+		}
+
+		g_free (target_uri);
+		return;
+	}
 
 	g_return_if_fail (folder != NULL);
 
@@ -191,9 +204,7 @@ eex_folder_inbox_unsubscribe (const gchar *uri)
 	session = e_mail_backend_get_session (E_MAIL_BACKEND (shell_backend));
 
 	/* To get the CamelStore/Folder */
-	mail_get_folder (
-		session, inbox_physical_uri, 0,
-		exchange_get_folder, target_uri, mail_msg_unordered_push);
+	e_mail_session_uri_to_folder (session, inbox_physical_uri, 0, G_PRIORITY_DEFAULT, NULL, exchange_get_folder, target_uri);
 }
 
 static void
