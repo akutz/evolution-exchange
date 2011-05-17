@@ -1394,8 +1394,12 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	   the server, so that we don't lose any detached instances */
 	if (ecomp->icomp && mod == CALOBJ_MOD_THIS && remove) {
 		icalcomponent_add_component (cbdata->vcal_comp, icalcomponent_new_clone (ecomp->icomp));
-	} else if (!remove && mod == CALOBJ_MOD_THIS)
+	}
+
+	if (!remove && mod == CALOBJ_MOD_THIS) {
+		icalcomponent_add_component (cbdata->vcal_comp, icalcomponent_new_clone (ecomp->icomp));
 		icalcomponent_add_component (cbdata->vcal_comp, real_icalcomp);
+	}
 
 	for (l = ecomp->instances; l != NULL; l = l->next) {
 		icalcomponent *icomp = l->data;
