@@ -57,7 +57,7 @@ static ECalBackendExchange *parent_class = NULL;
 
 #define d(x)
 
-static gboolean modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, const gchar *calobj, CalObjModType mod, gchar **old_object, gchar **new_object, const gchar *href, const gchar *rid_to_remove, GError **error);
+static gboolean modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable, const gchar *calobj, CalObjModType mod, gchar **old_object, gchar **new_object, const gchar *href, const gchar *rid_to_remove, GError **error);
 
 static icalproperty *find_attendee_prop (icalcomponent *ical_comp, const gchar *address);
 static gboolean check_owner_partstatus_for_declined (ECalBackendSync *backend,
@@ -569,23 +569,20 @@ notify_changes (E2kContext *ctx, const gchar *uri,
 }
 
 static void
-open_calendar (ECalBackendSync *backend, EDataCal *cal,
-	       gboolean only_if_exists,
-	       const gchar *username, const gchar *password, GError **perror)
+authenticate_user (ECalBackendSync *backend, GCancellable *cancellable, ECredentials *credentials, GError **perror)
 {
 	GThread *thread = NULL;
 	GError *error = NULL;
 	ECalBackendExchangeCalendar *cbexc = E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 
 	/* Do the generic part */
-	E_CAL_BACKEND_SYNC_CLASS (parent_class)->open_sync (
-		backend, cal, only_if_exists, username, password, &error);
+	E_CAL_BACKEND_SYNC_CLASS (parent_class)->authenticate_user_sync (backend, cancellable, credentials, &error);
 	if (error) {
 		g_propagate_error (perror, error);
 		return;
 	}
 
-	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
+	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
 		return; /* Success */
 	}
 
@@ -612,7 +609,7 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal,
 }
 
 static void
-refresh_calendar (ECalBackendSync *backend, EDataCal *cal, GError **perror)
+refresh_calendar (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable, GError **perror)
 {
 	g_return_if_fail (E_IS_CAL_BACKEND_EXCHANGE (backend));
 
@@ -740,8 +737,8 @@ check_owner_partstatus_for_declined (ECalBackendSync *backend,
 }
 
 static void
-create_object (ECalBackendSync *backend, EDataCal *cal,
-	       gchar **calobj, gchar **uid, GError **error)
+create_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
+	       const gchar *calobj, gchar **uid, gchar **new_object, GError **error)
 {
 	/* FIXME : Return some value in uid */
 	ECalBackendExchangeCalendar *cbexc;
@@ -775,7 +772,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), InvalidArg);
 	e_return_data_cal_error_if_fail (calobj != NULL, InvalidArg);
 
-	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
+	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return;
 	}
@@ -784,7 +781,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	   ....
 	 */
 
-	icalcomp = icalparser_parse_string (*calobj);
+	icalcomp = icalparser_parse_string (calobj);
 	if (!icalcomp) {
 		g_propagate_error (error, EDC_ERROR (InvalidObject));
 		return;
@@ -882,15 +879,15 @@ create_object (ECalBackendSync *backend, EDataCal *cal,
 	/* add the timezones information and the component itself
 	   to the VCALENDAR object */
 	e_cal_component_commit_sequence (comp);
-	*calobj = e_cal_component_get_as_string (comp);
-	if (!*calobj) {
+	*new_object = e_cal_component_get_as_string (comp);
+	if (!*new_object) {
 		g_object_unref (comp);
 		icalcomponent_free (cbdata->vcal_comp);
 		g_free (cbdata);
 		g_propagate_error (error, EDC_ERROR_EX (OtherError, "Cannot get comp as string"));
 		return;
 	}
-	real_icalcomp = icalparser_parse_string (*calobj);
+	real_icalcomp = icalparser_parse_string (*new_object);
 
 	icalcomponent_foreach_tzid (real_icalcomp, add_timezone_cb, cbdata);
 	icalcomponent_add_component (cbdata->vcal_comp, real_icalcomp);
@@ -1091,13 +1088,13 @@ update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp)
 }
 
 static void
-modify_object (ECalBackendSync *backend, EDataCal *cal,
+modify_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
 	       const gchar *calobj, CalObjModType mod,
 	       gchar **old_object, gchar **new_object, GError **perror)
 {
 	d(printf ("ecbexc_modify_object(%p, %p, %d, %s)", backend, cal, mod, *old_object ? *old_object : NULL));
 
-	modify_object_with_href (backend, cal, calobj, mod, old_object, new_object, NULL, NULL, perror);
+	modify_object_with_href (backend, cal, cancellable, calobj, mod, old_object, new_object, NULL, NULL, perror);
 }
 
 #define e_return_data_cal_error_and_val_if_fail(expr, _code, _val)		\
@@ -1116,7 +1113,7 @@ modify_object (ECalBackendSync *backend, EDataCal *cal,
 	} G_STMT_END
 
 static gboolean
-modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
+modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
 	       const gchar *calobj, CalObjModType mod,
 	       gchar **old_object, gchar **new_object, const gchar *href, const gchar *rid_to_remove, GError **error)
 {
@@ -1153,7 +1150,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	e_return_data_cal_error_and_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), InvalidArg, FALSE);
 	e_return_data_cal_error_and_val_if_fail (calobj != NULL, InvalidArg, FALSE);
 
-	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
+	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return FALSE;
 	}
@@ -1298,9 +1295,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 	if (dt.value->is_date) {
 		icaltimezone *zone;
 
-		zone = e_cal_backend_exchange_get_default_time_zone (backend);
-		if (!zone)
-			zone = icaltimezone_get_utc_timezone ();
+		zone = icaltimezone_get_utc_timezone ();
 
 		dt.value->is_date = FALSE;
 		dt.value->is_utc = FALSE;
@@ -1533,7 +1528,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal,
 }
 
 static void
-remove_object (ECalBackendSync *backend, EDataCal *cal,
+remove_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
 	       const gchar *uid, const gchar *rid, CalObjModType mod,
 	       gchar **old_object, gchar **object, GError **error)
 {
@@ -1555,7 +1550,7 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 
 	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), InvalidArg);
 
-	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
+	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return;
 	}
@@ -1587,7 +1582,7 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 		calobj  = (gchar *) icalcomponent_as_ical_string_r (ecomp->icomp);
 
 		e_cal_backend_exchange_cache_unlock (cbex);
-		res = modify_object_with_href (backend, cal, calobj, mod, &obj, &new_object, NULL, rid, error);
+		res = modify_object_with_href (backend, cal, cancellable, calobj, mod, &obj, &new_object, NULL, rid, error);
 		g_object_unref (comp);
 		g_free (calobj);
 		if (!res)
@@ -1622,7 +1617,7 @@ remove_object (ECalBackendSync *backend, EDataCal *cal,
 }
 
 static void
-receive_objects (ECalBackendSync *backend, EDataCal *cal,
+receive_objects (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
 		 const gchar *calobj, GError **error)
 {
 	ECalBackendExchangeCalendar *cbexc;
@@ -1642,7 +1637,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), InvalidArg);
 	e_return_data_cal_error_if_fail (calobj != NULL, InvalidArg);
 
-	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
+	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return;
 	}
@@ -1700,7 +1695,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 				e_cal_backend_exchange_cache_unlock (cbex);
 				if (check_owner_partstatus_for_declined (backend, subcomp)) {
 					ECalComponentId *id = NULL;
-					remove_object (backend, cal, uid, NULL,
+					remove_object (backend, cal, cancellable, uid, NULL,
 								CALOBJ_MOD_ALL, &old_object,
 								NULL, &err);
 					if (err) {
@@ -1728,7 +1723,7 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 						mod = CALOBJ_MOD_THIS;
 
 					icalobj = e_cal_component_get_as_string (comp);
-					if (!modify_object_with_href (backend, cal, icalobj,
+					if (!modify_object_with_href (backend, cal, cancellable, icalobj,
 									  mod,
 									  &old_object, &new_object, NULL, NULL, error)) {
 						g_free (rid);
@@ -1758,14 +1753,14 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 				d(printf ("Create a new object : %s\n", icalobj));
 
 				e_cal_backend_exchange_cache_unlock (cbex);
-				create_object (backend, cal, &icalobj, &returned_uid, &err);
+				create_object (backend, cal, cancellable, icalobj, &returned_uid, &object, &err);
+				g_free (icalobj);
 				if (err) {
 					g_propagate_error (error, err);
 					g_free (rid);
 					goto error;
 				}
 
-				object = icalobj;
 				e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), icalobj);
 				d(printf ("Notify that the new object is created : %s\n", icalobj));
 				g_free (object);
@@ -1781,9 +1776,9 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal,
 		case ICAL_METHOD_CANCEL:
 			icalobj = (gchar *) icalcomponent_as_ical_string_r (subcomp);
 			if (rid)
-				remove_object (backend, cal, uid, rid, CALOBJ_MOD_THIS, &icalobj, &object, &err);
+				remove_object (backend, cal, cancellable, uid, rid, CALOBJ_MOD_THIS, &icalobj, &object, &err);
 			else
-				remove_object (backend, cal, uid, NULL, CALOBJ_MOD_ALL, &icalobj, &object, &err);
+				remove_object (backend, cal, cancellable, uid, NULL, CALOBJ_MOD_ALL, &icalobj, &object, &err);
 			if (!err) {
 				ECalComponentId *id = e_cal_component_get_id (comp);
 				e_cal_backend_notify_object_removed (E_CAL_BACKEND (backend), id, icalobj, NULL);
@@ -2031,16 +2026,16 @@ book_resource (ECalBackendExchange *cbex,
 	icalparameter_set_partstat (part_param, ICAL_PARTSTAT_ACCEPTED);
 
 	e_cal_component_commit_sequence (comp);
-	calobj = (gchar *) e_cal_component_get_as_string (comp);
+	calobj = e_cal_component_get_as_string (comp);
 
 	/* status = e_cal_component_update (comp, method, FALSE  ); */
 	if (ecomp) {
 		gboolean modify_ok = FALSE;
 		/* Use the PUT method to create the meeting item in the resource's calendar. */
-		if (modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, calobj, book_all ? CALOBJ_MOD_ALL : CALOBJ_MOD_THIS, &old_object, &new_object, href, NULL, NULL)) {
+		if (modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, NULL, calobj, book_all ? CALOBJ_MOD_ALL : CALOBJ_MOD_THIS, &old_object, &new_object, href, NULL, NULL)) {
 			/* Need this to update the participation status of the resource
 			   in the organizer's calendar. */
-			modify_ok = modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, calobj, book_all ? CALOBJ_MOD_ALL : CALOBJ_MOD_THIS, &old_object, &new_object, NULL, NULL, NULL);
+			modify_ok = modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, NULL, calobj, book_all ? CALOBJ_MOD_ALL : CALOBJ_MOD_THIS, &old_object, &new_object, NULL, NULL, NULL);
 		} else {
 			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
 			goto cleanup;
@@ -2054,13 +2049,15 @@ book_resource (ECalBackendExchange *cbex,
 	} else {
 		GError *err = NULL;
 
-		create_object (E_CAL_BACKEND_SYNC (cbex), cal, &calobj, &returned_uid, &err);
+		create_object (E_CAL_BACKEND_SYNC (cbex), cal, NULL, calobj, &returned_uid, &new_object, &err);
 		if (!err) {
 			e_cal_backend_notify_object_created (E_CAL_BACKEND (cbex), calobj);
 			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_OK;
 		} else {
 			g_error_free (err);
 		}
+
+		g_free (new_object);
 	}
 
  cleanup:
@@ -2077,9 +2074,9 @@ book_resource (ECalBackendExchange *cbex,
 }
 
 static void
-send_objects (ECalBackendSync *backend, EDataCal *cal,
+send_objects (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
 	      const gchar *calobj,
-	      GList **users, gchar **modified_calobj, GError **error)
+	      GSList **users, gchar **modified_calobj, GError **error)
 {
 	ECalBackendExchange *cbex = (ECalBackendExchange *) backend;
 	ECalBackendExchangeBookingResult result;
@@ -2091,7 +2088,7 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 
 	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex), InvalidArg);
 
-	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (cbex))) {
+	if (!e_cal_backend_is_online (E_CAL_BACKEND (cbex))) {
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return;
 	}
@@ -2157,7 +2154,7 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 		result = book_resource (cbex, cal, attendee + 7, comp, method, param, icalcomponent_get_first_property (icalcomp, ICAL_RRULE_PROPERTY) || icalcomponent_get_first_property (icalcomp, ICAL_RDATE_PROPERTY));
 		switch (result) {
 		case E_CAL_BACKEND_EXCHANGE_BOOKING_OK:
-			*users = g_list_append (*users, g_strdup (attendee));
+			*users = g_slist_append (*users, g_strdup (attendee));
 			break;
 
 		case E_CAL_BACKEND_EXCHANGE_BOOKING_BUSY:
@@ -2252,8 +2249,8 @@ set_freebusy_info (icalcomponent *vfb, const gchar *data, time_t start)
 }
 
 static void
-discard_alarm (ECalBackendSync *backend, EDataCal *cal,
-		const gchar *uid, const gchar *auid, GError **error)
+discard_alarm (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
+		const gchar *uid, const gchar *rid, const gchar *auid, GError **error)
 {
 	ECalBackendExchange *cbex = NULL;
 	ECalBackendExchangeComponent *ecbexcomp;
@@ -2268,7 +2265,7 @@ discard_alarm (ECalBackendSync *backend, EDataCal *cal,
 
 	d(printf("ecbe_discard_alarm(%p, %p, uid=%s, auid=%s)\n", backend, cal, uid, auid));
 
-	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
+	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return;
 	}
@@ -2303,13 +2300,13 @@ discard_alarm (ECalBackendSync *backend, EDataCal *cal,
 }
 
 static void
-get_free_busy (ECalBackendSync *backend, EDataCal *cal,
-	       GList *users, time_t start, time_t end,
-	       GList **freebusy, GError **perror)
+get_free_busy (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
+	       const GSList *users, time_t start, time_t end,
+	       GSList **freebusy, GError **perror)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	gchar *start_str, *end_str;
-	GList *l;
+	const GSList *l;
 	GString *uri;
 	SoupBuffer *response;
 	E2kHTTPStatus http_status;
@@ -2317,7 +2314,7 @@ get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 	xmlNode *recipients, *item;
 	xmlDoc *doc;
 
-	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
+	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
 		g_propagate_error (perror, EDC_ERROR (RepositoryOffline));
 		return;
 	}
@@ -2406,7 +2403,7 @@ get_free_busy (ECalBackendSync *backend, EDataCal *cal,
 		set_freebusy_info (vfb, content, start);
 
 		calobj = icalcomponent_as_ical_string_r (vfb);
-		*freebusy = g_list_prepend (*freebusy, calobj);
+		*freebusy = g_slist_prepend (*freebusy, calobj);
 		icalcomponent_free (vfb);
 	}
 	xmlFreeDoc (doc);
@@ -2450,14 +2447,14 @@ class_init (ECalBackendExchangeCalendarClass *klass)
 
 	parent_class = g_type_class_peek_parent (klass);
 
-	sync_class->open_sync = open_calendar;
+	sync_class->authenticate_user_sync = authenticate_user;
 	sync_class->refresh_sync = refresh_calendar;
 	sync_class->create_object_sync = create_object;
 	sync_class->modify_object_sync = modify_object;
 	sync_class->remove_object_sync = remove_object;
 	sync_class->receive_objects_sync = receive_objects;
 	sync_class->send_objects_sync = send_objects;
-	sync_class->get_freebusy_sync = get_free_busy;
+	sync_class->get_free_busy_sync = get_free_busy;
 	sync_class->discard_alarm_sync = discard_alarm;
 
 	object_class->dispose = dispose;

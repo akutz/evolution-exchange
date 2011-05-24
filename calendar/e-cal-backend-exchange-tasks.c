@@ -986,22 +986,19 @@ notify_changes (E2kContext *ctx, const gchar *uri,
 }
 
 static void
-open_task (ECalBackendSync *backend, EDataCal *cal,
-	   gboolean only_if_exits,
-	   const gchar *username, const gchar *password, GError **perror)
+authenticate_user_task (ECalBackendSync *backend, GCancellable *cancellable, ECredentials *credentials, GError **perror)
 {
 	GThread *thread = NULL;
 	GError *error = NULL;
 	ECalBackendExchangeTasks *cbext = E_CAL_BACKEND_EXCHANGE_TASKS (backend);
 
-	E_CAL_BACKEND_SYNC_CLASS (parent_class)->open_sync (backend,
-				     cal, only_if_exits, username, password, &error);
+	E_CAL_BACKEND_SYNC_CLASS (parent_class)->authenticate_user_sync (backend, cancellable, credentials, &error);
 	if (error) {
 		g_propagate_error (perror, error);
 		return;
 	}
 
-	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
+	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
 		d(printf ("ECBEC : calendar is offline\n"));
 		return;
 	}
@@ -1028,7 +1025,7 @@ open_task (ECalBackendSync *backend, EDataCal *cal,
 }
 
 static void
-refresh_task (ECalBackendSync *backend, EDataCal *cal, GError **perror)
+refresh_task (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable, GError **perror)
 {
 	g_return_if_fail (E_IS_CAL_BACKEND_EXCHANGE (backend));
 
@@ -1042,8 +1039,8 @@ struct _cb_data {
 };
 
 static void
-create_task_object (ECalBackendSync *backend, EDataCal *cal,
-		    gchar **calobj, gchar **return_uid, GError **error)
+create_task_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable, 
+		    const gchar *calobj, gchar **return_uid, gchar **new_object, GError **error)
 {
 	ECalBackendExchange *ecalbex;
 	E2kProperties *props;
@@ -1067,14 +1064,14 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 
 	e_return_data_cal_error_if_fail (calobj != NULL, InvalidArg);
 
-	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
+	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
 		d(printf ("tasks are offline\n"));
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return;
 	}
 
 	/* Parse the icalendar text */
-	icalcomp = icalparser_parse_string (*calobj);
+	icalcomp = icalparser_parse_string (calobj);
 	if (!icalcomp) {
 		g_propagate_error (error, EDC_ERROR (InvalidObject));
 		return;
@@ -1172,8 +1169,8 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 
 	update_props (comp, &props);
 	e_cal_component_commit_sequence (comp);
-	*calobj = e_cal_component_get_as_string (comp);
-	if (!*calobj) {
+	*new_object = e_cal_component_get_as_string (comp);
+	if (!*new_object) {
 		g_object_unref (comp);
 		g_free (from_name);
 		g_free (from_addr);
@@ -1181,7 +1178,7 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 		return;
 	}
 
-	real_icalcomp = icalparser_parse_string (*calobj);
+	real_icalcomp = icalparser_parse_string (*new_object);
 
 	e2kctx = exchange_account_get_context (ecalbex->account);
 	status = e_folder_exchange_proppatch_new (ecalbex->folder, NULL,
@@ -1211,7 +1208,7 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal,
 }
 
 static void
-modify_task_object (ECalBackendSync *backend, EDataCal *cal,
+modify_task_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
 	       const gchar *calobj, CalObjModType mod,
 	       gchar **old_object, gchar **new_object, GError **error)
 {
@@ -1237,7 +1234,7 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE_TASKS (ecalbextask), InvalidArg);
 	e_return_data_cal_error_if_fail (calobj != NULL, InvalidArg);
 
-	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
+	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
 		d(printf ("tasks are offline\n"));
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return;
@@ -1339,7 +1336,7 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal,
 }
 
 static void
-receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
+receive_task_objects (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
                  const gchar *calobj, GError **error)
 {
 	ECalBackendExchangeTasks *ecalbextask;
@@ -1357,7 +1354,7 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
 	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE_TASKS (ecalbextask), InvalidArg);
 	e_return_data_cal_error_if_fail (calobj != NULL, InvalidArg);
 
-	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
+	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
 		d(printf ("tasks are offline\n"));
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return;
@@ -1391,7 +1388,7 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
 			gchar *old_object;
 
 			e_cal_backend_exchange_cache_unlock (cbex);
-			modify_task_object (backend, cal, calobj, CALOBJ_MOD_THIS, &old_object, NULL, &err);
+			modify_task_object (backend, cal, cancellable, calobj, CALOBJ_MOD_THIS, &old_object, NULL, &err);
 			if (err) {
 				g_free (rid);
 				g_propagate_error (error, err);
@@ -1401,20 +1398,21 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
 			e_cal_backend_notify_object_modified (E_CAL_BACKEND (backend), old_object, calobj);
 			g_free (old_object);
 		} else {
-			gchar *returned_uid;
+			gchar *returned_uid, *new_object = NULL;
 
 			e_cal_backend_exchange_cache_unlock (cbex);
 			calobj = (gchar *) icalcomponent_as_ical_string_r (subcomp);
-			create_task_object (backend, cal, &calobj, &returned_uid, &err);
+			create_task_object (backend, cal, cancellable, calobj, &returned_uid, &new_object, &err);
+			g_free (calobj);
 			if (err) {
-				g_free (calobj);
+				g_free (new_object);
 				g_free (rid);
 				g_propagate_error (error, err);
 				return;
 			}
 
-			e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), calobj);
-			g_free (calobj);
+			e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), new_object);
+			g_free (new_object);
 		}
 		g_free (rid);
 	}
@@ -1423,7 +1421,7 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal,
 }
 
 static void
-remove_task_object (ECalBackendSync *backend, EDataCal *cal,
+remove_task_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
 	       const gchar *uid, const gchar *rid, CalObjModType mod,
 	       gchar **old_object, gchar **object, GError **error)
 {
@@ -1435,7 +1433,7 @@ remove_task_object (ECalBackendSync *backend, EDataCal *cal,
 
 	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE (ecalbex), InvalidArg);
 
-	if (!e_cal_backend_exchange_is_online (E_CAL_BACKEND_EXCHANGE (backend))) {
+	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
 		d(printf ("tasks are offline\n"));
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return;
@@ -1507,7 +1505,7 @@ class_init (ECalBackendExchangeTasksClass *klass)
 
 	parent_class = g_type_class_peek_parent (klass);
 
-	sync_class->open_sync = open_task;
+	sync_class->authenticate_user_sync = authenticate_user_task;
 	sync_class->refresh_sync = refresh_task;
 	sync_class->create_object_sync = create_task_object;
 	sync_class->modify_object_sync = modify_task_object;

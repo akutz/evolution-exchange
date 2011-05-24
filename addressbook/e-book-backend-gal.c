@@ -89,7 +89,6 @@ static EBookBackendClass *parent_class;
 
 typedef struct LDAPOp LDAPOp;
 
-static GList *supported_fields;
 static const gchar **search_attrs;
 
 struct _EBookBackendGALPrivate {
@@ -107,7 +106,6 @@ struct _EBookBackendGALPrivate {
 	GStaticRecMutex op_hash_mutex;
 	GHashTable *id_to_op;
 	gint active_ops;
-	gint mode;
 	gint poll_timeout;
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
 	DB *file_db;
@@ -138,12 +136,13 @@ struct LDAPOp {
 	LDAPOpDtor     dtor;
 	EBookBackend  *backend;
 	EDataBook     *book;
+	GCancellable  *cancellable; /* cancellable of the operation */
 	EDataBookView *view;
 	guint32        opid; /* the libebook operation id */
 	gint            id;   /* the ldap msg id */
 };
 
-static void     ldap_op_add (LDAPOp *op, EBookBackend *backend, EDataBook *book,
+static void     ldap_op_add (LDAPOp *op, EBookBackend *backend, EDataBook *book, GCancellable *cancellable,
 			     EDataBookView *view, gint opid, gint msgid, LDAPOpHandler handler, LDAPOpDtor dtor);
 static void     ldap_op_finished (LDAPOp *op);
 
@@ -247,27 +246,30 @@ book_view_notify_status (EDataBookView *view, const gchar *status)
 {
 	if (!view)
 		return;
-	e_data_book_view_notify_status_message (view, status);
+	e_data_book_view_notify_progress (view, -1, status);
+}
+
+static gboolean
+pick_view_cb (EDataBookView *view, gpointer user_data)
+{
+	EDataBookView **pick = user_data;
+
+	g_return_val_if_fail (user_data != NULL, FALSE);
+
+	/* just always use the first book view */
+	*pick = view;
+
+	return view == NULL;
 }
 
 static EDataBookView*
 find_book_view (EBookBackendGAL *bl)
 {
-	EList *views = e_book_backend_get_book_views (E_BOOK_BACKEND (bl));
-	EIterator *iter = e_list_get_iterator (views);
-	EDataBookView *rv = NULL;
+	EDataBookView *pick = NULL;
 
-	if (e_iterator_is_valid (iter)) {
-		/* just always use the first book view */
-		EDataBookView *v = (EDataBookView*) e_iterator_get (iter);
-		if (v)
-			rv = v;
-	}
+	e_book_backend_foreach_view (E_BOOK_BACKEND (bl), pick_view_cb, &pick);
 
-	g_object_unref (iter);
-	g_object_unref (views);
-
-	return rv;
+	return pick;
 }
 
 static gboolean
@@ -314,7 +316,7 @@ gal_connect (EBookBackendGAL *bl, GError **perror)
 	g_mutex_unlock (blpriv->ldap_lock);
 
 	blpriv->connected = TRUE;
-	e_book_backend_set_is_loaded (E_BOOK_BACKEND (bl), TRUE);
+
 	return TRUE;
 }
 
@@ -371,9 +373,38 @@ gal_reconnect (EBookBackendGAL *bl, EDataBookView *book_view, gint ldap_status)
 	}
 }
 
+static gboolean
+find_by_cancellable_cb (gpointer key, gpointer ptrop, gpointer ptrcancellable)
+{
+	LDAPOp *op = ptrop;
+	GCancellable *cancellable = ptrcancellable;
+
+	return op && op->cancellable == cancellable;
+}
+
+static void
+cancelled_cb (GCancellable *cancellable, EBookBackendGAL *bl)
+{
+	LDAPOp *op;
+
+	g_static_rec_mutex_lock (&bl->priv->op_hash_mutex);
+
+	op = g_hash_table_find (bl->priv->id_to_op, find_by_cancellable_cb, cancellable);
+	if (op) {
+		g_mutex_lock (bl->priv->ldap_lock);
+		if (bl->priv->ldap)
+			ldap_abandon (bl->priv->ldap, op->id);
+		g_mutex_unlock (bl->priv->ldap_lock);
+	} else {
+		g_debug ("%s: Cannot find GAL op for cancellable %p", G_STRFUNC, cancellable);
+	}
+
+	g_static_rec_mutex_unlock (&bl->priv->op_hash_mutex);
+}
+
 static void
 ldap_op_add (LDAPOp *op, EBookBackend *backend,
-	     EDataBook *book, EDataBookView *view,
+	     EDataBook *book, GCancellable *cancellable, EDataBookView *view,
 	     gint opid,
 	     gint msgid,
 	     LDAPOpHandler handler, LDAPOpDtor dtor)
@@ -382,6 +413,7 @@ ldap_op_add (LDAPOp *op, EBookBackend *backend,
 
 	op->backend = backend;
 	op->book = book;
+	op->cancellable = cancellable ? g_object_ref (cancellable) : NULL;
 	op->view = view;
 	op->opid = opid;
 	op->id = msgid;
@@ -389,6 +421,10 @@ ldap_op_add (LDAPOp *op, EBookBackend *backend,
 	op->dtor = dtor;
 
 	g_static_rec_mutex_lock (&bl->priv->op_hash_mutex);
+
+	if (op->cancellable)
+		g_signal_connect (op->cancellable, "cancelled", G_CALLBACK (cancelled_cb), g_object_ref (backend));
+
 	if (g_hash_table_lookup (bl->priv->id_to_op, &op->id)) {
 		g_warning ("conflicting ldap msgid's");
 	}
@@ -414,6 +450,12 @@ ldap_op_finished (LDAPOp *op)
 
 	g_static_rec_mutex_lock (&bl->priv->op_hash_mutex);
 	g_hash_table_remove (bl->priv->id_to_op, &op->id);
+	if (op->cancellable) {
+		g_signal_handlers_disconnect_by_func (op->cancellable, cancelled_cb, backend);
+		g_object_unref (op->cancellable);
+		op->cancellable = NULL;
+		g_object_unref (backend);
+	}
 
 	/* should handle errors here */
 	g_mutex_lock (bl->priv->ldap_lock);
@@ -456,6 +498,7 @@ static void
 create_contact (EBookBackend *backend,
 		EDataBook    *book,
 		guint32       opid,
+		GCancellable *cancellable,
 		const gchar   *vcard)
 {
 	e_data_book_respond_create (book, opid,
@@ -467,7 +510,8 @@ static void
 remove_contacts (EBookBackend *backend,
 		 EDataBook    *book,
 		 guint32       opid,
-		 GList        *ids)
+		 GCancellable *cancellable,
+		 const GSList *ids)
 {
 	e_data_book_respond_remove_contacts (book, opid,
 					     EDB_ERROR (PERMISSION_DENIED),
@@ -478,6 +522,7 @@ static void
 modify_contact (EBookBackend *backend,
 		EDataBook    *book,
 		guint32       opid,
+		GCancellable *cancellable,
 		const gchar   *vcard)
 {
 	e_data_book_respond_modify (book, opid,
@@ -583,6 +628,7 @@ static void
 get_contact (EBookBackend *backend,
 	     EDataBook    *book,
 	     guint32       opid,
+	     GCancellable *cancellable,
 	     const gchar   *id)
 {
 	LDAPGetContactOp *get_contact_op;
@@ -592,8 +638,7 @@ get_contact (EBookBackend *backend,
 	gint ldap_error;
 
 	d(printf("get contact\n"));
-	switch (bl->priv->mode) {
-	case E_DATA_BOOK_MODE_LOCAL:
+	if (!e_book_backend_is_online (backend)) {
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
 		if (bl->priv->marked_for_offline && bl->priv->file_db) {
 			EContact *contact = e_book_backend_db_cache_get_contact (bl->priv->file_db, id);
@@ -616,9 +661,7 @@ get_contact (EBookBackend *backend,
 		}
 #endif
 		e_data_book_respond_get_contact(book, opid, EDB_ERROR (REPOSITORY_OFFLINE), "");
-		return;
-
-	case E_DATA_BOOK_MODE_REMOTE :
+	} else {
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
 		d(printf("Mode:Remote\n"));
 		if (bl->priv->marked_for_offline && bl->priv->file_db) {
@@ -665,7 +708,7 @@ get_contact (EBookBackend *backend,
 			} while (gal_reconnect (bl, book_view, ldap_error));
 
 			if (ldap_error == LDAP_SUCCESS) {
-				ldap_op_add ((LDAPOp*) get_contact_op, backend, book,
+				ldap_op_add ((LDAPOp*) get_contact_op, backend, book, cancellable,
 					     book_view, opid, get_contact_msgid,
 					     get_contact_handler, get_contact_dtor);
 			}
@@ -684,7 +727,7 @@ get_contact (EBookBackend *backend,
 
 typedef struct {
 	LDAPOp op;
-	GList *contacts;
+	GSList *contacts;
 } LDAPGetContactListOp;
 
 static void
@@ -716,7 +759,7 @@ contact_list_handler (LDAPOp *op, LDAPMessage *res)
 
 			d(printf ("vcard = %s\n", vcard));
 
-			contact_list_op->contacts = g_list_append (contact_list_op->contacts,
+			contact_list_op->contacts = g_slist_append (contact_list_op->contacts,
 								   vcard);
 
 			g_object_unref (contact);
@@ -788,6 +831,7 @@ static void
 get_contact_list (EBookBackend *backend,
 		  EDataBook    *book,
 		  guint32       opid,
+		  GCancellable *cancellable,
 		  const gchar   *query)
 {
 	LDAPGetContactListOp *contact_list_op;
@@ -799,50 +843,51 @@ get_contact_list (EBookBackend *backend,
 	GError *error = NULL;
 
 	d(printf("get contact list\n"));
-	switch (bl->priv->mode) {
-	case E_DATA_BOOK_MODE_LOCAL:
+	if (!e_book_backend_is_online (backend)) {
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
 		if (bl->priv->marked_for_offline && bl->priv->file_db) {
 			GList *contacts;
-			GList *vcard_strings = NULL;
+			GSList *vcard_strings = NULL;
 			GList *l;
 
 			contacts = e_book_backend_db_cache_get_contacts (bl->priv->file_db, query);
 
 			for (l = contacts; l; l = g_list_next (l)) {
 				EContact *contact = l->data;
-				vcard_strings = g_list_prepend (vcard_strings, e_vcard_to_string (E_VCARD (contact),
+				vcard_strings = g_slist_prepend (vcard_strings, e_vcard_to_string (E_VCARD (contact),
 								EVC_FORMAT_VCARD_30));
 				g_object_unref (contact);
 			}
 
 			g_list_free (contacts);
 			e_data_book_respond_get_contact_list (book, opid, NULL /* Success */, vcard_strings);
+			g_slist_foreach (vcard_strings, (GFunc) g_free, NULL);
+			g_slist_free (vcard_strings);
 			return;
 		}
 #endif
 		e_data_book_respond_get_contact_list (book, opid, EDB_ERROR (REPOSITORY_OFFLINE), NULL);
-		return;
-
-	case E_DATA_BOOK_MODE_REMOTE:
+	} else {
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
 		d(printf("Mode : Remote\n"));
 		if (bl->priv->marked_for_offline && bl->priv->file_db) {
 			GList *contacts;
-			GList *vcard_strings = NULL;
+			GSList *vcard_strings = NULL;
 			GList *l;
 
 			contacts = e_book_backend_db_cache_get_contacts (bl->priv->file_db, query);
 
 			for (l = contacts; l;l = g_list_next (l)) {
 				EContact *contact = l->data;
-				vcard_strings = g_list_prepend (vcard_strings, e_vcard_to_string (E_VCARD (contact),
+				vcard_strings = g_slist_prepend (vcard_strings, e_vcard_to_string (E_VCARD (contact),
 								EVC_FORMAT_VCARD_30));
 				g_object_unref (contact);
 			}
 
 			g_list_free (contacts);
 			e_data_book_respond_get_contact_list (book, opid, NULL /* Success */, vcard_strings);
+			g_slist_foreach (vcard_strings, (GFunc) g_free, NULL);
+			g_slist_free (vcard_strings);
 			return;
 		}
 		else {
@@ -880,7 +925,7 @@ get_contact_list (EBookBackend *backend,
 			g_free (ldap_query);
 
 			if (ldap_error == LDAP_SUCCESS) {
-				ldap_op_add ((LDAPOp*) contact_list_op, backend, book,
+				ldap_op_add ((LDAPOp*) contact_list_op, backend, book, cancellable,
 					     book_view, opid, contact_list_msgid,
 					     contact_list_handler, contact_list_dtor);
 			}
@@ -1500,7 +1545,7 @@ build_contact_from_entry (EBookBackendGAL *bl, LDAPMessage *e, GList **existing_
 
 							book_view = find_book_view (bl);
 							if (book_view)
-								view_limit = e_data_book_view_get_max_results (book_view);
+								view_limit = -1;
 							if (view_limit == -1 || view_limit > bl->priv->gc->response_limit)
 								view_limit = bl->priv->gc->response_limit;
 
@@ -1787,8 +1832,7 @@ start_book_view (EBookBackend  *backend,
 	GError *err = NULL;
 
 	d(printf("start book view\n"));
-	switch (bl->priv->mode) {
-	case E_DATA_BOOK_MODE_LOCAL:
+	if (!e_book_backend_is_online (backend)) {
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
 		if (!(bl->priv->marked_for_offline && bl->priv->file_db)) {
 			err = EDB_ERROR (REPOSITORY_OFFLINE);
@@ -1816,7 +1860,7 @@ start_book_view (EBookBackend  *backend,
 		g_error_free (err);
 		return;
 #endif
-	case E_DATA_BOOK_MODE_REMOTE:
+	} else {
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
 		d(printf("Mode:Remote\n"));
 		if (bl->priv->marked_for_offline && bl->priv->file_db) {
@@ -1892,12 +1936,7 @@ start_book_view (EBookBackend  *backend,
 			}
 			g_mutex_unlock (bl->priv->ldap_lock);
 
-			/* we start at 1 so the user sees stuff as it appears and we
-			   aren't left waiting for more cards to show up, if the
-			   connection is slow. */
-			e_data_book_view_set_thresholds (view, 1, 3000);
-
-			view_limit = e_data_book_view_get_max_results (view);
+			view_limit = -1;
 			if (view_limit == -1 || view_limit > bl->priv->gc->response_limit)
 				view_limit = bl->priv->gc->response_limit;
 
@@ -1971,7 +2010,7 @@ start_book_view (EBookBackend  *backend,
 
 				e_data_book_view_ref (view);
 
-				ldap_op_add ((LDAPOp*) op, E_BOOK_BACKEND (bl), NULL, view,
+				ldap_op_add ((LDAPOp*) op, E_BOOK_BACKEND (bl), NULL, NULL, view,
 					     0, search_msgid,
 					     ldap_search_handler, ldap_search_dtor);
 				d(printf("start_book_view: Setting op %p in book %p\n", op, view));
@@ -1998,15 +2037,6 @@ stop_book_view (EBookBackend  *backend,
 		ldap_op_finished ((LDAPOp*) op);
 		g_free (op);
 	}
-}
-
-static void
-get_changes (EBookBackend *backend,
-	     EDataBook    *book,
-	     guint32	   opid,
-	     const gchar   *change_id)
-{
-	/* FIXME: implement */
 }
 
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
@@ -2377,11 +2407,8 @@ update_cache (EBookBackendGAL *gal)
 
 static void
 authenticate_user (EBookBackend *backend,
-		   EDataBook    *book,
-		   guint32       opid,
-		   const gchar   *user,
-		   const gchar   *password,
-		   const gchar   *auth_method)
+		   GCancellable *cancellable,
+		   ECredentials *credentials)
 {
 	EBookBackendGAL *be = E_BOOK_BACKEND_GAL (backend);
 	EBookBackendGALPrivate *bepriv = be->priv;
@@ -2403,29 +2430,23 @@ authenticate_user (EBookBackend *backend,
 
 	d(printf("authenticate_user(%p, %p, %s, %s, %s)\n", backend, book, user, password, auth_method));
 
-	switch (bepriv->mode) {
-
-	case E_DATA_BOOK_MODE_LOCAL:
-		e_book_backend_notify_writable (E_BOOK_BACKEND (backend), FALSE);
-		e_book_backend_notify_connection_status (E_BOOK_BACKEND (backend), FALSE);
-		e_data_book_respond_authenticate_user (book, opid, NULL /* Success */);
-		return;
-
-	case E_DATA_BOOK_MODE_REMOTE:
-
+	if (!e_book_backend_is_online (backend)) {
+		e_book_backend_notify_readonly (backend, TRUE);
+		e_book_backend_notify_opened (backend, NULL /* Success */);
+	} else {
 		account = exchange_share_config_listener_get_account_for_uri (NULL, bepriv->gal_uri);
 		/* FIXME : Check for failures */
 		if (!exchange_account_get_context (account)) {
 			exchange_account_set_online (account);
-			if (!exchange_account_connect (account, password, &result)) {
+			if (!exchange_account_connect (account, e_credentials_peek (credentials, E_CREDENTIALS_KEY_PASSWORD), &result)) {
 				d(printf("%s:%s: failed\n", G_STRLOC, G_STRFUNC));
-				e_data_book_respond_authenticate_user (book, opid, EDB_ERROR (AUTHENTICATION_FAILED));
+				e_book_backend_notify_opened (backend, EDB_ERROR (AUTHENTICATION_FAILED));
 				return;
 			}
 		}
 
 		if (!gal_connect (be, &err)) {
-			e_data_book_respond_authenticate_user (book, opid, err);
+			e_book_backend_notify_opened (backend, err);
 			return;
 		}
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
@@ -2456,18 +2477,8 @@ authenticate_user (EBookBackend *backend,
 			}
 		}
 #endif
-		e_data_book_respond_authenticate_user (book, opid, NULL /* Success*/ );
-		return;
-
-	default:
-		break;
+		e_book_backend_notify_opened (backend, NULL /* Success*/ );
 	}
-
-	/* We should not be here */
-	e_data_book_respond_authenticate_user (book,
-					       opid,
-					       EDB_ERROR (UNSUPPORTED_AUTHENTICATION_METHOD));
-	return;
 }
 
 #ifdef SUNLDAP
@@ -2503,7 +2514,7 @@ ldap_cancel_op (gpointer key, gpointer value, gpointer data)
 }
 
 static void
-cancel_operation (EBookBackend *backend, EDataBook *book, GError **perror)
+cancel_operations (EBookBackend *backend)
 {
 	EBookBackendGAL *bl = E_BOOK_BACKEND_GAL (backend);
 
@@ -2513,95 +2524,40 @@ cancel_operation (EBookBackend *backend, EDataBook *book, GError **perror)
 }
 
 static void
-set_mode (EBookBackend *backend, EDataBookMode mode)
+set_online (EBookBackend *backend, gboolean is_online)
 {
 	EBookBackendGAL *be = E_BOOK_BACKEND_GAL (backend);
 	EBookBackendGALPrivate *bepriv;
 
 	bepriv = be->priv;
 
-	if (bepriv->mode == mode)
-		return;
-
-	bepriv->mode = mode;
-
 	/* Cancel all running operations */
-	cancel_operation (backend, NULL, NULL);
+	cancel_operations (backend);
 
-	if (e_book_backend_is_loaded (backend)) {
-		if (mode == E_DATA_BOOK_MODE_LOCAL) {
-			e_book_backend_set_is_writable (backend, FALSE);
-			e_book_backend_notify_writable (backend, FALSE);
-			e_book_backend_notify_connection_status (backend, FALSE);
-		} else if (mode == E_DATA_BOOK_MODE_REMOTE) {
-			e_book_backend_set_is_writable (backend, FALSE);
-			e_book_backend_notify_writable (backend, FALSE);
-			e_book_backend_notify_connection_status (backend, TRUE);
+	e_book_backend_notify_online (backend, is_online);
 
-			if (e_book_backend_is_loaded (backend)) {
-				gal_connect (be, NULL);
-				e_book_backend_notify_auth_required (backend);
+	if (e_book_backend_is_opened (backend)) {
+		e_book_backend_notify_readonly (backend, TRUE);
+		if (is_online) {
+			gal_connect (be, NULL);
+			e_book_backend_notify_auth_required (backend, TRUE, NULL);
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
-				if (bepriv->marked_for_offline && bepriv->file_db) {
-					if (e_book_backend_db_cache_is_populated (be->priv->file_db))
-						update_cache (be);
-					else
-						generate_cache (be, NULL);
-				}
-#endif
+			if (bepriv->marked_for_offline && bepriv->file_db) {
+				if (e_book_backend_db_cache_is_populated (be->priv->file_db))
+					update_cache (be);
+				else
+					generate_cache (be, NULL);
 			}
+#endif
 		}
 	}
 }
 
 static void
-get_supported_fields (EBookBackend *backend,
-		      EDataBook    *book,
-		      guint32	    opid)
-
-{
-	e_data_book_respond_get_supported_fields (book,
-						  opid,
-						  NULL /* Success */,
-						  supported_fields);
-}
-
-static void
-get_required_fields (EBookBackend *backend,
-		     EDataBook *book,
-		     guint32 opid)
-{
-	GList *fields = NULL;
-
-	fields = g_list_append (fields, (gchar *) e_contact_field_name (E_CONTACT_FILE_AS));
-	e_data_book_respond_get_required_fields (book,
-						  opid,
-						  NULL /* Success */,
-						  fields);
-	g_list_free (fields);
-
-}
-
-static void
-get_supported_auth_methods (EBookBackend *backend,
-			    EDataBook    *book,
-			    guint32       opid)
-
-{
-	d(printf("%s:%s: NONE\n", G_STRLOC, G_STRFUNC));
-	e_data_book_respond_get_supported_auth_methods (book,
-							opid,
-							NULL /* Success */,
-							NULL);
-}
-
-static void
-load_source (EBookBackend *backend,
-	     ESource      *source,
-	     gboolean      only_if_exists,
-	     GError      **error)
+gal_open (EBookBackend *backend, EDataBook *book, guint32 opid, GCancellable *cancellable, gboolean only_if_exists)
 {
 	EBookBackendGAL *bl = E_BOOK_BACKEND_GAL (backend);
+	ESource *source = e_book_backend_get_source (backend);
 	const gchar *host;
 	gchar **tokens;
 	const gchar *offline;
@@ -2615,22 +2571,25 @@ load_source (EBookBackend *backend,
 	DB *db;
 	DB_ENV *env;
 #endif
-	e_return_data_book_error_if_fail (bl->priv->connected == FALSE, E_DATA_BOOK_STATUS_OTHER_ERROR);
+	if (bl->priv->connected) {
+		e_book_backend_respond_opened (backend, book, opid, EDB_ERROR (OTHER_ERROR));
+		return;
+	}
 
 	offline = e_source_get_property (source, "offline_sync");
 	if (offline && g_str_equal (offline, "1"))
 		bl->priv->marked_for_offline = TRUE;
 
-	if (bl->priv->mode ==  E_DATA_BOOK_MODE_LOCAL &&
+	if (!e_book_backend_is_online (backend) &&
 	    !bl->priv->marked_for_offline) {
-		g_propagate_error (error, EDB_ERROR (OFFLINE_UNAVAILABLE));
+		e_book_backend_respond_opened (backend, book, opid, EDB_ERROR (OFFLINE_UNAVAILABLE));
 		return;
 	}
 
 	uri = e_source_get_uri (source);
 	host = uri + sizeof ("gal://") - 1;
 	if (strncmp (uri, "gal://", host - uri)) {
-		g_propagate_error (error, EDB_ERROR_EX (OTHER_ERROR, "Not a gal:// URI"));
+		e_book_backend_respond_opened (backend, book, opid, EDB_ERROR_EX (OTHER_ERROR, "Not a gal:// URI"));
 		return;
 	}
 
@@ -2653,18 +2612,14 @@ load_source (EBookBackend *backend,
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
 	bl->priv->file_db = NULL;
 #endif
-	if (bl->priv->mode == E_DATA_BOOK_MODE_LOCAL && !bl->priv->marked_for_offline) {
+	if (!e_book_backend_is_online (backend) && !bl->priv->marked_for_offline) {
 		/* Offline */
-
-		e_book_backend_set_is_loaded (backend, FALSE);
-		e_book_backend_set_is_writable (backend, FALSE);
-		e_book_backend_notify_writable (backend, FALSE);
-		e_book_backend_notify_connection_status (backend, FALSE);
+		e_book_backend_notify_readonly (backend, TRUE);
 
 		g_free (book_name);
 		g_free (uri);
 
-		g_propagate_error (error, EDB_ERROR (REPOSITORY_OFFLINE));
+		e_book_backend_respond_opened (backend, book, opid, EDB_ERROR (REPOSITORY_OFFLINE));
 		return;
 	}
 		d(printf("offlin==============\n"));
@@ -2689,7 +2644,7 @@ load_source (EBookBackend *backend,
 			g_warning ("db recovery failed with %d", db_error);
 			g_free (dirname);
 			g_free (filename);
-			g_propagate_error (error, EDB_ERROR (OTHER_ERROR));
+			e_book_backend_respond_opened (backend, book, opid, EDB_ERROR (OTHER_ERROR));
 			return;
 		}
 
@@ -2705,7 +2660,7 @@ load_source (EBookBackend *backend,
 				g_static_mutex_unlock (&global_env_lock);
 				g_free (dirname);
 				g_free (filename);
-				g_propagate_error (error, EDB_ERROR (OTHER_ERROR));
+				e_book_backend_respond_opened (backend, book, opid, EDB_ERROR (OTHER_ERROR));
 				return;
 			}
 
@@ -2716,7 +2671,7 @@ load_source (EBookBackend *backend,
 				g_static_mutex_unlock (&global_env_lock);
 				g_free (dirname);
 				g_free (filename);
-				g_propagate_error (error, EDB_ERROR (OTHER_ERROR));
+				e_book_backend_respond_opened (backend, book, opid, EDB_ERROR (OTHER_ERROR));
 				return;
 			}
 
@@ -2732,7 +2687,7 @@ load_source (EBookBackend *backend,
 			g_warning ("db_create failed with %d", db_error);
 			g_free (dirname);
 			g_free (filename);
-			g_propagate_error (error, EDB_ERROR (OTHER_ERROR));
+			e_book_backend_respond_opened (backend, book, opid, EDB_ERROR (OTHER_ERROR));
 			return;
 		}
 
@@ -2745,7 +2700,7 @@ load_source (EBookBackend *backend,
 				g_warning ("db format upgrade failed with %d", db_error);
 				g_free (filename);
 				g_free (dirname);
-				g_propagate_error (error, EDB_ERROR (OTHER_ERROR));
+				e_book_backend_respond_opened (backend, book, opid, EDB_ERROR (OTHER_ERROR));
 				return;
 			}
 
@@ -2763,10 +2718,10 @@ load_source (EBookBackend *backend,
 				g_free (dirname);
 				g_free (filename);
 				if (errno == EACCES || errno == EPERM) {
-					g_propagate_error (error, EDB_ERROR (PERMISSION_DENIED));
+					e_book_backend_respond_opened (backend, book, opid, EDB_ERROR (PERMISSION_DENIED));
 					return;
 				} else {
-					g_propagate_error (error, EDB_ERROR (OTHER_ERROR));
+					e_book_backend_respond_opened (backend, book, opid, EDB_ERROR (OTHER_ERROR));
 					return;
 				}
 			}
@@ -2783,7 +2738,7 @@ load_source (EBookBackend *backend,
 
 			g_free (filename);
 			g_free (dirname);
-			g_propagate_error (error, EDB_ERROR (OTHER_ERROR));
+			e_book_backend_respond_opened (backend, book, opid, EDB_ERROR (OTHER_ERROR));
 			return;
 		}
 
@@ -2796,29 +2751,57 @@ load_source (EBookBackend *backend,
 	}
 #endif
 	/* Online */
-	e_book_backend_set_is_writable (E_BOOK_BACKEND (backend), FALSE);
-	e_book_backend_set_is_loaded (E_BOOK_BACKEND (backend), TRUE);
-	e_book_backend_notify_writable (backend, FALSE);
+	e_book_backend_notify_readonly (backend, TRUE);
 
-	if (bl->priv->mode == E_DATA_BOOK_MODE_LOCAL)
-		e_book_backend_notify_connection_status (E_BOOK_BACKEND (backend), FALSE);
-	else
-		e_book_backend_notify_connection_status (E_BOOK_BACKEND (backend), TRUE);
+	if (!e_book_backend_is_online (backend)) {
+		e_book_backend_respond_opened (backend, book, opid, NULL);
+	} else {
+		e_book_backend_notify_auth_required (E_BOOK_BACKEND (backend), TRUE, NULL);
+		e_data_book_respond_open (book, opid, NULL);
+	}
 }
 
 static void
-remove_gal (EBookBackend *backend, EDataBook *book, guint32 opid)
+gal_remove (EBookBackend *backend, EDataBook *book, guint32 opid, GCancellable *cancellable)
 {
 	e_data_book_respond_remove (book, opid, EDB_ERROR (PERMISSION_DENIED));
 }
 
-static gchar *
-get_static_capabilities (EBookBackend *backend)
+static void
+gal_get_backend_property (EBookBackend *backend, EDataBook *book, guint32 opid, GCancellable *cancellable, const gchar *prop_name)
 {
-	if (can_browse (backend))
-		return g_strdup ("net,do-initial-query");
-	else
-		return g_strdup ("net");
+	g_return_if_fail (backend != NULL);
+	g_return_if_fail (prop_name != NULL);
+
+	if (g_str_equal (prop_name, CLIENT_BACKEND_PROPERTY_CAPABILITIES)) {
+		if (can_browse (backend))
+			e_data_book_respond_get_backend_property (book, opid, NULL, "net,do-initial-query");
+		else
+			e_data_book_respond_get_backend_property (book, opid, NULL, "net");
+	} else if (g_str_equal (prop_name, BOOK_BACKEND_PROPERTY_REQUIRED_FIELDS)) {
+		e_data_book_respond_get_backend_property (book, opid, NULL, e_contact_field_name (E_CONTACT_FILE_AS));
+	} else if (g_str_equal (prop_name, BOOK_BACKEND_PROPERTY_SUPPORTED_FIELDS)) {
+		GSList *supported_fields;
+		gchar *value;
+		gint ii;
+
+		supported_fields = NULL;
+		for (ii = 0; ii < G_N_ELEMENTS (prop_info); ii++) {
+			supported_fields = g_slist_append (supported_fields,
+							  (gchar *) e_contact_field_name (prop_info[ii].field_id));
+		}
+		supported_fields = g_slist_append (supported_fields, (gpointer) "file_as");
+		value = e_data_book_string_slist_to_comma_string (supported_fields);
+
+		e_data_book_respond_get_backend_property (book, opid, NULL, value);
+
+		g_free (value);
+		g_slist_free (supported_fields);
+	} else if (g_str_equal (prop_name, BOOK_BACKEND_PROPERTY_SUPPORTED_AUTH_METHODS)) {
+		e_data_book_respond_get_backend_property (book, opid, NULL, NULL);
+	} else {
+		(* E_BOOK_BACKEND_CLASS (parent_class)->get_backend_property) (backend, book, opid, cancellable, prop_name);
+	}
 }
 
 /**
@@ -2916,35 +2899,23 @@ class_init (EBookBackendGALClass *klass)
 	parent_class = g_type_class_peek_parent (klass);
 
 	/* Set the virtual methods. */
-	backend_class->load_source                = load_source;
-	backend_class->remove                     = remove_gal;
-	backend_class->get_static_capabilities    = get_static_capabilities;
+	backend_class->open			= gal_open;
+	backend_class->remove			= gal_remove;
+	backend_class->get_backend_property	= gal_get_backend_property;
 
-	backend_class->create_contact             = create_contact;
-	backend_class->remove_contacts            = remove_contacts;
-	backend_class->modify_contact             = modify_contact;
-	backend_class->get_contact                = get_contact;
-	backend_class->get_contact_list           = get_contact_list;
-	backend_class->start_book_view            = start_book_view;
-	backend_class->stop_book_view             = stop_book_view;
-	backend_class->get_changes                = get_changes;
-	backend_class->authenticate_user          = authenticate_user;
-	backend_class->get_supported_fields       = get_supported_fields;
-	backend_class->set_mode                   = set_mode;
-	backend_class->get_required_fields        = get_required_fields;
-	backend_class->get_supported_auth_methods = get_supported_auth_methods;
-	backend_class->cancel_operation           = cancel_operation;
+	backend_class->create_contact		= create_contact;
+	backend_class->remove_contacts		= remove_contacts;
+	backend_class->modify_contact		= modify_contact;
+	backend_class->get_contact		= get_contact;
+	backend_class->get_contact_list		= get_contact_list;
+	backend_class->start_book_view		= start_book_view;
+	backend_class->stop_book_view		= stop_book_view;
+	backend_class->authenticate_user	= authenticate_user;
+	backend_class->set_online		= set_online;
 
 	object_class->dispose = dispose;
 
 	/* Set up static data */
-	supported_fields = NULL;
-	for (i = 0; i < G_N_ELEMENTS (prop_info); i++) {
-		supported_fields = g_list_append (supported_fields,
-						  (gchar *) e_contact_field_name (prop_info[i].field_id));
-	}
-	supported_fields = g_list_append (supported_fields, (gpointer) "file_as");
-
 	search_attrs = g_new (const gchar *, G_N_ELEMENTS (prop_info) + 1);
 	for (i = 0; i < G_N_ELEMENTS (prop_info); i++)
 		search_attrs[i] = prop_info[i].ldap_attr;

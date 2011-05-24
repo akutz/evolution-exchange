@@ -76,9 +76,6 @@ struct EBookBackendExchangePrivate {
 	ExchangeAccount *account;
 	E2kContext *ctx;
 	gboolean connected;
-	GHashTable *ops;
-	gint mode;
-	gboolean is_writable;
 	gboolean is_cache_ready;
 	gboolean marked_for_offline;
 
@@ -758,11 +755,7 @@ e_book_backend_exchange_connect (EBookBackendExchange *be, GError **perror)
 		return FALSE;
 	}
 
-	bepriv->is_writable = ((access & MAPI_ACCESS_CREATE_CONTENTS) != 0);
-	e_book_backend_set_is_writable (E_BOOK_BACKEND (be),
-					bepriv->is_writable);
-	e_book_backend_notify_writable (E_BOOK_BACKEND (be),
-					bepriv->is_writable);
+	e_book_backend_notify_readonly (E_BOOK_BACKEND (be), ((access & MAPI_ACCESS_CREATE_CONTENTS) == 0));
 
 	bepriv->base_rn = e2k_restriction_orv (
 		e2k_restriction_prop_string (E2K_PR_DAV_CONTENT_CLASS,
@@ -823,7 +816,6 @@ e_book_backend_exchange_connect (EBookBackendExchange *be, GError **perror)
 				     subscription_notify, be);
 
 	bepriv->connected = TRUE;
-	e_book_backend_set_is_loaded (E_BOOK_BACKEND (be), TRUE);
 	if (nresults)
 		e2k_results_free (results, nresults);
 
@@ -1667,10 +1659,10 @@ merge_contact_lists (EBookBackendExchange *be, const gchar *location, EContact *
 static void
 e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 					EDataBook         *book,
-					guint32            opid,
-					const gchar        *vcard,
+					GCancellable	  *cancellable,
+					const gchar       *vcard,
 					EContact         **contact,
-					GError **perror)
+					GError		 **perror)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
@@ -1683,15 +1675,11 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 
 	LOCK (bepriv);
 
-	switch (bepriv->mode) {
-
-	case E_DATA_BOOK_MODE_LOCAL:
+	if (!e_book_backend_is_online (E_BOOK_BACKEND (backend))) {
 		*contact = NULL;
 		UNLOCK (bepriv);
 		g_propagate_error (perror, EDB_ERROR (REPOSITORY_OFFLINE));
-		return;
-
-	case E_DATA_BOOK_MODE_REMOTE:
+	} else {
 		*contact = e_contact_new_from_vcard (vcard);
 
 		/* figure out the right uri to be using */
@@ -1755,8 +1743,6 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 			http_status_to_error (status, perror);
 			return;
 		}
-	default:
-		break;
 	}
 	UNLOCK (bepriv);
 }
@@ -1764,8 +1750,8 @@ e_book_backend_exchange_create_contact (EBookBackendSync  *backend,
 static void
 e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 					EDataBook         *book,
-					guint32	  opid,
-					const gchar        *vcard,
+					GCancellable	  *cancellable,
+					const gchar       *vcard,
 					EContact         **contact,
 					GError **perror)
 {
@@ -1780,15 +1766,10 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 
 	d(printf("ebbe_modify_contact(%p, %p, %s)\n", backend, book, vcard));
 
-	switch (bepriv->mode) {
-
-	case E_DATA_BOOK_MODE_LOCAL:
+	if (!e_book_backend_is_online (E_BOOK_BACKEND (backend))) {
 		*contact = NULL;
 		g_propagate_error (perror, EDB_ERROR (REPOSITORY_OFFLINE));
-		return;
-
-	case E_DATA_BOOK_MODE_REMOTE:
-
+	} else {
 		*contact = e_contact_new_from_vcard (vcard);
 		uri = e_contact_get_const (*contact, E_CONTACT_UID);
 
@@ -1891,38 +1872,30 @@ e_book_backend_exchange_modify_contact (EBookBackendSync  *backend,
 			http_status_to_error (status, perror);
 			return;
 		}
-
-	default:
-		break;
 	}
 }
 
 static void
 e_book_backend_exchange_remove_contacts (EBookBackendSync  *backend,
 					 EDataBook         *book,
-					 guint32	   opid,
-					 GList             *id_list,
-					 GList            **removed_ids,
+					 GCancellable	   *cancellable,
+					 const GSList      *id_list,
+					 GSList           **removed_ids,
 					 GError           **perror)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
 	const gchar *uri;
 	E2kHTTPStatus status;
-	GList *l;
+	const GSList *l;
 
 	 /* Remove one or more contacts */
 	d(printf("ebbe_remove_contact(%p, %p, %s)\n", backend, book, (gchar *)id_list->data));
 
-	switch (bepriv->mode) {
-
-	case E_DATA_BOOK_MODE_LOCAL:
+	if (!e_book_backend_is_online (E_BOOK_BACKEND (backend))) {
 		*removed_ids = NULL;
 		g_propagate_error (perror, EDB_ERROR (REPOSITORY_OFFLINE));
-		return;
-
-	case E_DATA_BOOK_MODE_REMOTE:
-
+	} else {
 		for (l = id_list; l; l = l->next) {
 			uri = l->data;
 			status = e2k_context_delete (bepriv->ctx, NULL, uri);
@@ -1931,16 +1904,12 @@ e_book_backend_exchange_remove_contacts (EBookBackendSync  *backend,
 				e_book_backend_summary_remove_contact (
 							bepriv->summary, uri);
 				e_book_backend_cache_remove_contact (bepriv->cache, uri);
-				*removed_ids = g_list_append (
+				*removed_ids = g_slist_append (
 						*removed_ids, g_strdup (uri));
 				UNLOCK (bepriv);
 			} else
 				http_status_to_error (status, perror);
 		}
-		return;
-
-	default:
-		break;
 	}
 }
 
@@ -2214,9 +2183,9 @@ subscription_notify (E2kContext *ctx, const gchar *uri,
 static void
 e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 					  EDataBook         *book,
-					  guint32	     opid,
+					  GCancellable	    *cancellable,
 					  const gchar       *query,
-					  GList            **contacts,
+					  GSList           **contacts,
 					  GError           **perror)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
@@ -2226,21 +2195,20 @@ e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 	E2kResult *result;
 	E2kHTTPStatus status;
 	gchar *vcard;
-	GList *vcard_list = NULL, *temp, *offline_contacts;
+	GList *temp, *offline_contacts;
+	GSList *vcard_list = NULL;
 	EBookBackendSExp *sexp = NULL;
 
 	d(printf("ebbe_get_contact_list(%p, %p, %s)\n", backend, book, query));
 
-	switch (bepriv->mode) {
-
-	case E_DATA_BOOK_MODE_LOCAL:
+	if (!e_book_backend_is_online (E_BOOK_BACKEND (backend))) {
 		/* FIXME */
 		offline_contacts = e_book_backend_cache_get_contacts (bepriv->cache,
 							      query);
 		temp = offline_contacts;
 		for (; offline_contacts != NULL;
 		       offline_contacts = g_list_next (offline_contacts)) {
-			vcard_list = g_list_append (
+			vcard_list = g_slist_append (
 					vcard_list,
 					e_vcard_to_string (
 						E_VCARD (offline_contacts->data),
@@ -2251,10 +2219,7 @@ e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 		*contacts = vcard_list;
 		if (temp)
 			g_list_free (temp);
-		return;
-
-	case E_DATA_BOOK_MODE_REMOTE:
-
+	} else {
 		rn = e_book_backend_exchange_build_restriction (query,
 								bepriv->base_rn);
 
@@ -2294,7 +2259,7 @@ e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 			if (!vcard)
 				continue;
 
-			*contacts = g_list_prepend (*contacts, vcard);
+			*contacts = g_slist_prepend (*contacts, vcard);
 		}
 		status = e2k_result_iter_free (iter);
 
@@ -2302,10 +2267,6 @@ e_book_backend_exchange_get_contact_list (EBookBackendSync  *backend,
 			g_object_unref (sexp);
 
 		http_status_to_error (status, perror);
-		return;
-
-	default:
-		break;
 	}
 }
 
@@ -2327,11 +2288,9 @@ e_book_backend_exchange_start_book_view (EBookBackend  *backend,
 	d(printf("ebbe_start_book_view(%p, %p)\n", backend, book_view));
 
 	e_data_book_view_ref (book_view);
-	e_data_book_view_notify_status_message (book_view, _("Searching..."));
+	e_data_book_view_notify_progress (book_view, -1, _("Searching..."));
 
-	switch (bepriv->mode) {
-
-	case E_DATA_BOOK_MODE_LOCAL:
+	if (!e_book_backend_is_online (E_BOOK_BACKEND (backend))) {
 		if (!bepriv->marked_for_offline) {
 			err = EDB_ERROR (OFFLINE_UNAVAILABLE);
 			e_data_book_view_notify_complete (book_view, err);
@@ -2367,13 +2326,10 @@ e_book_backend_exchange_start_book_view (EBookBackend  *backend,
 		if (temp_list)
 			 g_list_free (temp_list);
 		e_data_book_view_unref (book_view);
-		return;
-
-	case E_DATA_BOOK_MODE_REMOTE:
-
+	} else {
 		if (!be->priv->ctx) {
 			err = EDB_ERROR (AUTHENTICATION_REQUIRED);
-			e_book_backend_notify_auth_required (backend);
+			e_book_backend_notify_auth_required (backend, TRUE, NULL);
 			e_data_book_view_notify_complete (book_view, err);
 			e_data_book_view_unref (book_view);
 			g_error_free (err);
@@ -2412,9 +2368,6 @@ e_book_backend_exchange_start_book_view (EBookBackend  *backend,
 
 		/* also update the folder list */
 		exchange_account_rescan_tree (bepriv->account);
-
-	default:
-		break;
 	}
 }
 
@@ -2422,168 +2375,14 @@ static void
 e_book_backend_exchange_stop_book_view (EBookBackend  *backend,
 				     EDataBookView *book_view)
 {
-	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
-	EBookBackendExchangePrivate *bepriv = be->priv;
-	E2kOperation *op;
-
 	d(printf("ebbe_stop_book_view(%p, %p)\n", backend, book_view));
-
-	op = g_hash_table_lookup (bepriv->ops, book_view);
-	if (op) {
-		g_hash_table_remove (bepriv->ops, book_view);
-		e2k_operation_cancel (op);
-	}
-}
-
-typedef struct {
-	EXmlHash *ehash;
-	GHashTable *seen_ids;
-	GList *changes;
-} EBookBackendExchangeChangeContext;
-
-static void
-free_change (gpointer data, gpointer user_data)
-{
-	EDataBookChange *change = data;
-
-	if (change) {
-		g_free (change->vcard);
-		g_free (change);
-	}
-}
-
-static gboolean
-find_deleted_ids (const gchar *id, const gchar *vcard, gpointer user_data)
-{
-	EBookBackendExchangeChangeContext *ctx = user_data;
-	gboolean remove = FALSE;
-
-	if (!g_hash_table_lookup (ctx->seen_ids, id)) {
-		gchar *vcard = NULL;
-		EContact *contact = e_contact_new ();
-		if (contact) {
-			e_contact_set (contact, E_CONTACT_UID, (gpointer) id);
-			vcard = e_vcard_to_string (E_VCARD (contact), EVC_FORMAT_VCARD_30);
-			if (vcard) {
-				ctx->changes = g_list_prepend (
-							       ctx->changes,
-							       e_book_backend_change_delete_new (vcard));
-				g_free (vcard);
-			}
-			g_object_unref (contact);
-		}
-		remove = TRUE;
-	}
-	return remove;
-}
-
-static void
-e_book_backend_exchange_get_changes (EBookBackendSync  *backend,
-				     EDataBook         *book,
-				     guint32		opid,
-				     const gchar        *change_id,
-				     GList            **changes,
-				     GError           **perror)
-{
-	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
-	EBookBackendExchangePrivate *bepriv = be->priv;
-	EBookBackendExchangeChangeContext *ctx;
-	gchar *filename, *path, *vcard;
-	E2kResultIter *iter;
-	E2kResult *result;
-	E2kHTTPStatus status;
-
-	d(printf("ebbe_get_changes(%p, %p, %s)\n", backend, book, change_id));
-
-	switch (bepriv->mode) {
-
-	case E_DATA_BOOK_MODE_LOCAL:
-		*changes = NULL;
-		g_propagate_error (perror, EDB_ERROR (REPOSITORY_OFFLINE));
-		return;
-
-	case E_DATA_BOOK_MODE_REMOTE:
-
-		ctx = g_new0 (EBookBackendExchangeChangeContext, 1);
-		ctx->seen_ids = g_hash_table_new_full (g_str_hash, g_str_equal,
-					       g_free, NULL);
-
-		/* open the changes file */
-		filename = g_strdup_printf ("%s.changes", change_id);
-		path = e_folder_exchange_get_storage_file (bepriv->folder,
-							   filename);
-		ctx->ehash = e_xmlhash_new (path);
-		g_free (path);
-		g_free (filename);
-
-		iter = e_folder_exchange_search_start (bepriv->folder, NULL,
-					       field_names, n_field_names,
-					       bepriv->base_rn, NULL, TRUE);
-
-		while ((result = e2k_result_iter_next (iter))) {
-			vcard = vcard_from_props (be, result);
-			if (!vcard)
-				continue;
-
-			g_hash_table_insert (ctx->seen_ids,
-					     g_strdup (result->href),
-					     GINT_TO_POINTER (1));
-
-			/* Check what type of change has occurred, if any. */
-			switch (e_xmlhash_compare (ctx->ehash, result->href,
-						   vcard)) {
-			case E_XMLHASH_STATUS_SAME:
-				break;
-
-			case E_XMLHASH_STATUS_NOT_FOUND:
-				e_xmlhash_add (ctx->ehash, result->href, vcard);
-				ctx->changes = g_list_prepend (
-					ctx->changes,
-					e_book_backend_change_add_new (vcard));
-				break;
-
-			case E_XMLHASH_STATUS_DIFFERENT:
-				e_xmlhash_add (ctx->ehash, result->href, vcard);
-				ctx->changes = g_list_prepend (
-					ctx->changes,
-					e_book_backend_change_modify_new (vcard));
-				break;
-			}
-
-			g_free (vcard);
-		}
-		status = e2k_result_iter_free (iter);
-
-		if (!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-			g_warning ("e_book_backend_exchange_changes: error building list (err = %d)\n", status);
-			g_list_foreach (ctx->changes, free_change, NULL);
-			ctx->changes = NULL;
-		} else {
-			e_xmlhash_foreach_key_remove (ctx->ehash, find_deleted_ids, ctx);
-			e_xmlhash_write (ctx->ehash);
-		}
-
-		/* transfer ownership of result to caller before cleaning up */
-		*changes = ctx->changes;
-		ctx->changes = NULL;
-
-		e_xmlhash_destroy (ctx->ehash);
-		g_hash_table_destroy (ctx->seen_ids);
-		g_free (ctx);
-
-		http_status_to_error (status, perror);
-		return;
-
-	default:
-		break;
-	}
 }
 
 static void
 e_book_backend_exchange_get_contact (EBookBackendSync  *backend,
 				     EDataBook         *book,
-				     guint32            opid,
-				     const gchar        *id,
+				     GCancellable      *cancellable,
+				     const gchar       *id,
 				     gchar             **vcard,
 				     GError            **perror)
 {
@@ -2598,25 +2397,18 @@ e_book_backend_exchange_get_contact (EBookBackendSync  *backend,
 
 	be = E_BOOK_BACKEND_EXCHANGE (e_data_book_get_backend (book));
 
-	switch (bepriv->mode) {
-
-	case E_DATA_BOOK_MODE_LOCAL:
+	if (!e_book_backend_is_online (E_BOOK_BACKEND (backend))) {
 		contact = e_book_backend_cache_get_contact (bepriv->cache,
 							    id);
 		if (contact) {
 			*vcard =  e_vcard_to_string (E_VCARD (contact),
 						     EVC_FORMAT_VCARD_30);
 			g_object_unref (contact);
-			return;
-		}
-		else {
+		} else {
 			*vcard = g_strdup ("");
 			g_propagate_error (perror, EDB_ERROR (CONTACT_NOT_FOUND));
-			return;
 		}
-
-	case E_DATA_BOOK_MODE_REMOTE:
-
+	} else {
 		if (bepriv->marked_for_offline && e_book_backend_cache_is_populated (bepriv->cache)) {
 			contact = e_book_backend_cache_get_contact (bepriv->cache,
 								    id);
@@ -2670,21 +2462,11 @@ e_book_backend_exchange_get_contact (EBookBackendSync  *backend,
 				return;
 			}
 		}
-
-	default:
-		break;
 	}
-
-	g_propagate_error (perror, EDB_ERROR (OTHER_ERROR));
 }
 
 static void
-e_book_backend_exchange_authenticate_user (EBookBackend *backend,
-					   EDataBook        *book,
-					   guint32	     opid,
-					   const gchar       *user,
-					   const gchar       *password,
-					   const gchar       *auth_method)
+e_book_backend_exchange_authenticate_user (EBookBackend *backend, GCancellable *cancellable, ECredentials *credentials)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
@@ -2693,129 +2475,50 @@ e_book_backend_exchange_authenticate_user (EBookBackend *backend,
 
 	d(printf("ebbe_authenticate_user(%p, %p, %s, %s, %s)\n", backend, book, user, password, auth_method));
 
-	switch (bepriv->mode) {
-
-	case E_DATA_BOOK_MODE_LOCAL:
-		e_book_backend_notify_writable (E_BOOK_BACKEND (backend), FALSE);
-		e_book_backend_notify_connection_status (E_BOOK_BACKEND (backend), FALSE);
-		e_data_book_respond_authenticate_user (book, opid, NULL);
-		return;
-
-	case E_DATA_BOOK_MODE_REMOTE:
+	if (!e_book_backend_is_online (backend)) {
+		e_book_backend_notify_readonly (backend, TRUE);
+		e_book_backend_notify_opened (backend, NULL);
+	} else {
+		GError *error = NULL;
 
 		bepriv->account = account = exchange_share_config_listener_get_account_for_uri (NULL, bepriv->exchange_uri);
 		/* FIXME : Check for failures */
 		if (!(bepriv->ctx = exchange_account_get_context (account))) {
 			exchange_account_set_online (account);
-			if (!exchange_account_connect (account, password, &result)) {
-				e_data_book_respond_authenticate_user (book, opid, EDB_ERROR (AUTHENTICATION_FAILED));
+			if (!exchange_account_connect (account, e_credentials_peek (credentials, E_CREDENTIALS_KEY_PASSWORD), &result)) {
+				e_book_backend_notify_opened (backend, EDB_ERROR (AUTHENTICATION_FAILED));
 				return;
 			}
 		}
 		if (!bepriv->connected)
-			e_book_backend_exchange_connect (be, NULL);
+			e_book_backend_exchange_connect (be, &error);
 		if (e_book_backend_cache_is_populated (bepriv->cache)) {
-			if (bepriv->is_writable)
+			if (!e_book_backend_is_readonly (backend))
 				g_thread_create ((GThreadFunc) update_cache,
 						  be, FALSE, NULL);
 		}
-		else if (bepriv->is_writable || bepriv->marked_for_offline) {
+		else if (!e_book_backend_is_readonly (backend) || bepriv->marked_for_offline) {
 			/* for personal books we always cache*/
 			g_thread_create ((GThreadFunc) build_cache, be, FALSE, NULL);
 		}
-		e_data_book_respond_authenticate_user (book, opid, NULL);
-		return;
-
-	default:
-		break;
-	}
-	e_data_book_respond_authenticate_user (book, opid, NULL);
-}
-
-static void
-e_book_backend_exchange_get_supported_auth_methods (EBookBackend *backend,
-						    EDataBook *book,
-						    guint32 opid)
-{
-	GList *auth_methods = NULL;
-	gchar *auth_method;
-
-	d(printf ("ebbe_get_supported_auth_methods (%p, %p)\n", backend, book));
-
-	auth_method = g_strdup_printf ("plain/password");
-	auth_methods = g_list_append (auth_methods, auth_method);
-	e_data_book_respond_get_supported_auth_methods (book, opid,
-				NULL,
-				auth_methods);
-
-	g_free (auth_method);
-	g_list_free (auth_methods);
-}
-
-static void
-e_book_backend_exchange_get_supported_fields (EBookBackendSync  *backend,
-					      EDataBook         *book,
-					      guint32		 opid,
-					      GList            **methods,
-					      GError           **perror)
-{
-	gint i;
-
-	d(printf("ebbe_get_supported_fields(%p, %p)\n", backend, book));
-
-	*methods = NULL;
-	for (i = 0; i < G_N_ELEMENTS (prop_mappings); i++) {
-		if (prop_mappings[i].e_book_field) {
-			*methods = g_list_prepend (*methods,
-					g_strdup (e_contact_field_name (prop_mappings[i].field)));
-		}
+		e_book_backend_notify_opened (backend, error);
 	}
 }
 
 static void
-e_book_backend_exchange_get_required_fields (EBookBackendSync *backend,
-					  EDataBook *book,
-					  guint32 opid,
-					  GList **fields_out,
-					  GError **perror)
-{
-	GList *fields = NULL;
-
-	fields = g_list_append (fields, g_strdup (e_contact_field_name (E_CONTACT_FILE_AS)));
-	*fields_out = fields;
-
-}
-
-static void
-e_book_backend_exchange_cancel_operation (EBookBackend *backend, EDataBook *book, GError **perror)
+e_book_backend_exchange_open (EBookBackend *backend, EDataBook *book, guint32 opid, GCancellable *cancellable, gboolean only_if_exists)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
-	E2kOperation *op;
-
-	d(printf("ebbe_cancel_operation(%p, %p)\n", backend, book));
-
-	op = g_hash_table_lookup (bepriv->ops, book);
-	if (op) {
-		e2k_operation_cancel (op);
-	} else {
-		g_propagate_error (perror, EDB_ERROR (COULD_NOT_CANCEL));
-	}
-}
-
-static void
-e_book_backend_exchange_load_source (EBookBackend *backend,
-				     ESource      *source,
-				     gboolean      only_if_exists,
-				     GError      **error)
-{
-	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
-	EBookBackendExchangePrivate *bepriv = be->priv;
+	ESource *source = e_book_backend_get_source (backend);
 	const gchar *cache_dir;
 	const gchar *offline;
 	gchar *filename;
 
-	e_return_data_book_error_if_fail (bepriv->connected == FALSE, E_DATA_BOOK_STATUS_OTHER_ERROR);
+	if (bepriv->connected) {
+		e_book_backend_respond_opened (backend, book, opid, EDB_ERROR (OTHER_ERROR));
+		return;
+	}
 
 	d(printf("ebbe_load_source(%p, %p[%s])\n", backend, source, e_source_peek_name (source)));
 
@@ -2825,27 +2528,25 @@ e_book_backend_exchange_load_source (EBookBackend *backend,
 	if (offline  && g_str_equal (offline, "1"))
 		bepriv->marked_for_offline = TRUE;
 
-	if (bepriv->mode ==  E_DATA_BOOK_MODE_LOCAL &&
+	if (!e_book_backend_is_online (E_BOOK_BACKEND (backend)) &&
 	    !bepriv->marked_for_offline ) {
-		g_propagate_error (error, EDB_ERROR (OFFLINE_UNAVAILABLE));
+		e_book_backend_respond_opened (backend, book, opid, EDB_ERROR (OFFLINE_UNAVAILABLE));
 		return;
 	}
 
 	bepriv->exchange_uri = e_source_get_uri (source);
 	if (bepriv->exchange_uri == NULL) {
-		g_propagate_error (error, EDB_ERROR_EX (OTHER_ERROR, "Cannot get source's URI"));
+		e_book_backend_respond_opened (backend, book, opid, EDB_ERROR_EX (OTHER_ERROR, "Cannot get source's URI"));
 		return;
 	}
 	bepriv->original_uri = g_strdup (bepriv->exchange_uri);
 
 	filename = g_build_filename (cache_dir, "cache.xml", NULL);
 
-	if (bepriv->mode == E_DATA_BOOK_MODE_LOCAL) {
-		e_book_backend_set_is_writable (backend, FALSE);
-		e_book_backend_notify_writable (backend, FALSE);
-		e_book_backend_notify_connection_status (backend, FALSE);
+	if (!e_book_backend_is_online (E_BOOK_BACKEND (backend))) {
+		e_book_backend_notify_readonly (backend, TRUE);
 		if (!g_file_test (filename, G_FILE_TEST_IS_REGULAR)) {
-			g_propagate_error (error, EDB_ERROR (OFFLINE_UNAVAILABLE));
+			e_book_backend_respond_opened (backend, book, opid, EDB_ERROR (OFFLINE_UNAVAILABLE));
 			g_free (filename);
 			return;
 		}
@@ -2856,18 +2557,19 @@ e_book_backend_exchange_load_source (EBookBackend *backend,
 	g_free (filename);
 
 	/* Once aunthentication in address book works this can be removed */
-	if (bepriv->mode == E_DATA_BOOK_MODE_LOCAL) {
+	if (!e_book_backend_is_online (backend)) {
+		e_book_backend_respond_opened (backend, book, opid, NULL);
 		return;
 	}
 
-	// writable property will be set in authenticate_user callback
-	e_book_backend_set_is_writable (E_BOOK_BACKEND (backend), FALSE);
-	e_book_backend_set_is_loaded (E_BOOK_BACKEND (be), TRUE);
-	e_book_backend_notify_connection_status (E_BOOK_BACKEND (be), TRUE);
+	/* writable property will be set in authenticate_user callback */
+	e_book_backend_notify_readonly (backend, TRUE);
+	e_book_backend_notify_auth_required (backend, TRUE, NULL);
+	e_data_book_respond_open (book, opid, NULL);
 }
 
 static void
-e_book_backend_exchange_remove (EBookBackendSync *backend, EDataBook *book, guint32 opid, GError **perror)
+e_book_backend_exchange_remove (EBookBackendSync *backend, EDataBook *book, GCancellable *cancellable, GError **perror)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
@@ -2904,36 +2606,58 @@ e_book_backend_exchange_remove (EBookBackendSync *backend, EDataBook *book, guin
 		g_propagate_error (perror, e_data_book_create_error_fmt (E_DATA_BOOK_STATUS_OTHER_ERROR, "Failed with result code %d", result));
 }
 
-static gchar *
-e_book_backend_exchange_get_static_capabilites (EBookBackend *backend)
+static gboolean
+e_book_backend_exchange_get_backend_property (EBookBackendSync *backend, EDataBook *book, GCancellable *cancellable, const gchar *prop_name, gchar **prop_value, GError **error)
 {
-	return g_strdup ("net,bulk-removes,do-initial-query,cache-completions,contact-lists");
+	gboolean processed = TRUE;
+
+	g_return_val_if_fail (prop_name != NULL, FALSE);
+	g_return_val_if_fail (prop_value != NULL, FALSE);
+
+	if (g_str_equal (prop_name, CLIENT_BACKEND_PROPERTY_CAPABILITIES)) {
+		*prop_value = g_strdup ("net,bulk-removes,do-initial-query,cache-completions,contact-lists");
+	} else if (g_str_equal (prop_name, BOOK_BACKEND_PROPERTY_REQUIRED_FIELDS)) {
+		*prop_value = g_strdup (e_contact_field_name (E_CONTACT_FILE_AS));
+	} else if (g_str_equal (prop_name, BOOK_BACKEND_PROPERTY_SUPPORTED_FIELDS)) {
+		GSList *fields = NULL;
+		gint i;
+
+		for (i = 0; i < G_N_ELEMENTS (prop_mappings); i++) {
+			if (prop_mappings[i].e_book_field)
+				fields = g_slist_append (fields, (gpointer) e_contact_field_name (prop_mappings[i].field));
+		}
+
+		*prop_value = e_data_book_string_slist_to_comma_string (fields);
+
+		g_slist_free (fields);
+	} else if (g_str_equal (prop_name, BOOK_BACKEND_PROPERTY_SUPPORTED_AUTH_METHODS)) {
+		*prop_value = g_strdup ("plain/password");
+	} else {
+		processed = FALSE;
+	}
+
+	return processed;
 }
 
 static void
-e_book_backend_exchange_set_mode (EBookBackend *backend,
-                                  EDataBookMode mode)
+e_book_backend_exchange_set_online (EBookBackend *backend, gboolean is_online)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
 	ExchangeAccount *account = NULL;
 
-	bepriv->mode = mode;
-	/* if (e_book_backend_is_loaded (backend)) { */
-	if (mode == E_DATA_BOOK_MODE_LOCAL) {
-		e_book_backend_set_is_writable (backend, FALSE);
-		e_book_backend_notify_writable (backend, FALSE);
-		e_book_backend_notify_connection_status (backend, FALSE);
-		/* FIXME : free context ? */
-	} else if (mode == E_DATA_BOOK_MODE_REMOTE) {
-		e_book_backend_set_is_writable (backend, bepriv->is_writable);
-		e_book_backend_notify_writable (backend, bepriv->is_writable);
-		e_book_backend_notify_connection_status (backend, TRUE);
-		account = exchange_share_config_listener_get_account_for_uri (NULL, bepriv->exchange_uri);
-		if (!exchange_account_get_context (account))
-			e_book_backend_notify_auth_required (backend);
+	e_book_backend_notify_online (E_BOOK_BACKEND (backend), is_online);
+
+	if (e_book_backend_is_opened (backend)) {
+		if (!is_online) {
+			e_book_backend_notify_readonly (backend, TRUE);
+			/* FIXME : free context ? */
+		} else {
+			account = exchange_share_config_listener_get_account_for_uri (NULL, bepriv->exchange_uri);
+			if (!exchange_account_get_context (account))
+				e_book_backend_notify_auth_required (backend, TRUE, NULL);
+		}
 	}
-	/*}*/
 }
 
 /**
@@ -2972,9 +2696,6 @@ e_book_backend_exchange_dispose (GObject *object)
 
 		if (be->priv->account)
 			be->priv->account = NULL;
-
-		if (be->priv->ops)
-			g_hash_table_destroy (be->priv->ops);
 
 		if (be->priv->cache)
 			g_object_unref (be->priv->cache);
@@ -3015,24 +2736,19 @@ e_book_backend_exchange_class_init (EBookBackendExchangeClass *klass)
 	n_field_names = field_names_array->len;
 
 	/* Set the virtual methods. */
-	backend_class->load_source             = e_book_backend_exchange_load_source;
-	backend_class->get_static_capabilities = e_book_backend_exchange_get_static_capabilites;
-	backend_class->start_book_view         = e_book_backend_exchange_start_book_view;
-	backend_class->stop_book_view          = e_book_backend_exchange_stop_book_view;
-	backend_class->cancel_operation        = e_book_backend_exchange_cancel_operation;
-	backend_class->set_mode			= e_book_backend_exchange_set_mode;
-	backend_class->get_supported_auth_methods = e_book_backend_exchange_get_supported_auth_methods;
-	backend_class->authenticate_user     = e_book_backend_exchange_authenticate_user;
+	backend_class->open			= e_book_backend_exchange_open;
+	backend_class->start_book_view		= e_book_backend_exchange_start_book_view;
+	backend_class->stop_book_view		= e_book_backend_exchange_stop_book_view;
+	backend_class->set_online		= e_book_backend_exchange_set_online;
+	backend_class->authenticate_user	= e_book_backend_exchange_authenticate_user;
 
-	sync_class->remove_sync                = e_book_backend_exchange_remove;
-	sync_class->create_contact_sync        = e_book_backend_exchange_create_contact;
-	sync_class->remove_contacts_sync       = e_book_backend_exchange_remove_contacts;
-	sync_class->modify_contact_sync        = e_book_backend_exchange_modify_contact;
-	sync_class->get_contact_sync           = e_book_backend_exchange_get_contact;
-	sync_class->get_contact_list_sync      = e_book_backend_exchange_get_contact_list;
-	sync_class->get_changes_sync           = e_book_backend_exchange_get_changes;
-	sync_class->get_supported_fields_sync  = e_book_backend_exchange_get_supported_fields;
-	sync_class->get_required_fields_sync   = e_book_backend_exchange_get_required_fields;
+	sync_class->remove_sync			= e_book_backend_exchange_remove;
+	sync_class->create_contact_sync		= e_book_backend_exchange_create_contact;
+	sync_class->remove_contacts_sync	= e_book_backend_exchange_remove_contacts;
+	sync_class->modify_contact_sync		= e_book_backend_exchange_modify_contact;
+	sync_class->get_contact_sync		= e_book_backend_exchange_get_contact;
+	sync_class->get_contact_list_sync	= e_book_backend_exchange_get_contact_list;
+	sync_class->get_backend_property_sync	= e_book_backend_exchange_get_backend_property;
 
 	object_class->dispose = e_book_backend_exchange_dispose;
 }
@@ -3043,12 +2759,10 @@ e_book_backend_exchange_init (EBookBackendExchange *backend)
 	EBookBackendExchangePrivate *priv;
 
 	priv		= g_new0 (EBookBackendExchangePrivate, 1);
-	priv->ops	= g_hash_table_new (NULL, NULL);
 	priv->is_cache_ready	= FALSE;
 	priv->marked_for_offline= FALSE;
 	priv->cache		= NULL;
 	priv->original_uri	= NULL;
-	priv->is_writable	= TRUE;
 
 	priv->cache_lock      = g_mutex_new ();
 
@@ -3056,4 +2770,3 @@ e_book_backend_exchange_init (EBookBackendExchange *backend)
 }
 
 E2K_MAKE_TYPE (e_book_backend_exchange, EBookBackendExchange, e_book_backend_exchange_class_init, e_book_backend_exchange_init, PARENT_TYPE)
-

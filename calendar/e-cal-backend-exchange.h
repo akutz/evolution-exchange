@@ -79,8 +79,6 @@ void  e_cal_backend_exchange_add_timezone     (ECalBackendExchange *cbex,
 						   icalcomponent       *vtzcomp,
 						   GError **perror);
 
-icaltimezone * e_cal_backend_exchange_get_default_time_zone (ECalBackendSync *backend);
-
 gchar *	  e_cal_backend_exchange_lf_to_crlf	(const gchar *in);
 gchar *	  e_cal_backend_exchange_make_timestamp_rfc822	(time_t when);
 
@@ -105,7 +103,6 @@ gchar * e_cal_backend_exchange_get_from_string (ECalBackendSync *backend, ECalCo
 void e_cal_backend_exchange_get_sender (ECalBackendSync *backend, ECalComponent *comp,
 					gchar **from_name, gchar **from_addr);
 gchar * e_cal_backend_exchange_get_sender_string (ECalBackendSync *backend, ECalComponent *comp);
-gboolean e_cal_backend_exchange_is_online (ECalBackendExchange *cbex);
 GSList * get_attachment (ECalBackendExchange *cbex, const gchar *uid, const gchar *body, gint len);
 GSList *receive_attachments (ECalBackendExchange *cbex, ECalComponent *comp);
 void process_delegated_cal_object (icalcomponent *icalcomp, const gchar *delegator_name,
