@@ -107,8 +107,8 @@ get_backend_property (ECalBackendSync *backend, EDataCal *cal, GCancellable *can
 		ExchangeHierarchy *hier;
 
 		hier = e_folder_exchange_get_hierarchy (cbex->folder);
-		d(printf("ecbe_get_cal_address(%p, %p) -> %s\n", backend, cal, hier->owner_email));
-		*prop_value = g_strdup (hier->owner_email);
+		d(printf("ecbe_get_cal_address(%p, %p) -> %s\n", backend, cal, hier ? hier->owner_email : "NULL"));
+		*prop_value = g_strdup (hier ? hier->owner_email : NULL);
 	} else if (g_str_equal (prop_name, CAL_BACKEND_PROPERTY_ALARM_EMAIL_ADDRESS)) {
 		d(printf("ecbe_get_alarm_email_address(%p, %p)\n", backend, cal));
 
@@ -433,6 +433,8 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellabl
 
 	exchange_account_set_online (cbex->account);
 	e_cal_backend_notify_auth_required (E_CAL_BACKEND (backend), TRUE, NULL);
+
+	g_mutex_unlock (cbex->priv->open_lock);
 }
 
 static void
@@ -453,7 +455,6 @@ authenticate_user (ECalBackendSync *backend, GCancellable *cancellable, ECredent
 
 	exchange_account_connect (cbex->account, e_credentials_peek (credentials, E_CREDENTIALS_KEY_PASSWORD), &acresult);
 	if (acresult != EXCHANGE_ACCOUNT_CONNECT_SUCCESS) {
-		g_mutex_unlock (cbex->priv->open_lock);
 		g_propagate_error (perror, EDC_ERROR (AuthenticationFailed));
 		return;
 	}
@@ -492,7 +493,6 @@ authenticate_user (ECalBackendSync *backend, GCancellable *cancellable, ECredent
 			/* Rescan to see if this is any new calendar */
 			hier_to_rescan = exchange_account_get_hierarchy_by_type (cbex->account, EXCHANGE_HIERARCHY_PERSONAL);
 			if (!hier_to_rescan) {
-				g_mutex_unlock (cbex->priv->open_lock);
 				g_propagate_error (perror, EDC_ERROR (RepositoryOffline));
 				return;
 			}
@@ -509,7 +509,6 @@ authenticate_user (ECalBackendSync *backend, GCancellable *cancellable, ECredent
 		}
 
 		if (!cbex->folder) {
-			g_mutex_unlock (cbex->priv->open_lock);
 			g_propagate_error (perror, EDC_ERROR (NoSuchCal));
 			return;
 		}
@@ -534,7 +533,6 @@ authenticate_user (ECalBackendSync *backend, GCancellable *cancellable, ECredent
 	}
 
 	if (!(access & MAPI_ACCESS_READ)) {
-		g_mutex_unlock (cbex->priv->open_lock);
 		if (nresults)
 			e2k_results_free (results, nresults);
 		g_propagate_error (perror, EDC_ERROR (PermissionDenied));
@@ -545,8 +543,6 @@ authenticate_user (ECalBackendSync *backend, GCancellable *cancellable, ECredent
 
 	if (load_cache (cbex, euri, perror))
 		cbex->priv->is_loaded = TRUE;
-
-	g_mutex_unlock (cbex->priv->open_lock);
 
 	if (nresults)
 		e2k_results_free (results, nresults);
