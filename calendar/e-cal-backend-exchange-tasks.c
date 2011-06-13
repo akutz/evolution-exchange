@@ -1039,7 +1039,7 @@ struct _cb_data {
 };
 
 static void
-create_task_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable, 
+create_task_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
 		    const gchar *calobj, gchar **return_uid, gchar **new_object, GError **error)
 {
 	ECalBackendExchange *ecalbex;
