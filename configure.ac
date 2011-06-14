@@ -41,6 +41,8 @@ AS_COMPILER_FLAGS(WARNING_FLAGS,
 	-DG_DISABLE_SINGLE_INCLUDES
 	-DGTK_DISABLE_SINGLE_INCLUDES
 	-DGSEAL_ENABLE
+	-DE_BOOK_DISABLE_DEPRECATED
+	-DE_CAL_DISABLE_DEPRECATED
 	-Wall -Wextra
 	-Wno-missing-field-initializers
 	-Wno-sign-compare
@@ -53,10 +55,6 @@ AS_COMPILER_FLAGS(WARNING_FLAGS,
 	-Wredundant-decls -Wundef -Wwrite-strings")
 AC_SUBST(WARNING_FLAGS)
 
-dnl Disable these later
-dnl	-DE_BOOK_DISABLE_DEPRECATED
-dnl	-DE_CAL_DISABLE_DEPRECATED
-dnl
 dnl Other useful compiler warnings for test builds only.
 dnl These may produce warnings we have no control over,
 dnl or false positives we don't always want to see.

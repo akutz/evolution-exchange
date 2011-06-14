@@ -86,6 +86,7 @@ gchar *	  e_cal_backend_exchange_make_timestamp_rfc822	(time_t when);
 icaltimezone *
 e_cal_backend_exchange_lookup_timezone (const gchar *tzid,
 					gconstpointer custom,
+					GCancellable *cancellable,
 					GError **error);
 
 ECalBackendExchangeComponent * get_exchange_comp (ECalBackendExchange *cbex,

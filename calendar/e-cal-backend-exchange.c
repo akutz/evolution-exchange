@@ -1956,6 +1956,7 @@ internal_get_timezone (ECalBackend *backend, const gchar *tzid)
 icaltimezone *
 e_cal_backend_exchange_lookup_timezone (const gchar *tzid,
 					gconstpointer custom,
+					GCancellable *cancellable,
 					GError **error)
 {
 	icaltimezone *zone = internal_get_timezone (E_CAL_BACKEND ((ECalBackendExchange *) custom), tzid);

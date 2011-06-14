@@ -257,11 +257,11 @@ add_ical (ECalBackendExchange *cbex, const gchar *href, const gchar *lastmod,
 	}
 
 	/* map time zones against system time zones and handle conflicting definitions */
-	if (!e_cal_check_timezones (icalcomp,
-				    NULL,
-				    e_cal_backend_exchange_lookup_timezone,
-				    cbex,
-				    &error)) {
+	if (!e_cal_client_check_timezones (icalcomp,
+					   NULL,
+					   e_cal_backend_exchange_lookup_timezone,
+					   cbex, NULL,
+					   &error)) {
 		g_warning ("checking timezones failed: %s", error->message);
 		g_clear_error (&error);
 		retval = FALSE;
@@ -1649,10 +1649,10 @@ receive_objects (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancella
 
 	/* map time zones against system time zones and handle conflicting definitions */
 	if (icalcomp &&
-	    !e_cal_check_timezones (icalcomp,
+	    !e_cal_client_check_timezones (icalcomp,
 				    comps,
 				    e_cal_backend_exchange_lookup_timezone,
-				    cbex,
+				    cbex, NULL,
 				    &err)) {
 		g_propagate_error (error, EDC_ERROR_EX (InvalidObject, err->message));
 		g_warning ("checking timezones failed: %s", err->message);
@@ -2100,10 +2100,10 @@ send_objects (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable
 
 	/* map time zones against system time zones and handle conflicting definitions */
 	if (top_level &&
-	    !e_cal_check_timezones (top_level,
+	    !e_cal_client_check_timezones (top_level,
 				    NULL,
 				    e_cal_backend_exchange_lookup_timezone,
-				    cbex,
+				    cbex, NULL,
 				    &err)) {
 		g_warning ("checking timezones failed: %s", err->message);
 		g_propagate_error (error, EDC_ERROR_EX (OtherError, err->message));

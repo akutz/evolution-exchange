@@ -28,7 +28,7 @@
 #include <libedataserver/e-url.h>
 #include <e-folder.h>
 #include <exchange-account.h>
-#include <libecal/e-cal.h>
+#include <libecal/e-cal-client.h>
 
 #include "calendar/gui/dialogs/calendar-setup.h"
 #include "mail/em-account-editor.h"
@@ -48,7 +48,7 @@ enum {
 gboolean calendar_src_exists = FALSE;
 gchar *calendar_old_source_uri = NULL;
 
-static GPtrArray *e_exchange_calendar_get_calendars (ECalSourceType ftype);
+static GPtrArray *e_exchange_calendar_get_calendars (ECalClientSourceType ftype);
 void e_exchange_calendar_pcalendar_on_change (GtkTreeView *treeview, ESource *source);
 GtkWidget *e_exchange_calendar_pcalendar (EPlugin *epl, EConfigHookItemFactoryData *data);
 gboolean e_exchange_calendar_check (EPlugin *epl, EConfigHookPageCheckData *data);
@@ -56,7 +56,7 @@ void e_exchange_calendar_commit (EPlugin *epl, EConfigTarget *target);
 
 /* FIXME: Reconsider the prototype of this function */
 static GPtrArray *
-e_exchange_calendar_get_calendars (ECalSourceType ftype)
+e_exchange_calendar_get_calendars (ECalClientSourceType ftype)
 {
 	ExchangeAccount *account;
 	GPtrArray *folder_array;
@@ -69,10 +69,10 @@ e_exchange_calendar_get_calendars (ECalSourceType ftype)
 	gchar *tstring;
 
 	/* FIXME: Compiler warns here; review needed */
-	if (ftype == E_CAL_SOURCE_TYPE_EVENT) { /* Calendars */
+	if (ftype == E_CAL_CLIENT_SOURCE_TYPE_EVENTS) { /* Calendars */
 		tstring = g_strdup ("calendar");
 	}
-	else if (ftype == E_CAL_SOURCE_TYPE_TODO) { /* Tasks */
+	else if (ftype == E_CAL_CLIENT_SOURCE_TYPE_TASKS) { /* Tasks */
 		tstring = g_strdup ("tasks");
 	}
 	else {
@@ -419,10 +419,10 @@ e_exchange_calendar_commit (EPlugin *epl, EConfigTarget *target)
 	g_free (path_prefix);
 
 	/* FIXME: Compiler gives a warning here; review needed */
-	if (t->source_type == E_CAL_SOURCE_TYPE_EVENT) {
+	if (t->source_type == E_CAL_CLIENT_SOURCE_TYPE_EVENTS) {
 		ftype = g_strdup ("calendar");
 	}
-	else if (t->source_type == E_CAL_SOURCE_TYPE_TODO) {
+	else if (t->source_type == E_CAL_CLIENT_SOURCE_TYPE_TASKS) {
 		ftype = g_strdup ("tasks");
 	}
 	else {

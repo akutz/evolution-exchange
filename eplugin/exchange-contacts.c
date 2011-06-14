@@ -30,8 +30,8 @@
 #include <e-folder.h>
 #include <exchange-account.h>
 
-#include <libebook/e-book.h>
-#include <libecal/e-cal.h>
+#include <libebook/e-book-client.h>
+#include <libecal/e-cal-client.h>
 #include <addressbook/gui/widgets/eab-config.h>
 
 #include "mail/em-account-editor.h"
