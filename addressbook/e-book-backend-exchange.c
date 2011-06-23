@@ -643,10 +643,13 @@ build_cache (EBookBackendExchange *be)
 	bepriv->is_cache_ready=TRUE;
 	e_file_cache_thaw_changes (E_FILE_CACHE (bepriv->cache));
 	UNLOCK (bepriv);
+
+	g_object_unref (be);
+
 	return NULL;
 }
 
-static gboolean
+static gpointer
 update_cache (EBookBackendExchange *be)
 {
 	EBookBackendExchangePrivate *bepriv = be->priv;
@@ -675,7 +678,10 @@ update_cache (EBookBackendExchange *be)
 	bepriv->is_cache_ready=TRUE;
 	e_file_cache_thaw_changes (E_FILE_CACHE (bepriv->cache));
 	UNLOCK (bepriv);
-	return TRUE;
+
+	g_object_unref (be);
+
+	return NULL;
 }
 
 static gboolean
@@ -2494,12 +2500,13 @@ e_book_backend_exchange_authenticate_user (EBookBackend *backend, GCancellable *
 			e_book_backend_exchange_connect (be, &error);
 		if (e_book_backend_cache_is_populated (bepriv->cache)) {
 			if (!e_book_backend_is_readonly (backend))
-				g_thread_create ((GThreadFunc) update_cache,
-						  be, FALSE, NULL);
+				if (!g_thread_create ((GThreadFunc) update_cache, g_object_ref (be), FALSE, NULL))
+					g_object_unref (be);
 		}
 		else if (!e_book_backend_is_readonly (backend) || bepriv->marked_for_offline) {
 			/* for personal books we always cache*/
-			g_thread_create ((GThreadFunc) build_cache, be, FALSE, NULL);
+			if (!g_thread_create ((GThreadFunc) build_cache, g_object_ref (be), FALSE, NULL))
+				g_object_unref (be);
 		}
 		e_book_backend_notify_opened (backend, error);
 	}

@@ -437,6 +437,7 @@ get_changed_events (ECalBackendExchange *cbex)
 		g_hash_table_destroy (modtimes);
 		g_hash_table_destroy (attachments);
 		g_mutex_unlock (cbexc->priv->mutex);
+		g_object_unref (cbexc);
 		return status;
 	}
 
@@ -452,6 +453,7 @@ get_changed_events (ECalBackendExchange *cbex)
 		g_hash_table_destroy (attachments);
 		cbexc->priv->is_loaded = TRUE;
 		g_mutex_unlock (cbexc->priv->mutex);
+		g_object_unref (cbexc);
 		return SOUP_STATUS_OK;
 	}
 
@@ -506,6 +508,7 @@ get_changed_events (ECalBackendExchange *cbex)
 		g_hash_table_destroy (modtimes);
 		g_hash_table_destroy (attachments);
 		g_mutex_unlock (cbexc->priv->mutex);
+		g_object_unref (cbexc);
 		return status;
 	}
 	if (!hrefs->len) {
@@ -514,6 +517,7 @@ get_changed_events (ECalBackendExchange *cbex)
 		g_hash_table_destroy (attachments);
 		cbexc->priv->is_loaded = TRUE;
 		g_mutex_unlock (cbexc->priv->mutex);
+		g_object_unref (cbexc);
 		return SOUP_STATUS_OK;
 	}
 
@@ -521,6 +525,7 @@ get_changed_events (ECalBackendExchange *cbex)
 	ctx = exchange_account_get_context (cbex->account);
 	if (!ctx) {
 		g_mutex_unlock (cbexc->priv->mutex);
+		g_object_unref (cbexc);
 		/* This either means we lost connection or we are in offline mode */
 		return SOUP_STATUS_CANT_CONNECT;
 	}
@@ -550,6 +555,8 @@ get_changed_events (ECalBackendExchange *cbex)
 		cbexc->priv->is_loaded = TRUE;
 
 	g_mutex_unlock (cbexc->priv->mutex);
+	g_object_unref (cbexc);
+
 	return status;
 }
 
@@ -564,7 +571,7 @@ notify_changes (E2kContext *ctx, const gchar *uri,
 	g_return_if_fail (E_IS_CAL_BACKEND_EXCHANGE (ecalbex));
 	g_return_if_fail (uri != NULL);
 
-	get_changed_events (ecalbex);
+	get_changed_events (g_object_ref (ecalbex));
 
 }
 
@@ -600,11 +607,12 @@ authenticate_user (ECalBackendSync *backend, GCancellable *cancellable, ECredent
 			E2K_CONTEXT_OBJECT_REMOVED, 30,
 			notify_changes, backend);
 
-	thread = g_thread_create ((GThreadFunc) get_changed_events, E_CAL_BACKEND_EXCHANGE (backend), FALSE, &error);
+	thread = g_thread_create ((GThreadFunc) get_changed_events, g_object_ref (backend), FALSE, &error);
 	if (!thread) {
 		g_warning (G_STRLOC ": %s", error->message);
 		g_propagate_error (perror, EDC_ERROR_EX (OtherError, error->message));
 		g_error_free (error);
+		g_object_unref (backend);
 	}
 }
 
@@ -613,7 +621,7 @@ refresh_calendar (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancell
 {
 	g_return_if_fail (E_IS_CAL_BACKEND_EXCHANGE (backend));
 
-	get_changed_events (E_CAL_BACKEND_EXCHANGE (backend));
+	get_changed_events (g_object_ref (backend));
 }
 
 struct _cb_data {
