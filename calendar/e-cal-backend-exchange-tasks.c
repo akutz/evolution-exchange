@@ -854,6 +854,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 		g_hash_table_destroy (modtimes);
 		g_hash_table_destroy (attachments);
 		g_mutex_unlock (cbext->priv->mutex);
+		g_object_unref (cbext);
 		return status;
 	}
 
@@ -868,6 +869,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 		g_hash_table_destroy (attachments);
 		cbext->priv->is_loaded = TRUE;
 		g_mutex_unlock (cbext->priv->mutex);
+		g_object_unref (cbext);
 		return SOUP_STATUS_OK;
 	}
 
@@ -913,6 +915,7 @@ get_changed_tasks (ECalBackendExchange *cbex)
 		g_ptr_array_free (hrefs, TRUE);
 		g_hash_table_destroy (attachments);
 		g_mutex_unlock (cbext->priv->mutex);
+		g_object_unref (cbext);
 		return status;
 	}
 
@@ -921,12 +924,14 @@ get_changed_tasks (ECalBackendExchange *cbex)
 		g_hash_table_destroy (attachments);
 		cbext->priv->is_loaded = TRUE;
 		g_mutex_unlock (cbext->priv->mutex);
+		g_object_unref (cbext);
 		return SOUP_STATUS_OK;
 	}
 
 	ctx = exchange_account_get_context (cbex->account);
 	if (!ctx) {
 		g_mutex_unlock (cbext->priv->mutex);
+		g_object_unref (cbext);
 		/* This either means we lost connection or we are in offline mode */
 		return SOUP_STATUS_CANT_CONNECT;
 	}
@@ -967,6 +972,8 @@ get_changed_tasks (ECalBackendExchange *cbex)
 		cbext->priv->is_loaded = TRUE;
 
 	g_mutex_unlock (cbext->priv->mutex);
+	g_object_unref (cbext);
+
 	return status;
 }
 
@@ -981,7 +988,7 @@ notify_changes (E2kContext *ctx, const gchar *uri,
 	g_return_if_fail (E_IS_CAL_BACKEND_EXCHANGE (ecalbex));
 	g_return_if_fail (uri != NULL);
 
-	get_changed_tasks (ecalbex);
+	get_changed_tasks (g_object_ref (ecalbex));
 
 }
 
@@ -1020,10 +1027,11 @@ open_task (ECalBackendSync *backend, EDataCal *cal,
 					E2K_CONTEXT_OBJECT_REMOVED, 30,
 					notify_changes, backend);
 
-	thread = g_thread_create ((GThreadFunc) get_changed_tasks, E_CAL_BACKEND_EXCHANGE (backend), FALSE, &error);
+	thread = g_thread_create ((GThreadFunc) get_changed_tasks, g_object_ref (backend), FALSE, &error);
 	if (!thread) {
 		g_propagate_error (perror, EDC_ERROR_EX (OtherError, error->message));
 		g_error_free (error);
+		g_object_unref (backend);
 	}
 }
 
@@ -1032,7 +1040,7 @@ refresh_task (ECalBackendSync *backend, EDataCal *cal, GError **perror)
 {
 	g_return_if_fail (E_IS_CAL_BACKEND_EXCHANGE (backend));
 
-	get_changed_tasks (E_CAL_BACKEND_EXCHANGE (backend));
+	get_changed_tasks (g_object_ref (backend));
 }
 
 struct _cb_data {
