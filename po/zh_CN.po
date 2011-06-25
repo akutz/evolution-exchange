@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=evolution-exchange&component=general\n"
-"POT-Creation-Date: 2009-12-22 11:08+0000\n"
-"PO-Revision-Date: 2010-01-05 16:52+0800\n"
-"Last-Translator: 苏运强 <wzssyqa@gmail.com>\n"
-"Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
+"POT-Creation-Date: 2010-07-14 09:00+0000\n"
+"PO-Revision-Date: 2010-08-09 21:47+0800\n"
+"Last-Translator: Yinghua Wang <wantinghard@gmail.com>\n"
+"Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
 msgid "Specifies the time interval to refresh the GAL Cache."
-msgstr "指定刷新 GAL 缓存的时间间隔。"
+msgstr "指定刷新全局地址列表(GAL)缓存的时间间隔。"
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:2
 msgid ""
@@ -31,24 +31,24 @@ msgstr ""
 "存，请将此值设定为0。这仅在您开启了 GAL 离线缓存时起作用。"
 
 #: ../addressbook/e-book-backend-exchange.c:2305
-#: ../addressbook/e-book-backend-gal.c:1896
+#: ../addressbook/e-book-backend-gal.c:1900
 msgid "Searching..."
 msgstr "正在搜索..."
 
-#: ../addressbook/e-book-backend-gal.c:315
-#: ../addressbook/e-book-backend-gal.c:336
+#: ../addressbook/e-book-backend-gal.c:319
+#: ../addressbook/e-book-backend-gal.c:340
 msgid "Reconnecting to LDAP server..."
 msgstr "正在重新连接到 LDAP 服务器..."
 
-#: ../addressbook/e-book-backend-gal.c:1657
+#: ../addressbook/e-book-backend-gal.c:1661
 msgid "Receiving LDAP search results..."
 msgstr "正在接收 LDAP 搜索结果..."
 
-#: ../addressbook/e-book-backend-gal.c:1927
+#: ../addressbook/e-book-backend-gal.c:1931
 msgid "Error performing search"
 msgstr "执行搜索出错"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2111
+#: ../calendar/e-cal-backend-exchange-calendar.c:2123
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "在选中的时间段中，资源“%s”都处于忙状态。"
@@ -61,51 +61,51 @@ msgstr "验证失败"
 msgid "Could not find the calendar"
 msgstr "无法找到日历"
 
-#: ../camel/camel-exchange-folder.c:198
+#: ../camel/camel-exchange-folder.c:188
 msgid "You cannot expunge in offline mode."
 msgstr "无法在脱机模式下销毁。"
 
-#: ../camel/camel-exchange-folder.c:226
+#: ../camel/camel-exchange-folder.c:216
 msgid "No Subject"
 msgstr "无主题"
 
-#: ../camel/camel-exchange-folder.c:388
+#: ../camel/camel-exchange-folder.c:379
 msgid "This message is not available in offline mode."
 msgstr "这封信在脱机模式下不可用。"
 
-#: ../camel/camel-exchange-folder.c:613
+#: ../camel/camel-exchange-folder.c:619
 msgid "Moving messages"
 msgstr "移动信件"
 
-#: ../camel/camel-exchange-folder.c:614
+#: ../camel/camel-exchange-folder.c:620
 msgid "Copying messages"
 msgstr "复制信件"
 
-#: ../camel/camel-exchange-folder.c:982
+#: ../camel/camel-exchange-folder.c:986
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "无法创建目录 %s：%s"
 
-#: ../camel/camel-exchange-folder.c:992
+#: ../camel/camel-exchange-folder.c:996
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "无法装入 %s 的概览"
 
-#: ../camel/camel-exchange-folder.c:1000
+#: ../camel/camel-exchange-folder.c:1004
 #, c-format
 msgid "Could not create cache for %s"
 msgstr "无法为 %s 创建缓存"
 
-#: ../camel/camel-exchange-folder.c:1010
+#: ../camel/camel-exchange-folder.c:1014
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "无法为 %s 创建日记"
 
-#: ../camel/camel-exchange-folder.c:1059
+#: ../camel/camel-exchange-folder.c:1063
 msgid "Scanning for changed messages"
 msgstr "扫描已更改的信件"
 
-#: ../camel/camel-exchange-folder.c:1084
+#: ../camel/camel-exchange-folder.c:1088
 msgid "Fetching summary information for new messages"
 msgstr "获取新信件的概览信息"
 
@@ -113,10 +113,10 @@ msgstr "获取新信件的概览信息"
 msgid "No folder name found\n"
 msgstr "没有找到文件夹名称\n"
 
-#: ../camel/camel-exchange-journal.c:366 ../camel/camel-exchange-utils.c:3083
-#: ../camel/camel-exchange-utils.c:3147 ../camel/camel-exchange-utils.c:3267
-#: ../camel/camel-exchange-utils.c:3298 ../camel/camel-exchange-utils.c:3350
-#: ../camel/camel-exchange-utils.c:3371
+#: ../camel/camel-exchange-journal.c:366 ../camel/camel-exchange-utils.c:3106
+#: ../camel/camel-exchange-utils.c:3170 ../camel/camel-exchange-utils.c:3290
+#: ../camel/camel-exchange-utils.c:3321 ../camel/camel-exchange-utils.c:3373
+#: ../camel/camel-exchange-utils.c:3394
 msgid "Folder doesn't exist"
 msgstr "文件夹不存在"
 
@@ -130,9 +130,8 @@ msgid "Cannot append message in offline mode: %s"
 msgstr "无法在脱机模式下追加信件：%s"
 
 #: ../camel/camel-exchange-provider.c:55
-#, fuzzy
 msgid "Secure or Plaintext Password"
-msgstr "纯文本密码"
+msgstr "安全的或纯文本的密码"
 
 #: ../camel/camel-exchange-provider.c:56
 #: ../camel/camel-exchange-provider.c:143
@@ -176,7 +175,7 @@ msgstr "全局目录服务器名(_G)："
 #: ../camel/camel-exchange-provider.c:84
 #, c-format
 msgid "_Limit number of GAL responses: %s"
-msgstr "限制 GAL 响应数(_L)：%s"
+msgstr "限制全局地址列表(GAL)响应数(_L)：%s"
 
 #: ../camel/camel-exchange-provider.c:86
 msgid "Authentication _Type:"
@@ -184,11 +183,11 @@ msgstr "认证类型(_T)："
 
 #: ../camel/camel-exchange-provider.c:88
 msgid "Allow _browsing of the GAL until download limit is reached"
-msgstr "在到达下载限制之前允许浏览 GAL (_B)"
+msgstr "在到达下载限制之前允许浏览全局地址列表(GAL) (_B)"
 
 #: ../camel/camel-exchange-provider.c:90
 msgid "_Expand groups of contacts in GAL to contact lists"
-msgstr ""
+msgstr "展开全局地址列表(GAL)中联系人的组到联系人列表(_E)"
 
 #: ../camel/camel-exchange-provider.c:93
 msgid "Options"
@@ -257,44 +256,44 @@ msgstr ""
 "无法验证到服务器。(密码不对？)\n"
 "\n"
 
-#: ../camel/camel-exchange-store.c:427
+#: ../camel/camel-exchange-store.c:430
 #, c-format
 msgid "No such folder %s"
 msgstr "没有文件夹 %s"
 
-#: ../camel/camel-exchange-store.c:499
+#: ../camel/camel-exchange-store.c:502
 msgid "Cannot subscribe folder in offline mode."
 msgstr "无法在脱机模式下订阅文件夹。"
 
-#: ../camel/camel-exchange-store.c:514
+#: ../camel/camel-exchange-store.c:517
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "无法在脱机模式下退订文件夹。"
 
-#: ../camel/camel-exchange-store.c:645
+#: ../camel/camel-exchange-store.c:648
 msgid "Cannot get folder info in offline mode."
 msgstr "无法在脱机模式下获得文件夹信息。"
 
-#: ../camel/camel-exchange-store.c:708
+#: ../camel/camel-exchange-store.c:711
 msgid "Cannot create folder in offline mode."
 msgstr "无法在脱机模式下创建文件夹。"
 
-#: ../camel/camel-exchange-store.c:731
+#: ../camel/camel-exchange-store.c:734
 msgid "Cannot delete folder in offline mode."
 msgstr "无法在脱机模式下删除文件夹。"
 
-#: ../camel/camel-exchange-store.c:753
+#: ../camel/camel-exchange-store.c:756
 msgid "Cannot rename folder in offline mode."
 msgstr "无法在脱机模式下重命名文件夹。"
 
-#: ../camel/camel-exchange-transport.c:107
+#: ../camel/camel-exchange-transport.c:108
 msgid "Exchange transport can only be used with Exchange mail source"
 msgstr "Exchange 传送只能用于 Exchange 邮件源"
 
-#: ../camel/camel-exchange-transport.c:120
+#: ../camel/camel-exchange-transport.c:121
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "无法发送信件：一个或更多收件人无效"
 
-#: ../camel/camel-exchange-transport.c:129
+#: ../camel/camel-exchange-transport.c:130
 msgid "Could not find 'From' address in message"
 msgstr "无法在信件中找到“From”地址"
 
@@ -310,71 +309,71 @@ msgstr "无法打开文件夹"
 msgid "Could not open folder: Permission denied"
 msgstr "无法打开文件夹：权限被禁止"
 
-#: ../camel/camel-exchange-utils.c:1276 ../camel/camel-exchange-utils.c:2162
+#: ../camel/camel-exchange-utils.c:1276 ../camel/camel-exchange-utils.c:2178
 msgid "No such folder"
 msgstr "没有这样的文件夹"
 
-#: ../camel/camel-exchange-utils.c:1298 ../camel/camel-exchange-utils.c:3057
-#: ../camel/camel-exchange-utils.c:3100 ../camel/camel-exchange-utils.c:3271
-#: ../camel/camel-exchange-utils.c:3324 ../camel/camel-exchange-utils.c:3386
+#: ../camel/camel-exchange-utils.c:1298 ../camel/camel-exchange-utils.c:3080
+#: ../camel/camel-exchange-utils.c:3123 ../camel/camel-exchange-utils.c:3294
+#: ../camel/camel-exchange-utils.c:3347 ../camel/camel-exchange-utils.c:3409
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
 #: ../server/storage/e-storage.c:573
 msgid "Permission denied"
 msgstr "权限被禁止"
 
-#: ../camel/camel-exchange-utils.c:2171
+#: ../camel/camel-exchange-utils.c:2187
 msgid "Could not create folder."
 msgstr "无法创建文件夹。"
 
-#: ../camel/camel-exchange-utils.c:2260
+#: ../camel/camel-exchange-utils.c:2276
 msgid "Could not open Deleted Items folder"
 msgstr "无法打开已删项目文件夹"
 
-#: ../camel/camel-exchange-utils.c:2387
+#: ../camel/camel-exchange-utils.c:2403
 msgid "Could not empty Deleted Items folder"
 msgstr "无法清空已删项目文件夹"
 
-#: ../camel/camel-exchange-utils.c:2389
+#: ../camel/camel-exchange-utils.c:2405
 msgid "Permission denied. Could not delete certain messages."
 msgstr "许可被拒绝。不能删除特定的消息。"
 
-#: ../camel/camel-exchange-utils.c:2432
+#: ../camel/camel-exchange-utils.c:2448
 msgid "Could not append message; mailbox is over quota"
 msgstr "无法追加信件；邮箱超出配额"
 
-#: ../camel/camel-exchange-utils.c:2433
+#: ../camel/camel-exchange-utils.c:2449
 msgid "Could not append message"
 msgstr "无法追加信件"
 
-#: ../camel/camel-exchange-utils.c:2619
+#: ../camel/camel-exchange-utils.c:2635
 msgid "No such message"
 msgstr "没有这样的信件"
 
-#: ../camel/camel-exchange-utils.c:2691
+#: ../camel/camel-exchange-utils.c:2707
 msgid "Message has been deleted"
 msgstr "信件已被删除"
 
-#: ../camel/camel-exchange-utils.c:2693
+#: ../camel/camel-exchange-utils.c:2709
 msgid "Error retrieving message"
 msgstr "获取信件出错"
 
-#: ../camel/camel-exchange-utils.c:2742
+#: ../camel/camel-exchange-utils.c:2758
 msgid "Mailbox does not support full-text searching"
 msgstr "邮箱不支持全文搜索"
 
-#: ../camel/camel-exchange-utils.c:2850
+#: ../camel/camel-exchange-utils.c:2866
 msgid "Unable to move/copy messages"
 msgstr "无法移动/复制信件"
 
-#: ../camel/camel-exchange-utils.c:2962
+#: ../camel/camel-exchange-utils.c:2985
 msgid "No mail submission URI for this mailbox"
 msgstr "没有此邮箱的提交 URI"
 
-#: ../camel/camel-exchange-utils.c:2995
+#: ../camel/camel-exchange-utils.c:3018
 msgid "Server won't accept mail via Exchange transport"
 msgstr "服务器无法接受通过 Exchange 传送的邮件"
 
-#: ../camel/camel-exchange-utils.c:2997
+#: ../camel/camel-exchange-utils.c:3020
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -383,7 +382,7 @@ msgstr ""
 "您的账户没有权限使用 <%s>\n"
 "作为 From 地址。"
 
-#: ../camel/camel-exchange-utils.c:3009
+#: ../camel/camel-exchange-utils.c:3032
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -391,19 +390,19 @@ msgstr ""
 "无法发送信件。\n"
 "这可能意味着您的账户已超出配额。"
 
-#: ../camel/camel-exchange-utils.c:3013
+#: ../camel/camel-exchange-utils.c:3036
 msgid "Could not send message"
 msgstr "无法发送信件"
 
-#: ../camel/camel-exchange-utils.c:3049 ../camel/camel-exchange-utils.c:3105
-#: ../camel/camel-exchange-utils.c:3275 ../camel/camel-exchange-utils.c:3328
-#: ../camel/camel-exchange-utils.c:3392
+#: ../camel/camel-exchange-utils.c:3072 ../camel/camel-exchange-utils.c:3128
+#: ../camel/camel-exchange-utils.c:3298 ../camel/camel-exchange-utils.c:3351
+#: ../camel/camel-exchange-utils.c:3415
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
 #: ../server/storage/e-storage.c:557
 msgid "Generic error"
 msgstr "常规错误"
 
-#: ../camel/camel-exchange-utils.c:3053
+#: ../camel/camel-exchange-utils.c:3076
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
 msgid "Folder already exists"
 msgstr "文件夹已存在"
@@ -433,85 +432,84 @@ msgid "I am in the office"
 msgstr "我在办公室"
 
 #. Security settings
-#: ../eplugin/exchange-account-setup.c:328
+#: ../eplugin/exchange-account-setup.c:329
 msgid "Security"
 msgstr "安全"
 
 #. Change Password
-#: ../eplugin/exchange-account-setup.c:339
+#: ../eplugin/exchange-account-setup.c:340
 msgid "Change the password for Exchange account"
 msgstr "更改此 Exchange 账户的口令"
 
-#: ../eplugin/exchange-account-setup.c:341
+#: ../eplugin/exchange-account-setup.c:342
 #: ../eplugin/exchange-change-password.c:85
 msgid "Change Password"
 msgstr "更改密码"
 
 #. Delegation Assistant
-#: ../eplugin/exchange-account-setup.c:346
+#: ../eplugin/exchange-account-setup.c:347
 msgid "Manage the delegate settings for Exchange account"
-msgstr ""
+msgstr "为 Exchange 账户管理委托设置"
 
-#: ../eplugin/exchange-account-setup.c:348
-#, fuzzy
+#: ../eplugin/exchange-account-setup.c:349
 msgid "Delegation Assistant"
-msgstr "代表助手(_D)"
+msgstr "委托助手"
 
 #. Miscelleneous settings
-#: ../eplugin/exchange-account-setup.c:360
-msgid "Miscelleneous"
-msgstr ""
+#: ../eplugin/exchange-account-setup.c:361
+msgid "Miscellaneous"
+msgstr "杂项"
 
 #. Folder Size
-#: ../eplugin/exchange-account-setup.c:370
+#: ../eplugin/exchange-account-setup.c:371
 msgid "View the size of all Exchange folders"
 msgstr "查看所有 Exchange 文件夹的大小"
 
-#: ../eplugin/exchange-account-setup.c:372
+#: ../eplugin/exchange-account-setup.c:373
 msgid "Folders Size"
 msgstr "文件夹大小"
 
-#: ../eplugin/exchange-account-setup.c:379
+#: ../eplugin/exchange-account-setup.c:380
 #: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:3
 msgid "Exchange Settings"
 msgstr "Exchange 设置"
 
-#: ../eplugin/exchange-account-setup.c:738
+#: ../eplugin/exchange-account-setup.c:739
 msgid "_OWA URL:"
 msgstr "_OWA URL："
 
-#: ../eplugin/exchange-account-setup.c:764
+#: ../eplugin/exchange-account-setup.c:765
 msgid "A_uthenticate"
 msgstr "认证(_U)"
 
-#: ../eplugin/exchange-account-setup.c:786
-msgid "Mailbox name is _different than user name"
+#: ../eplugin/exchange-account-setup.c:787
+msgid "Mailbox name is _different from user name"
 msgstr "邮箱名和用户名不同(_D)"
 
-#: ../eplugin/exchange-account-setup.c:799
+#: ../eplugin/exchange-account-setup.c:800
 msgid "_Mailbox:"
 msgstr "邮箱(_M)："
 
-#: ../eplugin/exchange-account-setup.c:1013
+#: ../eplugin/exchange-account-setup.c:1015
 msgid "_Authentication Type"
 msgstr "认证类型(_A)"
 
-#: ../eplugin/exchange-account-setup.c:1027
+#: ../eplugin/exchange-account-setup.c:1029
 msgid "Ch_eck for Supported Types"
 msgstr "检查支持的类型(_E)"
 
-#: ../eplugin/exchange-account-setup.c:1142 ../eplugin/exchange-contacts.c:217
+#: ../eplugin/exchange-account-setup.c:1144 ../eplugin/exchange-contacts.c:217
 #, c-format
 msgid "%s KB"
 msgstr "%s KB"
 
-#: ../eplugin/exchange-account-setup.c:1144 ../eplugin/exchange-contacts.c:219
+#: ../eplugin/exchange-account-setup.c:1146 ../eplugin/exchange-contacts.c:219
 #, c-format
 msgid "0 KB"
 msgstr "0 KB"
 
 #. FIXME: Take care of i18n
-#: ../eplugin/exchange-account-setup.c:1149 ../eplugin/exchange-calendar.c:236
+#: ../eplugin/exchange-account-setup.c:1151 ../eplugin/exchange-calendar.c:236
 #: ../eplugin/exchange-contacts.c:222
 msgid "Size:"
 msgstr "大小："
@@ -595,22 +593,22 @@ msgstr "是的，更改状态(_Y)"
 msgid "Enter Password for %s"
 msgstr "输入 %s 的密码"
 
-#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:415
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:436
 #: ../server/storage/exchange-hierarchy-foreign.c:260
 msgid "Calendar"
 msgstr "日历"
 
-#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:418
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:439
 #: ../server/storage/exchange-hierarchy-foreign.c:269
 msgid "Tasks"
 msgstr "任务"
 
-#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:413
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:434
 #: ../server/storage/exchange-hierarchy-foreign.c:264
 msgid "Inbox"
 msgstr "收件箱"
 
-#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:421
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:442
 #: ../server/storage/exchange-hierarchy-foreign.c:261
 msgid "Contacts"
 msgstr "联系人"
@@ -686,9 +684,8 @@ msgid "Co_ntacts:"
 msgstr "联系人(_N)："
 
 #: ../eplugin/exchange-delegates-user.c:331
-#, fuzzy
 msgid "_Summarize permissions"
-msgstr "代表权限"
+msgstr "权限摘要(_S)"
 
 #: ../eplugin/exchange-delegates-user.c:335
 msgid "_Delegate can see private items"
@@ -708,6 +705,8 @@ msgid ""
 "This message was sent automatically by Evolution to inform you that you have "
 "been designated as a delegate. You can now send messages on my behalf."
 msgstr ""
+"这封信是 Evolution 自动发送的，用来通知您您已经被授权为代表。您现在可以用我的"
+"身份发送信件了。"
 
 #. To translators: Another chunk of the same message.
 #.
@@ -719,9 +718,8 @@ msgstr "您已经有了在我的目录上的如下权限："
 #. to the private items.
 #.
 #: ../eplugin/exchange-delegates-user.c:459
-#, fuzzy
 msgid "You are also permitted to see my private items."
-msgstr "代表可以看到私有项目(_D)"
+msgstr "您也被允许查看我的私人条目。"
 
 #. To translators: This message is included if the delegatee has not been given access
 #. to the private items.
@@ -733,22 +731,20 @@ msgstr "但是您没有被授权查看我的私人条目。"
 #: ../eplugin/exchange-delegates-user.c:498
 #, c-format
 msgid "You have been designated as a delegate for %s"
-msgstr ""
+msgstr "你已被授权作为 %s 的代表 "
 
 #: ../eplugin/exchange-delegates.c:413
-#, fuzzy
 msgid "Delegate To:"
-msgstr "代表"
+msgstr "委托给："
 
 #: ../eplugin/exchange-delegates.c:413
-#, fuzzy
 msgid "Delegate To"
-msgstr "代表"
+msgstr "委托给"
 
 #: ../eplugin/exchange-delegates.c:578
 #, c-format
 msgid "Remove the delegate %s?"
-msgstr ""
+msgstr "是否移除授权 %s?"
 
 #: ../eplugin/exchange-delegates.c:695
 msgid "Could not access Active Directory"
@@ -759,24 +755,23 @@ msgid "Could not find self in Active Directory"
 msgstr "不能在活动目录中找到自身"
 
 #: ../eplugin/exchange-delegates.c:720
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find delegate %s in Active Directory"
-msgstr "全局地址列表/活动目录"
+msgstr "无法在活动目录中发现委托 %s"
 
 #: ../eplugin/exchange-delegates.c:732
-#, fuzzy, c-format
+#, c-format
 msgid "Could not remove delegate %s"
-msgstr "无法创建套接字：%s"
+msgstr "无法移除授权：%s"
 
 #: ../eplugin/exchange-delegates.c:792
-#, fuzzy
 msgid "Could not update list of delegates."
-msgstr "无法创建套接字：%s"
+msgstr "无法更新授权列表：%s"
 
 #: ../eplugin/exchange-delegates.c:810
-#, fuzzy, c-format
+#, c-format
 msgid "Could not add delegate %s"
-msgstr "无法创建套接字：%s"
+msgstr "无法增加授权：%s"
 
 #: ../eplugin/exchange-delegates.c:926
 msgid "Delegates"
@@ -793,56 +788,56 @@ msgid "_Edit"
 msgstr "编辑(_E)"
 
 #: ../eplugin/exchange-delegates.c:995
-#: ../eplugin/exchange-permissions-dialog.c:916
+#: ../eplugin/exchange-permissions-dialog.c:920
 msgid "Name"
 msgstr "名称"
 
 #: ../eplugin/exchange-delegates.c:1021
 msgid "Error reading delegates list."
-msgstr ""
+msgstr "读取授权列表失败"
 
-#: ../eplugin/exchange-folder-permission.c:199
-#: ../eplugin/exchange-folder-permission.c:436
-#: ../eplugin/exchange-folder-permission.c:470
-#: ../eplugin/exchange-folder-permission.c:504
+#: ../eplugin/exchange-folder-permission.c:242
+#: ../eplugin/exchange-folder-permission.c:521
+#: ../eplugin/exchange-folder-permission.c:555
+#: ../eplugin/exchange-folder-permission.c:589
 msgid "Permissions..."
 msgstr "设置..."
 
-#: ../eplugin/exchange-folder-permission.c:201
+#: ../eplugin/exchange-folder-permission.c:244
 msgid "Check folder permissions"
 msgstr "检查文件夹权限"
 
-#: ../eplugin/exchange-folder-permission.c:206
-#: ../eplugin/exchange-folder-permission.c:443
-#: ../eplugin/exchange-folder-permission.c:477
-#: ../eplugin/exchange-folder-permission.c:511
+#: ../eplugin/exchange-folder-permission.c:249
+#: ../eplugin/exchange-folder-permission.c:528
+#: ../eplugin/exchange-folder-permission.c:562
+#: ../eplugin/exchange-folder-permission.c:596
 msgid "Subscribe to Other User's Folder..."
 msgstr "订阅其他用户的文件夹"
 
-#: ../eplugin/exchange-folder-permission.c:208
-#: ../eplugin/exchange-folder-permission.c:445
-#: ../eplugin/exchange-folder-permission.c:479
-#: ../eplugin/exchange-folder-permission.c:513
+#: ../eplugin/exchange-folder-permission.c:251
+#: ../eplugin/exchange-folder-permission.c:530
+#: ../eplugin/exchange-folder-permission.c:564
+#: ../eplugin/exchange-folder-permission.c:598
 #: ../eplugin/exchange-folder-subscription.c:306
 msgid "Subscribe to Other User's Folder"
 msgstr "订阅其他用户的文件夹"
 
-#: ../eplugin/exchange-folder-permission.c:213
-#: ../eplugin/exchange-folder-permission.c:450
-#: ../eplugin/exchange-folder-permission.c:484
-#: ../eplugin/exchange-folder-permission.c:518
+#: ../eplugin/exchange-folder-permission.c:256
+#: ../eplugin/exchange-folder-permission.c:535
+#: ../eplugin/exchange-folder-permission.c:569
+#: ../eplugin/exchange-folder-permission.c:603
 msgid "Unsubscribe Folder..."
 msgstr "退订文件夹"
 
-#: ../eplugin/exchange-folder-permission.c:438
+#: ../eplugin/exchange-folder-permission.c:523
 msgid "Check calendar permissions"
 msgstr "检查联系人权限"
 
-#: ../eplugin/exchange-folder-permission.c:472
+#: ../eplugin/exchange-folder-permission.c:557
 msgid "Check tasks permissions"
 msgstr "检查任务权限"
 
-#: ../eplugin/exchange-folder-permission.c:506
+#: ../eplugin/exchange-folder-permission.c:591
 msgid "Check addressbook permissions"
 msgstr "检查地址簿权限"
 
@@ -875,12 +870,12 @@ msgstr "文件夹名(_F)："
 msgid "_User:"
 msgstr "用户(_U)："
 
-#: ../eplugin/exchange-folder.c:303 ../eplugin/exchange-folder.c:357
+#: ../eplugin/exchange-folder.c:324 ../eplugin/exchange-folder.c:378
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "确定从“%s”目录中退订？"
 
-#: ../eplugin/exchange-folder.c:315 ../eplugin/exchange-folder.c:369
+#: ../eplugin/exchange-folder.c:336 ../eplugin/exchange-folder.c:390
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "从“%s”退订"
@@ -908,129 +903,128 @@ msgid "Add User:"
 msgstr "添加用户："
 
 #: ../eplugin/exchange-permissions-dialog.c:384
-#: ../eplugin/exchange-send-options.c:490
+#: ../eplugin/exchange-send-options.c:467
 msgid "Add User"
 msgstr "添加用户"
 
-#: ../eplugin/exchange-permissions-dialog.c:792
+#: ../eplugin/exchange-permissions-dialog.c:796
 msgid "Permissions"
 msgstr "权限"
 
-#: ../eplugin/exchange-permissions-dialog.c:809
+#: ../eplugin/exchange-permissions-dialog.c:813
 msgid "Role: "
 msgstr "角色："
 
-#: ../eplugin/exchange-permissions-dialog.c:835
+#: ../eplugin/exchange-permissions-dialog.c:839
 msgid "Create items"
 msgstr "创建项目"
 
-#: ../eplugin/exchange-permissions-dialog.c:839
+#: ../eplugin/exchange-permissions-dialog.c:843
 msgid "Read items"
 msgstr "读取项目"
 
-#: ../eplugin/exchange-permissions-dialog.c:843
+#: ../eplugin/exchange-permissions-dialog.c:847
 msgid "Create subfolders"
 msgstr "创建子文件夹"
 
-#: ../eplugin/exchange-permissions-dialog.c:851
+#: ../eplugin/exchange-permissions-dialog.c:855
 msgid "Cannot Edit"
 msgstr "无法编辑"
 
-#: ../eplugin/exchange-permissions-dialog.c:857
+#: ../eplugin/exchange-permissions-dialog.c:861
 msgid "Edit Own Items"
 msgstr "编辑所有项目"
 
-#: ../eplugin/exchange-permissions-dialog.c:863
+#: ../eplugin/exchange-permissions-dialog.c:867
 msgid "Edit Any Items"
 msgstr "编辑任何项目"
 
-#: ../eplugin/exchange-permissions-dialog.c:877
+#: ../eplugin/exchange-permissions-dialog.c:881
 msgid "Folder owner"
 msgstr "文件夹所有者"
 
-#: ../eplugin/exchange-permissions-dialog.c:881
+#: ../eplugin/exchange-permissions-dialog.c:885
 msgid "Folder contact"
 msgstr "文件夹联系人"
 
-#: ../eplugin/exchange-permissions-dialog.c:885
+#: ../eplugin/exchange-permissions-dialog.c:889
 msgid "Folder visible"
 msgstr "文件夹可见"
 
-#: ../eplugin/exchange-permissions-dialog.c:893
+#: ../eplugin/exchange-permissions-dialog.c:897
 msgid "Cannot Delete"
 msgstr "无法删除"
 
-#: ../eplugin/exchange-permissions-dialog.c:900
+#: ../eplugin/exchange-permissions-dialog.c:904
 msgid "Delete Own Items"
 msgstr "删除所有项目"
 
-#: ../eplugin/exchange-permissions-dialog.c:906
+#: ../eplugin/exchange-permissions-dialog.c:910
 msgid "Delete Any Items"
 msgstr "删除任何项目"
 
-#: ../eplugin/exchange-permissions-dialog.c:920
+#: ../eplugin/exchange-permissions-dialog.c:924
 msgid "Role"
 msgstr "角色"
 
-#: ../eplugin/exchange-send-options.c:360
+#: ../eplugin/exchange-send-options.c:337
 msgid "Exchange - Send Options"
 msgstr "Exchange - 发送选项"
 
-#: ../eplugin/exchange-send-options.c:381
+#: ../eplugin/exchange-send-options.c:358
 msgid "Message Settings"
 msgstr "消息设置"
 
-#: ../eplugin/exchange-send-options.c:395
+#: ../eplugin/exchange-send-options.c:372
 msgid "I_mportance: "
 msgstr "重要性(_M)："
 
-#: ../eplugin/exchange-send-options.c:402
+#: ../eplugin/exchange-send-options.c:379
 msgid "_Sensitivity: "
-msgstr ""
+msgstr "敏感性(_S)："
 
-#: ../eplugin/exchange-send-options.c:414
-#: ../eplugin/exchange-send-options.c:424
+#: ../eplugin/exchange-send-options.c:391
+#: ../eplugin/exchange-send-options.c:401
 msgid "Normal"
 msgstr "普通"
 
-#: ../eplugin/exchange-send-options.c:415
+#: ../eplugin/exchange-send-options.c:392
 msgid "Personal"
 msgstr "个人"
 
-#: ../eplugin/exchange-send-options.c:416
+#: ../eplugin/exchange-send-options.c:393
 msgid "Private"
 msgstr "私人"
 
-#: ../eplugin/exchange-send-options.c:417
+#: ../eplugin/exchange-send-options.c:394
 msgid "Confidential"
 msgstr "机密"
 
-#: ../eplugin/exchange-send-options.c:425
+#: ../eplugin/exchange-send-options.c:402
 msgid "High"
 msgstr "高"
 
-#: ../eplugin/exchange-send-options.c:426
+#: ../eplugin/exchange-send-options.c:403
 msgid "Low"
 msgstr "低"
 
-#: ../eplugin/exchange-send-options.c:428
-#, fuzzy
+#: ../eplugin/exchange-send-options.c:405
 msgid "Send as Delegate"
-msgstr "代表"
+msgstr "作为委托发送"
 
-#: ../eplugin/exchange-send-options.c:445
+#: ../eplugin/exchange-send-options.c:422
 msgid "_User"
 msgstr "用户(_U)"
 
-#: ../eplugin/exchange-send-options.c:453
+#: ../eplugin/exchange-send-options.c:430
 msgid "Tracking Options"
 msgstr "跟踪选项"
 
-#: ../eplugin/exchange-send-options.c:461
+#: ../eplugin/exchange-send-options.c:438
 msgid "Request a _delivery receipt for this message"
 msgstr "为此信息要求一个已送达回执"
 
-#: ../eplugin/exchange-send-options.c:466
+#: ../eplugin/exchange-send-options.c:443
 msgid "Request a _read receipt for this message"
 msgstr "为此信息要求一个已读回执"
 
@@ -1091,7 +1085,7 @@ msgid ""
 "username, and password, and try again."
 msgstr ""
 "无法配置 Exchange 账户，因为发生了未知错误。\n"
-"请检查 URL、用户名和口令，然后再试一次。"
+"请检查 URL、用户名和密码，然后再试一次。"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:11
 msgid "Could not connect to Exchange server."
@@ -1102,9 +1096,8 @@ msgid "Could not connect to server {0}."
 msgstr "无法连接到服务器 {0}。"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:13
-#, fuzzy
 msgid "Could not determine folder permissions for delegates."
-msgstr "无法打开文件夹：权限被禁止"
+msgstr "无法为委托确认文件夹权限。"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:14
 msgid "Could not find Exchange Web Storage System."
@@ -1115,9 +1108,8 @@ msgid "Could not locate server {0}."
 msgstr "无法定位服务器 {0}。"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:16
-#, fuzzy
 msgid "Could not make {0} a delegate"
-msgstr "无法追加信件"
+msgstr "不能授权给用户 {0}"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:17
 msgid "Could not read folder permissions"
@@ -1148,7 +1140,6 @@ msgid "Exchange Account is offline."
 msgstr "Exchange 账户已离线。"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:24
-#, fuzzy
 msgid ""
 "Exchange Connector requires access to certain\n"
 "functionality on the Exchange Server that appears\n"
@@ -1163,15 +1154,19 @@ msgid ""
 "{0}\n"
 "  "
 msgstr ""
-"Evolution Connector 需要访问 Exchange 服务器上特定的功能，但该功能似乎被禁止"
-"或屏蔽。(这一问题通常是无意间造成的。)要让您能够使用 Ximian Connector，您的 "
-"Exchange 管理员必须启用此功能。\n"
+"Exchange Connector 需要访问 Exchange 服务器上特定的功能，\n"
+"但该功能似乎被禁止或屏蔽。(这一问题通常是无意间造成的。)\n"
+"要让您能够使用 Evolution Exchange Connector，您的 Exchange\n"
+"管理员必须启用此功能。\n"
 "\n"
-"关于需要向您的 Exchange 管理员提供的信息，请查看下面的链接："
+"关于需要向您的 Exchange 管理员提供的信息，请查看下面的链接：\n"
+"\n"
+"{0}\n"
+" "
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:36
 msgid "Failed to update delegates:"
-msgstr ""
+msgstr "更新授权用户列表失败："
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:38
 msgid "Folder does not exist"
@@ -1225,7 +1220,7 @@ msgstr "口令成功更改"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:52
 msgid "Please enter a Delegate's ID or deselect the Send as a Delegate option."
-msgstr ""
+msgstr "请输入委托的 ID 或取消选择“作为一个委托发送”选项。"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:53
 msgid "Please make sure the Global Catalog Server name is correct."
@@ -1269,8 +1264,12 @@ msgid ""
 "you to specify the Windows domain name \n"
 "as part of your username (eg, &quot;DOMAIN\\user&quot;).\n"
 "\n"
-"Or you might have just typed your password wrong."
+"Also, you may have typed your password wrongly."
 msgstr ""
+"这可能是指您的服务器要求作为您用户名的一部分\n"
+"指定 Windows 域名(例如：“DOMAIN\\user”)。\n"
+"\n"
+"当然，也可能是您输入的密码不正确。"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:67
 msgid "Try again with a different password."
@@ -1281,13 +1280,12 @@ msgid "Unable to add user to access control list:"
 msgstr "无法添加用户到访问控制列表："
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:69
-#, fuzzy
 msgid "Unable to edit delegates."
-msgstr "无法移动/复制信件"
+msgstr "无法编辑委托"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:70
 msgid "Unknown error looking up {0}"
-msgstr ""
+msgstr "未知的错误查找 {0}"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:71
 msgid "Unknown error."
@@ -1303,21 +1301,21 @@ msgstr "不支持的操作"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:74
 msgid "You are nearing your quota available for storing mail on this server."
-msgstr ""
+msgstr "您在此服务器上存储的邮件已经接近所分配的空间限额了。"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:75
 msgid ""
 "You are permitted to send a message on behalf of only one delegator at a "
 "time."
-msgstr ""
+msgstr "你每一次只允许使用一个授权用户发送信息"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:76
 msgid "You cannot make yourself your own delegate"
-msgstr ""
+msgstr "你不能进行自我授权"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:77
 msgid "You have exceeded your quota for storing mail on this server."
-msgstr ""
+msgstr "你存储在此服务器上的邮件数量已超过最大数量"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:78
 msgid "You may only configure a single Exchange account."
@@ -1357,7 +1355,7 @@ msgstr "{0} 无法添加到访问控制列表"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:85
 msgid "{0} is already a delegate"
-msgstr ""
+msgstr "{0} 已经是一个委托了"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:86
 msgid "{0} is already in the list"
@@ -1382,7 +1380,7 @@ msgstr "属主"
 
 #: ../server/lib/e2k-security-descriptor.c:852
 msgid "Publishing Editor"
-msgstr ""
+msgstr "编辑"
 
 #: ../server/lib/e2k-security-descriptor.c:860
 msgid "Editor"
@@ -1390,7 +1388,7 @@ msgstr "编辑器"
 
 #: ../server/lib/e2k-security-descriptor.c:867
 msgid "Publishing Author"
-msgstr ""
+msgstr "出版者"
 
 #: ../server/lib/e2k-security-descriptor.c:873
 msgid "Author"
@@ -1398,7 +1396,7 @@ msgstr "作者"
 
 #: ../server/lib/e2k-security-descriptor.c:878
 msgid "Non-editing Author"
-msgstr ""
+msgstr "未命名作者"
 
 #: ../server/lib/e2k-security-descriptor.c:882
 msgid "Reviewer"
@@ -1454,7 +1452,7 @@ msgstr "指定的文件夹不能修改或移除"
 
 #: ../server/storage/e-storage.c:581
 msgid "Cannot make a folder a child of one of its descendants"
-msgstr ""
+msgstr "不能使一个文件夹成为其子文件夹的子文件夹"
 
 #: ../server/storage/e-storage.c:583
 msgid "Cannot create a folder with that name"
@@ -1476,9 +1474,8 @@ msgid "%s's Folders"
 msgstr "%s 的文件夹"
 
 #: ../server/storage/exchange-account.c:1274
-#, fuzzy
 msgid "Favorite Public Folders"
-msgstr "创建子文件夹"
+msgstr "收藏的公共文件夹"
 
 #. i18n: Outlookism
 #: ../server/storage/exchange-account.c:1291
@@ -1488,7 +1485,7 @@ msgstr "所有公共文件夹"
 #. i18n: Outlookism
 #: ../server/storage/exchange-account.c:1305
 msgid "Global Address List"
-msgstr "全局地址列表"
+msgstr "全局地址列表(GAL)"
 
 #: ../server/storage/exchange-hierarchy-foreign.c:262
 msgid "Deleted Items"
@@ -1503,9 +1500,8 @@ msgid "Journal"
 msgstr "日志"
 
 #: ../server/storage/exchange-hierarchy-foreign.c:266
-#, fuzzy
 msgid "Notes"
-msgstr "无"
+msgstr "备注"
 
 #: ../server/storage/exchange-hierarchy-foreign.c:267
 msgid "Outbox"
@@ -1515,11 +1511,11 @@ msgstr "发件箱"
 msgid "Sent Items"
 msgstr "已发送项目"
 
-#: ../tools/exchange-autoconfig-wizard.c:176
+#: ../tools/exchange-autoconfig-wizard.c:177
 msgid "Welcome"
 msgstr "欢迎"
 
-#: ../tools/exchange-autoconfig-wizard.c:176
+#: ../tools/exchange-autoconfig-wizard.c:177
 msgid ""
 "Welcome to Evolution Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
@@ -1533,13 +1529,13 @@ msgstr ""
 "\n"
 "请单击“下一步”按钮继续。"
 
-#: ../tools/exchange-autoconfig-wizard.c:188
-#: ../tools/exchange-autoconfig-wizard.c:361
-#: ../tools/exchange-autoconfig-wizard.c:448
+#: ../tools/exchange-autoconfig-wizard.c:189
+#: ../tools/exchange-autoconfig-wizard.c:362
+#: ../tools/exchange-autoconfig-wizard.c:449
 msgid "Exchange Configuration"
 msgstr "Exchange 配置"
 
-#: ../tools/exchange-autoconfig-wizard.c:188
+#: ../tools/exchange-autoconfig-wizard.c:189
 msgid ""
 "Evolution Connector for Microsoft Exchange can use account information from "
 "your existing Outlook Web Access (OWA) account.\n"
@@ -1551,23 +1547,23 @@ msgstr ""
 "\n"
 "请输入您的 OWA 网站地址(URL)、用户名和密码，然后单击“下一步”。\n"
 
-#: ../tools/exchange-autoconfig-wizard.c:196
+#: ../tools/exchange-autoconfig-wizard.c:197
 msgid "OWA _URL:"
 msgstr "OWA URL(_U)："
 
-#: ../tools/exchange-autoconfig-wizard.c:200
+#: ../tools/exchange-autoconfig-wizard.c:201
 msgid "User_name:"
 msgstr "用户名(_N)："
 
-#: ../tools/exchange-autoconfig-wizard.c:204
+#: ../tools/exchange-autoconfig-wizard.c:205
 msgid "_Password:"
 msgstr "口令(_P)："
 
-#: ../tools/exchange-autoconfig-wizard.c:209
+#: ../tools/exchange-autoconfig-wizard.c:210
 msgid "_Remember this password"
 msgstr "记住此口令(_R)"
 
-#: ../tools/exchange-autoconfig-wizard.c:282
+#: ../tools/exchange-autoconfig-wizard.c:283
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -1576,7 +1572,7 @@ msgstr ""
 "无法连接到 Exchange 服务器。\n"
 "请确定 URL 正确(试着用“%s”来取代“%s”)然后再试一次。"
 
-#: ../tools/exchange-autoconfig-wizard.c:290
+#: ../tools/exchange-autoconfig-wizard.c:291
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -1584,7 +1580,7 @@ msgstr ""
 "无法定位 Exchange 服务器。\n"
 "请确定服务器名拼写正确，然后再试一次。"
 
-#: ../tools/exchange-autoconfig-wizard.c:299
+#: ../tools/exchange-autoconfig-wizard.c:300
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -1592,7 +1588,7 @@ msgstr ""
 "无法验证到 Exchange 服务器。\n"
 "请确定用户名和密码正确，然后再试一次。"
 
-#: ../tools/exchange-autoconfig-wizard.c:306
+#: ../tools/exchange-autoconfig-wizard.c:307
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -1606,7 +1602,7 @@ msgstr ""
 "\n"
 "您可能需要将 Windows 域名指定为您用户名的一部分(如“MY-DOMAIN\\%s”)。"
 
-#: ../tools/exchange-autoconfig-wizard.c:318
+#: ../tools/exchange-autoconfig-wizard.c:319
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -1614,7 +1610,7 @@ msgstr ""
 "在标明的 URL 找不到 OWA 数据。\n"
 "请确定 URL 正确，然后再试一次。"
 
-#: ../tools/exchange-autoconfig-wizard.c:324
+#: ../tools/exchange-autoconfig-wizard.c:325
 msgid ""
 "Evolution Connector for Microsoft Exchange requires access to certain "
 "functionality on the Exchange server that appears to be disabled or "
@@ -1631,7 +1627,7 @@ msgstr ""
 "\n"
 "关于需要向您的 Exchange 管理员提供的信息，请查看下面的链接："
 
-#: ../tools/exchange-autoconfig-wizard.c:337
+#: ../tools/exchange-autoconfig-wizard.c:338
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 server. "
 "Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
@@ -1640,7 +1636,7 @@ msgstr ""
 "您提供的 Exchange 服务器 URL 是 Exchange 5.5 服务器。Evolution Connector 只支"
 "持 Microsoft Exchange 2000 和 2003。"
 
-#: ../tools/exchange-autoconfig-wizard.c:345
+#: ../tools/exchange-autoconfig-wizard.c:346
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -1648,7 +1644,7 @@ msgstr ""
 "无法配置 Exchange 账户，原因是发生了未知错误。请检查 URL、用户名和密码，然后"
 "再试一次。"
 
-#: ../tools/exchange-autoconfig-wizard.c:361
+#: ../tools/exchange-autoconfig-wizard.c:362
 msgid ""
 "Evolution Connector for Microsoft Exchange could not find the Global Catalog "
 "replica for your site. Please enter the name of your Global Catalog server. "
@@ -1657,11 +1653,11 @@ msgstr ""
 "Evolution Connector for Microsoft Exchange 找不到您网站对应的全局目录。请输入"
 "您全局目录服务器的名称。您可能需要向您的系统管理员询问正确的值。"
 
-#: ../tools/exchange-autoconfig-wizard.c:369
+#: ../tools/exchange-autoconfig-wizard.c:370
 msgid "GC _Server:"
 msgstr "GC 服务器(_S)："
 
-#: ../tools/exchange-autoconfig-wizard.c:402
+#: ../tools/exchange-autoconfig-wizard.c:403
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -1671,7 +1667,7 @@ msgstr ""
 "无法验证到全局目录服务器。您可能需要返回，然后将 Windows 域名指定为您用户名的"
 "一部分(如“MY-DOMAIN\\%s”)。"
 
-#: ../tools/exchange-autoconfig-wizard.c:409
+#: ../tools/exchange-autoconfig-wizard.c:410
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -1679,50 +1675,50 @@ msgstr ""
 "无法连接到指定服务器。\n"
 "请检查服务器名称，然后再试一次。"
 
-#: ../tools/exchange-autoconfig-wizard.c:421
+#: ../tools/exchange-autoconfig-wizard.c:422
 msgid "Configuration Failed"
 msgstr "配置失败"
 
-#: ../tools/exchange-autoconfig-wizard.c:421
+#: ../tools/exchange-autoconfig-wizard.c:422
 msgid ""
 "Evolution Connector for Microsoft Exchange has encountered a problem "
 "configuring your Exchange account."
 msgstr "Evolution Connector 在配置您的 Exchange 账户时遇到了问题。"
 
-#: ../tools/exchange-autoconfig-wizard.c:448
+#: ../tools/exchange-autoconfig-wizard.c:449
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\"."
 msgstr "您的账户信息如下。请修正其中的任何错误，然后单击“前进”。"
 
-#: ../tools/exchange-autoconfig-wizard.c:456
+#: ../tools/exchange-autoconfig-wizard.c:457
 msgid "Full _Name:"
 msgstr "全名(_N)："
 
-#: ../tools/exchange-autoconfig-wizard.c:460
+#: ../tools/exchange-autoconfig-wizard.c:461
 msgid "_Email Address:"
 msgstr "电子邮件地址(_E)："
 
-#: ../tools/exchange-autoconfig-wizard.c:464
+#: ../tools/exchange-autoconfig-wizard.c:465
 msgid "Make this my _default account"
 msgstr "将此账户作为我的默认账户(_D)"
 
-#: ../tools/exchange-autoconfig-wizard.c:481
-#: ../tools/exchange-autoconfig-wizard.c:485
+#: ../tools/exchange-autoconfig-wizard.c:482
+#: ../tools/exchange-autoconfig-wizard.c:486
 msgid "Unknown"
 msgstr "未知"
 
-#: ../tools/exchange-autoconfig-wizard.c:508
+#: ../tools/exchange-autoconfig-wizard.c:509
 msgid "Done"
 msgstr "完成"
 
-#: ../tools/exchange-autoconfig-wizard.c:508
+#: ../tools/exchange-autoconfig-wizard.c:509
 msgid ""
 "Your Connector account is now ready to use. Click the \"Apply\" button to "
 "save your settings."
 msgstr "您的 Connector 账户已经可以使用了。请单击“应用”按钮保存您的设置。"
 
-#: ../tools/exchange-autoconfig-wizard.c:542
+#: ../tools/exchange-autoconfig-wizard.c:543
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -1730,11 +1726,11 @@ msgstr ""
 "配置系统错误。\n"
 "无法创建新账户。"
 
-#: ../tools/exchange-autoconfig-wizard.c:556
+#: ../tools/exchange-autoconfig-wizard.c:557
 msgid "You may only configure a single Exchange account"
 msgstr "您只能配置一个 Exchange 账户"
 
-#: ../tools/exchange-autoconfig-wizard.c:731
+#: ../tools/exchange-autoconfig-wizard.c:732
 msgid "Evolution Connector for Microsoft Exchange Configuration"
 msgstr "Evolution Connector for Microsoft Exchange 配置"
 
