@@ -317,7 +317,7 @@ exchange_store_connect_sync (CamelService *service,
 				"Exchange", url->user, url->host);
 
 			url->passwd = camel_session_get_password (
-				session, service, "Exchange", prompt,
+				session, service, prompt,
 				"password", prompt_flags, error);
 
 			g_free (prompt);

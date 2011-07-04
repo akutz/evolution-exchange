@@ -101,7 +101,7 @@ test_get_password (const gchar *user, const gchar *host)
 		gchar *key;
 
 		key = g_strdup_printf ("exchange://%s@%s", user, host);
-		password = e_passwords_get_password ("Exchange", key);
+		password = e_passwords_get_password (NULL, key);
 		g_free (key);
 	}
 

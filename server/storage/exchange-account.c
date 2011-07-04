@@ -943,9 +943,9 @@ get_password (ExchangeAccount *account, E2kAutoconfig *ac, ExchangeAccountResult
 	gchar *password;
 
 	if (error != EXCHANGE_ACCOUNT_CONNECT_SUCCESS)
-		e_passwords_forget_password ("Exchange", account->priv->password_key);
+		e_passwords_forget_password (NULL, account->priv->password_key);
 
-	password = e_passwords_get_password ("Exchange", account->priv->password_key);
+	password = e_passwords_get_password (NULL, account->priv->password_key);
 #if 0
 	if (exchange_component_is_interactive (global_exchange_component)) {
 		gboolean remember, oldremember;
@@ -958,7 +958,7 @@ get_password (ExchangeAccount *account, E2kAutoconfig *ac, ExchangeAccountResult
 					account->priv->account->source->save_passwd;
 			password = e_passwords_ask_password (
 					_("Enter password"),
-					"Exchange",
+					NULL,
 					account->priv->password_key,
 					prompt,
 					E_PASSWORDS_REMEMBER_FOREVER|E_PASSWORDS_SECRET,
@@ -974,7 +974,7 @@ get_password (ExchangeAccount *account, E2kAutoconfig *ac, ExchangeAccountResult
 			 * selected remember password option, forget this password
 			 * whis is stored temporarily by e2k_validate_user()
 			 */
-			e_passwords_forget_password ("Exchange", account->priv->password_key);
+			e_passwords_forget_password (NULL, account->priv->password_key);
 		}
 	}
 #endif
@@ -985,7 +985,7 @@ get_password (ExchangeAccount *account, E2kAutoconfig *ac, ExchangeAccountResult
 		 * selected remember password option, forget this password
 		 * whis is stored temporarily by e2k_validate_user()
 		 */
-		e_passwords_forget_password ("Exchange", account->priv->password_key);
+		e_passwords_forget_password (NULL, account->priv->password_key);
 	}
 
 	if (password) {
@@ -1092,13 +1092,13 @@ find_passwd_exp_period (ExchangeAccount *account, E2kGlobalCatalogEntry *entry)
 gchar *
 exchange_account_get_password (ExchangeAccount *account)
 {
-	return e_passwords_get_password ("Exchange", account->priv->password_key);
+	return e_passwords_get_password (NULL, account->priv->password_key);
 }
 
 void
 exchange_account_forget_password (ExchangeAccount *account)
 {
-	e_passwords_forget_password ("Exchange", account->priv->password_key);
+	e_passwords_forget_password (NULL, account->priv->password_key);
 }
 
 ExchangeAccountResult
@@ -1135,10 +1135,10 @@ exchange_account_set_password (ExchangeAccount *account, gchar *old_pass, gchar 
 	}
 	switch (result) {
 	case E2K_KERBEROS_OK:
-		e_passwords_forget_password ("Exchange", account->priv->password_key);
+		e_passwords_forget_password (NULL, account->priv->password_key);
 		e_passwords_add_password (account->priv->password_key, new_pass);
 		if (account->priv->account->source->save_passwd)
-			e_passwords_remember_password ("Exchange", account->priv->password_key);
+			e_passwords_remember_password (NULL, account->priv->password_key);
 		break;
 
 	case E2K_KERBEROS_PASSWORD_TOO_WEAK:

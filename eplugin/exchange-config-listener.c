@@ -823,11 +823,11 @@ exchange_config_listener_authenticate (ExchangeConfigListener *ex_conf_listener,
 
 	camel_url = camel_url_new (priv->configured_uri, NULL);
 	key = camel_url_to_string (camel_url, CAMEL_URL_HIDE_PASSWORD | CAMEL_URL_HIDE_PARAMS);
-	password = e_passwords_get_password ("Exchange", key);
+	password = e_passwords_get_password (NULL, key);
 	if (!password) {
 		oldremember = remember = exchange_account_is_save_password (account);
 		title = g_strdup_printf (_("Enter Password for %s"), account->account_name);
-		password = e_passwords_ask_password (title, "Exchange", key, title,
+		password = e_passwords_ask_password (title, NULL, key, title,
 						     E_PASSWORDS_REMEMBER_FOREVER|E_PASSWORDS_SECRET,
 						     &remember, NULL);
 		if (remember != oldremember) {
@@ -847,7 +847,7 @@ exchange_config_listener_authenticate (ExchangeConfigListener *ex_conf_listener,
 		 * whis is stored temporarily by e2k_validate_user(), to avoid
 		 * asking for password again, at the end of account creation.
 		 */
-		e_passwords_forget_password ("Exchange", key);
+		e_passwords_forget_password (NULL, key);
 		exchange_account_set_save_password (account, FALSE);
 	}
 

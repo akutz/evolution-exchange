@@ -1680,18 +1680,18 @@ e2k_validate_user (const gchar *owa_url, gchar *pkey, gchar **user,
 try_auth_again:
 	username = g_strdup (*user);
 
-	password = e_passwords_get_password ("Exchange", key);
+	password = e_passwords_get_password (NULL, key);
 	if (password) {
 		/* This can be the case, where user presses authenticate button and
 		 * later cancels the account setup or removal of account fails for
 		 * some reason. We need to prompt for the password always when
 		 * authenticate button is pressed */
-		e_passwords_forget_password ("Exchange", key);
+		e_passwords_forget_password (NULL, key);
 	}
 
 	prompt = g_strdup_printf (_("Enter password for %s"), username);
 	password = e_passwords_ask_password (_("Enter password"),
-				"Exchange", key, prompt,
+				NULL, key, prompt,
 				E_PASSWORDS_REMEMBER_FOREVER|E_PASSWORDS_SECRET,
 				&remember, parent);
 	g_free (prompt);
@@ -1718,7 +1718,7 @@ try_auth_again:
 		else
 			key = g_strdup_printf ("exchange://%s@%s/", username, exchange_params->host);
 		e_passwords_add_password (key, password);
-		e_passwords_remember_password ("Exchange", key);
+		e_passwords_remember_password (NULL, key);
 	}
 	else {
 		if (try == 0) {
@@ -1738,7 +1738,7 @@ try_auth_again:
 			}
 		}
 		/* if validation failed*/
-		e_passwords_forget_password ("Exchange", key);
+		e_passwords_forget_password (NULL, key);
 	}
 
 	g_free (key);

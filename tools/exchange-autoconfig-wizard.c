@@ -599,7 +599,7 @@ autoconfig_gui_apply (ExchangeAutoconfigGUI *gui)
 	/* Maybe longer */
 	if (gtk_toggle_button_get_active (gui->remember_password_check)) {
 		account->source->save_passwd = TRUE;
-		e_passwords_remember_password ("Exchange", pw_key);
+		e_passwords_remember_password (NULL, pw_key);
 	}
 	g_free (pw_key);
 
