@@ -154,20 +154,21 @@ map_to_full_role_name (E2kPermissionsRole role_nam)
 	switch (role_nam) {
 		case E2K_PERMISSIONS_ROLE_EDITOR:
 			/* To Translators: The following is a type of permissions that can be assigned by a user to his/her folders. */
-			role_name = g_strdup (_("Editor (read, create, edit)"));
+			role_name = _("Editor (read, create, edit)");
 			break;
 
 		case E2K_PERMISSIONS_ROLE_AUTHOR:
 			/* To Translators: The following is a type of permissions that can be assigned by a user to his/her folders. */
-			role_name = g_strdup (_("Author (read, create)"));
+			role_name = _("Author (read, create)");
 			break;
 
 		case E2K_PERMISSIONS_ROLE_REVIEWER:
 			/* To Translators: The following is a type of permissions that can be assigned by a user to his/her folders. */
-			role_name = g_strdup (_("Reviewer (read-only)"));
+			role_name = _("Reviewer (read-only)");
 			break;
 
-		default: role_name = g_strdup (_("None"));
+		default:
+			role_name = _("None");
 			 break;
 	}
 
@@ -413,14 +414,13 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 			CamelFolder *out_folder;
 			CamelMessageInfo *info;
 			gchar *self_address, *delegate_mail_subject;
-			gchar *role_name;
-			GString *role_name_final;
+			GString *html_buffer;
 
 			const gchar *recipient_address;
 			const gchar *delegate_exchange_dn;
 			const gchar *msg_part1 = NULL, *msg_part2 = NULL;
 
-			role_name_final = g_string_new ("");
+			html_buffer = g_string_sized_new (1024);
 
 			self_address = g_strdup (exchange_account_get_email_id (account));
 
@@ -435,7 +435,6 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 			camel_content_type_set_param (type, "format", "flowed");
 			camel_data_wrapper_set_mime_type_field (delegate_mail_text, type);
 			camel_content_type_unref (type);
-			stream = camel_stream_mem_new ();
 
 			/* To translators: This is a part of the message to be sent to the delegatee
 			   summarizing the permissions assigned to him.
@@ -447,37 +446,50 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 			*/
 			msg_part2 = _("You have been given the following permissions on my folders:");
 
-			camel_stream_printf (stream,
-				"<html><body><p>%s<br><br>%s</p><table border = 0 width=\"40%%\">", msg_part1, msg_part2);
+			g_string_append_printf (
+				html_buffer,
+				"<html><body><p>%s<br><br>%s</p>"
+				"<table border = 0 width=\"40%%\">",
+				msg_part1, msg_part2);
+
 			for (i = 0; i < EXCHANGE_DELEGATES_LAST; i++) {
+				const gchar *role_name;
+
 				combobox = comboboxes[i];
 				role = e_dialog_combo_box_get (combobox, exchange_perm_map);
-				role_name = g_strdup (map_to_full_role_name (role));
+				role_name = map_to_full_role_name (role);
 				g_string_append_printf (
-					role_name_final,
+					html_buffer,
 					"<tr><td>%s:</td><td>%s</td></tr>",
 					folder_names_for_display[i], role_name);
 			}
 
-			camel_stream_printf (stream, "%s</table>", role_name_final->str);
+			g_string_append (html_buffer, "</table");
 
 			if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (see_private_checkbox)) == TRUE) {
-				/* To translators: This message is included if the delegatee has been given access
-				   to the private items.
-				*/
-				camel_stream_printf (stream, "<br>%s", _("You are also permitted "
-							"to see my private items."));
+				/* Translators: This message is included if
+				 * the delegatee has been given access to the
+				 * private items. */
+				g_string_append_printf (
+					html_buffer, "<br>%s",
+					_("You are also permitted to see "
+					  "my private items."));
 			}
 			else
-				/* To translators: This message is included if the delegatee has not been given access
-				   to the private items.
-				*/
-				camel_stream_printf (stream, "<br>%s", _("However, you are not permitted "
-							 "to see my private items."));
+				/* Translators: This message is included if
+				 * the delegatee has not been given access
+				 * to the private items. */
+				g_string_append_printf (
+					html_buffer, "<br>%s",
+					_("However, you are not permitted "
+					  "to see my private items."));
+
+			stream = camel_stream_mem_new ();
+			camel_stream_write (
+				stream, html_buffer->str,
+				html_buffer->len, NULL, NULL);
 			camel_data_wrapper_construct_from_stream_sync (
 				delegate_mail_text, stream, NULL, NULL);
-			g_free (role_name);
-			g_string_free (role_name_final, TRUE);
 			g_object_unref (stream);
 
 			part = camel_mime_part_new ();
@@ -544,6 +556,8 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 			e_mail_folder_append_message (out_folder, delegate_mail, info, 0, NULL, em_utils_delegates_done, NULL);
 			camel_message_info_free (info);
 			g_object_unref (delegate_mail);
+
+			g_string_free (html_buffer, TRUE);
 		}
 
 	}
