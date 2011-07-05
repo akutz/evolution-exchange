@@ -122,7 +122,10 @@ exchange_folder_get_message_data (CamelFolder *folder,
 	if (stream) {
 		CamelStream *null_stream = camel_stream_null_new ();
 
-		camel_stream_reset (stream, NULL);
+		g_seekable_seek (
+			G_SEEKABLE (stream), 0,
+			G_SEEK_SET, NULL, NULL);
+
 		if (camel_stream_write_to_stream (stream, null_stream, cancellable, NULL) <= 0) {
 			stream = NULL;
 		}
@@ -134,10 +137,14 @@ exchange_folder_get_message_data (CamelFolder *folder,
 		ba = g_byte_array_new ();
 		stream_mem = camel_stream_mem_new ();
 		camel_stream_mem_set_byte_array (CAMEL_STREAM_MEM (stream_mem), ba);
-		camel_stream_reset (stream, NULL);
+
+		g_seekable_seek (
+			G_SEEKABLE (stream), 0,
+			G_SEEK_SET, NULL, NULL);
+
 		camel_stream_write_to_stream (stream, stream_mem, cancellable, NULL);
-		g_object_unref (CAMEL_OBJECT (stream_mem));
-		g_object_unref (CAMEL_OBJECT (stream));
+		g_object_unref (stream_mem);
+		g_object_unref (stream);
 
 		return ba;
 	}
