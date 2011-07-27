@@ -29,6 +29,8 @@ libecalbackendexchange_la_LDFLAGS = \
 	-module -avoid-version $(NO_UNDEFINED)
 
 libecalbackendexchange_la_LIBADD = \
+	$(top_builddir)/server/lib/libexchange.la \
+	$(top_builddir)/server/storage/libexchange-storage.la \
 	$(top_builddir)/tools/libevolution-exchange-shared.la \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
 	$(EVOLUTION_PLUGIN_LIBS) \

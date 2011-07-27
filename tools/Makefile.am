@@ -26,6 +26,7 @@ libevolution_exchange_shared_la_SOURCES = \
 	exchange-share-config-listener.c
 
 libevolution_exchange_shared_la_LIBADD = \
+	$(top_builddir)/server/lib/libexchange.la \
 	$(top_builddir)/server/storage/libexchange-storage.la \
 	$(GNOME_PLATFORM_LIBS) \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
