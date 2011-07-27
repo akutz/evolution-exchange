@@ -60,6 +60,7 @@ liborg_gnome_exchange_operations_la_SOURCES = \
 	exchange-send-options.h
 
 liborg_gnome_exchange_operations_la_LIBADD = \
+	$(top_builddir)/server/lib/libexchange.la \
 	$(top_builddir)/server/storage/libexchange-storage.la \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
 	$(EVOLUTION_PLUGIN_LIBS) \
