@@ -110,7 +110,7 @@ static CamelProvider exchange_provider = {
 	"exchange",
 	N_("Microsoft Exchange"),
 
-	N_("For handling mail (and other data) on Microsoft Exchange servers"),
+	N_("For handling mail (and other data) on Microsoft Exchange 2000 and 2003 servers via OWA"),
 
 	"mail",
 
