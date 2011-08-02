@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=evolution-exchange&component=general\n"
-"POT-Creation-Date: 2010-09-17 15:42+0000\n"
-"PO-Revision-Date: 2011-02-21 09:49+0100\n"
+"product=evolution-exchange&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-07-30 16:15+0000\n"
+"PO-Revision-Date: 2011-08-01 10:13+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -38,110 +38,115 @@ msgstr ""
 "usar la caché actual para siempre. Sólo funcionará si la caché de GAL está "
 "activada en modo desconectado."
 
-#: ../addressbook/e-book-backend-exchange.c:135
+#: ../addressbook/e-book-backend-exchange.c:132
 #, c-format
 msgid "Operation failed with status %d"
 msgstr "Falló la operación con el estado %d"
 
-#: ../addressbook/e-book-backend-exchange.c:1797
-#: ../addressbook/e-book-backend-exchange.c:2642
+#: ../addressbook/e-book-backend-exchange.c:1795
+#: ../addressbook/e-book-backend-exchange.c:2451
 msgid "Cancelled"
 msgstr "Cancelado"
 
-#: ../addressbook/e-book-backend-exchange.c:2319
-#: ../addressbook/e-book-backend-gal.c:1931
+#: ../addressbook/e-book-backend-exchange.c:2297
+#: ../addressbook/e-book-backend-gal.c:1970
 msgid "Searching..."
 msgstr "Buscando..."
 
-#: ../addressbook/e-book-backend-gal.c:330
-#: ../addressbook/e-book-backend-gal.c:351
+#: ../addressbook/e-book-backend-gal.c:332
+#: ../addressbook/e-book-backend-gal.c:353
 msgid "Reconnecting to LDAP server..."
 msgstr "Conectando con el servidor LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1671
+#: ../addressbook/e-book-backend-gal.c:1716
 msgid "Receiving LDAP search results..."
 msgstr "Recibiendo resultados de la búsqueda LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1962
+#: ../addressbook/e-book-backend-gal.c:2001
 msgid "Error performing search"
 msgstr "Error al efectuar la búsqueda"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2145
+#: ../calendar/e-cal-backend-exchange-calendar.c:2171
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "El recurso «%s» está ocupado durante el periodo de tiempo seleccionado."
 
-#: ../camel/camel-exchange-folder.c:75
+#: ../camel/camel-exchange-folder.c:76
 msgid "No Subject"
 msgstr "Sin asunto"
 
-#: ../camel/camel-exchange-folder.c:137
+#: ../camel/camel-exchange-folder.c:156
 #, c-format
 msgid "This message is not available in offline mode."
 msgstr "Este mensaje no está disponible en modo «Desconectado»."
 
-#: ../camel/camel-exchange-folder.c:386
+#: ../camel/camel-exchange-folder.c:514
 #, c-format
 msgid "You cannot expunge in offline mode."
 msgstr "No se puede purgar en modo desconectado."
 
-#: ../camel/camel-exchange-folder.c:626
+#: ../camel/camel-exchange-folder.c:651 ../camel/camel-exchange-utils.c:576
+#: ../camel/camel-exchange-utils.c:615
+msgid "Could not get new messages"
+msgstr "No se pudieron obtener los mensajes nuevos"
+
+#: ../camel/camel-exchange-folder.c:695
 msgid "Moving messages"
 msgstr "Moviendo mensajes"
 
-#: ../camel/camel-exchange-folder.c:627
+#: ../camel/camel-exchange-folder.c:695
 msgid "Copying messages"
 msgstr "Copiando mensajes"
 
-#: ../camel/camel-exchange-folder.c:1070
+#: ../camel/camel-exchange-folder.c:1118
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "No se puede crear el directorio %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1081
+#: ../camel/camel-exchange-folder.c:1129
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "No se pudo cargar el resumen para %s"
 
-#: ../camel/camel-exchange-folder.c:1088
+#: ../camel/camel-exchange-folder.c:1136
 #, c-format
 msgid "Could not create cache for %s: "
 msgstr "No se pudo crear la caché para %s: "
 
-#: ../camel/camel-exchange-folder.c:1099
+#: ../camel/camel-exchange-folder.c:1147
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "No se pudo crear el diario para %s"
 
-#: ../camel/camel-exchange-folder.c:1146
+#: ../camel/camel-exchange-folder.c:1195
 msgid "Scanning for changed messages"
 msgstr "Buscando mensajes cambiados"
 
-#: ../camel/camel-exchange-folder.c:1173
+#: ../camel/camel-exchange-folder.c:1223
 msgid "Fetching summary information for new messages"
 msgstr "Obteniendo la información del resumen para los mensajes nuevos"
 
-#: ../camel/camel-exchange-journal.c:144
+#: ../camel/camel-exchange-journal.c:149
 #, c-format
 msgid "No folder name found"
 msgstr "No se encontró ningún nombre de carpeta"
 
-#: ../camel/camel-exchange-journal.c:185 ../camel/camel-exchange-utils.c:3145
-#: ../camel/camel-exchange-utils.c:3209 ../camel/camel-exchange-utils.c:3327
-#: ../camel/camel-exchange-utils.c:3358 ../camel/camel-exchange-utils.c:3410
-#: ../camel/camel-exchange-utils.c:3431
+#: ../camel/camel-exchange-journal.c:190 ../camel/camel-exchange-utils.c:3222
+#: ../camel/camel-exchange-utils.c:3286 ../camel/camel-exchange-utils.c:3404
+#: ../camel/camel-exchange-utils.c:3435 ../camel/camel-exchange-utils.c:3487
+#: ../camel/camel-exchange-utils.c:3508
 #, c-format
 msgid "Folder doesn't exist"
 msgstr "La carpeta no existe"
 
-#: ../camel/camel-exchange-journal.c:417
+#: ../camel/camel-exchange-journal.c:425
 #, c-format
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
 "No se puede agregar el mensaje en modo desconectado: la caché no está "
 "disponible"
 
-#: ../camel/camel-exchange-journal.c:437
+#: ../camel/camel-exchange-journal.c:445
 msgid "Cannot append message in offline mode: "
 msgstr "No se puede agregar el mensaje en modo desconectado: "
 
@@ -150,14 +155,14 @@ msgid "Secure or Plaintext Password"
 msgstr "Contraseña segura o en texto plano"
 
 #: ../camel/camel-exchange-provider.c:53
-#: ../camel/camel-exchange-provider.c:140
+#: ../camel/camel-exchange-provider.c:141
 #: ../eplugin/exchange-account-setup.c:69
 msgid "Plaintext Password"
 msgstr "Contraseña en texto plano"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
 #: ../camel/camel-exchange-provider.c:54
-#: ../camel/camel-exchange-provider.c:129
+#: ../camel/camel-exchange-provider.c:130
 #: ../eplugin/exchange-account-setup.c:58
 msgid "Secure Password"
 msgstr "Contraseña segura"
@@ -237,11 +242,16 @@ msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
 #: ../camel/camel-exchange-provider.c:113
-msgid "For handling mail (and other data) on Microsoft Exchange servers"
-msgstr "Para manipular correo (y otros datos) en servidores Microsoft Exchange"
+#| msgid "For handling mail (and other data) on Microsoft Exchange servers"
+msgid ""
+"For handling mail (and other data) on Microsoft Exchange 2000 and 2003 "
+"servers via OWA"
+msgstr ""
+"Para manipular correo (y otros datos) en servidores Microsoft Exchange 2000 "
+"y 2003 mediante OWA"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:132
+#: ../camel/camel-exchange-provider.c:133
 #: ../eplugin/exchange-account-setup.c:61
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
@@ -250,7 +260,7 @@ msgstr ""
 "Esta opción conectará con el servidor Exchange usando autenticación con "
 "contraseña segura (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:142
+#: ../camel/camel-exchange-provider.c:143
 #: ../eplugin/exchange-account-setup.c:71
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
@@ -259,144 +269,134 @@ msgstr ""
 "Esta opción conectará con el servidor Exchange usando autenticación estándar "
 "en texto plano."
 
-#: ../camel/camel-exchange-store.c:300
+#: ../camel/camel-exchange-store.c:276
 #, c-format
 msgid "Exchange server %s"
 msgstr "Servidor Exchange %s"
 
-#: ../camel/camel-exchange-store.c:304
+#: ../camel/camel-exchange-store.c:280
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Cuenta Exchange de %s en %s"
 
-#: ../camel/camel-exchange-store.c:382
+#: ../camel/camel-exchange-store.c:363
 #, c-format
 msgid "Could not authenticate to server. (Password incorrect?)"
 msgstr "No se pudo autenticar con el servidor. (¿Contraseña incorrecta?)"
 
-#: ../camel/camel-exchange-store.c:445
+#: ../camel/camel-exchange-store.c:465
 #, c-format
 msgid "No such folder %s"
 msgstr "No existe la carpeta %s"
 
-#: ../camel/camel-exchange-store.c:578
+#: ../camel/camel-exchange-store.c:620
 #, c-format
 msgid "Cannot create folder in offline mode."
 msgstr "No se puede crear una carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-store.c:608
+#: ../camel/camel-exchange-store.c:651
 #, c-format
 msgid "Cannot delete folder in offline mode."
 msgstr "No se puede borrar la carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-store.c:634
+#: ../camel/camel-exchange-store.c:678
 #, c-format
 msgid "Cannot rename folder in offline mode."
 msgstr "No se puede renombrar la carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-store.c:715
+#: ../camel/camel-exchange-store.c:743
 #, c-format
 msgid "Cannot subscribe folder in offline mode."
 msgstr "No se puede crear suscribirse a una carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-store.c:734
+#: ../camel/camel-exchange-store.c:763
 #, c-format
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "No se puede desuscribirse de una carpeta en modo desconectado."
 
-#: ../camel/camel-exchange-transport.c:65
-#, c-format
-msgid "Exchange transport can only be used with Exchange mail source"
-msgstr ""
-"El transporte Exchange sólo puede ser usado con una fuente de correo Exchange"
-
-#: ../camel/camel-exchange-transport.c:79
+#: ../camel/camel-exchange-transport.c:62
 #, c-format
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "No se puede enviar el mensaje: uno o más destinatarios inválidos"
 
-#: ../camel/camel-exchange-transport.c:90
+#: ../camel/camel-exchange-transport.c:73
 #, c-format
 msgid "Could not find 'From' address in message"
 msgstr "No se pudo encontrar la dirección de remite en el mensaje"
 
-#: ../camel/camel-exchange-utils.c:529 ../camel/camel-exchange-utils.c:568
-msgid "Could not get new messages"
-msgstr "No se pudieron obtener los mensajes nuevos"
-
-#: ../camel/camel-exchange-utils.c:1056 ../camel/camel-exchange-utils.c:1207
+#: ../camel/camel-exchange-utils.c:1122 ../camel/camel-exchange-utils.c:1274
 msgid "Could not open folder"
 msgstr "No se pudo abrir la carpeta"
 
-#: ../camel/camel-exchange-utils.c:1203 ../camel/camel-exchange-utils.c:1221
+#: ../camel/camel-exchange-utils.c:1270 ../camel/camel-exchange-utils.c:1288
 msgid "Could not open folder: Permission denied"
 msgstr "No se pudo abrir carpeta: Permiso denegado"
 
-#: ../camel/camel-exchange-utils.c:1270 ../camel/camel-exchange-utils.c:2205
+#: ../camel/camel-exchange-utils.c:1339 ../camel/camel-exchange-utils.c:2279
 msgid "No such folder"
 msgstr "No existe la carpeta"
 
-#: ../camel/camel-exchange-utils.c:1292 ../camel/camel-exchange-utils.c:3119
-#: ../camel/camel-exchange-utils.c:3162 ../camel/camel-exchange-utils.c:3331
-#: ../camel/camel-exchange-utils.c:3384 ../camel/camel-exchange-utils.c:3446
+#: ../camel/camel-exchange-utils.c:1361 ../camel/camel-exchange-utils.c:3196
+#: ../camel/camel-exchange-utils.c:3239 ../camel/camel-exchange-utils.c:3408
+#: ../camel/camel-exchange-utils.c:3461 ../camel/camel-exchange-utils.c:3523
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
 #: ../server/storage/e-storage.c:573
 msgid "Permission denied"
 msgstr "Permiso denegado"
 
-#: ../camel/camel-exchange-utils.c:2214
+#: ../camel/camel-exchange-utils.c:2288
 msgid "Could not create folder."
 msgstr "No se pudo crear la carpeta."
 
-#: ../camel/camel-exchange-utils.c:2302
+#: ../camel/camel-exchange-utils.c:2376
 msgid "Could not open Deleted Items folder"
 msgstr "No se pudo abrir la carpeta de elementos borrados"
 
-#: ../camel/camel-exchange-utils.c:2428
+#: ../camel/camel-exchange-utils.c:2505
 msgid "Could not empty Deleted Items folder"
 msgstr "No se pudo vaciar la carpeta de elementos borrados"
 
-#: ../camel/camel-exchange-utils.c:2430
+#: ../camel/camel-exchange-utils.c:2507
 msgid "Permission denied. Could not delete certain messages."
 msgstr "Permiso denegado. No se pudieron borrar ciertos mensajes."
 
-#: ../camel/camel-exchange-utils.c:2474
+#: ../camel/camel-exchange-utils.c:2551
 msgid "Could not append message; mailbox is over quota"
 msgstr "No se pudo anexar el mensaje; el buzón excede la cuota"
 
-#: ../camel/camel-exchange-utils.c:2475
+#: ../camel/camel-exchange-utils.c:2552
 msgid "Could not append message"
 msgstr "No se pudo anexar el mensaje"
 
-#: ../camel/camel-exchange-utils.c:2661
+#: ../camel/camel-exchange-utils.c:2738
 msgid "No such message"
 msgstr "No existe el mensaje"
 
-#: ../camel/camel-exchange-utils.c:2733
+#: ../camel/camel-exchange-utils.c:2810
 msgid "Message has been deleted"
 msgstr "El mensaje ha sido borrado"
 
-#: ../camel/camel-exchange-utils.c:2735
+#: ../camel/camel-exchange-utils.c:2812
 msgid "Error retrieving message"
 msgstr "Error al obtener el mensaje"
 
-#: ../camel/camel-exchange-utils.c:2784
+#: ../camel/camel-exchange-utils.c:2861
 msgid "Mailbox does not support full-text searching"
 msgstr "El buzón no soporta búsqueda en texto"
 
-#: ../camel/camel-exchange-utils.c:2896
+#: ../camel/camel-exchange-utils.c:2973
 msgid "Unable to move/copy messages"
 msgstr "Imposible mover/copiar mensajes"
 
-#: ../camel/camel-exchange-utils.c:3024
+#: ../camel/camel-exchange-utils.c:3101
 msgid "No mail submission URI for this mailbox"
 msgstr "No hay URI de envío de correo para este buzón"
 
-#: ../camel/camel-exchange-utils.c:3057
+#: ../camel/camel-exchange-utils.c:3134
 msgid "Server won't accept mail via Exchange transport"
 msgstr "El servidor no acepta correo por medio del transporte Exchange"
 
-#: ../camel/camel-exchange-utils.c:3059
+#: ../camel/camel-exchange-utils.c:3136
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -405,7 +405,7 @@ msgstr ""
 "Su cuenta no tiene permiso para usar <%s>\n"
 "como una dirección de remitente."
 
-#: ../camel/camel-exchange-utils.c:3071
+#: ../camel/camel-exchange-utils.c:3148
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -413,28 +413,28 @@ msgstr ""
 "No se pudo enviar el mensaje.\n"
 "Esto quizá signifique que su cuenta sobrepasa la cuota."
 
-#: ../camel/camel-exchange-utils.c:3075
+#: ../camel/camel-exchange-utils.c:3152
 msgid "Could not send message"
 msgstr "No se pudo enviar el mensaje"
 
-#: ../camel/camel-exchange-utils.c:3111 ../camel/camel-exchange-utils.c:3167
-#: ../camel/camel-exchange-utils.c:3335 ../camel/camel-exchange-utils.c:3388
-#: ../camel/camel-exchange-utils.c:3452
+#: ../camel/camel-exchange-utils.c:3188 ../camel/camel-exchange-utils.c:3244
+#: ../camel/camel-exchange-utils.c:3412 ../camel/camel-exchange-utils.c:3465
+#: ../camel/camel-exchange-utils.c:3529
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
 #: ../server/storage/e-storage.c:557
 msgid "Generic error"
 msgstr "Error genérico"
 
-#: ../camel/camel-exchange-utils.c:3115
+#: ../camel/camel-exchange-utils.c:3192
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
 msgid "Folder already exists"
 msgstr "La carpeta ya existe"
 
-#: ../eplugin/exchange-account-setup.c:266
+#: ../eplugin/exchange-account-setup.c:269
 msgid "Out of Office"
 msgstr "Fuera de la oficina"
 
-#: ../eplugin/exchange-account-setup.c:273
+#: ../eplugin/exchange-account-setup.c:276
 msgid ""
 "The message specified below will be automatically sent to \n"
 "each person who sends mail to you while you are out of the office."
@@ -442,100 +442,100 @@ msgstr ""
 "El mensaje especificado abajo será enviado automáticamente a cada \n"
 "persona que le envíe correo usted mientras está fuera de la oficina."
 
-#: ../eplugin/exchange-account-setup.c:278
+#: ../eplugin/exchange-account-setup.c:281
 msgid "Status:"
 msgstr "Estado:"
 
-#: ../eplugin/exchange-account-setup.c:285
-#: ../eplugin/exchange-account-setup.c:290
+#: ../eplugin/exchange-account-setup.c:288
+#: ../eplugin/exchange-account-setup.c:293
 msgid "I am out of the office"
 msgstr "Estoy fuera de la oficina"
 
-#: ../eplugin/exchange-account-setup.c:286
 #: ../eplugin/exchange-account-setup.c:289
+#: ../eplugin/exchange-account-setup.c:292
 msgid "I am in the office"
 msgstr "Estoy en la oficina"
 
 #. Security settings
-#: ../eplugin/exchange-account-setup.c:325
+#: ../eplugin/exchange-account-setup.c:328
 msgid "Security"
 msgstr "Seguridad"
 
 #. Change Password
-#: ../eplugin/exchange-account-setup.c:336
+#: ../eplugin/exchange-account-setup.c:339
 msgid "Change the password for Exchange account"
 msgstr "Cambiar la contraseña para la cuenta Exchange"
 
-#: ../eplugin/exchange-account-setup.c:338
+#: ../eplugin/exchange-account-setup.c:341
 #: ../eplugin/exchange-change-password.c:85
 msgid "Change Password"
 msgstr "Cambiar contraseña"
 
 #. Delegation Assistant
-#: ../eplugin/exchange-account-setup.c:343
+#: ../eplugin/exchange-account-setup.c:346
 msgid "Manage the delegate settings for Exchange account"
 msgstr "Gestionar los ajustes de delegados para la cuenta Exchange"
 
-#: ../eplugin/exchange-account-setup.c:345
+#: ../eplugin/exchange-account-setup.c:348
 msgid "Delegation Assistant"
 msgstr "Asistente de delegaciones"
 
 #. Miscelleneous settings
-#: ../eplugin/exchange-account-setup.c:357
+#: ../eplugin/exchange-account-setup.c:360
 msgid "Miscellaneous"
 msgstr "Miscelánea"
 
 #. Folder Size
-#: ../eplugin/exchange-account-setup.c:367
+#: ../eplugin/exchange-account-setup.c:370
 msgid "View the size of all Exchange folders"
 msgstr "Ver el tamaño de todas las carpetas Exchange"
 
-#: ../eplugin/exchange-account-setup.c:369
+#: ../eplugin/exchange-account-setup.c:372
 #: ../eplugin/exchange-folder-size-display.c:183
 msgid "Folder Size"
 msgstr "Tamaño de la carpeta"
 
-#: ../eplugin/exchange-account-setup.c:376
+#: ../eplugin/exchange-account-setup.c:379
 #: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:3
 msgid "Exchange Settings"
 msgstr "Ajustes de Exchange"
 
-#: ../eplugin/exchange-account-setup.c:735
+#: ../eplugin/exchange-account-setup.c:757
 msgid "_OWA URL:"
 msgstr "URL del _OWA:"
 
-#: ../eplugin/exchange-account-setup.c:761
+#: ../eplugin/exchange-account-setup.c:783
 msgid "A_uthenticate"
 msgstr "A_utenticar"
 
-#: ../eplugin/exchange-account-setup.c:783
+#: ../eplugin/exchange-account-setup.c:805
 msgid "Mailbox name is _different from username"
 msgstr "El nombre del buzón es _diferente del nombre de usuario"
 
-#: ../eplugin/exchange-account-setup.c:796
+#: ../eplugin/exchange-account-setup.c:818
 msgid "_Mailbox:"
 msgstr "_Buzón:"
 
-#: ../eplugin/exchange-account-setup.c:1011
+#: ../eplugin/exchange-account-setup.c:1042
 msgid "_Authentication Type"
 msgstr "Tipo de _autenticación"
 
-#: ../eplugin/exchange-account-setup.c:1025
+#: ../eplugin/exchange-account-setup.c:1056
 msgid "Ch_eck for Supported Types"
 msgstr "_Comprobar tipos soportados"
 
-#: ../eplugin/exchange-account-setup.c:1140 ../eplugin/exchange-contacts.c:217
+#: ../eplugin/exchange-account-setup.c:1171 ../eplugin/exchange-contacts.c:217
 #, c-format
 msgid "%s KB"
 msgstr "%s KB"
 
-#: ../eplugin/exchange-account-setup.c:1142 ../eplugin/exchange-contacts.c:219
+#: ../eplugin/exchange-account-setup.c:1173 ../eplugin/exchange-contacts.c:219
 #, c-format
 msgid "0 KB"
 msgstr "0 KB"
 
 #. FIXME: Take care of i18n
-#: ../eplugin/exchange-account-setup.c:1147 ../eplugin/exchange-calendar.c:236
+#: ../eplugin/exchange-account-setup.c:1178 ../eplugin/exchange-calendar.c:236
 #: ../eplugin/exchange-contacts.c:222
 msgid "Size:"
 msgstr "Tamaño:"
@@ -586,147 +586,147 @@ msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr "Las sos contraseñas no coinciden. Vuelva a introducirlas."
 
 #. Translators: The %d is replaced with the actual number of days
-#: ../eplugin/exchange-config-listener.c:662
+#: ../eplugin/exchange-config-listener.c:659
 #, c-format
 msgid "Your password will expire in the next %d day"
 msgid_plural "Your password will expire in the next %d days"
 msgstr[0] "Su contraseña caducará en el próximos día"
 msgstr[1] "Su contraseña caducará en los próximos %d días"
 
-#: ../eplugin/exchange-config-listener.c:665
+#: ../eplugin/exchange-config-listener.c:662
 msgid "Password Expiry Warning..."
 msgstr "Advertencia de caducidad de la contraseña..."
 
-#: ../eplugin/exchange-config-listener.c:682
+#: ../eplugin/exchange-config-listener.c:679
 msgid "_Change Password"
 msgstr "_Cambiar contraseña"
 
-#: ../eplugin/exchange-config-listener.c:735
+#: ../eplugin/exchange-config-listener.c:732
 msgid "Out of Office Assistant"
 msgstr "Asistente para fuera de oficina"
 
-#: ../eplugin/exchange-config-listener.c:752
+#: ../eplugin/exchange-config-listener.c:749
 msgid "Currently, your status is \"Out of the Office\"."
 msgstr "Actualmente su estado es «Estoy fuera de la oficina»."
 
-#: ../eplugin/exchange-config-listener.c:752
+#: ../eplugin/exchange-config-listener.c:749
 msgid "Would you like to change your status to \"In the Office\"?"
 msgstr "¿Quiere cambiar su estado a «En la oficina»?"
 
-#: ../eplugin/exchange-config-listener.c:781
+#: ../eplugin/exchange-config-listener.c:778
 msgid "_No, Don't Change Status"
 msgstr "No, no cambiar el estado"
 
-#: ../eplugin/exchange-config-listener.c:802
+#: ../eplugin/exchange-config-listener.c:799
 msgid "_Yes, Change Status"
 msgstr "Sí, cambiar el estado"
 
-#: ../eplugin/exchange-config-listener.c:834
+#: ../eplugin/exchange-config-listener.c:829
 #, c-format
 msgid "Enter Password for %s"
 msgstr "Introduzca su contraseña para %s"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:435
+#: ../eplugin/exchange-delegates-user.c:71 ../eplugin/exchange-folder.c:459
 #: ../server/storage/exchange-hierarchy-foreign.c:260
 msgid "Calendar"
 msgstr "Calendario"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:438
+#: ../eplugin/exchange-delegates-user.c:71 ../eplugin/exchange-folder.c:462
 #: ../server/storage/exchange-hierarchy-foreign.c:269
 msgid "Tasks"
 msgstr "Tareas"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:433
+#: ../eplugin/exchange-delegates-user.c:71 ../eplugin/exchange-folder.c:457
 #: ../server/storage/exchange-hierarchy-foreign.c:264
 msgid "Inbox"
 msgstr "Bandeja de entrada"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:441
+#: ../eplugin/exchange-delegates-user.c:71 ../eplugin/exchange-folder.c:465
 #: ../server/storage/exchange-hierarchy-foreign.c:261
 msgid "Contacts"
 msgstr "Contactos"
 
-#: ../eplugin/exchange-delegates-user.c:132
+#: ../eplugin/exchange-delegates-user.c:134
 #: ../eplugin/exchange-permissions-dialog.c:545
 #: ../server/lib/e2k-security-descriptor.c:901
 msgid "Custom"
 msgstr "Personalizar"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:155
-#: ../eplugin/exchange-delegates-user.c:298
-#: ../eplugin/exchange-delegates-user.c:308
-#: ../eplugin/exchange-delegates-user.c:318
-#: ../eplugin/exchange-delegates-user.c:328
+#: ../eplugin/exchange-delegates-user.c:157
+#: ../eplugin/exchange-delegates-user.c:309
+#: ../eplugin/exchange-delegates-user.c:319
+#: ../eplugin/exchange-delegates-user.c:329
+#: ../eplugin/exchange-delegates-user.c:339
 msgid "Editor (read, create, edit)"
 msgstr "Editor (leer, crear, editar)"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:160
-#: ../eplugin/exchange-delegates-user.c:297
-#: ../eplugin/exchange-delegates-user.c:307
-#: ../eplugin/exchange-delegates-user.c:317
-#: ../eplugin/exchange-delegates-user.c:327
+#: ../eplugin/exchange-delegates-user.c:162
+#: ../eplugin/exchange-delegates-user.c:308
+#: ../eplugin/exchange-delegates-user.c:318
+#: ../eplugin/exchange-delegates-user.c:328
+#: ../eplugin/exchange-delegates-user.c:338
 msgid "Author (read, create)"
 msgstr "Autor (leer, crear)"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:165
-#: ../eplugin/exchange-delegates-user.c:296
-#: ../eplugin/exchange-delegates-user.c:306
-#: ../eplugin/exchange-delegates-user.c:316
-#: ../eplugin/exchange-delegates-user.c:326
+#: ../eplugin/exchange-delegates-user.c:167
+#: ../eplugin/exchange-delegates-user.c:307
+#: ../eplugin/exchange-delegates-user.c:317
+#: ../eplugin/exchange-delegates-user.c:327
+#: ../eplugin/exchange-delegates-user.c:337
 msgid "Reviewer (read-only)"
 msgstr "Revisor (sólo lectura)"
 
-#: ../eplugin/exchange-delegates-user.c:168
-#: ../eplugin/exchange-delegates-user.c:295
-#: ../eplugin/exchange-delegates-user.c:305
-#: ../eplugin/exchange-delegates-user.c:315
-#: ../eplugin/exchange-delegates-user.c:325
+#: ../eplugin/exchange-delegates-user.c:171
+#: ../eplugin/exchange-delegates-user.c:306
+#: ../eplugin/exchange-delegates-user.c:316
+#: ../eplugin/exchange-delegates-user.c:326
+#: ../eplugin/exchange-delegates-user.c:336
 #: ../server/lib/e2k-security-descriptor.c:886
 msgid "None"
 msgstr "Ninguno"
 
 #. Translators: "Delegate Permissions" refers to the permissions on the delegator's folders
 #. that the delegatee would receive
-#: ../eplugin/exchange-delegates-user.c:225
+#: ../eplugin/exchange-delegates-user.c:236
 msgid "Delegate Permissions"
 msgstr "Permisos delegados"
 
-#: ../eplugin/exchange-delegates-user.c:243
+#: ../eplugin/exchange-delegates-user.c:254
 msgid "Permissions for"
 msgstr "Permisos para"
 
 #. Translators: This is used for permissions for <user> for the folder Calendar.
-#: ../eplugin/exchange-delegates-user.c:255
+#: ../eplugin/exchange-delegates-user.c:266
 msgid "C_alendar:"
 msgstr "_Agenda:"
 
 #. Translators: This is used for permissions for <user> for the folder Tasks.
-#: ../eplugin/exchange-delegates-user.c:264
+#: ../eplugin/exchange-delegates-user.c:275
 msgid "_Tasks:"
 msgstr "_Tareas:"
 
 #. Translators: This is used for permissions for <user> for the folder Inbox.
-#: ../eplugin/exchange-delegates-user.c:273
+#: ../eplugin/exchange-delegates-user.c:284
 msgid "_Inbox:"
 msgstr "_Entrada:"
 
 #. Translators: This is used for permissions for <user> for the folder Contacts.
-#: ../eplugin/exchange-delegates-user.c:282
+#: ../eplugin/exchange-delegates-user.c:293
 msgid "Co_ntacts:"
 msgstr "Con_tactos:"
 
-#: ../eplugin/exchange-delegates-user.c:330
+#: ../eplugin/exchange-delegates-user.c:341
 msgid "_Summarize permissions"
 msgstr "_Resumir permisos"
 
-#: ../eplugin/exchange-delegates-user.c:334
+#: ../eplugin/exchange-delegates-user.c:345
 msgid "_Delegate can see private items"
 msgstr "El _delegado puede ver elementos privados"
 
-#: ../eplugin/exchange-delegates-user.c:340
+#: ../eplugin/exchange-delegates-user.c:351
 #: ../eplugin/exchange-permissions-dialog.c:168
 #, c-format
 msgid "Permissions for %s"
@@ -735,7 +735,7 @@ msgstr "Permisos para %s"
 #. To translators: This is a part of the message to be sent to the delegatee
 #. summarizing the permissions assigned to him.
 #.
-#: ../eplugin/exchange-delegates-user.c:433
+#: ../eplugin/exchange-delegates-user.c:442
 msgid ""
 "This message was sent automatically by Evolution to inform you that you have "
 "been designated as a delegate. You can now send messages on my behalf."
@@ -745,25 +745,19 @@ msgstr ""
 
 #. To translators: Another chunk of the same message.
 #.
-#: ../eplugin/exchange-delegates-user.c:438
+#: ../eplugin/exchange-delegates-user.c:447
 msgid "You have been given the following permissions on my folders:"
 msgstr "Se le han otorgado los siguientes permisos sobre mis carpetas:"
 
-#. To translators: This message is included if the delegatee has been given access
-#. to the private items.
-#.
-#: ../eplugin/exchange-delegates-user.c:458
+#: ../eplugin/exchange-delegates-user.c:475
 msgid "You are also permitted to see my private items."
 msgstr "También se le permite ver mis elementos privados."
 
-#. To translators: This message is included if the delegatee has not been given access
-#. to the private items.
-#.
-#: ../eplugin/exchange-delegates-user.c:465
+#: ../eplugin/exchange-delegates-user.c:484
 msgid "However, you are not permitted to see my private items."
 msgstr "No obstante no se le permite ver mis elementos privados."
 
-#: ../eplugin/exchange-delegates-user.c:497
+#: ../eplugin/exchange-delegates-user.c:521
 #, c-format
 msgid "You have been designated as a delegate for %s"
 msgstr "Ha sido designado como delegado para %s"
@@ -776,43 +770,43 @@ msgstr "Delegar en:"
 msgid "Delegate To"
 msgstr "Delegar en"
 
-#: ../eplugin/exchange-delegates.c:578
+#: ../eplugin/exchange-delegates.c:577
 #, c-format
 msgid "Remove the delegate %s?"
 msgstr "¿Desea quitar el delegado %s?"
 
-#: ../eplugin/exchange-delegates.c:695
+#: ../eplugin/exchange-delegates.c:694
 msgid "Could not access Active Directory"
 msgstr "No es posible acceder al Directorio Activo"
 
-#: ../eplugin/exchange-delegates.c:707
+#: ../eplugin/exchange-delegates.c:706
 msgid "Could not find self in Active Directory"
 msgstr "No es posible encontrarse a sí mismo en el Directorio Activo"
 
-#: ../eplugin/exchange-delegates.c:720
+#: ../eplugin/exchange-delegates.c:719
 #, c-format
 msgid "Could not find delegate %s in Active Directory"
 msgstr "No es posible encontrar al delegado %s en el Directorio Activo"
 
-#: ../eplugin/exchange-delegates.c:732
+#: ../eplugin/exchange-delegates.c:731
 #, c-format
 msgid "Could not remove delegate %s"
 msgstr "No es posible quitar al delegado %s"
 
-#: ../eplugin/exchange-delegates.c:792
+#: ../eplugin/exchange-delegates.c:791
 msgid "Could not update list of delegates."
 msgstr "No es posible actualizar la lista de delegados."
 
-#: ../eplugin/exchange-delegates.c:810
+#: ../eplugin/exchange-delegates.c:809
 #, c-format
 msgid "Could not add delegate %s"
 msgstr "No es posible añadir el delegado %s"
 
-#: ../eplugin/exchange-delegates.c:926
+#: ../eplugin/exchange-delegates.c:925
 msgid "Delegates"
 msgstr "Delegar en"
 
-#: ../eplugin/exchange-delegates.c:941
+#: ../eplugin/exchange-delegates.c:940
 msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
@@ -820,16 +814,16 @@ msgstr ""
 "Estos usuarios serán capaces de enviar correo \n"
 "y acceder a tus carpetas con los permisos que les dé."
 
-#: ../eplugin/exchange-delegates.c:965
+#: ../eplugin/exchange-delegates.c:964
 msgid "_Edit"
 msgstr "_Editar"
 
-#: ../eplugin/exchange-delegates.c:995
-#: ../eplugin/exchange-permissions-dialog.c:920
+#: ../eplugin/exchange-delegates.c:994
+#: ../eplugin/exchange-permissions-dialog.c:916
 msgid "Name"
 msgstr "Nombre"
 
-#: ../eplugin/exchange-delegates.c:1021
+#: ../eplugin/exchange-delegates.c:1020
 msgid "Error reading delegates list."
 msgstr "Error al leer la lista de delegados."
 
@@ -908,12 +902,12 @@ msgstr "Nombre de la _carpeta:"
 msgid "_User:"
 msgstr "_Usuario:"
 
-#: ../eplugin/exchange-folder.c:320 ../eplugin/exchange-folder.c:376
+#: ../eplugin/exchange-folder.c:344 ../eplugin/exchange-folder.c:400
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "¿Seguro que desea desuscribirse de la carpeta «%s»?"
 
-#: ../eplugin/exchange-folder.c:333 ../eplugin/exchange-folder.c:389
+#: ../eplugin/exchange-folder.c:357 ../eplugin/exchange-folder.c:413
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "Desuscribirse de «%s»"
@@ -941,130 +935,130 @@ msgid "Add User:"
 msgstr "Añadir usuario:"
 
 #: ../eplugin/exchange-permissions-dialog.c:384
-#: ../eplugin/exchange-send-options.c:469
+#: ../eplugin/exchange-send-options.c:467
 msgid "Add User"
 msgstr "Añadir un usuario"
 
-#: ../eplugin/exchange-permissions-dialog.c:796
+#: ../eplugin/exchange-permissions-dialog.c:792
 msgid "Permissions"
 msgstr "Permisos"
 
-#: ../eplugin/exchange-permissions-dialog.c:813
+#: ../eplugin/exchange-permissions-dialog.c:809
 msgid "Role: "
 msgstr "Rol: "
 
-#: ../eplugin/exchange-permissions-dialog.c:839
+#: ../eplugin/exchange-permissions-dialog.c:835
 msgid "Create items"
 msgstr "Crear elementos"
 
-#: ../eplugin/exchange-permissions-dialog.c:843
+#: ../eplugin/exchange-permissions-dialog.c:839
 msgid "Read items"
 msgstr "Elementos leídos"
 
-#: ../eplugin/exchange-permissions-dialog.c:847
+#: ../eplugin/exchange-permissions-dialog.c:843
 msgid "Create subfolders"
 msgstr "Crear subcarpetas"
 
-#: ../eplugin/exchange-permissions-dialog.c:855
+#: ../eplugin/exchange-permissions-dialog.c:851
 msgid "Cannot Edit"
 msgstr "No se puede editar"
 
-#: ../eplugin/exchange-permissions-dialog.c:861
+#: ../eplugin/exchange-permissions-dialog.c:857
 msgid "Edit Own Items"
 msgstr "Editar los elementos propios"
 
-#: ../eplugin/exchange-permissions-dialog.c:867
+#: ../eplugin/exchange-permissions-dialog.c:863
 msgid "Edit Any Items"
 msgstr "Editar cualquier elemento"
 
-#: ../eplugin/exchange-permissions-dialog.c:881
+#: ../eplugin/exchange-permissions-dialog.c:877
 msgid "Folder owner"
 msgstr "Propietario de la carpeta"
 
-#: ../eplugin/exchange-permissions-dialog.c:885
+#: ../eplugin/exchange-permissions-dialog.c:881
 msgid "Folder contact"
 msgstr "Carpeta de contacto"
 
-#: ../eplugin/exchange-permissions-dialog.c:889
+#: ../eplugin/exchange-permissions-dialog.c:885
 msgid "Folder visible"
 msgstr "Carpeta visible"
 
-#: ../eplugin/exchange-permissions-dialog.c:897
+#: ../eplugin/exchange-permissions-dialog.c:893
 msgid "Cannot Delete"
 msgstr "No se puede borrar"
 
-#: ../eplugin/exchange-permissions-dialog.c:904
+#: ../eplugin/exchange-permissions-dialog.c:900
 msgid "Delete Own Items"
 msgstr "Borrar los elementos propios"
 
-#: ../eplugin/exchange-permissions-dialog.c:910
+#: ../eplugin/exchange-permissions-dialog.c:906
 msgid "Delete Any Items"
 msgstr "Borrar cualquier elemento"
 
-#: ../eplugin/exchange-permissions-dialog.c:924
+#: ../eplugin/exchange-permissions-dialog.c:920
 msgid "Role"
 msgstr "Rol"
 
-#: ../eplugin/exchange-send-options.c:337
+#: ../eplugin/exchange-send-options.c:335
 msgid "Exchange - Send Options"
 msgstr "Exchange - Opciones de envío"
 
-#: ../eplugin/exchange-send-options.c:358
+#: ../eplugin/exchange-send-options.c:356
 msgid "Message Settings"
 msgstr "Configuración del mensaje"
 
-#: ../eplugin/exchange-send-options.c:372
+#: ../eplugin/exchange-send-options.c:370
 msgid "I_mportance: "
 msgstr "_Importacia: "
 
 #. Translators: Here's set a message sensitivity, which means for exchange
 #. one of Normal, Personal, Private, Confidential.
-#: ../eplugin/exchange-send-options.c:381
+#: ../eplugin/exchange-send-options.c:379
 msgid "_Sensitivity: "
 msgstr "_Sensibilidad: "
 
-#: ../eplugin/exchange-send-options.c:393
-#: ../eplugin/exchange-send-options.c:403
+#: ../eplugin/exchange-send-options.c:391
+#: ../eplugin/exchange-send-options.c:401
 msgid "Normal"
 msgstr "Normal"
 
-#: ../eplugin/exchange-send-options.c:394
+#: ../eplugin/exchange-send-options.c:392
 msgid "Personal"
 msgstr "Personal"
 
-#: ../eplugin/exchange-send-options.c:395
+#: ../eplugin/exchange-send-options.c:393
 msgid "Private"
 msgstr "Privado"
 
-#: ../eplugin/exchange-send-options.c:396
+#: ../eplugin/exchange-send-options.c:394
 msgid "Confidential"
 msgstr "Confidencial"
 
-#: ../eplugin/exchange-send-options.c:404
+#: ../eplugin/exchange-send-options.c:402
 msgid "High"
 msgstr "Alta"
 
-#: ../eplugin/exchange-send-options.c:405
+#: ../eplugin/exchange-send-options.c:403
 msgid "Low"
 msgstr "Baja"
 
-#: ../eplugin/exchange-send-options.c:407
+#: ../eplugin/exchange-send-options.c:405
 msgid "Send as Delegate"
 msgstr "Enviar como delegado"
 
-#: ../eplugin/exchange-send-options.c:424
+#: ../eplugin/exchange-send-options.c:422
 msgid "_User"
 msgstr "_Usuario"
 
-#: ../eplugin/exchange-send-options.c:432
+#: ../eplugin/exchange-send-options.c:430
 msgid "Tracking Options"
 msgstr "Opciones de seguimiento"
 
-#: ../eplugin/exchange-send-options.c:440
+#: ../eplugin/exchange-send-options.c:438
 msgid "Request a _delivery receipt for this message"
 msgstr "Pedir una confirmación de _entrega para este mensaje"
 
-#: ../eplugin/exchange-send-options.c:445
+#: ../eplugin/exchange-send-options.c:443
 msgid "Request a _read receipt for this message"
 msgstr "Pedir una confirmación de _lectura para este mensaje"
 
@@ -1868,6 +1862,11 @@ msgstr "Asistente para _fuera de oficina"
 #: ../tools/ximian-connector.xml.h:12
 msgid "_Unsubscribe from Other User's Folder"
 msgstr "_Desuscribirse de una carpeta de otro usuario"
+
+#~ msgid "Exchange transport can only be used with Exchange mail source"
+#~ msgstr ""
+#~ "El transporte Exchange sólo puede ser usado con una fuente de correo "
+#~ "Exchange"
 
 #~ msgid "Authentication failed"
 #~ msgstr "La autenticación ha fallado"
