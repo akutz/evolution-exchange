@@ -25,6 +25,7 @@
 #include <config.h>
 #endif
 
+#include "camel-exchange-settings.h"
 #include "exchange-account.h"
 #include "exchange-hierarchy-webdav.h"
 #include "exchange-hierarchy-favorites.h"
@@ -54,6 +55,10 @@
 #define ONE_HUNDRED_NANOSECOND 0.000000100
 #define SECONDS_IN_DAY 86400
 
+#define EXCHANGE_ACCOUNT_GET_PRIVATE(obj) \
+	(G_TYPE_INSTANCE_GET_PRIVATE \
+	((obj), EXCHANGE_TYPE_ACCOUNT, ExchangeAccountPrivate))
+
 struct _ExchangeAccountPrivate {
 	E2kContext *ctx;
 	E2kGlobalCatalog *gc;
@@ -70,17 +75,16 @@ struct _ExchangeAccountPrivate {
 	GHashTable *folders;
 	GStaticRecMutex folders_lock;
 	gchar *uri_authority, *http_uri_schema;
-	gboolean uris_use_email, offline_sync;
+	gboolean uris_use_email;
 
 	gchar *identity_name, *identity_email, *source_uri, *password_key;
-	gchar *username, *password, *windows_domain, *nt_domain, *ad_server;
-	gchar *owa_url;
+	gchar *username, *password, *windows_domain, *nt_domain;
 	E2kAutoconfigAuthPref auth_pref;
-	gint ad_limit, passwd_exp_warn_period, quota_limit;
-	E2kAutoconfigGalAuthPref ad_auth;
+	gint quota_limit;
 
 	EAccountList *account_list;
 	EAccount *account;
+	CamelSettings *settings;
 
 	GMutex *discover_data_lock;
 	GList *discover_datas;
@@ -108,6 +112,8 @@ static void
 exchange_account_class_init (ExchangeAccountClass *class)
 {
 	GObjectClass *object_class;
+
+	g_type_class_add_private (class, sizeof (ExchangeAccountPrivate));
 
 	object_class = G_OBJECT_CLASS (class);
 	object_class->dispose = dispose;
@@ -146,7 +152,7 @@ exchange_account_class_init (ExchangeAccountClass *class)
 static void
 exchange_account_init (ExchangeAccount *account)
 {
-	account->priv = g_new0 (ExchangeAccountPrivate, 1);
+	account->priv = EXCHANGE_ACCOUNT_GET_PRIVATE (account);
 	account->priv->connect_lock = g_mutex_new ();
 	account->priv->hierarchies = g_ptr_array_new ();
 	account->priv->hierarchies_by_folder = g_hash_table_new (NULL, NULL);
@@ -174,56 +180,63 @@ free_folder (gpointer key, gpointer folder, gpointer data)
 static void
 dispose (GObject *object)
 {
-	ExchangeAccount *account = EXCHANGE_ACCOUNT (object);
+	ExchangeAccountPrivate *priv;
 	gint i;
 
-	if (account->priv->account) {
-		g_object_unref (account->priv->account);
-		account->priv->account = NULL;
+	priv = EXCHANGE_ACCOUNT_GET_PRIVATE (object);
+
+	if (priv->account) {
+		g_object_unref (priv->account);
+		priv->account = NULL;
 	}
 
-	if (account->priv->account_list) {
-		g_object_unref (account->priv->account_list);
-		account->priv->account_list = NULL;
+	if (priv->account_list) {
+		g_object_unref (priv->account_list);
+		priv->account_list = NULL;
 	}
 
-	if (account->priv->ctx) {
-		g_object_unref (account->priv->ctx);
-		account->priv->ctx = NULL;
+	if (priv->settings) {
+		g_object_unref (priv->settings);
+		priv->settings = NULL;
 	}
 
-	if (account->priv->gc) {
-		g_object_unref (account->priv->gc);
-		account->priv->gc = NULL;
+	if (priv->ctx) {
+		g_object_unref (priv->ctx);
+		priv->ctx = NULL;
 	}
 
-	if (account->priv->hierarchies) {
-		for (i = 0; i < account->priv->hierarchies->len; i++)
-			g_object_unref (account->priv->hierarchies->pdata[i]);
-		g_ptr_array_free (account->priv->hierarchies, TRUE);
-		account->priv->hierarchies = NULL;
+	if (priv->gc) {
+		g_object_unref (priv->gc);
+		priv->gc = NULL;
 	}
 
-	if (account->priv->foreign_hierarchies) {
-		g_hash_table_foreach (account->priv->foreign_hierarchies, free_name, NULL);
-		g_hash_table_destroy (account->priv->foreign_hierarchies);
-		account->priv->foreign_hierarchies = NULL;
+	if (priv->hierarchies) {
+		for (i = 0; i < priv->hierarchies->len; i++)
+			g_object_unref (priv->hierarchies->pdata[i]);
+		g_ptr_array_free (priv->hierarchies, TRUE);
+		priv->hierarchies = NULL;
 	}
 
-	g_static_rec_mutex_lock (&account->priv->folders_lock);
-
-	if (account->priv->hierarchies_by_folder) {
-		g_hash_table_destroy (account->priv->hierarchies_by_folder);
-		account->priv->hierarchies_by_folder = NULL;
+	if (priv->foreign_hierarchies) {
+		g_hash_table_foreach (priv->foreign_hierarchies, free_name, NULL);
+		g_hash_table_destroy (priv->foreign_hierarchies);
+		priv->foreign_hierarchies = NULL;
 	}
 
-	if (account->priv->folders) {
-		g_hash_table_foreach (account->priv->folders, free_folder, NULL);
-		g_hash_table_destroy (account->priv->folders);
-		account->priv->folders = NULL;
+	g_static_rec_mutex_lock (&priv->folders_lock);
+
+	if (priv->hierarchies_by_folder) {
+		g_hash_table_destroy (priv->hierarchies_by_folder);
+		priv->hierarchies_by_folder = NULL;
 	}
 
-	g_static_rec_mutex_unlock (&account->priv->folders_lock);
+	if (priv->folders) {
+		g_hash_table_foreach (priv->folders, free_folder, NULL);
+		g_hash_table_destroy (priv->folders);
+		priv->folders = NULL;
+	}
+
+	g_static_rec_mutex_unlock (&priv->folders_lock);
 
 	G_OBJECT_CLASS (exchange_account_parent_class)->dispose (object);
 }
@@ -288,12 +301,6 @@ finalize (GObject *object)
 	if (account->priv->nt_domain)
 		g_free (account->priv->nt_domain);
 
-	if (account->priv->ad_server)
-		g_free (account->priv->ad_server);
-
-	if (account->priv->owa_url)
-		g_free (account->priv->owa_url);
-
 	if (account->priv->connect_lock)
 		g_mutex_free (account->priv->connect_lock);
 
@@ -301,8 +308,6 @@ finalize (GObject *object)
 		g_mutex_free (account->priv->discover_data_lock);
 
 	g_static_rec_mutex_free (&account->priv->folders_lock);
-
-	g_free (account->priv);
 
 	G_OBJECT_CLASS (exchange_account_parent_class)->finalize (object);
 }
@@ -1036,15 +1041,27 @@ is_password_expired (ExchangeAccount *account, E2kAutoconfig *ac)
 #endif
 
 static gint
-find_passwd_exp_period (ExchangeAccount *account, E2kGlobalCatalogEntry *entry)
+find_passwd_exp_period (ExchangeAccount *account,
+                        E2kGlobalCatalogEntry *entry)
 {
 	gdouble max_pwd_age = 0;
 	gint max_pwd_age_days;
 	E2kOperation gcop;
+	CamelSettings *settings;
 	E2kGlobalCatalogStatus gcstatus;
+	gboolean use_passwd_exp_warn_period;
+	guint passwd_exp_warn_period;
+
+	settings = exchange_account_get_settings (account);
+
+	g_object_get (
+		settings,
+		"passwd-exp-warn-period", &passwd_exp_warn_period,
+		"use-passwd-exp-warn-period", &use_passwd_exp_warn_period,
+		NULL);
 
 	/* If user has not selected password expiry warning option, return */
-	if (account->priv->passwd_exp_warn_period == -1)
+	if (!use_passwd_exp_warn_period)
 		return -1;
 
 	/* Check for password expiry period */
@@ -1054,19 +1071,19 @@ find_passwd_exp_period (ExchangeAccount *account, E2kGlobalCatalogEntry *entry)
 	/* Check for account control value for a user */
 
 	e2k_operation_init (&gcop);
-	gcstatus = e2k_global_catalog_lookup (account->priv->gc,
-					      &gcop,
-					      E2K_GLOBAL_CATALOG_LOOKUP_BY_EMAIL,
-					      account->priv->identity_email,
-					      E2K_GLOBAL_CATALOG_LOOKUP_ACCOUNT_CONTROL,
-					      &entry);
+	gcstatus = e2k_global_catalog_lookup (
+		account->priv->gc, &gcop,
+		E2K_GLOBAL_CATALOG_LOOKUP_BY_EMAIL,
+		account->priv->identity_email,
+		E2K_GLOBAL_CATALOG_LOOKUP_ACCOUNT_CONTROL,
+		&entry);
 	e2k_operation_free (&gcop);
+
 	if (gcstatus != E2K_GLOBAL_CATALOG_OK)
 		return -1;
 
-	if (entry->user_account_control & ADS_UF_DONT_EXPIRE_PASSWORD) {
+	if (entry->user_account_control & ADS_UF_DONT_EXPIRE_PASSWORD)
 		return -1;         /* Password is not set to expire */
-	}
 
 	/* Here we don't check not setting the password and expired password */
 	/* Check for the maximum password age set */
@@ -1078,12 +1095,12 @@ find_passwd_exp_period (ExchangeAccount *account, E2kGlobalCatalogEntry *entry)
 	if (max_pwd_age > 0) {
 		/* Calculate password expiry period */
 		max_pwd_age_days =
-		( max_pwd_age * ONE_HUNDRED_NANOSECOND ) / SECONDS_IN_DAY;
+		(max_pwd_age * ONE_HUNDRED_NANOSECOND) / SECONDS_IN_DAY;
 
-		if (max_pwd_age_days <= account->priv->passwd_exp_warn_period) {
+		if (max_pwd_age_days <= passwd_exp_warn_period)
 			return max_pwd_age_days;
-		}
 	}
+
 	return -1;
 }
 
@@ -1384,6 +1401,10 @@ exchange_account_connect (ExchangeAccount *account, const gchar *pword,
 	E2kOperation gcop;
 	gchar *user_name = NULL;
 	gboolean tried_ntlm = FALSE, tried_basic = FALSE;
+	gchar *gc_server_name;
+	gint gc_results_limit;
+	gboolean use_gc_results_limit;
+	E2kAutoconfigGalAuthPref gc_auth_method;
 
 	*info_result = EXCHANGE_ACCOUNT_UNKNOWN_ERROR;
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
@@ -1428,8 +1449,21 @@ exchange_account_connect (ExchangeAccount *account, const gchar *pword,
 				 account->priv->auth_pref);
 	g_free (user_name);
 
-	e2k_autoconfig_set_gc_server (ac, account->priv->ad_server,
-				      account->priv->ad_limit, account->priv->ad_auth);
+	g_object_get (
+		account->priv->settings,
+		"gc-auth-method", &gc_auth_method,
+		"gc-results-limit", &gc_results_limit,
+		"gc-server-name", &gc_server_name,
+		"use-gc-results-limit", &use_gc_results_limit,
+		NULL);
+
+	if (!use_gc_results_limit)
+		gc_results_limit = -1;  /* unlimited */
+
+	e2k_autoconfig_set_gc_server (
+		ac, gc_server_name, gc_results_limit, gc_auth_method);
+
+	g_free (gc_server_name);
 
 	if (!pword) {
 		account->priv->connecting = FALSE;
@@ -1641,14 +1675,18 @@ skip_quota:
 void
 exchange_account_is_offline_sync_set (ExchangeAccount *account, gint *mode)
 {
+	CamelSettings *settings;
+	gboolean stay_synchronized;
 	*mode = UNSUPPORTED_MODE;
 
 	g_return_if_fail (EXCHANGE_IS_ACCOUNT (account));
 
-	if (account->priv->offline_sync)
-		*mode = OFFLINE_MODE;
-	else
-		*mode = ONLINE_MODE;
+	settings = exchange_account_get_settings (account);
+
+	stay_synchronized = camel_offline_settings_get_stay_synchronized (
+		CAMEL_OFFLINE_SETTINGS (settings));
+
+	*mode = stay_synchronized ? OFFLINE_MODE : ONLINE_MODE;
 }
 
 /**
@@ -1682,6 +1720,21 @@ exchange_account_get_global_catalog (ExchangeAccount *account)
 }
 
 /**
+ * exchange_account_get_settings:
+ * @account: an #ExchangeAccount
+ *
+ * Return value: @account's #CamelSettings, created from the #EAccount
+ * given in exchange_account_new().
+ **/
+CamelSettings *
+exchange_account_get_settings (ExchangeAccount *account)
+{
+	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
+
+	return account->priv->settings;
+}
+
+/**
  * exchange_account_fetch:
  * @acct: an #ExchangeAccount
  *
@@ -1694,37 +1747,6 @@ exchange_account_fetch (ExchangeAccount *acct)
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (acct), NULL);
 
 	return acct->priv->account;
-}
-
-/**
- * exchange_account_get_account_uri_param:
- * @acct: and #ExchangeAccount
- * @param: uri param name to get
- *
- * Reads the parameter #param from the source url of the underlying EAccount.
- * Returns the value or NULL. Returned value should be freed with g_free.
- **/
-gchar *
-exchange_account_get_account_uri_param (ExchangeAccount *acct, const gchar *param)
-{
-	EAccount *account;
-	E2kUri *uri;
-	gchar *res;
-
-	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (acct), NULL);
-	g_return_val_if_fail (param != NULL, NULL);
-
-	account = exchange_account_fetch (acct);
-	g_return_val_if_fail (account != NULL, NULL);
-
-	uri = e2k_uri_new (e_account_get_string (account, E_ACCOUNT_SOURCE_URL));
-	g_return_val_if_fail (uri != NULL, NULL);
-
-	res = g_strdup (e2k_uri_get_param (uri, param));
-
-	e2k_uri_free (uri);
-
-	return res;
 }
 
 /**
@@ -2257,10 +2279,11 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 {
 	ExchangeAccount *account;
 	gchar *enc_user, *mailbox;
-	const gchar *param, *proto="http", *owa_path, *pf_server, *owa_url;
-	const gchar *passwd_exp_warn_period, *offline_sync;
+	const gchar *param, *proto="http", *owa_path, *owa_url;
 	const gchar *user_data_dir;
 	gchar *user_at_host;
+	CamelSettings *settings;
+	CamelURL camel_url;
 	E2kUri *uri;
 
 	uri = e2k_uri_new (adata->source->url);
@@ -2277,6 +2300,17 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 	g_object_ref (account_list);
 	account->priv->account = adata;
 	g_object_ref (adata);
+
+	/* XXX A E2kUri struct is just a CamelURL struct plus a domain
+	 *     field.  Otherwise they're identical.  For the purpose of
+	 *     populating the CamelSettings, we just need to allocate a
+	 *     mock CamelURL struct and point its "params" field to the
+	 *     E2kUri's "params" field. */
+	memset (&camel_url, 0, sizeof (CamelURL));
+	camel_url.params = uri->params;
+	settings = g_object_new (CAMEL_TYPE_EXCHANGE_SETTINGS, NULL);
+	camel_settings_load_from_url (settings, &camel_url);
+	account->priv->settings = settings;
 
 	account->account_name = g_strdup (adata->name);
 
@@ -2327,55 +2361,18 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 		account->priv->auth_pref = E2K_AUTOCONFIG_USE_BASIC;
 	else
 		account->priv->auth_pref = E2K_AUTOCONFIG_USE_NTLM;
-	param = e2k_uri_get_param (uri, "ad_server");
-	if (param && *param) {
-		account->priv->ad_server = g_strdup (param);
-		param = e2k_uri_get_param (uri, "ad_limit");
-		if (param)
-			account->priv->ad_limit = atoi (param);
-		param = e2k_uri_get_param (uri, "ad_auth");
-		if (!param || g_ascii_strcasecmp (param, "default") == 0)
-			account->priv->ad_auth = E2K_AUTOCONFIG_USE_GAL_DEFAULT;
-		else if (g_ascii_strcasecmp (param, "basic") == 0)
-			account->priv->ad_auth = E2K_AUTOCONFIG_USE_GAL_BASIC;
-		else if (g_ascii_strcasecmp (param, "ntlm") == 0)
-			account->priv->ad_auth = E2K_AUTOCONFIG_USE_GAL_NTLM;
-		else
-			account->priv->ad_auth = E2K_AUTOCONFIG_USE_GAL_DEFAULT;
-	}
 
-	passwd_exp_warn_period = e2k_uri_get_param (uri, "passwd_exp_warn_period");
-	if (!passwd_exp_warn_period || !*passwd_exp_warn_period)
-		account->priv->passwd_exp_warn_period = -1;
-	else
-		account->priv->passwd_exp_warn_period = atoi (passwd_exp_warn_period);
-
-	offline_sync = e2k_uri_get_param (uri, "offline_sync");
-	if (!offline_sync)
-		account->priv->offline_sync = FALSE;
-	else
-		account->priv->offline_sync = TRUE;
-
-	owa_path = e2k_uri_get_param (uri, "owa_path");
-	if (!owa_path || !*owa_path)
+	owa_path = camel_exchange_settings_get_owa_path (
+		CAMEL_EXCHANGE_SETTINGS (settings));
+	if (owa_path == NULL)
 		owa_path = "exchange";
 	else if (*owa_path == '/')
 		owa_path++;
 
-	pf_server = e2k_uri_get_param (uri, "pf_server");
-	if (!pf_server || !*pf_server)
-		pf_server = uri->host;
-
-	/* We set protocol reading owa_url, instead of having use_ssl parameter
-	 * because we don't have SSL section anymore in the account creation
-	 * druid and account editor
-	 */
-	/* proto = e2k_uri_get_param (uri, "use_ssl") ? "https" : "http"; */
-
-	owa_url = e2k_uri_get_param (uri, "owa_url");
-	if (owa_url) {
-		account->priv->owa_url = g_strdup (owa_url);
-		if (!strncmp (owa_url, "https:", 6))
+	owa_url = camel_exchange_settings_get_owa_url (
+		CAMEL_EXCHANGE_SETTINGS (settings));
+	if (owa_url != NULL) {
+		if (strncmp (owa_url, "https:", 6) == 0)
 			proto = "https";
 	}
 
@@ -2385,33 +2382,24 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
 					 proto, uri->port, owa_path);
 		account->public_uri =
 			g_strdup_printf ("%s://%s:%d/public",
-					 proto, pf_server, uri->port);
+					 proto, uri->host, uri->port);
 	} else {
 		account->priv->http_uri_schema =
 			g_strdup_printf ("%s://%%s/%s/%%s/", proto, owa_path);
 		account->public_uri =
-			g_strdup_printf ("%s://%s/public", proto, pf_server);
+			g_strdup_printf ("%s://%s/public", proto, uri->host);
 	}
 
-	param = e2k_uri_get_param (uri, "mailbox");
-	if (!param || !*param)
+	param = camel_exchange_settings_get_mailbox (
+		CAMEL_EXCHANGE_SETTINGS (settings));
+	if (param == NULL)
 		param = uri->user;
 	else if (!g_ascii_strncasecmp (param, account->priv->identity_email, strlen (param)))
 		account->priv->uris_use_email = TRUE;
 	mailbox = e2k_uri_encode (param, TRUE, "/");
-	account->home_uri = g_strdup_printf (account->priv->http_uri_schema,
-					     uri->host, mailbox);
+	account->home_uri = g_strdup_printf (
+		account->priv->http_uri_schema, uri->host, mailbox);
 	g_free (mailbox);
-
-	param = e2k_uri_get_param (uri, "filter");
-	if (param)
-		account->filter_inbox = TRUE;
-	param = e2k_uri_get_param (uri, "filter_junk");
-	if (param)
-		account->filter_junk = TRUE;
-	param = e2k_uri_get_param (uri, "filter_junk_inbox");
-	if (param)
-		account->filter_junk_inbox_only = TRUE;
 
 	e2k_uri_free (uri);
 

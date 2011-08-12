@@ -2258,6 +2258,7 @@ camel_exchange_utils_get_folder (CamelService *service,
 				gboolean *readonly, /* out */
 				GError **error)
 {
+	CamelSettings *settings;
 	ExchangeData *ed = get_data_for_service (service);
 	ExchangeFolder *mfld;
 	ExchangeMessage *mmsg;
@@ -2267,11 +2268,23 @@ camel_exchange_utils_get_folder (CamelService *service,
 	guint32 camel_flags;
 	gint i;
 	ExchangeHierarchy *hier;
+	gboolean filter_inbox;
+	gboolean filter_junk;
+	gboolean filter_junk_inbox;
 
 	g_return_val_if_fail (ed != NULL, FALSE);
 	g_return_val_if_fail (folder_flags != NULL, FALSE);
 	g_return_val_if_fail (folder_uri != NULL, FALSE);
 	g_return_val_if_fail (readonly != NULL, FALSE);
+
+	settings = camel_service_get_settings (service);
+
+	g_object_get (
+		settings,
+		"filter-inbox", &filter_inbox,
+		"filter-junk", &filter_junk,
+		"filter-junk-inbox", &filter_junk_inbox,
+		NULL);
 
 	path = g_strdup_printf ("/%s", name);
 	folder = exchange_account_get_folder (ed->account, path);
@@ -2345,12 +2358,12 @@ camel_exchange_utils_get_folder (CamelService *service,
 	*readonly = ((mfld->access & (MAPI_ACCESS_MODIFY | MAPI_ACCESS_CREATE_CONTENTS)) == 0);
 
 	camel_flags = 0;
-	if (ed->account->filter_inbox && (mfld->folder == ed->inbox))
+	if (filter_inbox && (mfld->folder == ed->inbox))
 		camel_flags |= CAMEL_FOLDER_FILTER_RECENT;
-	if (ed->account->filter_junk) {
+	if (filter_junk) {
 		if ((mfld->folder != ed->deleted_items) &&
 		    ((mfld->folder == ed->inbox) ||
-		    !ed->account->filter_junk_inbox_only))
+		    !filter_junk_inbox))
 			camel_flags |= CAMEL_FOLDER_FILTER_JUNK;
 	}
 

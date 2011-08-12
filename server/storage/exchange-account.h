@@ -4,6 +4,7 @@
 #ifndef __EXCHANGE_ACCOUNT_H__
 #define __EXCHANGE_ACCOUNT_H__
 
+#include <camel/camel.h>
 #include <exchange-types.h>
 #include <exchange-constants.h>
 #include "e2k-autoconfig.h"
@@ -35,7 +36,6 @@ struct _ExchangeAccount {
 	gchar *exchange_server, *home_uri, *public_uri;
 	gchar *legacy_exchange_dn, *default_timezone;
 
-	gboolean filter_inbox, filter_junk, filter_junk_inbox_only;
 	gdouble mbox_size;
 };
 
@@ -81,10 +81,8 @@ E2kContext *	exchange_account_get_context	(ExchangeAccount *account);
 E2kGlobalCatalog
 		*exchange_account_get_global_catalog
 						(ExchangeAccount *account);
+CamelSettings *	exchange_account_get_settings	(ExchangeAccount *account);
 EAccount *	exchange_account_fetch		(ExchangeAccount *account);
-gchar *		exchange_account_get_account_uri_param
-						(ExchangeAccount *account,
-						 const gchar *param);
 const gchar *	exchange_account_get_standard_uri
 						(ExchangeAccount *account,
 						 const gchar *item);

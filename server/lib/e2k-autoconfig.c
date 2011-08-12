@@ -998,11 +998,11 @@ set_account_uri_string (E2kAutoconfig *ac)
 	g_string_append_c (uri, '/');
 
 	if (!strcmp (owa_uri->protocol, "https"))
-		g_string_append (uri, ";use_ssl=always");
-	g_string_append (uri, ";ad_server=");
+		g_string_append (uri, ";security-method=ssl-on-alternate-port");
+	g_string_append (uri, ";gc-server-name=");
 	e2k_uri_append_encoded (uri, ac->gc_server, FALSE, ";?");
 	if (ac->gal_limit != -1)
-		g_string_append_printf (uri, ";ad_limit=%d", ac->gal_limit);
+		g_string_append_printf (uri, ";gc-results-limit=%d", ac->gal_limit);
 	if (ac->gal_auth != E2K_AUTOCONFIG_USE_GAL_DEFAULT) {
 		const gchar *value = NULL;
 
@@ -1013,7 +1013,7 @@ set_account_uri_string (E2kAutoconfig *ac)
 		}
 
 		if (value)
-			g_string_append_printf (uri, ";ad_auth=%s", value);
+			g_string_append_printf (uri, ";gc-auth-method=%s", value);
 	}
 
 	path = g_strdup (home_uri->path + 1);
@@ -1027,7 +1027,7 @@ set_account_uri_string (E2kAutoconfig *ac)
 		g_string_append (uri, ";mailbox=");
 		e2k_uri_append_encoded (uri, mailbox, FALSE, ";?");
 	}
-	g_string_append (uri, ";owa_path=/");
+	g_string_append (uri, ";owa-path=/");
 	e2k_uri_append_encoded (uri, path, FALSE, ";?");
 	g_free (path);
 
@@ -1480,7 +1480,7 @@ validate (const gchar *owa_url, gchar *user, gchar *password, ExchangeParams *ex
 	E2kUri *euri;
 	gboolean valid = FALSE;
 	/* const gchar *old, *new; */
-	gchar *path, *mailbox;
+	gchar *path;
 
 	ac = e2k_autoconfig_new (owa_url, user, password,
 				 E2K_AUTOCONFIG_USE_EITHER);
@@ -1511,6 +1511,8 @@ validate (const gchar *owa_url, gchar *user, gchar *password, ExchangeParams *ex
 	}
 
 	if (*result == E2K_AUTOCONFIG_OK) {
+		const gchar *mailbox;
+		gchar *owa_path;
 		gint len;
 
 		*result = e2k_autoconfig_check_global_catalog (ac, &op);
@@ -1528,18 +1530,24 @@ validate (const gchar *owa_url, gchar *user, gchar *password, ExchangeParams *ex
 			len--;
 		}
 
-		/* change a mailbox only if not set by the caller */
-		if (!exchange_params->mailbox || !*exchange_params->mailbox) {
-			mailbox = strrchr (path, '/');
-			if (mailbox && !mailbox[1]) {
-				*mailbox = '\0';
-				mailbox = strrchr (path, '/');
-			}
-			if (mailbox)
-				*mailbox++ = '\0';
+		mailbox = camel_exchange_settings_get_mailbox (
+			exchange_params->settings);
 
-			g_free (exchange_params->mailbox);
-			exchange_params->mailbox  = g_strdup (mailbox);
+		/* change a mailbox only if not set by the caller */
+		if (mailbox == NULL || *mailbox == '\0') {
+			gchar *derived_mailbox;
+
+			derived_mailbox = strrchr (path, '/');
+			if (derived_mailbox != NULL && *derived_mailbox == '\0') {
+				*derived_mailbox = '\0';
+				derived_mailbox = strrchr (path, '/');
+			}
+			if (derived_mailbox != NULL)
+				*derived_mailbox++ = '\0';
+
+			camel_exchange_settings_set_mailbox (
+				exchange_params->settings,
+				derived_mailbox);
 		} else {
 			/* always strip the mailbox part from the path */
 			gchar *slash = strrchr (path, '/');
@@ -1548,11 +1556,17 @@ validate (const gchar *owa_url, gchar *user, gchar *password, ExchangeParams *ex
 				*slash = '\0';
 		}
 
-		exchange_params->owa_path = g_strdup_printf ("%s%s", "/", path);
+		owa_path = g_strconcat ("/", path, NULL);
+		camel_exchange_settings_set_owa_path (
+			exchange_params->settings, owa_path);
+		g_free (owa_path);
+
 		g_free (path);
+
 		exchange_params->host = g_strdup (ac->pf_server);
-		if (ac->gc_server)
-			exchange_params->ad_server = g_strdup (ac->gc_server);
+		if (ac->gc_server != NULL)
+			camel_exchange_settings_set_gc_server_name (
+				exchange_params->settings, ac->gc_server);
 		exchange_params->is_ntlm = ac->saw_ntlm;
 
 		valid = TRUE;

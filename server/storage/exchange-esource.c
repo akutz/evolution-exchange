@@ -149,16 +149,23 @@ add_folder_esource (ExchangeAccount *account,
 		e_source_group_set_property (source_group, "account-uid", exchange_account_fetch (account)->uid);
 
 		if (is_contacts_folder && g_str_has_prefix (physical_uri, "gal://")) {
-			gchar *browse = exchange_account_get_account_uri_param (account, "ad_browse");
-			gchar *expand_groups = exchange_account_get_account_uri_param (account, "ad_expand_groups");
+			CamelSettings *settings;
+			gboolean allow_browse;
+			gboolean expand_groups;
+
+			settings = exchange_account_get_settings (account);
+
+			g_object_get (
+				settings,
+				"gc-allow-browse", &allow_browse,
+				"gc-expand-groups", &expand_groups,
+				NULL);
 
 			source = e_source_new_with_absolute_uri (folder_name,
 								 physical_uri);
 			e_source_set_property (source, "completion", "true");
-			e_source_set_property (source, "can-browse", browse ? "1" : NULL);
+			e_source_set_property (source, "can-browse", allow_browse ? "1" : NULL);
 			e_source_set_property (source, "expand-groups", expand_groups ? "1" : NULL);
-			g_free (expand_groups);
-			g_free (browse);
 		}
 		else {
 			source = e_source_new (folder_name, relative_uri);
@@ -198,16 +205,23 @@ add_folder_esource (ExchangeAccount *account,
 		if ((source = e_source_group_peek_source_by_name (source_group,
 							folder_name)) == NULL) {
 			if (is_contacts_folder && g_str_has_prefix (physical_uri, "gal://")) {
-				gchar *browse = exchange_account_get_account_uri_param (account, "ad_browse");
-				gchar *expand_groups = exchange_account_get_account_uri_param (account, "ad_expand_groups");
+				CamelSettings *settings;
+				gboolean allow_browse;
+				gboolean expand_groups;
+
+				settings = exchange_account_get_settings (account);
+
+				g_object_get (
+					settings,
+					"gc-allow-browse", &allow_browse,
+					"gc-expand-groups", &expand_groups,
+					NULL);
 
 				source = e_source_new_with_absolute_uri (
 						folder_name, physical_uri);
 				e_source_set_property (source, "completion", "true");
-				e_source_set_property (source, "can-browse", browse ? "1" : NULL);
+				e_source_set_property (source, "can-browse", allow_browse ? "1" : NULL);
 				e_source_set_property (source, "expand-groups", expand_groups ? "1" : NULL);
-				g_free (expand_groups);
-				g_free (browse);
 			}
 			else {
 				source = e_source_new (folder_name, relative_uri);
@@ -253,21 +267,30 @@ add_folder_esource (ExchangeAccount *account,
 			}
 
 			if (is_contacts_folder && g_str_has_prefix (physical_uri, "gal://")) {
-				gchar *browse = exchange_account_get_account_uri_param (account, "ad_browse");
-				const gchar *old_browse = e_source_get_property (source, "can-browse");
-				gchar *expand_groups = exchange_account_get_account_uri_param (account, "ad_expand_groups");
-				const gchar *old_expand_groups = e_source_get_property (source, "expand-groups");
+				CamelSettings *settings;
+				gboolean allow_browse;
+				gboolean expand_groups;
+				const gchar *old_allow_browse;
+				const gchar *old_expand_groups;
 
-				if ((old_browse || browse) && (!old_browse || !browse)) {
-					e_source_set_property (source, "can-browse", browse ? "1" : NULL);
+				settings = exchange_account_get_settings (account);
+
+				g_object_get (
+					settings,
+					"gc-allow-browse", &allow_browse,
+					"gc-expand-groups", &expand_groups,
+					NULL);
+
+				old_allow_browse = e_source_get_property (source, "can-browse");
+				old_expand_groups = e_source_get_property (source, "expand-groups");
+
+				if ((old_allow_browse || allow_browse) && (!old_allow_browse || !allow_browse)) {
+					e_source_set_property (source, "can-browse", allow_browse ? "1" : NULL);
 				}
 
 				if ((old_expand_groups || expand_groups) && (!old_expand_groups || !expand_groups)) {
 					e_source_set_property (source, "expand-groups", expand_groups ? "1" : NULL);
 				}
-
-				g_free (expand_groups);
-				g_free (browse);
 			}
 
 			if ((!old_delete && !can_delete) || (old_delete && ((g_str_equal (old_delete, "no") && can_delete) || (!g_str_equal (old_delete, "no") && !can_delete)))) {

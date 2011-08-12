@@ -416,7 +416,10 @@ requires_relogin (gchar *current_url, gchar *new_url)
 {
 	E2kUri *current_uri, *new_uri;
 	const gchar *current_param_val, *new_param_val;
-	const gchar *params [] = { "owa_url", "ad_server", "use_ssl" };
+	const gchar *params [] = {
+		"owa-url",
+		"gc-server-name",
+		"security-method" };
 	const gint n_params = G_N_ELEMENTS (params);
 	gint i;
 	gboolean relogin = FALSE;
@@ -640,10 +643,10 @@ exchange_camel_urls_is_equal (const gchar *url1, const gchar *url2)
 	const gchar *param1, *param2;
 	const gchar *params[] = {
 		"auth",
-		"owa_url",
-		"owa_path",
+		"owa-url",
+		"owa-path",
 		"mailbox",
-		"ad_server",
+		"gc-server-name",
 	};
 	const gint n_params = 5;
 	gint i;

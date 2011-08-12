@@ -29,11 +29,12 @@ e2k-proptags.h: $(e2k_proptags_h_in) $(mapi_properties)
 	  awk '{if (tail) { print; }} /^@AUTOGENERATE@/ {tail=1;}' $(e2k_proptags_h_in) ) \
 	> $@
 
-BUILT_SOURCES = $(PROP_GENERATED)
-NODIST_FILES = $(PROP_GENERATED)
-CLEANFILES = $(PROP_GENERATED)
+include $(top_srcdir)/glib-gen.mak
+glib_enum_headers=e2k-enums.h
+glib_enum_define=E2k
+glib_enum_prefix=e2k
 
-MARSHAL_GENERATED = e2k-marshal.c e2k-marshal.h
+ENUM_GENERATED = e2k-enumtypes.h e2k-enumtypes.c
 
 e2k-marshal.h: e2k-marshal.list
 	( @GLIB_GENMARSHAL@ --prefix=e2k_marshal $(srcdir)/e2k-marshal.list --header > e2k-marshal.tmp  \
@@ -45,9 +46,14 @@ e2k-marshal.c: e2k-marshal.h
 	&& mv e2k-marshal.tmp e2k-marshal.c )  \
 	|| ( rm -f e2k-marshal.tmp && exit 1 )
 
-BUILT_SOURCES += $(MARSHAL_GENERATED)
-NODIST_FILES += $(MARSHAL_GENERATED)
-CLEANFILES += $(MARSHAL_GENERATED)
+MARSHAL_GENERATED = e2k-marshal.h e2k-marshal.c
+
+BUILT_SOURCES = \
+	$(ENUM_GENERATED) \
+	$(MARSHAL_GENERATED) \
+	$(PROP_GENERATED)
+
+CLEANFILES = $(BUILT_SOURCES)
 
 if ENABLE_KRB5
 KERBEROS_FILES = \
@@ -79,7 +85,10 @@ libexchange_la_LIBADD = \
 	$(LDAP_LIBS)
 
 libexchange_la_SOURCES = \
+	$(ENUM_GENERATED) \
 	$(MARSHAL_GENERATED) \
+	camel-exchange-settings.c \
+	camel-exchange-settings.h \
 	e2k-propnames.h \
 	e2k-proptags.h \
 	e2k-action.c \

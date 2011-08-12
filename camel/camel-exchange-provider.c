@@ -58,7 +58,7 @@ static const gchar *auth_types[] = {
 CamelProviderConfEntry exchange_conf_entries[] = {
 	{ CAMEL_PROVIDER_CONF_SECTION_START, "mailcheck", NULL,
 	  N_("Checking for New Mail") },
-	{ CAMEL_PROVIDER_CONF_CHECKBOX, "check_all", NULL,
+	{ CAMEL_PROVIDER_CONF_CHECKBOX, "check-all", NULL,
 	  N_("C_heck for new messages in all folders"), "1" },
 	{ CAMEL_PROVIDER_CONF_SECTION_END },
 
@@ -73,31 +73,34 @@ CamelProviderConfEntry exchange_conf_entries[] = {
 	{ CAMEL_PROVIDER_CONF_SECTION_START, "activedirectory", NULL,
 	  /* i18n: GAL is an Outlookism, AD is a Windowsism */
 	  N_("Global Address List/Active Directory") },
-	{ CAMEL_PROVIDER_CONF_ENTRY, "ad_server", NULL,
+	{ CAMEL_PROVIDER_CONF_ENTRY, "gc-server-name", NULL,
 	  /* i18n: "Global Catalog" is a Windowsism, but it's a
 	     technical term and may not have translations? */
 	  N_("_Global Catalog server name:") },
-	{ CAMEL_PROVIDER_CONF_CHECKSPIN, "ad_limit", NULL,
+	{ CAMEL_PROVIDER_CONF_CHECKSPIN, "gc-results-limit", NULL,
 	  N_("_Limit number of GAL responses: %s"), "y:1:500:10000" },
-	{ CAMEL_PROVIDER_CONF_OPTIONS, "ad_auth", NULL,
-	  N_("Authentication _Type:"), "default:Secure or Plaintext Password:basic:Plaintext Password:ntlm:Secure Password" },
-	{ CAMEL_PROVIDER_CONF_CHECKBOX, "ad_browse", NULL,
+	{ CAMEL_PROVIDER_CONF_OPTIONS, "gc-auth-method", NULL,
+	  N_("Authentication _Type:"),
+	  "default:Secure or Plaintext Password:"
+	  "basic:Plaintext Password:"
+	  "ntlm:Secure Password" },
+	{ CAMEL_PROVIDER_CONF_CHECKBOX, "gc-allow-browse", NULL,
 	  N_("Allow _browsing of the GAL until download limit is reached"), "0" },
-	{ CAMEL_PROVIDER_CONF_CHECKBOX, "ad_expand_groups", NULL,
+	{ CAMEL_PROVIDER_CONF_CHECKBOX, "gc-expand-groups", NULL,
 	  N_("_Expand groups of contacts in GAL to contact lists"), "0" },
 	{ CAMEL_PROVIDER_CONF_SECTION_END },
 	{ CAMEL_PROVIDER_CONF_SECTION_START, "generals", NULL,
 	  N_("Options") },
-	{ CAMEL_PROVIDER_CONF_CHECKSPIN, "passwd_exp_warn_period", NULL,
+	{ CAMEL_PROVIDER_CONF_CHECKSPIN, "passwd-exp-warn-period", NULL,
 	  N_("_Password Expiry Warning period: %s"), "y:1:7:90" },
-	{ CAMEL_PROVIDER_CONF_CHECKBOX, "sync_offline", NULL,
+	{ CAMEL_PROVIDER_CONF_CHECKBOX, "stay-synchronized", NULL,
 	  N_("Automatically synchroni_ze account locally"), "0" },
-	{ CAMEL_PROVIDER_CONF_CHECKBOX, "filter", NULL,
+	{ CAMEL_PROVIDER_CONF_CHECKBOX, "filter-inbox", NULL,
 	  /* i18n: copy from evolution:camel-imap-provider.c */
 	  N_("_Apply filters to new messages in Inbox on this server"), "0" },
-	{ CAMEL_PROVIDER_CONF_CHECKBOX, "filter_junk", NULL,
+	{ CAMEL_PROVIDER_CONF_CHECKBOX, "filter-junk", NULL,
 	  N_("Check new messages for _Junk contents"), "0" },
-	{ CAMEL_PROVIDER_CONF_CHECKBOX, "filter_junk_inbox", "filter_junk",
+	{ CAMEL_PROVIDER_CONF_CHECKBOX, "filter-junk-inbox", "filter-junk",
 	  N_("Only check for Junk messag_es in the Inbox folder"), "0" },
 	{ CAMEL_PROVIDER_CONF_HIDDEN, "auth-domain", NULL,
 	  NULL, "Exchange" },
@@ -148,17 +151,23 @@ CamelServiceAuthType camel_exchange_password_authtype = {
 };
 
 static gint
-exchange_auto_detect_cb (CamelURL *url, GHashTable **auto_detected,
-			 GError **error)
+exchange_auto_detect_cb (CamelURL *url,
+                         GHashTable **auto_detected,
+                         GError **error)
 {
 	*auto_detected = g_hash_table_new (g_str_hash, g_str_equal);
 
-	g_hash_table_insert (*auto_detected, g_strdup ("mailbox"),
-			     g_strdup (url->user));
-	g_hash_table_insert (*auto_detected, g_strdup ("pf_server"),
-			     g_strdup (url->host));
-	g_hash_table_insert (*auto_detected, g_strdup ("ad_server"),
-			     g_strdup (camel_url_get_param (url, "ad_server")));
+	g_hash_table_insert (
+		*auto_detected,
+		g_strdup ("mailbox"), g_strdup (url->user));
+	g_hash_table_insert (
+		*auto_detected,
+		g_strdup ("pf-server"),
+		g_strdup (url->host));
+	g_hash_table_insert (
+		*auto_detected,
+		g_strdup ("gc-server-name"),
+		g_strdup (camel_url_get_param (url, "gc-server-name")));
 
 	return 0;
 }

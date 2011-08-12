@@ -147,7 +147,8 @@ PKG_CHECK_MODULES(GNOME_PLATFORM,
 	libsoup-2.4 >= libsoup_minimum_version])
 
 PKG_CHECK_MODULES(EVOLUTION_DATA_SERVER,
-	[libebook-1.2 >= eds_minimum_version
+	[camel-provider-1.2 >= eds_minimum_version
+	libebook-1.2 >= eds_minimum_version
 	libecal-1.2 >= eds_minimum_version
 	libedataserver-1.2 >= eds_minimum_version
 	libedataserverui-3.0 >= eds_minimum_version

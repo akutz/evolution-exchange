@@ -5,25 +5,16 @@
 #define __E2K_VALIDATE_H_
 
 #include <gtk/gtk.h>
+#include "camel-exchange-settings.h"
+#include "e2k-enums.h"
 
 G_BEGIN_DECLS
 
-typedef enum {
-	E2K_AUTOCONFIG_USE_GAL_DEFAULT, /* try ntlm if available and then basic if not or failed */
-
-	E2K_AUTOCONFIG_USE_GAL_BASIC,
-	/*E2K_AUTOCONFIG_USE_GAL_SASL,*/
-	E2K_AUTOCONFIG_USE_GAL_NTLM
-} E2kAutoconfigGalAuthPref;
-
 typedef struct {
-        gchar *host;
-        gchar *ad_server;
-	E2kAutoconfigGalAuthPref ad_auth;
-        gchar *mailbox;
-        gchar *owa_path;
+	gchar *host;
+	CamelExchangeSettings *settings;
 	gboolean is_ntlm;
-}ExchangeParams;
+} ExchangeParams;
 
 typedef enum {
 	E2K_AUTOCONFIG_OK,
@@ -44,11 +35,13 @@ typedef enum {
 	E2K_AUTOCONFIG_FAILED
 } E2kAutoconfigResult;
 
-gboolean e2k_validate_user (const gchar *owa_url, gchar *key, gchar **user,
-			    ExchangeParams *exchange_params,
-			    gboolean *remember_password,
-			    E2kAutoconfigResult *result,
-			    GtkWindow *parent);
+gboolean	e2k_validate_user		(const gchar *owa_url,
+						 gchar *key,
+						 gchar **user,
+						 ExchangeParams *exchange_params,
+						 gboolean *remember_password,
+						 E2kAutoconfigResult *result,
+						 GtkWindow *parent);
 
 G_END_DECLS
 

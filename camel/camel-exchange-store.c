@@ -29,8 +29,9 @@
 
 #include <libedataserver/e-data-server-util.h>
 
-#include "camel-exchange-store.h"
 #include "camel-exchange-folder.h"
+#include "camel-exchange-settings.h"
+#include "camel-exchange-store.h"
 #include "camel-exchange-summary.h"
 #include "camel-exchange-utils.h"
 
@@ -43,7 +44,7 @@
 /* Even if we are disconnected, we need to exchange_store_connect()
    to get the offline data */
 #define RETURN_VAL_IF_NOT_CONNECTED(store, cancellable, ex, val)\
-	if (!camel_exchange_store_connected (store, cancellable, ex) && \
+	if (!camel_exchange_store_connected (store, cancellable, NULL) && \
 	    !exchange_store_connect_sync (CAMEL_SERVICE (store), cancellable, ex)) \
 		return val;
 
@@ -401,17 +402,21 @@ exchange_store_can_refresh_folder (CamelStore *store,
                                    GError **error)
 {
 	CamelStoreClass *store_class;
-	CamelURL *url;
-	gboolean res;
+	CamelService *service;
+	CamelSettings *settings;
+	gboolean can_refresh;
+	gboolean check_all;
+
+	service = CAMEL_SERVICE (store);
+	settings = camel_service_get_settings (service);
+
+	check_all = camel_exchange_settings_get_check_all (
+		CAMEL_EXCHANGE_SETTINGS (settings));
 
 	store_class = CAMEL_STORE_CLASS (camel_exchange_store_parent_class);
+	can_refresh = store_class->can_refresh_folder (store, info, error);
 
-	url = camel_service_get_camel_url (CAMEL_SERVICE (store));
-
-	res = store_class->can_refresh_folder (store, info, error) ||
-	      (camel_url_get_param (url, "check_all") != NULL);
-
-	return res;
+	return can_refresh || check_all;
 }
 
 static gboolean
@@ -780,6 +785,7 @@ camel_exchange_store_class_init (CamelExchangeStoreClass *class)
 	object_class->constructed = exchange_store_constructed;
 
 	service_class = CAMEL_SERVICE_CLASS (class);
+	service_class->settings_type = CAMEL_TYPE_EXCHANGE_SETTINGS;
 	service_class->get_name = exchange_store_get_name;
 	service_class->connect_sync = exchange_store_connect_sync;
 	service_class->disconnect_sync = exchange_store_disconnect_sync;

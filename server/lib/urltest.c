@@ -74,62 +74,6 @@ dump_uri (E2kUri *euri) {
 		printf("Path : %s \n", euri->path);
 	else
 		printf ("Path : NULL \n");
-	if (euri->params) {
-		printf("\nParams : \n");
-		temp = e2k_uri_get_param (euri, "ad_server");
-		if (temp) printf ("\tAd server = %s\n", temp);
-		else printf ("\tAd server = NULL \n");
-
-		temp = e2k_uri_get_param (euri, "ad_limit");
-		if (temp) printf ("\tAd Limit = %s\n", temp);
-		else printf ("\tAd Limit = NULL\n");
-
-		temp = e2k_uri_get_param (euri, "passwd_exp_warn_period");
-		if (temp) printf ("\tPasswd expiry warn period = %s\n", temp);
-		else printf ("\tPasswd expiry warn period = NULL \n");
-
-		temp = e2k_uri_get_param (euri, "offline_sync");
-		if (temp) printf ("\tOffline Sync = %s\n", temp);
-		else printf ("\tOffline Sync = NULL \n");
-
-		temp = e2k_uri_get_param (euri, "owa_path");
-		if (temp) printf ("\tOwa path = %s\n", temp);
-		else printf ("\tOwa path = NULL \n");
-
-		temp = e2k_uri_get_param (euri, "pf_server");
-		if (temp) printf ("\tPf server = %s\n", temp);
-		else printf ("\tPf server = NULL \n");
-
-		temp = e2k_uri_get_param (euri, "use_ssl");
-		if (temp) printf ("\tSSL = %s\n", temp);
-		else printf ("\tSSL = NULL\n");
-
-		temp = e2k_uri_get_param (euri, "mailbox");
-		if (temp) printf ("\tMailbox = %s\n", temp);
-		else printf ("\tMailbox = NULL \n");
-
-		temp = e2k_uri_get_param (euri, "filter");
-		if (temp) printf ("\tFilter = %s\n", temp);
-		else printf ("\tFilter = NULL \n");
-
-		temp = e2k_uri_get_param (euri, "filter_junk");
-		if (temp) printf ("\tFilter junk = %s\n", temp);
-		else printf ("\tFilter junk = NULL \n");
-
-		temp = e2k_uri_get_param (euri, "filter_junk_inbox");
-		if (temp) printf ("\tFilter junk inbox = %s\n", temp);
-		else printf ("\tFilter junk inbox = NULL \n");
-
-		temp = e2k_uri_get_param (euri, "owa_protocol");
-		if (temp) printf ("\tOwa protocol = %s\n", temp);
-		else printf ("\tOwa protocol = NULL \n");
-
-		temp = e2k_uri_get_param (euri, "owa_url");
-		if (temp) printf ("\tOwa url = %s\n", temp);
-		else printf ("\tOwa url = NULL \n");
-	}
-	else
-		printf ("Params : NULL \n");
 	if (euri->query)
 		printf("Query : %s \n", euri->query);
 	else

@@ -431,20 +431,9 @@ print_error (GtkWidget *parent, const gchar *owa_url, E2kAutoconfigResult result
 		e_alert_run_dialog_for_args (GTK_WINDOW (parent), err_msg, NULL);
 }
 
-static const gchar *
-gal_auth_to_string (E2kAutoconfigGalAuthPref ad_auth)
-{
-	switch (ad_auth) {
-	case E2K_AUTOCONFIG_USE_GAL_DEFAULT: return "default";
-	case E2K_AUTOCONFIG_USE_GAL_BASIC:   return "basic";
-	case E2K_AUTOCONFIG_USE_GAL_NTLM:    return "ntlm";
-	}
-
-	return "default";
-}
-
 static void
-owa_authenticate_user (GtkWidget *button, EConfig *config)
+owa_authenticate_user (GtkWidget *button,
+                       EConfig *config)
 {
 	EMConfigTargetAccount *target_account = (EMConfigTargetAccount *) config->target;
 	E2kAutoconfigResult result;
@@ -455,18 +444,15 @@ owa_authenticate_user (GtkWidget *button, EConfig *config)
 	gchar *at, *user;
 	gboolean valid = FALSE;
 	ExchangeParams *exchange_params;
-	GtkWidget *mailbox_entry = g_object_get_data (G_OBJECT (button), "mailbox-entry");
 	EAccount *account;
+	CamelExchangeSettings *settings;
 
 	exchange_params = g_new0 (ExchangeParams, 1);
 	exchange_params->host = NULL;
-	exchange_params->ad_server = NULL;
-	exchange_params->ad_auth = E2K_AUTOCONFIG_USE_GAL_DEFAULT;
-	exchange_params->mailbox = NULL;
-	exchange_params->owa_path = NULL;
 	exchange_params->is_ntlm = TRUE;
 
 	account = target_account->modified_account;
+	settings = CAMEL_EXCHANGE_SETTINGS (target_account->settings);
 
 	source_url = e_account_get_string (account, E_ACCOUNT_SOURCE_URL);
 
@@ -490,23 +476,26 @@ owa_authenticate_user (GtkWidget *button, EConfig *config)
 	   It must use camel_session_ask_password, and it should return an exception for any problem,
 	   which should then be shown using e-alert */
 
-	owa_url = camel_url_get_param (url, "owa_url");
+	/* Note we're not referencing CamelSettings here. */
+	exchange_params->settings = settings;
+
+	owa_url = camel_exchange_settings_get_owa_url (settings);
+
 	if (camel_url_get_param (url, "authmech"))
 		exchange_params->is_ntlm = TRUE;
 	else
 		exchange_params->is_ntlm = FALSE;
 	camel_url_set_authmech (url, exchange_params->is_ntlm ? "NTLM" : "Basic");
 
-	key = camel_url_to_string (url, CAMEL_URL_HIDE_PASSWORD | CAMEL_URL_HIDE_PARAMS);
+	key = camel_url_to_string (
+		url, CAMEL_URL_HIDE_PASSWORD | CAMEL_URL_HIDE_PARAMS);
 	/* Supress the trailing slash */
 	key[strlen (key) -1] = 0;
 
-	/* set the mailbox before function call to let it use our, not create one */
-	exchange_params->mailbox = g_strdup (camel_url_get_param (url, "mailbox"));
-
-	valid =  e2k_validate_user (owa_url, key, &url->user, exchange_params,
-						&remember_password, &result,
-						GTK_WINDOW (gtk_widget_get_toplevel (button)));
+	valid = e2k_validate_user (
+		owa_url, key, &url->user, exchange_params,
+		&remember_password, &result,
+		GTK_WINDOW (gtk_widget_get_toplevel (button)));
 	g_free (key);
 
 	if (!valid && result != E2K_AUTOCONFIG_CANCELLED)
@@ -515,28 +504,22 @@ owa_authenticate_user (GtkWidget *button, EConfig *config)
 	camel_url_set_host (url, valid ? exchange_params->host : "");
 
 	if (valid) {
-		camel_url_set_param (url, "save-passwd", NULL);
 		if (account && account->source && account->transport) {
 			account->source->save_passwd = remember_password;
 			account->transport->save_passwd = remember_password;
 		}
 	}
 
-	camel_url_set_param (url, "ad_server", valid ? exchange_params->ad_server: NULL);
-	camel_url_set_param (url, "mailbox", valid ? exchange_params->mailbox : NULL);
-	camel_url_set_param (url, "owa_path", valid ? exchange_params->owa_path : NULL);
-	camel_url_set_param (url, "ad_auth", valid ? gal_auth_to_string (exchange_params->ad_auth) : NULL);
+	if (!valid)
+		g_object_set (
+			settings,
+			"gc-auth-method", E2K_AUTOCONFIG_USE_GAL_DEFAULT,
+			"gc-server-name", NULL,
+			"mailbox", NULL,
+			"owa-path", NULL,
+			NULL);
 
-	if (mailbox_entry) {
-		const gchar *par = camel_url_get_param (url, "mailbox");
-
-		gtk_entry_set_text (GTK_ENTRY (mailbox_entry), par ? par : "");
-	}
-
-	g_free (exchange_params->owa_path);
-	g_free (exchange_params->mailbox);
 	g_free (exchange_params->host);
-	g_free (exchange_params->ad_server);
 	g_free (exchange_params);
 
 	if (valid) {
@@ -546,152 +529,95 @@ owa_authenticate_user (GtkWidget *button, EConfig *config)
 		e_account_set_bool (account, E_ACCOUNT_SOURCE_SAVE_PASSWD, remember_password);
 		g_free (url_string);
 	}
+
 	camel_url_free (url);
 }
 
 static void
 owa_editor_entry_changed (GtkWidget *entry, EConfig *config)
 {
-	const gchar *ssl = NULL;
-	CamelURL *url, *owaurl = NULL;
-	gchar *url_string, *uri;
+	CamelURL *owaurl = NULL;
+	gchar *uri;
+	CamelNetworkSecurityMethod security_method;
 	EMConfigTargetAccount *target = (EMConfigTargetAccount *) config->target;
 	GtkWidget *button = g_object_get_data((GObject *)entry, "authenticate-button");
-	EAccount *account;
 	gint active = FALSE;
 
 	/* NB: we set the button active only if we have a parsable uri entered */
 
-	const gchar *target_url;
-
-	account = target->modified_account;
-	target_url = e_account_get_string (account, E_ACCOUNT_SOURCE_URL);
-	if (target_url && target_url[0] != '\0')
-		url = camel_url_new (target_url, NULL);
-	else url = NULL;
 	uri = g_strdup (gtk_entry_get_text ((GtkEntry *) entry));
 
 	g_strstrip (uri);
 
+	security_method = CAMEL_NETWORK_SECURITY_METHOD_NONE;
+
 	if (uri && uri[0]) {
-		camel_url_set_param(url, "owa_url", uri);
 		owaurl = camel_url_new (uri, NULL);
 		if (owaurl) {
 			active = TRUE;
 
 			/* Reading the owa url and setting use_ssl paramemter */
-			if (!strcmp(owaurl->protocol, "https"))
-				ssl = "always";
+			if (strcmp (owaurl->protocol, "https") == 0)
+				security_method = CAMEL_NETWORK_SECURITY_METHOD_SSL_ON_ALTERNATE_PORT;
 			camel_url_free (owaurl);
 		}
-	} else {
-		camel_url_set_param(url, "owa_url", NULL);
 	}
 
-	camel_url_set_param(url, "use_ssl", ssl);
+	camel_network_settings_set_security_method (
+		CAMEL_NETWORK_SETTINGS (target->settings), security_method);
+
 	gtk_widget_set_sensitive (button, active);
 
-	url_string = camel_url_to_string (url, 0);
-	e_account_set_string (account, E_ACCOUNT_SOURCE_URL, url_string);
-	g_free (url_string);
-	camel_url_free (url);
 	g_free (uri);
 }
 
 static void
-update_mailbox_param_in_url (EAccount *account, e_account_item_t item, const gchar *mailbox)
-{
-	CamelURL *url;
-	gchar *url_string;
-	const gchar *target_url;
-
-	if (!account)
-		return;
-
-	target_url = e_account_get_string (account, item);
-	if (target_url && target_url[0] != '\0')
-		url = camel_url_new (target_url, NULL);
-	else
-		return;
-
-	if (mailbox && *mailbox)
-		camel_url_set_param (url, "mailbox", mailbox);
-	else
-		camel_url_set_param (url, "mailbox", NULL);
-
-	url_string = camel_url_to_string (url, 0);
-	e_account_set_string (account, item, url_string);
-	g_free (url_string);
-	camel_url_free (url);
-}
-
-static void
-mailbox_editor_entry_changed (GtkWidget *entry, EConfig *config)
+want_mailbox_toggled (GtkToggleButton *toggle,
+                      EConfig *config)
 {
 	EMConfigTargetAccount *target;
-	EAccount *account;
-	gchar *mailbox;
-
-	target = (EMConfigTargetAccount *) config->target;
-	mailbox = g_strdup (gtk_entry_get_text (GTK_ENTRY (entry)));
-
-	g_strstrip (mailbox);
-
-	account = target->modified_account;
-	update_mailbox_param_in_url (account, E_ACCOUNT_SOURCE_URL, mailbox);
-	update_mailbox_param_in_url (account, E_ACCOUNT_TRANSPORT_URL, mailbox);
-
-	g_free (mailbox);
-}
-
-static void
-want_mailbox_toggled (GtkWidget *toggle, EConfig *config)
-{
-	GtkWidget *entry;
+	CamelExchangeSettings *settings;
 
 	g_return_if_fail (toggle != NULL);
 	g_return_if_fail (config != NULL);
 
-	entry = g_object_get_data (G_OBJECT (toggle), "mailbox-entry");
-	if (entry) {
-		gboolean is_active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (toggle));
-		EMConfigTargetAccount *target;
-		EAccount *account;
-		const gchar *mailbox;
+	target = (EMConfigTargetAccount *) config->target;
+	settings = CAMEL_EXCHANGE_SETTINGS (target->settings);
 
-		gtk_widget_set_sensitive (entry, is_active);
-
-		target = (EMConfigTargetAccount *) config->target;
-		mailbox = gtk_entry_get_text (GTK_ENTRY (entry));
-
-		account = target->modified_account;
-		update_mailbox_param_in_url (account, E_ACCOUNT_SOURCE_URL, is_active ? mailbox : NULL);
-		update_mailbox_param_in_url (account, E_ACCOUNT_TRANSPORT_URL, is_active ? mailbox : NULL);
-	}
+	if (!gtk_toggle_button_get_active (toggle))
+		camel_exchange_settings_set_mailbox (settings, NULL);
 }
 
 static gchar *
-construct_owa_url (CamelURL *url)
+construct_owa_url (CamelURL *url,
+                   CamelSettings *settings)
 {
-	const gchar *owa_path, *use_ssl = NULL;
-	const gchar *protocol = "http", *mailbox_name;
+	CamelNetworkSecurityMethod security_method;
+	const gchar *scheme;
+	const gchar *mailbox;
+	const gchar *owa_path;
 	gchar *owa_url;
 
-	use_ssl = camel_url_get_param (url, "use_ssl");
-	if (use_ssl) {
-		if (!strcmp (use_ssl, "always"))
-			protocol = "https";
-	}
+	security_method = camel_network_settings_get_security_method (
+		CAMEL_NETWORK_SETTINGS (settings));
 
-	owa_path = camel_url_get_param (url, "owa_path");
-	if (!owa_path)
-		owa_path = "/exchange";
-	mailbox_name = camel_url_get_param (url, "mailbox");
+	mailbox = camel_exchange_settings_get_mailbox (
+		CAMEL_EXCHANGE_SETTINGS (settings));
 
-	if (mailbox_name)
-		owa_url = g_strdup_printf("%s://%s%s/%s", protocol, url->host, owa_path, mailbox_name);
+	owa_path = camel_exchange_settings_get_mailbox (
+		CAMEL_EXCHANGE_SETTINGS (settings));
+
+	if (security_method == CAMEL_NETWORK_SECURITY_METHOD_NONE)
+		scheme = "http";
 	else
-		owa_url = g_strdup_printf("%s://%s%s", protocol, url->host, owa_path );
+		scheme = "https";
+
+	if (mailbox != NULL)
+		owa_url = g_strdup_printf (
+			"%s://%s%s/%s", scheme, url->host, owa_path, mailbox);
+	else
+		owa_url = g_strdup_printf (
+			"%s://%s%s", scheme, url->host, owa_path);
 
 	return owa_url;
 }
@@ -702,8 +628,9 @@ org_gnome_exchange_owa_url (EPlugin *epl, EConfigHookItemFactoryData *data)
 {
 	EMConfigTargetAccount *target_account;
 	const gchar *source_url;
-	gchar *owa_url = NULL, *mailbox_name, *username;
+	gchar *owa_url = NULL, *mailbox, *username;
 	GtkWidget *owa_entry, *mailbox_entry, *want_mailbox_check;
+	CamelSettings *settings;
 	EAccount *account;
 	CamelURL *url;
 	gint row;
@@ -711,6 +638,7 @@ org_gnome_exchange_owa_url (EPlugin *epl, EConfigHookItemFactoryData *data)
 
 	target_account = (EMConfigTargetAccount *) data->config->target;
 	account = target_account->modified_account;
+	settings = target_account->settings;
 
 	source_url = e_account_get_string (account,  E_ACCOUNT_SOURCE_URL);
 	if (source_url && source_url[0] != '\0')
@@ -737,17 +665,21 @@ org_gnome_exchange_owa_url (EPlugin *epl, EConfigHookItemFactoryData *data)
 		return data->old;
 	}
 
-	owa_url = g_strdup (camel_url_get_param(url, "owa_url"));
-	mailbox_name = g_strdup (camel_url_get_param (url, "mailbox"));
+	g_object_get (
+		settings,
+		"owa-url", &owa_url,
+		"mailbox", &mailbox,
+		NULL);
+
 	username = g_strdup (url->user);
 
 	/* if the host is null, then user+other info is dropped silently, force it to be kept */
 	if (url->host == NULL) {
 		gchar *uri;
 
-		camel_url_set_host(url, "");
+		camel_url_set_host (url, "");
 		uri = camel_url_to_string (url, 0);
-		e_account_set_string (account,  E_ACCOUNT_SOURCE_URL, uri);
+		e_account_set_string (account, E_ACCOUNT_SOURCE_URL, uri);
 		g_free (uri);
 	}
 
@@ -768,16 +700,26 @@ org_gnome_exchange_owa_url (EPlugin *epl, EConfigHookItemFactoryData *data)
 			 * When invoked from assistant, hostname will get set after validation,
 			 * so this condition will never be true during account creation.
 			 */
-			owa_url = construct_owa_url (url);
-			camel_url_set_param (url, "owa_url", owa_url);
+			owa_url = construct_owa_url (url, settings);
+			camel_exchange_settings_set_owa_url (
+				CAMEL_EXCHANGE_SETTINGS (settings), owa_url);
+
+			camel_settings_save_to_url (settings, url);
+
 			uri = camel_url_to_string (url, 0);
 			e_account_set_string (account,  E_ACCOUNT_SOURCE_URL, uri);
 			g_free (uri);
 		}
 	}
+
+	g_object_bind_property (
+		settings, "owa-url",
+		owa_entry, "text",
+		G_BINDING_BIDIRECTIONAL |
+		G_BINDING_SYNC_CREATE);
+
 	camel_url_free (url);
-	if (owa_url)
-		gtk_entry_set_text (GTK_ENTRY (owa_entry), owa_url);
+
 	gtk_label_set_mnemonic_widget ((GtkLabel *) label, owa_entry);
 
 	button = gtk_button_new_with_mnemonic (_("A_uthenticate"));
@@ -805,14 +747,17 @@ org_gnome_exchange_owa_url (EPlugin *epl, EConfigHookItemFactoryData *data)
 		_("Mailbox name is _different from username"));
 	gtk_widget_show (want_mailbox_check);
 	gtk_table_attach (GTK_TABLE (data->parent), want_mailbox_check, 1, 2, row, row+1, GTK_FILL, GTK_FILL, 0, 0);
-	if (!username || !*username || !mailbox_name || !*mailbox_name ||
-	    g_ascii_strcasecmp (username, mailbox_name) == 0 ||
-	    (strchr (username, '/') && g_ascii_strcasecmp (strchr (username, '/') + 1, mailbox_name) == 0)) {
+	if (!username || !*username || !mailbox || !*mailbox ||
+	    g_ascii_strcasecmp (username, mailbox) == 0 ||
+	    (strchr (username, '/') && g_ascii_strcasecmp (strchr (username, '/') + 1, mailbox) == 0)) {
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (want_mailbox_check), FALSE);
 	} else {
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (want_mailbox_check), TRUE);
 	}
-	g_signal_connect (want_mailbox_check, "toggled", G_CALLBACK (want_mailbox_toggled), data->config);
+
+	g_signal_connect (
+		want_mailbox_check, "toggled",
+		G_CALLBACK (want_mailbox_toggled), data->config);
 
 	row++;
 	label = gtk_label_new_with_mnemonic (_("_Mailbox:"));
@@ -820,22 +765,27 @@ org_gnome_exchange_owa_url (EPlugin *epl, EConfigHookItemFactoryData *data)
 
 	mailbox_entry = gtk_entry_new ();
 	gtk_widget_show (mailbox_entry);
-	if (mailbox_name)
-		gtk_entry_set_text (GTK_ENTRY (mailbox_entry), mailbox_name);
+
+	g_object_bind_property (
+		settings, "mailbox",
+		mailbox_entry, "text",
+		G_BINDING_BIDIRECTIONAL |
+		G_BINDING_SYNC_CREATE);
+
+	g_object_bind_property (
+		want_mailbox_check, "active",
+		mailbox_entry, "sensitive",
+		G_BINDING_SYNC_CREATE);
 
 	gtk_label_set_mnemonic_widget (GTK_LABEL (label), mailbox_entry);
 
 	gtk_widget_set_sensitive (mailbox_entry, gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (want_mailbox_check)));
 
-	g_signal_connect (mailbox_entry, "changed", G_CALLBACK (mailbox_editor_entry_changed), data->config);
-	g_object_set_data (G_OBJECT (button), "mailbox-entry", mailbox_entry);
-	g_object_set_data (G_OBJECT (want_mailbox_check), "mailbox-entry", mailbox_entry);
-
 	gtk_table_attach (GTK_TABLE (data->parent), label, 0, 1, row, row+1, 0, 0, 0, 0);
 	gtk_table_attach (GTK_TABLE (data->parent), mailbox_entry, 1, 2, row, row+1, GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
 
 	g_free (owa_url);
-	g_free (mailbox_name);
+	g_free (mailbox);
 	g_free (username);
 
 	return hbox;
