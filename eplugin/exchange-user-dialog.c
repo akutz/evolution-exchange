@@ -32,10 +32,12 @@ struct _E2kUserDialogPrivate {
 	GtkWidget *entry, *parent_window;
 };
 
-#define PARENT_TYPE GTK_TYPE_DIALOG
-static GtkDialogClass *parent_class;
-
 static void parent_window_destroyed (gpointer dialog, GObject *where_parent_window_was);
+
+G_DEFINE_TYPE (
+	E2kUserDialog,
+	e2k_user_dialog,
+	GTK_TYPE_DIALOG)
 
 static void
 finalize (GObject *object)
@@ -45,7 +47,7 @@ finalize (GObject *object)
 	g_free (dialog->priv->section_name);
 	g_free (dialog->priv);
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (e2k_user_dialog_parent_class)->finalize (object);
 }
 
 static void
@@ -64,22 +66,21 @@ dispose (GObject *object)
 		dialog->priv->parent_window = NULL;
 	}
 
-	G_OBJECT_CLASS (parent_class)->dispose (object);
+	G_OBJECT_CLASS (e2k_user_dialog_parent_class)->dispose (object);
 }
 
 static void
-class_init (E2kUserDialogClass *class)
+e2k_user_dialog_class_init (E2kUserDialogClass *class)
 {
-	GObjectClass *object_class = (GObjectClass *) class;
+	GObjectClass *object_class;
 
-	parent_class = g_type_class_ref (GTK_TYPE_DIALOG);
-
+	object_class = G_OBJECT_CLASS (class);
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
 }
 
 static void
-init (E2kUserDialog *dialog)
+e2k_user_dialog_init (E2kUserDialog *dialog)
 {
 	GtkWidget *content_area;
 
@@ -88,8 +89,6 @@ init (E2kUserDialog *dialog)
 	content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 	gtk_box_set_spacing (GTK_BOX (content_area), 6);
 }
-
-E2K_MAKE_TYPE (e2k_user_dialog, E2kUserDialog, class_init, init, PARENT_TYPE)
 
 static void
 parent_window_destroyed (gpointer user_data, GObject *where_parent_window_was)

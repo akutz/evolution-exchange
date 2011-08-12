@@ -52,9 +52,6 @@ enum {
 	EX_ALL
 };
 
-#define PARENT_TYPE E_TYPE_CAL_BACKEND_EXCHANGE
-static ECalBackendExchange *parent_class = NULL;
-
 #define d(x)
 
 static gboolean modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable, const gchar *calobj, CalObjModType mod, gchar **old_object, gchar **new_object, const gchar *href, const gchar *rid_to_remove, GError **error);
@@ -65,6 +62,11 @@ static gboolean check_owner_partstatus_for_declined (ECalBackendSync *backend,
 
 gboolean check_for_send_options (icalcomponent *icalcomp, E2kProperties *props);
 static void update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp);
+
+G_DEFINE_TYPE (
+	ECalBackendExchangeCalendar,
+	e_cal_backend_exchange_calendar,
+	E_TYPE_CAL_BACKEND_EXCHANGE)
 
 static void
 add_timezones_from_comp (ECalBackendExchange *cbex, icalcomponent *icalcomp)
@@ -583,7 +585,7 @@ authenticate_user (ECalBackendSync *backend, GCancellable *cancellable, ECredent
 	ECalBackendExchangeCalendar *cbexc = E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 
 	/* Do the generic part */
-	E_CAL_BACKEND_SYNC_CLASS (parent_class)->authenticate_user_sync (backend, cancellable, credentials, &error);
+	E_CAL_BACKEND_SYNC_CLASS (e_cal_backend_exchange_calendar_parent_class)->authenticate_user_sync (backend, cancellable, credentials, &error);
 	if (error) {
 		g_propagate_error (perror, error);
 		return;
@@ -2418,20 +2420,6 @@ get_free_busy (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellabl
 }
 
 static void
-init (ECalBackendExchangeCalendar *cbexc)
-{
-	cbexc->priv = g_new0 (ECalBackendExchangeCalendarPrivate, 1);
-	cbexc->priv->is_loaded = FALSE;
-	cbexc->priv->mutex = g_mutex_new ();
-}
-
-static void
-dispose (GObject *object)
-{
-	G_OBJECT_CLASS (parent_class)->dispose (object);
-}
-
-static void
 finalize (GObject *object)
 {
 	ECalBackendExchangeCalendar *cbexc =
@@ -2444,17 +2432,19 @@ finalize (GObject *object)
 
 	g_free (cbexc->priv);
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (e_cal_backend_exchange_calendar_parent_class)->finalize (object);
 }
 
 static void
-class_init (ECalBackendExchangeCalendarClass *klass)
+e_cal_backend_exchange_calendar_class_init (ECalBackendExchangeCalendarClass *class)
 {
-	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	ECalBackendSyncClass *sync_class = E_CAL_BACKEND_SYNC_CLASS (klass);
+	GObjectClass *object_class = G_OBJECT_CLASS (class);
+	ECalBackendSyncClass *sync_class = E_CAL_BACKEND_SYNC_CLASS (class);
 
-	parent_class = g_type_class_peek_parent (klass);
+	object_class = G_OBJECT_CLASS (class);
+	object_class->finalize = finalize;
 
+	sync_class = E_CAL_BACKEND_SYNC_CLASS (class);
 	sync_class->authenticate_user_sync = authenticate_user;
 	sync_class->refresh_sync = refresh_calendar;
 	sync_class->create_object_sync = create_object;
@@ -2464,9 +2454,13 @@ class_init (ECalBackendExchangeCalendarClass *klass)
 	sync_class->send_objects_sync = send_objects;
 	sync_class->get_free_busy_sync = get_free_busy;
 	sync_class->discard_alarm_sync = discard_alarm;
-
-	object_class->dispose = dispose;
-	object_class->finalize = finalize;
 }
 
-E2K_MAKE_TYPE (e_cal_backend_exchange_calendar, ECalBackendExchangeCalendar, class_init, init, PARENT_TYPE)
+static void
+e_cal_backend_exchange_calendar_init (ECalBackendExchangeCalendar *cbexc)
+{
+	cbexc->priv = g_new0 (ECalBackendExchangeCalendarPrivate, 1);
+	cbexc->priv->is_loaded = FALSE;
+	cbexc->priv->mutex = g_mutex_new ();
+}
+

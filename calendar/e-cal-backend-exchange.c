@@ -75,13 +75,15 @@ struct ECalBackendExchangePrivate {
 	GHashTable *timezones;
 };
 
-#define PARENT_TYPE E_TYPE_CAL_BACKEND_SYNC
-static GObjectClass *parent_class = NULL;
-
 #define d(x)
 
 static icaltimezone *
 internal_get_timezone (ECalBackend *backend, const gchar *tzid);
+
+G_DEFINE_TYPE (
+	ECalBackendExchange,
+	e_cal_backend_exchange,
+	E_TYPE_CAL_BACKEND_SYNC)
 
 static gboolean
 get_backend_property (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable, const gchar *prop_name, gchar **prop_value, GError **error)
@@ -1950,8 +1952,8 @@ internal_get_timezone (ECalBackend *backend, const gchar *tzid)
 	zone = g_hash_table_lookup (cbex->priv->timezones, tzid);
 
 	/* if not found, chain up */
-	if (!zone && E_CAL_BACKEND_CLASS (parent_class)->internal_get_timezone)
-		zone = E_CAL_BACKEND_CLASS (parent_class)->internal_get_timezone (backend, tzid);
+	if (!zone && E_CAL_BACKEND_CLASS (e_cal_backend_exchange_parent_class)->internal_get_timezone)
+		zone = E_CAL_BACKEND_CLASS (e_cal_backend_exchange_parent_class)->internal_get_timezone (backend, tzid);
 
 	return zone;
 }
@@ -1993,33 +1995,6 @@ free_exchange_comp (gpointer value)
 }
 
 static void
-init (ECalBackendExchange *cbex)
-{
-	cbex->priv = g_new0 (ECalBackendExchangePrivate, 1);
-
-	cbex->priv->objects = g_hash_table_new_full (
-		g_str_hash, g_str_equal,
-		NULL, free_exchange_comp);
-
-	cbex->priv->timezones = g_hash_table_new_full (
-		g_str_hash, g_str_equal,
-		g_free, (GDestroyNotify) icaltimezone_free);
-
-	cbex->priv->set_lock = g_mutex_new ();
-	cbex->priv->open_lock = g_mutex_new ();
-	cbex->priv->cache_lock = g_mutex_new ();
-	cbex->priv->cache_unseen = NULL;
-
-	e_cal_backend_sync_set_lock (E_CAL_BACKEND_SYNC (cbex), TRUE);
-}
-
-static void
-dispose (GObject *object)
-{
-	G_OBJECT_CLASS (parent_class)->dispose (object);
-}
-
-static void
 finalize (GObject *object)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (object);
@@ -2055,20 +2030,25 @@ finalize (GObject *object)
 	g_free (cbex->priv);
 
 	/* Chain up to parent's finalize() method. */
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (e_cal_backend_exchange_parent_class)->finalize (object);
 }
 
 static void
-class_init (ECalBackendExchangeClass *klass)
+e_cal_backend_exchange_class_init (ECalBackendExchangeClass *class)
 {
 	GObjectClass *object_class;
-	ECalBackendClass *backend_class = E_CAL_BACKEND_CLASS (klass);
-	ECalBackendSyncClass *sync_class = E_CAL_BACKEND_SYNC_CLASS (klass);
+	ECalBackendClass *backend_class;
+	ECalBackendSyncClass *sync_class;
 
-	parent_class = g_type_class_peek_parent (klass);
+	object_class = G_OBJECT_CLASS (class);
+	object_class->finalize = finalize;
 
-	object_class = (GObjectClass *) klass;
+	backend_class = E_CAL_BACKEND_CLASS (class);
+	backend_class->start_view = start_view;
+	backend_class->set_online = set_online;
+	backend_class->internal_get_timezone = internal_get_timezone;
 
+	sync_class = E_CAL_BACKEND_SYNC_CLASS (class);
 	sync_class->get_backend_property_sync = get_backend_property;
 	sync_class->open_sync = open_calendar;
 	sync_class->authenticate_user_sync = authenticate_user;
@@ -2081,13 +2061,26 @@ class_init (ECalBackendExchangeClass *klass)
 	sync_class->get_free_busy_sync = get_freebusy;
 	sync_class->create_object_sync = create_object;
 	sync_class->modify_object_sync = modify_object;
-
-	backend_class->start_view = start_view;
-	backend_class->set_online = set_online;
-	backend_class->internal_get_timezone = internal_get_timezone;
-
-	object_class->dispose = dispose;
-	object_class->finalize = finalize;
 }
 
-E2K_MAKE_TYPE (e_cal_backend_exchange, ECalBackendExchange, class_init, init, PARENT_TYPE)
+static void
+e_cal_backend_exchange_init (ECalBackendExchange *cbex)
+{
+	cbex->priv = g_new0 (ECalBackendExchangePrivate, 1);
+
+	cbex->priv->objects = g_hash_table_new_full (
+		g_str_hash, g_str_equal,
+		NULL, free_exchange_comp);
+
+	cbex->priv->timezones = g_hash_table_new_full (
+		g_str_hash, g_str_equal,
+		g_free, (GDestroyNotify) icaltimezone_free);
+
+	cbex->priv->set_lock = g_mutex_new ();
+	cbex->priv->open_lock = g_mutex_new ();
+	cbex->priv->cache_lock = g_mutex_new ();
+	cbex->priv->cache_unseen = NULL;
+
+	e_cal_backend_sync_set_lock (E_CAL_BACKEND_SYNC (cbex), TRUE);
+}
+

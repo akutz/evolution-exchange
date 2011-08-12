@@ -44,24 +44,25 @@ struct _E2kSidPrivate {
 	gchar *display_name;
 };
 
-#define PARENT_TYPE G_TYPE_OBJECT
-static GObjectClass *parent_class = NULL;
-
 static void dispose (GObject *object);
 
-static void
-class_init (GObjectClass *object_class)
-{
-	parent_class = g_type_class_ref (PARENT_TYPE);
+G_DEFINE_TYPE (
+	E2kSid,
+	e2k_sid,
+	G_TYPE_OBJECT)
 
+static void
+e2k_sid_class_init (E2kSidClass *class)
+{
+	GObjectClass *object_class;
+
+	object_class = G_OBJECT_CLASS (class);
 	object_class->dispose = dispose;
 }
 
 static void
-init (GObject *object)
+e2k_sid_init (E2kSid *sid)
 {
-	E2kSid *sid = E2K_SID (object);
-
 	sid->priv = g_new0 (E2kSidPrivate, 1);
 }
 
@@ -81,10 +82,8 @@ dispose (GObject *object)
 		sid->priv = NULL;
 	}
 
-	G_OBJECT_CLASS (parent_class)->dispose (object);
+	G_OBJECT_CLASS (e2k_sid_parent_class)->dispose (object);
 }
-
-E2K_MAKE_TYPE (e2k_sid, E2kSid, class_init, init, PARENT_TYPE)
 
 static E2kSid *
 sid_new_internal (E2kSidType type, const gchar *display_name,

@@ -58,29 +58,29 @@ struct _EFolderExchangePrivate {
 	gboolean rescan_tree;
 };
 
-#define PARENT_TYPE E_TYPE_FOLDER
-static EFolderClass *parent_class = NULL;
-
 #define EF_CLASS(hier) (E_FOLDER_CLASS (G_OBJECT_GET_CLASS (hier)))
 
 static void dispose (GObject *object);
 static void finalize (GObject *object);
 
-static void
-class_init (GObjectClass *object_class)
-{
-	parent_class = g_type_class_ref (PARENT_TYPE);
+G_DEFINE_TYPE (
+	EFolderExchange,
+	e_folder_exchange,
+	E_TYPE_FOLDER)
 
-	/* methods */
+static void
+e_folder_exchange_class_init (EFolderExchangeClass *class)
+{
+	GObjectClass *object_class;
+
+	object_class = G_OBJECT_CLASS (class);
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
 }
 
 static void
-init (GObject *object)
+e_folder_exchange_init (EFolderExchange *folder)
 {
-	EFolderExchange *folder = E_FOLDER_EXCHANGE (object);
-
 	folder->priv = g_new0 (EFolderExchangePrivate, 1);
 	folder->priv->rescan_tree = TRUE;
 }
@@ -95,7 +95,7 @@ dispose (GObject *object)
 		folder->priv->hier = NULL;
 	}
 
-	G_OBJECT_CLASS (parent_class)->dispose (object);
+	G_OBJECT_CLASS (e_folder_exchange_parent_class)->dispose (object);
 }
 
 static void
@@ -110,10 +110,8 @@ finalize (GObject *object)
 	g_free (folder->priv->path);
 	g_free (folder->priv);
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (e_folder_exchange_parent_class)->finalize (object);
 }
-
-E2K_MAKE_TYPE (e_folder_exchange, EFolderExchange, class_init, init, PARENT_TYPE)
 
 static gchar *
 sanitize_path (const gchar *path)

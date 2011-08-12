@@ -69,7 +69,6 @@ struct _ExchangeSendOptionsDialogPrivate {
 static void exchange_sendoptions_dialog_finalize (GObject *object);
 static void exchange_sendoptions_dialog_dispose (GObject *object);
 
-static GObjectClass *parent_class = NULL;
 enum {
 	SOD_RESPONSE,
 	LAST_SIGNAL
@@ -503,17 +502,16 @@ exchange_sendoptions_dialog_run (ExchangeSendOptionsDialog *sod, GtkWidget *pare
 }
 
 static void
-exchange_sendoptions_dialog_class_init (ExchangeSendOptionsDialogClass *klass)
+exchange_sendoptions_dialog_class_init (ExchangeSendOptionsDialogClass *class)
 {
 	GObjectClass *object_class;
 
-	parent_class = g_type_class_peek_parent (klass);
-	object_class = G_OBJECT_CLASS (klass);
-
+	object_class = G_OBJECT_CLASS (class);
 	object_class->finalize = exchange_sendoptions_dialog_finalize;
 	object_class->dispose = exchange_sendoptions_dialog_dispose;
+
 	signals[SOD_RESPONSE] = g_signal_new ("sod_response",
-			G_TYPE_FROM_CLASS (klass),
+			G_TYPE_FROM_CLASS (class),
 			G_SIGNAL_RUN_FIRST,
 			G_STRUCT_OFFSET (ExchangeSendOptionsDialogClass, esod_response),
 			NULL, NULL,
@@ -573,8 +571,7 @@ exchange_sendoptions_dialog_finalize (GObject *object)
 		sod->priv = NULL;
 	}
 
-	if (parent_class->finalize)
-		(* parent_class->finalize) (object);
+	G_OBJECT_CLASS (exchange_sendoptions_dialog_parent_class)->finalize (object);
 
 }
 
@@ -585,8 +582,7 @@ exchange_sendoptions_dialog_dispose (GObject *object)
 
 	g_return_if_fail (EXCHANGE_IS_SENDOPTIONS_DIALOG (sod));
 
-	if (parent_class->dispose)
-		(* parent_class->dispose) (object);
+	G_OBJECT_CLASS (exchange_sendoptions_dialog_parent_class)->dispose (object);
 
 }
 

@@ -44,35 +44,36 @@ struct _ExchangeHierarchyFavoritesPrivate {
 	GHashTable *shortcuts;
 };
 
-#define PARENT_TYPE EXCHANGE_TYPE_HIERARCHY_SOMEDAV
-static ExchangeHierarchySomeDAVClass *parent_class = NULL;
-
 static GPtrArray *get_hrefs (ExchangeHierarchySomeDAV *hsd);
 static ExchangeAccountFolderResult remove_folder (ExchangeHierarchy *hier,
 						  EFolder *folder);
 static void finalize (GObject *object);
 
+G_DEFINE_TYPE (
+	ExchangeHierarchyFavorites,
+	exchange_hierarchy_favorites,
+	EXCHANGE_TYPE_HIERARCHY_SOMEDAV)
+
 static void
-class_init (GObjectClass *object_class)
+exchange_hierarchy_favorites_class_init (ExchangeHierarchyFavoritesClass *class)
 {
-	ExchangeHierarchySomeDAVClass *somedav_class =
-		EXCHANGE_HIERARCHY_SOMEDAV_CLASS (object_class);
-	ExchangeHierarchyClass *hier_class =
-		EXCHANGE_HIERARCHY_CLASS (object_class);
+	GObjectClass *object_class;
+	ExchangeHierarchyClass *hier_class;
+	ExchangeHierarchySomeDAVClass *somedav_class;
 
-	parent_class = g_type_class_ref (PARENT_TYPE);
-
-	/* virtual method override */
+	object_class = G_OBJECT_CLASS (class);
 	object_class->finalize = finalize;
+
+	hier_class = EXCHANGE_HIERARCHY_CLASS (class);
 	hier_class->remove_folder = remove_folder;
+
+	somedav_class = EXCHANGE_HIERARCHY_SOMEDAV_CLASS (class);
 	somedav_class->get_hrefs = get_hrefs;
 }
 
 static void
-init (GObject *object)
+exchange_hierarchy_favorites_init (ExchangeHierarchyFavorites *hfav)
 {
-	ExchangeHierarchyFavorites *hfav = EXCHANGE_HIERARCHY_FAVORITES (object);
-
 	hfav->priv = g_new0 (ExchangeHierarchyFavoritesPrivate, 1);
 	hfav->priv->shortcuts = g_hash_table_new_full (g_str_hash, g_str_equal,
 						       g_free, g_free);
@@ -88,10 +89,8 @@ finalize (GObject *object)
 	g_free (hfav->priv->shortcuts_uri);
 	g_free (hfav->priv);
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (exchange_hierarchy_favorites_parent_class)->finalize (object);
 }
-
-E2K_MAKE_TYPE (exchange_hierarchy_favorites, ExchangeHierarchyFavorites, class_init, init, PARENT_TYPE)
 
 static void
 add_hrefs (ExchangeHierarchy *hier, EFolder *folder, gpointer hrefs)

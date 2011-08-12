@@ -38,9 +38,6 @@ enum {
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
-#define PARENT_TYPE G_TYPE_OBJECT
-static GObjectClass *parent_class = NULL;
-
 #define HIER_CLASS(hier) (EXCHANGE_HIERARCHY_CLASS (G_OBJECT_GET_CLASS (hier)))
 
 static void dispose (GObject *object);
@@ -63,25 +60,27 @@ static ExchangeAccountFolderResult xfer_folder   (ExchangeHierarchy *hier,
 						  const gchar *dest_name,
 						  gboolean remove_source);
 
+G_DEFINE_TYPE (
+	ExchangeHierarchy,
+	exchange_hierarchy,
+	G_TYPE_OBJECT)
+
 static void
-class_init (GObjectClass *object_class)
+exchange_hierarchy_class_init (ExchangeHierarchyClass *class)
 {
-	ExchangeHierarchyClass *exchange_hierarchy_class =
-		EXCHANGE_HIERARCHY_CLASS (object_class);
+	GObjectClass *object_class;
 
-	parent_class = g_type_class_ref (PARENT_TYPE);
-
-	/* methods */
+	object_class = G_OBJECT_CLASS (class);
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
 
-	exchange_hierarchy_class->is_empty = is_empty;
-	exchange_hierarchy_class->add_to_storage = add_to_storage;
-	exchange_hierarchy_class->rescan = rescan;
-	exchange_hierarchy_class->scan_subtree = scan_subtree;
-	exchange_hierarchy_class->create_folder = create_folder;
-	exchange_hierarchy_class->remove_folder = remove_folder;
-	exchange_hierarchy_class->xfer_folder = xfer_folder;
+	class->is_empty = is_empty;
+	class->add_to_storage = add_to_storage;
+	class->rescan = rescan;
+	class->scan_subtree = scan_subtree;
+	class->create_folder = create_folder;
+	class->remove_folder = remove_folder;
+	class->xfer_folder = xfer_folder;
 
 	/* signals */
 	signals[NEW_FOLDER] =
@@ -105,6 +104,11 @@ class_init (GObjectClass *object_class)
 }
 
 static void
+exchange_hierarchy_init (ExchangeHierarchy *hierarchy)
+{
+}
+
+static void
 dispose (GObject *object)
 {
 	ExchangeHierarchy *hier = EXCHANGE_HIERARCHY (object);
@@ -114,7 +118,7 @@ dispose (GObject *object)
 		hier->toplevel = NULL;
 	}
 
-	G_OBJECT_CLASS (parent_class)->dispose (object);
+	G_OBJECT_CLASS (exchange_hierarchy_parent_class)->dispose (object);
 }
 
 static void
@@ -126,10 +130,8 @@ finalize (GObject *object)
 	g_free (hier->owner_email);
 	g_free (hier->source_uri);
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (exchange_hierarchy_parent_class)->finalize (object);
 }
-
-E2K_MAKE_TYPE (exchange_hierarchy, ExchangeHierarchy, class_init, NULL, PARENT_TYPE)
 
 /**
  * exchange_hierarchy_new_folder:

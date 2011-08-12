@@ -78,8 +78,10 @@ enum {
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
-#define PARENT_TYPE G_TYPE_OBJECT
-static GObjectClass *parent_class = NULL;
+G_DEFINE_TYPE (
+	ExchangeDelegatesUser,
+	exchange_delegates_user,
+	G_TYPE_OBJECT)
 
 static void
 finalize (GObject *object)
@@ -95,14 +97,15 @@ finalize (GObject *object)
 	if (user->sid)
 		g_object_unref (user->sid);
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (exchange_delegates_user_parent_class)->finalize (object);
 }
 
 static void
-class_init (GObjectClass *object_class)
+exchange_delegates_user_class_init (ExchangeDelegatesUserClass *class)
 {
-	parent_class = g_type_class_ref (PARENT_TYPE);
+	GObjectClass *object_class;
 
+	object_class = G_OBJECT_CLASS (class);
 	object_class->finalize = finalize;
 
 	/* signals */
@@ -116,7 +119,10 @@ class_init (GObjectClass *object_class)
 			      G_TYPE_NONE, 0);
 }
 
-E2K_MAKE_TYPE (exchange_delegates_user, ExchangeDelegatesUser, class_init, NULL, PARENT_TYPE)
+static void
+exchange_delegates_user_init (ExchangeDelegatesUser *user)
+{
+}
 
 static inline gboolean
 is_delegate_role (E2kPermissionsRole role)

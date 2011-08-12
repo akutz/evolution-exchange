@@ -120,21 +120,24 @@ static const guint32 container_permissions_all = LE (0x1fc9bf);
 static const guint32 object_permissions_all    = LE (0x1f0fbf);
 #undef LE
 
-#define PARENT_TYPE G_TYPE_OBJECT
-static GObjectClass *parent_class = NULL;
-
 static void dispose (GObject *object);
 
-static void
-class_init (GObjectClass *object_class)
-{
-	parent_class = g_type_class_ref (PARENT_TYPE);
+G_DEFINE_TYPE (
+	E2kSecurityDescriptor,
+	e2k_security_descriptor,
+	G_TYPE_OBJECT)
 
+static void
+e2k_security_descriptor_class_init (E2kSecurityDescriptorClass *class)
+{
+	GObjectClass *object_class;
+
+	object_class = G_OBJECT_CLASS (class);
 	object_class->dispose = dispose;
 }
 
 static void
-init (E2kSecurityDescriptor *sd)
+e2k_security_descriptor_init (E2kSecurityDescriptor *sd)
 {
 	sd->priv = g_new0 (E2kSecurityDescriptorPrivate, 1);
 
@@ -169,10 +172,8 @@ dispose (GObject *object)
 		sd->priv = NULL;
 	}
 
-	G_OBJECT_CLASS (parent_class)->dispose (object);
+	G_OBJECT_CLASS (e2k_security_descriptor_parent_class)->dispose (object);
 }
-
-E2K_MAKE_TYPE (e2k_security_descriptor, E2kSecurityDescriptor, class_init, init, PARENT_TYPE)
 
 /* This determines the relative ordering of any two ACEs in a SID.
  * See docs/security for details.

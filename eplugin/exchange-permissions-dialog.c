@@ -81,8 +81,10 @@ enum {
 	EXCHANGE_PERMISSIONS_DIALOG_NUM_COLUMNS
 };
 
-#define PARENT_TYPE GTK_TYPE_DIALOG
-static GtkDialogClass *parent_class = NULL;
+G_DEFINE_TYPE (
+	ExchangePermissionsDialog,
+	exchange_permissions_dialog,
+	GTK_TYPE_DIALOG)
 
 static void
 finalize (GObject *object)
@@ -98,28 +100,23 @@ finalize (GObject *object)
 
 	g_free (dialog->priv);
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (exchange_permissions_dialog_parent_class)->finalize (object);
 }
 
 static void
-class_init (GObjectClass *object_class)
+exchange_permissions_dialog_class_init (ExchangePermissionsDialogClass *class)
 {
-	parent_class = g_type_class_ref (PARENT_TYPE);
+	GObjectClass *object_class;
 
-	/* virtual method override */
+	object_class = G_OBJECT_CLASS (class);
 	object_class->finalize = finalize;
 }
 
 static void
-init (GObject *object)
+exchange_permissions_dialog_init (ExchangePermissionsDialog *dialog)
 {
-	ExchangePermissionsDialog *dialog =
-		EXCHANGE_PERMISSIONS_DIALOG (object);
-
 	dialog->priv = g_new0 (ExchangePermissionsDialogPrivate, 1);
 }
-
-E2K_MAKE_TYPE (exchange_permissions_dialog, ExchangePermissionsDialog, class_init, init, PARENT_TYPE)
 
 static GtkWidget *create_permissions_vbox (ExchangePermissionsDialog *dialog);
 static void setup_user_list     (ExchangePermissionsDialog *dialog);

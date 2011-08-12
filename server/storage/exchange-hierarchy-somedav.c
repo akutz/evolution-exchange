@@ -49,26 +49,27 @@ enum {
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
-#define PARENT_TYPE EXCHANGE_TYPE_HIERARCHY_WEBDAV
-static ExchangeHierarchyWebDAVClass *parent_class = NULL;
-
 static ExchangeAccountFolderResult scan_subtree (ExchangeHierarchy *hier,
 						 EFolder *folder,
 						 gint mode);
 static void finalize (GObject *object);
 
+G_DEFINE_TYPE (
+	ExchangeHierarchySomeDAV,
+	exchange_hierarchy_somedav,
+	EXCHANGE_TYPE_HIERARCHY_WEBDAV)
+
 static void
-class_init (GObjectClass *object_class)
+exchange_hierarchy_somedav_class_init (ExchangeHierarchySomeDAVClass *class)
 {
-	ExchangeHierarchyClass *exchange_hierarchy_class =
-		EXCHANGE_HIERARCHY_CLASS (object_class);
+	GObjectClass *object_class;
+	ExchangeHierarchyClass *exchange_hierarchy_class;
 
-	parent_class = g_type_class_ref (PARENT_TYPE);
-
-	/* virtual method override */
+	object_class = G_OBJECT_CLASS (class);
 	object_class->finalize = finalize;
 
-	exchange_hierarchy_class->scan_subtree   = scan_subtree;
+	exchange_hierarchy_class = EXCHANGE_HIERARCHY_CLASS (class);
+	exchange_hierarchy_class->scan_subtree = scan_subtree;
 
 	/* signals */
 	signals[HREF_UNREADABLE] =
@@ -83,10 +84,8 @@ class_init (GObjectClass *object_class)
 }
 
 static void
-init (GObject *object)
+exchange_hierarchy_somedav_init (ExchangeHierarchySomeDAV *hsd)
 {
-	ExchangeHierarchySomeDAV *hsd = EXCHANGE_HIERARCHY_SOMEDAV (object);
-
 	hsd->priv = g_new0 (ExchangeHierarchySomeDAVPrivate, 1);
 }
 
@@ -97,10 +96,8 @@ finalize (GObject *object)
 
 	g_free (hsd->priv);
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (exchange_hierarchy_somedav_parent_class)->finalize (object);
 }
-
-E2K_MAKE_TYPE (exchange_hierarchy_somedav, ExchangeHierarchySomeDAV, class_init, init, PARENT_TYPE)
 
 static inline gboolean
 folder_is_unreadable (E2kProperties *props)

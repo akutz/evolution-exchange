@@ -53,9 +53,6 @@ struct _ExchangeHierarchyForeignPrivate {
 
 extern const gchar *exchange_localfreebusy_path;
 
-#define PARENT_TYPE EXCHANGE_TYPE_HIERARCHY_SOMEDAV
-static ExchangeHierarchySomeDAVClass *parent_class = NULL;
-
 static GPtrArray *get_hrefs (ExchangeHierarchySomeDAV *hsd);
 static ExchangeAccountFolderResult create_folder (ExchangeHierarchy *hier,
 						  EFolder *parent,
@@ -68,34 +65,38 @@ static ExchangeAccountFolderResult scan_subtree (ExchangeHierarchy *hier,
 						 gint mode);
 static void finalize (GObject *object);
 
+G_DEFINE_TYPE (
+	ExchangeHierarchyForeign,
+	exchange_hierarchy_foreign,
+	EXCHANGE_TYPE_HIERARCHY_SOMEDAV)
+
 static void
-class_init (GObjectClass *object_class)
+exchange_hierarchy_foreign_class_init (ExchangeHierarchyForeignClass *class)
 {
-	ExchangeHierarchyClass *hierarchy_class =
-		EXCHANGE_HIERARCHY_CLASS (object_class);
-	ExchangeHierarchySomeDAVClass *somedav_class =
-		EXCHANGE_HIERARCHY_SOMEDAV_CLASS (object_class);
+	GObjectClass *object_class;
+	ExchangeHierarchyClass *hierarchy_class;
+	ExchangeHierarchySomeDAVClass *somedav_class;
 
-	parent_class = g_type_class_ref (PARENT_TYPE);
-
-	/* virtual method override */
+	object_class = G_OBJECT_CLASS (class);
 	object_class->finalize = finalize;
 
-	hierarchy_class->create_folder  = create_folder;
-	hierarchy_class->remove_folder  = remove_folder;
-	hierarchy_class->scan_subtree   = scan_subtree;
+	hierarchy_class = EXCHANGE_HIERARCHY_CLASS (class);
+	hierarchy_class->create_folder = create_folder;
+	hierarchy_class->remove_folder = remove_folder;
+	hierarchy_class->scan_subtree = scan_subtree;
 
-	somedav_class->get_hrefs        = get_hrefs;
+	somedav_class = EXCHANGE_HIERARCHY_SOMEDAV_CLASS (class);
+	somedav_class->get_hrefs = get_hrefs;
 }
 
 static void
-init (GObject *object)
+exchange_hierarchy_foreign_init (ExchangeHierarchyForeign *hfor)
 {
-	ExchangeHierarchyForeign *hfor = EXCHANGE_HIERARCHY_FOREIGN (object);
-	ExchangeHierarchy *hier = EXCHANGE_HIERARCHY (object);
+	ExchangeHierarchy *hier = EXCHANGE_HIERARCHY (hfor);
 
 	hfor->priv = g_new0 (ExchangeHierarchyForeignPrivate, 1);
 	hfor->priv->hide_private_lock = g_mutex_new ();
+
 	hier->hide_private_items = TRUE;
 }
 
@@ -107,10 +108,8 @@ finalize (GObject *object)
 	g_mutex_free (hfor->priv->hide_private_lock);
 	g_free (hfor->priv);
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (exchange_hierarchy_foreign_parent_class)->finalize (object);
 }
-
-E2K_MAKE_TYPE (exchange_hierarchy_foreign, ExchangeHierarchyForeign, class_init, init, PARENT_TYPE)
 
 static const gchar *privacy_props[] = {
 	PR_DELEGATES_ENTRYIDS,
@@ -382,7 +381,7 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *folder, gint mode)
 
 	check_hide_private (hier);
 
-	folder_result = EXCHANGE_HIERARCHY_CLASS (parent_class)->scan_subtree (hier, folder, mode);
+	folder_result = EXCHANGE_HIERARCHY_CLASS (exchange_hierarchy_foreign_parent_class)->scan_subtree (hier, folder, mode);
 
 	if (exchange_hierarchy_is_empty (hier))
 		hierarchy_foreign_cleanup (hier);

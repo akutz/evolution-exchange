@@ -73,9 +73,6 @@
 #define BIND_STATUS_IS_ADDRINUSE() (errno == EADDRINUSE)
 #endif
 
-#define PARENT_TYPE G_TYPE_OBJECT
-static GObjectClass *parent_class;
-
 enum {
 	REDIRECT,
 	LAST_SIGNAL
@@ -136,6 +133,11 @@ static gboolean do_notification (GIOChannel *source, GIOCondition condition, gpo
 static void setup_message (SoupSession *session, SoupMessage *msg, SoupSocket *socket, gpointer user_data);
 static void proxy_settings_changed (EProxy *proxy, gpointer user_data);
 
+G_DEFINE_TYPE (
+	E2kContext,
+	e2k_context,
+	G_TYPE_OBJECT)
+
 static void
 proxy_settings_changed (EProxy *proxy, gpointer user_data)
 {
@@ -157,21 +159,6 @@ proxy_settings_changed (EProxy *proxy, gpointer user_data)
 	if (ctx->priv->async_session)
 		g_object_set (ctx->priv->async_session, SOUP_SESSION_PROXY_URI,
 			      proxy_uri, NULL);
-}
-
-static void
-init (GObject *object)
-{
-	E2kContext *ctx = E2K_CONTEXT (object);
-
-	ctx->priv = g_new0 (E2kContextPrivate, 1);
-	ctx->priv->subscriptions_by_id =
-		g_hash_table_new (g_str_hash, g_str_equal);
-	ctx->priv->subscriptions_by_uri =
-		g_hash_table_new (g_str_hash, g_str_equal);
-	ctx->priv->proxy = e_proxy_new ();
-	e_proxy_setup_proxy (ctx->priv->proxy);
-	g_signal_connect (ctx->priv->proxy, "changed", G_CALLBACK (proxy_settings_changed), ctx);
 }
 
 static void
@@ -240,15 +227,15 @@ dispose (GObject *object)
 
 	}
 
-	G_OBJECT_CLASS (parent_class)->dispose (object);
+	G_OBJECT_CLASS (e2k_context_parent_class)->dispose (object);
 }
 
 static void
-class_init (GObjectClass *object_class)
+e2k_context_class_init (E2kContextClass *class)
 {
-	parent_class = g_type_class_ref (PARENT_TYPE);
+	GObjectClass *object_class;
 
-	/* virtual method override */
+	object_class = G_OBJECT_CLASS (class);
 	object_class->dispose = dispose;
 
 	signals[REDIRECT] =
@@ -270,7 +257,18 @@ class_init (GObjectClass *object_class)
 #endif
 }
 
-E2K_MAKE_TYPE (e2k_context, E2kContext, class_init, init, PARENT_TYPE)
+static void
+e2k_context_init (E2kContext *ctx)
+{
+	ctx->priv = g_new0 (E2kContextPrivate, 1);
+	ctx->priv->subscriptions_by_id =
+		g_hash_table_new (g_str_hash, g_str_equal);
+	ctx->priv->subscriptions_by_uri =
+		g_hash_table_new (g_str_hash, g_str_equal);
+	ctx->priv->proxy = e_proxy_new ();
+	e_proxy_setup_proxy (ctx->priv->proxy);
+	g_signal_connect (ctx->priv->proxy, "changed", G_CALLBACK (proxy_settings_changed), ctx);
+}
 
 static void
 renew_sub_list (gpointer key, gpointer value, gpointer data)

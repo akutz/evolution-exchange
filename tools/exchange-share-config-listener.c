@@ -70,14 +70,10 @@ enum {
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
-#define PARENT_TYPE E_TYPE_ACCOUNT_LIST
-
 #define CONF_KEY_SELECTED_CAL_SOURCES "/apps/evolution/calendar/display/selected_calendars"
 #define CONF_KEY_SELECTED_TASKS_SOURCES "/apps/evolution/calendar/tasks/selected_tasks"
 
 static GStaticMutex ecl_mutex = G_STATIC_MUTEX_INIT;
-
-static EAccountListClass *parent_class = NULL;
 
 static void dispose (GObject *object);
 static void finalize (GObject *object);
@@ -92,18 +88,22 @@ static void account_removed (EAccountList *account_listener,
 static gboolean exchange_camel_urls_is_equal (const gchar *url1,
 					      const gchar *url2);
 
+G_DEFINE_TYPE (
+	ExchangeShareConfigListener,
+	exchange_share_config_listener,
+	E_TYPE_ACCOUNT_LIST)
+
 static void
-class_init (GObjectClass *object_class)
+exchange_share_config_listener_class_init (ExchangeShareConfigListenerClass *class)
 {
-	EAccountListClass *e_account_list_class =
-		E_ACCOUNT_LIST_CLASS (object_class);
+	GObjectClass *object_class;
+	EAccountListClass *e_account_list_class;
 
-	parent_class = g_type_class_ref (PARENT_TYPE);
-
-	/* virtual method override */
+	object_class = G_OBJECT_CLASS (class);
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
 
+	e_account_list_class = E_ACCOUNT_LIST_CLASS (class);
 	e_account_list_class->account_added   = account_added;
 	e_account_list_class->account_changed = account_changed;
 	e_account_list_class->account_removed = account_removed;
@@ -130,11 +130,8 @@ class_init (GObjectClass *object_class)
 }
 
 static void
-init (GObject *object)
+exchange_share_config_listener_init (ExchangeShareConfigListener *config_listener)
 {
-	ExchangeShareConfigListener *config_listener =
-		EXCHANGE_SHARE_CONFIG_LISTENER (object);
-
 	config_listener->priv = g_new0 (ExchangeShareConfigListenerPrivate, 1);
 }
 
@@ -149,7 +146,7 @@ dispose (GObject *object)
 		config_listener->priv->gconf = NULL;
 	}
 
-	G_OBJECT_CLASS (parent_class)->dispose (object);
+	G_OBJECT_CLASS (exchange_share_config_listener_parent_class)->dispose (object);
 }
 
 static void
@@ -162,10 +159,8 @@ finalize (GObject *object)
 	g_free (config_listener->priv->configured_uri);
 	g_free (config_listener->priv);
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (exchange_share_config_listener_parent_class)->finalize (object);
 }
-
-E2K_MAKE_TYPE (exchange_share_config_listener, ExchangeShareConfigListener, class_init, init, PARENT_TYPE)
 
 #define EVOLUTION_URI_PREFIX     "evolution:/"
 #define EVOLUTION_URI_PREFIX_LEN (sizeof (EVOLUTION_URI_PREFIX) - 1)

@@ -63,7 +63,6 @@
 
 #define SUMMARY_FLUSH_TIMEOUT 5000
 
-#define PARENT_TYPE E_TYPE_BOOK_BACKEND_SYNC
 static EBookBackendClass *parent_class;
 
 struct EBookBackendExchangePrivate {
@@ -114,6 +113,11 @@ static void populate_im (EContactField field, EContact *new_contact, gpointer da
 static GPtrArray *field_names_array;
 static const gchar **field_names;
 static gint n_field_names;
+
+G_DEFINE_TYPE (
+	EBookBackendExchange,
+	e_book_backend_exchange,
+	E_TYPE_BOOK_BACKEND_SYNC)
 
 static void
 http_status_to_error (E2kHTTPStatus status, GError **perror)
@@ -2776,4 +2780,3 @@ e_book_backend_exchange_init (EBookBackendExchange *backend)
 	backend->priv		= priv;
 }
 
-E2K_MAKE_TYPE (e_book_backend_exchange, EBookBackendExchange, e_book_backend_exchange_class_init, e_book_backend_exchange_init, PARENT_TYPE)

@@ -53,15 +53,19 @@ struct _E2kGlobalCatalogPrivate {
 	E2kAutoconfigGalAuthPref auth;
 };
 
-#define PARENT_TYPE G_TYPE_OBJECT
-static GObjectClass *parent_class = NULL;
-
 static void finalize (GObject *);
 static gint get_gc_connection (E2kGlobalCatalog *gc, E2kOperation *op);
 
+G_DEFINE_TYPE (
+	E2kGlobalCatalog,
+	e2k_global_catalog,
+	G_TYPE_OBJECT)
+
 static void
-class_init (GObjectClass *object_class)
+e2k_global_catalog_class_init (E2kGlobalCatalogClass *class)
 {
+	GObjectClass *object_class;
+
 #ifdef E2K_DEBUG
 	gchar *e2k_debug = getenv ("E2K_DEBUG");
 
@@ -75,17 +79,13 @@ class_init (GObjectClass *object_class)
 	 */
 	g_setenv ("SASL_PATH", "", TRUE);
 
-	parent_class = g_type_class_ref (PARENT_TYPE);
-
-	/* virtual method override */
+	object_class = G_OBJECT_CLASS (class);
 	object_class->finalize = finalize;
 }
 
 static void
-init (GObject *object)
+e2k_global_catalog_init (E2kGlobalCatalog *gc)
 {
-	E2kGlobalCatalog *gc = E2K_GLOBAL_CATALOG (object);
-
 	gc->priv = g_new0 (E2kGlobalCatalogPrivate, 1);
 	gc->priv->ldap_lock = g_mutex_new ();
 	gc->priv->entries = g_ptr_array_new ();
@@ -163,10 +163,8 @@ finalize (GObject *object)
 	g_free (gc->domain);
 	gc->domain = NULL;
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (e2k_global_catalog_parent_class)->finalize (object);
 }
-
-E2K_MAKE_TYPE (e2k_global_catalog, E2kGlobalCatalog, class_init, init, PARENT_TYPE)
 
 static gint
 gc_ldap_result (LDAP *ldap, E2kOperation *op,

@@ -66,8 +66,10 @@ struct _ECalBackendExchangeTasksPrivate {
 	gint dummy;
 };
 
-#define PARENT_TYPE E_TYPE_CAL_BACKEND_EXCHANGE
-static ECalBackendExchange *parent_class = NULL;
+G_DEFINE_TYPE (
+	ECalBackendExchangeTasks,
+	e_cal_backend_exchange_tasks,
+	E_TYPE_CAL_BACKEND_EXCHANGE)
 
 static void
 get_from (ECalBackendSync *backend, ECalComponent *comp, gchar **from_name, gchar **from_addr)
@@ -999,7 +1001,7 @@ authenticate_user_task (ECalBackendSync *backend, GCancellable *cancellable, ECr
 	GError *error = NULL;
 	ECalBackendExchangeTasks *cbext = E_CAL_BACKEND_EXCHANGE_TASKS (backend);
 
-	E_CAL_BACKEND_SYNC_CLASS (parent_class)->authenticate_user_sync (backend, cancellable, credentials, &error);
+	E_CAL_BACKEND_SYNC_CLASS (e_cal_backend_exchange_tasks_parent_class)->authenticate_user_sync (backend, cancellable, credentials, &error);
 	if (error) {
 		g_propagate_error (perror, error);
 		return;
@@ -1475,21 +1477,6 @@ remove_task_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cance
 }
 
 static void
-init (ECalBackendExchangeTasks *cbext)
-{
-	cbext->priv = g_new0 (ECalBackendExchangeTasksPrivate, 1);
-
-	cbext->priv->mutex = g_mutex_new ();
-	cbext->priv->is_loaded = FALSE;
-}
-
-static void
-dispose (GObject *object)
-{
-	G_OBJECT_CLASS (parent_class)->dispose (object);
-}
-
-static void
 finalize (GObject *object)
 {
 	ECalBackendExchangeTasks *cbext =
@@ -1502,26 +1489,33 @@ finalize (GObject *object)
 
 	g_free (cbext->priv);
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (e_cal_backend_exchange_tasks_parent_class)->finalize (object);
 }
 
 static void
-class_init (ECalBackendExchangeTasksClass *klass)
+e_cal_backend_exchange_tasks_class_init (ECalBackendExchangeTasksClass *class)
 {
-	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	ECalBackendSyncClass *sync_class = E_CAL_BACKEND_SYNC_CLASS (klass);
+	GObjectClass *object_class;
+	ECalBackendSyncClass *sync_class;
 
-	parent_class = g_type_class_peek_parent (klass);
+	object_class = G_OBJECT_CLASS (class);
+	object_class->finalize = finalize;
 
+	sync_class = E_CAL_BACKEND_SYNC_CLASS (class);
 	sync_class->authenticate_user_sync = authenticate_user_task;
 	sync_class->refresh_sync = refresh_task;
 	sync_class->create_object_sync = create_task_object;
 	sync_class->modify_object_sync = modify_task_object;
 	sync_class->remove_object_sync = remove_task_object;
 	sync_class->receive_objects_sync = receive_task_objects;
-
-	object_class->dispose = dispose;
-	object_class->finalize = finalize;
 }
 
-E2K_MAKE_TYPE (e_cal_backend_exchange_tasks, ECalBackendExchangeTasks, class_init, init, PARENT_TYPE)
+static void
+e_cal_backend_exchange_tasks_init (ECalBackendExchangeTasks *cbext)
+{
+	cbext->priv = g_new0 (ECalBackendExchangeTasksPrivate, 1);
+
+	cbext->priv->mutex = g_mutex_new ();
+	cbext->priv->is_loaded = FALSE;
+}
+

@@ -95,19 +95,21 @@ enum {
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
-#define PARENT_TYPE G_TYPE_OBJECT
-static GObjectClass *parent_class = NULL;
-
 static void dispose (GObject *);
 static void finalize (GObject *);
 static void remove_hierarchy (ExchangeAccount *account, ExchangeHierarchy *hier);
 
-static void
-class_init (GObjectClass *object_class)
-{
-	parent_class = g_type_class_ref (PARENT_TYPE);
+G_DEFINE_TYPE (
+	ExchangeAccount,
+	exchange_account,
+	G_TYPE_OBJECT)
 
-	/* virtual method override */
+static void
+exchange_account_class_init (ExchangeAccountClass *class)
+{
+	GObjectClass *object_class;
+
+	object_class = G_OBJECT_CLASS (class);
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
 
@@ -142,10 +144,8 @@ class_init (GObjectClass *object_class)
 }
 
 static void
-init (GObject *object)
+exchange_account_init (ExchangeAccount *account)
 {
-	ExchangeAccount *account = EXCHANGE_ACCOUNT (object);
-
 	account->priv = g_new0 (ExchangeAccountPrivate, 1);
 	account->priv->connect_lock = g_mutex_new ();
 	account->priv->hierarchies = g_ptr_array_new ();
@@ -225,7 +225,7 @@ dispose (GObject *object)
 
 	g_static_rec_mutex_unlock (&account->priv->folders_lock);
 
-	G_OBJECT_CLASS (parent_class)->dispose (object);
+	G_OBJECT_CLASS (exchange_account_parent_class)->dispose (object);
 }
 
 static void
@@ -304,10 +304,8 @@ finalize (GObject *object)
 
 	g_free (account->priv);
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (exchange_account_parent_class)->finalize (object);
 }
-
-E2K_MAKE_TYPE (exchange_account, ExchangeAccount, class_init, init, PARENT_TYPE)
 
 void
 exchange_account_rescan_tree (ExchangeAccount *account)

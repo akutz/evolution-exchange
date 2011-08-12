@@ -59,12 +59,8 @@ struct _ExchangeHierarchyWebDAVPrivate {
 	gdouble total_folder_size;
 };
 
-#define PARENT_TYPE EXCHANGE_TYPE_HIERARCHY
-static ExchangeHierarchyClass *parent_class = NULL;
-
 static void folder_type_map_init (void);
 
-static void dispose (GObject *object);
 static void finalize (GObject *object);
 static gboolean is_empty (ExchangeHierarchy *hier);
 static void rescan (ExchangeHierarchy *hier);
@@ -88,20 +84,23 @@ static void hierarchy_new_folder (ExchangeHierarchy *hier, EFolder *folder,
 static void hierarchy_removed_folder (ExchangeHierarchy *hier, EFolder *folder,
 				      gpointer user_data);
 
+G_DEFINE_TYPE (
+	ExchangeHierarchyWebDAV,
+	exchange_hierarchy_webdav,
+	EXCHANGE_TYPE_HIERARCHY)
+
 static void
-class_init (GObjectClass *object_class)
+exchange_hierarchy_webdav_class_init (ExchangeHierarchyWebDAVClass *class)
 {
-	ExchangeHierarchyClass *exchange_hierarchy_class =
-		EXCHANGE_HIERARCHY_CLASS (object_class);
+	GObjectClass *object_class;
+	ExchangeHierarchyClass *exchange_hierarchy_class;
 
 	folder_type_map_init ();
 
-	parent_class = g_type_class_ref (PARENT_TYPE);
-
-	/* virtual method override */
-	object_class->dispose = dispose;
+	object_class = G_OBJECT_CLASS (class);
 	object_class->finalize = finalize;
 
+	exchange_hierarchy_class = EXCHANGE_HIERARCHY_CLASS (class);
 	exchange_hierarchy_class->is_empty = is_empty;
 	exchange_hierarchy_class->rescan = rescan;
 	exchange_hierarchy_class->scan_subtree = scan_subtree;
@@ -111,24 +110,16 @@ class_init (GObjectClass *object_class)
 }
 
 static void
-init (GObject *object)
+exchange_hierarchy_webdav_init (ExchangeHierarchyWebDAV *hwd)
 {
-	ExchangeHierarchyWebDAV *hwd = EXCHANGE_HIERARCHY_WEBDAV (object);
-
 	hwd->priv = g_new0 (ExchangeHierarchyWebDAVPrivate, 1);
 	hwd->priv->folders_by_internal_path = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, (GDestroyNotify) g_object_unref);
 	hwd->priv->total_folder_size = 0;
 
-	g_signal_connect (object, "new_folder",
+	g_signal_connect (hwd, "new_folder",
 			  G_CALLBACK (hierarchy_new_folder), NULL);
-	g_signal_connect (object, "removed_folder",
+	g_signal_connect (hwd, "removed_folder",
 			  G_CALLBACK (hierarchy_removed_folder), NULL);
-}
-
-static void
-dispose (GObject *object)
-{
-	G_OBJECT_CLASS (parent_class)->dispose (object);
 }
 
 static void
@@ -140,10 +131,8 @@ finalize (GObject *object)
 	g_free (hwd->priv->trash_path);
 	g_free (hwd->priv);
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (exchange_hierarchy_webdav_parent_class)->finalize (object);
 }
-
-E2K_MAKE_TYPE (exchange_hierarchy_webdav, ExchangeHierarchyWebDAV, class_init, init, PARENT_TYPE)
 
 typedef struct {
 	const gchar *contentclass, *component;

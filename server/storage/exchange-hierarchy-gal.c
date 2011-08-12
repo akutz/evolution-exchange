@@ -33,9 +33,20 @@
 
 #include <libedataserver/e-source-list.h>
 
-#define PARENT_TYPE EXCHANGE_TYPE_HIERARCHY
+G_DEFINE_TYPE (
+	ExchangeHierarchyGAL,
+	exchange_hierarchy_gal,
+	EXCHANGE_TYPE_HIERARCHY)
 
-E2K_MAKE_TYPE (exchange_hierarchy_gal, ExchangeHierarchyGAL, NULL, NULL, PARENT_TYPE)
+static void
+exchange_hierarchy_gal_class_init (ExchangeHierarchyGALClass *class)
+{
+}
+
+static void
+exchange_hierarchy_gal_init (ExchangeHierarchyGAL *hierarchy)
+{
+}
 
 ExchangeHierarchy *
 exchange_hierarchy_gal_new (ExchangeAccount *account,

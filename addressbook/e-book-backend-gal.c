@@ -84,9 +84,6 @@ static void build_query (EBookBackendGAL *bl, const gchar *query, const gchar *l
 #define EDB_ERROR_EX(_code, _msg) e_data_book_create_error (E_DATA_BOOK_STATUS_ ## _code, _msg)
 #define EDB_ERROR_MSG_TYPE(_msg_type) e_data_book_create_error_fmt (E_DATA_BOOK_STATUS_INVALID_ARG, "Incorrect msg type %d passed to %s", _msg_type, G_STRFUNC)
 
-#define PARENT_TYPE E_TYPE_BOOK_BACKEND
-static EBookBackendClass *parent_class;
-
 typedef struct LDAPOp LDAPOp;
 
 static const gchar **search_attrs;
@@ -222,6 +219,11 @@ struct prop_info {
 #undef COMPLEX_PROP
 #undef GROUP_PROP
 };
+
+G_DEFINE_TYPE (
+	EBookBackendGAL,
+	e_book_backend_gal,
+	E_TYPE_BOOK_BACKEND)
 
 static gboolean
 can_browse (EBookBackend *backend)
@@ -2800,7 +2802,7 @@ gal_get_backend_property (EBookBackend *backend, EDataBook *book, guint32 opid, 
 	} else if (g_str_equal (prop_name, BOOK_BACKEND_PROPERTY_SUPPORTED_AUTH_METHODS)) {
 		e_data_book_respond_get_backend_property (book, opid, NULL, NULL);
 	} else {
-		(* E_BOOK_BACKEND_CLASS (parent_class)->get_backend_property) (backend, book, opid, cancellable, prop_name);
+		(* E_BOOK_BACKEND_CLASS (e_book_backend_gal_parent_class)->get_backend_property) (backend, book, opid, cancellable, prop_name);
 	}
 }
 
@@ -2886,19 +2888,20 @@ dispose (GObject *object)
 		bl->priv = NULL;
 	}
 
-	G_OBJECT_CLASS (parent_class)->dispose (object);
+	G_OBJECT_CLASS (e_book_backend_gal_parent_class)->dispose (object);
 }
 
 static void
-class_init (EBookBackendGALClass *klass)
+e_book_backend_gal_class_init (EBookBackendGALClass *class)
 {
-	GObjectClass  *object_class = G_OBJECT_CLASS (klass);
-	EBookBackendClass *backend_class = E_BOOK_BACKEND_CLASS (klass);
+	GObjectClass *object_class;
+	EBookBackendClass *backend_class;
 	gint i;
 
-	parent_class = g_type_class_peek_parent (klass);
+	object_class = G_OBJECT_CLASS (class);
+	object_class->dispose = dispose;
 
-	/* Set the virtual methods. */
+	backend_class = E_BOOK_BACKEND_CLASS (class);
 	backend_class->open			= gal_open;
 	backend_class->remove			= gal_remove;
 	backend_class->get_backend_property	= gal_get_backend_property;
@@ -2913,8 +2916,6 @@ class_init (EBookBackendGALClass *klass)
 	backend_class->authenticate_user	= authenticate_user;
 	backend_class->set_online		= set_online;
 
-	object_class->dispose = dispose;
-
 	/* Set up static data */
 	search_attrs = g_new (const gchar *, G_N_ELEMENTS (prop_info) + 1);
 	for (i = 0; i < G_N_ELEMENTS (prop_info); i++)
@@ -2923,7 +2924,7 @@ class_init (EBookBackendGALClass *klass)
 }
 
 static void
-init (EBookBackendGAL *backend)
+e_book_backend_gal_init (EBookBackendGAL *backend)
 {
 	EBookBackendGALPrivate *priv;
 
@@ -2942,4 +2943,3 @@ init (EBookBackendGAL *backend)
 #endif
 }
 
-E2K_MAKE_TYPE (e_book_backend_gal, EBookBackendGAL, class_init, init, PARENT_TYPE)
