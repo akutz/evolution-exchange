@@ -1849,7 +1849,7 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject
 			fname = g_filename_from_uri ((gchar *) l->data, NULL, NULL);
 			filename = g_path_get_basename (fname);
 			if (g_str_has_prefix (filename, uid))
-				mime_filename = g_strdup (filename + strlen(uid) + 1);
+				mime_filename = g_strdup (filename + strlen (uid) + 1);
 			else
 				mime_filename = g_strdup (filename);
 			g_free (filename);
