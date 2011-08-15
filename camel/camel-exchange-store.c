@@ -51,7 +51,16 @@
 extern CamelServiceAuthType camel_exchange_password_authtype;
 extern CamelServiceAuthType camel_exchange_ntlm_authtype;
 
-G_DEFINE_TYPE (CamelExchangeStore, camel_exchange_store, CAMEL_TYPE_OFFLINE_STORE)
+/* Forward Declarations */
+static void camel_subscribable_init (CamelSubscribableInterface *interface);
+
+G_DEFINE_TYPE_WITH_CODE (
+	CamelExchangeStore,
+	camel_exchange_store,
+	CAMEL_TYPE_OFFLINE_STORE,
+	G_IMPLEMENT_INTERFACE (
+		CAMEL_TYPE_SUBSCRIBABLE,
+		camel_subscribable_init))
 
 /* Note: steals @display_name. */
 static CamelFolderInfo *
@@ -419,23 +428,6 @@ exchange_store_can_refresh_folder (CamelStore *store,
 	return can_refresh || check_all;
 }
 
-static gboolean
-exchange_store_folder_is_subscribed (CamelStore *store,
-                                     const gchar *folder_name)
-{
-	gboolean is_subscribed = FALSE;
-
-	d(printf ("is subscribed folder : %s\n", folder_name));
-	if (!camel_offline_store_get_online (CAMEL_OFFLINE_STORE (store)))
-		return FALSE;
-
-	if (!camel_exchange_utils_is_subscribed_folder (CAMEL_SERVICE (store), folder_name, &is_subscribed, NULL)) {
-		return FALSE;
-	}
-
-	return is_subscribed;
-}
-
 static CamelFolder *
 exchange_store_get_folder_sync (CamelStore *store,
                                 const gchar *folder_name,
@@ -734,12 +726,29 @@ exchange_store_rename_folder_sync (CamelStore *store,
 }
 
 static gboolean
-exchange_store_subscribe_folder_sync (CamelStore *store,
+exchange_store_folder_is_subscribed (CamelSubscribable *subscribable,
+                                     const gchar *folder_name)
+{
+	gboolean is_subscribed = FALSE;
+
+	d(printf ("is subscribed folder : %s\n", folder_name));
+	if (!camel_offline_store_get_online (CAMEL_OFFLINE_STORE (subscribable)))
+		return FALSE;
+
+	if (!camel_exchange_utils_is_subscribed_folder (CAMEL_SERVICE (subscribable), folder_name, &is_subscribed, NULL)) {
+		return FALSE;
+	}
+
+	return is_subscribed;
+}
+
+static gboolean
+exchange_store_subscribe_folder_sync (CamelSubscribable *subscribable,
                                       const gchar *folder_name,
                                       GCancellable *cancellable,
                                       GError **error)
 {
-	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
+	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (subscribable);
 
 	d(printf ("subscribe folder : %s\n", folder_name));
 	if (!camel_exchange_store_connected (exch, cancellable, NULL)) {
@@ -750,16 +759,16 @@ exchange_store_subscribe_folder_sync (CamelStore *store,
 	}
 
 	return camel_exchange_utils_subscribe_folder (
-		CAMEL_SERVICE (store), folder_name, error);
+		CAMEL_SERVICE (subscribable), folder_name, error);
 }
 
 static gboolean
-exchange_store_unsubscribe_folder_sync (CamelStore *store,
+exchange_store_unsubscribe_folder_sync (CamelSubscribable *subscribable,
                                         const gchar *folder_name,
                                         GCancellable *cancellable,
                                         GError **error)
 {
-	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
+	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (subscribable);
 
 	d(printf ("unsubscribe folder : %s\n", folder_name));
 	if (!camel_exchange_store_connected (exch, cancellable, NULL)) {
@@ -770,7 +779,7 @@ exchange_store_unsubscribe_folder_sync (CamelStore *store,
 	}
 
 	return camel_exchange_utils_unsubscribe_folder (
-		CAMEL_SERVICE (store), folder_name, error);
+		CAMEL_SERVICE (subscribable), folder_name, error);
 }
 
 static void
@@ -793,7 +802,6 @@ camel_exchange_store_class_init (CamelExchangeStoreClass *class)
 
 	store_class = CAMEL_STORE_CLASS (class);
 	store_class->can_refresh_folder = exchange_store_can_refresh_folder;
-	store_class->folder_is_subscribed = exchange_store_folder_is_subscribed;
 	store_class->free_folder_info = camel_store_free_folder_info_full;
 	store_class->get_folder_sync = exchange_store_get_folder_sync;
 	store_class->get_folder_info_sync = exchange_store_get_folder_info_sync;
@@ -801,8 +809,14 @@ camel_exchange_store_class_init (CamelExchangeStoreClass *class)
 	store_class->create_folder_sync = exchange_store_create_folder_sync;
 	store_class->delete_folder_sync = exchange_store_delete_folder_sync;
 	store_class->rename_folder_sync = exchange_store_rename_folder_sync;
-	store_class->subscribe_folder_sync = exchange_store_subscribe_folder_sync;
-	store_class->unsubscribe_folder_sync = exchange_store_unsubscribe_folder_sync;
+}
+
+static void
+camel_subscribable_init (CamelSubscribableInterface *interface)
+{
+	interface->folder_is_subscribed = exchange_store_folder_is_subscribed;
+	interface->subscribe_folder_sync = exchange_store_subscribe_folder_sync;
+	interface->unsubscribe_folder_sync = exchange_store_unsubscribe_folder_sync;
 }
 
 static void
@@ -813,7 +827,6 @@ camel_exchange_store_init (CamelExchangeStore *exch)
 	exch->folders_lock = g_mutex_new ();
 	exch->folders = g_hash_table_new (g_str_hash, g_str_equal);
 
-	store->flags |= CAMEL_STORE_SUBSCRIPTIONS;
 	store->flags &= ~(CAMEL_STORE_VTRASH | CAMEL_STORE_VJUNK);
 	/* FIXME: Like the GroupWise provider, Exchange should also
 	have its own EXCAHNGE_JUNK flags so as to rightly handle
@@ -859,7 +872,7 @@ camel_exchange_store_folder_created (CamelExchangeStore *estore, const gchar *na
 	info = make_folder_info (estore, g_strdup (name), uri, -1, 0);
 	info->flags |= CAMEL_FOLDER_NOCHILDREN;
 
-	camel_store_folder_subscribed (CAMEL_STORE (estore), info);
+	camel_subscribable_folder_subscribed (CAMEL_SUBSCRIBABLE (estore), info);
 
 	camel_folder_info_free (info);
 }
@@ -883,7 +896,7 @@ camel_exchange_store_folder_deleted (CamelExchangeStore *estore, const gchar *na
 	}
 	g_mutex_unlock (estore->folders_lock);
 
-	camel_store_folder_unsubscribed (CAMEL_STORE (estore), info);
+	camel_subscribable_folder_unsubscribed (CAMEL_SUBSCRIBABLE (estore), info);
 
 	camel_folder_info_free (info);
 }

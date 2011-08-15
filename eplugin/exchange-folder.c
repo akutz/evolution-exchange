@@ -114,7 +114,7 @@ exchange_get_folder (GObject *source_object, GAsyncResult *result, gpointer data
 
 	/* Construct the CamelFolderInfo */
 	info = ex_create_folder_info (store, name, target_uri, -1, 0);
-	camel_store_folder_unsubscribed (store, info);
+	camel_subscribable_folder_unsubscribed (CAMEL_SUBSCRIBABLE (store), info);
 	g_free (target_uri);
 }
 
