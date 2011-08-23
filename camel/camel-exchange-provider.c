@@ -225,7 +225,8 @@ exchange_url_hash (gconstpointer key)
 }
 
 static gboolean
-check_equal (const gchar *s1, const gchar *s2)
+check_equal (const gchar *s1,
+             const gchar *s2)
 {
 	if (!s1)
 		return s2 == NULL;
@@ -236,7 +237,8 @@ check_equal (const gchar *s1, const gchar *s2)
 }
 
 static gint
-exchange_url_equal (gconstpointer a, gconstpointer b)
+exchange_url_equal (gconstpointer a,
+                    gconstpointer b)
 {
 	const CamelURL *u1 = a, *u2 = b;
 

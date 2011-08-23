@@ -166,13 +166,17 @@ exchange_account_init (ExchangeAccount *account)
 }
 
 static void
-free_name (gpointer name, gpointer value, gpointer data)
+free_name (gpointer name,
+           gpointer value,
+           gpointer data)
 {
 	g_free (name);
 }
 
 static void
-free_folder (gpointer key, gpointer folder, gpointer data)
+free_folder (gpointer key,
+             gpointer folder,
+             gpointer data)
 {
 	g_object_unref (folder);
 }
@@ -242,7 +246,9 @@ dispose (GObject *object)
 }
 
 static void
-free_uri (gpointer name, gpointer uri, gpointer data)
+free_uri (gpointer name,
+          gpointer uri,
+          gpointer data)
 {
 	g_free (name);
 	g_free (uri);
@@ -338,8 +344,9 @@ exchange_account_rescan_tree (ExchangeAccount *account)
  */
 
 static void
-hierarchy_new_folder (ExchangeHierarchy *hier, EFolder *folder,
-		      ExchangeAccount *account)
+hierarchy_new_folder (ExchangeHierarchy *hier,
+                      EFolder *folder,
+                      ExchangeAccount *account)
 {
 	gint table_updated = 0;
 	const gchar *permanent_uri =
@@ -376,8 +383,8 @@ hierarchy_new_folder (ExchangeHierarchy *hier, EFolder *folder,
 	key = (gchar *) e_folder_exchange_get_internal_uri (folder);
 	if (!g_hash_table_lookup (account->priv->folders, key)) {
 		/* The internal_uri for public folders and favorites folder
-		   is same !!! Without this check the folder value could
-		   overwrite the previously added folder. */
+		 * is same !!! Without this check the folder value could
+		 * overwrite the previously added folder. */
 		g_object_ref (folder);
 		g_hash_table_insert (account->priv->folders,
 				     key,
@@ -407,8 +414,9 @@ hierarchy_new_folder (ExchangeHierarchy *hier, EFolder *folder,
 }
 
 static void
-hierarchy_removed_folder (ExchangeHierarchy *hier, EFolder *folder,
-			  ExchangeAccount *account)
+hierarchy_removed_folder (ExchangeHierarchy *hier,
+                          EFolder *folder,
+                          ExchangeAccount *account)
 {
 	gint unref_count = 0;
 
@@ -448,8 +456,10 @@ hierarchy_removed_folder (ExchangeHierarchy *hier, EFolder *folder,
 }
 
 static gboolean
-get_folder (ExchangeAccount *account, const gchar *path,
-	    EFolder **folder, ExchangeHierarchy **hier)
+get_folder (ExchangeAccount *account,
+            const gchar *path,
+            EFolder **folder,
+            ExchangeHierarchy **hier)
 {
 	g_static_rec_mutex_lock (&account->priv->folders_lock);
 	*folder = g_hash_table_lookup (account->priv->folders, path);
@@ -466,8 +476,10 @@ get_folder (ExchangeAccount *account, const gchar *path,
 }
 
 static gboolean
-get_parent_and_name (ExchangeAccount *account, const gchar **path,
-		     EFolder **parent, ExchangeHierarchy **hier)
+get_parent_and_name (ExchangeAccount *account,
+                     const gchar **path,
+                     EFolder **parent,
+                     ExchangeHierarchy **hier)
 {
 	gchar *name, *parent_path;
 
@@ -497,7 +509,8 @@ get_parent_and_name (ExchangeAccount *account, const gchar **path,
 
 ExchangeAccountFolderResult
 exchange_account_create_folder (ExchangeAccount *account,
-				const gchar *path, const gchar *type)
+                                const gchar *path,
+                                const gchar *type)
 {
 	ExchangeHierarchy *hier;
 	EFolder *parent;
@@ -512,7 +525,9 @@ exchange_account_create_folder (ExchangeAccount *account,
 }
 
 static gboolean
-check_if_sf (gpointer key, gpointer value, gpointer user_data)
+check_if_sf (gpointer key,
+             gpointer value,
+             gpointer user_data)
 {
 	gchar *sf_href = (gchar *) value;
 	gchar *int_uri = (gchar *) user_data;
@@ -524,7 +539,8 @@ check_if_sf (gpointer key, gpointer value, gpointer user_data)
 }
 
 ExchangeAccountFolderResult
-exchange_account_remove_folder (ExchangeAccount *account, const gchar *path)
+exchange_account_remove_folder (ExchangeAccount *account,
+                                const gchar *path)
 {
 	ExchangeHierarchy *hier;
 	EFolder *folder;
@@ -550,9 +566,9 @@ exchange_account_remove_folder (ExchangeAccount *account, const gchar *path)
 
 ExchangeAccountFolderResult
 exchange_account_xfer_folder (ExchangeAccount *account,
-			      const gchar *source_path,
-			      const gchar *dest_path,
-			      gboolean remove_source)
+                              const gchar *source_path,
+                              const gchar *dest_path,
+                              gboolean remove_source)
 {
 	EFolder *source, *dest_parent;
 	ExchangeHierarchy *source_hier, *dest_hier;
@@ -583,7 +599,8 @@ exchange_account_xfer_folder (ExchangeAccount *account,
 }
 
 static void
-remove_hierarchy (ExchangeAccount *account, ExchangeHierarchy *hier)
+remove_hierarchy (ExchangeAccount *account,
+                  ExchangeHierarchy *hier)
 {
 	gint i;
 
@@ -601,7 +618,8 @@ remove_hierarchy (ExchangeAccount *account, ExchangeHierarchy *hier)
 }
 
 static void
-setup_hierarchy (ExchangeAccount *account, ExchangeHierarchy *hier)
+setup_hierarchy (ExchangeAccount *account,
+                 ExchangeHierarchy *hier)
 {
 	g_ptr_array_add (account->priv->hierarchies, hier);
 
@@ -614,7 +632,8 @@ setup_hierarchy (ExchangeAccount *account, ExchangeHierarchy *hier)
 }
 
 static void
-setup_hierarchy_foreign (ExchangeAccount *account, ExchangeHierarchy *hier)
+setup_hierarchy_foreign (ExchangeAccount *account,
+                         ExchangeHierarchy *hier)
 {
 	g_hash_table_insert (account->priv->foreign_hierarchies,
 			     (gchar *) hier->owner_email, hier);
@@ -627,7 +646,8 @@ struct discover_data {
 };
 
 static ExchangeHierarchy *
-get_hierarchy_for (ExchangeAccount *account, E2kGlobalCatalogEntry *entry)
+get_hierarchy_for (ExchangeAccount *account,
+                   E2kGlobalCatalogEntry *entry)
 {
 	ExchangeHierarchy *hier;
 	gchar *hierarchy_name, *source;
@@ -639,7 +659,7 @@ get_hierarchy_for (ExchangeAccount *account, E2kGlobalCatalogEntry *entry)
 		return hier;
 
 	/* i18n: This is the title of an "other user's folders"
-	   hierarchy. Eg, "John Doe's Folders". */
+	 * hierarchy. Eg, "John Doe's Folders". */
 	hierarchy_name = g_strdup_printf (_("%s's Folders"),
 					  entry->display_name);
 	source = g_strdup_printf ("exchange://%s@%s/", entry->mailbox,
@@ -666,9 +686,9 @@ get_hierarchy_for (ExchangeAccount *account, E2kGlobalCatalogEntry *entry)
 
 ExchangeAccountFolderResult
 exchange_account_discover_shared_folder (ExchangeAccount *account,
-					 const gchar *user,
-					 const gchar *folder_name,
-					 EFolder **folder)
+                                         const gchar *user,
+                                         const gchar *folder_name,
+                                         EFolder **folder)
 {
 	struct discover_data dd;
 	ExchangeHierarchy *hier;
@@ -731,8 +751,8 @@ exchange_account_discover_shared_folder (ExchangeAccount *account,
 
 void
 exchange_account_cancel_discover_shared_folder (ExchangeAccount *account,
-						const gchar *user,
-						const gchar *folder_name)
+                                                const gchar *user,
+                                                const gchar *folder_name)
 {
 	struct discover_data *dd;
 	GList *dds;
@@ -765,7 +785,7 @@ exchange_account_cancel_discover_shared_folder (ExchangeAccount *account,
 
 ExchangeAccountFolderResult
 exchange_account_remove_shared_folder (ExchangeAccount *account,
-				       const gchar *path)
+                                       const gchar *path)
 {
 	ExchangeHierarchy *hier;
 	EFolder *folder;
@@ -782,7 +802,8 @@ exchange_account_remove_shared_folder (ExchangeAccount *account,
 }
 
 ExchangeAccountFolderResult
-exchange_account_open_folder (ExchangeAccount *account, const gchar *path)
+exchange_account_open_folder (ExchangeAccount *account,
+                              const gchar *path)
 {
 	ExchangeHierarchy *hier;
 	EFolder *folder;
@@ -812,7 +833,7 @@ exchange_account_open_folder (ExchangeAccount *account, const gchar *path)
 
 ExchangeAccountFolderResult
 exchange_account_add_favorite (ExchangeAccount *account,
-			       EFolder         *folder)
+                               EFolder *folder)
 {
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 	g_return_val_if_fail (E_IS_FOLDER (folder), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
@@ -824,7 +845,7 @@ exchange_account_add_favorite (ExchangeAccount *account,
 
 ExchangeAccountFolderResult
 exchange_account_remove_favorite (ExchangeAccount *account,
-				  EFolder         *folder)
+                                  EFolder *folder)
 {
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 	g_return_val_if_fail (E_IS_FOLDER (folder), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
@@ -836,7 +857,7 @@ exchange_account_remove_favorite (ExchangeAccount *account,
 
 gboolean
 exchange_account_is_favorite_folder (ExchangeAccount *account,
-					EFolder         *folder)
+                                     EFolder *folder)
 {
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
 	g_return_val_if_fail (E_IS_FOLDER (folder), EXCHANGE_ACCOUNT_FOLDER_GENERIC_ERROR);
@@ -847,9 +868,11 @@ exchange_account_is_favorite_folder (ExchangeAccount *account,
 }
 
 static void
-context_redirect (E2kContext *ctx, E2kHTTPStatus status,
-		  const gchar *old_uri, const gchar *new_uri,
-		  ExchangeAccount *account)
+context_redirect (E2kContext *ctx,
+                  E2kHTTPStatus status,
+                  const gchar *old_uri,
+                  const gchar *new_uri,
+                  ExchangeAccount *account)
 {
 	EFolder *folder;
 
@@ -870,8 +893,10 @@ context_redirect (E2kContext *ctx, E2kHTTPStatus status,
 }
 
 static void
-set_sf_prop (const gchar *propname, E2kPropType type,
-	     gpointer phref, gpointer user_data)
+set_sf_prop (const gchar *propname,
+             E2kPropType type,
+             gpointer phref,
+             gpointer user_data)
 {
 	ExchangeAccount *account = user_data;
 	const gchar *href = (const gchar *) phref;
@@ -912,7 +937,8 @@ static const gchar *mailbox_info_props[] = {
 static const gint n_mailbox_info_props = G_N_ELEMENTS (mailbox_info_props);
 
 static gboolean
-account_moved (ExchangeAccount *account, E2kAutoconfig *ac)
+account_moved (ExchangeAccount *account,
+               E2kAutoconfig *ac)
 {
 	E2kAutoconfigResult result;
 	EAccount *eaccount;
@@ -941,7 +967,9 @@ account_moved (ExchangeAccount *account, E2kAutoconfig *ac)
 
 #if 0
 static gboolean
-get_password (ExchangeAccount *account, E2kAutoconfig *ac, ExchangeAccountResult error)
+get_password (ExchangeAccount *account,
+              E2kAutoconfig *ac,
+              ExchangeAccountResult error)
 {
 	gchar *password;
 
@@ -964,7 +992,7 @@ get_password (ExchangeAccount *account, E2kAutoconfig *ac, ExchangeAccountResult
 					NULL,
 					account->priv->password_key,
 					prompt,
-					E_PASSWORDS_REMEMBER_FOREVER|E_PASSWORDS_SECRET,
+					E_PASSWORDS_REMEMBER_FOREVER | E_PASSWORDS_SECRET,
 					&remember,
 					NULL);
 			if (remember != oldremember) {
@@ -1007,7 +1035,8 @@ get_password (ExchangeAccount *account, E2kAutoconfig *ac, ExchangeAccountResult
  */
 #ifdef HAVE_KRB5
 static gboolean
-is_password_expired (ExchangeAccount *account, E2kAutoconfig *ac)
+is_password_expired (ExchangeAccount *account,
+                     E2kAutoconfig *ac)
 {
 	gchar *domain;
 	E2kKerberosResult result;
@@ -1066,7 +1095,7 @@ find_passwd_exp_period (ExchangeAccount *account,
 
 	/* Check for password expiry period */
 	/* This needs to be invoked after is_password_expired(), i.e.,
-	   only if password is not expired */
+	 * only if password is not expired */
 
 	/* Check for account control value for a user */
 
@@ -1117,7 +1146,9 @@ exchange_account_forget_password (ExchangeAccount *account)
 }
 
 ExchangeAccountResult
-exchange_account_set_password (ExchangeAccount *account, gchar *old_pass, gchar *new_pass)
+exchange_account_set_password (ExchangeAccount *account,
+                               gchar *old_pass,
+                               gchar *new_pass)
 {
 #ifdef HAVE_KRB5
 	E2kKerberosResult result;
@@ -1172,7 +1203,8 @@ exchange_account_set_password (ExchangeAccount *account, gchar *old_pass, gchar 
 }
 
 void
-exchange_account_set_save_password (ExchangeAccount *account, gboolean save_password)
+exchange_account_set_save_password (ExchangeAccount *account,
+                                    gboolean save_password)
 {
 	account->priv->account->source->save_passwd = save_password;
 }
@@ -1241,7 +1273,8 @@ exchange_account_set_online (ExchangeAccount *account)
  * Return value: Returns TRUE if account is offline
  **/
 void
-exchange_account_is_offline (ExchangeAccount *account, gint *state)
+exchange_account_is_offline (ExchangeAccount *account,
+                             gint *state)
 {
 	g_return_if_fail (EXCHANGE_IS_ACCOUNT (account));
 
@@ -1385,8 +1418,9 @@ hierarchies_created:
  * failed.
  **/
 E2kContext *
-exchange_account_connect (ExchangeAccount *account, const gchar *pword,
-			  ExchangeAccountResult *info_result)
+exchange_account_connect (ExchangeAccount *account,
+                          const gchar *pword,
+                          ExchangeAccountResult *info_result)
 {
 	E2kAutoconfig *ac;
 	E2kAutoconfigResult result;
@@ -1673,7 +1707,8 @@ skip_quota:
  * Return value: TRUE if offline_sync is set for @account and FALSE if not.
  */
 void
-exchange_account_is_offline_sync_set (ExchangeAccount *account, gint *mode)
+exchange_account_is_offline_sync_set (ExchangeAccount *account,
+                                      gint *mode)
 {
 	CamelSettings *settings;
 	gboolean stay_synchronized;
@@ -1765,7 +1800,8 @@ exchange_account_fetch (ExchangeAccount *acct)
  * defined on @account.
  **/
 const gchar *
-exchange_account_get_standard_uri (ExchangeAccount *account, const gchar *item)
+exchange_account_get_standard_uri (ExchangeAccount *account,
+                                   const gchar *item)
 {
 	g_return_val_if_fail (EXCHANGE_IS_ACCOUNT (account), NULL);
 
@@ -1788,8 +1824,8 @@ exchange_account_get_standard_uri (ExchangeAccount *account, const gchar *item)
  **/
 gchar *
 exchange_account_get_standard_uri_for (ExchangeAccount *account,
-				       const gchar *home_uri,
-				       const gchar *std_uri_prop)
+                                       const gchar *home_uri,
+                                       const gchar *std_uri_prop)
 {
 	gchar *foreign_uri, *prop;
 	E2kHTTPStatus status;
@@ -1832,8 +1868,8 @@ exchange_account_get_standard_uri_for (ExchangeAccount *account,
  **/
 gchar *
 exchange_account_get_foreign_uri (ExchangeAccount *account,
-				  E2kGlobalCatalogEntry *entry,
-				  const gchar *std_uri_prop)
+                                  E2kGlobalCatalogEntry *entry,
+                                  const gchar *std_uri_prop)
 {
 	gchar *home_uri, *foreign_uri;
 
@@ -1867,7 +1903,8 @@ exchange_account_get_foreign_uri (ExchangeAccount *account,
   problem between exchange and evolution is fixed. Exchange does not get to know
  if an user's folder is subscribed from evolution */
 void
-exchange_account_scan_foreign_hierarchy (ExchangeAccount *account, const gchar *user_email)
+exchange_account_scan_foreign_hierarchy (ExchangeAccount *account,
+                                         const gchar *user_email)
 {
 	gchar *dir;
 	ExchangeHierarchy *hier;
@@ -1903,7 +1940,8 @@ exchange_account_scan_foreign_hierarchy (ExchangeAccount *account, const gchar *
  **/
 
 ExchangeHierarchy *
-exchange_account_get_hierarchy_by_email (ExchangeAccount *account, const gchar *email)
+exchange_account_get_hierarchy_by_email (ExchangeAccount *account,
+                                         const gchar *email)
 {
 	gchar *dir;
 	ExchangeHierarchy *hier = NULL;
@@ -1966,7 +2004,7 @@ exchange_account_get_sanitized_path (const gchar *uri)
  **/
 EFolder *
 exchange_account_get_folder (ExchangeAccount *account,
-			     const gchar *path_or_uri)
+                             const gchar *path_or_uri)
 {
 	EFolder *folder;
 
@@ -1982,7 +2020,8 @@ exchange_account_get_folder (ExchangeAccount *account,
 }
 
 static gint
-folder_comparator (gconstpointer a, gconstpointer b)
+folder_comparator (gconstpointer a,
+                   gconstpointer b)
 {
 	EFolder **fa = (EFolder **) a;
 	EFolder **fb = (EFolder **) b;
@@ -1997,7 +2036,9 @@ struct _folders_tree {
 };
 
 static void
-add_folder (gpointer key, gpointer value, gpointer folders)
+add_folder (gpointer key,
+            gpointer value,
+            gpointer folders)
 {
 	EFolder *folder = value;
 
@@ -2013,7 +2054,9 @@ add_folder (gpointer key, gpointer value, gpointer folders)
 }
 
 static void
-add_folder_tree (gpointer key, gpointer value, gpointer folders)
+add_folder_tree (gpointer key,
+                 gpointer value,
+                 gpointer folders)
 {
 	EFolder *folder = value;
 	struct _folders_tree *fld_tree = (struct _folders_tree *) folders;
@@ -2068,7 +2111,8 @@ exchange_account_get_folders (ExchangeAccount *account)
  * g_ptr_array_free().
  **/
 GPtrArray *
-exchange_account_get_folder_tree (ExchangeAccount *account, gchar * path)
+exchange_account_get_folder_tree (ExchangeAccount *account,
+                                  gchar *path)
 {
 	GPtrArray *folders = NULL;
 	EFolder *folder = NULL;
@@ -2180,8 +2224,8 @@ exchange_account_get_email_id (ExchangeAccount *account)
   **/
 void
 exchange_account_folder_size_add (ExchangeAccount *account,
-				     const gchar *folder_name,
-				     gdouble size)
+                                  const gchar *folder_name,
+                                  gdouble size)
 {
 	g_return_if_fail (EXCHANGE_IS_ACCOUNT (account));
 
@@ -2199,7 +2243,7 @@ exchange_account_folder_size_add (ExchangeAccount *account,
   **/
 void
 exchange_account_folder_size_remove (ExchangeAccount *account,
-					const gchar *folder_name)
+                                     const gchar *folder_name)
 {
 	g_return_if_fail (EXCHANGE_IS_ACCOUNT (account));
 
@@ -2219,8 +2263,8 @@ exchange_account_folder_size_remove (ExchangeAccount *account,
   **/
 void
 exchange_account_folder_size_rename (ExchangeAccount *account,
-					const gchar *old_name,
-					const gchar *new_name)
+                                     const gchar *old_name,
+                                     const gchar *new_name)
 {
 	gdouble cached_size;
 
@@ -2275,7 +2319,8 @@ exchange_account_get_authtype (ExchangeAccount *account)
  * Return value: a new #ExchangeAccount corresponding to @adata
  **/
 ExchangeAccount *
-exchange_account_new (EAccountList *account_list, EAccount *adata)
+exchange_account_new (EAccountList *account_list,
+                      EAccount *adata)
 {
 	ExchangeAccount *account;
 	gchar *enc_user, *mailbox;
@@ -2416,9 +2461,9 @@ exchange_account_new (EAccountList *account_list, EAccount *adata)
  * Return value: Returns the hierarchy pointer for the requested type
  **/
 
-ExchangeHierarchy*
-exchange_account_get_hierarchy_by_type (ExchangeAccount* acct,
-					ExchangeHierarchyType type)
+ExchangeHierarchy *
+exchange_account_get_hierarchy_by_type (ExchangeAccount *acct,
+                                        ExchangeHierarchyType type)
 {
 	gint i;
 

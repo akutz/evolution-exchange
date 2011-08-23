@@ -50,7 +50,7 @@ typedef enum {
 } ExchangeSendOptionsSensitivity;
 
 /* We require the delegate_email and delegate_name to store the address of the delegator selected into
-   the destination store.
+ * the destination store.
 */
 typedef struct {
 	ExchangeSendOptionsImp importance;

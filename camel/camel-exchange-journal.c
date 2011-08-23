@@ -391,7 +391,8 @@ camel_exchange_journal_init (CamelExchangeJournal *journal)
 }
 
 CamelOfflineJournal *
-camel_exchange_journal_new (CamelExchangeFolder *folder, const gchar *filename)
+camel_exchange_journal_new (CamelExchangeFolder *folder,
+                            const gchar *filename)
 {
 	CamelOfflineJournal *journal;
 

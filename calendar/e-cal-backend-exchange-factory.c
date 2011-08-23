@@ -38,8 +38,9 @@ _get_protocol (ECalBackendFactory *factory)
 	return "exchange";
 }
 
-static ECalBackend*
-_todos_new_backend (ECalBackendFactory *factory, ESource *source)
+static ECalBackend *
+_todos_new_backend (ECalBackendFactory *factory,
+                    ESource *source)
 {
 	return g_object_new (E_TYPE_CAL_BACKEND_EXCHANGE_TASKS,
 			     "source", source,
@@ -52,8 +53,9 @@ _todos_get_kind (ECalBackendFactory *factory)
 	return ICAL_VTODO_COMPONENT;
 }
 
-static ECalBackend*
-_events_new_backend (ECalBackendFactory *factory, ESource *source)
+static ECalBackend *
+_events_new_backend (ECalBackendFactory *factory,
+                     ESource *source)
 {
 	return g_object_new (E_TYPE_CAL_BACKEND_EXCHANGE_CALENDAR,
 			     "source", source,
@@ -149,7 +151,8 @@ eds_module_shutdown (void)
 }
 
 void
-eds_module_list_types (const GType **types, gint *num_types)
+eds_module_list_types (const GType **types,
+                       gint *num_types)
 {
 	static GType module_types[2];
 

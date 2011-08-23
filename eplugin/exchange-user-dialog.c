@@ -91,7 +91,8 @@ e2k_user_dialog_init (E2kUserDialog *dialog)
 }
 
 static void
-parent_window_destroyed (gpointer user_data, GObject *where_parent_window_was)
+parent_window_destroyed (gpointer user_data,
+                         GObject *where_parent_window_was)
 {
 	E2kUserDialog *dialog = user_data;
 
@@ -100,13 +101,16 @@ parent_window_destroyed (gpointer user_data, GObject *where_parent_window_was)
 }
 
 static void
-addressbook_dialog_response (ENameSelectorDialog *name_selector_dialog, gint response, gpointer data)
+addressbook_dialog_response (ENameSelectorDialog *name_selector_dialog,
+                             gint response,
+                             gpointer data)
 {
 	gtk_widget_hide (GTK_WIDGET (name_selector_dialog));
 }
 
 static void
-addressbook_clicked_cb (GtkWidget *widget, gpointer data)
+addressbook_clicked_cb (GtkWidget *widget,
+                        gpointer data)
 {
 	E2kUserDialog *dialog = data;
 	E2kUserDialogPrivate *priv;
@@ -121,9 +125,9 @@ addressbook_clicked_cb (GtkWidget *widget, gpointer data)
 
 static gboolean
 e2k_user_dialog_construct (E2kUserDialog *dialog,
-			   GtkWidget *parent_window,
-			   const gchar *label_text,
-			   const gchar *section_name)
+                           GtkWidget *parent_window,
+                           const gchar *label_text,
+                           const gchar *section_name)
 {
 	E2kUserDialogPrivate *priv;
 	GtkWidget *hbox, *vbox, *label, *button;
@@ -196,7 +200,8 @@ e2k_user_dialog_construct (E2kUserDialog *dialog,
  **/
 GtkWidget *
 e2k_user_dialog_new (GtkWidget *parent_window,
-		     const gchar *label_text, const gchar *section_name)
+                     const gchar *label_text,
+                     const gchar *section_name)
 {
 	E2kUserDialog *dialog;
 

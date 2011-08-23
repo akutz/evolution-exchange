@@ -58,22 +58,22 @@ e2k_parse_timestamp (const gchar *timestamp)
 {
 	struct tm tm;
 
-	tm.tm_year = strtoul (timestamp, (gchar **)&timestamp, 10) - 1900;
+	tm.tm_year = strtoul (timestamp, (gchar **) &timestamp, 10) - 1900;
 	if (*timestamp++ != '-')
 		return -1;
-	tm.tm_mon = strtoul (timestamp, (gchar **)&timestamp, 10) - 1;
+	tm.tm_mon = strtoul (timestamp, (gchar **) &timestamp, 10) - 1;
 	if (*timestamp++ != '-')
 		return -1;
-	tm.tm_mday = strtoul (timestamp, (gchar **)&timestamp, 10);
+	tm.tm_mday = strtoul (timestamp, (gchar **) &timestamp, 10);
 	if (*timestamp++ != 'T')
 		return -1;
-	tm.tm_hour = strtoul (timestamp, (gchar **)&timestamp, 10);
+	tm.tm_hour = strtoul (timestamp, (gchar **) &timestamp, 10);
 	if (*timestamp++ != ':')
 		return -1;
-	tm.tm_min = strtoul (timestamp, (gchar **)&timestamp, 10);
+	tm.tm_min = strtoul (timestamp, (gchar **) &timestamp, 10);
 	if (*timestamp++ != ':')
 		return -1;
-	tm.tm_sec = strtoul (timestamp, (gchar **)&timestamp, 10);
+	tm.tm_sec = strtoul (timestamp, (gchar **) &timestamp, 10);
 	if (*timestamp != '.' && *timestamp != 'Z')
 		return -1;
 
@@ -306,7 +306,8 @@ e2k_entryid_to_dn (GByteArray *entryid)
 }
 
 static void
-append_permanenturl_section (GString *url, guint8 *entryid)
+append_permanenturl_section (GString *url,
+                             guint8 *entryid)
 {
 	gint i = 0;
 
@@ -343,7 +344,8 @@ append_permanenturl_section (GString *url, guint8 *entryid)
  * Return value: the permanenturl, which the caller must free.
  **/
 gchar *
-e2k_entryid_to_permanenturl (GByteArray *entryid, const gchar *base_uri)
+e2k_entryid_to_permanenturl (GByteArray *entryid,
+                             const gchar *base_uri)
 {
 	GString *url;
 	gchar *ret;
@@ -370,7 +372,8 @@ e2k_entryid_to_permanenturl (GByteArray *entryid, const gchar *base_uri)
 #define HEXVAL(c) (isdigit (c) ? (c) - '0' : g_ascii_tolower (c) - 'a' + 10)
 
 static gboolean
-append_entryid_section (GByteArray *entryid, const gchar **permanenturl)
+append_entryid_section (GByteArray *entryid,
+                        const gchar **permanenturl)
 {
 	const gchar *p;
 	guint8 buf[44], byte;
@@ -442,7 +445,8 @@ e2k_permanenturl_to_entryid (const gchar *permanenturl)
  * equal, %FALSE if not.
  **/
 gint
-e2k_ascii_strcase_equal (gconstpointer v, gconstpointer v2)
+e2k_ascii_strcase_equal (gconstpointer v,
+                         gconstpointer v2)
 {
 	return !g_ascii_strcasecmp (v, v2);
 }
@@ -545,7 +549,9 @@ static const gchar MAPI_ONE_OFF_UID[] = {
  * Return value: the recipient ENTRYID
  **/
 GByteArray *
-e2k_entryid_generate_oneoff (const gchar *display_name, const gchar *email, gboolean unicode)
+e2k_entryid_generate_oneoff (const gchar *display_name,
+                             const gchar *email,
+                             gboolean unicode)
 {
 	GByteArray *entryid;
 
@@ -621,7 +627,8 @@ static const gchar MAPI_CONTACT_UID[] = {
  * Return value: the recipient ENTRYID
  **/
 GByteArray *
-e2k_entryid_generate_contact (GByteArray *contact_entryid, gint nth_address)
+e2k_entryid_generate_contact (GByteArray *contact_entryid,
+                              gint nth_address)
 {
 	GByteArray *entryid;
 
@@ -648,7 +655,8 @@ e2k_entryid_generate_contact (GByteArray *contact_entryid, gint nth_address)
  * Return value: the search key
  **/
 GByteArray *
-e2k_search_key_generate (const gchar *addrtype, const gchar *address)
+e2k_search_key_generate (const gchar *addrtype,
+                         const gchar *address)
 {
 	GByteArray *search_key;
 	guint8 *p;

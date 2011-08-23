@@ -46,12 +46,12 @@
 #include "exchange-change-password.h"
 #include "exchange-folder-size-display.h"
 
-GtkWidget* org_gnome_exchange_settings (EPlugin *epl, EConfigHookItemFactoryData *data);
+GtkWidget * org_gnome_exchange_settings (EPlugin *epl, EConfigHookItemFactoryData *data);
 GtkWidget *org_gnome_exchange_owa_url (EPlugin *epl, EConfigHookItemFactoryData *data);
 gboolean org_gnome_exchange_check_options (EPlugin *epl, EConfigHookPageCheckData *data);
 GtkWidget *org_gnome_exchange_auth_section (EPlugin *epl, EConfigHookItemFactoryData *data);
 void org_gnome_exchange_commit (EPlugin *epl, EMConfigTargetAccount *target_account);
-GtkWidget* org_gnome_exchange_show_folder_size_factory (EPlugin *epl, EConfigHookItemFactoryData *data);
+GtkWidget * org_gnome_exchange_show_folder_size_factory (EPlugin *epl, EConfigHookItemFactoryData *data);
 
 CamelServiceAuthType camel_exchange_ntlm_authtype = {
 	/* i18n: "Secure Password Authentication" is an Outlookism */
@@ -84,7 +84,8 @@ typedef struct {
 static OOFData *oof_data = NULL;
 
 static void
-update_state (GtkTextBuffer *buffer, gpointer data)
+update_state (GtkTextBuffer *buffer,
+              gpointer data)
 {
 	if (gtk_text_buffer_get_modified (buffer)) {
 		GtkTextIter start, end;
@@ -98,7 +99,8 @@ update_state (GtkTextBuffer *buffer, gpointer data)
 }
 
 static void
-toggled_state (GtkToggleButton *button, gpointer data)
+toggled_state (GtkToggleButton *button,
+               gpointer data)
 {
 	gboolean current_oof_state = gtk_toggle_button_get_active (button);
 
@@ -110,7 +112,8 @@ toggled_state (GtkToggleButton *button, gpointer data)
 
 #ifdef HAVE_KRB5
 static void
-btn_chpass_clicked (GtkButton *button, gpointer data)
+btn_chpass_clicked (GtkButton *button,
+                    gpointer data)
 {
 	ExchangeAccount *account;
 	gchar *old_password, *new_password;
@@ -141,7 +144,8 @@ btn_chpass_clicked (GtkButton *button, gpointer data)
 #endif
 
 static void
-btn_dass_clicked (GtkButton *button, gpointer data)
+btn_dass_clicked (GtkButton *button,
+                  gpointer data)
 {
 	ExchangeAccount *account;
 	account = exchange_operations_get_exchange_account ();
@@ -151,7 +155,8 @@ btn_dass_clicked (GtkButton *button, gpointer data)
 }
 
 static void
-btn_fsize_clicked (GtkButton *button, gpointer data)
+btn_fsize_clicked (GtkButton *button,
+                   gpointer data)
 {
 	ExchangeAccount *account;
 	GtkListStore *model;
@@ -167,7 +172,8 @@ btn_fsize_clicked (GtkButton *button, gpointer data)
 
 /* only used in editor */
 GtkWidget *
-org_gnome_exchange_settings (EPlugin *epl, EConfigHookItemFactoryData *data)
+org_gnome_exchange_settings (EPlugin *epl,
+                             EConfigHookItemFactoryData *data)
 {
 	EMConfigTargetAccount *target_account;
 	ExchangeAccount *ex_account = NULL;
@@ -382,7 +388,9 @@ org_gnome_exchange_settings (EPlugin *epl, EConfigHookItemFactoryData *data)
 }
 
 static void
-print_error (GtkWidget *parent, const gchar *owa_url, E2kAutoconfigResult result)
+print_error (GtkWidget *parent,
+             const gchar *owa_url,
+             E2kAutoconfigResult result)
 {
 	const gchar *err_msg = NULL;
 
@@ -437,7 +445,7 @@ owa_authenticate_user (GtkWidget *button,
 {
 	EMConfigTargetAccount *target_account = (EMConfigTargetAccount *) config->target;
 	E2kAutoconfigResult result;
-	CamelURL *url=NULL;
+	CamelURL *url = NULL;
 	gboolean remember_password;
 	gchar *url_string, *key;
 	const gchar *source_url, *id_name, *owa_url;
@@ -462,19 +470,19 @@ owa_authenticate_user (GtkWidget *button,
 		id_name = e_account_get_string (account, E_ACCOUNT_ID_ADDRESS);
 		if (id_name) {
 			at = strchr (id_name, '@');
-			user = g_alloca (at-id_name+1);
-			memcpy (user, id_name, at-id_name);
-			user[at-id_name] = 0;
+			user = g_alloca (at - id_name + 1);
+			memcpy (user, id_name, at - id_name);
+			user[at - id_name] = 0;
 			camel_url_set_user (url, user);
 		}
 	}
 
 	/* validate_user() CALLS GTK!!!
-
-	   THIS IS TOTALLY UNNACCEPTABLE!!!!!!!!
-
-	   It must use camel_session_ask_password, and it should return an exception for any problem,
-	   which should then be shown using e-alert */
+ *
+	 * THIS IS TOTALLY UNNACCEPTABLE!!!!!!!!
+ *
+	 * It must use camel_session_ask_password, and it should return an exception for any problem,
+	 * which should then be shown using e-alert */
 
 	/* Note we're not referencing CamelSettings here. */
 	exchange_params->settings = settings;
@@ -534,7 +542,8 @@ owa_authenticate_user (GtkWidget *button,
 }
 
 static void
-owa_editor_entry_changed (GtkWidget *entry, EConfig *config)
+owa_editor_entry_changed (GtkWidget *entry,
+                          EConfig *config)
 {
 	CamelURL *owaurl = NULL;
 	gchar *uri;
@@ -624,7 +633,8 @@ construct_owa_url (CamelURL *url,
 
 /* used by editor and assistant - same code */
 GtkWidget *
-org_gnome_exchange_owa_url (EPlugin *epl, EConfigHookItemFactoryData *data)
+org_gnome_exchange_owa_url (EPlugin *epl,
+                            EConfigHookItemFactoryData *data)
 {
 	EMConfigTargetAccount *target_account;
 	const gchar *source_url;
@@ -655,7 +665,7 @@ org_gnome_exchange_owa_url (EPlugin *epl, EConfigHookItemFactoryData *data)
 			gtk_widget_destroy (label);
 
 		/* TODO: we could remove 'owa-url' from the url,
-		   but that will lose it if we come back.  Maybe a commit callback could do it */
+		 * but that will lose it if we come back.  Maybe a commit callback could do it */
 
 		return NULL;
 	}
@@ -729,8 +739,8 @@ org_gnome_exchange_owa_url (EPlugin *epl, EConfigHookItemFactoryData *data)
 	gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 	gtk_widget_show_all (hbox);
 
-	gtk_table_attach (GTK_TABLE (data->parent), label, 0, 1, row, row+1, 0, 0, 0, 0);
-	gtk_table_attach (GTK_TABLE (data->parent), hbox, 1, 2, row, row+1, GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (data->parent), label, 0, 1, row, row + 1, 0, 0, 0, 0);
+	gtk_table_attach (GTK_TABLE (data->parent), hbox, 1, 2, row, row + 1, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
 
 	g_signal_connect (owa_entry, "changed", G_CALLBACK(owa_editor_entry_changed), data->config);
 	g_object_set_data((GObject *)owa_entry, "authenticate-button", button);
@@ -746,7 +756,7 @@ org_gnome_exchange_owa_url (EPlugin *epl, EConfigHookItemFactoryData *data)
 	want_mailbox_check = gtk_check_button_new_with_mnemonic (
 		_("Mailbox name is _different from username"));
 	gtk_widget_show (want_mailbox_check);
-	gtk_table_attach (GTK_TABLE (data->parent), want_mailbox_check, 1, 2, row, row+1, GTK_FILL, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (data->parent), want_mailbox_check, 1, 2, row, row + 1, GTK_FILL, GTK_FILL, 0, 0);
 	if (!username || !*username || !mailbox || !*mailbox ||
 	    g_ascii_strcasecmp (username, mailbox) == 0 ||
 	    (strchr (username, '/') && g_ascii_strcasecmp (strchr (username, '/') + 1, mailbox) == 0)) {
@@ -781,8 +791,8 @@ org_gnome_exchange_owa_url (EPlugin *epl, EConfigHookItemFactoryData *data)
 
 	gtk_widget_set_sensitive (mailbox_entry, gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (want_mailbox_check)));
 
-	gtk_table_attach (GTK_TABLE (data->parent), label, 0, 1, row, row+1, 0, 0, 0, 0);
-	gtk_table_attach (GTK_TABLE (data->parent), mailbox_entry, 1, 2, row, row+1, GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (data->parent), label, 0, 1, row, row + 1, 0, 0, 0, 0);
+	gtk_table_attach (GTK_TABLE (data->parent), mailbox_entry, 1, 2, row, row + 1, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
 
 	g_free (owa_url);
 	g_free (mailbox);
@@ -792,13 +802,14 @@ org_gnome_exchange_owa_url (EPlugin *epl, EConfigHookItemFactoryData *data)
 }
 
 gboolean
-org_gnome_exchange_check_options (EPlugin *epl, EConfigHookPageCheckData *data)
+org_gnome_exchange_check_options (EPlugin *epl,
+                                  EConfigHookPageCheckData *data)
 {
 	EMConfigTargetAccount *target = (EMConfigTargetAccount *) data->config->target;
 	gint status = TRUE;
 
 	/* We assume that if the host is set, then the setting is valid.
-	   The host gets set when the provider validate () call is made */
+	 * The host gets set when the provider validate () call is made */
 	/* We do this check for receive page also, so that user can
 	 * proceed with the account set up only after user is validated,
 	 * and host name is reset by validate() call
@@ -859,7 +870,8 @@ destroy_oof_data (void)
 }
 
 void
-org_gnome_exchange_commit (EPlugin *epl, EMConfigTargetAccount *target_account)
+org_gnome_exchange_commit (EPlugin *epl,
+                           EMConfigTargetAccount *target_account)
 {
 	EAccount *account;
 	CamelURL *url;
@@ -897,13 +909,15 @@ org_gnome_exchange_commit (EPlugin *epl, EMConfigTargetAccount *target_account)
 }
 
 static void
-exchange_check_authtype (GtkWidget *w, EConfig *config)
+exchange_check_authtype (GtkWidget *w,
+                         EConfig *config)
 {
 	return;
 }
 
 static void
-exchange_authtype_changed (GtkComboBox *dropdown, EConfig *config)
+exchange_authtype_changed (GtkComboBox *dropdown,
+                           EConfig *config)
 {
 	EMConfigTargetAccount *target = (EMConfigTargetAccount *) config->target;
 	gint id = gtk_combo_box_get_active (dropdown);
@@ -950,7 +964,8 @@ exchange_authtype_changed (GtkComboBox *dropdown, EConfig *config)
 }
 
 GtkWidget *
-org_gnome_exchange_auth_section (EPlugin *epl, EConfigHookItemFactoryData *data)
+org_gnome_exchange_auth_section (EPlugin *epl,
+                                 EConfigHookItemFactoryData *data)
 {
 	EMConfigTargetAccount *target_account;
 	const gchar *source_url;
@@ -961,7 +976,7 @@ org_gnome_exchange_auth_section (EPlugin *epl, EConfigHookItemFactoryData *data)
 	GtkTreeIter iter;
 	GtkListStore *store;
 	EAccount *account;
-	gint i, active=0, auth_changed_id = 0;
+	gint i, active = 0, auth_changed_id = 0;
 	GList *authtypes, *l, *ll;
 	ExchangeAccount *ex_account;
 
@@ -1009,7 +1024,7 @@ org_gnome_exchange_auth_section (EPlugin *epl, EConfigHookItemFactoryData *data)
 				    &camel_exchange_ntlm_authtype);
 	store = gtk_list_store_new (3, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_BOOLEAN);
 
-	for (i=0, l=authtypes; l; l=l->next, i++) {
+	for (i = 0, l = authtypes; l; l = l->next, i++) {
 		CamelServiceAuthType *authtype = l->data;
 		gint avail = TRUE;
 
@@ -1079,7 +1094,8 @@ org_gnome_exchange_auth_section (EPlugin *epl, EConfigHookItemFactoryData *data)
 }
 
 GtkWidget *
-org_gnome_exchange_show_folder_size_factory (EPlugin *epl, EConfigHookItemFactoryData *data)
+org_gnome_exchange_show_folder_size_factory (EPlugin *epl,
+                                             EConfigHookItemFactoryData *data)
 {
 	EMConfigTargetFolder *target=  (EMConfigTargetFolder *) data->config->target;
 	CamelFolder *cml_folder = target->folder;
@@ -1122,7 +1138,7 @@ org_gnome_exchange_show_folder_size_factory (EPlugin *epl, EConfigHookItemFactor
 	else
 		folder_size = g_strdup (_("0 KB"));
 
-	hbx_size = (GtkHBox*) gtk_hbox_new (FALSE, 0);
+	hbx_size = (GtkHBox *) gtk_hbox_new (FALSE, 0);
 	vbx = (GtkVBox *) gtk_notebook_get_nth_page (GTK_NOTEBOOK (data->parent), 0);
 
 	lbl_size = gtk_label_new_with_mnemonic (_("Size:"));

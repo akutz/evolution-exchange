@@ -69,7 +69,8 @@ G_DEFINE_TYPE (
 	E_TYPE_CAL_BACKEND_EXCHANGE)
 
 static void
-add_timezones_from_comp (ECalBackendExchange *cbex, icalcomponent *icalcomp)
+add_timezones_from_comp (ECalBackendExchange *cbex,
+                         icalcomponent *icalcomp)
 {
 	icalcomponent *subcomp;
 
@@ -95,8 +96,9 @@ add_timezones_from_comp (ECalBackendExchange *cbex, icalcomponent *icalcomp)
 
 static gboolean
 add_vevent (ECalBackendExchange *cbex,
-	    const gchar *href, const gchar *lastmod,
-	    icalcomponent *icalcomp)
+            const gchar *href,
+            const gchar *lastmod,
+            icalcomponent *icalcomp)
 {
 	icalproperty *prop, *transp;
 	gboolean res;
@@ -188,8 +190,13 @@ add_vevent (ECalBackendExchange *cbex,
 
 /* Add the event to the cache, Notify the backend if it is sucessfully added */
 static gboolean
-add_ical (ECalBackendExchange *cbex, const gchar *href, const gchar *lastmod,
-	  const gchar *uid, const gchar *body, gint len, gint receipts)
+add_ical (ECalBackendExchange *cbex,
+          const gchar *href,
+          const gchar *lastmod,
+          const gchar *uid,
+          const gchar *body,
+          gint len,
+          gint receipts)
 {
 	const gchar *start, *end;
 	gchar *ical_body;
@@ -499,7 +506,7 @@ get_changed_events (ECalBackendExchange *cbex)
 		modtime = g_hash_table_lookup (modtimes, result->href);
 		uid = g_hash_table_lookup (attachments, result->href);
 		/* The icaldata already has the attachment. So no need to
-			re-fetch it from the server. */
+		 * re-fetch it from the server. */
 		add_ical (cbex, result->href, modtime, uid,
 			  (gchar *) ical_data->data, ical_data->len, status_tracking);
 	}
@@ -564,8 +571,10 @@ get_changed_events (ECalBackendExchange *cbex)
 
 /* folder subscription notify callback */
 static void
-notify_changes (E2kContext *ctx, const gchar *uri,
-                     E2kContextChangeType type, gpointer user_data)
+notify_changes (E2kContext *ctx,
+                const gchar *uri,
+                E2kContextChangeType type,
+                gpointer user_data)
 {
 
 	ECalBackendExchange *ecalbex = E_CAL_BACKEND_EXCHANGE (user_data);
@@ -578,7 +587,10 @@ notify_changes (E2kContext *ctx, const gchar *uri,
 }
 
 static void
-authenticate_user (ECalBackendSync *backend, GCancellable *cancellable, ECredentials *credentials, GError **perror)
+authenticate_user (ECalBackendSync *backend,
+                   GCancellable *cancellable,
+                   ECredentials *credentials,
+                   GError **perror)
 {
 	GThread *thread = NULL;
 	GError *error = NULL;
@@ -619,7 +631,10 @@ authenticate_user (ECalBackendSync *backend, GCancellable *cancellable, ECredent
 }
 
 static void
-refresh_calendar (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable, GError **perror)
+refresh_calendar (ECalBackendSync *backend,
+                  EDataCal *cal,
+                  GCancellable *cancellable,
+                  GError **perror)
 {
 	g_return_if_fail (E_IS_CAL_BACKEND_EXCHANGE (backend));
 
@@ -633,7 +648,8 @@ struct _cb_data {
 };
 
 static void
-add_timezone_cb (icalparameter *param, gpointer data)
+add_timezone_cb (icalparameter *param,
+                 gpointer data)
 {
 	struct _cb_data *cbdata = (struct _cb_data *) data;
 	icalcomponent *vtzcomp;
@@ -658,7 +674,8 @@ add_timezone_cb (icalparameter *param, gpointer data)
 }
 
 gboolean
-check_for_send_options (icalcomponent *icalcomp, E2kProperties *props)
+check_for_send_options (icalcomponent *icalcomp,
+                        E2kProperties *props)
 {
 	icalproperty *icalprop;
 	gboolean exists = FALSE;
@@ -693,7 +710,8 @@ check_for_send_options (icalcomponent *icalcomp, E2kProperties *props)
 
 /* stolen from e-itip-control.c with some modifications */
 static icalproperty *
-find_attendee_prop (icalcomponent *ical_comp, const gchar *address)
+find_attendee_prop (icalcomponent *ical_comp,
+                    const gchar *address)
 {
 	icalproperty *prop;
 
@@ -725,7 +743,7 @@ find_attendee_prop (icalcomponent *ical_comp, const gchar *address)
 
 static gboolean
 check_owner_partstatus_for_declined (ECalBackendSync *backend,
-				     icalcomponent *icalcomp)
+                                     icalcomponent *icalcomp)
 {
 	icalproperty *icalprop;
 	icalparameter *param;
@@ -747,8 +765,13 @@ check_owner_partstatus_for_declined (ECalBackendSync *backend,
 }
 
 static void
-create_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
-	       const gchar *calobj, gchar **uid, gchar **new_object, GError **error)
+create_object (ECalBackendSync *backend,
+               EDataCal *cal,
+               GCancellable *cancellable,
+               const gchar *calobj,
+               gchar **uid,
+               gchar **new_object,
+               GError **error)
 {
 	/* FIXME : Return some value in uid */
 	ECalBackendExchangeCalendar *cbexc;
@@ -788,7 +811,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellabl
 	}
 
 	/* check for permission denied:: priv->writable??
-	   ....
+	 * ....
 	 */
 
 	icalcomp = icalparser_parse_string (calobj);
@@ -878,7 +901,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellabl
 
 	/* Remove X parameters from properties */
 	/* This is specifically for X-EVOLUTION-END-DATE,
-	   but removing anything else is probably ok too */
+	 * but removing anything else is probably ok too */
 	for (icalprop = icalcomponent_get_first_property (icalcomp, ICAL_ANY_PROPERTY);
 	     icalprop != NULL;
 	     icalprop = icalcomponent_get_next_property (icalcomp, ICAL_ANY_PROPERTY))
@@ -887,7 +910,7 @@ create_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellabl
 	}
 
 	/* add the timezones information and the component itself
-	   to the VCALENDAR object */
+	 * to the VCALENDAR object */
 	e_cal_component_commit_sequence (comp);
 	*new_object = e_cal_component_get_as_string (comp);
 	if (!*new_object) {
@@ -990,7 +1013,8 @@ create_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellabl
 #define IMPORTANCE	0x08
 
 static void
-update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp)
+update_x_properties (ECalBackendExchange *cbex,
+                     ECalComponent *comp)
 {
 	icalcomponent *icalcomp;
 	icalproperty *icalprop;
@@ -1062,7 +1086,7 @@ update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp)
 	}
 
 	/* Remove all CDO-MODPROPS properties, else server would return error for the operation
-	   performed */
+	 * performed */
 	for (l = props; l != NULL; l = l->next) {
 		icalprop = l->data;
 		icalcomponent_remove_property (icalcomp, icalprop);
@@ -1098,9 +1122,14 @@ update_x_properties (ECalBackendExchange *cbex, ECalComponent *comp)
 }
 
 static void
-modify_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
-	       const gchar *calobj, CalObjModType mod,
-	       gchar **old_object, gchar **new_object, GError **perror)
+modify_object (ECalBackendSync *backend,
+               EDataCal *cal,
+               GCancellable *cancellable,
+               const gchar *calobj,
+               CalObjModType mod,
+               gchar **old_object,
+               gchar **new_object,
+               GError **perror)
 {
 	d(printf ("ecbexc_modify_object(%p, %p, %d, %s)", backend, cal, mod, *old_object ? *old_object : NULL));
 
@@ -1123,9 +1152,16 @@ modify_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellabl
 	} G_STMT_END
 
 static gboolean
-modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
-	       const gchar *calobj, CalObjModType mod,
-	       gchar **old_object, gchar **new_object, const gchar *href, const gchar *rid_to_remove, GError **error)
+modify_object_with_href (ECalBackendSync *backend,
+                         EDataCal *cal,
+                         GCancellable *cancellable,
+                         const gchar *calobj,
+                         CalObjModType mod,
+                         gchar **old_object,
+                         gchar **new_object,
+                         const gchar *href,
+                         const gchar *rid_to_remove,
+                         GError **error)
 {
 	ECalBackendExchangeCalendar *cbexc;
 	ECalBackendExchangeComponent *ecomp;
@@ -1213,7 +1249,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, GCancellable *
 			key_rid.zone = start.zone;
 
 		/* This means its a instance generated from master object. So replace
-		   the dates stored dates from the master object */
+		 * the dates stored dates from the master object */
 
 		if (icaltime_compare_date_only (start, key_rid) == 0) {
 			icaltimetype m_end, m_start, end;
@@ -1279,7 +1315,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, GCancellable *
 
 	/* Remove X parameters from properties */
 	/* This is specifically for X-EVOLUTION-END-DATE,
-	   but removing anything else is probably ok too */
+	 * but removing anything else is probably ok too */
 	for (icalprop = icalcomponent_get_first_property (updated_icalcomp, ICAL_ANY_PROPERTY);
 	     icalprop != NULL;
 	     icalprop = icalcomponent_get_next_property (updated_icalcomp, ICAL_ANY_PROPERTY))
@@ -1374,7 +1410,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, GCancellable *
 	}
 
 	/* add the timezones information and the component itself
-	   to the VCALENDAR object */
+	 * to the VCALENDAR object */
 	e_cal_component_commit_sequence (real_ecomp);
 	real_comp_str = e_cal_component_get_as_string (real_ecomp);
 	if (!real_comp_str) {
@@ -1396,7 +1432,7 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, GCancellable *
 		icalcomponent_add_component (cbdata->vcal_comp, real_icalcomp);
 
 	/* We need to add all the instances to the VCalendar component while sending to
-	   the server, so that we don't lose any detached instances */
+	 * the server, so that we don't lose any detached instances */
 	if (ecomp->icomp && mod == CALOBJ_MOD_THIS && remove) {
 		icalcomponent_add_component (cbdata->vcal_comp, icalcomponent_new_clone (ecomp->icomp));
 	}
@@ -1538,9 +1574,15 @@ modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, GCancellable *
 }
 
 static void
-remove_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
-	       const gchar *uid, const gchar *rid, CalObjModType mod,
-	       gchar **old_object, gchar **object, GError **error)
+remove_object (ECalBackendSync *backend,
+               EDataCal *cal,
+               GCancellable *cancellable,
+               const gchar *uid,
+               const gchar *rid,
+               CalObjModType mod,
+               gchar **old_object,
+               gchar **object,
+               GError **error)
 {
 	ECalBackendExchangeCalendar *cbexc;
 	ECalBackendExchange *cbex;
@@ -1552,8 +1594,8 @@ remove_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellabl
 	struct icaltimetype time_rid;
 
 	/* Will handle only CALOBJ_MOD_THIS and CALOBJ_MOD_ALL for mod.
-	   CALOBJ_MOD_THISANDPRIOR and CALOBJ_MOD_THISANDFUTURE are not
-	   handled. */
+	 * CALOBJ_MOD_THISANDPRIOR and CALOBJ_MOD_THISANDFUTURE are not
+	 * handled. */
 
 	cbexc = E_CAL_BACKEND_EXCHANGE_CALENDAR (backend);
 	cbex = E_CAL_BACKEND_EXCHANGE (backend);
@@ -1627,8 +1669,11 @@ remove_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellabl
 }
 
 static void
-receive_objects (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
-		 const gchar *calobj, GError **error)
+receive_objects (ECalBackendSync *backend,
+                 EDataCal *cal,
+                 GCancellable *cancellable,
+                 const gchar *calobj,
+                 GError **error)
 {
 	ECalBackendExchangeCalendar *cbexc;
 	ECalBackendExchange *cbex;
@@ -1830,12 +1875,12 @@ typedef enum {
 /* start_time and end_time are in e2k_timestamp format. */
 static ECalBackendExchangeBookingResult
 book_resource (ECalBackendExchange *cbex,
-	       EDataCal *cal,
-	       const gchar *resource_email,
-	       ECalComponent *comp,
-	       icalproperty_method method,
-	       icalparameter *part_param,
-	       gboolean book_all)
+               EDataCal *cal,
+               const gchar *resource_email,
+               ECalComponent *comp,
+               icalproperty_method method,
+               icalparameter *part_param,
+               gboolean book_all)
 {
 	E2kGlobalCatalog *gc;
 	E2kGlobalCatalogEntry *entry;
@@ -2044,7 +2089,7 @@ book_resource (ECalBackendExchange *cbex,
 		/* Use the PUT method to create the meeting item in the resource's calendar. */
 		if (modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, NULL, calobj, book_all ? CALOBJ_MOD_ALL : CALOBJ_MOD_THIS, &old_object, &new_object, href, NULL, NULL)) {
 			/* Need this to update the participation status of the resource
-			   in the organizer's calendar. */
+			 * in the organizer's calendar. */
 			modify_ok = modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, NULL, calobj, book_all ? CALOBJ_MOD_ALL : CALOBJ_MOD_THIS, &old_object, &new_object, NULL, NULL, NULL);
 		} else {
 			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
@@ -2084,9 +2129,13 @@ book_resource (ECalBackendExchange *cbex,
 }
 
 static void
-send_objects (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
-	      const gchar *calobj,
-	      GSList **users, gchar **modified_calobj, GError **error)
+send_objects (ECalBackendSync *backend,
+              EDataCal *cal,
+              GCancellable *cancellable,
+              const gchar *calobj,
+              GSList **users,
+              gchar **modified_calobj,
+              GError **error)
 {
 	ECalBackendExchange *cbex = (ECalBackendExchange *) backend;
 	ECalBackendExchangeBookingResult result;
@@ -2203,7 +2252,9 @@ send_objects (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable
 #define E2K_FBCHAR_TO_BUSYSTATUS(ch) ((ch) - '0')
 
 static icalproperty *
-create_freebusy_prop (E2kBusyStatus fbstatus, time_t start, time_t end)
+create_freebusy_prop (E2kBusyStatus fbstatus,
+                      time_t start,
+                      time_t end)
 {
 	icaltimezone *utc = icaltimezone_get_utc_timezone ();
 	icalproperty *prop;
@@ -2236,7 +2287,9 @@ create_freebusy_prop (E2kBusyStatus fbstatus, time_t start, time_t end)
 }
 
 static void
-set_freebusy_info (icalcomponent *vfb, const gchar *data, time_t start)
+set_freebusy_info (icalcomponent *vfb,
+                   const gchar *data,
+                   time_t start)
 {
 	const gchar *span_start, *span_end;
 	E2kBusyStatus busy;
@@ -2259,8 +2312,13 @@ set_freebusy_info (icalcomponent *vfb, const gchar *data, time_t start)
 }
 
 static void
-discard_alarm (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
-		const gchar *uid, const gchar *rid, const gchar *auid, GError **error)
+discard_alarm (ECalBackendSync *backend,
+               EDataCal *cal,
+               GCancellable *cancellable,
+               const gchar *uid,
+               const gchar *rid,
+               const gchar *auid,
+               GError **error)
 {
 	ECalBackendExchange *cbex = NULL;
 	ECalBackendExchangeComponent *ecbexcomp;
@@ -2310,9 +2368,14 @@ discard_alarm (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellabl
 }
 
 static void
-get_free_busy (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
-	       const GSList *users, time_t start, time_t end,
-	       GSList **freebusy, GError **perror)
+get_free_busy (ECalBackendSync *backend,
+               EDataCal *cal,
+               GCancellable *cancellable,
+               const GSList *users,
+               time_t start,
+               time_t end,
+               GSList **freebusy,
+               GError **perror)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	gchar *start_str, *end_str;

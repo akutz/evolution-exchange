@@ -51,10 +51,10 @@ struct _ECalBackendExchangeTasksPrivate {
 	icalcomponent *icalcomp;
 
 	/* All the objects in the calendar, hashed by UID.  The
-         * hash key *is* the uid returned by cal_component_get_uid(); it is not
-         * copied, so don't free it when you remove an object from the hash
-         * table. Each item in the hash table is a ECalBackendExchangeTasksObject.
-         */
+ *       * hash key *is* the uid returned by cal_component_get_uid(); it is not
+ *       * copied, so don't free it when you remove an object from the hash
+ *       * table. Each item in the hash table is a ECalBackendExchangeTasksObject.
+ *       */
         GHashTable *comp_uid_hash;
 
 	GList *comp;
@@ -72,7 +72,10 @@ G_DEFINE_TYPE (
 	E_TYPE_CAL_BACKEND_EXCHANGE)
 
 static void
-get_from (ECalBackendSync *backend, ECalComponent *comp, gchar **from_name, gchar **from_addr)
+get_from (ECalBackendSync *backend,
+          ECalComponent *comp,
+          gchar **from_name,
+          gchar **from_addr)
 {
 	if (!g_ascii_strcasecmp (e_cal_backend_exchange_get_owner_email (backend), exchange_account_get_email_id (E_CAL_BACKEND_EXCHANGE (backend)->account)))
 		e_cal_backend_exchange_get_from (backend, comp, from_name, from_addr);
@@ -98,7 +101,8 @@ get_from (ECalBackendSync *backend, ECalComponent *comp, gchar **from_name, gcha
 }
 
 static void
-set_uid (E2kProperties *props, ECalComponent *comp)
+set_uid (E2kProperties *props,
+         ECalComponent *comp)
 {
 	const gchar *uid;
 
@@ -107,7 +111,8 @@ set_uid (E2kProperties *props, ECalComponent *comp)
 }
 
 static void
-set_summary (E2kProperties *props, ECalComponent *comp)
+set_summary (E2kProperties *props,
+             ECalComponent *comp)
 {
 	static ECalComponentText summary;
 
@@ -120,7 +125,8 @@ set_summary (E2kProperties *props, ECalComponent *comp)
 }
 
 static void
-set_priority (E2kProperties *props, ECalComponent *comp)
+set_priority (E2kProperties *props,
+              ECalComponent *comp)
 {
 	gint *priority, value = 0;
 
@@ -140,7 +146,8 @@ set_priority (E2kProperties *props, ECalComponent *comp)
 }
 
 static void
-set_sensitivity (E2kProperties *props, ECalComponent *comp)
+set_sensitivity (E2kProperties *props,
+                 ECalComponent *comp)
 {
 	ECalComponentClassification classif;
 	gint sensitivity;
@@ -219,7 +226,8 @@ convert_to_utc (ECalComponentDateTime *dt)
 }
 
 static void
-set_dtstart (E2kProperties *props, ECalComponent *comp)
+set_dtstart (E2kProperties *props,
+             ECalComponent *comp)
 {
 	ECalComponentDateTime dt;
 	gchar *dtstart_str;
@@ -237,7 +245,8 @@ set_dtstart (E2kProperties *props, ECalComponent *comp)
 }
 
 static void
-set_due_date (E2kProperties *props, ECalComponent *comp)
+set_due_date (E2kProperties *props,
+              ECalComponent *comp)
 {
 	ECalComponentDateTime dt;
 	gchar *due_str;
@@ -266,7 +275,8 @@ icaltime_to_e2k_time (struct icaltimetype *itt)
 }
 
 static void
-set_date_completed (E2kProperties *props, ECalComponent *comp)
+set_date_completed (E2kProperties *props,
+                    ECalComponent *comp)
 {
 	struct icaltimetype *itt;
 	gchar *tstr;
@@ -287,7 +297,8 @@ set_date_completed (E2kProperties *props, ECalComponent *comp)
 }
 
 static void
-set_status (E2kProperties *props, ECalComponent *comp)
+set_status (E2kProperties *props,
+            ECalComponent *comp)
 {
 	icalproperty_status ical_status;
 	gint status;
@@ -320,7 +331,8 @@ set_status (E2kProperties *props, ECalComponent *comp)
 }
 
 static void
-set_percent (E2kProperties *props, ECalComponent *comp)
+set_percent (E2kProperties *props,
+             ECalComponent *comp)
 {
 	gint *percent;
 	gfloat res;
@@ -336,7 +348,8 @@ set_percent (E2kProperties *props, ECalComponent *comp)
 }
 
 static void
-set_categories (E2kProperties *props, ECalComponent *comp)
+set_categories (E2kProperties *props,
+                ECalComponent *comp)
 {
 	GSList *categories;
 	GSList *sl;
@@ -361,7 +374,8 @@ set_categories (E2kProperties *props, ECalComponent *comp)
 }
 
 static void
-set_url (E2kProperties *props, ECalComponent *comp)
+set_url (E2kProperties *props,
+         ECalComponent *comp)
 {
 	const gchar *url;
 
@@ -373,7 +387,8 @@ set_url (E2kProperties *props, ECalComponent *comp)
 }
 
 static void
-update_props (ECalComponent *comp, E2kProperties **properties)
+update_props (ECalComponent *comp,
+              E2kProperties **properties)
 {
 	E2kProperties *props = *properties;
 
@@ -438,10 +453,15 @@ get_summary (ECalComponent *comp)
 }
 
 static gint
-put_body (ECalComponent *comp, E2kContext *ctx, E2kOperation *op,
-         const gchar *uri, const gchar *from_name, const gchar *from_addr,
-	 const gchar *attach_body, const gchar *boundary,
-         gchar **repl_uid)
+put_body (ECalComponent *comp,
+          E2kContext *ctx,
+          E2kOperation *op,
+          const gchar *uri,
+          const gchar *from_name,
+          const gchar *from_addr,
+          const gchar *attach_body,
+          const gchar *boundary,
+          gchar **repl_uid)
 
 {
 	GSList *desc_list;
@@ -981,8 +1001,10 @@ get_changed_tasks (ECalBackendExchange *cbex)
 
 /* folder subscription notify callback */
 static void
-notify_changes (E2kContext *ctx, const gchar *uri,
-                     E2kContextChangeType type, gpointer user_data)
+notify_changes (E2kContext *ctx,
+                const gchar *uri,
+                E2kContextChangeType type,
+                gpointer user_data)
 {
 
 	ECalBackendExchange *ecalbex = E_CAL_BACKEND_EXCHANGE (user_data);
@@ -995,7 +1017,10 @@ notify_changes (E2kContext *ctx, const gchar *uri,
 }
 
 static void
-authenticate_user_task (ECalBackendSync *backend, GCancellable *cancellable, ECredentials *credentials, GError **perror)
+authenticate_user_task (ECalBackendSync *backend,
+                        GCancellable *cancellable,
+                        ECredentials *credentials,
+                        GError **perror)
 {
 	GThread *thread = NULL;
 	GError *error = NULL;
@@ -1035,7 +1060,10 @@ authenticate_user_task (ECalBackendSync *backend, GCancellable *cancellable, ECr
 }
 
 static void
-refresh_task (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable, GError **perror)
+refresh_task (ECalBackendSync *backend,
+              EDataCal *cal,
+              GCancellable *cancellable,
+              GError **perror)
 {
 	g_return_if_fail (E_IS_CAL_BACKEND_EXCHANGE (backend));
 
@@ -1049,8 +1077,13 @@ struct _cb_data {
 };
 
 static void
-create_task_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
-		    const gchar *calobj, gchar **return_uid, gchar **new_object, GError **error)
+create_task_object (ECalBackendSync *backend,
+                    EDataCal *cal,
+                    GCancellable *cancellable,
+                    const gchar *calobj,
+                    gchar **return_uid,
+                    gchar **new_object,
+                    GError **error)
 {
 	ECalBackendExchange *ecalbex;
 	E2kProperties *props;
@@ -1218,9 +1251,14 @@ create_task_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cance
 }
 
 static void
-modify_task_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
-	       const gchar *calobj, CalObjModType mod,
-	       gchar **old_object, gchar **new_object, GError **error)
+modify_task_object (ECalBackendSync *backend,
+                    EDataCal *cal,
+                    GCancellable *cancellable,
+                    const gchar *calobj,
+                    CalObjModType mod,
+                    gchar **old_object,
+                    gchar **new_object,
+                    GError **error)
 {
 	ECalBackendExchangeTasks *ecalbextask;
 	ECalBackendExchangeComponent *ecalbexcomp;
@@ -1346,8 +1384,11 @@ modify_task_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cance
 }
 
 static void
-receive_task_objects (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
-                 const gchar *calobj, GError **error)
+receive_task_objects (ECalBackendSync *backend,
+                      EDataCal *cal,
+                      GCancellable *cancellable,
+                      const gchar *calobj,
+                      GError **error)
 {
 	ECalBackendExchangeTasks *ecalbextask;
 	ECalBackendExchange *cbex;
@@ -1431,9 +1472,15 @@ receive_task_objects (ECalBackendSync *backend, EDataCal *cal, GCancellable *can
 }
 
 static void
-remove_task_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
-	       const gchar *uid, const gchar *rid, CalObjModType mod,
-	       gchar **old_object, gchar **object, GError **error)
+remove_task_object (ECalBackendSync *backend,
+                    EDataCal *cal,
+                    GCancellable *cancellable,
+                    const gchar *uid,
+                    const gchar *rid,
+                    CalObjModType mod,
+                    gchar **old_object,
+                    gchar **object,
+                    GError **error)
 {
 	ECalBackendExchange *ecalbex = E_CAL_BACKEND_EXCHANGE (backend);
 	ECalBackendExchangeComponent *ecalbexcomp;

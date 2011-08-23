@@ -64,9 +64,9 @@ get_parent_path (const gchar *path)
 
 static void
 traverse_subtree (EFolderTree *tree,
-		  Folder *root_folder,
-		  EFolderTreeForeachFunc foreach_func,
-		  gpointer data)
+                  Folder *root_folder,
+                  EFolderTreeForeachFunc foreach_func,
+                  gpointer data)
 {
 	GList *p;
 
@@ -86,7 +86,7 @@ traverse_subtree (EFolderTree *tree,
 
 static Folder *
 folder_new (const gchar *path,
-	    gpointer data)
+            gpointer data)
 {
 	Folder *folder;
 
@@ -99,7 +99,7 @@ folder_new (const gchar *path,
 
 static void
 folder_remove_subfolder (Folder *folder,
-			 Folder *subfolder)
+                         Folder *subfolder)
 {
 	folder->subfolders = g_list_remove (folder->subfolders, subfolder);
 	subfolder->parent = NULL;
@@ -107,7 +107,7 @@ folder_remove_subfolder (Folder *folder,
 
 static void
 folder_add_subfolder (Folder *folder,
-		      Folder *subfolder)
+                      Folder *subfolder)
 {
 	folder->subfolders = g_list_prepend (folder->subfolders, subfolder);
 	subfolder->parent = folder;
@@ -128,7 +128,7 @@ folder_destroy (Folder *folder)
 
 static void
 remove_folder (EFolderTree *folder_tree,
-	       Folder *folder)
+               Folder *folder)
 {
 	if (folder->subfolders != NULL) {
 		GList *p;
@@ -168,7 +168,7 @@ remove_folder (EFolderTree *folder_tree,
  **/
 EFolderTree *
 e_folder_tree_new (EFolderDestroyNotify folder_destroy_notify,
-		   gpointer closure)
+                   gpointer closure)
 {
 	EFolderTree *new;
 
@@ -219,8 +219,8 @@ e_folder_tree_destroy (EFolderTree *folder_tree)
  **/
 gboolean
 e_folder_tree_add (EFolderTree *folder_tree,
-		   const gchar *path,
-		   gpointer data)
+                   const gchar *path,
+                   gpointer data)
 {
 	Folder *parent_folder;
 	Folder *folder;
@@ -293,7 +293,7 @@ e_folder_tree_add (EFolderTree *folder_tree,
  **/
 gboolean
 e_folder_tree_remove (EFolderTree *folder_tree,
-		      const gchar *path)
+                      const gchar *path)
 {
 	Folder *folder;
 
@@ -311,9 +311,9 @@ e_folder_tree_remove (EFolderTree *folder_tree,
 
 static void
 count_nodes (EFolderTree *tree,
-	     const gchar *path,
-	     gpointer data,
-	     gpointer closure)
+             const gchar *path,
+             gpointer data,
+             gpointer closure)
 {
 	gint *count = closure;
 
@@ -349,7 +349,7 @@ e_folder_tree_get_count (EFolderTree *folder_tree)
  **/
 gpointer
 e_folder_tree_get_folder (EFolderTree *folder_tree,
-			  const gchar *path)
+                          const gchar *path)
 {
 	Folder *folder;
 
@@ -376,7 +376,7 @@ e_folder_tree_get_folder (EFolderTree *folder_tree,
  **/
 GList *
 e_folder_tree_get_subfolders (EFolderTree *folder_tree,
-			      const gchar *path)
+                              const gchar *path)
 {
 	Folder *folder;
 	GList *list;
@@ -412,8 +412,8 @@ e_folder_tree_get_subfolders (EFolderTree *folder_tree,
  **/
 void
 e_folder_tree_foreach (EFolderTree *folder_tree,
-		       EFolderTreeForeachFunc foreach_func,
-		       gpointer data)
+                       EFolderTreeForeachFunc foreach_func,
+                       gpointer data)
 {
 	Folder *root_node;
 
@@ -439,8 +439,8 @@ e_folder_tree_foreach (EFolderTree *folder_tree,
  * Return value: The path for the folder that holds that @data.
  **/
 const gchar *
-e_folder_tree_get_path_for_data  (EFolderTree *folder_tree,
-				  gconstpointer data)
+e_folder_tree_get_path_for_data (EFolderTree *folder_tree,
+                                 gconstpointer data)
 {
 	g_return_val_if_fail (folder_tree != NULL, NULL);
 	g_return_val_if_fail (data != NULL, NULL);

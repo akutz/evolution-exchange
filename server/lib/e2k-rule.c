@@ -38,7 +38,8 @@
  * fields of @prop.
  **/
 void
-e2k_rule_prop_set (E2kRuleProp *prop, const gchar *propname)
+e2k_rule_prop_set (E2kRuleProp *prop,
+                   const gchar *propname)
 {
 	prop->name = propname;
 	prop->proptag = e2k_prop_proptag (propname);
@@ -52,7 +53,8 @@ e2k_rule_prop_set (E2kRuleProp *prop, const gchar *propname)
  * Writes @val into the rule at @ptr
  **/
 void
-e2k_rule_write_uint32 (guint8 *ptr, guint32 val)
+e2k_rule_write_uint32 (guint8 *ptr,
+                       guint32 val)
 {
 	*ptr++ = ( val        & 0xFF);
 	*ptr++ = ((val >>  8) & 0xFF);
@@ -68,7 +70,8 @@ e2k_rule_write_uint32 (guint8 *ptr, guint32 val)
  * Appends @val to the rule in @ba
  **/
 void
-e2k_rule_append_uint32 (GByteArray *ba, guint32 val)
+e2k_rule_append_uint32 (GByteArray *ba,
+                        guint32 val)
 {
 	g_byte_array_set_size (ba, ba->len + 4);
 	e2k_rule_write_uint32 (ba->data + ba->len - 4, val);
@@ -100,7 +103,9 @@ e2k_rule_read_uint32 (guint8 *ptr)
  * Return value: success or failure
  **/
 gboolean
-e2k_rule_extract_uint32 (guint8 **ptr, gint *len, guint32 *val)
+e2k_rule_extract_uint32 (guint8 **ptr,
+                         gint *len,
+                         guint32 *val)
 {
 	if (*len < 4)
 		return FALSE;
@@ -120,7 +125,8 @@ e2k_rule_extract_uint32 (guint8 **ptr, gint *len, guint32 *val)
  * Writes @val into the rule at @ptr
  **/
 void
-e2k_rule_write_uint16 (guint8 *ptr, guint16 val)
+e2k_rule_write_uint16 (guint8 *ptr,
+                       guint16 val)
 {
 	*ptr++ = ( val        & 0xFF);
 	*ptr++ = ((val >>  8) & 0xFF);
@@ -134,7 +140,8 @@ e2k_rule_write_uint16 (guint8 *ptr, guint16 val)
  * Appends @val to the rule in @ba
  **/
 void
-e2k_rule_append_uint16 (GByteArray *ba, guint16 val)
+e2k_rule_append_uint16 (GByteArray *ba,
+                        guint16 val)
 {
 	g_byte_array_set_size (ba, ba->len + 2);
 	e2k_rule_write_uint16 (ba->data + ba->len - 2, val);
@@ -166,7 +173,9 @@ e2k_rule_read_uint16 (guint8 *ptr)
  * Return value: success or failure
  **/
 gboolean
-e2k_rule_extract_uint16 (guint8 **ptr, gint *len, guint16 *val)
+e2k_rule_extract_uint16 (guint8 **ptr,
+                         gint *len,
+                         guint16 *val)
 {
 	if (*len < 2)
 		return FALSE;
@@ -186,7 +195,8 @@ e2k_rule_extract_uint16 (guint8 **ptr, gint *len, guint16 *val)
  * Appends @val to the rule in @ba
  **/
 void
-e2k_rule_append_byte (GByteArray *ba, guint8 val)
+e2k_rule_append_byte (GByteArray *ba,
+                      guint8 val)
 {
 	g_byte_array_append (ba, &val, 1);
 }
@@ -203,7 +213,9 @@ e2k_rule_append_byte (GByteArray *ba, guint8 val)
  * Return value: success or failure
  **/
 gboolean
-e2k_rule_extract_byte (guint8 **ptr, gint *len, guint8 *val)
+e2k_rule_extract_byte (guint8 **ptr,
+                       gint *len,
+                       guint8 *val)
 {
 	if (*len < 1)
 		return FALSE;
@@ -223,7 +235,8 @@ e2k_rule_extract_byte (guint8 **ptr, gint *len, guint8 *val)
  * Appends @str to the rule in @ba
  **/
 void
-e2k_rule_append_string (GByteArray *ba, const gchar *str)
+e2k_rule_append_string (GByteArray *ba,
+                        const gchar *str)
 {
 	/* FIXME: verify encoding */
 	g_byte_array_append (ba, (guint8 *) str, strlen (str) + 1);
@@ -241,7 +254,9 @@ e2k_rule_append_string (GByteArray *ba, const gchar *str)
  * Return value: success or failure
  **/
 gboolean
-e2k_rule_extract_string (guint8 **ptr, gint *len, gchar **str)
+e2k_rule_extract_string (guint8 **ptr,
+                         gint *len,
+                         gchar **str)
 {
 	gint slen;
 
@@ -265,7 +280,8 @@ e2k_rule_extract_string (guint8 **ptr, gint *len, gchar **str)
  * Appends @str to the rule in @ba
  **/
 void
-e2k_rule_append_unicode (GByteArray *ba, const gchar *str)
+e2k_rule_append_unicode (GByteArray *ba,
+                         const gchar *str)
 {
 	gunichar2 *utf16;
 	gint i;
@@ -291,7 +307,9 @@ e2k_rule_append_unicode (GByteArray *ba, const gchar *str)
  * Return value: success or failure
  **/
 gboolean
-e2k_rule_extract_unicode (guint8 **ptr, gint *len, gchar **str)
+e2k_rule_extract_unicode (guint8 **ptr,
+                          gint *len,
+                          gchar **str)
 {
 	guint8 *start, *end;
 	gunichar2 *utf16;
@@ -321,7 +339,8 @@ e2k_rule_extract_unicode (guint8 **ptr, gint *len, gchar **str)
  * Appends @data (with a 2-byte length prefix) to the rule in @ba
  **/
 void
-e2k_rule_append_binary (GByteArray *ba, GByteArray *data)
+e2k_rule_append_binary (GByteArray *ba,
+                        GByteArray *data)
 {
 	e2k_rule_append_uint16 (ba, data->len);
 	g_byte_array_append (ba, data->data, data->len);
@@ -339,7 +358,9 @@ e2k_rule_append_binary (GByteArray *ba, GByteArray *data)
  * Return value: success or failure
  **/
 gboolean
-e2k_rule_extract_binary (guint8 **ptr, gint *len, GByteArray **data)
+e2k_rule_extract_binary (guint8 **ptr,
+                         gint *len,
+                         GByteArray **data)
 {
 	guint16 datalen;
 
@@ -367,7 +388,8 @@ e2k_rule_extract_binary (guint8 **ptr, gint *len, GByteArray **data)
  * Appends a representation of @prop to the rule in @ba
  **/
 void
-e2k_rule_append_proptag (GByteArray *ba, E2kRuleProp *prop)
+e2k_rule_append_proptag (GByteArray *ba,
+                         E2kRuleProp *prop)
 {
 	guint32 proptag = prop->proptag;
 
@@ -390,7 +412,9 @@ e2k_rule_append_proptag (GByteArray *ba, E2kRuleProp *prop)
  * Return value: success or failure
  **/
 gboolean
-e2k_rule_extract_proptag (guint8 **ptr, gint *len, E2kRuleProp *prop)
+e2k_rule_extract_proptag (guint8 **ptr,
+                          gint *len,
+                          E2kRuleProp *prop)
 {
 	if (!e2k_rule_extract_uint32 (ptr, len, &prop->proptag))
 		return FALSE;
@@ -411,7 +435,8 @@ e2k_rule_extract_proptag (guint8 **ptr, gint *len, E2kRuleProp *prop)
  * rule in @ba
  **/
 void
-e2k_rule_append_propvalue (GByteArray *ba, E2kPropValue *pv)
+e2k_rule_append_propvalue (GByteArray *ba,
+                           E2kPropValue *pv)
 {
 	g_return_if_fail (pv->prop.proptag != 0);
 
@@ -453,7 +478,9 @@ e2k_rule_append_propvalue (GByteArray *ba, E2kPropValue *pv)
  * Return value: success or failure
  **/
 gboolean
-e2k_rule_extract_propvalue (guint8 **ptr, gint *len, E2kPropValue *pv)
+e2k_rule_extract_propvalue (guint8 **ptr,
+                            gint *len,
+                            E2kPropValue *pv)
 {
 	if (!e2k_rule_extract_proptag (ptr, len, &pv->prop))
 		return FALSE;
@@ -462,11 +489,11 @@ e2k_rule_extract_propvalue (guint8 **ptr, gint *len, E2kPropValue *pv)
 	case E2K_PT_UNICODE:
 	case E2K_PT_STRING8:
 		pv->type = E2K_PROP_TYPE_STRING;
-		return e2k_rule_extract_unicode (ptr, len, (gchar **)&pv->value);
+		return e2k_rule_extract_unicode (ptr, len, (gchar **) &pv->value);
 
 	case E2K_PT_BINARY:
 		pv->type = E2K_PROP_TYPE_BINARY;
-		return e2k_rule_extract_binary (ptr, len, (GByteArray **)&pv->value);
+		return e2k_rule_extract_binary (ptr, len, (GByteArray **) &pv->value);
 
 	case E2K_PT_SYSTIME:
 	{

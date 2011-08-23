@@ -139,8 +139,8 @@ static const gchar *sd_props[] = {
  **/
 void
 exchange_permissions_dialog_new (ExchangeAccount *account,
-				 EFolder *folder,
-				 GtkWidget *parent)
+                                 EFolder *folder,
+                                 GtkWidget *parent)
 {
 	ExchangePermissionsDialog *dialog;
 	const gchar *base_uri, *folder_uri, *folder_path;
@@ -222,8 +222,9 @@ exchange_permissions_dialog_new (ExchangeAccount *account,
 }
 
 static void
-dialog_response (ExchangePermissionsDialog *dialog, gint response,
-		 gpointer user_data)
+dialog_response (ExchangePermissionsDialog *dialog,
+                 gint response,
+                 gpointer user_data)
 {
 	E2kContext *ctx;
 	GByteArray *binsd;
@@ -256,7 +257,7 @@ dialog_response (ExchangePermissionsDialog *dialog, gint response,
 	 * folder hierarchy. #29726
 	 */
 	iter = e2k_context_bproppatch_start (ctx, NULL, dialog->priv->base_uri,
-					     (const gchar **)&dialog->priv->folder_path, 1,
+					     (const gchar **) &dialog->priv->folder_path, 1,
 					     props, FALSE);
 	e2k_properties_free (props);
 
@@ -281,7 +282,8 @@ dialog_response (ExchangePermissionsDialog *dialog, gint response,
 }
 
 static void
-set_permissions (ExchangePermissionsDialog *dialog, guint32 perms)
+set_permissions (ExchangePermissionsDialog *dialog,
+                 guint32 perms)
 {
 	dialog->priv->selected_perms = perms;
 	dialog->priv->selected_role = e2k_permissions_role_find (perms);
@@ -295,7 +297,8 @@ set_permissions (ExchangePermissionsDialog *dialog, guint32 perms)
 /* User list functions */
 
 static void
-list_view_selection_changed (GtkTreeSelection *selection, gpointer user_data)
+list_view_selection_changed (GtkTreeSelection *selection,
+                             gpointer user_data)
 {
 	ExchangePermissionsDialog *dialog = user_data;
 	GtkTreeModel *model;
@@ -325,7 +328,9 @@ list_view_selection_changed (GtkTreeSelection *selection, gpointer user_data)
 }
 
 static void
-add_user_to_list (ExchangePermissionsDialog *dialog, E2kSid *sid, gboolean select)
+add_user_to_list (ExchangePermissionsDialog *dialog,
+                  E2kSid *sid,
+                  gboolean select)
 {
 	guint32 perms;
 	E2kPermissionsRole role;
@@ -354,7 +359,8 @@ add_user_to_list (ExchangePermissionsDialog *dialog, E2kSid *sid, gboolean selec
 }
 
 static void
-add_clicked (GtkButton *button, gpointer user_data)
+add_clicked (GtkButton *button,
+             gpointer user_data)
 {
 	ExchangePermissionsDialog *dialog = user_data;
 	E2kGlobalCatalog *gc;
@@ -441,7 +447,8 @@ add_clicked (GtkButton *button, gpointer user_data)
 }
 
 static void
-remove_clicked (GtkButton *button, gpointer user_data)
+remove_clicked (GtkButton *button,
+                gpointer user_data)
 {
 	ExchangePermissionsDialog *dialog = user_data;
 	E2kSid *sid;
@@ -499,7 +506,8 @@ setup_user_list (ExchangePermissionsDialog *dialog)
 /* Role option menu functions */
 
 static void
-role_changed (GtkWidget *role_combo, gpointer user_data)
+role_changed (GtkWidget *role_combo,
+              gpointer user_data)
 {
 	ExchangePermissionsDialog *dialog = user_data;
 	gint role;
@@ -556,7 +564,8 @@ display_role (ExchangePermissionsDialog *dialog)
 
 /* Toggle buttons */
 static void
-check_toggled (GtkToggleButton *toggle, gpointer user_data)
+check_toggled (GtkToggleButton *toggle,
+               gpointer user_data)
 {
 	ExchangePermissionsDialog *dialog = user_data;
 	ExchangePermissionsDialogPrivate *priv = dialog->priv;
@@ -580,7 +589,8 @@ check_toggled (GtkToggleButton *toggle, gpointer user_data)
 }
 
 static void
-radio_toggled (GtkToggleButton *toggle, gpointer user_data)
+radio_toggled (GtkToggleButton *toggle,
+               gpointer user_data)
 {
 	ExchangePermissionsDialog *dialog = user_data;
 	ExchangePermissionsDialogPrivate *priv = dialog->priv;
@@ -601,7 +611,8 @@ radio_toggled (GtkToggleButton *toggle, gpointer user_data)
 }
 
 static void
-rv_toggle (GtkToggleButton *toggled, gpointer user_data)
+rv_toggle (GtkToggleButton *toggled,
+           gpointer user_data)
 {
 	ExchangePermissionsDialog *dialog = user_data;
 	GtkToggleButton *visible = dialog->priv->folder_visible_check;

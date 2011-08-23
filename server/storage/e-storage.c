@@ -59,9 +59,9 @@ static guint signals[LAST_SIGNAL] = { 0 };
 
 static void
 folder_destroy_notify (EFolderTree *tree,
-		       const gchar *path,
-		       gpointer data,
-		       gpointer closure)
+                       const gchar *path,
+                       gpointer data,
+                       gpointer closure)
 {
 	EFolder *e_folder;
 
@@ -78,7 +78,7 @@ folder_destroy_notify (EFolderTree *tree,
 
 static void
 folder_changed_cb (EFolder *folder,
-		   gpointer data)
+                   gpointer data)
 {
 	EStorage *storage;
 	EStoragePrivate *priv;
@@ -137,7 +137,7 @@ impl_finalize (GObject *object)
 
 static GList *
 impl_get_subfolder_paths (EStorage *storage,
-			  const gchar *path)
+                          const gchar *path)
 {
 	EStoragePrivate *priv;
 
@@ -148,7 +148,7 @@ impl_get_subfolder_paths (EStorage *storage,
 
 static EFolder *
 impl_get_folder (EStorage *storage,
-		 const gchar *path)
+                 const gchar *path)
 {
 	EStoragePrivate *priv;
 	EFolder *e_folder;
@@ -168,47 +168,47 @@ impl_get_name (EStorage *storage)
 
 static void
 impl_async_create_folder (EStorage *storage,
-			  const gchar *path,
-			  const gchar *type,
-			  EStorageResultCallback callback,
-			  gpointer data)
+                          const gchar *path,
+                          const gchar *type,
+                          EStorageResultCallback callback,
+                          gpointer data)
 {
 	(* callback) (storage, E_STORAGE_NOTIMPLEMENTED, data);
 }
 
 static void
 impl_async_remove_folder (EStorage *storage,
-			  const gchar *path,
-			  EStorageResultCallback callback,
-			  gpointer data)
+                          const gchar *path,
+                          EStorageResultCallback callback,
+                          gpointer data)
 {
 	(* callback) (storage, E_STORAGE_NOTIMPLEMENTED, data);
 }
 
 static void
 impl_async_xfer_folder (EStorage *storage,
-			const gchar *source_path,
-			const gchar *destination_path,
-			gboolean remove_source,
-			EStorageResultCallback callback,
-			gpointer data)
+                        const gchar *source_path,
+                        const gchar *destination_path,
+                        gboolean remove_source,
+                        EStorageResultCallback callback,
+                        gpointer data)
 {
 	(* callback) (storage, E_STORAGE_NOTIMPLEMENTED, data);
 }
 
 static void
 impl_async_open_folder (EStorage *storage,
-			const gchar *path,
-			EStorageDiscoveryCallback callback,
-			gpointer data)
+                        const gchar *path,
+                        EStorageDiscoveryCallback callback,
+                        gpointer data)
 {
 	(* callback) (storage, E_STORAGE_NOTIMPLEMENTED, NULL, data);
 }
 
 static gboolean
 impl_will_accept_folder (EStorage *storage,
-			 EFolder *new_parent,
-			 EFolder *source)
+                         EFolder *new_parent,
+                         EFolder *source)
 {
 	EStoragePrivate *priv = storage->priv;
 	const gchar *parent_path, *source_path;
@@ -238,19 +238,19 @@ impl_will_accept_folder (EStorage *storage,
 
 static void
 impl_async_discover_shared_folder (EStorage *storage,
-				   const gchar *owner,
-				   const gchar *folder_name,
-				   EStorageDiscoveryCallback callback,
-				   gpointer data)
+                                   const gchar *owner,
+                                   const gchar *folder_name,
+                                   EStorageDiscoveryCallback callback,
+                                   gpointer data)
 {
 	(* callback) (storage, E_STORAGE_NOTIMPLEMENTED, NULL, data);
 }
 
 static void
 impl_async_remove_shared_folder (EStorage *storage,
-				 const gchar *path,
-				 EStorageResultCallback callback,
-				 gpointer data)
+                                 const gchar *path,
+                                 EStorageResultCallback callback,
+                                 gpointer data)
 {
 	(* callback) (storage, E_STORAGE_NOTIMPLEMENTED, data);
 }
@@ -323,8 +323,8 @@ e_storage_init (EStorage *storage)
 
 void
 e_storage_construct (EStorage *storage,
-		     const gchar *name,
-		     EFolder *root_folder)
+                     const gchar *name,
+                     EFolder *root_folder)
 {
 	EStoragePrivate *priv;
 
@@ -339,7 +339,7 @@ e_storage_construct (EStorage *storage,
 
 EStorage *
 e_storage_new (const gchar *name,
-	       EFolder *root_folder)
+               EFolder *root_folder)
 {
 	EStorage *new;
 
@@ -368,7 +368,7 @@ e_storage_path_is_relative (const gchar *path)
 
 GList *
 e_storage_get_subfolder_paths (EStorage *storage,
-			       const gchar *path)
+                               const gchar *path)
 {
 	g_return_val_if_fail (E_IS_STORAGE (storage), NULL);
 	g_return_val_if_fail (path != NULL, NULL);
@@ -379,7 +379,7 @@ e_storage_get_subfolder_paths (EStorage *storage,
 
 EFolder *
 e_storage_get_folder (EStorage *storage,
-		      const gchar *path)
+                      const gchar *path)
 {
 	g_return_val_if_fail (E_IS_STORAGE (storage), NULL);
 	g_return_val_if_fail (path != NULL, NULL);
@@ -400,10 +400,10 @@ e_storage_get_name (EStorage *storage)
 
 void
 e_storage_async_create_folder (EStorage *storage,
-			       const gchar *path,
-			       const gchar *type,
-			       EStorageResultCallback callback,
-			       gpointer data)
+                               const gchar *path,
+                               const gchar *type,
+                               EStorageResultCallback callback,
+                               gpointer data)
 {
 	g_return_if_fail (E_IS_STORAGE (storage));
 	g_return_if_fail (path != NULL);
@@ -415,10 +415,10 @@ e_storage_async_create_folder (EStorage *storage,
 }
 
 void
-e_storage_async_remove_folder (EStorage              *storage,
-			       const gchar            *path,
-			       EStorageResultCallback callback,
-			       void                  *data)
+e_storage_async_remove_folder (EStorage *storage,
+                               const gchar *path,
+                               EStorageResultCallback callback,
+                               gpointer data)
 {
 	g_return_if_fail (E_IS_STORAGE (storage));
 	g_return_if_fail (path != NULL);
@@ -430,11 +430,11 @@ e_storage_async_remove_folder (EStorage              *storage,
 
 void
 e_storage_async_xfer_folder (EStorage *storage,
-			     const gchar *source_path,
-			     const gchar *destination_path,
-			     const gboolean remove_source,
-			     EStorageResultCallback callback,
-			     gpointer data)
+                             const gchar *source_path,
+                             const gchar *destination_path,
+                             const gboolean remove_source,
+                             EStorageResultCallback callback,
+                             gpointer data)
 {
 	g_return_if_fail (E_IS_STORAGE (storage));
 	g_return_if_fail (source_path != NULL);
@@ -467,9 +467,9 @@ e_storage_async_xfer_folder (EStorage *storage,
 
 void
 e_storage_async_open_folder (EStorage *storage,
-			     const gchar *path,
-			     EStorageDiscoveryCallback callback,
-			     gpointer data)
+                             const gchar *path,
+                             EStorageDiscoveryCallback callback,
+                             gpointer data)
 {
 	EStoragePrivate *priv;
 	EFolder *folder;
@@ -496,7 +496,8 @@ e_storage_async_open_folder (EStorage *storage,
 
 gboolean
 e_storage_will_accept_folder (EStorage *storage,
-			      EFolder *new_parent, EFolder *source)
+                              EFolder *new_parent,
+                              EFolder *source)
 {
 	g_return_val_if_fail (E_IS_STORAGE (storage), FALSE);
 	g_return_val_if_fail (E_IS_FOLDER (new_parent), FALSE);
@@ -509,10 +510,10 @@ e_storage_will_accept_folder (EStorage *storage,
 
 void
 e_storage_async_discover_shared_folder (EStorage *storage,
-					const gchar *owner,
-					const gchar *folder_name,
-					EStorageDiscoveryCallback callback,
-					gpointer data)
+                                        const gchar *owner,
+                                        const gchar *folder_name,
+                                        EStorageDiscoveryCallback callback,
+                                        gpointer data)
 {
 	g_return_if_fail (E_IS_STORAGE (storage));
 	g_return_if_fail (owner != NULL);
@@ -523,8 +524,8 @@ e_storage_async_discover_shared_folder (EStorage *storage,
 
 void
 e_storage_cancel_discover_shared_folder (EStorage *storage,
-					 const gchar *owner,
-					 const gchar *folder_name)
+                                         const gchar *owner,
+                                         const gchar *folder_name)
 {
 	g_return_if_fail (E_IS_STORAGE (storage));
 	g_return_if_fail (owner != NULL);
@@ -536,9 +537,9 @@ e_storage_cancel_discover_shared_folder (EStorage *storage,
 
 void
 e_storage_async_remove_shared_folder (EStorage *storage,
-				      const gchar *path,
-				      EStorageResultCallback callback,
-				      gpointer data)
+                                      const gchar *path,
+                                      EStorageResultCallback callback,
+                                      gpointer data)
 {
 	g_return_if_fail (E_IS_STORAGE (storage));
 	g_return_if_fail (path != NULL);
@@ -597,9 +598,9 @@ typedef struct {
 
 static void
 get_path_for_physical_uri_foreach (EFolderTree *folder_tree,
-				   const gchar *path,
-				   gpointer path_data,
-				   gpointer user_data)
+                                   const gchar *path,
+                                   gpointer path_data,
+                                   gpointer user_data)
 {
 	GetPathForPhysicalUriForeachData *foreach_data;
 	const gchar *physical_uri;
@@ -634,7 +635,7 @@ get_path_for_physical_uri_foreach (EFolderTree *folder_tree,
  **/
 gchar *
 e_storage_get_path_for_physical_uri (EStorage *storage,
-				     const gchar *physical_uri)
+                                     const gchar *physical_uri)
 {
 	GetPathForPhysicalUriForeachData foreach_data;
 	EStoragePrivate *priv;
@@ -655,10 +656,12 @@ e_storage_get_path_for_physical_uri (EStorage *storage,
 /* Protected functions.  */
 
 /* These functions are used by subclasses to add and remove folders from the
-   state stored in the storage object.  */
+ * state stored in the storage object.  */
 
 static void
-remove_subfolders_except (EStorage *storage, const gchar *path, const gchar *except)
+remove_subfolders_except (EStorage *storage,
+                          const gchar *path,
+                          const gchar *except)
 {
 	EStoragePrivate *priv;
 	GList *subfolders, *f;
@@ -680,8 +683,8 @@ remove_subfolders_except (EStorage *storage, const gchar *path, const gchar *exc
 
 gboolean
 e_storage_new_folder (EStorage *storage,
-		      const gchar *path,
-		      EFolder *e_folder)
+                      const gchar *path,
+                      EFolder *e_folder)
 {
 	EStoragePrivate *priv;
 	gchar *parent_path, *p;
@@ -729,8 +732,8 @@ e_storage_new_folder (EStorage *storage,
  */
 gboolean
 e_storage_declare_has_subfolders (EStorage *storage,
-				  const gchar *path,
-				  const gchar *message)
+                                  const gchar *path,
+                                  const gchar *message)
 {
 	EStoragePrivate *priv;
 	EFolder *parent, *pseudofolder;
@@ -772,7 +775,7 @@ e_storage_declare_has_subfolders (EStorage *storage,
 
 gboolean
 e_storage_get_has_subfolders (EStorage *storage,
-			      const gchar *path)
+                              const gchar *path)
 {
 	EStoragePrivate *priv;
 	EFolder *folder;
@@ -790,7 +793,7 @@ e_storage_get_has_subfolders (EStorage *storage,
 
 gboolean
 e_storage_removed_folder (EStorage *storage,
-			  const gchar *path)
+                          const gchar *path)
 {
 	EStoragePrivate *priv;
 	EFolder *folder;

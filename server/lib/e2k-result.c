@@ -34,7 +34,9 @@
 #include <libxml/xmlmemory.h>
 
 static void
-prop_get_binary_array (E2kResult *result, const gchar *propname, xmlNode *node)
+prop_get_binary_array (E2kResult *result,
+                       const gchar *propname,
+                       xmlNode *node)
 {
 	GPtrArray *array;
 
@@ -59,8 +61,10 @@ prop_get_binary_array (E2kResult *result, const gchar *propname, xmlNode *node)
 }
 
 static void
-prop_get_string_array (E2kResult *result, const gchar *propname,
-		       E2kPropType real_type, xmlNode *node)
+prop_get_string_array (E2kResult *result,
+                       const gchar *propname,
+                       E2kPropType real_type,
+                       xmlNode *node)
 {
 	GPtrArray *array;
 
@@ -77,7 +81,9 @@ prop_get_string_array (E2kResult *result, const gchar *propname,
 }
 
 static void
-prop_get_binary (E2kResult *result, const gchar *propname, xmlNode *node)
+prop_get_binary (E2kResult *result,
+                 const gchar *propname,
+                 xmlNode *node)
 {
 	GByteArray *byte_array;
 
@@ -96,8 +102,10 @@ prop_get_binary (E2kResult *result, const gchar *propname, xmlNode *node)
 }
 
 static void
-prop_get_string (E2kResult *result, const gchar *propname,
-		 E2kPropType real_type, xmlNode *node)
+prop_get_string (E2kResult *result,
+                 const gchar *propname,
+                 E2kPropType real_type,
+                 xmlNode *node)
 {
 	gchar *content;
 
@@ -111,14 +119,17 @@ prop_get_string (E2kResult *result, const gchar *propname,
 }
 
 static void
-prop_get_xml (E2kResult *result, const gchar *propname, xmlNode *node)
+prop_get_xml (E2kResult *result,
+              const gchar *propname,
+              xmlNode *node)
 {
 	e2k_properties_set_xml (result->props, propname,
 				xmlCopyNode (node, TRUE));
 }
 
 static void
-prop_parse (xmlNode *node, E2kResult *result)
+prop_parse (xmlNode *node,
+            E2kResult *result)
 {
 	gchar *name;
 	xmlChar *type;
@@ -170,7 +181,8 @@ prop_parse (xmlNode *node, E2kResult *result)
 }
 
 static void
-propstat_parse (xmlNode *node, E2kResult *result)
+propstat_parse (xmlNode *node,
+                E2kResult *result)
 {
 	node = node->xmlChildrenNode;
 	if (!E2K_IS_NODE (node, "DAV:", "status"))
@@ -219,7 +231,8 @@ e2k_results_array_new (void)
  * and makes libxml choke. So we preprocess them to fix that.
  */
 static gchar *
-sanitize_bad_multistatus (const gchar *buf, gint len)
+sanitize_bad_multistatus (const gchar *buf,
+                          gint len)
 {
 	GString *body;
 	const gchar *p;
@@ -291,7 +304,7 @@ sanitize_bad_multistatus (const gchar *buf, gint len)
  **/
 void
 e2k_results_array_add_from_multistatus (GArray *results_array,
-					SoupMessage *msg)
+                                        SoupMessage *msg)
 {
 	xmlDoc *doc;
 	xmlNode *node, *rnode;
@@ -360,7 +373,8 @@ e2k_results_array_add_from_multistatus (GArray *results_array,
  * Frees @results_array, and optionally its contents
  **/
 void
-e2k_results_array_free (GArray *results_array, gboolean free_results)
+e2k_results_array_free (GArray *results_array,
+                        gboolean free_results)
 {
 	if (free_results) {
 		e2k_results_free ((E2kResult *) results_array->data,
@@ -380,7 +394,8 @@ e2k_results_array_free (GArray *results_array, gboolean free_results)
  **/
 void
 e2k_results_from_multistatus (SoupMessage *msg,
-			      E2kResult **results, gint *nresults)
+                              E2kResult **results,
+                              gint *nresults)
 {
 	GArray *results_array;
 
@@ -402,7 +417,8 @@ e2k_results_from_multistatus (SoupMessage *msg,
  * Return value: a copy of @results.
  **/
 E2kResult *
-e2k_results_copy (E2kResult *results, gint nresults)
+e2k_results_copy (E2kResult *results,
+                  gint nresults)
 {
 	GArray *results_array = NULL;
 	E2kResult result, *new_results;
@@ -430,7 +446,8 @@ e2k_results_copy (E2kResult *results, gint nresults)
  * Frees the data in @results.
  **/
 void
-e2k_results_free (E2kResult *results, gint nresults)
+e2k_results_free (E2kResult *results,
+                  gint nresults)
 {
 	gint i;
 
@@ -505,11 +522,13 @@ iter_fetch (E2kResultIter *iter)
  * Return value: the new iterator
  **/
 E2kResultIter *
-e2k_result_iter_new (E2kContext *ctx, E2kOperation *op,
-		     gboolean ascending, gint total,
-		     E2kResultIterFetchFunc fetch_func,
-		     E2kResultIterFreeFunc free_func,
-		     gpointer user_data)
+e2k_result_iter_new (E2kContext *ctx,
+                     E2kOperation *op,
+                     gboolean ascending,
+                     gint total,
+                     E2kResultIterFetchFunc fetch_func,
+                     E2kResultIterFreeFunc free_func,
+                     gpointer user_data)
 {
 	E2kResultIter *iter;
 

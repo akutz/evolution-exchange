@@ -148,7 +148,9 @@ e2k_security_descriptor_init (E2kSecurityDescriptor *sd)
 }
 
 static void
-free_sid (gpointer key, gpointer sid, gpointer data)
+free_sid (gpointer key,
+          gpointer sid,
+          gpointer data)
 {
 	g_object_unref (sid);
 }
@@ -179,7 +181,9 @@ dispose (GObject *object)
  * See docs/security for details.
  */
 static gint
-ace_compar (E2k_ACE *ace1, E2k_ACE *ace2, E2kSecurityDescriptor *sd)
+ace_compar (E2k_ACE *ace1,
+            E2k_ACE *ace2,
+            E2kSecurityDescriptor *sd)
 {
 	E2kSidType t1;
 	E2kSidType t2;
@@ -274,7 +278,8 @@ ace_compar (E2k_ACE *ace1, E2k_ACE *ace2, E2kSecurityDescriptor *sd)
 }
 
 static xmlNode *
-find_child (xmlNode *node, const xmlChar *name)
+find_child (xmlNode *node,
+            const xmlChar *name)
 {
 	for (node = node->xmlChildrenNode; node; node = node->next) {
 		if (node->name && !xmlStrcmp (node->name, name))
@@ -284,7 +289,8 @@ find_child (xmlNode *node, const xmlChar *name)
 }
 
 static void
-extract_sids (E2kSecurityDescriptor *sd, xmlNodePtr node)
+extract_sids (E2kSecurityDescriptor *sd,
+              xmlNodePtr node)
 {
 	xmlNodePtr string_sid_node, type_node, display_name_node;
 	xmlChar *string_sid, *content, *display_name;
@@ -342,8 +348,10 @@ extract_sids (E2kSecurityDescriptor *sd, xmlNodePtr node)
 }
 
 static gboolean
-parse_sid (E2kSecurityDescriptor *sd, GByteArray *binsd, guint16 *off,
-	   E2kSid **sid)
+parse_sid (E2kSecurityDescriptor *sd,
+           GByteArray *binsd,
+           guint16 *off,
+           E2kSid **sid)
 {
 	gint sid_len;
 
@@ -360,7 +368,9 @@ parse_sid (E2kSecurityDescriptor *sd, GByteArray *binsd, guint16 *off,
 }
 
 static gboolean
-parse_acl (E2kSecurityDescriptor *sd, GByteArray *binsd, guint16 *off)
+parse_acl (E2kSecurityDescriptor *sd,
+           GByteArray *binsd,
+           guint16 *off)
 {
 	E2k_ACL aclbuf;
 	E2k_ACE acebuf;
@@ -429,7 +439,8 @@ parse_acl (E2kSecurityDescriptor *sd, GByteArray *binsd, guint16 *off)
  * not be parsed.
  **/
 E2kSecurityDescriptor *
-e2k_security_descriptor_new (xmlNodePtr xml_form, GByteArray *binary_form)
+e2k_security_descriptor_new (xmlNodePtr xml_form,
+                             GByteArray *binary_form)
 {
 	E2kSecurityDescriptor *sd;
 	E2k_SECURITY_DESCRIPTOR_RELATIVE sdbuf;
@@ -537,7 +548,7 @@ e2k_security_descriptor_to_binary (E2kSecurityDescriptor *sd)
 	bsid = e2k_sid_get_binary_sid (sd->priv->owner);
 	off += E2K_SID_BINARY_SID_LEN (bsid);
 	sdbuf.Group = GUINT32_TO_LE (off);
-	g_byte_array_append (binsd, (gpointer)&sdbuf, sizeof (sdbuf));
+	g_byte_array_append (binsd, (gpointer) &sdbuf, sizeof (sdbuf));
 
 	/* ACL header */
 	aclbuf.AclRevision = E2K_ACL_REVISION;
@@ -545,7 +556,7 @@ e2k_security_descriptor_to_binary (E2kSecurityDescriptor *sd)
 	aclbuf.AclSize     = GUINT16_TO_LE (acl_size);
 	aclbuf.AceCount    = GUINT16_TO_LE (ace_count);
 	aclbuf.Sbz2        = 0;
-	g_byte_array_append (binsd, (gpointer)&aclbuf, sizeof (aclbuf));
+	g_byte_array_append (binsd, (gpointer) &aclbuf, sizeof (aclbuf));
 
 	/* ACEs */
 	for (ace = 0; ace < sd->priv->aces->len; ace++) {
@@ -560,7 +571,7 @@ e2k_security_descriptor_to_binary (E2kSecurityDescriptor *sd)
 			}
 		}
 
-		g_byte_array_append (binsd, (gpointer)&aces[ace],
+		g_byte_array_append (binsd, (gpointer) &aces[ace],
 				     sizeof (aces[ace].Header) +
 				     sizeof (aces[ace].Mask));
 		bsid = e2k_sid_get_binary_sid (aces[ace].Sid);
@@ -643,7 +654,7 @@ e2k_security_descriptor_get_sids (E2kSecurityDescriptor *sd)
  **/
 void
 e2k_security_descriptor_remove_sid (E2kSecurityDescriptor *sd,
-				    E2kSid *sid)
+                                    E2kSid *sid)
 {
 	E2k_ACE *aces;
 	gint ace;
@@ -685,7 +696,7 @@ e2k_security_descriptor_remove_sid (E2kSecurityDescriptor *sd,
  **/
 guint32
 e2k_security_descriptor_get_permissions (E2kSecurityDescriptor *sd,
-					 E2kSid *sid)
+                                         E2kSid *sid)
 {
 	E2k_ACE *aces;
 	guint32 mapi_perms, checkperm;
@@ -730,7 +741,8 @@ e2k_security_descriptor_get_permissions (E2kSecurityDescriptor *sd,
  * mask will be changed.
  */
 static void
-set_ace (E2kSecurityDescriptor *sd, E2k_ACE *ace)
+set_ace (E2kSecurityDescriptor *sd,
+         E2k_ACE *ace)
 {
 	E2k_ACE *aces = (E2k_ACE *) sd->priv->aces->data;
 	gint low, mid = 0, high, cmp = -1;
@@ -766,7 +778,8 @@ set_ace (E2kSecurityDescriptor *sd, E2k_ACE *ace)
  **/
 void
 e2k_security_descriptor_set_permissions (E2kSecurityDescriptor *sd,
-					 E2kSid *sid, guint32 perms)
+                                         E2kSid *sid,
+                                         guint32 perms)
 {
 	E2k_ACE ace;
 	guint32 object_allowed, object_denied;
@@ -839,7 +852,7 @@ static struct {
 	guint32 perms;
 } roles[E2K_PERMISSIONS_ROLE_NUM_ROLES] = {
 	/* i18n: These are Outlook's words for the default roles in
-	   the folder permissions dialog. */
+	 * the folder permissions dialog. */
 	{ N_("Owner"),             (E2K_PERMISSION_FOLDER_VISIBLE |
 				    E2K_PERMISSION_READ_ANY |
 				    E2K_PERMISSION_CREATE |

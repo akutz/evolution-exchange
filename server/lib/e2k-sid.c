@@ -86,8 +86,10 @@ dispose (GObject *object)
 }
 
 static E2kSid *
-sid_new_internal (E2kSidType type, const gchar *display_name,
-		  const gchar *string_sid, const guint8 *binary_sid)
+sid_new_internal (E2kSidType type,
+                  const gchar *display_name,
+                  const gchar *string_sid,
+                  const guint8 *binary_sid)
 {
 	E2kSid *sid;
 
@@ -128,8 +130,9 @@ sid_new_internal (E2kSidType type, const gchar *display_name,
  * Return value: the new SID
  **/
 E2kSid *
-e2k_sid_new_from_string_sid (E2kSidType type, const gchar *string_sid,
-			     const gchar *display_name)
+e2k_sid_new_from_string_sid (E2kSidType type,
+                             const gchar *string_sid,
+                             const gchar *display_name)
 {
 	g_return_val_if_fail (string_sid != NULL, NULL);
 
@@ -151,9 +154,9 @@ e2k_sid_new_from_string_sid (E2kSidType type, const gchar *string_sid,
  * Return value: the new SID
  **/
 E2kSid *
-e2k_sid_new_from_binary_sid (E2kSidType    type,
-			     const guint8 *binary_sid,
-			     const gchar   *display_name)
+e2k_sid_new_from_binary_sid (E2kSidType type,
+                             const guint8 *binary_sid,
+                             const gchar *display_name)
 {
 	g_return_val_if_fail (binary_sid != NULL, NULL);
 
@@ -283,7 +286,8 @@ e2k_sid_get_display_name (E2kSid *sid)
  * Return value: %TRUE or %FALSE
  **/
 gint
-e2k_sid_binary_sid_equal (gconstpointer a, gconstpointer b)
+e2k_sid_binary_sid_equal (gconstpointer a,
+                          gconstpointer b)
 {
 	const guint8 *bsida = (const guint8 *) a;
 	const guint8 *bsidb = (const guint8 *) b;

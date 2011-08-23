@@ -55,7 +55,7 @@ e2k_uri_new (const gchar *uri_string)
 
 	/* Find protocol: initial [a-z+.-]* substring until ":" */
 	p = uri_string;
-	while (p < end && (isalnum ((guchar)*p) ||
+	while (p < end && (isalnum ((guchar) * p) ||
 			   *p == '.' || *p == '+' || *p == '-'))
 		p++;
 
@@ -209,7 +209,8 @@ e2k_uri_free (E2kUri *uri)
  * Return value: the value of @name, or %NULL if it is not set
  **/
 const gchar *
-e2k_uri_get_param (E2kUri *uri, const gchar *name)
+e2k_uri_get_param (E2kUri *uri,
+                   const gchar *name)
 {
 	return g_datalist_get_data (&uri->params, name);
 }
@@ -276,8 +277,10 @@ static const gint uri_encoded_char[] = {
  * e2k_uri_append_encoded() will encode any "/"s passed in.
  **/
 void
-e2k_uri_append_encoded (GString *str, const gchar *in,
-			gboolean wss_encode, const gchar *extra_enc_chars)
+e2k_uri_append_encoded (GString *str,
+                        const gchar *in,
+                        gboolean wss_encode,
+                        const gchar *extra_enc_chars)
 {
 	const guchar *s = (const guchar *) in;
 
@@ -327,8 +330,9 @@ e2k_uri_append_encoded (GString *str, const gchar *in,
  * Return value: the encoded string
  **/
 gchar *
-e2k_uri_encode (const gchar *in, gboolean wss_encode,
-		const gchar *extra_enc_chars)
+e2k_uri_encode (const gchar *in,
+                gboolean wss_encode,
+                const gchar *extra_enc_chars)
 {
 	GString *string;
 	gchar *out;
@@ -381,7 +385,8 @@ e2k_uri_path (const gchar *uri_string)
  * Return value: the new URI
  **/
 gchar *
-e2k_uri_concat (const gchar *uri_prefix, const gchar *tail)
+e2k_uri_concat (const gchar *uri_prefix,
+                const gchar *tail)
 {
 	const gchar *p;
 
@@ -404,7 +409,8 @@ e2k_uri_concat (const gchar *uri_prefix, const gchar *tail)
  * Return value: the relative URI
  **/
 const gchar *
-e2k_uri_relative (const gchar *uri_prefix, const gchar *uri)
+e2k_uri_relative (const gchar *uri_prefix,
+                  const gchar *uri)
 {
 	gint prefix_len = strlen (uri_prefix);
 

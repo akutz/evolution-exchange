@@ -31,7 +31,10 @@
 #include <string.h>
 
 static E2kRestriction *
-conjoin (E2kRestrictionType type, gint nrns, E2kRestriction **rns, gboolean unref)
+conjoin (E2kRestrictionType type,
+         gint nrns,
+         E2kRestriction **rns,
+         gboolean unref)
 {
 	E2kRestriction *ret = g_new0 (E2kRestriction, 1);
 	gint i;
@@ -65,7 +68,9 @@ conjoin (E2kRestrictionType type, gint nrns, E2kRestriction **rns, gboolean unre
  * Return value: the new restriction
  **/
 E2kRestriction *
-e2k_restriction_and (gint nrns, E2kRestriction **rns, gboolean unref)
+e2k_restriction_and (gint nrns,
+                     E2kRestriction **rns,
+                     gboolean unref)
 {
 	return conjoin (E2K_RESTRICTION_AND, nrns, rns, unref);
 }
@@ -82,13 +87,17 @@ e2k_restriction_and (gint nrns, E2kRestriction **rns, gboolean unref)
  * Return value: the new restriction
  **/
 E2kRestriction *
-e2k_restriction_or (gint nrns, E2kRestriction **rns, gboolean unref)
+e2k_restriction_or (gint nrns,
+                    E2kRestriction **rns,
+                    gboolean unref)
 {
 	return conjoin (E2K_RESTRICTION_OR, nrns, rns, unref);
 }
 
 static E2kRestriction *
-conjoinv (E2kRestrictionType type, E2kRestriction *rn, va_list ap)
+conjoinv (E2kRestrictionType type,
+          E2kRestriction *rn,
+          va_list ap)
 {
 	E2kRestriction *ret = g_new0 (E2kRestriction, 1);
 	GPtrArray *rns;
@@ -158,7 +167,8 @@ e2k_restriction_orv (E2kRestriction *rn, ...)
  * Return value: the new restriction
  **/
 E2kRestriction *
-e2k_restriction_not (E2kRestriction *rn, gboolean unref)
+e2k_restriction_not (E2kRestriction *rn,
+                     gboolean unref)
 {
 	E2kRestriction *ret = g_new0 (E2kRestriction, 1);
 
@@ -193,8 +203,8 @@ e2k_restriction_not (E2kRestriction *rn, gboolean unref)
  **/
 E2kRestriction *
 e2k_restriction_content (const gchar *propname,
-			 E2kRestrictionFuzzyLevel fuzzy_level,
-			 const gchar *value)
+                         E2kRestrictionFuzzyLevel fuzzy_level,
+                         const gchar *value)
 {
 	E2kRestriction *ret = g_new0 (E2kRestriction, 1);
 
@@ -219,8 +229,9 @@ e2k_restriction_content (const gchar *propname,
  * Return value: the new restriction
  **/
 E2kRestriction *
-e2k_restriction_prop_bool (const gchar *propname, E2kRestrictionRelop relop,
-			   gboolean value)
+e2k_restriction_prop_bool (const gchar *propname,
+                           E2kRestrictionRelop relop,
+                           gboolean value)
 {
 	E2kRestriction *ret = g_new0 (E2kRestriction, 1);
 
@@ -245,8 +256,9 @@ e2k_restriction_prop_bool (const gchar *propname, E2kRestrictionRelop relop,
  * Return value: the new restriction
  **/
 E2kRestriction *
-e2k_restriction_prop_int (const gchar *propname, E2kRestrictionRelop relop,
-			  gint value)
+e2k_restriction_prop_int (const gchar *propname,
+                          E2kRestrictionRelop relop,
+                          gint value)
 {
 	E2kRestriction *ret = g_new0 (E2kRestriction, 1);
 
@@ -271,8 +283,9 @@ e2k_restriction_prop_int (const gchar *propname, E2kRestrictionRelop relop,
  * Return value: the new restriction
  **/
 E2kRestriction *
-e2k_restriction_prop_date (const gchar *propname, E2kRestrictionRelop relop,
-			   const gchar *value)
+e2k_restriction_prop_date (const gchar *propname,
+                           E2kRestrictionRelop relop,
+                           const gchar *value)
 {
 	E2kRestriction *ret = g_new0 (E2kRestriction, 1);
 
@@ -299,8 +312,9 @@ e2k_restriction_prop_date (const gchar *propname, E2kRestrictionRelop relop,
  * Return value: the new restriction
  **/
 E2kRestriction *
-e2k_restriction_prop_string (const gchar *propname, E2kRestrictionRelop relop,
-			     const gchar *value)
+e2k_restriction_prop_string (const gchar *propname,
+                             E2kRestrictionRelop relop,
+                             const gchar *value)
 {
 	E2kRestriction *ret = g_new0 (E2kRestriction, 1);
 
@@ -326,8 +340,10 @@ e2k_restriction_prop_string (const gchar *propname, E2kRestrictionRelop relop,
  * Return value: the new restriction
  **/
 E2kRestriction *
-e2k_restriction_prop_binary (const gchar *propname, E2kRestrictionRelop relop,
-			     gconstpointer data, gint len)
+e2k_restriction_prop_binary (const gchar *propname,
+                             E2kRestrictionRelop relop,
+                             gconstpointer data,
+                             gint len)
 {
 	E2kRestriction *ret = g_new0 (E2kRestriction, 1);
 
@@ -354,8 +370,9 @@ e2k_restriction_prop_binary (const gchar *propname, E2kRestrictionRelop relop,
  * Return value: the new restriction
  **/
 E2kRestriction *
-e2k_restriction_compare (const gchar *propname1, E2kRestrictionRelop relop,
-			 const gchar *propname2)
+e2k_restriction_compare (const gchar *propname1,
+                         E2kRestrictionRelop relop,
+                         const gchar *propname2)
 {
 	E2kRestriction *ret = g_new0 (E2kRestriction, 1);
 
@@ -382,8 +399,9 @@ e2k_restriction_compare (const gchar *propname1, E2kRestrictionRelop relop,
  * Return value: the new restriction
  **/
 E2kRestriction *
-e2k_restriction_bitmask (const gchar *propname, E2kRestrictionBitop bitop,
-			 guint32 mask)
+e2k_restriction_bitmask (const gchar *propname,
+                         E2kRestrictionBitop bitop,
+                         guint32 mask)
 {
 	E2kRestriction *ret = g_new0 (E2kRestriction, 1);
 
@@ -414,8 +432,9 @@ e2k_restriction_bitmask (const gchar *propname, E2kRestrictionBitop bitop,
  * Return value: the new restriction
  **/
 E2kRestriction *
-e2k_restriction_size (const gchar *propname, E2kRestrictionRelop relop,
-		      guint32 size)
+e2k_restriction_size (const gchar *propname,
+                      E2kRestrictionRelop relop,
+                      guint32 size)
 {
 	E2kRestriction *ret = g_new0 (E2kRestriction, 1);
 
@@ -468,7 +487,9 @@ e2k_restriction_exist (const gchar *propname)
  * Return value: the new restriction
  **/
 E2kRestriction *
-e2k_restriction_sub (const gchar *subtable, E2kRestriction *rn, gboolean unref)
+e2k_restriction_sub (const gchar *subtable,
+                     E2kRestriction *rn,
+                     gboolean unref)
 {
 	E2kRestriction *ret = g_new0 (E2kRestriction, 1);
 
@@ -542,7 +563,10 @@ static const gchar *sql_relops[] = { "<", "<=", ">", ">=", "=", "!=" };
 static const gint n_sql_relops = G_N_ELEMENTS (sql_relops);
 
 static gboolean
-rns_to_sql (E2kRestrictionType type, E2kRestriction **rns, gint nrns, GString *sql)
+rns_to_sql (E2kRestrictionType type,
+            E2kRestriction **rns,
+            gint nrns,
+            GString *sql)
 {
 	gint i;
 	gboolean need_op = FALSE;
@@ -563,7 +587,8 @@ rns_to_sql (E2kRestrictionType type, E2kRestriction **rns, gint nrns, GString *s
 }
 
 static void
-append_sql_quoted (GString *sql, const gchar *string)
+append_sql_quoted (GString *sql,
+                   const gchar *string)
 {
 	while (*string) {
 		if (*string == '\'')
@@ -575,7 +600,9 @@ append_sql_quoted (GString *sql, const gchar *string)
 }
 
 static gboolean
-rn_to_sql (E2kRestriction *rn, GString *sql, E2kRestrictionType inside)
+rn_to_sql (E2kRestriction *rn,
+           GString *sql,
+           E2kRestrictionType inside)
 {
 	E2kPropValue *pv;
 
@@ -729,7 +756,9 @@ e2k_restriction_to_sql (E2kRestriction *rn)
 /* Binary import/export */
 
 static gboolean
-extract_restriction (guint8 **data, gint *len, E2kRestriction **rn)
+extract_restriction (guint8 **data,
+                     gint *len,
+                     E2kRestriction **rn)
 {
 	gint type;
 
@@ -934,7 +963,9 @@ extract_restriction (guint8 **data, gint *len, E2kRestriction **rn)
  * Return value: success or failure
  **/
 gboolean
-e2k_restriction_extract (guint8 **data, gint *len, E2kRestriction **rn)
+e2k_restriction_extract (guint8 **data,
+                         gint *len,
+                         E2kRestriction **rn)
 {
 	guint32 rnlen;
 
@@ -961,7 +992,8 @@ e2k_restriction_extract (guint8 **data, gint *len, E2kRestriction **rn)
 }
 
 static void
-append_restriction (GByteArray *ba, E2kRestriction *rn)
+append_restriction (GByteArray *ba,
+                    E2kRestriction *rn)
 {
 	gint i;
 
@@ -1040,7 +1072,8 @@ append_restriction (GByteArray *ba, E2kRestriction *rn)
  * Appends @rn to @ba as part of a server-side rule.
  **/
 void
-e2k_restriction_append (GByteArray *ba, E2kRestriction *rn)
+e2k_restriction_append (GByteArray *ba,
+                        E2kRestriction *rn)
 {
 	gint rnlen_offset, rnlen;
 

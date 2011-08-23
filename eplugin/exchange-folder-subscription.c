@@ -40,13 +40,16 @@
 #include "exchange-operations.h"
 
 static void
-user_response (ENameSelectorDialog *name_selector_dialog, gint response, gpointer data)
+user_response (ENameSelectorDialog *name_selector_dialog,
+               gint response,
+               gpointer data)
 {
 	gtk_widget_hide (GTK_WIDGET (name_selector_dialog));
 }
 
 static void
-user_clicked (GtkWidget *button, ENameSelector *name_selector)
+user_clicked (GtkWidget *button,
+              ENameSelector *name_selector)
 {
 	ENameSelectorDialog *name_selector_dialog;
 
@@ -56,7 +59,9 @@ user_clicked (GtkWidget *button, ENameSelector *name_selector)
 }
 
 static GtkWidget *
-setup_name_selector (GtkWidget *placeholder, GtkWidget *button_user, ENameSelector **name_selector_ret)
+setup_name_selector (GtkWidget *placeholder,
+                     GtkWidget *button_user,
+                     ENameSelector **name_selector_ret)
 {
 	ENameSelector *name_selector;
 	ENameSelectorModel *name_selector_model;
@@ -87,7 +92,8 @@ setup_name_selector (GtkWidget *placeholder, GtkWidget *button_user, ENameSelect
 }
 
 static void
-setup_folder_name_combo (GtkWidget *widget, const gchar *fname)
+setup_folder_name_combo (GtkWidget *widget,
+                         const gchar *fname)
 {
 	GtkComboBoxText *combo;
 	const gchar *strings[] = {
@@ -125,7 +131,8 @@ folder_name_entry_changed_callback (GtkEditable *editable,
 }
 
 static void
-user_name_entry_changed_callback (GtkEditable *editable, gpointer data)
+user_name_entry_changed_callback (GtkEditable *editable,
+                                  gpointer data)
 {
 	GtkDialog *dialog = GTK_DIALOG (data);
 	const gchar *user_name_text = gtk_entry_get_text (GTK_ENTRY (editable));
@@ -137,7 +144,8 @@ user_name_entry_changed_callback (GtkEditable *editable, gpointer data)
 }
 
 static void
-setup_server_combobox (GtkWidget *widget, gchar *mail_account)
+setup_server_combobox (GtkWidget *widget,
+                       gchar *mail_account)
 {
 	g_return_if_fail (GTK_IS_COMBO_BOX_TEXT (widget));
 
@@ -167,7 +175,9 @@ destroy_subscription_info (SubscriptionInfo *subscription_info)
 }
 
 static void
-subscribe_to_folder (GtkWidget *dialog, gint response, gpointer data)
+subscribe_to_folder (GtkWidget *dialog,
+                     gint response,
+                     gpointer data)
 {
 	SubscriptionInfo *subscription_info = data;
 	gchar *user_email_address = NULL, *folder_name = NULL, *path = NULL;
@@ -280,7 +290,8 @@ subscribe_to_folder (GtkWidget *dialog, gint response, gpointer data)
 }
 
 gboolean
-create_folder_subscription_dialog (ExchangeAccount *account, const gchar *fname)
+create_folder_subscription_dialog (ExchangeAccount *account,
+                                   const gchar *fname)
 {
 	ENameSelector *name_selector;
 	GtkWidget *dialog;
@@ -374,8 +385,8 @@ create_folder_subscription_dialog (ExchangeAccount *account, const gchar *fname)
 	gtk_widget_show (dialog);
 
 	/* Connect the callback to set the OK button insensitive when there is
-	   no text in the folder_name_entry.  Notice that we put a value there
-	   by default so the OK button is sensitive by default.  */
+	 * no text in the folder_name_entry.  Notice that we put a value there
+	 * by default so the OK button is sensitive by default.  */
 	g_signal_connect (subscription_info->folder_name_entry, "changed",
 			  G_CALLBACK (folder_name_entry_changed_callback), dialog);
 

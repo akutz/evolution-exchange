@@ -17,8 +17,8 @@ typedef enum {
 }FolderType;
 
 /* This flag indicates that its other user's folder. We encode this flag
-   with the FolderType to identify the same. We are doing this to
-   avoid ABI/API break. */
+ * with the FolderType to identify the same. We are doing this to
+ * avoid ABI/API break. */
 #define FORIEGN_FOLDER_FLAG 0x0100
 
 #endif

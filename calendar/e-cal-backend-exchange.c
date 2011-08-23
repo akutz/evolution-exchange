@@ -86,7 +86,12 @@ G_DEFINE_TYPE (
 	E_TYPE_CAL_BACKEND_SYNC)
 
 static gboolean
-get_backend_property (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable, const gchar *prop_name, gchar **prop_value, GError **error)
+get_backend_property (ECalBackendSync *backend,
+                      EDataCal *cal,
+                      GCancellable *cancellable,
+                      const gchar *prop_name,
+                      gchar **prop_value,
+                      GError **error)
 {
 	gboolean processed = TRUE;
 
@@ -139,7 +144,8 @@ get_backend_property (ECalBackendSync *backend, EDataCal *cal, GCancellable *can
 }
 
 static void
-get_cal_owner (ECalBackendSync *backend, gchar **name)
+get_cal_owner (ECalBackendSync *backend,
+               gchar **name)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	ExchangeHierarchy *hier;
@@ -151,7 +157,9 @@ get_cal_owner (ECalBackendSync *backend, gchar **name)
 }
 
 static gboolean
-load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri, GError **perror)
+load_cache (ECalBackendExchange *cbex,
+            E2kUri *e2kuri,
+            GError **perror)
 {
 	icalcomponent *vcalcomp, *comp, *tmp_comp;
 	struct icaltimetype comp_last_mod, folder_last_mod;
@@ -278,7 +286,9 @@ load_cache (ECalBackendExchange *cbex, E2kUri *e2kuri, GError **perror)
 }
 
 static void
-save_timezone (gpointer key, gpointer tz, gpointer vcalcomp)
+save_timezone (gpointer key,
+               gpointer tz,
+               gpointer vcalcomp)
 {
 	icalcomponent *tzcomp;
 
@@ -287,7 +297,9 @@ save_timezone (gpointer key, gpointer tz, gpointer vcalcomp)
 }
 
 static void
-save_object (gpointer key, gpointer value, gpointer vcalcomp)
+save_object (gpointer key,
+             gpointer value,
+             gpointer vcalcomp)
 {
 	ECalBackendExchangeComponent *ecomp = value;
 	icalcomponent *icalcomp;
@@ -356,7 +368,11 @@ save_cache (ECalBackendExchange *cbex)
 }
 
 static void
-open_calendar (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable, gboolean only_if_exists, GError **perror)
+open_calendar (ECalBackendSync *backend,
+               EDataCal *cal,
+               GCancellable *cancellable,
+               gboolean only_if_exists,
+               GError **perror)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	const gchar *uristr;
@@ -440,7 +456,10 @@ open_calendar (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellabl
 }
 
 static void
-authenticate_user (ECalBackendSync *backend, GCancellable *cancellable, ECredentials *credentials, GError **perror)
+authenticate_user (ECalBackendSync *backend,
+                   GCancellable *cancellable,
+                   ECredentials *credentials,
+                   GError **perror)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	const gchar *uristr;
@@ -486,7 +505,7 @@ authenticate_user (ECalBackendSync *backend, GCancellable *cancellable, ECredent
 			cbex->folder = exchange_account_get_folder (cbex->account, uristr);
 			if (!cbex->folder) {
 				/* Folder is not known at the moment, thus try to rescan foreign
-				   folder, just in case we didn't scan it fully yet. */
+				 * folder, just in case we didn't scan it fully yet. */
 				hier_to_rescan = exchange_account_get_hierarchy_by_email (cbex->account, email);
 			}
 
@@ -551,7 +570,10 @@ authenticate_user (ECalBackendSync *backend, GCancellable *cancellable, ECredent
 }
 
 static void
-remove_calendar (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable, GError **perror)
+remove_calendar (ECalBackendSync *backend,
+                 EDataCal *cal,
+                 GCancellable *cancellable,
+                 GError **perror)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	ExchangeAccountFolderResult result;
@@ -560,7 +582,7 @@ remove_calendar (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancella
 	d(printf("ecbe_remove_calendar(%p, %p)\n", backend, cal));
 
 	/* If we do not have a folder, then that means there is no corresponding folder on the server,
-	   thus pretend we removed it successfully. It's not there anyway, thus should be fine. */
+	 * thus pretend we removed it successfully. It's not there anyway, thus should be fine. */
 	if (!cbex->folder)
 		return;
 
@@ -581,7 +603,9 @@ remove_calendar (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancella
 }
 
 static void
-add_to_unseen (gpointer key, gpointer value, gpointer data)
+add_to_unseen (gpointer key,
+               gpointer value,
+               gpointer data)
 {
 	ECalBackendExchange *cbex = data;
 
@@ -598,7 +622,10 @@ e_cal_backend_exchange_cache_sync_start (ECalBackendExchange *cbex)
 }
 
 static gboolean
-find_instance (ECalBackendExchange *cbex, ECalBackendExchangeComponent *ecomp, const gchar *rid, const gchar *lastmod)
+find_instance (ECalBackendExchange *cbex,
+               ECalBackendExchangeComponent *ecomp,
+               const gchar *rid,
+               const gchar *lastmod)
 {
 	GList *l;
 	gboolean found = FALSE;
@@ -642,7 +669,8 @@ find_instance (ECalBackendExchange *cbex, ECalBackendExchangeComponent *ecomp, c
  * @param itt What to convert to UTC, if required.
  **/
 void
-e_cal_backend_exchange_ensure_utc_zone (ECalBackend *cb, struct icaltimetype *itt)
+e_cal_backend_exchange_ensure_utc_zone (ECalBackend *cb,
+                                        struct icaltimetype *itt)
 {
 	g_return_if_fail (cb != NULL);
 	g_return_if_fail (itt != NULL);
@@ -652,18 +680,17 @@ e_cal_backend_exchange_ensure_utc_zone (ECalBackend *cb, struct icaltimetype *it
 		if (!itt->zone)
 			icaltime_set_timezone (itt, icaltimezone_get_utc_timezone ());
 
-		icaltimezone_convert_time (itt, (icaltimezone*) icaltime_get_timezone (*itt), icaltimezone_get_utc_timezone ());
+		icaltimezone_convert_time (itt, (icaltimezone *) icaltime_get_timezone (*itt), icaltimezone_get_utc_timezone ());
 		icaltime_set_timezone (itt, icaltimezone_get_utc_timezone ());
 	}
 }
 
 gboolean
 e_cal_backend_exchange_in_cache (ECalBackendExchange *cbex,
-				 const gchar          *uid,
-				 const gchar          *lastmod,
-				 const gchar	     *href,
-				 const gchar	     *rid
-				 )
+                                 const gchar *uid,
+                                 const gchar *lastmod,
+                                 const gchar *href,
+                                 const gchar *rid)
 {
 	ECalBackendExchangeComponent *ecomp;
 
@@ -693,7 +720,9 @@ e_cal_backend_exchange_in_cache (ECalBackendExchange *cbex,
 }
 
 static void
-uncache (gpointer key, gpointer value, gpointer data)
+uncache (gpointer key,
+         gpointer value,
+         gpointer data)
 {
 	ECalBackendExchange *cbex = data;
 	ECalBackend *backend = E_CAL_BACKEND (cbex);
@@ -708,7 +737,7 @@ uncache (gpointer key, gpointer value, gpointer data)
 	if (ecomp->icomp) {
 		gchar *str = NULL;
 		/* FIXME somehow the query does not match with the component in some cases, so user needs to press a
-		   clear to get rid of the component from the view in that case*/
+		 * clear to get rid of the component from the view in that case*/
 		str = icalcomponent_as_ical_string_r (ecomp->icomp);
 		e_cal_backend_notify_object_removed (backend, id, icalcomponent_as_ical_string_r (ecomp->icomp)
 				, NULL);
@@ -745,8 +774,9 @@ e_cal_backend_exchange_cache_sync_end (ECalBackendExchange *cbex)
  **/
 gboolean
 e_cal_backend_exchange_add_object (ECalBackendExchange *cbex,
-				   const gchar *href, const gchar *lastmod,
-				   icalcomponent *comp)
+                                   const gchar *href,
+                                   const gchar *lastmod,
+                                   icalcomponent *comp)
 {
 	ECalBackendExchangeComponent *ecomp;
 	gboolean is_instance;
@@ -812,7 +842,7 @@ e_cal_backend_exchange_add_object (ECalBackendExchange *cbex,
 
 static void
 discard_detached_instance (ECalBackendExchangeComponent *ecomp,
-			   struct icaltimetype rid)
+                           struct icaltimetype rid)
 {
 	GList *inst;
 	struct icaltimetype inst_rid;
@@ -845,9 +875,9 @@ discard_detached_instance (ECalBackendExchangeComponent *ecomp,
  **/
 gboolean
 e_cal_backend_exchange_modify_object (ECalBackendExchange *cbex,
-				      icalcomponent *comp,
-				      CalObjModType mod,
-				      gboolean discard_detached)
+                                      icalcomponent *comp,
+                                      CalObjModType mod,
+                                      gboolean discard_detached)
 {
 	ECalBackendExchangeComponent *ecomp;
 	const gchar *uid;
@@ -896,7 +926,8 @@ e_cal_backend_exchange_modify_object (ECalBackendExchange *cbex,
  * Return value: %TRUE on success, %FALSE if @comp was not found.
  **/
 gboolean
-e_cal_backend_exchange_remove_object (ECalBackendExchange *cbex, const gchar *uid)
+e_cal_backend_exchange_remove_object (ECalBackendExchange *cbex,
+                                      const gchar *uid)
 {
 	d(printf("ecbe_remove_object(%p, %s)\n", cbex, uid));
 
@@ -910,8 +941,13 @@ e_cal_backend_exchange_remove_object (ECalBackendExchange *cbex, const gchar *ui
 }
 
 static void
-discard_alarm (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
-	       const gchar *uid, const gchar *rid, const gchar *auid, GError **perror)
+discard_alarm (ECalBackendSync *backend,
+               EDataCal *cal,
+               GCancellable *cancellable,
+               const gchar *uid,
+               const gchar *rid,
+               const gchar *auid,
+               GError **perror)
 {
 	/* To be called from the Calendar derived class */
 	g_propagate_error (perror, EDC_ERROR (NotSupported));
@@ -919,16 +955,27 @@ discard_alarm (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellabl
 
 /*To be overriden by Calendar and Task classes*/
 static void
-create_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
-	       const gchar *calobj, gchar **uid, gchar **new_object, GError **perror)
+create_object (ECalBackendSync *backend,
+               EDataCal *cal,
+               GCancellable *cancellable,
+               const gchar *calobj,
+               gchar **uid,
+               gchar **new_object,
+               GError **perror)
 {
 	g_propagate_error (perror, EDC_ERROR (NotSupported));
 }
 
 /*To be overriden by Calendar and Task classes*/
 static void
-modify_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
-			const gchar * calobj, CalObjModType mod, gchar **old_object, gchar **new_object, GError **perror)
+modify_object (ECalBackendSync *backend,
+               EDataCal *cal,
+               GCancellable *cancellable,
+               const gchar *calobj,
+               CalObjModType mod,
+               gchar **old_object,
+               gchar **new_object,
+               GError **perror)
 {
 	g_propagate_error (perror, EDC_ERROR (NotSupported));
 }
@@ -946,7 +993,8 @@ e_cal_backend_exchange_cache_unlock (ECalBackendExchange *cbex)
 }
 
 ECalBackendExchangeComponent *
-get_exchange_comp (ECalBackendExchange *cbex, const gchar *uid)
+get_exchange_comp (ECalBackendExchange *cbex,
+                   const gchar *uid)
 {
 	ECalBackendExchangeComponent *ecomp;
 
@@ -961,7 +1009,8 @@ get_exchange_comp (ECalBackendExchange *cbex, const gchar *uid)
 }
 
 static void
-add_instances_to_vcal (gpointer value, gpointer user_data)
+add_instances_to_vcal (gpointer value,
+                       gpointer user_data)
 {
 	icalcomponent *recurrence = value;
 	icalcomponent *vcalendar = user_data;
@@ -973,8 +1022,13 @@ add_instances_to_vcal (gpointer value, gpointer user_data)
 }
 
 static void
-get_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
-	    const gchar *uid, const gchar *rid, gchar **object, GError **error)
+get_object (ECalBackendSync *backend,
+            EDataCal *cal,
+            GCancellable *cancellable,
+            const gchar *uid,
+            const gchar *rid,
+            gchar **object,
+            GError **error)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	ECalBackendExchangeComponent *ecomp;
@@ -1066,8 +1120,9 @@ get_object (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
 
 gboolean
 e_cal_backend_exchange_extract_components (const gchar *calobj,
-					   icalproperty_method *method,
-					   GList **comp_list, GError **perror)
+                                           icalproperty_method *method,
+                                           GList **comp_list,
+                                           GError **perror)
 {
 	icalcomponent *icalcomp, *comp = NULL;
 	icalcomponent *subcomp;
@@ -1131,9 +1186,13 @@ e_cal_backend_exchange_extract_components (const gchar *calobj,
 }
 
 static void
-send_objects (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
-	      const gchar *calobj,
-	      GSList **users, gchar **modified_calobj, GError **perror)
+send_objects (ECalBackendSync *backend,
+              EDataCal *cal,
+              GCancellable *cancellable,
+              const gchar *calobj,
+              GSList **users,
+              gchar **modified_calobj,
+              GError **perror)
 {
 	d(printf("ecbe_send_objects(%p, %p, %s)\n", backend, cal, calobj));
 
@@ -1149,7 +1208,8 @@ typedef struct {
 } MatchObjectData;
 
 static void
-match_recurrence_sexp (gpointer data, gpointer user_data)
+match_recurrence_sexp (gpointer data,
+                       gpointer user_data)
 {
 	icalcomponent *icomp = data;
 	MatchObjectData *match_data = user_data;
@@ -1174,16 +1234,18 @@ match_recurrence_sexp (gpointer data, gpointer user_data)
 }
 
 static void
-match_object_sexp (gpointer key, gpointer value, gpointer data)
+match_object_sexp (gpointer key,
+                   gpointer value,
+                   gpointer data)
 {
 	ECalBackendExchangeComponent *ecomp = value;
 	MatchObjectData *match_data = data;
 	ECalComponent *comp;
 
 	/*
-	   In case of detached instances with no master object,
-	   ecomp->icomp will be NULL and hence should be skipped
-	   from matching.
+	 * In case of detached instances with no master object,
+	 * ecomp->icomp will be NULL and hence should be skipped
+	 * from matching.
 	*/
 	if (!ecomp || !match_data)
 		return;
@@ -1207,8 +1269,12 @@ match_object_sexp (gpointer key, gpointer value, gpointer data)
 }
 
 static void
-get_object_list (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
-		 const gchar *sexp, GSList **objects, GError **perror)
+get_object_list (ECalBackendSync *backend,
+                 EDataCal *cal,
+                 GCancellable *cancellable,
+                 const gchar *sexp,
+                 GSList **objects,
+                 GError **perror)
 {
 
 	ECalBackendExchange *cbex;
@@ -1243,7 +1309,8 @@ get_object_list (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancella
 
 void
 e_cal_backend_exchange_add_timezone (ECalBackendExchange *cbex,
-				     icalcomponent *vtzcomp, GError **perror)
+                                     icalcomponent *vtzcomp,
+                                     GError **perror)
 {
 	icalproperty *prop;
 	icaltimezone *zone;
@@ -1274,8 +1341,11 @@ e_cal_backend_exchange_add_timezone (ECalBackendExchange *cbex,
 }
 
 static void
-add_timezone (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
-	      const gchar *tzobj, GError **perror)
+add_timezone (ECalBackendSync *backend,
+              EDataCal *cal,
+              GCancellable *cancellable,
+              const gchar *tzobj,
+              GError **perror)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	icalcomponent *vtzcomp;
@@ -1307,7 +1377,8 @@ add_timezone (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable
 }
 
 static void
-start_view (ECalBackend *backend, EDataCalView *view)
+start_view (ECalBackend *backend,
+            EDataCalView *view)
 {
 	const gchar *sexp = NULL;
 	GSList *objects = NULL;
@@ -1340,7 +1411,8 @@ start_view (ECalBackend *backend, EDataCalView *view)
 }
 
 static void
-set_online (ECalBackend *backend, gboolean is_online)
+set_online (ECalBackend *backend,
+            gboolean is_online)
 {
 	ECalBackendExchange *cbex;
 	ECalBackendExchangePrivate *priv;
@@ -1368,9 +1440,14 @@ set_online (ECalBackend *backend, gboolean is_online)
 }
 
 static void
-get_freebusy (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable,
-	      const GSList *users, time_t start, time_t end, GSList **freebusyobjs,
-	      GError **perror)
+get_freebusy (ECalBackendSync *backend,
+              EDataCal *cal,
+              GCancellable *cancellable,
+              const GSList *users,
+              time_t start,
+              time_t end,
+              GSList **freebusyobjs,
+              GError **perror)
 {
 	d(printf("ecbe_get_free_busy(%p, %p)\n", backend, cal));
 
@@ -1409,8 +1486,10 @@ e_cal_backend_exchange_lf_to_crlf (const gchar *in)
 }
 
 void
-e_cal_backend_exchange_get_from (ECalBackendSync *backend, ECalComponent *comp,
-			gchar **name, gchar **email)
+e_cal_backend_exchange_get_from (ECalBackendSync *backend,
+                                 ECalComponent *comp,
+                                 gchar **name,
+                                 gchar **email)
 {
 	ECalComponentOrganizer org;
 
@@ -1427,8 +1506,10 @@ e_cal_backend_exchange_get_from (ECalBackendSync *backend, ECalComponent *comp,
 }
 
 void
-e_cal_backend_exchange_get_sender (ECalBackendSync *backend, ECalComponent *comp,
-			gchar **name, gchar **email)
+e_cal_backend_exchange_get_sender (ECalBackendSync *backend,
+                                   ECalComponent *comp,
+                                   gchar **name,
+                                   gchar **email)
 {
 	ECalBackendExchange *cbex;
 
@@ -1472,7 +1553,8 @@ e_cal_backend_exchange_make_timestamp_rfc822 (time_t when)
 }
 
 gchar *
-e_cal_backend_exchange_get_from_string (ECalBackendSync *backend, ECalComponent *comp)
+e_cal_backend_exchange_get_from_string (ECalBackendSync *backend,
+                                        ECalComponent *comp)
 {
 	gchar *name = NULL, *addr = NULL, *from_string = NULL;
 
@@ -1484,7 +1566,8 @@ e_cal_backend_exchange_get_from_string (ECalBackendSync *backend, ECalComponent 
 }
 
 gchar *
-e_cal_backend_exchange_get_sender_string (ECalBackendSync *backend, ECalComponent *comp)
+e_cal_backend_exchange_get_sender_string (ECalBackendSync *backend,
+                                          ECalComponent *comp)
 {
 	gchar *name = NULL, *addr = NULL, *sender_string = NULL;
 
@@ -1517,7 +1600,9 @@ e_cal_backend_exchange_get_owner_name (ECalBackendSync *backend)
 
 /* Attachments */
 static gchar *
-save_attach_file (const gchar *dest_file, gchar *file_contents, gint len)
+save_attach_file (const gchar *dest_file,
+                  gchar *file_contents,
+                  gint len)
 {
 	gchar *dest_url = NULL;
 	gint fd;
@@ -1558,8 +1643,10 @@ end :
 }
 
 GSList *
-get_attachment (ECalBackendExchange *cbex, const gchar *uid,
-			const gchar *body, gint len)
+get_attachment (ECalBackendExchange *cbex,
+                const gchar *uid,
+                const gchar *body,
+                gint len)
 {
 	CamelStream *stream;
 	CamelMimeMessage *msg;
@@ -1615,7 +1702,8 @@ get_attachment (ECalBackendExchange *cbex, const gchar *uid,
 }
 
 static gchar *
-get_attach_file_contents (const gchar *filename, gint *length)
+get_attach_file_contents (const gchar *filename,
+                          gint *length)
 {
 	gint fd, len = 0;
 	struct stat sb;
@@ -1651,7 +1739,10 @@ end :
 }
 
 void
-process_delegated_cal_object (icalcomponent *icalcomp, const gchar *delegator_name, const gchar *delegator_email, const gchar *delegatee_email)
+process_delegated_cal_object (icalcomponent *icalcomp,
+                              const gchar *delegator_name,
+                              const gchar *delegator_email,
+                              const gchar *delegatee_email)
 {
 	icalproperty *prop = NULL;
 
@@ -1663,7 +1754,7 @@ process_delegated_cal_object (icalcomponent *icalcomp, const gchar *delegator_na
 		organizer = icalproperty_get_value_as_string_r (prop);
 		if (organizer) {
 			if (!g_ascii_strncasecmp (organizer, "mailto:", 7))
-				text = g_strdup (organizer+7);
+				text = g_strdup (organizer + 7);
 
 			text = g_strstrip (text);
 			if (text && (!g_ascii_strcasecmp (delegatee_email, text) || !g_ascii_strcasecmp (delegator_email, text))) {
@@ -1690,7 +1781,7 @@ process_delegated_cal_object (icalcomponent *icalcomp, const gchar *delegator_na
 			continue;
 
 		if (!g_ascii_strncasecmp (attendee, "mailto:", 7))
-			text = g_strdup (attendee+7);
+			text = g_strdup (attendee + 7);
 
 		text = g_strstrip (text);
 		if (text && !g_ascii_strcasecmp (delegator_email, text)) {
@@ -1734,7 +1825,8 @@ get_mime_type (const gchar *uri)
 
 /* copies attachments to the backend's attachment store and returns new list of attachment URLs */
 GSList *
-receive_attachments (ECalBackendExchange *cbex, ECalComponent *comp)
+receive_attachments (ECalBackendExchange *cbex,
+                     ECalComponent *comp)
 {
 	GSList *attach_urls = NULL;
 	GSList *l, *attach_list = NULL;
@@ -1804,7 +1896,10 @@ receive_attachments (ECalBackendExchange *cbex, ECalComponent *comp)
 }
 
 gchar *
-build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject, gchar **boundary)
+build_msg (ECalBackendExchange *cbex,
+           ECalComponent *comp,
+           const gchar *subject,
+           gchar **boundary)
 {
 	CamelMimeMessage *msg;
 	CamelMimePart *mime_part;
@@ -1864,7 +1959,7 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject
 				 */
 				continue;
 			}
-			mime_filename = g_strdup (filename+1);
+			mime_filename = g_strdup (filename + 1);
 			attach_file = g_strdup_printf ("%s/%s-%s", cbex->priv->local_attachment_store, uid, filename);
 		}
 
@@ -1940,7 +2035,8 @@ build_msg ( ECalBackendExchange *cbex, ECalComponent *comp, const gchar *subject
 }
 
 static icaltimezone *
-internal_get_timezone (ECalBackend *backend, const gchar *tzid)
+internal_get_timezone (ECalBackend *backend,
+                       const gchar *tzid)
 {
 	ECalBackendExchange *cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	icaltimezone *zone;
@@ -1960,14 +2056,14 @@ internal_get_timezone (ECalBackend *backend, const gchar *tzid)
 
 icaltimezone *
 e_cal_backend_exchange_lookup_timezone (const gchar *tzid,
-					gconstpointer custom,
-					GCancellable *cancellable,
-					GError **error)
+                                        gconstpointer custom,
+                                        GCancellable *cancellable,
+                                        GError **error)
 {
 	icaltimezone *zone = internal_get_timezone (E_CAL_BACKEND ((ECalBackendExchange *) custom), tzid);
 
 	/* The UTC timezone is a fallback, which is not supposed
-	   to be returned in call of e_cal_check_timezones, thus skip it */
+	 * to be returned in call of e_cal_check_timezones, thus skip it */
 	if (zone && zone == icaltimezone_get_utc_timezone ())
 		zone = NULL;
 

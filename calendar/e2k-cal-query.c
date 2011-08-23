@@ -33,7 +33,9 @@
 /* E-Sexp functions */
 
 static E2kRestriction **
-rns_array (ESExp *esexp, gint argc, ESExpResult **argv)
+rns_array (ESExp *esexp,
+           gint argc,
+           ESExpResult **argv)
 {
 	E2kRestriction **rns;
 	gint i;
@@ -55,7 +57,10 @@ rns_array (ESExp *esexp, gint argc, ESExpResult **argv)
 }
 
 static ESExpResult *
-func_and (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
+func_and (ESExp *esexp,
+          gint argc,
+          ESExpResult **argv,
+          gpointer data)
 {
 	ESExpResult *result;
 	E2kRestriction **rns;
@@ -71,7 +76,10 @@ func_and (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
 }
 
 static ESExpResult *
-func_or (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
+func_or (ESExp *esexp,
+         gint argc,
+         ESExpResult **argv,
+         gpointer data)
 {
 	ESExpResult *result;
 	E2kRestriction **rns;
@@ -87,7 +95,10 @@ func_or (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
 }
 
 static ESExpResult *
-func_not (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
+func_not (ESExp *esexp,
+          gint argc,
+          ESExpResult **argv,
+          gpointer data)
 {
 	ESExpResult *result;
 
@@ -113,7 +124,10 @@ func_not (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
  * specified time range.
  */
 static ESExpResult *
-func_occur_in_time_range (ESExp *esexp, gint argc, ESExpResult **argv, gpointer user_data)
+func_occur_in_time_range (ESExp *esexp,
+                          gint argc,
+                          ESExpResult **argv,
+                          gpointer user_data)
 {
 	ECalBackend *backend = user_data;
 	gchar *start, *end;
@@ -185,7 +199,10 @@ func_occur_in_time_range (ESExp *esexp, gint argc, ESExpResult **argv, gpointer 
  * specified string.
  */
 static ESExpResult *
-func_contains (ESExp *esexp, gint argc, ESExpResult **argv, gpointer user_data)
+func_contains (ESExp *esexp,
+               gint argc,
+               ESExpResult **argv,
+               gpointer user_data)
 {
 	ESExpResult *result;
 	E2kRestriction *rn;
@@ -250,7 +267,10 @@ func_contains (ESExp *esexp, gint argc, ESExpResult **argv, gpointer user_data)
  * Returns: a boolean indicating whether the component has alarms or not.
  */
 static ESExpResult *
-func_has_alarms (ESExp *esexp, gint argc, ESExpResult **argv, gpointer user_data)
+func_has_alarms (ESExp *esexp,
+                 gint argc,
+                 ESExpResult **argv,
+                 gpointer user_data)
 {
 	ESExpResult *result;
 
@@ -278,7 +298,10 @@ func_has_alarms (ESExp *esexp, gint argc, ESExpResult **argv, gpointer user_data
  * categories.
  */
 static ESExpResult *
-func_has_categories (ESExp *esexp, gint argc, ESExpResult **argv, gpointer user_data)
+func_has_categories (ESExp *esexp,
+                     gint argc,
+                     ESExpResult **argv,
+                     gpointer user_data)
 {
 	ESExpResult *result;
 
@@ -295,7 +318,10 @@ func_has_categories (ESExp *esexp, gint argc, ESExpResult **argv, gpointer user_
  * a COMPLETED property. This is really only useful for TODO components.
  */
 static ESExpResult *
-func_is_completed (ESExp *esexp, gint argc, ESExpResult **argv, gpointer user_data)
+func_is_completed (ESExp *esexp,
+                   gint argc,
+                   ESExpResult **argv,
+                   gpointer user_data)
 {
 	ECalBackend *backend = user_data;
 	ESExpResult *result;
@@ -327,7 +353,10 @@ func_is_completed (ESExp *esexp, gint argc, ESExpResult **argv, gpointer user_da
  * This is really only useful for TODO components.
  */
 static ESExpResult *
-func_completed_before (ESExp *esexp, gint argc, ESExpResult **argv, gpointer user_data)
+func_completed_before (ESExp *esexp,
+                       gint argc,
+                       ESExpResult **argv,
+                       gpointer user_data)
 {
 	ECalBackend *backend = user_data;
 	ESExpResult *result;
@@ -387,7 +416,7 @@ static struct {
 
 E2kRestriction *
 e2k_cal_query_to_restriction (ECalBackendExchange *cbex,
-			      const gchar *sexp)
+                              const gchar *sexp)
 {
 	E2kRestriction *rn;
 	ESExp *esexp;

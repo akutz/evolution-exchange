@@ -183,7 +183,9 @@ check_hide_private (ExchangeHierarchy *hier)
 }
 
 static void
-remove_all_cb (ExchangeHierarchy *hier, EFolder *folder, gpointer user_data)
+remove_all_cb (ExchangeHierarchy *hier,
+               EFolder *folder,
+               gpointer user_data)
 {
 	exchange_hierarchy_removed_folder (hier, folder);
 }
@@ -211,7 +213,9 @@ static const gchar *folder_props[] = {
 };
 
 static ExchangeAccountFolderResult
-find_folder (ExchangeHierarchy *hier, const gchar *uri, EFolder **folder_out)
+find_folder (ExchangeHierarchy *hier,
+             const gchar *uri,
+             EFolder **folder_out)
 {
 	ExchangeHierarchyWebDAV *hwd = EXCHANGE_HIERARCHY_WEBDAV (hier);
 	E2kContext *ctx = exchange_account_get_context (hier->account);
@@ -268,8 +272,11 @@ static struct {
 	{ N_("Tasks"),		E2K_PR_STD_FOLDER_TASKS }
 };
 static ExchangeAccountFolderResult
-create_internal (ExchangeHierarchy *hier, EFolder *parent,
-		 const gchar *name, const gchar *type, EFolder **folder_out)
+create_internal (ExchangeHierarchy *hier,
+                 EFolder *parent,
+                 const gchar *name,
+                 const gchar *type,
+                 EFolder **folder_out)
 {
 	ExchangeAccountFolderResult result;
 	gchar *literal_uri = NULL, *standard_uri = NULL;
@@ -334,14 +341,17 @@ create_internal (ExchangeHierarchy *hier, EFolder *parent,
 }
 
 static ExchangeAccountFolderResult
-create_folder (ExchangeHierarchy *hier, EFolder *parent,
-	       const gchar *name, const gchar *type)
+create_folder (ExchangeHierarchy *hier,
+               EFolder *parent,
+               const gchar *name,
+               const gchar *type)
 {
 	return create_internal (hier, parent, name, type, NULL);
 }
 
 static ExchangeAccountFolderResult
-remove_folder (ExchangeHierarchy *hier, EFolder *folder)
+remove_folder (ExchangeHierarchy *hier,
+               EFolder *folder)
 {
 	const gchar *folder_type, *physical_uri;
 
@@ -375,7 +385,9 @@ remove_folder (ExchangeHierarchy *hier, EFolder *folder)
 }
 
 static ExchangeAccountFolderResult
-scan_subtree (ExchangeHierarchy *hier, EFolder *folder, gint mode)
+scan_subtree (ExchangeHierarchy *hier,
+              EFolder *folder,
+              gint mode)
 {
 	ExchangeAccountFolderResult folder_result;
 
@@ -390,7 +402,9 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *folder, gint mode)
 }
 
 static void
-add_href (ExchangeHierarchy *hier, EFolder *folder, gpointer hrefs)
+add_href (ExchangeHierarchy *hier,
+          EFolder *folder,
+          gpointer hrefs)
 {
 	gchar *uri = g_strdup (e_folder_exchange_get_internal_uri (folder));
 
@@ -419,8 +433,8 @@ get_hrefs (ExchangeHierarchySomeDAV *hsd)
  **/
 ExchangeAccountFolderResult
 exchange_hierarchy_foreign_add_folder (ExchangeHierarchy *hier,
-				       const gchar *folder_name,
-				       EFolder **folder)
+                                       const gchar *folder_name,
+                                       EFolder **folder)
 {
 	ExchangeAccountFolderResult result;
 	const gchar *folder_type = NULL;
@@ -431,7 +445,7 @@ exchange_hierarchy_foreign_add_folder (ExchangeHierarchy *hier,
 	result =  create_internal (hier, hier->toplevel, folder_name, NULL, folder);
 
 	/* Add the esource even if the folder already exists since evolution client process would
-	   not know it and it might just exist in exchange process */
+	 * not know it and it might just exist in exchange process */
 	if (result == EXCHANGE_ACCOUNT_FOLDER_OK || result == EXCHANGE_ACCOUNT_FOLDER_ALREADY_EXISTS) {
 		/* Add the esources */
 		folder_type = e_folder_get_type_string (*folder);
@@ -471,12 +485,12 @@ exchange_hierarchy_foreign_add_folder (ExchangeHierarchy *hier,
 
 static ExchangeHierarchy *
 hierarchy_foreign_new (ExchangeAccount *account,
-		       const gchar *hierarchy_name,
-		       const gchar *physical_uri_prefix,
-		       const gchar *internal_uri_prefix,
-		       const gchar *owner_name,
-		       const gchar *owner_email,
-		       const gchar *source_uri)
+                       const gchar *hierarchy_name,
+                       const gchar *physical_uri_prefix,
+                       const gchar *internal_uri_prefix,
+                       const gchar *owner_name,
+                       const gchar *owner_email,
+                       const gchar *source_uri)
 {
 	ExchangeHierarchyForeign *hfor;
 
@@ -514,12 +528,12 @@ hierarchy_foreign_new (ExchangeAccount *account,
  **/
 ExchangeHierarchy *
 exchange_hierarchy_foreign_new (ExchangeAccount *account,
-				const gchar *hierarchy_name,
-				const gchar *physical_uri_prefix,
-				const gchar *internal_uri_prefix,
-				const gchar *owner_name,
-				const gchar *owner_email,
-				const gchar *source_uri)
+                                const gchar *hierarchy_name,
+                                const gchar *physical_uri_prefix,
+                                const gchar *internal_uri_prefix,
+                                const gchar *owner_name,
+                                const gchar *owner_email,
+                                const gchar *source_uri)
 {
 	ExchangeHierarchy *hier;
 	gchar *mf_path;
@@ -566,7 +580,7 @@ exchange_hierarchy_foreign_new (ExchangeAccount *account,
  **/
 ExchangeHierarchy *
 exchange_hierarchy_foreign_new_from_dir (ExchangeAccount *account,
-					 const gchar *folder_path)
+                                         const gchar *folder_path)
 {
 	ExchangeHierarchy *hier;
 	gchar *mf_path;

@@ -33,7 +33,9 @@
 
 /* Taken from gal/util/e-util.c */
 static gchar *
-find_str_case (const gchar *haystack, const gchar *needle, const gchar *end)
+find_str_case (const gchar *haystack,
+               const gchar *needle,
+               const gchar *end)
 {
 	/* find the needle in the haystack neglecting case */
 	const gchar *ptr;
@@ -70,7 +72,9 @@ find_str_case (const gchar *haystack, const gchar *needle, const gchar *end)
  * occurred.
  **/
 gboolean
-exchange_oof_get (ExchangeAccount *account, gboolean *oof, gchar **message)
+exchange_oof_get (ExchangeAccount *account,
+                  gboolean *oof,
+                  gchar **message)
 {
 	E2kContext *ctx;
 	E2kHTTPStatus status;
@@ -166,7 +170,9 @@ exchange_oof_get (ExchangeAccount *account, gboolean *oof, gchar **message)
  * error occurred.
  **/
 gboolean
-exchange_oof_set (ExchangeAccount *account, gboolean oof, const gchar *message)
+exchange_oof_set (ExchangeAccount *account,
+                  gboolean oof,
+                  const gchar *message)
 {
 	E2kContext *ctx;
 	E2kHTTPStatus status;

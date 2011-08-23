@@ -49,7 +49,8 @@
  * Return value: the expanded path
  **/
 gchar *
-e_path_to_physical (const gchar *prefix, const gchar *vpath)
+e_path_to_physical (const gchar *prefix,
+                    const gchar *vpath)
 {
 	const gchar *p, *newp;
 	gchar *dp;
@@ -124,8 +125,10 @@ e_path_to_physical (const gchar *prefix, const gchar *vpath)
 }
 
 static gboolean
-find_folders_recursive (const gchar *physical_path, const gchar *path,
-			EPathFindFoldersCallback callback, gpointer data)
+find_folders_recursive (const gchar *physical_path,
+                        const gchar *path,
+                        EPathFindFoldersCallback callback,
+                        gpointer data)
 {
 	GDir *dir;
 	gchar *subfolder_directory_path;
@@ -198,8 +201,8 @@ find_folders_recursive (const gchar *physical_path, const gchar *path,
  **/
 gboolean
 e_path_find_folders (const gchar *prefix,
-		     EPathFindFoldersCallback callback,
-		     gpointer data)
+                     EPathFindFoldersCallback callback,
+                     gpointer data)
 {
 	return find_folders_recursive (prefix, "", callback, data);
 }
@@ -218,7 +221,8 @@ e_path_find_folders (const gchar *prefix,
  * the parent directory.
  **/
 gint
-e_path_rmdir (const gchar *prefix, const gchar *vpath)
+e_path_rmdir (const gchar *prefix,
+              const gchar *vpath)
 {
 	gchar *physical_path, *p;
 

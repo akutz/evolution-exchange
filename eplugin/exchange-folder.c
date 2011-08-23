@@ -67,7 +67,9 @@ ex_create_folder_info (CamelStore *store,
 }
 
 static void
-exchange_get_folder (GObject *source_object, GAsyncResult *result, gpointer data)
+exchange_get_folder (GObject *source_object,
+                     GAsyncResult *result,
+                     gpointer data)
 {
 	CamelStore *store;
 	CamelFolderInfo *info;
@@ -145,8 +147,8 @@ eex_folder_inbox_unsubscribe (const gchar *uri)
 	target_uri = g_strdup (uri);
 	path = g_strdup (uri + strlen ("exchange://") + strlen (account->account_filename));
 	/* User will be able to unsubscribe by doing a right click on
-	   any one of this two-<other user's>Inbox or the
-	   <other user's folder> tree.
+	 * any one of this two-<other user's>Inbox or the
+	 * <other user's folder> tree.
 	  */
 	stored_path = strrchr (path + 1, '/');
 
@@ -208,7 +210,9 @@ eex_folder_inbox_unsubscribe (const gchar *uri)
 }
 
 static void
-unsubscribe_dialog_ab_response (GtkDialog *dialog, gint response, ESource *source)
+unsubscribe_dialog_ab_response (GtkDialog *dialog,
+                                gint response,
+                                ESource *source)
 {
 
 	if (response == GTK_RESPONSE_OK) {
@@ -249,7 +253,9 @@ unsubscribe_dialog_ab_response (GtkDialog *dialog, gint response, ESource *sourc
 }
 
 static void
-unsubscribe_dialog_response (GtkDialog *dialog, gint response, ESource *source)
+unsubscribe_dialog_response (GtkDialog *dialog,
+                             gint response,
+                             ESource *source)
 {
 
 	if (response == GTK_RESPONSE_OK) {
@@ -449,7 +455,9 @@ call_folder_subscribe (const gchar *folder_name)
 }
 
 void
-call_folder_unsubscribe (const gchar *folder_type, const gchar *uri, ESource *source)
+call_folder_unsubscribe (const gchar *folder_type,
+                         const gchar *uri,
+                         ESource *source)
 {
 	g_return_if_fail (folder_type != NULL);
 	g_return_if_fail (uri != NULL);

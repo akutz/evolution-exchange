@@ -53,7 +53,8 @@ quit (gint sig)
 }
 
 void
-test_main (gint argc, gchar **argv)
+test_main (gint argc,
+           gchar **argv)
 {
 	E2kAutoconfig *ac;
 	E2kAutoconfigResult result;

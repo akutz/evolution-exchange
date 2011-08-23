@@ -99,7 +99,8 @@ call_folder_permissions (const gchar *uri)
 }
 
 static gboolean
-is_eex_folder_selected (EShellView *shell_view, gchar **puri)
+is_eex_folder_selected (EShellView *shell_view,
+                        gchar **puri)
 {
 	ExchangeAccount *account = NULL;
 	EShellSidebar *shell_sidebar;
@@ -199,7 +200,8 @@ is_eex_store_available (EShellView *shell_view)
 }
 
 static void
-eex_mail_folder_permissions_cb (GtkAction *action, EShellView *shell_view)
+eex_mail_folder_permissions_cb (GtkAction *action,
+                                EShellView *shell_view)
 {
 	gchar *uri = NULL;
 
@@ -210,7 +212,8 @@ eex_mail_folder_permissions_cb (GtkAction *action, EShellView *shell_view)
 }
 
 static void
-eex_folder_subscribe_cb (GtkAction *action, EShellView *shell_view)
+eex_folder_subscribe_cb (GtkAction *action,
+                         EShellView *shell_view)
 {
 	const gchar *name;
 
@@ -224,7 +227,8 @@ eex_folder_subscribe_cb (GtkAction *action, EShellView *shell_view)
 }
 
 static void
-eex_mail_folder_inbox_unsubscribe_cb (GtkAction *action, EShellView *shell_view)
+eex_mail_folder_inbox_unsubscribe_cb (GtkAction *action,
+                                      EShellView *shell_view)
 {
 	gchar *uri = NULL;
 
@@ -259,7 +263,8 @@ static GtkActionEntry mail_entries[] = {
 };
 
 static void
-update_mail_entries_cb (EShellView *shell_view, gpointer user_data)
+update_mail_entries_cb (EShellView *shell_view,
+                        gpointer user_data)
 {
 	GtkActionGroup *action_group;
 	EShellWindow *shell_window;
@@ -276,8 +281,8 @@ update_mail_entries_cb (EShellView *shell_view, gpointer user_data)
 	action_group = e_shell_window_get_action_group (shell_window, "mail");
 
 	/* index 0 ... Permissions
-	   index 1 ... Subscribe to
-	   index 2 ... Unsubscribe */
+	 * index 1 ... Subscribe to
+	 * index 2 ... Unsubscribe */
 	for (i = 0; i < G_N_ELEMENTS (mail_entries); i++) {
 		gboolean visible = is_eex_avail;
 
@@ -297,7 +302,8 @@ update_mail_entries_cb (EShellView *shell_view, gpointer user_data)
 }
 
 gboolean
-eex_ui_mail_init (GtkUIManager *ui_manager, EShellView *shell_view)
+eex_ui_mail_init (GtkUIManager *ui_manager,
+                  EShellView *shell_view)
 {
 	EShellWindow *shell_window;
 
@@ -313,7 +319,8 @@ eex_ui_mail_init (GtkUIManager *ui_manager, EShellView *shell_view)
 }
 
 static gboolean
-is_eex_source_selected (EShellView *shell_view, gchar **puri)
+is_eex_source_selected (EShellView *shell_view,
+                        gchar **puri)
 {
 	gint mode;
 	ExchangeAccount *account = NULL;
@@ -399,7 +406,8 @@ is_eex_source_available (EShellView *shell_view)
 #define NUM_ENTRIES 3
 
 static void
-update_source_entries_cb (EShellView *shell_view, GtkActionEntry *entries)
+update_source_entries_cb (EShellView *shell_view,
+                          GtkActionEntry *entries)
 {
 	GtkActionGroup *action_group;
 	EShellWindow *shell_window;
@@ -425,8 +433,8 @@ update_source_entries_cb (EShellView *shell_view, GtkActionEntry *entries)
 	action_group = e_shell_window_get_action_group (shell_window, group);
 
 	/* index 0 ... Permissions
-	   index 1 ... Subscribe to
-	   index 2 ... Unsubscribe */
+	 * index 1 ... Subscribe to
+	 * index 2 ... Unsubscribe */
 	for (i = 0; i < NUM_ENTRIES; i++) {
 		gboolean visible = is_eex_avail;
 
@@ -446,7 +454,8 @@ update_source_entries_cb (EShellView *shell_view, GtkActionEntry *entries)
 }
 
 static void
-setup_source_actions (EShellView *shell_view, GtkActionEntry *entries)
+setup_source_actions (EShellView *shell_view,
+                      GtkActionEntry *entries)
 {
 	EShellWindow *shell_window;
 	const gchar *group;
@@ -471,7 +480,8 @@ setup_source_actions (EShellView *shell_view, GtkActionEntry *entries)
 }
 
 static void
-source_permissions_cb (GtkAction *action, EShellView *shell_view)
+source_permissions_cb (GtkAction *action,
+                       EShellView *shell_view)
 {
 	gchar *uri = NULL;
 
@@ -484,7 +494,8 @@ source_permissions_cb (GtkAction *action, EShellView *shell_view)
 }
 
 static void
-eex_folder_unsubscribe_cb (GtkAction *action, EShellView *shell_view)
+eex_folder_unsubscribe_cb (GtkAction *action,
+                           EShellView *shell_view)
 {
 	gchar *uri = NULL;
 	const gchar *name;
@@ -538,7 +549,8 @@ static GtkActionEntry calendar_entries[] = {
 };
 
 gboolean
-eex_ui_calendar_permissions (GtkUIManager *ui_manager, EShellView *shell_view)
+eex_ui_calendar_permissions (GtkUIManager *ui_manager,
+                             EShellView *shell_view)
 {
 	g_return_val_if_fail (G_N_ELEMENTS (calendar_entries) == NUM_ENTRIES, FALSE);
 
@@ -572,7 +584,8 @@ static GtkActionEntry tasks_entries[] = {
 };
 
 gboolean
-eex_ui_tasks_permissions (GtkUIManager *ui_manager, EShellView *shell_view)
+eex_ui_tasks_permissions (GtkUIManager *ui_manager,
+                          EShellView *shell_view)
 {
 	g_return_val_if_fail (G_N_ELEMENTS (tasks_entries) == NUM_ENTRIES, FALSE);
 
@@ -606,7 +619,8 @@ static GtkActionEntry addressbook_entries[] = {
 };
 
 gboolean
-eex_ui_addressbook_permissions (GtkUIManager *ui_manager, EShellView *shell_view)
+eex_ui_addressbook_permissions (GtkUIManager *ui_manager,
+                                EShellView *shell_view)
 {
 	g_return_val_if_fail (G_N_ELEMENTS (addressbook_entries) == NUM_ENTRIES, FALSE);
 

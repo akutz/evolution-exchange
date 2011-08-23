@@ -37,15 +37,17 @@
 
 static void
 md4sum_round (const guchar *M,
-	      guint32 *AA, guint32 *BB,
-	      guint32 *CC, guint32 *DD)
+              guint32 *AA,
+              guint32 *BB,
+              guint32 *CC,
+              guint32 *DD)
 {
 	guint32 A, B, C, D, X[16];
 	gint i;
 
 	for (i = 0; i < 16; i++) {
-		X[i] =  (M[i*4]) | (M[i*4 + 1] << 8) |
-			(M[i*4 + 2] << 16) | (M[i*4 + 3] << 24);
+		X[i] =  (M[i *4]) | (M[i *4 + 1] << 8) |
+			(M[i *4 + 2] << 16) | (M[i *4 + 3] << 24);
 	}
 
 	A = *AA;
@@ -119,7 +121,9 @@ md4sum_round (const guchar *M,
  * Computes the MD4 checksum of @in and puts it in @digest.
  **/
 void
-xntlm_md4sum (const guchar *in, gint nbytes, guchar digest[16])
+xntlm_md4sum (const guchar *in,
+              gint nbytes,
+              guchar digest[16])
 {
 	guchar M[128];
 	guint32 A, B, C, D;

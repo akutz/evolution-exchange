@@ -39,7 +39,8 @@ static const gchar *rules_props[] = {
 };
 
 void
-test_main (gint argc, gchar **argv)
+test_main (gint argc,
+           gchar **argv)
 {
 	const gchar *url;
 	E2kContext *ctx;

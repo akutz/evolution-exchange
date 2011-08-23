@@ -92,8 +92,10 @@ static void set_account_uri_string (E2kAutoconfig *ac);
  * Return value: an autoconfig context
  **/
 E2kAutoconfig *
-e2k_autoconfig_new (const gchar *owa_uri, const gchar *username,
-		    const gchar *password, E2kAutoconfigAuthPref auth_pref)
+e2k_autoconfig_new (const gchar *owa_uri,
+                    const gchar *username,
+                    const gchar *password,
+                    E2kAutoconfigAuthPref auth_pref)
 {
 	E2kAutoconfig *ac;
 
@@ -208,7 +210,8 @@ reset_owa_derived (E2kAutoconfig *ac)
  * the old value of #owa_uri.
  **/
 void
-e2k_autoconfig_set_owa_uri (E2kAutoconfig *ac, const gchar *owa_uri)
+e2k_autoconfig_set_owa_uri (E2kAutoconfig *ac,
+                            const gchar *owa_uri)
 {
 	reset_owa_derived (ac);
 	if (ac->gc_server_autodetected)
@@ -237,8 +240,10 @@ e2k_autoconfig_set_owa_uri (E2kAutoconfig *ac, const gchar *owa_uri)
  * of #gc_server.
  **/
 void
-e2k_autoconfig_set_gc_server (E2kAutoconfig *ac, const gchar *gc_server,
-			      gint gal_limit, E2kAutoconfigGalAuthPref gal_auth)
+e2k_autoconfig_set_gc_server (E2kAutoconfig *ac,
+                              const gchar *gc_server,
+                              gint gal_limit,
+                              E2kAutoconfigGalAuthPref gal_auth)
 {
 	const gchar *default_gal_limit;
 
@@ -270,7 +275,8 @@ e2k_autoconfig_set_gc_server (E2kAutoconfig *ac, const gchar *gc_server,
  * set based on the old value of #username.
  **/
 void
-e2k_autoconfig_set_username (E2kAutoconfig *ac, const gchar *username)
+e2k_autoconfig_set_username (E2kAutoconfig *ac,
+                             const gchar *username)
 {
 	gint dlen;
 
@@ -299,14 +305,16 @@ e2k_autoconfig_set_username (E2kAutoconfig *ac, const gchar *username)
  * Sets or clears @ac's #password field.
  **/
 void
-e2k_autoconfig_set_password (E2kAutoconfig *ac, const gchar *password)
+e2k_autoconfig_set_password (E2kAutoconfig *ac,
+                             const gchar *password)
 {
 	g_free (ac->password);
 	ac->password = g_strdup (password);
 }
 
 static void
-get_ctx_auth_handler (SoupMessage *msg, gpointer user_data)
+get_ctx_auth_handler (SoupMessage *msg,
+                      gpointer user_data)
 {
 	E2kAutoconfig *ac = user_data;
 	GSList *headers;
@@ -388,8 +396,9 @@ get_ctx_auth_handler (SoupMessage *msg, gpointer user_data)
  * (If you change this comment, see the note at the top of this file.)
  **/
 E2kContext *
-e2k_autoconfig_get_context (E2kAutoconfig *ac, E2kOperation *op,
-			    E2kAutoconfigResult *result)
+e2k_autoconfig_get_context (E2kAutoconfig *ac,
+                            E2kOperation *op,
+                            E2kAutoconfigResult *result)
 {
 	E2kContext *ctx;
 	SoupMessage *msg;
@@ -645,7 +654,8 @@ static const gchar *home_properties[] = {
  * (If you change this comment, see the note at the top of this file.)
  **/
 E2kAutoconfigResult
-e2k_autoconfig_check_exchange (E2kAutoconfig *ac, E2kOperation *op)
+e2k_autoconfig_check_exchange (E2kAutoconfig *ac,
+                               E2kOperation *op)
 {
 	xmlDoc *doc;
 	xmlNode *node;
@@ -892,7 +902,8 @@ find_global_catalog (E2kAutoconfig *ac)
  * wasn't provided and couldn't be autodetected.
  */
 E2kGlobalCatalog *
-e2k_autoconfig_get_global_catalog (E2kAutoconfig *ac, E2kOperation *op)
+e2k_autoconfig_get_global_catalog (E2kAutoconfig *ac,
+                                   E2kOperation *op)
 {
 	if (!ac->gc_server) {
 		find_global_catalog (ac);
@@ -931,7 +942,8 @@ e2k_autoconfig_get_global_catalog (E2kAutoconfig *ac, E2kOperation *op)
  * (If you change this comment, see the note at the top of this file.)
  */
 E2kAutoconfigResult
-e2k_autoconfig_check_global_catalog (E2kAutoconfig *ac, E2kOperation *op)
+e2k_autoconfig_check_global_catalog (E2kAutoconfig *ac,
+                                     E2kOperation *op)
 {
 	E2kGlobalCatalog *gc;
 	E2kGlobalCatalogEntry *entry;
@@ -1432,7 +1444,7 @@ read_config (void)
 	p = config_data;
 
 	while (1) {
-		for (name = p; isspace ((guchar)*name); name++)
+		for (name = p; isspace ((guchar) * name); name++)
 			;
 
 		p = strchr (name, ':');
@@ -1473,7 +1485,11 @@ e2k_autoconfig_lookup_option (const gchar *option)
 }
 
 static gboolean
-validate (const gchar *owa_url, gchar *user, gchar *password, ExchangeParams *exchange_params, E2kAutoconfigResult *result)
+validate (const gchar *owa_url,
+          gchar *user,
+          gchar *password,
+          ExchangeParams *exchange_params,
+          E2kAutoconfigResult *result)
 {
 	E2kAutoconfig *ac;
 	E2kOperation op;        /* FIXME */
@@ -1585,9 +1601,9 @@ validate (const gchar *owa_url, gchar *user, gchar *password, ExchangeParams *ex
 
 			/* SURF : e_notice (NULL, GTK_MESSAGE_ERROR,
 				  _("Could not connect to the Exchange "
-				    "server.\nMake sure the URL is correct "
-				    "(try \"%s\" instead of \"%s\"?) "
-				    "and try again."), new, old);
+				 *  "server.\nMake sure the URL is correct "
+				 *  "(try \"%s\" instead of \"%s\"?) "
+				 *  "and try again."), new, old);
 			*/
 			valid = FALSE;
 			break;
@@ -1676,11 +1692,15 @@ validate (const gchar *owa_url, gchar *user, gchar *password, ExchangeParams *ex
 }
 
 gboolean
-e2k_validate_user (const gchar *owa_url, gchar *pkey, gchar **user,
-		   ExchangeParams *exchange_params, gboolean *remember_password,
-		   E2kAutoconfigResult *result, GtkWindow *parent)
+e2k_validate_user (const gchar *owa_url,
+                   gchar *pkey,
+                   gchar **user,
+                   ExchangeParams *exchange_params,
+                   gboolean *remember_password,
+                   E2kAutoconfigResult *result,
+                   GtkWindow *parent)
 {
-	gboolean valid = FALSE, remember=FALSE;
+	gboolean valid = FALSE, remember = FALSE;
 	gchar *key, *password, *prompt;
 	gchar *username;
 	gchar **usernames;
@@ -1706,7 +1726,7 @@ try_auth_again:
 	prompt = g_strdup_printf (_("Enter password for %s"), username);
 	password = e_passwords_ask_password (_("Enter password"),
 				NULL, key, prompt,
-				E_PASSWORDS_REMEMBER_FOREVER|E_PASSWORDS_SECRET,
+				E_PASSWORDS_REMEMBER_FOREVER | E_PASSWORDS_SECRET,
 				&remember, parent);
 	g_free (prompt);
 	if (!password) {

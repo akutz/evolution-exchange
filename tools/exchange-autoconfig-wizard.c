@@ -90,7 +90,10 @@ check_field (GtkEntry *entry)
 }
 
 static void
-fill_failure_page (ExchangeAutoconfigGUI *gui, const gchar *url, const gchar *fmt, ...)
+fill_failure_page (ExchangeAutoconfigGUI *gui,
+                   const gchar *url,
+                   const gchar *fmt,
+                   ...)
 {
 	va_list ap;
 	gchar *text;
@@ -118,7 +121,13 @@ fill_failure_page (ExchangeAutoconfigGUI *gui, const gchar *url, const gchar *fm
 #define CONNECT_CHANGE_SIGNAL(_where,_signal_name) g_signal_connect (_where, _signal_name, G_CALLBACK (assistant_page_content_changed), gui)
 
 static GtkWidget *
-create_page_vbox (GtkAssistant *assistant, GdkPixbuf *logo, const gchar *page_title, const gchar *page_info, GtkAssistantPageType page_type, GtkWidget **page, gint *page_index)
+create_page_vbox (GtkAssistant *assistant,
+                  GdkPixbuf *logo,
+                  const gchar *page_title,
+                  const gchar *page_info,
+                  GtkAssistantPageType page_type,
+                  GtkWidget **page,
+                  gint *page_index)
 {
 	GtkWidget *vbox;
 	gboolean is_edge = page_type == GTK_ASSISTANT_PAGE_INTRO || page_type == GTK_ASSISTANT_PAGE_CONFIRM;
@@ -153,7 +162,10 @@ create_page_vbox (GtkAssistant *assistant, GdkPixbuf *logo, const gchar *page_ti
 }
 
 static GtkWidget *
-add_table_row (GtkTable *table, gint row, const gchar *label_text, GtkWidget *action_widget)
+add_table_row (GtkTable *table,
+               gint row,
+               const gchar *label_text,
+               GtkWidget *action_widget)
 {
 	GtkWidget *w;
 
@@ -169,7 +181,10 @@ add_table_row (GtkTable *table, gint row, const gchar *label_text, GtkWidget *ac
 }
 
 static void
-start_page_create (ExchangeAutoconfigGUI *gui, GdkPixbuf *logo, GtkWidget **page, gint *page_index)
+start_page_create (ExchangeAutoconfigGUI *gui,
+                   GdkPixbuf *logo,
+                   GtkWidget **page,
+                   gint *page_index)
 {
 	GtkWidget *vbox;
 
@@ -180,7 +195,10 @@ start_page_create (ExchangeAutoconfigGUI *gui, GdkPixbuf *logo, GtkWidget **page
 }
 
 static void
-owa_page_create (ExchangeAutoconfigGUI *gui, GdkPixbuf *logo, GtkWidget **page, gint *page_index)
+owa_page_create (ExchangeAutoconfigGUI *gui,
+                 GdkPixbuf *logo,
+                 GtkWidget **page,
+                 gint *page_index)
 {
 	GtkWidget *vbox, *w;
 	GtkTable *table;
@@ -353,7 +371,10 @@ owa_page_get_next (ExchangeAutoconfigGUI *gui)
 }
 
 static void
-gc_page_create (ExchangeAutoconfigGUI *gui, GdkPixbuf *logo, GtkWidget **page, gint *page_index)
+gc_page_create (ExchangeAutoconfigGUI *gui,
+                GdkPixbuf *logo,
+                GtkWidget **page,
+                gint *page_index)
 {
 	GtkWidget *vbox, *w;
 	GtkTable *table;
@@ -414,7 +435,10 @@ gc_page_get_next (ExchangeAutoconfigGUI *gui)
 }
 
 static void
-failure_page_create (ExchangeAutoconfigGUI *gui, GdkPixbuf *logo, GtkWidget **page, gint *page_index)
+failure_page_create (ExchangeAutoconfigGUI *gui,
+                     GdkPixbuf *logo,
+                     GtkWidget **page,
+                     gint *page_index)
 {
 	GtkWidget *vbox, *w;
 
@@ -440,7 +464,10 @@ failure_page_check (ExchangeAutoconfigGUI *gui)
 }
 
 static void
-verify_page_create (ExchangeAutoconfigGUI *gui, GdkPixbuf *logo, GtkWidget **page, gint *page_index)
+verify_page_create (ExchangeAutoconfigGUI *gui,
+                    GdkPixbuf *logo,
+                    GtkWidget **page,
+                    gint *page_index)
 {
 	GtkWidget *vbox, *w;
 	GtkTable *table;
@@ -501,7 +528,10 @@ verify_page_check (ExchangeAutoconfigGUI *gui)
 }
 
 static void
-finish_page_create (ExchangeAutoconfigGUI *gui, GdkPixbuf *logo, GtkWidget **page, gint *page_index)
+finish_page_create (ExchangeAutoconfigGUI *gui,
+                    GdkPixbuf *logo,
+                    GtkWidget **page,
+                    gint *page_index)
 {
 	GtkWidget *vbox;
 
@@ -561,7 +591,7 @@ autoconfig_gui_apply (ExchangeAutoconfigGUI *gui)
 
 	/* Check if any account is already configured, and throw an error if so */
 	/* NOTE: This condition check needs to be removed when we start
-	   supporting multiple accounts */
+	 * supporting multiple accounts */
 	for (iter = e_list_get_iterator ((EList *) list);
 	     e_iterator_is_valid (iter);
 	     e_iterator_next (iter)) {
@@ -637,7 +667,8 @@ static struct {
 /* Autoconfig assistant */
 
 static gint
-find_page (ExchangeAutoconfigGUI *gui, GtkWidget *page)
+find_page (ExchangeAutoconfigGUI *gui,
+           GtkWidget *page)
 {
 	gint page_num;
 
@@ -650,7 +681,9 @@ find_page (ExchangeAutoconfigGUI *gui, GtkWidget *page)
 }
 
 static void
-assistant_prepare_cb (GtkAssistant *assistant, GtkWidget *page, ExchangeAutoconfigGUI *gui)
+assistant_prepare_cb (GtkAssistant *assistant,
+                      GtkWidget *page,
+                      ExchangeAutoconfigGUI *gui)
 {
 	gint page_num = find_page (gui, page);
 
@@ -672,7 +705,8 @@ assistant_prepare_cb (GtkAssistant *assistant, GtkWidget *page, ExchangeAutoconf
 }
 
 static void
-assistant_page_content_changed (GtkWidget *sender, ExchangeAutoconfigGUI *gui)
+assistant_page_content_changed (GtkWidget *sender,
+                                ExchangeAutoconfigGUI *gui)
 {
 	gint page_num = gtk_assistant_get_current_page (GTK_ASSISTANT (gui->assistant));
 
@@ -692,25 +726,29 @@ assistant_page_content_changed (GtkWidget *sender, ExchangeAutoconfigGUI *gui)
 }
 
 static void
-assistant_apply_cb (GtkAssistant *assistant, ExchangeAutoconfigGUI *gui)
+assistant_apply_cb (GtkAssistant *assistant,
+                    ExchangeAutoconfigGUI *gui)
 {
 	autoconfig_gui_apply (gui);
 }
 
 static void
-assistant_cancel_cb (GtkAssistant *assistant, ExchangeAutoconfigGUI *gui)
+assistant_cancel_cb (GtkAssistant *assistant,
+                     ExchangeAutoconfigGUI *gui)
 {
 	gtk_widget_destroy (GTK_WIDGET (gui->assistant));
 }
 
 static void
-assistant_destroyed (gpointer gui, GObject *where_druid_was)
+assistant_destroyed (gpointer gui,
+                     GObject *where_druid_was)
 {
 	gtk_main_quit ();
 }
 
 static gint
-assistant_forward_func (gint current_page, gpointer user_data)
+assistant_forward_func (gint current_page,
+                        gpointer user_data)
 {
 	ExchangeAutoconfigGUI *gui = user_data;
 	gint next_page = current_page + 1;

@@ -30,7 +30,8 @@
 #include <libedataserver/e-data-server-util.h>
 
 void
-string_to_dbt (const gchar *str, DBT *dbt)
+string_to_dbt (const gchar *str,
+               DBT *dbt)
 {
 	memset (dbt, 0, sizeof (dbt));
 	dbt->data = (gpointer) str;
@@ -67,7 +68,8 @@ get_filename_from_uri (const gchar *uri)
  **/
 
 void
-e_book_backend_db_cache_set_filename (DB *db, const gchar *filename)
+e_book_backend_db_cache_set_filename (DB *db,
+                                      const gchar *filename)
 {
 	DBT uid_dbt, vcard_dbt;
 	gint db_error;
@@ -113,7 +115,8 @@ e_book_backend_db_cache_get_filename (DB *db)
 }
 
 void
-e_book_backend_db_cache_set_time (DB *db, const gchar *t)
+e_book_backend_db_cache_set_time (DB *db,
+                                  const gchar *t)
 {
 	DBT uid_dbt, vcard_dbt;
 	gint db_error;
@@ -162,7 +165,8 @@ e_book_backend_db_cache_get_time (DB *db)
  * Return value: A cached #EContact, or %NULL if @uid is not cached.
  **/
 EContact *
-e_book_backend_db_cache_get_contact (DB *db, const gchar *uid)
+e_book_backend_db_cache_get_contact (DB *db,
+                                     const gchar *uid)
 {
 	DBT        uid_dbt, vcard_dbt;
 	gint        db_error;
@@ -197,7 +201,7 @@ e_book_backend_db_cache_get_contact (DB *db, const gchar *uid)
  **/
 gboolean
 e_book_backend_db_cache_add_contact (DB *db,
-				   EContact *contact)
+                                     EContact *contact)
 {
 	DBT        uid_dbt, vcard_dbt;
 	gint        db_error;
@@ -244,7 +248,7 @@ e_book_backend_db_cache_add_contact (DB *db,
  **/
 gboolean
 e_book_backend_db_cache_remove_contact (DB *db,
-				    const gchar *uid)
+                                        const gchar *uid)
 
 {
 	DBT        uid_dbt;
@@ -274,7 +278,8 @@ e_book_backend_db_cache_remove_contact (DB *db,
  * Return value: %TRUE if the cache contains the contact, %FALSE otherwise.
  **/
 gboolean
-e_book_backend_db_cache_check_contact (DB *db, const gchar *uid)
+e_book_backend_db_cache_check_contact (DB *db,
+                                       const gchar *uid)
 {
 	DBT        uid_dbt, vcard_dbt;
 	gint        db_error;
@@ -306,7 +311,8 @@ e_book_backend_db_cache_check_contact (DB *db, const gchar *uid)
  * Return value: A #GList of pointers to #EContact.
  **/
 GList *
-e_book_backend_db_cache_get_contacts (DB *db, const gchar *query)
+e_book_backend_db_cache_get_contacts (DB *db,
+                                      const gchar *query)
 {
 	DBC        *dbc;
 	DBT        uid_dbt, vcard_dbt;
@@ -362,7 +368,8 @@ e_book_backend_db_cache_get_contacts (DB *db, const gchar *query)
  * Return value: A #GPtrArray of pointers to contact ID strings.
  **/
 GPtrArray *
-e_book_backend_db_cache_search (DB *db, const gchar *query)
+e_book_backend_db_cache_search (DB *db,
+                                const gchar *query)
 {
 	GList *matching_contacts, *temp;
 	GPtrArray *ptr_array;

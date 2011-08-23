@@ -82,9 +82,9 @@ e2k_operation_free (E2kOperation *op)
  **/
 void
 e2k_operation_start (E2kOperation *op,
-		     E2kOperationCancelFunc canceller,
-		     gpointer owner,
-		     gpointer data)
+                     E2kOperationCancelFunc canceller,
+                     gpointer owner,
+                     gpointer data)
 {
 	if (!op)
 		return;

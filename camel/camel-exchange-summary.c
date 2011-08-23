@@ -103,7 +103,7 @@ exchange_summary_header_load (CamelFolderSummary *summary,
 		return -1;
 
 	/* Old summary file - We need to migrate.  Migration automagically happens when
-	   camel_folder_summary_save is called
+	 * camel_folder_summary_save is called
 	*/
 	if (camel_file_util_decode_uint32 (in, &high_article_num) == -1) {
 		if (version > CAMEL_EXCHANGE_SUMMARY_VERSION)
@@ -111,7 +111,7 @@ exchange_summary_header_load (CamelFolderSummary *summary,
 	}
 
 	/* During migration we will not have high_article_num stored in the summary and
-	   essentially we will end up computing it atleast once.
+	 * essentially we will end up computing it atleast once.
 	*/
 	exchange->readonly = readonly;
 	exchange->high_article_num = high_article_num;
@@ -174,7 +174,7 @@ exchange_summary_message_info_migrate (CamelFolderSummary *summary,
 			g_free (thread_index);
 
 		/* Old summary file - We need to migrate.  Migration automagically happens when
-		   camel_folder_summary_save is called
+		 * camel_folder_summary_save is called
 		*/
 		if (camel_file_util_decode_string (in, &href) == -1) {
 			if (CAMEL_EXCHANGE_SUMMARY (summary)->version > CAMEL_EXCHANGE_SUMMARY_VERSION)
@@ -437,7 +437,8 @@ camel_exchange_summary_init (CamelExchangeSummary *summary)
  * Return value: the summary object.
  **/
 CamelFolderSummary *
-camel_exchange_summary_new (struct _CamelFolder *folder, const gchar *filename)
+camel_exchange_summary_new (struct _CamelFolder *folder,
+                            const gchar *filename)
 {
 	CamelFolderSummary *summary;
 	GError *local_error = NULL;
@@ -485,7 +486,7 @@ camel_exchange_summary_get_readonly (CamelFolderSummary *summary)
  **/
 void
 camel_exchange_summary_set_readonly (CamelFolderSummary *summary,
-				     gboolean readonly)
+                                     gboolean readonly)
 {
 	CamelExchangeSummary *es;
 
@@ -522,7 +523,7 @@ camel_exchange_summary_get_article_num (CamelFolderSummary *summary)
  **/
 void
 camel_exchange_summary_set_article_num (CamelFolderSummary *summary,
-					guint32 article_num)
+                                        guint32 article_num)
 {
 	CamelExchangeSummary *es;
 
@@ -546,9 +547,9 @@ camel_exchange_summary_set_article_num (CamelFolderSummary *summary,
  **/
 void
 camel_exchange_summary_add_offline (CamelFolderSummary *summary,
-				    const gchar *uid,
-				    CamelMimeMessage *message,
-				    CamelMessageInfo *info)
+                                    const gchar *uid,
+                                    CamelMimeMessage *message,
+                                    CamelMessageInfo *info)
 {
 	CamelMessageInfoBase *mi;
 	const CamelFlag *flag;
@@ -587,8 +588,8 @@ camel_exchange_summary_add_offline (CamelFolderSummary *summary,
  **/
 void
 camel_exchange_summary_add_offline_uncached (CamelFolderSummary *summary,
-					     const gchar *uid,
-					     CamelMessageInfo *info)
+                                             const gchar *uid,
+                                             CamelMessageInfo *info)
 {
 	CamelMessageInfo *mi;
 

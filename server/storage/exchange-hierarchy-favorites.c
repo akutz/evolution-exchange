@@ -93,7 +93,9 @@ finalize (GObject *object)
 }
 
 static void
-add_hrefs (ExchangeHierarchy *hier, EFolder *folder, gpointer hrefs)
+add_hrefs (ExchangeHierarchy *hier,
+           EFolder *folder,
+           gpointer hrefs)
 {
 	g_ptr_array_add (hrefs, (gchar *) e2k_uri_path (e_folder_exchange_get_internal_uri (folder)));
 }
@@ -180,7 +182,8 @@ get_hrefs (ExchangeHierarchySomeDAV *hsd)
  **/
 
 gboolean
-exchange_hierarchy_favorites_is_added (ExchangeHierarchy *hier, EFolder *folder)
+exchange_hierarchy_favorites_is_added (ExchangeHierarchy *hier,
+                                       EFolder *folder)
 {
 	ExchangeHierarchyFavorites *hfav =
 		EXCHANGE_HIERARCHY_FAVORITES (hier);
@@ -193,7 +196,8 @@ exchange_hierarchy_favorites_is_added (ExchangeHierarchy *hier, EFolder *folder)
 }
 
 static ExchangeAccountFolderResult
-remove_folder (ExchangeHierarchy *hier, EFolder *folder)
+remove_folder (ExchangeHierarchy *hier,
+               EFolder *folder)
 {
 	ExchangeHierarchyFavorites *hfav =
 		EXCHANGE_HIERARCHY_FAVORITES (hier);
@@ -250,7 +254,7 @@ remove_folder (ExchangeHierarchy *hier, EFolder *folder)
  **/
 ExchangeAccountFolderResult
 exchange_hierarchy_favorites_add_folder (ExchangeHierarchy *hier,
-					 EFolder *folder)
+                                         EFolder *folder)
 {
 	ExchangeHierarchyFavorites *hfav;
 	E2kProperties *props;
@@ -308,13 +312,13 @@ exchange_hierarchy_favorites_add_folder (ExchangeHierarchy *hier,
  **/
 ExchangeHierarchy *
 exchange_hierarchy_favorites_new (ExchangeAccount *account,
-				  const gchar *hierarchy_name,
-				  const gchar *physical_uri_prefix,
-				  const gchar *home_uri,
-				  const gchar *public_uri,
-				  const gchar *owner_name,
-				  const gchar *owner_email,
-				  const gchar *source_uri)
+                                  const gchar *hierarchy_name,
+                                  const gchar *physical_uri_prefix,
+                                  const gchar *home_uri,
+                                  const gchar *public_uri,
+                                  const gchar *owner_name,
+                                  const gchar *owner_email,
+                                  const gchar *source_uri)
 {
 	ExchangeHierarchy *hier;
 	ExchangeHierarchyFavorites *hfav;

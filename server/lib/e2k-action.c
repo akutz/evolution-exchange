@@ -49,8 +49,9 @@ copy_bytearray (GByteArray *ba)
 }
 
 static E2kAction *
-xfer_action (E2kActionType type, GByteArray *store_entryid,
-	     GByteArray *folder_source_key)
+xfer_action (E2kActionType type,
+             GByteArray *store_entryid,
+             GByteArray *folder_source_key)
 {
 	E2kAction *act;
 
@@ -72,7 +73,8 @@ xfer_action (E2kActionType type, GByteArray *store_entryid,
  * Return value: the new rule action
  **/
 E2kAction *
-e2k_action_move (GByteArray *store_entryid, GByteArray *folder_source_key)
+e2k_action_move (GByteArray *store_entryid,
+                 GByteArray *folder_source_key)
 {
 	return xfer_action (E2K_ACTION_MOVE, store_entryid, folder_source_key);
 }
@@ -87,14 +89,16 @@ e2k_action_move (GByteArray *store_entryid, GByteArray *folder_source_key)
  * Return value: the new rule action
  **/
 E2kAction *
-e2k_action_copy (GByteArray *store_entryid, GByteArray *folder_source_key)
+e2k_action_copy (GByteArray *store_entryid,
+                 GByteArray *folder_source_key)
 {
 	return xfer_action (E2K_ACTION_COPY, store_entryid, folder_source_key);
 }
 
 static E2kAction *
-reply_action (E2kActionType type, GByteArray *template_entryid,
-	      guint8 template_guid[16])
+reply_action (E2kActionType type,
+              GByteArray *template_entryid,
+              guint8 template_guid[16])
 {
 	E2kAction *act;
 
@@ -117,7 +121,8 @@ reply_action (E2kActionType type, GByteArray *template_entryid,
  * Return value: the new rule action
  **/
 E2kAction *
-e2k_action_reply (GByteArray *template_entryid, guint8 template_guid[16])
+e2k_action_reply (GByteArray *template_entryid,
+                  guint8 template_guid[16])
 {
 	return reply_action (E2K_ACTION_REPLY, template_entryid, template_guid);
 }
@@ -133,7 +138,8 @@ e2k_action_reply (GByteArray *template_entryid, guint8 template_guid[16])
  * Return value: the new rule action
  **/
 E2kAction *
-e2k_action_oof_reply (GByteArray *template_entryid, guint8 template_guid[16])
+e2k_action_oof_reply (GByteArray *template_entryid,
+                      guint8 template_guid[16])
 {
 	return reply_action (E2K_ACTION_OOF_REPLY, template_entryid, template_guid);
 }
@@ -179,7 +185,8 @@ e2k_action_bounce (E2kActionBounceCode bounce_code)
 }
 
 static E2kAction *
-forward_action (E2kActionType type, E2kAddrList *list)
+forward_action (E2kActionType type,
+                E2kAddrList *list)
 {
 	E2kAction *act;
 
@@ -235,7 +242,9 @@ e2k_action_delegate (E2kAddrList *list)
  * Return value: the new rule action
  **/
 E2kAction *
-e2k_action_tag (const gchar *propname, E2kPropType type, gpointer value)
+e2k_action_tag (const gchar *propname,
+                E2kPropType type,
+                gpointer value)
 {
 	E2kAction *act;
 
@@ -289,9 +298,11 @@ e2k_addr_list_new (gint nentries)
 }
 
 static void
-addr_entry_set_core (E2kPropValue *pv, GByteArray *entryid,
-		     const gchar *display_name, const gchar *email_type,
-		     const gchar *email_addr)
+addr_entry_set_core (E2kPropValue *pv,
+                     GByteArray *entryid,
+                     const gchar *display_name,
+                     const gchar *email_type,
+                     const gchar *email_addr)
 {
 	e2k_rule_prop_set (&pv[0].prop, PR_ENTRYID);
 	pv[0].type = E2K_PROP_TYPE_BINARY;
@@ -346,10 +357,11 @@ addr_entry_set_core (E2kPropValue *pv, GByteArray *entryid,
  * local Exchange user.
  **/
 void
-e2k_addr_list_set_local (E2kAddrList *list, gint entry_num,
-			 const gchar *display_name,
-			 const gchar *exchange_dn,
-			 const gchar *email)
+e2k_addr_list_set_local (E2kAddrList *list,
+                         gint entry_num,
+                         const gchar *display_name,
+                         const gchar *exchange_dn,
+                         const gchar *email)
 {
 	E2kPropValue *pv;
 
@@ -379,8 +391,10 @@ e2k_addr_list_set_local (E2kAddrList *list, gint entry_num,
  * "one-off" SMTP user.
  **/
 void
-e2k_addr_list_set_oneoff (E2kAddrList *list, gint entry_num,
-			  const gchar *display_name, const gchar *email)
+e2k_addr_list_set_oneoff (E2kAddrList *list,
+                          gint entry_num,
+                          const gchar *display_name,
+                          const gchar *email)
 {
 	E2kPropValue *pv;
 
@@ -485,7 +499,9 @@ e2k_actions_free (GPtrArray *actions)
 }
 
 static gboolean
-extract_action (guint8 **data, gint *len, E2kAction **act_ret)
+extract_action (guint8 **data,
+                gint *len,
+                E2kAction **act_ret)
 {
 	gint my_len;
 	guint8 *my_data;
@@ -656,7 +672,9 @@ extract_action (guint8 **data, gint *len, E2kAction **act_ret)
  * Return value: success or failure
  **/
 gboolean
-e2k_actions_extract (guint8 **data, gint *len, GPtrArray **actions)
+e2k_actions_extract (guint8 **data,
+                     gint *len,
+                     GPtrArray **actions)
 {
 	GPtrArray *acts;
 	E2kAction *act;
@@ -686,7 +704,8 @@ e2k_actions_extract (guint8 **data, gint *len, GPtrArray **actions)
 }
 
 static void
-append_action (GByteArray *ba, E2kAction *act)
+append_action (GByteArray *ba,
+               E2kAction *act)
 {
 	gint actlen_offset, actlen;
 	gchar type;
@@ -783,7 +802,8 @@ append_action (GByteArray *ba, E2kAction *act)
  * Appends @actions to @ba as part of a server-side rule.
  **/
 void
-e2k_actions_append (GByteArray *ba, GPtrArray *actions)
+e2k_actions_append (GByteArray *ba,
+                    GPtrArray *actions)
 {
 	gint actlen_offset, actlen, i;
 

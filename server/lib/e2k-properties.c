@@ -67,7 +67,9 @@ e2k_properties_new (void)
 }
 
 static void
-copy_prop (gpointer key, gpointer value, gpointer data)
+copy_prop (gpointer key,
+           gpointer value,
+           gpointer data)
 {
 	const gchar *name = key;
 	GHashTable *props_copy = data;
@@ -153,7 +155,8 @@ e2k_properties_copy (E2kProperties *props)
 }
 
 static void
-free_prop (E2kPropInfo *pi, gpointer value)
+free_prop (E2kPropInfo *pi,
+           gpointer value)
 {
 	if (!value)
 		return;
@@ -198,7 +201,9 @@ free_prop (E2kPropInfo *pi, gpointer value)
 }
 
 static void
-properties_free_cb (gpointer key, gpointer value, gpointer data)
+properties_free_cb (gpointer key,
+                    gpointer value,
+                    gpointer data)
 {
 	E2kPropInfo *pi;
 
@@ -238,7 +243,8 @@ e2k_properties_free (E2kProperties *props)
  * @props.
  **/
 gpointer
-e2k_properties_get_prop (E2kProperties *props, const gchar *propname)
+e2k_properties_get_prop (E2kProperties *props,
+                         const gchar *propname)
 {
 	g_return_val_if_fail (props != NULL, NULL);
 
@@ -265,7 +271,8 @@ e2k_properties_empty (E2kProperties *props)
 extern gchar e2k_des_key[8];
 
 static E2kPropInfo *
-get_propinfo (const gchar *propname, E2kPropType type)
+get_propinfo (const gchar *propname,
+              E2kPropType type)
 {
 	E2kPropInfo *pi;
 
@@ -447,9 +454,9 @@ E2K_PROPERTIES_SETTER (date, gchar *, DATE, value)
 #define E2K_PROPERTIES_SETTER_AS(fname, valuetype)			\
 void									\
 e2k_properties_set_type_as_ ## fname (E2kProperties *props,		\
-				      const gchar    *propname,		\
-				      E2kPropType    type,		\
-				      valuetype      value)		\
+                                      const gchar *propname,		\
+                                      E2kPropType type,			\
+                                      valuetype value)			\
 {									\
 	E2kPropInfo *pi;						\
 									\
@@ -473,7 +480,8 @@ E2K_PROPERTIES_SETTER_AS (string_array, GPtrArray *)
  * this frees the old value.
  **/
 void
-e2k_properties_remove (E2kProperties *props, const gchar *propname)
+e2k_properties_remove (E2kProperties *props,
+                       const gchar *propname)
 {
 	E2kPropInfo *pi;
 
@@ -489,7 +497,9 @@ struct foreach_data {
 };
 
 static void
-foreach_callback (gpointer key, gpointer value, gpointer data)
+foreach_callback (gpointer key,
+                  gpointer value,
+                  gpointer data)
 {
 	struct foreach_data *fd = data;
 	E2kPropInfo *pi;
@@ -513,8 +523,8 @@ foreach_callback (gpointer key, gpointer value, gpointer data)
  **/
 void
 e2k_properties_foreach (E2kProperties *props,
-			E2kPropertiesForeachFunc callback,
-			gpointer user_data)
+                        E2kPropertiesForeachFunc callback,
+                        gpointer user_data)
 {
 	struct foreach_data fd;
 
@@ -538,8 +548,8 @@ e2k_properties_foreach (E2kProperties *props,
  **/
 void
 e2k_properties_foreach_removed (E2kProperties *props,
-				E2kPropertiesForeachFunc callback,
-				gpointer user_data)
+                                E2kPropertiesForeachFunc callback,
+                                gpointer user_data)
 {
 	struct foreach_data fd;
 
@@ -559,7 +569,9 @@ struct foreach_namespace_data {
 };
 
 static void
-foreach_namespace_callback (gpointer key, gpointer value, gpointer data)
+foreach_namespace_callback (gpointer key,
+                            gpointer value,
+                            gpointer data)
 {
 	struct foreach_namespace_data *fnd = data;
 	E2kPropInfo *pi;
@@ -611,8 +623,8 @@ foreach_namespace_callback (gpointer key, gpointer value, gpointer data)
  **/
 void
 e2k_properties_foreach_namespace (E2kProperties *props,
-				  E2kPropertiesForeachNamespaceFunc callback,
-				  gpointer user_data)
+                                  E2kPropertiesForeachNamespaceFunc callback,
+                                  gpointer user_data)
 {
 	struct foreach_namespace_data fnd;
 
@@ -651,7 +663,8 @@ get_div (const gchar *propname)
 }
 
 static gint
-prop_equal (gconstpointer v1, gconstpointer v2)
+prop_equal (gconstpointer v1,
+            gconstpointer v2)
 {
 	const gchar *s1 = (const gchar *) v1, *s2 = (const gchar *) v2;
 	const gchar *d1 = get_div (s1), *d2 = get_div (s2);

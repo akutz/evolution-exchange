@@ -45,10 +45,10 @@ struct EFolderPrivate {
 	gint unread_count;
 
 	/* Folders have a default sorting priority of zero; when deciding the
-	   sort order in the Evolution folder tree, folders with the same
-	   priority value are compared by name, while folders with a higher
-	   priority number always come after the folders with a lower priority
-	   number.  */
+	 * sort order in the Evolution folder tree, folders with the same
+	 * priority value are compared by name, while folders with a higher
+	 * priority number always come after the folders with a lower priority
+	 * number.  */
 	gint sorting_priority;
 
 	guint self_highlight : 1;
@@ -57,7 +57,7 @@ struct EFolderPrivate {
 	guint has_subfolders : 1;
 
 	/* Custom icon for this folder; if NULL the folder will just use the
-	   icon for its type.  */
+	 * icon for its type.  */
 	gchar *custom_icon_name;
 };
 
@@ -72,9 +72,10 @@ static guint signals[LAST_SIGNAL] = { 0 };
 /* EFolder methods.   */
 
 static gboolean
-accept_drop (EFolder *folder, GdkDragContext *context,
-	     const gchar *target_type,
-	     GtkSelectionData *selection_data)
+accept_drop (EFolder *folder,
+             GdkDragContext *context,
+             const gchar *target_type,
+             GtkSelectionData *selection_data)
 {
 	return FALSE;
 }
@@ -141,9 +142,9 @@ e_folder_init (EFolder *folder)
 
 void
 e_folder_construct (EFolder *folder,
-		    const gchar *name,
-		    const gchar *type,
-		    const gchar *description)
+                    const gchar *name,
+                    const gchar *type,
+                    const gchar *description)
 {
 	EFolderPrivate *priv;
 
@@ -160,8 +161,8 @@ e_folder_construct (EFolder *folder,
 
 EFolder *
 e_folder_new (const gchar *name,
-	      const gchar *type,
-	      const gchar *description)
+              const gchar *type,
+              const gchar *description)
 {
 	EFolder *folder;
 
@@ -281,7 +282,7 @@ e_folder_get_sorting_priority (EFolder *folder)
 
 void
 e_folder_set_name (EFolder *folder,
-		   const gchar *name)
+                   const gchar *name)
 {
 	g_return_if_fail (E_IS_FOLDER (folder));
 	g_return_if_fail (name != NULL);
@@ -298,7 +299,7 @@ e_folder_set_name (EFolder *folder,
 
 void
 e_folder_set_type_string (EFolder *folder,
-			  const gchar *type)
+                          const gchar *type)
 {
 	g_return_if_fail (E_IS_FOLDER (folder));
 	g_return_if_fail (type != NULL);
@@ -311,7 +312,7 @@ e_folder_set_type_string (EFolder *folder,
 
 void
 e_folder_set_description (EFolder *folder,
-			  const gchar *description)
+                          const gchar *description)
 {
 	g_return_if_fail (E_IS_FOLDER (folder));
 	g_return_if_fail (description != NULL);
@@ -324,7 +325,7 @@ e_folder_set_description (EFolder *folder,
 
 void
 e_folder_set_physical_uri (EFolder *folder,
-			   const gchar *physical_uri)
+                           const gchar *physical_uri)
 {
 	g_return_if_fail (E_IS_FOLDER (folder));
 	g_return_if_fail (physical_uri != NULL);
@@ -340,7 +341,7 @@ e_folder_set_physical_uri (EFolder *folder,
 
 void
 e_folder_set_unread_count (EFolder *folder,
-			   gint unread_count)
+                           gint unread_count)
 {
 	g_return_if_fail (E_IS_FOLDER (folder));
 
@@ -351,7 +352,7 @@ e_folder_set_unread_count (EFolder *folder,
 
 void
 e_folder_set_child_highlight (EFolder *folder,
-			      gboolean highlighted)
+                              gboolean highlighted)
 {
 	g_return_if_fail (E_IS_FOLDER (folder));
 
@@ -365,7 +366,7 @@ e_folder_set_child_highlight (EFolder *folder,
 
 void
 e_folder_set_is_stock (EFolder *folder,
-		       gboolean is_stock)
+                       gboolean is_stock)
 {
 	g_return_if_fail (E_IS_FOLDER (folder));
 
@@ -376,7 +377,7 @@ e_folder_set_is_stock (EFolder *folder,
 
 void
 e_folder_set_can_sync_offline (EFolder *folder,
-			       gboolean can_sync_offline)
+                               gboolean can_sync_offline)
 {
 	g_return_if_fail (E_IS_FOLDER (folder));
 
@@ -387,7 +388,7 @@ e_folder_set_can_sync_offline (EFolder *folder,
 
 void
 e_folder_set_has_subfolders (EFolder *folder,
-			     gboolean has_subfolders)
+                             gboolean has_subfolders)
 {
 	g_return_if_fail (E_IS_FOLDER (folder));
 
@@ -407,7 +408,7 @@ e_folder_set_has_subfolders (EFolder *folder,
  **/
 void
 e_folder_set_custom_icon (EFolder *folder,
-			  const gchar *icon_name)
+                          const gchar *icon_name)
 {
 	g_return_if_fail (E_IS_FOLDER (folder));
 
@@ -436,7 +437,7 @@ e_folder_set_custom_icon (EFolder *folder,
  **/
 void
 e_folder_set_sorting_priority (EFolder *folder,
-			       gint sorting_priority)
+                               gint sorting_priority)
 {
 	g_return_if_fail (E_IS_FOLDER (folder));
 
@@ -449,9 +450,10 @@ e_folder_set_sorting_priority (EFolder *folder,
 }
 
 gboolean
-e_folder_accept_drop (EFolder *folder, GdkDragContext *context,
-		      const gchar *target_type,
-		      GtkSelectionData *selection_data)
+e_folder_accept_drop (EFolder *folder,
+                      GdkDragContext *context,
+                      const gchar *target_type,
+                      GtkSelectionData *selection_data)
 {
 	g_return_val_if_fail (E_IS_FOLDER (folder), FALSE);
 	g_return_val_if_fail (context != NULL, FALSE);

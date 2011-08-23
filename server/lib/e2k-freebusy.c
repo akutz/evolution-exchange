@@ -54,7 +54,8 @@ e2k_freebusy_destroy (E2kFreebusy *fb)
 }
 
 static gchar *
-fb_uri_for_dn (const gchar *public_uri, const gchar *dn)
+fb_uri_for_dn (const gchar *public_uri,
+               const gchar *dn)
 {
 	gchar *uri, *div, *org;
 	GString *str;
@@ -103,7 +104,10 @@ merge_events (GArray *events)
 }
 
 static void
-add_data_for_status (E2kFreebusy *fb, GPtrArray *monthyears, GPtrArray *fbdatas, GArray *events)
+add_data_for_status (E2kFreebusy *fb,
+                     GPtrArray *monthyears,
+                     GPtrArray *fbdatas,
+                     GArray *events)
 {
 	E2kFreebusyEvent evt;
 	gint i, monthyear;
@@ -169,7 +173,9 @@ static const gchar *public_freebusy_props[] = {
  * Return value: the freebusy information
  **/
 E2kFreebusy *
-e2k_freebusy_new (E2kContext *ctx, const gchar *public_uri, const gchar *dn)
+e2k_freebusy_new (E2kContext *ctx,
+                  const gchar *public_uri,
+                  const gchar *dn)
 {
 	E2kFreebusy *fb;
 	gchar *uri, *time;
@@ -244,7 +250,8 @@ e2k_freebusy_new (E2kContext *ctx, const gchar *public_uri, const gchar *dn)
  * to a span of @nmonths around the current date.
  **/
 void
-e2k_freebusy_reset (E2kFreebusy *fb, gint nmonths)
+e2k_freebusy_reset (E2kFreebusy *fb,
+                    gint nmonths)
 {
 	time_t now;
 	struct tm tm;
@@ -281,8 +288,10 @@ e2k_freebusy_reset (E2kFreebusy *fb, gint nmonths)
  * This adds an interval of type @busystatus to @fb.
  **/
 void
-e2k_freebusy_add_interval (E2kFreebusy *fb, E2kBusyStatus busystatus,
-			   time_t start, time_t end)
+e2k_freebusy_add_interval (E2kFreebusy *fb,
+                           E2kBusyStatus busystatus,
+                           time_t start,
+                           time_t end)
 {
 	E2kFreebusyEvent evt, *events;
 	gint i;
@@ -335,7 +344,9 @@ e2k_freebusy_add_interval (E2kFreebusy *fb, E2kBusyStatus busystatus,
  * This removes any events between @start and @end in @fb.
  **/
 void
-e2k_freebusy_clear_interval (E2kFreebusy *fb, time_t start, time_t end)
+e2k_freebusy_clear_interval (E2kFreebusy *fb,
+                             time_t start,
+                             time_t end)
 {
 	E2kFreebusyEvent *evt;
 	gint busystatus, i;
@@ -382,8 +393,10 @@ static const gchar *freebusy_props[] = {
  * Return value: an HTTP status code.
  **/
 E2kHTTPStatus
-e2k_freebusy_add_from_calendar_uri (E2kFreebusy *fb, const gchar *uri,
-				    time_t start_tt, time_t end_tt)
+e2k_freebusy_add_from_calendar_uri (E2kFreebusy *fb,
+                                    const gchar *uri,
+                                    time_t start_tt,
+                                    time_t end_tt)
 {
 	gchar *start, *end, *busystatus;
 	E2kBusyStatus busy;
@@ -443,8 +456,10 @@ e2k_freebusy_add_from_calendar_uri (E2kFreebusy *fb, const gchar *uri,
 }
 
 static void
-add_events (GArray *events_array, E2kProperties *props,
-	    const gchar *month_list_prop, const gchar *data_list_prop)
+add_events (GArray *events_array,
+            E2kProperties *props,
+            const gchar *month_list_prop,
+            const gchar *data_list_prop)
 {
 	E2kFreebusyEvent *events = (E2kFreebusyEvent *) events_array->data;
 	gint i, evt_start, evt_end, monthyear;

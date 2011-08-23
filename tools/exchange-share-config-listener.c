@@ -176,7 +176,8 @@ is_active_exchange_account (EAccount *account)
 }
 
 static void
-update_foreign_uri (const gchar *path, const gchar *account_uri)
+update_foreign_uri (const gchar *path,
+                    const gchar *account_uri)
 {
 	gchar *file_path, *phy_uri, *foreign_uri, *new_phy_uri;
 	GHashTable *old_props = NULL;
@@ -248,7 +249,8 @@ migrate_foreign_hierarchy (ExchangeAccount *account)
 }
 
 static void
-ex_set_relative_uri (ESource *source, const gchar *url)
+ex_set_relative_uri (ESource *source,
+                     const gchar *url)
 {
 	const gchar *rel_uri = e_source_peek_relative_uri (source);
 	gchar *folder_name;
@@ -271,7 +273,7 @@ ex_set_relative_uri (ESource *source, const gchar *url)
 
 static void
 migrate_account_esource (EAccount *account,
-			FolderType folder_type)
+                         FolderType folder_type)
 {
 	ESourceGroup *group;
 	ESource *source = NULL;
@@ -358,7 +360,8 @@ exchange_share_config_listener_migrate_esources (ExchangeShareConfigListener *co
 }
 
 static void
-account_added (EAccountList *account_list, EAccount *account)
+account_added (EAccountList *account_list,
+               EAccount *account)
 {
 	ExchangeShareConfigListener *config_listener;
 	ExchangeAccount *exchange_account;
@@ -399,7 +402,8 @@ struct account_update_data {
 };
 
 static void
-configured_account_destroyed (gpointer user_data, GObject *where_account_was)
+configured_account_destroyed (gpointer user_data,
+                              GObject *where_account_was)
 {
 	struct account_update_data *aud = user_data;
 
@@ -412,11 +416,12 @@ configured_account_destroyed (gpointer user_data, GObject *where_account_was)
 }
 
 static gboolean
-requires_relogin (gchar *current_url, gchar *new_url)
+requires_relogin (gchar *current_url,
+                  gchar *new_url)
 {
 	E2kUri *current_uri, *new_uri;
 	const gchar *current_param_val, *new_param_val;
-	const gchar *params [] = {
+	const gchar *params[] = {
 		"owa-url",
 		"gc-server-name",
 		"security-method" };
@@ -448,7 +453,7 @@ requires_relogin (gchar *current_url, gchar *new_url)
 		}
 	}
 
-	for (i=0; i<n_params; i++) {
+	for (i = 0; i < n_params; i++) {
 		current_param_val = e2k_uri_get_param (current_uri, params[i]);
 		new_param_val = e2k_uri_get_param (new_uri, params[i]);
 
@@ -472,7 +477,8 @@ end:
 }
 
 static void
-account_changed (EAccountList *account_list, EAccount *account)
+account_changed (EAccountList *account_list,
+                 EAccount *account)
 {
 	ExchangeShareConfigListener *config_listener =
 		EXCHANGE_SHARE_CONFIG_LISTENER (account_list);
@@ -556,7 +562,8 @@ account_changed (EAccountList *account_list, EAccount *account)
 }
 
 static void
-account_removed (EAccountList *account_list, EAccount *account)
+account_removed (EAccountList *account_list,
+                 EAccount *account)
 {
 	ExchangeShareConfigListener *config_listener =
 		EXCHANGE_SHARE_CONFIG_LISTENER (account_list);
@@ -637,7 +644,8 @@ exchange_share_config_listener_get_accounts (ExchangeShareConfigListener *config
  *
  **/
 static gboolean
-exchange_camel_urls_is_equal (const gchar *url1, const gchar *url2)
+exchange_camel_urls_is_equal (const gchar *url1,
+                              const gchar *url2)
 {
 	CamelURL *curl1, *curl2;
 	const gchar *param1, *param2;
@@ -702,7 +710,7 @@ exchange_share_config_listener_get_global (void)
 	if (!excl) {
 		if (!g_main_context_is_owner (g_main_context_default ())) {
 			/* it is called from a thread, do the creation in a main thread;
-			   every other call will wait until it is done */
+			 * every other call will wait until it is done */
 			struct create_excl_struct ces;
 
 			ces.excl = &excl;
@@ -726,7 +734,8 @@ exchange_share_config_listener_get_global (void)
 }
 
 ExchangeAccount *
-exchange_share_config_listener_get_account_for_uri (ExchangeShareConfigListener *excl, const gchar *uri)
+exchange_share_config_listener_get_account_for_uri (ExchangeShareConfigListener *excl,
+                                                    const gchar *uri)
 {
 	GSList *accounts, *a;
 	ExchangeAccount *res = NULL;

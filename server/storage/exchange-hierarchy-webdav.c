@@ -166,8 +166,9 @@ folder_type_map_init (void)
  * remove its folders by just calling exchange_hierarchy_removed_folder.)
  */
 static void
-hierarchy_new_folder (ExchangeHierarchy *hier, EFolder *folder,
-		      gpointer user_data)
+hierarchy_new_folder (ExchangeHierarchy *hier,
+                      EFolder *folder,
+                      gpointer user_data)
 {
 	const gchar *internal_uri;
 	gchar *mf_path;
@@ -191,8 +192,9 @@ hierarchy_new_folder (ExchangeHierarchy *hier, EFolder *folder,
 }
 
 static void
-hierarchy_removed_folder (ExchangeHierarchy *hier, EFolder *folder,
-			  gpointer user_data)
+hierarchy_removed_folder (ExchangeHierarchy *hier,
+                          EFolder *folder,
+                          gpointer user_data)
 {
 	const gchar *internal_uri = e_folder_exchange_get_internal_uri (folder);
 	gchar *mf_path;
@@ -218,10 +220,14 @@ is_empty (ExchangeHierarchy *hier)
 }
 
 static EFolder *
-e_folder_webdav_new (ExchangeHierarchy *hier, const gchar *internal_uri,
-		     EFolder *parent, const gchar *name, const gchar *type,
-		     const gchar *outlook_class, gint unread,
-		     gboolean offline_supported)
+e_folder_webdav_new (ExchangeHierarchy *hier,
+                     const gchar *internal_uri,
+                     EFolder *parent,
+                     const gchar *name,
+                     const gchar *type,
+                     const gchar *outlook_class,
+                     gint unread,
+                     gboolean offline_supported)
 {
 	EFolder *folder;
 	gchar *real_type, *http_uri, *physical_uri, *fixed_name = NULL;
@@ -255,10 +261,10 @@ e_folder_webdav_new (ExchangeHierarchy *hier, const gchar *internal_uri,
 		len = strlen (name);
 
 		/* appending "/" here, so that hash table lookup in rescan() succeeds */
-		if (name[len-1] != '/') {
+		if (name[len - 1] != '/') {
 			encoded_name = e2k_uri_encode (name, FALSE, URI_ENCODE_CHARS);
 		} else {
-			temp_name = g_strndup (name, len-1);
+			temp_name = g_strndup (name, len - 1);
 			encoded_name = e2k_uri_encode (temp_name, FALSE, URI_ENCODE_CHARS);
 			g_free (temp_name);
 		}
@@ -290,8 +296,10 @@ e_folder_webdav_new (ExchangeHierarchy *hier, const gchar *internal_uri,
 }
 
 static ExchangeAccountFolderResult
-create_folder (ExchangeHierarchy *hier, EFolder *parent,
-	       const gchar *name, const gchar *type)
+create_folder (ExchangeHierarchy *hier,
+               EFolder *parent,
+               const gchar *name,
+               const gchar *type)
 {
 	EFolder *dest;
 	E2kProperties *props;
@@ -345,7 +353,8 @@ create_folder (ExchangeHierarchy *hier, EFolder *parent,
 }
 
 static ExchangeAccountFolderResult
-remove_folder (ExchangeHierarchy *hier, EFolder *folder)
+remove_folder (ExchangeHierarchy *hier,
+               EFolder *folder)
 {
 	E2kHTTPStatus status;
 	gint mode;
@@ -371,9 +380,11 @@ remove_folder (ExchangeHierarchy *hier, EFolder *folder)
 }
 
 static ExchangeAccountFolderResult
-xfer_folder (ExchangeHierarchy *hier, EFolder *source,
-	     EFolder *dest_parent, const gchar *dest_name,
-	     gboolean remove_source)
+xfer_folder (ExchangeHierarchy *hier,
+             EFolder *source,
+             EFolder *dest_parent,
+             const gchar *dest_name,
+             gboolean remove_source)
 {
 	E2kHTTPStatus status;
 	EFolder *dest;
@@ -422,7 +433,7 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 			 * update the hash table with new name
 			 */
 			exchange_account_folder_size_rename (hier->account,
-				source_folder_name+1, dest_name);
+				source_folder_name + 1, dest_name);
 		}
 		g_free (source_parent);
 	} else {
@@ -467,7 +478,9 @@ xfer_folder (ExchangeHierarchy *hier, EFolder *source,
 }
 
 static void
-add_href (gpointer path, gpointer folder, gpointer hrefs)
+add_href (gpointer path,
+          gpointer folder,
+          gpointer hrefs)
 {
 	const gchar *folder_type;
 
@@ -543,7 +556,7 @@ rescan (ExchangeHierarchy *hier)
 
 		if (folder_size) {
 			folder_name = e_folder_get_name (folder);
-			fsize_d = g_ascii_strtod (folder_size, NULL)/1024;
+			fsize_d = g_ascii_strtod (folder_size, NULL) / 1024;
 			exchange_account_folder_size_add (hier->account,
 							folder_name, fsize_d);
 			if (personal)
@@ -578,8 +591,8 @@ exchange_hierarchy_webdav_get_total_folder_size (ExchangeHierarchyWebDAV *hwd)
 
 EFolder *
 exchange_hierarchy_webdav_parse_folder (ExchangeHierarchyWebDAV *hwd,
-					EFolder *parent,
-					E2kResult *result)
+                                        EFolder *parent,
+                                        E2kResult *result)
 {
 	EFolder *folder;
 	ExchangeFolderType *folder_type;
@@ -656,7 +669,9 @@ exchange_hierarchy_webdav_parse_folder (ExchangeHierarchyWebDAV *hwd,
 }
 
 static void
-add_folders (ExchangeHierarchy *hier, EFolder *folder, gpointer folders)
+add_folders (ExchangeHierarchy *hier,
+             EFolder *folder,
+             gpointer folders)
 {
 	g_object_ref (folder);
 	g_ptr_array_add (folders, folder);
@@ -679,7 +694,9 @@ static const gchar *pub_folder_props[] = {
 };
 
 static ExchangeAccountFolderResult
-scan_subtree (ExchangeHierarchy *hier, EFolder *parent, gint mode)
+scan_subtree (ExchangeHierarchy *hier,
+              EFolder *parent,
+              gint mode)
 {
 	static E2kRestriction *folders_rn;
 	ExchangeHierarchyWebDAV *hwd = EXCHANGE_HIERARCHY_WEBDAV (hier);
@@ -753,7 +770,7 @@ scan_subtree (ExchangeHierarchy *hier, EFolder *parent, gint mode)
 							       E2K_PR_EXCHANGE_FOLDER_SIZE);
 
 			/* FIXME : Find a better way of doing this */
-			fsize_d = g_ascii_strtod (folder_size, NULL)/1024;
+			fsize_d = g_ascii_strtod (folder_size, NULL) / 1024;
 			exchange_account_folder_size_add (hier->account, name, fsize_d);
 		}
 
@@ -797,7 +814,9 @@ struct scan_offline_data {
 };
 
 static gboolean
-scan_offline_cb (const gchar *physical_path, const gchar *path, gpointer data)
+scan_offline_cb (const gchar *physical_path,
+                 const gchar *path,
+                 gpointer data)
 {
 	struct scan_offline_data *sod = data;
 	EFolder *folder;
@@ -832,8 +851,8 @@ scan_offline_cb (const gchar *physical_path, const gchar *path, gpointer data)
  **/
 void
 exchange_hierarchy_webdav_offline_scan_subtree (ExchangeHierarchy *hier,
-						ExchangeHierarchyWebDAVScanCallback callback,
-						gpointer user_data)
+                                                ExchangeHierarchyWebDAVScanCallback callback,
+                                                gpointer user_data)
 {
 	struct scan_offline_data sod;
 	const gchar *path;
@@ -866,15 +885,15 @@ exchange_hierarchy_webdav_offline_scan_subtree (ExchangeHierarchy *hier,
 
 void
 exchange_hierarchy_webdav_construct (ExchangeHierarchyWebDAV *hwd,
-				     ExchangeAccount *account,
-				     ExchangeHierarchyType type,
-				     const gchar *hierarchy_name,
-				     const gchar *physical_uri_prefix,
-				     const gchar *internal_uri_prefix,
-				     const gchar *owner_name,
-				     const gchar *owner_email,
-				     const gchar *source_uri,
-				     gboolean deep_searchable)
+                                     ExchangeAccount *account,
+                                     ExchangeHierarchyType type,
+                                     const gchar *hierarchy_name,
+                                     const gchar *physical_uri_prefix,
+                                     const gchar *internal_uri_prefix,
+                                     const gchar *owner_name,
+                                     const gchar *owner_email,
+                                     const gchar *source_uri,
+                                     gboolean deep_searchable)
 {
 	EFolder *toplevel;
 
@@ -906,14 +925,14 @@ exchange_hierarchy_webdav_construct (ExchangeHierarchyWebDAV *hwd,
 
 ExchangeHierarchy *
 exchange_hierarchy_webdav_new (ExchangeAccount *account,
-			       ExchangeHierarchyType type,
-			       const gchar *hierarchy_name,
-			       const gchar *physical_uri_prefix,
-			       const gchar *internal_uri_prefix,
-			       const gchar *owner_name,
-			       const gchar *owner_email,
-			       const gchar *source_uri,
-			       gboolean deep_searchable)
+                               ExchangeHierarchyType type,
+                               const gchar *hierarchy_name,
+                               const gchar *physical_uri_prefix,
+                               const gchar *internal_uri_prefix,
+                               const gchar *owner_name,
+                               const gchar *owner_email,
+                               const gchar *source_uri,
+                               gboolean deep_searchable)
 {
 	ExchangeHierarchy *hier;
 

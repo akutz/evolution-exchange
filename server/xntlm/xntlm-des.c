@@ -172,7 +172,8 @@ static guint32 Spbox[8][64] = {
 }
 /* Encrypt or decrypt a block of data in ECB mode */
 void
-xntlm_des (XNTLM_DES_KS ks, guchar block[8])
+xntlm_des (XNTLM_DES_KS ks,
+           guchar block[8])
 {
 	guint32 left,right,work;
 
@@ -305,7 +306,9 @@ static gint bytebit[] = {
  * depending on the value of "decrypt"
  */
 void
-xntlm_deskey (XNTLM_DES_KS k, const guchar *key, gint decrypt)
+xntlm_deskey (XNTLM_DES_KS k,
+              const guchar *key,
+              gint decrypt)
 {
 	guchar pc1m[56];		/* place to modify pc1 into */
 	guchar pcr[56];		/* place to rotate pc1 into */
@@ -323,14 +326,14 @@ xntlm_deskey (XNTLM_DES_KS k, const guchar *key, gint decrypt)
 	for (i=0; i<16; i++) {		/* key chunk for each iteration */
 		memset (ks,0,sizeof (ks));	/* Clear key schedule */
 		for (j=0; j<56; j++)	/* rotate pc1 the right amount */
-			pcr[j] = pc1m[(l=j+totrot[decrypt? 15-i : i])<(j<28? 28 : 56) ? l: l-28];
+			pcr[j] = pc1m[(l = j + totrot[decrypt? 15 - i : i]) < (j < 28? 28 : 56) ? l: l - 28];
 			/* rotate left and right halves independently */
 		for (j=0; j<48; j++){	/* select bits individually */
 			/* check bit that goes to ks[j] */
 			if (pcr[pc2[j]-1]) {
 				/* mask it in if it's there */
 				l= j % 6;
-				ks[j/6] |= bytebit[l] >> 2;
+				ks[j / 6] |= bytebit[l] >> 2;
 			}
 		}
 		/* Now convert to packed odd/even interleaved form */

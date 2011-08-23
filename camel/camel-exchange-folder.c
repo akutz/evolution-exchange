@@ -448,11 +448,11 @@ exchange_folder_append_message_sync (CamelFolder *folder,
 	store = CAMEL_EXCHANGE_STORE (parent_store);
 
 	/*
-	   FIXME: We should add a top-level camel API camel_mime_message_prune_invalid_chars
-	   which each of the provider will have to implement to remove things
-	   that are invalid for their Transport mechanism. This will help in
-	   avoiding  duplication of work. Now Sending and Importing both requires
-	   substitution of \t and \n with blank.
+	 * FIXME: We should add a top-level camel API camel_mime_message_prune_invalid_chars
+	 * which each of the provider will have to implement to remove things
+	 * that are invalid for their Transport mechanism. This will help in
+	 * avoiding  duplication of work. Now Sending and Importing both requires
+	 * substitution of \t and \n with blank.
 	*/
 
 	old_subject = g_strdup (camel_mime_message_get_subject (message));
@@ -811,7 +811,8 @@ camel_exchange_folder_init (CamelExchangeFolder *exchange_folder)
  * base64 representation of this value.
  */
 static CamelSummaryMessageID *
-find_parent (CamelExchangeFolder *exch, const gchar *thread_index)
+find_parent (CamelExchangeFolder *exch,
+             const gchar *thread_index)
 {
 	CamelSummaryMessageID *msgid;
 	guchar *decoded;
@@ -847,9 +848,11 @@ find_parent (CamelExchangeFolder *exch, const gchar *thread_index)
  **/
 void
 camel_exchange_folder_add_message (CamelExchangeFolder *exch,
-				   const gchar *uid, guint32 flags,
-				   guint32 size, const gchar *headers,
-				   const gchar *href)
+                                   const gchar *uid,
+                                   guint32 flags,
+                                   guint32 size,
+                                   const gchar *headers,
+                                   const gchar *href)
 {
 	CamelFolder *folder = CAMEL_FOLDER (exch);
 	CamelMessageInfo *info;
@@ -919,7 +922,7 @@ camel_exchange_folder_add_message (CamelExchangeFolder *exch,
  **/
 void
 camel_exchange_folder_remove_message (CamelExchangeFolder *exch,
-				      const gchar *uid)
+                                      const gchar *uid)
 {
 	CamelFolderSummary *summary = CAMEL_FOLDER (exch)->summary;
 	CamelFolderChangeInfo *changes;
@@ -961,7 +964,7 @@ camel_exchange_folder_remove_message (CamelExchangeFolder *exch,
  **/
 void
 camel_exchange_folder_uncache_message (CamelExchangeFolder *exch,
-				       const gchar *uid)
+                                       const gchar *uid)
 {
 	camel_data_cache_remove (exch->cache, "cache", uid, NULL);
 }
@@ -977,7 +980,8 @@ camel_exchange_folder_uncache_message (CamelExchangeFolder *exch,
  **/
 void
 camel_exchange_folder_update_message_flags (CamelExchangeFolder *exch,
-					    const gchar *uid, guint32 flags)
+                                            const gchar *uid,
+                                            guint32 flags)
 {
 	CamelFolder *folder = CAMEL_FOLDER (exch);
 	CamelMessageInfoBase *info;
@@ -1013,8 +1017,9 @@ camel_exchange_folder_update_message_flags (CamelExchangeFolder *exch,
  **/
 void
 camel_exchange_folder_update_message_flags_ex (CamelExchangeFolder *exch,
-					       const gchar *uid, guint32 flags,
-					       guint32 mask)
+                                               const gchar *uid,
+                                               guint32 flags,
+                                               guint32 mask)
 {
 	CamelFolder *folder = CAMEL_FOLDER (exch);
 	CamelMessageInfoBase *info;
@@ -1054,9 +1059,9 @@ camel_exchange_folder_update_message_flags_ex (CamelExchangeFolder *exch,
  **/
 void
 camel_exchange_folder_update_message_tag (CamelExchangeFolder *exch,
-					  const gchar *uid,
-					  const gchar *name,
-					  const gchar *value)
+                                          const gchar *uid,
+                                          const gchar *name,
+                                          const gchar *value)
 {
 	CamelFolder *folder = CAMEL_FOLDER (exch);
 	CamelMessageInfoBase *info;

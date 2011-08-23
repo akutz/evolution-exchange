@@ -28,7 +28,9 @@
 #include <libxml/xmlmemory.h>
 
 static void
-my_xml_parser_error_handler (gpointer ctx, const gchar *msg, ...)
+my_xml_parser_error_handler (gpointer ctx,
+                             const gchar *msg,
+                             ...)
 {
 	;
 }
@@ -43,7 +45,8 @@ my_xml_parser_error_handler (gpointer ctx, const gchar *msg, ...)
  * Return value: a pointer to an #xmlDoc
  **/
 xmlDoc *
-e2k_parse_xml (const gchar *buf, gint len)
+e2k_parse_xml (const gchar *buf,
+               gint len)
 {
 	static xmlSAXHandler *sax;
 	xmlParserCtxtPtr ctxt;
@@ -105,7 +108,8 @@ e2k_parse_xml (const gchar *buf, gint len)
  * Return value: a pointer to an #xmlDoc
  **/
 xmlDoc *
-e2k_parse_html (const gchar *buf, gint len)
+e2k_parse_html (const gchar *buf,
+                gint len)
 {
 	xmlDoc *doc;
 #if LIBXML_VERSION > 20600
@@ -158,7 +162,8 @@ e2k_parse_html (const gchar *buf, gint len)
  * unencoded in XML text (eg, "<").
  **/
 void
-e2k_g_string_append_xml_escaped (GString *string, const gchar *value)
+e2k_g_string_append_xml_escaped (GString *string,
+                                 const gchar *value)
 {
 	while (*value) {
 		switch (*value) {
@@ -200,7 +205,8 @@ e2k_g_string_append_xml_escaped (GString *string, const gchar *value)
  * there are no more matches.
  **/
 xmlNode *
-e2k_xml_find (xmlNode *node, const gchar *name)
+e2k_xml_find (xmlNode *node,
+              const gchar *name)
 {
 	return e2k_xml_find_in (node, NULL, name);
 }
@@ -225,7 +231,9 @@ e2k_xml_find (xmlNode *node, const gchar *name)
  * there are no more matches.
  **/
 xmlNode *
-e2k_xml_find_in (xmlNode *node, xmlNode *top, const gchar *name)
+e2k_xml_find_in (xmlNode *node,
+                 xmlNode *top,
+                 const gchar *name)
 {
 	g_return_val_if_fail (name != NULL, NULL);
 

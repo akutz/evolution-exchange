@@ -116,21 +116,23 @@ static const gchar *folder_props[] = {
 };
 
 static ExchangeAccountFolderResult
-scan_subtree (ExchangeHierarchy *hier, EFolder *folder, gint mode)
+scan_subtree (ExchangeHierarchy *hier,
+              EFolder *folder,
+              gint mode)
 {
 	ExchangeHierarchySomeDAV *hsd = EXCHANGE_HIERARCHY_SOMEDAV (hier);
 	GPtrArray *hrefs;
 	E2kResultIter *iter;
 	E2kResult *result;
-	gint folders_returned=0, folders_added=0, i;
+	gint folders_returned = 0, folders_added = 0, i;
 	E2kHTTPStatus status;
 	ExchangeAccountFolderResult folder_result;
 	EFolder *iter_folder = NULL;
 
 	/* FIXME : Temporarily allow a rescan of the hierarchy. The proper fix
-	is to handle the folder list either in ExchangeAccount or in the
-	plugins/exchange backend separately by listening to signals.
-	if (hsd->priv->scanned || folder != hier->toplevel) */
+	 * is to handle the folder list either in ExchangeAccount or in the
+	 * plugins/exchange backend separately by listening to signals.
+	 * if (hsd->priv->scanned || folder != hier->toplevel) */
 	if (folder != hier->toplevel)
 		return EXCHANGE_ACCOUNT_FOLDER_OK;
 	hsd->priv->scanned = TRUE;
@@ -199,7 +201,7 @@ exchange_hierarchy_somedav_get_hrefs (ExchangeHierarchySomeDAV *hsd)
 
 void
 exchange_hierarchy_somedav_href_unreadable (ExchangeHierarchySomeDAV *hsd,
-					    const gchar *href)
+                                            const gchar *href)
 {
 	g_return_if_fail (EXCHANGE_IS_HIERARCHY_SOMEDAV (hsd));
 	g_return_if_fail (href != NULL);
@@ -209,7 +211,7 @@ exchange_hierarchy_somedav_href_unreadable (ExchangeHierarchySomeDAV *hsd,
 
 ExchangeAccountFolderResult
 exchange_hierarchy_somedav_add_folder (ExchangeHierarchySomeDAV *hsd,
-				       const gchar *uri)
+                                       const gchar *uri)
 {
 	ExchangeHierarchyWebDAV *hwd;
 	ExchangeHierarchy *hier;

@@ -39,9 +39,9 @@ enum {
 
 static gboolean
 get_folder_size_func (GtkTreeModel *model,
-		  GtkTreePath	    *path,
-                  GtkTreeIter       *iter,
-                 gpointer           user_data)
+                      GtkTreePath *path,
+                      GtkTreeIter *iter,
+                      gpointer user_data)
 {
 	GHashTable *info = (GHashTable *) user_data;
 	gdouble folder_size;
@@ -54,7 +54,8 @@ get_folder_size_func (GtkTreeModel *model,
 }
 
 gchar *
-exchange_folder_size_get_val (GtkListStore *model, const gchar *folder_name)
+exchange_folder_size_get_val (GtkListStore *model,
+                              const gchar *folder_name)
 {
 	GHashTable *finfo;
 	gchar *folder_size, *fsize;
@@ -78,10 +79,10 @@ exchange_folder_size_get_val (GtkListStore *model, const gchar *folder_name)
 
 static void
 format_size_func (GtkTreeViewColumn *col,
-                  GtkCellRenderer   *renderer,
-                  GtkTreeModel      *model,
-                  GtkTreeIter       *iter,
-                 gpointer           user_data)
+                  GtkCellRenderer *renderer,
+                  GtkTreeModel *model,
+                  GtkTreeIter *iter,
+                  gpointer user_data)
 {
 	GtkCellRendererText *cell = (GtkCellRendererText *) renderer;
 	gdouble folder_size;
@@ -99,7 +100,10 @@ format_size_func (GtkTreeViewColumn *col,
 }
 
 static gboolean
-calc_folder_size_func (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer user_data)
+calc_folder_size_func (GtkTreeModel *model,
+                       GtkTreePath *path,
+                       GtkTreeIter *iter,
+                       gpointer user_data)
 {
 	gdouble *total_size = user_data;
 	gdouble folder_size;
@@ -115,7 +119,8 @@ calc_folder_size_func (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter
 }
 
 void
-exchange_folder_size_display (GtkListStore *model, GtkWidget *parent)
+exchange_folder_size_display (GtkListStore *model,
+                              GtkWidget *parent)
 {
 	GtkTreeViewColumn *column;
 	GtkTreeSortable *sortable;

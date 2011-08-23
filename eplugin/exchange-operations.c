@@ -29,7 +29,7 @@
 #include <e-util/e-alert-dialog.h>
 #include <shell/e-shell.h>
 
-ExchangeConfigListener *exchange_global_config_listener=NULL;
+ExchangeConfigListener *exchange_global_config_listener = NULL;
 
 static const gchar *error_ids[] = {
 	"config-error",
@@ -59,7 +59,8 @@ free_exchange_listener (void)
 }
 
 gint
-e_plugin_lib_enable (EPlugin *eplib, gint enable)
+e_plugin_lib_enable (EPlugin *eplib,
+                     gint enable)
 {
 	if (!exchange_global_config_listener) {
 		exchange_global_config_listener = exchange_config_listener_new ();
@@ -76,27 +77,32 @@ exchange_is_offline (gint *mode)
 
 /* FIXME: See if a GLib variant of this function available */
 gboolean
-exchange_operations_tokenize_string (gchar **string, gchar *token, gchar delimit, guint maxsize)
+exchange_operations_tokenize_string (gchar **string,
+                                     gchar *token,
+                                     gchar delimit,
+                                     guint maxsize)
 {
-	guint i=0;
+	guint i = 0;
 	gchar *str=*string;
-	while (*str!=delimit && *str!='\0' && i<maxsize-1) {
+	while (*str != delimit && *str != '\0' && i < maxsize - 1) {
 		token[i++]=*str++;
 	}
-	while (*str==delimit)
+	while (*str == delimit)
 		str++;
 	token[i]='\0';
 	*string = str;
-	if (i==0)
+	if (i == 0)
 		return FALSE;
 	return TRUE;
 }
 
 gboolean
-exchange_operations_cta_add_node_to_tree (GtkTreeStore *store, GtkTreeIter *parent, const gchar *ruri)
+exchange_operations_cta_add_node_to_tree (GtkTreeStore *store,
+                                          GtkTreeIter *parent,
+                                          const gchar *ruri)
 {
 	GtkTreeIter iter;
-	gchar *luri=(gchar *) ruri;
+	gchar *luri = (gchar *) ruri;
 	gchar nodename[80];
 	gchar *uri;
 	gboolean status, found;
@@ -147,9 +153,13 @@ exchange_operations_cta_add_node_to_tree (GtkTreeStore *store, GtkTreeIter *pare
 }
 
 void
-exchange_operations_cta_select_node_from_tree (GtkTreeStore *store, GtkTreeIter *parent, const gchar *nuri, const gchar *ruri, GtkTreeSelection *selection)
+exchange_operations_cta_select_node_from_tree (GtkTreeStore *store,
+                                               GtkTreeIter *parent,
+                                               const gchar *nuri,
+                                               const gchar *ruri,
+                                               GtkTreeSelection *selection)
 {
-	gchar *luri=(gchar *) nuri;
+	gchar *luri = (gchar *) nuri;
 	gchar nodename[80];
 	GtkTreeIter iter;
 	gboolean status;
@@ -225,7 +235,8 @@ exchange_operations_get_exchange_account (void)
 }
 
 void
-exchange_operations_report_error (ExchangeAccount *account, ExchangeAccountResult result)
+exchange_operations_report_error (ExchangeAccount *account,
+                                  ExchangeAccountResult result)
 {
 	gchar *error_string;
 	gchar *quota_value;
@@ -289,7 +300,8 @@ void exchange_operations_update_child_esources (ESource *source, const gchar *ol
 }
 
 gboolean
-is_exchange_personal_folder (ExchangeAccount *account, gchar *uri)
+is_exchange_personal_folder (ExchangeAccount *account,
+                             gchar *uri)
 {
 	ExchangeHierarchy *hier;
 	EFolder *folder;

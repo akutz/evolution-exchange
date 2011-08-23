@@ -34,7 +34,8 @@
 const gchar *test_program_name = "cptest";
 
 static void
-krb_error (E2kKerberosResult result, const gchar *failed)
+krb_error (E2kKerberosResult result,
+           const gchar *failed)
 {
 	switch (result) {
 	case E2K_KERBEROS_USER_UNKNOWN:
@@ -75,7 +76,8 @@ krb_error (E2kKerberosResult result, const gchar *failed)
 }
 
 void
-test_main (gint argc, gchar **argv)
+test_main (gint argc,
+           gchar **argv)
 {
 	gchar *domain, *at, *prompt, *password;
 	gchar *newpass1, *newpass2;

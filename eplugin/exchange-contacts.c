@@ -80,14 +80,14 @@ e_exchange_contacts_get_contacts (void)
 	exchange_account_rescan_tree (account);
 	folder_array = exchange_account_get_folders (account);
 
-	for (i=0; i<folder_array->len; ++i) {
+	for (i = 0; i < folder_array->len; ++i) {
 		gchar *type, *tmp;
 		folder = g_ptr_array_index (folder_array, i);
 		type = (gchar *) e_folder_get_type_string (folder);
 		if (!strcmp (type, "contacts")) {
 			tmp = (gchar *) e_folder_get_physical_uri (folder);
 			if (g_str_has_prefix (tmp, uri_prefix)) {
-				ruri = g_strdup (tmp+prefix_len);
+				ruri = g_strdup (tmp + prefix_len);
 				g_ptr_array_add (contacts_list, ruri);
 			}
 		}
@@ -100,7 +100,8 @@ e_exchange_contacts_get_contacts (void)
 }
 
 void
-e_exchange_contacts_pcontacts_on_change (GtkTreeView *treeview, ESource *source)
+e_exchange_contacts_pcontacts_on_change (GtkTreeView *treeview,
+                                         ESource *source)
 {
 	GtkTreeSelection *selection;
 	GtkTreeModel     *model;
@@ -125,7 +126,8 @@ e_exchange_contacts_pcontacts_on_change (GtkTreeView *treeview, ESource *source)
 }
 
 GtkWidget *
-e_exchange_contacts_pcontacts (EPlugin *epl, EConfigHookItemFactoryData *data)
+e_exchange_contacts_pcontacts (EPlugin *epl,
+                               EConfigHookItemFactoryData *data)
 {
 	static GtkWidget *lbl_pcontacts, *scrw_pcontacts, *tv_pcontacts, *vb_pcontacts, *lbl_size, *lbl_size_val, *hbx_size;
 	GtkTreeStore *ts_pcontacts;
@@ -165,7 +167,7 @@ e_exchange_contacts_pcontacts (EPlugin *epl, EConfigHookItemFactoryData *data)
 								    &offline_status);
 	if (offline_status == OFFLINE_MODE) {
 		/* Evolution is in offline mode; we will not be able to create
-		   new folders or modify existing folders. */
+		 * new folders or modify existing folders. */
 		offline_msg = g_markup_printf_escaped ("<b>%s</b>",
 						       _("Evolution is in offline mode. You cannot create or modify folders now.\nPlease switch to online mode for such operations."));
 		vb_offline_msg = gtk_vbox_new (FALSE, 6);
@@ -282,7 +284,7 @@ e_exchange_contacts_pcontacts (EPlugin *epl, EConfigHookItemFactoryData *data)
 		prefix_len = strlen (uri_prefix);
 
 		if (g_str_has_prefix (tmpruri, uri_prefix)) {
-			sruri = g_strdup (tmpruri+prefix_len);
+			sruri = g_strdup (tmpruri + prefix_len);
 		}
 		else {
 			sruri = NULL;
@@ -305,7 +307,8 @@ e_exchange_contacts_pcontacts (EPlugin *epl, EConfigHookItemFactoryData *data)
 }
 
 gboolean
-e_exchange_contacts_check (EPlugin *epl, EConfigHookPageCheckData *data)
+e_exchange_contacts_check (EPlugin *epl,
+                           EConfigHookPageCheckData *data)
 {
 	/* FIXME - check pageid */
 	EABConfigTargetSource *t = (EABConfigTargetSource *) data->target;
@@ -405,11 +408,12 @@ e_exchange_contacts_check (EPlugin *epl, EConfigHookPageCheckData *data)
 }
 
 void
-e_exchange_contacts_commit (EPlugin *epl, EConfigTarget *target)
+e_exchange_contacts_commit (EPlugin *epl,
+                            EConfigTarget *target)
 {
 	EABConfigTargetSource *t = (EABConfigTargetSource *) target;
 	ESource *source = t->source;
-	gchar *uri_text, *gname, *gruri, *ruri = NULL, *path = NULL, *path_prefix, *oldpath=NULL;
+	gchar *uri_text, *gname, *gruri, *ruri = NULL, *path = NULL, *path_prefix, *oldpath = NULL;
 	gchar *username, *windows_domain, *authtype;
 	gint prefix_len;
 	ExchangeAccount *account;
@@ -501,7 +505,7 @@ e_exchange_contacts_commit (EPlugin *epl, EConfigTarget *target)
 		if (authtype) {
 			e_source_set_property (source, "auth-type", authtype);
 			g_free (authtype);
-			authtype=NULL;
+			authtype = NULL;
 		}
 		e_source_set_property (source, "auth", "plain/password");
 		if (rename) {

@@ -37,7 +37,9 @@
 #include "test-utils.h"
 
 static void
-print_header (gpointer name, gpointer value, gpointer data)
+print_header (gpointer name,
+              gpointer value,
+              gpointer data)
 {
 	gboolean *isxml = data;
 
@@ -50,7 +52,8 @@ print_header (gpointer name, gpointer value, gpointer data)
 const gchar *test_program_name = "davcat";
 
 void
-test_main (gint argc, gchar **argv)
+test_main (gint argc,
+           gchar **argv)
 {
 	E2kContext *ctx;
 	SoupMessage *msg;

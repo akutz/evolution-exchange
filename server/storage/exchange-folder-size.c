@@ -55,7 +55,9 @@ enum {
 };
 
 static gboolean
-free_fgsizeable (gpointer key, gpointer value, gpointer data)
+free_fgsizeable (gpointer key,
+                 gpointer value,
+                 gpointer data)
 {
 	folder_info *f_info = (folder_info *) value;
 
@@ -66,7 +68,9 @@ free_fgsizeable (gpointer key, gpointer value, gpointer data)
 }
 
 static gboolean
-free_row_refs (gpointer key, gpointer value, gpointer user_data)
+free_row_refs (gpointer key,
+               gpointer value,
+               gpointer user_data)
 {
 	g_free (key);
 	gtk_tree_row_reference_free (value);
@@ -135,8 +139,8 @@ exchange_folder_size_new (void)
 
 void
 exchange_folder_size_update (ExchangeFolderSize *fsize,
-				const gchar *folder_name,
-				gdouble folder_size)
+                             const gchar *folder_name,
+                             gdouble folder_size)
 {
 	folder_info *f_info, *cached_info;
 	ExchangeFolderSizePrivate *priv;
@@ -189,7 +193,7 @@ exchange_folder_size_update (ExchangeFolderSize *fsize,
 
 void
 exchange_folder_size_remove (ExchangeFolderSize *fsize,
-				const gchar *folder_name)
+                             const gchar *folder_name)
 {
 	ExchangeFolderSizePrivate *priv;
 	GHashTable *folder_gsizeable;
@@ -219,7 +223,7 @@ exchange_folder_size_remove (ExchangeFolderSize *fsize,
 
 gdouble
 exchange_folder_size_get (ExchangeFolderSize *fsize,
-			  const gchar *folder_name)
+                          const gchar *folder_name)
 {
 	ExchangeFolderSizePrivate *priv;
 	GHashTable *folder_gsizeable;

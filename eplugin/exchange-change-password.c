@@ -32,7 +32,8 @@
 #include <gtk/gtk.h>
 
 static void
-entry_changed (GtkEntry *entry, gpointer user_data)
+entry_changed (GtkEntry *entry,
+               gpointer user_data)
 {
 	GtkEntry *new_entry, *confirm_entry;
 	GtkDialog *pass_dialog;
@@ -66,7 +67,8 @@ entry_changed (GtkEntry *entry, gpointer user_data)
  * Prompt the user for a new password.
  */
 gchar *
-exchange_get_new_password (const gchar *existing_password, gboolean voluntary)
+exchange_get_new_password (const gchar *existing_password,
+                           gboolean voluntary)
 {
 	GtkResponseType response;
 	gchar *new_pass;

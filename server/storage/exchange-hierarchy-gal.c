@@ -50,8 +50,8 @@ exchange_hierarchy_gal_init (ExchangeHierarchyGAL *hierarchy)
 
 ExchangeHierarchy *
 exchange_hierarchy_gal_new (ExchangeAccount *account,
-			    const gchar *hierarchy_name,
-			    const gchar *physical_uri_prefix)
+                            const gchar *hierarchy_name,
+                            const gchar *physical_uri_prefix)
 {
 	ExchangeHierarchy *hier;
 	EFolder *toplevel;

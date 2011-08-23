@@ -36,10 +36,12 @@
 
 gboolean eex_ui_composer_actions (GtkUIManager *manager, EMsgComposer *composer);
 
-static ExchangeSendOptionsDialog *dialog=NULL;
+static ExchangeSendOptionsDialog *dialog = NULL;
 
 static void
-append_to_header (ExchangeSendOptionsDialog *dialog, gint state, gpointer data)
+append_to_header (ExchangeSendOptionsDialog *dialog,
+                  gint state,
+                  gpointer data)
 {
 	EMsgComposer *composer;
 	CamelAddress *sender_address;
@@ -151,7 +153,8 @@ append_to_header (ExchangeSendOptionsDialog *dialog, gint state, gpointer data)
 }
 
 static void
-send_options_commit (EMsgComposer *comp, gpointer user_data)
+send_options_commit (EMsgComposer *comp,
+                     gpointer user_data)
 {
 	if (!user_data && !EXCHANGE_IS_SENDOPTIONS_DIALOG (user_data))
 		return;
@@ -176,7 +179,8 @@ account_is_exchange (EAccount *account)
 }
 
 static void
-from_changed_cb (EComposerFromHeader *header, EMsgComposer *composer)
+from_changed_cb (EComposerFromHeader *header,
+                 EMsgComposer *composer)
 {
 	GtkActionGroup *group;
 	GtkAction *action;
@@ -194,7 +198,8 @@ from_changed_cb (EComposerFromHeader *header, EMsgComposer *composer)
 }
 
 static void
-action_send_options_cb (GtkAction *action, EMsgComposer *composer)
+action_send_options_cb (GtkAction *action,
+                        EMsgComposer *composer)
 {
 	g_return_if_fail (action != NULL);
 	g_return_if_fail (composer != NULL);
@@ -212,7 +217,8 @@ action_send_options_cb (GtkAction *action, EMsgComposer *composer)
 }
 
 gboolean
-eex_ui_composer_actions (GtkUIManager *manager, EMsgComposer *composer)
+eex_ui_composer_actions (GtkUIManager *manager,
+                         EMsgComposer *composer)
 {
 	static GtkActionEntry entries[] = {
 		{ "eex-send-options",

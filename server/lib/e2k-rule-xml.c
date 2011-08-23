@@ -38,8 +38,10 @@ static const gchar *subject_types[] = { "is", "contains", "starts with", NULL, "
 
 #if 0
 static gboolean
-fuzzy_level_from_name (const gchar *name, const gchar *map[],
-		       gint *fuzzy_level, gboolean *negated)
+fuzzy_level_from_name (const gchar *name,
+                       const gchar *map[],
+                       gint *fuzzy_level,
+                       gboolean *negated)
 {
 	gint i;
 
@@ -56,7 +58,9 @@ fuzzy_level_from_name (const gchar *name, const gchar *map[],
 #endif
 
 static inline const gchar *
-fuzzy_level_to_name (gint fuzzy_level, gboolean negated, const gchar *map[])
+fuzzy_level_to_name (gint fuzzy_level,
+                     gboolean negated,
+                     const gchar *map[])
 {
 	fuzzy_level = E2K_FL_MATCH_TYPE (fuzzy_level);
 	if (negated)
@@ -71,8 +75,9 @@ static const gchar *gsizeypes[] = { "less than", "less than", "greater than", "g
 
 #if 0
 static gboolean
-relop_from_name (const gchar *name, const gchar *map[],
-		 E2kRestrictionRelop *relop)
+relop_from_name (const gchar *name,
+                 const gchar *map[],
+                 E2kRestrictionRelop *relop)
 {
 	gint i;
 
@@ -88,7 +93,9 @@ relop_from_name (const gchar *name, const gchar *map[],
 #endif
 
 static inline const gchar *
-relop_to_name (E2kRestrictionRelop relop, gboolean negated, const gchar *map[])
+relop_to_name (E2kRestrictionRelop relop,
+               gboolean negated,
+               const gchar *map[])
 {
 	static const gint negate_map[] = {
 		E2K_RELOP_GE, E2K_RELOP_GT, E2K_RELOP_LE, E2K_RELOP_LT,
@@ -262,7 +269,9 @@ message_is (const xmlChar *name,
 }
 
 static xmlNode *
-address_is (E2kRestriction *comment_rn, gboolean recipients, gboolean negated)
+address_is (E2kRestriction *comment_rn,
+            gboolean recipients,
+            gboolean negated)
 {
 	xmlNode *part;
 	E2kRestriction *rn;
@@ -331,8 +340,10 @@ address_is (E2kRestriction *comment_rn, gboolean recipients, gboolean negated)
 }
 
 static gboolean
-restriction_to_xml (E2kRestriction *rn, xmlNode *partset,
-		    E2kRestrictionType wrap_type, gboolean negated)
+restriction_to_xml (E2kRestriction *rn,
+                    xmlNode *partset,
+                    E2kRestrictionType wrap_type,
+                    gboolean negated)
 {
 	xmlNode *part, *value, *node;
 	E2kPropValue *pv;
@@ -658,7 +669,8 @@ restriction_to_xml (E2kRestriction *rn, xmlNode *partset,
 }
 
 static gchar *
-stringify_entryid (guint8 *data, gint len)
+stringify_entryid (guint8 *data,
+                   gint len)
 {
 	GString *string;
 	gchar *ret;
@@ -679,7 +691,8 @@ stringify_entryid (guint8 *data, gint len)
 }
 
 static gboolean
-action_to_xml (E2kAction *act, xmlNode *actionset)
+action_to_xml (E2kAction *act,
+               xmlNode *actionset)
 {
 	xmlNode *part, *value;
 	gchar *entryid;
@@ -834,7 +847,8 @@ action_to_xml (E2kAction *act, xmlNode *actionset)
 }
 
 static gboolean
-rule_to_xml (E2kRule *rule, xmlNode *ruleset)
+rule_to_xml (E2kRule *rule,
+             xmlNode *ruleset)
 {
 	xmlNode *top, *set;
 	E2kRestriction *rn;

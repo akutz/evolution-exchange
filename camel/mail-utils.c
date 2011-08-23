@@ -112,7 +112,8 @@ mail_util_mapi_to_smtp_headers (E2kProperties *props)
  * Return value: the message flags
  **/
 guint32
-mail_util_props_to_camel_flags (E2kProperties *props, gboolean obey_read_flag)
+mail_util_props_to_camel_flags (E2kProperties *props,
+                                gboolean obey_read_flag)
 {
 	const gchar *prop;
 	guint32 flags;
@@ -309,11 +310,11 @@ mail_util_stickynote_to_rfc822 (E2kProperties *props)
  **/
 gboolean
 mail_util_demangle_meeting_related_message (GString *body,
-				const gchar *owner_cn,
-				const gchar *owner_email,
-				const gchar *owner_cal_uri,
-				const gchar *subscriber_email,
-				MailUtilDemangleType unmangle_type)
+                                            const gchar *owner_cn,
+                                            const gchar *owner_email,
+                                            const gchar *owner_cal_uri,
+                                            const gchar *subscriber_email,
+                                            MailUtilDemangleType unmangle_type)
 {
 	icalcomponent *vcal_comp, *event_comp;
 	icalproperty *prop = NULL;
@@ -329,7 +330,7 @@ mail_util_demangle_meeting_related_message (GString *body,
 	if (!vend)
 		return FALSE;
 	vend += 13;
-	while (isspace ((guchar)*vend))
+	while (isspace ((guchar) * vend))
 		vend++;
 	oldlen = vend - vstart;
 
@@ -354,7 +355,7 @@ mail_util_demangle_meeting_related_message (GString *body,
 			continue;
 
 		if (!g_ascii_strncasecmp (attendee, "mailto:", 7))
-			text = g_strdup (attendee+7);
+			text = g_strdup (attendee + 7);
 
 		text = g_strstrip (text);
 		if (text && !g_ascii_strcasecmp (owner_email, text)) {
@@ -379,7 +380,7 @@ mail_util_demangle_meeting_related_message (GString *body,
 		organizer = icalproperty_get_value_as_string_r (prop);
 		if (organizer) {
 			if (!g_ascii_strncasecmp (organizer, "mailto:", 7))
-				text = g_strdup (organizer+7);
+				text = g_strdup (organizer + 7);
 
 			text = g_strstrip (text);
 

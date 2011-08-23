@@ -89,7 +89,8 @@ test_ask_password (const gchar *prompt)
  * Return value: the password, or %NULL if it could not be determined.
  **/
 const gchar *
-test_get_password (const gchar *user, const gchar *host)
+test_get_password (const gchar *user,
+                   const gchar *host)
 {
 	static gchar *password = NULL;
 	gchar *prompt;
@@ -244,7 +245,8 @@ idle_run (gpointer data)
 }
 
 gint
-main (gint argc, gchar **argv)
+main (gint argc,
+      gchar **argv)
 {
 	gtk_init (&argc, &argv);
 

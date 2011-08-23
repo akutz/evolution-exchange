@@ -163,7 +163,8 @@ static void free_folder (gpointer value);
 G_LOCK_DEFINE_STATIC (edies);
 
 static void
-estore_gone_cb (gpointer edies_ptr, GObject *gone_eservice)
+estore_gone_cb (gpointer edies_ptr,
+                GObject *gone_eservice)
 {
 	GSList **edies_lst_ptr = edies_ptr, *l;
 
@@ -250,7 +251,8 @@ is_online (ExchangeData *ed)
 }
 
 static void
-set_exception (GError **error, const gchar *err)
+set_exception (GError **error,
+               const gchar *err)
 {
 	g_return_if_fail (err != NULL);
 
@@ -282,7 +284,8 @@ folder_changed (ExchangeFolder *mfld)
 }
 
 static gint
-find_message_index (ExchangeFolder *mfld, gint seq)
+find_message_index (ExchangeFolder *mfld,
+                    gint seq)
 {
 	ExchangeMessage *mmsg;
 	gint low, high, mid;
@@ -305,19 +308,24 @@ find_message_index (ExchangeFolder *mfld, gint seq)
 }
 
 static inline ExchangeMessage *
-find_message (ExchangeFolder *mfld, const gchar *uid)
+find_message (ExchangeFolder *mfld,
+              const gchar *uid)
 {
 	return g_hash_table_lookup (mfld->messages_by_uid, uid);
 }
 
 static inline ExchangeMessage *
-find_message_by_href (ExchangeFolder *mfld, const gchar *href)
+find_message_by_href (ExchangeFolder *mfld,
+                      const gchar *href)
 {
 	return g_hash_table_lookup (mfld->messages_by_href, href);
 }
 
 static ExchangeMessage *
-new_message (const gchar *uid, const gchar *uri, guint32 seq, guint32 flags)
+new_message (const gchar *uid,
+             const gchar *uri,
+             guint32 seq,
+             guint32 flags)
 {
 	ExchangeMessage *mmsg;
 
@@ -331,7 +339,9 @@ new_message (const gchar *uid, const gchar *uri, guint32 seq, guint32 flags)
 }
 
 static void
-message_remove_at_index (ExchangeFolder *mfld, CamelFolder *folder, gint index)
+message_remove_at_index (ExchangeFolder *mfld,
+                         CamelFolder *folder,
+                         gint index)
 {
 	ExchangeMessage *mmsg;
 	CamelMessageInfo *info;
@@ -376,7 +386,9 @@ message_remove_at_index (ExchangeFolder *mfld, CamelFolder *folder, gint index)
 }
 
 static void
-message_removed (ExchangeFolder *mfld, CamelFolder *folder, const gchar *href)
+message_removed (ExchangeFolder *mfld,
+                 CamelFolder *folder,
+                 const gchar *href)
 {
 	ExchangeMessage *mmsg;
 	guint index;
@@ -419,7 +431,8 @@ struct refresh_message {
 };
 
 static gint
-refresh_message_compar (gconstpointer a, gconstpointer b)
+refresh_message_compar (gconstpointer a,
+                        gconstpointer b)
 {
 	const struct refresh_message *rma = a, *rmb = b;
 
@@ -427,7 +440,10 @@ refresh_message_compar (gconstpointer a, gconstpointer b)
 }
 
 static void
-change_flags (ExchangeFolder *mfld, CamelFolder *folder, ExchangeMessage *mmsg, guint32 new_flags)
+change_flags (ExchangeFolder *mfld,
+              CamelFolder *folder,
+              ExchangeMessage *mmsg,
+              guint32 new_flags)
 {
 	if ((mmsg->flags ^ new_flags) & CAMEL_MESSAGE_SEEN) {
 		if (mmsg->flags & CAMEL_MESSAGE_SEEN)
@@ -784,7 +800,7 @@ sync_deletions (ExchangeFolder *mfld)
 		mmsg = find_message_by_href (mfld, result->href);
 		if (!mmsg) {
 			/* oops, message from the server not found in our list;
-			   return failure to possibly do full resync again? */
+			 * return failure to possibly do full resync again? */
 			g_message ("%s: Oops, message %s not found in %s", G_STRFUNC, result->href, mfld->name);
 			continue;
 		}
@@ -819,7 +835,8 @@ sync_deletions (ExchangeFolder *mfld)
 }
 
 static void
-storage_folder_changed (EFolder *folder, gpointer user_data)
+storage_folder_changed (EFolder *folder,
+                        gpointer user_data)
 {
 	ExchangeFolder *mfld = user_data;
 
@@ -867,7 +884,9 @@ free_folder (gpointer value)
 }
 
 static void
-got_folder_error (ExchangeFolder *mfld, GError **error, const gchar *err)
+got_folder_error (ExchangeFolder *mfld,
+                  GError **error,
+                  const gchar *err)
 {
 	set_exception (error, err);
 
@@ -881,7 +900,9 @@ got_folder_error (ExchangeFolder *mfld, GError **error, const gchar *err)
 }
 
 static void
-mfld_get_folder_online_sync_updates (gpointer key, gpointer value, gpointer user_data)
+mfld_get_folder_online_sync_updates (gpointer key,
+                                     gpointer value,
+                                     gpointer user_data)
 {
 	guint index, seq, i;
 	ExchangeFolder *mfld = (ExchangeFolder *) user_data;
@@ -893,7 +914,7 @@ mfld_get_folder_online_sync_updates (gpointer key, gpointer value, gpointer user
 	g_static_rec_mutex_lock (&mfld->ed->changed_msgs_mutex);
 
 	/* Camel DB Summary changes are not fetching all the messages at start-up.
-	   Use this else it would crash badly.
+	 * Use this else it would crash badly.
 	*/
 	if (index >= mfld->messages->len) {
 		g_static_rec_mutex_unlock (&mfld->ed->changed_msgs_mutex);
@@ -920,7 +941,8 @@ mfld_get_folder_online_sync_updates (gpointer key, gpointer value, gpointer user
 }
 
 static gint
-exchange_message_uid_cmp (gconstpointer a, gconstpointer b)
+exchange_message_uid_cmp (gconstpointer a,
+                          gconstpointer b)
 {
 	ExchangeMessage **mmsg1, **mmsg2;
 
@@ -931,7 +953,8 @@ exchange_message_uid_cmp (gconstpointer a, gconstpointer b)
 }
 
 static gboolean
-get_folder_contents_online (ExchangeFolder *mfld, GError **error)
+get_folder_contents_online (ExchangeFolder *mfld,
+                            GError **error)
 {
 	static const gchar *open_folder_sync_props[] = {
 		E2K_PR_REPL_UID,
@@ -1020,7 +1043,7 @@ get_folder_contents_online (ExchangeFolder *mfld, GError **error)
 			g_ptr_array_remove_index (msgs_copy, m);
 
 			/* Put the index/uid as key/value in the rm_idx_uid hashtable.
-			   This hashtable will be used to sync with mfld->messages.
+			 * This hashtable will be used to sync with mfld->messages.
 			 */
 			g_hash_table_insert (rm_idx_uid, GUINT_TO_POINTER (m),
 					     GUINT_TO_POINTER (mmsg_cpy->seq));
@@ -1046,12 +1069,12 @@ get_folder_contents_online (ExchangeFolder *mfld, GError **error)
 		mmsg = mfld->messages->pdata[m];
 
 		/* Validate mmsg == mmsg_cpy - this may fail if user has deleted some messages,
-		   while we were updating in a separate thread.
+		 * while we were updating in a separate thread.
 		*/
 		if (mmsg->seq != mmsg_cpy->seq) {
 			/* We don't want to scan all of mfld->messages, as some new messages
-			   would have got added to the array and hence restrict to the original
-			   array of messages that we loaded from summary.
+			 * would have got added to the array and hence restrict to the original
+			 * array of messages that we loaded from summary.
 			*/
 			for (i = 0; i < msgs_copy->len; i++) {
 				mmsg = mfld->messages->pdata[i];
@@ -1124,12 +1147,12 @@ get_folder_contents_online (ExchangeFolder *mfld, GError **error)
 	}
 
 	/* Discard remaining messages that no longer exist.
-	   Do not increment 'i', because the remove_index is decrementing array length. */
+	 * Do not increment 'i', because the remove_index is decrementing array length. */
 	for (i = 0; i < msgs_copy->len;) {
 		mmsg_cpy = msgs_copy->pdata[i];
 		if (!mmsg_cpy->href) {
 			/* Put the index/uid as key/value in the rm_idx_uid hashtable.
-			   This hashtable will be used to sync with mfld->messages.
+			 * This hashtable will be used to sync with mfld->messages.
 			 */
 			g_hash_table_insert (rm_idx_uid, GUINT_TO_POINTER (m),
 					     GUINT_TO_POINTER (mmsg_cpy->seq));
@@ -1185,7 +1208,10 @@ timeout_sync_deletions (gpointer user_data)
 }
 
 static void
-notify_cb (E2kContext *ctx, const gchar *uri, E2kContextChangeType type, gpointer user_data)
+notify_cb (E2kContext *ctx,
+           const gchar *uri,
+           E2kContextChangeType type,
+           gpointer user_data)
 {
 	ExchangeFolder *mfld = user_data;
 	time_t now;
@@ -1248,7 +1274,8 @@ notify_cb (E2kContext *ctx, const gchar *uri, E2kContextChangeType type, gpointe
 }
 
 static gboolean
-get_folder_online (ExchangeFolder *mfld, GError **error)
+get_folder_online (ExchangeFolder *mfld,
+                   GError **error)
 {
 	static const gchar *open_folder_props[] = {
 		PR_ACCESS,
@@ -1296,11 +1323,11 @@ get_folder_online (ExchangeFolder *mfld, GError **error)
 		mfld->deleted_count = atoi (prop);
 
 	/*
-	   TODO: Varadhan - June 16, 2007 - Compare deleted_count with
-	   that of CamelFolder and appropriately sync mfld->messages.
-	   Also, sync flags and camel_flags of all messages - No reliable
-	   way to fetch only changed messages as Read/UnRead flags do not
-	   change the PR_LAST_MODIFICATION_TIME property of a message.
+	 * TODO: Varadhan - June 16, 2007 - Compare deleted_count with
+	 * that of CamelFolder and appropriately sync mfld->messages.
+	 * Also, sync flags and camel_flags of all messages - No reliable
+	 * way to fetch only changed messages as Read/UnRead flags do not
+	 * change the PR_LAST_MODIFICATION_TIME property of a message.
 	*/
 	if (g_hash_table_size (mfld->messages_by_href) < 1) {
 		if (!get_folder_contents_online (mfld, error))
@@ -1330,7 +1357,10 @@ get_folder_online (ExchangeFolder *mfld, GError **error)
 }
 
 static ExchangeFolder *
-folder_from_name (ExchangeData *ed, const gchar *folder_name, guint32 perms, GError **error)
+folder_from_name (ExchangeData *ed,
+                  const gchar *folder_name,
+                  guint32 perms,
+                  GError **error)
 {
 	ExchangeFolder *mfld;
 
@@ -1367,7 +1397,9 @@ folder_from_name (ExchangeData *ed, const gchar *folder_name, guint32 perms, GEr
 }
 
 static void
-mark_one_read (E2kContext *ctx, const gchar *uri, gboolean read)
+mark_one_read (E2kContext *ctx,
+               const gchar *uri,
+               gboolean read)
 {
 	E2kProperties *props;
 	E2kHTTPStatus status;
@@ -1382,7 +1414,9 @@ mark_one_read (E2kContext *ctx, const gchar *uri, gboolean read)
 }
 
 static void
-mark_read (EFolder *folder, GPtrArray *hrefs, gboolean read)
+mark_read (EFolder *folder,
+           GPtrArray *hrefs,
+           gboolean read)
 {
 	E2kProperties *props;
 	E2kResultIter *iter;
@@ -1594,10 +1628,10 @@ process_flags (gpointer user_data)
 								 deleted, TRUE);
 		} else {
 			/* This is for public folder hierarchy. We cannot move
-			   a mail item deleted from a public folder to the
-			   deleted items folder. This code updates the UI to
-			   show the mail folder again if the deletion fails in
-			   such public folder */
+			 * a mail item deleted from a public folder to the
+			 * deleted items folder. This code updates the UI to
+			 * show the mail folder again if the deletion fails in
+			 * such public folder */
 			iter = e_folder_exchange_bdelete_start (mfld->folder, NULL,
 								(const gchar **) deleted->pdata,
 								deleted->len);
@@ -1640,7 +1674,11 @@ process_flags (gpointer user_data)
 }
 
 static E2kHTTPStatus
-get_stickynote (E2kContext *ctx, E2kOperation *op, const gchar *uri, gchar **body, gint *len)
+get_stickynote (E2kContext *ctx,
+                E2kOperation *op,
+                const gchar *uri,
+                gchar **body,
+                gint *len)
 {
 	static const gchar *stickynote_props[] = {
 		E2K_PR_MAILHEADER_SUBJECT,
@@ -1672,7 +1710,11 @@ get_stickynote (E2kContext *ctx, E2kOperation *op, const gchar *uri, gchar **bod
 }
 
 static E2kHTTPStatus
-build_message_from_document (E2kContext *ctx, E2kOperation *op, const gchar *uri, gchar **body, gint *len)
+build_message_from_document (E2kContext *ctx,
+                             E2kOperation *op,
+                             const gchar *uri,
+                             gchar **body,
+                             gint *len)
 {
 	E2kHTTPStatus status;
 	E2kResult *results;
@@ -1702,7 +1744,11 @@ build_message_from_document (E2kContext *ctx, E2kOperation *op, const gchar *uri
 }
 
 static E2kHTTPStatus
-unmangle_delegated_meeting_request (ExchangeData *ed, E2kOperation *op, const gchar *uri, gchar **body, gint *len)
+unmangle_delegated_meeting_request (ExchangeData *ed,
+                                    E2kOperation *op,
+                                    const gchar *uri,
+                                    gchar **body,
+                                    gint *len)
 {
 	const gchar *prop = PR_RCVD_REPRESENTING_EMAIL_ADDRESS;
 	GString *message;
@@ -1777,7 +1823,9 @@ unmangle_delegated_meeting_request (ExchangeData *ed, E2kOperation *op, const gc
 }
 
 static gboolean
-is_foreign_folder (ExchangeData *ed, const gchar *folder_name, gchar **owner_email)
+is_foreign_folder (ExchangeData *ed,
+                   const gchar *folder_name,
+                   gchar **owner_email)
 {
 	EFolder *folder;
 	ExchangeHierarchy *hier;
@@ -1807,7 +1855,10 @@ is_foreign_folder (ExchangeData *ed, const gchar *folder_name, gchar **owner_ema
 }
 
 static E2kHTTPStatus
-unmangle_meeting_request_in_subscribed_inbox (ExchangeData *ed, const gchar *delegator_email, gchar **body, gint *len)
+unmangle_meeting_request_in_subscribed_inbox (ExchangeData *ed,
+                                              const gchar *delegator_email,
+                                              gchar **body,
+                                              gint *len)
 {
 	GString *message;
 	gchar *delegator_uri, *delegator_folder_physical_uri = NULL;
@@ -1863,7 +1914,11 @@ unmangle_meeting_request_in_subscribed_inbox (ExchangeData *ed, const gchar *del
 }
 
 static E2kHTTPStatus
-unmangle_sender_field (ExchangeData *ed, E2kOperation *op, const gchar *uri, gchar **body, gint *len)
+unmangle_sender_field (ExchangeData *ed,
+                       E2kOperation *op,
+                       const gchar *uri,
+                       gchar **body,
+                       gint *len)
 {
 	const gchar *props[] = { PR_SENT_REPRESENTING_EMAIL_ADDRESS, PR_SENDER_EMAIL_ADDRESS };
 	GString *message;
@@ -1950,7 +2005,9 @@ unmangle_sender_field (ExchangeData *ed, E2kOperation *op, const gchar *uri, gch
 }
 
 static void
-foreign_new_folder_cb (ExchangeAccount *account, EFolder *folder, GPtrArray *folders)
+foreign_new_folder_cb (ExchangeAccount *account,
+                       EFolder *folder,
+                       GPtrArray *folders)
 {
 	g_return_if_fail (folder != NULL);
 	g_return_if_fail (folders != NULL);
@@ -1959,7 +2016,14 @@ foreign_new_folder_cb (ExchangeAccount *account, EFolder *folder, GPtrArray *fol
 }
 
 static void
-get_folder_info_data (ExchangeData *ed, const gchar *top, guint32 store_flags, GHashTable *known_uris, GPtrArray **names, GPtrArray **uris, GArray **unread, GArray **flags)
+get_folder_info_data (ExchangeData *ed,
+                      const gchar *top,
+                      guint32 store_flags,
+                      GHashTable *known_uris,
+                      GPtrArray **names,
+                      GPtrArray **uris,
+                      GArray **unread,
+                      GArray **flags)
 {
 	GPtrArray *folders = NULL;
 	ExchangeHierarchy *hier;
@@ -2059,7 +2123,7 @@ get_folder_info_data (ExchangeData *ed, const gchar *top, guint32 store_flags, G
 			switch (hier->type) {
 				case EXCHANGE_HIERARCHY_FAVORITES:
 					/* folder_flags will be set only if the type
-					   is noselect and we need to include it */
+					 * is noselect and we need to include it */
 					if (strcmp (type, "mail") && !folder_flags)
 						continue;
 					/* selectable */
@@ -2074,8 +2138,8 @@ get_folder_info_data (ExchangeData *ed, const gchar *top, guint32 store_flags, G
 				case EXCHANGE_HIERARCHY_FOREIGN:
 					if ((folder_flags & CAMEL_FOLDER_NOSELECT) != 0 && ed->new_folder_id == 0) {
 						/* Rescan the hierarchy - as we don't rescan
-						   foreign hierarchies anywhere for mailer and
-						   only when we are starting up
+						 * foreign hierarchies anywhere for mailer and
+						 * only when we are starting up
 						*/
 						exchange_hierarchy_scan_subtree (hier, hier->toplevel, mode);
 					}
@@ -2153,7 +2217,9 @@ struct update_linestatus
 };
 
 static void
-folder_update_linestatus (gpointer key, gpointer value, gpointer data)
+folder_update_linestatus (gpointer key,
+                          gpointer value,
+                          gpointer data)
 {
 	ExchangeFolder *mfld = (ExchangeFolder *) value;
 	struct update_linestatus *ul = (struct update_linestatus *) data;
@@ -2180,9 +2246,9 @@ folder_update_linestatus (gpointer key, gpointer value, gpointer data)
 
 gboolean
 camel_exchange_utils_connect (CamelService *service,
-				const gchar *pwd,
-				guint32 *status, /* out */
-				GError **error)
+                              const gchar *pwd,
+                              guint32 *status, /* out */
+                              GError **error)
 {
 	ExchangeData *ed = get_data_for_service (service);
 	ExchangeAccount *account;
@@ -2232,7 +2298,7 @@ camel_exchange_utils_connect (CamelService *service,
 	ed->sent_items = exchange_account_get_folder (account, uri);
 
 	/* Will be used for offline->online transition to initialize things for
-	   the first time */
+	 * the first time */
 
 	ul.estore = ed->estore;
 	ul.error = error;
@@ -2247,16 +2313,16 @@ camel_exchange_utils_connect (CamelService *service,
 
 gboolean
 camel_exchange_utils_get_folder (CamelService *service,
-				const gchar *name,
-				gboolean create,
-				GPtrArray *uids,
-				GByteArray *flags,
-				GPtrArray *hrefs,
-				guint32 high_article_num,
-				guint32 *folder_flags, /* out */
-				gchar **folder_uri, /* out */
-				gboolean *readonly, /* out */
-				GError **error)
+                                 const gchar *name,
+                                 gboolean create,
+                                 GPtrArray *uids,
+                                 GByteArray *flags,
+                                 GPtrArray *hrefs,
+                                 guint32 high_article_num,
+                                 guint32 *folder_flags, /* out */
+                                 gchar **folder_uri, /* out */
+                                 gboolean *readonly, /* out */
+                                 GError **error)
 {
 	CamelSettings *settings;
 	ExchangeData *ed = get_data_for_service (service);
@@ -2377,8 +2443,8 @@ camel_exchange_utils_get_folder (CamelService *service,
 
 gboolean
 camel_exchange_utils_get_trash_name (CamelService *service,
-				gchar **trash_name, /* out */
-				GError **error)
+                                     gchar **trash_name, /* out */
+                                     GError **error)
 {
 	ExchangeData *ed = get_data_for_service (service);
 
@@ -2418,10 +2484,10 @@ camel_exchange_utils_refresh_folder (CamelService *service,
 
 gboolean
 camel_exchange_utils_sync_count (CamelService *service,
-				const gchar *folder_name,
-				guint32 *unread_count, /* out */
-				guint32 *visible_count, /* out */
-				GError **error)
+                                 const gchar *folder_name,
+                                 guint32 *unread_count, /* out */
+                                 guint32 *visible_count, /* out */
+                                 GError **error)
 {
 	ExchangeData *ed = get_data_for_service (service);
 	ExchangeFolder *mfld;
@@ -2526,19 +2592,21 @@ camel_exchange_utils_expunge_uids (CamelService *service,
 }
 
 static gboolean
-test_uri (E2kContext *ctx, const gchar *test_name, gpointer messages_by_href)
+test_uri (E2kContext *ctx,
+          const gchar *test_name,
+          gpointer messages_by_href)
 {
 	return g_hash_table_lookup (messages_by_href, test_name) == NULL;
 }
 
 gboolean
 camel_exchange_utils_append_message (CamelService *service,
-				const gchar *folder_name,
-				guint32 flags,
-				const gchar *subject,
-				const GByteArray *message,
-				gchar **new_uid, /* out */
-				GError **error)
+                                     const gchar *folder_name,
+                                     guint32 flags,
+                                     const gchar *subject,
+                                     const GByteArray *message,
+                                     gchar **new_uid, /* out */
+                                     GError **error)
 {
 	ExchangeData *ed = get_data_for_service (service);
 	ExchangeFolder *mfld;
@@ -2588,13 +2656,14 @@ camel_exchange_utils_append_message (CamelService *service,
 }
 
 static void
-change_message (ExchangeFolder *mfld, ExchangeMessage *mmsg)
+change_message (ExchangeFolder *mfld,
+                ExchangeMessage *mmsg)
 {
 	gint i;
 
 	g_static_rec_mutex_lock (&mfld->ed->changed_msgs_mutex);
 
-	for (i=0; i<mfld->changed_messages->len; i++)  {
+	for (i = 0; i < mfld->changed_messages->len; i++)  {
 		if (mfld->changed_messages->pdata[i] == mmsg)
 			break;
 	}
@@ -2612,11 +2681,11 @@ change_message (ExchangeFolder *mfld, ExchangeMessage *mmsg)
 
 gboolean
 camel_exchange_utils_set_message_flags (CamelService *service,
-					const gchar *folder_name,
-					const gchar *uid,
-					guint32 flags,
-					guint32 mask,
-					GError **error)
+                                        const gchar *folder_name,
+                                        const gchar *uid,
+                                        guint32 flags,
+                                        guint32 mask,
+                                        GError **error)
 {
 	ExchangeData *ed = get_data_for_service (service);
 	ExchangeFolder *mfld;
@@ -2661,8 +2730,8 @@ camel_exchange_utils_set_message_flags (CamelService *service,
 
 #if 0
 	/* If we allow camel utils to delete these messages hard way, it may
-	   fail to delete a mail because of permissions, but will append
-	   a mail in deleted items */
+	 * fail to delete a mail because of permissions, but will append
+	 * a mail in deleted items */
 
 	if (mask & flags & CAMEL_MESSAGE_DELETED) {
 		ExchangeHierarchy *hier;
@@ -2688,11 +2757,11 @@ camel_exchange_utils_set_message_flags (CamelService *service,
 
 gboolean
 camel_exchange_utils_set_message_tag (CamelService *service,
-				const gchar *folder_name,
-				const gchar *uid,
-				const gchar *name,
-				const gchar *value,
-				GError **error)
+                                      const gchar *folder_name,
+                                      const gchar *uid,
+                                      const gchar *name,
+                                      const gchar *value,
+                                      GError **error)
 {
 	ExchangeData *ed = get_data_for_service (service);
 	ExchangeFolder *mfld;
@@ -2717,10 +2786,10 @@ camel_exchange_utils_set_message_tag (CamelService *service,
 
 gboolean
 camel_exchange_utils_get_message (CamelService *service,
-				const gchar *folder_name,
-				const gchar *uid,
-				GByteArray **message_bytes, /* out */
-				GError **error)
+                                  const gchar *folder_name,
+                                  const gchar *uid,
+                                  GByteArray **message_bytes, /* out */
+                                  GError **error)
 {
 	ExchangeData *ed = get_data_for_service (service);
 	ExchangeFolder *mfld;
@@ -2834,10 +2903,10 @@ camel_exchange_utils_get_message (CamelService *service,
 
 gboolean
 camel_exchange_utils_search (CamelService *service,
-				const gchar *folder_name,
-				const gchar *text,
-				GPtrArray **found_uids, /* out */
-				GError **error)
+                             const gchar *folder_name,
+                             const gchar *text,
+                             GPtrArray **found_uids, /* out */
+                             GError **error)
 {
 	ExchangeData *ed = get_data_for_service (service);
 	ExchangeFolder *mfld;
@@ -2885,12 +2954,12 @@ camel_exchange_utils_search (CamelService *service,
 
 gboolean
 camel_exchange_utils_transfer_messages (CamelService *service,
-					const gchar *source_name,
-					const gchar *dest_name,
-					GPtrArray *uids,
-					gboolean delete_originals,
-					GPtrArray **ret_uids, /* out */
-					GError **error)
+                                        const gchar *source_name,
+                                        const gchar *dest_name,
+                                        GPtrArray *uids,
+                                        gboolean delete_originals,
+                                        GPtrArray **ret_uids, /* out */
+                                        GError **error)
 {
 	ExchangeData *ed = get_data_for_service (service);
 	ExchangeFolder *source, *dest;
@@ -2995,7 +3064,9 @@ camel_exchange_utils_transfer_messages (CamelService *service,
 }
 
 static void
-account_new_folder (ExchangeAccount *account, EFolder *folder, gpointer user_data)
+account_new_folder (ExchangeAccount *account,
+                    EFolder *folder,
+                    gpointer user_data)
 {
 	ExchangeData *ed = user_data;
 	ExchangeHierarchy *hier;
@@ -3020,7 +3091,9 @@ account_new_folder (ExchangeAccount *account, EFolder *folder, gpointer user_dat
 }
 
 static void
-account_removed_folder (ExchangeAccount *account, EFolder *folder, gpointer user_data)
+account_removed_folder (ExchangeAccount *account,
+                        EFolder *folder,
+                        gpointer user_data)
 {
 	ExchangeData *ed = user_data;
 	ExchangeHierarchy *hier;
@@ -3046,13 +3119,13 @@ account_removed_folder (ExchangeAccount *account, EFolder *folder, gpointer user
 
 gboolean
 camel_exchange_utils_get_folder_info (CamelService *service,
-					const gchar *top,
-					guint32 store_flags,
-					GPtrArray **folder_names, /* out */
-					GPtrArray **folder_uris, /* out */
-					GArray **unread_counts, /* out */
-					GArray **folder_flags, /* out */
-					GError **error)
+                                      const gchar *top,
+                                      guint32 store_flags,
+                                      GPtrArray **folder_names, /* out */
+                                      GPtrArray **folder_uris, /* out */
+                                      GArray **unread_counts, /* out */
+                                      GArray **folder_flags, /* out */
+                                      GError **error)
 {
 	ExchangeData *ed = get_data_for_service (service);
 	GHashTable *known_uris;
@@ -3064,8 +3137,8 @@ camel_exchange_utils_get_folder_info (CamelService *service,
 	g_return_val_if_fail (folder_flags != NULL, FALSE);
 
 	/* use lock here to have done scanning of foreign hierarchy
-	   only once, and to not call get_folder_info_data simultaneously
-	   from more than one thread */
+	 * only once, and to not call get_folder_info_data simultaneously
+	 * from more than one thread */
 	g_static_rec_mutex_lock (&ed->changed_msgs_mutex);
 
 	*folder_names = NULL;
@@ -3090,10 +3163,10 @@ camel_exchange_utils_get_folder_info (CamelService *service,
 
 gboolean
 camel_exchange_utils_send_message (CamelService *service,
-				const gchar *from,
-				GPtrArray *recipients,
-				const GByteArray *message,
-				GError **error)
+                                   const gchar *from,
+                                   GPtrArray *recipients,
+                                   const GByteArray *message,
+                                   GError **error)
 {
 	ExchangeData *ed = get_data_for_service (service);
 	SoupMessage *msg;
@@ -3104,9 +3177,9 @@ camel_exchange_utils_send_message (CamelService *service,
 	gboolean res = FALSE;
 
 	/* This function is called from a transport service, thus it has no idea
-	   about underlying folders and such. The check for estore != NULL is
-	   necessary to be sure the transport service was called after the connect,
-	   because the estore is used in other functions. */
+	 * about underlying folders and such. The check for estore != NULL is
+	 * necessary to be sure the transport service was called after the connect,
+	 * because the estore is used in other functions. */
 	g_return_val_if_fail (ed != NULL, FALSE);
 	g_return_val_if_fail (ed->estore != NULL, FALSE);
 
@@ -3170,12 +3243,12 @@ camel_exchange_utils_send_message (CamelService *service,
 
 gboolean
 camel_exchange_utils_create_folder (CamelService *service,
-				const gchar *parent_name,
-				const gchar *folder_name,
-				gchar **folder_uri, /* out */
-				guint32 *unread_count, /* out */
-				guint32 *flags, /* out */
-				GError **error)
+                                    const gchar *parent_name,
+                                    const gchar *folder_name,
+                                    gchar **folder_uri, /* out */
+                                    guint32 *unread_count, /* out */
+                                    guint32 *flags, /* out */
+                                    GError **error)
 {
 	ExchangeData *ed = get_data_for_service (service);
 	ExchangeAccountFolderResult result;
@@ -3219,8 +3292,8 @@ camel_exchange_utils_create_folder (CamelService *service,
 
 gboolean
 camel_exchange_utils_delete_folder (CamelService *service,
-				const gchar *folder_name,
-				GError **error)
+                                    const gchar *folder_name,
+                                    GError **error)
 {
 	ExchangeData *ed = get_data_for_service (service);
 	ExchangeAccountFolderResult result;
@@ -3267,13 +3340,13 @@ camel_exchange_utils_delete_folder (CamelService *service,
 
 gboolean
 camel_exchange_utils_rename_folder (CamelService *service,
-				const gchar *old_name,
-				const gchar *new_name,
-				GPtrArray **folder_names, /* out */
-				GPtrArray **folder_uris, /* out */
-				GArray **unread_counts, /* out */
-				GArray **folder_flags, /* out */
-				GError **error)
+                                    const gchar *old_name,
+                                    const gchar *new_name,
+                                    GPtrArray **folder_names, /* out */
+                                    GPtrArray **folder_uris, /* out */
+                                    GArray **unread_counts, /* out */
+                                    GArray **folder_flags, /* out */
+                                    GError **error)
 {
 	ExchangeData *ed = get_data_for_service (service);
 	ExchangeFolder *mfld;
@@ -3364,7 +3437,7 @@ camel_exchange_utils_rename_folder (CamelService *service,
 			mfld = g_hash_table_lookup (ed->folders_by_name, old_name_remove);
 
 			/* If the lookup for the ExchangeFolder doesn't succeed then do
-			not modify the corresponding entry in the hash table*/
+			not modify the corresponding entry in the hash table */
 			if (!mfld) {
 				g_free (old_name_remove);
 				goto cont_free;
@@ -3432,8 +3505,8 @@ camel_exchange_utils_rename_folder (CamelService *service,
 
 gboolean
 camel_exchange_utils_subscribe_folder (CamelService *service,
-					const gchar *folder_name,
-					GError **error)
+                                       const gchar *folder_name,
+                                       GError **error)
 {
 	ExchangeData *ed = get_data_for_service (service);
 	ExchangeAccountFolderResult result;
@@ -3484,8 +3557,8 @@ camel_exchange_utils_subscribe_folder (CamelService *service,
 
 gboolean
 camel_exchange_utils_unsubscribe_folder (CamelService *service,
-					const gchar *folder_name,
-					GError **error)
+                                         const gchar *folder_name,
+                                         GError **error)
 {
 	ExchangeData *ed = get_data_for_service (service);
 	ExchangeAccountFolderResult result;
@@ -3505,8 +3578,8 @@ camel_exchange_utils_unsubscribe_folder (CamelService *service,
 	g_object_ref (folder);
 
 	/* if (e_folder_exchange_get_hierarchy (folder)->type != EXCHANGE_HIERARCHY_FAVORITES) {
-	   Should use above check, but the internal uri is the same for both
-	   public and favorite hierarchies and any of them can be used for the check */
+	 * Should use above check, but the internal uri is the same for both
+	 * public and favorite hierarchies and any of them can be used for the check */
 	if (!exchange_account_is_favorite_folder (ed->account, folder)) {
 		g_object_unref (folder);
 		return TRUE;
@@ -3554,9 +3627,9 @@ camel_exchange_utils_unsubscribe_folder (CamelService *service,
 
 gboolean
 camel_exchange_utils_is_subscribed_folder (CamelService *service,
-					const gchar *folder_name,
-					gboolean *is_subscribed, /* out */
-					GError **error)
+                                           const gchar *folder_name,
+                                           gboolean *is_subscribed, /* out */
+                                           GError **error)
 {
 	ExchangeData *ed = get_data_for_service (service);
 	EFolder *folder;

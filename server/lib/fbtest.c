@@ -36,7 +36,8 @@
 const gchar *test_program_name = "fbtest";
 
 void
-test_main (gint argc, gchar **argv)
+test_main (gint argc,
+           gchar **argv)
 {
 	E2kGlobalCatalog *gc;
 	E2kGlobalCatalogStatus status;

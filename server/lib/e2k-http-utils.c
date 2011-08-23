@@ -159,7 +159,9 @@ typedef struct {
 } GetHeadersData;
 
 static void
-maybe_append_header (const gchar *header_name, const gchar *value, gpointer data)
+maybe_append_header (const gchar *header_name,
+                     const gchar *value,
+                     gpointer data)
 {
 	GetHeadersData *ghd = data;
 
@@ -173,7 +175,8 @@ maybe_append_header (const gchar *header_name, const gchar *value, gpointer data
  * be doing this...
  */
 GSList *
-e2k_http_get_headers (SoupMessageHeaders *hdrs, const gchar *header_name)
+e2k_http_get_headers (SoupMessageHeaders *hdrs,
+                      const gchar *header_name)
 {
 	GetHeadersData ghd;
 

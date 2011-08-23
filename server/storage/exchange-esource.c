@@ -33,7 +33,8 @@
 static gboolean is_offline (void);
 
 static ESourceGroup *
-find_account_group (ESourceList *source_list, ExchangeAccount *exa)
+find_account_group (ESourceList *source_list,
+                    ExchangeAccount *exa)
 {
 	ESourceGroup *group;
 	EAccount *account;
@@ -69,9 +70,9 @@ find_account_group (ESourceList *source_list, ExchangeAccount *exa)
 
 void
 add_folder_esource (ExchangeAccount *account,
-		    FolderType folder_type,
-		    const gchar *folder_name,
-		    const gchar *physical_uri)
+                    FolderType folder_type,
+                    const gchar *folder_name,
+                    const gchar *physical_uri)
 {
 	ESource *source = NULL;
 	ESourceGroup *source_group = NULL;
@@ -345,8 +346,8 @@ add_folder_esource (ExchangeAccount *account,
 
 void
 remove_folder_esource (ExchangeAccount *account,
-		       FolderType folder_type,
-		       const gchar *physical_uri)
+                       FolderType folder_type,
+                       const gchar *physical_uri)
 {
 	ESourceGroup *group;
 	ESource *source;

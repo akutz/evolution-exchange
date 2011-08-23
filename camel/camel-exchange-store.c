@@ -42,7 +42,7 @@
 #define EXCHANGE_STOREINFO_VERSION 1
 
 /* Even if we are disconnected, we need to exchange_store_connect()
-   to get the offline data */
+ * to get the offline data */
 #define RETURN_VAL_IF_NOT_CONNECTED(store, cancellable, ex, val)\
 	if (!camel_exchange_store_connected (store, cancellable, NULL) && \
 	    !exchange_store_connect_sync (CAMEL_SERVICE (store), cancellable, ex)) \
@@ -86,16 +86,16 @@ make_folder_info (CamelExchangeStore *exch,
 	info->display_name = display_name;
 
 	/* Process the full-path and decode if required */
-	temp = strrchr (path+2, '/');
+	temp = strrchr (path + 2, '/');
 	if (temp) {
 		/* info->full_name should not have encoded path */
-		info->full_name = camel_url_decode_path (path+2);
+		info->full_name = camel_url_decode_path (path + 2);
 	} else {
 		/* If there are no sub-directories, decoded(name) will be
-		   equal to that of path+2.
-		   Ex: personal
+		 * equal to that of path+2.
+		 * Ex: personal
 		*/
-		info->full_name = g_strdup (path+2);
+		info->full_name = g_strdup (path + 2);
 	}
 	info->unread = unread_count;
 
@@ -836,7 +836,7 @@ camel_exchange_store_init (CamelExchangeStore *exch)
 }
 
 /* Use this to ensure that the camel session is online and we are connected
-   too. Also returns the current status of the store */
+ * too. Also returns the current status of the store */
 gboolean
 camel_exchange_store_connected (CamelExchangeStore *store,
                                 GCancellable *cancellable,
@@ -862,7 +862,9 @@ camel_exchange_store_connected (CamelExchangeStore *store,
 }
 
 void
-camel_exchange_store_folder_created (CamelExchangeStore *estore, const gchar *name, const gchar *uri)
+camel_exchange_store_folder_created (CamelExchangeStore *estore,
+                                     const gchar *name,
+                                     const gchar *uri)
 {
 	CamelFolderInfo *info;
 
@@ -878,7 +880,9 @@ camel_exchange_store_folder_created (CamelExchangeStore *estore, const gchar *na
 }
 
 void
-camel_exchange_store_folder_deleted (CamelExchangeStore *estore, const gchar *name, const gchar *uri)
+camel_exchange_store_folder_deleted (CamelExchangeStore *estore,
+                                     const gchar *name,
+                                     const gchar *uri)
 {
 	CamelFolderInfo *info;
 	CamelFolder *folder;

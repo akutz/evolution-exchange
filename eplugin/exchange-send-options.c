@@ -77,7 +77,7 @@ enum {
 static guint signals[LAST_SIGNAL] = {0};
 
 /* exchange_send_options_get_widgets_data(ExchangeSendOptionsDialog *sod)
-   Return Value:This function returns a -1 if an error occurs. In case of error-free operation a 1 is returned.
+ * Return Value:This function returns a -1 if an error occurs. In case of error-free operation a 1 is returned.
 */
 static gint
 exchange_send_options_get_widgets_data (ExchangeSendOptionsDialog *sod)
@@ -86,7 +86,7 @@ exchange_send_options_get_widgets_data (ExchangeSendOptionsDialog *sod)
 	ExchangeSendOptions *options;
 	const gchar *address, *email, *name;
 
-	guint count=0;
+	guint count = 0;
 	ENameSelectorEntry *name_selector_entry;
 	EDestinationStore *destination_store;
 	GList *destinations, *tmp;
@@ -95,7 +95,7 @@ exchange_send_options_get_widgets_data (ExchangeSendOptionsDialog *sod)
 	options = sod->options;
 
 	/* This block helps us fetch the address of the delegator(s). If no delegator is selected or more
-	   than one delegatee has been selected then an info dialog is popped up to help the user.
+	 * than one delegatee has been selected then an info dialog is popped up to help the user.
 	*/
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->delegate_enabled))) {
 
@@ -107,9 +107,9 @@ exchange_send_options_get_widgets_data (ExchangeSendOptionsDialog *sod)
 		email = NULL;
 
 		/* The temporary variables address, email, and name are needed to fetch the list items.
-		   Only the valid one is then copied into the storage variables. The "count" variable
-		   helps us keep a count of the exact number of items in the list. The g_list_length (GList *)
-		   produced ambiguous results. Hence count is used :)
+		 * Only the valid one is then copied into the storage variables. The "count" variable
+		 * helps us keep a count of the exact number of items in the list. The g_list_length (GList *)
+		 * produced ambiguous results. Hence count is used :)
 		*/
 		for (; tmp != NULL; tmp = g_list_next (tmp)) {
 			address = g_strdup ((gchar *) e_destination_get_address (tmp->data));
@@ -204,7 +204,8 @@ exchange_send_options_fill_widgets_with_data (ExchangeSendOptionsDialog *sod)
 }
 
 ExchangeSendOptionsDialog *
-exchange_sendoptions_dialog_new (void) {
+exchange_sendoptions_dialog_new (void)
+{
 	ExchangeSendOptionsDialog *sod;
 
 	sod = g_object_new (EXCHANGE_TYPE_SENDOPTIONS_DIALOG, NULL);
@@ -212,7 +213,10 @@ exchange_sendoptions_dialog_new (void) {
 	return sod;
 }
 
-static void exchange_send_options_cb (GtkDialog *dialog, gint state, gpointer func_data)
+static void
+exchange_send_options_cb (GtkDialog *dialog,
+                          gint state,
+                          gpointer func_data)
 {
 	ExchangeSendOptionsDialogPrivate *priv;
 	ExchangeSendOptionsDialog *sod;
@@ -239,17 +243,18 @@ static void exchange_send_options_cb (GtkDialog *dialog, gint state, gpointer fu
 }
 
 /* This function acts as a listener for the toggling of "send_as_a_delegate" button. This is needed to
-   sensitize the name_selector_entry and the User Button
+ * sensitize the name_selector_entry and the User Button
 */
 static void
-delegate_option_toggled (GtkCheckButton *button, gpointer func_data)
+delegate_option_toggled (GtkCheckButton *button,
+                         gpointer func_data)
 {
 	ExchangeSendOptionsDialogPrivate *priv;
 	ExchangeSendOptionsDialog *sod;
 	ENameSelectorEntry *name_selector_entry;
 
-	sod=func_data;
-	priv=sod->priv;
+	sod = func_data;
+	priv = sod->priv;
 
 	name_selector_entry = e_name_selector_peek_section_entry (priv->proxy_name_selector, "Add User");
 
@@ -266,35 +271,40 @@ delegate_option_toggled (GtkCheckButton *button, gpointer func_data)
 }
 
 static void
-addressbook_dialog_response (ENameSelectorDialog *name_selector_dialog, gint response, gpointer user_data)
+addressbook_dialog_response (ENameSelectorDialog *name_selector_dialog,
+                             gint response,
+                             gpointer user_data)
 {
 	gtk_widget_hide (GTK_WIDGET (name_selector_dialog));
 }
 
 static void
-addressbook_entry_changed (GtkWidget *entry, gpointer user_data)
+addressbook_entry_changed (GtkWidget *entry,
+                           gpointer user_data)
 {
 }
 
 /* This function invokes the name selector dialog
 */
 static void
-address_button_clicked (GtkButton *button, gpointer func_data)
+address_button_clicked (GtkButton *button,
+                        gpointer func_data)
 {
 
 	ExchangeSendOptionsDialogPrivate *priv;
 	ExchangeSendOptionsDialog *sod;
 	ENameSelectorDialog *name_selector_dialog;
 
-	sod=func_data;
-	priv=sod->priv;
+	sod = func_data;
+	priv = sod->priv;
 
 	name_selector_dialog = e_name_selector_peek_dialog (priv->proxy_name_selector);
 	gtk_widget_show (GTK_WIDGET (name_selector_dialog));
 }
 
 gboolean
-exchange_sendoptions_dialog_run (ExchangeSendOptionsDialog *sod, GtkWidget *parent)
+exchange_sendoptions_dialog_run (ExchangeSendOptionsDialog *sod,
+                                 GtkWidget *parent)
 {
 	ExchangeSendOptionsDialogPrivate *priv;
 	ExchangeSendOptions *options;
@@ -374,7 +384,7 @@ exchange_sendoptions_dialog_run (ExchangeSendOptionsDialog *sod, GtkWidget *pare
 	gtk_misc_set_alignment (GTK_MISC (importance_label), 0, 0.49);
 
 	/* Translators: Here's set a message sensitivity, which means for exchange
-	   one of Normal, Personal, Private, Confidential. */
+	 * one of Normal, Personal, Private, Confidential. */
 	sensitivity_label = gtk_label_new_with_mnemonic (_("_Sensitivity: "));
 	gtk_widget_show (sensitivity_label);
 	gtk_table_attach (GTK_TABLE (msg_settings_table), sensitivity_label, 0, 1, 1, 2,
@@ -490,7 +500,7 @@ exchange_sendoptions_dialog_run (ExchangeSendOptionsDialog *sod, GtkWidget *pare
 	g_signal_connect (name_selector_entry, "changed", G_CALLBACK (addressbook_entry_changed), sod);
 
 	/* The name box is just a container. The name_selector_entry is added to it. This Widget
-	   is created dynamically*/
+	 * is created dynamically*/
 	gtk_container_add ((GtkContainer *) del_name_box, (GtkWidget *) name_selector_entry);
 	gtk_widget_show ((GtkWidget *) name_selector_entry);
 	gtk_widget_grab_focus ((GtkWidget *) name_selector_entry);

@@ -58,7 +58,8 @@ xntlm_negotiate (void)
 #define GET_SHORTY(p) ((p)[0] + ((p)[1] << 8))
 
 static gchar *
-strip_dup (guchar *mem, gint len)
+strip_dup (guchar *mem,
+           gint len)
 {
 	gchar *buf = g_malloc (len / 2 + 1), *p = buf;
 
@@ -102,8 +103,11 @@ strip_dup (guchar *mem, gint len)
  * %FALSE otherwise.
  **/
 gboolean
-xntlm_parse_challenge (gpointer challenge, gint len, gchar **nonce,
-		       gchar **nt_domain, gchar **w2k_domain)
+xntlm_parse_challenge (gpointer challenge,
+                       gint len,
+                       gchar **nonce,
+                       gchar **nt_domain,
+                       gchar **w2k_domain)
 {
 	guchar *chall = (guchar *) challenge;
 	gint off, dlen, doff, type;
@@ -149,7 +153,10 @@ xntlm_parse_challenge (gpointer challenge, gint len, gchar **nonce,
 }
 
 static void
-ntlm_set_string (GByteArray *ba, gint offset, const gchar *data, gint len)
+ntlm_set_string (GByteArray *ba,
+                 gint offset,
+                 const gchar *data,
+                 gint len)
 {
 	ba->data[offset    ] = ba->data[offset + 2] =  len       & 0xFF;
 	ba->data[offset + 1] = ba->data[offset + 3] = (len >> 8) & 0xFF;
@@ -192,9 +199,11 @@ static guchar NTLM_RESPONSE_MESSAGE_HEADER[] = {
  * Return value: the NTLM Type 3 message
  **/
 GByteArray *
-xntlm_authenticate (const gchar *nonce, const gchar *domain,
-		    const gchar *user, const gchar *password,
-		    const gchar *workstation)
+xntlm_authenticate (const gchar *nonce,
+                    const gchar *domain,
+                    const gchar *user,
+                    const gchar *password,
+                    const gchar *workstation)
 {
 	GByteArray *message;
 	guchar hash[21], lm_resp[24], nt_resp[24];
@@ -229,7 +238,8 @@ xntlm_authenticate (const gchar *nonce, const gchar *domain,
 }
 
 static void
-setup_schedule (const guchar *key_56, XNTLM_DES_KS ks)
+setup_schedule (const guchar *key_56,
+                XNTLM_DES_KS ks)
 {
 	guchar key[8];
 	gint i, c, bit;
@@ -262,7 +272,8 @@ static guchar LM_PASSWORD_MAGIC[] = {
 };
 
 static void
-ntlm_lanmanager_hash (const gchar *password, gchar hash[21])
+ntlm_lanmanager_hash (const gchar *password,
+                      gchar hash[21])
 {
 	guchar lm_password[15];
 	XNTLM_DES_KS ks;
@@ -284,7 +295,8 @@ ntlm_lanmanager_hash (const gchar *password, gchar hash[21])
 }
 
 static void
-ntlm_nt_hash (const gchar *password, gchar hash[21])
+ntlm_nt_hash (const gchar *password,
+              gchar hash[21])
 {
 	guchar *buf, *p;
 
@@ -303,7 +315,7 @@ ntlm_nt_hash (const gchar *password, gchar hash[21])
 
 static void
 ntlm_calc_response (const guchar key[21], const guchar plaintext[8],
-		    guchar results[24])
+                    guchar results[24])
 {
 	XNTLM_DES_KS ks;
 

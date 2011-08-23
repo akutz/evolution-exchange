@@ -177,7 +177,8 @@ finalize (GObject *object)
 #define EVOLUTION_URI_PREFIX_LEN (sizeof (EVOLUTION_URI_PREFIX) - 1)
 
 static EFolder *
-standard_folder (ExchangeAccount *account, const gchar *folder_type)
+standard_folder (ExchangeAccount *account,
+                 const gchar *folder_type)
 {
 	const gchar *uri;
 
@@ -188,8 +189,9 @@ standard_folder (ExchangeAccount *account, const gchar *folder_type)
 }
 
 static void
-set_special_mail_folder (ExchangeAccount *account, const gchar *folder_type,
-			 gchar **folder_uri)
+set_special_mail_folder (ExchangeAccount *account,
+                         const gchar *folder_type,
+                         gchar **folder_uri)
 {
 	EFolder *folder;
 	const gchar *physical_uri;
@@ -218,8 +220,8 @@ set_special_mail_folder (ExchangeAccount *account, const gchar *folder_type,
 
 static void
 add_defaults_for_account (ExchangeConfigListener *config_listener,
-			  E2kContext *ctx,
-			  ExchangeAccount *account)
+                          E2kContext *ctx,
+                          ExchangeAccount *account)
 {
 	EAccount *eaccount;
 	gboolean save = FALSE;
@@ -259,7 +261,7 @@ is_active_exchange_account (EAccount *account)
 #if 0 /* Not using the following code anywhere for the moment */
 static void
 add_account_esources (ExchangeAccount *account,
-		      GSList *folders)
+                      GSList *folders)
 {
 	ESource *source = NULL;
 	ESourceGroup *cal_source_group = NULL;
@@ -272,7 +274,7 @@ add_account_esources (ExchangeAccount *account,
 	GConfClient *client;
 	gint mode;
 	ESourceList *cal_source_list, *tasks_source_list, *contacts_source_list;
-	FolderInfo *folder=NULL;
+	FolderInfo *folder = NULL;
 	gboolean offline_mode = FALSE;
 
 	client = gconf_client_get_default ();
@@ -501,7 +503,7 @@ add_sources (ExchangeAccount *account)
 
 static void
 remove_account_esource (ExchangeAccount *account,
-			FolderType folder_type)
+                        FolderType folder_type)
 {
 	ESourceGroup *group;
 	ESource *source = NULL;
@@ -627,7 +629,8 @@ get_new_exchange_password (ExchangeAccount *account)
 
 #ifdef HAVE_KRB5
 static void
-change_passwd_cb (GtkWidget *button, ExchangeAccount *account)
+change_passwd_cb (GtkWidget *button,
+                  ExchangeAccount *account)
 {
 	gchar *current_passwd, *new_passwd;
 
@@ -641,7 +644,8 @@ change_passwd_cb (GtkWidget *button, ExchangeAccount *account)
 #endif
 
 static void
-display_passwd_expiry_message (gint max_passwd_age, ExchangeAccount *account)
+display_passwd_expiry_message (gint max_passwd_age,
+                               ExchangeAccount *account)
 {
 	GtkWidget *passwd_exp_dialog;
 	GtkWidget *dialog_vbox1;
@@ -803,7 +807,8 @@ run_oof_dialog (void)
 }
 
 ExchangeAccountResult
-exchange_config_listener_authenticate (ExchangeConfigListener *ex_conf_listener, ExchangeAccount *account)
+exchange_config_listener_authenticate (ExchangeConfigListener *ex_conf_listener,
+                                       ExchangeAccount *account)
 {
 	ExchangeConfigListenerPrivate *priv;
 	ExchangeAccountResult result;
@@ -824,7 +829,7 @@ exchange_config_listener_authenticate (ExchangeConfigListener *ex_conf_listener,
 		oldremember = remember = exchange_account_is_save_password (account);
 		title = g_strdup_printf (_("Enter Password for %s"), account->account_name);
 		password = e_passwords_ask_password (title, NULL, key, title,
-						     E_PASSWORDS_REMEMBER_FOREVER|E_PASSWORDS_SECRET,
+						     E_PASSWORDS_REMEMBER_FOREVER | E_PASSWORDS_SECRET,
 						     &remember, NULL);
 		if (remember != oldremember) {
 			exchange_account_set_save_password (account, remember);
@@ -927,7 +932,8 @@ exchange_config_listener_authenticate (ExchangeConfigListener *ex_conf_listener,
 }
 
 static void
-account_added (EAccountList *account_list, EAccount *account)
+account_added (EAccountList *account_list,
+               EAccount *account)
 {
 	ExchangeConfigListener *config_listener;
 	ExchangeAccount *exchange_account;
@@ -986,7 +992,8 @@ struct account_update_data {
 };
 
 static void
-configured_account_destroyed (gpointer user_data, GObject *where_account_was)
+configured_account_destroyed (gpointer user_data,
+                              GObject *where_account_was)
 {
 	struct account_update_data *aud = user_data;
 
@@ -999,11 +1006,12 @@ configured_account_destroyed (gpointer user_data, GObject *where_account_was)
 }
 
 static gboolean
-requires_relogin (gchar *current_url, gchar *new_url)
+requires_relogin (gchar *current_url,
+                  gchar *new_url)
 {
 	E2kUri *current_uri, *new_uri;
 	const gchar *current_param_val, *new_param_val;
-	const gchar *params [] = {
+	const gchar *params[] = {
 		"owa-url",
 		"gc-server-name",
 		"security-method" };
@@ -1035,7 +1043,7 @@ requires_relogin (gchar *current_url, gchar *new_url)
 		}
 	}
 
-	for (i=0; i<n_params; i++) {
+	for (i = 0; i < n_params; i++) {
 		current_param_val = e2k_uri_get_param (current_uri, params[i]);
 		new_param_val = e2k_uri_get_param (new_uri, params[i]);
 
@@ -1059,7 +1067,8 @@ end:
 }
 
 static void
-account_changed (EAccountList *account_list, EAccount *account)
+account_changed (EAccountList *account_list,
+                 EAccount *account)
 {
 	ExchangeConfigListener *config_listener =
 		EXCHANGE_CONFIG_LISTENER (account_list);
@@ -1152,7 +1161,8 @@ account_changed (EAccountList *account_list, EAccount *account)
 }
 
 static void
-account_removed (EAccountList *account_list, EAccount *account)
+account_removed (EAccountList *account_list,
+                 EAccount *account)
 {
 	ExchangeConfigListener *config_listener =
 		EXCHANGE_CONFIG_LISTENER (account_list);
@@ -1195,7 +1205,7 @@ idle_construct (gpointer data)
 
 ExchangeConfigListenerStatus
 exchange_config_listener_get_offline_status (ExchangeConfigListener *excl,
-					     gint *mode)
+                                             gint *mode)
 {
 	ExchangeConfigListenerPrivate *priv;
 	GConfValue *value;
@@ -1273,8 +1283,8 @@ exchange_config_listener_get_accounts (ExchangeConfigListener *config_listener)
  **/
 void
 exchange_config_listener_modify_esource_group_name (ExchangeConfigListener *excl,
-							 const gchar *old_name,
-							 const gchar *new_name)
+                                                    const gchar *old_name,
+                                                    const gchar *new_name)
 {
 	GConfClient *client;
 	ESourceGroup *group;
@@ -1339,9 +1349,10 @@ exchange_config_listener_modify_esource_group_name (ExchangeConfigListener *excl
  *
  **/
 static void
-exchange_add_autocompletion_folders (GConfClient *gc_client, ExchangeAccount *account)
+exchange_add_autocompletion_folders (GConfClient *gc_client,
+                                     ExchangeAccount *account)
 {
-	ESourceList *sl=NULL;
+	ESourceList *sl = NULL;
 	ESource *source;
 	GSList *groups;
 
@@ -1390,7 +1401,8 @@ exchange_add_autocompletion_folders (GConfClient *gc_client, ExchangeAccount *ac
  *
  **/
 static gboolean
-exchange_camel_urls_is_equal (const gchar *url1, const gchar *url2)
+exchange_camel_urls_is_equal (const gchar *url1,
+                              const gchar *url2)
 {
 	CamelURL *curl1, *curl2;
 	gchar *param1, *param2;
@@ -1436,7 +1448,8 @@ exchange_camel_urls_is_equal (const gchar *url1, const gchar *url2)
  * selection list
  **/
 static void
-remove_selected_non_offline_esources (ExchangeAccount *account, const gchar *gconf_key)
+remove_selected_non_offline_esources (ExchangeAccount *account,
+                                      const gchar *gconf_key)
 {
 	ESourceGroup *group;
 	ESource *source = NULL;
@@ -1446,7 +1459,7 @@ remove_selected_non_offline_esources (ExchangeAccount *account, const gchar *gco
 	const gchar *source_uid;
 	GConfClient *client;
 	ESourceList *source_list = NULL;
-	const gchar *offline_mode=NULL;
+	const gchar *offline_mode = NULL;
 	gchar *selected_gconf_key;
 
 	if (gconf_key && !strcmp (gconf_key, CONF_KEY_CAL)) {

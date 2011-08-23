@@ -104,8 +104,8 @@ exchange_search_body_contains (struct _ESExp *f,
 	}
 
 	/* if we need to setup a hash of summary items, this way we get
-	   access to the summary memory which is locked for the duration of
-	   the search, and wont vanish on us */
+	 * access to the summary memory which is locked for the duration of
+	 * the search, and wont vanish on us */
 	if (uid_hash == NULL) {
 		gint i;
 
@@ -117,7 +117,7 @@ exchange_search_body_contains (struct _ESExp *f,
 	}
 
 	for (i = 0; i < found_uids->len; i++) {
-		if (g_hash_table_lookup_extended (uid_hash, found_uids->pdata[i], (gpointer)&real_uid, (gpointer)&info))
+		if (g_hash_table_lookup_extended (uid_hash, found_uids->pdata[i], (gpointer) &real_uid, (gpointer) &info))
 			g_ptr_array_add (r->value.ptrarray, real_uid);
 		g_free (found_uids->pdata[i]);
 	}

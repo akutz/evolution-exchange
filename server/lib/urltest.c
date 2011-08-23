@@ -36,7 +36,8 @@
 const gchar *test_program_name = "urltest";
 
 static void
-dump_uri (E2kUri *euri) {
+dump_uri (E2kUri *euri)
+{
 	const gchar *temp;
 
 	printf ("URI contents \n");
@@ -85,7 +86,8 @@ dump_uri (E2kUri *euri) {
 }
 
 void
-test_main (gint argc, gchar **argv)
+test_main (gint argc,
+           gchar **argv)
 {
 	const gchar *url;
 	E2kUri *euri;

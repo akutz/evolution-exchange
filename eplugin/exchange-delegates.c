@@ -75,8 +75,8 @@ static void set_perms_for_user (ExchangeDelegatesUser *user, gpointer user_data)
 
 static void
 set_sd_for_href (ExchangeDelegates *delegates,
-		 const gchar *href,
-		 E2kSecurityDescriptor *sd)
+                 const gchar *href,
+                 E2kSecurityDescriptor *sd)
 {
 	gint i;
 
@@ -126,12 +126,12 @@ fill_in_sids (ExchangeDelegates *delegates)
 	 */
 	for (u = 0; u < delegates->users->len; u++) {
 		user = delegates->users->pdata[u];
-		if (user->sid == (E2kSid *)-1)
+		if (user->sid == (E2kSid *) - 1)
 			continue;
 		for (u2 = u + 1; u2 < delegates->users->len; u2++) {
 			user2 = delegates->users->pdata[u2];
 			if (!strcmp (user->display_name, user2->display_name))
-				user->sid = user2->sid = (E2kSid *)-1;
+				user->sid = user2->sid = (E2kSid *) - 1;
 		}
 		if (!user->sid)
 			needed_sids++;
@@ -163,7 +163,7 @@ fill_in_sids (ExchangeDelegates *delegates)
 	gc = exchange_account_get_global_catalog (delegates->account);
 	for (u = 0; u < delegates->users->len; u++) {
 		user = delegates->users->pdata[u];
-		if (user->sid && user->sid != (E2kSid *)-1)
+		if (user->sid && user->sid != (E2kSid *) - 1)
 			continue;
 
 		status = e2k_global_catalog_lookup (
@@ -352,7 +352,8 @@ get_user_list (ExchangeDelegates *delegates)
  */
 static void
 add_remove_user (ExchangeDelegatesUser *user,
-		 GPtrArray *to_array, GPtrArray *from_array)
+                 GPtrArray *to_array,
+                 GPtrArray *from_array)
 {
 	ExchangeDelegatesUser *match;
 	gint i;
@@ -372,7 +373,8 @@ add_remove_user (ExchangeDelegatesUser *user,
 }
 
 static void
-set_perms_for_user (ExchangeDelegatesUser *user, gpointer user_data)
+set_perms_for_user (ExchangeDelegatesUser *user,
+                    gpointer user_data)
 {
 	ExchangeDelegates *delegates = user_data;
 	gint i, role;
@@ -392,7 +394,8 @@ set_perms_for_user (ExchangeDelegatesUser *user, gpointer user_data)
 }
 
 static void
-add_button_clicked_cb (GtkWidget *widget, gpointer data)
+add_button_clicked_cb (GtkWidget *widget,
+                       gpointer data)
 {
 	ExchangeDelegates *delegates = data;
 	E2kGlobalCatalog *gc;
@@ -469,7 +472,8 @@ add_button_clicked_cb (GtkWidget *widget, gpointer data)
 }
 
 static gint
-get_selected_row (GtkWidget *tree_view, GtkTreeIter *iter)
+get_selected_row (GtkWidget *tree_view,
+                  GtkTreeIter *iter)
 {
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;
@@ -489,7 +493,8 @@ get_selected_row (GtkWidget *tree_view, GtkTreeIter *iter)
 }
 
 static void
-edit_button_clicked_cb (GtkWidget *widget, gpointer data)
+edit_button_clicked_cb (GtkWidget *widget,
+                        gpointer data)
 {
 	ExchangeDelegates *delegates = data;
 	GtkWidget *parent_window;
@@ -509,7 +514,8 @@ edit_button_clicked_cb (GtkWidget *widget, gpointer data)
 }
 
 const gchar *
-email_look_up (const gchar *delegate_legacy, ExchangeAccount *account)
+email_look_up (const gchar *delegate_legacy,
+               ExchangeAccount *account)
 {
 	E2kGlobalCatalog *gc;
 	E2kGlobalCatalogEntry *entry;
@@ -531,7 +537,9 @@ email_look_up (const gchar *delegate_legacy, ExchangeAccount *account)
 }
 
 static gboolean
-table_click_cb (GtkWidget *widget, GdkEventButton *event, gpointer data)
+table_click_cb (GtkWidget *widget,
+                GdkEventButton *event,
+                gpointer data)
 {
 	ExchangeDelegates *delegates = data;
 	GtkWidget *parent_window;
@@ -555,7 +563,8 @@ table_click_cb (GtkWidget *widget, GdkEventButton *event, gpointer data)
 }
 
 static void
-remove_button_clicked_cb (GtkWidget *widget, gpointer data)
+remove_button_clicked_cb (GtkWidget *widget,
+                          gpointer data)
 {
 	ExchangeDelegates *delegates = data;
 	ExchangeDelegatesUser *user;
@@ -599,7 +608,8 @@ remove_button_clicked_cb (GtkWidget *widget, gpointer data)
 }
 
 static gboolean
-proppatch_sd (E2kContext *ctx, ExchangeDelegatesFolder *folder)
+proppatch_sd (E2kContext *ctx,
+              ExchangeDelegatesFolder *folder)
 {
 	GByteArray *binsd;
 	E2kProperties *props;
@@ -630,7 +640,8 @@ proppatch_sd (E2kContext *ctx, ExchangeDelegatesFolder *folder)
 }
 
 static gboolean
-get_user_dn (E2kGlobalCatalog *gc, ExchangeDelegatesUser *user)
+get_user_dn (E2kGlobalCatalog *gc,
+             ExchangeDelegatesUser *user)
 {
 	E2kGlobalCatalogEntry *entry;
 	E2kGlobalCatalogStatus status;
@@ -879,7 +890,9 @@ delegates_destroy (ExchangeDelegates *delegates)
 }
 
 static void
-dialog_response (GtkDialog *dialog, gint response, gpointer user_data)
+dialog_response (GtkDialog *dialog,
+                 gint response,
+                 gpointer user_data)
 {
 	ExchangeDelegates *delegates = user_data;
 
@@ -889,7 +902,8 @@ dialog_response (GtkDialog *dialog, gint response, gpointer user_data)
 }
 
 static void
-parent_destroyed (gpointer user_data, GObject *ex_parent)
+parent_destroyed (gpointer user_data,
+                  GObject *ex_parent)
 {
 	ExchangeDelegates *delegates = user_data;
 
@@ -898,7 +912,8 @@ parent_destroyed (gpointer user_data, GObject *ex_parent)
 }
 
 void
-exchange_delegates (ExchangeAccount *account, GtkWidget *parent)
+exchange_delegates (ExchangeAccount *account,
+                    GtkWidget *parent)
 {
 	GtkWidget *dialog_vbox1;
 	GtkWidget *vbox2;

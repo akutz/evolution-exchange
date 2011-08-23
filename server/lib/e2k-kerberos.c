@@ -79,8 +79,11 @@ krb5_result_to_e2k_kerberos_result (gint result)
 }
 
 static E2kKerberosResult
-get_init_cred (krb5_context ctx, const gchar *usr_name, const gchar *passwd,
-	       const gchar *in_tkt_service, krb5_creds *cred)
+get_init_cred (krb5_context ctx,
+               const gchar *usr_name,
+               const gchar *passwd,
+               const gchar *in_tkt_service,
+               krb5_creds *cred)
 {
 	krb5_principal principal;
 	krb5_get_init_creds_opt opt;
@@ -91,7 +94,7 @@ get_init_cred (krb5_context ctx, const gchar *usr_name, const gchar *passwd,
 		return E2K_KERBEROS_USER_UNKNOWN;
 
 	krb5_get_init_creds_opt_init (&opt);
-	krb5_get_init_creds_opt_set_tkt_life (&opt, 5*60);
+	krb5_get_init_creds_opt_set_tkt_life (&opt, 5 *60);
 	krb5_get_init_creds_opt_set_renew_life (&opt, 0);
 	krb5_get_init_creds_opt_set_forwardable (&opt, 0);
 	krb5_get_init_creds_opt_set_proxiable (&opt, 0);
@@ -117,8 +120,10 @@ get_init_cred (krb5_context ctx, const gchar *usr_name, const gchar *passwd,
  * Return value: an #E2kKerberosResult
  **/
 E2kKerberosResult
-e2k_kerberos_change_password (const gchar *user, const gchar *domain,
-			      const gchar *old_password, const gchar *new_password)
+e2k_kerberos_change_password (const gchar *user,
+                              const gchar *domain,
+                              const gchar *old_password,
+                              const gchar *new_password)
 {
 	krb5_context ctx;
 	krb5_creds creds;
@@ -165,8 +170,9 @@ e2k_kerberos_change_password (const gchar *user, const gchar *domain,
  * or %E2K_KERBEROS_FAILED (for unknown errors)
  **/
 E2kKerberosResult
-e2k_kerberos_check_password (const gchar *user, const gchar *domain,
-			     const gchar *password)
+e2k_kerberos_check_password (const gchar *user,
+                             const gchar *domain,
+                             const gchar *password)
 {
 	krb5_context ctx;
 	krb5_creds creds;

@@ -65,7 +65,7 @@ const gchar *exchange_delegates_user_folder_names[] = {
 };
 
 /* To translators: The folder names to be displayed in the message being
-   sent to the delegatee.
+ * sent to the delegatee.
 */
 static const gchar *folder_names_for_display[] = {
 	N_("Calendar"), N_("Tasks"), N_("Inbox"), N_("Contacts")
@@ -134,7 +134,8 @@ is_delegate_role (E2kPermissionsRole role)
 }
 
 static void
-set_perms (GtkWidget *combobox, E2kPermissionsRole role)
+set_perms (GtkWidget *combobox,
+           E2kPermissionsRole role)
 {
 	if (!is_delegate_role (role)) {
 		gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combobox), _("Custom"));
@@ -145,7 +146,8 @@ set_perms (GtkWidget *combobox, E2kPermissionsRole role)
 }
 
 static void
-parent_window_destroyed (gpointer dialog, GObject *where_parent_window_was)
+parent_window_destroyed (gpointer dialog,
+                         GObject *where_parent_window_was)
 {
 	gtk_dialog_response (dialog, GTK_RESPONSE_CANCEL);
 }
@@ -182,7 +184,9 @@ map_to_full_role_name (E2kPermissionsRole role_nam)
 }
 
 static void
-em_utils_delegates_done (GObject *source_object, GAsyncResult *res, gpointer user_data)
+em_utils_delegates_done (GObject *source_object,
+                         GAsyncResult *res,
+                         gpointer user_data)
 {
 	EShell *shell;
 	EShellBackend *shell_backend;
@@ -209,8 +213,8 @@ em_utils_delegates_done (GObject *source_object, GAsyncResult *res, gpointer use
  **/
 gboolean
 exchange_delegates_user_edit (ExchangeAccount *account,
-			     ExchangeDelegatesUser *user,
-			     GtkWidget *parent_window)
+                              ExchangeDelegatesUser *user,
+                              GtkWidget *parent_window)
 {
 	gchar *title;
 	gint button, i;
@@ -238,7 +242,7 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 
 	delegate_permissions = gtk_dialog_new_with_buttons (
 		/* Translators: "Delegate Permissions" refers to the permissions on the delegator's folders
-		   that the delegatee would receive */
+		 * that the delegatee would receive */
 		_("Delegate Permissions"),
 		NULL,
 		GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -376,11 +380,11 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 	g_object_weak_ref (G_OBJECT (parent_window),
 			   parent_window_destroyed, delegate_permissions);
 	g_object_add_weak_pointer (G_OBJECT (parent_window),
-				   (gpointer*)&parent_window);
+				   (gpointer *) &parent_window);
 	button = gtk_dialog_run (GTK_DIALOG (delegate_permissions));
 	if (parent_window) {
 		g_object_remove_weak_pointer (G_OBJECT (parent_window),
-					      (gpointer *)&parent_window);
+					      (gpointer *) &parent_window);
 		g_object_weak_unref (G_OBJECT (parent_window),
 				     parent_window_destroyed, delegate_permissions);
 	}
@@ -404,7 +408,7 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 	}
 
 	/* The following piece of code is used to construct a mail message to be sent to a Delegate
-	   summarizing all the permissions set for him on the user's various folders.
+	 * summarizing all the permissions set for him on the user's various folders.
 	*/
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (delegate_mail)) == TRUE) {
 		if (button == GTK_RESPONSE_OK) {
@@ -443,7 +447,7 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 			camel_content_type_unref (type);
 
 			/* To translators: This is a part of the message to be sent to the delegatee
-			   summarizing the permissions assigned to him.
+			 * summarizing the permissions assigned to him.
 			*/
 			msg_part1 = _("This message was sent automatically by Evolution to inform you that you have been "
 					"designated as a delegate. You can now send messages on my behalf.");
@@ -621,8 +625,8 @@ exchange_delegates_user_new (const gchar *display_name)
  **/
 ExchangeDelegatesUser *
 exchange_delegates_user_new_from_gc (E2kGlobalCatalog *gc,
-				    const gchar *email,
-				    GByteArray *creator_entryid)
+                                    const gchar *email,
+                                    GByteArray *creator_entryid)
 {
 	E2kGlobalCatalogStatus status;
 	E2kGlobalCatalogEntry *entry;
@@ -649,7 +653,7 @@ exchange_delegates_user_new_from_gc (E2kGlobalCatalog *gc,
 		p--;
 	g_byte_array_append (user->entryid, creator_entryid->data,
 			     p - creator_entryid->data + 1);
-	g_byte_array_append (user->entryid, (guint8*) entry->legacy_exchange_dn,
+	g_byte_array_append (user->entryid, (guint8 *) entry->legacy_exchange_dn,
 			     strlen (entry->legacy_exchange_dn));
 	g_byte_array_append (user->entryid, (guint8*)"", 1);
 

@@ -37,7 +37,8 @@ E2kGlobalCatalog *gc;
 E2kOperation op;
 
 static void
-do_lookup (E2kGlobalCatalog *gc, const gchar *user)
+do_lookup (E2kGlobalCatalog *gc,
+           const gchar *user)
 {
 	E2kGlobalCatalogStatus status;
 	E2kGlobalCatalogEntry *entry;
@@ -120,7 +121,7 @@ do_lookup (E2kGlobalCatalog *gc, const gchar *user)
 
 	maxAge = lookup_passwd_max_age (gc, &op);
 	printf("Password max age is %f \n", maxAge);
-	pwd_exp_days = (maxAge * 0.000000100)/86400;
+	pwd_exp_days = (maxAge * 0.000000100) / 86400;
 	printf("Password expiery period is %d \n", pwd_exp_days);
 
 	e2k_operation_free (&op);
@@ -130,7 +131,8 @@ do_lookup (E2kGlobalCatalog *gc, const gchar *user)
 }
 
 static gchar *
-lookup_dn (E2kGlobalCatalog *gc, const gchar *id)
+lookup_dn (E2kGlobalCatalog *gc,
+           const gchar *id)
 {
 	E2kGlobalCatalogEntry *entry;
 	E2kGlobalCatalogLookupType type;
@@ -168,8 +170,10 @@ lookup_dn (E2kGlobalCatalog *gc, const gchar *id)
 }
 
 static void
-do_modify (E2kGlobalCatalog *gc, const gchar *user,
-	   gint deleg_op, const gchar *delegate)
+do_modify (E2kGlobalCatalog *gc,
+           const gchar *user,
+           gint deleg_op,
+           const gchar *delegate)
 {
 	gchar *self_dn, *deleg_dn;
 	E2kGlobalCatalogStatus status;
@@ -226,7 +230,8 @@ quit (gint sig)
 const gchar *test_program_name = "gctest";
 
 void
-test_main (gint argc, gchar **argv)
+test_main (gint argc,
+           gchar **argv)
 {
 	const gchar *server;
 
