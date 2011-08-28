@@ -1,5 +1,5 @@
 dnl Sets the evolution exchange version.
-m4_define([eex_version], [3.1.90])
+m4_define([eex_version], [3.1.91])
 
 dnl Initializes automake/autoconf
 AC_PREREQ(2.58)
