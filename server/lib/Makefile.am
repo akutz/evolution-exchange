@@ -89,6 +89,7 @@ libexchange_la_SOURCES = \
 	$(MARSHAL_GENERATED) \
 	camel-exchange-settings.c \
 	camel-exchange-settings.h \
+	e2k-enums.h \
 	e2k-propnames.h \
 	e2k-proptags.h \
 	e2k-action.c \

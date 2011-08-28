@@ -35,10 +35,12 @@ CFILE_GLOB=$(top_srcdir)/*/*.c
 GTKDOC_CFLAGS = \
 	-I$(top_srcdir)/server/lib \
 	-I$(top_srcdir)/server/storage \
+	$(EVOLUTION_DATA_SERVER_CFLAGS) \
 	$(GNOME_PLATFORM_CFLAGS) \
 	$(LDAP_CFLAGS)
 
 GTKDOC_LIBS = \
+	$(EVOLUTION_DATA_SERVER_LIBS) \
 	$(GNOME_PLATFORM_LIBS) \
 	$(top_builddir)/server/storage/libexchange-storage.la \
 	$(LDAP_LIBS)
