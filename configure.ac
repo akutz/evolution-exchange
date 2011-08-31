@@ -92,13 +92,22 @@ dnl ******************************
 dnl Check for Win32
 dnl ******************************
 
+AC_CANONICAL_HOST
 AC_MSG_CHECKING([for Win32])
+
+dnl This must stay after AC_CANONICAL_HOST, which defines $host.
 case "$host" in
 *-mingw*)
 	os_win32=yes
 	NO_UNDEFINED='-Wl,--no-undefined'
 	SOCKET_LIBS='-lws2_32'
 	DNS_LIBS='-ldnsapi'
+	;;
+*openbsd*|*freebsd*)
+	os_win32=no
+	NO_UNDEFINED=''
+	SOCKET_LIBS=''
+	DNS_LIBS=''
 	;;
 *)
 	os_win32=no
