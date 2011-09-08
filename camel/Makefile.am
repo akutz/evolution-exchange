@@ -13,7 +13,12 @@ libcamelexchange_la_CPPFLAGS = \
 	-I$(top_builddir)/server/lib \
 	-DPREFIX=\"$(prefix)\" \
 	-DCONNECTOR_LOCALEDIR=\"$(localedir)\" \
-	-DG_LOG_DOMAIN=\"camel-exchange-provider\"
+	-DG_LOG_DOMAIN=\"camel-exchange-provider\" \
+	$(EVOLUTION_PLUGIN_CFLAGS) \
+	$(EVOLUTION_DATA_SERVER_CFLAGS) \
+	$(LDAP_CFLAGS) \
+	$(SOCKET_CFLAGS) \
+	$(DNS_CFLAGS)
 
 libcamelexchange_la_SOURCES = \
 	camel-exchange-folder.c \
@@ -44,6 +49,7 @@ libcamelexchange_la_LIBADD = \
 	$(top_builddir)/server/storage/libexchange-storage.la \
 	$(top_builddir)/tools/libevolution-exchange-shared.la \
 	$(EVOLUTION_PLUGIN_LIBS) \
+	$(EVOLUTION_DATA_SERVER_LIBS) \
 	$(LDAP_LIBS) \
 	$(SOCKET_LIBS) \
 	$(DNS_LIBS)
