@@ -1721,7 +1721,7 @@ e_book_backend_exchange_create_contact (EBookBackendSync *backend,
 
 	LOCK (bepriv);
 
-	if (!e_book_backend_is_online (E_BOOK_BACKEND (backend))) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		*contact = NULL;
 		UNLOCK (bepriv);
 		g_propagate_error (perror, EDB_ERROR (REPOSITORY_OFFLINE));
@@ -1812,7 +1812,7 @@ e_book_backend_exchange_modify_contact (EBookBackendSync *backend,
 
 	d(printf("ebbe_modify_contact(%p, %p, %s)\n", backend, book, vcard));
 
-	if (!e_book_backend_is_online (E_BOOK_BACKEND (backend))) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		*contact = NULL;
 		g_propagate_error (perror, EDB_ERROR (REPOSITORY_OFFLINE));
 	} else {
@@ -1938,7 +1938,7 @@ e_book_backend_exchange_remove_contacts (EBookBackendSync *backend,
 	 /* Remove one or more contacts */
 	d(printf("ebbe_remove_contact(%p, %p, %s)\n", backend, book, (gchar *)id_list->data));
 
-	if (!e_book_backend_is_online (E_BOOK_BACKEND (backend))) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		*removed_ids = NULL;
 		g_propagate_error (perror, EDB_ERROR (REPOSITORY_OFFLINE));
 	} else {
@@ -2260,7 +2260,7 @@ e_book_backend_exchange_get_contact_list (EBookBackendSync *backend,
 
 	d(printf("ebbe_get_contact_list(%p, %p, %s)\n", backend, book, query));
 
-	if (!e_book_backend_is_online (E_BOOK_BACKEND (backend))) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		/* FIXME */
 		offline_contacts = e_book_backend_cache_get_contacts (bepriv->cache,
 							      query);
@@ -2349,7 +2349,7 @@ e_book_backend_exchange_start_book_view (EBookBackend *backend,
 	e_data_book_view_ref (book_view);
 	e_data_book_view_notify_progress (book_view, -1, _("Searching..."));
 
-	if (!e_book_backend_is_online (E_BOOK_BACKEND (backend))) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		if (!bepriv->marked_for_offline) {
 			err = EDB_ERROR (OFFLINE_UNAVAILABLE);
 			e_data_book_view_notify_complete (book_view, err);
@@ -2455,7 +2455,7 @@ e_book_backend_exchange_get_contact (EBookBackendSync *backend,
 
 	be = E_BOOK_BACKEND_EXCHANGE (e_data_book_get_backend (book));
 
-	if (!e_book_backend_is_online (E_BOOK_BACKEND (backend))) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		contact = e_book_backend_cache_get_contact (bepriv->cache,
 							    id);
 		if (contact) {
@@ -2535,7 +2535,7 @@ e_book_backend_exchange_authenticate_user (EBookBackend *backend,
 
 	d(printf("ebbe_authenticate_user(%p, %p, %s, %s, %s)\n", backend, book, user, password, auth_method));
 
-	if (!e_book_backend_is_online (backend)) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		e_book_backend_notify_readonly (backend, TRUE);
 		e_book_backend_notify_opened (backend, NULL);
 	} else {
@@ -2575,10 +2575,12 @@ e_book_backend_exchange_open (EBookBackend *backend,
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
-	ESource *source = e_book_backend_get_source (backend);
+	ESource *source;
 	const gchar *cache_dir;
 	const gchar *offline;
 	gchar *filename;
+
+	source = e_backend_get_source (E_BACKEND (backend));
 
 	if (bepriv->connected) {
 		e_book_backend_respond_opened (backend, book, opid, EDB_ERROR (OTHER_ERROR));
@@ -2593,7 +2595,7 @@ e_book_backend_exchange_open (EBookBackend *backend,
 	if (offline  && g_str_equal (offline, "1"))
 		bepriv->marked_for_offline = TRUE;
 
-	if (!e_book_backend_is_online (E_BOOK_BACKEND (backend)) &&
+	if (!e_backend_get_online (E_BACKEND (backend)) &&
 	    !bepriv->marked_for_offline ) {
 		e_book_backend_respond_opened (backend, book, opid, EDB_ERROR (OFFLINE_UNAVAILABLE));
 		return;
@@ -2608,7 +2610,7 @@ e_book_backend_exchange_open (EBookBackend *backend,
 
 	filename = g_build_filename (cache_dir, "cache.xml", NULL);
 
-	if (!e_book_backend_is_online (E_BOOK_BACKEND (backend))) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		e_book_backend_notify_readonly (backend, TRUE);
 		if (!g_file_test (filename, G_FILE_TEST_IS_REGULAR)) {
 			e_book_backend_respond_opened (backend, book, opid, EDB_ERROR (OFFLINE_UNAVAILABLE));
@@ -2622,7 +2624,7 @@ e_book_backend_exchange_open (EBookBackend *backend,
 	g_free (filename);
 
 	/* Once aunthentication in address book works this can be removed */
-	if (!e_book_backend_is_online (backend)) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		e_book_backend_respond_opened (backend, book, opid, NULL);
 		return;
 	}
@@ -2713,17 +2715,19 @@ e_book_backend_exchange_get_backend_property (EBookBackendSync *backend,
 }
 
 static void
-e_book_backend_exchange_set_online (EBookBackend *backend,
-                                    gboolean is_online)
+e_book_backend_exchange_notify_online_cb (EBookBackend *backend,
+                                          GParamSpec *pspec)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
 	ExchangeAccount *account = NULL;
+	gboolean online;
 
-	e_book_backend_notify_online (E_BOOK_BACKEND (backend), is_online);
+	online = e_backend_get_online (E_BACKEND (backend));
+	e_book_backend_notify_online (E_BOOK_BACKEND (backend), online);
 
 	if (e_book_backend_is_opened (backend)) {
-		if (!is_online) {
+		if (!online) {
 			e_book_backend_notify_readonly (backend, TRUE);
 			/* FIXME : free context ? */
 		} else {
@@ -2813,7 +2817,6 @@ e_book_backend_exchange_class_init (EBookBackendExchangeClass *klass)
 	backend_class->open			= e_book_backend_exchange_open;
 	backend_class->start_book_view		= e_book_backend_exchange_start_book_view;
 	backend_class->stop_book_view		= e_book_backend_exchange_stop_book_view;
-	backend_class->set_online		= e_book_backend_exchange_set_online;
 	backend_class->authenticate_user	= e_book_backend_exchange_authenticate_user;
 
 	sync_class->remove_sync			= e_book_backend_exchange_remove;
@@ -2841,5 +2844,9 @@ e_book_backend_exchange_init (EBookBackendExchange *backend)
 	priv->cache_lock      = g_mutex_new ();
 
 	backend->priv		= priv;
+
+	g_signal_connect (
+		backend, "notify::online",
+		G_CALLBACK (e_book_backend_exchange_notify_online_cb), NULL);
 }
 

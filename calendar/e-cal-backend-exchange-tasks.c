@@ -1032,7 +1032,7 @@ authenticate_user_task (ECalBackendSync *backend,
 		return;
 	}
 
-	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		d(printf ("ECBEC : calendar is offline\n"));
 		return;
 	}
@@ -1107,7 +1107,7 @@ create_task_object (ECalBackendSync *backend,
 
 	e_return_data_cal_error_if_fail (calobj != NULL, InvalidArg);
 
-	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		d(printf ("tasks are offline\n"));
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return;
@@ -1282,7 +1282,7 @@ modify_task_object (ECalBackendSync *backend,
 	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE_TASKS (ecalbextask), InvalidArg);
 	e_return_data_cal_error_if_fail (calobj != NULL, InvalidArg);
 
-	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		d(printf ("tasks are offline\n"));
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return;
@@ -1405,7 +1405,7 @@ receive_task_objects (ECalBackendSync *backend,
 	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE_TASKS (ecalbextask), InvalidArg);
 	e_return_data_cal_error_if_fail (calobj != NULL, InvalidArg);
 
-	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		d(printf ("tasks are offline\n"));
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return;
@@ -1490,7 +1490,7 @@ remove_task_object (ECalBackendSync *backend,
 
 	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE (ecalbex), InvalidArg);
 
-	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		d(printf ("tasks are offline\n"));
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return;

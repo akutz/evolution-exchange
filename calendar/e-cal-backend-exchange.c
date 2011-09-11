@@ -160,6 +160,7 @@ load_cache (ECalBackendExchange *cbex,
             E2kUri *e2kuri,
             GError **perror)
 {
+	ESource *source;
 	icalcomponent *vcalcomp, *comp, *tmp_comp;
 	struct icaltimetype comp_last_mod, folder_last_mod;
 	icalcomponent_kind kind;
@@ -170,7 +171,8 @@ load_cache (ECalBackendExchange *cbex,
 	gint i;
 	struct stat buf;
 
-	uristr = e_cal_backend_get_uri (E_CAL_BACKEND (cbex));
+	source = e_backend_get_source (E_BACKEND (cbex));
+	uristr = e_source_get_uri (source);
 	cbex->priv->object_cache_file =
 		e_folder_exchange_get_storage_file (cbex->folder, "cache.ics");
 	if (!cbex->priv->object_cache_file) {
@@ -376,21 +378,23 @@ open_calendar (ECalBackendSync *backend,
 	ExchangeAccountResult acresult;
 	gboolean load_result;
 	E2kUri *euri = NULL;
+	ESource *source;
 
 	d(printf("ecbe_open_calendar(%p, %p, %sonly if exists, user=%s, pass=%s)\n", backend, cal, only_if_exists?"":"not ", username?username:"(null)", password?password:"(null)"));
 
-	uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
+	source = e_backend_get_source (E_BACKEND (backend));
+	uristr = e_source_get_uri (source);
 
 	g_mutex_lock (cbex->priv->open_lock);
 
-	if (!e_cal_backend_is_online (E_CAL_BACKEND (cbex))) {
+	if (!e_backend_get_online (E_BACKEND (cbex))) {
 		ESource *source;
 		const gchar *display_contents = NULL;
 
 		d(printf ("ECBE : cal is offline .. load cache\n"));
 
 		cbex->priv->read_only = TRUE;
-		source = e_cal_backend_get_source (E_CAL_BACKEND (cbex));
+		source = e_backend_get_source (E_BACKEND (cbex));
 		display_contents = e_source_get_property (source, "offline_sync");
 
 		if (!display_contents || !g_str_equal (display_contents, "1")) {
@@ -467,10 +471,12 @@ authenticate_user (ECalBackendSync *backend,
 	E2kHTTPStatus status;
 	E2kResult *results;
 	E2kUri *euri = NULL;
+	ESource *source;
 	gint nresults = 0;
 	guint access = 0;
 
-	uristr = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
+	source = e_backend_get_source (E_BACKEND (backend));
+	uristr = e_source_get_uri (source);
 
 	exchange_account_connect (cbex->account, e_credentials_peek (credentials, E_CREDENTIALS_KEY_PASSWORD), &acresult);
 	if (acresult != EXCHANGE_ACCOUNT_CONNECT_SUCCESS) {
@@ -487,7 +493,7 @@ authenticate_user (ECalBackendSync *backend,
 		 * only_if_exists is FALSE.
 		 */
 
-		source = e_cal_backend_get_source (E_CAL_BACKEND (cbex));
+		source = e_backend_get_source (E_BACKEND (cbex));
 		foreign = e_source_get_property (source, "foreign");
 		favorite = g_strrstr (uristr, ";favorites");
 
@@ -1419,27 +1425,25 @@ start_view (ECalBackend *backend,
 }
 
 static void
-set_online (ECalBackend *backend,
-            gboolean is_online)
+notify_online_cb (ECalBackend *backend,
+                  GParamSpec *pspec)
 {
 	ECalBackendExchange *cbex;
 	ECalBackendExchangePrivate *priv;
-	gboolean re_open = FALSE;
+	gboolean online;
 
 	cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	priv = cbex->priv;
 
-	d(printf("ecbe_set_online(%p) : online : %d\n", backend, is_online ? 1 :0));
-
-	re_open = is_online && !e_cal_backend_is_online (backend);
-	e_cal_backend_notify_online (backend, is_online);
+	online = e_backend_get_online (E_BACKEND (backend));
+	e_cal_backend_notify_online (backend, online);
 
 	g_mutex_lock (priv->set_lock);
 
-	if (is_online) {
+	if (online) {
 		priv->read_only = FALSE;
 
-		if (e_cal_backend_is_opened (backend) && re_open)
+		if (e_cal_backend_is_opened (backend))
 			e_cal_backend_notify_auth_required (backend, TRUE, NULL);
 	} else {
 		priv->read_only = TRUE;
@@ -2151,7 +2155,6 @@ e_cal_backend_exchange_class_init (ECalBackendExchangeClass *class)
 
 	backend_class = E_CAL_BACKEND_CLASS (class);
 	backend_class->start_view = start_view;
-	backend_class->set_online = set_online;
 	backend_class->internal_get_timezone = internal_get_timezone;
 
 	sync_class = E_CAL_BACKEND_SYNC_CLASS (class);
@@ -2188,5 +2191,9 @@ e_cal_backend_exchange_init (ECalBackendExchange *cbex)
 	cbex->priv->cache_unseen = NULL;
 
 	e_cal_backend_sync_set_lock (E_CAL_BACKEND_SYNC (cbex), TRUE);
+
+	g_signal_connect (
+		cbex, "notify::online",
+		G_CALLBACK (notify_online_cb), NULL);
 }
 

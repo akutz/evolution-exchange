@@ -603,7 +603,7 @@ authenticate_user (ECalBackendSync *backend,
 		return;
 	}
 
-	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		return; /* Success */
 	}
 
@@ -805,7 +805,7 @@ create_object (ECalBackendSync *backend,
 	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), InvalidArg);
 	e_return_data_cal_error_if_fail (calobj != NULL, InvalidArg);
 
-	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return;
 	}
@@ -1196,7 +1196,7 @@ modify_object_with_href (ECalBackendSync *backend,
 	e_return_data_cal_error_and_val_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), InvalidArg, FALSE);
 	e_return_data_cal_error_and_val_if_fail (calobj != NULL, InvalidArg, FALSE);
 
-	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return FALSE;
 	}
@@ -1602,7 +1602,7 @@ remove_object (ECalBackendSync *backend,
 
 	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), InvalidArg);
 
-	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return;
 	}
@@ -1692,7 +1692,7 @@ receive_objects (ECalBackendSync *backend,
 	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (cbexc), InvalidArg);
 	e_return_data_cal_error_if_fail (calobj != NULL, InvalidArg);
 
-	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return;
 	}
@@ -2147,7 +2147,7 @@ send_objects (ECalBackendSync *backend,
 
 	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE (cbex), InvalidArg);
 
-	if (!e_cal_backend_is_online (E_CAL_BACKEND (cbex))) {
+	if (!e_backend_get_online (E_BACKEND (cbex))) {
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return;
 	}
@@ -2333,7 +2333,7 @@ discard_alarm (ECalBackendSync *backend,
 
 	d(printf("ecbe_discard_alarm(%p, %p, uid=%s, auid=%s)\n", backend, cal, uid, auid));
 
-	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
 		return;
 	}
@@ -2387,7 +2387,7 @@ get_free_busy (ECalBackendSync *backend,
 	xmlNode *recipients, *item;
 	xmlDoc *doc;
 
-	if (!e_cal_backend_is_online (E_CAL_BACKEND (backend))) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		g_propagate_error (perror, EDC_ERROR (RepositoryOffline));
 		return;
 	}

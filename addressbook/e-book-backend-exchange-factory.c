@@ -17,40 +17,79 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
-#include <string.h>
-
-#include <camel/camel.h>
-#include <libebackend/e-data-server-module.h>
 #include <libedata-book/e-book-backend-factory.h>
-
 #include "e-book-backend-exchange.h"
 #include "e-book-backend-gal.h"
 
-E_BOOK_BACKEND_FACTORY_SIMPLE (exchange, Exchange, e_book_backend_exchange_new)
-E_BOOK_BACKEND_FACTORY_SIMPLE (gal, Gal, e_book_backend_gal_new)
+typedef EBookBackendFactory EBookBackendExchangeFactory;
+typedef EBookBackendFactoryClass EBookBackendExchangeFactoryClass;
 
-static GType exchange_types[2];
+typedef EBookBackendFactory EBookBackendGalFactory;
+typedef EBookBackendFactoryClass EBookBackendGalFactoryClass;
 
-void
-eds_module_initialize (GTypeModule *type_module)
+/* Module Entry Points */
+void e_module_load (GTypeModule *type_module);
+void e_module_unload (GTypeModule *type_module);
+
+/* Forward Declarations */
+GType e_book_backend_exchange_factory_get_type (void);
+GType e_book_backend_gal_factory_get_type (void);
+
+G_DEFINE_DYNAMIC_TYPE (
+	EBookBackendExchangeFactory,
+	e_book_backend_exchange_factory,
+	E_TYPE_BOOK_BACKEND_FACTORY)
+
+G_DEFINE_DYNAMIC_TYPE (
+	EBookBackendGalFactory,
+	e_book_backend_gal_factory,
+	E_TYPE_BOOK_BACKEND_FACTORY)
+
+static void
+e_book_backend_exchange_factory_class_init (EBookBackendFactoryClass *class)
 {
-	exchange_types[0] = _exchange_factory_get_type (type_module);
-	exchange_types[1] = _gal_factory_get_type (type_module);
+	class->factory_name = "exchange";
+	class->backend_type = E_TYPE_BOOK_BACKEND_EXCHANGE;
 }
 
-void
-eds_module_shutdown (void)
+static void
+e_book_backend_exchange_factory_class_finalize (EBookBackendFactoryClass *class)
 {
 }
 
-void
-eds_module_list_types (const GType **types,
-                       gint *num_types)
+static void
+e_book_backend_exchange_factory_init (EBookBackendFactory *factory)
 {
-	*types = exchange_types;
-	*num_types = G_N_ELEMENTS (exchange_types);
 }
+
+static void
+e_book_backend_gal_factory_class_init (EBookBackendFactoryClass *class)
+{
+	class->factory_name = "gal";
+	class->backend_type = E_TYPE_BOOK_BACKEND_GAL;
+}
+
+static void
+e_book_backend_gal_factory_class_finalize (EBookBackendFactoryClass *class)
+{
+}
+
+static void
+e_book_backend_gal_factory_init (EBookBackendFactory *factory)
+{
+}
+
+G_MODULE_EXPORT void
+e_module_load (GTypeModule *type_module)
+{
+	e_book_backend_exchange_factory_register_type (type_module);
+	e_book_backend_gal_factory_register_type (type_module);
+}
+
+G_MODULE_EXPORT void
+e_module_unload (GTypeModule *type_module)
+{
+}
+

@@ -228,19 +228,35 @@ G_DEFINE_TYPE (
 static gboolean
 can_browse (EBookBackend *backend)
 {
-	return backend &&
-		e_book_backend_get_source (backend) &&
-		e_source_get_property (e_book_backend_get_source (backend), "can-browse") &&
-		strcmp (e_source_get_property (e_book_backend_get_source (backend), "can-browse"), "1") == 0;
+	ESource *source;
+	const gchar *can_browse;
+
+	if (backend == NULL)
+		return FALSE;
+
+	source = e_backend_get_source (E_BACKEND (backend));
+	g_return_val_if_fail (source != NULL, FALSE);
+
+	can_browse = e_source_get_property (source, "can-browse");
+
+	return (g_strcmp0 (can_browse, "1") == 0);
 }
 
 static gboolean
 can_expand_groups (EBookBackend *backend)
 {
-	return backend &&
-		e_book_backend_get_source (backend) &&
-		e_source_get_property (e_book_backend_get_source (backend), "expand-groups") &&
-		strcmp (e_source_get_property (e_book_backend_get_source (backend), "expand-groups"), "1") == 0;
+	ESource *source;
+	const gchar *expand_groups;
+
+	if (backend == NULL)
+		return FALSE;
+
+	source = e_backend_get_source (E_BACKEND (backend));
+	g_return_val_if_fail (source != NULL, FALSE);
+
+	expand_groups = e_source_get_property (source, "expand-groups");
+
+	return (g_strcmp0 (expand_groups, "1") == 0);
 }
 
 static void
@@ -656,7 +672,7 @@ get_contact (EBookBackend *backend,
 	gint ldap_error;
 
 	d(printf("get contact\n"));
-	if (!e_book_backend_is_online (backend)) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
 		if (bl->priv->marked_for_offline && bl->priv->file_db) {
 			EContact *contact = e_book_backend_db_cache_get_contact (bl->priv->file_db, id);
@@ -862,7 +878,7 @@ get_contact_list (EBookBackend *backend,
 	GError *error = NULL;
 
 	d(printf("get contact list\n"));
-	if (!e_book_backend_is_online (backend)) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
 		if (bl->priv->marked_for_offline && bl->priv->file_db) {
 			GList *contacts;
@@ -1891,7 +1907,7 @@ start_book_view (EBookBackend *backend,
 	GError *err = NULL;
 
 	d(printf("start book view\n"));
-	if (!e_book_backend_is_online (backend)) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
 		if (!(bl->priv->marked_for_offline && bl->priv->file_db)) {
 			err = EDB_ERROR (REPOSITORY_OFFLINE);
@@ -2492,7 +2508,7 @@ authenticate_user (EBookBackend *backend,
 
 	d(printf("authenticate_user(%p, %p, %s, %s, %s)\n", backend, book, user, password, auth_method));
 
-	if (!e_book_backend_is_online (backend)) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		e_book_backend_notify_readonly (backend, TRUE);
 		e_book_backend_notify_opened (backend, NULL /* Success */);
 	} else {
@@ -2590,22 +2606,25 @@ cancel_operations (EBookBackend *backend)
 }
 
 static void
-set_online (EBookBackend *backend,
-            gboolean is_online)
+notify_online_cb (EBookBackend *backend,
+                  GParamSpec *pspec)
 {
 	EBookBackendGAL *be = E_BOOK_BACKEND_GAL (backend);
 	EBookBackendGALPrivate *bepriv;
+	gboolean online;
 
 	bepriv = be->priv;
+
+	online = e_backend_get_online (E_BACKEND (backend));
 
 	/* Cancel all running operations */
 	cancel_operations (backend);
 
-	e_book_backend_notify_online (backend, is_online);
+	e_book_backend_notify_online (backend, online);
 
 	if (e_book_backend_is_opened (backend)) {
 		e_book_backend_notify_readonly (backend, TRUE);
-		if (is_online) {
+		if (online) {
 			gal_connect (be, NULL);
 			e_book_backend_notify_auth_required (backend, TRUE, NULL);
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
@@ -2628,7 +2647,7 @@ gal_open (EBookBackend *backend,
           gboolean only_if_exists)
 {
 	EBookBackendGAL *bl = E_BOOK_BACKEND_GAL (backend);
-	ESource *source = e_book_backend_get_source (backend);
+	ESource *source;
 	const gchar *host;
 	gchar **tokens;
 	const gchar *offline;
@@ -2642,16 +2661,18 @@ gal_open (EBookBackend *backend,
 	DB *db;
 	DB_ENV *env;
 #endif
+
 	if (bl->priv->connected) {
 		e_book_backend_respond_opened (backend, book, opid, EDB_ERROR (OTHER_ERROR));
 		return;
 	}
 
+	source = e_backend_get_source (E_BACKEND (backend));
 	offline = e_source_get_property (source, "offline_sync");
 	if (offline && g_str_equal (offline, "1"))
 		bl->priv->marked_for_offline = TRUE;
 
-	if (!e_book_backend_is_online (backend) &&
+	if (!e_backend_get_online (E_BACKEND (backend)) &&
 	    !bl->priv->marked_for_offline) {
 		e_book_backend_respond_opened (backend, book, opid, EDB_ERROR (OFFLINE_UNAVAILABLE));
 		return;
@@ -2683,7 +2704,7 @@ gal_open (EBookBackend *backend,
 #if defined(ENABLE_CACHE) && ENABLE_CACHE
 	bl->priv->file_db = NULL;
 #endif
-	if (!e_book_backend_is_online (backend) && !bl->priv->marked_for_offline) {
+	if (!e_backend_get_online (E_BACKEND (backend)) && !bl->priv->marked_for_offline) {
 		/* Offline */
 		e_book_backend_notify_readonly (backend, TRUE);
 
@@ -2824,7 +2845,7 @@ gal_open (EBookBackend *backend,
 	/* Online */
 	e_book_backend_notify_readonly (backend, TRUE);
 
-	if (!e_book_backend_is_online (backend)) {
+	if (!e_backend_get_online (E_BACKEND (backend))) {
 		e_book_backend_respond_opened (backend, book, opid, NULL);
 	} else {
 		e_book_backend_notify_auth_required (E_BOOK_BACKEND (backend), TRUE, NULL);
@@ -2992,7 +3013,6 @@ e_book_backend_gal_class_init (EBookBackendGALClass *class)
 	backend_class->start_book_view		= start_book_view;
 	backend_class->stop_book_view		= stop_book_view;
 	backend_class->authenticate_user	= authenticate_user;
-	backend_class->set_online		= set_online;
 
 	/* Set up static data */
 	search_attrs = g_new (const gchar *, G_N_ELEMENTS (prop_info) + 1);
@@ -3019,5 +3039,9 @@ e_book_backend_gal_init (EBookBackendGAL *backend)
 	priv->last_best_time = 0;
 	priv->cache_time = 0;
 #endif
+
+	g_signal_connect (
+		backend, "notify::online",
+		G_CALLBACK (notify_online_cb), NULL);
 }
 

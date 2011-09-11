@@ -17,148 +17,83 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
-#include <string.h>
-
-#include <camel/camel.h>
-#include <libebackend/e-data-server-module.h>
-#include "e-cal-backend-exchange-factory.h"
+#include <libedata-cal/e-cal-backend-factory.h>
 #include "e-cal-backend-exchange-calendar.h"
 #include "e-cal-backend-exchange-tasks.h"
 
-static GType exchange_events_type;
-static GType exchange_todos_type;
+#define FACTORY_NAME "exchange"
 
-static const gchar *
-_get_protocol (ECalBackendFactory *factory)
-{
-	return "exchange";
-}
+typedef ECalBackendFactory ECalBackendExchangeEventsFactory;
+typedef ECalBackendFactoryClass ECalBackendExchangeEventsFactoryClass;
 
-static ECalBackend *
-_todos_new_backend (ECalBackendFactory *factory,
-                    ESource *source)
-{
-	return g_object_new (E_TYPE_CAL_BACKEND_EXCHANGE_TASKS,
-			     "source", source,
-			     "kind", ICAL_VTODO_COMPONENT, NULL);
-}
+typedef ECalBackendFactory ECalBackendExchangeTodosFactory;
+typedef ECalBackendFactoryClass ECalBackendExchangeTodosFactoryClass;
 
-static icalcomponent_kind
-_todos_get_kind (ECalBackendFactory *factory)
-{
-	return ICAL_VTODO_COMPONENT;
-}
+/* Module Entry Points */
+void e_module_load (GTypeModule *type_module);
+void e_module_unload (GTypeModule *type_module);
 
-static ECalBackend *
-_events_new_backend (ECalBackendFactory *factory,
-                     ESource *source)
-{
-	return g_object_new (E_TYPE_CAL_BACKEND_EXCHANGE_CALENDAR,
-			     "source", source,
-			     "kind", ICAL_VEVENT_COMPONENT, NULL);
-}
+/* Forward Declarations */
+GType e_cal_backend_exchange_events_factory_get_type (void);
+GType e_cal_backend_exchange_todos_factory_get_type (void);
 
-static icalcomponent_kind
-_events_get_kind (ECalBackendFactory *factory)
+G_DEFINE_DYNAMIC_TYPE (
+	ECalBackendExchangeEventsFactory,
+	e_cal_backend_exchange_events_factory,
+	E_TYPE_CAL_BACKEND_FACTORY)
+
+G_DEFINE_DYNAMIC_TYPE (
+	ECalBackendExchangeTodosFactory,
+	e_cal_backend_exchange_todos_factory,
+	E_TYPE_CAL_BACKEND_FACTORY)
+
+static void
+e_cal_backend_exchange_events_factory_class_init (ECalBackendFactoryClass *class)
 {
-	return ICAL_VEVENT_COMPONENT;
+	class->factory_name = FACTORY_NAME;
+	class->component_kind = ICAL_VEVENT_COMPONENT;
+	class->backend_type = E_TYPE_CAL_BACKEND_EXCHANGE_CALENDAR;
 }
 
 static void
-todos_backend_exchange_factory_class_init (ECalBackendExchangeFactoryClass *klass)
+e_cal_backend_exchange_events_factory_class_finalize (ECalBackendFactoryClass *class)
 {
-	E_CAL_BACKEND_FACTORY_CLASS (klass)->get_protocol = _get_protocol;
-	E_CAL_BACKEND_FACTORY_CLASS (klass)->get_kind     = _todos_get_kind;
-	E_CAL_BACKEND_FACTORY_CLASS (klass)->new_backend = _todos_new_backend;
 }
 
 static void
-events_backend_exchange_factory_class_init (ECalBackendExchangeFactoryClass *klass)
+e_cal_backend_exchange_events_factory_init (ECalBackendFactory *factory)
 {
-	E_CAL_BACKEND_FACTORY_CLASS (klass)->get_protocol = _get_protocol;
-	E_CAL_BACKEND_FACTORY_CLASS (klass)->get_kind     = _events_get_kind;
-	E_CAL_BACKEND_FACTORY_CLASS (klass)->new_backend = _events_new_backend;
 }
 
-GType
-e_cal_backend_exchange_events_factory_get_type (void)
+static void
+e_cal_backend_exchange_todos_factory_class_init (ECalBackendFactoryClass *class)
 {
-	return exchange_events_type;
+	class->factory_name = FACTORY_NAME;
+	class->component_kind = ICAL_VTODO_COMPONENT;
+	class->backend_type = E_TYPE_CAL_BACKEND_EXCHANGE_TASKS;
 }
 
-void
-e_cal_backend_exchange_events_factory_register_type (GTypeModule *type_module)
+static void
+e_cal_backend_exchange_todos_factory_class_finalize (ECalBackendFactoryClass *class)
 {
-	static const GTypeInfo type_info = {
-		sizeof (ECalBackendExchangeFactoryClass),
-		(GBaseInitFunc) NULL,
-		(GBaseFinalizeFunc) NULL,
-		(GClassInitFunc) events_backend_exchange_factory_class_init,
-		(GClassFinalizeFunc) NULL,
-		NULL,  /* class_data */
-		sizeof (ECalBackend),
-		0,     /* n_preallocs */
-		(GInstanceInitFunc) NULL,
-		NULL   /* value_table */
-	};
-
-	exchange_events_type = g_type_module_register_type (
-		type_module, E_TYPE_CAL_BACKEND_FACTORY,
-		"ECalBackendExchangeEventsFactory", &type_info, 0);
 }
 
-GType
-e_cal_backend_exchange_todos_factory_get_type (void)
+static void
+e_cal_backend_exchange_todos_factory_init (ECalBackendFactory *factory)
 {
-	return exchange_todos_type;
 }
 
-void
-e_cal_backend_exchange_todos_factory_register_type (GTypeModule *type_module)
-{
-	static const GTypeInfo type_info = {
-		sizeof (ECalBackendExchangeFactoryClass),
-		(GBaseInitFunc) NULL,
-		(GBaseFinalizeFunc) NULL,
-		(GClassInitFunc)  todos_backend_exchange_factory_class_init,
-		(GClassFinalizeFunc) NULL,
-		NULL,  /* class_data */
-		sizeof (ECalBackend),
-		0,     /* n_preallocs */
-		(GInstanceInitFunc) NULL,
-		NULL   /* value_table */
-	};
-
-	exchange_todos_type = g_type_module_register_type (
-		type_module, E_TYPE_CAL_BACKEND_FACTORY,
-		"ECalBackendExchangeTodosFactory", &type_info, 0);
-}
-
-void
-eds_module_initialize (GTypeModule *type_module)
+G_MODULE_EXPORT void
+e_module_load (GTypeModule *type_module)
 {
 	e_cal_backend_exchange_events_factory_register_type (type_module);
 	e_cal_backend_exchange_todos_factory_register_type (type_module);
 }
 
-void
-eds_module_shutdown (void)
+G_MODULE_EXPORT void
+e_module_unload (GTypeModule *type_module)
 {
 }
 
-void
-eds_module_list_types (const GType **types,
-                       gint *num_types)
-{
-	static GType module_types[2];
-
-	module_types[0] = E_TYPE_CAL_BACKEND_EXCHANGE_EVENTS_FACTORY;
-	module_types[1] = E_TYPE_CAL_BACKEND_EXCHANGE_TODOS_FACTORY;
-
-	*types = module_types;
-	*num_types = G_N_ELEMENTS (module_types);
-}
