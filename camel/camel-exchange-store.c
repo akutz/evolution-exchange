@@ -341,11 +341,11 @@ exchange_store_connect_sync (CamelService *service,
                              GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
-	gchar *password = NULL;
 	guint32 connect_status;
 	gboolean online_mode = FALSE;
 	CamelSession *session;
 	CamelURL *url;
+	const gchar *password;
 	GError *local_error = NULL;
 
 	/* This lock is only needed for offline operation.
@@ -355,12 +355,14 @@ exchange_store_connect_sync (CamelService *service,
 
 	url = camel_service_get_camel_url (service);
 	session = camel_service_get_session (service);
+	password = camel_service_get_password (service);
 
 	online_mode = camel_session_get_online (session);
 
 	if (online_mode) {
-		if (!url->passwd) {
+		if (password == NULL) {
 			gchar *prompt;
+			gchar *new_passwd;
 			guint32 prompt_flags = CAMEL_SESSION_PASSWORD_SECRET;
 
 			if (exch->reprompt_password)
@@ -369,21 +371,26 @@ exchange_store_connect_sync (CamelService *service,
 			prompt = camel_session_build_password_prompt (
 				"Exchange", url->user, url->host);
 
-			url->passwd = camel_session_get_password (
+			/* XXX This is a tad awkward.  Maybe define a
+			 *     camel_service_ask_password() that calls
+			 *     camel_session_get_password() and caches
+			 *     the password itself? */
+			new_passwd = camel_session_get_password (
 				session, service, prompt,
 				"password", prompt_flags, error);
+			camel_service_set_password (service, new_passwd);
+			password = camel_service_get_password (service);
+			g_free (new_passwd);
 
 			g_free (prompt);
 
-			exch->reprompt_password = url->passwd == NULL;
+			exch->reprompt_password = (password == NULL);
 		}
 
-		if (url->passwd == NULL) {
+		if (password == NULL) {
 			g_mutex_unlock (exch->connect_lock);
 			return FALSE;
 		}
-
-		password = url->passwd;
 	}
 
 	/* Initialize the stub connection */
@@ -405,10 +412,7 @@ exchange_store_connect_sync (CamelService *service,
 	if (!connect_status) {
 		exch->reprompt_password = TRUE;
 
-		if (url->passwd) {
-			g_free (url->passwd);
-			url->passwd = NULL;
-		}
+		camel_service_set_password (service, NULL);
 
 		g_clear_error (error);
 		g_set_error (
