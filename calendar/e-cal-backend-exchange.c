@@ -65,7 +65,6 @@ struct ECalBackendExchangePrivate {
 	GHashTable *objects, *cache_unseen;
 	gchar *object_cache_file;
 	gchar *lastmod;
-	gchar *local_attachment_store;
 	guint save_timeout_id;
 	GMutex *set_lock;
 	GMutex *open_lock;
@@ -165,7 +164,7 @@ load_cache (ECalBackendExchange *cbex,
 	struct icaltimetype comp_last_mod, folder_last_mod;
 	icalcomponent_kind kind;
 	icalproperty *prop;
-	gchar *lastmod, *mangled_uri, *storage_dir;
+	gchar *lastmod, *mangled_uri, *storage_dir, *local_store;
 	const gchar *user_cache_dir;
 	const gchar *uristr;
 	gint i;
@@ -197,16 +196,16 @@ load_cache (ECalBackendExchange *cbex,
 	}
 
 	user_cache_dir = e_get_user_cache_dir ();
-	cbex->priv->local_attachment_store = g_build_filename (
-		user_cache_dir, "calendar", mangled_uri, NULL);
+	local_store = g_build_filename (user_cache_dir, "calendar", mangled_uri, NULL);
+	e_cal_backend_set_cache_dir (E_CAL_BACKEND (cbex), local_store);
 	storage_dir = g_path_get_dirname (cbex->priv->object_cache_file);
 
-	if (g_lstat (cbex->priv->local_attachment_store , &buf) < 0) {
+	if (g_lstat (local_store, &buf) < 0) {
 #ifdef G_OS_UNIX
 		gint failed = TRUE;
 
  again:
-		if (symlink (storage_dir, cbex->priv->local_attachment_store) < 0)
+		if (symlink (storage_dir, local_store) < 0)
 			g_warning ("%s: symlink() failed: %s", G_STRFUNC, g_strerror (errno));
 		else
 			failed = FALSE;
@@ -225,15 +224,13 @@ load_cache (ECalBackendExchange *cbex,
 			g_free (parent_dir);
 		}
 #else
-		g_warning ("should symlink %s->%s, huh?",
-			   cbex->priv->local_attachment_store,
-			   storage_dir);
-
-		g_mkdir_with_parents (cbex->priv->local_attachment_store, 0700);
+		g_warning ("should symlink %s->%s, huh?", local_store, storage_dir);
+		g_mkdir_with_parents (local_store, 0700);
 #endif
 	}
 	g_free (storage_dir);
 	g_free (mangled_uri);
+	g_free (local_store);
 
        /* Check if the cache file is present. If it is not present the account might
 	  be newly created one. It will be created while save the cache */
@@ -1693,7 +1690,7 @@ get_attachment (ECalBackendExchange *cbex,
 				stream = camel_stream_mem_new_with_byte_array (byte_array);
 				camel_data_wrapper_decode_to_stream_sync (content, stream, NULL, NULL);
 				attach_data = g_memdup (byte_array->data, byte_array->len);
-				attach_file = g_strdup_printf ("%s/%s-%s", cbex->priv->local_attachment_store, uid, filename);
+				attach_file = e_cal_backend_create_cache_filename (E_CAL_BACKEND (cbex), uid, filename, i);
 				// Attach
 				attach_file_url = save_attach_file (attach_file, (gchar *) attach_data, byte_array->len);
 				g_free (attach_data);
@@ -1842,7 +1839,8 @@ receive_attachments (ECalBackendExchange *cbex,
 {
 	GSList *attach_urls = NULL;
 	GSList *l, *attach_list = NULL;
-	const gchar *uid = NULL;
+	const gchar *uid = NULL, *cache_dir;
+	gint fileindex;
 
 	g_return_val_if_fail (cbex != NULL, NULL);
 	g_return_val_if_fail (comp != NULL, NULL);
@@ -1853,8 +1851,9 @@ receive_attachments (ECalBackendExchange *cbex,
 	e_cal_component_get_uid (comp, &uid);
 	g_return_val_if_fail (uid != NULL, NULL);
 
+	cache_dir = e_cal_backend_get_cache_dir (E_CAL_BACKEND (cbex));
 	e_cal_component_get_attachment_list (comp, &attach_list);
-	for (l = attach_list; l; l = l->next) {
+	for (l = attach_list, fileindex = 0; l; l = l->next, fileindex++) {
 		const gchar *fname;
 		gchar *dest_url, *attach_file = NULL, *file_contents, *old_file = NULL;
 		gint len = 0;
@@ -1863,12 +1862,12 @@ receive_attachments (ECalBackendExchange *cbex,
 			attach_file = g_filename_from_uri ((gchar *) l->data, NULL, NULL);
 			fname = attach_file;
 
-			if (fname && cbex->priv->local_attachment_store && !g_str_has_prefix (fname, cbex->priv->local_attachment_store)) {
+			if (fname && cache_dir && !g_str_has_prefix (fname, cache_dir)) {
 				/* it's not in our store, thus save it there */
 				gchar *base_name = g_path_get_basename (attach_file);
 
 				old_file = attach_file;
-				attach_file = g_build_filename (cbex->priv->local_attachment_store, uid, base_name, NULL);
+				attach_file = e_cal_backend_create_cache_filename (E_CAL_BACKEND (cbex), uid, base_name, fileindex);
 				g_free (base_name);
 			}
 		} else {
@@ -1883,7 +1882,7 @@ receive_attachments (ECalBackendExchange *cbex,
 				 */
 				continue;
 			}
-			attach_file = g_strdup_printf ("%s/%s-%s", cbex->priv->local_attachment_store, uid, filename + 1);
+			attach_file = e_cal_backend_create_cache_filename (E_CAL_BACKEND (cbex), uid, filename + 1, fileindex);
 		}
 
 		/* attach_file should be g_freed */
@@ -1926,7 +1925,7 @@ build_msg (ECalBackendExchange *cbex,
 	gchar *from_name = NULL, *from_email = NULL;
 	GSList *attach_list = NULL, *l, *new_attach_list = NULL;
 	gchar *fname, *file_contents = NULL, *filename, *dest_url, *mime_filename, *attach_file;
-	gint len = 0;
+	gint len = 0, fileindex;
 
 	if (!g_ascii_strcasecmp (e_cal_backend_exchange_get_owner_email (E_CAL_BACKEND_SYNC (cbex)), exchange_account_get_email_id (cbex->account)))
 		e_cal_backend_exchange_get_from (E_CAL_BACKEND_SYNC (cbex), comp, &from_name, &from_email);
@@ -1949,7 +1948,7 @@ build_msg (ECalBackendExchange *cbex,
 
 	e_cal_component_get_uid (comp, &uid);
 	e_cal_component_get_attachment_list (comp, &attach_list);
-	for (l = attach_list; l; l = l->next) {
+	for (l = attach_list, fileindex = 0; l; l = l->next, fileindex++) {
 		gchar *mime_type;
 
 		if (!strncmp ((gchar *)l->data, "file://", 7)) {
@@ -1972,7 +1971,7 @@ build_msg (ECalBackendExchange *cbex,
 				continue;
 			}
 			mime_filename = g_strdup (filename + 1);
-			attach_file = g_strdup_printf ("%s/%s-%s", cbex->priv->local_attachment_store, uid, filename);
+			attach_file = e_cal_backend_create_cache_filename (E_CAL_BACKEND (cbex), uid, filename, fileindex);
 		}
 
 		/* mime_filename and attach_file should be g_freed */
@@ -2117,7 +2116,6 @@ finalize (GObject *object)
 		g_hash_table_destroy (cbex->priv->cache_unseen);
 	g_free (cbex->priv->object_cache_file);
 	g_free (cbex->priv->lastmod);
-	g_free (cbex->priv->local_attachment_store);
 
 	g_hash_table_destroy (cbex->priv->timezones);
 
