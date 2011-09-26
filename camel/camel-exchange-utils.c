@@ -2157,12 +2157,24 @@ get_folder_info_data (ExchangeData *ed,
 
 			if (inbox_uri && !strcmp (uri, inbox_uri))
 				folder_flags |= CAMEL_FOLDER_SYSTEM | CAMEL_FOLDER_TYPE_INBOX;
-
-			if (trash_uri && !strcmp (uri, trash_uri))
+			else if (trash_uri && !strcmp (uri, trash_uri))
 				folder_flags |= CAMEL_FOLDER_SYSTEM | CAMEL_FOLDER_TYPE_TRASH;
-
-			if (sent_items_uri && !strcmp (uri, sent_items_uri))
+			else if (sent_items_uri && !strcmp (uri, sent_items_uri))
 				folder_flags |= CAMEL_FOLDER_SYSTEM | CAMEL_FOLDER_TYPE_SENT;
+			else if (E_IS_FOLDER_EXCHANGE (folder)) {
+				const gchar *outlook_class = e_folder_exchange_get_outlook_class (folder);
+
+				if (outlook_class) {
+					if (g_ascii_strcasecmp (outlook_class, "IPF.Contact") == 0)
+						folder_flags |= CAMEL_FOLDER_TYPE_CONTACTS;
+					else if (g_ascii_strcasecmp (outlook_class, "IPF.Appointment") == 0)
+						folder_flags |= CAMEL_FOLDER_TYPE_EVENTS;
+					else if (g_ascii_strcasecmp (outlook_class, "IPF.StickyNote") == 0)
+						folder_flags |= CAMEL_FOLDER_TYPE_MEMOS;
+					else if (g_ascii_strcasecmp (outlook_class, "IPF.Task") == 0)
+						folder_flags |= CAMEL_FOLDER_TYPE_TASKS;
+				}
+			}
 
 			if (!e_folder_exchange_get_has_subfolders (folder)) {
 				d(printf ("%s:%d:%s - %s has no subfolders", __FILE__, __LINE__, G_STRFUNC, name));

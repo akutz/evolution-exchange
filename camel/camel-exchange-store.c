@@ -114,6 +114,18 @@ make_folder_info (CamelExchangeStore *exch,
 	if ((flags & CAMEL_FOLDER_TYPE_MASK) == CAMEL_FOLDER_TYPE_SENT)
 		info->flags |= CAMEL_FOLDER_TYPE_SENT;
 
+	if ((flags & CAMEL_FOLDER_TYPE_MASK) == CAMEL_FOLDER_TYPE_CONTACTS)
+		info->flags |= CAMEL_FOLDER_TYPE_CONTACTS;
+
+	if ((flags & CAMEL_FOLDER_TYPE_MASK) == CAMEL_FOLDER_TYPE_EVENTS)
+		info->flags |= CAMEL_FOLDER_TYPE_EVENTS;
+
+	if ((flags & CAMEL_FOLDER_TYPE_MASK) == CAMEL_FOLDER_TYPE_MEMOS)
+		info->flags |= CAMEL_FOLDER_TYPE_MEMOS;
+
+	if ((flags & CAMEL_FOLDER_TYPE_MASK) == CAMEL_FOLDER_TYPE_TASKS)
+		info->flags |= CAMEL_FOLDER_TYPE_TASKS;
+
 	if (flags & CAMEL_FOLDER_SUBSCRIBED)
 		info->flags |= CAMEL_FOLDER_SUBSCRIBED;
 
