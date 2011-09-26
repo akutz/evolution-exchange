@@ -484,7 +484,7 @@ authenticate_user (ECalBackendSync *backend,
 	cbex->folder = exchange_account_get_folder (cbex->account, uristr);
 	if (!cbex->folder) {
 		ESource *source;
-		const gchar *foreign;
+		const gchar *foreign, *favorite;
 		ExchangeHierarchy *hier_to_rescan = NULL;
 		/* FIXME: theoretically we should create it if
 		 * only_if_exists is FALSE.
@@ -492,6 +492,7 @@ authenticate_user (ECalBackendSync *backend,
 
 		source = e_cal_backend_get_source (E_CAL_BACKEND (cbex));
 		foreign = e_source_get_property (source, "foreign");
+		favorite = g_strrstr (uristr, ";favorites");
 
 		if (foreign && (g_str_equal (foreign, "1"))) {
 			gchar **split_path;
@@ -511,6 +512,14 @@ authenticate_user (ECalBackendSync *backend,
 			}
 
 			g_strfreev (split_path);
+		} else if (favorite) {
+			/* Rescan to see if this is a newly subscribed calendar */
+			hier_to_rescan = exchange_account_get_hierarchy_by_type (cbex->account, EXCHANGE_HIERARCHY_FAVORITES);
+			if (!hier_to_rescan) {
+				g_mutex_unlock (cbex->priv->open_lock);
+				g_propagate_error (perror, EDC_ERROR (RepositoryOffline));
+				return;
+			}
 		} else {
 			/* Rescan to see if this is any new calendar */
 			hier_to_rescan = exchange_account_get_hierarchy_by_type (cbex->account, EXCHANGE_HIERARCHY_PERSONAL);
