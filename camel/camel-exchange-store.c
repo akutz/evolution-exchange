@@ -23,8 +23,10 @@
 #include <config.h>
 #endif
 
+#include <errno.h>
 #include <string.h>
 
+#include <glib/gstdio.h>
 #include <glib/gi18n-lib.h>
 
 #include <libedataserver/e-data-server-util.h>
@@ -242,6 +244,34 @@ exchange_store_path_to_physical (const gchar *prefix,
 }
 
 static void
+eex_migrate_to_user_cache_dir (CamelService *service)
+{
+	const gchar *user_data_dir, *user_cache_dir;
+
+	g_return_if_fail (service != NULL);
+	g_return_if_fail (CAMEL_IS_SERVICE (service));
+
+	user_data_dir = camel_service_get_user_data_dir (service);
+	user_cache_dir = camel_service_get_user_cache_dir (service);
+
+	g_return_if_fail (user_data_dir != NULL);
+	g_return_if_fail (user_cache_dir != NULL);
+
+	/* migrate only if the source directory exists and the destination doesn't */
+	if (g_file_test (user_data_dir, G_FILE_TEST_EXISTS | G_FILE_TEST_IS_DIR) &&
+	    !g_file_test (user_cache_dir, G_FILE_TEST_EXISTS | G_FILE_TEST_IS_DIR)) {
+		gchar *parent_dir;
+
+		parent_dir = g_path_get_dirname (user_cache_dir);
+		g_mkdir_with_parents (parent_dir, S_IRWXU);
+		g_free (parent_dir);
+
+		if (g_rename (user_data_dir, user_cache_dir) == -1)
+			g_debug ("%s: Failed to migrate '%s' to '%s': %s", G_STRFUNC, user_data_dir, user_cache_dir, g_strerror (errno));
+	}
+}
+
+static void
 exchange_store_finalize (GObject *object)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (object);
@@ -273,6 +303,7 @@ exchange_store_constructed (GObject *object)
 		constructed (object);
 
 	service = CAMEL_SERVICE (object);
+	eex_migrate_to_user_cache_dir (service);
 	url = camel_service_get_camel_url (service);
 
 	exch->base_url = camel_url_to_string (url, CAMEL_URL_HIDE_ALL);
@@ -450,20 +481,20 @@ exchange_store_get_folder_sync (CamelStore *store,
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (store);
 	CamelService *service;
 	CamelFolder *folder;
-	const gchar *user_data_dir;
+	const gchar *user_cache_dir;
 	const gchar *short_name;
 	gchar *folder_dir;
 
 	RETURN_VAL_IF_NOT_CONNECTED (exch, cancellable, error, NULL);
 
 	service = CAMEL_SERVICE (store);
-	user_data_dir = camel_service_get_user_data_dir (service);
+	user_cache_dir = camel_service_get_user_cache_dir (service);
 
 	if (!folder_name || !*folder_name || g_ascii_strcasecmp (folder_name, "inbox") == 0)
 		folder_name = "personal/Inbox";
 
 	folder_dir = exchange_store_path_to_physical (
-		user_data_dir, folder_name);
+		user_cache_dir, folder_name);
 
 	if (!camel_exchange_store_connected (exch, cancellable, NULL)) {
 		if (!folder_dir || !g_file_test (folder_dir, G_FILE_TEST_IS_DIR)) {
@@ -839,6 +870,7 @@ camel_exchange_store_init (CamelExchangeStore *exch)
 	exch->folders_lock = g_mutex_new ();
 	exch->folders = g_hash_table_new (g_str_hash, g_str_equal);
 
+	store->flags |= CAMEL_STORE_USE_CACHE_DIR;
 	store->flags &= ~(CAMEL_STORE_VTRASH | CAMEL_STORE_VJUNK);
 	/* FIXME: Like the GroupWise provider, Exchange should also
 	have its own EXCAHNGE_JUNK flags so as to rightly handle
