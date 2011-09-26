@@ -823,7 +823,7 @@ exchange_config_listener_authenticate (ExchangeConfigListener *ex_conf_listener,
 	priv = ex_conf_listener->priv;
 
 	camel_url = camel_url_new (priv->configured_uri, NULL);
-	key = camel_url_to_string (camel_url, CAMEL_URL_HIDE_PASSWORD | CAMEL_URL_HIDE_PARAMS);
+	key = camel_url_to_string (camel_url, CAMEL_URL_HIDE_PARAMS);
 	password = e_passwords_get_password (NULL, key);
 	if (!password) {
 		oldremember = remember = exchange_account_is_save_password (account);

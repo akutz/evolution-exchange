@@ -291,7 +291,7 @@ migrate_account_esource (EAccount *account,
 		return;
 	user_name = camel_url->user;
 	authtype  = camel_url->authmech;
-	url_string = camel_url_to_string (camel_url, CAMEL_URL_HIDE_PASSWORD | CAMEL_URL_HIDE_PARAMS);
+	url_string = camel_url_to_string (camel_url, CAMEL_URL_HIDE_PARAMS);
 
 	if (!user_name) {
 		g_free (url_string);

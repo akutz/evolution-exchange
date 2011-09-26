@@ -495,8 +495,7 @@ owa_authenticate_user (GtkWidget *button,
 		exchange_params->is_ntlm = FALSE;
 	camel_url_set_authmech (url, exchange_params->is_ntlm ? "NTLM" : "Basic");
 
-	key = camel_url_to_string (
-		url, CAMEL_URL_HIDE_PASSWORD | CAMEL_URL_HIDE_PARAMS);
+	key = camel_url_to_string (url, CAMEL_URL_HIDE_PARAMS);
 	/* Supress the trailing slash */
 	key[strlen (key) -1] = 0;
 
