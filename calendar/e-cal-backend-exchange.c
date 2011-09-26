@@ -425,6 +425,7 @@ open_calendar (ECalBackendSync *backend,
 		if (load_result)
 			cbex->priv->is_loaded = TRUE;
 		g_mutex_unlock (cbex->priv->open_lock);
+		e_cal_backend_notify_readonly (E_CAL_BACKEND (backend), cbex->priv->read_only);
 		e_cal_backend_notify_opened (E_CAL_BACKEND (backend), NULL);
 		return;
 	}
@@ -561,6 +562,7 @@ authenticate_user (ECalBackendSync *backend,
 	}
 
 	cbex->priv->read_only = ((access & MAPI_ACCESS_CREATE_CONTENTS) == 0);
+	e_cal_backend_notify_readonly (E_CAL_BACKEND (backend), cbex->priv->read_only);
 
 	if (load_cache (cbex, euri, perror))
 		cbex->priv->is_loaded = TRUE;
@@ -1436,6 +1438,7 @@ set_online (ECalBackend *backend,
 	} else {
 		priv->read_only = TRUE;
 	}
+	e_cal_backend_notify_readonly (backend, priv->read_only);
 	g_mutex_unlock (priv->set_lock);
 }
 
