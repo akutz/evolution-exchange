@@ -17,7 +17,7 @@ libexec/evolution/@BASE_VERSION@/evolution-exchange-storage.exe
 bin/exchange-connector-setup-@BASE_VERSION@.exe
 EOF
 
-cd `pkg-config --variable=prefix camel-provider-@API_VERSION@`
+cd `pkg-config --variable=prefix camel-@API_VERSION@`
 zip $ZIP -@ <<EOF
 lib/evolution-data-server-@API_VERSION@/camel-providers/libcamelexchange.urls
 lib/evolution-data-server-@API_VERSION@/camel-providers/libcamelexchange.dll

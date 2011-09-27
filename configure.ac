@@ -156,7 +156,7 @@ PKG_CHECK_MODULES(GNOME_PLATFORM,
 	libsoup-2.4 >= libsoup_minimum_version])
 
 PKG_CHECK_MODULES(EVOLUTION_DATA_SERVER,
-	[camel-provider-1.2 >= eds_minimum_version
+	[camel-1.2 >= eds_minimum_version
 	libebook-1.2 >= eds_minimum_version
 	libecal-1.2 >= eds_minimum_version
 	libedataserver-1.2 >= eds_minimum_version
@@ -249,7 +249,7 @@ AC_SUBST(ecal_backenddir)
 EVOLUTION_imagesdir="`$PKG_CONFIG --variable=imagesdir evolution-shell-3.0`"
 AC_SUBST(EVOLUTION_imagesdir)
 
-CAMEL_providerdir="`$PKG_CONFIG --variable=camel_providerdir camel-provider-1.2`"
+CAMEL_providerdir="`$PKG_CONFIG --variable=camel_providerdir camel-1.2`"
 AC_SUBST(CAMEL_providerdir)
 
 dnl ***************************
