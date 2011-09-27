@@ -1118,7 +1118,9 @@ get_folder_contents_online (ExchangeFolder *mfld,
 		m++;
 	}
 
-	camel_folder_changed (CAMEL_FOLDER (folder), ci);
+	/* folder might not be ready on folder rename */
+	if (folder)
+		camel_folder_changed (CAMEL_FOLDER (folder), ci);
 	camel_folder_change_info_free (ci);
 
 	/* If there are further messages beyond mfld->messages->len,
