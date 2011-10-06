@@ -81,7 +81,7 @@ exchange_entry_play_append (CamelOfflineJournal *journal,
 
 	g_object_unref (stream);
 
-	if (!(info = camel_folder_summary_uid (folder->summary, entry->uid))) {
+	if (!(info = camel_folder_summary_get (folder->summary, entry->uid))) {
 		/* Should have never happened, but create a new info to avoid further crashes */
 		info = camel_message_info_new (NULL);
 	}
@@ -138,7 +138,7 @@ exchange_entry_play_transfer (CamelOfflineJournal *journal,
 
 	g_object_unref (stream);
 
-	if (!(info = camel_folder_summary_uid (folder->summary, entry->uid))) {
+	if (!(info = camel_folder_summary_get (folder->summary, entry->uid))) {
 		/* Note: this should never happen, but rather than crash lets make a new info */
 		info = camel_message_info_new (NULL);
 	}
@@ -434,7 +434,8 @@ update_cache (CamelExchangeJournal *exchange_journal,
 	cache = camel_data_cache_add (
 		exchange_folder->cache, "cache", uid, error);
 	if (cache == NULL) {
-		folder->summary->nextuid--;
+		/* this will not change it anyway */
+		camel_folder_summary_set_next_uid (folder->summary, nextuid - 1);
 		g_free (uid);
 		return FALSE;
 	}
@@ -446,7 +447,8 @@ update_cache (CamelExchangeJournal *exchange_journal,
 			error, _("Cannot append message in offline mode: "));
 		camel_data_cache_remove (
 			exchange_folder->cache, "cache", uid, NULL);
-		folder->summary->nextuid--;
+		/* this will not change it anyway */
+		camel_folder_summary_set_next_uid (folder->summary, nextuid - 1);
 		g_object_unref (cache);
 		g_free (uid);
 		return FALSE;

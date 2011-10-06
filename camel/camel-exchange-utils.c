@@ -375,7 +375,7 @@ message_remove_at_index (ExchangeFolder *mfld,
 		g_datalist_clear (&mmsg->tag_updates);
 	}
 
-	if (folder && (info = camel_folder_summary_uid (folder->summary, mmsg->uid))) {
+	if (folder && (info = camel_folder_summary_get (folder->summary, mmsg->uid))) {
 		camel_message_info_free (info);
 		camel_exchange_folder_remove_message (CAMEL_EXCHANGE_FOLDER (folder), mmsg->uid);
 	}
@@ -2826,7 +2826,7 @@ camel_exchange_utils_get_message (CamelService *service,
 
 	mmsg = find_message (mfld, uid);
 	if (!mmsg) {
-		if (folder && (info = camel_folder_summary_uid (folder->summary, uid))) {
+		if (folder && (info = camel_folder_summary_get (folder->summary, uid))) {
 			camel_message_info_free (info);
 			camel_exchange_folder_remove_message (CAMEL_EXCHANGE_FOLDER (folder), uid);
 		}

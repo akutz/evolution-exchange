@@ -111,7 +111,7 @@ exchange_search_body_contains (struct _ESExp *f,
 
 		uid_hash = g_hash_table_new (g_str_hash, g_str_equal);
 		for (i = 0; i < s->summary->len; i++) {
-			info = camel_folder_summary_uid (s->folder->summary, s->summary->pdata[i]);
+			info = camel_folder_summary_get (s->folder->summary, s->summary->pdata[i]);
 			g_hash_table_insert (uid_hash, s->summary->pdata[i], info);
 		}
 	}

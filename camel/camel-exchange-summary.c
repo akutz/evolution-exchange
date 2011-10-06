@@ -255,7 +255,7 @@ exchange_summary_summary_header_to_db (CamelFolderSummary *s,
 	return fir;
 }
 
-static gint
+static gboolean
 exchange_summary_summary_header_from_db (CamelFolderSummary *s,
                                          CamelFIRecord *mir)
 {
@@ -266,8 +266,8 @@ exchange_summary_summary_header_from_db (CamelFolderSummary *s,
 	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
 		camel_exchange_summary_parent_class);
 
-	if (folder_summary_class->summary_header_from_db (s, mir) == -1)
-		return -1;
+	if (!folder_summary_class->summary_header_from_db (s, mir))
+		return FALSE;
 
 	part = mir->bdata;
 
@@ -275,7 +275,7 @@ exchange_summary_summary_header_from_db (CamelFolderSummary *s,
 	exchange->readonly = bdata_extract_digit (&part);
 	exchange->high_article_num = bdata_extract_digit (&part);
 
-	return 0;
+	return TRUE;
 }
 
 static CamelMIRecord *
@@ -332,7 +332,7 @@ exchange_summary_info_set_flags (CamelMessageInfo *info,
 	if (CAMEL_EXCHANGE_SUMMARY (info->summary)->readonly)
 		return FALSE;
 
-	folder = info->summary->folder;
+	folder = camel_folder_summary_get_folder (info->summary);
 	full_name = camel_folder_get_full_name (folder);
 	parent_store = camel_folder_get_parent_store (folder);
 
@@ -385,12 +385,12 @@ exchange_summary_info_set_user_tag (CamelMessageInfo *info,
 		camel_exchange_summary_parent_class);
 
 	res = folder_summary_class->info_set_user_tag (info, name, value);
-	if (res && info->summary->folder && info->uid) {
-		CamelFolder *folder = info->summary->folder;
+	if (res && camel_folder_summary_get_folder (info->summary) && info->uid) {
+		CamelFolder *folder;
 		CamelStore *parent_store;
 		const gchar *full_name;
 
-		folder = info->summary->folder;
+		folder = camel_folder_summary_get_folder (info->summary);
 		full_name = camel_folder_get_full_name (folder);
 		parent_store = camel_folder_get_parent_store (folder);
 
@@ -443,15 +443,14 @@ camel_exchange_summary_new (struct _CamelFolder *folder,
 	CamelFolderSummary *summary;
 	GError *local_error = NULL;
 
-	summary = g_object_new (CAMEL_TYPE_EXCHANGE_SUMMARY, NULL);
-	summary->folder = folder;
+	summary = g_object_new (CAMEL_TYPE_EXCHANGE_SUMMARY, "folder", folder, NULL);
 	camel_folder_summary_set_filename (summary, filename);
-	if (camel_folder_summary_load_from_db (summary, &local_error) == -1) {
+	if (!camel_folder_summary_load_from_db (summary, &local_error)) {
 		g_warning (
 			"Unable to load Exchage summary for folder %s: %s\n",
 			camel_folder_get_full_name (folder),
 			local_error->message);
-		camel_folder_summary_clear_db (summary);
+		camel_folder_summary_clear (summary, NULL);
 		camel_folder_summary_touch (summary);
 		g_error_free (local_error);
 	}
