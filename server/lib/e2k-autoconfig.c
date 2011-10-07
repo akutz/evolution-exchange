@@ -854,6 +854,13 @@ find_global_catalog (E2kAutoconfig *ac)
 		/* FIXME: obey priority and weight */
 		ac->gc_server = g_strdup ((gchar *) namebuf);
 		ac->gc_server_autodetected = TRUE;
+
+		/* workaround compiler warnings on unused variables */
+		ttl++;
+		port++;
+		weight++;
+		priority++;
+
 		return;
 	}
 
