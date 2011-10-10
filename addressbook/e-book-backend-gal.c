@@ -528,15 +528,15 @@ ldap_error_to_response (gint ldap_error)
 
 
 static void
-create_contact (EBookBackend *backend,
-                EDataBook *book,
-                guint32 opid,
-                GCancellable *cancellable,
-                const gchar *vcard)
+create_contacts (EBookBackend *backend,
+		 EDataBook *book,
+		 guint32 opid,
+		 GCancellable *cancellable,
+		 const GSList *vcards)
 {
-	e_data_book_respond_create (book, opid,
-				    EDB_ERROR (PERMISSION_DENIED),
-				    NULL);
+	e_data_book_respond_create_contacts (book, opid,
+					     EDB_ERROR (PERMISSION_DENIED),
+					     NULL);
 }
 
 static void
@@ -552,15 +552,15 @@ remove_contacts (EBookBackend *backend,
 }
 
 static void
-modify_contact (EBookBackend *backend,
-                EDataBook *book,
-                guint32 opid,
-                GCancellable *cancellable,
-                const gchar *vcard)
+modify_contacts (EBookBackend *backend,
+		 EDataBook *book,
+		 guint32 opid,
+		 GCancellable *cancellable,
+		 const GSList *vcards)
 {
-	e_data_book_respond_modify (book, opid,
-				    EDB_ERROR (PERMISSION_DENIED),
-				    NULL);
+	e_data_book_respond_modify_contacts (book, opid,
+					     EDB_ERROR (PERMISSION_DENIED),
+					     NULL);
 }
 
 typedef struct {
@@ -3005,9 +3005,9 @@ e_book_backend_gal_class_init (EBookBackendGALClass *class)
 	backend_class->remove			= gal_remove;
 	backend_class->get_backend_property	= gal_get_backend_property;
 
-	backend_class->create_contact		= create_contact;
+	backend_class->create_contacts		= create_contacts;
 	backend_class->remove_contacts		= remove_contacts;
-	backend_class->modify_contact		= modify_contact;
+	backend_class->modify_contacts		= modify_contacts;
 	backend_class->get_contact		= get_contact;
 	backend_class->get_contact_list		= get_contact_list;
 	backend_class->start_book_view		= start_book_view;

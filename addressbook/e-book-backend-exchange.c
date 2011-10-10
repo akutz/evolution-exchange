@@ -1703,221 +1703,239 @@ merge_contact_lists (EBookBackendExchange *be,
 }
 
 static void
-e_book_backend_exchange_create_contact (EBookBackendSync *backend,
-                                        EDataBook *book,
-                                        GCancellable *cancellable,
-                                        const gchar *vcard,
-                                        EContact **contact,
-                                        GError **perror)
+e_book_backend_exchange_create_contacts (EBookBackendSync *backend,
+					 EDataBook *book,
+					 GCancellable *cancellable,
+					 const GSList *vcards,
+					 GSList **added_contacts,
+					 GError **perror)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
 	E2kProperties *props = NULL;
-	const gchar *name;
+	const gchar *name, *vcard;
+	EContact *contact;
 	E2kHTTPStatus status;
 	gchar *location = NULL;
 
-	d(printf("ebbe_create_contact(%p, %p, %s)\n", backend, book, vcard));
+	d(printf("ebbe_create_contact(%p, %p, %s)\n", backend, book, (const gchar *) vcards->data));
+
+	*added_contacts = NULL;
 
 	LOCK (bepriv);
 
 	if (!e_backend_get_online (E_BACKEND (backend))) {
-		*contact = NULL;
 		UNLOCK (bepriv);
 		g_propagate_error (perror, EDB_ERROR (REPOSITORY_OFFLINE));
-	} else {
-		*contact = e_contact_new_from_vcard (vcard);
+		return;
+	}
 
-		/* figure out the right uri to be using */
-		name = contact_name (*contact);
-		if (!name)
-			name = "No Subject";
+	/* We make the assumption that the vCard list we're passed is always exactly one element long, since we haven't specified "bulk-adds"
+	 * in our static capability list. This is because there is no clean way to roll back changes in case of an error. */
+	if (vcards->next != NULL) {
+		UNLOCK (bepriv);
+		g_propagate_error (perror, EDB_ERROR_EX (NOT_SUPPORTED, _("The backend does not support bulk additions")));
+		return;
+	}
 
-		if (!bepriv->connected || !bepriv->ctx || !bepriv->summary) {
-			if (!e_book_backend_exchange_connect (be, perror)) {
-				UNLOCK (bepriv);
-				return;
-			}
-		}
+	vcard = vcards->data;
+	contact = e_contact_new_from_vcard (vcard);
 
-		props = props_from_contact (be, *contact, NULL);
+	/* figure out the right uri to be using */
+	name = contact_name (contact);
+	if (!name)
+		name = "No Subject";
 
-		status = e_folder_exchange_proppatch_new (bepriv->folder, NULL, name,
-							  test_name, bepriv->summary,
-							  props, &location, NULL);
-
-		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status) && GPOINTER_TO_INT (e_contact_get (*contact, E_CONTACT_IS_LIST))) {
-			e_contact_set (*contact, E_CONTACT_UID, location);
-			e_contact_set (*contact, E_CONTACT_LIST_SHOW_ADDRESSES, GINT_TO_POINTER (TRUE));
-			status = merge_contact_lists (be, location, *contact);
-		} else if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-			gchar *note;
-			EContactPhoto *photo;
-
-			e_contact_set (*contact, E_CONTACT_UID, location);
-
-			note = e_contact_get (*contact, E_CONTACT_NOTE);
-			photo = e_contact_get (*contact, E_CONTACT_PHOTO);
-
-			if (note || photo) {
-				/* Do the PUT request. */
-				status = do_put (be, book, location,
-						 contact_name (*contact),
-						 note, photo);
-			}
-
-			if (note)
-				g_free (note);
-			if (photo)
-				e_contact_photo_free (photo);
-		}
-
-		g_free (location);
-		if (props)
-			e2k_properties_free (props);
-
-		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-			e_book_backend_summary_add_contact (bepriv->summary,
-							    *contact);
-			e_book_backend_cache_add_contact (bepriv->cache, *contact);
+	if (!bepriv->connected || !bepriv->ctx || !bepriv->summary) {
+		if (!e_book_backend_exchange_connect (be, perror)) {
 			UNLOCK (bepriv);
-			return;
-		} else {
-			g_object_unref (*contact);
-			*contact = NULL;
-			UNLOCK (bepriv);
-			http_status_to_error (status, perror);
 			return;
 		}
 	}
+
+	props = props_from_contact (be, contact, NULL);
+
+	status = e_folder_exchange_proppatch_new (bepriv->folder, NULL, name,
+						  test_name, bepriv->summary,
+						  props, &location, NULL);
+
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status) && GPOINTER_TO_INT (e_contact_get (contact, E_CONTACT_IS_LIST))) {
+		e_contact_set (contact, E_CONTACT_UID, location);
+		e_contact_set (contact, E_CONTACT_LIST_SHOW_ADDRESSES, GINT_TO_POINTER (TRUE));
+		status = merge_contact_lists (be, location, contact);
+	} else if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		gchar *note;
+		EContactPhoto *photo;
+
+		e_contact_set (contact, E_CONTACT_UID, location);
+
+		note = e_contact_get (contact, E_CONTACT_NOTE);
+		photo = e_contact_get (contact, E_CONTACT_PHOTO);
+
+		if (note || photo) {
+			/* Do the PUT request. */
+			status = do_put (be, book, location,
+					 contact_name (contact),
+					 note, photo);
+		}
+
+		if (note)
+			g_free (note);
+		if (photo)
+			e_contact_photo_free (photo);
+	}
+
+	g_free (location);
+	if (props)
+		e2k_properties_free (props);
+
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		e_book_backend_summary_add_contact (bepriv->summary, contact);
+		e_book_backend_cache_add_contact (bepriv->cache, contact);
+		*added_contacts = g_slist_append (NULL, contact);
+	} else {
+		g_object_unref (contact);
+		http_status_to_error (status, perror);
+	}
+
 	UNLOCK (bepriv);
 }
 
 static void
-e_book_backend_exchange_modify_contact (EBookBackendSync *backend,
-                                        EDataBook *book,
-                                        GCancellable *cancellable,
-                                        const gchar *vcard,
-                                        EContact **contact,
-                                        GError **perror)
+e_book_backend_exchange_modify_contacts (EBookBackendSync *backend,
+					 EDataBook *book,
+					 GCancellable *cancellable,
+					 const GSList *vcards,
+					 GSList **contacts,
+					 GError **perror)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
 	EContact *old_contact;
-	const gchar *uri;
+	const gchar *uri, *vcard;
 	E2kHTTPStatus status;
 	E2kResult *results;
 	gint nresults = 0;
 	E2kProperties *props;
+	EContact *contact;
 
-	d(printf("ebbe_modify_contact(%p, %p, %s)\n", backend, book, vcard));
+	d(printf("ebbe_modify_contact(%p, %p, %s)\n", backend, book, (const gchar *) vcards->data));
+
+	*contacts = NULL;
 
 	if (!e_backend_get_online (E_BACKEND (backend))) {
-		*contact = NULL;
 		g_propagate_error (perror, EDB_ERROR (REPOSITORY_OFFLINE));
+		return;
+	}
+
+	/* We make the assumption that the vCard list we're passed is always exactly one element long, since we haven't specified "bulk-modifies"
+	 * in our static capability list. This is because there is no clean way to roll back changes in case of an error. */
+	if (vcards->next != NULL) {
+		g_propagate_error (perror, EDB_ERROR_EX (NOT_SUPPORTED, _("The backend does not support bulk modifications")));
+		return;
+	}
+
+	vcard = vcards->data;
+	contact = e_contact_new_from_vcard (vcard);
+	uri = e_contact_get_const (contact, E_CONTACT_UID);
+
+	if (!bepriv->connected || !bepriv->ctx || !bepriv->summary) {
+		if (!e_book_backend_exchange_connect (be, perror)) {
+			g_object_unref (contact);
+			return;
+		}
+	}
+
+	status = e2k_context_propfind (bepriv->ctx, NULL, uri,
+				       field_names, n_field_names,
+				       &results, &nresults);
+	if (status == E2K_HTTP_CANCELLED) {
+		g_object_unref (book);
+		g_object_unref (contact);
+		g_propagate_error (perror, EDB_ERROR_EX (OTHER_ERROR, _("Cancelled")));
+		return;
+	}
+
+	if (status == E2K_HTTP_MULTI_STATUS && nresults > 0)
+		old_contact = e_contact_from_props (be, &results[0]);
+	else
+		old_contact = NULL;
+
+	props = props_from_contact (be, contact, old_contact);
+	if (!props)
+		status = E2K_HTTP_OK;
+	else
+		status = e2k_context_proppatch (bepriv->ctx, NULL, uri,
+						props, FALSE, NULL);
+
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status) && GPOINTER_TO_INT (e_contact_get (contact, E_CONTACT_IS_LIST))) {
+		status = merge_contact_lists (be, uri, contact);
+	} else  if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		/* Do the PUT request if we need to. */
+		gchar *old_note, *new_note;
+		EContactPhoto *old_photo, *new_photo;
+		gboolean changed = FALSE;
+
+		old_note = e_contact_get (old_contact, E_CONTACT_NOTE);
+		old_photo = e_contact_get (old_contact, E_CONTACT_PHOTO);
+		new_note = e_contact_get (contact, E_CONTACT_NOTE);
+		new_photo = e_contact_get (contact, E_CONTACT_PHOTO);
+
+		if ((old_note && !new_note) ||
+		    (new_note && !old_note) ||
+		    (old_note && new_note &&
+		     strcmp (old_note, new_note) != 0))
+			changed = TRUE;
+		else if ((old_photo && !new_photo) || (new_photo && !old_photo))
+			changed = TRUE;
+		else if (old_photo && new_photo) {
+			if ((old_photo->type == new_photo->type) &&
+			     old_photo->type == E_CONTACT_PHOTO_TYPE_INLINED) {
+				changed = ((old_photo->data.inlined.length == new_photo->data.inlined.length)
+						    && !memcmp (old_photo->data.inlined.data,
+							new_photo->data.inlined.data,
+							old_photo->data.inlined.length));
+			}
+			else if ((old_photo->type == new_photo->type) &&
+				  old_photo->type == E_CONTACT_PHOTO_TYPE_URI) {
+				changed = !strcmp (old_photo->data.uri, new_photo->data.uri);
+			}
+		}
+
+		if (changed) {
+			status = do_put (be, book, uri,
+					 contact_name (contact),
+					 new_note, new_photo);
+		}
+
+		g_free (old_note);
+		g_free (new_note);
+		if (old_photo)
+			e_contact_photo_free (old_photo);
+		if (new_photo)
+			e_contact_photo_free (new_photo);
+	}
+
+	if (old_contact)
+		g_object_unref (old_contact);
+
+	if (nresults)
+		e2k_results_free (results, nresults);
+
+	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
+		LOCK (bepriv);
+		e_book_backend_summary_remove_contact (bepriv->summary, uri);
+		e_book_backend_summary_add_contact (bepriv->summary, contact);
+		e_book_backend_cache_remove_contact (bepriv->cache, uri);
+		e_book_backend_cache_add_contact (bepriv->cache, contact);
+		UNLOCK (bepriv);
+
+		*contacts = g_slist_append (NULL, contact);
+		return;
 	} else {
-		*contact = e_contact_new_from_vcard (vcard);
-		uri = e_contact_get_const (*contact, E_CONTACT_UID);
-
-		if (!bepriv->connected || !bepriv->ctx || !bepriv->summary) {
-			if (!e_book_backend_exchange_connect (be, perror)) {
-				return;
-			}
-		}
-
-		status = e2k_context_propfind (bepriv->ctx, NULL, uri,
-					       field_names, n_field_names,
-					       &results, &nresults);
-		if (status == E2K_HTTP_CANCELLED) {
-			g_object_unref (book);
-			g_object_unref (*contact);
-			*contact = NULL;
-			g_propagate_error (perror, EDB_ERROR_EX (OTHER_ERROR, _("Cancelled")));
-			return;
-		}
-
-		if (status == E2K_HTTP_MULTI_STATUS && nresults > 0)
-			old_contact = e_contact_from_props (be, &results[0]);
-		else
-			old_contact = NULL;
-
-		props = props_from_contact (be, *contact, old_contact);
-		if (!props)
-			status = E2K_HTTP_OK;
-		else
-			status = e2k_context_proppatch (bepriv->ctx, NULL, uri,
-							props, FALSE, NULL);
-
-		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status) && GPOINTER_TO_INT (e_contact_get (*contact, E_CONTACT_IS_LIST))) {
-			status = merge_contact_lists (be, uri, *contact);
-		} else  if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-			/* Do the PUT request if we need to. */
-			gchar *old_note, *new_note;
-			EContactPhoto *old_photo, *new_photo;
-			gboolean changed = FALSE;
-
-			old_note = e_contact_get (old_contact, E_CONTACT_NOTE);
-			old_photo = e_contact_get (old_contact, E_CONTACT_PHOTO);
-			new_note = e_contact_get (*contact, E_CONTACT_NOTE);
-			new_photo = e_contact_get (*contact, E_CONTACT_PHOTO);
-
-			if ((old_note && !new_note) ||
-			    (new_note && !old_note) ||
-			    (old_note && new_note &&
-			     strcmp (old_note, new_note) != 0))
-				changed = TRUE;
-			else if ((old_photo && !new_photo) || (new_photo && !old_photo))
-				changed = TRUE;
-			else if (old_photo && new_photo) {
-				if ((old_photo->type == new_photo->type) &&
-				     old_photo->type == E_CONTACT_PHOTO_TYPE_INLINED) {
-					changed = ((old_photo->data.inlined.length == new_photo->data.inlined.length)
-							    && !memcmp (old_photo->data.inlined.data,
-								new_photo->data.inlined.data,
-								old_photo->data.inlined.length));
-				}
-				else if ((old_photo->type == new_photo->type) &&
-					  old_photo->type == E_CONTACT_PHOTO_TYPE_URI) {
-					changed = !strcmp (old_photo->data.uri, new_photo->data.uri);
-				}
-			}
-
-			if (changed) {
-				status = do_put (be, book, uri,
-						 contact_name (*contact),
-						 new_note, new_photo);
-			}
-
-			g_free (old_note);
-			g_free (new_note);
-			if (old_photo)
-				e_contact_photo_free (old_photo);
-			if (new_photo)
-				e_contact_photo_free (new_photo);
-		}
-
-		if (old_contact)
-			g_object_unref (old_contact);
-
-		if (nresults)
-			e2k_results_free (results, nresults);
-
-		if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-			LOCK (bepriv);
-			e_book_backend_summary_remove_contact (bepriv->summary,
-							       uri);
-			e_book_backend_summary_add_contact (bepriv->summary,
-							    *contact);
-			e_book_backend_cache_remove_contact (bepriv->cache, uri);
-			e_book_backend_cache_add_contact (bepriv->cache, *contact);
-			UNLOCK (bepriv);
-			return;
-		} else {
-			g_object_unref (*contact);
-			*contact = NULL;
-			http_status_to_error (status, perror);
-			return;
-		}
+		g_object_unref (contact);
+		http_status_to_error (status, perror);
+		return;
 	}
 }
 
@@ -2820,9 +2838,9 @@ e_book_backend_exchange_class_init (EBookBackendExchangeClass *klass)
 	backend_class->authenticate_user	= e_book_backend_exchange_authenticate_user;
 
 	sync_class->remove_sync			= e_book_backend_exchange_remove;
-	sync_class->create_contact_sync		= e_book_backend_exchange_create_contact;
+	sync_class->create_contacts_sync	= e_book_backend_exchange_create_contacts;
 	sync_class->remove_contacts_sync	= e_book_backend_exchange_remove_contacts;
-	sync_class->modify_contact_sync		= e_book_backend_exchange_modify_contact;
+	sync_class->modify_contacts_sync	= e_book_backend_exchange_modify_contacts;
 	sync_class->get_contact_sync		= e_book_backend_exchange_get_contact;
 	sync_class->get_contact_list_sync	= e_book_backend_exchange_get_contact_list;
 	sync_class->get_backend_property_sync	= e_book_backend_exchange_get_backend_property;
