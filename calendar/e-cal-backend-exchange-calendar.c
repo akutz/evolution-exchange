@@ -1855,7 +1855,7 @@ book_resource (ECalBackendExchange *cbex,
 	time_t tt;
 	const gchar *uid, *prop_name = PR_ACCESS;
 	const gchar *access_prop = NULL, *meeting_prop = NULL, *cal_uid = NULL;
-	gboolean bookable;
+	gboolean bookable = TRUE;
 	gchar *top_uri = NULL, *cal_uri = NULL, *returned_uid = NULL, *sanitized_uid;
 	gchar *startz, *endz, *href = NULL, *old_object = NULL, *calobj = NULL, *new_object = NULL;
 	E2kRestriction *rn;
@@ -1866,6 +1866,7 @@ book_resource (ECalBackendExchange *cbex,
 	g_object_ref (comp);
 
 	/* Look up the resource's mailbox */
+	d(printf ("e-cal-backend-exchange-calendar: book_resource: fetching global_catalog...\n"));
 	gc = exchange_account_get_global_catalog (cbex->account);
 	if (!gc)
 		goto cleanup;
@@ -1873,7 +1874,8 @@ book_resource (ECalBackendExchange *cbex,
 	gcstatus = e2k_global_catalog_lookup (
 		gc, NULL, E2K_GLOBAL_CATALOG_LOOKUP_BY_EMAIL, resource_email,
 		E2K_GLOBAL_CATALOG_LOOKUP_MAILBOX, &entry);
-
+	d(printf ("e-cal-backend-exchange-calendar: book_resource: lookup for resource_email: %s in global catalog, status: %d\n", 
+		  resource_email, gcstatus));
 	switch (gcstatus) {
 		case E2K_GLOBAL_CATALOG_OK:
 			break;
@@ -1891,6 +1893,7 @@ book_resource (ECalBackendExchange *cbex,
 						    entry, NULL);
 	cal_uri = exchange_account_get_foreign_uri (cbex->account, entry,
 						    E2K_PR_STD_FOLDER_CALENDAR);
+	d(printf ("e-cal-backend-exchange-calendar: book_resource: top_uri:%s, cal_uri:%s\n", top_uri, cal_uri));
 	e2k_global_catalog_entry_free (gc, entry);
 	if (!top_uri || !cal_uri || !*cal_uri) {
 		retval = E_CAL_BACKEND_EXCHANGE_BOOKING_PERMISSION_DENIED;
@@ -1901,18 +1904,20 @@ book_resource (ECalBackendExchange *cbex,
 	status = e2k_context_propfind (ctx, NULL, cal_uri,
 					&prop_name, 1,
 					&result, &nresult);
+	d(printf ("e-cal-backend-exchange-calendar: book_resource: fetching PR_ACCESS property value.  status:%d\n", status));
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status) && nresult >= 1) {
 		access_prop = e2k_properties_get_prop (result[0].props, PR_ACCESS);
 		if (access_prop)
 			access = atoi (access_prop);
 	}
 	e2k_results_free (result, nresult);
-
+	d(printf ("e-cal-backend-exchange-calendar: book_resource: fetching PR_ACCESS property value.  access:%d\n", access));
 	if (!(access & MAPI_ACCESS_CREATE_CONTENTS)) {
 		retval = E_CAL_BACKEND_EXCHANGE_BOOKING_PERMISSION_DENIED;
 		goto cleanup;
 	}
 
+	d(printf ("e-cal-backend-exchange-calendar: book_resource: fetching PR_PROCESS_MEETING_REQUESTS property value...\n"));
 	prop_name = PR_PROCESS_MEETING_REQUESTS;
 	iter = e2k_context_bpropfind_start (ctx, NULL, top_uri,
 						&localfreebusy_path, 1,
@@ -1921,10 +1926,16 @@ book_resource (ECalBackendExchange *cbex,
 	if (result && E2K_HTTP_STATUS_IS_SUCCESSFUL (result->status))  {
 		meeting_prop = e2k_properties_get_prop (result[0].props, PR_PROCESS_MEETING_REQUESTS);
 	}
-	if (meeting_prop)
-		bookable = atoi (meeting_prop);
-	else
+
+	/* 
+	   Bugfix: 688711 - Varadhan
+	   PR_PROCESS_MEETING_REQUESTS indicates the possibility that the resource is 
+	   configured to auto-accept in which case, we don't have to do anything. 
+	*/
+	d(printf("e-cal-backend-exchange-calendar.c: book_resource: meeting_prop: %s\n", meeting_prop));
+	if (meeting_prop && atoi(meeting_prop) > 0)
 		bookable = FALSE;
+
 	status = e2k_result_iter_free (iter);
 
 	if ((!E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) || (!bookable)) {
@@ -2128,6 +2139,7 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 	e_cal_component_set_icalcomponent (E_CAL_COMPONENT (comp),
 					   icalcomp);
 
+	d(printf ("e-cal-backend-exchange-calendar: send_objects: method : %d\n", method));
 	method = icalcomponent_get_method (top_level);
 	if (icalcomponent_isa (icalcomp) != ICAL_VEVENT_COMPONENT
 	    || (method != ICAL_METHOD_REQUEST && method != ICAL_METHOD_CANCEL)) {
@@ -2138,6 +2150,7 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 	/* traverse all timezones to add them to the backend */
 	add_timezones_from_comp (cbex, top_level);
 
+	d(printf ("e-cal-backend-exchange-calendar: send_objects: finding a resource to book...\n"));
 	for (prop = icalcomponent_get_first_property (icalcomp, ICAL_ATTENDEE_PROPERTY);
 	     prop != NULL;
 	     prop = icalcomponent_get_next_property (icalcomp, ICAL_ATTENDEE_PROPERTY))
@@ -2146,26 +2159,31 @@ send_objects (ECalBackendSync *backend, EDataCal *cal,
 		icalparameter *param;
 		const gchar *attendee;
 
+		d(printf ("e-cal-backend-exchange-calendar: send_objects: fetching CUTYPE parameter...\n"));
 		param = icalproperty_get_first_parameter (prop, ICAL_CUTYPE_PARAMETER);
 		if (!param)
 			continue;
+		d(printf ("e-cal-backend-exchange-calendar: send_objects: Is it a resource?\n"));
 		if (icalparameter_get_cutype (param) != ICAL_CUTYPE_RESOURCE)
 			continue;
-
+		d(printf ("e-cal-backend-exchange-calendar: send_objects: getting the value...\n"));
 		value = icalproperty_get_value (prop);
 		if (!value)
 			continue;
 
 		attendee = icalvalue_get_string (value);
+		d(printf ("e-cal-backend-exchange-calendar: send_objects: value is: %s\n", attendee));
 		if (g_ascii_strncasecmp ("mailto:", attendee, 7))
 			continue;
 
 		param = icalproperty_get_first_parameter (prop, ICAL_PARTSTAT_PARAMETER);
 		/* modify all instances for the recurring event */
 		result = book_resource (cbex, cal, attendee + 7, comp, method, param, icalcomponent_get_first_property (icalcomp, ICAL_RRULE_PROPERTY) || icalcomponent_get_first_property (icalcomp, ICAL_RDATE_PROPERTY));
+		d(printf ("e-cal-backend-exchange-calendar: send_objects: book_resource returned: %d\n", result));
 		switch (result) {
 		case E_CAL_BACKEND_EXCHANGE_BOOKING_OK:
 			*users = g_list_append (*users, g_strdup (attendee));
+			d(printf ("e-cal-backend-exchange-calendar: send_objects: booking ok for : %s\n", attendee));
 			break;
 
 		case E_CAL_BACKEND_EXCHANGE_BOOKING_BUSY:
