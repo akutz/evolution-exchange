@@ -341,91 +341,22 @@ exchange_store_connect_sync (CamelService *service,
                              GError **error)
 {
 	CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service);
-	guint32 connect_status;
-	gboolean online_mode = FALSE;
 	CamelSession *session;
-	CamelURL *url;
-	const gchar *password;
-	GError *local_error = NULL;
+	gboolean success;
+
+	session = camel_service_get_session (service);
 
 	/* This lock is only needed for offline operation.
 	 * exchange_store_connect() is called many times in offline. */
 
 	g_mutex_lock (exch->connect_lock);
 
-	url = camel_service_get_camel_url (service);
-	session = camel_service_get_session (service);
-	password = camel_service_get_password (service);
-
-	online_mode = camel_session_get_online (session);
-
-	if (online_mode) {
-		if (password == NULL) {
-			gchar *prompt;
-			gchar *new_passwd;
-			guint32 prompt_flags = CAMEL_SESSION_PASSWORD_SECRET;
-
-			if (exch->reprompt_password)
-				prompt_flags |= CAMEL_SESSION_PASSWORD_REPROMPT;
-
-			prompt = camel_session_build_password_prompt (
-				"Exchange", url->user, url->host);
-
-			/* XXX This is a tad awkward.  Maybe define a
-			 *     camel_service_ask_password() that calls
-			 *     camel_session_get_password() and caches
-			 *     the password itself? */
-			new_passwd = camel_session_get_password (
-				session, service, prompt,
-				"password", prompt_flags, error);
-			camel_service_set_password (service, new_passwd);
-			password = camel_service_get_password (service);
-			g_free (new_passwd);
-
-			g_free (prompt);
-
-			exch->reprompt_password = (password == NULL);
-		}
-
-		if (password == NULL) {
-			g_mutex_unlock (exch->connect_lock);
-			return FALSE;
-		}
-	}
-
-	/* Initialize the stub connection */
-	if (!camel_exchange_utils_connect (service, password, &connect_status, &local_error)) {
-		g_clear_error (error);
-
-		/* The user cancelled the connection attempt. */
-		if (local_error == NULL)
-			g_set_error (
-				error, G_IO_ERROR,
-				G_IO_ERROR_CANCELLED,
-				"Cancelled");
-		else
-			g_propagate_error (error, local_error);
-		g_mutex_unlock (exch->connect_lock);
-		return FALSE;
-	}
-
-	if (!connect_status) {
-		exch->reprompt_password = TRUE;
-
-		camel_service_set_password (service, NULL);
-
-		g_clear_error (error);
-		g_set_error (
-			error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,
-			_("Could not authenticate to server. "
-			  "(Password incorrect?)"));
-		g_mutex_unlock (exch->connect_lock);
-		return FALSE;
-	}
+	success = camel_session_authenticate_sync (
+		session, service, NULL, cancellable, error);
 
 	g_mutex_unlock (exch->connect_lock);
 
-	return TRUE;
+	return success;
 }
 
 static gboolean
@@ -437,6 +368,52 @@ exchange_store_disconnect_sync (CamelService *service,
 	/* CamelExchangeStore *exch = CAMEL_EXCHANGE_STORE (service); */
 	/* keep account connect as it can be used for other parts like cal, gal or addressbook? */
 	return TRUE;
+}
+
+static CamelAuthenticationResult
+exchange_store_authenticate_sync (CamelService *service,
+                                  const gchar *mechanism,
+                                  GCancellable *cancellable,
+                                  GError **error)
+{
+	const gchar *password;
+	guint32 connect_status;
+	GError *local_error = NULL;
+
+	/* XXX Oh man, this is the most broken backend I've seen yet.
+	 *     camel-exchange-utils.c uses CAMEL_ERROR_GENERIC for ALL
+	 *     errors, which effectively makes the GError useless since
+	 *     we can't distinguish between authentication rejections and
+	 *     other types of errors.  To be on the safe side, we assume
+	 *     all connection failures are authentication rejections, but
+	 *     that means the user may have to endure persistent password
+	 *     prompts when, for example, the server itself is offline.
+	 *     But that's been my experience with this backend all along.
+	 *     No wonder this thing has never really worked well...
+	 */
+
+	password = camel_service_get_password (service);
+	if (password == NULL) {
+		g_set_error_literal (
+			error, CAMEL_SERVICE_ERROR,
+			CAMEL_SERVICE_ERROR_CANT_AUTHENTICATE,
+			_("Authentication password not available"));
+		return CAMEL_AUTHENTICATION_ERROR;
+	}
+
+	camel_exchange_utils_connect (
+		service, password, &connect_status, &local_error);
+
+	/* XXX Leave a breadcrumb if the GError was set. */
+	if (local_error != NULL) {
+		g_warning ("%s: %s", G_STRFUNC, local_error->message);
+		g_error_free (local_error);
+	}
+
+	if (connect_status)
+		return CAMEL_AUTHENTICATION_ACCEPTED;
+	else
+		return CAMEL_AUTHENTICATION_REJECTED;
 }
 
 static GList *
@@ -845,6 +822,7 @@ camel_exchange_store_class_init (CamelExchangeStoreClass *class)
 	service_class->get_name = exchange_store_get_name;
 	service_class->connect_sync = exchange_store_connect_sync;
 	service_class->disconnect_sync = exchange_store_disconnect_sync;
+	service_class->authenticate_sync = exchange_store_authenticate_sync;
 	service_class->query_auth_types_sync = exchange_store_query_auth_types_sync;
 
 	store_class = CAMEL_STORE_CLASS (class);
