@@ -531,10 +531,10 @@ ldap_error_to_response (gint ldap_error)
 
 static void
 create_contacts (EBookBackend *backend,
-		 EDataBook *book,
-		 guint32 opid,
-		 GCancellable *cancellable,
-		 const GSList *vcards)
+                 EDataBook *book,
+                 guint32 opid,
+                 GCancellable *cancellable,
+                 const GSList *vcards)
 {
 	e_data_book_respond_create_contacts (book, opid,
 					     EDB_ERROR (PERMISSION_DENIED),
@@ -555,10 +555,10 @@ remove_contacts (EBookBackend *backend,
 
 static void
 modify_contacts (EBookBackend *backend,
-		 EDataBook *book,
-		 guint32 opid,
-		 GCancellable *cancellable,
-		 const GSList *vcards)
+                 EDataBook *book,
+                 guint32 opid,
+                 GCancellable *cancellable,
+                 const GSList *vcards)
 {
 	e_data_book_respond_modify_contacts (book, opid,
 					     EDB_ERROR (PERMISSION_DENIED),

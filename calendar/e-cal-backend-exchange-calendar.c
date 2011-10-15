@@ -1986,12 +1986,12 @@ book_resource (ECalBackendExchange *cbex,
 	}
 
 	/* 
-	   Bugfix: 688711 - Varadhan
-	   PR_PROCESS_MEETING_REQUESTS indicates the possibility that the resource is 
-	   configured to auto-accept in which case, we don't have to do anything. 
+	 * Bugfix: 688711 - Varadhan
+	 * PR_PROCESS_MEETING_REQUESTS indicates the possibility that the resource is 
+	 * configured to auto-accept in which case, we don't have to do anything. 
 	*/
 	d(printf("e-cal-backend-exchange-calendar.c: book_resource: meeting_prop: %s\n", meeting_prop));
-	if (meeting_prop && atoi(meeting_prop) > 0)
+	if (meeting_prop && atoi (meeting_prop) > 0)
 		bookable = FALSE;
 
 	status = e2k_result_iter_free (iter);

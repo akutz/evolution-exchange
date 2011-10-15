@@ -1706,11 +1706,11 @@ merge_contact_lists (EBookBackendExchange *be,
 
 static void
 e_book_backend_exchange_create_contacts (EBookBackendSync *backend,
-					 EDataBook *book,
-					 GCancellable *cancellable,
-					 const GSList *vcards,
-					 GSList **added_contacts,
-					 GError **perror)
+                                         EDataBook *book,
+                                         GCancellable *cancellable,
+                                         const GSList *vcards,
+                                         GSList **added_contacts,
+                                         GError **perror)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
@@ -1805,11 +1805,11 @@ e_book_backend_exchange_create_contacts (EBookBackendSync *backend,
 
 static void
 e_book_backend_exchange_modify_contacts (EBookBackendSync *backend,
-					 EDataBook *book,
-					 GCancellable *cancellable,
-					 const GSList *vcards,
-					 GSList **contacts,
-					 GError **perror)
+                                         EDataBook *book,
+                                         GCancellable *cancellable,
+                                         const GSList *vcards,
+                                         GSList **contacts,
+                                         GError **perror)
 {
 	EBookBackendExchange *be = E_BOOK_BACKEND_EXCHANGE (backend);
 	EBookBackendExchangePrivate *bepriv = be->priv;
