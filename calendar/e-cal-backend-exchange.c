@@ -974,7 +974,7 @@ create_object (ECalBackendSync *backend,
                GCancellable *cancellable,
                const gchar *calobj,
                gchar **uid,
-               gchar **new_object,
+               icalcomponent **new_object,
                GError **perror)
 {
 	g_propagate_error (perror, EDC_ERROR (NotSupported));
@@ -987,8 +987,8 @@ modify_object (ECalBackendSync *backend,
                GCancellable *cancellable,
                const gchar *calobj,
                CalObjModType mod,
-               gchar **old_object,
-               gchar **new_object,
+               icalcomponent **old_object,
+               icalcomponent **new_object,
                GError **perror)
 {
 	g_propagate_error (perror, EDC_ERROR (NotSupported));

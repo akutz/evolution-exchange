@@ -1082,7 +1082,7 @@ create_task_object (ECalBackendSync *backend,
                     GCancellable *cancellable,
                     const gchar *calobj,
                     gchar **return_uid,
-                    gchar **new_object,
+                    icalcomponent **new_icalcomp,
                     GError **error)
 {
 	ECalBackendExchange *ecalbex;
@@ -1212,8 +1212,8 @@ create_task_object (ECalBackendSync *backend,
 
 	update_props (comp, &props);
 	e_cal_component_commit_sequence (comp);
-	*new_object = e_cal_component_get_as_string (comp);
-	if (!*new_object) {
+	*new_icalcomp = icalcomponent_new_clone (e_cal_component_get_icalcomponent (comp));
+	if (!*new_icalcomp) {
 		g_object_unref (comp);
 		g_free (from_name);
 		g_free (from_addr);
@@ -1221,7 +1221,7 @@ create_task_object (ECalBackendSync *backend,
 		return;
 	}
 
-	real_icalcomp = icalparser_parse_string (*new_object);
+	real_icalcomp = icalcomponent_new_clone (*new_icalcomp);
 
 	e2kctx = exchange_account_get_context (ecalbex->account);
 	status = e_folder_exchange_proppatch_new (ecalbex->folder, NULL,
@@ -1256,13 +1256,13 @@ modify_task_object (ECalBackendSync *backend,
                     GCancellable *cancellable,
                     const gchar *calobj,
                     CalObjModType mod,
-                    gchar **old_object,
-                    gchar **new_object,
+                    icalcomponent **old_icalcomp,
+                    icalcomponent **new_icalcomp,
                     GError **error)
 {
 	ECalBackendExchangeTasks *ecalbextask;
 	ECalBackendExchangeComponent *ecalbexcomp;
-	ECalComponent *cache_comp, *new_comp;
+	ECalComponent *new_comp;
 	ECalBackendExchange *ecalbex;
 	E2kProperties *props;
 	icalcomponent *icalcomp;
@@ -1318,10 +1318,7 @@ modify_task_object (ECalBackendSync *backend,
 		return;
 	}
 
-	cache_comp = e_cal_component_new ();
-	e_cal_component_set_icalcomponent (cache_comp, icalcomponent_new_clone (ecalbexcomp->icomp));
-	*old_object = e_cal_component_get_as_string (cache_comp);
-	g_object_unref (cache_comp);
+	*old_icalcomp = icalcomponent_new_clone (ecalbexcomp->icomp);
 
 	e_cal_backend_exchange_cache_unlock (ecalbex);
 
@@ -1436,34 +1433,40 @@ receive_task_objects (ECalBackendSync *backend,
 
 		e_cal_backend_exchange_cache_lock (cbex);
 		if (get_exchange_comp (E_CAL_BACKEND_EXCHANGE (ecalbextask), uid)) {
-			gchar *old_object;
+			icalcomponent *old_icalcomp = NULL, *new_icalcomp = NULL;
 
 			e_cal_backend_exchange_cache_unlock (cbex);
-			modify_task_object (backend, cal, cancellable, calobj, CALOBJ_MOD_THIS, &old_object, NULL, &err);
+			modify_task_object (backend, cal, cancellable, calobj, CALOBJ_MOD_THIS, &old_icalcomp, &new_icalcomp, &err);
 			if (err) {
 				g_free (rid);
 				g_propagate_error (error, err);
 				return;
 			}
 
-			e_cal_backend_notify_object_modified (E_CAL_BACKEND (backend), old_object, calobj);
-			g_free (old_object);
+			e_cal_backend_notify_component_modified (E_CAL_BACKEND (backend), old_icalcomp, new_icalcomp);
+			if (old_icalcomp)
+				icalcomponent_free (old_icalcomp);
+			if (new_icalcomp)
+				icalcomponent_free (new_icalcomp);
 		} else {
-			gchar *returned_uid, *new_object = NULL;
+			gchar *returned_uid;
+			icalcomponent *new_icalcomp = NULL;
 
 			e_cal_backend_exchange_cache_unlock (cbex);
-			calobj = (gchar *) icalcomponent_as_ical_string_r (subcomp);
-			create_task_object (backend, cal, cancellable, calobj, &returned_uid, &new_object, &err);
+			calobj = icalcomponent_as_ical_string_r (subcomp);
+			create_task_object (backend, cal, cancellable, calobj, &returned_uid, &new_icalcomp, &err);
 			g_free (calobj);
 			if (err) {
-				g_free (new_object);
+				if (new_icalcomp)
+					icalcomponent_free (new_icalcomp);
 				g_free (rid);
 				g_propagate_error (error, err);
 				return;
 			}
 
-			e_cal_backend_notify_object_created (E_CAL_BACKEND (backend), new_object);
-			g_free (new_object);
+			e_cal_backend_notify_component_created (E_CAL_BACKEND (backend), new_icalcomp);
+			if (new_icalcomp)
+				icalcomponent_free (new_icalcomp);
 		}
 		g_free (rid);
 	}
@@ -1478,13 +1481,12 @@ remove_task_object (ECalBackendSync *backend,
                     const gchar *uid,
                     const gchar *rid,
                     CalObjModType mod,
-                    gchar **old_object,
-                    gchar **object,
+                    icalcomponent **old_icalcomp,
+                    icalcomponent **new_icalcomp,
                     GError **error)
 {
 	ECalBackendExchange *ecalbex = E_CAL_BACKEND_EXCHANGE (backend);
 	ECalBackendExchangeComponent *ecalbexcomp;
-	ECalComponent *comp;
 	E2kContext *ctx;
 	E2kHTTPStatus status;
 
@@ -1505,10 +1507,7 @@ remove_task_object (ECalBackendSync *backend,
 		return;
 	}
 
-	comp = e_cal_component_new ();
-	e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (ecalbexcomp->icomp));
-	*old_object = e_cal_component_get_as_string (comp);
-	g_object_unref (comp);
+	*old_icalcomp = icalcomponent_new_clone (icalcomponent_new_clone (ecalbexcomp->icomp));
 
 	e_cal_backend_exchange_cache_unlock (ecalbex);
 
