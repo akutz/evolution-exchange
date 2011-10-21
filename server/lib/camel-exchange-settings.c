@@ -53,6 +53,7 @@ struct _CamelExchangeSettingsPrivate {
 
 enum {
 	PROP_0,
+	PROP_AUTH_MECHANISM,
 	PROP_CHECK_ALL,
 	PROP_FILTER_JUNK,
 	PROP_FILTER_JUNK_INBOX,
@@ -61,11 +62,14 @@ enum {
 	PROP_GC_EXPAND_GROUPS,
 	PROP_GC_RESULTS_LIMIT,
 	PROP_GC_SERVER_NAME,
+	PROP_HOST,
 	PROP_MAILBOX,
 	PROP_OWA_PATH,
 	PROP_OWA_URL,
 	PROP_PASSWD_EXP_WARN_PERIOD,
+	PROP_PORT,
 	PROP_SECURITY_METHOD,
+	PROP_USER,
 	PROP_USE_GC_RESULTS_LIMIT,
 	PROP_USE_PASSWD_EXP_WARN_PERIOD
 };
@@ -84,6 +88,12 @@ exchange_settings_set_property (GObject *object,
                                 GParamSpec *pspec)
 {
 	switch (property_id) {
+		case PROP_AUTH_MECHANISM:
+			camel_network_settings_set_auth_mechanism (
+				CAMEL_NETWORK_SETTINGS (object),
+				g_value_get_string (value));
+			return;
+
 		case PROP_CHECK_ALL:
 			camel_exchange_settings_set_check_all (
 				CAMEL_EXCHANGE_SETTINGS (object),
@@ -132,6 +142,12 @@ exchange_settings_set_property (GObject *object,
 				g_value_get_string (value));
 			return;
 
+		case PROP_HOST:
+			camel_network_settings_set_host (
+				CAMEL_NETWORK_SETTINGS (object),
+				g_value_get_string (value));
+			return;
+
 		case PROP_MAILBOX:
 			camel_exchange_settings_set_mailbox (
 				CAMEL_EXCHANGE_SETTINGS (object),
@@ -156,10 +172,22 @@ exchange_settings_set_property (GObject *object,
 				g_value_get_uint (value));
 			return;
 
+		case PROP_PORT:
+			camel_network_settings_set_port (
+				CAMEL_NETWORK_SETTINGS (object),
+				g_value_get_uint (value));
+			return;
+
 		case PROP_SECURITY_METHOD:
 			camel_network_settings_set_security_method (
 				CAMEL_NETWORK_SETTINGS (object),
 				g_value_get_enum (value));
+			return;
+
+		case PROP_USER:
+			camel_network_settings_set_user (
+				CAMEL_NETWORK_SETTINGS (object),
+				g_value_get_string (value));
 			return;
 
 		case PROP_USE_GC_RESULTS_LIMIT:
@@ -185,6 +213,13 @@ exchange_settings_get_property (GObject *object,
                                 GParamSpec *pspec)
 {
 	switch (property_id) {
+		case PROP_AUTH_MECHANISM:
+			g_value_set_string (
+				value,
+				camel_network_settings_get_auth_mechanism (
+				CAMEL_NETWORK_SETTINGS (object)));
+			return;
+
 		case PROP_CHECK_ALL:
 			g_value_set_boolean (
 				value,
@@ -241,6 +276,13 @@ exchange_settings_get_property (GObject *object,
 				CAMEL_EXCHANGE_SETTINGS (object)));
 			return;
 
+		case PROP_HOST:
+			g_value_set_string (
+				value,
+				camel_network_settings_get_host (
+				CAMEL_NETWORK_SETTINGS (object)));
+			return;
+
 		case PROP_MAILBOX:
 			g_value_set_string (
 				value,
@@ -269,10 +311,24 @@ exchange_settings_get_property (GObject *object,
 				CAMEL_EXCHANGE_SETTINGS (object)));
 			return;
 
+		case PROP_PORT:
+			g_value_set_uint (
+				value,
+				camel_network_settings_get_port (
+				CAMEL_NETWORK_SETTINGS (object)));
+			return;
+
 		case PROP_SECURITY_METHOD:
 			g_value_set_enum (
 				value,
 				camel_network_settings_get_security_method (
+				CAMEL_NETWORK_SETTINGS (object)));
+			return;
+
+		case PROP_USER:
+			g_value_set_string (
+				value,
+				camel_network_settings_get_user (
 				CAMEL_NETWORK_SETTINGS (object)));
 			return;
 
@@ -321,6 +377,12 @@ camel_exchange_settings_class_init (CamelExchangeSettingsClass *class)
 	object_class->set_property = exchange_settings_set_property;
 	object_class->get_property = exchange_settings_get_property;
 	object_class->finalize = exchange_settings_finalize;
+
+	/* Inherited from CamelNetworkSettings. */
+	g_object_class_override_property (
+		object_class,
+		PROP_AUTH_MECHANISM,
+		"auth-mechanism");
 
 	g_object_class_install_property (
 		object_class,
@@ -421,6 +483,12 @@ camel_exchange_settings_class_init (CamelExchangeSettingsClass *class)
 			G_PARAM_CONSTRUCT |
 			G_PARAM_STATIC_STRINGS));
 
+	/* Inherited from CamelNetworkSettings. */
+	g_object_class_override_property (
+		object_class,
+		PROP_HOST,
+		"host");
+
 	g_object_class_install_property (
 		object_class,
 		PROP_MAILBOX,
@@ -474,8 +542,20 @@ camel_exchange_settings_class_init (CamelExchangeSettingsClass *class)
 	/* Inherited from CamelNetworkSettings. */
 	g_object_class_override_property (
 		object_class,
+		PROP_PORT,
+		"port");
+
+	/* Inherited from CamelNetworkSettings. */
+	g_object_class_override_property (
+		object_class,
 		PROP_SECURITY_METHOD,
 		"security-method");
+
+	/* Inherited from CamelNetworkSettings. */
+	g_object_class_override_property (
+		object_class,
+		PROP_USER,
+		"user");
 
 	g_object_class_install_property (
 		object_class,

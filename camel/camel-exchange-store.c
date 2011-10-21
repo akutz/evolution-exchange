@@ -304,9 +304,11 @@ exchange_store_constructed (GObject *object)
 
 	service = CAMEL_SERVICE (object);
 	eex_migrate_to_user_cache_dir (service);
-	url = camel_service_get_camel_url (service);
 
+	url = camel_service_new_camel_url (service);
 	exch->base_url = camel_url_to_string (url, CAMEL_URL_HIDE_ALL);
+	camel_url_free (url);
+
 	/* Strip path */
 	p = strstr (exch->base_url, "//");
 	if (p) {
@@ -320,18 +322,23 @@ static gchar *
 exchange_store_get_name (CamelService *service,
                          gboolean brief)
 {
-	CamelURL *url;
+	CamelNetworkSettings *network_settings;
+	CamelSettings *settings;
+	const gchar *host;
+	const gchar *user;
 
-	url = camel_service_get_camel_url (service);
+	settings = camel_service_get_settings (service);
+
+	network_settings = CAMEL_NETWORK_SETTINGS (settings);
+	host = camel_network_settings_get_host (network_settings);
+	user = camel_network_settings_get_user (network_settings);
 
 	if (brief) {
 		return g_strdup_printf (
-			_("Exchange server %s"),
-			url->host);
+			_("Exchange server %s"), host);
 	} else {
 		return g_strdup_printf (
-			_("Exchange account for %s on %s"),
-			url->user, url->host);
+			_("Exchange account for %s on %s"), user, host);
 	}
 }
 

@@ -122,17 +122,25 @@ is_same_ed (CamelExchangeStore *estore,
 	if (CAMEL_IS_EXCHANGE_STORE (service) && estore && estore == CAMEL_EXCHANGE_STORE (service))
 		return TRUE;
 
-	service_url = camel_service_get_camel_url (service);
+	service_url = camel_service_new_camel_url (service);
 
 	if (service_url) {
 		CamelURL *estore_url = NULL;
+		gboolean url_equal = FALSE;
 
 		if (estore != NULL)
-			estore_url = camel_service_get_camel_url (
+			estore_url = camel_service_new_camel_url (
 				CAMEL_SERVICE (estore));
 
-		if (estore_url != NULL && camel_url_equal (estore_url, service_url))
+		if (estore_url != NULL) {
+			url_equal = camel_url_equal (estore_url, service_url);
+			camel_url_free (estore_url);
+		}
+
+		if (url_equal) {
+			camel_url_free (service_url);
 			return TRUE;
+		}
 
 		if (eaccount) {
 			EAccount *account = exchange_account_fetch (eaccount);
@@ -146,6 +154,7 @@ is_same_ed (CamelExchangeStore *estore,
 
 					if ((provider && provider->url_equal && provider->url_equal (url, service_url))
 					    || camel_url_equal (url, service_url)) {
+						camel_url_free (service_url);
 						camel_url_free (url);
 						return TRUE;
 					}
@@ -154,6 +163,8 @@ is_same_ed (CamelExchangeStore *estore,
 				}
 			}
 		}
+
+		camel_url_free (service_url);
 	}
 
 	return FALSE;
