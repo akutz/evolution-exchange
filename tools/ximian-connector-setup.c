@@ -88,10 +88,6 @@ main (gint argc,
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 
-	g_type_init ();
-	#if !GLIB_CHECK_VERSION(2,31,0)
-	g_thread_init (NULL);
-	#endif
 	gtk_init_with_args (&argc, &argv, NULL, NULL, (gchar *) GETTEXT_PACKAGE, &error);
 
 	if (error != NULL) {
