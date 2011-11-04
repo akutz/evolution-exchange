@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=evolution-exchange&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-07-30 16:15+0000\n"
-"PO-Revision-Date: 2011-08-02 01:55+0200\n"
+"POT-Creation-Date: 2011-10-15 15:00+0000\n"
+"PO-Revision-Date: 2011-11-04 09:02+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -41,35 +41,43 @@ msgstr ""
 "mezipaměť napořád. Toto bude fungovat, pouze pokud povolíte používání "
 "mezipaměti GAL off-line."
 
-#: ../addressbook/e-book-backend-exchange.c:132
+#: ../addressbook/e-book-backend-exchange.c:137
 #, c-format
 msgid "Operation failed with status %d"
 msgstr "Operace selhala se stavovým kódem %d"
 
-#: ../addressbook/e-book-backend-exchange.c:1795
-#: ../addressbook/e-book-backend-exchange.c:2451
+#: ../addressbook/e-book-backend-exchange.c:1737
+msgid "The backend does not support bulk additions"
+msgstr "Serverová část nepodporuje hromadné přidávání"
+
+#: ../addressbook/e-book-backend-exchange.c:1834
+msgid "The backend does not support bulk modifications"
+msgstr "Serverová část nepodporuje hromadné změny"
+
+#: ../addressbook/e-book-backend-exchange.c:1855
+#: ../addressbook/e-book-backend-exchange.c:2521
 msgid "Cancelled"
 msgstr "Zrušeno"
 
-#: ../addressbook/e-book-backend-exchange.c:2297
-#: ../addressbook/e-book-backend-gal.c:1970
+#: ../addressbook/e-book-backend-exchange.c:2368
+#: ../addressbook/e-book-backend-gal.c:2045
 msgid "Searching..."
 msgstr "Hledá se…"
 
-#: ../addressbook/e-book-backend-gal.c:332
-#: ../addressbook/e-book-backend-gal.c:353
+#: ../addressbook/e-book-backend-gal.c:356
+#: ../addressbook/e-book-backend-gal.c:379
 msgid "Reconnecting to LDAP server..."
 msgstr "Znovu se připojuje k serveru LDAP…"
 
-#: ../addressbook/e-book-backend-gal.c:1716
+#: ../addressbook/e-book-backend-gal.c:1791
 msgid "Receiving LDAP search results..."
 msgstr "Přijímají se výsledky hledání LDAP…"
 
-#: ../addressbook/e-book-backend-gal.c:2001
+#: ../addressbook/e-book-backend-gal.c:2076
 msgid "Error performing search"
 msgstr "Chyba při hledání"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2171
+#: ../calendar/e-cal-backend-exchange-calendar.c:2235
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Zdroj „%s“ je během zvoleného časovém období používán."
@@ -88,44 +96,44 @@ msgstr "Tato zpráva není k dispozici v režimu odpojení."
 msgid "You cannot expunge in offline mode."
 msgstr "Nemůžete čistit v režimu odpojení."
 
-#: ../camel/camel-exchange-folder.c:651 ../camel/camel-exchange-utils.c:576
-#: ../camel/camel-exchange-utils.c:615
+#: ../camel/camel-exchange-folder.c:652 ../camel/camel-exchange-utils.c:592
+#: ../camel/camel-exchange-utils.c:631
 msgid "Could not get new messages"
 msgstr "Nelze získat nové zprávy"
 
-#: ../camel/camel-exchange-folder.c:695
+#: ../camel/camel-exchange-folder.c:696
 msgid "Moving messages"
 msgstr "Přesouvají se zprávy"
 
-#: ../camel/camel-exchange-folder.c:695
+#: ../camel/camel-exchange-folder.c:696
 msgid "Copying messages"
 msgstr "Kopírují se zprávy"
 
-#: ../camel/camel-exchange-folder.c:1118
+#: ../camel/camel-exchange-folder.c:1108
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Nelze vytvořit složku %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1129
+#: ../camel/camel-exchange-folder.c:1119
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Nelze načíst souhrn pro %s"
 
-#: ../camel/camel-exchange-folder.c:1136
+#: ../camel/camel-exchange-folder.c:1126
 #, c-format
 msgid "Could not create cache for %s: "
 msgstr "Nelze vytvořit mezipaměť pro %s: "
 
-#: ../camel/camel-exchange-folder.c:1147
+#: ../camel/camel-exchange-folder.c:1137
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Nelze vytvořit žurnál pro %s"
 
-#: ../camel/camel-exchange-folder.c:1195
+#: ../camel/camel-exchange-folder.c:1187
 msgid "Scanning for changed messages"
 msgstr "Hledají se změněné zprávy"
 
-#: ../camel/camel-exchange-folder.c:1223
+#: ../camel/camel-exchange-folder.c:1215
 msgid "Fetching summary information for new messages"
 msgstr "Stahují se souhrnné informace pro nové zprávy"
 
@@ -134,20 +142,20 @@ msgstr "Stahují se souhrnné informace pro nové zprávy"
 msgid "No folder name found"
 msgstr "Nenalezen žádný název složky"
 
-#: ../camel/camel-exchange-journal.c:190 ../camel/camel-exchange-utils.c:3222
-#: ../camel/camel-exchange-utils.c:3286 ../camel/camel-exchange-utils.c:3404
-#: ../camel/camel-exchange-utils.c:3435 ../camel/camel-exchange-utils.c:3487
-#: ../camel/camel-exchange-utils.c:3508
+#: ../camel/camel-exchange-journal.c:190 ../camel/camel-exchange-utils.c:3322
+#: ../camel/camel-exchange-utils.c:3386 ../camel/camel-exchange-utils.c:3504
+#: ../camel/camel-exchange-utils.c:3535 ../camel/camel-exchange-utils.c:3587
+#: ../camel/camel-exchange-utils.c:3608
 #, c-format
 msgid "Folder doesn't exist"
 msgstr "Složka neexistuje"
 
-#: ../camel/camel-exchange-journal.c:425
+#: ../camel/camel-exchange-journal.c:426
 #, c-format
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "Nelze připojit zprávu v režimu odpojení: mezipaměť není k dispozici"
 
-#: ../camel/camel-exchange-journal.c:445
+#: ../camel/camel-exchange-journal.c:447
 msgid "Cannot append message in offline mode: "
 msgstr "Nelze připojit zprávu v režimu odpojení: "
 
@@ -156,14 +164,14 @@ msgid "Secure or Plaintext Password"
 msgstr "Zabezpečené heslo nebo heslo v prostém textu"
 
 #: ../camel/camel-exchange-provider.c:53
-#: ../camel/camel-exchange-provider.c:141
+#: ../camel/camel-exchange-provider.c:144
 #: ../eplugin/exchange-account-setup.c:69
 msgid "Plaintext Password"
 msgstr "Heslo v prostém textu"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
 #: ../camel/camel-exchange-provider.c:54
-#: ../camel/camel-exchange-provider.c:130
+#: ../camel/camel-exchange-provider.c:133
 #: ../eplugin/exchange-account-setup.c:58
 msgid "Secure Password"
 msgstr "Zabezpečené heslo"
@@ -203,45 +211,45 @@ msgstr "_Omezit počet odpovědí GAL: %s"
 msgid "Authentication _Type:"
 msgstr "_Typ ověřování:"
 
-#: ../camel/camel-exchange-provider.c:85
+#: ../camel/camel-exchange-provider.c:88
 msgid "Allow _browsing of the GAL until download limit is reached"
 msgstr "Povol_it prohlížení GAL, dokud není dosaženo limitu stahování"
 
-#: ../camel/camel-exchange-provider.c:87
+#: ../camel/camel-exchange-provider.c:90
 msgid "_Expand groups of contacts in GAL to contact lists"
 msgstr "_Rozšířit skupiny kontaktů v GAL na seznamy kontaktů"
 
-#: ../camel/camel-exchange-provider.c:90
+#: ../camel/camel-exchange-provider.c:93
 msgid "Options"
 msgstr "Volby"
 
-#: ../camel/camel-exchange-provider.c:92
+#: ../camel/camel-exchange-provider.c:95
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "Doba _varování o vypršení hesla: %s"
 
-#: ../camel/camel-exchange-provider.c:94
+#: ../camel/camel-exchange-provider.c:97
 msgid "Automatically synchroni_ze account locally"
 msgstr "Automaticky lokálně _synchronizovat účet"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:100
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr "_Použít filtry na nové zprávy ve složce Příchozí na tomto serveru"
 
-#: ../camel/camel-exchange-provider.c:99
+#: ../camel/camel-exchange-provider.c:102
 msgid "Check new messages for _Junk contents"
 msgstr "_Hledat nevyžádanou poštu mezi novými zprávami"
 
-#: ../camel/camel-exchange-provider.c:101
+#: ../camel/camel-exchange-provider.c:104
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Hledat nevyžádanou poštu jen ve složce _Příchozí"
 
-#: ../camel/camel-exchange-provider.c:111
+#: ../camel/camel-exchange-provider.c:114
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:113
+#: ../camel/camel-exchange-provider.c:116
 msgid ""
 "For handling mail (and other data) on Microsoft Exchange 2000 and 2003 "
 "servers via OWA"
@@ -250,7 +258,7 @@ msgstr ""
 "2003 pomocí OWA"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:133
+#: ../camel/camel-exchange-provider.c:136
 #: ../eplugin/exchange-account-setup.c:61
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
@@ -259,7 +267,7 @@ msgstr ""
 "Tato volba použije k připojení k serveru Exchange zabezpečené ověření heslem "
 "(NTLM)."
 
-#: ../camel/camel-exchange-provider.c:143
+#: ../camel/camel-exchange-provider.c:146
 #: ../eplugin/exchange-account-setup.c:71
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
@@ -268,47 +276,46 @@ msgstr ""
 "Tato volba použije k připojení k serveru Exchange standardní ověření heslem "
 "v prostém textu."
 
-#: ../camel/camel-exchange-store.c:276
+#: ../camel/camel-exchange-store.c:329
 #, c-format
 msgid "Exchange server %s"
 msgstr "Server Exchange %s"
 
-#: ../camel/camel-exchange-store.c:280
+#: ../camel/camel-exchange-store.c:333
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Účet Exchange pro %s na %s"
 
-#: ../camel/camel-exchange-store.c:363
-#, c-format
-msgid "Could not authenticate to server. (Password incorrect?)"
-msgstr "Nelze ověřit k serveru. (Nesprávné heslo?)"
+#: ../camel/camel-exchange-store.c:400
+msgid "Authentication password not available"
+msgstr "Autentizační heslo není k dispozici"
 
-#: ../camel/camel-exchange-store.c:465
+#: ../camel/camel-exchange-store.c:486
 #, c-format
 msgid "No such folder %s"
 msgstr "Složka %s neexistuje"
 
-#: ../camel/camel-exchange-store.c:620
+#: ../camel/camel-exchange-store.c:641
 #, c-format
 msgid "Cannot create folder in offline mode."
 msgstr "Nelze vytvořit složku v režimu odpojení."
 
-#: ../camel/camel-exchange-store.c:651
+#: ../camel/camel-exchange-store.c:672
 #, c-format
 msgid "Cannot delete folder in offline mode."
 msgstr "Nelze odstranit složku v režimu odpojení."
 
-#: ../camel/camel-exchange-store.c:678
+#: ../camel/camel-exchange-store.c:699
 #, c-format
 msgid "Cannot rename folder in offline mode."
 msgstr "Nelze přejmenovat složku v režimu odpojení."
 
-#: ../camel/camel-exchange-store.c:743
+#: ../camel/camel-exchange-store.c:781
 #, c-format
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Nelze se přihlásit ke složce v režimu odpojení."
 
-#: ../camel/camel-exchange-store.c:763
+#: ../camel/camel-exchange-store.c:801
 #, c-format
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Nelze se odhlásit od složky v režimu odpojení."
@@ -323,79 +330,79 @@ msgstr "Nelze odeslat zprávu: jeden nebo více neplatných příjemců"
 msgid "Could not find 'From' address in message"
 msgstr "Nelze ve zprávě najít adresu „Od“"
 
-#: ../camel/camel-exchange-utils.c:1122 ../camel/camel-exchange-utils.c:1274
+#: ../camel/camel-exchange-utils.c:1147 ../camel/camel-exchange-utils.c:1303
 msgid "Could not open folder"
 msgstr "Nelze otevřít složku"
 
-#: ../camel/camel-exchange-utils.c:1270 ../camel/camel-exchange-utils.c:1288
+#: ../camel/camel-exchange-utils.c:1299 ../camel/camel-exchange-utils.c:1317
 msgid "Could not open folder: Permission denied"
 msgstr "Nelze otevřít složku: Přístup odepřen"
 
-#: ../camel/camel-exchange-utils.c:1339 ../camel/camel-exchange-utils.c:2279
+#: ../camel/camel-exchange-utils.c:1371 ../camel/camel-exchange-utils.c:2372
 msgid "No such folder"
 msgstr "Taková složka neexistuje"
 
-#: ../camel/camel-exchange-utils.c:1361 ../camel/camel-exchange-utils.c:3196
-#: ../camel/camel-exchange-utils.c:3239 ../camel/camel-exchange-utils.c:3408
-#: ../camel/camel-exchange-utils.c:3461 ../camel/camel-exchange-utils.c:3523
+#: ../camel/camel-exchange-utils.c:1393 ../camel/camel-exchange-utils.c:3296
+#: ../camel/camel-exchange-utils.c:3339 ../camel/camel-exchange-utils.c:3508
+#: ../camel/camel-exchange-utils.c:3561 ../camel/camel-exchange-utils.c:3623
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
-#: ../server/storage/e-storage.c:573
+#: ../server/storage/e-storage.c:574
 msgid "Permission denied"
 msgstr "Přístup odepřen"
 
-#: ../camel/camel-exchange-utils.c:2288
+#: ../camel/camel-exchange-utils.c:2381
 msgid "Could not create folder."
 msgstr "Nelze vytvořit složku."
 
-#: ../camel/camel-exchange-utils.c:2376
+#: ../camel/camel-exchange-utils.c:2469
 msgid "Could not open Deleted Items folder"
 msgstr "Nelze otevřít složku Odstraněné položky"
 
-#: ../camel/camel-exchange-utils.c:2505
+#: ../camel/camel-exchange-utils.c:2598
 msgid "Could not empty Deleted Items folder"
 msgstr "Nelze vyprázdnit složku Odstraněné položky"
 
-#: ../camel/camel-exchange-utils.c:2507
+#: ../camel/camel-exchange-utils.c:2600
 msgid "Permission denied. Could not delete certain messages."
 msgstr "Přístup zamítnut. Jisté zprávy nelze odstranit."
 
-#: ../camel/camel-exchange-utils.c:2551
+#: ../camel/camel-exchange-utils.c:2646
 msgid "Could not append message; mailbox is over quota"
 msgstr "Nelze přidat zprávu; složka překračuje kvótu"
 
-#: ../camel/camel-exchange-utils.c:2552
+#: ../camel/camel-exchange-utils.c:2647
 msgid "Could not append message"
 msgstr "Nelze přidat zprávu"
 
-#: ../camel/camel-exchange-utils.c:2738
+#: ../camel/camel-exchange-utils.c:2834
 msgid "No such message"
 msgstr "Taková zpráva neexistuje"
 
-#: ../camel/camel-exchange-utils.c:2810
+#: ../camel/camel-exchange-utils.c:2906
 msgid "Message has been deleted"
 msgstr "Zpráva byla odstraněna"
 
-#: ../camel/camel-exchange-utils.c:2812
+#: ../camel/camel-exchange-utils.c:2908
 msgid "Error retrieving message"
 msgstr "Chyba při získávání zprávy"
 
-#: ../camel/camel-exchange-utils.c:2861
+#: ../camel/camel-exchange-utils.c:2957
 msgid "Mailbox does not support full-text searching"
 msgstr "Složka nepodporuje hledání v textu"
 
-#: ../camel/camel-exchange-utils.c:2973
+#: ../camel/camel-exchange-utils.c:3069
 msgid "Unable to move/copy messages"
 msgstr "Nelze přesouvat/kopírovat zprávy"
 
-#: ../camel/camel-exchange-utils.c:3101
+#: ../camel/camel-exchange-utils.c:3201
 msgid "No mail submission URI for this mailbox"
 msgstr "Pro tuto složku neexistuje adresa URI pro odesílání pošty"
 
-#: ../camel/camel-exchange-utils.c:3134
+#: ../camel/camel-exchange-utils.c:3234
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Server nepřijímá poštu pomocí transportu Exchange"
 
-#: ../camel/camel-exchange-utils.c:3136
+#: ../camel/camel-exchange-utils.c:3236
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -404,7 +411,7 @@ msgstr ""
 "Váš účet nemá oprávnění používat <%s>\n"
 "jako adresu Od."
 
-#: ../camel/camel-exchange-utils.c:3148
+#: ../camel/camel-exchange-utils.c:3248
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -412,28 +419,28 @@ msgstr ""
 "Nelze odeslat zprávu.\n"
 "To možná znamená, že váš účet překročil kvótu."
 
-#: ../camel/camel-exchange-utils.c:3152
+#: ../camel/camel-exchange-utils.c:3252
 msgid "Could not send message"
 msgstr "Nelze odeslat zprávu"
 
-#: ../camel/camel-exchange-utils.c:3188 ../camel/camel-exchange-utils.c:3244
-#: ../camel/camel-exchange-utils.c:3412 ../camel/camel-exchange-utils.c:3465
-#: ../camel/camel-exchange-utils.c:3529
+#: ../camel/camel-exchange-utils.c:3288 ../camel/camel-exchange-utils.c:3344
+#: ../camel/camel-exchange-utils.c:3512 ../camel/camel-exchange-utils.c:3565
+#: ../camel/camel-exchange-utils.c:3629
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
-#: ../server/storage/e-storage.c:557
+#: ../server/storage/e-storage.c:558
 msgid "Generic error"
 msgstr "Obecná chyba"
 
-#: ../camel/camel-exchange-utils.c:3192
+#: ../camel/camel-exchange-utils.c:3292
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
 msgid "Folder already exists"
 msgstr "Složka již existuje"
 
-#: ../eplugin/exchange-account-setup.c:269
+#: ../eplugin/exchange-account-setup.c:275
 msgid "Out of Office"
 msgstr "Mimo kancelář"
 
-#: ../eplugin/exchange-account-setup.c:276
+#: ../eplugin/exchange-account-setup.c:282
 msgid ""
 "The message specified below will be automatically sent to \n"
 "each person who sends mail to you while you are out of the office."
@@ -441,105 +448,105 @@ msgstr ""
 "Zpráva zadaná níže bude automaticky poslána \n"
 "každé osobě, která vám pošle poštu, když jste mimo kancelář."
 
-#: ../eplugin/exchange-account-setup.c:281
+#: ../eplugin/exchange-account-setup.c:287
 msgid "Status:"
 msgstr "Stav:"
 
-#: ../eplugin/exchange-account-setup.c:288
-#: ../eplugin/exchange-account-setup.c:293
+#: ../eplugin/exchange-account-setup.c:294
+#: ../eplugin/exchange-account-setup.c:299
 msgid "I am out of the office"
 msgstr "Jsem mimo kancelář"
 
-#: ../eplugin/exchange-account-setup.c:289
-#: ../eplugin/exchange-account-setup.c:292
+#: ../eplugin/exchange-account-setup.c:295
+#: ../eplugin/exchange-account-setup.c:298
 msgid "I am in the office"
 msgstr "Jsem v kanceláři"
 
 #. Security settings
-#: ../eplugin/exchange-account-setup.c:328
+#: ../eplugin/exchange-account-setup.c:334
 msgid "Security"
 msgstr "Bezpečnost"
 
 #. Change Password
-#: ../eplugin/exchange-account-setup.c:339
+#: ../eplugin/exchange-account-setup.c:345
 msgid "Change the password for Exchange account"
 msgstr "Změnit heslo pro účet Exchange"
 
-#: ../eplugin/exchange-account-setup.c:341
-#: ../eplugin/exchange-change-password.c:85
+#: ../eplugin/exchange-account-setup.c:347
+#: ../eplugin/exchange-change-password.c:87
 msgid "Change Password"
 msgstr "Změnit heslo"
 
 #. Delegation Assistant
-#: ../eplugin/exchange-account-setup.c:346
+#: ../eplugin/exchange-account-setup.c:352
 msgid "Manage the delegate settings for Exchange account"
 msgstr "Spravovat nastavení delegování v účtu Exchange"
 
-#: ../eplugin/exchange-account-setup.c:348
+#: ../eplugin/exchange-account-setup.c:354
 msgid "Delegation Assistant"
 msgstr "Asistent pro delegování"
 
 #. Miscelleneous settings
-#: ../eplugin/exchange-account-setup.c:360
+#: ../eplugin/exchange-account-setup.c:366
 msgid "Miscellaneous"
 msgstr "Různé"
 
 #. Folder Size
-#: ../eplugin/exchange-account-setup.c:370
+#: ../eplugin/exchange-account-setup.c:376
 msgid "View the size of all Exchange folders"
 msgstr "Zobrazit velikost všech složek Exchange"
 
-#: ../eplugin/exchange-account-setup.c:372
-#: ../eplugin/exchange-folder-size-display.c:183
+#: ../eplugin/exchange-account-setup.c:378
+#: ../eplugin/exchange-folder-size-display.c:188
 msgid "Folder Size"
 msgstr "Velikost složky"
 
-#: ../eplugin/exchange-account-setup.c:379
+#: ../eplugin/exchange-account-setup.c:385
 #: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:3
 msgid "Exchange Settings"
 msgstr "Nastavení Exchange"
 
-#: ../eplugin/exchange-account-setup.c:757
+#: ../eplugin/exchange-account-setup.c:698
 msgid "_OWA URL:"
 msgstr "URL _OWA:"
 
-#: ../eplugin/exchange-account-setup.c:783
+#: ../eplugin/exchange-account-setup.c:734
 msgid "A_uthenticate"
 msgstr "_Ověřit"
 
-#: ../eplugin/exchange-account-setup.c:805
+#: ../eplugin/exchange-account-setup.c:756
 msgid "Mailbox name is _different from username"
 msgstr "Název poštovní schránky je _jiný než uživatelské jméno"
 
-#: ../eplugin/exchange-account-setup.c:818
+#: ../eplugin/exchange-account-setup.c:772
 msgid "_Mailbox:"
 msgstr "_Poštovní schránka:"
 
-#: ../eplugin/exchange-account-setup.c:1042
+#: ../eplugin/exchange-account-setup.c:1006
 msgid "_Authentication Type"
 msgstr "Typ _ověřování"
 
-#: ../eplugin/exchange-account-setup.c:1056
+#: ../eplugin/exchange-account-setup.c:1020
 msgid "Ch_eck for Supported Types"
 msgstr "Z_kontrolovat podporované typy"
 
-#: ../eplugin/exchange-account-setup.c:1171 ../eplugin/exchange-contacts.c:217
+#: ../eplugin/exchange-account-setup.c:1136 ../eplugin/exchange-contacts.c:219
 #, c-format
 msgid "%s KB"
 msgstr "%s kB"
 
-#: ../eplugin/exchange-account-setup.c:1173 ../eplugin/exchange-contacts.c:219
+#: ../eplugin/exchange-account-setup.c:1138 ../eplugin/exchange-contacts.c:221
 #, c-format
 msgid "0 KB"
 msgstr "0 kB"
 
 #. FIXME: Take care of i18n
-#: ../eplugin/exchange-account-setup.c:1178 ../eplugin/exchange-calendar.c:236
-#: ../eplugin/exchange-contacts.c:222
+#: ../eplugin/exchange-account-setup.c:1143 ../eplugin/exchange-calendar.c:238
+#: ../eplugin/exchange-contacts.c:224
 msgid "Size:"
 msgstr "Velikost:"
 
-#: ../eplugin/exchange-calendar.c:196 ../eplugin/exchange-contacts.c:170
+#: ../eplugin/exchange-calendar.c:198 ../eplugin/exchange-contacts.c:172
 msgid ""
 "Evolution is in offline mode. You cannot create or modify folders now.\n"
 "Please switch to online mode for such operations."
@@ -547,31 +554,31 @@ msgstr ""
 "Evolution je v režimu odpojení. Nyní nemůžete vytvářet nebo měnit složky.\n"
 "Pro takové operace se prosím přepněte do režimu připojení."
 
-#: ../eplugin/exchange-calendar.c:247 ../eplugin/exchange-contacts.c:239
+#: ../eplugin/exchange-calendar.c:249 ../eplugin/exchange-contacts.c:241
 msgid "_Location:"
 msgstr "_Umístění:"
 
-#: ../eplugin/exchange-change-password.c:95
+#: ../eplugin/exchange-change-password.c:97
 msgid "Your current password has expired. Please change your password now."
 msgstr ""
 "Platnost vašeho současného hesla vypršela. Nyní prosím změňte své heslo."
 
-#: ../eplugin/exchange-change-password.c:110
+#: ../eplugin/exchange-change-password.c:112
 msgid "Current _Password:"
 msgstr "Současné _heslo:"
 
-#: ../eplugin/exchange-change-password.c:117
+#: ../eplugin/exchange-change-password.c:119
 msgid "_New Password:"
 msgstr "_Nové heslo:"
 
-#: ../eplugin/exchange-change-password.c:124
+#: ../eplugin/exchange-change-password.c:126
 msgid "_Confirm Password:"
 msgstr "_Potvrďte heslo:"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
-#: ../eplugin/exchange-change-password.c:175
+#: ../eplugin/exchange-change-password.c:177
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
@@ -579,7 +586,7 @@ msgstr ""
 "Současné heslo neodpovídá existujícímu heslu vašeho účtu. Zadejte prosím "
 "správné heslo"
 
-#: ../eplugin/exchange-change-password.c:182
+#: ../eplugin/exchange-change-password.c:184
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr "Hesla nesouhlasí. Zadejte je prosím znovu."
 
@@ -620,121 +627,121 @@ msgstr "_Ne, stav neměnit"
 msgid "_Yes, Change Status"
 msgstr "_Ano, stav změnit"
 
-#: ../eplugin/exchange-config-listener.c:829
+#: ../eplugin/exchange-config-listener.c:830
 #, c-format
 msgid "Enter Password for %s"
 msgstr "Zadat heslo pro %s"
 
-#: ../eplugin/exchange-delegates-user.c:71 ../eplugin/exchange-folder.c:459
-#: ../server/storage/exchange-hierarchy-foreign.c:260
+#: ../eplugin/exchange-delegates-user.c:71 ../eplugin/exchange-folder.c:467
+#: ../server/storage/exchange-hierarchy-foreign.c:263
 msgid "Calendar"
 msgstr "Kalendář"
 
-#: ../eplugin/exchange-delegates-user.c:71 ../eplugin/exchange-folder.c:462
-#: ../server/storage/exchange-hierarchy-foreign.c:269
+#: ../eplugin/exchange-delegates-user.c:71 ../eplugin/exchange-folder.c:470
+#: ../server/storage/exchange-hierarchy-foreign.c:272
 msgid "Tasks"
 msgstr "Úkoly"
 
-#: ../eplugin/exchange-delegates-user.c:71 ../eplugin/exchange-folder.c:457
-#: ../server/storage/exchange-hierarchy-foreign.c:264
+#: ../eplugin/exchange-delegates-user.c:71 ../eplugin/exchange-folder.c:465
+#: ../server/storage/exchange-hierarchy-foreign.c:267
 msgid "Inbox"
 msgstr "Příchozí"
 
-#: ../eplugin/exchange-delegates-user.c:71 ../eplugin/exchange-folder.c:465
-#: ../server/storage/exchange-hierarchy-foreign.c:261
+#: ../eplugin/exchange-delegates-user.c:71 ../eplugin/exchange-folder.c:473
+#: ../server/storage/exchange-hierarchy-foreign.c:264
 msgid "Contacts"
 msgstr "Kontakty"
 
-#: ../eplugin/exchange-delegates-user.c:134
-#: ../eplugin/exchange-permissions-dialog.c:545
-#: ../server/lib/e2k-security-descriptor.c:901
+#: ../eplugin/exchange-delegates-user.c:141
+#: ../eplugin/exchange-permissions-dialog.c:550
+#: ../server/lib/e2k-security-descriptor.c:915
 msgid "Custom"
 msgstr "Vlastní"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:157
-#: ../eplugin/exchange-delegates-user.c:309
+#: ../eplugin/exchange-delegates-user.c:165
 #: ../eplugin/exchange-delegates-user.c:319
 #: ../eplugin/exchange-delegates-user.c:329
 #: ../eplugin/exchange-delegates-user.c:339
+#: ../eplugin/exchange-delegates-user.c:349
 msgid "Editor (read, create, edit)"
 msgstr "Editor (čte, vytváří, upravuje)"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:162
-#: ../eplugin/exchange-delegates-user.c:308
+#: ../eplugin/exchange-delegates-user.c:170
 #: ../eplugin/exchange-delegates-user.c:318
 #: ../eplugin/exchange-delegates-user.c:328
 #: ../eplugin/exchange-delegates-user.c:338
+#: ../eplugin/exchange-delegates-user.c:348
 msgid "Author (read, create)"
 msgstr "Autor (čte, vytváří)"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:167
-#: ../eplugin/exchange-delegates-user.c:307
+#: ../eplugin/exchange-delegates-user.c:175
 #: ../eplugin/exchange-delegates-user.c:317
 #: ../eplugin/exchange-delegates-user.c:327
 #: ../eplugin/exchange-delegates-user.c:337
+#: ../eplugin/exchange-delegates-user.c:347
 msgid "Reviewer (read-only)"
 msgstr "Recenzent (pouze čte)"
 
-#: ../eplugin/exchange-delegates-user.c:171
-#: ../eplugin/exchange-delegates-user.c:306
+#: ../eplugin/exchange-delegates-user.c:179
 #: ../eplugin/exchange-delegates-user.c:316
 #: ../eplugin/exchange-delegates-user.c:326
 #: ../eplugin/exchange-delegates-user.c:336
-#: ../server/lib/e2k-security-descriptor.c:886
+#: ../eplugin/exchange-delegates-user.c:346
+#: ../server/lib/e2k-security-descriptor.c:900
 msgid "None"
 msgstr "Žádná"
 
 #. Translators: "Delegate Permissions" refers to the permissions on the delegator's folders
-#. that the delegatee would receive
-#: ../eplugin/exchange-delegates-user.c:236
+#. * that the delegatee would receive
+#: ../eplugin/exchange-delegates-user.c:246
 msgid "Delegate Permissions"
 msgstr "Oprávnění delegáta"
 
-#: ../eplugin/exchange-delegates-user.c:254
+#: ../eplugin/exchange-delegates-user.c:264
 msgid "Permissions for"
 msgstr "Oprávnění pro"
 
 #. Translators: This is used for permissions for <user> for the folder Calendar.
-#: ../eplugin/exchange-delegates-user.c:266
+#: ../eplugin/exchange-delegates-user.c:276
 msgid "C_alendar:"
 msgstr "Ka_lendář:"
 
 #. Translators: This is used for permissions for <user> for the folder Tasks.
-#: ../eplugin/exchange-delegates-user.c:275
+#: ../eplugin/exchange-delegates-user.c:285
 msgid "_Tasks:"
 msgstr "Ú_koly:"
 
 #. Translators: This is used for permissions for <user> for the folder Inbox.
-#: ../eplugin/exchange-delegates-user.c:284
+#: ../eplugin/exchange-delegates-user.c:294
 msgid "_Inbox:"
 msgstr "_Příchozí:"
 
 #. Translators: This is used for permissions for <user> for the folder Contacts.
-#: ../eplugin/exchange-delegates-user.c:293
+#: ../eplugin/exchange-delegates-user.c:303
 msgid "Co_ntacts:"
 msgstr "Kon_takty:"
 
-#: ../eplugin/exchange-delegates-user.c:341
+#: ../eplugin/exchange-delegates-user.c:351
 msgid "_Summarize permissions"
 msgstr "_Shrnout oprávnění"
 
-#: ../eplugin/exchange-delegates-user.c:345
+#: ../eplugin/exchange-delegates-user.c:355
 msgid "_Delegate can see private items"
 msgstr "_Delegáti vidí soukromé položky"
 
-#: ../eplugin/exchange-delegates-user.c:351
-#: ../eplugin/exchange-permissions-dialog.c:168
+#: ../eplugin/exchange-delegates-user.c:361
+#: ../eplugin/exchange-permissions-dialog.c:165
 #, c-format
 msgid "Permissions for %s"
 msgstr "Oprávnění pro %s"
 
 #. To translators: This is a part of the message to be sent to the delegatee
-#. summarizing the permissions assigned to him.
+#. * summarizing the permissions assigned to him.
 #.
-#: ../eplugin/exchange-delegates-user.c:442
+#: ../eplugin/exchange-delegates-user.c:452
 msgid ""
 "This message was sent automatically by Evolution to inform you that you have "
 "been designated as a delegate. You can now send messages on my behalf."
@@ -745,68 +752,68 @@ msgstr ""
 
 #. To translators: Another chunk of the same message.
 #.
-#: ../eplugin/exchange-delegates-user.c:447
+#: ../eplugin/exchange-delegates-user.c:457
 msgid "You have been given the following permissions on my folders:"
 msgstr "Byla vám udělena následující práva v mých složkách:"
 
-#: ../eplugin/exchange-delegates-user.c:475
+#: ../eplugin/exchange-delegates-user.c:485
 msgid "You are also permitted to see my private items."
 msgstr "Můžete taktéž vidět mé soukromé položky."
 
-#: ../eplugin/exchange-delegates-user.c:484
+#: ../eplugin/exchange-delegates-user.c:494
 msgid "However, you are not permitted to see my private items."
 msgstr "Nicméně vám není dovoleno vidět mé soukromé položky."
 
-#: ../eplugin/exchange-delegates-user.c:521
+#: ../eplugin/exchange-delegates-user.c:531
 #, c-format
 msgid "You have been designated as a delegate for %s"
 msgstr "Byl(a) jste jmenován(a) delegátem pro %s"
 
-#: ../eplugin/exchange-delegates.c:413
+#: ../eplugin/exchange-delegates.c:416
 msgid "Delegate To:"
 msgstr "Delegovat komu:"
 
-#: ../eplugin/exchange-delegates.c:413
+#: ../eplugin/exchange-delegates.c:416
 msgid "Delegate To"
 msgstr "Delegovat komu"
 
-#: ../eplugin/exchange-delegates.c:577
+#: ../eplugin/exchange-delegates.c:586
 #, c-format
 msgid "Remove the delegate %s?"
 msgstr "Odstranit delegáta %s?"
 
-#: ../eplugin/exchange-delegates.c:694
+#: ../eplugin/exchange-delegates.c:705
 msgid "Could not access Active Directory"
 msgstr "Nelze se připojit k Active Directory"
 
-#: ../eplugin/exchange-delegates.c:706
+#: ../eplugin/exchange-delegates.c:717
 msgid "Could not find self in Active Directory"
 msgstr "Nelze se najít v Active Directory"
 
-#: ../eplugin/exchange-delegates.c:719
+#: ../eplugin/exchange-delegates.c:730
 #, c-format
 msgid "Could not find delegate %s in Active Directory"
 msgstr "Nelze najít delegáta %s v Active Directory"
 
-#: ../eplugin/exchange-delegates.c:731
+#: ../eplugin/exchange-delegates.c:742
 #, c-format
 msgid "Could not remove delegate %s"
 msgstr "Nelze odstranit delegáta %s"
 
-#: ../eplugin/exchange-delegates.c:791
+#: ../eplugin/exchange-delegates.c:802
 msgid "Could not update list of delegates."
 msgstr "Nelze aktualizovat seznam delegátů."
 
-#: ../eplugin/exchange-delegates.c:809
+#: ../eplugin/exchange-delegates.c:820
 #, c-format
 msgid "Could not add delegate %s"
 msgstr "Nelze přidat delegáta %s"
 
-#: ../eplugin/exchange-delegates.c:925
+#: ../eplugin/exchange-delegates.c:940
 msgid "Delegates"
 msgstr "Delegáti"
 
-#: ../eplugin/exchange-delegates.c:940
+#: ../eplugin/exchange-delegates.c:955
 msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
@@ -814,259 +821,259 @@ msgstr ""
 "Tito uživatelé budou moci odesílat poštu vaším jménem\n"
 "a přistupovat k vašim složkám s oprávněními, která jim dáte."
 
-#: ../eplugin/exchange-delegates.c:964
+#: ../eplugin/exchange-delegates.c:979
 msgid "_Edit"
 msgstr "_Upravit"
 
-#: ../eplugin/exchange-delegates.c:994
-#: ../eplugin/exchange-permissions-dialog.c:916
+#: ../eplugin/exchange-delegates.c:1009
+#: ../eplugin/exchange-permissions-dialog.c:924
 msgid "Name"
 msgstr "Jméno"
 
-#: ../eplugin/exchange-delegates.c:1020
+#: ../eplugin/exchange-delegates.c:1035
 msgid "Error reading delegates list."
 msgstr "Chyba při čtení seznamu delegátů."
 
-#: ../eplugin/exchange-folder-permission.c:241
-#: ../eplugin/exchange-folder-permission.c:520
-#: ../eplugin/exchange-folder-permission.c:554
-#: ../eplugin/exchange-folder-permission.c:588
+#: ../eplugin/exchange-folder-permission.c:245
+#: ../eplugin/exchange-folder-permission.c:531
+#: ../eplugin/exchange-folder-permission.c:566
+#: ../eplugin/exchange-folder-permission.c:601
 msgid "Permissions..."
 msgstr "Oprávnění…"
 
-#: ../eplugin/exchange-folder-permission.c:243
+#: ../eplugin/exchange-folder-permission.c:247
 msgid "Check folder permissions"
 msgstr "Zkontrolovat oprávnění složky"
 
-#: ../eplugin/exchange-folder-permission.c:248
-#: ../eplugin/exchange-folder-permission.c:527
-#: ../eplugin/exchange-folder-permission.c:561
-#: ../eplugin/exchange-folder-permission.c:595
+#: ../eplugin/exchange-folder-permission.c:252
+#: ../eplugin/exchange-folder-permission.c:538
+#: ../eplugin/exchange-folder-permission.c:573
+#: ../eplugin/exchange-folder-permission.c:608
 msgid "Subscribe to Other User's Folder..."
 msgstr "Přihlásit se ke složce jiného uživatele…"
 
-#: ../eplugin/exchange-folder-permission.c:250
-#: ../eplugin/exchange-folder-permission.c:529
-#: ../eplugin/exchange-folder-permission.c:563
-#: ../eplugin/exchange-folder-permission.c:597
-#: ../eplugin/exchange-folder-subscription.c:306
+#: ../eplugin/exchange-folder-permission.c:254
+#: ../eplugin/exchange-folder-permission.c:540
+#: ../eplugin/exchange-folder-permission.c:575
+#: ../eplugin/exchange-folder-permission.c:610
+#: ../eplugin/exchange-folder-subscription.c:317
 msgid "Subscribe to Other User's Folder"
 msgstr "Přihlásit se ke složce jiného uživatele"
 
-#: ../eplugin/exchange-folder-permission.c:255
-#: ../eplugin/exchange-folder-permission.c:534
-#: ../eplugin/exchange-folder-permission.c:568
-#: ../eplugin/exchange-folder-permission.c:602
+#: ../eplugin/exchange-folder-permission.c:259
+#: ../eplugin/exchange-folder-permission.c:545
+#: ../eplugin/exchange-folder-permission.c:580
+#: ../eplugin/exchange-folder-permission.c:615
 msgid "Unsubscribe Folder..."
 msgstr "Odhlásit složku…"
 
-#: ../eplugin/exchange-folder-permission.c:522
+#: ../eplugin/exchange-folder-permission.c:533
 msgid "Check calendar permissions"
 msgstr "Zkontrolovat oprávnění kalendáře"
 
-#: ../eplugin/exchange-folder-permission.c:556
+#: ../eplugin/exchange-folder-permission.c:568
 msgid "Check tasks permissions"
 msgstr "Zkontrolovat oprávnění úkolů"
 
-#: ../eplugin/exchange-folder-permission.c:590
+#: ../eplugin/exchange-folder-permission.c:603
 msgid "Check address book permissions"
 msgstr "Zkontrolovat oprávnění adresáře"
 
-#: ../eplugin/exchange-folder-size-display.c:136
+#: ../eplugin/exchange-folder-size-display.c:141
 msgid "Exchange Folder Tree"
 msgstr "Strom složek Exchange"
 
-#: ../eplugin/exchange-folder-size-display.c:151
+#: ../eplugin/exchange-folder-size-display.c:156
 #, c-format
 msgid "Total size: %.2f KB"
 msgstr "Celková velikost: %.2f kB"
 
-#: ../eplugin/exchange-folder-size-display.c:179
+#: ../eplugin/exchange-folder-size-display.c:184
 msgid "Folder Name"
 msgstr "Název složky"
 
 #. FIXME Limit to one user
-#: ../eplugin/exchange-folder-subscription.c:72
+#: ../eplugin/exchange-folder-subscription.c:77
 msgid "User"
 msgstr "Uživatel"
 
-#: ../eplugin/exchange-folder-subscription.c:322
+#: ../eplugin/exchange-folder-subscription.c:333
 msgid "_Account:"
 msgstr "_Účet:"
 
-#: ../eplugin/exchange-folder-subscription.c:329
+#: ../eplugin/exchange-folder-subscription.c:340
 msgid "_Folder Name:"
 msgstr "_Název složky:"
 
-#: ../eplugin/exchange-folder-subscription.c:342
+#: ../eplugin/exchange-folder-subscription.c:353
 msgid "_User:"
 msgstr "_Uživatel:"
 
-#: ../eplugin/exchange-folder.c:344 ../eplugin/exchange-folder.c:400
+#: ../eplugin/exchange-folder.c:350 ../eplugin/exchange-folder.c:406
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "Opravdu se odhlásit od složky „%s“?"
 
-#: ../eplugin/exchange-folder.c:357 ../eplugin/exchange-folder.c:413
+#: ../eplugin/exchange-folder.c:363 ../eplugin/exchange-folder.c:419
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "Odhlásit se od „%s“"
 
-#: ../eplugin/exchange-mail-send-options.c:220
+#: ../eplugin/exchange-mail-send-options.c:226
 msgid "_Send Options"
 msgstr "Možno_sti odesílání"
 
-#: ../eplugin/exchange-mail-send-options.c:222
+#: ../eplugin/exchange-mail-send-options.c:228
 msgid "Insert Send options"
 msgstr "Vložit možnosti odesílání"
 
 #. FIXME: Don't hardcode this
-#: ../eplugin/exchange-operations.c:122 ../eplugin/exchange-operations.c:167
-#: ../server/storage/exchange-account.c:1260
+#: ../eplugin/exchange-operations.c:128 ../eplugin/exchange-operations.c:177
+#: ../server/storage/exchange-account.c:1308
 msgid "Personal Folders"
 msgstr "Osobní složky"
 
-#: ../eplugin/exchange-permissions-dialog.c:278
+#: ../eplugin/exchange-permissions-dialog.c:276
 msgid "(Permission denied.)"
 msgstr "(Oprávnění zamítnuto.)"
 
-#: ../eplugin/exchange-permissions-dialog.c:384
+#: ../eplugin/exchange-permissions-dialog.c:387
 msgid "Add User:"
 msgstr "Přidat uživatele:"
 
-#: ../eplugin/exchange-permissions-dialog.c:384
-#: ../eplugin/exchange-send-options.c:467
+#: ../eplugin/exchange-permissions-dialog.c:387
+#: ../eplugin/exchange-send-options.c:476
 msgid "Add User"
 msgstr "Přidat uživatele"
 
-#: ../eplugin/exchange-permissions-dialog.c:792
+#: ../eplugin/exchange-permissions-dialog.c:800
 msgid "Permissions"
 msgstr "Oprávnění"
 
-#: ../eplugin/exchange-permissions-dialog.c:809
+#: ../eplugin/exchange-permissions-dialog.c:817
 msgid "Role: "
 msgstr "Role: "
 
-#: ../eplugin/exchange-permissions-dialog.c:835
+#: ../eplugin/exchange-permissions-dialog.c:843
 msgid "Create items"
 msgstr "Vytvářet položky"
 
-#: ../eplugin/exchange-permissions-dialog.c:839
+#: ../eplugin/exchange-permissions-dialog.c:847
 msgid "Read items"
 msgstr "Číst položky"
 
-#: ../eplugin/exchange-permissions-dialog.c:843
+#: ../eplugin/exchange-permissions-dialog.c:851
 msgid "Create subfolders"
 msgstr "Vytvářet podsložky"
 
-#: ../eplugin/exchange-permissions-dialog.c:851
+#: ../eplugin/exchange-permissions-dialog.c:859
 msgid "Cannot Edit"
 msgstr "Nemůže upravovat"
 
-#: ../eplugin/exchange-permissions-dialog.c:857
+#: ../eplugin/exchange-permissions-dialog.c:865
 msgid "Edit Own Items"
 msgstr "Upravovat vlastní položky"
 
-#: ../eplugin/exchange-permissions-dialog.c:863
+#: ../eplugin/exchange-permissions-dialog.c:871
 msgid "Edit Any Items"
 msgstr "Upravovat libovolné položky"
 
-#: ../eplugin/exchange-permissions-dialog.c:877
+#: ../eplugin/exchange-permissions-dialog.c:885
 msgid "Folder owner"
 msgstr "Vlastník složky"
 
-#: ../eplugin/exchange-permissions-dialog.c:881
+#: ../eplugin/exchange-permissions-dialog.c:889
 msgid "Folder contact"
 msgstr "Kontakt složky"
 
-#: ../eplugin/exchange-permissions-dialog.c:885
+#: ../eplugin/exchange-permissions-dialog.c:893
 msgid "Folder visible"
 msgstr "Složka viditelná"
 
-#: ../eplugin/exchange-permissions-dialog.c:893
+#: ../eplugin/exchange-permissions-dialog.c:901
 msgid "Cannot Delete"
 msgstr "Nemůže odstraňovat"
 
-#: ../eplugin/exchange-permissions-dialog.c:900
+#: ../eplugin/exchange-permissions-dialog.c:908
 msgid "Delete Own Items"
 msgstr "Odstraňovat vlastní položky"
 
-#: ../eplugin/exchange-permissions-dialog.c:906
+#: ../eplugin/exchange-permissions-dialog.c:914
 msgid "Delete Any Items"
 msgstr "Odstraňovat libovolné položky"
 
-#: ../eplugin/exchange-permissions-dialog.c:920
+#: ../eplugin/exchange-permissions-dialog.c:928
 msgid "Role"
 msgstr "Role"
 
-#: ../eplugin/exchange-send-options.c:335
+#: ../eplugin/exchange-send-options.c:344
 msgid "Exchange - Send Options"
 msgstr "Exchange - možnosti odesílání"
 
-#: ../eplugin/exchange-send-options.c:356
+#: ../eplugin/exchange-send-options.c:365
 msgid "Message Settings"
 msgstr "Nastavení zpráv"
 
-#: ../eplugin/exchange-send-options.c:370
+#: ../eplugin/exchange-send-options.c:379
 msgid "I_mportance: "
 msgstr "Dů_ležitost: "
 
 #. Translators: Here's set a message sensitivity, which means for exchange
-#. one of Normal, Personal, Private, Confidential.
-#: ../eplugin/exchange-send-options.c:379
+#. * one of Normal, Personal, Private, Confidential.
+#: ../eplugin/exchange-send-options.c:388
 msgid "_Sensitivity: "
 msgstr "_Citlivost: "
 
-#: ../eplugin/exchange-send-options.c:391
-#: ../eplugin/exchange-send-options.c:401
+#: ../eplugin/exchange-send-options.c:400
+#: ../eplugin/exchange-send-options.c:410
 msgid "Normal"
 msgstr "Normální"
 
-#: ../eplugin/exchange-send-options.c:392
+#: ../eplugin/exchange-send-options.c:401
 msgid "Personal"
 msgstr "Osobní"
 
-#: ../eplugin/exchange-send-options.c:393
+#: ../eplugin/exchange-send-options.c:402
 msgid "Private"
 msgstr "Soukromé"
 
-#: ../eplugin/exchange-send-options.c:394
+#: ../eplugin/exchange-send-options.c:403
 msgid "Confidential"
 msgstr "Důvěrné"
 
-#: ../eplugin/exchange-send-options.c:402
+#: ../eplugin/exchange-send-options.c:411
 msgid "High"
 msgstr "Vysoká"
 
-#: ../eplugin/exchange-send-options.c:403
+#: ../eplugin/exchange-send-options.c:412
 msgid "Low"
 msgstr "Nízká"
 
-#: ../eplugin/exchange-send-options.c:405
+#: ../eplugin/exchange-send-options.c:414
 msgid "Send as Delegate"
 msgstr "Poslat jako delegování"
 
-#: ../eplugin/exchange-send-options.c:422
+#: ../eplugin/exchange-send-options.c:431
 msgid "_User"
 msgstr "_Uživatel"
 
-#: ../eplugin/exchange-send-options.c:430
+#: ../eplugin/exchange-send-options.c:439
 msgid "Tracking Options"
 msgstr "Možnosti sledování"
 
-#: ../eplugin/exchange-send-options.c:438
+#: ../eplugin/exchange-send-options.c:447
 msgid "Request a _delivery receipt for this message"
 msgstr "Vyžádat si _doručenku pro tuto zprávu"
 
-#: ../eplugin/exchange-send-options.c:443
+#: ../eplugin/exchange-send-options.c:452
 msgid "Request a _read receipt for this message"
 msgstr "Vyžádat si _doručenku o čtení pro tuto zprávu"
 
-#: ../eplugin/exchange-user-dialog.c:135
+#: ../eplugin/exchange-user-dialog.c:138
 msgid "Select User"
 msgstr "Vyberte uživatele"
 
-#: ../eplugin/exchange-user-dialog.c:174
+#: ../eplugin/exchange-user-dialog.c:177
 msgid "Address Book..."
 msgstr "Adresář…"
 
@@ -1410,161 +1417,161 @@ msgstr "{0} již je delegátem"
 msgid "{0} is already in the list"
 msgstr "{0} je již na seznamu"
 
-#: ../server/lib/e2k-autoconfig.c:1692
-#: ../server/storage/exchange-account.c:955
+#: ../server/lib/e2k-autoconfig.c:1733
+#: ../server/storage/exchange-account.c:986
 #, c-format
 msgid "Enter password for %s"
 msgstr "Zadejte heslo pro %s"
 
-#: ../server/lib/e2k-autoconfig.c:1693
-#: ../server/storage/exchange-account.c:960
+#: ../server/lib/e2k-autoconfig.c:1734
+#: ../server/storage/exchange-account.c:991
 msgid "Enter password"
 msgstr "Zadejte heslo"
 
 #. i18n: These are Outlook's words for the default roles in
-#. the folder permissions dialog.
-#: ../server/lib/e2k-security-descriptor.c:842
+#. * the folder permissions dialog.
+#: ../server/lib/e2k-security-descriptor.c:856
 msgid "Owner"
 msgstr "Vlastník"
 
-#: ../server/lib/e2k-security-descriptor.c:852
+#: ../server/lib/e2k-security-descriptor.c:866
 msgid "Publishing Editor"
 msgstr "Šéfredaktor - vydavatel"
 
-#: ../server/lib/e2k-security-descriptor.c:860
+#: ../server/lib/e2k-security-descriptor.c:874
 msgid "Editor"
 msgstr "Editor"
 
-#: ../server/lib/e2k-security-descriptor.c:867
+#: ../server/lib/e2k-security-descriptor.c:881
 msgid "Publishing Author"
 msgstr "Redaktor - vydavatel"
 
-#: ../server/lib/e2k-security-descriptor.c:873
+#: ../server/lib/e2k-security-descriptor.c:887
 msgid "Author"
 msgstr "Autor"
 
-#: ../server/lib/e2k-security-descriptor.c:878
+#: ../server/lib/e2k-security-descriptor.c:892
 msgid "Non-editing Author"
 msgstr "Vydavatel"
 
-#: ../server/lib/e2k-security-descriptor.c:882
+#: ../server/lib/e2k-security-descriptor.c:896
 msgid "Reviewer"
 msgstr "Recenzent"
 
-#: ../server/lib/e2k-security-descriptor.c:884
+#: ../server/lib/e2k-security-descriptor.c:898
 msgid "Contributor"
 msgstr "Přispěvatel"
 
-#: ../server/storage/e-storage.c:555
+#: ../server/storage/e-storage.c:556
 msgid "No error"
 msgstr "Žádná chyba"
 
-#: ../server/storage/e-storage.c:559
+#: ../server/storage/e-storage.c:560
 msgid "A folder with the same name already exists"
 msgstr "Složka se stejným názvem již existuje"
 
-#: ../server/storage/e-storage.c:561
+#: ../server/storage/e-storage.c:562
 msgid "The specified folder type is not valid"
 msgstr "Zadaný typ složky není platný"
 
-#: ../server/storage/e-storage.c:563
+#: ../server/storage/e-storage.c:564
 msgid "I/O error"
 msgstr "Chyba V/V"
 
-#: ../server/storage/e-storage.c:565
+#: ../server/storage/e-storage.c:566
 msgid "Not enough space to create the folder"
 msgstr "Nedostatek místa pro vytvoření složky"
 
-#: ../server/storage/e-storage.c:567
+#: ../server/storage/e-storage.c:568
 msgid "The folder is not empty"
 msgstr "Složka není prázdná"
 
-#: ../server/storage/e-storage.c:569
+#: ../server/storage/e-storage.c:570
 msgid "The specified folder was not found"
 msgstr "Zadaná složka nebyla nalezena"
 
-#: ../server/storage/e-storage.c:571
+#: ../server/storage/e-storage.c:572
 msgid "Function not implemented in this storage"
 msgstr "Funkce není v tomto úložišti implementována"
 
-#: ../server/storage/e-storage.c:575
+#: ../server/storage/e-storage.c:576
 msgid "Operation not supported"
 msgstr "Operace není podporována"
 
-#: ../server/storage/e-storage.c:577
+#: ../server/storage/e-storage.c:578
 msgid "The specified type is not supported in this storage"
 msgstr "Zadaný typ není v tomto úložišti podporován"
 
-#: ../server/storage/e-storage.c:579
+#: ../server/storage/e-storage.c:580
 msgid "The specified folder cannot be modified or removed"
 msgstr "Zadanou složku nelze upravit nebo odstranit"
 
-#: ../server/storage/e-storage.c:581
+#: ../server/storage/e-storage.c:582
 msgid "Cannot make a folder a child of one of its descendants"
 msgstr "Složku nelze učinit potomkem jednoho z jejích potomků"
 
-#: ../server/storage/e-storage.c:583
+#: ../server/storage/e-storage.c:584
 msgid "Cannot create a folder with that name"
 msgstr "Nelze vytvořit složku s tímto názvem"
 
-#: ../server/storage/e-storage.c:585
+#: ../server/storage/e-storage.c:586
 msgid "This operation cannot be performed in offline mode"
 msgstr "Tuto operaci nelze provést v režimu odpojení"
 
-#: ../server/storage/e-storage.c:587
+#: ../server/storage/e-storage.c:588
 msgid "Unknown error"
 msgstr "Neznámá chyba"
 
 #. i18n: This is the title of an "other user's folders"
-#. hierarchy. Eg, "John Doe's Folders".
-#: ../server/storage/exchange-account.c:640
+#. * hierarchy. Eg, "John Doe's Folders".
+#: ../server/storage/exchange-account.c:663
 #, c-format
 msgid "%s's Folders"
 msgstr "Složky uživatele %s"
 
-#: ../server/storage/exchange-account.c:1275
+#: ../server/storage/exchange-account.c:1323
 msgid "Favorite Public Folders"
 msgstr "Oblíbené veřejné složky"
 
 #. i18n: Outlookism
-#: ../server/storage/exchange-account.c:1292
+#: ../server/storage/exchange-account.c:1340
 msgid "All Public Folders"
 msgstr "Všechny veřejné složky"
 
 #. i18n: Outlookism
-#: ../server/storage/exchange-account.c:1306
+#: ../server/storage/exchange-account.c:1354
 msgid "Global Address List"
 msgstr "Globální seznam adres"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:262
+#: ../server/storage/exchange-hierarchy-foreign.c:265
 msgid "Deleted Items"
 msgstr "Odstraněné položky"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:263
+#: ../server/storage/exchange-hierarchy-foreign.c:266
 msgid "Drafts"
 msgstr "Koncepty"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:265
+#: ../server/storage/exchange-hierarchy-foreign.c:268
 msgid "Journal"
 msgstr "Deník"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:266
+#: ../server/storage/exchange-hierarchy-foreign.c:269
 msgid "Notes"
 msgstr "Poznámky"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:267
+#: ../server/storage/exchange-hierarchy-foreign.c:270
 msgid "Outbox"
 msgstr "K odeslání"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:268
+#: ../server/storage/exchange-hierarchy-foreign.c:271
 msgid "Sent Items"
 msgstr "Odeslané"
 
-#: ../tools/exchange-autoconfig-wizard.c:176
+#: ../tools/exchange-autoconfig-wizard.c:191
 msgid "Welcome"
 msgstr "Vítejte"
 
-#: ../tools/exchange-autoconfig-wizard.c:176
+#: ../tools/exchange-autoconfig-wizard.c:191
 msgid ""
 "Welcome to Evolution Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
@@ -1578,13 +1585,13 @@ msgstr ""
 "\n"
 "Pokračujte prosím kliknutím na tlačítko „Vpřed“."
 
-#: ../tools/exchange-autoconfig-wizard.c:188
-#: ../tools/exchange-autoconfig-wizard.c:361
-#: ../tools/exchange-autoconfig-wizard.c:448
+#: ../tools/exchange-autoconfig-wizard.c:206
+#: ../tools/exchange-autoconfig-wizard.c:382
+#: ../tools/exchange-autoconfig-wizard.c:475
 msgid "Exchange Configuration"
 msgstr "Nastavení Exchange"
 
-#: ../tools/exchange-autoconfig-wizard.c:188
+#: ../tools/exchange-autoconfig-wizard.c:206
 msgid ""
 "Evolution Connector for Microsoft Exchange can use account information from "
 "your existing Outlook Web Access (OWA) account.\n"
@@ -1598,23 +1605,23 @@ msgstr ""
 "Zadejte svou adresu serveru OWA (URL), jméno uživatele a heslo, pak klikněte "
 "na „Vpřed“.\n"
 
-#: ../tools/exchange-autoconfig-wizard.c:196
+#: ../tools/exchange-autoconfig-wizard.c:214
 msgid "OWA _URL:"
 msgstr "Adresa URL _OWA:"
 
-#: ../tools/exchange-autoconfig-wizard.c:200
+#: ../tools/exchange-autoconfig-wizard.c:218
 msgid "User_name:"
 msgstr "_Jméno uživatele:"
 
-#: ../tools/exchange-autoconfig-wizard.c:204
+#: ../tools/exchange-autoconfig-wizard.c:222
 msgid "_Password:"
 msgstr "_Heslo:"
 
-#: ../tools/exchange-autoconfig-wizard.c:209
+#: ../tools/exchange-autoconfig-wizard.c:227
 msgid "_Remember this password"
 msgstr "Za_pamatovat si toto heslo"
 
-#: ../tools/exchange-autoconfig-wizard.c:282
+#: ../tools/exchange-autoconfig-wizard.c:300
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -1624,7 +1631,7 @@ msgstr ""
 "Zkontrolujte, zda je adresa URL správná (zkuste „%s“ místo „%s“?) a zkuste "
 "to znovu."
 
-#: ../tools/exchange-autoconfig-wizard.c:290
+#: ../tools/exchange-autoconfig-wizard.c:308
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -1632,7 +1639,7 @@ msgstr ""
 "Nelze najít server Exchange.\n"
 "Zkontrolujte, zda je název serveru zadán správně, a zkuste to znovu."
 
-#: ../tools/exchange-autoconfig-wizard.c:299
+#: ../tools/exchange-autoconfig-wizard.c:317
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -1640,7 +1647,7 @@ msgstr ""
 "Nelze ověřit k serveru Exchange.\n"
 "Přesvědčte se, že jméno uživatele a heslo jsou správné, a zkuste to znovu."
 
-#: ../tools/exchange-autoconfig-wizard.c:306
+#: ../tools/exchange-autoconfig-wizard.c:324
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -1655,7 +1662,7 @@ msgstr ""
 "Možná budete muset zadat název domény Windows jako součást jména uživatele\n"
 "(např. „MOJE-DOMÉNA\\%s“)."
 
-#: ../tools/exchange-autoconfig-wizard.c:318
+#: ../tools/exchange-autoconfig-wizard.c:336
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -1663,7 +1670,7 @@ msgstr ""
 "Nelze najít data OWA na zadané adrese URL.\n"
 "Zkontrolujte, zda je URL správné, a zkuste to znovu."
 
-#: ../tools/exchange-autoconfig-wizard.c:324
+#: ../tools/exchange-autoconfig-wizard.c:342
 msgid ""
 "Evolution Connector for Microsoft Exchange requires access to certain "
 "functionality on the Exchange server that appears to be disabled or "
@@ -1681,7 +1688,7 @@ msgstr ""
 "\n"
 "Informace určené k poskytnutí vašemu správci Exchange viz odkaz níže:"
 
-#: ../tools/exchange-autoconfig-wizard.c:337
+#: ../tools/exchange-autoconfig-wizard.c:355
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 server. "
 "Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
@@ -1690,7 +1697,7 @@ msgstr ""
 "Adresa URL serveru Exchange, kterou jste zadali, je na server Exchange 5.5. "
 "Evolution Connector podporuje jen Microsoft Exchange 2000 a 2003."
 
-#: ../tools/exchange-autoconfig-wizard.c:345
+#: ../tools/exchange-autoconfig-wizard.c:363
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -1698,7 +1705,7 @@ msgstr ""
 "Nelze nastavit účet Exchange, protože došlo k neznámé chybě. Zkontrolujte "
 "adresu URL, jméno uživatele a heslo a zkuste to znovu."
 
-#: ../tools/exchange-autoconfig-wizard.c:361
+#: ../tools/exchange-autoconfig-wizard.c:382
 msgid ""
 "Evolution Connector for Microsoft Exchange could not find the Global Catalog "
 "replica for your site. Please enter the name of your Global Catalog server. "
@@ -1709,11 +1716,11 @@ msgstr ""
 "katalogu. Možná bude nutné zeptat se na správnou hodnotu svého správce "
 "systému."
 
-#: ../tools/exchange-autoconfig-wizard.c:369
+#: ../tools/exchange-autoconfig-wizard.c:390
 msgid "GC _Server:"
 msgstr "_Server Globálního katalogu:"
 
-#: ../tools/exchange-autoconfig-wizard.c:402
+#: ../tools/exchange-autoconfig-wizard.c:423
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -1724,7 +1731,7 @@ msgstr ""
 "zadat název domény Windows jako součást jména uživatele (např. „MOJE-DOMÉNA\\"
 "%s“)."
 
-#: ../tools/exchange-autoconfig-wizard.c:409
+#: ../tools/exchange-autoconfig-wizard.c:430
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -1732,11 +1739,11 @@ msgstr ""
 "Nelze se připojit k zadanému serveru.\n"
 "Zkontrolujte prosím název serveru a zkuste to znovu."
 
-#: ../tools/exchange-autoconfig-wizard.c:421
+#: ../tools/exchange-autoconfig-wizard.c:445
 msgid "Configuration Failed"
 msgstr "Nastavení selhalo"
 
-#: ../tools/exchange-autoconfig-wizard.c:421
+#: ../tools/exchange-autoconfig-wizard.c:445
 msgid ""
 "Evolution Connector for Microsoft Exchange has encountered a problem "
 "configuring your Exchange account."
@@ -1744,7 +1751,7 @@ msgstr ""
 "Při nastavování vašeho účtu Exchange narazil Evolution Connector pro "
 "Microsoft Exchange na problém."
 
-#: ../tools/exchange-autoconfig-wizard.c:448
+#: ../tools/exchange-autoconfig-wizard.c:475
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\"."
@@ -1752,28 +1759,28 @@ msgstr ""
 "Vaše informace o účtu jsou následující. Opravte prosím případné chyby a "
 "klikněte na „Vpřed“."
 
-#: ../tools/exchange-autoconfig-wizard.c:456
+#: ../tools/exchange-autoconfig-wizard.c:483
 msgid "Full _Name:"
 msgstr "Celé _jméno:"
 
-#: ../tools/exchange-autoconfig-wizard.c:460
+#: ../tools/exchange-autoconfig-wizard.c:487
 msgid "_Email Address:"
 msgstr "_E-mailová adresa:"
 
-#: ../tools/exchange-autoconfig-wizard.c:464
+#: ../tools/exchange-autoconfig-wizard.c:491
 msgid "Make this my _default account"
 msgstr "Používat tento účet jako _výchozí"
 
-#: ../tools/exchange-autoconfig-wizard.c:481
-#: ../tools/exchange-autoconfig-wizard.c:485
+#: ../tools/exchange-autoconfig-wizard.c:508
+#: ../tools/exchange-autoconfig-wizard.c:512
 msgid "Unknown"
 msgstr "Neznámé"
 
-#: ../tools/exchange-autoconfig-wizard.c:508
+#: ../tools/exchange-autoconfig-wizard.c:538
 msgid "Done"
 msgstr "Hotovo"
 
-#: ../tools/exchange-autoconfig-wizard.c:508
+#: ../tools/exchange-autoconfig-wizard.c:538
 msgid ""
 "Your Connector account is now ready to use. Click the \"Apply\" button to "
 "save your settings."
@@ -1781,7 +1788,7 @@ msgstr ""
 "Váš účet Connectoru je nyní připraven k použití. Uložte prosím své nastavení "
 "kliknutím na tlačítko „Použít“."
 
-#: ../tools/exchange-autoconfig-wizard.c:557
+#: ../tools/exchange-autoconfig-wizard.c:587
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -1789,11 +1796,11 @@ msgstr ""
 "Chyba systému nastavení.\n"
 "Nelze vytvořit nový účet."
 
-#: ../tools/exchange-autoconfig-wizard.c:572
+#: ../tools/exchange-autoconfig-wizard.c:602
 msgid "You may only configure a single Exchange account"
 msgstr "Můžete nastavit jen jeden účet Exchange"
 
-#: ../tools/exchange-autoconfig-wizard.c:747
+#: ../tools/exchange-autoconfig-wizard.c:785
 msgid "Evolution Connector for Microsoft Exchange Configuration"
 msgstr "Evolution Connector pro Microsoft Exchange"
 
