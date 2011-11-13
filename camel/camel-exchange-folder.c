@@ -1087,7 +1087,7 @@ camel_exchange_folder_construct (CamelFolder *folder,
                                  GError **error)
 {
 	CamelExchangeFolder *exch = (CamelExchangeFolder *) folder;
-	gchar *summary_file, *journal_file, *path;
+	gchar *journal_file, *path;
 	GPtrArray *summary, *uids, *hrefs;
 	GByteArray *flags;
 	guint32 folder_flags;
@@ -1110,9 +1110,7 @@ camel_exchange_folder_construct (CamelFolder *folder,
 		return FALSE;
 	}
 
-	summary_file = g_strdup_printf ("%s/summary", folder_dir);
-	folder->summary = camel_exchange_summary_new (folder, summary_file);
-	g_free (summary_file);
+	folder->summary = camel_exchange_summary_new (folder);
 	if (!folder->summary) {
 		g_set_error (
 			error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,

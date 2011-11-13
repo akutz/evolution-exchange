@@ -82,115 +82,6 @@ exchange_summary_expunge_mail (CamelFolder *folder,
 	return success;
 }
 
-static gint
-exchange_summary_header_load (CamelFolderSummary *summary,
-                              FILE *in)
-{
-	CamelExchangeSummary *exchange = (CamelExchangeSummary *) summary;
-	CamelFolderSummaryClass *folder_summary_class;
-	guint32 version, readonly, high_article_num = 0;
-
-	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
-		camel_exchange_summary_parent_class);
-
-	if (folder_summary_class->summary_header_load (summary, in) == -1)
-		return -1;
-
-	if (camel_file_util_decode_uint32 (in, &version) == -1)
-		return -1;
-
-	if (camel_file_util_decode_uint32 (in, &readonly) == -1)
-		return -1;
-
-	/* Old summary file - We need to migrate.  Migration automagically happens when
-	 * camel_folder_summary_save is called
-	*/
-	if (camel_file_util_decode_uint32 (in, &high_article_num) == -1) {
-		if (version > CAMEL_EXCHANGE_SUMMARY_VERSION)
-			return -1;
-	}
-
-	/* During migration we will not have high_article_num stored in the summary and
-	 * essentially we will end up computing it atleast once.
-	*/
-	exchange->readonly = readonly;
-	exchange->high_article_num = high_article_num;
-	exchange->version = version;
-
-	d(g_print ("%s:%s: high_article_num = [%d]\n", G_STRLOC, G_STRFUNC, high_article_num));
-
-	return 0;
-}
-
-static gint
-exchange_summary_header_save (CamelFolderSummary *summary,
-                              FILE *out)
-{
-	CamelExchangeSummary *exchange = (CamelExchangeSummary *) summary;
-	CamelFolderSummaryClass *folder_summary_class;
-
-	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
-		camel_exchange_summary_parent_class);
-
-	if (folder_summary_class->summary_header_save (summary, out) == -1)
-		return -1;
-
-	if (camel_file_util_encode_uint32 (out, exchange->version) == -1)
-		return -1;
-
-	if (camel_file_util_encode_uint32 (out, exchange->readonly) == -1)
-		return -1;
-
-	if (camel_file_util_encode_uint32 (out, exchange->high_article_num) == -1)
-		return -1;
-
-	d(g_print ("%s:%s: high_article_num = [%d]\n", G_STRLOC, G_STRFUNC, exchange->high_article_num));
-
-	return 0;
-}
-
-static CamelMessageInfo *
-exchange_summary_message_info_migrate (CamelFolderSummary *summary,
-                                       FILE *in)
-{
-	CamelMessageInfo *info;
-	CamelExchangeMessageInfo *einfo;
-	CamelFolderSummaryClass *folder_summary_class;
-	gchar *thread_index, *href = NULL;
-
-	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (
-		camel_exchange_summary_parent_class);
-
-	info = folder_summary_class->message_info_migrate (summary, in);
-	if (info) {
-		einfo = (CamelExchangeMessageInfo *) info;
-
-		if (camel_file_util_decode_string (in, &thread_index) == -1)
-			goto error;
-
-		if (thread_index && *thread_index)
-			einfo->thread_index = thread_index;
-		else
-			g_free (thread_index);
-
-		/* Old summary file - We need to migrate.  Migration automagically happens when
-		 * camel_folder_summary_save is called
-		*/
-		if (camel_file_util_decode_string (in, &href) == -1) {
-			if (CAMEL_EXCHANGE_SUMMARY (summary)->version > CAMEL_EXCHANGE_SUMMARY_VERSION)
-				goto error;
-		}
-
-		einfo->href = href;
-		d(g_print ("%s:%s: einfo->href = [%s]\n", G_STRLOC, G_STRFUNC, einfo->href));
-	}
-
-	return info;
-error:
-	camel_message_info_free (info);
-	return NULL;
-}
-
 static CamelMessageInfo *
 exchange_summary_message_info_new_from_header (CamelFolderSummary *summary,
                                                struct _camel_header_raw *h)
@@ -410,9 +301,6 @@ camel_exchange_summary_class_init (CamelExchangeSummaryClass *class)
 	folder_summary_class = CAMEL_FOLDER_SUMMARY_CLASS (class);
 	folder_summary_class->message_info_size = sizeof (CamelExchangeMessageInfo);
 	folder_summary_class->content_info_size = sizeof (CamelMessageContentInfo);
-	folder_summary_class->summary_header_load = exchange_summary_header_load;
-	folder_summary_class->summary_header_save = exchange_summary_header_save;
-	folder_summary_class->message_info_migrate = exchange_summary_message_info_migrate;
 	folder_summary_class->message_info_new_from_header = exchange_summary_message_info_new_from_header;
 	folder_summary_class->message_info_free = exchange_summary_message_info_free;
 	folder_summary_class->summary_header_to_db = exchange_summary_summary_header_to_db;
@@ -430,21 +318,18 @@ camel_exchange_summary_init (CamelExchangeSummary *summary)
 
 /**
  * camel_exchange_summary_new:
- * @filename: filename to use for the summary
  *
  * Creates a new #CamelExchangeSummary based on @filename.
  *
  * Return value: the summary object.
  **/
 CamelFolderSummary *
-camel_exchange_summary_new (struct _CamelFolder *folder,
-                            const gchar *filename)
+camel_exchange_summary_new (struct _CamelFolder *folder)
 {
 	CamelFolderSummary *summary;
 	GError *local_error = NULL;
 
 	summary = g_object_new (CAMEL_TYPE_EXCHANGE_SUMMARY, "folder", folder, NULL);
-	camel_folder_summary_set_filename (summary, filename);
 	if (!camel_folder_summary_load_from_db (summary, &local_error)) {
 		g_warning (
 			"Unable to load Exchage summary for folder %s: %s\n",

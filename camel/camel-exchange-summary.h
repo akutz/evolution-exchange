@@ -52,8 +52,7 @@ struct _CamelExchangeSummaryClass {
 
 GType		camel_exchange_summary_get_type	(void);
 CamelFolderSummary *
-		camel_exchange_summary_new	(CamelFolder *folder,
-						 const gchar *filename);
+		camel_exchange_summary_new	(CamelFolder *folder);
 gboolean	camel_exchange_summary_get_readonly
 						(CamelFolderSummary *summary);
 void		camel_exchange_summary_set_readonly
