@@ -31,16 +31,16 @@
 
 G_DEFINE_TYPE (CamelExchangeSearch, camel_exchange_search, CAMEL_TYPE_FOLDER_SEARCH)
 
-static ESExpResult *
-exchange_search_body_contains (struct _ESExp *f,
+static CamelSExpResult *
+exchange_search_body_contains (struct _CamelSExp *f,
                                gint argc,
-                               struct _ESExpResult **argv,
+                               struct _CamelSExpResult **argv,
                                CamelFolderSearch *s)
 {
 	CamelFolderSearchClass *folder_search_class;
 	gchar *value = argv[0]->value.string, *real_uid;
 	const gchar *uid;
-	ESExpResult *r;
+	CamelSExpResult *r;
 	CamelMessageInfo *info;
 	CamelOfflineStore *offline_store;
 	CamelStore *parent_store;
@@ -61,10 +61,10 @@ exchange_search_body_contains (struct _ESExp *f,
 		return folder_search_class->body_contains (f, argc, argv, s);
 
 	if (s->current) {
-		r = e_sexp_result_new (f, ESEXP_RES_BOOL);
+		r = camel_sexp_result_new (f, CAMEL_SEXP_RES_BOOL);
 		r->value.boolean = FALSE;
 	} else {
-		r = e_sexp_result_new (f, ESEXP_RES_ARRAY_PTR);
+		r = camel_sexp_result_new (f, CAMEL_SEXP_RES_ARRAY_PTR);
 		r->value.ptrarray = g_ptr_array_new ();
 	}
 
