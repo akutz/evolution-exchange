@@ -34,10 +34,7 @@ dnl **********************
 dnl Compiler Warning Flags
 dnl **********************
 AS_COMPILER_FLAGS(WARNING_FLAGS,
-	"-DPANGO_DISABLE_DEPRECATED
-	-DGDK_DISABLE_DEPRECATED
-	-DGDK_PIXBUF_DISABLE_DEPRECATED
-	-DE_BOOK_DISABLE_DEPRECATED
+	"-DE_BOOK_DISABLE_DEPRECATED
 	-DE_CAL_DISABLE_DEPRECATED
 	-Wall -Wextra
 	-Wno-missing-field-initializers
