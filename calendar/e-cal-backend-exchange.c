@@ -733,32 +733,31 @@ e_cal_backend_exchange_in_cache (ECalBackendExchange *cbex,
 	return TRUE;
 }
 
-static void
+static gboolean
 uncache (gpointer key,
          gpointer value,
          gpointer data)
 {
 	ECalBackendExchange *cbex = data;
 	ECalBackend *backend = E_CAL_BACKEND (cbex);
-	ECalComponentId *id = g_new0 (ECalComponentId, 1);
 	ECalBackendExchangeComponent *ecomp;
 
 	ecomp = (ECalBackendExchangeComponent *) value;
 
-	/* FIXME Need get the recurrence id here */
-	id->uid = g_strdup (key);
-	id->rid = NULL;
 	if (ecomp->icomp) {
-		gchar *str = NULL;
-		/* FIXME somehow the query does not match with the component in some cases, so user needs to press a
-		 * clear to get rid of the component from the view in that case*/
-		str = icalcomponent_as_ical_string_r (ecomp->icomp);
-		e_cal_backend_notify_object_removed (backend, id, icalcomponent_as_ical_string_r (ecomp->icomp)
-				, NULL);
-		g_free (str);
+		ECalComponent *comp = e_cal_component_new_from_icalcomponent (icalcomponent_new_clone (ecomp->icomp));
+
+		if (comp) {
+			ECalComponentId *id;
+
+			id = e_cal_component_get_id (comp);
+			e_cal_backend_notify_component_removed (backend, id, comp, NULL);
+			e_cal_component_free_id (id);
+			g_object_unref (comp);
+		}
 	}
-	g_hash_table_remove (cbex->priv->objects, key);
-	e_cal_component_free_id (id);
+
+	return TRUE;
 }
 
 void
@@ -766,7 +765,7 @@ e_cal_backend_exchange_cache_sync_end (ECalBackendExchange *cbex)
 {
 	g_return_if_fail (cbex->priv->cache_unseen != NULL);
 
-	g_hash_table_foreach (cbex->priv->cache_unseen, uncache, cbex);
+	g_hash_table_foreach_remove (cbex->priv->cache_unseen, uncache, cbex);
 
 	g_hash_table_destroy (cbex->priv->cache_unseen);
 	cbex->priv->cache_unseen = NULL;
@@ -974,7 +973,7 @@ create_object (ECalBackendSync *backend,
                GCancellable *cancellable,
                const gchar *calobj,
                gchar **uid,
-               icalcomponent **new_object,
+               ECalComponent **new_component,
                GError **perror)
 {
 	g_propagate_error (perror, EDC_ERROR (NotSupported));
@@ -987,8 +986,8 @@ modify_object (ECalBackendSync *backend,
                GCancellable *cancellable,
                const gchar *calobj,
                CalObjModType mod,
-               icalcomponent **old_object,
-               icalcomponent **new_object,
+               ECalComponent **old_component,
+               ECalComponent **new_component,
                GError **perror)
 {
 	g_propagate_error (perror, EDC_ERROR (NotSupported));
@@ -1214,9 +1213,9 @@ send_objects (ECalBackendSync *backend,
 }
 
 typedef struct {
-	GSList *obj_list;
+	GSList *comps_list;
+	gboolean as_string;
 	gboolean search_needed;
-	const gchar *query;
 	ECalBackendSExp *obj_sexp;
 	ECalBackend *backend;
 } MatchObjectData;
@@ -1228,7 +1227,6 @@ match_recurrence_sexp (gpointer data,
 	icalcomponent *icomp = data;
 	MatchObjectData *match_data = user_data;
 	ECalComponent *comp = NULL;
-	gchar * comp_as_string = NULL;
 
 	d(printf("ecbe_match_recurrence_sexp(%p, %p)\n", icomp, match_data));
 
@@ -1240,9 +1238,10 @@ match_recurrence_sexp (gpointer data,
 
 	if ((!match_data->search_needed) ||
 	    (e_cal_backend_sexp_match_comp (match_data->obj_sexp, comp, match_data->backend))) {
-		comp_as_string = e_cal_component_get_as_string (comp);
-		match_data->obj_list = g_slist_append (match_data->obj_list, comp_as_string);
-		d(printf ("ecbe_match_recurrence_sexp: match found, adding \n%s\n", comp_as_string));
+		if (match_data->as_string)
+			match_data->comps_list = g_slist_prepend (match_data->comps_list, e_cal_component_get_as_string (comp));
+		else
+			match_data->comps_list = g_slist_prepend (match_data->comps_list, g_object_ref (comp));
 	}
 	g_object_unref (comp);
 }
@@ -1270,8 +1269,10 @@ match_object_sexp (gpointer key,
 
 		if ((!match_data->search_needed) ||
 		    (e_cal_backend_sexp_match_comp (match_data->obj_sexp, comp, match_data->backend))) {
-			match_data->obj_list = g_slist_append (match_data->obj_list,
-						      e_cal_component_get_as_string (comp));
+			if (match_data->as_string)
+				match_data->comps_list = g_slist_append (match_data->comps_list, e_cal_component_get_as_string (comp));
+			else
+				match_data->comps_list = g_slist_append (match_data->comps_list, g_object_ref (comp));
 		}
 		g_object_unref (comp);
 	}
@@ -1290,17 +1291,16 @@ get_object_list (ECalBackendSync *backend,
                  GSList **objects,
                  GError **perror)
 {
-
 	ECalBackendExchange *cbex;
 	ECalBackendExchangePrivate *priv;
-	MatchObjectData match_data;
+	MatchObjectData match_data = { 0 };
 
 	cbex = E_CAL_BACKEND_EXCHANGE (backend);
 	priv = cbex->priv;
 
 	match_data.search_needed = TRUE;
-	match_data.query = sexp;
-	match_data.obj_list = NULL;
+	match_data.as_string = TRUE;
+	match_data.comps_list = NULL;
 	match_data.backend = E_CAL_BACKEND (backend);
 
 	if (!strcmp (sexp, "#t"))
@@ -1316,7 +1316,7 @@ get_object_list (ECalBackendSync *backend,
 	g_hash_table_foreach (cbex->priv->objects, (GHFunc) match_object_sexp, &match_data);
 	g_mutex_unlock (priv->cache_lock);
 
-	*objects = match_data.obj_list;
+	*objects = match_data.comps_list;
 
 	g_object_unref (match_data.obj_sexp);
 }
@@ -1394,31 +1394,42 @@ static void
 start_view (ECalBackend *backend,
             EDataCalView *view)
 {
-	const gchar *sexp = NULL;
-	GSList *objects = NULL;
+	ECalBackendExchange *cbex;
+	ECalBackendExchangePrivate *priv;
+	MatchObjectData match_data = { 0 };
+	const gchar *sexp;
 	GError *error = NULL;
 
 	d(printf("ecbe_start_view(%p, %p)\n", backend, view));
 
+	cbex = E_CAL_BACKEND_EXCHANGE (backend);
+	priv = cbex->priv;
+
+	match_data.search_needed = TRUE;
+	match_data.as_string = FALSE;
+	match_data.obj_sexp = e_data_cal_view_get_object_sexp (view);
+	match_data.comps_list = NULL;
+	match_data.backend = E_CAL_BACKEND (backend);
+
 	sexp = e_data_cal_view_get_text (view);
-	if (!sexp) {
+	if (!sexp || !match_data.obj_sexp) {
 		error = EDC_ERROR (InvalidQuery);
 		e_data_cal_view_notify_complete (view, error);
 		g_error_free (error);
 		return;
 	}
-	get_object_list (E_CAL_BACKEND_SYNC (backend), NULL, NULL, sexp, &objects, &error);
-	if (error) {
-		e_data_cal_view_notify_complete (view, error);
-		g_error_free (error);
-		return;
-	}
 
-	if (objects) {
-		e_data_cal_view_notify_objects_added (view, objects);
+	if (!strcmp (sexp, "#t"))
+		match_data.search_needed = FALSE;
 
-		g_slist_foreach (objects, (GFunc) g_free, NULL);
-		g_slist_free (objects);
+	g_mutex_lock (priv->cache_lock);
+	g_hash_table_foreach (cbex->priv->objects, (GHFunc) match_object_sexp, &match_data);
+	g_mutex_unlock (priv->cache_lock);
+
+	if (match_data.comps_list) {
+		e_data_cal_view_notify_components_added (view, match_data.comps_list);
+
+		g_slist_free_full (match_data.comps_list, g_object_unref);
 	}
 
 	e_data_cal_view_notify_complete (view, NULL /* Success */);

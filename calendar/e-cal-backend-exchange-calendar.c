@@ -54,7 +54,7 @@ enum {
 
 #define d(x)
 
-static gboolean modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable, const gchar *calobj, CalObjModType mod, icalcomponent **old_icalcomp, icalcomponent **new_icalcomp, const gchar *href, const gchar *rid_to_remove, GError **error);
+static gboolean modify_object_with_href (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable, const gchar *calobj, CalObjModType mod, ECalComponent **old_ecalcomp, ECalComponent **new_ecalcomp, const gchar *href, const gchar *rid_to_remove, GError **error);
 
 static icalproperty *find_attendee_prop (icalcomponent *ical_comp, const gchar *address);
 static gboolean check_owner_partstatus_for_declined (ECalBackendSync *backend,
@@ -253,10 +253,16 @@ add_ical (ECalBackendExchange *cbex,
 		status = add_vevent (cbex, href, lastmod, icalcomp);
 
 		if (status) {
-			e_cal_backend_notify_component_created (backend, icalcomp);
+			ecomp = e_cal_component_new_from_icalcomponent (icalcomp);
+			icalcomp = NULL;
+			if (ecomp) {
+				e_cal_backend_notify_component_created (backend, ecomp);
+				g_object_unref (ecomp);
+			}
 		}
 
-		icalcomponent_free (icalcomp);
+		if (icalcomp)
+			icalcomponent_free (icalcomp);
 		return status;
 	} else if (kind != ICAL_VCALENDAR_COMPONENT) {
 		retval = FALSE;
@@ -294,10 +300,16 @@ add_ical (ECalBackendExchange *cbex,
 			status = add_vevent (cbex, href, lastmod, new_comp);
 
 			if (status) {
-				e_cal_backend_notify_component_created (backend, new_comp);
+				ecomp = e_cal_component_new_from_icalcomponent (new_comp);
+				new_comp = NULL;
+				if (ecomp) {
+					e_cal_backend_notify_component_created (backend, ecomp);
+					g_object_unref (ecomp);
+				}
 			}
 
-			icalcomponent_free (new_comp);
+			if (new_comp)
+				icalcomponent_free (new_comp);
 		}
 		subcomp = icalcomponent_get_next_component (
 				icalcomp, ICAL_VEVENT_COMPONENT);
@@ -766,7 +778,7 @@ create_object (ECalBackendSync *backend,
                GCancellable *cancellable,
                const gchar *calobj,
                gchar **uid,
-               icalcomponent **new_icalcomp,
+               ECalComponent **new_ecalcomp,
                GError **error)
 {
 	/* FIXME : Return some value in uid */
@@ -908,15 +920,15 @@ create_object (ECalBackendSync *backend,
 	/* add the timezones information and the component itself
 	 * to the VCALENDAR object */
 	e_cal_component_commit_sequence (comp);
-	*new_icalcomp = icalcomponent_new_clone (e_cal_component_get_icalcomponent (comp));
-	if (!*new_icalcomp) {
+	*new_ecalcomp = e_cal_component_clone (comp);
+	if (!*new_ecalcomp) {
 		g_object_unref (comp);
 		icalcomponent_free (cbdata->vcal_comp);
 		g_free (cbdata);
 		g_propagate_error (error, EDC_ERROR_EX (OtherError, "Cannot get comp as string"));
 		return;
 	}
-	real_icalcomp = icalcomponent_new_clone (*new_icalcomp);
+	real_icalcomp = icalcomponent_new_clone (e_cal_component_get_icalcomponent (*new_ecalcomp));
 
 	icalcomponent_foreach_tzid (real_icalcomp, add_timezone_cb, cbdata);
 	icalcomponent_add_component (cbdata->vcal_comp, real_icalcomp);
@@ -1123,13 +1135,13 @@ modify_object (ECalBackendSync *backend,
                GCancellable *cancellable,
                const gchar *calobj,
                CalObjModType mod,
-               icalcomponent **old_icalcomp,
-               icalcomponent **new_icalcomp,
+               ECalComponent **old_ecalcomp,
+               ECalComponent **new_ecalcomp,
                GError **perror)
 {
 	d(printf ("ecbexc_modify_object(%p, %p, %d, %s)", backend, cal, mod, calobj));
 
-	modify_object_with_href (backend, cal, cancellable, calobj, mod, old_icalcomp, new_icalcomp, NULL, NULL, perror);
+	modify_object_with_href (backend, cal, cancellable, calobj, mod, old_ecalcomp, new_ecalcomp, NULL, NULL, perror);
 }
 
 #define e_return_data_cal_error_and_val_if_fail(expr, _code, _val)		\
@@ -1153,8 +1165,8 @@ modify_object_with_href (ECalBackendSync *backend,
                          GCancellable *cancellable,
                          const gchar *calobj,
                          CalObjModType mod,
-                         icalcomponent **old_icalcomp,
-                         icalcomponent **new_icalcomp,
+                         ECalComponent **old_ecalcomp,
+                         ECalComponent **new_ecalcomp,
                          const gchar *href,
                          const gchar *rid_to_remove,
                          GError **error)
@@ -1470,8 +1482,9 @@ modify_object_with_href (ECalBackendSync *backend,
 
 	e_cal_backend_exchange_cache_unlock (cbex);
 
-	if (!cached_ecomp && remove)
-		*new_icalcomp = icalcomponent_new_clone (icalcomp);
+	if (!cached_ecomp && remove) {
+		*new_ecalcomp = e_cal_component_new_from_icalcomponent (icalcomponent_new_clone (icalcomp));
+	}
 
 	body_crlf = icalcomponent_as_ical_string_r (cbdata->vcal_comp);
 
@@ -1526,7 +1539,7 @@ modify_object_with_href (ECalBackendSync *backend,
 
 	if (cached_ecomp) {
 		e_cal_component_commit_sequence (cached_ecomp);
-		*old_icalcomp = icalcomponent_new_clone (e_cal_component_get_icalcomponent (cached_ecomp));
+		*old_ecalcomp = e_cal_component_clone (cached_ecomp);
 	}
 
 	ctx = exchange_account_get_context (E_CAL_BACKEND_EXCHANGE (cbexc)->account);
@@ -1550,7 +1563,7 @@ modify_object_with_href (ECalBackendSync *backend,
 		e_cal_backend_exchange_cache_unlock (cbex);
 
 		if (!remove)
-			*new_icalcomp = icalcomponent_new_clone (e_cal_component_get_icalcomponent (real_ecomp));
+			*new_ecalcomp = e_cal_component_clone (real_ecomp);
 	} else {
 		g_propagate_error (error, EDC_ERROR_HTTP_STATUS (http_status));
 	}
@@ -1576,8 +1589,8 @@ remove_object (ECalBackendSync *backend,
                const gchar *uid,
                const gchar *rid,
                CalObjModType mod,
-               icalcomponent **old_icalcomp,
-               icalcomponent **new_icalcomp,
+               ECalComponent **old_ecalcomp,
+               ECalComponent **new_ecalcomp,
                GError **error)
 {
 	ECalBackendExchangeCalendar *cbexc;
@@ -1587,7 +1600,7 @@ remove_object (ECalBackendSync *backend,
 	E2kContext *ctx;
 	ECalComponent *comp;
 	gchar *calobj;
-	icalcomponent *obj_icalcomp = NULL;
+	ECalComponent *obj_ecalcomp = NULL;
 	struct icaltimetype time_rid;
 
 	/* Will handle only CALOBJ_MOD_THIS and CALOBJ_MOD_ALL for mod.
@@ -1615,14 +1628,14 @@ remove_object (ECalBackendSync *backend,
 
 	comp = e_cal_component_new ();
 	e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (ecomp->icomp));
-	if (old_icalcomp) {
+	if (old_ecalcomp) {
 		e_cal_component_commit_sequence (comp);
-		*old_icalcomp = icalcomponent_new_clone (e_cal_component_get_icalcomponent (comp));
+		*old_ecalcomp = e_cal_component_clone (comp);
 	}
 
 	/*TODO How handle multiple detached intances with no master object ?*/
 	if (mod == CALOBJ_MOD_THIS && rid && *rid && ecomp->icomp) {
-		icalcomponent *tmp_new_icalcomp = NULL;
+		ECalComponent *tmp_new_ecalcomp = NULL;
 		gboolean res;
 
 		/*remove a single instance of a recurring event and modify */
@@ -1631,20 +1644,20 @@ remove_object (ECalBackendSync *backend,
 		calobj  = (gchar *) icalcomponent_as_ical_string_r (ecomp->icomp);
 
 		e_cal_backend_exchange_cache_unlock (cbex);
-		res = modify_object_with_href (backend, cal, cancellable, calobj, mod, &obj_icalcomp, &tmp_new_icalcomp, NULL, rid, error);
-		if (tmp_new_icalcomp)
-			icalcomponent_free (tmp_new_icalcomp);
+		res = modify_object_with_href (backend, cal, cancellable, calobj, mod, &obj_ecalcomp, &tmp_new_ecalcomp, NULL, rid, error);
+		if (tmp_new_ecalcomp)
+			g_object_unref (tmp_new_ecalcomp);
 
 		g_object_unref (comp);
 		g_free (calobj);
 		if (!res)
 			return;
-		if (obj_icalcomp) {
-			if (old_icalcomp) {
-				icalcomponent_free (*old_icalcomp);
-				*old_icalcomp = obj_icalcomp;
+		if (obj_ecalcomp) {
+			if (old_ecalcomp) {
+				g_object_unref (*old_ecalcomp);
+				*old_ecalcomp = obj_ecalcomp;
 			} else {
-				icalcomponent_free (obj_icalcomp);
+				g_object_unref (obj_ecalcomp);
 			}
 		}
 
@@ -1665,7 +1678,7 @@ remove_object (ECalBackendSync *backend,
 		}
 		e_cal_backend_exchange_cache_unlock (cbex);
 	}
-	*new_icalcomp = NULL;
+	*new_ecalcomp = NULL;
 
 	g_propagate_error (error, EDC_ERROR_HTTP_STATUS (status));
 }
@@ -1724,7 +1737,7 @@ receive_objects (ECalBackendSync *backend,
 	for (l = comps; l; l= l->next) {
 		const gchar *uid;
 		gchar *icalobj, *rid = NULL;
-		icalcomponent *old_icalcomp = NULL, *new_icalcomp = NULL;
+		ECalComponent *old_ecalcomp = NULL, *new_ecalcomp = NULL;
 
 		subcomp = l->data;
 
@@ -1745,15 +1758,13 @@ receive_objects (ECalBackendSync *backend,
 		case ICAL_METHOD_REPLY:
 			e_cal_backend_exchange_cache_lock (cbex);
 			if ((ecomp = get_exchange_comp (E_CAL_BACKEND_EXCHANGE (cbexc), uid)) != NULL ) {
-				icalcomponent *old_icalcomp = NULL;
-
 				d(printf ("uid : %s : found in the cache\n", uid));
 
 				e_cal_backend_exchange_cache_unlock (cbex);
 				if (check_owner_partstatus_for_declined (backend, subcomp)) {
 					ECalComponentId *id = NULL;
 					remove_object (backend, cal, cancellable, uid, NULL,
-								CALOBJ_MOD_ALL, &old_icalcomp,
+								CALOBJ_MOD_ALL, &old_ecalcomp,
 								NULL, &err);
 					if (err) {
 						g_free (rid);
@@ -1762,10 +1773,9 @@ receive_objects (ECalBackendSync *backend,
 					}
 					id = e_cal_component_get_id (comp);
 					e_cal_backend_notify_component_removed (E_CAL_BACKEND (backend), id,
-									     old_icalcomp, NULL);
+									     old_ecalcomp, NULL);
 					e_cal_component_free_id (id);
 				} else {
-					icalcomponent *new_icalcomp = NULL;
 					CalObjModType mod = CALOBJ_MOD_ALL;
 					GSList *attachment_list;
 
@@ -1782,22 +1792,21 @@ receive_objects (ECalBackendSync *backend,
 					icalobj = e_cal_component_get_as_string (comp);
 					if (!modify_object_with_href (backend, cal, cancellable, icalobj,
 									  mod,
-									  &old_icalcomp, &new_icalcomp, NULL, NULL, error)) {
+									  &old_ecalcomp, &new_ecalcomp, NULL, NULL, error)) {
 						g_free (rid);
 						goto error;
 					}
-					e_cal_backend_notify_component_modified (E_CAL_BACKEND (backend), old_icalcomp, new_icalcomp);
-					if (new_icalcomp)
-						icalcomponent_free (new_icalcomp);
+					e_cal_backend_notify_component_modified (E_CAL_BACKEND (backend), old_ecalcomp, new_ecalcomp);
+					if (new_ecalcomp)
+						g_object_unref (new_ecalcomp);
 					d(printf ("Notify that the new object after modication is : %s\n", icalobj));
 					g_free (icalobj);
 				}
 
-				if (old_icalcomp)
-					icalcomponent_free (old_icalcomp);
+				if (old_ecalcomp)
+					g_object_unref (old_ecalcomp);
 			} else if (!check_owner_partstatus_for_declined (backend, subcomp)) {
 				gchar *returned_uid;
-				icalcomponent *new_icalcomp = NULL;
 				GSList *attachment_list;
 
 				attachment_list = receive_attachments (cbex, comp);
@@ -1812,7 +1821,7 @@ receive_objects (ECalBackendSync *backend,
 				d(printf ("Create a new object : %s\n", icalobj));
 
 				e_cal_backend_exchange_cache_unlock (cbex);
-				create_object (backend, cal, cancellable, icalobj, &returned_uid, &new_icalcomp, &err);
+				create_object (backend, cal, cancellable, icalobj, &returned_uid, &new_ecalcomp, &err);
 				if (err) {
 					g_free (icalobj);
 					g_propagate_error (error, err);
@@ -1820,11 +1829,11 @@ receive_objects (ECalBackendSync *backend,
 					goto error;
 				}
 
-				e_cal_backend_notify_component_created (E_CAL_BACKEND (backend), new_icalcomp);
+				e_cal_backend_notify_component_created (E_CAL_BACKEND (backend), new_ecalcomp);
 				d(printf ("Notify that the new object is created : %s\n", icalobj));
 				g_free (icalobj);
-				if (new_icalcomp)
-					icalcomponent_free (new_icalcomp);
+				if (new_ecalcomp)
+					g_object_unref (new_ecalcomp);
 			} else {
 				e_cal_backend_exchange_cache_unlock (cbex);
 			}
@@ -1836,23 +1845,21 @@ receive_objects (ECalBackendSync *backend,
 
 		case ICAL_METHOD_CANCEL:
 			if (rid)
-				remove_object (backend, cal, cancellable, uid, rid, CALOBJ_MOD_THIS, &old_icalcomp, &new_icalcomp, &err);
+				remove_object (backend, cal, cancellable, uid, rid, CALOBJ_MOD_THIS, &old_ecalcomp, &new_ecalcomp, &err);
 			else
-				remove_object (backend, cal, cancellable, uid, NULL, CALOBJ_MOD_ALL, &old_icalcomp, &new_icalcomp, &err);
+				remove_object (backend, cal, cancellable, uid, NULL, CALOBJ_MOD_ALL, &old_ecalcomp, &new_ecalcomp, &err);
 			if (!err) {
 				ECalComponentId *id = e_cal_component_get_id (comp);
-				e_cal_backend_notify_component_removed (E_CAL_BACKEND (backend), id, old_icalcomp, NULL);
+				e_cal_backend_notify_component_removed (E_CAL_BACKEND (backend), id, old_ecalcomp, NULL);
 				e_cal_component_free_id (id);
 
 			} else {
 				g_propagate_error (error, err);
 			}
-			if (old_icalcomp) {
-				icalcomponent_free (old_icalcomp);
-				old_icalcomp = NULL;
-			}
-			if (new_icalcomp)
-				icalcomponent_free (new_icalcomp);
+			if (old_ecalcomp)
+				g_object_unref (old_ecalcomp);
+			if (new_ecalcomp)
+				g_object_unref (new_ecalcomp);
 			break;
 		default:
 			g_propagate_error (error, EDC_ERROR (UnsupportedMethod));
@@ -1906,7 +1913,7 @@ book_resource (ECalBackendExchange *cbex,
 	gboolean bookable = TRUE;
 	gchar *top_uri = NULL, *cal_uri = NULL, *returned_uid = NULL, *sanitized_uid;
 	gchar *startz, *endz, *href = NULL, *calobj = NULL;
-	icalcomponent *old_icalcomp = NULL, *new_icalcomp = NULL;
+	ECalComponent *old_ecalcomp = NULL, *new_ecalcomp = NULL;
 	E2kRestriction *rn;
 	gint nresult;
 	ECalBackendExchangeBookingResult retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
@@ -2105,35 +2112,35 @@ book_resource (ECalBackendExchange *cbex,
 	if (ecomp) {
 		gboolean modify_ok = FALSE;
 		/* Use the PUT method to create the meeting item in the resource's calendar. */
-		if (modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, NULL, calobj, book_all ? CALOBJ_MOD_ALL : CALOBJ_MOD_THIS, &old_icalcomp, &new_icalcomp, href, NULL, NULL)) {
+		if (modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, NULL, calobj, book_all ? CALOBJ_MOD_ALL : CALOBJ_MOD_THIS, &old_ecalcomp, &new_ecalcomp, href, NULL, NULL)) {
 			/* Need this to update the participation status of the resource
 			 * in the organizer's calendar. */
-			modify_ok = modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, NULL, calobj, book_all ? CALOBJ_MOD_ALL : CALOBJ_MOD_THIS, &old_icalcomp, &new_icalcomp, NULL, NULL, NULL);
+			modify_ok = modify_object_with_href (E_CAL_BACKEND_SYNC (cbex), cal, NULL, calobj, book_all ? CALOBJ_MOD_ALL : CALOBJ_MOD_THIS, &old_ecalcomp, &new_ecalcomp, NULL, NULL, NULL);
 		} else {
 			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_ERROR;
 			goto cleanup;
 		}
 		if (modify_ok) {
-			e_cal_backend_notify_component_modified (E_CAL_BACKEND (cbex), old_icalcomp, new_icalcomp);
+			e_cal_backend_notify_component_modified (E_CAL_BACKEND (cbex), old_ecalcomp, new_ecalcomp);
 			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_OK;
 		}
-		if (old_icalcomp)
-			icalcomponent_free (old_icalcomp);
-		if (new_icalcomp)
-			icalcomponent_free (new_icalcomp);
+		if (old_ecalcomp)
+			g_object_unref (old_ecalcomp);
+		if (new_ecalcomp)
+			g_object_unref (new_ecalcomp);
 	} else {
 		GError *err = NULL;
 
-		create_object (E_CAL_BACKEND_SYNC (cbex), cal, NULL, calobj, &returned_uid, &new_icalcomp, &err);
+		create_object (E_CAL_BACKEND_SYNC (cbex), cal, NULL, calobj, &returned_uid, &new_ecalcomp, &err);
 		if (!err) {
-			e_cal_backend_notify_component_created (E_CAL_BACKEND (cbex), new_icalcomp);
+			e_cal_backend_notify_component_created (E_CAL_BACKEND (cbex), new_ecalcomp);
 			retval = E_CAL_BACKEND_EXCHANGE_BOOKING_OK;
 		} else {
 			g_error_free (err);
 		}
 
-		if (new_icalcomp)
-			icalcomponent_free (new_icalcomp);
+		if (new_ecalcomp)
+			g_object_unref (new_ecalcomp);
 	}
 
  cleanup:
