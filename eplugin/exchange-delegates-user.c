@@ -216,6 +216,10 @@ exchange_delegates_user_edit (ExchangeAccount *account,
                               ExchangeDelegatesUser *user,
                               GtkWidget *parent_window)
 {
+	EShell *shell;
+	EShellBackend *shell_backend;
+	EMailBackend *backend;
+	EMailSession *session;
 	gchar *title;
 	gint button, i;
 	E2kPermissionsRole role;
@@ -239,6 +243,12 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 
 	g_return_val_if_fail (EXCHANGE_IS_DELEGATES_USER (user), FALSE);
 	g_return_val_if_fail (E2K_IS_SID (user->sid), FALSE);
+
+	shell = e_shell_get_default ();
+	shell_backend = e_shell_get_backend_by_name (shell, "mail");
+
+	backend = E_MAIL_BACKEND (shell_backend);
+	session = e_mail_backend_get_session (backend);
 
 	delegate_permissions = gtk_dialog_new_with_buttons (
 		/* Translators: "Delegate Permissions" refers to the permissions on the delegator's folders
@@ -560,7 +570,8 @@ exchange_delegates_user_edit (ExchangeAccount *account,
 			}
 
 			/* Send the permissions summarizing mail */
-			out_folder = e_mail_local_get_folder (E_MAIL_LOCAL_FOLDER_OUTBOX);
+			out_folder = e_mail_session_get_local_folder (
+				session, E_MAIL_LOCAL_FOLDER_OUTBOX);
 			info = camel_message_info_new (NULL);
 			camel_message_info_set_flags (info, CAMEL_MESSAGE_SEEN, CAMEL_MESSAGE_SEEN);
 			e_mail_folder_append_message (out_folder, delegate_mail, info, 0, NULL, em_utils_delegates_done, NULL);
