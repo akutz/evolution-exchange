@@ -190,15 +190,18 @@ em_utils_delegates_done (GObject *source_object,
 {
 	EShell *shell;
 	EShellBackend *shell_backend;
-	EMailBackend *mail_backend;
+	EMailBackend *backend;
+	EMailSession *session;
 
 	/* XXX Dig up the EMailSession from the default EShell. */
 	shell = e_shell_get_default ();
 	shell_backend = e_shell_get_backend_by_name (shell, "mail");
-	mail_backend = E_MAIL_BACKEND (shell_backend);
+
+	backend = E_MAIL_BACKEND (shell_backend);
+	session = e_mail_backend_get_session (backend);
 
 	if (e_mail_folder_append_message_finish (CAMEL_FOLDER (source_object), res, NULL, NULL))
-		mail_send (mail_backend);
+		mail_send (session);
 }
 
 /**
