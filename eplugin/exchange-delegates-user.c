@@ -31,7 +31,6 @@
 #include <shell/e-shell.h>
 #include <mail/mail-ops.h>
 #include <mail/mail-send-recv.h>
-#include <mail/e-mail-local.h>
 #include <mail/e-mail-folder-utils.h>
 #include <exchange-account.h>
 #include <e2k-global-catalog.h>
