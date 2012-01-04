@@ -21,6 +21,8 @@
 #include <config.h>
 #endif
 
+#include <glib/gi18n.h>
+
 #include <gtk/gtk.h>
 #include <libedataserverui/e-passwords.h>
 

@@ -23,6 +23,8 @@
 #include <config.h>
 #endif
 
+#include <glib/gi18n.h>
+
 #include <string.h>
 
 #include "e2k-autoconfig.h"

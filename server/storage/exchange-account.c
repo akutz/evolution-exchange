@@ -25,6 +25,8 @@
 #include <config.h>
 #endif
 
+#include <glib/gi18n-lib.h>
+
 #include "camel-exchange-settings.h"
 #include "exchange-account.h"
 #include "exchange-hierarchy-webdav.h"

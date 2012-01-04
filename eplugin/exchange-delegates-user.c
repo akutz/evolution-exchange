@@ -25,6 +25,8 @@
 #include <config.h>
 #endif
 
+#include <glib/gi18n-lib.h>
+
 #include "exchange-delegates.h"
 #include "exchange-delegates-user.h"
 

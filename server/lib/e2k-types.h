@@ -5,7 +5,6 @@
 #define __E2K_TYPES_H__
 
 #include <glib.h>
-#include <glib/gi18n.h>
 
 typedef struct _E2kAction                     E2kAction;
 typedef struct _E2kAddrEntry                  E2kAddrEntry;

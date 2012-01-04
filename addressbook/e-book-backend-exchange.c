@@ -21,6 +21,8 @@
 #include <config.h>
 #endif
 
+#include <glib/gi18n-lib.h>
+
 #include <fcntl.h>
 #include <time.h>
 #include <ctype.h>

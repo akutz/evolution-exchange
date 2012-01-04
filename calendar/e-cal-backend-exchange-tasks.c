@@ -21,6 +21,8 @@
 #include <config.h>
 #endif
 
+#include <glib/gi18n-lib.h>
+
 #include <time.h>
 #include "e-cal-backend-exchange-tasks.h"
 #include <e2k-properties.h>

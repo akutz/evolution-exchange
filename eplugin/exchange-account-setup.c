@@ -21,7 +21,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif
 
 #include "libedataserver/e-account.h"
@@ -31,7 +31,7 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <gtk/gtk.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 #include <gconf/gconf-client.h>
 #include <e-util/e-dialog-utils.h>
 #include <e2k-validate.h>

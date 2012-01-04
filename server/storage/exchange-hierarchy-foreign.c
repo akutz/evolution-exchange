@@ -31,6 +31,7 @@
 
 #include <glib.h>
 #include <glib/gstdio.h>
+#include <glib/gi18n-lib.h>
 
 #include "libedataserver/e-source-list.h"
 #include "libedataserver/e-xml-hash-utils.h"

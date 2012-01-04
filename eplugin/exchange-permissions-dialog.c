@@ -23,6 +23,8 @@
 #include <config.h>
 #endif
 
+#include <glib/gi18n-lib.h>
+
 #include "exchange-permissions-dialog.h"
 #include "exchange-hierarchy.h"
 #include "exchange-user-dialog.h"

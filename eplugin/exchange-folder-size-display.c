@@ -27,7 +27,7 @@
 
 #include <string.h>
 
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 #include <e-util/e-dialog-utils.h>
 #include "exchange-folder-size-display.h"
 

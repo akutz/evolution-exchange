@@ -21,6 +21,8 @@
 #include <config.h>
 #endif
 
+#include <glib/gi18n-lib.h>
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/fcntl.h>

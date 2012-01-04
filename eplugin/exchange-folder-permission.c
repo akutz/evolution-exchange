@@ -22,10 +22,10 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif
 
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 #include <gtk/gtk.h>
 #include <gconf/gconf-client.h>
 
@@ -35,6 +35,7 @@
 #include <exchange-account.h>
 
 #include <e-util/e-dialog-utils.h>
+#include <e-util/e-util.h>
 #include <calendar/gui/e-cal-model.h>
 
 #include <shell/e-shell-view.h>
@@ -309,8 +310,8 @@ eex_ui_mail_init (GtkUIManager *ui_manager,
 
 	shell_window = e_shell_view_get_shell_window (shell_view);
 
-	gtk_action_group_add_actions (
-		e_shell_window_get_action_group (shell_window, "mail"),
+	e_action_group_add_actions_localized (
+		e_shell_window_get_action_group (shell_window, "mail"), GETTEXT_PACKAGE,
 		mail_entries, G_N_ELEMENTS (mail_entries), shell_view);
 
 	g_signal_connect (shell_view, "update-actions", G_CALLBACK (update_mail_entries_cb), NULL);
@@ -472,8 +473,8 @@ setup_source_actions (EShellView *shell_view,
 
 	shell_window = e_shell_view_get_shell_window (shell_view);
 
-	gtk_action_group_add_actions (
-		e_shell_window_get_action_group (shell_window, group),
+	e_action_group_add_actions_localized (
+		e_shell_window_get_action_group (shell_window, group), GETTEXT_PACKAGE,
 		entries, NUM_ENTRIES, shell_view);
 
 	g_signal_connect (shell_view, "update-actions", G_CALLBACK (update_source_entries_cb), entries);

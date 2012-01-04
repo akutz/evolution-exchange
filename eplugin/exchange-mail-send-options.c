@@ -20,13 +20,18 @@
  *
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include <string.h>
 #include <stdio.h>
 
 #include <glib.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 
 #include "mail/em-event.h"
+#include <e-util/e-util.h>
 
 #include "composer/e-msg-composer.h"
 #include "composer/e-composer-from-header.h"
@@ -236,8 +241,8 @@ eex_ui_composer_actions (GtkUIManager *manager,
 	editor = GTKHTML_EDITOR (composer);
 
 	/* Add actions to the "composer" action group. */
-	gtk_action_group_add_actions (
-		gtkhtml_editor_get_action_group (editor, "composer"),
+	e_action_group_add_actions_localized (
+		gtkhtml_editor_get_action_group (editor, "composer"), GETTEXT_PACKAGE,
 		entries, G_N_ELEMENTS (entries), composer);
 
 	headers = e_msg_composer_get_header_table (composer);

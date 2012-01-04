@@ -25,6 +25,8 @@
 #include <config.h>
 #endif
 
+#include <glib/gi18n-lib.h>
+
 #include <stdlib.h>
 #include <fcntl.h>
 #include <string.h>

@@ -20,6 +20,12 @@
  *
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include <glib/gi18n-lib.h>
+
 #include <string.h>
 #include <gtk/gtk.h>
 #include <e-util/e-config.h>

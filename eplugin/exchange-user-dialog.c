@@ -19,6 +19,8 @@
 #include <config.h>
 #endif
 
+#include <glib/gi18n-lib.h>
+
 #include "exchange-user-dialog.h"
 #include "e2k-types.h"
 
