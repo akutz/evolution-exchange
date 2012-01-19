@@ -32,8 +32,6 @@
 #include <libedataserverui/e-source-selector.h>
 #include <e-util/e-alert-dialog.h>
 #include <mail/e-mail-backend.h>
-#include <mail/mail-mt.h>
-#include <mail/mail-ops.h>
 #include <shell/e-shell.h>
 
 #include "exchange-operations.h"

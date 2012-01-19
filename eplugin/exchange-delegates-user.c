@@ -31,9 +31,9 @@
 #include "exchange-delegates-user.h"
 
 #include <shell/e-shell.h>
-#include <mail/mail-ops.h>
 #include <mail/mail-send-recv.h>
-#include <mail/e-mail-folder-utils.h>
+#include <mail/e-mail-backend.h>
+#include <libemail-engine/e-mail-folder-utils.h>
 #include <exchange-account.h>
 #include <e2k-global-catalog.h>
 #include <e2k-marshal.h>
