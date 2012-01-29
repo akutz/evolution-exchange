@@ -228,11 +228,9 @@ exchange_entry_play_delete (CamelOfflineJournal *journal,
 
 static void
 exchange_journal_entry_free (CamelOfflineJournal *journal,
-                             CamelDListNode *entry)
+                             gpointer entry)
 {
-	CamelExchangeJournalEntry *exchange_entry;
-
-	exchange_entry = (CamelExchangeJournalEntry *) entry;
+	CamelExchangeJournalEntry *exchange_entry = entry;
 
 	g_free (exchange_entry->uid);
 	g_free (exchange_entry->original_uid);
@@ -240,7 +238,7 @@ exchange_journal_entry_free (CamelOfflineJournal *journal,
 	g_free (exchange_entry);
 }
 
-static CamelDListNode *
+static gpointer
 exchange_journal_entry_load (CamelOfflineJournal *journal,
                              FILE *in)
 {
@@ -289,7 +287,7 @@ exchange_journal_entry_load (CamelOfflineJournal *journal,
 		goto exception;
 	}
 
-	return (CamelDListNode *) entry;
+	return entry;
 
  exception:
 
@@ -303,10 +301,10 @@ exchange_journal_entry_load (CamelOfflineJournal *journal,
 
 static gint
 exchange_journal_entry_write (CamelOfflineJournal *journal,
-                              CamelDListNode *entry,
+                              gpointer entry,
                               FILE *out)
 {
-	CamelExchangeJournalEntry *exchange_entry = (CamelExchangeJournalEntry *) entry;
+	CamelExchangeJournalEntry *exchange_entry = entry;
 	const gchar *string;
 	gchar *tmp;
 
@@ -351,11 +349,11 @@ exchange_journal_entry_write (CamelOfflineJournal *journal,
 
 static gint
 exchange_journal_entry_play (CamelOfflineJournal *journal,
-                             CamelDListNode *entry,
+                             gpointer entry,
                              GCancellable *cancellable,
                              GError **error)
 {
-	CamelExchangeJournalEntry *exchange_entry = (CamelExchangeJournalEntry *) entry;
+	CamelExchangeJournalEntry *exchange_entry = entry;
 
 	switch (exchange_entry->type) {
 	case CAMEL_EXCHANGE_JOURNAL_ENTRY_APPEND:
@@ -494,7 +492,7 @@ camel_exchange_journal_append (CamelExchangeJournal *exchange_journal,
 	entry->type = CAMEL_EXCHANGE_JOURNAL_ENTRY_APPEND;
 	entry->uid = uid;
 
-	camel_dlist_addtail (&journal->queue, (CamelDListNode *) entry);
+	g_queue_push_tail (&journal->queue, entry);
 
 	if (appended_uid)
 		*appended_uid = g_strdup (uid);
@@ -509,8 +507,8 @@ find_real_source_for_message (CamelExchangeFolder *folder,
                               gboolean delete_original)
 {
 	CamelOfflineJournal *journal = folder->journal;
-	CamelDListNode *entry, *next;
-	CamelExchangeJournalEntry *ex_entry;
+	GQueue trash = G_QUEUE_INIT;
+	GList *head, *link;
 	const gchar *offline_uid = *uid;
 	gint type = -1;
 
@@ -518,27 +516,27 @@ find_real_source_for_message (CamelExchangeFolder *folder,
 		return CAMEL_EXCHANGE_JOURNAL_ENTRY_TRANSFER;
 	}
 
-	entry = journal->queue.head;
-	while (entry->next) {
-		next = entry->next;
+	head = g_queue_peek_head_link (&journal->queue);
 
-		ex_entry = (CamelExchangeJournalEntry *) entry;
-		if (!g_ascii_strcasecmp (ex_entry->uid, offline_uid)) {
-			if (ex_entry->type == CAMEL_EXCHANGE_JOURNAL_ENTRY_TRANSFER) {
-				*uid = ex_entry->original_uid;
-				*folder_name = ex_entry->folder_name;
+	for (link = head; link != NULL; link = g_list_next (link)) {
+		CamelExchangeJournalEntry *entry = link->data;
+
+		if (!g_ascii_strcasecmp (entry->uid, offline_uid)) {
+			if (entry->type == CAMEL_EXCHANGE_JOURNAL_ENTRY_TRANSFER) {
+				*uid = entry->original_uid;
+				*folder_name = entry->folder_name;
 				type = CAMEL_EXCHANGE_JOURNAL_ENTRY_TRANSFER;
-			} else if (ex_entry->type == CAMEL_EXCHANGE_JOURNAL_ENTRY_APPEND) {
+			} else if (entry->type == CAMEL_EXCHANGE_JOURNAL_ENTRY_APPEND) {
 				type = CAMEL_EXCHANGE_JOURNAL_ENTRY_APPEND;
 			}
 
-			if (delete_original) {
-				camel_dlist_remove (entry);
-			}
+			if (delete_original)
+				g_queue_push_tail (&trash, link);
 		}
-
-		entry = next;
 	}
+
+	while ((link = g_queue_pop_head (&trash)) != NULL)
+		g_queue_delete_link (&journal->queue, link);
 
 	return type;
 }
@@ -586,7 +584,7 @@ camel_exchange_journal_transfer (CamelExchangeJournal *exchange_journal,
 		entry->delete_original = delete_original;
 	}
 
-	camel_dlist_addtail (&journal->queue, (CamelDListNode *) entry);
+	g_queue_push_tail (&journal->queue, entry);
 
 	if (transferred_uid)
 		*transferred_uid = g_strdup (uid);
@@ -614,7 +612,7 @@ camel_exchange_journal_delete (CamelExchangeJournal *exchange_journal,
 	entry->flags = flags;
 	entry->set = set;
 
-	camel_dlist_addtail (&journal->queue, (CamelDListNode *) entry);
+	g_queue_push_tail (&journal->queue, entry);
 
 	return TRUE;
 }

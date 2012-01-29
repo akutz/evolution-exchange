@@ -61,8 +61,6 @@ enum {
 };
 
 struct _CamelExchangeJournalEntry {
-	CamelDListNode node;
-
 	gint type;
 
 	gchar *uid;
