@@ -285,6 +285,12 @@ case $abt in
 esac
 AC_DEFINE_UNQUOTED([E2K_APPROX_BUILD_TIME],[$abt],[Used to prevent clock-setting attacks against pilot licenses])
 
+dnl *****************
+dnl Check for libical
+dnl *****************
+PKG_CHECK_MODULES(LIBICAL, libical >= 0.43)
+AC_SUBST(LIBICAL_CFLAGS)
+AC_SUBST(LIBICAL_LIBS)
 AC_DEFINE([HANDLE_LIBICAL_MEMORY],[1],[Define it once memory returned by libical is free'ed properly])
 
 dnl **************

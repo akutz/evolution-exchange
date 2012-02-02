@@ -6,6 +6,7 @@ CAMEL_provider_DATA = libcamelexchange.urls
 libcamelexchange_la_CPPFLAGS = \
 	$(AM_CPPFLAGS) \
 	$(EVOLUTION_PLUGIN_CFLAGS) \
+	$(LIBICAL_CFLAGS) \
 	-I$(top_srcdir) \
 	-I$(top_srcdir)/tools \
 	-I$(top_srcdir)/server/lib \
@@ -50,6 +51,7 @@ libcamelexchange_la_LIBADD = \
 	$(top_builddir)/tools/libevolution-exchange-shared.la \
 	$(EVOLUTION_PLUGIN_LIBS) \
 	$(EVOLUTION_DATA_SERVER_LIBS) \
+	$(LIBICAL_LIBS) \
 	$(LDAP_LIBS) \
 	$(SOCKET_LIBS) \
 	$(DNS_LIBS)
