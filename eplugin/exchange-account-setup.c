@@ -25,7 +25,7 @@
 #endif
 
 #include "libedataserver/e-account.h"
-#include "e-util/e-alert-dialog.h"
+#include "libevolution-utils/e-alert-dialog.h"
 
 #include <string.h>
 #include <unistd.h>

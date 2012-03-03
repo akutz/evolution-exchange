@@ -30,7 +30,7 @@
 #include <e-folder-exchange.h>
 #include <exchange-hierarchy.h>
 #include <libedataserverui/e-source-selector.h>
-#include <e-util/e-alert-dialog.h>
+#include <libevolution-utils/e-alert-dialog.h>
 #include <mail/e-mail-backend.h>
 #include <shell/e-shell.h>
 

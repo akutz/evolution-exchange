@@ -39,7 +39,7 @@
 #include <e2k-marshal.h>
 #include <e2k-uri.h>
 
-#include <e-util/e-alert-dialog.h>
+#include <libevolution-utils/e-alert-dialog.h>
 #include <shell/e-shell.h>
 
 #include <camel/camel.h>

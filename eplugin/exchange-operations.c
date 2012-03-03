@@ -30,7 +30,7 @@
 #include "exchange-operations.h"
 #include <e-folder-exchange.h>
 #include <exchange-hierarchy.h>
-#include <e-util/e-alert-dialog.h>
+#include <libevolution-utils/e-alert-dialog.h>
 #include <shell/e-shell.h>
 
 ExchangeConfigListener *exchange_global_config_listener = NULL;
