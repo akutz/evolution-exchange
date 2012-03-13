@@ -1,10 +1,10 @@
 # The Japanese message catalogue for evolution-exchange
-# Copyright (C) 2004-2011 THE evolution-exchange'S COPYRIGHT HOLDER
+# Copyright (C) 2004-2012 THE evolution-exchange'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the evolution-exchange package.
 # SATOH, Satoru <ss@gnome.gr.jp>, 2004, 2005.
 # Takeshi AIHANA <takeshi.aihana@gmail.com>, 2007-2009.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2010.
-# OKANO Takayoshi <kano@na.rim.or.jp>, 2011.
+# OKANO Takayoshi <kano@na.rim.or.jp>, 2011-2012.
 #
 # 訳注: 訳語や日本語表記のルールは Microsoft の文書表記に準拠します
 #
@@ -13,9 +13,9 @@ msgstr ""
 "Project-Id-Version: evolution-exchange master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=evolution-exchange&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-01-04 16:22+0000\n"
-"PO-Revision-Date: 2012-01-01 19:55+0900\n"
-"Last-Translator: Jiro Matsuzawa <jmatsuzawa@src.gnome.org>\n"
+"POT-Creation-Date: 2012-03-06 16:36+0000\n"
+"PO-Revision-Date: 2012-03-12 02:42+0900\n"
+"Last-Translator: OKANO Takayoshi <kano@na.rim.or.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -147,12 +147,12 @@ msgstr "フォルダー名がみつかりません"
 msgid "Folder doesn't exist"
 msgstr "フォルダーはありません"
 
-#: ../camel/camel-exchange-journal.c:426
+#: ../camel/camel-exchange-journal.c:424
 #, c-format
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "オフラインモードではメッセージを追加できません"
 
-#: ../camel/camel-exchange-journal.c:447
+#: ../camel/camel-exchange-journal.c:445
 msgid "Cannot append message in offline mode: "
 msgstr "オフラインモードではメッセージを追加できません: "
 
@@ -342,7 +342,7 @@ msgstr "そのようなフォルダーはありません"
 #: ../camel/camel-exchange-utils.c:1410 ../camel/camel-exchange-utils.c:3313
 #: ../camel/camel-exchange-utils.c:3356 ../camel/camel-exchange-utils.c:3525
 #: ../camel/camel-exchange-utils.c:3578 ../camel/camel-exchange-utils.c:3640
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:80
 #: ../server/storage/e-storage.c:574
 msgid "Permission denied"
 msgstr "権限がありません"
@@ -424,13 +424,13 @@ msgstr "メッセージを送信できませんでした"
 #: ../camel/camel-exchange-utils.c:3305 ../camel/camel-exchange-utils.c:3361
 #: ../camel/camel-exchange-utils.c:3529 ../camel/camel-exchange-utils.c:3582
 #: ../camel/camel-exchange-utils.c:3646
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:86
 #: ../server/storage/e-storage.c:558
 msgid "Generic error"
 msgstr "一般エラー"
 
 #: ../camel/camel-exchange-utils.c:3309
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:77
 msgid "Folder already exists"
 msgstr "フォルダーは既にあります"
 
@@ -500,7 +500,7 @@ msgid "Folder Size"
 msgstr "フォルダーサイズ"
 
 #: ../eplugin/exchange-account-setup.c:376
-#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:3
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:2
 msgid "Exchange Settings"
 msgstr "Exchange 設定"
 
@@ -628,22 +628,22 @@ msgstr "はい、状態を変更します(_Y)"
 msgid "Enter Password for %s"
 msgstr "%s のパスワードを入力してください"
 
-#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:467
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:465
 #: ../server/storage/exchange-hierarchy-foreign.c:264
 msgid "Calendar"
 msgstr "カレンダー"
 
-#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:470
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:468
 #: ../server/storage/exchange-hierarchy-foreign.c:273
 msgid "Tasks"
 msgstr "タスク"
 
-#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:465
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:463
 #: ../server/storage/exchange-hierarchy-foreign.c:268
 msgid "Inbox"
 msgstr "Inbox"
 
-#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:473
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:471
 #: ../server/storage/exchange-hierarchy-foreign.c:265
 msgid "Contacts"
 msgstr "コンタクト"
@@ -907,12 +907,12 @@ msgstr "フォルダー名(_F):"
 msgid "_User:"
 msgstr "ユーザー(_U):"
 
-#: ../eplugin/exchange-folder.c:350 ../eplugin/exchange-folder.c:406
+#: ../eplugin/exchange-folder.c:348 ../eplugin/exchange-folder.c:404
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "本当に \"%s\" の購読をやめますか?"
 
-#: ../eplugin/exchange-folder.c:363 ../eplugin/exchange-folder.c:419
+#: ../eplugin/exchange-folder.c:361 ../eplugin/exchange-folder.c:417
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "\"%s\" の購読をやめる"
@@ -1079,112 +1079,185 @@ msgid "Address Book..."
 msgstr "アドレス帳..."
 
 #: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:1
-msgid "Activates the Evolution-Exchange extension package."
-msgstr "Evolution-Exchange パッケージをアクティベートします。"
-
-#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:2
 msgid "Exchange Operations"
 msgstr "Exchange 操作"
 
-#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:4
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:3
 msgid "Size"
 msgstr "大きさ"
 
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:4
+msgid "Activates the Evolution-Exchange extension package."
+msgstr "Evolution-Exchange パッケージをアクティベートします。"
+
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:1
-msgid "Cannot access the \"Exchange settings\" tab in offline mode."
-msgstr "オフラインモードでは\"Exchange の設定\" タブにはアクセスできません。"
+msgid "You may only configure a single Exchange account."
+msgstr "設定できるのは一つの Exchange アカウントだけです。"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:2
-msgid "Cannot change password due to configuration problems."
+msgid "Please restart Evolution for changes to take effect"
 msgstr ""
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:3
-msgid "Cannot display folders."
-msgstr "フォルダーを表示できません。"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:4
-msgid "Cannot perform the operation."
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:5
 msgid ""
 "Changes to options for Exchange account \"{0}\" will only take effect after "
 "restarting Evolution."
 msgstr ""
 
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:4
+msgid "The Exchange account will be removed when you quit Evolution"
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:5
+msgid "The Exchange account will be disabled when you quit Evolution"
+msgstr ""
+
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:6
-msgid "Could not authenticate to server."
-msgstr "サーバーを認証できませんでした。"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:7
-msgid "Could not change password."
-msgstr "パスワードを変更できませんでした。"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:8
-msgid ""
-"Could not configure Exchange account because \n"
-"an unknown error occurred. Check the URL, \n"
-"username and password, and try again."
-msgstr ""
-"不明なエラーが起ったために Exchange アカウントを\n"
-"設定できませんでした。URL、ユーザー名、パスワードを\n"
-"確かめて再度試してください。"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:11
-msgid "Could not connect to Exchange server."
-msgstr "Exchange サーバーに接続できませんでした。"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:12
-msgid "Could not connect to server {0}."
-msgstr "サーバー {0} にに接続できませんでした。"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:13
-msgid "Could not determine folder permissions for delegates."
-msgstr "フォルダーの委任権限を決定できませんでした。"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:14
-msgid "Could not find Exchange Web Storage System."
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:15
-msgid "Could not locate server {0}."
-msgstr "サーバー {0} を見つけられませんでした。"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:16
-msgid "Could not make {0} a delegate"
-msgstr "{0} に委任できませんでした"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:17
-msgid "Could not read folder permissions"
-msgstr "フォルダーの読み込み権限を読み取れませんでした"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:18
-msgid "Could not read folder permissions."
-msgstr "フォルダーの権限を読み取れませんでした。"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:19
 msgid "Could not read out-of-office state"
 msgstr "不在時の状態を読み取れませんでした"
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:20
-msgid "Could not update folder permissions."
-msgstr "フォルダーの権限を更新できませんでした。"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:21
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:7
 msgid "Could not update out-of-office state"
 msgstr "不在状態を更新できませんでした"
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:22
-msgid "Evolution requires a restart to load the subscribed user's mailbox"
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:8
+msgid "Cannot change password due to configuration problems."
 msgstr ""
-"購読しているユーザーのメールボックスを読み込むためには Evolution を再起動しな"
-"ければなりません"
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:23
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:9
+msgid "Server rejected password because it is too weak."
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:10
+msgid "Try again with a different password."
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:11
+msgid "Could not change password."
+msgstr "パスワードを変更できませんでした。"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:12
+msgid "Password successfully changed."
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:13
 msgid "Exchange Account is offline."
 msgstr "Exchange アカウントがオフラインです。"
 
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:14
+msgid "Cannot display folders."
+msgstr "フォルダーを表示できません。"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:15
+msgid "Cannot access the \"Exchange settings\" tab in offline mode."
+msgstr "オフラインモードでは\"Exchange の設定\" タブにはアクセスできません。"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:16
+msgid "Cannot perform the operation."
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:17
+msgid "Could not authenticate to server."
+msgstr "サーバーを認証できませんでした。"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:18
+msgid "Make sure the username and password are correct and try again."
+msgstr "ユーザー名とパスワードが正しいかどうか確認して再度試してください"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:19
+msgid ""
+"This probably means that your server requires \n"
+"you to specify the Windows domain name \n"
+"as part of your username (eg, &quot;DOMAIN\\user&quot;).\n"
+"\n"
+"Also, you may have typed your password incorrectly."
+msgstr ""
+
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:24
+msgid "Mailbox for {0} is not on this server."
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:25
+msgid "The Exchange server is not compatible with Exchange Connector."
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:26
+msgid ""
+"The server is running Exchange 5.5. Exchange Connector \n"
+"supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"サーバー は Exchange 5.5 です。この Evolution コネクターが\n"
+"サポートするのは Microsoft Exchange 2000 と 2003 だけです。"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:28
+msgid "Could not find Exchange Web Storage System."
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:29
+msgid ""
+"If OWA is running on a different path, you must specify that in the account "
+"configuration dialog."
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:30
+msgid "No mailbox for user {0} on {1}."
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:31
+msgid "Could not locate server {0}."
+msgstr "サーバー {0} を見つけられませんでした。"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:32
+msgid "Make sure the server name is spelled correctly and try again."
+msgstr "サーバー名の綴りが間違っていないかどうか確認して再度試してください"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:33
+msgid "Could not connect to server {0}."
+msgstr "サーバー {0} に接続できませんでした。"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:34
+msgid "Make sure the URL is correct and try again."
+msgstr "URL が正しいかどうか確認して再度試してください"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:35
+msgid "Your password has expired."
+msgstr "あなたのパスワードは期限切れです。"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:36
+msgid "Unknown error."
+msgstr "不明なエラー。"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
+msgid "You have exceeded your quota for storing mail on this server."
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:38
+msgid ""
+"Your current usage is: {0} KB. You will not be able to either send or "
+"receive mail now."
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:39
+msgid "You are nearing your quota available for storing mail on this server."
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
+msgid ""
+"Your current usage is: {0} KB. You will not be able to send mail until you "
+"clear up some space by deleting some mail."
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:41
+msgid ""
+"Your current usage is: {0} KB. Try to clear up some space by deleting some "
+"mail."
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:42
+msgid "Could not connect to Exchange server."
+msgstr "Exchange サーバーに接続できませんでした。"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:43
 msgid ""
 "Exchange Connector requires access to certain\n"
 "functionality on the Exchange Server that appears\n"
@@ -1209,195 +1282,122 @@ msgstr ""
 "{0}\n"
 "   "
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:36
-msgid "Failed to update delegates:"
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:38
-msgid "Folder does not exist"
-msgstr "フォルダーが存在しません"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:39
-msgid "Folder offline"
-msgstr "フォルダーはオフラインです"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:41
-msgid "Global Catalog Server is not reachable"
-msgstr "グローバルカタログサーバーに到達できません"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:42
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:55
 msgid ""
-"If OWA is running on a different path, you must specify that in the account "
-"configuration dialog."
+"Could not configure Exchange account because \n"
+"an unknown error occurred. Check the URL, \n"
+"username and password, and try again."
 msgstr ""
+"不明なエラーが起ったために Exchange アカウントを\n"
+"設定できませんでした。URL、ユーザー名、パスワードを\n"
+"確かめて再度試してください。"
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:43
-msgid "Mailbox for {0} is not on this server."
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:44
-msgid "Make sure the URL is correct and try again."
-msgstr "URL が正しいかどうか確認して再度試してください"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:45
-msgid "Make sure the server name is spelled correctly and try again."
-msgstr "サーバー名の綴りが間違っていないかどうか確認して再度試してください"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:46
-msgid "Make sure the username and password are correct and try again."
-msgstr "ユーザー名とパスワードが正しいかどうか確認して再度試してください"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:47
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:58
 msgid "No Global Catalog server configured for this account."
 msgstr ""
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:48
-msgid "No mailbox for user {0} on {1}."
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:49
-msgid "No such user {0}"
-msgstr "{0} というユーザーはいません"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:50
-msgid "Password successfully changed."
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:52
-msgid "Please enter a Delegate's ID or deselect the Send as a Delegate option."
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:53
-msgid "Please make sure the Global Catalog Server name is correct."
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:54
-msgid "Please restart Evolution for changes to take effect"
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:55
-msgid "Please select a user."
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:56
-msgid "Server rejected password because it is too weak."
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:57
-msgid "The Exchange account will be disabled when you quit Evolution"
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:58
-msgid "The Exchange account will be removed when you quit Evolution"
-msgstr ""
-
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:59
-msgid "The Exchange server is not compatible with Exchange Connector."
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:60
-msgid ""
-"The server is running Exchange 5.5. Exchange Connector \n"
-"supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"サーバー は Exchange 5.5 です。この Evolution コネクターが\n"
-"サポートするのは Microsoft Exchange 2000 と 2003 だけです。"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:62
-msgid ""
-"This probably means that your server requires \n"
-"you to specify the Windows domain name \n"
-"as part of your username (eg, &quot;DOMAIN\\user&quot;).\n"
-"\n"
-"Also, you may have typed your password incorrectly."
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:67
-msgid "Try again with a different password."
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:68
-msgid "Unable to add user to access control list:"
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:69
 msgid "Unable to edit delegates."
 msgstr "委任を編集できません"
 
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:60
+msgid "Unable to add user to access control list:"
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:61
+msgid "Could not read folder permissions."
+msgstr "フォルダーの権限を読み取れませんでした。"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:62
+msgid "Could not read folder permissions"
+msgstr "フォルダーの読み込み権限を読み取れませんでした"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:63
+msgid "Could not determine folder permissions for delegates."
+msgstr "フォルダーの委任権限を決定できませんでした。"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:64
+msgid "Could not make {0} a delegate"
+msgstr "{0} に委任できませんでした"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:65
+msgid "You cannot make yourself your own delegate"
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:66
+msgid "{0} is already a delegate"
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:67
+msgid "Failed to update delegates:"
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:68
+msgid "{0}"
+msgstr "{0}"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:69
+msgid "Please enter a Delegate's ID or deselect the Send as a Delegate option."
+msgstr ""
+
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:70
-msgid "Unknown error looking up {0}"
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:71
-msgid "Unknown error."
-msgstr "不明なエラー。"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:72
-msgid "Unknown type"
-msgstr "不明な種類"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:73
-msgid "Unsupported operation"
-msgstr "サポートしていない操作"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:74
-msgid "You are nearing your quota available for storing mail on this server."
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:75
 msgid ""
 "You are permitted to send a message on behalf of only one delegator at a "
 "time."
 msgstr ""
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:76
-msgid "You cannot make yourself your own delegate"
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:71
+msgid "Please select a user."
 msgstr ""
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:77
-msgid "You have exceeded your quota for storing mail on this server."
-msgstr ""
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:72
+msgid "Could not update folder permissions."
+msgstr "フォルダーの権限を更新できませんでした。"
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:78
-msgid "You may only configure a single Exchange account."
-msgstr "設定できるのは一つの Exchange アカウントだけです。"
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:73
+msgid "No such user {0}"
+msgstr "{0} というユーザーはいません"
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:79
-msgid ""
-"Your current usage is: {0} KB. Try to clear up some space by deleting some "
-"mail."
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:80
-msgid ""
-"Your current usage is: {0} KB. You will not be able to either send or "
-"receive mail now."
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:81
-msgid ""
-"Your current usage is: {0} KB. You will not be able to send mail until you "
-"clear up some space by deleting some mail."
-msgstr ""
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:82
-msgid "Your password has expired."
-msgstr "あなたのパスワードは期限切れです。"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:83
-msgid "{0}"
-msgstr "{0}"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:84
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:74
 msgid "{0} cannot be added to an access control list"
 msgstr ""
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:85
-msgid "{0} is already a delegate"
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:75
+msgid "Unknown error looking up {0}"
 msgstr ""
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:86
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:76
 msgid "{0} is already in the list"
+msgstr ""
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:78
+msgid "Evolution requires a restart to load the subscribed user's mailbox"
+msgstr ""
+"購読しているユーザーのメールボックスを読み込むためには Evolution を再起動しな"
+"ければなりません"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:79
+msgid "Folder does not exist"
+msgstr "フォルダーが存在しません"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:81
+msgid "Unknown type"
+msgstr "不明な種類"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:82
+msgid "Folder offline"
+msgstr "フォルダーはオフラインです"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:83
+msgid "Unsupported operation"
+msgstr "サポートしていない操作"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:84
+msgid "Global Catalog Server is not reachable"
+msgstr "グローバルカタログサーバーに到達できません"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:85
+msgid "Please make sure the Global Catalog Server name is correct."
 msgstr ""
 
 #: ../server/lib/e2k-autoconfig.c:1734
@@ -1667,8 +1667,8 @@ msgid ""
 "link below:"
 msgstr ""
 "Evolution Connector は(通常意図せずに)無効またはブロックされているらしき "
-"Exchange サーバーの特定の機能を必要としています。Ximian Connector を使うには "
-"Exchange 管理者にこの機能を有効にしてもらわなければなりません\n"
+"Exchange サーバーの特定の機能を必要としています。Evolution Connector を使うに"
+"は Exchange 管理者にこの機能を有効にしてもらわなければなりません\n"
 "\n"
 "Exchange 管理者に提供する情報を得るために下のリンクをたどってください:"
 
@@ -1793,49 +1793,49 @@ msgid "Change your Exchange server password"
 msgstr "Exchange サーバーパスワードを変更"
 
 #: ../tools/ximian-connector.xml.h:2
-msgid "Folder _Size"
-msgstr "フォルダーサイズ(_S)"
+msgid "_Change Exchange Password..."
+msgstr "Exchange パスワードを変更(_C)..."
 
 #: ../tools/ximian-connector.xml.h:3
-msgid "Get the size of personal folders"
-msgstr "個人フォルダーのサイズを取得"
+msgid "Subscribe to a folder belonging to some other user on the server"
+msgstr "サーバー上の他のユーザーに属するフォルダーを購読"
 
 #: ../tools/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
 msgstr "他のユーザーのフォルダーを購読(_O)..."
 
 #: ../tools/ximian-connector.xml.h:5
-msgid "Subscribe to a folder belonging to some other user on the server"
-msgstr "サーバー上の他のユーザーに属するフォルダーを購読"
-
-#: ../tools/ximian-connector.xml.h:6
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr "\"他のユーザーのフォルダーを購読\"で追加したフォルダーの購読をやめる"
 
+#: ../tools/ximian-connector.xml.h:6
+msgid "_Unsubscribe from Other User's Folder"
+msgstr "他のユーザーのフォルダーの購読をやめる(_U)"
+
 #: ../tools/ximian-connector.xml.h:7
-msgid "View or change your Exchange calendar delegation settings"
-msgstr "Exchange カレンダー委任設定を見る/閲覧"
+msgid "Get the size of personal folders"
+msgstr "個人フォルダーのサイズを取得"
 
 #: ../tools/ximian-connector.xml.h:8
+msgid "Folder _Size"
+msgstr "フォルダーサイズ(_S)"
+
+#: ../tools/ximian-connector.xml.h:9
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr "ステータス '職場を離れています' と自動返信メッセージを見る/変更"
 
-#: ../tools/ximian-connector.xml.h:9
-msgid "_Change Exchange Password..."
-msgstr "Exchange パスワードを変更(_C)..."
-
 #: ../tools/ximian-connector.xml.h:10
-msgid "_Delegation Assistant"
-msgstr "委任アシスタント(_D)"
-
-#: ../tools/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
 msgstr "不在時のアシスタント(_O)"
 
+#: ../tools/ximian-connector.xml.h:11
+msgid "View or change your Exchange calendar delegation settings"
+msgstr "Exchange カレンダー委任設定を見る/閲覧"
+
 #: ../tools/ximian-connector.xml.h:12
-msgid "_Unsubscribe from Other User's Folder"
-msgstr "他のユーザーのフォルダーの購読をやめる(_U)"
+msgid "_Delegation Assistant"
+msgstr "委任アシスタント(_D)"
 
 #~ msgid "Could not authenticate to server. (Password incorrect?)"
 #~ msgstr "サーバーで認証できませんでした (パスワードが違う?)"
