@@ -27,8 +27,8 @@ dnl These numbers actually correspond to the next stable release number.
 dnl Note, this is set the way it is so that GETTEXT_PACKAGE will be
 dnl parsed correctly.
 dnl ******************************************************************
-BASE_VERSION=3.4
-m4_define([base_version], [3.4])
+BASE_VERSION=3.6
+m4_define([base_version], [3.6])
 
 dnl **********************
 dnl Compiler Warning Flags
