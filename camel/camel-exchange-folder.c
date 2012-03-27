@@ -363,6 +363,7 @@ exchange_folder_cmp_uids (CamelFolder *folder,
 static GPtrArray *
 exchange_folder_search_by_expression (CamelFolder *folder,
                                       const gchar *expression,
+				      GCancellable *cancellable,
                                       GError **error)
 {
 	CamelFolderSearch *search;
@@ -372,7 +373,7 @@ exchange_folder_search_by_expression (CamelFolder *folder,
 	camel_folder_search_set_folder (search, folder);
 
 	matches = camel_folder_search_search (
-		search, expression, NULL, error);
+		search, expression, NULL, cancellable, error);
 
 	g_object_unref (search);
 
@@ -383,6 +384,7 @@ static GPtrArray *
 exchange_folder_search_by_uids (CamelFolder *folder,
                                 const gchar *expression,
                                 GPtrArray *uids,
+				GCancellable *cancellable,
                                 GError **error)
 {
 	CamelFolderSearch *search;
@@ -390,10 +392,9 @@ exchange_folder_search_by_uids (CamelFolder *folder,
 
 	search = camel_exchange_search_new ();
 	camel_folder_search_set_folder (search, folder);
-	camel_folder_search_set_summary (search, uids);
 
-	matches = camel_folder_search_execute_expression (
-		search, expression, error);
+	matches = camel_folder_search_search (
+		search, expression, uids, cancellable, error);
 
 	g_object_unref (search);
 
@@ -403,6 +404,7 @@ exchange_folder_search_by_uids (CamelFolder *folder,
 static guint32
 exchange_folder_count_by_expression (CamelFolder *folder,
                                      const gchar *expression,
+				     GCancellable *cancellable,
                                      GError **error)
 {
 	CamelFolderSearch *search;
@@ -410,7 +412,7 @@ exchange_folder_count_by_expression (CamelFolder *folder,
 
 	search = camel_exchange_search_new ();
 	camel_folder_search_set_folder (search, folder);
-	matches = camel_folder_search_count (search, expression, error);
+	matches = camel_folder_search_count (search, expression, cancellable, error);
 
 	g_object_unref (search);
 
