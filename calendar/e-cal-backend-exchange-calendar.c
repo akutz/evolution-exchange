@@ -1017,6 +1017,38 @@ create_object (ECalBackendSync *backend,
 	e2k_properties_free (props);
 }
 
+static void
+create_objects (ECalBackendSync *backend,
+		EDataCal *cal,
+		GCancellable *cancellable,
+		const GSList *calobjs,
+		GSList **uids,
+		GSList **new_components,
+		GError **error)
+{
+	gchar *uid = NULL;
+	ECalComponent *new_ecalcomp = NULL;
+
+	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (backend), InvalidArg);
+	e_return_data_cal_error_if_fail (calobjs != NULL, InvalidArg);
+
+	if (calobjs->next) {
+		g_propagate_error (error, EDC_ERROR_EX (UnsupportedMethod, _("Exchange does not support bulk additions")));
+		return;
+	}
+
+	create_object (backend, cal, cancellable, calobjs->data, &uid, &new_ecalcomp, error);
+
+	if (uid) {
+		if (uids)
+			*uids = g_slist_append (NULL, uid);
+		else
+			g_free (uid);
+	}
+
+	propagate_comp_to_slist (new_ecalcomp, new_components);
+}
+
 #define BUSYSTATUS	0x01
 #define INSTTYPE	0x02
 #define ALLDAY		0x04
@@ -1132,18 +1164,30 @@ update_x_properties (ECalBackendExchange *cbex,
 }
 
 static void
-modify_object (ECalBackendSync *backend,
-               EDataCal *cal,
-               GCancellable *cancellable,
-               const gchar *calobj,
-               CalObjModType mod,
-               ECalComponent **old_ecalcomp,
-               ECalComponent **new_ecalcomp,
-               GError **perror)
+modify_objects (ECalBackendSync *backend,
+		EDataCal *cal,
+		GCancellable *cancellable,
+		const GSList *calobjs,
+		CalObjModType mod,
+		GSList **old_components,
+		GSList **new_components,
+		GError **error)
 {
-	d(printf ("ecbexc_modify_object(%p, %p, %d, %s)", backend, cal, mod, calobj));
+	ECalComponent *old_ecalcomp = NULL, *new_ecalcomp = NULL;
 
-	modify_object_with_href (backend, cal, cancellable, calobj, mod, old_ecalcomp, new_ecalcomp, NULL, NULL, perror);
+	d(printf ("ecbexc_modify_object(%p, %p, %d, %p)", backend, cal, mod, calobjs));
+
+	e_return_data_cal_error_if_fail (calobjs != NULL, InvalidArg);
+
+	if (calobjs->next) {
+		g_propagate_error (error, EDC_ERROR_EX (UnsupportedMethod, _("Exchange does not support bulk modifications")));
+		return;
+	}
+
+	modify_object_with_href (backend, cal, cancellable, calobjs->data, mod, &old_ecalcomp, &new_ecalcomp, NULL, NULL, error);
+
+	propagate_comp_to_slist (old_ecalcomp, old_components);
+	propagate_comp_to_slist (new_ecalcomp, new_components);
 }
 
 #define e_return_data_cal_error_and_val_if_fail(expr, _code, _val)		\
@@ -1683,6 +1727,36 @@ remove_object (ECalBackendSync *backend,
 	*new_ecalcomp = NULL;
 
 	g_propagate_error (error, EDC_ERROR_HTTP_STATUS (status));
+}
+
+static void
+remove_objects (ECalBackendSync *backend,
+		EDataCal *cal,
+		GCancellable *cancellable,
+		const GSList *ids,
+		CalObjModType mod,
+		GSList **old_components,
+		GSList **new_components,
+		GError **error)
+{
+	ECalComponent *old_ecalcomp = NULL, *new_ecalcomp = NULL;
+	const ECalComponentId *ecid;
+
+	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE_CALENDAR (backend), InvalidArg);
+	e_return_data_cal_error_if_fail (ids != NULL, InvalidArg);
+
+	if (ids->next) {
+		g_propagate_error (error, EDC_ERROR_EX (UnsupportedMethod, _("Exchange does not support bulk removals")));
+		return;
+	}
+
+	ecid = ids->data;
+	e_return_data_cal_error_if_fail (ecid != NULL, InvalidArg);
+
+	remove_object (backend, cal, cancellable, ecid->uid, ecid->rid, mod, &old_ecalcomp, &new_ecalcomp, error);
+
+	propagate_comp_to_slist (old_ecalcomp, old_components);
+	propagate_comp_to_slist (new_ecalcomp, new_components);
 }
 
 static void
@@ -2542,9 +2616,9 @@ e_cal_backend_exchange_calendar_class_init (ECalBackendExchangeCalendarClass *cl
 	sync_class = E_CAL_BACKEND_SYNC_CLASS (class);
 	sync_class->authenticate_user_sync = authenticate_user;
 	sync_class->refresh_sync = refresh_calendar;
-	sync_class->create_object_sync = create_object;
-	sync_class->modify_object_sync = modify_object;
-	sync_class->remove_object_sync = remove_object;
+	sync_class->create_objects_sync = create_objects;
+	sync_class->modify_objects_sync = modify_objects;
+	sync_class->remove_objects_sync = remove_objects;
 	sync_class->receive_objects_sync = receive_objects;
 	sync_class->send_objects_sync = send_objects;
 	sync_class->get_free_busy_sync = get_free_busy;

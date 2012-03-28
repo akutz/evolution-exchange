@@ -115,6 +115,8 @@ void e_cal_backend_exchange_cache_lock (ECalBackendExchange *cbex);
 void e_cal_backend_exchange_cache_unlock (ECalBackendExchange *cbex);
 void e_cal_backend_exchange_ensure_utc_zone (ECalBackend *cb, struct icaltimetype *itt);
 
+void propagate_comp_to_slist (ECalComponent *comp, GSList **lst);
+
 G_END_DECLS
 
 #endif

@@ -968,27 +968,27 @@ discard_alarm (ECalBackendSync *backend,
 
 /*To be overriden by Calendar and Task classes*/
 static void
-create_object (ECalBackendSync *backend,
-               EDataCal *cal,
-               GCancellable *cancellable,
-               const gchar *calobj,
-               gchar **uid,
-               ECalComponent **new_component,
-               GError **perror)
+create_objects (ECalBackendSync *backend,
+		EDataCal *cal,
+		GCancellable *cancellable,
+		const GSList *calobjs,
+		GSList **uids,
+		GSList **new_components, 
+		GError **perror)
 {
 	g_propagate_error (perror, EDC_ERROR (NotSupported));
 }
 
 /*To be overriden by Calendar and Task classes*/
 static void
-modify_object (ECalBackendSync *backend,
-               EDataCal *cal,
-               GCancellable *cancellable,
-               const gchar *calobj,
-               CalObjModType mod,
-               ECalComponent **old_component,
-               ECalComponent **new_component,
-               GError **perror)
+modify_objects (ECalBackendSync *backend,
+		EDataCal *cal,
+		GCancellable *cancellable,
+		const GSList *calobjs,
+		CalObjModType mod,
+		GSList **old_components,
+		GSList **new_components,
+		GError **perror)
 {
 	g_propagate_error (perror, EDC_ERROR (NotSupported));
 }
@@ -2096,6 +2096,17 @@ e_cal_backend_exchange_lookup_timezone (const gchar *tzid,
 	return zone;
 }
 
+void
+propagate_comp_to_slist (ECalComponent *comp, GSList **lst)
+{
+	if (comp) {
+		if (lst)
+			*lst = g_slist_append (NULL, comp);
+		else
+			g_object_unref (comp);
+	}
+}
+
 static void
 free_exchange_comp (gpointer value)
 {
@@ -2179,8 +2190,8 @@ e_cal_backend_exchange_class_init (ECalBackendExchangeClass *class)
 	sync_class->get_object_list_sync = get_object_list;
 	sync_class->add_timezone_sync = add_timezone;
 	sync_class->get_free_busy_sync = get_freebusy;
-	sync_class->create_object_sync = create_object;
-	sync_class->modify_object_sync = modify_object;
+	sync_class->create_objects_sync = create_objects;
+	sync_class->modify_objects_sync = modify_objects;
 }
 
 static void
@@ -2207,4 +2218,3 @@ e_cal_backend_exchange_init (ECalBackendExchange *cbex)
 		cbex, "notify::online",
 		G_CALLBACK (notify_online_cb), NULL);
 }
-

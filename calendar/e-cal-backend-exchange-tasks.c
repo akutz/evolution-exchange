@@ -1256,6 +1256,38 @@ create_task_object (ECalBackendSync *backend,
 }
 
 static void
+create_task_objects (ECalBackendSync *backend,
+		     EDataCal *cal,
+		     GCancellable *cancellable,
+		     const GSList *calobjs,
+		     GSList **uids,
+		     GSList **new_components,
+		     GError **error)
+{
+	gchar *uid = NULL;
+	ECalComponent *new_ecalcomp = NULL;
+
+	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE (backend), InvalidArg);
+	e_return_data_cal_error_if_fail (calobjs != NULL, InvalidArg);
+
+	if (calobjs->next) {
+		g_propagate_error (error, EDC_ERROR_EX (UnsupportedMethod, _("Exchange tasks do not support bulk additions")));
+		return;
+	}
+
+	create_task_object (backend, cal, cancellable, calobjs->data, &uid, &new_ecalcomp, error);
+
+	if (uid) {
+		if (uids)
+			*uids = g_slist_append (NULL, uid);
+		else
+			g_free (uid);
+	}
+
+	propagate_comp_to_slist (new_ecalcomp, new_components);
+}
+
+static void
 modify_task_object (ECalBackendSync *backend,
                     EDataCal *cal,
                     GCancellable *cancellable,
@@ -1386,6 +1418,31 @@ modify_task_object (ECalBackendSync *backend,
 }
 
 static void
+modify_task_objects (ECalBackendSync *backend,
+		     EDataCal *cal,
+		     GCancellable *cancellable,
+		     const GSList *calobjs,
+		     CalObjModType mod,
+		     GSList **old_components,
+		     GSList **new_components,
+		     GError **error)
+{
+	ECalComponent *old_ecalcomp = NULL, *new_ecalcomp = NULL;
+
+	e_return_data_cal_error_if_fail (calobjs != NULL, InvalidArg);
+
+	if (calobjs->next) {
+		g_propagate_error (error, EDC_ERROR_EX (UnsupportedMethod, _("Exchange tasks do not support bulk modifications")));
+		return;
+	}
+
+	modify_task_object (backend, cal, cancellable, calobjs->data, mod, &old_ecalcomp, &new_ecalcomp, error);
+
+	propagate_comp_to_slist (old_ecalcomp, old_components);
+	propagate_comp_to_slist (new_ecalcomp, new_components);
+}
+
+static void
 receive_task_objects (ECalBackendSync *backend,
                       EDataCal *cal,
                       GCancellable *cancellable,
@@ -1480,22 +1537,31 @@ receive_task_objects (ECalBackendSync *backend,
 }
 
 static void
-remove_task_object (ECalBackendSync *backend,
-                    EDataCal *cal,
-                    GCancellable *cancellable,
-                    const gchar *uid,
-                    const gchar *rid,
-                    CalObjModType mod,
-                    ECalComponent **old_ecalcomp,
-                    ECalComponent **new_ecalcomp,
-                    GError **error)
+remove_task_objects (ECalBackendSync *backend,
+                     EDataCal *cal,
+                     GCancellable *cancellable,
+                     const GSList *ids,
+		     CalObjModType mod,
+		     GSList **old_components,
+		     GSList **new_components,
+                     GError **error)
 {
 	ECalBackendExchange *ecalbex = E_CAL_BACKEND_EXCHANGE (backend);
 	ECalBackendExchangeComponent *ecalbexcomp;
+	const ECalComponentId *ecid;
 	E2kContext *ctx;
 	E2kHTTPStatus status;
 
 	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_EXCHANGE (ecalbex), InvalidArg);
+	e_return_data_cal_error_if_fail (ids != NULL, InvalidArg);
+
+	if (ids->next) {
+		g_propagate_error (error, EDC_ERROR_EX (UnsupportedMethod, _("Exchange tasks do not support bulk removals")));
+		return;
+	}
+
+	ecid = ids->data;
+	e_return_data_cal_error_if_fail (ecid != NULL, InvalidArg);
 
 	if (!e_backend_get_online (E_BACKEND (backend))) {
 		d(printf ("tasks are offline\n"));
@@ -1504,7 +1570,7 @@ remove_task_object (ECalBackendSync *backend,
 	}
 
 	e_cal_backend_exchange_cache_lock (ecalbex);
-	ecalbexcomp = get_exchange_comp (ecalbex, uid);
+	ecalbexcomp = get_exchange_comp (ecalbex, ecid->uid);
 
 	if (!ecalbexcomp || !ecalbexcomp->href) {
 		e_cal_backend_exchange_cache_unlock (ecalbex);
@@ -1512,14 +1578,15 @@ remove_task_object (ECalBackendSync *backend,
 		return;
 	}
 
-	*old_ecalcomp = e_cal_component_new_from_icalcomponent (icalcomponent_new_clone (ecalbexcomp->icomp));
+	if (old_components)
+		*old_components = g_slist_append (NULL, e_cal_component_new_from_icalcomponent (icalcomponent_new_clone (ecalbexcomp->icomp)));
 	e_cal_backend_exchange_cache_unlock (ecalbex);
 
 	ctx = exchange_account_get_context (ecalbex->account);
 
 	status = e2k_context_delete (ctx, NULL, ecalbexcomp->href);
 	if (E2K_HTTP_STATUS_IS_SUCCESSFUL (status)) {
-		if (e_cal_backend_exchange_remove_object (ecalbex, uid))
+		if (e_cal_backend_exchange_remove_object (ecalbex, ecid->uid))
 			return;
 	}
 
@@ -1554,9 +1621,9 @@ e_cal_backend_exchange_tasks_class_init (ECalBackendExchangeTasksClass *class)
 	sync_class = E_CAL_BACKEND_SYNC_CLASS (class);
 	sync_class->authenticate_user_sync = authenticate_user_task;
 	sync_class->refresh_sync = refresh_task;
-	sync_class->create_object_sync = create_task_object;
-	sync_class->modify_object_sync = modify_task_object;
-	sync_class->remove_object_sync = remove_task_object;
+	sync_class->create_objects_sync = create_task_objects;
+	sync_class->modify_objects_sync = modify_task_objects;
+	sync_class->remove_objects_sync = remove_task_objects;
 	sync_class->receive_objects_sync = receive_task_objects;
 }
 
