@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=evolution-exchange&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-03-28 11:30+0000\n"
-"PO-Revision-Date: 2012-03-28 15:15+0100\n"
+"POT-Creation-Date: 2012-03-29 16:14+0000\n"
+"PO-Revision-Date: 2012-03-29 20:12+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: \n"
@@ -81,6 +81,18 @@ msgstr "Sistem Exchange ne podpira množičnega odstranjevanja"
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Vir '%s' je med izbranim časovnim obdobjem zaposlen."
+
+#: ../calendar/e-cal-backend-exchange-tasks.c:1274
+msgid "Exchange tasks do not support bulk additions"
+msgstr "Sistem Exchange ne podpira množičnega dodajanja"
+
+#: ../calendar/e-cal-backend-exchange-tasks.c:1435
+msgid "Exchange tasks do not support bulk modifications"
+msgstr "Sistem Exchange ne podpira množičnega spreminjanja"
+
+#: ../calendar/e-cal-backend-exchange-tasks.c:1559
+msgid "Exchange tasks do not support bulk removals"
+msgstr "Sistem Exchange ne podpira množičnega odstranjevanja"
 
 #: ../camel/camel-exchange-folder.c:76
 msgid "No Subject"
@@ -633,6 +645,71 @@ msgstr "_Da, spremeni stanje"
 msgid "Enter Password for %s"
 msgstr "Vnesite geslo za %s"
 
+#: ../eplugin/exchange-delegates.c:418
+msgid "Delegate To:"
+msgstr "Pooblasti Za:"
+
+#: ../eplugin/exchange-delegates.c:418
+msgid "Delegate To"
+msgstr "Pooblasti Za"
+
+#: ../eplugin/exchange-delegates.c:588
+#, c-format
+msgid "Remove the delegate %s?"
+msgstr "Ali naj se odstrani pooblaščenec %s?"
+
+#: ../eplugin/exchange-delegates.c:707
+msgid "Could not access Active Directory"
+msgstr "Ni mogoč dostop do dejavnega imenika"
+
+#: ../eplugin/exchange-delegates.c:719
+msgid "Could not find self in Active Directory"
+msgstr "Ni mogoče najti sebe v dejavnem imeniku"
+
+#: ../eplugin/exchange-delegates.c:732
+#, c-format
+msgid "Could not find delegate %s in Active Directory"
+msgstr "Ni mogoče najti pooblaščenca %s v dejavnem imeniku"
+
+#: ../eplugin/exchange-delegates.c:744
+#, c-format
+msgid "Could not remove delegate %s"
+msgstr "Ni mogoče odstraniti pooblaščenca %s"
+
+#: ../eplugin/exchange-delegates.c:804
+msgid "Could not update list of delegates."
+msgstr "Ni mogoče posodobiti seznama pooblaščencev."
+
+#: ../eplugin/exchange-delegates.c:822
+#, c-format
+msgid "Could not add delegate %s"
+msgstr "Ni mogoče dodati pooblaščenca %s"
+
+#: ../eplugin/exchange-delegates.c:942
+msgid "Delegates"
+msgstr "Pooblaščenci"
+
+#: ../eplugin/exchange-delegates.c:957
+msgid ""
+"These users will be able to send mail on your behalf\n"
+"and access your folders with the permissions you give them."
+msgstr ""
+"Ti uporabniki bodo lahko v vašem imenu pošiljali pošto\n"
+"in bodo imeli dostop do map z dovoljenji, ki jim jih dodelite."
+
+#: ../eplugin/exchange-delegates.c:981
+msgid "_Edit"
+msgstr "_Uredi"
+
+#: ../eplugin/exchange-delegates.c:1011
+#: ../eplugin/exchange-permissions-dialog.c:926
+msgid "Name"
+msgstr "Ime"
+
+#: ../eplugin/exchange-delegates.c:1037
+msgid "Error reading delegates list."
+msgstr "Napaka med branjem seznama pooblaščencev."
+
 #: ../eplugin/exchange-delegates-user.c:72
 #: ../eplugin/exchange-folder.c:465
 #: ../server/storage/exchange-hierarchy-foreign.c:264
@@ -769,70 +846,17 @@ msgstr "Kljub vsemu pa ni odobrenega dovoljenja za pregled osebnih predmetov."
 msgid "You have been designated as a delegate for %s"
 msgstr "Predlagani ste bili za pooblaščenca %s"
 
-#: ../eplugin/exchange-delegates.c:418
-msgid "Delegate To:"
-msgstr "Pooblasti Za:"
-
-#: ../eplugin/exchange-delegates.c:418
-msgid "Delegate To"
-msgstr "Pooblasti Za"
-
-#: ../eplugin/exchange-delegates.c:588
+#: ../eplugin/exchange-folder.c:348
+#: ../eplugin/exchange-folder.c:404
 #, c-format
-msgid "Remove the delegate %s?"
-msgstr "Ali naj se odstrani pooblaščenec %s?"
+msgid "Really unsubscribe from folder \"%s\"?"
+msgstr "Ali zares želite preklicati naročnino na mapo \"%s\"?"
 
-#: ../eplugin/exchange-delegates.c:707
-msgid "Could not access Active Directory"
-msgstr "Ni mogoč dostop do dejavnega imenika"
-
-#: ../eplugin/exchange-delegates.c:719
-msgid "Could not find self in Active Directory"
-msgstr "Ni mogoče najti sebe v dejavnem imeniku"
-
-#: ../eplugin/exchange-delegates.c:732
+#: ../eplugin/exchange-folder.c:361
+#: ../eplugin/exchange-folder.c:417
 #, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "Ni mogoče najti pooblaščenca %s v dejavnem imeniku"
-
-#: ../eplugin/exchange-delegates.c:744
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "Ni mogoče odstraniti pooblaščenca %s"
-
-#: ../eplugin/exchange-delegates.c:804
-msgid "Could not update list of delegates."
-msgstr "Ni mogoče posodobiti seznama pooblaščencev."
-
-#: ../eplugin/exchange-delegates.c:822
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "Ni mogoče dodati pooblaščenca %s"
-
-#: ../eplugin/exchange-delegates.c:942
-msgid "Delegates"
-msgstr "Pooblaščenci"
-
-#: ../eplugin/exchange-delegates.c:957
-msgid ""
-"These users will be able to send mail on your behalf\n"
-"and access your folders with the permissions you give them."
-msgstr ""
-"Ti uporabniki bodo lahko v vašem imenu pošiljali pošto\n"
-"in bodo imeli dostop do map z dovoljenji, ki jim jih dodelite."
-
-#: ../eplugin/exchange-delegates.c:981
-msgid "_Edit"
-msgstr "_Uredi"
-
-#: ../eplugin/exchange-delegates.c:1011
-#: ../eplugin/exchange-permissions-dialog.c:926
-msgid "Name"
-msgstr "Ime"
-
-#: ../eplugin/exchange-delegates.c:1037
-msgid "Error reading delegates list."
-msgstr "Napaka med branjem seznama pooblaščencev."
+msgid "Unsubscribe from \"%s\""
+msgstr "Prekliči naročnino na \"%s\""
 
 #: ../eplugin/exchange-folder-permission.c:246
 #: ../eplugin/exchange-folder-permission.c:532
@@ -908,18 +932,6 @@ msgstr "Ime _mape:"
 #: ../eplugin/exchange-folder-subscription.c:355
 msgid "_User:"
 msgstr "_Uporabnik:"
-
-#: ../eplugin/exchange-folder.c:348
-#: ../eplugin/exchange-folder.c:404
-#, c-format
-msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "Ali zares želite preklicati naročnino na mapo \"%s\"?"
-
-#: ../eplugin/exchange-folder.c:361
-#: ../eplugin/exchange-folder.c:417
-#, c-format
-msgid "Unsubscribe from \"%s\""
-msgstr "Prekliči naročnino na \"%s\""
 
 #: ../eplugin/exchange-mail-send-options.c:231
 msgid "_Send Options"
