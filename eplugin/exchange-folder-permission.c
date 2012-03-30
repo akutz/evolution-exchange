@@ -250,9 +250,9 @@ static GtkActionEntry mail_entries[] = {
 
 	{ "eex-folder-subscribe-Inbox",
 	  NULL,
-	  N_("Subscribe to Other User's Folder..."),
+	  N_("Subscribe to folder of other user..."),
 	  NULL,
-	  N_("Subscribe to Other User's Folder"),
+	  N_("Subscribe to folder of other user"),
 	  G_CALLBACK (eex_folder_subscribe_cb) },
 
 	{ "eex-mail-folder-inbox-unsubscribe",
@@ -536,9 +536,9 @@ static GtkActionEntry calendar_entries[] = {
 
 	{ "eex-folder-subscribe-Calendar",
 	  NULL,
-	  N_("Subscribe to Other User's Folder..."),
+	  N_("Subscribe to folder of other user..."),
 	  NULL,
-	  N_("Subscribe to Other User's Folder"),
+	  N_("Subscribe to folder of other user"),
 	  G_CALLBACK (eex_folder_subscribe_cb) },
 
 	{ "eex-folder-unsubscribe-Calendar",
@@ -571,9 +571,9 @@ static GtkActionEntry tasks_entries[] = {
 
 	{ "eex-folder-subscribe-Tasks",
 	  NULL,
-	  N_("Subscribe to Other User's Folder..."),
+	  N_("Subscribe to folder of other user..."),
 	  NULL,
-	  N_("Subscribe to Other User's Folder"),
+	  N_("Subscribe to folder of other user"),
 	  G_CALLBACK (eex_folder_subscribe_cb) },
 
 	{ "eex-folder-unsubscribe-Tasks",
@@ -606,9 +606,9 @@ static GtkActionEntry addressbook_entries[] = {
 
 	{ "eex-folder-subscribe-Contacts",
 	  NULL,
-	  N_("Subscribe to Other User's Folder..."),
+	  N_("Subscribe to folder of other user..."),
 	  NULL,
-	  N_("Subscribe to Other User's Folder"),
+	  N_("Subscribe to folder of other user"),
 	  G_CALLBACK (eex_folder_subscribe_cb) },
 
 	{ "eex-folder-unsubscribe-Contacts",

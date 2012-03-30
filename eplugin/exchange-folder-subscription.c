@@ -316,7 +316,7 @@ create_folder_subscription_dialog (ExchangeAccount *account,
 	subscription_info->account = account;
 
 	dialog = gtk_dialog_new_with_buttons (
-		_("Subscribe to Other User's Folder"),
+		_("Subscribe to folder of other user"),
 		NULL,
 		GTK_DIALOG_DESTROY_WITH_PARENT,
 		GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
