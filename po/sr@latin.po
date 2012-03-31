@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product"
 "=evolution-exchange&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-10-15 15:00+0000\n"
-"PO-Revision-Date: 2012-02-27 10:32+0200\n"
+"POT-Creation-Date: 2012-03-30 14:18+0000\n"
+"PO-Revision-Date: 2012-03-31 14:15+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -37,46 +37,76 @@ msgstr ""
 "privemenu ostavu zauvek, postavite vrednost na 0. Ovo će raditi samo ako ste "
 "GAL-u omogućili smeštanje u privremenu ostavu za rad van mreže."
 
-#: ../addressbook/e-book-backend-exchange.c:137
+#: ../addressbook/e-book-backend-exchange.c:139
 #, c-format
 msgid "Operation failed with status %d"
 msgstr "Operacija nije uspela sa stanjem „%d“"
 
-#: ../addressbook/e-book-backend-exchange.c:1737
+#: ../addressbook/e-book-backend-exchange.c:1739
 msgid "The backend does not support bulk additions"
 msgstr "Pozadinac ne podržava grupno dodavanje"
 
-#: ../addressbook/e-book-backend-exchange.c:1834
+#: ../addressbook/e-book-backend-exchange.c:1836
 msgid "The backend does not support bulk modifications"
 msgstr "Pozadinac ne podržava grupno uređivanje"
 
-#: ../addressbook/e-book-backend-exchange.c:1855
-#: ../addressbook/e-book-backend-exchange.c:2521
+#: ../addressbook/e-book-backend-exchange.c:1857
+#: ../addressbook/e-book-backend-exchange.c:2523
 msgid "Cancelled"
 msgstr "Otkazano"
 
-#: ../addressbook/e-book-backend-exchange.c:2368
-#: ../addressbook/e-book-backend-gal.c:2045
+#: ../addressbook/e-book-backend-exchange.c:2370
+#: ../addressbook/e-book-backend-gal.c:2047
 msgid "Searching..."
 msgstr "Pretražujem..."
 
-#: ../addressbook/e-book-backend-gal.c:356
-#: ../addressbook/e-book-backend-gal.c:379
+#: ../addressbook/e-book-backend-gal.c:358
+#: ../addressbook/e-book-backend-gal.c:381
 msgid "Reconnecting to LDAP server..."
 msgstr "Ponovno se povezujem na LDAP server..."
 
-#: ../addressbook/e-book-backend-gal.c:1791
+#: ../addressbook/e-book-backend-gal.c:1793
 msgid "Receiving LDAP search results..."
 msgstr "Primam rezultate pretrage sa LDAP servera..."
 
-#: ../addressbook/e-book-backend-gal.c:2076
+#: ../addressbook/e-book-backend-gal.c:2078
 msgid "Error performing search"
 msgstr "Greška pri pretraživanju"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2235
+#: ../calendar/e-cal-backend-exchange-calendar.c:1036
+#| msgid "The backend does not support bulk additions"
+msgid "Exchange does not support bulk additions"
+msgstr "Razmena ne podržava grupno dodavanje"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:1183
+#| msgid "The backend does not support bulk modifications"
+msgid "Exchange does not support bulk modifications"
+msgstr "Razmena ne podržava grupno uređivanje"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:1749
+#| msgid "The backend does not support bulk modifications"
+msgid "Exchange does not support bulk removals"
+msgstr "Razmena ne podržava grupno uklanjanje"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:2328
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Resurs „%s“ je zauzet tokom izabranog vremenskog perioda."
+
+#: ../calendar/e-cal-backend-exchange-tasks.c:1274
+#| msgid "The backend does not support bulk additions"
+msgid "Exchange tasks do not support bulk additions"
+msgstr "Zadaci razmene ne podržavaju grupno dodavanje"
+
+#: ../calendar/e-cal-backend-exchange-tasks.c:1435
+#| msgid "The backend does not support bulk modifications"
+msgid "Exchange tasks do not support bulk modifications"
+msgstr "Zadaci razmene ne podržavaju grupno uređivanje"
+
+#: ../calendar/e-cal-backend-exchange-tasks.c:1559
+#| msgid "The backend does not support bulk modifications"
+msgid "Exchange tasks do not support bulk removals"
+msgstr "Zadaci razmene ne podržavaju grupno uklanjanje"
 
 #: ../camel/camel-exchange-folder.c:76
 msgid "No Subject"
@@ -87,25 +117,25 @@ msgstr "Bez naslova"
 msgid "This message is not available in offline mode."
 msgstr "Ova poruka nije dostupna u režimu van mreže."
 
-#: ../camel/camel-exchange-folder.c:514
+#: ../camel/camel-exchange-folder.c:516
 #, c-format
 msgid "You cannot expunge in offline mode."
 msgstr "Ne mogu da izbacivanje kada ste van mreže."
 
-#: ../camel/camel-exchange-folder.c:652 ../camel/camel-exchange-utils.c:592
-#: ../camel/camel-exchange-utils.c:631
+#: ../camel/camel-exchange-folder.c:654 ../camel/camel-exchange-utils.c:609
+#: ../camel/camel-exchange-utils.c:648
 msgid "Could not get new messages"
 msgstr "Ne mogu da dobavim nove poruke"
 
-#: ../camel/camel-exchange-folder.c:696
+#: ../camel/camel-exchange-folder.c:698
 msgid "Moving messages"
 msgstr "Premeštam poruke"
 
-#: ../camel/camel-exchange-folder.c:696
+#: ../camel/camel-exchange-folder.c:698
 msgid "Copying messages"
 msgstr "Umnožavam poruke"
 
-#: ../camel/camel-exchange-folder.c:1108
+#: ../camel/camel-exchange-folder.c:1110
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Ne mogu da napravim direktorijum „%s“: %s"
@@ -138,20 +168,20 @@ msgstr "Dobavljam pregled za nove poruke"
 msgid "No folder name found"
 msgstr "Naziv fascikle nije pronađen"
 
-#: ../camel/camel-exchange-journal.c:190 ../camel/camel-exchange-utils.c:3322
-#: ../camel/camel-exchange-utils.c:3386 ../camel/camel-exchange-utils.c:3504
-#: ../camel/camel-exchange-utils.c:3535 ../camel/camel-exchange-utils.c:3587
-#: ../camel/camel-exchange-utils.c:3608
+#: ../camel/camel-exchange-journal.c:190 ../camel/camel-exchange-utils.c:3339
+#: ../camel/camel-exchange-utils.c:3403 ../camel/camel-exchange-utils.c:3521
+#: ../camel/camel-exchange-utils.c:3552 ../camel/camel-exchange-utils.c:3604
+#: ../camel/camel-exchange-utils.c:3625
 #, c-format
 msgid "Folder doesn't exist"
 msgstr "Fascikla ne postoji"
 
-#: ../camel/camel-exchange-journal.c:426
+#: ../camel/camel-exchange-journal.c:424
 #, c-format
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr "Ne mogu da prikačim poruku u režimu van mreže: ostava nije dostupna"
 
-#: ../camel/camel-exchange-journal.c:447
+#: ../camel/camel-exchange-journal.c:445
 msgid "Cannot append message in offline mode: "
 msgstr "Ne mogu da prikačim poruku u režimu van mreže: "
 
@@ -246,7 +276,6 @@ msgid "Microsoft Exchange"
 msgstr "Majkrosoft razmena"
 
 #: ../camel/camel-exchange-provider.c:116
-#| msgid "For handling mail (and other data) on Microsoft Exchange servers"
 msgid ""
 "For handling mail (and other data) on Microsoft Exchange 2000 and 2003 "
 "servers via OWA"
@@ -273,47 +302,46 @@ msgstr ""
 "Ova opcija će povezati na server razmene koristeći uobičajenu potvrdu "
 "identiteta običnim tekstom."
 
-#: ../camel/camel-exchange-store.c:329
+#: ../camel/camel-exchange-store.c:338
 #, c-format
 msgid "Exchange server %s"
 msgstr "Server razmene %s"
 
-#: ../camel/camel-exchange-store.c:333
+#: ../camel/camel-exchange-store.c:341
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Nalog razmene za %s na %s"
 
-#: ../camel/camel-exchange-store.c:400
-#| msgid "Authentication failed"
+#: ../camel/camel-exchange-store.c:407
 msgid "Authentication password not available"
 msgstr "Lozinka potvrđivanja identiteta nije dostupna"
 
-#: ../camel/camel-exchange-store.c:486
+#: ../camel/camel-exchange-store.c:493
 #, c-format
 msgid "No such folder %s"
 msgstr "Nema takve fascikle %s"
 
-#: ../camel/camel-exchange-store.c:641
+#: ../camel/camel-exchange-store.c:648
 #, c-format
 msgid "Cannot create folder in offline mode."
 msgstr "Ne mogu da napravim fasciklu u režimu van mreže."
 
-#: ../camel/camel-exchange-store.c:672
+#: ../camel/camel-exchange-store.c:679
 #, c-format
 msgid "Cannot delete folder in offline mode."
 msgstr "Ne mogu da obrišem fasciklu u režimu van mreže."
 
-#: ../camel/camel-exchange-store.c:699
+#: ../camel/camel-exchange-store.c:706
 #, c-format
 msgid "Cannot rename folder in offline mode."
 msgstr "Ne mogu da preimenujem fasciklu u režimu van mreže."
 
-#: ../camel/camel-exchange-store.c:781
+#: ../camel/camel-exchange-store.c:788
 #, c-format
 msgid "Cannot subscribe folder in offline mode."
 msgstr "Ne mogu da prijavim fasciklu u režimu van mreže."
 
-#: ../camel/camel-exchange-store.c:801
+#: ../camel/camel-exchange-store.c:808
 #, c-format
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr "Ne mogu da odjavim fasciklu u režimu van mreže."
@@ -328,79 +356,79 @@ msgstr "Ne mogu da pošaljem poruku: jedan ili više neispravnih primalaca"
 msgid "Could not find 'From' address in message"
 msgstr "Ne mogu da pronađem adresu „Šalje“ u poruci"
 
-#: ../camel/camel-exchange-utils.c:1147 ../camel/camel-exchange-utils.c:1303
+#: ../camel/camel-exchange-utils.c:1164 ../camel/camel-exchange-utils.c:1320
 msgid "Could not open folder"
 msgstr "Ne mogu da otvorim fasciklu"
 
-#: ../camel/camel-exchange-utils.c:1299 ../camel/camel-exchange-utils.c:1317
+#: ../camel/camel-exchange-utils.c:1316 ../camel/camel-exchange-utils.c:1334
 msgid "Could not open folder: Permission denied"
 msgstr "Ne mogu da otvorim fasciklu: zabranjen pristup"
 
-#: ../camel/camel-exchange-utils.c:1371 ../camel/camel-exchange-utils.c:2372
+#: ../camel/camel-exchange-utils.c:1388 ../camel/camel-exchange-utils.c:2389
 msgid "No such folder"
 msgstr "Nema takve fascikle"
 
-#: ../camel/camel-exchange-utils.c:1393 ../camel/camel-exchange-utils.c:3296
-#: ../camel/camel-exchange-utils.c:3339 ../camel/camel-exchange-utils.c:3508
-#: ../camel/camel-exchange-utils.c:3561 ../camel/camel-exchange-utils.c:3623
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
+#: ../camel/camel-exchange-utils.c:1410 ../camel/camel-exchange-utils.c:3313
+#: ../camel/camel-exchange-utils.c:3356 ../camel/camel-exchange-utils.c:3525
+#: ../camel/camel-exchange-utils.c:3578 ../camel/camel-exchange-utils.c:3640
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:80
 #: ../server/storage/e-storage.c:574
 msgid "Permission denied"
 msgstr "Zabranjen pristup"
 
-#: ../camel/camel-exchange-utils.c:2381
+#: ../camel/camel-exchange-utils.c:2398
 msgid "Could not create folder."
 msgstr "Ne mogu da napravim fasciklu."
 
-#: ../camel/camel-exchange-utils.c:2469
+#: ../camel/camel-exchange-utils.c:2486
 msgid "Could not open Deleted Items folder"
 msgstr "Ne mogu da otvorim fasciklu obrisanih stavki"
 
-#: ../camel/camel-exchange-utils.c:2598
+#: ../camel/camel-exchange-utils.c:2615
 msgid "Could not empty Deleted Items folder"
 msgstr "Ne mogu da ispraznim fasciklu obrisanih stavki"
 
-#: ../camel/camel-exchange-utils.c:2600
+#: ../camel/camel-exchange-utils.c:2617
 msgid "Permission denied. Could not delete certain messages."
 msgstr "Pristup je odbijen. Ne mogu da obrišem neke poruke."
 
-#: ../camel/camel-exchange-utils.c:2646
+#: ../camel/camel-exchange-utils.c:2663
 msgid "Could not append message; mailbox is over quota"
 msgstr "Ne mogu da prikačim poruku; poštansko sanduče je prekoračeno"
 
-#: ../camel/camel-exchange-utils.c:2647
+#: ../camel/camel-exchange-utils.c:2664
 msgid "Could not append message"
 msgstr "Ne mogu da prikačim poruku"
 
-#: ../camel/camel-exchange-utils.c:2834
+#: ../camel/camel-exchange-utils.c:2851
 msgid "No such message"
 msgstr "Nema takve poruke"
 
-#: ../camel/camel-exchange-utils.c:2906
+#: ../camel/camel-exchange-utils.c:2923
 msgid "Message has been deleted"
 msgstr "Poruka je obrisana"
 
-#: ../camel/camel-exchange-utils.c:2908
+#: ../camel/camel-exchange-utils.c:2925
 msgid "Error retrieving message"
 msgstr "Greška pri dovlačenju poruke"
 
-#: ../camel/camel-exchange-utils.c:2957
+#: ../camel/camel-exchange-utils.c:2974
 msgid "Mailbox does not support full-text searching"
 msgstr "Poštansko sanduče ne podržava pretragu po svom tekstu"
 
-#: ../camel/camel-exchange-utils.c:3069
+#: ../camel/camel-exchange-utils.c:3086
 msgid "Unable to move/copy messages"
 msgstr "Ne mogu da premestim/umnožim poruke"
 
-#: ../camel/camel-exchange-utils.c:3201
+#: ../camel/camel-exchange-utils.c:3218
 msgid "No mail submission URI for this mailbox"
 msgstr "Nema adrese za slanje pošte za ovo poštansko sanduče"
 
-#: ../camel/camel-exchange-utils.c:3234
+#: ../camel/camel-exchange-utils.c:3251
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Server neće da prihvati poštu putem prenosa razmene"
 
-#: ../camel/camel-exchange-utils.c:3236
+#: ../camel/camel-exchange-utils.c:3253
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -409,7 +437,7 @@ msgstr ""
 "Vaš nalog nema ovlašćenje da koristi <%s>\n"
 "kao adresu pošaljioca."
 
-#: ../camel/camel-exchange-utils.c:3248
+#: ../camel/camel-exchange-utils.c:3265
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -417,28 +445,28 @@ msgstr ""
 "Ne mogu da popaljem poruku.\n"
 "Ovo može značiti da je vaš nalog prekoračen."
 
-#: ../camel/camel-exchange-utils.c:3252
+#: ../camel/camel-exchange-utils.c:3269
 msgid "Could not send message"
 msgstr "Ne mogu da pošaljem poruku"
 
-#: ../camel/camel-exchange-utils.c:3288 ../camel/camel-exchange-utils.c:3344
-#: ../camel/camel-exchange-utils.c:3512 ../camel/camel-exchange-utils.c:3565
-#: ../camel/camel-exchange-utils.c:3629
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
+#: ../camel/camel-exchange-utils.c:3305 ../camel/camel-exchange-utils.c:3361
+#: ../camel/camel-exchange-utils.c:3529 ../camel/camel-exchange-utils.c:3582
+#: ../camel/camel-exchange-utils.c:3646
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:86
 #: ../server/storage/e-storage.c:558
 msgid "Generic error"
 msgstr "Opšta greška"
 
-#: ../camel/camel-exchange-utils.c:3292
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
+#: ../camel/camel-exchange-utils.c:3309
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:77
 msgid "Folder already exists"
 msgstr "Fascikla već postoji"
 
-#: ../eplugin/exchange-account-setup.c:275
+#: ../eplugin/exchange-account-setup.c:266
 msgid "Out of Office"
 msgstr "Van kancelarije"
 
-#: ../eplugin/exchange-account-setup.c:282
+#: ../eplugin/exchange-account-setup.c:273
 msgid ""
 "The message specified below will be automatically sent to \n"
 "each person who sends mail to you while you are out of the office."
@@ -446,105 +474,105 @@ msgstr ""
 "Dole navedena poruka će biti automatski poslata svakoj \n"
 "osobi koja vam pošalje poštu dok niste u kancelariji."
 
-#: ../eplugin/exchange-account-setup.c:287
+#: ../eplugin/exchange-account-setup.c:278
 msgid "Status:"
 msgstr "Stanje:"
 
-#: ../eplugin/exchange-account-setup.c:294
-#: ../eplugin/exchange-account-setup.c:299
+#: ../eplugin/exchange-account-setup.c:285
+#: ../eplugin/exchange-account-setup.c:290
 msgid "I am out of the office"
 msgstr "Nisam u kancelariji"
 
-#: ../eplugin/exchange-account-setup.c:295
-#: ../eplugin/exchange-account-setup.c:298
+#: ../eplugin/exchange-account-setup.c:286
+#: ../eplugin/exchange-account-setup.c:289
 msgid "I am in the office"
 msgstr "U kancelariji sam"
 
 #. Security settings
-#: ../eplugin/exchange-account-setup.c:334
+#: ../eplugin/exchange-account-setup.c:325
 msgid "Security"
 msgstr "Bezbednost"
 
 #. Change Password
-#: ../eplugin/exchange-account-setup.c:345
+#: ../eplugin/exchange-account-setup.c:336
 msgid "Change the password for Exchange account"
 msgstr "Izmeni lozinku za nalog razmene"
 
-#: ../eplugin/exchange-account-setup.c:347
-#: ../eplugin/exchange-change-password.c:87
+#: ../eplugin/exchange-account-setup.c:338
+#: ../eplugin/exchange-change-password.c:89
 msgid "Change Password"
 msgstr "Izmenite lozinku"
 
 #. Delegation Assistant
-#: ../eplugin/exchange-account-setup.c:352
+#: ../eplugin/exchange-account-setup.c:343
 msgid "Manage the delegate settings for Exchange account"
 msgstr "Upravljajte dodeljenim podešavanjima za nalog razmene"
 
-#: ../eplugin/exchange-account-setup.c:354
+#: ../eplugin/exchange-account-setup.c:345
 msgid "Delegation Assistant"
 msgstr "Pomoćnik delegiranja"
 
 #. Miscelleneous settings
-#: ../eplugin/exchange-account-setup.c:366
+#: ../eplugin/exchange-account-setup.c:357
 msgid "Miscellaneous"
 msgstr "Razno"
 
 #. Folder Size
-#: ../eplugin/exchange-account-setup.c:376
+#: ../eplugin/exchange-account-setup.c:367
 msgid "View the size of all Exchange folders"
 msgstr "Pregledaj veličinu svih fascikli razmene"
 
-#: ../eplugin/exchange-account-setup.c:378
+#: ../eplugin/exchange-account-setup.c:369
 #: ../eplugin/exchange-folder-size-display.c:188
 msgid "Folder Size"
 msgstr "Veličina fascikle"
 
-#: ../eplugin/exchange-account-setup.c:385
-#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:3
+#: ../eplugin/exchange-account-setup.c:376
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:2
 msgid "Exchange Settings"
 msgstr "Podešavanje razmene"
 
-#: ../eplugin/exchange-account-setup.c:698
+#: ../eplugin/exchange-account-setup.c:670
 msgid "_OWA URL:"
 msgstr "Adresa _OVA:"
 
-#: ../eplugin/exchange-account-setup.c:734
+#: ../eplugin/exchange-account-setup.c:696
 msgid "A_uthenticate"
 msgstr "Potvrdi _identitet"
 
-#: ../eplugin/exchange-account-setup.c:756
+#: ../eplugin/exchange-account-setup.c:718
 msgid "Mailbox name is _different from username"
 msgstr "Naziv sandučeta se _razlikuje od korisničkog imena"
 
-#: ../eplugin/exchange-account-setup.c:772
+#: ../eplugin/exchange-account-setup.c:734
 msgid "_Mailbox:"
 msgstr "_Sanduče:"
 
-#: ../eplugin/exchange-account-setup.c:1006
+#: ../eplugin/exchange-account-setup.c:923
 msgid "_Authentication Type"
 msgstr "Vrsta _prijavljivanja"
 
-#: ../eplugin/exchange-account-setup.c:1020
+#: ../eplugin/exchange-account-setup.c:937
 msgid "Ch_eck for Supported Types"
 msgstr "Proveri za _podržanim vrstama"
 
-#: ../eplugin/exchange-account-setup.c:1136 ../eplugin/exchange-contacts.c:219
+#: ../eplugin/exchange-account-setup.c:1052 ../eplugin/exchange-contacts.c:225
 #, c-format
 msgid "%s KB"
 msgstr "%s KB"
 
-#: ../eplugin/exchange-account-setup.c:1138 ../eplugin/exchange-contacts.c:221
+#: ../eplugin/exchange-account-setup.c:1054 ../eplugin/exchange-contacts.c:227
 #, c-format
 msgid "0 KB"
 msgstr "0 KB"
 
 #. FIXME: Take care of i18n
-#: ../eplugin/exchange-account-setup.c:1143 ../eplugin/exchange-calendar.c:238
-#: ../eplugin/exchange-contacts.c:224
+#: ../eplugin/exchange-account-setup.c:1059 ../eplugin/exchange-calendar.c:244
+#: ../eplugin/exchange-contacts.c:230
 msgid "Size:"
 msgstr "Veličina:"
 
-#: ../eplugin/exchange-calendar.c:198 ../eplugin/exchange-contacts.c:172
+#: ../eplugin/exchange-calendar.c:204 ../eplugin/exchange-contacts.c:178
 msgid ""
 "Evolution is in offline mode. You cannot create or modify folders now.\n"
 "Please switch to online mode for such operations."
@@ -552,30 +580,30 @@ msgstr ""
 "Evolucija nije na mreži. Sada ne možete da pravite ili menjate fascikle.\n"
 "Prebacite se za rad na mreži za takve radnje."
 
-#: ../eplugin/exchange-calendar.c:249 ../eplugin/exchange-contacts.c:241
+#: ../eplugin/exchange-calendar.c:255 ../eplugin/exchange-contacts.c:247
 msgid "_Location:"
 msgstr "_Mesto:"
 
-#: ../eplugin/exchange-change-password.c:97
+#: ../eplugin/exchange-change-password.c:99
 msgid "Your current password has expired. Please change your password now."
 msgstr "Vaša trenutna lozinka je istekla. Izmenite je sada."
 
-#: ../eplugin/exchange-change-password.c:112
+#: ../eplugin/exchange-change-password.c:114
 msgid "Current _Password:"
 msgstr "Trenutna _lozinka:"
 
-#: ../eplugin/exchange-change-password.c:119
+#: ../eplugin/exchange-change-password.c:121
 msgid "_New Password:"
 msgstr "_Nova lozinka:"
 
-#: ../eplugin/exchange-change-password.c:126
+#: ../eplugin/exchange-change-password.c:128
 msgid "_Confirm Password:"
 msgstr "_Potvrdite lozinku:"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
-#: ../eplugin/exchange-change-password.c:177
+#: ../eplugin/exchange-change-password.c:179
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
@@ -583,12 +611,12 @@ msgstr ""
 "Trenutna lozinka se ne podudara sa postojećom lozinkom vašeg naloga. Unesite "
 "ispravnu lozinku"
 
-#: ../eplugin/exchange-change-password.c:184
+#: ../eplugin/exchange-change-password.c:186
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr "Dve lozinke se ne podudaraju. Unesite ih ponovo."
 
 #. Translators: The %d is replaced with the actual number of days
-#: ../eplugin/exchange-config-listener.c:659
+#: ../eplugin/exchange-config-listener.c:661
 #, c-format
 msgid "Your password will expire in the next %d day"
 msgid_plural "Your password will expire in the next %d days"
@@ -597,141 +625,206 @@ msgstr[1] "Vaša lozinka će isteći za %d dana"
 msgstr[2] "Vaša lozinka će isteći za %d dana"
 msgstr[3] "Vaša lozinka će isteći za jedan dan"
 
-#: ../eplugin/exchange-config-listener.c:662
+#: ../eplugin/exchange-config-listener.c:664
 msgid "Password Expiry Warning..."
 msgstr "Upozorenje isteka lozinke..."
 
-#: ../eplugin/exchange-config-listener.c:679
+#: ../eplugin/exchange-config-listener.c:681
 msgid "_Change Password"
 msgstr "_Izmeni lozinku"
 
-#: ../eplugin/exchange-config-listener.c:732
+#: ../eplugin/exchange-config-listener.c:734
 msgid "Out of Office Assistant"
 msgstr "Pomoćnik za van kacelarije"
 
-#: ../eplugin/exchange-config-listener.c:749
+#: ../eplugin/exchange-config-listener.c:751
 msgid "Currently, your status is \"Out of the Office\"."
 msgstr "Trenutno, vaše stanje je „Nisam u kancelariji“."
 
-#: ../eplugin/exchange-config-listener.c:749
+#: ../eplugin/exchange-config-listener.c:751
 msgid "Would you like to change your status to \"In the Office\"?"
 msgstr "Da li želite li da promenite stanje u „U kancelariji sam“?"
 
-#: ../eplugin/exchange-config-listener.c:778
+#: ../eplugin/exchange-config-listener.c:780
 msgid "_No, Don't Change Status"
 msgstr "_Ne, ne menjaj stanje"
 
-#: ../eplugin/exchange-config-listener.c:799
+#: ../eplugin/exchange-config-listener.c:801
 msgid "_Yes, Change Status"
 msgstr "_Da, promeni stanje"
 
-#: ../eplugin/exchange-config-listener.c:830
+#: ../eplugin/exchange-config-listener.c:832
 #, c-format
 msgid "Enter Password for %s"
 msgstr "Unesite lozinku za „%s“"
 
-#: ../eplugin/exchange-delegates-user.c:71 ../eplugin/exchange-folder.c:467
-#: ../server/storage/exchange-hierarchy-foreign.c:263
+#: ../eplugin/exchange-delegates.c:418
+msgid "Delegate To:"
+msgstr "Delegiraj:"
+
+#: ../eplugin/exchange-delegates.c:418
+msgid "Delegate To"
+msgstr "Delegira"
+
+#: ../eplugin/exchange-delegates.c:588
+#, c-format
+msgid "Remove the delegate %s?"
+msgstr "Da uklonim izaslanika „%s“?"
+
+#: ../eplugin/exchange-delegates.c:707
+msgid "Could not access Active Directory"
+msgstr "Ne mogu da pristupim aktivnom direktorijumu"
+
+#: ../eplugin/exchange-delegates.c:719
+msgid "Could not find self in Active Directory"
+msgstr "Ne mogu da se pronađem u aktivnom direktorijumu"
+
+#: ../eplugin/exchange-delegates.c:732
+#, c-format
+msgid "Could not find delegate %s in Active Directory"
+msgstr "Ne mogu da pronađem izaslanika „%s“ u aktivnom direktorijumu"
+
+#: ../eplugin/exchange-delegates.c:744
+#, c-format
+msgid "Could not remove delegate %s"
+msgstr "Ne mogu da uklonim izaslanika „%s“"
+
+#: ../eplugin/exchange-delegates.c:804
+msgid "Could not update list of delegates."
+msgstr "Ne mogu da osvežim spisak izaslanika."
+
+#: ../eplugin/exchange-delegates.c:822
+#, c-format
+msgid "Could not add delegate %s"
+msgstr "Ne mogu da dodam izaslanika „%s“"
+
+#: ../eplugin/exchange-delegates.c:942
+msgid "Delegates"
+msgstr "Izaslanici"
+
+#: ../eplugin/exchange-delegates.c:957
+msgid ""
+"These users will be able to send mail on your behalf\n"
+"and access your folders with the permissions you give them."
+msgstr ""
+"Ovi korisnici će moći da šalju poštu u vaše ime\n"
+"i da pristupaju fasciklama sa ovlašćenjima koja im date."
+
+#: ../eplugin/exchange-delegates.c:981
+msgid "_Edit"
+msgstr "_Uređivanje"
+
+#: ../eplugin/exchange-delegates.c:1011
+#: ../eplugin/exchange-permissions-dialog.c:926
+msgid "Name"
+msgstr "Ime"
+
+#: ../eplugin/exchange-delegates.c:1037
+msgid "Error reading delegates list."
+msgstr "Greška pri čitanju spiska izaslanika."
+
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:465
+#: ../server/storage/exchange-hierarchy-foreign.c:264
 msgid "Calendar"
 msgstr "Kalendar"
 
-#: ../eplugin/exchange-delegates-user.c:71 ../eplugin/exchange-folder.c:470
-#: ../server/storage/exchange-hierarchy-foreign.c:272
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:468
+#: ../server/storage/exchange-hierarchy-foreign.c:273
 msgid "Tasks"
 msgstr "Zaduženja"
 
-#: ../eplugin/exchange-delegates-user.c:71 ../eplugin/exchange-folder.c:465
-#: ../server/storage/exchange-hierarchy-foreign.c:267
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:463
+#: ../server/storage/exchange-hierarchy-foreign.c:268
 msgid "Inbox"
 msgstr "Sanduče"
 
-#: ../eplugin/exchange-delegates-user.c:71 ../eplugin/exchange-folder.c:473
-#: ../server/storage/exchange-hierarchy-foreign.c:264
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:471
+#: ../server/storage/exchange-hierarchy-foreign.c:265
 msgid "Contacts"
 msgstr "Kontakti"
 
-#: ../eplugin/exchange-delegates-user.c:141
-#: ../eplugin/exchange-permissions-dialog.c:550
-#: ../server/lib/e2k-security-descriptor.c:915
+#: ../eplugin/exchange-delegates-user.c:142
+#: ../eplugin/exchange-permissions-dialog.c:552
+#: ../server/lib/e2k-security-descriptor.c:917
 msgid "Custom"
 msgstr "Prilagođeno"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:165
-#: ../eplugin/exchange-delegates-user.c:319
-#: ../eplugin/exchange-delegates-user.c:329
-#: ../eplugin/exchange-delegates-user.c:339
-#: ../eplugin/exchange-delegates-user.c:349
+#: ../eplugin/exchange-delegates-user.c:166
+#: ../eplugin/exchange-delegates-user.c:333
+#: ../eplugin/exchange-delegates-user.c:343
+#: ../eplugin/exchange-delegates-user.c:353
+#: ../eplugin/exchange-delegates-user.c:363
 msgid "Editor (read, create, edit)"
 msgstr "Uređivač (čita, pravi, uređuje)"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:170
-#: ../eplugin/exchange-delegates-user.c:318
-#: ../eplugin/exchange-delegates-user.c:328
-#: ../eplugin/exchange-delegates-user.c:338
-#: ../eplugin/exchange-delegates-user.c:348
+#: ../eplugin/exchange-delegates-user.c:171
+#: ../eplugin/exchange-delegates-user.c:332
+#: ../eplugin/exchange-delegates-user.c:342
+#: ../eplugin/exchange-delegates-user.c:352
+#: ../eplugin/exchange-delegates-user.c:362
 msgid "Author (read, create)"
 msgstr "Autor (čita, pravi)"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:175
-#: ../eplugin/exchange-delegates-user.c:317
-#: ../eplugin/exchange-delegates-user.c:327
-#: ../eplugin/exchange-delegates-user.c:337
-#: ../eplugin/exchange-delegates-user.c:347
+#: ../eplugin/exchange-delegates-user.c:176
+#: ../eplugin/exchange-delegates-user.c:331
+#: ../eplugin/exchange-delegates-user.c:341
+#: ../eplugin/exchange-delegates-user.c:351
+#: ../eplugin/exchange-delegates-user.c:361
 msgid "Reviewer (read-only)"
 msgstr "Recenzent (samo čita)"
 
-#: ../eplugin/exchange-delegates-user.c:179
-#: ../eplugin/exchange-delegates-user.c:316
-#: ../eplugin/exchange-delegates-user.c:326
-#: ../eplugin/exchange-delegates-user.c:336
-#: ../eplugin/exchange-delegates-user.c:346
-#: ../server/lib/e2k-security-descriptor.c:900
+#: ../eplugin/exchange-delegates-user.c:180
+#: ../eplugin/exchange-delegates-user.c:330
+#: ../eplugin/exchange-delegates-user.c:340
+#: ../eplugin/exchange-delegates-user.c:350
+#: ../eplugin/exchange-delegates-user.c:360
+#: ../server/lib/e2k-security-descriptor.c:902
 msgid "None"
 msgstr "Ništa"
 
 #. Translators: "Delegate Permissions" refers to the permissions on the delegator's folders
 #. * that the delegatee would receive
-#: ../eplugin/exchange-delegates-user.c:246
+#: ../eplugin/exchange-delegates-user.c:260
 msgid "Delegate Permissions"
 msgstr "Ovlašćenja izaslanika"
 
-#: ../eplugin/exchange-delegates-user.c:264
+#: ../eplugin/exchange-delegates-user.c:278
 msgid "Permissions for"
 msgstr "Ovlašćenja za"
 
 #. Translators: This is used for permissions for <user> for the folder Calendar.
-#: ../eplugin/exchange-delegates-user.c:276
+#: ../eplugin/exchange-delegates-user.c:290
 msgid "C_alendar:"
 msgstr "K_alendar:"
 
 #. Translators: This is used for permissions for <user> for the folder Tasks.
-#: ../eplugin/exchange-delegates-user.c:285
+#: ../eplugin/exchange-delegates-user.c:299
 msgid "_Tasks:"
 msgstr "Za_duženja:"
 
 #. Translators: This is used for permissions for <user> for the folder Inbox.
-#: ../eplugin/exchange-delegates-user.c:294
+#: ../eplugin/exchange-delegates-user.c:308
 msgid "_Inbox:"
 msgstr "_Sanduče:"
 
 #. Translators: This is used for permissions for <user> for the folder Contacts.
-#: ../eplugin/exchange-delegates-user.c:303
+#: ../eplugin/exchange-delegates-user.c:317
 msgid "Co_ntacts:"
 msgstr "Ko_ntakti:"
 
-#: ../eplugin/exchange-delegates-user.c:351
+#: ../eplugin/exchange-delegates-user.c:365
 msgid "_Summarize permissions"
 msgstr "_Napravi pregled ovlašćenja"
 
-#: ../eplugin/exchange-delegates-user.c:355
+#: ../eplugin/exchange-delegates-user.c:369
 msgid "_Delegate can see private items"
 msgstr "_Izaslanik može da vidi lične predmete"
 
-#: ../eplugin/exchange-delegates-user.c:361
-#: ../eplugin/exchange-permissions-dialog.c:165
+#: ../eplugin/exchange-delegates-user.c:375
+#: ../eplugin/exchange-permissions-dialog.c:167
 #, c-format
 msgid "Permissions for %s"
 msgstr "Ovlašćenja za „%s“"
@@ -739,7 +832,7 @@ msgstr "Ovlašćenja za „%s“"
 #. To translators: This is a part of the message to be sent to the delegatee
 #. * summarizing the permissions assigned to him.
 #.
-#: ../eplugin/exchange-delegates-user.c:452
+#: ../eplugin/exchange-delegates-user.c:466
 msgid ""
 "This message was sent automatically by Evolution to inform you that you have "
 "been designated as a delegate. You can now send messages on my behalf."
@@ -749,130 +842,77 @@ msgstr ""
 
 #. To translators: Another chunk of the same message.
 #.
-#: ../eplugin/exchange-delegates-user.c:457
+#: ../eplugin/exchange-delegates-user.c:471
 msgid "You have been given the following permissions on my folders:"
 msgstr "Dodeljena su vam sledeća ovlašćenja nad mojim fasciklama:"
 
-#: ../eplugin/exchange-delegates-user.c:485
+#: ../eplugin/exchange-delegates-user.c:499
 msgid "You are also permitted to see my private items."
 msgstr "Takođe ste ovlašćeni da vidite moje privatne stavke."
 
-#: ../eplugin/exchange-delegates-user.c:494
+#: ../eplugin/exchange-delegates-user.c:508
 msgid "However, you are not permitted to see my private items."
 msgstr "Međutim, vama nije dozvoljeno da vidite moje privatne stavke."
 
-#: ../eplugin/exchange-delegates-user.c:531
+#: ../eplugin/exchange-delegates-user.c:545
 #, c-format
 msgid "You have been designated as a delegate for %s"
 msgstr "Određeni ste za izaslanika za „%s“"
 
-#: ../eplugin/exchange-delegates.c:416
-msgid "Delegate To:"
-msgstr "Delegiraj:"
-
-#: ../eplugin/exchange-delegates.c:416
-msgid "Delegate To"
-msgstr "Delegira"
-
-#: ../eplugin/exchange-delegates.c:586
+#: ../eplugin/exchange-folder.c:348 ../eplugin/exchange-folder.c:404
 #, c-format
-msgid "Remove the delegate %s?"
-msgstr "Da uklonim izaslanika „%s“?"
+msgid "Really unsubscribe from folder \"%s\"?"
+msgstr "Da se zaista odjavim sa fascikle „%s“?"
 
-#: ../eplugin/exchange-delegates.c:705
-msgid "Could not access Active Directory"
-msgstr "Ne mogu da pristupim aktivnom direktorijumu"
-
-#: ../eplugin/exchange-delegates.c:717
-msgid "Could not find self in Active Directory"
-msgstr "Ne mogu da se pronađem u aktivnom direktorijumu"
-
-#: ../eplugin/exchange-delegates.c:730
+#: ../eplugin/exchange-folder.c:361 ../eplugin/exchange-folder.c:417
 #, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "Ne mogu da pronađem izaslanika „%s“ u aktivnom direktorijumu"
+msgid "Unsubscribe from \"%s\""
+msgstr "Odjavi se sa „%s“"
 
-#: ../eplugin/exchange-delegates.c:742
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "Ne mogu da uklonim izaslanika „%s“"
-
-#: ../eplugin/exchange-delegates.c:802
-msgid "Could not update list of delegates."
-msgstr "Ne mogu da osvežim spisak izaslanika."
-
-#: ../eplugin/exchange-delegates.c:820
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "Ne mogu da dodam izaslanika „%s“"
-
-#: ../eplugin/exchange-delegates.c:940
-msgid "Delegates"
-msgstr "Izaslanici"
-
-#: ../eplugin/exchange-delegates.c:955
-msgid ""
-"These users will be able to send mail on your behalf\n"
-"and access your folders with the permissions you give them."
-msgstr ""
-"Ovi korisnici će moći da šalju poštu u vaše ime\n"
-"i da pristupaju fasciklama sa ovlašćenjima koja im date."
-
-#: ../eplugin/exchange-delegates.c:979
-msgid "_Edit"
-msgstr "_Uređivanje"
-
-#: ../eplugin/exchange-delegates.c:1009
-#: ../eplugin/exchange-permissions-dialog.c:924
-msgid "Name"
-msgstr "Ime"
-
-#: ../eplugin/exchange-delegates.c:1035
-msgid "Error reading delegates list."
-msgstr "Greška pri čitanju spiska izaslanika."
-
-#: ../eplugin/exchange-folder-permission.c:245
-#: ../eplugin/exchange-folder-permission.c:531
-#: ../eplugin/exchange-folder-permission.c:566
-#: ../eplugin/exchange-folder-permission.c:601
+#: ../eplugin/exchange-folder-permission.c:246
+#: ../eplugin/exchange-folder-permission.c:532
+#: ../eplugin/exchange-folder-permission.c:567
+#: ../eplugin/exchange-folder-permission.c:602
 msgid "Permissions..."
 msgstr "Ovlašćenja..."
 
-#: ../eplugin/exchange-folder-permission.c:247
+#: ../eplugin/exchange-folder-permission.c:248
 msgid "Check folder permissions"
 msgstr "Proverite ovlašćenja nad fasciklama"
 
-#: ../eplugin/exchange-folder-permission.c:252
-#: ../eplugin/exchange-folder-permission.c:538
-#: ../eplugin/exchange-folder-permission.c:573
-#: ../eplugin/exchange-folder-permission.c:608
-msgid "Subscribe to Other User's Folder..."
+#: ../eplugin/exchange-folder-permission.c:253
+#: ../eplugin/exchange-folder-permission.c:539
+#: ../eplugin/exchange-folder-permission.c:574
+#: ../eplugin/exchange-folder-permission.c:609
+#| msgid "Subscribe to Other User's Folder..."
+msgid "Subscribe to folder of other user..."
 msgstr "Prijavi se na fasciklu drugog korisnika..."
 
-#: ../eplugin/exchange-folder-permission.c:254
-#: ../eplugin/exchange-folder-permission.c:540
-#: ../eplugin/exchange-folder-permission.c:575
-#: ../eplugin/exchange-folder-permission.c:610
-#: ../eplugin/exchange-folder-subscription.c:317
-msgid "Subscribe to Other User's Folder"
-msgstr "Prijavite se na fasciklu drugog korisnika"
+#: ../eplugin/exchange-folder-permission.c:255
+#: ../eplugin/exchange-folder-permission.c:541
+#: ../eplugin/exchange-folder-permission.c:576
+#: ../eplugin/exchange-folder-permission.c:611
+#: ../eplugin/exchange-folder-subscription.c:319
+#| msgid "Subscribe to a folder belonging to some other user on the server"
+msgid "Subscribe to folder of other user"
+msgstr "Prijavite se na fasciklu koja pripada nekom drugom korisniku"
 
-#: ../eplugin/exchange-folder-permission.c:259
-#: ../eplugin/exchange-folder-permission.c:545
-#: ../eplugin/exchange-folder-permission.c:580
-#: ../eplugin/exchange-folder-permission.c:615
+#: ../eplugin/exchange-folder-permission.c:260
+#: ../eplugin/exchange-folder-permission.c:546
+#: ../eplugin/exchange-folder-permission.c:581
+#: ../eplugin/exchange-folder-permission.c:616
 msgid "Unsubscribe Folder..."
 msgstr "Odjavi se sa fascikle..."
 
-#: ../eplugin/exchange-folder-permission.c:533
+#: ../eplugin/exchange-folder-permission.c:534
 msgid "Check calendar permissions"
 msgstr "Proverite ovlašćenja nad kalendarom"
 
-#: ../eplugin/exchange-folder-permission.c:568
+#: ../eplugin/exchange-folder-permission.c:569
 msgid "Check tasks permissions"
 msgstr "Proverite ovlašćenja nad zadacima"
 
-#: ../eplugin/exchange-folder-permission.c:603
+#: ../eplugin/exchange-folder-permission.c:604
 msgid "Check address book permissions"
 msgstr "Proverite dozvole nad adresarom"
 
@@ -890,219 +930,201 @@ msgid "Folder Name"
 msgstr "Naziv fascikle"
 
 #. FIXME Limit to one user
-#: ../eplugin/exchange-folder-subscription.c:77
+#: ../eplugin/exchange-folder-subscription.c:79
 msgid "User"
 msgstr "Korisnik"
 
-#: ../eplugin/exchange-folder-subscription.c:333
+#: ../eplugin/exchange-folder-subscription.c:335
 msgid "_Account:"
 msgstr "_Nalog:"
 
-#: ../eplugin/exchange-folder-subscription.c:340
+#: ../eplugin/exchange-folder-subscription.c:342
 msgid "_Folder Name:"
 msgstr "Naziv _fascikle:"
 
-#: ../eplugin/exchange-folder-subscription.c:353
+#: ../eplugin/exchange-folder-subscription.c:355
 msgid "_User:"
 msgstr "_Korisnik:"
 
-#: ../eplugin/exchange-folder.c:350 ../eplugin/exchange-folder.c:406
-#, c-format
-msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "Da se zaista odjavim sa fascikle „%s“?"
-
-#: ../eplugin/exchange-folder.c:363 ../eplugin/exchange-folder.c:419
-#, c-format
-msgid "Unsubscribe from \"%s\""
-msgstr "Odjavi se sa „%s“"
-
-#: ../eplugin/exchange-mail-send-options.c:226
+#: ../eplugin/exchange-mail-send-options.c:231
 msgid "_Send Options"
 msgstr "Opcije za _slanje"
 
-#: ../eplugin/exchange-mail-send-options.c:228
+#: ../eplugin/exchange-mail-send-options.c:233
 msgid "Insert Send options"
 msgstr "Umetnite opcije za slanje"
 
 #. FIXME: Don't hardcode this
-#: ../eplugin/exchange-operations.c:128 ../eplugin/exchange-operations.c:177
-#: ../server/storage/exchange-account.c:1308
+#: ../eplugin/exchange-operations.c:132 ../eplugin/exchange-operations.c:181
+#: ../server/storage/exchange-account.c:1310
 msgid "Personal Folders"
 msgstr "Lične fascikle"
 
-#: ../eplugin/exchange-permissions-dialog.c:276
+#: ../eplugin/exchange-permissions-dialog.c:278
 msgid "(Permission denied.)"
 msgstr "(Zabranjen pristup.)"
 
-#: ../eplugin/exchange-permissions-dialog.c:387
+#: ../eplugin/exchange-permissions-dialog.c:389
 msgid "Add User:"
 msgstr "Dodaj korisnika:"
 
-#: ../eplugin/exchange-permissions-dialog.c:387
-#: ../eplugin/exchange-send-options.c:476
+#: ../eplugin/exchange-permissions-dialog.c:389
+#: ../eplugin/exchange-send-options.c:478
 msgid "Add User"
 msgstr "Dodajte korisnika"
 
-#: ../eplugin/exchange-permissions-dialog.c:800
+#: ../eplugin/exchange-permissions-dialog.c:802
 msgid "Permissions"
 msgstr "Ovlašćenja"
 
-#: ../eplugin/exchange-permissions-dialog.c:817
+#: ../eplugin/exchange-permissions-dialog.c:819
 msgid "Role: "
 msgstr "Uloga: "
 
-#: ../eplugin/exchange-permissions-dialog.c:843
+#: ../eplugin/exchange-permissions-dialog.c:845
 msgid "Create items"
 msgstr "Napravite predmete"
 
-#: ../eplugin/exchange-permissions-dialog.c:847
+#: ../eplugin/exchange-permissions-dialog.c:849
 msgid "Read items"
 msgstr "Pročitajte predmete"
 
-#: ../eplugin/exchange-permissions-dialog.c:851
+#: ../eplugin/exchange-permissions-dialog.c:853
 msgid "Create subfolders"
 msgstr "Napravite podfascikle"
 
-#: ../eplugin/exchange-permissions-dialog.c:859
+#: ../eplugin/exchange-permissions-dialog.c:861
 msgid "Cannot Edit"
 msgstr "Ne mogu da uređujem"
 
-#: ../eplugin/exchange-permissions-dialog.c:865
+#: ../eplugin/exchange-permissions-dialog.c:867
 msgid "Edit Own Items"
 msgstr "Uredite svoje predmete"
 
-#: ../eplugin/exchange-permissions-dialog.c:871
+#: ../eplugin/exchange-permissions-dialog.c:873
 msgid "Edit Any Items"
 msgstr "Uredite sve predmete"
 
-#: ../eplugin/exchange-permissions-dialog.c:885
+#: ../eplugin/exchange-permissions-dialog.c:887
 msgid "Folder owner"
 msgstr "Vlasnik fascikle"
 
-#: ../eplugin/exchange-permissions-dialog.c:889
+#: ../eplugin/exchange-permissions-dialog.c:891
 msgid "Folder contact"
 msgstr "Kontakt za fasciklu"
 
-#: ../eplugin/exchange-permissions-dialog.c:893
+#: ../eplugin/exchange-permissions-dialog.c:895
 msgid "Folder visible"
 msgstr "Fascikla je vidljiva"
 
-#: ../eplugin/exchange-permissions-dialog.c:901
+#: ../eplugin/exchange-permissions-dialog.c:903
 msgid "Cannot Delete"
 msgstr "Ne mogu da obrišem"
 
-#: ../eplugin/exchange-permissions-dialog.c:908
+#: ../eplugin/exchange-permissions-dialog.c:910
 msgid "Delete Own Items"
 msgstr "Obriši svoje predmete"
 
-#: ../eplugin/exchange-permissions-dialog.c:914
+#: ../eplugin/exchange-permissions-dialog.c:916
 msgid "Delete Any Items"
 msgstr "Obriši sve predmete"
 
-#: ../eplugin/exchange-permissions-dialog.c:928
+#: ../eplugin/exchange-permissions-dialog.c:930
 msgid "Role"
 msgstr "Uloga"
 
-#: ../eplugin/exchange-send-options.c:344
+#: ../eplugin/exchange-send-options.c:346
 msgid "Exchange - Send Options"
 msgstr "Razmena — opcije za slanje"
 
-#: ../eplugin/exchange-send-options.c:365
+#: ../eplugin/exchange-send-options.c:367
 msgid "Message Settings"
 msgstr "Podešavanja poruke"
 
-#: ../eplugin/exchange-send-options.c:379
+#: ../eplugin/exchange-send-options.c:381
 msgid "I_mportance: "
-msgstr "Važ_nost:"
+msgstr "Važ_nost: "
 
 #. Translators: Here's set a message sensitivity, which means for exchange
 #. * one of Normal, Personal, Private, Confidential.
-#: ../eplugin/exchange-send-options.c:388
+#: ../eplugin/exchange-send-options.c:390
 msgid "_Sensitivity: "
-msgstr "_Osetljivost:"
+msgstr "_Osetljivost: "
 
-#: ../eplugin/exchange-send-options.c:400
-#: ../eplugin/exchange-send-options.c:410
+#: ../eplugin/exchange-send-options.c:402
+#: ../eplugin/exchange-send-options.c:412
 msgid "Normal"
 msgstr "Obična"
 
-#: ../eplugin/exchange-send-options.c:401
+#: ../eplugin/exchange-send-options.c:403
 msgid "Personal"
 msgstr "Lična"
 
-#: ../eplugin/exchange-send-options.c:402
+#: ../eplugin/exchange-send-options.c:404
 msgid "Private"
 msgstr "Privatna"
 
-#: ../eplugin/exchange-send-options.c:403
+#: ../eplugin/exchange-send-options.c:405
 msgid "Confidential"
 msgstr "Poverljiva"
 
-#: ../eplugin/exchange-send-options.c:411
+#: ../eplugin/exchange-send-options.c:413
 msgid "High"
 msgstr "Visoka"
 
-#: ../eplugin/exchange-send-options.c:412
+#: ../eplugin/exchange-send-options.c:414
 msgid "Low"
 msgstr "Niska"
 
-#: ../eplugin/exchange-send-options.c:414
+#: ../eplugin/exchange-send-options.c:416
 msgid "Send as Delegate"
 msgstr "Pošalji kao izaslanik"
 
-#: ../eplugin/exchange-send-options.c:431
+#: ../eplugin/exchange-send-options.c:433
 msgid "_User"
 msgstr "_Korisnik"
 
-#: ../eplugin/exchange-send-options.c:439
+#: ../eplugin/exchange-send-options.c:441
 msgid "Tracking Options"
 msgstr "Opcije praćenja"
 
-#: ../eplugin/exchange-send-options.c:447
+#: ../eplugin/exchange-send-options.c:449
 msgid "Request a _delivery receipt for this message"
 msgstr "Zahtevaj _dostavnicu za ovu poruku"
 
-#: ../eplugin/exchange-send-options.c:452
+#: ../eplugin/exchange-send-options.c:454
 msgid "Request a _read receipt for this message"
 msgstr "Zahtevaj _priznanicu za ovu poruku"
 
-#: ../eplugin/exchange-user-dialog.c:138
+#: ../eplugin/exchange-user-dialog.c:140
 msgid "Select User"
 msgstr "Izaberite korisnika"
 
-#: ../eplugin/exchange-user-dialog.c:177
+#: ../eplugin/exchange-user-dialog.c:179
 msgid "Address Book..."
 msgstr "Adresar..."
 
 #: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:1
-msgid "Activates the Evolution-Exchange extension package."
-msgstr "Aktivirajte paket proširenja razmene Evolucije."
-
-#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:2
 msgid "Exchange Operations"
 msgstr "Operacije razmene"
 
-#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:4
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:3
 msgid "Size"
 msgstr "Veličina"
 
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:4
+msgid "Activates the Evolution-Exchange extension package."
+msgstr "Aktivirajte paket proširenja razmene Evolucije."
+
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:1
-msgid "Cannot access the \"Exchange settings\" tab in offline mode."
-msgstr "Ne mogu da pristupim jezičku „Podešavanja razmen“ u režimu van mreže."
+msgid "You may only configure a single Exchange account."
+msgstr "Možete podesiti samo jedan nalog razmene."
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:2
-msgid "Cannot change password due to configuration problems."
-msgstr "Ne mogu da izmenim lozinku usled problema sa podešavanjem."
+msgid "Please restart Evolution for changes to take effect"
+msgstr "Ponovo pokrenite Evoluciju da bi izmene stupile na snagu"
 
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:3
-msgid "Cannot display folders."
-msgstr "Ne mogu da prikažem fascikle."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:4
-msgid "Cannot perform the operation."
-msgstr "Ne mogu da izvršim radnju."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:5
 msgid ""
 "Changes to options for Exchange account \"{0}\" will only take effect after "
 "restarting Evolution."
@@ -1110,79 +1132,173 @@ msgstr ""
 "Izmene opcija naloga razmene „{0}“ će stupiti na snagu kada ponovo pokrenete "
 "Evoluciju."
 
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:4
+msgid "The Exchange account will be removed when you quit Evolution"
+msgstr "Nalog razmene će biti uklonjen kada zatvorite Evoluciju"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:5
+msgid "The Exchange account will be disabled when you quit Evolution"
+msgstr "Nalog razmene će biti onemogućen kada zatvorite Evoluciju"
+
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:6
-msgid "Could not authenticate to server."
-msgstr "Ne mogu da se prijavim na server."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:7
-msgid "Could not change password."
-msgstr "Ne mogu da izmenim lozinku."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:8
-msgid ""
-"Could not configure Exchange account because \n"
-"an unknown error occurred. Check the URL, \n"
-"username and password, and try again."
-msgstr ""
-"Ne mogu da podesim nalog za razmenu zato što \n"
-"je došlo do nepoznate greške. Proverite adresu, \n"
-"korisničko ime i lozinku, pa pokušajte ponovo."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:11
-msgid "Could not connect to Exchange server."
-msgstr "Ne mogu da se povežem na server razmeen."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:12
-msgid "Could not connect to server {0}."
-msgstr "Ne mogu da se povežem na server {0}."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:13
-msgid "Could not determine folder permissions for delegates."
-msgstr "Ne mogu da odredim ovlašćenja fascikle za izaslanike."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:14
-msgid "Could not find Exchange Web Storage System."
-msgstr "Ne mogu da pronađem sistem čuvanja razmene na vebu."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:15
-msgid "Could not locate server {0}."
-msgstr "Ne mogu da pronađem server {0}."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:16
-msgid "Could not make {0} a delegate"
-msgstr "Ne mogu da učinim „{0}“ izaslanikom"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:17
-msgid "Could not read folder permissions"
-msgstr "Ne mogu da pročitam ovlašćenja fascikle"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:18
-msgid "Could not read folder permissions."
-msgstr "Ne mogu da pročitam ovlašćenja za fasciklu."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:19
 msgid "Could not read out-of-office state"
 msgstr "Ne mogu da pročitam stanje za van-kancelarije"
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:20
-msgid "Could not update folder permissions."
-msgstr "Ne mogu da osvežim ovlašćenja za fasciklu."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:21
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:7
 msgid "Could not update out-of-office state"
 msgstr "Ne mogu da osvežim stanje za van-kancelarije"
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:22
-msgid "Evolution requires a restart to load the subscribed user's mailbox"
-msgstr ""
-"Evolucija zahteva ponovno pokretanje radi učitavanja sandučeta prijavljenog "
-"korisnika"
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:8
+msgid "Cannot change password due to configuration problems."
+msgstr "Ne mogu da izmenim lozinku usled problema sa podešavanjem."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:23
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:9
+msgid "Server rejected password because it is too weak."
+msgstr "Server je odbio lozinku zato što je preslaba."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:10
+msgid "Try again with a different password."
+msgstr "Pokušajte ponovo drugom lozinkom."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:11
+msgid "Could not change password."
+msgstr "Ne mogu da izmenim lozinku."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:12
+msgid "Password successfully changed."
+msgstr "Lozinka je uspešno izmenjena."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:13
 msgid "Exchange Account is offline."
 msgstr "Nalog razmene je van mreže."
 
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:14
+msgid "Cannot display folders."
+msgstr "Ne mogu da prikažem fascikle."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:15
+msgid "Cannot access the \"Exchange settings\" tab in offline mode."
+msgstr "Ne mogu da pristupim jezičku „Podešavanja razmen“ u režimu van mreže."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:16
+msgid "Cannot perform the operation."
+msgstr "Ne mogu da izvršim radnju."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:17
+msgid "Could not authenticate to server."
+msgstr "Ne mogu da se prijavim na server."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:18
+msgid "Make sure the username and password are correct and try again."
+msgstr ""
+"Proverite da li su korisničko ime i lozinka ispravni i pokušajte ponovo."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:19
+msgid ""
+"This probably means that your server requires \n"
+"you to specify the Windows domain name \n"
+"as part of your username (eg, &quot;DOMAIN\\user&quot;).\n"
+"\n"
+"Also, you may have typed your password incorrectly."
+msgstr ""
+"Ovo verovatno znači da vaš server zahteva da \n"
+"navedete naziv Vindouz domena kao deo vašeg \n"
+"korisničkog imena (npr. „DOMEN\\korisnik“).\n"
+"\n"
+"Ili ste možda samo pogrešno ukucali lozinku."
+
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:24
+msgid "Mailbox for {0} is not on this server."
+msgstr "Poštansko sanduče za „{0}“ nije na ovom serveru."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:25
+msgid "The Exchange server is not compatible with Exchange Connector."
+msgstr "Server razmene nije saglasan sa spajačem razmene."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:26
+msgid ""
+"The server is running Exchange 5.5. Exchange Connector \n"
+"supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"Na serveru je pokrenut Spajač razmene 5.5. razmene \n"
+"podržava samo Majkrosoftvou razmenu 2000 i 2003."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:28
+msgid "Could not find Exchange Web Storage System."
+msgstr "Ne mogu da pronađem sistem čuvanja razmene na vebu."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:29
+msgid ""
+"If OWA is running on a different path, you must specify that in the account "
+"configuration dialog."
+msgstr ""
+"Ukoliko OVA radi na drugoj putanji, morate je navesti u podešavanju naloga."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:30
+msgid "No mailbox for user {0} on {1}."
+msgstr "Nema poštanskog sandučeta za korisnika {0} na {1}."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:31
+msgid "Could not locate server {0}."
+msgstr "Ne mogu da pronađem server {0}."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:32
+msgid "Make sure the server name is spelled correctly and try again."
+msgstr "Proverite da li je naziv servera ispravno upisan i pokušajte ponovo."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:33
+msgid "Could not connect to server {0}."
+msgstr "Ne mogu da se povežem na server {0}."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:34
+msgid "Make sure the URL is correct and try again."
+msgstr "Proverite da li je adresa ispravna i pokušajte ponovo."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:35
+msgid "Your password has expired."
+msgstr "Vaša lozinka je istekla."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:36
+msgid "Unknown error."
+msgstr "Nepoznata greška."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
+msgid "You have exceeded your quota for storing mail on this server."
+msgstr "Premašili ste kvotu za smeštaj pošte na ovom serveru."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:38
+msgid ""
+"Your current usage is: {0} KB. You will not be able to either send or "
+"receive mail now."
+msgstr ""
+"Trenutna iskorišćenost iznosi: {0} KB. Sada nećete moći ni da šaljete ni da "
+"primate poštu."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:39
+msgid "You are nearing your quota available for storing mail on this server."
+msgstr "Približavate se ispunjenju kvote za smeštaj pošte na ovom serveru."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
+msgid ""
+"Your current usage is: {0} KB. You will not be able to send mail until you "
+"clear up some space by deleting some mail."
+msgstr ""
+"Trenutna iskorišćenost iznosi: {0} KB. Nećete moći da šaljete poštu dok ne "
+"očistite malo prostora brisanjem dela pošte."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:41
+msgid ""
+"Your current usage is: {0} KB. Try to clear up some space by deleting some "
+"mail."
+msgstr ""
+"Trenutna iskorišćenost iznosi: {0} KB. Pokušajte da očistite malo prostora "
+"brisanjem neke pošte."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:42
+msgid "Could not connect to Exchange server."
+msgstr "Ne mogu da se povežem na server razmeen."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:43
 msgid ""
 "Exchange Connector requires access to certain\n"
 "functionality on the Exchange Server that appears\n"
@@ -1210,149 +1326,65 @@ msgstr ""
 "{0}\n"
 "  "
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:36
-msgid "Failed to update delegates:"
-msgstr "Nisam uspeo da ažuriram izaslanike:"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:38
-msgid "Folder does not exist"
-msgstr "Fascikla ne postoji"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:39
-msgid "Folder offline"
-msgstr "Fascikla je van mreže"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:41
-msgid "Global Catalog Server is not reachable"
-msgstr "Server opšteg kataloga nije dostupan"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:42
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:55
 msgid ""
-"If OWA is running on a different path, you must specify that in the account "
-"configuration dialog."
+"Could not configure Exchange account because \n"
+"an unknown error occurred. Check the URL, \n"
+"username and password, and try again."
 msgstr ""
-"Ukoliko OVA radi na drugoj putanji, morate je navesti u podešavanju naloga."
+"Ne mogu da podesim nalog za razmenu zato što \n"
+"je došlo do nepoznate greške. Proverite adresu, \n"
+"korisničko ime i lozinku, pa pokušajte ponovo."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:43
-msgid "Mailbox for {0} is not on this server."
-msgstr "Poštansko sanduče za „{0}“ nije na ovom serveru."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:44
-msgid "Make sure the URL is correct and try again."
-msgstr "Proverite da li je adresa ispravna i pokušajte ponovo."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:45
-msgid "Make sure the server name is spelled correctly and try again."
-msgstr "Proverite da li je naziv servera ispravno upisan i pokušajte ponovo."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:46
-msgid "Make sure the username and password are correct and try again."
-msgstr ""
-"Proverite da li su korisničko ime i lozinka ispravni i pokušajte ponovo."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:47
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:58
 msgid "No Global Catalog server configured for this account."
 msgstr "Nije podešen server opšteg kataloga za ovaj nalog."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:48
-msgid "No mailbox for user {0} on {1}."
-msgstr "Nema poštanskog sandučeta za korisnika {0} na {1}."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:49
-msgid "No such user {0}"
-msgstr "Nema takvog korisnika {0}"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:50
-msgid "Password successfully changed."
-msgstr "Lozinka je uspešno izmenjena."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:52
-msgid "Please enter a Delegate's ID or deselect the Send as a Delegate option."
-msgstr "Unesite IB izaslanika ili isključite opciju „Pošalji kao izaslanik“."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:53
-msgid "Please make sure the Global Catalog Server name is correct."
-msgstr "Proverite da li je ispavan naziv servera opšteg kataloga."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:54
-msgid "Please restart Evolution for changes to take effect"
-msgstr "Ponovo pokrenite Evoluciju da bi izmene stupile na snagu"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:55
-msgid "Please select a user."
-msgstr "Izaberite korisnika."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:56
-msgid "Server rejected password because it is too weak."
-msgstr "Server je odbio lozinku zato što je preslaba."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:57
-msgid "The Exchange account will be disabled when you quit Evolution"
-msgstr "Nalog razmene će biti onemogućen kada zatvorite Evoluciju"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:58
-msgid "The Exchange account will be removed when you quit Evolution"
-msgstr "Nalog razmene će biti uklonjen kada zatvorite Evoluciju"
-
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:59
-msgid "The Exchange server is not compatible with Exchange Connector."
-msgstr "Server razmene nije saglasan sa spajačem razmene."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:60
-msgid ""
-"The server is running Exchange 5.5. Exchange Connector \n"
-"supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"Na serveru je pokrenut Spajač razmene 5.5. razmene \n"
-"podržava samo Majkrosoftvou razmenu 2000 i 2003."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:62
-msgid ""
-"This probably means that your server requires \n"
-"you to specify the Windows domain name \n"
-"as part of your username (eg, &quot;DOMAIN\\user&quot;).\n"
-"\n"
-"Also, you may have typed your password incorrectly."
-msgstr ""
-"Ovo verovatno znači da vaš server zahteva da \n"
-"navedete naziv Vindouz domena kao deo vašeg \n"
-"korisničkog imena (npr. „DOMEN\\korisnik“).\n"
-"\n"
-"Ili ste možda samo pogrešno ukucali lozinku."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:67
-msgid "Try again with a different password."
-msgstr "Pokušajte ponovo drugom lozinkom."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:68
-msgid "Unable to add user to access control list:"
-msgstr "Ne mogu da dodam korisnika na spisak upravljanja pristupom:"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:69
 msgid "Unable to edit delegates."
 msgstr "Ne mogu da uredim izaslanike."
 
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:60
+msgid "Unable to add user to access control list:"
+msgstr "Ne mogu da dodam korisnika na spisak upravljanja pristupom:"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:61
+msgid "Could not read folder permissions."
+msgstr "Ne mogu da pročitam ovlašćenja za fasciklu."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:62
+msgid "Could not read folder permissions"
+msgstr "Ne mogu da pročitam ovlašćenja fascikle"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:63
+msgid "Could not determine folder permissions for delegates."
+msgstr "Ne mogu da odredim ovlašćenja fascikle za izaslanike."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:64
+msgid "Could not make {0} a delegate"
+msgstr "Ne mogu da učinim „{0}“ izaslanikom"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:65
+msgid "You cannot make yourself your own delegate"
+msgstr "Ne možete učiniti sebe svojim izaslanikom"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:66
+msgid "{0} is already a delegate"
+msgstr "{0} je već izaslanik"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:67
+msgid "Failed to update delegates:"
+msgstr "Nisam uspeo da ažuriram izaslanike:"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:68
+msgid "{0}"
+msgstr "{0}"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:69
+msgid "Please enter a Delegate's ID or deselect the Send as a Delegate option."
+msgstr "Unesite IB izaslanika ili isključite opciju „Pošalji kao izaslanik“."
+
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:70
-msgid "Unknown error looking up {0}"
-msgstr "Nepoznata greška pri traženju {0}"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:71
-msgid "Unknown error."
-msgstr "Nepoznata greška."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:72
-msgid "Unknown type"
-msgstr "Nepoznata vrsta"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:73
-msgid "Unsupported operation"
-msgstr "Nepodržana radnja"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:74
-msgid "You are nearing your quota available for storing mail on this server."
-msgstr "Približavate se ispunjenju kvote za smeštaj pošte na ovom serveru."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:75
 msgid ""
 "You are permitted to send a message on behalf of only one delegator at a "
 "time."
@@ -1360,104 +1392,102 @@ msgstr ""
 "Dopušteno vam je da pošaljete poruku u ime samo jednog izaslanika u isto "
 "vreme."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:76
-msgid "You cannot make yourself your own delegate"
-msgstr "Ne možete učiniti sebe svojim izaslanikom"
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:71
+msgid "Please select a user."
+msgstr "Izaberite korisnika."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:77
-msgid "You have exceeded your quota for storing mail on this server."
-msgstr "Premašili ste kvotu za smeštaj pošte na ovom serveru."
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:72
+msgid "Could not update folder permissions."
+msgstr "Ne mogu da osvežim ovlašćenja za fasciklu."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:78
-msgid "You may only configure a single Exchange account."
-msgstr "Možete podesiti samo jedan nalog razmene."
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:73
+msgid "No such user {0}"
+msgstr "Nema takvog korisnika {0}"
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:79
-msgid ""
-"Your current usage is: {0} KB. Try to clear up some space by deleting some "
-"mail."
-msgstr ""
-"Trenutna iskorišćenost iznosi: {0} KB. Pokušajte da očistite malo prostora "
-"brisanjem neke pošte."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:80
-msgid ""
-"Your current usage is: {0} KB. You will not be able to either send or "
-"receive mail now."
-msgstr ""
-"Trenutna iskorišćenost iznosi: {0} KB. Sada nećete moći ni da šaljete ni da "
-"primate poštu."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:81
-msgid ""
-"Your current usage is: {0} KB. You will not be able to send mail until you "
-"clear up some space by deleting some mail."
-msgstr ""
-"Trenutna iskorišćenost iznosi: {0} KB. Nećete moći da šaljete poštu dok ne "
-"očistite malo prostora brisanjem dela pošte."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:82
-msgid "Your password has expired."
-msgstr "Vaša lozinka je istekla."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:83
-msgid "{0}"
-msgstr "{0}"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:84
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:74
 msgid "{0} cannot be added to an access control list"
 msgstr "{0} ne može biti dodat na spisak upravljanja pristupom"
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:85
-msgid "{0} is already a delegate"
-msgstr "{0} je već izaslanik"
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:75
+msgid "Unknown error looking up {0}"
+msgstr "Nepoznata greška pri traženju {0}"
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:86
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:76
 msgid "{0} is already in the list"
 msgstr "{0} je već na spisku"
 
-#: ../server/lib/e2k-autoconfig.c:1733
-#: ../server/storage/exchange-account.c:986
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:78
+msgid "Evolution requires a restart to load the subscribed user's mailbox"
+msgstr ""
+"Evolucija zahteva ponovno pokretanje radi učitavanja sandučeta prijavljenog "
+"korisnika"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:79
+msgid "Folder does not exist"
+msgstr "Fascikla ne postoji"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:81
+msgid "Unknown type"
+msgstr "Nepoznata vrsta"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:82
+msgid "Folder offline"
+msgstr "Fascikla je van mreže"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:83
+msgid "Unsupported operation"
+msgstr "Nepodržana radnja"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:84
+msgid "Global Catalog Server is not reachable"
+msgstr "Server opšteg kataloga nije dostupan"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:85
+msgid "Please make sure the Global Catalog Server name is correct."
+msgstr "Proverite da li je ispavan naziv servera opšteg kataloga."
+
+#: ../server/lib/e2k-autoconfig.c:1734
+#: ../server/storage/exchange-account.c:988
 #, c-format
 msgid "Enter password for %s"
 msgstr "Unesite lozinku za „%s“"
 
-#: ../server/lib/e2k-autoconfig.c:1734
-#: ../server/storage/exchange-account.c:991
+#: ../server/lib/e2k-autoconfig.c:1735
+#: ../server/storage/exchange-account.c:993
 msgid "Enter password"
 msgstr "Unesite lozinku"
 
 #. i18n: These are Outlook's words for the default roles in
 #. * the folder permissions dialog.
-#: ../server/lib/e2k-security-descriptor.c:856
+#: ../server/lib/e2k-security-descriptor.c:858
 msgid "Owner"
 msgstr "Vlasnik"
 
-#: ../server/lib/e2k-security-descriptor.c:866
+#: ../server/lib/e2k-security-descriptor.c:868
 msgid "Publishing Editor"
 msgstr "Uređivač objavljivanja"
 
-#: ../server/lib/e2k-security-descriptor.c:874
+#: ../server/lib/e2k-security-descriptor.c:876
 msgid "Editor"
 msgstr "Uređivač"
 
-#: ../server/lib/e2k-security-descriptor.c:881
+#: ../server/lib/e2k-security-descriptor.c:883
 msgid "Publishing Author"
 msgstr "Autor objavljivanja"
 
-#: ../server/lib/e2k-security-descriptor.c:887
+#: ../server/lib/e2k-security-descriptor.c:889
 msgid "Author"
 msgstr "Autor"
 
-#: ../server/lib/e2k-security-descriptor.c:892
+#: ../server/lib/e2k-security-descriptor.c:894
 msgid "Non-editing Author"
 msgstr "Autor koji ne uređuje"
 
-#: ../server/lib/e2k-security-descriptor.c:896
+#: ../server/lib/e2k-security-descriptor.c:898
 msgid "Reviewer"
 msgstr "Recenzent"
 
-#: ../server/lib/e2k-security-descriptor.c:898
+#: ../server/lib/e2k-security-descriptor.c:900
 msgid "Contributor"
 msgstr "Saradnik"
 
@@ -1524,54 +1554,54 @@ msgstr "Nepoznata greška"
 # bug: this sucks!
 #. i18n: This is the title of an "other user's folders"
 #. * hierarchy. Eg, "John Doe's Folders".
-#: ../server/storage/exchange-account.c:663
+#: ../server/storage/exchange-account.c:665
 #, c-format
 msgid "%s's Folders"
 msgstr "Fascikle vlasnika „%s“"
 
-#: ../server/storage/exchange-account.c:1323
+#: ../server/storage/exchange-account.c:1325
 msgid "Favorite Public Folders"
 msgstr "Omiljene javne fascikle"
 
 #. i18n: Outlookism
-#: ../server/storage/exchange-account.c:1340
+#: ../server/storage/exchange-account.c:1342
 msgid "All Public Folders"
 msgstr "Sve javne fascikle"
 
 #. i18n: Outlookism
-#: ../server/storage/exchange-account.c:1354
+#: ../server/storage/exchange-account.c:1356
 msgid "Global Address List"
 msgstr "Spisak opštih adresa"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:265
+#: ../server/storage/exchange-hierarchy-foreign.c:266
 msgid "Deleted Items"
 msgstr "Obrisani predmeti"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:266
+#: ../server/storage/exchange-hierarchy-foreign.c:267
 msgid "Drafts"
 msgstr "Priprema"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:268
+#: ../server/storage/exchange-hierarchy-foreign.c:269
 msgid "Journal"
 msgstr "Dnevnik"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:269
+#: ../server/storage/exchange-hierarchy-foreign.c:270
 msgid "Notes"
 msgstr "Beleške"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:270
+#: ../server/storage/exchange-hierarchy-foreign.c:271
 msgid "Outbox"
 msgstr "Za slanje"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:271
+#: ../server/storage/exchange-hierarchy-foreign.c:272
 msgid "Sent Items"
 msgstr "Poslate stavke"
 
-#: ../tools/exchange-autoconfig-wizard.c:191
+#: ../tools/exchange-autoconfig-wizard.c:193
 msgid "Welcome"
 msgstr "Dobrodošli"
 
-#: ../tools/exchange-autoconfig-wizard.c:191
+#: ../tools/exchange-autoconfig-wizard.c:193
 msgid ""
 "Welcome to Evolution Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
@@ -1585,13 +1615,13 @@ msgstr ""
 "\n"
 "Kliknite na dugme „Napred“ da nastavite."
 
-#: ../tools/exchange-autoconfig-wizard.c:206
-#: ../tools/exchange-autoconfig-wizard.c:382
-#: ../tools/exchange-autoconfig-wizard.c:475
+#: ../tools/exchange-autoconfig-wizard.c:208
+#: ../tools/exchange-autoconfig-wizard.c:384
+#: ../tools/exchange-autoconfig-wizard.c:477
 msgid "Exchange Configuration"
 msgstr "Podešavanje razmene"
 
-#: ../tools/exchange-autoconfig-wizard.c:206
+#: ../tools/exchange-autoconfig-wizard.c:208
 msgid ""
 "Evolution Connector for Microsoft Exchange can use account information from "
 "your existing Outlook Web Access (OWA) account.\n"
@@ -1605,23 +1635,23 @@ msgstr ""
 "Unesite adresu vaše OVA stranice, korisničko ime i lozinku, zatim kliknite "
 "„Napred“.\n"
 
-#: ../tools/exchange-autoconfig-wizard.c:214
+#: ../tools/exchange-autoconfig-wizard.c:216
 msgid "OWA _URL:"
 msgstr "_Adresa OVA:"
 
-#: ../tools/exchange-autoconfig-wizard.c:218
+#: ../tools/exchange-autoconfig-wizard.c:220
 msgid "User_name:"
 msgstr "Korisničko _ime:"
 
-#: ../tools/exchange-autoconfig-wizard.c:222
+#: ../tools/exchange-autoconfig-wizard.c:224
 msgid "_Password:"
 msgstr "_Lozinka:"
 
-#: ../tools/exchange-autoconfig-wizard.c:227
+#: ../tools/exchange-autoconfig-wizard.c:229
 msgid "_Remember this password"
 msgstr "_Zapamti ovu lozinku"
 
-#: ../tools/exchange-autoconfig-wizard.c:300
+#: ../tools/exchange-autoconfig-wizard.c:302
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -1631,7 +1661,7 @@ msgstr ""
 "Proverite da li je adresa ispravna (pokušajte „%s“ umesto „%s“?) i pokušajte "
 "ponovo."
 
-#: ../tools/exchange-autoconfig-wizard.c:308
+#: ../tools/exchange-autoconfig-wizard.c:310
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -1639,7 +1669,7 @@ msgstr ""
 "Ne mogu da pronađem server razmene.\n"
 "Proverite da li je naziv servera ispravno upisan i pokušajte ponovo."
 
-#: ../tools/exchange-autoconfig-wizard.c:317
+#: ../tools/exchange-autoconfig-wizard.c:319
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -1647,7 +1677,7 @@ msgstr ""
 "Ne mogu da se prijavim na server razmene.\n"
 "Proverite da li su korisničko ime i lozinka ispravni i pokušajte ponovo."
 
-#: ../tools/exchange-autoconfig-wizard.c:324
+#: ../tools/exchange-autoconfig-wizard.c:326
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -1662,7 +1692,7 @@ msgstr ""
 "Možda ćete morati da navedete naziv Vindouz domena kao deo vašeg korisničkog "
 "imena (npr. „MOJ-DOMEN\\%s“)."
 
-#: ../tools/exchange-autoconfig-wizard.c:336
+#: ../tools/exchange-autoconfig-wizard.c:338
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -1670,7 +1700,7 @@ msgstr ""
 "Ne mogu da pronađem OVA podatke na naznačenoj adresi.\n"
 "Proverite da li je adresa ispravna i pokušajte ponovo."
 
-#: ../tools/exchange-autoconfig-wizard.c:342
+#: ../tools/exchange-autoconfig-wizard.c:344
 msgid ""
 "Evolution Connector for Microsoft Exchange requires access to certain "
 "functionality on the Exchange server that appears to be disabled or "
@@ -1682,14 +1712,14 @@ msgid ""
 "link below:"
 msgstr ""
 "Spajač Evolucije za Majkrosoftovu razmenu traži pristup određenim "
-"mogućnostima na serveru razmne koje izgleda nisu uključene ili su blokirane. "
-" (Ovo obično nije namerno.)  Vaš administrator razmene će morati da uključi "
+"mogućnostima na serveru razmne koje izgleda nisu uključene ili su blokirane.  "
+"(Ovo obično nije namerno.)  Vaš administrator razmene će morati da uključi "
 "ove mogućnosti da biste mogli da koristite Spajača Evolucije.\n"
 "\n"
 "Za detalje šta da prosledite vašem administratoru razmene, posetite sledeću "
 "vezu:"
 
-#: ../tools/exchange-autoconfig-wizard.c:355
+#: ../tools/exchange-autoconfig-wizard.c:357
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 server. "
 "Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
@@ -1698,7 +1728,7 @@ msgstr ""
 "Adresa servera razmen koju ste uneli je za server razmene 5.5. Spajač "
 "Evolucije podržava samo Majkrosoftovu razmenu 2000 i 2003."
 
-#: ../tools/exchange-autoconfig-wizard.c:363
+#: ../tools/exchange-autoconfig-wizard.c:365
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -1706,7 +1736,7 @@ msgstr ""
 "Ne mogu da podesim nalog razmene zato što se dogodila nepoznata greška. "
 "Proverite adresu, korisničko ime i lozinku, i pokušajte ponovo."
 
-#: ../tools/exchange-autoconfig-wizard.c:382
+#: ../tools/exchange-autoconfig-wizard.c:384
 msgid ""
 "Evolution Connector for Microsoft Exchange could not find the Global Catalog "
 "replica for your site. Please enter the name of your Global Catalog server. "
@@ -1716,11 +1746,11 @@ msgstr ""
 "kataloga za vašu stranicu. Unesite naziv servera vašeg opšteg kataloga. "
 "Možda ćete morati da pitate administratora sistema za tačnu vrednost."
 
-#: ../tools/exchange-autoconfig-wizard.c:390
+#: ../tools/exchange-autoconfig-wizard.c:392
 msgid "GC _Server:"
 msgstr "OK _server:"
 
-#: ../tools/exchange-autoconfig-wizard.c:423
+#: ../tools/exchange-autoconfig-wizard.c:425
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -1728,10 +1758,10 @@ msgid ""
 "\\%s\")."
 msgstr ""
 "Ne mogu da se prijavim na server opšteg kataloga. Možda ćete morati da se "
-"vratite i navedete naziv Vindouz domena kao deo korisničkog imena (npr. "
-"„MOJ-DOMEN\\%s“)."
+"vratite i navedete naziv Vindouz domena kao deo korisničkog imena (npr. „MOJ-"
+"DOMEN\\%s“)."
 
-#: ../tools/exchange-autoconfig-wizard.c:430
+#: ../tools/exchange-autoconfig-wizard.c:432
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -1739,11 +1769,11 @@ msgstr ""
 "Ne mogu da se povežem na navedeni server.\n"
 "Proverite naziv servera i pokušajte ponovo."
 
-#: ../tools/exchange-autoconfig-wizard.c:445
+#: ../tools/exchange-autoconfig-wizard.c:447
 msgid "Configuration Failed"
 msgstr "Podešavanje nije uspelo"
 
-#: ../tools/exchange-autoconfig-wizard.c:445
+#: ../tools/exchange-autoconfig-wizard.c:447
 msgid ""
 "Evolution Connector for Microsoft Exchange has encountered a problem "
 "configuring your Exchange account."
@@ -1751,7 +1781,7 @@ msgstr ""
 "Spajač Evolucije za Majkrosoft razmenu je naišao na problem pri podešavanju "
 "naloga razmene."
 
-#: ../tools/exchange-autoconfig-wizard.c:475
+#: ../tools/exchange-autoconfig-wizard.c:477
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\"."
@@ -1759,28 +1789,28 @@ msgstr ""
 "Podaci o vašem nalogu su sledeći. Ispravite greške ako ih ima, zatim "
 "kliknite „Napred“."
 
-#: ../tools/exchange-autoconfig-wizard.c:483
+#: ../tools/exchange-autoconfig-wizard.c:485
 msgid "Full _Name:"
 msgstr "Puno _ime:"
 
-#: ../tools/exchange-autoconfig-wizard.c:487
+#: ../tools/exchange-autoconfig-wizard.c:489
 msgid "_Email Address:"
 msgstr "_Adresa el. pošte:"
 
-#: ../tools/exchange-autoconfig-wizard.c:491
+#: ../tools/exchange-autoconfig-wizard.c:493
 msgid "Make this my _default account"
 msgstr "Neka ovo bude moj _podrazumevani nalog"
 
-#: ../tools/exchange-autoconfig-wizard.c:508
-#: ../tools/exchange-autoconfig-wizard.c:512
+#: ../tools/exchange-autoconfig-wizard.c:510
+#: ../tools/exchange-autoconfig-wizard.c:514
 msgid "Unknown"
 msgstr "Nepoznato"
 
-#: ../tools/exchange-autoconfig-wizard.c:538
+#: ../tools/exchange-autoconfig-wizard.c:540
 msgid "Done"
 msgstr "Gotovo"
 
-#: ../tools/exchange-autoconfig-wizard.c:538
+#: ../tools/exchange-autoconfig-wizard.c:540
 msgid ""
 "Your Connector account is now ready to use. Click the \"Apply\" button to "
 "save your settings."
@@ -1788,7 +1818,7 @@ msgstr ""
 "Vaš nalog spajača je sada spreman za korišćenje. Klinite na dugme „Primeni“ "
 "da sačuvate podešavanja."
 
-#: ../tools/exchange-autoconfig-wizard.c:587
+#: ../tools/exchange-autoconfig-wizard.c:589
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -1796,11 +1826,11 @@ msgstr ""
 "Greška u sistemu podešavanja.\n"
 "Ne mogu da napravim novi nalog."
 
-#: ../tools/exchange-autoconfig-wizard.c:602
+#: ../tools/exchange-autoconfig-wizard.c:604
 msgid "You may only configure a single Exchange account"
 msgstr "Možete podesiti samo jedan nalog razmene"
 
-#: ../tools/exchange-autoconfig-wizard.c:785
+#: ../tools/exchange-autoconfig-wizard.c:787
 msgid "Evolution Connector for Microsoft Exchange Configuration"
 msgstr "Podešavanje Spajača Evolucije za Majkrosoftovu razmenu"
 
@@ -1809,51 +1839,56 @@ msgid "Change your Exchange server password"
 msgstr "Izmenite lozinku servera razmene"
 
 #: ../tools/ximian-connector.xml.h:2
-msgid "Folder _Size"
-msgstr "_Veličina fascikle"
+msgid "_Change Exchange Password..."
+msgstr "_Izmeni lozinku razmene..."
 
 #: ../tools/ximian-connector.xml.h:3
-msgid "Get the size of personal folders"
-msgstr "Pribavite veličinu ličnih fascikli"
+msgid "Subscribe to a folder belonging to some other user on the server"
+msgstr ""
+"Prijavite se na fasciklu koja pripada nekom drugom korisniku na serveru"
 
 #: ../tools/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
 msgstr "Prijavi se na fasciklu _drugog korisnika..."
 
 #: ../tools/ximian-connector.xml.h:5
-msgid "Subscribe to a folder belonging to some other user on the server"
-msgstr "Prijavite se na fasciklu koja pripada nekom drugom korisniku na serveru"
-
-#: ../tools/ximian-connector.xml.h:6
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
 "Odjavite se sa fascikle dodate pomoću „Prijavi se na fasciklu drugog "
 "korisnika“"
 
+#: ../tools/ximian-connector.xml.h:6
+msgid "_Unsubscribe from Other User's Folder"
+msgstr "_Odjavi se sa fascikle drugog korisnika"
+
 #: ../tools/ximian-connector.xml.h:7
-msgid "View or change your Exchange calendar delegation settings"
-msgstr "Pregledajte ili izmenite podešavanja izaslanja kalendara razmene"
+msgid "Get the size of personal folders"
+msgstr "Pribavite veličinu ličnih fascikli"
 
 #: ../tools/ximian-connector.xml.h:8
-msgid "View or change your Out-of-Office status and autoreply message"
-msgstr "Pregledajte ili izmenite stanje za van-kancelarije i poruku samoodgovora"
+msgid "Folder _Size"
+msgstr "_Veličina fascikle"
 
 #: ../tools/ximian-connector.xml.h:9
-msgid "_Change Exchange Password..."
-msgstr "_Izmeni lozinku razmene..."
+msgid "View or change your Out-of-Office status and autoreply message"
+msgstr ""
+"Pregledajte ili izmenite stanje za van-kancelarije i poruku samoodgovora"
 
 #: ../tools/ximian-connector.xml.h:10
-msgid "_Delegation Assistant"
-msgstr "Pomoćnik _izaslanja"
-
-#: ../tools/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
 msgstr "Pomoćnik za _van-kacelarije"
 
+#: ../tools/ximian-connector.xml.h:11
+msgid "View or change your Exchange calendar delegation settings"
+msgstr "Pregledajte ili izmenite podešavanja izaslanja kalendara razmene"
+
 #: ../tools/ximian-connector.xml.h:12
-msgid "_Unsubscribe from Other User's Folder"
-msgstr "_Odjavi se sa fascikle drugog korisnika"
+msgid "_Delegation Assistant"
+msgstr "Pomoćnik _izaslanja"
+
+#~ msgid "Subscribe to Other User's Folder"
+#~ msgstr "Prijavite se na fasciklu drugog korisnika"
 
 #~ msgid "Could not authenticate to server. (Password incorrect?)"
 #~ msgstr "Ne mogu da se prijavim na server. (Neispravna lozinka?)"
