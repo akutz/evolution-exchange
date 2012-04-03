@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the evolution-exchange
 # Xavier Conde Rueda <xavi.conde@gmail.com>, 2004, 2005, 2006, 2007.
 # David Planella Molas <david.planella@googlemail.com>, 2007, 2008, 2009, 2010.
+# Gil Forcada <gilforcada@guifi.net>, 2012.
 #
 # Notes de traducció:
 #
@@ -13,14 +14,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-03 11:35+0200\n"
-"PO-Revision-Date: 2010-09-29 16:25+0200\n"
-"Last-Translator: David Planella Molas <david.planella@googlemail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=evolution-exchange&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2012-04-03 23:19+0000\n"
+"PO-Revision-Date: 2012-04-04 01:21+0200\n"
+"Last-Translator: Gil Forcada <gilforcada@guifi.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bits\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: ../addressbook/apps_exchange_addressbook.schemas.in.in.h:1
@@ -42,111 +44,124 @@ msgstr ""
 "funcionarà si heu habilitat la memòria cau de la GAL per treballar fora de "
 "línia."
 
-#: ../addressbook/e-book-backend-exchange.c:135
+#: ../addressbook/e-book-backend-exchange.c:139
 #, c-format
 msgid "Operation failed with status %d"
 msgstr "L'operació ha fallat amb l'estat %d"
 
-#: ../addressbook/e-book-backend-exchange.c:1803
-#: ../addressbook/e-book-backend-exchange.c:2648
+#: ../addressbook/e-book-backend-exchange.c:1739
+msgid "The backend does not support bulk additions"
+msgstr "El rerefons no permet les addicions en bloc"
+
+#: ../addressbook/e-book-backend-exchange.c:1836
+msgid "The backend does not support bulk modifications"
+msgstr "El rerefons no permet les modificacions en bloc"
+
+#: ../addressbook/e-book-backend-exchange.c:1857
+#: ../addressbook/e-book-backend-exchange.c:2523
 msgid "Cancelled"
 msgstr "Cancel·lat"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: ../addressbook/e-book-backend-exchange.c:2325
-#: ../addressbook/e-book-backend-gal.c:1931
+#: ../addressbook/e-book-backend-exchange.c:2370
+#: ../addressbook/e-book-backend-gal.c:2047
 msgid "Searching..."
 msgstr "S'està cercant..."
 
-#: ../addressbook/e-book-backend-gal.c:330
-#: ../addressbook/e-book-backend-gal.c:351
+#: ../addressbook/e-book-backend-gal.c:358
+#: ../addressbook/e-book-backend-gal.c:381
 msgid "Reconnecting to LDAP server..."
 msgstr "S'està tornant a connectar amb el servidor LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1671
+#: ../addressbook/e-book-backend-gal.c:1793
 msgid "Receiving LDAP search results..."
 msgstr "S'estan rebent els resultats de la cerca LDAP..."
 
-#: ../addressbook/e-book-backend-gal.c:1962
+#: ../addressbook/e-book-backend-gal.c:2078
 msgid "Error performing search"
 msgstr "S'ha produït un error en cercar"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2159
+#: ../calendar/e-cal-backend-exchange-calendar.c:2254
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Els recurs «%s» està ocupat durant el període de temps seleccionat."
 
-#: ../camel/camel-exchange-folder.c:75
+#: ../camel/camel-exchange-folder.c:76
 msgid "No Subject"
 msgstr "Sense assumpte"
 
-#: ../camel/camel-exchange-folder.c:137
+#: ../camel/camel-exchange-folder.c:156
 #, c-format
 msgid "This message is not available in offline mode."
 msgstr "Aquest missatge no està disponible en mode fora de línia."
 
-#: ../camel/camel-exchange-folder.c:386
+#: ../camel/camel-exchange-folder.c:514
 #, c-format
 msgid "You cannot expunge in offline mode."
 msgstr "No es pot buidar en mode fora de línia."
 
-#: ../camel/camel-exchange-folder.c:626
+#: ../camel/camel-exchange-folder.c:652 ../camel/camel-exchange-utils.c:609
+#: ../camel/camel-exchange-utils.c:648
+msgid "Could not get new messages"
+msgstr "No s'han pogut obtenir els missatges nous"
+
+#: ../camel/camel-exchange-folder.c:696
 msgid "Moving messages"
 msgstr "S'estan movent els missatges"
 
-#: ../camel/camel-exchange-folder.c:627
+#: ../camel/camel-exchange-folder.c:696
 msgid "Copying messages"
 msgstr "S'estan copiant els missatges"
 
-#: ../camel/camel-exchange-folder.c:1070
+#: ../camel/camel-exchange-folder.c:1108
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "No s'ha pogut crear el directori %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1081
+#: ../camel/camel-exchange-folder.c:1117
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "No s'ha pogut carregar el resum per a %s"
 
-#: ../camel/camel-exchange-folder.c:1088
+#: ../camel/camel-exchange-folder.c:1124
 #, c-format
 msgid "Could not create cache for %s: "
 msgstr "No s'ha pogut crear la memòria cau per a %s: "
 
-#: ../camel/camel-exchange-folder.c:1099
+#: ../camel/camel-exchange-folder.c:1135
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "No s'ha pogut crear el diari per a %s"
 
-#: ../camel/camel-exchange-folder.c:1146
+#: ../camel/camel-exchange-folder.c:1185
 msgid "Scanning for changed messages"
 msgstr "S'estan cercant els missatges canviats"
 
-#: ../camel/camel-exchange-folder.c:1173
+#: ../camel/camel-exchange-folder.c:1213
 msgid "Fetching summary information for new messages"
 msgstr "S'està recollint la informació de resum per als missatges nous"
 
-#: ../camel/camel-exchange-journal.c:144
+#: ../camel/camel-exchange-journal.c:149
 #, c-format
 msgid "No folder name found"
 msgstr "No s'ha trobat el nom de carpeta"
 
-#: ../camel/camel-exchange-journal.c:185 ../camel/camel-exchange-utils.c:3145
-#: ../camel/camel-exchange-utils.c:3209 ../camel/camel-exchange-utils.c:3327
-#: ../camel/camel-exchange-utils.c:3358 ../camel/camel-exchange-utils.c:3410
-#: ../camel/camel-exchange-utils.c:3431
+#: ../camel/camel-exchange-journal.c:190 ../camel/camel-exchange-utils.c:3339
+#: ../camel/camel-exchange-utils.c:3403 ../camel/camel-exchange-utils.c:3521
+#: ../camel/camel-exchange-utils.c:3552 ../camel/camel-exchange-utils.c:3604
+#: ../camel/camel-exchange-utils.c:3625
 #, c-format
 msgid "Folder doesn't exist"
 msgstr "La carpeta no existeix"
 
-#: ../camel/camel-exchange-journal.c:417
+#: ../camel/camel-exchange-journal.c:424
 #, c-format
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
 "No es pot afegir el missatge en mode fora de línia: la memòria cau no està "
 "disponible"
 
-#: ../camel/camel-exchange-journal.c:437
+#: ../camel/camel-exchange-journal.c:445
 msgid "Cannot append message in offline mode: "
 msgstr "No es pot afegir el missatge en mode fora de línia: "
 
@@ -155,14 +170,14 @@ msgid "Secure or Plaintext Password"
 msgstr "Contrasenya segura o bé sense xifrar"
 
 #: ../camel/camel-exchange-provider.c:53
-#: ../camel/camel-exchange-provider.c:140
+#: ../camel/camel-exchange-provider.c:144
 #: ../eplugin/exchange-account-setup.c:69
 msgid "Plaintext Password"
 msgstr "Contrasenya sense xifrar"
 
 #. i18n: "Secure Password Authentication" is an Outlookism
 #: ../camel/camel-exchange-provider.c:54
-#: ../camel/camel-exchange-provider.c:129
+#: ../camel/camel-exchange-provider.c:133
 #: ../eplugin/exchange-account-setup.c:58
 msgid "Secure Password"
 msgstr "Contrasenya segura"
@@ -203,54 +218,57 @@ msgstr "Quantitat _límit de respostes de la GAL: %s"
 msgid "Authentication _Type:"
 msgstr "_Tipus d'autenticació:"
 
-#: ../camel/camel-exchange-provider.c:85
+#: ../camel/camel-exchange-provider.c:88
 msgid "Allow _browsing of the GAL until download limit is reached"
 msgstr ""
 "Permet _navegar per la GAL fins que s'assoleixi el límit de baixada establert"
 
-#: ../camel/camel-exchange-provider.c:87
+#: ../camel/camel-exchange-provider.c:90
 msgid "_Expand groups of contacts in GAL to contact lists"
 msgstr "_Expandeix els grups de contactes a la GAL com a llistes de contactes"
 
-#: ../camel/camel-exchange-provider.c:90
+#: ../camel/camel-exchange-provider.c:93
 msgid "Options"
 msgstr "Opcions"
 
-#: ../camel/camel-exchange-provider.c:92
+#: ../camel/camel-exchange-provider.c:95
 #, c-format
 msgid "_Password Expiry Warning period: %s"
 msgstr "_Període d'avís de venciment de la contrasenya: %s"
 
-#: ../camel/camel-exchange-provider.c:94
+#: ../camel/camel-exchange-provider.c:97
 msgid "Automatically synchroni_ze account locally"
 msgstr "Sincronitza localment el compte de manera _automàtica"
 
 #. i18n: copy from evolution:camel-imap-provider.c
-#: ../camel/camel-exchange-provider.c:97
+#: ../camel/camel-exchange-provider.c:100
 msgid "_Apply filters to new messages in Inbox on this server"
 msgstr ""
 "_Aplica els filtres als missatges nous de la safata d'entrada en aquest "
 "servidor"
 
-#: ../camel/camel-exchange-provider.c:99
+#: ../camel/camel-exchange-provider.c:102
 msgid "Check new messages for _Junk contents"
 msgstr "_Comprova si hi ha correu brossa al contingut dels missatges nous"
 
-#: ../camel/camel-exchange-provider.c:101
+#: ../camel/camel-exchange-provider.c:104
 msgid "Only check for Junk messag_es in the Inbox folder"
 msgstr "Només comprova els missatges _brossa a la safata d'entrada"
 
-#: ../camel/camel-exchange-provider.c:111
+#: ../camel/camel-exchange-provider.c:114
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../camel/camel-exchange-provider.c:113
-msgid "For handling mail (and other data) on Microsoft Exchange servers"
+#: ../camel/camel-exchange-provider.c:116
+msgid ""
+"For handling mail (and other data) on Microsoft Exchange 2000 and 2003 "
+"servers via OWA"
 msgstr ""
-"Per gestionar el correu (i altres dades) en servidors Microsoft Exchange"
+"Per gestionar el correu (i altres dades) en servidors Microsoft Exchange "
+"2000 i 2003 a través de OWA"
 
 #. i18n: "NTLM" probably doesn't translate
-#: ../camel/camel-exchange-provider.c:132
+#: ../camel/camel-exchange-provider.c:136
 #: ../eplugin/exchange-account-setup.c:61
 msgid ""
 "This option will connect to the Exchange server using secure password (NTLM) "
@@ -259,7 +277,7 @@ msgstr ""
 "Amb aquesta opció es connectarà al servidor Exchange fent servir "
 "autenticació amb contrasenya segura (NTLM)."
 
-#: ../camel/camel-exchange-provider.c:142
+#: ../camel/camel-exchange-provider.c:146
 #: ../eplugin/exchange-account-setup.c:71
 msgid ""
 "This option will connect to the Exchange server using standard plaintext "
@@ -268,148 +286,135 @@ msgstr ""
 "Amb aquesta opció es connectarà al servidor Exchange fent servir "
 "autenticació amb contrasenya sense xifrar."
 
-#: ../camel/camel-exchange-store.c:300
+#: ../camel/camel-exchange-store.c:338
 #, c-format
 msgid "Exchange server %s"
 msgstr "Servidor Exchange %s"
 
-#: ../camel/camel-exchange-store.c:304
+#: ../camel/camel-exchange-store.c:341
 #, c-format
 msgid "Exchange account for %s on %s"
 msgstr "Compte Exchange per a %s a %s"
 
-#: ../camel/camel-exchange-store.c:382
-#, c-format
-msgid "Could not authenticate to server. (Password incorrect?)"
-msgstr ""
-"No s'ha pogut autenticar al servidor. Potser la contrasenya és incorrecta."
+#: ../camel/camel-exchange-store.c:407
+msgid "Authentication password not available"
+msgstr "No està disponible la contrasenya d'autenticació"
 
-#: ../camel/camel-exchange-store.c:445
+#: ../camel/camel-exchange-store.c:493
 #, c-format
 msgid "No such folder %s"
 msgstr "No existeix la carpeta %s"
 
-#: ../camel/camel-exchange-store.c:578
+#: ../camel/camel-exchange-store.c:648
 #, c-format
 msgid "Cannot create folder in offline mode."
 msgstr "No es pot crear una carpeta en mode fora de línia."
 
-#: ../camel/camel-exchange-store.c:608
+#: ../camel/camel-exchange-store.c:679
 #, c-format
 msgid "Cannot delete folder in offline mode."
 msgstr "No es pot suprimir la carpeta en mode fora de línia."
 
-#: ../camel/camel-exchange-store.c:634
+#: ../camel/camel-exchange-store.c:706
 #, c-format
 msgid "Cannot rename folder in offline mode."
 msgstr "No es pot canviar el nom a la carpeta en mode fora de línia."
 
-#: ../camel/camel-exchange-store.c:715
+#: ../camel/camel-exchange-store.c:788
 #, c-format
 msgid "Cannot subscribe folder in offline mode."
 msgstr "No es pot subscriure a una carpeta en mode fora de línia."
 
-#: ../camel/camel-exchange-store.c:734
+#: ../camel/camel-exchange-store.c:808
 #, c-format
 msgid "Cannot unsubscribe folder in offline mode."
 msgstr ""
 "No es pot cancel·lar la subscripció a una carpeta en mode fora de línia."
 
-#: ../camel/camel-exchange-transport.c:65
-#, c-format
-msgid "Exchange transport can only be used with Exchange mail source"
-msgstr ""
-"El transport Exchange només es pot fer servir amb una font de correu "
-"d'Exchange"
-
-#: ../camel/camel-exchange-transport.c:79
+#: ../camel/camel-exchange-transport.c:62
 #, c-format
 msgid "Cannot send message: one or more invalid recipients"
 msgstr "No s'ha pogut enviar el missatge: un o més destinataris són invàlids"
 
-#: ../camel/camel-exchange-transport.c:90
+#: ../camel/camel-exchange-transport.c:73
 #, c-format
 msgid "Could not find 'From' address in message"
 msgstr "No s'ha pogut trobar l'adreça «De» al missatge"
 
-#: ../camel/camel-exchange-utils.c:529 ../camel/camel-exchange-utils.c:568
-msgid "Could not get new messages"
-msgstr "No s'han pogut obtenir els missatges nous"
-
-#: ../camel/camel-exchange-utils.c:1056 ../camel/camel-exchange-utils.c:1207
+#: ../camel/camel-exchange-utils.c:1164 ../camel/camel-exchange-utils.c:1320
 msgid "Could not open folder"
 msgstr "No s'ha pogut obrir la carpeta"
 
-#: ../camel/camel-exchange-utils.c:1203 ../camel/camel-exchange-utils.c:1221
+#: ../camel/camel-exchange-utils.c:1316 ../camel/camel-exchange-utils.c:1334
 msgid "Could not open folder: Permission denied"
 msgstr "No s'ha pogut obrir la carpeta: permís denegat"
 
-#: ../camel/camel-exchange-utils.c:1270 ../camel/camel-exchange-utils.c:2205
+#: ../camel/camel-exchange-utils.c:1388 ../camel/camel-exchange-utils.c:2389
 msgid "No such folder"
 msgstr "No existeix aquesta carpeta"
 
-#: ../camel/camel-exchange-utils.c:1292 ../camel/camel-exchange-utils.c:3119
-#: ../camel/camel-exchange-utils.c:3162 ../camel/camel-exchange-utils.c:3331
-#: ../camel/camel-exchange-utils.c:3384 ../camel/camel-exchange-utils.c:3446
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
-#: ../server/storage/e-storage.c:573
+#: ../camel/camel-exchange-utils.c:1410 ../camel/camel-exchange-utils.c:3313
+#: ../camel/camel-exchange-utils.c:3356 ../camel/camel-exchange-utils.c:3525
+#: ../camel/camel-exchange-utils.c:3578 ../camel/camel-exchange-utils.c:3640
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:80
+#: ../server/storage/e-storage.c:574
 msgid "Permission denied"
 msgstr "Permís denegat"
 
-#: ../camel/camel-exchange-utils.c:2214
+#: ../camel/camel-exchange-utils.c:2398
 msgid "Could not create folder."
 msgstr "No s'ha pogut crear la carpeta."
 
-#: ../camel/camel-exchange-utils.c:2302
+#: ../camel/camel-exchange-utils.c:2486
 msgid "Could not open Deleted Items folder"
 msgstr "No s'ha pogut obrir la carpeta Elements suprimits"
 
-#: ../camel/camel-exchange-utils.c:2428
+#: ../camel/camel-exchange-utils.c:2615
 msgid "Could not empty Deleted Items folder"
 msgstr "No s'ha pogut buidar la carpeta Elements suprimits"
 
-#: ../camel/camel-exchange-utils.c:2430
+#: ../camel/camel-exchange-utils.c:2617
 msgid "Permission denied. Could not delete certain messages."
 msgstr "S'ha denegat el permís. No s'han pogut suprimir determinats missatges."
 
-#: ../camel/camel-exchange-utils.c:2474
+#: ../camel/camel-exchange-utils.c:2663
 msgid "Could not append message; mailbox is over quota"
 msgstr ""
 "No s'ha pogut afegir el missatge. La bústia de correu ha superat la quota"
 
-#: ../camel/camel-exchange-utils.c:2475
+#: ../camel/camel-exchange-utils.c:2664
 msgid "Could not append message"
 msgstr "No s'ha pogut afegir el missatge"
 
-#: ../camel/camel-exchange-utils.c:2661
+#: ../camel/camel-exchange-utils.c:2851
 msgid "No such message"
 msgstr "No existeix el missatge"
 
-#: ../camel/camel-exchange-utils.c:2733
+#: ../camel/camel-exchange-utils.c:2923
 msgid "Message has been deleted"
 msgstr "S'ha suprimit el missatge"
 
-#: ../camel/camel-exchange-utils.c:2735
+#: ../camel/camel-exchange-utils.c:2925
 msgid "Error retrieving message"
 msgstr "S'ha produït un error en obtenir el missatge"
 
-#: ../camel/camel-exchange-utils.c:2784
+#: ../camel/camel-exchange-utils.c:2974
 msgid "Mailbox does not support full-text searching"
 msgstr "La bústia de correu no implementa la cerca de text complet"
 
-#: ../camel/camel-exchange-utils.c:2896
+#: ../camel/camel-exchange-utils.c:3086
 msgid "Unable to move/copy messages"
 msgstr "No es pot moure ni copiar missatges"
 
-#: ../camel/camel-exchange-utils.c:3024
+#: ../camel/camel-exchange-utils.c:3218
 msgid "No mail submission URI for this mailbox"
 msgstr "No hi ha cap URI per enviar correu per a aquesta bústia"
 
-#: ../camel/camel-exchange-utils.c:3057
+#: ../camel/camel-exchange-utils.c:3251
 msgid "Server won't accept mail via Exchange transport"
 msgstr "El servidor no acceptarà correu mitjançant transport Exchange"
 
-#: ../camel/camel-exchange-utils.c:3059
+#: ../camel/camel-exchange-utils.c:3253
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -418,7 +423,7 @@ msgstr ""
 "El vostre compte no té permís per emprar <%s>\n"
 "com a adreça del remitent."
 
-#: ../camel/camel-exchange-utils.c:3071
+#: ../camel/camel-exchange-utils.c:3265
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -426,20 +431,20 @@ msgstr ""
 "No s'ha pogut enviar el missatge.\n"
 "Això podria significar que el vostre compte ha superat la seva quota."
 
-#: ../camel/camel-exchange-utils.c:3075
+#: ../camel/camel-exchange-utils.c:3269
 msgid "Could not send message"
 msgstr "No s'ha pogut enviar el missatge"
 
-#: ../camel/camel-exchange-utils.c:3111 ../camel/camel-exchange-utils.c:3167
-#: ../camel/camel-exchange-utils.c:3335 ../camel/camel-exchange-utils.c:3388
-#: ../camel/camel-exchange-utils.c:3452
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
-#: ../server/storage/e-storage.c:557
+#: ../camel/camel-exchange-utils.c:3305 ../camel/camel-exchange-utils.c:3361
+#: ../camel/camel-exchange-utils.c:3529 ../camel/camel-exchange-utils.c:3582
+#: ../camel/camel-exchange-utils.c:3646
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:86
+#: ../server/storage/e-storage.c:558
 msgid "Generic error"
 msgstr "Error genèric"
 
-#: ../camel/camel-exchange-utils.c:3115
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
+#: ../camel/camel-exchange-utils.c:3309
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:77
 msgid "Folder already exists"
 msgstr "La carpeta ja existeix"
 
@@ -480,7 +485,7 @@ msgid "Change the password for Exchange account"
 msgstr "Canvia la contrasenya del compte de l'Exchange"
 
 #: ../eplugin/exchange-account-setup.c:338
-#: ../eplugin/exchange-change-password.c:85
+#: ../eplugin/exchange-change-password.c:89
 msgid "Change Password"
 msgstr "Canvia la contrasenya"
 
@@ -504,56 +509,56 @@ msgid "View the size of all Exchange folders"
 msgstr "Mostra la mida de totes les carpetes de l'Exchange"
 
 #: ../eplugin/exchange-account-setup.c:369
-#: ../eplugin/exchange-folder-size-display.c:183
+#: ../eplugin/exchange-folder-size-display.c:188
 msgid "Folder Size"
 msgstr "Mida de la carpeta"
 
 #: ../eplugin/exchange-account-setup.c:376
-#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:3
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:2
 msgid "Exchange Settings"
 msgstr "Paràmetres de l'Exchange"
 
-#: ../eplugin/exchange-account-setup.c:735
+#: ../eplugin/exchange-account-setup.c:670
 msgid "_OWA URL:"
 msgstr "URL de l'_OWA (accés web de l'Outlook):"
 
-#: ../eplugin/exchange-account-setup.c:761
+#: ../eplugin/exchange-account-setup.c:696
 msgid "A_uthenticate"
 msgstr "_Autentica"
 
-#: ../eplugin/exchange-account-setup.c:783
+#: ../eplugin/exchange-account-setup.c:718
 msgid "Mailbox name is _different from username"
 msgstr "El nom de la bústia de correu és _diferent del de l'usuari"
 
-#: ../eplugin/exchange-account-setup.c:796
+#: ../eplugin/exchange-account-setup.c:734
 msgid "_Mailbox:"
 msgstr "_Bústia de correu:"
 
-#: ../eplugin/exchange-account-setup.c:1011
+#: ../eplugin/exchange-account-setup.c:923
 msgid "_Authentication Type"
 msgstr "_Tipus d'autenticació"
 
-#: ../eplugin/exchange-account-setup.c:1025
+#: ../eplugin/exchange-account-setup.c:937
 msgid "Ch_eck for Supported Types"
 msgstr "_Comprova els tipus compatibles"
 
-#: ../eplugin/exchange-account-setup.c:1140 ../eplugin/exchange-contacts.c:217
+#: ../eplugin/exchange-account-setup.c:1052 ../eplugin/exchange-contacts.c:225
 #, c-format
 msgid "%s KB"
 msgstr "%s KB"
 
-#: ../eplugin/exchange-account-setup.c:1142 ../eplugin/exchange-contacts.c:219
+#: ../eplugin/exchange-account-setup.c:1054 ../eplugin/exchange-contacts.c:227
 #, c-format
 msgid "0 KB"
 msgstr "0 KB"
 
 #. FIXME: Take care of i18n
-#: ../eplugin/exchange-account-setup.c:1147 ../eplugin/exchange-calendar.c:236
-#: ../eplugin/exchange-contacts.c:222
+#: ../eplugin/exchange-account-setup.c:1059 ../eplugin/exchange-calendar.c:244
+#: ../eplugin/exchange-contacts.c:230
 msgid "Size:"
 msgstr "Mida:"
 
-#: ../eplugin/exchange-calendar.c:196 ../eplugin/exchange-contacts.c:170
+#: ../eplugin/exchange-calendar.c:204 ../eplugin/exchange-contacts.c:178
 msgid ""
 "Evolution is in offline mode. You cannot create or modify folders now.\n"
 "Please switch to online mode for such operations."
@@ -562,31 +567,31 @@ msgstr ""
 "modificar carpetes.\n"
 "Commuteu a mode en línia per realitzar aquestes operacions."
 
-#: ../eplugin/exchange-calendar.c:247 ../eplugin/exchange-contacts.c:239
+#: ../eplugin/exchange-calendar.c:255 ../eplugin/exchange-contacts.c:247
 msgid "_Location:"
 msgstr "_Ubicació:"
 
-#: ../eplugin/exchange-change-password.c:95
+#: ../eplugin/exchange-change-password.c:99
 msgid "Your current password has expired. Please change your password now."
 msgstr ""
 "La vostra contrasenya actual ha caducat. Canvieu la vostra contrasenya."
 
-#: ../eplugin/exchange-change-password.c:110
+#: ../eplugin/exchange-change-password.c:114
 msgid "Current _Password:"
 msgstr "_Contrasenya actual:"
 
-#: ../eplugin/exchange-change-password.c:117
+#: ../eplugin/exchange-change-password.c:121
 msgid "_New Password:"
 msgstr "Contrasenya _nova:"
 
-#: ../eplugin/exchange-change-password.c:124
+#: ../eplugin/exchange-change-password.c:128
 msgid "_Confirm Password:"
 msgstr "_Confirmeu la contrasenya:"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
-#: ../eplugin/exchange-change-password.c:175
+#: ../eplugin/exchange-change-password.c:179
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
@@ -594,162 +599,162 @@ msgstr ""
 "La contrasenya actual és diferent de la contrasenya existent per al vostre "
 "compte. Introduïu la contrasenya correcta"
 
-#: ../eplugin/exchange-change-password.c:182
+#: ../eplugin/exchange-change-password.c:186
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr ""
 "Les dues contrasenyes són diferents. Torneu a introduir les contrasenyes."
 
 #. Translators: The %d is replaced with the actual number of days
-#: ../eplugin/exchange-config-listener.c:662
+#: ../eplugin/exchange-config-listener.c:661
 #, c-format
 msgid "Your password will expire in the next %d day"
 msgid_plural "Your password will expire in the next %d days"
 msgstr[0] "La vostra contrasenya vencerà d'aquí %d dia"
 msgstr[1] "La vostra contrasenya vencerà d'aquí %d dies"
 
-#: ../eplugin/exchange-config-listener.c:665
+#: ../eplugin/exchange-config-listener.c:664
 msgid "Password Expiry Warning..."
 msgstr "Avís de venciment de contrasenya..."
 
-#: ../eplugin/exchange-config-listener.c:682
+#: ../eplugin/exchange-config-listener.c:681
 msgid "_Change Password"
 msgstr "_Canvia la contrasenya"
 
-#: ../eplugin/exchange-config-listener.c:735
+#: ../eplugin/exchange-config-listener.c:734
 msgid "Out of Office Assistant"
 msgstr "Auxiliar per a l'absència de l'oficina"
 
-#: ../eplugin/exchange-config-listener.c:752
+#: ../eplugin/exchange-config-listener.c:751
 msgid "Currently, your status is \"Out of the Office\"."
 msgstr "El vostre estat actual és «Fora de l'oficina»."
 
-#: ../eplugin/exchange-config-listener.c:752
+#: ../eplugin/exchange-config-listener.c:751
 msgid "Would you like to change your status to \"In the Office\"?"
 msgstr "Voleu canviar el vostre estat a «A l'oficina»?"
 
-#: ../eplugin/exchange-config-listener.c:781
+#: ../eplugin/exchange-config-listener.c:780
 msgid "_No, Don't Change Status"
 msgstr "_No, no canviïs l'estat"
 
-#: ../eplugin/exchange-config-listener.c:802
+#: ../eplugin/exchange-config-listener.c:801
 msgid "_Yes, Change Status"
 msgstr "_Sí, canvia l'estat"
 
-#: ../eplugin/exchange-config-listener.c:834
+#: ../eplugin/exchange-config-listener.c:832
 #, c-format
 msgid "Enter Password for %s"
 msgstr "Introduïu la contrasenya per a %s"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:435
-#: ../server/storage/exchange-hierarchy-foreign.c:260
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:465
+#: ../server/storage/exchange-hierarchy-foreign.c:264
 msgid "Calendar"
 msgstr "Calendari"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:438
-#: ../server/storage/exchange-hierarchy-foreign.c:269
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:468
+#: ../server/storage/exchange-hierarchy-foreign.c:273
 msgid "Tasks"
 msgstr "Tasques"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:433
-#: ../server/storage/exchange-hierarchy-foreign.c:264
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:463
+#: ../server/storage/exchange-hierarchy-foreign.c:268
 msgid "Inbox"
 msgstr "Safata d'entrada"
 
-#: ../eplugin/exchange-delegates-user.c:69 ../eplugin/exchange-folder.c:441
-#: ../server/storage/exchange-hierarchy-foreign.c:261
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:471
+#: ../server/storage/exchange-hierarchy-foreign.c:265
 msgid "Contacts"
 msgstr "Contactes"
 
-#: ../eplugin/exchange-delegates-user.c:132
-#: ../eplugin/exchange-permissions-dialog.c:545
-#: ../server/lib/e2k-security-descriptor.c:901
+#: ../eplugin/exchange-delegates-user.c:142
+#: ../eplugin/exchange-permissions-dialog.c:552
+#: ../server/lib/e2k-security-descriptor.c:917
 msgid "Custom"
 msgstr "Personalitzat"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:155
-#: ../eplugin/exchange-delegates-user.c:298
-#: ../eplugin/exchange-delegates-user.c:308
-#: ../eplugin/exchange-delegates-user.c:318
-#: ../eplugin/exchange-delegates-user.c:328
+#: ../eplugin/exchange-delegates-user.c:166
+#: ../eplugin/exchange-delegates-user.c:333
+#: ../eplugin/exchange-delegates-user.c:343
+#: ../eplugin/exchange-delegates-user.c:353
+#: ../eplugin/exchange-delegates-user.c:363
 msgid "Editor (read, create, edit)"
 msgstr "Editor (llegir, crear, editar)"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:160
-#: ../eplugin/exchange-delegates-user.c:297
-#: ../eplugin/exchange-delegates-user.c:307
-#: ../eplugin/exchange-delegates-user.c:317
-#: ../eplugin/exchange-delegates-user.c:327
+#: ../eplugin/exchange-delegates-user.c:171
+#: ../eplugin/exchange-delegates-user.c:332
+#: ../eplugin/exchange-delegates-user.c:342
+#: ../eplugin/exchange-delegates-user.c:352
+#: ../eplugin/exchange-delegates-user.c:362
 msgid "Author (read, create)"
 msgstr "Autor (lectura, creació)"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:165
-#: ../eplugin/exchange-delegates-user.c:296
-#: ../eplugin/exchange-delegates-user.c:306
-#: ../eplugin/exchange-delegates-user.c:316
-#: ../eplugin/exchange-delegates-user.c:326
+#: ../eplugin/exchange-delegates-user.c:176
+#: ../eplugin/exchange-delegates-user.c:331
+#: ../eplugin/exchange-delegates-user.c:341
+#: ../eplugin/exchange-delegates-user.c:351
+#: ../eplugin/exchange-delegates-user.c:361
 msgid "Reviewer (read-only)"
 msgstr "Revisor (només lectura)"
 
-#: ../eplugin/exchange-delegates-user.c:168
-#: ../eplugin/exchange-delegates-user.c:295
-#: ../eplugin/exchange-delegates-user.c:305
-#: ../eplugin/exchange-delegates-user.c:315
-#: ../eplugin/exchange-delegates-user.c:325
-#: ../server/lib/e2k-security-descriptor.c:886
+#: ../eplugin/exchange-delegates-user.c:180
+#: ../eplugin/exchange-delegates-user.c:330
+#: ../eplugin/exchange-delegates-user.c:340
+#: ../eplugin/exchange-delegates-user.c:350
+#: ../eplugin/exchange-delegates-user.c:360
+#: ../server/lib/e2k-security-descriptor.c:902
 msgid "None"
 msgstr "Cap"
 
 #. Translators: "Delegate Permissions" refers to the permissions on the delegator's folders
-#. that the delegatee would receive
-#: ../eplugin/exchange-delegates-user.c:225
+#. * that the delegatee would receive
+#: ../eplugin/exchange-delegates-user.c:260
 msgid "Delegate Permissions"
 msgstr "Permisos del delegat"
 
-#: ../eplugin/exchange-delegates-user.c:243
+#: ../eplugin/exchange-delegates-user.c:278
 msgid "Permissions for"
 msgstr "Permisos per a"
 
 #. Translators: This is used for permissions for <user> for the folder Calendar.
-#: ../eplugin/exchange-delegates-user.c:255
+#: ../eplugin/exchange-delegates-user.c:290
 msgid "C_alendar:"
 msgstr "C_alendari:"
 
 #. Translators: This is used for permissions for <user> for the folder Tasks.
-#: ../eplugin/exchange-delegates-user.c:264
+#: ../eplugin/exchange-delegates-user.c:299
 msgid "_Tasks:"
 msgstr "_Tasques:"
 
 #. Translators: This is used for permissions for <user> for the folder Inbox.
-#: ../eplugin/exchange-delegates-user.c:273
+#: ../eplugin/exchange-delegates-user.c:308
 msgid "_Inbox:"
 msgstr "Sa_fata d'entrada:"
 
 #. Translators: This is used for permissions for <user> for the folder Contacts.
-#: ../eplugin/exchange-delegates-user.c:282
+#: ../eplugin/exchange-delegates-user.c:317
 msgid "Co_ntacts:"
 msgstr "Co_ntactes:"
 
-#: ../eplugin/exchange-delegates-user.c:330
+#: ../eplugin/exchange-delegates-user.c:365
 msgid "_Summarize permissions"
 msgstr "_Resum dels permisos"
 
-#: ../eplugin/exchange-delegates-user.c:334
+#: ../eplugin/exchange-delegates-user.c:369
 msgid "_Delegate can see private items"
 msgstr "El _delegat pot veure elements privats"
 
-#: ../eplugin/exchange-delegates-user.c:340
-#: ../eplugin/exchange-permissions-dialog.c:168
+#: ../eplugin/exchange-delegates-user.c:375
+#: ../eplugin/exchange-permissions-dialog.c:167
 #, c-format
 msgid "Permissions for %s"
 msgstr "Permisos per a %s"
 
 #. To translators: This is a part of the message to be sent to the delegatee
-#. summarizing the permissions assigned to him.
+#. * summarizing the permissions assigned to him.
 #.
-#: ../eplugin/exchange-delegates-user.c:433
+#: ../eplugin/exchange-delegates-user.c:466
 msgid ""
 "This message was sent automatically by Evolution to inform you that you have "
 "been designated as a delegate. You can now send messages on my behalf."
@@ -759,76 +764,70 @@ msgstr ""
 
 #. To translators: Another chunk of the same message.
 #.
-#: ../eplugin/exchange-delegates-user.c:438
+#: ../eplugin/exchange-delegates-user.c:471
 msgid "You have been given the following permissions on my folders:"
 msgstr "Heu obtingut els permisos següents a les meves carpetes:"
 
-#. To translators: This message is included if the delegatee has been given access
-#. to the private items.
-#.
-#: ../eplugin/exchange-delegates-user.c:458
+#: ../eplugin/exchange-delegates-user.c:499
 msgid "You are also permitted to see my private items."
 msgstr "També podeu veure els meus elements privats."
 
-#. To translators: This message is included if the delegatee has not been given access
-#. to the private items.
-#.
-#: ../eplugin/exchange-delegates-user.c:465
+#: ../eplugin/exchange-delegates-user.c:508
 msgid "However, you are not permitted to see my private items."
 msgstr "Tot i això, no podeu veure els meus elements privats."
 
-#: ../eplugin/exchange-delegates-user.c:497
+#: ../eplugin/exchange-delegates-user.c:545
 #, c-format
 msgid "You have been designated as a delegate for %s"
 msgstr "Se us ha designat com a delegat de %s"
 
-#: ../eplugin/exchange-delegates.c:413
+#: ../eplugin/exchange-delegates.c:418
 msgid "Delegate To:"
 msgstr "Delega a:"
 
-#: ../eplugin/exchange-delegates.c:413
+#: ../eplugin/exchange-delegates.c:418
 msgid "Delegate To"
 msgstr "Delega a"
 
-#: ../eplugin/exchange-delegates.c:578
+#: ../eplugin/exchange-delegates.c:588
 #, c-format
 msgid "Remove the delegate %s?"
 msgstr "Voleu suprimir el delegat %s?"
 
-#: ../eplugin/exchange-delegates.c:695
+#: ../eplugin/exchange-delegates.c:707
 msgid "Could not access Active Directory"
 msgstr "No s'ha pogut accedir a l'Active Directory"
 
 # Active Directory (AD) no es tradueix (dpm)
-#: ../eplugin/exchange-delegates.c:707
+#: ../eplugin/exchange-delegates.c:719
 msgid "Could not find self in Active Directory"
 msgstr "No s'ha trobat el compte propi a l'Active Directory"
 
 # Active Directory (AD) no es tradueix (dpm)
-#: ../eplugin/exchange-delegates.c:720
+#: ../eplugin/exchange-delegates.c:732
 #, c-format
 msgid "Could not find delegate %s in Active Directory"
 msgstr "No s'ha trobat el delegat %s a l'Active Directory"
 
-#: ../eplugin/exchange-delegates.c:732
+#: ../eplugin/exchange-delegates.c:744
 #, c-format
 msgid "Could not remove delegate %s"
 msgstr "No s'ha pogut suprimir el delegat %s"
 
-#: ../eplugin/exchange-delegates.c:792
+#: ../eplugin/exchange-delegates.c:804
 msgid "Could not update list of delegates."
 msgstr "No s'ha pogut actualitzar la llista de delegats."
 
-#: ../eplugin/exchange-delegates.c:810
+#: ../eplugin/exchange-delegates.c:822
 #, c-format
 msgid "Could not add delegate %s"
 msgstr "No s'ha pogut afegir el delegat %s"
 
-#: ../eplugin/exchange-delegates.c:926
+#: ../eplugin/exchange-delegates.c:942
 msgid "Delegates"
 msgstr "Delegats"
 
-#: ../eplugin/exchange-delegates.c:941
+#: ../eplugin/exchange-delegates.c:957
 msgid ""
 "These users will be able to send mail on your behalf\n"
 "and access your folders with the permissions you give them."
@@ -836,116 +835,116 @@ msgstr ""
 "Els usuaris poden enviar correu electrònic en nom vostre\n"
 "i accedir a les vostres carpetes amb els permisos que els doneu."
 
-#: ../eplugin/exchange-delegates.c:965
+#: ../eplugin/exchange-delegates.c:981
 msgid "_Edit"
 msgstr "_Edita"
 
-#: ../eplugin/exchange-delegates.c:995
-#: ../eplugin/exchange-permissions-dialog.c:920
+#: ../eplugin/exchange-delegates.c:1011
+#: ../eplugin/exchange-permissions-dialog.c:926
 msgid "Name"
 msgstr "Nom"
 
-#: ../eplugin/exchange-delegates.c:1021
+#: ../eplugin/exchange-delegates.c:1037
 msgid "Error reading delegates list."
 msgstr "S'ha produït un error en llegir la llista de delegats."
 
-#: ../eplugin/exchange-folder-permission.c:241
-#: ../eplugin/exchange-folder-permission.c:520
-#: ../eplugin/exchange-folder-permission.c:554
-#: ../eplugin/exchange-folder-permission.c:588
+#: ../eplugin/exchange-folder-permission.c:246
+#: ../eplugin/exchange-folder-permission.c:532
+#: ../eplugin/exchange-folder-permission.c:567
+#: ../eplugin/exchange-folder-permission.c:602
 msgid "Permissions..."
 msgstr "Permisos..."
 
-#: ../eplugin/exchange-folder-permission.c:243
+#: ../eplugin/exchange-folder-permission.c:248
 msgid "Check folder permissions"
 msgstr "Comprova els permisos de carpeta"
 
-#: ../eplugin/exchange-folder-permission.c:248
-#: ../eplugin/exchange-folder-permission.c:527
-#: ../eplugin/exchange-folder-permission.c:561
-#: ../eplugin/exchange-folder-permission.c:595
+#: ../eplugin/exchange-folder-permission.c:253
+#: ../eplugin/exchange-folder-permission.c:539
+#: ../eplugin/exchange-folder-permission.c:574
+#: ../eplugin/exchange-folder-permission.c:609
 msgid "Subscribe to Other User's Folder..."
 msgstr "Subscripció a la carpeta d'un altre usuari..."
 
-#: ../eplugin/exchange-folder-permission.c:250
-#: ../eplugin/exchange-folder-permission.c:529
-#: ../eplugin/exchange-folder-permission.c:563
-#: ../eplugin/exchange-folder-permission.c:597
-#: ../eplugin/exchange-folder-subscription.c:306
+#: ../eplugin/exchange-folder-permission.c:255
+#: ../eplugin/exchange-folder-permission.c:541
+#: ../eplugin/exchange-folder-permission.c:576
+#: ../eplugin/exchange-folder-permission.c:611
+#: ../eplugin/exchange-folder-subscription.c:319
 msgid "Subscribe to Other User's Folder"
 msgstr "Subscripció a la carpeta d'un altre usuari"
 
-#: ../eplugin/exchange-folder-permission.c:255
-#: ../eplugin/exchange-folder-permission.c:534
-#: ../eplugin/exchange-folder-permission.c:568
-#: ../eplugin/exchange-folder-permission.c:602
+#: ../eplugin/exchange-folder-permission.c:260
+#: ../eplugin/exchange-folder-permission.c:546
+#: ../eplugin/exchange-folder-permission.c:581
+#: ../eplugin/exchange-folder-permission.c:616
 msgid "Unsubscribe Folder..."
 msgstr "Cancel·lació de subscripció a una carpeta..."
 
-#: ../eplugin/exchange-folder-permission.c:522
+#: ../eplugin/exchange-folder-permission.c:534
 msgid "Check calendar permissions"
 msgstr "Comprova els permisos del calendari"
 
-#: ../eplugin/exchange-folder-permission.c:556
+#: ../eplugin/exchange-folder-permission.c:569
 msgid "Check tasks permissions"
 msgstr "Comprova els permisos de les tasques"
 
-#: ../eplugin/exchange-folder-permission.c:590
+#: ../eplugin/exchange-folder-permission.c:604
 msgid "Check address book permissions"
 msgstr "Comprova els permisos de la llibreta d'adreces"
 
-#: ../eplugin/exchange-folder-size-display.c:136
+#: ../eplugin/exchange-folder-size-display.c:141
 msgid "Exchange Folder Tree"
 msgstr "Arbre de carpetes d'Exchange"
 
-#: ../eplugin/exchange-folder-size-display.c:151
+#: ../eplugin/exchange-folder-size-display.c:156
 #, c-format
 msgid "Total size: %.2f KB"
 msgstr "Mida total: %.2f KB"
 
-#: ../eplugin/exchange-folder-size-display.c:179
+#: ../eplugin/exchange-folder-size-display.c:184
 msgid "Folder Name"
 msgstr "Nom de la carpeta"
 
 #. FIXME Limit to one user
-#: ../eplugin/exchange-folder-subscription.c:72
+#: ../eplugin/exchange-folder-subscription.c:79
 msgid "User"
 msgstr "Usuari"
 
-#: ../eplugin/exchange-folder-subscription.c:322
+#: ../eplugin/exchange-folder-subscription.c:335
 msgid "_Account:"
 msgstr "_Compte:"
 
-#: ../eplugin/exchange-folder-subscription.c:329
+#: ../eplugin/exchange-folder-subscription.c:342
 msgid "_Folder Name:"
 msgstr "Nom de la c_arpeta:"
 
-#: ../eplugin/exchange-folder-subscription.c:342
+#: ../eplugin/exchange-folder-subscription.c:355
 msgid "_User:"
 msgstr "_Usuari:"
 
-#: ../eplugin/exchange-folder.c:320 ../eplugin/exchange-folder.c:376
+#: ../eplugin/exchange-folder.c:348 ../eplugin/exchange-folder.c:404
 #, c-format
 msgid "Really unsubscribe from folder \"%s\"?"
 msgstr "Segur que voleu cancel·lar la subscripció de la carpeta «%s»?"
 
-#: ../eplugin/exchange-folder.c:333 ../eplugin/exchange-folder.c:389
+#: ../eplugin/exchange-folder.c:361 ../eplugin/exchange-folder.c:417
 #, c-format
 msgid "Unsubscribe from \"%s\""
 msgstr "Cancel·la la subscripció a «%s»"
 
 # FIXME: potser és «En_via les opcions» (dpm)
-#: ../eplugin/exchange-mail-send-options.c:220
+#: ../eplugin/exchange-mail-send-options.c:231
 msgid "_Send Options"
 msgstr "Opcions d'en_viament"
 
-#: ../eplugin/exchange-mail-send-options.c:222
+#: ../eplugin/exchange-mail-send-options.c:233
 msgid "Insert Send options"
 msgstr "Insereix les opcions d'enviament"
 
 #. FIXME: Don't hardcode this
-#: ../eplugin/exchange-operations.c:122 ../eplugin/exchange-operations.c:167
-#: ../server/storage/exchange-account.c:1260
+#: ../eplugin/exchange-operations.c:132 ../eplugin/exchange-operations.c:181
+#: ../server/storage/exchange-account.c:1310
 msgid "Personal Folders"
 msgstr "Carpetes personals"
 
@@ -953,259 +952,350 @@ msgstr "Carpetes personals"
 msgid "(Permission denied.)"
 msgstr "(Permís denegat)"
 
-#: ../eplugin/exchange-permissions-dialog.c:384
+#: ../eplugin/exchange-permissions-dialog.c:389
 msgid "Add User:"
 msgstr "Afegeix un usuari:"
 
-#: ../eplugin/exchange-permissions-dialog.c:384
-#: ../eplugin/exchange-send-options.c:469
+#: ../eplugin/exchange-permissions-dialog.c:389
+#: ../eplugin/exchange-send-options.c:478
 msgid "Add User"
 msgstr "Afegeix un usuari"
 
-#: ../eplugin/exchange-permissions-dialog.c:796
+#: ../eplugin/exchange-permissions-dialog.c:802
 msgid "Permissions"
 msgstr "Permisos"
 
-#: ../eplugin/exchange-permissions-dialog.c:813
+#: ../eplugin/exchange-permissions-dialog.c:819
 msgid "Role: "
 msgstr "Rol: "
 
-#: ../eplugin/exchange-permissions-dialog.c:839
+#: ../eplugin/exchange-permissions-dialog.c:845
 msgid "Create items"
 msgstr "Crea elements"
 
-#: ../eplugin/exchange-permissions-dialog.c:843
+#: ../eplugin/exchange-permissions-dialog.c:849
 msgid "Read items"
 msgstr "Llegeix elements"
 
-#: ../eplugin/exchange-permissions-dialog.c:847
+#: ../eplugin/exchange-permissions-dialog.c:853
 msgid "Create subfolders"
 msgstr "Crea subcarpetes"
 
-#: ../eplugin/exchange-permissions-dialog.c:855
+#: ../eplugin/exchange-permissions-dialog.c:861
 msgid "Cannot Edit"
 msgstr "No es pot editar"
 
-#: ../eplugin/exchange-permissions-dialog.c:861
+#: ../eplugin/exchange-permissions-dialog.c:867
 msgid "Edit Own Items"
 msgstr "Edita els elements propis"
 
-#: ../eplugin/exchange-permissions-dialog.c:867
+#: ../eplugin/exchange-permissions-dialog.c:873
 msgid "Edit Any Items"
 msgstr "Edita qualsevol element"
 
-#: ../eplugin/exchange-permissions-dialog.c:881
+#: ../eplugin/exchange-permissions-dialog.c:887
 msgid "Folder owner"
 msgstr "Propietari de la carpeta"
 
-#: ../eplugin/exchange-permissions-dialog.c:885
+#: ../eplugin/exchange-permissions-dialog.c:891
 msgid "Folder contact"
 msgstr "Contacte de la carpeta"
 
-#: ../eplugin/exchange-permissions-dialog.c:889
+#: ../eplugin/exchange-permissions-dialog.c:895
 msgid "Folder visible"
 msgstr "Carpeta visible"
 
-#: ../eplugin/exchange-permissions-dialog.c:897
+#: ../eplugin/exchange-permissions-dialog.c:903
 msgid "Cannot Delete"
 msgstr "No es pot suprimir"
 
-#: ../eplugin/exchange-permissions-dialog.c:904
+#: ../eplugin/exchange-permissions-dialog.c:910
 msgid "Delete Own Items"
 msgstr "Suprimeix els elements propis"
 
-#: ../eplugin/exchange-permissions-dialog.c:910
+#: ../eplugin/exchange-permissions-dialog.c:916
 msgid "Delete Any Items"
 msgstr "Suprimeix qualsevol element"
 
-#: ../eplugin/exchange-permissions-dialog.c:924
+#: ../eplugin/exchange-permissions-dialog.c:930
 msgid "Role"
 msgstr "Rol"
 
-#: ../eplugin/exchange-send-options.c:337
+#: ../eplugin/exchange-send-options.c:346
 msgid "Exchange - Send Options"
 msgstr "Exchange - Opcions d'enviament"
 
-#: ../eplugin/exchange-send-options.c:358
+#: ../eplugin/exchange-send-options.c:367
 msgid "Message Settings"
 msgstr "Paràmetres de missatge"
 
-#: ../eplugin/exchange-send-options.c:372
+#: ../eplugin/exchange-send-options.c:381
 msgid "I_mportance: "
 msgstr "I_mportància: "
 
 #. Translators: Here's set a message sensitivity, which means for exchange
-#. one of Normal, Personal, Private, Confidential.
-#: ../eplugin/exchange-send-options.c:381
+#. * one of Normal, Personal, Private, Confidential.
+#: ../eplugin/exchange-send-options.c:390
 msgid "_Sensitivity: "
 msgstr "_Sensibilitat: "
 
-#: ../eplugin/exchange-send-options.c:393
-#: ../eplugin/exchange-send-options.c:403
+#: ../eplugin/exchange-send-options.c:402
+#: ../eplugin/exchange-send-options.c:412
 msgid "Normal"
 msgstr "Normal"
 
-#: ../eplugin/exchange-send-options.c:394
+#: ../eplugin/exchange-send-options.c:403
 msgid "Personal"
 msgstr "Personal"
 
-#: ../eplugin/exchange-send-options.c:395
+#: ../eplugin/exchange-send-options.c:404
 msgid "Private"
 msgstr "Privat"
 
-#: ../eplugin/exchange-send-options.c:396
+#: ../eplugin/exchange-send-options.c:405
 msgid "Confidential"
 msgstr "Confidencial"
 
-#: ../eplugin/exchange-send-options.c:404
+#: ../eplugin/exchange-send-options.c:413
 msgid "High"
 msgstr "Alta"
 
-#: ../eplugin/exchange-send-options.c:405
+#: ../eplugin/exchange-send-options.c:414
 msgid "Low"
 msgstr "Baixa"
 
-#: ../eplugin/exchange-send-options.c:407
+#: ../eplugin/exchange-send-options.c:416
 msgid "Send as Delegate"
 msgstr "Envia com a delegat"
 
-#: ../eplugin/exchange-send-options.c:424
+#: ../eplugin/exchange-send-options.c:433
 msgid "_User"
 msgstr "_Usuari"
 
-#: ../eplugin/exchange-send-options.c:432
+#: ../eplugin/exchange-send-options.c:441
 msgid "Tracking Options"
 msgstr "Opcions de seguiment"
 
-#: ../eplugin/exchange-send-options.c:440
+#: ../eplugin/exchange-send-options.c:449
 msgid "Request a _delivery receipt for this message"
 msgstr "Sol·licita un rebut d'_enviament per a aquest missatge"
 
-#: ../eplugin/exchange-send-options.c:445
+#: ../eplugin/exchange-send-options.c:454
 msgid "Request a _read receipt for this message"
 msgstr "Sol·licita una _confirmació de lectura per a aquest missatge"
 
-#: ../eplugin/exchange-user-dialog.c:135
+#: ../eplugin/exchange-user-dialog.c:140
 msgid "Select User"
 msgstr "Selecció d'usuari"
 
-#: ../eplugin/exchange-user-dialog.c:174
+#: ../eplugin/exchange-user-dialog.c:179
 msgid "Address Book..."
 msgstr "Llibreta d'adreces..."
 
 #: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:1
-msgid "Activates the Evolution-Exchange extension package."
-msgstr "Activa el paquet d'ampliació de l'Evolution Exchange."
-
-#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:2
 msgid "Exchange Operations"
 msgstr "Operacions de l'Exchange"
 
-#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:4
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:3
 msgid "Size"
 msgstr "Mida"
 
+#: ../eplugin/org-gnome-exchange-operations.eplug.xml.h:4
+msgid "Activates the Evolution-Exchange extension package."
+msgstr "Activa el paquet d'ampliació de l'Evolution Exchange."
+
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:1
+msgid "You may only configure a single Exchange account."
+msgstr "Només podeu configurar un sol compte de l'Exchange."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:2
+msgid "Please restart Evolution for changes to take effect"
+msgstr "Reinicieu l'Evolution de manera que els canvis siguin efectius"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:3
+msgid ""
+"Changes to options for Exchange account \"{0}\" will only take effect after "
+"restarting Evolution."
+msgstr ""
+"Els canvis de les opcions del compte de l'Exchange «{0}» només seran "
+"efectius un cop s'hagi reiniciat l'Evolution."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:4
+msgid "The Exchange account will be removed when you quit Evolution"
+msgstr "El compte de l'Exchange se suprimirà quan sortiu de l'Evolution"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:5
+msgid "The Exchange account will be disabled when you quit Evolution"
+msgstr "El compte de l'Exchange s'inhabilitarà quan sortiu de l'Evolution"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:6
+msgid "Could not read out-of-office state"
+msgstr "No s'ha pogut llegir l'estat de fora de l'oficina"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:7
+msgid "Could not update out-of-office state"
+msgstr "No s'ha pogut actualitzar l'estat de fora de l'oficina"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:8
+msgid "Cannot change password due to configuration problems."
+msgstr "No es pot canviar la contrasenya degut a problemes de configuració."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:9
+msgid "Server rejected password because it is too weak."
+msgstr "El servidor ha rebutjat la contrasenya perquè era massa dèbil."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:10
+msgid "Try again with a different password."
+msgstr "Torneu-ho a intentar amb una contrasenya diferent."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:11
+msgid "Could not change password."
+msgstr "No s'ha pogut canviar la contrasenya."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:12
+msgid "Password successfully changed."
+msgstr "S'ha canviat la contrasenya de manera satisfactòria."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:13
+msgid "Exchange Account is offline."
+msgstr "El compte de l'Exchange està fora de línia."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:14
+msgid "Cannot display folders."
+msgstr "No es poden mostrar les carpetes."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:15
 msgid "Cannot access the \"Exchange settings\" tab in offline mode."
 msgstr ""
 "No es pot accedir a la pestanya «Paràmetres de l'Exchange» estant en mode "
 "fora de línia."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:2
-msgid "Cannot change password due to configuration problems."
-msgstr "No es pot canviar la contrasenya degut a problemes de configuració."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:3
-msgid "Cannot display folders."
-msgstr "No es poden mostrar les carpetes."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:4
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:16
 msgid "Cannot perform the operation."
 msgstr "No es pot dur a terme l'operació."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:5
-msgid ""
-"Changes to options for Exchange account \"{0}\" will only take effect after "
-"restarting Evolution."
-msgstr ""
-"Els canvis de les opcions del compte de l'Exchange «{0}» només seran efectius "
-"un cop s'hagi reiniciat l'Evolution."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:6
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:17
 msgid "Could not authenticate to server."
 msgstr "No s'ha pogut autenticar al servidor."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:7
-msgid "Could not change password."
-msgstr "No s'ha pogut canviar la contrasenya."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:8
-msgid ""
-"Could not configure Exchange account because \n"
-"an unknown error occurred. Check the URL, \n"
-"username and password, and try again."
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:18
+msgid "Make sure the username and password are correct and try again."
 msgstr ""
-"No s'ha pogut configurar el compte de l'Exchange \n"
-"degut a un error desconegut. Comproveu l'URL, \n"
-"el nom d'usuari i la contrasenya i proveu-ho de nou."
+"Assegureu-vos que el nom d'usuari i la contrasenya són correctes i proveu-ho "
+"de nou."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:11
-msgid "Could not connect to Exchange server."
-msgstr "No s'ha pogut connectar al servidor de l'Exchange."
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:19
+msgid ""
+"This probably means that your server requires \n"
+"you to specify the Windows domain name \n"
+"as part of your username (eg, &quot;DOMAIN\\user&quot;).\n"
+"\n"
+"Also, you may have typed your password incorrectly."
+msgstr ""
+"Això segurament significa que el vostre servidor requereix \n"
+"que especifiqueu el nom de domini del Windows \n"
+"com a part del vostre nom d'usuari (p.ex., &quot;DOMINI\\usuari&quot;).\n"
+"\n"
+"També pot ser que no hàgiu escrit la contrasenya correctament."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:12
-msgid "Could not connect to server {0}."
-msgstr "No s'ha pogut connectar al servidor {0}."
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:24
+msgid "Mailbox for {0} is not on this server."
+msgstr "La bústia de correu de {0} no és en aquest servidor."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:13
-msgid "Could not determine folder permissions for delegates."
-msgstr "No s'han pogut determinar els permisos de carpeta per als delegats."
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:25
+msgid "The Exchange server is not compatible with Exchange Connector."
+msgstr "El servidor de l'Exchange no és compatible amb l'Exchange Connector."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:14
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:26
+msgid ""
+"The server is running Exchange 5.5. Exchange Connector \n"
+"supports Microsoft Exchange 2000 and 2003 only."
+msgstr ""
+"El servidor està executant l'Exchange 5.5. L'Exchange Connector \n"
+"funciona només amb el Microsoft Exchange 2000 i 2003."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:28
 msgid "Could not find Exchange Web Storage System."
 msgstr ""
 "No s'ha trobat l'Exchange Web Storage System (sistema d'emmagatzematge web "
 "de l'Exchange)."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:15
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:29
+msgid ""
+"If OWA is running on a different path, you must specify that in the account "
+"configuration dialog."
+msgstr ""
+"Si l'OWA s'està executant en un camí diferent, heu d'especificar-lo al "
+"diàleg de configuració del compte."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:30
+msgid "No mailbox for user {0} on {1}."
+msgstr "No hi ha cap bústia de correu de l'usuari {0} a {1}."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:31
 msgid "Could not locate server {0}."
 msgstr "No s'ha trobat el servidor {0}."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:16
-msgid "Could not make {0} a delegate"
-msgstr "No s'ha pogut fer que en/na {0} sigui delegat"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:17
-msgid "Could not read folder permissions"
-msgstr "No s'han pogut llegir els permisos de la carpeta"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:18
-msgid "Could not read folder permissions."
-msgstr "No s'han pogut llegir els permisos de la carpeta."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:19
-msgid "Could not read out-of-office state"
-msgstr "No s'ha pogut llegir l'estat de fora de l'oficina"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:20
-msgid "Could not update folder permissions."
-msgstr "No s'han pogut actualitzar els permisos de la carpeta."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:21
-msgid "Could not update out-of-office state"
-msgstr "No s'ha pogut actualitzar l'estat de fora de l'oficina"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:22
-msgid "Evolution requires a restart to load the subscribed user's mailbox"
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:32
+msgid "Make sure the server name is spelled correctly and try again."
 msgstr ""
-"Cal reiniciar l'Evolution per carregar la bústia de correu de l'usuari al "
-"qual us heu subscrit"
+"Assegureu-vos que el nom del servidor està ben escrit i proveu-ho de nou."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:23
-msgid "Exchange Account is offline."
-msgstr "El compte de l'Exchange està fora de línia."
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:33
+msgid "Could not connect to server {0}."
+msgstr "No s'ha pogut connectar al servidor {0}."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:24
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:34
+msgid "Make sure the URL is correct and try again."
+msgstr "Assegureu-vos que l'URL és correcte i proveu-ho de nou."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:35
+msgid "Your password has expired."
+msgstr "La vostra contrasenya ha vençut."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:36
+msgid "Unknown error."
+msgstr "Error desconegut."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
+msgid "You have exceeded your quota for storing mail on this server."
+msgstr "Heu excedit la quota d'emmagatzematge de correu en aquest servidor."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:38
+msgid ""
+"Your current usage is: {0} KB. You will not be able to either send or "
+"receive mail now."
+msgstr ""
+"La vostra utilització actual és: {0} KB. A partir d'ara no podreu enviar ni "
+"rebre correu."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:39
+msgid "You are nearing your quota available for storing mail on this server."
+msgstr ""
+"Esteu acostant-vos a la quota disponible d'emmagatzematge de correu en "
+"aquest servidor."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
+msgid ""
+"Your current usage is: {0} KB. You will not be able to send mail until you "
+"clear up some space by deleting some mail."
+msgstr ""
+"La vostra utilització actual és: {0} KB. No podreu enviar correu fins que "
+"allibereu una mica d'espai suprimint alguns correus."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:41
+msgid ""
+"Your current usage is: {0} KB. Try to clear up some space by deleting some "
+"mail."
+msgstr ""
+"La vostra utilització actual és: {0} KB. Intenteu alliberar espai suprimint "
+"alguns correus."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:42
+msgid "Could not connect to Exchange server."
+msgstr "No s'ha pogut connectar al servidor de l'Exchange."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:43
 msgid ""
 "Exchange Connector requires access to certain\n"
 "functionality on the Exchange Server that appears\n"
@@ -1233,375 +1323,284 @@ msgstr ""
 "{0}\n"
 "  "
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:36
-msgid "Failed to update delegates:"
-msgstr "Ha fallat l'actualització dels delegats:"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:38
-msgid "Folder does not exist"
-msgstr "La carpeta no existeix"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:39
-msgid "Folder offline"
-msgstr "La carpeta està fora de línia"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:41
-msgid "Global Catalog Server is not reachable"
-msgstr "El servidor de catàleg global està fora de línia"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:42
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:55
 msgid ""
-"If OWA is running on a different path, you must specify that in the account "
-"configuration dialog."
+"Could not configure Exchange account because \n"
+"an unknown error occurred. Check the URL, \n"
+"username and password, and try again."
 msgstr ""
-"Si l'OWA s'està executant en un camí diferent, heu d'especificar-lo al "
-"diàleg de configuració del compte."
+"No s'ha pogut configurar el compte de l'Exchange \n"
+"degut a un error desconegut. Comproveu l'URL, \n"
+"el nom d'usuari i la contrasenya i proveu-ho de nou."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:43
-msgid "Mailbox for {0} is not on this server."
-msgstr "La bústia de correu de {0} no és en aquest servidor."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:44
-msgid "Make sure the URL is correct and try again."
-msgstr "Assegureu-vos que l'URL és correcte i proveu-ho de nou."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:45
-msgid "Make sure the server name is spelled correctly and try again."
-msgstr ""
-"Assegureu-vos que el nom del servidor està ben escrit i proveu-ho de nou."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:46
-msgid "Make sure the username and password are correct and try again."
-msgstr ""
-"Assegureu-vos que el nom d'usuari i la contrasenya són correctes i proveu-ho "
-"de nou."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:47
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:58
 msgid "No Global Catalog server configured for this account."
 msgstr ""
 "No hi ha cap servidor de catàleg global configurat per a aquest compte."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:48
-msgid "No mailbox for user {0} on {1}."
-msgstr "No hi ha cap bústia de correu de l'usuari {0} a {1}."
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:59
+msgid "Unable to edit delegates."
+msgstr "No es poden editar els delegats."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:49
-msgid "No such user {0}"
-msgstr "No existeix l'usuari {0}"
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:60
+msgid "Unable to add user to access control list:"
+msgstr "No s'ha pogut afegir l'usuari a la llista de control d'accés:"
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:50
-msgid "Password successfully changed."
-msgstr "S'ha canviat la contrasenya de manera satisfactòria."
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:61
+msgid "Could not read folder permissions."
+msgstr "No s'han pogut llegir els permisos de la carpeta."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:52
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:62
+msgid "Could not read folder permissions"
+msgstr "No s'han pogut llegir els permisos de la carpeta"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:63
+msgid "Could not determine folder permissions for delegates."
+msgstr "No s'han pogut determinar els permisos de carpeta per als delegats."
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:64
+msgid "Could not make {0} a delegate"
+msgstr "No s'ha pogut fer que en/na {0} sigui delegat"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:65
+msgid "You cannot make yourself your own delegate"
+msgstr "No podeu ser el vostre propi delegat"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:66
+msgid "{0} is already a delegate"
+msgstr "{0} ja és un delegat"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:67
+msgid "Failed to update delegates:"
+msgstr "Ha fallat l'actualització dels delegats:"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:68
+msgid "{0}"
+msgstr "{0}"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:69
 msgid "Please enter a Delegate's ID or deselect the Send as a Delegate option."
 msgstr ""
 "Introduïu l'identificador del delegat o bé no seleccioneu l'opció "
 "d'enviament com a delegat."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:53
-msgid "Please make sure the Global Catalog Server name is correct."
-msgstr "Assegureu-vos que el nom del servidor del catàleg global és correcte."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:54
-msgid "Please restart Evolution for changes to take effect"
-msgstr "Reinicieu l'Evolution de manera que els canvis siguin efectius"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:55
-msgid "Please select a user."
-msgstr "Seleccioneu un usuari."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:56
-msgid "Server rejected password because it is too weak."
-msgstr "El servidor ha rebutjat la contrasenya perquè era massa dèbil."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:57
-msgid "The Exchange account will be disabled when you quit Evolution"
-msgstr "El compte de l'Exchange s'inhabilitarà quan sortiu de l'Evolution"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:58
-msgid "The Exchange account will be removed when you quit Evolution"
-msgstr "El compte de l'Exchange se suprimirà quan sortiu de l'Evolution"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:59
-msgid "The Exchange server is not compatible with Exchange Connector."
-msgstr "El servidor de l'Exchange no és compatible amb l'Exchange Connector."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:60
-msgid ""
-"The server is running Exchange 5.5. Exchange Connector \n"
-"supports Microsoft Exchange 2000 and 2003 only."
-msgstr ""
-"El servidor està executant l'Exchange 5.5. L'Exchange Connector \n"
-"funciona només amb el Microsoft Exchange 2000 i 2003."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:62
-msgid ""
-"This probably means that your server requires \n"
-"you to specify the Windows domain name \n"
-"as part of your username (eg, &quot;DOMAIN\\user&quot;).\n"
-"\n"
-"Also, you may have typed your password incorrectly."
-msgstr ""
-"Això segurament significa que el vostre servidor requereix \n"
-"que especifiqueu el nom de domini del Windows \n"
-"com a part del vostre nom d'usuari (p.ex., &quot;DOMINI\\usuari&quot;).\n"
-"\n"
-"També pot ser que no hàgiu escrit la contrasenya correctament."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:67
-msgid "Try again with a different password."
-msgstr "Torneu-ho a intentar amb una contrasenya diferent."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:68
-msgid "Unable to add user to access control list:"
-msgstr "No s'ha pogut afegir l'usuari a la llista de control d'accés:"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:69
-msgid "Unable to edit delegates."
-msgstr "No es poden editar els delegats."
-
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:70
-msgid "Unknown error looking up {0}"
-msgstr "S'ha produït un error desconegut en cercar {0}"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:71
-msgid "Unknown error."
-msgstr "Error desconegut."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:72
-msgid "Unknown type"
-msgstr "Tipus desconegut"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:73
-msgid "Unsupported operation"
-msgstr "Operació no admesa"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:74
-msgid "You are nearing your quota available for storing mail on this server."
-msgstr ""
-"Esteu acostant-vos a la quota disponible d'emmagatzematge de correu en "
-"aquest servidor."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:75
 msgid ""
 "You are permitted to send a message on behalf of only one delegator at a "
 "time."
 msgstr ""
 "Només podeu enviar un missatge com a delegat en nom d'algú altre a la vegada."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:76
-msgid "You cannot make yourself your own delegate"
-msgstr "No podeu ser el vostre propi delegat"
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:71
+msgid "Please select a user."
+msgstr "Seleccioneu un usuari."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:77
-msgid "You have exceeded your quota for storing mail on this server."
-msgstr "Heu excedit la quota d'emmagatzematge de correu en aquest servidor."
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:72
+msgid "Could not update folder permissions."
+msgstr "No s'han pogut actualitzar els permisos de la carpeta."
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:78
-msgid "You may only configure a single Exchange account."
-msgstr "Només podeu configurar un sol compte de l'Exchange."
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:73
+msgid "No such user {0}"
+msgstr "No existeix l'usuari {0}"
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:79
-msgid ""
-"Your current usage is: {0} KB. Try to clear up some space by deleting some "
-"mail."
-msgstr ""
-"La vostra utilització actual és: {0} KB. Intenteu alliberar espai suprimint "
-"alguns correus."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:80
-msgid ""
-"Your current usage is: {0} KB. You will not be able to either send or "
-"receive mail now."
-msgstr ""
-"La vostra utilització actual és: {0} KB. A partir d'ara no podreu enviar ni "
-"rebre correu."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:81
-msgid ""
-"Your current usage is: {0} KB. You will not be able to send mail until you "
-"clear up some space by deleting some mail."
-msgstr ""
-"La vostra utilització actual és: {0} KB. No podreu enviar correu fins que "
-"allibereu una mica d'espai suprimint alguns correus."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:82
-msgid "Your password has expired."
-msgstr "La vostra contrasenya ha vençut."
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:83
-msgid "{0}"
-msgstr "{0}"
-
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:84
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:74
 msgid "{0} cannot be added to an access control list"
 msgstr "{0} no es pot afegir a una llista de control d'accés"
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:85
-msgid "{0} is already a delegate"
-msgstr "{0} ja és un delegat"
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:75
+msgid "Unknown error looking up {0}"
+msgstr "S'ha produït un error desconegut en cercar {0}"
 
-#: ../eplugin/org-gnome-exchange-operations.error.xml.h:86
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:76
 msgid "{0} is already in the list"
 msgstr "{0} ja és a la llista"
 
-#: ../server/lib/e2k-autoconfig.c:1692
-#: ../server/storage/exchange-account.c:955
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:78
+msgid "Evolution requires a restart to load the subscribed user's mailbox"
+msgstr ""
+"Cal reiniciar l'Evolution per carregar la bústia de correu de l'usuari al "
+"qual us heu subscrit"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:79
+msgid "Folder does not exist"
+msgstr "La carpeta no existeix"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:81
+msgid "Unknown type"
+msgstr "Tipus desconegut"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:82
+msgid "Folder offline"
+msgstr "La carpeta està fora de línia"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:83
+msgid "Unsupported operation"
+msgstr "Operació no admesa"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:84
+msgid "Global Catalog Server is not reachable"
+msgstr "El servidor de catàleg global està fora de línia"
+
+#: ../eplugin/org-gnome-exchange-operations.error.xml.h:85
+msgid "Please make sure the Global Catalog Server name is correct."
+msgstr "Assegureu-vos que el nom del servidor del catàleg global és correcte."
+
+#: ../server/lib/e2k-autoconfig.c:1734
+#: ../server/storage/exchange-account.c:988
 #, c-format
 msgid "Enter password for %s"
 msgstr "Introduïu la contrasenya per a %s"
 
-#: ../server/lib/e2k-autoconfig.c:1693
-#: ../server/storage/exchange-account.c:960
+#: ../server/lib/e2k-autoconfig.c:1735
+#: ../server/storage/exchange-account.c:993
 msgid "Enter password"
 msgstr "Introduïu la contrasenya"
 
 #. i18n: These are Outlook's words for the default roles in
-#. the folder permissions dialog.
-#: ../server/lib/e2k-security-descriptor.c:842
+#. * the folder permissions dialog.
+#: ../server/lib/e2k-security-descriptor.c:858
 msgid "Owner"
 msgstr "Propietari"
 
-#: ../server/lib/e2k-security-descriptor.c:852
+#: ../server/lib/e2k-security-descriptor.c:868
 msgid "Publishing Editor"
 msgstr "Editor publicador"
 
-#: ../server/lib/e2k-security-descriptor.c:860
+#: ../server/lib/e2k-security-descriptor.c:876
 msgid "Editor"
 msgstr "Editor"
 
-#: ../server/lib/e2k-security-descriptor.c:867
+#: ../server/lib/e2k-security-descriptor.c:883
 msgid "Publishing Author"
 msgstr "Autor publicador"
 
-#: ../server/lib/e2k-security-descriptor.c:873
+#: ../server/lib/e2k-security-descriptor.c:889
 msgid "Author"
 msgstr "Autor"
 
-#: ../server/lib/e2k-security-descriptor.c:878
+#: ../server/lib/e2k-security-descriptor.c:894
 msgid "Non-editing Author"
 msgstr "Autor no editor"
 
-#: ../server/lib/e2k-security-descriptor.c:882
+#: ../server/lib/e2k-security-descriptor.c:898
 msgid "Reviewer"
 msgstr "Revisor"
 
-#: ../server/lib/e2k-security-descriptor.c:884
+#: ../server/lib/e2k-security-descriptor.c:900
 msgid "Contributor"
 msgstr "Col·laborador"
 
-#: ../server/storage/e-storage.c:555
+#: ../server/storage/e-storage.c:556
 msgid "No error"
 msgstr "Sense error"
 
-#: ../server/storage/e-storage.c:559
+#: ../server/storage/e-storage.c:560
 msgid "A folder with the same name already exists"
 msgstr "Ja hi ha una carpeta amb el mateix nom"
 
-#: ../server/storage/e-storage.c:561
+#: ../server/storage/e-storage.c:562
 msgid "The specified folder type is not valid"
 msgstr "El tipus de carpeta especificat no és vàlid"
 
-#: ../server/storage/e-storage.c:563
+#: ../server/storage/e-storage.c:564
 msgid "I/O error"
 msgstr "Error d'entrada/sortida"
 
-#: ../server/storage/e-storage.c:565
+#: ../server/storage/e-storage.c:566
 msgid "Not enough space to create the folder"
 msgstr "No hi ha prou espai per crear la carpeta"
 
-#: ../server/storage/e-storage.c:567
+#: ../server/storage/e-storage.c:568
 msgid "The folder is not empty"
 msgstr "La carpeta no és buida"
 
-#: ../server/storage/e-storage.c:569
+#: ../server/storage/e-storage.c:570
 msgid "The specified folder was not found"
 msgstr "No s'ha trobat la carpeta especificada"
 
-#: ../server/storage/e-storage.c:571
+#: ../server/storage/e-storage.c:572
 msgid "Function not implemented in this storage"
 msgstr "La funció no està implementada en aquest magatzem"
 
-#: ../server/storage/e-storage.c:575
+#: ../server/storage/e-storage.c:576
 msgid "Operation not supported"
 msgstr "No s'admet l'operació"
 
-#: ../server/storage/e-storage.c:577
+#: ../server/storage/e-storage.c:578
 msgid "The specified type is not supported in this storage"
 msgstr "No s'admet el tipus especificat en aquest magatzem"
 
-#: ../server/storage/e-storage.c:579
+#: ../server/storage/e-storage.c:580
 msgid "The specified folder cannot be modified or removed"
 msgstr "La carpeta especificada no es pot modificar o suprimir"
 
-#: ../server/storage/e-storage.c:581
+#: ../server/storage/e-storage.c:582
 msgid "Cannot make a folder a child of one of its descendants"
 msgstr "No es pot fer que una carpeta sigui filla d'un dels seus descendents"
 
-#: ../server/storage/e-storage.c:583
+#: ../server/storage/e-storage.c:584
 msgid "Cannot create a folder with that name"
 msgstr "No es pot crear una carpeta amb aquest nom"
 
-#: ../server/storage/e-storage.c:585
+#: ../server/storage/e-storage.c:586
 msgid "This operation cannot be performed in offline mode"
 msgstr "No es pot realitzar aquesta operació en mode fora de línia"
 
-#: ../server/storage/e-storage.c:587
+#: ../server/storage/e-storage.c:588
 msgid "Unknown error"
 msgstr "Error desconegut"
 
 #. i18n: This is the title of an "other user's folders"
-#. hierarchy. Eg, "John Doe's Folders".
-#: ../server/storage/exchange-account.c:640
+#. * hierarchy. Eg, "John Doe's Folders".
+#: ../server/storage/exchange-account.c:665
 #, c-format
 msgid "%s's Folders"
 msgstr "Carpetes d'en/na %s"
 
-#: ../server/storage/exchange-account.c:1275
+#: ../server/storage/exchange-account.c:1325
 msgid "Favorite Public Folders"
 msgstr "Carpetes públiques preferides"
 
 #. i18n: Outlookism
-#: ../server/storage/exchange-account.c:1292
+#: ../server/storage/exchange-account.c:1342
 msgid "All Public Folders"
 msgstr "Totes les carpetes públiques"
 
 # Active Directory (AD) no es tradueix (dpm)
 #. i18n: Outlookism
-#: ../server/storage/exchange-account.c:1306
+#: ../server/storage/exchange-account.c:1356
 msgid "Global Address List"
 msgstr "Llista d'adreces global"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:262
+#: ../server/storage/exchange-hierarchy-foreign.c:266
 msgid "Deleted Items"
 msgstr "Elements suprimits"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:263
+#: ../server/storage/exchange-hierarchy-foreign.c:267
 msgid "Drafts"
 msgstr "Esborranys"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:265
+#: ../server/storage/exchange-hierarchy-foreign.c:269
 msgid "Journal"
 msgstr "Diari"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:266
+#: ../server/storage/exchange-hierarchy-foreign.c:270
 msgid "Notes"
 msgstr "Notes"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:267
+#: ../server/storage/exchange-hierarchy-foreign.c:271
 msgid "Outbox"
 msgstr "Safata de sortida"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:268
+#: ../server/storage/exchange-hierarchy-foreign.c:272
 msgid "Sent Items"
 msgstr "Elements enviats"
 
-#: ../tools/exchange-autoconfig-wizard.c:176
+#: ../tools/exchange-autoconfig-wizard.c:193
 msgid "Welcome"
 msgstr "Us donem la benvinguda"
 
-#: ../tools/exchange-autoconfig-wizard.c:176
+#: ../tools/exchange-autoconfig-wizard.c:193
 msgid ""
 "Welcome to Evolution Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
@@ -1615,13 +1614,13 @@ msgstr ""
 "\n"
 "Feu clic al botó «Endavant» per continuar."
 
-#: ../tools/exchange-autoconfig-wizard.c:188
-#: ../tools/exchange-autoconfig-wizard.c:361
-#: ../tools/exchange-autoconfig-wizard.c:448
+#: ../tools/exchange-autoconfig-wizard.c:208
+#: ../tools/exchange-autoconfig-wizard.c:384
+#: ../tools/exchange-autoconfig-wizard.c:477
 msgid "Exchange Configuration"
 msgstr "Configuració de l'Exchange"
 
-#: ../tools/exchange-autoconfig-wizard.c:188
+#: ../tools/exchange-autoconfig-wizard.c:208
 msgid ""
 "Evolution Connector for Microsoft Exchange can use account information from "
 "your existing Outlook Web Access (OWA) account.\n"
@@ -1635,23 +1634,23 @@ msgstr ""
 "Introduïu l'adreça (URL) del vostre lloc OWA, el nom d'usuari, la "
 "contrasenya i feu clic a «Endavant».\n"
 
-#: ../tools/exchange-autoconfig-wizard.c:196
+#: ../tools/exchange-autoconfig-wizard.c:216
 msgid "OWA _URL:"
 msgstr "_URL de l'OWA:"
 
-#: ../tools/exchange-autoconfig-wizard.c:200
+#: ../tools/exchange-autoconfig-wizard.c:220
 msgid "User_name:"
 msgstr "_Nom d'usuari:"
 
-#: ../tools/exchange-autoconfig-wizard.c:204
+#: ../tools/exchange-autoconfig-wizard.c:224
 msgid "_Password:"
 msgstr "_Contrasenya:"
 
-#: ../tools/exchange-autoconfig-wizard.c:209
+#: ../tools/exchange-autoconfig-wizard.c:229
 msgid "_Remember this password"
 msgstr "_Recorda aquesta contrasenya"
 
-#: ../tools/exchange-autoconfig-wizard.c:282
+#: ../tools/exchange-autoconfig-wizard.c:302
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -1661,7 +1660,7 @@ msgstr ""
 "Assegureu-vos que l'URL és correcte i proveu-ho de nou. Podeu provar «%s» en "
 "comptes de «%s»."
 
-#: ../tools/exchange-autoconfig-wizard.c:290
+#: ../tools/exchange-autoconfig-wizard.c:310
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -1669,7 +1668,7 @@ msgstr ""
 "No s'ha pogut trobar el servidor Exchange.\n"
 "Assegureu-vos que el nom del servidor està ben escrit i proveu-ho de nou."
 
-#: ../tools/exchange-autoconfig-wizard.c:299
+#: ../tools/exchange-autoconfig-wizard.c:319
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -1678,7 +1677,7 @@ msgstr ""
 "Assegureu-vos que el nom d'usuari i la contrasenya són correctes i proveu-ho "
 "de nou."
 
-#: ../tools/exchange-autoconfig-wizard.c:306
+#: ../tools/exchange-autoconfig-wizard.c:326
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -1694,7 +1693,7 @@ msgstr ""
 "Potser heu d'especificar el nom de domini de Windows com a part del vostre "
 "nom d'usuari, per exemple «EL-MEU-DOMINI\\%s»."
 
-#: ../tools/exchange-autoconfig-wizard.c:318
+#: ../tools/exchange-autoconfig-wizard.c:338
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -1702,7 +1701,7 @@ msgstr ""
 "No s'han trobat dades OWA a l'URL indicat.\n"
 "Assegureu-vos que l'URL és correcte i proveu-ho de nou."
 
-#: ../tools/exchange-autoconfig-wizard.c:324
+#: ../tools/exchange-autoconfig-wizard.c:344
 msgid ""
 "Evolution Connector for Microsoft Exchange requires access to certain "
 "functionality on the Exchange server that appears to be disabled or "
@@ -1721,7 +1720,7 @@ msgstr ""
 "En l'enllaç següent trobareu la informació que heu de proporcionar al vostre "
 "administrador de l'Exchange:"
 
-#: ../tools/exchange-autoconfig-wizard.c:337
+#: ../tools/exchange-autoconfig-wizard.c:357
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 server. "
 "Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
@@ -1730,7 +1729,7 @@ msgstr ""
 "L'URL del servidor Exchange és per a un servidor Exchange 5.5. L'Evolution "
 "Connector funciona només amb el Microsoft Exchange 2000 i 2003."
 
-#: ../tools/exchange-autoconfig-wizard.c:345
+#: ../tools/exchange-autoconfig-wizard.c:365
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -1738,7 +1737,7 @@ msgstr ""
 "No s'ha pogut configurar el compte d'Exchange degut a un error desconegut. "
 "Comproveu l'URL, el nom d'usuari i la contrasenya i proveu-ho de nou."
 
-#: ../tools/exchange-autoconfig-wizard.c:361
+#: ../tools/exchange-autoconfig-wizard.c:384
 msgid ""
 "Evolution Connector for Microsoft Exchange could not find the Global Catalog "
 "replica for your site. Please enter the name of your Global Catalog server. "
@@ -1749,11 +1748,11 @@ msgstr ""
 "vostre servidor de catàleg global. Potser haureu de demanar-ho al vostre "
 "administrador del sistema."
 
-#: ../tools/exchange-autoconfig-wizard.c:369
+#: ../tools/exchange-autoconfig-wizard.c:392
 msgid "GC _Server:"
 msgstr "_Servidor del GC:"
 
-#: ../tools/exchange-autoconfig-wizard.c:402
+#: ../tools/exchange-autoconfig-wizard.c:425
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -1764,7 +1763,7 @@ msgstr ""
 "endarrere i especificar el nom de domini de Windows com a part del vostre "
 "nom d'usuari (p.e «EL-MEU-DOMINI\\%s»)."
 
-#: ../tools/exchange-autoconfig-wizard.c:409
+#: ../tools/exchange-autoconfig-wizard.c:432
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -1772,11 +1771,11 @@ msgstr ""
 "No s'ha pogut connectar amb el servidor especificat.\n"
 "Comproveu el nom del servidor i proveu-ho de nou."
 
-#: ../tools/exchange-autoconfig-wizard.c:421
+#: ../tools/exchange-autoconfig-wizard.c:447
 msgid "Configuration Failed"
 msgstr "Ha fallat la configuració"
 
-#: ../tools/exchange-autoconfig-wizard.c:421
+#: ../tools/exchange-autoconfig-wizard.c:447
 msgid ""
 "Evolution Connector for Microsoft Exchange has encountered a problem "
 "configuring your Exchange account."
@@ -1784,7 +1783,7 @@ msgstr ""
 "L'Evolution Connector per a l'Exchange de Microsoft ha trobat un problema en "
 "configurar el vostre compte de l'Exchange."
 
-#: ../tools/exchange-autoconfig-wizard.c:448
+#: ../tools/exchange-autoconfig-wizard.c:477
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\"."
@@ -1792,36 +1791,36 @@ msgstr ""
 "Aquesta és la informació del vostre compte. Corregiu qualsevol error i "
 "després feu clic a «Endavant»."
 
-#: ../tools/exchange-autoconfig-wizard.c:456
+#: ../tools/exchange-autoconfig-wizard.c:485
 msgid "Full _Name:"
 msgstr "_Nom complet:"
 
-#: ../tools/exchange-autoconfig-wizard.c:460
+#: ../tools/exchange-autoconfig-wizard.c:489
 msgid "_Email Address:"
 msgstr "Adreça _electrònica:"
 
-#: ../tools/exchange-autoconfig-wizard.c:464
+#: ../tools/exchange-autoconfig-wizard.c:493
 msgid "Make this my _default account"
 msgstr "Estableix com a compte _predeterminat"
 
-#: ../tools/exchange-autoconfig-wizard.c:481
-#: ../tools/exchange-autoconfig-wizard.c:485
+#: ../tools/exchange-autoconfig-wizard.c:510
+#: ../tools/exchange-autoconfig-wizard.c:514
 msgid "Unknown"
 msgstr "Desconegut"
 
-#: ../tools/exchange-autoconfig-wizard.c:508
+#: ../tools/exchange-autoconfig-wizard.c:540
 msgid "Done"
 msgstr "Fet"
 
-#: ../tools/exchange-autoconfig-wizard.c:508
+#: ../tools/exchange-autoconfig-wizard.c:540
 msgid ""
 "Your Connector account is now ready to use. Click the \"Apply\" button to "
 "save your settings."
 msgstr ""
-"El vostre compte Connector ja està llest. Feu clic al botó «Aplica» per desar "
-"els canvis."
+"El vostre compte Connector ja està llest. Feu clic al botó «Aplica» per "
+"desar els canvis."
 
-#: ../tools/exchange-autoconfig-wizard.c:557
+#: ../tools/exchange-autoconfig-wizard.c:589
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -1829,11 +1828,11 @@ msgstr ""
 "Error del sistema de configuració.\n"
 "No s'ha pogut crear el compte nou."
 
-#: ../tools/exchange-autoconfig-wizard.c:572
+#: ../tools/exchange-autoconfig-wizard.c:604
 msgid "You may only configure a single Exchange account"
 msgstr "Només podeu configurar un sol compte d'Exchange"
 
-#: ../tools/exchange-autoconfig-wizard.c:747
+#: ../tools/exchange-autoconfig-wizard.c:787
 msgid "Evolution Connector for Microsoft Exchange Configuration"
 msgstr "L'Evolution Connector per la configuració del Microsoft Exchange"
 
@@ -1842,58 +1841,64 @@ msgid "Change your Exchange server password"
 msgstr "Canvieu la vostra contrasenya del servidor Exchange"
 
 #: ../tools/ximian-connector.xml.h:2
-msgid "Folder _Size"
-msgstr "_Mida de la carpeta"
+msgid "_Change Exchange Password..."
+msgstr "_Canvia la contrasenya de l'Exchange..."
 
 #: ../tools/ximian-connector.xml.h:3
-msgid "Get the size of personal folders"
-msgstr "Aconsegueix la mida de les carpetes personals"
+msgid "Subscribe to a folder belonging to some other user on the server"
+msgstr ""
+"Subscriviu-vos a una carpeta que pertany a un altre usuari del servidor"
 
 #: ../tools/ximian-connector.xml.h:4
 msgid "Subscribe to _Other User's Folder..."
 msgstr "Su_bscriu a la carpeta d'altres usuaris..."
 
 #: ../tools/ximian-connector.xml.h:5
-msgid "Subscribe to a folder belonging to some other user on the server"
-msgstr ""
-"Subscriviu-vos a una carpeta que pertany a un altre usuari del servidor"
-
-#: ../tools/ximian-connector.xml.h:6
 msgid ""
 "Unsubscribe from a folder added with \"Subscribe to Other User's Folder\""
 msgstr ""
 "Cancel·la la subscripció a una carpeta afegida amb «Subscriviu a la carpeta "
 "d'un altre usuari»"
 
+#: ../tools/ximian-connector.xml.h:6
+msgid "_Unsubscribe from Other User's Folder"
+msgstr "Cancel·la la s_ubscripció de carpeta d'altres usuaris"
+
 #: ../tools/ximian-connector.xml.h:7
-msgid "View or change your Exchange calendar delegation settings"
-msgstr ""
-"Visualitzeu o canvieu els paràmetres de delegació del calendari de l'Exchange"
+msgid "Get the size of personal folders"
+msgstr "Aconsegueix la mida de les carpetes personals"
 
 #: ../tools/ximian-connector.xml.h:8
+msgid "Folder _Size"
+msgstr "_Mida de la carpeta"
+
+#: ../tools/ximian-connector.xml.h:9
 msgid "View or change your Out-of-Office status and autoreply message"
 msgstr ""
 "Visualitzeu o canvieu el vostre estat de fora de l'oficina i el missatge de "
 "resposta automàtica"
 
-#: ../tools/ximian-connector.xml.h:9
-msgid "_Change Exchange Password..."
-msgstr "_Canvia la contrasenya de l'Exchange..."
-
 #: ../tools/ximian-connector.xml.h:10
-msgid "_Delegation Assistant"
-msgstr "Auxiliar _de delegació"
-
-#: ../tools/ximian-connector.xml.h:11
 msgid "_Out of Office Assistant"
 msgstr "Auxiliar per a «f_ora de l'oficina»"
 
-#: ../tools/ximian-connector.xml.h:12
-msgid "_Unsubscribe from Other User's Folder"
-msgstr "Cancel·la la s_ubscripció de carpeta d'altres usuaris"
+#: ../tools/ximian-connector.xml.h:11
+msgid "View or change your Exchange calendar delegation settings"
+msgstr ""
+"Visualitzeu o canvieu els paràmetres de delegació del calendari de l'Exchange"
 
-#~ msgid "Authentication failed"
-#~ msgstr "Ha fallat l'autenticació"
+#: ../tools/ximian-connector.xml.h:12
+msgid "_Delegation Assistant"
+msgstr "Auxiliar _de delegació"
+
+#~ msgid "Could not authenticate to server. (Password incorrect?)"
+#~ msgstr ""
+#~ "No s'ha pogut autenticar al servidor. Potser la contrasenya és incorrecta."
+
+#~ msgid "Exchange transport can only be used with Exchange mail source"
+#~ msgstr ""
+#~ "El transport Exchange només es pot fer servir amb una font de correu "
+#~ "d'Exchange"
 
 #~ msgid "Could not find the calendar"
 #~ msgstr "No s'ha pogut trobar el calendari"
