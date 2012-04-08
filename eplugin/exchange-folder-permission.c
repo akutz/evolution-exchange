@@ -109,8 +109,10 @@ is_eex_folder_selected (EShellView *shell_view,
 	GtkTreeSelection *selection;
 	GtkTreeModel *model = NULL;
 	GtkTreeIter iter;
+	CamelStore *store;
+	gchar *folder_name;
 	gboolean is_store = FALSE, res = FALSE;
-	gchar *uri = NULL;
+	gboolean is_exchange_store = FALSE;
 
 	g_return_val_if_fail (shell_view != NULL, FALSE);
 
@@ -124,12 +126,29 @@ is_eex_folder_selected (EShellView *shell_view,
 	if (!gtk_tree_selection_get_selected (selection, &model, &iter))
 		return FALSE;
 
-	gtk_tree_model_get (model, &iter,
-		COL_STRING_URI, &uri,
+	gtk_tree_model_get (
+		model, &iter,
+		COL_POINTER_CAMEL_STORE, &store,
+		COL_STRING_FULL_NAME, &folder_name,
 		COL_BOOL_IS_STORE, &is_store,
 		-1);
 
-	res = !is_store && uri && g_ascii_strncasecmp (uri, "exchange://", 11) == 0;
+	/* XXX Maybe move CamelExchangeStore to /server/lib so
+	 *     we can query its GType directly?  Would probably
+	 *     drag all the other CamelExchange classes with it,
+	 *     but maybe that's okay? */
+	if (CAMEL_IS_STORE (store)) {
+		CamelService *service;
+		CamelProvider *provider;
+		const gchar *protocol;
+
+		service = CAMEL_SERVICE (store);
+		provider = camel_service_get_provider (service);
+		protocol = (provider != NULL) ? provider->protocol : NULL;
+		is_exchange_store = (g_strcmp0 (protocol, "exchange") == 0);
+	}
+
+	res = !is_store && is_exchange_store;
 
 	if (res) {
 		gint mode;
@@ -145,21 +164,12 @@ is_eex_folder_selected (EShellView *shell_view,
 		}
 	}
 
-	if (res) {
-		const gchar *path = NULL;
-
-		if (strlen (uri) > strlen ("exchange://") + strlen (account->account_filename))
-			path = uri + strlen ("exchange://") + strlen (account->account_filename);
-
-		res = path && *path;
-
-		if (res) {
-			if (puri)
-				*puri = g_strdup (uri);
-		}
+	if (folder_name != NULL && puri != NULL) {
+		*puri = folder_name;
+		folder_name = NULL;
 	}
 
-	g_free (uri);
+	g_free (folder_name);
 
 	return res;
 }
@@ -171,8 +181,7 @@ is_eex_store_available (EShellView *shell_view)
 	EMFolderTree *folder_tree = NULL;
 	GtkTreeModel *model = NULL;
 	GtkTreeIter iter;
-	gboolean is_store = FALSE, res = FALSE;
-	gchar *uri = NULL;
+	gboolean res = FALSE;
 
 	g_return_val_if_fail (shell_view != NULL, FALSE);
 
@@ -187,14 +196,31 @@ is_eex_store_available (EShellView *shell_view)
 		return FALSE;
 
 	do {
+		CamelStore *store;
+		gboolean is_store;
+		gboolean is_exchange_store = FALSE;
+
 		gtk_tree_model_get (model, &iter,
-			COL_STRING_URI, &uri,
+			COL_POINTER_CAMEL_STORE, &store,
 			COL_BOOL_IS_STORE, &is_store,
 			-1);
 
-		res = is_store && uri && g_ascii_strncasecmp (uri, "exchange://", 11) == 0;
+		/* XXX Maybe move CamelExchangeStore to /server/lib so
+		 *     we can query its GType directly?  Would probably
+		 *     drag all the other CamelExchange classes with it,
+		 *     but maybe that's okay? */
+		if (CAMEL_IS_STORE (store)) {
+			CamelService *service;
+			CamelProvider *provider;
+			const gchar *protocol;
 
-		g_free (uri);
+			service = CAMEL_SERVICE (store);
+			provider = camel_service_get_provider (service);
+			protocol = (provider != NULL) ? provider->protocol : NULL;
+			is_exchange_store = (g_strcmp0 (protocol, "exchange") == 0);
+		}
+
+		res = is_store && is_exchange_store;
 	} while (!res && gtk_tree_model_iter_next (model, &iter));
 
 	return res;
