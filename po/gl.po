@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange-master-po-gl-53547\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-23 23:57+0100\n"
-"PO-Revision-Date: 2012-03-23 23:58+0100\n"
+"POT-Creation-Date: 2012-04-13 15:24+0200\n"
+"PO-Revision-Date: 2012-04-13 15:25+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
 "Language: gl\n"
@@ -76,10 +76,34 @@ msgstr "Recibindo os resultados da busca no LDAP..."
 msgid "Error performing search"
 msgstr "Produciuse un erro ao realizar a busca"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2254
+#: ../calendar/e-cal-backend-exchange-calendar.c:1036
+msgid "Exchange does not support bulk additions"
+msgstr "«Exchange» non admite adicións en lote"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:1183
+msgid "Exchange does not support bulk modifications"
+msgstr "«Exchange» non admite modificación en lote"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:1749
+msgid "Exchange does not support bulk removals"
+msgstr "«Exchange» non admite eliminacións en lote"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:2328
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "O recurso '%s' está ocupado durante o período de tempo seleccionado."
+
+#: ../calendar/e-cal-backend-exchange-tasks.c:1274
+msgid "Exchange tasks do not support bulk additions"
+msgstr "As tarefas de «Exchange» non admiten adicións en lote"
+
+#: ../calendar/e-cal-backend-exchange-tasks.c:1435
+msgid "Exchange tasks do not support bulk modifications"
+msgstr "As tarefas de «Exchange» non admiten modificacións en lote"
+
+#: ../calendar/e-cal-backend-exchange-tasks.c:1559
+msgid "Exchange tasks do not support bulk removals"
+msgstr "As tarefas de «Exchange» non admiten eliminacións en lote"
 
 #: ../camel/camel-exchange-folder.c:76
 msgid "No Subject"
@@ -90,49 +114,49 @@ msgstr "Sen asunto"
 msgid "This message is not available in offline mode."
 msgstr "Esta mensaxe non está dispoñíbel no modo desconectado."
 
-#: ../camel/camel-exchange-folder.c:514
+#: ../camel/camel-exchange-folder.c:516
 #, c-format
 msgid "You cannot expunge in offline mode."
 msgstr "Non é posíbel compactar en modo sen conexión."
 
-#: ../camel/camel-exchange-folder.c:652 ../camel/camel-exchange-utils.c:609
+#: ../camel/camel-exchange-folder.c:654 ../camel/camel-exchange-utils.c:609
 #: ../camel/camel-exchange-utils.c:648
 msgid "Could not get new messages"
 msgstr "Non foi posíbel obter as mensaxes novas"
 
-#: ../camel/camel-exchange-folder.c:696
+#: ../camel/camel-exchange-folder.c:698
 msgid "Moving messages"
 msgstr "Movendo as mensaxes"
 
-#: ../camel/camel-exchange-folder.c:696
+#: ../camel/camel-exchange-folder.c:698
 msgid "Copying messages"
 msgstr "Copiando as mensaxes"
 
-#: ../camel/camel-exchange-folder.c:1108
+#: ../camel/camel-exchange-folder.c:1110
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Non foi posíbel crear o cartafol %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1117
+#: ../camel/camel-exchange-folder.c:1119
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Non foi posíbel cargar o resumo de %s"
 
-#: ../camel/camel-exchange-folder.c:1124
+#: ../camel/camel-exchange-folder.c:1126
 #, c-format
 msgid "Could not create cache for %s: "
 msgstr "Non foi posíbel crear a caché para %s:"
 
-#: ../camel/camel-exchange-folder.c:1135
+#: ../camel/camel-exchange-folder.c:1137
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Non foi posíbel crear o diario para %s"
 
-#: ../camel/camel-exchange-folder.c:1185
+#: ../camel/camel-exchange-folder.c:1187
 msgid "Scanning for changed messages"
 msgstr "Examinando mensaxes cambiadas"
 
-#: ../camel/camel-exchange-folder.c:1213
+#: ../camel/camel-exchange-folder.c:1215
 msgid "Fetching summary information for new messages"
 msgstr "Obtendo a información do resumo para as mensaxes novas"
 
@@ -636,6 +660,71 @@ msgstr "_Si, cambiar estado"
 msgid "Enter Password for %s"
 msgstr "Insira a contrasinal para %s"
 
+#: ../eplugin/exchange-delegates.c:418
+msgid "Delegate To:"
+msgstr "Delegar en:"
+
+#: ../eplugin/exchange-delegates.c:418
+msgid "Delegate To"
+msgstr "Delegar en"
+
+#: ../eplugin/exchange-delegates.c:588
+#, c-format
+msgid "Remove the delegate %s?"
+msgstr "Eliminar o delegado %s?"
+
+#: ../eplugin/exchange-delegates.c:707
+msgid "Could not access Active Directory"
+msgstr "Non foi posíbel acceder ao Directorio activo"
+
+#: ../eplugin/exchange-delegates.c:719
+msgid "Could not find self in Active Directory"
+msgstr "Non foi posíbel atoparse no Directorio activo"
+
+#: ../eplugin/exchange-delegates.c:732
+#, c-format
+msgid "Could not find delegate %s in Active Directory"
+msgstr "Non foi posíbel atopar o delegado %s no Directorio activo"
+
+#: ../eplugin/exchange-delegates.c:744
+#, c-format
+msgid "Could not remove delegate %s"
+msgstr "Non foi posíbel eliminar a delegación %s"
+
+#: ../eplugin/exchange-delegates.c:804
+msgid "Could not update list of delegates."
+msgstr "Non foi posíbel actualizar a lista de delegados."
+
+#: ../eplugin/exchange-delegates.c:822
+#, c-format
+msgid "Could not add delegate %s"
+msgstr "Non foi posíbel engadir o delegado: %s"
+
+#: ../eplugin/exchange-delegates.c:942
+msgid "Delegates"
+msgstr "Delegados"
+
+#: ../eplugin/exchange-delegates.c:957
+msgid ""
+"These users will be able to send mail on your behalf\n"
+"and access your folders with the permissions you give them."
+msgstr ""
+"Estes usuarios serán capaces de enviar correo no seu nome\n"
+"e acceder aos seus cartafoles cos permisos que lles dea."
+
+#: ../eplugin/exchange-delegates.c:981
+msgid "_Edit"
+msgstr "_Editar"
+
+#: ../eplugin/exchange-delegates.c:1011
+#: ../eplugin/exchange-permissions-dialog.c:926
+msgid "Name"
+msgstr "Nome"
+
+#: ../eplugin/exchange-delegates.c:1037
+msgid "Error reading delegates list."
+msgstr "Produciuse un erro ao ler a lista de delegacións."
+
 #: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:465
 #: ../server/storage/exchange-hierarchy-foreign.c:264
 msgid "Calendar"
@@ -773,113 +862,58 @@ msgstr "Sen embargo vostede non pode ver os meus elementos privados."
 msgid "You have been designated as a delegate for %s"
 msgstr "Vostede foi designado como un delegado para %s"
 
-#: ../eplugin/exchange-delegates.c:418
-msgid "Delegate To:"
-msgstr "Delegar en:"
-
-#: ../eplugin/exchange-delegates.c:418
-msgid "Delegate To"
-msgstr "Delegar en"
-
-#: ../eplugin/exchange-delegates.c:588
+#: ../eplugin/exchange-folder.c:348 ../eplugin/exchange-folder.c:404
 #, c-format
-msgid "Remove the delegate %s?"
-msgstr "Eliminar o delegado %s?"
+msgid "Really unsubscribe from folder \"%s\"?"
+msgstr "Está seguro de que quere desuscribirse do cartafol \"%s\"?"
 
-#: ../eplugin/exchange-delegates.c:707
-msgid "Could not access Active Directory"
-msgstr "Non foi posíbel acceder ao Directorio activo"
-
-#: ../eplugin/exchange-delegates.c:719
-msgid "Could not find self in Active Directory"
-msgstr "Non foi posíbel atoparse no Directorio activo"
-
-#: ../eplugin/exchange-delegates.c:732
+#: ../eplugin/exchange-folder.c:361 ../eplugin/exchange-folder.c:417
 #, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "Non foi posíbel atopar o delegado %s no Directorio activo"
+msgid "Unsubscribe from \"%s\""
+msgstr "Desuscribir de \"%s\""
 
-#: ../eplugin/exchange-delegates.c:744
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "Non foi posíbel eliminar a delegación %s"
-
-#: ../eplugin/exchange-delegates.c:804
-msgid "Could not update list of delegates."
-msgstr "Non foi posíbel actualizar a lista de delegados."
-
-#: ../eplugin/exchange-delegates.c:822
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "Non foi posíbel engadir o delegado: %s"
-
-#: ../eplugin/exchange-delegates.c:942
-msgid "Delegates"
-msgstr "Delegados"
-
-#: ../eplugin/exchange-delegates.c:957
-msgid ""
-"These users will be able to send mail on your behalf\n"
-"and access your folders with the permissions you give them."
-msgstr ""
-"Estes usuarios serán capaces de enviar correo no seu nome\n"
-"e acceder aos seus cartafoles cos permisos que lles dea."
-
-#: ../eplugin/exchange-delegates.c:981
-msgid "_Edit"
-msgstr "_Editar"
-
-#: ../eplugin/exchange-delegates.c:1011
-#: ../eplugin/exchange-permissions-dialog.c:926
-msgid "Name"
-msgstr "Nome"
-
-#: ../eplugin/exchange-delegates.c:1037
-msgid "Error reading delegates list."
-msgstr "Produciuse un erro ao ler a lista de delegacións."
-
-#: ../eplugin/exchange-folder-permission.c:246
-#: ../eplugin/exchange-folder-permission.c:532
-#: ../eplugin/exchange-folder-permission.c:567
-#: ../eplugin/exchange-folder-permission.c:602
+#: ../eplugin/exchange-folder-permission.c:272
+#: ../eplugin/exchange-folder-permission.c:558
+#: ../eplugin/exchange-folder-permission.c:593
+#: ../eplugin/exchange-folder-permission.c:628
 msgid "Permissions..."
 msgstr "Permisos..."
 
-#: ../eplugin/exchange-folder-permission.c:248
+#: ../eplugin/exchange-folder-permission.c:274
 msgid "Check folder permissions"
 msgstr "Comprobar os permisos do cartafol"
 
-#: ../eplugin/exchange-folder-permission.c:253
-#: ../eplugin/exchange-folder-permission.c:539
-#: ../eplugin/exchange-folder-permission.c:574
-#: ../eplugin/exchange-folder-permission.c:609
-msgid "Subscribe to Other User's Folder..."
-msgstr "Subscribirse a outro cartafol de usuario..."
+#: ../eplugin/exchange-folder-permission.c:279
+#: ../eplugin/exchange-folder-permission.c:565
+#: ../eplugin/exchange-folder-permission.c:600
+#: ../eplugin/exchange-folder-permission.c:635
+msgid "Subscribe to folder of other user..."
+msgstr "Subscribirse ao cartafol de outro usuario..."
 
-#: ../eplugin/exchange-folder-permission.c:255
-#: ../eplugin/exchange-folder-permission.c:541
-#: ../eplugin/exchange-folder-permission.c:576
-#: ../eplugin/exchange-folder-permission.c:611
+#: ../eplugin/exchange-folder-permission.c:281
+#: ../eplugin/exchange-folder-permission.c:567
+#: ../eplugin/exchange-folder-permission.c:602
+#: ../eplugin/exchange-folder-permission.c:637
 #: ../eplugin/exchange-folder-subscription.c:319
-msgid "Subscribe to Other User's Folder"
-msgstr "Subscribirse a outro cartafol de usuario"
+msgid "Subscribe to folder of other user"
+msgstr "Subscribirse ao cartafol de outro usuario"
 
-#: ../eplugin/exchange-folder-permission.c:260
-#: ../eplugin/exchange-folder-permission.c:546
-#: ../eplugin/exchange-folder-permission.c:581
-#: ../eplugin/exchange-folder-permission.c:616
+#: ../eplugin/exchange-folder-permission.c:286
+#: ../eplugin/exchange-folder-permission.c:572
+#: ../eplugin/exchange-folder-permission.c:607
+#: ../eplugin/exchange-folder-permission.c:642
 msgid "Unsubscribe Folder..."
 msgstr "Desubscribirse do cartafol..."
 
-#: ../eplugin/exchange-folder-permission.c:534
+#: ../eplugin/exchange-folder-permission.c:560
 msgid "Check calendar permissions"
 msgstr "Comprobar permisos do calendario"
 
-#: ../eplugin/exchange-folder-permission.c:569
+#: ../eplugin/exchange-folder-permission.c:595
 msgid "Check tasks permissions"
 msgstr "Comprobar permisos das tarefas"
 
-#: ../eplugin/exchange-folder-permission.c:604
+#: ../eplugin/exchange-folder-permission.c:630
 msgid "Check address book permissions"
 msgstr "Comprobar permisos da axenda de enderezos"
 
@@ -912,16 +946,6 @@ msgstr "_Nome do cartafol:"
 #: ../eplugin/exchange-folder-subscription.c:355
 msgid "_User:"
 msgstr "_Usuario:"
-
-#: ../eplugin/exchange-folder.c:348 ../eplugin/exchange-folder.c:404
-#, c-format
-msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "Está seguro de que quere desuscribirse do cartafol \"%s\"?"
-
-#: ../eplugin/exchange-folder.c:361 ../eplugin/exchange-folder.c:417
-#, c-format
-msgid "Unsubscribe from \"%s\""
-msgstr "Desuscribir de \"%s\""
 
 #: ../eplugin/exchange-mail-send-options.c:231
 msgid "_Send Options"
@@ -1875,6 +1899,9 @@ msgstr ""
 #: ../tools/ximian-connector.xml.h:12
 msgid "_Delegation Assistant"
 msgstr "Asistente de _delegacións"
+
+#~ msgid "Subscribe to Other User's Folder"
+#~ msgstr "Subscribirse a outro cartafol de usuario"
 
 #~ msgid "Could not authenticate to server. (Password incorrect?)"
 #~ msgstr "Non foi posíbel autenticar co servidor. (é correcto o contrasinal?)"
