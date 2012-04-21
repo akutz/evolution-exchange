@@ -1,5 +1,5 @@
 # Danish translation of Evolution Exchange
-# Copyright (C) 2011 Free Software Foundation, Inc.
+# Copyright (C) 2012 Free Software Foundation, Inc.
 # This file is distributed under the same license as the evolution-exchange package.
 # Ole Laursen <olau@hardworking.dk>, 2006.
 # Martin Willemoes Hansen <mwh@sysrq.dk>, 2004, 05.
@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-02 12:24+0100\n"
-"PO-Revision-Date: 2012-01-01 12:35+0200\n"
+"POT-Creation-Date: 2012-04-21 17:40+0200\n"
+"PO-Revision-Date: 2012-04-14 12:35+0200\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -40,46 +40,70 @@ msgstr ""
 "nuværende mellemlager fremover. Dette vil kun virke hvis du aktiverer "
 "afkoblet mellemlagring for GAL."
 
-#: ../addressbook/e-book-backend-exchange.c:137
+#: ../addressbook/e-book-backend-exchange.c:139
 #, c-format
 msgid "Operation failed with status %d"
 msgstr "Operationen mislykkedes med status %d"
 
-#: ../addressbook/e-book-backend-exchange.c:1737
+#: ../addressbook/e-book-backend-exchange.c:1739
 msgid "The backend does not support bulk additions"
 msgstr "Motoren understøtter ikke massetilføjelser"
 
-#: ../addressbook/e-book-backend-exchange.c:1834
+#: ../addressbook/e-book-backend-exchange.c:1836
 msgid "The backend does not support bulk modifications"
 msgstr "Motoren understøtter ikke masseændringer"
 
-#: ../addressbook/e-book-backend-exchange.c:1855
-#: ../addressbook/e-book-backend-exchange.c:2521
+#: ../addressbook/e-book-backend-exchange.c:1857
+#: ../addressbook/e-book-backend-exchange.c:2523
 msgid "Cancelled"
 msgstr "Annulleret"
 
-#: ../addressbook/e-book-backend-exchange.c:2368
-#: ../addressbook/e-book-backend-gal.c:2045
+#: ../addressbook/e-book-backend-exchange.c:2370
+#: ../addressbook/e-book-backend-gal.c:2047
 msgid "Searching..."
 msgstr "Søger..."
 
-#: ../addressbook/e-book-backend-gal.c:356
-#: ../addressbook/e-book-backend-gal.c:379
+#: ../addressbook/e-book-backend-gal.c:358
+#: ../addressbook/e-book-backend-gal.c:381
 msgid "Reconnecting to LDAP server..."
 msgstr "Tilslutter LDAP-server igen..."
 
-#: ../addressbook/e-book-backend-gal.c:1791
+#: ../addressbook/e-book-backend-gal.c:1793
 msgid "Receiving LDAP search results..."
 msgstr "Modtager søgeresultater fra LDAP-server..."
 
-#: ../addressbook/e-book-backend-gal.c:2076
+#: ../addressbook/e-book-backend-gal.c:2078
 msgid "Error performing search"
 msgstr "Fejl under udføring af søgning"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2252
+#: ../calendar/e-cal-backend-exchange-calendar.c:1036
+msgid "Exchange does not support bulk additions"
+msgstr "Exchange understøtter ikke flere samtidige tilføjelser"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:1183
+msgid "Exchange does not support bulk modifications"
+msgstr "Exchange understøtter ikke flere samtidige ændringer"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:1749
+msgid "Exchange does not support bulk removals"
+msgstr "Exchange understøtter ikke flere samtidige fjernelser"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:2328
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "Resursen \"%s\" er optaget under den valgte tidsperiode."
+
+#: ../calendar/e-cal-backend-exchange-tasks.c:1274
+msgid "Exchange tasks do not support bulk additions"
+msgstr "Exchange-opgaver understøtter ikke flere samtidige tilføjelser"
+
+#: ../calendar/e-cal-backend-exchange-tasks.c:1435
+msgid "Exchange tasks do not support bulk modifications"
+msgstr "Exchange-opgaver understøtter ikke flere samtidige ændringer"
+
+#: ../calendar/e-cal-backend-exchange-tasks.c:1559
+msgid "Exchange tasks do not support bulk removals"
+msgstr "Exchange-opgaver understøtter ikke flere samtidige fjernelser"
 
 #: ../camel/camel-exchange-folder.c:76
 msgid "No Subject"
@@ -90,49 +114,49 @@ msgstr "Intet emne"
 msgid "This message is not available in offline mode."
 msgstr "Denne besked er ikke tilgængelig i frakoblet tilstand."
 
-#: ../camel/camel-exchange-folder.c:514
+#: ../camel/camel-exchange-folder.c:516
 #, c-format
 msgid "You cannot expunge in offline mode."
 msgstr "Kan ikke tømme i frakoblet tilstand."
 
-#: ../camel/camel-exchange-folder.c:652 ../camel/camel-exchange-utils.c:603
-#: ../camel/camel-exchange-utils.c:642
+#: ../camel/camel-exchange-folder.c:654 ../camel/camel-exchange-utils.c:609
+#: ../camel/camel-exchange-utils.c:648
 msgid "Could not get new messages"
 msgstr "Kunne ikke hente nye beskeder"
 
-#: ../camel/camel-exchange-folder.c:696
+#: ../camel/camel-exchange-folder.c:698
 msgid "Moving messages"
 msgstr "Flytter beskeder"
 
-#: ../camel/camel-exchange-folder.c:696
+#: ../camel/camel-exchange-folder.c:698
 msgid "Copying messages"
 msgstr "Kopierer beskeder"
 
-#: ../camel/camel-exchange-folder.c:1108
+#: ../camel/camel-exchange-folder.c:1110
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Kunne ikke oprette mappen %s: %s"
 
-#: ../camel/camel-exchange-folder.c:1117
+#: ../camel/camel-exchange-folder.c:1119
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Kunne ikke indlæse sammendrag for %s"
 
-#: ../camel/camel-exchange-folder.c:1124
+#: ../camel/camel-exchange-folder.c:1126
 #, c-format
 msgid "Could not create cache for %s: "
 msgstr "Kunne ikke oprette mellemlager for %s: "
 
-#: ../camel/camel-exchange-folder.c:1135
+#: ../camel/camel-exchange-folder.c:1137
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Kunne ikke oprette journal for %s"
 
-#: ../camel/camel-exchange-folder.c:1185
+#: ../camel/camel-exchange-folder.c:1187
 msgid "Scanning for changed messages"
 msgstr "Søger efter ændrede beskeder"
 
-#: ../camel/camel-exchange-folder.c:1213
+#: ../camel/camel-exchange-folder.c:1215
 msgid "Fetching summary information for new messages"
 msgstr "Henter sammendragsinformation for nye beskeder"
 
@@ -141,21 +165,21 @@ msgstr "Henter sammendragsinformation for nye beskeder"
 msgid "No folder name found"
 msgstr "Intet mappenavn fundet"
 
-#: ../camel/camel-exchange-journal.c:190 ../camel/camel-exchange-utils.c:3333
-#: ../camel/camel-exchange-utils.c:3397 ../camel/camel-exchange-utils.c:3515
-#: ../camel/camel-exchange-utils.c:3546 ../camel/camel-exchange-utils.c:3598
-#: ../camel/camel-exchange-utils.c:3619
+#: ../camel/camel-exchange-journal.c:190 ../camel/camel-exchange-utils.c:3339
+#: ../camel/camel-exchange-utils.c:3403 ../camel/camel-exchange-utils.c:3521
+#: ../camel/camel-exchange-utils.c:3552 ../camel/camel-exchange-utils.c:3604
+#: ../camel/camel-exchange-utils.c:3625
 #, c-format
 msgid "Folder doesn't exist"
 msgstr "Mappen findes ikke"
 
-#: ../camel/camel-exchange-journal.c:426
+#: ../camel/camel-exchange-journal.c:424
 #, c-format
 msgid "Cannot append message in offline mode: cache unavailable"
 msgstr ""
 "Kan ikke tilføje besked i afkoblet tilstand: Mellemlager ikke tilgængeligt"
 
-#: ../camel/camel-exchange-journal.c:447
+#: ../camel/camel-exchange-journal.c:445
 msgid "Cannot append message in offline mode: "
 msgstr "Kunne ikke tilføje besked i afkoblet tilstand: "
 
@@ -330,79 +354,79 @@ msgstr "Kan ikke sende besked: en eller flere ugyldige modtagere"
 msgid "Could not find 'From' address in message"
 msgstr "Kunne ikke finde \"Fra\"-adresse i beskeden"
 
-#: ../camel/camel-exchange-utils.c:1158 ../camel/camel-exchange-utils.c:1314
+#: ../camel/camel-exchange-utils.c:1164 ../camel/camel-exchange-utils.c:1320
 msgid "Could not open folder"
 msgstr "Kunne ikke åbne mappen"
 
-#: ../camel/camel-exchange-utils.c:1310 ../camel/camel-exchange-utils.c:1328
+#: ../camel/camel-exchange-utils.c:1316 ../camel/camel-exchange-utils.c:1334
 msgid "Could not open folder: Permission denied"
 msgstr "Kunne ikke åbne mappen: Adgang nægtet"
 
-#: ../camel/camel-exchange-utils.c:1382 ../camel/camel-exchange-utils.c:2383
+#: ../camel/camel-exchange-utils.c:1388 ../camel/camel-exchange-utils.c:2389
 msgid "No such folder"
 msgstr "Mappen findes ikke"
 
-#: ../camel/camel-exchange-utils.c:1404 ../camel/camel-exchange-utils.c:3307
-#: ../camel/camel-exchange-utils.c:3350 ../camel/camel-exchange-utils.c:3519
-#: ../camel/camel-exchange-utils.c:3572 ../camel/camel-exchange-utils.c:3634
+#: ../camel/camel-exchange-utils.c:1410 ../camel/camel-exchange-utils.c:3313
+#: ../camel/camel-exchange-utils.c:3356 ../camel/camel-exchange-utils.c:3525
+#: ../camel/camel-exchange-utils.c:3578 ../camel/camel-exchange-utils.c:3640
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:51
 #: ../server/storage/e-storage.c:574
 msgid "Permission denied"
 msgstr "Adgang nægtet"
 
-#: ../camel/camel-exchange-utils.c:2392
+#: ../camel/camel-exchange-utils.c:2398
 msgid "Could not create folder."
 msgstr "Kunne ikke oprette mappe."
 
-#: ../camel/camel-exchange-utils.c:2480
+#: ../camel/camel-exchange-utils.c:2486
 msgid "Could not open Deleted Items folder"
 msgstr "Kunne ikke åbne mappen slettede-elementer"
 
-#: ../camel/camel-exchange-utils.c:2609
+#: ../camel/camel-exchange-utils.c:2615
 msgid "Could not empty Deleted Items folder"
 msgstr "Kunne ikke tømme mappen slettede-elementer"
 
-#: ../camel/camel-exchange-utils.c:2611
+#: ../camel/camel-exchange-utils.c:2617
 msgid "Permission denied. Could not delete certain messages."
 msgstr "Tilladelse nægtet. Kunne ikke slette visse beskeder."
 
-#: ../camel/camel-exchange-utils.c:2657
+#: ../camel/camel-exchange-utils.c:2663
 msgid "Could not append message; mailbox is over quota"
 msgstr "Kunne ikke tilføje besked; postkassen har overskredet sin kvote"
 
-#: ../camel/camel-exchange-utils.c:2658
+#: ../camel/camel-exchange-utils.c:2664
 msgid "Could not append message"
 msgstr "Kunne ikke tilføje besked"
 
-#: ../camel/camel-exchange-utils.c:2845
+#: ../camel/camel-exchange-utils.c:2851
 msgid "No such message"
 msgstr "Det findes ingen sådan besked"
 
-#: ../camel/camel-exchange-utils.c:2917
+#: ../camel/camel-exchange-utils.c:2923
 msgid "Message has been deleted"
 msgstr "Beskeden er blevet slettet"
 
-#: ../camel/camel-exchange-utils.c:2919
+#: ../camel/camel-exchange-utils.c:2925
 msgid "Error retrieving message"
 msgstr "Fejl ved hentning af besked"
 
-#: ../camel/camel-exchange-utils.c:2968
+#: ../camel/camel-exchange-utils.c:2974
 msgid "Mailbox does not support full-text searching"
 msgstr "Postkassen understøtter ikke fuldtekstsøgning"
 
-#: ../camel/camel-exchange-utils.c:3080
+#: ../camel/camel-exchange-utils.c:3086
 msgid "Unable to move/copy messages"
 msgstr "Kan ikke flytte/kopiere beskeder"
 
-#: ../camel/camel-exchange-utils.c:3212
+#: ../camel/camel-exchange-utils.c:3218
 msgid "No mail submission URI for this mailbox"
 msgstr "Ingen URI for e-post-sendende for denne postkasse"
 
-#: ../camel/camel-exchange-utils.c:3245
+#: ../camel/camel-exchange-utils.c:3251
 msgid "Server won't accept mail via Exchange transport"
 msgstr "Serveren acceptere ikke e-post via Exchange-transporten"
 
-#: ../camel/camel-exchange-utils.c:3247
+#: ../camel/camel-exchange-utils.c:3253
 #, c-format
 msgid ""
 "Your account does not have permission to use <%s>\n"
@@ -411,7 +435,7 @@ msgstr ""
 "Din konto har ikke tilladelse til at anvende <%s>\n"
 "som Fra-adresse."
 
-#: ../camel/camel-exchange-utils.c:3259
+#: ../camel/camel-exchange-utils.c:3265
 msgid ""
 "Could not send message.\n"
 "This might mean that your account is over quota."
@@ -419,19 +443,19 @@ msgstr ""
 "Kunne ikke sende beskeden.\n"
 "Dette kan indebære at din konto har overskredet sin kvote."
 
-#: ../camel/camel-exchange-utils.c:3263
+#: ../camel/camel-exchange-utils.c:3269
 msgid "Could not send message"
 msgstr "Kunne ikke sende beskeden"
 
-#: ../camel/camel-exchange-utils.c:3299 ../camel/camel-exchange-utils.c:3355
-#: ../camel/camel-exchange-utils.c:3523 ../camel/camel-exchange-utils.c:3576
-#: ../camel/camel-exchange-utils.c:3640
+#: ../camel/camel-exchange-utils.c:3305 ../camel/camel-exchange-utils.c:3361
+#: ../camel/camel-exchange-utils.c:3529 ../camel/camel-exchange-utils.c:3582
+#: ../camel/camel-exchange-utils.c:3646
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:40
 #: ../server/storage/e-storage.c:558
 msgid "Generic error"
 msgstr "Generel fejl"
 
-#: ../camel/camel-exchange-utils.c:3303
+#: ../camel/camel-exchange-utils.c:3309
 #: ../eplugin/org-gnome-exchange-operations.error.xml.h:37
 msgid "Folder already exists"
 msgstr "Mappen findes allerede"
@@ -473,7 +497,7 @@ msgid "Change the password for Exchange account"
 msgstr "Ændr adgangskoden for Exchange-konto"
 
 #: ../eplugin/exchange-account-setup.c:338
-#: ../eplugin/exchange-change-password.c:87
+#: ../eplugin/exchange-change-password.c:89
 msgid "Change Password"
 msgstr "Ændr adgangskode"
 
@@ -530,23 +554,23 @@ msgstr "_Godkendelsestype"
 msgid "Ch_eck for Supported Types"
 msgstr "S_øg efter understøttede typer"
 
-#: ../eplugin/exchange-account-setup.c:1052 ../eplugin/exchange-contacts.c:219
+#: ../eplugin/exchange-account-setup.c:1052 ../eplugin/exchange-contacts.c:225
 #, c-format
 msgid "%s KB"
 msgstr "%s KB"
 
-#: ../eplugin/exchange-account-setup.c:1054 ../eplugin/exchange-contacts.c:221
+#: ../eplugin/exchange-account-setup.c:1054 ../eplugin/exchange-contacts.c:227
 #, c-format
 msgid "0 KB"
 msgstr "0 kB"
 
 #. FIXME: Take care of i18n
-#: ../eplugin/exchange-account-setup.c:1059 ../eplugin/exchange-calendar.c:238
-#: ../eplugin/exchange-contacts.c:224
+#: ../eplugin/exchange-account-setup.c:1059 ../eplugin/exchange-calendar.c:244
+#: ../eplugin/exchange-contacts.c:230
 msgid "Size:"
 msgstr "Størrelse:"
 
-#: ../eplugin/exchange-calendar.c:198 ../eplugin/exchange-contacts.c:172
+#: ../eplugin/exchange-calendar.c:204 ../eplugin/exchange-contacts.c:178
 msgid ""
 "Evolution is in offline mode. You cannot create or modify folders now.\n"
 "Please switch to online mode for such operations."
@@ -554,30 +578,30 @@ msgstr ""
 "Evolution er offline. Du kan ikke oprette eller ændre mapper nu.\n"
 "Skift venligst til online tilstand for at udføre disse handlinger."
 
-#: ../eplugin/exchange-calendar.c:249 ../eplugin/exchange-contacts.c:241
+#: ../eplugin/exchange-calendar.c:255 ../eplugin/exchange-contacts.c:247
 msgid "_Location:"
 msgstr "_Placering:"
 
-#: ../eplugin/exchange-change-password.c:97
+#: ../eplugin/exchange-change-password.c:99
 msgid "Your current password has expired. Please change your password now."
 msgstr "Din nuværende adgangskode er udløbet. Skift din adgangskode nu."
 
-#: ../eplugin/exchange-change-password.c:112
+#: ../eplugin/exchange-change-password.c:114
 msgid "Current _Password:"
 msgstr "Aktuelle _adgangskode:"
 
-#: ../eplugin/exchange-change-password.c:119
+#: ../eplugin/exchange-change-password.c:121
 msgid "_New Password:"
 msgstr "_Ny adgangskode:"
 
-#: ../eplugin/exchange-change-password.c:126
+#: ../eplugin/exchange-change-password.c:128
 msgid "_Confirm Password:"
 msgstr "_Bekræft adgangskode:"
 
 #. User entered a wrong existing
 #. * password. Prompt him again.
 #.
-#: ../eplugin/exchange-change-password.c:177
+#: ../eplugin/exchange-change-password.c:179
 msgid ""
 "The current password does not match the existing password for your account. "
 "Please enter the correct password"
@@ -585,153 +609,218 @@ msgstr ""
 "Den nuværende adgangskode matcher ikke den eksisterende adgangskode for din "
 "konto. Angiv den korrekte adgangskode"
 
-#: ../eplugin/exchange-change-password.c:184
+#: ../eplugin/exchange-change-password.c:186
 msgid "The two passwords do not match. Please re-enter the passwords."
 msgstr "De to adgangskoder matcher ikke. Angiv adgangskoden igen."
 
 #. Translators: The %d is replaced with the actual number of days
-#: ../eplugin/exchange-config-listener.c:659
+#: ../eplugin/exchange-config-listener.c:661
 #, c-format
 msgid "Your password will expire in the next %d day"
 msgid_plural "Your password will expire in the next %d days"
 msgstr[0] "Din adgangskode vil udløbe i løbet af %d dag"
 msgstr[1] "Din adgangskode vil udløbe i løbet af de næste %d dage"
 
-#: ../eplugin/exchange-config-listener.c:662
+#: ../eplugin/exchange-config-listener.c:664
 msgid "Password Expiry Warning..."
 msgstr "Advarsel om udløb af adgangskode..."
 
-#: ../eplugin/exchange-config-listener.c:679
+#: ../eplugin/exchange-config-listener.c:681
 msgid "_Change Password"
 msgstr "_Ændr adgangskode"
 
-#: ../eplugin/exchange-config-listener.c:732
+#: ../eplugin/exchange-config-listener.c:734
 msgid "Out of Office Assistant"
 msgstr "Borte fra kontoret-assistent"
 
-#: ../eplugin/exchange-config-listener.c:749
+#: ../eplugin/exchange-config-listener.c:751
 msgid "Currently, your status is \"Out of the Office\"."
 msgstr "Din aktuelle status er \"Ikke på kontoret\"."
 
-#: ../eplugin/exchange-config-listener.c:749
+#: ../eplugin/exchange-config-listener.c:751
 msgid "Would you like to change your status to \"In the Office\"?"
 msgstr "Vil du ændre din status til \"På kontoret\"?"
 
-#: ../eplugin/exchange-config-listener.c:778
+#: ../eplugin/exchange-config-listener.c:780
 msgid "_No, Don't Change Status"
 msgstr "_Nej, skift ikke status"
 
-#: ../eplugin/exchange-config-listener.c:799
+#: ../eplugin/exchange-config-listener.c:801
 msgid "_Yes, Change Status"
 msgstr "_Ja, skift status"
 
-#: ../eplugin/exchange-config-listener.c:830
+#: ../eplugin/exchange-config-listener.c:832
 #, c-format
 msgid "Enter Password for %s"
 msgstr "Indtast adgangskode for %s"
 
-#: ../eplugin/exchange-delegates-user.c:70 ../eplugin/exchange-folder.c:467
-#: ../server/storage/exchange-hierarchy-foreign.c:263
+#: ../eplugin/exchange-delegates.c:418
+msgid "Delegate To:"
+msgstr "Uddelegér til:"
+
+#: ../eplugin/exchange-delegates.c:418
+msgid "Delegate To"
+msgstr "Uddelegér til"
+
+#: ../eplugin/exchange-delegates.c:588
+#, c-format
+msgid "Remove the delegate %s?"
+msgstr "Fjern delegaten %s?"
+
+#: ../eplugin/exchange-delegates.c:707
+msgid "Could not access Active Directory"
+msgstr "Kunne ikke tilgå Active Directory"
+
+#: ../eplugin/exchange-delegates.c:719
+msgid "Could not find self in Active Directory"
+msgstr "Kunne ikke finde sig selv i Active Directory"
+
+#: ../eplugin/exchange-delegates.c:732
+#, c-format
+msgid "Could not find delegate %s in Active Directory"
+msgstr "Kunne ikke finde delegaten %s i Active Directory"
+
+#: ../eplugin/exchange-delegates.c:744
+#, c-format
+msgid "Could not remove delegate %s"
+msgstr "Kunne ikke fjerne delegaten %s"
+
+#: ../eplugin/exchange-delegates.c:804
+msgid "Could not update list of delegates."
+msgstr "Kunne ikke opdatere listen af delegater."
+
+#: ../eplugin/exchange-delegates.c:822
+#, c-format
+msgid "Could not add delegate %s"
+msgstr "Kunne ikke tilføje delegat %s"
+
+#: ../eplugin/exchange-delegates.c:942
+msgid "Delegates"
+msgstr "Delegater"
+
+#: ../eplugin/exchange-delegates.c:957
+msgid ""
+"These users will be able to send mail on your behalf\n"
+"and access your folders with the permissions you give them."
+msgstr ""
+"Disse brugere vil kunne sende e-post på dine vegne\n"
+"og tilgå dine mapper med de rettigheder du giver dem."
+
+#: ../eplugin/exchange-delegates.c:981
+msgid "_Edit"
+msgstr "R_ediger"
+
+#: ../eplugin/exchange-delegates.c:1011
+#: ../eplugin/exchange-permissions-dialog.c:926
+msgid "Name"
+msgstr "Navn"
+
+#: ../eplugin/exchange-delegates.c:1037
+msgid "Error reading delegates list."
+msgstr "Fejl ved læsning af liste af delegater."
+
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:465
+#: ../server/storage/exchange-hierarchy-foreign.c:264
 msgid "Calendar"
 msgstr "Kalender"
 
-#: ../eplugin/exchange-delegates-user.c:70 ../eplugin/exchange-folder.c:470
-#: ../server/storage/exchange-hierarchy-foreign.c:272
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:468
+#: ../server/storage/exchange-hierarchy-foreign.c:273
 msgid "Tasks"
 msgstr "Opgaver"
 
-#: ../eplugin/exchange-delegates-user.c:70 ../eplugin/exchange-folder.c:465
-#: ../server/storage/exchange-hierarchy-foreign.c:267
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:463
+#: ../server/storage/exchange-hierarchy-foreign.c:268
 msgid "Inbox"
 msgstr "Indbakke"
 
-#: ../eplugin/exchange-delegates-user.c:70 ../eplugin/exchange-folder.c:473
-#: ../server/storage/exchange-hierarchy-foreign.c:264
+#: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:471
+#: ../server/storage/exchange-hierarchy-foreign.c:265
 msgid "Contacts"
 msgstr "Kontakter"
 
-#: ../eplugin/exchange-delegates-user.c:140
-#: ../eplugin/exchange-permissions-dialog.c:550
-#: ../server/lib/e2k-security-descriptor.c:915
+#: ../eplugin/exchange-delegates-user.c:142
+#: ../eplugin/exchange-permissions-dialog.c:552
+#: ../server/lib/e2k-security-descriptor.c:917
 msgid "Custom"
 msgstr "Tilpasset"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:164
-#: ../eplugin/exchange-delegates-user.c:331
-#: ../eplugin/exchange-delegates-user.c:341
-#: ../eplugin/exchange-delegates-user.c:351
-#: ../eplugin/exchange-delegates-user.c:361
+#: ../eplugin/exchange-delegates-user.c:166
+#: ../eplugin/exchange-delegates-user.c:333
+#: ../eplugin/exchange-delegates-user.c:343
+#: ../eplugin/exchange-delegates-user.c:353
+#: ../eplugin/exchange-delegates-user.c:363
 msgid "Editor (read, create, edit)"
 msgstr "Redaktør (læs, opret, redigér)"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:169
-#: ../eplugin/exchange-delegates-user.c:330
-#: ../eplugin/exchange-delegates-user.c:340
-#: ../eplugin/exchange-delegates-user.c:350
-#: ../eplugin/exchange-delegates-user.c:360
+#: ../eplugin/exchange-delegates-user.c:171
+#: ../eplugin/exchange-delegates-user.c:332
+#: ../eplugin/exchange-delegates-user.c:342
+#: ../eplugin/exchange-delegates-user.c:352
+#: ../eplugin/exchange-delegates-user.c:362
 msgid "Author (read, create)"
 msgstr "Forfatter (læs, opret)"
 
 #. To Translators: The following is a type of permissions that can be assigned by a user to his/her folders.
-#: ../eplugin/exchange-delegates-user.c:174
-#: ../eplugin/exchange-delegates-user.c:329
-#: ../eplugin/exchange-delegates-user.c:339
-#: ../eplugin/exchange-delegates-user.c:349
-#: ../eplugin/exchange-delegates-user.c:359
+#: ../eplugin/exchange-delegates-user.c:176
+#: ../eplugin/exchange-delegates-user.c:331
+#: ../eplugin/exchange-delegates-user.c:341
+#: ../eplugin/exchange-delegates-user.c:351
+#: ../eplugin/exchange-delegates-user.c:361
 msgid "Reviewer (read-only)"
 msgstr "Gennemlæser (skrivebeskyttet)"
 
-#: ../eplugin/exchange-delegates-user.c:178
-#: ../eplugin/exchange-delegates-user.c:328
-#: ../eplugin/exchange-delegates-user.c:338
-#: ../eplugin/exchange-delegates-user.c:348
-#: ../eplugin/exchange-delegates-user.c:358
-#: ../server/lib/e2k-security-descriptor.c:900
+#: ../eplugin/exchange-delegates-user.c:180
+#: ../eplugin/exchange-delegates-user.c:330
+#: ../eplugin/exchange-delegates-user.c:340
+#: ../eplugin/exchange-delegates-user.c:350
+#: ../eplugin/exchange-delegates-user.c:360
+#: ../server/lib/e2k-security-descriptor.c:902
 msgid "None"
 msgstr "Ingen"
 
 #. Translators: "Delegate Permissions" refers to the permissions on the delegator's folders
 #. * that the delegatee would receive
-#: ../eplugin/exchange-delegates-user.c:258
+#: ../eplugin/exchange-delegates-user.c:260
 msgid "Delegate Permissions"
 msgstr "Delegat-rettigheder"
 
-#: ../eplugin/exchange-delegates-user.c:276
+#: ../eplugin/exchange-delegates-user.c:278
 msgid "Permissions for"
 msgstr "Rettigheder for"
 
 #. Translators: This is used for permissions for <user> for the folder Calendar.
-#: ../eplugin/exchange-delegates-user.c:288
+#: ../eplugin/exchange-delegates-user.c:290
 msgid "C_alendar:"
 msgstr "K_alender:"
 
 #. Translators: This is used for permissions for <user> for the folder Tasks.
-#: ../eplugin/exchange-delegates-user.c:297
+#: ../eplugin/exchange-delegates-user.c:299
 msgid "_Tasks:"
 msgstr "_Opgaver:"
 
 #. Translators: This is used for permissions for <user> for the folder Inbox.
-#: ../eplugin/exchange-delegates-user.c:306
+#: ../eplugin/exchange-delegates-user.c:308
 msgid "_Inbox:"
 msgstr "_Indbakke:"
 
 #. Translators: This is used for permissions for <user> for the folder Contacts.
-#: ../eplugin/exchange-delegates-user.c:315
+#: ../eplugin/exchange-delegates-user.c:317
 msgid "Co_ntacts:"
 msgstr "Ko_ntakter:"
 
-#: ../eplugin/exchange-delegates-user.c:363
+#: ../eplugin/exchange-delegates-user.c:365
 msgid "_Summarize permissions"
 msgstr "_Opsummér rettigheder"
 
-#: ../eplugin/exchange-delegates-user.c:367
+#: ../eplugin/exchange-delegates-user.c:369
 msgid "_Delegate can see private items"
 msgstr "_Delegat kan se private elementer"
 
-#: ../eplugin/exchange-delegates-user.c:373
-#: ../eplugin/exchange-permissions-dialog.c:165
+#: ../eplugin/exchange-delegates-user.c:375
+#: ../eplugin/exchange-permissions-dialog.c:167
 #, c-format
 msgid "Permissions for %s"
 msgstr "Rettigheder for %s"
@@ -739,7 +828,7 @@ msgstr "Rettigheder for %s"
 #. To translators: This is a part of the message to be sent to the delegatee
 #. * summarizing the permissions assigned to him.
 #.
-#: ../eplugin/exchange-delegates-user.c:464
+#: ../eplugin/exchange-delegates-user.c:466
 msgid ""
 "This message was sent automatically by Evolution to inform you that you have "
 "been designated as a delegate. You can now send messages on my behalf."
@@ -749,130 +838,75 @@ msgstr ""
 
 #. To translators: Another chunk of the same message.
 #.
-#: ../eplugin/exchange-delegates-user.c:469
+#: ../eplugin/exchange-delegates-user.c:471
 msgid "You have been given the following permissions on my folders:"
 msgstr "Du har fået tildelt følgende rettigheder over mine mapper:"
 
-#: ../eplugin/exchange-delegates-user.c:497
+#: ../eplugin/exchange-delegates-user.c:499
 msgid "You are also permitted to see my private items."
 msgstr "Du har også lov til at se mine private objekter."
 
-#: ../eplugin/exchange-delegates-user.c:506
+#: ../eplugin/exchange-delegates-user.c:508
 msgid "However, you are not permitted to see my private items."
 msgstr "Men du har ikke lov til at se mine private objekter."
 
-#: ../eplugin/exchange-delegates-user.c:543
+#: ../eplugin/exchange-delegates-user.c:545
 #, c-format
 msgid "You have been designated as a delegate for %s"
 msgstr "Du er blevet udnævnt som delegat for %s"
 
-#: ../eplugin/exchange-delegates.c:416
-msgid "Delegate To:"
-msgstr "Uddelegér til:"
-
-#: ../eplugin/exchange-delegates.c:416
-msgid "Delegate To"
-msgstr "Uddelegér til"
-
-#: ../eplugin/exchange-delegates.c:586
+#: ../eplugin/exchange-folder.c:348 ../eplugin/exchange-folder.c:404
 #, c-format
-msgid "Remove the delegate %s?"
-msgstr "Fjern delegaten %s?"
+msgid "Really unsubscribe from folder \"%s\"?"
+msgstr "Er du sikker på at du vil opsige abonnementet på mappen \"%s\"?"
 
-#: ../eplugin/exchange-delegates.c:705
-msgid "Could not access Active Directory"
-msgstr "Kunne ikke tilgå Active Directory"
-
-#: ../eplugin/exchange-delegates.c:717
-msgid "Could not find self in Active Directory"
-msgstr "Kunne ikke finde sig selv i Active Directory"
-
-#: ../eplugin/exchange-delegates.c:730
+#: ../eplugin/exchange-folder.c:361 ../eplugin/exchange-folder.c:417
 #, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "Kunne ikke finde delegaten %s i Active Directory"
+msgid "Unsubscribe from \"%s\""
+msgstr "Opsig abonnement på \"%s\""
 
-#: ../eplugin/exchange-delegates.c:742
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "Kunne ikke fjerne delegaten %s"
-
-#: ../eplugin/exchange-delegates.c:802
-msgid "Could not update list of delegates."
-msgstr "Kunne ikke opdatere listen af delegater."
-
-#: ../eplugin/exchange-delegates.c:820
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "Kunne ikke tilføje delegat %s"
-
-#: ../eplugin/exchange-delegates.c:940
-msgid "Delegates"
-msgstr "Delegater"
-
-#: ../eplugin/exchange-delegates.c:955
-msgid ""
-"These users will be able to send mail on your behalf\n"
-"and access your folders with the permissions you give them."
-msgstr ""
-"Disse brugere vil kunne sende e-post på dine vegne\n"
-"og tilgå dine mapper med de rettigheder du giver dem."
-
-#: ../eplugin/exchange-delegates.c:979
-msgid "_Edit"
-msgstr "R_ediger"
-
-#: ../eplugin/exchange-delegates.c:1009
-#: ../eplugin/exchange-permissions-dialog.c:924
-msgid "Name"
-msgstr "Navn"
-
-#: ../eplugin/exchange-delegates.c:1035
-msgid "Error reading delegates list."
-msgstr "Fejl ved læsning af liste af delegater."
-
-#: ../eplugin/exchange-folder-permission.c:245
-#: ../eplugin/exchange-folder-permission.c:531
-#: ../eplugin/exchange-folder-permission.c:566
-#: ../eplugin/exchange-folder-permission.c:601
+#: ../eplugin/exchange-folder-permission.c:272
+#: ../eplugin/exchange-folder-permission.c:558
+#: ../eplugin/exchange-folder-permission.c:593
+#: ../eplugin/exchange-folder-permission.c:628
 msgid "Permissions..."
 msgstr "Rettigheder..."
 
-#: ../eplugin/exchange-folder-permission.c:247
+#: ../eplugin/exchange-folder-permission.c:274
 msgid "Check folder permissions"
 msgstr "Kontrollér rettigheder til mapper"
 
-#: ../eplugin/exchange-folder-permission.c:252
-#: ../eplugin/exchange-folder-permission.c:538
-#: ../eplugin/exchange-folder-permission.c:573
-#: ../eplugin/exchange-folder-permission.c:608
-msgid "Subscribe to Other User's Folder..."
-msgstr "Abonnér på anden _brugers mappe..."
+#: ../eplugin/exchange-folder-permission.c:279
+#: ../eplugin/exchange-folder-permission.c:565
+#: ../eplugin/exchange-folder-permission.c:600
+#: ../eplugin/exchange-folder-permission.c:635
+msgid "Subscribe to folder of other user..."
+msgstr "Abonner på anden brugers mappe ..."
 
-#: ../eplugin/exchange-folder-permission.c:254
-#: ../eplugin/exchange-folder-permission.c:540
-#: ../eplugin/exchange-folder-permission.c:575
-#: ../eplugin/exchange-folder-permission.c:610
-#: ../eplugin/exchange-folder-subscription.c:317
-msgid "Subscribe to Other User's Folder"
-msgstr "Abonnér på en anden brugers mappe"
+#: ../eplugin/exchange-folder-permission.c:281
+#: ../eplugin/exchange-folder-permission.c:567
+#: ../eplugin/exchange-folder-permission.c:602
+#: ../eplugin/exchange-folder-permission.c:637
+#: ../eplugin/exchange-folder-subscription.c:319
+msgid "Subscribe to folder of other user"
+msgstr "Abonner på anden brugers mappe"
 
-#: ../eplugin/exchange-folder-permission.c:259
-#: ../eplugin/exchange-folder-permission.c:545
-#: ../eplugin/exchange-folder-permission.c:580
-#: ../eplugin/exchange-folder-permission.c:615
+#: ../eplugin/exchange-folder-permission.c:286
+#: ../eplugin/exchange-folder-permission.c:572
+#: ../eplugin/exchange-folder-permission.c:607
+#: ../eplugin/exchange-folder-permission.c:642
 msgid "Unsubscribe Folder..."
 msgstr "Afmeld mappe..."
 
-#: ../eplugin/exchange-folder-permission.c:533
+#: ../eplugin/exchange-folder-permission.c:560
 msgid "Check calendar permissions"
 msgstr "Kontrollér kalenderrettigheder"
 
-#: ../eplugin/exchange-folder-permission.c:568
+#: ../eplugin/exchange-folder-permission.c:595
 msgid "Check tasks permissions"
 msgstr "Kontrollér opgaverettigheder"
 
-#: ../eplugin/exchange-folder-permission.c:603
+#: ../eplugin/exchange-folder-permission.c:630
 msgid "Check address book permissions"
 msgstr "Kontrollér adressebogsrettigheder"
 
@@ -890,187 +924,177 @@ msgid "Folder Name"
 msgstr "Mappenavn"
 
 #. FIXME Limit to one user
-#: ../eplugin/exchange-folder-subscription.c:77
+#: ../eplugin/exchange-folder-subscription.c:79
 msgid "User"
 msgstr "Bruger"
 
-#: ../eplugin/exchange-folder-subscription.c:333
+#: ../eplugin/exchange-folder-subscription.c:335
 msgid "_Account:"
 msgstr "_Konto:"
 
-#: ../eplugin/exchange-folder-subscription.c:340
+#: ../eplugin/exchange-folder-subscription.c:342
 msgid "_Folder Name:"
 msgstr "_Mappenavn:"
 
-#: ../eplugin/exchange-folder-subscription.c:353
+#: ../eplugin/exchange-folder-subscription.c:355
 msgid "_User:"
 msgstr "Br_uger:"
 
-#: ../eplugin/exchange-folder.c:350 ../eplugin/exchange-folder.c:406
-#, c-format
-msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "Er du sikker på at du vil opsige abonnementet på mappen \"%s\"?"
-
-#: ../eplugin/exchange-folder.c:363 ../eplugin/exchange-folder.c:419
-#, c-format
-msgid "Unsubscribe from \"%s\""
-msgstr "Opsig abonnement på \"%s\""
-
-#: ../eplugin/exchange-mail-send-options.c:226
+#: ../eplugin/exchange-mail-send-options.c:231
 msgid "_Send Options"
 msgstr "_Afsendelsesindstillinger"
 
-#: ../eplugin/exchange-mail-send-options.c:228
+#: ../eplugin/exchange-mail-send-options.c:233
 msgid "Insert Send options"
 msgstr "Indsæt afsendelsesindstillinger"
 
 #. FIXME: Don't hardcode this
-#: ../eplugin/exchange-operations.c:128 ../eplugin/exchange-operations.c:177
-#: ../server/storage/exchange-account.c:1308
+#: ../eplugin/exchange-operations.c:132 ../eplugin/exchange-operations.c:181
+#: ../server/storage/exchange-account.c:1310
 msgid "Personal Folders"
 msgstr "Personlige mapper"
 
-#: ../eplugin/exchange-permissions-dialog.c:276
+#: ../eplugin/exchange-permissions-dialog.c:278
 msgid "(Permission denied.)"
 msgstr "(Adgang nægtet.)"
 
-#: ../eplugin/exchange-permissions-dialog.c:387
+#: ../eplugin/exchange-permissions-dialog.c:389
 msgid "Add User:"
 msgstr "Tilføj bruger:"
 
-#: ../eplugin/exchange-permissions-dialog.c:387
-#: ../eplugin/exchange-send-options.c:476
+#: ../eplugin/exchange-permissions-dialog.c:389
+#: ../eplugin/exchange-send-options.c:478
 msgid "Add User"
 msgstr "Tilføj bruger"
 
-#: ../eplugin/exchange-permissions-dialog.c:800
+#: ../eplugin/exchange-permissions-dialog.c:802
 msgid "Permissions"
 msgstr "Rettigheder"
 
-#: ../eplugin/exchange-permissions-dialog.c:817
+#: ../eplugin/exchange-permissions-dialog.c:819
 msgid "Role: "
 msgstr "Rolle: "
 
-#: ../eplugin/exchange-permissions-dialog.c:843
+#: ../eplugin/exchange-permissions-dialog.c:845
 msgid "Create items"
 msgstr "Opret elementer"
 
-#: ../eplugin/exchange-permissions-dialog.c:847
+#: ../eplugin/exchange-permissions-dialog.c:849
 msgid "Read items"
 msgstr "Læsbare elementer"
 
-#: ../eplugin/exchange-permissions-dialog.c:851
+#: ../eplugin/exchange-permissions-dialog.c:853
 msgid "Create subfolders"
 msgstr "Opret undermapper"
 
-#: ../eplugin/exchange-permissions-dialog.c:859
+#: ../eplugin/exchange-permissions-dialog.c:861
 msgid "Cannot Edit"
 msgstr "Kan ikke redigere"
 
-#: ../eplugin/exchange-permissions-dialog.c:865
+#: ../eplugin/exchange-permissions-dialog.c:867
 msgid "Edit Own Items"
 msgstr "Redigér egne elementer"
 
-#: ../eplugin/exchange-permissions-dialog.c:871
+#: ../eplugin/exchange-permissions-dialog.c:873
 msgid "Edit Any Items"
 msgstr "Redigér alle elementer"
 
-#: ../eplugin/exchange-permissions-dialog.c:885
+#: ../eplugin/exchange-permissions-dialog.c:887
 msgid "Folder owner"
 msgstr "Mappeejer"
 
-#: ../eplugin/exchange-permissions-dialog.c:889
+#: ../eplugin/exchange-permissions-dialog.c:891
 msgid "Folder contact"
 msgstr "Mappekontakt"
 
-#: ../eplugin/exchange-permissions-dialog.c:893
+#: ../eplugin/exchange-permissions-dialog.c:895
 msgid "Folder visible"
 msgstr "Mappe synlig"
 
-#: ../eplugin/exchange-permissions-dialog.c:901
+#: ../eplugin/exchange-permissions-dialog.c:903
 msgid "Cannot Delete"
 msgstr "Kan ikke slette"
 
-#: ../eplugin/exchange-permissions-dialog.c:908
+#: ../eplugin/exchange-permissions-dialog.c:910
 msgid "Delete Own Items"
 msgstr "Slet egne elementer"
 
-#: ../eplugin/exchange-permissions-dialog.c:914
+#: ../eplugin/exchange-permissions-dialog.c:916
 msgid "Delete Any Items"
 msgstr "Slet alle elementer"
 
-#: ../eplugin/exchange-permissions-dialog.c:928
+#: ../eplugin/exchange-permissions-dialog.c:930
 msgid "Role"
 msgstr "Rolle"
 
-#: ../eplugin/exchange-send-options.c:344
+#: ../eplugin/exchange-send-options.c:346
 msgid "Exchange - Send Options"
 msgstr "Exchange - Sendeindstillinger"
 
-#: ../eplugin/exchange-send-options.c:365
+#: ../eplugin/exchange-send-options.c:367
 msgid "Message Settings"
 msgstr "Beskedindstillinger"
 
-#: ../eplugin/exchange-send-options.c:379
+#: ../eplugin/exchange-send-options.c:381
 msgid "I_mportance: "
 msgstr "_Vigtighed: "
 
 #. Translators: Here's set a message sensitivity, which means for exchange
 #. * one of Normal, Personal, Private, Confidential.
-#: ../eplugin/exchange-send-options.c:388
+#: ../eplugin/exchange-send-options.c:390
 msgid "_Sensitivity: "
 msgstr "_Følsomhed: "
 
-#: ../eplugin/exchange-send-options.c:400
-#: ../eplugin/exchange-send-options.c:410
+#: ../eplugin/exchange-send-options.c:402
+#: ../eplugin/exchange-send-options.c:412
 msgid "Normal"
 msgstr "Normal"
 
-#: ../eplugin/exchange-send-options.c:401
+#: ../eplugin/exchange-send-options.c:403
 msgid "Personal"
 msgstr "Personlig"
 
-#: ../eplugin/exchange-send-options.c:402
+#: ../eplugin/exchange-send-options.c:404
 msgid "Private"
 msgstr "Privat"
 
-#: ../eplugin/exchange-send-options.c:403
+#: ../eplugin/exchange-send-options.c:405
 msgid "Confidential"
 msgstr "Fortrolig"
 
-#: ../eplugin/exchange-send-options.c:411
+#: ../eplugin/exchange-send-options.c:413
 msgid "High"
 msgstr "Høj"
 
-#: ../eplugin/exchange-send-options.c:412
+#: ../eplugin/exchange-send-options.c:414
 msgid "Low"
 msgstr "Lav"
 
-#: ../eplugin/exchange-send-options.c:414
+#: ../eplugin/exchange-send-options.c:416
 msgid "Send as Delegate"
 msgstr "Send som delegat"
 
-#: ../eplugin/exchange-send-options.c:431
+#: ../eplugin/exchange-send-options.c:433
 msgid "_User"
 msgstr "_Bruger"
 
-#: ../eplugin/exchange-send-options.c:439
+#: ../eplugin/exchange-send-options.c:441
 msgid "Tracking Options"
 msgstr "Sporingsindstillinger"
 
-#: ../eplugin/exchange-send-options.c:447
+#: ../eplugin/exchange-send-options.c:449
 msgid "Request a _delivery receipt for this message"
 msgstr "Bed om en _modtagelseskvittering for dette brev"
 
-#: ../eplugin/exchange-send-options.c:452
+#: ../eplugin/exchange-send-options.c:454
 msgid "Request a _read receipt for this message"
 msgstr "Bed om en _kvittering for at brevet er læst"
 
-#: ../eplugin/exchange-user-dialog.c:138
+#: ../eplugin/exchange-user-dialog.c:140
 msgid "Select User"
 msgstr "Vælg bruger"
 
-#: ../eplugin/exchange-user-dialog.c:177
+#: ../eplugin/exchange-user-dialog.c:179
 msgid "Address Book..."
 msgstr "Adressebog..."
 
@@ -1416,48 +1440,48 @@ msgstr "{0} er allerede en delegat"
 msgid "{0} is already in the list"
 msgstr "{0} er allerede på listen"
 
-#: ../server/lib/e2k-autoconfig.c:1733
-#: ../server/storage/exchange-account.c:986
+#: ../server/lib/e2k-autoconfig.c:1734
+#: ../server/storage/exchange-account.c:988
 #, c-format
 msgid "Enter password for %s"
 msgstr "Angiv adgangskode for %s"
 
-#: ../server/lib/e2k-autoconfig.c:1734
-#: ../server/storage/exchange-account.c:991
+#: ../server/lib/e2k-autoconfig.c:1735
+#: ../server/storage/exchange-account.c:993
 msgid "Enter password"
 msgstr "Angiv adgangskode"
 
 #. i18n: These are Outlook's words for the default roles in
 #. * the folder permissions dialog.
-#: ../server/lib/e2k-security-descriptor.c:856
+#: ../server/lib/e2k-security-descriptor.c:858
 msgid "Owner"
 msgstr "Ejer"
 
-#: ../server/lib/e2k-security-descriptor.c:866
+#: ../server/lib/e2k-security-descriptor.c:868
 msgid "Publishing Editor"
 msgstr "Publiceringsredaktør"
 
-#: ../server/lib/e2k-security-descriptor.c:874
+#: ../server/lib/e2k-security-descriptor.c:876
 msgid "Editor"
 msgstr "Redaktør"
 
-#: ../server/lib/e2k-security-descriptor.c:881
+#: ../server/lib/e2k-security-descriptor.c:883
 msgid "Publishing Author"
 msgstr "Publiceringsforfatter"
 
-#: ../server/lib/e2k-security-descriptor.c:887
+#: ../server/lib/e2k-security-descriptor.c:889
 msgid "Author"
 msgstr "Forfatter"
 
-#: ../server/lib/e2k-security-descriptor.c:892
+#: ../server/lib/e2k-security-descriptor.c:894
 msgid "Non-editing Author"
 msgstr "Ikke-redigerende forfatter"
 
-#: ../server/lib/e2k-security-descriptor.c:896
+#: ../server/lib/e2k-security-descriptor.c:898
 msgid "Reviewer"
 msgstr "Gennemlæser"
 
-#: ../server/lib/e2k-security-descriptor.c:898
+#: ../server/lib/e2k-security-descriptor.c:900
 msgid "Contributor"
 msgstr "Bidragyder"
 
@@ -1523,54 +1547,54 @@ msgstr "Ukendt fejl"
 
 #. i18n: This is the title of an "other user's folders"
 #. * hierarchy. Eg, "John Doe's Folders".
-#: ../server/storage/exchange-account.c:663
+#: ../server/storage/exchange-account.c:665
 #, c-format
 msgid "%s's Folders"
 msgstr "%s's mapper"
 
-#: ../server/storage/exchange-account.c:1323
+#: ../server/storage/exchange-account.c:1325
 msgid "Favorite Public Folders"
 msgstr "Offentlige favoritmapper"
 
 #. i18n: Outlookism
-#: ../server/storage/exchange-account.c:1340
+#: ../server/storage/exchange-account.c:1342
 msgid "All Public Folders"
 msgstr "Alle offentlige mapper"
 
 #. i18n: Outlookism
-#: ../server/storage/exchange-account.c:1354
+#: ../server/storage/exchange-account.c:1356
 msgid "Global Address List"
 msgstr "Global adresseliste"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:265
+#: ../server/storage/exchange-hierarchy-foreign.c:266
 msgid "Deleted Items"
 msgstr "Slettede objekter"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:266
+#: ../server/storage/exchange-hierarchy-foreign.c:267
 msgid "Drafts"
 msgstr "Kladder"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:268
+#: ../server/storage/exchange-hierarchy-foreign.c:269
 msgid "Journal"
 msgstr "Journal"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:269
+#: ../server/storage/exchange-hierarchy-foreign.c:270
 msgid "Notes"
 msgstr "Noter"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:270
+#: ../server/storage/exchange-hierarchy-foreign.c:271
 msgid "Outbox"
 msgstr "Udbakke"
 
-#: ../server/storage/exchange-hierarchy-foreign.c:271
+#: ../server/storage/exchange-hierarchy-foreign.c:272
 msgid "Sent Items"
 msgstr "Sendte objekter"
 
-#: ../tools/exchange-autoconfig-wizard.c:191
+#: ../tools/exchange-autoconfig-wizard.c:193
 msgid "Welcome"
 msgstr "Velkommen"
 
-#: ../tools/exchange-autoconfig-wizard.c:191
+#: ../tools/exchange-autoconfig-wizard.c:193
 msgid ""
 "Welcome to Evolution Connector for Microsoft Exchange.\n"
 "The next few screens will help you configure Evolution\n"
@@ -1584,13 +1608,13 @@ msgstr ""
 "\n"
 "Klik på knappen \"Fremad\" for at fortsætte."
 
-#: ../tools/exchange-autoconfig-wizard.c:206
-#: ../tools/exchange-autoconfig-wizard.c:382
-#: ../tools/exchange-autoconfig-wizard.c:475
+#: ../tools/exchange-autoconfig-wizard.c:208
+#: ../tools/exchange-autoconfig-wizard.c:384
+#: ../tools/exchange-autoconfig-wizard.c:477
 msgid "Exchange Configuration"
 msgstr "Exchange-konfiguration"
 
-#: ../tools/exchange-autoconfig-wizard.c:206
+#: ../tools/exchange-autoconfig-wizard.c:208
 msgid ""
 "Evolution Connector for Microsoft Exchange can use account information from "
 "your existing Outlook Web Access (OWA) account.\n"
@@ -1604,23 +1628,23 @@ msgstr ""
 "Angiv din OWA-sted-adresse (URL), brugernavn og adgangskode, og klik "
 "derefter på \"Fremad\".\n"
 
-#: ../tools/exchange-autoconfig-wizard.c:214
+#: ../tools/exchange-autoconfig-wizard.c:216
 msgid "OWA _URL:"
 msgstr "OWA-_URL:"
 
-#: ../tools/exchange-autoconfig-wizard.c:218
+#: ../tools/exchange-autoconfig-wizard.c:220
 msgid "User_name:"
 msgstr "Bruger_navn:"
 
-#: ../tools/exchange-autoconfig-wizard.c:222
+#: ../tools/exchange-autoconfig-wizard.c:224
 msgid "_Password:"
 msgstr "_Adgangskode:"
 
-#: ../tools/exchange-autoconfig-wizard.c:227
+#: ../tools/exchange-autoconfig-wizard.c:229
 msgid "_Remember this password"
 msgstr "_Husk denne adgangskode"
 
-#: ../tools/exchange-autoconfig-wizard.c:300
+#: ../tools/exchange-autoconfig-wizard.c:302
 #, c-format
 msgid ""
 "Could not connect to the Exchange server.\n"
@@ -1630,7 +1654,7 @@ msgstr ""
 "Kontrollér at URL'en er korrekt (prøv med \"%s\" i stedet for \"%s\"?) og "
 "forsøg igen."
 
-#: ../tools/exchange-autoconfig-wizard.c:308
+#: ../tools/exchange-autoconfig-wizard.c:310
 msgid ""
 "Could not locate Exchange server.\n"
 "Make sure the server name is spelled correctly and try again."
@@ -1638,7 +1662,7 @@ msgstr ""
 "Kunne ikke finde Exchange-serveren.\n"
 "Kontrollér at servernavnet er korrekt stavet og forsøg igen."
 
-#: ../tools/exchange-autoconfig-wizard.c:317
+#: ../tools/exchange-autoconfig-wizard.c:319
 msgid ""
 "Could not authenticate to the Exchange server.\n"
 "Make sure the username and password are correct and try again."
@@ -1646,7 +1670,7 @@ msgstr ""
 "Kunne ikke godkendes af Exchange-serveren.\n"
 "Kontrollér at brugernavnet og adgangskoden er korrekt og forsøg igen."
 
-#: ../tools/exchange-autoconfig-wizard.c:324
+#: ../tools/exchange-autoconfig-wizard.c:326
 #, c-format
 msgid ""
 "Could not authenticate to the Exchange server.\n"
@@ -1660,7 +1684,7 @@ msgstr ""
 "Du bliver muligvis nød til at angive Windows-domænenavnet som en del af dit "
 "brugernavn (fx \"MIT-DOMÆNE\\%s\")."
 
-#: ../tools/exchange-autoconfig-wizard.c:336
+#: ../tools/exchange-autoconfig-wizard.c:338
 msgid ""
 "Could not find OWA data at the indicated URL.\n"
 "Make sure the URL is correct and try again."
@@ -1668,7 +1692,7 @@ msgstr ""
 "Kunne ikke finde OWA-data på den angivne URL.\n"
 "Kontrollér at URL'en er korrekt og forsøg igen."
 
-#: ../tools/exchange-autoconfig-wizard.c:342
+#: ../tools/exchange-autoconfig-wizard.c:344
 msgid ""
 "Evolution Connector for Microsoft Exchange requires access to certain "
 "functionality on the Exchange server that appears to be disabled or "
@@ -1688,7 +1712,7 @@ msgstr ""
 "Følg linket nedenfor for information som du kan give din Exchange-"
 "administrator:"
 
-#: ../tools/exchange-autoconfig-wizard.c:355
+#: ../tools/exchange-autoconfig-wizard.c:357
 msgid ""
 "The Exchange server URL you provided is for an Exchange 5.5 server. "
 "Evolution Connector for Microsoft Exchange supports Microsoft Exchange 2000 "
@@ -1697,7 +1721,7 @@ msgstr ""
 "URL'en til Exchange-serveren som du angav er for en Exchange 5.5-server. "
 "Evolution Connector understøtter kun Microsoft Exchange 2000 og 2003."
 
-#: ../tools/exchange-autoconfig-wizard.c:363
+#: ../tools/exchange-autoconfig-wizard.c:365
 msgid ""
 "Could not configure Exchange account because an unknown error occurred. "
 "Check the URL, username, and password, and try again."
@@ -1705,7 +1729,7 @@ msgstr ""
 "Kunne ikke konfigurere Exchange-kontoen eftersom en ukendt fejl opstod. "
 "Kontrollér URL'en, brugernavnet og adgangskoden og forsøg igen."
 
-#: ../tools/exchange-autoconfig-wizard.c:382
+#: ../tools/exchange-autoconfig-wizard.c:384
 msgid ""
 "Evolution Connector for Microsoft Exchange could not find the Global Catalog "
 "replica for your site. Please enter the name of your Global Catalog server. "
@@ -1716,11 +1740,11 @@ msgstr ""
 "katalog. Du bliver muligvis nødt til at spørge din systemadministrator om "
 "den korrekte værdi."
 
-#: ../tools/exchange-autoconfig-wizard.c:390
+#: ../tools/exchange-autoconfig-wizard.c:392
 msgid "GC _Server:"
 msgstr "GC-_server:"
 
-#: ../tools/exchange-autoconfig-wizard.c:423
+#: ../tools/exchange-autoconfig-wizard.c:425
 #, c-format
 msgid ""
 "Could not authenticate to the Global Catalog server. You may need to go back "
@@ -1731,7 +1755,7 @@ msgstr ""
 "til at gå tilbage og angive Windows-domænenavnet som del af dit brugernavn "
 "(fx \"MIT-DOMÆNE\\%s\")."
 
-#: ../tools/exchange-autoconfig-wizard.c:430
+#: ../tools/exchange-autoconfig-wizard.c:432
 msgid ""
 "Could not connect to specified server.\n"
 "Please check the server name and try again."
@@ -1739,11 +1763,11 @@ msgstr ""
 "Kunne ikke tilslutte den angivne server.\n"
 "Kontrollér servernavnet og forsøg igen."
 
-#: ../tools/exchange-autoconfig-wizard.c:445
+#: ../tools/exchange-autoconfig-wizard.c:447
 msgid "Configuration Failed"
 msgstr "Konfigurering mislykkedes"
 
-#: ../tools/exchange-autoconfig-wizard.c:445
+#: ../tools/exchange-autoconfig-wizard.c:447
 msgid ""
 "Evolution Connector for Microsoft Exchange has encountered a problem "
 "configuring your Exchange account."
@@ -1751,7 +1775,7 @@ msgstr ""
 "Evolution Connector til Microsoft Exchange er stødt på et problem ved "
 "konfigurationen af din Exchange-konto."
 
-#: ../tools/exchange-autoconfig-wizard.c:475
+#: ../tools/exchange-autoconfig-wizard.c:477
 msgid ""
 "Your account information is as follows. Please correct any errors, then "
 "click \"Forward\"."
@@ -1759,28 +1783,28 @@ msgstr ""
 "Din kontoinformation er som følger. Ret eventuelle fejl og klik derefter på "
 "\"Næste\"."
 
-#: ../tools/exchange-autoconfig-wizard.c:483
+#: ../tools/exchange-autoconfig-wizard.c:485
 msgid "Full _Name:"
 msgstr "Fulde _navn:"
 
-#: ../tools/exchange-autoconfig-wizard.c:487
+#: ../tools/exchange-autoconfig-wizard.c:489
 msgid "_Email Address:"
 msgstr "_E-post-adresse:"
 
-#: ../tools/exchange-autoconfig-wizard.c:491
+#: ../tools/exchange-autoconfig-wizard.c:493
 msgid "Make this my _default account"
 msgstr "Gør dette til min _standardkonto"
 
-#: ../tools/exchange-autoconfig-wizard.c:508
-#: ../tools/exchange-autoconfig-wizard.c:512
+#: ../tools/exchange-autoconfig-wizard.c:510
+#: ../tools/exchange-autoconfig-wizard.c:514
 msgid "Unknown"
 msgstr "Ukendt"
 
-#: ../tools/exchange-autoconfig-wizard.c:538
+#: ../tools/exchange-autoconfig-wizard.c:540
 msgid "Done"
 msgstr "Færdig"
 
-#: ../tools/exchange-autoconfig-wizard.c:538
+#: ../tools/exchange-autoconfig-wizard.c:540
 msgid ""
 "Your Connector account is now ready to use. Click the \"Apply\" button to "
 "save your settings."
@@ -1788,7 +1812,7 @@ msgstr ""
 "Din Connector-konto er nu klar til brug. Klik på knappen \"Anvend\" for at "
 "gemme dine indstillinger."
 
-#: ../tools/exchange-autoconfig-wizard.c:587
+#: ../tools/exchange-autoconfig-wizard.c:589
 msgid ""
 "Configuration system error.\n"
 "Unable to create new account."
@@ -1796,11 +1820,11 @@ msgstr ""
 "Konfigurationssystemfejl.\n"
 "Kan ikke oprette ny konto."
 
-#: ../tools/exchange-autoconfig-wizard.c:602
+#: ../tools/exchange-autoconfig-wizard.c:604
 msgid "You may only configure a single Exchange account"
 msgstr "Du kan kun konfigurere én Exchange-konto"
 
-#: ../tools/exchange-autoconfig-wizard.c:785
+#: ../tools/exchange-autoconfig-wizard.c:787
 msgid "Evolution Connector for Microsoft Exchange Configuration"
 msgstr "Konfiguration af Evolution Connector til Microsoft Exchange"
 
