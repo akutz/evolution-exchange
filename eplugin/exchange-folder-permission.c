@@ -362,8 +362,11 @@ is_eex_source_selected (EShellView *shell_view,
 	g_object_get (shell_sidebar, "selector", &selector, NULL);
 	g_return_val_if_fail (selector != NULL, FALSE);
 
-	source = e_source_selector_peek_primary_selection (selector);
-	uri = source ? e_source_get_uri (source) : NULL;
+	source = e_source_selector_ref_primary_selection (selector);
+	if (source != NULL) {
+		uri = e_source_get_uri (source);
+		g_object_unref (source);
+	}
 
 	g_object_unref (selector);
 
@@ -538,6 +541,7 @@ eex_folder_unsubscribe_cb (GtkAction *action,
 	if (is_eex_source_selected (shell_view, &uri)) {
 		EShellSidebar *shell_sidebar;
 		ESourceSelector *selector = NULL;
+		ESource *source;
 
 		shell_sidebar = e_shell_view_get_shell_sidebar (shell_view);
 		g_return_if_fail (shell_sidebar != NULL);
@@ -545,7 +549,9 @@ eex_folder_unsubscribe_cb (GtkAction *action,
 		g_object_get (shell_sidebar, "selector", &selector, NULL);
 		g_return_if_fail (selector != NULL);
 
-		call_folder_unsubscribe (name + 1, uri, e_source_selector_peek_primary_selection (selector));
+		source = e_source_selector_ref_primary_selection (selector);
+		call_folder_unsubscribe (name + 1, uri, source);
+		g_object_unref (source);
 	}
 
 	g_free (uri);
