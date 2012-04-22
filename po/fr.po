@@ -10,14 +10,15 @@
 # Yannick Tailliez <ytdispatch-libre@yahoo.com>, 2008.
 # Nicolas Repentin <nicolas.repentin@gmail.com>, 2009.
 # Claude Paroz <claude@2xlibre.net>, 2009-2010.
+# Bruno Brouard <annoa.b@gmail.com>, 2012
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: evolution-exchange HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=evolution-exchange&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-02-20 10:27+0000\n"
-"PO-Revision-Date: 2012-03-21 20:37+0100\n"
+"POT-Creation-Date: 2012-03-30 14:18+0000\n"
+"PO-Revision-Date: 2012-04-22 16:52+0200\n"
 "Last-Translator: Bruno Brouard <annoa.b@gmail.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -79,10 +80,38 @@ msgstr "Réception des résultats de la recherche LDAP..."
 msgid "Error performing search"
 msgstr "Erreur lors de la recherche"
 
-#: ../calendar/e-cal-backend-exchange-calendar.c:2254
+#: ../calendar/e-cal-backend-exchange-calendar.c:1036
+msgid "Exchange does not support bulk additions"
+msgstr "Exchange ne prend pas en charge les ajouts par lot"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:1183
+msgid "Exchange does not support bulk modifications"
+msgstr ""
+"Exchange ne prend pas en charge les modifications par lot"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:1749
+msgid "Exchange does not support bulk removals"
+msgstr ""
+"Exchange ne prend pas en charge les modifications par lot"
+
+#: ../calendar/e-cal-backend-exchange-calendar.c:2328
 #, c-format
 msgid "The resource '%s' is busy during the selected time period."
 msgstr "La ressource « %s » est occupée pendant la période sélectionnée."
+
+#: ../calendar/e-cal-backend-exchange-tasks.c:1274
+msgid "Exchange tasks do not support bulk additions"
+msgstr "Les tâches Exchange ne prennent pas en charge les ajouts par lot"
+
+#: ../calendar/e-cal-backend-exchange-tasks.c:1435
+msgid "Exchange tasks do not support bulk modifications"
+msgstr ""
+"Les tâches Exchange ne prennent pas en charge les modifications par lot"
+
+#: ../calendar/e-cal-backend-exchange-tasks.c:1559
+msgid "Exchange tasks do not support bulk removals"
+msgstr ""
+"Les tâches Exchange ne prennent pas en charge les modifications par lot"
 
 #: ../camel/camel-exchange-folder.c:76
 msgid "No Subject"
@@ -93,49 +122,49 @@ msgstr "Aucun objet"
 msgid "This message is not available in offline mode."
 msgstr "Ce message n'est pas disponible en mode hors ligne."
 
-#: ../camel/camel-exchange-folder.c:514
+#: ../camel/camel-exchange-folder.c:516
 #, c-format
 msgid "You cannot expunge in offline mode."
 msgstr "Vous ne pouvez pas effectuer des suppressions en mode hors ligne."
 
-#: ../camel/camel-exchange-folder.c:652 ../camel/camel-exchange-utils.c:609
+#: ../camel/camel-exchange-folder.c:654 ../camel/camel-exchange-utils.c:609
 #: ../camel/camel-exchange-utils.c:648
 msgid "Could not get new messages"
 msgstr "Impossible d'obtenir les nouveaux messages"
 
-#: ../camel/camel-exchange-folder.c:696
+#: ../camel/camel-exchange-folder.c:698
 msgid "Moving messages"
 msgstr "Déplacement des messages"
 
-#: ../camel/camel-exchange-folder.c:696
+#: ../camel/camel-exchange-folder.c:698
 msgid "Copying messages"
 msgstr "Copie des messages"
 
-#: ../camel/camel-exchange-folder.c:1108
+#: ../camel/camel-exchange-folder.c:1110
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Impossible de créer le répertoire %s : %s"
 
-#: ../camel/camel-exchange-folder.c:1117
+#: ../camel/camel-exchange-folder.c:1119
 #, c-format
 msgid "Could not load summary for %s"
 msgstr "Impossible de charger le résumé pour %s"
 
-#: ../camel/camel-exchange-folder.c:1124
+#: ../camel/camel-exchange-folder.c:1126
 #, c-format
 msgid "Could not create cache for %s: "
 msgstr "Impossible de créer le cache pour %s : "
 
-#: ../camel/camel-exchange-folder.c:1135
+#: ../camel/camel-exchange-folder.c:1137
 #, c-format
 msgid "Could not create journal for %s"
 msgstr "Impossible de créer le journal pour %s"
 
-#: ../camel/camel-exchange-folder.c:1185
+#: ../camel/camel-exchange-folder.c:1187
 msgid "Scanning for changed messages"
 msgstr "Recherche des messages modifiés"
 
-#: ../camel/camel-exchange-folder.c:1213
+#: ../camel/camel-exchange-folder.c:1215
 msgid "Fetching summary information for new messages"
 msgstr "Récupération des informations de résumé des nouveaux messages"
 
@@ -652,6 +681,71 @@ msgstr "_Oui, changer l'état"
 msgid "Enter Password for %s"
 msgstr "Saisie du mot de passe pour %s"
 
+#: ../eplugin/exchange-delegates.c:418
+msgid "Delegate To:"
+msgstr "Déléguer à :"
+
+#: ../eplugin/exchange-delegates.c:418
+msgid "Delegate To"
+msgstr "Déléguer à"
+
+#: ../eplugin/exchange-delegates.c:588
+#, c-format
+msgid "Remove the delegate %s?"
+msgstr "Supprimer le délégué %s ?"
+
+#: ../eplugin/exchange-delegates.c:707
+msgid "Could not access Active Directory"
+msgstr "Impossible d'accéder à Active Directory"
+
+#: ../eplugin/exchange-delegates.c:719
+msgid "Could not find self in Active Directory"
+msgstr "Impossible de vous trouver dans Active Directory"
+
+#: ../eplugin/exchange-delegates.c:732
+#, c-format
+msgid "Could not find delegate %s in Active Directory"
+msgstr "Impossible de trouver le délégué %s dans Active Directory"
+
+#: ../eplugin/exchange-delegates.c:744
+#, c-format
+msgid "Could not remove delegate %s"
+msgstr "Impossible de supprimer le délégué %s"
+
+#: ../eplugin/exchange-delegates.c:804
+msgid "Could not update list of delegates."
+msgstr "Impossible de mettre à jour la liste des délégués."
+
+#: ../eplugin/exchange-delegates.c:822
+#, c-format
+msgid "Could not add delegate %s"
+msgstr "Impossible d'ajouter le délégué %s"
+
+#: ../eplugin/exchange-delegates.c:942
+msgid "Delegates"
+msgstr "Délégués"
+
+#: ../eplugin/exchange-delegates.c:957
+msgid ""
+"These users will be able to send mail on your behalf\n"
+"and access your folders with the permissions you give them."
+msgstr ""
+"Ces utilisateurs pourront envoyer des messages électroniques en votre nom\n"
+"et accéder à vos dossiers avec les autorisations que vous leur accordez."
+
+#: ../eplugin/exchange-delegates.c:981
+msgid "_Edit"
+msgstr "É_dition"
+
+#: ../eplugin/exchange-delegates.c:1011
+#: ../eplugin/exchange-permissions-dialog.c:926
+msgid "Name"
+msgstr "Nom"
+
+#: ../eplugin/exchange-delegates.c:1037
+msgid "Error reading delegates list."
+msgstr "Erreur lors de la lecture de la liste des délégués."
+
 #: ../eplugin/exchange-delegates-user.c:72 ../eplugin/exchange-folder.c:465
 #: ../server/storage/exchange-hierarchy-foreign.c:264
 msgid "Calendar"
@@ -789,70 +883,15 @@ msgstr "Vous n'êtes cependant pas autorisé à voir mes éléments privés."
 msgid "You have been designated as a delegate for %s"
 msgstr "Vous avez été désigné comme délégué pour %s"
 
-#: ../eplugin/exchange-delegates.c:418
-msgid "Delegate To:"
-msgstr "Déléguer à :"
-
-#: ../eplugin/exchange-delegates.c:418
-msgid "Delegate To"
-msgstr "Déléguer à"
-
-#: ../eplugin/exchange-delegates.c:588
+#: ../eplugin/exchange-folder.c:348 ../eplugin/exchange-folder.c:404
 #, c-format
-msgid "Remove the delegate %s?"
-msgstr "Supprimer le délégué %s ?"
+msgid "Really unsubscribe from folder \"%s\"?"
+msgstr "Voulez-vous vraiment vous désabonner du dossier « %s » ?"
 
-#: ../eplugin/exchange-delegates.c:707
-msgid "Could not access Active Directory"
-msgstr "Impossible d'accéder à Active Directory"
-
-#: ../eplugin/exchange-delegates.c:719
-msgid "Could not find self in Active Directory"
-msgstr "Impossible de vous trouver dans Active Directory"
-
-#: ../eplugin/exchange-delegates.c:732
+#: ../eplugin/exchange-folder.c:361 ../eplugin/exchange-folder.c:417
 #, c-format
-msgid "Could not find delegate %s in Active Directory"
-msgstr "Impossible de trouver le délégué %s dans Active Directory"
-
-#: ../eplugin/exchange-delegates.c:744
-#, c-format
-msgid "Could not remove delegate %s"
-msgstr "Impossible de supprimer le délégué %s"
-
-#: ../eplugin/exchange-delegates.c:804
-msgid "Could not update list of delegates."
-msgstr "Impossible de mettre à jour la liste des délégués."
-
-#: ../eplugin/exchange-delegates.c:822
-#, c-format
-msgid "Could not add delegate %s"
-msgstr "Impossible d'ajouter le délégué %s"
-
-#: ../eplugin/exchange-delegates.c:942
-msgid "Delegates"
-msgstr "Délégués"
-
-#: ../eplugin/exchange-delegates.c:957
-msgid ""
-"These users will be able to send mail on your behalf\n"
-"and access your folders with the permissions you give them."
-msgstr ""
-"Ces utilisateurs pourront envoyer des messages électroniques en votre nom\n"
-"et accéder à vos dossiers avec les autorisations que vous leur accordez."
-
-#: ../eplugin/exchange-delegates.c:981
-msgid "_Edit"
-msgstr "É_dition"
-
-#: ../eplugin/exchange-delegates.c:1011
-#: ../eplugin/exchange-permissions-dialog.c:926
-msgid "Name"
-msgstr "Nom"
-
-#: ../eplugin/exchange-delegates.c:1037
-msgid "Error reading delegates list."
-msgstr "Erreur lors de la lecture de la liste des délégués."
+msgid "Unsubscribe from \"%s\""
+msgstr "Annuler l'abonnement à « %s »"
 
 #: ../eplugin/exchange-folder-permission.c:246
 #: ../eplugin/exchange-folder-permission.c:532
@@ -869,7 +908,7 @@ msgstr "Vérifie les autorisations du dossier"
 #: ../eplugin/exchange-folder-permission.c:539
 #: ../eplugin/exchange-folder-permission.c:574
 #: ../eplugin/exchange-folder-permission.c:609
-msgid "Subscribe to Other User's Folder..."
+msgid "Subscribe to folder of other user..."
 msgstr "S'abonner à un dossier d'un autre utilisateur..."
 
 #: ../eplugin/exchange-folder-permission.c:255
@@ -877,7 +916,7 @@ msgstr "S'abonner à un dossier d'un autre utilisateur..."
 #: ../eplugin/exchange-folder-permission.c:576
 #: ../eplugin/exchange-folder-permission.c:611
 #: ../eplugin/exchange-folder-subscription.c:319
-msgid "Subscribe to Other User's Folder"
+msgid "Subscribe to folder of other user"
 msgstr "S'abonner à un dossier d'un autre utilisateur"
 
 #: ../eplugin/exchange-folder-permission.c:260
@@ -928,16 +967,6 @@ msgstr "Nom du _dossier :"
 #: ../eplugin/exchange-folder-subscription.c:355
 msgid "_User:"
 msgstr "_Utilisateur :"
-
-#: ../eplugin/exchange-folder.c:348 ../eplugin/exchange-folder.c:404
-#, c-format
-msgid "Really unsubscribe from folder \"%s\"?"
-msgstr "Voulez-vous vraiment vous désabonner du dossier « %s » ?"
-
-#: ../eplugin/exchange-folder.c:361 ../eplugin/exchange-folder.c:417
-#, c-format
-msgid "Unsubscribe from \"%s\""
-msgstr "Annuler l'abonnement à « %s »"
 
 #: ../eplugin/exchange-mail-send-options.c:231
 msgid "_Send Options"
@@ -1891,3 +1920,4 @@ msgstr ""
 #: ../tools/ximian-connector.xml.h:12
 msgid "_Delegation Assistant"
 msgstr "_Gestionnaire de délégation"
+
