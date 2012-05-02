@@ -31,6 +31,8 @@
 #define PASSWD_EXP_WARN_PERIOD_MAX 90
 
 struct _CamelExchangeSettingsPrivate {
+	GMutex *property_lock;
+
 	gchar *mailbox;
 	gchar *owa_path;
 	gchar *owa_url;
@@ -214,9 +216,9 @@ exchange_settings_get_property (GObject *object,
 {
 	switch (property_id) {
 		case PROP_AUTH_MECHANISM:
-			g_value_set_string (
+			g_value_take_string (
 				value,
-				camel_network_settings_get_auth_mechanism (
+				camel_network_settings_dup_auth_mechanism (
 				CAMEL_NETWORK_SETTINGS (object)));
 			return;
 
@@ -270,37 +272,37 @@ exchange_settings_get_property (GObject *object,
 			return;
 
 		case PROP_GC_SERVER_NAME:
-			g_value_set_string (
+			g_value_take_string (
 				value,
-				camel_exchange_settings_get_gc_server_name (
+				camel_exchange_settings_dup_gc_server_name (
 				CAMEL_EXCHANGE_SETTINGS (object)));
 			return;
 
 		case PROP_HOST:
-			g_value_set_string (
+			g_value_take_string (
 				value,
-				camel_network_settings_get_host (
+				camel_network_settings_dup_host (
 				CAMEL_NETWORK_SETTINGS (object)));
 			return;
 
 		case PROP_MAILBOX:
-			g_value_set_string (
+			g_value_take_string (
 				value,
-				camel_exchange_settings_get_mailbox (
+				camel_exchange_settings_dup_mailbox (
 				CAMEL_EXCHANGE_SETTINGS (object)));
 			return;
 
 		case PROP_OWA_PATH:
-			g_value_set_string (
+			g_value_take_string (
 				value,
-				camel_exchange_settings_get_owa_path (
+				camel_exchange_settings_dup_owa_path (
 				CAMEL_EXCHANGE_SETTINGS (object)));
 			return;
 
 		case PROP_OWA_URL:
-			g_value_set_string (
+			g_value_take_string (
 				value,
-				camel_exchange_settings_get_owa_url (
+				camel_exchange_settings_dup_owa_url (
 				CAMEL_EXCHANGE_SETTINGS (object)));
 			return;
 
@@ -326,9 +328,9 @@ exchange_settings_get_property (GObject *object,
 			return;
 
 		case PROP_USER:
-			g_value_set_string (
+			g_value_take_string (
 				value,
-				camel_network_settings_get_user (
+				camel_network_settings_dup_user (
 				CAMEL_NETWORK_SETTINGS (object)));
 			return;
 
@@ -356,6 +358,8 @@ exchange_settings_finalize (GObject *object)
 	CamelExchangeSettingsPrivate *priv;
 
 	priv = CAMEL_EXCHANGE_SETTINGS_GET_PRIVATE (object);
+
+	g_mutex_free (priv->property_lock);
 
 	g_free (priv->gc_server_name);
 	g_free (priv->mailbox);
@@ -586,6 +590,7 @@ static void
 camel_exchange_settings_init (CamelExchangeSettings *settings)
 {
 	settings->priv = CAMEL_EXCHANGE_SETTINGS_GET_PRIVATE (settings);
+	settings->priv->property_lock = g_mutex_new ();
 }
 
 gboolean
@@ -734,6 +739,24 @@ camel_exchange_settings_get_gc_server_name (CamelExchangeSettings *settings)
 	return settings->priv->gc_server_name;
 }
 
+gchar *
+camel_exchange_settings_dup_gc_server_name (CamelExchangeSettings *settings)
+{
+	const gchar *protected;
+	gchar *duplicate;
+
+	g_return_val_if_fail (CAMEL_IS_EXCHANGE_SETTINGS (settings), NULL);
+
+	g_mutex_lock (settings->priv->property_lock);
+
+	protected = camel_exchange_settings_get_gc_server_name (settings);
+	duplicate = g_strdup (protected);
+
+	g_mutex_unlock (settings->priv->property_lock);
+
+	return duplicate;
+}
+
 void
 camel_exchange_settings_set_gc_server_name (CamelExchangeSettings *settings,
                                             const gchar *gc_server_name)
@@ -744,8 +767,12 @@ camel_exchange_settings_set_gc_server_name (CamelExchangeSettings *settings,
 	if (gc_server_name == NULL)
 		gc_server_name = "";
 
+	g_mutex_lock (settings->priv->property_lock);
+
 	g_free (settings->priv->gc_server_name);
 	settings->priv->gc_server_name = g_strdup (gc_server_name);
+
+	g_mutex_unlock (settings->priv->property_lock);
 
 	g_object_notify (G_OBJECT (settings), "gc-server-name");
 }
@@ -758,6 +785,24 @@ camel_exchange_settings_get_mailbox (CamelExchangeSettings *settings)
 	return settings->priv->mailbox;
 }
 
+gchar *
+camel_exchange_settings_dup_mailbox (CamelExchangeSettings *settings)
+{
+	const gchar *protected;
+	gchar *duplicate;
+
+	g_return_val_if_fail (CAMEL_IS_EXCHANGE_SETTINGS (settings), NULL);
+
+	g_mutex_lock (settings->priv->property_lock);
+
+	protected = camel_exchange_settings_get_mailbox (settings);
+	duplicate = g_strdup (protected);
+
+	g_mutex_unlock (settings->priv->property_lock);
+
+	return duplicate;
+}
+
 void
 camel_exchange_settings_set_mailbox (CamelExchangeSettings *settings,
                                      const gchar *mailbox)
@@ -768,8 +813,12 @@ camel_exchange_settings_set_mailbox (CamelExchangeSettings *settings,
 	if (mailbox == NULL)
 		mailbox = "";
 
+	g_mutex_lock (settings->priv->property_lock);
+
 	g_free (settings->priv->mailbox);
 	settings->priv->mailbox = g_strdup (mailbox);
+
+	g_mutex_unlock (settings->priv->property_lock);
 
 	g_object_notify (G_OBJECT (settings), "mailbox");
 }
@@ -782,6 +831,24 @@ camel_exchange_settings_get_owa_path (CamelExchangeSettings *settings)
 	return settings->priv->owa_path;
 }
 
+gchar *
+camel_exchange_settings_dup_owa_path (CamelExchangeSettings *settings)
+{
+	const gchar *protected;
+	gchar *duplicate;
+
+	g_return_val_if_fail (CAMEL_IS_EXCHANGE_SETTINGS (settings), NULL);
+
+	g_mutex_lock (settings->priv->property_lock);
+
+	protected = camel_exchange_settings_get_owa_path (settings);
+	duplicate = g_strdup (protected);
+
+	g_mutex_unlock (settings->priv->property_lock);
+
+	return duplicate;
+}
+
 void
 camel_exchange_settings_set_owa_path (CamelExchangeSettings *settings,
                                       const gchar *owa_path)
@@ -792,8 +859,12 @@ camel_exchange_settings_set_owa_path (CamelExchangeSettings *settings,
 	if (owa_path == NULL)
 		owa_path = "";
 
+	g_mutex_lock (settings->priv->property_lock);
+
 	g_free (settings->priv->owa_path);
 	settings->priv->owa_path = g_strdup (owa_path);
+
+	g_mutex_unlock (settings->priv->property_lock);
 
 	g_object_notify (G_OBJECT (settings), "owa-path");
 }
@@ -806,6 +877,24 @@ camel_exchange_settings_get_owa_url (CamelExchangeSettings *settings)
 	return settings->priv->owa_url;
 }
 
+gchar *
+camel_exchange_settings_dup_owa_url (CamelExchangeSettings *settings)
+{
+	const gchar *protected;
+	gchar *duplicate;
+
+	g_return_val_if_fail (CAMEL_IS_EXCHANGE_SETTINGS (settings), NULL);
+
+	g_mutex_lock (settings->priv->property_lock);
+
+	protected = camel_exchange_settings_get_owa_url (settings);
+	duplicate = g_strdup (protected);
+
+	g_mutex_unlock (settings->priv->property_lock);
+
+	return duplicate;
+}
+
 void
 camel_exchange_settings_set_owa_url (CamelExchangeSettings *settings,
                                      const gchar *owa_url)
@@ -816,8 +905,12 @@ camel_exchange_settings_set_owa_url (CamelExchangeSettings *settings,
 	if (owa_url == NULL)
 		owa_url = "";
 
+	g_mutex_lock (settings->priv->property_lock);
+
 	g_free (settings->priv->owa_url);
 	settings->priv->owa_url = g_strdup (owa_url);
+
+	g_mutex_unlock (settings->priv->property_lock);
 
 	g_object_notify (G_OBJECT (settings), "owa-url");
 }

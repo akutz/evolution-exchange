@@ -96,20 +96,28 @@ void		camel_exchange_settings_set_gc_results_limit
 					 guint gc_results_limit);
 const gchar *	camel_exchange_settings_get_gc_server_name
 					(CamelExchangeSettings *settings);
+gchar *		camel_exchange_settings_dup_gc_server_name
+					(CamelExchangeSettings *settings);
 void		camel_exchange_settings_set_gc_server_name
 					(CamelExchangeSettings *settings,
 					 const gchar *gc_server_name);
 const gchar *	camel_exchange_settings_get_mailbox
+					(CamelExchangeSettings *settings);
+gchar *		camel_exchange_settings_dup_mailbox
 					(CamelExchangeSettings *settings);
 void		camel_exchange_settings_set_mailbox
 					(CamelExchangeSettings *settings,
 					 const gchar *mailbox);
 const gchar *	camel_exchange_settings_get_owa_path
 					(CamelExchangeSettings *settings);
+gchar *		camel_exchange_settings_dup_owa_path
+					(CamelExchangeSettings *settings);
 void		camel_exchange_settings_set_owa_path
 					(CamelExchangeSettings *settings,
 					 const gchar *owa_path);
 const gchar *	camel_exchange_settings_get_owa_url
+					(CamelExchangeSettings *settings);
+gchar *		camel_exchange_settings_dup_owa_url
 					(CamelExchangeSettings *settings);
 void		camel_exchange_settings_set_owa_url
 					(CamelExchangeSettings *settings,
