@@ -4,7 +4,7 @@ m4_define([eex_version], [3.5.2])
 dnl Initializes automake/autoconf
 AC_PREREQ(2.58)
 AC_INIT([evolution-exchange], [eex_version], [http://bugzilla.gnome.org/enter_bug.cgi?product=Evolution%20Exchange])
-AM_INIT_AUTOMAKE([gnu 1.9 dist-xz no-dist-gzip])
+AM_INIT_AUTOMAKE([gnu 1.9 dist-xz no-dist-gzip -Wno-portability])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR(camel)
 AC_CONFIG_HEADERS(config.h)
